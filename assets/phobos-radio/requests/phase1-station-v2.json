@@ -1,0 +1,9 @@
+[
+  {
+    "name": "base-station-v2",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [11, 12, 13, 14],
+    "prompt": "Floor-plan view: the camera points straight down at the floor, so only the top surface of a square steel desk is visible, like a map tile; no desk legs, no front face, no horizon. On the desk top, seen from directly above: a boxy VHF transceiver with a small blank blue display and a tuning knob, a coiled microphone cable, a small power supply box, and a short whip antenna seen end-on as a small dot with a tiny shadow. Game building sprite in the style of RimWorld: clean flat colours, soft simple shading, thin dark outlines, muted grey and dark olive palette with one warm amber accent, no text, no digits, no labels, no people, centred on a plain pure white background, nothing else in frame."
+  }
+]

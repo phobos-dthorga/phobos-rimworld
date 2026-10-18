@@ -1,0 +1,4 @@
+# Generated candidates stay local until one is approved; approved masters are added explicitly with
+# `git add -f` and listed in the asset README. Contact sheets are review aids only.
+*
+!.gitignore
