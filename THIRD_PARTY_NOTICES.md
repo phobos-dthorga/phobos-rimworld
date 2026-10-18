@@ -18,6 +18,22 @@ Planned C# mods depend on **Harmony** by **Andreas Pardeike (brrainz)**:
 [GitHub](https://github.com/pardeike/Harmony) (MIT licence), Workshop item 2009463077. Players get it from
 the Harmony mod. Our mods reference it at build time only and will not ship `0Harmony.dll`.
 
+## Vanilla Expanded Framework
+
+The radio framework's feedline runs on the **PipeSystem** module of
+[Vanilla Expanded Framework](https://github.com/Vanilla-Expanded/VanillaExpandedFramework) by **Oskar
+Potocki and the Vanilla Expanded team** (Workshop item 2023507013, `packageId`
+`OskarPotocki.VanillaFactionsExpanded.Core`). VEF is a declared dependency: players must have it, and our
+assembly is compiled against the installed `PipeSystem.dll` without bundling it.
+
+VEF's licence (its `LICENSE` file, read 19 October 2026) is **Creative Commons BY-NC-ND 4.0** with riders.
+The relevant rider: "Modders that create mods that depend on this framework (through marking this mod as
+a dependency) are expressly permitted to create commissioned mods with commercial advantages or monetary
+compensation, as well as accept donations on their mods, provided all other terms of the Licence are met."
+The NoDerivatives term means we **never copy or adapt** VEF's code, DLLs, art or XML, and never
+redistribute them; we only reference the installed assembly and subclass or call its public types at
+runtime. Nothing from VEF is in this repository. Our own code remains MIT.
+
 ## Mods named in the designs
 
 The radio framework design plans optional tie-ins with other authors' mods, including

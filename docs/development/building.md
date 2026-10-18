@@ -1,9 +1,13 @@
 # Building, testing and deploying
 
-**Status (18 Oct 2026): no mod and no C# project exists yet.** The checks below run today. The rest of this
-page records the toolchain the first mod will use, so the first project starts from a decision rather than
-a blank page. The 1.6 setup below was proven on 18 Oct 2026 by building a throwaway probe mod (not kept,
-never run in game); the 1.7 column is untried.
+**Status (19 Oct 2026): Phase 1 of the radio framework is being built** in `mods/PhobosRadioFramework/`
+and `src/PhobosRadio/`. The checks below run today. The 1.6 setup was proven on 18 Oct 2026 by building a
+throwaway probe mod; the 1.7 column is untried.
+
+**One limit to know:** the mod references Vanilla Expanded Framework's `PipeSystem.dll`, which its licence
+does not let us copy into the repository. So **GitHub Actions cannot build the mod**; it builds and runs
+only the game-free physics tests in `tests/`. The mod itself builds on a machine with RimWorld and VEF
+installed. The Linux-build claim in the modding reference therefore stands only for the physics project.
 
 ## The checks (run before every commit)
 
@@ -95,19 +99,24 @@ warnings and 0 errors, and its `Assemblies` folder held only the mod's own DLL:
     <TargetFramework>net472</TargetFramework>
     <RootNamespace>Phobos.Radio</RootNamespace>
     <AssemblyName>PhobosRadio</AssemblyName>
-    <OutputPath>../../mods/PhobosRadio/1.6/Assemblies/</OutputPath>
+    <OutputPath>../../mods/PhobosRadioFramework/1.6/Assemblies/</OutputPath>
     <DebugType>none</DebugType>
+    <VefAssemblies Condition="'$(VefAssemblies)' == ''">C:\Program Files (x86)\Steam\steamapps\workshop\content\294100\2023507013\1.6\Assemblies</VefAssemblies>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Krafs.Rimworld.Ref" Version="1.6.4871" />
-    <PackageReference Include="Lib.Harmony" Version="2.4.3" ExcludeAssets="runtime" />
+    <Reference Include="PipeSystem">
+      <HintPath>$(VefAssemblies)\PipeSystem.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
   </ItemGroup>
 </Project>
 ```
 
-The names here are placeholders: the framework's public name and `packageId` are still open questions.
-`ExcludeAssets="runtime"` keeps `0Harmony.dll` out of our `Assemblies` folder, because players get it from
-the Harmony mod.
+`Private=false` keeps `PipeSystem.dll` out of our `Assemblies` folder: players get it from VEF, and its
+licence forbids us shipping a copy. Set `VefAssemblies` (as an environment variable or `-p:VefAssemblies=…`)
+when VEF lives elsewhere. Harmony is not referenced until a feature needs a patch; when it is, use
+`ExcludeAssets="runtime"` so `0Harmony.dll` stays out too.
 
 When 1.7 support starts, the likely route is one project with `<TargetFrameworks>net472;net10.0</TargetFrameworks>`,
 conditional references and an output path per framework. Try that before splitting into two projects.

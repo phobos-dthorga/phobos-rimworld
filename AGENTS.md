@@ -39,16 +39,19 @@ delivered, record the delivery in the changelog or design record, and add or ame
   and the hooks between data and code, and may write creative content following the same rules as any
   writer: it is labelled agent-authored in the changelog and held for the owner's review.
 
-## Design stage
+## Phases and the design
 
-- **The radio framework is design only** (owner, in the design: "This doc gets refined during play before
-  any implementation starts"). Do not start its implementation until the owner opens Phase 1. Research,
-  verification and design records are welcome meanwhile.
+- **Phase 1 of the radio framework is open** (owner, 19 October 2026): local VHF/UHF on one map, as the
+  design's roadmap lists it. Each later phase waits for its gate and an explicit owner go-ahead; the
+  design's "refined during play" still applies to everything beyond the open phase. Research,
+  verification and design records are welcome at any time.
 - The living design doc on claude.ai is the master copy; `docs/development/radio-framework-design.md` is
   a dated snapshot of it. Refresh the snapshot when the owner asks, keeping its text as written and its
-  diagrams as Mermaid. Notes from play go in the living doc's "Notes from play" table.
-- Reference figures the design marks as unverified stay unverified until a record shows a primary source
-  (`docs/development/radio-reference-checks.md`); never put one into a Def before then.
+  diagrams as Mermaid. Notes from play go in the living doc's "Notes from play" table. Decisions that
+  answer the design's open questions are recorded in `docs/development/project-direction.md`.
+- Reference figures the design marks as unverified stay unverified until a record shows a source
+  (`docs/development/radio-reference-checks.md`); a Def may carry a figure with a secondary source if
+  its description says "approximate", and never one with no source at all.
 
 ## Git and publication boundaries
 
@@ -147,15 +150,25 @@ delivered, record the delivery in the changelog or design record, and add or ame
 - **XML first, C# where Defs cannot express it.** Hardware and tuning are Defs (new Def types such as
   `BandDef` and `ModeDef`; `DefModExtension`s and comps on `ThingDef`s), so other modders extend in XML.
   Prefer comps, `DefModExtension`s, `GameComponent`s and RimWorld's own extension points over Harmony.
-- **Harmony, sparingly.** Patch only what has no extension point; prefer postfixes; a prefix that skips the
-  original needs a recorded reason. Name overloads by parameter types. Each patch has a comment saying
-  what it changes and why. Harmony 3 on RimWorld 1.7 rejects patches whose injected types don't match: use
-  exact types for `__instance` and `__result`.
+- **Harmony, sparingly.** No Harmony reference until a feature needs a patch (Phase 1 needs none). Then
+  patch only what has no extension point; prefer postfixes; a prefix that skips the original needs a
+  recorded reason. Name overloads by parameter types. Each patch has a comment saying what it changes
+  and why. Harmony 3 on RimWorld 1.7 rejects patches whose injected types don't match: use exact types
+  for `__instance` and `__result`.
 - **Optional tie-ins only** (owner rule for every Phobos mod): a feature that needs another mod switches on
   only when that mod is active, through `LoadFolders.xml` `IfModActive` folders, `MayRequire` and
   `PatchOperationFindMod` in XML, and `ModsConfig.IsActive` in C#. Never hard-reference an optional mod's
   assembly from a core assembly; put such code in a separate assembly loaded only from its `IfModActive`
-  folder. A player running the mod alone sees no errors.
+  folder. A player running the mod alone sees no errors. **The one hard dependency is Vanilla Expanded
+  Framework** (owner, 19 October 2026): the radio framework's feedline is a VEF pipe network, declared in
+  `modDependencies`, and `PipeSystem.dll` is referenced from the installed mod with `Private=false`.
+  VEF is CC BY-NC-ND 4.0 with a rider that permits depending on it: never copy its DLLs, source, art or
+  XML into this repository or a build, and never adapt its code (`THIRD_PARTY_NOTICES.md`).
+- **Worn apparel is never spawned.** A hand-held worn by a pawn has `Spawned == false`; find radios by
+  enumerating `map.mapPawns` and `pawn.apparel.WornApparel` at recompute time, never through spawn hooks.
+- **Derived state is never saved.** `RadioNet` and every link cache hold only what can be recomputed from
+  Defs and spawned things; they save nothing, touch no VEF state during load, and recompute lazily on
+  first use. Thought workers and gizmos read caches; they never compute.
 - **Vanilla precedence.** Use the game's own systems instead of parallel ones: power through power comps,
   heat into rooms through the game's temperature system, weather, research, letters, quests, factions and
   goodwill. Hook or extend them; never replace them wholesale.
@@ -181,7 +194,12 @@ delivered, record the delivery in the changelog or design record, and add or ame
 - **One link-budget service decides every contact.** Plain, Operator and Engineer modes change only what
   the UI shows, never the outcome.
 - **Decibels everywhere.** Gains and losses add in dB; distance follows the inverse-square law (doubling
-  it costs 6 dB). Every figure in a Def names its source or says it is authored.
+  it costs 6 dB). Every figure in a Def names its source or says it is authored. The rules Def
+  (`RadioRulesDef`) holds the starting values the design says to tune in play; player preferences
+  (display mode, `metresPerCell`, the thought) are mod settings, never physics.
+- **A link is two-way.** The link budget evaluates both directions and the worse one decides; the sheet
+  names the limiting direction. Antenna height matters through ray clearance over walls
+  (`docs/development/project-direction.md`); a figure the UI shows must affect an outcome somewhere.
 - **Realism is a feel, not a hidden calculation.** Use the simplest model that produces the right
   behaviour, and make every rule visible to a player who wants to see it.
 - **Physics sets the kit, the kit sets the play**: wavelength drives antenna size, which drives

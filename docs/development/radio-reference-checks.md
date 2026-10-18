@@ -5,8 +5,9 @@
 **Result:** 9 of the 13 figures in the design's Reference table check out: 6 by calculation and 3 against
 a primary source or the game's own data. The Australian licence limits check out with an important twist:
 the higher limits apply only to SSB (and FM for Advanced), and every other mode is capped lower. The two
-dish formulas are standard approximations whose sources were not opened. Two figures (voice SNR and
-amplifier efficiency) remain unverified and must not go into a Def yet.
+dish formulas are standard approximations whose sources were not opened. The last two (voice SNR and
+amplifier efficiency) were unverified on 18 Oct; on 19 Oct a convention and a secondary source were
+found for them (rows below), enough for Phase 1 Defs that say "approximate".
 
 The design is [radio-framework-design.md](radio-framework-design.md); its Reference table is unchanged.
 This record sits beside it so the snapshot stays as written.
@@ -29,8 +30,8 @@ with no outside source needed. **Sourced** means checked against the primary sou
 | Australian licence limits | Foundation 10 W, Standard 100 W, Advanced 400 W | Sourced, with conditions | See below. |
 | Dish gain | η × (πD/λ)², η ≈ 0.55–0.7 | Standard formula, source not opened | Example: a 3 m dish at 10 GHz gives 47.4 to 48.4 dBi. |
 | Dish beamwidth | ≈ 70 × λ/D degrees | Standard approximation, source not opened | Example: 0.7° for that same dish. |
-| Voice | Comfortable copy near +10 dB SNR | **Unverified** | Treat as authored until a source is found. |
-| Amplifier efficiency | Linear SSB ≈ 50%; FM ≈ 60–70% | **Unverified** | Treat as authored until a source is found. |
+| Voice | Comfortable copy near +10 dB SNR | Sourced convention (19 Oct 2026) | Narrowband FM sensitivity is quoted at **12 dB SINAD** by convention ([Repeater Builder](https://repeater-builder.com/tech-info/receiver-sensitivity.html)); ITU-R SM.1840 specifies 20 dB SINAD for VHF/UHF FM tests. SINAD is not SNR (it includes distortion), so the ModeDef takes 12 dB and labels that a simplification. |
+| Amplifier efficiency | Linear SSB ≈ 50%; FM ≈ 60–70% | Secondary source (19 Oct 2026) | A licence study guide gives class AB (linear, SSB) 50–70 % and class C (FM, CW) 75–85 % as theoretical maxima ([open-exam-prep](https://open-exam-prep.com/study-guides/au-amateur-radio-standard-theory/transmitters-and-receivers/amplifier-classes)). Real amplifiers run lower. The ARRL Handbook was not opened. The design's 50 % and 60–70 % are reasonable practical figures; the Defs label them approximate. |
 
 ## Australian licence limits
 

@@ -17,6 +17,8 @@ promise current behaviour. For using the mods, start at the [documentation index
   from the living doc on claude.ai, which stays the master copy.
 - [Radio reference checks (18 Oct 2026)](radio-reference-checks.md): each figure in the design's Reference
   table, checked by calculation or against its primary source, including the Australian licence limits by mode.
+- [Map scale research (19 Oct 2026)](map-scale-research.md): what a cell and a world tile measure, from the
+  game's own constants, and why Phase 1 uses 1 m per cell.
 
 ## RimWorld
 
