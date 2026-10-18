@@ -79,6 +79,13 @@ public sealed class RadioNet : MapComponent
 
     public void MarkDirty() => dirty = true;
 
+    /// <summary>Local noise at a cell from the last snapshot, in dBm, or −∞ when nothing reaches it.</summary>
+    public double NoiseAt(IntVec3 cell)
+    {
+        EnsureFresh();
+        return noise.LocalNoiseDbm(cell, RadioMod.Settings.metresPerCell);
+    }
+
     private void EnsureFresh()
     {
         if (dirty) Recompute();
@@ -100,13 +107,13 @@ public sealed class RadioNet : MapComponent
         dirty = false;
         nextRecomputeTick = Find.TickManager.TicksGame + rules.recomputeIntervalTicks;
         Clear();
+        noise.Snapshot(map, rules);
         CollectStations();
         if (stations.Count == 0) return;
         CollectWornRadios();
         if (wornRadios.Count == 0) return;
 
         var metresPerCell = RadioMod.Settings.metresPerCell;
-        noise.Snapshot(map, rules);
         foreach (var station in stations)
         {
             var stationEnds = StationEndpoints(station, metresPerCell);

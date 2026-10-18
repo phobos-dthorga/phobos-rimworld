@@ -28,6 +28,19 @@
   <PhobosRadio_StationAntenna>Antenna: {0}</PhobosRadio_StationAntenna>
   <PhobosRadio_AntennaBuiltIn>built-in whip</PhobosRadio_AntennaBuiltIn>
 
+  <!-- The link-budget window and the station's Net tab. -->
+  <PhobosRadio_ShowMore>Show more</PhobosRadio_ShowMore>
+  <PhobosRadio_ShowLess>Show less</PhobosRadio_ShowLess>
+  <PhobosRadio_TabNet>Net</PhobosRadio_TabNet>
+  <PhobosRadio_TabBestStation>(their best station)</PhobosRadio_TabBestStation>
+
+  <!-- The siting preview while placing an antenna or station. -->
+  <PhobosRadio_SitingHeight>Antenna height: {0} m</PhobosRadio_SitingHeight>
+  <PhobosRadio_SitingOpenSky>Open sky: no roof loss</PhobosRadio_SitingOpenSky>
+  <PhobosRadio_SitingRoof>Under {0}: {1} dB lost</PhobosRadio_SitingRoof>
+  <PhobosRadio_SitingQuiet>Quiet: no colony noise reaches here</PhobosRadio_SitingQuiet>
+  <PhobosRadio_SitingNoise>Colony noise here: {0} dBm</PhobosRadio_SitingNoise>
+
   <!-- Feedline ports. -->
   <PhobosRadio_PortNoCable>No coax connected.</PhobosRadio_PortNoCable>
   <PhobosRadio_PortCableNoAntenna>Coax connected, but no antenna on it.</PhobosRadio_PortCableNoAntenna>

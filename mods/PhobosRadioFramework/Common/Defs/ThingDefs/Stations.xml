@@ -64,6 +64,12 @@
         <pipeNet>PhobosRadio_FeedlineNet</pipeNet>
       </li>
     </comps>
+    <inspectorTabs>
+      <li>Phobos.Radio.UI.ITab_RadioNet</li>
+    </inspectorTabs>
+    <placeWorkers>
+      <li>Phobos.Radio.UI.PlaceWorker_AntennaSiting</li>
+    </placeWorkers>
     <researchPrerequisites>
       <li>PhobosRadio_LocalRadio</li>
     </researchPrerequisites>

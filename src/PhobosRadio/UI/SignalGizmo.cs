@@ -20,12 +20,19 @@ public static class SignalGizmo
             ? "PhobosRadio_GizmoNoStation".Translate()
             : "PhobosRadio_GizmoLabel".Translate(LinkText.Bars(link.Outcome));
         var description = LinkText.Describe(link, mode);
+        var wearer = radio.Wearer;
         return new Command_Action
         {
             defaultLabel = label,
             defaultDesc = radio.parent.LabelCap + "\n" + description,
             icon = RadioTextures.Signal,
-            action = () => Find.WindowStack.Add(new Dialog_MessageBox(radio.parent.LabelCap + "\n\n" + LinkText.Describe(link, DisplayMode.Engineer))),
+            action = () =>
+            {
+                if (wearer == null) return;
+                var map = wearer.Map;
+                Find.WindowStack.Add(new Dialog_LinkBudget(wearer.LabelShortCap + ": " + radio.parent.LabelCap, () =>
+                    wearer.Spawned && wearer.Map == map && RadioNet.For(map).TryGetBest(wearer, out var current) ? current : null));
+            },
         };
     }
 
@@ -47,7 +54,7 @@ public static class SignalGizmo
             defaultLabel = "PhobosRadio_GizmoStation".Translate(inTouch, pairs.Count),
             defaultDesc = lines.ToString().TrimEnd(),
             icon = RadioTextures.Signal,
-            action = () => Find.WindowStack.Add(new Dialog_MessageBox(station.parent.LabelCap + "\n\n" + lines)),
+            action = () => Find.Selector.ClearSelection(),
         };
     }
 }

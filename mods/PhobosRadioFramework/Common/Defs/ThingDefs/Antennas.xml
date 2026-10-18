@@ -13,6 +13,9 @@
     <terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
     <designationCategory>Misc</designationCategory>
     <tickerType>Never</tickerType>
+    <placeWorkers>
+      <li>Phobos.Radio.UI.PlaceWorker_AntennaSiting</li>
+    </placeWorkers>
     <researchPrerequisites>
       <li>PhobosRadio_LocalRadio</li>
     </researchPrerequisites>

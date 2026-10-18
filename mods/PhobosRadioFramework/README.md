@@ -3,7 +3,7 @@
 Radio that works like radio: every contact is decided by a real link budget, and doubling the distance
 costs 6 dB. This is **Phase 1**: local VHF and UHF on one map.
 
-Version 0.1.0, in development since 19 October 2026. **Not yet tested in game.**
+Version 0.1.0, built 19 October 2026 for House D'thorga. **Not yet tested in game.**
 
 ## Read this first (gotchas)
 
@@ -50,9 +50,24 @@ The station uses whichever antenna on its coax gives the best link, or its built
 better or nothing is connected. A mountain base needs coax out to an antenna on the surface.
 
 **Display modes** (mod settings): *Plain* shows bars and one reason; *Operator* adds band, SNR, margin
-and the limiting direction; *Engineer* shows every term on the sheet.
+and the limiting direction; *Engineer* shows every term on the sheet. Click a radio's gizmo for the
+link-budget window, which can show one level more than your setting. The station has a **Net** tab.
 
-**Coming next:** the link-budget window, the station's Net tab and the antenna siting preview.
+**While placing** an antenna or the station, the cursor shows its height, the roof over that cell and
+the colony noise there. Red means overhead mountain: nothing gets through it.
+
+**Dev mode** (Actions → Phobos Radio): log the selected pawns' sheets, log the noise at a cell,
+recompute the net now.
+
+## What to try first (the owner's play test)
+
+1. Research Local radio; build the station indoors under a built roof; craft a VHF hand-held and wear it.
+2. Walk the wearer outside, then behind a stone wall, then into a mountain: watch the bars and the reason.
+3. Lay coax from the station out of the building to a mast antenna; see the station switch to it.
+4. Stand near a running generator: the noise line should appear and the margin fall.
+5. Open the Engineer sheet: every term should add up to the margin, and the limiting direction should
+   make sense (the 5 W hand-held usually limits, not the 25 W station).
+6. Check the needs tab for "in touch with home".
 
 ## For modders
 
@@ -76,5 +91,7 @@ See [building, testing and deploying](../../docs/development/building.md).
 
 ## Checks done
 
-- 19 Oct 2026: the physics unit tests pass; the mod folder passes `scripts/check-mod-layout.py`. Not
-  loaded in the game.
+- 19 Oct 2026: builds with 0 warnings against RimWorld 1.6.4871 and VEF's PipeSystem 1.0.1.0; the 25
+  physics unit tests pass; every XML file parses, every Def reference, texture path and string key
+  resolves; the mod folder passes `scripts/check-mod-layout.py`. Deployed to the owner's Mods folder.
+  **Not yet loaded in the game**: the Def loading, the VEF net, the gizmos and the thought are untested.

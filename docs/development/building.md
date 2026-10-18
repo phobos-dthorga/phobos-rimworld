@@ -1,7 +1,8 @@
 # Building, testing and deploying
 
-**Status (19 Oct 2026): Phase 1 of the radio framework is being built** in `mods/PhobosRadioFramework/`
-and `src/PhobosRadio/`. The checks below run today. The 1.6 setup was proven on 18 Oct 2026 by building a
+**Status (19 Oct 2026): Phase 1 of the radio framework is built** (0.1.0 Draft) in
+`mods/PhobosRadioFramework/` and `src/PhobosRadio/`, and awaits the owner's play test. The checks below
+run today; `dotnet build src/PhobosRadio/PhobosRadio.csproj` builds the mod where VEF is installed. The 1.6 setup was proven on 18 Oct 2026 by building a
 throwaway probe mod; the 1.7 column is untried.
 
 **One limit to know:** the mod references Vanilla Expanded Framework's `PipeSystem.dll`, which its licence

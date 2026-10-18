@@ -5,8 +5,21 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.1.0] - 2026-10-19 - Draft
+
+Phase 1 of the design: local VHF and UHF on one map. Built and deployed to the owner's game on
+19 October 2026; the owner's play test is what decides whether the 6 dB rule feels right.
+
 ### Added
 
+- The link-budget window (click a radio's gizmo, or a row of the station's Net tab): opens at your
+  display mode and expands one level deeper on request, following the pawn while open.
+- The station's Net tab: every worn hand-held against this station, with its outcome, the reason or
+  the Operator summary, and which station is each pawn's best.
+- The siting preview while placing an antenna or the station: antenna height, the roof over the cell
+  and what it costs, and the colony noise there. Warns under thick roof; never blocks.
+- Dev-mode actions under "Phobos Radio": log the selected pawns' full sheets, log the noise at a cell,
+  recompute the net now. All read-only.
 - Coax feedline on Vanilla Expanded Framework's pipe network: lay it like power conduit from the base
   station to an antenna (2 steel per cell, under walls if need be). The station walks the cable to each
   antenna and charges the run's loss: 8 dB per 100 m on VHF, rising with the square root of frequency.
