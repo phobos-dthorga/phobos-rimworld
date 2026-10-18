@@ -1,0 +1,29 @@
+[
+  {
+    "name": "station-from-sketch",
+    "init": "mods/PhobosRadioFramework/Common/Textures/Phobos/Radio/Things/BaseStation.png",
+    "denoise": 0.7,
+    "width": 1024,
+    "height": 1024,
+    "seeds": [31, 32, 33, 34],
+    "prompt": "Floor-plan view straight down onto a square steel desk top: a boxy VHF transceiver with a blank blue display, a small power supply box with an amber light, a coiled microphone cable, and a short whip antenna standing at one corner seen from above. Game building sprite in the style of RimWorld: clean flat colours, soft simple shading, thin dark outlines, muted grey and dark olive palette with one warm amber accent, no text, no digits, no people, plain pure white background."
+  },
+  {
+    "name": "mast-from-sketch",
+    "init": "mods/PhobosRadioFramework/Common/Textures/Phobos/Radio/Things/Mast.png",
+    "denoise": 0.7,
+    "width": 512,
+    "height": 1280,
+    "seeds": [31, 32, 33, 34],
+    "prompt": "A tall narrow lattice radio mast of grey steel with cross-bracing, a thin collinear antenna with an amber tip on top, a square base plate at the bottom, seen from a high angle as a game building sprite in the style of RimWorld: clean flat colours, soft simple shading, thin dark outlines, no text, plain pure white background."
+  },
+  {
+    "name": "whip-from-sketch",
+    "init": "mods/PhobosRadioFramework/Common/Textures/Phobos/Radio/Things/Whip.png",
+    "denoise": 0.7,
+    "width": 768,
+    "height": 1024,
+    "seeds": [31, 32, 33, 34],
+    "prompt": "A short vertical whip antenna on a grey steel pole with a square base plate, amber tip, seen from a high angle as a small game building sprite in the style of RimWorld: clean flat colours, soft simple shading, thin dark outlines, no text, plain pure white background."
+  }
+]

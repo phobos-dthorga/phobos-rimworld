@@ -30,19 +30,97 @@ DEFAULT_MODEL = 'flux1-schnell-fp8.safetensors'
 NEGATIVE = ''  # Flux schnell ignores the negative prompt; it is kept empty on purpose.
 
 
-def workflow(prompt, width, height, seed, steps, model, prefix):
-    """ComfyUI API-format graph for Flux.1-schnell packaged as a single checkpoint."""
-    return {
+def workflow(prompt, width, height, seed, steps, model, prefix, init_name=None, denoise=1.0):
+    """ComfyUI API-format graph for Flux.1-schnell packaged as a single checkpoint.
+
+    With init_name (a file in ComfyUI's input folder) the image is scaled to the target size and used
+    as the starting latent, and denoise says how much of it the model may repaint (1.0 = ignore it).
+    """
+    graph = {
         '1': {'class_type': 'CheckpointLoaderSimple', 'inputs': {'ckpt_name': model}},
         '2': {'class_type': 'CLIPTextEncode', 'inputs': {'text': prompt, 'clip': ['1', 1]}},
         '3': {'class_type': 'CLIPTextEncode', 'inputs': {'text': NEGATIVE, 'clip': ['1', 1]}},
         '4': {'class_type': 'EmptySD3LatentImage', 'inputs': {'width': width, 'height': height, 'batch_size': 1}},
         '5': {'class_type': 'KSampler', 'inputs': {
-            'seed': seed, 'steps': steps, 'cfg': 1.0, 'sampler_name': 'euler', 'scheduler': 'simple', 'denoise': 1.0,
+            'seed': seed, 'steps': steps, 'cfg': 1.0, 'sampler_name': 'euler', 'scheduler': 'simple', 'denoise': denoise,
             'model': ['1', 0], 'positive': ['2', 0], 'negative': ['3', 0], 'latent_image': ['4', 0]}},
         '6': {'class_type': 'VAEDecode', 'inputs': {'samples': ['5', 0], 'vae': ['1', 2]}},
         '7': {'class_type': 'SaveImage', 'inputs': {'images': ['6', 0], 'filename_prefix': prefix}},
     }
+    if init_name:
+        graph['8'] = {'class_type': 'LoadImage', 'inputs': {'image': init_name}}
+        graph['9'] = {'class_type': 'ImageScale', 'inputs': {
+            'image': ['8', 0], 'upscale_method': 'lanczos', 'width': width, 'height': height, 'crop': 'disabled'}}
+        graph['10'] = {'class_type': 'VAEEncode', 'inputs': {'pixels': ['9', 0], 'vae': ['1', 2]}}
+        graph['5']['inputs']['latent_image'] = ['10', 0]
+    return graph
+
+
+KLEIN_UNET = 'flux-2-klein-4b.safetensors'
+KLEIN_CLIP = 'qwen_3_4b.safetensors'
+KLEIN_VAE = 'flux2-vae.safetensors'
+
+
+def klein_workflow(prompt, width, height, seed, steps, prefix, references=(), lora=None, lora_strength=1.0,
+                   unet=KLEIN_UNET, clip=KLEIN_CLIP, vae=KLEIN_VAE):
+    """ComfyUI API-format graph for FLUX.2 Klein 4B (distilled), after ComfyUI's own templates.
+
+    references: names of images already in ComfyUI's input folder. Each becomes a ReferenceLatent on both
+    the positive and the zeroed negative conditioning, chained in order, so the prompt can say
+    "image 1", "image 2". No references = plain text-to-image.
+    """
+    graph = {
+        '1': {'class_type': 'UNETLoader', 'inputs': {'unet_name': unet, 'weight_dtype': 'default'}},
+        '2': {'class_type': 'CLIPLoader', 'inputs': {'clip_name': clip, 'type': 'flux2', 'device': 'default'}},
+        '3': {'class_type': 'VAELoader', 'inputs': {'vae_name': vae}},
+        '4': {'class_type': 'CLIPTextEncode', 'inputs': {'text': prompt, 'clip': ['2', 0]}},
+        '5': {'class_type': 'ConditioningZeroOut', 'inputs': {'conditioning': ['4', 0]}},
+        '6': {'class_type': 'EmptyFlux2LatentImage', 'inputs': {'width': width, 'height': height, 'batch_size': 1}},
+        '7': {'class_type': 'Flux2Scheduler', 'inputs': {'steps': steps, 'width': width, 'height': height}},
+        '8': {'class_type': 'KSamplerSelect', 'inputs': {'sampler_name': 'euler'}},
+        '9': {'class_type': 'RandomNoise', 'inputs': {'noise_seed': seed}},
+        '10': {'class_type': 'CFGGuider', 'inputs': {'model': ['1', 0], 'positive': ['4', 0], 'negative': ['5', 0], 'cfg': 1.0}},
+        '11': {'class_type': 'SamplerCustomAdvanced', 'inputs': {
+            'noise': ['9', 0], 'guider': ['10', 0], 'sampler': ['8', 0], 'sigmas': ['7', 0], 'latent_image': ['6', 0]}},
+        '12': {'class_type': 'VAEDecode', 'inputs': {'samples': ['11', 0], 'vae': ['3', 0]}},
+        '13': {'class_type': 'SaveImage', 'inputs': {'images': ['12', 0], 'filename_prefix': prefix}},
+    }
+    model = ['1', 0]
+    if lora:
+        graph['14'] = {'class_type': 'LoraLoaderModelOnly', 'inputs': {'model': model, 'lora_name': lora, 'strength_model': lora_strength}}
+        model = ['14', 0]
+        graph['10']['inputs']['model'] = model
+    positive, negative = ['4', 0], ['5', 0]
+    next_id = 20
+    for name in references:
+        load, scale, encode, pos, neg = (str(next_id + i) for i in range(5))
+        graph[load] = {'class_type': 'LoadImage', 'inputs': {'image': name}}
+        graph[scale] = {'class_type': 'ImageScaleToTotalPixels', 'inputs': {
+            'image': [load, 0], 'upscale_method': 'nearest-exact', 'megapixels': 1.0, 'resolution_steps': 1}}
+        graph[encode] = {'class_type': 'VAEEncode', 'inputs': {'pixels': [scale, 0], 'vae': ['3', 0]}}
+        graph[pos] = {'class_type': 'ReferenceLatent', 'inputs': {'conditioning': positive, 'latent': [encode, 0]}}
+        graph[neg] = {'class_type': 'ReferenceLatent', 'inputs': {'conditioning': negative, 'latent': [encode, 0]}}
+        positive, negative = [pos, 0], [neg, 0]
+        next_id += 5
+    graph['10']['inputs']['positive'] = positive
+    graph['10']['inputs']['negative'] = negative
+    return graph
+
+
+def stage_init(comfy_path, init_path, name):
+    """Copy a starting image into ComfyUI's input folder; returns the name ComfyUI knows it by."""
+    source = Path(init_path)
+    if not source.is_absolute():
+        source = ROOT / source
+    target = Path(comfy_path) / 'ComfyUI' / 'input' / f'phobos-init-{name}.png'
+    target.parent.mkdir(parents=True, exist_ok=True)
+    # Transparent sprites must be flattened onto white first, or the model paints the alpha as black.
+    flatten = (
+        "import sys; from PIL import Image; im = Image.open(sys.argv[1]).convert('RGBA'); "
+        "bg = Image.new('RGBA', im.size, (255, 255, 255, 255)); bg.alpha_composite(im); bg.convert('RGB').save(sys.argv[2])")
+    python = Path(comfy_path) / 'python_embeded' / 'python.exe'
+    subprocess.run([str(python), '-c', flatten, str(source), str(target)], check=True)
+    return target.name, source
 
 
 def get_json(path):
@@ -134,12 +212,31 @@ def run(request_file, only=None, comfy_path=DEFAULT_COMFY, start=False):
         model_hash = sha256_of(model_path, hashes) if model_path.is_file() else 'unknown (model not under the local checkpoints folder)'
         folder = out_root / req['name']
         folder.mkdir(parents=True, exist_ok=True)
+        init_name, init_source, denoise = None, None, 1.0
+        if req.get('init'):
+            init_name, init_source = stage_init(comfy_path, req['init'], req['name'])
+            denoise = float(req.get('denoise', 0.7))
+        engine = req.get('engine', 'schnell')
+        reference_names, reference_sources = [], []
+        for i, ref in enumerate(req.get('references', [])):
+            name, source = stage_init(comfy_path, ref, f'{req["name"]}-ref{i + 1}')
+            reference_names.append(name)
+            reference_sources.append(source)
+        if engine == 'klein':
+            model = KLEIN_UNET
+            model_path = Path(comfy_path) / 'ComfyUI' / 'models' / 'diffusion_models' / model
+            model_hash = sha256_of(model_path, hashes) if model_path.is_file() else 'unknown'
         for seed in req['seeds']:
             target = folder / f'{req["name"]}-{seed}.png'
             if target.exists():
                 print(f'  {target.name} exists, skipped')
                 continue
-            graph = workflow(req['prompt'], req['width'], req['height'], seed, req.get('steps', 4), model, f'phobos/{req["name"]}')
+            if engine == 'klein':
+                graph = klein_workflow(req['prompt'], req['width'], req['height'], seed, req.get('steps', 4), f'phobos/{req["name"]}',
+                                       reference_names, req.get('lora'), float(req.get('lora_strength', 1.0)))
+            else:
+                graph = workflow(req['prompt'], req['width'], req['height'], seed, req.get('steps', 4), model, f'phobos/{req["name"]}',
+                                 init_name, denoise)
             queued = post_json('/prompt', {'prompt': graph, 'client_id': str(uuid.uuid4())})
             print(f'  {req["name"]} seed {seed}: queued {queued["prompt_id"]}')
             outputs = wait_for(queued['prompt_id'])
@@ -152,7 +249,9 @@ def run(request_file, only=None, comfy_path=DEFAULT_COMFY, start=False):
                 'file': target.name,
                 'sha256': hashlib.sha256(data).hexdigest(),
                 'date': _dt.datetime.now().isoformat(timespec='seconds'),
-                'generator': f'ComfyUI {version}, local, Flux.1-schnell fp8 (Comfy-Org packaging, Apache 2.0)',
+                'generator': (f'ComfyUI {version}, local, FLUX.2 Klein 4B distilled (Black Forest Labs, Apache 2.0; Comfy-Org packaging)'
+                              if engine == 'klein' else f'ComfyUI {version}, local, Flux.1-schnell fp8 (Comfy-Org packaging, Apache 2.0)'),
+                'engine': engine,
                 'model': model,
                 'model_sha256': model_hash,
                 'prompt': req['prompt'],
@@ -164,6 +263,17 @@ def run(request_file, only=None, comfy_path=DEFAULT_COMFY, start=False):
                 'size': [req['width'], req['height']],
                 'request_file': str(Path(request_file).resolve().relative_to(ROOT)).replace('\\', '/'),
             }
+            if init_source is not None:
+                record['init_image'] = str(init_source.relative_to(ROOT)).replace('\\', '/') if init_source.is_relative_to(ROOT) else str(init_source)
+                record['init_sha256'] = hashlib.sha256(init_source.read_bytes()).hexdigest()
+                record['denoise'] = denoise
+            if reference_sources:
+                record['references'] = [
+                    {'image': str(s.relative_to(ROOT)).replace('\\', '/') if s.is_relative_to(ROOT) else str(s),
+                     'sha256': hashlib.sha256(s.read_bytes()).hexdigest()} for s in reference_sources]
+            if req.get('lora'):
+                record['lora'] = req['lora']
+                record['lora_strength'] = float(req.get('lora_strength', 1.0))
             target.with_suffix('.json').write_text(json.dumps(record, indent=2), encoding='utf-8')
             made += 1
             print(f'  wrote {target.relative_to(ROOT)}')

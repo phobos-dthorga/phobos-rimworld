@@ -1,0 +1,36 @@
+[
+  {
+    "name": "klein-station-from-refs",
+    "engine": "klein",
+    "references": [
+      "mods/PhobosRadioFramework/Common/Textures/Phobos/Radio/Things/BaseStation.png",
+      "assets/phobos-radio/generated/base-station-v3/base-station-v3-45.png"
+    ],
+    "width": 1024,
+    "height": 1024,
+    "seeds": [51, 52, 53, 54],
+    "prompt": "Redraw image 1 (a rough layout sketch of a radio base station seen straight down: a square desk with a transceiver, a power supply and a whip antenna) in the rendering style, palette, soft shading and thin outlines of image 2. Keep image 1's layout and top-down camera exactly; make the desk crowded with radio equipment, a desk microphone, a coiled handset cable and a few papers, so little bare desk shows. Pure white background, no text, no people."
+  },
+  {
+    "name": "klein-mast-from-refs",
+    "engine": "klein",
+    "references": [
+      "mods/PhobosRadioFramework/Common/Textures/Phobos/Radio/Things/Mast.png",
+      "assets/phobos-radio/generated/base-station-v3/base-station-v3-45.png"
+    ],
+    "width": 512,
+    "height": 1280,
+    "seeds": [51, 52, 53, 54],
+    "prompt": "Redraw image 1 (a rough sketch of a tall lattice radio mast with a collinear antenna on top and a square base plate) in the rendering style, palette, soft shading and thin outlines of image 2. Keep image 1's silhouette and proportions; add realistic cross-bracing and a small cast shadow at the base. Pure white background, no text."
+  },
+  {
+    "name": "klein-handheld-sheet",
+    "engine": "klein",
+    "lora": "flux2-klein-spritesheet-lora.safetensors",
+    "lora_strength": 1.1,
+    "width": 1024,
+    "height": 1024,
+    "seeds": [51, 52],
+    "prompt": "2x2 sprite sheet of a chunky hand-held two-way radio with a stubby rubber antenna, a small blue screen and a keypad, dark grey body with an amber accent, flat colours with soft shading and thin dark outlines."
+  }
+]
