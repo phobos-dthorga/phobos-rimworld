@@ -1,0 +1,37 @@
+[
+  {
+    "name": "base-station",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [1, 2, 3, 4],
+    "prompt": "Top-down orthographic view, straight down from above, of a small radio base station on a steel desk: a boxy VHF transceiver with a small blue frequency display, a power supply unit beside it, a coiled microphone cable, a short whip antenna standing up from one corner. Game sprite in the style of RimWorld: clean flat colours, soft simple shading, thin dark outlines, muted grey and dark olive palette with one warm amber accent, no perspective, no text, no labels, no people, centred on a plain pure white background, nothing else in frame."
+  },
+  {
+    "name": "handheld",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [1, 2, 3, 4],
+    "prompt": "A single hand-held two-way radio, a chunky walkie-talkie with a stubby black rubber antenna, a small blue screen and a keypad, seen from directly above as a flat game item icon in the style of RimWorld: clean flat colours, soft simple shading, thin dark outlines, muted dark grey body with one warm amber accent, no perspective, no hand, no text, centred on a plain pure white background, nothing else in frame."
+  },
+  {
+    "name": "whip-antenna",
+    "width": 768,
+    "height": 1024,
+    "seeds": [1, 2, 3, 4],
+    "prompt": "A short vertical whip antenna on a small steel pole with a square base plate, seen from a high top-down angle so the pole is visible as a short upright line with a tiny cast shadow, game sprite in the style of RimWorld: clean flat colours, soft simple shading, thin dark outlines, muted grey palette with a warm amber tip, no perspective grid, no text, centred on a plain pure white background, nothing else in frame."
+  },
+  {
+    "name": "mast-antenna",
+    "width": 768,
+    "height": 1024,
+    "seeds": [1, 2, 3, 4],
+    "prompt": "A tall lattice radio mast, a narrow triangular steel tower with cross-bracing and a thin collinear antenna on top, guyed with three wires to small ground anchors, seen from a high top-down angle so it reads as a tall upright structure with a short cast shadow, game sprite in the style of RimWorld: clean flat colours, soft simple shading, thin dark outlines, muted grey palette with a warm amber tip, no text, centred on a plain pure white background, nothing else in frame."
+  },
+  {
+    "name": "workshop-preview",
+    "width": 1280,
+    "height": 720,
+    "seeds": [1, 2, 3],
+    "prompt": "Illustration for a RimWorld mod preview: a lone colonist in a worn parka on a windswept hillside at dusk, holding a hand-held radio to their ear, looking back toward a small frontier settlement in the valley below where a tall lattice radio mast stands beside a lit cabin, faint concentric signal arcs drawn in the sky between them. Painterly but clean, muted earth tones with amber light from the windows, dark teal dusk sky, wide composition, no text, no logos, no watermark."
+  }
+]

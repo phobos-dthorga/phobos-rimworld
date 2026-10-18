@@ -20,6 +20,11 @@ promise current behaviour. For using the mods, start at the [documentation index
 - [Map scale research (19 Oct 2026)](map-scale-research.md): what a cell and a world tile measure, from the
   game's own constants, and why Phase 1 uses 1 m per cell.
 
+## Artwork
+
+- [Artwork direction (19 Oct 2026)](artwork-direction.md): why PixelLab does not suit RimWorld, the three
+  routes (code-drawn, local Flux.1-schnell through ComfyUI, a paid plan last), licences and records.
+
 ## RimWorld
 
 - [RimWorld modding reference (18 Oct 2026)](rimworld-modding-reference.md): versions, the Waylith engine and
