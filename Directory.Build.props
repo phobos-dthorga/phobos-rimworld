@@ -9,4 +9,12 @@
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <GenerateDependencyFile>false</GenerateDependencyFile>
   </PropertyGroup>
+  <!-- RimWorld 1.6 compiles against Unity's .NET Framework 4.7.2 libraries, which lack the types newer
+       C# needs (records, init, required) or hide them as internal (MemberNotNull). PolySharp generates
+       them as internal types at compile time and ships nothing. .NET 10 builds for 1.7 don't need it.
+       The condition sits on an ItemGroup, which MSBuild evaluates after the project sets its target. -->
+  <ItemGroup Condition="'$(TargetFramework)' == 'net472'">
+    <PackageReference Include="PolySharp" Version="1.16.0" PrivateAssets="all"
+                      IncludeAssets="runtime; build; native; contentfiles; analyzers; buildtransitive" />
+  </ItemGroup>
 </Project>

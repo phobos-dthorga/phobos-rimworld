@@ -2,7 +2,8 @@
 
 **Status (18 Oct 2026): no mod and no C# project exists yet.** The checks below run today. The rest of this
 page records the toolchain the first mod will use, so the first project starts from a decision rather than
-a blank page. The C# sketch has not been built yet; correct this page when it is.
+a blank page. The 1.6 setup below was proven on 18 Oct 2026 by building a throwaway probe mod (not kept,
+never run in game); the 1.7 column is untried.
 
 ## The checks (run before every commit)
 
@@ -70,6 +71,7 @@ Check each optional mod's real `packageId` in its `About.xml` before using it. C
 | Target | `net472` | `net10.0` |
 | Game references | `Krafs.Rimworld.Ref` 1.6.4871 | `Krafs.Rimworld.Ref` 1.7 build, or the game's Assembly-CSharp, UnityStubs and Waylith |
 | Harmony | `Lib.Harmony` 2.4.x, compile-time only | Harmony 3.0 |
+| Newer C# (records, `init`, `required`) | `PolySharp` 1.16.0, compile-time only, set once in `Directory.Build.props` | Not needed: .NET 10 has the types |
 | Output | `mods/<Mod>/1.6/Assemblies/` | `mods/<Mod>/1.7/Assemblies/`, and `<v1.7>` in `LoadFolders.xml` switches from `1.6` to `1.7` |
 | Tools | .NET SDK 10 builds both | Visual Studio 2026 or Rider 2026 to edit |
 
@@ -81,9 +83,11 @@ The sources and dates are in the [RimWorld modding reference](rimworld-modding-r
 - deterministic builds;
 - warnings as errors;
 - no target-framework subfolder;
-- no `.deps.json` file.
+- no `.deps.json` file;
+- PolySharp for every `net472` project (owner decision, 18 Oct 2026).
 
-A starting point for the first project (agent sketch, **not yet built**):
+A starting point for the first project. This is an agent sketch; a probe built from it on 18 Oct 2026 had 0
+warnings and 0 errors, and its `Assemblies` folder held only the mod's own DLL:
 
 ```xml
 <Project Sdk="Microsoft.NET.Sdk">
@@ -107,6 +111,32 @@ the Harmony mod.
 
 When 1.7 support starts, the likely route is one project with `<TargetFrameworks>net472;net10.0</TargetFrameworks>`,
 conditional references and an output path per framework. Try that before splitting into two projects.
+
+## Newer C# on RimWorld 1.6
+
+RimWorld 1.6 compiles against Unity's copies of the .NET Framework 4.7.2 libraries (April 2018), which
+`Krafs.Rimworld.Ref` supplies in full. What that means for C# 14, from the probe build on 18 Oct 2026:
+
+| Feature | Without PolySharp | With PolySharp |
+| --- | --- | --- |
+| Syntax only: pattern matching, switch expressions, file-scoped namespaces | Works | Works |
+| `record`, `init` | Fails: `IsExternalInit` is not defined (CS0518) | Works |
+| `required` members | Fails: three missing attributes (CS0656) | Works |
+| `[NotNullWhen]`, `[NotNull]` and most nullable attributes | Works: Unity's `mscorlib` has them, public | Works |
+| `[MemberNotNull]` | **Fails: Unity's `mscorlib` has it, but internal (CS0122)** | Works |
+| Features needing runtime support, such as default interface methods | Not tested; expected to fail on Unity's runtime | No polyfill can add runtime support |
+
+PolySharp is a source generator by Sergio Pedri (MIT, [NuGet](https://www.nuget.org/packages/PolySharp)).
+It writes only the types a project is missing, as **internal** types inside the mod's own assembly. The probe's
+26 generated types were all internal, so two mods carrying them cannot clash, and PolySharp itself never
+ships.
+
+## Building on Linux
+
+The probe needed only three packages: Krafs, Lib.Harmony and PolySharp. Because Krafs brings the whole
+framework reference set, the .NET 10 SDK should compile 1.6 mods on Linux with no Mono and no Windows
+targeting pack, so CI can prove a mod builds. Running net472 code on Linux would still need Mono, so code
+is exercised in the game. Not yet tried on Linux: confirm it when the first project adds a build step to CI.
 
 ## Deploying to the game
 

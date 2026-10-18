@@ -168,7 +168,9 @@ delivered, record the delivery in the changelog or design record, and add or ame
   and what to do first.
 - **Versions.** Build for RimWorld 1.6 first and keep 1.7 in view: per-version folders through
   `LoadFolders.xml`, shared XML in `Common/`, one assembly build per version (1.6: .NET Framework 4.7.2
-  and Harmony 2; 1.7: .NET 10 and Harmony 3; `docs/development/building.md`). Prefer RimWorld's own
+  and Harmony 2, with PolySharp for newer C#; 1.7: .NET 10 and Harmony 3; `docs/development/building.md`).
+  Never write a polyfill type by hand or make PolySharp's types public: they stay internal so mods can't
+  clash. Prefer RimWorld's own
   wrappers (`Widgets`, `GenUI`, `ContentFinder`) over direct Unity calls; 1.7 runs Unity calls through a
   compatibility shim.
 - Expose reasonable player preferences as documented mod settings; keep identities and physics rules

@@ -55,6 +55,7 @@ load folder or patch.
 | 18 Oct 2026 | `packageId` form `PhobosDthorga.<ModName>`; the Harmony ID is the `packageId` | **agent default, owner to confirm before the first public build** |
 | 18 Oct 2026 | Layout: `mods/<Mod>/` is the shipped folder, `src/<Project>/` holds C#, `workshop/<Mod>/` holds page drafts once publishing starts | agent default, following Ostranauts |
 | 18 Oct 2026 | Build for 1.6 first (net472, Harmony 2). Ship the 1.6 build to 1.7 through `LoadFolders.xml` until a native net10.0 build is needed | agent default, following the design's Versions decision |
+| 18 Oct 2026 | **PolySharp** for every 1.6 (net472) project, set once in `Directory.Build.props`, so newer C# works on Unity's 2018-era libraries; proven by a throwaway probe build ([building](building.md#newer-c-on-rimworld-16)) | owner (agent proposed) |
 | 18 Oct 2026 | Workshop publication tooling comes from Ostranauts in the change that prepares the first public beta, not before | agent default |
 | 18 Oct 2026 | Direct pushes to `main`; no pull requests unless the owner asks | agent default, following Ostranauts |
 

@@ -72,6 +72,11 @@ Source: [RimWorld Wiki, Mod Folder Structure](https://rimworldwiki.com/wiki/Modd
 | Project format | SDK-style | SDK-style required; remove Unity references; `using UnityEngine;` may stay |
 | IDE | Any current one | Visual Studio 2026 or Rider 2026; VS2022 and older Rider do not support .NET 10 |
 
+Observed in a probe build against Krafs.Rimworld.Ref 1.6.4871 (18 Oct 2026): the package brings Unity's own
+`mscorlib` and `netstandard`, so it needs no other framework references. Those define most nullable attributes
+publicly, but `MemberNotNullAttribute` only internally, and lack `IsExternalInit` and the `required` member
+attributes. [Building](building.md#newer-c-on-rimworld-16) has the table and the PolySharp fix.
+
 The 1.7 column comes from the community page
 [RimWorld 1.7 Mod Updates](https://rimworldwiki.com/wiki/Modding_Tutorials/RimWorld_1.7_Mod_Updates)
 (last edited 16 Oct 2026), except the package dates, which come from NuGet. Its other points:
