@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Installing the mods
+    url: https://github.com/phobos-dthorga/phobos-rimworld/blob/main/docs/installing-mods.md
+    about: What is published, what to expect, and the load order.
+  - name: Private security report
+    url: https://github.com/phobos-dthorga/phobos-rimworld/security/advisories/new
+    about: Report vulnerabilities privately; do not disclose secrets in an issue.

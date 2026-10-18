@@ -1,0 +1,15 @@
+name: Idea or design feedback
+description: Suggest a feature, or comment on a design such as the radio framework.
+body:
+  - type: textarea
+    id: need
+    attributes:
+      label: What would it let you do?
+      description: Describe the play it makes possible and why it would help.
+    validations:
+      required: true
+  - type: textarea
+    id: idea
+    attributes:
+      label: Suggested approach and alternatives
+      description: Mods that already help, real-world radio or physics sources, and links are all welcome.

@@ -1,0 +1,33 @@
+name: Bug report
+description: A mod does not work as expected, or the game errors with it.
+title: "[Bug]: "
+body:
+  - type: markdown
+    attributes:
+      value: "Thanks for helping! Please read SUPPORT.md and the mod's README first. Copy Player.log before restarting RimWorld: each launch overwrites it. Redact personal details; do not upload saves, game files or credentials."
+  - type: textarea
+    id: versions
+    attributes:
+      label: Versions and related mods
+      description: RimWorld version (bottom-left of the main menu), the mod's version, DLCs, and any mods it might clash with. Say unknown if unsure.
+    validations:
+      required: true
+  - type: textarea
+    id: behaviour
+    attributes:
+      label: Expected and actual behaviour
+      description: What were you trying to do, and what happened instead?
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to reproduce
+      description: Include whether this began after adding or updating a mod, or loading a save.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Relevant log lines or screenshots
+      description: The relevant, redacted lines from Player.log. Optional.

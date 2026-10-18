@@ -1,0 +1,45 @@
+# Local tools, research, handoff originals, test saves and machine configuration.
+/.local/
+/.tools/
+/work/
+/artifacts/
+/dist/
+/saves/
+/decompiled/
+*.local.json
+.env
+.env.*
+!.env.example
+*.log
+*.zip
+*.rws
+*.dmp
+*.pfx
+*.p12
+*.key
+*.pem
+*.bak
+
+# Build products are made locally; never commit assemblies, including built mod DLLs.
+**/bin/
+**/obj/
+*.dll
+*.exe
+*.pdb
+*.nupkg
+*.deps.json
+node_modules/
+__pycache__/
+*.pyc
+
+# Editor clutter.
+.vs/
+.idea/
+.vscode/
+*.user
+.DS_Store
+Thumbs.db
+
+# Claude Code session scratchpad, including nested git worktrees.
+/.claude/
+*.stackdump

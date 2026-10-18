@@ -1,0 +1,12 @@
+<Project>
+  <!-- Shared by every C# project under src/. Target frameworks and game references live in each
+       project: net472 for RimWorld 1.6, net10.0 for 1.7 (docs/development/building.md). -->
+  <PropertyGroup>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <Deterministic>true</Deterministic>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <GenerateDependencyFile>false</GenerateDependencyFile>
+  </PropertyGroup>
+</Project>
