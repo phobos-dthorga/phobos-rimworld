@@ -1,14 +1,18 @@
 # Documentation
 
-**No mod is published or installable yet.** The first project, a radio framework, is still in design. This
-library will grow as mods arrive.
+**No mod is published on the Steam Workshop yet.** The first project, the radio framework, is being
+built; it installs from source with `scripts/deploy.py`.
 
 ## For players
 
 - [Installing RimWorld mods from this project](installing-mods.md): how it will work, and what to expect today.
 - [Help and troubleshooting](../SUPPORT.md)
 
-Each mod's README will be its player guide, with the gotchas first.
+Each mod's README is its player guide, with the gotchas first.
+
+| Mod | Version | What it does | Guide |
+| --- | --- | --- | --- |
+| **D'thorga Radio Framework** | 0.1.0 (in development) | Hand-held VHF and UHF radios, a base station, coax and antennas; a real link budget decides every contact; the "In touch" mood | [README](../mods/PhobosRadioFramework/README.md) |
 
 ## For contributors
 

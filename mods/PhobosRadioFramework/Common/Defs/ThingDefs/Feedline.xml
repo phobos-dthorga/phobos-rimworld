@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- The feedline net: a Vanilla Expanded Framework pipe network that carries no resource. It is only
+       the connectivity graph the station walks to find its antennas and count the coax between. -->
+  <PipeSystem.PipeNetDef>
+    <defName>PhobosRadio_FeedlineNet</defName>
+    <label>feedline</label>
+    <resource>
+      <name>feedline</name>
+      <unit>dB</unit>
+      <color>(214, 178, 94)</color>
+      <onlyShowStored>true</onlyShowStored>
+    </resource>
+    <pipeDefs>
+      <li>PhobosRadio_Coax</li>
+    </pipeDefs>
+    <overlayOptions>
+      <overlayColor>(214, 178, 94)</overlayColor>
+    </overlayOptions>
+    <noStorageAlert>true</noStorageAlert>
+    <foggedNetAlert>false</foggedNetAlert>
+    <enableOverflow>false</enableOverflow>
+  </PipeSystem.PipeNetDef>
+
+  <!-- Coax, laid like power conduit. RG-213-like: 8 dB per 100 m at 146 MHz, rising with the square root
+       of frequency (an approximation of the usual coax law). -->
+  <ThingDef ParentName="BuildingBase">
+    <defName>PhobosRadio_Coax</defName>
+    <label>coax feedline</label>
+    <description>Coaxial cable from a radio base station to an antenna. Every metre loses a little signal, more on UHF than VHF, so keep runs short. Can be laid under walls and other buildings.</description>
+    <thingClass>PipeSystem.Building_Pipe</thingClass>
+    <category>Building</category>
+    <noRightClickDraftAttack>true</noRightClickDraftAttack>
+    <graphicData>
+      <texPath>Phobos/Radio/Linked/Coax_Atlas</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <linkType>Basic</linkType>
+      <linkFlags>
+        <li>Custom8</li>
+      </linkFlags>
+      <damageData>
+        <rect>(0,0.35,1,0.3)</rect>
+      </damageData>
+    </graphicData>
+    <uiIconPath>Phobos/Radio/UI/CoaxIcon</uiIconPath>
+    <uiIconScale>0.7</uiIconScale>
+    <building>
+      <ai_chillDestination>false</ai_chillDestination>
+      <isInert>true</isInert>
+      <isEdifice>false</isEdifice>
+      <canLandGravshipOn>true</canLandGravshipOn>
+      <blueprintGraphicData>
+        <texPath>Phobos/Radio/Linked/Coax_Blueprint_Atlas</texPath>
+      </blueprintGraphicData>
+      <canConstructInCorner>true</canConstructInCorner>
+    </building>
+    <drawerType>MapMeshOnly</drawerType>
+    <altitudeLayer>Conduits</altitudeLayer>
+    <passability>Standable</passability>
+    <leaveResourcesWhenKilled>false</leaveResourcesWhenKilled>
+    <resourcesFractionWhenDeconstructed>0</resourcesFractionWhenDeconstructed>
+    <statBases>
+      <MaxHitPoints>60</MaxHitPoints>
+      <WorkToBuild>40</WorkToBuild>
+      <Flammability>0.7</Flammability>
+      <Beauty>-2</Beauty>
+    </statBases>
+    <drawStyleCategory>Conduits</drawStyleCategory>
+    <costList>
+      <Steel>2</Steel>
+    </costList>
+    <comps>
+      <li Class="PipeSystem.CompProperties_Resource">
+        <pipeNet>PhobosRadio_FeedlineNet</pipeNet>
+      </li>
+    </comps>
+    <placeWorkers>
+      <li>PipeSystem.PlaceWorker_Pipe</li>
+    </placeWorkers>
+    <modExtensions>
+      <li Class="Phobos.Radio.RadioCoaxExtension">
+        <lossDbPer100m>8</lossDbPer100m>
+        <referenceMHz>146</referenceMHz>
+      </li>
+    </modExtensions>
+    <rotatable>false</rotatable>
+    <selectable>true</selectable>
+    <neverMultiSelect>true</neverMultiSelect>
+    <soundImpactDefault>BulletImpact_Metal</soundImpactDefault>
+    <terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
+    <designationCategory>Misc</designationCategory>
+    <uiOrder>2111</uiOrder>
+    <constructEffect>ConstructMetal</constructEffect>
+    <clearBuildingArea>false</clearBuildingArea>
+    <tickerType>Rare</tickerType>
+    <researchPrerequisites>
+      <li>PhobosRadio_LocalRadio</li>
+    </researchPrerequisites>
+  </ThingDef>
+</Defs>

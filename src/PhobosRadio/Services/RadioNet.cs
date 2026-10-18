@@ -109,18 +109,25 @@ public sealed class RadioNet : MapComponent
         noise.Snapshot(map, rules);
         foreach (var station in stations)
         {
-            var stationEnd = StationEndpoint(station);
-            antennaLabelByStation[station.parent] = stationEnd.AntennaLabel;
+            var stationEnds = StationEndpoints(station, metresPerCell);
+            string? antennaUsed = null;
             foreach (var handheld in wornRadios)
             {
                 var wearer = handheld.Wearer!;
                 var handheldEnd = RadioEndpoint.BuiltIn(handheld.parent, wearer.Position, handheld);
-                var link = LinkBudgetService.Evaluate(map, handheldEnd, stationEnd, noise, rules, metresPerCell);
+                LinkEvaluation? link = null;
+                foreach (var stationEnd in stationEnds)
+                {
+                    var candidate = LinkBudgetService.Evaluate(map, handheldEnd, stationEnd, noise, rules, metresPerCell);
+                    if (candidate != null && (link == null || candidate.MarginDb > link.MarginDb)) link = candidate;
+                }
                 if (link == null) continue;
                 pairs.Add(link);
+                antennaUsed ??= link.B.AntennaLabel;
                 if (link.InTouch) inTouchByStation[station.parent] = InTouchCount(station.parent) + 1;
                 if (!bestByPawn.TryGetValue(wearer, out var best) || link.MarginDb > best.MarginDb) bestByPawn[wearer] = link;
             }
+            antennaLabelByStation[station.parent] = antennaUsed ?? stationEnds[0].AntennaLabel;
         }
     }
 
@@ -146,7 +153,23 @@ public sealed class RadioNet : MapComponent
         }
     }
 
-    /// <summary>The station's best antenna. Phase 1 commit 3: the built-in whip; feedline antennas follow.</summary>
-    private RadioEndpoint StationEndpoint(CompRadio station) =>
-        RadioEndpoint.BuiltIn(station.parent, station.parent.Position, station);
+    /// <summary>
+    /// Every antenna a station can use: its built-in whip, plus each antenna building on its coax that a
+    /// cable path reaches. The link picks the best of them, so the best antenna for the band emerges.
+    /// </summary>
+    private static List<RadioEndpoint> StationEndpoints(CompRadio station, float metresPerCell)
+    {
+        var ends = new List<RadioEndpoint> { RadioEndpoint.BuiltIn(station.parent, station.parent.Position, station) };
+        var port = station.parent.TryGetComp<CompFeedlinePort>();
+        if (port?.PipeNet == null) return ends;
+        foreach (var antenna in FeedlineService.AntennasOn(port))
+        {
+            if (!antenna.parent.Spawned) continue;
+            var segments = FeedlineService.Segments(port.PipeNet, station.parent, antenna.parent, metresPerCell);
+            if (segments == null) continue;
+            var end = RadioEndpoint.ViaAntenna(station, antenna, segments);
+            if (end.Bands.Count > 0) ends.Add(end);
+        }
+        return ends;
+    }
 }

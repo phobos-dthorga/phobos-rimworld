@@ -1,7 +1,9 @@
 # Installing the mods
 
-**Today there is nothing to install.** No Phobos RimWorld mod is on the Steam Workshop yet, and the
-repository holds no built mod. **Code → Download ZIP** gives you design documents, not a playable mod.
+**Nothing is on the Steam Workshop yet.** The radio framework is in development and installs from source:
+build it with the .NET SDK, then `python scripts/deploy.py --apply PhobosRadioFramework` with RimWorld
+closed ([building](development/building.md)). **Code → Download ZIP** gives you source, not a built mod,
+because the assembly is not committed.
 
 ## How it will work
 

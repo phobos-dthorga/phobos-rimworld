@@ -60,6 +60,9 @@
         <antennaGainDbi>0</antennaGainDbi>
         <antennaHeightMetres>2</antennaHeightMetres>
       </li>
+      <li Class="Phobos.Radio.CompProperties_FeedlinePort">
+        <pipeNet>PhobosRadio_FeedlineNet</pipeNet>
+      </li>
     </comps>
     <researchPrerequisites>
       <li>PhobosRadio_LocalRadio</li>

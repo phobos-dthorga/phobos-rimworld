@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- Antennas are parameters, not simulations: gain, height and bands (the design's hardware model).
+       Both join the feedline net through a port; the station uses whichever gives the best link. -->
+  <ThingDef ParentName="BuildingBase" Name="PhobosRadio_AntennaBase" Abstract="True">
+    <thingClass>Building</thingClass>
+    <altitudeLayer>Building</altitudeLayer>
+    <passability>PassThroughOnly</passability>
+    <pathCost>30</pathCost>
+    <fillPercent>0.2</fillPercent>
+    <rotatable>false</rotatable>
+    <size>(1,1)</size>
+    <terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
+    <designationCategory>Misc</designationCategory>
+    <tickerType>Never</tickerType>
+    <researchPrerequisites>
+      <li>PhobosRadio_LocalRadio</li>
+    </researchPrerequisites>
+  </ThingDef>
+
+  <ThingDef ParentName="PhobosRadio_AntennaBase">
+    <defName>PhobosRadio_Whip</defName>
+    <label>whip antenna</label>
+    <description>A quarter-wave whip on a short pole, three metres up. No gain, but it gets the antenna outside, which is what a shack under a roof needs most. Connect it to the base station with coax.</description>
+    <graphicData>
+      <texPath>Phobos/Radio/Things/Whip</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>(1,1.5)</drawSize>
+      <drawOffset>(0,0,0.25)</drawOffset>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>80</MaxHitPoints>
+      <WorkToBuild>400</WorkToBuild>
+      <Flammability>0.2</Flammability>
+    </statBases>
+    <costList>
+      <Steel>15</Steel>
+    </costList>
+    <uiOrder>2112</uiOrder>
+    <comps>
+      <li Class="Phobos.Radio.CompProperties_Antenna">
+        <bands>
+          <li>PhobosRadio_VHF</li>
+          <li>PhobosRadio_UHF</li>
+        </bands>
+        <gainDbi>0</gainDbi>
+        <heightMetres>3</heightMetres>
+      </li>
+      <li Class="Phobos.Radio.CompProperties_FeedlinePort">
+        <pipeNet>PhobosRadio_FeedlineNet</pipeNet>
+      </li>
+    </comps>
+  </ThingDef>
+
+  <ThingDef ParentName="PhobosRadio_AntennaBase">
+    <defName>PhobosRadio_Mast</defName>
+    <label>mast antenna</label>
+    <description>A collinear antenna on a ten-metre mast: three decibels of gain, and high enough to see over walls, so only the last few metres around a hand-held can block it. Connect it to the base station with coax; keep the run short.</description>
+    <graphicData>
+      <texPath>Phobos/Radio/Things/Mast</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>(1,2.5)</drawSize>
+      <drawOffset>(0,0,0.75)</drawOffset>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>150</MaxHitPoints>
+      <WorkToBuild>1200</WorkToBuild>
+      <Flammability>0.2</Flammability>
+    </statBases>
+    <costList>
+      <Steel>60</Steel>
+      <ComponentIndustrial>1</ComponentIndustrial>
+    </costList>
+    <uiOrder>2113</uiOrder>
+    <constructionSkillPrerequisite>4</constructionSkillPrerequisite>
+    <comps>
+      <li Class="Phobos.Radio.CompProperties_Antenna">
+        <bands>
+          <li>PhobosRadio_VHF</li>
+          <li>PhobosRadio_UHF</li>
+        </bands>
+        <gainDbi>3</gainDbi>
+        <heightMetres>10</heightMetres>
+      </li>
+      <li Class="Phobos.Radio.CompProperties_FeedlinePort">
+        <pipeNet>PhobosRadio_FeedlineNet</pipeNet>
+      </li>
+    </comps>
+  </ThingDef>
+</Defs>

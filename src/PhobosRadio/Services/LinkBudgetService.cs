@@ -57,8 +57,8 @@ public static class LinkBudgetService
             if (!b.Bands.Contains(band)) continue;
             var pathLoss = Propagation.FreeSpacePathLossDb(distanceMetres, band.centreMHz);
             var obstruction = ObstructionService.LossDb(map, a, b, band, rules);
-            var forward = new LinkDirection(Inputs(a, b, pathLoss, obstruction, floorAtB, mode));
-            var reverse = new LinkDirection(Inputs(b, a, pathLoss, obstruction, floorAtA, mode));
+            var forward = new LinkDirection(Inputs(a, b, band, pathLoss, obstruction, floorAtB, mode));
+            var reverse = new LinkDirection(Inputs(b, a, band, pathLoss, obstruction, floorAtA, mode));
             var budget = new LinkBudget(forward, reverse, bands);
             if (best == null || budget.MarginDb > best.MarginDb)
             {
@@ -68,16 +68,16 @@ public static class LinkBudgetService
         return best;
     }
 
-    private static LinkInputs Inputs(RadioEndpoint tx, RadioEndpoint rx, double pathLossDb, double obstructionDb,
+    private static LinkInputs Inputs(RadioEndpoint tx, RadioEndpoint rx, BandDef band, double pathLossDb, double obstructionDb,
         double noiseFloorAtRxDbm, ModeDef mode) =>
         new(
             TransmitPowerDbm: Decibels.FromWatts(tx.TransmitPowerWatts),
             TransmitAntennaGainDbi: tx.AntennaGainDbi,
-            TransmitFeedLossDb: tx.FeedLossDb,
+            TransmitFeedLossDb: tx.FeedLossDb(band),
             PathLossDb: pathLossDb,
             ObstructionLossDb: obstructionDb,
             ReceiveAntennaGainDbi: rx.AntennaGainDbi,
-            ReceiveFeedLossDb: rx.FeedLossDb,
+            ReceiveFeedLossDb: rx.FeedLossDb(band),
             NoiseFloorDbm: noiseFloorAtRxDbm,
             RequiredSnrDb: mode.requiredSnrDb);
 }

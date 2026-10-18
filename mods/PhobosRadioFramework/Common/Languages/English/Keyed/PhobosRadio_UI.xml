@@ -28,6 +28,13 @@
   <PhobosRadio_StationAntenna>Antenna: {0}</PhobosRadio_StationAntenna>
   <PhobosRadio_AntennaBuiltIn>built-in whip</PhobosRadio_AntennaBuiltIn>
 
+  <!-- Feedline ports. -->
+  <PhobosRadio_PortNoCable>No coax connected.</PhobosRadio_PortNoCable>
+  <PhobosRadio_PortCableNoAntenna>Coax connected, but no antenna on it.</PhobosRadio_PortCableNoAntenna>
+  <PhobosRadio_PortAntennasOnCable>Antennas on the coax: {0}.</PhobosRadio_PortAntennasOnCable>
+  <PhobosRadio_PortCableNoStation>Coax connected, but no base station on it.</PhobosRadio_PortCableNoStation>
+  <PhobosRadio_PortConnectedTo>Connected to {0}.</PhobosRadio_PortConnectedTo>
+
   <!-- Operator and Engineer text. -->
   <PhobosRadio_DirectionHandheldToStation>Hand-held to station</PhobosRadio_DirectionHandheldToStation>
   <PhobosRadio_DirectionStationToHandheld>Station to hand-held</PhobosRadio_DirectionStationToHandheld>

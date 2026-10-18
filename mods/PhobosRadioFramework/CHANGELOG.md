@@ -7,6 +7,12 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 ### Added
 
+- Coax feedline on Vanilla Expanded Framework's pipe network: lay it like power conduit from the base
+  station to an antenna (2 steel per cell, under walls if need be). The station walks the cable to each
+  antenna and charges the run's loss: 8 dB per 100 m on VHF, rising with the square root of frequency.
+- Whip antenna (3 m, no gain, 15 steel) and mast antenna (10 m, 3 dBi, 60 steel + 1 component). The
+  station uses whichever antenna on its coax gives the best link, or its built-in whip; the inspect text
+  names the one in use. Ports say whether coax is connected and what is on it.
 - Local radio: the research project (after Microelectronics Basics), two hand-held radios (VHF and
   UHF, utility apparel on the belt slot, 5 W) and the radio base station (2 x 2, 60 W idle, 25 W
   transmitter with a built-in whip; draws more power and warms the room while in use).
@@ -41,7 +47,9 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 - A hand-held takes the belt slot, so a colonist cannot wear one with a shield belt.
 - Only free colonists count for "in touch"; slaves, prisoners, guests and caravans do not. Downed
   colonists do. A radio in a pawn's inventory does nothing; it must be worn.
-- The station's coax, mast and whip antennas are the next version; this one uses the built-in whip.
+- Requires Vanilla Expanded Framework (declared in About.xml). Nothing from VEF ships with this mod.
+- Coax water-ingress degradation (in the design) is not built yet.
+- The coax sprite is a placeholder atlas; if its tiles look rotated, that is the atlas, not the net.
 - Safe to add to a running save. Remove it only after deconstructing the station and dropping every
   hand-held; expect one harmless "could not find class" error on the next load.
 - Metres per cell: decide it before starting a colony; changing it mid-save changes every distance.

@@ -8,8 +8,16 @@
     <OutputPath>../../mods/PhobosRadioFramework/1.6/Assemblies/</OutputPath>
     <DebugType>none</DebugType>
     <Version>0.1.0</Version>
+    <!-- Vanilla Expanded Framework's PipeSystem.dll, referenced from the installed mod and never copied:
+         its licence (CC BY-NC-ND 4.0) permits depending on it, not redistributing it. Override the folder
+         with -p:VefAssemblies=... or the VefAssemblies environment variable. -->
+    <VefAssemblies Condition="'$(VefAssemblies)' == ''">C:\Program Files (x86)\Steam\steamapps\workshop\content\294100\2023507013\1.6\Assemblies</VefAssemblies>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Krafs.Rimworld.Ref" Version="1.6.4871" />
+    <Reference Include="PipeSystem">
+      <HintPath>$(VefAssemblies)\PipeSystem.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
   </ItemGroup>
 </Project>
