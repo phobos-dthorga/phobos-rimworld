@@ -9,7 +9,7 @@ permissions:
 jobs:
   checks:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - name: Check local documentation links
@@ -18,3 +18,10 @@ jobs:
         run: python3 scripts/check-mod-layout.py
       - name: Exercise the repository tooling
         run: python3 -m unittest discover -s tests -v
+      - uses: actions/setup-dotnet@26b0ec14cb23fa6904739307f278c14f94c95bf1 # v5
+        with:
+          dotnet-version: 10.0.x
+      # The mod itself cannot build here: it references Vanilla Expanded Framework's PipeSystem.dll,
+      # which its licence does not let us copy into the repository. The physics is game-free and runs.
+      - name: Build and run the game-free physics tests
+        run: dotnet test tests/PhobosRadio.Physics.Tests --nologo

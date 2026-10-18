@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <!-- The link-budget sheet, one line per term. Levels are in dBm, gains and losses in dB. -->
+  <PhobosRadio_TermTransmitPower>Transmitter power</PhobosRadio_TermTransmitPower>
+  <PhobosRadio_TermTransmitAntenna>Transmitting antenna gain</PhobosRadio_TermTransmitAntenna>
+  <PhobosRadio_TermTransmitFeed>Transmitter feedline loss</PhobosRadio_TermTransmitFeed>
+  <PhobosRadio_TermPath>Distance (free-space loss)</PhobosRadio_TermPath>
+  <PhobosRadio_TermObstruction>Walls, rock and roof</PhobosRadio_TermObstruction>
+  <PhobosRadio_TermReceiveAntenna>Receiving antenna gain</PhobosRadio_TermReceiveAntenna>
+  <PhobosRadio_TermReceiveFeed>Receiver feedline loss</PhobosRadio_TermReceiveFeed>
+  <PhobosRadio_TermReceived>Signal arriving</PhobosRadio_TermReceived>
+  <PhobosRadio_TermNoiseFloor>Noise floor at the receiver</PhobosRadio_TermNoiseFloor>
+  <PhobosRadio_TermRequiredSnr>Needed above the noise</PhobosRadio_TermRequiredSnr>
+  <PhobosRadio_TermMargin>Margin</PhobosRadio_TermMargin>
+
+  <!-- Plain-English reasons, keyed by the largest loss term. -->
+  <PhobosRadio_ReasonPath>too far away</PhobosRadio_ReasonPath>
+  <PhobosRadio_ReasonObstruction>something solid is in the way</PhobosRadio_ReasonObstruction>
+  <PhobosRadio_ReasonTransmitFeed>a long or lossy cable at the transmitter</PhobosRadio_ReasonTransmitFeed>
+  <PhobosRadio_ReasonReceiveFeed>a long or lossy cable at the receiver</PhobosRadio_ReasonReceiveFeed>
+  <PhobosRadio_ReasonNoise>electrical noise near the receiver</PhobosRadio_ReasonNoise>
+
+  <!-- Outcomes. -->
+  <PhobosRadio_OutcomeNoContact>no contact</PhobosRadio_OutcomeNoContact>
+  <PhobosRadio_OutcomeMarginal>marginal</PhobosRadio_OutcomeMarginal>
+  <PhobosRadio_OutcomeWorkable>workable</PhobosRadio_OutcomeWorkable>
+  <PhobosRadio_OutcomeClean>clean</PhobosRadio_OutcomeClean>
+</LanguageData>

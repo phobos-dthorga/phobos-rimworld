@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- RimWorld 1.6 assembly. Shared options (C# version, nullable, PolySharp, no deps.json) come from
+       Directory.Build.props at the repository root. -->
+  <PropertyGroup>
+    <TargetFramework>net472</TargetFramework>
+    <RootNamespace>Phobos.Radio</RootNamespace>
+    <AssemblyName>PhobosRadio</AssemblyName>
+    <OutputPath>../../mods/PhobosRadioFramework/1.6/Assemblies/</OutputPath>
+    <DebugType>none</DebugType>
+    <Version>0.1.0</Version>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Krafs.Rimworld.Ref" Version="1.6.4871" />
+  </ItemGroup>
+</Project>
