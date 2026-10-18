@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <!-- What one crossing of a wall or door of each material costs a signal, in dB, and what a cell of
+       natural rock costs. Authored starting values, ordered by how real materials behave: wood a little,
+       stone more, metal close to a shield (the design's on-map model). Other mods' materials use the rules
+       Def's default unless they add their own extension. -->
+
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>Defs/ThingDef[defName="WoodLog"]</xpath>
+    <value>
+      <li Class="Phobos.Radio.RadioObstructionExtension"><lossDb>6</lossDb></li>
+    </value>
+  </Operation>
+
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>Defs/ThingDef[defName="BlocksGranite" or defName="BlocksLimestone" or defName="BlocksMarble" or defName="BlocksSandstone" or defName="BlocksSlate"]</xpath>
+    <value>
+      <li Class="Phobos.Radio.RadioObstructionExtension"><lossDb>15</lossDb></li>
+    </value>
+  </Operation>
+
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>Defs/ThingDef[defName="Steel" or defName="Silver" or defName="Gold"]</xpath>
+    <value>
+      <li Class="Phobos.Radio.RadioObstructionExtension"><lossDb>20</lossDb></li>
+    </value>
+  </Operation>
+
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>Defs/ThingDef[defName="Uranium"]</xpath>
+    <value>
+      <li Class="Phobos.Radio.RadioObstructionExtension"><lossDb>25</lossDb></li>
+    </value>
+  </Operation>
+
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>Defs/ThingDef[defName="Plasteel"]</xpath>
+    <value>
+      <li Class="Phobos.Radio.RadioObstructionExtension"><lossDb>30</lossDb></li>
+    </value>
+  </Operation>
+
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>Defs/ThingDef[defName="Jade"]</xpath>
+    <value>
+      <li Class="Phobos.Radio.RadioObstructionExtension"><lossDb>15</lossDb></li>
+    </value>
+  </Operation>
+
+  <!-- Natural rock, per cell crossed. Modded rock falls back to the rules Def's rockLossDb. -->
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>Defs/ThingDef[defName="Granite" or defName="Limestone" or defName="Marble" or defName="Sandstone" or defName="Slate"]</xpath>
+    <value>
+      <li Class="Phobos.Radio.RadioObstructionExtension"><lossDb>30</lossDb></li>
+    </value>
+  </Operation>
+</Patch>

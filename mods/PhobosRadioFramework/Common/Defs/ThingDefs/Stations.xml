@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- The base station: a powered 2 x 2 building on the comms-console pattern. Its built-in whip sits at
+       desk height under whatever roof the room has, which is why a mountain shack needs a surface antenna
+       on coax (next version). Twenty-five watts, authored. -->
+  <ThingDef ParentName="BuildingBase">
+    <defName>PhobosRadio_BaseStation</defName>
+    <label>radio base station</label>
+    <description>A transceiver, a power supply and a short whip on the desk. Works both VHF and UHF, so any hand-held can reach it. Walls and rock between it and a colonist cut the signal; an antenna outside on coax does far better. Transmitting draws extra power and warms the room.</description>
+    <thingClass>Building</thingClass>
+    <graphicData>
+      <texPath>Phobos/Radio/Things/BaseStation</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>(2,2)</drawSize>
+      <shadowData>
+        <volume>(1.8,0.5,1.4)</volume>
+      </shadowData>
+    </graphicData>
+    <altitudeLayer>Building</altitudeLayer>
+    <passability>PassThroughOnly</passability>
+    <pathCost>50</pathCost>
+    <blockWind>true</blockWind>
+    <fillPercent>0.5</fillPercent>
+    <canOverlapZones>false</canOverlapZones>
+    <rotatable>false</rotatable>
+    <size>(2,2)</size>
+    <statBases>
+      <MaxHitPoints>200</MaxHitPoints>
+      <WorkToBuild>2000</WorkToBuild>
+      <Flammability>0.6</Flammability>
+    </statBases>
+    <building>
+      <destroySound>BuildingDestroyed_Metal_Big</destroySound>
+    </building>
+    <costList>
+      <Steel>100</Steel>
+      <ComponentIndustrial>3</ComponentIndustrial>
+    </costList>
+    <terrainAffordanceNeeded>Medium</terrainAffordanceNeeded>
+    <designationCategory>Misc</designationCategory>
+    <uiOrder>2110</uiOrder>
+    <tickerType>Rare</tickerType>
+    <comps>
+      <li Class="CompProperties_Power">
+        <compClass>CompPowerTrader</compClass>
+        <shortCircuitInRain>true</shortCircuitInRain>
+        <basePowerConsumption>60</basePowerConsumption>
+      </li>
+      <li Class="CompProperties_Flickable" />
+      <li Class="CompProperties_Breakdownable" />
+      <li Class="Phobos.Radio.CompProperties_Radio">
+        <isStation>true</isStation>
+        <bands>
+          <li>PhobosRadio_VHF</li>
+          <li>PhobosRadio_UHF</li>
+        </bands>
+        <mode>PhobosRadio_VoiceFM</mode>
+        <transmitPowerWatts>25</transmitPowerWatts>
+        <noiseFigureDb>6</noiseFigureDb>
+        <antennaGainDbi>0</antennaGainDbi>
+        <antennaHeightMetres>2</antennaHeightMetres>
+      </li>
+    </comps>
+    <researchPrerequisites>
+      <li>PhobosRadio_LocalRadio</li>
+    </researchPrerequisites>
+    <constructionSkillPrerequisite>4</constructionSkillPrerequisite>
+  </ThingDef>
+</Defs>

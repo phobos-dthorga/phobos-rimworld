@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- The starting values the design says to tune in play. Every figure here is authored unless the
+       comment beside it names a source. Player preferences (display mode, metres per cell, the mood
+       thought) are mod settings, not rules. -->
+  <Phobos.Radio.RadioRulesDef>
+    <defName>PhobosRadio_Rules</defName>
+    <label>radio rules</label>
+
+    <!-- Margin bands from the design's outcome table. -->
+    <marginalDb>0</marginalDb>
+    <workableDb>6</workableDb>
+    <cleanDb>15</cleanDb>
+
+    <!-- A roof over an antenna. Overhead mountain is near-total, as the design says. -->
+    <roofConstructedLossDb>6</roofConstructedLossDb>
+    <roofThinNaturalLossDb>20</roofThinNaturalLossDb>
+    <roofThickLossDb>60</roofThickLossDb>
+
+    <!-- On the line between two antennas. Rock counts per cell crossed, whatever the antenna height. -->
+    <rockLossDb>30</rockLossDb>
+    <defaultStuffLossDb>10</defaultStuffLossDb>
+    <wallHeightMetres>2.5</wallHeightMetres>
+
+    <noiseRadiusDefaultCells>12</noiseRadiusDefaultCells>
+    <recomputeIntervalTicks>60</recomputeIntervalTicks>
+
+    <!-- The vanilla heater turns 175 W into 21 heat per second (Core, Buildings_Temperature.xml). -->
+    <heatPerWattSecond>0.12</heatPerWattSecond>
+  </Phobos.Radio.RadioRulesDef>
+</Defs>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- "In touch": a free colonist whose worn hand-held has a working two-way link to a base station.
+       Stage 0 for a workable or clean link, stage 1 for a marginal one. Small on purpose (authored). -->
+  <ThoughtDef>
+    <defName>PhobosRadio_InTouch</defName>
+    <workerClass>Phobos.Radio.ThoughtWorker_RadioInTouch</workerClass>
+    <stages>
+      <li>
+        <label>in touch with home</label>
+        <description>My radio reaches the base station. Whatever happens out here, someone will hear me.</description>
+        <baseMoodEffect>2</baseMoodEffect>
+      </li>
+      <li>
+        <label>faintly in touch</label>
+        <description>My radio just about reaches the base station. Scratchy, but better than silence.</description>
+        <baseMoodEffect>1</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+</Defs>

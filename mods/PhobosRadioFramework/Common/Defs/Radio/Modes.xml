@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- Modes trade speed for sensitivity. Phase 1 ships voice only.
+       requiredSnrDb: narrowband FM sensitivity is quoted at 12 dB SINAD by convention; SINAD is used here
+       as if it were SNR, a simplification (docs/development/radio-reference-checks.md).
+       transmitEfficiency: class AB/C amplifiers run 50 to 85 % in theory and lower in practice; 0.6 is an
+       approximate middle. dutyCycle: the share of time a transmitter is keyed while a link is in use (authored). -->
+
+  <Phobos.Radio.ModeDef>
+    <defName>PhobosRadio_VoiceFM</defName>
+    <label>FM voice</label>
+    <description>Plain speech on a narrowband FM channel. Needs a clear signal, about 12 dB above the noise (approximate), and carries a full conversation.</description>
+    <bandwidthHz>12500</bandwidthHz>
+    <requiredSnrDb>12</requiredSnrDb>
+    <dutyCycle>0.2</dutyCycle>
+    <transmitEfficiency>0.6</transmitEfficiency>
+  </Phobos.Radio.ModeDef>
+</Defs>

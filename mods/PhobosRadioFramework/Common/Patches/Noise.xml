@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <!-- Colony noise sources: a level at one metre in dBm in a 12.5 kHz channel, falling by the inverse
+       square law, counted within radiusCells. Authored starting values: an engine-driven generator is
+       loud, a battery bank hums while it is on a net. A hand-held's thermal floor is about -125 dBm, so
+       a generator at -60 dBm at 1 m still raises the floor 40 dB at 10 m. -->
+
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>Defs/ThingDef[defName="WoodFiredGenerator" or defName="ChemfuelPoweredGenerator"]</xpath>
+    <value>
+      <li Class="Phobos.Radio.RadioNoiseExtension">
+        <noiseDbmAt1m>-60</noiseDbmAt1m>
+        <radiusCells>12</radiusCells>
+        <noiseWhen>PowerOn</noiseWhen>
+      </li>
+    </value>
+  </Operation>
+
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>Defs/ThingDef[defName="GeothermalGenerator"]</xpath>
+    <value>
+      <li Class="Phobos.Radio.RadioNoiseExtension">
+        <noiseDbmAt1m>-55</noiseDbmAt1m>
+        <radiusCells>16</radiusCells>
+        <noiseWhen>PowerOn</noiseWhen>
+      </li>
+    </value>
+  </Operation>
+
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>Defs/ThingDef[defName="Battery"]</xpath>
+    <value>
+      <li Class="Phobos.Radio.RadioNoiseExtension">
+        <noiseDbmAt1m>-85</noiseDbmAt1m>
+        <radiusCells>6</radiusCells>
+        <noiseWhen>Connected</noiseWhen>
+      </li>
+    </value>
+  </Operation>
+</Patch>

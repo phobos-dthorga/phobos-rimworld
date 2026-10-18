@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <!-- Mod settings. -->
+  <PhobosRadio_SettingsCategory>D'thorga Radio Framework</PhobosRadio_SettingsCategory>
+  <PhobosRadio_SettingDisplayMode>How much of the maths to show</PhobosRadio_SettingDisplayMode>
+  <PhobosRadio_DisplayModePlain>Plain</PhobosRadio_DisplayModePlain>
+  <PhobosRadio_DisplayModePlainDesc>Signal bars and a plain-English reason. Radio just works.</PhobosRadio_DisplayModePlainDesc>
+  <PhobosRadio_DisplayModeOperator>Operator</PhobosRadio_DisplayModeOperator>
+  <PhobosRadio_DisplayModeOperatorDesc>Adds the band, the signal-to-noise ratio, the margin and which direction limits the link.</PhobosRadio_DisplayModeOperatorDesc>
+  <PhobosRadio_DisplayModeEngineer>Engineer</PhobosRadio_DisplayModeEngineer>
+  <PhobosRadio_DisplayModeEngineerDesc>The whole link-budget sheet, every gain and loss, in both directions.</PhobosRadio_DisplayModeEngineerDesc>
+  <PhobosRadio_SettingMetresPerCell>Metres per map cell: {0}</PhobosRadio_SettingMetresPerCell>
+  <PhobosRadio_SettingMetresPerCellDesc>What one map cell measures. Decide before you start a colony: changing it later changes every distance and cable loss, so links that worked may stop. The game never defines it; 1 m matches the furniture, about 26 m matches walking speed.</PhobosRadio_SettingMetresPerCellDesc>
+  <PhobosRadio_SettingInTouchThought>"In touch with home" mood for colonists whose radio reaches a base station</PhobosRadio_SettingInTouchThought>
+  <PhobosRadio_SettingInTouchThoughtDesc>A small mood bonus for a free colonist wearing a hand-held with a working link to a base station. Turn it off to keep the radios as a pure readout.</PhobosRadio_SettingInTouchThoughtDesc>
+
+  <!-- Gizmos. -->
+  <PhobosRadio_GizmoLabel>Radio {0}</PhobosRadio_GizmoLabel>
+  <PhobosRadio_GizmoNoStation>Radio: no station</PhobosRadio_GizmoNoStation>
+  <PhobosRadio_GizmoStation>Net: {0} of {1} in touch</PhobosRadio_GizmoStation>
+  <PhobosRadio_NoStation>No base station on this map, so there is nothing to reach.</PhobosRadio_NoStation>
+  <PhobosRadio_PlainReason>Why: {0}.</PhobosRadio_PlainReason>
+
+  <!-- Station inspect text. -->
+  <PhobosRadio_StationWaitingPower>Waiting for power.</PhobosRadio_StationWaitingPower>
+  <PhobosRadio_StationNoRadios>No hand-held radios worn on this map.</PhobosRadio_StationNoRadios>
+  <PhobosRadio_StationInTouch>In touch: {0} of {1} hand-helds.</PhobosRadio_StationInTouch>
+  <PhobosRadio_StationAntenna>Antenna: {0}</PhobosRadio_StationAntenna>
+  <PhobosRadio_AntennaBuiltIn>built-in whip</PhobosRadio_AntennaBuiltIn>
+
+  <!-- Operator and Engineer text. -->
+  <PhobosRadio_DirectionHandheldToStation>Hand-held to station</PhobosRadio_DirectionHandheldToStation>
+  <PhobosRadio_DirectionStationToHandheld>Station to hand-held</PhobosRadio_DirectionStationToHandheld>
+  <PhobosRadio_OperatorSummary>{0}: signal {1} dB above the noise, margin {2} dB. Limited by: {3}. Distance {4} m.</PhobosRadio_OperatorSummary>
+  <PhobosRadio_SheetHeader>Link budget on {0} at {1} MHz, {2}</PhobosRadio_SheetHeader>
+  <PhobosRadio_SheetAntennas>Antennas: {0} and {1}</PhobosRadio_SheetAntennas>
+  <PhobosRadio_SheetDirectionLimiting>{0} (this direction limits the link)</PhobosRadio_SheetDirectionLimiting>
+</LanguageData>

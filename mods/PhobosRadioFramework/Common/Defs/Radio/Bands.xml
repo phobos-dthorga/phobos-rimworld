@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- Bands. Edges follow the amateur allocations the design quotes; the centre frequency is what every
+       loss is computed at. obstructionFactor below 1 copes better indoors, which is UHF's real advantage
+       in buildings (authored starting values; tune in play). -->
+
+  <Phobos.Radio.BandDef>
+    <defName>PhobosRadio_VHF</defName>
+    <label>VHF (2 m)</label>
+    <description>144 to 148 MHz. Line of sight; cheap, light and reliable outdoors, but blocked by terrain and heavy walls.</description>
+    <lowMHz>144</lowMHz>
+    <highMHz>148</highMHz>
+    <obstructionFactor>1.0</obstructionFactor>
+  </Phobos.Radio.BandDef>
+
+  <Phobos.Radio.BandDef>
+    <defName>PhobosRadio_UHF</defName>
+    <label>UHF (70 cm)</label>
+    <description>430 to 450 MHz. Shorter line of sight than VHF, but copes better inside buildings and mountain bases.</description>
+    <lowMHz>430</lowMHz>
+    <highMHz>450</highMHz>
+    <obstructionFactor>0.75</obstructionFactor>
+  </Phobos.Radio.BandDef>
+</Defs>

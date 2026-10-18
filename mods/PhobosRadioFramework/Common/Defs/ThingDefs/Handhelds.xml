@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- Hand-held radios: utility apparel on the belt slot, like the vanilla shield belt, so a colonist
+       wears one or the other. Five watts, a rubber-duck antenna at hip height (authored). -->
+
+  <ThingDef ParentName="ApparelBase" Name="PhobosRadio_HandheldBase" Abstract="True">
+    <thingClass>Apparel</thingClass>
+    <graphicData>
+      <texPath>Phobos/Radio/Things/Handheld</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <techLevel>Industrial</techLevel>
+    <statBases>
+      <Mass>0.5</Mass>
+      <WorkToMake>5000</WorkToMake>
+      <Flammability>0.4</Flammability>
+      <EquipDelay>1</EquipDelay>
+    </statBases>
+    <costList>
+      <Steel>20</Steel>
+      <ComponentIndustrial>1</ComponentIndustrial>
+    </costList>
+    <recipeMaker>
+      <unfinishedThingDef>UnfinishedBelt</unfinishedThingDef>
+      <researchPrerequisite>PhobosRadio_LocalRadio</researchPrerequisite>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <effectWorking>Smith</effectWorking>
+      <soundWorking>Recipe_Machining</soundWorking>
+      <recipeUsers>
+        <li>TableMachining</li>
+      </recipeUsers>
+      <skillRequirements>
+        <Crafting>4</Crafting>
+      </skillRequirements>
+      <displayPriority>310</displayPriority>
+    </recipeMaker>
+    <thingCategories>
+      <li>ApparelUtility</li>
+    </thingCategories>
+    <apparel>
+      <countsAsClothingForNudity>false</countsAsClothingForNudity>
+      <careIfWornByCorpse>false</careIfWornByCorpse>
+      <careIfDamaged>false</careIfDamaged>
+      <wearPerDay>0</wearPerDay>
+      <bodyPartGroups>
+        <li>Waist</li>
+      </bodyPartGroups>
+      <layers>
+        <li>Belt</li>
+      </layers>
+      <developmentalStageFilter>Child, Adult</developmentalStageFilter>
+    </apparel>
+    <tradeTags>
+      <li>Clothing</li>
+    </tradeTags>
+  </ThingDef>
+
+  <ThingDef ParentName="PhobosRadio_HandheldBase">
+    <defName>PhobosRadio_HandheldVHF</defName>
+    <label>hand-held radio (VHF)</label>
+    <description>A five-watt hand-held on the 2 m band, worn on the belt. Reaches the base station across open ground with ease; heavy walls and rock cut it down. A colonist carrying one who can reach home feels in touch.</description>
+    <comps>
+      <li Class="Phobos.Radio.CompProperties_Radio">
+        <bands>
+          <li>PhobosRadio_VHF</li>
+        </bands>
+        <mode>PhobosRadio_VoiceFM</mode>
+        <transmitPowerWatts>5</transmitPowerWatts>
+        <noiseFigureDb>8</noiseFigureDb>
+        <antennaGainDbi>0</antennaGainDbi>
+        <antennaHeightMetres>1.5</antennaHeightMetres>
+      </li>
+    </comps>
+  </ThingDef>
+
+  <ThingDef ParentName="PhobosRadio_HandheldBase">
+    <defName>PhobosRadio_HandheldUHF</defName>
+    <label>hand-held radio (UHF)</label>
+    <description>A five-watt hand-held on the 70 cm band, worn on the belt. Shorter reach outdoors than VHF, but it copes better with walls, so it suits life inside a mountain.</description>
+    <comps>
+      <li Class="Phobos.Radio.CompProperties_Radio">
+        <bands>
+          <li>PhobosRadio_UHF</li>
+        </bands>
+        <mode>PhobosRadio_VoiceFM</mode>
+        <transmitPowerWatts>5</transmitPowerWatts>
+        <noiseFigureDb>8</noiseFigureDb>
+        <antennaGainDbi>0</antennaGainDbi>
+        <antennaHeightMetres>1.5</antennaHeightMetres>
+      </li>
+    </comps>
+  </ThingDef>
+</Defs>
