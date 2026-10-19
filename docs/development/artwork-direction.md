@@ -36,8 +36,30 @@ art at 2× or 4× and downscale deterministically.
 - **Not for:** the coax linked atlas (16 tiles in a fixed geometric layout, scripted), UI icons (scripted),
   anything that must line up cell-exactly.
 
+## Findings from the first night (19 to 20 Oct 2026)
+
+Set-up: ComfyUI 0.41.0 portable under `C:\AI\ComfyUI`, Flux.1-schnell fp8 (16 GB) and FLUX.2 Klein 4B
+distilled with its Qwen3-4B text encoder, VAE and fal's sprite-sheet LoRA (15 GB), all checksum-verified.
+Four images take about a minute on the RTX 4070 Ti.
+
+| Need | What worked | What did not |
+| --- | --- | --- |
+| Style target | The owner chose a crowded Surveillance Shift-style desk (pale kit on dark steel, soft shading, thin outlines) as the look to match, from a screenshot used as reference only | Flux.1-schnell's first prompts gave front views with desk legs; "straight down" alone did not fix it |
+| Top-down buildings | **Klein with a style reference** ("redraw image 1 as a floor plan, no legs"): a crowded top-down desk on the first try (`klein-station-top`) | Klein given a sketch *and* a style reference followed the style and dropped the sketch's layout; the seeds barely varied |
+| Layout control | Klein with the sketch as the *only* reference kept the layout exactly (`klein-station-sketch-only`); schnell image-to-image from a sketch did too | The sketch-only route adopts the sketch's crude style; it needs a second pass for finish |
+| Tall props (mast, whip) | **The sprite-sheet LoRA on Klein**: flat, outlined, consistent four-view sheets; the top-left tile is a ready mast sprite (`klein-mast-sheet-61`) | Text prompts for "flat 2D sprite" still produced 3D-looking lattice renders, with or without a style reference |
+| Items | Flux.1-schnell text-to-image (`handheld-1`, approved) and the sprite-sheet LoRA both give clean item icons | |
+| The Workshop preview | Flux.1-schnell painterly prompt; the owner approved `workshop-preview-3` | |
+
+Recipe for the rest of Phase 1, pending the owner's picks: buildings through Klein with the approved
+station as the style reference; props and items through the sprite-sheet LoRA; linked atlases and UI
+icons stay scripted. Every candidate carries its record; game-scale previews are in
+`assets/phobos-radio/generated/exports-preview/`, and `review.html` beside them shows everything.
+
 ## Open
 
-- [ ] The owner judges the first candidates (`assets/phobos-radio/requests/phase1-sprites.json`).
-- [ ] `AGENTS.md`'s Artwork section still carries the Ostranauts wording about PixelLab; rewrite it once the
-      first approved sprite shows which route works.
+- [ ] The owner judges the candidates (`assets/phobos-radio/generated/review.html`) and names the station,
+      mast and whip to export; rejected batches are then deleted and listed with reasons.
+- [ ] `AGENTS.md`'s Artwork section still carries the Ostranauts wording about PixelLab; rewrite it with the
+      recipe above once the owner has approved a building and a prop.
+- [ ] Whether to fetch three vanilla sprites from the wiki for study (asked 19 Oct, not yet answered).

@@ -1,0 +1,12 @@
+[
+  {
+    "name": "klein-station-sheet",
+    "engine": "klein",
+    "lora": "flux2-klein-spritesheet-lora.safetensors",
+    "lora_strength": 1.1,
+    "width": 1024,
+    "height": 1024,
+    "seeds": [71, 72],
+    "prompt": "2x2 sprite sheet of a radio operator's desk: a dark grey steel desk crowded with a VHF transceiver with a blue display, a second receiver, a power supply with an amber light, a desk microphone, a coiled handset cable and papers, a short whip antenna at one corner; flat colours with soft shading and thin dark outlines."
+  }
+]

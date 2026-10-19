@@ -1,0 +1,55 @@
+[
+  {
+    "name": "klein-station-top",
+    "engine": "klein",
+    "references": [
+      "assets/phobos-radio/generated/base-station-v3/base-station-v3-45.png"
+    ],
+    "width": 1024,
+    "height": 1024,
+    "seeds": [61, 62, 63],
+    "prompt": "Redraw image 1 as a RimWorld building sprite seen from directly above, a floor-plan view: only the desk top is visible, filling the frame edge to edge; remove the desk legs, the front face and anything below the desk top. Keep the crowded radio equipment, desk microphone, coiled cable and papers, the same palette, soft shading and thin outlines. Pure white background, no text, no people."
+  },
+  {
+    "name": "klein-station-sketch-only",
+    "engine": "klein",
+    "references": [
+      "mods/PhobosRadioFramework/Common/Textures/Phobos/Radio/Things/BaseStation.png"
+    ],
+    "width": 1024,
+    "height": 1024,
+    "seeds": [61, 62, 63],
+    "prompt": "Render image 1, a rough sketch of a radio base station seen straight down, as a finished RimWorld building sprite: keep its exact layout and top-down camera, but draw a dark grey steel desk top crowded with radio equipment (a VHF transceiver with a blank blue display and tuning knob, a second receiver, a power supply with an amber light, a desk microphone, a coiled handset cable, a few papers) in pale grey and off-white with soft gradient shading and thin dark outlines. Pure white background, no text, no people."
+  },
+  {
+    "name": "klein-mast-flat",
+    "engine": "klein",
+    "references": [
+      "assets/phobos-radio/generated/base-station-v3/base-station-v3-45.png"
+    ],
+    "width": 512,
+    "height": 1280,
+    "seeds": [61, 62, 63],
+    "prompt": "In the exact rendering style of image 1 (flat colours, soft simple shading, thin dark outlines, muted grey palette, a 2D game sprite, not a 3D render), draw a tall narrow lattice radio mast of grey steel with cross-bracing, a thin collinear antenna with a small amber tip on top, three guy wires to small anchors, and a square base plate, seen from a slightly high angle so it reads as a tall upright structure with a short soft shadow at its foot. Pure white background, no text."
+  },
+  {
+    "name": "klein-mast-sheet",
+    "engine": "klein",
+    "lora": "flux2-klein-spritesheet-lora.safetensors",
+    "lora_strength": 1.1,
+    "width": 1024,
+    "height": 1024,
+    "seeds": [61, 62],
+    "prompt": "2x2 sprite sheet of a tall lattice radio mast of grey steel with cross-bracing, a thin antenna with an amber tip on top and a square base plate, flat colours with soft shading and thin dark outlines."
+  },
+  {
+    "name": "klein-whip-sheet",
+    "engine": "klein",
+    "lora": "flux2-klein-spritesheet-lora.safetensors",
+    "lora_strength": 1.1,
+    "width": 1024,
+    "height": 1024,
+    "seeds": [61, 62],
+    "prompt": "2x2 sprite sheet of a short vertical whip antenna on a grey steel pole with a square base plate and an amber tip, flat colours with soft shading and thin dark outlines."
+  }
+]
