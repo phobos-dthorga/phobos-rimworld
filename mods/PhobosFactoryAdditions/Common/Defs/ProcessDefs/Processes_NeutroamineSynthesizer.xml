@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+  <!--
+    A Pipe System process (Vanilla Expanded Framework) for VFE Factory's neutroamine synthesizer.
+    Shape copied from VFE Factory's own VFEFactory_SynthesizeNeutroamine (read 28 Oct 2026): the same input
+    slots, time, sounds and effects, so it behaves like the stock bill in every way but its ingredients.
+
+    Values. Stock bill: 20 raw meat of any kind + 3 chemfuel -> 5 neutroamine in 4800 ticks.
+    This bill: 20 human meat + 3 chemfuel -> 6 neutroamine in 4800 ticks. The extra neutroamine is an
+    AUTHORED gameplay value: the lore says the process renders fat, and a human carcass carries far more fat
+    than the lean game animals that supply most colony meat. The mod README gives the reasoning and sources.
+  -->
+  <PipeSystem.ProcessDef>
+    <defName>PhobosFactory_SynthesizeNeutroamineFromHumanMeat</defName>
+    <label>Synthesize neutroamine from human meat</label>
+    <labelOverride>Synthesize neutroamine from human meat</labelOverride>
+    <description>Synthesize neutroamine from chemfuel and rendered human fat. People carry far more fat than game animals do, so a batch gives a little more neutroamine than the same weight of animal meat.\n\nThis is chemistry, not a meal: nobody eats anything, and nobody minds.</description>
+    <priorityInBillList>2</priorityInBillList>
+    <spawnOnInteractionCell>true</spawnOnInteractionCell>
+    <autoGrabFromHoppers>true</autoGrabFromHoppers>
+    <autoInputSlots>
+      <li>(-1,0,2)</li>
+      <li>(1,0,2)</li>
+    </autoInputSlots>
+    <ticks>4800</ticks>
+    <ingredients>
+      <li>
+        <thing>Chemfuel</thing>
+        <countNeeded>3</countNeeded>
+      </li>
+      <li>
+        <thing>Meat_Human</thing>
+        <countNeeded>20</countNeeded>
+      </li>
+    </ingredients>
+    <results>
+      <li>
+        <thing>Neutroamine</thing>
+        <count>6</count>
+      </li>
+    </results>
+    <isFactoryProcess>true</isFactoryProcess>
+    <autoExtract>true</autoExtract>
+    <onlyGrabAndOutputToFactoryHoppers>true</onlyGrabAndOutputToFactoryHoppers>
+    <sustainerWhenWorking>true</sustainerWhenWorking>
+    <sustainerDef>VFEFactory_AutomatedDrugsSustainer</sustainerDef>
+    <effecterWhenWorking>true</effecterWhenWorking>
+    <effecterDef>VFEFactory_Cook</effecterDef>
+  </PipeSystem.ProcessDef>
+
+</Defs>

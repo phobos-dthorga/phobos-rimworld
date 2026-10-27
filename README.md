@@ -22,6 +22,7 @@ As of **18 October 2026**.
 | Project | Stage | What it is | Records |
 | --- | --- | --- | --- |
 | **D'thorga Radio Framework** (working title) | Design | An XML-extensible radio framework: bands with their own personalities, propagation that changes with time and weather, and kit as heavy as physics says. Three display modes (Plain, Operator, Engineer) show as much of the maths as you want. | [Design](docs/development/radio-framework-design.md), [reference checks](docs/development/radio-reference-checks.md) |
+| **D'thorga Factory Additions** | Built, not yet tested in game | XML additions to Vanilla Furniture Expanded - Factory, starting with a human-meat neutroamine bill. | [README](mods/PhobosFactoryAdditions/README.md), [record](docs/development/vfe-factory-additions.md) |
 
 ```mermaid
 flowchart LR

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+
+  <!-- 1. Offer the human-meat bill on VFE Factory's neutroamine synthesizer. Same xpath shape as Kimoju's
+       "VFE Factories: Buffs and tweaks" uses for its insect and fish bills, so the two mods add side by side. -->
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/ThingDef[defName="VFEFactory_NeutroamineSynthesizer"]/comps/li[@Class="PipeSystem.CompProperties_AdvancedResourceProcessor"]/processes</xpath>
+    <value>
+      <li>PhobosFactory_SynthesizeNeutroamineFromHumanMeat</li>
+    </value>
+  </Operation>
+
+  <!-- 2. The stock bill takes any raw meat by category, human meat included: Pipe System matches
+       IsWithinCategory(MeatRaw) and the stock Def has no exclusion list (code read 28 Oct 2026). Exclude human
+       meat from it so the player chooses which bill gets which meat, as vanilla meal recipes do. If another mod
+       already gave that ingredient an exclusion list, add to it rather than making a second one. -->
+  <Operation Class="PatchOperationConditional">
+    <xpath>Defs/PipeSystem.ProcessDef[defName="VFEFactory_SynthesizeNeutroamine"]/ingredients/li[thingCategory="MeatRaw"]/disallowedThingDefs</xpath>
+    <match Class="PatchOperationAdd">
+      <xpath>Defs/PipeSystem.ProcessDef[defName="VFEFactory_SynthesizeNeutroamine"]/ingredients/li[thingCategory="MeatRaw"]/disallowedThingDefs</xpath>
+      <value>
+        <li>Meat_Human</li>
+      </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>Defs/PipeSystem.ProcessDef[defName="VFEFactory_SynthesizeNeutroamine"]/ingredients/li[thingCategory="MeatRaw"]</xpath>
+      <value>
+        <disallowedThingDefs>
+          <li>Meat_Human</li>
+        </disallowedThingDefs>
+      </value>
+    </nomatch>
+  </Operation>
+
+  <!-- 3. Say so in the stock bill's text, so the change shows in the Add process list. -->
+  <Operation Class="PatchOperationReplace">
+    <xpath>Defs/PipeSystem.ProcessDef[defName="VFEFactory_SynthesizeNeutroamine"]/description</xpath>
+    <value>
+      <description>Synthesize neutroamine from chemfuel and rendered animal fat. Takes any raw animal meat. Human meat has its own bill.</description>
+    </value>
+  </Operation>
+
+</Patch>

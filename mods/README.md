@@ -1,7 +1,12 @@
 # Mods
 
 Each folder here is one mod, laid out exactly as players receive it, minus its built assemblies (DLLs),
-which are build products and never committed. There are no mods yet.
+which are build products and never committed.
+
+| Mod | Folder | What it is |
+| --- | --- | --- |
+| D’thorga Radio Framework | `PhobosRadioFramework/` | Radio with a real link budget; Phase 1 is local VHF and UHF |
+| D’thorga Factory Additions | `PhobosFactoryAdditions/` | XML additions to Vanilla Furniture Expanded - Factory |
 
 A mod folder holds:
 

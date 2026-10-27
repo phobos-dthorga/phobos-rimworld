@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+
+  <!-- Loaded only while Vanilla Chemfuel Expanded is active (LoadFolders.xml). VFE Factory gives its stock
+       neutroamine bill considerBuildingCompResource under that mod, so the synthesizer can draw chemfuel from
+       the chemfuel pipe network instead of a hopper. This gives the human-meat bill the same. -->
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/PipeSystem.ProcessDef[defName="PhobosFactory_SynthesizeNeutroamineFromHumanMeat"]</xpath>
+    <value>
+      <considerBuildingCompResource>true</considerBuildingCompResource>
+    </value>
+  </Operation>
+
+</Patch>

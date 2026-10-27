@@ -20,6 +20,11 @@ promise current behaviour. For using the mods, start at the [documentation index
 - [Map scale research (19 Oct 2026)](map-scale-research.md): what a cell and a world tile measure, from the
   game's own constants, and why Phase 1 uses 1 m per cell.
 
+## Factory additions
+
+- [VFE Factory additions: research and decisions (28 Oct 2026)](vfe-factory-additions.md): how a factory bill
+  works, why the stock neutroamine bill already took human meat, the values in play, decisions and ideas.
+
 ## Artwork
 
 - [Artwork direction (19 Oct 2026)](artwork-direction.md): why PixelLab does not suit RimWorld, the three
