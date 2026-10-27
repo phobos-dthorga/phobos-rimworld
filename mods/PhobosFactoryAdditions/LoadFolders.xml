@@ -4,10 +4,12 @@
     <li>/</li>
     <li>Common</li>
     <li IfModActive="VanillaExpanded.VChemfuelE">Mods/VanillaChemfuelExpanded</li>
+    <li IfModActive="sbz.NeatStorageFridge">Mods/SbzFridge</li>
   </v1.6>
   <v1.7>
     <li>/</li>
     <li>Common</li>
     <li IfModActive="VanillaExpanded.VChemfuelE">Mods/VanillaChemfuelExpanded</li>
+    <li IfModActive="sbz.NeatStorageFridge">Mods/SbzFridge</li>
   </v1.7>
 </loadFolders>

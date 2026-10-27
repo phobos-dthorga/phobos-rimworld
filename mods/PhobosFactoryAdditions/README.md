@@ -1,14 +1,16 @@
 # D'thorga Factory Additions
 
-Additions to Vanilla Furniture Expanded - Factory. This version adds one bill: **Synthesize neutroamine
-from human meat**, for the neutroamine synthesizer.
+Additions to Vanilla Furniture Expanded - Factory: a **Synthesize neutroamine from human meat** bill for
+the neutroamine synthesizer, and, with "[sbz] Fridge", **conveyor belts and factory machines that take
+corpses straight from its corpse fridge**.
 
-Version 0.1.0, built 28 October 2026 for House D'thorga. **Not yet tested in game.**
+Version 0.2.0, built 28 October 2026 for House D'thorga. **Not yet tested in game.**
 
 ## Read this first (gotchas)
 
 - **Requires Vanilla Expanded Framework and Vanilla Furniture Expanded - Factory.** Load it after both. If
-  you run Kimoju's "VFE Factories: Buffs and tweaks", load this after that too (the About file asks for it).
+  you run Kimoju's "VFE Factories: Buffs and tweaks" or "[sbz] Fridge", load this after those too (the About
+  file asks for it).
 - **XML only, no DLL.** It declares RimWorld 1.6 and 1.7 and loads the same files on both. VFE Factory itself
   loads its 1.6 files on 1.7.
 - **The stock bill stops taking human meat** once this mod is on. Human meat sitting in a hopper that feeds
@@ -16,13 +18,19 @@ Version 0.1.0, built 28 October 2026 for House D'thorga. **Not yet tested in gam
 - **Tick Human meat in the hopper's storage filter**, and raise the hopper's priority (factory hoppers start
   at Low, so haulers will not move meat off Preferred shelves to fill one). The bill reads "Missing inputs:
   Human meat 0/20" until it is fed.
+- **A belt touching the corpse fridge empties it.** Once the fridge counts as a factory hopper, any belt
+  that has the fridge directly behind it or at either side pulls corpses out whenever the belt has room,
+  whatever the belt's own filter says. Keep belts you do not want fed away from the fridge's four cells.
 - **Safe to add to a running save.** Before removing it, remove the human-meat bill from every neutroamine
   synthesizer's Processes tab and let any running batch finish; otherwise the first load afterwards should
-  log an error about the missing process and drop that bill (expected, not yet checked).
+  log an error about the missing process and drop that bill (expected, not yet checked). The fridge change
+  leaves nothing in the save.
 - **Nothing is published on the Steam Workshop yet.** Install from source with `scripts/deploy.py`.
 - **Not yet tested in game.** Everything below is read from the mods' code and XML.
 
 ## What it does
+
+### Neutroamine from human meat
 
 | Bill | Inputs | Output | Time | Who adds it |
 | --- | --- | --- | --- | --- |
@@ -47,12 +55,32 @@ source). Raw deer meat holds about 2 to 3 grams of fat per 100 grams ([USDA Food
 secondary source). Those two figures are not like for like (a whole body against a lean cut), and the game's
 "meat" item is neither, so the bump is a nod to the direction of the difference, not its size.
 
+### The corpse fridge as a belt and factory source (needs "[sbz] Fridge")
+
+VFE Factory's belts pull only from **factory hoppers**: either the hopper building itself, or any storage
+building whose Def is flagged as one. Factory machines use the same flag to decide which cells they may grab
+ingredients from. This mod flags the **corpse fridge** from seobongzu's "[sbz] Fridge" (an Adaptive Storage
+Framework building, 2 x 2, 20 corpses). Expected from the code, not yet seen in game:
+
+- A belt with the fridge directly behind it, or at either side, pulls one corpse at a time out of the
+  fridge whenever the belt has room, and carries it on as it would from a hopper.
+- An automated mincer whose input cell (the cell in front of its hopper side) lands on one of the fridge's
+  four cells takes corpses straight from the fridge, no belt needed.
+- A belt pointed **into** the fridge already delivered corpses to it before this mod; that is stock
+  behaviour for any storage the belt's item fits.
+- Colonists still haul to and from the fridge as before. VFE Factory's "allow taking" and "allow inserting"
+  rules apply to the real hopper building only, so the fridge gains no such toggles.
+
+Only the corpse fridge is flagged. The mod's other fridges could be flagged the same way (one patch
+operation each); ask if you want belts fed from them too.
+
 ## Where to find things
 
 - Research **Complex factories** (VFE Factory). Kimoju's mod also asks for **Biofuel refining**.
 - Build the **neutroamine synthesizer** (Architect, Factories), open its **Processes** tab, click **Add
   process** and pick **Synthesize neutroamine from human meat**.
 - Human meat comes from VFE Factory's automated mincer ("Mince human corpses") or a butcher table.
+- The **corpse fridge** is under Architect, Temperature, after Air conditioning ("[sbz] Fridge").
 
 ## For modders
 
@@ -69,12 +97,34 @@ patching its result count:
 
 `Common/Patches/NeutroamineSynthesizer.xml` adds the bill to the synthesizer's process list and puts
 `Meat_Human` on the stock bill's `disallowedThingDefs`. Remove that second operation to let the stock bill
-take human meat again. `Mods/VanillaChemfuelExpanded/` loads only while that mod is active.
+take human meat again. `Mods/VanillaChemfuelExpanded/` and `Mods/SbzFridge/` load only while those mods are
+active.
+
+To let belts and machines pull from any other storage building, add Pipe System's extension to its Def:
+
+```xml
+<Operation Class="PatchOperationAddModExtension">
+  <xpath>Defs/ThingDef[defName="YourStorageDef"]</xpath>
+  <value>
+    <li Class="PipeSystem.FactoryHopperExtension">
+      <isfactoryHopper>true</isfactoryHopper>
+    </li>
+  </value>
+</Operation>
+```
+
+It works only for storage whose items stay spawned on its cells (vanilla shelves, Adaptive Storage buildings);
+the belt reads the map's thing grid. The full reading is in
+[docs/development/vfe-factory-conveyors.md](../../docs/development/vfe-factory-conveyors.md).
 
 ## Checks done
 
 - 28 October 2026: the stock bill's ingredient matching read in Vanilla Expanded Framework's Pipe System
   code (category match, exclusion list honoured, no human-meat filter anywhere in VFE Factory). The stock,
-  insect and fish values read from the installed mods' XML. `scripts/check-mod-layout.py` passes.
+  insect and fish values read from the installed mods' XML. The belt's pull rule and the machines' input
+  rule read in VFE Factory's and Pipe System's code; Adaptive Storage Framework's published source read for
+  how it holds items. Every patch xpath matched exactly one node in the installed mods' XML.
+  `scripts/check-mod-layout.py` passes.
 - **Not checked:** anything in game. Whether the patches apply cleanly, whether the bill appears, feeds and
-  outputs, and what happens on removal are all untested.
+  outputs, whether a belt actually lifts a corpse out of the fridge, and what happens on removal are all
+  untested.

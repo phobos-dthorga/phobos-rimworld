@@ -5,6 +5,24 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-10-28 - Draft
+
+The corpse fridge as a source for belts and machines. Not yet tested in game.
+
+### Added
+
+- With "[sbz] Fridge" (seobongzu) active, its corpse fridge counts as a factory hopper: conveyor belts with
+  the fridge behind them or at either side pull corpses out of it, and an automated mincer whose input cell
+  lands on the fridge takes corpses straight from it. One Def extension, loaded only while that mod is on.
+
+### Compatibility and limits
+
+- Any belt touching the fridge on the belt's back or sides will empty it whenever the belt has room; the
+  belt's own filter does not stop that (stock hopper behaviour).
+- Only the corpse fridge is flagged; the mod's other fridges are unchanged.
+- Nothing is written to the save; removing the mod only stops the pulling.
+- Not yet tested in game.
+
 ## [0.1.0] - 2026-10-28 - Draft
 
 The first slice: human meat as a neutroamine feedstock, as its own bill. Not yet tested in game.

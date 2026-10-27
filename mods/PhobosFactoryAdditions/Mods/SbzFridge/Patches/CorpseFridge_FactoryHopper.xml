@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+
+  <!-- Loaded only while "[sbz] Fridge" (sbz.NeatStorageFridge, by seobongzu) is active (LoadFolders.xml).
+
+       VFE Factory's belts pull only from a storage building that is a factory hopper, or whose Def carries
+       Pipe System's FactoryHopperExtension with isfactoryHopper true (Building_Conveyor.TryPullFromDir; code
+       read 28 Oct 2026). Factory machines use the same flag to find input hoppers (Process.InputFactoryHopperDetected).
+       VFE Factory itself flags Vanilla Chemfuel Expanded's chemfuel tap this way. The corpse fridge is an
+       Adaptive Storage Framework building, and that framework keeps stored items spawned on the fridge's cells,
+       which is where the belt looks. docs/development/vfe-factory-conveyors.md has the full reading. -->
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>Defs/ThingDef[defName="sbz_CorpseFridge"]</xpath>
+    <value>
+      <li Class="PipeSystem.FactoryHopperExtension">
+        <isfactoryHopper>true</isfactoryHopper>
+      </li>
+    </value>
+  </Operation>
+
+</Patch>

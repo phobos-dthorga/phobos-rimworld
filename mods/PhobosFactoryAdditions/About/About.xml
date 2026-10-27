@@ -4,10 +4,12 @@
   <name>D'thorga Factory Additions</name>
   <author>Phobos A. D'thorga</author>
   <url>https://github.com/phobos-dthorga/phobos-rimworld</url>
-  <modVersion>0.1.0</modVersion>
+  <modVersion>0.2.0</modVersion>
   <description>Additions to Vanilla Furniture Expanded - Factory.
 
-This version: a "Synthesize neutroamine from human meat" bill for the neutroamine synthesizer. People carry far more fat than game animals, so a batch gives a little more neutroamine than the same weight of animal meat. The stock bill keeps taking animal meat and stops taking human meat, so you choose which meat goes where. Nobody eats anything, and no Ideology thought fires.
+A "Synthesize neutroamine from human meat" bill for the neutroamine synthesizer. People carry far more fat than game animals, so a batch gives a little more neutroamine than the same weight of animal meat. The stock bill keeps taking animal meat and stops taking human meat, so you choose which meat goes where. Nobody eats anything, and no Ideology thought fires.
+
+With "[sbz] Fridge" active, conveyor belts and factory machines can take corpses straight out of its corpse fridge, as they do from a factory hopper.
 
 Requires Vanilla Expanded Framework and Vanilla Furniture Expanded - Factory. Uses Vanilla Chemfuel Expanded's piped chemfuel when that mod is active.
 
@@ -41,5 +43,7 @@ Community-created content. Not official and not endorsed by Ludeon Studios.</des
     <li>VanillaExpanded.VChemfuelE</li>
     <li>VanillaExpanded.VFEFactory</li>
     <li>Kimo.VFEF.rebalance</li>
+    <li>adaptive.storage.framework</li>
+    <li>sbz.NeatStorageFridge</li>
   </loadAfter>
 </ModMetaData>
