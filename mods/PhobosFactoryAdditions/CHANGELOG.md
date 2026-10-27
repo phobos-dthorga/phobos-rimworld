@@ -25,7 +25,8 @@ The corpse fridge as a source for belts and machines. Not yet tested in game.
 
 ## [0.1.0] - 2026-10-28 - Draft
 
-The first slice: human meat as a neutroamine feedstock, as its own bill. Not yet tested in game.
+The first slice: human meat as a neutroamine feedstock, as its own bill. Tested in game by the owner on
+28 October 2026 (RimWorld 1.7): the human-meat bill works.
 
 ### Added
 
@@ -61,4 +62,4 @@ The first slice: human meat as a neutroamine feedstock, as its own bill. Not yet
 - Loads beside Kimoju's "VFE Factories: Buffs and tweaks" (insect and fish bills); both add to the same list.
 - Another mod that replaces the stock bill's description wins or loses by load order; the exclusion is
   added to an existing exclusion list rather than duplicated.
-- Not yet tested in game.
+- The stock bill's exclusion of human meat and removal from a save are not yet tested in game.

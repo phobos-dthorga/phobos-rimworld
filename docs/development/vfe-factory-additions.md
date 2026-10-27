@@ -54,6 +54,7 @@ than lean game, and the lore renders fat) and its sources are in the mod README;
 | 28 Oct 2026 | One mod, `PhobosDthorga.FactoryAdditions` ("D'thorga Factory Additions"), to collect every VFE Factory modification; folder `mods/PhobosFactoryAdditions/`, defName prefix `PhobosFactory_` | agent default, owner to confirm the name |
 | 28 Oct 2026 | VFE Factory is a hard dependency of this mod (it exists only to change that mod), beside Vanilla Expanded Framework | agent default; the radio framework's one-hard-dependency rule is about the framework, not this content mod |
 | 28 Oct 2026 | 6 neutroamine per 20 human meat; batch time and chemfuel unchanged | agent default, owner to tune in play |
+| 28 Oct 2026 | Owner tested the human-meat bill in game on RimWorld 1.7: "It's working well" | owner |
 | 28 Oct 2026 | Declares 1.6 and 1.7 (the owner plays 1.7 since 26 Oct 2026); XML only, so one set of files serves both | agent default |
 | 28 Oct 2026 | Vanilla Chemfuel Expanded tie-in through an `IfModActive` folder, mirroring VFE Factory's own patch | agent default |
 | 28 Oct 2026 | No shared library code: the change is XML on another mod's Defs, and no service another Phobos mod would reuse | agent default |

@@ -4,7 +4,8 @@ Additions to Vanilla Furniture Expanded - Factory: a **Synthesize neutroamine fr
 the neutroamine synthesizer, and, with "[sbz] Fridge", **conveyor belts and factory machines that take
 corpses straight from its corpse fridge**.
 
-Version 0.2.0, built 28 October 2026 for House D'thorga. **Not yet tested in game.**
+Version 0.2.0, built 28 October 2026 for House D'thorga. **The human-meat bill is tested in game** (owner,
+28 October 2026, RimWorld 1.7). The corpse fridge change is not yet tested in game.
 
 ## Read this first (gotchas)
 
@@ -26,7 +27,9 @@ Version 0.2.0, built 28 October 2026 for House D'thorga. **Not yet tested in gam
   log an error about the missing process and drop that bill (expected, not yet checked). The fridge change
   leaves nothing in the save.
 - **Nothing is published on the Steam Workshop yet.** Install from source with `scripts/deploy.py`.
-- **Not yet tested in game.** Everything below is read from the mods' code and XML.
+- **Tested in game: the human-meat bill only.** The owner confirmed on 28 October 2026, on RimWorld 1.7,
+  that it works. The corpse fridge change, the stock bill's exclusion and removal from a save are not yet
+  tested in game; what this README says about them is read from the mods' code and XML.
 
 ## What it does
 
@@ -125,6 +128,6 @@ the belt reads the map's thing grid. The full reading is in
   rule read in VFE Factory's and Pipe System's code; Adaptive Storage Framework's published source read for
   how it holds items. Every patch xpath matched exactly one node in the installed mods' XML.
   `scripts/check-mod-layout.py` passes.
-- **Not checked:** anything in game. Whether the patches apply cleanly, whether the bill appears, feeds and
-  outputs, whether a belt actually lifts a corpse out of the fridge, and what happens on removal are all
-  untested.
+- 28 October 2026, owner, in game on RimWorld 1.7: the human-meat bill works.
+- **Not checked:** whether the stock bill now refuses human meat, whether a belt actually lifts a corpse
+  out of the fridge, and what happens on removal are all untested.
