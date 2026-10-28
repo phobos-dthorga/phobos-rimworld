@@ -7,9 +7,10 @@ on only while its mod is active (Medicines+, Deep Pills, Ushankas Biological War
 Rimatomics, Hemofungus, Complementary Odyssey, Glitterworld Medicine Production, Farmable Neutroamine,
 Passive Exoskeletons, Simple Washing Machine).
 
-Version 0.3.1, built 29 October 2026 for House D'thorga. **The human-meat bill is tested in game** (owner,
-28 October 2026, RimWorld 1.7). The corpse fridge change and every 0.3.0 bill are not yet tested in game.
-0.3.1 fixes 0.3.0, whose drug-lab bills never reached the machines (see the changelog).
+Version 0.3.2, built 29 October 2026 for House D'thorga. **The human-meat bill is tested in game** (owner,
+28 October 2026, RimWorld 1.7). The corpse fridge change, every 0.3.0 bill and the 0.3.2 chemfuel repair
+are not yet tested in game. 0.3.1 fixes 0.3.0, whose drug-lab bills never reached the machines (see the
+changelog).
 
 ## Read this first (gotchas)
 
@@ -152,6 +153,22 @@ are two bills.
 With Vanilla Chemfuel Expanded active these three can draw their chemfuel from the pipe network, as the
 refinery's stock bills do. With Vanilla Races Expanded - Android active, the granulator bills that take
 neutroamine can draw it from that mod's neutroamine network (mirrors VFE Factory's own patch; untested).
+
+### Chemfuel taps and piped astrofuel (needs Vanilla Chemfuel Expanded; 0.3.2)
+
+VFE Factory sets up two things for Vanilla Chemfuel Expanded: the **chemfuel tap** (a 1 x 1 basin that fills
+itself with chemfuel from the pipe network) counts as a **factory hopper**, and the refinery's **astrofuel**
+bill (with Vanilla Gravship Expanded) takes chemfuel **straight from the pipes**. Both live at the end of one
+VFE Factory patch, and that patch stops early when Combat Extended and Vanilla Factions Expanded - Deserters
+are also active: CE removes an armour-piercing shell bill that an earlier step edits. This mod applies the
+two missing steps itself, each only if it is still missing. Expected, not yet seen in game:
+
+- A belt with a chemfuel tap behind it, or at either side, carries chemfuel away from it.
+- A machine whose input cell sits on a tap takes chemfuel straight from it, no belt needed.
+- The astrofuel bill runs on piped chemfuel, as the refinery's other chemfuel-using bills do.
+
+As with any factory hopper, **a belt touching a tap pulls from it whenever the belt has room**, so keep
+belts you don't want fed away from taps.
 
 ### The corpse fridge as a belt and factory source (needs "[sbz] Fridge")
 

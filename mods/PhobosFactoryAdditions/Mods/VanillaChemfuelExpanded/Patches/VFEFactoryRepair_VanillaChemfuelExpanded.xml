@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+
+  <!--
+    Re-apply the last two steps of VFE Factory's own Patches/VanillaChemfuelExpandedPatch.xml when they did
+    not run. That file is one PatchOperationSequence, and a sequence stops at its first failed step. With
+    Combat Extended and Vanilla Factions Expanded - Deserters active, CE's VFE Factory patch removes
+    VFEFactory_MakeArmorPiercingShells before VFE Factory's step that edits it, so that step fails and the two
+    steps after it never run (seen in the owner's log, 29 Oct 2026). Each operation here first checks whether
+    its change is already present, so it does nothing once VFE Factory or CE fix the clash, and nothing for
+    players whose mods never hit it. This mod loads after VFE Factory, so its patches run after VFE Factory's.
+    Not yet tested in game.
+  -->
+
+  <!-- 1. The chemfuel tap counts as a factory hopper: belts pull chemfuel from it and a machine whose input
+          cell lands on it takes chemfuel straight from it, as VFE Factory intends. -->
+  <Operation Class="PatchOperationConditional">
+    <xpath>Defs/ThingDef[defName="VCHE_ChemfuelTap"]/modExtensions/li[@Class="PipeSystem.FactoryHopperExtension"]</xpath>
+    <nomatch Class="PatchOperationAddModExtension">
+      <xpath>Defs/ThingDef[defName="VCHE_ChemfuelTap"]</xpath>
+      <value>
+        <li Class="PipeSystem.FactoryHopperExtension">
+          <isfactoryHopper>true</isfactoryHopper>
+        </li>
+      </value>
+    </nomatch>
+  </Operation>
+
+  <!-- 2. The refinery's astrofuel bill (Vanilla Gravship Expanded) draws chemfuel from the pipe network. -->
+  <Operation Class="PatchOperationFindMod">
+    <mods>
+      <li>Vanilla Gravship Expanded - Chapter 1</li>
+    </mods>
+    <match Class="PatchOperationConditional">
+      <xpath>Defs/PipeSystem.ProcessDef[defName="VFEFactory_AstrofuelFromChemfuel"]/considerBuildingCompResource</xpath>
+      <nomatch Class="PatchOperationAdd">
+        <xpath>Defs/PipeSystem.ProcessDef[defName="VFEFactory_AstrofuelFromChemfuel"]</xpath>
+        <value>
+          <considerBuildingCompResource>true</considerBuildingCompResource>
+        </value>
+      </nomatch>
+    </match>
+  </Operation>
+
+</Patch>

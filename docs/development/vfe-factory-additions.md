@@ -67,6 +67,7 @@ than lean game, and the lore renders fat) and its sources are in the mod README;
 | 28 Oct 2026 | Pipe tie-ins (chemfuel, neutroamine) wrapped in PatchOperationFindMod on the source mod's display name, as VFE Factory does, instead of a folder per pair of mods | agent default |
 | 29 Oct 2026 | Owner reported the 0.3.0 bills missing from the machines while RimDex listed them | owner |
 | 29 Oct 2026 | 0.3.1: every file in a `Mods/<SourceMod>/` folder carries the folder's name; both repository checks model the game's one-file-per-path rule | agent (a fix) |
+| 29 Oct 2026 | 0.3.2: re-apply the two VFE Factory chemfuel steps the CE clash skips (tap as factory hopper, piped astrofuel), each guarded by a check that it is still missing | owner (agent proposed) |
 
 ## Drug lab recipes as factory bills (28 Oct 2026)
 
@@ -156,7 +157,8 @@ checks now share `files_the_game_loads` in `check-mod-layout.py`. Run against th
 factory checker reports the 9 skipped patch files and 41 bills on no machine; the layout check refuses a
 shared path without needing the game.
 
-**Separate finding, not changed:** with Combat Extended, Vanilla Chemfuel Expanded and Vanilla Factions
+**Separate finding, repaired in 0.3.2** (`Mods/VanillaChemfuelExpanded/Patches/VFEFactoryRepair_VanillaChemfuelExpanded.xml`;
+`PatchOperationSequence` stopping at its first failed step confirmed in the 1.7 assembly): with Combat Extended, Vanilla Chemfuel Expanded and Vanilla Factions
 Expanded - Deserters all active, VFE Factory's own `VanillaChemfuelExpandedPatch.xml` fails at its
 armour-piercing shell step, because Combat Extended's VFE Factory patch removes that bill first. A failed step ends
 its PatchOperationSequence, so the two steps after it never run: `considerBuildingCompResource` on

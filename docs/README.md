@@ -13,7 +13,7 @@ Each mod's README is its player guide, with the gotchas first.
 | Mod | Version | What it does | Guide |
 | --- | --- | --- | --- |
 | **D'thorga Radio Framework** | 0.1.0 (in development) | Hand-held VHF and UHF radios, a base station, coax and antennas; a real link budget decides every contact; the "In touch" mood | [README](../mods/PhobosRadioFramework/README.md) |
-| **D'thorga Factory Additions** | 0.3.1 (in development) | Additions to Vanilla Furniture Expanded - Factory: a human-meat neutroamine bill, belts that take corpses from the [sbz] Fridge corpse fridge, and 44 drug-lab recipes from other mods as factory bills | [README](../mods/PhobosFactoryAdditions/README.md) |
+| **D'thorga Factory Additions** | 0.3.2 (in development) | Additions to Vanilla Furniture Expanded - Factory: a human-meat neutroamine bill, belts that take corpses from the [sbz] Fridge corpse fridge, and 44 drug-lab recipes from other mods as factory bills | [README](../mods/PhobosFactoryAdditions/README.md) |
 
 ## For contributors
 

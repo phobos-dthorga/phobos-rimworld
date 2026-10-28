@@ -5,6 +5,24 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.3.2] - 2026-10-29 - Draft
+
+Restores two pieces of VFE Factory's own Vanilla Chemfuel Expanded support that a mod clash skips. Not
+yet tested in game.
+
+### Fixed
+
+- With Vanilla Chemfuel Expanded: its chemfuel tap counts as a factory hopper again, so belts pull chemfuel
+  from it and a machine whose input cell lands on it takes chemfuel straight from it. With Vanilla Gravship
+  Expanded as well, the automated biofuel refinery's astrofuel bill draws chemfuel from the pipe network
+  again. VFE Factory sets both up, but its patch stops at an earlier step when Combat Extended and Vanilla
+  Factions Expanded - Deserters are also active (CE removes a shell bill that step edits). Each repair
+  checks first and does nothing if the change is already there. Owner's go-ahead, 29 October 2026.
+
+### Save compatibility
+
+- Safe to add mid-game. Nothing saved changes. Chemfuel taps already built become factory hoppers.
+
 ## [0.3.1] - 2026-10-29 - Draft
 
 Fixes 0.3.0's bills not appearing on the machines. Not yet tested in game.
