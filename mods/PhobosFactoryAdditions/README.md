@@ -1,16 +1,16 @@
 # D'thorga Factory Additions
 
 Additions to Vanilla Furniture Expanded - Factory: a **Synthesize neutroamine from human meat** bill for
-the neutroamine synthesizer; with "[sbz] Fridge", **conveyor belts and factory machines that take corpses
+the neutroamine synthesizer; a **deep factory hopper** that holds four stacks; with "[sbz] Fridge", **conveyor belts and factory machines that take corpses
 straight from its corpse fridge**; and **drug lab recipes from other mods as factory bills**, each switched
 on only while its mod is active (Medicines+, Deep Pills, Ushankas Biological Warfare, Combat Extended, Dubs
 Rimatomics, Hemofungus, Complementary Odyssey, Glitterworld Medicine Production, Farmable Neutroamine,
 Passive Exoskeletons, Simple Washing Machine).
 
-Version 0.3.2, built 29 October 2026 for House D'thorga. **The human-meat bill is tested in game** (owner,
-28 October 2026, RimWorld 1.7). The corpse fridge change, every 0.3.0 bill and the 0.3.2 chemfuel repair
-are not yet tested in game. 0.3.1 fixes 0.3.0, whose drug-lab bills never reached the machines (see the
-changelog).
+Version 0.4.0, built 29 October 2026 for House D'thorga. **Tested in game:** the human-meat bill (owner,
+28 October 2026, RimWorld 1.7) and the drug-lab bills appearing on their machines (owner, 29 October 2026).
+The corpse fridge change, running the 0.3.0 bills to the end, the 0.3.2 chemfuel repair and the 0.4.0 deep
+factory hopper are not yet tested in game.
 
 ## Read this first (gotchas)
 
@@ -37,13 +37,15 @@ changelog).
 - **Tick the ingredient in the hopper's storage filter**, and raise the hopper's priority (factory hoppers
   start at Low, so haulers will not move items off Preferred shelves to fill one). A bill reads "Missing
   inputs" until it is fed.
+- **The deep factory hopper looks exactly like the ordinary one** on the map (VFE Factory's hopper draws
+  fixed textures). Select it to see which it is. Like every factory hopper it starts at **Low** priority.
 - **A belt touching the corpse fridge empties it.** Once the fridge counts as a factory hopper, any belt
   that has the fridge directly behind it or at either side pulls corpses out whenever the belt has room,
   whatever the belt's own filter says. Keep belts you do not want fed away from the fridge's four cells.
 - **Safe to add to a running save.** Before removing it, remove every bill this mod added from each
   machine's Processes tab and let any running batch finish; otherwise the first load afterwards should log
-  an error about a missing process and drop that bill (expected, not yet checked). The fridge change leaves
-  nothing in the save.
+  an error about a missing process and drop that bill (expected, not yet checked). **Deconstruct every deep
+  factory hopper** too; the items on it stay where they are. The fridge change leaves nothing in the save.
 - **Nothing is published on the Steam Workshop yet.** Install from source with `scripts/deploy.py`.
 - **Tested in game: the human-meat bill, and the 0.3.1 fix.** The owner confirmed on 28 October 2026, on
   RimWorld 1.7, that the human-meat bill works, and on 29 October 2026, with 0.3.2 installed, that the bills
@@ -156,6 +158,34 @@ With Vanilla Chemfuel Expanded active these three can draw their chemfuel from t
 refinery's stock bills do. With Vanilla Races Expanded - Android active, the granulator bills that take
 neutroamine can draw it from that mod's neutroamine network (mirrors VFE Factory's own patch; untested).
 
+### The deep factory hopper (0.4.0)
+
+A factory hopper that holds **four stacks** on its one cell instead of one. Cost **35 steel and 1
+component**, 800 work (the ordinary hopper: 20 steel, 400 work); same research and Architect tab. All three
+figures are agent defaults, open to tuning.
+
+**Why it helps.** A factory machine does not tie an input cell to one ingredient: while a bill waits, it
+looks at every item on each of its input cells and takes whatever that bill still needs, keeping a running
+count of each ingredient inside the machine. So one hopper can feed several ingredients. With an ordinary
+hopper (one stack) that jams easily: a belt carrying two ingredients drops a stack the machine has had enough
+of, the hopper is full, and the other ingredient waits behind it on the belt for ever. A deep hopper has room
+for one stack of each of four ingredients, and more of the same item merges into its stack.
+
+| Use | What to expect (read from the code, not yet seen in game) |
+| --- | --- |
+| **Input**, fed by one belt carrying mixed ingredients | The belt keeps filling it until all four places hold something; the machine takes what it needs from any of them. |
+| **Input**, filled by haulers | Tick every ingredient in its storage filter and raise its priority. |
+| **Output** of items that do not stack (weapons, apparel from the machining bay) | Holds up to four finished items before the machine waits. |
+| **Output** of items that stack | Same as an ordinary hopper: the batch waits once that stack reaches the bill's output cap. |
+| Under a belt that pulls from it | The belt takes one whole stack at a time, the first it finds. |
+
+It can share a storage group with ordinary hoppers (same group tag), and inherits everything else from VFE
+Factory's hopper: input and output markings, the allow taking and allow inserting toggles, research.
+
+**Tip for the automated machining bay** (three input cells, up to four solid ingredients plus chemfuel): put a
+deep hopper on the input cell fed by the mixed belt, or deep hoppers on all three. Chemfuel needs no hopper
+with Vanilla Chemfuel Expanded: the bay's bills draw it from the pipes.
+
 ### Chemfuel taps and piped astrofuel (needs Vanilla Chemfuel Expanded; 0.3.2)
 
 VFE Factory sets up two things for Vanilla Chemfuel Expanded: the **chemfuel tap** (a 1 x 1 basin that fills
@@ -197,6 +227,7 @@ operation each); ask if you want belts fed from them too.
   the refinery. Kimoju's mod also asks for **Biofuel refining** on the synthesizer.
 - Build the machine (Architect, Factories), open its **Processes** tab, click **Add process** and pick the
   bill. Bills whose research is not done are not listed yet.
+- The **deep factory hopper** is under Architect, Factories, beside the factory hopper (Basic factories).
 - Human meat comes from VFE Factory's automated mincer ("Mince human corpses") or a butcher table.
 - The **corpse fridge** is under Architect, Temperature, after Air conditioning ("[sbz] Fridge").
 

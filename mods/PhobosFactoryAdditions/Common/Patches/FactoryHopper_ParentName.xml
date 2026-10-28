@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+
+  <!--
+    Give VFE Factory's factory hopper a Name, so this mod's deep factory hopper can inherit it (ParentName)
+    instead of copying its XML: the deep hopper then keeps VFE Factory's class, graphics, gizmos, research,
+    Architect tab and factory-hopper flag, and follows VFE Factory's updates. The game resolves inheritance
+    after every patch has run, so a Name added here is seen. PatchOperationAttributeAdd does nothing if the Def
+    already has a Name; check-factory-patches.py reports that case, since the ParentName would then break.
+  -->
+  <Operation Class="PatchOperationAttributeAdd">
+    <xpath>Defs/ThingDef[defName="VFEFactory_FactoryHopper"]</xpath>
+    <attribute>Name</attribute>
+    <value>PhobosFactory_FactoryHopperParent</value>
+  </Operation>
+
+</Patch>

@@ -4,10 +4,12 @@
   <name>D'thorga Factory Additions</name>
   <author>Phobos A. D'thorga</author>
   <url>https://github.com/phobos-dthorga/phobos-rimworld</url>
-  <modVersion>0.3.2</modVersion>
+  <modVersion>0.4.0</modVersion>
   <description>Additions to Vanilla Furniture Expanded - Factory.
 
 A "Synthesize neutroamine from human meat" bill for the neutroamine synthesizer. People carry far more fat than game animals, so a batch gives a little more neutroamine than the same weight of animal meat. The stock bill keeps taking animal meat and stops taking human meat, so you choose which meat goes where. Nobody eats anything, and no Ideology thought fires.
+
+A deep factory hopper: a factory hopper that holds four stacks on its one cell, so a machine can draw several ingredients from one input cell and a belt carrying mixed items does not jam on the first surplus stack.
 
 With "[sbz] Fridge" active, conveyor belts and factory machines can take corpses straight out of its corpse fridge, as they do from a factory hopper.
 

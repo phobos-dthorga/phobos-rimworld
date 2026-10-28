@@ -5,6 +5,40 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.4.0] - 2026-10-29 - Draft
+
+A deep factory hopper that holds four stacks. Not yet tested in game.
+
+### Added
+
+- Deep factory hopper (Architect, Factories, beside the factory hopper): holds up to four stacks on its one
+  cell instead of one. A machine takes every ingredient it still needs from an input cell, so one deep
+  hopper can feed several ingredients, and a belt carrying mixed items keeps filling it instead of stopping
+  behind one surplus stack. Asked for by the owner on 29 October 2026, after sharing one ordinary hopper
+  between two ingredients clogged.
+- It inherits everything else from VFE Factory's own hopper (looks, input and output markings, the allow
+  taking and allow inserting toggles, storage groups, research), so it follows VFE Factory's updates.
+- scripts/check-factory-patches.py also checks that every ParentName in the mod resolves, and that a patch
+  adding a Name does not meet one already there.
+
+### Balance
+
+- 35 steel and 1 component, 800 work (the stock hopper: 20 steel, 400 work). Four stacks, one per solid
+  ingredient of a four-ingredient bill. Agent defaults, owner to tune.
+
+### Compatibility and limits
+
+- It looks exactly like the ordinary hopper on the map: VFE Factory's hopper class draws fixed textures.
+  Tell them apart by the name when selected.
+- Used as an output hopper, it can hold up to four finished items that do not stack, such as weapons from the
+  machining bay, before the machine waits. Items that stack still wait at the bill's output cap, as in an
+  ordinary hopper.
+
+### Save compatibility
+
+- Safe to add mid-game. Before removing the mod, deconstruct every deep factory hopper; the items on it stay
+  on the ground.
+
 ## [0.3.2] - 2026-10-29 - Draft
 
 Restores two pieces of VFE Factory's own Vanilla Chemfuel Expanded support that a mod clash skips. Not

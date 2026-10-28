@@ -68,6 +68,8 @@ than lean game, and the lore renders fat) and its sources are in the mod README;
 | 29 Oct 2026 | Owner reported the 0.3.0 bills missing from the machines while RimDex listed them | owner |
 | 29 Oct 2026 | 0.3.1: every file in a `Mods/<SourceMod>/` folder carries the folder's name; both repository checks model the game's one-file-per-path rule | agent (a fix) |
 | 29 Oct 2026 | Owner tested 0.3.1's fix in game (0.3.2 installed): the bills appear on the machines, "Everything seems to be good in-game now"; the chemfuel-tap repair not specifically confirmed | owner |
+| 29 Oct 2026 | 0.4.0: a deep factory hopper (option C of three: share a hopper, more input cells, a multi-stack hopper); the owner had tried sharing an ordinary hopper and it clogged | owner |
+| 29 Oct 2026 | Deep hopper: inherit VFE Factory's hopper through a patch-added Name instead of copying it; 4 stacks; 35 steel, 1 component, 800 work; same storage group tag as the ordinary hopper | agent defaults, owner to tune |
 | 29 Oct 2026 | 0.3.2: re-apply the two VFE Factory chemfuel steps the CE clash skips (tap as factory hopper, piped astrofuel), each guarded by a check that it is still missing | owner (agent proposed) |
 
 ## Drug lab recipes as factory bills (28 Oct 2026)
@@ -165,6 +167,31 @@ armour-piercing shell step, because Combat Extended's VFE Factory patch removes 
 its PatchOperationSequence, so the two steps after it never run: `considerBuildingCompResource` on
 `VFEFactory_AstrofuelFromChemfuel`, and the factory-hopper flag on Vanilla Chemfuel Expanded's chemfuel tap.
 Seen in the owner's log (29 Oct 2026); the consequence is read from the XML, not seen in game.
+
+## How machines take from hoppers, and the deep factory hopper (29 Oct 2026)
+
+Code read in Pipe System 1.7 and VFE Factory, not tested in game:
+
+- **Machines.** While a bill waits, `Process.CheckInputSlots` visits each `autoInputSlots` cell (rotated with
+  the machine), skips it unless a building there carries `FactoryHopperExtension` (for hopper-only bills),
+  and offers **every item on the cell** to every ingredient. `ThingAndResourceOwner.AddFromThing` takes only
+  what that ingredient still needs (splitting the stack) and keeps a running count inside the machine; the
+  batch starts when every count is full. So an input cell is not tied to an ingredient.
+- **Why a shared ordinary hopper clogs.** It holds one stack. If the stack on it is something the machine
+  already has enough of, nothing else can land there, and the next ingredient waits behind it on the belt.
+- **Belts.** Pushing into storage, a belt counts the items on each cell against
+  `GetMaxItemsAllowedInCell` (the building's `maxItemsInCell`) and also allows merging into a stack of the
+  same item with room; pulling, it takes the first item stack it finds, whole.
+- **Output.** A finished batch merges into the first matching stack on the output cell, and waits when that
+  stack is above the bill's cap; items made with a stuff (`useFirstIngredientAsOutputStuff`, such as the
+  machining bay's weapons) are placed as new things instead, so a multi-stack output cell holds several.
+- **VFE's hopper Def** (`VFEFactory_FactoryHopper`) sets `maxItemsInCell` 1 and uses
+  `Building_FactoryHopper`, which replaces the Def's graphic with three fixed textures (plain, input,
+  output); only the autofarmer's placement preview names that Def directly.
+- **The deep hopper** (`PhobosFactory_DeepFactoryHopper`) inherits that Def through a Name added by
+  `PatchOperationAttributeAdd` (inheritance resolves after patches), overriding `maxItemsInCell` (4), cost
+  and work. Because the class draws fixed textures, it looks the same as the ordinary hopper. A custom look
+  would need a small C# subclass and new art: not done.
 
 ## Ideas for later additions (agent suggestions, not decided)
 

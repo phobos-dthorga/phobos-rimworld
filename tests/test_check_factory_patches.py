@@ -163,6 +163,28 @@ class CheckerTests(unittest.TestCase):
                 'Common/Defs/P.xml: Phobos_Flake is defined but no patch adds it to a machine'])
             self.assertIn('1 patch files', summary)
 
+    def test_parent_names_must_exist_or_be_added_by_a_patch(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            f = Fixture(tmp)
+            name_patch = ('<Operation Class="PatchOperationAttributeAdd"><xpath>Defs/ThingDef[defName="{0}"]</xpath>'
+                          '<attribute>Name</attribute><value>{1}</value></Operation>')
+            write(f.mod / 'Common' / 'Patches' / 'Names.xml',
+                  '<Patch>' + name_patch.format('VFEFactory_MedicineGranulator', 'Phobos_GranulatorParent') + '</Patch>')
+            write(f.mod / 'Common' / 'Defs' / 'Things.xml', '<Defs>'
+                  '<ThingDef ParentName="Phobos_GranulatorParent"><defName>Phobos_Good</defName></ThingDef>'
+                  '<ThingDef ParentName="DrugBase"><defName>Phobos_VanillaParent</defName></ThingDef>'
+                  '<ThingDef ParentName="Phobos_Nowhere"><defName>Phobos_Orphan</defName></ThingDef></Defs>')
+            errors, _ = f.check()
+            self.assertEqual(errors, ['Common/Defs/Things.xml: Phobos_Orphan: ParentName Phobos_Nowhere is not a Name '
+                                      "in the loaded Defs or one this mod's patches add"])
+            # If the target already has a Name, the game keeps it, skips the patch and the ParentName breaks.
+            write(f.workshop / '1' / '1.6' / 'Defs' / 'Named.xml', '<Defs><ThingDef Name="TheirName"><defName>Named</defName></ThingDef></Defs>')
+            write(f.mod / 'Common' / 'Patches' / 'Names.xml',
+                  '<Patch>' + name_patch.format('Named', 'Phobos_GranulatorParent') + '</Patch>')
+            text = '\n'.join(f.check()[0])
+            self.assertIn('already has Name="TheirName", so the game keeps it and skips this PatchOperationAttributeAdd', text)
+            self.assertIn('Phobos_Good: ParentName Phobos_GranulatorParent is not a Name', text)
+
     def test_load_folders_fall_back_to_the_newest_lower_version(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)

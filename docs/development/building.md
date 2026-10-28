@@ -24,7 +24,8 @@ python -m unittest discover -s tests
   folder, never writing to them, and checks D'thorga Factory Additions (or `--mod <Name>`) against them:
   no file is skipped for sharing a path with a later folder's file, every patch xpath matches one node, every
   Def name a ProcessDef uses exists, every hopper-only bill has an output cap within its product's stack
-  limit, and defined bills match the bills patched onto machines. It reads only the files the game loads.
+  limit, defined bills match the bills patched onto machines, and every ParentName resolves (to a loaded
+  Name or one the mod's patches add to a Def that has none yet). It reads only the files the game loads.
   Paths as for deploy.py (`--game`, `--workshop`, `--config`, the environment variables or
   `.local/install-settings.json`). An offline check is not an in-game test.
 - **check-mod-layout** checks every `mods/<Mod>/` folder:

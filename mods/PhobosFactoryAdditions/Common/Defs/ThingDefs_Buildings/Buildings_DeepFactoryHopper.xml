@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+  <!--
+    A factory hopper that holds four stacks on its one cell. Everything else is inherited from VFE Factory's
+    hopper (Name added by Patches/FactoryHopper_ParentName.xml): its Building_FactoryHopper class (input,
+    output and plain graphics, the allow taking and allow inserting toggles), the factory-hopper flag,
+    storage group tag, Low default priority, research and Architect tab. Code read 29 Oct 2026, not yet tested
+    in game: machines check every item on an input cell (Process.CheckInputSlots), belts fill storage up to
+    the cell's maxItemsInCell (Building_Conveyor) and pull the first stack they find.
+
+    Four stacks: one per solid ingredient of a four-ingredient bill, so a surplus stack of one ingredient
+    cannot fill the cell and lock another out (same-type items merge into one stack). Cost and work are
+    authored (stock hopper: 20 steel, 400 work). Agent defaults, owner to tune.
+  -->
+  <ThingDef ParentName="PhobosFactory_FactoryHopperParent">
+    <defName>PhobosFactory_DeepFactoryHopper</defName>
+    <label>deep factory hopper</label>
+    <description>A factory hopper with racks inside, so it holds up to four stacks at once instead of one. A machine can draw several different ingredients from this one cell, and a belt keeps filling it until all four places are taken.</description>
+    <building>
+      <maxItemsInCell>4</maxItemsInCell>
+    </building>
+    <statBases>
+      <WorkToBuild>800</WorkToBuild>
+    </statBases>
+    <costList>
+      <Steel>35</Steel>
+      <ComponentIndustrial>1</ComponentIndustrial>
+    </costList>
+  </ThingDef>
+
+</Defs>

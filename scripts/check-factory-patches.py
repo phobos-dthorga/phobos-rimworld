@@ -13,7 +13,9 @@ set, and from them only the files the game loads (check-mod-layout.py's files_th
 - every hopper-only ProcessDef sets maxOutputCount, and keeps it at or below the result's stack limit
   minus the batch count (above that, Pipe System's output step destroys the surplus);
 - every ProcessDef this mod defines is added to a machine by one of its patches, and every name a patch
-  adds to a processes list is a ProcessDef the mod defines.
+  adds to a processes list is a ProcessDef the mod defines;
+- every ParentName in this mod's Defs is a Name in the loaded Defs or one its patches add, and a patch that
+  adds a Name finds no Name already there (the game would keep the old one and skip the patch silently).
 
     python scripts/check-factory-patches.py                 check PhobosFactoryAdditions
     python scripts/check-factory-patches.py --mod <Name>    check another mod in mods/
@@ -209,23 +211,28 @@ def process_errors(process, index, active, where):
     return errors
 
 
-def patch_errors(element, index, active_names, where, added):
-    """Errors for one patch operation (recursing into sequences and FindMod blocks); fills added names."""
+def patch_errors(element, index, active_names, where, added, parent_names=None):
+    """Errors for one patch operation (recursing into sequences and FindMod blocks); fills added (bill names)
+    and parent_names (Names the patch adds to Defs, for ParentName)."""
     cls = element.get('Class', '')
     errors = []
+
+    def recurse(branch):
+        return patch_errors(branch, index, active_names, where, added, parent_names)
+
     if cls == 'PatchOperationSequence':
         for li in element.findall('operations/li'):
-            errors += patch_errors(li, index, active_names, where, added)
+            errors += recurse(li)
     elif cls == 'PatchOperationFindMod':
         names = {(li.text or '').strip().lower() for li in element.findall('mods/li')}
         branch = element.find('match') if names & active_names else element.find('nomatch')
         if branch is not None:
-            errors += patch_errors(branch, index, active_names, where, added)
+            errors += recurse(branch)
     elif cls == 'PatchOperationConditional':
         xpath = (element.findtext('xpath') or '').strip()
         branch = element.find('match') if index.matches(xpath) else element.find('nomatch')
         if branch is not None:
-            errors += patch_errors(branch, index, active_names, where, added)
+            errors += recurse(branch)
     elif cls in XPATH_OPERATIONS:
         xpath = (element.findtext('xpath') or '').strip()
         count = index.matches(xpath)
@@ -233,6 +240,13 @@ def patch_errors(element, index, active_names, where, added):
             errors.append(f'{where}: {cls} xpath matches {count} nodes, not 1: {xpath}')
         if cls == 'PatchOperationAdd' and xpath.endswith('/processes'):
             added.update((li.text or '').strip() for li in element.findall('value/li'))
+        if cls == 'PatchOperationAttributeAdd' and (element.findtext('attribute') or '').strip() == 'Name':
+            taken = [node.get('Name') for node in index.wrapper.findall(xpath) if node.get('Name')]
+            if taken:
+                errors.append(f'{where}: the Def at {xpath} already has Name="{taken[0]}", so the game keeps it and '
+                              f'skips this PatchOperationAttributeAdd')
+            elif parent_names is not None:
+                parent_names.add((element.findtext('value') or '').strip())
     elif cls:
         errors.append(f'{where}: unhandled patch operation {cls} (extend the checker)')
     return errors
@@ -275,13 +289,22 @@ def check(mod_root, game, workshop, config, mods_folder_name='Mods'):
             if not wanted or any(pid.strip().lower() in active for pid in wanted.split(',')):
                 processes[(process.findtext('defName') or '').strip()] = path
     added = set()
+    parent_names = set()
     for path in patch_files:
         root = _read_xml(path)
         if root is None:
             errors.append(f'{path}: unreadable XML')
             continue
         for operation in root.findall('Operation'):
-            errors += patch_errors(operation, index, active_names, path.relative_to(mod_root).as_posix(), added)
+            errors += patch_errors(operation, index, active_names, path.relative_to(mod_root).as_posix(), added,
+                                   parent_names)
+    for path in own_defs:
+        root = _read_xml(path)
+        for element in (list(root) if root is not None else []):
+            parent = element.get('ParentName') if isinstance(element.tag, str) else None
+            if parent and parent not in index.by_name and parent not in parent_names:
+                errors.append(f'{path.relative_to(mod_root).as_posix()}: {element.findtext("defName") or element.tag}: '
+                              f'ParentName {parent} is not a Name in the loaded Defs or one this mod\'s patches add')
     for name in sorted(set(processes) - added):
         errors.append(f'{processes[name].relative_to(mod_root).as_posix()}: {name} is defined but no patch adds it to a machine')
     for name in sorted(added - set(processes)):
