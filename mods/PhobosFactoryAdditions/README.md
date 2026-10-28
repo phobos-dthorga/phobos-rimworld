@@ -45,8 +45,10 @@ changelog).
   an error about a missing process and drop that bill (expected, not yet checked). The fridge change leaves
   nothing in the save.
 - **Nothing is published on the Steam Workshop yet.** Install from source with `scripts/deploy.py`.
-- **Tested in game: the human-meat bill only.** The owner confirmed on 28 October 2026, on RimWorld 1.7,
-  that it works. Everything else is read from the mods' code and XML.
+- **Tested in game: the human-meat bill, and the 0.3.1 fix.** The owner confirmed on 28 October 2026, on
+  RimWorld 1.7, that the human-meat bill works, and on 29 October 2026, with 0.3.2 installed, that the bills
+  now appear on the machines ("Everything seems to be good in-game now"). Running each new bill to the end,
+  the corner input cells and the chemfuel-tap repair are not yet confirmed in game.
 
 ## What it does
 
@@ -260,6 +262,8 @@ the belt reads the map's thing grid. The full reading is in
 - 29 October 2026, owner, in game: the 0.3.0 bills were missing from the machines (RimDex listed them).
   Cause found in RimWorld 1.7's file loader and confirmed by re-running the improved checker on the 0.3.0
   files (41 of 45 bills on no machine); fixed in 0.3.1. The checker passes on 0.3.1.
-- **Not checked:** anything about the 0.3.0 bills in game (whether they list, feed, finish and output;
-  whether the two corner input cells work), whether the stock bill now refuses human meat, whether a belt
+- 29 October 2026, owner, in game on RimWorld 1.7 with 0.3.2: "Everything seems to be good in-game now"
+  after checking that the bills appear on the granulator, synthesizer (human meat back) and refinery.
+- **Not checked:** whether each new bill feeds, finishes and outputs as expected; whether the two corner
+  input cells work; whether a belt takes chemfuel from a tap (0.3.2); whether the stock bill now refuses human meat, whether a belt
   actually lifts a corpse out of the fridge, and what happens on removal.

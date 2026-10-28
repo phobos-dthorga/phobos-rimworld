@@ -25,7 +25,9 @@ yet tested in game.
 
 ## [0.3.1] - 2026-10-29 - Draft
 
-Fixes 0.3.0's bills not appearing on the machines. Not yet tested in game.
+Fixes 0.3.0's bills not appearing on the machines. Tested in game by the owner on 29 October 2026 (RimWorld
+1.7, with 0.3.2 installed): the bills now appear on the granulator, the synthesizer (human meat included)
+and the refinery.
 
 ### Fixed
 

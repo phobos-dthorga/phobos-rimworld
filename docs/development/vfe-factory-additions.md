@@ -67,6 +67,7 @@ than lean game, and the lore renders fat) and its sources are in the mod README;
 | 28 Oct 2026 | Pipe tie-ins (chemfuel, neutroamine) wrapped in PatchOperationFindMod on the source mod's display name, as VFE Factory does, instead of a folder per pair of mods | agent default |
 | 29 Oct 2026 | Owner reported the 0.3.0 bills missing from the machines while RimDex listed them | owner |
 | 29 Oct 2026 | 0.3.1: every file in a `Mods/<SourceMod>/` folder carries the folder's name; both repository checks model the game's one-file-per-path rule | agent (a fix) |
+| 29 Oct 2026 | Owner tested 0.3.1's fix in game (0.3.2 installed): the bills appear on the machines, "Everything seems to be good in-game now"; the chemfuel-tap repair not specifically confirmed | owner |
 | 29 Oct 2026 | 0.3.2: re-apply the two VFE Factory chemfuel steps the CE clash skips (tap as factory hopper, piped astrofuel), each guarded by a check that it is still missing | owner (agent proposed) |
 
 ## Drug lab recipes as factory bills (28 Oct 2026)
