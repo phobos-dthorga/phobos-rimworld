@@ -26,9 +26,14 @@ delivered, record the delivery in the changelog or design record, and add or ame
   copies for diagnosis are fine; delete them afterwards). Read the owner's `Player.log` before assuming a
   reported fault is the owner's error.
 - The owner plays RimWorld 1.6 on Steam's main branch with all five DLCs and a large mod list (about 280
-  mods, managed with RimSort, including Combat Extended). Check advice and compatibility claims against
-  that list; `docs/development/project-direction.md` names the mods that matter to these designs. The PC is
-  high-end: treat measured performance as a best case for players.
+  mods, managed with RimSort, including Combat Extended). **Keep `docs/development/owner-mod-list.md` up
+  to date** (owner, 22 Oct 2026): run `python scripts/refresh-mod-list.py` (it only reads the game's files)
+  before checking advice or compatibility claims against the list, and whenever the owner mentions changing
+  mods; add `--online` now and then to re-read the Vanilla Expanded collection. Its suggestions are written by
+  hand: when a refresh shows one taken up or stale, update them from the mods' Workshop pages and label your
+  own reasoning. **Read a mod's latest player comments before suggesting it** (owner, 22 Oct 2026: a Workshop
+  description and a recent update date don't show unfixed bugs), and say which picks are comment-checked. `docs/development/project-direction.md` names the mods that matter to these designs. The PC
+  is high-end: treat measured performance as a best case for players.
 - The owner is a licensed amateur radio operator and an applied chemist. Radio and chemistry realism
   matter; still label every approximation, authored value and gameplay simplification as such.
 - Owner choices, agent defaults and agent choices made while the owner is away are labelled as such in

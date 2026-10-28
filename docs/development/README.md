@@ -36,5 +36,8 @@ promise current behaviour. For using the mods, start at the [documentation index
 
 ## RimWorld
 
+- [The owner's mod list](owner-mod-list.md): every mod the owner has on, checked against each mod's own rules,
+  with the official Vanilla Expanded collection and suggestions for what to add next. Kept current by
+  `scripts/refresh-mod-list.py`.
 - [RimWorld modding reference (18 Oct 2026)](rimworld-modding-reference.md): versions, the Waylith engine and
   1.7, package IDs, `About.xml`, load folders, C# build targets, paths, and Ludeon's EULA on mods, with sources.

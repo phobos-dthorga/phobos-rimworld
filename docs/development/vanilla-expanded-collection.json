@@ -1,0 +1,1163 @@
+{
+ "collection": "1884025115",
+ "checked": "2026-10-22",
+ "items": [
+  {
+   "id": "2023507013",
+   "title": "Vanilla Expanded Framework",
+   "versions": [
+    "1.0",
+    "1.1",
+    "1.2",
+    "1.3",
+    "1.4",
+    "1.5",
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-21"
+  },
+  {
+   "id": "2016436324",
+   "title": "Vanilla Textures Expanded",
+   "versions": [
+    "1.5",
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-14"
+  },
+  {
+   "id": "1718190143",
+   "title": "Vanilla Furniture Expanded",
+   "versions": [
+    "1.5",
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-14"
+  },
+  {
+   "id": "1718191613",
+   "title": "Vanilla Furniture Expanded - Medical Module",
+   "versions": [
+    "1.5",
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-14"
+  },
+  {
+   "id": "2028381079",
+   "title": "Vanilla Furniture Expanded - Spacer Module",
+   "versions": [
+    "1.5",
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-14"
+  },
+  {
+   "id": "1845154007",
+   "title": "Vanilla Furniture Expanded - Security",
+   "versions": [
+    "1.5",
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-14"
+  },
+  {
+   "id": "1957158779",
+   "title": "Vanilla Furniture Expanded - Farming",
+   "versions": [
+    "1.5",
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-14"
+  },
+  {
+   "id": "1880253632",
+   "title": "Vanilla Furniture Expanded - Production",
+   "versions": [
+    "1.5",
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-14"
+  },
+  {
+   "id": "1968134023",
+   "title": "Vanilla Furniture Expanded - Art",
+   "versions": [
+    "1.5",
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-14"
+  },
+  {
+   "id": "2062943477",
+   "title": "Vanilla Furniture Expanded - Power",
+   "versions": [
+    "1.5",
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-14"
+  },
+  {
+   "id": "2102143149",
+   "title": "Vanilla Furniture Expanded - Props and Decor",
+   "versions": [
+    "1.5",
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-14"
+  },
+  {
+   "id": "2608762624",
+   "title": "Vanilla Furniture Expanded - Architect",
+   "versions": [
+    "1.5",
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-14"
+  },
+  {
+   "id": "2052918119",
+   "title": "Vanilla Factions Expanded - Settlers",
+   "versions": [
+    "1.5",
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-14"
+  },
+  {
+   "id": "2723801948",
+   "title": "Vanilla Factions Expanded - Pirates",
+   "versions": [
+    "1.5",
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-20"
+  },
+  {
+   "id": "2787850474",
+   "title": "Vanilla Factions Expanded - Classical",
+   "versions": [
+    "1.5",
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-14"
+  },
+  {
+   "id": "1814988282",
+   "title": "Vanilla Armour Expanded",
+   "versions": [
+    "1.5",
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-14"
+  },
+  {
+   "id": "1814383360",
+   "title": "Vanilla Weapons Expanded",
+   "versions": [
+    "1.5",
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-14"
+  },
+  {
+   "id": "1906780517",
+   "title": "Vanilla Weapons Expanded - Quickdraw",
+   "versions": [
+    "1.4",
+    "1.5",
+    "1.6"
+   ],
+   "updated": "2026-02-19"
+  },
+  {
+   "id": "1989352844",
+   "title": "Vanilla Weapons Expanded - Laser",
+   "versions": [
+    "1.5",
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-14"
+  },
+  {
+   "id": "1814987817",
+   "title": "Vanilla Apparel Expanded",
+   "versions": [
+    "1.5",
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-14"
+  },
+  {
+   "id": "1914064942",
+   "title": "Vanilla Fishing Expanded",
+   "versions": [
+    "1.5",
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-14"
+  },
+  {
+   "id": "2134308519",
+   "title": "Vanilla Cooking Expanded",
+   "versions": [
+    "1.5",
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-14"
+  },
+  {
+   "id": "2134312965",
+   "title": "Vanilla Cooking Expanded - Stews",
+   "versions": [
+    "1.5",
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-14"
+  },
+  {
+   "id": "2134308522",
+   "title": "Vanilla Plants Expanded",
+   "versions": [
+    "1.5",
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-14"
+  },
+  {
+   "id": "1938420742",
+   "title": "Vanilla Events Expanded",
+   "versions": [
+    "1.5",
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-14"
+  },
+  {
+   "id": "1888705256",
+   "title": "Vanilla Hair Expanded",
+   "versions": [
+    "1.5",
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-14"
+  },
+  {
+   "id": "2149702069",
+   "title": "Vanilla Storytellers Expanded - Perry Persistent",
+   "versions": [
+    "1.5",
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-14"
+  },
+  {
+   "id": "2158539170",
+   "title": "Vanilla Cooking Expanded - Sushi",
+   "versions": [
+    "1.5",
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-14"
+  },
+  {
+   "id": "2186560858",
+   "title": "Vanilla Brewing Expanded",
+   "versions": [
+    "1.5",
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-14"
+  },
+  {
+   "id": "2193152410",
+   "title": "Vanilla Books Expanded",
+   "versions": [
+    "1.5",
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-14"
+  },
+  {
+   "id": "2194472657",
+   "title": "Vanilla Weapons Expanded - Grenades",
+   "versions": [
+    "1.5",
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-14"
+  },
+  {
+   "id": "2198652536",
+   "title": "Vanilla Plants Expanded - Succulents",
+   "versions": [
+    "1.5",
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-14"
+  },
+  {
+   "id": "2275449762",
+   "title": "Vanilla Brewing Expanded - Coffees and Teas",
+   "versions": [
+    "1.5",
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-14"
+  },
+  {
+   "id": "2296404655",
+   "title": "Vanilla Traits Expanded",
+   "versions": [
+    "1.5",
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-14"
+  },
+  {
+   "id": "2329011599",
+   "title": "Vanilla Factions Expanded - Mechanoids",
+   "versions": [
+    "1.3",
+    "1.4",
+    "1.5"
+   ],
+   "updated": "2025-03-15"
+  },
+  {
+   "id": "2329126791",
+   "title": "Vanilla Weapons Expanded - Heavy Weapons",
+   "versions": [
+    "1.5",
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-14"
+  },
+  {
+   "id": "2375692535",
+   "title": "Vanilla Weapons Expanded - Coilguns",
+   "versions": [
+    "1.5",
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-14"
+  },
+  {
+   "id": "2366589898",
+   "title": "Vanilla Animals Expanded \u2014 Endangered",
+   "versions": [
+    "1.5",
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-14"
+  },
+  {
+   "id": "2419690698",
+   "title": "Vanilla Weapons Expanded - Makeshift",
+   "versions": [
+    "1.5",
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-14"
+  },
+  {
+   "id": "2439736083",
+   "title": "Vanilla Social Interactions Expanded",
+   "versions": [
+    "1.5",
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-14"
+  },
+  {
+   "id": "2454918354",
+   "title": "Vanilla Weapons Expanded - Non-Lethal",
+   "versions": [
+    "1.5",
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-14"
+  },
+  {
+   "id": "2454918139",
+   "title": "Vanilla Weapons Expanded - Frontier",
+   "versions": [
+    "1.5",
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-14"
+  },
+  {
+   "id": "2454918552",
+   "title": "Vanilla Weapons Expanded - Tribal",
+   "versions": [
+    "1.5",
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-14"
+  },
+  {
+   "id": "2468543398",
+   "title": "Vanilla Fishing Expanded - Fishing Treasures AddOn",
+   "versions": [
+    "1.5",
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-14"
+  },
+  {
+   "id": "2552609458",
+   "title": "Vanilla Ideology Expanded - Icons and Symbols",
+   "versions": [
+    "1.5",
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-14"
+  },
+  {
+   "id": "2521176396",
+   "title": "Vanilla Apparel Expanded \u2014 Accessories",
+   "versions": [
+    "1.5",
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-14"
+  },
+  {
+   "id": "2564895018",
+   "title": "Vanilla Ideology Expanded - Relics and Artifacts",
+   "versions": [
+    "1.5",
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-14"
+  },
+  {
+   "id": "2567387768",
+   "title": "Vanilla Ideology Expanded - Hats and Rags",
+   "versions": [
+    "1.5",
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-14"
+  },
+  {
+   "id": "2573138902",
+   "title": "Vanilla Ideology Expanded - Splits and Schisms",
+   "versions": [
+    "1.5",
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-14"
+  },
+  {
+   "id": "2636329500",
+   "title": "Vanilla Ideology Expanded - Memes and Structures",
+   "versions": [
+    "1.5",
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-14"
+  },
+  {
+   "id": "2493234474",
+   "title": "Vanilla Textures Expanded - Variations",
+   "versions": [
+    "1.5",
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-14"
+  },
+  {
+   "id": "2666998627",
+   "title": "Vanilla Ideology Expanded - Anima Theme",
+   "versions": [
+    "1.5",
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-14"
+  },
+  {
+   "id": "2688941031",
+   "title": "Vanilla Outposts Expanded",
+   "versions": [
+    "1.5",
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-14"
+  },
+  {
+   "id": "2720631512",
+   "title": "Vanilla Ideology Expanded - Dryads",
+   "versions": [
+    "1.5",
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-14"
+  },
+  {
+   "id": "2748889667",
+   "title": "Vanilla Plants Expanded - More Plants",
+   "versions": [
+    "1.5",
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-14"
+  },
+  {
+   "id": "2775017012",
+   "title": "Vanilla Backgrounds Expanded",
+   "versions": [
+    "1.5",
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-14"
+  },
+  {
+   "id": "2792917473",
+   "title": "Vanilla Chemfuel Expanded",
+   "versions": [
+    "1.5",
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-14"
+  },
+  {
+   "id": "2801160906",
+   "title": "Vanilla Genetics Expanded",
+   "versions": [
+    "1.5",
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-18"
+  },
+  {
+   "id": "2785616901",
+   "title": "Vanilla Trading Expanded",
+   "versions": [
+    "1.5",
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-14"
+  },
+  {
+   "id": "2842502659",
+   "title": "Vanilla Psycasts Expanded",
+   "versions": [
+    "1.5",
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-15"
+  },
+  {
+   "id": "2858079457",
+   "title": "Vanilla Animals Expanded \u2014 Royal Animals",
+   "versions": [
+    "1.5",
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-14"
+  },
+  {
+   "id": "2861806869",
+   "title": "Vanilla Backstories Expanded",
+   "versions": [
+    "1.5",
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-14"
+  },
+  {
+   "id": "2871933948",
+   "title": "Vanilla Animals Expanded",
+   "versions": [
+    "1.5",
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-14"
+  },
+  {
+   "id": "2877699803",
+   "title": "Vanilla Helixien Gas Expanded",
+   "versions": [
+    "1.5",
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-14"
+  },
+  {
+   "id": "2826922787",
+   "title": "Vanilla Persona Weapons Expanded",
+   "versions": [
+    "1.5",
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-14"
+  },
+  {
+   "id": "2917311689",
+   "title": "Vanilla Races Expanded - Custom Icons",
+   "versions": [
+    "1.5",
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-14"
+  },
+  {
+   "id": "2920385763",
+   "title": "Vanilla Nutrient Paste Expanded",
+   "versions": [
+    "1.5",
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-14"
+  },
+  {
+   "id": "2938820380",
+   "title": "Vanilla Factions Expanded - Empire",
+   "versions": [
+    "1.5",
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-20"
+  },
+  {
+   "id": "2880990495",
+   "title": "Vanilla Races Expanded - Saurid",
+   "versions": [
+    "1.5",
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-14"
+  },
+  {
+   "id": "2963116383",
+   "title": "Vanilla Races Expanded - Sanguophage",
+   "versions": [
+    "1.5",
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-14"
+  },
+  {
+   "id": "2901424072",
+   "title": "Vanilla Races Expanded - Genie",
+   "versions": [
+    "1.5",
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-14"
+  },
+  {
+   "id": "2962126499",
+   "title": "Vanilla Animals Expanded \u2014 Waste Animals",
+   "versions": [
+    "1.5",
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-14"
+  },
+  {
+   "id": "2893586390",
+   "title": "Vanilla Races Expanded - Hussar",
+   "versions": [
+    "1.5",
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-14"
+  },
+  {
+   "id": "2927323805",
+   "title": "Vanilla Races Expanded - Phytokin",
+   "versions": [
+    "1.5",
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-14"
+  },
+  {
+   "id": "2975771801",
+   "title": "Vanilla Races Expanded - Android",
+   "versions": [
+    "1.5",
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-14"
+  },
+  {
+   "id": "2983471725",
+   "title": "Vanilla Races Expanded - Waster",
+   "versions": [
+    "1.5",
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-14"
+  },
+  {
+   "id": "2995385834",
+   "title": "Vanilla Races Expanded - Highmate",
+   "versions": [
+    "1.5",
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-14"
+  },
+  {
+   "id": "2990596478",
+   "title": "Vanilla Psycasts Expanded - Hemosage",
+   "versions": [
+    "1.5",
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-14"
+  },
+  {
+   "id": "3006389281",
+   "title": "Vanilla Plants Expanded - Mushrooms",
+   "versions": [
+    "1.5",
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-14"
+  },
+  {
+   "id": "3014906877",
+   "title": "Vanilla Vehicles Expanded",
+   "versions": [
+    "1.5",
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-15"
+  },
+  {
+   "id": "3014915404",
+   "title": "Vehicle Framework",
+   "versions": [
+    "1.4",
+    "1.5",
+    "1.6"
+   ],
+   "updated": "2025-10-21"
+  },
+  {
+   "id": "3025493377",
+   "title": "Vanilla Factions Expanded - Deserters",
+   "versions": [
+    "1.5",
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-14"
+  },
+  {
+   "id": "3033779606",
+   "title": "Vanilla Psycasts Expanded - Puppeteer",
+   "versions": [
+    "1.5",
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-14"
+  },
+  {
+   "id": "3042690053",
+   "title": "Vanilla Races Expanded - Fungoid",
+   "versions": [
+    "1.5",
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-14"
+  },
+  {
+   "id": "3047892432",
+   "title": "Vanilla Vehicles Expanded - Tier 3",
+   "versions": [
+    "1.5",
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-15"
+  },
+  {
+   "id": "3067715093",
+   "title": "Vanilla Races Expanded - Archon",
+   "versions": [
+    "1.5",
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-14"
+  },
+  {
+   "id": "3079786283",
+   "title": "Vanilla Factions Expanded - Tribals",
+   "versions": [
+    "1.5",
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-21"
+  },
+  {
+   "id": "3114453100",
+   "title": "Vanilla Races Expanded - Lycanthrope",
+   "versions": [
+    "1.5",
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-14"
+  },
+  {
+   "id": "3155781848",
+   "title": "Vanilla Recycling Expanded",
+   "versions": [
+    "1.5",
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-14"
+  },
+  {
+   "id": "3164798809",
+   "title": "Vanilla Races Expanded - Pigskin",
+   "versions": [
+    "1.5",
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-14"
+  },
+  {
+   "id": "3202046258",
+   "title": "Vanilla Temperature Expanded",
+   "versions": [
+    "1.5",
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-14"
+  },
+  {
+   "id": "3194606539",
+   "title": "Vanilla Ideology Expanded - Sophian Style",
+   "versions": [
+    "1.5",
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-14"
+  },
+  {
+   "id": "3209927822",
+   "title": "Vanilla Base Generation Expanded",
+   "versions": [
+    "1.5",
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-14"
+  },
+  {
+   "id": "3215569151",
+   "title": "Vanilla Storytellers Expanded - Winston Waves",
+   "versions": [
+    "1.5",
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-21"
+  },
+  {
+   "id": "3268401022",
+   "title": "Vanilla Aspirations Expanded",
+   "versions": [
+    "1.5",
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-14"
+  },
+  {
+   "id": "3260509684",
+   "title": "Vanilla Races Expanded - Insector",
+   "versions": [
+    "1.5",
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-14"
+  },
+  {
+   "id": "3287469135",
+   "title": "Vanilla Weapons Expanded - Bioferrite",
+   "versions": [
+    "1.5",
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-14"
+  },
+  {
+   "id": "3302208420",
+   "title": "Vanilla Vehicles Expanded - Upgrades",
+   "versions": [
+    "1.5",
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-15"
+  },
+  {
+   "id": "3309003431",
+   "title": "Vanilla Factions Expanded - Insectoids 2",
+   "versions": [
+    "1.5",
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-17"
+  },
+  {
+   "id": "3334272487",
+   "title": "Vanilla Food Variety Expanded",
+   "versions": [
+    "1.5",
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-14"
+  },
+  {
+   "id": "3342412435",
+   "title": "Vanilla Anomaly Expanded - Insanity",
+   "versions": [
+    "1.5",
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-14"
+  },
+  {
+   "id": "3380695249",
+   "title": "Vanilla Christmas Expanded",
+   "versions": [
+    "1.5",
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-14"
+  },
+  {
+   "id": "3400246558",
+   "title": "Vanilla Skills Expanded",
+   "versions": [
+    "1.5",
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-14"
+  },
+  {
+   "id": "3411401573",
+   "title": "Vanilla Quests Expanded - The Generator",
+   "versions": [
+    "1.5",
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-14"
+  },
+  {
+   "id": "3444347874",
+   "title": "Vanilla Factions Expanded - Medieval 2",
+   "versions": [
+    "1.5",
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-14"
+  },
+  {
+   "id": "3455694362",
+   "title": "Vanilla Cooking Expanded - Haute",
+   "versions": [
+    "1.5",
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-14"
+  },
+  {
+   "id": "3461526070",
+   "title": "Vanilla Quests Expanded - Cryptoforge",
+   "versions": [
+    "1.5",
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-14"
+  },
+  {
+   "id": "3497226454",
+   "title": "Vanilla Quests Expanded - Deadlife",
+   "versions": [
+    "1.5",
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-14"
+  },
+  {
+   "id": "3531912428",
+   "title": "Vanilla Races Expanded - Starjack",
+   "versions": [
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-14"
+  },
+  {
+   "id": "3609835606",
+   "title": "Vanilla Gravship Expanded - Chapter 1",
+   "versions": [
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-20"
+  },
+  {
+   "id": "3618306875",
+   "title": "Vanilla Quests Expanded - Ancients",
+   "versions": [
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-14"
+  },
+  {
+   "id": "3656316229",
+   "title": "Vanilla Landmarks Expanded",
+   "versions": [
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-14"
+  },
+  {
+   "id": "3686924415",
+   "title": "Vanilla Furniture Expanded - Factory",
+   "versions": [
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-14"
+  },
+  {
+   "id": "3748351639",
+   "title": "Vanilla Plants Expanded - Flowers",
+   "versions": [
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-14"
+  },
+  {
+   "id": "3733951755",
+   "title": "Vanilla Quests Expanded - Drone Factory",
+   "versions": [
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-14"
+  },
+  {
+   "id": "3799737423",
+   "title": "Vanilla Gravship Expanded - Chapter 2",
+   "versions": [
+    "1.6",
+    "1.7"
+   ],
+   "updated": "2026-10-20"
+  }
+ ]
+}

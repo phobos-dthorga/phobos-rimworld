@@ -26,20 +26,25 @@ SKIPPED_DIRS = ('__pycache__', 'obj', 'bin')
 SKIPPED_SUFFIXES = ('.pyc', '.pdb')
 
 
-def game_path(explicit=None, environ=None, settings_file=SETTINGS_FILE):
-    """The RimWorld folder, by precedence: argument, RIMWORLD_PATH, install-settings.json, default."""
+def local_path(key, env_var, default, explicit=None, environ=None, settings_file=SETTINGS_FILE):
+    """A machine path, by precedence: argument, environment variable, install-settings.json key, default."""
     environ = os.environ if environ is None else environ
     if explicit:
         return Path(explicit)
-    if environ.get('RIMWORLD_PATH'):
-        return Path(environ['RIMWORLD_PATH'])
+    if environ.get(env_var):
+        return Path(environ[env_var])
     settings_file = Path(settings_file)
     if settings_file.is_file():
         with open(settings_file, encoding='utf-8') as fh:
-            configured = json.load(fh).get('rimworldPath')
+            configured = json.load(fh).get(key)
         if configured:
             return Path(configured)
-    return DEFAULT_GAME_PATH
+    return Path(default)
+
+
+def game_path(explicit=None, environ=None, settings_file=SETTINGS_FILE):
+    """The RimWorld folder, by precedence: argument, RIMWORLD_PATH, install-settings.json, default."""
+    return local_path('rimworldPath', 'RIMWORLD_PATH', DEFAULT_GAME_PATH, explicit, environ, settings_file)
 
 
 def package(mod, root=ROOT):
