@@ -147,7 +147,8 @@ stock bill's corrected text were dropped too; queued human-meat bills kept runni
 
 **What ruled out the alternatives first:** the owner's Player.log had no patch failure from this mod; Pipe
 System's Add menu (1.6 and 1.7 builds, identical here) lists the machine's `processes` and hides only bills
-with unfinished research; the save's research covered 28 of the bills; no other active mod's XML or DLL
+with unfinished research; the save's research covered 25 of the 44 new bills (all of Medicines+, the
+infusions, psycho, vacsop, leaf neutroamine, polyamide and the detergents); no other active mod's XML or DLL
 replaces the granulator's, synthesizer's or refinery's process list.
 
 **Why the check missed it:** `check-factory-patches.py` loaded every file in every active folder. Both
