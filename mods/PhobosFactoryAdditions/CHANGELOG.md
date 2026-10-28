@@ -5,6 +5,69 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-10-28 - Draft
+
+Drug lab recipes from other mods as factory bills, 44 of them, each loaded only while its mod is active.
+Not yet tested in game.
+
+### Added
+
+- Medicine granulator, with Medicines+: a bill for each of its 14 drugs (aniracetam, AntiTox, clozapine,
+  cyanide, heroin, hydra, Joy, addictol, morphine, penicillin, smelling salts, ThornWeed serum, Tyrox,
+  Upper), batch of four at four times the lab work, with the mod's own research.
+- Medicine granulator, with Medicines+: a penicillin-from-fungus bill (40 raw fungus and 4 neutroamine
+  give 4), an authored alternative path; the README gives the reasoning.
+- Medicine granulator, with Deep Pills and Medicines+: the three infusions (peyote, opium, thorn weed),
+  batch of eight from the x8 lab recipe.
+- Medicine granulator, with Ushankas Biological Warfare: a vaccine and an antiserum bill for each of its
+  seven diseases, and the malaria and sleeping sickness pills (one at a time, since a sample does not stack).
+- Medicine granulator: psycho (Combat Extended), potassium iodide (Dubs Rimatomics), hemogen packs from
+  hemofungus (Hemofungus), vacsop from steel and vacsop from vacstone blocks (Complementary Odyssey), and
+  glitterworld medicine (Glitterworld Medicine Production) with five input cells for its four ingredients.
+- Neutroamine synthesizer, with Farmable Neutroamine: neutroamine from neutroaleaves, 25 leaves to 5.
+- Automated biofuel refinery: polyamide (Passive Exoskeletons) and both laundry detergents (Simple Washing
+  Machine).
+- With Vanilla Chemfuel Expanded, the refinery bills draw chemfuel from the pipe network; with Vanilla
+  Races Expanded - Android, the granulator bills that take neutroamine draw it from that network.
+- A repository check, scripts/check-factory-patches.py, that reads the installed game and active mods and
+  verifies every patch xpath, Def name and output cap in this mod (run against the owner's install: clean).
+- Bill names and descriptions written by the agent, held for the owner's review.
+
+### Fixed
+
+- The human-meat bill now sets an output cap of 75. Without one, Pipe System destroys a finished batch
+  whose output cell is blocked instead of waiting (code read 28 October 2026; the stock bill has the same
+  gap).
+
+### Balance
+
+- Every port follows VFE Factory's own rule for its drug bills: inputs times four, lab work times four per
+  unit, no skill requirement. Output caps are set below each product's stack limit (drugs 150, medicine 25,
+  hemogen packs 10, vaccines and antiserums 15) so no batch is lost.
+- The fungus penicillin ratio (10 raw fungus per unit) is authored, meant to be bulkier than the herbal
+  path, not cheaper.
+
+### Dependencies
+
+- No new required mods. Optional: Medicines+, Deep Pills, Ushankas Biological Warfare, Combat Extended,
+  Dubs Rimatomics, Hemofungus, Complementary Odyssey, Glitterworld Medicine Production, Farmable
+  Neutroamine, Passive Exoskeletons, Simple Washing Machine, Vanilla Races Expanded - Android.
+
+### Save compatibility
+
+- Safe to add mid-save. Before removing, take every bill this mod added off each machine and let batches
+  finish (as for 0.1.0).
+
+### Compatibility and limits
+
+- Luciferium Expansion's recipes are not ported (owner's choice). Pathogen samples, the disease sampler,
+  flesh-breaker, the rumsuit and the medic bag stay at the drug lab.
+- Values were read from the source mods as installed on 28 October 2026; a source mod update can change its
+  lab recipe without changing these bills.
+- The two extra corner input cells for glitterworld medicine are outside VFE Factory's own convention and
+  untested; a belt into one of the three usual cells is the fallback.
+- Not yet tested in game.
+
 ## [0.2.0] - 2026-10-28 - Draft
 
 The corpse fridge as a source for belts and machines. Not yet tested in game.

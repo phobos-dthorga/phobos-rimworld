@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+
+  <!--
+    With Vanilla Races Expanded - Android active, let these bills draw neutroamine from the machine's pipe comp as
+    well as from hoppers, as VFE Factory's own patch does for its stock bills. Each bill exists only while its
+    source mod is active, so each group is wrapped in a PatchOperationFindMod on that mod's display name
+    (the way VFE Factory gates its own optional patches). Not yet tested in game.
+  -->
+
+  <Operation Class="PatchOperationFindMod">
+    <mods>
+      <li>Medicines+</li>
+    </mods>
+    <match Class="PatchOperationSequence">
+      <operations>
+        <li Class="PatchOperationAdd">
+          <xpath>Defs/PipeSystem.ProcessDef[defName="PhobosFactory_SynthesizeAniracetam"]</xpath>
+          <value>
+            <considerBuildingCompResource>true</considerBuildingCompResource>
+          </value>
+        </li>
+        <li Class="PatchOperationAdd">
+          <xpath>Defs/PipeSystem.ProcessDef[defName="PhobosFactory_SynthesizeAntiTox"]</xpath>
+          <value>
+            <considerBuildingCompResource>true</considerBuildingCompResource>
+          </value>
+        </li>
+        <li Class="PatchOperationAdd">
+          <xpath>Defs/PipeSystem.ProcessDef[defName="PhobosFactory_SynthesizeClozapine"]</xpath>
+          <value>
+            <considerBuildingCompResource>true</considerBuildingCompResource>
+          </value>
+        </li>
+        <li Class="PatchOperationAdd">
+          <xpath>Defs/PipeSystem.ProcessDef[defName="PhobosFactory_SynthesizeCyanide"]</xpath>
+          <value>
+            <considerBuildingCompResource>true</considerBuildingCompResource>
+          </value>
+        </li>
+        <li Class="PatchOperationAdd">
+          <xpath>Defs/PipeSystem.ProcessDef[defName="PhobosFactory_SynthesizeHeroin"]</xpath>
+          <value>
+            <considerBuildingCompResource>true</considerBuildingCompResource>
+          </value>
+        </li>
+        <li Class="PatchOperationAdd">
+          <xpath>Defs/PipeSystem.ProcessDef[defName="PhobosFactory_SynthesizeHydra"]</xpath>
+          <value>
+            <considerBuildingCompResource>true</considerBuildingCompResource>
+          </value>
+        </li>
+        <li Class="PatchOperationAdd">
+          <xpath>Defs/PipeSystem.ProcessDef[defName="PhobosFactory_SynthesizeJoy"]</xpath>
+          <value>
+            <considerBuildingCompResource>true</considerBuildingCompResource>
+          </value>
+        </li>
+        <li Class="PatchOperationAdd">
+          <xpath>Defs/PipeSystem.ProcessDef[defName="PhobosFactory_SynthesizeAddictol"]</xpath>
+          <value>
+            <considerBuildingCompResource>true</considerBuildingCompResource>
+          </value>
+        </li>
+        <li Class="PatchOperationAdd">
+          <xpath>Defs/PipeSystem.ProcessDef[defName="PhobosFactory_SynthesizePenicillin"]</xpath>
+          <value>
+            <considerBuildingCompResource>true</considerBuildingCompResource>
+          </value>
+        </li>
+        <li Class="PatchOperationAdd">
+          <xpath>Defs/PipeSystem.ProcessDef[defName="PhobosFactory_SynthesizePenicillinFromFungus"]</xpath>
+          <value>
+            <considerBuildingCompResource>true</considerBuildingCompResource>
+          </value>
+        </li>
+        <li Class="PatchOperationAdd">
+          <xpath>Defs/PipeSystem.ProcessDef[defName="PhobosFactory_SynthesizeSmellingSalts"]</xpath>
+          <value>
+            <considerBuildingCompResource>true</considerBuildingCompResource>
+          </value>
+        </li>
+        <li Class="PatchOperationAdd">
+          <xpath>Defs/PipeSystem.ProcessDef[defName="PhobosFactory_SynthesizeThornWeedSerum"]</xpath>
+          <value>
+            <considerBuildingCompResource>true</considerBuildingCompResource>
+          </value>
+        </li>
+        <li Class="PatchOperationAdd">
+          <xpath>Defs/PipeSystem.ProcessDef[defName="PhobosFactory_SynthesizeTyrox"]</xpath>
+          <value>
+            <considerBuildingCompResource>true</considerBuildingCompResource>
+          </value>
+        </li>
+        <li Class="PatchOperationAdd">
+          <xpath>Defs/PipeSystem.ProcessDef[defName="PhobosFactory_SynthesizeUpper"]</xpath>
+          <value>
+            <considerBuildingCompResource>true</considerBuildingCompResource>
+          </value>
+        </li>
+      </operations>
+    </match>
+  </Operation>
+
+  <Operation Class="PatchOperationFindMod">
+    <mods>
+      <li>Ushankas Biological Warfare</li>
+    </mods>
+    <match Class="PatchOperationSequence">
+      <operations>
+        <li Class="PatchOperationAdd">
+          <xpath>Defs/PipeSystem.ProcessDef[defName="PhobosFactory_SynthesizeFluVaccine"]</xpath>
+          <value>
+            <considerBuildingCompResource>true</considerBuildingCompResource>
+          </value>
+        </li>
+        <li Class="PatchOperationAdd">
+          <xpath>Defs/PipeSystem.ProcessDef[defName="PhobosFactory_SynthesizeInfectionVaccine"]</xpath>
+          <value>
+            <considerBuildingCompResource>true</considerBuildingCompResource>
+          </value>
+        </li>
+        <li Class="PatchOperationAdd">
+          <xpath>Defs/PipeSystem.ProcessDef[defName="PhobosFactory_SynthesizeMalariaVaccine"]</xpath>
+          <value>
+            <considerBuildingCompResource>true</considerBuildingCompResource>
+          </value>
+        </li>
+        <li Class="PatchOperationAdd">
+          <xpath>Defs/PipeSystem.ProcessDef[defName="PhobosFactory_SynthesizeNecroaVaccine"]</xpath>
+          <value>
+            <considerBuildingCompResource>true</considerBuildingCompResource>
+          </value>
+        </li>
+        <li Class="PatchOperationAdd">
+          <xpath>Defs/PipeSystem.ProcessDef[defName="PhobosFactory_SynthesizePlagueVaccine"]</xpath>
+          <value>
+            <considerBuildingCompResource>true</considerBuildingCompResource>
+          </value>
+        </li>
+        <li Class="PatchOperationAdd">
+          <xpath>Defs/PipeSystem.ProcessDef[defName="PhobosFactory_SynthesizeScariaVaccine"]</xpath>
+          <value>
+            <considerBuildingCompResource>true</considerBuildingCompResource>
+          </value>
+        </li>
+        <li Class="PatchOperationAdd">
+          <xpath>Defs/PipeSystem.ProcessDef[defName="PhobosFactory_SynthesizeSleepingSicknessVaccine"]</xpath>
+          <value>
+            <considerBuildingCompResource>true</considerBuildingCompResource>
+          </value>
+        </li>
+        <li Class="PatchOperationAdd">
+          <xpath>Defs/PipeSystem.ProcessDef[defName="PhobosFactory_SynthesizeFluAntiserum"]</xpath>
+          <value>
+            <considerBuildingCompResource>true</considerBuildingCompResource>
+          </value>
+        </li>
+        <li Class="PatchOperationAdd">
+          <xpath>Defs/PipeSystem.ProcessDef[defName="PhobosFactory_SynthesizeInfectionAntiserum"]</xpath>
+          <value>
+            <considerBuildingCompResource>true</considerBuildingCompResource>
+          </value>
+        </li>
+        <li Class="PatchOperationAdd">
+          <xpath>Defs/PipeSystem.ProcessDef[defName="PhobosFactory_SynthesizeMalariaAntiserum"]</xpath>
+          <value>
+            <considerBuildingCompResource>true</considerBuildingCompResource>
+          </value>
+        </li>
+        <li Class="PatchOperationAdd">
+          <xpath>Defs/PipeSystem.ProcessDef[defName="PhobosFactory_SynthesizeNecroaAntiserum"]</xpath>
+          <value>
+            <considerBuildingCompResource>true</considerBuildingCompResource>
+          </value>
+        </li>
+        <li Class="PatchOperationAdd">
+          <xpath>Defs/PipeSystem.ProcessDef[defName="PhobosFactory_SynthesizePlagueAntiserum"]</xpath>
+          <value>
+            <considerBuildingCompResource>true</considerBuildingCompResource>
+          </value>
+        </li>
+        <li Class="PatchOperationAdd">
+          <xpath>Defs/PipeSystem.ProcessDef[defName="PhobosFactory_SynthesizeScariaAntiserum"]</xpath>
+          <value>
+            <considerBuildingCompResource>true</considerBuildingCompResource>
+          </value>
+        </li>
+        <li Class="PatchOperationAdd">
+          <xpath>Defs/PipeSystem.ProcessDef[defName="PhobosFactory_SynthesizeSleepingSicknessAntiserum"]</xpath>
+          <value>
+            <considerBuildingCompResource>true</considerBuildingCompResource>
+          </value>
+        </li>
+        <li Class="PatchOperationAdd">
+          <xpath>Defs/PipeSystem.ProcessDef[defName="PhobosFactory_SynthesizeMalariaReproductionPills"]</xpath>
+          <value>
+            <considerBuildingCompResource>true</considerBuildingCompResource>
+          </value>
+        </li>
+        <li Class="PatchOperationAdd">
+          <xpath>Defs/PipeSystem.ProcessDef[defName="PhobosFactory_SynthesizeSleepingSicknessReproductionPills"]</xpath>
+          <value>
+            <considerBuildingCompResource>true</considerBuildingCompResource>
+          </value>
+        </li>
+      </operations>
+    </match>
+  </Operation>
+
+  <Operation Class="PatchOperationFindMod">
+    <mods>
+      <li>Dubs Rimatomics</li>
+    </mods>
+    <match Class="PatchOperationSequence">
+      <operations>
+        <li Class="PatchOperationAdd">
+          <xpath>Defs/PipeSystem.ProcessDef[defName="PhobosFactory_SynthesizePotassiumIodide"]</xpath>
+          <value>
+            <considerBuildingCompResource>true</considerBuildingCompResource>
+          </value>
+        </li>
+      </operations>
+    </match>
+  </Operation>
+
+</Patch>

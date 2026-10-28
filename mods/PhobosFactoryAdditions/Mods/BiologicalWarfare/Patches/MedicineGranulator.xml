@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+
+  <!-- Add the bills in this folder to VFEFactory_MedicineGranulator. Loaded only while the source mod is active. -->
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/ThingDef[defName="VFEFactory_MedicineGranulator"]/comps/li[@Class="PipeSystem.CompProperties_AdvancedResourceProcessor"]/processes</xpath>
+    <value>
+      <li>PhobosFactory_SynthesizeFluVaccine</li>
+      <li>PhobosFactory_SynthesizeInfectionVaccine</li>
+      <li>PhobosFactory_SynthesizeMalariaVaccine</li>
+      <li>PhobosFactory_SynthesizeNecroaVaccine</li>
+      <li>PhobosFactory_SynthesizePlagueVaccine</li>
+      <li>PhobosFactory_SynthesizeScariaVaccine</li>
+      <li>PhobosFactory_SynthesizeSleepingSicknessVaccine</li>
+      <li>PhobosFactory_SynthesizeFluAntiserum</li>
+      <li>PhobosFactory_SynthesizeInfectionAntiserum</li>
+      <li>PhobosFactory_SynthesizeMalariaAntiserum</li>
+      <li>PhobosFactory_SynthesizeNecroaAntiserum</li>
+      <li>PhobosFactory_SynthesizePlagueAntiserum</li>
+      <li>PhobosFactory_SynthesizeScariaAntiserum</li>
+      <li>PhobosFactory_SynthesizeSleepingSicknessAntiserum</li>
+      <li>PhobosFactory_SynthesizeMalariaReproductionPills</li>
+      <li>PhobosFactory_SynthesizeSleepingSicknessReproductionPills</li>
+    </value>
+  </Operation>
+
+</Patch>

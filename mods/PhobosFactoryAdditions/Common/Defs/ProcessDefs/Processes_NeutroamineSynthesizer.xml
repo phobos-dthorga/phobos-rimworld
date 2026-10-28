@@ -47,6 +47,11 @@
     <sustainerDef>VFEFactory_AutomatedDrugsSustainer</sustainerDef>
     <effecterWhenWorking>true</effecterWhenWorking>
     <effecterDef>VFEFactory_Cook</effecterDef>
+    <!--
+      Added in 0.3.0. The stock bill has no cap; without one, Pipe System destroys a finished batch whose
+      output cell is blocked instead of waiting (code read 28 Oct 2026). 75 is the cap the stock drug bills use.
+    -->
+    <maxOutputCount>75</maxOutputCount>
   </PipeSystem.ProcessDef>
 
 </Defs>

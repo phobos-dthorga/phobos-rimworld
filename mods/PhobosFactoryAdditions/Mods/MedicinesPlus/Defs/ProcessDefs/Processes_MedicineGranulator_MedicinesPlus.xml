@@ -1,0 +1,684 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+  <!--
+    Medicines+ (Papito.MedicinesPlus.AT, Workshop 2878860499): its drugs are ThingDefs with a recipeMaker in
+    1.6/Defs/Drugs/, each giving one unit per lab craft. Values here are the lab recipe x 4 (batch of 4,
+    ticks = lab work x 4 x 4), the rule VFE Factory's own drug bills follow. The fungus penicillin bill is
+    AUTHORED (see the README). The Deep Pills infusions are in their own file.
+    Every figure is a port of the source recipe unless the comment or the README says
+    it is authored. Loaded only while the source mod is active (LoadFolders.xml). Not yet tested in game.
+  -->
+
+  <PipeSystem.ProcessDef>
+    <defName>PhobosFactory_SynthesizeAniracetam</defName>
+    <label>Synthesize a batch of aniracetam</label>
+    <labelOverride>Synthesize a batch of aniracetam</labelOverride>
+    <description>Synthesize a batch of aniracetam (Medicines+) from neutroamine and medicine.</description>
+    <priorityInBillList>10</priorityInBillList>
+    <spawnOnInteractionCell>true</spawnOnInteractionCell>
+    <autoGrabFromHoppers>true</autoGrabFromHoppers>
+    <autoInputSlots>
+      <li>(-1,0,2)</li>
+      <li>(0,0,2)</li>
+      <li>(1,0,2)</li>
+    </autoInputSlots>
+    <ticks>16000</ticks>
+    <ingredients>
+      <li>
+        <thing>Neutroamine</thing>
+        <countNeeded>12</countNeeded>
+      </li>
+      <li>
+        <thing>MedicineIndustrial</thing>
+        <countNeeded>4</countNeeded>
+      </li>
+    </ingredients>
+    <results>
+      <li>
+        <thing>Aniracetam</thing>
+        <count>4</count>
+      </li>
+    </results>
+    <researchPrerequisites>
+      <li>MP_AdvUtilityMedicine</li>
+      <li>VFE_ComplexFactories</li>
+    </researchPrerequisites>
+    <isFactoryProcess>true</isFactoryProcess>
+    <autoExtract>true</autoExtract>
+    <onlyGrabAndOutputToFactoryHoppers>true</onlyGrabAndOutputToFactoryHoppers>
+    <sustainerWhenWorking>true</sustainerWhenWorking>
+    <sustainerDef>VFEFactory_AutomatedDrugsSustainer</sustainerDef>
+    <effecterWhenWorking>true</effecterWhenWorking>
+    <effecterDef>VFEFactory_Cook</effecterDef>
+    <maxOutputCount>75</maxOutputCount>
+  </PipeSystem.ProcessDef>
+
+  <PipeSystem.ProcessDef>
+    <defName>PhobosFactory_SynthesizeAntiTox</defName>
+    <label>Synthesize a batch of AntiTox</label>
+    <labelOverride>Synthesize a batch of AntiTox</labelOverride>
+    <description>Synthesize a batch of AntiTox (Medicines+) from neutroamine and herbal medicine.</description>
+    <priorityInBillList>11</priorityInBillList>
+    <spawnOnInteractionCell>true</spawnOnInteractionCell>
+    <autoGrabFromHoppers>true</autoGrabFromHoppers>
+    <autoInputSlots>
+      <li>(-1,0,2)</li>
+      <li>(0,0,2)</li>
+      <li>(1,0,2)</li>
+    </autoInputSlots>
+    <ticks>12800</ticks>
+    <ingredients>
+      <li>
+        <thing>Neutroamine</thing>
+        <countNeeded>12</countNeeded>
+      </li>
+      <li>
+        <thing>MedicineHerbal</thing>
+        <countNeeded>8</countNeeded>
+      </li>
+    </ingredients>
+    <results>
+      <li>
+        <thing>AntiTox</thing>
+        <count>4</count>
+      </li>
+    </results>
+    <researchPrerequisites>
+      <li>MP_BasicUtilityMedicine</li>
+      <li>VFE_ComplexFactories</li>
+    </researchPrerequisites>
+    <isFactoryProcess>true</isFactoryProcess>
+    <autoExtract>true</autoExtract>
+    <onlyGrabAndOutputToFactoryHoppers>true</onlyGrabAndOutputToFactoryHoppers>
+    <sustainerWhenWorking>true</sustainerWhenWorking>
+    <sustainerDef>VFEFactory_AutomatedDrugsSustainer</sustainerDef>
+    <effecterWhenWorking>true</effecterWhenWorking>
+    <effecterDef>VFEFactory_Cook</effecterDef>
+    <maxOutputCount>75</maxOutputCount>
+  </PipeSystem.ProcessDef>
+
+  <PipeSystem.ProcessDef>
+    <defName>PhobosFactory_SynthesizeClozapine</defName>
+    <label>Synthesize a batch of clozapine</label>
+    <labelOverride>Synthesize a batch of clozapine</labelOverride>
+    <description>Synthesize a batch of clozapine (Medicines+) from neutroamine and smokeleaf leaves.</description>
+    <priorityInBillList>12</priorityInBillList>
+    <spawnOnInteractionCell>true</spawnOnInteractionCell>
+    <autoGrabFromHoppers>true</autoGrabFromHoppers>
+    <autoInputSlots>
+      <li>(-1,0,2)</li>
+      <li>(0,0,2)</li>
+      <li>(1,0,2)</li>
+    </autoInputSlots>
+    <ticks>12800</ticks>
+    <ingredients>
+      <li>
+        <thing>Neutroamine</thing>
+        <countNeeded>8</countNeeded>
+      </li>
+      <li>
+        <thing>SmokeleafLeaves</thing>
+        <countNeeded>20</countNeeded>
+      </li>
+    </ingredients>
+    <results>
+      <li>
+        <thing>Clozapine</thing>
+        <count>4</count>
+      </li>
+    </results>
+    <researchPrerequisites>
+      <li>MP_BasicUtilityMedicine</li>
+      <li>VFE_ComplexFactories</li>
+    </researchPrerequisites>
+    <isFactoryProcess>true</isFactoryProcess>
+    <autoExtract>true</autoExtract>
+    <onlyGrabAndOutputToFactoryHoppers>true</onlyGrabAndOutputToFactoryHoppers>
+    <sustainerWhenWorking>true</sustainerWhenWorking>
+    <sustainerDef>VFEFactory_AutomatedDrugsSustainer</sustainerDef>
+    <effecterWhenWorking>true</effecterWhenWorking>
+    <effecterDef>VFEFactory_Cook</effecterDef>
+    <maxOutputCount>75</maxOutputCount>
+  </PipeSystem.ProcessDef>
+
+  <PipeSystem.ProcessDef>
+    <defName>PhobosFactory_SynthesizeCyanide</defName>
+    <label>Synthesize a batch of cyanide</label>
+    <labelOverride>Synthesize a batch of cyanide</labelOverride>
+    <description>Synthesize a batch of cyanide (Medicines+) from neutroamine.</description>
+    <priorityInBillList>13</priorityInBillList>
+    <spawnOnInteractionCell>true</spawnOnInteractionCell>
+    <autoGrabFromHoppers>true</autoGrabFromHoppers>
+    <autoInputSlots>
+      <li>(-1,0,2)</li>
+      <li>(0,0,2)</li>
+      <li>(1,0,2)</li>
+    </autoInputSlots>
+    <ticks>6400</ticks>
+    <ingredients>
+      <li>
+        <thing>Neutroamine</thing>
+        <countNeeded>4</countNeeded>
+      </li>
+    </ingredients>
+    <results>
+      <li>
+        <thing>Cyanide</thing>
+        <count>4</count>
+      </li>
+    </results>
+    <researchPrerequisites>
+      <li>MP_BaseResearch</li>
+      <li>VFE_ComplexFactories</li>
+    </researchPrerequisites>
+    <isFactoryProcess>true</isFactoryProcess>
+    <autoExtract>true</autoExtract>
+    <onlyGrabAndOutputToFactoryHoppers>true</onlyGrabAndOutputToFactoryHoppers>
+    <sustainerWhenWorking>true</sustainerWhenWorking>
+    <sustainerDef>VFEFactory_AutomatedDrugsSustainer</sustainerDef>
+    <effecterWhenWorking>true</effecterWhenWorking>
+    <effecterDef>VFEFactory_Cook</effecterDef>
+    <maxOutputCount>75</maxOutputCount>
+  </PipeSystem.ProcessDef>
+
+  <PipeSystem.ProcessDef>
+    <defName>PhobosFactory_SynthesizeHeroin</defName>
+    <label>Synthesize a batch of heroin</label>
+    <labelOverride>Synthesize a batch of heroin</labelOverride>
+    <description>Synthesize a batch of heroin (Medicines+) from morphine, crimson bulbs and neutroamine. Morphine has its own bill on this machine.</description>
+    <priorityInBillList>14</priorityInBillList>
+    <spawnOnInteractionCell>true</spawnOnInteractionCell>
+    <autoGrabFromHoppers>true</autoGrabFromHoppers>
+    <autoInputSlots>
+      <li>(-1,0,2)</li>
+      <li>(0,0,2)</li>
+      <li>(1,0,2)</li>
+    </autoInputSlots>
+    <ticks>28800</ticks>
+    <ingredients>
+      <li>
+        <thing>CrimsonBulb</thing>
+        <countNeeded>8</countNeeded>
+      </li>
+      <li>
+        <thing>Morphine</thing>
+        <countNeeded>8</countNeeded>
+      </li>
+      <li>
+        <thing>Neutroamine</thing>
+        <countNeeded>4</countNeeded>
+      </li>
+    </ingredients>
+    <results>
+      <li>
+        <thing>Heroin</thing>
+        <count>4</count>
+      </li>
+    </results>
+    <researchPrerequisites>
+      <li>MP_AdvCashCrops</li>
+      <li>VFE_ComplexFactories</li>
+    </researchPrerequisites>
+    <isFactoryProcess>true</isFactoryProcess>
+    <autoExtract>true</autoExtract>
+    <onlyGrabAndOutputToFactoryHoppers>true</onlyGrabAndOutputToFactoryHoppers>
+    <sustainerWhenWorking>true</sustainerWhenWorking>
+    <sustainerDef>VFEFactory_AutomatedDrugsSustainer</sustainerDef>
+    <effecterWhenWorking>true</effecterWhenWorking>
+    <effecterDef>VFEFactory_Cook</effecterDef>
+    <maxOutputCount>75</maxOutputCount>
+  </PipeSystem.ProcessDef>
+
+  <PipeSystem.ProcessDef>
+    <defName>PhobosFactory_SynthesizeHydra</defName>
+    <label>Synthesize a batch of hydra</label>
+    <labelOverride>Synthesize a batch of hydra</labelOverride>
+    <description>Synthesize a batch of hydra (Medicines+) from crimson bulbs and neutroamine.</description>
+    <priorityInBillList>15</priorityInBillList>
+    <spawnOnInteractionCell>true</spawnOnInteractionCell>
+    <autoGrabFromHoppers>true</autoGrabFromHoppers>
+    <autoInputSlots>
+      <li>(-1,0,2)</li>
+      <li>(0,0,2)</li>
+      <li>(1,0,2)</li>
+    </autoInputSlots>
+    <ticks>19200</ticks>
+    <ingredients>
+      <li>
+        <thing>Neutroamine</thing>
+        <countNeeded>4</countNeeded>
+      </li>
+      <li>
+        <thing>CrimsonBulb</thing>
+        <countNeeded>8</countNeeded>
+      </li>
+    </ingredients>
+    <results>
+      <li>
+        <thing>Hydra</thing>
+        <count>4</count>
+      </li>
+    </results>
+    <researchPrerequisites>
+      <li>MP_CrimsonBulbRefinement</li>
+      <li>VFE_ComplexFactories</li>
+    </researchPrerequisites>
+    <isFactoryProcess>true</isFactoryProcess>
+    <autoExtract>true</autoExtract>
+    <onlyGrabAndOutputToFactoryHoppers>true</onlyGrabAndOutputToFactoryHoppers>
+    <sustainerWhenWorking>true</sustainerWhenWorking>
+    <sustainerDef>VFEFactory_AutomatedDrugsSustainer</sustainerDef>
+    <effecterWhenWorking>true</effecterWhenWorking>
+    <effecterDef>VFEFactory_Cook</effecterDef>
+    <maxOutputCount>75</maxOutputCount>
+  </PipeSystem.ProcessDef>
+
+  <PipeSystem.ProcessDef>
+    <defName>PhobosFactory_SynthesizeJoy</defName>
+    <label>Synthesize a batch of Joy</label>
+    <labelOverride>Synthesize a batch of Joy</labelOverride>
+    <description>Synthesize a batch of Joy (Medicines+) from ambrosia, raw fungus and neutroamine.</description>
+    <priorityInBillList>16</priorityInBillList>
+    <spawnOnInteractionCell>true</spawnOnInteractionCell>
+    <autoGrabFromHoppers>true</autoGrabFromHoppers>
+    <autoInputSlots>
+      <li>(-1,0,2)</li>
+      <li>(0,0,2)</li>
+      <li>(1,0,2)</li>
+    </autoInputSlots>
+    <ticks>9600</ticks>
+    <ingredients>
+      <li>
+        <thing>Ambrosia</thing>
+        <countNeeded>4</countNeeded>
+      </li>
+      <li>
+        <thing>RawFungus</thing>
+        <countNeeded>40</countNeeded>
+      </li>
+      <li>
+        <thing>Neutroamine</thing>
+        <countNeeded>4</countNeeded>
+      </li>
+    </ingredients>
+    <results>
+      <li>
+        <thing>Joy</thing>
+        <count>4</count>
+      </li>
+    </results>
+    <researchPrerequisites>
+      <li>MP_AdvCashCrops</li>
+      <li>VFE_ComplexFactories</li>
+    </researchPrerequisites>
+    <isFactoryProcess>true</isFactoryProcess>
+    <autoExtract>true</autoExtract>
+    <onlyGrabAndOutputToFactoryHoppers>true</onlyGrabAndOutputToFactoryHoppers>
+    <sustainerWhenWorking>true</sustainerWhenWorking>
+    <sustainerDef>VFEFactory_AutomatedDrugsSustainer</sustainerDef>
+    <effecterWhenWorking>true</effecterWhenWorking>
+    <effecterDef>VFEFactory_Cook</effecterDef>
+    <maxOutputCount>75</maxOutputCount>
+  </PipeSystem.ProcessDef>
+
+  <PipeSystem.ProcessDef>
+    <defName>PhobosFactory_SynthesizeAddictol</defName>
+    <label>Synthesize a batch of addictol</label>
+    <labelOverride>Synthesize a batch of addictol</labelOverride>
+    <description>Synthesize a batch of addictol (Medicines+) from neutroamine and chemfuel.</description>
+    <priorityInBillList>17</priorityInBillList>
+    <spawnOnInteractionCell>true</spawnOnInteractionCell>
+    <autoGrabFromHoppers>true</autoGrabFromHoppers>
+    <autoInputSlots>
+      <li>(-1,0,2)</li>
+      <li>(0,0,2)</li>
+      <li>(1,0,2)</li>
+    </autoInputSlots>
+    <ticks>16000</ticks>
+    <ingredients>
+      <li>
+        <thing>Neutroamine</thing>
+        <countNeeded>12</countNeeded>
+      </li>
+      <li>
+        <thing>Chemfuel</thing>
+        <countNeeded>20</countNeeded>
+      </li>
+    </ingredients>
+    <results>
+      <li>
+        <thing>MP_Addictol</thing>
+        <count>4</count>
+      </li>
+    </results>
+    <researchPrerequisites>
+      <li>MP_AdvCashCrops</li>
+      <li>VFE_ComplexFactories</li>
+    </researchPrerequisites>
+    <isFactoryProcess>true</isFactoryProcess>
+    <autoExtract>true</autoExtract>
+    <onlyGrabAndOutputToFactoryHoppers>true</onlyGrabAndOutputToFactoryHoppers>
+    <sustainerWhenWorking>true</sustainerWhenWorking>
+    <sustainerDef>VFEFactory_AutomatedDrugsSustainer</sustainerDef>
+    <effecterWhenWorking>true</effecterWhenWorking>
+    <effecterDef>VFEFactory_Cook</effecterDef>
+    <maxOutputCount>75</maxOutputCount>
+  </PipeSystem.ProcessDef>
+
+  <PipeSystem.ProcessDef>
+    <defName>PhobosFactory_SynthesizeMorphine</defName>
+    <label>Synthesize a batch of morphine</label>
+    <labelOverride>Synthesize a batch of morphine</labelOverride>
+    <description>Synthesize a batch of morphine (Medicines+) from opium and psychoid leaves.</description>
+    <priorityInBillList>18</priorityInBillList>
+    <spawnOnInteractionCell>true</spawnOnInteractionCell>
+    <autoGrabFromHoppers>true</autoGrabFromHoppers>
+    <autoInputSlots>
+      <li>(-1,0,2)</li>
+      <li>(0,0,2)</li>
+      <li>(1,0,2)</li>
+    </autoInputSlots>
+    <ticks>16000</ticks>
+    <ingredients>
+      <li>
+        <thing>PoppyLatex</thing>
+        <countNeeded>20</countNeeded>
+      </li>
+      <li>
+        <thing>PsychoidLeaves</thing>
+        <countNeeded>20</countNeeded>
+      </li>
+    </ingredients>
+    <results>
+      <li>
+        <thing>Morphine</thing>
+        <count>4</count>
+      </li>
+    </results>
+    <researchPrerequisites>
+      <li>MP_BasicUtilityMedicine</li>
+      <li>VFE_ComplexFactories</li>
+    </researchPrerequisites>
+    <isFactoryProcess>true</isFactoryProcess>
+    <autoExtract>true</autoExtract>
+    <onlyGrabAndOutputToFactoryHoppers>true</onlyGrabAndOutputToFactoryHoppers>
+    <sustainerWhenWorking>true</sustainerWhenWorking>
+    <sustainerDef>VFEFactory_AutomatedDrugsSustainer</sustainerDef>
+    <effecterWhenWorking>true</effecterWhenWorking>
+    <effecterDef>VFEFactory_Cook</effecterDef>
+    <maxOutputCount>75</maxOutputCount>
+  </PipeSystem.ProcessDef>
+
+  <PipeSystem.ProcessDef>
+    <defName>PhobosFactory_SynthesizePenicillin</defName>
+    <label>Synthesize a batch of penicillin</label>
+    <labelOverride>Synthesize a batch of penicillin</labelOverride>
+    <description>Synthesize a batch of penicillin (Medicines+) from neutroamine and herbal medicine.</description>
+    <priorityInBillList>19</priorityInBillList>
+    <spawnOnInteractionCell>true</spawnOnInteractionCell>
+    <autoGrabFromHoppers>true</autoGrabFromHoppers>
+    <autoInputSlots>
+      <li>(-1,0,2)</li>
+      <li>(0,0,2)</li>
+      <li>(1,0,2)</li>
+    </autoInputSlots>
+    <ticks>8000</ticks>
+    <ingredients>
+      <li>
+        <thing>Neutroamine</thing>
+        <countNeeded>4</countNeeded>
+      </li>
+      <li>
+        <thing>MedicineHerbal</thing>
+        <countNeeded>4</countNeeded>
+      </li>
+    </ingredients>
+    <results>
+      <li>
+        <thing>Penicillin</thing>
+        <count>4</count>
+      </li>
+    </results>
+    <researchPrerequisites>
+      <li>MP_BasicUtilityMedicine</li>
+      <li>VFE_ComplexFactories</li>
+    </researchPrerequisites>
+    <isFactoryProcess>true</isFactoryProcess>
+    <autoExtract>true</autoExtract>
+    <onlyGrabAndOutputToFactoryHoppers>true</onlyGrabAndOutputToFactoryHoppers>
+    <sustainerWhenWorking>true</sustainerWhenWorking>
+    <sustainerDef>VFEFactory_AutomatedDrugsSustainer</sustainerDef>
+    <effecterWhenWorking>true</effecterWhenWorking>
+    <effecterDef>VFEFactory_Cook</effecterDef>
+    <maxOutputCount>75</maxOutputCount>
+  </PipeSystem.ProcessDef>
+
+  <PipeSystem.ProcessDef>
+    <defName>PhobosFactory_SynthesizePenicillinFromFungus</defName>
+    <label>Synthesize a batch of penicillin from fungus</label>
+    <labelOverride>Synthesize a batch of penicillin from fungus</labelOverride>
+    <description>Synthesize a batch of penicillin (Medicines+) by culturing raw fungus with neutroamine. Penicillin comes from a mould, so fungus is the natural feedstock; it takes more bulk than the herbal medicine path.</description>
+    <priorityInBillList>20</priorityInBillList>
+    <spawnOnInteractionCell>true</spawnOnInteractionCell>
+    <autoGrabFromHoppers>true</autoGrabFromHoppers>
+    <autoInputSlots>
+      <li>(-1,0,2)</li>
+      <li>(0,0,2)</li>
+      <li>(1,0,2)</li>
+    </autoInputSlots>
+    <ticks>8000</ticks>
+    <ingredients>
+      <li>
+        <thing>RawFungus</thing>
+        <countNeeded>40</countNeeded>
+      </li>
+      <li>
+        <thing>Neutroamine</thing>
+        <countNeeded>4</countNeeded>
+      </li>
+    </ingredients>
+    <results>
+      <li>
+        <thing>Penicillin</thing>
+        <count>4</count>
+      </li>
+    </results>
+    <researchPrerequisites>
+      <li>MP_BasicUtilityMedicine</li>
+      <li>VFE_ComplexFactories</li>
+    </researchPrerequisites>
+    <isFactoryProcess>true</isFactoryProcess>
+    <autoExtract>true</autoExtract>
+    <onlyGrabAndOutputToFactoryHoppers>true</onlyGrabAndOutputToFactoryHoppers>
+    <sustainerWhenWorking>true</sustainerWhenWorking>
+    <sustainerDef>VFEFactory_AutomatedDrugsSustainer</sustainerDef>
+    <effecterWhenWorking>true</effecterWhenWorking>
+    <effecterDef>VFEFactory_Cook</effecterDef>
+    <maxOutputCount>75</maxOutputCount>
+  </PipeSystem.ProcessDef>
+
+  <PipeSystem.ProcessDef>
+    <defName>PhobosFactory_SynthesizeSmellingSalts</defName>
+    <label>Synthesize a batch of smelling salts</label>
+    <labelOverride>Synthesize a batch of smelling salts</labelOverride>
+    <description>Synthesize a batch of smelling salts (Medicines+) from psychoid leaves and neutroamine.</description>
+    <priorityInBillList>21</priorityInBillList>
+    <spawnOnInteractionCell>true</spawnOnInteractionCell>
+    <autoGrabFromHoppers>true</autoGrabFromHoppers>
+    <autoInputSlots>
+      <li>(-1,0,2)</li>
+      <li>(0,0,2)</li>
+      <li>(1,0,2)</li>
+    </autoInputSlots>
+    <ticks>12800</ticks>
+    <ingredients>
+      <li>
+        <thing>PsychoidLeaves</thing>
+        <countNeeded>4</countNeeded>
+      </li>
+      <li>
+        <thing>Neutroamine</thing>
+        <countNeeded>4</countNeeded>
+      </li>
+    </ingredients>
+    <results>
+      <li>
+        <thing>SSalts</thing>
+        <count>4</count>
+      </li>
+    </results>
+    <researchPrerequisites>
+      <li>VFE_ComplexFactories</li>
+    </researchPrerequisites>
+    <isFactoryProcess>true</isFactoryProcess>
+    <autoExtract>true</autoExtract>
+    <onlyGrabAndOutputToFactoryHoppers>true</onlyGrabAndOutputToFactoryHoppers>
+    <sustainerWhenWorking>true</sustainerWhenWorking>
+    <sustainerDef>VFEFactory_AutomatedDrugsSustainer</sustainerDef>
+    <effecterWhenWorking>true</effecterWhenWorking>
+    <effecterDef>VFEFactory_Cook</effecterDef>
+    <maxOutputCount>75</maxOutputCount>
+  </PipeSystem.ProcessDef>
+
+  <PipeSystem.ProcessDef>
+    <defName>PhobosFactory_SynthesizeThornWeedSerum</defName>
+    <label>Synthesize a batch of ThornWeed serum</label>
+    <labelOverride>Synthesize a batch of ThornWeed serum</labelOverride>
+    <description>Synthesize a batch of ThornWeed serum (Medicines+) from ThornWeed needles, steel and neutroamine.</description>
+    <priorityInBillList>22</priorityInBillList>
+    <spawnOnInteractionCell>true</spawnOnInteractionCell>
+    <autoGrabFromHoppers>true</autoGrabFromHoppers>
+    <autoInputSlots>
+      <li>(-1,0,2)</li>
+      <li>(0,0,2)</li>
+      <li>(1,0,2)</li>
+    </autoInputSlots>
+    <ticks>14400</ticks>
+    <ingredients>
+      <li>
+        <thing>Steel</thing>
+        <countNeeded>20</countNeeded>
+      </li>
+      <li>
+        <thing>Neutroamine</thing>
+        <countNeeded>4</countNeeded>
+      </li>
+      <li>
+        <thing>ThornWeedNeedle</thing>
+        <countNeeded>20</countNeeded>
+      </li>
+    </ingredients>
+    <results>
+      <li>
+        <thing>ThornWeedExtract</thing>
+        <count>4</count>
+      </li>
+    </results>
+    <researchPrerequisites>
+      <li>MP_AdvUtilityMedicine</li>
+      <li>VFE_ComplexFactories</li>
+    </researchPrerequisites>
+    <isFactoryProcess>true</isFactoryProcess>
+    <autoExtract>true</autoExtract>
+    <onlyGrabAndOutputToFactoryHoppers>true</onlyGrabAndOutputToFactoryHoppers>
+    <sustainerWhenWorking>true</sustainerWhenWorking>
+    <sustainerDef>VFEFactory_AutomatedDrugsSustainer</sustainerDef>
+    <effecterWhenWorking>true</effecterWhenWorking>
+    <effecterDef>VFEFactory_Cook</effecterDef>
+    <maxOutputCount>75</maxOutputCount>
+  </PipeSystem.ProcessDef>
+
+  <PipeSystem.ProcessDef>
+    <defName>PhobosFactory_SynthesizeTyrox</defName>
+    <label>Synthesize a batch of Tyrox</label>
+    <labelOverride>Synthesize a batch of Tyrox</labelOverride>
+    <description>Synthesize a batch of Tyrox (Medicines+) from neutroamine, penicillin and crimson bulbs. Penicillin has its own bill on this machine.</description>
+    <priorityInBillList>23</priorityInBillList>
+    <spawnOnInteractionCell>true</spawnOnInteractionCell>
+    <autoGrabFromHoppers>true</autoGrabFromHoppers>
+    <autoInputSlots>
+      <li>(-1,0,2)</li>
+      <li>(0,0,2)</li>
+      <li>(1,0,2)</li>
+    </autoInputSlots>
+    <ticks>22400</ticks>
+    <ingredients>
+      <li>
+        <thing>Neutroamine</thing>
+        <countNeeded>8</countNeeded>
+      </li>
+      <li>
+        <thing>Penicillin</thing>
+        <countNeeded>4</countNeeded>
+      </li>
+      <li>
+        <thing>CrimsonBulb</thing>
+        <countNeeded>4</countNeeded>
+      </li>
+    </ingredients>
+    <results>
+      <li>
+        <thing>Tyrox</thing>
+        <count>4</count>
+      </li>
+    </results>
+    <researchPrerequisites>
+      <li>MP_AdvUtilityMedicine</li>
+      <li>VFE_ComplexFactories</li>
+    </researchPrerequisites>
+    <isFactoryProcess>true</isFactoryProcess>
+    <autoExtract>true</autoExtract>
+    <onlyGrabAndOutputToFactoryHoppers>true</onlyGrabAndOutputToFactoryHoppers>
+    <sustainerWhenWorking>true</sustainerWhenWorking>
+    <sustainerDef>VFEFactory_AutomatedDrugsSustainer</sustainerDef>
+    <effecterWhenWorking>true</effecterWhenWorking>
+    <effecterDef>VFEFactory_Cook</effecterDef>
+    <maxOutputCount>75</maxOutputCount>
+  </PipeSystem.ProcessDef>
+
+  <PipeSystem.ProcessDef>
+    <defName>PhobosFactory_SynthesizeUpper</defName>
+    <label>Synthesize a batch of Upper</label>
+    <labelOverride>Synthesize a batch of Upper</labelOverride>
+    <description>Synthesize a batch of Upper (Medicines+) from psychoid leaves and neutroamine.</description>
+    <priorityInBillList>24</priorityInBillList>
+    <spawnOnInteractionCell>true</spawnOnInteractionCell>
+    <autoGrabFromHoppers>true</autoGrabFromHoppers>
+    <autoInputSlots>
+      <li>(-1,0,2)</li>
+      <li>(0,0,2)</li>
+      <li>(1,0,2)</li>
+    </autoInputSlots>
+    <ticks>14400</ticks>
+    <ingredients>
+      <li>
+        <thing>PsychoidLeaves</thing>
+        <countNeeded>40</countNeeded>
+      </li>
+      <li>
+        <thing>Neutroamine</thing>
+        <countNeeded>12</countNeeded>
+      </li>
+    </ingredients>
+    <results>
+      <li>
+        <thing>Upper</thing>
+        <count>4</count>
+      </li>
+    </results>
+    <researchPrerequisites>
+      <li>MP_BasicCashCrops</li>
+      <li>VFE_ComplexFactories</li>
+    </researchPrerequisites>
+    <isFactoryProcess>true</isFactoryProcess>
+    <autoExtract>true</autoExtract>
+    <onlyGrabAndOutputToFactoryHoppers>true</onlyGrabAndOutputToFactoryHoppers>
+    <sustainerWhenWorking>true</sustainerWhenWorking>
+    <sustainerDef>VFEFactory_AutomatedDrugsSustainer</sustainerDef>
+    <effecterWhenWorking>true</effecterWhenWorking>
+    <effecterDef>VFEFactory_Cook</effecterDef>
+    <maxOutputCount>75</maxOutputCount>
+  </PipeSystem.ProcessDef>
+
+</Defs>

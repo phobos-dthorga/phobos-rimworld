@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+  <!--
+    Passive Exoskeletons (AgentOrange.PassiveExoskeletons, Workshop 3807490214):
+    1.7/Defs/Recipe/Recipe_materials.xml, the x25 recipe (75 chemfuel + 8 plasteel, 6000 work) as one batch,
+    ticks = work x 4. Shape copied from VFEFactory_MakeChemfuelFromWood. Polyamide stacks to 75: cap 50.
+    Every figure is a port of the source recipe unless the comment or the README says
+    it is authored. Loaded only while the source mod is active (LoadFolders.xml). Not yet tested in game.
+  -->
+
+  <PipeSystem.ProcessDef>
+    <defName>PhobosFactory_MakePolyamide</defName>
+    <label>Make polyamide</label>
+    <labelOverride>Make polyamide</labelOverride>
+    <description>Make polyamide (Passive Exoskeletons) from chemfuel and plasteel.</description>
+    <priorityInBillList>10</priorityInBillList>
+    <spawnOnInteractionCell>true</spawnOnInteractionCell>
+    <autoGrabFromHoppers>true</autoGrabFromHoppers>
+    <autoInputSlots>
+      <li>(0,0,3)</li>
+      <li>(1,0,3)</li>
+      <li>(-1,0,3)</li>
+    </autoInputSlots>
+    <ticks>24000</ticks>
+    <ingredients>
+      <li>
+        <thing>Chemfuel</thing>
+        <countNeeded>75</countNeeded>
+      </li>
+      <li>
+        <thing>Plasteel</thing>
+        <countNeeded>8</countNeeded>
+      </li>
+    </ingredients>
+    <results>
+      <li>
+        <thing>Polyamide</thing>
+        <count>25</count>
+      </li>
+    </results>
+    <researchPrerequisites>
+      <li>BiofuelRefining</li>
+      <li>DrugProduction</li>
+      <li>VFE_BasicFactories</li>
+    </researchPrerequisites>
+    <isFactoryProcess>true</isFactoryProcess>
+    <autoExtract>true</autoExtract>
+    <onlyGrabAndOutputToFactoryHoppers>true</onlyGrabAndOutputToFactoryHoppers>
+    <sustainerWhenWorking>true</sustainerWhenWorking>
+    <sustainerDef>VFEFactory_AutomatedBrewingSustainer</sustainerDef>
+    <effecterWhenWorking>true</effecterWhenWorking>
+    <effecterDef>VFEFactory_Cook</effecterDef>
+    <maxOutputCount>50</maxOutputCount>
+  </PipeSystem.ProcessDef>
+
+</Defs>

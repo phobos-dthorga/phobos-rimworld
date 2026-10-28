@@ -23,7 +23,8 @@ promise current behaviour. For using the mods, start at the [documentation index
 ## Factory additions
 
 - [VFE Factory additions: research and decisions (28 Oct 2026)](vfe-factory-additions.md): how a factory bill
-  works, why the stock neutroamine bill already took human meat, the values in play, decisions and ideas.
+  works, why the stock neutroamine bill already took human meat, the values in play, decisions and ideas;
+  the drug-lab recipe scan (86 recipes, 44 ported in 0.3.0), the output-cap rule and the offline checker.
 - [VFE Factory conveyors and hoppers (28 Oct 2026)](vfe-factory-conveyors.md): what a belt may pull from (only
   factory hoppers, or storage flagged with Pipe System's extension), where it pushes, what the flag does not
   change, and the recipe for flagging another mod's storage.

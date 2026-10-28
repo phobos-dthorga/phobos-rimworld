@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+  <!--
+    Farmable Neutroamine (kongkim.FarmableNeutroamine, Workshop 3222103279):
+    1.6/Defs/ThingDefs_Items/Items_Resource_Manufactured.xml, 5 leaves and 250 work per neutroamine at the
+    lab. Batch of 5 to match the synthesizer's stock bill (ticks = 250 x 4 x 5). Shape copied from
+    VFEFactory_SynthesizeNeutroamine.
+    Every figure is a port of the source recipe unless the comment or the README says
+    it is authored. Loaded only while the source mod is active (LoadFolders.xml). Not yet tested in game.
+  -->
+
+  <PipeSystem.ProcessDef>
+    <defName>PhobosFactory_SynthesizeNeutroamineFromNeutroaleaves</defName>
+    <label>Synthesize neutroamine from neutroaleaves</label>
+    <labelOverride>Synthesize neutroamine from neutroaleaves</labelOverride>
+    <description>Synthesize neutroamine from neutroaleaves (Farmable Neutroamine). No chemfuel and no meat: the leaves carry the precursor themselves.</description>
+    <priorityInBillList>3</priorityInBillList>
+    <spawnOnInteractionCell>true</spawnOnInteractionCell>
+    <autoGrabFromHoppers>true</autoGrabFromHoppers>
+    <autoInputSlots>
+      <li>(-1,0,2)</li>
+      <li>(1,0,2)</li>
+    </autoInputSlots>
+    <ticks>5000</ticks>
+    <ingredients>
+      <li>
+        <thing>Neutroaleaves</thing>
+        <countNeeded>25</countNeeded>
+      </li>
+    </ingredients>
+    <results>
+      <li>
+        <thing>Neutroamine</thing>
+        <count>5</count>
+      </li>
+    </results>
+    <researchPrerequisites>
+      <li>NeutroaleafRefining</li>
+      <li>VFE_ComplexFactories</li>
+    </researchPrerequisites>
+    <isFactoryProcess>true</isFactoryProcess>
+    <autoExtract>true</autoExtract>
+    <onlyGrabAndOutputToFactoryHoppers>true</onlyGrabAndOutputToFactoryHoppers>
+    <sustainerWhenWorking>true</sustainerWhenWorking>
+    <sustainerDef>VFEFactory_AutomatedDrugsSustainer</sustainerDef>
+    <effecterWhenWorking>true</effecterWhenWorking>
+    <effecterDef>VFEFactory_Cook</effecterDef>
+    <maxOutputCount>75</maxOutputCount>
+  </PipeSystem.ProcessDef>
+
+</Defs>

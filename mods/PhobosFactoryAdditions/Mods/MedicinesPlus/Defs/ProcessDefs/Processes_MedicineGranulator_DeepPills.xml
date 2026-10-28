@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+  <!--
+    Deep Pills (ODs.DeepPills, Workshop 3758899296) with Medicines+: 1.6/Mods/MedicinesPlus/Defs/RecipeDefs/
+    Infusions.xml, the x8 recipes (32 raw plant, 1000 work, no research), ticks = work x 4. The raw plants
+    exist only with both mods active, so these Defs carry MayRequire for Deep Pills inside the Medicines+
+    folder, the way VFE Factory gates its antibiotics bill.
+    Every figure is a port of the source recipe unless the comment or the README says
+    it is authored. Loaded only while the source mod is active (LoadFolders.xml). Not yet tested in game.
+  -->
+
+  <PipeSystem.ProcessDef MayRequire="ODs.DeepPills">
+    <defName>PhobosFactory_InfusePeyote</defName>
+    <label>Make a batch of peyote infusion</label>
+    <labelOverride>Make a batch of peyote infusion</labelOverride>
+    <description>Make a batch of peyote (Medicines+) from peyote fruits (Deep Pills).</description>
+    <priorityInBillList>25</priorityInBillList>
+    <spawnOnInteractionCell>true</spawnOnInteractionCell>
+    <autoGrabFromHoppers>true</autoGrabFromHoppers>
+    <autoInputSlots>
+      <li>(-1,0,2)</li>
+      <li>(0,0,2)</li>
+      <li>(1,0,2)</li>
+    </autoInputSlots>
+    <ticks>4000</ticks>
+    <ingredients>
+      <li>
+        <thing>Raw_Peyote</thing>
+        <countNeeded>32</countNeeded>
+      </li>
+    </ingredients>
+    <results>
+      <li>
+        <thing>Peyote</thing>
+        <count>8</count>
+      </li>
+    </results>
+    <researchPrerequisites>
+      <li>VFE_ComplexFactories</li>
+    </researchPrerequisites>
+    <isFactoryProcess>true</isFactoryProcess>
+    <autoExtract>true</autoExtract>
+    <onlyGrabAndOutputToFactoryHoppers>true</onlyGrabAndOutputToFactoryHoppers>
+    <sustainerWhenWorking>true</sustainerWhenWorking>
+    <sustainerDef>VFEFactory_AutomatedDrugsSustainer</sustainerDef>
+    <effecterWhenWorking>true</effecterWhenWorking>
+    <effecterDef>VFEFactory_Cook</effecterDef>
+    <maxOutputCount>75</maxOutputCount>
+  </PipeSystem.ProcessDef>
+
+  <PipeSystem.ProcessDef MayRequire="ODs.DeepPills">
+    <defName>PhobosFactory_InfuseOpium</defName>
+    <label>Make a batch of opium infusion</label>
+    <labelOverride>Make a batch of opium infusion</labelOverride>
+    <description>Make a batch of opium (Medicines+) from opium poppies (Deep Pills).</description>
+    <priorityInBillList>26</priorityInBillList>
+    <spawnOnInteractionCell>true</spawnOnInteractionCell>
+    <autoGrabFromHoppers>true</autoGrabFromHoppers>
+    <autoInputSlots>
+      <li>(-1,0,2)</li>
+      <li>(0,0,2)</li>
+      <li>(1,0,2)</li>
+    </autoInputSlots>
+    <ticks>4000</ticks>
+    <ingredients>
+      <li>
+        <thing>Raw_Opium</thing>
+        <countNeeded>32</countNeeded>
+      </li>
+    </ingredients>
+    <results>
+      <li>
+        <thing>PoppyLatex</thing>
+        <count>8</count>
+      </li>
+    </results>
+    <researchPrerequisites>
+      <li>VFE_ComplexFactories</li>
+    </researchPrerequisites>
+    <isFactoryProcess>true</isFactoryProcess>
+    <autoExtract>true</autoExtract>
+    <onlyGrabAndOutputToFactoryHoppers>true</onlyGrabAndOutputToFactoryHoppers>
+    <sustainerWhenWorking>true</sustainerWhenWorking>
+    <sustainerDef>VFEFactory_AutomatedDrugsSustainer</sustainerDef>
+    <effecterWhenWorking>true</effecterWhenWorking>
+    <effecterDef>VFEFactory_Cook</effecterDef>
+    <maxOutputCount>75</maxOutputCount>
+  </PipeSystem.ProcessDef>
+
+  <PipeSystem.ProcessDef MayRequire="ODs.DeepPills">
+    <defName>PhobosFactory_InfuseThornWeed</defName>
+    <label>Make a batch of thorn weed infusion</label>
+    <labelOverride>Make a batch of thorn weed infusion</labelOverride>
+    <description>Make a batch of ThornWeed needles (Medicines+) from thorns of weed (Deep Pills).</description>
+    <priorityInBillList>27</priorityInBillList>
+    <spawnOnInteractionCell>true</spawnOnInteractionCell>
+    <autoGrabFromHoppers>true</autoGrabFromHoppers>
+    <autoInputSlots>
+      <li>(-1,0,2)</li>
+      <li>(0,0,2)</li>
+      <li>(1,0,2)</li>
+    </autoInputSlots>
+    <ticks>4000</ticks>
+    <ingredients>
+      <li>
+        <thing>Raw_TWN</thing>
+        <countNeeded>32</countNeeded>
+      </li>
+    </ingredients>
+    <results>
+      <li>
+        <thing>ThornWeedNeedle</thing>
+        <count>8</count>
+      </li>
+    </results>
+    <researchPrerequisites>
+      <li>VFE_ComplexFactories</li>
+    </researchPrerequisites>
+    <isFactoryProcess>true</isFactoryProcess>
+    <autoExtract>true</autoExtract>
+    <onlyGrabAndOutputToFactoryHoppers>true</onlyGrabAndOutputToFactoryHoppers>
+    <sustainerWhenWorking>true</sustainerWhenWorking>
+    <sustainerDef>VFEFactory_AutomatedDrugsSustainer</sustainerDef>
+    <effecterWhenWorking>true</effecterWhenWorking>
+    <effecterDef>VFEFactory_Cook</effecterDef>
+    <maxOutputCount>75</maxOutputCount>
+  </PipeSystem.ProcessDef>
+
+</Defs>

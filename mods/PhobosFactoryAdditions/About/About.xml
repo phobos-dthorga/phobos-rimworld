@@ -4,14 +4,16 @@
   <name>D'thorga Factory Additions</name>
   <author>Phobos A. D'thorga</author>
   <url>https://github.com/phobos-dthorga/phobos-rimworld</url>
-  <modVersion>0.2.0</modVersion>
+  <modVersion>0.3.0</modVersion>
   <description>Additions to Vanilla Furniture Expanded - Factory.
 
 A "Synthesize neutroamine from human meat" bill for the neutroamine synthesizer. People carry far more fat than game animals, so a batch gives a little more neutroamine than the same weight of animal meat. The stock bill keeps taking animal meat and stops taking human meat, so you choose which meat goes where. Nobody eats anything, and no Ideology thought fires.
 
 With "[sbz] Fridge" active, conveyor belts and factory machines can take corpses straight out of its corpse fridge, as they do from a factory hopper.
 
-Requires Vanilla Expanded Framework and Vanilla Furniture Expanded - Factory. Uses Vanilla Chemfuel Expanded's piped chemfuel when that mod is active.
+Drug lab recipes from other mods as factory bills, each switched on only while its mod is active: Medicines+ (all its drugs, plus a penicillin-from-fungus bill), Deep Pills infusions, Ushankas Biological Warfare vaccines, antiserums and pills, Combat Extended psycho, Dubs Rimatomics potassium iodide, hemogen from Hemofungus, Complementary Odyssey vacsop and glitterworld medicine on the medicine granulator; Farmable Neutroamine leaves on the neutroamine synthesizer; Passive Exoskeletons polyamide and Simple Washing Machine detergent on the automated biofuel refinery. Every bill follows the stock rule (a batch of four at four times the lab's work) and keeps its mod's research.
+
+Requires Vanilla Expanded Framework and Vanilla Furniture Expanded - Factory. Uses Vanilla Chemfuel Expanded's piped chemfuel and Vanilla Races Expanded - Android's piped neutroamine when those mods are active.
 
 Community-created content. Not official and not endorsed by Ludeon Studios.</description>
   <supportedVersions>
@@ -45,5 +47,17 @@ Community-created content. Not official and not endorsed by Ludeon Studios.</des
     <li>Kimo.VFEF.rebalance</li>
     <li>adaptive.storage.framework</li>
     <li>sbz.NeatStorageFridge</li>
+    <li>Papito.MedicinesPlus.AT</li>
+    <li>ODs.DeepPills</li>
+    <li>Ushanka.BiologicalWarfare</li>
+    <li>CETeam.CombatExtended</li>
+    <li>Dubwise.Rimatomics</li>
+    <li>NoSleep.Hemofungus</li>
+    <li>MrHydralisk.ComplementaryOdyssey</li>
+    <li>MrHydralisk.GlitterworldMedicineProduction</li>
+    <li>kongkim.FarmableNeutroamine</li>
+    <li>AgentOrange.PassiveExoskeletons</li>
+    <li>local.washingmachine</li>
+    <li>vanillaracesexpanded.android</li>
   </loadAfter>
 </ModMetaData>

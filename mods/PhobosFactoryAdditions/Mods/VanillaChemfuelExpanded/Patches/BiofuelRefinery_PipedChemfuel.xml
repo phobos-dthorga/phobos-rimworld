@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+
+  <!--
+    With Vanilla Chemfuel Expanded active, let these bills draw chemfuel from the machine's pipe comp as
+    well as from hoppers, as VFE Factory's own patch does for its stock bills. Each bill exists only while its
+    source mod is active, so each group is wrapped in a PatchOperationFindMod on that mod's display name
+    (the way VFE Factory gates its own optional patches). Not yet tested in game.
+  -->
+
+  <Operation Class="PatchOperationFindMod">
+    <mods>
+      <li>Passive Exoskeletons</li>
+    </mods>
+    <match Class="PatchOperationSequence">
+      <operations>
+        <li Class="PatchOperationAdd">
+          <xpath>Defs/PipeSystem.ProcessDef[defName="PhobosFactory_MakePolyamide"]</xpath>
+          <value>
+            <considerBuildingCompResource>true</considerBuildingCompResource>
+          </value>
+        </li>
+      </operations>
+    </match>
+  </Operation>
+
+  <Operation Class="PatchOperationFindMod">
+    <mods>
+      <li>Simple Washing Machine</li>
+    </mods>
+    <match Class="PatchOperationSequence">
+      <operations>
+        <li Class="PatchOperationAdd">
+          <xpath>Defs/PipeSystem.ProcessDef[defName="PhobosFactory_MakeDetergent"]</xpath>
+          <value>
+            <considerBuildingCompResource>true</considerBuildingCompResource>
+          </value>
+        </li>
+        <li Class="PatchOperationAdd">
+          <xpath>Defs/PipeSystem.ProcessDef[defName="PhobosFactory_MakeHeavyDutyDetergent"]</xpath>
+          <value>
+            <considerBuildingCompResource>true</considerBuildingCompResource>
+          </value>
+        </li>
+      </operations>
+    </match>
+  </Operation>
+
+</Patch>

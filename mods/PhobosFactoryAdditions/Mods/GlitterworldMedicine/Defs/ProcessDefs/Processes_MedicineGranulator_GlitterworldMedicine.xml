@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+  <!--
+    Glitterworld Medicine Production (MrHydralisk.GlitterworldMedicineProduction, Workshop 2885153505):
+    Defs/RecipeDefs/Recipes_Production.xml, 1800 work per unit. Lab recipe x 4. Four ingredients need four
+    hopper cells, so this bill adds the two cells behind the machine's corners, (-2,0,2) and (2,0,2); VFE
+    Factory's own bills never use them, and this is not yet tested in game. Medicine stacks to 25: cap 21.
+    Every figure is a port of the source recipe unless the comment or the README says
+    it is authored. Loaded only while the source mod is active (LoadFolders.xml). Not yet tested in game.
+  -->
+
+  <PipeSystem.ProcessDef>
+    <defName>PhobosFactory_MakeGlitterworldMedicine</defName>
+    <label>Make a batch of glitterworld medicine</label>
+    <labelOverride>Make a batch of glitterworld medicine</labelOverride>
+    <description>Make a batch of glitterworld medicine (Glitterworld Medicine Production) from synthread, components, plasteel and medicine. Four inputs, so this bill has five input cells: the three behind the machine and the two behind its corners.</description>
+    <priorityInBillList>55</priorityInBillList>
+    <spawnOnInteractionCell>true</spawnOnInteractionCell>
+    <autoGrabFromHoppers>true</autoGrabFromHoppers>
+    <autoInputSlots>
+      <li>(-2,0,2)</li>
+      <li>(-1,0,2)</li>
+      <li>(0,0,2)</li>
+      <li>(1,0,2)</li>
+      <li>(2,0,2)</li>
+    </autoInputSlots>
+    <ticks>28800</ticks>
+    <ingredients>
+      <li>
+        <thing>Synthread</thing>
+        <countNeeded>20</countNeeded>
+      </li>
+      <li>
+        <thing>ComponentIndustrial</thing>
+        <countNeeded>4</countNeeded>
+      </li>
+      <li>
+        <thing>Plasteel</thing>
+        <countNeeded>16</countNeeded>
+      </li>
+      <li>
+        <thing>MedicineIndustrial</thing>
+        <countNeeded>4</countNeeded>
+      </li>
+    </ingredients>
+    <results>
+      <li>
+        <thing>MedicineUltratech</thing>
+        <count>4</count>
+      </li>
+    </results>
+    <researchPrerequisites>
+      <li>MedicineUltratechProduction</li>
+      <li>VFE_ComplexFactories</li>
+    </researchPrerequisites>
+    <isFactoryProcess>true</isFactoryProcess>
+    <autoExtract>true</autoExtract>
+    <onlyGrabAndOutputToFactoryHoppers>true</onlyGrabAndOutputToFactoryHoppers>
+    <sustainerWhenWorking>true</sustainerWhenWorking>
+    <sustainerDef>VFEFactory_AutomatedDrugsSustainer</sustainerDef>
+    <effecterWhenWorking>true</effecterWhenWorking>
+    <effecterDef>VFEFactory_Cook</effecterDef>
+    <maxOutputCount>21</maxOutputCount>
+  </PipeSystem.ProcessDef>
+
+</Defs>

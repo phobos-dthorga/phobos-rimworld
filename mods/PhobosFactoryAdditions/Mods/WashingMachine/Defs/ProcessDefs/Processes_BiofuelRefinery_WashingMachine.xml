@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+  <!--
+    Simple Washing Machine (local.washingmachine, Workshop 3820234705): Defs/RecipeDefs/DetergentRecipes.xml,
+    each lab recipe gives 3 (1500 and 2000 work). Lab recipe x 4 (ticks = work x 4 x 4). Shape copied from
+    VFEFactory_MakeChemfuelFromWood.
+    Every figure is a port of the source recipe unless the comment or the README says
+    it is authored. Loaded only while the source mod is active (LoadFolders.xml). Not yet tested in game.
+  -->
+
+  <PipeSystem.ProcessDef>
+    <defName>PhobosFactory_MakeDetergent</defName>
+    <label>Make laundry detergent</label>
+    <labelOverride>Make laundry detergent</labelOverride>
+    <description>Make laundry detergent (Simple Washing Machine) from chemfuel and neutroamine.</description>
+    <priorityInBillList>11</priorityInBillList>
+    <spawnOnInteractionCell>true</spawnOnInteractionCell>
+    <autoGrabFromHoppers>true</autoGrabFromHoppers>
+    <autoInputSlots>
+      <li>(0,0,3)</li>
+      <li>(1,0,3)</li>
+      <li>(-1,0,3)</li>
+    </autoInputSlots>
+    <ticks>24000</ticks>
+    <ingredients>
+      <li>
+        <thing>Chemfuel</thing>
+        <countNeeded>100</countNeeded>
+      </li>
+      <li>
+        <thing>Neutroamine</thing>
+        <countNeeded>4</countNeeded>
+      </li>
+    </ingredients>
+    <results>
+      <li>
+        <thing>WM_Detergent</thing>
+        <count>12</count>
+      </li>
+    </results>
+    <researchPrerequisites>
+      <li>SterileMaterials</li>
+      <li>VFE_BasicFactories</li>
+    </researchPrerequisites>
+    <isFactoryProcess>true</isFactoryProcess>
+    <autoExtract>true</autoExtract>
+    <onlyGrabAndOutputToFactoryHoppers>true</onlyGrabAndOutputToFactoryHoppers>
+    <sustainerWhenWorking>true</sustainerWhenWorking>
+    <sustainerDef>VFEFactory_AutomatedBrewingSustainer</sustainerDef>
+    <effecterWhenWorking>true</effecterWhenWorking>
+    <effecterDef>VFEFactory_Cook</effecterDef>
+    <maxOutputCount>75</maxOutputCount>
+  </PipeSystem.ProcessDef>
+
+  <PipeSystem.ProcessDef>
+    <defName>PhobosFactory_MakeHeavyDutyDetergent</defName>
+    <label>Make heavy-duty laundry detergent</label>
+    <labelOverride>Make heavy-duty laundry detergent</labelOverride>
+    <description>Make heavy-duty laundry detergent (Simple Washing Machine) from chemfuel and neutroamine.</description>
+    <priorityInBillList>12</priorityInBillList>
+    <spawnOnInteractionCell>true</spawnOnInteractionCell>
+    <autoGrabFromHoppers>true</autoGrabFromHoppers>
+    <autoInputSlots>
+      <li>(0,0,3)</li>
+      <li>(1,0,3)</li>
+      <li>(-1,0,3)</li>
+    </autoInputSlots>
+    <ticks>32000</ticks>
+    <ingredients>
+      <li>
+        <thing>Chemfuel</thing>
+        <countNeeded>100</countNeeded>
+      </li>
+      <li>
+        <thing>Neutroamine</thing>
+        <countNeeded>12</countNeeded>
+      </li>
+    </ingredients>
+    <results>
+      <li>
+        <thing>WM_HeavyDutyDetergent</thing>
+        <count>12</count>
+      </li>
+    </results>
+    <researchPrerequisites>
+      <li>SterileMaterials</li>
+      <li>VFE_BasicFactories</li>
+    </researchPrerequisites>
+    <isFactoryProcess>true</isFactoryProcess>
+    <autoExtract>true</autoExtract>
+    <onlyGrabAndOutputToFactoryHoppers>true</onlyGrabAndOutputToFactoryHoppers>
+    <sustainerWhenWorking>true</sustainerWhenWorking>
+    <sustainerDef>VFEFactory_AutomatedBrewingSustainer</sustainerDef>
+    <effecterWhenWorking>true</effecterWhenWorking>
+    <effecterDef>VFEFactory_Cook</effecterDef>
+    <maxOutputCount>75</maxOutputCount>
+  </PipeSystem.ProcessDef>
+
+</Defs>

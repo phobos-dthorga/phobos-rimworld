@@ -58,8 +58,80 @@ than lean game, and the lore renders fat) and its sources are in the mod README;
 | 28 Oct 2026 | Declares 1.6 and 1.7 (the owner plays 1.7 since 26 Oct 2026); XML only, so one set of files serves both | agent default |
 | 28 Oct 2026 | Vanilla Chemfuel Expanded tie-in through an `IfModActive` folder, mirroring VFE Factory's own patch | agent default |
 | 28 Oct 2026 | No shared library code: the change is XML on another mod's Defs, and no service another Phobos mod would reuse | agent default |
+| 28 Oct 2026 | 0.3.0 scope: port the drug lab recipes of Medicines+ (all), Deep Pills (infusions), Ushankas Biological Warfare (vaccines, antiserums, pills; not samples), Combat Extended (psycho), Dubs Rimatomics (potassium iodide), Hemofungus (hemogen), Complementary Odyssey (vacsop), Glitterworld Medicine Production; Farmable Neutroamine's leaves on the synthesizer; Passive Exoskeletons' polyamide and Simple Washing Machine's detergents on the refinery | owner (agent listed the candidates) |
+| 28 Oct 2026 | Luciferium Expansion's 13 recipes not ported | owner |
+| 28 Oct 2026 | One authored alternative path, penicillin from raw fungus; morphine straight from raw opium and cyanide from chemfuel declined | owner (agent proposed) |
+| 28 Oct 2026 | Every port follows the stock rule: batch 4, inputs x 4, ticks = lab work x 4 x batch, no skill, source research plus the machine's factory research; infusions batch 8 (their x8 lab recipe); reproduction pills batch 1 (samples stack to 1); the leaf neutroamine bill batch 5 (the synthesizer's stock batch) | agent default, owner to tune in play |
+| 28 Oct 2026 | maxOutputCount = min(75, stack limit minus batch) on every hopper-only bill, including the 0.1.0 human-meat bill (a fix) | agent default, from the code reading below |
+| 28 Oct 2026 | Vacsop's either-or ingredient (steel or vacstone blocks) becomes two bills; glitterworld medicine's four ingredients get five input cells, adding (-2,0,2) and (2,0,2) | agent default, untested |
+| 28 Oct 2026 | Pipe tie-ins (chemfuel, neutroamine) wrapped in PatchOperationFindMod on the source mod's display name, as VFE Factory does, instead of a folder per pair of mods | agent default |
+
+## Drug lab recipes as factory bills (28 Oct 2026)
+
+**Scan.** All 300 active mods and the game were parsed the way RimWorld 1.7 loads them (LoadFolders.xml
+version blocks with fallback to the newest lower block, ParentName inheritance). A recipe counts if it lists
+the drug lab in `recipeUsers`, if a ThingDef `recipeMaker` does, or if a patch adds it to the lab (only
+Luciferium Expansion does that). Result: **86 recipes from 17 sources**; VFE Factory automates 10 on its
+medicine granulator and LE Ammo one more (FSX, on the refinery); **75 had no factory bill**, and no active
+mod adds granulator bills. Two other benches copy the lab's recipes (VFE Production's electric lab, VGE's
+compact lab) and need nothing. No DLC adds a drug lab recipe.
+
+**Machine mechanics** (decompiled VFE Factory and Pipe System, `.local/decompiled/`): the granulator's bills
+are hand-written `PipeSystem.ProcessDef`s; VFE Factory generates processes only for the autoloom, the
+machining bay and the fish farm, from `recipeMaker`, never from RecipeDefs. `researchPrerequisites` hides a
+process from the Add menu until done. The comp ticks every 250 ticks. Output: a hopper-only process spawns on
+the interaction cell only when a factory hopper whose filter accepts the first result is there, and waits
+("output hopper incorrect" or "full") otherwise; **but** with `maxOutputCount` 0 a failed placement still
+resets the process (output lost), and with a cap above `stackLimit - count` the `TryAbsorbStack` return is
+ignored, so a batch that overfills the stack loses the surplus. Hence the cap rule. Power is the building's
+comp only, drawn in full even when idle (`CompPowerTrader_Overclocked`); no per-process power, skill or
+count field exists. Stack limits that bind: `DrugBase` 150 (not 400), medicine 25, hemogen pack 10,
+vaccines and antiserums 15, pathogen samples 1.
+
+**Stock value rule**, verified on every stock drug bill (flake 250 work -> 4000 ticks for 4; yayo 350 ->
+5600; go-juice 600 -> 9600; wake-up 900 -> 14400; medicine 700 -> 11200; penoxycyline and joints batch 1):
+ticks = lab work x 4 x batch, inputs x batch.
+
+**Values.** Every bill's inputs, output, ticks and research are in the mod README; source files, read 28 Oct
+2026: Medicines+ `1.6/Defs/Drugs/*.xml` (recipeMaker, WorkToMake; `Aniracetam` inherits no bulk recipe or
+work skill, `SSalts` has no research); Deep Pills `1.6/Mods/MedicinesPlus/Defs/RecipeDefs/Infusions.xml`
+(the x8 recipes; the x1 recipes use a products form that may not load); Biological Warfare
+`1.6/Defs/CombatDiseases/<Disease>.xml` with base cost lists in `Bases/` (vaccine: 8 neutroamine, 1
+penoxycyline, 25 pathogen, 2600 work; antiserum: 6 neutroamine, 1 glitterworld medicine, 25 pathogen, 1800;
+pills: 6 neutroamine, 1 sample, 600; seven diseases, Infection has no operation research); CE
+`Defs/Drugs/Psychite_Psycho.xml` (16 leaves, 600 work, no research); Rimatomics `1.7/Defs/Drug/Iodine.xml`
+(3 neutroamine, 500, PenoxycylineProduction); Hemofungus `1.4/Defs/RecipeDefs/Recipes_ExtractHemogen.xml`
+(60 -> 4, 1600, Deathrest); Complementary Odyssey `Defs/RecipeDefs/Recipes_Production.xml` (1 vacdew + 5
+steel or vacstone blocks, 600, DrugProduction); Glitterworld Medicine `Defs/RecipeDefs/Recipes_Production.xml`
+(5 synthread, 1 component, 4 plasteel, 1 medicine, 1800, MedicineUltratechProduction); Farmable Neutroamine
+`1.6/Defs/ThingDefs_Items/Items_Resource_Manufactured.xml` (5 leaves -> 1, 250, NeutroaleafRefining);
+Passive Exoskeletons `1.7/Defs/Recipe/Recipe_materials.xml` (75 chemfuel + 8 plasteel -> 25, 6000; its
+x100 recipe already names the refinery as a recipe user, which does nothing on a processor building);
+Simple Washing Machine `Defs/RecipeDefs/DetergentRecipes.xml` (25 chemfuel + 1 or 3 neutroamine -> 3, 1500
+or 2000, SterileMaterials).
+
+**Deep Pills on 1.7.** Its `loadFolders.xml` has only a v1.6 block, with the Medicines+ payload in an
+`IfModActive` subfolder. The owner sees the infusion bills at the drug lab on 1.7 (28 Oct 2026), so the
+fallback loads it; our infusion Defs carry `MayRequire="ODs.DeepPills"` inside the Medicines+ folder.
+
+**Not ported, and why:** Luciferium Expansion (owner); Biological Warfare's seven pathogen samples
+(1 pathogen -> 1 sample, 200 work: trivial, and samples stack to 1), the disease sampler (a utility item),
+flesh-breaker (left out of the scope question; trivial to add); the rumsuit (VFE Pirates) and medic bag
+(VAE Accessories), apparel with quality; Deep Pills' x1 infusions (the x8 ones cover them); FSX (LE Ammo
+covers it on the refinery).
+
+**Checks.** `scripts/check-factory-patches.py` (added in this change) loads the game and the active mods as
+RimWorld would, then checks every patch xpath matches one node, every Def name a ProcessDef uses exists,
+every hopper-only bill's cap is within its stack limit, and that defined and added bills match. Run against
+the owner's installation on 28 Oct 2026: 299 active mods, 35589 Def names, 45 ProcessDefs, 0 errors. It
+found the missing cap on the 0.1.0 human-meat bill. An offline check is not an in-game test.
 
 ## Ideas for later additions (agent suggestions, not decided)
+
+- **Flesh-breaker** (Biological Warfare, 2 neutroamine -> 1, 1000 work) and **Luciferium Expansion's** seven
+  products, if the owner changes their mind: same shape as the 0.3.0 bills.
+- **Hemogen packs from human corpses** on the automated mincer: pure gameplay (corpse blood is not
+  transfusable), so an owner decision and labelled as such.
 
 - **Twisted meat (Anomaly)** as a neutroamine feedstock, with its own bill and yield, the way Kimoju treats
   insect meat. Entity flesh is the one meat players rarely want to eat.

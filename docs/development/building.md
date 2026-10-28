@@ -15,10 +15,17 @@ installed. The Linux-build claim in the modding reference therefore stands only 
 ```text
 python scripts/check-doc-links.py
 python scripts/check-mod-layout.py
+python scripts/check-factory-patches.py
 python -m unittest discover -s tests
 ```
 
 - **check-doc-links** finds relative Markdown links whose target is missing.
+- **check-factory-patches** reads the installed game, the active mods (ModsConfig.xml) and the Workshop
+  folder, never writing to them, and checks D'thorga Factory Additions (or `--mod <Name>`) against them:
+  every patch xpath matches one node, every Def name a ProcessDef uses exists, every hopper-only bill has an
+  output cap within its product's stack limit, and defined bills match the bills patched onto machines.
+  Paths as for deploy.py (`--game`, `--workshop`, `--config`, the environment variables or
+  `.local/install-settings.json`). An offline check is not an in-game test.
 - **check-mod-layout** checks every `mods/<Mod>/` folder:
   - `About/About.xml` has the required fields and a `packageId` of the form `PhobosDthorga.<ModName>`;
   - package IDs are unique, and `modVersion` is MAJOR.MINOR.PATCH;

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+
+  <!-- Add the bills in this folder to VFEFactory_MedicineGranulator. Loaded only while the source mod is active. -->
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/ThingDef[defName="VFEFactory_MedicineGranulator"]/comps/li[@Class="PipeSystem.CompProperties_AdvancedResourceProcessor"]/processes</xpath>
+    <value>
+      <li>PhobosFactory_SynthesizePsycho</li>
+    </value>
+  </Operation>
+
+</Patch>

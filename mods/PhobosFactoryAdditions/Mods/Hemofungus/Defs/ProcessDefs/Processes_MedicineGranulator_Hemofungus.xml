@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+  <!--
+    Hemofungus (NoSleep.Hemofungus, Workshop 3259446830): 1.4/Defs/RecipeDefs/Recipes_ExtractHemogen.xml,
+    the x4 recipe (60 hemofungus, 1600 work) x 4 ticks. Hemogen packs stack to 10, so the output cap is 6.
+    Every figure is a port of the source recipe unless the comment or the README says
+    it is authored. Loaded only while the source mod is active (LoadFolders.xml). Not yet tested in game.
+  -->
+
+  <PipeSystem.ProcessDef>
+    <defName>PhobosFactory_ExtractHemogenFromHemofungus</defName>
+    <label>Extract a batch of hemogen from hemofungus</label>
+    <labelOverride>Extract a batch of hemogen from hemofungus</labelOverride>
+    <description>Extract hemogen packs from hemofungus (Hemofungus). Hemogen packs stack to 10, so keep the output hopper emptied.</description>
+    <priorityInBillList>52</priorityInBillList>
+    <spawnOnInteractionCell>true</spawnOnInteractionCell>
+    <autoGrabFromHoppers>true</autoGrabFromHoppers>
+    <autoInputSlots>
+      <li>(-1,0,2)</li>
+      <li>(0,0,2)</li>
+      <li>(1,0,2)</li>
+    </autoInputSlots>
+    <ticks>6400</ticks>
+    <ingredients>
+      <li>
+        <thing>RawHemofungus</thing>
+        <countNeeded>60</countNeeded>
+      </li>
+    </ingredients>
+    <results>
+      <li>
+        <thing>HemogenPack</thing>
+        <count>4</count>
+      </li>
+    </results>
+    <researchPrerequisites>
+      <li>Deathrest</li>
+      <li>VFE_ComplexFactories</li>
+    </researchPrerequisites>
+    <isFactoryProcess>true</isFactoryProcess>
+    <autoExtract>true</autoExtract>
+    <onlyGrabAndOutputToFactoryHoppers>true</onlyGrabAndOutputToFactoryHoppers>
+    <sustainerWhenWorking>true</sustainerWhenWorking>
+    <sustainerDef>VFEFactory_AutomatedDrugsSustainer</sustainerDef>
+    <effecterWhenWorking>true</effecterWhenWorking>
+    <effecterDef>VFEFactory_Cook</effecterDef>
+    <maxOutputCount>6</maxOutputCount>
+  </PipeSystem.ProcessDef>
+
+</Defs>

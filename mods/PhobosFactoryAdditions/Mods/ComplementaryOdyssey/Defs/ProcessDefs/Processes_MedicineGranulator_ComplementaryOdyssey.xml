@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+  <!--
+    Complementary Odyssey (MrHydralisk.ComplementaryOdyssey, Workshop 3546612303):
+    Defs/RecipeDefs/Recipes_Production.xml, 1 vacdew + 5 steel or vacstone blocks and 600 work per unit.
+    A factory bill takes one exact item, so the lab's either-or ingredient becomes two bills. Lab recipe x 4.
+    Every figure is a port of the source recipe unless the comment or the README says
+    it is authored. Loaded only while the source mod is active (LoadFolders.xml). Not yet tested in game.
+  -->
+
+  <PipeSystem.ProcessDef>
+    <defName>PhobosFactory_SynthesizeVacsopFromSteel</defName>
+    <label>Synthesize a batch of vacsop from steel</label>
+    <labelOverride>Synthesize a batch of vacsop from steel</labelOverride>
+    <description>Synthesize a batch of vacsop (Complementary Odyssey) from vacdew and steel.</description>
+    <priorityInBillList>53</priorityInBillList>
+    <spawnOnInteractionCell>true</spawnOnInteractionCell>
+    <autoGrabFromHoppers>true</autoGrabFromHoppers>
+    <autoInputSlots>
+      <li>(-1,0,2)</li>
+      <li>(0,0,2)</li>
+      <li>(1,0,2)</li>
+    </autoInputSlots>
+    <ticks>9600</ticks>
+    <ingredients>
+      <li>
+        <thing>CO_Vacdew</thing>
+        <countNeeded>4</countNeeded>
+      </li>
+      <li>
+        <thing>Steel</thing>
+        <countNeeded>20</countNeeded>
+      </li>
+    </ingredients>
+    <results>
+      <li>
+        <thing>CO_Vacsop</thing>
+        <count>4</count>
+      </li>
+    </results>
+    <researchPrerequisites>
+      <li>DrugProduction</li>
+      <li>VFE_ComplexFactories</li>
+    </researchPrerequisites>
+    <isFactoryProcess>true</isFactoryProcess>
+    <autoExtract>true</autoExtract>
+    <onlyGrabAndOutputToFactoryHoppers>true</onlyGrabAndOutputToFactoryHoppers>
+    <sustainerWhenWorking>true</sustainerWhenWorking>
+    <sustainerDef>VFEFactory_AutomatedDrugsSustainer</sustainerDef>
+    <effecterWhenWorking>true</effecterWhenWorking>
+    <effecterDef>VFEFactory_Cook</effecterDef>
+    <maxOutputCount>75</maxOutputCount>
+  </PipeSystem.ProcessDef>
+
+  <PipeSystem.ProcessDef>
+    <defName>PhobosFactory_SynthesizeVacsopFromVacstone</defName>
+    <label>Synthesize a batch of vacsop from vacstone</label>
+    <labelOverride>Synthesize a batch of vacsop from vacstone</labelOverride>
+    <description>Synthesize a batch of vacsop (Complementary Odyssey) from vacdew and vacstone blocks.</description>
+    <priorityInBillList>54</priorityInBillList>
+    <spawnOnInteractionCell>true</spawnOnInteractionCell>
+    <autoGrabFromHoppers>true</autoGrabFromHoppers>
+    <autoInputSlots>
+      <li>(-1,0,2)</li>
+      <li>(0,0,2)</li>
+      <li>(1,0,2)</li>
+    </autoInputSlots>
+    <ticks>9600</ticks>
+    <ingredients>
+      <li>
+        <thing>CO_Vacdew</thing>
+        <countNeeded>4</countNeeded>
+      </li>
+      <li>
+        <thing>BlocksVacstone</thing>
+        <countNeeded>20</countNeeded>
+      </li>
+    </ingredients>
+    <results>
+      <li>
+        <thing>CO_Vacsop</thing>
+        <count>4</count>
+      </li>
+    </results>
+    <researchPrerequisites>
+      <li>DrugProduction</li>
+      <li>VFE_ComplexFactories</li>
+    </researchPrerequisites>
+    <isFactoryProcess>true</isFactoryProcess>
+    <autoExtract>true</autoExtract>
+    <onlyGrabAndOutputToFactoryHoppers>true</onlyGrabAndOutputToFactoryHoppers>
+    <sustainerWhenWorking>true</sustainerWhenWorking>
+    <sustainerDef>VFEFactory_AutomatedDrugsSustainer</sustainerDef>
+    <effecterWhenWorking>true</effecterWhenWorking>
+    <effecterDef>VFEFactory_Cook</effecterDef>
+    <maxOutputCount>75</maxOutputCount>
+  </PipeSystem.ProcessDef>
+
+</Defs>
