@@ -111,7 +111,7 @@ class CheckerTests(unittest.TestCase):
             write(f.mod / 'Mods' / 'Optional' / 'Defs' / 'P.xml',
                   '<Defs>' + process('Phobos_Pill', 'PsychoidLeaves', 'OptionalPill', 4, 75)
                   + process('Phobos_Skipped', 'Nothing', 'Nothing', 4, 0, may_require='example.absent') + '</Defs>')
-            write(f.mod / 'Mods' / 'Optional' / 'Patches' / 'Granulator.xml',
+            write(f.mod / 'Mods' / 'Optional' / 'Patches' / 'Granulator_Optional.xml',
                   '''<Patch><Operation Class="PatchOperationFindMod"><mods><li>Optional Drugs</li></mods>
                   <match Class="PatchOperationSequence"><operations>
                   <li Class="PatchOperationAdd"><xpath>Defs/PipeSystem.ProcessDef[defName="Phobos_Pill"]</xpath><value><x>1</x></value></li>
@@ -146,6 +146,22 @@ class CheckerTests(unittest.TestCase):
             self.assertIn('adds Phobos_Ghost to a machine, but no loaded Def', text)
             self.assertIn('xpath matches 0 nodes, not 1: Defs/ThingDef[defName="Nobody"]', text)
             self.assertEqual(len(errors), 7)
+
+    def test_a_file_hidden_by_a_later_folder_is_reported(self):
+        # The 0.3.0 fault: two load folders with Patches/Granulator.xml. The game loads only the later folder's.
+        with tempfile.TemporaryDirectory() as tmp:
+            f = Fixture(tmp)
+            write(f.mod / 'Common' / 'Defs' / 'P.xml', '<Defs>' + process('Phobos_Flake', 'PsychoidLeaves', 'Flake', 4, 75) + '</Defs>')
+            write(f.mod / 'Common' / 'Patches' / 'Granulator.xml', patch(['Phobos_Flake']))
+            write(f.mod / 'Mods' / 'Optional' / 'Defs' / 'P_Optional.xml',
+                  '<Defs>' + process('Phobos_Pill', 'PsychoidLeaves', 'OptionalPill', 4, 75) + '</Defs>')
+            write(f.mod / 'Mods' / 'Optional' / 'Patches' / 'Granulator.xml', patch(['Phobos_Pill']))
+            errors, summary = f.check()
+            self.assertEqual(errors, [
+                'Common/Patches/Granulator.xml is never loaded: the game loads Mods/Optional/Patches/Granulator.xml '
+                'instead (same path inside a later-listed folder)',
+                'Common/Defs/P.xml: Phobos_Flake is defined but no patch adds it to a machine'])
+            self.assertIn('1 patch files', summary)
 
     def test_load_folders_fall_back_to_the_newest_lower_version(self):
         with tempfile.TemporaryDirectory() as tmp:

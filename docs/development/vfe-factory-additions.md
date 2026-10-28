@@ -65,6 +65,8 @@ than lean game, and the lore renders fat) and its sources are in the mod README;
 | 28 Oct 2026 | maxOutputCount = min(75, stack limit minus batch) on every hopper-only bill, including the 0.1.0 human-meat bill (a fix) | agent default, from the code reading below |
 | 28 Oct 2026 | Vacsop's either-or ingredient (steel or vacstone blocks) becomes two bills; glitterworld medicine's four ingredients get five input cells, adding (-2,0,2) and (2,0,2) | agent default, untested |
 | 28 Oct 2026 | Pipe tie-ins (chemfuel, neutroamine) wrapped in PatchOperationFindMod on the source mod's display name, as VFE Factory does, instead of a folder per pair of mods | agent default |
+| 29 Oct 2026 | Owner reported the 0.3.0 bills missing from the machines while RimDex listed them | owner |
+| 29 Oct 2026 | 0.3.1: every file in a `Mods/<SourceMod>/` folder carries the folder's name; both repository checks model the game's one-file-per-path rule | agent (a fix) |
 
 ## Drug lab recipes as factory bills (28 Oct 2026)
 
@@ -125,6 +127,40 @@ RimWorld would, then checks every patch xpath matches one node, every Def name a
 every hopper-only bill's cap is within its stack limit, and that defined and added bills match. Run against
 the owner's installation on 28 Oct 2026: 299 active mods, 35589 Def names, 45 ProcessDefs, 0 errors. It
 found the missing cap on the 0.1.0 human-meat bill. An offline check is not an in-game test.
+
+## Why the 0.3.0 bills never reached the machines (29 Oct 2026)
+
+**Owner's report:** the new bills showed in RimDex but not in any machine's Add process menu.
+
+**Cause, read in RimWorld 1.7's code** (`Verse.ModContentPack.InitLoadFolders` and
+`Verse.DirectXmlLoader.XmlAssetsInModFolder`, decompiled from the installed `Assembly-CSharp.dll`; output kept
+in the ignored `.local/`): the game walks a mod's load folders from the last one `LoadFolders.xml` lists to the
+first and keys every Defs and Patches file by its path **inside its load folder**. The first file to claim a
+path loads; every other file with that path is skipped, with no log line. 0.3.0 had seven
+`Patches/MedicineGranulator.xml`, two `Patches/BiofuelRefinery.xml`, and a
+`Patches/NeutroamineSynthesizer.xml` in both `Common` and `Mods/FarmableNeutroamine`. The bill Defs had
+unique file names, so they all loaded (hence RimDex), but only the last folder's patch for each machine ran.
+
+**Effect with the owner's mods:** 4 of 45 bills reached a machine (glitterworld medicine, still hidden by
+its research; both detergents; leaf neutroamine). The human-meat bill, its stock-bill exclusion and the
+stock bill's corrected text were dropped too; queued human-meat bills kept running because their Def loaded.
+
+**What ruled out the alternatives first:** the owner's Player.log had no patch failure from this mod; Pipe
+System's Add menu (1.6 and 1.7 builds, identical here) lists the machine's `processes` and hides only bills
+with unfinished research; the save's research covered 28 of the bills; no other active mod's XML or DLL
+replaces the granulator's, synthesizer's or refinery's process list.
+
+**Why the check missed it:** `check-factory-patches.py` loaded every file in every active folder. Both
+checks now share `files_the_game_loads` in `check-mod-layout.py`. Run against the 0.3.0 commit's files, the
+factory checker reports the 9 skipped patch files and 41 bills on no machine; the layout check refuses a
+shared path without needing the game.
+
+**Separate finding, not changed:** with Combat Extended, Vanilla Chemfuel Expanded and Vanilla Factions
+Expanded - Deserters all active, VFE Factory's own `VanillaChemfuelExpandedPatch.xml` fails at its
+armour-piercing shell step, because Combat Extended's VFE Factory patch removes that bill first. A failed step ends
+its PatchOperationSequence, so the two steps after it never run: `considerBuildingCompResource` on
+`VFEFactory_AstrofuelFromChemfuel`, and the factory-hopper flag on Vanilla Chemfuel Expanded's chemfuel tap.
+Seen in the owner's log (29 Oct 2026); the consequence is read from the XML, not seen in game.
 
 ## Ideas for later additions (agent suggestions, not decided)
 

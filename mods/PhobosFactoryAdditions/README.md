@@ -7,8 +7,9 @@ on only while its mod is active (Medicines+, Deep Pills, Ushankas Biological War
 Rimatomics, Hemofungus, Complementary Odyssey, Glitterworld Medicine Production, Farmable Neutroamine,
 Passive Exoskeletons, Simple Washing Machine).
 
-Version 0.3.0, built 28 October 2026 for House D'thorga. **The human-meat bill is tested in game** (owner,
+Version 0.3.1, built 29 October 2026 for House D'thorga. **The human-meat bill is tested in game** (owner,
 28 October 2026, RimWorld 1.7). The corpse fridge change and every 0.3.0 bill are not yet tested in game.
+0.3.1 fixes 0.3.0, whose drug-lab bills never reached the machines (see the changelog).
 
 ## Read this first (gotchas)
 
@@ -205,6 +206,11 @@ blocked output is destroyed instead of waiting); `researchPrerequisites` hides t
 until done; any ingredient may come from any input slot, but a hopper cell holds one stack. The offline
 checker `scripts/check-factory-patches.py` enforces the first three against the installed game.
 
+**Give every file in a `Mods/<SourceMod>/` folder that folder's name** (`MedicineGranulator_MedicinesPlus.xml`,
+not `MedicineGranulator.xml`). RimWorld keys a mod's Defs and Patches files by their path inside each load
+folder and loads only the copy in the folder listed last; the others are skipped without a message. That
+hid most of 0.3.0's bills. `scripts/check-mod-layout.py` now refuses a shared path.
+
 To let belts and machines pull from any other storage building, add Pipe System's extension to its Def:
 
 ```xml
@@ -234,6 +240,9 @@ the belt reads the map's thing grid. The full reading is in
   bill rules read in Pipe System's code, and `scripts/check-factory-patches.py` run against the owner's
   installation (RimWorld 1.7, 299 active mods): every patch xpath matches one node, every Def name resolves,
   every output cap is within its stack limit.
+- 29 October 2026, owner, in game: the 0.3.0 bills were missing from the machines (RimDex listed them).
+  Cause found in RimWorld 1.7's file loader and confirmed by re-running the improved checker on the 0.3.0
+  files (41 of 45 bills on no machine); fixed in 0.3.1. The checker passes on 0.3.1.
 - **Not checked:** anything about the 0.3.0 bills in game (whether they list, feed, finish and output;
   whether the two corner input cells work), whether the stock bill now refuses human meat, whether a belt
   actually lifts a corpse out of the fridge, and what happens on removal.

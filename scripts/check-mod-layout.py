@@ -4,7 +4,9 @@ Each mods/<Mod>/ holds About/About.xml (RimWorld's mod identity), a README and a
 About.xml needs the fields RimWorld requires, a packageId of the house form PhobosDthorga.<ModName>
 (unique in the repository, ignoring case as RimWorld does) and a MAJOR.MINOR.PATCH modVersion. Every
 non-version folder LoadFolders.xml names must exist; version folders such as 1.6 may hold only built
-assemblies, which git ignores. Build products never belong in mods/: they are built from src/.
+assemblies, which git ignores. No two folders in one LoadFolders.xml block may hold a Defs or Patches file
+at the same path, since the game would load only one of them (files_the_game_loads). Build products never
+belong in mods/: they are built from src/.
 """
 import argparse
 import json
@@ -23,6 +25,7 @@ BUILD_SUFFIXES = ('.dll', '.pdb', '.exe', '.deps.json', '.pyc')
 BUILD_FOLDERS = ('bin', 'obj', '__pycache__')
 ABOUT = 'About/About.xml'
 LOAD_FOLDERS = 'LoadFolders.xml'
+XML_CONTENT_FOLDERS = ('Defs/', 'Patches/')  # read through Verse.DirectXmlLoader.XmlAssetsInModFolder
 
 
 def listed_files(root):
@@ -72,14 +75,40 @@ def check_about(mod, about, errors):
     return package_id or None
 
 
+def files_the_game_loads(folder_files):
+    """Which of a mod's Defs and Patches files RimWorld loads.
+
+    The game (Verse.DirectXmlLoader.XmlAssetsInModFolder with ModContentPack.InitLoadFolders, read from the
+    1.7 assembly on 29 Oct 2026) walks the load folders from the last one LoadFolders.xml lists to the first,
+    and keys each file by its path inside its load folder. The first file to claim a path loads; any other
+    file with that path is skipped without a message. folder_files is [(folder, [paths inside it])] in
+    LoadFolders order. Returns ({path: folder that loads it}, [(skipped folder, path, winning folder)])."""
+    loaded, skipped = {}, []
+    for folder, paths in reversed(folder_files):
+        for path in paths:
+            if path in loaded:
+                skipped.append((folder, path, loaded[path]))
+            else:
+                loaded[path] = folder
+    return loaded, skipped
+
+
 def check_load_folders(mod, load_folders, rels, errors):
     for version in load_folders:
+        folder_files = []
         for li in version.findall('li'):
             folder = (li.text or '').strip().strip('/')
+            prefix = folder + '/' if folder else ''
+            inside = [rel[len(prefix):] for rel in rels if rel.startswith(prefix)]
+            folder_files.append((folder or '/', [p for p in inside if p.startswith(XML_CONTENT_FOLDERS)]))
             if not folder or GAME_VERSION.match(folder):
                 continue
-            if not any(rel.startswith(folder + '/') for rel in rels):
+            if not inside:
                 errors.append(f'{mod}: {LOAD_FOLDERS} names {folder} under <{version.tag}>, but that folder is empty or missing')
+        # Every IfModActive folder counts: a player may run any mix of the optional mods.
+        for folder, path, winner in files_the_game_loads(folder_files)[1]:
+            errors.append(f'{mod}: under <{version.tag}>, {folder}/{path} is never loaded, because {winner}/{path} '
+                          f'has the same path and its folder is listed later; give one of them another name')
 
 
 def check(root, files=None, read=None):

@@ -22,8 +22,9 @@ python -m unittest discover -s tests
 - **check-doc-links** finds relative Markdown links whose target is missing.
 - **check-factory-patches** reads the installed game, the active mods (ModsConfig.xml) and the Workshop
   folder, never writing to them, and checks D'thorga Factory Additions (or `--mod <Name>`) against them:
-  every patch xpath matches one node, every Def name a ProcessDef uses exists, every hopper-only bill has an
-  output cap within its product's stack limit, and defined bills match the bills patched onto machines.
+  no file is skipped for sharing a path with a later folder's file, every patch xpath matches one node, every
+  Def name a ProcessDef uses exists, every hopper-only bill has an output cap within its product's stack
+  limit, and defined bills match the bills patched onto machines. It reads only the files the game loads.
   Paths as for deploy.py (`--game`, `--workshop`, `--config`, the environment variables or
   `.local/install-settings.json`). An offline check is not an in-game test.
 - **check-mod-layout** checks every `mods/<Mod>/` folder:
@@ -31,6 +32,8 @@ python -m unittest discover -s tests
   - package IDs are unique, and `modVersion` is MAJOR.MINOR.PATCH;
   - a `README.md` and `CHANGELOG.md` exist;
   - every folder `LoadFolders.xml` names exists;
+  - no two folders in one version block hold a Defs or Patches file at the same path (the game would load
+    only the one in the folder listed last);
   - no build products (DLLs, `bin/`, `obj/`) are present.
 - **The unit tests** exercise both scripts against synthetic folders.
 
@@ -52,7 +55,9 @@ src/<Project>/              C# source, building into mods/<Mod>/<version>/Assemb
 workshop/<Mod>/             Workshop page drafts and release notes, once publishing starts
 ```
 
-The `Mods/<OtherMod>/` folder name is a house convention, not a game rule.
+The `Mods/<OtherMod>/` folder name is a house convention, not a game rule. **Name every file in it after
+the folder** (`Patches/MedicineGranulator_MedicinesPlus.xml`): files are keyed by their path inside a load
+folder, so two `Patches/MedicineGranulator.xml` in different folders means only one loads.
 
 A starting `LoadFolders.xml`, with 1.7 borrowing the 1.6 build until a native one exists:
 

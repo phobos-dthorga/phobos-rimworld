@@ -126,6 +126,25 @@ class LayoutCheckTests(unittest.TestCase):
         self.assertIn('names Mods/CombatExtended under <v1.6>', errors)
         self.assertNotIn('names 1.6', errors)
 
+    def test_the_last_listed_folder_wins_a_shared_path(self):
+        loaded, skipped = layout.files_the_game_loads([
+            ('/', []), ('Common', ['Patches/A.xml', 'Defs/B.xml']), ('Mods/X', ['Patches/A.xml']), ('Mods/Y', ['Patches/A.xml'])])
+        self.assertEqual(loaded, {'Patches/A.xml': 'Mods/Y', 'Defs/B.xml': 'Common'})
+        self.assertEqual(skipped, [('Mods/X', 'Patches/A.xml', 'Mods/Y'), ('Common', 'Patches/A.xml', 'Mods/Y')])
+
+    def test_shared_paths_across_load_folders_are_refused(self):
+        contents = mod('Example', extra={
+            'LoadFolders.xml': GOOD_LOAD_FOLDERS,
+            'Common/Patches/Granulator.xml': b'<Patch />',
+            'Common/Textures/Icon.png': b'',
+            'Mods/CombatExtended/Patches/Granulator.xml': b'<Patch />',
+            'Mods/CombatExtended/Textures/Icon.png': b'',
+        })
+        self.assertEqual(run(contents)['errors'], [
+            'Example: under <v1.6>, Common/Patches/Granulator.xml is never loaded, because '
+            'Mods/CombatExtended/Patches/Granulator.xml has the same path and its folder is listed later; '
+            'give one of them another name'])
+
     def test_build_products_are_refused(self):
         errors = '\n'.join(run(mod('Example', extra={
             '1.6/Assemblies/PhobosExample.dll': b'',

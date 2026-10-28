@@ -57,6 +57,11 @@ Source: [RimWorld Wiki, Mod Folder Structure](https://rimworldwiki.com/wiki/Modd
   Entries sit under version tags such as `<v1.6>`. `IfModActive` (any of a comma list),
   `IfModNotActive`, and from 1.6 `IfModActiveAll` gate a folder on other mods or DLCs. When the same
   relative file appears in several loaded folders, the last one wins.
+- **That rule bites optional folders too, silently.** "Relative" means the path inside each load folder:
+  `Mods/A/Patches/X.xml` and `Mods/B/Patches/X.xml` are both `Patches/X.xml`, so only the later folder's file
+  loads and the game logs nothing (our reading of `Verse.DirectXmlLoader.XmlAssetsInModFolder` in the 1.7
+  assembly, 29 Oct 2026; it hid most of D'thorga Factory Additions 0.3.0's bills). Give each optional
+  folder's files that folder's name; `scripts/check-mod-layout.py` refuses a shared Defs or Patches path.
 - Textures and sounds are found by path, so a same-path file in a later mod overrides an earlier one. Keep
   ours under a `Phobos` subfolder.
 - Observed patterns: Harmony lists `/` plus one folder per version, 1.2 to 1.7. Several of the owner's

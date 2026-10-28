@@ -5,6 +5,44 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.3.1] - 2026-10-29 - Draft
+
+Fixes 0.3.0's bills not appearing on the machines. Not yet tested in game.
+
+### Fixed
+
+- The 0.3.0 bills now reach their machines. Seven optional folders each had a patch file called
+  Patches/MedicineGranulator.xml, and two had Patches/BiofuelRefinery.xml. RimWorld loads only one file per
+  path inside a mod's load folders (the one in the folder listed last) and skips the rest without a message.
+  So with the owner's mods only glitterworld medicine (still behind its research), the two detergents and
+  leaf neutroamine were added; the Medicines+, Deep Pills, Biological Warfare, psycho, potassium iodide,
+  hemogen, vacsop and polyamide bills existed but were on no machine. Reported by the owner on 29 October
+  2026; cause read in the game's loader code the same day.
+- The human-meat bill is back in the neutroamine synthesizer's Add process menu. With Farmable Neutroamine
+  active, 0.3.0's Patches/NeutroamineSynthesizer.xml for leaf neutroamine replaced the Common one, which
+  also dropped the stock bill's human-meat exclusion and its corrected description. Bills already queued
+  kept working, because the bill's Def still loaded.
+- Every patch file in an optional folder now carries that folder's name (MedicineGranulator_MedicinesPlus.xml
+  and so on), so no two files share a path.
+
+### Changed
+
+- The repository checks now know the rule: scripts/check-mod-layout.py refuses any Defs or Patches file
+  that shares a path with one in another load folder of the same version, and
+  scripts/check-factory-patches.py checks only the files the game would load. Run against the 0.3.0 files,
+  it reports the nine skipped patch files and the 41 bills on no machine; on 0.3.1, no errors.
+
+### Save compatibility
+
+- Safe to install over 0.3.0 mid-game. No saved data changes; bills already queued are unaffected.
+
+### Compatibility and limits
+
+- Separate from this mod: with Combat Extended, Vanilla Chemfuel Expanded and Vanilla Factions Expanded -
+  Deserters together, VFE Factory's own chemfuel patch stops partway (CE removes a shell bill it patches),
+  so its last two steps never run: astrofuel from piped chemfuel, and chemfuel taps as factory hoppers.
+  Seen in the owner's log on 29 October 2026; not changed here.
+
 ## [0.3.0] - 2026-10-28 - Draft
 
 Drug lab recipes from other mods as factory bills, 44 of them, each loaded only while its mod is active.

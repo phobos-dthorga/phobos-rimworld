@@ -3,8 +3,9 @@
 Reads the game's Data folder, the Mods folder, the Steam Workshop folder and ModsConfig.xml (what is
 switched on), the way scripts/refresh-mod-list.py does, and never writes to any of them. For the mod
 named (default PhobosFactoryAdditions) it loads the folders LoadFolders.xml would load for the active
-set, then checks:
+set, and from them only the files the game loads (check-mod-layout.py's files_the_game_loads), then checks:
 
+- no Defs or Patches file of the mod is skipped because a later-listed folder has a file at the same path;
 - every PatchOperation xpath (Add, Replace, AddModExtension, inside Sequence and FindMod) matches exactly
   one node in the loaded Defs (the game's, the active mods' and this mod's own);
 - every Def name a ProcessDef uses (ingredient thing or category, result, research, sustainer, effecter)
@@ -32,9 +33,17 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import deploy  # noqa: E402  (shared path settings)
 
-_spec = importlib.util.spec_from_file_location('refresh_mod_list', Path(__file__).resolve().parent / 'refresh-mod-list.py')
-refresh = importlib.util.module_from_spec(_spec)
-_spec.loader.exec_module(refresh)
+
+
+def _script(name, file_name):
+    spec = importlib.util.spec_from_file_location(name, Path(__file__).resolve().parent / file_name)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+refresh = _script('refresh_mod_list', 'refresh-mod-list.py')
+layout = _script('check_mod_layout', 'check-mod-layout.py')  # the game's file-loading rule
 
 DEFAULT_MOD = 'PhobosFactoryAdditions'
 DEFAULT_STACK_LIMIT = 75  # Verse.ThingDef's default
@@ -92,13 +101,16 @@ def _version_key(text):
 
 
 def def_files(folders, kind):
-    """Every XML file under <folder>/<kind> (Defs or Patches) for the folders, in load order."""
-    files = []
+    """The XML files under <folder>/<kind> (Defs or Patches) that the game loads from the folders (given in
+    LoadFolders order), and the ones it skips as [(skipped file, file loaded instead)]."""
+    folder_files = []
     for folder in folders:
         sub = next((p for p in folder.iterdir() if p.is_dir() and p.name.lower() == kind.lower()), None)
-        if sub is not None:
-            files += sorted(p for p in sub.rglob('*.xml'))
-    return files
+        paths = sorted(p.relative_to(folder).as_posix() for p in sub.rglob('*.xml')) if sub is not None else []
+        folder_files.append((folder, paths))
+    loaded, skipped = layout.files_the_game_loads(folder_files)
+    files = [folder / path for path, folder in loaded.items()]
+    return files, [(folder / path, winner / path) for folder, path, winner in skipped]
 
 
 class DefIndex:
@@ -240,14 +252,17 @@ def check(mod_root, game, workshop, config, mods_folder_name='Mods'):
         if package_id.lower() not in active or mod.package_id == own_id:
             continue  # the checked mod is read from the repository, not from an installed copy
         loaded_mods += 1
-        for path in def_files(load_folders_for(mod.folder, version, active), 'Defs'):
+        for path in def_files(load_folders_for(mod.folder, version, active), 'Defs')[0]:
             index.add_file(path)
     active_names = {mod.name.strip().lower() for pid, mod in mods.items() if pid.lower() in active}
     own_folders = load_folders_for(mod_root, version, active)
-    own_defs = def_files(own_folders, 'Defs')
+    own_defs, skipped_defs = def_files(own_folders, 'Defs')
+    patch_files, skipped_patches = def_files(own_folders, 'Patches')
     for path in own_defs:
         index.add_file(path)
-    errors = []
+    errors = [f'{skipped.relative_to(mod_root).as_posix()} is never loaded: the game loads '
+              f'{winner.relative_to(mod_root).as_posix()} instead (same path inside a later-listed folder)'
+              for skipped, winner in skipped_defs + skipped_patches]
     processes = {}
     for path in own_defs:
         root = _read_xml(path)
@@ -260,7 +275,6 @@ def check(mod_root, game, workshop, config, mods_folder_name='Mods'):
             if not wanted or any(pid.strip().lower() in active for pid in wanted.split(',')):
                 processes[(process.findtext('defName') or '').strip()] = path
     added = set()
-    patch_files = def_files(own_folders, 'Patches')
     for path in patch_files:
         root = _read_xml(path)
         if root is None:
