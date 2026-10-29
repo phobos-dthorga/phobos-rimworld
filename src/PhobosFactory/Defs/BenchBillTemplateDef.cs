@@ -21,7 +21,7 @@ public class BenchBillTemplateDef : Def
     public List<ResearchProjectDef> researchPrerequisites = new();
     /// <summary>Machine ticks per unit of bench work. VFE Factory's machining bills use 4.</summary>
     public float workMultiplier = 4f;
-    /// <summary>How many of a stacking item may wait in the output cell; lowered per item to a safe limit.</summary>
+    /// <summary>How many of an item may wait in the output cell before the machine stops; capped at its stack limit.</summary>
     public float maxOutputCount = 75f;
     /// <summary>The bill's name; {0} is the item's label.</summary>
     public string billLabel = "Make {0}";

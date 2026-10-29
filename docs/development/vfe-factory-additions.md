@@ -77,6 +77,8 @@ than lean game, and the lore renders fat) and its sources are in the mod README;
 | 29 Oct 2026 | Generate the bills in C# at load (the mod's first assembly, Harmony postfixes on implied-Def generation and the Add process menu) rather than hand-writing XML: they follow other mods' patches and every future fabrication item, and a recipe-availability gate needs code | agent (needed for the owner's scope) |
 | 29 Oct 2026 | Fabrication bay inherits the machining bay through a patch-added Name; 300 steel, 150 plasteel, 12 components, 10 advanced components, 7000 work; Complex factories and Fabrication research | agent defaults, owner to tune |
 | 29 Oct 2026 | Bills: VFE's rules (cost as ingredients, work x 4, steel/textiles/leather for a stuff, normal quality, no skill) plus the template's research; output limit at most 75 and always safe; grouped in the menu by category then name; stuff-plus-parts items and buildings skipped | agent defaults |
+| 29 Oct 2026 | 0.5.1: extend the lost-item fix to every affected factory machine | owner |
+| 29 Oct 2026 | Do it with one guard in Pipe System's output step (a prefix that skips the step only when a batch would be lost) instead of lowering limits machine by machine, which cannot cover variable batches; remove 0.5.0's marker; generated bills' limit min(75, stack limit) | agent (to meet the owner's request) |
 
 ## Drug lab recipes as factory bills (28 Oct 2026)
 
@@ -267,10 +269,48 @@ options of generated bills whose recipe is not `AvailableNow`, matched by label 
 and shows a disabled "no bills yet" option if nothing is left. A `SafeOutputLimitsExtension` patched onto
 VFE's machining bay (inherited by the fabrication bay) has every bill's limit lowered to the safe one at load,
 except bills with a custom result worker (the mechanoid shredding bills, whose steel follows body size).
+(Replaced the same day in 0.5.1 by the output guard below.)
 
 **Not done, and why.** Smithies, DMS printers and the smaller benches were offered and not chosen. The bay
 looks identical to the machining bay (new art waits for the owner's go-ahead on GPU work). Stuff-plus-parts
 items would need a change in Pipe System or a Harmony patch on its output step.
+
+## The output guard for every factory machine (0.5.1, 29 Oct 2026)
+
+The owner asked whether the lost-item bug predated our changes (it did: it is VFE Factory's and Pipe
+System's, and no version before 0.5.0 touched the machining bay), then asked to extend the fix to every
+affected machine. **0.5.0's limit-lowering marker and `OutputCapRule` are replaced** by the guard below.
+
+**Scale (read-only scan, the owner's 300 active mods).** Of 134 XML ProcessDefs that output only to factory
+hoppers, 59 were safe (including all of ours), 51 had a fixed batch and an unsafe limit, and 23 a batch
+decided by a result worker at run time; one output Def was not found. Most VFE Factory limits **equal the
+stack limit** (chemfuel 150, steel 75, shells 25). Pipe System waits only while the stack is *above* the
+limit, so with limit = stack limit a full stack never makes it wait: `TryAbsorbStack` then takes nothing and
+**every later batch is lost**. Bills with no limit (VFE's stock neutroamine bill, Kimoju's drill and
+neutroamine bills) merge without any check. Runtime-generated bills (VFE's machining bay, limit 1; Munitions
+Industries' press) were not in the XML count.
+
+**Why a guard and not lower limits.** A fixed limit cannot protect the 23 variable bills (mincing corpses by
+body size, ovens by nutrition, smelting by the item smelted, shredding by mechanoid size), and per-machine
+markers would have to follow every mod's bills. The loss happens at one point, so the fix is there.
+
+**What it does.** A Harmony prefix on `PipeSystem.Process.TrySpawnAtCell(Result, IntVec3, Map, out Thing)`
+(identical in the 1.6 and 1.7 builds) asks `OutputGuard.WouldLoseBatch` first. For hopper-only bills not
+made from stuff, it mirrors the step: the same `GetOutput` and `GetCount`, wrapped in `Rand.PushState` and
+`PopState` so random workers (the drill's metal, the fish farm's 1 to 3) give Pipe System the same answer
+straight after; a cheap test for any same-Def stack without room; then a stand-in item given Pipe System's
+own quality and ingredients (its private `ApplyIngredientsAndQuality`, reached through `AccessTools`), and
+the first thing on the cell that `CanStackWith` it. If the batch would not fit there, the prefix returns
+false from the step, and for a bill with a limit sets `outputFactoryHopperTooFull` and `tickLeft = 1`, which
+is what Pipe System does above the limit. With no limit, Pipe System's caller then tries the cells around the
+machine, its own fallback. The prefix skips the original only in that case; the reason is recorded in the
+patch class (there is no hook between choosing the stack and losing the items, and a transpiler would break
+on any edit to the method). Each patch class is now applied separately, so a failed guard leaves the bills
+working.
+
+**Behaviour that changes for the player:** machines that silently consumed inputs at a full output hopper now
+stop and say the hopper is too full. The fabrication bay's generated bills take `min(75, stack limit)` as
+their limit (so a gun's reads "max 1 units"); the machining bay keeps VFE's 1.
 
 ## Ideas for later additions (agent suggestions, not decided)
 

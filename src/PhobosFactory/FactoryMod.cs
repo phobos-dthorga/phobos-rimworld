@@ -1,3 +1,4 @@
+using System;
 using HarmonyLib;
 using Verse;
 
@@ -11,6 +12,20 @@ public class FactoryMod : Mod
     public FactoryMod(ModContentPack content) : base(content)
     {
         // Mods are constructed before the game loads Defs, so the patches are in place for DefGeneratorPatch.
-        new Harmony(HarmonyId).PatchAll();
+        // Each patch class is applied on its own: the output guard patches a private Pipe System method, and if
+        // an update renames it, the bills and the menu filter should still work.
+        var harmony = new Harmony(HarmonyId);
+        foreach (var type in AccessTools.GetTypesFromAssembly(typeof(FactoryMod).Assembly))
+        {
+            if (!type.IsDefined(typeof(HarmonyPatch), inherit: false)) continue;
+            try
+            {
+                harmony.CreateClassProcessor(type).Patch();
+            }
+            catch (Exception error)
+            {
+                Log.Error($"[D'thorga Factory Additions] Could not apply {type.Name}; that part is switched off. {error}");
+            }
+        }
     }
 }

@@ -163,12 +163,9 @@ public static class BenchBillGenerator
         bill.spawnOnInteractionCell = template.spawnOnInteractionCell;
         bill.disallowMixing = true;
         bill.useFirstIngredientAsOutputStuff = item.MadeFromStuff;
-        // A made-from-stuff item is placed as a new thing, never added to a stack, so only stacking outputs
-        // need the safe limit; the template's limit still makes the machine wait instead of dropping items
-        // around itself when the output cell is full.
-        bill.maxOutputCount = bill.useFirstIngredientAsOutputStuff
-            ? template.maxOutputCount
-            : OutputCapRule.Clamp(template.maxOutputCount, item.stackLimit, count);
+        // A limit makes the machine wait when its output cell is full instead of dropping items around itself;
+        // TrySpawnAtCellPatch keeps a batch that would not fit from being lost.
+        bill.maxOutputCount = OutputRule.WaitLimit(template.maxOutputCount, item.stackLimit);
         bill.considerBuildingCompResource = piped != null && ingredients.Any(i => i.thing == piped);
         bill.sustainerDef = template.sustainerDef;
         bill.sustainerWhenWorking = template.sustainerDef != null;

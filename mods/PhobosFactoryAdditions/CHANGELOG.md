@@ -5,6 +5,48 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.5.1] - 2026-10-29 - Draft
+
+Factory machines stop destroying finished batches, on every machine instead of only the machining bay. Not
+yet tested in game.
+
+### Fixed
+
+- No factory machine destroys a finished batch any more; it waits until the output hopper has room. A
+  read-only scan of the owner's mods found 74 of the 134 bills that output to factory hoppers at risk, nearly
+  all of them VFE Factory's own (smelter, biofuel refinery, alloy forge, assembler, ammunition press,
+  distillery, cannery, autoloom, conveyor oven, masonry saw, mincer, drill platform, medicine granulator,
+  neutroamine synthesizer), plus Kimoju's and Munitions Industries' bills and every machining bay bill VFE
+  generates. Pipe System adds a batch to a matching stack while that stack holds no more than the bill's
+  output limit, but most limits equal the stack limit (150 chemfuel, 75 steel), so a full stack swallowed
+  every later batch, and a nearly full one the part that did not fit. Owner's go-ahead, 29 October 2026.
+- The fix is a check just before Pipe System's output step: when the batch would not fit on the stack it is
+  about to join, the machine waits and its inspect text says the output hopper is too full, as Pipe System
+  does when a hopper is above its limit. It covers batches whose size varies (mincing corpses, ovens,
+  smelting, mechanoid shredding), which 0.5.0's fixed limits could not.
+- Bills with no output limit at all (VFE's stock neutroamine bill, Kimoju's drill and insect and fish
+  neutroamine bills) drop a batch that does not fit on a free cell beside the machine, Pipe System's own
+  fallback for such bills, instead of losing it.
+
+### Changed
+
+- Replaces 0.5.0's machining-bay-only fix (lowered output limits, and the Phobos.Factory.SafeOutputLimitsExtension
+  patched onto the bay), which is removed. Machining bay bills keep VFE's limit of 1, so the inspect text now
+  reads "Output factory hopper too full (max 1 units)" instead of 0.5 units.
+- The fabrication bay's bills set their output limit to the item's stack limit or 75, whichever is lower.
+- Each Harmony patch is applied on its own, so if a Vanilla Expanded update changes the output step, only
+  the guard switches off (with an error in the log) and the fabrication bay's bills still work.
+
+### Compatibility and limits
+
+- The check runs in Pipe System's output step for every mod's factory bills, only when a batch would
+  otherwise be lost. It reads the output cell and makes one throwaway copy of the item; it does not change
+  the game's random numbers (random outputs, such as the drill's metal, come out the same).
+
+### Save compatibility
+
+- Safe to install over 0.5.0 mid-game. Nothing is saved.
+
 ## [0.5.0] - 2026-10-29 - Draft
 
 An automated fabrication bay for fabrication bench, bioferrite shaper and Rimatomics machining table items,

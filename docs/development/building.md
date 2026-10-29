@@ -10,7 +10,7 @@ src/PhobosFactory/PhobosFactory.csproj` builds `mods/PhobosFactoryAdditions/1.6/
 which `LoadFolders.xml` loads on 1.6 and 1.7. It is the first project with Harmony (`Lib.Harmony` 2.4.3,
 `ExcludeAssets="runtime"`, so `0Harmony.dll` never ships) and, like the radio framework, references the
 installed `PipeSystem.dll`. **Build before deploying**: `deploy.py` copies whatever is in the mod folder and
-says "no assembly built" when the DLL is missing. Its game-free output-limit rule is tested by
+says "no assembly built" when the DLL is missing. Its game-free output rule is tested by
 `dotnet test tests/PhobosFactory.Rules.Tests`, which also runs on GitHub.
 
 **One limit to know:** the mod references Vanilla Expanded Framework's `PipeSystem.dll`, which its licence

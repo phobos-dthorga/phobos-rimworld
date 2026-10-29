@@ -10,10 +10,10 @@ on only while its mod is active (Medicines+, Deep Pills, Ushankas Biological War
 Rimatomics, Hemofungus, Complementary Odyssey, Glitterworld Medicine Production, Farmable Neutroamine,
 Passive Exoskeletons, Simple Washing Machine).
 
-Version 0.5.0, built 29 October 2026 for House D'thorga. **Tested in game:** the human-meat bill (owner,
+Version 0.5.1, built 29 October 2026 for House D'thorga. **Tested in game:** the human-meat bill (owner,
 28 October 2026, RimWorld 1.7) and the drug-lab bills appearing on their machines (owner, 29 October 2026).
 The corpse fridge change, running the 0.3.0 bills to the end, the 0.3.2 chemfuel repair, the 0.4.0 deep
-factory hopper, and everything in 0.5.0 (the fabrication bay and the machining bay fix) are not yet tested
+factory hopper, and everything in 0.5.0 and 0.5.1 (the fabrication bay and the output fix) are not yet tested
 in game.
 
 ## Read this first (gotchas)
@@ -34,11 +34,14 @@ in game.
   chemfuel in with Vanilla Chemfuel Expanded.
 - **Bionics, weapons and armour leave one at a time.** These items don't stack, so the bay (and the machining
   bay, after the fix) **waits while an identical item is still in the output hopper**. Its inspect text then
-  says "Output factory hopper too full (max 0.5 units)": Vanilla Expanded's wording, here meaning "take the
+  says "Output factory hopper too full (max 1 units)": Vanilla Expanded's wording, here meaning "take the
   finished item away first". **Run a belt out of the output hopper.**
-- **The machining bay fix changes VFE Factory's own bills** (owner's go-ahead, 29 October 2026). Before it, a
-  finished item vanished when an identical one was still in the output hopper; now the machine waits. The
-  startup log says how many bills it fixed.
+- **Factory machines no longer destroy finished batches (0.5.1).** Before, most of VFE Factory's machines
+  destroyed every batch once the stack in their output hopper was full, and part of a batch when it was
+  nearly full. Now they **wait** and say "Output factory hopper too full". **Machines may now sit idle where
+  they used to eat inputs silently: run a belt out of each output hopper.** Owner's go-ahead, 29 October 2026.
+- **Bills with no output limit drop a batch beside the machine** when it doesn't fit (VFE's stock neutroamine
+  bill, Kimoju's drill and neutroamine bills). That is Pipe System's own fallback for such bills.
 - **The new bills keep their mods' research.** A bill appears in the machine's Add process menu only once
   its research is done: Medicines+ projects for its drugs, each disease's vaccine project for Biological
   Warfare, Deathrest (Biotech) for hemogen, Neutroaleaf refining for leaf neutroamine, and so on. Complex
@@ -67,7 +70,7 @@ in game.
   machine's Processes tab and let any running batch finish; otherwise the first load afterwards should log
   an error about a missing process and drop that bill (expected, not yet checked). **Deconstruct every deep
   factory hopper and every fabrication bay** too; the items on a hopper stay where they are. The fridge
-  change and the machining bay fix leave nothing in the save.
+  change and the output fix leave nothing in the save.
 - **Nothing is published on the Steam Workshop yet.** Install from source with `scripts/deploy.py`.
 - **Tested in game: the human-meat bill, and the 0.3.1 fix.** The owner confirmed on 28 October 2026, on
   RimWorld 1.7, that the human-meat bill works, and on 29 October 2026, with 0.3.2 installed, that the bills
@@ -106,9 +109,9 @@ item's own recipe, **after every other mod's changes** (Combat Extended's costs,
   and ExoVisor, Anomaly's ceremonial hood): Pipe System gives a finished item the material of the **last**
   ingredient it took, so those could come out made of components. The startup log names every skipped item.
 
-**Expect two lines in the log at startup**, both starting "[D'thorga Factory Additions]": one giving, per
-bench, how many bills the bay got and what was skipped; one saying on how many machining bay bills the
-output limit was made safe. Those counts are the real ones for your game; the table above is an estimate.
+**Expect a line in the log at startup** starting "[D'thorga Factory Additions]", giving, per bench, how many
+bills the bay got and what was skipped. Those counts are the real ones for your game; the table above is an
+estimate.
 
 The building itself inherits everything from the machining bay (size, the three input cells behind and
 beside it, output on the interaction cell in front, power, heat, overclocking, boosters, heatsinks, piped
@@ -122,20 +125,41 @@ chemfuel, the two mechanoid shredding bills) and differs in:
 
 Cost and work are agent defaults, open to tuning.
 
-### The machining bay output fix (0.5.0)
+### Factory machines stop destroying their output (0.5.1)
 
 **What went wrong (read in Pipe System's and the game's code, 29 October 2026; not seen in game).** When a
-batch finishes, Pipe System adds it to a matching stack in the output hopper if that stack holds no more than
-the bill's output limit. The game counts two identical guns as "stackable" even though a gun stacks to 1, so
-with VFE's limit of 1 the new gun is "added" to the old one, none of it fits, and the rest is never placed:
-**the gun vanishes and its materials are spent.** It happens whenever an identical item is still sitting in
-the output hopper, which a belt out of the hopper usually prevents.
+batch finishes, Pipe System adds it to the matching stack in the output hopper if that stack holds no more
+than the bill's **output limit**, and never places whatever doesn't fit. Two things make that lose items:
 
-**The fix (owner's go-ahead, 29 October 2026).** At load, every bill on the machining bay gets the largest
-output limit that can't lose anything: for an item that doesn't stack, **0.5**, so the machine **waits** while
-any identical item is there; for a stacking item, its stack limit minus one batch. The fabrication bay's
-bills get the same rule. The two mechanoid shredding bills are left alone: their steel depends on the
-mechanoid's size, so no fixed limit fits.
+- **Most of VFE Factory's limits equal the stack limit** (150 for chemfuel, 75 for steel, 25 for shells). The
+  machine only waits when the stack is *above* the limit, which never happens, so **once the output stack is
+  full, every later batch is destroyed**, and a nearly full stack keeps only part of a batch.
+- **The game counts two identical guns as stackable** even though a gun stacks to 1. With the machining
+  bay's limit of 1, a gun still in the output hopper makes the next identical gun vanish.
+
+A belt carrying items out of the output hopper usually hides both.
+
+**How many bills.** A read-only scan of your mods found **74 of the 134 bills that output to factory
+hoppers** at risk, plus every machining bay bill VFE generates:
+
+| Machine | At-risk bills (examples) |
+| --- | --- |
+| Automated biofuel refinery | chemfuel from wood, redwood, canola and organics; astrofuel; Kimoju's fecal sludge; Munitions Industries' FSX and prometheum |
+| Automated smelter | metal from chunks and slag, smelting weapons, apparel and mechanoids |
+| Automated ammunition press | every shell |
+| Automated distillery, cannery, conveyor oven | beer, spirits, soda, canned food, kibble, pemmican, meals, baby food |
+| Automated alloy forge, assembler | plasteel, bronze, gravlite, obsidian, components |
+| Automated mincer | every corpse bill |
+| Automated drill platform | stone chunks, metals, Kimoju's gold, silver, steel, uranium and more |
+| Autoloom, masonry saw, medicine granulator, neutroamine synthesizer | patchleather, synthread, blocks, medicine, neutroamine |
+| Automated machining bay | every generated bill (guns, armour), mechanoid and drone shredding |
+
+**The fix (owner's go-ahead, 29 October 2026).** Just before Pipe System places a batch, this mod checks the
+stack it is about to join. If the whole batch won't fit, the machine **waits** and its inspect text says the
+output hopper is too full, exactly as Pipe System does when a stack is above the limit. It works for every
+mod's factory bills, including batches whose size varies (corpses, ovens, smelting). Bills with **no** limit
+(VFE's stock neutroamine bill, several of Kimoju's) instead drop the batch on a free cell beside the machine,
+Pipe System's own fallback for them. 0.5.0's machining-bay-only fix is replaced by this one.
 
 ### Neutroamine from human meat
 
@@ -258,7 +282,7 @@ for one stack of each of four ingredients, and more of the same item merges into
 | --- | --- |
 | **Input**, fed by one belt carrying mixed ingredients | The belt keeps filling it until all four places hold something; the machine takes what it needs from any of them. |
 | **Input**, filled by haulers | Tick every ingredient in its storage filter and raise its priority. |
-| **Output** of items that do not stack (weapons, bionics, armour) | Holds up to four **different** finished items. An identical one waits until the first is taken away (with the 0.5.0 fix; before it, the identical one vanished). Items made of a material (a steel helmet) are placed separately, up to four. |
+| **Output** of items that do not stack (weapons, bionics, armour) | Holds up to four **different** finished items. An identical one waits until the first is taken away (with the 0.5.1 fix; before it, the identical one vanished). Items made of a material (a steel helmet) are placed separately, up to four. |
 | **Output** of items that stack | Same as an ordinary hopper: the batch waits once that stack reaches the bill's output cap. |
 | Under a belt that pulls from it | The belt takes one whole stack at a time, the first it finds. |
 
@@ -336,10 +360,10 @@ bill take human meat again.
 
 Rules a new bill follows here, from reading Pipe System's code (28 October 2026): one result per bill (only
 the first is checked against the output hopper's filter); `maxOutputCount` set, and at most the result's
-stack limit minus the batch count (above that, the surplus of a finished batch is destroyed; at zero, a
-blocked output is destroyed instead of waiting), and **0.5 for an item that doesn't stack** (the game counts
-two identical items as stackable even at a stack limit of 1, so a limit of 1 loses the second one; read
-29 October 2026); `researchPrerequisites` hides the bill from the Add menu
+stack limit minus the batch count (in Pipe System alone, above that the surplus of a finished batch is
+destroyed, and at zero a blocked output is dropped beside the machine; since 0.5.1 this mod's output guard
+makes the machine wait instead of losing anything, but a limit within the stack still keeps the machine
+from trying); `researchPrerequisites` hides the bill from the Add menu
 until done; any ingredient may come from any input slot, but a hopper cell holds one stack. The offline
 checker `scripts/check-factory-patches.py` enforces the first three against the installed game.
 
@@ -385,11 +409,7 @@ fabrication bay's three templates are in `Common/Defs/BenchBillTemplateDefs/` an
 ```
 
 Optional fields: `excludedThings` (items to leave at the bench), `workMultiplier` (default 4),
-`maxOutputCount` (default 75; lowered per item to a safe limit), `spawnOnInteractionCell` (default true).
-
-**Safe output limits on another machine.** Add `<li Class="Phobos.Factory.SafeOutputLimitsExtension" />` to
-its `modExtensions`, as `Common/Patches/MachiningBay.xml` does for the machining bay. Bills whose result
-count is decided at run time (a custom result worker) are left alone.
+`maxOutputCount` (default 75; never above the item's stack limit), `spawnOnInteractionCell` (default true).
 
 ## Checks done
 
@@ -414,7 +434,12 @@ count is decided at run time (a custom result worker) are left alone.
   Pipe System member it calls exists in the 1.7 assemblies. The output-limit rule has unit tests, and
   `scripts/check-factory-patches.py` passes against the owner's installation (RimWorld 1.7, 300 active mods),
   including the three bench templates. The bill counts above come from a scan of the installed mods' files.
+- 29 October 2026, 0.5.1: every factory bill in the owner's mods scanned for an output limit that can lose
+  items (74 of 134 at risk). Pipe System's output step and quality step, VFE Factory's result workers and
+  the game's random number state read in the 1.7 assemblies (the output step is the same in the 1.6 build).
+  Builds with no warnings; the output rule has unit tests.
 - **Not checked:** whether each new bill feeds, finishes and outputs as expected; whether the two corner
   input cells work; whether a belt takes chemfuel from a tap (0.3.2); whether the stock bill now refuses human meat, whether a belt
-  actually lifts a corpse out of the fridge, and what happens on removal. For 0.5.0: everything in game,
-  starting with the two startup log lines, the bay's Add process menu, and one bionic made end to end.
+  actually lifts a corpse out of the fridge, and what happens on removal. For 0.5.0 and 0.5.1: everything in
+  game, starting with the startup log line, the bay's Add process menu, one bionic made end to end, and a
+  machine waiting at a full output hopper instead of eating its inputs.

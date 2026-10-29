@@ -15,18 +15,4 @@
     <value>PhobosFactory_AutomatedMachiningBayParent</value>
   </Operation>
 
-  <!--
-    Owner's go-ahead, 29 Oct 2026: VFE Factory's machining bay bills let a finished item vanish when an
-    identical item is still in the output hopper (output limit 1 on items that stack to 1; Pipe System's
-    Process.TrySpawnAtCell adds the new item to that "stack", none of it fits, and the rest is never placed).
-    This marker makes the assembly lower every bill's limit on this machine to a safe one at load
-    (Phobos.Factory.OutputLimitService), so the machine waits instead. The fabrication bay inherits it.
-  -->
-  <Operation Class="PatchOperationAddModExtension">
-    <xpath>Defs/ThingDef[defName="VFEFactory_AutomatedMachiningBay"]</xpath>
-    <value>
-      <li Class="Phobos.Factory.SafeOutputLimitsExtension" />
-    </value>
-  </Operation>
-
 </Patch>

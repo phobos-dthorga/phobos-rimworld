@@ -6,10 +6,10 @@ using Verse;
 namespace Phobos.Factory;
 
 /// <summary>
-/// Generates the bench bills and makes output limits safe while the game generates its implied Defs, so
-/// the new bills join the Def database before references are resolved, as VFE Factory's own machining
-/// bills do. The game has no extension point for this step. A postfix, so it runs after the game has made
-/// the recipes the bills point to and after VFE Factory's prefix has made its machining bay bills.
+/// Generates the bench bills while the game generates its implied Defs, so they join the Def database
+/// before references are resolved, as VFE Factory's own machining bills do. The game has no extension point
+/// for this step. A postfix, so it runs after the game has made the recipes the bills point to and after
+/// VFE Factory's prefix has made its machining bay bills.
 /// </summary>
 [HarmonyPatch(typeof(DefGenerator), nameof(DefGenerator.GenerateImpliedDefs_PreResolve))]
 public static class DefGeneratorPatch
@@ -20,7 +20,6 @@ public static class DefGeneratorPatch
         try
         {
             BenchBillGenerator.GenerateAll(hotReload);
-            OutputLimitService.MakeMarkedMachinesSafe();
         }
         catch (Exception error)
         {
