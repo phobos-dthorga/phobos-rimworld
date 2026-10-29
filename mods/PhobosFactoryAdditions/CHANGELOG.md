@@ -5,6 +5,49 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.6.0] - 2026-10-29 - Draft
+
+Belts and factory machines can take from any storage building once the player switches it on. Not yet tested
+in game.
+
+### Added
+
+- A Belts may take from here switch on every storage building whose items lie on its cells, from any mod:
+  vanilla shelves, VFE furniture storage, Rimefeller's refinery unloading bays, every Adaptive Storage building
+  (Warehouse Storage, the sbz mods, Cargo Holds, Adaptive Ideology Storage) and more, about 135 building types
+  on the owner's mod list. One rule in code instead of a patch per building. Owner's choice of design (a switch
+  per storage, over flagging every storage or a separate loader belt), 29 October 2026.
+- While it is on, a VFE Factory belt with the storage directly behind it or at either side takes one whole
+  stack at a time whenever it has room, as it would from a factory hopper, and a factory machine takes
+  ingredients from it when it stands on one of the machine's input cells. A factory hopper beside the same belt
+  still goes first.
+- The switch says what it did: a message when it changes, and a line in the storage's inspect text while it is
+  on. Its text is agent-written, held for the owner's review.
+
+### Compatibility and limits
+
+- Off for every storage, new or already built, so nothing moves until the player switches it on. Everything on
+  a switched-on storage can go, whatever the belt's filter says.
+- A belt fed from storage looks for a stack every 10 ticks, so it is a little slower than one fed from a factory
+  hopper. Storage with the switch off costs nothing; each belt adds a look at three cells about once a second.
+  An estimate from the code, not measured.
+- Machines still put finished goods only into factory hoppers; the switch is for taking.
+- Graves, sarcophagi, growth vats, biosculpter pods, outfit stands, bookcases and sealed crates get no switch:
+  they keep their contents inside themselves. Factory hoppers, VCHE chemfuel taps and the sbz corpse fridge
+  already feed belts all the time and get no switch.
+- Three Harmony postfixes: two on private VFE Factory belt methods, one on Pipe System's input-cell check. If an
+  update renames one, only that part switches off, with an error in the log.
+
+### Dependencies
+
+- The assembly now also compiles against VFE Factory's own assembly, referenced from the installed mod and
+  never shipped. VFE Factory was already required.
+
+### Save compatibility
+
+- Safe to add mid-game. Each switched-on storage saves one setting (key PhobosFactory_BeltsMayTake); removing
+  the mod should drop it without a message (expected, not yet checked) and leaves the items where they are.
+
 ## [0.5.1] - 2026-10-29 - Draft
 
 Factory machines stop destroying finished batches, on every machine instead of only the machining bay. Not

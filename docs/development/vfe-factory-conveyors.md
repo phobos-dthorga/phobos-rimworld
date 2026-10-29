@@ -8,11 +8,18 @@ in game** unless a line says the owner saw it. Dated record; the mod README carr
 
 ## The one rule that matters: belts pull only from "factory hoppers"
 
+**Since D'thorga Factory Additions 0.6.0 (29 Oct 2026)** any storage building with its "Belts may take from
+here" switch on counts as well; how that is done is in the
+[factory additions record](vfe-factory-additions.md#belts-that-take-from-any-storage-060-29-oct-2026). The rule
+below is stock VFE Factory.
+
 `Building_Conveyor.TryPullFromDir` (VFE Factory) looks at the building in one neighbouring cell and pulls
 only if **all** of these hold:
 
 1. the building is a `Building_Storage` (vanilla shelves and stockpile buildings, Adaptive Storage
    buildings, hoppers; **not** a stockpile zone, a Rimefeller bay or a pawn);
+   **Correction, 29 Oct 2026:** Rimefeller's refinery unloading bay (`RefineryLoadingBay`) *is* a plain
+   `Building_Storage`, and its refiners place products on its cell, so it fails only test 2, the flag;
 2. it is VFE Factory's own `Building_FactoryHopper`, **or** its Def carries Pipe System's
    `FactoryHopperExtension` with `isfactoryHopper` true;
 3. one of its slot cells holds a spawned thing of category Item, read from the map's thing grid

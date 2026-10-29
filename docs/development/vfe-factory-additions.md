@@ -79,6 +79,9 @@ than lean game, and the lore renders fat) and its sources are in the mod README;
 | 29 Oct 2026 | Bills: VFE's rules (cost as ingredients, work x 4, steel/textiles/leather for a stuff, normal quality, no skill) plus the template's research; output limit at most 75 and always safe; grouped in the menu by category then name; stuff-plus-parts items and buildings skipped | agent defaults |
 | 29 Oct 2026 | 0.5.1: extend the lost-item fix to every affected factory machine | owner |
 | 29 Oct 2026 | Do it with one guard in Pipe System's output step (a prefix that skips the step only when a batch would be lost) instead of lowering limits machine by machine, which cannot cover variable batches; remove 0.5.0's marker; generated bills' limit min(75, stack limit) | agent (to meet the owner's request) |
+| 29 Oct 2026 | 0.6.0: one generic rule so belts can pull from any container, instead of a patch per building, and it must be cheap to run | owner (request) |
+| 29 Oct 2026 | A "Belts may take from here" switch on each storage building, over flagging every storage type (no running cost, but belts would drain any shelf they touch, existing colonies included) or a separate loader belt | owner (agent recommended the switch) |
+| 29 Oct 2026 | Switch off by default; every `Building_Storage` type gets it, except those already flagged as factory hoppers; switched-on storage also feeds machine input cells, not output cells; forbidden items are taken like any other, as from a hopper; a belt scans storage every 10 ticks; VFE Factory's belt icon read from its Def at runtime | agent defaults |
 
 ## Drug lab recipes as factory bills (28 Oct 2026)
 
@@ -312,7 +315,84 @@ working.
 stop and say the hopper is too full. The fabrication bay's generated bills take `min(75, stack limit)` as
 their limit (so a gun's reads "max 1 units"); the machining bay keeps VFE's 1.
 
+## Belts that take from any storage (0.6.0, 29 Oct 2026)
+
+The owner asked for one generic way for VFE Factory's belts to pull from any container, instead of a patch per
+building and mod (the corpse fridge in 0.2.0, the chemfuel taps in 0.3.2), and stressed the cost to run.
+
+**What the code says (read 29 Oct 2026 in the decompiled VFE Factory, Pipe System 1.6 and 1.7, Adaptive Storage
+Framework and Rimefeller assemblies; not tested in game).**
+
+- `Building_Conveyor.PeriodicCacheCheck` runs about once a second per belt (`(TicksGame + thingIDNumber) % 60`)
+  and sets the private `hasAdjacentHopper` when a neighbouring `Building_Storage` is VFE's `Building_FactoryHopper`
+  or carries `FactoryHopperExtension`. Only then does `ProcessMovement` call `TryPullItem` on each idle tick,
+  which tries `TryPullFromDir` behind, then clockwise, then counter-clockwise. That method takes the first
+  spawned Item on the storage's slot cells, whole stack, and puts it on the belt. Nothing else sets the flag.
+- `Building_Conveyor.ReceiveBypass(Thing)` (public) is VFE's own hand-over: it takes the item from any holder,
+  adds it to the belt and sets the belt moving. `HasSpace()` is public too.
+- `Process.InputFactoryHopperDetected(IntVec3)` (public, Pipe System) decides whether a hopper-only bill reads
+  an input cell, by the same Def flag. Machines poll inputs every 100 ticks (`CompTickInterval`). Output uses a
+  separate `FactoryHopperDetected()`, left alone.
+- The flag is per Def, so no XML or Def change can make it depend on one building: a per-building switch needs
+  code at those two decision points.
+- Adaptive Storage's `AdaptiveStorage.ThingClass` derives from `Building_Storage` and spawns its stored items on
+  the map. Rimefeller's "refinery unloading bay" (`RefineryLoadingBay`, parent `ChemfuelHopperBase`) is a plain
+  `Building_Storage`, and `CompRefinery` places its products on the bay's cell with `GenPlace.TryPlaceThing`.
+  Both can therefore feed belts. (The 28 Oct conveyor record said a Rimefeller bay is not `Building_Storage`;
+  that was wrong, and a correction note is added there.)
+- Kimoju's "VFE Factories: Buffs and tweaks" patches only the autofarmer and the fish farm, not belts.
+
+**Survey (read-only, the owner's 300 active mods, by each ThingDef's resolved `thingClass`).** 105 Adaptive
+Storage buildings (Warehouse Storage, the [sbz] mods, Cargo Holds, Adaptive Ideology Storage, [kyzy] Ship Wall
+Enhanced), 30 plain `Building_Storage` (vanilla shelves and hopper, VFE furniture, Rimefeller bays, VCHE hoppers
+and siphons, DMS, VGE, VNPE and others), and a scatter of single classes. The containers that are not
+`Building_Storage` hold their contents in an inner container rather than on the map: graves and sarcophagi,
+ancient and DMS crates, bookcases, growth vats, biosculpter pods, outfit stands, gibbet cages. Belts should not
+empty those, and VFE's pull could not read them anyway.
+
+**The three designs put to the owner.** Flag every storage type at load (no running cost, no Harmony, but any
+belt beside any shelf drains it, in an existing colony too, which the project's rule against moving the
+player's things forbids without consent); a switch per storage (chosen); a loader belt that pulls from
+whatever is behind it (no VFE patches, but identical-looking until it has art, and no help for input cells).
+
+**What 0.6.0 does.**
+
+- `BeltAccessSetup.AddSwitches`, called from the existing postfix on `DefGenerator.GenerateImpliedDefs_PreResolve`
+  (so the game resolves and checks the comp like XML), adds `CompProperties_BeltAccess` to every ThingDef whose
+  `thingClass` is a `Building_Storage`, skipping Defs that already carry `FactoryHopperExtension`. It logs the
+  count.
+- `CompBeltAccess` holds one saved bool (`PhobosFactory_BeltsMayTake`, default off), shows a `Command_Toggle` on
+  player-owned storage and an inspect line while on. The toggle delegates to `BeltAccess.SetBeltsMayTake`, which
+  sets it and sends one silent message (no look target, so the game merges a multi-select into one).
+- A postfix on `PeriodicCacheCheck` also sets `hasAdjacentHopper` when switched-on storage is behind or at
+  either side (three `GetFirstThing<Building_Storage>` lookups, once a second, only while the flag is false).
+  VFE recomputes the flag from scratch each time, so switching off takes effect within a second.
+- A postfix on `TryPullFromDir`, only when VFE's own pull found nothing on that side: every 10 ticks
+  (`IsHashIntervalTick`, VFE's own rhythm for items on a belt cell) it takes the first Item on the storage's
+  cached slot cells (`AllSlotCellsList`, no allocation) with `SplitOff` and hands it over with `ReceiveBypass`.
+  Hoppers keep priority, and the order of sides stays VFE's.
+- A postfix on `InputFactoryHopperDetected` also accepts switched-on storage on the cell; Pipe System then reads
+  every item there, as for a hopper.
+- All three are postfixes. Each patch class is applied on its own, so a VFE rename switches off only that part.
+  The assembly now references VFE Factory's installed `VanillaFurnitureExpandedFactory.dll` with
+  `Private=false`; VFE Factory publishes no licence (its GitHub repository and Workshop folder checked
+  29 Oct 2026), so nothing of it is copied ([third-party notices](../../THIRD_PARTY_NOTICES.md)).
+
+**Cost (estimate from the code, not measured).** Switched-off storage adds nothing while the game runs.
+Belts add the neighbour check about once a second each; the storage scan runs only beside switched-on storage
+and only every 10 ticks, and an idle belt beside an empty hopper already does more work than that every tick in
+stock VFE. The owner runs Dubs Performance Analyzer and can measure it in play.
+
+**Behaviour to watch in play.** A belt beside switched-on storage takes everything, forbidden items included and
+whatever its filter says (the hopper rule). A belt that delivers back into storage it takes from loops for ever.
+Pulling from storage runs at most once per 10 ticks per belt, a little slower than from a hopper.
+
 ## Ideas for later additions (agent suggestions, not decided)
+
+- **Machines that output into switched-on storage** (Pipe System's `FactoryHopperDetected`): would let a
+  multi-stack shelf take a machine's output, but the output step merges into the first matching stack only, so
+  it needs the 0.5.1 guard's reasoning applied to several stacks first.
+- **The corpse fridge on the switch** instead of its always-on flag, for consistency, if the owner prefers it.
 
 - **Flesh-breaker** (Biological Warfare, 2 neutroamine -> 1, 1000 work) and **Luciferium Expansion's** seven
   products, if the owner changes their mind: same shape as the 0.3.0 bills.

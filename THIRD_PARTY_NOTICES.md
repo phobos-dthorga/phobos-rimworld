@@ -34,6 +34,18 @@ The NoDerivatives term means we **never copy or adapt** VEF's code, DLLs, art or
 redistribute them; we only reference the installed assembly and subclass or call its public types at
 runtime. Nothing from VEF is in this repository. Our own code remains MIT.
 
+## Vanilla Furniture Expanded - Factory
+
+D'thorga Factory Additions (`mods/PhobosFactoryAdditions/`) exists to extend
+[Vanilla Furniture Expanded - Factory](https://steamcommunity.com/sharedfiles/filedetails/?id=3686924415) by
+**Oskar Potocki and the Vanilla Expanded team** (`packageId` `VanillaExpanded.VFEFactory`), a declared
+dependency. Its [GitHub repository](https://github.com/Vanilla-Expanded/VanillaFurnitureExpanded-Factory) and
+its Workshop folder carry **no licence** (checked 29 October 2026), so nothing from it may be copied. We patch
+its Defs by name in XML, read its decompiled assembly for research (kept in the ignored `.local/`), and since
+0.6.0 compile against its installed `VanillaFurnitureExpandedFactory.dll` without bundling it, to patch and call
+its conveyor belt at runtime. At runtime the storage switch also shows VFE Factory's own belt icon, read from its
+installed Def; the image is never copied. Nothing from VFE Factory is in this repository.
+
 ## Mods named in the designs
 
 The radio framework design plans optional tie-ins with other authors' mods, including

@@ -4,8 +4,10 @@
   <name>D'thorga Factory Additions</name>
   <author>Phobos A. D'thorga</author>
   <url>https://github.com/phobos-dthorga/phobos-rimworld</url>
-  <modVersion>0.5.1</modVersion>
+  <modVersion>0.6.0</modVersion>
   <description>Additions to Vanilla Furniture Expanded - Factory.
+
+A "Belts may take from here" switch on every storage building, from any mod (shelves, Rimefeller's unloading bays, Adaptive Storage and Warehouse Storage buildings, and more). Switch it on and the conveyor belts beside it, and any factory machine whose input cell is on it, take from it as they would from a factory hopper. It starts off, so nothing moves until you say so.
 
 An automated fabrication bay: a factory machine that makes what a fabrication bench makes (bionic and other artificial body parts, spacer weapons and armour), and with Anomaly or Dubs Rimatomics what a bioferrite shaper or a Rimatomics machining table makes. Its bills are built at load from each item's own recipe, so they follow other mods' changes and appear once the recipe is unlocked.
 

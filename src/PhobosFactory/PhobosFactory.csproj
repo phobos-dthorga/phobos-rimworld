@@ -8,11 +8,15 @@
     <AssemblyName>PhobosFactory</AssemblyName>
     <OutputPath>../../mods/PhobosFactoryAdditions/1.6/Assemblies/</OutputPath>
     <DebugType>none</DebugType>
-    <Version>0.5.1</Version>
+    <Version>0.6.0</Version>
     <!-- Vanilla Expanded Framework's PipeSystem.dll, referenced from the installed mod and never copied:
          its licence (CC BY-NC-ND 4.0) permits depending on it, not redistributing it. Override the folder
          with -p:VefAssemblies=... or the VefAssemblies environment variable. -->
     <VefAssemblies Condition="'$(VefAssemblies)' == ''">C:\Program Files (x86)\Steam\steamapps\workshop\content\294100\2023507013\1.6\Assemblies</VefAssemblies>
+    <!-- VFE Factory's own assembly (for its conveyor belt), likewise referenced and never copied: the mod
+         publishes no licence, so nothing of it may be redistributed. Its 1.6 folder is the only one; the game
+         loads it on 1.7 too. Override with -p:VfeFactoryAssemblies=... -->
+    <VfeFactoryAssemblies Condition="'$(VfeFactoryAssemblies)' == ''">C:\Program Files (x86)\Steam\steamapps\workshop\content\294100\3686924415\1.6\Assemblies</VfeFactoryAssemblies>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Krafs.Rimworld.Ref" Version="1.6.4871" />
@@ -20,6 +24,10 @@
     <PackageReference Include="Lib.Harmony" Version="2.4.3" ExcludeAssets="runtime" />
     <Reference Include="PipeSystem">
       <HintPath>$(VefAssemblies)\PipeSystem.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="VanillaFurnitureExpandedFactory">
+      <HintPath>$(VfeFactoryAssemblies)\VanillaFurnitureExpandedFactory.dll</HintPath>
       <Private>false</Private>
     </Reference>
   </ItemGroup>

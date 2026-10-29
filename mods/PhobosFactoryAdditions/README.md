@@ -1,6 +1,7 @@
 # D'thorga Factory Additions
 
-Additions to Vanilla Furniture Expanded - Factory: an **automated fabrication bay** that makes what a
+Additions to Vanilla Furniture Expanded - Factory: a **"Belts may take from here" switch** on every storage
+building, so conveyor belts and factory machines can take from any mod's shelves, pallets and bays; an **automated fabrication bay** that makes what a
 fabrication bench makes (bionics and other artificial body parts, spacer weapons and armour), and with Anomaly
 or Dubs Rimatomics what a bioferrite shaper or a Rimatomics machining table makes; a **fix for the automated
 machining bay**, which could lose a finished item; a **Synthesize neutroamine from human meat** bill for
@@ -10,11 +11,11 @@ on only while its mod is active (Medicines+, Deep Pills, Ushankas Biological War
 Rimatomics, Hemofungus, Complementary Odyssey, Glitterworld Medicine Production, Farmable Neutroamine,
 Passive Exoskeletons, Simple Washing Machine).
 
-Version 0.5.1, built 29 October 2026 for House D'thorga. **Tested in game:** the human-meat bill (owner,
+Version 0.6.0, built 29 October 2026 for House D'thorga. **Tested in game:** the human-meat bill (owner,
 28 October 2026, RimWorld 1.7) and the drug-lab bills appearing on their machines (owner, 29 October 2026).
 The corpse fridge change, running the 0.3.0 bills to the end, the 0.3.2 chemfuel repair, the 0.4.0 deep
-factory hopper, and everything in 0.5.0 and 0.5.1 (the fabrication bay and the output fix) are not yet tested
-in game.
+factory hopper, and everything in 0.5.0, 0.5.1 and 0.6.0 (the fabrication bay, the output fix and the storage
+switch) are not yet tested in game.
 
 ## Read this first (gotchas)
 
@@ -24,6 +25,15 @@ in game.
 - **It has code now (0.5.0).** One small assembly, `PhobosFactory.dll`, built for RimWorld 1.6 and loaded on
   1.7 too, as VFE Factory's own assembly is. **Build it before deploying** (`dotnet build
   src/PhobosFactory/PhobosFactory.csproj`); the deploy script says "no assembly built" if you forget.
+- **Belts can take from any storage once you switch it on (0.6.0).** Select a shelf, pallet, Rimefeller
+  unloading bay or any other mod's storage building and click **Belts may take from here** (VFE Factory's belt
+  icon). **It starts off on every storage, including what you have already built**, so nothing moves until
+  you switch it on.
+- **A switched-on storage empties into every belt beside it.** A belt with it directly behind or at either
+  side takes **one whole stack at a time, whatever the belt's filter says**, and a factory machine whose input
+  cell is on it takes ingredients from it. **Don't point a belt back into storage it takes from**, or the
+  items go round for ever.
+- **Machines still put finished goods only into factory hoppers.** The switch is for taking, not for output.
 - **The fabrication bay looks exactly like the automated machining bay** until it has art of its own. Select it
   to see which is which. It needs **Complex factories and Fabrication** research.
 - **A fabrication bay bill appears only once its bench recipe is unlocked**: the item's research (for example
@@ -70,7 +80,8 @@ in game.
   machine's Processes tab and let any running batch finish; otherwise the first load afterwards should log
   an error about a missing process and drop that bill (expected, not yet checked). **Deconstruct every deep
   factory hopper and every fabrication bay** too; the items on a hopper stay where they are. The fridge
-  change and the output fix leave nothing in the save.
+  change and the output fix leave nothing in the save. Each switched-on storage saves one setting, which the
+  game should drop without a message once the mod is gone (expected, not yet checked); its items stay put.
 - **Nothing is published on the Steam Workshop yet.** Install from source with `scripts/deploy.py`.
 - **Tested in game: the human-meat bill, and the 0.3.1 fix.** The owner confirmed on 28 October 2026, on
   RimWorld 1.7, that the human-meat bill works, and on 29 October 2026, with 0.3.2 installed, that the bills
@@ -78,6 +89,52 @@ in game.
   the corner input cells and the chemfuel-tap repair are not yet confirmed in game.
 
 ## What it does
+
+### Belts that take from any storage (0.6.0)
+
+VFE Factory's belts pull only from **factory hoppers**. Until now this mod let other storage feed belts one
+building at a time (the corpse fridge, the chemfuel taps). Since 0.6.0 **every storage building gets a
+switch** instead (owner's choice of design, 29 October 2026):
+
+- Select the storage and click **Belts may take from here**. While it is on, the storage's inspect text says
+  "Belts may take from here."
+- It starts **off**, for new storage and for storage already in your colony. Select several and click once to
+  switch them all; a message confirms what changed.
+
+What a switched-on storage does (read from VFE Factory's and Pipe System's code, not yet seen in game):
+
+| Where it is | What happens |
+| --- | --- |
+| **Directly behind a belt, or at either side** | The belt takes **one whole stack at a time**, the first it finds, whenever it has room, **whatever the belt's filter says**, as it would from a factory hopper. A factory hopper beside the same belt still goes first. |
+| **In front of a belt** (the belt points into it) | The belt delivers into it, as before. That is stock VFE Factory for any storage whose filter accepts the item. |
+| **On a factory machine's input cell** | The machine takes ingredients from it, as from a factory hopper. Storage that holds several stacks on one cell (most Adaptive Storage shelves) then works like a deep factory hopper. |
+| **On a factory machine's output cell** | Nothing changes: machines still put finished goods only into factory hoppers. |
+
+**Which buildings get the switch.** Every storage building whose items lie on its cells: about **135 types**
+on your mod list, counted from the mods' files. They include:
+
+- vanilla shelves, and storage from VFE furniture, Vanilla Gravship Expanded, The Dead Man's Switch and others;
+- **Rimefeller's refinery unloading bays**, which its refiners fill by placing their products on the bay's cell;
+- every Adaptive Storage building: Warehouse Storage, the [sbz] mods, Cargo Holds and Adaptive Ideology
+  Storage.
+
+**Expect a line in the log at startup**: "[D'thorga Factory Additions] Added the "Belts may take from here"
+switch to N storage building types", with the real number for your game.
+
+**Left out.** Graves, sarcophagi, growth vats, biosculpter pods, outfit stands, bookcases and sealed crates
+keep their contents *inside* themselves, where belts can't reach (and shouldn't). Factory hoppers, the
+chemfuel taps and the corpse fridge already feed belts all the time and keep doing so, with no switch.
+
+**What it costs** (my estimate from the code, not measured; Dubs Performance Analyzer can check it):
+
+- **Storage with the switch off costs nothing** while the game runs.
+- Each belt already checks its neighbours about once a second for hoppers; this adds a look at three cells.
+- A belt beside switched-on storage looks for a stack every **10 ticks** (a sixth of a second at normal
+  speed), so it runs a little slower than a belt fed from a factory hopper, which it checks every tick.
+- Machines keep checking their input cells every 100 ticks, as before.
+
+If a Vanilla Expanded update changes the belt code, the switch stops working, the log names the part that
+switched off, and everything else carries on.
 
 ### The automated fabrication bay (0.5.0)
 
@@ -325,8 +382,8 @@ Framework building, 2 x 2, 20 corpses). Expected from the code, not yet seen in 
 - Colonists still haul to and from the fridge as before. VFE Factory's "allow taking" and "allow inserting"
   rules apply to the real hopper building only, so the fridge gains no such toggles.
 
-Only the corpse fridge is flagged. The mod's other fridges could be flagged the same way (one patch
-operation each); ask if you want belts fed from them too.
+Only the corpse fridge is flagged, so it feeds belts all the time. Since 0.6.0 the mod's other fridges get
+the **Belts may take from here** switch instead, like every other storage building.
 
 ## Where to find things
 
@@ -339,6 +396,8 @@ operation each); ask if you want belts fed from them too.
   (Complex factories and Fabrication). It must stand on factory floor, like every factory machine.
 - Human meat comes from VFE Factory's automated mincer ("Mince human corpses") or a butcher table.
 - The **corpse fridge** is under Architect, Temperature, after Air conditioning ("[sbz] Fridge").
+- The **Belts may take from here** switch is among a storage building's buttons when you select it (only on
+  your own storage).
 
 ## For modders
 
@@ -372,7 +431,10 @@ not `MedicineGranulator.xml`). RimWorld keys a mod's Defs and Patches files by t
 folder and loads only the copy in the folder listed last; the others are skipped without a message. That
 hid most of 0.3.0's bills. `scripts/check-mod-layout.py` now refuses a shared path.
 
-To let belts and machines pull from any other storage building, add Pipe System's extension to its Def:
+Since 0.6.0 every `Building_Storage` type gets the player's **Belts may take from here** switch at load
+(`Phobos.Factory.CompProperties_BeltAccess`, added in code; the saved key is `PhobosFactory_BeltsMayTake`).
+To make a storage building feed belts and machines **all the time**, with no switch, add Pipe System's
+extension to its Def instead; the switch then leaves it alone:
 
 ```xml
 <Operation Class="PatchOperationAddModExtension">
@@ -438,8 +500,16 @@ Optional fields: `excludedThings` (items to leave at the bench), `workMultiplier
   items (74 of 134 at risk). Pipe System's output step and quality step, VFE Factory's result workers and
   the game's random number state read in the 1.7 assemblies (the output step is the same in the 1.6 build).
   Builds with no warnings; the output rule has unit tests.
+- 29 October 2026, 0.6.0: VFE Factory's belt pull, neighbour cache and hand-over, Pipe System's input check
+  and polling, Adaptive Storage Framework's storage class and Rimefeller's unloading-bay code read in their
+  decompiled assemblies (VFE Factory ships one assembly for 1.6 and 1.7). A read-only survey of the storage
+  buildings in the owner's 300 active mods. Builds with no warnings against VFE Factory's installed assembly;
+  every game member the switch uses exists in RimWorld 1.7. No automated test covers it: everything it does
+  happens inside the game.
 - **Not checked:** whether each new bill feeds, finishes and outputs as expected; whether the two corner
   input cells work; whether a belt takes chemfuel from a tap (0.3.2); whether the stock bill now refuses human meat, whether a belt
   actually lifts a corpse out of the fridge, and what happens on removal. For 0.5.0 and 0.5.1: everything in
   game, starting with the startup log line, the bay's Add process menu, one bionic made end to end, and a
-  machine waiting at a full output hopper instead of eating its inputs.
+  machine waiting at a full output hopper instead of eating its inputs. For 0.6.0: everything in game,
+  starting with the startup log line, the switch on a shelf, a belt taking from it, a machine's input cell on
+  switched-on storage, and the switch surviving a save and load.

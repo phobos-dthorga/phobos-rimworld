@@ -9,7 +9,9 @@ throwaway probe mod; the 1.7 column is untried.
 src/PhobosFactory/PhobosFactory.csproj` builds `mods/PhobosFactoryAdditions/1.6/Assemblies/PhobosFactory.dll`,
 which `LoadFolders.xml` loads on 1.6 and 1.7. It is the first project with Harmony (`Lib.Harmony` 2.4.3,
 `ExcludeAssets="runtime"`, so `0Harmony.dll` never ships) and, like the radio framework, references the
-installed `PipeSystem.dll`. **Build before deploying**: `deploy.py` copies whatever is in the mod folder and
+installed `PipeSystem.dll`. Since 0.6.0 it also references VFE Factory's installed
+`VanillaFurnitureExpandedFactory.dll` the same way (`VfeFactoryAssemblies`, default the Workshop item's `1.6\Assemblies`;
+VFE Factory publishes no licence, so it is never copied). **Build before deploying**: `deploy.py` copies whatever is in the mod folder and
 says "no assembly built" when the DLL is missing. Its game-free output rule is tested by
 `dotnet test tests/PhobosFactory.Rules.Tests`, which also runs on GitHub.
 

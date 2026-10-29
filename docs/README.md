@@ -13,7 +13,7 @@ Each mod's README is its player guide, with the gotchas first.
 | Mod | Version | What it does | Guide |
 | --- | --- | --- | --- |
 | **D'thorga Radio Framework** | 0.1.0 (in development) | Hand-held VHF and UHF radios, a base station, coax and antennas; a real link budget decides every contact; the "In touch" mood | [README](../mods/PhobosRadioFramework/README.md) |
-| **D'thorga Factory Additions** | 0.5.1 (in development) | Additions to Vanilla Furniture Expanded - Factory: an automated fabrication bay (bionics, spacer gear, bioferrite and Rimatomics items), a fix for factory machines destroying finished batches, a human-meat neutroamine bill, a deep factory hopper that holds four stacks, belts that take corpses from the [sbz] Fridge corpse fridge, and 44 drug-lab recipes from other mods as factory bills | [README](../mods/PhobosFactoryAdditions/README.md) |
+| **D'thorga Factory Additions** | 0.6.0 (in development) | Additions to Vanilla Furniture Expanded - Factory: a switch that lets belts and machines take from any storage building, an automated fabrication bay (bionics, spacer gear, bioferrite and Rimatomics items), a fix for factory machines destroying finished batches, a human-meat neutroamine bill, a deep factory hopper that holds four stacks, belts that take corpses from the [sbz] Fridge corpse fridge, and 44 drug-lab recipes from other mods as factory bills | [README](../mods/PhobosFactoryAdditions/README.md) |
 
 ## For contributors
 
