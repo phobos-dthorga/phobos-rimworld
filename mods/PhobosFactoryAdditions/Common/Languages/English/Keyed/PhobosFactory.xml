@@ -5,7 +5,7 @@
 
   <!-- The switch on every storage building (shelves, pallets, Rimefeller bays and the like). -->
   <PhobosFactory_BeltsMayTake>Belts may take from here</PhobosFactory_BeltsMayTake>
-  <PhobosFactory_BeltsMayTakeDesc>When on, conveyor belts and factory machines take from this storage as they do from a factory hopper.\n\nA belt with this storage directly behind it or at either side takes one whole stack at a time whenever it has room, whatever the belt's filter says. A factory machine takes ingredients from it when it stands on one of the machine's input cells.\n\nEverything stored here can go, so switch it on only for storage that should feed the factory. Off for new storage.</PhobosFactory_BeltsMayTakeDesc>
+  <PhobosFactory_BeltsMayTakeDesc>When on, conveyor belts and factory machines take from this storage as they do from a factory hopper.\n\nA belt next to this storage that points straight away from it takes one whole stack at a time whenever it has room, whatever the belt's filter says. Belts that only run past it leave it alone. A factory machine takes ingredients from it when it stands on one of the machine's input cells.\n\nEverything stored here can go, so switch it on only for storage that should feed the factory. Off for new storage.</PhobosFactory_BeltsMayTakeDesc>
   <PhobosFactory_BeltsMayTakeOn>Belts and factory machines may now take from the selected storage.</PhobosFactory_BeltsMayTakeOn>
   <PhobosFactory_BeltsMayTakeOff>Belts and factory machines no longer take from the selected storage.</PhobosFactory_BeltsMayTakeOff>
   <PhobosFactory_BeltsMayTakeInspect>Belts may take from here.</PhobosFactory_BeltsMayTakeInspect>

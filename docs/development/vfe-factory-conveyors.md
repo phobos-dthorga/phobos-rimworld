@@ -9,7 +9,8 @@ in game** unless a line says the owner saw it. Dated record; the mod README carr
 ## The one rule that matters: belts pull only from "factory hoppers"
 
 **Since D'thorga Factory Additions 0.6.0 (29 Oct 2026)** any storage building with its "Belts may take from
-here" switch on counts as well; how that is done is in the
+here" switch on counts as well, and since 0.6.1 (30 Oct 2026) only for a belt that has it directly behind, not
+at its sides; how that is done is in the
 [factory additions record](vfe-factory-additions.md#belts-that-take-from-any-storage-060-29-oct-2026). The rule
 below is stock VFE Factory.
 

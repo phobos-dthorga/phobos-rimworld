@@ -82,6 +82,8 @@ than lean game, and the lore renders fat) and its sources are in the mod README;
 | 29 Oct 2026 | 0.6.0: one generic rule so belts can pull from any container, instead of a patch per building, and it must be cheap to run | owner (request) |
 | 29 Oct 2026 | A "Belts may take from here" switch on each storage building, over flagging every storage type (no running cost, but belts would drain any shelf they touch, existing colonies included) or a separate loader belt | owner (agent recommended the switch) |
 | 29 Oct 2026 | Switch off by default; every `Building_Storage` type gets it, except those already flagged as factory hoppers; switched-on storage also feeds machine input cells, not output cells; forbidden items are taken like any other, as from a hopper; a belt scans storage every 10 ticks; VFE Factory's belt icon read from its Def at runtime | agent defaults |
+| 29 Oct 2026 | Owner tested 0.6.0 in game (RimWorld 1.7): belts take whole stacks from a switched-on thermostatic fridge cabin ([kyzy] Ship Wall Enhanced, Adaptive Storage), "the code works well", but belts running along its sides took from it too, "not intended behaviour" | owner |
+| 30 Oct 2026 | 0.6.1: switched-on storage feeds only a belt that has it directly behind (a belt pointing away from it); factory hoppers, VCHE chemfuel taps and the corpse fridge keep VFE Factory's behind-and-sides rule | owner (sides unwanted); agent (behind only, hoppers unchanged) |
 
 ## Drug lab recipes as factory bills (28 Oct 2026)
 
@@ -387,12 +389,23 @@ stock VFE. The owner runs Dubs Performance Analyzer and can measure it in play.
 whatever its filter says (the hopper rule). A belt that delivers back into storage it takes from loops for ever.
 Pulling from storage runs at most once per 10 ticks per belt, a little slower than from a hopper.
 
+**0.6.1 (30 Oct 2026): only the belt behind.** The owner's first test (29 Oct 2026, RimWorld 1.7) showed belts
+taking stacks from a switched-on Adaptive Storage fridge, and also belts that merely ran along its sides: a
+line wrapped around the fridge emptied it. 0.6.0 had copied the hopper rule (behind and both sides), which
+suits a hopper placed to feed one belt but not storage that belts pass. Now `BeltAccess.HasStorageToTakeFrom`
+looks only at the cell behind the belt (`Rotation.Opposite`; `TryPullFromDir`'s argument is the direction
+from the belt to the neighbour, read in `TryPullItem`), and `TryTakeFrom` returns at once for any other side.
+The neighbour check falls from three lookups to one. Factory hoppers and Def-flagged storage keep VFE's own
+rule. The 0.6.0 notes also said a hopper beside the same belt goes first; that holds only per side. VFE tries
+behind first, so switched-on storage behind a belt goes before a hopper at its side.
+
 ## Ideas for later additions (agent suggestions, not decided)
 
 - **Machines that output into switched-on storage** (Pipe System's `FactoryHopperDetected`): would let a
   multi-stack shelf take a machine's output, but the output step merges into the first matching stack only, so
   it needs the 0.5.1 guard's reasoning applied to several stacks first.
 - **The corpse fridge on the switch** instead of its always-on flag, for consistency, if the owner prefers it.
+  Since 0.6.1 it would also stop feeding belts that only run past it.
 
 - **Flesh-breaker** (Biological Warfare, 2 neutroamine -> 1, 1000 work) and **Luciferium Expansion's** seven
   products, if the owner changes their mind: same shape as the 0.3.0 bills.

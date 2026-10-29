@@ -5,10 +5,38 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.6.1] - 2026-10-30 - Draft
+
+Only a belt that points away from switched-on storage takes from it; belts that run past it leave it alone.
+Not yet tested in game.
+
+### Fixed
+
+- A belt that runs past a switched-on storage building no longer takes from it. Only a belt on a cell next to
+  the storage that points straight away from it takes, so belts can pass or wrap around switched-on storage
+  without emptying it. The owner found this in game on 29 October 2026: belts running along a thermostatic
+  fridge cabin were all taking its psychoid leaves. 0.6.0 had copied the factory hopper's rule, which feeds
+  belts that have the hopper behind them or at either side.
+- Corrected 0.6.0's notes: a factory hopper at a belt's side does not go before switched-on storage. VFE Factory
+  tries the cell behind a belt first, so storage behind a belt goes first.
+
+### Compatibility and limits
+
+- Factory hoppers, VCHE chemfuel taps and the sbz corpse fridge keep VFE Factory's own rule: a belt with one
+  behind it or at either side takes from it.
+- A little cheaper: each belt now looks at one cell for switched-on storage about once a second, instead of
+  three. An estimate from the code, not measured.
+
+### Save compatibility
+
+- Nothing saved changes. Storage switched on under 0.6.0 stays on.
+
 ## [0.6.0] - 2026-10-29 - Draft
 
-Belts and factory machines can take from any storage building once the player switches it on. Not yet tested
-in game.
+Belts and factory machines can take from any storage building once the player switches it on. Tested in game
+by the owner on 29 October 2026 (RimWorld 1.7): the switch and its inspect line appear on an Adaptive Storage
+fridge, and belts take whole stacks from it, but belts at its sides took from it too (fixed in 0.6.1). Machine
+input cells and the switch surviving a save and load were not reported.
 
 ### Added
 

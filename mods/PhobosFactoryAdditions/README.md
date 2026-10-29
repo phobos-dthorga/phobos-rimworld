@@ -11,11 +11,12 @@ on only while its mod is active (Medicines+, Deep Pills, Ushankas Biological War
 Rimatomics, Hemofungus, Complementary Odyssey, Glitterworld Medicine Production, Farmable Neutroamine,
 Passive Exoskeletons, Simple Washing Machine).
 
-Version 0.6.0, built 29 October 2026 for House D'thorga. **Tested in game:** the human-meat bill (owner,
-28 October 2026, RimWorld 1.7) and the drug-lab bills appearing on their machines (owner, 29 October 2026).
-The corpse fridge change, running the 0.3.0 bills to the end, the 0.3.2 chemfuel repair, the 0.4.0 deep
-factory hopper, and everything in 0.5.0, 0.5.1 and 0.6.0 (the fabrication bay, the output fix and the storage
-switch) are not yet tested in game.
+Version 0.6.1, built 30 October 2026 for House D'thorga. **Tested in game:** the human-meat bill (owner,
+28 October 2026, RimWorld 1.7), the drug-lab bills appearing on their machines (owner, 29 October 2026), and
+belts taking from switched-on storage (owner, 29 October 2026; that test found the fault 0.6.1 fixes). The
+corpse fridge change, running the 0.3.0 bills to the end, the 0.3.2 chemfuel repair, the 0.4.0 deep factory
+hopper, everything in 0.5.0 and 0.5.1 (the fabrication bay and the output fix), and 0.6.1's rule that only a
+belt pointing away from storage takes from it are not yet tested in game.
 
 ## Read this first (gotchas)
 
@@ -29,10 +30,11 @@ switch) are not yet tested in game.
   unloading bay or any other mod's storage building and click **Belts may take from here** (VFE Factory's belt
   icon). **It starts off on every storage, including what you have already built**, so nothing moves until
   you switch it on.
-- **A switched-on storage empties into every belt beside it.** A belt with it directly behind or at either
-  side takes **one whole stack at a time, whatever the belt's filter says**, and a factory machine whose input
-  cell is on it takes ingredients from it. **Don't point a belt back into storage it takes from**, or the
-  items go round for ever.
+- **Only a belt that points straight away from switched-on storage takes from it (0.6.1).** Build the belt on
+  a cell next to the storage with its arrow pointing away. It takes **one whole stack at a time, whatever the
+  belt's filter says**. Belts that only run past the storage leave it alone (under 0.6.0 they took from it
+  too). A factory machine whose input cell is on it takes ingredients from it. **Don't point a belt back into
+  storage it takes from**, or the items go round for ever.
 - **Machines still put finished goods only into factory hoppers.** The switch is for taking, not for output.
 - **The fabrication bay looks exactly like the automated machining bay** until it has art of its own. Select it
   to see which is which. It needs **Complex factories and Fabrication** research.
@@ -85,8 +87,10 @@ switch) are not yet tested in game.
 - **Nothing is published on the Steam Workshop yet.** Install from source with `scripts/deploy.py`.
 - **Tested in game: the human-meat bill, and the 0.3.1 fix.** The owner confirmed on 28 October 2026, on
   RimWorld 1.7, that the human-meat bill works, and on 29 October 2026, with 0.3.2 installed, that the bills
-  now appear on the machines ("Everything seems to be good in-game now"). Running each new bill to the end,
-  the corner input cells and the chemfuel-tap repair are not yet confirmed in game.
+  now appear on the machines ("Everything seems to be good in-game now"). On 29 October 2026 the owner saw
+  belts take whole stacks from a switched-on Adaptive Storage fridge, and found belts at its sides taking too,
+  which 0.6.1 fixes. Running each new bill to the end, the corner input cells, the chemfuel-tap repair and
+  0.6.1 are not yet confirmed in game.
 
 ## What it does
 
@@ -101,11 +105,13 @@ switch** instead (owner's choice of design, 29 October 2026):
 - It starts **off**, for new storage and for storage already in your colony. Select several and click once to
   switch them all; a message confirms what changed.
 
-What a switched-on storage does (read from VFE Factory's and Pipe System's code, not yet seen in game):
+What a switched-on storage does (read from VFE Factory's and Pipe System's code; the owner saw belts take from
+it in game under 0.6.0, and 0.6.1's side rule is not yet seen in game):
 
 | Where it is | What happens |
 | --- | --- |
-| **Directly behind a belt, or at either side** | The belt takes **one whole stack at a time**, the first it finds, whenever it has room, **whatever the belt's filter says**, as it would from a factory hopper. A factory hopper beside the same belt still goes first. |
+| **Directly behind a belt** (the belt points straight away from it) | The belt takes **one whole stack at a time**, the first it finds, whenever it has room, **whatever the belt's filter says**, as it would from a factory hopper. It goes before a factory hopper at the belt's side: VFE Factory tries the cell behind a belt first. |
+| **At a belt's side** (the belt runs past it) | Nothing: the belt carries on past (0.6.1). A factory hopper there would feed the belt; switched-on storage doesn't, so belts can run along storage. |
 | **In front of a belt** (the belt points into it) | The belt delivers into it, as before. That is stock VFE Factory for any storage whose filter accepts the item. |
 | **On a factory machine's input cell** | The machine takes ingredients from it, as from a factory hopper. Storage that holds several stacks on one cell (most Adaptive Storage shelves) then works like a deep factory hopper. |
 | **On a factory machine's output cell** | Nothing changes: machines still put finished goods only into factory hoppers. |
@@ -128,7 +134,8 @@ chemfuel taps and the corpse fridge already feed belts all the time and keep doi
 **What it costs** (my estimate from the code, not measured; Dubs Performance Analyzer can check it):
 
 - **Storage with the switch off costs nothing** while the game runs.
-- Each belt already checks its neighbours about once a second for hoppers; this adds a look at three cells.
+- Each belt already checks its neighbours about once a second for hoppers; this adds a look at the one cell
+  behind it.
 - A belt beside switched-on storage looks for a stack every **10 ticks** (a sixth of a second at normal
   speed), so it runs a little slower than a belt fed from a factory hopper, which it checks every tick.
 - Machines keep checking their input cells every 100 ticks, as before.
@@ -506,10 +513,12 @@ Optional fields: `excludedThings` (items to leave at the bench), `workMultiplier
   buildings in the owner's 300 active mods. Builds with no warnings against VFE Factory's installed assembly;
   every game member the switch uses exists in RimWorld 1.7. No automated test covers it: everything it does
   happens inside the game.
+- 30 October 2026, 0.6.1: VFE Factory's pull order re-read (behind, then clockwise, then counter-clockwise; the
+  side it passes is the direction from the belt to the neighbour). Builds with no warnings.
 - **Not checked:** whether each new bill feeds, finishes and outputs as expected; whether the two corner
   input cells work; whether a belt takes chemfuel from a tap (0.3.2); whether the stock bill now refuses human meat, whether a belt
   actually lifts a corpse out of the fridge, and what happens on removal. For 0.5.0 and 0.5.1: everything in
   game, starting with the startup log line, the bay's Add process menu, one bionic made end to end, and a
-  machine waiting at a full output hopper instead of eating its inputs. For 0.6.0: everything in game,
-  starting with the startup log line, the switch on a shelf, a belt taking from it, a machine's input cell on
-  switched-on storage, and the switch surviving a save and load.
+  machine waiting at a full output hopper instead of eating its inputs. For 0.6.0 and 0.6.1: the startup log
+  line, a machine's input cell on switched-on storage, the switch surviving a save and load, and 0.6.1's fix
+  (belts running past switched-on storage leave it alone; a belt pointing away still takes).
