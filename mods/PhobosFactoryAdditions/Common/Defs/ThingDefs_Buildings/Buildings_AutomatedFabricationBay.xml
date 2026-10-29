@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+  <!--
+    The automated fabrication bay: VFE Factory's automated machining bay (Name added by
+    Patches/MachiningBay.xml) with its own bills. Everything not set here is inherited: size, input cells
+    (0,0,3), (-3,0,0), (3,0,0), output at the interaction cell, power, heat, overclocking, boosters and
+    heatsinks, piped chemfuel with Vanilla Chemfuel Expanded, and the machining bay's graphics. So it looks
+    exactly like the machining bay until it has art of its own. It also inherits the machining bay's two
+    hand-written bills (shred mechanoid, shred drone).
+
+    Its other bills are generated at load from the Phobos.Factory.BenchBillTemplateDefs that name it
+    (Defs/BenchBillTemplateDefs). Owner's choice, 29 Oct 2026: a separate building for the fabrication bench,
+    bioferrite shaper and Rimatomics machining table bills. Cost, work and research are agent defaults, owner
+    to tune: more than the machining bay (440 steel, 18 components, 5 advanced components, 5000 work) for
+    spacer-grade work, and gated by Fabrication like the fabrication bench.
+  -->
+  <ThingDef ParentName="PhobosFactory_AutomatedMachiningBayParent">
+    <defName>PhobosFactory_AutomatedFabricationBay</defName>
+    <label>automated fabrication bay</label>
+    <description>An automated facility for precision fabrication. It makes what a fabrication bench makes, from bionic and other artificial body parts to spacer weapons and armour, and with Anomaly or Dubs Rimatomics also the work of a bioferrite shaper or a Rimatomics machining table. Everything comes out at normal quality.\n\nLike every factory building, it takes its materials from factory hoppers on its input cells and puts its work into a factory hopper on its output cell. It gives off heat, draws a lot of power, can be overclocked, and must stand on factory floor.</description>
+    <costList Inherit="False">
+      <Steel>300</Steel>
+      <Plasteel>150</Plasteel>
+      <ComponentIndustrial>12</ComponentIndustrial>
+      <ComponentSpacer>10</ComponentSpacer>
+    </costList>
+    <statBases>
+      <WorkToBuild>7000</WorkToBuild>
+    </statBases>
+    <researchPrerequisites Inherit="False">
+      <li>VFE_ComplexFactories</li>
+      <li>Fabrication</li>
+    </researchPrerequisites>
+    <building>
+      <relatedBuildCommands>
+        <li>PhobosFactory_DeepFactoryHopper</li>
+      </relatedBuildCommands>
+    </building>
+  </ThingDef>
+
+</Defs>

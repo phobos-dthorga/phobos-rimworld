@@ -5,6 +5,79 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.5.0] - 2026-10-29 - Draft
+
+An automated fabrication bay for fabrication bench, bioferrite shaper and Rimatomics machining table items,
+and a fix for VFE Factory's machining bay losing finished items. The mod's first code. Not yet tested in game.
+
+### Added
+
+- Automated fabrication bay (Architect, Factories; Complex factories and Fabrication research): a factory
+  machine with a bill for every item made at a fabrication bench (bionic and other artificial body parts,
+  spacer guns, spacer armour and helmets; about 135 on the owner's mod list), with Anomaly every item made at
+  a bioferrite shaper (about 18), and with Dubs Rimatomics every item made at its machining table (27). The
+  owner asked on 29 October 2026, after noticing that MSE2's bone replacements had machining bay bills and
+  bionics did not (VFE Factory automates only machining table items). Owner's choices: these three benches
+  and a separate building.
+- The bills are built at load from each item's recipe after every mod's changes: its cost as ingredients
+  (steel, any textile or any leather for a material, as VFE Factory does), four times the bench's work, the
+  bench's research plus the item's own. A bill is offered only while its bench recipe is available, so
+  Ideology memes and Rimatomics' own research still gate it. Chemfuel comes from the pipes with Vanilla
+  Chemfuel Expanded. The startup log lists how many bills each bench gave and what was skipped.
+- The building inherits VFE Factory's machining bay (size, input and output cells, power, heat,
+  overclocking, facilities, piped chemfuel, graphics, its two mechanoid shredding bills), so it looks the
+  same until it has art of its own.
+- A bench bill template Def (Phobos.Factory.BenchBillTemplateDef), so another mod can automate another bench
+  in XML; the README shows how.
+- The first C# assembly (PhobosFactory.dll, built for 1.6, loaded on 1.7 too) and two Harmony patches: a
+  postfix on the game's implied Def generation (where the bills are made, as VFE Factory makes its own) and a
+  postfix on Pipe System's Add process menu (hides a bill whose bench recipe is not yet available; Pipe
+  System offers no other hook).
+- scripts/check-factory-patches.py checks the bench templates' references; game-free unit tests cover the
+  output limit rule (tests/PhobosFactory.Rules.Tests).
+- Bill names, descriptions and the building's description written by the agent, held for the owner's review.
+
+### Fixed
+
+- VFE Factory's automated machining bay no longer loses a finished item when an identical one is still in
+  its output hopper; the machine waits instead (owner's go-ahead, 29 October 2026). Its bills set an output
+  limit of 1, and Pipe System adds a finished item to a matching stack while that stack holds no more than
+  the limit; the game counts two identical guns as stackable at a stack limit of 1, none of the new one fits,
+  and the rest was never placed. Every bill on the machining bay now gets the largest limit that loses
+  nothing (0.5 for an item that does not stack, so any identical item makes it wait). Read in Pipe System's
+  and the game's 1.7 code; not seen in game. The two mechanoid shredding bills are unchanged: their output
+  depends on the mechanoid's size.
+- 0.4.0's note that a deep factory hopper holds four finished weapons as an output was wrong for identical
+  items (see above); it holds four different ones.
+
+### Balance
+
+- Fabrication bay: 300 steel, 150 plasteel, 12 components, 10 advanced components, 7000 work (machining bay:
+  440 steel, 18 components, 5 advanced components, 5000 work). Agent defaults, owner to tune.
+- Bills take four times the bench's work, no skill, normal quality, as VFE Factory's machining bills do.
+
+### Dependencies
+
+- Harmony is now required (VFE Factory already requires it).
+
+### Compatibility and limits
+
+- Not automated: items some machine already makes, buildings (the hologram base), and items made of a
+  material plus parts (Pandora's Exopack, ExoHelmet and ExoVisor; Anomaly's ceremonial hood): Pipe System
+  gives a finished item the material of the last ingredient it took, so they could come out made of
+  components.
+- Many spacer items need four to six ingredients and the bay has three input cells: use deep factory hoppers.
+- Items that do not stack leave one at a time: the inspect text then reads "Output factory hopper too full
+  (max 0.5 units)" until the finished item is taken away.
+- Bills follow the installed mods at each start: a mod update that changes a recipe changes its bill.
+- The bill counts are estimates from the mods' files before patches; the startup log has the real ones.
+
+### Save compatibility
+
+- Safe to add mid-game. Before removing the mod, take the fabrication bay's bills off, deconstruct every
+  fabrication bay, and expect queued bills to be dropped with an error otherwise (not checked). The
+  machining bay fix stores nothing.
+
 ## [0.4.0] - 2026-10-29 - Draft
 
 A deep factory hopper that holds four stacks. Not yet tested in game.
@@ -30,9 +103,9 @@ A deep factory hopper that holds four stacks. Not yet tested in game.
 
 - It looks exactly like the ordinary hopper on the map: VFE Factory's hopper class draws fixed textures.
   Tell them apart by the name when selected.
-- Used as an output hopper, it can hold up to four finished items that do not stack, such as weapons from the
-  machining bay, before the machine waits. Items that stack still wait at the bill's output cap, as in an
-  ordinary hopper.
+- Used as an output hopper, it holds up to four different finished items that do not stack. (Corrected in
+  0.5.0: this entry first said four of any kind; an identical one was lost until the 0.5.0 fix, and now
+  waits.) Items that stack still wait at the bill's output cap, as in an ordinary hopper.
 
 ### Save compatibility
 

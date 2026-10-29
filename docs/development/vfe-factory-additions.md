@@ -71,6 +71,12 @@ than lean game, and the lore renders fat) and its sources are in the mod README;
 | 29 Oct 2026 | 0.4.0: a deep factory hopper (option C of three: share a hopper, more input cells, a multi-stack hopper); the owner had tried sharing an ordinary hopper and it clogged | owner |
 | 29 Oct 2026 | Deep hopper: inherit VFE Factory's hopper through a patch-added Name instead of copying it; 4 stacks; 35 steel, 1 component, 800 work; same storage group tag as the ordinary hopper | agent defaults, owner to tune |
 | 29 Oct 2026 | 0.3.2: re-apply the two VFE Factory chemfuel steps the CE clash skips (tap as factory hopper, piped astrofuel), each guarded by a check that it is still missing | owner (agent proposed) |
+| 29 Oct 2026 | 0.5.0 scope: automate the fabrication bench, bioferrite shaper and Rimatomics machining table; smithies and DMS printers not chosen | owner (agent listed the benches) |
+| 29 Oct 2026 | A separate automated fabrication bay rather than more bills on the machining bay | owner (agent recommended the machining bay) |
+| 29 Oct 2026 | Fix the lost-item bug on VFE Factory's own machining bay bills | owner (agent recommended) |
+| 29 Oct 2026 | Generate the bills in C# at load (the mod's first assembly, Harmony postfixes on implied-Def generation and the Add process menu) rather than hand-writing XML: they follow other mods' patches and every future fabrication item, and a recipe-availability gate needs code | agent (needed for the owner's scope) |
+| 29 Oct 2026 | Fabrication bay inherits the machining bay through a patch-added Name; 300 steel, 150 plasteel, 12 components, 10 advanced components, 7000 work; Complex factories and Fabrication research | agent defaults, owner to tune |
+| 29 Oct 2026 | Bills: VFE's rules (cost as ingredients, work x 4, steel/textiles/leather for a stuff, normal quality, no skill) plus the template's research; output limit at most 75 and always safe; grouped in the menu by category then name; stuff-plus-parts items and buildings skipped | agent defaults |
 
 ## Drug lab recipes as factory bills (28 Oct 2026)
 
@@ -185,6 +191,8 @@ Code read in Pipe System 1.7 and VFE Factory, not tested in game:
 - **Output.** A finished batch merges into the first matching stack on the output cell, and waits when that
   stack is above the bill's cap; items made with a stuff (`useFirstIngredientAsOutputStuff`, such as the
   machining bay's weapons) are placed as new things instead, so a multi-stack output cell holds several.
+  **Corrected later on 29 Oct 2026:** most machining bay weapons are *not* made with a stuff (VFE sets the flag
+  only when the item has a stuff cost), and for them the merge loses the new item; see the next section.
 - **VFE's hopper Def** (`VFEFactory_FactoryHopper`) sets `maxItemsInCell` 1 and uses
   `Building_FactoryHopper`, which replaces the Def's graphic with three fixed textures (plain, input,
   output); only the autofarmer's placement preview names that Def directly.
@@ -192,6 +200,77 @@ Code read in Pipe System 1.7 and VFE Factory, not tested in game:
   `PatchOperationAttributeAdd` (inheritance resolves after patches), overriding `maxItemsInCell` (4), cost
   and work. Because the class draws fixed textures, it looks the same as the ordinary hopper. A custom look
   would need a small C# subclass and new art: not done.
+
+## The fabrication bay and the lost-item fix (29 Oct 2026)
+
+The owner asked why bionic replacements had no VFE Factory support while bone replacements did. Code read in
+the decompiled 1.7 assemblies, not tested in game. Sources, by author: Vanilla Furniture Expanded - Factory by
+Oskar Potocki, Sarg Bjornson and Taranchuk ([Workshop 3686924415](https://steamcommunity.com/sharedfiles/filedetails/?id=3686924415));
+Pipe System, part of Vanilla Expanded Framework by the Vanilla Expanded team
+([GitHub](https://github.com/Vanilla-Expanded/VanillaExpandedFramework)); RimWorld 1.7 by Ludeon Studios;
+Dubs Rimatomics by Dubwise ([Workshop 1127530465](https://steamcommunity.com/sharedfiles/filedetails/?id=1127530465));
+Medical System Expansion 2 by JonM0 ([Workshop 2056706586](https://steamcommunity.com/sharedfiles/filedetails/?id=2056706586)).
+Decompiled output stays in the ignored `.local/decompiled/`; what follows is a summary in our own words.
+
+**Why bionics had no bills.** VFE Factory's machining bills are generated, not written: a Harmony prefix on
+`DefGenerator.GenerateImpliedDefs_PreResolve` makes one bill on the automated machining bay for every ThingDef
+whose `recipeMaker.recipeUsers` contains `TableMachining` (and whose defName lacks "Shell"), with the cost
+list as ingredients, steel for a metallic stuff cost, textiles for fabric, `WorkToMake` x 4 ticks, the
+item's research plus Complex factories, and `maxOutputCount` 1 from its template. Medical System Expansion 2's
+steel bones (research `BoneProstheticsSimple`, "bone replacements") are made at the machining table; bionics
+(vanilla research `Bionics`, "bionic replacements") at the fabrication bench, which VFE never reads.
+
+**What no machine makes, on the owner's list** (a scan of the active mods' Def files with inheritance, before
+other mods' patches): 141 fabrication bench items, 90 smithy items (16 already on the machining bay), 71 DMS
+printer and artifuscle items (16 already), 27 Rimatomics machining table items, 23 bioferrite shaper items (4
+already), and smaller sets (Alpha Genes' forge, Customize Weapon modules, VVE car parts, alchemy, serums). The
+automated assembler already makes components and advanced components.
+
+**The lost-item bug.** `Process.TrySpawnAtCell`, for a bill not made from stuff, finds the first thing on
+the output cell with the same Def that `CanStackWith` the new one, and, unless that stack is above
+`maxOutputCount`, calls `TryAbsorbStack` and reports success whatever it returns. The game's
+`Thing.CanStackWith` checks Def, stuff, relic status and comps (quality) but **not the stack limit**, and
+`TryAbsorbStackNumToTake` takes `min(count, stackLimit - stackCount)`. So with a gun (stack limit 1) already
+in the output hopper and VFE's limit of 1, the new gun absorbs 0, is never spawned, and is gone with its
+ingredients. The same path loses the part of any batch that overflows a nearly full stack when the limit
+is above stack limit minus batch, or 0. The safe limit is `stackLimit - batch`, or any value below 1 (0.5)
+when that is under 1, so any identical item makes the machine wait (`Phobos.Factory.Rules.OutputCapRule`,
+unit-tested). Steam's comment pages were rate-limited, so no player report was checked; the finding rests on
+the code.
+
+**Other things the design rests on:**
+
+- With `useFirstIngredientAsOutputStuff`, Pipe System makes the item from `cachedIngredients.Last()`: the
+  **last** ingredient taken, not the first. An item made of a stuff plus parts could get a component as its
+  material (`ThingMaker` then logs an error and picks a default). Such items are skipped.
+- `ProcessDef.ShowProcess()` returns true and is not virtual; the Add process menu
+  (`CompAdvancedResourceProcessor.ProcessesOptions`) checks only `researchPrerequisites`. Its options carry
+  the bill's `labelOverride` as their label; the item icon is in a private field.
+- Dubs Rimatomics gates its parts with its own research by a Harmony postfix on `RecipeDef.AvailableNow`
+  (`Harmony_RecipeDef_AvailableNow`), so asking the implied `Make_<item>` recipe honours it, as well as
+  memes, faction tags and research.
+- `considerBuildingCompResource` draws an ingredient from the building's first `CompResource` when the
+  ingredient is that pipe network's first `linkToRefuelables` thing (chemfuel for VCHE's network).
+- RimWorld generates the `Make_<item>` recipes inside `GenerateImpliedDefs_PreResolve`, before a postfix runs.
+- The game and Pipe System members the assembly calls were found in the 1.7 assemblies with the same
+  signatures as in the 1.6 reference assemblies it builds against. VFE Factory runs its 1.6 assembly on 1.7
+  the same way.
+
+**What 0.5.0 does.** A `BenchBillTemplateDef` per bench (fabrication bench; bioferrite shaper with Anomaly;
+Rimatomics machining table in `Mods/Rimatomics`) names the automated fabrication bay. A postfix on
+`GenerateImpliedDefs_PreResolve` makes one bill per item: cost as ingredients (one stuff mapped as VFE does,
+or the only fitting stuff), recipe `workAmount` or `WorkToMake` x 4, product count from the recipe, research
+of the template plus the item, the safe output limit, piped ingredients where the bay's pipe supplies them,
+and a `GeneratedBillExtension` pointing at `Make_<item>`. It skips items any ProcessDef already makes,
+buildings, and stuff-plus-parts items, and logs one summary line. A postfix on `ProcessesOptions` removes
+options of generated bills whose recipe is not `AvailableNow`, matched by label (kept unique per machine),
+and shows a disabled "no bills yet" option if nothing is left. A `SafeOutputLimitsExtension` patched onto
+VFE's machining bay (inherited by the fabrication bay) has every bill's limit lowered to the safe one at load,
+except bills with a custom result worker (the mechanoid shredding bills, whose steel follows body size).
+
+**Not done, and why.** Smithies, DMS printers and the smaller benches were offered and not chosen. The bay
+looks identical to the machining bay (new art waits for the owner's go-ahead on GPU work). Stuff-plus-parts
+items would need a change in Pipe System or a Harmony patch on its output step.
 
 ## Ideas for later additions (agent suggestions, not decided)
 
@@ -209,3 +288,7 @@ Code read in Pipe System 1.7 and VFE Factory, not tested in game:
 - **A 1.7 fallback for Kimoju's bills**: that mod declares 1.6 only. If it breaks on 1.7, this mod could carry
   insect and fish bills of its own, switched on only when Kimoju's mod is absent.
 - **A mod setting for the yield** needs C#; not worth a DLL for one number while the value is being tuned.
+  (Since 0.5.0 the mod has an assembly, so a settings page would now be cheap.)
+- **Smithy and DMS printer bills** (0.5.0 survey): one bench template each, on the fabrication bay or the
+  machining bay. Not chosen on 29 Oct 2026.
+- **A look of its own for the fabrication bay**: new art (owner's go-ahead on GPU work first).

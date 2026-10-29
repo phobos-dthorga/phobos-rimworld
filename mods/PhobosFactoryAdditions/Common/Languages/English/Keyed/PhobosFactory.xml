@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <!-- A machine's Add process menu when every bill on it still waits for research or an unlock. -->
+  <PhobosFactory_NoBillsAvailable>No bills yet: each one appears once its bench recipe is unlocked (research, or a mod's own unlock such as Rimatomics research).</PhobosFactory_NoBillsAvailable>
+</LanguageData>

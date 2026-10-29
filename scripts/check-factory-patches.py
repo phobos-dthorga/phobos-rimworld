@@ -15,7 +15,9 @@ set, and from them only the files the game loads (check-mod-layout.py's files_th
 - every ProcessDef this mod defines is added to a machine by one of its patches, and every name a patch
   adds to a processes list is a ProcessDef the mod defines;
 - every ParentName in this mod's Defs is a Name in the loaded Defs or one its patches add, and a patch that
-  adds a Name finds no Name already there (the game would keep the old one and skip the patch silently).
+  adds a Name finds no Name already there (the game would keep the old one and skip the patch silently);
+- every Phobos.Factory.BenchBillTemplateDef names a machine, benches, research, sound and effect that exist,
+  has input cells, and a bill name with {0} (its bills are generated in game, so only this is checked here).
 
     python scripts/check-factory-patches.py                 check PhobosFactoryAdditions
     python scripts/check-factory-patches.py --mod <Name>    check another mod in mods/
@@ -51,6 +53,7 @@ DEFAULT_MOD = 'PhobosFactoryAdditions'
 DEFAULT_STACK_LIMIT = 75  # Verse.ThingDef's default
 IMPLIED_PREFIXES = ('Meat_', 'Leather_', 'Corpse_')  # Defs the game generates from each race ThingDef
 VERSION_FOLDER = re.compile(r'^\d+\.\d+$')
+TEMPLATE_TAG = 'Phobos.Factory.BenchBillTemplateDef'
 XPATH_OPERATIONS = ('PatchOperationAdd', 'PatchOperationReplace', 'PatchOperationAddModExtension',
                     'PatchOperationInsert', 'PatchOperationRemove', 'PatchOperationSetName',
                     'PatchOperationAttributeSet', 'PatchOperationAttributeAdd')
@@ -211,6 +214,39 @@ def process_errors(process, index, active, where):
     return errors
 
 
+def template_errors(template, index, active, where):
+    """Errors for one Phobos.Factory.BenchBillTemplateDef; [] when it is fine or inactive by MayRequire.
+    The bills themselves are generated in game from the items' recipes, so only the template's own references
+    can be checked here."""
+    def wanted(element):
+        names = element.get('MayRequire')
+        return not names or any(pid.strip().lower() in active for pid in names.split(','))
+
+    if not wanted(template):
+        return []
+    name = (template.findtext('defName') or '?').strip()
+    errors = []
+    references = [('machine', template.find('machine')), ('sustainer', template.find('sustainerDef')),
+                  ('effecter', template.find('effecterDef'))]
+    references += [('bench', li) for li in template.findall('sourceBenches/li')]
+    references += [('research', li) for li in template.findall('researchPrerequisites/li')]
+    references += [('excluded item', li) for li in template.findall('excludedThings/li')]
+    for role, element in references:
+        def_name = (element.text or '').strip() if element is not None and wanted(element) else ''
+        if def_name and not index.has(def_name):
+            errors.append(f'{where}: {name}: {role} {def_name} is not a loaded Def')
+    if template.find('machine') is None:
+        errors.append(f'{where}: {name}: no machine')
+    if not template.findall('sourceBenches/li'):
+        errors.append(f'{where}: {name}: no sourceBenches')
+    if not template.findall('autoInputSlots/li'):
+        errors.append(f'{where}: {name}: no autoInputSlots, so its bills would never take ingredients')
+    label = template.findtext('billLabel')
+    if label is not None and '{0}' not in label:
+        errors.append(f'{where}: {name}: billLabel has no {{0}} for the item\'s label')
+    return errors
+
+
 def patch_errors(element, index, active_names, where, added, parent_names=None):
     """Errors for one patch operation (recursing into sequences and FindMod blocks); fills added (bill names)
     and parent_names (Names the patch adds to Defs, for ParentName)."""
@@ -278,11 +314,15 @@ def check(mod_root, game, workshop, config, mods_folder_name='Mods'):
               f'{winner.relative_to(mod_root).as_posix()} instead (same path inside a later-listed folder)'
               for skipped, winner in skipped_defs + skipped_patches]
     processes = {}
+    templates = 0
     for path in own_defs:
         root = _read_xml(path)
         if root is None:
             errors.append(f'{path}: unreadable XML')
             continue
+        for template in root.findall(TEMPLATE_TAG):
+            errors += template_errors(template, index, active, path.relative_to(mod_root).as_posix())
+            templates += 1
         for process in root.findall('PipeSystem.ProcessDef'):
             errors += process_errors(process, index, active, path.relative_to(mod_root).as_posix())
             wanted = process.get('MayRequire')
@@ -312,7 +352,7 @@ def check(mod_root, game, workshop, config, mods_folder_name='Mods'):
             errors.append(f'a patch adds {name} to a machine, but no loaded Def has that name')
     summary = (f'RimWorld {full_version or version}: {loaded_mods} active mods, {len(index.names)} Def names; '
                f'{mod_root.name}: {len(own_folders)} folders loaded, {len(processes)} ProcessDefs, '
-               f'{len(patch_files)} patch files, {len(added)} bills added to machines')
+               f'{len(patch_files)} patch files, {len(added)} bills added to machines, {templates} bench bill templates')
     if index.unreadable:
         summary += f'; {len(index.unreadable)} unreadable Def files skipped'
     return errors, summary

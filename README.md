@@ -22,7 +22,7 @@ As of **18 October 2026**.
 | Project | Stage | What it is | Records |
 | --- | --- | --- | --- |
 | **D'thorga Radio Framework** (working title) | Design | An XML-extensible radio framework: bands with their own personalities, propagation that changes with time and weather, and kit as heavy as physics says. Three display modes (Plain, Operator, Engineer) show as much of the maths as you want. | [Design](docs/development/radio-framework-design.md), [reference checks](docs/development/radio-reference-checks.md) |
-| **D'thorga Factory Additions** | Built, not yet tested in game | XML additions to Vanilla Furniture Expanded - Factory: a human-meat neutroamine bill, a deep factory hopper that holds four stacks, belts fed from a corpse fridge, and other mods' drug lab recipes as factory bills. | [README](mods/PhobosFactoryAdditions/README.md), [record](docs/development/vfe-factory-additions.md) |
+| **D'thorga Factory Additions** | Built, not yet tested in game | Additions to Vanilla Furniture Expanded - Factory: an automated fabrication bay for fabrication bench, bioferrite shaper and Rimatomics items, a fix for the machining bay losing finished items, a human-meat neutroamine bill, a deep factory hopper that holds four stacks, belts fed from a corpse fridge, and other mods' drug lab recipes as factory bills. | [README](mods/PhobosFactoryAdditions/README.md), [record](docs/development/vfe-factory-additions.md) |
 
 ```mermaid
 flowchart LR

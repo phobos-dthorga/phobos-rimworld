@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+
+  <!--
+    Give VFE Factory's automated machining bay a Name, so this mod's automated fabrication bay can inherit it
+    (ParentName) instead of copying its XML: the fabrication bay then keeps the machining bay's size, input and
+    output cells, power, heat, overclocking, facilities, piped chemfuel and graphics, and follows VFE Factory's
+    updates. The game resolves inheritance after every patch has run, so a Name added here is seen.
+    PatchOperationAttributeAdd does nothing if the Def already has a Name; check-factory-patches.py reports
+    that case, since the ParentName would then break.
+  -->
+  <Operation Class="PatchOperationAttributeAdd">
+    <xpath>Defs/ThingDef[defName="VFEFactory_AutomatedMachiningBay"]</xpath>
+    <attribute>Name</attribute>
+    <value>PhobosFactory_AutomatedMachiningBayParent</value>
+  </Operation>
+
+  <!--
+    Owner's go-ahead, 29 Oct 2026: VFE Factory's machining bay bills let a finished item vanish when an
+    identical item is still in the output hopper (output limit 1 on items that stack to 1; Pipe System's
+    Process.TrySpawnAtCell adds the new item to that "stack", none of it fits, and the rest is never placed).
+    This marker makes the assembly lower every bill's limit on this machine to a safe one at load
+    (Phobos.Factory.OutputLimitService), so the machine waits instead. The fabrication bay inherits it.
+  -->
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>Defs/ThingDef[defName="VFEFactory_AutomatedMachiningBay"]</xpath>
+    <value>
+      <li Class="Phobos.Factory.SafeOutputLimitsExtension" />
+    </value>
+  </Operation>
+
+</Patch>

@@ -1,23 +1,44 @@
 # D'thorga Factory Additions
 
-Additions to Vanilla Furniture Expanded - Factory: a **Synthesize neutroamine from human meat** bill for
+Additions to Vanilla Furniture Expanded - Factory: an **automated fabrication bay** that makes what a
+fabrication bench makes (bionics and other artificial body parts, spacer weapons and armour), and with Anomaly
+or Dubs Rimatomics what a bioferrite shaper or a Rimatomics machining table makes; a **fix for the automated
+machining bay**, which could lose a finished item; a **Synthesize neutroamine from human meat** bill for
 the neutroamine synthesizer; a **deep factory hopper** that holds four stacks; with "[sbz] Fridge", **conveyor belts and factory machines that take corpses
 straight from its corpse fridge**; and **drug lab recipes from other mods as factory bills**, each switched
 on only while its mod is active (Medicines+, Deep Pills, Ushankas Biological Warfare, Combat Extended, Dubs
 Rimatomics, Hemofungus, Complementary Odyssey, Glitterworld Medicine Production, Farmable Neutroamine,
 Passive Exoskeletons, Simple Washing Machine).
 
-Version 0.4.0, built 29 October 2026 for House D'thorga. **Tested in game:** the human-meat bill (owner,
+Version 0.5.0, built 29 October 2026 for House D'thorga. **Tested in game:** the human-meat bill (owner,
 28 October 2026, RimWorld 1.7) and the drug-lab bills appearing on their machines (owner, 29 October 2026).
-The corpse fridge change, running the 0.3.0 bills to the end, the 0.3.2 chemfuel repair and the 0.4.0 deep
-factory hopper are not yet tested in game.
+The corpse fridge change, running the 0.3.0 bills to the end, the 0.3.2 chemfuel repair, the 0.4.0 deep
+factory hopper, and everything in 0.5.0 (the fabrication bay and the machining bay fix) are not yet tested
+in game.
 
 ## Read this first (gotchas)
 
-- **Requires Vanilla Expanded Framework and Vanilla Furniture Expanded - Factory.** Load it after both, and
-  after every mod listed above that you run (the About file asks for it, so RimSort does this for you).
-- **XML only, no DLL.** It declares RimWorld 1.6 and 1.7 and loads the same files on both. VFE Factory itself
-  loads its 1.6 files on 1.7.
+- **Requires Harmony, Vanilla Expanded Framework and Vanilla Furniture Expanded - Factory.** Load it after all
+  three, and after every mod listed above that you run (the About file asks for it, so RimSort does this for
+  you). VFE Factory already needs Harmony, so you have it.
+- **It has code now (0.5.0).** One small assembly, `PhobosFactory.dll`, built for RimWorld 1.6 and loaded on
+  1.7 too, as VFE Factory's own assembly is. **Build it before deploying** (`dotnet build
+  src/PhobosFactory/PhobosFactory.csproj`); the deploy script says "no assembly built" if you forget.
+- **The fabrication bay looks exactly like the automated machining bay** until it has art of its own. Select it
+  to see which is which. It needs **Complex factories and Fabrication** research.
+- **A fabrication bay bill appears only once its bench recipe is unlocked**: the item's research (for example
+  Bionics), Ideology memes, and Rimatomics' own research for its parts. Until then it is not in the Add
+  process menu.
+- **Many spacer items need four to six ingredients** (marine armour: plasteel, uranium, gold, advanced
+  components) and the bay has **three input cells**. Use **deep factory hoppers** on the input cells, and pipe
+  chemfuel in with Vanilla Chemfuel Expanded.
+- **Bionics, weapons and armour leave one at a time.** These items don't stack, so the bay (and the machining
+  bay, after the fix) **waits while an identical item is still in the output hopper**. Its inspect text then
+  says "Output factory hopper too full (max 0.5 units)": Vanilla Expanded's wording, here meaning "take the
+  finished item away first". **Run a belt out of the output hopper.**
+- **The machining bay fix changes VFE Factory's own bills** (owner's go-ahead, 29 October 2026). Before it, a
+  finished item vanished when an identical one was still in the output hopper; now the machine waits. The
+  startup log says how many bills it fixed.
 - **The new bills keep their mods' research.** A bill appears in the machine's Add process menu only once
   its research is done: Medicines+ projects for its drugs, each disease's vaccine project for Biological
   Warfare, Deathrest (Biotech) for hemogen, Neutroaleaf refining for leaf neutroamine, and so on. Complex
@@ -45,7 +66,8 @@ factory hopper are not yet tested in game.
 - **Safe to add to a running save.** Before removing it, remove every bill this mod added from each
   machine's Processes tab and let any running batch finish; otherwise the first load afterwards should log
   an error about a missing process and drop that bill (expected, not yet checked). **Deconstruct every deep
-  factory hopper** too; the items on it stay where they are. The fridge change leaves nothing in the save.
+  factory hopper and every fabrication bay** too; the items on a hopper stay where they are. The fridge
+  change and the machining bay fix leave nothing in the save.
 - **Nothing is published on the Steam Workshop yet.** Install from source with `scripts/deploy.py`.
 - **Tested in game: the human-meat bill, and the 0.3.1 fix.** The owner confirmed on 28 October 2026, on
   RimWorld 1.7, that the human-meat bill works, and on 29 October 2026, with 0.3.2 installed, that the bills
@@ -53,6 +75,67 @@ factory hopper are not yet tested in game.
   the corner input cells and the chemfuel-tap repair are not yet confirmed in game.
 
 ## What it does
+
+### The automated fabrication bay (0.5.0)
+
+VFE Factory's automated machining bay gets a bill for every item made at a **machining table**, and nothing
+else. That is why MSE2's steel bone replacements had bills and bionics didn't: bionics are made at the
+**fabrication bench**. The fabrication bay closes that gap (owner's choice of benches and of a separate
+building, 29 October 2026):
+
+| Bench it takes over | Needs | Bills on your mod list (counted from the mods' files, before patches) |
+| --- | --- | --- |
+| Fabrication bench | always | about 135: bionic and other artificial body parts (vanilla, Royalty, Biotech, Odyssey, MSE2's plasteel bones and modules, Glittertech, Dubs Bad Hygiene), spacer guns, spacer armour and helmets |
+| Bioferrite shaper | Anomaly | about 18: ghoul parts, bioferrite guns, shard lances, ritual mask |
+| Rimatomics machining table | Dubs Rimatomics | 27: reactor and weapon upgrade parts, warheads, sabot rounds, MOPP and radiation suits |
+
+**How the bills are made.** The game doesn't store these as bills, so the mod builds them at load from each
+item's own recipe, **after every other mod's changes** (Combat Extended's costs, MSE2's parts):
+
+- **Ingredients:** the item's cost. An item made of a material takes **steel** for metal, any **textile** for
+  fabric, any **leather** for leather, or its one possible material (VFE Factory's own rule, so the result is
+  made of whatever was fed in).
+- **Time:** the bench's work times **four** (VFE Factory's machining rule). No skill needed; everything comes
+  out at **normal quality**.
+- **Research:** the bench's research (Fabrication, Bioferrite shaping or Rimatomics activation) plus the
+  item's own. And the bill shows only while the **bench recipe itself is available**, so Ideology memes and
+  Rimatomics' own research steps still gate it.
+- **Chemfuel** in a recipe comes **from the pipes** with Vanilla Chemfuel Expanded.
+- **Not automated:** anything a machine already makes (the four bioferrite guns VFE's machining bay makes),
+  buildings (the hologram base), and items made of **a material plus parts** (Pandora's Exopack, ExoHelmet
+  and ExoVisor, Anomaly's ceremonial hood): Pipe System gives a finished item the material of the **last**
+  ingredient it took, so those could come out made of components. The startup log names every skipped item.
+
+**Expect two lines in the log at startup**, both starting "[D'thorga Factory Additions]": one giving, per
+bench, how many bills the bay got and what was skipped; one saying on how many machining bay bills the
+output limit was made safe. Those counts are the real ones for your game; the table above is an estimate.
+
+The building itself inherits everything from the machining bay (size, the three input cells behind and
+beside it, output on the interaction cell in front, power, heat, overclocking, boosters, heatsinks, piped
+chemfuel, the two mechanoid shredding bills) and differs in:
+
+| | Automated machining bay | Automated fabrication bay |
+| --- | --- | --- |
+| Cost | 440 steel, 18 components, 5 advanced components | **300 steel, 150 plasteel, 12 components, 10 advanced components** |
+| Work | 5000 | **7000** |
+| Research | Complex factories | **Complex factories, Fabrication** |
+
+Cost and work are agent defaults, open to tuning.
+
+### The machining bay output fix (0.5.0)
+
+**What went wrong (read in Pipe System's and the game's code, 29 October 2026; not seen in game).** When a
+batch finishes, Pipe System adds it to a matching stack in the output hopper if that stack holds no more than
+the bill's output limit. The game counts two identical guns as "stackable" even though a gun stacks to 1, so
+with VFE's limit of 1 the new gun is "added" to the old one, none of it fits, and the rest is never placed:
+**the gun vanishes and its materials are spent.** It happens whenever an identical item is still sitting in
+the output hopper, which a belt out of the hopper usually prevents.
+
+**The fix (owner's go-ahead, 29 October 2026).** At load, every bill on the machining bay gets the largest
+output limit that can't lose anything: for an item that doesn't stack, **0.5**, so the machine **waits** while
+any identical item is there; for a stacking item, its stack limit minus one batch. The fabrication bay's
+bills get the same rule. The two mechanoid shredding bills are left alone: their steel depends on the
+mechanoid's size, so no fixed limit fits.
 
 ### Neutroamine from human meat
 
@@ -175,7 +258,7 @@ for one stack of each of four ingredients, and more of the same item merges into
 | --- | --- |
 | **Input**, fed by one belt carrying mixed ingredients | The belt keeps filling it until all four places hold something; the machine takes what it needs from any of them. |
 | **Input**, filled by haulers | Tick every ingredient in its storage filter and raise its priority. |
-| **Output** of items that do not stack (weapons, apparel from the machining bay) | Holds up to four finished items before the machine waits. |
+| **Output** of items that do not stack (weapons, bionics, armour) | Holds up to four **different** finished items. An identical one waits until the first is taken away (with the 0.5.0 fix; before it, the identical one vanished). Items made of a material (a steel helmet) are placed separately, up to four. |
 | **Output** of items that stack | Same as an ordinary hopper: the batch waits once that stack reaches the bill's output cap. |
 | Under a belt that pulls from it | The belt takes one whole stack at a time, the first it finds. |
 
@@ -228,6 +311,8 @@ operation each); ask if you want belts fed from them too.
 - Build the machine (Architect, Factories), open its **Processes** tab, click **Add process** and pick the
   bill. Bills whose research is not done are not listed yet.
 - The **deep factory hopper** is under Architect, Factories, beside the factory hopper (Basic factories).
+- The **automated fabrication bay** is under Architect, Factories, in the same tab as the machining bay
+  (Complex factories and Fabrication). It must stand on factory floor, like every factory machine.
 - Human meat comes from VFE Factory's automated mincer ("Mince human corpses") or a butcher table.
 - The **corpse fridge** is under Architect, Temperature, after Air conditioning ("[sbz] Fridge").
 
@@ -252,7 +337,9 @@ bill take human meat again.
 Rules a new bill follows here, from reading Pipe System's code (28 October 2026): one result per bill (only
 the first is checked against the output hopper's filter); `maxOutputCount` set, and at most the result's
 stack limit minus the batch count (above that, the surplus of a finished batch is destroyed; at zero, a
-blocked output is destroyed instead of waiting); `researchPrerequisites` hides the bill from the Add menu
+blocked output is destroyed instead of waiting), and **0.5 for an item that doesn't stack** (the game counts
+two identical items as stackable even at a stack limit of 1, so a limit of 1 loses the second one; read
+29 October 2026); `researchPrerequisites` hides the bill from the Add menu
 until done; any ingredient may come from any input slot, but a hopper cell holds one stack. The offline
 checker `scripts/check-factory-patches.py` enforces the first three against the installed game.
 
@@ -278,6 +365,32 @@ It works only for storage whose items stay spawned on its cells (vanilla shelves
 the belt reads the map's thing grid. The full reading is in
 [docs/development/vfe-factory-conveyors.md](../../docs/development/vfe-factory-conveyors.md).
 
+**Automating another bench (0.5.0).** Add a `Phobos.Factory.BenchBillTemplateDef` naming the bench and a
+factory machine; the assembly turns every item that bench makes into a bill on that machine at load. The
+fabrication bay's three templates are in `Common/Defs/BenchBillTemplateDefs/` and `Mods/Rimatomics/Defs/`:
+
+```xml
+<Phobos.Factory.BenchBillTemplateDef>
+  <defName>YourMod_SmithyBills</defName>          <!-- part of every bill's defName; saved, never rename -->
+  <machine>PhobosFactory_AutomatedFabricationBay</machine>
+  <sourceBenches><li>ElectricSmithy</li><li>FueledSmithy</li></sourceBenches>
+  <researchPrerequisites><li>Smithing</li></researchPrerequisites>
+  <billLabel>Make {0}</billLabel>                  <!-- {0}: the item's label -->
+  <billDescription>Make {0} as a smithy would.</billDescription>
+  <firstPriorityInBillList>400</firstPriorityInBillList>
+  <autoInputSlots><li>(0,0,3)</li><li>(-3,0,0)</li><li>(3,0,0)</li></autoInputSlots>
+  <sustainerDef>VFEFactory_AutomatedMachiningSustainer</sustainerDef>
+  <effecterDef>VFEFactory_Default</effecterDef>
+</Phobos.Factory.BenchBillTemplateDef>
+```
+
+Optional fields: `excludedThings` (items to leave at the bench), `workMultiplier` (default 4),
+`maxOutputCount` (default 75; lowered per item to a safe limit), `spawnOnInteractionCell` (default true).
+
+**Safe output limits on another machine.** Add `<li Class="Phobos.Factory.SafeOutputLimitsExtension" />` to
+its `modExtensions`, as `Common/Patches/MachiningBay.xml` does for the machining bay. Bills whose result
+count is decided at run time (a custom result worker) are left alone.
+
 ## Checks done
 
 - 28 October 2026: the stock bill's ingredient matching read in Vanilla Expanded Framework's Pipe System
@@ -295,6 +408,13 @@ the belt reads the map's thing grid. The full reading is in
   files (41 of 45 bills on no machine); fixed in 0.3.1. The checker passes on 0.3.1.
 - 29 October 2026, owner, in game on RimWorld 1.7 with 0.3.2: "Everything seems to be good in-game now"
   after checking that the bills appear on the granulator, synthesizer (human meat back) and refinery.
+- 29 October 2026, 0.5.0: VFE Factory's machining bill generator, Pipe System's output step, menu and
+  ingredient cache, the game's stacking and recipe code, and Dubs Rimatomics' recipe unlock patch read in
+  their decompiled 1.7 assemblies. The assembly builds with no warnings for RimWorld 1.6; every game and
+  Pipe System member it calls exists in the 1.7 assemblies. The output-limit rule has unit tests, and
+  `scripts/check-factory-patches.py` passes against the owner's installation (RimWorld 1.7, 300 active mods),
+  including the three bench templates. The bill counts above come from a scan of the installed mods' files.
 - **Not checked:** whether each new bill feeds, finishes and outputs as expected; whether the two corner
   input cells work; whether a belt takes chemfuel from a tap (0.3.2); whether the stock bill now refuses human meat, whether a belt
-  actually lifts a corpse out of the fridge, and what happens on removal.
+  actually lifts a corpse out of the fridge, and what happens on removal. For 0.5.0: everything in game,
+  starting with the two startup log lines, the bay's Add process menu, and one bionic made end to end.

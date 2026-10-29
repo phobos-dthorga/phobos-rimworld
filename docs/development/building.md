@@ -5,6 +5,14 @@
 run today; `dotnet build src/PhobosRadio/PhobosRadio.csproj` builds the mod where VEF is installed. The 1.6 setup was proven on 18 Oct 2026 by building a
 throwaway probe mod; the 1.7 column is untried.
 
+**D'thorga Factory Additions has an assembly since 0.5.0** (29 Oct 2026): `dotnet build
+src/PhobosFactory/PhobosFactory.csproj` builds `mods/PhobosFactoryAdditions/1.6/Assemblies/PhobosFactory.dll`,
+which `LoadFolders.xml` loads on 1.6 and 1.7. It is the first project with Harmony (`Lib.Harmony` 2.4.3,
+`ExcludeAssets="runtime"`, so `0Harmony.dll` never ships) and, like the radio framework, references the
+installed `PipeSystem.dll`. **Build before deploying**: `deploy.py` copies whatever is in the mod folder and
+says "no assembly built" when the DLL is missing. Its game-free output-limit rule is tested by
+`dotnet test tests/PhobosFactory.Rules.Tests`, which also runs on GitHub.
+
 **One limit to know:** the mod references Vanilla Expanded Framework's `PipeSystem.dll`, which its licence
 does not let us copy into the repository. So **GitHub Actions cannot build the mod**; it builds and runs
 only the game-free physics tests in `tests/`. The mod itself builds on a machine with RimWorld and VEF
@@ -24,8 +32,9 @@ python -m unittest discover -s tests
   folder, never writing to them, and checks D'thorga Factory Additions (or `--mod <Name>`) against them:
   no file is skipped for sharing a path with a later folder's file, every patch xpath matches one node, every
   Def name a ProcessDef uses exists, every hopper-only bill has an output cap within its product's stack
-  limit, defined bills match the bills patched onto machines, and every ParentName resolves (to a loaded
-  Name or one the mod's patches add to a Def that has none yet). It reads only the files the game loads.
+  limit, defined bills match the bills patched onto machines, every ParentName resolves (to a loaded
+  Name or one the mod's patches add to a Def that has none yet), and every bench bill template names a
+  machine, benches, research, sound and effect that exist. It reads only the files the game loads.
   Paths as for deploy.py (`--game`, `--workshop`, `--config`, the environment variables or
   `.local/install-settings.json`). An offline check is not an in-game test.
 - **check-mod-layout** checks every `mods/<Mod>/` folder:

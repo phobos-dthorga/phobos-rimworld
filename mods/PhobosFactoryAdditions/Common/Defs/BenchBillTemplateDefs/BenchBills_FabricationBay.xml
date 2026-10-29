@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+  <!--
+    Bench bill templates: the assembly (Phobos.Factory.BenchBillGenerator) turns every item made at the
+    named benches into a bill on the machine, at load, from the item's own recipe after every mod's patches:
+    its cost as ingredients, its recipe work times workMultiplier as the batch time (VFE Factory's machining
+    rule, x4), its research plus the template's. A bill is offered only while its bench recipe is available
+    (research, Ideology memes, faction tags, Rimatomics' own research). Items some machine already makes are
+    skipped, and so are buildings and items made of a material plus parts (Pipe System would give them the
+    wrong material). The startup log names what was skipped.
+
+    Input cells, sound and effect are the machining bay's own (VFE Factory's MachiningProcessTemplateDefs.xml,
+    read 29 Oct 2026), because the fabrication bay inherits that building. Bill names and descriptions written
+    by the agent, held for the owner's review. Owner's choice of benches, 29 Oct 2026: fabrication bench,
+    bioferrite shaper, Rimatomics machining table (Mods/Rimatomics).
+
+    The defNames are part of saved games (queued bills): never rename them.
+  -->
+  <Phobos.Factory.BenchBillTemplateDef>
+    <defName>PhobosFactory_FabricationBench</defName>
+    <label>fabrication bench bills</label>
+    <description>Every item made at a fabrication bench, as a bill on the automated fabrication bay.</description>
+    <machine>PhobosFactory_AutomatedFabricationBay</machine>
+    <sourceBenches>
+      <li>FabricationBench</li>
+    </sourceBenches>
+    <researchPrerequisites>
+      <li>Fabrication</li>
+    </researchPrerequisites>
+    <billLabel>Make {0}</billLabel>
+    <billDescription>Make {0} from the materials in the input hoppers, as a fabrication bench would. It comes out at normal quality.</billDescription>
+    <firstPriorityInBillList>10</firstPriorityInBillList>
+    <autoInputSlots>
+      <li>(0,0,3)</li>
+      <li>(-3,0,0)</li>
+      <li>(3,0,0)</li>
+    </autoInputSlots>
+    <sustainerDef>VFEFactory_AutomatedMachiningSustainer</sustainerDef>
+    <effecterDef>VFEFactory_Default</effecterDef>
+  </Phobos.Factory.BenchBillTemplateDef>
+
+  <Phobos.Factory.BenchBillTemplateDef MayRequire="Ludeon.RimWorld.Anomaly">
+    <defName>PhobosFactory_BioferriteShaper</defName>
+    <label>bioferrite shaper bills</label>
+    <description>Every item made at a bioferrite shaper, as a bill on the automated fabrication bay.</description>
+    <machine>PhobosFactory_AutomatedFabricationBay</machine>
+    <sourceBenches>
+      <li>BioferriteShaper</li>
+    </sourceBenches>
+    <researchPrerequisites>
+      <li>BioferriteShaping</li>
+    </researchPrerequisites>
+    <billLabel>Make {0}</billLabel>
+    <billDescription>Make {0} from the materials in the input hoppers, as a bioferrite shaper would. It comes out at normal quality.</billDescription>
+    <firstPriorityInBillList>200</firstPriorityInBillList>
+    <autoInputSlots>
+      <li>(0,0,3)</li>
+      <li>(-3,0,0)</li>
+      <li>(3,0,0)</li>
+    </autoInputSlots>
+    <sustainerDef>VFEFactory_AutomatedMachiningSustainer</sustainerDef>
+    <effecterDef>VFEFactory_Default</effecterDef>
+  </Phobos.Factory.BenchBillTemplateDef>
+
+</Defs>

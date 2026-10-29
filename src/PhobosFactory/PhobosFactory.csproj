@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- D'thorga Factory Additions' assembly, built for RimWorld 1.6. LoadFolders.xml loads the same 1.6
+       folder on 1.7, as VFE Factory does with its own assembly. Shared options (C# version, nullable,
+       PolySharp, no deps.json) come from Directory.Build.props at the repository root. -->
+  <PropertyGroup>
+    <TargetFramework>net472</TargetFramework>
+    <RootNamespace>Phobos.Factory</RootNamespace>
+    <AssemblyName>PhobosFactory</AssemblyName>
+    <OutputPath>../../mods/PhobosFactoryAdditions/1.6/Assemblies/</OutputPath>
+    <DebugType>none</DebugType>
+    <Version>0.5.0</Version>
+    <!-- Vanilla Expanded Framework's PipeSystem.dll, referenced from the installed mod and never copied:
+         its licence (CC BY-NC-ND 4.0) permits depending on it, not redistributing it. Override the folder
+         with -p:VefAssemblies=... or the VefAssemblies environment variable. -->
+    <VefAssemblies Condition="'$(VefAssemblies)' == ''">C:\Program Files (x86)\Steam\steamapps\workshop\content\294100\2023507013\1.6\Assemblies</VefAssemblies>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Krafs.Rimworld.Ref" Version="1.6.4871" />
+    <!-- Players get Harmony from the Harmony mod; compile against it only, so 0Harmony.dll never ships. -->
+    <PackageReference Include="Lib.Harmony" Version="2.4.3" ExcludeAssets="runtime" />
+    <Reference Include="PipeSystem">
+      <HintPath>$(VefAssemblies)\PipeSystem.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+</Project>

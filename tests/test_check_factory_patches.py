@@ -185,6 +185,28 @@ class CheckerTests(unittest.TestCase):
             self.assertIn('already has Name="TheirName", so the game keeps it and skips this PatchOperationAttributeAdd', text)
             self.assertIn('Phobos_Good: ParentName Phobos_GranulatorParent is not a Name', text)
 
+    def test_bench_bill_templates_must_name_loaded_defs(self):
+        template = '''<Phobos.Factory.BenchBillTemplateDef{attr}>
+          <defName>{name}</defName><machine>VFEFactory_MedicineGranulator</machine>
+          <sourceBenches><li>{bench}</li><li MayRequire="example.absent">AbsentBench</li></sourceBenches>
+          <researchPrerequisites><li>VFE_ComplexFactories</li></researchPrerequisites>
+          <billLabel>{label}</billLabel><autoInputSlots>{slots}</autoInputSlots>
+          <sustainerDef>VFEFactory_AutomatedDrugsSustainer</sustainerDef></Phobos.Factory.BenchBillTemplateDef>'''
+        good = template.format(attr='', name='Phobos_Good', bench='PsychoidLeaves', label='Make {0}', slots='<li>(0,0,3)</li>')
+        absent = template.format(attr=' MayRequire="example.absent"', name='Phobos_Absent', bench='Nowhere', label='x', slots='')
+        bad = template.format(attr='', name='Phobos_Bad', bench='NoSuchBench', label='Make it', slots='')
+        with tempfile.TemporaryDirectory() as tmp:
+            f = Fixture(tmp)
+            write(f.mod / 'Common' / 'Defs' / 'T.xml', '<Defs>' + good + absent + '</Defs>')
+            errors, summary = f.check()
+            self.assertEqual(errors, [])
+            self.assertIn('2 bench bill templates', summary)
+            write(f.mod / 'Common' / 'Defs' / 'T.xml', '<Defs>' + bad + '</Defs>')
+            self.assertEqual(f.check()[0], [
+                'Common/Defs/T.xml: Phobos_Bad: bench NoSuchBench is not a loaded Def',
+                'Common/Defs/T.xml: Phobos_Bad: no autoInputSlots, so its bills would never take ingredients',
+                "Common/Defs/T.xml: Phobos_Bad: billLabel has no {0} for the item's label"])
+
     def test_load_folders_fall_back_to_the_newest_lower_version(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)

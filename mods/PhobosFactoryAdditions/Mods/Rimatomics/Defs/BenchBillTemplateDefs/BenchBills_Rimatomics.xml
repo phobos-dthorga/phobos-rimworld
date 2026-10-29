@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+  <!--
+    Dubs Rimatomics' machining table, as bills on the automated fabrication bay (loaded only while Rimatomics
+    is active; how templates work is in Common/Defs/BenchBillTemplateDefs/BenchBills_FabricationBay.xml).
+    Rimatomics unlocks most of these parts with its own research steps, by patching the game's recipe check
+    (RecipeDef.AvailableNow, read in its 1.7 assembly on 29 Oct 2026); each bill here waits for that same
+    check, so a part appears on the bay only once Rimatomics' research has unlocked it at the table.
+    Its parts set their work in the recipe (workAmount), which the bills use, times four.
+
+    The defName is part of saved games (queued bills): never rename it.
+  -->
+  <Phobos.Factory.BenchBillTemplateDef>
+    <defName>PhobosFactory_RimatomicsMachining</defName>
+    <label>Rimatomics machining table bills</label>
+    <description>Every item made at a Rimatomics machining table, as a bill on the automated fabrication bay.</description>
+    <machine>PhobosFactory_AutomatedFabricationBay</machine>
+    <sourceBenches>
+      <li>TableRimatomicsMachining</li>
+    </sourceBenches>
+    <researchPrerequisites>
+      <li>RimatomicsActivate</li>
+    </researchPrerequisites>
+    <billLabel>Make {0}</billLabel>
+    <billDescription>Make {0} from the materials in the input hoppers, as a Rimatomics machining table would. It comes out at normal quality.</billDescription>
+    <firstPriorityInBillList>300</firstPriorityInBillList>
+    <autoInputSlots>
+      <li>(0,0,3)</li>
+      <li>(-3,0,0)</li>
+      <li>(3,0,0)</li>
+    </autoInputSlots>
+    <sustainerDef>VFEFactory_AutomatedMachiningSustainer</sustainerDef>
+    <effecterDef>VFEFactory_Default</effecterDef>
+  </Phobos.Factory.BenchBillTemplateDef>
+
+</Defs>

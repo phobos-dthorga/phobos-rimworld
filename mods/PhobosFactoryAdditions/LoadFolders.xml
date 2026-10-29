@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <loadFolders>
-  <!-- One folder per optional mod; the pipe tie-in folders (chemfuel, neutroamine) come last. -->
+  <!-- 1.6 holds the assembly, built for 1.6 and loaded on 1.7 too. One folder per optional mod; the pipe
+       tie-in folders (chemfuel, neutroamine) come last. -->
   <v1.6>
     <li>/</li>
     <li>Common</li>
+    <li>1.6</li>
     <li IfModActive="sbz.NeatStorageFridge">Mods/SbzFridge</li>
     <li IfModActive="Papito.MedicinesPlus.AT">Mods/MedicinesPlus</li>
     <li IfModActive="Ushanka.BiologicalWarfare">Mods/BiologicalWarfare</li>
@@ -21,6 +23,7 @@
   <v1.7>
     <li>/</li>
     <li>Common</li>
+    <li>1.6</li>
     <li IfModActive="sbz.NeatStorageFridge">Mods/SbzFridge</li>
     <li IfModActive="Papito.MedicinesPlus.AT">Mods/MedicinesPlus</li>
     <li IfModActive="Ushanka.BiologicalWarfare">Mods/BiologicalWarfare</li>

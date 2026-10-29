@@ -25,3 +25,6 @@ jobs:
       # which its licence does not let us copy into the repository. The physics is game-free and runs.
       - name: Build and run the game-free physics tests
         run: dotnet test tests/PhobosRadio.Physics.Tests --nologo
+      # D'thorga Factory Additions' assembly needs PipeSystem.dll too; its output-limit rule is game-free.
+      - name: Build and run the game-free factory rule tests
+        run: dotnet test tests/PhobosFactory.Rules.Tests --nologo

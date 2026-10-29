@@ -4,8 +4,12 @@
   <name>D'thorga Factory Additions</name>
   <author>Phobos A. D'thorga</author>
   <url>https://github.com/phobos-dthorga/phobos-rimworld</url>
-  <modVersion>0.4.0</modVersion>
+  <modVersion>0.5.0</modVersion>
   <description>Additions to Vanilla Furniture Expanded - Factory.
+
+An automated fabrication bay: a factory machine that makes what a fabrication bench makes (bionic and other artificial body parts, spacer weapons and armour), and with Anomaly or Dubs Rimatomics what a bioferrite shaper or a Rimatomics machining table makes. Its bills are built at load from each item's own recipe, so they follow other mods' changes and appear once the recipe is unlocked.
+
+A fix for VFE Factory's automated machining bay: a finished item no longer vanishes when an identical one is still in the output hopper. The machine waits instead.
 
 A "Synthesize neutroamine from human meat" bill for the neutroamine synthesizer. People carry far more fat than game animals, so a batch gives a little more neutroamine than the same weight of animal meat. The stock bill keeps taking animal meat and stops taking human meat, so you choose which meat goes where. Nobody eats anything, and no Ideology thought fires.
 
@@ -15,7 +19,7 @@ With "[sbz] Fridge" active, conveyor belts and factory machines can take corpses
 
 Drug lab recipes from other mods as factory bills, each switched on only while its mod is active: Medicines+ (all its drugs, plus a penicillin-from-fungus bill), Deep Pills infusions, Ushankas Biological Warfare vaccines, antiserums and pills, Combat Extended psycho, Dubs Rimatomics potassium iodide, hemogen from Hemofungus, Complementary Odyssey vacsop and glitterworld medicine on the medicine granulator; Farmable Neutroamine leaves on the neutroamine synthesizer; Passive Exoskeletons polyamide and Simple Washing Machine detergent on the automated biofuel refinery. Every bill follows the stock rule (a batch of four at four times the lab's work) and keeps its mod's research.
 
-Requires Vanilla Expanded Framework and Vanilla Furniture Expanded - Factory. Uses Vanilla Chemfuel Expanded's piped chemfuel and Vanilla Races Expanded - Android's piped neutroamine when those mods are active.
+Requires Harmony, Vanilla Expanded Framework and Vanilla Furniture Expanded - Factory. Uses Vanilla Chemfuel Expanded's piped chemfuel and Vanilla Races Expanded - Android's piped neutroamine when those mods are active.
 
 Community-created content. Not official and not endorsed by Ludeon Studios.</description>
   <supportedVersions>
@@ -23,6 +27,12 @@ Community-created content. Not official and not endorsed by Ludeon Studios.</des
     <li>1.7</li>
   </supportedVersions>
   <modDependencies>
+    <li>
+      <packageId>brrainz.harmony</packageId>
+      <displayName>Harmony</displayName>
+      <steamWorkshopUrl>https://steamcommunity.com/sharedfiles/filedetails/?id=2009463077</steamWorkshopUrl>
+      <downloadUrl>https://github.com/pardeike/HarmonyRimWorld/releases/latest</downloadUrl>
+    </li>
     <li>
       <packageId>OskarPotocki.VanillaFactionsExpanded.Core</packageId>
       <displayName>Vanilla Expanded Framework</displayName>
