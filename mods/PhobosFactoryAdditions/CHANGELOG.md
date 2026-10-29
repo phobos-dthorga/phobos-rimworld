@@ -8,7 +8,8 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 ## [0.6.1] - 2026-10-30 - Draft
 
 Only a belt that points away from switched-on storage takes from it; belts that run past it leave it alone.
-Not yet tested in game.
+Tested in game by the owner on 30 October 2026 (RimWorld 1.7, 0.6.1 installed): "The fix works brilliantly".
+Machine input cells on switched-on storage and the switch surviving a save and load are not yet reported.
 
 ### Fixed
 

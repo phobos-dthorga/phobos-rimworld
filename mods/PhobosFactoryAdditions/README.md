@@ -13,10 +13,10 @@ Passive Exoskeletons, Simple Washing Machine).
 
 Version 0.6.1, built 30 October 2026 for House D'thorga. **Tested in game:** the human-meat bill (owner,
 28 October 2026, RimWorld 1.7), the drug-lab bills appearing on their machines (owner, 29 October 2026), and
-belts taking from switched-on storage (owner, 29 October 2026; that test found the fault 0.6.1 fixes). The
+belts taking from switched-on storage, only when they point away from it (owner, 29 and 30 October 2026). The
 corpse fridge change, running the 0.3.0 bills to the end, the 0.3.2 chemfuel repair, the 0.4.0 deep factory
-hopper, everything in 0.5.0 and 0.5.1 (the fabrication bay and the output fix), and 0.6.1's rule that only a
-belt pointing away from storage takes from it are not yet tested in game.
+hopper, everything in 0.5.0 and 0.5.1 (the fabrication bay and the output fix), machine input cells on
+switched-on storage, and the switch surviving a save and load are not yet tested in game.
 
 ## Read this first (gotchas)
 
@@ -88,9 +88,9 @@ belt pointing away from storage takes from it are not yet tested in game.
 - **Tested in game: the human-meat bill, and the 0.3.1 fix.** The owner confirmed on 28 October 2026, on
   RimWorld 1.7, that the human-meat bill works, and on 29 October 2026, with 0.3.2 installed, that the bills
   now appear on the machines ("Everything seems to be good in-game now"). On 29 October 2026 the owner saw
-  belts take whole stacks from a switched-on Adaptive Storage fridge, and found belts at its sides taking too,
-  which 0.6.1 fixes. Running each new bill to the end, the corner input cells, the chemfuel-tap repair and
-  0.6.1 are not yet confirmed in game.
+  belts take whole stacks from a switched-on Adaptive Storage fridge, and found belts at its sides taking too;
+  on 30 October 2026 they confirmed 0.6.1's fix ("The fix works brilliantly"). Running each new bill to the
+  end, the corner input cells and the chemfuel-tap repair are not yet confirmed in game.
 
 ## What it does
 
@@ -105,8 +105,8 @@ switch** instead (owner's choice of design, 29 October 2026):
 - It starts **off**, for new storage and for storage already in your colony. Select several and click once to
   switch them all; a message confirms what changed.
 
-What a switched-on storage does (read from VFE Factory's and Pipe System's code; the owner saw belts take from
-it in game under 0.6.0, and 0.6.1's side rule is not yet seen in game):
+What a switched-on storage does (read from VFE Factory's and Pipe System's code; the owner confirmed the two
+belt rows in game on 30 October 2026, and the machine rows are not yet seen in game):
 
 | Where it is | What happens |
 | --- | --- |
@@ -520,5 +520,4 @@ Optional fields: `excludedThings` (items to leave at the bench), `workMultiplier
   actually lifts a corpse out of the fridge, and what happens on removal. For 0.5.0 and 0.5.1: everything in
   game, starting with the startup log line, the bay's Add process menu, one bionic made end to end, and a
   machine waiting at a full output hopper instead of eating its inputs. For 0.6.0 and 0.6.1: the startup log
-  line, a machine's input cell on switched-on storage, the switch surviving a save and load, and 0.6.1's fix
-  (belts running past switched-on storage leave it alone; a belt pointing away still takes).
+  line, a machine's input cell on switched-on storage, and the switch surviving a save and load.
