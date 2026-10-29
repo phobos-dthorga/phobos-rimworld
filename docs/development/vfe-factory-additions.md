@@ -85,6 +85,7 @@ than lean game, and the lore renders fat) and its sources are in the mod README;
 | 29 Oct 2026 | Owner tested 0.6.0 in game (RimWorld 1.7): belts take whole stacks from a switched-on thermostatic fridge cabin ([kyzy] Ship Wall Enhanced, Adaptive Storage), "the code works well", but belts running along its sides took from it too, "not intended behaviour" | owner |
 | 30 Oct 2026 | 0.6.1: switched-on storage feeds only a belt that has it directly behind (a belt pointing away from it); factory hoppers, VCHE chemfuel taps and the corpse fridge keep VFE Factory's behind-and-sides rule | owner (sides unwanted); agent (behind only, hoppers unchanged) |
 | 30 Oct 2026 | Owner tested 0.6.1 in game (RimWorld 1.7): "The fix works brilliantly"; input cells and save and load not reported | owner |
+| 30 Oct 2026 | No "allow colony animal corpses" storage filter (proposed so pets never reach the mincer; vanilla filters can't tell a pet's corpse from a wild one): the mod stays as it is, with publication in mind | owner (agent proposed) |
 
 ## Drug lab recipes as factory bills (28 Oct 2026)
 
