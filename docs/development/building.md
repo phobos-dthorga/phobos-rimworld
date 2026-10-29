@@ -174,12 +174,18 @@ is exercised in the game. Not yet tried on Linux: confirm it when the first proj
 
 ## Deploying to the game
 
-A deploy script arrives with the first mod. It will:
+`python scripts/deploy.py [--apply] <Mod>` installs a mod. It:
 
-- preview by default, and copy only with `--apply`;
-- refuse while RimWorld is running;
-- copy `mods/<Mod>/` and its built assemblies into `<game>\Mods\<Mod>\`;
-- never touch `ModsConfig.xml` or RimSort's lists.
+- previews by default, and copies only with `--apply`;
+- refuses while RimWorld is running, found by its process name (`RimWorld.exe` for 1.7 on Windows,
+  `RimWorldWin64.exe` for 1.6);
+- moves the previous install to `.local/deploy-backups/`, renaming it on the game's own drive first: Windows
+  refuses that rename while the game holds any file in it open, so an unrecognised running game still stops it
+  with nothing changed;
+- copies `mods/<Mod>/` and its built assemblies into `<game>\Mods\<Mod>\`;
+- never touches `ModsConfig.xml` or RimSort's lists.
 
-The game path is read from `.local/install-settings.json`, or the default Steam path. Until the script
-exists, nothing is copied into the game.
+The game path comes from `--game`, the `RIMWORLD_PATH` environment variable, `.local/install-settings.json`, or
+the default Steam path. **Until 30 Oct 2026 the script knew only 1.6's process name**: one deploy that day
+began while the owner's 1.7 game ran and stopped at the first locked file, with the install intact; the rename
+step and the 1.7 name come from that.

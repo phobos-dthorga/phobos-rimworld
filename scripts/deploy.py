@@ -21,7 +21,9 @@ ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_GAME_PATH = Path(r'C:\Program Files (x86)\Steam\steamapps\common\RimWorld')
 SETTINGS_FILE = ROOT / '.local' / 'install-settings.json'
 BACKUPS = ROOT / '.local' / 'deploy-backups'
-GAME_PROCESSES = ('RimWorldWin64.exe', 'RimWorldWin.exe', 'RimWorldLinux', 'RimWorldLinux.x86_64', 'RimWorldMac')
+# RimWorld.exe is 1.7 on Windows (seen in tasklist, 30 Oct 2026); RimWorldWin64.exe is 1.6.
+GAME_PROCESSES = ('RimWorld.exe', 'RimWorldWin64.exe', 'RimWorldWin.exe', 'RimWorldLinux', 'RimWorldLinux.x86_64',
+                  'RimWorldMac')
 SKIPPED_DIRS = ('__pycache__', 'obj', 'bin')
 SKIPPED_SUFFIXES = ('.pyc', '.pdb')
 
@@ -63,11 +65,17 @@ def package(mod, root=ROOT):
     return files
 
 
+def listed_in_tasklist(out, process_names=GAME_PROCESSES):
+    """True if Windows tasklist CSV output names one of the processes (Windows image names ignore case)."""
+    lowered = out.lower()
+    return any(f'"{name.lower()}"' in lowered for name in process_names)
+
+
 def game_running(process_names=GAME_PROCESSES):
     """True if a RimWorld process is running (Windows tasklist; pgrep elsewhere)."""
     if sys.platform == 'win32':
         out = subprocess.run(['tasklist', '/FO', 'CSV', '/NH'], capture_output=True, text=True, check=False).stdout
-        return any(f'"{name}"' in out for name in process_names)
+        return listed_in_tasklist(out, process_names)
     for name in process_names:
         if subprocess.run(['pgrep', '-x', name], capture_output=True, check=False).returncode == 0:
             return True
@@ -93,7 +101,16 @@ def deploy(mod, game, apply, root=ROOT, backups=BACKUPS, running=game_running, l
         stamp = _dt.datetime.now().strftime('%Y%m%d-%H%M%S')
         backup = Path(backups) / f'{mod}-{stamp}'
         backup.parent.mkdir(parents=True, exist_ok=True)
-        shutil.move(str(target), str(backup))
+        # Rename on the game's own drive first, outside Mods: Windows refuses while any file in the folder is
+        # open, such as an assembly a running game has loaded, and nothing has changed yet. Moving straight to
+        # another drive copies, then deletes file by file, and can stop halfway through the install.
+        staged = Path(game) / f'{mod}-deploying-{stamp}'
+        try:
+            target.rename(staged)
+        except OSError as error:
+            raise RuntimeError(f'{target} is in use ({error.strerror}). Close RimWorld, then deploy again. '
+                               'Nothing was changed.') from error
+        shutil.move(str(staged), str(backup))
         log(f'  previous install moved to {backup}')
     for rel, source in files.items():
         destination = target / rel

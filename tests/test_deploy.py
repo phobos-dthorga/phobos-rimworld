@@ -2,6 +2,7 @@
 import importlib.util
 import json
 import os
+import sys
 from pathlib import Path
 import tempfile
 import unittest
@@ -93,12 +94,36 @@ class DeployTests(unittest.TestCase):
             self.assertFalse((target / 'Common' / 'Old.xml').exists())
             self.assertEqual(1, len(list(Path(backups).glob('Example-*/Common/Old.xml'))))
             self.assertEqual('untouched', (Path(game) / 'Mods' / 'ModsConfig.xml').read_text(encoding='utf-8'))
+            self.assertEqual([], list(Path(game).glob('Example-deploying-*')))
+
+    @unittest.skipUnless(sys.platform == 'win32', 'Windows refuses to rename a folder holding an open file')
+    def test_an_open_file_stops_it_before_anything_changes(self):
+        with tempfile.TemporaryDirectory() as root, tempfile.TemporaryDirectory() as game, tempfile.TemporaryDirectory() as backups:
+            fake_repo(root)
+            target = Path(game) / 'Mods' / 'Example'
+            (target / 'Common').mkdir(parents=True)
+            old = target / 'Common' / 'Old.xml'
+            old.write_text('<Defs />', encoding='utf-8')
+            with open(old, 'rb'), self.assertRaises(RuntimeError):
+                deploy.deploy('Example', game, apply=True, root=root, backups=backups, running=lambda: False, log=lambda s: None)
+            self.assertEqual(['Common/Old.xml'], [p.relative_to(target).as_posix() for p in target.rglob('*') if p.is_file()])
+            self.assertEqual([], list(Path(backups).glob('Example-*')))
 
     def test_apply_needs_a_mods_folder(self):
         with tempfile.TemporaryDirectory() as root, tempfile.TemporaryDirectory() as game:
             fake_repo(root)
             with self.assertRaises(FileNotFoundError):
                 deploy.deploy('Example', game, apply=True, root=root, running=lambda: False, log=lambda s: None)
+
+
+class GameRunningTests(unittest.TestCase):
+    def test_tasklist_finds_rimworld_1_6_and_1_7(self):
+        for image in ('RimWorld.exe', 'RimWorldWin64.exe', 'rimworld.EXE'):
+            out = f'"svchost.exe","1","Services","0","1 K"\n"{image}","8404","Console","1","10,734,748 K"\n'
+            self.assertTrue(deploy.listed_in_tasklist(out), image)
+
+    def test_tasklist_ignores_other_programs(self):
+        self.assertFalse(deploy.listed_in_tasklist('"RimSort.exe","27984","Console","1","1 K"\n'))
 
 
 if __name__ == '__main__':
