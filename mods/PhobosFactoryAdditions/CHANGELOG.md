@@ -5,6 +5,41 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.8.0] - 2026-10-31 - Draft
+
+Medicine without cotton: a medicine granulator bill that uses synthread in place of cloth, so a colony that
+refines oil can make medicine in every season. Owner's request, for a tundra colony. Not yet tested in game.
+
+### Added
+
+- Make batch of medicine from synthread, on VFE Factory's medicine granulator: 12 synthread, 4 neutroamine and
+  4 herbal medicine make 4 medicine in 11,200 ticks. The stock cotton bill stays.
+- Draws neutroamine from the machine's pipe as well as from hoppers when Vanilla Races Expanded - Android is
+  active, like the other bills.
+- The bill's label and description are agent-written, held for the owner's review.
+
+### Balance
+
+- The same figures as the stock bill with the fabric swapped one for one. Cloth weighs 0.026 kg a unit and
+  synthread 0.025 kg (the game's item data), so 12 of either is the same amount of fabric. Authored: the swap
+  itself is a gameplay choice.
+- Synthread is worth 4 silver a unit against cloth's 1.5, so a batch's inputs are worth 112 silver against the
+  cotton bill's 82, for 72 silver of medicine. No profit loop: it buys a steady supply.
+- Output limit 21 (medicine stacks to 25, a batch is 4), so a full output hopper makes the machine wait.
+
+### Save compatibility
+
+- Safe to add. Before removing the mod, remove this bill from each granulator's Processes tab, as for every bill
+  this mod adds.
+
+### Compatibility and limits
+
+- Herbal medicine is still seasonal outdoors. Healroot also grows in hydroponics basins, which keeps it coming
+  all year.
+- One Rimefeller synthread refiner makes about 167 synthread a day while its resource console is manned with a
+  synthread bill (read from Rimefeller's code, not measured). A granulator at base speed uses about 64 a day,
+  overclocked to 3 about 190.
+
 ## [0.7.0] - 2026-10-30 - Draft
 
 Stuck conveyor belts start again by themselves, and belts take only what the corpse fridge's or a switched-on

@@ -5,19 +5,20 @@ building, so conveyor belts and factory machines can take from any mod's shelves
 fabrication bench makes (bionics and other artificial body parts, spacer weapons and armour), and with Anomaly
 or Dubs Rimatomics what a bioferrite shaper or a Rimatomics machining table makes; a **fix for the automated
 machining bay**, which could lose a finished item; a **Synthesize neutroamine from human meat** bill for
-the neutroamine synthesizer; a **deep factory hopper** that holds four stacks; with "[sbz] Fridge", **conveyor belts and factory machines that take corpses
+the neutroamine synthesizer; a **Make batch of medicine from synthread** bill for the medicine granulator, so
+medicine needs no cotton; a **deep factory hopper** that holds four stacks; with "[sbz] Fridge", **conveyor belts and factory machines that take corpses
 straight from its corpse fridge**; and **drug lab recipes from other mods as factory bills**, each switched
 on only while its mod is active (Medicines+, Deep Pills, Ushankas Biological Warfare, Combat Extended, Dubs
 Rimatomics, Hemofungus, Complementary Odyssey, Glitterworld Medicine Production, Farmable Neutroamine,
 Passive Exoskeletons, Simple Washing Machine).
 
-Version 0.7.0, built 30 October 2026 for House D'thorga. **Tested in game:** the human-meat bill (owner,
+Version 0.8.0, built 31 October 2026 for House D'thorga. **Tested in game:** the human-meat bill (owner,
 28 October 2026, RimWorld 1.7), the drug-lab bills appearing on their machines (owner, 29 October 2026), and
 belts taking from switched-on storage, only when they point away from it (owner, 29 and 30 October 2026). The
 corpse fridge change, running the 0.3.0 bills to the end, the 0.3.2 chemfuel repair, the 0.4.0 deep factory
 hopper, everything in 0.5.0 and 0.5.1 (the fabrication bay and the output fix), machine input cells on
-switched-on storage, the switch surviving a save and load, and everything in 0.7.0 (stuck belts waking, belts
-obeying storage filters) are not yet tested in game.
+switched-on storage, the switch surviving a save and load, everything in 0.7.0 (stuck belts waking, belts
+obeying storage filters) and the 0.8.0 synthread medicine bill are not yet tested in game.
 
 ## Read this first (gotchas)
 
@@ -77,6 +78,11 @@ obeying storage filters) are not yet tested in game.
   Medicines+ is active.
 - **A reproduction pill bill makes one pill at a time.** It takes a pathogen sample, and samples do not
   stack, so one sample per hopper cell.
+- **Medicine from synthread (0.8.0).** The granulator's **Make batch of medicine from synthread** bill takes
+  **12 synthread, 4 neutroamine and 4 herbal medicine** for 4 medicine, the stock bill with synthread in place
+  of cloth. It needs the same research (**Medicine production** and **Complex factories**). Give the granulator
+  three input hoppers: **one each for synthread, neutroamine and herbal medicine**. Synthread costs more than
+  cloth, so this bill is for a steady supply, not for selling medicine.
 - **The stock bill stops taking human meat** once this mod is on. Human meat sitting in a hopper that feeds
   the stock "Synthesize neutroamine" bill will stay there until you add the human-meat bill or move it.
 - **Tick the ingredient in the hopper's storage filter**, and raise the hopper's priority (factory hoppers
@@ -294,6 +300,42 @@ source). Raw deer meat holds about 2 to 3 grams of fat per 100 grams ([USDA Food
 173855](https://getfoodfacts.com/food/game-meat-deer-raw-173855), read through an aggregator site, so a
 secondary source). Those two figures are not like for like (a whole body against a lean cut), and the game's
 "meat" item is neither, so the bump is a nod to the direction of the difference, not its size.
+
+### Medicine from synthread (0.8.0)
+
+The stock **Make batch of medicine** bill needs cotton cloth, and cotton grows outdoors only in the warm
+months. In a tundra colony that leaves medicine seasonal. This bill swaps the cloth for **synthread**, which
+Rimefeller makes from chemfuel all year (owner's request, 31 October 2026). Not yet tested in game.
+
+| | Stock bill (VFE Factory) | Synthread bill (this mod) |
+| --- | --- | --- |
+| Inputs | 12 cloth, 4 neutroamine, 4 herbal medicine | **12 synthread**, 4 neutroamine, 4 herbal medicine |
+| Output | 4 medicine | 4 medicine |
+| Time | 11,200 ticks (about 4.5 in-game hours, before overclocking) | the same |
+| Research | Medicine production, Complex factories | the same |
+
+**Why the same amount.** Both bills are four times the drug lab's recipe (1 herbal medicine, 1 neutroamine and
+3 cloth make 1 medicine). Cloth weighs 0.026 kg a unit and synthread 0.025 kg (the game's own item data), so
+12 synthread is the same amount of fabric for the kits' pads and dressings. That swap is a gameplay choice, not
+a medical claim. Glitterworld Medicine Production already uses synthread for medicine (5 per glitterworld
+medicine), so synthread in a medical kit isn't new to the game.
+
+**What it costs.** At base market values the cotton bill's inputs are worth 82 silver and the synthread
+bill's 112 (synthread 4 silver a unit against cloth's 1.5); both make 72 silver of medicine. **You lose value
+either way, more with synthread**: it's for keeping medicine coming, not for selling.
+
+**Keeping it fed all year:**
+
+- **Synthread:** Rimefeller's synthread refiner turns **3 chemfuel into 1 synthread** and runs only while a
+  colonist mans a **resource console** that has a synthread bill. Running, it uses about 500 chemfuel a day
+  and makes about **167 synthread a day** (my reading of Rimefeller's code, not measured). One granulator at
+  base speed uses about **64 synthread a day**; overclocked to 3, about 190, more than one refiner makes.
+  Synthread leaves the refiner on its unloading bays: switch a bay on with **Belts may take from here** and run
+  a belt to the granulator's synthread hopper.
+- **Neutroamine:** the human-meat bill, Rimefeller's neutroamine refining, or both.
+- **Herbal medicine is seasonal too.** It comes from healroot, which grows outdoors only in the warm months,
+  but **healroot also grows in hydroponics basins** (sowing needs Plants 8). Grow it indoors under sun lamps for
+  a year-round supply.
 
 ### Drug lab recipes as medicine granulator bills (0.3.0)
 
@@ -571,6 +613,11 @@ Optional fields: `excludedThings` (items to leave at the bench), `workMultiplier
   "Haul from conveyor" job read in its assembly; the game's container add, `Thing.SplitOff`, storage settings
   and storage-group lookup read in the RimWorld 1.7 assembly. Builds with no warnings; the stuck-belt rule has
   unit tests.
+- 31 October 2026, 0.8.0: VFE Factory's stock medicine bill, the game's medicine recipe, cloth and synthread
+  values, healroot's sowing rules, and Rimefeller's synthread refiner (its Def and refinery code) read from the
+  installed mods and the decompiled 1.7 assembly. No mod on the owner's list already makes medicine from
+  synthread. `scripts/check-factory-patches.py` passes against the owner's installation (301 active mods,
+  46 bills).
 - **Not checked:** whether each new bill feeds, finishes and outputs as expected; whether the two corner
   input cells work; whether a belt takes chemfuel from a tap (0.3.2); whether the stock bill now refuses human meat, whether a belt
   actually lifts a corpse out of the fridge, and what happens on removal. For 0.5.0 and 0.5.1: everything in

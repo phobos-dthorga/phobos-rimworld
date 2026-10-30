@@ -8,6 +8,14 @@
     (the way VFE Factory gates its own optional patches). Not yet tested in game.
   -->
 
+  <!-- The synthread medicine bill (0.8.0) is always loaded, so it needs no gate. -->
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/PipeSystem.ProcessDef[defName="PhobosFactory_MakeMedicineFromSynthread"]</xpath>
+    <value>
+      <considerBuildingCompResource>true</considerBuildingCompResource>
+    </value>
+  </Operation>
+
   <Operation Class="PatchOperationFindMod">
     <mods>
       <li>Medicines+</li>

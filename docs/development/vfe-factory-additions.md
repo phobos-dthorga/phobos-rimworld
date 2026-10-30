@@ -460,6 +460,43 @@ ordinary queues).
 **Version.** 0.7.0: a fix (stuck belts) with new behaviour and a new Def extension for modders (the filter rule),
 so the middle number moves.
 
+## Medicine from synthread (0.8.0, 31 Oct 2026)
+
+The owner asked for an industrial medicine bill on the medicine granulator that uses synthread instead of
+cotton cloth: their colony is in a tundra, cotton grows only in summer, and Rimefeller makes synthread from oil
+all year.
+
+**What the sources say** (read 31 Oct 2026; not tested in game):
+
+- VFE Factory's `VFEFactory_MakeMedicine`: 12 `Cloth`, 4 neutroamine, 4 herbal medicine to 4 industrial
+  medicine, 11,200 ticks, Medicine production and Complex factories, output limit 25. It names `Cloth`, so no
+  other fabric can stand in; a Pipe System ingredient is one thing or one category, and the `Textiles` category
+  would admit leather, wool and hyperweave.
+- The game's bench recipe (Core `MedicineIndustrial`): 1 herbal medicine, 1 neutroamine, 3 cloth, 700 work.
+  VFE's bill is exactly four of those (ticks = work x 4 x batch, the rule its drug bills follow).
+- Core item data: cloth 0.026 kg and 1.5 silver a unit; synthread 0.025 kg and 4 silver; neutroamine 6;
+  herbal medicine 10; industrial medicine 18, stack 25. Healroot sows on `Ground` and `Hydroponic`, skill 8.
+- No mod on the owner's list makes industrial medicine from synthread (searched every Workshop XML for the two
+  names together). Glitterworld Medicine Production (MrHydralisk) uses 5 synthread per glitterworld medicine.
+- Rimefeller (Dubwise), `SynthreadRefiner` and `CompRefinery`: buffer gains `ConsumeRate / 60` chemfuel a tick
+  (0.5 a second) while in high-power mode, which lasts 250 ticks after a manned resource console with a
+  synthread bill checks it; every `BufferSize` 60 makes `StackSize` 20 synthread, placed on a cardinally
+  adjacent unloading bay. So 3 chemfuel per synthread and about 167 synthread a day of continuous running
+  (our arithmetic from the code).
+
+**What 0.8.0 does.** `PhobosFactory_MakeMedicineFromSynthread` in `Common/` (always loaded): the stock bill with
+`Synthread` for `Cloth` at the same count, the same slots, time and research, output limit 21 (stack 25 minus
+the batch of 4, the rule `check-factory-patches.py` enforces), added to the granulator's process list, and to
+the Vanilla Races Expanded - Android piped-neutroamine patch.
+
+**Agent choices (owner to revise).**
+
+- **Same count, 12 synthread.** The masses match within 4 %, so it's the same fabric. Fewer units (synthread
+  being stronger) would be a balance call with no physical basis in the game's data; more would only punish the
+  swap. Synthread already costs more, so the bill can't become a money-maker.
+- **Same research** as the stock bill: no synthread research gate, since owning synthread is enough.
+- **Priority 0**, so it sits beside the stock medicine bill in the Add process menu.
+
 ## Ideas for later additions (agent suggestions, not decided)
 
 - **Machines that output into switched-on storage** (Pipe System's `FactoryHopperDetected`): would let a

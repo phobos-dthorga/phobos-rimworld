@@ -4,7 +4,7 @@
   <name>D'thorga Factory Additions</name>
   <author>Phobos A. D'thorga</author>
   <url>https://github.com/phobos-dthorga/phobos-rimworld</url>
-  <modVersion>0.7.0</modVersion>
+  <modVersion>0.8.0</modVersion>
   <description>Additions to Vanilla Furniture Expanded - Factory.
 
 A "Belts may take from here" switch on every storage building, from any mod (shelves, Rimefeller's unloading bays, Adaptive Storage and Warehouse Storage buildings, and more). Switch it on and a conveyor belt that points away from it, and any factory machine whose input cell is on it, take from it as they would from a factory hopper; belts that only run past it leave it alone. It starts off, so nothing moves until you say so.

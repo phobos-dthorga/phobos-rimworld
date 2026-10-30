@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+  <!--
+    A Pipe System process (Vanilla Expanded Framework) for VFE Factory's medicine granulator: industrial medicine
+    with synthread in place of cloth, so a colony that refines oil can make medicine all year (owner's request,
+    31 Oct 2026, for a tundra colony where cotton grows only in summer).
+
+    Shape copied from VFE Factory's own VFEFactory_MakeMedicine (read 31 Oct 2026): the same input slots, time,
+    research, sounds and effects. Its figures are four times vanilla's bench recipe (Core, MedicineIndustrial:
+    1 herbal medicine + 1 neutroamine + 3 cloth, 700 work); this bill keeps them and swaps the fabric one for
+    one. One for one keeps the mass: cloth weighs 0.026 kg a unit and synthread 0.025 kg (Core,
+    Items_Resource_Stuff.xml), so 12 synthread is the same amount of fabric as 12 cloth. Synthread is worth more
+    (4 silver against 1.5), so this bill costs more than the cotton one: it buys a steady supply, not profit.
+    maxOutputCount: medicine stacks to 25 and a batch is 4, so 21 (the stock bill's 25 relies on our output guard).
+  -->
+  <PipeSystem.ProcessDef>
+    <defName>PhobosFactory_MakeMedicineFromSynthread</defName>
+    <label>Make batch of medicine from synthread</label>
+    <labelOverride>Make batch of medicine from synthread</labelOverride>
+    <description>Make a batch of medicine from synthread, herbal medicine and neutroamine. Synthread takes the place of cloth in the kits' pads and dressings, so a colony that refines oil can make medicine in every season.</description>
+    <priorityInBillList>0</priorityInBillList>
+    <spawnOnInteractionCell>true</spawnOnInteractionCell>
+    <autoGrabFromHoppers>true</autoGrabFromHoppers>
+    <autoInputSlots>
+      <li>(-1,0,2)</li>
+      <li>(0,0,2)</li>
+      <li>(1,0,2)</li>
+    </autoInputSlots>
+    <ticks>11200</ticks>
+    <ingredients>
+      <li>
+        <thing>Synthread</thing>
+        <countNeeded>12</countNeeded>
+      </li>
+      <li>
+        <thing>Neutroamine</thing>
+        <countNeeded>4</countNeeded>
+      </li>
+      <li>
+        <thing>MedicineHerbal</thing>
+        <countNeeded>4</countNeeded>
+      </li>
+    </ingredients>
+    <results>
+      <li>
+        <thing>MedicineIndustrial</thing>
+        <count>4</count>
+      </li>
+    </results>
+    <researchPrerequisites>
+      <li>MedicineProduction</li>
+      <li>VFE_ComplexFactories</li>
+    </researchPrerequisites>
+    <isFactoryProcess>true</isFactoryProcess>
+    <autoExtract>true</autoExtract>
+    <onlyGrabAndOutputToFactoryHoppers>true</onlyGrabAndOutputToFactoryHoppers>
+    <sustainerWhenWorking>true</sustainerWhenWorking>
+    <sustainerDef>VFEFactory_AutomatedDrugsSustainer</sustainerDef>
+    <effecterWhenWorking>true</effecterWhenWorking>
+    <effecterDef>VFEFactory_Cook</effecterDef>
+    <maxOutputCount>21</maxOutputCount>
+  </PipeSystem.ProcessDef>
+
+</Defs>
