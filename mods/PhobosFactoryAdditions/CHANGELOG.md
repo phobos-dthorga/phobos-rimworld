@@ -5,6 +5,52 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.7.0] - 2026-10-30 - Draft
+
+Stuck conveyor belts start again by themselves, and belts take only what the corpse fridge's or a switched-on
+storage's filter allows. Found in the owner's colony, where the human-meat neutroamine line had stopped. Not
+yet tested in game.
+
+### Added
+
+- For modders: Phobos.Factory.BeltFilterExtension, a marker for a storage Def that VFE Factory treats as a
+  factory hopper. Belts then take only what that storage's filter allows. The corpse fridge carries it.
+### Changed
+
+- Belts take only what a switched-on storage building's own filter allows. Before, they took everything on it.
+  The owner's one switched-on building and all 25 Rimefeller unloading bays allow what they hold (checked in the
+  save). Agent choice while scoping, held for the owner's review.
+- Factory hoppers, deep factory hoppers and chemfuel taps are unchanged: belts take whatever is on them. A
+  machine puts its output on a hopper whatever the hopper's filter says, and the owner's chemfuel tap allows
+  nothing yet still makes chemfuel, so obeying those filters would stop working lines. Agent choice, held for
+  the owner's review.
+### Fixed
+
+- A VFE Factory belt stuck empty but waiting now wakes and carries on. Such a belt skipped its whole update,
+  never took from the hopper behind it again, and stayed stuck through a reload and Change direction, so the
+  only fix was rebuilding it. The owner's save had nine, two of them between the mincer's hopper (75 human meat)
+  and the neutroamine synthesizers. Belts already stuck in a save wake on their first tick. Covers underground
+  entrances and exits too. What makes belts stick is not known yet: each wake is logged with the belt's
+  position, up to 10 a session.
+- A stray item on the corpse fridge no longer jams the corpse line. Belts took the first thing on the fridge,
+  whatever it was; in the owner's colony a steel slag chunk rode out with the corpses, the mincer's corpse-only
+  hopper refused it, and every corpse belt behind it waited for ever. Now belts take only what the fridge's
+  storage filter allows (its storage group's filter when linked), and haulers take the rest away.
+### Save compatibility
+
+- Nothing new is saved. Safe to add to and remove from a save; belts woken stay woken.
+
+### Compatibility and limits
+
+- A belt holding an item the storage ahead refuses still waits, as in VFE Factory: right-click it with a
+  colonist and pick Haul from conveyor.
+- Under Combat Extended, Rimefeller lets an unloading bay hold FSX but doesn't tick FSX in a new bay's filter.
+  Tick it before switching a bay on, or its belt leaves the FSX.
+- Cost, estimated from the code and not measured: two field checks per belt per tick for stuck belts; the filter
+  check only when a belt takes from the corpse fridge or switched-on storage; nothing for the fridge check when
+  [sbz] Fridge isn't loaded.
+- Two new Harmony patches on VFE Factory's belt: a prefix on its tick, and a prefix on its pull that replaces the
+  pull for filter-marked storage only. If an update renames what they use, the log says which part switched off.
 ## [0.6.1] - 2026-10-30 - Draft
 
 Only a belt that points away from switched-on storage takes from it; belts that run past it leave it alone.

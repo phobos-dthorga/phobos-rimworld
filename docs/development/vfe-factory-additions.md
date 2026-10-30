@@ -401,6 +401,65 @@ The neighbour check falls from three lookups to one. Factory hoppers and Def-fla
 rule. The 0.6.0 notes also said a hopper beside the same belt goes first; that holds only per side. VFE tries
 behind first, so switched-on storage behind a belt goes before a hopper at its side.
 
+## Stuck belts and belts that obey storage filters (0.7.0, 30 Oct 2026)
+
+The owner reported that the human-meat neutroamine line had stopped: "the hopper and conveyor belts don't seem
+to be working". Diagnosed from a read-only copy of the owner's PG6 save (RimWorld 1.7) and VFE Factory's
+decompiled assembly; the owner asked for both fixes ("apply whatever fixes are necessary").
+
+**What the save showed.** Both synthesizers were starved of meat (0 and 11 of 20 loaded; they had run the
+human-meat bill 183 and 85 times, so the line had worked). The mincer had left 75 human meat in its output
+hopper, and the storage group filter allowed it. The two belts that carry it on were **empty but in the Waiting
+state**. Separately, the belt in front of the top mincer's corpse hopper held a steel slag chunk the corpse-only
+hopper refused, and every corpse belt behind it was full and waiting. The chunk's last recorded cell was on the
+corpse fridge. Across the map, 9 of 579 belts were empty and Waiting (the other 68 waiting belts held items:
+ordinary queues).
+
+**What the code says** (VFE Factory, read 30 Oct 2026; not tested in game):
+
+- `Building_Conveyor.Tick` returns at once while `innerContainer` is empty and `state` is `Waiting`, and
+  `ProcessMovement` pulls from a hopper only while the state is not `Waiting`. Only an item pushed in by
+  another belt (`ReceiveBypass`, a belt-to-belt transfer) changes the state. The state is saved, so a reload
+  keeps it, and `TrySetDirection` ("Change direction") doesn't touch it. In game the only fix was to rebuild
+  the belt.
+- Every place VFE Factory sets `Waiting` runs only while the belt holds something, and every place it empties a
+  belt resets it (`ResetConveyorState`, or `Empty` in the "Haul from conveyor" job). **What empties these belts
+  is not known.** Ruled out by reading: rotting (a belt doesn't tick its contents), weather damage (resets),
+  machines' input cells (none on these belts), the haul job, and our 0.6 storage pull (the game's
+  `Thing.SplitOff` of a whole stack despawns it, so nothing is held twice). Neither log had errors from belts.
+- `TryPullFromDir` takes the first item on a hopper-flagged storage's cells, whole stack, with no filter check,
+  so anything lying on the corpse fridge rides out with the corpses.
+
+**What 0.7.0 does.**
+
+- **Stuck belts wake.** A prefix on `Building_Conveyor.Tick` (`ConveyorTickPatch`, `StuckBelts.WakeIfStuck`)
+  calls VFE Factory's own private `ResetConveyorState` when `BeltRule.IsStuck` holds, so the same tick runs
+  normally and the belt pulls again. Underground entrances and exits tick through the same method. The cost is
+  two field reads per belt per tick. `Prepare` looks the reset up once; if an update renames it, the patch stays
+  off and the log says so. The rule has unit tests.
+- **Each wake is logged** with the belt's position, up to 10 a session (agent default), so play can show what
+  empties belts without flooding the log.
+- **Belts obey the corpse fridge's filter.** A new marker, `Phobos.Factory.BeltFilterExtension`, on a
+  hopper-flagged storage Def makes belts take only stacks its storage filter allows (`StorageSettings.
+  AllowedToAccept`, the group's settings when the building is in a storage group; a pure filter check, no room
+  check). A prefix on `TryPullFromDir` handles such storage and skips the original for it alone, because VFE
+  chooses the item inside that method. The corpse fridge patch adds the marker. Rejected stacks stay; the
+  storage doesn't accept them, so haulers move them on.
+- **Switched-on storage obeys its filter too** (both 0.7.0 rules through one `BeltAccess.TakeFirstAllowed`).
+
+**Agent choices while scoping (owner to revise).**
+
+- **VFE Factory's own hoppers and taps keep VFE's rule**: belts take whatever is on them. A machine places its
+  output on its hopper whatever the hopper's filter says, and the owner's chemfuel tap is saved with a filter
+  that allows nothing yet still makes chemfuel, so obeying those filters would quietly stop working lines.
+- **Switched-on storage obeys its filter.** Checked in the PG6 save first: the one switched-on building (a
+  thermostatic fridge cabin holding psychoid leaves) allows what it holds, and all 25 Rimefeller unloading bays
+  allow FSX. Gotcha for other players: Rimefeller adds FSX to the bay's list of allowed items under Combat
+  Extended but not to a new bay's default filter, so a new bay may need FSX ticked before belts take it.
+
+**Version.** 0.7.0: a fix (stuck belts) with new behaviour and a new Def extension for modders (the filter rule),
+so the middle number moves.
+
 ## Ideas for later additions (agent suggestions, not decided)
 
 - **Machines that output into switched-on storage** (Pipe System's `FactoryHopperDetected`): would let a

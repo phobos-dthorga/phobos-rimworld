@@ -15,6 +15,9 @@
       <li Class="PipeSystem.FactoryHopperExtension">
         <isfactoryHopper>true</isfactoryHopper>
       </li>
+      <!-- 0.7.0: belts take only corpses the fridge's storage filter allows, so a stray item (a slag chunk in the
+           owner's game, 30 Oct 2026) stays for haulers instead of jamming the corpse line. -->
+      <li Class="Phobos.Factory.BeltFilterExtension" />
     </value>
   </Operation>
 

@@ -1,3 +1,5 @@
+using System.Linq;
+using PipeSystem;
 using RimWorld;
 using VanillaFurnitureExpandedFactory;
 using Verse;
@@ -5,12 +7,14 @@ using Verse;
 namespace Phobos.Factory;
 
 /// <summary>
-/// What the "Belts may take from here" switch means. A switched-on storage building feeds VFE Factory's belts
-/// the way a factory hopper does, with one difference: only a belt that points straight away from it (the
-/// storage directly behind the belt) takes from it, one whole stack at a time, whatever the belt's filter says.
-/// A hopper also feeds belts that have it at their side; storage doesn't, so belts can run past it (owner,
-/// 29 Oct 2026). A factory machine reads it when it stands on an input cell. Like a factory hopper, it reads the
-/// items lying on the storage's cells, which is how vanilla shelves and Adaptive Storage hold them.
+/// What belts may take from storage that isn't a factory hopper. A building switched on with "Belts may take
+/// from here" feeds VFE Factory's belts the way a factory hopper does, with two differences: only a belt that
+/// points straight away from it (the storage directly behind the belt) takes from it, and only stacks the
+/// storage's own filter allows. A hopper also feeds belts that have it at their side; storage doesn't, so belts
+/// can run past it (owner, 29 Oct 2026). A factory machine reads it when it stands on an input cell. Storage whose
+/// Def VFE Factory treats as a hopper and that carries <see cref="BeltFilterExtension"/> (the corpse fridge) keeps
+/// the hopper's sides but obeys its filter too (0.7.0). Like a factory hopper, this reads the items lying on the
+/// storage's cells, which is how vanilla shelves and Adaptive Storage hold them.
 /// </summary>
 public static class BeltAccess
 {
@@ -20,6 +24,9 @@ public static class BeltAccess
     /// factory hopper, which it checks every tick; the saving matters with large storage beside idle belts.
     /// </summary>
     public const int PullScanIntervalTicks = 10;
+
+    /// <summary>Whether any loaded storage Def carries <see cref="BeltFilterExtension"/>; worked out on first use, once Defs are loaded.</summary>
+    private static bool? anyFilteredHopperDefs;
 
     public static bool BeltsMayTake(Building_Storage storage) => storage.GetComp<CompBeltAccess>()?.BeltsMayTake == true;
 
@@ -35,20 +42,48 @@ public static class BeltAccess
     public static bool HasStorageToTakeFrom(Building_Conveyor belt) => SwitchedOnStorage(belt, Behind(belt)) != null;
 
     /// <summary>
-    /// Moves the first stack found on switched-on storage onto the belt, through VFE Factory's own hand-over, when
+    /// Moves the first stack on switched-on storage that its filter allows onto the belt, when
     /// <paramref name="side"/> is behind the belt. Looks only every <see cref="PullScanIntervalTicks"/> ticks.
     /// </summary>
     public static bool TryTakeFrom(Building_Conveyor belt, Rot4 side)
     {
         if (side != Behind(belt) || !belt.IsHashIntervalTick(PullScanIntervalTicks) || !belt.HasSpace()) return false;
         var storage = SwitchedOnStorage(belt, side);
-        if (storage == null) return false;
+        return storage != null && TakeFirstAllowed(belt, storage);
+    }
+
+    /// <summary>
+    /// Storage at <paramref name="side"/> of the belt that VFE Factory would take from as a hopper but whose Def
+    /// asks belts to obey its filter (<see cref="BeltFilterExtension"/>); null for anything else, which VFE Factory
+    /// handles as before.
+    /// </summary>
+    public static Building_Storage? FilteredHopperAt(Building_Conveyor belt, Rot4 side)
+    {
+        // VFE Factory asks up to three times a tick per empty belt beside a hopper; without any such Def loaded
+        // (no [sbz] Fridge) this is the whole cost.
+        anyFilteredHopperDefs ??= DefDatabase<ThingDef>.AllDefsListForReading.Any(def => def.HasModExtension<BeltFilterExtension>());
+        if (anyFilteredHopperDefs == false) return null;
+        var storage = StorageAt(belt, side);
+        if (storage == null || !storage.def.HasModExtension<BeltFilterExtension>()) return null;
+        return storage is Building_FactoryHopper || storage.def.GetModExtension<FactoryHopperExtension>()?.isfactoryHopper == true
+            ? storage
+            : null;
+    }
+
+    /// <summary>
+    /// Moves the first stack on the storage that its filter allows onto the belt, whole, as VFE Factory takes from
+    /// a hopper: Thing.SplitOff of a whole stack despawns it, and ReceiveBypass starts it moving. Stacks the filter
+    /// rejects stay where they are; haulers move them on, because the storage doesn't accept them.
+    /// </summary>
+    public static bool TakeFirstAllowed(Building_Conveyor belt, Building_Storage storage)
+    {
         var map = belt.Map;
+        var settings = storage.GetStoreSettings();
         foreach (var cell in storage.AllSlotCellsList())
         {
             foreach (var thing in map.thingGrid.ThingsListAtFast(cell))
             {
-                if (thing.def.category != ThingCategory.Item) continue;
+                if (thing.def.category != ThingCategory.Item || !settings.AllowedToAccept(thing)) continue;
                 belt.ReceiveBypass(thing.SplitOff(thing.stackCount));
                 return true;
             }
@@ -72,10 +107,14 @@ public static class BeltAccess
 
     private static Building_Storage? SwitchedOnStorage(Building_Conveyor belt, Rot4 side)
     {
+        var storage = StorageAt(belt, side);
+        return storage != null && BeltsMayTake(storage) ? storage : null;
+    }
+
+    private static Building_Storage? StorageAt(Building_Conveyor belt, Rot4 side)
+    {
         var map = belt.Map;
         var cell = belt.Position + side.FacingCell;
-        if (map == null || !cell.InBounds(map)) return null;
-        var storage = cell.GetFirstThing<Building_Storage>(map);
-        return storage != null && BeltsMayTake(storage) ? storage : null;
+        return map != null && cell.InBounds(map) ? cell.GetFirstThing<Building_Storage>(map) : null;
     }
 }

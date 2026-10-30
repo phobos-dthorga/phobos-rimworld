@@ -11,12 +11,13 @@ on only while its mod is active (Medicines+, Deep Pills, Ushankas Biological War
 Rimatomics, Hemofungus, Complementary Odyssey, Glitterworld Medicine Production, Farmable Neutroamine,
 Passive Exoskeletons, Simple Washing Machine).
 
-Version 0.6.1, built 30 October 2026 for House D'thorga. **Tested in game:** the human-meat bill (owner,
+Version 0.7.0, built 30 October 2026 for House D'thorga. **Tested in game:** the human-meat bill (owner,
 28 October 2026, RimWorld 1.7), the drug-lab bills appearing on their machines (owner, 29 October 2026), and
 belts taking from switched-on storage, only when they point away from it (owner, 29 and 30 October 2026). The
 corpse fridge change, running the 0.3.0 bills to the end, the 0.3.2 chemfuel repair, the 0.4.0 deep factory
 hopper, everything in 0.5.0 and 0.5.1 (the fabrication bay and the output fix), machine input cells on
-switched-on storage, and the switch surviving a save and load are not yet tested in game.
+switched-on storage, the switch surviving a save and load, and everything in 0.7.0 (stuck belts waking, belts
+obeying storage filters) are not yet tested in game.
 
 ## Read this first (gotchas)
 
@@ -35,6 +36,14 @@ switched-on storage, and the switch surviving a save and load are not yet tested
   belt's filter says**. Belts that only run past the storage leave it alone (under 0.6.0 they took from it
   too). A factory machine whose input cell is on it takes ingredients from it. **Don't point a belt back into
   storage it takes from**, or the items go round for ever.
+- **Belts take only what the storage's own filter allows (0.7.0)**, from switched-on storage and from the
+  corpse fridge. Anything else stays for your haulers. **If a belt ignores something on switched-on storage,
+  tick it in that storage's filter.** Rimefeller unloading bays under Combat Extended may need **FSX** ticked.
+  Factory hoppers and chemfuel taps are unchanged: belts take whatever is on them.
+- **Stuck belts start again by themselves (0.7.0).** VFE Factory belts could get stuck empty and never move
+  again, even after a reload; the only fix was rebuilding them. Now they wake on their own, and the log says
+  where ("Woke a stuck conveyor at ...", up to 10 a session). **A belt holding an item the storage ahead refuses
+  still waits**: right-click it with a colonist and pick **Haul from conveyor**.
 - **Machines still put finished goods only into factory hoppers.** The switch is for taking, not for output.
 - **The fabrication bay looks exactly like the automated machining bay** until it has art of its own. Select it
   to see which is which. It needs **Complex factories and Fabrication** research.
@@ -77,12 +86,14 @@ switched-on storage, and the switch surviving a save and load are not yet tested
   fixed textures). Select it to see which it is. Like every factory hopper it starts at **Low** priority.
 - **A belt touching the corpse fridge empties it.** Once the fridge counts as a factory hopper, any belt
   that has the fridge directly behind it or at either side pulls corpses out whenever the belt has room,
-  whatever the belt's own filter says. Keep belts you do not want fed away from the fridge's four cells.
+  whatever the belt's own filter says. Keep belts you do not want fed away from the fridge's four cells. Since
+  0.7.0 it takes only what the **fridge's** filter allows, so a stray item (a slag chunk, say) no longer rides
+  out and jams the corpse line.
 - **Safe to add to a running save.** Before removing it, remove every bill this mod added from each
   machine's Processes tab and let any running batch finish; otherwise the first load afterwards should log
   an error about a missing process and drop that bill (expected, not yet checked). **Deconstruct every deep
   factory hopper and every fabrication bay** too; the items on a hopper stay where they are. The fridge
-  change and the output fix leave nothing in the save. Each switched-on storage saves one setting, which the
+  change, the output fix and the 0.7.0 belt fixes leave nothing in the save. Each switched-on storage saves one setting, which the
   game should drop without a message once the mod is gone (expected, not yet checked); its items stay put.
 - **Nothing is published on the Steam Workshop yet.** Install from source with `scripts/deploy.py`.
 - **Tested in game: the human-meat bill, and the 0.3.1 fix.** The owner confirmed on 28 October 2026, on
@@ -110,7 +121,7 @@ belt rows in game on 30 October 2026, and the machine rows are not yet seen in g
 
 | Where it is | What happens |
 | --- | --- |
-| **Directly behind a belt** (the belt points straight away from it) | The belt takes **one whole stack at a time**, the first it finds, whenever it has room, **whatever the belt's filter says**, as it would from a factory hopper. It goes before a factory hopper at the belt's side: VFE Factory tries the cell behind a belt first. |
+| **Directly behind a belt** (the belt points straight away from it) | The belt takes **one whole stack at a time**, the first **the storage's filter allows** (0.7.0), whenever it has room, **whatever the belt's filter says**, as it would from a factory hopper. It goes before a factory hopper at the belt's side: VFE Factory tries the cell behind a belt first. |
 | **At a belt's side** (the belt runs past it) | Nothing: the belt carries on past (0.6.1). A factory hopper there would feed the belt; switched-on storage doesn't, so belts can run along storage. |
 | **In front of a belt** (the belt points into it) | The belt delivers into it, as before. That is stock VFE Factory for any storage whose filter accepts the item. |
 | **On a factory machine's input cell** | The machine takes ingredients from it, as from a factory hopper. Storage that holds several stacks on one cell (most Adaptive Storage shelves) then works like a deep factory hopper. |
@@ -142,6 +153,39 @@ chemfuel taps and the corpse fridge already feed belts all the time and keep doi
 
 If a Vanilla Expanded update changes the belt code, the switch stops working, the log names the part that
 switched off, and everything else carries on.
+
+### Stuck belts start again, and belts obey storage filters (0.7.0)
+
+Two faults found in the owner's colony on 30 October 2026, when the human-meat neutroamine line stopped with
+75 meat waiting in the mincer's hopper. Read from VFE Factory's code and the owner's save; not yet tested in
+game.
+
+**Stuck belts.** A VFE Factory belt that is **empty but marked as waiting** skips its whole update, so it never
+takes from the hopper behind it again. A reload keeps it stuck, and so does **Change direction**; in VFE
+Factory alone you have to rebuild it. The owner's colony had nine, two of them on the meat line. Now:
+
+- a stuck belt wakes on its own and carries on, belts and underground entrances and exits alike, including
+  belts already stuck in your save;
+- the log says where, for example "Woke a stuck conveyor at (224, 0, 114)", up to 10 times a session.
+  **What makes belts stick is not known yet**, so if you see these lines, the positions help find it.
+
+**Belts obey storage filters.** VFE Factory's belts take the first thing they find on a hopper, whatever it is.
+On a fridge or shelf that also holds a stray item, the belt carries that item to the next storage, which
+refuses it, and the whole line behind it waits for ever. In the owner's colony a steel slag chunk rode out of
+the corpse fridge and blocked every corpse belt behind the mincer's hopper. Now:
+
+| Storage | What belts take |
+| --- | --- |
+| **Corpse fridge** ("[sbz] Fridge") | Only corpses its filter allows. Anything else stays; haulers take it away. |
+| **Switched-on storage** ("Belts may take from here") | Only what its filter allows. **If belts ignore something, tick it in the storage's filter.** |
+| **Factory hoppers, deep factory hoppers, chemfuel taps** | Unchanged: whatever is on them. Machines put their output on hoppers whatever the hopper's filter says, so obeying it would stop working lines. |
+
+**Gotcha for Rimefeller under Combat Extended:** Rimefeller lets an unloading bay hold FSX but doesn't tick FSX
+in a new bay's filter. If you switch a bay on and its belt leaves the FSX, tick FSX in the bay's filter.
+
+**What it costs** (estimate from the code, not measured): two quick checks per belt per tick for stuck belts;
+the filter check only when a belt takes from the corpse fridge or switched-on storage. Without "[sbz] Fridge",
+the fridge check costs nothing.
 
 ### The automated fabrication bay (0.5.0)
 
@@ -381,7 +425,8 @@ ingredients from. This mod flags the **corpse fridge** from seobongzu's "[sbz] F
 Framework building, 2 x 2, 20 corpses). Expected from the code, not yet seen in game:
 
 - A belt with the fridge directly behind it, or at either side, pulls one corpse at a time out of the
-  fridge whenever the belt has room, and carries it on as it would from a hopper.
+  fridge whenever the belt has room, and carries it on as it would from a hopper. Since 0.7.0 it takes only
+  what the fridge's storage filter allows (its storage group's filter, if the fridge is linked to others).
 - An automated mincer whose input cell (the cell in front of its hopper side) lands on one of the fridge's
   four cells takes corpses straight from the fridge, no belt needed.
 - A belt pointed **into** the fridge already delivered corpses to it before this mod; that is stock
@@ -450,12 +495,17 @@ extension to its Def instead; the switch then leaves it alone:
     <li Class="PipeSystem.FactoryHopperExtension">
       <isfactoryHopper>true</isfactoryHopper>
     </li>
+    <!-- Optional, 0.7.0: belts take only what this storage's filter allows. -->
+    <li Class="Phobos.Factory.BeltFilterExtension" />
   </value>
 </Operation>
 ```
 
 It works only for storage whose items stay spawned on its cells (vanilla shelves, Adaptive Storage buildings);
-the belt reads the map's thing grid. The full reading is in
+the belt reads the map's thing grid. Without `BeltFilterExtension` a belt takes whatever lies there, VFE
+Factory's own rule for hoppers. Add the `BeltFilterExtension` line only from a folder that loads while this
+mod is active (`IfModActive="PhobosDthorga.FactoryAdditions"`); without this mod the game doesn't know the
+class. The full reading is in
 [docs/development/vfe-factory-conveyors.md](../../docs/development/vfe-factory-conveyors.md).
 
 **Automating another bench (0.5.0).** Add a `Phobos.Factory.BenchBillTemplateDef` naming the bench and a
@@ -515,9 +565,17 @@ Optional fields: `excludedThings` (items to leave at the bench), `workMultiplier
   happens inside the game.
 - 30 October 2026, 0.6.1: VFE Factory's pull order re-read (behind, then clockwise, then counter-clockwise; the
   side it passes is the direction from the belt to the neighbour). Builds with no warnings.
+- 30 October 2026, 0.7.0: the owner's PG6 save read (a read-only copy): 9 of 579 belts stuck empty and
+  waiting, two on the meat line; the slag chunk's last cell on the corpse fridge; the one switched-on building
+  and all 25 unloading bays allow what they hold. VFE Factory's belt tick, state changes, pull, hand-over and
+  "Haul from conveyor" job read in its assembly; the game's container add, `Thing.SplitOff`, storage settings
+  and storage-group lookup read in the RimWorld 1.7 assembly. Builds with no warnings; the stuck-belt rule has
+  unit tests.
 - **Not checked:** whether each new bill feeds, finishes and outputs as expected; whether the two corner
   input cells work; whether a belt takes chemfuel from a tap (0.3.2); whether the stock bill now refuses human meat, whether a belt
   actually lifts a corpse out of the fridge, and what happens on removal. For 0.5.0 and 0.5.1: everything in
   game, starting with the startup log line, the bay's Add process menu, one bionic made end to end, and a
   machine waiting at a full output hopper instead of eating its inputs. For 0.6.0 and 0.6.1: the startup log
-  line, a machine's input cell on switched-on storage, and the switch surviving a save and load.
+  line, a machine's input cell on switched-on storage, and the switch surviving a save and load. For 0.7.0:
+  the stuck belts in the owner's save waking on load (expect "Woke a stuck ..." log lines), and a stray item
+  staying on the corpse fridge while corpses ride out.

@@ -74,6 +74,18 @@ cells**: its code listens to `ThingGrid.DeregisterInCell` to learn when an item 
 "pack contents". So the belt's thing-grid read sees them. A 2 x 2 fridge with `maxItemsInCell` 5 holds 20
 corpses across its four cells; the belt takes them one at a time (a corpse is a stack of 1).
 
+## A belt that stops for good: empty and Waiting (code read 30 Oct 2026)
+
+`Building_Conveyor.Tick` returns at once while the belt holds nothing and its `state` is `Waiting`, and the
+belt pulls from a hopper only while it is not `Waiting`. Only an item pushed in by another belt wakes it, so a
+belt fed only by a hopper stays stopped. The state is saved, and "Change direction" doesn't reset it: in stock
+VFE Factory the fix is to rebuild the belt. VFE Factory sets `Waiting` only while a belt holds something, so
+something outside the belt's code empties these; what it is is not known yet. D'thorga Factory Additions 0.7.0
+wakes such belts (details in [vfe-factory-additions.md](vfe-factory-additions.md)).
+
+A belt holding an item that the storage ahead refuses waits for ever as well, and every belt behind it fills
+up. VFE Factory's own "Haul from conveyor" right-click (offered while a belt waits with an item) clears it.
+
 ## Recipe: let belts and machines take from another storage building
 
 One patch operation on the storage's Def, in a folder loaded only while that mod is active:
@@ -94,7 +106,9 @@ mod does it to the corpse fridge of "[sbz] Fridge" (`Mods/SbzFridge/`). Checks b
 
 - it must be a `Building_Storage` whose items stay spawned on its cells (vanilla shelves and Adaptive
   Storage: yes; a container that moves items into a `ThingOwner`, such as a belt or a pod: no);
-- every belt touching it on the belt's back or sides will drain it, filter or not, so warn the player;
+- every belt touching it on the belt's back or sides will drain it, filter or not, so warn the player. With
+  D'thorga Factory Additions 0.7.0, add `<li Class="Phobos.Factory.BeltFilterExtension" />` beside the flag
+  to make belts take only what the storage's own filter allows (the corpse fridge has it);
 - a machine whose input cell lands on it will grab from it, which may be the point.
 
 ## Sources
