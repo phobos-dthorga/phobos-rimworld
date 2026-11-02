@@ -9,4 +9,29 @@
     </value>
   </Operation>
 
+  <!-- Correct the stock uncooked soup yield. The bill uses VFE Factory's meal worker, round(nutrition x 2), so 40 + 40
+       raw food (4 nutrition) gives 8 uncooked soups, and a pot makes 10 soups from each: 64 nutrition from 4. Vanilla
+       Cooking Expanded's own recipe takes 4 nutrition per uncooked soup, so this batch is worth exactly 1. Without
+       the worker the bill uses its count, which we set to 1. Guarded on the worker, so if VFE Factory corrects the
+       bill itself this does nothing and logs no error. Owner's decision, 2 Nov 2026. -->
+  <Operation Class="PatchOperationConditional">
+    <xpath>Defs/PipeSystem.ProcessDef[defName="VFEFactory_MakeSimpleSoup"]/results/li[thing="VCE_UncookedSoupSimple"]/workerClass</xpath>
+    <match Class="PatchOperationSequence">
+      <operations>
+        <li Class="PatchOperationRemove">
+          <xpath>Defs/PipeSystem.ProcessDef[defName="VFEFactory_MakeSimpleSoup"]/results/li[thing="VCE_UncookedSoupSimple"]/workerClass</xpath>
+        </li>
+        <li Class="PatchOperationRemove">
+          <xpath>Defs/PipeSystem.ProcessDef[defName="VFEFactory_MakeSimpleSoup"]/results/li[thing="VCE_UncookedSoupSimple"]/outputStringOverride</xpath>
+        </li>
+        <li Class="PatchOperationReplace">
+          <xpath>Defs/PipeSystem.ProcessDef[defName="VFEFactory_MakeSimpleSoup"]/results/li[thing="VCE_UncookedSoupSimple"]/count</xpath>
+          <value>
+            <count>1</count>
+          </value>
+        </li>
+      </operations>
+    </match>
+  </Operation>
+
 </Patch>

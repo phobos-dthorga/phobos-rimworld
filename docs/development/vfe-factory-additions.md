@@ -524,12 +524,18 @@ lines (screenshot: a deep factory hopper holding 24 uncooked simple soups, 3.9 d
 sound and effect, with `useIngredients` so meat thoughts carry over. Added to `VFEFactory_ConveyorOven`. The stock
 bill stays.
 
+**What 0.9.1 does.** The owner agreed the 80 soups were wrong and asked for the stock bill to be fixed in this mod
+(2 Nov 2026), expecting VFE Factory's authors to go the same way (the owner's expectation; they have said nothing we
+have read). `VFEFactory_MakeSimpleSoup` loses its worker and output text and gets count 1: 4 nutrition for 1 uncooked
+soup, exactly `VCE_CookSoupSimple`. Agent choice: guarded on the worker being there, so a later VFE fix turns it off
+quietly. Pipe System's default `ResultWorker` returns the count, so nothing else is needed.
+
 **Agent choices (owner to revise).**
 
-- **Yield: the hand recipe's 2 times, not the stock route's 16 times.** The rule against value from nothing decides
-  it: 80 raw food would become 960 silver with no colonist or pot. For more food per raw unit, lower the ingredient
-  counts rather than raising the batch, which has to stay small enough to leave an output limit.
-- **A second bill, not a change to the stock bill.** Canning lines and pots still need uncooked soup.
+- **Yield: the hand recipe's 2 times, not the stock route's 16 times** (the owner agreed, 2 Nov 2026). For more food
+  per raw unit, lower the ingredient counts rather than raising the batch, which has to stay small enough to leave an
+  output limit.
+- **A second bill as well as the stock one.** Canning lines and pots still need uncooked soup.
 - **A fixed batch, not VFE's meal worker.** The worker would give 4 soups, under the hand recipe, and its output line
   talks about meals. A fixed count ignores unusual nutrition, as stock drug bills do.
 - **6000 ticks** (authored), 25% longer than meals for 11% more food: a trade rather than a straight upgrade.

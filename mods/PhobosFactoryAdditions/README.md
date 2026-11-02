@@ -13,13 +13,13 @@ on only while its mod is active (Medicines+, Deep Pills, Ushankas Biological War
 Rimatomics, Hemofungus, Complementary Odyssey, Glitterworld Medicine Production, Farmable Neutroamine,
 Passive Exoskeletons, Simple Washing Machine).
 
-Version 0.9.0, built 2 November 2026 for House D'thorga. **Tested in game:** the human-meat bill (owner,
+Version 0.9.1, built 2 November 2026 for House D'thorga. **Tested in game:** the human-meat bill (owner,
 28 October 2026, RimWorld 1.7), the drug-lab bills appearing on their machines (owner, 29 October 2026), and
 belts taking from switched-on storage, only when they point away from it (owner, 29 and 30 October 2026). The
 corpse fridge change, running the 0.3.0 bills to the end, the 0.3.2 chemfuel repair, the 0.4.0 deep factory
 hopper, everything in 0.5.0 and 0.5.1 (the fabrication bay and the output fix), machine input cells on
 switched-on storage, the switch surviving a save and load, everything in 0.7.0 (stuck belts waking, belts
-obeying storage filters), the 0.8.0 synthread medicine bill and the 0.9.0 soup bill are not yet tested in game.
+obeying storage filters), the 0.8.0 synthread medicine bill and the 0.9.0 and 0.9.1 soup bills are not yet tested in game.
 
 ## Read this first (gotchas)
 
@@ -87,8 +87,10 @@ obeying storage filters), the 0.8.0 synthread medicine bill and the 0.9.0 soup b
 - **Soup that comes out cooked (0.9.0, needs Vanilla Cooking Expanded).** On the conveyor oven, **remove Prepare
   simple soup and add Cook simple soup**. It takes **20 raw meat and 20 raw plant food** for **5 ready-to-eat
   soups**. **Tick "simple soup" in the filter of any storage a belt carries it into**, or the belt waits for ever.
-  **Clear any uncooked soup out of the output hopper first.** It makes far fewer soups per batch than the uncooked
-  bill plus a pot; "Cooked soup on the conveyor oven" below says why.
+  **Clear any uncooked soup out of the output hopper first.**
+- **The stock soup bill makes much less now (0.9.1).** VFE Factory's **Prepare simple soup** makes **1 uncooked soup a
+  batch, not 8**. A pot still turns it into 10 soups. **A cannery needs about three ovens to stay busy**;
+  "Cooked soup on the conveyor oven" below says why.
 - **The stock bill stops taking human meat** once this mod is on. Human meat sitting in a hopper that feeds
   the stock "Synthesize neutroamine" bill will stay there until you add the human-meat bill or move it.
 - **Tick the ingredient in the hopper's storage filter**, and raise the hopper's priority (factory hoppers
@@ -354,12 +356,14 @@ that and puts finished soup in the output hopper. Not yet tested in game.
 | Cook simple soup (this bill) | 20 meat, 20 plant food | 5 soups | 4.0 | 6,000 ticks |
 | Mass-produced meals, for comparison | 20 meat, 20 plant food | 4 meals | 3.6 | 4,800 ticks |
 | Bench and pot, by hand (Vanilla Cooking Expanded) | 4 nutrition, about 80 units | 10 soups | 8.0 | 2 days in the pot |
-| Stock oven bill and pot | 40 meat, 40 plant food | 80 soups | 64.0 | 4,800 ticks, then 2 days in a pot per 10 soups |
+| Stock oven bill and pot, corrected in 0.9.1 | 40 meat, 40 plant food | 10 soups | 8.0 | 4,800 ticks, then 2 days in the pot |
+| Stock oven bill and cannery | 40 meat, 40 plant food, 1 steel | 10 canned soups | 9.0 | 4,800 ticks, then 15,200 ticks |
 
-**The yield is an agent choice:** it matches Vanilla Cooking Expanded's own recipe, 2 nutrition of raw food for 5
-soups. The stock oven bill gives eight times that, because it borrows the formula VFE Factory uses for meals; that
-looks like an oversight to me, not a design. Copying it here would turn 80 raw food into 960 silver of soup with no
-colonist involved. The 6,000 ticks are authored, so soup gets more out of the food and meals more out of the machine.
+**The yields follow Vanilla Cooking Expanded's own recipe**, 2 nutrition of raw food for 5 soups. Before 0.9.1 the
+stock oven bill made 8 uncooked soups a batch, so 80 raw food became 80 soups: 64 nutrition from 4, worth 960 silver.
+It borrows the formula VFE Factory uses for meals, and the pot then multiplies the result again. That looks like an
+oversight (our reading of the files, not anything VFE Factory's authors have said). The 6,000 ticks are authored, so
+soup gets more out of the food and meals more out of the machine.
 
 ### Drug lab recipes as medicine granulator bills (0.3.0)
 
@@ -655,3 +659,5 @@ Optional fields: `excludedThings` (items to leave at the bench), `workMultiplier
   installed mods' XML; VFE Factory's meal formula and Pipe System's output step read in their decompiled
   assemblies. The owner's screenshot of 24 uncooked soups fits batches of 8. `scripts/check-factory-patches.py`
   passes. Not yet tested in game.
+- 2 November 2026, 0.9.1: Pipe System's default result worker read (it returns the bill's count).
+  `scripts/check-factory-patches.py` passes with the stock soup correction. Not yet tested in game.

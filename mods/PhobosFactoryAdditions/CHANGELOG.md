@@ -5,6 +5,29 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.9.1] - 2026-11-02 - Draft
+
+The stock soup bill no longer makes 16 times the food put in. Owner's decision. Not yet tested in game.
+
+### Balance
+
+- With Vanilla Cooking Expanded: VFE Factory's Prepare simple soup now makes 1 uncooked soup a batch instead of 8.
+  40 raw meat and 40 raw plant food hold 4 nutrition, which is what Vanilla Cooking Expanded's own recipe asks for
+  one uncooked soup. That soup then makes 10 soups in a pot (8 nutrition) or 10 canned soups in the cannery (9).
+- The bill's time and ingredients are unchanged, so a cannery now needs about three ovens to keep it busy. Before,
+  one oven kept it busy many times over.
+
+### Save compatibility
+
+- Safe to add. Uncooked soup already made stays and cooks as before, and a batch in progress finishes at the new
+  yield. Removing the mod brings back the 8 a batch.
+
+### Compatibility and limits
+
+- If VFE Factory corrects the bill itself, this change steps aside and logs nothing.
+- Only the simple soup bill is changed, because VFE Factory has no other. Its mass-produced meals use the same
+  formula correctly and are unchanged.
+
 ## [0.9.0] - 2026-11-02 - Draft
 
 Soup that comes out of a factory ready to eat. VFE Factory's only soup bill makes uncooked soup, which then needs
