@@ -7,7 +7,7 @@
     <AssemblyName>PhobosVehiclePatches</AssemblyName>
     <OutputPath>../../mods/PhobosVehiclePatches/Mods/HarrierVtol/Assemblies/</OutputPath>
     <DebugType>none</DebugType>
-    <Version>0.2.0</Version>
+    <Version>0.3.0</Version>
     <!-- Vehicle Framework's assembly (MIT), referenced from the installed mod and never copied. Its 1.6 folder is the
          newest one; the game loads it on 1.7 too. Override with -p:VehicleFrameworkAssemblies=... -->
     <VehicleFrameworkAssemblies Condition="'$(VehicleFrameworkAssemblies)' == ''">C:\Program Files (x86)\Steam\steamapps\workshop\content\294100\3014915404\1.6\Assemblies</VehicleFrameworkAssemblies>

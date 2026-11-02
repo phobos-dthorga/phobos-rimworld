@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+
+  <!--
+    RimThunder's heavy casting (its in-game label is "heavy compoment") at Dead Man's Switch: Expedition's rotary forger,
+    as well as at the electric smelter and assembly platform. Owner's request, 3 Nov 2026.
+
+    The forger runs an ordinary recipe (Fortified.Building_WorkTableAutonomous, read 3 Nov 2026), so naming it among the
+    recipe's benches is all it takes. The guard needs no load order: the game combines every mod's Defs before it applies
+    any patch (LoadedModManager). "success" covers RimThunder's recipe being absent, as it is with Aoba.Motorization.Engine
+    active (RimThunder's StandaloneModule folder doesn't load then).
+  -->
+  <Operation Class="PatchOperationConditional">
+    <xpath>Defs/ThingDef[defName="DMSE_TableLathe"]</xpath>
+    <match Class="PatchOperationAdd">
+      <success>Always</success>
+      <xpath>Defs/RecipeDef[defName="CastFromMold"]/recipeUsers</xpath>
+      <value>
+        <li>DMSE_TableLathe</li>
+      </value>
+    </match>
+  </Operation>
+
+</Patch>

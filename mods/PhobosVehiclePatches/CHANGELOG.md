@@ -5,6 +5,28 @@ yet. Not yet tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-11-03 - Draft
+
+Owner's request. Not yet tested in game.
+
+### Added
+
+- RimThunder's heavy casting (its in-game name is heavy compoment) can now be made at the rotary forger from The Dead Man's Switch - Expedition, as
+  well as at the electric smelter and assembly platform. It costs the same 100 steel and still gives a lump of steel slag.
+
+### Dependencies
+
+- None added. It switches on only while RimThunder is active and the forger exists.
+
+### Save compatibility
+
+- Safe to add. Before removing this mod, delete any heavy casting bills you added at a forger, because the forger may no longer list that recipe.
+
+### Compatibility and limits
+
+- The forger saves no colonist time on this recipe. Loading and collecting take a colonist about 600 ticks in all, against about 500 at the smelter, because the recipe is so short.
+- Without RimThunder's own parts module, which Aoba.Motorization.Engine replaces, the recipe isn't there and this does nothing.
+
 ## [0.2.0] - 2026-11-03 - Draft
 
 Owner's request. Not yet tested in game.

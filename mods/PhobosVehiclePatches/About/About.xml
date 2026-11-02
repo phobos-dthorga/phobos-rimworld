@@ -4,7 +4,7 @@
   <name>D'thorga Vehicle Patches</name>
   <author>Phobos A. D'thorga</author>
   <url>https://github.com/phobos-dthorga/phobos-rimworld</url>
-  <modVersion>0.2.0</modVersion>
+  <modVersion>0.3.0</modVersion>
   <description>Patches for other authors' vehicle mods, each switched on only while that mod is active. It copies nothing from them.
 
 Harrier VTOL Attack Aircraft:
@@ -16,6 +16,10 @@ A fix for the jet failing to load fully when RimPacts is active. The Harrier's f
 With Combat Extended, bombs whose ingredients are closer to what they weigh. The Drop Tanks upgrade uses Vanilla Vehicles Expanded fuel tanks.
 
 With The Dead Man's Switch and Combat Extended, the bombs and 57 mm rockets can also be made at its ammunition fabricator.
+
+RimThunder and The Dead Man's Switch - Expedition:
+
+RimThunder's heavy casting can also be made at the rotary forger.
 
 Load it after the mods it patches. It does nothing if none of them is active.
 

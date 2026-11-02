@@ -4,9 +4,11 @@
   <v1.6>
     <li>/</li>
     <li IfModActive="potemkinvillager.av8bharrier">Mods/HarrierVtol</li>
+    <li IfModActive="RimThunder.Core">Mods/RimThunder</li>
   </v1.6>
   <v1.7>
     <li>/</li>
     <li IfModActive="potemkinvillager.av8bharrier">Mods/HarrierVtol</li>
+    <li IfModActive="RimThunder.Core">Mods/RimThunder</li>
   </v1.7>
 </loadFolders>

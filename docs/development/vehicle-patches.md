@@ -125,6 +125,24 @@ it to each of the five bombs' `recipeMaker/recipeUsers`, which `RecipeDefGenerat
 
 **Owner's save** (Autosave-4, read only, 3 Nov 2026): two fabricators, at (199, 259) and (193, 259).
 
+## Heavy castings at the rotary forger (0.3.0, 3 Nov 2026)
+
+**Owner's request:** make RimThunder's heavy component at the rotary forger. The item is `ComponentHeavyCasting` (its recipe and label say "heavy compoment", so the owner's spelling note is RimThunder's own) and the forger is `DMSE_TableLathe` from The Dead Man's Switch - Expedition. `Mods/RimThunder/Patches/Forger_RimThunder.xml` adds the forger to the `recipeUsers` of `CastFromMold`, RimThunder's only recipe for it. No other installed mod's XML mentions that recipe.
+
+**Why that's enough.** The forger's parent is `DMS_AutofacturerBenchBase`, so it's the same `Fortified.Building_WorkTableAutonomous` as the fabricator, and Expedition's `Patches.xml` adds it to `DMS_Operate`. See the fabricator section for how the machine treats a recipe.
+
+| Step | Behaviour (read from the code and Defs, not seen in play) |
+| --- | --- |
+| Time | `workAmount` 500 / `WorkTableWorkSpeedFactor` 2: 250 ticks, one 30,000-work stage. `SmeltingSpeed` plays no part on the machine |
+| Colonist | `DMS_Operate`, Crafting work. Loading and finishing each wait 300 ticks (`workTime` is unset, so the default). No skill or research on the recipe; the forger itself needs `DMS_Autofacturer` |
+| Output | Both products, the casting and `ChunkSlagSteel`, are placed `Near` the interaction cell |
+
+**Candid limit, agent's reading:** at the smelter this is about 500 ticks of colonist work at base `SmeltingSpeed`, so the forger takes slightly more colonist time for this short recipe. It helps with bench queues and who does the work, not speed.
+
+**Realism note, agent's reading.** Rotary forging suits shafts and similar round parts, such as RimThunder's "cranks", and less so its cylinders and manifolds. The recipe is a shared one, says "Casting metal" and still gives slag, a simplification kept so there's one recipe. A separate forged recipe with no slag would be a small addition if the owner wants it.
+
+**Owner's save** (PG16, read only, 3 Nov 2026): two forgers, at (221, 264) and (234, 264).
+
 ## Decisions
 
 | Date | Decision | Who |
@@ -141,6 +159,8 @@ it to each of the five bombs' `recipeMaker/recipeUsers`, which `RecipeDefGenerat
 | 2 Nov 2026 | Work and research for bombs left unchanged | agent default |
 | 3 Nov 2026 | The Harrier's bombs at the ammunition fabricator | owner (request) |
 | 3 Nov 2026 | The Harrier's rockets there too | owner (request) |
+| 3 Nov 2026 | RimThunder's heavy casting at the rotary forger | owner (request) |
+| 3 Nov 2026 | Same recipe, slag included, smelter and platform kept; in the vehicle patches mod, in its own folder | agent defaults |
 | 3 Nov 2026 | Keep the machining table as well, same costs; rockets stay in 0.2.0, which was never installed or released | agent defaults |
 
 ## Not changed, for the owner to decide

@@ -1,20 +1,21 @@
 # D'thorga Vehicle Patches
 
-Patches for other authors' vehicle mods, each switched on only while that mod is active. So far it covers **Harrier VTOL
-Attack Aircraft** by potemkinvillager: a realistic build cost, a fix for the jet failing to load fully alongside RimPacts,
+Patches for other authors' vehicle mods, each switched on only while that mod is active. It lets RimThunder's heavy casting be made at
+the rotary forger, and covers **Harrier VTOL Attack Aircraft** by potemkinvillager: a realistic build cost, a fix for the jet failing to load fully alongside RimPacts,
 honest bomb costs under Combat Extended, bombs and rockets at The Dead Man's Switch's ammunition fabricator, and fuel tanks for its
 Drop Tanks upgrade. It copies nothing from those mods.
 
-Version 0.2.0, built 3 November 2026 for House D'thorga. **Not yet tested in game.**
+Version 0.3.0, built 3 November 2026 for House D'thorga. **Not yet tested in game.**
 
 ## Read this first (gotchas)
 
 - **Load it after the mods it patches.** The About file asks for this, so RimSort does it for you. **You have to switch it on
-  yourself**: nothing else requires it. It needs nothing else to run, and does nothing without the Harrier.
+  yourself**: nothing else requires it. It needs nothing else to run, and does nothing without the mods it patches.
 - **Safe to add to a running save.** A jet you already built keeps working; only new builds pay the new cost. Bombs already made
   stay as they are.
 - **Safe to remove.** Costs go back to the Harrier's own, and with RimPacts active the Harrier's framework fails to load fully again.
-  **Delete any bomb or rocket bills you added at an ammunition fabricator first**, because it may no longer list those recipes.
+  **Delete any bomb or rocket bills you added at an ammunition fabricator, and any heavy casting bills at a rotary forger, first**, because they may
+  no longer list those recipes.
 - **The jet now needs RimThunder's turbine, if RimThunder is active.** It's a long job:
   - **Research:** engine making, Otto Cycle and turbocharged. The jet's blueprint stays hidden until they're done.
   - **An assembly platform** to make it on (RimThunder, 200 steel, 15 components).
@@ -108,6 +109,18 @@ all its ammo, and it draws 1,000 W while running and 50 W idle.
 
 The upgrade costs **2 car fuel tanks, 20 steel and 2 components**, in place of 60 steel and 2 components.
 
+### Heavy castings at the rotary forger
+
+With RimThunder and The Dead Man's Switch - Expedition, the heavy casting is also a bill at the **rotary forger**. RimThunder's in-game name for it is
+"heavy compoment", spelt that way. The electric smelter and assembly platform still make it too.
+
+- **Same recipe:** 100 steel makes 1 casting and 1 lump of steel slag. It needs no research of its own and no skill.
+- **A colonist with Crafting work enabled does it**, as the job "Operate Machine".
+- **It saves no colonist time.** The machine's part takes only 250 ticks, but loading and collecting take a colonist about 600 ticks in all, against about 500 at
+  the smelter. It's useful for keeping smelters free or for colonists who do crafting, not for speed.
+- **Finished items drop beside the machine**, whatever the bill's storage setting says. Haulers take them from there.
+- The machine draws 800 W while running and 50 W idle.
+
 ### A log warning
 
 The jet's fuel tank logged "Parsed 2.5 as int" at every start. Writing the value the game already used, 2, stops that and changes nothing else.
@@ -116,7 +129,7 @@ The jet's fuel tank logged "Parsed 2.5 as int" at every start. Writing the value
 
 - The jet's blueprint is under Architect, Vehicles.
 - Bombs and rockets are bills at the machining table, as before, and at The Dead Man's Switch's ammunition fabricator.
-- Heavy castings are a bill at the electric smelter.
+- Heavy castings are a bill at the electric smelter, the assembly platform and the rotary forger.
 - The turbine is a bill at RimThunder's assembly platform.
 
 ## For modders
@@ -127,6 +140,8 @@ patch of the same method**, because Harmony stores a patch as a method token, wh
 
 ## Checks done
 
+- 3 November 2026: RimThunder's recipe and the forger's Def read, and no other installed mod touches that recipe. `scripts/check-factory-patches.py --mod PhobosVehiclePatches`
+  passes: the forger and the recipe exist among the owner's active mods. **Not yet tested in game.**
 - 3 November 2026: the fabricator's bench, job and ingredient code read in the current Fortified framework (31 Oct build), with CE's ammo injector and
   the game's load steps. `scripts/check-factory-patches.py --mod PhobosVehiclePatches` passes: the fabricator, all five bombs and all three rocket recipes
   exist among the owner's active mods. **Not yet tested in game.**
