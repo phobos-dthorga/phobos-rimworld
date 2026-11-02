@@ -13,13 +13,13 @@ on only while its mod is active (Medicines+, Deep Pills, Ushankas Biological War
 Rimatomics, Hemofungus, Complementary Odyssey, Glitterworld Medicine Production, Farmable Neutroamine,
 Passive Exoskeletons, Simple Washing Machine).
 
-Version 0.11.0, built 2 November 2026 for House D'thorga. **Tested in game:** the human-meat bill (owner,
+Version 0.11.1, built 3 November 2026 for House D'thorga. **Tested in game:** the human-meat bill (owner,
 28 October 2026, RimWorld 1.7), the drug-lab bills appearing on their machines (owner, 29 October 2026), and
 belts taking from switched-on storage, only when they point away from it (owner, 29 and 30 October 2026). The
 corpse fridge change, running the 0.3.0 bills to the end, the 0.3.2 chemfuel repair, the 0.4.0 deep factory
 hopper, everything in 0.5.0 and 0.5.1 (the fabrication bay and the output fix), machine input cells on
 switched-on storage, the switch surviving a save and load, everything in 0.7.0 (stuck belts waking, belts
-obeying storage filters), the 0.8.0 synthread medicine bill and the 0.9.0 and 0.9.1 soup bills, the 0.10.0 piped water and the 0.11.0 hopper switch are not yet tested in game.
+obeying storage filters), the 0.8.0 synthread medicine bill and the 0.9.0 and 0.9.1 soup bills, the 0.10.0 piped water, the 0.11.0 hopper switch and the 0.11.1 mincer fix are not yet tested in game.
 
 ## Read this first (gotchas)
 
@@ -69,6 +69,11 @@ obeying storage filters), the 0.8.0 synthread medicine bill and the 0.9.0 and 0.
   they used to eat inputs silently: run a belt out of each output hopper.** Owner's go-ahead, 29 October 2026.
 - **Bills with no output limit drop a batch beside the machine** when it doesn't fit (VFE's stock neutroamine
   bill, Kimoju's drill and neutroamine bills). That is Pipe System's own fallback for such bills.
+- **A corpse now gives its meat once (0.11.1).** Before, a corpse with more meat than its output hopper could hold made
+  meat for ever. **If a line
+  was living on that, such as neutroamine from human meat, it now needs real corpses.** The mincer puts out what its
+  hopper can hold, waits and says "Output factory hopper too full", and takes the next corpse only when the last one's
+  meat is all out. **Keep a belt running out of the output hopper.** A different item sitting in that hopper blocks it too.
 - **The new bills keep their mods' research.** A bill appears in the machine's Add process menu only once
   its research is done: Medicines+ projects for its drugs, each disease's vaccine project for Biological
   Warfare, Deathrest (Biotech) for hemogen, Neutroaleaf refining for leaf neutroamine, and so on. Complex
@@ -306,6 +311,26 @@ output hopper is too full, exactly as Pipe System does when a stack is above the
 mod's factory bills, including batches whose size varies (corpses, ovens, smelting). Bills with **no** limit
 (VFE's stock neutroamine bill, several of Kimoju's) instead drop the batch on a free cell beside the machine,
 Pipe System's own fallback for them. 0.5.0's machining-bay-only fix is replaced by this one.
+
+**Batches bigger than one stack (0.11.1, 3 November 2026; read in the code and the owner's save, not yet tested in
+game).** A mincer's batch is the corpse's meat, 140 for each unit of body size, and meat stacks to 75:
+
+| Corpse | Meat | Stacks | Fits one hopper? | Fits a deep factory hopper (4 stacks, 300)? |
+| --- | --- | --- | --- | --- |
+| Hare (0.2 body size) | 28 | 1 | Yes | Yes |
+| Human | 140 | 2 | No | Yes |
+| Grizzly bear | 301 | 5 | No | **No, by 1** |
+
+Pipe System put down what the hopper could hold, threw the rest away, reported that it had failed, and tried the
+same batch again. So whenever belts emptied the hopper, the machine made another load from the same corpse, and it
+never moved on. **Our 0.5.1 fix above made this worse:** it made the machine wait for the hopper to empty, which
+turned an occasional repeat into a certain one. That's our fault as much as Pipe System's.
+
+**Now the batch comes out in parts.** The machine remembers what is left, puts more down as the hopper makes room, and
+moves on only when none is left. A human gives 140 meat and a grizzly 301, on any hopper, and a save or reload part-way
+doesn't restart the batch. It works for every mod's factory bills. It can't pile the whole batch onto one hopper: on
+RimWorld 1.7, spawning into a full cell throws an item already there onto a nearby cell, which could be a belt carrying
+something else.
 
 ### Neutroamine from human meat
 
@@ -749,3 +774,7 @@ optional and run from 0 to 1. An item without the game's `CompProperties_FoodPoi
 - 2 November 2026, 0.11.0: VFE Factory's belt pull read in its IL as well as decompiled, because the decompiler
   hides the check that refuses ordinary storage. The switch's rules have unit tests, and the assemblies build with no
   warnings. Not yet tested in game.
+- 3 November 2026, 0.11.1: the endless output traced through Pipe System's output step (its 2 November 2026 build) and
+  the game's direct placement and spawn code, in their decompiled 1.7 assemblies, and matched against the owner's save
+  (mincers stuck mid-batch). The rule has unit tests, the assemblies build with no warnings, and
+  `scripts/check-factory-patches.py` passes. Not yet tested in game.

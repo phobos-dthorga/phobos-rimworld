@@ -18,6 +18,15 @@ public class OutputRuleTests
         Assert.True(OutputRule.BatchFits(stackCount: 125, batch: 25, stackLimit: 150));
     }
 
+    [Theory]
+    [InlineData(301, 75, true)] // A grizzly's meat: one more than a four-stack deep hopper can hold.
+    [InlineData(140, 75, true)] // A human's meat.
+    [InlineData(76, 75, true)]
+    [InlineData(75, 75, false)]
+    [InlineData(23, 75, false)]
+    public void ABatchAboveOneStackIsOversized(int batch, int stackLimit, bool oversized) =>
+        Assert.Equal(oversized, OutputRule.IsOversized(batch, stackLimit));
+
     [Fact]
     public void AGeneratedBillWaitsAtANumberTheItemCanReach()
     {

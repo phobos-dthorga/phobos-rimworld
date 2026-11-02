@@ -16,6 +16,12 @@ public static class OutputRule
     public static bool BatchFits(int stackCount, int batch, int stackLimit) => stackCount + batch <= stackLimit;
 
     /// <summary>
+    /// Whether one batch is more than one stack. A mincer's batch is the corpse's meat (140 per unit of body size
+    /// in the game's Defs), so a human's 140 and a grizzly's 301 are both above meat's stack limit of 75.
+    /// </summary>
+    public static bool IsOversized(int batch, int stackLimit) => batch > stackLimit;
+
+    /// <summary>
     /// The output limit for a generated bill: the wanted one, but never above the item's stack limit, so
     /// Pipe System's "too full (max N units)" names a number the item can reach. At least 1, because 0 tells
     /// Pipe System to drop a blocked batch around the machine instead of waiting.

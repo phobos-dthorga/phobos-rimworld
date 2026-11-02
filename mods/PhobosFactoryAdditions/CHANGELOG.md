@@ -5,6 +5,46 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.11.1] - 2026-11-03 - Draft
+
+A corpse now gives its meat once, so the automated mincer no longer makes meat for ever. Owner's report. Not yet tested
+in game.
+
+### Fixed
+
+- A batch too big for its output hopper no longer repeats for ever. A mincer's batch is the corpse's meat: 140 for a
+  human, 301 for a grizzly. A hopper holds one stack of 75 and a deep hopper four, so 300. Pipe System put down what the output hopper could hold, threw the rest away and
+  tried the same batch again, so one corpse went on making meat for as long as belts kept emptying the hopper, and the
+  machine never took the next corpse. Read in Pipe System's code, the game's code and the owner's save.
+- The batch now comes out in parts. The machine puts down what the hopper can hold, waits and says the output hopper is
+  too full, and puts down more as the hopper empties. It takes the next corpse once the whole batch is out: 140 meat
+  from a human, whichever hopper is used. This covers every factory bill whose batch can pass one stack.
+- Our own 0.5.1 output fix made this worse. Before it, the repeat stopped (destroying the rest of the batch) whenever a
+  stack was still on the hopper at the machine's next check. With it, the machine waited for the hopper to empty and
+  then repeated the batch every time.
+- A machine no longer goes on saying its output hopper is too full after placing a batch in a hopper that has emptied.
+
+### Balance
+
+- Meat from mincers drops to what corpses really hold. Lines that were living on the endless meat, including
+  neutroamine from human meat, will now need real corpses. Items already made are left alone.
+
+### Save compatibility
+
+- Safe to add and remove. A mincer stuck in a save puts out that corpse's full meat once more and then carries on.
+- While a batch is part-way out, what is left is saved on its bill as two small values. The game ignores them if you
+  remove the mod, and the machine goes back to VFE Factory's own behaviour.
+
+### Compatibility and limits
+
+- A different item in the output hopper blocks it, and the machine now says too full. Clear the item and it carries on.
+- The number in the too full message is the bill's limit, in Vanilla Expanded's wording, not what the hopper holds: a
+  mincer can say max 300 while one stack of 75 fills its hopper.
+- With Dubs Bad Hygiene, a food batch split into parts rolls for dirty water once per part, not once per batch. A
+  gameplay simplification.
+- Items made of a material keep Pipe System's own output step; those bills make one item per batch.
+- Not yet tested in game.
+
 ## [0.11.0] - 2026-11-02 - Draft
 
 Factory hoppers get the Belts may take from here switch, so belts can be told to leave one alone. Owner's request. Not

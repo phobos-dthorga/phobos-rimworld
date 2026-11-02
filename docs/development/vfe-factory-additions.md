@@ -631,6 +631,88 @@ does beside an empty hopper.
   storage settings, but which hopper a belt may take from is about where the hopper stands. Multi-select sets several.
 - **Inspect text speaks only when the switch is off** on a hopper, so ordinary hoppers stay uncluttered.
 
+## Endless output from oversized batches (0.11.1, 3 Nov 2026)
+
+The owner reported that the automated mincer makes unlimited mince. **The fault is Pipe System's, and our 0.5.1 output guard
+made it certain.** Read in the code and the owner's save; not yet tested in game.
+
+**The path through the code** (Pipe System's 2 Nov 2026 build, part of Vanilla Expanded Framework by Oskar Potocki and the
+Vanilla Expanded team; RimWorld 1.7.4995):
+
+1. VFE Factory's `ResultWorker_Butchery.GetCount` returns the corpse's `MeatAmount` from its Def: base 140 times `baseBodySize`
+   (the game's `Stats_Pawns_General.xml`, `StatPart_BodySize`). A human is 140 and a grizzly 301 (2.15 body size). Meat stacks to 75.
+2. `Process.TrySpawnAtCell` makes one thing of that count and, on an empty cell, calls `GenPlace.TryPlaceThing` in Direct mode.
+3. `GenPlace.TryPlaceDirect` spawns stacks up to `GetMaxItemsAllowedInCell` (1 on a hopper, 4 on our deep hopper), leaves the rest
+   on the thing it was given, and **returns false**.
+4. `TrySpawnAtCell` returns false with the rest unplaced, and `SpawnOrPushToNet` returns at `maxOutputCount != 0` **without
+   `ResetProcess`**. The process keeps its ingredient with `tickLeft` at or below 0, so its next tick repeats the whole batch.
+
+**What ends the loop, and how 0.5.1 removed that.** With a stack still on the cell at the next tick, Pipe System alone merges
+into it, takes nothing, loses the rest, returns true and resets. So VFE Factory alone gives between 75 meat per big corpse and an
+endless supply, depending on whether a belt emptied the hopper between two checks. The 0.5.1 guard sees that merge would lose
+items and waits instead, until a belt has taken the stack, and then the placement repeats. **Since 0.5.1, a corpse too big for its output cell never finishes.** A human finishes on an empty deep hopper (140 of 300); a grizzly misses by 1.
+
+**What the owner's save showed** (`PG16`, tick 43,222,703, read-only copy):
+
+| Mincer | Holding | `tickLeft` | Finished | Output hopper |
+| --- | --- | --- | --- | --- |
+| (222, 115) | `Corpse_Human` | -249: output just tried and not reset | 65 humans, 11 insects | 75 human meat, placed 156 ticks earlier |
+| (254, 154) | `Corpse_Bear_Grizzly` | 1, too full | 3 | Deep: two stacks of 75 |
+| (260, 154) | `Corpse_Bear_Grizzly` | 1, too full | 3 | Deep: three stacks of 75, spawned on one tick |
+| (222, 111) | `Corpse_Human` | -100 | 0 | **73 chemfuel**, since tick 39,319,488 |
+
+The map held 10,901 mince on the ground and in storage, with 1,409 more carried by pawns and 401 on belts, while the six animal
+mincers had logged 16 finished corpses between them. That isn't a strict balance, because mincers and bills removed earlier aren't
+counted and some mince has been eaten. **The mincer at (222, 111) is a separate fault:** the chemfuel fills a one-stack hopper, so
+nothing can be placed. No error in `Player.log` relates to any of this: the output step fails silently.
+
+**Why not simply put the whole batch on the cell.** That was the first design, with no saved state. **`GenSpawn.Spawn` rules it out
+on 1.7:** spawning an item into a cell at its limit despawns one item already there and places it nearby. On a factory floor that
+cell can be a belt carrying something else, which is how lines jam. Dropping the surplus beside the machine has the same problem.
+
+**What 0.11.1 does.** `OutputRule.IsOversized` names the case. `OutputGuard.NextStep` returns `PlaceInParts` for it, and
+`OutputGuard.PlaceInParts` calls the game's Direct placement, which fills what the cell allows and leaves the rest. The machine
+then waits the way the guard already does (too full, `tickLeft` 1), and carries on from what is left. A placement that finishes
+clears the record and returns true, so Pipe System resets the process as usual. Random workers are asked once, then the record holds
+the item and the count. The prefix now also clears `outputFactoryHopperTooFull` when Pipe System places a batch, because it clears
+the flag only in its merge path.
+
+**Agent choices (owner to revise).**
+
+- **The whole batch, in parts**, not capped at one stack. VFE Factory's worker asks for the corpse's full meat, so a cap would have
+  been an arbitrary loss that changes with the hopper used.
+- **Saved on the process**, as two values through a postfix on `Process.ExposeData`, held in a `ConditionalWeakTable`. The saved keys are
+  `PhobosFactory_BatchLeftThing` and `PhobosFactory_BatchLeftCount`, written only while a batch is part-way out. A game component would
+  make the game log a missing class if the mod were removed; these are simply ignored. Without saving, each reload would hand out a
+  batch again.
+- **The stock is left alone.** Nothing removes mince made by the loop; it's the owner's to use or dump.
+- **Dirty water rolls per part.** A gameplay simplification; it needs a batch of food big enough to pass one stack.
+
+**Known limits.** The too full message quotes the bill's limit, so a mincer can say "max 300" while one stack of 75 fills its hopper.
+`ResultWorker_Butchery` reads the Def, so a damaged corpse gives as much as a whole one; that is VFE Factory's choice and unchanged.
+
+### Bug report draft for Pipe System (for the owner to post; agents never post)
+
+Where: the [Vanilla Expanded Framework repository](https://github.com/Vanilla-Expanded/VanillaExpandedFramework).
+
+> **Factory bills repeat for ever when one batch is bigger than one stack**
+>
+> Build read: PipeSystem 1.7 assembly, 2 Nov 2026, with VFE Factory's automated mincer. Found by reading decompiled code and a save;
+> not seen in a debugger.
+>
+> `Process.TrySpawnAtCell` places hopper-only output with `GenPlace.TryPlaceThing(..., ThingPlaceMode.Direct, ...)`. When the count is
+> more than the output cell can hold, `TryPlaceDirect` spawns what fits and returns false, so `TrySpawnAtCell` returns false with the
+> rest unplaced. `SpawnOrPushToNet` then returns at `maxOutputCount != 0` without `ResetProcess`, and the process keeps its ingredients
+> with `tickLeft` at or below 0. If a belt empties the hopper before the next tick, the whole batch is placed again.
+>
+> To see it: a mincer with `ResultWorker_Butchery`, a corpse with more than 75 meat (a human is 140), and a belt out of the output
+> hopper. One corpse goes on making stacks of 75, and the machine never takes the next corpse. If the stack is still there on the next
+> tick, the merge path takes nothing and the rest of the batch is lost instead.
+>
+> A suggestion: keep the part not yet placed on the process and resume from it, rather than rebuilding the batch from `GetCount`.
+>
+> Thanks for the framework.
+
 ## Ideas for later additions (agent suggestions, not decided)
 
 - **Piped water on other wet bills** (the owner's direction, 2 Nov 2026, after the ovens are tested): neutroamine and other chemistry
