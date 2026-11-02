@@ -13,13 +13,13 @@ on only while its mod is active (Medicines+, Deep Pills, Ushankas Biological War
 Rimatomics, Hemofungus, Complementary Odyssey, Glitterworld Medicine Production, Farmable Neutroamine,
 Passive Exoskeletons, Simple Washing Machine).
 
-Version 0.9.1, built 2 November 2026 for House D'thorga. **Tested in game:** the human-meat bill (owner,
+Version 0.10.0, built 2 November 2026 for House D'thorga. **Tested in game:** the human-meat bill (owner,
 28 October 2026, RimWorld 1.7), the drug-lab bills appearing on their machines (owner, 29 October 2026), and
 belts taking from switched-on storage, only when they point away from it (owner, 29 and 30 October 2026). The
 corpse fridge change, running the 0.3.0 bills to the end, the 0.3.2 chemfuel repair, the 0.4.0 deep factory
 hopper, everything in 0.5.0 and 0.5.1 (the fabrication bay and the output fix), machine input cells on
 switched-on storage, the switch surviving a save and load, everything in 0.7.0 (stuck belts waking, belts
-obeying storage filters), the 0.8.0 synthread medicine bill and the 0.9.0 and 0.9.1 soup bills are not yet tested in game.
+obeying storage filters), the 0.8.0 synthread medicine bill and the 0.9.0 and 0.9.1 soup bills and the 0.10.0 piped water are not yet tested in game.
 
 ## Read this first (gotchas)
 
@@ -28,7 +28,7 @@ obeying storage filters), the 0.8.0 synthread medicine bill and the 0.9.0 and 0.
   you). VFE Factory already needs Harmony, so you have it.
 - **It has code now (0.5.0).** One small assembly, `PhobosFactory.dll`, built for RimWorld 1.6 and loaded on
   1.7 too, as VFE Factory's own assembly is. **Build it before deploying** (`dotnet build
-  src/PhobosFactory/PhobosFactory.csproj`); the deploy script says "no assembly built" if you forget.
+  src/PhobosFactory.Hygiene/PhobosFactory.Hygiene.csproj`, which builds the Dubs Bad Hygiene tie-in and the main assembly); the deploy script says "no assembly built" if you forget.
 - **Belts can take from any storage once you switch it on (0.6.0).** Select a shelf, pallet, Rimefeller
   unloading bay or any other mod's storage building and click **Belts may take from here** (VFE Factory's belt
   icon). **It starts off on every storage, including what you have already built**, so nothing moves until
@@ -91,6 +91,11 @@ obeying storage filters), the 0.8.0 synthread medicine bill and the 0.9.0 and 0.
 - **The stock soup bill makes much less now (0.9.1).** VFE Factory's **Prepare simple soup** makes **1 uncooked soup a
   batch, not 8**. A pot still turns it into 10 soups. **A cannery needs about three ovens to stay busy**;
   "Cooked soup on the conveyor oven" below says why.
+- **With Dubs Bad Hygiene, ovens need water (0.10.0).** The conveyor oven's soup, mass-produced meal, baby food and
+  pumpkin coffee bills **pause until a pipe under the oven or against its side reaches a water tower**, including in
+  colonies you already have. The batch is kept and carries on when water returns; the oven's inspect text says what is
+  missing. **To turn it off: Options, Mod settings, D'thorga Factory Additions.** A second option there controls
+  food poisoning from contaminated water.
 - **The stock bill stops taking human meat** once this mod is on. Human meat sitting in a hopper that feeds
   the stock "Synthesize neutroamine" bill will stay there until you add the human-meat bill or move it.
 - **Tick the ingredient in the hopper's storage filter**, and raise the hopper's priority (factory hoppers
@@ -365,6 +370,42 @@ It borrows the formula VFE Factory uses for meals, and the pot then multiplies t
 oversight (our reading of the files, not anything VFE Factory's authors have said). The 6,000 ticks are authored, so
 soup gets more out of the food and meals more out of the machine.
 
+### Piped water and food poisoning (needs Dubs Bad Hygiene; 0.10.0)
+
+Not yet tested in game. With Dubs Bad Hygiene active, the conveyor oven's wet bills use water from your plumbing as they
+work. **Run a pipe under the oven or against its side, connected to a water tower.** The pipe stays where it is; the
+oven draws through it. With no water the oven pauses and keeps its batch. A paused oven still uses power.
+
+| Bill | Water a batch | A day at base speed | A batch made with contaminated water |
+| --- | --- | --- | --- |
+| Cook simple soup | 20 L | 200 L | 25% chance of food poisoning |
+| Make mass-produced meals | 10 L | 125 L | 25% chance of food poisoning |
+| Prepare simple soup (uncooked) | 40 L | 500 L | No effect: uncooked soup can't carry it, and a pot starts fresh |
+| Make baby food | 2 L | about 67 L | No effect: baby food can't carry it |
+| Make pumpkin spice coffee | 10 L | 150 L | No effect: coffee can't carry it |
+
+Kibble, pemmican and survival meals need no water: they're dried or sealed. For scale, Dubs Bad Hygiene's shower uses 50
+L and its bath 190 L. Overclocking makes a batch quicker, so it uses more water a day but the same water a batch.
+
+**The figures are authored gameplay choices.** Five soups weigh 2 kg (0.4 kg each, Vanilla Cooking Expanded's item
+data) and their 40 raw ingredients 1.2 kg (0.03 kg each, the game's), so at least 0.8 L of water stays in the food. The
+rest of the 20 L stands for boil-off, rinsing and wash-down, none of it modelled.
+
+**How water quality works** (option: Contaminated water can poison food):
+
+- **Treated and untreated water are safe here**, because these bills cook the food. That's a simplification.
+- **Contaminated water is the risk.** Boiling kills germs but doesn't remove every toxin, so a batch made entirely with
+  it has a **25% chance** of being poisoned (authored). A batch that met it for half its water has 12.5%.
+- **It's the game's own food poisoning.** When a poisoned batch joins a stack, the stack's share of poison blends by
+  count. Whoever eats from it rolls that share, times your storyteller's food poisoning setting. The game's message
+  names **contaminated water** as the cause.
+- **Nothing on the soup warns you**, just as the game shows nothing on a meal from a filthy kitchen. The warnings are
+  Dubs Bad Hygiene's contaminated tower alert and the oven's inspect text while it draws that water.
+
+**Dubs Bad Hygiene's lite mode** has no plumbing, so bills need no water there. **If you remove this mod**, your pipes
+are untouched, because the oven only reads them. Food already poisoned stays poisoned, and the game's message then gives
+a number as the cause.
+
 ### Drug lab recipes as medicine granulator bills (0.3.0)
 
 Every bill is the other mod's drug lab recipe scaled the way VFE Factory scales its own drug bills: a
@@ -513,6 +554,7 @@ the **Belts may take from here** switch instead, like every other storage buildi
   the refinery. Kimoju's mod also asks for **Biofuel refining** on the synthesizer.
 - Build the machine (Architect, Factories), open its **Processes** tab, click **Add process** and pick the
   bill. Bills whose research is not done are not listed yet.
+- The **water options** are under Options, Mod settings, D'thorga Factory Additions (only while Dubs Bad Hygiene is active).
 - **Cook simple soup** is on the **conveyor oven**, once **Soup cooking** and **Basic factories** are researched.
 - The **deep factory hopper** is under Architect, Factories, beside the factory hopper (Basic factories).
 - The **automated fabrication bay** is under Architect, Factories, in the same tab as the machining bay
@@ -601,6 +643,25 @@ fabrication bay's three templates are in `Common/Defs/BenchBillTemplateDefs/` an
 Optional fields: `excludedThings` (items to leave at the bench), `workMultiplier` (default 4),
 `maxOutputCount` (default 75; never above the item's stack limit), `spawnOnInteractionCell` (default true).
 
+**Piped water on your own bills (0.10.0).** While Dubs Bad Hygiene is active, a factory bill uses water if its ProcessDef
+has this extension and its machine has the comp. Add both from a patch guarded with `IfModActive` or
+`PatchOperationFindMod`, because the classes exist only while Dubs Bad Hygiene is active. Both poison chances are
+optional and run from 0 to 1. An item without the game's `CompProperties_FoodPoisonable` ignores them.
+
+```xml
+<li Class="Phobos.Factory.Hygiene.WaterUseExtension">
+  <litresPerBatch>20</litresPerBatch>
+  <poisonChanceUntreated>0</poisonChanceUntreated>
+  <poisonChanceContaminated>0.25</poisonChanceContaminated>
+</li>
+```
+
+```xml
+<li>
+  <compClass>Phobos.Factory.Hygiene.CompFactoryWater</compClass>
+</li>
+```
+
 ## Checks done
 
 - 28 October 2026: the stock bill's ingredient matching read in Vanilla Expanded Framework's Pipe System
@@ -661,3 +722,7 @@ Optional fields: `excludedThings` (items to leave at the bench), `workMultiplier
   passes. Not yet tested in game.
 - 2 November 2026, 0.9.1: Pipe System's default result worker read (it returns the bill's count).
   `scripts/check-factory-patches.py` passes with the stock soup correction. Not yet tested in game.
+- 2 November 2026, 0.10.0: Dubs Bad Hygiene's plumbing, the game's food poisoning and its assembly loader, and Pipe
+  System's process tick read in their decompiled 1.7 assemblies; both assemblies build with no warnings against 1.6,
+  and every member they call exists in the 1.7 assemblies. The water rule has unit tests, and
+  `scripts/check-factory-patches.py` passes. Not yet tested in game.

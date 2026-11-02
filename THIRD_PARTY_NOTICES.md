@@ -34,6 +34,12 @@ The NoDerivatives term means we **never copy or adapt** VEF's code, DLLs, art or
 redistribute them; we only reference the installed assembly and subclass or call its public types at
 runtime. Nothing from VEF is in this repository. Our own code remains MIT.
 
+## Dubs Bad Hygiene
+
+[Dubs Bad Hygiene](https://steamcommunity.com/sharedfiles/filedetails/?id=836308268) by Dubwise. D'thorga Factory Additions'
+optional tie-in references the installed `BadHygiene.dll` to draw water from its plumbing, and loads only while that mod is
+active. Nothing from Dubs Bad Hygiene is in this repository.
+
 ## Vanilla Furniture Expanded - Factory
 
 D'thorga Factory Additions (`mods/PhobosFactoryAdditions/`) exists to extend

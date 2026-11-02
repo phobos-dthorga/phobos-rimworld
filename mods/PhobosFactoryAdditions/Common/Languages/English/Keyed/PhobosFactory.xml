@@ -9,4 +9,27 @@
   <PhobosFactory_BeltsMayTakeOn>Belts and factory machines may now take from the selected storage.</PhobosFactory_BeltsMayTakeOn>
   <PhobosFactory_BeltsMayTakeOff>Belts and factory machines no longer take from the selected storage.</PhobosFactory_BeltsMayTakeOff>
   <PhobosFactory_BeltsMayTakeInspect>Belts may take from here.</PhobosFactory_BeltsMayTakeInspect>
+
+  <!-- The options page. It appears only while Dubs Bad Hygiene is active. -->
+  <PhobosFactory_SettingsCategory>D'thorga Factory Additions</PhobosFactory_SettingsCategory>
+  <PhobosFactory_SettingWaterRequired>Factory bills need piped water</PhobosFactory_SettingWaterRequired>
+  <PhobosFactory_SettingWaterRequiredDesc>On: some bills, such as soup and mass-produced meals on the conveyor oven, draw water from your plumbing and pause while there is none. Off: they need no water. Takes effect at once. Dubs Bad Hygiene's lite mode has no plumbing, so bills need no water there either way.</PhobosFactory_SettingWaterRequiredDesc>
+  <PhobosFactory_SettingDirtyWaterPoisons>Contaminated water can poison food</PhobosFactory_SettingDirtyWaterPoisons>
+  <PhobosFactory_SettingDirtyWaterPoisonsDesc>On: food cooked with water from a contaminated water tower may give whoever eats it food poisoning. Off: water quality makes no difference to food. Takes effect at once, but food already poisoned stays poisoned.</PhobosFactory_SettingDirtyWaterPoisonsDesc>
+
+  <!-- A factory machine's inspect text, for a bill that uses piped water. -->
+  <PhobosFactory_WaterNoPlumbing>No water: run plumbing with a water tower under this machine or against its side.</PhobosFactory_WaterNoPlumbing>
+  <PhobosFactory_WaterTowersEmpty>No water: the water towers on this machine's plumbing are empty.</PhobosFactory_WaterTowersEmpty>
+  <PhobosFactory_WaterNeeded>Needs {LITRES} L of piped water a batch.</PhobosFactory_WaterNeeded>
+  <PhobosFactory_WaterTreated>Water: {LITRES} L a batch, treated.</PhobosFactory_WaterTreated>
+  <PhobosFactory_WaterUntreated>Water: {LITRES} L a batch, untreated. Cooking makes it safe.</PhobosFactory_WaterUntreated>
+  <PhobosFactory_WaterUntreatedRisk>Water: {LITRES} L a batch, untreated. A batch made with it has a {CHANCE} chance of carrying food poisoning.</PhobosFactory_WaterUntreatedRisk>
+  <PhobosFactory_WaterContaminated>Water: {LITRES} L a batch, contaminated.</PhobosFactory_WaterContaminated>
+  <PhobosFactory_WaterContaminatedRisk>Water: {LITRES} L a batch, contaminated! A batch made with it has a {CHANCE} chance of carrying food poisoning.</PhobosFactory_WaterContaminatedRisk>
+
+  <!-- Added to the description of each bill that uses piped water. -->
+  <PhobosFactory_WaterBillNote>Needs {LITRES} L of piped water a batch, unless you switch that off in this mod's options.</PhobosFactory_WaterBillNote>
+
+  <!-- The cause in the game's food poisoning message. -->
+  <PhobosFactory_FoodPoisonCause_ContaminatedWater>contaminated water</PhobosFactory_FoodPoisonCause_ContaminatedWater>
 </LanguageData>

@@ -5,6 +5,55 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.10.0] - 2026-11-02 - Draft
+
+With Dubs Bad Hygiene, the conveyor oven's wet bills need piped water, and contaminated water can poison food. The
+owner asked for both, each with its own option, starting with the ovens. Not yet tested in game.
+
+### Added
+
+- With Dubs Bad Hygiene: Cook simple soup (20 L a batch), Prepare simple soup (40 L), Make mass-produced meals (10 L),
+  Make baby food (2 L) and Make pumpkin spice coffee (10 L) draw water as they work. Kibble, pemmican and survival
+  meals stay dry.
+- A pipe under the oven or against its side feeds it, from any water tower on that plumbing.
+- With no water the oven pauses. The batch keeps its ingredients and progress and carries on when water returns, and
+  the oven's inspect text says what is missing.
+- Food poisoning from contaminated water, using the game's own food poisoning: a batch made entirely with contaminated
+  water has a 25% chance of being poisoned, the stack blends it, and the game's message names contaminated water as the
+  cause. Soup and mass-produced meals only, because uncooked soup, baby food and coffee can't carry food poisoning.
+- Options, under Mod settings, D'thorga Factory Additions: Factory bills need piped water, and Contaminated water can
+  poison food. Both start on and take effect at once. The page appears only while Dubs Bad Hygiene is active.
+- For modders: Phobos.Factory.Hygiene.WaterUseExtension on a bill and Phobos.Factory.Hygiene.CompFactoryWater on its
+  machine make any factory bill use water.
+- The option and inspect texts are agent-written, held for the owner's review.
+
+### Balance
+
+- Every litre figure and the 25% are authored. Five soups weigh 2 kg against 1.2 kg of raw food, so at least 0.8 L stays
+  in the food; the rest of the 20 L stands for boil-off, rinsing and wash-down.
+- Untreated water is safe in these bills because they cook the food. Agent choice, held for the owner's review.
+- At base speed an oven uses 200 L a day on cooked soup, 125 L on mass-produced meals, 500 L on uncooked soup, about 67 L
+  on baby food and 150 L on coffee. A Dubs Bad Hygiene shower uses 50 L and a bath 190 L.
+
+### Save compatibility
+
+- Safe to add. **Ovens on these bills pause until they have water, in colonies you already have**, unless you switch the
+  option off.
+- Safe to remove as far as plumbing goes: the oven only reads your pipes and changes none of them. Food already poisoned
+  stays poisoned, and the game's message then gives a number as the cause, not a name.
+
+### Compatibility and limits
+
+- Dubs Bad Hygiene's lite mode has no plumbing, so bills need no water there.
+- A paused oven still uses power, as it does while its output hopper is full.
+- Contaminated water in uncooked soup has no effect on the soup a pot makes from it.
+- Only the conveyor oven so far. Neutroamine and other wet factory bills come after this has been tested in game.
+
+### Dependencies
+
+- A second assembly, PhobosFactory.Hygiene.dll, loaded only while Dubs Bad Hygiene is active. Nothing changes for
+  players without it.
+
 ## [0.9.1] - 2026-11-02 - Draft
 
 The stock soup bill no longer makes 16 times the food put in. Owner's decision. Not yet tested in game.

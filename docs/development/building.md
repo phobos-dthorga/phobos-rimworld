@@ -15,6 +15,11 @@ VFE Factory publishes no licence, so it is never copied). **Build before deployi
 says "no assembly built" when the DLL is missing. Its game-free output rule is tested by
 `dotnet test tests/PhobosFactory.Rules.Tests`, which also runs on GitHub.
 
+**A second assembly since 0.10.0** (2 Nov 2026): `dotnet build src/PhobosFactory.Hygiene/PhobosFactory.Hygiene.csproj` builds
+the core and then `mods/PhobosFactoryAdditions/Mods/DubsBadHygiene/Assemblies/PhobosFactory.Hygiene.dll`, the Dubs Bad Hygiene
+tie-in, which the core assembly never references. It references the installed `BadHygiene.dll` the same way (`DbhAssemblies`,
+default the Workshop item's `1.6\Assemblies`), never copied. **Build this project before deploying**, so both DLLs are current.
+
 **One limit to know:** the mod references Vanilla Expanded Framework's `PipeSystem.dll`, which its licence
 does not let us copy into the repository. So **GitHub Actions cannot build the mod**; it builds and runs
 only the game-free physics tests in `tests/`. The mod itself builds on a machine with RimWorld and VEF

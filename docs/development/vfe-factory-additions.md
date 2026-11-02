@@ -541,7 +541,67 @@ quietly. Pipe System's default `ResultWorker` returns the count, so nothing else
 - **6000 ticks** (authored), 25% longer than meals for 11% more food: a trade rather than a straight upgrade.
 - **Simple soup only**: VFE Factory automates no other, and fine or lavish soup would need a bill of their own design.
 
+## Piped water and food poisoning (0.10.0, 2 Nov 2026)
+
+The owner asked what requiring Dubs Bad Hygiene water on factory bills would take, then asked for it (2 Nov 2026): a
+setting to turn it on or off, the same for contamination, contamination working "side-by-side with food poisoning", and
+the conveyor ovens first, moving later to other factory processes where it would be realistic, such as neutroamine.
+
+**What the sources say** (read 2 Nov 2026 in the decompiled 1.7 assemblies; not tested in game):
+
+- Dubs Bad Hygiene (Dubwise), packageId `Dubwise.DubsBadHygiene`. Water and sewage share one net: fixtures and pipes use
+  `CompProperties_Pipe` mode `Sewage` (31 in its Defs, 4 `Air`, no `Water`). `PlumbingNet.PullWater(litres, out quality)`
+  draws only from `WaterTowers`, returning false if there are none or too little, and gives the worst `ContaminationLevel`
+  it touched: `Treated`, `Untreated` or `Contaminated`. Its UI counts litres: shower 50, bath 190.
+- `CompPipe.PostSpawnSetup` destroys same-mode `Building_Pipe`s under its building, on load too, and `RegisterPipe` logs an
+  error if two pipe comps share a cell. `Settings.LiteMode` removes plumbing altogether.
+- The game's `CompFoodPoisonable`: `SetPoisoned(cause)` marks the whole stack; `PreAbsorbStack` blends `poisonPct` by
+  count; `PostIngested` rolls `poisonPct` x `FoodUtility.GetFoodPoisonChanceFactor` (the storyteller's setting and
+  health conditions), then `AddFoodPoisoningHediff` shows a message with `cause.ToStringHuman()`. That method's fallback
+  prints the number of a value it doesn't know. `Notify_RecipeProduced` needs a pawn, so factory output never rolls for a
+  filthy kitchen or a poor cook. Meals and soups have the comp; uncooked soup (`RoughPlantBase`), baby food and
+  pumpkin coffee (`DrugBase`) don't.
+- Pipe System's `Process.Tick` runs every 100 ticks. It gathers ingredients, then counts `tickLeft` down. A finished batch
+  waiting to place its output sits at `tickLeft` 1. `suspended` is private and belongs to the player's own button.
+  `Notify_OverclockChange` scales `tickLeft` and `ticksOrQualityTicks` together, so the fraction of a batch per tick is
+  a fair measure of its water at any overclock. Its sound keeps playing until ended, so a pause has to end it.
+- The game's `ModAssemblyHandler` runs `GetTypes` on each assembly as it loads it, which resolves base types only. The tie-in's
+  classes derive from game types, so the order it loads against the core assembly doesn't matter.
+
+**What 0.10.0 does.** A second assembly, `PhobosFactory.Hygiene` (`src/PhobosFactory.Hygiene`), loaded from
+`Mods/DubsBadHygiene` only while Dubs Bad Hygiene is active; the core assembly still references no optional mod, and keeps the
+settings, so the options window lives there. `WaterUseExtension` on a ProcessDef names litres and poison chances;
+`CompFactoryWater` on the machine finds the plumbing and keeps the batch's tally; `FactoryWater` holds the rules, and the game-free
+`WaterRule` the sums. Three patches on `Process`: a prefix on `Tick` skips the tick when water runs short, a postfix on
+`ApplyIngredientsAndQuality` rolls the poisoning on each new item before it merges, and a postfix on `ResetProcess` clears the
+tally. A fourth names the new cause, `(FoodPoisonCause)101`, in `ToStringHuman`.
+
+**Owner's choices.** Both settings, on and off. Contamination works through food poisoning. Ovens first, then other realistic processes.
+
+**Agent choices (owner to revise).**
+
+- **The oven reads the plumbing and has no pipe comp of its own.** This changes what the owner was told on 2 Nov 2026, that pipes
+  under the machine would be removed and the machine would carry the water. A pipe comp deletes pipes under the machine, on load too,
+  could log overlap errors depending on load order in existing saves, and would leave gaps if the mod were removed. Reading a pipe
+  under the machine or against its side has none of that. The cost: the machine doesn't pass water on to the next one, so
+  the pipe has to reach each machine, and Dubs' pipe overlay doesn't highlight the machine.
+- **Contaminated water never refuses; it risks poisoning.** This replaces the proposal to refuse it, following the owner's idea.
+- **The bills:** soups, mass-produced meals, baby food and pumpkin coffee are wet. Kibble, pemmican and survival meals stay dry.
+- **The figures:** 20, 40, 10, 2 and 10 L, and 25%, are all authored. Untreated is 0 because these bills cook the food.
+- **Both settings start on.** The first load stops ovens on these bills until they're plumbed, and the inspect text says why.
+- **Lite mode counts as "not required"**, since no plumbing could ever supply the water.
+- **A new poison cause rather than a vanilla one**, because each vanilla cause blames the wrong thing.
+- **One roll per batch**, the way the game poisons a cooked batch, not a partial share on each item.
+- **A batch's chance is averaged over its litres**, so a tower going bad near the end counts for less.
+
+**Limits.** Contamination in uncooked soup doesn't reach the pot's soup. Cancelling or removing one bill clears the machine's tally,
+even if another bill is running; a small understatement of risk, left as it is. Nothing on the item shows it's poisoned, as in the base game.
+
 ## Ideas for later additions (agent suggestions, not decided)
+
+- **Piped water on other wet bills** (the owner's direction, 2 Nov 2026, after the ovens are tested): neutroamine and other chemistry
+  first. Non-food output can't carry food poisoning, so contamination there would need its own effect, such as a lost or
+  weaker batch. Waste water into Dubs' sewer (`PushSewage`) is another possibility.
 
 - **Machines that output into switched-on storage** (Pipe System's `FactoryHopperDetected`): would let a
   multi-stack shelf take a machine's output, but the output step merges into the first matching stack only, so

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+
+  <!-- 1. Let the conveyor oven draw water from any Dubs Bad Hygiene plumbing under it or against its side. -->
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/ThingDef[defName="VFEFactory_ConveyorOven"]/comps</xpath>
+    <value>
+      <li>
+        <compClass>Phobos.Factory.Hygiene.CompFactoryWater</compClass>
+      </li>
+    </value>
+  </Operation>
+
+  <!--
+    2. The wet bills on the oven. Kibble, pemmican and survival meals stay dry: drying is the point of them.
+
+    Every figure is AUTHORED, not measured. A batch of 5 soups weighs 2 kg against 1.2 kg of raw food, so at least
+    0.8 L stays in the food (the items' masses); the rest of the 20 L is boil-off, rinsing and wash-down. Uncooked
+    soup makes 10 soups, so twice that. Meals are wet but not soup: half. Baby food is a small mash.
+
+    Poison chances: these bills all cook the food, which makes untreated water safe, so its chance is 0 (left out).
+    Boiling doesn't undo everything that makes a water tower "contaminated", so that keeps a risk: one batch in four.
+    Items that can't carry food poisoning have no chance named: uncooked soup, baby food and coffee in the base rules.
+
+    Each bill but the meals exists only with its own mod or DLC, so each is guarded. The soup bills' mod is
+    Vanilla Cooking Expanded, the coffee's is Vanilla Brewing Expanded - Coffees and Teas, baby food's is Biotech.
+  -->
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>Defs/PipeSystem.ProcessDef[defName="VFEFactory_MakeMassProducedMeal"]</xpath>
+    <value>
+      <li Class="Phobos.Factory.Hygiene.WaterUseExtension">
+        <litresPerBatch>10</litresPerBatch>
+        <poisonChanceContaminated>0.25</poisonChanceContaminated>
+      </li>
+    </value>
+  </Operation>
+
+  <Operation Class="PatchOperationConditional">
+    <xpath>Defs/PipeSystem.ProcessDef[defName="PhobosFactory_CookSimpleSoup"]</xpath>
+    <match Class="PatchOperationAddModExtension">
+      <xpath>Defs/PipeSystem.ProcessDef[defName="PhobosFactory_CookSimpleSoup"]</xpath>
+      <value>
+        <li Class="Phobos.Factory.Hygiene.WaterUseExtension">
+          <litresPerBatch>20</litresPerBatch>
+          <poisonChanceContaminated>0.25</poisonChanceContaminated>
+        </li>
+      </value>
+    </match>
+  </Operation>
+
+  <Operation Class="PatchOperationConditional">
+    <xpath>Defs/PipeSystem.ProcessDef[defName="VFEFactory_MakeSimpleSoup"]</xpath>
+    <match Class="PatchOperationAddModExtension">
+      <xpath>Defs/PipeSystem.ProcessDef[defName="VFEFactory_MakeSimpleSoup"]</xpath>
+      <value>
+        <li Class="Phobos.Factory.Hygiene.WaterUseExtension">
+          <litresPerBatch>40</litresPerBatch>
+        </li>
+      </value>
+    </match>
+  </Operation>
+
+  <Operation Class="PatchOperationConditional">
+    <xpath>Defs/PipeSystem.ProcessDef[defName="VFEFactory_MakeBabyFood"]</xpath>
+    <match Class="PatchOperationAddModExtension">
+      <xpath>Defs/PipeSystem.ProcessDef[defName="VFEFactory_MakeBabyFood"]</xpath>
+      <value>
+        <li Class="Phobos.Factory.Hygiene.WaterUseExtension">
+          <litresPerBatch>2</litresPerBatch>
+        </li>
+      </value>
+    </match>
+  </Operation>
+
+  <Operation Class="PatchOperationConditional">
+    <xpath>Defs/PipeSystem.ProcessDef[defName="VFEFactory_MakePumpkinCoffee"]</xpath>
+    <match Class="PatchOperationAddModExtension">
+      <xpath>Defs/PipeSystem.ProcessDef[defName="VFEFactory_MakePumpkinCoffee"]</xpath>
+      <value>
+        <li Class="Phobos.Factory.Hygiene.WaterUseExtension">
+          <litresPerBatch>10</litresPerBatch>
+        </li>
+      </value>
+    </match>
+  </Operation>
+
+</Patch>
