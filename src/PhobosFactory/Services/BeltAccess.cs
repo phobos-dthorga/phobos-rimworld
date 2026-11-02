@@ -1,4 +1,6 @@
-using System.Linq;
+using System;
+using HarmonyLib;
+using Phobos.Factory.Rules;
 using PipeSystem;
 using RimWorld;
 using VanillaFurnitureExpandedFactory;
@@ -14,7 +16,9 @@ namespace Phobos.Factory;
 /// can run past it (owner, 29 Oct 2026). A factory machine reads it when it stands on an input cell. Storage whose
 /// Def VFE Factory treats as a hopper and that carries <see cref="BeltFilterExtension"/> (the corpse fridge) keeps
 /// the hopper's sides but obeys its filter too (0.7.0). Like a factory hopper, this reads the items lying on the
-/// storage's cells, which is how vanilla shelves and Adaptive Storage hold them.
+/// storage's cells, which is how vanilla shelves and Adaptive Storage hold them. Hoppers carry the same switch,
+/// starting on (0.11.0): off, belts leave them alone, while belts can still deliver into them and machines and
+/// colonists can still take from them (<see cref="BeltRule"/>).
 /// </summary>
 public static class BeltAccess
 {
@@ -25,17 +29,39 @@ public static class BeltAccess
     /// </summary>
     public const int PullScanIntervalTicks = 10;
 
-    /// <summary>Whether any loaded storage Def carries <see cref="BeltFilterExtension"/>; worked out on first use, once Defs are loaded.</summary>
-    private static bool? anyFilteredHopperDefs;
+    /// <summary>
+    /// VFE Factory's own lookup of what stands beside a belt, the very building its pull is about to read. It
+    /// matters because a belt beside a hopper asks up to three times a tick while it has room.
+    /// </summary>
+    private static readonly Func<Building_Conveyor, Rot4, Building>? CachedNeighbour = MakeCachedNeighbour();
 
-    public static bool BeltsMayTake(Building_Storage storage) => storage.GetComp<CompBeltAccess>()?.BeltsMayTake == true;
+    /// <summary>Whether VFE Factory feeds belts from this Def by itself: its hopper class, or the Def flag.</summary>
+    public static bool IsHopperDef(ThingDef def) =>
+        typeof(Building_FactoryHopper).IsAssignableFrom(def.thingClass) ||
+        def.GetModExtension<FactoryHopperExtension>()?.isfactoryHopper == true;
+
+    /// <summary>Whether this is ordinary storage the player has switched on.</summary>
+    public static bool IsSwitchedOn(Building_Storage storage)
+    {
+        var access = storage.GetComp<CompBeltAccess>();
+        return access != null && BeltRule.IsSwitchedOn(access.BeltsMayTake, access.Props.startsOn);
+    }
+
+    /// <summary>Whether this is a hopper the player has told belts to leave alone.</summary>
+    public static bool RefusesBelts(Building_Storage storage)
+    {
+        var access = storage.GetComp<CompBeltAccess>();
+        return access != null && BeltRule.RefusesBelts(access.BeltsMayTake, access.Props.startsOn);
+    }
 
     public static void SetBeltsMayTake(CompBeltAccess access, bool value)
     {
         access.BeltsMayTake = value;
+        string key = access.Props.startsOn
+            ? (value ? "PhobosFactory_BeltsMayTakeHopperOn" : "PhobosFactory_BeltsMayTakeHopperOff")
+            : (value ? "PhobosFactory_BeltsMayTakeOn" : "PhobosFactory_BeltsMayTakeOff");
         // No look target, so toggling many shelves at once shows one message.
-        Messages.Message((value ? "PhobosFactory_BeltsMayTakeOn" : "PhobosFactory_BeltsMayTakeOff").Translate(),
-            MessageTypeDefOf.SilentInput, historical: false);
+        Messages.Message(key.Translate(), MessageTypeDefOf.SilentInput, historical: false);
     }
 
     /// <summary>Whether switched-on storage is directly behind the belt, the one side it may take storage from.</summary>
@@ -52,23 +78,16 @@ public static class BeltAccess
         return storage != null && TakeFirstAllowed(belt, storage);
     }
 
+    /// <summary>The storage at <paramref name="side"/> of the belt, as VFE Factory's own pull sees it.</summary>
+    public static Building_Storage? StorageBeside(Building_Conveyor belt, Rot4 side) =>
+        CachedNeighbour != null ? CachedNeighbour(belt, side) as Building_Storage : StorageAt(belt, side);
+
     /// <summary>
-    /// Storage at <paramref name="side"/> of the belt that VFE Factory would take from as a hopper but whose Def
-    /// asks belts to obey its filter (<see cref="BeltFilterExtension"/>); null for anything else, which VFE Factory
-    /// handles as before.
+    /// Whether VFE Factory would take from this storage as a hopper but its Def asks belts to obey its filter
+    /// (<see cref="BeltFilterExtension"/>).
     /// </summary>
-    public static Building_Storage? FilteredHopperAt(Building_Conveyor belt, Rot4 side)
-    {
-        // VFE Factory asks up to three times a tick per empty belt beside a hopper; without any such Def loaded
-        // (no [sbz] Fridge) this is the whole cost.
-        anyFilteredHopperDefs ??= DefDatabase<ThingDef>.AllDefsListForReading.Any(def => def.HasModExtension<BeltFilterExtension>());
-        if (anyFilteredHopperDefs == false) return null;
-        var storage = StorageAt(belt, side);
-        if (storage == null || !storage.def.HasModExtension<BeltFilterExtension>()) return null;
-        return storage is Building_FactoryHopper || storage.def.GetModExtension<FactoryHopperExtension>()?.isfactoryHopper == true
-            ? storage
-            : null;
-    }
+    public static bool ObeysFilter(Building_Storage storage) =>
+        storage.def.HasModExtension<BeltFilterExtension>() && IsHopperDef(storage.def);
 
     /// <summary>
     /// Moves the first stack on the storage that its filter allows onto the belt, whole, as VFE Factory takes from
@@ -97,7 +116,7 @@ public static class BeltAccess
         if (map == null || !cell.InBounds(map)) return false;
         foreach (var thing in map.thingGrid.ThingsListAtFast(cell))
         {
-            if (thing is Building_Storage storage && BeltsMayTake(storage)) return true;
+            if (thing is Building_Storage storage && IsSwitchedOn(storage)) return true;
         }
         return false;
     }
@@ -108,7 +127,13 @@ public static class BeltAccess
     private static Building_Storage? SwitchedOnStorage(Building_Conveyor belt, Rot4 side)
     {
         var storage = StorageAt(belt, side);
-        return storage != null && BeltsMayTake(storage) ? storage : null;
+        return storage != null && IsSwitchedOn(storage) ? storage : null;
+    }
+
+    private static Func<Building_Conveyor, Rot4, Building>? MakeCachedNeighbour()
+    {
+        var method = AccessTools.Method(typeof(Building_Conveyor), "GetCachedNeighborBuilding", new[] { typeof(Rot4) });
+        return method != null ? AccessTools.MethodDelegate<Func<Building_Conveyor, Rot4, Building>>(method) : null;
     }
 
     private static Building_Storage? StorageAt(Building_Conveyor belt, Rot4 side)

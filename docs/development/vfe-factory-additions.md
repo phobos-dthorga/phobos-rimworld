@@ -500,7 +500,9 @@ the Vanilla Races Expanded - Android piped-neutroamine patch.
 ## Cooked soup on the conveyor oven (0.9.0, 2 Nov 2026)
 
 The owner asked for an option to make soup already cooked, because uncooked soup was upsetting their automated
-lines (screenshot: a deep factory hopper holding 24 uncooked simple soups, 3.9 days from rotting).
+lines (screenshot: a deep factory hopper holding 24 uncooked simple soups, 3.9 days from rotting). Later the same day the
+owner found the cause: their process lines had no steel, which the cannery needs, so the uncooked soup never moved on.
+The bill stays as a stand-in for lines that want it (owner, 2 Nov 2026).
 
 **What the sources say** (read 2 Nov 2026; not tested in game):
 
@@ -596,6 +598,38 @@ tally. A fourth names the new cause, `(FoodPoisonCause)101`, in `ToStringHuman`.
 
 **Limits.** Contamination in uncooked soup doesn't reach the pot's soup. Cancelling or removing one bill clears the machine's tally,
 even if another bill is running; a small understatement of risk, left as it is. Nothing on the item shows it's poisoned, as in the base game.
+
+## A belt switch on factory hoppers (0.11.0, 2 Nov 2026)
+
+The owner asked for an option on VFE Factory's hoppers that stops conveyor belts taking from them, if the player chooses.
+
+**What the code says** (read 2 Nov 2026; not tested in game):
+
+- `Building_Conveyor.TryPullFromDir` is the only place a belt takes from storage. It reads `GetCachedNeighborBuilding(dir)`,
+  and returns false unless that is a `Building_FactoryHopper` or carries `FactoryHopperExtension` with `isfactoryHopper`. **The
+  decompiled C# shows this check as an empty block**; the IL shows `brfalse` to the method's `return false`. Read the IL when a
+  decompiled branch looks empty.
+- `PeriodicCacheCheck` sets `hasAdjacentHopper`, once a second and for all sides together, so it can't express "not this hopper".
+- Delivering into a hopper is separate code, and machines read input cells through Pipe System, so neither passes through this.
+
+**What 0.11.0 does.** `CompBeltAccess` gains `Props.startsOn`, true where `BeltAccess.IsHopperDef` says VFE Factory feeds belts by
+itself, and `BeltAccessSetup` now gives every storage type the switch. `BeltRule` states the meaning: on ordinary storage, on adds
+it to what belts take from; on a hopper, off removes it. The `TryPullFromDir` prefix refuses for a hopper switched off. It now
+reads VFE Factory's own cached neighbour, the same building the original would read, in place of the 0.7.0 thing-grid lookup and
+its "any filtered Def loaded" shortcut. A belt beside a switched-off hopper keeps asking every tick while it has room, as it already
+does beside an empty hopper.
+
+**Agent choices (owner to revise).**
+
+- **Belts only.** Machines and colonists still take from a switched-off hopper, because the owner asked about belts, and
+  Allow taking already covers colonists.
+- **The same switch and label as other storage**, rather than a second button with an opposite meaning. On means belts may take,
+  everywhere.
+- **Flagged storage too** (chemfuel taps, the corpse fridge): one rule for everything that feeds belts, and it answers the corpse
+  fridge's "any belt touching it empties it".
+- **Each hopper has its own switch**, not shared across a linked group as VFE Factory's Allow taking is. A linked group shares
+  storage settings, but which hopper a belt may take from is about where the hopper stands. Multi-select sets several.
+- **Inspect text speaks only when the switch is off** on a hopper, so ordinary hoppers stay uncluttered.
 
 ## Ideas for later additions (agent suggestions, not decided)
 

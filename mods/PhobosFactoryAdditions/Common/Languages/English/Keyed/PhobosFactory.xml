@@ -10,6 +10,12 @@
   <PhobosFactory_BeltsMayTakeOff>Belts and factory machines no longer take from the selected storage.</PhobosFactory_BeltsMayTakeOff>
   <PhobosFactory_BeltsMayTakeInspect>Belts may take from here.</PhobosFactory_BeltsMayTakeInspect>
 
+  <!-- The same switch on factory hoppers and storage flagged as one, which feed belts unless it is turned off. -->
+  <PhobosFactory_BeltsMayTakeHopperDesc>When on, conveyor belts take from this building as normal: any belt with it directly behind or at its side takes one whole stack at a time.\n\nWhen off, belts leave it alone. Belts can still deliver into it, and factory machines and colonists can still take from it.\n\nOn for new buildings.</PhobosFactory_BeltsMayTakeHopperDesc>
+  <PhobosFactory_BeltsMayTakeHopperOn>Belts may take from the selected building again.</PhobosFactory_BeltsMayTakeHopperOn>
+  <PhobosFactory_BeltsMayTakeHopperOff>Belts now leave the selected building alone. Factory machines and colonists can still take from it.</PhobosFactory_BeltsMayTakeHopperOff>
+  <PhobosFactory_BeltsMayNotTakeInspect>Belts may not take from here.</PhobosFactory_BeltsMayNotTakeInspect>
+
   <!-- The options page. It appears only while Dubs Bad Hygiene is active. -->
   <PhobosFactory_SettingsCategory>D'thorga Factory Additions</PhobosFactory_SettingsCategory>
   <PhobosFactory_SettingWaterRequired>Factory bills need piped water</PhobosFactory_SettingWaterRequired>

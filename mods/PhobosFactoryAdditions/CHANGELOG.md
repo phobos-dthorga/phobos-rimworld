@@ -5,6 +5,33 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.11.0] - 2026-11-02 - Draft
+
+Factory hoppers get the Belts may take from here switch, so belts can be told to leave one alone. Owner's request. Not
+yet tested in game.
+
+### Added
+
+- Belts may take from here on every VFE Factory hopper and deep factory hopper. It starts on, so nothing changes until
+  you use it. Off, no belt takes from that hopper, whichever side the belt is on.
+- A hopper switched off still receives from belts that point into it, still feeds any factory machine whose input cell
+  it is on, and still lets colonists take from it under Allow taking. Its inspect text says "Belts may not take from here."
+- The same switch on storage flagged as a hopper: the chemfuel tap and the [sbz] corpse fridge. Agent choice, held for
+  the owner's review: it uses the same rule, and it answers the corpse fridge's old gotcha that any belt touching it
+  empties it.
+- The new texts are agent-written, held for the owner's review.
+
+### Save compatibility
+
+- Safe to add: hoppers you already have start with the switch on. A hopper's switch is saved only when it is off. If you
+  remove the mod, every hopper feeds belts again.
+
+### Compatibility and limits
+
+- Each hopper has its own switch, even in a linked storage group. Select several and click once to set them together.
+  Agent choice, held for the owner's review.
+- A switched-off output hopper fills up and its machine then waits, unless colonists empty it.
+
 ## [0.10.0] - 2026-11-02 - Draft
 
 With Dubs Bad Hygiene, the conveyor oven's wet bills need piped water, and contaminated water can poison food. The

@@ -1,7 +1,7 @@
 # D'thorga Factory Additions
 
 Additions to Vanilla Furniture Expanded - Factory: a **"Belts may take from here" switch** on every storage
-building, so conveyor belts and factory machines can take from any mod's shelves, pallets and bays; an **automated fabrication bay** that makes what a
+building, so conveyor belts and factory machines can take from any mod's shelves, pallets and bays, and on factory hoppers, so you can tell belts to leave one alone; an **automated fabrication bay** that makes what a
 fabrication bench makes (bionics and other artificial body parts, spacer weapons and armour), and with Anomaly
 or Dubs Rimatomics what a bioferrite shaper or a Rimatomics machining table makes; a **fix for the automated
 machining bay**, which could lose a finished item; a **Synthesize neutroamine from human meat** bill for
@@ -13,13 +13,13 @@ on only while its mod is active (Medicines+, Deep Pills, Ushankas Biological War
 Rimatomics, Hemofungus, Complementary Odyssey, Glitterworld Medicine Production, Farmable Neutroamine,
 Passive Exoskeletons, Simple Washing Machine).
 
-Version 0.10.0, built 2 November 2026 for House D'thorga. **Tested in game:** the human-meat bill (owner,
+Version 0.11.0, built 2 November 2026 for House D'thorga. **Tested in game:** the human-meat bill (owner,
 28 October 2026, RimWorld 1.7), the drug-lab bills appearing on their machines (owner, 29 October 2026), and
 belts taking from switched-on storage, only when they point away from it (owner, 29 and 30 October 2026). The
 corpse fridge change, running the 0.3.0 bills to the end, the 0.3.2 chemfuel repair, the 0.4.0 deep factory
 hopper, everything in 0.5.0 and 0.5.1 (the fabrication bay and the output fix), machine input cells on
 switched-on storage, the switch surviving a save and load, everything in 0.7.0 (stuck belts waking, belts
-obeying storage filters), the 0.8.0 synthread medicine bill and the 0.9.0 and 0.9.1 soup bills and the 0.10.0 piped water are not yet tested in game.
+obeying storage filters), the 0.8.0 synthread medicine bill and the 0.9.0 and 0.9.1 soup bills, the 0.10.0 piped water and the 0.11.0 hopper switch are not yet tested in game.
 
 ## Read this first (gotchas)
 
@@ -33,6 +33,10 @@ obeying storage filters), the 0.8.0 synthread medicine bill and the 0.9.0 and 0.
   unloading bay or any other mod's storage building and click **Belts may take from here** (VFE Factory's belt
   icon). **It starts off on every storage, including what you have already built**, so nothing moves until
   you switch it on.
+- **Factory hoppers have the same switch, starting on (0.11.0).** Select a hopper and click **Belts may take from
+  here** to turn it off, and **no belt takes from that hopper**, on any side. **Belts can still deliver into it, and
+  machines and colonists can still take from it.** The switch is per hopper, even in a linked group; select several
+  to set them together. **A switched-off output hopper fills up and its machine waits**, unless colonists empty it.
 - **Only a belt that points straight away from switched-on storage takes from it (0.6.1).** Build the belt on
   a cell next to the storage with its arrow pointing away. It takes **one whole stack at a time, whatever the
   belt's filter says**. Belts that only run past the storage leave it alone (under 0.6.0 they took from it
@@ -105,7 +109,8 @@ obeying storage filters), the 0.8.0 synthread medicine bill and the 0.9.0 and 0.
   fixed textures). Select it to see which it is. Like every factory hopper it starts at **Low** priority.
 - **A belt touching the corpse fridge empties it.** Once the fridge counts as a factory hopper, any belt
   that has the fridge directly behind it or at either side pulls corpses out whenever the belt has room,
-  whatever the belt's own filter says. Keep belts you do not want fed away from the fridge's four cells. Since
+  whatever the belt's own filter says. Keep belts you do not want fed away from the fridge's four cells, or switch
+  **Belts may take from here** off on the fridge to stop them all (0.11.0). Since
   0.7.0 it takes only what the **fridge's** filter allows, so a stray item (a slag chunk, say) no longer rides
   out and jams the corpse line.
 - **Safe to add to a running save.** Before removing it, remove every bill this mod added from each
@@ -158,8 +163,22 @@ on your mod list, counted from the mods' files. They include:
 switch to N storage building types", with the real number for your game.
 
 **Left out.** Graves, sarcophagi, growth vats, biosculpter pods, outfit stands, bookcases and sealed crates
-keep their contents *inside* themselves, where belts can't reach (and shouldn't). Factory hoppers, the
-chemfuel taps and the corpse fridge already feed belts all the time and keep doing so, with no switch.
+keep their contents *inside* themselves, where belts can't reach (and shouldn't).
+
+**Factory hoppers work the other way round (0.11.0).** Hoppers, deep hoppers, the chemfuel taps and the corpse fridge
+already feed belts, so their switch **starts on** and you turn it off to stop belts. Their inspect text mentions it only
+while it is off. Read from VFE Factory's code; not yet tested in game.
+
+| With the switch off on a hopper | What happens |
+| --- | --- |
+| A belt with it directly behind or at its side | Takes nothing, and carries on with anything else it can reach |
+| A belt pointing into it | Delivers as usual, if the hopper's filter accepts the item |
+| A factory machine with an input cell on it | Takes ingredients as usual |
+| A factory machine with its output cell on it | Puts finished goods there as usual. Nothing takes them away by belt, so the machine waits once the hopper is full |
+| Colonists | Take from it under VFE Factory's own **Allow taking** |
+
+This is handy where a belt delivers into a machine's input hopper and another belt runs past it: switched off, the hopper
+keeps what it was given.
 
 **What it costs** (my estimate from the code, not measured; Dubs Performance Analyzer can check it):
 
@@ -353,8 +372,9 @@ either way, more with synthread**: it's for keeping medicine coming, not for sel
 ### Cooked soup on the conveyor oven (0.9.0)
 
 VFE Factory's **Prepare simple soup** bill makes *uncooked* soup. That needs Vanilla Cooking Expanded's electric
-pot, a colonist to load it and two days to cook, so it stops an automated line. **Cook simple soup** skips all
-that and puts finished soup in the output hopper. Not yet tested in game.
+pot, a colonist to load it and two days to cook, so it stops a fully automated line. **Cook simple soup** skips all
+that and puts finished soup in the output hopper. Not yet tested in game. VFE Factory's own automated route is the cannery
+(needs **steel**, as the owner was reminded), which turns uncooked soup into canned soup with no colonist.
 
 | Route | Raw food | Makes | Nutrition out | Time |
 | --- | --- | --- | --- | --- |
@@ -561,8 +581,8 @@ the **Belts may take from here** switch instead, like every other storage buildi
   (Complex factories and Fabrication). It must stand on factory floor, like every factory machine.
 - Human meat comes from VFE Factory's automated mincer ("Mince human corpses") or a butcher table.
 - The **corpse fridge** is under Architect, Temperature, after Air conditioning ("[sbz] Fridge").
-- The **Belts may take from here** switch is among a storage building's buttons when you select it (only on
-  your own storage).
+- The **Belts may take from here** switch is among a storage building's buttons when you select it, factory
+  hoppers included (only on your own storage).
 
 ## For modders
 
@@ -598,8 +618,8 @@ hid most of 0.3.0's bills. `scripts/check-mod-layout.py` now refuses a shared pa
 
 Since 0.6.0 every `Building_Storage` type gets the player's **Belts may take from here** switch at load
 (`Phobos.Factory.CompProperties_BeltAccess`, added in code; the saved key is `PhobosFactory_BeltsMayTake`).
-To make a storage building feed belts and machines **all the time**, with no switch, add Pipe System's
-extension to its Def instead; the switch then leaves it alone:
+To make a storage building feed belts and machines **by default**, add Pipe System's extension to its Def instead.
+Since 0.11.0 its switch then starts on, as a factory hopper's does, and the player can turn belts off:
 
 ```xml
 <Operation Class="PatchOperationAddModExtension">
@@ -726,3 +746,6 @@ optional and run from 0 to 1. An item without the game's `CompProperties_FoodPoi
   System's process tick read in their decompiled 1.7 assemblies; both assemblies build with no warnings against 1.6,
   and every member they call exists in the 1.7 assemblies. The water rule has unit tests, and
   `scripts/check-factory-patches.py` passes. Not yet tested in game.
+- 2 November 2026, 0.11.0: VFE Factory's belt pull read in its IL as well as decompiled, because the decompiler
+  hides the check that refuses ordinary storage. The switch's rules have unit tests, and the assemblies build with no
+  warnings. Not yet tested in game.

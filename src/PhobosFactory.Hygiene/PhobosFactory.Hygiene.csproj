@@ -8,7 +8,7 @@
     <AssemblyName>PhobosFactory.Hygiene</AssemblyName>
     <OutputPath>../../mods/PhobosFactoryAdditions/Mods/DubsBadHygiene/Assemblies/</OutputPath>
     <DebugType>none</DebugType>
-    <Version>0.10.0</Version>
+    <Version>0.11.0</Version>
     <!-- Referenced from the installed mods and never copied, as in PhobosFactory.csproj. Override with
          -p:VefAssemblies=... and -p:DbhAssemblies=... or the environment variables of those names. -->
     <VefAssemblies Condition="'$(VefAssemblies)' == ''">C:\Program Files (x86)\Steam\steamapps\workshop\content\294100\2023507013\1.6\Assemblies</VefAssemblies>
