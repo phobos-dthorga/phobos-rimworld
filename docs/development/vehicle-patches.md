@@ -97,6 +97,30 @@ asked for FSX to match. Both now use about 0.23 of the scarce ingredient and 3.5
 **MarketValue** is removed so `StatWorker_MarketValue` works it out from the ingredients. **Guards:** the Mk. 82 change requires `statBases[Mass="227"]`, which only the Harrier's CE patch sets;
 `check-factory-patches.py` reads unpatched Defs, so it can't enter that branch, and it was checked by reading `FWA_Ammo.xml` and `Harrier_CombatExtended.xml`.
 
+## Bombs at the ammunition fabricator (0.2.0, 3 Nov 2026)
+
+**Owner's request:** make the Harrier's bombs at The Dead Man's Switch's semi-automated ammunition fabricator (`DMS_TableAmmoPrinter`). `Mods/HarrierVtol/Patches/Fabricator_HarrierVtol.xml` adds
+it to each of the five bombs' `recipeMaker/recipeUsers`, which `RecipeDefGenerator` copies to the recipe. The machining table stays.
+
+**Why a recipe-user entry is enough** (Fortified 1.7 build of 31 Oct 2026, read 3 Nov 2026). `Building_WorkTableAutonomous` takes any `Bill_Production`. `WorkGiver_DoAutonomousBill` turns the game's own `DoBill` job into a loading job, so it finds ingredients the normal way.
+
+**Why not CE's route.** DMS's `AmmoProduction.xml` puts its machine on CE's ammo through `AmmoInjector` and trade tags. That only handles CE's ammo, and these bombs are plain items with a `recipeMaker`.
+
+**The guard.** The fabricator's Def is in DMS's `1.7/CE` folder, so it exists only with CE. `PatchOperationConditional` on it needs no `loadAfter`: `LoadedModManager` combines all mods' XML before `ApplyPatches`. Each add has `success` set to `Always`, because `Harrier_Mk84Bomb_ToxGas` exists only with Biotech and a failed add would end the sequence.
+
+**What the code does with a bomb** (from the same reading; none of this was seen in play):
+
+| Step | Behaviour |
+| --- | --- |
+| Time | `WorkToMake` / `WorkTableWorkSpeedFactor` 2: 4,500 becomes 2,250 ticks for the Mk. 82 (the Harrier's CE patch sets 4,500) and 6,000 becomes 3,000 for a Mk. 84. It fits one 40,000-work stage |
+| Colonist | `DMS_Operate`, Crafting work. Loading and finishing each wait 300 ticks. `PawnSatisfiesSkillRequirements` applies at the recipe's Crafting 6 or 7. The machine's own skill of 12 only rates quality, and bombs have none |
+| Output | `Finish` places products `Near` the interaction cell and ignores the bill's storage setting |
+| Interruption | The loading job's finish action calls `Cancel` unless the job succeeds, which drops the container's contents beside the machine |
+
+**Inference, untested:** a very long load (10 or more trips for 1,500 chemfuel) goes through the same remainder queue as ordinary ammo. It's expected to work, but no ordinary ammo was checked at this size.
+
+**Owner's save** (Autosave-4, read only, 3 Nov 2026): two fabricators, at (199, 259) and (193, 259).
+
 ## Decisions
 
 | Date | Decision | Who |
@@ -111,6 +135,8 @@ asked for FSX to match. Both now use about 0.23 of the scarce ingredient and 3.5
 | 2 Nov 2026 | Heavy castings for bomb cases, steel as the fallback | agent default |
 | 2 Nov 2026 | Construction skill 10; EMP, smoke and tox fills; Drop Tanks' 20 steel | agent defaults |
 | 2 Nov 2026 | Work and research for bombs left unchanged | agent default |
+| 3 Nov 2026 | The Harrier's bombs at the ammunition fabricator | owner (request) |
+| 3 Nov 2026 | Keep the machining table as well, same costs, rockets left out | agent defaults |
 
 ## Not changed, for the owner to decide
 

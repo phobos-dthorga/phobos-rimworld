@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+
+  <!--
+    The Harrier's bombs at The Dead Man's Switch's ammunition fabricator, as well as at the machining table. Owner's
+    request, 3 Nov 2026.
+
+    The fabricator runs an ordinary recipe (Fortified.Building_WorkTableAutonomous, read 3 Nov 2026), so naming it among
+    the bombs' benches is all it takes. CE's ammo reaches it another way, through CE's AmmoInjector, which only handles
+    CE's own ammo.
+
+    The fabricator exists only with Combat Extended (Dead Man's Switch's 1.7/CE folder), the only setup where the jet
+    loads these items. The guard needs no load order: the game combines every mod's Defs before it applies any patch
+    (LoadedModManager).
+  -->
+  <Operation Class="PatchOperationConditional">
+    <xpath>Defs/ThingDef[defName="DMS_TableAmmoPrinter"]</xpath>
+    <match Class="PatchOperationSequence">
+      <operations>
+        <!-- Mk. 82 -->
+        <li Class="PatchOperationAdd">
+          <success>Always</success>
+          <xpath>Defs/ThingDef[defName="FWA_Bomb500lb"]/recipeMaker/recipeUsers</xpath>
+          <value>
+            <li>DMS_TableAmmoPrinter</li>
+          </value>
+        </li>
+        <!-- Mk. 84s -->
+        <li Class="PatchOperationAdd">
+          <success>Always</success>
+          <xpath>Defs/ThingDef[defName="Harrier_Mk84Bomb_Incendiary"]/recipeMaker/recipeUsers</xpath>
+          <value>
+            <li>DMS_TableAmmoPrinter</li>
+          </value>
+        </li>
+        <li Class="PatchOperationAdd">
+          <success>Always</success>
+          <xpath>Defs/ThingDef[defName="Harrier_Mk84Bomb_EMP"]/recipeMaker/recipeUsers</xpath>
+          <value>
+            <li>DMS_TableAmmoPrinter</li>
+          </value>
+        </li>
+        <li Class="PatchOperationAdd">
+          <success>Always</success>
+          <xpath>Defs/ThingDef[defName="Harrier_Mk84Bomb_Smoke"]/recipeMaker/recipeUsers</xpath>
+          <value>
+            <li>DMS_TableAmmoPrinter</li>
+          </value>
+        </li>
+        <!-- Exists only with Biotech, hence success on each. -->
+        <li Class="PatchOperationAdd">
+          <success>Always</success>
+          <xpath>Defs/ThingDef[defName="Harrier_Mk84Bomb_ToxGas"]/recipeMaker/recipeUsers</xpath>
+          <value>
+            <li>DMS_TableAmmoPrinter</li>
+          </value>
+        </li>
+      </operations>
+    </match>
+  </Operation>
+
+</Patch>
