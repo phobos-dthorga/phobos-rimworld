@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ModMetaData>
+  <packageId>PhobosDthorga.VehiclePatches</packageId>
+  <name>D'thorga Vehicle Patches</name>
+  <author>Phobos A. D'thorga</author>
+  <url>https://github.com/phobos-dthorga/phobos-rimworld</url>
+  <modVersion>0.1.0</modVersion>
+  <description>Patches for other authors' vehicle mods, each switched on only while that mod is active. It copies nothing from them.
+
+Harrier VTOL Attack Aircraft:
+
+A realistic build cost: a jet engine, four nozzles, landing gear, fuel tanks, wiring and more, in place of six advanced components and a single engine block. It uses RimThunder's turbine engine when RimThunder is active, and Vanilla Vehicles Expanded parts for the rest.
+
+A fix for the jet failing to load fully when RimPacts is active. The Harrier's flight framework and RimPacts both patch the same Vehicle Framework method, and the way RimPacts does it stops the framework loading most of its patches, including boarding, refuelling and landing. This keeps RimPacts' landing rule working and lets both load.
+
+With Combat Extended, bombs whose ingredients are closer to what they weigh. The Drop Tanks upgrade uses Vanilla Vehicles Expanded fuel tanks.
+
+Load it after the mods it patches. It does nothing if none of them is active.
+
+Community-created content. Not official and not endorsed by Ludeon Studios.</description>
+  <supportedVersions>
+    <li>1.6</li>
+    <li>1.7</li>
+  </supportedVersions>
+  <loadAfter>
+    <li>Ludeon.RimWorld</li>
+    <li>Ludeon.RimWorld.Biotech</li>
+    <li>brrainz.harmony</li>
+    <li>SmashPhil.VehicleFramework</li>
+    <li>OskarPotocki.VanillaVehiclesExpanded</li>
+    <li>RimThunder.Core</li>
+    <li>wowgag.RimPacts</li>
+    <li>CETeam.CombatExtended</li>
+    <li>potemkinvillager.fixedwingaircraft</li>
+    <li>potemkinvillager.av8bharrier</li>
+  </loadAfter>
+</ModMetaData>

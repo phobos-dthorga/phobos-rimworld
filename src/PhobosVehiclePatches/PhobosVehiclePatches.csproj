@@ -1,0 +1,34 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- D'thorga Vehicle Patches' assembly. It lives in the Harrier's load folder, so it loads only while the Harrier is
+       active, and the Harrier requires Vehicle Framework. Built for RimWorld 1.6 and loaded on 1.7 too. -->
+  <PropertyGroup>
+    <TargetFramework>net472</TargetFramework>
+    <RootNamespace>Phobos.VehiclePatches</RootNamespace>
+    <AssemblyName>PhobosVehiclePatches</AssemblyName>
+    <OutputPath>../../mods/PhobosVehiclePatches/Mods/HarrierVtol/Assemblies/</OutputPath>
+    <DebugType>none</DebugType>
+    <Version>0.1.0</Version>
+    <!-- Vehicle Framework's assembly (MIT), referenced from the installed mod and never copied. Its 1.6 folder is the
+         newest one; the game loads it on 1.7 too. Override with -p:VehicleFrameworkAssemblies=... -->
+    <VehicleFrameworkAssemblies Condition="'$(VehicleFrameworkAssemblies)' == ''">C:\Program Files (x86)\Steam\steamapps\workshop\content\294100\3014915404\1.6\Assemblies</VehicleFrameworkAssemblies>
+    <!-- Vehicle Framework targets .NET Framework 4.8 and this project 4.7.2, the repository's rule for 1.6. The game loads
+         both whatever they declare, so the mismatch only matters to the compiler's reference check. -->
+    <ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>true</ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Krafs.Rimworld.Ref" Version="1.6.4871" />
+    <PackageReference Include="Lib.Harmony" Version="2.4.3" ExcludeAssets="runtime" />
+    <Reference Include="Vehicles">
+      <HintPath>$(VehicleFrameworkAssemblies)\Vehicles.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="SmashTools">
+      <HintPath>$(VehicleFrameworkAssemblies)\SmashTools.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UpdateLogTool">
+      <HintPath>$(VehicleFrameworkAssemblies)\UpdateLogTool.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+</Project>

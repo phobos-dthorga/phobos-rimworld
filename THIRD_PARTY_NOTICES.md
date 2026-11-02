@@ -40,6 +40,15 @@ runtime. Nothing from VEF is in this repository. Our own code remains MIT.
 optional tie-in references the installed `BadHygiene.dll` to draw water from its plumbing, and loads only while that mod is
 active. Nothing from Dubs Bad Hygiene is in this repository.
 
+## Vehicle mods patched by D'thorga Vehicle Patches
+
+D'thorga Vehicle Patches (`mods/PhobosVehiclePatches/`) changes values by name in XML and copies nothing:
+[Harrier VTOL Attack Aircraft](https://steamcommunity.com/sharedfiles/filedetails/?id=3826359341) by potemkinvillager, with parts from
+[Vanilla Vehicles Expanded](https://steamcommunity.com/sharedfiles/filedetails/?id=3014906877) by Oskar Potocki and the Vanilla Expanded team and
+[RimThunder - Core](https://steamcommunity.com/sharedfiles/filedetails/?id=3070495204) by the RimThunder team. Its assembly references the installed
+`Vehicles.dll` of [Vehicle Framework](https://steamcommunity.com/sharedfiles/filedetails/?id=3014915404) by Smash Phil (MIT licence), never copied, and finds
+[RimPacts](https://steamcommunity.com/sharedfiles/filedetails/?id=3762723122) by wowgag by name at runtime. Nothing from any of them is in this repository.
+
 ## Vanilla Furniture Expanded - Factory
 
 D'thorga Factory Additions (`mods/PhobosFactoryAdditions/`) exists to extend

@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+
+  <!--
+    Bomb costs under Combat Extended, whose bombs are items with their real weight: 227 kg for a Mk. 82, 907 kg for a
+    Mk. 84. Stock, they were made from about 33 kg and 70 kg of materials. Without CE the jet loads bombs from steel,
+    so each change is guarded on something only CE's patch or folder provides.
+
+    The case is RimThunder's heavy casting (75 kg each) when that Def exists, or the same weight in steel (0.5 kg a
+    unit). Real fill weights are sourced: 87 kg and 429 kg (docs/development/vehicle-patches.md). Everything else is
+    AUTHORED.
+
+    The Mk. 82 and the incendiary fall short of their weight on purpose (owner's choice, 2 Nov 2026): matching it took
+    174 FSX or 858 prometheum, far too much play time to make, so chemfuel carries most of the fill. They share one
+    ratio per kg of real fill: about 0.23 of the scarce ingredient and 3.5 chemfuel. Chemfuel is 0.05 kg a unit in the
+    game, so the totals stay at 176 kg and 576 kg. The EMP, smoke and tox fills have no real equivalent to source.
+
+    MarketValue is removed so the game works it out from the ingredients, its normal rule for made items
+    (StatWorker_MarketValue). Change a number here to rescale a bomb.
+  -->
+
+  <!-- Mk. 82, 227 kg. Only while the Harrier's CE patch has made it the real weight; without CE this item is 12 kg. -->
+  <Operation Class="PatchOperationConditional">
+    <xpath>Defs/ThingDef[defName="FWA_Bomb500lb"]/statBases[Mass="227"]</xpath>
+    <match Class="PatchOperationSequence">
+      <operations>
+        <li Class="PatchOperationConditional">
+          <xpath>Defs/ThingDef[defName="ComponentHeavyCasting"]</xpath>
+          <match Class="PatchOperationReplace">
+            <xpath>Defs/ThingDef[defName="FWA_Bomb500lb"]/costList</xpath>
+            <value>
+              <costList>
+                <ComponentHeavyCasting>2</ComponentHeavyCasting>
+                <FSX>20</FSX>
+                <Chemfuel>300</Chemfuel>
+                <ComponentIndustrial>2</ComponentIndustrial>
+              </costList>
+            </value>
+          </match>
+          <nomatch Class="PatchOperationReplace">
+            <xpath>Defs/ThingDef[defName="FWA_Bomb500lb"]/costList</xpath>
+            <value>
+              <costList>
+                <Steel>280</Steel>
+                <FSX>20</FSX>
+                <Chemfuel>300</Chemfuel>
+                <ComponentIndustrial>2</ComponentIndustrial>
+              </costList>
+            </value>
+          </nomatch>
+        </li>
+        <li Class="PatchOperationRemove">
+          <xpath>Defs/ThingDef[defName="FWA_Bomb500lb"]/statBases/MarketValue</xpath>
+        </li>
+      </operations>
+    </match>
+  </Operation>
+
+  <!-- Mk. 84 incendiary, 907 kg. -->
+  <Operation Class="PatchOperationConditional">
+    <xpath>Defs/ThingDef[defName="Harrier_Mk84Bomb_Incendiary"]</xpath>
+    <match Class="PatchOperationSequence">
+      <operations>
+        <li Class="PatchOperationConditional">
+          <xpath>Defs/ThingDef[defName="ComponentHeavyCasting"]</xpath>
+          <match Class="PatchOperationReplace">
+            <xpath>Defs/ThingDef[defName="Harrier_Mk84Bomb_Incendiary"]/costList</xpath>
+            <value>
+              <costList>
+                <ComponentHeavyCasting>6</ComponentHeavyCasting>
+                <Prometheum>100</Prometheum>
+                <Chemfuel>1500</Chemfuel>
+                <ComponentIndustrial>2</ComponentIndustrial>
+              </costList>
+            </value>
+          </match>
+          <nomatch Class="PatchOperationReplace">
+            <xpath>Defs/ThingDef[defName="Harrier_Mk84Bomb_Incendiary"]/costList</xpath>
+            <value>
+              <costList>
+                <Steel>956</Steel>
+                <Prometheum>100</Prometheum>
+                <Chemfuel>1500</Chemfuel>
+                <ComponentIndustrial>2</ComponentIndustrial>
+              </costList>
+            </value>
+          </nomatch>
+        </li>
+        <li Class="PatchOperationRemove">
+          <xpath>Defs/ThingDef[defName="Harrier_Mk84Bomb_Incendiary"]/statBases/MarketValue</xpath>
+        </li>
+      </operations>
+    </match>
+  </Operation>
+
+  <!-- Mk. 84 EMP, 907 kg. The steel stands for the coils and ballast of the device. -->
+  <Operation Class="PatchOperationConditional">
+    <xpath>Defs/ThingDef[defName="Harrier_Mk84Bomb_EMP"]</xpath>
+    <match Class="PatchOperationSequence">
+      <operations>
+        <li Class="PatchOperationConditional">
+          <xpath>Defs/ThingDef[defName="ComponentHeavyCasting"]</xpath>
+          <match Class="PatchOperationReplace">
+            <xpath>Defs/ThingDef[defName="Harrier_Mk84Bomb_EMP"]/costList</xpath>
+            <value>
+              <costList>
+                <ComponentHeavyCasting>6</ComponentHeavyCasting>
+                <Steel>840</Steel>
+                <ComponentIndustrial>12</ComponentIndustrial>
+              </costList>
+            </value>
+          </match>
+          <nomatch Class="PatchOperationReplace">
+            <xpath>Defs/ThingDef[defName="Harrier_Mk84Bomb_EMP"]/costList</xpath>
+            <value>
+              <costList>
+                <Steel>1796</Steel>
+                <ComponentIndustrial>12</ComponentIndustrial>
+              </costList>
+            </value>
+          </nomatch>
+        </li>
+        <li Class="PatchOperationRemove">
+          <xpath>Defs/ThingDef[defName="Harrier_Mk84Bomb_EMP"]/statBases/MarketValue</xpath>
+        </li>
+      </operations>
+    </match>
+  </Operation>
+
+  <!-- Mk. 84 smoke, 907 kg. The steel stands for the smoke canisters inside. -->
+  <Operation Class="PatchOperationConditional">
+    <xpath>Defs/ThingDef[defName="Harrier_Mk84Bomb_Smoke"]</xpath>
+    <match Class="PatchOperationSequence">
+      <operations>
+        <li Class="PatchOperationConditional">
+          <xpath>Defs/ThingDef[defName="ComponentHeavyCasting"]</xpath>
+          <match Class="PatchOperationReplace">
+            <xpath>Defs/ThingDef[defName="Harrier_Mk84Bomb_Smoke"]/costList</xpath>
+            <value>
+              <costList>
+                <ComponentHeavyCasting>6</ComponentHeavyCasting>
+                <Steel>760</Steel>
+                <Chemfuel>1000</Chemfuel>
+                <ComponentIndustrial>1</ComponentIndustrial>
+              </costList>
+            </value>
+          </match>
+          <nomatch Class="PatchOperationReplace">
+            <xpath>Defs/ThingDef[defName="Harrier_Mk84Bomb_Smoke"]/costList</xpath>
+            <value>
+              <costList>
+                <Steel>1716</Steel>
+                <Chemfuel>1000</Chemfuel>
+                <ComponentIndustrial>1</ComponentIndustrial>
+              </costList>
+            </value>
+          </nomatch>
+        </li>
+        <li Class="PatchOperationRemove">
+          <xpath>Defs/ThingDef[defName="Harrier_Mk84Bomb_Smoke"]/statBases/MarketValue</xpath>
+        </li>
+      </operations>
+    </match>
+  </Operation>
+
+  <!-- Mk. 84 poison gas, 907 kg. Exists only with Biotech. -->
+  <Operation Class="PatchOperationConditional">
+    <xpath>Defs/ThingDef[defName="Harrier_Mk84Bomb_ToxGas"]</xpath>
+    <match Class="PatchOperationSequence">
+      <operations>
+        <li Class="PatchOperationConditional">
+          <xpath>Defs/ThingDef[defName="ComponentHeavyCasting"]</xpath>
+          <match Class="PatchOperationReplace">
+            <xpath>Defs/ThingDef[defName="Harrier_Mk84Bomb_ToxGas"]/costList</xpath>
+            <value>
+              <costList>
+                <ComponentHeavyCasting>6</ComponentHeavyCasting>
+                <Wastepack>72</Wastepack>
+                <ComponentIndustrial>1</ComponentIndustrial>
+              </costList>
+            </value>
+          </match>
+          <nomatch Class="PatchOperationReplace">
+            <xpath>Defs/ThingDef[defName="Harrier_Mk84Bomb_ToxGas"]/costList</xpath>
+            <value>
+              <costList>
+                <Steel>956</Steel>
+                <Wastepack>72</Wastepack>
+                <ComponentIndustrial>1</ComponentIndustrial>
+              </costList>
+            </value>
+          </nomatch>
+        </li>
+        <li Class="PatchOperationRemove">
+          <xpath>Defs/ThingDef[defName="Harrier_Mk84Bomb_ToxGas"]/statBases/MarketValue</xpath>
+        </li>
+      </operations>
+    </match>
+  </Operation>
+
+</Patch>

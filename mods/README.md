@@ -7,6 +7,7 @@ which are build products and never committed.
 | --- | --- | --- |
 | D’thorga Radio Framework | `PhobosRadioFramework/` | Radio with a real link budget; Phase 1 is local VHF and UHF |
 | D’thorga Factory Additions | `PhobosFactoryAdditions/` | XML additions to Vanilla Furniture Expanded - Factory |
+| D’thorga Vehicle Patches | `PhobosVehiclePatches/` | Patches for other authors' vehicle mods, starting with the Harrier VTOL |
 
 A mod folder holds:
 

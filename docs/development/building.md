@@ -20,6 +20,12 @@ the core and then `mods/PhobosFactoryAdditions/Mods/DubsBadHygiene/Assemblies/Ph
 tie-in, which the core assembly never references. It references the installed `BadHygiene.dll` the same way (`DbhAssemblies`,
 default the Workshop item's `1.6\Assemblies`), never copied. **Build this project before deploying**, so both DLLs are current.
 
+**D'thorga Vehicle Patches has an assembly since 0.1.0** (2 Nov 2026): `dotnet build src/PhobosVehiclePatches/PhobosVehiclePatches.csproj` builds
+`mods/PhobosVehiclePatches/Mods/HarrierVtol/Assemblies/PhobosVehiclePatches.dll`, loaded only while the Harrier is active. It references the installed
+`Vehicles.dll`, `SmashTools.dll` and `UpdateLogTool.dll` (`VehicleFrameworkAssemblies`, default the Workshop item's `1.6\Assemblies`), never copied. Vehicle
+Framework targets .NET Framework 4.8 and this project 4.7.2, so the project sets `ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch`;
+the game loads both whatever they declare.
+
 **One limit to know:** the mod references Vanilla Expanded Framework's `PipeSystem.dll`, which its licence
 does not let us copy into the repository. So **GitHub Actions cannot build the mod**; it builds and runs
 only the game-free physics tests in `tests/`. The mod itself builds on a machine with RimWorld and VEF

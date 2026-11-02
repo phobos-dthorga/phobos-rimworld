@@ -32,6 +32,12 @@ promise current behaviour. For using the mods, start at the [documentation index
   factory hoppers, or storage flagged with Pipe System's extension; since 0.6.0 also switched-on storage), where
   it pushes, what the flag does not change, and the recipe for flagging another mod's storage.
 
+## Vehicle patches
+
+- [Vehicle patches: research and decisions (2 Nov 2026)](vehicle-patches.md): why the Harrier's flight framework fails beside
+  RimPacts (a Harmony patch in a generic class breaks the next patch of that method), its build cost and bomb costs against
+  the owner's other vehicles, 1.7 readiness, and bug reports for the mods' authors.
+
 ## Artwork
 
 - [Artwork direction (19 Oct 2026)](artwork-direction.md): why PixelLab does not suit RimWorld, the three

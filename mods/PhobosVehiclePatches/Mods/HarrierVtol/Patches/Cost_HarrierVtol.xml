@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+
+  <!--
+    1. The jet's build cost. Stock: 450 steel, 150 plasteel, 25 components, 6 advanced components, 1 VVE engine block,
+    with no landing gear, tanks, wiring or nozzles. All counts are AUTHORED unless a source is named in
+    docs/development/vehicle-patches.md, which also gives the value and mass comparison with the Hind and Mongoose.
+
+    Steel stays FIRST in the list: Vehicle Framework reads the first cost item for the jet's destruction sound.
+    The engine is RimThunder's turbine when that Def exists, with the research that makes it, so the blueprint
+    doesn't appear before the colony can build its engine. Without RimThunder it is three VVE engine blocks, as on
+    the same author's Hind and Mongoose.
+  -->
+  <Operation Class="PatchOperationConditional">
+    <xpath>Defs/ThingDef[defName="EngineTurbine"]</xpath>
+    <match Class="PatchOperationSequence">
+      <operations>
+        <li Class="PatchOperationReplace">
+          <xpath>Defs/Vehicles.VehicleBuildDef[defName="Harrier_Jet_Blueprint"]/costList</xpath>
+          <value>
+            <costList>
+              <Steel>400</Steel>
+              <Plasteel>120</Plasteel>
+              <ComponentIndustrial>30</ComponentIndustrial>
+              <EngineTurbine>1</EngineTurbine>
+              <VVE_CarExhaust>4</VVE_CarExhaust>
+              <VVE_CarSuspension>4</VVE_CarSuspension>
+              <VVE_CarWheel>4</VVE_CarWheel>
+              <VVE_CarFuelTank>3</VVE_CarFuelTank>
+              <VVE_CarTransmission>1</VVE_CarTransmission>
+              <VVE_CarAlternator>2</VVE_CarAlternator>
+              <VVE_CarBattery>2</VVE_CarBattery>
+              <VVE_CarWiring>6</VVE_CarWiring>
+            </costList>
+          </value>
+        </li>
+        <li Class="PatchOperationAdd">
+          <xpath>Defs/Vehicles.VehicleBuildDef[defName="Harrier_Jet_Blueprint"]/researchPrerequisites</xpath>
+          <value>
+            <li>EngineAdvanced</li>
+          </value>
+        </li>
+      </operations>
+    </match>
+    <nomatch Class="PatchOperationReplace">
+      <xpath>Defs/Vehicles.VehicleBuildDef[defName="Harrier_Jet_Blueprint"]/costList</xpath>
+      <value>
+        <costList>
+          <Steel>400</Steel>
+          <Plasteel>120</Plasteel>
+          <ComponentIndustrial>30</ComponentIndustrial>
+          <VVE_EngineBlock>3</VVE_EngineBlock>
+          <VVE_CarExhaust>4</VVE_CarExhaust>
+          <VVE_CarSuspension>4</VVE_CarSuspension>
+          <VVE_CarWheel>4</VVE_CarWheel>
+          <VVE_CarFuelTank>3</VVE_CarFuelTank>
+          <VVE_CarTransmission>1</VVE_CarTransmission>
+          <VVE_CarAlternator>2</VVE_CarAlternator>
+          <VVE_CarBattery>2</VVE_CarBattery>
+          <VVE_CarWiring>6</VVE_CarWiring>
+        </costList>
+      </value>
+    </nomatch>
+  </Operation>
+
+  <!-- 2. The Hind and Mongoose both ask for construction skill 10; a jet shouldn't ask for less. -->
+  <Operation Class="PatchOperationReplace">
+    <xpath>Defs/Vehicles.VehicleBuildDef[defName="Harrier_Jet_Blueprint"]/constructionSkillPrerequisite</xpath>
+    <value>
+      <constructionSkillPrerequisite>10</constructionSkillPrerequisite>
+    </value>
+  </Operation>
+
+  <!-- 3. Drop Tanks: real fuel tanks, plus steel for the pylon fittings (authored). Stock: 60 steel, 2 components. -->
+  <Operation Class="PatchOperationReplace">
+    <xpath>Defs/Vehicles.UpgradeTreeDef[defName="Harrier_UpgradeTree"]/nodes/li[key="Harrier_DropTanks"]/ingredients</xpath>
+    <value>
+      <ingredients>
+        <Steel>20</Steel>
+        <VVE_CarFuelTank>2</VVE_CarFuelTank>
+        <ComponentIndustrial>2</ComponentIndustrial>
+      </ingredients>
+    </value>
+  </Operation>
+
+  <!--
+    4. The fuel tank's radius is an int, so "2.5" logs "Parsed 2.5 as int" at every start. The game truncates it to 2
+    (ParseHelper.ParseIntPermissive), so writing 2 changes only the warning. Guarded on the value, so a later fix by
+    the mod's author is left alone.
+  -->
+  <Operation Class="PatchOperationConditional">
+    <xpath>Defs/Vehicles.VehicleDef[defName="Harrier_Jet"]/components/li[key="FuelTank"]/reactors/li[@Class="Vehicles.Reactor_Explosive"]/radius[.="2.5"]</xpath>
+    <match Class="PatchOperationReplace">
+      <xpath>Defs/Vehicles.VehicleDef[defName="Harrier_Jet"]/components/li[key="FuelTank"]/reactors/li[@Class="Vehicles.Reactor_Explosive"]/radius</xpath>
+      <value>
+        <radius>2</radius>
+      </value>
+    </match>
+  </Operation>
+
+</Patch>
