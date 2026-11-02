@@ -2,8 +2,8 @@
 
 Patches for other authors' vehicle mods, each switched on only while that mod is active. So far it covers **Harrier VTOL
 Attack Aircraft** by potemkinvillager: a realistic build cost, a fix for the jet failing to load fully alongside RimPacts,
-honest bomb costs under Combat Extended, bombs at The Dead Man's Switch's ammunition fabricator, and fuel tanks for its Drop Tanks
-upgrade. It copies nothing from those mods.
+honest bomb costs under Combat Extended, bombs and rockets at The Dead Man's Switch's ammunition fabricator, and fuel tanks for its
+Drop Tanks upgrade. It copies nothing from those mods.
 
 Version 0.2.0, built 3 November 2026 for House D'thorga. **Not yet tested in game.**
 
@@ -14,7 +14,7 @@ Version 0.2.0, built 3 November 2026 for House D'thorga. **Not yet tested in gam
 - **Safe to add to a running save.** A jet you already built keeps working; only new builds pay the new cost. Bombs already made
   stay as they are.
 - **Safe to remove.** Costs go back to the Harrier's own, and with RimPacts active the Harrier's framework fails to load fully again.
-  **Delete any bomb bills you added at an ammunition fabricator first**, because it will no longer list those recipes.
+  **Delete any bomb or rocket bills you added at an ammunition fabricator first**, because it may no longer list those recipes.
 - **The jet now needs RimThunder's turbine, if RimThunder is active.** It's a long job:
   - **Research:** engine making, Otto Cycle and turbocharged. The jet's blueprint stays hidden until they're done.
   - **An assembly platform** to make it on (RimThunder, 200 steel, 15 components).
@@ -81,21 +81,26 @@ Without RimThunder, each 2 heavy castings become 280 steel and each 6 become 956
 Without Combat Extended nothing here changes: the jet loads its bombs from steel. To rescale a bomb, change its numbers in
 `Mods/HarrierVtol/Patches/Bombs_HarrierVtol.xml`.
 
-### Bombs at the ammunition fabricator
+### Bombs and rockets at the ammunition fabricator
 
-With The Dead Man's Switch and Combat Extended, all five bombs are also bills at its **ammunition fabricator**. The machining table still
-makes them too, and the cost is the same at both. Without those two mods this does nothing.
+With The Dead Man's Switch and Combat Extended, all five bombs and the jet's three kinds of 57 mm rocket are also bills at its **ammunition
+fabricator**. The machining table still makes them too, and the cost and research are the same at both. Without those two mods this does nothing.
 
-| Bomb | Machine time | Colonist's Crafting skill |
+| Item | Machine time for one bill | Colonist's Crafting skill |
 | --- | --- | --- |
 | Mk. 82 | 2,250 ticks (0.9 in-game hours) | 6 |
 | Any Mk. 84 | 3,000 ticks (1.2 in-game hours) | 7 |
+| 5 HE rockets | 6,500 ticks (2.6 in-game hours) | 4 |
+| 5 HEAT rockets | 4,300 ticks (1.7 in-game hours) | 4 |
+| 5 AP rockets | 2,750 ticks (1.1 in-game hours) | 4 |
+
+The Hind and Mongoose use the same three rocket recipes, so their rockets can be made there too.
 
 That's half the work of the machining table, and no colonist stands at the machine while it runs. It's the fabricator's own speed, the same as for
 all its ammo, and it draws 1,000 W while running and 50 W idle.
 
-- **A colonist still has to load it and collect the bomb.** That's the Crafting job "Operate Machine", and each needs a colonist with the skill above.
-- **A finished bomb drops beside the machine**, whatever the bill's storage setting says. Haulers take it from there.
+- **A colonist still has to load it and collect the result.** That's the Crafting job "Operate Machine", and each needs a colonist with the skill above.
+- **Finished items drop beside the machine**, whatever the bill's storage setting says. Haulers take them from there.
 - **Interrupting the colonist while loading drops what they had brought** beside the machine, and the job starts again. Nothing is lost, but the
   chemfuel-heavy bombs take many trips (1,500 chemfuel for an incendiary), so keep your chemfuel close.
 
@@ -110,7 +115,7 @@ The jet's fuel tank logged "Parsed 2.5 as int" at every start. Writing the value
 ## Where to find things
 
 - The jet's blueprint is under Architect, Vehicles.
-- Bombs are bills at the machining table, as before, and at The Dead Man's Switch's ammunition fabricator.
+- Bombs and rockets are bills at the machining table, as before, and at The Dead Man's Switch's ammunition fabricator.
 - Heavy castings are a bill at the electric smelter.
 - The turbine is a bill at RimThunder's assembly platform.
 
@@ -123,8 +128,8 @@ patch of the same method**, because Harmony stores a patch as a method token, wh
 ## Checks done
 
 - 3 November 2026: the fabricator's bench, job and ingredient code read in the current Fortified framework (31 Oct build), with CE's ammo injector and
-  the game's load steps. `scripts/check-factory-patches.py --mod PhobosVehiclePatches` passes: the fabricator and all five bombs exist among the
-  owner's active mods. **Not yet tested in game.**
+  the game's load steps. `scripts/check-factory-patches.py --mod PhobosVehiclePatches` passes: the fabricator, all five bombs and all three rocket recipes
+  exist among the owner's active mods. **Not yet tested in game.**
 - 2 November 2026: the Harrier, its bundled framework, Vehicle Framework, RimPacts, Harmony and RimThunder read in their files and
   decompiled assemblies, and the owner's log and newest save read. The assembly builds with no warnings for RimWorld 1.6, and the
   Harmony members it calls exist with the same signatures in Harmony 3.0.0-rc.3, which the owner's 1.7 game runs.

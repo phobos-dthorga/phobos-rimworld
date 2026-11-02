@@ -147,6 +147,20 @@ class CheckerTests(unittest.TestCase):
             self.assertIn('xpath matches 0 nodes, not 1: Defs/ThingDef[defName="Nobody"]', text)
             self.assertEqual(len(errors), 7)
 
+    def test_a_def_several_mods_define_may_match_more_than_once_only_as_a_whole(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            f = Fixture(tmp)
+            twin = '<RecipeDef><defName>Phobos_Twin</defName><recipeUsers /></RecipeDef>'
+            write(f.mod / 'Common' / 'Defs' / 'Twins.xml', f'<Defs>{twin}{twin}</Defs>')
+            add = '<Operation Class="PatchOperationAdd"><xpath>{0}</xpath><value><x/></value></Operation>'
+            write(f.mod / 'Common' / 'Patches' / 'Twins.xml', '<Patch>'
+                  + add.format('Defs/RecipeDef[defName="Phobos_Twin"]')
+                  + add.format('Defs/RecipeDef[defName="Phobos_Twin"]/recipeUsers') + '</Patch>')
+            errors, _ = f.check()
+            self.assertEqual(errors, [
+                'Common/Patches/Twins.xml: PatchOperationAdd xpath matches 2 nodes, not 1: '
+                'Defs/RecipeDef[defName="Phobos_Twin"]/recipeUsers'])
+
     def test_a_file_hidden_by_a_later_folder_is_reported(self):
         # The 0.3.0 fault: two load folders with Patches/Granulator.xml. The game loads only the later folder's.
         with tempfile.TemporaryDirectory() as tmp:

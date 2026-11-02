@@ -11,9 +11,10 @@ Owner's request. Not yet tested in game.
 
 ### Added
 
-- The Harrier's five bombs (Mk. 82 and the four Mk. 84s) can now be made at The Dead Man's Switch's ammunition fabricator, as well as at
-  the machining table. A colonist loads the machine and later collects the bomb; the machine works alone in between, at twice the speed
-  of a colonist at the table. Costs are unchanged.
+- The Harrier's five bombs (Mk. 82 and the four Mk. 84s) and its three 57 mm rockets (HE, HEAT and AP) can now be made at The Dead Man's
+  Switch's ammunition fabricator, as well as at the machining table. A colonist loads the machine and later collects the result; the machine
+  works alone in between, at twice the speed of a colonist at the table. Costs and research are unchanged.
+- The Hind and Mongoose use the same three rocket recipes, so their rockets gain this too.
 
 ### Dependencies
 
@@ -21,11 +22,11 @@ Owner's request. Not yet tested in game.
 
 ### Save compatibility
 
-- Safe to add. Before removing this mod, delete any bomb bills you added at a fabricator, because the fabricator will no longer list those recipes.
+- Safe to add. Before removing this mod, delete any bomb or rocket bills you added at a fabricator, because the fabricator may no longer list those recipes.
 
 ### Compatibility and limits
 
-- The fabricator drops a finished bomb beside itself, whatever the bill's storage setting says, and haulers take it from there.
+- The fabricator drops what it makes beside itself, whatever the bill's storage setting says, and haulers take it from there.
 - If a colonist is interrupted while loading, the machine drops what it was given, and the job starts again. A chemfuel-heavy bomb takes
   many trips, so this is more likely than with ordinary ammo. Nothing is lost.
 

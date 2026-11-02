@@ -7,7 +7,8 @@ set, and from them only the files the game loads (check-mod-layout.py's files_th
 
 - no Defs or Patches file of the mod is skipped because a later-listed folder has a file at the same path;
 - every PatchOperation xpath (Add, Replace, AddModExtension, inside Sequence and FindMod) matches exactly
-  one node in the loaded Defs (the game's, the active mods' and this mod's own);
+  one node in the loaded Defs (the game's, the active mods' and this mod's own), or every copy of one whole
+  Def when several mods define it;
 - every Def name a ProcessDef uses (ingredient thing or category, result, research, sustainer, effecter)
   exists among the loaded Defs;
 - every hopper-only ProcessDef sets maxOutputCount, and keeps it at or below the result's stack limit
@@ -247,6 +248,11 @@ def template_errors(template, index, active, where):
     return errors
 
 
+# A path to one whole Def by name. Matching several means several mods each define it (the Harrier, Hind and Mongoose
+# all carry the AP rocket's recipe). The game keeps the last and the patch reaches them all, so that's not a fault.
+WHOLE_DEF_XPATH = re.compile(r'Defs/[\w.]+\[defName="[^"]+"\]')
+
+
 def patch_errors(element, index, active_names, where, added, parent_names=None):
     """Errors for one patch operation (recursing into sequences and FindMod blocks); fills added (bill names)
     and parent_names (Names the patch adds to Defs, for ParentName)."""
@@ -272,7 +278,7 @@ def patch_errors(element, index, active_names, where, added, parent_names=None):
     elif cls in XPATH_OPERATIONS:
         xpath = (element.findtext('xpath') or '').strip()
         count = index.matches(xpath)
-        if count != 1:
+        if count != 1 and not (count > 1 and WHOLE_DEF_XPATH.fullmatch(xpath)):
             errors.append(f'{where}: {cls} xpath matches {count} nodes, not 1: {xpath}')
         if cls == 'PatchOperationAdd' and xpath.endswith('/processes'):
             added.update((li.text or '').strip() for li in element.findall('value/li'))
