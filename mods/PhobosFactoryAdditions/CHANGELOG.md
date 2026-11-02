@@ -5,6 +5,42 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.9.0] - 2026-11-02 - Draft
+
+Soup that comes out of a factory ready to eat. VFE Factory's only soup bill makes uncooked soup, which then needs
+an electric pot and a colonist to load it, so it stops an automated line. Owner's request. Not yet tested in game.
+
+### Added
+
+- With Vanilla Cooking Expanded: Cook simple soup, on VFE Factory's conveyor oven. 20 raw meat and 20 raw plant
+  food make 5 simple soups in 6,000 ticks. It needs the same research as the stock soup bill (Soup cooking and
+  Basic factories). The stock Prepare simple soup bill stays.
+- The bill's label and description are agent-written, held for the owner's review.
+
+### Balance
+
+- The same yield as Vanilla Cooking Expanded's bench and pot: 2 nutrition of raw food makes 5 soups, 4 nutrition of
+  food. Mass-produced meals make 3.6 from the same inputs in 4,800 ticks, so soup gets a little more from the food
+  and a little less from the machine's time. The 6,000 ticks are authored.
+- Five soups and four mass-produced meals are both worth 60 silver, so this bill sells for no more than the oven's
+  meals do.
+- Much less food per batch than the stock uncooked route, on purpose. The stock bill makes 8 uncooked soups from 80
+  raw food, and a pot turns each into 10 soups: 64 nutrition of soup from 4 of raw food, worth 960 silver. It uses
+  VFE Factory's meal formula, which looks like an oversight (our reading). Agent choice, held for the owner's review.
+- Output limit 5 (soup stacks to 10, a batch is 5), so two batches share a stack and then the oven waits.
+
+### Save compatibility
+
+- Safe to add. Before removing the mod, or Vanilla Cooking Expanded, remove this bill from each conveyor oven's
+  Processes tab, as for every bill this mod adds.
+
+### Compatibility and limits
+
+- Simple soup only, because VFE Factory automates no other soup.
+- The batch is always 5, whatever the ingredients' nutrition. Most raw food is 0.05 a unit.
+- Soup keeps its ingredients, so human or insect meat in the hopper brings the usual thoughts, as in the stock bills.
+- A belt from the output hopper waits for ever if the storage ahead refuses simple soup, so tick it in those filters.
+
 ## [0.8.0] - 2026-10-31 - Draft
 
 Medicine without cotton: a medicine granulator bill that uses synthread in place of cloth, so a colony that

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+  <!--
+    A Pipe System process (Vanilla Expanded Framework) for VFE Factory's conveyor oven: simple soup that comes
+    out ready to eat, so a factory line needs no electric pot and no colonist to load one. Shape copied from
+    VFE Factory's own VFEFactory_MakeSimpleSoup and VFEFactory_MakeMassProducedMeal (read 2 Nov 2026): the same
+    input cells, research, sounds and effects.
+
+    Values. Vanilla Cooking Expanded's bench recipe: 4 nutrition of raw food -> 1 uncooked soup -> 10 soups, so
+    2 nutrition -> 5 soups. This bill: 20 raw meat + 20 raw plant food (2 nutrition at the usual 0.05 a unit) ->
+    5 soups, the same ratio. 6000 ticks is AUTHORED: mass-produced meals take 4800 and give 3.6 nutrition from
+    the same inputs, soups give 4.0, so soup gets more food from the inputs and less from the machine's time.
+    The batch is fixed, not counted from nutrition: VFE Factory's meal worker gives 2 items per nutrition, so 4
+    soups here, below the bench recipe's yield, and its output line talks about meals.
+  -->
+  <PipeSystem.ProcessDef>
+    <defName>PhobosFactory_CookSimpleSoup</defName>
+    <label>Cook simple soup</label>
+    <labelOverride>Cook simple soup</labelOverride>
+    <description>Cook simple soup from raw meat and raw plant food, ready to eat. Needs no electric pot. A batch takes a little longer than mass-produced meals and gets a little more food from the same ingredients.</description>
+    <priorityInBillList>5</priorityInBillList>
+    <spawnOnInteractionCell>true</spawnOnInteractionCell>
+    <autoGrabFromHoppers>true</autoGrabFromHoppers>
+    <useIngredients>true</useIngredients>
+    <autoInputSlots>
+      <li>(0,0,3)</li>
+      <li>(1,0,3)</li>
+      <li>(-1,0,3)</li>
+    </autoInputSlots>
+    <ticks>6000</ticks>
+    <ingredients>
+      <li>
+        <thingCategory>MeatRaw</thingCategory>
+        <countNeeded>20</countNeeded>
+      </li>
+      <li>
+        <thingCategory>PlantFoodRaw</thingCategory>
+        <countNeeded>20</countNeeded>
+      </li>
+    </ingredients>
+    <researchPrerequisites>
+      <li>VCE_SoupCooking</li>
+      <li>VFE_BasicFactories</li>
+    </researchPrerequisites>
+    <results>
+      <li>
+        <thing>VCE_CookedSoupSimple</thing>
+        <count>5</count>
+      </li>
+    </results>
+    <isFactoryProcess>true</isFactoryProcess>
+    <autoExtract>true</autoExtract>
+    <onlyGrabAndOutputToFactoryHoppers>true</onlyGrabAndOutputToFactoryHoppers>
+    <sustainerWhenWorking>true</sustainerWhenWorking>
+    <sustainerDef>VFEFactory_AutomatedCookingSustainer</sustainerDef>
+    <effecterWhenWorking>true</effecterWhenWorking>
+    <effecterDef>VFEFactory_Cook</effecterDef>
+    <!-- Soup stacks to 10 and a batch is 5, so two batches share a stack and then the oven waits. -->
+    <maxOutputCount>5</maxOutputCount>
+  </PipeSystem.ProcessDef>
+
+</Defs>

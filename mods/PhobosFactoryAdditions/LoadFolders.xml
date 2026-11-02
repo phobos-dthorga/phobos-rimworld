@@ -17,6 +17,7 @@
     <li IfModActive="kongkim.FarmableNeutroamine">Mods/FarmableNeutroamine</li>
     <li IfModActive="AgentOrange.PassiveExoskeletons">Mods/PassiveExoskeletons</li>
     <li IfModActive="local.washingmachine">Mods/WashingMachine</li>
+    <li IfModActive="VanillaExpanded.VCookE">Mods/VanillaCookingExpanded</li>
     <li IfModActive="VanillaExpanded.VChemfuelE">Mods/VanillaChemfuelExpanded</li>
     <li IfModActive="vanillaracesexpanded.android">Mods/VanillaRacesExpandedAndroid</li>
   </v1.6>
@@ -35,6 +36,7 @@
     <li IfModActive="kongkim.FarmableNeutroamine">Mods/FarmableNeutroamine</li>
     <li IfModActive="AgentOrange.PassiveExoskeletons">Mods/PassiveExoskeletons</li>
     <li IfModActive="local.washingmachine">Mods/WashingMachine</li>
+    <li IfModActive="VanillaExpanded.VCookE">Mods/VanillaCookingExpanded</li>
     <li IfModActive="VanillaExpanded.VChemfuelE">Mods/VanillaChemfuelExpanded</li>
     <li IfModActive="vanillaracesexpanded.android">Mods/VanillaRacesExpandedAndroid</li>
   </v1.7>

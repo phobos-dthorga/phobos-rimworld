@@ -497,6 +497,44 @@ the Vanilla Races Expanded - Android piped-neutroamine patch.
 - **Same research** as the stock bill: no synthread research gate, since owning synthread is enough.
 - **Priority 0**, so it sits beside the stock medicine bill in the Add process menu.
 
+## Cooked soup on the conveyor oven (0.9.0, 2 Nov 2026)
+
+The owner asked for an option to make soup already cooked, because uncooked soup was upsetting their automated
+lines (screenshot: a deep factory hopper holding 24 uncooked simple soups, 3.9 days from rotting).
+
+**What the sources say** (read 2 Nov 2026; not tested in game):
+
+- VFE Factory's `VFEFactory_MakeSimpleSoup`: 40 `MeatRaw` and 40 `PlantFoodRaw` to `VCE_UncookedSoupSimple`, 4800
+  ticks, output limit 20, with the worker `ResultWorker_TotalNutrition_MassProducedMeal`. That worker returns
+  round(nutrition x 2), so 8 uncooked soups a batch, not the 4 the Def's count says. The screenshot's 24 fits: three
+  batches, stopping once the stack passes the limit of 20.
+- Vanilla Cooking Expanded's `VCE_CookSoupSimple`: 4 nutrition of raw food to 1 uncooked soup (the count is
+  nutrition, through `IngredientValueGetter_Nutrition`). `VCE_SimpleSoupRecipe` in the electric pot: 1 uncooked to
+  10 `VCE_CookedSoupSimple`, 120,000 ticks. Soup: 0.8 nutrition, 12 silver, stack 10.
+- Food out for food in: the game's simple meal and VFE's mass-produced meal 1.8 times; soup by hand 2 times; the
+  stock oven bill plus pot **16 times**. Our inference: VFE reused its meal worker without allowing for the pot.
+- VFE's cannery (`VFEFactory_MakeCannedSoup`, Vanilla Cooking Expanded folder) already takes uncooked soup: 1 uncooked
+  and 1 steel to 10 canned soups in 15,200 ticks, needing Complex factories and Canning. So canning is the stock way
+  to keep a line automated, and it keeps the high yield.
+- Pipe System's output step (see "The output guard" above): a bill's limit must be at most stack limit minus batch
+  and above 0, so with soup's stack of 10 a batch of 10 can't have a limit. 5 gives two batches to a stack.
+
+**What 0.9.0 does.** `PhobosFactory_CookSimpleSoup` in `Mods/VanillaCookingExpanded` (loaded only with that mod): 20
+`MeatRaw` and 20 `PlantFoodRaw` to 5 `VCE_CookedSoupSimple`, 6000 ticks, limit 5, the stock bill's input cells, research,
+sound and effect, with `useIngredients` so meat thoughts carry over. Added to `VFEFactory_ConveyorOven`. The stock
+bill stays.
+
+**Agent choices (owner to revise).**
+
+- **Yield: the hand recipe's 2 times, not the stock route's 16 times.** The rule against value from nothing decides
+  it: 80 raw food would become 960 silver with no colonist or pot. For more food per raw unit, lower the ingredient
+  counts rather than raising the batch, which has to stay small enough to leave an output limit.
+- **A second bill, not a change to the stock bill.** Canning lines and pots still need uncooked soup.
+- **A fixed batch, not VFE's meal worker.** The worker would give 4 soups, under the hand recipe, and its output line
+  talks about meals. A fixed count ignores unusual nutrition, as stock drug bills do.
+- **6000 ticks** (authored), 25% longer than meals for 11% more food: a trade rather than a straight upgrade.
+- **Simple soup only**: VFE Factory automates no other, and fine or lavish soup would need a bill of their own design.
+
 ## Ideas for later additions (agent suggestions, not decided)
 
 - **Machines that output into switched-on storage** (Pipe System's `FactoryHopperDetected`): would let a

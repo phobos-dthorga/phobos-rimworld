@@ -6,19 +6,20 @@ fabrication bench makes (bionics and other artificial body parts, spacer weapons
 or Dubs Rimatomics what a bioferrite shaper or a Rimatomics machining table makes; a **fix for the automated
 machining bay**, which could lose a finished item; a **Synthesize neutroamine from human meat** bill for
 the neutroamine synthesizer; a **Make batch of medicine from synthread** bill for the medicine granulator, so
-medicine needs no cotton; a **deep factory hopper** that holds four stacks; with "[sbz] Fridge", **conveyor belts and factory machines that take corpses
+medicine needs no cotton; with Vanilla Cooking Expanded, a **Cook simple soup** bill for the conveyor oven, so soup
+comes out ready to eat; a **deep factory hopper** that holds four stacks; with "[sbz] Fridge", **conveyor belts and factory machines that take corpses
 straight from its corpse fridge**; and **drug lab recipes from other mods as factory bills**, each switched
 on only while its mod is active (Medicines+, Deep Pills, Ushankas Biological Warfare, Combat Extended, Dubs
 Rimatomics, Hemofungus, Complementary Odyssey, Glitterworld Medicine Production, Farmable Neutroamine,
 Passive Exoskeletons, Simple Washing Machine).
 
-Version 0.8.0, built 31 October 2026 for House D'thorga. **Tested in game:** the human-meat bill (owner,
+Version 0.9.0, built 2 November 2026 for House D'thorga. **Tested in game:** the human-meat bill (owner,
 28 October 2026, RimWorld 1.7), the drug-lab bills appearing on their machines (owner, 29 October 2026), and
 belts taking from switched-on storage, only when they point away from it (owner, 29 and 30 October 2026). The
 corpse fridge change, running the 0.3.0 bills to the end, the 0.3.2 chemfuel repair, the 0.4.0 deep factory
 hopper, everything in 0.5.0 and 0.5.1 (the fabrication bay and the output fix), machine input cells on
 switched-on storage, the switch surviving a save and load, everything in 0.7.0 (stuck belts waking, belts
-obeying storage filters) and the 0.8.0 synthread medicine bill are not yet tested in game.
+obeying storage filters), the 0.8.0 synthread medicine bill and the 0.9.0 soup bill are not yet tested in game.
 
 ## Read this first (gotchas)
 
@@ -83,6 +84,11 @@ obeying storage filters) and the 0.8.0 synthread medicine bill are not yet teste
   of cloth. It needs the same research (**Medicine production** and **Complex factories**). Give the granulator
   three input hoppers: **one each for synthread, neutroamine and herbal medicine**. Synthread costs more than
   cloth, so this bill is for a steady supply, not for selling medicine.
+- **Soup that comes out cooked (0.9.0, needs Vanilla Cooking Expanded).** On the conveyor oven, **remove Prepare
+  simple soup and add Cook simple soup**. It takes **20 raw meat and 20 raw plant food** for **5 ready-to-eat
+  soups**. **Tick "simple soup" in the filter of any storage a belt carries it into**, or the belt waits for ever.
+  **Clear any uncooked soup out of the output hopper first.** It makes far fewer soups per batch than the uncooked
+  bill plus a pot; "Cooked soup on the conveyor oven" below says why.
 - **The stock bill stops taking human meat** once this mod is on. Human meat sitting in a hopper that feeds
   the stock "Synthesize neutroamine" bill will stay there until you add the human-meat bill or move it.
 - **Tick the ingredient in the hopper's storage filter**, and raise the hopper's priority (factory hoppers
@@ -337,6 +343,24 @@ either way, more with synthread**: it's for keeping medicine coming, not for sel
   but **healroot also grows in hydroponics basins** (sowing needs Plants 8). Grow it indoors under sun lamps for
   a year-round supply.
 
+### Cooked soup on the conveyor oven (0.9.0)
+
+VFE Factory's **Prepare simple soup** bill makes *uncooked* soup. That needs Vanilla Cooking Expanded's electric
+pot, a colonist to load it and two days to cook, so it stops an automated line. **Cook simple soup** skips all
+that and puts finished soup in the output hopper. Not yet tested in game.
+
+| Route | Raw food | Makes | Nutrition out | Time |
+| --- | --- | --- | --- | --- |
+| Cook simple soup (this bill) | 20 meat, 20 plant food | 5 soups | 4.0 | 6,000 ticks |
+| Mass-produced meals, for comparison | 20 meat, 20 plant food | 4 meals | 3.6 | 4,800 ticks |
+| Bench and pot, by hand (Vanilla Cooking Expanded) | 4 nutrition, about 80 units | 10 soups | 8.0 | 2 days in the pot |
+| Stock oven bill and pot | 40 meat, 40 plant food | 80 soups | 64.0 | 4,800 ticks, then 2 days in a pot per 10 soups |
+
+**The yield is an agent choice:** it matches Vanilla Cooking Expanded's own recipe, 2 nutrition of raw food for 5
+soups. The stock oven bill gives eight times that, because it borrows the formula VFE Factory uses for meals; that
+looks like an oversight to me, not a design. Copying it here would turn 80 raw food into 960 silver of soup with no
+colonist involved. The 6,000 ticks are authored, so soup gets more out of the food and meals more out of the machine.
+
 ### Drug lab recipes as medicine granulator bills (0.3.0)
 
 Every bill is the other mod's drug lab recipe scaled the way VFE Factory scales its own drug bills: a
@@ -485,6 +509,7 @@ the **Belts may take from here** switch instead, like every other storage buildi
   the refinery. Kimoju's mod also asks for **Biofuel refining** on the synthesizer.
 - Build the machine (Architect, Factories), open its **Processes** tab, click **Add process** and pick the
   bill. Bills whose research is not done are not listed yet.
+- **Cook simple soup** is on the **conveyor oven**, once **Soup cooking** and **Basic factories** are researched.
 - The **deep factory hopper** is under Architect, Factories, beside the factory hopper (Basic factories).
 - The **automated fabrication bay** is under Architect, Factories, in the same tab as the machining bay
   (Complex factories and Fabrication). It must stand on factory floor, like every factory machine.
@@ -626,3 +651,7 @@ Optional fields: `excludedThings` (items to leave at the bench), `workMultiplier
   line, a machine's input cell on switched-on storage, and the switch surviving a save and load. For 0.7.0:
   the stuck belts in the owner's save waking on load (expect "Woke a stuck ..." log lines), and a stray item
   staying on the corpse fridge while corpses ride out.
+- 2 November 2026, 0.9.0: the stock soup and meal bills, the pot's process and the soup items read from the
+  installed mods' XML; VFE Factory's meal formula and Pipe System's output step read in their decompiled
+  assemblies. The owner's screenshot of 24 uncooked soups fits batches of 8. `scripts/check-factory-patches.py`
+  passes. Not yet tested in game.

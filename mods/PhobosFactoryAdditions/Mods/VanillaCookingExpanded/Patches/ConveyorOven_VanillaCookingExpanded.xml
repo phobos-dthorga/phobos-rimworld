@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+
+  <!-- Add the bill in this folder to VFE Factory's conveyor oven. Loaded only while Vanilla Cooking Expanded is active. -->
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/ThingDef[defName="VFEFactory_ConveyorOven"]/comps/li[@Class="PipeSystem.CompProperties_AdvancedResourceProcessor"]/processes</xpath>
+    <value>
+      <li>PhobosFactory_CookSimpleSoup</li>
+    </value>
+  </Operation>
+
+</Patch>
