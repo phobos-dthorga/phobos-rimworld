@@ -5,8 +5,8 @@ it, without wounds vanishing, lost limbs growing back, bionics moving or corpses
 load of a save written without More Injuries, and does nothing after you save.
 
 Version 0.1.1, built 3 November 2026 for House D'thorga. **The first load was tested in game by the owner on 3 November 2026**
-on a copy of a 330-mod colony with Medical System Expansion 2 and Combat Extended, and went cleanly. The 0.1.1 change and the
-save-and-reload step are not yet tested in game.
+on a copy of a 330-mod colony with Medical System Expansion 2 and Combat Extended, and went cleanly, with 0.1.0 and again with 0.1.1. The
+save-and-reload step is not yet tested in game.
 
 ## Read this first (gotchas)
 
@@ -27,8 +27,8 @@ save-and-reload step are not yet tested in game.
 - **Safe to remove** at any time: it saves nothing. Removing More Injuries itself is More Injuries' business, not this mod's.
 - **It helps with any mod that adds body parts**, not just More Injuries: anything the save lacked that adds parts to a body is
   re-numbered the same way. A mod that moves or deletes an existing part is beyond it.
-- **Tested in game once**, by the owner on 3 November 2026: the first load of a copy of the live colony. The reload after saving
-  and a fresh colony are not yet tested. Everything else here is read from the game's and the mods' code.
+- **Tested in game twice**, by the owner on 3 November 2026: the first load of a copy of the live colony, with 0.1.0 and with 0.1.1.
+  The reload after saving and a fresh colony are not yet tested. Everything else here is read from the game's and the mods' code.
 
 ## What goes wrong without it
 

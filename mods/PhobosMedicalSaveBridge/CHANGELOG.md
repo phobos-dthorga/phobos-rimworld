@@ -7,7 +7,9 @@ yet. Not yet tested in game unless an entry says the owner tested it.
 
 ## [0.1.1] - 2026-11-03 - Draft
 
-Follows the owner's first load in game, which showed the one gap below. The change itself is not yet tested in game.
+Follows the owner's first load in game, which showed the one gap below. **Tested in game by the owner on 3 November 2026**:
+the same copy of the live colony loaded again with 0.1.1, and the load report added 92 hediffs upgraded from the game's Hediff
+to HediffWithComps, MSE2 re-installed nothing, and the error list was identical to the 0.1.0 load. Save-and-reload still to run.
 
 ### Fixed
 

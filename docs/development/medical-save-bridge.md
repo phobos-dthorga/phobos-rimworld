@@ -1,7 +1,7 @@
 # Medical save bridge: research and decisions (3 Nov 2026)
 
 The record behind [D'thorga Medical Save Bridge](../../mods/PhobosMedicalSaveBridge/README.md). **The first load was tested in game
-by the owner on 3 November 2026** (results at the end); the save-and-reload step and 0.1.1's change are not. The
+by the owner on 3 November 2026**, with 0.1.0 and again with 0.1.1 (results at the end); the save-and-reload step is not. The
 player guide is the mod's README; this holds the code readings, the evidence, the sources and who chose what. It started from
 a handoff the owner brought from a claude.ai investigation of the PG17 colony's logs and saves; what that handoff marked as a
 hypothesis was checked here before anything was built.
@@ -158,12 +158,19 @@ its surgeries listed. Counts from the owner's Player.log against the control run
 | Exception drawing ThingOverlay | 0 | 0 |
 | MSE2 Reinstalling Hediffs with wrong type | 87 (79 BloodLoss, 8 Hypothermia; see the 0.1.1 decision) | 0 |
 | ERROR lines | 116 | 134 |
+| Load, from "Loading game from file" to the bridge's "Load finished" | 24.2 s | n/a |
 
 The error lists of the two runs match group for group (CE and MVCF turret verbs, exosuit ammo backpacks, Enhanced Beliefs rungs,
 the Humvee upgrade tree). New in the bridge run and not ours: four NullReferenceExceptions from Allow Tool's party-hunt handler
 reading its world settings while two mechs' paths failed during map initialisation, and Vanilla Memes Expanded's obelisk tracker
 dictionary dropping 11 null keys against 1 (a different save; its keys are pawns that no longer exist). Harmony on 1.7 accepted
-`object __instance` for More Injuries' comp: the wipe patch applied and counted. Still to run: step 4 (save, reload, INERT) and
+`object __instance` for More Injuries' comp: the wipe patch applied and counted.
+
+**Second load, 0.1.1** (same session date, same Autosave-11, nothing saved in between): the load report now reads 3,811 parts,
+1,687 injuries, 1,071 missing parts and **92 from Verse.Hediff to Verse.HediffWithComps** (the 87 MSE2 warnings of the first load
+covered 92 hediffs, some pawns having both blood loss and hypothermia), 517 wipes prevented, both pawn checks "none". MSE2
+re-installed nothing. The ERROR groups and their counts were identical to the 0.1.0 load (116), and the load took 24.0 s against
+24.2 s: the bridge's own work is a small part of a load, and the gap is noise. Still to run: step 4 (save, reload, INERT) and
 step 5 (new colony).
 
 ## Open points and upstream
