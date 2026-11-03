@@ -1,6 +1,7 @@
 # Medical save bridge: research and decisions (3 Nov 2026)
 
-The record behind [D'thorga Medical Save Bridge](../../mods/PhobosMedicalSaveBridge/README.md). **Not yet tested in game.** The
+The record behind [D'thorga Medical Save Bridge](../../mods/PhobosMedicalSaveBridge/README.md). **The first load was tested in game
+by the owner on 3 November 2026** (results at the end); the save-and-reload step and 0.1.1's change are not. The
 player guide is the mod's README; this holds the code readings, the evidence, the sources and who chose what. It started from
 a handoff the owner brought from a claude.ai investigation of the PG17 colony's logs and saves; what that handoff marked as a
 hypothesis was checked here before anything was built.
@@ -78,9 +79,16 @@ builds of both mods), kept in the ignored `.local/decompiled/`. **Verified** mea
   `overriddenBleedRate` 1, `temporarilyTamponadedMultiplierBase` 1 and `reducedBleedRateTicksRemaining` 0 to the saved node before it
   loads, so an upgraded wound is byte-for-byte what More Injuries would have saved. These are save-file field names, not copied code.
 - **Decide "new" from the save's mod list, generically** (agent choice). The gate is the set of running package IDs absent from the
-  header's `modIds`, compared lower-cased as the game does. A part is new when its def's `modContentPack` is one of them; a class is
-  new when its assembly was loaded by one of them. The bridge therefore also helps with any other part-adding mod added mid-save,
-  and never touches a save that already lists the mod. A newly added mod inserting records of vanilla part defs would not be seen.
+  header's `modIds`, compared lower-cased as the game does. A part is new when its def's `modContentPack` is one of them. The
+  bridge therefore also helps with any other part-adding mod added mid-save, and never touches a save that already lists the
+  mod. A newly added mod inserting records of vanilla part defs would not be seen.
+- **Upgrade a class whichever mod it belongs to** (agent choice, 0.1.1, from the first in-game load). 0.1.0 upgraded a saved hediff
+  only when its def's class came from a newly added mod's assembly. More Injuries also re-classes the vanilla `BloodLoss` and
+  `Hypothermia` defs to `Verse.HediffWithComps` (`Patch_BloodLoss.xml`, `Patch_Hypothermia.xml`) to carry its comps, so those fell
+  through to MSE2, whose re-install calls `HediffMaker.MakeHediff(def, pawn, part)`: a fresh hediff at initial severity, the old
+  one's severity and age gone (verified, `HediffClassLoading.ReinstallWrongClassed`). The rule is now: upgrade when the def's class
+  is a subclass of the saved one with a parameterless constructor. `HediffWithComps.ExposeData` builds its comps from the def in
+  LoadingVars, so an upgraded blood loss carries More Injuries' comps at their defaults (verified, 1.7).
 - **Hold the wipe by clearing the flag, not by skipping More Injuries' method** (agent choice; the handoff's option B, first form).
   Clearing `FailedLoading` as it is set lets More Injuries' own postfix run and find nothing to do, so its author's later changes to that
   method still apply.
@@ -94,7 +102,8 @@ builds of both mods), kept in the ignored `.local/decompiled/`. **Verified** mea
 
 **Never load, modify or overwrite PG17.rws.** Copy it to PG17-bridgetest.rws in the Saves folder and work on copies.
 
-Mods: More Injuries on, Organ Failure and Medieval Solutions off, the bridge after More Injuries and MSE2, everything else as it is.
+Mods: More Injuries on, the bridge after More Injuries and MSE2, everything else as it is. The handoff said to keep Organ Failure
+and Medieval Solutions off; the owner had them on and it was fine (results below).
 Deploy with the game closed: `python scripts/deploy.py --apply PhobosMedicalSaveBridge`.
 
 1. Before switching anything on, open clean PG17 and screenshot the health tabs of at least three colonists with lost limbs or
@@ -126,13 +135,43 @@ L="/c/Users/phobo/AppData/LocalLow/Ludeon Studios/RimWorld by Ludeon Studios/Log
 for p in 'Medical Save Bridge' '\[MSE2\] Reinstalling Hediffs' 'Tried to add health diff to missing part' 'Compatibility patch removed some hediff' 'died due incorrect hediff' 'Root level exception in OnGUI' 'Exception drawing ThingOverlay'; do printf '%6s  %s\n' "$(grep -c "$p" "$L")" "$p"; done
 ```
 
+## Results from play (3 Nov 2026, owner's first load)
+
+The owner loaded a copy of the live colony (Autosave-11, written 42 minutes after PG17 without More Injuries) with More Injuries,
+More Injuries: Organ Failure, Medieval Solutions for More Injuries and No More Lethal Damage Threshold all switched on in the same
+step, the bridge 0.1.0 after them. Neither add-on adds body parts: the gate line named Human (8 new parts) only. The owner reported
+the colony playing well from the start; More Injuries' own migration dialogs (1.5.2 research choice, 1.5.2.1 notes) appeared and
+its surgeries listed. Counts from the owner's Player.log against the control run (Player-prev.log, PG17 without More Injuries):
+
+| Log pattern | Bridge run | Control |
+| --- | ---: | ---: |
+| Bridge ACTIVE ... Human (8 new parts) | 2 lines (the header is read once by the load dialog's check and once by the load; harmless) | n/a |
+| Body parts re-numbered on Human | 3,811 | n/a |
+| Hediff classes upgraded | 1,687 injuries, 1,071 missing parts | n/a |
+| More Injuries first-load wipes prevented | 517 | n/a |
+| Hediffs sitting on parts newer than the save | none | n/a |
+| Added parts off their recipes' parts | none | n/a |
+| Tried to add health diff to missing part | 0 | 0 |
+| Compatibility patch removed some hediff(s) | 0 | 0 |
+| died due incorrect hediff placement | 0 | 0 |
+| Root level exception in OnGUI | 0 | 0 |
+| Exception drawing ThingOverlay | 0 | 0 |
+| MSE2 Reinstalling Hediffs with wrong type | 87 (79 BloodLoss, 8 Hypothermia; see the 0.1.1 decision) | 0 |
+| ERROR lines | 116 | 134 |
+
+The error lists of the two runs match group for group (CE and MVCF turret verbs, exosuit ammo backpacks, Enhanced Beliefs rungs,
+the Humvee upgrade tree). New in the bridge run and not ours: four NullReferenceExceptions from Allow Tool's party-hunt handler
+reading its world settings while two mechs' paths failed during map initialisation, and Vanilla Memes Expanded's obelisk tracker
+dictionary dropping 11 null keys against 1 (a different save; its keys are pawns that no longer exist). Harmony on 1.7 accepted
+`object __instance` for More Injuries' comp: the wipe patch applied and counted. Still to run: step 4 (save, reload, INERT) and
+step 5 (new colony).
+
 ## Open points and upstream
 
 - Steps 2, 4 and 5 are faults every More Injuries user meets when adding it mid-save, MSE2 or not. Worth a GitHub issue on
   frederik-hoeft/rimworld-more-injuries once the bridge is tested: re-number parts with `GetBackCompatibleBodyPartIndex`
   instead of wiping, and never reset a pawn that was already dead. For MSE2: `ReinstallWrongClassed` should not go through
-  `AddDirect` on parts under a missing one. Both wait for the owner's go-ahead.
-- More Injuries' add-ons (Organ Failure, Medieval Solutions) were not read. If either adds parts, the bridge re-numbers them the
-  same way, but their own first-load behaviour is unknown.
-- Harmony's `object __instance` on More Injuries' comp was not tried on 1.7's Harmony 3 before this record; the mod logs the
-  patch as OFF if Harmony refuses it, and the other parts still run.
+  `AddDirect` on parts under a missing one, and should carry the old hediff's severity and age instead of re-making it at initial
+  severity. Both wait for the owner's go-ahead.
+- More Injuries' add-ons (Organ Failure, Medieval Solutions) were not read. Neither adds parts, and the owner's load with both on
+  was clean, but their own first-load behaviour is still unread.

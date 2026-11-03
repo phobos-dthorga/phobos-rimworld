@@ -4,7 +4,9 @@ Lets you add **More Injuries (Continued)** to a colony you are already playing, 
 it, without wounds vanishing, lost limbs growing back, bionics moving or corpses coming back to life. It acts once, on the first
 load of a save written without More Injuries, and does nothing after you save.
 
-Version 0.1.0, built 3 November 2026 for House D'thorga. **Not yet tested in game.**
+Version 0.1.1, built 3 November 2026 for House D'thorga. **The first load was tested in game by the owner on 3 November 2026**
+on a copy of a 330-mod colony with Medical System Expansion 2 and Combat Extended, and went cleanly. The 0.1.1 change and the
+save-and-reload step are not yet tested in game.
 
 ## Read this first (gotchas)
 
@@ -14,8 +16,9 @@ Version 0.1.0, built 3 November 2026 for House D'thorga. **Not yet tested in gam
   Harmony and nothing else. **You have to switch it on yourself**: nothing requires it.
 - **Switch on More Injuries and this mod in the same step**, then load the save. The bridge decides what to do from the mod list
   the save was written with: a save that already lists More Injuries gets nothing, because its parts are already numbered the new way.
-- **Keep More Injuries' add-ons off for that first load** (More Injuries: Organ Failure, Medieval Solutions for More Injuries). They
-  were not part of the work this was written for. Turn them on after the first save, if you want them, and watch the log.
+- **More Injuries' add-ons** (More Injuries: Organ Failure, Medieval Solutions for More Injuries) were not studied. In the owner's
+  one test both were switched on with More Injuries in the same step and nothing went wrong; neither adds body parts. If you want
+  them, the safest order is still the one the owner used: everything on at once, then read the log.
 - **Read the log on that first load.** Every line starts with [D'thorga Medical Save Bridge]. The first says ACTIVE or INERT and names
   the mods the save lacked. After loading it says how many body parts it re-numbered and how many wounds it carried over, then
   checks every pawn, dead or alive, and lists anything that sits on a part the save never had (there should be none).
@@ -24,7 +27,8 @@ Version 0.1.0, built 3 November 2026 for House D'thorga. **Not yet tested in gam
 - **Safe to remove** at any time: it saves nothing. Removing More Injuries itself is More Injuries' business, not this mod's.
 - **It helps with any mod that adds body parts**, not just More Injuries: anything the save lacked that adds parts to a body is
   re-numbered the same way. A mod that moves or deletes an existing part is beyond it.
-- **Not yet tested in game.** Everything here is read from the game's and the mods' code.
+- **Tested in game once**, by the owner on 3 November 2026: the first load of a copy of the live colony. The reload after saving
+  and a fresh colony are not yet tested. Everything else here is read from the game's and the mods' code.
 
 ## What goes wrong without it
 
@@ -48,7 +52,7 @@ include it.
 | Step | What | Where it hooks |
 | --- | --- | --- |
 | Re-number | Each saved part number is translated from the old list to the new one, for every body that gained parts | The game's own hook for this, BackCompatibility.GetBackCompatibleBodyPartIndex, which every saved part reference passes through |
-| Upgrade | An old wound or missing part is created as More Injuries' class straight away, with the bleeding state a live wound would carry | The game's own hook for choosing a saved object's class, BackCompatibility.GetBackCompatibleType |
+| Upgrade | An old wound or missing part is created as More Injuries' class straight away, with the bleeding state a live wound would carry; old blood loss and hypothermia get the comp-carrying class More Injuries gives them | The game's own hook for choosing a saved object's class, BackCompatibility.GetBackCompatibleType |
 | Hold | More Injuries' first-load flag is cleared as it is set, so its clean-up finds nothing to do | More Injuries' pawn comp, reached by name |
 | Report | After the load, what was done and a check of every pawn, written to the log | Game.LoadGame |
 
@@ -63,7 +67,7 @@ Open the log (dev mode, the log button) and search for the bridge's lines. On th
   of pawns that have More Injuries' comp.
 - "Hediffs sitting on parts newer than the save: none."
 - No lines from More Injuries saying "Compatibility patch removed some hediff(s)", and none from MSE2 saying "Reinstalling Hediffs
-  with wrong type".
+  with wrong type". (0.1.0 still let MSE2 re-make old blood loss and hypothermia; 0.1.1 covers them.)
 
 Then open the health tab of a colonist with a lost limb or a bionic and compare with what you saw before. Two dev-mode actions
 help: **Medical Save Bridge: log body part indices** writes the human body's part list with each part's old number, and **check

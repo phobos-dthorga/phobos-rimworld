@@ -5,10 +5,35 @@ yet. Not yet tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.1.1] - 2026-11-03 - Draft
+
+Follows the owner's first load in game, which showed the one gap below. The change itself is not yet tested in game.
+
+### Fixed
+
+- Blood loss and hypothermia carried over from the save keep their severity. More Injuries re-classes those two vanilla hediff
+  defs to the game's HediffWithComps so they can carry its comps, and 0.1.0 only upgraded classes that came from a newly added
+  mod, so it left them to Medical System Expansion 2, which re-makes such hediffs from scratch: in the owner's load 79 blood-loss
+  and 8 hypothermia hediffs came back fresh, their severity gone. The bridge now upgrades any carried-over hediff whose def's class
+  has since become a subclass of the saved one, whichever mod the class belongs to.
+
+### Compatibility and limits
+
+- Without MSE2, 0.1.0 left those hediffs on the plain class, without More Injuries' comps, until they healed. Now they load as
+  More Injuries expects on either setup.
+
 ## [0.1.0] - 2026-11-03 - Draft
 
 Owner's request, from a handoff investigating why More Injuries (Continued) broke the PG17 colony when added to a save that
-runs Medical System Expansion 2. Not yet tested in game.
+runs Medical System Expansion 2.
+
+**Tested in game by the owner on 3 November 2026**, first load only: a copy of the live colony (an autosave of PG17, RimWorld
+1.7.4995, about 330 mods, Combat Extended, MSE2) loaded with More Injuries, both its add-ons and No More Lethal Damage Threshold
+switched on in the same step. The log said ACTIVE with Human (8 new parts), 3,811 parts re-numbered, 1,687 injuries and 1,071
+missing parts upgraded, 517 wipes prevented, no hediff on a part newer than the save, no added part off its recipe's parts, and
+none of the failure patterns; the error list matched the control run without More Injuries. The owner reported the colony
+playing well, with More Injuries' own migration dialogs and new surgeries in place. Save-and-reload and the new-colony check
+are still to run.
 
 ### Added
 

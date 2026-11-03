@@ -10,10 +10,11 @@ namespace Phobos.MedicalSaveBridge.Patches;
 /// object is created as. A save written before More Injuries holds its wounds as Verse.Hediff_Injury and its lost parts as
 /// Verse.Hediff_MissingPart, while More Injuries' XML now says those defs are its BetterInjury and BetterMissingPart. Left alone,
 /// Medical System Expansion 2 notices the mismatch during cross-reference resolution and re-installs each such hediff through
-/// HediffSet.AddDirect, which refuses any hediff on a missing part and so throws once per lost limb's children. Creating the hediff
-/// as its def's class from the start keeps its severity, part, age and tending, and leaves MSE2 nothing to re-install. The class
-/// must be a subclass of the saved one, from a mod the save never had, with a parameterless constructor; otherwise the game's
-/// answer stands.
+/// HediffSet.AddDirect, which refuses any hediff on a missing part and so throws once per lost limb's children, and which re-makes
+/// every such hediff from scratch, losing its severity. Creating the hediff as its def's class from the start keeps its severity,
+/// part, age and tending, and leaves MSE2 nothing to re-install. The class must be a subclass of the saved one with a parameterless
+/// constructor; otherwise the game's answer stands. Which mod the class comes from is not asked: More Injuries also re-classes the
+/// vanilla BloodLoss and Hypothermia defs to Verse.HediffWithComps to carry its comps, and those need the same care (0.1.1).
 /// </summary>
 public static class HediffClassPatch
 {
@@ -26,7 +27,7 @@ public static class HediffClassPatch
         HediffDef? def = DefDatabase<HediffDef>.GetNamedSilentFail(defNode.InnerText);
         Type? target = def?.hediffClass;
         if (target == null || target == __result || target.IsAbstract) return;
-        if (!__result.IsAssignableFrom(target) || !BridgeState.IsFromNewMod(target)) return;
+        if (!__result.IsAssignableFrom(target)) return;
         if (target.GetConstructor(Type.EmptyTypes) == null) return;
         HediffStateDefaults.Apply(target, node);
         BridgeState.CountUpgraded(__result, target);

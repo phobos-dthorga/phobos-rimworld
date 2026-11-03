@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using System.Text;
 using Phobos.MedicalSaveBridge.Rules;
 using Verse;
@@ -25,7 +24,6 @@ public static class BridgeState
     /// <summary>How many pawns More Injuries would have wiped of wounds and missing parts, had its first-load flag been left set.</summary>
     public static int WipesPrevented { get; private set; }
 
-    static readonly HashSet<Assembly> newModAssemblies = new HashSet<Assembly>();
     static readonly Dictionary<BodyDef, int[]?> maps = new Dictionary<BodyDef, int[]?>();
     static readonly Dictionary<BodyDef, int> remapped = new Dictionary<BodyDef, int>();
     static readonly Dictionary<string, int> outOfRange = new Dictionary<string, int>();
@@ -36,14 +34,6 @@ public static class BridgeState
     {
         Reset();
         NewModIds = ModListRule.NewModIds(savedModIds, LoadedModManager.RunningMods.Select(mod => mod.PackageId));
-        foreach (ModContentPack mod in LoadedModManager.RunningMods)
-        {
-            if (!NewModIds.Contains(mod.PackageId.ToLowerInvariant())) continue;
-            foreach (Assembly assembly in mod.assemblies.loadedAssemblies)
-            {
-                newModAssemblies.Add(assembly);
-            }
-        }
         Active = NewModIds.Count > 0;
         if (!Active) return;
         // Eager, so the gate line can name the bodies that gained parts.
@@ -61,7 +51,6 @@ public static class BridgeState
         Active = false;
         NewModIds = new HashSet<string>();
         WipesPrevented = 0;
-        newModAssemblies.Clear();
         maps.Clear();
         remapped.Clear();
         outOfRange.Clear();
@@ -74,9 +63,6 @@ public static class BridgeState
         ModContentPack? pack = record.def?.modContentPack;
         return pack != null && NewModIds.Contains(pack.PackageId.ToLowerInvariant());
     }
-
-    /// <summary>Whether a type was loaded by a mod the save never had.</summary>
-    public static bool IsFromNewMod(Type type) => newModAssemblies.Contains(type.Assembly);
 
     /// <summary>The old-to-new index map for a body, or null when none of its parts is new.</summary>
     public static int[]? MapFor(BodyDef body)
