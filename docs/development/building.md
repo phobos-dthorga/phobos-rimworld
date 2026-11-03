@@ -26,6 +26,12 @@ default the Workshop item's `1.6\Assemblies`), never copied. **Build this projec
 Framework targets .NET Framework 4.8 and this project 4.7.2, so the project sets `ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch`;
 the game loads both whatever they declare.
 
+**D'thorga Medical Save Bridge has an assembly since 0.1.0** (3 November 2026): `dotnet build
+src/PhobosMedicalSaveBridge/PhobosMedicalSaveBridge.csproj` builds `mods/PhobosMedicalSaveBridge/1.6/Assemblies/PhobosMedicalSaveBridge.dll`,
+loaded on 1.6 and 1.7. It references only the game and Harmony: More Injuries is reached by name at run time, and MSE2 not at all, so
+it builds anywhere the .NET SDK is. Its game-free rules (the index re-numbering and the mod-list comparison) are tested by
+`dotnet test tests/PhobosMedicalSaveBridge.Rules.Tests`, which also runs on GitHub.
+
 **One limit to know:** the mod references Vanilla Expanded Framework's `PipeSystem.dll`, which its licence
 does not let us copy into the repository. So **GitHub Actions cannot build the mod**; it builds and runs
 only the game-free physics tests in `tests/`. The mod itself builds on a machine with RimWorld and VEF

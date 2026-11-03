@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- D'thorga Medical Save Bridge's assembly. Built for RimWorld 1.6 and loaded on 1.7 too (LoadFolders.xml). It references
+       no other mod's assembly: More Injuries is reached by name through Harmony's AccessTools, and MSE2 not at all. -->
+  <PropertyGroup>
+    <TargetFramework>net472</TargetFramework>
+    <RootNamespace>Phobos.MedicalSaveBridge</RootNamespace>
+    <AssemblyName>PhobosMedicalSaveBridge</AssemblyName>
+    <OutputPath>../../mods/PhobosMedicalSaveBridge/1.6/Assemblies/</OutputPath>
+    <DebugType>none</DebugType>
+    <Version>0.1.0</Version>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Krafs.Rimworld.Ref" Version="1.6.4871" />
+    <PackageReference Include="Lib.Harmony" Version="2.4.3" ExcludeAssets="runtime" />
+  </ItemGroup>
+</Project>

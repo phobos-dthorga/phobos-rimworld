@@ -8,6 +8,7 @@ which are build products and never committed.
 | D’thorga Radio Framework | `PhobosRadioFramework/` | Radio with a real link budget; Phase 1 is local VHF and UHF |
 | D’thorga Factory Additions | `PhobosFactoryAdditions/` | XML additions to Vanilla Furniture Expanded - Factory |
 | D’thorga Vehicle Patches | `PhobosVehiclePatches/` | Patches for other authors' vehicle mods: the Harrier VTOL, and RimThunder's heavy casting |
+| D’thorga Medical Save Bridge | `PhobosMedicalSaveBridge/` | Adds More Injuries to a running colony, with MSE2 or without, by re-numbering saved body parts on the first load |
 
 A mod folder holds:
 

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ModMetaData>
+  <packageId>PhobosDthorga.MedicalSaveBridge</packageId>
+  <name>D'thorga Medical Save Bridge</name>
+  <author>Phobos A. D'thorga</author>
+  <url>https://github.com/phobos-dthorga/phobos-rimworld</url>
+  <modVersion>0.1.0</modVersion>
+  <description>Lets you add More Injuries (Continued) to a colony you are already playing, with Medical System Expansion 2 or without it, without wounds vanishing, lost limbs growing back, bionics moving or corpses coming back to life.
+
+It works only on the first load of a save that was written without More Injuries (or without any other mod that adds body parts). On that load it:
+
+- Re-numbers every saved body part, so old wounds, missing parts, prosthetics, bionics, MSE2 modules and surgery bills land on the part they were on. More Injuries adds eight parts to the human body, and the game saves parts by their position in that list, so without this every part after the first new one is off by one or more.
+
+- Creates old wounds and missing parts as More Injuries' own classes, so Medical System Expansion 2 has nothing to re-install and no lost limb throws an error.
+
+- Stops More Injuries' first-load clean-up, which would otherwise remove every wound and missing part from every pawn and bring the dead back to life.
+
+Save the game once and the bridge has nothing left to do. Its log lines start with [D'thorga Medical Save Bridge] and say ACTIVE or INERT on every load.
+
+Load it after More Injuries and Medical System Expansion 2. Needs Harmony. Does nothing without More Injuries, and nothing at all on a save that already has it.
+
+Community-created content. Not official and not endorsed by Ludeon Studios.</description>
+  <supportedVersions>
+    <li>1.6</li>
+    <li>1.7</li>
+  </supportedVersions>
+  <modDependencies>
+    <li>
+      <packageId>brrainz.harmony</packageId>
+      <displayName>Harmony</displayName>
+      <steamWorkshopUrl>steam://url/CommunityFilePage/2009463077</steamWorkshopUrl>
+      <downloadUrl>https://github.com/pardeike/HarmonyRimWorld/releases/latest</downloadUrl>
+    </li>
+  </modDependencies>
+  <loadAfter>
+    <li>Ludeon.RimWorld</li>
+    <li>brrainz.harmony</li>
+    <li>MSE2.Core</li>
+    <li>Th3Fr3d.ExtendedInjuries</li>
+    <li>CETeam.CombatExtended</li>
+  </loadAfter>
+</ModMetaData>

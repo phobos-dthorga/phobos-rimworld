@@ -28,3 +28,6 @@ jobs:
       # D'thorga Factory Additions' assembly needs PipeSystem.dll too; its output rule is game-free.
       - name: Build and run the game-free factory rule tests
         run: dotnet test tests/PhobosFactory.Rules.Tests --nologo
+      # D'thorga Medical Save Bridge's re-numbering and mod-list rules are game-free too.
+      - name: Build and run the game-free medical save bridge rule tests
+        run: dotnet test tests/PhobosMedicalSaveBridge.Rules.Tests --nologo

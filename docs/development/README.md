@@ -38,6 +38,12 @@ promise current behaviour. For using the mods, start at the [documentation index
   RimPacts (a Harmony patch in a generic class breaks the next patch of that method), its build cost and bomb costs against
   the owner's other vehicles, 1.7 readiness, and bug reports for the mods' authors.
 
+## Medical save bridge
+
+- [Medical save bridge: research and decisions (3 Nov 2026)](medical-save-bridge.md): why adding More Injuries to a save that
+  runs Medical System Expansion 2 wiped wounds and revived corpses (parts are saved by index, and More Injuries appends eight),
+  the game's own conversion hooks the bridge sits on, who chose what, and the owner's test protocol.
+
 ## Artwork
 
 - [Artwork direction (19 Oct 2026)](artwork-direction.md): why PixelLab does not suit RimWorld, the three
