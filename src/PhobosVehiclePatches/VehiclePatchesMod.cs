@@ -14,6 +14,8 @@ public class VehiclePatchesMod : Mod
 
     public VehiclePatchesMod(ModContentPack content) : base(content)
     {
-        RimPactsArrivalFilter.Watch(new Harmony(HarmonyId));
+        var harmony = new Harmony(HarmonyId);
+        RimPactsArrivalFilter.Watch(harmony);
+        AirborneCrewKeepsMap.Apply(harmony);
     }
 }

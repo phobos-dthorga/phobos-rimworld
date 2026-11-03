@@ -5,6 +5,26 @@ yet. Not yet tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.3.1] - 2026-11-03 - Draft
+
+Owner's request: a review of the Harrier's code for sortie, RimWorld 1.7 and Combat Extended faults. Not yet tested in game.
+
+### Fixed
+
+- A sortie's map could close under the jet. The game removes a site's map once no colonist is left on it, and its check can't see a
+  pilot inside a vehicle. Vehicle Framework and the Harrier's flight framework each cover part of that gap, but the framework covers
+  only the game's own kinds of site. Over a Real Ruins site, a RimMarket convoy battle or any other mod's site with its own rule, the map
+  could be removed with the jet still in the air. Now any vehicle of yours with a colonist aboard keeps the map open, in the air or on
+  the ground, whichever mod made the map.
+
+### Compatibility and limits
+
+- The fix lives in the Harrier's folder, so it runs only while the Harrier is active, but it covers every Vehicle Framework vehicle of
+  yours, the Hind and Mongoose included.
+- Checked but not changed: every game, Vehicle Framework, Harmony and Unity member the Harrier's three assemblies call exists in
+  RimWorld 1.7 (by name and parameter count), and the Combat Extended members its code reaches by name exist in the current CE build.
+  The review's record is in docs/development/vehicle-patches.md.
+
 ## [0.3.0] - 2026-11-03 - Draft
 
 Owner's request. Not yet tested in game.

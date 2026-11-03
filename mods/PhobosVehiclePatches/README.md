@@ -2,10 +2,10 @@
 
 Patches for other authors' vehicle mods, each switched on only while that mod is active. It lets RimThunder's heavy casting be made at
 the rotary forger, and covers **Harrier VTOL Attack Aircraft** by potemkinvillager: a realistic build cost, a fix for the jet failing to load fully alongside RimPacts,
-honest bomb costs under Combat Extended, bombs and rockets at The Dead Man's Switch's ammunition fabricator, and fuel tanks for its
-Drop Tanks upgrade. It copies nothing from those mods.
+honest bomb costs under Combat Extended, bombs and rockets at The Dead Man's Switch's ammunition fabricator, fuel tanks for its
+Drop Tanks upgrade, and a sortie's map kept open under the jet. It copies nothing from those mods.
 
-Version 0.3.0, built 3 November 2026 for House D'thorga. **Not yet tested in game.**
+Version 0.3.1, built 3 November 2026 for House D'thorga. **Not yet tested in game.**
 
 ## Read this first (gotchas)
 
@@ -23,6 +23,8 @@ Version 0.3.0, built 3 November 2026 for House D'thorga. **Not yet tested in gam
 - **Construction skill 10** is now needed to build the jet, as for the Hind and Mongoose.
 - **Bombs cost much more under Combat Extended.** Four Mk. 82s take 8 heavy castings, 80 FSX, 1,200 chemfuel and 8 components.
 - **Heavy castings are a new step for bombs too**, if RimThunder is active. Without RimThunder, bomb cases cost steel instead.
+- **A sortie's map now stays open while the jet is over it.** Before, a map from Real Ruins, RimMarket and some other mods could close
+  with the jet still in the air. See [Sorties](#sorties-what-the-code-says) for what a sortie needs from you.
 - **Not yet tested in game.** Everything here is read from the mods' code and files.
 
 ## What it does
@@ -121,6 +123,31 @@ With RimThunder and The Dead Man's Switch - Expedition, the heavy casting is als
 - **Finished items drop beside the machine**, whatever the bill's storage setting says. Haulers take them from there.
 - The machine draws 800 W while running and 50 W idle.
 
+### A sortie's map stays open under the jet
+
+The game removes a site's map once no colonist is left on it, and its check can't see a pilot inside a vehicle. Vehicle Framework
+covers vehicles on the ground, and the Harrier's flight framework covers aircraft in the air, but only over the game's own kinds of
+site. Over a Real Ruins site, a RimMarket convoy battle or any other mod's site with its own removal rule, the map could close with
+the jet still flying. Now **any vehicle of yours with a colonist aboard keeps its map open**, in the air or on the ground, whichever
+mod made the map. The Hind and Mongoose get this too while the Harrier is active.
+
+### Sorties: what the code says
+
+Read from the Harrier's flight framework, not seen in play. The Harrier mod does all of this; this mod only keeps the map open.
+
+- **Sortie** (the button on the jet) opens the world map. Pick a site or settlement: an open map gives "fly to" and "land" choices;
+  a closed one is entered from the map edge. **Your own home map is refused** as a sortie target; use Launch to fly home.
+- **Fuel decides time on station, not distance.** World flight is cheap and quick: about 0.16 fuel and one minute a tile, so a
+  30-tile sortie costs about 5 fuel each way. On a map the jet burns 0.0167 a tick, 250 fuel in about 6 hours. The sortie is refused
+  unless the tank holds the trip there and back, one hour over the target and a 10% reserve.
+- **It comes home by itself** when its rockets and bombs are spent or fuel runs low ("low fuel, returning"), to the map it took off from
+  if that map still has a runway, else the nearest home map with one. **Home needs a full beacon runway**, 24 cells by 5 for the Harrier:
+  four beacons on the corners of a rectangle, so 23 cells apart along it and at least 4 apart across. With no runway at home, the
+  jet circles and says so.
+- **Don't land on a sortie map.** The Harrier lands vertically anywhere, but it takes off only from a beacon runway, so a jet landed
+  away from one stays there. A rough landing also wrecks its engine.
+- **No sortie from under a roof.** The launch check refuses it; taxi out first.
+
 ### A log warning
 
 The jet's fuel tank logged "Parsed 2.5 as int" at every start. Writing the value the game already used, 2, stops that and changes nothing else.
@@ -134,12 +161,17 @@ The jet's fuel tank logged "Parsed 2.5 as int" at every start. Writing the value
 
 ## For modders
 
-The RimPacts fix is in `src/PhobosVehiclePatches/RimPactsArrivalFilter.cs`. **A Harmony patch method in a generic class breaks the next
+The map fix is in `src/PhobosVehiclePatches/AirborneCrewKeepsMap.cs`: one postfix on `MapPawns.AnyPawnBlockingMapRemoval`, the
+check every site's removal rule reads. The RimPacts fix is in `src/PhobosVehiclePatches/RimPactsArrivalFilter.cs`. **A Harmony patch method in a generic class breaks the next
 patch of the same method**, because Harmony stores a patch as a method token, which can't hold generic arguments. The record is in
 [Vehicle patches](../../docs/development/vehicle-patches.md).
 
 ## Checks done
 
+- 3 November 2026: the Harrier's shipped source, its bundled flight framework (build 19o), the VTOL Raids jet add-on, Vehicle Framework,
+  Combat Extended and its Vehicle Framework assembly, and the 1.7 game's map-removal code read. Every game, Vehicle Framework, Harmony 3
+  and Unity member the Harrier's three assemblies call exists in RimWorld 1.7, by name and parameter count (21 assembly pairs, 0
+  missing). The owner's log of that day shows no aircraft errors. **Not yet tested in game.**
 - 3 November 2026: RimThunder's recipe and the forger's Def read, and no other installed mod touches that recipe. `scripts/check-factory-patches.py --mod PhobosVehiclePatches`
   passes: the forger and the recipe exist among the owner's active mods. **Not yet tested in game.**
 - 3 November 2026: the fabricator's bench, job and ingredient code read in the current Fortified framework (31 Oct build), with CE's ammo injector and

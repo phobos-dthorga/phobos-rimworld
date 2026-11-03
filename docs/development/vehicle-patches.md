@@ -143,6 +143,41 @@ it to each of the five bombs' `recipeMaker/recipeUsers`, which `RecipeDefGenerat
 
 **Owner's save** (PG16, read only, 3 Nov 2026): two forgers, at (221, 264) and (234, 264).
 
+## Sorties, RimWorld 1.7 and Combat Extended: the review (0.3.1, 3 Nov 2026)
+
+**Owner's request:** look through the Harrier's code for bugs, especially how it runs sorties, the move from 1.6 to 1.7, and Combat Extended. **Nothing here was seen in play.**
+
+**What was read.** The Harrier's shipped C# (26 files), its bundled Fixed-Wing Aircraft Framework (build 19o, decompiled to 21,000 lines), VTOL Raids' jet add-on, Vehicle Framework's 1.6 build, Combat Extended with its `VehiclesCompat` assembly, the 1.7 game's `MapParent`, `Site`, `MapPawns` and `MapDeiniter`, the owner's log of 3 Nov (both runs) and the newest save, PG17. Decompiled output stays in `.local/decompiled/`.
+
+**The log.** The run of 12:25 shows no error or warning naming the Harrier, its framework, VTOL Raids or Vehicle Framework; our RimPacts line is there and VTOL Raids reports "Fixed-wing add-on ready. Jets: Harrier_Jet". The earlier run has one `Invalid count: 0` on a HaulToContainer job carrying a component to a runway beacon frame: the game's own construction hauling, from a queued job, not the aircraft code; harmless.
+
+**1.7.** `.local/tools/rimexodus-framework/apicheck.ps1` compares an assembly's member references with a provider assembly's metadata, by name and parameter count. Run for AV8BHarrier.dll, FixedWingAircraftFramework.dll and VTOLRaids.FixedWing.dll against the 1.7 `Assembly-CSharp.dll`, Vehicle Framework's `Vehicles.dll` and `SmashTools.dll`, Harmony 3's `0Harmony.dll`, the framework itself and the 1.7 `UnityStubs.dll` (which stands in for the Unity modules the mods reference): 21 pairs, 0 missing types, 0 missing members. Harmony 3 logged no patch failure. What this can't show: a parameter whose type changed but not its count, and CoreCLR inlining a small patched member so a patch never runs, which the author met once (`OrderLandingHome`) and worked around. Small targets of the same shape: the `CanTaxi` getter (a wrecked engine could taxi), `VtolContent.ParkingIcon` (the pad button's icon only); `LaunchProtocol.CanLaunchNow` is virtual and safe. Items for the owner's in-game list, not faults found.
+
+**Sorties, as the framework runs them** (code reading):
+
+| Step | Code | What it does |
+| --- | --- | --- |
+| Button | `VtolVehiclePawn.SortieGizmo` | Sets `SortieTargeting` and opens Vehicle Framework's destination chooser. Disabled whenever the Launch button is: under a roof, no operator, no fuel, moving |
+| Choices | `LaunchProtocol_GetArrivalOptions_FixedWingPatch` | An open map keeps the options with a landing targeter, relabelled fly to or land at; a closed map parent keeps only the edge-drop arrival, relabelled fly raid on (a settlement) or fly sortie to |
+| Refusals | `CompVehicleLauncher_CanTarget_FixedWingSortiePatch` | The player's own home map while sortie-targeting; any tile that isn't a map parent |
+| Fuel | `TryFuelForSortie` | World fuel there, world fuel back (from the target to the home it would return to), one hour of local burn, 10% of the tank |
+| Departure | `BeginDepartingMap`, `TryCompleteMapDeparture` | Flies to the map edge, despawns, becomes an `AerialVehicleInFlight` with the arrival action; pending path, action, direction and home parent are saved |
+| Arrival | `ArrivalAction_LandToCell_Arrived_VtolPatch`, `AerialVehicleArrivalModeWorker_EdgeDrop_VehicleArrived_VtolPatch` | Spawns at the edge facing the map centre, flying; "on station" |
+| Return | `TickAutoLand`, `TickBingoFuel`, `ReturnToBase`, `HomeForReturn` | When the last rocket or bomb goes, or fuel falls to the trip home plus 10%: home is the map it took off from if that still has a player home map, else the nearest player home whose runways include a 24 by 5 rectangle. None: "no home runway. Circling" |
+| Home | `ArriveFixedWing`, `OrderLandingHome` | Enters from the edge, lands on a runway (the Harrier's own code sends it to its pad first) |
+
+**Fuel maths** (Vehicle Framework 1.6, `FuelNeededToLaunchAtDist` and `AerialVehicleInFlight`): fuel per tile = 150 a day / 60,000 x 1,000 / FlightSpeed 16 = 0.156; ticks per tile = 1,000 / 16 = 62.5. A 30-tile sortie is about 5 fuel and 1,900 ticks each way. On a map, `fuelConsumptionPerTick` 0.0167 empties 250 in 15,000 ticks, 6 hours. So fuel limits time over the target, not reach, and the bingo rule keeps enough for the trip home.
+
+**The fault found and fixed: a sortie's map could close under the jet.** `MapParent.TickInterval` calls `CheckRemoveMapNow` every interval; `Site.ShouldRemoveMapNow` and most modded rules return true once `MapPawns.AnyPawnBlockingMapRemoval` is false. That getter looks for colonists among spawned pawns and among pawns held in things on the map, through `ThingOwnerUtility.GetAllThingsRecursively`, which reaches a pawn's inventory, carried thing, equipment and apparel; Vehicle Framework keeps crew in `VehicleRoleHandler` holders that `VehiclePawn` doesn't list as child holders (no `GetChildHolders` on it; the handler, skyfaller and world-object classes have their own), so a pilot aboard is invisible to the game's check. Vehicle Framework's own postfix (`Patch_MapHandling.AnyVehicleBlockingMapRemoval`) covers vehicles that claim ground cells; an airborne jet releases its claims (`VtolGroundGridUtility.DetachFromGroundGrid` calls `VehiclePositionManager.ReleaseClaimed`). The framework's `MapParent_ShouldRemoveMapNow_AirborneVtolPatch` covers the rest, but its `TargetMethods` scans `typeof(MapParent).Assembly` only, so a mod's own `ShouldRemoveMapNow` isn't patched. Among the owner's mods, metadata shows such overrides in Real Ruins (`RealRuinsPOIWorldObject`, `AbandonedBaseWorldObject`, `SmallRuinsWorldObject`, each returning true as soon as the game's check is false), RimMarket (`ConvoyBattle`, the same), Vanilla Expanded Framework (`MovingBase`), Vanilla Gravship Expanded, IRBM, RimShips, DMS and DMS Expedition, and Empire. Fortified's `FFF_Company` calls `Site`'s rule, which the framework does patch, so it was covered. **The fix** (`src/PhobosVehiclePatches/AirborneCrewKeepsMap.cs`) is one postfix on the game's getter: a spawned, undestroyed player `VehiclePawn` with any `IsFreeColonist` aboard blocks removal. Every rule above reads that getter, so one patch covers them all without naming a mod, and the VTOL Vehicle framework's helicopters with them (its DLL carries the same `MapHasAirborneVtolWithFreeColonist` scan). Cost: a loop over spawned pawns when the game's own check has already found nothing, which already loops over them.
+
+**Combat Extended.** Every CE member the Harrier reaches by name exists in the installed build (CE's `CombatExtended.dll` of 18 Oct 2026 and `ModPatches/VehicleFramework/Assemblies/VehiclesCompat.dll`): `CE_Utility.GetCollisionBodyFactors(Pawn)`, which asks `VehiclesCompat`'s callback first and the Harrier's postfix then widens to 5 cells; `VehicleArmorPatch.TryPenetrateComponents(VehicleStatHandler stats, ref DamageInfo dinfo, List<VehicleComponent> components, VehiclePartDepth hitDepth, StringBuilder report)`, whose argument order matches the Harrier's prefix (`__0`, `__2`, `__3`) and whose `VehicleStatHandler.vehicle` field exists; `VehicleTurret.LaunchProjectileCE`, the static delegate Vehicle Framework checks for null before firing the vanilla way, which is how the Harrier drops its bombs outside CE; `ProjectileCE.launcher`, `equipmentDef` and its two `Launch` overloads; Vehicle Framework's `CETurretDataDefModExtension` fields the CE patch sets. No fault found. The earlier log's `Verb_LaunchProjectileStaticCE` registration errors belong to Vanilla Apparel Expanded's mini turret pack with MVCF, not the aircraft.
+
+**The Hind and Mongoose** use rabiosus's VTOL Vehicle framework (`VTOLVehicle.VtolVehiclePawn`, a separate assembly); the Harrier's framework is a fork with its own namespace. Both patch Vehicle Framework side by side, each prefix checking its own vehicle type; the log shows no clash.
+
+**Not faults, but worth the owner's knowing:** the Harrier has no vertical take-off, so a jet landed on a sortie map stays there; the sortie button is off under a roof; `HomeForReturn` needs a complete 24 by 5 beacon rectangle. **Owner's save** (PG17, read only, 3 Nov 2026): two beacons, at (139, 196) and (146, 196), 8 cells apart; no rectangle yet. The other two go 23 cells away along the strip.
+
+**Unverified:** since 0.1.0 swapped RimPacts' postfix for ours, which runs first on `GetArrivalOptions`, ours or the framework's relabelling, wasn't settled; both are plain postfixes and either order gives the same options. The Harrier's Workshop comments couldn't be read (Steam answered 429 three times).
+
 ## Decisions
 
 | Date | Decision | Who |
@@ -162,6 +197,8 @@ it to each of the five bombs' `recipeMaker/recipeUsers`, which `RecipeDefGenerat
 | 3 Nov 2026 | RimThunder's heavy casting at the rotary forger | owner (request) |
 | 3 Nov 2026 | Same recipe, slag included, smelter and platform kept; in the vehicle patches mod, in its own folder | agent defaults |
 | 3 Nov 2026 | Keep the machining table as well, same costs; rockets stay in 0.2.0, which was never installed or released | agent defaults |
+| 3 Nov 2026 | Review the Harrier's code for sortie, 1.7 and Combat Extended faults, fixing what needs it | owner (request) |
+| 3 Nov 2026 | Keep a sortie's map open through the game's own check rather than patching each mod's rule; player vehicles with a free colonist aboard, all of them | agent default |
 
 ## Not changed, for the owner to decide
 
@@ -169,6 +206,8 @@ it to each of the five bombs' `recipeMaker/recipeUsers`, which `RecipeDefGenerat
 - A shot-down VTOL Raids Harrier may leave a share of the new cost; not checked.
 - The owner's log also has `Unable to unlock Vehicles.CompUpgradeTree post-load for Humvee`, twice. Unrelated to this.
 - Loading the Harrier above RimPacts also avoids the failure, with no code. It's fragile, since any later patch of that method brings it back.
+- The Harrier can't take off without a beacon runway, so a vertical landing on a sortie map strands it. A vertical take-off would be a Harrier feature, not a patch.
+- Small patched members that CoreCLR might inline (`CanTaxi`, `VtolContent.ParkingIcon`): only an in-game check can tell.
 
 ## Bug reports to post (drafts; the owner posts them)
 
@@ -177,6 +216,10 @@ Written for the mods' authors.
 **For RimPacts (wowgag):**
 
 > Hi! RimPacts' patch on Vehicle Framework's `LaunchProtocol.GetArrivalOptions` breaks any mod that patches the same method after it. `RptVehicleBridge.Install` uses a postfix inside a generic class (`RptVfArrivalFilter<>.MakeGenericType(ArrivalOption)`). Harmony stores patches by method token, which can't hold generic arguments, so when a second patch rebuilds the method it gets the open generic back and throws: `InvalidProgramException ... GetArrivalOptions_Patch2 ... resolves to an open generic type`. It breaks the Harrier VTOL Attack Aircraft mod's flight framework here, on RimWorld 1.7 with Harmony 3.0.0-rc.3. A plain postfix in a non-generic class would fix it, for example in a small assembly that references Vehicle Framework and loads only when it's active. Thanks for RimPacts!
+
+**For the Harrier's framework (potemkinvillager), the map removal:**
+
+> Hi again. `MapParent_ShouldRemoveMapNow_AirborneVtolPatch.TargetMethods` scans `typeof(MapParent).Assembly` only, so a mod's own `ShouldRemoveMapNow` override isn't patched. Real Ruins' three site classes and RimMarket's `ConvoyBattle` return true as soon as `MapPawns.AnyPawnBlockingMapRemoval` is false, and that getter can't see a pilot inside a Vehicle Framework vehicle, so a jet on a sortie over one of those sites can have the map closed under it. Scanning every loaded assembly, or postfixing the getter itself to count a free colonist aboard any spawned player vehicle, would cover them all. Thanks!
 
 **For the Harrier (potemkinvillager):**
 

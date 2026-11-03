@@ -4,7 +4,7 @@
   <name>D'thorga Vehicle Patches</name>
   <author>Phobos A. D'thorga</author>
   <url>https://github.com/phobos-dthorga/phobos-rimworld</url>
-  <modVersion>0.3.0</modVersion>
+  <modVersion>0.3.1</modVersion>
   <description>Patches for other authors' vehicle mods, each switched on only while that mod is active. It copies nothing from them.
 
 Harrier VTOL Attack Aircraft:
@@ -16,6 +16,8 @@ A fix for the jet failing to load fully when RimPacts is active. The Harrier's f
 With Combat Extended, bombs whose ingredients are closer to what they weigh. The Drop Tanks upgrade uses Vanilla Vehicles Expanded fuel tanks.
 
 With The Dead Man's Switch and Combat Extended, the bombs and 57 mm rockets can also be made at its ammunition fabricator.
+
+A sortie's map stays open while the jet is flying over it with its pilot aboard, whichever mod made that map. Before, a map from Real Ruins, RimMarket and some others could close under the jet.
 
 RimThunder and The Dead Man's Switch - Expedition:
 
