@@ -9,7 +9,8 @@ yet. Not yet tested in game unless an entry says the owner tested it.
 
 Follows the owner's first load in game, which showed the one gap below. **Tested in game by the owner on 3 November 2026**:
 the same copy of the live colony loaded again with 0.1.1, and the load report added 92 hediffs upgraded from the game's Hediff
-to HediffWithComps, MSE2 re-installed nothing, and the error list was identical to the 0.1.0 load. Save-and-reload still to run.
+to HediffWithComps, MSE2 re-installed nothing, and the error list was identical to the 0.1.0 load. The owner then saved and reloaded: the bridge logged INERT, every failure
+pattern stayed at zero and no new error group appeared. A new colony is not yet tested in game.
 
 ### Fixed
 

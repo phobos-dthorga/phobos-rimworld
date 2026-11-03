@@ -22,20 +22,22 @@ public class PartIndexRuleTests
     [Fact]
     public void TheHumanBodyAfterMoreInjuries()
     {
-        // More Injuries appends Abdomen (with two intestines) after the torso's last child, two arteries under each leg, and the
-        // spinal cord under the spine. A part saved just after any insertion point moves by the number of parts inserted before it.
-        var isNew = new bool[20];
-        isNew[5] = isNew[6] = isNew[7] = true;   // Abdomen, SmallIntestine, LargeIntestine
-        isNew[12] = isNew[13] = true;           // left femoral and popliteal arteries
-        isNew[18] = true;                       // SpinalCord
+        // The layout seen in the owner's colony on 3 November 2026, by matching 4,351 hediffs between saves written before and
+        // after More Injuries: 64 old parts become 72. The spinal cord lands right after the spine, two arteries close each leg, and
+        // the abdomen with its two intestines closes the torso, so those last five parts come after every old part.
+        var isNew = new bool[72];
+        isNew[5] = true;                                    // SpinalCord
+        isNew[56] = isNew[57] = true;                       // the first leg's arteries
+        isNew[67] = isNew[68] = true;                       // the second leg's arteries
+        isNew[69] = isNew[70] = isNew[71] = true;           // Abdomen, SmallIntestine, LargeIntestine
         int[]? map = PartIndexRule.OldToNewIndices(isNew);
         Assert.NotNull(map);
-        Assert.Equal(14, map!.Length);
+        Assert.Equal(64, map!.Length);
         Assert.Equal(4, map[4]);    // before the first insertion: unchanged
-        Assert.Equal(8, map[5]);    // the old part 5 now sits at 8: shifted by 3
-        Assert.Equal(11, map[8]);   // still shifted by 3, just before the arteries
-        Assert.Equal(14, map[9]);   // after the arteries too: shifted by 5
-        Assert.Equal(19, map[13]);  // the last old part, after the spinal cord: shifted by 6
+        Assert.Equal(6, map[5]);    // after the spinal cord: shifted by 1
+        Assert.Equal(55, map[54]);  // still shifted by 1, just before the first leg's arteries
+        Assert.Equal(58, map[55]);  // after them: shifted by 3
+        Assert.Equal(66, map[63]);  // the last old part: still shifted by 3
     }
 
     [Fact]

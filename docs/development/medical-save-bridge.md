@@ -1,7 +1,7 @@
 # Medical save bridge: research and decisions (3 Nov 2026)
 
 The record behind [D'thorga Medical Save Bridge](../../mods/PhobosMedicalSaveBridge/README.md). **The first load was tested in game
-by the owner on 3 November 2026**, with 0.1.0 and again with 0.1.1 (results at the end); the save-and-reload step is not. The
+by the owner on 3 November 2026**, with 0.1.0 and again with 0.1.1 (results at the end), then saved and reloaded; a new colony is not. The
 player guide is the mod's README; this holds the code readings, the evidence, the sources and who chose what. It started from
 a handoff the owner brought from a claude.ai investigation of the PG17 colony's logs and saves; what that handoff marked as a
 hypothesis was checked here before anything was built.
@@ -39,8 +39,11 @@ builds of both mods), kept in the ignored `.local/decompiled/`. **Verified** mea
 2. **More Injuries appends eight parts to the Human body** (verified, `Patches/Patch_BodyParts.xml`): Abdomen with SmallIntestine and
    LargeIntestine under the torso, FemoralArtery and PoplitealArtery under each leg, SpinalCord under the spine. All six part defs are
    More Injuries' own; every operation is a `PatchOperationAdd`, so no existing part moves. Its CE patch changes coverages only.
-   So every old part after the abdomen's insertion point is off by three, after the left leg's arteries by five, after the right leg's
-   by seven, and after the spinal cord by eight. The log's "MissingBodyPart left femoral artery ticksSinceCreation=25459429", a missing
+   Every old part after the first insertion point moves. The offsets are 0, 1 and 3, observed by comparing saves (see the results):
+   parts 0 to 4 stay, 5 to 54 move by one (the spinal cord lands at 5), and 55 to 63 move by three (two arteries at 56 and 57). The
+   other five new parts come after every old part, at 67 to 71, so nothing is shifted further. This corrects the first version of
+   this record, which guessed offsets up to eight from the patch file's order. The bridge was never affected: it computes its map
+   from the running body, not from any figure written here. The log's "MissingBodyPart left femoral artery ticksSinceCreation=25459429", a missing
    part far older than More Injuries' presence, is that shift seen from the other side.
 3. **MSE2 re-installs hediffs whose class differs from their def's** (verified, `MSE2.BackCompatibility.HediffClassLoading`, a
    postfix on `HediffSet.ExposeData` in ResolvingCrossRefs mode). More Injuries' `Patch_Core.xml` makes every injury def's class
@@ -170,8 +173,28 @@ dictionary dropping 11 null keys against 1 (a different save; its keys are pawns
 1,687 injuries, 1,071 missing parts and **92 from Verse.Hediff to Verse.HediffWithComps** (the 87 MSE2 warnings of the first load
 covered 92 hediffs, some pawns having both blood loss and hypothermia), 517 wipes prevented, both pawn checks "none". MSE2
 re-installed nothing. The ERROR groups and their counts were identical to the 0.1.0 load (116), and the load took 24.0 s against
-24.2 s: the bridge's own work is a small part of a load, and the gap is noise. Still to run: step 4 (save, reload, INERT) and
-step 5 (new colony).
+24.2 s: the bridge's own work is a small part of a load, and the gap is noise.
+
+**Save and reload, 0.1.1** (protocol step 4, without the dev-mode damage: real wounds from play stood in for it). The owner played on,
+saved as PG17 and loaded it in the same session. Both header reads logged INERT. Every failure pattern stayed at 0, and no error
+group appeared after the reload began that the first load had not already logged. The saved file holds 1,715 BetterInjury and 1,073
+BetterMissingPart hediffs, none on the plain classes, and all 2,788 carry a bleed rate override of 1.
+
+**Save compared with save** (agent's check, standing in for protocol step 3's health-tab comparison, which was not run by eye). Read-only
+copies of Autosave-11, the last save before More Injuries, and the new PG17 were matched hediff by hediff on their load IDs, then deleted:
+
+| Check | Result |
+| --- | ---: |
+| Hediffs before / after / in both | 4,397 / 4,433 / 4,351 |
+| Matched hediffs whose def or body changed | 0 |
+| Part references on Human compared, distinct old parts | 3,088, 63 |
+| Old parts that map to more than one new part | 0 |
+| Map keeps the old order | yes |
+| Pawns in both saves with the same missing-part, added-part and implant count | 543 of 545 |
+
+The two pawns that differ are deserters, each with one more missing part, from play. The 10 missing parts no longer in the save all
+belonged to one dead Sergeant who has left the save. The other 36 hediffs that went are not structural, and 12 of them left with
+their owners: temporary conditions such as heatstroke, dehydration and a bite. Still to run: step 5 (new colony).
 
 ## Open points and upstream
 
