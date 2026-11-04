@@ -171,6 +171,11 @@ public class MaskRuleTests
         // Combat Extended: its power and recon helmets set smoke sensitivity to 0 (an offset of -1).
         Assert.True(MaskRule.IsSealed(true, 0f, 0f));
         Assert.False(MaskRule.IsSealed(true, 1f, 0.8f));
+        // Its gas masks carry the same -1, but a filter mask is not sealed air: their offset is left out of the figure.
+        Assert.Equal(1f, MaskRule.SensitivityFromSealingGear(1f, new float[0]));
+        Assert.Equal(0f, MaskRule.SensitivityFromSealingGear(1f, new[] { -1f }));
+        Assert.Equal(0f, MaskRule.SensitivityFromSealingGear(1f, new[] { -1f, -0.6f }));
+        Assert.False(MaskRule.IsSealed(true, MaskRule.SensitivityFromSealingGear(1f, new float[0]), 0.8f));
         // Without it, only total toxic environment resistance counts as sealed.
         Assert.True(MaskRule.IsSealed(false, 1f, 1f));
         Assert.False(MaskRule.IsSealed(false, 1f, 0.8f));

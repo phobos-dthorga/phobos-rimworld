@@ -5,6 +5,15 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.2.1] - 2026-11-05 - Draft
+
+### Fixed
+
+- With Combat Extended, a gas mask stopped carbon monoxide. The sealed-headgear test read the smoke sensitivity stat, and
+  Combat Extended's gas masks lower it to 0 with the same offset its power and recon helmets use. The figure is now rebuilt
+  from the worn items that carry no gas-mask tag, so a filter mask passes carbon monoxide as the README always said and a
+  sealed helmet still stops it. Found by reading the owner's save PG19 of 5 November 2026 against the code; not yet tested in game.
+
 ## [0.2.0] - 2026-11-05 - Draft
 
 ### Added

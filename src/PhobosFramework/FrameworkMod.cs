@@ -29,7 +29,7 @@ public class FrameworkSettings : ModSettings
 public class FrameworkMod : Mod
 {
     public const string PackageId = "PhobosDthorga.Framework";
-    public const string ModVersion = "0.2.0";
+    public const string ModVersion = "0.2.1";
     public const string LogPrefix = "[D'thorga Framework]";
 
     public static FrameworkSettings Settings { get; private set; } = new();

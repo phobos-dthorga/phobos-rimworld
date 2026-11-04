@@ -146,6 +146,13 @@ not the numbers.
 
 ## Results from play
 
+- **5 Nov 2026, 0.4.0, read from the owner's save PG19 after the city raid (not a declared test).** Smoke and carbon monoxide are
+  firing where pawns met them: 41 lung injuries (10 at 0.5 or more, 7 raiders at the cap), 36 airway burns, 1 pneumonia, 3 carbon
+  monoxide poisonings (0.19 to 0.69) in the gassed rooms, 51 Combat Extended smoke inhalations. The owner's colonists were on the
+  home map with no smoke; the one colonist who met smoke (0.78) died of More Injuries' asphyxiation before any lung injury built.
+  The owner's impression that the effects were not firing came from watching the colony, not the raiders. One real fault found by
+  reading the code against the save: with Combat Extended a gas mask stopped carbon monoxide (Framework 0.2.1).
+
 - **4 Nov 2026, 0.1.0, the owner's incendiary raid** (owner's observation, three screenshots). Jansons, head burned off, dead:
   burns (minor). Reith, both arms, right leg and jaw burned off plus burns on head, neck, torso, shoulders, an eye and an ear,
   dead: no burns condition at all. Luise, alive, right arm burned off and burns on head, jaw, nose, neck, both shoulders, left

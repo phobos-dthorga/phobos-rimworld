@@ -80,7 +80,10 @@ visits 1/64 of cells per tick for fading and 1/32 for spreading, as it does afte
 
 ## Results from play
 
-None yet.
+- **5 Nov 2026, read from the owner's save PG19 (not a declared test).** On the enemy city map the room gas held carbon monoxide
+  in 112 cells across several rooms, up to 0.995, and three raiders carried the poisoning (0.19 to 0.69); on the home map no room
+  held gas and no colonist had been in smoke. So the fire source, the room model and the save round trip all ran. Reading the
+  code against the save found the gas-mask fault fixed in 0.2.1: every pawn in a Combat Extended gas mask was counted as sealed.
 
 ## Supplied oxygen (0.2.0, 5 Nov 2026)
 
