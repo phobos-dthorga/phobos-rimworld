@@ -5,6 +5,12 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+### Compatibility and limits
+
+- The owner reports doctors' dosing working in game on 0.3.0, from one case with penicillin and ketamine. Self-medication and the bleeding hold are not yet tested in game.
+- A drug that gives its condition through its own mod's custom ingestion code is not read by the index. Vanilla Races Expanded's antibiotics are one, so doctors do not give them
+  on their own.
+
 ## [0.3.0] - 2026-11-05 - Draft
 
 Two additions the owner approved on 5 November 2026. Not yet tested in game. New text is agent-authored and held for the owner's review.

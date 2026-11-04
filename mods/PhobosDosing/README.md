@@ -92,6 +92,8 @@ the drug comp's addictiveness and category are read from the same Defs. Balance 
 
 ## Checks done (5 November 2026)
 
+- **The owner reports doctors' dosing working in game on 0.3.0** (5 November 2026, one screenshot: penicillin and ketamine on a patient). Self-medication and the bleeding hold
+  are not yet tested in game.
 - Built against the RimWorld 1.7 and 1.6 reference assemblies. The game-free rules (effect from stages, need bands, safety,
   choice and tiers, self-medication's threshold and policy gate) pass 23 unit tests.
 - 0.1.0 loaded in the owner's game with no error naming it (5 November 2026); its load line showed the faults 0.1.1 fixes. That

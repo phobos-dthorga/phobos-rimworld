@@ -97,7 +97,7 @@ Both approved by the owner on 5 November 2026. **Not yet tested in game.**
 Read from the 1.7.4998 assembly and the active mods' Defs:
 
 - **The race:** `HediffComp_Immunizable` and each `HediffComp_SeverityModifierBase` move a disease's severity through `SeverityChangePerDay` (tending included, through `HediffComp_TendDuration`). `ImmunityRecord.ImmunityChangePerTick` moves immunity, scaled by the `ImmunityGainSpeed` stat. `HediffDef.PossibleToDevelopImmunityNaturally` tells a disease from a condition that only has a timer.
-- **What qualifies in the owner's list**, by a positive `ImmunityGainSpeed` on the stage at the dose (computed offline from the XML): Medicines+ Tyrox (+0.5) and penicillin (+0.2), Vanilla Races Expanded antibiotics (+0.1), all medical. Yuenyeung (+0.15) and rose tea (+0.02) are social drinks and do not count. Variants of the antibiotics were not traced.
+- **What qualifies in the owner's list**, by a positive `ImmunityGainSpeed` on the stage at the dose (computed offline from the XML): Medicines+ Tyrox (+0.5) and penicillin (+0.2), both medical. The game's load line confirms those two. Vanilla Races Expanded's antibiotics (+0.1) were predicted here and are not indexed: they give their condition through that mod's own `IngestionOutcomeDoer_GiveHediff_Discriminating`, and carry a tolerance through a second custom doer, so the index does not read them. Left out for now as a limit, since their tolerance is that mod's own rule. Yuenyeung (+0.15) and rose tea (+0.02) are social drinks and do not count.
 - **Traps found by the scan:** Biological Warfare's malaria and sleeping sickness pills give the disease. Luciferium and red-flicker raise blood filtration, which feeds immunity, and are highly addictive. Penoxycyline and the vaccines prevent a disease and do not help someone who has it.
 
 Decisions:
@@ -111,7 +111,7 @@ Decisions:
 
 Test steps (owner runs them):
 
-1. The load line lists the drugs for fighting disease. Expected: Tyrox, penicillin and antibiotics, from the XML rather than the game. Not tea, not malaria pills.
+1. The load line lists the drugs for fighting disease: penicillin and Tyrox on the owner's list, as seen in play. Not tea, not malaria pills.
 2. A patient in bed with a disease they are losing to (dev: add plague at high severity), Tyrox in reach: a doctor gives it. The dev action "Dosing: log the decision for selected pawns as patients" shows losing yes and need Immunity. At low severity with immunity well ahead: no dose.
 3. A patient at 60% pain or more bleeding at 90% a day, with morphine in reach: no morphine, and with a doctor selected a right-click says the bleeding must be under control first. Tend the bleeding: the morphine follows. At 80% pain with ketamine in reach: ketamine comes at once.
 
@@ -196,12 +196,20 @@ Both are other authors' interplay, not ours; drafts the owner can post.
 
 ## Results from play
 
+- **5 Nov 2026, 0.3.0, the owner's report: "It's working"** (owner's observation, one screenshot; the log shows 0.3.0, Burns and Smoke 0.4.2 and Framework 0.2.2 loaded with
+  no error naming them). A dead patient, Boss, carries a ketamine buildup at its therapeutic dose, anaesthetic wearing off and penicillin with 17 hours left, beside burn shock
+  (compensated) and burns (serious) from a laser. So penicillin was given about 7 hours before death, by the game's 24-hour duration at that dose (our arithmetic), though
+  whether an earlier dose came first is not known. She had two extreme wound infections, one at 100% with immunity at 99.083%: the race was lost by under one point. Which
+  infection or condition killed her is not shown. Not shown by this: self-medication, the bleeding hold, or who gave the ketamine. The load line lists penicillin and Tyrox as
+  drugs for fighting disease, not the antibiotics first predicted from the XML; the section above now says why.
 - **5 Nov 2026, 0.1.0 loaded in the owner's game** (read from Player.log; not a declared test, and it says nothing about a dose being
   given). No error naming the mod. Its load line listed 40 items, which exposed the epinephrine, tier and load-line faults
   fixed in 0.1.1. The owner's setting "use recreational drugs for pain" was on in the run of 02:06 and off in the run of 02:04.
 
 ## Open points and upstream
 
+- Whether the one-day margin in the immunity race is too tight. One patient lost by under one point of immunity; a dose a day earlier adds about 13 points at penicillin's rate against
+  wound infection (0.6441 a day times 0.2; our arithmetic). One case is not enough to change it. For the owner, after more play.
 - Vaccines and other prevention for the healthy: a separate decision about giving doses to people who are not ill. For the owner.
 - Telling bacterial from viral disease, so antibiotics help only against the first. It would mean labelling each disease by hand. Set aside for now.
 - A patient in bed between 40% and 60% pain gets nothing: too high for comfort, below the doctors' band, and left alone by
