@@ -1,12 +1,14 @@
 """Write a dark review page that shows every generated candidate with its seed and record, so the owner
 can judge a whole round in one scroll. Where scripts/art/sort_candidates.py has run, the promising images come first and repeats
-are marked; nothing is hidden or deleted. Pure Python; opens from disk with relative image paths.
+are marked; nothing is hidden or deleted. Where the asset folder has a baselines.json, what the mod shows now leads its subject's
+section, for comparison. Pure Python; opens from disk with relative image paths.
 
     python scripts/art/review_page.py assets/phobos-medical/generated        writes review.html in that folder
 """
 import argparse
 import html
 import json
+import os
 from pathlib import Path
 
 STYLE = """
@@ -17,6 +19,9 @@ h1 { font-size:1.8rem; margin:0 0 4px; } h2 { font-size:1.3rem; margin:36px 0 8p
 .grid { display:grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap:14px; }
 .card { background:var(--panel); border:1px solid var(--line); padding:10px; }
 .card img { width:100%; height:auto; display:block; background:#fff; }
+.card img.pixel { image-rendering:pixelated; }
+.card img.small { width:64px; margin-top:8px; }
+.baseline { border-color:var(--accent); }
 .card .name { font-weight:bold; margin:8px 0 2px; }
 .badge { color:var(--accent); font-size:0.85rem; }
 .warn { color:#ff8a7a; font-weight:bold; font-size:0.95rem; }
@@ -46,9 +51,24 @@ def near_copy_flags(generated):
     return flags
 
 
+def baselines_for(generated):
+    """Subject to what the mod shows now, from baselines.json beside the generated folder. Each image is relative to that file."""
+    path = generated.parent / 'baselines.json'
+    entries = json.loads(path.read_text(encoding='utf-8')) if path.is_file() else {}
+    return {subject: {**entry, 'src': os.path.relpath(generated.parent / entry['image'], generated).replace(os.sep, '/')}
+            for subject, entry in entries.items()}
+
+
+def baseline_card(entry):
+    src, label = html.escape(entry['src']), html.escape(entry['label'])
+    return (f'<div class="card baseline"><img class="pixel" src="{src}" alt="{label}"><img class="small" src="{src}" alt="">'
+            f'<div class="name">{label}</div><div class="meta">Enlarged, then at 64 px. For comparison; not a candidate.</div></div>')
+
+
 def build(generated, title=None):
     generated = Path(generated).resolve()
     flags = near_copy_flags(generated)
+    baselines = baselines_for(generated)
     out = generated / 'review.html'
     title = title or generated.parent.name
     sections = []
@@ -56,6 +76,7 @@ def build(generated, title=None):
     nav = ' '.join(f'<a href="#{html.escape(f.name)}">{html.escape(f.name)}</a>' for f in folders)
     for folder in folders:
         cards = []
+        baseline = baselines.get(folder.name)
         for png, note in ordered_candidates(folder):
             record_path = png.with_suffix('.json')
             record = json.loads(record_path.read_text(encoding='utf-8')) if record_path.is_file() else {}
@@ -64,6 +85,8 @@ def build(generated, title=None):
             refs = record.get('references', [])
             init = record.get('init_image')
             extra = ''
+            source = f'{html.escape(folder.name)}/{html.escape(png.name)}'
+            small = f'<img class="small" loading="lazy" src="{source}" alt="">' if baseline else ''
             if png.name in flags:
                 extra += f'<div class="warn">Too close to {html.escape(", ".join(flags[png.name]))}: do not pick</div>'
             if 'score' in note:
@@ -75,11 +98,11 @@ def build(generated, title=None):
             if refs:
                 extra += '<div class="meta">references: ' + ', '.join(html.escape(r['image']) for r in refs) + '</div>'
             cards.append(
-                f'<div class="card"><img loading="lazy" src="{html.escape(folder.name)}/{html.escape(png.name)}" alt="{html.escape(png.stem)}">'
+                f'<div class="card"><img loading="lazy" src="{source}" alt="{html.escape(png.stem)}">{small}'
                 f'<div class="name">{html.escape(png.stem)}</div><div class="meta">{html.escape(summary)}</div>{extra}'
                 f'<details><summary>prompt</summary><div class="rec">{html.escape(prompt)}</div></details></div>')
         if cards:
-            sections.append(f'<h2 id="{html.escape(folder.name)}">{html.escape(folder.name)} <span class="meta">({len(cards)})</span></h2><div class="grid">{"".join(cards)}</div>')
+            sections.append(f'<h2 id="{html.escape(folder.name)}">{html.escape(folder.name)} <span class="meta">({len(cards)})</span></h2><div class="grid">{baseline_card(baseline) if baseline else ""}{"".join(cards)}</div>')
     page = (f'<!doctype html><html><head><meta charset="utf-8"><title>{html.escape(title)} art review</title><style>{STYLE}</style></head><body>'
             f'<h1>{html.escape(title)}: generated candidates</h1><div class="meta">Local, from the records beside each image. '
             f'Nothing here is in the mod until approved.</div><nav>{nav}</nav>{"".join(sections)}</body></html>')

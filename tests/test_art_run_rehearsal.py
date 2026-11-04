@@ -372,6 +372,10 @@ class NearCopyTests(RehearsalCase):
         sources = art_run.near_copy_sources(requests, ['c'])
         self.assertEqual(sources, [str(art_run.ROOT / 'a'), str(art_run.ROOT / 'b'), 'c'])
 
+    def test_our_own_art_is_not_a_source(self):
+        requests = [{'references': ['assets/set/references/mine.png', 'mods/M/Textures/mine.png', '.local/references/game.png']}]
+        self.assertEqual(art_run.near_copy_sources(requests), [str(art_run.ROOT / '.local' / 'references')])
+
     def post_process(self, flagged, writes=True):
         generated = self.work / 'gen'
         (generated / 'tank').mkdir(parents=True)
@@ -417,6 +421,30 @@ class NearCopyTests(RehearsalCase):
         page = (self.generated / 'review.html').read_text(encoding='utf-8')
         self.assertIn('Too close to vitals.png: do not pick', page)
         self.assertEqual(page.count('do not pick'), 1)
+
+    def build_review_page(self):
+        sys.path.insert(0, str(art_run.ROOT / 'scripts' / 'art'))
+        import review_page
+        with mock.patch('sys.stdout', new=open(os.devnull, 'w', encoding='utf-8')) as quiet:
+            self.addCleanup(quiet.close)
+            review_page.build(self.generated)
+        return (self.generated / 'review.html').read_text(encoding='utf-8')
+
+    def test_the_review_page_leads_a_subject_with_what_the_mod_shows_now(self):
+        self.run_night(FakeComfy())
+        (self.generated.parent / 'baselines.json').write_text(
+            json.dumps({'tank': {'image': 'sprites/tank.png', 'label': 'In the mod now'}}), encoding='utf-8')
+        self.addCleanup((self.generated.parent / 'baselines.json').unlink)
+        page = self.build_review_page()
+        self.assertIn('src="../sprites/tank.png"', page)
+        self.assertLess(page.index('In the mod now'), page.index('tank/tank'))
+        self.assertIn('(3)</span>', page, 'the stand-in is not counted as a candidate')
+
+    def test_the_review_page_has_no_comparison_without_a_baseline(self):
+        self.run_night(FakeComfy())
+        page = self.build_review_page()
+        self.assertNotIn('<div class="card baseline">', page)
+        self.assertNotIn('<img class="small"', page)
 
 
 class NightTests(RehearsalCase):

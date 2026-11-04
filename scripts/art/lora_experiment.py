@@ -91,7 +91,7 @@ def route_requests(requests, trigger, lora, seeds=ROUTE_SEEDS):
     """The same subjects through three routes, for a fair comparison: references only, LoRA only, both."""
     out = []
     for req in requests:
-        if req.get('engine') != 'klein-base' or not req.get('references'):
+        if req.get('engine') != 'klein-base' or not req.get('references') or req.get('lora_comparison') is False:
             continue
         base = {key: req[key] for key in ('engine', 'width', 'height', 'prompt', 'references') if key in req}
         no_references = {key: value for key, value in base.items() if key != 'references'}

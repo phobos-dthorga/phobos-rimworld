@@ -3,7 +3,8 @@ panels and soft flat shading. No image generator and no game art is involved. Th
 
     C:/AI/ComfyUI/ComfyUI_windows_portable/python_embeded/python.exe -I assets/phobos-medical/draw_placeholders.py
 
-Writes mods/PhobosMedicalEquipment/Common/Textures/Phobos/Medical/Things/*.png and a record beside each.
+Writes mods/PhobosMedicalEquipment/Common/Textures/Phobos/Medical/Things/*.png and a record beside each, and the large drawing of
+any the generator uses as a reference to assets/phobos-medical/references/.
 """
 import datetime as dt
 import hashlib
@@ -13,6 +14,7 @@ from PIL import Image, ImageDraw
 
 ROOT = Path(__file__).resolve().parents[2]
 OUT = ROOT / 'mods/PhobosMedicalEquipment/Common/Textures/Phobos/Medical/Things'
+REFERENCES = ROOT / 'assets/phobos-medical/references'
 WORK = 1024  # Drawn large and scaled down, which smooths the edges.
 FINAL = 64
 LINE = 44
@@ -68,16 +70,29 @@ def write_record(path, name, what):
         'It stands in until the owner picks generated art from `assets/phobos-medical/requests/first-batch.json`.\n', encoding='utf-8')
 
 
-def render(painter, name, what):
+def write_reference(image, name, what):
+    path = REFERENCES / f'{name}-large.png'
+    path.parent.mkdir(parents=True, exist_ok=True)
+    image.save(path, optimize=True)
+    digest = hashlib.sha256(path.read_bytes()).hexdigest()
+    path.with_suffix('.record.md').write_text(
+        f'# {name}, large\n\nThe {WORK} x {WORK} px drawing of {what}, before scaling down, from `assets/phobos-medical/draw_placeholders.py`, '
+        f'{dt.date.today():%d %B %Y}. No image generator, game art or other author\'s art was used. SHA-256 `{digest}`.\n\n'
+        'The owner liked this design, so the generator is given it as a reference. It does not ship in a mod.\n', encoding='utf-8')
+
+
+def render(painter, name, what, reference=False):
     image = Image.new('RGBA', (WORK, WORK), (0, 0, 0, 0))
     painter(ImageDraw.Draw(image))
     path = OUT / f'{name}.png'
     path.parent.mkdir(parents=True, exist_ok=True)
     image.resize((FINAL, FINAL), Image.LANCZOS).save(path, optimize=True)
     write_record(path, name, what)
+    if reference:
+        write_reference(image, name, what)
     print('wrote', path.name)
 
 
 if __name__ == '__main__':
-    render(concentrator, 'OxygenConcentrator', 'a bedside oxygen concentrator')
+    render(concentrator, 'OxygenConcentrator', 'a bedside oxygen concentrator', reference=True)
     render(stand, 'BedsideOxygenStand', 'a bedside oxygen stand')

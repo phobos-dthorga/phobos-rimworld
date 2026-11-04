@@ -18,6 +18,25 @@
     ]
   },
   {
+    "name": "oxygen-concentrator-from-stand-in",
+    "engine": "klein-base",
+    "lora_comparison": false,
+    "subject": "a bedside oxygen concentrator: a squat pale grey medical cabinet on small castors, with a dark window showing two upright green sieve columns, a round blue flow dial, a small dark slot under the dial, a darker grey band along the base and a loop of clear tubing at the lower right",
+    "prompt": "The machine in the first reference image, a bedside oxygen concentrator: a squat pale grey medical cabinet on small castors, with a dark window showing two upright green sieve columns, a round blue flow dial, a small dark slot under the dial, a darker grey band along the base and a loop of clear tubing at the lower right. Keep its shape, layout and colours. Redraw it in exactly the art style of the second reference image: a game sprite seen from above at a slight angle, with a thick near-black outline around every shape, soft flat cel shading, a muted palette, rounded panel corners and a few small clean details. One object, centred, on a plain pure white background. No floor, no cast shadow, no text, no labels, no people.",
+    "references": [
+      "assets/phobos-medical/references/OxygenConcentrator-large.png",
+      ".local/references/vanilla-medical/VitalsMonitor_south.png"
+    ],
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      101,
+      102,
+      103,
+      104
+    ]
+  },
+  {
     "name": "electrolyser",
     "engine": "klein-base",
     "subject": "an industrial water electrolyser: a steel frame holding a long stack of many thin cell plates clamped between two thick end plates with tie rods, a blue water feed pipe and two separate gas outlet pipes on top",

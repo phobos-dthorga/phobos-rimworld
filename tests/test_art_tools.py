@@ -143,8 +143,28 @@ class LoraExperimentTests(unittest.TestCase):
         self.assertEqual(by_name['tank-both']['lora'], 'l.safetensors')
         self.assertEqual(by_name['tank-both']['references'], ['r.png'])
 
+    def test_a_subject_can_stay_out_of_the_lora_comparison(self):
+        requests = [{'name': 'tank', 'engine': 'klein-base', 'prompt': 'A tank.', 'references': ['r.png'], 'lora_comparison': False}]
+        self.assertEqual(lora_experiment.route_requests(requests, 'x', 'l.safetensors'), [])
+
 
 class RequestFileTests(unittest.TestCase):
+    def test_every_baseline_image_exists(self):
+        import pathlib
+        import review_page
+        generated = pathlib.Path(ROOT) / 'assets' / 'phobos-medical' / 'generated'
+        baselines = review_page.baselines_for(generated)
+        self.assertIn('oxygen-concentrator', baselines)
+        for subject, entry in baselines.items():
+            self.assertTrue((generated / entry['src']).is_file(), subject)
+
+    def test_the_stand_in_reference_is_in_the_repository(self):
+        import json
+        with open(os.path.join(ROOT, 'assets', 'phobos-medical', 'requests', 'first-batch.json'), encoding='utf-8') as file:
+            subject = next(r for r in json.load(file) if r['name'] == 'oxygen-concentrator-from-stand-in')
+        self.assertTrue(os.path.isfile(os.path.join(ROOT, subject['references'][0])))
+        self.assertIs(subject['lora_comparison'], False)
+
     def test_the_medical_requests_build_valid_graphs_with_no_server(self):
         spec = importlib.util.spec_from_file_location('generate_art_for_requests', os.path.join(ROOT, 'scripts', 'generate-art.py'))
         art = importlib.util.module_from_spec(spec)

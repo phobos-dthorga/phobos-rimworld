@@ -14,7 +14,7 @@ are decided, and record finished work in the owning mod's changelog or record.
 | Burns and Smoke: eschar, escharotomy | Planned | Wait for what the test shows | [Burns and smoke](burns-and-smoke.md) |
 | Hands-off art pipeline | **Built; checked offline only, never run on the GPU** | The owner's go for a short test run | [Below](#hands-off-art-pipeline) |
 | Medical art, first batch | Requests written, held for review; nothing generated | After the test run | [`assets/phobos-medical`](../../assets/phobos-medical/README.md) |
-| Style training | Tooling written; the training tool is cloned but not installed | The owner runs its installer | [Below](#style-training) |
+| Style training | Tooling written; the training tool is installed and accepts our job; **no training has run** | The owner's go for the night run | [Below](#style-training) |
 | D'thorga Medical Equipment 0.1.0 | Draft: concentrator and bedside stand; not yet tested in game | The owner's test | [Record](medical-equipment.md) |
 
 ## Decisions so far
@@ -30,6 +30,7 @@ are decided, and record finished work in the owning mod's changelog or record.
 | Prefer slow, full models: "It's better than having to repeat the action several times or more" | Owner, 5 Nov 2026 |
 | Use FLUX.2 Klein 4B base and Z-Image base first; FLUX 3 Image Klein waits for the owner to read its licence | Agent default, 5 Nov 2026, for the owner to change |
 | The first batch makes south views only; the other views come from the picks | Agent default, 5 Nov 2026 |
+| The concentrator stand-in is "not bad" for a starter: it leads its subject on the review page, and four more candidates use it as a reference, beside the model's own attempts | Owner, 5 Nov 2026 |
 | Put medical equipment in its own mod, not in Burns and Smoke | Agent choice, built 5 Nov 2026 |
 | Bedside oxygen first, automatic, with a concentrator too; no Questionable Ethics, and a ventilator of our own later | Owner, 5 Nov 2026 |
 
