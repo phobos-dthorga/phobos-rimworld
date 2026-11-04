@@ -1,4 +1,4 @@
-# Art automation and medical equipment: design (4 Nov 2026)
+# Art automation and medical equipment: design (4 Nov 2026, updated 5 Nov 2026)
 
 A working design that keeps these plans in one place. **Nothing here is built, and nothing is tested in game.** The owner's
 choices, agent suggestions and untested assumptions are labelled, so the owner can change any of them. Update this page as things
@@ -8,13 +8,14 @@ are decided, and record finished work in the owning mod's changelog or record.
 
 | Work | State | Next step | Record |
 | --- | --- | --- | --- |
-| D'thorga Framework 0.1.0 | Installed; not yet tested in game | The owner's first load | [Framework](phobos-framework.md) |
-| D'thorga Burns and Smoke 0.1.0 | Installed; not yet tested in game | The owner's first load | [Burns and smoke](burns-and-smoke.md) |
-| Native 1.7 builds of all seven mods | Built and installed; not yet tested in game | The same first load, watching the Harmony mods | [Building](building.md) |
-| Burns and Smoke 0.2.0: eschar, escharotomy, fluids | Planned | Wait for what the first test shows | [Burns and smoke](burns-and-smoke.md) |
-| Hands-off art pipeline | Designed here | Build the safeguards, then a short test night | [Below](#hands-off-art-pipeline) |
-| Style training | Designed here | Needs a set of approved images first | [Below](#style-training) |
-| Medical equipment mod | Ideas only | The owner picks a first piece, after the first test | [Below](#medical-equipment) |
+| D'thorga Framework 0.1.1 | Draft; first look in game was 0.1.0 | The owner's test of the current build | [Framework](phobos-framework.md) |
+| D'thorga Burns and Smoke 0.3.0 | Draft; first look in game was 0.1.0, and 0.3.0 is not yet tested in game | The owner's test of the current build | [Burns and smoke](burns-and-smoke.md) |
+| Native 1.7 builds of all seven mods | Built and installed; not yet tested in game | The same test, watching the Harmony mods | [Building](building.md) |
+| Burns and Smoke: eschar, escharotomy | Planned | Wait for what the test shows | [Burns and smoke](burns-and-smoke.md) |
+| Hands-off art pipeline | **Built; checked offline only, never run on the GPU** | The owner's go for a short test run | [Below](#hands-off-art-pipeline) |
+| Medical art, first batch | Requests written, held for review; nothing generated | After the test run | [`assets/phobos-medical`](../../assets/phobos-medical/README.md) |
+| Style training | Tooling written; the training tool is cloned but not installed | The owner runs its installer | [Below](#style-training) |
+| Medical equipment mod | Ideas only; the oxygen chain is chosen | The owner picks a first piece, after the test | [Below](#medical-equipment) |
 
 ## Decisions so far
 
@@ -24,7 +25,11 @@ are decided, and record finished work in the owning mod's changelog or record.
 | Existing effects first; add our own only where it earns more than inference, or nothing exists, or on the owner's call-out; keep a manual override | Owner (rule) |
 | We may add our own medical equipment, for both hospital and field | Owner |
 | The medical equipment mod may depend on Vanilla Expanded Framework, for its years of track record | Owner |
-| Start the art work with style references, not training on vanilla sprites | Agent suggestion, not yet decided |
+| Our own oxygen comes from three devices: a concentrator, an electrolyser and a frosted liquid oxygen store | Owner, 5 Nov 2026 (the owner chose electrolysis for the chemistry; the agent moved the frost from the concentrator to the liquid store, because a concentrator runs at room temperature) |
+| The look comes from vanilla references first; a LoRA on our own approved art comes later; and one private LoRA experiment on upscaled vanilla sprites runs alongside | Owner, 5 Nov 2026 |
+| Prefer slow, full models: "It's better than having to repeat the action several times or more" | Owner, 5 Nov 2026 |
+| Use FLUX.2 Klein 4B base and Z-Image base first; FLUX 3 Image Klein waits for the owner to read its licence | Agent default, 5 Nov 2026, for the owner to change |
+| The first batch makes south views only; the other views come from the picks | Agent default, 5 Nov 2026 |
 | Put medical equipment in its own mod, not in Burns and Smoke | Agent suggestion, not yet decided |
 
 ## Hands-off art pipeline
@@ -43,41 +48,64 @@ flowchart LR
   H --> B
 ```
 
-**What exists:** `scripts/generate-art.py` starts ComfyUI, runs batches and writes a record beside each image. `assets/phobos-radio/`
-holds a review page, a contact sheet and an export script, written for the radio art. The recipes that worked are in the
-[artwork direction](artwork-direction.md).
+**One command runs it all, and it needs a stop time:**
 
-**What needs building (agent):**
+```text
+python scripts/art-run.py generate assets/phobos-medical/requests/test-run.json --stop-at HH:MM
+```
 
-- **One command** that joins generating, reviewing and exporting, with the tools no longer tied to the radio folder.
-- **New model workflows.** The script knows only Flux.1-schnell and FLUX.2 Klein.
-- **Unattended safeguards**, tested on a short run before a long one:
+| Part | What it does |
+| --- | --- |
+| `scripts/art-run.py` | Runs a request file or a training job with the safeguards below, then sorts, makes sheets and a review page, and writes a report |
+| `scripts/generate-art.py` | Builds the graph for each engine, and writes a record beside each image |
+| `scripts/art/` | Review page, contact sheets, sorting, export, the near-copy check, the model fetcher and the LoRA experiment |
 
 | Safeguard | What it does |
 | --- | --- |
-| Stop time | Ends at a set hour, even if the batch is unfinished |
-| Game check | Stops if RimWorld starts, on either its 1.7 or 1.6 process name |
-| Safe finish | Frees the graphics memory and writes a report, even after a failure |
-| Disk limit | Stops before a batch can fill the drive |
+| Stop time | Required. Ends at that hour, even mid-image |
+| Game check | Stops if RimWorld starts, checked every few seconds. If the process list can't be read, it also stops. `--also-stop-on NAME.exe` adds other games |
+| Safe finish | However it ends, it frees the graphics memory, stops any server it started and writes a report |
+| Disk limit | Stops before a drive falls under 5 GB free |
+| Graph check | Before any GPU work, it checks each graph against ComfyUI's own node list, including that the model files are installed |
+| Failures | One failed image is recorded and skipped. Three in a row end the run |
+| Staying awake | Asks Windows not to sleep, only while it runs |
 
-**What an unattended night needs from the owner:** the session left open, Windows kept awake, and the commands allowed beforehand,
-because a permission prompt would stall the run until morning. New downloads and installs are named first; licence questions are
-checked before anything runs.
+**Checked so far (5 Nov 2026), and no further:**
 
-### The stronger generator
+- 57 offline tests of the graphs and rules.
+- Every engine's graph against the node list of ComfyUI 0.41.0, started on the CPU. `flux3-base` passes except for its two files, which are correctly reported as not installed.
+- A real refusal while the owner played: `not starting: rimworld.exe is running`.
+- The sorter, contact sheet and review page on real radio candidates, in a scratch copy.
 
-A friend of the owner's gets far better results from a local setup. Its name is not yet known; ask which model and workflow it
-uses. Open WebUI, which the owner has tried, only passes image requests to a separate backend: its
-[documentation](https://docs.openwebui.com/features/images) names AUTOMATIC1111, ComfyUI and OpenAI's DALL·E. So the difference is
-probably the model and workflow, not a new tool (agent inference). We have used only two fast, small models so far.
+**No image has been generated with the new engines, no step count has been timed on this card, and the stop, finish and report paths have not run against a live generation.** The sorter's sharpness mark also gave all four of those candidates full marks, so it may need raising once real batches exist.
 
-**Check before use:** each model's licence, because these mods are public. From memory and unverified, Flux.1-dev is non-commercial,
-unlike Flux.1-schnell's Apache 2.0.
+**What a run needs from the owner:** the go and a stop time, and the commands allowed beforehand, because a permission prompt would stall a night's work. New downloads are named first; licences are checked before anything runs.
+
+### Models
+
+Read from each publisher's page on 5 Nov 2026. `scripts/art/fetch_models.py` refuses a Hugging Face file if its declared licence changes, and it never fetches a gated one.
+
+| Model | Licence | Status | Use |
+| --- | --- | --- | --- |
+| [FLUX.2 Klein 4B base](https://huggingface.co/black-forest-labs/FLUX.2-klein-base-4B), Black Forest Labs | Apache 2.0 | **Installed** (fp8, 4.1 GB) | Sprites from references. The model card's example is 50 steps at guidance 4, and it names this version as the one for LoRA training |
+| [Z-Image base](https://huggingface.co/Tongyi-MAI/Z-Image), Alibaba Tongyi lab | Apache 2.0 | **Installed** (int8, 6.2 GB) | Text only, so the Workshop preview. ComfyUI's template uses 25 steps at guidance 4 |
+| Real-ESRGAN x4plus, Xintao Wang and colleagues | BSD 3-Clause | **Installed** | Upscaling for the private experiment only |
+| FLUX 3 Image Klein, Black Forest Labs | FLUX Kommunity License v1.0 | **Not installed: the owner's decision** | See below |
+
+**FLUX 3 Image Klein may be the strongest of these,** but that is unproven here. It came out on 15 October 2026, it is 5.6B parameters, and ComfyUI's install already has its templates, with up to 10 reference images reported. The quality claims come from [Black Forest Labs' own evaluations](https://www.layer3labs.io/guides/flux-3-image-explained), as reported by a third party. The `flux3-base` engine is written but unrun. **Three things make it the owner's call:**
+
+- **It is gated.** Its [Hugging Face page](https://huggingface.co/black-forest-labs/flux-3-image-klein-comfy) asks the owner to accept the terms and share their account details. The agent handles no credentials.
+- **Its outputs may not train other models.** The model card says the licence bars using the model or its outputs "to improve another AI model" with a similar function. So **art made with it must not join a training set for Klein 4B or Z-Image**. Pick one family for the approved set before training.
+- **The licence text is unread.** The card allows non-commercial use, and commercial output use under US$5M revenue, and says that is "not blanket permission for commercial fine-tuning or distribution". Our mods are free, but the owner should read the full text once the page opens (agent reading, not legal advice).
+
+Without its prompt upsampler (9.7 GB more), the publisher [reportedly](https://www.layer3labs.io/guides/flux-3-image-explained) warns of weaker results from short prompts. Our requests would carry full captions instead, untested.
+
+**Hiddensoul's setup is still worth asking about.** Its name is not yet known. Open WebUI only passes image requests to a separate backend ([documentation](https://docs.openwebui.com/features/images)), so the difference is probably the model and workflow (agent inference). The most useful thing to ask for is the workflow exported from ComfyUI as JSON, plus which model, LoRAs and step count it uses.
 
 ## Style training
 
-**Training material is a folder of images, each with a short caption.** The model learns what the images have in common. This
-section is general practice from memory; none of it has been tried on our setup.
+**Training material is a folder of images, each with a short caption.** The model learns what the images have in common. Apart
+from the figures Black Forest Labs publishes, this section is general practice from memory; none of it has been tried on our setup.
 
 | Material | Use | Why |
 | --- | --- | --- |
@@ -87,8 +115,8 @@ section is general practice from memory; none of it has been tried on our setup.
 
 - **A good set:** one consistent style, varied subjects, about 20 to 50 images at around 1024 px, plain backgrounds, approved images only.
 - **Captions describe the subject, not the style**, after a made-up trigger word: "phobosstyle, oxygen tank with a frosted valve".
-- **Hardware:** from memory and unverified, SDXL training should suit the 12 GB card, and Flux would be tight. No training tool is
-  installed yet.
+- **Hardware:** [Black Forest Labs' guide](https://docs.bfl.ai/flux_2/flux2_klein_training) lists Klein 4B training at 12 GB of graphics memory and 32 GB of system memory; this machine has 12 GB and 63 GB. Untested here.
+- **The tool:** [ai-toolkit](https://github.com/ostris/ai-toolkit) by Ostris (MIT), cloned to `C:\AI\ai-toolkit` and **not installed**. Installing it runs code from its requirements list, which needs the owner's permission: run `bash /c/AI/ai-toolkit/install-phobos.sh` in Git Bash. It uses no graphics memory, so it is safe during play, and it also downloads what Klein training loads, all ungated.
 - **Each trained model gets a record** of its images, settings and tool, and the art keeps its AI disclosure.
 
 ### Vanilla sprites
@@ -103,23 +131,49 @@ Sizes read from the file headers in the game's `Assets.zip` (RimWorld 1.7.4998, 
 | Apparel | 271 | 128 | 512 |
 | Medicine | 10 | 64 | 64 |
 
-Some of those counts include mask files, which are not usable art. Most sprites are well short of training size. AI upscalers such
-as Real-ESRGAN could enlarge them, but their licences are unchecked. These files are compressed, and a 64 px sprite gives an
-upscaler little to work from, so a style model could learn the flaws as if they were the style (agent inference).
+Some of those counts include mask files, which are not usable art. Most sprites are well short of training size, and a 64 px sprite gives an upscaler little to work from, so a style model could learn the flaws as if they were the style (agent inference).
+
+**The look, read from the sprites themselves (5 Nov 2026):** a **thick near-black outline** around every shape, soft cel shading, pale grey panels with rounded corners on machines, muted colours, and small blue screens. Odyssey has its own [oxygen pump](#medical-equipment) sprite, a useful reference.
+
+**Extraction:** the sprites are in a rearranged block format, not plain DDS. `.local/tools/art/extract_references.py` reads it, and 12 medical references and 60 varied training sprites are in `.local/references/`. The extractor is not committed, because it was written from the game's decompiled loader, and nor is its output.
 
 **What the rules say:** [Ludeon's EULA](https://rimworldgame.com/eula/) lets modders use its resources "as a basis or reference for a
 Mod", but not "rip these resources out and pass them around independently", and a mod must not contain "a substantial part" of
 its artwork. It does not mention AI training, so whether training counts as a basis is unsettled; only Ludeon can say. Our own rule
 is that we never ship or commit the game's art.
 
-**The suggested route (agent):**
+**The chosen route (owner, 5 Nov 2026):**
 
-1. **Style reference:** give Klein vanilla sprites as references, kept in the ignored `.local/`.
-2. **Our own art:** generate varied items at full size overnight, and the owner picks the keepers.
-3. **Training:** train on those picks, so the model learns from clean images that are ours.
+1. **Style references now:** give Klein base two vanilla sprites per subject.
+2. **Our own art:** generate at full size, and the owner picks the keepers.
+3. **Training later:** train on those picks, so the model learns from clean images that are ours.
+4. **A private experiment alongside:** train one LoRA on upscaled vanilla sprites, then run the same subjects and seeds through three routes: references only, LoRA only, and both. `scripts/art/lora_experiment.py` prepares each step.
 
-Compare results against the reference sprites, so nothing ships as a near-copy. Training on upscaled vanilla stays available as a
-private experiment, for the owner to decide.
+**What difference training makes:**
+
+| | References | LoRA on vanilla sprites |
+| --- | --- | --- |
+| How the style gets in | Each image looks at the sprites you hand it | Baked into the weights, so short prompts work |
+| Consistency | Good within a batch, may drift between batches | Should hold across hundreds of assets |
+| Cost | Only generation | GPU time per attempt, and usually several attempts |
+| Material | Any size | About 1024 px, so an upscale first, and its blur can be learned as style |
+| Copy risk | Low | Real: a small set can reproduce its training images |
+| Rules | The EULA allows use as "a basis or reference for a Mod" | Unsettled. The file must stay private either way |
+
+**The experiment's limits (owner's decision, agent's safeguards):** the dataset, upscales and LoRA stay in `C:\AI\lora-experiments`, off the synced drive, never committed and never shared. Its images are for comparison. **Whether any of its output could ever ship is unsettled, so nothing from it ships unless the owner decides so**, and then only after `scripts/art/near_copy.py` passes it. 
+
+**What the near-copy check catches, measured on 5 Nov 2026** (four vanilla sprites redrawn at 1024 px, 16 variants):
+
+| Variant | First thresholds (0.75, 10 bits) | Current thresholds (0.60, 12 bits) |
+| --- | --- | --- |
+| Exact copy | 4 of 4 | 4 of 4 |
+| Recoloured | 4 of 4 | 4 of 4 |
+| Blurred | 3 of 4 | 4 of 4 |
+| Tilted 4 degrees | **0 of 4** | 2 of 4 |
+
+Unrelated art reached at most 0.43 similarity and 17 hash bits at closest, and raises no flag at either setting. **A slightly tilted copy can still pass, so the owner's eye stays the last check.** These thresholds are authored, and images made from references may need them revisited.
+
+Run `scripts/art/near_copy.py` over every candidate before picks, so nothing ships as a near-copy.
 
 **Before publishing:** the EULA also gives a disclaimer wording for works made with Ludeon's materials ("Portions of the materials
 used to create this content/mod are trademarks and/or copyrighted works of Ludeon Studios Inc."). Read that clause and compare it
@@ -145,6 +199,20 @@ None of the oxygen above treats a patient yet, as far as these Defs show: it ser
   Without it, we supply a simple oxygen item of our own, because nothing else would exist.
 - **Airway support** hands off to Organ Failure's ventilation where it is active; we build a ventilator only if it would add something.
 
+### The oxygen chain (owner, 5 Nov 2026)
+
+Our own supply, used when Vanilla Gravship Expanded's is absent. Game values are not set yet, and each will be labelled authored.
+
+| Device | Needs | Gives | The real thing |
+| --- | --- | --- | --- |
+| **Oxygen concentrator** (bedside, field) | Power | Oxygen for one patient, with no storage | Pressure-swing adsorption: zeolite beds hold back nitrogen from compressed air. WHO's [plant specification](https://wkc.who.int/resources/publications/i/item/technical-specifications-for-pressure-swing-adsorption(psa)-oxygen-plants) targets 93% ±3. Runs at room temperature, so **it does not frost** |
+| **Electrolyser** (hospital) | Power, water | Purer oxygen to pipes or canisters; hydrogen is vented | 2 H2O gives 2 H2 + O2. Typical systems use [about 4.5 to 6 kWh per cubic metre of hydrogen](https://arts.units.it/retrieve/e2913fde-cecd-f688-e053-3705fe0a67e0/energies-14-05347-v2_compressed2.pdf) |
+| **Liquid oxygen store** (hospital) | Power, piped oxygen | Dense storage, and **the frost** | [Boils at about -183 C](https://eg.airliquide.com/sites/al_eg/files/2022-10/al008b-liq.-o2.pdf); one litre of liquid gives [about 862 litres of gas](https://ehs.princeton.edu/laboratory-research/chemical-safety/cryogenic-liquids). A [strong oxidiser](https://cal-tool.com/wp-content/uploads/2014/07/MSDS-OXYGEN-LIQUID-LINDE.pdf), so it should be a real fire hazard in play |
+
+**The power cost, our own arithmetic:** each cubic metre of oxygen comes with two of hydrogen, so 9 to 12 kWh per cubic metre of oxygen. A patient on 5 litres a minute uses 0.3 cubic metres an hour, so about **3 to 3.6 kW of cell power per patient**. That hunger is honest, and it is the electrolyser's gameplay cost against the concentrator.
+
+**The frost is a real effect:** water vapour deposits as rime on the store's cold pipes and vaporiser. Following [DMS2's Pressure Chamber](https://steamcommunity.com/sharedfiles/filedetails/?id=3819799478), it shows while the store is working, as our own mote or fleck and our own art.
+
 **Equipment nothing here provides (agent ideas, for review):**
 
 | Where | Item | Purpose |
@@ -159,10 +227,6 @@ None of the oxygen above treats a patient yet, as far as these Defs show: it ser
 **Treatment tiers for carbon monoxide:** half-life about 320 minutes on room air, about 75 on oxygen, 15 to 30 hyperbaric
 (see the sources in [burns and smoke](burns-and-smoke.md#sources)). The kinetics are sourced, but the hyperbaric chamber is a game
 tier, not medical advice: the NHS England review noted there that clinical evidence for it is low quality.
-
-**The frost effect:** the owner loves the frosting on DMS2's Pressure Chamber. Liquid oxygen tanks and vaporisers really do frost
-over, so a liquid oxygen vessel of ours would give that effect a real reason. This is the one piece that may earn its place
-despite Vanilla Gravship Expanded's tanks, and it is the owner's call.
 
 **Engineering notes:**
 
@@ -179,10 +243,14 @@ despite Vanilla Gravship Expanded's tanks, and it is the owner's call.
 
 | Question | For |
 | --- | --- |
-| Which model and workflow does the friend's setup use? | Owner to ask |
+| Which model and workflow does Hiddensoul's setup use? A ComfyUI workflow JSON would be ideal | Owner to ask |
+| Allow installing ai-toolkit, by running `bash /c/AI/ai-toolkit/install-phobos.sh`? | Owner |
+| Accept FLUX 3 Image Klein's terms and read its licence, or stay on Apache models? | Owner |
+| The go and a stop time for the short test run | Owner |
 | Pick the radio art candidates still waiting since 19 October (`assets/phobos-radio/generated/review.html`) | Owner |
-| Train on vanilla sprites privately, or only use them as references? | Owner |
-| How should our own oxygen be made: concentrator, electrolysis or air separation? | Owner, as the chemist |
-| Should a frosted liquid oxygen vessel exist beside Vanilla Gravship Expanded's tanks? | Owner |
+| Review the medical art prompts (`assets/phobos-medical/requests/first-batch.json`) | Owner |
+| Is the electrolyser's water a Dubs Bad Hygiene pipe tie-in or a water item? | Agent, when the mod starts |
+| Should vented hydrogen be a room gas of ours, flammable in a closed room? It may earn its place under the gas rule | Owner |
+| Is the frost one overlay texture or several frames? | Agent, when the store's art is picked |
 | Which mods supply Organ Failure's life-support bed? | Agent, when medical work starts |
-| Licences of any new model, upscaler and training tool | Agent, before use |
+| Licences of any further model or tool | Agent, before use |

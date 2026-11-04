@@ -1,0 +1,55 @@
+{
+  "note": "Local art models. Weights live under ComfyUI's models folder, never in this repository. Licences are what each publisher's Hugging Face or GitHub page declares; fetch_models.py refuses a Hub licence that changes.",
+  "models": [
+    {
+      "file": "flux-2-klein-base-4b-fp8.safetensors",
+      "folder": "diffusion_models",
+      "repo": "black-forest-labs/FLUX.2-klein-base-4b-fp8",
+      "path": "flux-2-klein-base-4b-fp8.safetensors",
+      "licence": "apache-2.0",
+      "why": "Reference editing at full steps; the model to train a LoRA on"
+    },
+    {
+      "file": "z_image_int8_convrot.safetensors",
+      "folder": "diffusion_models",
+      "repo": "Comfy-Org/z_image",
+      "path": "split_files/diffusion_models/z_image_int8_convrot.safetensors",
+      "licence": "apache-2.0",
+      "why": "Z-Image base (Alibaba Tongyi lab): full, non-distilled text to image for previews and first drafts"
+    },
+    {
+      "file": "ae.safetensors",
+      "folder": "vae",
+      "repo": "Comfy-Org/z_image_turbo",
+      "path": "split_files/vae/ae.safetensors",
+      "licence": "apache-2.0",
+      "why": "The VAE ComfyUI's Z-Image template names"
+    },
+    {
+      "file": "RealESRGAN_x4plus.pth",
+      "folder": "upscale_models",
+      "url": "https://github.com/xinntao/Real-ESRGAN/releases/download/v0.1.0/RealESRGAN_x4plus.pth",
+      "licence": "BSD-3-Clause",
+      "why": "Upscaler for the private vanilla LoRA experiment",
+      "sha256": "4fa0d38905f75ac06eb49a7951b426670021be3018265fd191d2125df9d682f1"
+    },
+    {
+      "file": "flux3_image_klein_int8_convrot.safetensors",
+      "folder": "diffusion_models",
+      "repo": "black-forest-labs/flux-3-image-klein-comfy",
+      "path": "diffusion_models/flux3_image_klein_int8_convrot.safetensors",
+      "licence": "other",
+      "optional": true,
+      "why": "FLUX 3 Image Klein base. Gated, FLUX Kommunity License: the owner's decision, not part of the Apache pipeline"
+    },
+    {
+      "file": "qwen3vl_4b_int8_convrot.safetensors",
+      "folder": "text_encoders",
+      "repo": "black-forest-labs/flux-3-image-klein-comfy",
+      "path": "text_encoders/qwen3vl_4b_int8_convrot.safetensors",
+      "licence": "other",
+      "optional": true,
+      "why": "FLUX 3 Image Klein's text encoder (the model card lists it as Apache 2.0, inside the gated repository)"
+    }
+  ]
+}

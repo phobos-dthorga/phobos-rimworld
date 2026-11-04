@@ -1,0 +1,177 @@
+[
+  {
+    "name": "oxygen-concentrator",
+    "engine": "klein-base",
+    "subject": "a bedside oxygen concentrator: a squat pale grey medical cabinet on small castors, with two upright sieve columns visible through a side panel, a small flow dial and a coil of clear tubing",
+    "prompt": "A bedside oxygen concentrator: a squat pale grey medical cabinet on small castors, with two upright sieve columns visible through a side panel, a small flow dial and a coil of clear tubing. Draw it in exactly the art style of the reference images: a game sprite seen from above at a slight angle, with a thick near-black outline around every shape, soft flat cel shading, a muted palette, rounded panel corners and a few small clean details. One object, centred, on a plain pure white background. No floor, no cast shadow, no text, no labels, no people.",
+    "references": [
+      ".local/references/vanilla-medical/VitalsMonitor_south.png",
+      ".local/references/vanilla-medical/OxygenPump_south.png"
+    ],
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      101,
+      102,
+      103,
+      104
+    ]
+  },
+  {
+    "name": "electrolyser",
+    "engine": "klein-base",
+    "subject": "an industrial water electrolyser: a steel frame holding a long stack of many thin cell plates clamped between two thick end plates with tie rods, a blue water feed pipe and two separate gas outlet pipes on top",
+    "prompt": "An industrial water electrolyser: a steel frame holding a long stack of many thin cell plates clamped between two thick end plates with tie rods, a blue water feed pipe and two separate gas outlet pipes on top. Draw it in exactly the art style of the reference images: a game sprite seen from above at a slight angle, with a thick near-black outline around every shape, soft flat cel shading, a muted palette, rounded panel corners and a few small clean details. One object, centred, on a plain pure white background. No floor, no cast shadow, no text, no labels, no people.",
+    "references": [
+      ".local/references/vanilla-medical/OxygenPump_south.png",
+      ".local/references/vanilla-medical/ChemfuelTank_south.png"
+    ],
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      101,
+      102,
+      103,
+      104
+    ]
+  },
+  {
+    "name": "liquid-oxygen-store",
+    "engine": "klein-base",
+    "subject": "a liquid oxygen store: a tall insulated cryogenic vessel with a pale blue-white shell on a steel base, a pressure gauge, valves and a bank of finned aluminium vaporiser coils beside it",
+    "prompt": "A liquid oxygen store: a tall insulated cryogenic vessel with a pale blue-white shell on a steel base, a pressure gauge, valves and a bank of finned aluminium vaporiser coils beside it. Draw it in exactly the art style of the reference images: a game sprite seen from above at a slight angle, with a thick near-black outline around every shape, soft flat cel shading, a muted palette, rounded panel corners and a few small clean details. One object, centred, on a plain pure white background. No floor, no cast shadow, no text, no labels, no people.",
+    "references": [
+      ".local/references/vanilla-medical/LargeChemfuelTank_south.png",
+      ".local/references/vanilla-medical/OxygenPump_south.png"
+    ],
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      101,
+      102,
+      103,
+      104
+    ]
+  },
+  {
+    "name": "bedside-oxygen",
+    "engine": "klein-base",
+    "subject": "a bedside oxygen stand: a slim pole unit with a flowmeter, a small clear humidifier bottle and a coil of clear tubing with a face mask hanging from it",
+    "prompt": "A bedside oxygen stand: a slim pole unit with a flowmeter, a small clear humidifier bottle and a coil of clear tubing with a face mask hanging from it. Draw it in exactly the art style of the reference images: a game sprite seen from above at a slight angle, with a thick near-black outline around every shape, soft flat cel shading, a muted palette, rounded panel corners and a few small clean details. One object, centred, on a plain pure white background. No floor, no cast shadow, no text, no labels, no people.",
+    "references": [
+      ".local/references/vanilla-medical/VitalsMonitor_south.png",
+      ".local/references/vanilla-medical/OxygenPump_south.png"
+    ],
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      101,
+      102,
+      103,
+      104
+    ]
+  },
+  {
+    "name": "hyperbaric-chamber",
+    "engine": "klein-base",
+    "subject": "a hyperbaric oxygen chamber: a long white pressure vessel with rounded ends and a clear acrylic section along its length, a heavy hinged door at one end, a control panel and a pressure gauge",
+    "prompt": "A hyperbaric oxygen chamber: a long white pressure vessel with rounded ends and a clear acrylic section along its length, a heavy hinged door at one end, a control panel and a pressure gauge. Draw it in exactly the art style of the reference images: a game sprite seen from above at a slight angle, with a thick near-black outline around every shape, soft flat cel shading, a muted palette, rounded panel corners and a few small clean details. One object, centred, on a plain pure white background. No floor, no cast shadow, no text, no labels, no people.",
+    "references": [
+      ".local/references/vanilla-medical/BiosculpterPod_south.png",
+      ".local/references/vanilla-medical/SleepAccelerator_south.png"
+    ],
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      101,
+      102,
+      103,
+      104
+    ]
+  },
+  {
+    "name": "burn-unit-bed",
+    "engine": "klein-base",
+    "subject": "a burn unit bed: a hospital bed with a steel frame and a thick air mattress made of many soft pale inflated cells, a small blower unit at the foot and a raised frame that holds the sheets off the patient",
+    "prompt": "A burn unit bed: a hospital bed with a steel frame and a thick air mattress made of many soft pale inflated cells, a small blower unit at the foot and a raised frame that holds the sheets off the patient. Draw it in exactly the art style of the reference images: a game sprite seen from above at a slight angle, with a thick near-black outline around every shape, soft flat cel shading, a muted palette, rounded panel corners and a few small clean details. One object, centred, on a plain pure white background. No floor, no cast shadow, no text, no labels, no people.",
+    "references": [
+      ".local/references/vanilla-medical/HospitalBed_south.png",
+      ".local/references/vanilla-medical/VitalsMonitor_south.png"
+    ],
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      101,
+      102,
+      103,
+      104
+    ]
+  },
+  {
+    "name": "oxygen-mask",
+    "engine": "klein-base",
+    "subject": "an oxygen mask and regulator: a clear green-tinted face mask joined by clear tubing to a small brass cylinder regulator with a dial",
+    "prompt": "An oxygen mask and regulator: a clear green-tinted face mask joined by clear tubing to a small brass cylinder regulator with a dial. Draw it in exactly the art style of the reference images: a small game item icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette. One object, centred, on a plain pure white background. No text, no labels, no hands.",
+    "references": [
+      ".local/references/vanilla-medical/MedicineIndustrial_a.png",
+      ".local/references/vanilla-medical/MedicineUltratech_a.png"
+    ],
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      101,
+      102,
+      103,
+      104
+    ]
+  },
+  {
+    "name": "burn-dressing",
+    "engine": "klein-base",
+    "subject": "a pack of burn dressings: a flat sealed foil packet with a pale gel dressing sheet partly folded out of it, silver-grey with a blue stripe",
+    "prompt": "A pack of burn dressings: a flat sealed foil packet with a pale gel dressing sheet partly folded out of it, silver-grey with a blue stripe. Draw it in exactly the art style of the reference images: a small game item icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette. One object, centred, on a plain pure white background. No text, no labels, no hands.",
+    "references": [
+      ".local/references/vanilla-medical/MedicineIndustrial_a.png",
+      ".local/references/vanilla-medical/MedicineHerbal_a.png"
+    ],
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      101,
+      102,
+      103,
+      104
+    ]
+  },
+  {
+    "name": "manual-resuscitator",
+    "engine": "klein-base",
+    "subject": "a manual resuscitator: a squeezable oval rubber bag joined to a clear face mask with a one-way valve between them",
+    "prompt": "A manual resuscitator: a squeezable oval rubber bag joined to a clear face mask with a one-way valve between them. Draw it in exactly the art style of the reference images: a small game item icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette. One object, centred, on a plain pure white background. No text, no labels, no hands.",
+    "references": [
+      ".local/references/vanilla-medical/MedicineIndustrial_a.png",
+      ".local/references/vanilla-medical/MedicineUltratech_a.png"
+    ],
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      101,
+      102,
+      103,
+      104
+    ]
+  },
+  {
+    "name": "workshop-preview",
+    "engine": "zimage",
+    "seeds": [
+      201,
+      202,
+      203,
+      204
+    ],
+    "width": 1280,
+    "height": 720,
+    "prompt": "A clean digital painting of a small frontier hospital ward at night seen from above at a slight angle. Two steel-framed beds, a tall frosted liquid oxygen vessel with white rime on its pipes outside a window, a bedside oxygen stand, warm lamp light on pale grey walls, muted colours, thick dark outlines, simple flat shading, no text, no people."
+  }
+]

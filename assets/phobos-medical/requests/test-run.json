@@ -1,0 +1,48 @@
+[
+  {
+    "name": "test-klein-20-5",
+    "engine": "klein-base",
+    "subject": "a bedside oxygen concentrator: a squat pale grey medical cabinet on small castors, with two upright sieve columns visible through a side panel, a small flow dial and a coil of clear tubing",
+    "prompt": "A bedside oxygen concentrator: a squat pale grey medical cabinet on small castors, with two upright sieve columns visible through a side panel, a small flow dial and a coil of clear tubing. Draw it in exactly the art style of the reference images: a game sprite seen from above at a slight angle, with a thick near-black outline around every shape, soft flat cel shading, a muted palette, rounded panel corners and a few small clean details. One object, centred, on a plain pure white background. No floor, no cast shadow, no text, no labels, no people.",
+    "references": [
+      ".local/references/vanilla-medical/VitalsMonitor_south.png",
+      ".local/references/vanilla-medical/OxygenPump_south.png"
+    ],
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      101,
+      102
+    ],
+    "steps": 20,
+    "cfg": 5
+  },
+  {
+    "name": "test-klein-50-4",
+    "engine": "klein-base",
+    "subject": "a bedside oxygen concentrator: a squat pale grey medical cabinet on small castors, with two upright sieve columns visible through a side panel, a small flow dial and a coil of clear tubing",
+    "prompt": "A bedside oxygen concentrator: a squat pale grey medical cabinet on small castors, with two upright sieve columns visible through a side panel, a small flow dial and a coil of clear tubing. Draw it in exactly the art style of the reference images: a game sprite seen from above at a slight angle, with a thick near-black outline around every shape, soft flat cel shading, a muted palette, rounded panel corners and a few small clean details. One object, centred, on a plain pure white background. No floor, no cast shadow, no text, no labels, no people.",
+    "references": [
+      ".local/references/vanilla-medical/VitalsMonitor_south.png",
+      ".local/references/vanilla-medical/OxygenPump_south.png"
+    ],
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      101,
+      102
+    ],
+    "steps": 50,
+    "cfg": 4
+  },
+  {
+    "name": "test-zimage",
+    "engine": "zimage",
+    "seeds": [
+      201
+    ],
+    "width": 1280,
+    "height": 720,
+    "prompt": "A clean digital painting of a small frontier hospital ward at night seen from above at a slight angle. Two steel-framed beds, a tall frosted liquid oxygen vessel with white rime on its pipes outside a window, a bedside oxygen stand, warm lamp light on pale grey walls, muted colours, thick dark outlines, simple flat shading, no text, no people."
+  }
+]

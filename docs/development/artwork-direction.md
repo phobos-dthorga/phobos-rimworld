@@ -62,5 +62,6 @@ icons stay scripted. Every candidate carries its record; game-scale previews are
       mast and whip to export; rejected batches are then deleted and listed with reasons.
 - [ ] `AGENTS.md`'s Artwork section still carries the Ostranauts wording about PixelLab; rewrite it with the
       recipe above once the owner has approved a building and a prop.
-- [ ] Whether to fetch three vanilla sprites from the wiki for study (asked 19 Oct, not yet answered). Since 4 Nov 2026 this
-      belongs to the wider question in the [art automation design](art-automation-and-medical-equipment.md#vanilla-sprites).
+- [x] Whether to study vanilla sprites: decided on 5 Nov 2026 in the
+      [art automation design](art-automation-and-medical-equipment.md#vanilla-sprites). Newer engines, the unattended runner and
+      the shared review tools (now in `scripts/art/`) are recorded there too.
