@@ -32,6 +32,11 @@ loaded on 1.6 and 1.7. It references only the game and Harmony: More Injuries is
 it builds anywhere the .NET SDK is. Its game-free rules (the index re-numbering and the mod-list comparison) are tested by
 `dotnet test tests/PhobosMedicalSaveBridge.Rules.Tests`, which also runs on GitHub.
 
+**D'thorga Water Tap has an assembly since 0.1.0** (4 November 2026): `dotnet build src/PhobosWaterTap/PhobosWaterTap.csproj` builds
+`mods/PhobosWaterTap/1.6/Assemblies/PhobosWaterTap.dll`, loaded on 1.6 and 1.7. It references the installed `BadHygiene.dll` (`DbhAssemblies`, default the Workshop item's
+`1.6\Assemblies`), never copied, and has no Harmony. Its game-free rules are tested by `dotnet test tests/PhobosWaterTap.Rules.Tests`, which also runs on GitHub. Its texture and
+preview are redrawn by `assets/water-tap/draw_tap.py`, with any Python that has Pillow.
+
 **One limit to know:** the mod references Vanilla Expanded Framework's `PipeSystem.dll`, which its licence
 does not let us copy into the repository. So **GitHub Actions cannot build the mod**; it builds and runs
 only the game-free physics tests in `tests/`. The mod itself builds on a machine with RimWorld and VEF

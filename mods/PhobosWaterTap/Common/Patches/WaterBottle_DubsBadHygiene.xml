@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+
+  <!-- Keeps a bottle's water quality when its stack is split or merged, and shows it in its label (Phobos.WaterTap.CompBottleWater
+       says why). Dubs Bad Hygiene always has this Def in its XML; it drops the Def later, as it loads, if thirst is off. -->
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/ThingDef[defName="DBH_WaterBottle"]/comps</xpath>
+    <value>
+      <li Class="CompProperties">
+        <compClass>Phobos.WaterTap.CompBottleWater</compClass>
+      </li>
+    </value>
+  </Operation>
+
+</Patch>

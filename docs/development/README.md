@@ -44,6 +44,11 @@ promise current behaviour. For using the mods, start at the [documentation index
   runs Medical System Expansion 2 wiped wounds and revived corpses (parts are saved by index, and More Injuries appends eight),
   the game's own conversion hooks the bridge sits on, who chose what, and the owner's test protocol.
 
+## Water tap
+
+- [Water tap: research and decisions (4 Nov 2026)](water-tap.md): whether anyone had built one (one near miss), how Dubs Bad Hygiene handles bottles and water quality, why a
+  split stack of untreated water came out clean and how the mod fixes that, and who chose what.
+
 ## Artwork
 
 - [Artwork direction (19 Oct 2026)](artwork-direction.md): why PixelLab does not suit RimWorld, the three

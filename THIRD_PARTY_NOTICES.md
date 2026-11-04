@@ -38,7 +38,7 @@ runtime. Nothing from VEF is in this repository. Our own code remains MIT.
 
 [Dubs Bad Hygiene](https://steamcommunity.com/sharedfiles/filedetails/?id=836308268) by Dubwise. D'thorga Factory Additions'
 optional tie-in references the installed `BadHygiene.dll` to draw water from its plumbing, and loads only while that mod is
-active. Nothing from Dubs Bad Hygiene is in this repository.
+active. D'thorga Water Tap requires it, references the same installed `BadHygiene.dll` to fill bottles from its plumbing, and adds a comp to its water bottle in XML. Nothing from Dubs Bad Hygiene is in this repository.
 
 ## Vehicle mods patched by D'thorga Vehicle Patches
 

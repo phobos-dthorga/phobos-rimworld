@@ -9,6 +9,7 @@ which are build products and never committed.
 | D’thorga Factory Additions | `PhobosFactoryAdditions/` | XML additions to Vanilla Furniture Expanded - Factory |
 | D’thorga Vehicle Patches | `PhobosVehiclePatches/` | Patches for other authors' vehicle mods: the Harrier VTOL, and RimThunder's heavy casting |
 | D’thorga Medical Save Bridge | `PhobosMedicalSaveBridge/` | Adds More Injuries to a running colony, with MSE2 or without, by re-numbering saved body parts on the first load |
+| D’thorga Water Tap | `PhobosWaterTap/` | A plumbing fixture for Dubs Bad Hygiene that keeps bottled water ready and refills itself from your water towers |
 
 A mod folder holds:
 

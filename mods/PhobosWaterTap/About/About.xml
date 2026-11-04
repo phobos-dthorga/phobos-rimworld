@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ModMetaData>
+  <packageId>PhobosDthorga.WaterTap</packageId>
+  <name>D'thorga Water Tap</name>
+  <author>Phobos A. D'thorga</author>
+  <url>https://github.com/phobos-dthorga/phobos-rimworld</url>
+  <modVersion>0.1.0</modVersion>
+  <description>A water bottle tap for Dubs Bad Hygiene: a small plumbing fixture that keeps a stack of bottled water ready, refilling by itself from your water towers. Nobody has to stand at a basin filling bottles.
+
+Colonists drink from it and pack bottles from it the way they do from any loose bottles. Caravans can load from it. You choose how many bottles it keeps ready, up to 10.
+
+Each bottle carries the quality of the water that filled it. The tap won't bottle contaminated water, and untreated water is marked as untreated. This mod also fixes a gap in how bottles stack: bottles of different water now keep separate stacks, and a bottle taken from an untreated stack stays untreated instead of coming out clean.
+
+With Vanilla Furniture Expanded - Factory, conveyor belts and factory machines can take bottles from the tap, as they do from a factory hopper.
+
+Needs Dubs Bad Hygiene with its thirst option switched on. Without thirst there are no bottles, so the tap doesn't appear. It isn't made for Dubs Bad Hygiene Lite.
+
+Community-created content. Not official and not endorsed by Ludeon Studios.</description>
+  <supportedVersions>
+    <li>1.6</li>
+    <li>1.7</li>
+  </supportedVersions>
+  <modDependencies>
+    <li>
+      <packageId>Dubwise.DubsBadHygiene</packageId>
+      <displayName>Dubs Bad Hygiene</displayName>
+      <steamWorkshopUrl>https://steamcommunity.com/sharedfiles/filedetails/?id=836308268</steamWorkshopUrl>
+    </li>
+  </modDependencies>
+  <loadAfter>
+    <li>Ludeon.RimWorld</li>
+    <li>Dubwise.DubsBadHygiene</li>
+    <li>OskarPotocki.VanillaFactionsExpanded.Core</li>
+    <li>VanillaExpanded.VFEFactory</li>
+  </loadAfter>
+</ModMetaData>

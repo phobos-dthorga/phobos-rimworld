@@ -31,3 +31,6 @@ jobs:
       # D'thorga Medical Save Bridge's re-numbering and mod-list rules are game-free too.
       - name: Build and run the game-free medical save bridge rule tests
         run: dotnet test tests/PhobosMedicalSaveBridge.Rules.Tests --nologo
+      # D'thorga Water Tap's assembly needs BadHygiene.dll; its rules are game-free.
+      - name: Build and run the game-free water tap rule tests
+        run: dotnet test tests/PhobosWaterTap.Rules.Tests --nologo

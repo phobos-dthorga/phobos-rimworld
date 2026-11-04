@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+
+  <!-- Loaded only while Vanilla Furniture Expanded - Factory is active (LoadFolders.xml). VFE Factory's belts and machines
+       take from storage whose Def carries this flag, as VFE Factory itself does for Vanilla Chemfuel Expanded's chemfuel tap
+       (Building_Conveyor.TryPullFromDir, Process.InputFactoryHopperDetected; docs/development/vfe-factory-conveyors.md). -->
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>Defs/ThingDef[defName="PhobosWaterTap_BottleTap"]</xpath>
+    <value>
+      <li Class="PipeSystem.FactoryHopperExtension">
+        <isfactoryHopper>true</isfactoryHopper>
+      </li>
+    </value>
+  </Operation>
+
+</Patch>

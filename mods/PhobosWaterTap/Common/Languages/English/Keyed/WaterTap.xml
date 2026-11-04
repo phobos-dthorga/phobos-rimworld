@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <PhobosWaterTap_Keeps>Keeps {COUNT} bottles ready. Each bottle uses {WATER} L of water.</PhobosWaterTap_Keeps>
+
+  <PhobosWaterTap_StateSwitchedOff>Switched off: it's set to keep 0 bottles.</PhobosWaterTap_StateSwitchedOff>
+  <PhobosWaterTap_StateFull>Full. It fills again when a bottle is taken.</PhobosWaterTap_StateFull>
+  <PhobosWaterTap_StateBlocked>Waiting: another item is on the tap. Have it moved.</PhobosWaterTap_StateBlocked>
+  <PhobosWaterTap_StateNoWaterTower>Waiting for water: no water tower on this pipe network. Connect it to your plumbing.</PhobosWaterTap_StateNoWaterTower>
+  <PhobosWaterTap_StateContaminated>Stopped: the water in these pipes is contaminated. Clear the contaminated water tower.</PhobosWaterTap_StateContaminated>
+  <PhobosWaterTap_StateDry>Waiting for water: the water towers on this pipe network are empty.</PhobosWaterTap_StateDry>
+  <PhobosWaterTap_StateDifferentWater>Waiting for these bottles to be taken: the water in the pipes has changed, and different water doesn't go in the same stack.</PhobosWaterTap_StateDifferentWater>
+  <PhobosWaterTap_StateFilling>Filling bottles.</PhobosWaterTap_StateFilling>
+
+  <PhobosWaterTap_Less>Fewer bottles</PhobosWaterTap_Less>
+  <PhobosWaterTap_LessDesc>Keep one bottle fewer ready at this tap. At 0 the tap stops filling. Bottles already here stay until someone takes them.</PhobosWaterTap_LessDesc>
+  <PhobosWaterTap_More>More bottles</PhobosWaterTap_More>
+  <PhobosWaterTap_MoreDesc>Keep one bottle more ready at this tap, up to {LIMIT}.</PhobosWaterTap_MoreDesc>
+  <PhobosWaterTap_AlreadyOff>This tap is already set to keep 0 bottles.</PhobosWaterTap_AlreadyOff>
+  <PhobosWaterTap_AlreadyFull>This tap can't keep more than {LIMIT}: that is one stack of water, and it holds one stack.</PhobosWaterTap_AlreadyFull>
+  <PhobosWaterTap_TargetChanged>This tap now keeps {COUNT} bottles ready.</PhobosWaterTap_TargetChanged>
+
+  <PhobosWaterTap_LabelUntreated>{LABEL} (untreated)</PhobosWaterTap_LabelUntreated>
+  <PhobosWaterTap_LabelContaminated>{LABEL} (contaminated)</PhobosWaterTap_LabelContaminated>
+
+</LanguageData>
