@@ -27,6 +27,10 @@ public static class BurnShockRule
         return factor < floor ? floor : factor;
     }
 
+    /// <summary>Past the start threshold the target is at least the floor, so the compensated stage always shows there.</summary>
+    public static float WithThresholdFloor(float target, float tbsa, float startTbsa, float floor) =>
+        tbsa >= startTbsa && target < floor ? floor : target;
+
     /// <summary>One step toward the target, never overshooting it.</summary>
     public static float Step(float severity, float target, float days, float risePerDay, float fallPerDay)
     {

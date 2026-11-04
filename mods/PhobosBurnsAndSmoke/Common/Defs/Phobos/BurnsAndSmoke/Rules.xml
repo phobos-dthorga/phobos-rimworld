@@ -12,6 +12,10 @@
     <burnLoadVisibleTbsa>0.05</burnLoadVisibleTbsa>
     <!-- 15 to 20% burned is the threshold for fluid resuscitation (the Parkland formula); approximate. -->
     <shockStartTbsa>0.15</shockStartTbsa>
+    <!-- A part burned off is its whole skin burned while the stump is fresh; once tended it fades over this many days (authored). -->
+    <burnedOffHealDays>15</burnedOffHealDays>
+    <!-- Past the start threshold the shock target is at least this, so the compensated stage always shows (authored). -->
+    <shockThresholdFloor>0.1</shockThresholdFloor>
 
     <!-- Revised Baux score (Osler and colleagues, 2010): age + percent burned + 17 with an inhalation injury. Cohorts report no
          deaths below about 36 and no survivors above about 110. -->

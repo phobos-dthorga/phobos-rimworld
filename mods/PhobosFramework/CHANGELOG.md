@@ -5,6 +5,14 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.1.1] - 2026-11-04 - Draft
+
+### Fixed
+
+- The load report threw at startup ("Could not execute post-long-event action") because the Combat Extended smoke check read
+  the tick manager before any game existed, and took D'thorga Burns and Smoke's load line down with it. The check now reads
+  the setting directly outside a game. Seen in the owner's Player.log on 4 November 2026; the fix is not yet tested in game.
+
 ## [0.1.0] - 2026-11-04 - Draft
 
 The owner's shared framework, started for D'thorga Burns and Smoke and recorded as a future idea on 22 October 2026. Not yet

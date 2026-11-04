@@ -5,6 +5,41 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-11-04 - Draft
+
+The owner's first look at 0.1.0 in game (an incendiary raid on 7 Septober 5512: pawns with limbs, a jaw and a head burned
+off, burns on head, neck, torso and shoulders) found every one of them at "burns (minor)" or with no burns condition at all,
+and never in burn shock. The mod ran without errors; it was counting almost nothing. Not yet tested in game.
+
+### Fixed
+
+- Skin shares: the mod subtracted child parts from a game figure that already leaves them out, so the torso, neck, head and
+  both shoulders counted as zero skin and only arms, legs and feet ever added up. Shares now come from the including-children
+  coverage and sum to 1 (torso 0.405, each leg 0.126, each arm 0.080, head 0.028), as the design record intended.
+- Parts burned off counted for nothing, and the burns on them vanished with them, so the worst-burned pawns showed the least.
+  A part burned off now counts as its whole skin burned while the stump is fresh.
+- The load line threw at startup through the framework (D'thorga Framework 0.1.1 fixes it).
+- The burns condition said burn shock starts past a fifth of the body; the rule is 15%. The wording now says about a sixth.
+
+### Changed
+
+- Burn shock always shows its compensated stage once 15% of the body is burned, even for a young pawn whose Baux score is
+  below the no-death mark, so the fluids job is visible; the death clocks are still Baux-driven.
+
+### Balance
+
+- A tended stump fades out of the burned fraction over 15 days (authored).
+
+### Dependencies
+
+- D'thorga Framework 0.1.1 or later.
+
+### Compatibility and limits
+
+- Burn amputations still do not bleed (the game's own rule for burns). Dead pawns are not recomputed; a corpse keeps the
+  condition it died with.
+- Game-free rules pass 18 unit tests. Nothing is tested in game.
+
 ## [0.1.0] - 2026-11-04 - Draft
 
 The owner's request after an incendiary raid showed burns and smoke doing almost nothing beside More Injuries' wounds. Not

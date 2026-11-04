@@ -47,8 +47,54 @@ public class BurnLoadRuleTests
     }
 }
 
+public class SkinShareRuleTests
+{
+    [Fact]
+    public void OwnShareIsTheSubtreeLessItsOutsideChildren()
+    {
+        // The human torso: coverage 1 with children, less neck 0.075, two shoulders at 0.12 and two legs at 0.14 (the design
+        // record's 0.405). Inside organs are not subtracted.
+        Assert.Equal(0.405f, SkinShareRule.OwnShare(1f, 0.075f + 0.24f + 0.28f), 4);
+        // The head: 0.06 with children, less two eyes, two ears, nose and jaw; the brain stays with the skin over it.
+        Assert.Equal(0.0282f, SkinShareRule.OwnShare(0.06f, 0.0084f + 0.0084f + 0.006f + 0.009f), 4);
+        Assert.Equal(0f, SkinShareRule.OwnShare(0.1f, 0.2f));
+    }
+}
+
+public class BurnedOffTests
+{
+    const int HealTicks = 15 * 60000;
+
+    [Fact]
+    public void AFreshStumpCountsWholeThenFadesWithAge()
+    {
+        Assert.Equal(1f, BurnLoadRule.BurnedOffWeight(true, 100000, HealTicks));
+        Assert.Equal(0.5f, BurnLoadRule.BurnedOffWeight(false, HealTicks / 2, HealTicks), 4);
+        Assert.Equal(0f, BurnLoadRule.BurnedOffWeight(false, HealTicks + 1, HealTicks));
+        Assert.Equal(0f, BurnLoadRule.BurnedOffWeight(false, 0, 0));
+    }
+
+    [Fact]
+    public void ALostArmAndALostLegAloneCrossTheShockThreshold()
+    {
+        // Subtree shares from the human body: an arm 0.0924, a leg 0.14.
+        BurnLoad load = BurnLoadRule.Compute(new[] { BurnedPart.Lost(0.0924f, 1f, false), BurnedPart.Lost(0.14f, 1f, true) });
+        Assert.Equal(0.2324f, load.Tbsa, 4);
+        Assert.True(load.Tbsa >= 0.15f);
+        Assert.Equal(0.14f / 0.2324f, load.TendedFraction, 3);
+    }
+}
+
 public class BurnShockRuleTests
 {
+    [Fact]
+    public void PastTheThresholdTheTargetHasAFloor()
+    {
+        Assert.Equal(0.1f, BurnShockRule.WithThresholdFloor(0f, 0.15f, 0.15f, 0.1f));
+        Assert.Equal(0f, BurnShockRule.WithThresholdFloor(0f, 0.14f, 0.15f, 0.1f));
+        Assert.Equal(0.5f, BurnShockRule.WithThresholdFloor(0.5f, 0.4f, 0.15f, 0.1f));
+    }
+
     [Fact]
     public void BelowTheNoDeathScoreThereIsNoTarget()
     {

@@ -4,7 +4,7 @@ Burns and smoke that matter the way More Injuries' wounds do: a burned body frac
 unless treated, airway burns that swell shut over hours, smoke that scars the lungs, and carbon monoxide from fires in closed
 rooms.
 
-Version 0.1.0, built 4 November 2026 for House D'thorga. **Not yet tested in game.** Everything here is read from the game's and
+Version 0.2.0, built 4 November 2026 for House D'thorga. **Not yet tested in game.** Everything here is read from the game's and
 the mods' code.
 
 ## Read this first (gotchas)
@@ -26,13 +26,15 @@ the mods' code.
 - **The tracheotomy** is a surgery on the neck. With More Injuries it needs its Emergency Medicine research; without, no research.
 - **Plain mode shows no percentages.** Switch the display mode to Operator or Engineer in the settings to see the figures.
 - **Only humanlike pawns** get these conditions in this version. Animals burn as before.
+- **A part burned off counts as all of its skin burned** while the stump is fresh, so a pawn who loses an arm and a leg to
+  fire goes straight to a serious burn and burn shock; once the stump is tended it fades out over about two weeks.
 
 ## What it does
 
 | Condition | Comes from | Gets worse with | Treated by |
 | --- | --- | --- | --- |
-| burns (burned body fraction) | every burn on the skin, weighted by each part's share of the skin | more and deeper burns | tending the burns; it is recomputed every 300 ticks |
-| burn shock | 15% or more of the body burned | age, area, an airway burn or carbon monoxide (the revised Baux score) | tending the burns, bed rest, tending the shock |
+| burns (burned body fraction) | every burn on the skin and every part burned off, weighted by each part's share of the skin | more and deeper burns, lost parts | tending the burns and stumps; it is recomputed every 300 ticks |
+| burn shock | 15% or more of the body burned; always at least its first stage from there | age, area, an airway burn or carbon monoxide (the revised Baux score) | tending the burns, bed rest, tending the shock |
 | airway burn | burning, or burns to the head and neck | time: swelling peaks at 8 hours, holds to 24, gone by 48 | a tracheotomy; or waiting, if it never closes |
 | smoke-damaged lungs | breathing smoke | thicker smoke, longer | tending; rest; heals 4% a day untended, 16% tended well |
 | pneumonia | severe lung damage | | tending and immunity, like a wound infection |
@@ -69,7 +71,10 @@ tables of the hediff Defs. Smoke and carbon monoxide are read from D'thorga Fram
 
 ## Checks done (4 November 2026)
 
-- Built against the RimWorld 1.6 reference assembly. The game-free rules (burned fraction, the Baux score and its treatment
-  factor, carbon monoxide uptake and clearance, the airway curve) pass 14 unit tests.
-- **Not checked:** anything in game. The giver's cadence, the stage tables' feel, the tracheotomy, the More Injuries handlers
+- Built against the RimWorld 1.7 and 1.6 reference assemblies. The game-free rules (skin shares, burned fraction, burned-off
+  parts, the Baux score, its floor and treatment factor, carbon monoxide uptake and clearance, the airway curve) pass 18 unit
+  tests.
+- The owner's first look in game (0.1.0, an incendiary raid) showed the mod running without errors but counting far too
+  little: see the changelog's 0.2.0 fixes. 0.2.0 itself is **not yet tested in game**.
+- **Not checked:** anything in game for 0.2.0. The giver's cadence, the stage tables' feel, the tracheotomy, the More Injuries handlers
   and Organ Failure's interception of a closed airway are all untested.

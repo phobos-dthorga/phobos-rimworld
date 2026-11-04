@@ -6,7 +6,7 @@
     <defName>PhobosBurns_BurnLoad</defName>
     <label>burns</label>
     <labelNoun>extensive burns</labelNoun>
-    <description>How much of the body is burned, taken from every burn on the skin. Burned skin loses fluid and heat: the larger the area, the more the body struggles, the colder the patient gets, and the more they need to eat and rest. Past a fifth of the body, burn shock follows unless the burns are tended and the patient rests in bed.</description>
+    <description>How much of the body is burned, taken from every burn on the skin and every part burned off. Burned skin loses fluid and heat: the larger the area, the more the body struggles, the colder the patient gets, and the more they need to eat and rest. Past about a sixth of the body, burn shock follows; tending the burns and bed rest hold it down.</description>
     <hediffClass>HediffWithComps</hediffClass>
     <defaultLabelColor>(0.95, 0.55, 0.3)</defaultLabelColor>
     <maxSeverity>1</maxSeverity>

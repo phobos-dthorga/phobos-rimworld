@@ -25,13 +25,18 @@ public static class CombatExtendedSmoke
 
     public static bool Active => OptionalMods.IsActive(OptionalMods.CombatExtended);
 
-    /// <summary>CE is active and its smoke effects are on. Re-read once per tick, so a settings change takes effect at once.</summary>
+    /// <summary>
+    /// CE is active and its smoke effects are on. Re-read once per tick, so a settings change takes effect at once. Outside a
+    /// game (the main menu, the load report) there is no tick manager: Find.TickManager dereferences Current.Game and throws,
+    /// so the setting is read directly and not cached.
+    /// </summary>
     public static bool InUse
     {
         get
         {
             if (!Active) return false;
-            int tick = Find.TickManager?.TicksGame ?? -2;
+            if (Current.Game == null) return ReadSmokeEffects();
+            int tick = Find.TickManager.TicksGame;
             if (tick == cachedTick) return cachedInUse;
             cachedTick = tick;
             cachedInUse = ReadSmokeEffects();

@@ -16,6 +16,16 @@ public class PhobosBurnRulesDef : PhobosRulesDef
     public float burnLoadVisibleTbsa = 0.05f;
     /// <summary>Burn shock starts here: 15 to 20% is the threshold for fluid resuscitation (Parkland formula). Approximate.</summary>
     public float shockStartTbsa = 0.15f;
+    /// <summary>
+    /// A part burned off counts as its whole skin burned while the stump is fresh (untended); once tended it fades to nothing
+    /// over this many days. Authored: a grafted or granulating stump takes weeks to close.
+    /// </summary>
+    public float burnedOffHealDays = 15f;
+    /// <summary>
+    /// Past the start threshold the shock target is at least this, so a young pawn whose Baux score is under the no-death mark
+    /// still shows the compensated stage and the fluids job. Authored.
+    /// </summary>
+    public float shockThresholdFloor = 0.1f;
 
     // Revised Baux score (Osler and colleagues, 2010): age + percent burned + 17 with an inhalation injury.
     public float bauxNoDeathScore = 36f;

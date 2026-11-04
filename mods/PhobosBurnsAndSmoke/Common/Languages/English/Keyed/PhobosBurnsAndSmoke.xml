@@ -22,7 +22,7 @@
   <PhobosBurns_TipBurnLoad>About {0}% of the body is burned. Tend every burn; past 15% burn shock follows.</PhobosBurns_TipBurnLoad>
   <PhobosBurns_TipBurnShockPlain>Tend the burns, keep the patient in bed, and tend the shock itself to give fluids.</PhobosBurns_TipBurnShockPlain>
   <PhobosBurns_TipBurnShock>Revised Baux score {0}; heading for {1}% with the care given now.</PhobosBurns_TipBurnShock>
-  <PhobosBurns_TipBurnShockEngineer>Age {0} + burned {1}% + inhalation {2}; burns tended {3}%; in bed: {4}. Target = (score - 36) / 74, times 1 - 0.6 x tended - 0.3 if in bed (floor 0.1).</PhobosBurns_TipBurnShockEngineer>
+  <PhobosBurns_TipBurnShockEngineer>Age {0} + burned {1}% + inhalation {2}; burns tended {3}%; in bed: {4}. Target = (score - 36) / 74, times 1 - 0.6 x tended - 0.3 if in bed (floor 0.1); at least 0.1 while 15% or more is burned.</PhobosBurns_TipBurnShockEngineer>
   <PhobosBurns_TipCarbonMonoxidePlain>Get the patient into clean air, outdoors if possible. A gas mask does not help.</PhobosBurns_TipCarbonMonoxidePlain>
   <PhobosBurns_TipCarbonMonoxide>Blood carrying carbon monoxide: {0}%. Halves every 5.3 hours under a roof, 3 hours in open air. Source: {1}.</PhobosBurns_TipCarbonMonoxide>
   <PhobosBurns_TipLungInjuryPlain>Tending helps the lungs recover. Badly damaged lungs invite pneumonia.</PhobosBurns_TipLungInjuryPlain>

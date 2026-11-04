@@ -1,6 +1,7 @@
 # Burns and smoke: research and decisions (4 Nov 2026)
 
-The record behind [D'thorga Burns and Smoke](../../mods/PhobosBurnsAndSmoke/README.md). **Not yet tested in game.** It is the
+The record behind [D'thorga Burns and Smoke](../../mods/PhobosBurnsAndSmoke/README.md). **0.2.0 not yet tested in game**
+(0.1.0 was seen in play once; see Results from play). It is the
 first consumer of [D'thorga Framework](phobos-framework.md).
 
 ## The problem
@@ -36,11 +37,19 @@ fluid loss, no lasting lung damage. The log had no fire-related errors.
 - **Search and Rescue** treats a tendable condition with a life-threatening stage as an emergency, and a life-threatening one
   that some `removesHediff` surgery can remove as an urgent surgical case. **Organ Failure** turns a death through breathing
   into its respiratory-failure chain.
-- **Human skin share**, computed from Core's `Bodies_Humanlike.xml` (an outside part's own share is its absolute coverage less
-  its outside children's): torso 0.405, each leg 0.126 (plus foot 0.0085 and toes 0.005), each shoulder 0.028 plus arm 0.080,
+- **Human skin share**, computed from Core's `Bodies_Humanlike.xml`. The engine keeps two figures per part
+  (`BodyDef.CacheDataRecursive`, decompiled from 1.7.4998 on 4 Nov 2026): `coverageAbsWithChildren`, the part's coverage times
+  its parent's including-children figure (the root is 1), and `coverageAbs`, that times one minus the sum of all its children's
+  coverage, which is the hit-chance weight for the part alone. An outside part's skin is its `coverageAbsWithChildren` less its
+  outside children's `coverageAbsWithChildren`, so an inside organ's coverage stays with the skin over it: torso 0.405, each leg 0.126 (plus foot 0.0085 and toes 0.005), each shoulder 0.028 plus arm 0.080,
   hand 0.008 and fingers 0.005, neck 0.015, head 0.028 plus jaw 0.009, nose 0.006, ears 0.008 and eyes 0.008; the sum is 1.
   It is a hit-chance model, not skin area; the rule of nines gives head 9%, each arm 9%, each leg 18%, torso 36%. Labelled
-  approximate.
+  approximate. (0.1.0 subtracted the outside children from `coverageAbs`, which already leaves every child out: torso, neck,
+  head and shoulders came to 0 and the outside parts summed to 0.36. Fixed in 0.2.0.)
+- **A destroyed part** gets a `Hediff_MissingPart` whose `lastInjury` is the injury Def that destroyed it (`Burn` for fire, hence
+  the "burned off" label), and every part under it gets its own non-fresh record with the same `lastInjury`. The stump is fresh
+  until tended or 90,000 ticks (1.5 days) old; only a fresh stump bleeds, at the injury's bleed rate, so a burn amputation never
+  bleeds. `Find.TickManager` is `Current.Game.tickManager` and throws before a game exists.
 
 ## Sources
 
@@ -74,6 +83,14 @@ not the numbers.
 - **Smoke from the framework, carbon monoxide from its gas** (owner's rule). Breathed smoke is Combat Extended's inhalation
   severity while CE's smoke runs, otherwise the game's smoke through the mask; carbon monoxide comes from the framework's room
   gas, and is inferred from breathed smoke times enclosure only when that gas is switched off.
+- **A part burned off is its whole subtree's skin burned** (agent choice, 0.2.0): area = the missing part's
+  `coverageAbsWithChildren` times the destroying injury's `tbsaWeight`, parts under another missing part skipped. The stump
+  counts whole while fresh, then fades linearly to nothing over `burnedOffHealDays` (15, authored: a grafted or granulating
+  stump takes weeks) by the record's age; a tended stump counts as tended area. A late tend drops the weight at once, a
+  labelled simplification. Burn amputations keep the game's rule and do not bleed.
+- **The compensated stage always shows past the threshold** (agent choice, 0.2.0): the shock target is at least
+  `shockThresholdFloor` (0.1, authored) once 15% is burned, so a young pawn below the Baux no-death mark still shows the
+  fluids job; the death clocks stay Baux-driven.
 - **Burn shock is tendable** (agent choice): tending it stands in for fluids, through the game's own `severityPerDayTended`.
 - **Mortality through `deathMtbDays`** on stages, not a kill in code (agent choice): XML-visible, Search and Rescue sees the
   `lifeThreatening` stages.
@@ -103,7 +120,17 @@ not the numbers.
 
 ## Results from play
 
-None yet.
+- **4 Nov 2026, 0.1.0, the owner's incendiary raid** (owner's observation, three screenshots; the mod loaded with no error
+  naming it). Jansons, head burned off, dead: burns (minor). Reith, both arms, right leg and jaw burned off plus burns on head,
+  neck, torso, shoulders, an eye and an ear, dead: no burns condition at all. Luise, alive, right arm burned off and burns on
+  head, jaw, nose, neck, both shoulders, left arm, both legs and a foot, 15 conditions untended: burns (minor), no burn shock.
+  Read against the code: the skin-share fault zeroed everything but arms, legs and feet, and burned-off parts counted
+  nothing, so the worst-burned pawns showed the least; Reith's condition vanished when his limbs did. With the 0.2.0 rules
+  Reith is about 45% burned with an inhalation injury and Luise about 55% with an airway burn: Baux scores near 90, the
+  "major" or "critical" stage at once and life-threatening shock within half a day. On the medicine: burn shock in life is a
+  matter of hours (plasma loss peaks around 8 to 12 hours; Parkland gives half the first day's fluid in the first 8), so a
+  pawn an hour or two after the hit being compensated rather than collapsed is defensible; what was wrong was the size of the
+  burn the mod saw. 0.2.0 is not yet tested in game.
 
 ## Open points and upstream
 

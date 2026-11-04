@@ -21,6 +21,9 @@ public readonly struct BurnedPart
         SkinShare = skinShare;
         Tended = tended;
     }
+
+    /// <summary>A part burned off: its whole subtree's skin, scaled by how much of the stump is still raw.</summary>
+    public static BurnedPart Lost(float subtreeSkinShare, float weight, bool tended) => new(1f, 1f, subtreeSkinShare * weight, tended);
 }
 
 /// <summary>The result: how much of the body is burned, and how much of that burned area has been tended.</summary>
@@ -46,6 +49,18 @@ public readonly struct BurnLoad
 /// </summary>
 public static class BurnLoadRule
 {
+    /// <summary>
+    /// How much of a burned-off part still counts as burned skin: all of it while the stump is fresh (untended), then fading
+    /// to nothing over the heal time, by the stump's age. Authored; a late tend drops the weight at once, a simplification.
+    /// </summary>
+    public static float BurnedOffWeight(bool fresh, int ageTicks, int healTicks)
+    {
+        if (fresh) return 1f;
+        if (healTicks <= 0) return 0f;
+        float weight = 1f - (float)ageTicks / healTicks;
+        return weight < 0f ? 0f : weight > 1f ? 1f : weight;
+    }
+
     public static BurnLoad Compute(IReadOnlyList<BurnedPart> parts)
     {
         float burned = 0f;
