@@ -5,6 +5,20 @@ yet. Not yet tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.2.1] - 2026-11-04 - Draft
+
+A native RimWorld 1.7 build, which now leads (owner, 4 November 2026); the 1.6 build stays as the minimum backwards support
+until 1.6 is retired. No behaviour change. Not yet tested in game on either version since this build.
+
+### Changed
+
+- The assembly is built twice, against the 1.7.4998 reference on .NET 10 and against the 1.6 reference as before;
+  the game loads its own version's folder (1.7/Assemblies or 1.6/Assemblies). Until now 1.7 loaded the 1.6 build.
+
+### Compatibility and limits
+
+- The 1.7 build references Dubs Bad Hygiene's own 1.7 assembly, the 1.6 build its 1.6 one.
+
 ## [0.2.0] - 2026-11-04 - Draft
 
 A colony limit, at the owner's request: other taps have flooded their colony with what they dispense. Not yet tested in game.

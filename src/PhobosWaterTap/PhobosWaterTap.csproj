@@ -1,19 +1,16 @@
 <Project Sdk="Microsoft.NET.Sdk">
-  <!-- D'thorga Water Tap's assembly. Built for RimWorld 1.6 and loaded on 1.7 too (LoadFolders.xml). It has no Harmony
-       patches: the tap and the bottle's water quality are ordinary comps. -->
+  <!-- D'thorga Water Tap's assembly, built for RimWorld 1.7 (net10.0) and 1.6 (net472); Directory.Build.targets turns the
+       target into the game version, the output folder, the game reference and the Dubs Bad Hygiene folder (DbhAssemblies,
+       one per game version). It has no Harmony patches: the tap and the bottle's water quality are ordinary comps. -->
   <PropertyGroup>
-    <TargetFramework>net472</TargetFramework>
+    <TargetFrameworks>net472;net10.0</TargetFrameworks>
     <RootNamespace>Phobos.WaterTap</RootNamespace>
     <AssemblyName>PhobosWaterTap</AssemblyName>
-    <OutputPath>../../mods/PhobosWaterTap/1.6/Assemblies/</OutputPath>
-    <DebugType>none</DebugType>
-    <Version>0.2.0</Version>
-    <!-- Dubs Bad Hygiene's assembly, referenced from the installed mod and never copied. Override with
-         -p:DbhAssemblies=... or the environment variable of that name. -->
-    <DbhAssemblies Condition="'$(DbhAssemblies)' == ''">C:\Program Files (x86)\Steam\steamapps\workshop\content\294100\836308268\1.6\Assemblies</DbhAssemblies>
+    <ModFolder>PhobosWaterTap</ModFolder>
+    <Version>0.2.1</Version>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Krafs.Rimworld.Ref" Version="1.6.4871" />
+    <!-- Dubs Bad Hygiene's assembly, referenced from the installed mod and never copied. -->
     <Reference Include="BadHygiene">
       <HintPath>$(DbhAssemblies)\BadHygiene.dll</HintPath>
       <Private>false</Private>

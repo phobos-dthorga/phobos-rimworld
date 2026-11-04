@@ -1,12 +1,15 @@
-"""Copy a mod from mods/ into RimWorld's Mods folder.
+"""Copy mods from mods/ into RimWorld's Mods folder.
 
-Previews by default; --apply copies. Refuses while RimWorld is running, backs up what it replaces to
-.local/deploy-backups/, and never touches ModsConfig.xml or any mod manager's lists. The game path comes
-from --game, the RIMWORLD_PATH environment variable, .local/install-settings.json ("rimworldPath"), or
-the default Steam location, in that order.
+Previews by default; --apply copies. --all takes every mod under mods/; --build runs dotnet build on every
+project under src/ first, so the assemblies are current. Refuses while RimWorld is running, backs up what
+it replaces to .local/deploy-backups/, and never touches ModsConfig.xml or any mod manager's lists. The
+game path comes from --game, the RIMWORLD_PATH environment variable, .local/install-settings.json
+("rimworldPath"), or the default Steam location, in that order.
 
-    python scripts/deploy.py PhobosRadioFramework            preview
-    python scripts/deploy.py --apply PhobosRadioFramework    copy
+    python scripts/deploy.py PhobosRadioFramework            preview one mod
+    python scripts/deploy.py --apply PhobosRadioFramework    copy one mod
+    python scripts/deploy.py --all                           preview every mod
+    python scripts/deploy.py --build --apply --all           build everything, then copy every mod
 """
 import argparse
 import datetime as _dt
@@ -120,15 +123,46 @@ def deploy(mod, game, apply, root=ROOT, backups=BACKUPS, running=game_running, l
     return len(files)
 
 
+def all_mods(root=ROOT):
+    """Every mod folder under mods/: the folders that hold an About/About.xml, in name order."""
+    mods = Path(root) / 'mods'
+    return sorted(p.name for p in mods.iterdir() if p.is_dir() and (p / 'About' / 'About.xml').is_file())
+
+
+def projects(root=ROOT):
+    """Every C# project under src/, in name order."""
+    return sorted((Path(root) / 'src').glob('*/*.csproj'))
+
+
+def build(root=ROOT, run=subprocess.run, log=print):
+    """Build every project under src/ (each for both game versions). Raises RuntimeError on the first failure."""
+    for project in projects(root):
+        log(f'building {project.relative_to(root).as_posix()}')
+        result = run(['dotnet', 'build', str(project), '--nologo', '-v', 'q'], capture_output=True, text=True, check=False)
+        if result.returncode != 0:
+            raise RuntimeError(f'build failed for {project.name}:\n{result.stdout}{result.stderr}')
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
-    parser.add_argument('mods', nargs='+', help='mod folder names under mods/')
+    parser.add_argument('mods', nargs='*', help='mod folder names under mods/ (or --all)')
+    parser.add_argument('--all', action='store_true', help='every mod under mods/')
+    parser.add_argument('--build', action='store_true', help='run dotnet build on every project under src/ first')
     parser.add_argument('--apply', action='store_true', help='copy; without it, only list what would be copied')
     parser.add_argument('--game', help='RimWorld folder (default: RIMWORLD_PATH, .local/install-settings.json, or Steam)')
     args = parser.parse_args(argv)
+    mods = all_mods() if args.all else args.mods
+    if not mods:
+        parser.error('name a mod, or pass --all')
     game = game_path(args.game)
-    for mod in args.mods:
+    if args.apply and game_running():
+        raise RuntimeError('RimWorld is running. Close it, then deploy again.')
+    if args.build:
+        build()
+    for mod in mods:
         deploy(mod, game, args.apply)
+    if args.apply:
+        print(f'deployed {len(mods)} mod{"s" if len(mods) != 1 else ""}.')
     return 0
 
 

@@ -49,7 +49,7 @@ public static class RimPactsArrivalFilter
             return;
         }
         ourHarmony = harmony;
-        rimPacts = install.DeclaringType.Assembly;
+        rimPacts = bridge!.Assembly;
         harmony.Patch(install, postfix: new HarmonyMethod(AccessTools.Method(typeof(RimPactsArrivalFilter), nameof(AfterInstall))));
     }
 

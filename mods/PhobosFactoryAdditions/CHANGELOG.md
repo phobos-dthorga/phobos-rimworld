@@ -5,6 +5,20 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.11.2] - 2026-11-04 - Draft
+
+A native RimWorld 1.7 build, which now leads (owner, 4 November 2026); the 1.6 build stays as the minimum backwards support
+until 1.6 is retired. No behaviour change. Not yet tested in game on either version since this build.
+
+### Changed
+
+- The assembly is built twice, against the 1.7.4998 reference on .NET 10 with Harmony 3 and against the 1.6 reference as before;
+  the game loads its own version's folder (1.7/Assemblies or 1.6/Assemblies, and Mods/DubsBadHygiene/1.7 or 1.6 for the hygiene tie-in). Until now 1.7 loaded the 1.6 build.
+
+### Compatibility and limits
+
+- Vanilla Expanded Framework and Dubs Bad Hygiene ship 1.7 assemblies, which the 1.7 build references; VFE Factory ships only 1.6, so both builds reference that one, as the game itself loads it on 1.7. Harmony 3 accepted every patch at build time; whether each still applies in play is unchecked.
+
 ## [0.11.1] - 2026-11-03 - Draft
 
 A corpse now gives its meat once, so the automated mincer no longer makes meat for ever. Owner's report. Not yet tested

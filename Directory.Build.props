@@ -1,12 +1,13 @@
 <Project>
-  <!-- Shared by every C# project under src/. Target frameworks and game references live in each
-       project: net472 for RimWorld 1.6, net10.0 for 1.7 (docs/development/building.md). -->
+  <!-- Shared by every C# project under src/. Every project builds net10.0 for RimWorld 1.7 (which leads) and net472 for
+       1.6; Directory.Build.targets turns the target into the game version, the output folder and the game references
+       (docs/development/building.md). The intermediate folder is split per target (the default); the output folder is
+       set per game version in Directory.Build.targets, which wins over the SDK's appended one. -->
   <PropertyGroup>
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
     <Deterministic>true</Deterministic>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <GenerateDependencyFile>false</GenerateDependencyFile>
   </PropertyGroup>
   <!-- RimWorld 1.6 compiles against Unity's .NET Framework 4.7.2 libraries, which lack the types newer

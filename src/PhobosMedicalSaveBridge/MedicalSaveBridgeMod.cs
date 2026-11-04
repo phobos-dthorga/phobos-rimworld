@@ -17,7 +17,7 @@ namespace Phobos.MedicalSaveBridge;
 public class MedicalSaveBridgeMod : Mod
 {
     public const string HarmonyId = "PhobosDthorga.MedicalSaveBridge";
-    public const string ModVersion = "0.1.1";
+    public const string ModVersion = "0.1.2";
     public const string MoreInjuriesPackageId = "Th3Fr3d.ExtendedInjuries";
 
     public MedicalSaveBridgeMod(ModContentPack content) : base(content)

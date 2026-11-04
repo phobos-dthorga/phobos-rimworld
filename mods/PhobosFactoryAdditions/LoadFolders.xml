@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <loadFolders>
-  <!-- 1.6 holds the assembly, built for 1.6 and loaded on 1.7 too. One folder per optional mod; the pipe
-       tie-in folders (chemfuel, neutroamine) come last. -->
+  <!-- One assembly per game version (1.7 leads, 1.6 stays until it is retired). One folder per optional mod; the pipe
+       tie-in folders (chemfuel, neutroamine) come last; the hygiene tie-in's assembly sits in its own version folder. -->
   <v1.6>
     <li>/</li>
     <li>Common</li>
@@ -21,11 +21,12 @@
     <li IfModActive="VanillaExpanded.VChemfuelE">Mods/VanillaChemfuelExpanded</li>
     <li IfModActive="vanillaracesexpanded.android">Mods/VanillaRacesExpandedAndroid</li>
     <li IfModActive="Dubwise.DubsBadHygiene">Mods/DubsBadHygiene</li>
+    <li IfModActive="Dubwise.DubsBadHygiene">Mods/DubsBadHygiene/1.6</li>
   </v1.6>
   <v1.7>
     <li>/</li>
     <li>Common</li>
-    <li>1.6</li>
+    <li>1.7</li>
     <li IfModActive="sbz.NeatStorageFridge">Mods/SbzFridge</li>
     <li IfModActive="Papito.MedicinesPlus.AT">Mods/MedicinesPlus</li>
     <li IfModActive="Ushanka.BiologicalWarfare">Mods/BiologicalWarfare</li>
@@ -41,5 +42,6 @@
     <li IfModActive="VanillaExpanded.VChemfuelE">Mods/VanillaChemfuelExpanded</li>
     <li IfModActive="vanillaracesexpanded.android">Mods/VanillaRacesExpandedAndroid</li>
     <li IfModActive="Dubwise.DubsBadHygiene">Mods/DubsBadHygiene</li>
+    <li IfModActive="Dubwise.DubsBadHygiene">Mods/DubsBadHygiene/1.7</li>
   </v1.7>
 </loadFolders>

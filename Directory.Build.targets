@@ -1,0 +1,43 @@
+<Project>
+  <!-- Imported after every project under src/. Everything that depends on the target framework lives here once, so a
+       project file only names its mod folder, its tie-in folder if any, and whether it patches with Harmony
+       (docs/development/building.md). RimWorld 1.7 leads (owner, 4 November 2026): net10.0 compiles against the 1.7
+       reference and ships in mods/<Mod>/1.7/Assemblies; net472 keeps the minimum 1.6 build in 1.6/Assemblies until 1.6
+       is retired. -->
+  <PropertyGroup>
+    <GameVersion Condition="'$(TargetFramework)' == 'net472'">1.6</GameVersion>
+    <GameVersion Condition="'$(TargetFramework)' == 'net10.0'">1.7</GameVersion>
+    <!-- Other mods' assemblies are referenced from the installed Workshop items and never copied (THIRD_PARTY_NOTICES.md).
+         Override the root with -p:WorkshopRoot=... or the environment variable of that name, or each folder below. -->
+    <WorkshopRoot Condition="'$(WorkshopRoot)' == ''">C:\Program Files (x86)\Steam\steamapps\workshop\content\294100</WorkshopRoot>
+    <!-- Vanilla Expanded Framework and Dubs Bad Hygiene ship a folder per game version. -->
+    <VefAssemblies Condition="'$(VefAssemblies)' == ''">$(WorkshopRoot)\2023507013\$(GameVersion)\Assemblies</VefAssemblies>
+    <DbhAssemblies Condition="'$(DbhAssemblies)' == ''">$(WorkshopRoot)\836308268\$(GameVersion)\Assemblies</DbhAssemblies>
+    <!-- VFE Factory and Vehicle Framework ship only 1.6 (checked 4 November 2026); the game loads that on 1.7 and so do we. -->
+    <VfeFactoryAssemblies Condition="'$(VfeFactoryAssemblies)' == ''">$(WorkshopRoot)\3686924415\1.6\Assemblies</VfeFactoryAssemblies>
+    <VehicleFrameworkAssemblies Condition="'$(VehicleFrameworkAssemblies)' == ''">$(WorkshopRoot)\3014915404\1.6\Assemblies</VehicleFrameworkAssemblies>
+    <!-- Where the built assembly lands: mods/<ModFolder>/<TieInFolder/><GameVersion>/Assemblies/. OutDir, not OutputPath:
+         by the time this file is imported the SDK has already turned OutputPath into OutDir, and OutDir is what the
+         build writes to. -->
+    <OutDir Condition="'$(ModFolder)' != ''">$(MSBuildThisFileDirectory)mods/$(ModFolder)/$(TieInFolder)$(GameVersion)/Assemblies/</OutDir>
+    <!-- TargetDir and TargetPath were derived from the old OutDir already; a project that references this one asks for TargetPath. -->
+    <TargetDir Condition="'$(ModFolder)' != ''">$(OutDir)</TargetDir>
+    <TargetPath Condition="'$(ModFolder)' != ''">$(TargetDir)$(TargetFileName)</TargetPath>
+    <DebugType>none</DebugType>
+  </PropertyGroup>
+  <!-- The game's reference assemblies: Krafs.Rimworld.Ref publishes one per game build. -->
+  <ItemGroup Condition="'$(TargetFramework)' == 'net472'">
+    <PackageReference Include="Krafs.Rimworld.Ref" Version="1.6.4871" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)' == 'net10.0'">
+    <PackageReference Include="Krafs.Rimworld.Ref" Version="1.7.4998-unstable" />
+  </ItemGroup>
+  <!-- Players get Harmony from the Harmony mod (Harmony 2 on 1.6, Harmony 3 on 1.7); compile against it only, so
+       0Harmony.dll never ships. A project opts in with <UsesHarmony>true</UsesHarmony>. -->
+  <ItemGroup Condition="'$(UsesHarmony)' == 'true' and '$(TargetFramework)' == 'net472'">
+    <PackageReference Include="Lib.Harmony" Version="2.4.3" ExcludeAssets="runtime" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(UsesHarmony)' == 'true' and '$(TargetFramework)' == 'net10.0'">
+    <PackageReference Include="Lib.Harmony" Version="3.0.0-rc.4" ExcludeAssets="runtime" />
+  </ItemGroup>
+</Project>

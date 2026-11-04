@@ -4,7 +4,7 @@ Lets you add **More Injuries (Continued)** to a colony you are already playing, 
 it, without wounds vanishing, lost limbs growing back, bionics moving or corpses coming back to life. It acts once, on the first
 load of a save written without More Injuries, and does nothing after you save.
 
-Version 0.1.1, built 3 November 2026 for House D'thorga. **The first load was tested in game by the owner on 3 November 2026**
+Version 0.1.2, built 4 November 2026 for House D'thorga. **The first load was tested in game by the owner on 3 November 2026**
 on a copy of a 330-mod colony with Medical System Expansion 2 and Combat Extended, and went cleanly, with 0.1.0 and again with 0.1.1, then saved and
 reloaded. A new colony is not yet tested in game.
 

@@ -1,5 +1,16 @@
 # Building, testing and deploying
 
+**Status (4 Nov 2026): RimWorld 1.7 leads.** Every C# project builds two assemblies from one project file:
+`net10.0` against the 1.7.4998 reference (Harmony 3 where a mod patches) into `mods/<Mod>/1.7/Assemblies/`, and `net472`
+against the 1.6 reference (Harmony 2, PolySharp) into `1.6/Assemblies/`, the minimum backwards support until 1.6 is
+retired (owner, 4 Nov 2026). `LoadFolders.xml` gives each game version its own folder; a tie-in assembly sits in
+`Mods/<Other>/1.7/` and `Mods/<Other>/1.6/`. `Directory.Build.targets` at the root turns the target into the game version,
+the output folder, the game and Harmony references and the Workshop folders of other mods' assemblies, so a project file only
+names its mod folder (`ModFolder`), its tie-in folder if any (`TieInFolder`) and whether it patches (`UsesHarmony`). All eight
+projects built both ways on 4 Nov 2026 with 0 warnings; **no 1.7 assembly is tested in game yet.** `python scripts/deploy.py
+--build --apply --all` builds everything and installs every mod. The per-mod notes below are kept as written; where one
+says a 1.6 build is "loaded on 1.7 too", that was true until 4 Nov 2026.
+
 **Status (19 Oct 2026): Phase 1 of the radio framework is built** (0.1.0 Draft) in
 `mods/PhobosRadioFramework/` and `src/PhobosRadio/`, and awaits the owner's play test. The checks below
 run today; `dotnet build src/PhobosRadio/PhobosRadio.csproj` builds the mod where VEF is installed. The 1.6 setup was proven on 18 Oct 2026 by building a
@@ -60,6 +71,7 @@ python scripts/check-doc-links.py
 python scripts/check-mod-layout.py
 python scripts/check-factory-patches.py
 python -m unittest discover -s tests
+python scripts/deploy.py --build --apply --all   (with RimWorld closed)
 ```
 
 - **check-doc-links** finds relative Markdown links whose target is missing.
@@ -91,12 +103,14 @@ mods/<Mod>/                 the mod exactly as players get it, minus built DLLs
   About/About.xml           identity, dependencies, supported versions, modVersion
   About/Preview.png         mod list and Workshop image
   About/PublishedFileId.txt written by the game at first upload; committed then
-  LoadFolders.xml           which folders load for 1.6 and 1.7, and for optional mods
+  LoadFolders.xml           which folders load for 1.7 and 1.6, and for optional mods
   Common/Defs, Patches, Languages, Textures, Sounds   shared by every version
-  1.6/Assemblies/           built from src/, never committed
+  1.7/Assemblies/           built from src/ against the 1.7 reference, never committed
+  1.6/Assemblies/           built from src/ against the 1.6 reference, never committed
   Mods/<OtherMod>/          optional tie-in content, loaded only when that mod is active
+  Mods/<OtherMod>/1.7/, 1.6/   a tie-in's own assembly, one per game version
   README.md, CHANGELOG.md
-src/<Project>/              C# source, building into mods/<Mod>/<version>/Assemblies/
+src/<Project>/              C# source, building into mods/<Mod>/<version>/Assemblies/ for both versions
 workshop/<Mod>/             Workshop page drafts and release notes, once publishing starts
 ```
 
@@ -104,7 +118,7 @@ The `Mods/<OtherMod>/` folder name is a house convention, not a game rule. **Nam
 the folder** (`Patches/MedicineGranulator_MedicinesPlus.xml`): files are keyed by their path inside a load
 folder, so two `Patches/MedicineGranulator.xml` in different folders means only one loads.
 
-A starting `LoadFolders.xml`, with 1.7 borrowing the 1.6 build until a native one exists:
+A starting `LoadFolders.xml`, one assembly folder per game version:
 
 ```xml
 <loadFolders>
@@ -117,52 +131,53 @@ A starting `LoadFolders.xml`, with 1.7 borrowing the 1.6 build until a native on
   <v1.7>
     <li>/</li>
     <li>Common</li>
-    <li>1.6</li>
+    <li>1.7</li>
     <li IfModActive="CETeam.CombatExtended">Mods/CombatExtended</li>
   </v1.7>
 </loadFolders>
 ```
+
+A tie-in with its own assembly lists both its content folder and its version folder under each block
+(`Mods/HarrierVtol` and `Mods/HarrierVtol/1.7`); `check-mod-layout` treats any folder whose last part is a game version
+as a build-product folder that need not be committed.
 
 Check each optional mod's real `packageId` in its `About.xml` before using it. Combat Extended's,
 `CETeam.CombatExtended`, was read from its installed `About.xml` (Workshop item 2890901044) on 18 Oct 2026.
 
 ## The C# toolchain
 
-| | RimWorld 1.6 (first) | RimWorld 1.7 (when the owner moves, or 1.7 goes stable) |
+| | RimWorld 1.6 (minimum backwards support) | RimWorld 1.7 (leads) |
 | --- | --- | --- |
 | Target | `net472` | `net10.0` |
-| Game references | `Krafs.Rimworld.Ref` 1.6.4871 | `Krafs.Rimworld.Ref` 1.7 build, or the game's Assembly-CSharp, UnityStubs and Waylith |
-| Harmony | `Lib.Harmony` 2.4.x, compile-time only | Harmony 3.0 |
+| Game references | `Krafs.Rimworld.Ref` 1.6.4871 | `Krafs.Rimworld.Ref` 1.7.4998-unstable (matches the owner's game build) |
+| Harmony | `Lib.Harmony` 2.4.3, compile-time only | `Lib.Harmony` 3.0.0-rc.4, compile-time only |
 | Newer C# (records, `init`, `required`) | `PolySharp` 1.16.0, compile-time only, set once in `Directory.Build.props` | Not needed: .NET 10 has the types |
-| Output | `mods/<Mod>/1.6/Assemblies/` | `mods/<Mod>/1.7/Assemblies/`, and `<v1.7>` in `LoadFolders.xml` switches from `1.6` to `1.7` |
+| Output | `mods/<Mod>/1.6/Assemblies/` | `mods/<Mod>/1.7/Assemblies/` |
 | Tools | .NET SDK 10 builds both | Visual Studio 2026 or Rider 2026 to edit |
 
 The sources and dates are in the [RimWorld modding reference](rimworld-modding-reference.md#building-c-mods).
-`Directory.Build.props` already sets the shared options:
+`Directory.Build.props` sets the shared options (the latest C# language version, nullable references, deterministic builds,
+warnings as errors, no `.deps.json`, PolySharp for every `net472` build), and `Directory.Build.targets` everything that
+depends on the target: `GameVersion` (1.7 for `net10.0`, 1.6 for `net472`), the output folder
+`mods/$(ModFolder)/$(TieInFolder)$(GameVersion)/Assemblies/` (set as `OutDir`, `TargetDir` and `TargetPath`, because the SDK
+has already derived those from `OutputPath` by the time the file is imported), the Krafs reference for each version, Harmony
+2 or 3 when a project sets `UsesHarmony`, and the Workshop folders `VefAssemblies` and `DbhAssemblies` (one per game version:
+both mods ship 1.7 assemblies), `VfeFactoryAssemblies` and `VehicleFrameworkAssemblies` (1.6 only: neither ships a 1.7
+build yet, and the game loads their 1.6 assemblies on 1.7). Override any of them with `-p:Name=...` or an environment
+variable, or `WorkshopRoot` for all four.
 
-- the latest C# language version;
-- nullable references;
-- deterministic builds;
-- warnings as errors;
-- no target-framework subfolder;
-- no `.deps.json` file;
-- PolySharp for every `net472` project (owner decision, 18 Oct 2026).
-
-A starting point for the first project. This is an agent sketch; a probe built from it on 18 Oct 2026 had 0
-warnings and 0 errors, and its `Assemblies` folder held only the mod's own DLL:
+A project file today (D'thorga Radio Framework's; the 18 Oct 2026 probe that proved the 1.6 setup used the longer single-target form):
 
 ```xml
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net472</TargetFramework>
+    <TargetFrameworks>net472;net10.0</TargetFrameworks>
     <RootNamespace>Phobos.Radio</RootNamespace>
     <AssemblyName>PhobosRadio</AssemblyName>
-    <OutputPath>../../mods/PhobosRadioFramework/1.6/Assemblies/</OutputPath>
-    <DebugType>none</DebugType>
-    <VefAssemblies Condition="'$(VefAssemblies)' == ''">C:\Program Files (x86)\Steam\steamapps\workshop\content\294100\2023507013\1.6\Assemblies</VefAssemblies>
+    <ModFolder>PhobosRadioFramework</ModFolder>
+    <Version>0.1.1</Version>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Krafs.Rimworld.Ref" Version="1.6.4871" />
     <Reference Include="PipeSystem">
       <HintPath>$(VefAssemblies)\PipeSystem.dll</HintPath>
       <Private>false</Private>
@@ -176,8 +191,10 @@ licence forbids us shipping a copy. Set `VefAssemblies` (as an environment varia
 when VEF lives elsewhere. Harmony is not referenced until a feature needs a patch; when it is, use
 `ExcludeAssets="runtime"` so `0Harmony.dll` stays out too.
 
-When 1.7 support starts, the likely route is one project with `<TargetFrameworks>net472;net10.0</TargetFrameworks>`,
-conditional references and an output path per framework. Try that before splitting into two projects.
+That is the route taken on 4 Nov 2026: one project, both targets, the conditions in `Directory.Build.targets`. A project
+that patches adds `<UsesHarmony>true</UsesHarmony>`; a tie-in assembly adds `<TieInFolder>Mods/HarrierVtol/</TieInFolder>`.
+Harmony 3.0.0-rc.4 accepted every existing patch at build time; its nullable annotations are stricter than Harmony 2's, which
+surfaced one unchecked dereference in Vehicle Patches.
 
 ## Newer C# on RimWorld 1.6
 
@@ -207,9 +224,11 @@ is exercised in the game. Not yet tried on Linux: confirm it when the first proj
 
 ## Deploying to the game
 
-`python scripts/deploy.py [--apply] <Mod>` installs a mod. It:
+`python scripts/deploy.py [--build] [--apply] <Mod>...` or `--all` installs mods. It:
 
 - previews by default, and copies only with `--apply`;
+- with `--all` takes every folder under `mods/` that has an `About/About.xml`, and with `--build` runs `dotnet build` on every
+  project under `src/` first (both game versions), stopping at the first failure before anything is copied;
 - refuses while RimWorld is running, found by its process name (`RimWorld.exe` for 1.7 on Windows,
   `RimWorldWin64.exe` for 1.6);
 - moves the previous install to `.local/deploy-backups/`, renaming it on the game's own drive first: Windows

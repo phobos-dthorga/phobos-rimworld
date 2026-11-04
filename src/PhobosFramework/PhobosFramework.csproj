@@ -1,16 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
-  <!-- D'thorga Framework's assembly. Built for RimWorld 1.6 and loaded on 1.7 too (LoadFolders.xml). It references only the
-       game: Combat Extended is reached by name at run time, and no Harmony is needed. Other Phobos mods reference this project
-       with Private=false; the DLL ships only in mods/PhobosFramework. -->
+  <!-- D'thorga Framework's assembly, built for RimWorld 1.7 (net10.0) and 1.6 (net472); Directory.Build.targets at the
+       repository root turns the target into the game version, the output folder and the game reference. It references
+       only the game: Combat Extended is reached by name at run time, and no Harmony is needed. Other Phobos mods reference
+       this project with Private=false; the DLL ships only in mods/PhobosFramework. -->
   <PropertyGroup>
-    <TargetFramework>net472</TargetFramework>
+    <TargetFrameworks>net472;net10.0</TargetFrameworks>
     <RootNamespace>Phobos.Framework</RootNamespace>
     <AssemblyName>PhobosFramework</AssemblyName>
-    <OutputPath>../../mods/PhobosFramework/1.6/Assemblies/</OutputPath>
-    <DebugType>none</DebugType>
+    <ModFolder>PhobosFramework</ModFolder>
     <Version>0.1.0</Version>
   </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="Krafs.Rimworld.Ref" Version="1.6.4871" />
-  </ItemGroup>
 </Project>

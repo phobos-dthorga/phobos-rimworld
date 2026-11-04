@@ -1,22 +1,18 @@
 <Project Sdk="Microsoft.NET.Sdk">
-  <!-- D'thorga Factory Additions' Dubs Bad Hygiene tie-in, in its own assembly so the core assembly never
-       references an optional mod. LoadFolders.xml loads Mods/DubsBadHygiene only while Dubs Bad Hygiene is active.
-       Built for RimWorld 1.6 and loaded on 1.7 too, as the core assembly is. Building this also builds the core. -->
+  <!-- D'thorga Factory Additions' Dubs Bad Hygiene tie-in, in its own assembly so the core assembly never references an
+       optional mod. LoadFolders.xml loads Mods/DubsBadHygiene (its XML) and Mods/DubsBadHygiene/<version> (its assembly)
+       only while Dubs Bad Hygiene is active. Built for 1.7 and 1.6 like the core; building this also builds the core. -->
   <PropertyGroup>
-    <TargetFramework>net472</TargetFramework>
+    <TargetFrameworks>net472;net10.0</TargetFrameworks>
     <RootNamespace>Phobos.Factory.Hygiene</RootNamespace>
     <AssemblyName>PhobosFactory.Hygiene</AssemblyName>
-    <OutputPath>../../mods/PhobosFactoryAdditions/Mods/DubsBadHygiene/Assemblies/</OutputPath>
-    <DebugType>none</DebugType>
-    <Version>0.11.1</Version>
-    <!-- Referenced from the installed mods and never copied, as in PhobosFactory.csproj. Override with
-         -p:VefAssemblies=... and -p:DbhAssemblies=... or the environment variables of those names. -->
-    <VefAssemblies Condition="'$(VefAssemblies)' == ''">C:\Program Files (x86)\Steam\steamapps\workshop\content\294100\2023507013\1.6\Assemblies</VefAssemblies>
-    <DbhAssemblies Condition="'$(DbhAssemblies)' == ''">C:\Program Files (x86)\Steam\steamapps\workshop\content\294100\836308268\1.6\Assemblies</DbhAssemblies>
+    <ModFolder>PhobosFactoryAdditions</ModFolder>
+    <TieInFolder>Mods/DubsBadHygiene/</TieInFolder>
+    <UsesHarmony>true</UsesHarmony>
+    <Version>0.11.2</Version>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Krafs.Rimworld.Ref" Version="1.6.4871" />
-    <PackageReference Include="Lib.Harmony" Version="2.4.3" ExcludeAssets="runtime" />
+    <!-- Referenced from the installed mods (one folder per game version) and never copied, as in PhobosFactory.csproj. -->
     <Reference Include="PipeSystem">
       <HintPath>$(VefAssemblies)\PipeSystem.dll</HintPath>
       <Private>false</Private>

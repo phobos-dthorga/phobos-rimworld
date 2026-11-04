@@ -4,7 +4,7 @@
   <name>D'thorga Medical Save Bridge</name>
   <author>Phobos A. D'thorga</author>
   <url>https://github.com/phobos-dthorga/phobos-rimworld</url>
-  <modVersion>0.1.1</modVersion>
+  <modVersion>0.1.2</modVersion>
   <description>Lets you add More Injuries (Continued) to a colony you are already playing, with Medical System Expansion 2 or without it, without wounds vanishing, lost limbs growing back, bionics moving or corpses coming back to life.
 
 It works only on the first load of a save that was written without More Injuries (or without any other mod that adds body parts). On that load it:

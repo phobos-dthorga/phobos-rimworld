@@ -101,7 +101,8 @@ def check_load_folders(mod, load_folders, rels, errors):
             prefix = folder + '/' if folder else ''
             inside = [rel[len(prefix):] for rel in rels if rel.startswith(prefix)]
             folder_files.append((folder or '/', [p for p in inside if p.startswith(XML_CONTENT_FOLDERS)]))
-            if not folder or GAME_VERSION.match(folder):
+            # Version folders (1.6, Mods/HarrierVtol/1.7) hold only built assemblies, which are never committed.
+            if not folder or GAME_VERSION.match(folder.rsplit('/', 1)[-1]):
                 continue
             if not inside:
                 errors.append(f'{mod}: {LOAD_FOLDERS} names {folder} under <{version.tag}>, but that folder is empty or missing')

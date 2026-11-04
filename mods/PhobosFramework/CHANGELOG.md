@@ -32,6 +32,8 @@ tested in game.
 ### Dependencies
 
 - None. Combat Extended is reached by name only (its setting, condition and stat names); no other mod's assembly is referenced.
+- Built twice: against the 1.7.4998 reference on .NET 10, which leads, and against the 1.6 reference; the game loads its own
+  version's folder (1.7/Assemblies or 1.6/Assemblies).
 
 ### Save compatibility
 

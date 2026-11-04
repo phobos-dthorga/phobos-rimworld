@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <loadFolders>
-  <!-- One assembly, built for 1.6 and loaded on 1.7 too (docs/development/building.md). One folder per optional mod; each
+  <!-- One assembly per game version: 1.7 leads, 1.6 stays until it is retired (docs/development/building.md). One folder per optional mod; each
        loads only while that mod is active. -->
   <v1.6>
     <li>/</li>
@@ -12,7 +12,7 @@
   <v1.7>
     <li>/</li>
     <li>Common</li>
-    <li>1.6</li>
+    <li>1.7</li>
     <li IfModActive="CETeam.CombatExtended">Mods/CombatExtended</li>
     <li IfModActive="Th3Fr3d.ExtendedInjuries">Mods/MoreInjuries</li>
   </v1.7>

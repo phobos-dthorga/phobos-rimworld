@@ -1,17 +1,16 @@
 <Project Sdk="Microsoft.NET.Sdk">
-  <!-- D'thorga Burns and Smoke's assembly. Built for RimWorld 1.6 and loaded on 1.7 too (LoadFolders.xml). It references the
-       game and D'thorga Framework (Private=false: the framework's DLL ships only in its own mod); More Injuries and Combat
-       Extended are reached by name through the framework, and no Harmony is needed. -->
+  <!-- D'thorga Burns and Smoke's assembly, built for RimWorld 1.7 (net10.0) and 1.6 (net472); Directory.Build.targets turns
+       the target into the game version, the output folder and the game reference. It references the game and D'thorga
+       Framework (Private=false: the framework's DLL ships only in its own mod); More Injuries and Combat Extended are
+       reached by name through the framework, and no Harmony is needed. -->
   <PropertyGroup>
-    <TargetFramework>net472</TargetFramework>
+    <TargetFrameworks>net472;net10.0</TargetFrameworks>
     <RootNamespace>Phobos.BurnsAndSmoke</RootNamespace>
     <AssemblyName>PhobosBurnsAndSmoke</AssemblyName>
-    <OutputPath>../../mods/PhobosBurnsAndSmoke/1.6/Assemblies/</OutputPath>
-    <DebugType>none</DebugType>
+    <ModFolder>PhobosBurnsAndSmoke</ModFolder>
     <Version>0.1.0</Version>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Krafs.Rimworld.Ref" Version="1.6.4871" />
     <ProjectReference Include="../PhobosFramework/PhobosFramework.csproj" Private="false" />
   </ItemGroup>
 </Project>

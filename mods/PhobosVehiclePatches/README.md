@@ -5,7 +5,7 @@ the rotary forger, and covers **Harrier VTOL Attack Aircraft** by potemkinvillag
 honest bomb costs under Combat Extended, bombs and rockets at The Dead Man's Switch's ammunition fabricator, fuel tanks for its
 Drop Tanks upgrade, and a sortie's map kept open under the jet. It copies nothing from those mods.
 
-Version 0.3.1, built 3 November 2026 for House D'thorga. **Not yet tested in game.**
+Version 0.3.2, built 4 November 2026 for House D'thorga. **Not yet tested in game.**
 
 ## Read this first (gotchas)
 

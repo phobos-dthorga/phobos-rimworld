@@ -4,7 +4,7 @@
   <name>D'thorga Vehicle Patches</name>
   <author>Phobos A. D'thorga</author>
   <url>https://github.com/phobos-dthorga/phobos-rimworld</url>
-  <modVersion>0.3.1</modVersion>
+  <modVersion>0.3.2</modVersion>
   <description>Patches for other authors' vehicle mods, each switched on only while that mod is active. It copies nothing from them.
 
 Harrier VTOL Attack Aircraft:

@@ -194,13 +194,15 @@ delivered, record the delivery in the changelog or design record, and add or ame
   `MapComponent` with stable Scribe keys; load older saves through idempotent conversions; never silently
   delete or relocate the player's things to enforce a new rule. Each README says whether removal is safe
   and what to do first.
-- **Versions.** Build for RimWorld 1.6 first and keep 1.7 in view: per-version folders through
-  `LoadFolders.xml`, shared XML in `Common/`, one assembly build per version (1.6: .NET Framework 4.7.2
-  and Harmony 2, with PolySharp for newer C#; 1.7: .NET 10 and Harmony 3; `docs/development/building.md`).
-  Never write a polyfill type by hand or make PolySharp's types public: they stay internal so mods can't
-  clash. Prefer RimWorld's own
-  wrappers (`Widgets`, `GenUI`, `ContentFinder`) over direct Unity calls; 1.7 runs Unity calls through a
-  compatibility shim.
+- **Versions: RimWorld 1.7 leads** (owner, 4 November 2026). Every C# project builds both targets from one
+  project file: `net10.0` against the 1.7 reference (Harmony 3) is the version features are designed and
+  tested against, and `net472` against the 1.6 reference (Harmony 2, PolySharp for newer C#) is the minimum
+  backwards support until 1.6 is retired; a 1.6-only failure is fixed only if cheap. Per-version folders
+  through `LoadFolders.xml` (`1.7`, `1.6`, and `Mods/<Other>/1.7` for a tie-in assembly), shared XML in
+  `Common/`; `Directory.Build.targets` turns the target into the game version, output folder and references
+  (`docs/development/building.md`). Never write a polyfill type by hand or make PolySharp's types public:
+  they stay internal so mods can't clash. Prefer RimWorld's own wrappers (`Widgets`, `GenUI`,
+  `ContentFinder`) over direct Unity calls; 1.7 runs Unity calls through a compatibility shim.
 - Expose reasonable player preferences as documented mod settings; keep identities and physics rules
   stable rather than configurable. Multiplayer is out of scope until after the public beta.
 
@@ -237,10 +239,10 @@ delivered, record the delivery in the changelog or design record, and add or ame
 
 ## Builds, installation and checks
 
-- There is no C# project yet. The first one follows `docs/development/building.md`, and its build and
-  local deploy scripts arrive in the same change. Install to the game's `Mods` folder only through that
-  script, with RimWorld closed. Never edit `ModsConfig.xml` or the owner's RimSort lists unless the owner
-  asks, and back them up first.
+- Install to the game's `Mods` folder only through `scripts/deploy.py`, with RimWorld closed:
+  `python scripts/deploy.py --build --apply --all` builds every project and installs every mod (owner, 4
+  November 2026); name mods instead of `--all` for one. Never edit `ModsConfig.xml` or the owner's RimSort
+  lists unless the owner asks, and back them up first.
 - Scale checks to the change; test rules and persistence, not static documentation. Before committing,
   run `python scripts/check-doc-links.py`, `python scripts/check-mod-layout.py` and
   `python -m unittest discover -s tests`. Gate commits on the exit codes, not on grep output.

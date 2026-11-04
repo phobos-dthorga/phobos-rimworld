@@ -54,6 +54,51 @@ class PackageTests(unittest.TestCase):
         self.assertIn('LoadFolders.xml', files)
 
 
+class AllModsTests(unittest.TestCase):
+    def test_every_folder_with_an_about_file_counts(self):
+        with tempfile.TemporaryDirectory() as root:
+            fake_repo(root)
+            (Path(root) / 'mods' / 'NotAMod').mkdir()
+            (Path(root) / 'mods' / 'README.md').write_text('# Mods\n', encoding='utf-8')
+            self.assertEqual(['Example'], deploy.all_mods(root))
+
+    def test_the_real_repository_lists_every_mod(self):
+        mods = deploy.all_mods()
+        for expected in ('PhobosFramework', 'PhobosBurnsAndSmoke', 'PhobosRadioFramework', 'PhobosFactoryAdditions',
+                         'PhobosMedicalSaveBridge', 'PhobosVehiclePatches', 'PhobosWaterTap'):
+            self.assertIn(expected, mods)
+        self.assertEqual(len(mods), len(deploy.projects()) - 1,
+                         'one project per mod, plus the Factory hygiene tie-in; update this when a mod gains a second project')
+
+    def test_build_runs_dotnet_on_every_project_and_stops_at_the_first_failure(self):
+        calls = []
+
+        class Result:
+            def __init__(self, code):
+                self.returncode, self.stdout, self.stderr = code, 'out', 'err'
+
+        def run(cmd, **kwargs):
+            calls.append(cmd)
+            return Result(1 if len(calls) == 2 else 0)
+
+        with self.assertRaises(RuntimeError):
+            deploy.build(run=run, log=lambda s: None)
+        self.assertEqual(2, len(calls))
+        self.assertEqual(['dotnet', 'build'], calls[0][:2])
+        self.assertTrue(calls[0][2].endswith('.csproj'))
+
+    def test_all_flag_previews_every_mod_without_a_name(self):
+        seen = []
+        original = deploy.deploy
+        deploy.deploy = lambda mod, game, apply, **kw: seen.append((mod, apply)) or 0
+        try:
+            deploy.main(['--all', '--game', 'nowhere'])
+        finally:
+            deploy.deploy = original
+        self.assertEqual(sorted(deploy.all_mods()), [mod for mod, _ in seen])
+        self.assertTrue(all(not apply for _, apply in seen))
+
+
 class GamePathTests(unittest.TestCase):
     def test_precedence(self):
         with tempfile.TemporaryDirectory() as folder:
