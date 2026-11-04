@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- Self-medication joins the game's Humanlike think tree at its own insertion hook, with no Harmony: after mental states, lord
+       duties and emergency work, before needs, work and joy. It is outside the tree's colonist-only branch; the giver does its
+       own checks, so guests can be included by setting. -->
+  <ThinkTreeDef>
+    <defName>PhobosDosing_SelfMedicate</defName>
+    <insertTag>Humanlike_PreMain</insertTag>
+    <insertPriority>50</insertPriority>
+    <thinkRoot Class="Phobos.Dosing.Jobs.JobGiver_PhobosSelfMedicate" />
+  </ThinkTreeDef>
+</Defs>

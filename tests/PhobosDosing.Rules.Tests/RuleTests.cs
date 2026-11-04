@@ -86,6 +86,52 @@ public class DoseNeedRuleTests
     }
 }
 
+public class SelfDoseRuleTests
+{
+    [Fact]
+    public void ATasteForDrugsLowersTheThreshold()
+    {
+        Assert.Equal(0.4f, SelfDoseRule.Threshold(0.4f, 0, 0.1f, 0.2f), 4);
+        Assert.Equal(0.4f, SelfDoseRule.Threshold(0.4f, -1, 0.1f, 0.2f), 4);
+        Assert.Equal(0.3f, SelfDoseRule.Threshold(0.4f, 1, 0.1f, 0.2f), 4);
+        Assert.Equal(0.2f, SelfDoseRule.Threshold(0.4f, 2, 0.1f, 0.2f), 4);
+        Assert.Equal(0f, SelfDoseRule.Threshold(0.1f, 2, 0.1f, 0.2f));
+    }
+
+    [Fact]
+    public void ThePolicyGatesItUnlessThePawnHasATasteForDrugs()
+    {
+        Assert.True(SelfDoseRule.PolicyAllows(true, false, 0));
+        Assert.True(SelfDoseRule.PolicyAllows(false, true, 0));
+        Assert.False(SelfDoseRule.PolicyAllows(false, false, 0));
+        Assert.False(SelfDoseRule.PolicyAllows(false, false, -1));
+        Assert.True(SelfDoseRule.PolicyAllows(false, false, 1));
+    }
+
+    [Fact]
+    public void AGuestWithNoPolicyTakesMedicalDrugsOnly()
+    {
+        Assert.True(SelfDoseRule.NoPolicyAllows(true, false));
+        Assert.False(SelfDoseRule.NoPolicyAllows(true, true));
+        Assert.False(SelfDoseRule.NoPolicyAllows(false, false));
+    }
+
+    [Fact]
+    public void TheNeedIsPainReliefNeverSedation()
+    {
+        Assert.Equal(DoseNeed.None, SelfDoseRule.Need(0.39f, 0.4f));
+        Assert.Equal(DoseNeed.PainRelief, SelfDoseRule.Need(0.4f, 0.4f));
+        Assert.Equal(DoseNeed.PainRelief, SelfDoseRule.Need(0.95f, 0.4f));
+    }
+
+    [Fact]
+    public void ASedativeIsRefusedAndAPolicyRefusalIsNotADoctorsWord()
+    {
+        Assert.Equal(DoseRefusal.SedativeNotWanted, DoseSafetyRule.Check(Fixtures.Ketamine, DoseNeed.PainRelief, 0f, false, Fixtures.Awake, new DoseLimits(0.25f, 0.3f, 0.15f, true, false)));
+        Assert.Equal(DoseRefusal.None, DoseSafetyRule.Check(Fixtures.Flake, DoseNeed.PainRelief, 0f, false, Fixtures.Awake, new DoseLimits(0.25f, 0.3f, 0.15f, true, false)));
+    }
+}
+
 public class DoseSafetyRuleTests
 {
     [Fact]

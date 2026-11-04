@@ -10,6 +10,10 @@
   <PhobosDosing_SettingRecreationalDesc>Off by default: only medical drugs are given. On, social and hard drugs that relieve pain may be given as a last resort, when no medical painkiller or sedative can be.</PhobosDosing_SettingRecreationalDesc>
   <PhobosDosing_SettingIgnoreAversion>Give medical drugs to patients who refuse drugs</PhobosDosing_SettingIgnoreAversion>
   <PhobosDosing_SettingIgnoreAversionDesc>Off by default: a patient who would not take drugs (a teetotaler, or by belief) is not dosed. On, medical drugs are given anyway; recreational ones never.</PhobosDosing_SettingIgnoreAversionDesc>
+  <PhobosDosing_SettingSelfMedication>People in pain fetch their own painkillers</PhobosDosing_SettingSelfMedication>
+  <PhobosDosing_SettingSelfMedicationDesc>A colonist who is up and about and in serious pain goes and takes the best painkiller their drug policy allows, for joy or on a schedule. Chemical interest and fascination make them reach for it sooner and ignore the policy, as they do for joy. Teetotalers never do. Addiction and overdose are real risks: choose your drug policies with this in mind.</PhobosDosing_SettingSelfMedicationDesc>
+  <PhobosDosing_SettingGuestsSelfMedicate>Guests may take painkillers from your stock</PhobosDosing_SettingGuestsSelfMedicate>
+  <PhobosDosing_SettingGuestsSelfMedicateDesc>Off by default. On, guests in serious pain do the same, from whatever is within their reach. Guests have no drug policy, so they take medical painkillers only, never recreational ones. Useful with mods that bring many guests, such as Hospitality.</PhobosDosing_SettingGuestsSelfMedicateDesc>
   <PhobosDosing_SettingRemovalNote>Nothing is saved: the mod can be added or removed at any time. A drug already given keeps working as its own mod says.</PhobosDosing_SettingRemovalNote>
 
   <PhobosDosing_RefusalNothingInReach>no pain relief within reach</PhobosDosing_RefusalNothingInReach>

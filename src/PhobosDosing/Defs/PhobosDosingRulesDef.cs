@@ -18,6 +18,12 @@ public class PhobosDosingRulesDef : PhobosRulesDef
     /// <summary>Pain from which a sedative may be given when nothing lighter can: where the game's "extreme" label starts.</summary>
     public float sedationPainThreshold = 0.8f;
 
+    /// <summary>Pain from which a pawn who is up and about looks for a painkiller: the game's "serious pain" mood band starts at 0.15 and "intense" at 0.4. Owner's choice.</summary>
+    public float selfPainThreshold = 0.4f;
+    /// <summary>How much lower that is with chemical interest, and with chemical fascination. Authored.</summary>
+    public float selfInterestOffset = 0.1f;
+    public float selfFascinationOffset = 0.2f;
+
     /// <summary>An item must take away at least this share of the pain to be indexed: relief as a side effect does not make a painkiller.</summary>
     public float minPainRelief = 0.3f;
 

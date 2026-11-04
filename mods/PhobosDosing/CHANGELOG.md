@@ -5,6 +5,33 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-11-05 - Draft
+
+The owner's idea: someone above a pain threshold would seek out a painkiller on their own. Not yet tested in game. Settings text is
+agent-authored and held for the owner's review.
+
+### Added
+
+- Self-medication: an adult colonist who is up and about at 40% pain or more goes and takes the best painkiller their drug policy allows, for
+  joy or on a schedule, through the game's own ingest job. Medical drugs come before recreational ones. The doctors' safety rules apply,
+  and any painkiller still working blocks the next.
+- Chemical interest and fascination lower the threshold to 30% and 20% and ignore the policy, as they do for joy in the game. Teetotalers and
+  children never self-medicate, and sedatives are never taken by choice.
+- A setting to switch it off, on by default, and a setting to let guests do the same, off by default, for mods such as Hospitality. The game gives
+  guests no drug policy, so they take medical painkillers only.
+- A dev action that logs what a selected pawn would take and why.
+
+### Balance
+
+- 40% is the owner's choice; the two trait offsets are authored.
+
+### Compatibility and limits
+
+- A pawn in bed or under medical rest, which includes anyone with a tended wound still healing, is left to the doctors, who step in from 60%.
+- Addiction and overdose follow from the drug taken, by design. Check drug policies before enabling this on an existing colony.
+- Uses a think-tree hook, no Harmony. Nothing is saved. Removing the mod while a pawn is fetching a drug is not tested.
+- Game-free rules pass 17 unit tests. The eligibility checks and the item search are game-facing and have no unit test. Not yet tested in game.
+
 ## [0.1.3] - 2026-11-05 - Draft
 
 No change in play. Not yet tested in game.

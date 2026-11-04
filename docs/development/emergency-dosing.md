@@ -90,6 +90,48 @@ Core 1.7.4998; the save PG19 of 5 Nov 00:42.
   not apply, which is right: the rule only sedates at pain shock. Its chloroform doctor-skill curve does not apply either; the
   fixed 0.35 self-use dose does.
 
+## Self-medication (0.2.0, 5 Nov 2026)
+
+The owner's idea: someone above a pain threshold would seek out a painkiller on their own. It answers the earlier open point that a colonist
+walking in severe pain got nothing. **Not yet tested in game.**
+
+Read from the 1.7.4998 assembly and Core Defs:
+
+- **Nothing in the game takes a drug because of pain.** The only behaviour reading `PainTotal` is in-bed meditation (`JobGiver_Meditate`).
+  Pain's mood bands (`ThoughtWorker_Pain`) change at 0.15, 0.4 and 0.8; pain shock defaults to 0.8. So this is new behaviour, not a repair.
+- **The game's own self-dosing** (`JobGiver_TakeDrugsForDrugPolicy`, `JobGiver_SatisfyChemicalNeed`, `JoyGiver_TakeDrug`) finds the drug itself,
+  in the pawn's inventory then with `GenClosest.ClosestThingReachable`, and returns `DrugAIUtility.IngestAndTakeToInventoryJob(thing, pawn, 1)`. The stock
+  `JobDriver_Ingest` does the rest. A `DrugDesire` degree above 0 skips the policy's joy and addiction lines; `IsTeetotaler` and `CanTakeDrug` refuse.
+- **`DrugPolicy`'s indexer is for drugs only** and `CurrentPolicy` can be null, so the code asks only about drugs. **Guests have no policy at all:**
+  `PawnComponentsUtility` creates `Pawn_DrugPolicyTracker` only for the player's own faction. `IngestAndTakeToInventoryJob` copes with that.
+- **Hook:** `Humanlike.xml`'s `Humanlike_PreMain`, a `ThinkNode_SubtreesByTag`; Smart Medicine adds its stock-up giver the same way at another tag.
+
+Decisions:
+
+- **The drug policy is the gate** (owner's choice): an item qualifies when its line allows joy or a schedule. No new UI, and the player keeps control.
+  The scheduled line's frequency and mood gates are not applied, because pain is the reason here rather than the schedule (agent choice).
+- **The threshold** (owner's choice): 40%. Chemical interest 30% and fascination 20% (authored).
+- **Who** (owner's choice): free colonists by default; a setting adds guests, for Hospitality players. Adults only, and not slaves or prisoners (agent choice).
+- **Guests, who have no policy to gate by** (agent choice, found while building, for the owner to overrule): medical painkillers only, never recreational. If a mod gives
+  a guest a policy, that policy applies instead; whether Hospitality does has not been checked.
+- **The trait bypass** (agent choice, by vanilla precedence): chemical interest and fascination ignore the policy, as in the game's joy givers.
+- **Left to the doctors** (agent choice): anyone in bed or under `HealthAIUtility.ShouldSeekMedicalRest`, which includes a tended wound still healing.
+- **The same safety and choice as doctors** (agent choice): `Evaluate` and `DoseChoiceRule.Choose`, with need always pain relief, so sedatives are out and medical
+  drugs come before recreational. Unlike the doctor path, a recreational painkiller still working also blocks the next, or highs would stack.
+- **The game's ingest job** (agent choice): no new JobDef, so the item's effects, the chew spot and the policy's take record behave as usual.
+- **Cost** (agent choice): the giver runs when a humanlike chooses a job, not per tick. Who-and-how-much-pain are checked first; the index and any path search
+  only follow for a pawn who passed them.
+
+Test steps (owner runs them):
+
+1. The load line says self-medication is on and whether guests may. No think-tree error at load.
+2. A colonist up and about at 40% pain or more, thornweed serum in a stockpile, allowed for joy in their policy: they go and take it. Joy tick off and no
+   chemical trait: nothing; the dev action "Dosing: log self-medication for selected pawns" says `PolicyForbids`.
+3. With morphine allowed too: morphine is chosen. With only a recreational drug allowed: that one.
+4. Chemical interest at 32% pain takes one. A teetotaler at 70% does not. A pawn under a working dose does not.
+5. In a hospital bed: left to the doctors. Drafted: nothing until undrafted.
+6. Guests setting off: a guest in pain takes nothing. On: they take a medical painkiller from your stock, never a recreational one.
+
 ## Upstream faults seen in the owner's log of 5 Nov 2026 (for the owner to report)
 
 Both are other authors' interplay, not ours; drafts the owner can post.
@@ -136,7 +178,9 @@ Both are other authors' interplay, not ours; drafts the owner can post.
 - Whether to hold a painkiller back while the patient is bleeding hard. More Injuries warns that morphine is hazardous in
   uncontrolled bleeding and its bleed increase is invisible to the index. Priority puts tending first for one doctor, but a second
   doctor can dose a bleeding patient the first has not reached. For the owner.
-- Whether the "resting only" rule is too strict: a colonist walking in severe pain gets nothing until they lie down.
+- A patient in bed between 40% and 60% pain gets nothing: too high for comfort, below the doctors' band, and left alone by
+  self-medication. Whether doctors should come down to 40% is for the owner, after play.
+- Whether Masochists should skip self-medication: the game nullifies their pain thought, and this version does not exempt them.
 - Stronger pain could prefer stronger drugs (the score ignores the pain level by design); revisit after play.
 - A dressing or fluids kit for burns and an oxygen treatment belong to the planned medical equipment mod
   (`art-automation-and-medical-equipment.md`), not here.

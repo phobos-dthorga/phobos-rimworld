@@ -13,6 +13,8 @@ public enum DoseRefusal
     DangerousDose,
     Consciousness,
     Breathing,
+    /// <summary>Self-medication only: the pawn's drug policy does not allow it. Never reaches a doctor's refusal text.</summary>
+    PolicyForbids,
 }
 
 /// <summary>The patient's figures the safety rule needs, read by the service.</summary>

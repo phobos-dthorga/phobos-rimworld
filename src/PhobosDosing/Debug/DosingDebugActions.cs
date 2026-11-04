@@ -31,6 +31,26 @@ public static class DosingDebugActions
         Log.Message(text.ToString());
     }
 
+    [DebugAction(DebugCategory.Name, "Dosing: log self-medication for selected pawns", actionType = DebugActionType.Action, allowedGameStates = AllowedGameStates.PlayingOnMap)]
+    public static void LogSelfMedication()
+    {
+        var text = new StringBuilder(DosingMod.LogPrefix);
+        foreach (object selected in Find.Selector.SelectedObjects)
+        {
+            if (selected is not Pawn pawn) continue;
+            DoseDecision decision = DoseService.SelfDecide(pawn);
+            text.Append('\n').Append(pawn.LabelShort).Append(": pain ").Append(pawn.health.hediffSet.PainTotal.ToString("0.00"))
+                .Append(", blocked by ").Append(DoseService.SelfBlockFor(pawn, DosingMod.Settings, Defs.PhobosDosingRulesDef.Current))
+                .Append(", would take ").Append(decision.Chosen?.Option.Def.defName ?? "nothing");
+            foreach (DoseVerdict verdict in decision.Verdicts)
+            {
+                text.Append("\n  ").Append(verdict.Option.Def.defName).Append(": score ").Append(verdict.Score.ToString("0.00"))
+                    .Append(!verdict.Present ? ", none here" : verdict.Refusal != DoseRefusal.None ? ", " + verdict.Refusal : verdict.Item == null ? ", out of reach" : ", allowed");
+            }
+        }
+        Log.Message(text.ToString());
+    }
+
     [DebugAction(DebugCategory.Name, "Dosing: log the decision for selected pawns as patients", actionType = DebugActionType.Action, allowedGameStates = AllowedGameStates.PlayingOnMap)]
     public static void LogDecision()
     {

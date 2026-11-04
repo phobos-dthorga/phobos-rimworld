@@ -7,6 +7,18 @@ using Verse.AI;
 
 namespace Phobos.Dosing.Services;
 
+/// <summary>Why a pawn is not looking for a painkiller for themself.</summary>
+public enum SelfBlock
+{
+    None,
+    Disabled,
+    NotEligible,
+    NotEnoughPain,
+    NotUpAndAbout,
+    UnderMedicalRest,
+    Teetotaler,
+}
+
 /// <summary>One line of the decision: an indexed item, where it was found, and the rule's verdict.</summary>
 public readonly struct DoseVerdict
 {
@@ -86,22 +98,11 @@ public static class DoseService
         var decision = new DoseDecision { Need = NeedOf(patient, rules) };
         if (decision.Need == DoseNeed.None) return decision;
         IReadOnlyList<DoseOption> options = DoseIndex.Options;
-        HediffSet set = patient.health.hediffSet;
-        float consciousness = patient.health.capacities.GetLevel(PawnCapacityDefOf.Consciousness);
-        float breathing = patient.health.capacities.GetLevel(PawnCapacityDefOf.Breathing);
-        float overdose = set.GetFirstHediffOfDef(HediffDefOf.DrugOverdose)?.Severity ?? 0f;
-        bool bleeding = set.BleedRateTotal > 0f;
+        bool bleeding = patient.health.hediffSet.BleedRateTotal > 0f;
         var limits = new DoseLimits(rules.redoseBelowFraction, rules.overdoseLimit, rules.capacityFloor, settings.recreationalForPain, settings.ignoreAversionForMedical);
         // A medical painkiller still working blocks every other painkiller: relief and costs stack. A sedative may still
         // follow at extreme pain; it is checked against its own conditions only.
-        float painkillerActive = 0f;
-        for (int i = 0; i < options.Count; i++)
-        {
-            DoseOption option = options[i];
-            if (option.Effect.Sedative || option.Effect.Recreational) continue;
-            float active = ActiveFraction(option, set);
-            if (active > painkillerActive) painkillerActive = active;
-        }
+        float painkillerActive = PainkillerActive(options, patient.health.hediffSet, false);
         candidates.Clear();
         for (int i = 0; i < options.Count; i++)
         {
@@ -112,17 +113,7 @@ public static class DoseService
             if (present)
             {
                 // The rules first and the path search last: reach is the only costly check, and most options never need it.
-                float activeFraction = ActiveFraction(option, set);
-                if (!option.Effect.Sedative && painkillerActive > activeFraction) activeFraction = painkillerActive;
-                bool reachesDanger = false;
-                for (int j = 0; j < option.Hediffs.Count; j++)
-                {
-                    DoseHediff dose = option.Hediffs[j];
-                    float existing = set.GetFirstHediffOfDef(dose.Def)?.Severity ?? 0f;
-                    if (existing + dose.Severity >= dose.DangerSeverity) reachesDanger = true;
-                }
-                var state = new PatientState(consciousness, breathing, overdose, WillTake(patient, option.Def));
-                refusal = DoseSafetyRule.Check(option.Effect, decision.Need, activeFraction, reachesDanger, state, limits);
+                refusal = Evaluate(option, patient, decision.Need, painkillerActive, limits);
                 if (refusal == DoseRefusal.None) item = FindItem(doctor, patient, option.Def);
             }
             candidates.Add(new DoseCandidate(option.Effect, item != null));
@@ -131,6 +122,129 @@ public static class DoseService
         int chosen = DoseChoiceRule.Choose(candidates, decision.Need, bleeding, rules.Weights);
         if (chosen >= 0) decision.Chosen = decision.Verdicts[chosen];
         return decision;
+    }
+
+    /// <summary>
+    /// The safety rule for one item and one patient, whoever is giving it: an earlier dose still working, a dangerous stage,
+    /// the capacity floors, overdose and the patient's willingness. The one place both the doctor and the self path ask.
+    /// </summary>
+    static DoseRefusal Evaluate(DoseOption option, Pawn patient, DoseNeed need, float painkillerActive, DoseLimits limits)
+    {
+        HediffSet set = patient.health.hediffSet;
+        float activeFraction = ActiveFraction(option, set);
+        if (!option.Effect.Sedative && painkillerActive > activeFraction) activeFraction = painkillerActive;
+        bool reachesDanger = false;
+        for (int j = 0; j < option.Hediffs.Count; j++)
+        {
+            DoseHediff dose = option.Hediffs[j];
+            float existing = set.GetFirstHediffOfDef(dose.Def)?.Severity ?? 0f;
+            if (existing + dose.Severity >= dose.DangerSeverity) reachesDanger = true;
+        }
+        var state = new PatientState(patient.health.capacities.GetLevel(PawnCapacityDefOf.Consciousness),
+            patient.health.capacities.GetLevel(PawnCapacityDefOf.Breathing),
+            set.GetFirstHediffOfDef(HediffDefOf.DrugOverdose)?.Severity ?? 0f, WillTake(patient, option.Def));
+        return DoseSafetyRule.Check(option.Effect, need, activeFraction, reachesDanger, state, limits);
+    }
+
+    /// <summary>The largest share of a dose still working among the painkillers; recreational ones count only when asked.</summary>
+    static float PainkillerActive(IReadOnlyList<DoseOption> options, HediffSet set, bool includeRecreational)
+    {
+        float most = 0f;
+        for (int i = 0; i < options.Count; i++)
+        {
+            DoseOption option = options[i];
+            if (option.Effect.Sedative || (option.Effect.Recreational && !includeRecreational)) continue;
+            float active = ActiveFraction(option, set);
+            if (active > most) most = active;
+        }
+        return most;
+    }
+
+    /// <summary>Why a pawn is not looking for a painkiller right now, or None if they are. Cheapest tests first: this runs for every humanlike choosing a job.</summary>
+    public static SelfBlock SelfBlockFor(Pawn pawn, DosingSettings settings, PhobosDosingRulesDef rules)
+    {
+        if (!settings.selfMedication) return SelfBlock.Disabled;
+        if (!pawn.IsFreeColonist && !(settings.guestsSelfMedicate && pawn.HostFaction == Faction.OfPlayer && !pawn.IsPrisoner && !pawn.IsSlave)) return SelfBlock.NotEligible;
+        if (pawn.health?.hediffSet == null || !pawn.Spawned) return SelfBlock.NotEligible;
+        float pain = pawn.health.hediffSet.PainTotal;
+        if (pain < SelfDoseRule.Threshold(rules.selfPainThreshold, DrugDesire(pawn), rules.selfInterestOffset, rules.selfFascinationOffset)) return SelfBlock.NotEnoughPain;
+        if (pawn.DevelopmentalStage != DevelopmentalStage.Adult) return SelfBlock.NotEligible;
+        if (pawn.Downed || pawn.Drafted || pawn.InMentalState || !pawn.Awake()) return SelfBlock.NotUpAndAbout;
+        if (pawn.InBed() || HealthAIUtility.ShouldSeekMedicalRest(pawn)) return SelfBlock.UnderMedicalRest;
+        if (pawn.IsTeetotaler()) return SelfBlock.Teetotaler;
+        return SelfBlock.None;
+    }
+
+    static int DrugDesire(Pawn pawn) => pawn.story?.traits?.DegreeOfTrait(TraitDefOf.DrugDesire) ?? 0;
+
+    /// <summary>
+    /// What this pawn would take for themself, whatever their state: the same safety and the same choice as a doctor's, with the
+    /// drug policy as the gate. Any painkiller still working blocks the next, recreational ones too, or highs would stack.
+    /// </summary>
+    public static DoseDecision SelfDecide(Pawn pawn)
+    {
+        PhobosDosingRulesDef rules = PhobosDosingRulesDef.Current;
+        int desire = DrugDesire(pawn);
+        var decision = new DoseDecision { Need = SelfDoseRule.Need(pawn.health.hediffSet.PainTotal, SelfDoseRule.Threshold(rules.selfPainThreshold, desire, rules.selfInterestOffset, rules.selfFascinationOffset)) };
+        if (decision.Need == DoseNeed.None) return decision;
+        IReadOnlyList<DoseOption> options = DoseIndex.Options;
+        HediffSet set = pawn.health.hediffSet;
+        bool bleeding = set.BleedRateTotal > 0f;
+        // The policy has already decided about recreational drugs here, and a pawn's own refusal is never overridden.
+        var limits = new DoseLimits(rules.redoseBelowFraction, rules.overdoseLimit, rules.capacityFloor, true, false);
+        float painkillerActive = PainkillerActive(options, set, true);
+        DrugPolicy? policy = pawn.drugs?.CurrentPolicy;
+        candidates.Clear();
+        for (int i = 0; i < options.Count; i++)
+        {
+            DoseOption option = options[i];
+            bool present = IsPresent(pawn, pawn, option.Def);
+            DoseRefusal refusal = DoseRefusal.None;
+            Thing? item = null;
+            if (present)
+            {
+                refusal = PolicyPermits(pawn, policy, option, desire) ? Evaluate(option, pawn, decision.Need, painkillerActive, limits) : DoseRefusal.PolicyForbids;
+                if (refusal == DoseRefusal.None) item = FindOwnItem(pawn, option.Def);
+            }
+            candidates.Add(new DoseCandidate(option.Effect, item != null));
+            decision.Verdicts.Add(new DoseVerdict(option, item, present, refusal, DoseChoiceRule.Score(option.Effect, bleeding, rules.Weights)));
+        }
+        int chosen = DoseChoiceRule.Choose(candidates, decision.Need, bleeding, rules.Weights);
+        if (chosen >= 0) decision.Chosen = decision.Verdicts[chosen];
+        return decision;
+    }
+
+    /// <summary>The game's own ingest job for what this pawn would take, or null.</summary>
+    public static Job? SelfJob(Pawn pawn)
+    {
+        if (SelfBlockFor(pawn, DosingMod.Settings, PhobosDosingRulesDef.Current) != SelfBlock.None) return null;
+        return SelfDecide(pawn).Chosen is DoseVerdict chosen && chosen.Item != null ? DrugAIUtility.IngestAndTakeToInventoryJob(chosen.Item, pawn, 1) : null;
+    }
+
+    /// <summary>Only a drug has a policy line, and asking the policy about anything else throws. The game gives guests no policy.</summary>
+    static bool PolicyPermits(Pawn pawn, DrugPolicy? policy, DoseOption option, int desire)
+    {
+        ThingDef def = option.Def;
+        if (!def.IsDrug) return false;
+        if (policy == null) return SelfDoseRule.NoPolicyAllows(pawn.HostFaction == Faction.OfPlayer && pawn.Faction != Faction.OfPlayer, option.Effect.Recreational);
+        DrugPolicyEntry entry = policy[def];
+        return SelfDoseRule.PolicyAllows(entry.allowedForJoy, entry.allowScheduled, desire);
+    }
+
+    /// <summary>The pawn's own inventory, then the nearest reachable stack by the game's own tests for a drug a pawn fetches.</summary>
+    static Thing? FindOwnItem(Pawn pawn, ThingDef def)
+    {
+        ThingOwner<Thing>? inventory = pawn.inventory?.innerContainer;
+        if (inventory != null)
+        {
+            for (int i = 0; i < inventory.Count; i++)
+            {
+                if (inventory[i].def == def) return inventory[i];
+            }
+        }
+        if (pawn.Map == null) return null;
+        return GenClosest.ClosestThingReachable(pawn.Position, pawn.Map, ThingRequest.ForDef(def), PathEndMode.ClosestTouch, TraverseParms.For(pawn), 9999f,
+            thing => thing.IngestibleNow && !thing.IsForbidden(pawn) && !thing.IsBurning() && pawn.CanReserve(thing, 10, 1) && thing.IsSociallyProper(pawn));
     }
 
     /// <summary>The job for a doctor to give the chosen item, or null with the first refusal set as the job fail reason.</summary>

@@ -18,6 +18,10 @@ public class DosingSettings : ModSettings
     public bool recreationalForPain;
     /// <summary>Give medical drugs even to a patient who refuses drugs on principle.</summary>
     public bool ignoreAversionForMedical;
+    /// <summary>A colonist in serious pain fetches a painkiller their drug policy allows.</summary>
+    public bool selfMedication = true;
+    /// <summary>Guests may do the same, from the colony's stock.</summary>
+    public bool guestsSelfMedicate;
     public DisplayMode displayMode = DisplayMode.Plain;
 
     public override void ExposeData()
@@ -27,18 +31,21 @@ public class DosingSettings : ModSettings
         Scribe_Values.Look(ref minimumCare, "PhobosDosing_MinimumCare", MedicalCareCategory.HerbalOrWorse);
         Scribe_Values.Look(ref recreationalForPain, "PhobosDosing_RecreationalForPain", false);
         Scribe_Values.Look(ref ignoreAversionForMedical, "PhobosDosing_IgnoreAversionForMedical", false);
+        Scribe_Values.Look(ref selfMedication, "PhobosDosing_SelfMedication", true);
+        Scribe_Values.Look(ref guestsSelfMedicate, "PhobosDosing_GuestsSelfMedicate", false);
         Scribe_Values.Look(ref displayMode, "PhobosDosing_DisplayMode", DisplayMode.Plain);
     }
 }
 
 /// <summary>
 /// D'thorga Emergency Dosing: doctors give painkillers and sedatives to patients who need them, from whatever mod made them.
-/// One work giver under Doctor, one job, an index of ingestibles read from the Defs at startup. No Harmony; nothing saved.
+/// One work giver under Doctor, one job, an index of ingestibles read from the Defs at startup, and one think-tree giver for pawns who
+/// fetch their own. No Harmony; nothing saved.
 /// </summary>
 public class DosingMod : Mod
 {
     public const string PackageId = "PhobosDthorga.Dosing";
-    public const string ModVersion = "0.1.3";
+    public const string ModVersion = "0.2.0";
     public const string LogPrefix = "[D'thorga Emergency Dosing]";
 
     static readonly MedicalCareCategory[] CareChoices = { MedicalCareCategory.HerbalOrWorse, MedicalCareCategory.NormalOrWorse, MedicalCareCategory.Best };
@@ -65,6 +72,7 @@ public class DosingMod : Mod
             string recreational = "recreational pain relief: " + Names(true);
             if (Settings.recreationalForPain) report.On(recreational + ", as a last resort"); else report.Off(recreational, "setting; never given");
         }
+        if (Settings.selfMedication) report.On("self-medication" + (Settings.guestsSelfMedicate ? ", guests too" : ", colonists only")); else report.Off("self-medication", "setting");
         report.Log();
     }
 
@@ -100,6 +108,9 @@ public class DosingMod : Mod
         }
         listing.CheckboxLabeled("PhobosDosing_SettingRecreational".Translate(), ref Settings.recreationalForPain, "PhobosDosing_SettingRecreationalDesc".Translate());
         listing.CheckboxLabeled("PhobosDosing_SettingIgnoreAversion".Translate(), ref Settings.ignoreAversionForMedical, "PhobosDosing_SettingIgnoreAversionDesc".Translate());
+        listing.Gap();
+        listing.CheckboxLabeled("PhobosDosing_SettingSelfMedication".Translate(), ref Settings.selfMedication, "PhobosDosing_SettingSelfMedicationDesc".Translate());
+        listing.CheckboxLabeled("PhobosDosing_SettingGuestsSelfMedicate".Translate(), ref Settings.guestsSelfMedicate, "PhobosDosing_SettingGuestsSelfMedicateDesc".Translate());
         listing.Gap();
         SettingsUi.DrawDisplayMode(listing, ref Settings.displayMode);
         listing.Gap();

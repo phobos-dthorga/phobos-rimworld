@@ -13,6 +13,12 @@
     <painThreshold>0.6</painThreshold>
     <sedationPainThreshold>0.8</sedationPainThreshold>
 
+    <!-- Self-medication: the pain from which a pawn who is up and about looks for a painkiller (the owner's choice), and how much
+         lower that is with chemical interest and chemical fascination (authored). Teetotalers never do. -->
+    <selfPainThreshold>0.4</selfPainThreshold>
+    <selfInterestOffset>0.1</selfInterestOffset>
+    <selfFascinationOffset>0.2</selfFascinationOffset>
+
     <!-- An item must take away at least this share of the pain to count as a painkiller at all. It keeps out drugs whose relief is
          a side effect (an adrenaline shot, a beer). Authored. -->
     <minPainRelief>0.3</minPainRelief>
