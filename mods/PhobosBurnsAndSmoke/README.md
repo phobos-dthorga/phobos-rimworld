@@ -4,7 +4,7 @@ Burns and smoke that matter the way More Injuries' wounds do: a burned body frac
 unless treated, airway burns that swell shut over hours, smoke that scars the lungs, and carbon monoxide from fires in closed
 rooms.
 
-Version 0.2.1, built 4 November 2026 for House D'thorga. **Not yet tested in game.** Everything here is read from the game's and
+Version 0.3.0, built 4 November 2026 for House D'thorga. **Not yet tested in game.** Everything here is read from the game's and
 the mods' code.
 
 ## Read this first (gotchas)
@@ -21,8 +21,13 @@ the mods' code.
   the carbon monoxide on top. A gas mask stops the smoke effects but **not the carbon monoxide**.
 - **Without Combat Extended's smoke, burning rooms fill with the game's own smoke** (the framework does this), which also
   penalises aim and sight.
-- **Tend the shock itself.** Burn shock is a tendable condition: tending it stands in for giving fluids. Tend every burn and keep
-  the patient in bed as well; that lowers where the shock is heading.
+- **Tend the shock itself, with the best medicine you have.** Burn shock is a tendable condition: tending it stands in for
+  giving fluids, and the medicine's quality sets how much it helps. With the burns tended and the patient in bed, **industrial
+  medicine holds even the worst cases at the "shock" stage, out of the death clocks; glitterworld medicine brings them to
+  "compensated"; herbal or no medicine leaves the worst cases life-threatening**. Fluids wear off after 12 hours, so keep tending.
+- **Area and depth are two different things.** A burn's severity is its depth (pain, healing time, whether the part is lost).
+  Its area comes from the kind of burn: fire covers a part quickly (12 points of damage for all of it), an incendiary round or
+  a laser makes a deep burn no larger than a third of the part.
 - **The tracheotomy** is a surgery on the neck. With More Injuries it needs its Emergency Medicine research; without, no research.
 - **Plain mode shows no percentages.** Switch the display mode to Operator or Engineer in the settings to see the figures.
 - **Only humanlike pawns** get these conditions in this version. Animals burn as before.
@@ -34,8 +39,8 @@ the mods' code.
 
 | Condition | Comes from | Gets worse with | Treated by |
 | --- | --- | --- | --- |
-| burns (burned body fraction) | every burn on the skin and every part burned off, weighted by each part's share of the skin | more and deeper burns, lost parts | tending the burns and stumps; it is recomputed every 300 ticks |
-| burn shock | 15% or more of the body burned; always at least its first stage from there | age, area, an airway burn or carbon monoxide (the revised Baux score) | tending the burns, bed rest, tending the shock |
+| burns (burned body fraction) | every burn on the skin, by its kind's area per point of damage, and every part burned off, weighted by each part's share of the skin | wider burns, lost parts | tending the burns and stumps; it is recomputed every 300 ticks |
+| burn shock | 15% or more of the body burned; always at least its first stage from there | age, area, an airway burn or carbon monoxide (the revised Baux score) | tending the burns, bed rest, tending the shock with good medicine |
 | airway burn | burning, or burns to the head and neck | time: swelling peaks at 8 hours, holds to 24, gone by 48 | a tracheotomy; or waiting, if it never closes |
 | smoke-damaged lungs | breathing smoke | thicker smoke, longer | tending; rest; heals 4% a day untended, 16% tended well |
 | pneumonia | severe lung damage | | tending and immunity, like a wound infection |
@@ -48,7 +53,17 @@ critical from 50%. Burn shock stages: compensated, shock from 30%, severe from 5
 Every figure is an authored starting value; the sources behind the shape are in the design record.
 
 A worked case: a 40-year-old with a quarter of the body burned and no inhalation injury scores 65 and heads for stage 1 untreated;
-the same pawn with an airway burn scores 82 and heads for the severe stage; tended and in bed, either settles at compensated.
+the same pawn with an airway burn scores 82 and heads for the severe stage. Burns tended and in bed, the shock tended with
+industrial medicine, the second settles at compensated (30% of the untreated target); with no medicine, at the shock stage.
+
+| Care, burns tended and in bed | Share of the untreated target left | Score 90 lands at | Score 110 or more lands at |
+| --- | --- | --- | --- |
+| fluids without medicine | 55% | shock | shock, just under severe |
+| herbal medicine | 44% | shock | shock |
+| industrial medicine | 30% | compensated | shock |
+| glitterworld medicine | 20% | compensated | compensated |
+
+Figures assume a doctor whose tend quality stat is 1; a poorer doctor gets less from the same medicine.
 
 ## Settings
 
@@ -57,12 +72,15 @@ and the uninstall button.
 
 ## For modders
 
-Mark an injury Def as a burn for the burned fraction with the extension this mod patches onto the game's burns:
+Mark an injury Def as a burn for the burned fraction with the extension this mod patches onto the game's burns, and say how
+its damage becomes area (the Def's own severity stays its depth): the fraction of a part one point of damage covers, and the
+most of a part one such burn can cover. Fire is 0.0833 and 1; an incendiary round is 0.025 and 0.3.
 
 ```xml
 <modExtensions>
   <li Class="Phobos.BurnsAndSmoke.Defs.PhobosBurnLikeExtension">
-    <tbsaWeight>1</tbsaWeight>
+    <areaPerDamage>0.0833</areaPerDamage>
+    <maxArea>1</maxArea>
   </li>
 </modExtensions>
 ```
@@ -72,10 +90,10 @@ tables of the hediff Defs. Smoke and carbon monoxide are read from D'thorga Fram
 
 ## Checks done (4 November 2026)
 
-- Built against the RimWorld 1.7 and 1.6 reference assemblies. The game-free rules (skin shares, burned fraction, burned-off
-  parts, the Baux score, its floor and treatment factor, carbon monoxide uptake and clearance, the airway curve) pass 18 unit
-  tests.
+- Built against the RimWorld 1.7 and 1.6 reference assemblies. The game-free rules (skin shares, burn area by kind, burned
+  fraction, burned-off parts, the Baux score, its floor and the treatment factor by medicine quality, carbon monoxide uptake and
+  clearance, the airway curve) pass 19 unit tests.
 - The owner's first look in game (0.1.0, an incendiary raid) showed the mod running without errors but counting far too
-  little: see the changelog's 0.2.0 fixes. 0.2.1 is **not yet tested in game**.
-- **Not checked:** anything in game for 0.2.1. The giver's cadence, the stage tables' feel, the tracheotomy, the More Injuries handlers
+  little: see the changelog's 0.2.0 fixes. 0.3.0 is **not yet tested in game**.
+- **Not checked:** anything in game for 0.3.0. The giver's cadence, the stage tables' feel, the tracheotomy, the More Injuries handlers
   and Organ Failure's interception of a closed airway are all untested.

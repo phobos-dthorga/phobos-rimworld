@@ -20,10 +20,17 @@ public static class BurnShockRule
         return target < 0f ? 0f : target > 1f ? 1f : target;
     }
 
-    /// <summary>How much treatment lowers the target: tended burns and bed rest, with a floor so care never zeroes it outright.</summary>
-    public static float TreatmentFactor(float tendedFraction, bool inBed, float tendedRelief, float bedRestRelief, float floor)
+    /// <summary>
+    /// How much treatment lowers the target: tended burns, bed rest, and fluids (the shock condition's own tending) in
+    /// proportion to the tend quality, which the game sets from the doctor's skill and the medicine's potency (none 0.3,
+    /// herbal 0.6, industrial 1, glitterworld 1.6, capped at the medicine's quality ceiling, 1.3 for glitterworld). A floor
+    /// keeps care from zeroing it outright. Owner's choice (4 Nov 2026): playable over exact, with no burn ward needed.
+    /// </summary>
+    public static float TreatmentFactor(float tendedFraction, bool inBed, float fluidsQuality, float tendedRelief, float bedRestRelief,
+        float fluidsReliefPerQuality, float fluidsQualityCap, float floor)
     {
-        float factor = 1f - tendedRelief * Clamp01(tendedFraction) - (inBed ? bedRestRelief : 0f);
+        float quality = fluidsQuality < 0f ? 0f : fluidsQuality > fluidsQualityCap ? fluidsQualityCap : fluidsQuality;
+        float factor = 1f - tendedRelief * Clamp01(tendedFraction) - (inBed ? bedRestRelief : 0f) - fluidsReliefPerQuality * quality;
         return factor < floor ? floor : factor;
     }
 

@@ -5,6 +5,8 @@ namespace Phobos.BurnsAndSmoke.Rules.Tests;
 
 public class BurnLoadRuleTests
 {
+    const float Fire = 1f / 12f;
+
     [Fact]
     public void NoBurnsGivesNothingBurnedAndEverythingTended()
     {
@@ -14,34 +16,39 @@ public class BurnLoadRuleTests
     }
 
     [Fact]
-    public void ABurnPastThePartsHealthCountsAsTheWholePart()
+    public void AreaComesFromDamageByKindNotFromPartHealth()
     {
-        // Two burns of 20 on a 30-health torso (skin share 0.405, from the human body's coverage) burn the whole torso.
-        BurnLoad load = BurnLoadRule.Compute(new[] { new BurnedPart(40f, 30f, 0.405f, false) });
-        Assert.Equal(0.405f, load.Tbsa, 4);
-        Assert.Equal(0f, load.TendedFraction);
+        // Fire: 12 points cover a whole part, more never covers more than the part.
+        Assert.Equal(0.25f, BurnLoadRule.AreaFraction(3f, Fire, 1f), 4);
+        Assert.Equal(1f, BurnLoadRule.AreaFraction(40f, Fire, 1f), 4);
+        // An incendiary round: deep but small, 40 points for a whole part and never past 30% of it.
+        Assert.Equal(0.25f, BurnLoadRule.AreaFraction(10f, 0.025f, 0.3f), 4);
+        Assert.Equal(0.3f, BurnLoadRule.AreaFraction(40f, 0.025f, 0.3f), 4);
+        Assert.Equal(0f, BurnLoadRule.AreaFraction(0f, Fire, 1f));
     }
 
     [Fact]
-    public void BurnedAreaIsWeightedByEachPartsShareOfTheSkin()
+    public void TenSecondsOnFireIsASeriousBurn()
     {
-        // Half the torso and a whole hand (share 0.008).
+        // Four fire hits of 2.5: two on the torso (share 0.405), one on a leg (0.126), one on an arm (0.08).
         BurnLoad load = BurnLoadRule.Compute(new[]
         {
-            new BurnedPart(15f, 30f, 0.405f, false),
-            new BurnedPart(10f, 10f, 0.008f, false),
+            new BurnedPart(BurnLoadRule.AreaFraction(5f, Fire, 1f), 0.405f, false),
+            new BurnedPart(BurnLoadRule.AreaFraction(2.5f, Fire, 1f), 0.126f, false),
+            new BurnedPart(BurnLoadRule.AreaFraction(2.5f, Fire, 1f), 0.08f, false),
         });
-        Assert.Equal(0.2025f + 0.008f, load.Tbsa, 4);
+        Assert.Equal(0.405f * 5f / 12f + 0.126f * 2.5f / 12f + 0.08f * 2.5f / 12f, load.Tbsa, 4);
+        Assert.True(load.Tbsa >= 0.15f);
     }
 
     [Fact]
     public void TheTendedShareIsByAreaNotByCount()
     {
-        // A tended torso and an untended hand: nearly all of the burned area is tended.
+        // A tended whole torso and an untended whole hand (share 0.008): nearly all of the burned area is tended.
         BurnLoad load = BurnLoadRule.Compute(new[]
         {
-            new BurnedPart(30f, 30f, 0.405f, true),
-            new BurnedPart(10f, 10f, 0.008f, false),
+            new BurnedPart(1f, 0.405f, true),
+            new BurnedPart(1f, 0.008f, false),
         });
         Assert.Equal(0.405f / 0.413f, load.TendedFraction, 3);
     }
@@ -115,11 +122,29 @@ public class BurnShockRuleTests
     }
 
     [Fact]
-    public void TreatmentLowersTheTargetToAFloor()
+    public void TreatmentLowersTheTargetByMedicineQualityToAFloor()
     {
-        Assert.Equal(1f, BurnShockRule.TreatmentFactor(0f, false, 0.6f, 0.3f, 0.1f));
-        Assert.Equal(0.4f, BurnShockRule.TreatmentFactor(1f, false, 0.6f, 0.3f, 0.1f), 4);
-        Assert.Equal(0.1f, BurnShockRule.TreatmentFactor(1f, true, 0.6f, 0.3f, 0.1f), 4);
+        // Burns tended and in bed, fluids by the game's tend quality: none 0.3, herbal 0.6, industrial 1, glitterworld 1.3.
+        Assert.Equal(1f, BurnShockRule.TreatmentFactor(0f, false, 0f, 0.2f, 0.15f, 0.35f, 1.3f, 0.1f));
+        Assert.Equal(0.545f, BurnShockRule.TreatmentFactor(1f, true, 0.3f, 0.2f, 0.15f, 0.35f, 1.3f, 0.1f), 4);
+        Assert.Equal(0.44f, BurnShockRule.TreatmentFactor(1f, true, 0.6f, 0.2f, 0.15f, 0.35f, 1.3f, 0.1f), 4);
+        Assert.Equal(0.30f, BurnShockRule.TreatmentFactor(1f, true, 1f, 0.2f, 0.15f, 0.35f, 1.3f, 0.1f), 4);
+        Assert.Equal(0.195f, BurnShockRule.TreatmentFactor(1f, true, 1.3f, 0.2f, 0.15f, 0.35f, 1.3f, 0.1f), 4);
+        // Quality past the cap earns nothing more; everything together never passes the floor.
+        Assert.Equal(0.195f, BurnShockRule.TreatmentFactor(1f, true, 1.6f, 0.2f, 0.15f, 0.35f, 1.3f, 0.1f), 4);
+        Assert.Equal(0.1f, BurnShockRule.TreatmentFactor(1f, true, 1.3f, 0.5f, 0.3f, 0.35f, 1.3f, 0.1f), 4);
+    }
+
+    [Fact]
+    public void TheWorstScoresStayOutOfTheDeathClocksWithIndustrialCare()
+    {
+        // Score 110 or more: target 1. Full care with industrial medicine lands at the "shock" stage (0.30), under the
+        // "severe" clock at 0.55; glitterworld at "compensated"; no medicine just under "severe".
+        float untreated = BurnShockRule.Target(120f, 36f, 110f);
+        Assert.Equal(1f, untreated);
+        Assert.Equal(0.30f, untreated * BurnShockRule.TreatmentFactor(1f, true, 1f, 0.2f, 0.15f, 0.35f, 1.3f, 0.1f), 4);
+        Assert.Equal(0.195f, untreated * BurnShockRule.TreatmentFactor(1f, true, 1.3f, 0.2f, 0.15f, 0.35f, 1.3f, 0.1f), 4);
+        Assert.True(untreated * BurnShockRule.TreatmentFactor(1f, true, 0.3f, 0.2f, 0.15f, 0.35f, 1.3f, 0.1f) < 0.55f);
     }
 
     [Fact]

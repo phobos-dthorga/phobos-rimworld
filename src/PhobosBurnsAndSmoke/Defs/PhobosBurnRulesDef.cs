@@ -35,8 +35,14 @@ public class PhobosBurnRulesDef : PhobosRulesDef
     public float inhalationCarbonMonoxideThreshold = 0.2f;
     public float shockRisePerDay = 1f;
     public float shockFallPerDay = 0.35f;
-    public float tendedShockRelief = 0.6f;
-    public float bedRestShockRelief = 0.3f;
+    // Treatment: each term takes a slice off the untreated target; fluids scale with the tend quality of the shock's own
+    // tending (medicine potency times the doctor's skill). Authored so that industrial medicine with bed rest holds the worst
+    // scores at the "shock" stage and glitterworld at "compensated" (owner's choice, 4 Nov 2026).
+    public float tendedShockRelief = 0.2f;
+    public float bedRestShockRelief = 0.15f;
+    public float fluidsShockReliefPerQuality = 0.35f;
+    /// <summary>The game's best tend quality (glitterworld medicine's ceiling); relief stops growing past it.</summary>
+    public float fluidsQualityCap = 1.3f;
     public float shockTreatmentFloor = 0.1f;
 
     // Airway burn: delayed swelling over hours, resolving in about two days (approximate).
@@ -56,9 +62,14 @@ public class PhobosBurnRulesDef : PhobosRulesDef
     public static PhobosBurnRulesDef Current => Current<PhobosBurnRulesDef>();
 }
 
-/// <summary>Marks an injury Def as a burn for the burn load. Patched onto the game's burns and Combat Extended's; other mods add it in XML.</summary>
+/// <summary>
+/// Marks an injury Def as a burn for the burn load and says how its damage turns into burned area. Patched onto the game's
+/// burns and Combat Extended's; other mods add it in XML. Depth is the Def's own severity; these two fields are area.
+/// </summary>
 public class PhobosBurnLikeExtension : DefModExtension
 {
-    /// <summary>How much of a burn this counts as for burned area; 1 for a plain burn.</summary>
-    public float tbsaWeight = 1f;
+    /// <summary>Fraction of the part one point of damage covers. Default: a wide, shallow fire burn, 12 points for the whole part (authored).</summary>
+    public float areaPerDamage = 1f / 12f;
+    /// <summary>The most of a part one burn of this kind can cover; 1 for fire, small for a round or a beam (authored).</summary>
+    public float maxArea = 1f;
 }

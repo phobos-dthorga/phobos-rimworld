@@ -105,7 +105,7 @@
     <defName>PhobosBurns_BurnShock</defName>
     <label>burn shock</label>
     <labelNoun>burn shock</labelNoun>
-    <description>Fluid pouring out through burned skin and the body's response to a large burn. Older patients and larger burns do worse, and a burned airway or carbon monoxide makes it worse still. Tend every burn, keep the patient in bed, and tend the shock itself to replace fluids. Untreated, severe burn shock kills within days.</description>
+    <description>Fluid pouring out through burned skin and the body's response to a large burn. Older patients and larger burns do worse, and a burned airway or carbon monoxide makes it worse still. Tend every burn, keep the patient in bed, and tend the shock itself to replace fluids; better medicine replaces more. Untreated, severe burn shock kills within days.</description>
     <hediffClass>HediffWithComps</hediffClass>
     <defaultLabelColor>(0.9, 0.3, 0.3)</defaultLabelColor>
     <maxSeverity>1</maxSeverity>

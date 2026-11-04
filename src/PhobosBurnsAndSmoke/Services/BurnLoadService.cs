@@ -14,16 +14,19 @@ public readonly struct BurnShockReadout
     public readonly bool InhalationInjury;
     public readonly float TendedFraction;
     public readonly bool InBed;
+    /// <summary>The tend quality of the shock's own tending (fluids), 0 when untended.</summary>
+    public readonly float FluidsQuality;
     public readonly float Baux;
     public readonly float Target;
 
-    public BurnShockReadout(float ageYears, float tbsa, bool inhalationInjury, float tendedFraction, bool inBed, float baux, float target)
+    public BurnShockReadout(float ageYears, float tbsa, bool inhalationInjury, float tendedFraction, bool inBed, float fluidsQuality, float baux, float target)
     {
         AgeYears = ageYears;
         Tbsa = tbsa;
         InhalationInjury = inhalationInjury;
         TendedFraction = tendedFraction;
         InBed = inBed;
+        FluidsQuality = fluidsQuality;
         Baux = baux;
         Target = target;
     }
@@ -42,7 +45,7 @@ public static class BurnLoadService
 
     sealed class PartTally
     {
-        public float severity;
+        public float area;
         public bool allTended = true;
     }
 
@@ -56,7 +59,7 @@ public static class BurnLoadService
         return extension != null;
     }
 
-    static float Weight(HediffDef def) => burnLike.TryGetValue(def, out PhobosBurnLikeExtension? extension) && extension != null ? extension.tbsaWeight : 1f;
+    static PhobosBurnLikeExtension? Extension(HediffDef def) => burnLike.TryGetValue(def, out PhobosBurnLikeExtension? extension) ? extension : null;
 
     /// <summary>
     /// An open burn on the skin, or a part burned off that still counts (the game records the injury that destroyed a part).
@@ -98,7 +101,7 @@ public static class BurnLoadService
             {
                 if (missing.Part == null || missing.lastInjury == null || !IsBurnLike(missing.lastInjury)) continue;
                 if (missing.Part.parent != null && set.PartIsMissing(missing.Part.parent)) continue;
-                float weight = BurnLoadRule.BurnedOffWeight(missing.IsFresh, missing.ageTicks, healTicks) * Weight(missing.lastInjury);
+                float weight = BurnLoadRule.BurnedOffWeight(missing.IsFresh, missing.ageTicks, healTicks);
                 if (weight > 0f) parts.Add(BurnedPart.Lost(SkinShares.WithChildren(missing.Part), weight, !missing.IsFresh));
                 continue;
             }
@@ -108,12 +111,13 @@ public static class BurnLoadService
                 tally = new PartTally();
                 tallies[injury.Part] = tally;
             }
-            tally.severity += injury.Severity * Weight(injury.def);
+            PhobosBurnLikeExtension kind = Extension(injury.def)!;
+            tally.area += BurnLoadRule.AreaFraction(injury.Severity, kind.areaPerDamage, kind.maxArea);
             if (!injury.IsTended()) tally.allTended = false;
         }
         foreach (KeyValuePair<BodyPartRecord, PartTally> pair in tallies)
         {
-            parts.Add(new BurnedPart(pair.Value.severity, pair.Key.def.GetMaxHealth(pawn), SkinShares.For(pair.Key), pair.Value.allTended));
+            parts.Add(new BurnedPart(pair.Value.area, SkinShares.For(pair.Key), pair.Value.allTended));
         }
         return BurnLoadRule.Compute(parts);
     }
@@ -173,16 +177,26 @@ public static class BurnLoadService
 
     public static BurnShockReadout Readout(Pawn pawn) => Readout(pawn, Load(pawn), PhobosBurnRulesDef.Current);
 
+    /// <summary>The tend quality the game stored when the shock itself was last tended, while that tending lasts; 0 otherwise.</summary>
+    static float FluidsQuality(Pawn pawn)
+    {
+        Hediff? shock = pawn.health.hediffSet.GetFirstHediffOfDef(BurnsDefOf.PhobosBurns_BurnShock);
+        HediffComp_TendDuration? tend = (shock as HediffWithComps)?.TryGetComp<HediffComp_TendDuration>();
+        return tend != null && tend.IsTended ? tend.tendQuality : 0f;
+    }
+
     static BurnShockReadout Readout(Pawn pawn, BurnLoad load, PhobosBurnRulesDef rules)
     {
         float age = pawn.ageTracker.AgeBiologicalYearsFloat;
         bool inhalation = pawn.health.hediffSet.HasHediff(BurnsDefOf.PhobosBurns_AirwayBurn)
             || (pawn.health.hediffSet.GetFirstHediffOfDef(BurnsDefOf.PhobosBurns_CarbonMonoxide)?.Severity ?? 0f) >= rules.inhalationCarbonMonoxideThreshold;
         bool inBed = pawn.InBed();
+        float fluids = FluidsQuality(pawn);
         float baux = BurnShockRule.Baux(age, load.Tbsa, inhalation, rules.inhalationBauxPoints);
         float target = BurnShockRule.Target(baux, rules.bauxNoDeathScore, rules.bauxNoSurvivorScore)
-            * BurnShockRule.TreatmentFactor(load.TendedFraction, inBed, rules.tendedShockRelief, rules.bedRestShockRelief, rules.shockTreatmentFloor);
+            * BurnShockRule.TreatmentFactor(load.TendedFraction, inBed, fluids, rules.tendedShockRelief, rules.bedRestShockRelief,
+                rules.fluidsShockReliefPerQuality, rules.fluidsQualityCap, rules.shockTreatmentFloor);
         target = BurnShockRule.WithThresholdFloor(target, load.Tbsa, rules.shockStartTbsa, rules.shockThresholdFloor);
-        return new BurnShockReadout(age, load.Tbsa, inhalation, load.TendedFraction, inBed, baux, target);
+        return new BurnShockReadout(age, load.Tbsa, inhalation, load.TendedFraction, inBed, fluids, baux, target);
     }
 }

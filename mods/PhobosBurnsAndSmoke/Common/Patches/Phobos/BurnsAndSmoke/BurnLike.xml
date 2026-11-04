@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Patch>
-  <!-- Which injuries count as burns for the burned body fraction. Any mod can mark its own burn Def with the same extension.
-       The game's four burn kinds all sit on BurnBase (Core, Hediffs_Local_Injuries.xml). One operation per Def, so the
+  <!-- Which injuries count as burns for the burned body fraction, and how their damage becomes area (depth is the injury's own
+       severity). Any mod can mark its own burn Def with the same extension. The game's four burn kinds all sit on BurnBase
+       (Core, Hediffs_Local_Injuries.xml). Fire, chemical and acid burns are wide and shallow: 12 points of damage cover the
+       whole part. An electrical burn is small and deep: 40 points for a whole part, never more than 30% of it. All authored. One operation per Def, so the
        offline checker (scripts/check-factory-patches.py) can confirm each matches exactly one node. -->
   <Operation Class="PatchOperationAddModExtension">
     <xpath>Defs/HediffDef[defName="Burn"]</xpath>
     <value>
       <li Class="Phobos.BurnsAndSmoke.Defs.PhobosBurnLikeExtension">
-        <tbsaWeight>1</tbsaWeight>
+        <areaPerDamage>0.0833</areaPerDamage>
+        <maxArea>1</maxArea>
       </li>
     </value>
   </Operation>
@@ -15,7 +18,8 @@
     <xpath>Defs/HediffDef[defName="ElectricalBurn"]</xpath>
     <value>
       <li Class="Phobos.BurnsAndSmoke.Defs.PhobosBurnLikeExtension">
-        <tbsaWeight>1</tbsaWeight>
+        <areaPerDamage>0.025</areaPerDamage>
+        <maxArea>0.3</maxArea>
       </li>
     </value>
   </Operation>
@@ -23,7 +27,8 @@
     <xpath>Defs/HediffDef[defName="ChemicalBurn"]</xpath>
     <value>
       <li Class="Phobos.BurnsAndSmoke.Defs.PhobosBurnLikeExtension">
-        <tbsaWeight>1</tbsaWeight>
+        <areaPerDamage>0.0833</areaPerDamage>
+        <maxArea>1</maxArea>
       </li>
     </value>
   </Operation>
@@ -31,7 +36,8 @@
     <xpath>Defs/HediffDef[defName="AcidBurn"]</xpath>
     <value>
       <li Class="Phobos.BurnsAndSmoke.Defs.PhobosBurnLikeExtension">
-        <tbsaWeight>1</tbsaWeight>
+        <areaPerDamage>0.0833</areaPerDamage>
+        <maxArea>1</maxArea>
       </li>
     </value>
   </Operation>

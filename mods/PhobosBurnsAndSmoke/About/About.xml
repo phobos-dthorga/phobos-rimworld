@@ -4,12 +4,12 @@
   <name>D'thorga Burns and Smoke</name>
   <author>Phobos A. D'thorga</author>
   <url>https://github.com/phobos-dthorga/phobos-rimworld</url>
-  <modVersion>0.2.1</modVersion>
+  <modVersion>0.3.0</modVersion>
   <description>Burns and smoke that matter the way More Injuries' wounds do.
 
 - Burned body fraction: every burn on the skin adds up. Large burns make a patient cold, hungry, in pain and weak-hearted.
 
-- Burn shock: past about a sixth of the body burned, shock sets in, and it kills within days unless the burns are tended, the patient rests in bed and the shock itself is tended to give fluids. Older patients and inhalation injuries do worse (the revised Baux score).
+- Burn shock: past about a sixth of the body burned, shock sets in, and it kills within days unless the burns are tended, the patient rests in bed and the shock itself is tended to give fluids, which better medicine does better. Older patients and inhalation injuries do worse (the revised Baux score).
 
 - Airway burns: a pawn that burns, or is burned about the head and neck, may get an airway burn whose swelling builds over hours and can close the throat. A tracheotomy opens a way past it.
 

@@ -5,6 +5,37 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-11-04 - Draft
+
+Two owner decisions of 4 November 2026, after the first results from play. Not yet tested in game.
+
+### Added
+
+- Burn area by kind. A burn's severity is its depth, as before (pain, healing, losing the part); its area now comes from the
+  kind of burn, so fire and an armour-piercing incendiary round come out differently (owner's choice). Fire, chemical and
+  acid burns cover a whole part at 12 points of damage; an electrical burn or Combat Extended's incendiary and laser burn is
+  deep but covers at most a third of a part, 40 points for the whole. Other mods set both numbers in the same extension.
+- Fluids by medicine. Tending the shock lowers its target in proportion to the tend quality the game records, so the medicine
+  used matters: with burns tended and bed rest, industrial medicine holds the worst scores at the shock stage, out of the
+  death clocks, and glitterworld medicine brings them to compensated; herbal or none leaves them life-threatening (owner's
+  choice: playable without a burn ward). Fluids wear off after 12 hours as before.
+
+### Changed
+
+- The modder extension's single weight is replaced by areaPerDamage and maxArea. No saves hold it.
+- Tended burns and bed rest now take 20% and 15% off the untreated target instead of 60% and 30%; fluids take up to 45.5%.
+- The Engineer tooltip shows the fluids quality; the Plain tooltip says better medicine helps more.
+
+### Balance
+
+- Ten seconds on fire (four hits) is about a fifth of the body burned: serious, and over the shock threshold. A brief catch
+  on one arm is under 2% and shows nothing. Burns from fire now count about three times what they did in 0.2.1, because area
+  is no longer read against the part's full health. All authored.
+
+### Compatibility and limits
+
+- Game-free rules pass 19 unit tests. The fluids quality is read from the shock condition's own tend comp; untested in game.
+
 ## [0.2.1] - 2026-11-04 - Draft
 
 ### Fixed

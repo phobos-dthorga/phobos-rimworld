@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Patch>
-  <!-- Combat Extended's non-merging burn from incendiary ammunition and lasers counts as a burn too (CE, Hediffs_CE.xml). -->
+  <!-- Combat Extended's non-merging burn from incendiary ammunition and lasers (CE, Hediffs_CE.xml): a small, deep burn. 40
+       points of damage for a whole part, never more than 30% of it (authored). The fire such a round starts makes plain Burns,
+       which are the wide, shallow kind. -->
   <Operation Class="PatchOperationAddModExtension">
     <xpath>Defs/HediffDef[defName="BurnSecondary"]</xpath>
     <value>
       <li Class="Phobos.BurnsAndSmoke.Defs.PhobosBurnLikeExtension">
-        <tbsaWeight>1</tbsaWeight>
+        <areaPerDamage>0.025</areaPerDamage>
+        <maxArea>0.3</maxArea>
       </li>
     </value>
   </Operation>

@@ -1,6 +1,6 @@
 # Burns and smoke: research and decisions (4 Nov 2026)
 
-The record behind [D'thorga Burns and Smoke](../../mods/PhobosBurnsAndSmoke/README.md). **0.2.1 not yet tested in game**
+The record behind [D'thorga Burns and Smoke](../../mods/PhobosBurnsAndSmoke/README.md). **0.3.0 not yet tested in game**
 (0.1.0 was seen in play once; see Results from play). It is the
 first consumer of [D'thorga Framework](phobos-framework.md).
 
@@ -34,6 +34,10 @@ fluid loss, no lasting lung damage. The log had no fire-related errors.
   condition the game adds, stage fields `lifeThreatening`, `deathMtbDays` and `hediffGivers` (`HediffGiver_Random`, as the
   game's dementia uses), `HediffCompProperties_TendDuration.severityPerDayTended` (a tended condition loses severity at that rate
   times tend quality; infections use it), `HediffCompProperties_SeverityPerDay`, `Recipe_RemoveHediff` with `addsHediff`.
+- **Tend quality** (`TendUtility.CalculateBaseTendQuality`, 1.7 decompile): the doctor's Medical Tend Quality stat times the
+  medicine's potency (none 0.3, herbal 0.6, industrial 1, glitterworld 1.6), plus the bed's offset, times 0.7 for self-tending,
+  clamped to the medicine's quality ceiling (none and herbal 0.7, industrial 1, glitterworld 1.3). `HediffComp_TendDuration`
+  keeps it in a public `tendQuality` while `IsTended`, and scales `severityPerDayTended` by it.
 - **Search and Rescue** treats a tendable condition with a life-threatening stage as an emergency, and a life-threatening one
   that some `removesHediff` surgery can remove as an urgent surgical case. **Organ Failure** turns a death through breathing
   into its respiratory-failure chain.
@@ -91,7 +95,7 @@ not the numbers.
   severity while CE's smoke runs, otherwise the game's smoke through the mask; carbon monoxide comes from the framework's room
   gas, and is inferred from breathed smoke times enclosure only when that gas is switched off.
 - **A part burned off is its whole subtree's skin burned** (agent choice, 0.2.0): area = the missing part's
-  `coverageAbsWithChildren` times the destroying injury's `tbsaWeight`, parts under another missing part skipped. The stump
+  `coverageAbsWithChildren` (a lost part is wholly burned, whatever kind of burn took it), parts under another missing part skipped. The stump
   counts whole while fresh, then fades linearly to nothing over `burnedOffHealDays` (15, authored: a grafted or granulating
   stump takes weeks) by the record's age; a tended stump counts as tended area. A late tend drops the weight at once, a
   labelled simplification. Burn amputations keep the game's rule and bleed until tended or 1.5 days old. A stump past 1.5 days
@@ -101,6 +105,18 @@ not the numbers.
 - **The compensated stage always shows past the threshold** (agent choice, 0.2.0): the shock target is at least
   `shockThresholdFloor` (0.1, authored) once 15% is burned, so a young pawn below the Baux no-death mark still shows the
   fluids job; the death clocks stay Baux-driven.
+- **Area and depth are two things** (owner's choice, 4 Nov 2026: an armour-piercing incendiary round is a small deep burn, a
+  fire a wide shallow one, and one number cannot say both). Depth stays the game's severity. Area is authored per burn kind
+  in `PhobosBurnLikeExtension`: fraction of the part per point of damage and the most one burn can cover. Fire, chemical and
+  acid: 1/12 and 1, so ten seconds on fire (four vanilla hits) is about a fifth of the body. Electrical and Combat Extended's
+  `BurnSecondary`: 1/40 and 0.3. The earlier rule read severity against the part's full health, which made a shallow burn
+  across a leg a sliver and a 40-point burn the only way to a whole torso.
+- **Treatment scales with medicine** (owner's choice, 4 Nov 2026: playable over exact, treatable without a burn ward,
+  industrial medicine to a moderate degree over a long rest, glitterworld more). The fluids term of the treatment factor is
+  the shock condition's own tend quality times 0.35, capped at the game's best (1.3); tended burns 0.2, bed rest 0.15, floor
+  0.1. With full care: no medicine leaves 55% of the untreated target, herbal 44%, industrial 30%, glitterworld 20%. So a
+  score of 110 or more lands at "shock" with industrial care (life-threatening, no clock) and "compensated" with glitterworld.
+  The 110 mark stays "terminal" untreated, labelled authored (owner, 4 Nov 2026, by way of this decision).
 - **Burn shock is tendable** (agent choice): tending it stands in for fluids, through the game's own `severityPerDayTended`.
 - **Mortality through `deathMtbDays`** on stages, not a kill in code (agent choice): XML-visible, Search and Rescue sees the
   `lifeThreatening` stages.
@@ -147,13 +163,13 @@ not the numbers.
   rules. Corpses keep burning, so those recomputed figures overstate what the living pawn had. No living pawn in the save has
   a burn or a burn scar, which is why the scar fault had not yet shown.
 - **Time course, unverified.** A search found secondary sources saying capillary leak starts within minutes and runs for about 24
-  hours; an "8 to 12 hour peak" given earlier in this entry had no source and is withdrawn. 0.2.1 is not yet tested in game.
+  hours; an "8 to 12 hour peak" given earlier in this entry had no source and is withdrawn. 0.3.0 is not yet tested in game.
 
 ## Open points and upstream
 
-- **For the owner:** burn severity over part health is read as area, so a shallow burn counts as a small area and a deep burn on a
-  small area counts as a large one. Real burned area and burn depth are separate things; the game holds only one number.
-- **For the owner:** whether 110 should stay the "terminal" mark, given the sources above.
+- Supporting gear for burn care without a burn ward (owner's wish, 4 Nov 2026): a candidate for the planned medical equipment
+  mod (`art-automation-and-medical-equipment.md`), for instance a dressing or a fluids kit that raises the fluids quality, once that mod
+  has its first piece.
 - Whether `Recipe_RemoveHediff` in 1.6 already applies `addsHediff`; the subclass adds it only when the removal succeeded.
 - Whether to respect More Injuries' own `EnableFireInhalation` setting instead of removing its worker.
 - Phase 2: constricting eschar on limbs burned past 60% of a part's health, an escharotomy surgery, ischaemic damage, a hand-off

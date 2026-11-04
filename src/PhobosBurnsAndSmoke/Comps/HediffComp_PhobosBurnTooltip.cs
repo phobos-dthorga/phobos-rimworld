@@ -44,7 +44,8 @@ public class HediffComp_PhobosBurnTooltip : HediffComp
                     {
                         line += "\n" + "PhobosBurns_TipBurnShockEngineer".Translate(readout.AgeYears.ToString("0"), (readout.Tbsa * 100f).ToString("0"),
                             readout.InhalationInjury ? PhobosBurnRulesDef.Current.inhalationBauxPoints.ToString("0") : "0",
-                            (readout.TendedFraction * 100f).ToString("0"), readout.InBed ? "PhobosBurns_Yes".Translate().ToString() : "PhobosBurns_No".Translate().ToString());
+                            (readout.TendedFraction * 100f).ToString("0"), readout.InBed ? "PhobosBurns_Yes".Translate().ToString() : "PhobosBurns_No".Translate().ToString(),
+                            (readout.FluidsQuality * 100f).ToString("0"));
                     }
                     return line;
                 case PhobosBurnTooltipKind.CarbonMonoxide:
