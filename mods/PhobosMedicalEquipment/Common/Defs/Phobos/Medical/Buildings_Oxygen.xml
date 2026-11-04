@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- Built like the game's vitals monitor and VFE Medical's IV stand: a one-tile facility placed against a bed. The art is a labelled
+       placeholder (see its record). Power, cost, work and the patient limit are authored; real concentrators draw about 300 to 600 W. -->
+  <ThingDef ParentName="BuildingBase">
+    <defName>PhobosMedical_OxygenConcentrator</defName>
+    <label>oxygen concentrator</label>
+    <description>A bedside machine that pulls nitrogen out of the air and gives patients what is left, which is nearly pure oxygen. It runs on power alone and stores nothing. Build it against a hospital bed: anyone in that bed who needs oxygen gets it by themselves.\n\nIt helps with low breathing and clears carbon monoxide faster. It does not repair damaged lungs, and it cannot help if the airway is closed.</description>
+    <graphicData>
+      <texPath>Phobos/Medical/Things/OxygenConcentrator</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>(1,1)</drawSize>
+      <shadowData>
+        <volume>(0.5, 0.3, 0.45)</volume>
+      </shadowData>
+    </graphicData>
+    <altitudeLayer>Building</altitudeLayer>
+    <passability>PassThroughOnly</passability>
+    <fillPercent>0.25</fillPercent>
+    <rotatable>false</rotatable>
+    <tickerType>Rare</tickerType>
+    <statBases>
+      <MaxHitPoints>80</MaxHitPoints>
+      <WorkToBuild>3000</WorkToBuild>
+      <Mass>18</Mass>
+      <Flammability>0.7</Flammability>
+    </statBases>
+    <size>(1,1)</size>
+    <costList>
+      <Steel>40</Steel>
+      <ComponentIndustrial>2</ComponentIndustrial>
+    </costList>
+    <researchPrerequisites>
+      <li>MedicineProduction</li>
+    </researchPrerequisites>
+    <building>
+      <destroySound>BuildingDestroyed_Metal_Small</destroySound>
+    </building>
+    <designationCategory>Misc</designationCategory>
+    <minifiedDef>MinifiedThing</minifiedDef>
+    <thingCategories>
+      <li>BuildingsMisc</li>
+    </thingCategories>
+    <constructionSkillPrerequisite>4</constructionSkillPrerequisite>
+    <placeWorkers>
+      <li>PlaceWorker_ShowFacilitiesConnections</li>
+    </placeWorkers>
+    <comps>
+      <li Class="CompProperties_Power">
+        <compClass>CompPowerTrader</compClass>
+        <shortCircuitInRain>true</shortCircuitInRain>
+        <basePowerConsumption>350</basePowerConsumption>
+      </li>
+      <li Class="CompProperties_Flickable"/>
+      <li Class="CompProperties_Facility">
+        <maxSimultaneous>1</maxSimultaneous>
+        <mustBePlacedAdjacent>true</mustBePlacedAdjacent>
+      </li>
+      <li Class="Phobos.Medical.Comps.CompProperties_PhobosOxygenSupply">
+        <maxPatients>2</maxPatients>
+        <fuelPerPatientHour>0</fuelPerPatientHour>
+      </li>
+    </comps>
+  </ThingDef>
+</Defs>

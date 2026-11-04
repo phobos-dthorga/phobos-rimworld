@@ -5,6 +5,14 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-11-05 - Draft
+
+### Added
+
+- Supplied oxygen, for medical mods: one condition marks a pawn as breathing supplied oxygen, and another marks a condition as one
+  oxygen helps, so a mod can ask about either without depending on the mod behind it. It is a treatment, not a gas in the room.
+  Not yet tested in game.
+
 ### Changed
 
 - The description now carries the disclaimer in the wording Ludeon's EULA requires. It said only that the mod is not official and not endorsed. No behaviour change.

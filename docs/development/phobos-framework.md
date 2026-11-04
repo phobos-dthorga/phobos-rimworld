@@ -82,6 +82,10 @@ visits 1/64 of cells per tick for fading and 1/32 for spreading, as it does afte
 
 None yet.
 
+## Supplied oxygen (0.2.0, 5 Nov 2026)
+
+`PhobosBreathing` answers two questions from a pawn's conditions: is it on supplied oxygen, and does it have a condition oxygen helps. Two `DefModExtension`s mark those conditions, so [Burns and Smoke](burns-and-smoke.md) and [Medical Equipment](medical-equipment.md) need no dependency on each other. It is a treatment, not a gas, which keeps it clear of an air model (owner's gas rule).
+
 ## Open points and upstream
 
 - Door and vent discovery on 1.7 reads correctly but is unverified in play (read from the 1.7 assembly, 5 Nov 2026): `Region.Neighbors` walks the

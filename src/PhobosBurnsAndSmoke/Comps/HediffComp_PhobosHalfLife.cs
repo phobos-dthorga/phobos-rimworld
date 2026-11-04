@@ -1,9 +1,11 @@
 using Phobos.BurnsAndSmoke.Rules;
+using Phobos.Framework.Breathing;
+using Phobos.Framework.Rules;
 using Verse;
 
 namespace Phobos.BurnsAndSmoke.Comps;
 
-/// <summary>First-order clearance: the condition halves every so many hours, faster in open air. Used for carbon monoxide.</summary>
+/// <summary>First-order clearance: the condition halves every so many hours, faster in open air and faster still on supplied oxygen. Used for carbon monoxide.</summary>
 public class HediffCompProperties_PhobosHalfLife : HediffCompProperties
 {
     public float halfLifeHoursRoofed = 5.3f;
@@ -27,7 +29,8 @@ public class HediffComp_PhobosHalfLife : HediffComp
         base.CompPostTickInterval(ref severityAdjustment, delta);
         if (!Pawn.IsHashIntervalTick(CheckTicks, delta)) return;
         bool roofed = Pawn.Spawned && Pawn.Map != null && Pawn.Position.Roofed(Pawn.Map);
-        float halfLife = roofed ? Props.halfLifeHoursRoofed : Props.halfLifeHoursOutdoors;
+        float halfLife = BreathingRule.ClearanceHalfLifeHours(roofed ? Props.halfLifeHoursRoofed : Props.halfLifeHoursOutdoors,
+            PhobosBreathing.SuppliedCarbonMonoxideHalfLifeHours(Pawn));
         float remaining = CarbonMonoxideRule.Remaining(parent.Severity, HoursPerCheck, halfLife);
         severityAdjustment += remaining - parent.Severity;
     }

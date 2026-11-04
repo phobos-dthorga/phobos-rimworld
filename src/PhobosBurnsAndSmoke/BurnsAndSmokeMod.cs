@@ -40,7 +40,7 @@ public class BurnsAndSmokeSettings : ModSettings
 public class BurnsAndSmokeMod : Mod
 {
     public const string PackageId = "PhobosDthorga.BurnsAndSmoke";
-    public const string ModVersion = "0.3.0";
+    public const string ModVersion = "0.4.0";
     public const string LogPrefix = "[D'thorga Burns and Smoke]";
 
     public static BurnsAndSmokeSettings Settings { get; private set; } = new();

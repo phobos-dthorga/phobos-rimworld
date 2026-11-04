@@ -57,6 +57,10 @@ promise current behaviour. For using the mods, start at the [documentation index
   plain burns and nothing else), how the game, Combat Extended and More Injuries handle fire and smoke, the medical sources
   behind the burned fraction, burn shock, airway burns, lung injury and carbon monoxide, who chose what, and the test protocol.
 
+## Medical equipment
+
+- [Medical equipment: research and decisions (5 Nov 2026)](medical-equipment.md): bedside oxygen on the pattern of the vitals monitor and IV stand, what is reused from Vanilla Gravship Expanded, why Organ Failure's ventilator cannot appear in the owner's game, and the test protocol.
+
 ## Emergency dosing
 
 - [Emergency dosing: research and decisions (5 Nov 2026)](emergency-dosing.md): why no doctor ever gives a painkiller or

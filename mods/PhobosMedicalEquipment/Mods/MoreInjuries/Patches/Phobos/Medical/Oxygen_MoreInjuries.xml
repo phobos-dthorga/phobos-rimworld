@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <!-- More Injuries' organ hypoxia counts as needing oxygen. Its own code still decides how it clears. -->
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>Defs/HediffDef[defName="OrganHypoxia"]</xpath>
+    <value>
+      <li Class="Phobos.Framework.Breathing.PhobosOxygenResponsiveExtension">
+        <minSeverity>0.05</minSeverity>
+      </li>
+    </value>
+  </Operation>
+</Patch>

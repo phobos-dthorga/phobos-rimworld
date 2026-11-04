@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <!-- Combat Extended's smoke inhalation counts as needing oxygen from its first visible effects (authored). -->
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>Defs/HediffDef[defName="SmokeInhalation"]</xpath>
+    <value>
+      <li Class="Phobos.Framework.Breathing.PhobosOxygenResponsiveExtension">
+        <minSeverity>0.1</minSeverity>
+      </li>
+    </value>
+  </Operation>
+</Patch>

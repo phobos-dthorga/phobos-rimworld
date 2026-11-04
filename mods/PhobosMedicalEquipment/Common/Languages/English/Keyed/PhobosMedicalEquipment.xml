@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <PhobosMedical_SettingsCategory>D'thorga Medical Equipment</PhobosMedical_SettingsCategory>
+  <PhobosMedical_SettingRemoveAll>Remove every oxygen condition from every pawn</PhobosMedical_SettingRemoveAll>
+  <PhobosMedical_SettingRemoveAllDesc>Do this, and deconstruct the machines, before you take this mod out of a colony. Then save and switch the mod off.</PhobosMedical_SettingRemoveAllDesc>
+  <PhobosMedical_RemoveNeedsGame>Load a colony first: there are no pawns to change in the main menu.</PhobosMedical_RemoveNeedsGame>
+  <PhobosMedical_RemoveDone>Removed {COUNT} oxygen conditions. Save the game before you switch the mod off.</PhobosMedical_RemoveDone>
+
+  <PhobosMedical_StatusSwitchedOff>Switched off, so nobody gets oxygen from it.</PhobosMedical_StatusSwitchedOff>
+  <PhobosMedical_StatusNoPower>Waiting for power.</PhobosMedical_StatusNoPower>
+  <PhobosMedical_StatusNoBed>Not against a bed it can serve. Build it touching a hospital bed.</PhobosMedical_StatusNoBed>
+  <PhobosMedical_StatusNoOxygen>Out of oxygen: waiting for canisters or a connected oxygen pipe.</PhobosMedical_StatusNoOxygen>
+  <PhobosMedical_StatusWaiting>Waiting for a patient who needs oxygen.</PhobosMedical_StatusWaiting>
+  <PhobosMedical_StatusTreating>Giving oxygen to {PATIENTS}.</PhobosMedical_StatusTreating>
+
+  <PhobosMedical_TipOnOxygenPlain>Clears carbon monoxide about four times faster, and eases low breathing.</PhobosMedical_TipOnOxygenPlain>
+  <PhobosMedical_TipOnOxygen>Carbon monoxide half-life on oxygen: {MINUTES} minutes, against about 320 on room air. Eases low breathing, up to normal.</PhobosMedical_TipOnOxygen>
+</LanguageData>

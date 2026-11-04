@@ -1,0 +1,44 @@
+# D'thorga Medical Equipment changelog
+
+Maintained from 5 November 2026. Draft entries record preparation, not Steam publication; nothing is published yet. Not yet
+tested in game unless an entry says the owner tested it.
+
+## [Unreleased]
+
+## [0.1.0] - 2026-11-05 - Draft
+
+The first pieces of the owner's medical equipment idea: oxygen at the bedside. Not yet tested in game. Labels, descriptions and the
+placeholder art are agent-authored and held for the owner's review.
+
+### Added
+
+- Oxygen concentrator: a one-tile bedside facility that needs only power, for up to two patients.
+- Bedside oxygen stand, only while Vanilla Gravship Expanded is active: burns its oxygen canisters, and fills from its oxygen pipes
+  through Vanilla Expanded Framework's own linking. One canister per patient per in-game hour.
+- Both link to any bed that accepts a vitals monitor, found by that and not by name, and are built against the bed in the same way.
+- Treatment is automatic (owner's choice): a patient in a linked bed with a condition oxygen helps, or with breathing under 80%, gets
+  the on oxygen condition with no job. The worst breathing is served first. It lapses soon after the supply stops.
+- On oxygen raises breathing by 20 points up to normal. With D'thorga Burns and Smoke, carbon monoxide's half-life falls to 75 minutes.
+- Each machine's inspect text says what it is doing or waiting for. Machines have the game's power switch.
+- Settings: the display mode and an uninstall button. A dev action logs a pawn's oxygen need.
+
+### Balance
+
+- Power, cost, work, the patient limit, the canister rate and the breathing figures are authored. The 75 minutes is sourced.
+
+### Dependencies
+
+- D'thorga Framework 0.2.0 or later and Vanilla Expanded Framework (required; the latter is the owner's choice, for the pipes
+  this mod will need, though this version uses its linking only through Vanilla Gravship Expanded). Burns and Smoke 0.4.0, Vanilla
+  Gravship Expanded, Combat Extended and More Injuries are optional and used when present.
+
+### Save compatibility
+
+- Safe to add mid-game. To remove: deconstruct the machines, press the settings button, save, then switch the mod off.
+
+### Compatibility and limits
+
+- Oxygen does not repair lungs, does not treat More Injuries' hypoxia directly beyond easing breathing, and cannot help a closed airway.
+- A patient on oxygen in a room full of carbon monoxide still breathes it in, a simplification. Move them.
+- The art is a scripted placeholder with one view. Only beds are served: no field use yet.
+- Game-free rules pass their unit tests and it builds for 1.7 and 1.6. Nothing is tested in game, including the pipe link.

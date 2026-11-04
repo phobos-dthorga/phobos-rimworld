@@ -97,6 +97,11 @@
         </capMods>
       </li>
     </stages>
+    <modExtensions>
+      <li Class="Phobos.Framework.Breathing.PhobosOxygenResponsiveExtension">
+        <minSeverity>0.1</minSeverity>
+      </li>
+    </modExtensions>
   </HediffDef>
 
   <!-- Lasting lung injury from smoke: irritants scar the lower airway (Walker and colleagues, Critical Care 2015). It is
@@ -192,6 +197,11 @@
         </hediffGivers>
       </li>
     </stages>
+    <modExtensions>
+      <li Class="Phobos.Framework.Breathing.PhobosOxygenResponsiveExtension">
+        <minSeverity>0.05</minSeverity>
+      </li>
+    </modExtensions>
   </HediffDef>
 
   <!-- Pneumonia from smoke-damaged lungs, shaped like the game's wound infection: it runs against immunity, tending helps.
@@ -258,6 +268,11 @@
         </capMods>
       </li>
     </stages>
+    <modExtensions>
+      <li Class="Phobos.Framework.Breathing.PhobosOxygenResponsiveExtension">
+        <minSeverity>0</minSeverity>
+      </li>
+    </modExtensions>
   </HediffDef>
 
   <!-- The acute smoke condition, used only while Combat Extended's is not running: the same shape as CE's SmokeInhalation
@@ -374,5 +389,10 @@
         </capMods>
       </li>
     </stages>
+    <modExtensions>
+      <li Class="Phobos.Framework.Breathing.PhobosOxygenResponsiveExtension">
+        <minSeverity>0.1</minSeverity>
+      </li>
+    </modExtensions>
   </HediffDef>
 </Defs>

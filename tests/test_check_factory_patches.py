@@ -161,6 +161,22 @@ class CheckerTests(unittest.TestCase):
                 'Common/Patches/Twins.xml: PatchOperationAdd xpath matches 2 nodes, not 1: '
                 'Defs/RecipeDef[defName="Phobos_Twin"]/recipeUsers'])
 
+    def test_every_bed_taking_a_facility_may_match_but_a_mistyped_facility_may_not(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            f = Fixture(tmp)
+            bed = ('<ThingDef><defName>{0}</defName><comps><li Class="CompProperties_AffectedByFacilities"><linkableFacilities>'
+                   '<li>VitalsMonitor</li></linkableFacilities></li></comps></ThingDef>')
+            write(f.mod / 'Common' / 'Defs' / 'Beds.xml', '<Defs>' + bed.format('Phobos_BedA') + bed.format('Phobos_BedB') + '</Defs>')
+            xpath = 'Defs/ThingDef/comps/li[@Class="CompProperties_AffectedByFacilities"]/linkableFacilities[li="{0}"]'
+            add = '<Operation Class="PatchOperationAdd"><xpath>{0}</xpath><value><li>Phobos_Oxygen</li></value></Operation>'
+            write(f.mod / 'Common' / 'Patches' / 'Beds.xml', '<Patch>' + add.format(xpath.format('VitalsMonitor')) + '</Patch>')
+            errors, _ = f.check()
+            self.assertEqual(errors, [])
+            write(f.mod / 'Common' / 'Patches' / 'Beds.xml', '<Patch>' + add.format(xpath.format('VitalsMonitr')) + '</Patch>')
+            errors, _ = f.check()
+            self.assertEqual(len(errors), 1)
+            self.assertIn('matches 0 nodes', errors[0])
+
     def test_a_file_hidden_by_a_later_folder_is_reported(self):
         # The 0.3.0 fault: two load folders with Patches/Granulator.xml. The game loads only the later folder's.
         with tempfile.TemporaryDirectory() as tmp:

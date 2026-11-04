@@ -4,7 +4,7 @@ Burns and smoke that matter the way More Injuries' wounds do: a burned body frac
 unless treated, airway burns that swell shut over hours, smoke that scars the lungs, and carbon monoxide from fires in closed
 rooms.
 
-Version 0.3.0, built 4 November 2026 for House D'thorga. **Not yet tested in game.** Everything here is read from the game's and
+Version 0.4.0, built 5 November 2026 for House D'thorga. **Not yet tested in game.** Everything here is read from the game's and
 the mods' code.
 
 ## Read this first (gotchas)
@@ -44,7 +44,7 @@ the mods' code.
 | airway burn | burning, or burns to the head and neck | time: swelling peaks at 8 hours, holds to 24, gone by 48 | a tracheotomy; or waiting, if it never closes |
 | smoke-damaged lungs | breathing smoke | thicker smoke, longer | tending; rest; heals 4% a day untended, 16% tended well |
 | pneumonia | severe lung damage | | tending and immunity, like a wound infection |
-| carbon monoxide poisoning | the framework's carbon monoxide in a closed burning room | staying in the room | clean air: halves every 5.3 hours under a roof, 3 in the open |
+| carbon monoxide poisoning | the framework's carbon monoxide in a closed burning room | staying in the room | clean air: halves every 5.3 hours under a roof, 3 in the open; on supplied oxygen, about every 75 minutes, with D'thorga Medical Equipment |
 | smoke inhalation (acute) | breathing the game's smoke, only when Combat Extended's smoke is not running | thicker smoke | clean air; clears in a day or so |
 
 Burned body fraction stages: minor from 5%, serious from 15% (hunger, cold sensitivity, blood pumping), major from 30%,
@@ -94,6 +94,6 @@ tables of the hediff Defs. Smoke and carbon monoxide are read from D'thorga Fram
   fraction, burned-off parts, the Baux score, its floor and the treatment factor by medicine quality, carbon monoxide uptake and
   clearance, the airway curve) pass 19 unit tests.
 - The owner's first look in game (0.1.0, an incendiary raid) showed the mod running without errors but counting far too
-  little: see the changelog's 0.2.0 fixes. 0.3.0 is **not yet tested in game**.
-- **Not checked:** anything in game for 0.3.0. The giver's cadence, the stage tables' feel, the tracheotomy, the More Injuries handlers
+  little: see the changelog's 0.2.0 fixes. 0.4.0 is **not yet tested in game**.
+- **Not checked:** anything in game for 0.4.0. The giver's cadence, the stage tables' feel, the tracheotomy, the More Injuries handlers
   and Organ Failure's interception of a closed airway are all untested.

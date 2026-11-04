@@ -251,6 +251,9 @@ def template_errors(template, index, active, where):
 # A path to one whole Def by name. Matching several means several mods each define it (the Harrier, Hind and Mongoose
 # all carry the AP rocket's recipe). The game keeps the last and the patch reaches them all, so that's not a fault.
 WHOLE_DEF_XPATH = re.compile(r'Defs/[\w.]+\[defName="[^"]+"\]')
+# Every building that links a named facility, however many there are: how a machine joins "any bed that takes a vitals monitor"
+# without naming beds. Matching several is the point; matching none is still an error.
+FACILITY_LINK_XPATH = re.compile(r'Defs/ThingDef/comps/li\[@Class="CompProperties_AffectedByFacilities"\]/linkableFacilities\[li="\w+"\]')
 
 
 def patch_errors(element, index, active_names, where, added, parent_names=None):
@@ -278,7 +281,7 @@ def patch_errors(element, index, active_names, where, added, parent_names=None):
     elif cls in XPATH_OPERATIONS:
         xpath = (element.findtext('xpath') or '').strip()
         count = index.matches(xpath)
-        if count != 1 and not (count > 1 and WHOLE_DEF_XPATH.fullmatch(xpath)):
+        if count != 1 and not (count > 1 and (WHOLE_DEF_XPATH.fullmatch(xpath) or FACILITY_LINK_XPATH.fullmatch(xpath))):
             errors.append(f'{where}: {cls} xpath matches {count} nodes, not 1: {xpath}')
         if cls == 'PatchOperationAdd' and xpath.endswith('/processes'):
             added.update((li.text or '').strip() for li in element.findall('value/li'))

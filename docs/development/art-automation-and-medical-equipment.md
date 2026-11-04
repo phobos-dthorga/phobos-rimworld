@@ -15,7 +15,7 @@ are decided, and record finished work in the owning mod's changelog or record.
 | Hands-off art pipeline | **Built; checked offline only, never run on the GPU** | The owner's go for a short test run | [Below](#hands-off-art-pipeline) |
 | Medical art, first batch | Requests written, held for review; nothing generated | After the test run | [`assets/phobos-medical`](../../assets/phobos-medical/README.md) |
 | Style training | Tooling written; the training tool is cloned but not installed | The owner runs its installer | [Below](#style-training) |
-| Medical equipment mod | Ideas only; the oxygen chain is chosen | The owner picks a first piece, after the test | [Below](#medical-equipment) |
+| D'thorga Medical Equipment 0.1.0 | Draft: concentrator and bedside stand; not yet tested in game | The owner's test | [Record](medical-equipment.md) |
 
 ## Decisions so far
 
@@ -30,7 +30,8 @@ are decided, and record finished work in the owning mod's changelog or record.
 | Prefer slow, full models: "It's better than having to repeat the action several times or more" | Owner, 5 Nov 2026 |
 | Use FLUX.2 Klein 4B base and Z-Image base first; FLUX 3 Image Klein waits for the owner to read its licence | Agent default, 5 Nov 2026, for the owner to change |
 | The first batch makes south views only; the other views come from the picks | Agent default, 5 Nov 2026 |
-| Put medical equipment in its own mod, not in Burns and Smoke | Agent suggestion, not yet decided |
+| Put medical equipment in its own mod, not in Burns and Smoke | Agent choice, built 5 Nov 2026 |
+| Bedside oxygen first, automatic, with a concentrator too; no Questionable Ethics, and a ventilator of our own later | Owner, 5 Nov 2026 |
 
 ## Hands-off art pipeline
 
@@ -72,12 +73,14 @@ python scripts/art-run.py generate assets/phobos-medical/requests/test-run.json 
 
 **Checked so far (5 Nov 2026), and no further:**
 
-- 57 offline tests of the graphs and rules.
+- Offline tests of the graphs and rules.
 - Every engine's graph against the node list of ComfyUI 0.41.0, started on the CPU. `flux3-base` passes except for its two files, which are correctly reported as not installed.
 - A real refusal while the owner played: `not starting: rimworld.exe is running`.
 - The sorter, contact sheet and review page on real radio candidates, in a scratch copy.
 
-**No image has been generated with the new engines, no step count has been timed on this card, and the stop, finish and report paths have not run against a live generation.** The sorter's sharpness mark also gave all four of those candidates full marks, so it may need raising once real batches exist.
+- A rehearsal of every way a run can end against a stand-in ComfyUI, in `tests/test_art_run_rehearsal.py`: finishing, the game starting mid-image, the stop time, a full disk, an unreadable process list, one failure, three in a row, a missing model, a stuck image and the server vanishing. It found and fixed three faults.
+
+**No image has been generated with the new engines, no step count has been timed on this card, and nothing has run against the real ComfyUI's generation.** The sorter's sharpness mark also gave all four of those candidates full marks, so it may need raising once real batches exist.
 
 **What a run needs from the owner:** the go and a stop time, and the commands allowed beforehand, because a permission prompt would stall a night's work. New downloads are named first; licences are checked before anything runs.
 
@@ -197,7 +200,7 @@ None of the oxygen above treats a patient yet, as far as these Defs show: it ser
 
 - **Medical oxygen** uses Vanilla Gravship Expanded's canister or pipe network when that mod is active, as an optional tie-in.
   Without it, we supply a simple oxygen item of our own, because nothing else would exist.
-- **Airway support:** Organ Failure's ventilation only works alongside Questionable Ethics. For the owner's game nothing exists to reuse, so under the owner's rule a ventilator of ours could earn its place.
+- **Airway support:** Organ Failure's ventilation only works alongside Questionable Ethics, which the owner does not want ("done poorly and we can do much better", 5 Nov 2026). Nothing else exists to reuse, so a ventilator of ours earns its place, later.
 
 ### The oxygen chain (owner, 5 Nov 2026)
 
@@ -230,7 +233,7 @@ tier, not medical advice: the NHS England review noted there that clinical evide
 
 **Engineering notes:**
 
-- **Its own mod** (agent suggestion), because it will serve more than burns. Shared services go in D'thorga Framework.
+- **Its own mod,** because it will serve more than burns. Shared services go in D'thorga Framework. Built: [Medical equipment record](medical-equipment.md).
 - **Vanilla Expanded Framework is a required dependency of this mod** (owner, 4 Nov 2026). Its PipeSystem module can carry our own
   piped oxygen when Vanilla Gravship Expanded is absent, the same module that network already uses and the radio framework's
   feedline relies on. Declared in `modDependencies`; the installed assembly is referenced with `Private=false`, never copied

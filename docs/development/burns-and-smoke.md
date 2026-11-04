@@ -174,5 +174,5 @@ not the numbers.
 - Whether to respect More Injuries' own `EnableFireInhalation` setting instead of removing its worker.
 - Phase 2: constricting eschar on limbs burned past 60% of a part's health, an escharotomy surgery, ischaemic damage, a hand-off
   to More Injuries' gangrene, and a fluid-resuscitation bill that consumes its saline bag.
-- Later: animals, an oxygen treatment that halves the carbon monoxide half-life, letters for the life-threatening stages.
+- Later: animals, letters for the life-threatening stages. The oxygen treatment came in 0.4.0, through D'thorga Medical Equipment.
 - Upstream, for More Injuries' author: the `CE_WearingGasMask` check never matches Combat Extended's `WearingGasMask`.

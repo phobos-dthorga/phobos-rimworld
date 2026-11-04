@@ -5,6 +5,18 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.4.0] - 2026-11-05 - Draft
+
+### Added
+
+- Supplied oxygen clears carbon monoxide faster: a half-life of about 75 minutes against about 320 on room air, from any mod's
+  treatment that the framework reports (D'thorga Medical Equipment's first). Carbon monoxide, smoke-damaged lungs, pneumonia and
+  smoke inhalation now count as conditions oxygen helps. Not yet tested in game.
+
+### Dependencies
+
+- D'thorga Framework 0.2.0 or later.
+
 ### Changed
 
 - The description now carries the disclaimer in the wording Ludeon's EULA requires. It said only that the mod is not official and not endorsed. No behaviour change.

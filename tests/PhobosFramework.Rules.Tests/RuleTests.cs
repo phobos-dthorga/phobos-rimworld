@@ -3,6 +3,29 @@ using Xunit;
 
 namespace Phobos.Framework.Rules.Tests;
 
+public class BreathingRuleTests
+{
+    [Fact]
+    public void WithNoOxygenTheSurroundingsDecide() => Assert.Equal(5.3f, BreathingRule.ClearanceHalfLifeHours(5.3f, null));
+
+    [Fact]
+    public void OxygenShortensIt() => Assert.Equal(1.25f, BreathingRule.ClearanceHalfLifeHours(5.3f, 1.25f));
+
+    [Fact]
+    public void OxygenNeverSlowsClearanceDown() => Assert.Equal(0.5f, BreathingRule.ClearanceHalfLifeHours(0.5f, 1.25f));
+
+    [Fact]
+    public void ABadFigureIsIgnored() => Assert.Equal(5.3f, BreathingRule.ClearanceHalfLifeHours(5.3f, 0f));
+
+    [Fact]
+    public void TheBetterOfTwoTreatmentsWins()
+    {
+        Assert.Equal(0.4f, BreathingRule.Shortest(1.25f, 0.4f));
+        Assert.Equal(0.4f, BreathingRule.Shortest(0.4f, 1.25f));
+        Assert.Equal(1.25f, BreathingRule.Shortest(null, 1.25f));
+    }
+}
+
 public class GasMixRuleTests
 {
     [Fact]

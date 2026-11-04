@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- Authored starting values, to tune in play. -->
+  <Phobos.Medical.Defs.PhobosMedicalRulesDef>
+    <defName>PhobosMedical_Rules</defName>
+    <breathingNeedThreshold>0.8</breathingNeedThreshold>
+    <oxygenLingerTicks>600</oxygenLingerTicks>
+  </Phobos.Medical.Defs.PhobosMedicalRulesDef>
+</Defs>

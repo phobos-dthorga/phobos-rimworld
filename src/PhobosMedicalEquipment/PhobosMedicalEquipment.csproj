@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- D'thorga Medical Equipment's assembly, built for RimWorld 1.7 (net10.0) and 1.6 (net472); Directory.Build.targets turns
+       the target into the game version, the output folder and the game reference. It references the game and D'thorga Framework
+       (Private=false: the framework's DLL ships only in its own mod). Vanilla Gravship Expanded is reached through its Defs only,
+       and pipes come from Vanilla Expanded Framework linking refuelable buildings by itself. No Harmony. -->
+  <PropertyGroup>
+    <TargetFrameworks>net472;net10.0</TargetFrameworks>
+    <RootNamespace>Phobos.Medical</RootNamespace>
+    <AssemblyName>PhobosMedicalEquipment</AssemblyName>
+    <ModFolder>PhobosMedicalEquipment</ModFolder>
+    <Version>0.1.0</Version>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../PhobosFramework/PhobosFramework.csproj" Private="false" />
+  </ItemGroup>
+</Project>

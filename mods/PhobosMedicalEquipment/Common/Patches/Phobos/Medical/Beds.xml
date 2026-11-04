@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <!-- Any bed that takes a vitals monitor takes our machines too, so modded hospital beds are covered without naming them. -->
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/ThingDef/comps/li[@Class="CompProperties_AffectedByFacilities"]/linkableFacilities[li="VitalsMonitor"]</xpath>
+    <value>
+      <li>PhobosMedical_OxygenConcentrator</li>
+    </value>
+  </Operation>
+</Patch>

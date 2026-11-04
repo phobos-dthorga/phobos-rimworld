@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- Reuses Vanilla Gravship Expanded's oxygen, under the owner's rule. Vanilla Expanded Framework's AutoLinkRefuelables links any
+       building whose fuel filter takes a canister to VGE_OxygenNet, so piping needs no code of ours. The rate is authored. -->
+  <ThingDef ParentName="BuildingBase">
+    <defName>PhobosMedical_BedsideOxygenStand</defName>
+    <label>bedside oxygen stand</label>
+    <description>A regulator, a flowmeter and a mask on a pole. It runs on oxygen canisters, and it fills itself from an oxygen pipe laid to it. Build it against a hospital bed: anyone in that bed who needs oxygen gets it by themselves.\n\nIt helps with low breathing and clears carbon monoxide faster. It does not repair damaged lungs, and it cannot help if the airway is closed. Canisters explode when they burn.</description>
+    <graphicData>
+      <texPath>Phobos/Medical/Things/BedsideOxygenStand</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>(1,1)</drawSize>
+      <shadowData>
+        <volume>(0.3, 0.4, 0.3)</volume>
+      </shadowData>
+    </graphicData>
+    <altitudeLayer>Building</altitudeLayer>
+    <passability>PassThroughOnly</passability>
+    <fillPercent>0.15</fillPercent>
+    <rotatable>false</rotatable>
+    <tickerType>Rare</tickerType>
+    <statBases>
+      <MaxHitPoints>60</MaxHitPoints>
+      <WorkToBuild>1200</WorkToBuild>
+      <Mass>8</Mass>
+      <Flammability>0.5</Flammability>
+    </statBases>
+    <size>(1,1)</size>
+    <costList>
+      <Steel>15</Steel>
+      <ComponentIndustrial>1</ComponentIndustrial>
+    </costList>
+    <researchPrerequisites>
+      <li>MedicineProduction</li>
+      <li>VGE_OxygenNetwork</li>
+    </researchPrerequisites>
+    <building>
+      <destroySound>BuildingDestroyed_Metal_Small</destroySound>
+    </building>
+    <designationCategory>Misc</designationCategory>
+    <minifiedDef>MinifiedThing</minifiedDef>
+    <thingCategories>
+      <li>BuildingsMisc</li>
+    </thingCategories>
+    <placeWorkers>
+      <li>PlaceWorker_ShowFacilitiesConnections</li>
+    </placeWorkers>
+    <comps>
+      <li Class="CompProperties_Flickable"/>
+      <li Class="CompProperties_Refuelable">
+        <fuelLabel>oxygen</fuelLabel>
+        <fuelGizmoLabel>Oxygen</fuelGizmoLabel>
+        <outOfFuelMessage>Needs oxygen canisters</outOfFuelMessage>
+        <fuelCapacity>20</fuelCapacity>
+        <initialFuelPercent>0</initialFuelPercent>
+        <autoRefuelPercent>0.5</autoRefuelPercent>
+        <consumeFuelOnlyWhenUsed>true</consumeFuelOnlyWhenUsed>
+        <showFuelGizmo>true</showFuelGizmo>
+        <fuelFilter>
+          <thingDefs>
+            <li>VGE_OxygenCanister</li>
+          </thingDefs>
+        </fuelFilter>
+      </li>
+      <li Class="CompProperties_Facility">
+        <maxSimultaneous>1</maxSimultaneous>
+        <mustBePlacedAdjacent>true</mustBePlacedAdjacent>
+      </li>
+      <li Class="Phobos.Medical.Comps.CompProperties_PhobosOxygenSupply">
+        <maxPatients>2</maxPatients>
+        <fuelPerPatientHour>1</fuelPerPatientHour>
+      </li>
+    </comps>
+  </ThingDef>
+</Defs>
