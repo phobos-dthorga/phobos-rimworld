@@ -169,16 +169,16 @@ public class MaskRuleTests
         Assert.Equal(1f, MaskRule.Unfiltered(false));
         Assert.Equal(0f, MaskRule.Unfiltered(true));
         // Combat Extended: its power and recon helmets set smoke sensitivity to 0 (an offset of -1).
-        Assert.True(MaskRule.IsSealed(true, 0f, 0f));
-        Assert.False(MaskRule.IsSealed(true, 1f, 0.8f));
+        Assert.True(MaskRule.IsSealed(true, 0f, 0f, 0.999f));
+        Assert.False(MaskRule.IsSealed(true, 1f, 0.8f, 0.999f));
         // Its gas masks carry the same -1, but a filter mask is not sealed air: their offset is left out of the figure.
         Assert.Equal(1f, MaskRule.SensitivityFromSealingGear(1f, new float[0]));
         Assert.Equal(0f, MaskRule.SensitivityFromSealingGear(1f, new[] { -1f }));
         Assert.Equal(0f, MaskRule.SensitivityFromSealingGear(1f, new[] { -1f, -0.6f }));
-        Assert.False(MaskRule.IsSealed(true, MaskRule.SensitivityFromSealingGear(1f, new float[0]), 0.8f));
+        Assert.False(MaskRule.IsSealed(true, MaskRule.SensitivityFromSealingGear(1f, new float[0]), 0.8f, 0.999f));
         // Without it, only total toxic environment resistance counts as sealed.
-        Assert.True(MaskRule.IsSealed(false, 1f, 1f));
-        Assert.False(MaskRule.IsSealed(false, 1f, 0.8f));
+        Assert.True(MaskRule.IsSealed(false, 1f, 1f, 0.999f));
+        Assert.False(MaskRule.IsSealed(false, 1f, 0.8f, 0.999f));
     }
 }
 
@@ -187,10 +187,10 @@ public class EnclosureAndFireSmokeRuleTests
     [Fact]
     public void EnclosureIsOneInASealedRoomAndZeroInTheOpen()
     {
-        Assert.Equal(1f, EnclosureRule.Compute(true, false, 0, 20));
-        Assert.Equal(0f, EnclosureRule.Compute(false, false, 0, 20));
-        Assert.Equal(0.5f, EnclosureRule.Compute(true, false, 10, 20));
-        Assert.Equal(EnclosureRule.RoofedButOutdoors, EnclosureRule.Compute(true, true, 0, 20));
+        Assert.Equal(1f, EnclosureRule.Compute(true, false, 0, 20, 0.25f));
+        Assert.Equal(0f, EnclosureRule.Compute(false, false, 0, 20, 0.25f));
+        Assert.Equal(0.5f, EnclosureRule.Compute(true, false, 10, 20, 0.25f));
+        Assert.Equal(0.25f, EnclosureRule.Compute(true, true, 0, 20, 0.25f));
     }
 
     [Fact]

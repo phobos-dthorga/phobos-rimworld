@@ -44,11 +44,18 @@ public class PhobosBurnRulesDef : PhobosRulesDef
     /// <summary>The game's best tend quality (glitterworld medicine's ceiling); relief stops growing past it.</summary>
     public float fluidsQualityCap = 1.3f;
     public float shockTreatmentFloor = 0.1f;
+    /// <summary>Where burn shock starts, and the severity below which it leaves once the burned fraction is under the threshold.</summary>
+    public float shockInitialSeverity = 0.01f;
+    public float shockRemoveBelow = 0.02f;
 
     // Airway burn: delayed swelling over hours, resolving in about two days (approximate).
     public float airwayBaseChance = 0.15f;
     /// <summary>Fresh burn damage to the head and neck that gives half the base chance.</summary>
     public float airwayReferenceDamage = 10f;
+    /// <summary>The share of the base chance that the reference damage earns.</summary>
+    public float airwayChanceAtReferenceDamage = 0.5f;
+    /// <summary>The peak of the lightest exposure, as a share of the full stage table; the worst reaches all of it.</summary>
+    public float airwayLightestPeak = 0.5f;
 
     // Carbon monoxide: half-life about 320 minutes on room air (Weaver and colleagues, 2000); faster in open air (authored).
     public float coUptakePerHourAtFullGas = 0.3f;

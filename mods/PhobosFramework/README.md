@@ -4,7 +4,7 @@ The shared library the D'thorga mods build on. On its own it changes almost noth
 colonist is breathing, makes fires fill roofed rooms with the game's own smoke when Combat Extended's smoke is not running,
 carries carbon monoxide from fires, and holds the small helpers every D'thorga mod shares.
 
-Version 0.2.1, built 5 November 2026 for House D'thorga. **Not yet tested in game.** Everything here is read from the game's and
+Version 0.2.2, built 5 November 2026 for House D'thorga. **Not yet tested in game.** Everything here is read from the game's and
 the mods' code.
 
 ## Read this first (gotchas)

@@ -26,11 +26,12 @@
     <!-- What makes a dose a sedative: a consciousness ceiling at or below 0.1. An offset is a cost, never a sedation. -->
     <sedativeConsciousnessCeiling>0.1</sedativeConsciousnessCeiling>
 
-    <!-- How much each side effect counts against relief when choosing between items; bleed counts a quarter when the patient
-         is not bleeding. -->
+    <!-- How much each side effect counts against relief when choosing between items, and the share of the bleed weight that
+         counts while the patient is not bleeding. -->
     <consciousnessWeight>0.5</consciousnessWeight>
     <breathingWeight>0.5</breathingWeight>
     <bleedWeight>1</bleedWeight>
+    <bleedWeightWhenNotBleeding>0.25</bleedWeightWhenNotBleeding>
     <addictionWeight>0.5</addictionWeight>
   </Phobos.Dosing.Defs.PhobosDosingRulesDef>
 </Defs>

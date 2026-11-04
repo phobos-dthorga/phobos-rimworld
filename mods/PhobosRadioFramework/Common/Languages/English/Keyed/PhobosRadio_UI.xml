@@ -9,23 +9,23 @@
   <PhobosRadio_DisplayModeOperatorDesc>Adds the band, the signal-to-noise ratio, the margin and which direction limits the link.</PhobosRadio_DisplayModeOperatorDesc>
   <PhobosRadio_DisplayModeEngineer>Engineer</PhobosRadio_DisplayModeEngineer>
   <PhobosRadio_DisplayModeEngineerDesc>The whole link-budget sheet, every gain and loss, in both directions.</PhobosRadio_DisplayModeEngineerDesc>
-  <PhobosRadio_SettingMetresPerCell>Metres per map cell: {0}</PhobosRadio_SettingMetresPerCell>
+  <PhobosRadio_SettingMetresPerCell>Metres per map cell: {METRES}</PhobosRadio_SettingMetresPerCell>
   <PhobosRadio_SettingMetresPerCellDesc>What one map cell measures. Decide before you start a colony: changing it later changes every distance and cable loss, so links that worked may stop. The game never defines it; 1 m matches the furniture, about 26 m matches walking speed.</PhobosRadio_SettingMetresPerCellDesc>
   <PhobosRadio_SettingInTouchThought>"In touch with home" mood for colonists whose radio reaches a base station</PhobosRadio_SettingInTouchThought>
   <PhobosRadio_SettingInTouchThoughtDesc>A small mood bonus for a free colonist wearing a hand-held with a working link to a base station. Turn it off to keep the radios as a pure readout.</PhobosRadio_SettingInTouchThoughtDesc>
 
   <!-- Gizmos. -->
-  <PhobosRadio_GizmoLabel>Radio {0}</PhobosRadio_GizmoLabel>
+  <PhobosRadio_GizmoLabel>Radio {BARS}</PhobosRadio_GizmoLabel>
   <PhobosRadio_GizmoNoStation>Radio: no station</PhobosRadio_GizmoNoStation>
-  <PhobosRadio_GizmoStation>Net: {0} of {1} in touch</PhobosRadio_GizmoStation>
+  <PhobosRadio_GizmoStation>Net: {INTOUCH} of {TOTAL} in touch</PhobosRadio_GizmoStation>
   <PhobosRadio_NoStation>No base station on this map, so there is nothing to reach.</PhobosRadio_NoStation>
-  <PhobosRadio_PlainReason>Why: {0}.</PhobosRadio_PlainReason>
+  <PhobosRadio_PlainReason>Why: {REASON}.</PhobosRadio_PlainReason>
 
   <!-- Station inspect text. -->
   <PhobosRadio_StationWaitingPower>Waiting for power.</PhobosRadio_StationWaitingPower>
   <PhobosRadio_StationNoRadios>No hand-held radios worn on this map.</PhobosRadio_StationNoRadios>
-  <PhobosRadio_StationInTouch>In touch: {0} of {1} hand-helds.</PhobosRadio_StationInTouch>
-  <PhobosRadio_StationAntenna>Antenna: {0}</PhobosRadio_StationAntenna>
+  <PhobosRadio_StationInTouch>In touch: {INTOUCH} of {TOTAL} hand-helds.</PhobosRadio_StationInTouch>
+  <PhobosRadio_StationAntenna>Antenna: {ANTENNA}</PhobosRadio_StationAntenna>
   <PhobosRadio_AntennaBuiltIn>built-in whip</PhobosRadio_AntennaBuiltIn>
 
   <!-- The link-budget window and the station's Net tab. -->
@@ -35,24 +35,24 @@
   <PhobosRadio_TabBestStation>(their best station)</PhobosRadio_TabBestStation>
 
   <!-- The siting preview while placing an antenna or station. -->
-  <PhobosRadio_SitingHeight>Antenna height: {0} m</PhobosRadio_SitingHeight>
+  <PhobosRadio_SitingHeight>Antenna height: {HEIGHT} m</PhobosRadio_SitingHeight>
   <PhobosRadio_SitingOpenSky>Open sky: no roof loss</PhobosRadio_SitingOpenSky>
-  <PhobosRadio_SitingRoof>Under {0}: {1} dB lost</PhobosRadio_SitingRoof>
+  <PhobosRadio_SitingRoof>Under {ROOF}: {LOSS} dB lost</PhobosRadio_SitingRoof>
   <PhobosRadio_SitingQuiet>Quiet: no colony noise reaches here</PhobosRadio_SitingQuiet>
-  <PhobosRadio_SitingNoise>Colony noise here: {0} dBm</PhobosRadio_SitingNoise>
+  <PhobosRadio_SitingNoise>Colony noise here: {NOISE} dBm</PhobosRadio_SitingNoise>
 
   <!-- Feedline ports. -->
   <PhobosRadio_PortNoCable>No coax connected.</PhobosRadio_PortNoCable>
   <PhobosRadio_PortCableNoAntenna>Coax connected, but no antenna on it.</PhobosRadio_PortCableNoAntenna>
-  <PhobosRadio_PortAntennasOnCable>Antennas on the coax: {0}.</PhobosRadio_PortAntennasOnCable>
+  <PhobosRadio_PortAntennasOnCable>Antennas on the coax: {COUNT}.</PhobosRadio_PortAntennasOnCable>
   <PhobosRadio_PortCableNoStation>Coax connected, but no base station on it.</PhobosRadio_PortCableNoStation>
-  <PhobosRadio_PortConnectedTo>Connected to {0}.</PhobosRadio_PortConnectedTo>
+  <PhobosRadio_PortConnectedTo>Connected to {STATION}.</PhobosRadio_PortConnectedTo>
 
   <!-- Operator and Engineer text. -->
   <PhobosRadio_DirectionHandheldToStation>Hand-held to station</PhobosRadio_DirectionHandheldToStation>
   <PhobosRadio_DirectionStationToHandheld>Station to hand-held</PhobosRadio_DirectionStationToHandheld>
-  <PhobosRadio_OperatorSummary>{0}: signal {1} dB above the noise, margin {2} dB. Limited by: {3}. Distance {4} m.</PhobosRadio_OperatorSummary>
-  <PhobosRadio_SheetHeader>Link budget on {0} at {1} MHz, {2}</PhobosRadio_SheetHeader>
-  <PhobosRadio_SheetAntennas>Antennas: {0} and {1}</PhobosRadio_SheetAntennas>
-  <PhobosRadio_SheetDirectionLimiting>{0} (this direction limits the link)</PhobosRadio_SheetDirectionLimiting>
+  <PhobosRadio_OperatorSummary>{BAND}: signal {SNR} dB above the noise, margin {MARGIN} dB. Limited by: {DIRECTION}. Distance {DISTANCE} m.</PhobosRadio_OperatorSummary>
+  <PhobosRadio_SheetHeader>Link budget on {BAND} at {FREQUENCY} MHz, {MODE}</PhobosRadio_SheetHeader>
+  <PhobosRadio_SheetAntennas>Antennas: {FIRST} and {SECOND}</PhobosRadio_SheetAntennas>
+  <PhobosRadio_SheetDirectionLimiting>{DIRECTION} (this direction limits the link)</PhobosRadio_SheetDirectionLimiting>
 </LanguageData>

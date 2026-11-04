@@ -53,7 +53,7 @@ public static class PhobosGases
         if (!roofed) return 0f;
         Room? room = cell.GetRoom(map);
         bool outdoors = room == null || room.UsesOutdoorTemperature || room.PsychologicallyOutdoors;
-        return EnclosureRule.Compute(true, outdoors, room?.OpenRoofCount ?? 0, room?.CellCount ?? 0);
+        return EnclosureRule.Compute(true, outdoors, room?.OpenRoofCount ?? 0, room?.CellCount ?? 0, PhobosGasRulesDef.Current.enclosureRoofedButOutdoors);
     }
 
     /// <summary>Adds an existing gas kind at a cell through every carrier that takes it (the game's grid spreads it itself).</summary>

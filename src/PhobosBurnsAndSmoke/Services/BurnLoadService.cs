@@ -163,11 +163,11 @@ public static class BurnLoadService
         {
             if (load.Tbsa < rules.shockStartTbsa || readout.Target <= 0f) return;
             shock = HediffMaker.MakeHediff(BurnsDefOf.PhobosBurns_BurnShock, pawn);
-            shock.Severity = 0.01f;
+            shock.Severity = rules.shockInitialSeverity;
             pawn.health.AddHediff(shock);
         }
         float next = BurnShockRule.Step(shock.Severity, readout.Target, days, rules.shockRisePerDay, rules.shockFallPerDay);
-        if (load.Tbsa < rules.shockStartTbsa && next < 0.02f)
+        if (load.Tbsa < rules.shockStartTbsa && next < rules.shockRemoveBelow)
         {
             pawn.health.RemoveHediff(shock);
             return;

@@ -43,5 +43,5 @@ public class HediffComp_PhobosRiseThenFall : HediffComp
     public override string CompTipStringExtra =>
         BurnsAndSmokeMod.Settings.displayMode == Framework.DisplayMode.Plain
             ? ""
-            : "PhobosBurns_TipAirway".Translate(AgeHours.ToString("0.0"), (peak * 100f).ToString("0"), Props.peakHours.ToString("0"), Props.resolveHours.ToString("0"));
+            : "PhobosBurns_TipAirway".Translate(AgeHours.ToString("0.0").Named("AGE"), (peak * 100f).ToString("0").Named("PEAK"), Props.peakHours.ToString("0").Named("PEAKHOURS"), Props.resolveHours.ToString("0").Named("RESOLVEHOURS"));
 }

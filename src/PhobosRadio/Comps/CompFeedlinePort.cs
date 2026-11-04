@@ -25,11 +25,11 @@ public class CompFeedlinePort : CompResource
             var antennas = FeedlineService.AntennasOn(this);
             return antennas.Count == 0
                 ? "PhobosRadio_PortCableNoAntenna".Translate()
-                : "PhobosRadio_PortAntennasOnCable".Translate(antennas.Count);
+                : "PhobosRadio_PortAntennasOnCable".Translate(antennas.Count.Named("COUNT"));
         }
         var station = FeedlineService.StationOn(this);
         return station == null
             ? "PhobosRadio_PortCableNoStation".Translate()
-            : "PhobosRadio_PortConnectedTo".Translate(station.parent.LabelCap);
+            : "PhobosRadio_PortConnectedTo".Translate(station.parent.LabelCap.ToString().Named("STATION"));
     }
 }

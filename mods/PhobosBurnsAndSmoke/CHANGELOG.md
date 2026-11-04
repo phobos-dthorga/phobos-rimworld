@@ -5,6 +5,22 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.4.2] - 2026-11-05 - Draft
+
+No change in play. Not yet tested in game.
+
+### Changed
+
+- Tooltips now read their figures from the Defs: the shock threshold, the score marks and treatment terms in Engineer mode, the carbon
+  monoxide half-lives and the lung recovery rates. Tuning those in XML now changes the text too.
+- Messages use named placeholders, so translators can see what each one means.
+- Moved into the rules Def, at the same values: burn shock's starting and leaving severities, and the airway burn's chance at the
+  reference damage and its lightest peak.
+
+### Save compatibility
+
+- Nothing saved changes.
+
 ## [0.4.1] - 2026-11-05 - Draft
 
 The owner's rule of 5 November 2026: text a player reads in game stays in the game world. Wording agreed with the owner. Not yet

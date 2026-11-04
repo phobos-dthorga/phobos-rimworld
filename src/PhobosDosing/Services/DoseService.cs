@@ -161,7 +161,7 @@ public static class DoseService
             }
         }
         if (worst == DoseRefusal.None) return "PhobosDosing_RefusalNothingInReach".Translate();
-        return ("PhobosDosing_Refusal" + worst).Translate(label);
+        return ("PhobosDosing_Refusal" + worst).Translate(label.Named("DRUG"));
     }
 
     /// <summary>The largest share of a dose of this item still in the patient, over the conditions it gives.</summary>

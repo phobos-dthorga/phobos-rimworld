@@ -17,11 +17,11 @@ public static class AirwayRule
         return 1f - (ageHours - plateauEndHours) / (resolveHours - plateauEndHours);
     }
 
-    /// <summary>The peak a given exposure reaches: half for the lightest, the full stage table for the worst. Authored.</summary>
-    public static float Peak(float exposure)
+    /// <summary>The peak a given exposure reaches: the lightest peak at the least, the full stage table for the worst.</summary>
+    public static float Peak(float exposure, float lightestPeak)
     {
         float clamped = exposure < 0f ? 0f : exposure > 1f ? 1f : exposure;
-        return 0.5f + 0.5f * clamped;
+        return lightestPeak + (1f - lightestPeak) * clamped;
     }
 
     public static float Severity(float ageHours, float peak, float peakHours, float plateauEndHours, float resolveHours) =>
@@ -31,11 +31,11 @@ public static class AirwayRule
     /// Chance per check that an airway burn starts: full base chance while the pawn is on fire, else scaled by fresh burn
     /// damage to the head and neck over a reference amount.
     /// </summary>
-    public static float OnsetChance(bool onFire, float freshHeadNeckBurnDamage, float baseChance, float referenceDamage)
+    public static float OnsetChance(bool onFire, float freshHeadNeckBurnDamage, float baseChance, float referenceDamage, float chanceAtReferenceDamage)
     {
         if (onFire) return baseChance;
         if (freshHeadNeckBurnDamage <= 0f || referenceDamage <= 0f) return 0f;
-        float scale = 0.5f * freshHeadNeckBurnDamage / referenceDamage;
+        float scale = chanceAtReferenceDamage * freshHeadNeckBurnDamage / referenceDamage;
         return baseChance * (scale > 1f ? 1f : scale);
     }
 }

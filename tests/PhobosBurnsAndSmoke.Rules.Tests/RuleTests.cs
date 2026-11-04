@@ -201,17 +201,17 @@ public class AirwayRuleTests
     [Fact]
     public void TheLightestExposureReachesOnlyHalfTheStageTable()
     {
-        Assert.Equal(0.5f, AirwayRule.Peak(0f));
-        Assert.Equal(1f, AirwayRule.Peak(1f));
-        Assert.Equal(0.75f, AirwayRule.Severity(8f, AirwayRule.Peak(0.5f), 8f, 24f, 48f), 4);
+        Assert.Equal(0.5f, AirwayRule.Peak(0f, 0.5f));
+        Assert.Equal(1f, AirwayRule.Peak(1f, 0.5f));
+        Assert.Equal(0.75f, AirwayRule.Severity(8f, AirwayRule.Peak(0.5f, 0.5f), 8f, 24f, 48f), 4);
     }
 
     [Fact]
     public void NoExposureMeansNoOnset()
     {
-        Assert.Equal(0f, AirwayRule.OnsetChance(false, 0f, 0.15f, 10f));
-        Assert.Equal(0.15f, AirwayRule.OnsetChance(true, 0f, 0.15f, 10f));
-        Assert.Equal(0.075f, AirwayRule.OnsetChance(false, 10f, 0.15f, 10f), 4);
-        Assert.Equal(0.15f, AirwayRule.OnsetChance(false, 40f, 0.15f, 10f), 4);
+        Assert.Equal(0f, AirwayRule.OnsetChance(false, 0f, 0.15f, 10f, 0.5f));
+        Assert.Equal(0.15f, AirwayRule.OnsetChance(true, 0f, 0.15f, 10f, 0.5f));
+        Assert.Equal(0.075f, AirwayRule.OnsetChance(false, 10f, 0.15f, 10f, 0.5f), 4);
+        Assert.Equal(0.15f, AirwayRule.OnsetChance(false, 40f, 0.15f, 10f, 0.5f), 4);
     }
 }

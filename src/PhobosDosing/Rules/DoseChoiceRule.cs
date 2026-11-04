@@ -9,9 +9,12 @@ public readonly struct DoseWeights
     public readonly float Breathing;
     public readonly float Bleed;
     public readonly float Addiction;
+    /// <summary>The share of the bleed weight that counts while the patient is not bleeding.</summary>
+    public readonly float BleedWhenNotBleeding;
 
-    public DoseWeights(float consciousness, float breathing, float bleed, float addiction)
+    public DoseWeights(float consciousness, float breathing, float bleed, float addiction, float bleedWhenNotBleeding)
     {
+        BleedWhenNotBleeding = bleedWhenNotBleeding;
         Consciousness = consciousness;
         Breathing = breathing;
         Bleed = bleed;
@@ -49,7 +52,7 @@ public static class DoseChoiceRule
 
     public static float Score(DoseEffect effect, bool patientBleeding, DoseWeights weights)
     {
-        float bleedWeight = patientBleeding ? weights.Bleed : weights.Bleed * 0.25f;
+        float bleedWeight = patientBleeding ? weights.Bleed : weights.Bleed * weights.BleedWhenNotBleeding;
         return effect.PainRelief
             - (effect.Sedative ? 0f : weights.Consciousness * effect.ConsciousnessCost)
             - weights.Breathing * effect.BreathingCost

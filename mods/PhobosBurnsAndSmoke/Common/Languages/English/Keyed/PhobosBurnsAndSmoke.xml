@@ -16,18 +16,18 @@
   <PhobosBurns_SettingAcuteSmokeWithCombatExtendedDesc>Off by default: with Combat Extended's smoke running, its own smoke inhalation condition is the one that applies, and this mod adds only the lasting lung damage and carbon monoxide. On, both acute conditions apply.</PhobosBurns_SettingAcuteSmokeWithCombatExtendedDesc>
   <PhobosBurns_SettingRemoveAll>Remove every burn condition from every pawn</PhobosBurns_SettingRemoveAll>
   <PhobosBurns_SettingRemoveAllDesc>Before switching this mod off: press the button, save, then remove the mod. Burns themselves stay; only this mod's own conditions go.</PhobosBurns_SettingRemoveAllDesc>
-  <PhobosBurns_MessageRemovedAll>Removed {0} burn conditions. Save now, then the mod can be switched off.</PhobosBurns_MessageRemovedAll>
+  <PhobosBurns_MessageRemovedAll>Removed {COUNT} burn conditions. Save now, then the mod can be switched off.</PhobosBurns_MessageRemovedAll>
 
   <PhobosBurns_TipBurnLoadPlain>Burned skin loses fluid and heat. Tend every burn, keep the patient warm and fed, and in bed if it is serious.</PhobosBurns_TipBurnLoadPlain>
-  <PhobosBurns_TipBurnLoad>About {0}% of the body is burned. Tend every burn; past 15% burn shock follows.</PhobosBurns_TipBurnLoad>
+  <PhobosBurns_TipBurnLoad>About {BURNED}% of the body is burned. Tend every burn; past {SHOCKSTART}% burn shock follows.</PhobosBurns_TipBurnLoad>
   <PhobosBurns_TipBurnShockPlain>Tend the burns, keep the patient in bed, and tend the shock itself to give fluids: the better the medicine, the more it helps. Industrial medicine holds the worst cases steady; glitterworld medicine turns them round.</PhobosBurns_TipBurnShockPlain>
-  <PhobosBurns_TipBurnShock>Revised Baux score {0}; heading for {1}% with the care given now.</PhobosBurns_TipBurnShock>
-  <PhobosBurns_TipBurnShockEngineer>Age {0} + burned {1}% + inhalation {2}; burns tended {3}%; in bed: {4}; fluids quality {5}%. Target = (score - 36) / 74, times 1 - 0.2 x tended - 0.15 if in bed - 0.35 x fluids quality (floor 0.1); at least 0.1 while 15% or more is burned.</PhobosBurns_TipBurnShockEngineer>
+  <PhobosBurns_TipBurnShock>Revised Baux score {SCORE}; heading for {TARGET}% with the care given now.</PhobosBurns_TipBurnShock>
+  <PhobosBurns_TipBurnShockEngineer>Age {AGE} + burned {BURNED}% + inhalation {INHALATION}; burns tended {TENDED}%; in bed: {INBED}; fluids quality {FLUIDS}%. Target = (score - {NODEATH}) / {RANGE}, times 1 - {TENDEDRELIEF} x tended - {BEDRELIEF} if in bed - {FLUIDSRELIEF} x fluids quality (floor {FLOOR}); at least {STARTFLOOR} while {SHOCKSTART}% or more is burned.</PhobosBurns_TipBurnShockEngineer>
   <PhobosBurns_TipCarbonMonoxidePlain>Get the patient into clean air, outdoors if possible. A gas mask does not help.</PhobosBurns_TipCarbonMonoxidePlain>
-  <PhobosBurns_TipCarbonMonoxide>Blood carrying carbon monoxide: {0}%. Halves every 5.3 hours under a roof, 3 hours in open air.</PhobosBurns_TipCarbonMonoxide>
+  <PhobosBurns_TipCarbonMonoxide>Blood carrying carbon monoxide: {LEVEL}%. Halves every {ROOFED} hours under a roof, {OUTDOORS} hours in open air.</PhobosBurns_TipCarbonMonoxide>
   <PhobosBurns_TipLungInjuryPlain>Tending helps the lungs recover. Badly damaged lungs invite pneumonia.</PhobosBurns_TipLungInjuryPlain>
-  <PhobosBurns_TipLungInjury>From breathing smoke. Lung damage {0}%. Recovers 4% a day untended, 16% a day tended well.</PhobosBurns_TipLungInjury>
-  <PhobosBurns_TipAirway>{0} hours since the burn; this episode peaks at {1}% of the full swelling, at {2} hours, and is gone by {3} hours.</PhobosBurns_TipAirway>
+  <PhobosBurns_TipLungInjury>From breathing smoke. Lung damage {LEVEL}%. Recovers {UNTENDED}% a day untended, {TENDED}% a day tended well.</PhobosBurns_TipLungInjury>
+  <PhobosBurns_TipAirway>{AGE} hours since the burn; this episode peaks at {PEAK}% of the full swelling, at {PEAKHOURS} hours, and is gone by {RESOLVEHOURS} hours.</PhobosBurns_TipAirway>
   <PhobosBurns_TipSmokeAftermathLungs>Smoke like this scars the lungs over the hours that follow.</PhobosBurns_TipSmokeAftermathLungs>
   <PhobosBurns_TipSmokeAftermathCarbonMonoxide>A fire in a closed room also fills it with carbon monoxide, which lingers after the smoke has thinned and which no filter mask stops.</PhobosBurns_TipSmokeAftermathCarbonMonoxide>
   <PhobosBurns_Yes>yes</PhobosBurns_Yes>

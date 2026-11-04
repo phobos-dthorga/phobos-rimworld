@@ -52,7 +52,7 @@ public class RadioMod : Mod
             }
         }
         listing.Gap();
-        listing.Label("PhobosRadio_SettingMetresPerCell".Translate(Settings.metresPerCell.ToString("0.0")),
+        listing.Label("PhobosRadio_SettingMetresPerCell".Translate(Settings.metresPerCell.ToString("0.0").Named("METRES")),
             tooltip: "PhobosRadio_SettingMetresPerCellDesc".Translate());
         Settings.metresPerCell = Mathf.Round(listing.Slider(Settings.metresPerCell, 0.5f, 30f) * 2f) / 2f;
         listing.Gap();

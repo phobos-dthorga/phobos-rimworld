@@ -43,7 +43,7 @@ public static class AirwayService
         }
         if (!settings.airway || pawn.health.hediffSet.HasHediff(BurnsDefOf.PhobosBurns_AirwayBurn)) return;
         bool onFire = pawn.IsBurning();
-        float chance = AirwayRule.OnsetChance(onFire, fresh, rules.airwayBaseChance, rules.airwayReferenceDamage);
+        float chance = AirwayRule.OnsetChance(onFire, fresh, rules.airwayBaseChance, rules.airwayReferenceDamage, rules.airwayChanceAtReferenceDamage);
         if (chance <= 0f || !Rand.Chance(chance)) return;
         float exposure = onFire ? 1f : fresh / rules.airwayReferenceDamage;
         float smoke = pawn.Spawned ? PhobosGases.Breathed(pawn, GasKind.Smoke) : 0f;
@@ -51,13 +51,16 @@ public static class AirwayService
         Start(pawn, exposure);
     }
 
+    /// <summary>Only keeps the condition alive until its comp sets the real severity on its first check; not a tuning figure.</summary>
+    const float StartingSeverity = 0.001f;
+
     public static void Start(Pawn pawn, float exposure)
     {
         BodyPartRecord? part = NeckOf(pawn);
         Hediff hediff = HediffMaker.MakeHediff(BurnsDefOf.PhobosBurns_AirwayBurn, pawn, part);
-        hediff.Severity = 0.001f;
+        hediff.Severity = StartingSeverity;
         var comp = hediff.TryGetComp<HediffComp_PhobosRiseThenFall>();
-        if (comp != null) comp.peak = AirwayRule.Peak(exposure);
+        if (comp != null) comp.peak = AirwayRule.Peak(exposure, PhobosBurnRulesDef.Current.airwayLightestPeak);
         pawn.health.AddHediff(hediff, part);
     }
 

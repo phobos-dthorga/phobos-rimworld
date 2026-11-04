@@ -5,6 +5,15 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.2.2] - 2026-11-05 - Draft
+
+No change in play. Not yet tested in game.
+
+### Changed
+
+- Moved into the gas rules Def, at the same values: the resistance that counts as sealed air without Combat Extended, and how enclosed
+  a roofed cell is in a room that counts as outdoors.
+
 ## [0.2.1] - 2026-11-05 - Draft
 
 ### Fixed

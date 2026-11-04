@@ -35,9 +35,15 @@
     <fluidsShockReliefPerQuality>0.35</fluidsShockReliefPerQuality>
     <fluidsQualityCap>1.3</fluidsQualityCap>
     <shockTreatmentFloor>0.1</shockTreatmentFloor>
+    <!-- Where burn shock starts, and the severity below which it leaves once the burned fraction is under the threshold. -->
+    <shockInitialSeverity>0.01</shockInitialSeverity>
+    <shockRemoveBelow>0.02</shockRemoveBelow>
 
     <airwayBaseChance>0.15</airwayBaseChance>
     <airwayReferenceDamage>10</airwayReferenceDamage>
+    <!-- The share of the base chance the reference damage earns, and the lightest exposure's peak as a share of the stage table. -->
+    <airwayChanceAtReferenceDamage>0.5</airwayChanceAtReferenceDamage>
+    <airwayLightestPeak>0.5</airwayLightestPeak>
 
     <!-- Carbon monoxide: an hour in a full room takes the blood to 30%. The half-lives live on the condition's comp
          (5.3 hours roofed, from the ~320 minute room-air figure; 3 hours in open air, authored). -->

@@ -20,6 +20,8 @@ PACKAGE_PREFIX = 'PhobosDthorga.'
 PACKAGE_ID = re.compile(r'^[A-Za-z0-9]+(\.[A-Za-z0-9]+)+$')
 MOD_VERSION = re.compile(r'^\d+\.\d+\.\d+$')
 GAME_VERSION = re.compile(r'^\d+\.\d+$')
+NUMBERED_PLACEHOLDER = re.compile(r'\{\d+\}')
+KEYED_FILE = re.compile(r'(^|/)Languages/[^/]+/Keyed/[^/]+\.xml$')
 REQUIRED_FIELDS = ('name', 'packageId', 'description')
 BUILD_SUFFIXES = ('.dll', '.pdb', '.exe', '.deps.json', '.pyc')
 BUILD_FOLDERS = ('bin', 'obj', '__pycache__')
@@ -122,6 +124,16 @@ def check_load_folders(mod, load_folders, rels, errors):
                           f'has the same path and its folder is listed later; give one of them another name')
 
 
+def check_keyed(mod, path, data, errors):
+    """Translators need to know what a placeholder means, so a message names them (AGENTS.md)."""
+    root = parse(data, path, errors, mod)
+    if root is None:
+        return
+    for entry in root:
+        if NUMBERED_PLACEHOLDER.search(entry.text or ''):
+            errors.append(f'{mod}: {path}: {entry.tag} uses a numbered placeholder; name it, as in {{COUNT}}')
+
+
 def check(root, files=None, read=None):
     """Check the mods among files (default: git's list); read(path) returns a file's bytes."""
     files = listed_files(root) if files is None else files
@@ -150,6 +162,8 @@ def check(root, files=None, read=None):
         if 'CHANGELOG.md' not in rels:
             errors.append(f'{mod}: no CHANGELOG.md')
         for rel in rels:
+            if KEYED_FILE.search(rel):
+                check_keyed(mod, rel, read(f'mods/{mod}/{rel}'), errors)
             if rel.lower().endswith(BUILD_SUFFIXES) or any(part in BUILD_FOLDERS for part in rel.split('/')[:-1]):
                 errors.append(f'{mod}: {rel} is a build product; build it from src/ instead of committing it')
     for package_id, mods in sorted(owners.items()):

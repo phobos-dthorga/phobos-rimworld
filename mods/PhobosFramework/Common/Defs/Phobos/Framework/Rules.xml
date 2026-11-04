@@ -17,6 +17,10 @@
 
     <minConcentration>0.001</minConcentration>
     <vacuumClears>0.5</vacuumClears>
+    <!-- Without Combat Extended, toxic environment resistance from this up counts as sealed air. -->
+    <sealedToxicResistance>0.999</sealedToxicResistance>
+    <!-- How enclosed a roofed cell is in a room that counts as outdoors, open to the sky or the map edge. -->
+    <enclosureRoofedButOutdoors>0.25</enclosureRoofedButOutdoors>
 
     <!-- Fire smoke on the game's grid, when Combat Extended's smoke is not in use: a size-1 fire fills its own cell in about
          12 passes (12 minutes of game time), and the game spreads and fades it from there. -->

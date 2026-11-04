@@ -28,8 +28,8 @@ public static class MaskRule
     /// </summary>
     public static float Unfiltered(bool sealedHeadgear) => sealedHeadgear ? 0f : 1f;
 
-    public static bool IsSealed(bool combatExtendedActive, float smokeSensitivityFromSealingGear, float toxicEnvironmentResistance) =>
-        combatExtendedActive ? smokeSensitivityFromSealingGear <= 0f : toxicEnvironmentResistance >= 0.999f;
+    public static bool IsSealed(bool combatExtendedActive, float smokeSensitivityFromSealingGear, float toxicEnvironmentResistance, float sealedToxicResistance) =>
+        combatExtendedActive ? smokeSensitivityFromSealingGear <= 0f : toxicEnvironmentResistance >= sealedToxicResistance;
 
     /// <summary>
     /// Combat Extended's smoke sensitivity as it would be without any gas-mask-tagged item: the stat's base value plus the

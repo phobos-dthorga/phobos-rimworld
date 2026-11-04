@@ -50,6 +50,10 @@ public class PhobosGasRulesDef : Defs.PhobosRulesDef
     public float minConcentration = 0.001f;
     /// <summary>A room this far into vacuum holds nothing (0 to 1, the game's room vacuum).</summary>
     public float vacuumClears = 0.5f;
+    /// <summary>Without Combat Extended, toxic environment resistance from this up counts as sealed air.</summary>
+    public float sealedToxicResistance = 0.999f;
+    /// <summary>How enclosed a roofed cell is in a room that counts as outdoors.</summary>
+    public float enclosureRoofedButOutdoors = 0.25f;
 
     /// <summary>Fire smoke on the game's grid, per fire size per pass, as a fraction of a full cell (authored: a size-1 fire fills its cell in about 12 passes).</summary>
     public float fireSmokePerSizePerPass = 0.08f;

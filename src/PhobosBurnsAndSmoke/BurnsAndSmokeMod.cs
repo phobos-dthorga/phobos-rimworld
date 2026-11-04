@@ -40,7 +40,7 @@ public class BurnsAndSmokeSettings : ModSettings
 public class BurnsAndSmokeMod : Mod
 {
     public const string PackageId = "PhobosDthorga.BurnsAndSmoke";
-    public const string ModVersion = "0.4.1";
+    public const string ModVersion = "0.4.2";
     public const string LogPrefix = "[D'thorga Burns and Smoke]";
 
     public static BurnsAndSmokeSettings Settings { get; private set; } = new();
@@ -84,7 +84,7 @@ public class BurnsAndSmokeMod : Mod
         if (Current.Game != null && listing.ButtonText("PhobosBurns_SettingRemoveAll".Translate()))
         {
             int removed = Pack == null ? 0 : CleanupService.RemoveHediffsOf(Pack);
-            Messages.Message("PhobosBurns_MessageRemovedAll".Translate(removed), MessageTypeDefOf.NeutralEvent, false);
+            Messages.Message("PhobosBurns_MessageRemovedAll".Translate(removed.Named("COUNT")), MessageTypeDefOf.NeutralEvent, false);
         }
         listing.Label("PhobosBurns_SettingRemoveAllDesc".Translate());
         listing.End();

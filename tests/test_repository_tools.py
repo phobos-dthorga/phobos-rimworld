@@ -147,6 +147,12 @@ class LayoutCheckTests(unittest.TestCase):
             'Mods/CombatExtended/Patches/Granulator.xml has the same path and its folder is listed later; '
             'give one of them another name'])
 
+    def test_numbered_placeholders_are_refused(self):
+        numbered = mod('Example', extra={'Common/Languages/English/Keyed/Example.xml': b'<LanguageData><Key>{0} of {1}</Key></LanguageData>'})
+        self.assertIn('numbered placeholder', '\n'.join(run(numbered)['errors']))
+        named = mod('Example', extra={'Common/Languages/English/Keyed/Example.xml': b'<LanguageData><Key>{COUNT} of {TOTAL}</Key></LanguageData>'})
+        self.assertEqual(run(named)['errors'], [])
+
     def test_build_products_are_refused(self):
         errors = '\n'.join(run(mod('Example', extra={
             '1.6/Assemblies/PhobosExample.dll': b'',

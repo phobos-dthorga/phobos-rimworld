@@ -13,15 +13,15 @@
   <PhobosDosing_SettingRemovalNote>Nothing is saved: the mod can be added or removed at any time. A drug already given keeps working as its own mod says.</PhobosDosing_SettingRemovalNote>
 
   <PhobosDosing_RefusalNothingInReach>no pain relief within reach</PhobosDosing_RefusalNothingInReach>
-  <PhobosDosing_RefusalNoPainRelief>{0} does not relieve pain</PhobosDosing_RefusalNoPainRelief>
-  <PhobosDosing_RefusalSedativeNotWanted>only a sedative ({0}) is in reach, and the pain is not that bad</PhobosDosing_RefusalSedativeNotWanted>
-  <PhobosDosing_RefusalRecreationalOff>only a recreational drug ({0}) is in reach, and doctors here will not give it for pain</PhobosDosing_RefusalRecreationalOff>
-  <PhobosDosing_RefusalPatientWillNotTake>the patient will not take {0}</PhobosDosing_RefusalPatientWillNotTake>
+  <PhobosDosing_RefusalNoPainRelief>{DRUG} does not relieve pain</PhobosDosing_RefusalNoPainRelief>
+  <PhobosDosing_RefusalSedativeNotWanted>only a sedative ({DRUG}) is in reach, and the pain is not that bad</PhobosDosing_RefusalSedativeNotWanted>
+  <PhobosDosing_RefusalRecreationalOff>only a recreational drug ({DRUG}) is in reach, and doctors here will not give it for pain</PhobosDosing_RefusalRecreationalOff>
+  <PhobosDosing_RefusalPatientWillNotTake>the patient will not take {DRUG}</PhobosDosing_RefusalPatientWillNotTake>
   <PhobosDosing_RefusalCare>the patient's medical care level does not allow it</PhobosDosing_RefusalCare>
   <PhobosDosing_RefusalMentalState>the patient is in an aggressive mental state</PhobosDosing_RefusalMentalState>
   <PhobosDosing_RefusalStillActive>an earlier dose is still working</PhobosDosing_RefusalStillActive>
   <PhobosDosing_RefusalOverdosed>the patient is overdosed</PhobosDosing_RefusalOverdosed>
-  <PhobosDosing_RefusalDangerousDose>another dose of {0} would be dangerous</PhobosDosing_RefusalDangerousDose>
-  <PhobosDosing_RefusalConsciousness>{0} would leave the patient too close to unconsciousness</PhobosDosing_RefusalConsciousness>
-  <PhobosDosing_RefusalBreathing>{0} would leave the patient unable to breathe</PhobosDosing_RefusalBreathing>
+  <PhobosDosing_RefusalDangerousDose>another dose of {DRUG} would be dangerous</PhobosDosing_RefusalDangerousDose>
+  <PhobosDosing_RefusalConsciousness>{DRUG} would leave the patient too close to unconsciousness</PhobosDosing_RefusalConsciousness>
+  <PhobosDosing_RefusalBreathing>{DRUG} would leave the patient unable to breathe</PhobosDosing_RefusalBreathing>
 </LanguageData>

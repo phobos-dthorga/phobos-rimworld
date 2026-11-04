@@ -20,7 +20,7 @@ public static class MaskFactor
     /// carbon monoxide).
     /// </summary>
     public static float Unfiltered(Pawn pawn) =>
-        MaskRule.Unfiltered(MaskRule.IsSealed(CombatExtendedSmoke.Active, SensitivityFromSealingGear(pawn), ToxicEnvironmentResistance(pawn)));
+        MaskRule.Unfiltered(MaskRule.IsSealed(CombatExtendedSmoke.Active, SensitivityFromSealingGear(pawn), ToxicEnvironmentResistance(pawn), PhobosGasRulesDef.Current.sealedToxicResistance));
 
     static readonly List<float> offsets = new();
 

@@ -98,10 +98,10 @@ public class CompRadio : ThingComp
             var pairs = net.PairsFor(parent);
             sb.Append(pairs.Count == 0
                 ? "PhobosRadio_StationNoRadios".Translate()
-                : "PhobosRadio_StationInTouch".Translate(net.InTouchCount(parent), pairs.Count));
+                : "PhobosRadio_StationInTouch".Translate(net.InTouchCount(parent).Named("INTOUCH"), pairs.Count.Named("TOTAL")));
         }
         sb.AppendLine();
-        sb.Append("PhobosRadio_StationAntenna".Translate(net.AntennaLabelFor(parent)));
+        sb.Append("PhobosRadio_StationAntenna".Translate(net.AntennaLabelFor(parent).ToString().Named("ANTENNA")));
         return sb.ToString();
     }
 

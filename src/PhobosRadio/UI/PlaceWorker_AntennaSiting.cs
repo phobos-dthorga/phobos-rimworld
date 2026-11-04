@@ -22,7 +22,7 @@ public class PlaceWorker_AntennaSiting : PlaceWorker
         var noise = RadioNet.For(map).NoiseAt(center);
 
         Text.Font = GameFont.Small;
-        curY = Line(curX, curY, "PhobosRadio_SitingHeight".Translate(height.ToString("0.#")), Color.white);
+        curY = Line(curX, curY, "PhobosRadio_SitingHeight".Translate(height.ToString("0.#").Named("HEIGHT")), Color.white);
         if (roof == null)
         {
             curY = Line(curX, curY, "PhobosRadio_SitingOpenSky".Translate(), Color.white);
@@ -30,11 +30,11 @@ public class PlaceWorker_AntennaSiting : PlaceWorker
         else
         {
             var colour = roof.isThickRoof ? Color.red : roof.isNatural ? Color.yellow : Color.white;
-            curY = Line(curX, curY, "PhobosRadio_SitingRoof".Translate(roof.LabelCap, roofLoss.ToString("0")), colour);
+            curY = Line(curX, curY, "PhobosRadio_SitingRoof".Translate(roof.LabelCap.ToString().Named("ROOF"), roofLoss.ToString("0").Named("LOSS")), colour);
         }
         curY = double.IsNegativeInfinity(noise)
             ? Line(curX, curY, "PhobosRadio_SitingQuiet".Translate(), Color.white)
-            : Line(curX, curY, "PhobosRadio_SitingNoise".Translate(noise.ToString("0")), noise > -100 ? Color.yellow : Color.white);
+            : Line(curX, curY, "PhobosRadio_SitingNoise".Translate(noise.ToString("0").Named("NOISE")), noise > -100 ? Color.yellow : Color.white);
     }
 
     private static float Height(ThingDef def)

@@ -35,9 +35,11 @@ public class PhobosDosingRulesDef : PhobosRulesDef
     public float consciousnessWeight = 0.5f;
     public float breathingWeight = 0.5f;
     public float bleedWeight = 1f;
+    /// <summary>The share of the bleed weight that counts while the patient is not bleeding.</summary>
+    public float bleedWeightWhenNotBleeding = 0.25f;
     public float addictionWeight = 0.5f;
 
-    public DoseWeights Weights => new(consciousnessWeight, breathingWeight, bleedWeight, addictionWeight);
+    public DoseWeights Weights => new(consciousnessWeight, breathingWeight, bleedWeight, addictionWeight, bleedWeightWhenNotBleeding);
 
     public static PhobosDosingRulesDef Current => Current<PhobosDosingRulesDef>();
 }

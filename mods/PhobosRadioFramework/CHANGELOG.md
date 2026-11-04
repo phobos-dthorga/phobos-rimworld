@@ -5,6 +5,14 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.1.2] - 2026-11-05 - Draft
+
+No change in play. Not yet tested in game.
+
+### Changed
+
+- Messages use named placeholders, so translators can see what each one means.
+
 ### Changed
 
 - The description now carries the disclaimer in the wording Ludeon's EULA requires. It said only that the mod is not official and not endorsed. No behaviour change.

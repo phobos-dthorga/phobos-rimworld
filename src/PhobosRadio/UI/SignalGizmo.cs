@@ -18,7 +18,7 @@ public static class SignalGizmo
         var mode = RadioMod.Settings.displayMode;
         var label = link == null
             ? "PhobosRadio_GizmoNoStation".Translate()
-            : "PhobosRadio_GizmoLabel".Translate(LinkText.Bars(link.Outcome));
+            : "PhobosRadio_GizmoLabel".Translate(LinkText.Bars(link.Outcome).ToString().Named("BARS"));
         var description = LinkText.Describe(link, mode);
         var wearer = radio.Wearer;
         return new Command_Action
@@ -43,7 +43,7 @@ public static class SignalGizmo
         var lines = new System.Text.StringBuilder();
         lines.AppendLine(pairs.Count == 0
             ? "PhobosRadio_StationNoRadios".Translate()
-            : "PhobosRadio_StationInTouch".Translate(inTouch, pairs.Count));
+            : "PhobosRadio_StationInTouch".Translate(inTouch.Named("INTOUCH"), pairs.Count.Named("TOTAL")));
         foreach (var pair in pairs)
         {
             var wearer = (pair.A.Thing as RimWorld.Apparel)?.Wearer;
@@ -51,7 +51,7 @@ public static class SignalGizmo
         }
         return new Command_Action
         {
-            defaultLabel = "PhobosRadio_GizmoStation".Translate(inTouch, pairs.Count),
+            defaultLabel = "PhobosRadio_GizmoStation".Translate(inTouch.Named("INTOUCH"), pairs.Count.Named("TOTAL")),
             defaultDesc = lines.ToString().TrimEnd(),
             icon = RadioTextures.Signal,
             action = () => Find.Selector.ClearSelection(),

@@ -28,7 +28,7 @@ static class Fixtures
     public static DoseEffect Ketamine => DoseEffectRule.Combine(new[] { AnestheticStage, KetamineBuildupStage }, 0f, false, 0.1f);
     public static DoseEffect Thornweed => DoseEffectRule.Combine(new[] { ThornweedStage }, 0f, false, 0.1f);
     public static DoseEffect Flake => DoseEffectRule.Combine(new[] { FlakeStage }, 0.08f, true, 0.1f);
-    public static readonly DoseWeights Weights = new(0.5f, 0.5f, 1f, 0.5f);
+    public static readonly DoseWeights Weights = new(0.5f, 0.5f, 1f, 0.5f, 0.25f);
     public static readonly DoseLimits Limits = new(0.25f, 0.3f, 0.15f, false, false);
     public static readonly PatientState Awake = new(0.8f, 1f, 0f, true);
 }

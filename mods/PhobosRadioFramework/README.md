@@ -3,7 +3,7 @@
 Radio that works like radio: every contact is decided by a real link budget, and doubling the distance
 costs 6 dB. This is **Phase 1**: local VHF and UHF on one map.
 
-Version 0.1.1, built 4 November 2026 for House D'thorga. **Not yet tested in game.**
+Version 0.1.2, built 4 November 2026 for House D'thorga. **Not yet tested in game.**
 
 ## Read this first (gotchas)
 

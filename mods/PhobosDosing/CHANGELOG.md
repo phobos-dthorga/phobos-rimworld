@@ -5,6 +5,15 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.1.3] - 2026-11-05 - Draft
+
+No change in play. Not yet tested in game.
+
+### Changed
+
+- Refusal messages use a named placeholder for the drug, so translators can see what it means.
+- The share of the bleed weight that counts while a patient is not bleeding moved into the rules Def, at the same value.
+
 ## [0.1.2] - 2026-11-05 - Draft
 
 ### Changed

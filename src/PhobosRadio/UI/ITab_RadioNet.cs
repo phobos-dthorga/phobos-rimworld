@@ -29,8 +29,8 @@ public class ITab_RadioNet : ITab
         var outer = new Rect(0f, 0f, size.x, size.y).ContractedBy(10f);
         Text.Font = GameFont.Small;
         Widgets.Label(new Rect(outer.x, outer.y, outer.width, 24f),
-            pairs.Count == 0 ? "PhobosRadio_StationNoRadios".Translate() : "PhobosRadio_StationInTouch".Translate(net.InTouchCount(station), pairs.Count));
-        Widgets.Label(new Rect(outer.x, outer.y + 24f, outer.width, 24f), "PhobosRadio_StationAntenna".Translate(net.AntennaLabelFor(station)));
+            pairs.Count == 0 ? "PhobosRadio_StationNoRadios".Translate() : "PhobosRadio_StationInTouch".Translate(net.InTouchCount(station).Named("INTOUCH"), pairs.Count.Named("TOTAL")));
+        Widgets.Label(new Rect(outer.x, outer.y + 24f, outer.width, 24f), "PhobosRadio_StationAntenna".Translate(net.AntennaLabelFor(station).ToString().Named("ANTENNA")));
 
         var list = new Rect(outer.x, outer.y + 54f, outer.width, outer.height - 54f);
         const float rowHeight = 52f;
@@ -48,7 +48,7 @@ public class ITab_RadioNet : ITab
                        (isBest ? " " + "PhobosRadio_TabBestStation".Translate() : "");
             Widgets.Label(new Rect(row.x + 4f, row.y + 2f, row.width - 8f, 24f), head);
             var detail = mode == DisplayMode.Plain
-                ? (pair.InTouch ? "" : "PhobosRadio_PlainReason".Translate(LinkText.PlainReason(pair)).ToString())
+                ? (pair.InTouch ? "" : "PhobosRadio_PlainReason".Translate(LinkText.PlainReason(pair).ToString().Named("REASON")).ToString())
                 : LinkText.OperatorSummary(pair);
             Widgets.Label(new Rect(row.x + 4f, row.y + 26f, row.width - 8f, 24f), detail);
             if (Widgets.ButtonInvisible(row))

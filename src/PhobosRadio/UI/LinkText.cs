@@ -42,16 +42,16 @@ public static class LinkText
     {
         var limiting = link.Budget.Limiting;
         var direction = link.Budget.ReverseLimits ? "PhobosRadio_DirectionStationToHandheld" : "PhobosRadio_DirectionHandheldToStation";
-        return "PhobosRadio_OperatorSummary".Translate(link.Band.LabelCap, limiting.SnrDb.ToString("0.0"),
-            limiting.MarginDb.ToString("0.0"), direction.Translate(), link.DistanceMetres.ToString("0"));
+        return "PhobosRadio_OperatorSummary".Translate(link.Band.LabelCap.ToString().Named("BAND"), limiting.SnrDb.ToString("0.0").Named("SNR"),
+            limiting.MarginDb.ToString("0.0").Named("MARGIN"), direction.Translate().ToString().Named("DIRECTION"), link.DistanceMetres.ToString("0").Named("DISTANCE"));
     }
 
     /// <summary>Engineer depth: the whole sheet, both directions.</summary>
     public static string EngineerSheet(LinkEvaluation link)
     {
         var sb = new StringBuilder();
-        sb.AppendLine("PhobosRadio_SheetHeader".Translate(link.Band.LabelCap, link.Band.centreMHz.ToString("0.0"), link.Mode.LabelCap));
-        sb.AppendLine("PhobosRadio_SheetAntennas".Translate(link.A.AntennaLabel, link.B.AntennaLabel));
+        sb.AppendLine("PhobosRadio_SheetHeader".Translate(link.Band.LabelCap.ToString().Named("BAND"), link.Band.centreMHz.ToString("0.0").Named("FREQUENCY"), link.Mode.LabelCap.ToString().Named("MODE")));
+        sb.AppendLine("PhobosRadio_SheetAntennas".Translate(link.A.AntennaLabel.ToString().Named("FIRST"), link.B.AntennaLabel.ToString().Named("SECOND")));
         AppendDirection(sb, "PhobosRadio_DirectionHandheldToStation".Translate(), link.Budget.Forward, !link.Budget.ReverseLimits);
         AppendDirection(sb, "PhobosRadio_DirectionStationToHandheld".Translate(), link.Budget.Reverse, link.Budget.ReverseLimits);
         return sb.ToString().TrimEnd();
@@ -60,7 +60,7 @@ public static class LinkText
     private static void AppendDirection(StringBuilder sb, string title, LinkDirection direction, bool limits)
     {
         sb.AppendLine();
-        sb.AppendLine(limits ? "PhobosRadio_SheetDirectionLimiting".Translate(title) : title);
+        sb.AppendLine(limits ? "PhobosRadio_SheetDirectionLimiting".Translate(title.Named("DIRECTION")) : title);
         foreach (var term in direction.Terms)
         {
             var value = term.IsLevel ? $"{term.Value:0.0} dBm" : $"{(term.Value >= 0 ? "+" : "")}{term.Value:0.0} dB";
@@ -76,7 +76,7 @@ public static class LinkText
         {
             DisplayMode.Engineer => head + "\n" + OperatorSummary(link) + "\n\n" + EngineerSheet(link),
             DisplayMode.Operator => head + "\n" + OperatorSummary(link),
-            _ => head + (link.InTouch ? "" : "\n" + "PhobosRadio_PlainReason".Translate(PlainReason(link))),
+            _ => head + (link.InTouch ? "" : "\n" + "PhobosRadio_PlainReason".Translate(PlainReason(link).ToString().Named("REASON"))),
         };
     }
 }

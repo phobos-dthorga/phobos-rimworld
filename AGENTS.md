@@ -114,8 +114,10 @@ delivered, record the delivery in the changelog or design record, and add or ame
 - **Text a player reads in play stays in the game world** (owner, 5 November 2026): condition descriptions, tooltips, inspect text,
   job reports, refusals and messages never name a mod, a signal or a setting, and describe the body and what to do about it. Mod
   names and sources belong in READMEs, changelogs, the mod settings window, dev actions and the load line.
-- Player text lives in `Languages/English/Keyed` and `DefInjected`, never hard-coded in C#. Stable keys
-  prefixed `Phobos`, complete messages with named placeholders; never translate defNames, saved keys or
+- Player text is never hard-coded in C#: what code shows lives in `Languages/English/Keyed`, and a Def's labels and descriptions stay
+  in its XML in English, as the game's own do, for translators to override with `DefInjected`. Stable keys prefixed `Phobos`, complete
+  messages with named placeholders (`scripts/check-mod-layout.py` refuses numbered ones). A figure in a message comes from the rule or
+  Def that owns it, as a placeholder, never as fixed text; never translate defNames, saved keys or
   settings keys, and never drive gameplay from translated text.
 
 ## Documentation

@@ -7,13 +7,11 @@ namespace Phobos.Framework.Rules;
 /// </summary>
 public static class EnclosureRule
 {
-    /// <summary>Enclosure of a roofed cell in a room that counts as outdoors (open to the sky or the map edge). Authored.</summary>
-    public const float RoofedButOutdoors = 0.25f;
-
-    public static float Compute(bool roofed, bool roomOutdoors, int openRoofCells, int roomCells)
+    /// <param name="roofedButOutdoors">Enclosure of a roofed cell in a room that counts as outdoors (open to the sky or the map edge).</param>
+    public static float Compute(bool roofed, bool roomOutdoors, int openRoofCells, int roomCells, float roofedButOutdoors)
     {
         if (!roofed) return 0f;
-        if (roomOutdoors || roomCells <= 0) return RoofedButOutdoors;
+        if (roomOutdoors || roomCells <= 0) return roofedButOutdoors;
         float openFraction = openRoofCells / (float)roomCells;
         if (openFraction < 0f) openFraction = 0f;
         if (openFraction > 1f) openFraction = 1f;
