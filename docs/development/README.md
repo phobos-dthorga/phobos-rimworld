@@ -66,6 +66,9 @@ promise current behaviour. For using the mods, start at the [documentation index
 
 - [Artwork direction (19 Oct 2026)](artwork-direction.md): why PixelLab does not suit RimWorld, the three
   routes (code-drawn, local Flux.1-schnell through ComfyUI, a paid plan last), licences and records.
+- [Art automation and medical equipment: design (4 Nov 2026)](art-automation-and-medical-equipment.md): where all the current work
+  stands, a hands-off overnight art pipeline, what makes training material, vanilla sprite sizes and the EULA, the medical
+  equipment your mods already have, what they lack, and the open questions.
 
 ## RimWorld
 
