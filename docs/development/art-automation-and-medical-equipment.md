@@ -57,7 +57,8 @@ python scripts/art-run.py generate assets/phobos-medical/requests/test-run.json 
 
 | Part | What it does |
 | --- | --- |
-| `scripts/art-run.py` | Runs a request file or a training job with the safeguards below, then sorts, makes sheets and a review page, and writes a report |
+| `scripts/art-run.py` | Runs a request file or a training job with the safeguards below, then sorts, checks for near-copies, makes sheets and a review page, and writes a report with the time per image |
+| `scripts/art-run.py night plan.json --stop-at HH:MM` | Runs a list of those jobs in order under one stop time, and writes one summary. A failed step doesn't end the night. A plan naming private paths stays in `.local/art/` |
 | `scripts/generate-art.py` | Builds the graph for each engine, and writes a record beside each image |
 | `scripts/art/` | Review page, contact sheets, sorting, export, the near-copy check, the model fetcher and the LoRA experiment |
 
@@ -68,7 +69,8 @@ python scripts/art-run.py generate assets/phobos-medical/requests/test-run.json 
 | Safe finish | However it ends, it frees the graphics memory, stops any server it started and writes a report |
 | Disk limit | Stops before a drive falls under 5 GB free |
 | Graph check | Before any GPU work, it checks each graph against ComfyUI's own node list, including that the model files are installed |
-| Failures | One failed image is recorded and skipped. Three in a row end the run |
+| Failures | One failed image is recorded and skipped. Three in a row, retries included, end the run |
+| Crash recovery | If ComfyUI dies or hangs, or on a second failure in a row, it starts a fresh ComfyUI and tries that image again, at most five times a run. It never replaces a ComfyUI it didn't start. Rehearsed against a stand-in, not yet against a real crash |
 | Staying awake | Asks Windows not to sleep, only while it runs |
 
 **Checked so far (5 Nov 2026), and no further:**
@@ -119,7 +121,7 @@ from the figures Black Forest Labs publishes, this section is general practice f
 - **A good set:** one consistent style, varied subjects, about 20 to 50 images at around 1024 px, plain backgrounds, approved images only.
 - **Captions describe the subject, not the style**, after a made-up trigger word: "phobosstyle, oxygen tank with a frosted valve".
 - **Hardware:** [Black Forest Labs' guide](https://docs.bfl.ai/flux_2/flux2_klein_training) lists Klein 4B training at 12 GB of graphics memory and 32 GB of system memory; this machine has 12 GB and 63 GB. Untested here.
-- **The tool:** [ai-toolkit](https://github.com/ostris/ai-toolkit) by Ostris (MIT), cloned to `C:\AI\ai-toolkit` and **not installed**. Installing it runs code from its requirements list, which needs the owner's permission: run `bash /c/AI/ai-toolkit/install-phobos.sh` in Git Bash. It uses no graphics memory, so it is safe during play, and it also downloads what Klein training loads, all ungated.
+- **The tool:** [ai-toolkit](https://github.com/ostris/ai-toolkit) by Ostris (MIT), cloned to `C:\AI\ai-toolkit` and **installed by the owner on 5 Nov 2026** with `install-phobos.sh` in Git Bash (from PowerShell, give Git Bash's full path, because plain `bash` finds Windows' WSL shortcut). Checked: it sees the card, Klein's model files load from the local cache, and it accepts our training job with the card hidden from it. **No training has run yet.**
 - **Each trained model gets a record** of its images, settings and tool, and the art keeps its AI disclosure.
 
 ### Vanilla sprites
@@ -176,7 +178,7 @@ is that we never ship or commit the game's art.
 
 Unrelated art reached at most 0.43 similarity and 17 hash bits at closest, and raises no flag at either setting. **A slightly tilted copy can still pass, so the owner's eye stays the last check.** These thresholds are authored, and images made from references may need them revisited.
 
-Run `scripts/art/near_copy.py` over every candidate before picks, so nothing ships as a near-copy.
+The runner checks every batch against the folders its references came from, puts the result in its report, and marks a flagged image "do not pick" on the review page, so nothing ships as a near-copy. A check that couldn't run says so rather than passing silently.
 
 **The disclaimer (settled 5 Nov 2026):** the EULA requires its own two sentences on each mod, and our About files had a shorter line. All eight now carry its wording, and `scripts/check-mod-layout.py` enforces it.
 
