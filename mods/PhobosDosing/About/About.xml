@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ModMetaData>
+  <packageId>PhobosDthorga.Dosing</packageId>
+  <name>D'thorga Emergency Dosing</name>
+  <author>Phobos A. D'thorga</author>
+  <url>https://github.com/phobos-dthorga/phobos-rimworld</url>
+  <modVersion>0.1.0</modVersion>
+  <description>Doctors give painkillers and sedatives on their own.
+
+A patient who is down or in bed and in severe pain gets the best pain relief within reach, from the doctor's pockets or the nearest stockpile. Past the pain-shock band a sedative is given when nothing lighter can be. Nothing is given while an earlier dose still works, while an overdose is under way, where a dose would reach a dangerous stage, or where it would leave consciousness or breathing too low.
+
+Any mod's drugs qualify: the mod reads what each ingestible does from its own definitions (pain, consciousness, breathing, bleeding, addictiveness) and never looks for a name. Recreational drugs are never used unless you say so.
+
+Needs D'thorga Framework. No Harmony. Nothing is saved: safe to add or remove at any time.
+
+Community-created content. Not official and not endorsed by Ludeon Studios.</description>
+  <supportedVersions>
+    <li>1.6</li>
+    <li>1.7</li>
+  </supportedVersions>
+  <modDependencies>
+    <li>
+      <packageId>PhobosDthorga.Framework</packageId>
+      <displayName>D'thorga Framework</displayName>
+      <downloadUrl>https://github.com/phobos-dthorga/phobos-rimworld</downloadUrl>
+    </li>
+  </modDependencies>
+  <loadAfter>
+    <li>Ludeon.RimWorld</li>
+    <li>PhobosDthorga.Framework</li>
+    <li>Th3Fr3d.ExtendedInjuries</li>
+    <li>ch4acko3.searchandrescue</li>
+  </loadAfter>
+</ModMetaData>

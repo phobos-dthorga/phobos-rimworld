@@ -11,6 +11,7 @@ which are build products and never committed.
 | D’thorga Medical Save Bridge | `PhobosMedicalSaveBridge/` | Adds More Injuries to a running colony, with MSE2 or without, by re-numbering saved body parts on the first load |
 | D’thorga Water Tap | `PhobosWaterTap/` | A plumbing fixture for Dubs Bad Hygiene that keeps bottled water ready and refills itself from your water towers |
 | D’thorga Framework | `PhobosFramework/` | The shared library: what a pawn breathes from the game's and other mods' gases, additive room gases of our own (carbon monoxide first), and the helpers every D'thorga mod shares |
+| D’thorga Emergency Dosing | `PhobosDosing/` | Doctors give painkillers and sedatives on their own, from any mod's drugs, found by their effects |
 | D’thorga Burns and Smoke | `PhobosBurnsAndSmoke/` | Burned body fraction, burn shock, airway burns with a tracheotomy, smoke-damaged lungs and carbon monoxide, beside More Injuries and Combat Extended |
 
 A mod folder holds:

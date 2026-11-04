@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- D'thorga Emergency Dosing's assembly, built for RimWorld 1.7 (net10.0) and 1.6 (net472); Directory.Build.targets turns
+       the target into the game version, the output folder and the game reference. It references the game and D'thorga
+       Framework (Private=false: the framework's DLL ships only in its own mod). No other mod's assembly and no Harmony: every
+       drug is found by its effects in the Defs. -->
+  <PropertyGroup>
+    <TargetFrameworks>net472;net10.0</TargetFrameworks>
+    <RootNamespace>Phobos.Dosing</RootNamespace>
+    <AssemblyName>PhobosDosing</AssemblyName>
+    <ModFolder>PhobosDosing</ModFolder>
+    <Version>0.1.0</Version>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../PhobosFramework/PhobosFramework.csproj" Private="false" />
+  </ItemGroup>
+</Project>

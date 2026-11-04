@@ -41,9 +41,13 @@ jobs:
           dotnet build src/PhobosFramework/PhobosFramework.csproj --nologo
           dotnet build src/PhobosBurnsAndSmoke/PhobosBurnsAndSmoke.csproj --nologo
           dotnet build src/PhobosMedicalSaveBridge/PhobosMedicalSaveBridge.csproj --nologo
+          dotnet build src/PhobosDosing/PhobosDosing.csproj --nologo
       # D'thorga Framework's gas-mixing, signal, mask and source rules are game-free.
       - name: Build and run the game-free framework rule tests
         run: dotnet test tests/PhobosFramework.Rules.Tests --nologo
       # D'thorga Burns and Smoke's burn load, shock, carbon monoxide and airway rules are game-free.
       - name: Build and run the game-free burns rule tests
         run: dotnet test tests/PhobosBurnsAndSmoke.Rules.Tests --nologo
+      # D'thorga Emergency Dosing's effect, need, safety and choice rules are game-free.
+      - name: Build and run the game-free dosing rule tests
+        run: dotnet test tests/PhobosDosing.Rules.Tests --nologo

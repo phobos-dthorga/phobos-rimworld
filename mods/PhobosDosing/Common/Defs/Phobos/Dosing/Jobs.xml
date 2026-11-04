@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- The one job and the one work giver. The work giver sits under Doctor between tending (100 and 90) and feeding patients
+       (80): bleeding and wounds first, then pain. Mechs are kept out in this version. -->
+  <JobDef>
+    <defName>PhobosDose</defName>
+    <driverClass>Phobos.Dosing.Jobs.JobDriver_PhobosDose</driverClass>
+    <reportString>giving TargetA to TargetB for pain.</reportString>
+    <casualInterruptible>false</casualInterruptible>
+  </JobDef>
+
+  <WorkGiverDef>
+    <defName>PhobosDoctorDose</defName>
+    <label>give pain relief</label>
+    <giverClass>Phobos.Dosing.Jobs.WorkGiver_PhobosDose</giverClass>
+    <workType>Doctor</workType>
+    <priorityInType>85</priorityInType>
+    <verb>give pain relief to</verb>
+    <gerund>giving pain relief to</gerund>
+    <canBeDoneByMechs>false</canBeDoneByMechs>
+    <prioritizeSustains>true</prioritizeSustains>
+  </WorkGiverDef>
+</Defs>

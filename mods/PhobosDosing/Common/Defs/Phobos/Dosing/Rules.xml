@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- The starting values the design says to tune in play. One Def; the first loaded wins. Every figure is authored unless
+       the comment beside it names a source. Player preferences (the toggles, the care level, the display mode) are settings. -->
+  <Phobos.Dosing.Defs.PhobosDosingRulesDef>
+    <defName>PhobosDosing_Rules</defName>
+    <label>dosing rules</label>
+
+    <!-- How often the list of patients who need a dose is rebuilt per map, when a doctor asks. -->
+    <recomputeIntervalTicks>250</recomputeIntervalTicks>
+
+    <!-- The game's pain bands: severe from 0.6, extreme (and the default pain-shock threshold) from 0.8. -->
+    <painThreshold>0.6</painThreshold>
+    <sedationPainThreshold>0.8</sedationPainThreshold>
+
+    <!-- Safety: no new dose while the last is still at a quarter of a dose; none during an overdose of 0.3 or more; a dose's
+         offsets must leave consciousness and breathing at 0.15 or more (the game kills at zero). -->
+    <redoseBelowFraction>0.25</redoseBelowFraction>
+    <overdoseLimit>0.3</overdoseLimit>
+    <capacityFloor>0.15</capacityFloor>
+
+    <!-- What makes a dose a sedative: a consciousness ceiling at or below 0.1. An offset is a cost, never a sedation. -->
+    <sedativeConsciousnessCeiling>0.1</sedativeConsciousnessCeiling>
+
+    <!-- How much each side effect counts against relief when choosing between items; bleed counts a quarter when the patient
+         is not bleeding. -->
+    <consciousnessWeight>0.5</consciousnessWeight>
+    <breathingWeight>0.5</breathingWeight>
+    <bleedWeight>1</bleedWeight>
+    <addictionWeight>0.5</addictionWeight>
+  </Phobos.Dosing.Defs.PhobosDosingRulesDef>
+</Defs>

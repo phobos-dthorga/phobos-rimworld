@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <PhobosDosing_SettingsCategory>D'thorga Emergency Dosing</PhobosDosing_SettingsCategory>
+
+  <PhobosDosing_SettingEnabled>Doctors give pain relief on their own</PhobosDosing_SettingEnabled>
+  <PhobosDosing_SettingEnabledDesc>A patient who is down or in bed and in severe pain gets the best painkiller within reach; past the pain-shock band, a sedative when nothing lighter can be given. Off, nothing is given without your order.</PhobosDosing_SettingEnabledDesc>
+  <PhobosDosing_SettingMinimumCare>Dose patients whose medical care is at least</PhobosDosing_SettingMinimumCare>
+  <PhobosDosing_SettingMinimumCareDesc>Only patients whose medical care setting is this level or better are dosed. "No medicine" and "no medical care" are never dosed.</PhobosDosing_SettingMinimumCareDesc>
+  <PhobosDosing_SettingRecreational>Use recreational drugs for pain</PhobosDosing_SettingRecreational>
+  <PhobosDosing_SettingRecreationalDesc>Off by default: only medical drugs are given. On, social and hard drugs that relieve pain may be given too, their addictiveness counting against them.</PhobosDosing_SettingRecreationalDesc>
+  <PhobosDosing_SettingIgnoreAversion>Give medical drugs to patients who refuse drugs</PhobosDosing_SettingIgnoreAversion>
+  <PhobosDosing_SettingIgnoreAversionDesc>Off by default: a patient who would not take drugs (a teetotaler, or by belief) is not dosed. On, medical drugs are given anyway; recreational ones never.</PhobosDosing_SettingIgnoreAversionDesc>
+  <PhobosDosing_SettingRemovalNote>Nothing is saved: the mod can be added or removed at any time. A drug already given keeps working as its own mod says.</PhobosDosing_SettingRemovalNote>
+
+  <PhobosDosing_RefusalNothingInReach>no pain relief within reach</PhobosDosing_RefusalNothingInReach>
+  <PhobosDosing_RefusalNoPainRelief>{0} does not relieve pain</PhobosDosing_RefusalNoPainRelief>
+  <PhobosDosing_RefusalSedativeNotWanted>only a sedative ({0}) is in reach, and the pain is not that bad</PhobosDosing_RefusalSedativeNotWanted>
+  <PhobosDosing_RefusalRecreationalOff>only a recreational drug ({0}) is in reach, and the setting is off</PhobosDosing_RefusalRecreationalOff>
+  <PhobosDosing_RefusalPatientWillNotTake>the patient will not take {0}</PhobosDosing_RefusalPatientWillNotTake>
+  <PhobosDosing_RefusalStillActive>the last dose of {0} is still working</PhobosDosing_RefusalStillActive>
+  <PhobosDosing_RefusalOverdosed>the patient is overdosed</PhobosDosing_RefusalOverdosed>
+  <PhobosDosing_RefusalDangerousDose>another dose of {0} would be dangerous</PhobosDosing_RefusalDangerousDose>
+  <PhobosDosing_RefusalConsciousness>{0} would leave the patient too close to unconsciousness</PhobosDosing_RefusalConsciousness>
+  <PhobosDosing_RefusalBreathing>{0} would leave the patient unable to breathe</PhobosDosing_RefusalBreathing>
+</LanguageData>
