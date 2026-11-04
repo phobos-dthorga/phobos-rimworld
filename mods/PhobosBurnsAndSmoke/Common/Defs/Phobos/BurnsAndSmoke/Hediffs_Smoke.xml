@@ -279,8 +279,8 @@
        (read 4 Nov 2026), clearing on its own. -->
   <HediffDef>
     <defName>PhobosBurns_SmokeInhalation</defName>
-    <label>smoke inhalation</label>
-    <labelNoun>smoke inhalation</labelNoun>
+    <label>acute smoke inhalation</label>
+    <labelNoun>acute smoke inhalation</labelNoun>
     <description>Thick smoke breathed in: coughing, dizziness and a struggling heart. It clears within a day or so in clean air.</description>
     <hediffClass>HediffWithComps</hediffClass>
     <defaultLabelColor>(0.58, 0.35, 0.35)</defaultLabelColor>

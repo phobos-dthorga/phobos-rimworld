@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <!-- Says what follows from Combat Extended's smoke inhalation (CE, Hediffs_CE.xml), in the condition's own tooltip. A comp rather
+       than a replaced description, so Combat Extended's wording stays its own and none of it is copied here. -->
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/HediffDef[defName="SmokeInhalation"]/comps</xpath>
+    <value>
+      <li Class="Phobos.BurnsAndSmoke.Comps.HediffCompProperties_PhobosBurnTooltip">
+        <kind>SmokeAftermath</kind>
+      </li>
+    </value>
+  </Operation>
+</Patch>

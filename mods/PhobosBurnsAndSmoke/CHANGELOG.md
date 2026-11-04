@@ -5,6 +5,26 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.4.1] - 2026-11-05 - Draft
+
+The owner's rule of 5 November 2026: text a player reads in game stays in the game world. Wording agreed with the owner. Not yet
+tested in game.
+
+### Changed
+
+- Combat Extended's smoke inhalation now says in its tooltip what follows from it: scarred lungs, and carbon monoxide from fires in
+  closed rooms. Each sentence shows only while its effect is switched on. Combat Extended's own description is untouched.
+- Our own acute condition is now labelled acute smoke inhalation, so two conditions never share a name when both are switched on.
+- The smoke-damaged lungs tooltip opens with what caused them, in Operator and Engineer modes.
+
+### Fixed
+
+- The carbon monoxide tooltip named the mod's internals as its source. That line now appears only in the log.
+
+### Save compatibility
+
+- Text only, plus a tooltip comp that saves nothing. Safe to add and remove as before.
+
 ## [0.4.0] - 2026-11-05 - Draft
 
 ### Added

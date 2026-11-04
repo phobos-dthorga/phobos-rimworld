@@ -4,7 +4,7 @@
   <name>D'thorga Emergency Dosing</name>
   <author>Phobos A. D'thorga</author>
   <url>https://github.com/phobos-dthorga/phobos-rimworld</url>
-  <modVersion>0.1.1</modVersion>
+  <modVersion>0.1.2</modVersion>
   <description>Doctors give painkillers and sedatives on their own.
 
 A patient who is down or in bed and in severe pain gets the best pain relief within reach, from the doctor's pockets or the nearest stockpile. In extreme pain a sedative is given when no medical painkiller can be. Nothing is given while an earlier dose still works, while an overdose is under way, where a dose would reach a dangerous stage, or where it would leave consciousness or breathing too low.

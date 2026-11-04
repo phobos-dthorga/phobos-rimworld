@@ -24,10 +24,12 @@
   <PhobosBurns_TipBurnShock>Revised Baux score {0}; heading for {1}% with the care given now.</PhobosBurns_TipBurnShock>
   <PhobosBurns_TipBurnShockEngineer>Age {0} + burned {1}% + inhalation {2}; burns tended {3}%; in bed: {4}; fluids quality {5}%. Target = (score - 36) / 74, times 1 - 0.2 x tended - 0.15 if in bed - 0.35 x fluids quality (floor 0.1); at least 0.1 while 15% or more is burned.</PhobosBurns_TipBurnShockEngineer>
   <PhobosBurns_TipCarbonMonoxidePlain>Get the patient into clean air, outdoors if possible. A gas mask does not help.</PhobosBurns_TipCarbonMonoxidePlain>
-  <PhobosBurns_TipCarbonMonoxide>Blood carrying carbon monoxide: {0}%. Halves every 5.3 hours under a roof, 3 hours in open air. Source: {1}.</PhobosBurns_TipCarbonMonoxide>
+  <PhobosBurns_TipCarbonMonoxide>Blood carrying carbon monoxide: {0}%. Halves every 5.3 hours under a roof, 3 hours in open air.</PhobosBurns_TipCarbonMonoxide>
   <PhobosBurns_TipLungInjuryPlain>Tending helps the lungs recover. Badly damaged lungs invite pneumonia.</PhobosBurns_TipLungInjuryPlain>
-  <PhobosBurns_TipLungInjury>Lung damage {0}%. Recovers 4% a day untended, 16% a day tended well.</PhobosBurns_TipLungInjury>
+  <PhobosBurns_TipLungInjury>From breathing smoke. Lung damage {0}%. Recovers 4% a day untended, 16% a day tended well.</PhobosBurns_TipLungInjury>
   <PhobosBurns_TipAirway>{0} hours since the burn; this episode peaks at {1}% of the full swelling, at {2} hours, and is gone by {3} hours.</PhobosBurns_TipAirway>
+  <PhobosBurns_TipSmokeAftermathLungs>Smoke like this scars the lungs over the hours that follow.</PhobosBurns_TipSmokeAftermathLungs>
+  <PhobosBurns_TipSmokeAftermathCarbonMonoxide>A fire in a closed room also fills it with carbon monoxide, which lingers after the smoke has thinned and which no filter mask stops.</PhobosBurns_TipSmokeAftermathCarbonMonoxide>
   <PhobosBurns_Yes>yes</PhobosBurns_Yes>
   <PhobosBurns_No>no</PhobosBurns_No>
 </LanguageData>

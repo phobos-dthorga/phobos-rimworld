@@ -4,7 +4,7 @@ Burns and smoke that matter the way More Injuries' wounds do: a burned body frac
 unless treated, airway burns that swell shut over hours, smoke that scars the lungs, and carbon monoxide from fires in closed
 rooms.
 
-Version 0.4.0, built 5 November 2026 for House D'thorga. **Not yet tested in game.** Everything here is read from the game's and
+Version 0.4.1, built 5 November 2026 for House D'thorga. **Not yet tested in game.** Everything here is read from the game's and
 the mods' code.
 
 ## Read this first (gotchas)
@@ -45,7 +45,7 @@ the mods' code.
 | smoke-damaged lungs | breathing smoke | thicker smoke, longer | tending; rest; heals 4% a day untended, 16% tended well |
 | pneumonia | severe lung damage | | tending and immunity, like a wound infection |
 | carbon monoxide poisoning | the framework's carbon monoxide in a closed burning room | staying in the room | clean air: halves every 5.3 hours under a roof, 3 in the open; on supplied oxygen, about every 75 minutes, with D'thorga Medical Equipment |
-| smoke inhalation (acute) | breathing the game's smoke, only when Combat Extended's smoke is not running | thicker smoke | clean air; clears in a day or so |
+| acute smoke inhalation | breathing the game's smoke, only when Combat Extended's smoke is not running | thicker smoke | clean air; clears in a day or so |
 
 Burned body fraction stages: minor from 5%, serious from 15% (hunger, cold sensitivity, blood pumping), major from 30%,
 critical from 50%. Burn shock stages: compensated, shock from 30%, severe from 55% (a four-day death clock), terminal from 80%

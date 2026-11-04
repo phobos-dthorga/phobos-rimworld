@@ -111,6 +111,9 @@ delivered, record the delivery in the changelog or design record, and add or ame
 - Every gizmo, command and dialog says what it did, and every refusal says why (a disabled gizmo carries
   its reason); never ship a silent success or a silent refusal. A building's inspect text names the one
   thing it waits for.
+- **Text a player reads in play stays in the game world** (owner, 5 November 2026): condition descriptions, tooltips, inspect text,
+  job reports, refusals and messages never name a mod, a signal or a setting, and describe the body and what to do about it. Mod
+  names and sources belong in READMEs, changelogs, the mod settings window, dev actions and the load line.
 - Player text lives in `Languages/English/Keyed` and `DefInjected`, never hard-coded in C#. Stable keys
   prefixed `Phobos`, complete messages with named placeholders; never translate defNames, saved keys or
   settings keys, and never drive gameplay from translated text.

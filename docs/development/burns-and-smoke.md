@@ -117,6 +117,10 @@ not the numbers.
   0.1. With full care: no medicine leaves 55% of the untreated target, herbal 44%, industrial 30%, glitterworld 20%. So a
   score of 110 or more lands at "shock" with industrial care (life-threatening, no clock) and "compensated" with glitterworld.
   The 110 mark stays "terminal" untreated, labelled authored (owner, 4 Nov 2026, by way of this decision).
+- **What follows from smoke is told in the world, on Combat Extended's own condition** (owner's rule and wording, 5 Nov 2026): players
+  watching CE's smoke inhalation could not see that lung damage and carbon monoxide follow from it. A tooltip comp patched onto that
+  condition says so without a mod name, and CE's description stays its own, with none of it copied. Our acute condition stays off
+  beside CE's by default, since both reduce breathing from one exposure, and is labelled acute smoke inhalation so names never clash.
 - **Burn shock is tendable** (agent choice): tending it stands in for fluids, through the game's own `severityPerDayTended`.
 - **Mortality through `deathMtbDays`** on stages, not a kill in code (agent choice): XML-visible, Search and Rescue sees the
   `lifeThreatening` stages.

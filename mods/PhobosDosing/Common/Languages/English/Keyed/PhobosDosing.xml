@@ -15,9 +15,9 @@
   <PhobosDosing_RefusalNothingInReach>no pain relief within reach</PhobosDosing_RefusalNothingInReach>
   <PhobosDosing_RefusalNoPainRelief>{0} does not relieve pain</PhobosDosing_RefusalNoPainRelief>
   <PhobosDosing_RefusalSedativeNotWanted>only a sedative ({0}) is in reach, and the pain is not that bad</PhobosDosing_RefusalSedativeNotWanted>
-  <PhobosDosing_RefusalRecreationalOff>only a recreational drug ({0}) is in reach, and the setting is off</PhobosDosing_RefusalRecreationalOff>
+  <PhobosDosing_RefusalRecreationalOff>only a recreational drug ({0}) is in reach, and doctors here will not give it for pain</PhobosDosing_RefusalRecreationalOff>
   <PhobosDosing_RefusalPatientWillNotTake>the patient will not take {0}</PhobosDosing_RefusalPatientWillNotTake>
-  <PhobosDosing_RefusalCare>the patient's medical care setting is too low</PhobosDosing_RefusalCare>
+  <PhobosDosing_RefusalCare>the patient's medical care level does not allow it</PhobosDosing_RefusalCare>
   <PhobosDosing_RefusalMentalState>the patient is in an aggressive mental state</PhobosDosing_RefusalMentalState>
   <PhobosDosing_RefusalStillActive>an earlier dose is still working</PhobosDosing_RefusalStillActive>
   <PhobosDosing_RefusalOverdosed>the patient is overdosed</PhobosDosing_RefusalOverdosed>

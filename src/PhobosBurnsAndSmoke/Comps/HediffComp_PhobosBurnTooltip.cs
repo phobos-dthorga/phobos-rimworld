@@ -11,6 +11,8 @@ public enum PhobosBurnTooltipKind
     BurnShock,
     CarbonMonoxide,
     LungInjury,
+    /// <summary>Added to another mod's smoke condition: what follows from breathing smoke, in the same words in every display mode.</summary>
+    SmokeAftermath,
 }
 
 /// <summary>The health-tab tooltip by display mode. Presentation only: it reads what the services wrote.</summary>
@@ -50,13 +52,24 @@ public class HediffComp_PhobosBurnTooltip : HediffComp
                     return line;
                 case PhobosBurnTooltipKind.CarbonMonoxide:
                     if (mode == DisplayMode.Plain) return "PhobosBurns_TipCarbonMonoxidePlain".Translate();
-                    return "PhobosBurns_TipCarbonMonoxide".Translate((severity * 100f).ToString("0"), SmokeExposureService.DescribeCarbonMonoxideSource());
+                    return "PhobosBurns_TipCarbonMonoxide".Translate((severity * 100f).ToString("0"));
                 case PhobosBurnTooltipKind.LungInjury:
                     if (mode == DisplayMode.Plain) return "PhobosBurns_TipLungInjuryPlain".Translate();
                     return "PhobosBurns_TipLungInjury".Translate((severity * 100f).ToString("0"));
+                case PhobosBurnTooltipKind.SmokeAftermath:
+                    return SmokeAftermath();
                 default:
                     return "";
             }
         }
+    }
+
+    /// <summary>Promises only what the player's toggles leave switched on.</summary>
+    static string SmokeAftermath()
+    {
+        BurnsAndSmokeSettings settings = BurnsAndSmokeMod.Settings;
+        string lungs = settings.smoke ? "PhobosBurns_TipSmokeAftermathLungs".Translate().ToString() : "";
+        string carbonMonoxide = settings.carbonMonoxide ? "PhobosBurns_TipSmokeAftermathCarbonMonoxide".Translate().ToString() : "";
+        return lungs.Length > 0 && carbonMonoxide.Length > 0 ? lungs + " " + carbonMonoxide : lungs + carbonMonoxide;
     }
 }

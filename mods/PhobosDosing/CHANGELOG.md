@@ -5,6 +5,14 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.1.2] - 2026-11-05 - Draft
+
+### Changed
+
+- Two refusal messages spoke of settings rather than the world, under the owner's rule of 5 November 2026 that text a player reads
+  in game stays in the game world. No behaviour change. The new wording is agent-authored and held for the owner's review. Not yet
+  tested in game.
+
 ### Changed
 
 - The description now carries the disclaimer in the wording Ludeon's EULA requires. It said only that the mod is not official and not endorsed. No behaviour change.
