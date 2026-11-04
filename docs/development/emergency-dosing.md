@@ -118,6 +118,8 @@ Decisions:
 - **Left to the doctors** (agent choice): anyone in bed or under `HealthAIUtility.ShouldSeekMedicalRest`, which includes a tended wound still healing.
 - **The same safety and choice as doctors** (agent choice): `Evaluate` and `DoseChoiceRule.Choose`, with need always pain relief, so sedatives are out and medical
   drugs come before recreational. Unlike the doctor path, a recreational painkiller still working also blocks the next, or highs would stack.
+- **A higher floor on one's feet** (agent choice): consciousness and breathing must stay at 0.4 or more after a self-taken dose, against 0.15 for a doctor's. The game drops
+  a pawn below 0.3 consciousness (`PawnCapacitiesHandler.CanBeAwake`), and more of the doctors' patients are already down. Morphine's cost of 0.4 means it needs 0.8 consciousness.
 - **The game's ingest job** (agent choice): no new JobDef, so the item's effects, the chew spot and the policy's take record behave as usual.
 - **Cost** (agent choice): the giver runs when a humanlike chooses a job, not per tick. Who-and-how-much-pain are checked first; the index and any path search
   only follow for a pawn who passed them.
@@ -128,7 +130,7 @@ Test steps (owner runs them):
 2. A colonist up and about at 40% pain or more, thornweed serum in a stockpile, allowed for joy in their policy: they go and take it. Joy tick off and no
    chemical trait: nothing; the dev action "Dosing: log self-medication for selected pawns" says `PolicyForbids`.
 3. With morphine allowed too: morphine is chosen. With only a recreational drug allowed: that one.
-4. Chemical interest at 32% pain takes one. A teetotaler at 70% does not. A pawn under a working dose does not.
+4. Chemical interest at 32% pain takes one. A teetotaler at 70% does not. A pawn under a working dose does not. Nobody falls unconscious from a dose they took themself.
 5. In a hospital bed: left to the doctors. Drafted: nothing until undrafted.
 6. Guests setting off: a guest in pain takes nothing. On: they take a medical painkiller from your stock, never a recreational one.
 

@@ -190,8 +190,9 @@ public static class DoseService
         IReadOnlyList<DoseOption> options = DoseIndex.Options;
         HediffSet set = pawn.health.hediffSet;
         bool bleeding = set.BleedRateTotal > 0f;
-        // The policy has already decided about recreational drugs here, and a pawn's own refusal is never overridden.
-        var limits = new DoseLimits(rules.redoseBelowFraction, rules.overdoseLimit, rules.capacityFloor, true, false);
+        // The policy has already decided about recreational drugs here, and a pawn's own refusal is never overridden. A higher floor than
+        // a doctor's: this pawn is on their feet, and a dose must not drop them where they stand.
+        var limits = new DoseLimits(rules.redoseBelowFraction, rules.overdoseLimit, rules.selfCapacityFloor, true, false);
         float painkillerActive = PainkillerActive(options, set, true);
         DrugPolicy? policy = pawn.drugs?.CurrentPolicy;
         candidates.Clear();

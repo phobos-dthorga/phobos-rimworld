@@ -18,6 +18,9 @@
     <selfPainThreshold>0.4</selfPainThreshold>
     <selfInterestOffset>0.1</selfInterestOffset>
     <selfFascinationOffset>0.2</selfFascinationOffset>
+    <!-- Consciousness and breathing must stay at or above this after a dose taken on one's own feet: the game drops a pawn below 0.3
+         consciousness (PawnCapacitiesHandler.CanBeAwake). The margin is authored. -->
+    <selfCapacityFloor>0.4</selfCapacityFloor>
 
     <!-- An item must take away at least this share of the pain to count as a painkiller at all. It keeps out drugs whose relief is
          a side effect (an adrenaline shot, a beer). Authored. -->

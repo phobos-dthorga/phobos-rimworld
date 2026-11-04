@@ -14,7 +14,8 @@ agent-authored and held for the owner's review.
 
 - Self-medication: an adult colonist who is up and about at 40% pain or more goes and takes the best painkiller their drug policy allows, for
   joy or on a schedule, through the game's own ingest job. Medical drugs come before recreational ones. The doctors' safety rules apply,
-  and any painkiller still working blocks the next.
+  with a higher floor so a dose cannot drop a pawn on their feet (consciousness and breathing stay at 40% or more), and any painkiller still
+  working blocks the next.
 - Chemical interest and fascination lower the threshold to 30% and 20% and ignore the policy, as they do for joy in the game. Teetotalers and
   children never self-medicate, and sedatives are never taken by choice.
 - A setting to switch it off, on by default, and a setting to let guests do the same, off by default, for mods such as Hospitality. The game gives
@@ -23,7 +24,7 @@ agent-authored and held for the owner's review.
 
 ### Balance
 
-- 40% is the owner's choice; the two trait offsets are authored.
+- 40% pain is the owner's choice; the two trait offsets and the 40% capacity floor are authored.
 
 ### Compatibility and limits
 

@@ -37,6 +37,8 @@ the mods' code.
   healing. In bed, doctors only step in from 60% pain, so a patient between 40% and 60% gets nothing yet.
 - **Guests have no drug policy in the game.** With the guests setting on, they take medical painkillers from your stock and never recreational ones,
   so your morphine can go to a visitor. It is off by default.
+- **Nobody knocks themself out.** A pawn on their feet refuses a dose that would leave consciousness or breathing under 40%, so a drowsy colonist may
+  pass over morphine, whose cost is high.
 - **Sedatives are never taken by choice**, and nobody takes from another pawn's pockets.
 
 ## What it does

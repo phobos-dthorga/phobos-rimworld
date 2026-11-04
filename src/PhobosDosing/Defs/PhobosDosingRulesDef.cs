@@ -23,6 +23,11 @@ public class PhobosDosingRulesDef : PhobosRulesDef
     /// <summary>How much lower that is with chemical interest, and with chemical fascination. Authored.</summary>
     public float selfInterestOffset = 0.1f;
     public float selfFascinationOffset = 0.2f;
+    /// <summary>
+    /// Consciousness and breathing must stay at or above this after a dose a pawn takes on their own feet. The game drops a pawn below 0.3
+    /// consciousness (PawnCapacitiesHandler.CanBeAwake), so this sits above it with a margin. Authored.
+    /// </summary>
+    public float selfCapacityFloor = 0.4f;
 
     /// <summary>An item must take away at least this share of the pain to be indexed: relief as a side effect does not make a painkiller.</summary>
     public float minPainRelief = 0.3f;
