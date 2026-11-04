@@ -57,6 +57,12 @@ promise current behaviour. For using the mods, start at the [documentation index
   plain burns and nothing else), how the game, Combat Extended and More Injuries handle fire and smoke, the medical sources
   behind the burned fraction, burn shock, airway burns, lung injury and carbon monoxide, who chose what, and the test protocol.
 
+## Caustic gas
+
+- [Caustic gas: research and decisions (5 Nov 2026)](caustic-gas.md): what the game's tox gas really does (read from the code), the owner's
+  slow-acting default and fast-acting setting, three exposures for eyes, lungs and skin, the conditions proposed and reused, who chose
+  what, and a test protocol for when it is built. A game design with authored figures; nothing is built.
+
 ## Medical equipment
 
 - [Medical equipment: research and decisions (5 Nov 2026)](medical-equipment.md): bedside oxygen on the pattern of the vitals monitor and IV stand, what is reused from Vanilla Gravship Expanded, why Organ Failure's ventilator cannot appear in the owner's game, and the test protocol.
