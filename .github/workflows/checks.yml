@@ -34,3 +34,9 @@ jobs:
       # D'thorga Water Tap's assembly needs BadHygiene.dll; its rules are game-free.
       - name: Build and run the game-free water tap rule tests
         run: dotnet test tests/PhobosWaterTap.Rules.Tests --nologo
+      # D'thorga Framework's gas-mixing, signal, mask and source rules are game-free.
+      - name: Build and run the game-free framework rule tests
+        run: dotnet test tests/PhobosFramework.Rules.Tests --nologo
+      # D'thorga Burns and Smoke's burn load, shock, carbon monoxide and airway rules are game-free.
+      - name: Build and run the game-free burns rule tests
+        run: dotnet test tests/PhobosBurnsAndSmoke.Rules.Tests --nologo

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <!-- The one engine hook: the game runs every giver in OrganicStandard every 60 ticks per pawn of every flesh race, and tells
+       it about every condition added (Atmosphere Overhaul registers its giver the same way). The giver itself only works on
+       humanlike pawns with burns, on fire, carrying one of our conditions, or standing in smoke. -->
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/HediffGiverSetDef[defName="OrganicStandard"]/hediffGivers</xpath>
+    <value>
+      <li Class="Phobos.BurnsAndSmoke.Givers.HediffGiver_PhobosBurns">
+        <hediff>PhobosBurns_BurnLoad</hediff>
+      </li>
+    </value>
+  </Operation>
+</Patch>

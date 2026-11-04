@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- The starting values of the room-gas engine and the fire source. One Def; the first loaded wins, so another mod may
+       patch a figure. Every figure here is authored unless the comment beside it names a source. -->
+  <Phobos.Framework.Gases.PhobosGasRulesDef>
+    <defName>PhobosFramework_GasRules</defName>
+    <label>gas rules</label>
+
+    <!-- The game's own door and vent figures (Core, BuildingProperties.doorTempEqualizeIntervalOpen/Closed and
+         doorTempEqualizeRate; Building_Vent.TickRare; read 4 Nov 2026). -->
+    <doorOpenRate>1</doorOpenRate>
+    <doorOpenIntervalTicks>34</doorOpenIntervalTicks>
+    <doorClosedRate>1</doorClosedRate>
+    <doorClosedIntervalTicks>375</doorClosedIntervalTicks>
+    <ventRate>14</ventRate>
+    <ventIntervalTicks>250</ventIntervalTicks>
+
+    <minConcentration>0.001</minConcentration>
+    <vacuumClears>0.5</vacuumClears>
+
+    <!-- Fire smoke on the game's grid, when Combat Extended's smoke is not in use: a size-1 fire fills its own cell in about
+         12 passes (12 minutes of game time), and the game spreads and fades it from there. -->
+    <fireSmokePerSizePerPass>0.08</fireSmokePerSizePerPass>
+    <fireSmokeMaxPerPass>0.2</fireSmokeMaxPerPass>
+
+    <!-- Carbon monoxide, in cells of gas per pass: a size-1 fire fills a 20-cell room in about 50 passes (50 minutes). -->
+    <fireCarbonMonoxidePerSizePerPass>0.4</fireCarbonMonoxidePerSizePerPass>
+    <fireCarbonMonoxideMaxPerPass>1</fireCarbonMonoxideMaxPerPass>
+    <fireCarbonMonoxideGas>PhobosGas_CarbonMonoxide</fireCarbonMonoxideGas>
+  </Phobos.Framework.Gases.PhobosGasRulesDef>
+</Defs>

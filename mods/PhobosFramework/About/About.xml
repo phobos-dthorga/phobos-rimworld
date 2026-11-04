@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ModMetaData>
+  <packageId>PhobosDthorga.Framework</packageId>
+  <name>D'thorga Framework</name>
+  <author>Phobos A. D'thorga</author>
+  <url>https://github.com/phobos-dthorga/phobos-rimworld</url>
+  <modVersion>0.1.0</modVersion>
+  <description>The shared library the D'thorga mods build on. On its own it changes almost nothing; other mods ask it for what a colonist is breathing and for the small helpers they all share.
+
+What it does:
+
+- Reads the gases that already exist, from the game and from Combat Extended, and tells a mod what a colonist breathes through whatever mask or helmet they wear.
+
+- Makes fires fill a roofed room with the game's own smoke when Combat Extended's smoke is not running, so burning buildings are smoky without it too.
+
+- Carries its own room gases where nothing else does: in this version, carbon monoxide from fires, which lingers in a shut room after the smoke has cleared, drifts through an open door and ignores a gas mask. A gas exists in a room only while something adds it. There is no air, oxygen or pressure model.
+
+- A setting chooses between reusing other mods' effects (the default), always using the framework's own gases, or never.
+
+Safe to add to a running colony. Load it before any D'thorga mod that needs it. Needs no other mod.
+
+Community-created content. Not official and not endorsed by Ludeon Studios.</description>
+  <supportedVersions>
+    <li>1.6</li>
+    <li>1.7</li>
+  </supportedVersions>
+  <loadAfter>
+    <li>Ludeon.RimWorld</li>
+    <li>CETeam.CombatExtended</li>
+  </loadAfter>
+</ModMetaData>

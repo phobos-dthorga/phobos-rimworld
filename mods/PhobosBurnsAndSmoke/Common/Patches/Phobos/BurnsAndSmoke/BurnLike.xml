@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <!-- Which injuries count as burns for the burned body fraction. Any mod can mark its own burn Def with the same extension.
+       The game's four burn kinds all sit on BurnBase (Core, Hediffs_Local_Injuries.xml). One operation per Def, so the
+       offline checker (scripts/check-factory-patches.py) can confirm each matches exactly one node. -->
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>Defs/HediffDef[defName="Burn"]</xpath>
+    <value>
+      <li Class="Phobos.BurnsAndSmoke.Defs.PhobosBurnLikeExtension">
+        <tbsaWeight>1</tbsaWeight>
+      </li>
+    </value>
+  </Operation>
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>Defs/HediffDef[defName="ElectricalBurn"]</xpath>
+    <value>
+      <li Class="Phobos.BurnsAndSmoke.Defs.PhobosBurnLikeExtension">
+        <tbsaWeight>1</tbsaWeight>
+      </li>
+    </value>
+  </Operation>
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>Defs/HediffDef[defName="ChemicalBurn"]</xpath>
+    <value>
+      <li Class="Phobos.BurnsAndSmoke.Defs.PhobosBurnLikeExtension">
+        <tbsaWeight>1</tbsaWeight>
+      </li>
+    </value>
+  </Operation>
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>Defs/HediffDef[defName="AcidBurn"]</xpath>
+    <value>
+      <li Class="Phobos.BurnsAndSmoke.Defs.PhobosBurnLikeExtension">
+        <tbsaWeight>1</tbsaWeight>
+      </li>
+    </value>
+  </Operation>
+</Patch>

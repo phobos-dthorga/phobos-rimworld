@@ -44,6 +44,19 @@ promise current behaviour. For using the mods, start at the [documentation index
   runs Medical System Expansion 2 wiped wounds and revived corpses (parts are saved by index, and More Injuries appends eight),
   the game's own conversion hooks the bridge sits on, who chose what, and the owner's test protocol.
 
+## Framework
+
+- [D'thorga Framework: research and decisions (4 Nov 2026)](phobos-framework.md): the owner's rules (existing effects first,
+  own gases when they earn it, additive only, a manual override), what already carries a gas in the game and in Combat
+  Extended, the room-gas engine copied from the game's temperature design, carbon monoxide as the first own gas, the shared
+  helpers, and the owner's test protocol.
+
+## Burns and smoke
+
+- [Burns and smoke: research and decisions (4 Nov 2026)](burns-and-smoke.md): what an incendiary raid left in the save (112
+  plain burns and nothing else), how the game, Combat Extended and More Injuries handle fire and smoke, the medical sources
+  behind the burned fraction, burn shock, airway burns, lung injury and carbon monoxide, who chose what, and the test protocol.
+
 ## Water tap
 
 - [Water tap: research and decisions (4 Nov 2026)](water-tap.md): whether anyone had built one (one near miss), how Dubs Bad Hygiene handles bottles and water quality, why a

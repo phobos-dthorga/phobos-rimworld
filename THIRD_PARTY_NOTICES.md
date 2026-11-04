@@ -61,6 +61,26 @@ its Defs by name in XML, read its decompiled assembly for research (kept in the 
 its conveyor belt at runtime. At runtime the storage switch also shows VFE Factory's own belt icon, read from its
 installed Def; the image is never copied. Nothing from VFE Factory is in this repository.
 
+## More Injuries (Continued) and More Injuries: Organ Failure
+
+[More Injuries (Continued)](https://steamcommunity.com/sharedfiles/filedetails/?id=3348840185) by **Th3Fr3d** (Frederik Hoeft;
+[source on GitHub](https://github.com/frederik-hoeft/rimworld-more-injuries), `packageId` `Th3Fr3d.ExtendedInjuries`) is
+**GPL-3.0**. D'thorga Medical Save Bridge and D'thorga Burns and Smoke are designed against it by name only: the bridge finds one
+of its types by name at runtime, and Burns and Smoke patches its Defs in XML (adding its public secondary-condition handlers to
+our own conditions, and removing one worker from its registration list) and reaches nothing else. Its decompiled assembly was
+read for research in the ignored `.local/` and summarised in our own words. **Nothing from More Injuries is in this repository,
+and none of its code is adapted.** [More Injuries: Organ Failure](https://steamcommunity.com/sharedfiles/filedetails/?id=3733035523)
+by wenders was read the same way as the worked example of a third mod driving those handlers; nothing from it is here.
+
+## Combat Extended
+
+[Combat Extended](https://steamcommunity.com/sharedfiles/filedetails/?id=2890901044) by the **Combat Extended team**
+(`packageId` `CETeam.CombatExtended`; its README names the Creative Commons BY-NC-SA 4.0 licence, read 4 November 2026).
+D'thorga Framework reaches it by name only: it reads the public setting `Controller.settings.SmokeEffects`, the condition
+`SmokeInhalation` and the stat `SmokeSensitivity` at runtime, and D'thorga Burns and Smoke patches one of its Defs
+(`BurnSecondary`) in XML. No assembly of CE's is referenced, and nothing from it is copied or adapted. Its decompiled assembly
+was read for research in the ignored `.local/`.
+
 ## Mods named in the designs
 
 The radio framework design plans optional tie-ins with other authors' mods, including

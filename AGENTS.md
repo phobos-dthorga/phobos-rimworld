@@ -150,6 +150,16 @@ delivered, record the delivery in the changelog or design record, and add or ame
   the content mod. One provider per Def or service, no circular dependencies. Other authors must be able
   to use a framework without our content mods. Name meaningful constants; derive displayed figures from
   the authoritative rule; extract duplication when you meet it, not later.
+- **D'thorga Framework is that library** (owner, 4 November 2026; `mods/PhobosFramework`, `src/PhobosFramework`,
+  `docs/development/phobos-framework.md`). Every Phobos RimWorld mod with C# depends on it for the shared
+  helpers (optional mods by name, the load line, the display mode, rules Defs, the debug category, the
+  uninstall sweep) and goes through its `PhobosGases` for any gas; never a second gas model. Existing mods
+  adopt the helpers when next touched, not in a sweep.
+- **Existing effects first, own gases when they earn it** (owner, 4 November 2026). Infer an effect from
+  gases and functionality that already exist (the game's, another mod's) where they are present; add a
+  gas of our own only where its value is greater than inference could give, where nothing exists to infer
+  from, or on the owner's call-out, and say which in the design record. Gases are additive and per room:
+  no air, oxygen, pressure or vacuum model. The framework's source-mode setting is the manual override.
 - **UI presents, services decide.** Gizmos, inspect tabs, windows, designators and placement previews read
   state and delegate to one service call; they never mutate game state, roll chances or grant rewards.
 - **XML first, C# where Defs cannot express it.** Hardware and tuning are Defs (new Def types such as

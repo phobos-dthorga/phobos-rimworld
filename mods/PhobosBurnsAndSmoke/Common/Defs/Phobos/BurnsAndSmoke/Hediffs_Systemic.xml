@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- Burn load: how much of the body is burned, recomputed every pass from the burns themselves (derived; the saved severity
+       is overwritten on the next pass). Every figure is an authored starting value unless the comment names a source. -->
+  <HediffDef>
+    <defName>PhobosBurns_BurnLoad</defName>
+    <label>burns</label>
+    <labelNoun>extensive burns</labelNoun>
+    <description>How much of the body is burned, taken from every burn on the skin. Burned skin loses fluid and heat: the larger the area, the more the body struggles, the colder the patient gets, and the more they need to eat and rest. Past a fifth of the body, burn shock follows unless the burns are tended and the patient rests in bed.</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <defaultLabelColor>(0.95, 0.55, 0.3)</defaultLabelColor>
+    <maxSeverity>1</maxSeverity>
+    <isBad>true</isBad>
+    <tendable>false</tendable>
+    <everCurableByItem>false</everCurableByItem>
+    <scenarioCanAdd>false</scenarioCanAdd>
+    <comps>
+      <li Class="Phobos.BurnsAndSmoke.Comps.HediffCompProperties_PhobosBurnTooltip">
+        <kind>BurnLoad</kind>
+      </li>
+    </comps>
+    <stages>
+      <li>
+        <label>slight</label>
+        <becomeVisible>false</becomeVisible>
+      </li>
+      <li>
+        <minSeverity>0.05</minSeverity>
+        <label>minor</label>
+        <painOffset>0.05</painOffset>
+        <statOffsets>
+          <ComfyTemperatureMin>4</ComfyTemperatureMin>
+        </statOffsets>
+      </li>
+      <li>
+        <!-- 15 to 20% burned is the threshold for fluid resuscitation (the Parkland formula); approximate. -->
+        <minSeverity>0.15</minSeverity>
+        <label>serious</label>
+        <painOffset>0.12</painOffset>
+        <hungerRateFactor>1.3</hungerRateFactor>
+        <restFallFactor>1.2</restFallFactor>
+        <statOffsets>
+          <ComfyTemperatureMin>8</ComfyTemperatureMin>
+        </statOffsets>
+        <capMods>
+          <li>
+            <capacity>BloodPumping</capacity>
+            <offset>-0.10</offset>
+          </li>
+        </capMods>
+      </li>
+      <li>
+        <minSeverity>0.30</minSeverity>
+        <label>major</label>
+        <lifeThreatening>true</lifeThreatening>
+        <painOffset>0.20</painOffset>
+        <hungerRateFactor>1.6</hungerRateFactor>
+        <restFallFactor>1.3</restFallFactor>
+        <statOffsets>
+          <ComfyTemperatureMin>12</ComfyTemperatureMin>
+        </statOffsets>
+        <capMods>
+          <li>
+            <capacity>BloodPumping</capacity>
+            <offset>-0.20</offset>
+          </li>
+          <li>
+            <capacity>Moving</capacity>
+            <offset>-0.20</offset>
+          </li>
+        </capMods>
+      </li>
+      <li>
+        <minSeverity>0.50</minSeverity>
+        <label>critical</label>
+        <lifeThreatening>true</lifeThreatening>
+        <painOffset>0.25</painOffset>
+        <hungerRateFactor>2.0</hungerRateFactor>
+        <restFallFactor>1.4</restFallFactor>
+        <statOffsets>
+          <ComfyTemperatureMin>15</ComfyTemperatureMin>
+        </statOffsets>
+        <capMods>
+          <li>
+            <capacity>BloodPumping</capacity>
+            <offset>-0.30</offset>
+          </li>
+          <li>
+            <capacity>Consciousness</capacity>
+            <offset>-0.20</offset>
+          </li>
+          <li>
+            <capacity>Moving</capacity>
+            <offset>-0.40</offset>
+          </li>
+        </capMods>
+      </li>
+    </stages>
+  </HediffDef>
+
+  <!-- Burn shock: the danger of a large burn, by the revised Baux score (age + percent burned + 17 with an inhalation injury;
+       Osler and colleagues' 2010 revision). It starts at 15% burned and heads for a target the score sets; tending the burns and
+       bed rest lower the target; tending the shock itself (fluids) makes it fall faster. The death clocks are authored. -->
+  <HediffDef>
+    <defName>PhobosBurns_BurnShock</defName>
+    <label>burn shock</label>
+    <labelNoun>burn shock</labelNoun>
+    <description>Fluid pouring out through burned skin and the body's response to a large burn. Older patients and larger burns do worse, and a burned airway or carbon monoxide makes it worse still. Tend every burn, keep the patient in bed, and tend the shock itself to replace fluids. Untreated, severe burn shock kills within days.</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <defaultLabelColor>(0.9, 0.3, 0.3)</defaultLabelColor>
+    <maxSeverity>1</maxSeverity>
+    <isBad>true</isBad>
+    <tendable>true</tendable>
+    <makesSickThought>true</makesSickThought>
+    <everCurableByItem>false</everCurableByItem>
+    <scenarioCanAdd>false</scenarioCanAdd>
+    <comps>
+      <li Class="HediffCompProperties_TendDuration">
+        <baseTendDurationHours>12</baseTendDurationHours>
+        <severityPerDayTended>-0.2</severityPerDayTended>
+        <labelTendedWell>fluids given</labelTendedWell>
+        <labelTendedWellInner>fluids given</labelTendedWellInner>
+        <labelSolidTendedWell>fluids given</labelSolidTendedWell>
+      </li>
+      <li Class="Phobos.BurnsAndSmoke.Comps.HediffCompProperties_PhobosBurnTooltip">
+        <kind>BurnShock</kind>
+      </li>
+    </comps>
+    <stages>
+      <li>
+        <label>compensated</label>
+        <capMods>
+          <li>
+            <capacity>BloodPumping</capacity>
+            <offset>-0.10</offset>
+          </li>
+          <li>
+            <capacity>Consciousness</capacity>
+            <offset>-0.05</offset>
+          </li>
+        </capMods>
+      </li>
+      <li>
+        <minSeverity>0.30</minSeverity>
+        <label>shock</label>
+        <lifeThreatening>true</lifeThreatening>
+        <vomitMtbDays>2</vomitMtbDays>
+        <capMods>
+          <li>
+            <capacity>BloodPumping</capacity>
+            <offset>-0.25</offset>
+          </li>
+          <li>
+            <capacity>Consciousness</capacity>
+            <offset>-0.15</offset>
+          </li>
+          <li>
+            <capacity>Moving</capacity>
+            <offset>-0.30</offset>
+          </li>
+        </capMods>
+      </li>
+      <li>
+        <minSeverity>0.55</minSeverity>
+        <label>severe</label>
+        <lifeThreatening>true</lifeThreatening>
+        <deathMtbDays>4</deathMtbDays>
+        <capMods>
+          <li>
+            <capacity>BloodPumping</capacity>
+            <offset>-0.40</offset>
+          </li>
+          <li>
+            <capacity>Consciousness</capacity>
+            <setMax>0.5</setMax>
+          </li>
+        </capMods>
+      </li>
+      <li>
+        <minSeverity>0.80</minSeverity>
+        <label>terminal</label>
+        <lifeThreatening>true</lifeThreatening>
+        <deathMtbDays>1</deathMtbDays>
+        <capMods>
+          <li>
+            <capacity>BloodPumping</capacity>
+            <offset>-0.60</offset>
+          </li>
+          <li>
+            <capacity>Consciousness</capacity>
+            <setMax>0.1</setMax>
+          </li>
+        </capMods>
+      </li>
+    </stages>
+  </HediffDef>
+</Defs>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <PhobosFramework_SettingsCategory>D'thorga Framework</PhobosFramework_SettingsCategory>
+
+  <PhobosFramework_SettingGasSourceMode>Where gases come from</PhobosFramework_SettingGasSourceMode>
+  <PhobosFramework_SettingGasSourceModeDesc>The framework reuses gases and effects that already exist, from the game or from other mods, and carries its own only where nothing else does. This setting overrides that.</PhobosFramework_SettingGasSourceModeDesc>
+  <PhobosFramework_GasSourceModeAutomatic>Automatic</PhobosFramework_GasSourceModeAutomatic>
+  <PhobosFramework_GasSourceModeAutomaticDesc>Other mods' and the game's gases where they exist; the framework's own gases where nothing else carries them. The default.</PhobosFramework_GasSourceModeAutomaticDesc>
+  <PhobosFramework_GasSourceModeAlwaysOwn>Always the framework's own gases</PhobosFramework_GasSourceModeAlwaysOwn>
+  <PhobosFramework_GasSourceModeAlwaysOwnDesc>Every framework gas runs, even where another mod's effect covers it. Mods that read gases then read the framework's.</PhobosFramework_GasSourceModeAlwaysOwnDesc>
+  <PhobosFramework_GasSourceModeExistingOnly>Never the framework's own gases</PhobosFramework_GasSourceModeExistingOnly>
+  <PhobosFramework_GasSourceModeExistingOnlyDesc>The framework carries no gas of its own. Mods that depend on one fall back to a simpler estimate, or do nothing.</PhobosFramework_GasSourceModeExistingOnlyDesc>
+
+  <PhobosFramework_SettingShowGasOverlay>Show gases at the mouse (dev mode)</PhobosFramework_SettingShowGasOverlay>
+  <PhobosFramework_SettingShowGasOverlayDesc>In development mode, a small label follows the mouse naming every gas the framework can see in that cell's room.</PhobosFramework_SettingShowGasOverlayDesc>
+
+  <PhobosFramework_SettingDisplayMode>How much to show</PhobosFramework_SettingDisplayMode>
+  <PhobosFramework_DisplayModePlain>Plain</PhobosFramework_DisplayModePlain>
+  <PhobosFramework_DisplayModePlainDesc>Words only. No percentages, no figures.</PhobosFramework_DisplayModePlainDesc>
+  <PhobosFramework_DisplayModeOperator>Operator</PhobosFramework_DisplayModeOperator>
+  <PhobosFramework_DisplayModeOperatorDesc>The figures a practitioner would want to see.</PhobosFramework_DisplayModeOperatorDesc>
+  <PhobosFramework_DisplayModeEngineer>Engineer</PhobosFramework_DisplayModeEngineer>
+  <PhobosFramework_DisplayModeEngineerDesc>The full working, line by line.</PhobosFramework_DisplayModeEngineerDesc>
+</LanguageData>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <!-- Combat Extended's non-merging burn from incendiary ammunition and lasers counts as a burn too (CE, Hediffs_CE.xml). -->
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>Defs/HediffDef[defName="BurnSecondary"]</xpath>
+    <value>
+      <li Class="Phobos.BurnsAndSmoke.Defs.PhobosBurnLikeExtension">
+        <tbsaWeight>1</tbsaWeight>
+      </li>
+    </value>
+  </Operation>
+</Patch>

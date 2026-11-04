@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- Airway burn: heat injures the throat; the swelling builds over hours and can close the airway (Walker and colleagues,
+       Critical Care 2015, on inhalation injury). Severity follows the condition's age: peak at 8 hours, holding to 24, gone by
+       48 (approximate). The top stage kills through breathing, which More Injuries: Organ Failure turns into its own chain. -->
+  <HediffDef>
+    <defName>PhobosBurns_AirwayBurn</defName>
+    <label>airway burn</label>
+    <labelNoun>an airway burn</labelNoun>
+    <description>Hot air or flame has burned the throat. The danger comes later: the lining swells over the next several hours and can close the airway. A tracheotomy opens a way past the swelling. Left alone, a mild case clears in about two days; a bad one can suffocate the patient first.</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <defaultLabelColor>(0.9, 0.45, 0.3)</defaultLabelColor>
+    <maxSeverity>1</maxSeverity>
+    <isBad>true</isBad>
+    <tendable>false</tendable>
+    <everCurableByItem>false</everCurableByItem>
+    <scenarioCanAdd>false</scenarioCanAdd>
+    <comps>
+      <li Class="Phobos.BurnsAndSmoke.Comps.HediffCompProperties_PhobosRiseThenFall">
+        <peakHours>8</peakHours>
+        <plateauEndHours>24</plateauEndHours>
+        <resolveHours>48</resolveHours>
+      </li>
+    </comps>
+    <stages>
+      <li>
+        <label>hoarse</label>
+        <capMods>
+          <li>
+            <capacity>Breathing</capacity>
+            <offset>-0.05</offset>
+          </li>
+          <li>
+            <capacity>Talking</capacity>
+            <offset>-0.2</offset>
+          </li>
+        </capMods>
+      </li>
+      <li>
+        <minSeverity>0.30</minSeverity>
+        <label>swelling</label>
+        <painOffset>0.1</painOffset>
+        <capMods>
+          <li>
+            <capacity>Breathing</capacity>
+            <offset>-0.30</offset>
+          </li>
+          <li>
+            <capacity>Talking</capacity>
+            <offset>-0.5</offset>
+          </li>
+        </capMods>
+      </li>
+      <li>
+        <minSeverity>0.65</minSeverity>
+        <label>closing</label>
+        <lifeThreatening>true</lifeThreatening>
+        <painOffset>0.15</painOffset>
+        <capMods>
+          <li>
+            <capacity>Breathing</capacity>
+            <setMax>0.30</setMax>
+          </li>
+          <li>
+            <capacity>Talking</capacity>
+            <setMax>0.2</setMax>
+          </li>
+        </capMods>
+      </li>
+      <li>
+        <minSeverity>0.90</minSeverity>
+        <label>obstructed</label>
+        <lifeThreatening>true</lifeThreatening>
+        <painOffset>0.2</painOffset>
+        <capMods>
+          <li>
+            <capacity>Breathing</capacity>
+            <setMax>0</setMax>
+          </li>
+          <li>
+            <capacity>Talking</capacity>
+            <setMax>0</setMax>
+          </li>
+        </capMods>
+      </li>
+    </stages>
+  </HediffDef>
+
+  <!-- What a tracheotomy leaves: a tube in the neck for a few days. -->
+  <HediffDef>
+    <defName>PhobosBurns_Tracheostomy</defName>
+    <label>tracheostomy</label>
+    <labelNoun>a tracheostomy</labelNoun>
+    <description>An opening cut into the windpipe below a swollen airway, so the patient can breathe past it. It heals closed in a few days. Speaking is hard while it is in.</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <defaultLabelColor>(0.6, 0.7, 0.9)</defaultLabelColor>
+    <isBad>true</isBad>
+    <tendable>false</tendable>
+    <everCurableByItem>false</everCurableByItem>
+    <scenarioCanAdd>false</scenarioCanAdd>
+    <comps>
+      <li Class="HediffCompProperties_Disappears">
+        <disappearsAfterTicks>300000~300000</disappearsAfterTicks>
+        <showRemainingTime>true</showRemainingTime>
+      </li>
+    </comps>
+    <stages>
+      <li>
+        <capMods>
+          <li>
+            <capacity>Breathing</capacity>
+            <offset>-0.05</offset>
+          </li>
+          <li>
+            <capacity>Talking</capacity>
+            <offset>-0.6</offset>
+          </li>
+        </capMods>
+      </li>
+    </stages>
+  </HediffDef>
+</Defs>

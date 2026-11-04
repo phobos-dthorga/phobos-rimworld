@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <!-- With More Injuries active, carbon monoxide and a closing airway starve the organs and the brain of oxygen the way More
+       Injuries' own cardiac arrest does, through its public XML handlers (the form is Organ Failure's
+       Hediffs_MIFB_RespiratoryFailure.xml; the figures are ours, authored). CausedBy shows the cause in the health tab. -->
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/HediffDef[defName="PhobosBurns_CarbonMonoxide"]/comps</xpath>
+    <value>
+      <li Class="MoreInjuries.HealthConditions.Secondary.HediffCompProperties_CausedBy"></li>
+      <li Class="MoreInjuries.HealthConditions.Secondary.HediffCompProperties_SecondaryCondition">
+        <severityCurve>
+          <points>
+            <li>0, 0</li>
+            <li>0.25, 0</li>
+            <li>0.4, 0.5</li>
+            <li>0.55, 1</li>
+          </points>
+        </severityCurve>
+        <handlers>
+          <li Class="MoreInjuries.HealthConditions.CardiacArrest.Secondary.HediffCompHandler_SecondaryCondition_Hypoxia">
+            <tickInterval>900</tickInterval>
+            <hediffMakerProps Class="MoreInjuries.HealthConditions.Secondary.Handlers.HediffMakers.HediffMakerProperties_SingleHediff">
+              <hediffMakerDef>
+                <hediffDef>OrganHypoxia</hediffDef>
+                <minSeverity>0.25</minSeverity>
+                <maxSeverity>1</maxSeverity>
+                <allowMultiple>true</allowMultiple>
+                <allowDuplicate>false</allowDuplicate>
+              </hediffMakerDef>
+            </hediffMakerProps>
+            <targetEvaluator Class="MoreInjuries.HealthConditions.Secondary.Handlers.TargetEvaluators.BodyPartHediffTargetEvaluator_RandomBleedable">
+              <excludedParts>
+                <li>Brain</li>
+              </excludedParts>
+            </targetEvaluator>
+          </li>
+          <li Class="MoreInjuries.HealthConditions.CardiacArrest.Secondary.HediffCompHandler_SecondaryCondition_Hypoxia">
+            <tickInterval>600</tickInterval>
+            <baseChance>0.45</baseChance>
+            <chanceModifiers>
+              <li Class="MoreInjuries.HealthConditions.Secondary.Handlers.Modifiers.HediffModifier_LinkedHediff_SimpleCurve">
+                <hediffDef>BrainDamage_Hypoxia</hediffDef>
+                <severityCurve>
+                  <points>
+                    <li>0, 1</li>
+                    <li>2, 0.85</li>
+                    <li>4, 0.6</li>
+                    <li>6, 0.25</li>
+                  </points>
+                </severityCurve>
+              </li>
+            </chanceModifiers>
+            <hediffMakerProps Class="MoreInjuries.HealthConditions.Secondary.Handlers.HediffMakers.HediffMakerProperties_SingleHediff">
+              <hediffMakerDef>
+                <hediffDef>BrainDamage_Hypoxia</hediffDef>
+                <minSeverity>0.2</minSeverity>
+                <maxSeverity>1</maxSeverity>
+                <allowMultiple>true</allowMultiple>
+                <allowDuplicate>false</allowDuplicate>
+              </hediffMakerDef>
+            </hediffMakerProps>
+            <targetEvaluator Class="MoreInjuries.HealthConditions.Secondary.Handlers.TargetEvaluators.BodyPartHediffTargetEvaluator_Single">
+              <target>Brain</target>
+            </targetEvaluator>
+          </li>
+        </handlers>
+      </li>
+    </value>
+  </Operation>
+
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/HediffDef[defName="PhobosBurns_AirwayBurn"]/comps</xpath>
+    <value>
+      <li Class="MoreInjuries.HealthConditions.Secondary.HediffCompProperties_CausedBy"></li>
+      <li Class="MoreInjuries.HealthConditions.Secondary.HediffCompProperties_SecondaryCondition">
+        <severityCurve>
+          <points>
+            <li>0, 0</li>
+            <li>0.65, 0</li>
+            <li>0.9, 0.6</li>
+            <li>1, 1</li>
+          </points>
+        </severityCurve>
+        <handlers>
+          <li Class="MoreInjuries.HealthConditions.CardiacArrest.Secondary.HediffCompHandler_SecondaryCondition_Hypoxia">
+            <tickInterval>600</tickInterval>
+            <baseChance>0.5</baseChance>
+            <hediffMakerProps Class="MoreInjuries.HealthConditions.Secondary.Handlers.HediffMakers.HediffMakerProperties_SingleHediff">
+              <hediffMakerDef>
+                <hediffDef>BrainDamage_Hypoxia</hediffDef>
+                <minSeverity>0.2</minSeverity>
+                <maxSeverity>1</maxSeverity>
+                <allowMultiple>true</allowMultiple>
+                <allowDuplicate>false</allowDuplicate>
+              </hediffMakerDef>
+            </hediffMakerProps>
+            <targetEvaluator Class="MoreInjuries.HealthConditions.Secondary.Handlers.TargetEvaluators.BodyPartHediffTargetEvaluator_Single">
+              <target>Brain</target>
+            </targetEvaluator>
+          </li>
+        </handlers>
+      </li>
+    </value>
+  </Operation>
+
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/HediffDef[defName="PhobosBurns_BurnShock"]/comps</xpath>
+    <value>
+      <li Class="MoreInjuries.HealthConditions.Secondary.HediffCompProperties_CausedBy"></li>
+    </value>
+  </Operation>
+</Patch>

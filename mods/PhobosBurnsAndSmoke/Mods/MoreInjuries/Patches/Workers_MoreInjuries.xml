@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <!-- More Injuries' own fire feature puts plain burns on both lungs whenever a burning pawn is hurt. This mod models inhalation
+       in full, so with both loaded the owner chose (4 Nov 2026) to switch that one worker off rather than burn the lungs twice.
+       Nothing else of More Injuries changes; the list this removes from is its own registration list
+       (Defs/Internal/InjuryWorkerDef.xml). Players who want it back can delete this file. -->
+  <Operation Class="PatchOperationRemove">
+    <xpath>Defs/MoreInjuries.Defs.ReferenceableDef[defName="InjuryWorkerDef"]/modExtensions/li[@Class="MoreInjuries.HealthConditions.WorkerFactoryProps_ModExtension"]/workerFactories/li[@Class="MoreInjuries.HealthConditions.InhalationInjury.InhalationInjuryWorkerFactory"]</xpath>
+  </Operation>
+</Patch>

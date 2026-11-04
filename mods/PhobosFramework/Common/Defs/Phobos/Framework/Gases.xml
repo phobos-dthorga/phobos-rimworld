@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- The framework's own room gases. Add one only where it earns more than an effect inferred from a gas that already
+       exists (owner's rule, 4 Nov 2026). Carbon monoxide qualifies: nothing in the game or in Combat Extended carries it, it
+       lingers after the smoke has gone, drifts through an open door and a filter mask does not stop it. Smoke itself stays
+       with the game's grid or Combat Extended. Every figure is authored. -->
+  <Phobos.Framework.Gases.PhobosGasDef>
+    <defName>PhobosGas_CarbonMonoxide</defName>
+    <label>carbon monoxide</label>
+    <description>An invisible, odourless gas from fires burning in a closed space. It builds up while the fire burns and stays in the room long after the smoke has thinned. A filter mask does nothing against it; only sealed headgear with its own air does.</description>
+    <!-- Indoors it is lost only through doors, vents and roof gaps: 12 in-game hours to halve on its own. -->
+    <decayHalfLifeTicks>30000</decayHalfLifeTicks>
+    <!-- Under a gap in the roof it is gone in minutes. -->
+    <openRoofHalfLifeTicks>600</openRoofHalfLifeTicks>
+    <maxConcentration>1</maxConcentration>
+    <filteredByMask>false</filteredByMask>
+    <preferExisting>None</preferExisting>
+    <overlayColor>(0.9, 0.3, 0.3, 1)</overlayColor>
+  </Phobos.Framework.Gases.PhobosGasDef>
+</Defs>

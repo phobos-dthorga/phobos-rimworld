@@ -37,6 +37,17 @@ it builds anywhere the .NET SDK is. Its game-free rules (the index re-numbering 
 `1.6\Assemblies`), never copied, and has no Harmony. Its game-free rules are tested by `dotnet test tests/PhobosWaterTap.Rules.Tests`, which also runs on GitHub. Its texture and
 preview are redrawn by `assets/water-tap/draw_tap.py`, with any Python that has Pillow.
 
+**D'thorga Framework has an assembly since 0.1.0** (4 November 2026): `dotnet build src/PhobosFramework/PhobosFramework.csproj` builds
+`mods/PhobosFramework/1.6/Assemblies/PhobosFramework.dll`, loaded on 1.6 and 1.7. It references only the game (Combat Extended is reached by
+name) and has no Harmony, so it builds anywhere the .NET SDK is. Its game-free rules (door and vent exchange, venting, decay, the rebuild of a
+room from its cells, mask and signal choice, the owner's source rule) are tested by `dotnet test tests/PhobosFramework.Rules.Tests`, which also
+runs on GitHub. **Other projects reference it with `ProjectReference ... Private="false"`**, so the framework's DLL ships only in its own mod.
+
+**D'thorga Burns and Smoke has an assembly since 0.1.0** (4 November 2026): `dotnet build src/PhobosBurnsAndSmoke/PhobosBurnsAndSmoke.csproj`
+builds the framework and then `mods/PhobosBurnsAndSmoke/1.6/Assemblies/PhobosBurnsAndSmoke.dll`. It references the game and the framework
+project only; More Injuries and Combat Extended are reached through the framework by name. Its game-free rules (burned fraction, the Baux score
+and its treatment factor, carbon monoxide uptake and clearance, the airway curve) are tested by `dotnet test tests/PhobosBurnsAndSmoke.Rules.Tests`.
+
 **One limit to know:** the mod references Vanilla Expanded Framework's `PipeSystem.dll`, which its licence
 does not let us copy into the repository. So **GitHub Actions cannot build the mod**; it builds and runs
 only the game-free physics tests in `tests/`. The mod itself builds on a machine with RimWorld and VEF

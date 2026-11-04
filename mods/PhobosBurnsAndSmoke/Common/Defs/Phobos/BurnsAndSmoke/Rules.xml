@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- The starting values the design says to tune in play. One Def; the first loaded wins. Every figure here is authored
+       unless the comment beside it names a source. Player preferences (the toggles, the display mode) are mod settings. -->
+  <Phobos.BurnsAndSmoke.Defs.PhobosBurnRulesDef>
+    <defName>PhobosBurns_Rules</defName>
+    <label>burn rules</label>
+
+    <!-- A pawn with burns, on fire, carrying one of our conditions, or standing in smoke is recomputed this often. -->
+    <recomputeIntervalTicks>300</recomputeIntervalTicks>
+
+    <burnLoadVisibleTbsa>0.05</burnLoadVisibleTbsa>
+    <!-- 15 to 20% burned is the threshold for fluid resuscitation (the Parkland formula); approximate. -->
+    <shockStartTbsa>0.15</shockStartTbsa>
+
+    <!-- Revised Baux score (Osler and colleagues, 2010): age + percent burned + 17 with an inhalation injury. Cohorts report no
+         deaths below about 36 and no survivors above about 110. -->
+    <bauxNoDeathScore>36</bauxNoDeathScore>
+    <bauxNoSurvivorScore>110</bauxNoSurvivorScore>
+    <inhalationBauxPoints>17</inhalationBauxPoints>
+    <inhalationCarbonMonoxideThreshold>0.2</inhalationCarbonMonoxideThreshold>
+    <shockRisePerDay>1</shockRisePerDay>
+    <shockFallPerDay>0.35</shockFallPerDay>
+    <tendedShockRelief>0.6</tendedShockRelief>
+    <bedRestShockRelief>0.3</bedRestShockRelief>
+    <shockTreatmentFloor>0.1</shockTreatmentFloor>
+
+    <airwayBaseChance>0.15</airwayBaseChance>
+    <airwayReferenceDamage>10</airwayReferenceDamage>
+
+    <!-- Carbon monoxide: an hour in a full room takes the blood to 30%. The half-lives live on the condition's comp
+         (5.3 hours roofed, from the ~320 minute room-air figure; 3 hours in open air, authored). -->
+    <coUptakePerHourAtFullGas>0.3</coUptakePerHourAtFullGas>
+    <coCap>0.8</coCap>
+
+    <lungInjuryPerHourAtFullSmoke>0.15</lungInjuryPerHourAtFullSmoke>
+    <!-- Combat Extended's own figure per 50-tick check, reused for our acute condition when CE's is not running. -->
+    <acuteSmokePerCheck>0.045</acuteSmokePerCheck>
+  </Phobos.BurnsAndSmoke.Defs.PhobosBurnRulesDef>
+</Defs>

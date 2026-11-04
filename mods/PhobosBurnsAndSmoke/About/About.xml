@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ModMetaData>
+  <packageId>PhobosDthorga.BurnsAndSmoke</packageId>
+  <name>D'thorga Burns and Smoke</name>
+  <author>Phobos A. D'thorga</author>
+  <url>https://github.com/phobos-dthorga/phobos-rimworld</url>
+  <modVersion>0.1.0</modVersion>
+  <description>Burns and smoke that matter the way More Injuries' wounds do.
+
+- Burned body fraction: every burn on the skin adds up. Large burns make a patient cold, hungry, in pain and weak-hearted.
+
+- Burn shock: past about a fifth of the body burned, shock sets in, and it kills within days unless the burns are tended, the patient rests in bed and the shock itself is tended to give fluids. Older patients and inhalation injuries do worse (the revised Baux score).
+
+- Airway burns: a pawn that burns, or is burned about the head and neck, may get an airway burn whose swelling builds over hours and can close the throat. A tracheotomy opens a way past it.
+
+- Smoke: breathing it damages the lungs for days and can lead to pneumonia. With Combat Extended's smoke running, its own smoke inhalation is the signal; without it, fires now fill roofed rooms with the game's own smoke.
+
+- Carbon monoxide: fires in closed rooms make it. It lingers after the smoke has cleared, a gas mask does nothing against it, and it confuses, drops and kills.
+
+Needs D'thorga Framework. More Injuries and Combat Extended are optional and are used when present. Safe to add to a running colony. No Harmony needed.
+
+Community-created content. Not official and not endorsed by Ludeon Studios.</description>
+  <supportedVersions>
+    <li>1.6</li>
+    <li>1.7</li>
+  </supportedVersions>
+  <modDependencies>
+    <li>
+      <packageId>PhobosDthorga.Framework</packageId>
+      <displayName>D'thorga Framework</displayName>
+      <downloadUrl>https://github.com/phobos-dthorga/phobos-rimworld</downloadUrl>
+    </li>
+  </modDependencies>
+  <loadAfter>
+    <li>Ludeon.RimWorld</li>
+    <li>PhobosDthorga.Framework</li>
+    <li>CETeam.CombatExtended</li>
+    <li>Th3Fr3d.ExtendedInjuries</li>
+    <li>wenders.moreinjuries.organbridge</li>
+  </loadAfter>
+</ModMetaData>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <!-- With More Injuries, the tracheotomy waits for its Emergency Medicine research, like its suction and defibrillator. -->
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/RecipeDef[defName="PhobosBurns_Tracheotomy"]</xpath>
+    <value>
+      <researchPrerequisites>
+        <li>EmergencyMedicine</li>
+      </researchPrerequisites>
+    </value>
+  </Operation>
+</Patch>

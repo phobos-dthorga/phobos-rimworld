@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- A tracheotomy: cut an airway below the swelling. Modelled on the game's ExciseCarcinoma (Core, Hediffs_Local_Chronic.xml).
+       Without More Injuries there is no medical research to hang it on; the More Injuries tie-in gates it on Emergency Medicine. -->
+  <RecipeDef ParentName="SurgeryFlesh">
+    <defName>PhobosBurns_Tracheotomy</defName>
+    <label>tracheotomy</label>
+    <description>Open the windpipe below a swollen, burned airway so the patient can breathe. The airway burn is relieved; a tracheostomy tube stays in for a few days and heals closed on its own.</description>
+    <workerClass>Phobos.BurnsAndSmoke.Surgery.Recipe_PhobosRemoveAddHediff</workerClass>
+    <jobString>Performing tracheotomy.</jobString>
+    <workAmount>800</workAmount>
+    <removesHediff>PhobosBurns_AirwayBurn</removesHediff>
+    <addsHediff>PhobosBurns_Tracheostomy</addsHediff>
+    <successfullyRemovedHediffMessage>{0} has opened {1}'s airway.</successfullyRemovedHediffMessage>
+    <deathOnFailedSurgeryChance>0.02</deathOnFailedSurgeryChance>
+    <surgerySuccessChanceFactor>1.2</surgerySuccessChanceFactor>
+    <targetsBodyPart>true</targetsBodyPart>
+    <appliedOnFixedBodyParts>
+      <li>Neck</li>
+    </appliedOnFixedBodyParts>
+    <skillRequirements>
+      <Medicine>6</Medicine>
+    </skillRequirements>
+    <recipeUsers>
+      <li>Human</li>
+    </recipeUsers>
+    <ingredients>
+      <li>
+        <filter>
+          <categories>
+            <li>Medicine</li>
+          </categories>
+        </filter>
+        <count>1</count>
+      </li>
+    </ingredients>
+    <fixedIngredientFilter>
+      <categories>
+        <li>Medicine</li>
+      </categories>
+      <disallowedThingDefs>
+        <li>MedicineHerbal</li>
+      </disallowedThingDefs>
+    </fixedIngredientFilter>
+  </RecipeDef>
+</Defs>
