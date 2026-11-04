@@ -84,8 +84,10 @@ None yet.
 
 ## Open points and upstream
 
-- Door discovery through `Room.Regions` and vent discovery through `ContainedAndAdjacentThings` on 1.7: unverified in play;
-  the fallback is a cached door and vent list kept by a comp on those Defs.
+- Door and vent discovery on 1.7 reads correctly but is unverified in play (read from the 1.7 assembly, 5 Nov 2026): `Region.Neighbors` walks the
+  region's links, door regions are `RegionType.Portal` with `Region.door` set, as the game's own `RoomTempTracker` assumes, and
+  `Room.ContainedAndAdjacentThings` gathers each region's lister. That a vent set in a wall appears in the lister was not read. The fallback is a
+  cached door and vent list kept by a comp on those Defs.
 - Gravships: the game's smoke, CE's smoke and our room gas all stay on the old map when a ship moves.
 - A `CeSmokeCarrier` when a mod must add smoke under Combat Extended.
 - Further own gases where they earn it (chemfuel vapour, Rimatomics, Biological Warfare tie-ins), each argued against the rule.

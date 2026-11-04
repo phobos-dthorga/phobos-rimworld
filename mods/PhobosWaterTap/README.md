@@ -106,4 +106,4 @@ On 4 November 2026, against RimWorld 1.7.4998 and the owner's 326 active mods: i
 game members it calls were found in the installed 1.7 game. The tap's rules pass 29 unit tests. The patch checker found every xpath and Def name. **None of this is an in-game test.**
 Not checked: anything on a running colony, including the texture in place, pawns using the tap, belts taking from it, and the colony limit.
 
-Community-created content. Not official and not endorsed by Ludeon Studios.
+Community-created content. Portions of the materials used to create this content/mod are trademarks and/or copyrighted works of Ludeon Studios Inc. All rights reserved by Ludeon. This content/mod is not official and is not endorsed by Ludeon.

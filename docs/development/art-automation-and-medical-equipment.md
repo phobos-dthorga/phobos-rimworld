@@ -175,9 +175,7 @@ Unrelated art reached at most 0.43 similarity and 17 hash bits at closest, and r
 
 Run `scripts/art/near_copy.py` over every candidate before picks, so nothing ships as a near-copy.
 
-**Before publishing:** the EULA also gives a disclaimer wording for works made with Ludeon's materials ("Portions of the materials
-used to create this content/mod are trademarks and/or copyrighted works of Ludeon Studios Inc."). Read that clause and compare it
-with the disclaimer in our About files.
+**The disclaimer (settled 5 Nov 2026):** the EULA requires its own two sentences on each mod, and our About files had a shorter line. All eight now carry its wording, and `scripts/check-mod-layout.py` enforces it.
 
 ## Medical equipment
 
@@ -188,16 +186,18 @@ with the disclaimer in our About files.
 | Oxygen supply | Vanilla Gravship Expanded | An oxygen pipe network, pumps, tanks and an oxygen canister item that explodes when burned. Research: Oxygen Network, on the gravship research path |
 | Portable oxygen | Vanilla Gravship Expanded | Oxygen packs, consumed in vacuum |
 | Emergency oxygen | The Dead Man's Switch - Expedition | An oxygen candle, a sodium chlorate device for sealed cabins |
-| Ventilator | More Injuries: Organ Failure | A surgery that intubates the patient, which needs an active life-support bed. It stands in for breathing but does not repair the lungs. Which mods supply such a bed is unread |
+| Ventilator | More Injuries: Organ Failure | A surgery that intubates the patient. **It cannot appear in the owner's game (read from its source, 5 Nov 2026):** it needs the hediff `QE_LifeSupport`, from Questionable Ethics' life support, and no installed mod defines that |
 | IV stand | VFE Medical Module | A facility beside a hospital bed that adds immunity gain speed |
 
 None of the oxygen above treats a patient yet, as far as these Defs show: it serves vacuum and sealed rooms.
+
+**Pipes come free (read from Vanilla Expanded Framework's code, 5 Nov 2026):** its `AutoLinkRefuelables` adds a pipe link to any building whose fuel filter accepts a resource a pipe network names, and `VGE_OxygenNet` names `VGE_OxygenCanister`. So a building that burns those canisters also refills from Gravship's oxygen pipes, with no code from us. Not yet tested in game.
 
 **Under the owner's rule, reuse these where present:**
 
 - **Medical oxygen** uses Vanilla Gravship Expanded's canister or pipe network when that mod is active, as an optional tie-in.
   Without it, we supply a simple oxygen item of our own, because nothing else would exist.
-- **Airway support** hands off to Organ Failure's ventilation where it is active; we build a ventilator only if it would add something.
+- **Airway support:** Organ Failure's ventilation only works alongside Questionable Ethics. For the owner's game nothing exists to reuse, so under the owner's rule a ventilator of ours could earn its place.
 
 ### The oxygen chain (owner, 5 Nov 2026)
 
@@ -252,5 +252,4 @@ tier, not medical advice: the NHS England review noted there that clinical evide
 | Is the electrolyser's water a Dubs Bad Hygiene pipe tie-in or a water item? | Agent, when the mod starts |
 | Should vented hydrogen be a room gas of ours, flammable in a closed room? It may earn its place under the gas rule | Owner |
 | Is the frost one overlay texture or several frames? | Agent, when the store's art is picked |
-| Which mods supply Organ Failure's life-support bed? | Agent, when medical work starts |
 | Licences of any further model or tool | Agent, before use |

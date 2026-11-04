@@ -48,7 +48,9 @@ def read_processes():
 
 
 def free_gb(paths):
-    return {path.anchor or str(path): shutil.disk_usage(path).free / 1e9 for path in paths}
+    """Free space by drive, so a folder that does not exist yet (or a mistyped one) cannot crash the check."""
+    drives = {Path(path).resolve().anchor for path in paths}
+    return {drive: shutil.disk_usage(drive).free / 1e9 for drive in drives}
 
 
 def make_checker(stop_at, min_free_gb, watch_paths, game_names):
@@ -75,7 +77,11 @@ def post_process(comfy, generated, folders):
         steps += [[python, '-I', str(tools / 'contact_sheet.py'), str(generated), name] for name in existing]
     steps.append([sys.executable, '-I', str(tools / 'review_page.py'), str(generated)])
     for step in steps:
-        done = subprocess.run(step, capture_output=True, text=True, check=False)
+        try:
+            done = subprocess.run(step, capture_output=True, text=True, check=False)
+        except OSError as error:
+            problems.append(f'{Path(step[2]).name}: {error}')
+            continue
         if done.returncode:
             problems.append(f'{Path(step[2]).name}: {done.stderr.strip()[-400:]}')
     return problems

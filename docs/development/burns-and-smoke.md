@@ -170,7 +170,7 @@ not the numbers.
 - Supporting gear for burn care without a burn ward (owner's wish, 4 Nov 2026): a candidate for the planned medical equipment
   mod (`art-automation-and-medical-equipment.md`), for instance a dressing or a fluids kit that raises the fluids quality, once that mod
   has its first piece.
-- Whether `Recipe_RemoveHediff` in 1.6 already applies `addsHediff`; the subclass adds it only when the removal succeeded.
+- `Recipe_RemoveHediff` does not apply `addsHediff` on 1.7 (read from the 1.7 assembly, 5 Nov 2026), so the subclass is needed. The 1.6 reference assembly has no method bodies to read; the subclass checks before adding, so a difference there could not double it.
 - Whether to respect More Injuries' own `EnableFireInhalation` setting instead of removing its worker.
 - Phase 2: constricting eschar on limbs burned past 60% of a part's health, an escharotomy surgery, ischaemic damage, a hand-off
   to More Injuries' gangrene, and a fluid-resuscitation bill that consumes its saline bag.

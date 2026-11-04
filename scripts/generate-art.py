@@ -363,6 +363,14 @@ def interrupt_server():
     post_json('/interrupt', {})
 
 
+def _cancel_stuck_image():
+    """An image past its timeout is still running, and would hold up every later one. A dead server needs no cancelling."""
+    try:
+        interrupt_server()
+    except (urllib.error.URLError, OSError, ValueError):
+        pass
+
+
 def wait_for(prompt_id, timeout=600, should_stop=None):
     deadline = time.time() + timeout
     while time.time() < deadline:
@@ -499,6 +507,8 @@ def run(request_file, only=None, comfy_path=DEFAULT_COMFY, start=False, should_s
                         raise RuntimeError('no image came back')
                     data = fetch_image(images[0])
                 except (RuntimeError, TimeoutError, ValueError, urllib.error.URLError, OSError) as error:
+                    if isinstance(error, TimeoutError):
+                        _cancel_stuck_image()
                     if not keep_going:
                         raise
                     consecutive += 1

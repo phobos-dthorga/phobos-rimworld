@@ -14,7 +14,7 @@ login). Everything between a `BEGIN GENERATED` and an `END GENERATED` marker is 
 suggestions are written by hand, and the refresh leaves them alone.
 
 <!-- BEGIN GENERATED: summary -->
-**As of 2026-11-04** (the date of the game's mod list): RimWorld 1.7.4998 rev1299, **329 mods switched on** (6 game and DLCs, 314 Workshop, 9 local), and **19 more subscribed but switched off**. 203 of the 323 switched-on mods already declare RimWorld 1.7.
+**As of 2026-11-05** (the date of the game's mod list): RimWorld 1.7.4998 rev1299, **330 mods switched on** (6 game and DLCs, 314 Workshop, 10 local), and **19 more subscribed but switched off**. 204 of the 324 switched-on mods already declare RimWorld 1.7.
 <!-- END GENERATED: summary -->
 
 ## Read this first (gotchas)
@@ -610,7 +610,7 @@ Read from [the collection](https://steamcommunity.com/sharedfiles/filedetails/?i
 | 185 | [Vanilla Brewing Expanded](https://steamcommunity.com/sharedfiles/filedetails/?id=2186560858) | Oskar Potocki, Sarg Bjornson and 1 more | `vanillaexpanded.vbrewe` | 2026-10-14 | yes |
 | 279 | [Vanilla Brewing Expanded - Coffees and Teas](https://steamcommunity.com/sharedfiles/filedetails/?id=2275449762) | Sarg Bjornson, Chowder and 1 more | `vanillaexpanded.vbrewecandt` | 2026-10-14 | yes |
 | 280 | [Vanilla Chemfuel Expanded](https://steamcommunity.com/sharedfiles/filedetails/?id=2792917473) | Oskar Potocki, Kikohi | `vanillaexpanded.vchemfuele` | 2026-10-14 | yes |
-| 186 | [Vanilla Cooking Expanded](https://steamcommunity.com/sharedfiles/filedetails/?id=2134308519) | Oskar Potocki, Sarg Bjornson and 1 more | `vanillaexpanded.vcooke` | 2026-10-14 | yes |
+| 186 | [Vanilla Cooking Expanded](https://steamcommunity.com/sharedfiles/filedetails/?id=2134308519) | Oskar Potocki, Sarg Bjornson and 1 more | `vanillaexpanded.vcooke` | 2026-11-04 | yes |
 | 14 | [Vanilla Expanded Framework](https://steamcommunity.com/sharedfiles/filedetails/?id=2023507013) | Oskar Potocki, XeoNovaDan and 5 more | `oskarpotocki.vanillafactionsexpanded.core` | 2026-11-03 | yes |
 | 188 | [Vanilla Factions Expanded - Classical](https://steamcommunity.com/sharedfiles/filedetails/?id=2787850474) | Oskar Potocki, ISOREX and 3 more | `oskarpotocki.vfe.classical` | 2026-10-14 | yes |
 | 19 | [Vanilla Factions Expanded - Deserters](https://steamcommunity.com/sharedfiles/filedetails/?id=3025493377) | Oskar Potocki, xrushha and 1 more | `oskarpotocki.vfe.deserters` | 2026-10-14 | yes |
@@ -658,7 +658,7 @@ Read from [the collection](https://steamcommunity.com/sharedfiles/filedetails/?i
 | 220 | [Vanilla Weapons Expanded - Bioferrite](https://steamcommunity.com/sharedfiles/filedetails/?id=3287469135) | Oskar Potocki, xrushha and 2 more | `vanillaexpanded.vwebf` | 2026-10-14 | yes |
 | 221 | [Vanilla Weapons Expanded - Coilguns](https://steamcommunity.com/sharedfiles/filedetails/?id=2375692535) | Oskar Potocki, AveryTheKitty and 2 more | `vanillaexpanded.vwec` | 2026-10-14 | yes |
 
-### Everything else (271)
+### Everything else (272)
 
 | Load # | Mod | Author | Package ID | Updated | 1.7 |
 | --- | --- | --- | --- | --- | --- |
@@ -721,10 +721,11 @@ Read from [the collection](https://steamcommunity.com/sharedfiles/filedetails/?i
 | 237 | [Custom Base Framework](https://steamcommunity.com/sharedfiles/filedetails/?id=3813689040) | Evil Eye Guy | `evileyeguy.custombaseframework` | 2026-10-29 | yes |
 | 59 | [Customize Weapon](https://steamcommunity.com/sharedfiles/filedetails/?id=3550585103) | Vortex | `vortex.customizeweapon` | 2026-10-23 | yes |
 | 325 | D'thorga Burns and Smoke | Phobos A. D'thorga | `phobosdthorga.burnsandsmoke` | — | yes |
+| 326 | D'thorga Emergency Dosing | Phobos A. D'thorga | `phobosdthorga.dosing` | — | yes |
 | 302 | D'thorga Factory Additions | Phobos A. D'thorga | `phobosdthorga.factoryadditions` | — | yes |
 | 60 | D'thorga Framework | Phobos A. D'thorga | `phobosdthorga.framework` | — | yes |
 | 303 | D'thorga Medical Save Bridge | Phobos A. D'thorga | `phobosdthorga.medicalsavebridge` | — | yes |
-| 326 | D'thorga Munitions | Phobos A. D'thorga | `phobosdthorga.munitions` | — | yes |
+| 327 | D'thorga Munitions | Phobos A. D'thorga | `phobosdthorga.munitions` | — | yes |
 | 304 | D'thorga Vehicle Patches | Phobos A. D'thorga | `phobosdthorga.vehiclepatches` | — | yes |
 | 238 | D'thorga Water Tap | Phobos A. D'thorga | `phobosdthorga.watertap` | — | yes |
 | 61 | [Dawn of a New Day](https://steamcommunity.com/sharedfiles/filedetails/?id=3771580900) | AlenDio | `alendio.dawnofanewday` | 2026-11-01 | yes |
@@ -741,7 +742,7 @@ Read from [the collection](https://steamcommunity.com/sharedfiles/filedetails/?i
 | 241 | [Dubs Central Heating](https://steamcommunity.com/sharedfiles/filedetails/?id=2619214952) | Dubwise | `dubwise.dubscentralheating` | 2026-10-16 | yes |
 | 69 | [Dubs Mint Menus](https://steamcommunity.com/sharedfiles/filedetails/?id=1446523594) | Dubwise | `dubwise.dubsmintmenus` | 2026-10-28 | yes |
 | 70 | [Dubs Mint Minimap](https://steamcommunity.com/sharedfiles/filedetails/?id=1662119905) | Dubwise | `dubwise.dubsmintminimap` | 2026-10-13 | yes |
-| 329 | [Dubs Performance Analyzer](https://steamcommunity.com/sharedfiles/filedetails/?id=2038874626) | Dubwise | `dubwise.dubsperformanceanalyzer.steam` | 2026-10-25 | yes |
+| 330 | [Dubs Performance Analyzer](https://steamcommunity.com/sharedfiles/filedetails/?id=2038874626) | Dubwise | `dubwise.dubsperformanceanalyzer.steam` | 2026-10-25 | yes |
 | 71 | [Dubs Rimatomics](https://steamcommunity.com/sharedfiles/filedetails/?id=1127530465) | Dubwise | `dubwise.rimatomics` | 2026-10-23 | yes |
 | 72 | [Dubs Rimkit](https://steamcommunity.com/sharedfiles/filedetails/?id=832333531) | Dubwise | `dubwise.dubsrimkit` | 2026-10-13 | yes |
 | 73 | [EdB Prepare Carefully](https://steamcommunity.com/sharedfiles/filedetails/?id=735106432) | EdB | `edb.preparecarefully` | 2025-08-03 | — |
@@ -845,7 +846,7 @@ Read from [the collection](https://steamcommunity.com/sharedfiles/filedetails/?i
 | 139 | [Power Utility Tab](https://steamcommunity.com/sharedfiles/filedetails/?id=3544059637) | Hope | `hope.powerutil` | 2025-08-13 | — |
 | 140 | [Prestige Vacsuit Set](https://steamcommunity.com/sharedfiles/filedetails/?id=3529096012) | Kilo | `kilo.prestigevacset` | 2026-10-15 | yes |
 | 314 | [Prison Labor](https://steamcommunity.com/sharedfiles/filedetails/?id=1899474310) | Avius, Hazzer | `avius.prisonlabor` | 2026-02-12 | — |
-| 327 | [Prisoner Realism](https://steamcommunity.com/sharedfiles/filedetails/?id=3760196312) | Legator | `legator.prisonerrealism` | 2026-11-03 | yes |
+| 328 | [Prisoner Realism](https://steamcommunity.com/sharedfiles/filedetails/?id=3760196312) | Legator | `legator.prisonerrealism` | 2026-11-03 | yes |
 | 141 | [Quiet Wonders](https://steamcommunity.com/sharedfiles/filedetails/?id=3822357701) | choco | `choco.quietwonders` | 2026-10-29 | yes |
 | 142 | [Rails and Roads of the Rim (Continued)](https://steamcommunity.com/sharedfiles/filedetails/?id=3271115410) | Vampiresbane | `mlie.railsandroadsoftherim` | 2026-09-14 | — |
 | 143 | [Readable Numbers](https://steamcommunity.com/sharedfiles/filedetails/?id=3762441264) | 7h0m4s | `7h0m4s.rimworldreadablenumbers` | 2026-10-26 | yes |
@@ -862,7 +863,7 @@ Read from [the collection](https://steamcommunity.com/sharedfiles/filedetails/?i
 | 151 | [Rimefeller](https://steamcommunity.com/sharedfiles/filedetails/?id=1321849735) | Dubwise | `dubwise.rimefeller` | 2026-10-22 | yes |
 | 152 | [RimHUD](https://steamcommunity.com/sharedfiles/filedetails/?id=1508850027) | Jaxe | `jaxe.rimhud` | 2025-08-15 | — |
 | 316 | [RimMarket](https://steamcommunity.com/sharedfiles/filedetails/?id=3817820660) | BenFD | `forti.rimmarket` | 2026-10-29 | yes |
-| 328 | [RimMarket — Hospitality Compatibility Patch](https://steamcommunity.com/sharedfiles/filedetails/?id=3820401180) | Inoz\_Labs | `inozlabs.rimmarket.hospitality.compatibility` | 2026-10-15 | — |
+| 329 | [RimMarket — Hospitality Compatibility Patch](https://steamcommunity.com/sharedfiles/filedetails/?id=3820401180) | Inoz\_Labs | `inozlabs.rimmarket.hospitality.compatibility` | 2026-10-15 | — |
 | 153 | [RimPacts - Diplomacy Overhaul](https://steamcommunity.com/sharedfiles/filedetails/?id=3762723122) | wowgag | `wowgag.rimpacts` | 2026-10-30 | yes |
 | 154 | [RimThunder - Core](https://steamcommunity.com/sharedfiles/filedetails/?id=3070495204) | RimThunderTeams | `rimthunder.core` | 2026-07-04 | — |
 | 263 | [RimThunder - Desert Sabre - Continued](https://steamcommunity.com/sharedfiles/filedetails/?id=3724793908) | RimThunderTeams x Blackbirdanon | `rimthunderteams.rimthunder.desertsabre` | 2026-05-12 | — |

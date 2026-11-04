@@ -48,6 +48,13 @@ def items(element, tag):
     return [] if found is None else [(li.text or '').strip() for li in found.findall('li')]
 
 
+# The disclaimer Ludeon's EULA requires on each mod, word for word (https://rimworldgame.com/eula/).
+EULA_DISCLAIMER = (
+    'Portions of the materials used to create this content/mod are trademarks and/or copyrighted works of Ludeon Studios Inc.',
+    'All rights reserved by Ludeon. This content/mod is not official and is not endorsed by Ludeon.',
+)
+
+
 def check_about(mod, about, errors):
     """Check one About.xml root; return its packageId, or None."""
     if about.tag != 'ModMetaData':
@@ -56,6 +63,9 @@ def check_about(mod, about, errors):
     for field in REQUIRED_FIELDS:
         if not (about.findtext(field) or '').strip():
             errors.append(f'{mod}: {ABOUT} has no <{field}>')
+    description = ' '.join((about.findtext('description') or '').split())
+    if description and not all(sentence in description for sentence in EULA_DISCLAIMER):
+        errors.append(f'{mod}: {ABOUT} description lacks the disclaimer Ludeon\'s EULA requires, word for word')
     if not (about.findtext('author') or '').strip() and not any(items(about, 'authors')):
         errors.append(f'{mod}: {ABOUT} has no <author> or <authors>')
     versions = items(about, 'supportedVersions')

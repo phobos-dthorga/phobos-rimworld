@@ -60,7 +60,8 @@ This is a small community project with no guaranteed response time.
 An independent community project by **Phobos A. D'thorga (phobosgekko)**.
 
 - [RimWorld](https://rimworldgame.com/) is made by **Ludeon Studios**. These mods are community-created
-  content, **not official and not endorsed by Ludeon Studios**.
+  content, **not official and not endorsed by Ludeon**. Portions of the materials used to create this content/mod are
+  trademarks and/or copyrighted works of Ludeon Studios Inc. All rights reserved by Ludeon.
 - Mod tie-ins name and credit the mods they work with; see [third-party notices](THIRD_PARTY_NOTICES.md).
 - Research behind the radio physics is credited beside each claim, for example in the
   [reference checks](docs/development/radio-reference-checks.md). No institution endorses these mods.

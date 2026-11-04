@@ -118,7 +118,9 @@ Source: [RimWorld EULA](https://rimworldgame.com/eula/). Quotes are exact.
 - "Your Mods must be distributed for free, period." Donations may be accepted for modding generally, but
   are not tied to a specific mod and are never advertised inside a mod.
 - "Your Mods must not contain any ads or other calls to action of any kind."
-- Mods must be clearly presented as community-created, and carry a disclaimer that they are not official
-  and not endorsed by Ludeon. They may not be distributed with the base game or its expansions.
+- Mods must be clearly presented as community-created. They may not be distributed with the base game or its expansions.
+- "In each Derivative Work that you create, you must display the following disclaimer", "on or reasonably in connection with"
+  the work: "Portions of the materials used to create this content/mod are trademarks and/or copyrighted works of Ludeon
+  Studios Inc." and "All rights reserved by Ludeon. This content/mod is not official and is not endorsed by Ludeon."
 - Game resources may be used "as a basis or reference for a Mod", but not ripped out and passed around.
 - The author owns the mod, and grants Ludeon a perpetual, irrevocable licence to use and distribute it.

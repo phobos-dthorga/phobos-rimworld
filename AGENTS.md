@@ -73,8 +73,11 @@ delivered, record the delivery in the changelog or design record, and add or ame
   announce or change an item's visibility. The game writes `About/PublishedFileId.txt` at a mod's first
   upload: commit that file then; never invent an item ID.
 - **Ludeon's EULA** governs every mod: free, with no ads or calls to action of any kind (no donation links
-  inside a mod), clearly presented as community-created, not official and not endorsed by Ludeon, and
-  never bundled with the game or its expansions (`docs/development/rimworld-modding-reference.md`).
+  inside a mod), clearly presented as community-created, and never bundled with the game or its expansions. Every
+  mod's description carries the EULA's disclaimer word for word, which `scripts/check-mod-layout.py` enforces:
+  "Portions of the materials used to create this content/mod are trademarks and/or copyrighted works of Ludeon
+  Studios Inc." and "All rights reserved by Ludeon. This content/mod is not official and is not endorsed by Ludeon."
+  (`docs/development/rimworld-modding-reference.md`).
 - Never commit saves, game assemblies, decompiled game or mod source, extracted game textures or sounds,
   other authors' mod files, credentials or personal machine paths. Resolve game paths from local settings
   (`.local/`) or arguments. Game-derived research material and the owner's handoff originals stay in the

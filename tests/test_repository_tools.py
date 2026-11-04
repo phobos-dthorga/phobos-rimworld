@@ -26,7 +26,8 @@ GOOD_ABOUT = b"""<?xml version="1.0" encoding="utf-8"?>
   <packageId>PhobosDthorga.Example</packageId>
   <name>Phobos Example</name>
   <author>Phobos A. D'thorga</author>
-  <description>A synthetic mod for the tests.</description>
+  <description>A synthetic mod for the tests. Portions of the materials used to create this content/mod are trademarks and/or
+  copyrighted works of Ludeon Studios Inc. All rights reserved by Ludeon. This content/mod is not official and is not endorsed by Ludeon.</description>
   <modVersion>0.1.0</modVersion>
   <supportedVersions>
     <li>1.6</li>
@@ -93,6 +94,7 @@ class LayoutCheckTests(unittest.TestCase):
         cases = {
             'no <name>': about_with(name=None),
             'no <description>': about_with(description=None),
+            'lacks the disclaimer': about_with(description='A synthetic mod. Not official and not endorsed by Ludeon Studios.'),
             'no <author> or <authors>': about_with(author=None),
             'lists no <supportedVersions>': about_with(supportedVersions=None),
             'is not a game version': about_with(supportedVersions='<li>1.6.4871</li>'),

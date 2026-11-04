@@ -5,6 +5,10 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+### Changed
+
+- The description now carries the disclaimer in the wording Ludeon's EULA requires. It said only that the mod is not official and not endorsed. No behaviour change.
+
 ## [0.3.0] - 2026-11-04 - Draft
 
 Two owner decisions of 4 November 2026, after the first results from play. Not yet tested in game.
