@@ -28,7 +28,8 @@ DEFAULT_COMFY = Path(os.environ.get('COMFYUI_PATH', r'C:\AI\ComfyUI\ComfyUI_wind
 SERVER = os.environ.get('COMFYUI_URL', 'http://127.0.0.1:8188')
 DEFAULT_MODEL = 'flux1-schnell-fp8.safetensors'
 NEGATIVE = ''  # Flux schnell ignores the negative prompt; it is kept empty on purpose.
-CONSECUTIVE_FAILURES_TO_GIVE_UP = 3  # Three in a row means the server is gone, not that one image was unlucky.
+CONSECUTIVE_FAILURES_TO_GIVE_UP = 3  # Three in a row, restarts included, means trying again will not help.
+MAX_SERVER_RESTARTS = 5  # In one run, so a server that keeps dying cannot use up a whole night (authored).
 
 KLEIN_UNET = 'flux-2-klein-4b.safetensors'
 KLEIN_BASE_UNET = 'flux-2-klein-base-4b-fp8.safetensors'
@@ -420,7 +421,13 @@ def preview_graphs(request_file, only=None):
     return graphs
 
 
-def make_record(req, engine_name, target, data, version, model, model_hash, seed, request_file, init_source, denoise, reference_sources):
+def should_restart(server_alive, timed_out, consecutive):
+    """After a failed image, is a fresh server worth trying? Yes if it died or hung, or on the second failure in a row, which
+    is how a card left short of memory looks. One failure with a healthy server is just that image, so the run moves on."""
+    return not server_alive or timed_out or consecutive >= 2
+
+
+def make_record(req, engine_name, target, data, version, model, model_hash, seed, request_file, init_source, denoise, reference_sources, seconds=None):
     engine = ENGINES[engine_name]
     record = {
         'file': target.name,
@@ -439,6 +446,8 @@ def make_record(req, engine_name, target, data, version, model, model_hash, seed
         'size': [req['width'], req['height']],
         'request_file': display_path(request_file),
     }
+    if seconds is not None:
+        record['seconds'] = seconds
     if init_source is not None:
         record['init_image'] = display_path(init_source)
         record['init_sha256'] = hashlib.sha256(init_source.read_bytes()).hexdigest()
@@ -451,10 +460,11 @@ def make_record(req, engine_name, target, data, version, model, model_hash, seed
     return record
 
 
-def run(request_file, only=None, comfy_path=DEFAULT_COMFY, start=False, should_stop=None, keep_going=False):
+def run(request_file, only=None, comfy_path=DEFAULT_COMFY, start=False, should_stop=None, keep_going=False, restart_server=None):
     """Make every missing image. should_stop returns a reason to end the run, checked before and during each image.
     keep_going records a failed image and moves on, for unattended runs; several failures in a row still end the run.
-    Returns made, failures, the folders touched and the stop reason, if any."""
+    restart_server, if given, returns whether it brought up a fresh server, and the image that failed is then tried again.
+    Returns made, failures, restarts, timings, the folders touched and the stop reason, if any."""
     requests = json.loads(Path(request_file).read_text(encoding='utf-8'))
     out_root = output_root(request_file)
     if not server_up():
@@ -464,7 +474,7 @@ def run(request_file, only=None, comfy_path=DEFAULT_COMFY, start=False, should_s
     version = get_json('/system_stats')['system'].get('comfyui_version', 'unknown')
     models_dir = Path(comfy_path) / 'ComfyUI' / 'models'
     hashes = {}
-    result = {'made': 0, 'skipped': 0, 'failures': [], 'folders': [], 'stopped': None}
+    result = {'made': 0, 'skipped': 0, 'failures': [], 'restarts': [], 'timings': [], 'folders': [], 'stopped': None}
     consecutive = 0
     try:
         for req in requests:
@@ -493,35 +503,49 @@ def run(request_file, only=None, comfy_path=DEFAULT_COMFY, start=False, should_s
                     print(f'  {target.name} exists, skipped')
                     result['skipped'] += 1
                     continue
-                if should_stop:
-                    reason = should_stop()
-                    if reason:
-                        raise Stopped(reason)
-                try:
-                    graph = build_graph(req, seed, reference_names, init_name, denoise)
-                    queued = post_json('/prompt', {'prompt': graph, 'client_id': str(uuid.uuid4())})
-                    print(f'  {req["name"]} seed {seed}: queued {queued["prompt_id"]}', flush=True)
-                    outputs = wait_for(queued['prompt_id'], req.get('timeout', engine['timeout']), should_stop)
-                    images = [img for node in outputs.values() for img in node.get('images', [])]
-                    if not images:
-                        raise RuntimeError('no image came back')
-                    data = fetch_image(images[0])
-                except (RuntimeError, TimeoutError, ValueError, urllib.error.URLError, OSError) as error:
-                    if isinstance(error, TimeoutError):
-                        _cancel_stuck_image()
-                    if not keep_going:
-                        raise
-                    consecutive += 1
-                    result['failures'].append({'image': target.name, 'error': str(error)[:500]})
-                    print(f'  {target.name} FAILED: {error}', flush=True)
-                    if consecutive >= CONSECUTIVE_FAILURES_TO_GIVE_UP:
-                        raise Stopped(f'{consecutive} images failed in a row; the last error was: {str(error)[:300]}') from error
+                data = None
+                while data is None:
+                    if should_stop:
+                        reason = should_stop()
+                        if reason:
+                            raise Stopped(reason)
+                    began = time.monotonic()
+                    try:
+                        graph = build_graph(req, seed, reference_names, init_name, denoise)
+                        queued = post_json('/prompt', {'prompt': graph, 'client_id': str(uuid.uuid4())})
+                        print(f'  {req["name"]} seed {seed}: queued {queued["prompt_id"]}', flush=True)
+                        outputs = wait_for(queued['prompt_id'], req.get('timeout', engine['timeout']), should_stop)
+                        images = [img for node in outputs.values() for img in node.get('images', [])]
+                        if not images:
+                            raise RuntimeError('no image came back')
+                        data = fetch_image(images[0])
+                    except (RuntimeError, TimeoutError, ValueError, urllib.error.URLError, OSError) as error:
+                        timed_out = isinstance(error, TimeoutError)
+                        if timed_out:
+                            _cancel_stuck_image()
+                        if not keep_going:
+                            raise
+                        consecutive += 1
+                        print(f'  {target.name} FAILED: {error}', flush=True)
+                        if consecutive >= CONSECUTIVE_FAILURES_TO_GIVE_UP:
+                            result['failures'].append({'image': target.name, 'error': str(error)[:500]})
+                            raise Stopped(f'{consecutive} images failed in a row; the last error was: {str(error)[:300]}') from error
+                        if (restart_server and len(result['restarts']) < MAX_SERVER_RESTARTS
+                                and should_restart(server_up(), timed_out, consecutive) and restart_server()):
+                            result['restarts'].append(f'at {target.name}, after: {str(error)[:200]}')
+                            print('  started a fresh ComfyUI; trying that image again', flush=True)
+                            continue
+                        result['failures'].append({'image': target.name, 'error': str(error)[:500]})
+                        break
+                if data is None:
                     continue
                 consecutive = 0
+                seconds = round(time.monotonic() - began, 1)
                 target.write_bytes(data)
                 record = make_record(req, engine_name, target, data, version, model, model_hash, seed, request_file,
-                                     init_source, denoise, reference_sources)
+                                     init_source, denoise, reference_sources, seconds)
                 target.with_suffix('.json').write_text(json.dumps(record, indent=2), encoding='utf-8')
+                result['timings'].append({'request': req['name'], 'engine': engine_name, 'steps': req.get('steps', engine['steps']), 'seconds': seconds})
                 result['made'] += 1
                 print(f'  wrote {display_path(target)}', flush=True)
     except Stopped as stop:

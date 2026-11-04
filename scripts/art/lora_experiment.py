@@ -5,12 +5,13 @@ a dataset drawn from game art is never committed or shared. Generic: it knows no
 GPU steps through scripts/art-run.py, which holds the safeguards.
 
     python scripts/art/lora_experiment.py requests .local/references/vanilla-training --name vanilla
-    python scripts/art-run.py generate C:/AI/lora-experiments/vanilla/requests/upscale.json --stop-at 07:00
+    python scripts/art-run.py generate C:/AI/lora-experiments/vanilla/upscale/requests/upscale.json --stop-at 07:00
     python scripts/art/lora_experiment.py assemble .local/references/vanilla-training --name vanilla --trigger phobosvanilla
     python scripts/art-run.py train C:/AI/lora-experiments/vanilla/config.yaml --stop-at 07:00
     python scripts/art/lora_experiment.py compare assets/phobos-medical/requests/first-batch.json --name vanilla --trigger phobosvanilla
-    python scripts/art-run.py generate C:/AI/lora-experiments/vanilla/requests/compare.json --stop-at 07:00
-    <ComfyUI python> -I scripts/art/near_copy.py C:/AI/lora-experiments/vanilla/generated C:/AI/lora-experiments/vanilla/dataset
+    python scripts/art-run.py generate C:/AI/lora-experiments/vanilla/requests/compare.json --stop-at 07:00 --near-copy-against C:/AI/lora-experiments/vanilla/dataset
+
+The upscales have their own folder because they are copies on purpose: beside the candidates they would trip the near-copy check.
 """
 import argparse
 import json
@@ -106,7 +107,7 @@ def write_requests(source, work):
     for path in sorted(Path(source).glob('*.png')):
         width, height = fit_long_side(*png_size(path))
         requests.append({'name': path.stem, 'engine': 'upscale', 'init': str(path.resolve()), 'width': width, 'height': height, 'seeds': [0]})
-    target = work / 'requests' / 'upscale.json'
+    target = work / 'upscale' / 'requests' / 'upscale.json'
     target.parent.mkdir(parents=True, exist_ok=True)
     target.write_text(json.dumps(requests, indent=2), encoding='utf-8')
     print(f'{len(requests)} upscale requests in {target}')
@@ -117,7 +118,7 @@ def assemble(source, work, name, trigger):
     dataset.mkdir(parents=True, exist_ok=True)
     count = 0
     for path in sorted(Path(source).glob('*.png')):
-        upscaled = work / 'generated' / path.stem / f'{path.stem}-0.png'
+        upscaled = work / 'upscale' / 'generated' / path.stem / f'{path.stem}-0.png'
         if not upscaled.is_file():
             print(f'not upscaled yet, left out: {path.stem}')
             continue

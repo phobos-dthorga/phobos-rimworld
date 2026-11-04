@@ -41,6 +41,7 @@ class FakeComfy:
         self.prompts = []
         self.calls = []
         self.history = {}
+        self.down = False
         fake = self
 
         class Handler(BaseHTTPRequestHandler):
@@ -57,7 +58,9 @@ class FakeComfy:
 
             def do_GET(self):
                 path = urllib.parse.urlparse(self.path).path
-                if path == '/system_stats':
+                if fake.down:
+                    self.send_error(503)
+                elif path == '/system_stats':
                     self.reply({'system': {'comfyui_version': 'fake'}, 'devices': []})
                 elif path == '/object_info':
                     self.reply(fake.object_info())
@@ -74,7 +77,9 @@ class FakeComfy:
                 length = int(self.headers.get('Content-Length', 0))
                 payload = json.loads(self.rfile.read(length) or b'{}')
                 fake.calls.append(self.path)
-                if self.path == '/prompt':
+                if fake.down:
+                    self.send_error(503)
+                elif self.path == '/prompt':
                     self.reply({'prompt_id': fake.queue(payload['prompt'])})
                 else:
                     self.reply({})
@@ -159,7 +164,11 @@ class HappyPathTests(RehearsalCase):
         record = json.loads((self.generated / 'tank' / 'tank-1.json').read_text(encoding='utf-8'))
         self.assertEqual(record['seed'], 1)
         self.assertEqual(record['engine'], 'schnell')
+        self.assertIn('seconds', record)
         report = self.report()
+        self.assertIn('## Time per image', report)
+        self.assertIn('tank (schnell, 4 steps): first image', report)
+        self.assertIn('for 2 more', report)
         self.assertIn('the work finished', report)
         self.assertIn('**Images made:** 3', report)
         self.assertIn('/free', fake.calls, 'the graphics memory is freed')
@@ -290,6 +299,189 @@ class FailureTests(RehearsalCase):
         with mock.patch.object(art_run.safeguards, 'stop_reason', vanish_once_queued):
             self.assertEqual(self.run_night(fake), 1)
         self.assertIn('failed in a row', self.report())
+
+
+class RestartTests(RehearsalCase):
+    def bring_up(self, fake):
+        """Stand in for starting ComfyUI: the server answers again, and the run holds a process it must stop at the end."""
+        process = mock.Mock()
+        self.started = []
+
+        def start(_comfy):
+            fake.down = False
+            self.started.append(process)
+            return process
+        patch = mock.patch.object(art, 'start_server', start)
+        patch.start()
+        self.addCleanup(patch.stop)
+        return process
+
+    def test_a_crash_gets_a_fresh_server_and_loses_no_image(self):
+        def behaviour(index):
+            if index == 1:
+                fake.down = True
+                return 'hang'
+            return 'done'
+        fake = FakeComfy(behaviour)
+        self.bring_up(fake)
+        self.assertEqual(self.run_night(fake), 0)
+        self.assertEqual(self.images(), ['tank-1.png', 'tank-2.png', 'tank-3.png'])
+        self.assertEqual(len(self.started), 1)
+        report = self.report()
+        self.assertIn('## ComfyUI restarted', report)
+        self.assertNotIn('## Failures', report)
+
+    def test_a_server_that_keeps_dying_ends_the_run_with_a_report(self):
+        def behaviour(_index):
+            fake.down = True
+            return 'hang'
+        fake = FakeComfy(behaviour)
+        self.bring_up(fake)
+        self.write_requests(seeds=[1, 2, 3, 4, 5])
+        self.assertEqual(self.run_night(fake), 1)
+        self.assertEqual(len(fake.prompts), 3, 'three tries, then it stops rather than looping')
+        self.assertIn('failed in a row', self.report())
+        self.assertEqual(self.images(), [])
+
+    def test_a_second_failure_in_a_row_restarts_a_server_this_run_started(self):
+        fake = FakeComfy(lambda index: 'error' if index in (1, 2) else 'done')
+        fake.down = True
+        process = self.bring_up(fake)
+        self.assertEqual(self.run_night(fake), 0)
+        self.assertEqual(self.images(), ['tank-1.png', 'tank-3.png'], 'the first failure moved on; the second was tried again')
+        self.assertEqual(len(self.started), 2, 'the first start, then the restart')
+        self.assertIn('tank-2.png', self.report())
+        self.assertTrue(process.terminate.called)
+
+    def test_a_server_this_run_did_not_start_is_never_replaced(self):
+        started = []
+        with mock.patch.object(art, 'start_server', lambda comfy: started.append(comfy)):
+            self.assertEqual(self.run_night(FakeComfy(lambda index: 'error')), 1)
+        self.assertEqual(started, [])
+
+
+class NearCopyTests(RehearsalCase):
+    def write_with_references(self, reference='refs/vitals.png'):
+        request = {'name': 'tank', 'prompt': 'a tank', 'width': 64, 'height': 64, 'seeds': [1], 'references': [str(self.work / reference)]}
+        (self.work / 'refs').mkdir(exist_ok=True)
+        (self.work / reference).write_bytes(tiny_png())
+        self.requests.write_text(json.dumps([request]), encoding='utf-8')
+
+    def test_sources_are_the_reference_folders_plus_any_named(self):
+        requests = [{'references': ['a/one.png', 'a/two.png']}, {'references': ['b/three.png']}, {}]
+        sources = art_run.near_copy_sources(requests, ['c'])
+        self.assertEqual(sources, [str(art_run.ROOT / 'a'), str(art_run.ROOT / 'b'), 'c'])
+
+    def post_process(self, flagged, writes=True):
+        generated = self.work / 'gen'
+        (generated / 'tank').mkdir(parents=True)
+        (generated / 'tank' / 'tank-1.png').write_bytes(tiny_png())
+
+        def fake_run(step, **_kwargs):
+            if Path(step[2]).name == 'near_copy.py' and writes:
+                (generated / 'near-copy.json').write_text(json.dumps({'flagged': flagged}), encoding='utf-8')
+            return mock.Mock(returncode=0 if not flagged else 1, stderr='a traceback')
+        with mock.patch.object(art_run.subprocess, 'run', fake_run):
+            return art_run.post_process('comfy', generated, ['tank'], ['refs'])
+
+    def test_a_flag_is_a_finding_and_not_a_broken_tool(self):
+        entry = {'output': 'tank-1.png', 'source': 'vitals.png', 'ssim': 0.9, 'hash_distance': 3}
+        problems, lines = self.post_process([entry])
+        self.assertEqual([p for p in problems if 'near_copy' in p], [])
+        self.assertIn('do not pick', lines[0])
+        self.assertIn('tank-1.png: too close to vitals.png', lines[1])
+
+    def test_a_clean_batch_says_so(self):
+        _, lines = self.post_process([])
+        self.assertIn('Nothing flagged', lines[0])
+
+    def test_a_check_that_did_not_run_is_never_read_as_clean(self):
+        problems, lines = self.post_process([], writes=False)
+        self.assertTrue(any('near_copy' in p for p in problems))
+        self.assertIn('did not run', lines[0])
+
+    def test_a_real_night_reports_the_check_when_its_tool_is_missing(self):
+        self.write_with_references()
+        with mock.patch.object(art, 'stage_init', lambda comfy, ref, name: ('x.png', Path(ref))):
+            self.run_night(FakeComfy())
+        self.assertIn('did not run', self.report())
+
+    def test_the_review_page_warns_on_a_flagged_image(self):
+        self.run_night(FakeComfy())
+        (self.generated / 'near-copy.json').write_text(json.dumps({'flagged': [{'output': 'tank-1.png', 'source': 'vitals.png'}]}), encoding='utf-8')
+        sys.path.insert(0, str(art_run.ROOT / 'scripts' / 'art'))
+        import review_page
+        with mock.patch('sys.stdout', new=open(os.devnull, 'w', encoding='utf-8')) as quiet:
+            self.addCleanup(quiet.close)
+            review_page.build(self.generated)
+        page = (self.generated / 'review.html').read_text(encoding='utf-8')
+        self.assertIn('Too close to vitals.png: do not pick', page)
+        self.assertEqual(page.count('do not pick'), 1)
+
+
+class NightTests(RehearsalCase):
+    def plan(self, steps):
+        path = self.work / 'night.json'
+        path.write_text(json.dumps(steps), encoding='utf-8')
+        return path
+
+    def run_plan(self, steps, codes=None):
+        path = self.plan(steps)
+        self.commands = []
+        codes = list(codes or [])
+
+        def fake_step(command):
+            self.commands.append(command)
+            return (codes.pop(0) if codes else 0), 'a-report.md'
+        with mock.patch.object(art_run, 'run_step', fake_step), mock.patch.object(art_run, 'stay_awake', lambda on: None), \
+                mock.patch('sys.stdout', new=open(os.devnull, 'w', encoding='utf-8')) as quiet:
+            self.addCleanup(quiet.close)
+            code = art_run.main(['night', str(path), '--stop-at', '23:59'])
+        summaries = list(self.work.glob('night-*.md'))
+        return code, summaries[0].read_text(encoding='utf-8') if summaries else None
+
+    def test_steps_run_in_order_under_one_stop_time(self):
+        code, _ = self.run_plan([{'generate': 'a.json'}, {'run': ['scripts/art/lora_experiment.py', 'assemble']}, {'train': 'c.yaml'}])
+        self.assertEqual(code, 0)
+        self.assertEqual([Path(c[3]).name if 'art-run' in c[1] else Path(c[1]).name for c in self.commands], ['a.json', 'lora_experiment.py', 'c.yaml'])
+        stops = {c[c.index('--stop-at') + 1] for c in self.commands if '--stop-at' in c}
+        self.assertEqual(len(stops), 1, 'every step gets the same end')
+
+    def test_a_failed_step_does_not_end_the_night_and_the_summary_says_what_happened(self):
+        code, summary = self.run_plan([{'generate': 'a.json'}, {'generate': 'b.json'}, {'generate': 'c.json'}], codes=[1, 3, 0])
+        self.assertEqual(code, 0)
+        self.assertEqual(len(self.commands), 3)
+        self.assertIn('failed, exit code 1', summary)
+        self.assertIn('a safeguard refused to start it', summary)
+        self.assertIn('a-report.md', summary)
+
+    def test_extra_near_copy_folders_reach_the_step(self):
+        self.run_plan([{'generate': 'a.json', 'near_copy_against': ['dataset']}])
+        self.assertIn('dataset', self.commands[0])
+
+    def test_steps_past_the_stop_time_are_skipped_and_reported(self):
+        with mock.patch.object(art_run.safeguards, 'parse_stop_at', lambda text, now: now):
+            _, summary = self.run_plan([{'generate': 'a.json'}])
+        self.assertEqual(self.commands, [])
+        self.assertIn('not started: the stop time was reached', summary)
+
+    def test_a_bad_plan_is_refused_before_anything_runs(self):
+        bad = [[], {}, [{'generate': 'a', 'train': 'b'}], [{'paint': 'a'}], [{'run': ['../evil.py']}], [{'run': ['C:/elsewhere/tool.py']}],
+               [{'run': ['scripts/not-a-real-tool.py']}], [{'train': 'a', 'near_copy_against': ['b']}], [{'generate': 'a', 'stop': 'b'}]]
+        for steps in bad:
+            self.assertTrue(art_run.night_problems(steps), steps)
+        self.assertEqual(art_run.night_problems([{'generate': 'a', 'near_copy_against': ['b']}, {'train': 'c'}, {'run': ['scripts/art/lora_experiment.py', 'x']}]), [])
+        code, summary = self.run_plan([{'paint': 'a'}])
+        self.assertEqual(code, 2)
+        self.assertEqual(self.commands, [])
+        self.assertIsNone(summary)
+
+    def test_a_dry_run_notices_a_file_an_earlier_step_must_make(self):
+        path = self.plan([{'generate': str(self.work / 'made-later.json')}])
+        with mock.patch('sys.stdout', new=open(os.devnull, 'w', encoding='utf-8')) as quiet:
+            self.addCleanup(quiet.close)
+            self.assertEqual(art_run.main(['night', str(path), '--dry-run']), 0)
+        self.assertEqual(list(self.work.glob('night-*.md')), [])
 
 
 if __name__ == '__main__':

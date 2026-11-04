@@ -1,11 +1,20 @@
 """Run art work unattended, with the safeguards: one command from a request file to a review page and a report.
 
 Ends at the stop time, the moment RimWorld starts, or before a drive falls under the free-space floor. However it ends, it
-frees the graphics memory, stops any server it started, and writes a report. Keeps Windows awake only while it runs.
+frees the graphics memory, stops any server it started, and writes a report. Keeps Windows awake only while it runs. If ComfyUI
+dies or hangs it starts a fresh one and tries that image again. Candidates are checked against their references for near-copies.
 
     python scripts/art-run.py generate assets/phobos-medical/requests/first-batch.json --stop-at 07:00
     python scripts/art-run.py generate assets/phobos-medical/requests/first-batch.json --dry-run
     python scripts/art-run.py train C:/AI/lora-experiments/vanilla/config.yaml --stop-at 07:00
+    python scripts/art-run.py night .local/art/night.json --stop-at 07:00
+
+A night plan is a JSON list run in order under one stop time. A failed step does not end the night; a later step that needs its
+work fails in turn and says so. Each step is one of:
+
+    {"generate": "request file", "near_copy_against": ["extra source folder"]}
+    {"train": "ai-toolkit config"}
+    {"run": ["scripts/art/some_tool.py", "arguments"]}
 """
 import argparse
 import ctypes
@@ -30,6 +39,8 @@ _spec.loader.exec_module(art)
 AI_TOOLKIT = Path(r'C:\AI\ai-toolkit')
 POLL_SECONDS = 5
 ES_CONTINUOUS, ES_SYSTEM_REQUIRED = 0x80000000, 0x00000001
+NOT_STARTED = 3  # The exit code for a run that a safeguard refused to start.
+NIGHT_STEPS = ('generate', 'train', 'run')
 
 
 def stay_awake(on):
@@ -65,8 +76,54 @@ def make_checker(stop_at, min_free_gb, watch_paths, game_names):
     return should_stop
 
 
-def post_process(comfy, generated, folders):
-    """Sort, sheet and review page. A failure here is reported; it must not hide the run's own result."""
+def near_copy_sources(requests, extra=()):
+    """The folders holding a batch's references, plus any named by hand, each once."""
+    folders = [ROOT / ref if not Path(ref).is_absolute() else Path(ref) for req in requests for ref in req.get('references', [])]
+    return list(dict.fromkeys([*(str(path.parent) for path in folders), *(str(Path(path)) for path in extra)]))
+
+
+def check_near_copies(python, generated, sources):
+    """Returns (whether the check ran, the flags, a problem). A flagged image is a finding, not a failure of the check, and the
+    tool exits 1 for both, so what tells them apart is whether it wrote its results."""
+    results = generated / 'near-copy.json'
+    results.unlink(missing_ok=True)
+    try:
+        done = subprocess.run([python, '-I', str(ROOT / 'scripts' / 'art' / 'near_copy.py'), str(generated), *sources],
+                              capture_output=True, text=True, check=False)
+    except OSError as error:
+        return False, [], f'near_copy.py: {error}'
+    if not results.is_file():
+        return False, [], f'near_copy.py: {done.stderr.strip()[-400:]}'
+    return True, json.loads(results.read_text(encoding='utf-8')).get('flagged', []), None
+
+
+def near_copy_lines(sources, ran, flags):
+    if not sources:
+        return []
+    if not ran:
+        return ['- **The check did not run, so pick nothing from this batch until it has.**']
+    if not flags:
+        return ['- Nothing flagged. A slightly tilted copy can still pass, so your eye is the last check.']
+    return [f'- **{len(flags)} flagged; do not pick these:**'] + [
+        f'  - {entry["output"]}: too close to {entry["source"]} (structure {entry["ssim"]}, hash distance {entry["hash_distance"]})' for entry in flags]
+
+
+def timing_lines(timings):
+    """Seconds per image by request. The first of each is apart because it may include loading the model."""
+    groups = {}
+    for item in timings:
+        groups.setdefault((item['request'], item['engine'], item['steps']), []).append(item['seconds'])
+    lines = []
+    for (request, engine, steps), seconds in groups.items():
+        rest = seconds[1:]
+        later = f', then {sum(rest) / len(rest):.0f} s each for {len(rest)} more' if rest else ''
+        lines.append(f'- {request} ({engine}, {steps} steps): first image {seconds[0]:.0f} s{later}')
+    return lines
+
+
+def post_process(comfy, generated, folders, sources=()):
+    """Sort, sheet, near-copy check and review page. A failure here is reported; it must not hide the run's own result.
+    Returns the problems and the lines for the report's near-copy section."""
     python = str(Path(comfy) / 'python_embeded' / 'python.exe')
     tools = ROOT / 'scripts' / 'art'
     problems = []
@@ -75,16 +132,31 @@ def post_process(comfy, generated, folders):
     if existing:
         steps.append([python, '-I', str(tools / 'sort_candidates.py'), *[str(generated / name) for name in existing]])
         steps += [[python, '-I', str(tools / 'contact_sheet.py'), str(generated), name] for name in existing]
-    steps.append([sys.executable, '-I', str(tools / 'review_page.py'), str(generated)])
     for step in steps:
-        try:
-            done = subprocess.run(step, capture_output=True, text=True, check=False)
-        except OSError as error:
-            problems.append(f'{Path(step[2]).name}: {error}')
-            continue
-        if done.returncode:
-            problems.append(f'{Path(step[2]).name}: {done.stderr.strip()[-400:]}')
-    return problems
+        problems += _run_tool(step)
+    ran, flags = False, []
+    if existing and sources:
+        ran, flags, problem = check_near_copies(python, generated, sources)
+        if problem:
+            problems.append(problem)
+    problems += _run_tool([sys.executable, '-I', str(tools / 'review_page.py'), str(generated)])
+    return problems, near_copy_lines(sources if existing else (), ran, flags)
+
+
+def _run_tool(step):
+    try:
+        done = subprocess.run(step, capture_output=True, text=True, check=False)
+    except OSError as error:
+        return [f'{Path(step[2]).name}: {error}']
+    return [f'{Path(step[2]).name}: {done.stderr.strip()[-400:]}'] if done.returncode else []
+
+
+def stop_process(process):
+    process.terminate()
+    try:
+        process.wait(timeout=60)
+    except subprocess.TimeoutExpired:
+        process.kill()
 
 
 def free_gpu(process):
@@ -97,18 +169,14 @@ def free_gpu(process):
     except (urllib.error.URLError, OSError, ValueError) as error:
         notes.append(f'the free-memory call failed: {error}')
     if process is not None:
-        process.terminate()
-        try:
-            process.wait(timeout=60)
-        except subprocess.TimeoutExpired:
-            process.kill()
+        stop_process(process)
         notes.append('stopped the ComfyUI server this run started')
     else:
         notes.append('left running the ComfyUI server that was already up')
     return notes
 
 
-def write_report(folder, kind, source, started, stop_at, result, notes, problems):
+def write_report(folder, kind, source, started, stop_at, result, notes, problems, near_copy=()):
     finished = _dt.datetime.now()
     folder.mkdir(parents=True, exist_ok=True)
     stamp = started.strftime('%Y%m%d-%H%M')
@@ -121,6 +189,12 @@ def write_report(folder, kind, source, started, stop_at, result, notes, problems
             lines.append(f'- **{label}:** {result[key]}')
     if result.get('failures'):
         lines += ['', '## Failures', ''] + [f'- {item["image"]}: {item["error"]}' for item in result['failures']]
+    if result.get('restarts'):
+        lines += ['', '## ComfyUI restarted', ''] + [f'- {item}' for item in result['restarts']]
+    if near_copy:
+        lines += ['', '## Near-copy check', ''] + list(near_copy)
+    if result.get('timings'):
+        lines += ['', '## Time per image', ''] + timing_lines(result['timings'])
     lines += ['', '## Graphics memory', ''] + [f'- {note}' for note in notes]
     if problems:
         lines += ['', '## Review tools that failed', ''] + [f'- {problem}' for problem in problems]
@@ -153,28 +227,44 @@ def generate(args, stop_at, game_names):
     if reason:
         print(f'not starting: {reason}')
         return 3, None
-    process = None
+    server = {'process': None}
     started = _dt.datetime.now()
-    result = {'made': 0, 'skipped': 0, 'failures': [], 'folders': [], 'stopped': None}
-    notes, problems = [], []
+    result = {'made': 0, 'skipped': 0, 'failures': [], 'restarts': [], 'timings': [], 'folders': [], 'stopped': None}
+    notes, problems, near_copy = [], [], []
+    sources = near_copy_sources((item[0] for item in images), args.near_copy_against)
+
+    def restart_server():
+        """A fresh server, if that is possible. A running one this run did not start belongs to someone else, so it stays."""
+        if server['process'] is None and art.server_up():
+            return False
+        try:
+            if server['process'] is not None:
+                stop_process(server['process'])
+            server['process'] = None
+            server['process'] = art.start_server(comfy)
+        except (RuntimeError, OSError) as error:
+            print(f'could not restart ComfyUI: {error}', flush=True)
+            return False
+        return True
+
     stay_awake(True)
     try:
         if not art.server_up():
-            process = art.start_server(comfy)
+            server['process'] = art.start_server(comfy)
         info = art.get_json('/object_info')
         invalid = [f'{name}: {problem}' for name, graph in graphs.items() for problem in art.validate_graph(graph, info)]
         if invalid:
             result['stopped'] = 'the graphs failed their check, so no image was attempted'
             result['failures'] = [{'image': 'graph check', 'error': problem} for problem in invalid]
         else:
-            result = art.run(request_file, args.only, comfy, False, should_stop, keep_going=True)
+            result = art.run(request_file, args.only, comfy, False, should_stop, keep_going=True, restart_server=restart_server)
     except (RuntimeError, urllib.error.URLError, OSError, ValueError, FileNotFoundError) as error:
         result['stopped'] = f'the run failed: {error}'
     finally:
-        notes = free_gpu(process)
-        problems = post_process(comfy, generated, result['folders'] or [item[0]['name'] for item in images])
+        notes = free_gpu(server['process'])
+        problems, near_copy = post_process(comfy, generated, result['folders'] or [item[0]['name'] for item in images], sources)
         stay_awake(False)
-        report = write_report(generated, 'generate', request_file, started, stop_at, result, notes, problems)
+        report = write_report(generated, 'generate', request_file, started, stop_at, result, notes, problems, near_copy)
     print(json.dumps({key: result.get(key) for key in ('made', 'skipped', 'stopped')}))
     return (1 if result['failures'] and not result['made'] else 0), report
 
@@ -219,15 +309,106 @@ def train(args, stop_at, game_names):
     return (0 if result['stopped'] or process.returncode == 0 else 1), report
 
 
+def night_problems(steps):
+    """Everything wrong with a night plan, found before the night starts rather than at three in the morning."""
+    if not isinstance(steps, list) or not steps:
+        return ['a night plan is a list with at least one step']
+    problems = []
+    for index, step in enumerate(steps, 1):
+        kinds = [kind for kind in NIGHT_STEPS if isinstance(step, dict) and kind in step]
+        if len(kinds) != 1:
+            problems.append(f'step {index} needs exactly one of {", ".join(NIGHT_STEPS)}')
+            continue
+        unknown = set(step) - {kinds[0], 'near_copy_against'}
+        if unknown or ('near_copy_against' in step and kinds[0] != 'generate'):
+            problems.append(f'step {index} has settings it cannot use: {sorted(unknown) or ["near_copy_against"]}')
+        if kinds[0] == 'run':
+            script = step['run'][0].replace('\\', '/') if step['run'] else ''
+            if not script.startswith('scripts/') or '..' in script or not (ROOT / script).is_file():
+                problems.append(f'step {index} runs {script or "nothing"}: only a script in this repository\'s scripts folder may run')
+    return problems
+
+
+def step_command(step, stop_at, args):
+    """The command for one night step. All of them share the night's one stop time."""
+    if 'run' in step:
+        return [sys.executable, str(ROOT / step['run'][0]), *step['run'][1:]]
+    kind = 'generate' if 'generate' in step else 'train'
+    command = [sys.executable, str(Path(__file__).resolve()), kind, step[kind], '--comfy', args.comfy, '--min-free-gb', str(args.min_free_gb)]
+    command += ['--dry-run'] if args.dry_run else ['--stop-at', stop_at.isoformat(timespec='seconds')]
+    for name in args.also_stop_on:
+        command += ['--also-stop-on', name]
+    for folder in step.get('near_copy_against', []):
+        command += ['--near-copy-against', folder]
+    return command
+
+
+def run_step(command):
+    """Run a step, passing its output through. Returns its exit code and the report it named, if any."""
+    report = None
+    with subprocess.Popen(command, cwd=str(ROOT), stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, errors='replace') as process:
+        for line in process.stdout:
+            print(line, end='', flush=True)
+            if line.startswith('report: '):
+                report = line[len('report: '):].strip()
+    return process.returncode, report
+
+
+def describe_step(step):
+    kind = next(kind for kind in NIGHT_STEPS if kind in step)
+    return f'{kind}: {" ".join(step[kind]) if kind == "run" else step[kind]}'
+
+
+def night(args, stop_at, _game_names):
+    """Each step in order, whatever became of the one before. The safeguards live in the steps, so a game started at midnight
+    also refuses every later one. Writes one summary beside the plan, pointing at each step's own report."""
+    plan_file = Path(args.source).resolve()
+    steps = json.loads(plan_file.read_text(encoding='utf-8'))
+    problems = night_problems(steps)
+    if problems:
+        print('the night plan was refused:\n  ' + '\n  '.join(problems))
+        return 2, None
+    if args.dry_run:
+        for index, step in enumerate(steps, 1):
+            print(f'step {index}, {describe_step(step)}')
+            target = step.get('generate')
+            if target and Path(target).is_file():
+                run_step(step_command(step, stop_at, args))
+            elif target:
+                print('  an earlier step has to make this file first')
+        return 0, None
+    started = _dt.datetime.now()
+    lines = [f'# Art night {started:%Y%m%d-%H%M}', '', f'- **Plan:** {art.display_path(plan_file)}', f'- **Stop time:** {stop_at:%Y-%m-%d %H:%M}', '',
+             '| Step | Started | Minutes | How it ended | Report |', '| --- | --- | --- | --- | --- |']
+    stay_awake(True)
+    try:
+        for step in steps:
+            began = _dt.datetime.now()
+            if began >= stop_at:
+                lines.append(f'| {describe_step(step)} | | | not started: the stop time was reached | |')
+                continue
+            print(f'--- {describe_step(step)}', flush=True)
+            code, report = run_step(step_command(step, stop_at, args))
+            ended = {0: 'finished or stopped safely; its report says which', NOT_STARTED: 'a safeguard refused to start it'}.get(code, f'failed, exit code {code}')
+            lines.append(f'| {describe_step(step)} | {began:%H:%M} | {(_dt.datetime.now() - began).total_seconds() / 60:.0f} | {ended} | {report or ""} |')
+    finally:
+        stay_awake(False)
+        path = plan_file.parent / f'night-{started:%Y%m%d-%H%M}.md'
+        path.write_text('\n'.join(lines) + '\n', encoding='utf-8')
+        print(f'night summary: {path}', flush=True)
+    return 0, path
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
-    parser.add_argument('kind', choices=('generate', 'train'))
-    parser.add_argument('source', help='request file, or an ai-toolkit config for train')
+    parser.add_argument('kind', choices=('generate', 'train', 'night'))
+    parser.add_argument('source', help='request file, an ai-toolkit config for train, or a plan for night')
     parser.add_argument('--stop-at', help='HH:MM (its next occurrence) or a full ISO date and time; required unless --dry-run')
     parser.add_argument('--only', help='generate only the request with this name')
     parser.add_argument('--comfy', default=str(art.DEFAULT_COMFY), help='ComfyUI portable folder')
     parser.add_argument('--min-free-gb', type=float, default=safeguards.DEFAULT_MIN_FREE_GB)
     parser.add_argument('--also-stop-on', action='append', default=[], metavar='NAME.exe', help='another process that ends the run, such as another game')
+    parser.add_argument('--near-copy-against', action='append', default=[], metavar='FOLDER', help='check candidates against this folder too')
     parser.add_argument('--dry-run', action='store_true', help='print the work without touching ComfyUI or the GPU')
     args = parser.parse_args(argv)
     if not args.stop_at and not args.dry_run:
@@ -235,7 +416,7 @@ def main(argv=None):
     now = _dt.datetime.now()
     stop_at = safeguards.parse_stop_at(args.stop_at, now) if args.stop_at else now
     names = (*safeguards.GAME_PROCESSES, *args.also_stop_on)
-    code, _ = (generate if args.kind == 'generate' else train)(args, stop_at, names)
+    code, _ = {'generate': generate, 'train': train, 'night': night}[args.kind](args, stop_at, names)
     return code
 
 

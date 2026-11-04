@@ -19,6 +19,7 @@ h1 { font-size:1.8rem; margin:0 0 4px; } h2 { font-size:1.3rem; margin:36px 0 8p
 .card img { width:100%; height:auto; display:block; background:#fff; }
 .card .name { font-weight:bold; margin:8px 0 2px; }
 .badge { color:var(--accent); font-size:0.85rem; }
+.warn { color:#ff8a7a; font-weight:bold; font-size:0.95rem; }
 .card .rec { color:var(--muted); font-size:0.85rem; white-space:pre-wrap; max-height:7.5em; overflow:auto; }
 details { margin-top:6px; } summary { cursor:pointer; color:var(--muted); }
 nav a { color:var(--accent); margin-right:14px; }
@@ -35,8 +36,19 @@ def ordered_candidates(folder):
     return [(p, notes.get(p.name, {})) for p in listed + rest]
 
 
+def near_copy_flags(generated):
+    """Output file name to the source images it came too close to, from scripts/art/near_copy.py."""
+    path = generated / 'near-copy.json'
+    flags = {}
+    if path.is_file():
+        for entry in json.loads(path.read_text(encoding='utf-8')).get('flagged', []):
+            flags.setdefault(entry['output'], []).append(entry['source'])
+    return flags
+
+
 def build(generated, title=None):
     generated = Path(generated).resolve()
+    flags = near_copy_flags(generated)
     out = generated / 'review.html'
     title = title or generated.parent.name
     sections = []
@@ -47,11 +59,13 @@ def build(generated, title=None):
         for png, note in ordered_candidates(folder):
             record_path = png.with_suffix('.json')
             record = json.loads(record_path.read_text(encoding='utf-8')) if record_path.is_file() else {}
-            summary = ', '.join(f'{k}: {record[k]}' for k in ('engine', 'seed', 'steps', 'size', 'denoise', 'lora') if k in record)
+            summary = ', '.join(f'{k}: {record[k]}' for k in ('engine', 'seed', 'steps', 'seconds', 'size', 'denoise', 'lora') if k in record)
             prompt = record.get('prompt', '')
             refs = record.get('references', [])
             init = record.get('init_image')
             extra = ''
+            if png.name in flags:
+                extra += f'<div class="warn">Too close to {html.escape(", ".join(flags[png.name]))}: do not pick</div>'
             if 'score' in note:
                 extra += f'<div class="badge">sort score {note["score"]}</div>'
             if 'duplicate_of' in note:
