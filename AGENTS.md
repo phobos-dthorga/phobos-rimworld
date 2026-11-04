@@ -175,8 +175,9 @@ delivered, record the delivery in the changelog or design record, and add or ame
   `PatchOperationFindMod` in XML, and `ModsConfig.IsActive` in C#. Never hard-reference an optional mod's
   assembly from a core assembly; put such code in a separate assembly loaded only from its `IfModActive`
   folder. A player running the mod alone sees no errors. **The one hard dependency is Vanilla Expanded
-  Framework** (owner, 19 October 2026): the radio framework's feedline is a VEF pipe network, declared in
-  `modDependencies`, and `PipeSystem.dll` is referenced from the installed mod with `Private=false`.
+  Framework** (owner, 19 October 2026; extended to the planned medical equipment mod, 4 November 2026): the
+  radio framework's feedline is a VEF pipe network, declared in `modDependencies`, and `PipeSystem.dll` is
+  referenced from the installed mod with `Private=false`.
   VEF is CC BY-NC-ND 4.0 with a rider that permits depending on it: never copy its DLLs, source, art or
   XML into this repository or a build, and never adapt its code (`THIRD_PARTY_NOTICES.md`).
 - **Worn apparel is never spawned.** A hand-held worn by a pawn has `Spawned == false`; find radios by
