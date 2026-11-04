@@ -17,9 +17,12 @@ public readonly struct StageEffect
     public readonly float BreathingOffset;
     /// <summary>The stage's total bleed factor; 1 changes nothing.</summary>
     public readonly float BleedFactor;
+    /// <summary>What the stage adds to the speed of gaining immunity; 0 changes nothing.</summary>
+    public readonly float ImmunityGain;
 
-    public StageEffect(float painFactor, float painOffset, float consciousnessOffset, float consciousnessSetMax, float breathingOffset, float bleedFactor)
+    public StageEffect(float painFactor, float painOffset, float consciousnessOffset, float consciousnessSetMax, float breathingOffset, float bleedFactor, float immunityGain = 0f)
     {
+        ImmunityGain = immunityGain;
         PainFactor = painFactor;
         PainOffset = painOffset;
         ConsciousnessOffset = consciousnessOffset;
@@ -47,9 +50,12 @@ public readonly struct DoseEffect
     public readonly bool Recreational;
     /// <summary>Knocks the patient out: only ever given when sedation is wanted.</summary>
     public readonly bool Sedative;
+    /// <summary>How much faster the patient gains immunity, 0 when no faster.</summary>
+    public readonly float ImmunityGain;
 
-    public DoseEffect(float painRelief, float consciousnessCost, float consciousnessCap, float breathingCost, float bleedIncrease, float addictiveness, bool recreational, bool sedative)
+    public DoseEffect(float painRelief, float consciousnessCost, float consciousnessCap, float breathingCost, float bleedIncrease, float addictiveness, bool recreational, bool sedative, float immunityGain = 0f)
     {
+        ImmunityGain = immunityGain;
         PainRelief = painRelief;
         ConsciousnessCost = consciousnessCost;
         ConsciousnessCap = consciousnessCap;
@@ -78,6 +84,7 @@ public static class DoseEffectRule
         float consciousnessCap = 1f;
         float breathingCost = 0f;
         float bleedFactor = 1f;
+        float immunityGain = 0f;
         for (int i = 0; i < stages.Count; i++)
         {
             StageEffect stage = stages[i];
@@ -87,11 +94,12 @@ public static class DoseEffectRule
             if (stage.ConsciousnessSetMax < consciousnessCap) consciousnessCap = stage.ConsciousnessSetMax;
             if (stage.BreathingOffset < 0f) breathingCost -= stage.BreathingOffset;
             bleedFactor *= stage.BleedFactor;
+            immunityGain += stage.ImmunityGain;
         }
         float relief = Clamp01(1f - painFactor + (painOffset < 0f ? -painOffset : 0f));
         bool sedative = consciousnessCap <= sedativeCeiling;
         return new DoseEffect(relief, Clamp01(consciousnessCost), consciousnessCap, Clamp01(breathingCost), bleedFactor > 1f ? bleedFactor - 1f : 0f,
-            addictiveness < 0f ? 0f : addictiveness, recreational, sedative);
+            addictiveness < 0f ? 0f : addictiveness, recreational, sedative, immunityGain > 0f ? immunityGain : 0f);
     }
 
     static float Clamp01(float value) => value < 0f ? 0f : value > 1f ? 1f : value;

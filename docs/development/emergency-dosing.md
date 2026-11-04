@@ -90,6 +90,31 @@ Core 1.7.4998; the save PG19 of 5 Nov 00:42.
   not apply, which is right: the rule only sedates at pain shock. Its chloroform doctor-skill curve does not apply either; the
   fixed 0.35 self-use dose does.
 
+## Drugs for fighting disease, and the bleeding hold (0.3.0, 5 Nov 2026)
+
+Both approved by the owner on 5 November 2026. **Not yet tested in game.**
+
+Read from the 1.7.4998 assembly and the active mods' Defs:
+
+- **The race:** `HediffComp_Immunizable` and each `HediffComp_SeverityModifierBase` move a disease's severity through `SeverityChangePerDay` (tending included, through `HediffComp_TendDuration`). `ImmunityRecord.ImmunityChangePerTick` moves immunity, scaled by the `ImmunityGainSpeed` stat. `HediffDef.PossibleToDevelopImmunityNaturally` tells a disease from a condition that only has a timer.
+- **What qualifies in the owner's list**, by a positive `ImmunityGainSpeed` on the stage at the dose (computed offline from the XML): Medicines+ Tyrox (+0.5) and penicillin (+0.2), Vanilla Races Expanded antibiotics (+0.1), all medical. Yuenyeung (+0.15) and rose tea (+0.02) are social drinks and do not count. Variants of the antibiotics were not traced.
+- **Traps found by the scan:** Biological Warfare's malaria and sleeping sickness pills give the disease. Luciferium and red-flicker raise blood filtration, which feeds immunity, and are highly addictive. Penoxycyline and the vaccines prevent a disease and do not help someone who has it.
+
+Decisions:
+
+- **Doctors only** (owner's choice): a pawn cannot judge a race between an illness and their immunity.
+- **By effect** (owner's rule): a positive immunity stat on a medical drug, at least 0.1 (authored), its costs below its gain, and none of its outcomes a disease.
+- **Only when losing** (agent recommendation, approved): the disease can kill, and immunity would arrive too late or within a day of the lethal mark (authored margin). It reads current rates, so better care can turn the answer round. A patient already winning gets nothing.
+- **Pain first** (agent choice): a patient with both needs gets pain relief first. If that is held back or nothing is in reach, the disease drug still comes.
+- **Any disease drug still working blocks the next** (agent choice): the same rule as medical painkillers.
+- **The bleeding hold** (agent recommendation, approved): at 0.3 a day or more (authored; the health tab shows it as 30%), a painkiller waits. It exists because More Injuries' morphine raises bleeding through a linked condition the index cannot see, and one doctor's priority does not stop a second doctor reaching the patient first. A sedative is exempt: a patient past the pain-shock band still needs relief, and its anaesthetic has no such link. A disease drug is not a painkiller. It applies to self-medication too.
+
+Test steps (owner runs them):
+
+1. The load line lists the drugs for fighting disease. Expected: Tyrox, penicillin and antibiotics, from the XML rather than the game. Not tea, not malaria pills.
+2. A patient in bed with a disease they are losing to (dev: add plague at high severity), Tyrox in reach: a doctor gives it. The dev action "Dosing: log the decision for selected pawns as patients" shows losing yes and need Immunity. At low severity with immunity well ahead: no dose.
+3. A patient at 60% pain or more bleeding at 90% a day, with morphine in reach: no morphine, and with a doctor selected a right-click says the bleeding must be under control first. Tend the bleeding: the morphine follows. At 80% pain with ketamine in reach: ketamine comes at once.
+
 ## Self-medication (0.2.0, 5 Nov 2026)
 
 The owner's idea: someone above a pain threshold would seek out a painkiller on their own. It answers the earlier open point that a colonist
@@ -177,9 +202,8 @@ Both are other authors' interplay, not ours; drafts the owner can post.
 
 ## Open points and upstream
 
-- Whether to hold a painkiller back while the patient is bleeding hard. More Injuries warns that morphine is hazardous in
-  uncontrolled bleeding and its bleed increase is invisible to the index. Priority puts tending first for one doctor, but a second
-  doctor can dose a bleeding patient the first has not reached. For the owner.
+- Vaccines and other prevention for the healthy: a separate decision about giving doses to people who are not ill. For the owner.
+- Telling bacterial from viral disease, so antibiotics help only against the first. It would mean labelling each disease by hand. Set aside for now.
 - A patient in bed between 40% and 60% pain gets nothing: too high for comfort, below the doctors' band, and left alone by
   self-medication. Whether doctors should come down to 40% is for the owner, after play.
 - Whether Masochists should skip self-medication: the game nullifies their pain thought, and this version does not exempt them.

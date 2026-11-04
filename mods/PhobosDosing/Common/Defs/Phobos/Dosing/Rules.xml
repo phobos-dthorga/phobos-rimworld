@@ -13,6 +13,14 @@
     <painThreshold>0.6</painThreshold>
     <sedationPainThreshold>0.8</sedationPainThreshold>
 
+    <!-- A painkiller waits while the patient bleeds this fast or faster: 0.3 is 30% a day on the health tab. Authored. -->
+    <bleedHoldRate>0.3</bleedHoldRate>
+
+    <!-- Doctors' drugs for fighting disease: the least they must add to immunity gain speed, and how many days of margin make a disease
+         count as winning the race against immunity. Authored. -->
+    <minImmunityGain>0.1</minImmunityGain>
+    <immunityRaceMarginDays>1</immunityRaceMarginDays>
+
     <!-- Self-medication: the pain from which a pawn who is up and about looks for a painkiller (the owner's choice), and how much
          lower that is with chemical interest and chemical fascination (authored). Teetotalers never do. -->
     <selfPainThreshold>0.4</selfPainThreshold>

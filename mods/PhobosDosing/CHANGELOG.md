@@ -5,6 +5,35 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-11-05 - Draft
+
+Two additions the owner approved on 5 November 2026. Not yet tested in game. New text is agent-authored and held for the owner's review.
+
+### Added
+
+- Doctors give drugs that help fight disease: a patient down or in bed with a disease that can kill them, when it is winning the race against their immunity, gets a medical drug
+  that adds at least 10% to immunity gain speed. Drugs are found by their effects, as painkillers are. The race is read from the game's own severity and immunity rates, and a
+  patient already winning gets nothing, so stock lasts. Only doctors give these. A setting switches it off.
+- A bleeding hold: a patient bleeding at 30% a day or more waits for a painkiller until that is under control, because some painkillers raise bleeding in ways this mod cannot
+  see. A sedative in extreme pain and a drug for fighting disease do not wait. It applies to self-medication too.
+- A refusal message for the hold, and a dev action listing the drugs for fighting disease.
+
+### Changed
+
+- The doctor's job now reads giving medication rather than pain relief, in the work giver, the job report and the main setting.
+
+### Balance
+
+- The 30% hold, the 10% least gain and the one day of margin in the race are authored, all in the rules Def.
+
+### Compatibility and limits
+
+- Medical drugs only: no teas or other drinks, and nothing that gives a disease, such as Biological Warfare's malaria pills. Drugs that prevent a disease, such as vaccines and
+  penoxycyline, are not included: those are for the healthy, and penoxycyline can already be scheduled in a drug policy.
+- Real antibiotics kill bacteria and do nothing for a virus. The game's immunity stat is a stand-in, so these drugs help against any disease, which is a gameplay simplification.
+- Effects a mod applies through other means, such as stats by severity, are not read.
+- Game-free rules pass 23 unit tests. The reading of a patient's disease and rates is game-facing and has no unit test. Not yet tested in game.
+
 ## [0.2.0] - 2026-11-05 - Draft
 
 The owner's idea: someone above a pain threshold would seek out a painkiller on their own. Not yet tested in game. Settings text is

@@ -50,10 +50,20 @@ public static class DoseChoiceRule
     public static bool Worthwhile(DoseEffect effect, float minPainRelief, DoseWeights weights) =>
         effect.PainRelief >= minPainRelief && Score(effect, false, weights) > 0f;
 
-    public static float Score(DoseEffect effect, bool patientBleeding, DoseWeights weights)
+    /// <summary>
+    /// Whether an item is worth indexing as a drug for immunity: a real gain, its costs below that gain, and never a sedative or a
+    /// recreational drug, because this is a doctor's prescription.
+    /// </summary>
+    public static bool WorthwhileForImmunity(DoseEffect effect, float minImmunityGain, DoseWeights weights) =>
+        effect.ImmunityGain >= minImmunityGain && !effect.Sedative && !effect.Recreational && Score(effect, DoseNeed.Immunity, false, weights) > 0f;
+
+    public static float Score(DoseEffect effect, bool patientBleeding, DoseWeights weights) => Score(effect, DoseNeed.PainRelief, patientBleeding, weights);
+
+    /// <summary>What the dose is worth for this need, net of its side effects.</summary>
+    public static float Score(DoseEffect effect, DoseNeed need, bool patientBleeding, DoseWeights weights)
     {
         float bleedWeight = patientBleeding ? weights.Bleed : weights.Bleed * weights.BleedWhenNotBleeding;
-        return effect.PainRelief
+        return (need == DoseNeed.Immunity ? effect.ImmunityGain : effect.PainRelief)
             - (effect.Sedative ? 0f : weights.Consciousness * effect.ConsciousnessCost)
             - weights.Breathing * effect.BreathingCost
             - bleedWeight * effect.BleedIncrease
@@ -63,14 +73,14 @@ public static class DoseChoiceRule
     /// <summary>The index of the chosen candidate, or -1 when none may be given.</summary>
     public static int Choose(IReadOnlyList<DoseCandidate> candidates, DoseNeed need, bool patientBleeding, DoseWeights weights)
     {
-        int best = Best(candidates, false, false, patientBleeding, weights);
-        if (best < 0 && need == DoseNeed.Sedation) best = Best(candidates, true, null, patientBleeding, weights);
-        if (best < 0) best = Best(candidates, false, true, patientBleeding, weights);
+        int best = Best(candidates, need, false, false, patientBleeding, weights);
+        if (best < 0 && need == DoseNeed.Sedation) best = Best(candidates, need, true, null, patientBleeding, weights);
+        if (best < 0) best = Best(candidates, need, false, true, patientBleeding, weights);
         return best;
     }
 
     /// <summary>The best allowed candidate of one kind; a null <paramref name="recreational"/> takes either.</summary>
-    static int Best(IReadOnlyList<DoseCandidate> candidates, bool sedatives, bool? recreational, bool patientBleeding, DoseWeights weights)
+    static int Best(IReadOnlyList<DoseCandidate> candidates, DoseNeed need, bool sedatives, bool? recreational, bool patientBleeding, DoseWeights weights)
     {
         int best = -1;
         float bestScore = 0f;
@@ -79,7 +89,7 @@ public static class DoseChoiceRule
             DoseCandidate candidate = candidates[i];
             if (!candidate.Allowed || candidate.Effect.Sedative != sedatives) continue;
             if (recreational.HasValue && candidate.Effect.Recreational != recreational.Value) continue;
-            float score = Score(candidate.Effect, patientBleeding, weights);
+            float score = Score(candidate.Effect, need, patientBleeding, weights);
             if (score > bestScore)
             {
                 bestScore = score;

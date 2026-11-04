@@ -5,18 +5,18 @@
   <JobDef>
     <defName>PhobosDose</defName>
     <driverClass>Phobos.Dosing.Jobs.JobDriver_PhobosDose</driverClass>
-    <reportString>giving TargetA to TargetB for pain.</reportString>
+    <reportString>giving TargetA to TargetB.</reportString>
     <casualInterruptible>false</casualInterruptible>
   </JobDef>
 
   <WorkGiverDef>
     <defName>PhobosDoctorDose</defName>
-    <label>give pain relief</label>
+    <label>give medication</label>
     <giverClass>Phobos.Dosing.Jobs.WorkGiver_PhobosDose</giverClass>
     <workType>Doctor</workType>
     <priorityInType>85</priorityInType>
-    <verb>give pain relief to</verb>
-    <gerund>giving pain relief to</gerund>
+    <verb>give medication to</verb>
+    <gerund>giving medication to</gerund>
     <canBeDoneByMechs>false</canBeDoneByMechs>
     <requiredCapacities>
       <li>Manipulation</li>

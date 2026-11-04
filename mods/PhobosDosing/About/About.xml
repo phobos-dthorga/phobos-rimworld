@@ -4,10 +4,12 @@
   <name>D'thorga Emergency Dosing</name>
   <author>Phobos A. D'thorga</author>
   <url>https://github.com/phobos-dthorga/phobos-rimworld</url>
-  <modVersion>0.2.0</modVersion>
+  <modVersion>0.3.0</modVersion>
   <description>Doctors give painkillers and sedatives on their own.
 
 A patient who is down or in bed and in severe pain gets the best pain relief within reach, from the doctor's pockets or the nearest stockpile. In extreme pain a sedative is given when no medical painkiller can be. Nothing is given while an earlier dose still works, while an overdose is under way, where a dose would reach a dangerous stage, or where it would leave consciousness or breathing too low.
+
+A patient in bed who is losing the race against a deadly disease gets a medical drug that speeds up their immunity, from a doctor only. A patient who is bleeding hard waits for a painkiller until that is under control.
 
 A colonist who is up and about and in serious pain goes and takes the best painkiller their drug policy allows. Teetotalers never do; chemical interest makes them reach for it sooner. Guests can do the same, by setting.
 

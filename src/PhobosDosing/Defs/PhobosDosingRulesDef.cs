@@ -29,6 +29,14 @@ public class PhobosDosingRulesDef : PhobosRulesDef
     /// </summary>
     public float selfCapacityFloor = 0.4f;
 
+    /// <summary>Doctors hold a painkiller back while a patient bleeds this fast or faster: 0.3 is 30% a day on the health tab. Authored.</summary>
+    public float bleedHoldRate = 0.3f;
+
+    /// <summary>A drug must add at least this to immunity gain speed to count as one for fighting disease. Authored.</summary>
+    public float minImmunityGain = 0.1f;
+    /// <summary>A disease counts as winning when immunity would arrive this many days or less before the lethal mark. Authored.</summary>
+    public float immunityRaceMarginDays = 1f;
+
     /// <summary>An item must take away at least this share of the pain to be indexed: relief as a side effect does not make a painkiller.</summary>
     public float minPainRelief = 0.3f;
 

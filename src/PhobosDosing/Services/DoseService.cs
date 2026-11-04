@@ -54,11 +54,39 @@ public static class DoseService
 {
     static readonly List<DoseCandidate> candidates = new();
 
-    /// <summary>Resting (downed or in bed) and in enough pain, under the player's care at the setting's level or better.</summary>
+    /// <summary>Resting (downed or in bed) and in enough pain or losing to a disease, under the player's care at the setting's level or better.</summary>
     public static bool IsPatient(Pawn pawn, DosingSettings settings, PhobosDosingRulesDef rules)
     {
         if (!IsPlayersPerson(pawn) || !CareAllows(pawn, settings) || pawn.InAggroMentalState) return false;
-        return NeedOf(pawn, rules) != DoseNeed.None;
+        return NeedsDose(pawn, settings, rules);
+    }
+
+    /// <summary>Either reason a doctor would come: pain, or a disease that is winning.</summary>
+    public static bool NeedsDose(Pawn pawn, DosingSettings settings, PhobosDosingRulesDef rules) =>
+        NeedOf(pawn, rules) != DoseNeed.None || (settings.immunityDosing && LosingToDisease(pawn, rules));
+
+    /// <summary>
+    /// A resting patient with a disease that can kill and that is winning the race against their immunity, read from the game's own rates: every
+    /// comp that moves the disease's severity, tending included, and the immunity record the game itself ticks.
+    /// </summary>
+    public static bool LosingToDisease(Pawn pawn, PhobosDosingRulesDef rules)
+    {
+        if (!pawn.Downed && !pawn.InBed()) return false;
+        List<Hediff> hediffs = pawn.health.hediffSet.hediffs;
+        for (int i = 0; i < hediffs.Count; i++)
+        {
+            if (hediffs[i] is not HediffWithComps disease || !disease.Visible || disease.def.lethalSeverity <= 0f || !disease.def.PossibleToDevelopImmunityNaturally()) continue;
+            HediffComp_Immunizable? immunizable = disease.TryGetComp<HediffComp_Immunizable>();
+            if (immunizable == null || immunizable.FullyImmune) continue;
+            float severityPerDay = 0f;
+            for (int c = 0; c < disease.comps.Count; c++)
+            {
+                if (disease.comps[c] is HediffComp_SeverityModifierBase modifier) severityPerDay += modifier.SeverityChangePerDay();
+            }
+            float immunityPerDay = (pawn.health.immunity.GetImmunityRecord(disease.def)?.ImmunityChangePerTick(pawn, true, disease) ?? 0f) * GenDate.TicksPerDay;
+            if (ImmunityRule.Losing(disease.Severity, disease.def.lethalSeverity, severityPerDay, immunizable.Immunity, immunityPerDay, rules.immunityRaceMarginDays)) return true;
+        }
+        return false;
     }
 
     /// <summary>Spawned, alive, humanlike, past babyhood, and the player's own or the player's guest or prisoner.</summary>
@@ -79,7 +107,7 @@ public static class DoseService
     /// </summary>
     public static void ExplainNotPatient(Pawn pawn, DosingSettings settings, PhobosDosingRulesDef rules)
     {
-        if (!IsPlayersPerson(pawn) || NeedOf(pawn, rules) == DoseNeed.None) return;
+        if (!IsPlayersPerson(pawn) || !NeedsDose(pawn, settings, rules)) return;
         if (!CareAllows(pawn, settings)) JobFailReason.Is("PhobosDosing_RefusalCare".Translate());
         else if (pawn.InAggroMentalState) JobFailReason.Is("PhobosDosing_RefusalMentalState".Translate());
     }
@@ -95,11 +123,23 @@ public static class DoseService
     {
         PhobosDosingRulesDef rules = PhobosDosingRulesDef.Current;
         DosingSettings settings = DosingMod.Settings;
-        var decision = new DoseDecision { Need = NeedOf(patient, rules) };
-        if (decision.Need == DoseNeed.None) return decision;
-        IReadOnlyList<DoseOption> options = DoseIndex.Options;
+        DoseNeed painNeed = NeedOf(patient, rules);
+        DoseDecision? pain = painNeed == DoseNeed.None ? null : DecideFor(doctor, patient, painNeed, DoseIndex.Options, rules, settings);
+        if (pain?.Chosen != null) return pain;
+        // Held back from pain relief, or nothing in reach for it: the disease may still have a dose waiting.
+        if (settings.immunityDosing && LosingToDisease(patient, rules))
+        {
+            DoseDecision immunity = DecideFor(doctor, patient, DoseNeed.Immunity, DoseIndex.ImmunityOptions, rules, settings);
+            if (immunity.Chosen != null || pain == null) return immunity;
+        }
+        return pain ?? new DoseDecision { Need = DoseNeed.None };
+    }
+
+    static DoseDecision DecideFor(Pawn? doctor, Pawn patient, DoseNeed need, IReadOnlyList<DoseOption> options, PhobosDosingRulesDef rules, DosingSettings settings)
+    {
+        var decision = new DoseDecision { Need = need };
         bool bleeding = patient.health.hediffSet.BleedRateTotal > 0f;
-        var limits = new DoseLimits(rules.redoseBelowFraction, rules.overdoseLimit, rules.capacityFloor, settings.recreationalForPain, settings.ignoreAversionForMedical);
+        var limits = new DoseLimits(rules.redoseBelowFraction, rules.overdoseLimit, rules.capacityFloor, settings.recreationalForPain, settings.ignoreAversionForMedical, rules.bleedHoldRate);
         // A medical painkiller still working blocks every other painkiller: relief and costs stack. A sedative may still
         // follow at extreme pain; it is checked against its own conditions only.
         float painkillerActive = PainkillerActive(options, patient.health.hediffSet, false);
@@ -117,9 +157,9 @@ public static class DoseService
                 if (refusal == DoseRefusal.None) item = FindItem(doctor, patient, option.Def);
             }
             candidates.Add(new DoseCandidate(option.Effect, item != null));
-            decision.Verdicts.Add(new DoseVerdict(option, item, present, refusal, DoseChoiceRule.Score(option.Effect, bleeding, rules.Weights)));
+            decision.Verdicts.Add(new DoseVerdict(option, item, present, refusal, DoseChoiceRule.Score(option.Effect, need, bleeding, rules.Weights)));
         }
-        int chosen = DoseChoiceRule.Choose(candidates, decision.Need, bleeding, rules.Weights);
+        int chosen = DoseChoiceRule.Choose(candidates, need, bleeding, rules.Weights);
         if (chosen >= 0) decision.Chosen = decision.Verdicts[chosen];
         return decision;
     }
@@ -142,7 +182,7 @@ public static class DoseService
         }
         var state = new PatientState(patient.health.capacities.GetLevel(PawnCapacityDefOf.Consciousness),
             patient.health.capacities.GetLevel(PawnCapacityDefOf.Breathing),
-            set.GetFirstHediffOfDef(HediffDefOf.DrugOverdose)?.Severity ?? 0f, WillTake(patient, option.Def));
+            set.GetFirstHediffOfDef(HediffDefOf.DrugOverdose)?.Severity ?? 0f, WillTake(patient, option.Def), set.BleedRateTotal);
         return DoseSafetyRule.Check(option.Effect, need, activeFraction, reachesDanger, state, limits);
     }
 
@@ -192,7 +232,7 @@ public static class DoseService
         bool bleeding = set.BleedRateTotal > 0f;
         // The policy has already decided about recreational drugs here, and a pawn's own refusal is never overridden. A higher floor than
         // a doctor's: this pawn is on their feet, and a dose must not drop them where they stand.
-        var limits = new DoseLimits(rules.redoseBelowFraction, rules.overdoseLimit, rules.selfCapacityFloor, true, false);
+        var limits = new DoseLimits(rules.redoseBelowFraction, rules.overdoseLimit, rules.selfCapacityFloor, true, false, rules.bleedHoldRate);
         float painkillerActive = PainkillerActive(options, set, true);
         DrugPolicy? policy = pawn.drugs?.CurrentPolicy;
         candidates.Clear();

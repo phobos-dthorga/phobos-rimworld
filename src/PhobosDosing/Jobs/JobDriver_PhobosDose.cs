@@ -33,7 +33,7 @@ public class JobDriver_PhobosDose : JobDriver
     protected override IEnumerable<Toil> MakeNewToils()
     {
         this.FailOnDespawnedNullOrForbidden(PatientInd);
-        this.FailOn(() => Patient.Dead || DoseService.NeedOf(Patient, PhobosDosingRulesDef.Current) == Rules.DoseNeed.None);
+        this.FailOn(() => Patient.Dead || !DoseService.NeedsDose(Patient, DosingMod.Settings, PhobosDosingRulesDef.Current));
         Toil fromInventory = Toils_Misc.TakeItemFromInventoryToCarrier(pawn, ItemInd);
         Toil toPatient = Toils_Goto.GotoThing(PatientInd, PathEndMode.Touch);
         yield return Toils_Jump.JumpIf(fromInventory, () => pawn.inventory != null && pawn.inventory.Contains(TargetThingA));

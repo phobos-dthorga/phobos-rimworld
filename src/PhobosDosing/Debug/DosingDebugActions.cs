@@ -31,6 +31,17 @@ public static class DosingDebugActions
         Log.Message(text.ToString());
     }
 
+    [DebugAction(DebugCategory.Name, "Dosing: log drugs for fighting disease", actionType = DebugActionType.Action, allowedGameStates = AllowedGameStates.Entry | AllowedGameStates.Playing)]
+    public static void LogImmunityIndex()
+    {
+        var text = new StringBuilder(DosingMod.LogPrefix).Append(" drugs for fighting disease:");
+        foreach (DoseOption option in DoseIndex.ImmunityOptions)
+        {
+            text.Append('\n').Append(option.Def.defName).Append(" (").Append(option.Def.label).Append("): immunity gain +").Append(option.Effect.ImmunityGain.ToString("0.00"));
+        }
+        Log.Message(text.ToString());
+    }
+
     [DebugAction(DebugCategory.Name, "Dosing: log self-medication for selected pawns", actionType = DebugActionType.Action, allowedGameStates = AllowedGameStates.PlayingOnMap)]
     public static void LogSelfMedication()
     {
@@ -60,7 +71,9 @@ public static class DosingDebugActions
             if (selected is not Pawn pawn) continue;
             DoseDecision decision = DoseService.Decide(null, pawn);
             text.Append('\n').Append(pawn.LabelShort).Append(": pain ").Append(pawn.health.hediffSet.PainTotal.ToString("0.00"))
-                .Append(", resting ").Append(pawn.Downed || pawn.InBed() ? "yes" : "no").Append(", need ").Append(decision.Need)
+                .Append(", bleeding ").Append(pawn.health.hediffSet.BleedRateTotal.ToString("0.00"))
+                .Append(", resting ").Append(pawn.Downed || pawn.InBed() ? "yes" : "no")
+                .Append(", losing to a disease ").Append(DoseService.LosingToDisease(pawn, Defs.PhobosDosingRulesDef.Current) ? "yes" : "no").Append(", need ").Append(decision.Need)
                 .Append(", chosen ").Append(decision.Chosen?.Option.Def.defName ?? "nothing");
             foreach (DoseVerdict verdict in decision.Verdicts)
             {

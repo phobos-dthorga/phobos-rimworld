@@ -86,6 +86,80 @@ public class DoseNeedRuleTests
     }
 }
 
+public class ImmunityTests
+{
+    static DoseEffect Tyrox => DoseEffectRule.Combine(new[] { new StageEffect(1f, 0f, 0f, 1f, 0f, 1f, 0.5f) }, 0f, false, 0.1f);
+    static DoseEffect Antibiotics => DoseEffectRule.Combine(new[] { new StageEffect(1f, 0f, 0f, 1f, 0f, 1f, 0.1f) }, 0.005f, false, 0.1f);
+    static DoseEffect RoseTea => DoseEffectRule.Combine(new[] { new StageEffect(1f, 0f, 0f, 1f, 0f, 1f, 0.02f) }, 0f, true, 0.1f);
+    static DoseEffect Yuenyeung => DoseEffectRule.Combine(new[] { new StageEffect(1f, 0f, 0f, 1f, 0f, 1f, 0.15f) }, 0.0075f, true, 0.1f);
+
+    [Fact]
+    public void ADiseaseWinsWhenImmunityWouldArriveTooLate()
+    {
+        // Lethal in 2 days, immune in about 3.3: losing.
+        Assert.True(ImmunityRule.Losing(0.2f, 1f, 0.4f, 0f, 0.3f, 1f));
+        // Lethal in 8 days, immune in 2: winning, with room to spare.
+        Assert.False(ImmunityRule.Losing(0.2f, 1f, 0.1f, 0f, 0.5f, 1f));
+        // Inside the margin: immune in 2 days, lethal in 2.5.
+        Assert.True(ImmunityRule.Losing(0.5f, 1f, 0.2f, 0f, 0.5f, 1f));
+    }
+
+    [Fact]
+    public void ADiseaseThatIsNotGettingWorseOrCannotKillIsNotWinning()
+    {
+        Assert.False(ImmunityRule.Losing(0.5f, 1f, 0f, 0f, 0f, 1f));
+        Assert.False(ImmunityRule.Losing(0.5f, 1f, -0.2f, 0f, 0.1f, 1f));
+        Assert.False(ImmunityRule.Losing(0.5f, 0f, 0.4f, 0f, 0.1f, 1f));
+        Assert.False(ImmunityRule.Losing(0.5f, 1f, 0.4f, 1f, 0.1f, 1f));
+        Assert.True(ImmunityRule.Losing(0.5f, 1f, 0.1f, 0.2f, 0f, 1f));
+    }
+
+    [Fact]
+    public void OnlyARealGainFromAMedicalDrugCounts()
+    {
+        Assert.True(DoseChoiceRule.WorthwhileForImmunity(Tyrox, 0.1f, Fixtures.Weights));
+        Assert.True(DoseChoiceRule.WorthwhileForImmunity(Antibiotics, 0.1f, Fixtures.Weights));
+        Assert.False(DoseChoiceRule.WorthwhileForImmunity(RoseTea, 0.1f, Fixtures.Weights));
+        Assert.False(DoseChoiceRule.WorthwhileForImmunity(Yuenyeung, 0.1f, Fixtures.Weights));
+        Assert.False(DoseChoiceRule.WorthwhileForImmunity(Fixtures.Morphine, 0.1f, Fixtures.Weights));
+        // All cost and little gain: addictiveness 1 against a gain of 0.2.
+        DoseEffect addictive = DoseEffectRule.Combine(new[] { new StageEffect(1f, 0f, 0f, 1f, 0f, 1f, 0.2f) }, 1f, false, 0.1f);
+        Assert.False(DoseChoiceRule.WorthwhileForImmunity(addictive, 0.1f, Fixtures.Weights));
+    }
+
+    [Fact]
+    public void TheStrongerGainIsChosenAndAPainkillerIsNotADiseaseDrug()
+    {
+        var both = new[] { new DoseCandidate(Antibiotics, true), new DoseCandidate(Tyrox, true) };
+        Assert.Equal(1, DoseChoiceRule.Choose(both, DoseNeed.Immunity, false, Fixtures.Weights));
+        Assert.Equal(DoseRefusal.NoImmunityGain, DoseSafetyRule.Check(Fixtures.Morphine, DoseNeed.Immunity, 0f, false, Fixtures.Awake, Fixtures.Limits));
+        Assert.Equal(DoseRefusal.None, DoseSafetyRule.Check(Tyrox, DoseNeed.Immunity, 0f, false, Fixtures.Awake, Fixtures.Limits));
+        Assert.Equal(DoseRefusal.NoPainRelief, DoseSafetyRule.Check(Tyrox, DoseNeed.PainRelief, 0f, false, Fixtures.Awake, Fixtures.Limits));
+    }
+}
+
+public class BleedingHoldTests
+{
+    static readonly DoseLimits Hold = new(0.25f, 0.3f, 0.15f, false, false, 0.3f);
+    static PatientState Bleeding(float rate) => new(0.8f, 1f, 0f, true, rate);
+
+    [Fact]
+    public void APainkillerWaitsWhileThePatientBleedsHard()
+    {
+        Assert.Equal(DoseRefusal.BleedingHold, DoseSafetyRule.Check(Fixtures.Morphine, DoseNeed.PainRelief, 0f, false, Bleeding(0.9f), Hold));
+        Assert.Equal(DoseRefusal.BleedingHold, DoseSafetyRule.Check(Fixtures.Morphine, DoseNeed.PainRelief, 0f, false, Bleeding(0.3f), Hold));
+        Assert.Equal(DoseRefusal.None, DoseSafetyRule.Check(Fixtures.Morphine, DoseNeed.PainRelief, 0f, false, Bleeding(0.29f), Hold));
+    }
+
+    [Fact]
+    public void ASedativeAndADiseaseDrugDoNotWait()
+    {
+        Assert.Equal(DoseRefusal.None, DoseSafetyRule.Check(Fixtures.Ketamine, DoseNeed.Sedation, 0f, false, Bleeding(0.9f), Hold));
+        DoseEffect tyrox = DoseEffectRule.Combine(new[] { new StageEffect(1f, 0f, 0f, 1f, 0f, 1f, 0.5f) }, 0f, false, 0.1f);
+        Assert.Equal(DoseRefusal.None, DoseSafetyRule.Check(tyrox, DoseNeed.Immunity, 0f, false, Bleeding(0.9f), Hold));
+    }
+}
+
 public class SelfDoseRuleTests
 {
     [Fact]

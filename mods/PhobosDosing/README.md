@@ -2,7 +2,7 @@
 
 Doctors give painkillers and sedatives on their own, from whatever mod made them.
 
-Version 0.2.0, built 5 November 2026 for House D'thorga. **Not yet tested in game.** Everything here is read from the game's and
+Version 0.3.0, built 5 November 2026 for House D'thorga. **Not yet tested in game.** Everything here is read from the game's and
 the mods' code.
 
 ## Read this first (gotchas)
@@ -27,6 +27,11 @@ the mods' code.
   nobody has reserved. In the Work tab the job sits under Doctor between tending and feeding patients.
 - **Stock is your job.** The colony needs the drugs made or bought; a doctor who carries them (Combat Extended loadouts, Smart
   Medicine's stock-up) is fastest.
+- **Doctors also give drugs that help fight disease, and only doctors do.** A patient down or in bed with a disease that can kill them, when immunity would
+  arrive too late or within a day of the lethal mark, gets a medical drug that adds at least 10% to immunity gain speed. **A patient already winning gets none, so
+  your stock lasts.** Drinks such as tea never count, nor do drugs that give a disease.
+- **A patient bleeding at 30% a day or more waits for a painkiller until that is under control**, on both the doctors' and the self-medication paths. A sedative in extreme
+  pain and a drug for fighting disease do not wait. The bleeding has to be tended for this to clear.
 - **Mechs do not dose** in this version.
 - **People also fetch their own painkillers, and your drug policies decide what.** An adult colonist who is up and about at 40% pain or more
   goes and takes the best painkiller whose policy line allows it, for joy or on a schedule. **Addiction and overdose are real
@@ -64,7 +69,7 @@ an earlier dose still working, a dangerous dose, and so on. Nothing shows for a 
 ## Settings
 
 Doctors give pain relief on their own (on); dose patients whose medical care is at least (herbal or better); use recreational
-drugs for pain (off); give medical drugs to patients who refuse drugs (off); people in pain fetch their own painkillers (on); guests may
+drugs for pain (off); give medical drugs to patients who refuse drugs (off); doctors give drugs that help fight disease (on); people in pain fetch their own painkillers (on); guests may
 take painkillers from your stock (off, for mods such as Hospitality); the display mode. The recreational setting is about what doctors give: a
 pawn fetching their own goes by their drug policy instead.
 
@@ -88,7 +93,7 @@ the drug comp's addictiveness and category are read from the same Defs. Balance 
 ## Checks done (5 November 2026)
 
 - Built against the RimWorld 1.7 and 1.6 reference assemblies. The game-free rules (effect from stages, need bands, safety,
-  choice and tiers, self-medication's threshold and policy gate) pass 17 unit tests.
+  choice and tiers, self-medication's threshold and policy gate) pass 23 unit tests.
 - 0.1.0 loaded in the owner's game with no error naming it (5 November 2026); its load line showed the faults 0.1.1 fixes. That
   is a load, not a test of dosing.
 - Read from code: More Injuries, Search and Rescue, Medicines+, Smart Medicine, MSE2 and VFE Medical give no painkiller or

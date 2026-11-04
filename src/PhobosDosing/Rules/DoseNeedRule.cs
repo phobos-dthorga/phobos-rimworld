@@ -7,6 +7,8 @@ public enum DoseNeed
     PainRelief,
     /// <summary>Pain past the sedation band: a painkiller first, a sedative if nothing lighter can be given.</summary>
     Sedation,
+    /// <summary>A disease is winning the race against the patient's immunity: a drug that speeds immunity up.</summary>
+    Immunity,
 }
 
 /// <summary>
