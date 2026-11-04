@@ -55,8 +55,8 @@ It follows the Phobos Ostranauts and Phobos Kenshi guides, adapted to RimWorld.
 - **Gizmos and refusals:** every command says what it did; a disabled gizmo says why; a building's inspect
   text names the one thing it waits for (power, an antenna, a clear sky).
 - **Descriptions** of radios and antennas give real, accurate specifications in a form a colonist would
+  read. A description never hides a hazard or promises something the code doesn't do.
 - Text a player reads in play stays in the game world (owner, 5 November 2026): no mod names, signals or settings in descriptions,
   tooltips, job reports, refusals or messages. The mod settings window, dev actions and the load line may name them.
-  read. A description never hides a hazard or promises something the code doesn't do.
 - **Creative text written by Claude** (contact stories, faction voices, letters) is labelled
   agent-written in the changelog, and held for the owner's review.
