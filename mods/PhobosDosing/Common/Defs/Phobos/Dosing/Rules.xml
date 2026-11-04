@@ -9,9 +9,13 @@
     <!-- How often the list of patients who need a dose is rebuilt per map, when a doctor asks. -->
     <recomputeIntervalTicks>250</recomputeIntervalTicks>
 
-    <!-- The game's pain bands: severe from 0.6, extreme (and the default pain-shock threshold) from 0.8. -->
+    <!-- The game labels pain severe from 0.4 and extreme from 0.8 (HealthCardUtility.GetPainLabel). 0.6 is authored, inside severe. -->
     <painThreshold>0.6</painThreshold>
     <sedationPainThreshold>0.8</sedationPainThreshold>
+
+    <!-- An item must take away at least this share of the pain to count as a painkiller at all. It keeps out drugs whose relief is
+         a side effect (an adrenaline shot, a beer). Authored. -->
+    <minPainRelief>0.3</minPainRelief>
 
     <!-- Safety: no new dose while the last is still at a quarter of a dose; none during an overdose of 0.3 or more; a dose's
          offsets must leave consciousness and breathing at 0.15 or more (the game kills at zero). -->

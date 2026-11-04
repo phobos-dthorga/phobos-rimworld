@@ -13,10 +13,13 @@ public class PhobosDosingRulesDef : PhobosRulesDef
     /// <summary>How often the list of patients who need a dose is rebuilt per map.</summary>
     public int recomputeIntervalTicks = 250;
 
-    /// <summary>Pain from which a resting patient gets a painkiller: the game's "severe" pain band.</summary>
+    /// <summary>Pain from which a resting patient gets a painkiller. Authored: inside the game's "severe" label, which runs 0.4 to 0.8.</summary>
     public float painThreshold = 0.6f;
-    /// <summary>Pain from which a sedative may be given when nothing lighter can: the game's pain-shock band.</summary>
+    /// <summary>Pain from which a sedative may be given when nothing lighter can: where the game's "extreme" label starts.</summary>
     public float sedationPainThreshold = 0.8f;
+
+    /// <summary>An item must take away at least this share of the pain to be indexed: relief as a side effect does not make a painkiller.</summary>
+    public float minPainRelief = 0.3f;
 
     /// <summary>No new dose while an earlier one's condition is still at this share of a dose or more.</summary>
     public float redoseBelowFraction = 0.25f;

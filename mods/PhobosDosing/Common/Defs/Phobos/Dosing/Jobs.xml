@@ -18,6 +18,9 @@
     <verb>give pain relief to</verb>
     <gerund>giving pain relief to</gerund>
     <canBeDoneByMechs>false</canBeDoneByMechs>
+    <requiredCapacities>
+      <li>Manipulation</li>
+    </requiredCapacities>
     <prioritizeSustains>true</prioritizeSustains>
   </WorkGiverDef>
 </Defs>

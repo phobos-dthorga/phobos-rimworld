@@ -33,12 +33,20 @@ public readonly struct DoseCandidate
 }
 
 /// <summary>
-/// Which dose to give: the strongest relief net of its side effects. Painkillers are ranked first; a sedative is chosen only
-/// when sedation is wanted and no painkiller scores above zero. The score does not depend on how bad the pain is, so the
-/// choice is the same every time and easy to explain. Game-free.
+/// Which dose to give: the strongest relief net of its side effects, in tiers. Medical painkillers first; then, when sedation
+/// is wanted, a sedative; recreational painkillers only as the last resort, because a clean score must not put an addictive
+/// high ahead of a medical drug. The score does not depend on how bad the pain is, so the choice is the same every time and
+/// easy to explain. Game-free.
 /// </summary>
 public static class DoseChoiceRule
 {
+    /// <summary>
+    /// Whether an item is worth indexing at all: it must take away a real share of the pain (a drug whose relief is a side
+    /// effect, such as an adrenaline shot kept for cardiac arrest, must not be spent on pain) and score above zero.
+    /// </summary>
+    public static bool Worthwhile(DoseEffect effect, float minPainRelief, DoseWeights weights) =>
+        effect.PainRelief >= minPainRelief && Score(effect, false, weights) > 0f;
+
     public static float Score(DoseEffect effect, bool patientBleeding, DoseWeights weights)
     {
         float bleedWeight = patientBleeding ? weights.Bleed : weights.Bleed * 0.25f;
@@ -52,12 +60,14 @@ public static class DoseChoiceRule
     /// <summary>The index of the chosen candidate, or -1 when none may be given.</summary>
     public static int Choose(IReadOnlyList<DoseCandidate> candidates, DoseNeed need, bool patientBleeding, DoseWeights weights)
     {
-        int best = Best(candidates, false, patientBleeding, weights);
-        if (best < 0 && need == DoseNeed.Sedation) best = Best(candidates, true, patientBleeding, weights);
+        int best = Best(candidates, false, false, patientBleeding, weights);
+        if (best < 0 && need == DoseNeed.Sedation) best = Best(candidates, true, null, patientBleeding, weights);
+        if (best < 0) best = Best(candidates, false, true, patientBleeding, weights);
         return best;
     }
 
-    static int Best(IReadOnlyList<DoseCandidate> candidates, bool sedatives, bool patientBleeding, DoseWeights weights)
+    /// <summary>The best allowed candidate of one kind; a null <paramref name="recreational"/> takes either.</summary>
+    static int Best(IReadOnlyList<DoseCandidate> candidates, bool sedatives, bool? recreational, bool patientBleeding, DoseWeights weights)
     {
         int best = -1;
         float bestScore = 0f;
@@ -65,6 +75,7 @@ public static class DoseChoiceRule
         {
             DoseCandidate candidate = candidates[i];
             if (!candidate.Allowed || candidate.Effect.Sedative != sedatives) continue;
+            if (recreational.HasValue && candidate.Effect.Recreational != recreational.Value) continue;
             float score = Score(candidate.Effect, patientBleeding, weights);
             if (score > bestScore)
             {

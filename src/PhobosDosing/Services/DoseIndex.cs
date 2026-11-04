@@ -40,8 +40,9 @@ public sealed class DoseOption
 /// <summary>
 /// Every ingestible in the game that relieves pain, found by what its Defs say it does, never by name (owner's rule, 5 Nov
 /// 2026): each outcome that gives a condition is read at the dose's severity for pain, consciousness, breathing and bleeding,
-/// and the drug comp for addictiveness and category. Built once, on first use after the Defs load. An effect a mod applies
-/// from its own code rather than its XML stays invisible here; that is recorded in the design record as a limit.
+/// and the drug comp for addictiveness and category; items whose relief is too small to matter or whose score cannot pass zero
+/// are left out. Built once, on first use after the Defs load. An effect a mod applies from its own code rather than its XML
+/// stays invisible here; that is recorded in the design record as a limit.
 /// </summary>
 [StaticConstructorOnStartup]
 public static class DoseIndex
@@ -78,7 +79,7 @@ public static class DoseIndex
             if (stages.Count == 0) continue;
             CompProperties_Drug? drug = def.GetCompProperties<CompProperties_Drug>();
             DoseEffect effect = DoseEffectRule.Combine(stages, drug?.addictiveness ?? 0f, def.IsNonMedicalDrug, rules.sedativeConsciousnessCeiling);
-            if (!effect.RelievesPain) continue;
+            if (!DoseChoiceRule.Worthwhile(effect, rules.minPainRelief, rules.Weights)) continue;
             built.Add(new DoseOption(def, hediffs.ToArray(), effect));
         }
         return built;

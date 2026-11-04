@@ -38,7 +38,7 @@ public class DosingSettings : ModSettings
 public class DosingMod : Mod
 {
     public const string PackageId = "PhobosDthorga.Dosing";
-    public const string ModVersion = "0.1.0";
+    public const string ModVersion = "0.1.1";
     public const string LogPrefix = "[D'thorga Emergency Dosing]";
 
     static readonly MedicalCareCategory[] CareChoices = { MedicalCareCategory.HerbalOrWorse, MedicalCareCategory.NormalOrWorse, MedicalCareCategory.Best };
@@ -60,18 +60,25 @@ public class DosingMod : Mod
         }
         else
         {
-            IReadOnlyList<DoseOption> options = DoseIndex.Options;
-            var names = new StringBuilder();
-            for (int i = 0; i < options.Count; i++)
-            {
-                if (i > 0) names.Append(", ");
-                names.Append(options[i].Def.label).Append(options[i].Effect.Sedative ? " (sedative)" : "");
-            }
-            report.On(options.Count + " pain-relieving ingestible" + (options.Count == 1 ? "" : "s") + " indexed: " + (options.Count == 0 ? "none" : names.ToString()));
+            report.On("medical pain relief: " + Names(false));
             report.On("minimum care " + Settings.minimumCare.GetLabel());
-            if (Settings.recreationalForPain) report.On("recreational drugs for pain"); else report.Off("recreational drugs for pain", "setting");
+            string recreational = "recreational pain relief: " + Names(true);
+            if (Settings.recreationalForPain) report.On(recreational + ", as a last resort"); else report.Off(recreational, "setting; never given");
         }
         report.Log();
+    }
+
+    /// <summary>The labels of the indexed items of one kind, for the load line.</summary>
+    static string Names(bool recreational)
+    {
+        var names = new StringBuilder();
+        foreach (DoseOption option in DoseIndex.Options)
+        {
+            if (option.Effect.Recreational != recreational) continue;
+            if (names.Length > 0) names.Append(", ");
+            names.Append(option.Def.label).Append(option.Effect.Sedative ? " (sedative)" : "");
+        }
+        return names.Length == 0 ? "none" : names.ToString();
     }
 
     public override string SettingsCategory() => "PhobosDosing_SettingsCategory".Translate();

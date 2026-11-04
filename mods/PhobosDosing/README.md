@@ -2,23 +2,27 @@
 
 Doctors give painkillers and sedatives on their own, from whatever mod made them.
 
-Version 0.1.0, built 5 November 2026 for House D'thorga. **Not yet tested in game.** Everything here is read from the game's and
+Version 0.1.1, built 5 November 2026 for House D'thorga. **Not yet tested in game.** Everything here is read from the game's and
 the mods' code.
 
 ## Read this first (gotchas)
 
 - **Needs D'thorga Framework**, loaded before it. No Harmony. Nothing is saved: **safe to add or remove at any time**.
-- **Who gets dosed:** a colonist, prisoner or guest who is **down or in bed**, in **severe pain** (the game's 60% band), under
-  medical care of at least the level in the settings (default: herbal medicine or better; "no medicine" is never dosed), and
-  not reserved by another doctor. A pawn up and working in pain is left alone: a painkiller could drop them where they stand.
+- **Who gets dosed:** a colonist, prisoner or guest past babyhood who is **down or in bed**, in **severe pain** (60% or more;
+  the game labels pain severe from 40%), under medical care of at least the level in the settings (default: herbal medicine or
+  better; "no medicine" is never dosed), and not reserved by another doctor. A pawn up and working in pain is left alone: a painkiller could drop them where they stand.
 - **What is given:** the painkiller with the strongest relief net of its side effects, from the doctor's inventory first, then
-  the nearest unforbidden stack. **Past the pain-shock band (80%) a sedative is given when nothing lighter can be.**
-- **What is never given:** a second dose while the first still works; anything during an overdose; a dose that would reach a
-  dangerous stage; a dose whose offsets would leave consciousness or breathing under 15%; **recreational drugs unless you turn
-  the setting on**; drugs to a patient who refuses them on principle, unless you turn that setting on.
+  the nearest unforbidden stack. **In extreme pain (80% or more) a sedative is given when no medical painkiller can be.**
+- **What is never given:** a second painkiller while a medical one still works; anything during an overdose; a dose that would
+  reach a dangerous stage; a dose whose offsets would leave consciousness or breathing under 15%; **recreational drugs unless
+  you turn the setting on, and then only as a last resort**; drugs to a patient who refuses them on principle, unless you turn
+  that setting on.
+- **A drug counts as a painkiller only if it takes away 30% of the pain or more.** That keeps out relief that is only a side
+  effect, by effect and not by name: **your epinephrine stays for cardiac arrest** (about 23%), and beer, tea and the like stay
+  out too.
 - **Any mod's drugs count.** The mod never looks for a drug by name: it reads what each ingestible does from its definitions.
   A mod can keep an item out with a one-line extension (below). **An effect a mod applies from its own code, not its XML,
-  is invisible**: More Injuries' epinephrine, for instance, which More Injuries and Search and Rescue already give on their own.
+  is invisible**: More Injuries raises bleeding after morphine through a linked condition this mod cannot see.
 - **Search and Rescue and More Injuries are not changed.** Their doctors keep their patients; this mod waits for a patient
   nobody has reserved. In the Work tab the job sits under Doctor between tending and feeding patients.
 - **Stock is your job.** The colony needs the drugs made or bought; a doctor who carries them (Combat Extended loadouts, Smart
@@ -29,8 +33,9 @@ the mods' code.
 
 | Need | Who | Given | Not given when |
 | --- | --- | --- | --- |
-| pain relief | resting, pain at or past 60% | the painkiller with the best score | last dose still at a quarter or more; overdose at 30% or more; a dangerous stage would be reached; consciousness or breathing would fall under 15% |
-| sedation | resting, pain at or past 80%, no painkiller can be given | the sedative with the best score | the same |
+| pain relief | resting, pain at or past 60% | the medical painkiller with the best score | a medical painkiller still at a quarter of a dose or more; overdose at 30% or more; a dangerous stage would be reached; consciousness or breathing would fall under 15% |
+| sedation | resting, pain at or past 80%, no medical painkiller can be given | the sedative with the best score | its own last dose still working; otherwise the same |
+| last resort | setting on, nothing above can be given | the recreational painkiller with the best score | the same |
 
 Score = pain relief minus half the consciousness cost (not for sedatives) minus half the breathing cost minus the bleed increase
 (a quarter of it when the patient is not bleeding) minus half the addictiveness. Every figure is an authored starting value in
@@ -41,8 +46,8 @@ Worked examples from the Defs, not from play: More Injuries' morphine autoinject
 chloroform knock the patient out (relief 1, sedatives). So morphine is preferred when in reach, thornweed when it is not, and
 ketamine only at pain shock with neither in reach.
 
-A right-click on a patient says why no dose can be given: nothing in reach, the last dose still working, a dangerous dose, and
-so on.
+With a doctor selected, a right-click on a patient in need says why no dose can be given: the care setting, nothing in reach,
+an earlier dose still working, a dangerous dose, and so on. Nothing shows for a pawn who needs no dose.
 
 ## Settings
 
@@ -61,15 +66,17 @@ Keep an ingestible out of automatic dosing:
 </modExtensions>
 ```
 
-An ingestible is indexed when an IngestionOutcomeDoer_GiveHediff of its gives a condition whose stage at the dose relieves pain
-(painFactor under 1 or a negative painOffset). Consciousness and breathing offsets, consciousness setMax, totalBleedFactor and
+An ingestible is indexed when an IngestionOutcomeDoer_GiveHediff of its gives a condition whose stage at the dose takes away at
+least 30% of the pain (through painFactor and a negative painOffset) and its score is above zero. Consciousness and breathing offsets, consciousness setMax, totalBleedFactor and
 the drug comp's addictiveness and category are read from the same Defs. Balance lives in
 `Common/Defs/Phobos/Dosing/Rules.xml` (one `PhobosDosingRulesDef`, first loaded wins).
 
 ## Checks done (5 November 2026)
 
 - Built against the RimWorld 1.7 and 1.6 reference assemblies. The game-free rules (effect from stages, need bands, safety,
-  choice) pass unit tests.
+  choice and tiers) pass 12 unit tests.
+- 0.1.0 loaded in the owner's game with no error naming it (5 November 2026); its load line showed the faults 0.1.1 fixes. That
+  is a load, not a test of dosing.
 - Read from code: More Injuries, Search and Rescue, Medicines+, Smart Medicine, MSE2 and VFE Medical give no painkiller or
   sedative automatically; More Injuries' drugs are a drafted doctor's right-click option, and Search and Rescue's doctors are
   undrafted by rule (see the design record).

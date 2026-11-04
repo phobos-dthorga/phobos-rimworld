@@ -17,6 +17,13 @@ static class Fixtures
     // A flake-like high: pain halved, addictive, recreational.
     public static readonly StageEffect FlakeStage = new(0.5f, 0f, 0f, 1f, 0f, 1f);
 
+    // More Injuries' epinephrine at 0.75: pain x0.875, offset -0.1. Relief as a side effect.
+    public static readonly StageEffect AdrenalineStage = new(0.875f, -0.1f, 0f, 1f, 0f, 1f);
+    // Go-juice at 0.5: pain x0.1, lightly addictive, a hard drug.
+    public static readonly StageEffect GoJuiceStage = new(0.1f, 0f, 0f, 1f, 0f, 1f);
+
+    public static DoseEffect Epinephrine => DoseEffectRule.Combine(new[] { AdrenalineStage }, 0f, false, 0.1f);
+    public static DoseEffect GoJuice => DoseEffectRule.Combine(new[] { GoJuiceStage }, 0.03f, true, 0.1f);
     public static DoseEffect Morphine => DoseEffectRule.Combine(new[] { MorphineStage }, 0f, false, 0.1f);
     public static DoseEffect Ketamine => DoseEffectRule.Combine(new[] { AnestheticStage, KetamineBuildupStage }, 0f, false, 0.1f);
     public static DoseEffect Thornweed => DoseEffectRule.Combine(new[] { ThornweedStage }, 0f, false, 0.1f);
@@ -112,6 +119,30 @@ public class DoseSafetyRuleTests
 
 public class DoseChoiceRuleTests
 {
+    [Fact]
+    public void ReliefAsASideEffectDoesNotMakeAPainkiller()
+    {
+        Assert.Equal(0.225f, Fixtures.Epinephrine.PainRelief, 4);
+        Assert.False(DoseChoiceRule.Worthwhile(Fixtures.Epinephrine, 0.3f, Fixtures.Weights));
+        Assert.True(DoseChoiceRule.Worthwhile(Fixtures.Morphine, 0.3f, Fixtures.Weights));
+        Assert.True(DoseChoiceRule.Worthwhile(Fixtures.Thornweed, 0.3f, Fixtures.Weights));
+        Assert.True(DoseChoiceRule.Worthwhile(Fixtures.Ketamine, 0.3f, Fixtures.Weights));
+        // Strong relief cannot buy off an item that is all addiction: luciferium-like, relief 0.2 at addictiveness 1.
+        DoseEffect addictive = DoseEffectRule.Combine(new[] { new StageEffect(0.4f, 0f, 0f, 1f, 0f, 1f) }, 1.5f, false, 0.1f);
+        Assert.False(DoseChoiceRule.Worthwhile(addictive, 0.3f, Fixtures.Weights));
+    }
+
+    [Fact]
+    public void RecreationalDrugsAreTheLastResortHoweverCleanTheirScore()
+    {
+        Assert.True(DoseChoiceRule.Score(Fixtures.GoJuice, false, Fixtures.Weights) > DoseChoiceRule.Score(Fixtures.Morphine, false, Fixtures.Weights));
+        var all = new[] { new DoseCandidate(Fixtures.GoJuice, true), new DoseCandidate(Fixtures.Morphine, true), new DoseCandidate(Fixtures.Ketamine, true) };
+        Assert.Equal(1, DoseChoiceRule.Choose(all, DoseNeed.PainRelief, false, Fixtures.Weights));
+        var noMorphine = new[] { new DoseCandidate(Fixtures.GoJuice, true), new DoseCandidate(Fixtures.Morphine, false), new DoseCandidate(Fixtures.Ketamine, true) };
+        Assert.Equal(2, DoseChoiceRule.Choose(noMorphine, DoseNeed.Sedation, false, Fixtures.Weights));
+        Assert.Equal(0, DoseChoiceRule.Choose(noMorphine, DoseNeed.PainRelief, false, Fixtures.Weights));
+    }
+
     [Fact]
     public void MorphineBeatsThornweedWhichBeatsNothingAndKetamineWaitsForSedation()
     {

@@ -4,12 +4,12 @@
   <name>D'thorga Emergency Dosing</name>
   <author>Phobos A. D'thorga</author>
   <url>https://github.com/phobos-dthorga/phobos-rimworld</url>
-  <modVersion>0.1.0</modVersion>
+  <modVersion>0.1.1</modVersion>
   <description>Doctors give painkillers and sedatives on their own.
 
-A patient who is down or in bed and in severe pain gets the best pain relief within reach, from the doctor's pockets or the nearest stockpile. Past the pain-shock band a sedative is given when nothing lighter can be. Nothing is given while an earlier dose still works, while an overdose is under way, where a dose would reach a dangerous stage, or where it would leave consciousness or breathing too low.
+A patient who is down or in bed and in severe pain gets the best pain relief within reach, from the doctor's pockets or the nearest stockpile. In extreme pain a sedative is given when no medical painkiller can be. Nothing is given while an earlier dose still works, while an overdose is under way, where a dose would reach a dangerous stage, or where it would leave consciousness or breathing too low.
 
-Any mod's drugs qualify: the mod reads what each ingestible does from its own definitions (pain, consciousness, breathing, bleeding, addictiveness) and never looks for a name. Recreational drugs are never used unless you say so.
+Any mod's drugs qualify: the mod reads what each ingestible does from its own definitions (pain, consciousness, breathing, bleeding, addictiveness) and never looks for a name. Recreational drugs are never used unless you say so, and then only as a last resort.
 
 Needs D'thorga Framework. No Harmony. Nothing is saved: safe to add or remove at any time.
 

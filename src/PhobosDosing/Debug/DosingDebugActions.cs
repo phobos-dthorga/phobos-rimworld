@@ -45,7 +45,7 @@ public static class DosingDebugActions
             foreach (DoseVerdict verdict in decision.Verdicts)
             {
                 text.Append("\n  ").Append(verdict.Option.Def.defName).Append(": score ").Append(verdict.Score.ToString("0.00"))
-                    .Append(verdict.Item == null ? ", none on the map" : ", " + verdict.Refusal);
+                    .Append(!verdict.Present ? ", none on the map" : verdict.Refusal != DoseRefusal.None ? ", " + verdict.Refusal : verdict.Item == null ? ", out of reach" : ", allowed");
             }
         }
         Log.Message(text.ToString());

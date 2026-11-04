@@ -58,20 +58,31 @@ Core 1.7.4998; the save PG19 of 5 Nov 00:42.
 - **A sedative is a consciousness ceiling, not an offset** (agent choice, found by the unit tests): More Injuries' morphine
   takes 0.4 of consciousness at its dose, and a rule that read a large offset as sedation would have held morphine back for
   pain shock. The offset is a cost in the score and a floor in the safety rule; only a ceiling at or below 0.1 sedates.
-- **Two needs** (agent choice): pain relief from the game's severe band (0.6), sedation from the pain-shock band (0.8) and
-  only when no painkiller can be given. The patient must be resting (down or in bed): a painkiller's consciousness cost could
+- **Relief must be real** (agent choice, 0.1.1): an item is indexed only if it takes away at least 30% of the pain and scores above
+  zero. Found from the owner's load line: 0.1.0 indexed 40 items, among them epinephrine (relief 0.23), which doctors carry for
+  cardiac arrest and would have spent on pain, with morphine stock at one. The cut is by effect, so it needs no names. Thornweed
+  serum (0.40) and morphine (0.80) stay; epinephrine, beer, cocktails and smelling salts go.
+- **Tiers** (agent choice, 0.1.1): medical painkillers, then a sedative when sedation is wanted, then recreational painkillers. A
+  score alone puts go-juice (0.89) and heroin (0.80) above morphine (0.50), since they cost no consciousness.
+- **No stacking** (agent choice, 0.1.1): a medical painkiller still at a quarter of a dose blocks every other painkiller. A sedative is
+  checked against its own conditions only, so it may follow in extreme pain.
+- **Two needs** (agent choice): pain relief from 0.6, authored, inside the game's "severe" label (0.4 to 0.8,
+  `HealthCardUtility.GetPainLabel`), and sedation from 0.8, where the "extreme" label starts, only when no medical painkiller can
+  be given. The patient must be resting (down or in bed): a painkiller's consciousness cost could
   drop a working pawn where they stand.
-- **Choice by score** (agent choice): relief minus weighted consciousness cost (not for sedatives), breathing cost, bleed
+- **Choice by score within a tier** (agent choice): relief minus weighted consciousness cost (not for sedatives), breathing cost, bleed
   increase (a quarter when the patient is not bleeding) and addictiveness; painkillers before sedatives; the score ignores how
   bad the pain is, so the pick is the same every time. Morphine 0.5, thornweed serum 0.4, from the Defs.
+- **Rules first, reach last** (agent choice, 0.1.1): a cheap presence test and the safety rule run before any path search, so a
+  refused item costs no reach check. The patient list and the index are both held in memory only; nothing goes to disk.
 - **Safety** (agent choice): no second dose while the first is still at a quarter or more; none at drug overdose 0.3 or more;
   none that reaches a stage of its own condition that is life-threatening, carries a death clock or passes `lethalSeverity`;
   consciousness and breathing must stay at 0.15 or more after the dose's offsets; "no medicine" patients never; the game's
   willingness check unless the setting overrides it for medical drugs; recreational drugs only by setting.
 - **Not changing Search and Rescue or More Injuries** (agent choice): a patient reserved by another pawn is skipped, so their
   doctors keep their patients. The work giver sits under Doctor at 85, between tending (100, 90) and feeding (80).
-- **Circulatory support stays with More Injuries and Search and Rescue** (agent choice): epinephrine's benefit is in More
-  Injuries' code, not in a stage, so the index cannot see it honestly.
+- **Circulatory support stays with More Injuries and Search and Rescue** (agent choice): epinephrine's main benefit is in More
+  Injuries' code, not in a stage, and its visible pain relief is under the 30% cut.
 - **Nothing is saved** (agent choice): the patient list is a static per-map cache with a tick stamp, so adding or removing the
   mod touches no save.
 - **The vanilla ingestion path** (agent choice): the patient takes the item through the game's toils, which applies the item's
@@ -97,14 +108,18 @@ Both are other authors' interplay, not ours; drafts the owner can post.
 
 ## Test protocol (owner runs it)
 
-1. Launch: the load line names the indexed ingestibles (expected: More Injuries' morphine, ketamine and chloroform as
-   sedatives, Medicines+'s thornweed serum and needle; nothing recreational while that setting is off). No error naming
-   `Phobos.Dosing`. Dev action "Dosing: log the pain-relief index" shows each item's figures.
-2. Dev "Apply damage" on a colonist until pain is at or past 60%, lay them in a hospital bed: a doctor with morphine in
+1. Launch: the load line lists **medical pain relief** and **recreational pain relief** apart. Expected medical on the owner's list
+   (computed offline from the active mods' XML, not from the game): morphine, thornweed serum, ketamine and chloroform as
+   sedatives. **Not** epinephrine, luciferium or smelling salts. Recreational (go-juice, psycho, heroin, ambrandy, opium, yayo,
+   upper, flake and similar) is marked never given while the setting is off. No error naming `Phobos.Dosing`. Dev action "Dosing:
+   log the pain-relief index" shows each item's figures.
+2. Dev "Apply damage" on a colonist until pain is at 60% or more, lay them in a hospital bed: a doctor with morphine in
    inventory, or with morphine in a stockpile, gives it within 250 ticks; the health tab shows the morphine high; no second
    dose while it lasts. Dev action "Dosing: log the decision" shows the ranked table.
-3. Pain past 80% with no morphine or thornweed on the map: ketamine or chloroform is given; with morphine present, morphine.
-4. A "no medicine" patient, and a teetotaler with the override off, get nothing; a right-click on the patient says why.
+3. Pain past 80% with no morphine or thornweed on the map: ketamine or chloroform is given; with morphine present, morphine. With
+   the recreational setting on and no medical drug or sedative on the map, a recreational one; with any medical option, never.
+4. A "no medicine" patient, and a teetotaler with the override off, get nothing; with a doctor selected, a right-click on the
+   patient says why.
 5. Search and Rescue treating a bleeding patient: our doctor does not interrupt; once tending is done and pain remains, the
    dose follows.
 6. Save and reload: no new saved state, no errors. Switch the mod off and load: no missing-class line.
@@ -112,10 +127,15 @@ Both are other authors' interplay, not ours; drafts the owner can post.
 
 ## Results from play
 
-None yet.
+- **5 Nov 2026, 0.1.0 loaded in the owner's game** (read from Player.log; not a declared test, and it says nothing about a dose being
+  given). No error naming the mod. Its load line listed 40 items, which exposed the epinephrine, tier and load-line faults
+  fixed in 0.1.1. The owner's setting "use recreational drugs for pain" was on in the run of 02:06 and off in the run of 02:04.
 
 ## Open points and upstream
 
+- Whether to hold a painkiller back while the patient is bleeding hard. More Injuries warns that morphine is hazardous in
+  uncontrolled bleeding and its bleed increase is invisible to the index. Priority puts tending first for one doctor, but a second
+  doctor can dose a bleeding patient the first has not reached. For the owner.
 - Whether the "resting only" rule is too strict: a colonist walking in severe pain gets nothing until they lie down.
 - Stronger pain could prefer stronger drugs (the score ignores the pain level by design); revisit after play.
 - A dressing or fluids kit for burns and an oxygen treatment belong to the planned medical equipment mod
