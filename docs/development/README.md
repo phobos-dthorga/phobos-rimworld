@@ -57,6 +57,13 @@ promise current behaviour. For using the mods, start at the [documentation index
   plain burns and nothing else), how the game, Combat Extended and More Injuries handle fire and smoke, the medical sources
   behind the burned fraction, burn shock, airway burns, lung injury and carbon monoxide, who chose what, and the test protocol.
 
+## Emergency dosing
+
+- [Emergency dosing: research and decisions (5 Nov 2026)](emergency-dosing.md): why no doctor ever gives a painkiller or
+  sedative on their own (More Injuries' drugs are drafted-only right-click options, Search and Rescue's doctors are undrafted
+  by rule), the owner's effects-not-names rule and the index it produced, the need, safety and choice rules, two upstream
+  faults for the owner to report, and the test protocol.
+
 ## Water tap
 
 - [Water tap: research and decisions (4 Nov 2026)](water-tap.md): whether anyone had built one (one near miss), how Dubs Bad Hygiene handles bottles and water quality, why a
