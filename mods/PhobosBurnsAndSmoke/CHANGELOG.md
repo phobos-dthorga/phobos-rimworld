@@ -5,9 +5,25 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.2.1] - 2026-11-04 - Draft
+
+### Fixed
+
+- Old burn scars counted as burned skin. With the 0.2.0 skin shares a scar on the torso or a leg could hold a healed pawn in
+  burn shock for life. Scars no longer count, and a pawn with only scars or healed stumps is no longer recomputed.
+- Corrected the 0.2.0 entry, the README and the design record, which said burn amputations do not bleed. They do: the game
+  bleeds any fresh lost part until it is tended or 1.5 days old, whatever destroyed it. No behaviour changes with this.
+
+### Compatibility and limits
+
+- A stump 1.5 days old counts as tended even if nobody tended it, because the game cannot tell the two apart once it stops
+  being fresh. A labelled simplification.
+- Game-free rules pass 18 unit tests; the scar check lives in the game-facing service and has no unit test. Not yet tested
+  in game. The owner's save holds 0.2.0 results (see the design record); that is not a declared test.
+
 ## [0.2.0] - 2026-11-04 - Draft
 
-The owner's first look at 0.1.0 in game (an incendiary raid on 7 Septober 5512: pawns with limbs, a jaw and a head burned
+The owner's first look at 0.1.0 in game (an incendiary raid on 7 September 5512: pawns with limbs, a jaw and a head burned
 off, burns on head, neck, torso and shoulders) found every one of them at "burns (minor)" or with no burns condition at all,
 and never in burn shock. The mod ran without errors; it was counting almost nothing. Not yet tested in game.
 
@@ -36,8 +52,8 @@ and never in burn shock. The mod ran without errors; it was counting almost noth
 
 ### Compatibility and limits
 
-- Burn amputations still do not bleed (the game's own rule for burns). Dead pawns are not recomputed; a corpse keeps the
-  condition it died with.
+- Burn amputations bleed by the game's own rule until tended or 1.5 days old. Dead pawns are not recomputed; a corpse keeps
+  the condition it died with.
 - Game-free rules pass 18 unit tests. Nothing is tested in game.
 
 ## [0.1.0] - 2026-11-04 - Draft

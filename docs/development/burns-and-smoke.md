@@ -1,6 +1,6 @@
 # Burns and smoke: research and decisions (4 Nov 2026)
 
-The record behind [D'thorga Burns and Smoke](../../mods/PhobosBurnsAndSmoke/README.md). **0.2.0 not yet tested in game**
+The record behind [D'thorga Burns and Smoke](../../mods/PhobosBurnsAndSmoke/README.md). **0.2.1 not yet tested in game**
 (0.1.0 was seen in play once; see Results from play). It is the
 first consumer of [D'thorga Framework](phobos-framework.md).
 
@@ -45,19 +45,26 @@ fluid loss, no lasting lung damage. The log had no fire-related errors.
   hand 0.008 and fingers 0.005, neck 0.015, head 0.028 plus jaw 0.009, nose 0.006, ears 0.008 and eyes 0.008; the sum is 1.
   It is a hit-chance model, not skin area; the rule of nines gives head 9%, each arm 9%, each leg 18%, torso 36%. Labelled
   approximate. (0.1.0 subtracted the outside children from `coverageAbs`, which already leaves every child out: torso, neck,
-  head and shoulders came to 0 and the outside parts summed to 0.36. Fixed in 0.2.0.)
+  head and shoulders came to 0 and the outside parts summed to 0.35. Fixed in 0.2.0.)
 - **A destroyed part** gets a `Hediff_MissingPart` whose `lastInjury` is the injury Def that destroyed it (`Burn` for fire, hence
   the "burned off" label), and every part under it gets its own non-fresh record with the same `lastInjury`. The stump is fresh
-  until tended or 90,000 ticks (1.5 days) old; only a fresh stump bleeds, at the injury's bleed rate, so a burn amputation never
-  bleeds. `Find.TickManager` is `Current.Game.tickManager` and throws before a game exists.
+  until tended or 90,000 ticks (1.5 days) old. A fresh stump on a non-solid part bleeds at the part's health times the
+  `MissingBodyPart` Def's 0.12, times the part and race bleed factors, **whatever destroyed it**: a burn amputation bleeds, and the
+  owner's screenshot shows it (Luise, right arm burned off, 90% a day). `Find.TickManager` is `Current.Game.tickManager` and throws before a game exists.
 
 ## Sources
 
 - Rule of nines and total body surface area; the Parkland formula, 4 mL per kg per percent burned over 24 hours
   ([StatPearls](https://www.statpearls.com/point-of-care/158070); [Wikipedia, Parkland formula](https://en.wikipedia.org/wiki/Parkland_formula)).
-- The revised Baux score, age plus percent burned plus 17 with an inhalation injury (Osler and colleagues, 2010); cohorts report
-  no deaths below about 36 and no survivors above about 110
-  ([PMC9555034](https://pmc.ncbi.nlm.nih.gov/articles/PMC9555034); [PMC6199008](https://pmc.ncbi.nlm.nih.gov/articles/PMC6199008)).
+- The revised Baux score, age plus percent burned plus 17 with an inhalation injury (Osler and colleagues, 2010). Our marks of 36
+  and 110 come from one single-centre cohort, 2014 to 2020, Al Khobar, which reports no deaths below 36 and no survivors at 110 or
+  above, though its own table lists a death in the 30 to 39 band and 40% mortality at 100 to 109
+  ([PMC9555034](https://pmc.ncbi.nlm.nih.gov/articles/PMC9555034)). A regional specialist burns service reports 50% mortality at a
+  Baux score of 109.6 and predicted 100% at 160 (Roberts and colleagues, 2012, abstract only,
+  [record](https://researchexperts.utmb.edu/en/publications/the-baux-score-is-dead-long-live-the-baux-score-a-27-year-retrosp/)).
+  So 110 as "terminal" is harsher than burn-centre outcomes: an authored choice, defensible only because the Rim has no burn
+  unit. The score's accuracy is supported by [PMC6199008](https://pmc.ncbi.nlm.nih.gov/articles/PMC6199008), which does not state
+  these marks; it was wrongly cited for them until 0.2.1.
 - Inhalation injury: heat injury of the upper airway with delayed oedema, chemical injury of the lower airway, systemic carbon
   monoxide and cyanide; it complicates 10 to 20% of burns and raises mortality (Walker and colleagues, Critical Care 2015,
   [PMC4624587](https://pmc.ncbi.nlm.nih.gov/articles/PMC4624587); [PMC8794442](https://pmc.ncbi.nlm.nih.gov/articles/PMC8794442)).
@@ -87,7 +94,10 @@ not the numbers.
   `coverageAbsWithChildren` times the destroying injury's `tbsaWeight`, parts under another missing part skipped. The stump
   counts whole while fresh, then fades linearly to nothing over `burnedOffHealDays` (15, authored: a grafted or granulating
   stump takes weeks) by the record's age; a tended stump counts as tended area. A late tend drops the weight at once, a
-  labelled simplification. Burn amputations keep the game's rule and do not bleed.
+  labelled simplification. Burn amputations keep the game's rule and bleed until tended or 1.5 days old. A stump past 1.5 days
+  counts as tended even if nobody tended it, because the game cannot tell the two apart (labelled simplification).
+- **Scars are not burns** (agent choice, 0.2.1): `Load` and `HasBurn` skip permanent injuries. Healed skin neither leaks fluid nor
+  loses heat, and counting scars would hold a healed pawn in burn shock for life.
 - **The compensated stage always shows past the threshold** (agent choice, 0.2.0): the shock target is at least
   `shockThresholdFloor` (0.1, authored) once 15% is burned, so a young pawn below the Baux no-death mark still shows the
   fluids job; the death clocks stay Baux-driven.
@@ -120,20 +130,30 @@ not the numbers.
 
 ## Results from play
 
-- **4 Nov 2026, 0.1.0, the owner's incendiary raid** (owner's observation, three screenshots; the mod loaded with no error
-  naming it). Jansons, head burned off, dead: burns (minor). Reith, both arms, right leg and jaw burned off plus burns on head,
-  neck, torso, shoulders, an eye and an ear, dead: no burns condition at all. Luise, alive, right arm burned off and burns on
-  head, jaw, nose, neck, both shoulders, left arm, both legs and a foot, 15 conditions untended: burns (minor), no burn shock.
-  Read against the code: the skin-share fault zeroed everything but arms, legs and feet, and burned-off parts counted
-  nothing, so the worst-burned pawns showed the least; Reith's condition vanished when his limbs did. With the 0.2.0 rules
-  Reith is about 45% burned with an inhalation injury and Luise about 55% with an airway burn: Baux scores near 90, the
-  "major" or "critical" stage at once and life-threatening shock within half a day. On the medicine: burn shock in life is a
-  matter of hours (plasma loss peaks around 8 to 12 hours; Parkland gives half the first day's fluid in the first 8), so a
-  pawn an hour or two after the hit being compensated rather than collapsed is defensible; what was wrong was the size of the
-  burn the mod saw. 0.2.0 is not yet tested in game.
+- **4 Nov 2026, 0.1.0, the owner's incendiary raid** (owner's observation, three screenshots). Jansons, head burned off, dead:
+  burns (minor). Reith, both arms, right leg and jaw burned off plus burns on head, neck, torso, shoulders, an eye and an ear,
+  dead: no burns condition at all. Luise, alive, right arm burned off and burns on head, jaw, nose, neck, both shoulders, left
+  arm, both legs and a foot, 15 conditions needing tending, bleeding 90% a day: burns (minor), no burn shock. Read against the
+  code: the skin-share fault zeroed everything but arms, legs and feet, and burned-off parts counted nothing.
+- **Those three pawns cannot be re-measured.** That run was not kept: in PG19 Reith and Luise are dead with no burns at all
+  (our inference: the colony was reloaded from before the raid). From the screenshots alone, Reith's lost parts give at least
+  33% under the 0.2.0 rules and Luise's at least 9%, plus partial burns of unknown severity; her one visible burn, 3 on a 20-health
+  jaw, counts as 15% of the jaw. An earlier version of this entry said about 45% and 55% and Baux scores near 90. Those
+  estimates assumed every burned part was wholly burned, and are withdrawn.
+- **What the save PG19 shows (4 Nov 2026, 0.2.0, read from the file; not a declared test).** Three pawns died carrying the
+  conditions: Tergel Leman, 36, airway burn, burned 39%, shock 0.76, exactly the rule's target for a score of 92; Virginie
+  Arthuring, 48, airway burn, burned 45%, shock 0.21 and still rising toward 0.99; JoongHoon Alitis, burned 6%, no shock. Recomputing
+  every human corpse from its injuries gave 17 of them at 15% or more under the 0.2.0 rules and none above 0.7% under the 0.1.0
+  rules. Corpses keep burning, so those recomputed figures overstate what the living pawn had. No living pawn in the save has
+  a burn or a burn scar, which is why the scar fault had not yet shown.
+- **Time course, unverified.** A search found secondary sources saying capillary leak starts within minutes and runs for about 24
+  hours; an "8 to 12 hour peak" given earlier in this entry had no source and is withdrawn. 0.2.1 is not yet tested in game.
 
 ## Open points and upstream
 
+- **For the owner:** burn severity over part health is read as area, so a shallow burn counts as a small area and a deep burn on a
+  small area counts as a large one. Real burned area and burn depth are separate things; the game holds only one number.
+- **For the owner:** whether 110 should stay the "terminal" mark, given the sources above.
 - Whether `Recipe_RemoveHediff` in 1.6 already applies `addsHediff`; the subclass adds it only when the removal succeeded.
 - Whether to respect More Injuries' own `EnableFireInhalation` setting instead of removing its worker.
 - Phase 2: constricting eschar on limbs burned past 60% of a part's health, an escharotomy surgery, ischaemic damage, a hand-off

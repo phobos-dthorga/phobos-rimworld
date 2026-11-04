@@ -58,23 +58,32 @@ public static class BurnLoadService
 
     static float Weight(HediffDef def) => burnLike.TryGetValue(def, out PhobosBurnLikeExtension? extension) && extension != null ? extension.tbsaWeight : 1f;
 
-    /// <summary>A burn on the skin, or a part burned off (the game records the injury that destroyed a part).</summary>
+    /// <summary>
+    /// An open burn on the skin, or a part burned off that still counts (the game records the injury that destroyed a part).
+    /// A scar or a healed stump is not a burn: such a pawn is not worth a recompute.
+    /// </summary>
     public static bool HasBurn(Pawn pawn)
     {
         List<Hediff> hediffs = pawn.health.hediffSet.hediffs;
+        int healTicks = HealTicks;
         for (int i = 0; i < hediffs.Count; i++)
         {
             Hediff hediff = hediffs[i];
-            if (hediff is Hediff_Injury && IsBurnLike(hediff.def)) return true;
-            if (hediff is Hediff_MissingPart missing && missing.lastInjury != null && IsBurnLike(missing.lastInjury)) return true;
+            if (hediff is Hediff_Injury && IsBurnLike(hediff.def) && !hediff.IsPermanent()) return true;
+            if (hediff is Hediff_MissingPart missing && missing.lastInjury != null && IsBurnLike(missing.lastInjury)
+                && BurnLoadRule.BurnedOffWeight(missing.IsFresh, missing.ageTicks, healTicks) > 0f) return true;
         }
         return false;
     }
 
+    static int HealTicks => (int)(PhobosBurnRulesDef.Current.burnedOffHealDays * GenDate.TicksPerDay);
+
     /// <summary>
     /// The pawn's burned fraction and tended share: the burns on its outside parts, plus every part burned off (its whole
     /// subtree's skin while the stump is fresh, fading as it heals). A part under another missing part is skipped: the engine
-    /// gives each child of a lost part its own record.
+    /// gives each child of a lost part its own record. Scars are skipped: healed skin neither leaks fluid nor loses heat, and
+    /// counting them would leave a scarred pawn in burn shock for life. A stump stops being fresh when tended or at 1.5 days
+    /// old (the game's rule) and counts as tended from then; it cannot tell the two apart, a labelled simplification.
     /// </summary>
     public static BurnLoad Load(Pawn pawn)
     {
@@ -82,7 +91,7 @@ public static class BurnLoadService
         parts.Clear();
         HediffSet set = pawn.health.hediffSet;
         List<Hediff> hediffs = set.hediffs;
-        int healTicks = (int)(PhobosBurnRulesDef.Current.burnedOffHealDays * 60000f);
+        int healTicks = HealTicks;
         for (int i = 0; i < hediffs.Count; i++)
         {
             if (hediffs[i] is Hediff_MissingPart missing)
@@ -93,7 +102,7 @@ public static class BurnLoadService
                 if (weight > 0f) parts.Add(BurnedPart.Lost(SkinShares.WithChildren(missing.Part), weight, !missing.IsFresh));
                 continue;
             }
-            if (hediffs[i] is not Hediff_Injury injury || injury.Part == null || injury.Part.depth != BodyPartDepth.Outside || !IsBurnLike(injury.def)) continue;
+            if (hediffs[i] is not Hediff_Injury injury || injury.Part == null || injury.Part.depth != BodyPartDepth.Outside || !IsBurnLike(injury.def) || injury.IsPermanent()) continue;
             if (!tallies.TryGetValue(injury.Part, out PartTally? tally))
             {
                 tally = new PartTally();

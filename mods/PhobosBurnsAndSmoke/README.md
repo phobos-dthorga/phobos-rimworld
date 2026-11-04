@@ -4,7 +4,7 @@ Burns and smoke that matter the way More Injuries' wounds do: a burned body frac
 unless treated, airway burns that swell shut over hours, smoke that scars the lungs, and carbon monoxide from fires in closed
 rooms.
 
-Version 0.2.0, built 4 November 2026 for House D'thorga. **Not yet tested in game.** Everything here is read from the game's and
+Version 0.2.1, built 4 November 2026 for House D'thorga. **Not yet tested in game.** Everything here is read from the game's and
 the mods' code.
 
 ## Read this first (gotchas)
@@ -27,7 +27,8 @@ the mods' code.
 - **Plain mode shows no percentages.** Switch the display mode to Operator or Engineer in the settings to see the figures.
 - **Only humanlike pawns** get these conditions in this version. Animals burn as before.
 - **A part burned off counts as all of its skin burned** while the stump is fresh, so a pawn who loses an arm and a leg to
-  fire goes straight to a serious burn and burn shock; once the stump is tended it fades out over about two weeks.
+  fire goes straight to a serious burn and burn shock; once the stump is tended, or 1.5 days old, it fades out over about two
+  weeks. **A fresh stump also bleeds until it is tended** (the game's own rule). **Old burn scars do not count.**
 
 ## What it does
 
@@ -75,6 +76,6 @@ tables of the hediff Defs. Smoke and carbon monoxide are read from D'thorga Fram
   parts, the Baux score, its floor and treatment factor, carbon monoxide uptake and clearance, the airway curve) pass 18 unit
   tests.
 - The owner's first look in game (0.1.0, an incendiary raid) showed the mod running without errors but counting far too
-  little: see the changelog's 0.2.0 fixes. 0.2.0 itself is **not yet tested in game**.
-- **Not checked:** anything in game for 0.2.0. The giver's cadence, the stage tables' feel, the tracheotomy, the More Injuries handlers
+  little: see the changelog's 0.2.0 fixes. 0.2.1 is **not yet tested in game**.
+- **Not checked:** anything in game for 0.2.1. The giver's cadence, the stage tables' feel, the tracheotomy, the More Injuries handlers
   and Organ Failure's interception of a closed airway are all untested.

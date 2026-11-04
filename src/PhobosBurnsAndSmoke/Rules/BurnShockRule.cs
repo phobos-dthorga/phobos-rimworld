@@ -2,9 +2,9 @@ namespace Phobos.BurnsAndSmoke.Rules;
 
 /// <summary>
 /// Burn shock: how dangerous a burned pawn's state is, 0 to 1, from the revised Baux score (age in years plus percent of the
-/// body burned, plus 17 with an inhalation injury; Osler and colleagues' 2010 revision of Baux's 1961 score). Cohort studies
-/// report no deaths below a score of about 36 and no survivors above about 110, so the target severity runs from 0 at the low
-/// mark to 1 at the high one. Treatment (tended burns, bed rest) lowers the target; severity moves toward it at authored rates.
+/// body burned, plus 17 with an inhalation injury; Osler and colleagues' 2010 revision of Baux's 1961 score). The target runs
+/// from 0 at a score of 36 to 1 at 110, marks taken from one small burn-unit cohort. Authored: larger burn-centre data put 50%
+/// mortality near 110, and the Rim has no burn unit. See the design record. Treatment (tended burns, bed rest) lowers the target; severity moves toward it at authored rates.
 /// Game-free.
 /// </summary>
 public static class BurnShockRule

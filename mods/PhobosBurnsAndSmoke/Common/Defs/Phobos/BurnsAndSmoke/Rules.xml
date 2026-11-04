@@ -17,8 +17,9 @@
     <!-- Past the start threshold the shock target is at least this, so the compensated stage always shows (authored). -->
     <shockThresholdFloor>0.1</shockThresholdFloor>
 
-    <!-- Revised Baux score (Osler and colleagues, 2010): age + percent burned + 17 with an inhalation injury. Cohorts report no
-         deaths below about 36 and no survivors above about 110. -->
+    <!-- Revised Baux score (Osler and colleagues, 2010): age + percent burned + 17 with an inhalation injury. The two marks are
+         authored from one small cohort (Al Khobar, 2014 to 2020); Roberts and colleagues (2012) put 50% mortality near 110 in a
+         burns service. The Rim has no burn unit. See the design record. -->
     <bauxNoDeathScore>36</bauxNoDeathScore>
     <bauxNoSurvivorScore>110</bauxNoSurvivorScore>
     <inhalationBauxPoints>17</inhalationBauxPoints>
