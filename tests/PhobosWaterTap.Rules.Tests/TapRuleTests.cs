@@ -9,6 +9,8 @@ public class TapRuleTests
     private static readonly TapReading Ready = new(
         Held: 3,
         Target: 10,
+        MapStock: 3,
+        StockLimit: 50,
         Blocked: false,
         HeldIsDifferentWater: false,
         HasWaterTower: true,
@@ -30,6 +32,43 @@ public class TapRuleTests
     [Fact]
     public void A_target_lowered_below_what_is_held_counts_as_full() =>
         Assert.Equal(TapState.Full, TapRule.Decide(Ready with { Held = 8, Target = 5 }));
+
+    [Fact]
+    public void Reaching_the_colony_limit_stops_a_tap_with_room() =>
+        Assert.Equal(TapState.StockLimit, TapRule.Decide(Ready with { MapStock = 50 }));
+
+    [Fact]
+    public void Going_over_the_colony_limit_also_stops_it() =>
+        Assert.Equal(TapState.StockLimit, TapRule.Decide(Ready with { MapStock = 200 }));
+
+    [Fact]
+    public void One_below_the_colony_limit_still_fills() =>
+        Assert.Equal(TapState.Filling, TapRule.Decide(Ready with { MapStock = 49 }));
+
+    [Fact]
+    public void A_colony_limit_of_zero_stops_every_tap() =>
+        Assert.Equal(TapState.StockLimit, TapRule.Decide(Ready with { Held = 0, MapStock = 0, StockLimit = 0 }));
+
+    [Fact]
+    public void A_full_tap_at_the_colony_limit_reads_as_full() =>
+        Assert.Equal(TapState.Full, TapRule.Decide(Ready with { Held = 10, MapStock = 50 }));
+
+    [Fact]
+    public void At_the_colony_limit_the_map_has_enough_so_a_water_fault_can_wait() =>
+        Assert.Equal(TapState.StockLimit, TapRule.Decide(Ready with { MapStock = 50, HasWaterTower = false }));
+
+    [Fact]
+    public void One_fill_never_passes_the_colony_limit() =>
+        Assert.Equal(2, TapRule.BottlesToMake(Ready with { MapStock = 48 }, 5));
+
+    [Theory]
+    [InlineData(-10, 0)]
+    [InlineData(0, 0)]
+    [InlineData(50, 50)]
+    [InlineData(1000, 1000)]
+    [InlineData(1010, 1000)]
+    public void Colony_limit_stays_in_range(int asked, int expected) =>
+        Assert.Equal(expected, TapRule.ClampStockLimit(asked));
 
     [Fact]
     public void Another_item_on_the_cell_blocks() =>

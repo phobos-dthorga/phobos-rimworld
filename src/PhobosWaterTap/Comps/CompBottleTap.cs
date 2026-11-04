@@ -57,6 +57,9 @@ public class CompBottleTap : ThingComp
 
     public CompPipe? Pipe { get; private set; }
 
+    /// <summary>The colony limit of the map this tap stands on.</summary>
+    public MapComponent_WaterTapStock? Stock { get; private set; }
+
     public int StackLimit => Props.bottle!.stackLimit;
 
     public int Target
@@ -75,6 +78,7 @@ public class CompBottleTap : ThingComp
     {
         base.PostSpawnSetup(respawningAfterLoad);
         Pipe = parent.GetComp<CompPipe>();
+        Stock = parent.Map.GetComponent<MapComponent_WaterTapStock>();
     }
 
     public override void PostExposeData()
@@ -92,8 +96,10 @@ public class CompBottleTap : ThingComp
     public override string CompInspectStringExtra()
     {
         string keeps = "PhobosWaterTap_Keeps".Translate(target.Named("COUNT"), Props.waterPerBottle.Named("WATER"));
-        string state = ("PhobosWaterTap_State" + TapRule.Decide(TapService.Read(this))).Translate();
-        return keeps + "\n" + state;
+        TapReading reading = TapService.Read(this);
+        string stock = "PhobosWaterTap_MapStock".Translate(reading.MapStock.Named("COUNT"), reading.StockLimit.Named("LIMIT"));
+        string state = ("PhobosWaterTap_State" + TapRule.Decide(reading)).Translate();
+        return keeps + "\n" + stock + "\n" + state;
     }
 
     public override IEnumerable<Gizmo> CompGetGizmosExtra()
@@ -120,5 +126,31 @@ public class CompBottleTap : ThingComp
         };
         if (target >= StackLimit) more.Disable("PhobosWaterTap_AlreadyFull".Translate(StackLimit.Named("LIMIT")));
         yield return more;
+
+        if (Stock == null) yield break;
+        int limit = Stock.StockLimit;
+
+        // The limit is one number for the map, so with several taps selected a click must count once, not once per tap.
+        var lowerLimit = new Command_Action
+        {
+            defaultLabel = "PhobosWaterTap_LowerLimit".Translate(TapRule.StockLimitStep.Named("STEP")),
+            defaultDesc = "PhobosWaterTap_LimitDesc".Translate(limit.Named("LIMIT")),
+            icon = LessIcon,
+            alsoClickIfOtherInGroupClicked = false,
+            action = () => TapService.ChangeStockLimit(this, -TapRule.StockLimitStep),
+        };
+        if (limit <= 0) lowerLimit.Disable("PhobosWaterTap_LimitAtLowest".Translate());
+        yield return lowerLimit;
+
+        var raiseLimit = new Command_Action
+        {
+            defaultLabel = "PhobosWaterTap_RaiseLimit".Translate(TapRule.StockLimitStep.Named("STEP")),
+            defaultDesc = "PhobosWaterTap_LimitDesc".Translate(limit.Named("LIMIT")),
+            icon = MoreIcon,
+            alsoClickIfOtherInGroupClicked = false,
+            action = () => TapService.ChangeStockLimit(this, TapRule.StockLimitStep),
+        };
+        if (limit >= TapRule.MaxStockLimit) raiseLimit.Disable("PhobosWaterTap_LimitAtHighest".Translate(TapRule.MaxStockLimit.Named("LIMIT")));
+        yield return raiseLimit;
     }
 }

@@ -4,10 +4,12 @@
   <name>D'thorga Water Tap</name>
   <author>Phobos A. D'thorga</author>
   <url>https://github.com/phobos-dthorga/phobos-rimworld</url>
-  <modVersion>0.1.0</modVersion>
+  <modVersion>0.2.0</modVersion>
   <description>A water bottle tap for Dubs Bad Hygiene: a small plumbing fixture that keeps a stack of bottled water ready, refilling by itself from your water towers. Nobody has to stand at a basin filling bottles.
 
 Colonists drink from it and pack bottles from it the way they do from any loose bottles. Caravans can load from it. You choose how many bottles it keeps ready, up to 10.
+
+A colony limit stops your colony flooding with bottles: every tap on a map stops filling once that map holds 50 bottles, or whatever number you set. Its buttons are on every tap.
 
 Each bottle carries the quality of the water that filled it. The tap won't bottle contaminated water, and untreated water is marked as untreated. This mod also fixes a gap in how bottles stack: bottles of different water now keep separate stacks, and a bottle taken from an untreated stack stays untreated instead of coming out clean.
 

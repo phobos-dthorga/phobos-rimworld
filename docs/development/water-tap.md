@@ -54,10 +54,22 @@ takes bottles, so without a fix **a tap would launder untreated water**.
 | One bottle per 250 ticks, 240 a day at most; on my estimate of 2 bottles per pawn-day in mild weather, about 100 colonists | Agent, authored |
 | No power, 20 steel, 600 work | Agent, authored |
 | Storage priority Important, as on the chemfuel tap, so that pawns haul bottles away only if the player sets that up | Agent |
-| No colony-wide stock limit. Hauling and belts stop when their storage is full, and the player controls that. Add one if play shows a flood | Agent; open to change |
+| A colony limit, because taps without one have flooded the owner's colonies before (0.2.0) | Owner, overruling the agent's first choice of none |
+| One limit per map, held in a MapComponent and changed from any tap, rather than one per tap or one per save: bottles are counted per map, and a second settlement has its own needs | Agent |
+| Starts at 50, range 0 to 1000, in steps of 10, with buttons rather than a slider, which also suits the owner's hands | Agent, authored |
+| Count every bottle spawned on the map, the tap's own included. Pockets aren't counted, or a 45-pawn colony packing 3 each would stop its taps. Belts aren't counted: their items are inside the belt, the game's list of things on the map doesn't see them, and scanning every belt from every tap costs more than the small overshoot | Agent |
+| At the limit, the tap reports that first, ahead of any water fault: the map has enough, so a fault can wait | Agent |
 | Refuse contaminated water, and bottle untreated water as untreated. A tap that refused untreated water would do nothing in most colonies before filtration research | Agent |
 | Different water doesn't stack, instead of a merged stack taking the worst level. They are separate bottles, and a clean stack isn't spoiled by one dirty bottle | Agent |
 | Apply the stack rule to all bottles, not only the tap's: bottles have one Def | Agent |
+
+## Game facts behind the limit
+
+Read from RimWorld 1.7.4998 on 4 November 2026:
+
+- `Gizmo.InheritInteractionsFrom` returns the field `alsoClickIfOtherInGroupClicked`. With it left on, a grouped command fires for every selected building, so +10 with three taps selected would add 30. The limit's commands turn it off.
+- `Map.FillComponents` creates any `MapComponent` subclass a map lacks, so old saves get the limit by themselves.
+- After the mod is removed, `ScribeExtractor.SaveableFromNode` logs "Could not find class", then a second error because the fallback type, `MapComponent`, is abstract, and returns null. `Map.FillComponents` removes nulls.
 
 ## What this changes for the owner's colony
 

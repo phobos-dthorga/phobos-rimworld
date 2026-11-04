@@ -7,7 +7,7 @@
     <AssemblyName>PhobosWaterTap</AssemblyName>
     <OutputPath>../../mods/PhobosWaterTap/1.6/Assemblies/</OutputPath>
     <DebugType>none</DebugType>
-    <Version>0.1.0</Version>
+    <Version>0.2.0</Version>
     <!-- Dubs Bad Hygiene's assembly, referenced from the installed mod and never copied. Override with
          -p:DbhAssemblies=... or the environment variable of that name. -->
     <DbhAssemblies Condition="'$(DbhAssemblies)' == ''">C:\Program Files (x86)\Steam\steamapps\workshop\content\294100\836308268\1.6\Assemblies</DbhAssemblies>

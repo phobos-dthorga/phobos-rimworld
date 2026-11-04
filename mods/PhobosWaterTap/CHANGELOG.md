@@ -5,6 +5,30 @@ yet. Not yet tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-11-04 - Draft
+
+A colony limit, at the owner's request: other taps have flooded their colony with what they dispense. Not yet tested in game.
+
+### Added
+
+- A colony limit for each map: every tap on the map stops filling once the map holds that many bottles. It starts at 50 and runs from 0 to 1000.
+- Colony limit -10 and +10 commands on every tap, which say what they did. A click counts once however many taps are selected.
+- The inspect text shows the map's count of bottles against the limit, and says when the limit is why a tap isn't filling.
+
+### Balance
+
+- The limit's starting value, range and step are authored values. It counts bottles in storage or on the floor, not in pockets, so a colony packing bottles doesn't stop its taps.
+
+### Save compatibility
+
+- Safe to add to a running colony: each map starts at 50, and a map already holding more simply waits until its stock falls.
+- Each map saves its limit, so the first load after removing the mod logs two errors about the missing class. The game drops it and goes on. Read from the game's code, not yet seen in game.
+
+### Compatibility and limits
+
+- Bottles riding on conveyor belts aren't counted, because they sit inside the belt, and counting every belt on the map would cost more than it is worth. A long jammed belt can hold bottles above the limit, no more than the belts can carry.
+- Only taps obey the limit. A colonist told to stockpile water at a basin still fills bottles.
+
 ## [0.1.0] - 2026-11-04 - Draft
 
 First version, at the owner's request: a constant supply of bottled water for the colony, like Vanilla Chemfuel Expanded's chemfuel tap.

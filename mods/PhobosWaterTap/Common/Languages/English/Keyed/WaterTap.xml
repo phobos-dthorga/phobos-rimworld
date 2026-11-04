@@ -3,8 +3,11 @@
 
   <PhobosWaterTap_Keeps>Keeps {COUNT} bottles ready. Each bottle uses {WATER} L of water.</PhobosWaterTap_Keeps>
 
+  <PhobosWaterTap_MapStock>Bottles on this map: {COUNT} of {LIMIT} (colony limit).</PhobosWaterTap_MapStock>
+
   <PhobosWaterTap_StateSwitchedOff>Switched off: it's set to keep 0 bottles.</PhobosWaterTap_StateSwitchedOff>
   <PhobosWaterTap_StateFull>Full. It fills again when a bottle is taken.</PhobosWaterTap_StateFull>
+  <PhobosWaterTap_StateStockLimit>Not filling: this map has reached its colony limit. It fills again when the stock falls below the limit.</PhobosWaterTap_StateStockLimit>
   <PhobosWaterTap_StateBlocked>Waiting: another item is on the tap. Have it moved.</PhobosWaterTap_StateBlocked>
   <PhobosWaterTap_StateNoWaterTower>Waiting for water: no water tower on this pipe network. Connect it to your plumbing.</PhobosWaterTap_StateNoWaterTower>
   <PhobosWaterTap_StateContaminated>Stopped: the water in these pipes is contaminated. Clear the contaminated water tower.</PhobosWaterTap_StateContaminated>
@@ -19,6 +22,13 @@
   <PhobosWaterTap_AlreadyOff>This tap is already set to keep 0 bottles.</PhobosWaterTap_AlreadyOff>
   <PhobosWaterTap_AlreadyFull>This tap can't keep more than {LIMIT}: that is one stack of water, and it holds one stack.</PhobosWaterTap_AlreadyFull>
   <PhobosWaterTap_TargetChanged>This tap now keeps {COUNT} bottles ready.</PhobosWaterTap_TargetChanged>
+
+  <PhobosWaterTap_LowerLimit>Colony limit -{STEP}</PhobosWaterTap_LowerLimit>
+  <PhobosWaterTap_RaiseLimit>Colony limit +{STEP}</PhobosWaterTap_RaiseLimit>
+  <PhobosWaterTap_LimitDesc>Every tap on this map stops filling once the map holds this many bottles. It's now {LIMIT}. This counts bottles in storage or on the floor, not in colonists' pockets or riding on conveyor belts. It's one number for the whole map, whichever tap you change it from. At 0 no tap on this map fills.</PhobosWaterTap_LimitDesc>
+  <PhobosWaterTap_LimitAtLowest>The colony limit is already 0: no tap on this map fills.</PhobosWaterTap_LimitAtLowest>
+  <PhobosWaterTap_LimitAtHighest>The colony limit can't go above {LIMIT}.</PhobosWaterTap_LimitAtHighest>
+  <PhobosWaterTap_LimitChanged>Taps on this map now stop filling at {LIMIT} bottles.</PhobosWaterTap_LimitChanged>
 
   <PhobosWaterTap_LabelUntreated>{LABEL} (untreated)</PhobosWaterTap_LabelUntreated>
   <PhobosWaterTap_LabelContaminated>{LABEL} (contaminated)</PhobosWaterTap_LabelContaminated>

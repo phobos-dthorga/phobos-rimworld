@@ -8,7 +8,10 @@ namespace Phobos.WaterTap;
 /// <summary>
 /// Fills a tap's bottles from its pipe network. Water is drawn the way Dubs Bad Hygiene's own fixtures draw it
 /// (PlumbingNet.PullWater, from the water towers on the net), and each bottle carries the quality of that water
-/// (CompContamination, which Dubs Bad Hygiene reads when someone drinks).
+/// (CompContamination, which Dubs Bad Hygiene reads when someone drinks). Taps stop once the map holds its colony limit,
+/// so that hauling bottles away can't drain the water towers into a flood of bottles. The count is every bottle spawned
+/// on the map, in storage or on the floor. Bottles in pawns' pockets don't count: they are spoken for, and counting them
+/// would stop the taps as a large colony packed. Nor do bottles riding a conveyor belt, which sit inside the belt.
 /// </summary>
 public static class TapService
 {
@@ -21,6 +24,8 @@ public static class TapService
         return new TapReading(
             Held: held?.stackCount ?? 0,
             Target: tap.Target,
+            MapStock: MapStock(tap),
+            StockLimit: tap.Stock?.StockLimit ?? TapRule.DefaultStockLimit,
             Blocked: blocked,
             HeldIsDifferentWater: held != null && hasTower && WaterQualityOf(held) != WorstWater(net!),
             HasWaterTower: hasTower,
@@ -52,6 +57,23 @@ public static class TapService
         tap.Target = TapRule.ClampTarget(tap.Target + change, tap.StackLimit);
         Messages.Message("PhobosWaterTap_TargetChanged".Translate(tap.Target.Named("COUNT")), tap.parent,
             MessageTypeDefOf.SilentInput, historical: false);
+    }
+
+    /// <summary>Changes the colony limit for the tap's whole map, and says so.</summary>
+    public static void ChangeStockLimit(CompBottleTap tap, int change)
+    {
+        if (tap.Stock == null) return;
+        tap.Stock.StockLimit = TapRule.ClampStockLimit(tap.Stock.StockLimit + change);
+        Messages.Message("PhobosWaterTap_LimitChanged".Translate(tap.Stock.StockLimit.Named("LIMIT")), tap.parent,
+            MessageTypeDefOf.SilentInput, historical: false);
+    }
+
+    /// <summary>How many bottles lie on the tap's map.</summary>
+    public static int MapStock(CompBottleTap tap)
+    {
+        int count = 0;
+        foreach (Thing bottle in tap.parent.Map.listerThings.ThingsOfDef(tap.Props.bottle)) count += bottle.stackCount;
+        return count;
     }
 
     public static ContaminationLevel WaterQualityOf(Thing bottle) =>
