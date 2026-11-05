@@ -78,7 +78,9 @@ def training_config(name, dataset, output, trigger, settings=None):
                     'cache_text_embeddings': True, 'unload_text_encoder': False, 'disable_sampling': True},
                 'model': {
                     'name_or_path': 'black-forest-labs/FLUX.2-klein-base-4B', 'arch': 'flux2_klein_4b',
-                    'quantize': True, 'quantize_te': True, 'low_vram': True},
+                    'quantize': True, 'quantize_te': True, 'low_vram': True,
+                    # float8, because moving the default qfloat8 text encoder to the card a second time crashes.
+                    'qtype': 'float8', 'qtype_te': 'float8'},
                 'sample': {'sampler': 'flowmatch', 'sample_every': 100000, 'width': 1024, 'height': 1024, 'prompts': [f'{trigger}, a small machine'],
                            'neg': '', 'seed': 42, 'guidance_scale': 4, 'sample_steps': 30},
             }],

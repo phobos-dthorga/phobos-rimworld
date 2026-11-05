@@ -14,7 +14,7 @@ are decided, and record finished work in the owning mod's changelog or record.
 | Burns and Smoke: eschar, escharotomy | Planned | Wait for what the test shows | [Burns and smoke](burns-and-smoke.md) |
 | Hands-off art pipeline | **Built; checked offline only, never run on the GPU** | The owner's go for a short test run | [Below](#hands-off-art-pipeline) |
 | Medical art, first batch | Requests written, held for review; nothing generated | After the test run | [`assets/phobos-medical`](../../assets/phobos-medical/README.md) |
-| Style training | Tooling written; the training tool is installed and accepts our job; **no training has run** | The owner's go for the night run | [Below](#style-training) |
+| Style training | Tooling written; first real training ran 5 Nov 2026, after two fixes below; not yet judged | The three-route comparison | [Below](#style-training) |
 | D'thorga Medical Equipment 0.1.0 | Draft: concentrator and bedside stand; not yet tested in game | The owner's test | [Record](medical-equipment.md) |
 
 ## Decisions so far
@@ -109,6 +109,13 @@ Without its prompt upsampler (9.7 GB more), the publisher [reportedly](https://w
 **Hiddensoul's setup is still worth asking about.** Its name is not yet known. Open WebUI only passes image requests to a separate backend ([documentation](https://docs.openwebui.com/features/images)), so the difference is probably the model and workflow (agent inference). The most useful thing to ask for is the workflow exported from ComfyUI as JSON, plus which model, LoRAs and step count it uses.
 
 ## Style training
+
+**Two fixes the first real run needed (5 Nov 2026, on the 12 GB card):**
+
+- `qtype` and `qtype_te` are `float8`. With the default, `qfloat8`, the text encoder crashed with a CUBLAS internal error, and with one caption at a time it crashed moving to the card a second time.
+- `TEXT_EMBED_CACHE_BATCH` is 1 in the local ai-toolkit's `toolkit/dataloader_mixins.py`, not 16. With `float8` and 16 captions, each padded to 512 tokens, the card stalled and cached nothing in two minutes. The cause is inferred from that, not measured. This edits the tool's own file, so a fresh install or update has to repeat it.
+
+Caching the 60 captions then takes about 9 minutes, and training about 1.8 s a step.
 
 **Training material is a folder of images, each with a short caption.** The model learns what the images have in common. Apart
 from the figures Black Forest Labs publishes, this section is general practice from memory; none of it has been tried on our setup.
