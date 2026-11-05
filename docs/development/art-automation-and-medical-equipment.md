@@ -15,7 +15,7 @@ are decided, and record finished work in the owning mod's changelog or record.
 | Hands-off art pipeline | **Built; checked offline only, never run on the GPU** | The owner's go for a short test run | [Below](#hands-off-art-pipeline) |
 | Medical art, first batch | Generated 5 Nov 2026. The owner's picks are in the [list of picks](#the-owners-picks) | Defs for the machines the picks are for | [`assets/phobos-medical`](../../assets/phobos-medical/README.md) |
 | Style training | Tooling written; first real training ran 5 Nov 2026, after two fixes below. Alone the LoRA gave no game style; the owner preferred it with references | Later training on approved art | [Below](#style-training) |
-| D'thorga Medical Equipment 0.1.0 | Draft: concentrator and bedside stand; not yet tested in game | The owner's test | [Record](medical-equipment.md) |
+| D'thorga Medical Equipment 0.1.1 | Draft: concentrator and bedside stand. The owner reports breathing improving on oxygen (on 0.1.0); the rest is not yet tested in game | The rest of the owner's test | [Record](medical-equipment.md) |
 
 ## Decisions so far
 
