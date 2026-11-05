@@ -3,9 +3,9 @@
 Patches for other authors' vehicle mods, each switched on only while that mod is active. It lets RimThunder's heavy casting be made at
 the rotary forger, and covers **Harrier VTOL Attack Aircraft** by potemkinvillager: a realistic build cost, a fix for the jet failing to load fully alongside RimPacts,
 honest bomb costs under Combat Extended, bombs and rockets at The Dead Man's Switch's ammunition fabricator, fuel tanks for its
-Drop Tanks upgrade, and a sortie's map kept open under the jet. It copies nothing from those mods.
+Drop Tanks upgrade, and a sortie's map kept open under the jet. It also makes **Spaceship Turret Hull** by MK work with Combat Extended. It copies nothing from those mods.
 
-Version 0.3.2, built 4 November 2026 for House D'thorga. **Not yet tested in game.**
+Version 0.4.0, built 5 November 2026 for House D'thorga. **Not yet tested in game.**
 
 ## Read this first (gotchas)
 
@@ -25,6 +25,7 @@ Version 0.3.2, built 4 November 2026 for House D'thorga. **Not yet tested in gam
 - **Heavy castings are a new step for bombs too**, if RimThunder is active. Without RimThunder, bomb cases cost steel instead.
 - **A sortie's map now stays open while the jet is over it.** Before, a map from Real Ruins, RimMarket and some other mods could close
   with the jet still in the air. See [Sorties](#sorties-what-the-code-says) for what a sortie needs from you.
+- **Turret hulls you've already built must be rebuilt** to take ammo under Combat Extended. Deconstruct and rebuild each one, **while the ship is landed**: in space the gap lets the air out. See [Turret hulls under Combat Extended](#turret-hulls-under-combat-extended).
 - **Not yet tested in game.** Everything here is read from the mods' code and files.
 
 ## What it does
@@ -148,6 +149,30 @@ Read from the Harrier's flight framework, not seen in play. The Harrier mod does
   away from one stays there. A rough landing also wrecks its engine.
 - **No sortie from under a roof.** The launch check refuses it; taxi out first.
 
+### Turret hulls under Combat Extended
+
+This part switches on only when both Spaceship Turret Hull and Combat Extended are active.
+
+Before, the hulls stayed ordinary turrets while Combat Extended swapped four of their guns for ammo-using ones. Those four had no way to load, and the other three still used the game's own guns. Now all seven load like Combat Extended's own turrets: colonists haul the ammo over, and the turret gets the usual reload and ammo buttons. Colonists reach a hull from any open cell beside it, so keep one clear on the inside of the ship.
+
+| Hull | Fires | Magazine | Range |
+| --- | --- | --- | --- |
+| Spaceship turret hull | 5.56x45mm NATO | 100 | 48 |
+| Autocannon hull and heavy autocannon hull | 20x102mm NATO | 100 | 78 |
+| 40mm flak hull (was the uranium slug hull) | 40x311mmR | 20 | 86 |
+| Shotgun hull | 12 gauge | 20 | 19 |
+| Sniper hull | .50 BMG | 10 | 84 |
+| Incendiary hull | 30x64mm fuel cells | 10 | 45 |
+
+**What else changes:**
+
+- **The hulls no longer explode when destroyed**, as with Combat Extended's own turrets.
+- **Aim and cooldown** use Combat Extended's figures for the nearest turret of each kind.
+- **The autocannon and heavy autocannon hulls now fire the same gun the same way.** The heavy one still has more hit points.
+- **The uranium slug hull is renamed**, because under Combat Extended its gun is a 40mm flak gun.
+
+**What stays the same:** build costs, work, skill needed, hit points and power. These hulls are now far cheaper than Combat Extended's own turrets, which is a known gap.
+
 ### A log warning
 
 The jet's fuel tank logged "Parsed 2.5 as int" at every start. Writing the value the game already used, 2, stops that and changes nothing else.
@@ -168,6 +193,7 @@ patch of the same method**, because Harmony stores a patch as a method token, wh
 
 ## Checks done
 
+- 5 November 2026: Spaceship Turret Hull's Defs and source, Combat Extended's turret class, reload job, shot and roof code, and the 1.7 game's save loader read. The patch was run offline against both mods' real files, the owner's PG22 save read to see what's built, and `scripts/check-factory-patches.py --mod PhobosVehiclePatches` passes. **Not yet tested in game.**
 - 3 November 2026: the Harrier's shipped source, its bundled flight framework (build 19o), the VTOL Raids jet add-on, Vehicle Framework,
   Combat Extended and its Vehicle Framework assembly, and the 1.7 game's map-removal code read. Every game, Vehicle Framework, Harmony 3
   and Unity member the Harrier's three assemblies call exists in RimWorld 1.7, by name and parameter count (21 assembly pairs, 0

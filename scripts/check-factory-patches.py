@@ -73,7 +73,7 @@ def load_folders_for(mod_folder, version, active):
 
     With no LoadFolders.xml: the root, Common and the newest version folder not above the game's. With one:
     the block for the game's version, else the newest lower block; entries with IfModActive load only when
-    one of the named package IDs is active (case-insensitive)."""
+    one of the named package IDs is active, and with IfModActiveAll only when all of them are (case-insensitive)."""
     mod_folder = Path(mod_folder)
     load_file = next((p for p in mod_folder.iterdir() if p.is_file() and p.name.lower() == 'loadfolders.xml'), None)
     if load_file is None:
@@ -94,6 +94,9 @@ def load_folders_for(mod_folder, version, active):
     for li in blocks[usable[-1]].findall('li'):
         wanted = li.get('IfModActive')
         if wanted and not any(pid.strip().lower() in active for pid in wanted.split(',')):
+            continue
+        wanted_all = li.get('IfModActiveAll')
+        if wanted_all and not all(pid.strip().lower() in active for pid in wanted_all.split(',')):
             continue
         rel = (li.text or '').strip().strip('/').replace('\\', '/')
         folder = mod_folder / rel if rel else mod_folder
@@ -117,6 +120,17 @@ def def_files(folders, kind):
     loaded, skipped = layout.files_the_game_loads(folder_files)
     files = [folder / path for path, folder in loaded.items()]
     return files, [(folder / path, winner / path) for folder, path, winner in skipped]
+
+
+def each_def_xpath(xpath):
+    """An xpath naming several Defs, as in ThingDef[defName="A" or defName="B"]/x, as one xpath per Def.
+
+    ElementTree can't read "or", and each Def named should be checked on its own. Any other xpath comes back alone."""
+    found = DEF_NAME_CHOICE.search(xpath)
+    if not found:
+        return [xpath]
+    names = re.findall(r'defName="([^"]+)"', found.group(0))
+    return [f'{xpath[:found.start()]}[defName="{name}"]{xpath[found.end():]}' for name in names]
 
 
 class DefIndex:
@@ -173,7 +187,7 @@ class DefIndex:
     def matches(self, xpath):
         """How many nodes an xpath like Defs/ThingDef[defName="X"]/comps matches (RimWorld's form)."""
         try:
-            return len(self.wrapper.findall(xpath))
+            return sum(len(self.wrapper.findall(one)) for one in each_def_xpath(xpath))
         except SyntaxError as error:
             raise ValueError(f'unsupported xpath {xpath}: {error}') from None
 
@@ -250,6 +264,8 @@ def template_errors(template, index, active, where):
 
 # A path to one whole Def by name. Matching several means several mods each define it (the Harrier, Hind and Mongoose
 # all carry the AP rocket's recipe). The game keeps the last and the patch reaches them all, so that's not a fault.
+DEF_NAME_CHOICE = re.compile(r'\[defName="[^"]+"(?: or defName="[^"]+")+\]')
+CE_GUN_OPERATION = 'CombatExtended.PatchOperationMakeGunCECompatible'
 WHOLE_DEF_XPATH = re.compile(r'Defs/[\w.]+\[defName="[^"]+"\]')
 # Every building that links a named facility, however many there are: how a machine joins "any bed that takes a vitals monitor"
 # without naming beds. Matching several is the point; matching none is still an error.
@@ -280,9 +296,10 @@ def patch_errors(element, index, active_names, where, added, parent_names=None):
             errors += recurse(branch)
     elif cls in XPATH_OPERATIONS:
         xpath = (element.findtext('xpath') or '').strip()
-        count = index.matches(xpath)
-        if count != 1 and not (count > 1 and (WHOLE_DEF_XPATH.fullmatch(xpath) or FACILITY_LINK_XPATH.fullmatch(xpath))):
-            errors.append(f'{where}: {cls} xpath matches {count} nodes, not 1: {xpath}')
+        for one in each_def_xpath(xpath):
+            count = index.matches(one)
+            if count != 1 and not (count > 1 and (WHOLE_DEF_XPATH.fullmatch(one) or FACILITY_LINK_XPATH.fullmatch(one))):
+                errors.append(f'{where}: {cls} xpath matches {count} nodes, not 1: {one}')
         if cls == 'PatchOperationAdd' and xpath.endswith('/processes'):
             added.update((li.text or '').strip() for li in element.findall('value/li'))
         if cls == 'PatchOperationAttributeAdd' and (element.findtext('attribute') or '').strip() == 'Name':
@@ -292,6 +309,14 @@ def patch_errors(element, index, active_names, where, added, parent_names=None):
                               f'skips this PatchOperationAttributeAdd')
             elif parent_names is not None:
                 parent_names.add((element.findtext('value') or '').strip())
+    elif cls == CE_GUN_OPERATION:
+        gun = (element.findtext('defName') or '').strip()
+        if index.matches(f'Defs/ThingDef[defName="{gun}"]') != 1:
+            errors.append(f'{where}: {cls} names {gun}, which is not one loaded ThingDef')
+        for label, path in (('ammo set', 'AmmoUser/ammoSet'), ('projectile', 'Properties/defaultProjectile')):
+            name = (element.findtext(path) or '').strip()
+            if name and not index.has(name):
+                errors.append(f'{where}: {gun} names {label} {name}, which is not a loaded Def')
     elif cls:
         errors.append(f'{where}: unhandled patch operation {cls} (extend the checker)')
     return errors

@@ -237,6 +237,38 @@ class CheckerTests(unittest.TestCase):
                 'Common/Defs/T.xml: Phobos_Bad: no autoInputSlots, so its bills would never take ingredients',
                 "Common/Defs/T.xml: Phobos_Bad: billLabel has no {0} for the item's label"])
 
+    def test_an_or_xpath_is_checked_once_per_def_named(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            f = Fixture(tmp)
+            write(f.mod / 'Common' / 'Patches' / 'Or.xml',
+                  '<Patch><Operation Class="PatchOperationRemove"><xpath>'
+                  'Defs/ThingDef[defName="Neutroamine" or defName="Nobody"]/stackLimit</xpath></Operation></Patch>')
+            errors, _ = f.check()
+            self.assertEqual(len(errors), 1)
+            self.assertIn('matches 0 nodes, not 1: Defs/ThingDef[defName="Nobody"]/stackLimit', errors[0])
+
+    def test_a_ce_gun_patch_must_name_loaded_defs(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            f = Fixture(tmp)
+            write(f.mod / 'Common' / 'Patches' / 'Gun.xml',
+                  '<Patch><Operation Class="CombatExtended.PatchOperationMakeGunCECompatible"><defName>NoSuchGun</defName>'
+                  '<Properties><defaultProjectile>NoSuchBullet</defaultProjectile></Properties>'
+                  '<AmmoUser><ammoSet>Flake</ammoSet></AmmoUser></Operation></Patch>')
+            errors, _ = f.check()
+            text = '\n'.join(errors)
+            self.assertIn('names NoSuchGun, which is not one loaded ThingDef', text)
+            self.assertIn('names projectile NoSuchBullet, which is not a loaded Def', text)
+            self.assertNotIn('ammo set', text)
+
+    def test_if_mod_active_all_needs_every_mod_named(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            write(root / 'LoadFolders.xml', '<loadFolders><v1.7><li>/</li><li IfModActiveAll="a.b, c.d">Mods/X</li></v1.7></loadFolders>')
+            (root / 'Mods' / 'X').mkdir(parents=True)
+            names = lambda active: [p.relative_to(root).as_posix() for p in checker.load_folders_for(root, '1.7', active)]
+            self.assertEqual(names({'a.b'}), ['.'])
+            self.assertEqual(names({'a.b', 'c.d'}), ['.', 'Mods/X'])
+
     def test_load_folders_fall_back_to_the_newest_lower_version(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)

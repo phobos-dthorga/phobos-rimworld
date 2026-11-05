@@ -200,6 +200,37 @@ it to each of the five bombs' `recipeMaker/recipeUsers`, which `RecipeDefGenerat
 | 3 Nov 2026 | Review the Harrier's code for sortie, 1.7 and Combat Extended faults, fixing what needs it | owner (request) |
 | 3 Nov 2026 | Keep a sortie's map open through the game's own check rather than patching each mod's rule; player vehicles with a free colonist aboard, all of them | agent default |
 
+## Spaceship Turret Hull under Combat Extended (5 Nov 2026)
+
+**Not yet tested in game.** The owner reported that the hulls looked supported (the stats show a calibre and magazine) but couldn't be loaded. Their screenshots showed a heavy autocannon hull with 20x102mm NATO and a magazine of 100.
+
+**The cause, from the files:**
+
+- MK's seven hulls set `thingClass` to `Building_TurretGun`. CE's reload job, gizmos and ammo checks work through `Building_TurretGunCE`, or a type registered in `TurretRegistry`; the vanilla class is neither. CE converts turrets by defName (`Patches/Core/ThingDefs_Buildings/Buildings_Security.xml`) and ships no patch for this mod.
+- CE replaces `Gun_MiniTurret`, `Gun_AutocannonTurret` and `Gun_TurretSniper` by name, which is why four hulls show CE stats. The stat card reads the gun, so it looks finished while the building can't use it.
+- `Gun_TurretShotgun`, `Gun_TurretSniperPrecision` and `Gun_TurretIncendiary` are MK's own and stay stock. CE's gun autopatcher is off by default (`enableWeaponAutopatcher`).
+- The owner's PG22 holds four hulls, all `SpaceshipHeavyTurretHull`, saved with the vanilla class.
+
+**What the save does.** `Verse.ScribeExtractor.SaveableFromNode` makes the class named in the save; the Def's class is only a fallback when that type can't be found. So existing hulls stay vanilla: unharmed, and still unable to load. A converter would have to swap the building in place, and despawning a roof-holding wall carries a roof-collapse check we haven't read. (Changing the class alone wouldn't do: the vanilla class saves its gun as `gun`, CE reads `gunInt`, and `InitGun` throws on a null gun.) Agent default: no converter; the player rebuilds. The owner has four, so this is cheap, and a converter stays possible if other players need it.
+
+**Checked by reading:** a shot from a wall starts at height 2, and CE sets `ignoreRoof` for shots from that height under a roof (`ProjectileCE`), so a roofed hull shouldn't hit its own roof. Colonists reload by touch, so a wall with one open neighbouring cell should do.
+
+**Who chose what (all agent defaults, for the owner to revise):**
+
+| Choice | Value | Basis |
+| --- | --- | --- |
+| Home | D'thorga Vehicle Patches | Already active and loads after both mods. A gravship is a vehicle. No new mod to switch on |
+| Cooldown, no explosion | 1.0 s, removed | What CE does to its own turrets |
+| Aim | Light 0.25/0.5, autocannon 0.75/1.25, long range 0.75/1.5 | CE's values; which hull counts as which kind is authored |
+| Shotgun hull | 12 gauge, range 19, drum of 20 | Figures from CE's `Gun_ChainShotgun`; range is MK's 15.5 times CE's ratio (16 / 12.9); drum size authored |
+| Sniper hull | .50 BMG, range 84, magazine 10 | Figures from CE's `Gun_SniperRifle`; range is MK's 50 times (75 / 44.9); calibre, spread, recoil and magazine authored |
+| Incendiary hull | 30x64mm fuel, range 45, magazine 10 | Figures from CE's `Gun_IncendiaryLauncher`; range is MK's 27 times (40 / 23.9); magazine authored |
+| Uranium slug hull | Relabelled 40mm flak hull | CE's `Gun_TurretSniper` is a 40x311mmR flak gun. The defName stays |
+
+**Left for the owner: cost.** A heavy autocannon hull costs 12 steel, 5 components, 2 advanced components and 8,000 work, for the same gun as CE's autocannon turret at 425 steel, 40 plasteel, 9 components and 35,000 work. The hull also carries armour and an airtight wall. The patch keeps MK's costs until the owner chooses.
+
+**Not traced:** the inspect pane shows "10 W (500 W active)" where the stat card says 200 W, so another mod is changing turret power. It doesn't affect loading.
+
 ## Not changed, for the owner to decide
 
 - Upgrade costs and CE armour weren't compared with the Hind's.

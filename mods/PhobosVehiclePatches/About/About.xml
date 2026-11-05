@@ -4,7 +4,7 @@
   <name>D'thorga Vehicle Patches</name>
   <author>Phobos A. D'thorga</author>
   <url>https://github.com/phobos-dthorga/phobos-rimworld</url>
-  <modVersion>0.3.2</modVersion>
+  <modVersion>0.4.0</modVersion>
   <description>Patches for other authors' vehicle mods, each switched on only while that mod is active. It copies nothing from them.
 
 Harrier VTOL Attack Aircraft:
@@ -22,6 +22,10 @@ A sortie's map stays open while the jet is flying over it with its pilot aboard,
 RimThunder and The Dead Man's Switch - Expedition:
 
 RimThunder's heavy casting can also be made at the rotary forger.
+
+Spaceship Turret Hull and Combat Extended:
+
+The armed hull sections load and fire Combat Extended ammunition like any other turret. Hulls already built must be rebuilt to get this.
 
 Load it after the mods it patches. It does nothing if none of them is active.
 
@@ -41,5 +45,6 @@ Community-created content. Portions of the materials used to create this content
     <li>CETeam.CombatExtended</li>
     <li>potemkinvillager.fixedwingaircraft</li>
     <li>potemkinvillager.av8bharrier</li>
+    <li>MK.SpaceshipTurretHull</li>
   </loadAfter>
 </ModMetaData>

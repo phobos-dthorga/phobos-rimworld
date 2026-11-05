@@ -5,9 +5,28 @@ yet. Not yet tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.4.0] - 2026-11-05 - Draft
+
+Combat Extended support for Spaceship Turret Hull by MK. Not yet tested in game.
+
+### Added
+
+- With Spaceship Turret Hull and Combat Extended both active, all seven armed hulls load and fire Combat Extended ammunition like its own turrets. Three of the guns (shotgun, sniper, incendiary) gain Combat Extended versions; the calibres and magazines are agent-chosen values for the owner to review.
+
 ### Changed
 
+- Under Combat Extended the hulls no longer explode when destroyed, and use its aim and cooldown figures for the nearest turret of each kind. Their fixed range ring is gone, since the turret now draws its real range.
+- Under Combat Extended the uranium slug hull is labelled the 40mm flak hull, because that is the gun it carries there.
 - The description now carries the disclaimer in the wording Ludeon's EULA requires. It said only that the mod is not official and not endorsed. No behaviour change.
+
+### Balance
+
+- Build costs, work, skill, hit points and power stay as the hull mod sets them, so these hulls cost far less than Combat Extended's own turrets. Left for the owner to decide.
+
+### Save compatibility
+
+- Safe to add to a running save. Hulls already built still can't load ammo, because a built thing loads as the type written in the save. Deconstruct and rebuild them, while landed. Nothing is moved or deleted for you.
+- Before removing this mod with Combat Extended still active, deconstruct the hulls built under it. Not yet tested either way.
 
 ## [0.3.2] - 2026-11-04 - Draft
 

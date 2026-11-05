@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+
+  <!--
+    Combat Extended support for Spaceship Turret Hull by MK. LoadFolders.xml loads this folder only while both mods are
+    active, so CE's patch operation is safe to name here.
+
+    The fault: the hulls are stock Building_TurretGun buildings. CE replaces Gun_MiniTurret, Gun_AutocannonTurret and
+    Gun_TurretSniper with ammo-using guns, but its reload job, gizmos and ammo checks only work on its own turret class,
+    and it converts turrets by name, so it never reached these. Four hulls got a CE gun nothing can load. The other three
+    guns are MK's own and CE never touched them.
+
+    Saves: a built thing loads as the class written in the save, not the Def's (Verse.ScribeExtractor), so hulls that
+    already stand stay stock until rebuilt. The README says so.
+
+    Costs, work, hit points and power stay MK's: a balance choice for the owner, recorded in
+    docs/development/vehicle-patches.md.
+  -->
+
+  <!-- What CE does to each of its own turrets: its class, no explosion on death, a 1 second cooldown. -->
+  <Operation Class="PatchOperationReplace">
+    <xpath>Defs/ThingDef[defName="SpaceshipTurretHull" or defName="SpaceshipHeavyTurretHull" or defName="SpaceshipAutocannonHull" or defName="SpaceshipUraniumSlugHull" or defName="SpaceshipShotgunHull" or defName="SpaceshipSniperHull" or defName="SpaceshipIncendiaryHull"]/thingClass</xpath>
+    <value>
+      <thingClass>CombatExtended.Building_TurretGunCE</thingClass>
+    </value>
+  </Operation>
+
+  <Operation Class="PatchOperationRemove">
+    <xpath>Defs/ThingDef[defName="SpaceshipTurretHull" or defName="SpaceshipHeavyTurretHull" or defName="SpaceshipAutocannonHull" or defName="SpaceshipUraniumSlugHull" or defName="SpaceshipShotgunHull" or defName="SpaceshipSniperHull" or defName="SpaceshipIncendiaryHull"]/comps/li[@Class="CompProperties_Explosive"]</xpath>
+  </Operation>
+
+  <Operation Class="PatchOperationReplace">
+    <xpath>Defs/ThingDef[defName="SpaceshipTurretHull" or defName="SpaceshipHeavyTurretHull" or defName="SpaceshipAutocannonHull" or defName="SpaceshipUraniumSlugHull" or defName="SpaceshipShotgunHull" or defName="SpaceshipSniperHull" or defName="SpaceshipIncendiaryHull"]/building/turretBurstCooldownTime</xpath>
+    <value>
+      <turretBurstCooldownTime>1.0</turretBurstCooldownTime>
+    </value>
+  </Operation>
+
+  <!-- MK's fixed ring showed the stock range. CE's turret draws its own from the gun, so the old one would be wrong. -->
+  <Operation Class="PatchOperationRemove">
+    <xpath>Defs/ThingDef[defName="SpaceshipTurretHull" or defName="SpaceshipHeavyTurretHull" or defName="SpaceshipAutocannonHull" or defName="SpaceshipUraniumSlugHull" or defName="SpaceshipShotgunHull" or defName="SpaceshipSniperHull" or defName="SpaceshipIncendiaryHull"]/specialDisplayRadius</xpath>
+  </Operation>
+
+  <!--
+    Targeting: CE's own values for the nearest turret of its kind (Patches/Core/ThingDefs_Buildings/Buildings_Security.xml).
+    Which hull counts as which kind is AUTHORED.
+  -->
+
+  <!-- Light, as CE's mini-turret. -->
+  <Operation Class="PatchOperationReplace">
+    <xpath>Defs/ThingDef[defName="SpaceshipTurretHull" or defName="SpaceshipShotgunHull" or defName="SpaceshipIncendiaryHull"]/statBases/ShootingAccuracyTurret</xpath>
+    <value>
+      <ShootingAccuracyTurret>0.5</ShootingAccuracyTurret>
+    </value>
+  </Operation>
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/ThingDef[defName="SpaceshipTurretHull" or defName="SpaceshipShotgunHull" or defName="SpaceshipIncendiaryHull"]/statBases</xpath>
+    <value>
+      <AimingAccuracy>0.25</AimingAccuracy>
+    </value>
+  </Operation>
+
+  <!-- Autocannon, as CE's autocannon turret. -->
+  <Operation Class="PatchOperationReplace">
+    <xpath>Defs/ThingDef[defName="SpaceshipHeavyTurretHull" or defName="SpaceshipAutocannonHull"]/statBases/ShootingAccuracyTurret</xpath>
+    <value>
+      <ShootingAccuracyTurret>1.25</ShootingAccuracyTurret>
+    </value>
+  </Operation>
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/ThingDef[defName="SpaceshipHeavyTurretHull" or defName="SpaceshipAutocannonHull"]/statBases</xpath>
+    <value>
+      <AimingAccuracy>0.75</AimingAccuracy>
+    </value>
+  </Operation>
+
+  <!-- Long range, as CE's sniper turret. -->
+  <Operation Class="PatchOperationReplace">
+    <xpath>Defs/ThingDef[defName="SpaceshipUraniumSlugHull" or defName="SpaceshipSniperHull"]/statBases/ShootingAccuracyTurret</xpath>
+    <value>
+      <ShootingAccuracyTurret>1.5</ShootingAccuracyTurret>
+    </value>
+  </Operation>
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/ThingDef[defName="SpaceshipUraniumSlugHull" or defName="SpaceshipSniperHull"]/statBases</xpath>
+    <value>
+      <AimingAccuracy>0.75</AimingAccuracy>
+      <NightVisionEfficiency>0.5</NightVisionEfficiency>
+    </value>
+  </Operation>
+
+  <!-- Under CE this hull's gun is a 40x311mmR flak gun, so "uranium slug" would be untrue. Label only; the defName stays. -->
+  <Operation Class="PatchOperationReplace">
+    <xpath>Defs/ThingDef[defName="SpaceshipUraniumSlugHull"]/label</xpath>
+    <value>
+      <label>spaceship 40mm flak hull</label>
+    </value>
+  </Operation>
+  <Operation Class="PatchOperationReplace">
+    <xpath>Defs/ThingDef[defName="SpaceshipUraniumSlugHull"]/description</xpath>
+    <value>
+      <description>A heavily armored hull section with an integrated 40mm flak turret. Slow, heavy shells for armored targets at extreme range. Pawns load it by hand with 40x311mmR shells, and it needs power to fire.</description>
+    </value>
+  </Operation>
+
+  <!--
+    MK's three own guns. The figures come from CE's nearest gun, except where noted. Calibres and magazines are AUTHORED.
+    Range is MK's stock range times the ratio CE applies to that nearest gun, stock to CE, read from the game's and CE's files.
+  -->
+
+  <!-- Figures from Gun_ChainShotgun. Range 15.5 x (16 / 12.9) = 19. A 20-round drum, because no pawn stands beside it. -->
+  <Operation Class="CombatExtended.PatchOperationMakeGunCECompatible">
+    <defName>Gun_TurretShotgun</defName>
+    <statBases>
+      <RangedWeapon_Cooldown>0.39</RangedWeapon_Cooldown>
+      <SightsEfficiency>1</SightsEfficiency>
+      <ShotSpread>0.15</ShotSpread>
+      <SwayFactor>1.26</SwayFactor>
+    </statBases>
+    <Properties>
+      <recoilAmount>2.54</recoilAmount>
+      <verbClass>CombatExtended.Verb_ShootCE</verbClass>
+      <hasStandardCommand>true</hasStandardCommand>
+      <defaultProjectile>Bullet_12Gauge_Buck</defaultProjectile>
+      <warmupTime>0.6</warmupTime>
+      <range>19</range>
+      <soundCast>Shot_Shotgun</soundCast>
+      <soundCastTail>GunTail_Heavy</soundCastTail>
+      <muzzleFlashScale>12</muzzleFlashScale>
+      <recoilPattern>Mounted</recoilPattern>
+    </Properties>
+    <AmmoUser>
+      <magazineSize>20</magazineSize>
+      <reloadTime>7.8</reloadTime>
+      <ammoSet>AmmoSet_12Gauge</ammoSet>
+    </AmmoUser>
+    <FireModes>
+      <aiAimMode>AimedShot</aiAimMode>
+      <noSnapshot>true</noSnapshot>
+    </FireModes>
+  </Operation>
+
+  <!--
+    Figures from Gun_SniperRifle, in .50 BMG for a mount that can carry it. Range 50 x (75 / 44.9) = 84. MK's minimum range
+    stays. Tighter spread (0.02, CE's rifle 0.05), more recoil (2.5, CE's rifle 1.5) and a 10-round magazine are AUTHORED.
+  -->
+  <Operation Class="CombatExtended.PatchOperationMakeGunCECompatible">
+    <defName>Gun_TurretSniperPrecision</defName>
+    <statBases>
+      <RangedWeapon_Cooldown>1.36</RangedWeapon_Cooldown>
+      <SightsEfficiency>2.6</SightsEfficiency>
+      <ShotSpread>0.02</ShotSpread>
+      <SwayFactor>1.35</SwayFactor>
+    </statBases>
+    <Properties>
+      <recoilAmount>2.5</recoilAmount>
+      <verbClass>CombatExtended.Verb_ShootCE</verbClass>
+      <hasStandardCommand>true</hasStandardCommand>
+      <defaultProjectile>Bullet_50BMG_FMJ</defaultProjectile>
+      <warmupTime>1.8</warmupTime>
+      <minRange>12.9</minRange>
+      <range>84</range>
+      <soundCast>Shot_SniperRifle</soundCast>
+      <soundCastTail>GunTail_Heavy</soundCastTail>
+      <muzzleFlashScale>16</muzzleFlashScale>
+      <recoilPattern>Mounted</recoilPattern>
+    </Properties>
+    <AmmoUser>
+      <magazineSize>10</magazineSize>
+      <reloadTime>6.8</reloadTime>
+      <ammoSet>AmmoSet_50BMG</ammoSet>
+    </AmmoUser>
+    <FireModes>
+      <aiAimMode>AimedShot</aiAimMode>
+      <noSnapshot>true</noSnapshot>
+    </FireModes>
+  </Operation>
+
+  <!-- Figures from Gun_IncendiaryLauncher. Range 27 x (40 / 23.9) = 45. MK's two-shot burst stays. A 10-round magazine is AUTHORED. -->
+  <Operation Class="CombatExtended.PatchOperationMakeGunCECompatible">
+    <defName>Gun_TurretIncendiary</defName>
+    <statBases>
+      <RangedWeapon_Cooldown>0.43</RangedWeapon_Cooldown>
+      <SightsEfficiency>1.1</SightsEfficiency>
+      <ShotSpread>0.15</ShotSpread>
+      <SwayFactor>1.8</SwayFactor>
+    </statBases>
+    <Properties>
+      <recoilAmount>3.87</recoilAmount>
+      <verbClass>CombatExtended.Verb_ShootCE</verbClass>
+      <hasStandardCommand>true</hasStandardCommand>
+      <defaultProjectile>Bullet_30x64mmFuel_Incendiary</defaultProjectile>
+      <warmupTime>1.0</warmupTime>
+      <range>45</range>
+      <ticksBetweenBurstShots>15</ticksBetweenBurstShots>
+      <burstShotCount>2</burstShotCount>
+      <soundCast>Shot_IncendiaryLauncher</soundCast>
+      <soundCastTail>GunTail_Heavy</soundCastTail>
+      <muzzleFlashScale>14</muzzleFlashScale>
+      <recoilPattern>Mounted</recoilPattern>
+    </Properties>
+    <AmmoUser>
+      <magazineSize>10</magazineSize>
+      <reloadTime>7.8</reloadTime>
+      <ammoSet>AmmoSet_30x64mmFuel</ammoSet>
+    </AmmoUser>
+    <FireModes>
+      <aiAimMode>AimedShot</aiAimMode>
+      <noSnapshot>true</noSnapshot>
+      <noSingleShot>true</noSingleShot>
+    </FireModes>
+  </Operation>
+
+</Patch>
