@@ -1,6 +1,6 @@
 # Medical equipment art
 
-Candidates for the planned medical equipment mod. **Nothing here is approved, and the mod does not exist yet.** The prompts are
+Candidates for the planned medical equipment mod. **The owner's picks, and what ships, are listed in the design record.** The prompts are
 agent-authored and held for the owner's review. See the [design record](../../docs/development/art-automation-and-medical-equipment.md).
 
 **Generate only through the runner, and only on the owner's go:**

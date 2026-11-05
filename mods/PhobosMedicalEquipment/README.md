@@ -2,7 +2,7 @@
 
 Hospital equipment for the injuries D'thorga Burns and Smoke and More Injuries bring. This first version gives patients oxygen.
 
-Version 0.1.0, built 5 November 2026 for House D'thorga. **Not yet tested in game.** Everything here is read from the game's and
+Version 0.1.1, built 5 November 2026 for House D'thorga. **Not yet tested in game.** Everything here is read from the game's and
 the mods' code.
 
 ## Read this first (gotchas)
@@ -16,7 +16,7 @@ the mods' code.
 - **It does not repair lungs,** and **it cannot help if the airway is closed**: that patient needs a tracheotomy.
 - **Move patients out of the burning room.** A patient on oxygen still takes in the carbon monoxide around them.
 - **Oxygen canisters explode when they burn.** That is Vanilla Gravship Expanded's rule, and a good reason to keep stands away from fires.
-- **The art is a placeholder.**
+- **The art is not final.** The concentrator is a hand-drawn placeholder. The bedside stand's art is AI-generated, by a model trained in private on the game's sprites (see its record beside the texture).
 
 ## What it does
 

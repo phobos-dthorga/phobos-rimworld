@@ -27,7 +27,7 @@ The owner wants our own medical equipment, hospital and field. Carbon monoxide a
 | A stand exists only with Vanilla Gravship Expanded, so it never sits waiting for an item that cannot exist | Agent choice |
 | Oxygen is a condition on the patient that the machine keeps refreshing. It lapses by itself, so a destroyed machine or a removed mod leaves nothing behind for long | Agent choice |
 | The shared pieces (`PhobosBreathing` and its two extensions) live in the framework, so Burns and Smoke needs no dependency on this mod | Agent choice |
-| Own art later: the textures are scripted placeholders | Agent default, until the owner picks |
+| The bedside stand uses a picked, generated image; the concentrator keeps its scripted placeholder for now | Owner, 5 Nov 2026 |
 
 ## Figures
 

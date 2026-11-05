@@ -1,0 +1,15 @@
+{
+  "target": "mods/PhobosMedicalEquipment/Common/Textures/Phobos/Medical/Things/BedsideOxygenStand.png",
+  "source": ".local/art/picks-5nov/bedside-oxygen-both-11.png",
+  "source_sha256": "361400259f9fa8164ed1fd114f3acfd76a3a7e413a23bda1b6cdec555c665e0a",
+  "target_sha256": "934a2da5bcb0086955a7aba7a4d834b1ff05345646fa49cb573c2cf4a849f5a9",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": true,
+  "date": "2026-11-05T16:51:49",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

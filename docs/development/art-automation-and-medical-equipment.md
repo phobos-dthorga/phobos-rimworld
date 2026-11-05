@@ -13,8 +13,8 @@ are decided, and record finished work in the owning mod's changelog or record.
 | Native 1.7 builds of all seven mods | Built and installed; not yet tested in game | The same test, watching the Harmony mods | [Building](building.md) |
 | Burns and Smoke: eschar, escharotomy | Planned | Wait for what the test shows | [Burns and smoke](burns-and-smoke.md) |
 | Hands-off art pipeline | **Built; checked offline only, never run on the GPU** | The owner's go for a short test run | [Below](#hands-off-art-pipeline) |
-| Medical art, first batch | Requests written, held for review; nothing generated | After the test run | [`assets/phobos-medical`](../../assets/phobos-medical/README.md) |
-| Style training | Tooling written; first real training ran 5 Nov 2026, after two fixes below; not yet judged | The three-route comparison | [Below](#style-training) |
+| Medical art, first batch | Generated 5 Nov 2026. The owner's picks are in the [list of picks](#the-owners-picks) | Defs for the machines the picks are for | [`assets/phobos-medical`](../../assets/phobos-medical/README.md) |
+| Style training | Tooling written; first real training ran 5 Nov 2026, after two fixes below. Alone the LoRA gave no game style; the owner preferred it with references | Later training on approved art | [Below](#style-training) |
 | D'thorga Medical Equipment 0.1.0 | Draft: concentrator and bedside stand; not yet tested in game | The owner's test | [Record](medical-equipment.md) |
 
 ## Decisions so far
@@ -31,6 +31,7 @@ are decided, and record finished work in the owning mod's changelog or record.
 | Use FLUX.2 Klein 4B base and Z-Image base first; FLUX 3 Image Klein waits for the owner to read its licence | Agent default, 5 Nov 2026, for the owner to change |
 | The first batch makes south views only; the other views come from the picks | Agent default, 5 Nov 2026 |
 | The concentrator stand-in is "not bad" for a starter: it leads its subject on the review page, and four more candidates use it as a reference, beside the model's own attempts | Owner, 5 Nov 2026 |
+| LoRA output may ship, after the near-copy check. "We could just do what everyone else is doing"; if Ludeon objected, they would be cracking down by now. The agent recommended remaking the designs without the LoRA, and noted that no enforcement is not permission | Owner, 5 Nov 2026 |
 | Put medical equipment in its own mod, not in Burns and Smoke | Agent choice, built 5 Nov 2026 |
 | Bedside oxygen first, automatic, with a concentrator too; no Questionable Ethics, and a ventilator of our own later | Owner, 5 Nov 2026 |
 
@@ -108,6 +109,22 @@ Without its prompt upsampler (9.7 GB more), the publisher [reportedly](https://w
 
 **Hiddensoul's setup is still worth asking about.** Its name is not yet known. Open WebUI only passes image requests to a separate backend ([documentation](https://docs.openwebui.com/features/images)), so the difference is probably the model and workflow (agent inference). The most useful thing to ask for is the workflow exported from ComfyUI as JSON, plus which model, LoRAs and step count it uses.
 
+## The owner's picks
+
+Picked on 5 Nov 2026 from the three-route comparison, all from references plus LoRA. All passed the near-copy check. Masters are in `.local/art/picks-5nov/`, not committed; each is exported when its machine has a Def.
+
+| Subject | Pick | Kept to compare | State |
+| --- | --- | --- | --- |
+| Bedside oxygen | Seed 11 | Seed 12 | In the mod, 0.1.1 |
+| Electrolyser | Seed 11 | | Waiting for its Def |
+| Liquid oxygen store | Seed 12 | Seed 11 | Waiting for its Def |
+| Burn unit bed | Seed 11 | | Waiting for its Def |
+| Oxygen mask | Seed 11 | Seed 12 | Waiting for its Def |
+| Oxygen concentrator | The hand-drawn stand-in stays for now | Seed 11, as a backup | Owner: unhappy with its hourglass shapes; replace with something better |
+| Hyperbaric chamber | None | | Owner dislikes the angles. Next: a flat stand-in, then a redraw |
+
+**Exporting:** `scripts/art/export_sprite.py` clears only the white background now, because clearing all white made the burn bed's mattress see-through. Use `--all-white` where background shows through the object, as with the stand's loop of tube.
+
 ## Style training
 
 **Two fixes the first real run needed (5 Nov 2026, on the 12 GB card):**
@@ -173,7 +190,7 @@ is that we never ship or commit the game's art.
 | Copy risk | Low | Real: a small set can reproduce its training images |
 | Rules | The EULA allows use as "a basis or reference for a Mod" | Unsettled. The file must stay private either way |
 
-**The experiment's limits (owner's decision, agent's safeguards):** the dataset, upscales and LoRA stay in `C:\AI\lora-experiments`, off the synced drive, never committed and never shared. Its images are for comparison. **Whether any of its output could ever ship is unsettled, so nothing from it ships unless the owner decides so**, and then only after `scripts/art/near_copy.py` passes it. 
+**The experiment's limits (owner's decision, agent's safeguards):** the dataset, upscales and LoRA stay in `C:\AI\lora-experiments`, off the synced drive, never committed and never shared. Whether its output may ship is unsettled, because only Ludeon can say; **the owner decided on 5 Nov 2026 that it may**, each image only after `scripts/art/near_copy.py` passes it, with its record saying how it was made. The LoRA and dataset stay private. 
 
 **What the near-copy check catches, measured on 5 Nov 2026** (four vanilla sprites redrawn at 1024 px, 16 variants):
 

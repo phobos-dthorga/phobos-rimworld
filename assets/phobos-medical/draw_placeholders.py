@@ -22,10 +22,8 @@ OUTLINE = (24, 24, 26, 255)
 PANEL = (206, 208, 206, 255)
 PANEL_DARK = (156, 160, 160, 255)
 PANEL_DEEP = (112, 116, 118, 255)
-STEEL = (136, 140, 144, 255)
 SCREEN = (54, 150, 190, 255)
 TUBE = (178, 214, 226, 255)
-BRASS = (196, 158, 84, 255)
 GREEN = (116, 176, 132, 255)
 
 
@@ -47,19 +45,6 @@ def concentrator(draw):
     box(draw, (612, 430, 772, 500), PANEL_DARK, 20)
     draw.arc((560, 610, 900, 900), 300, 80, fill=OUTLINE, width=56)
     draw.arc((560, 610, 900, 900), 300, 80, fill=TUBE, width=24)
-
-
-def stand(draw):
-    """A pole on a wheeled foot, holding a regulator, a flowmeter and a clear bottle, with a mask on a loop of tube."""
-    box(draw, (300, 800, 724, 910), STEEL, 50)
-    box(draw, (472, 90, 552, 840), STEEL, 30)
-    box(draw, (332, 170, 692, 342), BRASS, 40)
-    box(draw, (446, 206, 578, 306), SCREEN, 50)
-    box(draw, (362, 400, 532, 680), TUBE, 50)
-    draw.rectangle((396, 560, 498, 646), fill=SCREEN)
-    draw.arc((540, 330, 860, 730), 270, 90, fill=OUTLINE, width=56)
-    draw.arc((540, 330, 860, 730), 270, 90, fill=TUBE, width=24)
-    box(draw, (610, 660, 800, 830), GREEN, 70)
 
 
 def write_record(path, name, what):
@@ -95,4 +80,3 @@ def render(painter, name, what, reference=False):
 
 if __name__ == '__main__':
     render(concentrator, 'OxygenConcentrator', 'a bedside oxygen concentrator', reference=True)
-    render(stand, 'BedsideOxygenStand', 'a bedside oxygen stand')

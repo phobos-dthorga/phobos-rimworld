@@ -5,6 +5,20 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.1.1] - 2026-11-05 - Draft
+
+New art for the bedside oxygen stand, picked by the owner. Not yet tested in game.
+
+### Changed
+
+- The bedside oxygen stand has generated art in place of its placeholder. It is AI-generated, by a model trained in private on 60 of the
+  game's sprites, and the owner chose to ship it knowing that Ludeon's EULA does not settle this. The record beside the texture has the
+  details. The sprite passed the near-copy check. The oxygen concentrator keeps its hand-drawn placeholder.
+
+### Save compatibility
+
+- Art only. Safe in a running colony.
+
 ## [0.1.0] - 2026-11-05 - Draft
 
 The first pieces of the owner's medical equipment idea: oxygen at the bedside. Not yet tested in game. Labels, descriptions and the

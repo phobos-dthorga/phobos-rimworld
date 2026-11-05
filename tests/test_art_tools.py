@@ -148,6 +148,34 @@ class LoraExperimentTests(unittest.TestCase):
         self.assertEqual(lora_experiment.route_requests(requests, 'x', 'l.safetensors'), [])
 
 
+class ExportBackgroundTests(unittest.TestCase):
+    def setUp(self):
+        try:
+            from PIL import Image
+        except ImportError:
+            self.skipTest('needs Pillow')
+        import export_sprite
+        self.white_to_alpha = export_sprite.white_to_alpha
+        # White around a dark ring, with white inside the ring.
+        self.image = Image.new('RGB', (9, 9), (255, 255, 255))
+        for x in range(2, 7):
+            for y in range(2, 7):
+                self.image.putpixel((x, y), (10, 10, 10))
+        self.image.putpixel((4, 4), (255, 255, 255))
+
+    def test_white_inside_the_object_stays_solid(self):
+        result = self.white_to_alpha(self.image)
+        self.assertEqual(result.getpixel((0, 0))[3], 0)
+        self.assertEqual(result.getpixel((4, 4))[3], 255)
+        self.assertEqual(result.getpixel((3, 3))[3], 255)
+
+    def test_all_white_clears_it_too(self):
+        result = self.white_to_alpha(self.image, all_white=True)
+        self.assertEqual(result.getpixel((0, 0))[3], 0)
+        self.assertEqual(result.getpixel((4, 4))[3], 0)
+        self.assertEqual(result.getpixel((3, 3))[3], 255)
+
+
 class RequestFileTests(unittest.TestCase):
     def test_every_baseline_image_exists(self):
         import pathlib
