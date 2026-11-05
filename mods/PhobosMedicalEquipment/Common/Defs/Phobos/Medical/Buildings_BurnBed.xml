@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- Built on the game's hospital bed. Real air-cell and air-fluidised beds take pressure off damaged skin; the figures here are authored,
+       with no clinical source. Infection comes down through the game's own rule, that a better tend lowers the chance, so the higher tend
+       quality does that job with no patch. Power, cost and work are authored. -->
+  <ThingDef ParentName="BedWithQualityBase">
+    <defName>PhobosMedical_BurnUnitBed</defName>
+    <label>burn unit bed</label>
+    <description>A hospital bed with a mattress of air-filled cells, kept inflated by a small blower, and a frame that holds the sheets off the patient. While the blower runs, a patient with open burns heals faster and hurts less. It gives doctors a better tend, which also lowers the risk of infection. Without power it is still a good hospital bed.</description>
+    <graphicData>
+      <texPath>Phobos/Medical/Things/BurnUnitBed</texPath>
+      <graphicClass>Graphic_Multi</graphicClass>
+      <drawSize>(2,2)</drawSize>
+    </graphicData>
+    <castEdgeShadows>True</castEdgeShadows>
+    <tickerType>Rare</tickerType>
+    <statBases>
+      <MaxHitPoints>150</MaxHitPoints>
+      <WorkToBuild>4000</WorkToBuild>
+      <Mass>45</Mass>
+      <Flammability>1.0</Flammability>
+      <BedRestEffectiveness>1</BedRestEffectiveness>
+      <Comfort>0.85</Comfort>
+      <ImmunityGainSpeedFactor>1.11</ImmunityGainSpeedFactor>
+      <MedicalTendQualityOffset>0.15</MedicalTendQualityOffset>
+      <SurgerySuccessChanceFactor>1.1</SurgerySuccessChanceFactor>
+    </statBases>
+    <comps>
+      <li Class="CompProperties_AffectedByFacilities">
+        <linkableFacilities>
+          <li>VitalsMonitor</li>
+          <li>EndTable</li>
+          <li>Dresser</li>
+          <li MayRequire="Ludeon.RimWorld.Ideology">SleepAccelerator</li>
+        </linkableFacilities>
+      </li>
+      <li Class="CompProperties_Power">
+        <compClass>CompPowerTrader</compClass>
+        <basePowerConsumption>200</basePowerConsumption>
+      </li>
+      <li Class="CompProperties_Flickable"/>
+      <li Class="Phobos.Medical.Comps.CompProperties_PhobosBurnCare">
+        <treatment>PhobosMedical_OnAirCells</treatment>
+      </li>
+    </comps>
+    <size>(1,2)</size>
+    <costList>
+      <Steel>120</Steel>
+      <Cloth>30</Cloth>
+      <ComponentIndustrial>7</ComponentIndustrial>
+    </costList>
+    <building>
+      <bed_showSleeperBody>False</bed_showSleeperBody>
+      <bed_healPerDay>10</bed_healPerDay>
+      <bed_defaultMedical>true</bed_defaultMedical>
+      <buildingSizeCategory>Small</buildingSizeCategory>
+    </building>
+    <fillPercent>0.4</fillPercent>
+    <pathCost>42</pathCost>
+    <leaveResourcesWhenKilled>True</leaveResourcesWhenKilled>
+    <staticSunShadowHeight>0.17</staticSunShadowHeight>
+    <researchPrerequisites>
+      <li>HospitalBed</li>
+    </researchPrerequisites>
+    <constructionSkillPrerequisite>8</constructionSkillPrerequisite>
+    <techLevel>Industrial</techLevel>
+    <uiIconScale>0.90</uiIconScale>
+  </ThingDef>
+</Defs>

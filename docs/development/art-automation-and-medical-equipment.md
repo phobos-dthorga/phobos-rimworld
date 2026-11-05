@@ -9,13 +9,13 @@ are decided, and record finished work in the owning mod's changelog or record.
 | Work | State | Next step | Record |
 | --- | --- | --- | --- |
 | D'thorga Framework 0.1.1 | Draft; first look in game was 0.1.0 | The owner's test of the current build | [Framework](phobos-framework.md) |
-| D'thorga Burns and Smoke 0.3.0 | Draft; first look in game was 0.1.0, and 0.3.0 is not yet tested in game | The owner's test of the current build | [Burns and smoke](burns-and-smoke.md) |
+| D'thorga Burns and Smoke 0.4.2 | Draft. The owner reports burn numbers, progression and the tie-ins working (5 Nov 2026); the tracheotomy is unproven | The tracheotomy, as it comes up in play | [Burns and smoke](burns-and-smoke.md) |
 | Native 1.7 builds of all seven mods | Built and installed; not yet tested in game | The same test, watching the Harmony mods | [Building](building.md) |
-| Burns and Smoke: eschar, escharotomy | Planned | Wait for what the test shows | [Burns and smoke](burns-and-smoke.md) |
+| Burns and Smoke: eschar, escharotomy | Planned | The owner's go; their test passed the gate on 5 Nov 2026 | [Burns and smoke](burns-and-smoke.md) |
 | Hands-off art pipeline | **Built; checked offline only, never run on the GPU** | The owner's go for a short test run | [Below](#hands-off-art-pipeline) |
 | Medical art, first batch | Generated 5 Nov 2026. The owner's picks are in the [list of picks](#the-owners-picks) | Defs for the machines the picks are for | [`assets/phobos-medical`](../../assets/phobos-medical/README.md) |
 | Style training | Tooling written; first real training ran 5 Nov 2026, after two fixes below. Alone the LoRA gave no game style; the owner preferred it with references | Later training on approved art | [Below](#style-training) |
-| D'thorga Medical Equipment 0.1.1 | Draft: concentrator and bedside stand. The owner reports breathing improving on the concentrator (on 0.1.0); the bedside stand and the rest are not yet tested in game | The rest of the owner's test | [Record](medical-equipment.md) |
+| D'thorga Medical Equipment 0.2.0 | Draft: concentrator, bedside stand and burn unit bed (the bed not yet tested in game). The owner reports breathing improving on the concentrator (on 0.1.0); the bedside stand and the rest are not yet tested in game | The rest of the owner's test | [Record](medical-equipment.md) |
 
 ## Decisions so far
 
@@ -118,7 +118,7 @@ Picked on 5 Nov 2026 from the three-route comparison, all from references plus L
 | Bedside oxygen | Seed 11 | Seed 12 | In the mod, 0.1.1 |
 | Electrolyser | Seed 11 | | Waiting for its Def |
 | Liquid oxygen store | Seed 12 | Seed 11 | Waiting for its Def |
-| Burn unit bed | Seed 11 | | Waiting for its Def |
+| Burn unit bed | Seed 11 | | In the mod, 0.2.0 |
 | Oxygen mask | Seed 11 | Seed 12 | Waiting for its Def |
 | Oxygen concentrator | The hand-drawn stand-in stays for now | Seed 11, as a backup | Owner: unhappy with its hourglass shapes; replace with something better |
 | Hyperbaric chamber | None | | Owner dislikes the angles. Next: a flat stand-in, then a redraw |

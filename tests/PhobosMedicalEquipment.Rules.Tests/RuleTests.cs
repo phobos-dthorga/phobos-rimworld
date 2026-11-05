@@ -4,6 +4,21 @@ using Xunit;
 
 namespace Phobos.Medical.Rules.Tests;
 
+public class BurnCareStatusTests
+{
+    [Fact]
+    public void SwitchedOffComesFirst() => Assert.Equal(BurnCareStatus.SwitchedOff, BurnCareRule.Status(false, false, 1));
+
+    [Fact]
+    public void NoPowerComesNext() => Assert.Equal(BurnCareStatus.NoPower, BurnCareRule.Status(true, false, 1));
+
+    [Fact]
+    public void AnEmptyBedWaits() => Assert.Equal(BurnCareStatus.Waiting, BurnCareRule.Status(true, true, 0));
+
+    [Fact]
+    public void AnOccupiedBedTreats() => Assert.Equal(BurnCareStatus.Treating, BurnCareRule.Status(true, true, 1));
+}
+
 public class NeedTests
 {
     const float Threshold = 0.8f;

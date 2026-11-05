@@ -4,7 +4,7 @@ Burns and smoke that matter the way More Injuries' wounds do: a burned body frac
 unless treated, airway burns that swell shut over hours, smoke that scars the lungs, and carbon monoxide from fires in closed
 rooms.
 
-Version 0.4.2, built 5 November 2026 for House D'thorga. **Not yet tested in game.** Everything here is read from the game's and
+Version 0.4.2, built 5 November 2026 for House D'thorga. **Partly tested in game:** the owner reports burn numbers, how conditions progress, and the More Injuries and Organ Failure tie-ins working (5 November 2026). The tracheotomy is unproven. The rest is read from the game's and
 the mods' code.
 
 ## Read this first (gotchas)
@@ -93,7 +93,7 @@ tables of the hediff Defs. Smoke and carbon monoxide are read from D'thorga Fram
 - Built against the RimWorld 1.7 and 1.6 reference assemblies. The game-free rules (skin shares, burn area by kind, burned
   fraction, burned-off parts, the Baux score, its floor and the treatment factor by medicine quality, carbon monoxide uptake and
   clearance, the airway curve) pass 19 unit tests.
+- **The owner's report (5 November 2026):** burn numbers, how conditions progress and the tie-ins all work. Faster carbon monoxide clearing on oxygen is the owner's inference from those, not something observed. The tracheotomy is unproven.
 - The owner's first look in game (0.1.0, an incendiary raid) showed the mod running without errors but counting far too
-  little: see the changelog's 0.2.0 fixes. 0.4.0 is **not yet tested in game**.
-- **Not checked:** anything in game for 0.4.0. The giver's cadence, the stage tables' feel, the tracheotomy, the More Injuries handlers
-  and Organ Failure's interception of a closed airway are all untested.
+  little: see the changelog's 0.2.0 fixes. 
+- **Not checked in game:** the tracheotomy, and Organ Failure stepping in for a closed airway beyond what the owner reports.

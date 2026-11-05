@@ -50,27 +50,35 @@ public class CompPhobosOxygenSupply : ThingComp
     };
 }
 
-/// <summary>The treatment condition's clock: it lapses unless a machine keeps refreshing it, so it cannot outlive its source.</summary>
-public class HediffCompProperties_PhobosOnOxygen : HediffCompProperties
+/// <summary>A treatment condition's clock: it lapses unless its source keeps refreshing it, so it cannot outlive that source.</summary>
+public class HediffCompProperties_PhobosTreatment : HediffCompProperties
 {
-    public HediffCompProperties_PhobosOnOxygen() => compClass = typeof(HediffComp_PhobosOnOxygen);
+    public HediffCompProperties_PhobosTreatment() => compClass = typeof(HediffComp_PhobosTreatment);
 }
 
-public class HediffComp_PhobosOnOxygen : HediffComp
+public class HediffComp_PhobosTreatment : HediffComp
 {
     int lastSupplyTick = -1;
 
     public void Refresh() => lastSupplyTick = Find.TickManager.TicksGame;
 
     public override bool CompShouldRemove =>
-        lastSupplyTick >= 0 && Find.TickManager.TicksGame > lastSupplyTick + PhobosRulesDef.Current<PhobosMedicalRulesDef>().oxygenLingerTicks;
+        lastSupplyTick >= 0 && Find.TickManager.TicksGame > lastSupplyTick + PhobosRulesDef.Current<PhobosMedicalRulesDef>().treatmentLingerTicks;
 
     public override void CompExposeData()
     {
         base.CompExposeData();
         Scribe_Values.Look(ref lastSupplyTick, "PhobosMedical_LastSupplyTick", -1);
     }
+}
 
+public class HediffCompProperties_PhobosOnOxygen : HediffCompProperties_PhobosTreatment
+{
+    public HediffCompProperties_PhobosOnOxygen() => compClass = typeof(HediffComp_PhobosOnOxygen);
+}
+
+public class HediffComp_PhobosOnOxygen : HediffComp_PhobosTreatment
+{
     public override string CompTipStringExtra
     {
         get

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <!-- The injuries a burn unit bed eases: the game's four burn kinds. Any mod can mark its own burn Def with the same extension. -->
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>Defs/HediffDef[defName="Burn"]</xpath>
+    <value>
+      <li Class="Phobos.Medical.Defs.PhobosBurnCareExtension"/>
+    </value>
+  </Operation>
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>Defs/HediffDef[defName="ElectricalBurn"]</xpath>
+    <value>
+      <li Class="Phobos.Medical.Defs.PhobosBurnCareExtension"/>
+    </value>
+  </Operation>
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>Defs/HediffDef[defName="ChemicalBurn"]</xpath>
+    <value>
+      <li Class="Phobos.Medical.Defs.PhobosBurnCareExtension"/>
+    </value>
+  </Operation>
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>Defs/HediffDef[defName="AcidBurn"]</xpath>
+    <value>
+      <li Class="Phobos.Medical.Defs.PhobosBurnCareExtension"/>
+    </value>
+  </Operation>
+</Patch>

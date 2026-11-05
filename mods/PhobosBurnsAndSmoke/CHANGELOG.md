@@ -5,6 +5,11 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+### Compatibility and limits
+
+- The owner's report in game, 5 November 2026: burn numbers, how conditions progress, and the More Injuries and Organ Failure tie-ins work.
+  Faster carbon monoxide clearing on oxygen is the owner's inference, not an observation. The tracheotomy is unproven.
+
 ## [0.4.2] - 2026-11-05 - Draft
 
 No change in play. Not yet tested in game.

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <!-- Combat Extended's burn from incendiary ammunition and lasers counts too. -->
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>Defs/HediffDef[defName="BurnSecondary"]</xpath>
+    <value>
+      <li Class="Phobos.Medical.Defs.PhobosBurnCareExtension"/>
+    </value>
+  </Operation>
+</Patch>

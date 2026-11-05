@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- Both figures are authored. The game's healing factor speeds all of a patient's injuries, not only the burns: a simplification. -->
+  <HediffDef>
+    <defName>PhobosMedical_OnAirCells</defName>
+    <label>on air cells</label>
+    <labelNoun>air-cell care</labelNoun>
+    <description>This burned patient is lying on a bed of air-filled cells, which keep weight off damaged skin. Wounds heal faster and hurt less. It stops soon after the patient leaves the bed or the blower stops.</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <defaultLabelColor>(0.55, 0.8, 0.95)</defaultLabelColor>
+    <isBad>false</isBad>
+    <tendable>false</tendable>
+    <everCurableByItem>false</everCurableByItem>
+    <scenarioCanAdd>false</scenarioCanAdd>
+    <comps>
+      <li Class="Phobos.Medical.Comps.HediffCompProperties_PhobosTreatment"/>
+    </comps>
+    <stages>
+      <li>
+        <painFactor>0.85</painFactor>
+        <statFactors>
+          <InjuryHealingFactor>1.25</InjuryHealingFactor>
+        </statFactors>
+      </li>
+    </stages>
+  </HediffDef>
+</Defs>

@@ -20,7 +20,7 @@ public static class OxygenService
         var rules = PhobosRulesDef.Current<PhobosMedicalRulesDef>();
         IEnumerable<Pawn> needing = PatientsInLinkedBeds(machine.Facility).Where(pawn => NeedsOxygen(pawn, rules));
         List<Pawn> patients = OxygenRule.WorstFirst(needing, Breathing, machine.Props.maxPatients);
-        foreach (Pawn patient in patients) Give(patient);
+        foreach (Pawn patient in patients) MedicalTreatment.GiveOrRefresh(patient, MedicalDefOf.PhobosMedical_OnOxygen);
         CompRefuelable? fuel = machine.Fuel;
         if (fuel != null && patients.Count > 0)
             fuel.ConsumeFuel(OxygenRule.FuelForInterval(patients.Count, machine.Props.fuelPerPatientHour, intervalTicks));
@@ -52,13 +52,5 @@ public static class OxygenService
             if (linked is not Building_Bed bed) continue;
             foreach (Pawn occupant in bed.CurOccupants) yield return occupant;
         }
-    }
-
-    /// <summary>Start the treatment, or keep it going. The condition lapses by itself once nothing refreshes it.</summary>
-    static void Give(Pawn patient)
-    {
-        Hediff? onOxygen = patient.health.hediffSet.GetFirstHediffOfDef(MedicalDefOf.PhobosMedical_OnOxygen);
-        onOxygen ??= patient.health.AddHediff(MedicalDefOf.PhobosMedical_OnOxygen);
-        onOxygen?.TryGetComp<HediffComp_PhobosOnOxygen>()?.Refresh();
     }
 }

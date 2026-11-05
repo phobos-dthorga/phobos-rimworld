@@ -5,6 +5,39 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-11-05 - Draft
+
+A burn unit bed, the owner's go after their Burns and Smoke results. Not yet tested in game.
+
+### Added
+
+- Burn unit bed: a hospital bed with an air-cell mattress and a blower. While it has power, a patient with an open burn gets the on air
+  cells condition: wounds heal 25% faster and pain falls by 15%. It works by itself and lapses soon after the patient leaves or the power
+  stops. Its better tend quality lowers infection through the game's own rule, powered or not.
+- Burns from the game's four kinds and Combat Extended's incendiary burn count. Other mods can mark their own in XML.
+- The art is the owner's pick. It is AI-generated, by a model trained in private on 60 of the game's sprites; the record beside it has the
+  details. North and east are the south view turned, as it is drawn from directly above.
+
+### Changed
+
+- The uninstall button now removes every treatment condition, and its wording says so.
+
+### Fixed
+
+- The load line said 0.1.0 in version 0.1.1. It now matches.
+
+### Balance
+
+- All the bed's figures are authored: healing, pain, tend quality, comfort, power and cost. None has a clinical source.
+
+### Compatibility and limits
+
+- The healing speeds all of the patient's wounds, not only the burns.
+
+### Save compatibility
+
+- Safe to add to a running colony. Before removing the mod, deconstruct the beds as well as the machines.
+
 ## [0.1.1] - 2026-11-05 - Draft
 
 New art for the bedside oxygen stand, picked by the owner. The new art is not yet tested in game. The owner reports that a patient's breathing improves on the oxygen concentrator (tested on 0.1.0); the bedside stand is not yet tested in game.

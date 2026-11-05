@@ -1,6 +1,6 @@
 # Burns and smoke: research and decisions (4 Nov 2026)
 
-The record behind [D'thorga Burns and Smoke](../../mods/PhobosBurnsAndSmoke/README.md). **0.3.0 not yet tested in game**
+The record behind [D'thorga Burns and Smoke](../../mods/PhobosBurnsAndSmoke/README.md). **The owner reports burn numbers, progression and the tie-ins working (5 Nov 2026, on 0.4.2); carbon monoxide on oxygen is inferred, and the tracheotomy unproven**
 (0.1.0 was seen in play once; see Results from play). It is the
 first consumer of [D'thorga Framework](phobos-framework.md).
 

@@ -30,7 +30,7 @@ public class MedicalEquipmentSettings : ModSettings
 public class MedicalEquipmentMod : Mod
 {
     public const string PackageId = "PhobosDthorga.MedicalEquipment";
-    public const string ModVersion = "0.1.0";
+    public const string ModVersion = "0.2.0";
     public const string LogPrefix = "[D'thorga Medical Equipment]";
     const string VanillaGravshipExpanded = "vanillaexpanded.gravship";
 
@@ -49,6 +49,7 @@ public class MedicalEquipmentMod : Mod
     {
         var report = new LoadReport(LogPrefix, ModVersion);
         report.On("oxygen concentrator");
+        report.On("burn unit bed");
         const string stand = "bedside oxygen stand";
         if (OptionalMods.IsActive(VanillaGravshipExpanded)) report.On(stand); else report.Off(stand, "needs Vanilla Gravship Expanded's oxygen");
         report.Log();

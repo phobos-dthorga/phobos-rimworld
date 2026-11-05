@@ -4,14 +4,16 @@
   <name>D'thorga Medical Equipment</name>
   <author>Phobos A. D'thorga</author>
   <url>https://github.com/phobos-dthorga/phobos-rimworld</url>
-  <modVersion>0.1.1</modVersion>
+  <modVersion>0.2.0</modVersion>
   <description>Hospital equipment for the injuries D'thorga Burns and Smoke and More Injuries bring. This first version gives patients oxygen.
 
 - Oxygen concentrator: a bedside machine that makes oxygen from the air. It needs only power.
 
 - Bedside oxygen stand: burns Vanilla Gravship Expanded's oxygen canisters and refills from its oxygen pipes. It only exists when that mod is active.
 
-Build either one beside a hospital bed, as you would a vitals monitor. A patient in that bed who needs oxygen gets it without anyone being told. With D'thorga Burns and Smoke, carbon monoxide clears about four times faster. It helps low breathing, but it does not repair lungs, and it cannot help if the airway is closed.
+- Burn unit bed: a hospital bed with an air-cell mattress. While its blower runs, a patient with open burns heals faster and hurts less.
+
+Build either oxygen machine beside a hospital bed, as you would a vitals monitor. A patient in that bed who needs oxygen gets it without anyone being told. With D'thorga Burns and Smoke, carbon monoxide clears about four times faster. It helps low breathing, but it does not repair lungs, and it cannot help if the airway is closed.
 
 Needs D'thorga Framework and Vanilla Expanded Framework. Safe to add to a running colony. No Harmony needed.
 
