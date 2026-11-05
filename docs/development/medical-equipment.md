@@ -1,6 +1,6 @@
 # Medical equipment: research and decisions (5 Nov 2026)
 
-The record behind [D'thorga Medical Equipment](../../mods/PhobosMedicalEquipment/README.md). **The owner reports a patient's breathing improving on oxygen (5 Nov 2026, on 0.1.0); the rest is not yet tested in game.** The wider plan, with the oxygen chain and the art, is in the [art automation and medical equipment design](art-automation-and-medical-equipment.md).
+The record behind [D'thorga Medical Equipment](../../mods/PhobosMedicalEquipment/README.md). **The owner reports a patient's breathing improving on the concentrator (5 Nov 2026, on 0.1.0); the bedside stand and the rest are not yet tested in game.** The wider plan, with the oxygen chain and the art, is in the [art automation and medical equipment design](art-automation-and-medical-equipment.md).
 
 ## The problem
 

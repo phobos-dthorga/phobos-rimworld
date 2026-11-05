@@ -7,7 +7,7 @@ tested in game unless an entry says the owner tested it.
 
 ## [0.1.1] - 2026-11-05 - Draft
 
-New art for the bedside oxygen stand, picked by the owner. The new art is not yet tested in game. The owner reports that a patient's breathing improves on oxygen (tested on 0.1.0; which machine was not stated).
+New art for the bedside oxygen stand, picked by the owner. The new art is not yet tested in game. The owner reports that a patient's breathing improves on the oxygen concentrator (tested on 0.1.0); the bedside stand is not yet tested in game.
 
 ### Changed
 
