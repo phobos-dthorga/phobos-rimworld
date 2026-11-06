@@ -46,7 +46,13 @@ public static class TriageText
         {
             detail = "PhobosTriage_DetailCrippled".Translate(entry.Worst.LabelBase.Named("CONDITION"));
         }
-        if (entry.Queued != null) detail += " " + "PhobosTriage_DetailQueued".Translate(entry.Queued.LabelCap.Named("OPERATION"));
+        if (entry.Held && entry.HoldReason != null)
+        {
+            detail += " " + (entry.Queued != null
+                ? "PhobosTriage_DetailQueued".Translate(entry.Queued.LabelCap.Named("OPERATION")) + " " + "PhobosTriage_DetailHeldQueued".Translate(entry.HoldReason.Named("WHY"))
+                : "PhobosTriage_DetailHeld".Translate(entry.HoldReason.Named("WHY")));
+        }
+        else if (entry.Queued != null) detail += " " + "PhobosTriage_DetailQueued".Translate(entry.Queued.LabelCap.Named("OPERATION"));
         else if (entry.Refusal != Refusal.None) detail += " " + "PhobosTriage_DetailNoOne".Translate(RefusalText(entry.Refusal).Named("WHY"));
         return "PhobosTriage_InspectLine".Translate(("PhobosTriage_Category" + entry.Category).Translate().Named("CATEGORY"), detail.Named("DETAIL"));
     }

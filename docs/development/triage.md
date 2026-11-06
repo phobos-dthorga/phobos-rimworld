@@ -58,6 +58,12 @@ Read: Search and Rescue 0.1.0-alpha.24 (decompile of 3 November, alpha.23, plus 
   (`Hediff_ChemicalDependency`) or one that creates a chemical need (`chemicalNeed`) is skipped by the whole pass. No installed
   recipe removes one (checked 6 Nov 2026); those messages came from 0.1.0's fault of messaging conditions no operation removes,
   which 0.1.1 also fixes. Rules Def flag `excludeChemicalDependencies`, on.
+- **Surgery holds** (0.2.0; the owner's thread with D'thorga Medical Equipment, 7 Nov 2026; agent choices on the details): the
+  Framework's `Patients.SurgeryBarred(pawn, out reason)` (0.4.0) reports a hold another mod registered, with an in-world reason
+  that mod translated. While held, the planner queues nothing new and withdraws nothing for the hold (stale bills still go when
+  the condition is gone or the authority changes), the work giver's list leaves the patient out, and the inspect line and one
+  message per patient and killing condition carry the reason. A held operation counts as feasible, so the tag is immediate or
+  urgent by the clock, not expectant. Triage holds no reference to the mod that owns the hold.
 - **Any repair** (0.1.1): with that authority, a condition classed other is also queued when an operation removes it; such
   conditions never set the tag.
 - **Classed by effect, never by name** (owner's standing rule). Lethal: the game's own life-threatening flag on the current

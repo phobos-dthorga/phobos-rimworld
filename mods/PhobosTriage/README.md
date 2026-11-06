@@ -2,12 +2,12 @@
 
 Doctors queue the life-saving operations a patient needs, and take the worst case first.
 
-Version 0.1.2, built 7 November 2026 for House D'thorga. **Not yet tested in game.** Everything here is read from the game's and
+Version 0.2.0, built 7 November 2026 for House D'thorga. **Not yet tested in game.** Everything here is read from the game's and
 the mods' code.
 
 ## Read this first (gotchas)
 
-- **Needs D'thorga Framework 0.3.0 or later**, loaded before it. No Harmony. More Injuries, Search and Rescue and Hospitality are
+- **Needs D'thorga Framework 0.4.0 or later**, loaded before it. No Harmony. More Injuries, Search and Rescue and Hospitality are
   not needed and are never looked for by name: any mod's operation qualifies if its recipe removes a condition.
 - **Safe to add to a running colony.** It saves the list of bills it queued, so it can withdraw its own and never yours, and each
   person's choice on the button. **Safe to remove:** the bills it queued stay as ordinary bills; the next load prints one line about
@@ -26,6 +26,9 @@ the mods' code.
 - **When no one can do an operation a killing condition needs, a message says what is missing** (skill, a tool, research,
   risk), once per person and condition (a reload may repeat it). The patient's inspect line reads expectant: dying, with nothing
   to be done until that changes.
+- **Some places hold surgery** (D'thorga Medical Equipment 0.4.1's hyperbaric chamber is the first). While a patient is in one,
+  nothing new is queued and a bill already there stays; doctors don't go to them for it. The inspect line and one message give
+  the reason and what to do, such as moving them to a bed. They are tagged by their clock, never expectant.
 - **Drug addictions and dependencies are left alone** (psychite, go-juice, a gene that needs a drug): never operated on, tagged or
   named in a message. Their treatment is the drug, your drug policy and time.
 - **Oxygen, rest and time are not operations.** A killing condition no operation removes (carbon monoxide poisoning, burn shock,
@@ -62,6 +65,8 @@ flowchart TD
     Crippling --> Allowed
     Other --> Allowed
     Allowed -- "no" --> Tag
+    Allowed -- "yes, but something holds them from surgery<br/>(such as a pressure chamber)" --> Held["Nothing queued yet; message and inspect line<br/>say it must wait and why"]
+    Held --> Tag
     Allowed -- "yes, and no bill for it yet" --> Choose{"Among those operations:<br/>researched, a skilled doctor free,<br/>ingredients in stock, care allows the medicine,<br/>risk within the setting"}
     Choose -- "the likeliest to succeed, then the cheapest" --> Bill["Bill queued through the game;<br/>a killing condition's bill goes to the top"]
     Choose -- "none" --> Why["Message: what is missing<br/>(killing conditions only)"]

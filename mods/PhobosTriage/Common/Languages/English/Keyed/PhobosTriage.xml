@@ -39,8 +39,12 @@
   <PhobosTriage_DetailCrippled>{CONDITION} is crippling them.</PhobosTriage_DetailCrippled>
   <PhobosTriage_DetailQueued>Operation queued: {OPERATION}.</PhobosTriage_DetailQueued>
   <PhobosTriage_DetailNoOne>No one can operate: {WHY}.</PhobosTriage_DetailNoOne>
+  <!-- {WHY} is a whole sentence written by whatever holds the patient from surgery, such as a pressure chamber. -->
+  <PhobosTriage_DetailHeld>An operation must wait. {WHY}</PhobosTriage_DetailHeld>
+  <PhobosTriage_DetailHeldQueued>It must wait. {WHY}</PhobosTriage_DetailHeldQueued>
 
   <PhobosTriage_MessageQueued>{PATIENT}: the doctors will operate. {OPERATION}, for {CONDITION}.</PhobosTriage_MessageQueued>
+  <PhobosTriage_MessageHeld>{PATIENT}: {CONDITION} needs an operation, and it must wait. {WHY}</PhobosTriage_MessageHeld>
   <PhobosTriage_MessageNoOne>{PATIENT}: {CONDITION} needs an operation and no one here can do it: {WHY}.</PhobosTriage_MessageNoOne>
 
   <PhobosTriage_RefusalItem>an ingredient or tool is missing</PhobosTriage_RefusalItem>

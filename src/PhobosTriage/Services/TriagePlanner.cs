@@ -24,8 +24,12 @@ public sealed class TriageEntry
     public Refusal Refusal;
     /// <summary>The worst condition is lethal and field care cannot hold it.</summary>
     public bool NeedsOperation;
-    /// <summary>A bill for the worst condition is on the patient, ours or the player's.</summary>
+    /// <summary>A bill for the worst condition is on the patient, ours or the player's, or would be but for a hold.</summary>
     public bool Feasible;
+    /// <summary>The worst condition's operation is held by something another mod registered (a patient in a pressure chamber).</summary>
+    public bool Held;
+    /// <summary>Why surgery on this patient must wait, already translated by the mod that owns the hold; null when nothing holds it.</summary>
+    public string? HoldReason;
 }
 
 /// <summary>
@@ -43,6 +47,8 @@ public static class TriagePlanner
     static readonly List<Bill> ownBills = new();
     /// <summary>Patients and conditions already told about: one "no one can operate" message each. Derived; a reload may repeat one.</summary>
     static readonly HashSet<(int, HediffDef)> told = new();
+    /// <summary>Patients and conditions already told their operation must wait. Derived, like the set above.</summary>
+    static readonly HashSet<(int, HediffDef)> toldHeld = new();
 
     public static void Run(Map map, List<TriageEntry> entries, List<Thing> patientsWithBills)
     {
@@ -60,7 +66,8 @@ public static class TriagePlanner
         for (int i = 0; i < pawns.Count; i++)
         {
             Pawn pawn = pawns[i];
-            if (pawn.BillStack != null && pawn.InBed() && pawn.BillStack.AnyShouldDoNow) patientsWithBills.Add(pawn);
+            // A patient something holds from surgery (another mod's registered bar) is left out of the doctors' ordered list.
+            if (pawn.BillStack != null && pawn.InBed() && pawn.BillStack.AnyShouldDoNow && !Patients.SurgeryBarred(pawn, out _)) patientsWithBills.Add(pawn);
             if (Patients.GroupOf(pawn) == null) continue;
             TriageEntry entry = Assess(pawn, map, settings, rules, ledger, limits, thresholds, bands);
             entries.Add(entry);
@@ -74,6 +81,9 @@ public static class TriagePlanner
         TriageAuthority authority = settings.enabled ? (TriageAuthority)PatientPreferences.Choice(pawn, TriagePreferences.Authority) : TriageAuthority.None;
         bool careOk = Patients.CareAllows(pawn, MedicalCareCategory.NoMeds, false);
         bool doctorExists = Doctors.AnyAvailableFor(pawn);
+        // While something holds this patient from surgery, nothing new is queued and no bill is withdrawn for it (agent choice, 7 Nov 2026).
+        bool barred = Patients.SurgeryBarred(pawn, out string? holdReason);
+        entry.HoldReason = holdReason;
         float bleedHours = ConditionDanger.HoursUntilBloodLossDeath(pawn);
         classes.Clear();
         List<Hediff> hediffs = pawn.health.hediffSet.hediffs;
@@ -93,13 +103,24 @@ public static class TriagePlanner
                 reading.SeverityPerDay, hediff.BleedRate > 0f ? bleedHours : -1f);
             Bill_Medical? existing = FindBill(pawn, hediff);
             Refusal refusal = Refusal.None;
+            bool held = false;
             // Only a condition some operation removes is ever queued or reported: oxygen, rest and time are not operations.
             if (existing == null && operations.Count > 0 && careOk && AuthorityRule.Allows(authority, conditionClass) && pawn.BillStack.Count < rules.maxBillsPerPatient)
             {
-                existing = TryQueue(pawn, map, hediff, conditionClass, operations, doctorExists, limits, rules, settings, ledger, out refusal);
+                if (barred)
+                {
+                    held = true;
+                    TellHeld(pawn, hediff, conditionClass, holdReason!, settings);
+                }
+                else
+                {
+                    existing = TryQueue(pawn, map, hediff, conditionClass, operations, doctorExists, limits, rules, settings, ledger, out refusal);
+                }
             }
+            if (existing != null && barred) held = true;
             bool needsOperation = conditionClass == ConditionClass.Lethal && !hediff.def.tendable && operations.Count > 0;
-            bool feasible = existing != null;
+            // A held operation is waiting, not impossible: the patient is tagged by their clock, never expectant.
+            bool feasible = existing != null || held;
             if (conditionClass == ConditionClass.Other) continue;
             if (conditionClass > entry.WorstClass || (conditionClass == entry.WorstClass && hours < entry.HoursToDeath))
             {
@@ -110,6 +131,7 @@ public static class TriagePlanner
                 entry.Refusal = refusal;
                 entry.NeedsOperation = needsOperation;
                 entry.Feasible = feasible;
+                entry.Held = held;
             }
         }
         if (ledger != null) WithdrawStale(pawn, ledger, careOk, authority);
@@ -166,6 +188,14 @@ public static class TriagePlanner
                 hediff.LabelBase.Named("CONDITION")), pawn, MessageTypeDefOf.NeutralEvent);
         }
         return bill;
+    }
+
+    /// <summary>One message per patient and killing condition while its operation must wait, with the reason the hold's owner gave.</summary>
+    static void TellHeld(Pawn pawn, Hediff hediff, ConditionClass conditionClass, string reason, TriageSettings settings)
+    {
+        if (conditionClass != ConditionClass.Lethal || !settings.messages || !toldHeld.Add((pawn.thingIDNumber, hediff.def))) return;
+        Messages.Message("PhobosTriage_MessageHeld".Translate(pawn.LabelShort.Named("PATIENT"), hediff.LabelBase.Named("CONDITION"), reason.Named("WHY")),
+            pawn, MessageTypeDefOf.NeutralEvent);
     }
 
     /// <summary>The part the recipe would be billed on for this condition, or false when the recipe does not apply right now.</summary>

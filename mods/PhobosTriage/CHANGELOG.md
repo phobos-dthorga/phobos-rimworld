@@ -5,9 +5,27 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-11-07 - Draft
+
+Operations wait while something holds the patient from surgery. Not yet tested in game.
+
 ### Added
 
+- A patient that another mod says can't be operated on for now (D'thorga Medical Equipment 0.4.1's hyperbaric chamber is the
+  first) is held: nothing new is queued for them, a bill already there stays, and doctors taking the worst case first skip them.
+  Their inspect line and one message per condition say the operation must wait and why, in the words of whatever holds them,
+  such as moving them to a bed. A held patient is tagged by their clock, never expectant (agent choice, 7 November 2026).
 - A Workshop preview picture: a generated background the owner picked (7 November 2026), with the name added by script. No change in play.
+
+### Dependencies
+
+- D'thorga Framework 0.4.0 or later, for its surgery holds.
+
+### Compatibility and limits
+
+- Closes the limit D'thorga Medical Equipment 0.4.0 recorded: Triage queued an operation for a patient in the chamber and said it
+  was queued while no doctor could start it. The game's own operate giver may still look at a held patient; Medical Equipment's
+  rule refuses the job.
 
 ## [0.1.2] - 2026-11-07 - Draft
 
