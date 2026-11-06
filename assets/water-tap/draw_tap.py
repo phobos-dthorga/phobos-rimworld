@@ -1,22 +1,18 @@
-"""Draw D'thorga Water Tap's building texture and Workshop preview with Pillow. No image generator, no source images.
+"""Draw the bottle tap's layout drawing with Pillow, the reference the image generator redraws. No image generator, no source images.
 
     python assets/water-tap/draw_tap.py
-    python assets/water-tap/draw_tap.py --reference   (only the large drawing, as a reference for the image generator; it is not
-                                                         tracked on main, and the art-references branch keeps a copy)
 
-Needs Pillow. Run it with any Python that has it (the repository's Python doesn't need it for anything else).
-Writes mods/PhobosWaterTap/Common/Textures/Phobos/WaterTap/BottleTap.png and mods/PhobosWaterTap/About/Preview.png.
+Needs Pillow. Run it with any Python that has it (the repository's Python doesn't need it for anything else). Writes
+assets/water-tap/references/BottleTap-large.png, which is not tracked on main; the art-references branch keeps a copy. Since 7 Nov
+2026 the game texture and the Workshop preview are generated art the owner picked, so this no longer writes them and can't overwrite them.
 """
 import datetime as dt
 import hashlib
-import sys
 from pathlib import Path
 
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image, ImageDraw
 
 ROOT = Path(__file__).resolve().parents[2]
-TEXTURE = ROOT / 'mods/PhobosWaterTap/Common/Textures/Phobos/WaterTap/BottleTap.png'
-PREVIEW = ROOT / 'mods/PhobosWaterTap/About/Preview.png'
 REFERENCE = ROOT / 'assets/water-tap/references/BottleTap-large.png'
 
 # Drawn large and scaled down, which smooths the edges.
@@ -61,44 +57,18 @@ def draw_tap(final=FINAL):
     return image if final is None else image.resize((final, final), Image.LANCZOS)
 
 
-def draw_preview(tap):
-    """A plain placeholder: the tap on a dark ground, with the mod's name."""
-    image = Image.new('RGBA', (640, 360), (24, 28, 32, 255))
-    draw = ImageDraw.Draw(image)
-    for x in range(0, 640, 40):
-        draw.line((x, 0, x, 360), fill=(32, 37, 42, 255))
-    for y in range(0, 360, 40):
-        draw.line((0, y, 640, y), fill=(32, 37, 42, 255))
-    draw.rectangle((16, 16, 623, 343), outline=(86, 158, 204, 255), width=3)
-    large = tap.resize((192, 192), Image.LANCZOS)
-    image.alpha_composite(large, (48, 84))
-    font = ImageFont.truetype('arialbd.ttf', 40)
-    small = ImageFont.truetype('arial.ttf', 22)
-    draw.text((270, 118), "D'thorga", font=font, fill=(236, 236, 232, 255))
-    draw.text((270, 164), 'Water Tap', font=font, fill=(236, 236, 232, 255))
-    draw.text((270, 222), 'Bottled water on tap, for', font=small, fill=(170, 200, 216, 255))
-    draw.text((270, 250), 'Dubs Bad Hygiene', font=small, fill=(170, 200, 216, 255))
-    return image
-
-
 def write_reference():
     REFERENCE.parent.mkdir(parents=True, exist_ok=True)
     draw_tap(final=None).save(REFERENCE, optimize=True)
     digest = hashlib.sha256(REFERENCE.read_bytes()).hexdigest()
     REFERENCE.with_suffix('.record.md').write_text(
         f'# BottleTap, large\n\nThe {WORK} x {WORK} px drawing of the bottle tap before scaling down, from '
-        f'`assets/water-tap/draw_tap.py --reference`, {dt.date.today():%d %B %Y}. No image generator, game art or other author\'s art '
+        f'`assets/water-tap/draw_tap.py`, {dt.date.today():%d %B %Y}. No image generator, game art or other author\'s art '
         f'was used. SHA-256 `{digest}`.\n\n'
         'The image generator is given it as a reference, to keep the layout: spout and handle at the back, so a stack of bottles in '
         'the middle does not hide them. It does not ship in a mod.\n', encoding='utf-8')
     print(f'wrote {REFERENCE}')
 
 
-if __name__ == '__main__' and '--reference' in sys.argv:
+if __name__ == '__main__':
     write_reference()
-elif __name__ == '__main__':
-    tap = draw_tap()
-    TEXTURE.parent.mkdir(parents=True, exist_ok=True)
-    tap.save(TEXTURE)
-    draw_preview(tap).convert('RGB').save(PREVIEW)
-    print(f'wrote {TEXTURE} and {PREVIEW}')

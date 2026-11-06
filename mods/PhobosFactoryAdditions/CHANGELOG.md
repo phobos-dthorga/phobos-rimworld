@@ -7,6 +7,7 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 ### Changed
 
+- The Workshop preview is a generated background the owner picked (7 November 2026), with the name added by script, in place of the placeholder. No change in play.
 - The description now carries the disclaimer in the wording Ludeon's EULA requires. It said only that the mod is not official and not endorsed. No behaviour change.
 
 ### Compatibility and limits

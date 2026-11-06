@@ -34,7 +34,7 @@ builds every project and installs every mod, with RimWorld closed.
   `--build` builds every project, tie-ins included.
 - **Rule tests compile only `src/<Project>/Rules/*.cs`** (the physics project its own folder), so they need neither the game nor
   any mod and run anywhere the .NET SDK does.
-- Water Tap's texture and preview are redrawn by `assets/water-tap/draw_tap.py`, with any Python that has Pillow.
+- Water Tap's texture and preview are generated art the owner picked (7 Nov 2026); `assets/water-tap/draw_tap.py` draws only the tap's layout reference.
 
 ### History
 

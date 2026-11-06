@@ -1,0 +1,15 @@
+{
+  "target": "mods/PhobosWaterTap/Common/Textures/Phobos/WaterTap/BottleTap.png",
+  "source": "assets/water-tap/generated/bottle-tap-redraw/bottle-tap-redraw-12.png",
+  "source_sha256": "4af49e969a274963991b62e91a223cc8b8f272f04edeede4e2b3ec2a6a0ae69e",
+  "target_sha256": "0acad8c50b4c8e95ee525c88c44b7761e56817c164a0f4719feed79b4be2b570",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "date": "2026-11-07T08:31:10",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

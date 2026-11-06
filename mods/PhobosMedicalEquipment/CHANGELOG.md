@@ -5,6 +5,10 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+### Changed
+
+- The Workshop preview's lettering has a thin dark edge, so it reads on light backgrounds too.
+
 ## [0.3.0] - 2026-11-07 - Draft
 
 The rest of the oxygen kit and the field kit the owner asked for (7 November 2026): a pressure chamber, two devices doctors use by

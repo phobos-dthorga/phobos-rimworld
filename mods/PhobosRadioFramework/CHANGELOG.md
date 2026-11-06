@@ -5,6 +5,11 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+### Changed
+
+- Generated art the owner picked (7 November 2026) in place of five placeholders: the hand-held radio, the mast (a guyed lattice tower), the signal and feedline icons, and the whip antenna, which uses a thin lattice mast as a stand-in until a whip is picked. The mast and whip are drawn at their real shape, tall and narrow, instead of a square. Each passed the near-copy check; the record beside each texture says how it was made. The base station and the feedline keep their placeholders.
+- The Workshop preview is a generated background the owner picked, with the current name added by script.
+
 ### Fixed
 
 - The assembly's own version said 0.1.1 since 0.1.2; it now matches. No change in play.

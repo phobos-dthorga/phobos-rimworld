@@ -5,6 +5,10 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+### Added
+
+- A Workshop preview picture: a generated background the owner picked (7 November 2026), with the name added by script. No change in play.
+
 ## [0.3.1] - 2026-11-06 - Draft
 
 ### Fixed

@@ -3,7 +3,7 @@
     python scripts/art/make_preview.py BACKGROUND "Medical Equipment" "Oxygen and burn care for your hospital" OUT.png
 
 The background is cropped to 16:9 from its centre and scaled to 640 x 360, Steam's usual preview size. The lower third is darkened
-with a gradient so the text reads on any picture; "D'thorga" sits small above the mod's name, and an optional line below it. The
+with a gradient and every letter has a thin dark edge, so the text reads on any picture; "D'thorga" sits small above the mod's name, and an optional line below it. The
 fonts are Windows' Arial, rendered to pixels (agent default for the house layout, for the owner to change). Needs Pillow.
 """
 import argparse
@@ -18,6 +18,8 @@ ACCENT = (214, 170, 92, 255)  # Brass, the house colour on the water tap and the
 SUB_INK = (186, 196, 204, 255)
 SHADE_FROM = 0.52  # Where the darkening starts, as a fraction of the height.
 SHADE_MAX = 225
+OUTLINE = (10, 12, 14, 255)  # A thin dark edge on every letter, so the text reads on a light background too (7 Nov 2026).
+OUTLINE_WIDTH = 2
 
 
 def font(names, size):
@@ -62,10 +64,10 @@ def make_preview(background, title, subtitle=''):
     plain = ['arial.ttf', 'DejaVuSans.ttf']
     left, bottom = 28, SIZE[1] - 26
     if subtitle:
-        draw.text((left, bottom), subtitle, font=font(plain, 20), fill=SUB_INK, anchor='ls')
+        draw.text((left, bottom), subtitle, font=font(plain, 20), fill=SUB_INK, anchor='ls', stroke_width=OUTLINE_WIDTH, stroke_fill=OUTLINE)
         bottom -= 34
-    draw.text((left, bottom), title, font=font(bold, 42), fill=INK, anchor='ls')
-    draw.text((left + 2, bottom - 50), HOUSE, font=font(bold, 20), fill=ACCENT, anchor='ls')
+    draw.text((left, bottom), title, font=font(bold, 42), fill=INK, anchor='ls', stroke_width=OUTLINE_WIDTH, stroke_fill=OUTLINE)
+    draw.text((left + 2, bottom - 50), HOUSE, font=font(bold, 20), fill=ACCENT, anchor='ls', stroke_width=OUTLINE_WIDTH, stroke_fill=OUTLINE)
     return image.convert('RGB')
 
 

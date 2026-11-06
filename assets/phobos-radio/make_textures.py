@@ -1,6 +1,7 @@
-"""Draw the placeholder sprites for the D'thorga Radio Framework in pure Python (zlib only), so every
-image is reproducible from this file. Simple flat shapes in RimWorld's muted palette; replaced before
-the public beta.
+"""Draw the placeholder sprites for the D'thorga Radio Framework that are still placeholders, in pure Python (zlib only), so
+every image is reproducible from this file: the base station and the feedline atlases. Simple flat shapes in RimWorld's muted
+palette; replaced before the public beta. The hand-held radio, mast, whip and both icons are generated art the owner picked (7 Nov
+2026), so this script no longer draws them and can't overwrite them.
 
     python assets/phobos-radio/make_textures.py
 """
@@ -45,19 +46,6 @@ class Canvas:
         print(f'wrote {path}')
 
 
-def handheld():
-    c = Canvas(64)
-    c.rect(22, 14, 42, 56, DARK)          # body
-    c.rect(24, 16, 40, 54, BODY)
-    c.rect(26, 22, 38, 32, SCREEN)        # display
-    for row in range(3):                  # keypad
-        for col in range(3):
-            c.rect(27 + col * 4, 36 + row * 5, 29 + col * 4, 38 + row * 5, LIGHT)
-    c.rect(26, 6, 29, 16, DARK)           # antenna
-    c.rect(27, 4, 28, 16, LIGHT)
-    c.save('Things/Handheld.png')
-
-
 def base_station():
     c = Canvas(128)
     c.rect(10, 40, 118, 118, DARK)        # desk
@@ -72,34 +60,6 @@ def base_station():
     c.rect(98, 14, 102, 54, DARK)         # whip
     c.rect(99, 10, 101, 54, LIGHT)
     c.save('Things/BaseStation.png')
-
-
-def signal_icon():
-    c = Canvas(64)
-    c.rect(8, 44, 16, 56, LIGHT)          # four bars, rising
-    c.rect(20, 36, 28, 56, LIGHT)
-    c.rect(32, 26, 40, 56, LIGHT)
-    c.rect(44, 14, 52, 56, LIGHT)
-    c.save('UI/Signal.png')
-
-
-def whip():
-    c = Canvas(64)                        # drawn at 1 x 1.5 cells: pole and whip
-    c.rect(28, 50, 36, 60, DARK)          # base plate
-    c.rect(31, 20, 33, 50, LIGHT)         # pole
-    c.rect(31, 4, 33, 20, ACCENT)         # the whip itself
-    c.save('Things/Whip.png')
-
-
-def mast():
-    c = Canvas(64)                        # drawn at 1 x 2.5 cells: lattice mast and collinear
-    c.rect(24, 56, 40, 62, DARK)          # base
-    for y in range(8, 56, 6):             # lattice rungs
-        c.rect(27, y, 37, y + 1, LIGHT)
-    c.rect(27, 8, 29, 58, LIGHT)          # legs
-    c.rect(35, 8, 37, 58, LIGHT)
-    c.rect(31, 0, 33, 10, ACCENT)         # collinear on top
-    c.save('Things/Mast.png')
 
 
 COAX_UP, COAX_RIGHT, COAX_DOWN, COAX_LEFT = 1, 2, 4, 8
@@ -123,20 +83,7 @@ def coax_atlas(name, colour, centre):
     c.save(f'Linked/{name}.png')
 
 
-def coax_icon():
-    c = Canvas(64)
-    c.rect(0, 28, 64, 36, DARK)
-    c.rect(0, 30, 64, 34, ACCENT)
-    c.rect(26, 22, 38, 42, DARK)
-    c.save('UI/CoaxIcon.png')
-
-
 if __name__ == '__main__':
-    handheld()
     base_station()
-    signal_icon()
-    whip()
-    mast()
     coax_atlas('Coax_Atlas', DARK, ACCENT)
     coax_atlas('Coax_Blueprint_Atlas', (0x63, 0xA4, 0xE0, 180), (0x8F, 0xBD, 0xE6, 220))
-    coax_icon()

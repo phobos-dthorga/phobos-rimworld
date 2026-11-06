@@ -5,6 +5,10 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+### Added
+
+- A Workshop preview picture: a generated background the owner picked (7 November 2026), with the name added by script. No change in play.
+
 ### Compatibility and limits
 
 - README brought up to date: partly tested in game, Framework 0.3.0 or later, slaves are dosed too, the setting's current name,

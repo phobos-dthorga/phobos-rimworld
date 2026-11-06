@@ -11,6 +11,8 @@ yet. Not yet tested in game unless an entry says the owner tested it.
 
 ### Changed
 
+- The bottle tap has generated art the owner picked (7 November 2026), redrawn from the hand-drawn tap with the spout and handle still at the back. It passed the near-copy check; the record beside the texture says how it was made.
+- The Workshop preview is a generated background the owner picked, with the name added by script, in place of the placeholder.
 - The description now carries the disclaimer in the wording Ludeon's EULA requires. It said only that the mod is not official and not endorsed. No behaviour change.
 
 ## [0.2.1] - 2026-11-04 - Draft

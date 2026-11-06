@@ -80,39 +80,39 @@ machine are good tie-ins once Emergency Dosing has a way for machines to give dr
 
 ### Phobos Radio Framework
 
-All eight textures are flat placeholders from `assets/phobos-radio/make_textures.py` (19 Oct 2026), to be replaced before the public beta.
+Five textures are the owner's picks (7 Nov 2026); the base station and the two feedline atlases are still flat placeholders from `assets/phobos-radio/make_textures.py` (19 Oct 2026).
 
 | Asset | Now | Local model? | Note |
 | --- | --- | --- | --- |
-| Hand-held radio (worn item) | Placeholder; an unpicked candidate sits uncommitted (step 2) | Yes | Small at game size, so it needs a bold silhouette |
+| Hand-held radio (worn item) | Shipped pick: handheld-2 (7 Nov) | | |
 | Base station (2x2) | Placeholder | Yes | Candidates from 19 Oct exist (`assets/phobos-radio/generated`) |
-| Whip antenna (drawn 1x1.5) | Placeholder | Yes | Tall and thin: draw it upright on a tall canvas |
-| Mast (drawn 1x2.5) | Placeholder | Yes | As above; 19 Oct mast candidates exist |
+| Whip antenna (drawn 1x1.5) | Stand-in: mast-remake-12, a thin lattice mast (owner, 7 Nov) | Yes | A real whip still to pick: tall and thin, drawn upright on a tall canvas |
+| Mast (drawn 1x2.5) | Shipped pick: klein-mast-flat-63, a guyed lattice tower (7 Nov) | | |
 | Coax feedline atlas and its blueprint atlas | Placeholder | Script | A 4x4 linked atlas whose edges must line up exactly |
-| Coax build icon and signal gizmo icon | Placeholder | Untested | Listed under button icons below |
-| Workshop preview | Placeholder | Part | Waits on the framework's public name, still an open design question |
+| Coax build icon and signal gizmo icon | Shipped picks: coax-icon-12 and signal-icon-12 (7 Nov) | | |
+| Workshop preview | Shipped pick: workshop-preview-3, titled with the current name by script (7 Nov) | | Remade in one command if the public name changes |
 
 ### D'thorga Water Tap
 
 | Asset | Now | Local model? | Note |
 | --- | --- | --- | --- |
-| Bottle tap (1x1) | Pillow-drawn placeholder (4 Nov), with the spout and handle at the back so a stack of bottles doesn't hide them | Yes | Keep that layout; the current drawing makes a good reference |
-| Workshop preview | Placeholder, "replace before publication" | Part | |
+| Bottle tap (1x1) | Shipped pick: bottle-tap-redraw-12 (7 Nov), the hand-drawn layout redrawn | | |
+| Workshop preview | Shipped pick: preview-water-tap-201 (7 Nov) | | |
 
 ### D'thorga Factory Additions
 
 | Asset | Now | Local model? | Note |
 | --- | --- | --- | --- |
 | Deep factory hopper and automated fabrication bay | Inherit Vanilla Expanded's art through their parent Defs (none of it copied) | Yes | Optional: own art would set them apart from the buildings they extend. Recommendation (agent): low priority |
-| Workshop preview | Placeholder | Part | |
+| Workshop preview | Shipped pick: preview-factory-additions-202 (7 Nov) | | |
 
 ### Button icons (owner, 6 Nov 2026)
 
 | Button | Mod | Now | Needs | Local model? |
 | --- | --- | --- | --- | --- |
 | "Doctors may operate" | D'thorga Triage (button from D'thorga Framework) | Was a giant red X: the code asked for a game texture that doesn't exist (`UI/Icons/Medical/NormalCare`). Fixed in D'thorga Framework 0.3.1. Triage 0.1.2 ships the owner's pick, a scalpel over a red cross (not yet tested in game) | Nothing | Yes: the model did well (7 Nov) |
-| Radio signal sheet | Phobos Radio Framework | Flat placeholder | A proper icon | As above |
-| Coax build icon | Phobos Radio Framework | Flat placeholder | A proper icon | As above |
+| Radio signal sheet | Phobos Radio Framework | Shipped pick: signal-icon-12 (7 Nov) | Nothing | Yes |
+| Coax build icon | Phobos Radio Framework | Shipped pick: coax-icon-12 (7 Nov) | Nothing | Yes |
 | Belt access toggle | D'thorga Factory Additions | Vanilla Expanded's conveyor icon, looked up at run time | Nothing | |
 | Bottle tap's four arrows | D'thorga Water Tap | The game's own plus and minus buttons | Nothing | |
 
@@ -121,8 +121,9 @@ can fail falls back to a visible stand-in of our own, never silently to the red 
 
 ### Mods with no preview yet
 
-D'thorga Framework, D'thorga Burns and Smoke, D'thorga Emergency Dosing, D'thorga Triage, D'thorga Vehicle Patches and D'thorga
-Medical Save Bridge have no `About/Preview.png` (backgrounds for each were generated 6 to 7 Nov, not yet picked). Each needs a preview before the Workshop (Part: generated background,
+Only D'thorga Medical Save Bridge has no `About/Preview.png` now: the owner picked previews for the rest on 7 Nov 2026. Burns and
+Smoke's is a stand-in, since the owner is not satisfied with either background; a new batch for it, and one for the Medical Save
+Bridge, are outstanding. Each needs a preview before the Workshop (Part: generated background,
 scripted name).
 
 ### Needing no art

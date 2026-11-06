@@ -1,0 +1,15 @@
+{
+  "target": "mods/PhobosRadioFramework/Common/Textures/Phobos/Radio/Things/Mast.png",
+  "source": "assets/phobos-radio/generated/klein-mast-flat/klein-mast-flat-63.png",
+  "source_sha256": "5f4ce8163a6edeb89652ecb9412e7b9664de0a355d267291ab255af462b1f178",
+  "target_sha256": "77670b40197cc1fed00948c422df676ba5479707c3abfda74437f48decc334c7",
+  "size": [
+    128,
+    320
+  ],
+  "white_threshold": 250,
+  "soft_edge": 20,
+  "all_white": true,
+  "date": "2026-11-07T08:31:09",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

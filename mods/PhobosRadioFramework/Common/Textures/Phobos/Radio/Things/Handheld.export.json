@@ -1,0 +1,15 @@
+{
+  "target": "mods/PhobosRadioFramework/Common/Textures/Phobos/Radio/Things/Handheld.png",
+  "source": "assets/phobos-radio/generated/handheld/handheld-2.png",
+  "source_sha256": "25cba50e03320a1d4a7f0fa59d4c56eb4fbab531f104452a13e6c7af2be9a917",
+  "target_sha256": "e1fea8cc2c0b19b6b051b41db196155dcd15795d1fe0ee969025cb32062f994d",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "date": "2026-11-07T08:31:09",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

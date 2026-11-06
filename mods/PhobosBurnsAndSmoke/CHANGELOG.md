@@ -5,6 +5,10 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+### Added
+
+- A Workshop preview picture: a generated background the owner picked (7 November 2026), with the name added by script. No change in play. A stand-in: the owner is not yet satisfied with either background.
+
 ### Compatibility and limits
 
 - Correction to 0.5.0: the fire heat's map component is saved by name, so removing the mod prints one harmless line per map on

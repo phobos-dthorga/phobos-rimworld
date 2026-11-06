@@ -5,6 +5,10 @@ yet. Not yet tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+### Added
+
+- A Workshop preview picture: a generated background the owner picked (7 November 2026), with the name added by script. No change in play.
+
 ### Compatibility and limits
 
 - README: supported game versions, where its Harmony comes from, and the turret hull step before removal, in the gotchas.

@@ -1,0 +1,15 @@
+{
+  "target": "mods/PhobosRadioFramework/Common/Textures/Phobos/Radio/UI/Signal.png",
+  "source": "assets/phobos-radio/generated/signal-icon/signal-icon-12.png",
+  "source_sha256": "6a1d8cf62a622f40d0f32154a0f6e2d78346444964b34a78cbf6277b7b66b2fb",
+  "target_sha256": "d5faf0d8092e2a0d96571c7761ab19c0aaed8622034062e9e43749be88b6f0cb",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 250,
+  "soft_edge": 20,
+  "all_white": true,
+  "date": "2026-11-07T08:31:09",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}
