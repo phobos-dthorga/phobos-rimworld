@@ -14,6 +14,7 @@ which are build products and never committed.
 | D’thorga Medical Equipment | `PhobosMedicalEquipment/` | Bedside oxygen: a concentrator and a stand that burns Vanilla Gravship Expanded's canisters, for patients in linked beds |
 | D’thorga Emergency Dosing | `PhobosDosing/` | Doctors give painkillers and sedatives on their own, from any mod's drugs, found by their effects |
 | D’thorga Burns and Smoke | `PhobosBurnsAndSmoke/` | Burned body fraction, burn shock, airway burns with a tracheotomy, smoke-damaged lungs and carbon monoxide, beside More Injuries and Combat Extended |
+| D’thorga Triage | `PhobosTriage/` | Doctors queue the life-saving operations a patient needs, by what each condition does, and take the worst case first |
 
 A mod folder holds:
 

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- The starting values the design says to tune in play. One Def; the first loaded wins. Every figure here is authored
+       unless the comment beside it names a source. Player preferences (the defaults by group, the risk the doctors may take,
+       messages, the order of work) are mod settings. -->
+  <Phobos.Triage.Defs.PhobosTriageRulesDef>
+    <defName>PhobosTriage_Rules</defName>
+    <label>triage rules</label>
+
+    <!-- How often each map's patients are re-read, bills queued or withdrawn, and tags set. -->
+    <recomputeIntervalTicks>250</recomputeIntervalTicks>
+
+    <!-- A vital capacity (consciousness, breathing, blood pumping) at or under this, pushed down by a lasting bad condition, is
+         lethal: the game itself drops a pawn below 0.3 consciousness. -->
+    <lethalCapacityLevel>0.3</lethalCapacityLevel>
+    <!-- A capacity capped at or under this, or a part efficiency or capacity offset at or under the next, cripples (authored). -->
+    <cripplingCapacityLevel>0.5</cripplingCapacityLevel>
+    <cripplingOffset>-0.5</cripplingOffset>
+
+    <!-- The tags: dying within this many hours is immediate; past it urgent. A dying patient with a vital capacity at or under
+         immediateVitalLevel is immediate whatever the clock says (authored). -->
+    <immediateHours>6</immediateHours>
+    <urgentHours>24</urgentHours>
+    <immediateVitalLevel>0.3</immediateVitalLevel>
+
+    <!-- The game's own operations list holds 15 bills; the doctors never queue past it. A bill for a lethal condition goes to
+         the top of the patient's list. -->
+    <maxBillsPerPatient>15</maxBillsPerPatient>
+    <lethalBillsToTop>true</lethalBillsToTop>
+    <!-- An ingredient that is not medicine and is worth at least this much is a rare tool (a thoracoscope, for one), kept for the
+         player's own bills unless the setting allows it (authored). -->
+    <rareToolMarketValue>300</rareToolMarketValue>
+  </Phobos.Triage.Defs.PhobosTriageRulesDef>
+</Defs>

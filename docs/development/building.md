@@ -54,6 +54,11 @@ name) and has no Harmony, so it builds anywhere the .NET SDK is. Its game-free r
 room from its cells, mask and signal choice, the owner's source rule) are tested by `dotnet test tests/PhobosFramework.Rules.Tests`, which also
 runs on GitHub. **Other projects reference it with `ProjectReference ... Private="false"`**, so the framework's DLL ships only in its own mod.
 
+**D'thorga Triage has an assembly since 0.1.0** (6 November 2026): `dotnet build src/PhobosTriage/PhobosTriage.csproj` builds the framework and then
+`mods/PhobosTriage/<version>/Assemblies/PhobosTriage.dll`. It references the game and the framework project only, and has no Harmony. Its game-free rules
+(authority, the class of a condition by its effects, the choice of operation and its refusal, the triage tag and score) are tested by
+`dotnet test tests/PhobosTriage.Rules.Tests`. The framework's health layer it builds on (0.3.0) is tested by the framework's own test project.
+
 **D'thorga Burns and Smoke has an assembly since 0.1.0** (4 November 2026): `dotnet build src/PhobosBurnsAndSmoke/PhobosBurnsAndSmoke.csproj`
 builds the framework and then `mods/PhobosBurnsAndSmoke/1.6/Assemblies/PhobosBurnsAndSmoke.dll`. It references the game and the framework
 project only; More Injuries and Combat Extended are reached through the framework by name. Its game-free rules (burned fraction, the Baux score

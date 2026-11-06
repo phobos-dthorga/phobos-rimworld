@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ModMetaData>
+  <packageId>PhobosDthorga.Triage</packageId>
+  <name>D'thorga Triage</name>
+  <author>Phobos A. D'thorga</author>
+  <url>https://github.com/phobos-dthorga/phobos-rimworld</url>
+  <modVersion>0.1.0</modVersion>
+  <description>Doctors queue the life-saving operations a patient needs, and take the worst case first.
+
+A patient with a condition that is killing them and that only an operation can fix (a collapsed lung, a bleed in the brain, a closing airway, whatever a mod brings) gets the operation queued by the doctors themselves: the one most likely to succeed among those your colony can do, with a doctor skilled enough and the ingredients in stock, never riskier than you allow. When no one can do it, a message says what is missing.
+
+Each colonist, slave, prisoner and guest has a button saying how far the doctors may go without orders: never, to save life (the default for your own people and your prisoners), to save life or a limb, or for any repair. Guests start at never. The defaults by group are settings.
+
+Doctors with several patients take the worst case first, by a triage tag read from how soon each condition kills and how far the patient's vital functions have fallen: immediate, urgent, delayed, minor, or expectant when nothing can be done. Hold Alt or select the patient to see the tag and why.
+
+Any mod's surgery qualifies: operations are found by the condition they remove, never by name. Bills the mod queued are withdrawn once the condition is gone; bills you added are never touched.
+
+Needs D'thorga Framework. No Harmony. Safe to add to a running colony.
+
+Community-created content. Portions of the materials used to create this content/mod are trademarks and/or copyrighted works of Ludeon Studios Inc. All rights reserved by Ludeon. This content/mod is not official and is not endorsed by Ludeon.</description>
+  <supportedVersions>
+    <li>1.6</li>
+    <li>1.7</li>
+  </supportedVersions>
+  <modDependencies>
+    <li>
+      <packageId>PhobosDthorga.Framework</packageId>
+      <displayName>D'thorga Framework</displayName>
+      <downloadUrl>https://github.com/phobos-dthorga/phobos-rimworld</downloadUrl>
+    </li>
+  </modDependencies>
+  <loadAfter>
+    <li>Ludeon.RimWorld</li>
+    <li>PhobosDthorga.Framework</li>
+    <li>Th3Fr3d.ExtendedInjuries</li>
+    <li>ch4acko3.searchandrescue</li>
+    <li>Orion.Hospitality</li>
+    <li>PhobosDthorga.BurnsAndSmoke</li>
+    <li>PhobosDthorga.Dosing</li>
+  </loadAfter>
+</ModMetaData>

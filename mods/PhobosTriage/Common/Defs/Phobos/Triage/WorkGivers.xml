@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- The doctors' order of work: the game's own operate giver (priority 70 in Doctor), copied with a triage score as its
+       priority, placed just above it so an idle doctor goes to the worst case rather than the nearest. Not orderable by
+       right-click, or the menu would show two "operate on" entries; the game's own entry still serves. -->
+  <WorkGiverDef>
+    <defName>PhobosTriageOperate</defName>
+    <label>operate on the worst case first</label>
+    <giverClass>Phobos.Triage.Jobs.WorkGiver_PhobosTriageOperate</giverClass>
+    <workType>Doctor</workType>
+    <priorityInType>75</priorityInType>
+    <verb>operate on</verb>
+    <gerund>operating on</gerund>
+    <billGiversAllHumanlikes>true</billGiversAllHumanlikes>
+    <directOrderable>false</directOrderable>
+    <canBeDoneByMechs>false</canBeDoneByMechs>
+    <requiredCapacities>
+      <li>Manipulation</li>
+    </requiredCapacities>
+    <prioritizeSustains>true</prioritizeSustains>
+  </WorkGiverDef>
+</Defs>

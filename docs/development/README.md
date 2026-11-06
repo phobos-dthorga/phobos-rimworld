@@ -74,6 +74,13 @@ promise current behaviour. For using the mods, start at the [documentation index
   by rule), the owner's effects-not-names rule and the index it produced, the need, safety and choice rules, two upstream
   faults for the owner to report, and the test protocol.
 
+## Triage
+
+- [Triage: research and decisions (6 Nov 2026)](triage.md): what Search and Rescue and More Injuries already do and what neither
+  does (queue surgery), how the game creates, orders and forgets a bill, the owner's choices on authority and defaults, the
+  by-effect classing of conditions, the choice of operation, the tag and score, the shared health layer in the framework, and
+  the test protocol.
+
 ## Water tap
 
 - [Water tap: research and decisions (4 Nov 2026)](water-tap.md): whether anyone had built one (one near miss), how Dubs Bad Hygiene handles bottles and water quality, why a
