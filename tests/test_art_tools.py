@@ -218,3 +218,37 @@ class ArtRunLoadsTests(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+
+class PreviewTests(unittest.TestCase):
+    def setUp(self):
+        try:
+            from PIL import Image
+        except ImportError:
+            self.skipTest('needs Pillow')
+        import make_preview
+        self.make_preview = make_preview
+        self.Image = Image
+
+    def test_any_background_becomes_a_640_by_360_preview(self):
+        for size in ((1280, 720), (1024, 1536), (2000, 500)):
+            preview = self.make_preview.make_preview(self.Image.new('RGB', size, (200, 200, 200)), 'Water Tap', 'A line')
+            self.assertEqual(preview.size, (640, 360))
+
+    def test_the_lower_part_is_darkened_for_the_text_and_the_top_is_not(self):
+        preview = self.make_preview.make_preview(self.Image.new('RGB', (1280, 720), (200, 200, 200)), 'X')
+        self.assertEqual(preview.getpixel((630, 10)), (200, 200, 200))
+        self.assertLess(preview.getpixel((630, 355))[0], 60)
+
+
+class RetrainTests(unittest.TestCase):
+    def test_settings_come_only_from_the_options_given(self):
+        args = lora_experiment.argparse.Namespace(steps=2500, lr=None, resolutions='768,1024')
+        self.assertEqual(lora_experiment.settings_from(args), {'steps': 2500, 'resolutions': [768, 1024]})
+
+    def test_the_new_settings_reach_the_training_config(self):
+        config = lora_experiment.training_config('v2', 'd', 'o', 't', {'steps': 2500, 'resolutions': [768, 1024]})
+        process = config['config']['process'][0]
+        self.assertEqual(process['train']['steps'], 2500)
+        self.assertEqual(process['datasets'][0]['resolution'], [768, 1024])
+        self.assertEqual(process['train']['lr'], lora_experiment.TRAINING['lr'])

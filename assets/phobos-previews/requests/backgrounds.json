@@ -1,0 +1,112 @@
+[
+ {
+  "name": "preview-medical-equipment",
+  "engine": "zimage",
+  "width": 1280,
+  "height": 720,
+  "seeds": [
+   201,
+   202
+  ],
+  "prompt": "A small frontier hospital ward at night: a steel burn unit bed with an air mattress, a bedside oxygen concentrator with a loop of clear tubing, a frosted liquid oxygen vessel outside the window, warm lamp light. A clean digital painting seen from above at a slight angle, muted colours, thick dark outlines, simple flat shading, the lower third kept dark and plain for a title. No text, no letters, no logos, no people."
+ },
+ {
+  "name": "preview-burns-and-smoke",
+  "engine": "zimage",
+  "width": 1280,
+  "height": 720,
+  "seeds": [
+   201,
+   202
+  ],
+  "prompt": "A smoky corridor after a fire: drifting grey smoke, scorched walls, embers on the floor, a bright doorway beyond, an orange glow. A clean digital painting seen from above at a slight angle, muted colours, thick dark outlines, simple flat shading, the lower third kept dark and plain for a title. No text, no letters, no logos, no people."
+ },
+ {
+  "name": "preview-emergency-dosing",
+  "engine": "zimage",
+  "width": 1280,
+  "height": 720,
+  "seeds": [
+   201,
+   202
+  ],
+  "prompt": "A medic's field kit opened on a steel table: syringes, glass vials, blister packs and a tourniquet, under a cold work lamp. A clean digital painting seen from above at a slight angle, muted colours, thick dark outlines, simple flat shading, the lower third kept dark and plain for a title. No text, no letters, no logos, no people."
+ },
+ {
+  "name": "preview-triage",
+  "engine": "zimage",
+  "width": 1280,
+  "height": 720,
+  "seeds": [
+   201,
+   202
+  ],
+  "prompt": "A busy field hospital tent: three cots in a row, coloured triage tags hanging from them, a surgeon's tray of instruments, lantern light. A clean digital painting seen from above at a slight angle, muted colours, thick dark outlines, simple flat shading, the lower third kept dark and plain for a title. No text, no letters, no logos, no people."
+ },
+ {
+  "name": "preview-framework",
+  "engine": "zimage",
+  "width": 1280,
+  "height": 720,
+  "seeds": [
+   201,
+   202
+  ],
+  "prompt": "A tidy engineer's workbench with precision tools laid out in rows, small gears and a schematic blueprint, cool blue light. A clean digital painting seen from above at a slight angle, muted colours, thick dark outlines, simple flat shading, the lower third kept dark and plain for a title. No text, no letters, no logos, no people."
+ },
+ {
+  "name": "preview-vehicle-patches",
+  "engine": "zimage",
+  "width": 1280,
+  "height": 720,
+  "seeds": [
+   201,
+   202
+  ],
+  "prompt": "A rugged armoured truck parked in a frontier garage, a welding torch glowing, spare wheels and tool chests. A clean digital painting seen from above at a slight angle, muted colours, thick dark outlines, simple flat shading, the lower third kept dark and plain for a title. No text, no letters, no logos, no people."
+ },
+ {
+  "name": "preview-medical-save-bridge",
+  "engine": "zimage",
+  "width": 1280,
+  "height": 720,
+  "seeds": [
+   201,
+   202
+  ],
+  "prompt": "An old stone bridge over a dark river at dusk, a lantern on each end, a medical cross painted on a signpost. A clean digital painting seen from above at a slight angle, muted colours, thick dark outlines, simple flat shading, the lower third kept dark and plain for a title. No text, no letters, no logos, no people."
+ },
+ {
+  "name": "preview-water-tap",
+  "engine": "zimage",
+  "width": 1280,
+  "height": 720,
+  "seeds": [
+   201,
+   202
+  ],
+  "prompt": "A steel water tap fixture filling a row of water bottles in a frontier kitchen, droplets catching the light. A clean digital painting seen from above at a slight angle, muted colours, thick dark outlines, simple flat shading, the lower third kept dark and plain for a title. No text, no letters, no logos, no people."
+ },
+ {
+  "name": "preview-factory-additions",
+  "engine": "zimage",
+  "width": 1280,
+  "height": 720,
+  "seeds": [
+   201,
+   202
+  ],
+  "prompt": "A factory floor seen from above: conveyor belts, a large hopper, an automated machining bay with sparks. A clean digital painting seen from above at a slight angle, muted colours, thick dark outlines, simple flat shading, the lower third kept dark and plain for a title. No text, no letters, no logos, no people."
+ },
+ {
+  "name": "preview-radio-framework",
+  "engine": "zimage",
+  "width": 1280,
+  "height": 720,
+  "seeds": [
+   201,
+   202
+  ],
+  "prompt": "A hilltop radio station at night: a tall lattice mast with a red light, a whip antenna on a hut, a glowing transceiver through the window, stars overhead. A clean digital painting seen from above at a slight angle, muted colours, thick dark outlines, simple flat shading, the lower third kept dark and plain for a title. No text, no letters, no logos, no people."
+ }
+]

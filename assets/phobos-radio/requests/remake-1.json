@@ -1,0 +1,104 @@
+[
+ {
+  "name": "handheld-remake",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, A hand-held VHF radio: a small dark olive rectangular body with a short rubber antenna, a round volume knob, a small amber display window and a belt clip. Draw it in exactly the art style of the reference images: a small game item seen from above at a slight angle, with a thick near-black outline around every shape, soft flat cel shading, a muted palette, rounded panel corners and a few small clean details. One object, centred, on a plain pure white background. No floor, no cast shadow, no text, no labels, no people.",
+  "references": [
+   ".local/references/vanilla-medical/MedicineIndustrial_a.png",
+   ".local/references/vanilla-medical/VitalsMonitor_south.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-vanilla.safetensors"
+ },
+ {
+  "name": "base-station-remake",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, A radio base station on a square steel desk: a boxy VHF transceiver with a blank blue display, a small power supply box with an amber light, a coiled microphone cable and a desk microphone. Draw it in exactly the art style of the reference images: a game sprite seen from above at a slight angle, with a thick near-black outline around every shape, soft flat cel shading, a muted palette, rounded panel corners and a few small clean details. One object, centred, on a plain pure white background. No floor, no cast shadow, no text, no labels, no people.",
+  "references": [
+   ".local/references/vanilla-medical/VitalsMonitor_south.png",
+   ".local/references/vanilla-medical/ChemfuelTank_south.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-vanilla.safetensors"
+ },
+ {
+  "name": "whip-remake",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, A whip antenna standing upright: a thin flexible steel rod rising from a heavy round base with a coaxial connector, drawn tall and narrow. Draw it in exactly the art style of the reference images: a game sprite seen from above at a slight angle, with a thick near-black outline around every shape, soft flat cel shading, a muted palette, rounded panel corners and a few small clean details. One object, centred, on a plain pure white background. No floor, no cast shadow, no text, no labels, no people.",
+  "references": [
+   ".local/references/vanilla-medical/VitalsMonitor_south.png",
+   ".local/references/vanilla-medical/OxygenPump_south.png"
+  ],
+  "width": 768,
+  "height": 1152,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-vanilla.safetensors"
+ },
+ {
+  "name": "mast-remake",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, A tall steel lattice radio mast standing upright, with three guy wires, a small antenna at the top and a concrete footing, drawn tall and narrow. Draw it in exactly the art style of the reference images: a game sprite seen from above at a slight angle, with a thick near-black outline around every shape, soft flat cel shading, a muted palette, rounded panel corners and a few small clean details. One object, centred, on a plain pure white background. No floor, no cast shadow, no text, no labels, no people.",
+  "references": [
+   ".local/references/vanilla-medical/VitalsMonitor_south.png",
+   ".local/references/vanilla-medical/PodLauncher_south.png"
+  ],
+  "width": 640,
+  "height": 1600,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-vanilla.safetensors"
+ },
+ {
+  "name": "signal-icon",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, A radio signal icon: a small antenna with three curved signal arcs spreading from its tip. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands.",
+  "references": [
+   ".local/references/vanilla-medical/MedicineIndustrial_a.png",
+   ".local/references/vanilla-medical/MedicineUltratech_a.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-vanilla.safetensors"
+ },
+ {
+  "name": "coax-icon",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, A coil of black coaxial cable with a silver connector on its end. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands.",
+  "references": [
+   ".local/references/vanilla-medical/MedicineIndustrial_a.png",
+   ".local/references/vanilla-medical/MedicineUltratech_a.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-vanilla.safetensors"
+ }
+]

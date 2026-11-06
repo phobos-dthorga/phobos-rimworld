@@ -1,0 +1,59 @@
+[
+ {
+  "name": "oxygen-concentrator-redraw",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, The machine in the first reference image, a bedside oxygen concentrator: a squat pale grey medical cabinet on small castors, a plain box with straight vertical sides that is the same width from top to bottom, with no waist and no narrowing anywhere. A dark window shows two upright green sieve columns, with a round blue flow dial, a small dark slot under the dial, a darker grey band along the base and a loop of clear tubing at the lower right. Keep its shape, layout and colours. Draw it in exactly the art style of the second reference image: a game sprite seen from above at a slight angle, with a thick near-black outline around every shape, soft flat cel shading, a muted palette, rounded panel corners and a few small clean details. One object, centred, on a plain pure white background. No floor, no cast shadow, no text, no labels, no people.",
+  "references": [
+   "assets/phobos-medical/references/OxygenConcentrator-large.png",
+   ".local/references/vanilla-medical/VitalsMonitor_south.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12,
+   13,
+   14
+  ],
+  "lora": "phobos-private-vanilla.safetensors"
+ },
+ {
+  "name": "hyperbaric-chamber-from-stand-in",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, The machine in the first reference image, a hyperbaric oxygen chamber for one patient, seen from directly above with its head end to the top: a long white pressure vessel with rounded ends, a clear acrylic top showing a padded blue patient tray and pillow inside, two dark cradle bands across it, a heavy round grey door with a brass hand wheel at the bottom end, and a small control pedestal with a round pressure gauge beside it. Keep its shape, layout and colours. Redraw it in exactly the art style of the second reference image, seen from directly above, flat and top-down like the first reference, with no tilt and no perspective: a game sprite with a thick near-black outline around every shape, soft flat cel shading, a muted palette and a few small clean details. One object, centred, on a plain pure white background. No floor, no cast shadow, no text, no labels, no people.",
+  "references": [
+   "assets/phobos-medical/references/HyperbaricChamber-large.png",
+   ".local/references/vanilla-medical/BiosculpterPod_south.png"
+  ],
+  "width": 1024,
+  "height": 1536,
+  "seeds": [
+   11,
+   12,
+   13,
+   14
+  ],
+  "lora": "phobos-private-vanilla.safetensors"
+ },
+ {
+  "name": "triage-authority-icon",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, A medical permission icon: a steel scalpel with a dark handle laid diagonally across a bold red medical cross. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands.",
+  "references": [
+   ".local/references/vanilla-medical/MedicineIndustrial_a.png",
+   ".local/references/vanilla-medical/MedicineUltratech_a.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12,
+   13,
+   14
+  ],
+  "lora": "phobos-private-vanilla.safetensors"
+ }
+]

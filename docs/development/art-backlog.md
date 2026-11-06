@@ -26,9 +26,9 @@ happen before a run. A record only: nothing here has been generated for it. How 
 | 1 | **Give a go and a stop time** | Owner | Every run |
 | 2 | **Decide what happens to the two radio images changed in the working tree since 19 Oct** (`Handheld.png` and `Preview.png`, each with an `.export.json`). They are an old session's uncommitted exports of candidates nobody picked | Owner: keep for review, or discard | The radio batch, so it starts from a clean tree |
 | 3 | **Radio art: pick from the 19 Oct candidates, or remake them.** Recommendation (agent): remake them through the current runner with references and the style model, as they were made before that route existed | Owner | The radio batch |
-| 4 | **Draw a flat stand-in for the hyperbaric chamber**, as was done for the concentrator, so the model redraws a layout instead of inventing angles | Agent, no GPU | The chamber |
-| 5 | **Write the request files** for each batch below, and a preview template script that puts the mod's name on a generated background | Agent, no GPU | Batches 2 and 3 |
-| 6 | **Set map sizes** for the electrolyser (2x1 or 2x2), the liquid oxygen store and the hyperbaric chamber (2x3 in the brief) | Agent proposes, owner confirms | Exporting those three, not generating them |
+| 4 | **Done 6 Nov:** a flat top-down stand-in for the hyperbaric chamber, `assets/phobos-medical/references/HyperbaricChamber-large.png` (1024 x 1536, the 2:3 shape), drawn by `draw_placeholders.py HyperbaricChamber`. The model redraws its layout instead of inventing angles | Agent, no GPU | Done |
+| 5 | **Done 6 Nov:** request files `assets/phobos-medical/requests/second-batch.json`, `assets/water-tap/requests/redraw.json`, `assets/phobos-previews/requests/backgrounds.json` and `assets/phobos-radio/requests/remake-1.json`, and `scripts/art/make_preview.py`, which puts the house name and the mod's name on a generated background | Agent, no GPU | Done |
+| 6 | **Proposed 6 Nov, for the owner to confirm:** see [map sizes](#map-sizes-agent-proposal) below | Agent proposes, owner confirms | Exporting those three, not generating them |
 | 7 | Optional: **clean the PC first.** The card reached about 88 C with thermal slowdown during image generation on 5 Nov | Owner and Hiddensoul | Nothing; runs are only slower |
 | 8 | Optional: Hiddensoul's ComfyUI workflow, and whether to accept FLUX 3 Image Klein's licence | Owner | Nothing; the current models work |
 
@@ -105,6 +105,16 @@ scripted name).
 - Burns and Smoke's conditions: conditions have no sprites.
 - Triage's patient care button uses the game's own medical care icon; the water tap's arrows use the game's plus and minus buttons.
   Reusing the game's own UI icons in place is allowed; copying them into our files is not.
+
+## Map sizes (agent proposal)
+
+Proposed 6 Nov 2026 for the owner to confirm. Generation doesn't need them; exporting each pick to game size does.
+
+| Building | Size | Why |
+| --- | --- | --- |
+| Electrolyser | 2x2 | The owner's pick is drawn square, so it exports without a redraw. A real stack with its water and gas plumbing is about a cabinet a metre or two across (our estimate, unsourced) |
+| Liquid oxygen store | 2x2 | Also a square pick. Real stores are an upright insulated tank beside finned vaporisers, about that footprint at small hospital scale (our estimate, unsourced) |
+| Hyperbaric chamber | 2x3 | A one-patient chamber is about a bed long; the extra width holds its control pedestal, as in the stand-in |
 
 ## Suggested order (agent proposal)
 
