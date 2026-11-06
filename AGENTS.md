@@ -109,11 +109,15 @@ delivered, record the delivery in the changelog or design record, and add or ame
   READMEs, guides and Workshop drafts. Write for players with no radio, engineering or coding knowledge;
   the Engineer display mode may show the full maths, the Plain mode never shows a decibel.
 - Every gizmo, command and dialog says what it did, and every refusal says why (a disabled gizmo carries
-  its reason); never ship a silent success or a silent refusal. A building's inspect text names the one
+  its reason); never ship a silent success or a silent refusal. **Every new button gets its own icon in the same change**, or
+  reuses a game or required-mod icon confirmed to exist; a lookup that can fail falls back to a visible icon of ours, never the
+  game's red X (owner, 7 Nov 2026). A building's inspect text names the one
   thing it waits for.
 - **Text a player reads in play stays in the game world** (owner, 5 November 2026): condition descriptions, tooltips, inspect text,
   job reports, refusals and messages never name a mod, a signal or a setting, and describe the body and what to do about it. Mod
-  names and sources belong in READMEs, changelogs, the mod settings window, dev actions and the load line.
+  names and sources belong in READMEs, changelogs, the mod settings window, dev actions and the load line. **One exception**
+  (owner, 7 Nov 2026): a one-time letter, shown once per install when a colony first loads, may recommend an optional mod by name
+  where much of a mod depends on it (Vanilla Gravship Expanded for D'thorga Medical Equipment).
 - Player text is never hard-coded in C#: what code shows lives in `Languages/English/Keyed`, and a Def's labels and descriptions stay
   in its XML in English, as the game's own do, for translators to override with `DefInjected`. Stable keys prefixed `Phobos`, complete
   messages with named placeholders (`scripts/check-mod-layout.py` refuses numbered ones). A figure in a message comes from the rule or
@@ -188,6 +192,9 @@ delivered, record the delivery in the changelog or design record, and add or ame
   referenced from the installed mod with `Private=false`.
   VEF is CC BY-NC-ND 4.0 with a rider that permits depending on it: never copy its DLLs, source, art or
   XML into this repository or a build, and never adapt its code (`THIRD_PARTY_NOTICES.md`).
+- **Other Vanilla Expanded mods may become hard dependencies where one earns its place** (owner, 7 Nov 2026: they are
+  stable, long-lived and of high quality), not by default, and never as a habit of adding mods. Say when one brings a DLC with it:
+  Vanilla Gravship Expanded needs Odyssey, so D'thorga Medical Equipment keeps it optional and strongly recommends it.
 - **Worn apparel is never spawned.** A hand-held worn by a pawn has `Spawned == false`; find radios by
   enumerating `map.mapPawns` and `pawn.apparel.WornApparel` at recompute time, never through spawn hooks.
 - **Derived state is never saved.** `RadioNet` and every link cache hold only what can be recomputed from

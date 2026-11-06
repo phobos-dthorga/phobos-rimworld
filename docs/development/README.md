@@ -74,6 +74,10 @@ promise current behaviour. For using the mods, start at the [documentation index
 - [Medical equipment: research and decisions (5 Nov 2026)](medical-equipment.md): bedside oxygen on the pattern of the vitals
   monitor and IV stand, the burn unit bed, what is reused from Vanilla Gravship Expanded, why Organ Failure's ventilator cannot
   appear in the owner's game, and the test protocol.
+- [Medical equipment, second set: design (7 Nov 2026)](medical-equipment-2.md): the eight pieces the owner chose, from the
+  ventilator to the steriliser, what each would do in play and what it rests on. Nothing built.
+- [Ventilation and hydrogen: design (7 Nov 2026)](ventilation-and-hydrogen.md): the electrolyser's hydrogen as a flammable room
+  gas, and the extractor fan, passive vent, fume hood and hydrogen detector. Nothing built.
 
 ## Emergency dosing
 

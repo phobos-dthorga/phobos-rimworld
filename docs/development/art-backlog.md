@@ -117,7 +117,7 @@ Five textures are the owner's picks (7 Nov 2026); the base station and the two f
 | Bottle tap's four arrows | D'thorga Water Tap | The game's own plus and minus buttons | Nothing | |
 
 **Any future button gets its icon in the same change**, or reuses a game or required-mod icon that is confirmed to exist; a lookup that
-can fail falls back to a visible stand-in of our own, never silently to the red X (agent proposal, for the owner to confirm).
+can fail falls back to a visible stand-in of our own, never silently to the red X (owner, 7 Nov 2026; in AGENTS.md).
 
 ### Mods with no preview yet
 
@@ -151,3 +151,20 @@ Proposed 6 Nov 2026 for the owner to confirm. Generation doesn't need them; expo
 4. **When the Defs exist:** export the electrolyser, store, mask and frost, and make their east and north views.
 5. **Later:** retrain the style model on our own approved art instead of the game's sprites, once enough picks exist. Two have shipped
    and three more are picked; the number to wait for is an open question.
+
+## Style model: v1 kept, v3 next (owner, 7 Nov 2026)
+
+- **v1 stays the model in use.** v2 (2500 steps at 768 and 1024, 6 to 7 Nov) showed no gain: without references both give soft,
+  product-render images, and v2 drifts more into the angled view the owner dislikes.
+- **v3, on the owner's go and a stop time:** a larger private dataset of the game's own art, **buildings and furniture, items and
+  button icons** (no plants, animals or pawns), with **a sharper upscale**: enlarge pixel-exact first, then a light clean-up, because
+  the smooth upscale of tiny sprites may be what teaches the soft look (agent's reading, untested). Then v1, v2 and v3 on the same
+  prompts and seeds, with references and without.
+- **The cost:** more training images, more chances of a near-copy, and a slower check; everything stays on the owner's PC and in `.local/`, never committed.
+
+## Next requests (7 Nov 2026)
+
+The store's frost (its code waits for it, owner), the electrolyser, the chamber's top-down 1 by 3 redraw, a real whip, the radio base
+station, the Burns and Smoke and Medical Save Bridge previews, the second set of medical equipment
+([its record](medical-equipment-2.md)) and the four vents ([ventilation and hydrogen](ventilation-and-hydrogen.md)). Every new button
+gets its icon in the same change (owner rule, 7 Nov 2026).

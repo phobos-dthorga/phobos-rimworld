@@ -38,7 +38,15 @@ The owner wants our own medical equipment, hospital and field. Carbon monoxide a
 | The field kit and the hand pump are one Doctor job, driven by a Def extension on the item, so other mods add devices in XML. It lives in this mod, not the framework, until a second mod needs it | Agent choice, 7 Nov 2026 |
 | Devices are matched by what the patient's body shows (needing oxygen; breathing under half), never by a condition's name | Owner's rule (5 Nov 2026) |
 | The treatments the VGE-only pieces give are defined with the core Defs, so a save loads cleanly without that mod | Agent choice, 7 Nov 2026 |
-| The electrolyser costs what real electrolysis costs, far more than Vanilla Gravship Expanded's harvester by its own balance; its place is vacuum and thin air. The figure lives in XML, for the owner to tune | Agent choice, 7 Nov 2026, for the owner to confirm |
+| The electrolyser costs what real electrolysis costs, far more than Vanilla Gravship Expanded's harvester by its own balance; its place is vacuum and thin air. The figure lives in XML, for the owner to tune | Agent choice, 7 Nov 2026; **confirmed by the owner the same day** |
+| Vanilla Gravship Expanded stays optional: it needs the Odyssey DLC, and a hard dependency would lock out players without it. It is strongly recommended: a one-time letter in the colony when it first loads without it, the settings window and the load line | Owner, 7 Nov 2026 (the letter is an approved exception to the in-world text rule) |
+| One oxygen network, Vanilla Gravship Expanded's; no network of our own | Owner, 7 Nov 2026, confirming the agent's choice |
+| Patients who need oxygen go to a free chamber first, and there is no surgery in a chamber | Owner, 7 Nov 2026 |
+| With Dubs Bad Hygiene active, the electrolyser draws its water from the plumbing; without it, water stays assumed | Owner, 7 Nov 2026 |
+| The electrolyser's hydrogen becomes a flammable room gas of ours, with vents to deal with it ([ventilation and hydrogen](ventilation-and-hydrogen.md)) | Owner, 7 Nov 2026 |
+| An unpowered liquid oxygen store stops filling; it still gives out what it holds, and boils off | Owner, 7 Nov 2026 |
+| The store's frost waits for its art; the code follows | Owner, 7 Nov 2026 |
+| The second set of equipment, all eight pieces ([medical equipment, second set](medical-equipment-2.md)) | Owner, 7 Nov 2026 |
 
 ## Figures
 
@@ -99,10 +107,7 @@ The owner wants our own medical equipment, hospital and field. Carbon monoxide a
 
 ## Open points
 
-- A ventilator of our own. Under the owner's rule it earns its place, because nothing else exists in the owner's game.
 - More Injuries' hypoxia counts as needing oxygen, but only breathing eases it. Whether to help it more depends on its handlers.
-- The store's frost while it works (its art is outstanding) and its look in game (the owner, 7 Nov 2026).
-- Whether the electrolyser should draw water from a plumbing mod, and whether its hydrogen should be a gas of ours.
-- Whether patients who need it should be sent to the chamber first.
-- Whether the electrolyser's honest power figure suits play, or should match Vanilla Gravship Expanded's scale.
-- A field needle decompression for a collapsed lung, buying time until D'thorga Triage's operation.
+- The store's look in game (the owner, 7 Nov 2026), then its frost once the art exists.
+- Being built next (plan of 7 Nov 2026): chamber first and no surgery in it, the store refusing oxygen without power, the
+  electrolyser's water from Dubs Bad Hygiene, the one-time letter. Then hydrogen and the vents, and the second set of equipment.

@@ -241,7 +241,9 @@ source, constants identical):
   gives air-cell care; a dressing or a fluids kit that raises the fluids quality is still a candidate there.
 - `Recipe_RemoveHediff` does not apply `addsHediff` on 1.7 (read from the 1.7 assembly, 5 Nov 2026), so the subclass is needed. The 1.6 reference assembly has no method bodies to read; the subclass checks before adding, so a difference there could not double it.
 - Whether to respect More Injuries' own `EnableFireInhalation` setting instead of removing its worker.
-- Phase 2: constricting eschar on limbs burned past 60% of a part's health, an escharotomy surgery, ischaemic damage, a hand-off
-  to More Injuries' gangrene, and a fluid-resuscitation bill that consumes its saline bag.
+- **Phase 2, go given by the owner on 7 Nov 2026:** constricting eschar on limbs burned past 60% of a part's health, an
+  escharotomy surgery, ischaemic damage, a hand-off to More Injuries' gangrene, and a fluid-resuscitation bill that consumes its
+  saline bag. Next after Medical Equipment's 0.4.0 fixes and the hydrogen work.
+- **Vents** for smoke and carbon monoxide may live here (agent lean; [ventilation and hydrogen](ventilation-and-hydrogen.md)).
 - Later: animals, letters for the life-threatening stages. The oxygen treatment came in 0.4.0, through D'thorga Medical Equipment.
 - Upstream, for More Injuries' author: the `CE_WearingGasMask` check never matches Combat Extended's `WearingGasMask`.
