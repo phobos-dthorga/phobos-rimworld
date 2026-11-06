@@ -9,7 +9,10 @@ happen before a run. A record only: nothing here has been generated for it. How 
 - **Every run needs the owner's go and a stop time** (owner rule). No GPU work while the owner plays; the runner refuses while
   RimWorld is open and frees the card's memory when it ends.
 - **The model is good at one thing here: a single object seen from above**, a building or an item, on a plain background. It is poor
-  at tiling textures, at tiny flat UI icons and at any text. Those stay scripted (agent judgement, from the runs so far).
+  at tiling textures and at any text, which stay scripted (agent judgement, from the runs so far). **Button icons are untested:** a
+  game button icon is a simple painted object, so the model may do well; the first icon batch should try both routes side by side.
+- **A giant red X on a button means a missing texture, not missing art.** It is the game's stand-in when a file isn't found, and
+  it is a bug to fix in code straight away, before any new icon exists.
 - **Text on Workshop previews is never generated.** The model draws a background or hero image; a script adds the mod's name.
 - **Five machines and items have no Def yet.** Their art can be generated now, but its export size waits for each one's size on
   the map.
@@ -61,7 +64,7 @@ All eight textures are flat placeholders from `assets/phobos-radio/make_textures
 | Whip antenna (drawn 1x1.5) | Placeholder | Yes | Tall and thin: draw it upright on a tall canvas |
 | Mast (drawn 1x2.5) | Placeholder | Yes | As above; 19 Oct mast candidates exist |
 | Coax feedline atlas and its blueprint atlas | Placeholder | Script | A 4x4 linked atlas whose edges must line up exactly |
-| Coax build icon and signal gizmo icon | Placeholder | Script | Tiny flat icons, clearer drawn by code |
+| Coax build icon and signal gizmo icon | Placeholder | Untested | Listed under button icons below |
 | Workshop preview | Placeholder | Part | Waits on the framework's public name, still an open design question |
 
 ### D'thorga Water Tap
@@ -78,6 +81,19 @@ All eight textures are flat placeholders from `assets/phobos-radio/make_textures
 | Deep factory hopper and automated fabrication bay | Inherit Vanilla Expanded's art through their parent Defs (none of it copied) | Yes | Optional: own art would set them apart from the buildings they extend. Recommendation (agent): low priority |
 | Workshop preview | Placeholder | Part | |
 
+### Button icons (owner, 6 Nov 2026)
+
+| Button | Mod | Now | Needs | Local model? |
+| --- | --- | --- | --- | --- |
+| "Doctors may operate" | D'thorga Triage (button from D'thorga Framework) | **A giant red X.** The code asks for a game texture that doesn't exist (`UI/Icons/Medical/NormalCare`). Reported to the session that owns the code on 6 Nov; the quick fix is the game's industrial medicine icon | An icon of our own: for example a scalpel over a red cross, with a tick or a bar for the two choices | Untested: try the model and a script side by side |
+| Radio signal sheet | Phobos Radio Framework | Flat placeholder | A proper icon | As above |
+| Coax build icon | Phobos Radio Framework | Flat placeholder | A proper icon | As above |
+| Belt access toggle | D'thorga Factory Additions | Vanilla Expanded's conveyor icon, looked up at run time | Nothing | |
+| Bottle tap's four arrows | D'thorga Water Tap | The game's own plus and minus buttons | Nothing | |
+
+**Any future button gets its icon in the same change**, or reuses a game or required-mod icon that is confirmed to exist; a lookup that
+can fail falls back to a visible stand-in of our own, never silently to the red X (agent proposal, for the owner to confirm).
+
 ### Mods with no preview yet
 
 D'thorga Framework, D'thorga Burns and Smoke, D'thorga Emergency Dosing, D'thorga Triage, D'thorga Vehicle Patches and D'thorga
@@ -93,7 +109,7 @@ scripted name).
 ## Suggested order (agent proposal)
 
 1. **No GPU, now:** steps 4 and 5, and the agent half of step 6.
-2. **Night 1, objects:** concentrator redraw, hyperbaric chamber from its stand-in, the four radio objects, the bottle tap. Two
+2. **Night 1, objects and icons:** the three button icons, by model and by script side by side; concentrator redraw, hyperbaric chamber from its stand-in, the four radio objects, the bottle tap. Two
    seeds each to start with (11 and 12 have done best), references plus the style model.
 3. **Night 2, previews:** one background per mod, with the names added by script, in one house layout.
 4. **When the Defs exist:** export the electrolyser, store, mask and frost, and make their east and north views.
