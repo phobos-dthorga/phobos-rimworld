@@ -24,6 +24,14 @@ public class PhobosBurnCareExtension : DefModExtension
 }
 
 /// <summary>
+/// Marks a bed as a pressure chamber: doctors carry a downed patient who needs oxygen to a free one first, and no operation is done on
+/// someone lying in it. Matched by this extension, never by name, so other mods' chambers join in XML.
+/// </summary>
+public class PhobosPressureChamberExtension : DefModExtension
+{
+}
+
+/// <summary>
 /// Makes an item a device doctors use on a patient by themselves, as Doctor work: they fetch it, take it to the patient and use it.
 /// Who it helps is the <see cref="need"/>, read from the patient's body, never from a condition's name. Other mods can add devices in XML.
 /// </summary>

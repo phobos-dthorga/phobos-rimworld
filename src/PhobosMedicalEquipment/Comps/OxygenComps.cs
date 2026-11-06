@@ -43,16 +43,23 @@ public class CompPhobosOxygenSupply : ThingComp
         pass = OxygenService.Supply(this, RareTickInterval);
     }
 
-    public override string CompInspectStringExtra() => OxygenService.StatusOf(this, pass) switch
+    public override string CompInspectStringExtra()
     {
-        OxygenStatus.SwitchedOff => "PhobosMedical_StatusSwitchedOff".Translate(),
-        OxygenStatus.NoPower => "PhobosMedical_StatusNoPower".Translate(),
-        OxygenStatus.NoBed => "PhobosMedical_StatusNoBed".Translate(),
-        OxygenStatus.NoOxygen => "PhobosMedical_StatusNoOxygen".Translate(),
-        OxygenStatus.Treating => "PhobosMedical_StatusTreating".Translate(TreatmentPass.Names(pass.Treated).Named("PATIENTS")),
-        OxygenStatus.NotNeeded => "PhobosMedical_StatusNotNeeded".Translate(TreatmentPass.Names(pass.NotNeeding).Named("PATIENTS")),
-        _ => "PhobosMedical_StatusWaiting".Translate(),
-    };
+        string status = (OxygenService.StatusOf(this, pass) switch
+        {
+            OxygenStatus.SwitchedOff => "PhobosMedical_StatusSwitchedOff".Translate(),
+            OxygenStatus.NoPower => "PhobosMedical_StatusNoPower".Translate(),
+            OxygenStatus.NoBed => "PhobosMedical_StatusNoBed".Translate(),
+            OxygenStatus.NoOxygen => "PhobosMedical_StatusNoOxygen".Translate(),
+            OxygenStatus.Treating => "PhobosMedical_StatusTreating".Translate(TreatmentPass.Names(pass.Treated).Named("PATIENTS")),
+            OxygenStatus.NotNeeded => "PhobosMedical_StatusNotNeeded".Translate(TreatmentPass.Names(pass.NotNeeding).Named("PATIENTS")),
+            _ => "PhobosMedical_StatusWaiting".Translate(),
+        }).Resolve();
+        // A chamber also says why an operation its patient waits for isn't being done.
+        if (parent is Building_Bed bed && ChamberService.IsChamber(bed) && ChamberService.OccupantWaitingForSurgery(bed) is Pawn waiting)
+            status += "\n" + "PhobosMedical_ChamberNoSurgery".Translate(waiting.LabelShort.Named("PATIENT")).Resolve();
+        return status;
+    }
 }
 
 /// <summary>

@@ -5,9 +5,37 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.4.0] - 2026-11-07 - Draft
+
+The owner's answers of 7 November 2026 for the pieces added in 0.3.0. Harmony comes into this mod, for three small postfixes. Not
+yet tested in game.
+
+### Added
+
+- Doctors carry a downed patient who needs oxygen to a free, ready hyperbaric chamber instead of the nearest bed. With none free,
+  the game's own rescue goes on as before. Patients already in a bed stay where they are.
+- A one-time letter, the first time a colony starts or loads without Vanilla Gravship Expanded, says which five pieces need it and
+  what works without it. It is shown once per install. The settings window says the same.
+
 ### Changed
 
+- No operation is done on a patient lying in a hyperbaric chamber; the bill waits, and the chamber says which patient to move.
+- A liquid oxygen store without power takes in no more oxygen. It still gives out what it holds, boils off as before, and says so.
 - The Workshop preview's lettering has a thin dark edge, so it reads on light backgrounds too.
+
+### Dependencies
+
+- Harmony, for the three postfixes: the pipe network's storage check is not overridable, a medical bill's readiness has no
+  extension point, and the letter needs the game's start-up step without saving anything in the game.
+
+### Save compatibility
+
+- Safe on a save from 0.3.0: nothing new is saved in the game. The letter's "shown" flag is in the mod settings.
+
+### Compatibility and limits
+
+- With D'thorga Triage, a patient lying in a chamber may still have an operation queued, and Triage still says it is queued while
+  no doctor starts it; the chamber's inspect line says to move them. A shared check Triage can read is planned in D'thorga Framework.
 
 ## [0.3.0] - 2026-11-07 - Draft
 

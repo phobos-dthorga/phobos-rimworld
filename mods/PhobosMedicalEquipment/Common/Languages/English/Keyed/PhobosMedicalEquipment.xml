@@ -25,6 +25,15 @@
   <PhobosMedical_TipBreathingOnly>Eases low breathing, up to normal. It is room air, so it does not clear carbon monoxide faster.</PhobosMedical_TipBreathingOnly>
 
   <PhobosMedical_StoreCold>Kept cold, so none of its oxygen boils away.</PhobosMedical_StoreCold>
+  <PhobosMedical_StoreNotFilling>Taking in no oxygen until its power is back: it can't keep more cold. It still gives out what it holds.</PhobosMedical_StoreNotFilling>
+
+  <PhobosMedical_ChamberNoSurgery>{PATIENT} has an operation waiting, which can't be done inside the chamber. Move them to a hospital bed for it.</PhobosMedical_ChamberNoSurgery>
+
+  <!-- The one place in play that names another mod: the owner's exception to the in-world text rule (7 Nov 2026). Shown once per install. -->
+  <PhobosMedical_GravshipLetterLabel>Vanilla Gravship Expanded recommended</PhobosMedical_GravshipLetterLabel>
+  <PhobosMedical_GravshipLetterText>D'thorga Medical Equipment is running without Vanilla Gravship Expanded, which its oxygen pipes and canisters come from. Five of its pieces only exist with that mod: the bedside oxygen stand, the field oxygen kit, the hyperbaric chamber, the oxygen electrolyser and the liquid oxygen store.\n\nWithout it you still have the oxygen concentrator, the burn unit bed, silver burn dressings and the manual resuscitator. Vanilla Gravship Expanded needs the Odyssey expansion.\n\nThis letter is shown once.</PhobosMedical_GravshipLetterText>
+  <PhobosMedical_SettingGravshipOn>Vanilla Gravship Expanded is active: every piece of equipment is available.</PhobosMedical_SettingGravshipOn>
+  <PhobosMedical_SettingGravshipOff>Vanilla Gravship Expanded is not active, so the bedside stand, field oxygen kit, hyperbaric chamber, electrolyser and liquid oxygen store are off. It is strongly recommended, and needs the Odyssey expansion.</PhobosMedical_SettingGravshipOff>
   <PhobosMedical_StoreBoilingOff>Waiting for power for its cooler: until then about {SHARE} of its oxygen boils off and is vented each day.</PhobosMedical_StoreBoilingOff>
 
   <PhobosMedical_DeviceRefusalAirwayShut>{PATIENT}'s airway is shut, so no air or oxygen can reach the lungs. The airway must be opened first.</PhobosMedical_DeviceRefusalAirwayShut>

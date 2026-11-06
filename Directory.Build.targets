@@ -40,4 +40,9 @@
   <ItemGroup Condition="'$(UsesHarmony)' == 'true' and '$(TargetFramework)' == 'net10.0'">
     <PackageReference Include="Lib.Harmony" Version="3.0.0-rc.4" ExcludeAssets="runtime" />
   </ItemGroup>
+  <!-- The shared patch helper, compiled into every project that patches (internal, so copies never clash). Existing mods move to it
+       when next touched (AGENTS.md). -->
+  <ItemGroup Condition="'$(UsesHarmony)' == 'true'">
+    <Compile Include="$(MSBuildThisFileDirectory)src/Shared/HarmonyPatchApplier.cs" Link="Shared/HarmonyPatchApplier.cs" />
+  </ItemGroup>
 </Project>

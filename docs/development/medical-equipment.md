@@ -96,6 +96,10 @@ The owner wants our own medical equipment, hospital and field. Carbon monoxide a
 13. **Electrolyser and store (0.3.0):** build both on one oxygen pipe with power: the store fills about one unit an hour. Cut the
     store's power: its inspect line says it boils off. Check the fireball only on a test colony.
 14. **Burn dressings:** make some at a drug lab and watch a doctor use them on a tend.
+15. **Chamber first (0.4.0):** with a ready chamber, down a pawn with carbon monoxide in the open: a doctor carries them to the
+    chamber, not a hospital bed. Queue an operation for someone in the chamber: it waits, and the chamber's inspect line says so.
+16. **Store and letter (0.4.0):** cut a filling store's power: it stops filling and says why. On a test install without Vanilla
+    Gravship Expanded, the letter appears once, and not again on the next load.
 
 ## Results from play
 
@@ -109,5 +113,7 @@ The owner wants our own medical equipment, hospital and field. Carbon monoxide a
 
 - More Injuries' hypoxia counts as needing oxygen, but only breathing eases it. Whether to help it more depends on its handlers.
 - The store's look in game (the owner, 7 Nov 2026), then its frost once the art exists.
+- A Framework check, "this patient's bed bars surgery", for D'thorga Triage to read, so it stops saying an operation is queued for
+  someone in a chamber (found by the Triage session, 7 Nov 2026). Until then the chamber's inspect line says to move them.
 - Being built next (plan of 7 Nov 2026): chamber first and no surgery in it, the store refusing oxygen without power, the
   electrolyser's water from Dubs Bad Hygiene, the one-time letter. Then hydrogen and the vents, and the second set of equipment.

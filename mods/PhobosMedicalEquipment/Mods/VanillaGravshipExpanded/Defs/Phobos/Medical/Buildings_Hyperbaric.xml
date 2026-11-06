@@ -83,5 +83,9 @@
     <constructionSkillPrerequisite>8</constructionSkillPrerequisite>
     <techLevel>Industrial</techLevel>
     <uiIconScale>0.9</uiIconScale>
+    <modExtensions>
+      <!-- Doctors carry downed patients who need oxygen here first, and no operation is done on someone lying in it. -->
+      <li Class="Phobos.Medical.Defs.PhobosPressureChamberExtension"/>
+    </modExtensions>
   </ThingDef>
 </Defs>

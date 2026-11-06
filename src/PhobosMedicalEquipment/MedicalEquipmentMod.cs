@@ -15,24 +15,28 @@ namespace Phobos.Medical;
 public class MedicalEquipmentSettings : ModSettings
 {
     public DisplayMode displayMode = DisplayMode.Plain;
+    /// <summary>The one-time letter recommending Vanilla Gravship Expanded has been shown on this install.</summary>
+    public bool gravshipLetterShown;
 
     public override void ExposeData()
     {
         base.ExposeData();
         Scribe_Values.Look(ref displayMode, "PhobosMedical_DisplayMode", DisplayMode.Plain);
+        Scribe_Values.Look(ref gravshipLetterShown, "PhobosMedical_GravshipLetterShown", false);
     }
 }
 
 /// <summary>
 /// D'thorga Medical Equipment: hospital and field kit that gives More Injuries and D'thorga Burns and Smoke's conditions something to
-/// be treated with. The first pieces are bedside facilities that give oxygen, on the pattern of the game's vitals monitor. No Harmony.
+/// be treated with. Three Harmony postfixes, each with its reason on its class (Patches/MedicalPatches.cs): an unpowered liquid store
+/// takes in nothing, no surgery in a pressure chamber, and the one-time letter recommending Vanilla Gravship Expanded.
 /// </summary>
 public class MedicalEquipmentMod : Mod
 {
     public const string PackageId = "PhobosDthorga.MedicalEquipment";
-    public const string ModVersion = "0.3.0";
+    public const string ModVersion = "0.4.0";
     public const string LogPrefix = "[D'thorga Medical Equipment]";
-    const string VanillaGravshipExpanded = "vanillaexpanded.gravship";
+    public const string HarmonyId = PackageId;
 
     static ModContentPack? pack;
 
@@ -42,6 +46,7 @@ public class MedicalEquipmentMod : Mod
     {
         pack = content;
         Settings = GetSettings<MedicalEquipmentSettings>();
+        Phobos.Shared.HarmonyPatchApplier.ApplyEach(new HarmonyLib.Harmony(HarmonyId), typeof(MedicalEquipmentMod).Assembly, LogPrefix);
         LongEventHandler.ExecuteWhenFinished(LogLoaded);
     }
 
@@ -53,7 +58,7 @@ public class MedicalEquipmentMod : Mod
         report.On("silver burn dressing");
         report.On("manual resuscitator");
         // Everything that stores or pipes oxygen uses Vanilla Gravship Expanded's oxygen, so it exists only with that mod.
-        bool gravship = OptionalMods.IsActive(VanillaGravshipExpanded);
+        bool gravship = RecommendationService.GravshipActive;
         foreach (string piped in new[] { "bedside oxygen stand", "field oxygen kit", "hyperbaric chamber", "oxygen electrolyser", "liquid oxygen store" })
         {
             if (gravship) report.On(piped); else report.Off(piped, "needs Vanilla Gravship Expanded's oxygen");
@@ -68,6 +73,8 @@ public class MedicalEquipmentMod : Mod
         var listing = new Listing_Standard();
         listing.Begin(inRect);
         SettingsUi.DrawDisplayMode(listing, ref Settings.displayMode);
+        listing.Gap();
+        listing.Label(RecommendationService.GravshipActive ? "PhobosMedical_SettingGravshipOn".Translate() : "PhobosMedical_SettingGravshipOff".Translate());
         listing.Gap();
         if (listing.ButtonText("PhobosMedical_SettingRemoveAll".Translate(), "PhobosMedical_SettingRemoveAllDesc".Translate())) RemoveEveryCondition();
         listing.End();

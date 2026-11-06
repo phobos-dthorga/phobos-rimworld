@@ -9,6 +9,22 @@
     <casualInterruptible>false</casualInterruptible>
   </JobDef>
 
+  <!-- Just above the game's own rescue (60): a downed patient who needs oxygen goes to a free pressure chamber, if there is one,
+       instead of the nearest bed. With none free, the game's rescue goes on as usual. -->
+  <WorkGiverDef>
+    <defName>PhobosMedical_DoctorTakeToChamber</defName>
+    <label>take patients to a pressure chamber</label>
+    <giverClass>Phobos.Medical.Jobs.WorkGiver_PhobosTakeToChamber</giverClass>
+    <workType>Doctor</workType>
+    <priorityInType>65</priorityInType>
+    <verb>take to a pressure chamber</verb>
+    <gerund>taking to a pressure chamber</gerund>
+    <canBeDoneByMechs>false</canBeDoneByMechs>
+    <requiredCapacities>
+      <li>Manipulation</li>
+    </requiredCapacities>
+  </WorkGiverDef>
+
   <WorkGiverDef>
     <defName>PhobosMedical_DoctorUseDevice</defName>
     <label>use breathing devices</label>
