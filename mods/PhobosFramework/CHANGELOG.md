@@ -5,6 +5,18 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.3.1] - 2026-11-06 - Draft
+
+### Fixed
+
+- The care-choice button (D'thorga Triage's "Doctors may operate") showed the game's red error cross: it asked for a texture the
+  game does not have. It now shows the game's industrial medicine icon, as the medical care menu does. Seen in game by the owner,
+  6 November 2026; the fix is not yet tested in game.
+
+### Added
+
+- A care choice can name its own icon (`iconPath` on `PatientPreference`); a missing one falls back to the medicine icon.
+
 ### Compatibility and limits
 
 - The owner reports the gas layer and supplied oxygen working in game through Burns and Smoke and Medical Equipment, 5 November

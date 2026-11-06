@@ -23,9 +23,13 @@ public sealed class PatientPreference
     public readonly Func<Pawn, int> DefaultFor;
     /// <summary>Whether the gizmo shows for this pawn at all; null for every patient the doctors look after.</summary>
     public readonly Func<Pawn, bool>? Applies;
+    /// <summary>A texture path for the gizmo; null or missing gives the game's industrial medicine icon.</summary>
+    public readonly string? IconPath;
 
-    public PatientPreference(string key, string labelKey, string descKey, IReadOnlyList<string> optionKeys, Func<Pawn, int> defaultFor, Func<Pawn, bool>? applies = null)
+    public PatientPreference(string key, string labelKey, string descKey, IReadOnlyList<string> optionKeys, Func<Pawn, int> defaultFor,
+        Func<Pawn, bool>? applies = null, string? iconPath = null)
     {
+        IconPath = iconPath;
         Key = key;
         LabelKey = labelKey;
         DescKey = descKey;

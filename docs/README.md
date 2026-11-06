@@ -13,7 +13,7 @@ Each mod's README is its player guide, with the gotchas first. As of 6 November 
 
 | Mod | Version | What it does | Guide |
 | --- | --- | --- | --- |
-| **D'thorga Framework** | 0.3.0 | The shared library: what a pawn breathes, carbon monoxide from fires, the health layer and per-person care choices the medical mods share | [README](../mods/PhobosFramework/README.md) |
+| **D'thorga Framework** | 0.3.1 | The shared library: what a pawn breathes, carbon monoxide from fires, the health layer and per-person care choices the medical mods share | [README](../mods/PhobosFramework/README.md) |
 | **D'thorga Burns and Smoke** | 0.5.0 | Burned body fraction, burn shock, airway burns with a tracheotomy, smoke-damaged lungs, carbon monoxide, and fires that heat the air around them in the open | [README](../mods/PhobosBurnsAndSmoke/README.md) |
 | **D'thorga Emergency Dosing** | 0.3.1 | Doctors give painkillers, sedatives and disease-fighting drugs on their own, found by their effects; colonists in pain take what their policy allows | [README](../mods/PhobosDosing/README.md) |
 | **D'thorga Medical Equipment** | 0.2.2 | Bedside oxygen and a burn unit bed | [README](../mods/PhobosMedicalEquipment/README.md) |
