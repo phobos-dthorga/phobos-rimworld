@@ -143,6 +143,28 @@ it to each of the five bombs' `recipeMaker/recipeUsers`, which `RecipeDefGenerat
 
 **Owner's save** (PG16, read only, 3 Nov 2026): two forgers, at (221, 264) and (234, 264).
 
+**Superseded by 0.5.0:** the forger no longer runs `CastFromMold`; see the next section.
+
+## Heavy castings in batches of 12 (0.5.0, 6 Nov 2026)
+
+**Owner's request:** answer the candid limit above by making several castings per run; the owner proposed 12 and the agent agreed. `Mods/RimThunder/Patches/Forger_RimThunder.xml` now adds a recipe of our own, `PhobosForgeHeavyCastingBatch`, used only by `DMSE_TableLathe`, and no longer adds the forger to `CastFromMold`. The smelter and assembly platform keep RimThunder's one-at-a-time recipe.
+
+| Step | Behaviour (read from the code and Defs, not seen in play) |
+| --- | --- |
+| Guard | One `PatchOperationConditional` on `Defs[ThingDef/defName="DMSE_TableLathe" and RecipeDef/defName="CastFromMold"]` adds the whole `RecipeDef` to `Defs`, so it never names a missing Def (RimThunder's recipe and casting are absent with Aoba.Motorization.Engine active) |
+| Cost | 1,200 steel to 12 `ComponentHeavyCasting` and 12 `ChunkSlagSteel`: `CastFromMold` times 12 |
+| Time | `workAmount` 6,000 / `WorkTableWorkSpeedFactor` 2: 3,000 ticks, one 30,000-work stage (`Building_WorkTableAutonomous.StartBill` reads `Bill.GetWorkAmount`) |
+| Colonist | The same two 300-tick waits as before, now for 12 castings. Steel's stack limit is 75, so loading is about 16 carries, about 1.3 per casting against 2 per casting for 100 steel at the smelter |
+| Output | `Building_WorkTableAutonomous.Finish` makes the products with `GenRecipe.MakeRecipeProducts` and places each with `GenPlace.TryPlaceThing` in Near mode, radius 30. Both products have `stackLimit` 1; the 1.7 game's Near mode loops `TryPlaceDirect`, which spawns one stack per cell, until the whole count is placed: 24 things around the interaction cell |
+
+**Agent's reading of the gain:** about 600 ticks of fixed colonist waits for 12 castings, about 50 each, against about 500 ticks of colonist work per casting at the smelter at base `SmeltingSpeed`. Walking time for the carries depends on the base layout and isn't counted.
+
+**Why 12 suits RimThunder, agent's reading:** RimThunder's and its add-ons' recipes ask for 1 to 3 castings each (every use in the installed XML), and this mod's Mk. 82 cases ask for 2, so one batch covers several builds without leaving the bill idle for lack of steel in most colonies.
+
+**Unverified:** whether a one-at-a-time bill already set up at a forger under 0.3.0 or 0.4.0 keeps running once the forger no longer lists `CastFromMold`. The README tells the player to delete it.
+
+**Unchanged:** RimThunder's mass balance. 100 steel (50 kg at 0.5 kg each) gives a 75 kg casting and a lump of slag, so mass isn't conserved; that is RimThunder's own ratio, kept so both recipes agree.
+
 ## Sorties, RimWorld 1.7 and Combat Extended: the review (0.3.1, 3 Nov 2026)
 
 **Owner's request:** look through the Harrier's code for bugs, especially how it runs sorties, the move from 1.6 to 1.7, and Combat Extended. **Nothing here was seen in play.**
@@ -199,6 +221,8 @@ it to each of the five bombs' `recipeMaker/recipeUsers`, which `RecipeDefGenerat
 | 3 Nov 2026 | Keep the machining table as well, same costs; rockets stay in 0.2.0, which was never installed or released | agent defaults |
 | 3 Nov 2026 | Review the Harrier's code for sortie, 1.7 and Combat Extended faults, fixing what needs it | owner (request) |
 | 3 Nov 2026 | Keep a sortie's map open through the game's own check rather than patching each mod's rule; player vehicles with a free colonist aboard, all of them | agent default |
+| 6 Nov 2026 | Heavy castings at the forger in batches of 12, in place of one at a time | owner (request; agent agreed with 12) |
+| 6 Nov 2026 | A recipe of our own for the forger only; smelter and platform keep RimThunder's; slag kept; 12 times the work | agent defaults |
 
 ## Spaceship Turret Hull under Combat Extended (5 Nov 2026)
 

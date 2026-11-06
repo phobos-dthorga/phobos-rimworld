@@ -1,11 +1,11 @@
 # D'thorga Vehicle Patches
 
 Patches for other authors' vehicle mods, each switched on only while that mod is active. It lets RimThunder's heavy casting be made at
-the rotary forger, and covers **Harrier VTOL Attack Aircraft** by potemkinvillager: a realistic build cost, a fix for the jet failing to load fully alongside RimPacts,
+the rotary forger, 12 at a time, and covers **Harrier VTOL Attack Aircraft** by potemkinvillager: a realistic build cost, a fix for the jet failing to load fully alongside RimPacts,
 honest bomb costs under Combat Extended, bombs and rockets at The Dead Man's Switch's ammunition fabricator, fuel tanks for its
 Drop Tanks upgrade, and a sortie's map kept open under the jet. It also makes **Spaceship Turret Hull** by MK work with Combat Extended. It copies nothing from those mods.
 
-Version 0.4.0, built 5 November 2026 for House D'thorga. **Not yet tested in game.**
+Version 0.5.0, built 6 November 2026 for House D'thorga. **Not yet tested in game.**
 
 ## Read this first (gotchas)
 
@@ -25,6 +25,8 @@ Version 0.4.0, built 5 November 2026 for House D'thorga. **Not yet tested in gam
 - **Heavy castings are a new step for bombs too**, if RimThunder is active. Without RimThunder, bomb cases cost steel instead.
 - **A sortie's map now stays open while the jet is over it.** Before, a map from Real Ruins, RimMarket and some other mods could close
   with the jet still in the air. See [Sorties](#sorties-what-the-code-says) for what a sortie needs from you.
+- **Heavy castings at a rotary forger now come 12 at a time**, from 1,200 steel. **If you set up a heavy casting bill at a forger before
+  version 0.5.0, delete it and add the new one**: the old one-at-a-time bill may keep running. The smelter and assembly platform still make one at a time.
 - **Turret hulls you've already built must be rebuilt** to take ammo under Combat Extended. Deconstruct and rebuild each one, **while the ship is landed**: in space the gap lets the air out. See [Turret hulls under Combat Extended](#turret-hulls-under-combat-extended).
 - **Not yet tested in game.** Everything here is read from the mods' code and files.
 
@@ -114,14 +116,19 @@ The upgrade costs **2 car fuel tanks, 20 steel and 2 components**, in place of 6
 
 ### Heavy castings at the rotary forger
 
-With RimThunder and The Dead Man's Switch - Expedition, the heavy casting is also a bill at the **rotary forger**. RimThunder's in-game name for it is
-"heavy compoment", spelt that way. The electric smelter and assembly platform still make it too.
+With RimThunder and The Dead Man's Switch - Expedition, the **rotary forger** makes heavy castings **12 at a time**. RimThunder's
+in-game name for the item is "heavy compoment", spelt that way; the forger's bill is called "make 12 heavy castings". The electric smelter and
+assembly platform still make one at a time.
 
-- **Same recipe:** 100 steel makes 1 casting and 1 lump of steel slag. It needs no research of its own and no skill.
-- **A colonist with Crafting work enabled does it**, as the job "Operate Machine".
-- **It saves no colonist time.** The machine's part takes only 250 ticks, but loading and collecting take a colonist about 600 ticks in all, against about 500 at
-  the smelter. It's useful for keeping smelters free or for colonists who do crafting, not for speed.
-- **Finished items drop beside the machine**, whatever the bill's storage setting says. Haulers take them from there.
+- **Cost:** 1,200 steel makes 12 castings and 12 lumps of steel slag: RimThunder's own recipe times 12. It needs no research of its own and no skill.
+- **A colonist with Crafting work enabled does it**, as the job "Operate Machine". Loading 1,200 steel takes them about 16 trips, because steel
+  comes in stacks of 75.
+- **It saves colonist time.** The colonist's fixed waits, about 600 ticks to load and collect, are shared by all 12 castings, against about 500 ticks
+  of work for each casting at the smelter. The machine then runs about 3,000 ticks (just over an in-game hour) on its own.
+- **The bill waits until 1,200 steel can be fetched.** Below that, use the smelter.
+- **Finished items drop beside the machine**, whatever the bill's storage setting says: 24 separate things, since castings and slag don't stack.
+  **Keep the floor around the forger clear**, and haulers take them from there.
+- **Interrupting the colonist while loading drops what they had brought** beside the machine, and the job starts again. Nothing is lost.
 - The machine draws 800 W while running and 50 W idle.
 
 ### A sortie's map stays open under the jet
@@ -181,7 +188,7 @@ The jet's fuel tank logged "Parsed 2.5 as int" at every start. Writing the value
 
 - The jet's blueprint is under Architect, Vehicles.
 - Bombs and rockets are bills at the machining table, as before, and at The Dead Man's Switch's ammunition fabricator.
-- Heavy castings are a bill at the electric smelter, the assembly platform and the rotary forger.
+- Heavy castings are a bill at the electric smelter and the assembly platform, one at a time, and at the rotary forger, 12 at a time.
 - The turbine is a bill at RimThunder's assembly platform.
 
 ## For modders
@@ -193,6 +200,8 @@ patch of the same method**, because Harmony stores a patch as a method token, wh
 
 ## Checks done
 
+- 6 November 2026: the forger's start, finish and product placement code read again (Fortified, current 1.7 build), with the 1.7 game's
+  placement code. `scripts/check-factory-patches.py --mod PhobosVehiclePatches` passes. **Not yet tested in game.**
 - 5 November 2026: Spaceship Turret Hull's Defs and source, Combat Extended's turret class, reload job, shot and roof code, and the 1.7 game's save loader read. The patch was run offline against both mods' real files, the owner's PG22 save read to see what's built, and `scripts/check-factory-patches.py --mod PhobosVehiclePatches` passes. **Not yet tested in game.**
 - 3 November 2026: the Harrier's shipped source, its bundled flight framework (build 19o), the VTOL Raids jet add-on, Vehicle Framework,
   Combat Extended and its Vehicle Framework assembly, and the 1.7 game's map-removal code read. Every game, Vehicle Framework, Harmony 3

@@ -5,6 +5,29 @@ yet. Not yet tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.5.0] - 2026-11-06 - Draft
+
+Owner's request: heavy castings at the rotary forger in batches, so loading the machine is worth the trip. Not yet tested in game.
+
+### Changed
+
+- The rotary forger now makes RimThunder's heavy casting 12 at a time, in place of one. Its bill is called make 12 heavy castings. The electric smelter and assembly platform still make one at a time.
+
+### Balance
+
+- 1,200 steel makes 12 castings and 12 lumps of steel slag, RimThunder's own recipe times 12, with 12 times its work: about 3,000 ticks on the machine. The batch size is the owner's choice.
+- The colonist's fixed load and collect waits, about 600 ticks, are now shared by 12 castings, so the forger saves colonist time over the smelter. Before, it cost slightly more.
+
+### Save compatibility
+
+- Safe to add to a running save. A one-at-a-time heavy casting bill set up at a forger under 0.3.0 or 0.4.0 may keep running: delete it and add the new one.
+- Before removing this mod, delete any heavy casting bills at a forger, as before.
+
+### Compatibility and limits
+
+- The 12 castings and 12 slag lumps drop as 24 separate things beside the forger, since neither stacks. Keep the floor around it clear.
+- The bill waits until 1,200 steel can be fetched; loading it takes about 16 trips, with steel in stacks of 75.
+
 ## [0.4.0] - 2026-11-05 - Draft
 
 Combat Extended support for Spaceship Turret Hull by MK. Not yet tested in game.

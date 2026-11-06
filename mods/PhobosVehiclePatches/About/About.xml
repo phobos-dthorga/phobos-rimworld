@@ -4,7 +4,7 @@
   <name>D'thorga Vehicle Patches</name>
   <author>Phobos A. D'thorga</author>
   <url>https://github.com/phobos-dthorga/phobos-rimworld</url>
-  <modVersion>0.4.0</modVersion>
+  <modVersion>0.5.0</modVersion>
   <description>Patches for other authors' vehicle mods, each switched on only while that mod is active. It copies nothing from them.
 
 Harrier VTOL Attack Aircraft:
@@ -21,7 +21,7 @@ A sortie's map stays open while the jet is flying over it with its pilot aboard,
 
 RimThunder and The Dead Man's Switch - Expedition:
 
-RimThunder's heavy casting can also be made at the rotary forger.
+RimThunder's heavy casting can also be made at the rotary forger, 12 at a time.
 
 Spaceship Turret Hull and Combat Extended:
 

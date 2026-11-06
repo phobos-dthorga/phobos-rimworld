@@ -2,22 +2,65 @@
 <Patch>
 
   <!--
-    RimThunder's heavy casting (its in-game label is "heavy compoment") at Dead Man's Switch: Expedition's rotary forger,
-    as well as at the electric smelter and assembly platform. Owner's request, 3 Nov 2026.
+    RimThunder's heavy casting (its in-game label is "heavy compoment") at Dead Man's Switch: Expedition's rotary forger, in
+    batches of 12. Owner's request, 3 Nov 2026; the batch is the owner's call, 6 Nov 2026.
 
-    The forger runs an ordinary recipe (Fortified.Building_WorkTableAutonomous, read 3 Nov 2026), so naming it among the
-    recipe's benches is all it takes. The guard needs no load order: the game combines every mod's Defs before it applies
-    any patch (LoadedModManager). "success" covers RimThunder's recipe being absent, as it is with Aoba.Motorization.Engine
-    active (RimThunder's StandaloneModule folder doesn't load then).
+    Why a batch: the forger runs an ordinary recipe (Fortified.Building_WorkTableAutonomous, read 3 and 6 Nov 2026), and its
+    colonist waits 300 ticks to load it and 300 to collect, whatever the recipe. For one casting (500 work, 250 ticks on the
+    machine) that cost more colonist time than the smelter. Twelve share the same two waits.
+
+    This is a recipe of its own, not RimThunder's CastFromMold with the forger added: the smelter and assembly platform keep
+    making one at a time. Same ratio as RimThunder's recipe (100 steel to one casting and one lump of steel slag), times 12,
+    and 12 times its work. The products come out as separate things (castings and slag stack to 1), which GenPlace's Near mode
+    spreads over nearby cells.
+
+    The recipe is added only when both the forger and RimThunder's recipe exist (two nested conditions, a form
+    scripts/check-factory-patches.py can follow), so it never names a missing Def. RimThunder's
+    recipe is absent when Aoba.Motorization.Engine is active (RimThunder's StandaloneModule folder doesn't load then). The guard
+    needs no load order: the game combines every mod's Defs before it applies any patch (LoadedModManager).
   -->
   <Operation Class="PatchOperationConditional">
     <xpath>Defs/ThingDef[defName="DMSE_TableLathe"]</xpath>
-    <match Class="PatchOperationAdd">
-      <success>Always</success>
-      <xpath>Defs/RecipeDef[defName="CastFromMold"]/recipeUsers</xpath>
-      <value>
-        <li>DMSE_TableLathe</li>
-      </value>
+    <match Class="PatchOperationConditional">
+      <xpath>Defs/RecipeDef[defName="CastFromMold"]</xpath>
+      <match Class="PatchOperationAdd">
+        <xpath>Defs</xpath>
+        <value>
+          <RecipeDef>
+            <defName>PhobosForgeHeavyCastingBatch</defName>
+            <label>make 12 heavy castings</label>
+            <description>Shape 1,200 steel into 12 heavy castings in one run. Also leaves 12 lumps of steel slag.</description>
+            <jobString>Forging heavy castings.</jobString>
+            <workAmount>6000</workAmount>
+            <workSpeedStat>SmeltingSpeed</workSpeedStat>
+            <effectWorking>Repair</effectWorking>
+            <soundWorking>Recipe_Smelt</soundWorking>
+            <uiIconThing>ComponentHeavyCasting</uiIconThing>
+            <recipeUsers>
+              <li>DMSE_TableLathe</li>
+            </recipeUsers>
+            <ingredients>
+              <li>
+                <filter>
+                  <thingDefs>
+                    <li>Steel</li>
+                  </thingDefs>
+                </filter>
+                <count>1200</count>
+              </li>
+            </ingredients>
+            <fixedIngredientFilter>
+              <thingDefs>
+                <li>Steel</li>
+              </thingDefs>
+            </fixedIngredientFilter>
+            <products>
+              <ComponentHeavyCasting>12</ComponentHeavyCasting>
+              <ChunkSlagSteel>12</ChunkSlagSteel>
+            </products>
+          </RecipeDef>
+        </value>
+      </match>
     </match>
   </Operation>
 
