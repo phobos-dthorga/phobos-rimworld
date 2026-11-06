@@ -7,7 +7,8 @@ tested in game unless an entry says the owner tested it.
 
 ## [0.4.1] - 2026-11-07 - Draft
 
-A fix from the owner's game. Not yet tested in game.
+A fix from the owner's game. **The owner reports the error gone in game (7 November 2026, on 0.4.1).** The surgery bars from 0.4.0
+are not yet tested in game.
 
 ### Fixed
 

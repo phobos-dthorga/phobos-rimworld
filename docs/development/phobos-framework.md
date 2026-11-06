@@ -89,6 +89,10 @@ visits 1/64 of cells per tick for fading and 1/32 for spreading, as it does afte
   in 112 cells across several rooms, up to 0.995, and three raiders carried the poisoning (0.19 to 0.69); on the home map no room
   held gas and no colonist had been in smoke. So the fire source, the room model and the save round trip all ran. Reading the
   code against the save found the gas-mask fault fixed in 0.2.1: every pawn in a Combat Extended gas mask was counted as sealed.
+- **7 Nov 2026, the owner, on 0.3.1 then 0.4.1.** Selecting a dead colonist's corpse threw `InvalidCastException` (Corpse to Pawn)
+  from the per-person care comp, in its gizmos and inspect text (read from `Player.log`). Display only: the colonist had died
+  first. Fixed in 0.4.1; **the owner reports the error gone**. How the corpse came to carry the comp is not known (agent's guess:
+  another mod gives corpses a race or copies comps); the fix doesn't depend on it.
 
 ## Supplied oxygen (0.2.0, 5 Nov 2026)
 
