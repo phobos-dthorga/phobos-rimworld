@@ -16,6 +16,7 @@ Owner's request: heavy castings at the rotary forger in batches, so loading the 
 ### Changed
 
 - The rotary forger now makes RimThunder's heavy casting 12 at a time, in place of one. Its bill is called make 12 heavy castings. The electric smelter and assembly platform still make one at a time.
+- The assembly now carries the mod's version number. It had said 0.3.2 since that release. No behaviour change.
 
 ### Balance
 
