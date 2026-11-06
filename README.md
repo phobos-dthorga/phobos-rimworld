@@ -8,6 +8,7 @@ Images the Phobos RimWorld mods do not use at all, kept only as references or fo
 | `drawings/HyperbaricChamber-large.png` | Our own Pillow drawing; the flat top-down layout for the hyperbaric chamber |
 | `drawings/BottleTap-large.png` | Our own Pillow drawing; the layout for the bottle tap redraw |
 | `medical/hyperbaric-chamber-102.png` | Picked 7 Nov for its look; drawn at an angle, so it guides a top-down redraw and is not shipped |
+| `previews/preview-medical-equipment-202.png` | Picked 7 Nov from the previews page; the owner kept workshop-preview-204 for the mod, so this is unused |
 | `medical/superseded-5nov/bedside-oxygen-both-11.png` | A 5 Nov pick or alternate, superseded by the 7 Nov picks; kept to compare |
 | `medical/superseded-5nov/bedside-oxygen-both-12.png` | A 5 Nov pick or alternate, superseded by the 7 Nov picks; kept to compare |
 | `medical/superseded-5nov/electrolyser-both-11.png` | A 5 Nov pick or alternate, superseded by the 7 Nov picks; kept to compare |
