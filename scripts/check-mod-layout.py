@@ -35,8 +35,8 @@ VERSION_CONSTANT = re.compile(r'\bModVersion\s*=\s*"([^"]+)"')
 
 
 def listed_files(root):
-    """Tracked and untracked, non-ignored files under mods/, as POSIX paths relative to root."""
-    out = subprocess.check_output(['git', 'ls-files', '--cached', '--others', '--exclude-standard', '-z', '--', 'mods'],
+    """Tracked and untracked, non-ignored files under mods/ and src/ (for check_versions), as POSIX paths relative to root."""
+    out = subprocess.check_output(['git', 'ls-files', '--cached', '--others', '--exclude-standard', '-z', '--', 'mods', 'src'],
                                   cwd=root)
     return [name for name in out.decode('utf-8').split('\0') if name and (Path(root) / name).is_file()]
 

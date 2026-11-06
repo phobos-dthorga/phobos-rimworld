@@ -5,6 +5,10 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+### Fixed
+
+- The assembly's own version said 0.1.1 since 0.1.2; it now matches. No change in play.
+
 ### Compatibility and limits
 
 - README brought up to date: the supported versions (a build for 1.7 and 1.6; About.xml still lists 1.6 only), no Harmony

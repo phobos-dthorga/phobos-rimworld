@@ -98,6 +98,10 @@ class LayoutCheckTests(unittest.TestCase):
         self.assertIn('<Version> 9.9.9 differs', errors)
         self.assertIn('ModVersion 9.9.8 differs', errors)
 
+    def test_the_real_listing_includes_the_projects_the_version_check_reads(self):
+        # The version check once saw no projects at all, because the listing held only mods/ (found 7 Nov 2026).
+        self.assertTrue(any(name.startswith('src/') and name.endswith('.csproj') for name in layout.listed_files(ROOT)))
+
     def test_missing_files_are_named(self):
         errors = '\n'.join(run({'mods/Bare/Defs/Thing.xml': b'<Defs />'})['errors'])
         for fragment in ('no About/About.xml', 'no README.md', 'no CHANGELOG.md'):

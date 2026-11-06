@@ -7,7 +7,7 @@
     <RootNamespace>Phobos.Radio</RootNamespace>
     <AssemblyName>PhobosRadio</AssemblyName>
     <ModFolder>PhobosRadioFramework</ModFolder>
-    <Version>0.1.1</Version>
+    <Version>0.1.2</Version>
   </PropertyGroup>
   <ItemGroup>
     <!-- Vanilla Expanded Framework's PipeSystem.dll, referenced from the installed mod and never copied: its licence
