@@ -3,8 +3,9 @@
 Additions to Vanilla Furniture Expanded - Factory: a **"Belts may take from here" switch** on every storage
 building, so conveyor belts and factory machines can take from any mod's shelves, pallets and bays, and on factory hoppers, so you can tell belts to leave one alone; an **automated fabrication bay** that makes what a
 fabrication bench makes (bionics and other artificial body parts, spacer weapons and armour), and with Anomaly
-or Dubs Rimatomics what a bioferrite shaper or a Rimatomics machining table makes; a **fix for the automated
-machining bay**, which could lose a finished item; a **Synthesize neutroamine from human meat** bill for
+or Dubs Rimatomics what a bioferrite shaper or a Rimatomics machining table makes; a **fix for every factory machine**,
+which no longer destroys a finished batch and puts out a batch too big for its hopper in parts; with Dubs Bad Hygiene,
+**piped water** for the conveyor oven's wet bills, with a chance of food poisoning from contaminated water; a **Synthesize neutroamine from human meat** bill for
 the neutroamine synthesizer; a **Make batch of medicine from synthread** bill for the medicine granulator, so
 medicine needs no cotton; with Vanilla Cooking Expanded, a **Cook simple soup** bill for the conveyor oven, so soup
 comes out ready to eat; a **deep factory hopper** that holds four stacks; with "[sbz] Fridge", **conveyor belts and factory machines that take corpses
@@ -19,16 +20,17 @@ belts taking from switched-on storage, only when they point away from it (owner,
 corpse fridge change, running the 0.3.0 bills to the end, the 0.3.2 chemfuel repair, the 0.4.0 deep factory
 hopper, everything in 0.5.0 and 0.5.1 (the fabrication bay and the output fix), machine input cells on
 switched-on storage, the switch surviving a save and load, everything in 0.7.0 (stuck belts waking, belts
-obeying storage filters), the 0.8.0 synthread medicine bill and the 0.9.0 and 0.9.1 soup bills, the 0.10.0 piped water, the 0.11.0 hopper switch and the 0.11.1 mincer fix are not yet tested in game.
+obeying storage filters), the 0.8.0 synthread medicine bill and the 0.9.0 and 0.9.1 soup bills, the 0.10.0 piped water, the 0.11.0 hopper switch, the 0.11.1 mincer fix and the 0.11.2 native 1.7 build are not yet tested in
+game.
 
 ## Read this first (gotchas)
 
 - **Requires Harmony, Vanilla Expanded Framework and Vanilla Furniture Expanded - Factory.** Load it after all
   three, and after every mod listed above that you run (the About file asks for it, so RimSort does this for
   you). VFE Factory already needs Harmony, so you have it.
-- **It has code now (0.5.0).** One small assembly, `PhobosFactory.dll`, built for RimWorld 1.6 and loaded on
-  1.7 too, as VFE Factory's own assembly is. **Build it before deploying** (`dotnet build
-  src/PhobosFactory.Hygiene/PhobosFactory.Hygiene.csproj`, which builds the Dubs Bad Hygiene tie-in and the main assembly); the deploy script says "no assembly built" if you forget.
+- **RimWorld 1.7 and 1.6.** It has two small assemblies, each built for both versions; 1.7 is the one features are designed
+  for, and 1.6 is kept until it is retired. The Dubs Bad Hygiene one loads only while Dubs Bad Hygiene is active. (From source:
+  `python scripts/deploy.py --build --apply PhobosFactoryAdditions` builds both before copying.)
 - **Belts can take from any storage once you switch it on (0.6.0).** Select a shelf, pallet, Rimefeller
   unloading bay or any other mod's storage building and click **Belts may take from here** (VFE Factory's belt
   icon). **It starts off on every storage, including what you have already built**, so nothing moves until
@@ -122,8 +124,9 @@ obeying storage filters), the 0.8.0 synthread medicine bill and the 0.9.0 and 0.
   machine's Processes tab and let any running batch finish; otherwise the first load afterwards should log
   an error about a missing process and drop that bill (expected, not yet checked). **Deconstruct every deep
   factory hopper and every fabrication bay** too; the items on a hopper stay where they are. The fridge
-  change, the output fix and the 0.7.0 belt fixes leave nothing in the save. Each switched-on storage saves one setting, which the
-  game should drop without a message once the mod is gone (expected, not yet checked); its items stay put.
+  change and the 0.7.0 belt fixes leave nothing in the save. A machine part-way through putting out a batch saves two small values
+  on its bill, a switched-on storage or a switched-off hopper saves its switch; the game should drop them without a message once
+  the mod is gone (expected, not yet checked), and items stay put.
 - **Nothing is published on the Steam Workshop yet.** Install from source with `scripts/deploy.py`.
 - **Tested in game: the human-meat bill, and the 0.3.1 fix.** The owner confirmed on 28 October 2026, on
   RimWorld 1.7, that the human-meat bill works, and on 29 October 2026, with 0.3.2 installed, that the bills
@@ -133,6 +136,21 @@ obeying storage filters), the 0.8.0 synthread medicine bill and the 0.9.0 and 0.
   end, the corner input cells and the chemfuel-tap repair are not yet confirmed in game.
 
 ## What it does
+
+How belts, hoppers and the fabrication bay connect (read from VFE Factory's code and ours):
+
+```mermaid
+flowchart LR
+    Storage["Any storage building<br/>switch starts off"] -- "switched on: only a belt pointing away,<br/>only what its filter allows" --> Belt["Conveyor belt<br/>(stuck empty belts woken)"]
+    Hopper["Factory hopper, deep hopper (4 stacks),<br/>chemfuel tap, bottle tap<br/>switch starts on"] -- "a belt behind or at a side" --> Belt
+    Fridge["[sbz] corpse fridge<br/>switch starts on"] -- "only what its filter allows" --> Belt
+    Belt -- "delivers if the filter accepts" --> Input["Input hopper, or switched-on storage,<br/>on a machine's input cell"]
+    Input --> Machine["Factory machine, such as the<br/>automated fabrication bay"]
+    Benches["Fabrication bench, bioferrite shaper,<br/>Rimatomics machining table"] -- "their bills, built at load" --> Machine
+    Pipes["Piped chemfuel or water<br/>(Vanilla Chemfuel Expanded,<br/>Dubs Bad Hygiene)"] --> Machine
+    Machine -- "waits when full;<br/>a big batch comes out in parts" --> Output["Output factory hopper"]
+    Output --> Belt2["Belt onward"]
+```
 
 ### Belts that take from any storage (0.6.0)
 
@@ -156,8 +174,8 @@ belt rows in game on 30 October 2026, and the machine rows are not yet seen in g
 | **On a factory machine's input cell** | The machine takes ingredients from it, as from a factory hopper. Storage that holds several stacks on one cell (most Adaptive Storage shelves) then works like a deep factory hopper. |
 | **On a factory machine's output cell** | Nothing changes: machines still put finished goods only into factory hoppers. |
 
-**Which buildings get the switch.** Every storage building whose items lie on its cells: about **135 types**
-on your mod list, counted from the mods' files. They include:
+**Which buildings get the switch.** Every storage building whose items lie on its cells, hoppers included (since
+0.11.0): about **150 types** on your mod list (the 6 November 2026 log says 149). They include:
 
 - vanilla shelves, and storage from VFE furniture, Vanilla Gravship Expanded, The Dead Man's Switch and others;
 - **Rimefeller's refinery unloading bays**, which its refiners fill by placing their products on the bay's cell;
@@ -165,13 +183,13 @@ on your mod list, counted from the mods' files. They include:
   Storage.
 
 **Expect a line in the log at startup**: "[D'thorga Factory Additions] Added the "Belts may take from here"
-switch to N storage building types", with the real number for your game.
+switch to N storage building types, M of them starting on", with the real numbers for your game.
 
 **Left out.** Graves, sarcophagi, growth vats, biosculpter pods, outfit stands, bookcases and sealed crates
 keep their contents *inside* themselves, where belts can't reach (and shouldn't).
 
-**Factory hoppers work the other way round (0.11.0).** Hoppers, deep hoppers, the chemfuel taps and the corpse fridge
-already feed belts, so their switch **starts on** and you turn it off to stop belts. Their inspect text mentions it only
+**Factory hoppers work the other way round (0.11.0).** Hoppers, deep hoppers, the chemfuel taps, the corpse fridge and
+D'thorga Water Tap's bottle tap already feed belts, so their switch **starts on** and you turn it off to stop belts. Their inspect text mentions it only
 while it is off. Read from VFE Factory's code; not yet tested in game.
 
 | With the switch off on a hopper | What happens |

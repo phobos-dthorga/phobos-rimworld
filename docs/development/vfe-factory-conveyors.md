@@ -106,8 +106,9 @@ mod does it to the corpse fridge of "[sbz] Fridge" (`Mods/SbzFridge/`). Checks b
 
 - it must be a `Building_Storage` whose items stay spawned on its cells (vanilla shelves and Adaptive
   Storage: yes; a container that moves items into a `ThingOwner`, such as a belt or a pod: no);
-- every belt touching it on the belt's back or sides will drain it, filter or not, so warn the player. With
-  D'thorga Factory Additions 0.7.0, add `<li Class="Phobos.Factory.BeltFilterExtension" />` beside the flag
+- every belt touching it on the belt's back or sides will drain it, filter or not, so warn the player (with D'thorga Factory
+  Additions 0.11.0 the player can switch "Belts may take from here" off on it to stop that). With D'thorga Factory Additions
+  0.7.0, add `<li Class="Phobos.Factory.BeltFilterExtension" />` beside the flag
   to make belts take only what the storage's own filter allows (the corpse fridge has it);
 - a machine whose input cell lands on it will grab from it, which may be the point.
 

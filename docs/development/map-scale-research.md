@@ -47,7 +47,7 @@ an FM voice floor of about −121 dBm (12.5 kHz, 10 dB noise figure, 12 dB requi
 | Scale | A 250-cell map across | Path loss | Received | Margin |
 | --- | --- | --- | --- | --- |
 | 1 m per cell | 250 m | 64 dB | −27 dBm | about 90 dB |
-| 26 m per cell | 6.5 km | 92 dB | −55 dBm | about 55 dB |
+| 26 m per cell | 6.5 km | 92 dB | −55 dBm | about 66 dB |
 
 Either way, distance never decides a VHF contact on one map. Walls, natural rock, overhead mountain and
 colony noise do, which is the design's on-map model. So the scale choice only changes what the

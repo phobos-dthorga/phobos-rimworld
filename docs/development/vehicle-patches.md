@@ -37,7 +37,7 @@ loads assemblies, then creates mod classes, and static constructors run later st
 a postfix on the method whose declaring type is generic, it builds a delegate to the closed method, unpatches RimPacts' postfix and adds an ordinary one
 that calls the delegate. Either load order works: if the framework patched first, its postfix stays and only RimPacts' is swapped.
 
-**Harmony 3 check.** The assembly is compiled against Lib.Harmony 2.4.3. `Harmony.Patch`, `Unpatch(MethodBase, HarmonyPatchType, string)`, `GetPatchInfo`,
+**Harmony 3 check.** The assembly is compiled against Lib.Harmony 2.4.3 (since 0.3.2, 4 Nov 2026, the 1.7 build against Harmony 3). `Harmony.Patch`, `Unpatch(MethodBase, HarmonyPatchType, string)`, `GetPatchInfo`,
 `Patches.Postfixes`, `Patch.owner`, `Patch.PatchMethod`, `AccessTools.TypeByName`, `AccessTools.Method`, `HarmonyMethod(MethodInfo)` and the enum value
 `Postfix` (2) were read in Harmony 3.0.0-rc.3 and match.
 

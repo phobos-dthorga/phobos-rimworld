@@ -5,6 +5,11 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+### Compatibility and limits
+
+- README brought up to date: the supported versions (a build for 1.7 and 1.6; About.xml still lists 1.6 only), no Harmony
+  needed, the settings' range and the mood switch, the one-step rebuild, and a diagram of what decides a contact.
+
 ## [0.1.2] - 2026-11-05 - Draft
 
 No change in play. Not yet tested in game.
@@ -12,9 +17,6 @@ No change in play. Not yet tested in game.
 ### Changed
 
 - Messages use named placeholders, so translators can see what each one means.
-
-### Changed
-
 - The description now carries the disclaimer in the wording Ludeon's EULA requires. It said only that the mod is not official and not endorsed. No behaviour change.
 
 ## [0.1.1] - 2026-11-04 - Draft

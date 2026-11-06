@@ -5,6 +5,10 @@ yet. Not yet tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+### Compatibility and limits
+
+- README: the supported game versions in the gotchas, what each tap saves, and a diagram of how a tap fills and refills.
+
 ### Changed
 
 - The description now carries the disclaimer in the wording Ludeon's EULA requires. It said only that the mod is not official and not endorsed. No behaviour change.

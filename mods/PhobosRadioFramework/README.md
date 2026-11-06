@@ -3,15 +3,17 @@
 Radio that works like radio: every contact is decided by a real link budget, and doubling the distance
 costs 6 dB. This is **Phase 1**: local VHF and UHF on one map.
 
-Version 0.1.2, built 4 November 2026 for House D'thorga. **Not yet tested in game.**
+Version 0.1.2, built 5 November 2026 for House D'thorga. **Not yet tested in game.** It was built and deployed on 19 October
+2026, but the Def loading, the coax net, the gizmos and the mood have not been seen running.
 
 ## Read this first (gotchas)
 
 - **Requires Vanilla Expanded Framework** (its pipe network carries the coax feedline). Load this mod
-  after Harmony, Core, the DLCs and Vanilla Expanded Framework.
-- **Built for RimWorld 1.6.** On 1.7 it loads the same build and is untested there.
-- **Decide before you start a colony:** the mod setting *Metres per cell* (default 1) changes every path
-  and feedline loss. Changing it mid-save changes which links work.
+  after Core, the DLCs and Vanilla Expanded Framework. It needs no Harmony.
+- **RimWorld 1.7 and 1.6.** It has a build for each, and 1.7 leads. Its About file still lists only 1.6, so on 1.7 the mod list
+  may call it outdated; that is a label, not a fault.
+- **Decide before you start a colony:** the mod setting *Metres per cell* (default 1, from 0.5 to 30) changes every path
+  and feedline loss. Changing it mid-save changes which links work. The "In touch" mood can be turned off in the same settings.
 - **Safe to add to a running save.** Removing it is safe once you have deconstructed every radio building
   and dropped every hand-held; the first load afterwards shows one harmless "could not find class" error.
 - **The hand-held is worn on the belt slot**, so a colonist cannot wear a shield belt and a hand-held at
@@ -19,6 +21,21 @@ Version 0.1.2, built 4 November 2026 for House D'thorga. **Not yet tested in gam
 - **Nothing is published on the Steam Workshop yet.** Install from source with `scripts/deploy.py`.
 
 ## What it does
+
+What decides a contact:
+
+```mermaid
+flowchart LR
+    Handheld["Worn hand-held<br/>(VHF or UHF, 5 W)"] --> Budget
+    Station["Base station<br/>(25 W, built-in whip)"] --> Budget
+    Station -- "coax on the pipe network,<br/>loss per 100 m" --> Antenna["Whip (3 m) or mast (10 m)"]
+    Antenna -- "the best antenna on its coax" --> Budget
+    Obstacles["Walls and doors below 2.5 m on the line,<br/>natural rock, the roof over each end"] --> Budget
+    Noise["Generators and batteries<br/>raise the noise at the receiver"] --> Budget
+    Budget{{"Link budget, both directions:<br/>the worse one decides"}} --> Outcome["Workable, faint or no contact"]
+    Outcome --> Shown["Signal gizmo, the station's Net tab,<br/>the link-budget window"]
+    Outcome --> Mood["'In touch with home' mood"]
+```
 
 Research **Local radio** (after Microelectronics Basics). Then:
 
@@ -83,13 +100,15 @@ generators get theirs. No C# needed to add a radio, a band, an antenna or a nois
 ## Rebuilding
 
 ```text
-dotnet build src/PhobosRadio/PhobosRadio.csproj
-python scripts/deploy.py --apply PhobosRadioFramework
+python scripts/deploy.py --build --apply PhobosRadioFramework   (with RimWorld closed)
 ```
 
 See [building, testing and deploying](../../docs/development/building.md).
 
 ## Checks done
+
+- 4 and 5 Nov 2026 (0.1.1, 0.1.2): a native 1.7 build beside the 1.6 one, against VEF's PipeSystem for each version; named
+  placeholders in messages. Not yet loaded in the game on either version.
 
 - 19 Oct 2026: builds with 0 warnings against RimWorld 1.6.4871 and VEF's PipeSystem 1.0.1.0; the 25
   physics unit tests pass; every XML file parses, every Def reference, texture path and string key

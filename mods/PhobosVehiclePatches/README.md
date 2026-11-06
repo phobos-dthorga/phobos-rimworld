@@ -10,10 +10,14 @@ Version 0.5.0, built 6 November 2026 for House D'thorga. **Not yet tested in gam
 ## Read this first (gotchas)
 
 - **Load it after the mods it patches.** The About file asks for this, so RimSort does it for you. **You have to switch it on
-  yourself**: nothing else requires it. It needs nothing else to run, and does nothing without the mods it patches.
+  yourself**: nothing else requires it. It needs nothing else to run (its code loads only with the Harrier, which already brings
+  Harmony), and does nothing without the mods it patches.
+- **RimWorld 1.7 and 1.6.** Its small assembly is built for each. Vehicle Framework still ships only a 1.6 build, which the game
+  also runs on 1.7.
 - **Safe to add to a running save.** A jet you already built keeps working; only new builds pay the new cost. Bombs already made
   stay as they are.
 - **Safe to remove.** Costs go back to the Harrier's own, and with RimPacts active the Harrier's framework fails to load fully again.
+  **With Combat Extended active, deconstruct any turret hulls built under this mod first** (not yet tested either way).
   **Delete any bomb or rocket bills you added at an ammunition fabricator, and any heavy casting bills at a rotary forger, first**, because they may
   no longer list those recipes.
 - **The jet now needs RimThunder's turbine, if RimThunder is active.** It's a long job:

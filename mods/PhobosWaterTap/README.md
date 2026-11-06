@@ -27,8 +27,9 @@ Version 0.2.1, built 4 November 2026 for House D'thorga. **Not yet tested in gam
   tooltip warns, and haulers may then carry them back to the tap. Add a water slot of 3 to that loadout.
 - **Safe to add to a running colony.** Existing bottles keep working, and any that were already split read as treated.
 - **Safe to remove, once you deconstruct your taps.** A tap left standing vanishes with the mod and leaves a gap in the pipe. The bottle
-  rule saves nothing, so bottles are unaffected. Each map saves its colony limit, so **the first load after removing the mod logs two errors
+  rule saves nothing, so bottles are unaffected. Each tap saves how many bottles it keeps, and each map its colony limit, so **the first load after removing the mod logs two errors
   about the missing class** (read from the game's code, not yet seen in game). The game drops it and goes on, and they stop once you save.
+- **RimWorld 1.7 and 1.6.** Each has its own build, against Dubs Bad Hygiene's assembly for that version.
 - **Not yet tested in game.** Everything here is read from the game's and the mods' code, and built and checked offline.
 
 ## What it does
@@ -45,6 +46,20 @@ any loose bottles, and caravans can load from it.
 | Most water used | 120 L a day per tap | From the two above |
 | Cost and work | 20 steel, 600 work | Authored |
 | Power | None | Pumps supply the pressure. Authored simplification |
+
+How a tap fills and refills:
+
+```mermaid
+flowchart TD
+    Tick["Every 250 ticks"] --> Check{"What stops it?"}
+    Check -- "set to keep 0" --> Off["Switched off"]
+    Check -- "holds as many as it keeps" --> Full["Full"]
+    Check -- "the map holds its colony limit" --> Limit["Colony limit reached"]
+    Check -- "no tower, contaminated water,<br/>towers empty, or the water has changed" --> Wait["Waits, and says why"]
+    Check -- "nothing" --> Fill["Draws 0.5 L from the towers on its pipe<br/>and adds one bottle of that water"]
+    Fill --> Take["Colonists drink or pack, caravans load,<br/>belts take (with VFE Factory)"]
+    Take --> Tick
+```
 
 **Fewer bottles** and **More bottles** change how many this tap keeps ready, one at a time. At 0 it stops filling. **Colony limit -10** and **+10**
 change the limit for the whole map, whichever tap you press them on, and a click counts once however many taps are selected. The inspect pane always

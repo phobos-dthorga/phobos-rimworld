@@ -5,6 +5,10 @@ yet. Not yet tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+### Compatibility and limits
+
+- README: supported game versions, where its Harmony comes from, and the turret hull step before removal, in the gotchas.
+
 ## [0.5.0] - 2026-11-06 - Draft
 
 Owner's request: heavy castings at the rotary forger in batches, so loading the machine is worth the trip. Not yet tested in game.

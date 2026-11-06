@@ -9,6 +9,12 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 - The description now carries the disclaimer in the wording Ludeon's EULA requires. It said only that the mod is not official and not endorsed. No behaviour change.
 
+### Compatibility and limits
+
+- README brought up to date: the opening names the output fix for every machine and piped water, the gotchas give the supported
+  versions instead of a build step, the save note names what 0.11.x saves, the startup log line and switch count are current, the
+  bottle tap starts switched on, and a diagram shows how belts, hoppers and machines connect.
+
 ## [0.11.2] - 2026-11-04 - Draft
 
 A native RimWorld 1.7 build, which now leads (owner, 4 November 2026); the 1.6 build stays as the minimum backwards support
