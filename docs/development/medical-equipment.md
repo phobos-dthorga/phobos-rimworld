@@ -41,6 +41,10 @@ The owner wants our own medical equipment, hospital and field. Carbon monoxide a
 | Concentrator power | 350 W | Authored, inside the real 300 to 600 W range from memory and unverified |
 | Patients per machine | 2 | Authored |
 | Canisters per patient per hour | 1 | Authored |
+| Treatment linger after the last pass | 600 ticks, on the condition's comp since 0.2.2 | Authored |
+| Burn unit bed: tend quality | +0.15 | Authored |
+| Burn unit bed: wound healing and pain on air cells | x1.25 and x0.85 | Authored |
+| Burn unit bed: power, cost, skill | 200 W; 120 steel, 30 cloth, 7 components; Construction 8; Hospital bed research | Authored |
 
 **Simplifications:** a concentrator gives about 93% oxygen, treated as the same as a canister. A mask is assumed, with no job to fit it. A patient on oxygen still takes in the room's carbon monoxide.
 
@@ -53,6 +57,10 @@ The owner wants our own medical equipment, hospital and field. Carbon monoxide a
 5. **Stopping:** flick the machine off, or move the patient. "On oxygen" should fall away shortly after.
 6. **The stand:** with Vanilla Gravship Expanded, research Oxygen Network, build the stand, and watch it take canisters. Lay an oxygen pipe to it and check that it refills. This pipe link is the riskiest untested piece.
 7. **Save and reload:** the condition and the machines survive with no errors.
+8. **Burn unit bed:** a pawn with an open burn in a powered bed gets "on air cells"; with no power the bed says it waits for power
+   for its blower; an unburned occupant is named as needing none.
+9. The dev action "Log a pawn's oxygen need" gives breathing, need and half-life. A save from 0.2.1 loads with no line about the
+   treatment comp (0.2.2 moved it into the framework).
 
 ## Results from play
 
@@ -67,4 +75,5 @@ The owner wants our own medical equipment, hospital and field. Carbon monoxide a
 - A field version: a mask and regulator a medic carries.
 - A ventilator of our own. Under the owner's rule it earns its place, because nothing else exists in the owner's game.
 - More Injuries' hypoxia counts as needing oxygen, but only breathing eases it. Whether to help it more depends on its handlers.
-- The electrolyser, the liquid oxygen store with its frost, burn dressings, the resuscitator, the hyperbaric chamber and the burn unit bed.
+- The electrolyser, the liquid oxygen store with its frost, burn dressings, the resuscitator and the hyperbaric chamber.
+- A field needle decompression for a collapsed lung, buying time until D'thorga Triage's operation.

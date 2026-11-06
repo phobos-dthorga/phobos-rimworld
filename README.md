@@ -27,7 +27,7 @@ As of **6 November 2026**.
 | [D'thorga Burns and Smoke](mods/PhobosBurnsAndSmoke/README.md) | 0.5.0 | Burned body fraction, burn shock, airway burns with a tracheotomy, smoke-damaged lungs, carbon monoxide, and fires that heat the air around them in the open | Partly: burns, shock and the More Injuries tie-ins |
 | [D'thorga Emergency Dosing](mods/PhobosDosing/README.md) | 0.3.1 | Doctors give painkillers, sedatives and disease-fighting drugs on their own; colonists in pain take what their drug policy allows | Partly: doctors' dosing |
 | [D'thorga Medical Equipment](mods/PhobosMedicalEquipment/README.md) | 0.2.2 | Bedside oxygen (a concentrator and a canister stand) and a burn unit bed | Partly: oxygen and the burn bed |
-| [D'thorga Triage](mods/PhobosTriage/README.md) | 0.1.0 | Doctors queue the life-saving operations a patient needs, and take the worst case first | No |
+| [D'thorga Triage](mods/PhobosTriage/README.md) | 0.1.1 | Doctors queue the life-saving operations a patient needs, and take the worst case first | No |
 | [D'thorga Medical Save Bridge](mods/PhobosMedicalSaveBridge/README.md) | 0.1.2 | Adds More Injuries to a running colony by re-numbering saved body parts on the first load | Yes: the first load |
 | [D'thorga Factory Additions](mods/PhobosFactoryAdditions/README.md) | 0.11.2 | Additions to Vanilla Furniture Expanded - Factory: belts from any storage, an automated fabrication bay, other mods' drug labs as factory bills, and fixes | Partly |
 | [D'thorga Vehicle Patches](mods/PhobosVehiclePatches/README.md) | 0.5.0 | Fixes and honest costs for the Harrier VTOL, RimThunder's heavy casting and Spaceship Turret Hull under Combat Extended | No |

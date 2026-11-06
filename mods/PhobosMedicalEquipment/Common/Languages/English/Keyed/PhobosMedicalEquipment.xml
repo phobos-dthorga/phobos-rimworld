@@ -2,7 +2,7 @@
 <LanguageData>
   <PhobosMedical_SettingsCategory>D'thorga Medical Equipment</PhobosMedical_SettingsCategory>
   <PhobosMedical_SettingRemoveAll>Remove every treatment condition from every pawn</PhobosMedical_SettingRemoveAll>
-  <PhobosMedical_SettingRemoveAllDesc>Do this, and deconstruct the machines, before you take this mod out of a colony. Then save and switch the mod off.</PhobosMedical_SettingRemoveAllDesc>
+  <PhobosMedical_SettingRemoveAllDesc>Do this, and deconstruct the machines and burn unit beds, before you take this mod out of a colony. Then save and switch the mod off.</PhobosMedical_SettingRemoveAllDesc>
   <PhobosMedical_RemoveNeedsGame>Load a colony first: there are no pawns to change in the main menu.</PhobosMedical_RemoveNeedsGame>
   <PhobosMedical_RemoveDone>Removed {COUNT} treatment conditions. Save the game before you switch the mod off.</PhobosMedical_RemoveDone>
 

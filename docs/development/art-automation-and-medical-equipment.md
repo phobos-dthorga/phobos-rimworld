@@ -1,6 +1,8 @@
 # Art automation and medical equipment: design (4 Nov 2026, updated 5 Nov 2026)
 
-A working design that keeps these plans in one place. **Nothing here is built, and nothing is tested in game.** The owner's
+A working design that keeps these plans in one place. **The art pipeline and most of the equipment below are not built;**
+D'thorga Medical Equipment's oxygen machines and burn unit bed are (status table, 6 Nov 2026), and the owner has tested the
+concentrator and the bed. The owner's
 choices, agent suggestions and untested assumptions are labelled, so the owner can change any of them. Update this page as things
 are decided, and record finished work in the owning mod's changelog or record.
 
@@ -8,14 +10,16 @@ are decided, and record finished work in the owning mod's changelog or record.
 
 | Work | State | Next step | Record |
 | --- | --- | --- | --- |
-| D'thorga Framework 0.1.1 | Draft; first look in game was 0.1.0 | The owner's test of the current build | [Framework](phobos-framework.md) |
-| D'thorga Burns and Smoke 0.4.2 | Draft. The owner reports burn numbers, progression and the tie-ins working (5 Nov 2026); the tracheotomy is unproven | The tracheotomy, as it comes up in play | [Burns and smoke](burns-and-smoke.md) |
-| Native 1.7 builds of all seven mods | Built and installed; not yet tested in game | The same test, watching the Harmony mods | [Building](building.md) |
+| D'thorga Framework 0.3.0 | Draft. The owner reports the gas layer and supplied oxygen working (5 Nov 2026); the health layer (6 Nov) is not yet tested in game | The health layer, through Triage | [Framework](phobos-framework.md) |
+| D'thorga Burns and Smoke 0.5.0 | Draft. The owner reports burn numbers, progression and the tie-ins working (5 Nov 2026, on 0.4.2); the tracheotomy and the fire heat in the open are not yet tested in game | The fire heat and the tracheotomy | [Burns and smoke](burns-and-smoke.md) |
+| D'thorga Emergency Dosing 0.3.1 | Draft. The owner reports doctors' dosing working (5 Nov 2026, on 0.3.0); self-medication and the bleeding hold not yet tested in game | Self-medication | [Emergency dosing](emergency-dosing.md) |
+| D'thorga Triage 0.1.1 | Draft, 6 Nov 2026; not yet tested in game | The owner's first test | [Triage](triage.md) |
+| Native 1.7 builds of all ten mods | Built; the owner plays 1.7 and has tested several mods on it | The rest of the owner's tests | [Building](building.md) |
 | Burns and Smoke: eschar, escharotomy | Planned | The owner's go; their test passed the gate on 5 Nov 2026 | [Burns and smoke](burns-and-smoke.md) |
 | Hands-off art pipeline | **Built; checked offline only, never run on the GPU** | The owner's go for a short test run | [Below](#hands-off-art-pipeline) |
 | Medical art, first batch | Generated 5 Nov 2026. The owner's picks are in the [list of picks](#the-owners-picks) | Defs for the machines the picks are for | [`assets/phobos-medical`](../../assets/phobos-medical/README.md) |
 | Style training | Tooling written; first real training ran 5 Nov 2026, after two fixes below. Alone the LoRA gave no game style; the owner preferred it with references | Later training on approved art | [Below](#style-training) |
-| D'thorga Medical Equipment 0.2.0 | Draft: concentrator, bedside stand and burn unit bed (the bed not yet tested in game). The owner reports breathing improving on the concentrator (on 0.1.0); the bedside stand and the rest are not yet tested in game | The rest of the owner's test | [Record](medical-equipment.md) |
+| D'thorga Medical Equipment 0.2.2 | Draft: concentrator, bedside stand and burn unit bed. The owner reports breathing improving on the concentrator (on 0.1.0) and the burn unit bed working (on 0.2.0); the bedside stand is not yet tested in game | The stand and its pipe link | [Record](medical-equipment.md) |
 
 ## Decisions so far
 
@@ -250,9 +254,9 @@ Our own supply, used when Vanilla Gravship Expanded's is absent. Game values are
 | Field | Oxygen mask and regulator | Treats a patient with carbon monoxide or smoke-damaged lungs from a canister |
 | Field | Burn dressings | Better than plain tending for large burns; silver sulfadiazine is a natural chemistry tie-in |
 | Field | Manual resuscitator | Holds a closing airway until someone can do the tracheotomy |
-| Hospital | Bedside oxygen | Treats patients in bed from a canister or the pipe network |
+| Hospital | Bedside oxygen | Built: Medical Equipment 0.1.0 (a concentrator, and a stand on canisters or the pipe network) |
 | Hospital | Hyperbaric chamber | The top-end carbon monoxide treatment |
-| Hospital | Burn unit bed | Eases cold sensitivity and infection risk |
+| Hospital | Burn unit bed | Built: Medical Equipment 0.2.0. Air-cell care: faster healing, less pain, better tending |
 
 **Treatment tiers for carbon monoxide:** half-life about 320 minutes on room air, about 75 on oxygen, 15 to 30 hyperbaric
 (see the sources in [burns and smoke](burns-and-smoke.md#sources)). The kinetics are sourced, but the hyperbaric chamber is a game

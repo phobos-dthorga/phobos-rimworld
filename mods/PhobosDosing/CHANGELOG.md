@@ -7,6 +7,8 @@ tested in game unless an entry says the owner tested it.
 
 ### Compatibility and limits
 
+- README brought up to date: partly tested in game, Framework 0.3.0 or later, slaves are dosed too, the setting's current name,
+  and how it works beside D'thorga Triage.
 - The owner reports doctors' dosing working in game on 0.3.0, from one case with penicillin and ketamine. Self-medication and the bleeding hold are not yet tested in game.
 - A drug that gives its condition through its own mod's custom ingestion code is not read by the index. Vanilla Races Expanded's antibiotics are one, so doctors do not give them
   on their own.
@@ -97,9 +99,6 @@ No change in play. Not yet tested in game.
 - Two refusal messages spoke of settings rather than the world, under the owner's rule of 5 November 2026 that text a player reads
   in game stays in the game world. No behaviour change. The new wording is agent-authored and held for the owner's review. Not yet
   tested in game.
-
-### Changed
-
 - The description now carries the disclaimer in the wording Ludeon's EULA requires. It said only that the mod is not official and not endorsed. No behaviour change.
 
 ## [0.1.1] - 2026-11-05 - Draft

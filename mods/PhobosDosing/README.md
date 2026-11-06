@@ -2,13 +2,14 @@
 
 Doctors give painkillers and sedatives on their own, from whatever mod made them.
 
-Version 0.3.1, built 6 November 2026 for House D'thorga. **Not yet tested in game.** Everything here is read from the game's and
-the mods' code.
+Version 0.3.1, built 6 November 2026 for House D'thorga. **Partly tested in game:** the owner reports doctors' dosing working on
+0.3.0 (5 November 2026, penicillin and ketamine on one patient). Self-medication, the bleeding hold and 0.3.1's move to the
+framework's health layer are not yet tested in game. The rest is read from the game's and the mods' code.
 
 ## Read this first (gotchas)
 
-- **Needs D'thorga Framework**, loaded before it. No Harmony. Nothing is saved: **safe to add or remove at any time**.
-- **Who gets dosed:** a colonist, prisoner or guest past babyhood who is **down or in bed**, in **severe pain** (60% or more;
+- **Needs D'thorga Framework 0.3.0 or later**, loaded before it. No Harmony. Nothing is saved: **safe to add or remove at any time**.
+- **Who gets dosed:** a colonist, slave, prisoner or guest past babyhood who is **down or in bed**, in **severe pain** (60% or more;
   the game labels pain severe from 40%), under medical care of at least the level in the settings (default: herbal medicine or
   better; "no medicine" is never dosed), and not reserved by another doctor. A pawn up and working in pain is left alone: a painkiller could drop them where they stand.
 - **What is given:** the painkiller with the strongest relief net of its side effects, from the doctor's inventory first, then
@@ -33,6 +34,9 @@ the mods' code.
 - **A patient bleeding at 30% a day or more waits for a painkiller until that is under control**, on both the doctors' and the self-medication paths. A sedative in extreme
   pain and a drug for fighting disease do not wait. The bleeding has to be tended for this to clear.
 - **Mechs do not dose** in this version.
+- **Beside D'thorga Triage:** Triage queues operations and this mod gives drugs; a patient waiting for an operation can still be
+  dosed, and the game anaesthetises at the table. Both read the same list of patients from D'thorga Framework. See
+  [the medical mods together](../../docs/medical-mods.md).
 - **People also fetch their own painkillers, and your drug policies decide what.** An adult colonist who is up and about at 40% pain or more
   goes and takes the best painkiller whose policy line allows it, for joy or on a schedule. **Addiction and overdose are real
   risks, so check your drug policies before enabling this on a colony.** The setting is on by default.
@@ -47,6 +51,22 @@ the mods' code.
 - **Sedatives are never taken by choice**, and nobody takes from another pawn's pockets.
 
 ## What it does
+
+A doctor's decision, for one patient:
+
+```mermaid
+flowchart TD
+    Patient["Down or in bed, under care at the settings' level or better,<br/>and nobody else has reserved them"] --> Need{"What do they need?"}
+    Need -- "pain 80% or more" --> Sedation["Pain relief, or a sedative<br/>if no painkiller can be given"]
+    Need -- "pain 60% or more" --> Pain["Pain relief"]
+    Need -- "a deadly disease winning the race<br/>against their immunity" --> Immunity["A disease-fighting drug"]
+    Sedation --> Safe
+    Pain --> Safe
+    Immunity --> Safe
+    Safe{"For each drug found by its effects,<br/>is it safe now?"} -- "no: an earlier dose still working,<br/>an overdose, a dangerous stage,<br/>consciousness or breathing under 15%,<br/>bleeding 30% a day or more (painkillers wait)" --> Refuse["Not given; the reason shows<br/>on the doctor's right-click"]
+    Safe -- "yes" --> Choose["Best score: medical first, a sedative only for sedation,<br/>recreational only by setting and last"]
+    Choose --> Fetch["From the doctor's pockets,<br/>else the nearest stack"] --> Give["The doctor gives it"]
+```
 
 | Need | Who | Given | Not given when |
 | --- | --- | --- | --- |
@@ -68,7 +88,7 @@ an earlier dose still working, a dangerous dose, and so on. Nothing shows for a 
 
 ## Settings
 
-Doctors give pain relief on their own (on); dose patients whose medical care is at least (herbal or better); use recreational
+Doctors give medication on their own (on); dose patients whose medical care is at least (herbal or better); use recreational
 drugs for pain (off); give medical drugs to patients who refuse drugs (off); doctors give drugs that help fight disease (on); people in pain fetch their own painkillers (on); guests may
 take painkillers from your stock (off, for mods such as Hospitality); the display mode. The recreational setting is about what doctors give: a
 pawn fetching their own goes by their drug policy instead.
@@ -90,7 +110,7 @@ least 30% of the pain (through painFactor and a negative painOffset) and its sco
 the drug comp's addictiveness and category are read from the same Defs. Balance lives in
 `Common/Defs/Phobos/Dosing/Rules.xml` (one `PhobosDosingRulesDef`, first loaded wins).
 
-## Checks done (5 November 2026)
+## Checks done (6 November 2026)
 
 - **The owner reports doctors' dosing working in game on 0.3.0** (5 November 2026, one screenshot: penicillin and ketamine on a patient). Self-medication and the bleeding hold
   are not yet tested in game.
@@ -101,7 +121,5 @@ the drug comp's addictiveness and category are read from the same Defs. Balance 
 - Read from code: More Injuries, Search and Rescue, Medicines+, Smart Medicine, MSE2 and VFE Medical give no painkiller or
   sedative automatically; More Injuries' drugs are a drafted doctor's right-click option, and Search and Rescue's doctors are
   undrafted by rule (see the design record).
-- **Not checked:** anything in game, self-medication included. Its think-tree hook, the ingest job and how often pawns reach for a drug are
-  all untested.
-- **Also not checked:** the rest of the mod in game. The job's toils, the patient cache, the work giver's priority and the index's reading of
-  the owner's mods are all untested.
+- **Not checked in game:** self-medication (its think-tree hook, the ingest job and how often pawns reach for a drug), the bleeding
+  hold, the work giver's priority beside Search and Rescue, and the index's full reading of the owner's mods.

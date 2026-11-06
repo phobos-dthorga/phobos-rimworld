@@ -5,6 +5,12 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+### Compatibility and limits
+
+- The owner reports the gas layer and supplied oxygen working in game through Burns and Smoke and Medical Equipment, 5 November
+  2026. The health layer is not yet tested in game.
+- README corrected: removal prints a line per missing map component (up to three per map), and the care choices are saved too.
+
 ## [0.3.0] - 2026-11-06 - Draft
 
 The health layer the medical mods share, built for D'thorga Triage and adopted by Emergency Dosing 0.3.1 and Medical Equipment

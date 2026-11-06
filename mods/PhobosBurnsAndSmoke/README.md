@@ -9,7 +9,8 @@ the mods' code.
 
 ## Read this first (gotchas)
 
-- **Needs D'thorga Framework and Harmony**, both loaded before it. More Injuries, More Injuries: Organ Failure and Combat Extended
+- **Needs D'thorga Framework 0.2.0 or later (0.2.1 or later for gas masks under Combat Extended) and Harmony**, both loaded
+  before it. More Injuries, More Injuries: Organ Failure and Combat Extended
   are optional and are used when present. Harmony is new in 0.5.0: it carries the one patch that adds the heat around fires in the
   open to the game's cell temperature.
 - **Fires in the open are now hot.** The game gives a fire's heat to its room and throws it away outdoors, so beside a blaze the air
@@ -21,7 +22,8 @@ the mods' code.
   heat must not be counted twice. The load line says which mod it stood down for. Other such mods can be added to the rules Def.
 - **Safe to add to a running colony.** Its conditions are recomputed from the burns a pawn has, so old burns count at once.
 - **Before removing it, press the settings button "Remove every burn condition from every pawn", save, then switch the mod off.**
-  Otherwise the next load prints one line per missing condition and carries on.
+  Otherwise the next load prints one line per missing condition and carries on. Either way it prints one harmless line per map
+  about the missing fire-heat map component.
 - **With More Injuries, its own "fire inhalation" feature is switched off by this mod** (a patch in the More Injuries folder; delete
   that file to keep both). More Injuries put plain burns on both lungs whenever a burning pawn was hurt; this mod models the
   inhalation itself. Carbon monoxide and a closing airway feed More Injuries' hypoxia and brain damage.
@@ -39,11 +41,30 @@ the mods' code.
 - **The tracheotomy** is a surgery on the neck. With More Injuries it needs its Emergency Medicine research; without, no research.
 - **Plain mode shows no percentages.** Switch the display mode to Operator or Engineer in the settings to see the figures.
 - **Only humanlike pawns** get these conditions in this version. Animals burn as before.
+- **Beside the other D'thorga medical mods:** with **Triage**, the doctors queue the tracheotomy for a closing airway on their own;
+  with **Medical Equipment**, a powered burn unit bed gives burned patients air-cell care and oxygen clears carbon monoxide about
+  four times faster; with **Emergency Dosing**, a doctor gives a painkiller for burn pain at 60% or more. See
+  [the medical mods together](../../docs/medical-mods.md).
 - **A part burned off counts as all of its skin burned** while the stump is fresh, so a pawn who loses an arm and a leg to
   fire goes straight to a serious burn and burn shock; once the stump is tended, or 1.5 days old, it fades out over about two
   weeks. **A fresh stump also bleeds until it is tended** (the game's own rule). **Old burn scars do not count.**
 
 ## What it does
+
+How burn shock is decided, every 300 ticks for a burned pawn (figures from the rules Def, all authored starting values):
+
+```mermaid
+flowchart TD
+    Burns["Every burn on the skin, by its kind's area<br/>(and every part burned off, while fresh)"] --> TBSA["Burned body fraction"]
+    TBSA --> Over{"15% or more?"}
+    Over -- "no" --> Fade["Shock fades and leaves"]
+    Over -- "yes" --> Baux["Revised Baux score:<br/>age + percent burned<br/>+ 17 with an airway burn or 20% carbon monoxide"]
+    Baux --> Target["Untreated target: score 36 = none, 110 = all"]
+    Care["Care: burns tended (-20%), in bed (-15%),<br/>the shock tended with medicine (-35% x tend quality)"] --> Treated
+    Target --> Treated["Treated target, at least 10% of the untreated one,<br/>and at least the first stage while 15% is burned"]
+    Treated --> Move["Shock moves toward it:<br/>up 1 a day, down 0.35 a day"]
+    Move --> Stages["compensated, shock from 30%,<br/>severe from 55% (death in about 4 days),<br/>terminal from 80% (about 1 day)"]
+```
 
 | Condition | Comes from | Gets worse with | Treated by |
 | --- | --- | --- | --- |

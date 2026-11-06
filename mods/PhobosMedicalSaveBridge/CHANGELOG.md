@@ -9,6 +9,10 @@ yet. Not yet tested in game unless an entry says the owner tested it.
 
 - The description now carries the disclaimer in the wording Ludeon's EULA requires. It said only that the mod is not official and not endorsed. No behaviour change.
 
+### Compatibility and limits
+
+- README: says plainly that the 0.1.2 build is not yet tested in game, and gains a Checks done section and a diagram of one load.
+
 ## [0.1.2] - 2026-11-04 - Draft
 
 A native RimWorld 1.7 build, which now leads (owner, 4 November 2026); the 1.6 build stays as the minimum backwards support

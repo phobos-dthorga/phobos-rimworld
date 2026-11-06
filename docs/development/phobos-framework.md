@@ -1,6 +1,8 @@
 # D'thorga Framework: research and decisions (4 Nov 2026)
 
-The record behind [D'thorga Framework](../../mods/PhobosFramework/README.md). **Not yet tested in game.** The owner recorded
+The record behind [D'thorga Framework](../../mods/PhobosFramework/README.md). **Partly tested in game:** the owner reports the gas
+layer and supplied oxygen working through Burns and Smoke and Medical Equipment (5 Nov 2026); the health layer (0.3.0) is not yet
+tested in game. The owner recorded
 the idea on 22 October 2026 ("an extendable Phobos framework of its own", [project direction](project-direction.md)); the
 first consumer, [D'thorga Burns and Smoke](burns-and-smoke.md), made it concrete on 4 November 2026. The Ostranauts repository's
 `PhobosFramework` is the companion: the same role, a different game.
@@ -75,8 +77,11 @@ visits 1/64 of cells per tick for fading and 1/32 for spreading, as it does afte
 3. Put the fires out and shut the door: carbon monoxide stays for hours. Open the door: the next room gets some. Build a wall
    through the room: both halves keep it. Remove the roof: it fades in minutes.
 4. Save and reload: the gas is still there. Switch the source mode to Never: fires add no carbon monoxide.
-5. A gas mask (Biotech or CE) against the game's smoke: breathed smoke falls to a fifth; against carbon monoxide: no change.
+5. Without Combat Extended, a gas mask against the game's smoke: breathed smoke falls to a fifth; with Combat Extended, CE's own
+   smoke inhalation is the signal and its masks stop it. Against carbon monoxide: no change either way.
 6. Report the load line, any error naming `Phobos.Framework`, and TPS with and without a large fire.
+7. With D'thorga Triage on, select a colonist: one "Doctors may operate" button. The dev action "Framework: log care choices of
+   selected pawns" lists the group, care level and each choice as default or saved. Change it, save, reload: the choice is kept.
 
 ## Results from play
 

@@ -7,7 +7,9 @@ tested in game unless an entry says the owner tested it.
 
 ### Compatibility and limits
 
-- The owner's report in game, 5 November 2026: burn numbers, how conditions progress, and the More Injuries and Organ Failure tie-ins work.
+- Correction to 0.5.0: the fire heat's map component is saved by name, so removing the mod prints one harmless line per map on
+  the next load. The README now says so, names the Framework versions it needs, and how the other medical mods work beside it.
+- The owner's report in game (on 0.4.2, before 0.5.0), 5 November 2026: burn numbers, how conditions progress, and the More Injuries and Organ Failure tie-ins work.
   Faster carbon monoxide clearing on oxygen is the owner's inference, not an observation. The tracheotomy is unproven.
 
 ## [0.5.0] - 2026-11-06 - Draft

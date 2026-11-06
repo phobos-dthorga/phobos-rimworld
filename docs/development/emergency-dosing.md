@@ -1,6 +1,7 @@
 # Emergency dosing: research and decisions (5 Nov 2026)
 
-The record behind [D'thorga Emergency Dosing](../../mods/PhobosDosing/README.md). **Not yet tested in game.**
+The record behind [D'thorga Emergency Dosing](../../mods/PhobosDosing/README.md). **Partly tested in game:** the owner reports
+doctors' dosing working on 0.3.0 (5 Nov 2026); self-medication and the bleeding hold are not yet tested in game.
 
 ## The problem
 
@@ -51,7 +52,9 @@ Core 1.7.4998; the save PG19 of 5 Nov 00:42.
 ## Decisions
 
 - **A new mod, D'thorga Emergency Dosing** (agent choice): depends on D'thorga Framework only, no Harmony, no Vanilla Expanded
-  Framework, so it builds on GitHub, and the planned medical equipment mod (VEF-bound) stays separate.
+  Framework, so it builds on GitHub, and the medical equipment mod (VEF-bound, now D'thorga Medical Equipment) stays separate.
+- **Shared with Triage** (owner's direction, 6 Nov 2026; 0.3.1): who counts as a patient, the care-level test, the severity-rate
+  sum, the danger reader and the patient cache now come from D'thorga Framework's health layer, with the same answers.
 - **Effects, not names** (owner's rule). `DoseIndex` walks every item `ThingDef` with an `IngestionOutcomeDoer_GiveHediff`
   once, on first use after the Defs load, reads the outcome condition's stage at the dose and the drug comp, and keeps those
   that relieve pain. An item can opt out with `PhobosDosingExtension.neverAutoDose`. Cost: one pass over Defs at load.
@@ -184,7 +187,7 @@ Both are other authors' interplay, not ours; drafts the owner can post.
    log the pain-relief index" shows each item's figures.
 2. Dev "Apply damage" on a colonist until pain is at 60% or more, lay them in a hospital bed: a doctor with morphine in
    inventory, or with morphine in a stockpile, gives it within 250 ticks; the health tab shows the morphine high; no second
-   dose while it lasts. Dev action "Dosing: log the decision" shows the ranked table.
+   dose while it lasts. Dev action "Dosing: log the decision for selected pawns as patients" shows the ranked table.
 3. Pain past 80% with no morphine or thornweed on the map: ketamine or chloroform is given; with morphine present, morphine. With
    the recreational setting on and no medical drug or sedative on the map, a recreational one; with any medical option, never.
 4. A "no medicine" patient, and a teetotaler with the override off, get nothing; with a doctor selected, a right-click on the
@@ -216,6 +219,6 @@ Both are other authors' interplay, not ours; drafts the owner can post.
   self-medication. Whether doctors should come down to 40% is for the owner, after play.
 - Whether Masochists should skip self-medication: the game nullifies their pain thought, and this version does not exempt them.
 - Stronger pain could prefer stronger drugs (the score ignores the pain level by design); revisit after play.
-- A dressing or fluids kit for burns and an oxygen treatment belong to the planned medical equipment mod
-  (`art-automation-and-medical-equipment.md`), not here.
+- A dressing or fluids kit for burns belongs to D'thorga Medical Equipment, which already gives oxygen and air-cell burn care;
+  not here.
 - The two upstream faults above, for the owner to post.

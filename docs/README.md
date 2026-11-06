@@ -17,7 +17,7 @@ Each mod's README is its player guide, with the gotchas first. As of 6 November 
 | **D'thorga Burns and Smoke** | 0.5.0 | Burned body fraction, burn shock, airway burns with a tracheotomy, smoke-damaged lungs, carbon monoxide, and fires that heat the air around them in the open | [README](../mods/PhobosBurnsAndSmoke/README.md) |
 | **D'thorga Emergency Dosing** | 0.3.1 | Doctors give painkillers, sedatives and disease-fighting drugs on their own, found by their effects; colonists in pain take what their policy allows | [README](../mods/PhobosDosing/README.md) |
 | **D'thorga Medical Equipment** | 0.2.2 | Bedside oxygen and a burn unit bed | [README](../mods/PhobosMedicalEquipment/README.md) |
-| **D'thorga Triage** | 0.1.0 | Doctors queue the life-saving operations a patient needs, and take the worst case first | [README](../mods/PhobosTriage/README.md) |
+| **D'thorga Triage** | 0.1.1 | Doctors queue the life-saving operations a patient needs, and take the worst case first | [README](../mods/PhobosTriage/README.md) |
 | **D'thorga Medical Save Bridge** | 0.1.2 | Adds More Injuries to a running colony, with Medical System Expansion 2 or without | [README](../mods/PhobosMedicalSaveBridge/README.md) |
 | **D'thorga Factory Additions** | 0.11.2 | Additions to Vanilla Furniture Expanded - Factory: belts from any storage, an automated fabrication bay, a deep hopper, other mods' drug labs as factory bills, and fixes | [README](../mods/PhobosFactoryAdditions/README.md) |
 | **D'thorga Vehicle Patches** | 0.5.0 | The Harrier VTOL, RimThunder's heavy casting, and Spaceship Turret Hull under Combat Extended | [README](../mods/PhobosVehiclePatches/README.md) |

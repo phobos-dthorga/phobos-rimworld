@@ -13,10 +13,10 @@ game. The rest is read from the game's and the mods' code.
 
 - **Load it before any D'thorga mod that needs it.** The About file asks for that order, so RimSort does it for you. It needs
   no other mod and no Harmony.
-- **Safe to add to a running colony.** It saves only the carbon monoxide in rooms, as the cells it sits in; a save without it
-  loads with no gas, and nothing else.
-- **Safe to remove**, after the mods that depend on it are removed. The one line the next load prints about a missing map
-  component is harmless.
+- **Safe to add to a running colony.** It saves the carbon monoxide in rooms, as the cells it sits in, and the per-person care
+  choices you set; a save without it loads with no gas, and the choices are ignored without a line.
+- **Safe to remove**, after the mods that depend on it are removed. The next load prints a line for each of its map components
+  it cannot find (up to three per map); they are harmless.
 - **It reuses what exists before adding its own** (owner's rule, 4 November 2026). Smoke is the game's smoke or Combat
   Extended's; only carbon monoxide is the framework's own gas, because nothing else carries it. The setting
   **Where gases come from** overrides this: Automatic (the default), always the framework's own gases, or never.
@@ -49,6 +49,27 @@ How a room gas behaves, copied from how the game moves room temperature:
 | Gap in the roof | | that share of the room halves every 600 ticks |
 
 Rooms without gas cost nothing; a wall built through a smoky room leaves both halves smoky; a merged room dilutes.
+
+From a fire to what a colonist breathes:
+
+```mermaid
+flowchart LR
+    Fire["A fire under a roof<br/>(fires in the open add no gas)"] --> Pass["Every 60 ticks"]
+    Pass -- "Combat Extended's smoke not running" --> GameSmoke["The game's smoke in the cell<br/>(spreads and fades by the game's rules)"]
+    Pass -- "Combat Extended's smoke running" --> CESmoke["Combat Extended's own smoke"]
+    Pass -- "source mode lets the framework carry it" --> CO["Carbon monoxide in the room<br/>(doors, vents, roof gaps; halves every 12 hours)"]
+    GameSmoke --> Breathed["What a colonist breathes"]
+    CESmoke --> Breathed
+    CO --> Breathed
+    Mask["Gas mask: stops smoke,<br/>not carbon monoxide"] -.-> Breathed
+    Sealed["Sealed helmet with its own air:<br/>stops both"] -.-> Breathed
+    Breathed --> Users["Burns and Smoke's lung damage and poisoning;<br/>Medical Equipment's oxygen need"]
+```
+
+**The health layer** (0.3.0) answers for every D'thorga medical mod who the doctors look after (colonists, slaves, prisoners,
+guests) and under what care, how dangerous a condition is and how soon it kills, and which doctor could operate. It also puts one
+button per registered care choice on each of those people: D'thorga Triage's "Doctors may operate" is the first. How the medical
+mods share the work is in [the medical mods together](../../docs/medical-mods.md).
 
 ## Settings
 
@@ -112,14 +133,16 @@ PatientPreferences.RegisterInspectLine(pawn => myLineOrNull);
 
 The game-free rule behind the danger reader is `Phobos.Framework.Rules.ConditionDangerRule`, tested without the game.
 
+Supplied oxygen (0.2.0) is a treatment, not a gas: put `Phobos.Framework.Breathing.PhobosSuppliedOxygenExtension` (with
+`carbonMonoxideHalfLifeHours`, default 1.25) on your treatment condition, and `PhobosOxygenResponsiveExtension` (with
+`minSeverity`) on a condition oxygen helps; read them with `PhobosBreathing.SuppliedCarbonMonoxideHalfLifeHours(pawn)` and
+`PhobosBreathing.HasOxygenResponsiveCondition(pawn)`.
+
 ## Checks done (6 November 2026)
 
-- The health layer (0.3.0) builds for 1.7 and 1.6; its danger rule passes 4 unit tests; the comp, the registry and the doctor
-  roster are read from the 1.7 code and **not yet tested in game**.
-
-- Built against the RimWorld 1.6 reference assembly; the room, region, door, vent and gas-grid members it uses were confirmed
-  in the 1.7.4998 assembly too.
-- The game-free rules (door and vent rates, exchange, venting, decay, rebuild, mask and signal choice, the owner's source
-  rule) pass 17 unit tests.
-- **Not checked:** anything in game. The door walk through regions, the vent lookup, the save and reload of room gas, and the
-  cost on a big fire are all untested.
+- Built for RimWorld 1.7 and 1.6. The game-free rules pass 26 unit tests: 17 for the gas layer (door and vent rates, exchange,
+  venting, decay, rebuild, mask and signal choice, the owner's source rule), 5 for supplied oxygen and 4 for the danger rule.
+- **The owner's reports (5 November 2026):** the gas layer and supplied oxygen working in game, through Burns and Smoke and
+  Medical Equipment.
+- **Not checked in game:** the health layer and its care-choice button, the door walk through regions, the vent lookup, the save
+  and reload of room gas, and the cost on a big fire.

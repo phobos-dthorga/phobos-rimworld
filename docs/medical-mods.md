@@ -52,7 +52,7 @@ Up and about in pain, a colonist also fetches a painkiller their drug policy all
 | Several patients waiting | **D'thorga Triage** | Tags each patient (immediate, urgent, delayed, minor, expectant); a doctor goes to the worst case first | Nothing; the setting can turn it off |
 | Adding More Injuries to an old colony | **D'thorga Medical Save Bridge** | Re-numbers saved body parts on the first load so wounds land on the right parts | Load once with it, then keep it or not |
 
-All of these share **D'thorga Framework**: one answer to "who are the doctors' patients", "how dangerous is this condition",
+All of these except the Save Bridge share **D'thorga Framework**: one answer to "who are the doctors' patients", "how dangerous is this condition",
 "what is this pawn breathing", and the per-person buttons (Triage's "Doctors may operate" is the first).
 
 ## What none of them does yet

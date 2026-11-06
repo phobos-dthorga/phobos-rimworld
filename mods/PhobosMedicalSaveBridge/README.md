@@ -6,7 +6,7 @@ load of a save written without More Injuries, and does nothing after you save.
 
 Version 0.1.2, built 4 November 2026 for House D'thorga. **The first load was tested in game by the owner on 3 November 2026**
 on a copy of a 330-mod colony with Medical System Expansion 2 and Combat Extended, and went cleanly, with 0.1.0 and again with 0.1.1, then saved and
-reloaded. A new colony is not yet tested in game.
+reloaded. The native 1.7 build in 0.1.2 is not yet tested in game, and neither is a new colony.
 
 ## Read this first (gotchas)
 
@@ -47,6 +47,22 @@ the wrong part. Three things then happen at once:
 
 ## What it does
 
+What happens on one load:
+
+```mermaid
+flowchart TD
+    Load["Loading a save"] --> Compare{"Mods running now that the save<br/>was not written with?"}
+    Compare -- "none" --> Inert["INERT: the log says so, nothing changes"]
+    Compare -- "More Injuries among them" --> Active["ACTIVE: the log names the mods and the bodies that gained parts"]
+    Active --> Renumber["Every saved body part number moved<br/>to where that part now sits"]
+    Active --> Upgrade["Wounds saved under the game's class<br/>upgraded to More Injuries' class"]
+    Active --> Wipe["More Injuries' first-load wipe of wounds<br/>and surgery bills prevented"]
+    Renumber --> Report["After loading: counts, and a check of every pawn<br/>for anything on a part the save never had"]
+    Upgrade --> Report
+    Wipe --> Report
+    Report --> Save["Save once: from then on every load is INERT"]
+```
+
 All of it only while the gate is open: More Injuries (or another part-adding mod) is active, and the save's own mod list does not
 include it.
 
@@ -73,6 +89,13 @@ Open the log (dev mode, the log button) and search for the bridge's lines. On th
 Then open the health tab of a colonist with a lost limb or a bionic and compare with what you saw before. Two dev-mode actions
 help: **Medical Save Bridge: log body part indices** writes the human body's part list with each part's old number, and **check
 every pawn's parts** repeats the after-load check.
+
+## Checks done (4 November 2026)
+
+- **The owner's first load (3 November 2026, on 0.1.0 and 0.1.1):** a copy of a 330-mod colony with Medical System Expansion 2
+  and Combat Extended went cleanly, then saved and reloaded (INERT).
+- Built for RimWorld 1.7 and 1.6. The game-free rules (the index re-numbering and the mod-list comparison) pass 8 unit tests.
+- **Not checked in game:** a new colony, and the 0.1.2 build (Harmony 3 on 1.7).
 
 ## Settings
 

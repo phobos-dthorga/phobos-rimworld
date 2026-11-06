@@ -1,14 +1,16 @@
 # D'thorga Medical Equipment
 
-Hospital equipment for the injuries D'thorga Burns and Smoke and More Injuries bring. This first version gives patients oxygen.
+Hospital equipment for the injuries D'thorga Burns and Smoke and More Injuries bring: bedside oxygen for patients who struggle to
+breathe, and a burn unit bed that gives burned patients air-cell care.
 
 Version 0.2.2, built 6 November 2026 for House D'thorga. **Partly tested in game:** the owner reports that a patient's breathing improves on the oxygen concentrator (5 November 2026, on 0.1.0), and that the burn unit bed looks right and gives a burned patient air-cell care (6 November 2026, on 0.2.0). The new inspect lines in 0.2.1 are not yet tested in game. The rest is read from the game's and
 the mods' code.
 
 ## Read this first (gotchas)
 
-- **Needs D'thorga Framework and Vanilla Expanded Framework,** loaded before it. The About file asks for that order. No Harmony.
-- **Safe to add to a running colony.**
+- **Needs D'thorga Framework 0.3.0 or later and Vanilla Expanded Framework,** loaded before it. The About file asks for that order. No Harmony.
+- **Safe to add to a running colony.** How it works beside the other medical mods is in
+  [the medical mods together](../../docs/medical-mods.md).
 - **Before removing it: deconstruct the machines and burn unit beds, press the settings button "Remove every treatment condition from every pawn", save, then switch the mod off.**
 - **Build the machine touching a hospital bed,** as you would a vitals monitor. One machine per bed, though it can serve two beds it touches. Any bed that accepts a vitals monitor works.
 - **Nobody has to be told.** A patient in that bed who needs oxygen gets it. Use the switch to stop it.
@@ -39,7 +41,21 @@ While the blower runs, anyone in it with an open burn from fire, acid, chemicals
 
 ### Oxygen: who gets it
 
-**Who gets it:** a patient in a linked bed with a condition oxygen helps, or with breathing under 80% from any cause. The worst breathing comes first. Conditions it helps: from D'thorga Burns and Smoke, carbon monoxide poisoning, smoke-damaged lungs, pneumonia and smoke inhalation; Combat Extended's smoke inhalation; More Injuries' organ hypoxia.
+**Who gets it:** a patient in a linked bed with a condition oxygen helps, or with breathing under 80% from any cause. The worst breathing comes first. Conditions it helps: from D'thorga Burns and Smoke, carbon monoxide poisoning, smoke-damaged lungs, pneumonia and acute smoke inhalation; Combat Extended's smoke inhalation; More Injuries' organ hypoxia.
+
+One machine's pass, every 250 ticks:
+
+```mermaid
+flowchart TD
+    Tick["Every 250 ticks"] --> Ready{"Switched on, powered or fuelled,<br/>touching a bed?"}
+    Ready -- "no" --> Says["Its inspect line says which"]
+    Ready -- "yes" --> Who["Patients in the linked beds"]
+    Who --> Need{"A condition oxygen helps,<br/>or breathing under 80%?"}
+    Need -- "no" --> Named["Named as breathing well enough"]
+    Need -- "yes" --> Worst["Worst breathing first, up to 2"]
+    Worst --> Oxygen["On oxygen: breathing +20 points up to normal;<br/>carbon monoxide halves in about 75 minutes"]
+    Oxygen --> Lapse["Lapses about 10 seconds after the last pass<br/>(machine off, patient moved)"]
+```
 
 **What it does for them:** breathing rises by 20 points, up to normal. It never lowers anyone already above normal, such as a pawn with bionic lungs. With D'thorga Burns and Smoke, carbon monoxide clears with a half-life of about 75 minutes, against about 320 on room air. The figures for clearance are sourced (see the [design record](../../docs/development/medical-equipment.md)); the rest are authored.
 
@@ -49,12 +65,14 @@ The display mode, and the uninstall button. Plain mode shows no figures.
 
 ## For modders
 
-Give a building `Phobos.Medical.Comps.CompProperties_PhobosOxygenSupply` and `CompProperties_Facility` to make it an oxygen machine; add a `CompProperties_Refuelable` and it burns fuel. Mark your own condition with `Phobos.Framework.Breathing.PhobosOxygenResponsiveExtension` so that it counts as needing oxygen. Balance lives in `Common/Defs/Phobos/Medical/Rules.xml` and on each machine's comp.
+Give a building `Phobos.Medical.Comps.CompProperties_PhobosOxygenSupply` and `CompProperties_Facility` to make it an oxygen machine; add a `CompProperties_Refuelable` and it burns fuel. Mark your own burn injury Def with `Phobos.Medical.Defs.PhobosBurnCareExtension` so a burn unit bed gives its patient
+air-cell care. Mark your own condition with `Phobos.Framework.Breathing.PhobosOxygenResponsiveExtension` so that it counts as needing oxygen. Balance lives in `Common/Defs/Phobos/Medical/Rules.xml` and on each machine's comp.
 
-## Checks done (5 November 2026)
+## Checks done (6 November 2026)
 
 - Built against the RimWorld 1.7 and 1.6 reference assemblies; the game-free rules pass their unit tests; the patches pass the repository's checks.
 - **Owner's report (5 November 2026, on 0.1.0):** a patient's breathing improves on the oxygen concentrator.
+- **Owner's report (6 November 2026, on 0.2.0):** the burn unit bed looks right and gives a burned patient air-cell care.
 - **Not checked in game:** the bedside oxygen stand and its pipe link, the inspect text (0.2.1 adds a line naming an occupant it leaves alone), the feel of the numbers, the uninstall button and the new stand art in 0.1.1.
 
 Community-created content. Portions of the materials used to create this content/mod are trademarks and/or copyrighted works of Ludeon Studios Inc. All rights reserved by Ludeon. This content/mod is not official and is not endorsed by Ludeon.

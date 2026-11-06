@@ -107,7 +107,7 @@ builds of both mods), kept in the ignored `.local/decompiled/`. **Verified** mea
 
 Mods: More Injuries on, the bridge after More Injuries and MSE2, everything else as it is. The handoff said to keep Organ Failure
 and Medieval Solutions off; the owner had them on and it was fine (results below).
-Deploy with the game closed: `python scripts/deploy.py --apply PhobosMedicalSaveBridge`.
+Deploy with the game closed: `python scripts/deploy.py --build --apply PhobosMedicalSaveBridge`.
 
 1. Before switching anything on, open clean PG17 and screenshot the health tabs of at least three colonists with lost limbs or
    bionics, and of one with MSE2 modules.
@@ -134,7 +134,7 @@ Deploy with the game closed: `python scripts/deploy.py --apply PhobosMedicalSave
 A count in Git Bash:
 
 ```bash
-L="/c/Users/phobo/AppData/LocalLow/Ludeon Studios/RimWorld by Ludeon Studios/Logs/Player.log"
+L="$USERPROFILE/AppData/LocalLow/Ludeon Studios/RimWorld by Ludeon Studios/Logs/Player.log"
 for p in 'Medical Save Bridge' '\[MSE2\] Reinstalling Hediffs' 'Tried to add health diff to missing part' 'Compatibility patch removed some hediff' 'died due incorrect hediff' 'Root level exception in OnGUI' 'Exception drawing ThingOverlay'; do printf '%6s  %s\n' "$(grep -c "$p" "$L")" "$p"; done
 ```
 

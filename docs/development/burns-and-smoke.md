@@ -1,6 +1,6 @@
 # Burns and smoke: research and decisions (4 Nov 2026)
 
-The record behind [D'thorga Burns and Smoke](../../mods/PhobosBurnsAndSmoke/README.md). **The owner reports burn numbers, progression and the tie-ins working (5 Nov 2026, on 0.4.2); carbon monoxide on oxygen is inferred, and the tracheotomy unproven**
+The record behind [D'thorga Burns and Smoke](../../mods/PhobosBurnsAndSmoke/README.md). **The owner reports burn numbers, progression and the tie-ins working (5 Nov 2026, on 0.4.2); carbon monoxide on oxygen is inferred, the tracheotomy unproven, and the fire heat in the open (0.5.0) not yet tested in game**
 (0.1.0 was seen in play once; see Results from play). It is the
 first consumer of [D'thorga Framework](phobos-framework.md).
 
@@ -29,7 +29,7 @@ fluid loss, no lasting lung damage. The log had no fire-related errors.
   with handlers, makers, modifiers and target evaluators; More Injuries: Organ Failure drives it from its own XML). Hypoxia is
   two injury Defs, `OrganHypoxia` and `BrainDamage_Hypoxia`. Choking triggers only on bleeding injuries. Its suction and CPR
   target lists are hard-coded arrays. Its comp sits only on Human and Humanoid Alien Races flesh races.
-- **Hooks the mod uses, none of them Harmony:** `HediffGiverSetDef` and `HediffGiver.OnIntervalPassed` every 60 ticks per pawn
+- **Hooks the mod uses** (Harmony only for the fire heat, from 0.5.0; see Fire heat in the open): `HediffGiverSetDef` and `HediffGiver.OnIntervalPassed` every 60 ticks per pawn
   (one `PatchOperationAdd` into `OrganicStandard`, as Atmosphere Overhaul does), `HediffGiver.OnHediffAdded` for every
   condition the game adds, stage fields `lifeThreatening`, `deathMtbDays` and `hediffGivers` (`HediffGiver_Random`, as the
   game's dementia uses), `HediffCompProperties_TendDuration.severityPerDayTended` (a tended condition loses severity at that rate
@@ -133,7 +133,8 @@ not the numbers.
 
 ## Test protocol (owner runs it)
 
-1. Load with Framework before Burns, both after Combat Extended, More Injuries and Organ Failure; read both load lines.
+1. Load Harmony and Framework before Burns, all after Combat Extended, More Injuries and Organ Failure; read both load lines,
+   including "fire heat in the open: on".
 2. Set a colonist on fire with the dev tool, put it out after about ten seconds: burns, "burns, minor" or "serious", maybe
    "airway burn, hoarse"; the tooltip is words in Plain mode and figures in Operator or Engineer.
 3. Dev "Apply damage", Flame 15, six times on torso and legs: burned fraction 30% or more, burn shock within one recompute,
@@ -174,7 +175,8 @@ not the numbers.
   rules. Corpses keep burning, so those recomputed figures overstate what the living pawn had. No living pawn in the save has
   a burn or a burn scar, which is why the scar fault had not yet shown.
 - **Time course, unverified.** A search found secondary sources saying capillary leak starts within minutes and runs for about 24
-  hours; an "8 to 12 hour peak" given earlier in this entry had no source and is withdrawn. 0.3.0 is not yet tested in game.
+  hours; an "8 to 12 hour peak" given earlier in this entry had no source and is withdrawn. That time course is unverified; the shock's
+  rise and fall rates stay authored.
 
 ## Fire heat in the open (6 November 2026)
 
@@ -235,9 +237,8 @@ source, constants identical):
 - Fire heat indoors on top of the room's temperature (a blaze in a hangar is a room barely warmed), and whether animals and
   pawns should flee hot zones; after the owner has seen the open-air zones.
 
-- Supporting gear for burn care without a burn ward (owner's wish, 4 Nov 2026): a candidate for the planned medical equipment
-  mod (`art-automation-and-medical-equipment.md`), for instance a dressing or a fluids kit that raises the fluids quality, once that mod
-  has its first piece.
+- Supporting gear for burn care without a burn ward (owner's wish, 4 Nov 2026): D'thorga Medical Equipment's burn unit bed (0.2.0)
+  gives air-cell care; a dressing or a fluids kit that raises the fluids quality is still a candidate there.
 - `Recipe_RemoveHediff` does not apply `addsHediff` on 1.7 (read from the 1.7 assembly, 5 Nov 2026), so the subclass is needed. The 1.6 reference assembly has no method bodies to read; the subclass checks before adding, so a difference there could not double it.
 - Whether to respect More Injuries' own `EnableFireInhalation` setting instead of removing its worker.
 - Phase 2: constricting eschar on limbs burned past 60% of a part's health, an escharotomy surgery, ischaemic damage, a hand-off

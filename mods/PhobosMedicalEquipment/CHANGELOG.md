@@ -5,6 +5,11 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+### Fixed
+
+- The uninstall button's description now names the burn unit beds as well as the machines. README brought up to date: the burn
+  unit bed in the opening line, Framework 0.3.0 or later, the owner's bed report, the burn-care extension for modders.
+
 ## [0.2.2] - 2026-11-06 - Draft
 
 No change in play. Not yet tested in game.
