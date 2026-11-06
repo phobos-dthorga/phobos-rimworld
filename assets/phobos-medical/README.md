@@ -30,6 +30,10 @@ of the LoRA comparison (`"lora_comparison": false`).
 flat top-down stand-in (`references/HyperbaricChamber-large.png`, drawn by `draw_placeholders.py HyperbaricChamber`), and tries an icon for
 Triage's "Doctors may operate" button. All use references plus the private style model, the route the owner preferred.
 
+**Our own reference drawings are not on `main`** (owner, 7 Nov 2026). `references/` is ignored; the `art-references` branch keeps a
+copy of each with its record, and `draw_placeholders.py OxygenConcentrator HyperbaricChamber` draws them again on a fresh checkout.
+Full-size masters of the picks are on the `art-masters` branch. Both are added with `scripts/art/archive_branch.py`.
+
 **The game-art references are vanilla sprites in the ignored `.local/references/`, and are never committed.** The extractor that makes them
 is private too (`.local/tools/art/extract_references.py`), so a fresh checkout has to rebuild both. The first batch makes south views only; the
 east and north views come from the owner's picks, with the pick as the reference, so all three views match.

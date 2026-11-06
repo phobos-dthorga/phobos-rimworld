@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- A bag-valve-mask: real ones are a self-inflating silicone bag with a one-way valve. Kept by the doctor, worked by hand for as
+       long as the patient needs it, one in-game hour per turn before the doctor checks their other work. Cost, work and skill authored. -->
+  <ThingDef ParentName="ResourceBase">
+    <defName>PhobosMedical_ManualResuscitator</defName>
+    <label>manual resuscitator</label>
+    <description>A self-inflating bag with a one-way valve and a face mask, for squeezing air into the lungs of someone who can barely breathe. Doctors use it by themselves on a patient lying down whose breathing is very weak, for as long as it is needed, and keep it afterwards.\n\nSomeone has to keep squeezing it, and it cannot push air past an airway that is shut: that has to be opened first.</description>
+    <graphicData>
+      <texPath>Phobos/Medical/Things/ManualResuscitator</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>0.8</drawSize>
+    </graphicData>
+    <stackLimit>5</stackLimit>
+    <techLevel>Industrial</techLevel>
+    <statBases>
+      <MaxHitPoints>60</MaxHitPoints>
+      <Mass>0.6</Mass>
+      <Flammability>0.8</Flammability>
+      <DeteriorationRate>2</DeteriorationRate>
+      <WorkToMake>1200</WorkToMake>
+    </statBases>
+    <costList>
+      <Cloth>4</Cloth>
+      <Steel>6</Steel>
+      <ComponentIndustrial>1</ComponentIndustrial>
+    </costList>
+    <recipeMaker>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <recipeUsers>
+        <li>TableMachining</li>
+      </recipeUsers>
+      <researchPrerequisite>MedicineProduction</researchPrerequisite>
+      <skillRequirements>
+        <Crafting>4</Crafting>
+      </skillRequirements>
+    </recipeMaker>
+    <thingCategories>
+      <li>Manufactured</li>
+    </thingCategories>
+    <modExtensions>
+      <li Class="Phobos.Medical.Defs.PhobosPatientDeviceExtension">
+        <need>BreathingAssist</need>
+        <treatment>PhobosMedical_HandVentilated</treatment>
+        <workTicks>2500</workTicks>
+        <consumed>false</consumed>
+        <sustained>true</sustained>
+        <refreshTicks>250</refreshTicks>
+      </li>
+    </modExtensions>
+  </ThingDef>
+
+  <!-- Silver sulfadiazine is a long-used topical antimicrobial for burns: a silver salt of the sulfonamide sulfadiazine. Neutroamine
+       stands in for the drug precursor and silver for the silver. The game's infection chance has no patient-side modifier, only the
+       tend's quality, the room and the wound, so the honest route with no patch is a medicine that gives a better tend: doctors use
+       it on any wound, as on real dressings. Potency between herbal (0.6) and industrial (1.0) medicine; figures authored. -->
+  <ThingDef ParentName="MedicineBase">
+    <defName>PhobosMedical_BurnDressing</defName>
+    <label>silver burn dressing</label>
+    <description>A pad soaked in silver sulfadiazine cream behind a non-stick layer, the kind of dressing burn units use to keep germs out of damaged skin. Doctors use it like any other medicine: it gives a better tend than herbal medicine, so wounds are less likely to become infected. It works on any wound, but it is made for burns.</description>
+    <possessionCount>3</possessionCount>
+    <graphicData>
+      <texPath>Phobos/Medical/Things/BurnDressing</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>0.85</drawSize>
+    </graphicData>
+    <techLevel>Industrial</techLevel>
+    <statBases>
+      <MarketValue>14</MarketValue>
+      <Mass>0.3</Mass>
+      <Flammability>1.0</Flammability>
+      <MedicalPotency>0.80</MedicalPotency>
+      <MedicalQualityMax>0.85</MedicalQualityMax>
+      <DeteriorationRate>3</DeteriorationRate>
+      <WorkToMake>600</WorkToMake>
+    </statBases>
+    <costList>
+      <Cloth>2</Cloth>
+      <Silver>4</Silver>
+      <Neutroamine>1</Neutroamine>
+    </costList>
+    <recipeMaker>
+      <workSpeedStat>DrugSynthesisSpeed</workSpeedStat>
+      <workSkill>Intellectual</workSkill>
+      <recipeUsers>
+        <li>DrugLab</li>
+      </recipeUsers>
+      <researchPrerequisite>MedicineProduction</researchPrerequisite>
+      <skillRequirements>
+        <Crafting>3</Crafting>
+        <Intellectual>3</Intellectual>
+      </skillRequirements>
+      <bulkRecipeCount>4</bulkRecipeCount>
+    </recipeMaker>
+  </ThingDef>
+</Defs>

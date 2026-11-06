@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- The treatments the field kit, the hand pump and the pressure chamber give. All three live here, not with the Vanilla Gravship
+       Expanded Defs that make two of them, so a save keeps loading cleanly if that mod is taken out while a patient has one; each
+       lapses by itself within an hour. Each is a breathing treatment with the oxygen condition's two stages: the code picks the stage
+       that raises breathing (with a ceiling at normal) only for a patient below normal. -->
+
+  <!-- About an hour from a small cylinder: a portable medical cylinder of a few hundred litres at 5 litres a minute (an estimate from
+       memory, unverified; the hour is authored). The carbon monoxide half-life is the oxygen condition's sourced 75 minutes. -->
+  <HediffDef>
+    <defName>PhobosMedical_OnFieldOxygen</defName>
+    <label>on field oxygen</label>
+    <labelNoun>field oxygen</labelNoun>
+    <description>This patient is breathing oxygen from a small cylinder through a mask. It eases low breathing and clears carbon monoxide much faster. The cylinder runs out after about an hour.</description>
+    <hediffClass>Phobos.Medical.Comps.Hediff_PhobosOnOxygen</hediffClass>
+    <defaultLabelColor>(0.55, 0.8, 0.95)</defaultLabelColor>
+    <isBad>false</isBad>
+    <tendable>false</tendable>
+    <everCurableByItem>false</everCurableByItem>
+    <scenarioCanAdd>false</scenarioCanAdd>
+    <comps>
+      <li Class="Phobos.Medical.Comps.HediffCompProperties_PhobosOnOxygen">
+        <!-- One in-game hour from the moment the kit is fitted. -->
+        <lingerTicks>2500</lingerTicks>
+      </li>
+    </comps>
+    <stages>
+      <li/>
+      <li>
+        <minSeverity>0.5</minSeverity>
+        <capMods>
+          <li>
+            <capacity>Breathing</capacity>
+            <offset>0.2</offset>
+            <setMax>1</setMax>
+          </li>
+        </capMods>
+      </li>
+    </stages>
+    <modExtensions>
+      <li Class="Phobos.Framework.Breathing.PhobosSuppliedOxygenExtension">
+        <carbonMonoxideHalfLifeHours>1.25</carbonMonoxideHalfLifeHours>
+      </li>
+    </modExtensions>
+  </HediffDef>
+
+  <!-- Room air pushed in by hand: no supplied-oxygen extension, so it does not clear carbon monoxide faster. The +0.3 is authored. -->
+  <HediffDef>
+    <defName>PhobosMedical_HandVentilated</defName>
+    <label>hand-ventilated</label>
+    <labelNoun>hand ventilation</labelNoun>
+    <description>A doctor is squeezing air into this patient's lungs with a bag and mask, a breath every few seconds. It holds up very weak breathing for as long as they keep going, and stops soon after they stop. It cannot get air past an airway that is shut.</description>
+    <hediffClass>Phobos.Medical.Comps.Hediff_PhobosOnOxygen</hediffClass>
+    <defaultLabelColor>(0.55, 0.8, 0.95)</defaultLabelColor>
+    <isBad>false</isBad>
+    <tendable>false</tendable>
+    <everCurableByItem>false</everCurableByItem>
+    <scenarioCanAdd>false</scenarioCanAdd>
+    <comps>
+      <li Class="Phobos.Medical.Comps.HediffCompProperties_PhobosOnOxygen">
+        <!-- The doctor squeezes every 250 ticks; it lingers a little past the last one. -->
+        <lingerTicks>300</lingerTicks>
+      </li>
+    </comps>
+    <stages>
+      <li/>
+      <li>
+        <minSeverity>0.5</minSeverity>
+        <capMods>
+          <li>
+            <capacity>Breathing</capacity>
+            <offset>0.3</offset>
+            <setMax>1</setMax>
+          </li>
+        </capMods>
+      </li>
+    </stages>
+  </HediffDef>
+
+  <!-- Pure oxygen at about 2.5 atmospheres, a common treatment pressure (from memory, unverified). Carbon monoxide's half-life under
+       hyperbaric oxygen is about 15 to 30 minutes (sources in docs/development/burns-and-smoke.md); 22.5 is the middle. The NHS England
+       review cited there found the clinical evidence for this treatment of low quality: in play it is a game tier, not medical advice.
+       The +0.3 breathing is authored. -->
+  <HediffDef>
+    <defName>PhobosMedical_Hyperbaric</defName>
+    <label>under hyperbaric oxygen</label>
+    <labelNoun>hyperbaric oxygen</labelNoun>
+    <description>This patient is breathing pure oxygen inside a pressure chamber. Under pressure far more oxygen dissolves into the blood, so carbon monoxide clears many times faster than on a mask. It stops soon after they leave the chamber.</description>
+    <hediffClass>Phobos.Medical.Comps.Hediff_PhobosOnOxygen</hediffClass>
+    <defaultLabelColor>(0.55, 0.8, 0.95)</defaultLabelColor>
+    <isBad>false</isBad>
+    <tendable>false</tendable>
+    <everCurableByItem>false</everCurableByItem>
+    <scenarioCanAdd>false</scenarioCanAdd>
+    <comps>
+      <li Class="Phobos.Medical.Comps.HediffCompProperties_PhobosOnOxygen">
+        <lingerTicks>600</lingerTicks>
+      </li>
+    </comps>
+    <stages>
+      <li/>
+      <li>
+        <minSeverity>0.5</minSeverity>
+        <capMods>
+          <li>
+            <capacity>Breathing</capacity>
+            <offset>0.3</offset>
+            <setMax>1</setMax>
+          </li>
+        </capMods>
+      </li>
+    </stages>
+    <modExtensions>
+      <li Class="Phobos.Framework.Breathing.PhobosSuppliedOxygenExtension">
+        <carbonMonoxideHalfLifeHours>0.375</carbonMonoxideHalfLifeHours>
+      </li>
+    </modExtensions>
+  </HediffDef>
+</Defs>

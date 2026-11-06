@@ -244,6 +244,10 @@ delivered, record the delivery in the changelog or design record, and add or ame
 - Match RimWorld's look. Record how each texture or sound was made (tool, prompt, date, source hashes) in
   an asset record beside it; disclose AI assistance; never ship the game's or another mod's art. Check
   generator allowance and cost first; never silently buy credit or switch to a costlier generator.
+- **Art the mods don't ship stays off `main`** (owner, 7 Nov 2026): full-size masters of shipped and picked art on the `art-masters`
+  branch, reference drawings and superseded or comparison picks on `art-references`, each with its sidecar or record. Add to them only
+  with `scripts/art/archive_branch.py`, which adds commits on top, never rewrites, and refuses game art, the private style model and
+  its dataset, and model files. `assets/*/references/` is ignored on `main`; the scripts that draw references draw them again.
 - Sounds only where usefulness is high: quiet, never alarming, with a volume setting.
 
 ## Builds, installation and checks

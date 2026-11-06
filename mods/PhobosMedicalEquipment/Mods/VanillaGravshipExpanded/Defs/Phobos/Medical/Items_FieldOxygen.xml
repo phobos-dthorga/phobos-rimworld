@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- One of Vanilla Gravship Expanded's canisters becomes the kit's cylinder, so the kit exists only with that mod, like the bedside
+       stand. Used up in one go: disposable masks are real, the regulator being thrown away with the cylinder is a simplification. It
+       is as volatile in a fire as the canister it holds (the canister's own explosion settings). Cost and work authored. -->
+  <ThingDef ParentName="ResourceBase">
+    <defName>PhobosMedical_FieldOxygenKit</defName>
+    <label>field oxygen kit</label>
+    <description>A small oxygen cylinder with a regulator and a face mask, for a patient who can't yet be put in a bed with an oxygen machine. Doctors use it by themselves on a patient lying down who needs oxygen: it eases low breathing and clears carbon monoxide much faster for about an hour, until the cylinder is empty. Each kit is used up.\n\nIt cannot help if the airway is shut. Like any oxygen cylinder, it explodes when it burns.</description>
+    <graphicData>
+      <texPath>Phobos/Medical/Things/FieldOxygenKit</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>0.8</drawSize>
+    </graphicData>
+    <stackLimit>10</stackLimit>
+    <techLevel>Industrial</techLevel>
+    <statBases>
+      <MaxHitPoints>50</MaxHitPoints>
+      <Mass>2.5</Mass>
+      <Flammability>0.3</Flammability>
+      <DeteriorationRate>1</DeteriorationRate>
+      <WorkToMake>500</WorkToMake>
+    </statBases>
+    <costList>
+      <VGE_OxygenCanister>1</VGE_OxygenCanister>
+      <Steel>5</Steel>
+      <Cloth>2</Cloth>
+    </costList>
+    <recipeMaker>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <recipeUsers>
+        <li>TableMachining</li>
+      </recipeUsers>
+      <researchPrerequisites>
+        <li>MedicineProduction</li>
+        <li>VGE_OxygenNetwork</li>
+      </researchPrerequisites>
+      <skillRequirements>
+        <Crafting>3</Crafting>
+      </skillRequirements>
+    </recipeMaker>
+    <thingCategories>
+      <li>Manufactured</li>
+    </thingCategories>
+    <comps>
+      <li Class="CompProperties_Explosive">
+        <explosiveRadius>1.9</explosiveRadius>
+        <explosiveDamageType>Thump</explosiveDamageType>
+        <explosiveExpandPerStackcount>0.02</explosiveExpandPerStackcount>
+        <startWickOnDamageTaken>
+          <li>Flame</li>
+        </startWickOnDamageTaken>
+        <startWickHitPointsPercent>0</startWickHitPointsPercent>
+        <wickTicks>70~150</wickTicks>
+      </li>
+    </comps>
+    <modExtensions>
+      <li Class="Phobos.Medical.Defs.PhobosPatientDeviceExtension">
+        <need>SuppliedOxygen</need>
+        <treatment>PhobosMedical_OnFieldOxygen</treatment>
+        <workTicks>300</workTicks>
+        <consumed>true</consumed>
+      </li>
+    </modExtensions>
+  </ThingDef>
+</Defs>

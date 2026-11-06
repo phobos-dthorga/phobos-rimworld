@@ -19,7 +19,7 @@ are decided, and record finished work in the owning mod's changelog or record.
 | Hands-off art pipeline | Built and run: three nights so far (5 Nov twice, 6 to 7 Nov), every step finished inside its stop time | The next batch, on the owner's go | [Below](#hands-off-art-pipeline) |
 | Medical art | First batch 5 Nov 2026, second batch 6 to 7 Nov. The owner's picks are in the [list of picks](#the-owners-picks) | Defs for the machines and items the picks are for; a top-down redraw of the hyperbaric chamber | [`assets/phobos-medical`](../../assets/phobos-medical/README.md) |
 | Style training | Tooling written; first real training ran 5 Nov 2026, after two fixes below. Alone the LoRA gave no game style; the owner preferred it with references | Later training on approved art | [Below](#style-training) |
-| D'thorga Medical Equipment 0.2.3 | Draft: concentrator, bedside stand and burn unit bed; 0.2.3 ships the owner's art picks and a Workshop preview. The owner reports breathing improving on the concentrator (on 0.1.0) and the burn unit bed working (on 0.2.0); the bedside stand is not yet tested in game | The stand and its pipe link | [Record](medical-equipment.md) |
+| D'thorga Medical Equipment 0.3.0 | Draft: concentrator, bedside stand, burn unit bed, and in 0.3.0 the hyperbaric chamber, field oxygen kit, manual resuscitator, silver burn dressings, electrolyser and liquid oxygen store, all built on Vanilla Gravship Expanded's oxygen network where they pipe oxygen. The owner reports breathing improving on the concentrator (on 0.1.0) and the burn unit bed working (on 0.2.0); the bedside stand is not yet tested in game | The stand and its pipe link | [Record](medical-equipment.md) |
 
 ## Decisions so far
 
@@ -242,7 +242,7 @@ None of the oxygen above treats a patient yet, as far as these Defs show: it ser
 
 ### The oxygen chain (owner, 5 Nov 2026)
 
-Our own supply, used when Vanilla Gravship Expanded's is absent. Game values are not set yet, and each will be labelled authored.
+**Built in Medical Equipment 0.3.0 on Vanilla Gravship Expanded's oxygen network, not a second network used when it is absent** (agent choice, 7 Nov 2026, for the owner to revise; reasons in the [medical equipment record](medical-equipment.md)). The game values are there, each labelled.
 
 | Device | Needs | Gives | The real thing |
 | --- | --- | --- | --- |
@@ -258,11 +258,11 @@ Our own supply, used when Vanilla Gravship Expanded's is absent. Game values are
 
 | Where | Item | Purpose |
 | --- | --- | --- |
-| Field | Oxygen mask and regulator | Treats a patient with carbon monoxide or smoke-damaged lungs from a canister |
-| Field | Burn dressings | Better than plain tending for large burns; silver sulfadiazine is a natural chemistry tie-in |
-| Field | Manual resuscitator | Holds a closing airway until someone can do the tracheotomy |
+| Field | Oxygen mask and regulator | Built: the field oxygen kit, Medical Equipment 0.3.0 |
+| Field | Burn dressings | Built: silver burn dressings, a medicine, Medical Equipment 0.3.0 |
+| Field | Manual resuscitator | Built: Medical Equipment 0.3.0, pumped by a doctor for breathing under half |
 | Hospital | Bedside oxygen | Built: Medical Equipment 0.1.0 (a concentrator, and a stand on canisters or the pipe network) |
-| Hospital | Hyperbaric chamber | The top-end carbon monoxide treatment |
+| Hospital | Hyperbaric chamber | Built: Medical Equipment 0.3.0, a bed for one, 1 by 3 |
 | Hospital | Burn unit bed | Built: Medical Equipment 0.2.0. Air-cell care: faster healing, less pain, better tending |
 
 **Treatment tiers for carbon monoxide:** half-life about 320 minutes on room air, about 75 on oxygen, 15 to 30 hyperbaric
@@ -290,7 +290,7 @@ tier, not medical advice: the NHS England review noted there that clinical evide
 | The go and a stop time for the short test run | Owner |
 | Pick the radio art candidates still waiting since 19 October (`assets/phobos-radio/generated/review.html`) | Owner |
 | Review the medical art prompts (`assets/phobos-medical/requests/first-batch.json`) | Owner |
-| Is the electrolyser's water a Dubs Bad Hygiene pipe tie-in or a water item? | Agent, when the mod starts |
+| Is the electrolyser's water a Dubs Bad Hygiene pipe tie-in or a water item? Assumed for now (0.3.0) | Owner |
 | Should vented hydrogen be a room gas of ours, flammable in a closed room? It may earn its place under the gas rule | Owner |
 | Is the frost one overlay texture or several frames? | Agent, when the store's art is picked |
 | Licences of any further model or tool | Agent, before use |

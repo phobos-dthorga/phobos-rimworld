@@ -6,7 +6,8 @@ About.xml needs the fields RimWorld requires, a packageId of the house form Phob
 non-version folder LoadFolders.xml names must exist; version folders such as 1.6 may hold only built
 assemblies, which git ignores. No two folders in one LoadFolders.xml block may hold a Defs or Patches file
 at the same path, since the game would load only one of them (files_the_game_loads). Build products never
-belong in mods/: they are built from src/.
+belong in mods/: they are built from src/. A C# project under src/ that names a mod in <ModFolder> carries that mod's
+version in <Version>, and any ModVersion constant in its source matches it too (check_versions).
 """
 import argparse
 import json
@@ -28,6 +29,9 @@ BUILD_FOLDERS = ('bin', 'obj', '__pycache__')
 ABOUT = 'About/About.xml'
 LOAD_FOLDERS = 'LoadFolders.xml'
 XML_CONTENT_FOLDERS = ('Defs/', 'Patches/')  # read through Verse.DirectXmlLoader.XmlAssetsInModFolder
+PROJECT_VERSION = re.compile(r'<Version>\s*([^<\s]+)\s*</Version>')
+PROJECT_MOD_FOLDER = re.compile(r'<ModFolder>\s*([^<\s]+)\s*</ModFolder>')
+VERSION_CONSTANT = re.compile(r'\bModVersion\s*=\s*"([^"]+)"')
 
 
 def listed_files(root):
@@ -134,6 +138,24 @@ def check_keyed(mod, path, data, errors):
             errors.append(f'{mod}: {path}: {entry.tag} uses a numbered placeholder; name it, as in {{COUNT}}')
 
 
+def check_versions(files, read, about_versions, errors):
+    """Every copy of a mod's version that lives in src/ matches its About.xml: a project's <Version> and its ModVersion constants."""
+    for project in sorted(name for name in files if name.startswith('src/') and name.endswith('.csproj')):
+        text = read(project).decode('utf-8', 'replace')
+        folder = PROJECT_MOD_FOLDER.search(text)
+        if not folder or folder.group(1) not in about_versions:
+            continue
+        expected = about_versions[folder.group(1)]
+        version = PROJECT_VERSION.search(text)
+        if version and version.group(1) != expected:
+            errors.append(f'{project}: <Version> {version.group(1)} differs from mods/{folder.group(1)}/{ABOUT} modVersion {expected}')
+        source = project.rsplit('/', 1)[0] + '/'
+        for name in sorted(n for n in files if n.startswith(source) and n.endswith('.cs')):
+            for found in VERSION_CONSTANT.finditer(read(name).decode('utf-8', 'replace')):
+                if found.group(1) != expected:
+                    errors.append(f'{name}: ModVersion {found.group(1)} differs from mods/{folder.group(1)}/{ABOUT} modVersion {expected}')
+
+
 def check(root, files=None, read=None):
     """Check the mods among files (default: git's list); read(path) returns a file's bytes."""
     files = listed_files(root) if files is None else files
@@ -145,10 +167,13 @@ def check(root, files=None, read=None):
             by_mod.setdefault(parts[1], []).append('/'.join(parts[2:]))
     errors = []
     owners = {}
+    about_versions = {}
     for mod, rels in sorted(by_mod.items()):
         if ABOUT in rels:
             about = parse(read(f'mods/{mod}/{ABOUT}'), ABOUT, errors, mod)
             package_id = check_about(mod, about, errors) if about is not None else None
+            if about is not None and (about.findtext('modVersion') or '').strip():
+                about_versions[mod] = about.findtext('modVersion').strip()
             if package_id:
                 owners.setdefault(package_id.lower(), []).append(mod)
         else:
@@ -166,6 +191,7 @@ def check(root, files=None, read=None):
                 check_keyed(mod, rel, read(f'mods/{mod}/{rel}'), errors)
             if rel.lower().endswith(BUILD_SUFFIXES) or any(part in BUILD_FOLDERS for part in rel.split('/')[:-1]):
                 errors.append(f'{mod}: {rel} is a build product; build it from src/ instead of committing it')
+    check_versions(files, read, about_versions, errors)
     for package_id, mods in sorted(owners.items()):
         if len(mods) > 1:
             errors.append(f'packageId {package_id} is used by {", ".join(mods)}; RimWorld loads only the first')

@@ -39,6 +39,10 @@ public static class OxygenRule
     /// </summary>
     public static bool RaisesBreathing(float breathingWithoutOxygen) => breathingWithoutOxygen < NormalBreathing;
 
+    /// <summary>How many times faster a treatment clears carbon monoxide than room air, from the two half-lives; 0 if either is unset.</summary>
+    public static float TimesFaster(float roomAirHalfLifeHours, float treatmentHalfLifeHours) =>
+        roomAirHalfLifeHours > 0f && treatmentHalfLifeHours > 0f ? roomAirHalfLifeHours / treatmentHalfLifeHours : 0f;
+
     /// <summary>The fuel the patients use in one interval.</summary>
     public static float FuelForInterval(int patients, float fuelPerPatientHour, int intervalTicks)
     {

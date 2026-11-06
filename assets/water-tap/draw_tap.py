@@ -1,7 +1,8 @@
 """Draw D'thorga Water Tap's building texture and Workshop preview with Pillow. No image generator, no source images.
 
     python assets/water-tap/draw_tap.py
-    python assets/water-tap/draw_tap.py --reference   (only the large drawing, as a reference for the image generator)
+    python assets/water-tap/draw_tap.py --reference   (only the large drawing, as a reference for the image generator; it is not
+                                                         tracked on main, and the art-references branch keeps a copy)
 
 Needs Pillow. Run it with any Python that has it (the repository's Python doesn't need it for anything else).
 Writes mods/PhobosWaterTap/Common/Textures/Phobos/WaterTap/BottleTap.png and mods/PhobosWaterTap/About/Preview.png.

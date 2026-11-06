@@ -20,6 +20,15 @@
   <PhobosMedical_BurnBedTreating>Giving air-cell care to {PATIENTS}.</PhobosMedical_BurnBedTreating>
   <PhobosMedical_BurnBedNotNeeded>No open burns on {PATIENTS}, so no air-cell care. It still works as a hospital bed.</PhobosMedical_BurnBedNotNeeded>
 
-  <PhobosMedical_TipOnOxygenPlain>Clears carbon monoxide about four times faster, and eases low breathing.</PhobosMedical_TipOnOxygenPlain>
-  <PhobosMedical_TipOnOxygen>Carbon monoxide half-life on oxygen: {MINUTES} minutes, against about 320 on room air. Eases low breathing, up to normal.</PhobosMedical_TipOnOxygen>
+  <PhobosMedical_TipOnOxygenPlain>Clears carbon monoxide about {TIMES} times faster, and eases low breathing.</PhobosMedical_TipOnOxygenPlain>
+  <PhobosMedical_TipOnOxygen>Carbon monoxide half-life on this oxygen: {MINUTES} minutes, against about {ROOMAIR} on room air. Eases low breathing, up to normal.</PhobosMedical_TipOnOxygen>
+  <PhobosMedical_TipBreathingOnly>Eases low breathing, up to normal. It is room air, so it does not clear carbon monoxide faster.</PhobosMedical_TipBreathingOnly>
+
+  <PhobosMedical_StoreCold>Kept cold, so none of its oxygen boils away.</PhobosMedical_StoreCold>
+  <PhobosMedical_StoreBoilingOff>Waiting for power for its cooler: until then about {SHARE} of its oxygen boils off and is vented each day.</PhobosMedical_StoreBoilingOff>
+
+  <PhobosMedical_DeviceRefusalAirwayShut>{PATIENT}'s airway is shut, so no air or oxygen can reach the lungs. The airway must be opened first.</PhobosMedical_DeviceRefusalAirwayShut>
+  <PhobosMedical_DeviceRefusalNoDevice>{PATIENT} needs breathing help, but there is no field oxygen kit or manual resuscitator within reach.</PhobosMedical_DeviceRefusalNoDevice>
+  <PhobosMedical_DeviceRefusalAlreadyOnOxygen>{PATIENT} is already breathing supplied oxygen.</PhobosMedical_DeviceRefusalAlreadyOnOxygen>
+  <PhobosMedical_DeviceRefusalNotNeeded>{PATIENT} is breathing well enough without help.</PhobosMedical_DeviceRefusalNotNeeded>
 </LanguageData>

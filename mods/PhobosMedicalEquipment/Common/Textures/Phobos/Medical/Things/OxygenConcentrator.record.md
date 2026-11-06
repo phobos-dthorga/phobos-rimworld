@@ -2,7 +2,7 @@
 
 **AI-generated, then picked by the owner on 7 November 2026.** Made on 2026-11-05 with FLUX.2 Klein 4B base (Black Forest Labs, Apache 2.0) in local ComfyUI: 50 steps, guidance 4, seed 103.
 
-**No LoRA.** The generator was given our own drawing `assets/phobos-medical/references/OxygenConcentrator-large.png` and the game's vitals monitor sprite as references, for the layout and the game's look. No game art is in this file. See the [design record](../../../../../../../docs/development/art-automation-and-medical-equipment.md).
+**No LoRA.** The generator was given our own drawing `OxygenConcentrator-large.png` (kept on the `art-references` branch as `drawings/OxygenConcentrator-large.png`) and the game's vitals monitor sprite as references, for the layout and the game's look. No game art is in this file. See the [design record](../../../../../../../docs/development/art-automation-and-medical-equipment.md).
 
 **Near-copy check:** passed. The closest was FleshmassPieceC.png (structure 0.374, hash distance 25). Flagged at a hash distance of 12 or less, or structure of 0.6 or more. A slightly tilted copy can still pass.
 

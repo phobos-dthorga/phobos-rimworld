@@ -30,7 +30,7 @@ public class MedicalEquipmentSettings : ModSettings
 public class MedicalEquipmentMod : Mod
 {
     public const string PackageId = "PhobosDthorga.MedicalEquipment";
-    public const string ModVersion = "0.2.3";
+    public const string ModVersion = "0.3.0";
     public const string LogPrefix = "[D'thorga Medical Equipment]";
     const string VanillaGravshipExpanded = "vanillaexpanded.gravship";
 
@@ -50,8 +50,14 @@ public class MedicalEquipmentMod : Mod
         var report = new LoadReport(LogPrefix, ModVersion);
         report.On("oxygen concentrator");
         report.On("burn unit bed");
-        const string stand = "bedside oxygen stand";
-        if (OptionalMods.IsActive(VanillaGravshipExpanded)) report.On(stand); else report.Off(stand, "needs Vanilla Gravship Expanded's oxygen");
+        report.On("silver burn dressing");
+        report.On("manual resuscitator");
+        // Everything that stores or pipes oxygen uses Vanilla Gravship Expanded's oxygen, so it exists only with that mod.
+        bool gravship = OptionalMods.IsActive(VanillaGravshipExpanded);
+        foreach (string piped in new[] { "bedside oxygen stand", "field oxygen kit", "hyperbaric chamber", "oxygen electrolyser", "liquid oxygen store" })
+        {
+            if (gravship) report.On(piped); else report.Off(piped, "needs Vanilla Gravship Expanded's oxygen");
+        }
         report.Log();
     }
 

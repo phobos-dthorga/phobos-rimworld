@@ -4,5 +4,7 @@
   <Phobos.Medical.Defs.PhobosMedicalRulesDef>
     <defName>PhobosMedical_Rules</defName>
     <breathingNeedThreshold>0.8</breathingNeedThreshold>
+    <!-- Breathing below this is weak enough for a doctor to push air in by hand with a manual resuscitator. -->
+    <breathingAssistThreshold>0.5</breathingAssistThreshold>
   </Phobos.Medical.Defs.PhobosMedicalRulesDef>
 </Defs>

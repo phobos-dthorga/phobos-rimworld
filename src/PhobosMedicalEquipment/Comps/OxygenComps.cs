@@ -12,13 +12,16 @@ using Verse;
 
 namespace Phobos.Medical.Comps;
 
-/// <summary>A building that gives oxygen to patients in the beds it links to. Other mods can add machines with this in XML.</summary>
+/// <summary>A building that gives oxygen to patients in the beds it links to, or, if it is a bed itself, to whoever lies in it. Other
+/// mods can add machines with this in XML.</summary>
 public class CompProperties_PhobosOxygenSupply : CompProperties
 {
     /// <summary>How many patients it serves at once.</summary>
     public int maxPatients = 2;
     /// <summary>Fuel per patient per in-game hour, if the building has a fuel comp. Without one it needs only what its other comps ask for.</summary>
     public float fuelPerPatientHour = 1f;
+    /// <summary>The condition it gives; empty for the ordinary oxygen condition. A stronger treatment (a pressure chamber) names its own.</summary>
+    public HediffDef? treatment;
 
     public CompProperties_PhobosOxygenSupply() => compClass = typeof(CompPhobosOxygenSupply);
 }
@@ -53,20 +56,41 @@ public class CompPhobosOxygenSupply : ThingComp
 }
 
 /// <summary>
-/// The oxygen condition. Its Def has two stages: one that raises breathing (with a ceiling at normal) and one that leaves it alone. A
-/// fixed ceiling would also cut a pawn whose lungs are better than normal, so the stage is chosen from the patient's breathing measured
-/// without this condition. The choice is derived, so never saved: it is set again on the machine's next pass.
+/// A breathing treatment: oxygen from a machine or a kit, or air pushed in by hand. Its Def has two stages: one that raises breathing
+/// (with a ceiling at normal) and one that leaves it alone. A fixed ceiling would also cut a pawn whose lungs are better than normal, so
+/// the stage is chosen from the patient's breathing measured without any of these treatments, when it starts and every few seconds
+/// after. The choice is derived, so never saved.
 /// </summary>
 public class Hediff_PhobosOnOxygen : HediffWithComps
 {
     const int LeavesBreathingStage = 0;
     const int RaisesBreathingStage = 1;
+    const int CheckIntervalTicks = 250;
 
-    /// <summary>True while measuring a patient's breathing without oxygen. One flag serves every instance: the game calculates on one thread.</summary>
+    /// <summary>True while measuring a patient's breathing without these treatments. One flag serves every instance: the game calculates on one thread.</summary>
     static bool measuringWithout;
 
-    /// <summary>Starts true so a struggling patient keeps their help between loading a save and the machine's first pass.</summary>
+    /// <summary>Starts true so a struggling patient keeps their help between loading a save and the first check.</summary>
     bool raisesBreathing = true;
+    int ticksToCheck;
+
+    public override void PostAdd(DamageInfo? dinfo)
+    {
+        base.PostAdd(dinfo);
+        // Only the field: the game is still adding this condition and refreshes the pawn's capacities once it has.
+        raisesBreathing = OxygenRule.RaisesBreathing(BreathingWithoutOxygen());
+    }
+
+    public override void PostTickInterval(int delta)
+    {
+        base.PostTickInterval(delta);
+        ticksToCheck -= delta;
+        if (ticksToCheck > 0) return;
+        ticksToCheck = CheckIntervalTicks;
+        CheckBreathing();
+    }
+
+    void CheckBreathing() => SetRaisesBreathing(OxygenRule.RaisesBreathing(BreathingWithoutOxygen()));
 
     public override int CurStageIndex => measuringWithout || !raisesBreathing ? LeavesBreathingStage : RaisesBreathingStage;
 
@@ -87,6 +111,10 @@ public class Hediff_PhobosOnOxygen : HediffWithComps
 
 public class HediffCompProperties_PhobosOnOxygen : HediffCompProperties_PhobosTreatment
 {
+    /// <summary>Carbon monoxide's half-life on room air, for comparison in the tooltip only: about 320 minutes (Weaver and colleagues,
+    /// 2000, as cited in emergency medicine references; see docs/development/burns-and-smoke.md). The clearance itself is the poison's.</summary>
+    public float roomAirHalfLifeHours = 5.33f;
+
     public HediffCompProperties_PhobosOnOxygen() => compClass = typeof(HediffComp_PhobosOnOxygen);
 }
 
@@ -96,9 +124,12 @@ public class HediffComp_PhobosOnOxygen : HediffComp_PhobosTreatment
     {
         get
         {
-            if (MedicalEquipmentMod.Settings.displayMode == DisplayMode.Plain) return "PhobosMedical_TipOnOxygenPlain".Translate();
             float halfLife = parent.def.GetModExtension<PhobosSuppliedOxygenExtension>()?.carbonMonoxideHalfLifeHours ?? 0f;
-            return "PhobosMedical_TipOnOxygen".Translate((halfLife * 60f).ToString("0").Named("MINUTES"));
+            float roomAir = ((HediffCompProperties_PhobosOnOxygen)props).roomAirHalfLifeHours;
+            if (halfLife <= 0f) return "PhobosMedical_TipBreathingOnly".Translate();
+            if (MedicalEquipmentMod.Settings.displayMode == DisplayMode.Plain)
+                return "PhobosMedical_TipOnOxygenPlain".Translate(OxygenRule.TimesFaster(roomAir, halfLife).ToString("0").Named("TIMES"));
+            return "PhobosMedical_TipOnOxygen".Translate((halfLife * 60f).ToString("0").Named("MINUTES"), (roomAir * 60f).ToString("0").Named("ROOMAIR"));
         }
     }
 }

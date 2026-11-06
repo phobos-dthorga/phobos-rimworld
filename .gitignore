@@ -20,6 +20,10 @@
 *.pem
 *.bak
 
+# Art the mods don't ship stays off main (owner, 7 Nov 2026): reference drawings are kept on the art-references branch and drawn
+# again by their scripts; full-size masters are on art-masters. See scripts/art/archive_branch.py.
+assets/*/references/
+
 # Build products are made locally; never commit assemblies, including built mod DLLs.
 **/bin/
 **/obj/

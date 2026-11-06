@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- The owner's oxygen chain (5 Nov 2026), built on Vanilla Gravship Expanded's oxygen network instead of a second network of our
+       own (agent choice, 7 Nov 2026: one network, under the owner's rule of using what exists). A unit of that network is one oxygen
+       canister, which the bedside stand burns at one per patient-hour, so here one unit is taken as one patient-hour of oxygen: about
+       0.3 cubic metres at 5 litres a minute. Pipe rates are per 100 ticks; 0.04 is 24 units a day, one an hour. -->
+
+  <!-- Electrolysis: 2 H2O gives 2 H2 + O2. Typical systems use about 4.5 to 6 kWh per cubic metre of hydrogen (source in
+       docs/development/art-automation-and-medical-equipment.md), and each cubic metre of oxygen comes with two of hydrogen, so 9 to 12
+       kWh per cubic metre of oxygen, about 3 to 3.6 kW for 0.3 cubic metres an hour (our arithmetic). Hence 3000 W for one unit an hour.
+       That is honest and far hungrier than Vanilla Gravship Expanded's oxygen harvester (700 W for ten units an hour, its own balance),
+       so the electrolyser earns its place where the harvester can't run: in vacuum and where the air has too little oxygen. Water is
+       assumed, not drawn (a simplification; a plumbing tie-in is an open question). The hydrogen is vented, with no gas of ours. -->
+  <ThingDef ParentName="BuildingBase">
+    <defName>PhobosMedical_Electrolyser</defName>
+    <label>oxygen electrolyser</label>
+    <description>A stack of electrolysis cells that splits water into oxygen and hydrogen with an electric current. The oxygen goes into a connected oxygen pipe, and the hydrogen is vented outside.\n\nIt needs a great deal of power for the oxygen it makes, but it works anywhere it has power, even where there is no air to draw oxygen from.</description>
+    <graphicData>
+      <texPath>Phobos/Medical/Things/Electrolyser</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>(2,2)</drawSize>
+      <damageData>
+        <cornerTL>Damage/Corner</cornerTL>
+        <cornerTR>Damage/Corner</cornerTR>
+        <cornerBL>Damage/Corner</cornerBL>
+        <cornerBR>Damage/Corner</cornerBR>
+      </damageData>
+    </graphicData>
+    <altitudeLayer>Building</altitudeLayer>
+    <passability>PassThroughOnly</passability>
+    <pathCost>50</pathCost>
+    <fillPercent>0.5</fillPercent>
+    <castEdgeShadows>true</castEdgeShadows>
+    <staticSunShadowHeight>0.4</staticSunShadowHeight>
+    <rotatable>false</rotatable>
+    <tickerType>Rare</tickerType>
+    <canOverlapZones>false</canOverlapZones>
+    <statBases>
+      <MaxHitPoints>200</MaxHitPoints>
+      <WorkToBuild>6000</WorkToBuild>
+      <Mass>60</Mass>
+      <Flammability>0.5</Flammability>
+      <Beauty>-6</Beauty>
+    </statBases>
+    <size>(2,2)</size>
+    <costList>
+      <Steel>150</Steel>
+      <ComponentIndustrial>5</ComponentIndustrial>
+    </costList>
+    <terrainAffordanceNeeded>Medium</terrainAffordanceNeeded>
+    <comps>
+      <li Class="CompProperties_Power">
+        <compClass>CompPowerTrader</compClass>
+        <basePowerConsumption>3000</basePowerConsumption>
+        <idlePowerDraw>50</idlePowerDraw>
+      </li>
+      <li Class="PipeSystem.CompProperties_ResourceTrader">
+        <pipeNet>VGE_OxygenNet</pipeNet>
+        <consumptionPerTick>-0.04</consumptionPerTick>
+        <producerLowPowerWhenStorageFull>true</producerLowPowerWhenStorageFull>
+      </li>
+      <li Class="CompProperties_Flickable"/>
+      <li Class="CompProperties_Breakdownable"/>
+    </comps>
+    <designationCategory>VGE_Vacuum</designationCategory>
+    <researchPrerequisites>
+      <li>VGE_OxygenNetwork</li>
+    </researchPrerequisites>
+    <constructionSkillPrerequisite>6</constructionSkillPrerequisite>
+    <building>
+      <relatedBuildCommands>
+        <li>VGE_OxygenPipe</li>
+      </relatedBuildCommands>
+    </building>
+  </ThingDef>
+
+  <!-- Liquid oxygen boils at about -183 C and gives about 862 litres of gas per litre of liquid (sources in the design record). Against
+       a gas tank at about 200 bar, an assumption, since Vanilla Gravship Expanded doesn't state its tank's pressure, that is about four
+       times as much in the same space: 2000 units in 2 by 2, against its small tank's 500. A strong oxidiser, so its explosion is fire.
+       The cooler's 300 W and the 2% a day lost without it are authored; real vacuum-insulated stores lose well under 1% a day with no
+       power at all (from memory, unverified), so the cooler is a gameplay simplification. The frost while it works is not drawn yet. -->
+  <ThingDef ParentName="BuildingBase">
+    <defName>PhobosMedical_LiquidOxygenStore</defName>
+    <label>liquid oxygen store</label>
+    <description>A double-walled, vacuum-insulated vessel that holds oxygen as a liquid, colder than -180 C, with a small cooler that keeps it that way. Liquid oxygen takes up far less room than the gas, so it holds about four times as much as a tank of the same size. It fills from and feeds a connected oxygen pipe.\n\nWithout power it slowly warms, and some of its oxygen boils off and is vented. Liquid oxygen makes fire burn violently: if the store is badly damaged, it bursts into a fireball.</description>
+    <graphicData>
+      <texPath>Phobos/Medical/Things/LiquidOxygenStore</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>(2,2)</drawSize>
+      <damageData>
+        <cornerTL>Damage/Corner</cornerTL>
+        <cornerTR>Damage/Corner</cornerTR>
+        <cornerBL>Damage/Corner</cornerBL>
+        <cornerBR>Damage/Corner</cornerBR>
+      </damageData>
+    </graphicData>
+    <drawerType>MapMeshAndRealTime</drawerType>
+    <altitudeLayer>Building</altitudeLayer>
+    <passability>PassThroughOnly</passability>
+    <pathCost>50</pathCost>
+    <fillPercent>0.6</fillPercent>
+    <castEdgeShadows>true</castEdgeShadows>
+    <staticSunShadowHeight>0.5</staticSunShadowHeight>
+    <rotatable>false</rotatable>
+    <tickerType>Normal</tickerType>
+    <canOverlapZones>false</canOverlapZones>
+    <statBases>
+      <MaxHitPoints>250</MaxHitPoints>
+      <WorkToBuild>5000</WorkToBuild>
+      <Mass>80</Mass>
+      <Flammability>0.4</Flammability>
+      <Beauty>-4</Beauty>
+    </statBases>
+    <size>(2,2)</size>
+    <costList>
+      <Steel>180</Steel>
+      <Plasteel>20</Plasteel>
+      <ComponentIndustrial>4</ComponentIndustrial>
+    </costList>
+    <terrainAffordanceNeeded>Medium</terrainAffordanceNeeded>
+    <comps>
+      <li Class="CompProperties_Power">
+        <compClass>CompPowerTrader</compClass>
+        <basePowerConsumption>300</basePowerConsumption>
+      </li>
+      <li Class="PipeSystem.CompProperties_ResourceStorage">
+        <pipeNet>VGE_OxygenNet</pipeNet>
+        <storageCapacity>2000</storageCapacity>
+        <barSize>(0.8, 0.15)</barSize>
+        <margin>0.1</margin>
+        <centerOffset>(0, 0, -0.5)</centerOffset>
+        <barHorizontal>true</barHorizontal>
+        <rotateBarWithBuilding>false</rotateBarWithBuilding>
+        <!-- Vanilla Gravship Expanded's own gizmo and words for drawing canisters off a tank, used in place. -->
+        <extractOptions>
+          <texPath>UI/Gizmos/ExtractOxygen_Gizmo</texPath>
+          <labelKey>VGE_ExtractOxygen</labelKey>
+          <descKey>VGE_ExtractOxygenDesc</descKey>
+          <disabledReasonKey>VGE_ExtractOxygenDisabled</disabledReasonKey>
+          <extractAmount>-1</extractAmount>
+          <thing>VGE_OxygenCanister</thing>
+          <extractTime>120</extractTime>
+          <extractExactAmount>false</extractExactAmount>
+        </extractOptions>
+        <destroyOptions>
+          <li>
+            <thing>VGE_OxygenCanister</thing>
+            <spawnWhenDestroyed>false</spawnWhenDestroyed>
+          </li>
+        </destroyOptions>
+      </li>
+      <li Class="PipeSystem.CompProperties_ExplosiveContent">
+        <explosiveMaxRadius>9</explosiveMaxRadius>
+        <radiusRequiredForExplosion>2</radiusRequiredForExplosion>
+        <explosiveDamageType>Flame</explosiveDamageType>
+        <damageAmountBase>12</damageAmountBase>
+        <destroyThingOnExplosionSize>2</destroyThingOnExplosionSize>
+        <startWickHitPointsPercent>0.2</startWickHitPointsPercent>
+        <wickTicks>70~150</wickTicks>
+      </li>
+      <li Class="Phobos.Medical.Comps.CompProperties_PhobosBoilOff">
+        <fractionPerDayUnpowered>0.02</fractionPerDayUnpowered>
+      </li>
+      <li Class="CompProperties_Breakdownable"/>
+    </comps>
+    <designationCategory>VGE_Vacuum</designationCategory>
+    <researchPrerequisites>
+      <li>VGE_OxygenNetwork</li>
+    </researchPrerequisites>
+    <constructionSkillPrerequisite>6</constructionSkillPrerequisite>
+    <building>
+      <relatedBuildCommands>
+        <li>VGE_OxygenPipe</li>
+      </relatedBuildCommands>
+    </building>
+  </ThingDef>
+</Defs>

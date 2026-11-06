@@ -5,6 +5,61 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-11-07 - Draft
+
+The rest of the oxygen kit and the field kit the owner asked for (7 November 2026): a pressure chamber, two devices doctors use by
+themselves, a burn dressing, and an electrolyser and a liquid store to make and keep oxygen. Not yet tested in game.
+
+### Added
+
+- Hyperbaric chamber: a bed for one patient, 1 by 3, that runs on oxygen canisters or an oxygen pipe. A patient who needs oxygen
+  gets it under pressure: breathing eased and carbon monoxide cleared with a half-life of about 22 minutes, against about 75 on a mask.
+- Field oxygen kit: a small cylinder, regulator and mask made from an oxygen canister. Doctors fit it by themselves to a patient
+  lying down who needs oxygen and isn't on it; it lasts about an hour and is used up.
+- Manual resuscitator: a bag and mask that doctors pump by themselves for a patient lying down whose breathing is under half. It
+  holds breathing up while they pump, for up to an hour at a time, and is kept. It can't help an airway that is shut, and says so.
+- Silver burn dressing: a medicine made at a drug lab from cloth, silver and neutroamine, between herbal and industrial medicine.
+  Doctors use it for any tend; a better tend lowers infection through the game's own rule.
+- Oxygen electrolyser: splits water into oxygen and hydrogen on 3000 W and puts one canister's worth of oxygen an hour into an
+  oxygen pipe. Water is assumed. Meant for vacuum and thin air, where the oxygen harvester can't run.
+- Liquid oxygen store: holds 2000 units of oxygen on an oxygen pipe, four times a gas tank of the same size. Without power for its
+  cooler about 2% boils off each day. A badly damaged store bursts into a fireball. It can be drained into canisters like a tank.
+- Doctors right-clicking a patient are told why no device is used: the airway is shut, none is within reach, the patient is already
+  on oxygen, or breathes well enough.
+
+### Changed
+
+- An oxygen machine that is itself a bed serves whoever lies in it, and a machine can give its own, stronger treatment condition.
+- The oxygen conditions now check the patient's breathing by themselves, so the kit and the hand pump never lower breathing that is
+  already above normal, as the machines never did.
+- The oxygen tooltip works out how many times faster carbon monoxide clears from each treatment's own half-life, instead of a fixed
+  four times.
+- The hyperbaric chamber is 1 by 3, not the 2 by 3 first proposed: a bed holds as many patients as it is wide.
+
+### Balance
+
+- All new costs, power draws, work, the 6 canisters an hour in the chamber, the boil-off and the breathing figures are authored. The
+  electrolyser's 3000 W follows real electrolysis (about 3 to 3.6 kW for one patient's oxygen, our arithmetic from a published
+  range), which is far hungrier than Vanilla Gravship Expanded's harvester by that mod's own balance. The half-lives are sourced.
+
+### Dependencies
+
+- The chamber, the field kit, the electrolyser and the store need Vanilla Gravship Expanded, like the bedside stand, and load only
+  with it. They join its oxygen network instead of a second network of our own.
+- References Vanilla Expanded Framework's PipeSystem assembly from the installed mod, for the store's boil-off; nothing of it is
+  copied.
+
+### Save compatibility
+
+- Safe to add to a running colony. The new treatment conditions live with the core Defs, so a save still loads cleanly if Vanilla
+  Gravship Expanded is taken out while a patient has one; each lapses within the hour. Its buildings and kits would be dropped.
+
+### Compatibility and limits
+
+- Art: the store and the three items are the owner's picks (references only, no private model). The electrolyser and the chamber
+  are scripted placeholders until generated art is picked, and the store's frost is not drawn yet.
+- A chamber does not stop surgery on its patient, and patients are not sent to it in preference to other medical beds.
+
 ## [0.2.3] - 2026-11-07 - Draft
 
 The owner's art picks, and the README brought up to date. No change in play. Not yet tested in game.

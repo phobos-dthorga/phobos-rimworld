@@ -14,8 +14,10 @@ happen before a run. A record only: nothing here has been generated for it. How 
 - **A giant red X on a button means a missing texture, not missing art.** It is the game's stand-in when a file isn't found, and
   it is a bug to fix in code straight away, before any new icon exists.
 - **Text on Workshop previews is never generated.** The model draws a background or hero image; a script adds the mod's name.
-- **Five machines and items have no Def yet.** Their art can be generated now, but its export size waits for each one's size on
-  the map.
+- **Every picked machine and item has its Def since Medical Equipment 0.3.0.** Outstanding art: the electrolyser, the chamber's
+  top-down redraw at 1 by 3, and the store's frost; each has a scripted placeholder or works without it.
+- **Art the mods don't ship lives off main** (owner, 7 Nov 2026): full-size masters on the `art-masters` branch, references and
+  superseded picks on `art-references`, added with `scripts/art/archive_branch.py`.
 - **Everything that ships keeps an asset record** (tool, model, prompt, seeds, hashes, date, AI disclosure) and passes the near-copy
   check first. Output of the private style model may ship, by the owner's choice (option A, 5 Nov 2026).
 
@@ -42,13 +44,13 @@ model draws the picture and a script does the rest.
 | Asset | Now | Needs | Local model? | Waiting on |
 | --- | --- | --- | --- | --- |
 | Oxygen concentrator (1x1) | Shipped pick, 0.2.3 | Nothing | | |
-| Electrolyser | No pick: none suited (owner, 7 Nov) | A new batch with a fresh brief | Yes | Go |
-| Liquid oxygen store | Pick: 103 (7 Nov); the owner wants to see it in game first | Export, then east and north views with the pick as reference | Yes | Its Def and map size |
-| Liquid oxygen store's frost | Nothing | One frost texture shown while it works, faded in and out by code, following DMS2's Pressure Chamber | Part: the model draws the rime, a script cuts it out | The store's Def |
-| Hyperbaric chamber (2x3) | Pick for its look: 102, drawn at an angle; rotating it doesn't fix that (tried 7 Nov) | A top-down redraw, with 102 as the design reference and the stand-in for the layout | Yes | Go |
-| Oxygen mask and regulator (item) | Pick: 104 (7 Nov) | Export at item size | Yes | Its Def |
-| Burn dressings (item) | Pick: 101 (7 Nov) | Export at item size | Yes | Its Def |
-| Manual resuscitator (item) | Pick: 103 (7 Nov) | Export at item size | Yes | Its Def |
+| Electrolyser (2x2) | Scripted placeholder in 0.3.0; no pick: none suited (owner, 7 Nov) | A new batch with a fresh brief, top-down, square | Yes | Go |
+| Liquid oxygen store (2x2) | Shipped pick, 0.3.0, one view (it doesn't rotate); the owner wants to see it in game before judging it | Nothing, unless the owner asks for a redraw after seeing it | | Owner's look in game |
+| Liquid oxygen store's frost | Nothing; the store works without it (0.3.0) | One frost texture shown while it works, faded in and out by code, following DMS2's Pressure Chamber | Part: the model draws the rime, a script cuts it out | Go, then code to show it |
+| Hyperbaric chamber (1x3) | Scripted placeholder in 0.3.0. Pick for its look: 102, drawn at an angle; rotating it doesn't fix that (tried 7 Nov) | A top-down redraw at 1 by 3 on a square canvas (the game draws beds on square textures), with 102 as the design reference; a new 1 by 3 layout drawing first | Yes | Go |
+| Field oxygen kit (item) | Shipped pick, 0.3.0: oxygen-mask-104 | Nothing | | |
+| Silver burn dressing (medicine) | Shipped pick, 0.3.0: 101 | Nothing | | |
+| Manual resuscitator (item) | Shipped pick, 0.3.0: 103 | Nothing | | |
 | Bedside oxygen stand | Shipped pick, 0.2.3 (replacing 0.1.1's) | Nothing | | |
 | Burn unit bed | Shipped pick, 0.2.0. East and north are the top-down view turned | Nothing: a bed drawn from directly above needs no separate side views (agent judgement) | | |
 | Workshop preview (640x360) | Shipped pick, 0.2.3 | Nothing | | |
@@ -137,7 +139,7 @@ Proposed 6 Nov 2026 for the owner to confirm. Generation doesn't need them; expo
 | --- | --- | --- |
 | Electrolyser | 2x2 | The owner's pick is drawn square, so it exports without a redraw. A real stack with its water and gas plumbing is about a cabinet a metre or two across (our estimate, unsourced) |
 | Liquid oxygen store | 2x2 | Also a square pick. Real stores are an upright insulated tank beside finned vaporisers, about that footprint at small hospital scale (our estimate, unsourced) |
-| Hyperbaric chamber | 2x3 | A one-patient chamber is about a bed long; the extra width holds its control pedestal, as in the stand-in |
+| Hyperbaric chamber | 1x3 (built 7 Nov; first proposed 2x3) | A one-patient chamber is about a bed long. A bed holds one patient per tile of width, so 2 wide would hold two; the pedestal moved to the foot |
 
 ## Suggested order (agent proposal)
 

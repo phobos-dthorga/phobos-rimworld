@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- A one-patient (monoplace) chamber, built as a bed so the game's own rescue, bed rest and doctors all apply. A bed holds as many
+       patients as it is wide, so it is 1 by 3, not the 2 by 3 first proposed (agent choice, 7 Nov 2026); its control panel is drawn at
+       the foot. It runs on Vanilla Gravship Expanded's oxygen canisters, and Vanilla Expanded Framework links it to that network's pipes
+       by itself, as with the bedside stand. Real chambers use far more oxygen than a mask, hundreds of litres a minute while filling
+       (from memory, unverified); 6 canisters a patient-hour is a gameplay figure well below that. Power, cost and work authored.
+       Patients inside are harder to reach, hence the small tend penalty (authored); surgery in it is not prevented. -->
+  <ThingDef ParentName="BedWithQualityBase">
+    <defName>PhobosMedical_HyperbaricChamber</defName>
+    <label>hyperbaric chamber</label>
+    <description>A clear-topped pressure vessel for one patient, filled with pure oxygen at well above normal air pressure. Under pressure far more oxygen dissolves into the blood, so carbon monoxide clears many times faster than on a mask, and weak breathing is eased. It runs on oxygen canisters and fills itself from an oxygen pipe laid to it.\n\nA patient who needs oxygen gets it by themselves once they lie in it. Without power or oxygen it is still a bed. Canisters explode when they burn.</description>
+    <graphicData>
+      <texPath>Phobos/Medical/Things/HyperbaricChamber</texPath>
+      <graphicClass>Graphic_Multi</graphicClass>
+      <drawSize>(3,3)</drawSize>
+    </graphicData>
+    <castEdgeShadows>True</castEdgeShadows>
+    <tickerType>Rare</tickerType>
+    <statBases>
+      <MaxHitPoints>200</MaxHitPoints>
+      <WorkToBuild>8000</WorkToBuild>
+      <Mass>120</Mass>
+      <Flammability>0.5</Flammability>
+      <BedRestEffectiveness>1</BedRestEffectiveness>
+      <Comfort>0.75</Comfort>
+      <ImmunityGainSpeedFactor>1.07</ImmunityGainSpeedFactor>
+      <MedicalTendQualityOffset>-0.05</MedicalTendQualityOffset>
+      <SurgerySuccessChanceFactor>1</SurgerySuccessChanceFactor>
+    </statBases>
+    <comps>
+      <li Class="CompProperties_AffectedByFacilities">
+        <linkableFacilities>
+          <li>VitalsMonitor</li>
+        </linkableFacilities>
+      </li>
+      <li Class="CompProperties_Power">
+        <compClass>CompPowerTrader</compClass>
+        <basePowerConsumption>800</basePowerConsumption>
+      </li>
+      <li Class="CompProperties_Flickable"/>
+      <li Class="CompProperties_Refuelable">
+        <fuelLabel>oxygen</fuelLabel>
+        <fuelGizmoLabel>Oxygen</fuelGizmoLabel>
+        <outOfFuelMessage>Needs oxygen canisters</outOfFuelMessage>
+        <fuelCapacity>30</fuelCapacity>
+        <initialFuelPercent>0</initialFuelPercent>
+        <autoRefuelPercent>0.5</autoRefuelPercent>
+        <consumeFuelOnlyWhenUsed>true</consumeFuelOnlyWhenUsed>
+        <showFuelGizmo>true</showFuelGizmo>
+        <fuelFilter>
+          <thingDefs>
+            <li>VGE_OxygenCanister</li>
+          </thingDefs>
+        </fuelFilter>
+      </li>
+      <li Class="Phobos.Medical.Comps.CompProperties_PhobosOxygenSupply">
+        <maxPatients>1</maxPatients>
+        <fuelPerPatientHour>6</fuelPerPatientHour>
+        <treatment>PhobosMedical_Hyperbaric</treatment>
+      </li>
+    </comps>
+    <size>(1,3)</size>
+    <costList>
+      <Steel>200</Steel>
+      <Plasteel>40</Plasteel>
+      <ComponentIndustrial>8</ComponentIndustrial>
+    </costList>
+    <building>
+      <bed_showSleeperBody>True</bed_showSleeperBody>
+      <bed_healPerDay>8</bed_healPerDay>
+      <bed_defaultMedical>true</bed_defaultMedical>
+      <buildingSizeCategory>Medium</buildingSizeCategory>
+    </building>
+    <fillPercent>0.5</fillPercent>
+    <pathCost>60</pathCost>
+    <leaveResourcesWhenKilled>True</leaveResourcesWhenKilled>
+    <staticSunShadowHeight>0.3</staticSunShadowHeight>
+    <researchPrerequisites>
+      <li>HospitalBed</li>
+      <li>VGE_OxygenNetwork</li>
+    </researchPrerequisites>
+    <constructionSkillPrerequisite>8</constructionSkillPrerequisite>
+    <techLevel>Industrial</techLevel>
+    <uiIconScale>0.9</uiIconScale>
+  </ThingDef>
+</Defs>

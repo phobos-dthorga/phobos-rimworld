@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- One job and one work giver for every hand-held patient device. Under Doctor, just below urgent tending (100) and above routine
+       tending (90): a patient who can barely breathe comes before a cut that is already bandaged. Mechs are kept out. -->
+  <JobDef>
+    <defName>PhobosMedical_UseDevice</defName>
+    <driverClass>Phobos.Medical.Jobs.JobDriver_PhobosUseDevice</driverClass>
+    <reportString>using TargetA on TargetB.</reportString>
+    <casualInterruptible>false</casualInterruptible>
+  </JobDef>
+
+  <WorkGiverDef>
+    <defName>PhobosMedical_DoctorUseDevice</defName>
+    <label>use breathing devices</label>
+    <giverClass>Phobos.Medical.Jobs.WorkGiver_PhobosUseDevice</giverClass>
+    <workType>Doctor</workType>
+    <priorityInType>95</priorityInType>
+    <verb>use a breathing device on</verb>
+    <gerund>using a breathing device on</gerund>
+    <canBeDoneByMechs>false</canBeDoneByMechs>
+    <requiredCapacities>
+      <li>Manipulation</li>
+    </requiredCapacities>
+    <prioritizeSustains>true</prioritizeSustains>
+  </WorkGiverDef>
+</Defs>

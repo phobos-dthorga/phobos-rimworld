@@ -4,6 +4,7 @@ Nothing here reads or writes the RimWorld installation; every mod below is synth
 """
 import importlib.util
 import os
+import re
 from pathlib import Path
 import tempfile
 import unittest
@@ -84,6 +85,18 @@ class LayoutCheckTests(unittest.TestCase):
         result = run(contents)
         self.assertEqual(result['errors'], [])
         self.assertEqual(result['mods'], ['Example'])
+
+    def test_version_copies_in_src_must_match_the_about_file(self):
+        version = re.search(rb'<modVersion>([^<]+)</modVersion>', GOOD_ABOUT).group(1).decode()
+        contents = mod('Example')
+        contents['src/Example/Example.csproj'] = f'<Project><ModFolder>Example</ModFolder><Version>{version}</Version></Project>'.encode()
+        contents['src/Example/ExampleMod.cs'] = f'public const string ModVersion = "{version}";'.encode()
+        self.assertEqual(run(contents)['errors'], [])
+        contents['src/Example/Example.csproj'] = b'<Project><ModFolder>Example</ModFolder><Version>9.9.9</Version></Project>'
+        contents['src/Example/ExampleMod.cs'] = b'public const string ModVersion = "9.9.8";'
+        errors = '\n'.join(run(contents)['errors'])
+        self.assertIn('<Version> 9.9.9 differs', errors)
+        self.assertIn('ModVersion 9.9.8 differs', errors)
 
     def test_missing_files_are_named(self):
         errors = '\n'.join(run({'mods/Bare/Defs/Thing.xml': b'<Defs />'})['errors'])
