@@ -85,7 +85,7 @@ All eight textures are flat placeholders from `assets/phobos-radio/make_textures
 
 | Button | Mod | Now | Needs | Local model? |
 | --- | --- | --- | --- | --- |
-| "Doctors may operate" | D'thorga Triage (button from D'thorga Framework) | **A giant red X.** The code asks for a game texture that doesn't exist (`UI/Icons/Medical/NormalCare`). Reported to the session that owns the code on 6 Nov; the quick fix is the game's industrial medicine icon | An icon of our own: for example a scalpel over a red cross, with a tick or a bar for the two choices | Untested: try the model and a script side by side |
+| "Doctors may operate" | D'thorga Triage (button from D'thorga Framework) | Was a giant red X: the code asked for a game texture that doesn't exist (`UI/Icons/Medical/NormalCare`). Fixed in D'thorga Framework 0.3.1: it shows the game's industrial medicine icon (not yet tested in game) | An icon of our own: for example a scalpel over a red cross. When it exists, Triage names it in its preference's `iconPath`; nothing else changes | Untested: try the model and a script side by side |
 | Radio signal sheet | Phobos Radio Framework | Flat placeholder | A proper icon | As above |
 | Coax build icon | Phobos Radio Framework | Flat placeholder | A proper icon | As above |
 | Belt access toggle | D'thorga Factory Additions | Vanilla Expanded's conveyor icon, looked up at run time | Nothing | |
