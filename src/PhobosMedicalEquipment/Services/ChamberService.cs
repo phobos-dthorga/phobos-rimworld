@@ -66,11 +66,12 @@ public static class ChamberService
     }
 
     /// <summary>No operation on someone lying in a pressure chamber: the surgeon can't reach them through it.</summary>
-    public static bool BlocksSurgery(Bill_Medical bill)
-    {
-        Pawn? patient = bill.GiverPawn;
-        return patient != null && IsChamber(patient.CurrentBed());
-    }
+    public static bool BlocksSurgery(Bill_Medical bill) => bill.GiverPawn is Pawn patient && SurgeryBarReason(patient) != null;
+
+    /// <summary>The chamber's entry in the framework's surgery bars: why this patient can't be operated on now, or null. In-world words,
+    /// so another mod (D'thorga Triage) can show it as it holds the operation.</summary>
+    public static string? SurgeryBarReason(Pawn patient) =>
+        IsChamber(patient.CurrentBed()) ? "PhobosMedical_SurgeryBarChamber".Translate().Resolve() : null;
 
     /// <summary>An occupant with an operation waiting, for the chamber's inspect line, or null.</summary>
     public static Pawn? OccupantWaitingForSurgery(Building_Bed chamber)

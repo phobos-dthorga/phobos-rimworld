@@ -34,7 +34,7 @@ public class MedicalEquipmentSettings : ModSettings
 public class MedicalEquipmentMod : Mod
 {
     public const string PackageId = "PhobosDthorga.MedicalEquipment";
-    public const string ModVersion = "0.4.0";
+    public const string ModVersion = "0.4.1";
     public const string LogPrefix = "[D'thorga Medical Equipment]";
     public const string HarmonyId = PackageId;
 
@@ -47,6 +47,7 @@ public class MedicalEquipmentMod : Mod
         pack = content;
         Settings = GetSettings<MedicalEquipmentSettings>();
         Phobos.Shared.HarmonyPatchApplier.ApplyEach(new HarmonyLib.Harmony(HarmonyId), typeof(MedicalEquipmentMod).Assembly, LogPrefix);
+        Phobos.Framework.Health.SurgeryBars.Register(ChamberService.SurgeryBarReason);
         LongEventHandler.ExecuteWhenFinished(LogLoaded);
     }
 

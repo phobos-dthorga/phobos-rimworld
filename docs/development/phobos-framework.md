@@ -108,6 +108,8 @@ value, 600 ticks). `CompPhobosPatient` carries per-person choices for any Phobos
 one button per choice; it is put on every humanlike race by a startup sweep rather than an XML patch, because a patch on
 `race/intelligence` misses Humanoid Alien Races and races that inherit it (agent choice, from More Injuries' separate HAR patch).
 
+**Surgery bars (0.4.0, 7 Nov 2026):** `SurgeryBars.Register(Func<Pawn, string?>)` lets the mod that owns something stopping surgery (D'thorga Medical Equipment's pressure chamber) say so, with the reason already translated and in-world; `Patients.SurgeryBarred(pawn, out reason)` is what a mod that queues operations (D'thorga Triage) reads, so it can hold an operation and say why without a reference to the other mod. Asked for by the Triage session, 7 Nov 2026.
+
 ## Open points and upstream
 
 - Door and vent discovery on 1.7 reads correctly but is unverified in play (read from the 1.7 assembly, 5 Nov 2026): `Region.Neighbors` walks the

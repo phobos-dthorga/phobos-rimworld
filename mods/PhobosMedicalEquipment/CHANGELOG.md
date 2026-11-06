@@ -5,6 +5,19 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.4.1] - 2026-11-07 - Draft
+
+Not yet tested in game.
+
+### Fixed
+
+- The hyperbaric chamber tells other mods why its patient can't be operated on, through D'thorga Framework's new surgery check, so
+  D'thorga Triage can hold the operation and say why instead of reporting it queued (once Triage reads it).
+
+### Dependencies
+
+- D'thorga Framework 0.4.0 or later.
+
 ## [0.4.0] - 2026-11-07 - Draft
 
 The owner's answers of 7 November 2026 for the pieces added in 0.3.0. Harmony comes into this mod, for three small postfixes. Not
@@ -35,7 +48,7 @@ yet tested in game.
 ### Compatibility and limits
 
 - With D'thorga Triage, a patient lying in a chamber may still have an operation queued, and Triage still says it is queued while
-  no doctor starts it; the chamber's inspect line says to move them. A shared check Triage can read is planned in D'thorga Framework.
+  no doctor starts it; the chamber's inspect line says to move them. Fixed in 0.4.1 with the Framework's shared check.
 
 ## [0.3.0] - 2026-11-07 - Draft
 

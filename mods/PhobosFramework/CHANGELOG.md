@@ -5,8 +5,15 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.4.0] - 2026-11-07 - Draft
+
+Not yet tested in game.
+
 ### Added
 
+- Surgery bars for modders: a mod registers what stops surgeons operating on a patient for now, with the reason in the game's words,
+  and a mod that queues operations asks whether a patient is barred and why. D'thorga Medical Equipment registers its hyperbaric
+  chamber; D'thorga Triage is to read it. Nothing is saved.
 - A Workshop preview picture: a generated background the owner picked (7 November 2026), with the name added by script. No change in play.
 
 ## [0.3.1] - 2026-11-06 - Draft

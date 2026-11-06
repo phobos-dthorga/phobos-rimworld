@@ -34,6 +34,16 @@ public static class Patients
         return PatientGroup.Guest;
     }
 
+    /// <summary>
+    /// Whether something stops surgeons operating on this patient for now, and why (in-world, from the mod that owns the bar). A mod
+    /// that queues operations holds them while this is true, rather than withdrawing them. See <see cref="SurgeryBars"/>.
+    /// </summary>
+    public static bool SurgeryBarred(Pawn pawn, out string? reason)
+    {
+        reason = SurgeryBars.ReasonFor(pawn);
+        return reason != null;
+    }
+
     /// <summary>The player's medical care setting for the pawn; no care for a pawn with no settings.</summary>
     public static MedicalCareCategory CareLevel(Pawn pawn) => pawn.playerSettings?.medCare ?? MedicalCareCategory.NoCare;
 

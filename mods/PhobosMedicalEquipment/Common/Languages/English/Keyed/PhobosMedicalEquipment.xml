@@ -27,6 +27,7 @@
   <PhobosMedical_StoreCold>Kept cold, so none of its oxygen boils away.</PhobosMedical_StoreCold>
   <PhobosMedical_StoreNotFilling>Taking in no oxygen until its power is back: it can't keep more cold. It still gives out what it holds.</PhobosMedical_StoreNotFilling>
 
+  <PhobosMedical_SurgeryBarChamber>Inside the hyperbaric chamber: move them to a bed to operate.</PhobosMedical_SurgeryBarChamber>
   <PhobosMedical_ChamberNoSurgery>{PATIENT} has an operation waiting, which can't be done inside the chamber. Move them to a hospital bed for it.</PhobosMedical_ChamberNoSurgery>
 
   <!-- The one place in play that names another mod: the owner's exception to the in-world text rule (7 Nov 2026). Shown once per install. -->

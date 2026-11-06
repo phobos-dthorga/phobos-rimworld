@@ -113,7 +113,7 @@ The owner wants our own medical equipment, hospital and field. Carbon monoxide a
 
 - More Injuries' hypoxia counts as needing oxygen, but only breathing eases it. Whether to help it more depends on its handlers.
 - The store's look in game (the owner, 7 Nov 2026), then its frost once the art exists.
-- A Framework check, "this patient's bed bars surgery", for D'thorga Triage to read, so it stops saying an operation is queued for
-  someone in a chamber (found by the Triage session, 7 Nov 2026). Until then the chamber's inspect line says to move them.
+- D'thorga Triage reading the Framework's surgery bars (0.4.1 registers the chamber's), so it holds an operation for someone in a
+  chamber and says why (found by the Triage session, 7 Nov 2026; Triage's change is that session's).
 - Being built next (plan of 7 Nov 2026): chamber first and no surgery in it, the store refusing oxygen without power, the
   electrolyser's water from Dubs Bad Hygiene, the one-time letter. Then hydrogen and the vents, and the second set of equipment.
