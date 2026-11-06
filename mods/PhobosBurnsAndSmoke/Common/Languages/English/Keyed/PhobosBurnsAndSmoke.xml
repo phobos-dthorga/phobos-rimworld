@@ -12,6 +12,8 @@
   <PhobosBurns_SettingSmokeDesc>Breathing smoke damages the lungs for days and can lead to pneumonia. The smoke itself comes from Combat Extended when that mod's smoke runs, otherwise from the game's own smoke, which fires now make under a roof.</PhobosBurns_SettingSmokeDesc>
   <PhobosBurns_SettingCarbonMonoxide>Carbon monoxide</PhobosBurns_SettingCarbonMonoxide>
   <PhobosBurns_SettingCarbonMonoxideDesc>Fires in closed rooms make carbon monoxide, which a gas mask does not stop. It builds in the blood, confuses, drops and kills, and clears slowly in clean air.</PhobosBurns_SettingCarbonMonoxideDesc>
+  <PhobosBurns_SettingFireHeat>Fires heat the air around them in the open</PhobosBurns_SettingFireHeat>
+  <PhobosBurns_SettingFireHeatDesc>Outdoors the game counts the air beside a blaze as no hotter than the weather. On, each fire in the open heats the cells around it, hottest at the flame and fading within a few cells: anyone beside it suffers heatstroke and, close in, burns from the heat; crops stop growing; food spoils. Rooms keep the game's own heating. Stands down by itself while a mod that models the air cell by cell is active.</PhobosBurns_SettingFireHeatDesc>
   <PhobosBurns_SettingAcuteSmokeWithCombatExtended>Also apply this mod's smoke inhalation with Combat Extended</PhobosBurns_SettingAcuteSmokeWithCombatExtended>
   <PhobosBurns_SettingAcuteSmokeWithCombatExtendedDesc>Off by default: with Combat Extended's smoke running, its own smoke inhalation condition is the one that applies, and this mod adds only the lasting lung damage and carbon monoxide. On, both acute conditions apply.</PhobosBurns_SettingAcuteSmokeWithCombatExtendedDesc>
   <PhobosBurns_SettingRemoveAll>Remove every burn condition from every pawn</PhobosBurns_SettingRemoveAll>

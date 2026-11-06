@@ -1,5 +1,6 @@
 using System.Text;
 using LudeonTK;
+using Phobos.BurnsAndSmoke.Heat;
 using Phobos.BurnsAndSmoke.Rules;
 using Phobos.BurnsAndSmoke.Services;
 using Phobos.Framework.Debug;
@@ -29,6 +30,26 @@ public static class BurnsDebugActions
                 .Append("; smoke breathed ").Append(Framework.Gases.PhobosGases.Breathed(pawn, Framework.Gases.GasKind.Smoke).ToString("0.00"))
                 .Append(", carbon monoxide breathed ").Append(SmokeExposureService.BreathedCarbonMonoxide(pawn, Framework.Gases.PhobosGases.Breathed(pawn, Framework.Gases.GasKind.Smoke)).ToString("0.00"));
         }
+        Log.Message(text.ToString());
+    }
+
+    [DebugAction(DebugCategory.Name, "Burns: log fire heat at the mouse cell", actionType = DebugActionType.Action, allowedGameStates = AllowedGameStates.PlayingOnMap)]
+    public static void LogFireHeat()
+    {
+        Map map = Find.CurrentMap;
+        IntVec3 cell = UI.MouseCell();
+        var text = new StringBuilder(BurnsAndSmokeMod.LogPrefix);
+        MapComponent_PhobosFireHeat? heat = MapComponent_PhobosFireHeat.For(map);
+        if (heat == null) { text.Append(" no fire heat component on this map."); Log.Message(text.ToString()); return; }
+        heat.Recompute();
+        bool near = MapComponent_PhobosFireHeat.TryGetRise(map, cell, out float degrees);
+        bool outdoorAir = cell.InBounds(map) && cell.GetRoom(map) is { UsesOutdoorTemperature: true };
+        text.Append(" fire heat ").Append(MapComponent_PhobosFireHeat.Enabled ? "on" : "off")
+            .Append("; fires on the map ").Append(map.listerThings.ThingsOfDef(RimWorld.ThingDefOf.Fire).Count)
+            .Append(", cells hotter than the air ").Append(heat.HotCellCount)
+            .Append("; mouse cell ").Append(cell).Append(outdoorAir ? " (outdoor air)" : " (room air or wall)")
+            .Append(": ").Append(near ? degrees.ToString("0") + " above the air" : "not near a fire in the open")
+            .Append(", the game reads ").Append(cell.InBounds(map) ? GenTemperature.GetTemperatureForCell(cell, map).ToStringTemperature("0") : "out of bounds");
         Log.Message(text.ToString());
     }
 

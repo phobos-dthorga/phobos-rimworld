@@ -10,6 +10,42 @@ tested in game unless an entry says the owner tested it.
 - The owner's report in game, 5 November 2026: burn numbers, how conditions progress, and the More Injuries and Organ Failure tie-ins work.
   Faster carbon monoxide clearing on oxygen is the owner's inference, not an observation. The tracheotomy is unproven.
 
+## [0.5.0] - 2026-11-06 - Draft
+
+The owner's observation of 6 November 2026: fires in the open were never hot, the air beside a blaze read as the weather. Not yet
+tested in game.
+
+### Added
+
+- Fire heat in the open. The game gives a fire's heat to its room and throws it away outdoors; now each fire in the open heats the
+  cells around it, hottest at the flame and fading within five cells, and the game's own heatstroke, hot-air burns, hot thoughts, plant
+  growth, food spoiling and the Alt cell inspector respond to it. A full-size fire adds about 600 degrees at its own cell, 150 one
+  cell away, 67 at two, 24 at four; smaller fires less; several fires add up to a cap of 900. The peak is authored and approximate,
+  from the 600 to 1000 degree range of wood flames; the falloff, radius and cap are authored. Setting: Fires heat the air around
+  them in the open, on by default.
+- Dev action: Burns: log fire heat at the mouse cell.
+
+### Dependencies
+
+- Harmony, loaded before this mod. It carries the one patch, a postfix on the game's cell-temperature lookup; every other mod's
+  answer comes first and ours is added to it.
+
+### Compatibility and limits
+
+- Rooms keep the game's own heating; the zones apply only to cells whose air is the outdoor air. Fires spread exactly as before;
+  the zones never start a fire.
+- With Atmosphere Overhaul or Celsius active the fire heat stands down by itself, so heat is never counted twice; the load line
+  says so. The list of such mods lives in the rules Def for others to add to.
+- Vanilla Temperature Expanded, Dubs Central Heating, Dubs Bad Hygiene and Combat Extended were read and leave the outdoor
+  answer of that lookup alone; VTE's own proximity heat adds on top where its heaters stand.
+- The zones are rebuilt every 150 ticks, the game's own fire cadence, so a cell can stay hot for up to two and a half seconds after
+  its fire goes out.
+- Combat Extended's loose fire and the game's own fire are the same Thing, so both count.
+
+### Save compatibility
+
+- Nothing saved. Safe to add to a running colony; removing the mod leaves nothing behind from this feature.
+
 ## [0.4.2] - 2026-11-05 - Draft
 
 No change in play. Not yet tested in game.

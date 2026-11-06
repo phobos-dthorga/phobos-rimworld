@@ -176,7 +176,64 @@ not the numbers.
 - **Time course, unverified.** A search found secondary sources saying capillary leak starts within minutes and runs for about 24
   hours; an "8 to 12 hour peak" given earlier in this entry had no source and is withdrawn. 0.3.0 is not yet tested in game.
 
+## Fire heat in the open (6 November 2026)
+
+**The problem** (owner's observation, 6 November 2026): fires in the open were never hot. Indoors a fire warms its room; outdoors
+the air beside a blaze read as the weather's temperature, where hundreds of degrees belong at certain points.
+
+**What the code says** (the 1.7.4998 assembly decompiled; the 1.6 assembly compared through the publicised copy in Worldbuilder's
+source, constants identical):
+
+- `Fire.DoComplexCalcs` runs every 150 ticks and pushes `fireSize x 160` heat (x 0.15 in a doorway) through
+  `GenTemperature.PushHeat` to `Room.PushHeat`, which spreads it over the room's cells and returns false, heat discarded, when
+  the room `UsesOutdoorTemperature` (it touches the map edge, or a quarter or more of it is unroofed). So the game's fire heat is
+  per room, and nothing outdoors. The same in 1.6: the owner's memory of hot zones is of rooms.
+- Every "how hot is it here" question goes through `GenTemperature.TryGetTemperatureForCell`: the room's temperature, or for a
+  cell inside a wall the average of its eight neighbours. Readers: `Thing.AmbientTemperature` (so `HediffGiver_Heat`: heatstroke
+  above the safe maximum, burns from the air above the comfortable maximum plus 150 degrees, on a 60-tick interval nested in 420;
+  `ThoughtWorker_Hot`; `CompRottable`; `CompTemperatureRuinable`), `Plant.GrowthRateFactor_Temperature`, and the cell inspector
+  (Alt). Fire spread (`FireUtility`) and the environment's autoignition read room temperature, not the cell, so a hot zone never
+  starts a fire.
+- Other mods on the owner's list (6 November 2026): Vanilla Temperature Expanded postfixes the same method, but only during a
+  plant-growth check and only for cells near a thing carrying its `CompTemperatureSource`; that is a `ThingComp`, and `Fire` is an
+  `AttachableThing`, not a `ThingWithComps`, so VTE's proximity heat cannot be given to fires in XML. Atmosphere Overhaul prefixes
+  the method and replaces the answer with its own per-cell air, skipping the original (a postfix still runs after it). Celsius does
+  the same by design. Dubs Central Heating, Dubs Bad Hygiene and Combat Extended do not touch it.
+
+**Decisions** (agent choices, owner to revise):
+
+- **A Harmony postfix on `TryGetTemperatureForCell`**, the first Harmony in this mod: the game has no extension point for a
+  cell's temperature. A postfix, so every other mod's answer comes first and ours is added. Harmony becomes a dependency.
+- **Outdoor cells only.** A zone cell is one whose room `UsesOutdoorTemperature`; rooms keep the game's model, and a cell inside
+  a wall (no room) is skipped. Heat indoors on top of the room is a later question.
+- **Stand down beside a per-cell model.** The rules Def lists package ids (`acutus.AtmosphereOverhaul.release`, `Garwel.Celsius`,
+  the latter from its GitHub About.xml); with one active the zones are not computed and the load line says so.
+- **The shape is authored:** a peak for a full-size fire (the game's `MaxFireSize`, 1.75), scaled by the fire's size, falling with
+  the square of (distance + 1), summed over fires and capped. Peak 600 degrees, approximate, from the 600 to 1000 degree range of
+  wood flames (Vytenis Babrauskas, "Temperatures in flames and fires", Fire Science and Technology Inc., a secondary summary); radius
+  5 cells; cap 900 (the display holds 999). A full fire: 600 at its cell, 150 at one, 67 at two, 37 at three, 24 at four, 17 at five.
+  A pawn in a 30 degree summer beside a full fire reads 180, past the hot-air burn line; two cells away 97, heatstroke builds.
+- **Rebuilt every 150 ticks** from `listerThings.ThingsOfDef(Fire)` into a cell-index dictionary held by a `MapComponent`, read by
+  the postfix as one lookup, and one count when no fire burns. Derived state, nothing saved. A cell can stay hot for up to 150
+  ticks after its fire dies: accepted for the cost.
+
+**Test protocol** (owner runs it; nothing counts as tested until the owner says so):
+
+1. Load with Harmony before this mod; the load line says "fire heat in the open: on".
+2. Dev: spawn a fire outdoors (Spawn thing, Fire), let it grow. Hold Alt over the cell beside it: the inspector's temperature is far
+   above the weather; two cells away lower; six away the weather again. The dev action "Burns: log fire heat at the mouse cell"
+   gives the figures.
+3. A colonist standing two cells from a grown fire: heatstroke rises; beside it the "being burned" message. Move them six cells
+   away: heatstroke recedes.
+4. Indoors: a fire in a closed room heats the room as before, and the inspector reads the same on every cell of it.
+5. Setting off: within 150 ticks the inspector reads the weather beside a fire. On again: hot again.
+6. A wildfire with Dubs Performance Analyzer running: the cost of `MapComponent_PhobosFireHeat` and of `FireHeatPatch`.
+7. Save and reload: nothing new in the save.
+
 ## Open points and upstream
+
+- Fire heat indoors on top of the room's temperature (a blaze in a hangar is a room barely warmed), and whether animals and
+  pawns should flee hot zones; after the owner has seen the open-air zones.
 
 - Supporting gear for burn care without a burn ward (owner's wish, 4 Nov 2026): a candidate for the planned medical equipment
   mod (`art-automation-and-medical-equipment.md`), for instance a dressing or a fluids kit that raises the fluids quality, once that mod

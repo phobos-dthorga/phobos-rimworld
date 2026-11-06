@@ -53,5 +53,22 @@
     <lungInjuryPerHourAtFullSmoke>0.15</lungInjuryPerHourAtFullSmoke>
     <!-- Combat Extended's own figure per 50-tick check, reused for our acute condition when CE's is not running. -->
     <acuteSmokePerCheck>0.045</acuteSmokePerCheck>
+
+    <!-- Fire heat in the open. The game gives a fire's heat to its room and throws it away outdoors; these zones are the local
+         heat the room model cannot give. Rebuilt from the map's fires every 150 ticks (the game's own fire cadence). A fire of
+         the game's largest size (1.75) adds the peak at its own cell, less for smaller fires, falling with the square of
+         (distance + 1): a quarter of the peak one cell away, a ninth two away, a thirty-sixth at the edge. Peak authored and
+         approximate: wood flames run about 600 to 1000 C (Babrauskas, "Temperatures in flames and fires"). Several fires add up,
+         capped so the display never overflows. -->
+    <fireHeatIntervalTicks>150</fireHeatIntervalTicks>
+    <fullFireSize>1.75</fullFireSize>
+    <fireHeatPeakRise>600</fireHeatPeakRise>
+    <fireHeatRadiusCells>5</fireHeatRadiusCells>
+    <fireHeatMaxRise>900</fireHeatMaxRise>
+    <!-- Mods that model the air cell by cell themselves: while one is active the zones are not computed. Add others here. -->
+    <perCellTemperatureMods>
+      <li>acutus.AtmosphereOverhaul.release</li>
+      <li>Garwel.Celsius</li>
+    </perCellTemperatureMods>
   </Phobos.BurnsAndSmoke.Defs.PhobosBurnRulesDef>
 </Defs>

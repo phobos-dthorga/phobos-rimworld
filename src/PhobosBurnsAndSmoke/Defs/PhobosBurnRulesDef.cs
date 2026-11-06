@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Phobos.Framework.Defs;
 using Verse;
 
@@ -65,6 +66,26 @@ public class PhobosBurnRulesDef : PhobosRulesDef
     public float lungInjuryPerHourAtFullSmoke = 0.15f;
     /// <summary>Combat Extended's own figure per 50-tick check, reused for ours.</summary>
     public float acuteSmokePerCheck = 0.045f;
+
+    // Fire heat in the open: the hot zone around a fire whose heat the game would otherwise throw away outdoors.
+    /// <summary>How often the zones are rebuilt from the map's fires; the game's own fire does its heat every 150 ticks.</summary>
+    public int fireHeatIntervalTicks = 150;
+    /// <summary>The game's largest fire (its MaxFireSize, 1.75); a fire this big gives the full peak.</summary>
+    public float fullFireSize = 1.75f;
+    /// <summary>
+    /// Degrees above the air at the flame itself for a full-size fire. Authored, approximate: wood flames run about 600 to 1000 C
+    /// (Babrauskas, "Temperatures in flames and fires"); a cell beside one is far cooler, which the falloff gives.
+    /// </summary>
+    public float fireHeatPeakRise = 600f;
+    /// <summary>How far the zone reaches, in cells. At the edge a full fire adds a thirty-sixth of its peak (authored).</summary>
+    public float fireHeatRadiusCells = 5f;
+    /// <summary>The most several fires can add together; the game's display holds up to 999 C (authored).</summary>
+    public float fireHeatMaxRise = 900f;
+    /// <summary>
+    /// Mods that model the air cell by cell themselves; while one is active our zones are not computed, so heat is never
+    /// counted twice. Other such mods can be added here in XML.
+    /// </summary>
+    public List<string> perCellTemperatureMods = new();
 
     public static PhobosBurnRulesDef Current => Current<PhobosBurnRulesDef>();
 }

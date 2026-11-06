@@ -1,16 +1,24 @@
 # D'thorga Burns and Smoke
 
 Burns and smoke that matter the way More Injuries' wounds do: a burned body fraction, burn shock that kills within days
-unless treated, airway burns that swell shut over hours, smoke that scars the lungs, and carbon monoxide from fires in closed
-rooms.
+unless treated, airway burns that swell shut over hours, smoke that scars the lungs, carbon monoxide from fires in closed
+rooms, and the heat around a fire in the open.
 
-Version 0.4.2, built 5 November 2026 for House D'thorga. **Partly tested in game:** the owner reports burn numbers, how conditions progress, and the More Injuries and Organ Failure tie-ins working (5 November 2026). The tracheotomy is unproven. The rest is read from the game's and
+Version 0.5.0, built 6 November 2026 for House D'thorga. **Partly tested in game:** the owner reports burn numbers, how conditions progress, and the More Injuries and Organ Failure tie-ins working (5 November 2026). The tracheotomy and the fire heat in the open are not yet tested in game. The rest is read from the game's and
 the mods' code.
 
 ## Read this first (gotchas)
 
-- **Needs D'thorga Framework**, loaded before it. More Injuries, More Injuries: Organ Failure and Combat Extended are optional
-  and are used when present. No Harmony.
+- **Needs D'thorga Framework and Harmony**, both loaded before it. More Injuries, More Injuries: Organ Failure and Combat Extended
+  are optional and are used when present. Harmony is new in 0.5.0: it carries the one patch that adds the heat around fires in the
+  open to the game's cell temperature.
+- **Fires in the open are now hot.** The game gives a fire's heat to its room and throws it away outdoors, so beside a blaze the air
+  was the weather's temperature. Now each fire in the open heats the cells around it: a full-size fire adds about 600 degrees at
+  the flame, 150 one cell away, 67 at two, 24 at four, and nothing past five. Anyone standing beside it suffers heatstroke and, close
+  in, burns from the hot air; crops stop growing; food spoils. **Rooms keep the game's own heating**, and fires spread as before.
+  Hold Alt over a cell to see its temperature. Switch it off in the settings if you prefer the old behaviour.
+- **With Atmosphere Overhaul or Celsius active, the fire heat stands down by itself**: those mods model the air cell by cell, and
+  heat must not be counted twice. The load line says which mod it stood down for. Other such mods can be added to the rules Def.
 - **Safe to add to a running colony.** Its conditions are recomputed from the burns a pawn has, so old burns count at once.
 - **Before removing it, press the settings button "Remove every burn condition from every pawn", save, then switch the mod off.**
   Otherwise the next load prints one line per missing condition and carries on.
@@ -47,6 +55,11 @@ the mods' code.
 | carbon monoxide poisoning | the framework's carbon monoxide in a closed burning room | staying in the room | clean air: halves every 5.3 hours under a roof, 3 in the open; on supplied oxygen, about every 75 minutes, with D'thorga Medical Equipment |
 | acute smoke inhalation | breathing the game's smoke, only when Combat Extended's smoke is not running | thicker smoke | clean air; clears in a day or so |
 
+Fire heat in the open is not a condition but a change to the air: a cell near a fire whose air is the outdoor air reads hotter
+than the weather, by the fire's size and the distance, and the game's own heatstroke, hot-air burns, hot thoughts, plant growth
+and spoiling respond to it as they would to any hot air. The zones are rebuilt every 150 ticks, so a cell can stay hot for up to
+two and a half seconds after its fire goes out.
+
 Burned body fraction stages: minor from 5%, serious from 15% (hunger, cold sensitivity, blood pumping), major from 30%,
 critical from 50%. Burn shock stages: compensated, shock from 30%, severe from 55% (a four-day death clock), terminal from 80%
 (one day). Carbon monoxide: headache from 10%, dizzy 20%, confused 30%, collapsed 40%, dying from 55% (a half-day clock).
@@ -67,8 +80,8 @@ Figures assume a doctor whose tend quality stat is 1; a poorer doctor gets less 
 
 ## Settings
 
-Toggles for each of the five conditions; **Also apply this mod's smoke inhalation with Combat Extended** (off); the display mode;
-and the uninstall button.
+Toggles for each of the five conditions; **Fires heat the air around them in the open** (on); **Also apply this mod's smoke
+inhalation with Combat Extended** (off); the display mode; and the uninstall button.
 
 ## For modders
 
@@ -86,13 +99,18 @@ most of a part one such burn can cover. Fire is 0.0833 and 1; an incendiary roun
 ```
 
 Balance lives in `Common/Defs/Phobos/BurnsAndSmoke/Rules.xml` (one `PhobosBurnRulesDef`, first loaded wins) and in the stage
-tables of the hediff Defs. Smoke and carbon monoxide are read from D'thorga Framework's `PhobosGases`.
+tables of the hediff Defs. Smoke and carbon monoxide are read from D'thorga Framework's `PhobosGases`. The fire heat's peak,
+radius, cap and cadence are in the same Def, as is `perCellTemperatureMods`, the list of package ids whose presence makes the
+fire heat stand down; add a mod there if it models the air cell by cell.
 
-## Checks done (4 November 2026)
+## Checks done (6 November 2026)
 
 - Built against the RimWorld 1.7 and 1.6 reference assemblies. The game-free rules (skin shares, burn area by kind, burned
   fraction, burned-off parts, the Baux score, its floor and the treatment factor by medicine quality, carbon monoxide uptake and
-  clearance, the airway curve) pass 19 unit tests.
+  clearance, the airway curve, the fire heat's shape and cap) pass 23 unit tests.
+- **Fire heat in the open is not yet tested in game.** Read from the 1.7 game's code: which method answers every cell-temperature
+  question, that fires give their heat to the room and none outdoors, and that Vanilla Temperature Expanded, Dubs Central Heating,
+  Dubs Bad Hygiene and Combat Extended leave that method's outdoor answer alone.
 - **The owner's report (5 November 2026):** burn numbers, how conditions progress and the tie-ins all work. Faster carbon monoxide clearing on oxygen is the owner's inference from those, not something observed. The tracheotomy is unproven.
 - The owner's first look in game (0.1.0, an incendiary raid) showed the mod running without errors but counting far too
   little: see the changelog's 0.2.0 fixes. 
