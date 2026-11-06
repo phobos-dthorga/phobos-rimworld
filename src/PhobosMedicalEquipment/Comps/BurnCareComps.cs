@@ -1,3 +1,4 @@
+using Phobos.Framework.Health;
 using System.Collections.Generic;
 using System.Linq;
 using Phobos.Medical.Rules;

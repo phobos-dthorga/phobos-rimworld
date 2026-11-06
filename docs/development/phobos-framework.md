@@ -89,6 +89,20 @@ visits 1/64 of cells per tick for fading and 1/32 for spreading, as it does afte
 
 `PhobosBreathing` answers two questions from a pawn's conditions: is it on supplied oxygen, and does it have a condition oxygen helps. Two `DefModExtension`s mark those conditions, so [Burns and Smoke](burns-and-smoke.md) and [Medical Equipment](medical-equipment.md) need no dependency on each other. It is a treatment, not a gas, which keeps it clear of an air model (owner's gas rule).
 
+## Health layer (0.3.0, 6 Nov 2026)
+
+Built with [Triage](triage.md) as its first consumer and adopted by Emergency Dosing and Medical Equipment in the same change
+(owner's direction, 6 Nov 2026: use the shareable framework even where other mods must change). `Patients` answers who the
+doctors look after (the group a pawn belongs to, the player's care level); `ConditionDanger` and the game-free
+`ConditionDangerRule` answer how dangerous a condition is and how soon it kills, taking the soonest of the death clock's mean,
+the climb to a lethal severity and the game's bleed-out estimate (the mean of a death clock is an expectation, labelled so);
+`Doctors` wraps the game's own "a doctor could come" test and finds the best surgeon for a recipe; `MapPatientCache` is the
+per-map, rebuilt-when-asked list Dosing's work giver already used; `MedicalTreatment` and its lapsing comp moved in from
+Medical Equipment with the comp's linger time now on the comp's properties rather than Medical Equipment's rules Def (same
+value, 600 ticks). `CompPhobosPatient` carries per-person choices for any Phobos mod (`PatientPreferences.Register`), drawn as
+one button per choice; it is put on every humanlike race by a startup sweep rather than an XML patch, because a patch on
+`race/intelligence` misses Humanoid Alien Races and races that inherit it (agent choice, from More Injuries' separate HAR patch).
+
 ## Open points and upstream
 
 - Door and vent discovery on 1.7 reads correctly but is unverified in play (read from the 1.7 assembly, 5 Nov 2026): `Region.Neighbors` walks the

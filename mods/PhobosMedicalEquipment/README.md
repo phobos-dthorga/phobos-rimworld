@@ -2,7 +2,7 @@
 
 Hospital equipment for the injuries D'thorga Burns and Smoke and More Injuries bring. This first version gives patients oxygen.
 
-Version 0.2.1, built 6 November 2026 for House D'thorga. **Partly tested in game:** the owner reports that a patient's breathing improves on the oxygen concentrator (5 November 2026, on 0.1.0), and that the burn unit bed looks right and gives a burned patient air-cell care (6 November 2026, on 0.2.0). The new inspect lines in 0.2.1 are not yet tested in game. The rest is read from the game's and
+Version 0.2.2, built 6 November 2026 for House D'thorga. **Partly tested in game:** the owner reports that a patient's breathing improves on the oxygen concentrator (5 November 2026, on 0.1.0), and that the burn unit bed looks right and gives a burned patient air-cell care (6 November 2026, on 0.2.0). The new inspect lines in 0.2.1 are not yet tested in game. The rest is read from the game's and
 the mods' code.
 
 ## Read this first (gotchas)

@@ -1,4 +1,5 @@
 using Phobos.Framework.Gases;
+using Phobos.Framework.Health;
 using Phobos.Framework.Rules;
 using UnityEngine;
 using Verse;
@@ -23,13 +24,14 @@ public class FrameworkSettings : ModSettings
 
 /// <summary>
 /// D'thorga Framework: the shared library every Phobos RimWorld mod with C# depends on. It holds the gas layer (what a pawn
-/// breathes, the game's and other mods' gases reused first, and the framework's own additive room gases) and the small helpers
-/// the mods used to repeat. It references no other mod's assembly and needs no Harmony.
+/// breathes, the game's and other mods' gases reused first, and the framework's own additive room gases), the health layer the
+/// medical mods share (who the doctors look after, how dangerous a condition is, per-pawn care choices) and the small helpers the
+/// mods used to repeat. It references no other mod's assembly and needs no Harmony.
 /// </summary>
 public class FrameworkMod : Mod
 {
     public const string PackageId = "PhobosDthorga.Framework";
-    public const string ModVersion = "0.2.2";
+    public const string ModVersion = "0.3.0";
     public const string LogPrefix = "[D'thorga Framework]";
 
     public static FrameworkSettings Settings { get; private set; } = new();
@@ -51,6 +53,9 @@ public class FrameworkMod : Mod
                 : "Combat Extended: not active, the game's smoke carries fire smoke");
         int ownGases = DefDatabase<PhobosGasDef>.AllDefsListForReading.Count;
         report.On("own room gases: " + ownGases + " Def" + (ownGases == 1 ? "" : "s") + ", source mode " + Settings.gasSourceMode);
+        int preferences = PatientPreferences.All.Count;
+        report.On("patient comp on " + PatientCompInjector.Added + " humanlike race" + (PatientCompInjector.Added == 1 ? "" : "s") + ", "
+            + preferences + " care choice" + (preferences == 1 ? "" : "s") + " registered");
         report.Log();
     }
 

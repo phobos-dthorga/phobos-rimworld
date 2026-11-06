@@ -48,7 +48,7 @@ public class DosingSettings : ModSettings
 public class DosingMod : Mod
 {
     public const string PackageId = "PhobosDthorga.Dosing";
-    public const string ModVersion = "0.3.0";
+    public const string ModVersion = "0.3.1";
     public const string LogPrefix = "[D'thorga Emergency Dosing]";
 
     static readonly MedicalCareCategory[] CareChoices = { MedicalCareCategory.HerbalOrWorse, MedicalCareCategory.NormalOrWorse, MedicalCareCategory.Best };

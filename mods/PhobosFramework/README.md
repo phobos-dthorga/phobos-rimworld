@@ -2,10 +2,12 @@
 
 The shared library the D'thorga mods build on. On its own it changes almost nothing you will notice: it tells other mods what a
 colonist is breathing, makes fires fill roofed rooms with the game's own smoke when Combat Extended's smoke is not running,
-carries carbon monoxide from fires, and holds the small helpers every D'thorga mod shares.
+carries carbon monoxide from fires, holds the per-person care choices the D'thorga medical mods offer, and holds the small
+helpers every D'thorga mod shares.
 
-Version 0.2.2, built 5 November 2026 for House D'thorga. **Not yet tested in game.** Everything here is read from the game's and
-the mods' code.
+Version 0.3.0, built 6 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
+oxygen working through Burns and Smoke and Medical Equipment (5 November 2026). The health layer new in 0.3.0 is not yet tested in
+game. The rest is read from the game's and the mods' code.
 
 ## Read this first (gotchas)
 
@@ -25,6 +27,8 @@ the mods' code.
 - **Carbon monoxide ignores gas masks.** Only sealed headgear with its own air (Combat Extended's power and recon helmets)
   keeps it out. It lingers in a shut room for hours after the fire is out: open a door or a vent.
 - **Gravships:** gas does not travel with a ship. The game's smoke and CE's stay on the old map, and so does ours.
+- **Every humanlike pawn carries a small care-choices comp** from 0.3.0, for the per-person buttons medical mods such as
+  D'thorga Triage offer. It saves only what you set and ticks nothing. A save loads without the framework with no line about it.
 
 ## What it does
 
@@ -84,7 +88,34 @@ The helpers: `OptionalMods` (active mods and Defs by name, cached), `LoadReport`
 `SettingsUi.DrawDisplayMode`, `PhobosRulesDef` (a rules Def whose first instance wins), `DebugCategory.Name`, and
 `CleanupService.RemoveHediffsOf(pack)` for a clean uninstall.
 
-## Checks done (4 November 2026)
+The health layer (`Phobos.Framework.Health`, 0.3.0), for mods whose doctors act on their own:
+
+```csharp
+PatientGroup? group = Patients.GroupOf(pawn);                       // Colonist, Slave, Prisoner, Guest, or null
+bool allowed = Patients.CareAllows(pawn, MedicalCareCategory.HerbalOrWorse, requireMedicine: true);
+float danger = ConditionDanger.DangerSeverity(hediff.def);           // from where the condition threatens life; huge when never
+float hours = ConditionDanger.Clock(hediff).HoursToDeath(ConditionDanger.HoursUntilBloodLossDeath(pawn));
+bool doctor = Doctors.AnyAvailableFor(pawn);                         // the game's own test
+float best = Doctors.BestSurgeonSuccess(map, recipe, pawn);          // negative when no doctor meets the skill
+var cache = new MapPatientCache<Pawn>((map, list) => { /* fill */ }); // rebuilt at most once per interval, when asked
+Hediff? treatment = MedicalTreatment.GiveOrRefresh(pawn, myTreatmentDef); // a condition that lapses unless refreshed
+```
+
+A per-person choice is one registration at startup; the framework draws the button and saves the answer on the pawn:
+
+```csharp
+PatientPreferences.Register(new PatientPreference("MyMod_Choice", "MyMod_ChoiceLabel", "MyMod_ChoiceDesc",
+    new[] { "MyMod_ChoiceOff", "MyMod_ChoiceOn" }, defaultFor: pawn => 1));
+int choice = PatientPreferences.Choice(pawn, preference);
+PatientPreferences.RegisterInspectLine(pawn => myLineOrNull);
+```
+
+The game-free rule behind the danger reader is `Phobos.Framework.Rules.ConditionDangerRule`, tested without the game.
+
+## Checks done (6 November 2026)
+
+- The health layer (0.3.0) builds for 1.7 and 1.6; its danger rule passes 4 unit tests; the comp, the registry and the doctor
+  roster are read from the 1.7 code and **not yet tested in game**.
 
 - Built against the RimWorld 1.6 reference assembly; the room, region, door, vent and gas-grid members it uses were confirmed
   in the 1.7.4998 assembly too.

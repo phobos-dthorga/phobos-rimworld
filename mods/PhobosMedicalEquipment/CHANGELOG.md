@@ -5,6 +5,25 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.2.2] - 2026-11-06 - Draft
+
+No change in play. Not yet tested in game.
+
+### Changed
+
+- The lapsing treatment condition and the "who was treated, who was left alone" pass now live in D'thorga Framework's health
+  layer, shared with D'thorga Triage. The time a treatment lingers after the machine's last pass (600 ticks, unchanged) moved
+  from this mod's rules Def onto the condition's comp in the hediff Defs.
+
+### Dependencies
+
+- D'thorga Framework 0.3.0 or later.
+
+### Save compatibility
+
+- The treatment comp keeps its saved key, and the game saves no class name for a condition's comps, so saves made on 0.2.1 load
+  unchanged (read from the code, not yet tested).
+
 ## [0.2.1] - 2026-11-06 - Draft
 
 Fixes after the owner's first test of the burn unit bed: what the machines say, and oxygen that cut above-normal breathing. Not yet tested in game.

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Phobos.Dosing.Defs;
 using Phobos.Dosing.Rules;
+using Phobos.Framework.Health;
 using RimWorld;
 using Verse;
 
@@ -95,7 +96,7 @@ public static class DoseIndex
                 if (give.hediffDef.PossibleToDevelopImmunityNaturally()) givesDisease = true;
                 HediffStage stage = give.hediffDef.stages[give.hediffDef.StageAtSeverity(severity)];
                 stages.Add(Read(stage));
-                hediffs.Add(new DoseHediff(give.hediffDef, severity, DangerSeverity(give.hediffDef)));
+                hediffs.Add(new DoseHediff(give.hediffDef, severity, ConditionDanger.DangerSeverity(give.hediffDef)));
             }
             if (stages.Count == 0) continue;
             CompProperties_Drug? drug = def.GetCompProperties<CompProperties_Drug>();
@@ -132,16 +133,5 @@ public static class DoseIndex
         if (stage.statOffsets != null) immunityGain += stage.statOffsets.GetStatOffsetFromList(StatDefOf.ImmunityGainSpeed);
         if (stage.statFactors != null) immunityGain += stage.statFactors.GetStatFactorFromList(StatDefOf.ImmunityGainSpeed) - 1f;
         return new StageEffect(stage.painFactor, stage.painOffset, consciousnessOffset, consciousnessSetMax, breathingOffset, stage.totalBleedFactor, immunityGain);
-    }
-
-    static float DangerSeverity(HediffDef def)
-    {
-        float danger = def.lethalSeverity > 0f ? def.lethalSeverity : float.MaxValue;
-        for (int i = 0; i < def.stages.Count; i++)
-        {
-            HediffStage stage = def.stages[i];
-            if ((stage.lifeThreatening || stage.deathMtbDays > 0f) && stage.minSeverity < danger) danger = stage.minSeverity;
-        }
-        return danger;
     }
 }

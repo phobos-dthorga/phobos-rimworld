@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Phobos.Dosing.Defs;
 using Phobos.Dosing.Rules;
+using Phobos.Framework.Health;
 using RimWorld;
 using Verse;
 using Verse.AI;
@@ -57,7 +58,7 @@ public static class DoseService
     /// <summary>Resting (downed or in bed) and in enough pain or losing to a disease, under the player's care at the setting's level or better.</summary>
     public static bool IsPatient(Pawn pawn, DosingSettings settings, PhobosDosingRulesDef rules)
     {
-        if (!IsPlayersPerson(pawn) || !CareAllows(pawn, settings) || pawn.InAggroMentalState) return false;
+        if (!Patients.IsPlayersPerson(pawn) || !Patients.CareAllows(pawn, settings.minimumCare, true) || pawn.InAggroMentalState) return false;
         return NeedsDose(pawn, settings, rules);
     }
 
@@ -78,27 +79,11 @@ public static class DoseService
             if (hediffs[i] is not HediffWithComps disease || !disease.Visible || disease.def.lethalSeverity <= 0f || !disease.def.PossibleToDevelopImmunityNaturally()) continue;
             HediffComp_Immunizable? immunizable = disease.TryGetComp<HediffComp_Immunizable>();
             if (immunizable == null || immunizable.FullyImmune) continue;
-            float severityPerDay = 0f;
-            for (int c = 0; c < disease.comps.Count; c++)
-            {
-                if (disease.comps[c] is HediffComp_SeverityModifierBase modifier) severityPerDay += modifier.SeverityChangePerDay();
-            }
+            float severityPerDay = ConditionDanger.SeverityPerDay(disease);
             float immunityPerDay = (pawn.health.immunity.GetImmunityRecord(disease.def)?.ImmunityChangePerTick(pawn, true, disease) ?? 0f) * GenDate.TicksPerDay;
             if (ImmunityRule.Losing(disease.Severity, disease.def.lethalSeverity, severityPerDay, immunizable.Immunity, immunityPerDay, rules.immunityRaceMarginDays)) return true;
         }
         return false;
-    }
-
-    /// <summary>Spawned, alive, humanlike, past babyhood, and the player's own or the player's guest or prisoner.</summary>
-    static bool IsPlayersPerson(Pawn pawn) =>
-        pawn.Spawned && !pawn.Dead && pawn.RaceProps.Humanlike && pawn.health?.hediffSet != null
-        && !DevelopmentalStageExtensions.Baby(pawn.DevelopmentalStage)
-        && (pawn.Faction == Faction.OfPlayer || pawn.HostFaction == Faction.OfPlayer);
-
-    static bool CareAllows(Pawn pawn, DosingSettings settings)
-    {
-        MedicalCareCategory care = pawn.playerSettings?.medCare ?? MedicalCareCategory.NoCare;
-        return care != MedicalCareCategory.NoCare && care != MedicalCareCategory.NoMeds && care >= settings.minimumCare;
     }
 
     /// <summary>
@@ -107,8 +92,8 @@ public static class DoseService
     /// </summary>
     public static void ExplainNotPatient(Pawn pawn, DosingSettings settings, PhobosDosingRulesDef rules)
     {
-        if (!IsPlayersPerson(pawn) || !NeedsDose(pawn, settings, rules)) return;
-        if (!CareAllows(pawn, settings)) JobFailReason.Is("PhobosDosing_RefusalCare".Translate());
+        if (!Patients.IsPlayersPerson(pawn) || !NeedsDose(pawn, settings, rules)) return;
+        if (!Patients.CareAllows(pawn, settings.minimumCare, true)) JobFailReason.Is("PhobosDosing_RefusalCare".Translate());
         else if (pawn.InAggroMentalState) JobFailReason.Is("PhobosDosing_RefusalMentalState".Translate());
     }
 

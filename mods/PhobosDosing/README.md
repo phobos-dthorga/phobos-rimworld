@@ -2,7 +2,7 @@
 
 Doctors give painkillers and sedatives on their own, from whatever mod made them.
 
-Version 0.3.0, built 5 November 2026 for House D'thorga. **Not yet tested in game.** Everything here is read from the game's and
+Version 0.3.1, built 6 November 2026 for House D'thorga. **Not yet tested in game.** Everything here is read from the game's and
 the mods' code.
 
 ## Read this first (gotchas)

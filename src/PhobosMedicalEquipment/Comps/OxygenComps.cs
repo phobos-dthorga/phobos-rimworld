@@ -3,6 +3,7 @@ using System.Linq;
 using Phobos.Framework;
 using Phobos.Framework.Breathing;
 using Phobos.Framework.Defs;
+using Phobos.Framework.Health;
 using Phobos.Medical.Defs;
 using Phobos.Medical.Rules;
 using Phobos.Medical.Services;
@@ -49,28 +50,6 @@ public class CompPhobosOxygenSupply : ThingComp
         OxygenStatus.NotNeeded => "PhobosMedical_StatusNotNeeded".Translate(TreatmentPass.Names(pass.NotNeeding).Named("PATIENTS")),
         _ => "PhobosMedical_StatusWaiting".Translate(),
     };
-}
-
-/// <summary>A treatment condition's clock: it lapses unless its source keeps refreshing it, so it cannot outlive that source.</summary>
-public class HediffCompProperties_PhobosTreatment : HediffCompProperties
-{
-    public HediffCompProperties_PhobosTreatment() => compClass = typeof(HediffComp_PhobosTreatment);
-}
-
-public class HediffComp_PhobosTreatment : HediffComp
-{
-    int lastSupplyTick = -1;
-
-    public void Refresh() => lastSupplyTick = Find.TickManager.TicksGame;
-
-    public override bool CompShouldRemove =>
-        lastSupplyTick >= 0 && Find.TickManager.TicksGame > lastSupplyTick + PhobosRulesDef.Current<PhobosMedicalRulesDef>().treatmentLingerTicks;
-
-    public override void CompExposeData()
-    {
-        base.CompExposeData();
-        Scribe_Values.Look(ref lastSupplyTick, "PhobosMedical_LastSupplyTick", -1);
-    }
 }
 
 /// <summary>

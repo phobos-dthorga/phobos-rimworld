@@ -13,8 +13,6 @@ public class PhobosMedicalRulesDef : PhobosRulesDef
     /// <summary>Breathing below this counts as needing oxygen, whatever caused it. Authored: mild trouble is left alone.</summary>
     public float breathingNeedThreshold = 0.8f;
 
-    /// <summary>How long the benefit lasts after the last supply: long enough to survive a machine's ticking, short enough to end soon after the patient leaves.</summary>
-    public int treatmentLingerTicks = 600;
 }
 
 /// <summary>Marks an injury Def as a burn that a burn unit bed eases. On the game's burns and Combat Extended's; other mods add it in XML.</summary>

@@ -4,7 +4,7 @@
   <name>D'thorga Framework</name>
   <author>Phobos A. D'thorga</author>
   <url>https://github.com/phobos-dthorga/phobos-rimworld</url>
-  <modVersion>0.2.2</modVersion>
+  <modVersion>0.3.0</modVersion>
   <description>The shared library the D'thorga mods build on. On its own it changes almost nothing; other mods ask it for what a colonist is breathing and for the small helpers they all share.
 
 What it does:
@@ -16,6 +16,8 @@ What it does:
 - Carries its own room gases where nothing else does: in this version, carbon monoxide from fires, which lingers in a shut room after the smoke has cleared, drifts through an open door and ignores a gas mask. A gas exists in a room only while something adds it. There is no air, oxygen or pressure model.
 
 - A setting chooses between reusing other mods' effects (the default), always using the framework's own gases, or never.
+
+- Holds the care choices the D'thorga medical mods offer per person: once such a mod is active, each colonist, slave, prisoner and guest gets a button for them. On its own it adds no choice.
 
 Safe to add to a running colony. Load it before any D'thorga mod that needs it. Needs no other mod.
 

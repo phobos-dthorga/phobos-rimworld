@@ -204,3 +204,38 @@ public class EnclosureAndFireSmokeRuleTests
         Assert.Equal(0, FireSmokeRule.ToGridUnits(0f));
     }
 }
+
+public class ConditionDangerRuleTests
+{
+    static StageDanger Stage(float min, bool threatening = false, float mtb = -1f) => new(min, threatening, mtb);
+
+    [Fact]
+    public void TheLowestDangerousStageWins()
+    {
+        var stages = new[] { Stage(0f), Stage(0.4f, threatening: true), Stage(0.8f, mtb: 1f) };
+        Assert.Equal(0.4f, ConditionDangerRule.DangerSeverity(stages, -1f));
+    }
+
+    [Fact]
+    public void ALethalSeverityBelowEveryStageCountsAndNoDangerIsHuge()
+    {
+        Assert.Equal(0.3f, ConditionDangerRule.DangerSeverity(new[] { Stage(0f), Stage(0.5f, threatening: true) }, 0.3f));
+        Assert.Equal(ConditionDangerRule.NoDanger, ConditionDangerRule.DangerSeverity(new[] { Stage(0f), Stage(0.5f) }, -1f));
+    }
+
+    [Fact]
+    public void TheSoonestClockDecides()
+    {
+        // A four-day death clock, a severity reaching lethal in two days, bleeding out in a day: the bleed wins.
+        Assert.Equal(24f, ConditionDangerRule.ExpectedHoursToDeath(4f, 0.5f, 1f, 0.25f, 24f));
+        Assert.Equal(48f, ConditionDangerRule.ExpectedHoursToDeath(4f, 0.5f, 1f, 0.25f, -1f));
+        Assert.Equal(96f, ConditionDangerRule.ExpectedHoursToDeath(4f, 0.5f, 1f, 0f, -1f));
+    }
+
+    [Fact]
+    public void AFallingSeverityHasNoLethalClockAndNothingMeansNoClock()
+    {
+        Assert.Equal(ConditionDangerRule.NoClock, ConditionDangerRule.ExpectedHoursToDeath(-1f, 0.5f, 1f, -0.2f, -1f));
+        Assert.Equal(0f, ConditionDangerRule.ExpectedHoursToDeath(-1f, 1.2f, 1f, 0.1f, -1f));
+    }
+}

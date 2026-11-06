@@ -5,6 +5,26 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-11-06 - Draft
+
+The health layer the medical mods share, built for D'thorga Triage and adopted by Emergency Dosing 0.3.1 and Medical Equipment
+0.2.2. Not yet tested in game.
+
+### Added
+
+- A health layer for mods whose doctors act on their own: who the doctors look after and under what care (colonist, slave,
+  prisoner, guest), how dangerous a condition is and how long a patient has (from the game's own life-threatening stages, death
+  clocks, lethal severities and bleeding), which doctors could operate and how well, a per-map patient cache, and a lapsing
+  treatment condition. Emergency Dosing and Medical Equipment now read these from here instead of their own copies.
+- Per-person care choices: every humanlike pawn carries a small comp that saves the choices D'thorga medical mods register, and
+  shows a button per choice on colonists, slaves, prisoners and guests. On its own the framework registers none.
+- Dev action: Framework: log care choices of selected pawns.
+
+### Save compatibility
+
+- The comp saves only the choices a player sets, as plain fields on the pawn; a save loads without the framework with no line
+  about them. Nothing else new is saved.
+
 ## [0.2.2] - 2026-11-05 - Draft
 
 No change in play. Not yet tested in game.

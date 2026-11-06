@@ -30,7 +30,7 @@ public class MedicalEquipmentSettings : ModSettings
 public class MedicalEquipmentMod : Mod
 {
     public const string PackageId = "PhobosDthorga.MedicalEquipment";
-    public const string ModVersion = "0.2.1";
+    public const string ModVersion = "0.2.2";
     public const string LogPrefix = "[D'thorga Medical Equipment]";
     const string VanillaGravshipExpanded = "vanillaexpanded.gravship";
 

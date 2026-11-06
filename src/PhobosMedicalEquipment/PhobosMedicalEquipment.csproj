@@ -8,7 +8,7 @@
     <RootNamespace>Phobos.Medical</RootNamespace>
     <AssemblyName>PhobosMedicalEquipment</AssemblyName>
     <ModFolder>PhobosMedicalEquipment</ModFolder>
-    <Version>0.1.0</Version>
+    <Version>0.2.2</Version>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="../PhobosFramework/PhobosFramework.csproj" Private="false" />

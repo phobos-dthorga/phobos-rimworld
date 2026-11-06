@@ -4,6 +4,5 @@
   <Phobos.Medical.Defs.PhobosMedicalRulesDef>
     <defName>PhobosMedical_Rules</defName>
     <breathingNeedThreshold>0.8</breathingNeedThreshold>
-    <treatmentLingerTicks>600</treatmentLingerTicks>
   </Phobos.Medical.Defs.PhobosMedicalRulesDef>
 </Defs>

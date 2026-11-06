@@ -17,7 +17,10 @@
     <everCurableByItem>false</everCurableByItem>
     <scenarioCanAdd>false</scenarioCanAdd>
     <comps>
-      <li Class="Phobos.Medical.Comps.HediffCompProperties_PhobosOnOxygen"/>
+      <li Class="Phobos.Medical.Comps.HediffCompProperties_PhobosOnOxygen">
+        <!-- Lingers this long after the machine's last pass (250 ticks), authored. -->
+        <lingerTicks>600</lingerTicks>
+      </li>
     </comps>
     <stages>
       <li/>

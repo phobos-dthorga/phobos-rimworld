@@ -13,7 +13,10 @@
     <everCurableByItem>false</everCurableByItem>
     <scenarioCanAdd>false</scenarioCanAdd>
     <comps>
-      <li Class="Phobos.Medical.Comps.HediffCompProperties_PhobosTreatment"/>
+      <li Class="Phobos.Framework.Health.HediffCompProperties_PhobosTreatment">
+        <!-- Lingers this long after the bed's last pass (250 ticks), authored. -->
+        <lingerTicks>600</lingerTicks>
+      </li>
     </comps>
     <stages>
       <li>

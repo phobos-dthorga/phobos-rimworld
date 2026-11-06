@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using LudeonTK;
 using Phobos.Framework.Gases;
+using Phobos.Framework.Health;
 using UnityEngine;
 using Verse;
 
@@ -26,6 +27,27 @@ public static class FrameworkDebugActions
         {
             PhobosGases.AddOwn(cell, map, gas, 1f);
         }
+    }
+
+    [DebugAction(DebugCategory.Name, "Framework: log care choices of selected pawns", actionType = DebugActionType.Action, allowedGameStates = AllowedGameStates.PlayingOnMap)]
+    public static void LogPatientPreferences()
+    {
+        var text = new System.Text.StringBuilder(FrameworkMod.LogPrefix);
+        foreach (object selected in Find.Selector.SelectedObjects)
+        {
+            if (selected is not Pawn pawn) continue;
+            text.Append('\n').Append(pawn.LabelShort).Append(": group ").Append(Patients.GroupOf(pawn)?.ToString() ?? "none")
+                .Append(", care ").Append(Patients.CareLevel(pawn));
+            CompPhobosPatient? comp = pawn.TryGetComp<CompPhobosPatient>();
+            if (comp == null) { text.Append(", no patient comp"); continue; }
+            foreach (PatientPreference preference in PatientPreferences.All)
+            {
+                int? saved = comp.SavedChoice(preference.Key);
+                text.Append("; ").Append(preference.Key).Append(' ').Append(PatientPreferences.Choice(pawn, preference))
+                    .Append(saved == null ? " (default)" : " (saved)");
+            }
+        }
+        Log.Message(text.ToString());
     }
 
     [DebugAction(DebugCategory.Name, "Framework: add smoke at cell", actionType = DebugActionType.ToolMap, allowedGameStates = AllowedGameStates.PlayingOnMap)]

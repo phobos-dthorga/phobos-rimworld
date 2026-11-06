@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Phobos.Framework.Breathing;
 using Phobos.Framework.Defs;
+using Phobos.Framework.Health;
 using Phobos.Medical.Comps;
 using Phobos.Medical.Defs;
 using Phobos.Medical.Rules;
