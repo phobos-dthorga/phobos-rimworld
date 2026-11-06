@@ -31,6 +31,8 @@ public class PhobosTriageRulesDef : PhobosRulesDef
     public bool lethalBillsToTop = true;
     /// <summary>An ingredient that is not medicine and is worth at least this is a rare tool, kept for the player's own bills unless allowed (authored).</summary>
     public float rareToolMarketValue = 300f;
+    /// <summary>Drug addictions and gene-driven chemical dependencies are left out of the pass entirely (owner's rule, 6 Nov 2026).</summary>
+    public bool excludeChemicalDependencies = true;
 
     public ClassThresholds Thresholds => new(lethalCapacityLevel, cripplingCapacityLevel, cripplingOffset);
     public TriageBands Bands => new(immediateHours, urgentHours, immediateVitalLevel);

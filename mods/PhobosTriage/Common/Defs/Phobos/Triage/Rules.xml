@@ -31,5 +31,9 @@
     <!-- An ingredient that is not medicine and is worth at least this much is a rare tool (a thoracoscope, for one), kept for the
          player's own bills unless the setting allows it (authored). -->
     <rareToolMarketValue>300</rareToolMarketValue>
+    <!-- Drug addictions and gene-driven chemical dependencies (psychite, go-juice and the rest) are never operated on, tagged or named in
+         a message: their treatment is the drug, its schedule or time. Found by what the game says the condition is, not by name
+         (owner's rule, 6 Nov 2026). -->
+    <excludeChemicalDependencies>true</excludeChemicalDependencies>
   </Phobos.Triage.Defs.PhobosTriageRulesDef>
 </Defs>

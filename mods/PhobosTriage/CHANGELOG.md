@@ -16,6 +16,9 @@ Fixes found in a documentation review the same day, before any play. Not yet tes
   queued and no message is sent: oxygen, tending and time are its treatment, not a bill.
 - "For any repair" did the same as "to save life or a limb". It now also queues an operation for a condition that neither kills
   nor cripples, when one removes it.
+- Drug addictions and gene-driven chemical dependencies are left out entirely: never operated on, tagged or named in a message
+  (owner, 6 November 2026, after first-start messages about psychite dependency on 0.1.0). Found by what the game says the
+  condition is, an addiction or a chemical dependency, never by name; a rules Def flag turns it off.
 - The rules Def's urgentHours was never read. It is now the score's time scale: within a tag, a patient with that many hours
   left gets half the urgency of one with none (24 hours, as before).
 

@@ -32,6 +32,14 @@ public static class ConditionReader
         return lowest;
     }
 
+    /// <summary>
+    /// A drug addiction or a gene-driven chemical dependency, read from what the game says the condition is (an addiction's class, a
+    /// dependency's class, or a Def that creates a chemical need), never from its name. Their treatment is the drug, its schedule or
+    /// time, not an operation.
+    /// </summary>
+    public static bool IsChemicalDependency(Hediff hediff) =>
+        hediff is Hediff_ChemicalDependency || hediff.def.IsAddiction || hediff.def.chemicalNeed != null;
+
     public static ConditionReading Read(Pawn pawn, Hediff hediff)
     {
         ConditionClock clock = ConditionDanger.Clock(hediff);

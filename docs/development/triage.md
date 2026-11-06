@@ -53,6 +53,11 @@ Read: Search and Rescue 0.1.0-alpha.24 (decompile of 3 November, alpha.23, plus 
   ledger and a map component for the pass.
 - **Life-saving only by default; a per-person button plus defaults by group; colonists, slaves and captured prisoners on,
   guests off** (owner's choices, 6 November 2026).
+- **Drug dependencies left out** (owner's rule, 6 Nov 2026, after the first start on 0.1.0 named psychite dependency in "no one
+  can operate" messages): a condition the game marks as an addiction (`IsAddiction`), a gene-driven chemical dependency
+  (`Hediff_ChemicalDependency`) or one that creates a chemical need (`chemicalNeed`) is skipped by the whole pass. No installed
+  recipe removes one (checked 6 Nov 2026); those messages came from 0.1.0's fault of messaging conditions no operation removes,
+  which 0.1.1 also fixes. Rules Def flag `excludeChemicalDependencies`, on.
 - **Any repair** (0.1.1): with that authority, a condition classed other is also queued when an operation removes it; such
   conditions never set the tag.
 - **Classed by effect, never by name** (owner's standing rule). Lethal: the game's own life-threatening flag on the current
@@ -101,8 +106,7 @@ Read: Search and Rescue 0.1.0-alpha.24 (decompile of 3 November, alpha.23, plus 
 
 ## Test protocol (owner runs it; nothing counts as tested until the owner says so)
 
-1. Load with Framework before Triage. Read the load lines: Framework's "patient comp on N humanlike races, 1 care choice
-   registered"; Triage's "operations on the doctors' own: colonists life-saving, slaves life-saving, prisoners life-saving,
+1. Load with Framework before Triage. Read the load lines: Framework's "patient comp on N humanlike races"; Triage's "operations on the doctors' own: colonists life-saving, slaves life-saving, prisoners life-saving,
    guests never, death chance accepted up to 5%", "N operations indexed", "doctors take the worst case first". No error naming
    `Phobos.Triage` or `Phobos.Framework.Health`.
 2. Select a colonist: a button "Doctors may operate: to save life" with a menu of four. Set one to "never without orders".

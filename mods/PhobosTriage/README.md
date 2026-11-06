@@ -26,6 +26,8 @@ the mods' code.
 - **When no one can do an operation a killing condition needs, a message says what is missing** (skill, a tool, research,
   risk), once per person and condition (a reload may repeat it). The patient's inspect line reads expectant: dying, with nothing
   to be done until that changes.
+- **Drug addictions and dependencies are left alone** (psychite, go-juice, a gene that needs a drug): never operated on, tagged or
+  named in a message. Their treatment is the drug, your drug policy and time.
 - **Oxygen, rest and time are not operations.** A killing condition no operation removes (carbon monoxide poisoning, burn shock,
   a widespread burn) is tagged immediate or urgent for the doctors' order of work, but nothing is queued and no message names it:
   D'thorga Medical Equipment's oxygen, tending and Burns and Smoke's care rules treat those. See

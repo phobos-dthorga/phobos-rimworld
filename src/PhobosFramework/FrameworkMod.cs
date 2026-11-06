@@ -53,9 +53,8 @@ public class FrameworkMod : Mod
                 : "Combat Extended: not active, the game's smoke carries fire smoke");
         int ownGases = DefDatabase<PhobosGasDef>.AllDefsListForReading.Count;
         report.On("own room gases: " + ownGases + " Def" + (ownGases == 1 ? "" : "s") + ", source mode " + Settings.gasSourceMode);
-        int preferences = PatientPreferences.All.Count;
-        report.On("patient comp on " + PatientCompInjector.Added + " humanlike race" + (PatientCompInjector.Added == 1 ? "" : "s") + ", "
-            + preferences + " care choice" + (preferences == 1 ? "" : "s") + " registered");
+        // Mods register their care choices after this line is written, so it names only the comp; each mod's own line names its choice.
+        report.On("patient comp on " + PatientCompInjector.Added + " humanlike race" + (PatientCompInjector.Added == 1 ? "" : "s"));
         report.Log();
     }
 

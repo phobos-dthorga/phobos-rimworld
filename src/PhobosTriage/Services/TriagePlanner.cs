@@ -81,6 +81,8 @@ public static class TriagePlanner
         {
             Hediff hediff = hediffs[i];
             if (!hediff.Visible || !hediff.def.isBad) continue;
+            // Drug addictions and dependencies are never operated on, tagged or messaged (owner, 6 Nov 2026).
+            if (rules.excludeChemicalDependencies && ConditionReader.IsChemicalDependency(hediff)) continue;
             ConditionReading reading = ConditionReader.Read(pawn, hediff);
             ConditionClass conditionClass = ConditionClassRule.Classify(reading, thresholds);
             IReadOnlyList<OperationInfo> operations = OperationIndex.For(hediff.def);

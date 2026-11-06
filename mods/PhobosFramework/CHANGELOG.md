@@ -13,6 +13,8 @@ tested in game unless an entry says the owner tested it.
   game does not have. It now shows the game's industrial medicine icon, as the medical care menu does. Seen in game by the owner,
   6 November 2026; the fix is not yet tested in game.
 
+- The load line said "0 care choices registered": it is written before other mods register theirs. It now names only the comp.
+
 ### Added
 
 - A care choice can name its own icon (`iconPath` on `PatientPreference`); a missing one falls back to the medicine icon.
