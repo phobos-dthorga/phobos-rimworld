@@ -2,7 +2,7 @@
 
 Hospital equipment for the injuries D'thorga Burns and Smoke and More Injuries bring. This first version gives patients oxygen.
 
-Version 0.2.0, built 5 November 2026 for House D'thorga. **Partly tested in game:** the owner reports that a patient's breathing improves on the oxygen concentrator (5 November 2026, on 0.1.0). The burn unit bed is not yet tested in game. The rest is read from the game's and
+Version 0.2.1, built 6 November 2026 for House D'thorga. **Partly tested in game:** the owner reports that a patient's breathing improves on the oxygen concentrator (5 November 2026, on 0.1.0), and that the burn unit bed looks right and gives a burned patient air-cell care (6 November 2026, on 0.2.0). The new inspect lines in 0.2.1 are not yet tested in game. The rest is read from the game's and
 the mods' code.
 
 ## Read this first (gotchas)
@@ -55,6 +55,6 @@ Give a building `Phobos.Medical.Comps.CompProperties_PhobosOxygenSupply` and `Co
 
 - Built against the RimWorld 1.7 and 1.6 reference assemblies; the game-free rules pass their unit tests; the patches pass the repository's checks.
 - **Owner's report (5 November 2026, on 0.1.0):** a patient's breathing improves on the oxygen concentrator.
-- **Not checked in game:** the burn unit bed, the bedside oxygen stand and its pipe link, the inspect text, the feel of the numbers, the uninstall button and the new stand art in 0.1.1.
+- **Not checked in game:** the bedside oxygen stand and its pipe link, the inspect text (0.2.1 adds a line naming an occupant it leaves alone), the feel of the numbers, the uninstall button and the new stand art in 0.1.1.
 
 Community-created content. Portions of the materials used to create this content/mod are trademarks and/or copyrighted works of Ludeon Studios Inc. All rights reserved by Ludeon. This content/mod is not official and is not endorsed by Ludeon.

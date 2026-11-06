@@ -26,8 +26,8 @@ public class CompPhobosOxygenSupply : ThingComp
 {
     const int RareTickInterval = 250;
 
-    /// <summary>Who it served on its last pass, for the inspect text. Derived, so never saved.</summary>
-    List<Pawn> patients = new();
+    /// <summary>Who it served and who it left alone on its last pass, for the inspect text. Derived, so never saved.</summary>
+    TreatmentPass pass = TreatmentPass.None;
 
     public CompProperties_PhobosOxygenSupply Props => (CompProperties_PhobosOxygenSupply)props;
     public CompFacility? Facility => parent.TryGetComp<CompFacility>();
@@ -36,16 +36,17 @@ public class CompPhobosOxygenSupply : ThingComp
     public override void CompTickRare()
     {
         base.CompTickRare();
-        patients = OxygenService.Supply(this, RareTickInterval);
+        pass = OxygenService.Supply(this, RareTickInterval);
     }
 
-    public override string CompInspectStringExtra() => OxygenService.StatusOf(this, patients.Count) switch
+    public override string CompInspectStringExtra() => OxygenService.StatusOf(this, pass) switch
     {
         OxygenStatus.SwitchedOff => "PhobosMedical_StatusSwitchedOff".Translate(),
         OxygenStatus.NoPower => "PhobosMedical_StatusNoPower".Translate(),
         OxygenStatus.NoBed => "PhobosMedical_StatusNoBed".Translate(),
         OxygenStatus.NoOxygen => "PhobosMedical_StatusNoOxygen".Translate(),
-        OxygenStatus.Treating => "PhobosMedical_StatusTreating".Translate(string.Join(", ", patients.Select(p => p.LabelShort)).Named("PATIENTS")),
+        OxygenStatus.Treating => "PhobosMedical_StatusTreating".Translate(TreatmentPass.Names(pass.Treated).Named("PATIENTS")),
+        OxygenStatus.NotNeeded => "PhobosMedical_StatusNotNeeded".Translate(TreatmentPass.Names(pass.NotNeeding).Named("PATIENTS")),
         _ => "PhobosMedical_StatusWaiting".Translate(),
     };
 }

@@ -17,6 +17,12 @@ public class BurnCareStatusTests
 
     [Fact]
     public void AnOccupiedBedTreats() => Assert.Equal(BurnCareStatus.Treating, BurnCareRule.Status(true, true, 1));
+
+    [Fact]
+    public void AnOccupantWithoutBurnsIsNamedNotIgnored() => Assert.Equal(BurnCareStatus.NotNeeded, BurnCareRule.Status(true, true, 0, 1));
+
+    [Fact]
+    public void TreatingOutranksNotNeeded() => Assert.Equal(BurnCareStatus.Treating, BurnCareRule.Status(true, true, 1, 1));
 }
 
 public class NeedTests
@@ -65,6 +71,18 @@ public class StatusTests
     [Fact]
     public void WithNobodyToTreatItWaits() =>
         Assert.Equal(OxygenStatus.Waiting, OxygenRule.Status(true, true, 1, true, 0));
+
+    [Fact]
+    public void APatientBreathingWellIsNamedNotIgnored() =>
+        Assert.Equal(OxygenStatus.NotNeeded, OxygenRule.Status(true, true, 1, true, 0, 1));
+
+    [Fact]
+    public void TreatingOutranksNotNeeded() =>
+        Assert.Equal(OxygenStatus.Treating, OxygenRule.Status(true, true, 1, true, 1, 1));
+
+    [Fact]
+    public void AMissingBedOutranksNotNeeded() =>
+        Assert.Equal(OxygenStatus.NoBed, OxygenRule.Status(true, true, 0, true, 0, 1));
 
     [Fact]
     public void TheSwitchIsReportedBeforeEverythingElse() =>

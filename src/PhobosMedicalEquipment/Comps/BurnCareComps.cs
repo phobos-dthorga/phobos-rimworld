@@ -18,22 +18,23 @@ public class CompProperties_PhobosBurnCare : CompProperties
 
 public class CompPhobosBurnCare : ThingComp
 {
-    /// <summary>Who it served on its last pass, for the inspect text. Derived, so never saved.</summary>
-    List<Pawn> patients = new();
+    /// <summary>Who it served and who it left alone on its last pass, for the inspect text. Derived, so never saved.</summary>
+    TreatmentPass pass = TreatmentPass.None;
 
     public CompProperties_PhobosBurnCare Props => (CompProperties_PhobosBurnCare)props;
 
     public override void CompTickRare()
     {
         base.CompTickRare();
-        patients = BurnCareService.Care(this);
+        pass = BurnCareService.Care(this);
     }
 
-    public override string CompInspectStringExtra() => BurnCareService.StatusOf(this, patients.Count) switch
+    public override string CompInspectStringExtra() => BurnCareService.StatusOf(this, pass) switch
     {
         BurnCareStatus.SwitchedOff => "PhobosMedical_BurnBedSwitchedOff".Translate(),
         BurnCareStatus.NoPower => "PhobosMedical_BurnBedNoPower".Translate(),
-        BurnCareStatus.Treating => "PhobosMedical_BurnBedTreating".Translate(string.Join(", ", patients.Select(p => p.LabelShort)).Named("PATIENTS")),
+        BurnCareStatus.Treating => "PhobosMedical_BurnBedTreating".Translate(TreatmentPass.Names(pass.Treated).Named("PATIENTS")),
+        BurnCareStatus.NotNeeded => "PhobosMedical_BurnBedNotNeeded".Translate(TreatmentPass.Names(pass.NotNeeding).Named("PATIENTS")),
         _ => "PhobosMedical_BurnBedWaiting".Translate(),
     };
 }

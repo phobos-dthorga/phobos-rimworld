@@ -12,11 +12,13 @@
   <PhobosMedical_StatusNoOxygen>Out of oxygen: waiting for canisters or a connected oxygen pipe.</PhobosMedical_StatusNoOxygen>
   <PhobosMedical_StatusWaiting>Waiting for a patient who needs oxygen.</PhobosMedical_StatusWaiting>
   <PhobosMedical_StatusTreating>Giving oxygen to {PATIENTS}.</PhobosMedical_StatusTreating>
+  <PhobosMedical_StatusNotNeeded>Breathing well enough without it: {PATIENTS}. Oxygen starts if breathing weakens, or after smoke or fumes.</PhobosMedical_StatusNotNeeded>
 
   <PhobosMedical_BurnBedSwitchedOff>Blower switched off, so nobody gets air-cell care. It still works as a hospital bed.</PhobosMedical_BurnBedSwitchedOff>
   <PhobosMedical_BurnBedNoPower>Waiting for power for its blower. It still works as a hospital bed.</PhobosMedical_BurnBedNoPower>
   <PhobosMedical_BurnBedWaiting>Waiting for a patient with open burns.</PhobosMedical_BurnBedWaiting>
   <PhobosMedical_BurnBedTreating>Giving air-cell care to {PATIENTS}.</PhobosMedical_BurnBedTreating>
+  <PhobosMedical_BurnBedNotNeeded>No open burns on {PATIENTS}, so no air-cell care. It still works as a hospital bed.</PhobosMedical_BurnBedNotNeeded>
 
   <PhobosMedical_TipOnOxygenPlain>Clears carbon monoxide about four times faster, and eases low breathing.</PhobosMedical_TipOnOxygenPlain>
   <PhobosMedical_TipOnOxygen>Carbon monoxide half-life on oxygen: {MINUTES} minutes, against about 320 on room air. Eases low breathing, up to normal.</PhobosMedical_TipOnOxygen>

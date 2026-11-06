@@ -5,6 +5,21 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.2.1] - 2026-11-06 - Draft
+
+A fix to what the machines say, after the owner's first test of the burn unit bed. The new lines are not yet tested in game.
+
+### Fixed
+
+- An oxygen machine with a patient who breathes well enough now names them and says why it gives them nothing, instead of waiting in
+  silence. Oxygen still goes only to a patient with weak breathing, or with smoke, fumes or carbon monoxide in the lungs.
+- A burn unit bed now names an occupant with no open burns, and says it gives them no air-cell care.
+
+### Compatibility and limits
+
+- Tested in game by the owner on 0.2.0: the burn unit bed looks right and gives a burned patient air-cell care. The owner's report that
+  oxygen did not start was a patient breathing at full strength, so the machine was right to hold back; it now says so.
+
 ## [0.2.0] - 2026-11-05 - Draft
 
 A burn unit bed, the owner's go after their Burns and Smoke results. Not yet tested in game.

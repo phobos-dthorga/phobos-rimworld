@@ -11,19 +11,24 @@ namespace Phobos.Medical.Services;
 /// <summary>Decides and does a burn unit bed's care. The comp and the inspect text only call this and read what it reports.</summary>
 public static class BurnCareService
 {
-    /// <summary>One pass: keep the treatment going for each occupant with an open burn. Returns who it served.</summary>
-    public static List<Pawn> Care(CompPhobosBurnCare care)
+    /// <summary>One pass: keep the treatment going for each occupant with an open burn. Returns who it served and who it left alone
+    /// because they have no open burn.</summary>
+    public static TreatmentPass Care(CompPhobosBurnCare care)
     {
-        if (care.parent is not Building_Bed bed || !care.parent.Spawned || StatusOf(care, 0) != BurnCareStatus.Waiting) return new List<Pawn>();
-        List<Pawn> patients = bed.CurOccupants.Where(HasOpenBurn).ToList();
+        if (care.parent is not Building_Bed bed || !care.parent.Spawned || StatusOf(care, 0, 0) != BurnCareStatus.Waiting) return TreatmentPass.None;
+        List<Pawn> occupants = bed.CurOccupants.ToList();
+        List<Pawn> patients = occupants.Where(HasOpenBurn).ToList();
         foreach (Pawn patient in patients) MedicalTreatment.GiveOrRefresh(patient, care.Props.treatment);
-        return patients;
+        return new TreatmentPass(patients, occupants.Where(pawn => !patients.Contains(pawn)).ToList());
     }
 
-    public static BurnCareStatus StatusOf(CompPhobosBurnCare care, int patients)
+    public static BurnCareStatus StatusOf(CompPhobosBurnCare care, TreatmentPass pass) =>
+        StatusOf(care, pass.Treated.Count, pass.NotNeeding.Count);
+
+    static BurnCareStatus StatusOf(CompPhobosBurnCare care, int patients, int notNeeding)
     {
         CompPowerTrader? power = care.parent.TryGetComp<CompPowerTrader>();
-        return BurnCareRule.Status(FlickUtility.WantsToBeOn(care.parent), power == null || power.PowerOn, patients);
+        return BurnCareRule.Status(FlickUtility.WantsToBeOn(care.parent), power == null || power.PowerOn, patients, notNeeding);
     }
 
     /// <summary>An unhealed burn. A scar is not an open burn, and any mod can mark its own burn Def with the extension.</summary>

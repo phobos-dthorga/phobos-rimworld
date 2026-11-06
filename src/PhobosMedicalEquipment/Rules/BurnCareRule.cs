@@ -6,16 +6,19 @@ public enum BurnCareStatus
     SwitchedOff,
     NoPower,
     Waiting,
+    /// <summary>Someone is in the bed, but they have no open burn.</summary>
+    NotNeeded,
     Treating,
 }
 
 /// <summary>What a burn unit bed should say. Game-free.</summary>
 public static class BurnCareRule
 {
-    public static BurnCareStatus Status(bool switchedOn, bool powered, int patients)
+    public static BurnCareStatus Status(bool switchedOn, bool powered, int patients, int notNeeding = 0)
     {
         if (!switchedOn) return BurnCareStatus.SwitchedOff;
         if (!powered) return BurnCareStatus.NoPower;
-        return patients > 0 ? BurnCareStatus.Treating : BurnCareStatus.Waiting;
+        if (patients > 0) return BurnCareStatus.Treating;
+        return notNeeding > 0 ? BurnCareStatus.NotNeeded : BurnCareStatus.Waiting;
     }
 }

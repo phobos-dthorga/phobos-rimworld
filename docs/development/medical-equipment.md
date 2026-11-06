@@ -1,6 +1,6 @@
 # Medical equipment: research and decisions (5 Nov 2026)
 
-The record behind [D'thorga Medical Equipment](../../mods/PhobosMedicalEquipment/README.md). **The owner reports a patient's breathing improving on the concentrator (5 Nov 2026, on 0.1.0); the bedside stand and the rest are not yet tested in game.** The wider plan, with the oxygen chain and the art, is in the [art automation and medical equipment design](art-automation-and-medical-equipment.md).
+The record behind [D'thorga Medical Equipment](../../mods/PhobosMedicalEquipment/README.md). **The owner reports a patient's breathing improving on the concentrator (5 Nov 2026, on 0.1.0) and the burn unit bed working (6 Nov 2026, on 0.2.0); the bedside stand and the rest are not yet tested in game.** The wider plan, with the oxygen chain and the art, is in the [art automation and medical equipment design](art-automation-and-medical-equipment.md).
 
 ## The problem
 
@@ -29,6 +29,7 @@ The owner wants our own medical equipment, hospital and field. Carbon monoxide a
 | The shared pieces (`PhobosBreathing` and its two extensions) live in the framework, so Burns and Smoke needs no dependency on this mod | Agent choice |
 | A burn unit bed built on the game's hospital bed, its infection benefit through tend quality with no patch; figures authored | Owner's go, agent's design, 5 Nov 2026 |
 | The bedside stand uses a picked, generated image; the concentrator keeps its scripted placeholder for now | Owner, 5 Nov 2026 |
+| A machine or bed names an occupant it leaves alone, and says why | Agent choice, 6 Nov 2026, after the owner read a correct hold-back as a fault |
 
 ## Figures
 
@@ -55,7 +56,11 @@ The owner wants our own medical equipment, hospital and field. Carbon monoxide a
 
 ## Results from play
 
-None yet.
+| Date | Version | What the owner saw | What it means |
+| --- | --- | --- | --- |
+| 5 Nov 2026 | 0.1.0 | A patient's breathing improves on the concentrator | Oxygen's breathing offset works |
+| 6 Nov 2026 | 0.2.0 | The burn unit bed looks good, and a burned patient gets "on air cells" with its effects listed | The bed, its art and its treatment work |
+| 6 Nov 2026 | 0.2.0 | The oxygen machine beside the bed did not give the same patient oxygen | Most likely working as designed: the Health tab shows breathing at 100%, and no smoke condition is in view (the list scrolls, so that part is read from a screenshot). The fault was silence, fixed in 0.2.1 by naming the patient and the reason |
 
 ## Open points
 

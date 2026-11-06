@@ -12,6 +12,8 @@ public enum OxygenStatus
     NoBed,
     NoOxygen,
     Waiting,
+    /// <summary>Someone is in a linked bed, but nobody there needs oxygen.</summary>
+    NotNeeded,
     Treating,
 }
 
@@ -35,13 +37,14 @@ public static class OxygenRule
         return patients * fuelPerPatientHour * intervalTicks / TicksPerHour;
     }
 
-    public static OxygenStatus Status(bool switchedOn, bool powered, int linkedBeds, bool hasOxygen, int patients)
+    public static OxygenStatus Status(bool switchedOn, bool powered, int linkedBeds, bool hasOxygen, int patients, int notNeeding = 0)
     {
         if (!switchedOn) return OxygenStatus.SwitchedOff;
         if (!powered) return OxygenStatus.NoPower;
         if (linkedBeds <= 0) return OxygenStatus.NoBed;
         if (!hasOxygen) return OxygenStatus.NoOxygen;
-        return patients > 0 ? OxygenStatus.Treating : OxygenStatus.Waiting;
+        if (patients > 0) return OxygenStatus.Treating;
+        return notNeeding > 0 ? OxygenStatus.NotNeeded : OxygenStatus.Waiting;
     }
 
     /// <summary>The patients a machine can serve: the worst breathing first, up to its limit. Ties keep their order.</summary>
