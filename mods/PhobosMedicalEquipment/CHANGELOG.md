@@ -5,6 +5,17 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.4.2] - 2026-11-07 - Draft
+
+A fix from the owner's game. Not yet tested in game.
+
+### Fixed
+
+- Right-clicking a vehicle with a doctor selected offered a line saying the doctor couldn't use a breathing device on it because
+  it was "breathing well enough" (seen in the owner's game on 0.4.1, on a tank, 7 November 2026). Vehicles are a kind of pawn to
+  the game. The line is now shown only for a real patient, lying down, and only when the reason is worth knowing: the airway is
+  shut, no device is within reach, or the patient is already on oxygen. A healthy colonist gets no line either.
+
 ## [0.4.1] - 2026-11-07 - Draft
 
 Not yet tested in game.

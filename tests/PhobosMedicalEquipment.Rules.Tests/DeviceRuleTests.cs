@@ -79,3 +79,17 @@ public class TimesFasterTests
     [Fact]
     public void AnUnsetHalfLifeGivesNothing() => Assert.Equal(0f, OxygenRule.TimesFaster(5.33f, 0f));
 }
+
+public class WorthTellingTests
+{
+    [Fact]
+    public void BreathingWellEnoughIsNotWorthAMenuLine() => Assert.False(DeviceRule.WorthTelling(DeviceRefusal.NotNeeded));
+
+    [Fact]
+    public void AShutAirwayAMissingDeviceAndOxygenAlreadyGivenAreTold()
+    {
+        Assert.True(DeviceRule.WorthTelling(DeviceRefusal.AirwayShut));
+        Assert.True(DeviceRule.WorthTelling(DeviceRefusal.NoDevice));
+        Assert.True(DeviceRule.WorthTelling(DeviceRefusal.AlreadyOnOxygen));
+    }
+}

@@ -42,6 +42,9 @@ public static class DeviceRule
         return breathing < threshold ? DeviceRefusal.None : DeviceRefusal.NotNeeded;
     }
 
+    /// <summary>Whether a refusal is worth showing in the right-click menu: not "breathes well enough", which is simply normal.</summary>
+    public static bool WorthTelling(DeviceRefusal refusal) => refusal is not (DeviceRefusal.None or DeviceRefusal.NotNeeded);
+
     /// <summary>The one reason to tell when several devices refuse: the most urgent.</summary>
     public static DeviceRefusal MostUrgent(DeviceRefusal a, DeviceRefusal b) => a < b ? a : b;
 }

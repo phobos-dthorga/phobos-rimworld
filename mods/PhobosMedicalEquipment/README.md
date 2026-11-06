@@ -4,7 +4,7 @@ Hospital and field equipment for the injuries D'thorga Burns and Smoke and More 
 breathe, from the bedside, a field kit or a pressure chamber; a hand pump for breathing that is failing; a burn unit bed and silver
 burn dressings for burns; and an electrolyser and a liquid oxygen store to make and keep the oxygen.
 
-Version 0.4.1, built 7 November 2026 for House D'thorga. **Partly tested in game:** the owner reports that a patient's breathing improves on the oxygen concentrator (5 November 2026, on 0.1.0), and that the burn unit bed looks right and gives a burned patient air-cell care (6 November 2026, on 0.2.0). **Everything new in 0.3.0 and 0.4.x is not yet tested in game**, nor are the inspect lines from 0.2.1. The rest is read from the game's and the mods' code.
+Version 0.4.2, built 7 November 2026 for House D'thorga. **Partly tested in game:** the owner reports that a patient's breathing improves on the oxygen concentrator (5 November 2026, on 0.1.0), and that the burn unit bed looks right and gives a burned patient air-cell care (6 November 2026, on 0.2.0). **Everything new in 0.3.0 and 0.4.x is not yet tested in game**, nor are the inspect lines from 0.2.1. The rest is read from the game's and the mods' code.
 
 ## Read this first (gotchas)
 
@@ -83,7 +83,7 @@ the nearest one (or one they carry) to a patient lying down, in bed or on the gr
   an in-game hour at a time, then keeps the resuscitator. Only one doctor pumps at once.
 
 Right-click a patient with a doctor selected to give the order yourself, or to see why they won't: the airway is shut, no device
-is within reach, they are already on oxygen, or they breathe well enough.
+is within reach, or they are already on oxygen. Someone who breathes well enough gets no line at all.
 
 ### Burn unit bed
 

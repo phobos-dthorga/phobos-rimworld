@@ -57,14 +57,17 @@ public static class DeviceService
         IsPatient(patient, device) && Refusal(patient, device) == DeviceRefusal.None;
 
     /// <summary>The job for the first device this patient needs that the doctor can reach, or null. With <paramref name="explain"/>, a
-    /// refusal is given as the reason the right-click menu shows.</summary>
+    /// refusal worth knowing is given as the reason the right-click menu shows: only for a real patient (never a vehicle or anyone
+    /// standing), and never "breathes well enough", which would follow every right-click on a healthy person (owner's report, 7 Nov 2026).</summary>
     public static Job? MakeJob(Pawn doctor, Pawn patient, bool explain = false)
     {
         DeviceRefusal reason = DeviceRefusal.NotNeeded;
+        bool anyPatient = false;
         foreach (ThingDef def in Devices)
         {
             PhobosPatientDeviceExtension device = Extension(def);
             if (!IsPatient(patient, device)) continue;
+            anyPatient = true;
             DeviceRefusal refusal = Refusal(patient, device);
             if (refusal != DeviceRefusal.None)
             {
@@ -81,7 +84,8 @@ public static class DeviceService
             job.count = 1;
             return job;
         }
-        if (explain) JobFailReason.Is(("PhobosMedical_DeviceRefusal" + reason).Translate(patient.LabelShort.Named("PATIENT")));
+        if (explain && anyPatient && DeviceRule.WorthTelling(reason))
+            JobFailReason.Is(("PhobosMedical_DeviceRefusal" + reason).Translate(patient.LabelShort.Named("PATIENT")));
         return null;
     }
 
