@@ -53,6 +53,8 @@ Read: Search and Rescue 0.1.0-alpha.24 (decompile of 3 November, alpha.23, plus 
   ledger and a map component for the pass.
 - **Life-saving only by default; a per-person button plus defaults by group; colonists, slaves and captured prisoners on,
   guests off** (owner's choices, 6 November 2026).
+- **Any repair** (0.1.1): with that authority, a condition classed other is also queued when an operation removes it; such
+  conditions never set the tag.
 - **Classed by effect, never by name** (owner's standing rule). Lethal: the game's own life-threatening flag on the current
   stage, a death clock, a severity climbing toward a lethal one, or a lasting bad condition (not clearing, `isBad`) with a
   negative offset on consciousness, breathing or blood pumping while that capacity sits at or under 0.3 (the level below which
@@ -80,13 +82,16 @@ Read: Search and Rescue 0.1.0-alpha.24 (decompile of 3 November, alpha.23, plus 
   before a doctor is idle, because the game's own take-to-bed giver reads them; a cache rebuilt when a doctor asks would be
   too late. Emergency Dosing keeps the framework's ask-when-needed cache for its own patients.
 - **The tag and the score** (agent-authored): immediate within 6 hours or a vital capacity at or under 0.3; urgent otherwise
-  while dying; delayed for crippling; minor; expectant for a dying patient who needs an operation nobody can do. Bands of 100
+  while dying; delayed for crippling; minor; expectant for a dying patient whose condition only an operation removes (it is not
+  tendable and at least one indexed operation treats it) and nobody can do one. A dying condition no operation removes is never
+  expectant and never messaged (0.1.1, after the documentation review found carbon monoxide tagged expectant). The score's time
+  scale is the rules Def's `urgentHours` (24): a patient with that many hours left gets half the urgency of one with none. Bands of 100
   so the tag outranks the clock; within a band less time scores higher; expectant has no urgency term, so it never outranks a
   minor case. Hours to death take the soonest of a death clock's mean (an expectation, labelled so), the climb to a lethal
   severity at today's rate, and the game's bleed-out estimate.
 - **The doctors' order of work** is a subclass of the game's own operate giver, prioritised by the score, at Doctor priority
   75 (between feeding patients at 80 and the game's operate giver at 70), not orderable by right-click, and skipping cheaply
-  when nothing is tagged (agent choice). It lists every patient in a bed with a bill to do, tagged or not, so the player's own
+  when no patient in a bed has a bill to do (agent choice). It lists every patient in a bed with a bill to do, tagged or not, so the player's own
   bills still get done, after the urgent ones.
 - **Text stays in the world** (owner's rule): the tag, the condition's label, the operation's label and the reason; Plain mode
   shows no hours.
@@ -102,7 +107,7 @@ Read: Search and Rescue 0.1.0-alpha.24 (decompile of 3 November, alpha.23, plus 
    `Phobos.Triage` or `Phobos.Framework.Health`.
 2. Select a colonist: a button "Doctors may operate: to save life" with a menu of four. Set one to "never without orders".
 3. Dev: on a colonist, add More Injuries' lung collapse (Add hediff) and set its severity to 0.5, with a Medicine 6 doctor
-   free and 3 industrial medicine in stock. Within 250 ticks (or the dev action "Triage: run the planner now"): a thoracotomy
+   free and 3 industrial medicine in stock. Within 250 ticks (or the dev action "Triage: run the planner now on this map"): a thoracotomy
    bill at the top of their operations, the message "the doctors will operate", the inspect line "Triage: immediate" (or
    urgent, by the clock), and a doctor carrying them to bed to operate. Take the doctor off Doctor work: on the next pass the
    message "no one here can do it: no doctor is skilled enough" (or "no doctor is free"); the tag reads expectant.
@@ -112,10 +117,14 @@ Read: Search and Rescue 0.1.0-alpha.24 (decompile of 3 November, alpha.23, plus 
    stays. Set it back: the bill returns.
 6. A prisoner with a collapsed lung is operated on by default; a Hospitality guest is not until the guest default is raised.
 7. Save, reload: the button's choice is kept; the bills are still there and still withdrawn when the condition goes. Remove
-   Triage: the save loads with one line about a missing game component; the bills it queued remain ordinary bills.
+   Triage: the save loads with one line about a missing game component and one per map about its map component; the bills it
+   queued remain ordinary bills.
 8. Dubs Performance Analyzer after a raid: `MapComponent_PhobosTriage` and `WorkGiver_PhobosTriageOperate`.
 9. The moved helpers: Emergency Dosing's and Medical Equipment's load lines read as before; a doctor still doses a patient in
-   pain; the oxygen stand still treats; a save from before the change loads without a line about the treatment comp.
+   pain; the oxygen concentrator (or the stand, with Vanilla Gravship Expanded) still treats; a burn unit bed still gives air-cell
+   care; a save from before the change loads without a line about the treatment comp.
+10. A colonist with carbon monoxide poisoning at the dying stage: tagged immediate or urgent, **no** bill and **no** "no one can
+    operate" message.
 
 ## Results from play
 

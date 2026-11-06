@@ -132,13 +132,21 @@ public class TriageRuleTests
     [Fact]
     public void TheTagOutranksTheClockAndLessTimeScoresHigherWithinIt()
     {
-        float immediateLate = TriageRule.Score(TriageCategory.Immediate, 5f);
-        float immediateSoon = TriageRule.Score(TriageCategory.Immediate, 0.5f);
-        float urgentSoon = TriageRule.Score(TriageCategory.Urgent, 0.1f);
+        float immediateLate = TriageRule.Score(TriageCategory.Immediate, 5f, 24f);
+        float immediateSoon = TriageRule.Score(TriageCategory.Immediate, 0.5f, 24f);
+        float urgentSoon = TriageRule.Score(TriageCategory.Urgent, 0.1f, 24f);
         Assert.True(immediateSoon > immediateLate);
         Assert.True(immediateLate > urgentSoon);
         Assert.True(urgentSoon < 400f);
-        Assert.Equal(100f, TriageRule.Score(TriageCategory.Minor, float.PositiveInfinity));
-        Assert.True(TriageRule.Score(TriageCategory.Expectant, 1f) < TriageRule.Score(TriageCategory.Minor, float.PositiveInfinity));
+        Assert.Equal(100f, TriageRule.Score(TriageCategory.Minor, float.PositiveInfinity, 24f));
+        Assert.True(TriageRule.Score(TriageCategory.Expectant, 1f, 24f) < TriageRule.Score(TriageCategory.Minor, float.PositiveInfinity, 24f));
+    }
+
+    [Fact]
+    public void TheUrgencyHalvesAtTheRulesTimeScale()
+    {
+        Assert.Equal(300f + 99f / 2f, TriageRule.Score(TriageCategory.Urgent, 24f, 24f), 3);
+        Assert.Equal(300f + 99f / 2f, TriageRule.Score(TriageCategory.Urgent, 12f, 12f), 3);
+        Assert.True(TriageRule.Score(TriageCategory.Urgent, 12f, 12f) < TriageRule.Score(TriageCategory.Urgent, 12f, 24f));
     }
 }

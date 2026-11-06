@@ -5,6 +5,25 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.1.1] - 2026-11-06 - Draft
+
+Fixes found in a documentation review the same day, before any play. Not yet tested in game.
+
+### Fixed
+
+- A dying patient whose condition no operation removes (carbon monoxide poisoning, burn shock, a widespread burn) was tagged
+  expectant, and a message said nobody could operate. Such a condition is now tagged by its clock like any other, nothing is
+  queued and no message is sent: oxygen, tending and time are its treatment, not a bill.
+- "For any repair" did the same as "to save life or a limb". It now also queues an operation for a condition that neither kills
+  nor cripples, when one removes it.
+- The rules Def's urgentHours was never read. It is now the score's time scale: within a tag, a patient with that many hours
+  left gets half the urgency of one with none (24 hours, as before).
+
+### Save compatibility
+
+- Nothing saved changes. The map component the mod adds is saved by name, so removing the mod prints one harmless line per map
+  on the next load, besides the one about its game component; 0.1.0's notes said only the latter.
+
 ## [0.1.0] - 2026-11-06 - Draft
 
 The owner's ask of 6 November 2026: doctors should take over life-saving surgery on their own when given the agency, with

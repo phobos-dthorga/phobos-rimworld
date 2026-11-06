@@ -72,8 +72,11 @@ public static class TriageRule
         return r.WorstClass == ConditionClass.Crippling ? TriageCategory.Delayed : TriageCategory.Minor;
     }
 
-    /// <summary>The band's base plus up to a band width less one for little time left; a patient with no clock sits at the base.</summary>
-    public static float Score(TriageCategory category, float hoursToDeath)
+    /// <summary>
+    /// The band's base plus up to a band width less one for little time left; a patient with no clock sits at the base. The
+    /// urgency halves at <paramref name="timeScaleHours"/> (the rules Def's urgentHours) and keeps falling after it.
+    /// </summary>
+    public static float Score(TriageCategory category, float hoursToDeath, float timeScaleHours)
     {
         float baseScore = category switch
         {
@@ -85,7 +88,8 @@ public static class TriageRule
         };
         // An expectant patient gets no urgency: nothing can be done for them, so no clock lifts them over a minor case.
         if (category == TriageCategory.Expectant || float.IsInfinity(hoursToDeath) || hoursToDeath < 0f) return baseScore;
-        float urgency = (BandWidth - 1f) / (1f + hoursToDeath / 24f);
+        float scale = timeScaleHours > 0f ? timeScaleHours : 24f;
+        float urgency = (BandWidth - 1f) / (1f + hoursToDeath / scale);
         return baseScore + urgency;
     }
 }

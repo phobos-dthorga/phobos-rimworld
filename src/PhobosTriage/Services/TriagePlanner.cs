@@ -83,19 +83,22 @@ public static class TriagePlanner
             if (!hediff.Visible || !hediff.def.isBad) continue;
             ConditionReading reading = ConditionReader.Read(pawn, hediff);
             ConditionClass conditionClass = ConditionClassRule.Classify(reading, thresholds);
-            if (conditionClass == ConditionClass.Other) continue;
+            IReadOnlyList<OperationInfo> operations = OperationIndex.For(hediff.def);
+            // A condition that neither kills nor cripples matters only when "any repair" is allowed and an operation fixes it.
+            if (conditionClass == ConditionClass.Other && (operations.Count == 0 || !AuthorityRule.Allows(authority, ConditionClass.Other))) continue;
             classes[hediff] = conditionClass;
             float hours = Framework.Rules.ConditionDangerRule.ExpectedHoursToDeath(reading.DeathMtbDays, reading.Severity, reading.LethalSeverity,
                 reading.SeverityPerDay, hediff.BleedRate > 0f ? bleedHours : -1f);
-            IReadOnlyList<OperationInfo> operations = OperationIndex.For(hediff.def);
             Bill_Medical? existing = FindBill(pawn, hediff);
             Refusal refusal = Refusal.None;
-            if (existing == null && careOk && AuthorityRule.Allows(authority, conditionClass) && pawn.BillStack.Count < rules.maxBillsPerPatient)
+            // Only a condition some operation removes is ever queued or reported: oxygen, rest and time are not operations.
+            if (existing == null && operations.Count > 0 && careOk && AuthorityRule.Allows(authority, conditionClass) && pawn.BillStack.Count < rules.maxBillsPerPatient)
             {
                 existing = TryQueue(pawn, map, hediff, conditionClass, operations, doctorExists, limits, rules, settings, ledger, out refusal);
             }
-            bool needsOperation = conditionClass == ConditionClass.Lethal && !hediff.def.tendable;
+            bool needsOperation = conditionClass == ConditionClass.Lethal && !hediff.def.tendable && operations.Count > 0;
             bool feasible = existing != null;
+            if (conditionClass == ConditionClass.Other) continue;
             if (conditionClass > entry.WorstClass || (conditionClass == entry.WorstClass && hours < entry.HoursToDeath))
             {
                 entry.WorstClass = conditionClass;
@@ -110,7 +113,7 @@ public static class TriagePlanner
         if (ledger != null) WithdrawStale(pawn, ledger, careOk, authority);
         var reading2 = new PatientReading(entry.HoursToDeath, entry.WorstClass, ConditionReader.LowestVital(pawn), entry.NeedsOperation, entry.Feasible);
         entry.Category = TriageRule.Categorise(reading2, bands);
-        entry.Score = TriageRule.Score(entry.Category, entry.HoursToDeath);
+        entry.Score = TriageRule.Score(entry.Category, entry.HoursToDeath, bands.UrgentHours);
         return entry;
     }
 

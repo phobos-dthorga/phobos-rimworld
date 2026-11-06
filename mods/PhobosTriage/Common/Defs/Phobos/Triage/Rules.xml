@@ -17,8 +17,9 @@
     <cripplingCapacityLevel>0.5</cripplingCapacityLevel>
     <cripplingOffset>-0.5</cripplingOffset>
 
-    <!-- The tags: dying within this many hours is immediate; past it urgent. A dying patient with a vital capacity at or under
-         immediateVitalLevel is immediate whatever the clock says (authored). -->
+    <!-- The tags: dying within immediateHours is immediate; past it urgent. A dying patient with a vital capacity at or under
+         immediateVitalLevel is immediate whatever the clock says. urgentHours is the score's time scale: within a tag, a patient
+         with that many hours left gets half the urgency of one with none (authored). -->
     <immediateHours>6</immediateHours>
     <urgentHours>24</urgentHours>
     <immediateVitalLevel>0.3</immediateVitalLevel>

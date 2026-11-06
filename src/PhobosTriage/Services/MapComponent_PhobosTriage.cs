@@ -35,7 +35,7 @@ public sealed class MapComponent_PhobosTriage : MapComponent
     public TriageEntry? EntryOf(Pawn pawn) => byPawn.TryGetValue(pawn, out TriageEntry? entry) ? entry : null;
 
     /// <summary>The doctors' order of work: a patient with no tag sits at the minor band's base.</summary>
-    public float ScoreOf(Pawn pawn) => EntryOf(pawn)?.Score ?? TriageRule.Score(TriageCategory.Minor, float.PositiveInfinity);
+    public float ScoreOf(Pawn pawn) => EntryOf(pawn)?.Score ?? TriageRule.Score(TriageCategory.Minor, float.PositiveInfinity, 24f);
 
     public override void MapComponentTick()
     {
