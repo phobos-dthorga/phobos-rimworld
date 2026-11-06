@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
   <!-- The half-life is sourced: about 70 to 80 minutes on oxygen, against about 320 on room air (Weaver and colleagues, 2000, as
-       cited in emergency medicine references; see docs/development/burns-and-smoke.md). The breathing figure is authored. The ceiling
-       keeps a healthy pair of lungs from going past normal, and because a ceiling applies last, a closed airway stays closed. -->
+       cited in emergency medicine references; see docs/development/burns-and-smoke.md). The breathing figure is authored. Oxygen
+       never takes breathing past normal, as nearly saturated blood can carry almost no more, and never lowers a patient already above
+       it. The code picks the stage: the first leaves breathing alone (a patient at or above normal), the second raises it with a
+       ceiling at normal. A ceiling applies last, so a closed airway stays closed. -->
   <HediffDef>
     <defName>PhobosMedical_OnOxygen</defName>
     <label>on oxygen</label>
     <labelNoun>oxygen treatment</labelNoun>
     <description>This patient is breathing supplied oxygen through a mask. It eases low breathing and clears carbon monoxide much faster. It does not repair damaged lungs, and it stops soon after they leave the bed.</description>
-    <hediffClass>HediffWithComps</hediffClass>
+    <hediffClass>Phobos.Medical.Comps.Hediff_PhobosOnOxygen</hediffClass>
     <defaultLabelColor>(0.55, 0.8, 0.95)</defaultLabelColor>
     <isBad>false</isBad>
     <tendable>false</tendable>
@@ -18,7 +20,11 @@
       <li Class="Phobos.Medical.Comps.HediffCompProperties_PhobosOnOxygen"/>
     </comps>
     <stages>
+      <li/>
+      <!-- The code picks this stage, not severity. minSeverity is set only because the game needs stages in rising order; 0.5 is
+           the game's default starting severity, so a condition saved by an older version keeps raising breathing until replaced. -->
       <li>
+        <minSeverity>0.5</minSeverity>
         <capMods>
           <li>
             <capacity>Breathing</capacity>

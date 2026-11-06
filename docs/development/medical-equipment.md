@@ -36,7 +36,7 @@ The owner wants our own medical equipment, hospital and field. Carbon monoxide a
 | Figure | Value | Source |
 | --- | ---: | --- |
 | Carbon monoxide half-life on oxygen | 75 min | Sourced, the middle of 70 to 80 |
-| Breathing offset, capped at normal | +0.2 | Authored |
+| Breathing offset, capped at normal, and none for a patient already at or above normal | +0.2 | Authored |
 | Breathing below which a patient needs oxygen | 0.8 | Authored |
 | Concentrator power | 350 W | Authored, inside the real 300 to 600 W range from memory and unverified |
 | Patients per machine | 2 | Authored |

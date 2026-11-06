@@ -30,6 +30,15 @@ public static class OxygenRule
     public static bool NeedsOxygen(float breathing, bool responsiveCondition, float breathingThreshold) =>
         breathing > 0f && (responsiveCondition || breathing < breathingThreshold);
 
+    /// <summary>Normal breathing, which supplied oxygen never pushes past: blood that is already nearly saturated can carry almost no more.</summary>
+    public const float NormalBreathing = 1f;
+
+    /// <summary>
+    /// Whether oxygen should raise this patient's breathing, given their breathing without it. Only below normal: a patient at or above
+    /// normal (healthy or bionic lungs, treated for carbon monoxide) keeps exactly what they have.
+    /// </summary>
+    public static bool RaisesBreathing(float breathingWithoutOxygen) => breathingWithoutOxygen < NormalBreathing;
+
     /// <summary>The fuel the patients use in one interval.</summary>
     public static float FuelForInterval(int patients, float fuelPerPatientHour, int intervalTicks)
     {

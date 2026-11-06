@@ -62,6 +62,17 @@ public class FuelTests
         Assert.Equal(0f, OxygenRule.FuelForInterval(patients, rate, 250));
 }
 
+public class CeilingTests
+{
+    [Theory]
+    [InlineData(0.5f, true)]
+    [InlineData(0.99f, true)]
+    [InlineData(1f, false)]
+    [InlineData(1.25f, false)]
+    public void OxygenRaisesOnlyBreathingBelowNormal(float without, bool raises) =>
+        Assert.Equal(raises, OxygenRule.RaisesBreathing(without));
+}
+
 public class StatusTests
 {
     [Fact]

@@ -41,7 +41,7 @@ While the blower runs, anyone in it with an open burn from fire, acid, chemicals
 
 **Who gets it:** a patient in a linked bed with a condition oxygen helps, or with breathing under 80% from any cause. The worst breathing comes first. Conditions it helps: from D'thorga Burns and Smoke, carbon monoxide poisoning, smoke-damaged lungs, pneumonia and smoke inhalation; Combat Extended's smoke inhalation; More Injuries' organ hypoxia.
 
-**What it does for them:** breathing rises by 20 points, up to normal. With D'thorga Burns and Smoke, carbon monoxide clears with a half-life of about 75 minutes, against about 320 on room air. The figures for clearance are sourced (see the [design record](../../docs/development/medical-equipment.md)); the rest are authored.
+**What it does for them:** breathing rises by 20 points, up to normal. It never lowers anyone already above normal, such as a pawn with bionic lungs. With D'thorga Burns and Smoke, carbon monoxide clears with a half-life of about 75 minutes, against about 320 on room air. The figures for clearance are sourced (see the [design record](../../docs/development/medical-equipment.md)); the rest are authored.
 
 ## Settings
 

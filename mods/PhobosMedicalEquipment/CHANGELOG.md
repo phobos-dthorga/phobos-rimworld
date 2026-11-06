@@ -7,13 +7,19 @@ tested in game unless an entry says the owner tested it.
 
 ## [0.2.1] - 2026-11-06 - Draft
 
-A fix to what the machines say, after the owner's first test of the burn unit bed. The new lines are not yet tested in game.
+Fixes after the owner's first test of the burn unit bed: what the machines say, and oxygen that cut above-normal breathing. Not yet tested in game.
 
 ### Fixed
 
 - An oxygen machine with a patient who breathes well enough now names them and says why it gives them nothing, instead of waiting in
   silence. Oxygen still goes only to a patient with weak breathing, or with smoke, fumes or carbon monoxide in the lungs.
 - A burn unit bed now names an occupant with no open burns, and says it gives them no air-cell care.
+- Oxygen no longer lowers a patient whose breathing is above normal, such as a pawn with bionic lungs treated for carbon monoxide. Its
+  ceiling at normal used to cut them down to it; now oxygen raises only breathing below normal, and leaves the rest alone.
+
+### Save compatibility
+
+- An oxygen condition saved by an earlier version is replaced with the new kind on the machine's next pass. Nothing else changes.
 
 ### Compatibility and limits
 

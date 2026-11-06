@@ -73,6 +73,39 @@ public class HediffComp_PhobosTreatment : HediffComp
     }
 }
 
+/// <summary>
+/// The oxygen condition. Its Def has two stages: one that raises breathing (with a ceiling at normal) and one that leaves it alone. A
+/// fixed ceiling would also cut a pawn whose lungs are better than normal, so the stage is chosen from the patient's breathing measured
+/// without this condition. The choice is derived, so never saved: it is set again on the machine's next pass.
+/// </summary>
+public class Hediff_PhobosOnOxygen : HediffWithComps
+{
+    const int LeavesBreathingStage = 0;
+    const int RaisesBreathingStage = 1;
+
+    /// <summary>True while measuring a patient's breathing without oxygen. One flag serves every instance: the game calculates on one thread.</summary>
+    static bool measuringWithout;
+
+    /// <summary>Starts true so a struggling patient keeps their help between loading a save and the machine's first pass.</summary>
+    bool raisesBreathing = true;
+
+    public override int CurStageIndex => measuringWithout || !raisesBreathing ? LeavesBreathingStage : RaisesBreathingStage;
+
+    public float BreathingWithoutOxygen()
+    {
+        measuringWithout = true;
+        try { return PawnCapacityUtility.CalculateCapacityLevel(pawn.health.hediffSet, PawnCapacityDefOf.Breathing); }
+        finally { measuringWithout = false; }
+    }
+
+    public void SetRaisesBreathing(bool value)
+    {
+        if (raisesBreathing == value) return;
+        raisesBreathing = value;
+        pawn.health.Notify_HediffChanged(this);
+    }
+}
+
 public class HediffCompProperties_PhobosOnOxygen : HediffCompProperties_PhobosTreatment
 {
     public HediffCompProperties_PhobosOnOxygen() => compClass = typeof(HediffComp_PhobosOnOxygen);

@@ -26,10 +26,18 @@ public sealed class TreatmentPass
 /// <summary>Starting or keeping up a treatment condition. It lapses by itself once nothing refreshes it.</summary>
 public static class MedicalTreatment
 {
-    public static void GiveOrRefresh(Pawn patient, HediffDef treatment)
+    /// <summary>Gives the condition or keeps it going, and returns it. A condition saved under an older class is replaced, so a Def's
+    /// class can change between versions; the replacement is idempotent and the condition is only ever ours.</summary>
+    public static Hediff? GiveOrRefresh(Pawn patient, HediffDef treatment)
     {
         Hediff? condition = patient.health.hediffSet.GetFirstHediffOfDef(treatment);
+        if (condition != null && condition.GetType() != treatment.hediffClass)
+        {
+            patient.health.RemoveHediff(condition);
+            condition = null;
+        }
         condition ??= patient.health.AddHediff(treatment);
         condition?.TryGetComp<HediffComp_PhobosTreatment>()?.Refresh();
+        return condition;
     }
 }

@@ -23,7 +23,11 @@ public static class OxygenService
         List<Pawn> needing = occupants.Where(pawn => NeedsOxygen(pawn, rules)).ToList();
         List<Pawn> notNeeding = occupants.Where(pawn => !needing.Contains(pawn)).ToList();
         List<Pawn> patients = OxygenRule.WorstFirst(needing, Breathing, machine.Props.maxPatients);
-        foreach (Pawn patient in patients) MedicalTreatment.GiveOrRefresh(patient, MedicalDefOf.PhobosMedical_OnOxygen);
+        foreach (Pawn patient in patients)
+        {
+            if (MedicalTreatment.GiveOrRefresh(patient, MedicalDefOf.PhobosMedical_OnOxygen) is Hediff_PhobosOnOxygen oxygen)
+                oxygen.SetRaisesBreathing(OxygenRule.RaisesBreathing(oxygen.BreathingWithoutOxygen()));
+        }
         CompRefuelable? fuel = machine.Fuel;
         if (fuel != null && patients.Count > 0)
             fuel.ConsumeFuel(OxygenRule.FuelForInterval(patients.Count, machine.Props.fuelPerPatientHour, intervalTicks));
