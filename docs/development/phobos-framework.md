@@ -114,6 +114,8 @@ one button per choice; it is put on every humanlike race by a startup sweep rath
 
 **Surgery bars (0.4.0, 7 Nov 2026):** `SurgeryBars.Register(Func<Pawn, string?>)` lets the mod that owns something stopping surgery (D'thorga Medical Equipment's pressure chamber) say so, with the reason already translated and in-world; `Patients.SurgeryBarred(pawn, out reason)` is what a mod that queues operations (D'thorga Triage) reads, so it can hold an operation and say why without a reference to the other mod. Asked for by the Triage session, 7 Nov 2026.
 
+**Who counts as a patient (0.4.2, 7 Nov 2026):** `Patients.IsFleshPerson`, `IsLyingDown` and `IsLyingPatient` are the one shared answer; each mod adds its own need and care check on top. Medical Equipment uses them; Emergency Dosing's own `Downed || InBed()` adopts them when next touched. Prompted by a vehicle checked as a patient in the owner's game.
+
 ## Open points and upstream
 
 - Door and vent discovery on 1.7 reads correctly but is unverified in play (read from the 1.7 assembly, 5 Nov 2026): `Region.Neighbors` walks the

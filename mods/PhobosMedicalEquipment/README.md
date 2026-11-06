@@ -4,11 +4,11 @@ Hospital and field equipment for the injuries D'thorga Burns and Smoke and More 
 breathe, from the bedside, a field kit or a pressure chamber; a hand pump for breathing that is failing; a burn unit bed and silver
 burn dressings for burns; and an electrolyser and a liquid oxygen store to make and keep the oxygen.
 
-Version 0.4.2, built 7 November 2026 for House D'thorga. **Partly tested in game:** the owner reports that a patient's breathing improves on the oxygen concentrator (5 November 2026, on 0.1.0), and that the burn unit bed looks right and gives a burned patient air-cell care (6 November 2026, on 0.2.0). **Everything new in 0.3.0 and 0.4.x is not yet tested in game**, nor are the inspect lines from 0.2.1. The rest is read from the game's and the mods' code.
+Version 0.4.3, built 7 November 2026 for House D'thorga. **Partly tested in game:** the owner reports that a patient's breathing improves on the oxygen concentrator (5 November 2026, on 0.1.0), and that the burn unit bed looks right and gives a burned patient air-cell care (6 November 2026, on 0.2.0). **Everything new in 0.3.0 and 0.4.x is not yet tested in game**, nor are the inspect lines from 0.2.1. The rest is read from the game's and the mods' code.
 
 ## Read this first (gotchas)
 
-- **Needs Harmony, D'thorga Framework 0.4.0 or later and Vanilla Expanded Framework,** loaded before it. The About file asks for that order.
+- **Needs Harmony, D'thorga Framework 0.4.2 or later and Vanilla Expanded Framework,** loaded before it. The About file asks for that order.
 - **Vanilla Gravship Expanded is strongly recommended** (it needs the Odyssey expansion). Without it, a letter says once which pieces are missing.
 - **Safe to add to a running colony.** How it works beside the other medical mods is in
   [the medical mods together](../../docs/medical-mods.md).

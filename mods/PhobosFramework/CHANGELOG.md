@@ -5,6 +5,15 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.4.2] - 2026-11-07 - Draft
+
+No change in play. Not yet tested in game.
+
+### Added
+
+- For modders: one shared check of who counts as a patient (one of the colony's people with a flesh body, and lying down: downed or
+  in bed), so each treatment mod stops writing its own. A mod's own version had let a vehicle be checked as a patient.
+
 ## [0.4.1] - 2026-11-07 - Draft
 
 A fix from the owner's game. **The owner reports the error gone in game (7 November 2026, on 0.4.1).** The surgery bars from 0.4.0

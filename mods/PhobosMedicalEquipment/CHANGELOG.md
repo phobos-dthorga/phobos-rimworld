@@ -5,6 +5,19 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.4.3] - 2026-11-07 - Draft
+
+No change in play. Not yet tested in game.
+
+### Changed
+
+- The breathing devices and the chamber transfer use D'thorga Framework's shared check of who counts as a patient, instead of their
+  own.
+
+### Dependencies
+
+- D'thorga Framework 0.4.2 or later.
+
 ## [0.4.2] - 2026-11-07 - Draft
 
 A fix from the owner's game. Not yet tested in game.

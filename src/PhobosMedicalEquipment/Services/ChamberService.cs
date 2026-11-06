@@ -31,7 +31,7 @@ public static class ChamberService
     /// care setting that lets doctors act. Patients already in a bed stay where they are (the game's own rescue has placed them).
     /// </summary>
     public static bool WantsChamber(Pawn patient) =>
-        Patients.IsPlayersPerson(patient) && patient.RaceProps.IsFlesh && patient.Downed && !patient.InBed()
+        Patients.IsFleshPerson(patient) && patient.Downed && !patient.InBed()
         && Patients.CareAllows(patient, MedicalCareCategory.NoMeds, requireMedicine: false)
         && OxygenService.NeedsOxygen(patient, PhobosRulesDef.Current<PhobosMedicalRulesDef>());
 

@@ -24,6 +24,19 @@ public static class Patients
         && !DevelopmentalStageExtensions.Baby(pawn.DevelopmentalStage)
         && (pawn.Faction == Faction.OfPlayer || pawn.HostFaction == Faction.OfPlayer);
 
+    /// <summary>
+    /// One of the colony's people with a flesh body: what every Phobos treatment needs before anything else. A vehicle is a pawn to
+    /// the game but not humanlike, so it never passes (the owner's game, 7 Nov 2026, showed a tank checked as a patient).
+    /// </summary>
+    public static bool IsFleshPerson(Pawn pawn) => IsPlayersPerson(pawn) && pawn.RaceProps.IsFlesh;
+
+    /// <summary>Lying down where a doctor can treat them: downed, or in a bed.</summary>
+    public static bool IsLyingDown(Pawn pawn) => pawn.Downed || pawn.InBed();
+
+    /// <summary>A patient a doctor can treat where they lie: one of the colony's flesh people, downed or in bed. Each mod adds its own
+    /// need and care-setting check on top.</summary>
+    public static bool IsLyingPatient(Pawn pawn) => IsFleshPerson(pawn) && IsLyingDown(pawn);
+
     /// <summary>The group a player's person belongs to, or null for anyone the doctors do not look after.</summary>
     public static PatientGroup? GroupOf(Pawn pawn)
     {

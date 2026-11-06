@@ -36,8 +36,7 @@ public static class DeviceService
 
     /// <summary>Someone the doctors look after, lying down (in bed or downed), whose care setting lets doctors act.</summary>
     public static bool IsPatient(Pawn pawn, PhobosPatientDeviceExtension device) =>
-        Patients.IsPlayersPerson(pawn) && pawn.RaceProps.IsFlesh && (pawn.Downed || pawn.InBed())
-        && Patients.CareAllows(pawn, MedicalCareCategory.NoMeds, requireMedicine: device.consumed);
+        Patients.IsLyingPatient(pawn) && Patients.CareAllows(pawn, MedicalCareCategory.NoMeds, requireMedicine: device.consumed);
 
     /// <summary>Whether this device would help this patient now, and if not, why not.</summary>
     public static DeviceRefusal Refusal(Pawn patient, PhobosPatientDeviceExtension device)
