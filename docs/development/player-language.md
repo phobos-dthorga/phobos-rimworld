@@ -19,7 +19,8 @@ It follows the Phobos Ostranauts and Phobos Kenshi guides, adapted to RimWorld.
 1. **Title and one line**: what the mod does, in the player's words.
 2. **Version line**: "Version N, <date>. Not yet tested in game." until the owner says otherwise.
 3. **Read this first (gotchas):**
-   - requirements (Harmony, DLCs, other mods) and where it goes in the load order;
+   - requirements (Harmony, D'thorga Framework, DLCs, other mods) and where it goes in the load order;
+   - the game versions it supports (1.7 leads, 1.6 kept);
    - whether it is safe to add to and remove from a save, and what to do first;
    - settings to decide before starting a colony;
    - **whether it is tested in game.**
@@ -57,6 +58,10 @@ It follows the Phobos Ostranauts and Phobos Kenshi guides, adapted to RimWorld.
 - **Descriptions** of radios and antennas give real, accurate specifications in a form a colonist would
   read. A description never hides a hazard or promises something the code doesn't do.
 - Text a player reads in play stays in the game world (owner, 5 November 2026): no mod names, signals or settings in descriptions,
-  tooltips, job reports, refusals or messages. The mod settings window, dev actions and the load line may name them.
+  tooltips, job reports, refusals or messages; they describe what is happening to the colonist and what to do about it. The mod
+  settings window, dev actions and the load line may name them.
+- **Player text never lives in C#.** What code shows comes from `Languages/English/Keyed`, with keys prefixed `Phobos` and
+  complete messages with named placeholders (`{COUNT}`, never `{0}`: `check-mod-layout.py` refuses numbered ones). A Def's own
+  labels and descriptions stay in its XML, for translators to override with `DefInjected`.
 - **Creative text written by Claude** (contact stories, faction voices, letters) is labelled
   agent-written in the changelog, and held for the owner's review.

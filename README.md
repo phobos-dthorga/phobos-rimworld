@@ -68,9 +68,11 @@ flowchart LR
     Radio --> VEF
     Factory --> VFEF
     Tap --> DBH
+    Factory -. "tie-in" .-> DBH
+    Tap -. "tie-in" .-> VFEF
 ```
 
-An arrow means "needs, loaded before it". Optional tie-ins (More Injuries, Combat Extended, Vanilla Gravship Expanded, the
+A solid arrow means "needs, loaded before it"; a dotted one is an optional tie-in that loads only while that mod is active. Optional tie-ins (More Injuries, Combat Extended, Vanilla Gravship Expanded, the
 vehicle mods Vehicle Patches fixes, and more) switch on only when that mod is active; each README lists them. How the medical
 mods share the work when a colonist is hurt is in [the medical mods together](docs/medical-mods.md).
 

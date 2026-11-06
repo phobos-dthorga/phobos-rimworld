@@ -7,9 +7,11 @@ promise current behaviour. For using the mods, start at the [documentation index
 
 - [Project direction](project-direction.md): intent, the owner's game, decisions with who made them, and open
   checks.
-- [Building, testing and deploying](building.md): the checks that run today, where things go, and the C#
-  toolchain for RimWorld 1.6 and 1.7.
+- [Building, testing and deploying](building.md): every C# project in one table, the checks and what runs on GitHub,
+  where things go, the C# toolchain (RimWorld 1.7 leads; 1.6 kept as the minimum) and deploying to the game.
 - [Writing READMEs and in-game text](player-language.md)
+- [The medical mods together](../medical-mods.md): the player's view of which medical mod does what, with a flow diagram.
+- Which mod needs which: the diagram in the [project README](../../README.md#the-mods).
 
 ## The radio framework
 
@@ -26,8 +28,9 @@ promise current behaviour. For using the mods, start at the [documentation index
   works, why the stock neutroamine bill already took human meat, the values in play, decisions and ideas;
   the drug-lab recipe scan (86 recipes, 44 ported in 0.3.0), the output-cap rule and the offline checker;
   why bionics had no factory bills, the fabrication bay's bill generator and the machining bay's lost-item bug;
-  the output guard for every machine (0.5.1); and the storage switch that lets belts take from any storage
-  (0.6.0), with a survey of the owner's storage buildings.
+  the output guard for every machine (0.5.1); the storage switch that lets belts take from any storage
+  (0.6.0), with a survey of the owner's storage buildings; and later the stuck-belt fix, the synthread and soup bills, piped
+  water with Dubs Bad Hygiene (0.10.0), the per-building belt switch on hoppers (0.11.0) and oversized batches in parts (0.11.1).
 - [VFE Factory conveyors and hoppers (28 Oct 2026)](vfe-factory-conveyors.md): what a belt may pull from (only
   factory hoppers, or storage flagged with Pipe System's extension; since 0.6.0 also switched-on storage), where
   it pushes, what the flag does not change, and the recipe for flagging another mod's storage.
@@ -36,7 +39,8 @@ promise current behaviour. For using the mods, start at the [documentation index
 
 - [Vehicle patches: research and decisions (2 Nov 2026)](vehicle-patches.md): why the Harrier's flight framework fails beside
   RimPacts (a Harmony patch in a generic class breaks the next patch of that method), its build cost and bomb costs against
-  the owner's other vehicles, 1.7 readiness, and bug reports for the mods' authors.
+  the owner's other vehicles, bombs and rockets at the ammunition fabricator, heavy castings at the rotary forger, keeping a
+  sortie's map open, Spaceship Turret Hull under Combat Extended, 1.7 readiness, and bug reports for the mods' authors.
 
 ## Medical save bridge
 
@@ -49,13 +53,15 @@ promise current behaviour. For using the mods, start at the [documentation index
 - [D'thorga Framework: research and decisions (4 Nov 2026)](phobos-framework.md): the owner's rules (existing effects first,
   own gases when they earn it, additive only, a manual override), what already carries a gas in the game and in Combat
   Extended, the room-gas engine copied from the game's temperature design, carbon monoxide as the first own gas, the shared
-  helpers, and the owner's test protocol.
+  helpers, supplied oxygen (0.2.0), the health layer and per-person care choices the medical mods share (0.3.0), and the owner's
+  test protocol.
 
 ## Burns and smoke
 
 - [Burns and smoke: research and decisions (4 Nov 2026)](burns-and-smoke.md): what an incendiary raid left in the save (112
   plain burns and nothing else), how the game, Combat Extended and More Injuries handle fire and smoke, the medical sources
-  behind the burned fraction, burn shock, airway burns, lung injury and carbon monoxide, who chose what, and the test protocol.
+  behind the burned fraction, burn shock, airway burns, lung injury and carbon monoxide, fire heat in the open (0.5.0), who chose
+  what, and the test protocol.
 
 ## Caustic gas
 
@@ -65,14 +71,16 @@ promise current behaviour. For using the mods, start at the [documentation index
 
 ## Medical equipment
 
-- [Medical equipment: research and decisions (5 Nov 2026)](medical-equipment.md): bedside oxygen on the pattern of the vitals monitor and IV stand, what is reused from Vanilla Gravship Expanded, why Organ Failure's ventilator cannot appear in the owner's game, and the test protocol.
+- [Medical equipment: research and decisions (5 Nov 2026)](medical-equipment.md): bedside oxygen on the pattern of the vitals
+  monitor and IV stand, the burn unit bed, what is reused from Vanilla Gravship Expanded, why Organ Failure's ventilator cannot
+  appear in the owner's game, and the test protocol.
 
 ## Emergency dosing
 
 - [Emergency dosing: research and decisions (5 Nov 2026)](emergency-dosing.md): why no doctor ever gives a painkiller or
   sedative on their own (More Injuries' drugs are drafted-only right-click options, Search and Rescue's doctors are undrafted
-  by rule), the owner's effects-not-names rule and the index it produced, the need, safety and choice rules, two upstream
-  faults for the owner to report, and the test protocol.
+  by rule), the owner's effects-not-names rule and the index it produced, the need, safety and choice rules, self-medication,
+  the disease-fighting drugs and the bleeding hold (0.3.0), two upstream faults for the owner to report, and the test protocol.
 
 ## Triage
 

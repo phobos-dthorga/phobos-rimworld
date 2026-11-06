@@ -26,6 +26,6 @@ Each mod's README is its player guide, with the gotchas first. As of 6 November 
 
 ## For contributors
 
-[Development and research](development/README.md) has a design record per mod, the project direction, the radio design, the
+The [mods folder](../mods/README.md) explains how a mod folder is laid out. [Development and research](development/README.md) has a design record per mod, the project direction, the radio design, the
 build toolchain, the RimWorld modding reference and the writing guide. Read [AGENTS.md](../AGENTS.md) and
 [CONTRIBUTING.md](../CONTRIBUTING.md) first.

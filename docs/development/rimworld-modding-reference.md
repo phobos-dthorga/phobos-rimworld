@@ -2,6 +2,10 @@
 
 18 Oct 2026 · agent record
 
+**Superseded in part (4 Nov 2026): RimWorld 1.7 now leads.** Every project builds `net10.0` for 1.7 (Krafs.Rimworld.Ref
+1.7.4998-unstable, Harmony 3.0.0-rc.4) and `net472` for 1.6 (Harmony 2.4.3) from one project file; see
+[building](building.md). The rest of this record is kept as written on 18 Oct.
+
 **The short version:** build for RimWorld 1.6 on .NET Framework 4.7.2 with Harmony 2, and keep 1.7 in view.
 1.7 runs on Ludeon's new Waylith engine, wants .NET 10 and Harmony 3, and is only on Steam's unstable beta
 branch. Ludeon says most 1.6 mods run on 1.7 unchanged.

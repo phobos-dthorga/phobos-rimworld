@@ -34,8 +34,8 @@ jobs:
       # D'thorga Water Tap's assembly needs BadHygiene.dll; its rules are game-free.
       - name: Build and run the game-free water tap rule tests
         run: dotnet test tests/PhobosWaterTap.Rules.Tests --nologo
-      # Three mods reference nothing but the game and Harmony, so their assemblies build here too, for both
-      # game versions: the 1.7 reference (Krafs.Rimworld.Ref 1.7 prerelease) and the 1.6 one come from NuGet.
+      # Mods that reference only the game, D'thorga Framework and Harmony build here too, for both game
+      # versions: the 1.7 reference (Krafs.Rimworld.Ref 1.7 prerelease), the 1.6 one and Harmony come from NuGet.
       - name: Build the mods that need no other mod's assembly, for 1.7 and 1.6
         run: |
           dotnet build src/PhobosFramework/PhobosFramework.csproj --nologo
@@ -43,6 +43,7 @@ jobs:
           dotnet build src/PhobosMedicalSaveBridge/PhobosMedicalSaveBridge.csproj --nologo
           dotnet build src/PhobosDosing/PhobosDosing.csproj --nologo
           dotnet build src/PhobosMedicalEquipment/PhobosMedicalEquipment.csproj --nologo
+          dotnet build src/PhobosTriage/PhobosTriage.csproj --nologo
       # D'thorga Framework's gas-mixing, signal, mask and source rules are game-free.
       - name: Build and run the game-free framework rule tests
         run: dotnet test tests/PhobosFramework.Rules.Tests --nologo
@@ -55,3 +56,6 @@ jobs:
       # D'thorga Medical Equipment's oxygen need, fuel, status and choice rules are game-free.
       - name: Build and run the game-free medical equipment rule tests
         run: dotnet test tests/PhobosMedicalEquipment.Rules.Tests --nologo
+      # D'thorga Triage's authority, condition class, operation choice and triage rules are game-free.
+      - name: Build and run the game-free triage rule tests
+        run: dotnet test tests/PhobosTriage.Rules.Tests --nologo

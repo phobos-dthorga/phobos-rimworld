@@ -25,8 +25,8 @@ delivered, record the delivery in the changelog or design record, and add or ame
   interactive steps. Never edit, replace or delete save files without explicit authorisation (read-only
   copies for diagnosis are fine; delete them afterwards). Read the owner's `Player.log` before assuming a
   reported fault is the owner's error.
-- The owner plays RimWorld 1.6 on Steam's main branch with all five DLCs and a large mod list (about 280
-  mods, managed with RimSort, including Combat Extended). **Keep `docs/development/owner-mod-list.md` up
+- The owner plays RimWorld 1.7 (since 26 October 2026; the last 1.6 save is archived) with all five DLCs and a large mod list
+  (about 340 mods, managed with RimSort, including Combat Extended). **Keep `docs/development/owner-mod-list.md` up
   to date** (owner, 22 Oct 2026): run `python scripts/refresh-mod-list.py` (it only reads the game's files)
   before checking advice or compatibility claims against the list, and whenever the owner mentions changing
   mods; add `--online` now and then to re-read the Vanilla Expanded collection. Its suggestions are written by

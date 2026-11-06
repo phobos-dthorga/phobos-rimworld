@@ -60,8 +60,10 @@ icons stay scripted. Every candidate carries its record; game-scale previews are
 
 - [ ] The owner judges the candidates (`assets/phobos-radio/generated/review.html`) and names the station,
       mast and whip to export; rejected batches are then deleted and listed with reasons.
-- [ ] `AGENTS.md`'s Artwork section still carries the Ostranauts wording about PixelLab; rewrite it with the
-      recipe above once the owner has approved a building and a prop.
+- [x] `AGENTS.md`'s Artwork section no longer names PixelLab (checked 6 Nov 2026).
+- [ ] Two copies of the review scripts exist: the shared ones in `scripts/art/` are current (5 Nov 2026); the older
+      `contact_sheet.py`, `export_sprite.py` and `review_page.py` in `assets/phobos-radio/` stay until the radio art is redone with
+      the shared ones. The radio asset record is [its README](../../assets/phobos-radio/README.md).
 - [x] Whether to study vanilla sprites: decided on 5 Nov 2026 in the
       [art automation design](art-automation-and-medical-equipment.md#vanilla-sprites). Newer engines, the unattended runner and
       the shared review tools (now in `scripts/art/`) are recorded there too.
