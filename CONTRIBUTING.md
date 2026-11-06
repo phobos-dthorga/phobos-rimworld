@@ -1,8 +1,8 @@
 # Contributing
 
 Questions, design feedback, documentation fixes, translations, reproducible bug reports and code are
-welcome. The project is in its design stage, so ideas and corrections to the radio physics are the most
-useful contributions right now.
+welcome. Ten mods are built and partly tested in game; in-game reports with a log, corrections to the
+physics, chemistry and medicine behind them, and translations are the most useful contributions right now.
 
 **Maintainer workflow (18 October 2026):** owner-directed maintainer and agent changes use checked commits
 pushed directly to `main`. Pull requests are not required for that work unless the owner asks. The fork
@@ -21,7 +21,11 @@ and pull request steps below are for external contributors.
    python scripts/check-doc-links.py
    python scripts/check-mod-layout.py
    python -m unittest discover -s tests
+   dotnet test tests/PhobosTriage.Rules.Tests     one per tests/*.Rules.Tests or *.Tests project you touched
    ```
+
+   Building a C# project needs the .NET SDK (for the `net10.0` and `net472` targets) and nothing else: the game's reference assemblies come from
+   NuGet ([building](docs/development/building.md)).
 
 5. Open a pull request. Expect review and possible revisions; there is no fixed review timetable.
 
@@ -32,8 +36,9 @@ Follow [community expectations](CODE_OF_CONDUCT.md). See [SUPPORT](SUPPORT.md) f
 
 Read [AGENTS.md](AGENTS.md) and the [project direction](docs/development/project-direction.md) before
 changing behaviour. Prefer useful working slices. The UI presents state and delegates to services; data
-lives in Defs so other modders can extend it; tie-ins with other mods are optional. Preserve saved
-identities and `packageId`s.
+lives in Defs so other modders can extend it; tie-ins with other mods are optional; code another Phobos
+mod would need goes in [D'thorga Framework](mods/PhobosFramework/README.md). RimWorld 1.7 leads and 1.6 is
+built too. Preserve saved identities and `packageId`s.
 
 Exercise the behaviour you change. Record the RimWorld version and mod list for gameplay observations;
 builds and unit tests are not gameplay tests. Never commit game files, decompiled code, saves, credentials
@@ -54,7 +59,7 @@ imply endorsement.
 Contribute only material you have the right to contribute. Preserve notices, and record third-party
 material in [THIRD_PARTY_NOTICES](THIRD_PARTY_NOTICES.md). Original contributions follow [LICENSE](LICENSE).
 
-Mods built on the radio framework are welcome. They are published by their own authors under their own
+Mods built on D'thorga Framework or the radio framework are welcome. They are published by their own authors under their own
 terms, and carry only their authors' files.
 
 Forks and community maintenance are welcome within the licence. Suggested credit: "Based on Phobos
