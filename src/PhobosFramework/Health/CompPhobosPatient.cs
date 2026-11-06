@@ -38,7 +38,9 @@ public class CompPhobosPatient : ThingComp
     List<string> keys = new();
     List<int> values = new();
 
-    Pawn Pawn => (Pawn)parent;
+    /// <summary>The pawn, or null when the comp sits on something else: some mods give corpses the comp too (an owner's save, 7 Nov
+    /// 2026, showed it on a dead colonist's corpse), and a dead person has no care choices to show.</summary>
+    Pawn? Pawn => parent as Pawn;
 
     public override void PostExposeData()
     {
@@ -90,8 +92,7 @@ public class CompPhobosPatient : ThingComp
 
     public override IEnumerable<Gizmo> CompGetGizmosExtra()
     {
-        Pawn pawn = Pawn;
-        if (Patients.GroupOf(pawn) == null) yield break;
+        if (Pawn is not Pawn pawn || Patients.GroupOf(pawn) == null) yield break;
         IReadOnlyList<PatientPreference> preferences = PatientPreferences.All;
         for (int i = 0; i < preferences.Count; i++)
         {
@@ -122,8 +123,7 @@ public class CompPhobosPatient : ThingComp
     public override string? CompInspectStringExtra()
     {
         IReadOnlyList<System.Func<Pawn, string?>> providers = PatientPreferences.InspectLines;
-        if (providers.Count == 0) return null;
-        Pawn pawn = Pawn;
+        if (providers.Count == 0 || Pawn is not Pawn pawn || pawn.Dead) return null;
         StringBuilder? text = null;
         for (int i = 0; i < providers.Count; i++)
         {
@@ -151,7 +151,9 @@ public static class PatientCompInjector
         for (int i = 0; i < defs.Count; i++)
         {
             ThingDef def = defs[i];
-            if (def.race == null || !def.race.Humanlike || def.HasComp(typeof(CompPhobosPatient))) continue;
+            // Only things that really are pawns: a corpse or other thing that carries a race must not get it.
+            if (def.race == null || !def.race.Humanlike || def.thingClass == null || !typeof(Pawn).IsAssignableFrom(def.thingClass)
+                || def.HasComp(typeof(CompPhobosPatient))) continue;
             def.comps ??= new List<CompProperties>();
             var props = new CompProperties_PhobosPatient();
             def.comps.Add(props);

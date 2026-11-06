@@ -5,6 +5,16 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.4.1] - 2026-11-07 - Draft
+
+A fix from the owner's game. Not yet tested in game.
+
+### Fixed
+
+- Selecting a dead colonist's corpse threw an error and showed it in the inspect pane instead of the corpse's details (seen in the
+  owner's game on 0.3.1, 7 November 2026). The per-person care comp had also reached the corpse; it now shows nothing there, and is
+  added only to things that are pawns. The error was in display code only: it could not hurt or kill anyone.
+
 ## [0.4.0] - 2026-11-07 - Draft
 
 Not yet tested in game.
