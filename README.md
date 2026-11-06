@@ -13,6 +13,20 @@ Full-size masters (1024 px, the preview 1280 x 720) of the art the Phobos RimWor
 | `medical/manual-resuscitator-103.png` | Manual resuscitator texture, Medical Equipment 0.3.0 |
 | `triage/triage-authority-icon-14.png` | The care-choice button icon, Triage 0.1.2 |
 | `previews/workshop-preview-204.png` | Background of the Medical Equipment Workshop preview, 0.2.3 |
+| `water-tap/bottle-tap-redraw-12.png` | Bottle tap texture, Water Tap (Unreleased) |
+| `radio/handheld-2.png` | Hand-held radio texture, Radio Framework (Unreleased) |
+| `radio/klein-mast-flat-63.png` | Mast texture, Radio Framework (Unreleased) |
+| `radio/mast-remake-12.png` | Whip antenna texture, a stand-in until a whip is picked, Radio Framework (Unreleased) |
+| `radio/signal-icon-12.png` | Signal button icon, Radio Framework (Unreleased) |
+| `radio/coax-icon-12.png` | Feedline build icon, Radio Framework (Unreleased) |
+| `previews/workshop-preview-3.png` | Background of the Radio Framework Workshop preview (Unreleased) |
+| `previews/preview-burns-and-smoke-202.png` | Background of the Burns and Smoke Workshop preview, a stand-in (Unreleased) |
+| `previews/preview-emergency-dosing-202.png` | Background of the Emergency Dosing Workshop preview (Unreleased) |
+| `previews/preview-factory-additions-202.png` | Background of the Factory Additions Workshop preview (Unreleased) |
+| `previews/preview-framework-202.png` | Background of the Framework Workshop preview (Unreleased) |
+| `previews/preview-triage-202.png` | Background of the Triage Workshop preview (Unreleased) |
+| `previews/preview-vehicle-patches-202.png` | Background of the Vehicle Patches Workshop preview (Unreleased) |
+| `previews/preview-water-tap-201.png` | Background of the Water Tap Workshop preview (Unreleased) |
 
 **AI-generated images are marked as such.** Each image's JSON sidecar names the generator, model and its SHA-256, the prompt,
 the seed and the reference images. Models: FLUX.2 Klein 4B base (Black Forest Labs, Apache 2.0) and Z-Image base (Alibaba Tongyi lab,

@@ -1,0 +1,26 @@
+{
+  "file": "klein-mast-flat-63.png",
+  "sha256": "5f4ce8163a6edeb89652ecb9412e7b9664de0a355d267291ab255af462b1f178",
+  "date": "2026-10-19T12:10:34",
+  "generator": "ComfyUI 0.41.0, local, FLUX.2 Klein 4B distilled (Black Forest Labs, Apache 2.0; Comfy-Org packaging)",
+  "engine": "klein",
+  "model": "flux-2-klein-4b.safetensors",
+  "model_sha256": "ec3d4e733a771f61c052fb4856c48b336c55eaf2c65487c2a1faeb9bbda7a343",
+  "prompt": "In the exact rendering style of image 1 (flat colours, soft simple shading, thin dark outlines, muted grey palette, a 2D game sprite, not a 3D render), draw a tall narrow lattice radio mast of grey steel with cross-bracing, a thin collinear antenna with a small amber tip on top, three guy wires to small anchors, and a square base plate, seen from a slightly high angle so it reads as a tall upright structure with a short soft shadow at its foot. Pure white background, no text.",
+  "negative_prompt": "",
+  "seed": 63,
+  "steps": 4,
+  "cfg": 1.0,
+  "sampler": "euler/simple",
+  "size": [
+    512,
+    1280
+  ],
+  "request_file": "assets/phobos-radio/requests/phase1-klein-2.json",
+  "references": [
+    {
+      "image": "assets/phobos-radio/generated/base-station-v3/base-station-v3-45.png",
+      "sha256": "d57050d34d6aaa3961bdbcab506c0b9758cd0a4495237a4b67d8932081ce26a0"
+    }
+  ]
+}

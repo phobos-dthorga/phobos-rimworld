@@ -1,0 +1,21 @@
+{
+  "file": "preview-triage-202.png",
+  "sha256": "05adfcea7543242e4562eede877e11ccb1528941b3764e30dd11ee7c6753c096",
+  "date": "2026-11-06T22:16:42",
+  "generator": "ComfyUI 0.41.0, local, Z-Image base int8 (Alibaba Tongyi lab, Apache 2.0; Comfy-Org packaging)",
+  "engine": "zimage",
+  "model": "z_image_int8_convrot.safetensors",
+  "model_sha256": "eb2b470694fbd9778f15efd309000ea0091312c018c10a352c120b1da9bf4279",
+  "prompt": "A busy field hospital tent: three cots in a row, coloured triage tags hanging from them, a surgeon's tray of instruments, lantern light. A clean digital painting seen from above at a slight angle, muted colours, thick dark outlines, simple flat shading, the lower third kept dark and plain for a title. No text, no letters, no logos, no people.",
+  "negative_prompt": "",
+  "seed": 202,
+  "steps": 25,
+  "cfg": 4.0,
+  "sampler": "res_multistep/simple",
+  "size": [
+    1280,
+    720
+  ],
+  "request_file": "assets/phobos-previews/requests/backgrounds.json",
+  "seconds": 21.9
+}
