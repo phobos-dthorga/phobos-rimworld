@@ -53,6 +53,29 @@ model draws the picture and a script does the rest.
 | Burn unit bed | Shipped pick, 0.2.0. East and north are the top-down view turned | Nothing: a bed drawn from directly above needs no separate side views (agent judgement) | | |
 | Workshop preview (640x360) | None | A preview | Part | Step 5 |
 
+### Proposed medical equipment (agent ideas, 6 Nov 2026, for the owner)
+
+Ideas only: **nothing here is designed, built or approved**, and the logic is for a later session. Checked against the owner's mods on
+6 Nov 2026 by searching every installed mod's Def labels: More Injuries already has the defibrillator, airway suction, CPR, saline,
+blood bags, splints and tourniquets; VFE Medical has the IV stand; Hemogen Pack covers transfusion. MediStation's "Go-juice Nebulizer" is
+a recreational drug dispenser, and Rimefeller's autoclave is a chemical refinery, so neither covers what is proposed here. Atmosphere
+Overhaul (installed, switched off) and Vanilla Gravship Expanded both have oxygen tanks, which the existing-effects rule says to use where
+they are active.
+
+| Equipment | Kind and size | What it would treat, in our mods | Art brief | Local model? |
+| --- | --- | --- | --- | --- |
+| **Ventilator** | Bedside facility, 1x1 | A closing airway or smoke-damaged lungs (Burns and Smoke). Organ Failure's ventilator can't appear without Questionable Ethics, and the owner wants our own | A wheeled cart with a screen, an accordion bellows in a clear cylinder, and corrugated tubing. South, east and north | Yes |
+| **Safety shower and eyewash** | Building, 1x1, stands against a wall | First aid for chemical and acid burns and caustic gas (Burns and Smoke). Lab practice is long flushing with water (the usual figure is 15 minutes, from memory, unverified). Dubs Bad Hygiene's water could feed it as an optional tie-in | A green pipe stand with a wide shower head, a triangular pull handle and an eyewash bowl with a push flag. South, east and north | Yes |
+| **Carbon monoxide and smoke alarm** | Wall-mounted, 1x1 | Warns before carbon monoxide builds up in a room (Burns and Smoke) | A small round white alarm with a test button and a red light. Wall-mounted, so each view sits against a wall | Yes, small; a scripted version as a backup |
+| **Medical oxygen cylinder** | Item, and a cylinder trolley as a 1x1 building | Our own oxygen when neither Vanilla Gravship Expanded nor Atmosphere Overhaul is active (already in the design) | A tall cylinder with a regulator and a contents gauge. Colour code to check: Australian medical oxygen cylinders are, from memory, black with a white shoulder, unverified | Yes |
+| **Nebuliser** | Bedside facility, 1x1 | Eases airway spasm after smoke (Burns and Smoke), delivering a drug from Emergency Dosing | A small compressor box with a clear medicine cup and mask on a short tube | Yes |
+| **Anaesthesia machine** | Facility beside a surgery bed, 1x1 | Safer surgery, tying in Emergency Dosing's anaesthetics | A cart with coloured vaporisers on top, glass flow tubes, a bellows and a breathing circuit. South, east and north | Yes |
+| **Medical steriliser** | Building, 1x1 or 2x1 | Lower infection risk for surgery in its room; overlaps with room cleanliness, so the lowest priority (agent judgement) | A steel chamber with a round pressure door and a gauge, steam vent on top | Yes |
+
+**Recommendation (agent):** the ventilator, the safety shower and the alarm first. Each fills a gap nothing else in the owner's mods covers,
+and each answers a condition Burns and Smoke already gives. The cylinder follows from the oxygen design. The nebuliser and anaesthesia
+machine are good tie-ins once Emergency Dosing has a way for machines to give drugs. The steriliser is the weakest case.
+
 ### Phobos Radio Framework
 
 All eight textures are flat placeholders from `assets/phobos-radio/make_textures.py` (19 Oct 2026), to be replaced before the public beta.
