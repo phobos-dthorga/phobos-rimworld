@@ -5,6 +5,20 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.2.3] - 2026-11-07 - Draft
+
+The owner's art picks, and the README brought up to date. No change in play. Not yet tested in game.
+
+### Changed
+
+- The oxygen concentrator has generated art in place of its hand-drawn placeholder, redrawn from that placeholder's layout (the owner's
+  pick, 7 November 2026). No private model was used for it: only the placeholder and the game's vitals monitor as references.
+- The bedside oxygen stand has new generated art, a slim pole with a flowmeter and a coil of tubing (the owner's pick, 7 November
+  2026). No private model either: the game's vitals monitor and oxygen pump were its references.
+- The mod has a Workshop preview picture: a generated hospital ward, with the name added by script.
+- Both textures are now 128 px (the concentrator was 64), for detail when zoomed in. Each passed the near-copy check; the record beside each
+  texture says how it was made.
+
 ### Fixed
 
 - The uninstall button's description now names the burn unit beds as well as the machines. README brought up to date: the burn

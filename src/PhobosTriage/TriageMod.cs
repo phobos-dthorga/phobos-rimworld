@@ -58,7 +58,7 @@ public class TriageSettings : ModSettings
 public class TriageMod : Mod
 {
     public const string PackageId = "PhobosDthorga.Triage";
-    public const string ModVersion = "0.1.1";
+    public const string ModVersion = "0.1.2";
     public const string LogPrefix = "[D'thorga Triage]";
 
     public static TriageSettings Settings { get; private set; } = new();

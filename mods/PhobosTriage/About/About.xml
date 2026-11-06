@@ -4,7 +4,7 @@
   <name>D'thorga Triage</name>
   <author>Phobos A. D'thorga</author>
   <url>https://github.com/phobos-dthorga/phobos-rimworld</url>
-  <modVersion>0.1.1</modVersion>
+  <modVersion>0.1.2</modVersion>
   <description>Doctors queue the life-saving operations a patient needs, and take the worst case first.
 
 A patient with a condition that is killing them and that only an operation can fix (a collapsed lung, a bleed in the brain, a closing airway, whatever a mod brings) gets the operation queued by the doctors themselves: the one most likely to succeed among those your colony can do, with a doctor skilled enough and the ingredients in stock, never riskier than you allow. When no one can do it, a message says what is missing.

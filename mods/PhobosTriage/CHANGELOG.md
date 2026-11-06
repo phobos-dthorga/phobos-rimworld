@@ -5,6 +5,20 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.1.2] - 2026-11-07 - Draft
+
+The care-choice button gets its own icon. Not yet tested in game.
+
+### Changed
+
+- The "Doctors may operate" button on a patient shows a scalpel across a red cross, in place of the game's industrial medicine
+  icon (generated art, the owner's pick, 7 November 2026; it passed the near-copy check, and the record beside the texture says how
+  it was made). If the texture is ever missing, the button falls back to the medicine icon, never the red error cross.
+
+### Dependencies
+
+- D'thorga Framework 0.3.1 or later, unchanged: the icon goes through its existing icon setting.
+
 ## [0.1.1] - 2026-11-06 - Draft
 
 Fixes found in a documentation review the same day, before any play. Not yet tested in game.

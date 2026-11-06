@@ -1,0 +1,15 @@
+{
+  "target": "mods/PhobosTriage/Common/Textures/Phobos/Triage/UI/AuthorityIcon.png",
+  "source": "assets/phobos-medical/generated/triage-authority-icon/triage-authority-icon-14.png",
+  "source_sha256": "9bfeb79f1987f570cd1149020bc6ef9fc3c2d429e5127f717eccaf9b2d46c39a",
+  "target_sha256": "279eb0c83a553cc6ab89b25d21d929391b30940fcec89b2383c72e39d4cbfe09",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "date": "2026-11-07T07:33:23",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

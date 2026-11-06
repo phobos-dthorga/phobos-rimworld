@@ -29,6 +29,7 @@ The owner wants our own medical equipment, hospital and field. Carbon monoxide a
 | The shared pieces (`PhobosBreathing` and its two extensions) live in the framework, so Burns and Smoke needs no dependency on this mod | Agent choice |
 | A burn unit bed built on the game's hospital bed, its infection benefit through tend quality with no patch; figures authored | Owner's go, agent's design, 5 Nov 2026 |
 | The bedside stand uses a picked, generated image; the concentrator keeps its scripted placeholder for now | Owner, 5 Nov 2026 |
+| The concentrator and the bedside stand use generated images the owner picked from the first batch (references only, no LoRA), shipped in 0.2.3 | Owner, 7 Nov 2026 |
 | A machine or bed names an occupant it leaves alone, and says why | Agent choice, 6 Nov 2026, after the owner read a correct hold-back as a fault |
 
 ## Figures

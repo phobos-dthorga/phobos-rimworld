@@ -1,4 +1,4 @@
-# Art backlog: what to make with the local image model (6 Nov 2026)
+# Art backlog: what to make with the local image model (6 Nov 2026, updated 7 Nov 2026)
 
 Every texture and preview the Phobos RimWorld mods ship or still need, which of them suit the local image model, and what has to
 happen before a run. A record only: nothing here has been generated for it. How the pipeline works is in the
@@ -41,17 +41,17 @@ model draws the picture and a script does the rest.
 
 | Asset | Now | Needs | Local model? | Waiting on |
 | --- | --- | --- | --- | --- |
-| Oxygen concentrator (1x1) | Hand-drawn stand-in, which the owner likes for now | A better redraw without the generated picks' hourglass shapes; the stand-in as reference | Yes | Go |
-| Electrolyser | Pick: seed 11 | Export, then east and north views with the pick as reference | Yes | Its Def and map size |
-| Liquid oxygen store | Pick: seed 12 (seed 11 kept) | Export and views, as above | Yes | Its Def and map size |
+| Oxygen concentrator (1x1) | Shipped pick, 0.2.3 | Nothing | | |
+| Electrolyser | No pick: none suited (owner, 7 Nov) | A new batch with a fresh brief | Yes | Go |
+| Liquid oxygen store | Pick: 103 (7 Nov); the owner wants to see it in game first | Export, then east and north views with the pick as reference | Yes | Its Def and map size |
 | Liquid oxygen store's frost | Nothing | One frost texture shown while it works, faded in and out by code, following DMS2's Pressure Chamber | Part: the model draws the rime, a script cuts it out | The store's Def |
-| Hyperbaric chamber (2x3) | No pick: the owner disliked the angles | Stand-in (step 4), then a redraw from it | Yes | Steps 4 and 6 |
-| Oxygen mask and regulator (item) | Pick: seed 11 (seed 12 kept) | Export at item size | Yes | Its Def |
-| Burn dressings (item) | Nothing | A first batch | Yes | Owner's approval of the item itself (agent idea) |
-| Manual resuscitator (item) | Nothing | A first batch | Yes | Owner's approval of the item itself (agent idea) |
-| Bedside oxygen stand | Shipped pick, 0.1.1 | Nothing | | |
+| Hyperbaric chamber (2x3) | Pick for its look: 102, drawn at an angle; rotating it doesn't fix that (tried 7 Nov) | A top-down redraw, with 102 as the design reference and the stand-in for the layout | Yes | Go |
+| Oxygen mask and regulator (item) | Pick: 104 (7 Nov) | Export at item size | Yes | Its Def |
+| Burn dressings (item) | Pick: 101 (7 Nov) | Export at item size | Yes | Its Def |
+| Manual resuscitator (item) | Pick: 103 (7 Nov) | Export at item size | Yes | Its Def |
+| Bedside oxygen stand | Shipped pick, 0.2.3 (replacing 0.1.1's) | Nothing | | |
 | Burn unit bed | Shipped pick, 0.2.0. East and north are the top-down view turned | Nothing: a bed drawn from directly above needs no separate side views (agent judgement) | | |
-| Workshop preview (640x360) | None | A preview | Part | Step 5 |
+| Workshop preview (640x360) | Shipped pick, 0.2.3 | Nothing | | |
 
 ### Proposed medical equipment (agent ideas, 6 Nov 2026, for the owner)
 
@@ -108,7 +108,7 @@ All eight textures are flat placeholders from `assets/phobos-radio/make_textures
 
 | Button | Mod | Now | Needs | Local model? |
 | --- | --- | --- | --- | --- |
-| "Doctors may operate" | D'thorga Triage (button from D'thorga Framework) | Was a giant red X: the code asked for a game texture that doesn't exist (`UI/Icons/Medical/NormalCare`). Fixed in D'thorga Framework 0.3.1: it shows the game's industrial medicine icon (not yet tested in game) | An icon of our own: for example a scalpel over a red cross. When it exists, Triage names it in its preference's `iconPath`; nothing else changes | Untested: try the model and a script side by side |
+| "Doctors may operate" | D'thorga Triage (button from D'thorga Framework) | Was a giant red X: the code asked for a game texture that doesn't exist (`UI/Icons/Medical/NormalCare`). Fixed in D'thorga Framework 0.3.1. Triage 0.1.2 ships the owner's pick, a scalpel over a red cross (not yet tested in game) | Nothing | Yes: the model did well (7 Nov) |
 | Radio signal sheet | Phobos Radio Framework | Flat placeholder | A proper icon | As above |
 | Coax build icon | Phobos Radio Framework | Flat placeholder | A proper icon | As above |
 | Belt access toggle | D'thorga Factory Additions | Vanilla Expanded's conveyor icon, looked up at run time | Nothing | |
@@ -120,13 +120,13 @@ can fail falls back to a visible stand-in of our own, never silently to the red 
 ### Mods with no preview yet
 
 D'thorga Framework, D'thorga Burns and Smoke, D'thorga Emergency Dosing, D'thorga Triage, D'thorga Vehicle Patches and D'thorga
-Medical Save Bridge ship no textures and no `About/Preview.png`. Each needs a preview before the Workshop (Part: generated background,
+Medical Save Bridge have no `About/Preview.png` (backgrounds for each were generated 6 to 7 Nov, not yet picked). Each needs a preview before the Workshop (Part: generated background,
 scripted name).
 
 ### Needing no art
 
 - Burns and Smoke's conditions: conditions have no sprites.
-- Triage's patient care button uses the game's own medical care icon; the water tap's arrows use the game's plus and minus buttons.
+- The water tap's arrows use the game's plus and minus buttons.
   Reusing the game's own UI icons in place is allowed; copying them into our files is not.
 
 ## Map sizes (agent proposal)

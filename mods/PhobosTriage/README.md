@@ -2,7 +2,7 @@
 
 Doctors queue the life-saving operations a patient needs, and take the worst case first.
 
-Version 0.1.1, built 6 November 2026 for House D'thorga. **Not yet tested in game.** Everything here is read from the game's and
+Version 0.1.2, built 7 November 2026 for House D'thorga. **Not yet tested in game.** Everything here is read from the game's and
 the mods' code.
 
 ## Read this first (gotchas)

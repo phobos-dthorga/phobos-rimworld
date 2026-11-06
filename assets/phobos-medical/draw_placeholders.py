@@ -1,12 +1,12 @@
-"""Draw D'thorga Medical Equipment's placeholder building textures with Pillow, in the game's look: a thick near-black outline, pale
-panels and soft flat shading. No image generator and no game art is involved. They stand in until the owner picks generated art.
+"""Draw D'thorga Medical Equipment's layout drawings with Pillow, in the game's look: a thick near-black outline, pale panels and soft
+flat shading. No image generator and no game art is involved. They are references that guide the image generator; since 7 Nov 2026
+none of them is a game texture (the owner picked generated art for the concentrator).
 
     C:/AI/ComfyUI/ComfyUI_windows_portable/python_embeded/python.exe -I assets/phobos-medical/draw_placeholders.py [name ...]
 
 Name drawings (OxygenConcentrator, HyperbaricChamber) to draw only those, so the others' files are left alone.
 
-Writes mods/PhobosMedicalEquipment/Common/Textures/Phobos/Medical/Things/*.png and a record beside each, and the large drawing of
-any the generator uses as a reference to assets/phobos-medical/references/.
+Writes each drawing and a record beside it to assets/phobos-medical/references/. Nothing here writes into mods/.
 """
 import datetime as dt
 import hashlib
@@ -16,10 +16,8 @@ from pathlib import Path
 from PIL import Image, ImageDraw
 
 ROOT = Path(__file__).resolve().parents[2]
-OUT = ROOT / 'mods/PhobosMedicalEquipment/Common/Textures/Phobos/Medical/Things'
 REFERENCES = ROOT / 'assets/phobos-medical/references'
 WORK = 1024  # Drawn large and scaled down, which smooths the edges.
-FINAL = 64
 LINE = 44
 OUTLINE = (24, 24, 26, 255)
 PANEL = (206, 208, 206, 255)
@@ -52,37 +50,6 @@ def concentrator(draw):
     box(draw, (612, 430, 772, 500), PANEL_DARK, 20)
     draw.arc((560, 610, 900, 900), 300, 80, fill=OUTLINE, width=56)
     draw.arc((560, 610, 900, 900), 300, 80, fill=TUBE, width=24)
-
-
-def write_record(path, name, what):
-    digest = hashlib.sha256(path.read_bytes()).hexdigest()
-    path.with_suffix('.record.md').write_text(
-        f'# {name}\n\nA placeholder of {what}, drawn with Pillow by `assets/phobos-medical/draw_placeholders.py` on {dt.date.today():%d %B %Y}. '
-        f'No image generator, game art or other author\'s art was used. {FINAL} x {FINAL} px. SHA-256 `{digest}`.\n\n'
-        'It stands in until the owner picks generated art from `assets/phobos-medical/requests/first-batch.json`.\n', encoding='utf-8')
-
-
-def write_reference(image, name, what):
-    path = REFERENCES / f'{name}-large.png'
-    path.parent.mkdir(parents=True, exist_ok=True)
-    image.save(path, optimize=True)
-    digest = hashlib.sha256(path.read_bytes()).hexdigest()
-    path.with_suffix('.record.md').write_text(
-        f'# {name}, large\n\nThe {WORK} x {WORK} px drawing of {what}, before scaling down, from `assets/phobos-medical/draw_placeholders.py`, '
-        f'{dt.date.today():%d %B %Y}. No image generator, game art or other author\'s art was used. SHA-256 `{digest}`.\n\n'
-        'The owner liked this design, so the generator is given it as a reference. It does not ship in a mod.\n', encoding='utf-8')
-
-
-def render(painter, name, what, reference=False):
-    image = Image.new('RGBA', (WORK, WORK), (0, 0, 0, 0))
-    painter(ImageDraw.Draw(image))
-    path = OUT / f'{name}.png'
-    path.parent.mkdir(parents=True, exist_ok=True)
-    image.resize((FINAL, FINAL), Image.LANCZOS).save(path, optimize=True)
-    write_record(path, name, what)
-    if reference:
-        write_reference(image, name, what)
-    print('wrote', path.name)
 
 
 def hyperbaric_chamber(draw):
@@ -122,7 +89,10 @@ def reference_only(painter, name, what, size, why):
 
 
 DRAWINGS = {
-    'OxygenConcentrator': lambda: render(concentrator, 'OxygenConcentrator', 'a bedside oxygen concentrator', reference=True),
+    # Reference only since 7 Nov 2026: the owner picked generated art for the game texture, which this must never overwrite.
+    'OxygenConcentrator': lambda: reference_only(
+        concentrator, 'OxygenConcentrator', 'a bedside oxygen concentrator', (WORK, WORK),
+        'The owner liked this design, so the generator is given it as a reference.'),
     'HyperbaricChamber': lambda: reference_only(
         hyperbaric_chamber, 'HyperbaricChamber', 'a hyperbaric oxygen chamber seen from above, head to the north', (WORK, WORK * 3 // 2),
         'The owner disliked the angles of the generated chambers (5 Nov 2026), so this flat layout guides the redraw.'),

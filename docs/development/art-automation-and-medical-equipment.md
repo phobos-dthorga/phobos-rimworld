@@ -13,13 +13,13 @@ are decided, and record finished work in the owning mod's changelog or record.
 | D'thorga Framework 0.3.0 | Draft. The owner reports the gas layer and supplied oxygen working (5 Nov 2026); the health layer (6 Nov) is not yet tested in game | The health layer, through Triage | [Framework](phobos-framework.md) |
 | D'thorga Burns and Smoke 0.5.0 | Draft. The owner reports burn numbers, progression and the tie-ins working (5 Nov 2026, on 0.4.2); the tracheotomy and the fire heat in the open are not yet tested in game | The fire heat and the tracheotomy | [Burns and smoke](burns-and-smoke.md) |
 | D'thorga Emergency Dosing 0.3.1 | Draft. The owner reports doctors' dosing working (5 Nov 2026, on 0.3.0); self-medication and the bleeding hold not yet tested in game | Self-medication | [Emergency dosing](emergency-dosing.md) |
-| D'thorga Triage 0.1.1 | Draft, 6 Nov 2026; not yet tested in game | The owner's first test | [Triage](triage.md) |
+| D'thorga Triage 0.1.2 | Draft, 7 Nov 2026 (0.1.2 adds the button's own icon); not yet tested in game | The owner's first test | [Triage](triage.md) |
 | Native 1.7 builds of all ten mods | Built; the owner plays 1.7 and has tested several mods on it | The rest of the owner's tests | [Building](building.md) |
 | Burns and Smoke: eschar, escharotomy | Planned | The owner's go; their test passed the gate on 5 Nov 2026 | [Burns and smoke](burns-and-smoke.md) |
-| Hands-off art pipeline | **Built; checked offline only, never run on the GPU** | The owner's go for a short test run | [Below](#hands-off-art-pipeline) |
-| Medical art, first batch | Generated 5 Nov 2026. The owner's picks are in the [list of picks](#the-owners-picks) | Defs for the machines the picks are for | [`assets/phobos-medical`](../../assets/phobos-medical/README.md) |
+| Hands-off art pipeline | Built and run: three nights so far (5 Nov twice, 6 to 7 Nov), every step finished inside its stop time | The next batch, on the owner's go | [Below](#hands-off-art-pipeline) |
+| Medical art | First batch 5 Nov 2026, second batch 6 to 7 Nov. The owner's picks are in the [list of picks](#the-owners-picks) | Defs for the machines and items the picks are for; a top-down redraw of the hyperbaric chamber | [`assets/phobos-medical`](../../assets/phobos-medical/README.md) |
 | Style training | Tooling written; first real training ran 5 Nov 2026, after two fixes below. Alone the LoRA gave no game style; the owner preferred it with references | Later training on approved art | [Below](#style-training) |
-| D'thorga Medical Equipment 0.2.2 | Draft: concentrator, bedside stand and burn unit bed. The owner reports breathing improving on the concentrator (on 0.1.0) and the burn unit bed working (on 0.2.0); the bedside stand is not yet tested in game | The stand and its pipe link | [Record](medical-equipment.md) |
+| D'thorga Medical Equipment 0.2.3 | Draft: concentrator, bedside stand and burn unit bed; 0.2.3 ships the owner's art picks and a Workshop preview. The owner reports breathing improving on the concentrator (on 0.1.0) and the burn unit bed working (on 0.2.0); the bedside stand is not yet tested in game | The stand and its pipe link | [Record](medical-equipment.md) |
 
 ## Decisions so far
 
@@ -115,17 +115,24 @@ Without its prompt upsampler (9.7 GB more), the publisher [reportedly](https://w
 
 ## The owner's picks
 
-Picked on 5 Nov 2026 from the three-route comparison, all from references plus LoRA. All passed the near-copy check. Masters are in `.local/art/picks-5nov/`, not committed; each is exported when its machine has a Def.
+The owner picked twice: on 5 Nov 2026 from the three-route comparison (references plus LoRA), and on 7 Nov from the first batch
+(references only, seeds 101 to 104) and the second. **The 7 Nov picks replace the 5 Nov ones** where both exist. Every pick passed the
+near-copy check. Masters are in `.local/art/picks-5nov/` and `.local/art/picks-7nov/`, not committed; each is exported when its
+machine or item has a Def.
 
-| Subject | Pick | Kept to compare | State |
+| Subject | Pick (7 Nov unless stated) | Route | State |
 | --- | --- | --- | --- |
-| Bedside oxygen | Seed 11 | Seed 12 | In the mod, 0.1.1 |
-| Electrolyser | Seed 11 | | Waiting for its Def |
-| Liquid oxygen store | Seed 12 | Seed 11 | Waiting for its Def |
-| Burn unit bed | Seed 11 | | In the mod, 0.2.0 |
-| Oxygen mask | Seed 11 | Seed 12 | Waiting for its Def |
-| Oxygen concentrator | The hand-drawn stand-in stays for now | Seed 11, as a backup | Owner: unhappy with its hourglass shapes; replace with something better |
-| Hyperbaric chamber | None | | Owner dislikes the angles. Next: a flat stand-in, then a redraw |
+| Oxygen concentrator | `oxygen-concentrator-from-stand-in-103` | References only: our stand-in and the game's vitals monitor | In the mod, 0.2.3 |
+| Bedside oxygen stand | `bedside-oxygen-103` (replaces 5 Nov seed 11) | References only | In the mod, 0.2.3 |
+| Burn unit bed | 5 Nov seed 11, kept: nothing from the second batch suited | References plus LoRA | In the mod, 0.2.0 |
+| Triage's care-choice button | `triage-authority-icon-14` | References plus LoRA | In D'thorga Triage, 0.1.2 |
+| Workshop preview, Medical Equipment | `workshop-preview-204` | Z-Image, no references | In the mod, 0.2.3, with the name added by script |
+| Liquid oxygen store | `liquid-oxygen-store-103` (replaces 5 Nov seed 12) | References only | Waiting for its Def. The owner wants to see it in game before judging it. Drawn at an angle |
+| Oxygen mask and regulator | `oxygen-mask-104` (replaces 5 Nov seed 11) | References only | Waiting for its Def |
+| Burn dressing | `burn-dressing-101` | References only | Waiting for its Def |
+| Manual resuscitator | `manual-resuscitator-103` | References only | Waiting for its Def |
+| Hyperbaric chamber | `hyperbaric-chamber-102`, for its look | References only | Drawn at a three-quarter angle. **Turning the picture can't make it top-down** (tried 7 Nov: turned upright it looks like a capsule standing on end). Next: a redraw with 102 as the design reference and the flat stand-in for the layout |
+| Electrolyser | None: the owner found no candidate suitable (7 Nov), withdrawing 5 Nov seed 11 | | A new batch |
 
 **Exporting:** `scripts/art/export_sprite.py` clears only the white background now, because clearing all white made the burn bed's mattress see-through. Use `--all-white` where background shows through the object, as with the stand's loop of tube.
 

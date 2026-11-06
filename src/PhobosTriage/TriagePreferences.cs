@@ -13,7 +13,10 @@ public static class TriagePreferences
     public static readonly PatientPreference Authority = new(
         "PhobosTriage_Authority", "PhobosTriage_AuthorityLabel", "PhobosTriage_AuthorityDesc",
         new[] { "PhobosTriage_AuthorityNone", "PhobosTriage_AuthorityLifeSaving", "PhobosTriage_AuthorityLifeSavingAndCrippling", "PhobosTriage_AuthorityAnyRepair" },
-        DefaultFor);
+        DefaultFor, iconPath: AuthorityIconPath);
+
+    /// <summary>The button's own icon, a scalpel across a red cross; a missing texture falls back to the framework's default.</summary>
+    public const string AuthorityIconPath = "Phobos/Triage/UI/AuthorityIcon";
 
     static TriagePreferences()
     {

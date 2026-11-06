@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
-  <!-- Built like the game's vitals monitor and VFE Medical's IV stand: a one-tile facility placed against a bed. The art is a labelled
-       placeholder (see its record). Power, cost, work and the patient limit are authored; real concentrators draw about 300 to 600 W. -->
+  <!-- Built like the game's vitals monitor and VFE Medical's IV stand: a one-tile facility placed against a bed. The art is generated, the
+       owner's pick (see its record). Power, cost, work and the patient limit are authored; real concentrators draw about 300 to 600 W. -->
   <ThingDef ParentName="BuildingBase">
     <defName>PhobosMedical_OxygenConcentrator</defName>
     <label>oxygen concentrator</label>

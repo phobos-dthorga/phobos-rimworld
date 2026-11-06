@@ -3,7 +3,7 @@
 Hospital equipment for the injuries D'thorga Burns and Smoke and More Injuries bring: bedside oxygen for patients who struggle to
 breathe, and a burn unit bed that gives burned patients air-cell care.
 
-Version 0.2.2, built 6 November 2026 for House D'thorga. **Partly tested in game:** the owner reports that a patient's breathing improves on the oxygen concentrator (5 November 2026, on 0.1.0), and that the burn unit bed looks right and gives a burned patient air-cell care (6 November 2026, on 0.2.0). The new inspect lines in 0.2.1 are not yet tested in game. The rest is read from the game's and
+Version 0.2.3, built 7 November 2026 for House D'thorga. **Partly tested in game:** the owner reports that a patient's breathing improves on the oxygen concentrator (5 November 2026, on 0.1.0), and that the burn unit bed looks right and gives a burned patient air-cell care (6 November 2026, on 0.2.0). The new inspect lines in 0.2.1 are not yet tested in game. The rest is read from the game's and
 the mods' code.
 
 ## Read this first (gotchas)
@@ -19,7 +19,7 @@ the mods' code.
 - **Move patients out of the burning room.** A patient on oxygen still takes in the carbon monoxide around them.
 - **Oxygen canisters explode when they burn.** That is Vanilla Gravship Expanded's rule, and a good reason to keep stands away from fires.
 - **The burn unit bed needs power for its blower.** Without power it is still a hospital bed, but burned patients get no air-cell care.
-- **The art is not final.** The concentrator is a hand-drawn placeholder. The art for the bedside stand and the burn unit bed is AI-generated, by a model trained in private on the game's sprites (see the records beside the textures).
+- **The art is AI-generated, picked by the owner on 5 and 7 November 2026.** The burn unit bed has been seen in game; the new concentrator and bedside stand art (0.2.3) is not yet seen in game. The concentrator and the bedside stand were drawn from reference pictures only; the burn unit bed also used a model trained in private on the game's sprites. The records beside the textures say how each was made.
 
 ## What it does
 
