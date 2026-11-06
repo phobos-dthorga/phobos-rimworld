@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- D'thorga Medical Equipment's Dubs Bad Hygiene tie-in: the electrolyser's water. Its own assembly, so the core never references an
+       optional mod; LoadFolders.xml loads Mods/DubsBadHygiene and its version folder only while Dubs Bad Hygiene is active. It reads the
+       plumbing through D'thorga Framework's shared reader. Every referenced DLL ships only in its own mod (Private=false). -->
+  <PropertyGroup>
+    <TargetFrameworks>net472;net10.0</TargetFrameworks>
+    <RootNamespace>Phobos.Medical.Hygiene</RootNamespace>
+    <AssemblyName>PhobosMedicalEquipment.Hygiene</AssemblyName>
+    <ModFolder>PhobosMedicalEquipment</ModFolder>
+    <TieInFolder>Mods/DubsBadHygiene/</TieInFolder>
+    <Version>0.5.0</Version>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="BadHygiene">
+      <HintPath>$(DbhAssemblies)\BadHygiene.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <ProjectReference Include="../PhobosMedicalEquipment/PhobosMedicalEquipment.csproj">
+      <Private>false</Private>
+    </ProjectReference>
+    <ProjectReference Include="../PhobosFramework.Hygiene/PhobosFramework.Hygiene.csproj">
+      <Private>false</Private>
+    </ProjectReference>
+  </ItemGroup>
+</Project>

@@ -34,7 +34,7 @@ public class MedicalEquipmentSettings : ModSettings
 public class MedicalEquipmentMod : Mod
 {
     public const string PackageId = "PhobosDthorga.MedicalEquipment";
-    public const string ModVersion = "0.4.3";
+    public const string ModVersion = "0.5.0";
     public const string LogPrefix = "[D'thorga Medical Equipment]";
     public const string HarmonyId = PackageId;
 

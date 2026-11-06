@@ -5,6 +5,25 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.5.0] - 2026-11-07 - Draft
+
+The owner's choice (7 November 2026): with Dubs Bad Hygiene, the electrolyser needs real water. Not yet tested in game.
+
+### Added
+
+- With Dubs Bad Hygiene active, the oxygen electrolyser draws its water from the plumbing (a pipe under it or against its side),
+  about half a litre an in-game hour. Without water it stops making oxygen, drops to its idle power draw and says why: no pipe, or
+  the water towers are empty. Without Dubs Bad Hygiene, or in its lite mode, water stays assumed as before.
+
+### Balance
+
+- Half a litre an hour is our arithmetic from the reaction: one canister of oxygen an hour is about 0.43 kg of oxygen, which takes
+  about 0.48 kg of water to split. Water quality is ignored (a real electrolyser needs pure water; a simplification).
+
+### Dependencies
+
+- D'thorga Framework 0.5.0 or later, for its shared plumbing reader. The water part loads only while Dubs Bad Hygiene is active.
+
 ## [0.4.3] - 2026-11-07 - Draft
 
 No change in play. Not yet tested in game.

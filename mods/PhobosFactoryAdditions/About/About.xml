@@ -4,7 +4,7 @@
   <name>D'thorga Factory Additions</name>
   <author>Phobos A. D'thorga</author>
   <url>https://github.com/phobos-dthorga/phobos-rimworld</url>
-  <modVersion>0.11.2</modVersion>
+  <modVersion>0.11.3</modVersion>
   <description>Additions to Vanilla Furniture Expanded - Factory.
 
 A "Belts may take from here" switch on every storage building, from any mod (shelves, Rimefeller's unloading bays, Adaptive Storage and Warehouse Storage buildings, and more). Switch it on and a conveyor belt that points away from it, and any factory machine whose input cell is on it, take from it as they would from a factory hopper; belts that only run past it leave it alone. It starts off, so nothing moves until you say so. Factory hoppers have the same switch, starting on: turn it off and belts leave that hopper alone, while belts can still deliver into it and machines can still draw from it.
@@ -46,6 +46,11 @@ Community-created content. Portions of the materials used to create this content
       <downloadUrl>https://github.com/Vanilla-Expanded/VanillaExpandedFramework</downloadUrl>
     </li>
     <li>
+      <packageId>PhobosDthorga.Framework</packageId>
+      <displayName>D'thorga Framework</displayName>
+      <downloadUrl>https://github.com/phobos-dthorga/phobos-rimworld</downloadUrl>
+    </li>
+    <li>
       <packageId>VanillaExpanded.VFEFactory</packageId>
       <displayName>Vanilla Furniture Expanded - Factory</displayName>
       <steamWorkshopUrl>https://steamcommunity.com/sharedfiles/filedetails/?id=3686924415</steamWorkshopUrl>
@@ -58,6 +63,7 @@ Community-created content. Portions of the materials used to create this content
     <li>Ludeon.RimWorld.Biotech</li>
     <li>Ludeon.RimWorld.Anomaly</li>
     <li>Ludeon.RimWorld.Odyssey</li>
+    <li>PhobosDthorga.Framework</li>
     <li>brrainz.harmony</li>
     <li>OskarPotocki.VanillaFactionsExpanded.Core</li>
     <li>VanillaExpanded.VChemfuelE</li>

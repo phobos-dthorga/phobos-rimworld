@@ -5,10 +5,22 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.11.3] - 2026-11-07 - Draft
+
+No change in play intended. Not yet tested in game.
+
 ### Changed
+
+- The machines read Dubs Bad Hygiene's plumbing through D'thorga Framework's shared reader, the same code as before, moved so the
+  oxygen electrolyser in D'thorga Medical Equipment uses it too.
 
 - The Workshop preview is a generated background the owner picked (7 November 2026), with the name added by script, in place of the placeholder. No change in play.
 - The description now carries the disclaimer in the wording Ludeon's EULA requires. It said only that the mod is not official and not endorsed. No behaviour change.
+
+### Dependencies
+
+- **D'thorga Framework is now required**, loaded before this mod. Every D'thorga mod with code depends on it; this one does from
+  this version.
 
 ### Compatibility and limits
 

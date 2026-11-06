@@ -19,7 +19,7 @@ public static class FactoryWater
     private const int WaitingForOutputTicks = 1;
 
     /// <summary>Dubs Bad Hygiene's lite mode has no plumbing, so nothing could ever supply the water.</summary>
-    public static bool Required => FactoryMod.Settings.waterRequired && !DubsBadHygiene.Settings.LiteMode;
+    public static bool Required => FactoryMod.Settings.waterRequired && !Phobos.Framework.Hygiene.PlumbingFeed.LiteMode;
 
     /// <summary>
     /// Whether this tick of a process may go ahead, drawing its water if it uses any. Water goes only to a batch

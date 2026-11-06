@@ -4,7 +4,7 @@
   <name>D'thorga Medical Equipment</name>
   <author>Phobos A. D'thorga</author>
   <url>https://github.com/phobos-dthorga/phobos-rimworld</url>
-  <modVersion>0.4.3</modVersion>
+  <modVersion>0.5.0</modVersion>
   <description>Hospital and field equipment for the injuries D'thorga Burns and Smoke and More Injuries bring.
 
 - Oxygen concentrator: a bedside machine that makes oxygen from the air. It needs only power.
@@ -63,5 +63,6 @@ Community-created content. Portions of the materials used to create this content
     <li>Th3Fr3d.ExtendedInjuries</li>
     <li>vanillaexpanded.gravship</li>
     <li>VanillaExpanded.VFEMedical</li>
+    <li>Dubwise.DubsBadHygiene</li>
   </loadAfter>
 </ModMetaData>

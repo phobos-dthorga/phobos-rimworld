@@ -9,6 +9,8 @@
     <li IfModActive="vanillaexpanded.gravship">Mods/VanillaGravshipExpanded</li>
     <li IfModActive="CETeam.CombatExtended">Mods/CombatExtended</li>
     <li IfModActive="Th3Fr3d.ExtendedInjuries">Mods/MoreInjuries</li>
+    <li IfModActive="Dubwise.DubsBadHygiene">Mods/DubsBadHygiene</li>
+    <li IfModActive="Dubwise.DubsBadHygiene">Mods/DubsBadHygiene/1.6</li>
   </v1.6>
   <v1.7>
     <li>/</li>
@@ -17,5 +19,7 @@
     <li IfModActive="vanillaexpanded.gravship">Mods/VanillaGravshipExpanded</li>
     <li IfModActive="CETeam.CombatExtended">Mods/CombatExtended</li>
     <li IfModActive="Th3Fr3d.ExtendedInjuries">Mods/MoreInjuries</li>
+    <li IfModActive="Dubwise.DubsBadHygiene">Mods/DubsBadHygiene</li>
+    <li IfModActive="Dubwise.DubsBadHygiene">Mods/DubsBadHygiene/1.7</li>
   </v1.7>
 </loadFolders>

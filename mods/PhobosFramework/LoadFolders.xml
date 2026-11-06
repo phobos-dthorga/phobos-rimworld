@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <loadFolders>
   <!-- One assembly per game version: 1.7 leads, 1.6 stays until it is retired (docs/development/building.md). Combat Extended is reached by
-       name, so there is no tie-in folder yet. -->
+       name. The Dubs Bad Hygiene tie-in (the shared plumbing reader) loads only with that mod, from its own version folder. -->
   <v1.6>
     <li>/</li>
     <li>Common</li>
     <li>1.6</li>
+    <li IfModActive="Dubwise.DubsBadHygiene">Mods/DubsBadHygiene/1.6</li>
   </v1.6>
   <v1.7>
     <li>/</li>
     <li>Common</li>
     <li>1.7</li>
+    <li IfModActive="Dubwise.DubsBadHygiene">Mods/DubsBadHygiene/1.7</li>
   </v1.7>
 </loadFolders>

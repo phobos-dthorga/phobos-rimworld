@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <!-- With Dubs Bad Hygiene the electrolyser draws its water from the plumbing and stops without it (the owner, 7 Nov 2026). The
+       electrolyser exists only with Vanilla Gravship Expanded, so the patch adds the comp only when the Def is there: without that mod
+       nothing happens and nothing is logged. -->
+  <Operation Class="PatchOperationConditional">
+    <xpath>Defs/ThingDef[defName="PhobosMedical_Electrolyser"]/comps</xpath>
+    <match Class="PatchOperationAdd">
+      <xpath>Defs/ThingDef[defName="PhobosMedical_Electrolyser"]/comps</xpath>
+      <value>
+        <li Class="Phobos.Medical.Hygiene.CompProperties_PhobosWaterFeed">
+          <litresPerHour>0.5</litresPerHour>
+        </li>
+      </value>
+    </match>
+  </Operation>
+</Patch>

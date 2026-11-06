@@ -5,6 +5,20 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.5.0] - 2026-11-07 - Draft
+
+Not yet tested in game.
+
+### Added
+
+- A Dubs Bad Hygiene tie-in, loaded only while that mod is active: the one shared way the D'thorga mods draw water from its plumbing,
+  from a pipe under a building or against its side. Moved from D'thorga Factory Additions, whose machines and D'thorga Medical
+  Equipment's oxygen electrolyser now both use it.
+
+### Compatibility and limits
+
+- Loads after Dubs Bad Hygiene when both are present. Without it nothing changes and nothing is logged.
+
 ## [0.4.2] - 2026-11-07 - Draft
 
 No change in play. Not yet tested in game.

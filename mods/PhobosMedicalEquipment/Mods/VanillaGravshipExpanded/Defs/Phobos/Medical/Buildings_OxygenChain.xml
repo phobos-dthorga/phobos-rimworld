@@ -10,7 +10,8 @@
        kWh per cubic metre of oxygen, about 3 to 3.6 kW for 0.3 cubic metres an hour (our arithmetic). Hence 3000 W for one unit an hour.
        That is honest and far hungrier than Vanilla Gravship Expanded's oxygen harvester (700 W for ten units an hour, its own balance),
        so the electrolyser earns its place where the harvester can't run: in vacuum and where the air has too little oxygen. Water is
-       assumed, not drawn (a simplification; a plumbing tie-in is an open question). The hydrogen is vented, with no gas of ours. -->
+       drawn from Dubs Bad Hygiene's plumbing when that mod is active (about half a litre an hour), and assumed otherwise. The hydrogen
+       is vented, with no gas of ours yet (planned: docs/development/ventilation-and-hydrogen.md). -->
   <ThingDef ParentName="BuildingBase">
     <defName>PhobosMedical_Electrolyser</defName>
     <label>oxygen electrolyser</label>
@@ -55,6 +56,8 @@
         <idlePowerDraw>50</idlePowerDraw>
       </li>
       <li Class="PipeSystem.CompProperties_ResourceTrader">
+        <!-- The plain trader, but it also waits for water when Dubs Bad Hygiene adds the water comp. -->
+        <compClass>Phobos.Medical.Comps.CompPhobosGatedResourceTrader</compClass>
         <pipeNet>VGE_OxygenNet</pipeNet>
         <consumptionPerTick>-0.04</consumptionPerTick>
         <producerLowPowerWhenStorageFull>true</producerLowPowerWhenStorageFull>

@@ -24,6 +24,10 @@
   <PhobosMedical_TipOnOxygen>Carbon monoxide half-life on this oxygen: {MINUTES} minutes, against about {ROOMAIR} on room air. Eases low breathing, up to normal.</PhobosMedical_TipOnOxygen>
   <PhobosMedical_TipBreathingOnly>Eases low breathing, up to normal. It is room air, so it does not clear carbon monoxide faster.</PhobosMedical_TipBreathingOnly>
 
+  <PhobosMedical_WaterNoPlumbing>Waiting for water: lay a water pipe under it or against its side.</PhobosMedical_WaterNoPlumbing>
+  <PhobosMedical_WaterTowersEmpty>Waiting for water: the water towers on its pipes are empty.</PhobosMedical_WaterTowersEmpty>
+  <PhobosMedical_WaterFlowing>Splitting about {LITRES} litres of water an hour.</PhobosMedical_WaterFlowing>
+
   <PhobosMedical_StoreCold>Kept cold, so none of its oxygen boils away.</PhobosMedical_StoreCold>
   <PhobosMedical_StoreNotFilling>Taking in no oxygen until its power is back: it can't keep more cold. It still gives out what it holds.</PhobosMedical_StoreNotFilling>
 

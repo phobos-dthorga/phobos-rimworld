@@ -14,7 +14,7 @@ on only while its mod is active (Medicines+, Deep Pills, Ushankas Biological War
 Rimatomics, Hemofungus, Complementary Odyssey, Glitterworld Medicine Production, Farmable Neutroamine,
 Passive Exoskeletons, Simple Washing Machine).
 
-Version 0.11.2, built 4 November 2026 for House D'thorga. **Tested in game:** the human-meat bill (owner,
+Version 0.11.3, built 7 November 2026 for House D'thorga. **Tested in game:** the human-meat bill (owner,
 28 October 2026, RimWorld 1.7), the drug-lab bills appearing on their machines (owner, 29 October 2026), and
 belts taking from switched-on storage, only when they point away from it (owner, 29 and 30 October 2026). The
 corpse fridge change, running the 0.3.0 bills to the end, the 0.3.2 chemfuel repair, the 0.4.0 deep factory
@@ -25,8 +25,8 @@ game.
 
 ## Read this first (gotchas)
 
-- **Requires Harmony, Vanilla Expanded Framework and Vanilla Furniture Expanded - Factory.** Load it after all
-  three, and after every mod listed above that you run (the About file asks for it, so RimSort does this for
+- **Requires Harmony, D'thorga Framework (from 0.11.3), Vanilla Expanded Framework and Vanilla Furniture Expanded - Factory.**
+  Load it after all four, and after every mod listed above that you run (the About file asks for it, so RimSort does this for
   you). VFE Factory already needs Harmony, so you have it.
 - **RimWorld 1.7 and 1.6.** It has two small assemblies, each built for both versions; 1.7 is the one features are designed
   for, and 1.6 is kept until it is retired. The Dubs Bad Hygiene one loads only while Dubs Bad Hygiene is active. (From source:

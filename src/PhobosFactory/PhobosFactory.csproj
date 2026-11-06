@@ -8,7 +8,7 @@
     <AssemblyName>PhobosFactory</AssemblyName>
     <ModFolder>PhobosFactoryAdditions</ModFolder>
     <UsesHarmony>true</UsesHarmony>
-    <Version>0.11.2</Version>
+    <Version>0.11.3</Version>
   </PropertyGroup>
   <ItemGroup>
     <!-- Vanilla Expanded Framework's PipeSystem.dll (one folder per game version), referenced from the installed mod and

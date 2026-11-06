@@ -5,6 +5,7 @@ import os
 import sys
 from pathlib import Path
 import tempfile
+import re
 import unittest
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -67,8 +68,9 @@ class AllModsTests(unittest.TestCase):
         for expected in ('PhobosFramework', 'PhobosBurnsAndSmoke', 'PhobosRadioFramework', 'PhobosFactoryAdditions',
                          'PhobosMedicalSaveBridge', 'PhobosVehiclePatches', 'PhobosWaterTap'):
             self.assertIn(expected, mods)
-        self.assertEqual(len(mods), len(deploy.projects()) - 1,
-                         'one project per mod, plus the Factory hygiene tie-in; update this when a mod gains a second project')
+        # Every project builds into a real mod, and every mod's code is built; tie-in projects share their mod's folder.
+        folders = {re.search(r'<ModFolder>\s*([^<\s]+)', project.read_text(encoding='utf-8')).group(1) for project in deploy.projects()}
+        self.assertEqual(sorted(folders), sorted(mods))
 
     def test_build_runs_dotnet_on_every_project_and_stops_at_the_first_failure(self):
         calls = []
