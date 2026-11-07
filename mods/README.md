@@ -8,6 +8,7 @@ which are build products and never committed.
 | D’thorga Radio Framework | `PhobosRadioFramework/` | Radio with a real link budget; Phase 1 is local VHF and UHF |
 | D’thorga Factory Additions | `PhobosFactoryAdditions/` | Additions and fixes for Vanilla Furniture Expanded - Factory: belts from any storage, an automated fabrication bay, other mods' drug labs as factory bills |
 | D’thorga Vehicle Patches | `PhobosVehiclePatches/` | Patches for other authors' vehicle mods: the Harrier VTOL, RimThunder's heavy casting, and Spaceship Turret Hull under Combat Extended |
+| D’thorga Missile Patches | `PhobosMissilePatches/` | Fixes for InterRim Ballistic Missile: a strategic warhead's blast spread over frames instead of hanging the game |
 | D’thorga Medical Save Bridge | `PhobosMedicalSaveBridge/` | Adds More Injuries to a running colony, with MSE2 or without, by re-numbering saved body parts on the first load |
 | D’thorga Water Tap | `PhobosWaterTap/` | A plumbing fixture for Dubs Bad Hygiene that keeps bottled water ready and refills itself from your water towers |
 | D’thorga Framework | `PhobosFramework/` | The shared library: what a pawn breathes from the game's and other mods' gases, additive room gases of our own (carbon monoxide first), and the helpers every D'thorga mod shares |

@@ -42,6 +42,13 @@ promise current behaviour. For using the mods, start at the [documentation index
   the owner's other vehicles, bombs and rockets at the ammunition fabricator, heavy castings at the rotary forger, keeping a
   sortie's map open, Spaceship Turret Hull under Combat Extended, 1.7 readiness, and bug reports for the mods' authors.
 
+## Missile patches
+
+- [Missile patches: research and decisions (7 Nov 2026)](missile-patches.md): why a strategic warhead from InterRim Ballistic
+  Missile hung the owner's game at detonation (one frame for the whole map, and a room rebuild after every fallen wall), how
+  D'thorga Missile Patches spreads the blast over frames and holds the rebuild, who chose what, the owner's test protocol, and a
+  bug report for the mod's author.
+
 ## Medical save bridge
 
 - [Medical save bridge: research and decisions (3 Nov 2026)](medical-save-bridge.md): why adding More Injuries to a save that

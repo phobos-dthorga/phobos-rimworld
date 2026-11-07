@@ -16,11 +16,11 @@ free, clearly community-created, and not official or endorsed by Ludeon. Builds 
 
 ## Harmony
 
-Five of our assemblies patch the game or another mod through **Harmony** by **Andreas Pardeike (brrainz)**:
+Six of our assemblies patch the game or another mod through **Harmony** by **Andreas Pardeike (brrainz)**:
 [GitHub](https://github.com/pardeike/Harmony) (MIT licence), Workshop item 2009463077. They are Factory Additions (and its Dubs
-Bad Hygiene tie-in), Medical Save Bridge, Vehicle Patches' Harrier tie-in and Burns and Smoke. They reference it at build time
+Bad Hygiene tie-in), Medical Save Bridge, Vehicle Patches' Harrier tie-in, Missile Patches' InterRim Ballistic Missile tie-in and Burns and Smoke. They reference it at build time
 only (`Lib.Harmony` 2.4.3 for RimWorld 1.6, 3.0.0-rc.4 for 1.7, `ExcludeAssets="runtime"`), so `0Harmony.dll` never ships;
-players get it from the Harmony mod, which Burns and Smoke, Factory Additions and Medical Save Bridge declare as a dependency.
+players get it from the Harmony mod, which Burns and Smoke, Factory Additions, Medical Save Bridge and Missile Patches declare as a dependency.
 
 ## Vanilla Expanded Framework
 
@@ -106,6 +106,16 @@ Its Harrier tie-in assembly references the installed `Vehicles.dll`, `SmashTools
 [Vehicle Framework](https://steamcommunity.com/sharedfiles/filedetails/?id=3014915404) by Smash Phil (MIT licence), never
 copied, and finds [RimPacts - Diplomacy Overhaul](https://steamcommunity.com/sharedfiles/filedetails/?id=3762723122) by wowgag
 by name at runtime. Nothing from any of them is in this repository.
+
+## InterRim Ballistic Missile, patched by D'thorga Missile Patches
+
+D'thorga Missile Patches (`mods/PhobosMissilePatches/`) loads only while
+[InterRim Ballistic Missile](https://steamcommunity.com/sharedfiles/filedetails/?id=3682304832) by Psionic Zephyr (`kazepsi.irbm`)
+is active. Its assembly references the installed `IRBM.dll` at build time (`Private=false`), never copied, and replaces one of its
+methods with a Harmony prefix that queues the same work over several frames; the per-thing rules are written again in our own
+code so the outcome matches, and none of the mod's code, art or data is in this repository or a build. The mod's Workshop
+description could not be read from here on 7 November 2026 (region-blocked), so its licence is not recorded; it ships its symbol
+file (`IRBM.pdb`) beside the assembly, which is what the owner's log traces came from.
 
 ## Mods patched by name in XML
 
