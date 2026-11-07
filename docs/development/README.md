@@ -90,7 +90,11 @@ Five mods until 7 November 2026; each record below keeps its own mod's name and 
   monitor and IV stand, the burn unit bed, what is reused from Vanilla Gravship Expanded, why Organ Failure's ventilator cannot
   appear in the owner's game, and the test protocol.
 - [Medical equipment, second set: design (7 Nov 2026)](medical-equipment-2.md): the eight pieces the owner chose, from the
-  ventilator to the steriliser, what each would do in play and what it rests on. Nothing built.
+  ventilator to the steriliser, what each does in play and what it rests on. All eight built in D'thorga Medical 0.7.0, not yet tested in game.
+- [Workstation environmental effects: design (7 Nov 2026)](workstation-environmental-effects.md): the owner's idea of workstations
+  giving off gases, found by what they do and switched on a kind at a time in a running colony; nothing built.
+- [Vaccines and prevention for healthy pawns: design (7 Nov 2026)](vaccines-and-prevention.md): what already prevents disease
+  (penoxycyline, Biological Warfare's vaccines), doctors giving it by themselves, and a head-start vaccine of our own; nothing built.
 - [Ventilation and hydrogen: design (7 Nov 2026)](ventilation-and-hydrogen.md): the electrolyser's hydrogen as a flammable room
   gas, and the extractor fan, passive vent, fume hood and hydrogen detector. Nothing built.
 
