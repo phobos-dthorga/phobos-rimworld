@@ -191,6 +191,30 @@ places it opens.
   letter of this kind"). A setting, on by default; a dev action dismisses letters sent before 0.10.0.
 - **Not yet tested in game.**
 
+## RimPacts assaults on a struck town (7 Nov 2026, evening)
+
+The owner's report: after a DF-5 on Lance Village (Anlium) they called their client state, the Ryūmon Protectorate, to attack; the force
+"never eventuated", RimPacts declared "Defense held", and later about twelve towns were lost (that last part happened after the save
+and was reloaded away, so it is unexamined). Read from PG2 of 7 Nov 2026 (letters, the battle map) and RimPacts 1.7's code:
+
+- **Timeline (ticks):** impact 48,051,475; battle begins 48,053,429; "assault force has reached" 48,056,000; "Defense held"
+  48,057,000; a second assault opened at 48,057,788, due 48,062,788; PG2 saved at 48,059,629.
+- **The cause:** `SpawnSpectateAttackers` generates a squad from points, then `TrimToHeadcount(list, ceil(defenders x techFactor),
+  attacker, "관전 공격대")`, where defenders is `DefenderHeadcountOn`: live (not dead, not downed) humanlike or mech pawns of the
+  defending side. Our strike sheltered nine Anlium people (rock roof, the default shelter setting) and left two standing, both psycasters
+  with psychic amplifiers; Ryūmon and Anlium are both industrial (factor 1), so the squad was about two. In PG2 one Ryūmon soldier
+  remains, downed at the east edge (gunshots, blast); 1,496 fires still burned. `ProcessSpectate` checks every 250 ticks and ends the
+  battle for the defender when no attacker is a live fighter, checking the attacker first (a mutual wipe-out also goes to the defender,
+  where the manual end button gives it to the attacker). A lost battle costs the attacker 4 power; it moves no towns.
+- **Decisions (owner: "the nuked town should face the squad it normally would"):** the strike counts the town's standing defenders
+  (its own faction and factions not hostile to it, never the player) at its start, before any harm, in a saved world component; a prefix
+  on RimPacts' `TrimToHeadcount` raises the target for the spectate assault only (by its reason string) to that count times RimPacts'
+  own tech factor. For a strike before counts were kept, the strike letter in the archive marks the town with no count, and the squad is
+  not trimmed. Agent choices: a 15-day window; the first count kept if a town is struck again within it. The squad stays at most what
+  RimPacts generated (the trim can only remove).
+- **Still open:** the loss of about twelve towns. RimPacts moves many towns at once only when a faction is absorbed after a war, a new
+  faction rises, or separatists break away; which one fired needs the owner's letter or a replay from PG2.
+
 ## Bug report to post (draft; the owner posts it)
 
 **Hold this draft** (owner, 7 Nov 2026: after the owner's test confirms the cause). Its cause below is the room rebuild, which play did not bear out; the likelier cause now is Combat Extended's wall fragments, which D'thorga Patches holds back during a strike. Run the dev action that counts Combat Extended fragments on the map during a strike, then revise the cause and post.

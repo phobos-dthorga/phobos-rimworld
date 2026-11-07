@@ -100,6 +100,7 @@ public sealed class IrbmSweep : FrameWork
         rubble = settings.rubble;
         corpses = settings.corpses;
         fragmentsLive = CombatExtendedFragments.Live(settings.fragments);
+        Strike.WorldComponent_PhobosStrikeMemory.RecordBeforeStrike(Map);
         if (DestroysBuildings) StripConstructedRoofs();
         Snapshot();
     }

@@ -88,7 +88,9 @@ public class MissilePatchesMod : Mod
             LongEventHandler.ExecuteWhenFinished(WriteSettings);
             Log.Message(LogPrefix + " Settings carried over from D'thorga Missile Patches.");
         }
-        HarmonyPatchApplier.ApplyEach(new Harmony(PackageId), Assembly.GetExecutingAssembly(), LogPrefix);
+        var harmony = new Harmony(PackageId);
+        HarmonyPatchApplier.ApplyEach(harmony, Assembly.GetExecutingAssembly(), LogPrefix);
+        Strike.RimPactsAssaultSize.Apply(harmony);
         LongEventHandler.ExecuteWhenFinished(LogLoaded);
     }
 
@@ -108,6 +110,11 @@ public class MissilePatchesMod : Mod
         report.On("strategic blasts spread over frames, " + BudgetMs(999f).ToString("0") + " ms a frame"
             + (Settings.whiteScreenBudget ? " (" + IrbmBudgetRule.WhiteScreenBudgetMs.ToString("0") + " while the screen is white)" : ""));
         report.On("shelter: " + Settings.shelter);
+        if (OptionalMods.IsActive("wowgag.RimPacts"))
+        {
+            if (Strike.RimPactsAssaultSize.Applied) report.On("an ally's RimPacts assault on a struck town faces its garrison from before the strike");
+            else report.Off("an ally's RimPacts assault on a struck town faces its garrison from before the strike", "RimPacts' assault code has changed");
+        }
         report.On(Settings.rubble ? "buildings leave rubble" : "buildings vaporised");
         report.On("corpses " + (Settings.corpses == CorpseMode.Vaporised ? "vaporised" : "left"));
         if (Settings.quietReveals) report.On("no \"Area revealed\" letters during a blast");

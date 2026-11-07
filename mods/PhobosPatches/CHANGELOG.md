@@ -16,6 +16,7 @@ The owner's reports of 7 November 2026 (evening): the Harrier could not fly sort
 - Harrier: flight controls that matter. Avionics, hydraulics and wiring carry the framework's flight-control figure, which nothing read before; below 35% the jet cannot take off, and the launch and sortie buttons say which parts to repair. The floor is authored.
 - Harrier: the plasteel armour upgrade covers the nozzles, landing gear, pylons and intakes too, at a quarter of their armour, under Combat Extended at its scale.
 - Harrier, with RimPacts: a sortie clicked on a battle the player has not joined now says why it is refused (RimPacts' own landing gate, which the fixed-wing framework turned into a silent rejection) instead of doing nothing.
+- InterRim Ballistic Missile, with RimPacts: an ally's assault on a town hit by a strategic strike faces the garrison the town had before the strike, not the few defenders the missile left (owner's report and request: after a nuke, the ally sent about two soldiers and the battle was declared lost). The strike counts the town's standing defenders before doing any harm and the count is saved; RimPacts' assault trim is raised to it, tech factor included. A town struck before this version, found from the strike letter within 15 days, is not trimmed at all. Only RimPacts' assault squad changes, never its defend waves or support forces, and a squad is never bigger than RimPacts raised it.
 - A setting, off by default, that lets aircraft fly a sortie over a battle not yet joined, with a warning that RimPacts then counts the crew as the player's forces there. Owner's report; the rule itself is RimPacts'.
 
 ### Fixed
@@ -24,6 +25,7 @@ The owner's reports of 7 November 2026 (evening): the Harrier could not fly sort
 
 ### Save compatibility
 
+- With InterRim Ballistic Missile, the world keeps a small record of struck towns and their garrisons (saved, stable keys). Removing the mod leaves one harmless error line about it on the next load.
 - A Harrier saved with four parts gains the ten new ones at full health when the save loads; its own four keep their health. Parts are only ever appended to the list, never moved or removed, which is what keeps old saves right.
 
 ### Dependencies

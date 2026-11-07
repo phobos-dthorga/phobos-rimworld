@@ -66,6 +66,11 @@ parts are unchanged from Vehicle Patches 0.6.0 (not yet tested in game); the mis
   around the centre of the struck map (not yet tested in game). **Other settlements in range burn but stand** unless you choose a full
   strike everywhere. **With Dubs Rimatomics, it brings Rimatomics' radioactive fallout** and drifting fallout clouds instead of the
   missile mod's nuclear winter. The other strategic warheads keep the missile mod's own effects.
+- **New in 0.11.0, with RimPacts: an ally's assault on a town you struck faces the garrison it had before the strike** (not yet
+  tested in game). RimPacts sizes an assault to the defenders still standing when it arrives, so after a strategic strike your ally sent
+  one or two soldiers into a burning town, met the survivors and "lost the battle". Now the strike counts the town's defenders first,
+  and the assault keeps as many soldiers as it would have without the missile. **A town you struck before this version (within 15
+  days) gets RimPacts' full squad, untrimmed.** The squad is never bigger than RimPacts raised it.
 - **InterRim Ballistic Missile: since 0.10.0 a blast sends no "Area revealed" letters** (not yet tested in game). A blast breaks
   open every sealed cave and vault on the map and the game sent one letter for each, about eighty in the owner's game. It's a
   setting, on by default. **Letters already sent stay**: right-click each away, or use the dev action **Missile Patches: dismiss
