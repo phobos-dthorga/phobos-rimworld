@@ -8,8 +8,9 @@ specific to RimWorld and the owner's other game repositories carry drifting copi
 
 **Gotchas**
 
-- **This is a record; two tools are built.** Log triage (tool 1) shipped on 7 Nov 2026 as `scripts/triage-log.py`, and
-  the save index (tool 2, without map grids or save comparison yet) as `scripts/query-save.py`; the others are proposals.
+- **This is a record; three tools are built.** On 7 Nov 2026 log triage (tool 1) shipped as `scripts/triage-log.py`, the
+  save index (tool 2, without map grids or save comparison yet) as `scripts/query-save.py`, and the mod and Def index
+  (tool 3) as `scripts/query-defs.py`; the others are proposals.
 - **A tool saves nothing until an instruction points at it.** Each tool's first change here adds a one-line
   rule to `AGENTS.md` ("before reading a log, run ..."), in the same commit.
 - **Save tools always read a frozen copy** in the session's scratchpad and delete it afterwards, as
@@ -109,10 +110,17 @@ other), and `ParentName` inheritance (twice).
   `files_the_game_loads` from `scripts/check-mod-layout.py`), `LoadFolders.xml` with all three conditions and
   the 1.7-then-1.6 fallback, `About.xml`, assemblies, and `ParentName` inheritance.
 - Commands: `who <defName>` (owning mod and file, and every patch whose path names it), `list --type`,
-  `show <defName>` (inheritance applied, patches not applied, and labelled so), `patches --target`.
-- Written as SQLite with a provenance table in the kit's cache, like the save index, keyed by a hash of the mod
-  list (not `.local/cache/`, which is cloud-synced). The save index's mod list and this index's Defs can then be
-  joined in one query.
+  `show <defName>` (patches not applied, and labelled so), `patches --target`.
+- Written as SQLite with a provenance table in the kit's cache, like the save index (not `.local/cache/`, which is
+  cloud-synced). The save index's mod list and this index's Defs can then be joined in one query.
+- **Built 7 Nov 2026** (phobos-modkit 0.4.0, `scripts/query-defs.py`). Two choices changed while building, both
+  toward the game's own behaviour, read from the 1.7 game code: the index marks which definition the game keeps
+  (a later mod's Def replaces an earlier mod's of the same type and name; a second copy inside one mod is skipped),
+  and `show` prints each parent the game would use (the same Name from the latest mod at or before the child's)
+  rather than merging them into one Def. Merging was left out: the chain is exact, a merge would be our model.
+- On the owner's install: 336 mods, 42,418 Defs and 15,208 patch operations index in about 8 s; 165 names are
+  defined by more than one mod. Rebuilds on a change to ModsConfig.xml, Steam's Workshop manifest, the game's
+  version file or any XML in the game's Mods folder.
 - Its biggest limit, unapplied patches, has a proposed cure: the resolved-Defs dump below.
 - `scripts/check-factory-patches.py` and `scripts/refresh-mod-list.py` move onto it when next touched.
 
@@ -201,5 +209,6 @@ there). In short:
    the reports are Python, sharing the log tool's command line and Markdown and reading the index with Python's own SQLite.
    Map grids and comparing two saves are the next slice (backlog T2b).
 4. The shared report model and derived-data cache. **Done 7 Nov 2026**: phobos-modkit 0.3.0 (see Shared frameworks).
-5. The mod and Def index, which tool 1's mod attribution and tool 7 build on.
+5. The mod and Def index, which tool 1's mod attribution and tool 7 build on. **Done 7 Nov 2026**: phobos-modkit 0.4.0,
+   called through `scripts/query-defs.py`.
 6. Tools 4 to 8 as the need arises, each its own change with its own tests.

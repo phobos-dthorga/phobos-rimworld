@@ -96,6 +96,7 @@ game and run only on a machine with RimWorld.
 | Script | What it does | Flags |
 | --- | --- | --- |
 | `scripts/triage-log.py` | Summarises `Player.log` against `Player-prev.log`: messages grouped into signatures, one exception worded several ways shown together, the mods involved named, and notices for the save loaded and the log limit. Reads only; works while the game runs. Calls [phobos-modkit](https://github.com/phobos-dthorga/phobos-modkit)'s rimworld-log tool | `--show ID`, `--previous`, `--no-previous`, `--top`, `--levels`, `--json`, `--logs`, `--game`, `--workshop`, `--no-mods`, `--no-redact` |
+| `scripts/query-defs.py` | Which active mods define and patch each Def, from an index of the installed game: `summary`, `who <defName>` (every definition, the one the game keeps, every patch naming it), `show` (XML and parents), `list`, `patches`, `mods`, `sql`. Indexes about 340 mods in about 8 s and rebuilds itself when the mod list, a Workshop item, the game or a local mod changes; reports then take about 0.3 s. Defs are shown as written, without other mods' patches. Calls [phobos-modkit](https://github.com/phobos-dthorga/phobos-modkit)'s rimworld-defs tool | report name first, then `--top`, `--json`, `--rebuild`, the report's filters (`--help` on each report) |
 | `scripts/query-save.py` | Answers questions about a save from an index: `summary`, `pawns`, `hediffs`, `things`, `find <ID>`, `schema`, `sql`. The first question indexes a frozen copy of the save (about 2.5 s for 300 MB), deleted straight afterwards; later ones reuse the index until the save changes. Build its Rust indexer once with `--build-indexer`. Calls [phobos-modkit](https://github.com/phobos-dthorga/phobos-modkit)'s rimworld-save tool | report name first, then `--save`, `--top`, `--json`, the report's filters (`--help` on each report) |
 | `scripts/refresh-mod-list.py` | Rewrites [the owner's mod list](owner-mod-list.md) from the game's files, reading only | `--online` (re-read the Vanilla Expanded collection), `--check` (report, write nothing), `--game`, `--workshop`, `--config`, `--doc` |
 | `scripts/generate-art.py` | Runs a texture request through the local ComfyUI ([artwork direction](artwork-direction.md)) | `request_file`, `--only`, `--start`, `--comfy` |
@@ -252,7 +253,7 @@ Linux would still need Mono, so code is exercised in the game.
 
 The game path comes from `--game`, the `RIMWORLD_PATH` environment variable, `.local/install-settings.json` (key
 `rimworldPath`; `check-factory-patches` and `refresh-mod-list` also read `workshopPath` and `rimworldConfigPath` there, and
-`triage-log` reads `rimworldLogsPath`, `query-save` reads `rimworldSavesPath` and `modkitCachePath`), or the default Steam
-path. **Until 30 Oct 2026 the script knew only 1.6's process name**: one deploy that day
+`triage-log` reads `rimworldLogsPath`, `query-save` reads `rimworldSavesPath` and `modkitCachePath`, and `query-defs` reads
+`workshopPath`, `rimworldConfigPath` and `modkitCachePath`), or the default Steam path. **Until 30 Oct 2026 the script knew only 1.6's process name**: one deploy that day
 began while the owner's 1.7 game ran and stopped at the first locked file, with the install intact; the rename
 step and the 1.7 name come from that.

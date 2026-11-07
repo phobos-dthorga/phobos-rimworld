@@ -29,6 +29,9 @@ delivered, record the delivery in the changelog or design record, and add or ame
   reported fault is the owner's error, and **start with `python scripts/triage-log.py`**: it summarises the log
   against `Player-prev.log` and names the mods involved, and `--show <ID>` prints one message in full. Open the
   raw log only for what the summary cannot answer.
+- **Answer which mod defines or patches a Def with `python scripts/query-defs.py`** (`who <defName>` for every
+  definition, the one the game keeps and every patch naming it; `show` for its XML and parents; `list`, `patches`,
+  `sql`) before searching mod folders by hand. It shows Defs as written, without other mods' patches applied.
 - **Tools before LLM reading, even when the tool needs work first** (owner, 7 November 2026). When an analysis
   (of logs, saves, mod Defs, assemblies, Workshop pages or anything else) can be done by a tool we already have,
   in phobos-modkit or `scripts/`, use the tool. When it could be done by one only after a fix, an update or a new
