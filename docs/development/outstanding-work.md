@@ -52,7 +52,7 @@ reasons are in [analysis tooling](analysis-tooling.md). Each tool's first change
 | # | Item | Language | Status |
 | --- | --- | --- | --- |
 | T0 | Create phobos-modkit (public, MIT) with its documents | docs | Done: documents only |
-| T1 | Log triage, with the RimWorld adapter | Python | Open |
+| T1 | Log triage, with the RimWorld adapter | Python | Done: phobos-modkit 0.1.1, `scripts/triage-log.py`, AGENTS.md rule |
 | T2 | Save index and query, working slice | Rust | Open |
 | T3 | Mod and Def index | Python | Open |
 | T4 | Assembly metadata reader | C# | Open |

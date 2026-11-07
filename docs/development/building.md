@@ -9,6 +9,11 @@ references and the Workshop folders of other mods' assemblies, so a project file
 tie-in folder if any (`TieInFolder`) and whether it patches (`UsesHarmony`). `python scripts/deploy.py --build --apply --all`
 builds every project and installs every mod, with RimWorld closed.
 
+**Shared tools come from a submodule.** [phobos-modkit](https://github.com/phobos-dthorga/phobos-modkit) is pinned at
+`external/phobos-modkit`; after cloning, run `git submodule update --init` once. `scripts/triage-log.py` uses it. A fix to a
+shared tool goes to phobos-modkit first; then the pin moves here with `git -C external/phobos-modkit checkout <tag>` and a
+commit.
+
 ## The projects
 
 | Project (`src/`) | Builds into (`mods/`, per version) | References besides the game | Harmony | Rule tests (`tests/`) | On GitHub |
@@ -88,6 +93,7 @@ game and run only on a machine with RimWorld.
 
 | Script | What it does | Flags |
 | --- | --- | --- |
+| `scripts/triage-log.py` | Summarises `Player.log` against `Player-prev.log`: messages grouped into signatures, one exception worded several ways shown together, the mods involved named, and notices for the save loaded and the log limit. Reads only; works while the game runs. Calls [phobos-modkit](https://github.com/phobos-dthorga/phobos-modkit)'s rimworld-log tool | `--show ID`, `--previous`, `--no-previous`, `--top`, `--levels`, `--json`, `--logs`, `--game`, `--workshop`, `--no-mods`, `--no-redact` |
 | `scripts/refresh-mod-list.py` | Rewrites [the owner's mod list](owner-mod-list.md) from the game's files, reading only | `--online` (re-read the Vanilla Expanded collection), `--check` (report, write nothing), `--game`, `--workshop`, `--config`, `--doc` |
 | `scripts/generate-art.py` | Runs a texture request through the local ComfyUI ([artwork direction](artwork-direction.md)) | `request_file`, `--only`, `--start`, `--comfy` |
 | `scripts/art-run.py` | Generates, trains or runs an overnight art batch, stopping safely | `generate`, `train` or `night`, then `source`; `--stop-at`, `--only`, `--comfy`, `--min-free-gb`, `--also-stop-on`, `--near-copy-against`, `--dry-run` |
@@ -242,7 +248,7 @@ Linux would still need Mono, so code is exercised in the game.
 - never touches `ModsConfig.xml` or RimSort's lists.
 
 The game path comes from `--game`, the `RIMWORLD_PATH` environment variable, `.local/install-settings.json` (key
-`rimworldPath`; `check-factory-patches` and `refresh-mod-list` also read `workshopPath` and `rimworldConfigPath` there), or the
-default Steam path. **Until 30 Oct 2026 the script knew only 1.6's process name**: one deploy that day
+`rimworldPath`; `check-factory-patches` and `refresh-mod-list` also read `workshopPath` and `rimworldConfigPath` there, and
+`triage-log` reads `rimworldLogsPath`), or the default Steam path. **Until 30 Oct 2026 the script knew only 1.6's process name**: one deploy that day
 began while the owner's 1.7 game ran and stopped at the first locked file, with the install intact; the rename
 step and the 1.7 name come from that.

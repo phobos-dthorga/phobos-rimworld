@@ -24,7 +24,9 @@ delivered, record the delivery in the changelog or design record, and add or ame
 - The owner runs gameplay tests. Do not control the owner's mouse or keyboard; give instructions for
   interactive steps. Never edit, replace or delete save files without explicit authorisation (read-only
   copies for diagnosis are fine; delete them afterwards). Read the owner's `Player.log` before assuming a
-  reported fault is the owner's error.
+  reported fault is the owner's error, and **start with `python scripts/triage-log.py`**: it summarises the log
+  against `Player-prev.log` and names the mods involved, and `--show <ID>` prints one message in full. Open the
+  raw log only for what the summary cannot answer.
 - The owner plays RimWorld 1.7 (since 26 October 2026; the last 1.6 save is archived) with all five DLCs and a large mod list
   (about 340 mods, managed with RimSort, including Combat Extended). **Keep `docs/development/owner-mod-list.md` up
   to date** (owner, 22 Oct 2026): run `python scripts/refresh-mod-list.py` (it only reads the game's files)

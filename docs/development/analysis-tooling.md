@@ -8,7 +8,8 @@ specific to RimWorld and the owner's other game repositories carry drifting copi
 
 **Gotchas**
 
-- **This is a record. Nothing is built yet.** The repository holds documents only until the first tool lands.
+- **This is a record; one tool is built.** Log triage (tool 1) shipped on 7 Nov 2026 as `scripts/triage-log.py`; the
+  others are proposals.
 - **A tool saves nothing until an instruction points at it.** Each tool's first change here adds a one-line
   rule to `AGENTS.md` ("before reading a log, run ..."), in the same commit.
 - **Save tools always read a frozen copy** in the session's scratchpad and delete it afterwards, as
@@ -160,18 +161,20 @@ there). In short:
 - **Core** (no game in it) and **game adapters** (public file-format knowledge for one game) live in
   phobos-modkit. **Project policy** (which Defs matter, the factory-patch check, the hand-written mod
   suggestions, the EULA disclaimer) stays here.
-- This repository will pin phobos-modkit as a git submodule at `external/phobos-modkit`, the way
+- This repository pins phobos-modkit as a git submodule at `external/phobos-modkit`, the way
   phobos-ostranauts pins Phobos Scope. Python scripts reach it through a small path shim; the Rust and C#
   tools are built from it and their programs are ignored.
 - A fix to a shared tool goes to phobos-modkit first, then the pin moves. Existing scripts move over when
   next touched, not in a sweep.
-- Two new path keys join `.local/install-settings.json`: `rimworldSavesPath` and `rimworldLogsPath`, resolved
-  the way `scripts/deploy.py` resolves the others.
+- Two path keys join `.local/install-settings.json`, resolved the way `scripts/deploy.py` resolves the others:
+  `rimworldLogsPath` (in use by `scripts/triage-log.py`) and `rimworldSavesPath` (with the save indexer).
 
 ## Order of work
 
 1. Create phobos-modkit with its documents. **Done 7 Nov 2026**, documents only.
-2. Log triage, consumed here first: the largest saving and no new toolchain.
+2. Log triage, consumed here first: the largest saving and no new toolchain. **Done 7 Nov 2026**: phobos-modkit 0.1.1,
+   called through `scripts/triage-log.py`. On the owner's logs a 2.1 MB log became an 8 KB summary in under 4 s, and a 38 MB
+   broken-session log one of under 5 KB.
 3. The save indexer's working slice with the RimWorld schema.
 4. The mod and Def index, which tool 1's mod attribution and tool 7 build on.
 5. Tools 4 to 8 as the need arises, each its own change with its own tests.
