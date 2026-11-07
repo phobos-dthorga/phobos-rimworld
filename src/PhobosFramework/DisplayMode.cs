@@ -100,7 +100,9 @@ public sealed class SettingsScroll
     {
         var view = new Rect(0f, 0f, inRect.width - ScrollBarWidth, height);
         Widgets.BeginScrollView(inRect, ref position, view);
-        var listing = new Listing_Standard();
+        // One column only: past its rect's height a Listing starts a new column to the right (Verse.Listing.NewColumnIfNeeded), which
+        // here would sit off-screen and shrink the measured height, so later settings vanished (owner's report, 7 Nov 2026).
+        var listing = new Listing_Standard { maxOneColumn = true };
         listing.Begin(view);
         return listing;
     }

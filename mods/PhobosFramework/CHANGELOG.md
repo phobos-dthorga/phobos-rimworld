@@ -5,6 +5,14 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.7.1] - 2026-11-07 - Draft
+
+Owner's report: many settings seemed to have gone missing since the merge. Not yet tested in game.
+
+### Fixed
+
+- Long settings windows (D'thorga Medical's, and D'thorga Patches' since 0.8.0) lost their later settings off-screen. Past its first height the game's settings list starts a new column to the right, which in a scrolling page sits out of sight and makes the page measure itself shorter, so more settings disappeared each moment. The page now keeps one column and scrolls. No setting was lost: every choice was saved and carried over, and shows again with this fix.
+
 ## [0.7.0] - 2026-11-07 - Draft
 
 Made with D'thorga Patches 0.8.0, its first user. No change in play on its own. Not yet tested in game.
