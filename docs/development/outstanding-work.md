@@ -55,12 +55,15 @@ reasons are in [analysis tooling](analysis-tooling.md). Each tool's first change
 | T1 | Log triage, with the RimWorld adapter | Python | Done: phobos-modkit 0.1.1, `scripts/triage-log.py`, AGENTS.md rule |
 | T2 | Save index and query, working slice | Rust | Done: phobos-modkit 0.2.2, `scripts/query-save.py`, AGENTS.md rule |
 | T2b | Save index: map grids (terrain, roofs, gas) and comparing two saves by load ID | Rust | Open |
-| T3 | Mod and Def index | Python | Open |
+| T3 | Mod and Def index (SQLite in the kit's cache) | Python | Open |
 | T4 | Assembly metadata reader | C# | Open |
 | T5 | Workshop research | Python | Open |
 | T6 | StartupImpact sessions | Python | Open |
 | T7 | Version readiness scan | Python | Open |
 | T8 | Release tooling | Python | Open |
+| T9 | Shared report model and derived-data cache | Python | Done: phobos-modkit 0.3.0 |
+| T10 | Game adapter contract (generic log and save commands) | Python | Waits for a second game adapter |
+| T11 | Resolved-Defs dump: a D'thorga Framework dev action the kit indexes, so Defs show with patches applied | C# and Python | Proposal: needs the owner's go-ahead |
 
 ## Deferred
 

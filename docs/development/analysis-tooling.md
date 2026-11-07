@@ -110,7 +110,10 @@ other), and `ParentName` inheritance (twice).
   the 1.7-then-1.6 fallback, `About.xml`, assemblies, and `ParentName` inheritance.
 - Commands: `who <defName>` (owning mod and file, and every patch whose path names it), `list --type`,
   `show <defName>` (inheritance applied, patches not applied, and labelled so), `patches --target`.
-- Cached under `.local/cache/`, keyed by a hash of the mod list.
+- Written as SQLite with a provenance table in the kit's cache, like the save index, keyed by a hash of the mod
+  list (not `.local/cache/`, which is cloud-synced). The save index's mod list and this index's Defs can then be
+  joined in one query.
+- Its biggest limit, unapplied patches, has a proposed cure: the resolved-Defs dump below.
 - `scripts/check-factory-patches.py` and `scripts/refresh-mod-list.py` move onto it when next touched.
 
 ### 4. Assembly metadata reader
@@ -153,6 +156,23 @@ style) stay in each game repository as data.
   [Phobos Scope](https://github.com/phobos-dthorga/phobos-scope)'s recorder, which belongs to that repository.
 - **The world-grid rebuild** in `.local/tools/planet.py` stays there until a second use appears.
 
+## Shared frameworks (7 Nov 2026)
+
+Asked by the owner once two tools existed: could phobos-modkit benefit from shared frameworks? The agent's
+answer, agreed by the owner the same day: yes, inside the kit; no outside ones.
+
+| What | Where | Status |
+| --- | --- | --- |
+| **Report model**: one way for every tool to build and render a report as Markdown or JSON, with redaction everywhere | phobos-modkit 0.3.0, `phobos_modkit.report` | Built. Both tools use it; their Markdown came out byte-identical on the owner's live log and save |
+| **Derived-data cache**: cache folder, provenance stamps, staleness, frozen copies | phobos-modkit 0.3.0, `phobos_modkit.cache` | Built. The save index uses it |
+| **SQLite substrate**: every derived file is SQLite with a `meta` provenance table | phobos-modkit's AGENTS.md | Adopted. Tool 3 is designed to it |
+| **Game adapter contract**: generic `log` and `save` commands with a game option, instead of commands named by game | Proposal (agent) | Waits for a second game adapter; FS25 log triage is the likely first. Built for one game, its shape would be a guess |
+| **Resolved-Defs dump**: a dev action in D'thorga Framework writes every Def as the game resolved it, patches applied, to a file outside the repository; the kit indexes that file beside tool 3's | Proposal (agent) | **Needs the owner's go-ahead**: it is in-game code in a mod, under that mod's rules, and not yet tested in game. The dump holds other authors' Def data, so it stays in the cache and is never committed |
+
+Declined, with reasons: outside Python frameworks (click, pandas, rich), because the kit runs on the standard
+library alone; clap for the Rust program, which has one command; and sharing code with Phobos Scope, whose HTML
+reports for people differ from the kit's Markdown for agents.
+
 ## Where the code lives
 
 The full rules are in phobos-modkit's own documents (`docs/project-direction.md` and `docs/migration.md`
@@ -180,5 +200,6 @@ there). In short:
    reader; reports then take about 0.6 s. Agent choice made while building: the Rust program only builds the index, and
    the reports are Python, sharing the log tool's command line and Markdown and reading the index with Python's own SQLite.
    Map grids and comparing two saves are the next slice (backlog T2b).
-4. The mod and Def index, which tool 1's mod attribution and tool 7 build on.
-5. Tools 4 to 8 as the need arises, each its own change with its own tests.
+4. The shared report model and derived-data cache. **Done 7 Nov 2026**: phobos-modkit 0.3.0 (see Shared frameworks).
+5. The mod and Def index, which tool 1's mod attribution and tool 7 build on.
+6. Tools 4 to 8 as the need arises, each its own change with its own tests.
