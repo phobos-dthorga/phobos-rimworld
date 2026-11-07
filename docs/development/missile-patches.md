@@ -207,13 +207,29 @@ and was reloaded away, so it is unexamined). Read from PG2 of 7 Nov 2026 (letter
   battle for the defender when no attacker is a live fighter, checking the attacker first (a mutual wipe-out also goes to the defender,
   where the manual end button gives it to the attacker). A lost battle costs the attacker 4 power; it moves no towns.
 - **Decisions (owner: "the nuked town should face the squad it normally would"):** the strike counts the town's standing defenders
-  (its own faction and factions not hostile to it, never the player) at its start, before any harm, in a saved world component; a prefix
-  on RimPacts' `TrimToHeadcount` raises the target for the spectate assault only (by its reason string) to that count times RimPacts'
-  own tech factor. For a strike before counts were kept, the strike letter in the archive marks the town with no count, and the squad is
-  not trimmed. Agent choices: a 15-day window; the first count kept if a town is struck again within it. The squad stays at most what
-  RimPacts generated (the trim can only remove).
-- **Still open:** the loss of about twelve towns. RimPacts moves many towns at once only when a faction is absorbed after a war, a new
-  faction rises, or separatists break away; which one fired needs the owner's letter or a replay from PG2.
+  (its own faction and factions not hostile to it, never the player) at its start, before any harm, in a saved world component. Agent
+  choices: a 15-day window; the first count kept if a town is struck again within it.
+- **0.11.0 did not work** (owner's report, late evening; PG1 and PG2 of 21:21 and 21:23, and Player.log). The log shows the 0.11.0
+  prefix on `TrimToHeadcount` ran ("keeps up to 39 soldiers (RimPacts would have trimmed it to 2)"), yet two Ryūmon soldiers came.
+  RimPacts' `SpawnSpectateAttackers` uses one figure three times: `num15 = ceil(DefenderHeadcountOn(...) x techFactor)` is passed to
+  `RptGenTrim.Begin`, whose postfix on `PawnGroupMakerUtility.ChoosePawnGenOptionsByPoints` cuts the generated options to that many;
+  the top-up loop runs only while the squad is smaller than it; then `TrimToHeadcount` trims to it. Raising only the last step changed
+  nothing. The strike logged "Lance Village had 39 defenders standing before the strike" and killed 35.
+- **0.11.1:** a postfix on `DefenderHeadcountOn` itself raises the count to the pre-strike garrison, so RimPacts' own cap, top-up and
+  trim (tech factor included) all follow. It applies only while RimPacts' battle record says spawned and not spawn-done (inside the
+  synchronous long event that raises the assault; the support-force spawn there reads only the out parameter), only for that battle's
+  map and attacker, only for a town with a recent count, and never when the real count is 0, so RimPacts' "defenders wiped out, the
+  attack wins" paths and its arrival check are untouched. The `TrimToHeadcount` prefix and the letter backfill for strikes without a
+  count are removed (agent choice: an untrimmed squad cannot be expressed through the count without inflating the top-up).
+- **The twelve towns (answered):** RimPacts' world war quest, not combat. `WorldWarQuestAccept` sets a deadline of accept + 180,000
+  ticks (3 days); `WorldWarQuestDaily` runs once a game day and, if the target has not fallen and the deadline has passed, fails the
+  quest with `WorldWarQuestApplyPenalty`, which moves world war control (`ControlSideOf`) of about three quarters of the reward towns,
+  not ownership (settlement ownership was identical in both saves). Accepted at tick 47,828,059, due 48,008,059; the battle opened at
+  48,051,717; the daily check at 48,060,000 failed it and 11 border towns changed control. At PG1 Lance Village still had two Anlium
+  walker frames standing (nine people downed), so the town had not fallen; had it fallen before that check, the capture path would
+  have counted the war won. RimPacts counts as attackers only the attacking faction's live fighters and the player's when the player
+  joins the attack (`CountSpectateSides`); allied factions (Ryūga, the 688th) and the mercenary company fight but do not count. The
+  owner's DMS II mechs counted, as the player joined the attack. Nothing in our patches touched the quest.
 
 ## Bug report to post (draft; the owner posts it)
 

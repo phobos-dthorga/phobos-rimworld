@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Reflection;
 using HarmonyLib;
 using Phobos.Framework;
@@ -11,24 +10,30 @@ using Verse;
 namespace Phobos.MissilePatches.Strike;
 
 /// <summary>
-/// RimPacts trims an ally's assault squad to the defenders still standing when it arrives (WorldComponent_RimPacts.TrimToHeadcount,
-/// called with the reason "관전 공격대", its spectate assault; read in RimPacts 1.7, 7 Nov 2026). After one of our strategic strikes this
-/// prefix raises the trim to the garrison the town had before the strike (<see cref="WorldComponent_PhobosStrikeMemory"/>), so the
-/// ally faces the squad it would have faced without the missile (owner, 7 Nov 2026). Other RimPacts squads (defend waves, support
-/// forces) and towns never struck are untouched. Reached by name, applied only while RimPacts is active; a prefix that changes one
-/// argument and never skips the original. RimPacts can only remove pawns it generated, so the squad is never bigger than RimPacts
-/// made it.
+/// RimPacts sizes an ally's assault squad to the defenders it counts standing when the squad is raised
+/// (WorldComponent_RimPacts.DefenderHeadcountOn, read in RimPacts 1.7, 7 Nov 2026). That one count caps the pawn generation, sets the
+/// top-up target and sets the final trim, all times RimPacts' tech factor. After one of our strategic strikes this postfix raises the
+/// count to the garrison the town had before the strike (<see cref="WorldComponent_PhobosStrikeMemory"/>), so every one of those steps
+/// runs as it would have without the missile and the ally faces the squad it normally would (owner, 7 Nov 2026).
+///
+/// Why the count and not the trim: the first version (Patches 0.11.0 draft) raised only the final trim. RimPacts had already capped the
+/// generation to the post-strike count, so the owner's ally still arrived with two soldiers (owner's log, 7 Nov 2026, Lance Village).
+///
+/// Narrow on purpose: only while RimPacts is raising its spectate assault (its battle record says spawned but not done), only on that
+/// battle's map and for its attacker, only for a town with a recent strike record, and never when nobody is standing (RimPacts then
+/// ends the battle as an attack win, which stays). Defend waves, the arrival check and support forces see RimPacts' own count. A
+/// postfix that only raises an int; reached by name and applied only while RimPacts is active.
 /// </summary>
 public static class RimPactsAssaultSize
 {
     const string RimPactsId = "wowgag.RimPacts";
     const string ComponentType = "RimPacts.WorldComponent_RimPacts";
-    /// <summary>RimPacts' own reason string for its spectate assault squad, as it passes it.</summary>
-    const string AssaultReason = "관전 공격대";
 
     static PropertyInfo? instance;
     static PropertyInfo? spectate;
-    static FieldInfo? target;
+    static FieldInfo? battleMap, battleAttacker, battleTarget, battleSpawned, battleSpawnDone;
+    static Settlement? lastLoggedTown;
+    static int lastLoggedTick = -1;
 
     public static bool Applied { get; private set; }
 
@@ -36,32 +41,43 @@ public static class RimPactsAssaultSize
     {
         if (!OptionalMods.IsActive(RimPactsId)) return;
         Type? type = OptionalMods.TypeNamed(ComponentType);
-        MethodInfo? trim = type?.GetMethod("TrimToHeadcount", BindingFlags.Public | BindingFlags.Static, null,
-            new[] { typeof(List<Pawn>), typeof(int), typeof(Faction), typeof(string) }, null);
+        MethodInfo? count = type?.GetMethod("DefenderHeadcountOn", BindingFlags.Public | BindingFlags.Static, null,
+            new[] { typeof(Map), typeof(Faction), typeof(bool), typeof(int).MakeByRefType(), typeof(Faction).MakeByRefType() }, null);
         instance = type?.GetProperty("Instance", BindingFlags.Public | BindingFlags.Static);
         spectate = type?.GetProperty("Spectate", BindingFlags.Public | BindingFlags.Instance);
-        if (trim == null || instance == null || spectate == null)
+        Type? battle = spectate?.PropertyType;
+        const BindingFlags field = BindingFlags.Public | BindingFlags.Instance;
+        battleMap = battle?.GetField("map", field);
+        battleAttacker = battle?.GetField("attacker", field);
+        battleTarget = battle?.GetField("target", field);
+        battleSpawned = battle?.GetField("spawned", field);
+        battleSpawnDone = battle?.GetField("spawnDone", field);
+        if (count == null || instance == null || battleMap == null || battleAttacker == null || battleTarget == null
+            || battleSpawned == null || battleSpawnDone == null)
         {
-            Log.Warning(MissilePatchesMod.LogPrefix + " RimPacts' assault trimming has changed, so a struck town's assault is left to RimPacts.");
+            Log.Warning(MissilePatchesMod.LogPrefix + " RimPacts' assault sizing has changed, so a struck town's assault is left to RimPacts.");
             return;
         }
         try
         {
-            harmony.Patch(trim, prefix: new HarmonyMethod(typeof(RimPactsAssaultSize), nameof(Prefix)));
+            harmony.Patch(count, postfix: new HarmonyMethod(typeof(RimPactsAssaultSize), nameof(Postfix)));
             Applied = true;
         }
         catch (Exception error)
         {
-            Log.Warning(MissilePatchesMod.LogPrefix + " could not patch RimPacts' assault trimming: " + error.Message);
+            Log.Warning(MissilePatchesMod.LogPrefix + " could not patch RimPacts' assault sizing: " + error.Message);
         }
     }
 
-    /// <summary>Parameter names match RimPacts' method (pawns, targetCount, faction, why), which Harmony binds by name.</summary>
-    public static void Prefix(ref int targetCount, Faction faction, string why)
+    /// <summary>Parameter names match RimPacts' method (map, attacker), which Harmony binds by name.</summary>
+    public static void Postfix(ref int __result, Map map, Faction attacker)
     {
+        if (__result <= 0) return;
+        WorldComponent_PhobosStrikeMemory? memory = WorldComponent_PhobosStrikeMemory.Current;
+        if (memory == null || memory.Empty) return;
         try
         {
-            targetCount = Adjust(targetCount, faction, why);
+            __result = Adjust(__result, map, attacker, memory);
         }
         catch (Exception error)
         {
@@ -69,30 +85,23 @@ public static class RimPactsAssaultSize
         }
     }
 
-    /// <summary>The town an assault is aimed at, from RimPacts' current battle record.</summary>
-    static Settlement? BattleTown()
+    static int Adjust(int standing, Map map, Faction attacker, WorldComponent_PhobosStrikeMemory memory)
     {
-        object? component = instance?.GetValue(null);
-        object? battle = component == null ? null : spectate?.GetValue(component);
-        if (battle == null) return null;
-        target ??= battle.GetType().GetField("target", BindingFlags.Public | BindingFlags.Instance);
-        return target?.GetValue(battle) as Settlement;
-    }
-
-    internal static int Adjust(int targetCount, Faction? attacker, string? why)
-    {
-        if (why != AssaultReason) return targetCount;
-        Settlement? town = BattleTown();
-        WorldComponent_PhobosStrikeMemory? memory = WorldComponent_PhobosStrikeMemory.Current;
-        if (town == null || memory == null) return targetCount;
-        int? before = memory.DefendersBefore(town);
-        if (before == null) return targetCount;
-        float factor = AssaultSizeRule.TechFactor((int)(attacker?.def?.techLevel ?? TechLevel.Undefined), (int)(town.Faction?.def?.techLevel ?? TechLevel.Undefined));
-        int adjusted = AssaultSizeRule.Target(targetCount, before, factor);
-        if (adjusted != targetCount)
-            Log.Message(MissilePatchesMod.LogPrefix + " " + (attacker?.Name ?? "An ally") + "'s assault on " + town.Label + " keeps "
-                + (adjusted == AssaultSizeRule.NoTrim ? "every soldier it raised" : "up to " + adjusted + " soldiers")
-                + " (RimPacts would have trimmed it to " + targetCount + ", the defenders the strike left standing).");
+        object? component = instance!.GetValue(null);
+        object? battle = component == null ? null : spectate!.GetValue(component);
+        if (battle == null) return standing;
+        if (battleSpawned!.GetValue(battle) is not true || battleSpawnDone!.GetValue(battle) is true) return standing;
+        if (battleMap!.GetValue(battle) != map || battleAttacker!.GetValue(battle) != attacker) return standing;
+        if (battleTarget!.GetValue(battle) is not Settlement town) return standing;
+        int adjusted = AssaultSizeRule.Headcount(standing, memory.DefendersBefore(town));
+        int now = Find.TickManager.TicksGame;
+        if (adjusted != standing && (town != lastLoggedTown || now != lastLoggedTick))
+        {
+            lastLoggedTown = town;
+            lastLoggedTick = now;
+            Log.Message(MissilePatchesMod.LogPrefix + " " + (attacker?.Name ?? "An ally") + "'s assault on " + town.Label + " is sized against "
+                + adjusted + " defenders, the garrison before the strike (RimPacts counted " + standing + " still standing).");
+        }
         return adjusted;
     }
 }

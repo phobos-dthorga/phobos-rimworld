@@ -6,29 +6,19 @@ namespace Phobos.MissilePatches.Tests;
 public class AssaultSizeRuleTests
 {
     [Fact]
-    public void AnUnstruckTownKeepsRimPactsOwnSquad() => Assert.Equal(2, AssaultSizeRule.Target(2, null, 1f));
+    public void AnUnstruckTownKeepsRimPactsOwnCount() => Assert.Equal(2, AssaultSizeRule.Headcount(2, null));
 
     [Fact]
-    public void AStruckTownFacesTheSquadItHadBeforeTheStrike()
-    {
-        Assert.Equal(37, AssaultSizeRule.Target(2, 37, 1f));
-        Assert.Equal(19, AssaultSizeRule.Target(2, 37, 0.5f));
-    }
+    public void AStruckTownCountsTheGarrisonItHadBeforeTheStrike() => Assert.Equal(39, AssaultSizeRule.Headcount(2, 39));
 
     [Fact]
-    public void ASquadIsNeverMadeSmallerThanRimPactsWouldSend() => Assert.Equal(12, AssaultSizeRule.Target(12, 5, 1f));
+    public void TheCountIsNeverLowerThanRimPactsOwn() => Assert.Equal(12, AssaultSizeRule.Headcount(12, 5));
 
     [Fact]
-    public void AStrikeFromBeforeCountsWereKeptIsNotTrimmed() => Assert.Equal(AssaultSizeRule.NoTrim, AssaultSizeRule.Target(2, -1, 1f));
+    public void AStrikeFromBeforeCountsWereKeptLeavesRimPactsCount() => Assert.Equal(2, AssaultSizeRule.Headcount(2, -1));
 
     [Fact]
-    public void TheTechFactorMatchesRimPacts()
-    {
-        Assert.Equal(1f, AssaultSizeRule.TechFactor(4, 4));
-        Assert.Equal(1f, AssaultSizeRule.TechFactor(3, 5));
-        Assert.Equal(0.8f, AssaultSizeRule.TechFactor(6, 4), 4);
-        Assert.Equal(0.5f, AssaultSizeRule.TechFactor(7, 1));
-    }
+    public void AWipedOutTownStaysWipedOutSoTheAttackWins() => Assert.Equal(0, AssaultSizeRule.Headcount(0, 39));
 
     [Fact]
     public void OnlyARecentStrikeCounts()

@@ -20,9 +20,11 @@ public class WorldComponent_PhobosStrikeMemory : WorldComponent
     List<Settlement?> towns = new();
     List<int> defenders = new();
     List<int> ticks = new();
-    bool lettersRead;
 
     public WorldComponent_PhobosStrikeMemory(World world) : base(world) { }
+
+    /// <summary>True when no strike is remembered: the cheap first check before any RimPacts state is read.</summary>
+    public bool Empty => towns.Count == 0;
 
     public static WorldComponent_PhobosStrikeMemory? Current => Find.World?.GetComponent<WorldComponent_PhobosStrikeMemory>();
 
@@ -32,7 +34,6 @@ public class WorldComponent_PhobosStrikeMemory : WorldComponent
         Scribe_Collections.Look(ref towns, "PhobosStrike_Towns", LookMode.Reference);
         Scribe_Collections.Look(ref defenders, "PhobosStrike_Defenders", LookMode.Value);
         Scribe_Collections.Look(ref ticks, "PhobosStrike_Ticks", LookMode.Value);
-        Scribe_Values.Look(ref lettersRead, "PhobosStrike_LettersRead");
         if (Scribe.mode == LoadSaveMode.PostLoadInit)
         {
             towns ??= new List<Settlement?>();
@@ -64,39 +65,13 @@ public class WorldComponent_PhobosStrikeMemory : WorldComponent
         Log.Message(MissilePatchesMod.LogPrefix + " " + town.Label + " had " + count + " defenders standing before the strike; an ally's assault on it will face that many.");
     }
 
-    /// <summary>The garrison counted before a recent strike on this town: null if none, negative if struck before counts were kept.</summary>
+    /// <summary>The garrison counted before a recent strike on this town: null if none, negative for an entry from an older draft of
+    /// this mod that marked a strike without a count.</summary>
     public int? DefendersBefore(Settlement town)
     {
         int index = towns.IndexOf(town);
         if (index < 0 || !AssaultSizeRule.Recent(ticks[index], Find.TickManager.TicksGame, WindowTicks)) return null;
         return defenders[index];
-    }
-
-    /// <summary>
-    /// Once per save, for strikes made before this mod kept counts: the strike letter in the player's archive names the towns it hit.
-    /// Those towns are marked struck with no count, so an assault on them is not trimmed at all.
-    /// </summary>
-    public override void FinalizeInit(bool fromLoad)
-    {
-        base.FinalizeInit(fromLoad);
-        if (lettersRead) return;
-        lettersRead = true;
-        string label = "IRBM.LetterLabelStrategicImpact".Translate().Resolve();
-        int now = Find.TickManager.TicksGame;
-        List<Settlement> settlements = Find.WorldObjects.Settlements;
-        foreach (IArchivable archived in Find.Archive.ArchivablesListForReading)
-        {
-            if (archived is not Letter letter || letter.Label.RawText != label || letter.arrivalTick > now || now - letter.arrivalTick > WindowTicks) continue;
-            string text = archived.ArchivedTooltip ?? "";
-            foreach (Settlement town in settlements)
-            {
-                if (town.Faction == Faction.OfPlayer || towns.Contains(town) || !text.Contains(town.Label)) continue;
-                towns.Add(town);
-                defenders.Add(-1);
-                ticks.Add(letter.arrivalTick);
-                Log.Message(MissilePatchesMod.LogPrefix + " " + town.Label + " was struck before defenders were counted; an ally's assault on it will not be trimmed.");
-            }
-        }
     }
 
     static int CountDefenders(Map map, Faction owner)

@@ -6,6 +6,23 @@ says the owner tested it.
 
 ## [Unreleased]
 
+## [0.11.1] - 2026-11-07 - Draft
+
+The owner's report of 7 November 2026 (late evening): after a nuke on Lance Village the ally's assault still arrived with two soldiers, and about twelve towns changed hands. Read from the owner's two saves, their log and RimPacts 1.7's code; not yet tested in game.
+
+### Fixed
+
+- InterRim Ballistic Missile, with RimPacts: the 0.11.0 change that should have let an ally's assault on a struck town face its pre-strike garrison did not work. It raised only RimPacts' final trim, but RimPacts had already capped the squad's generation, and its top-up, to the defenders the strike left standing (two at Lance Village, against 39 before the strike). RimPacts' defender count itself is now raised to the pre-strike garrison while it raises its assault, so the generation cap, the top-up and the trim all use it, tech factor included. Only that assault, on that battle's map and for its attacker; defend waves, support forces and RimPacts' arrival check keep its own count, and a town with nobody standing still falls to the attack.
+
+### Changed
+
+- A strike made before 0.11.0 no longer leaves the next assault untrimmed: it has no garrison count, so RimPacts' own squad stands. A strike made with 0.11.0 or later keeps its count.
+
+### Compatibility and limits
+
+- The twelve towns: RimPacts' world war attack has a deadline of 3 days from accepting it, checked once a day. The Lance Village battle opened after the deadline had passed, and the next daily check failed the war and moved control of 11 border towns to the enemy. This is RimPacts' rule; nothing in this mod caused it, and nothing changes it. Strike and attack early.
+- RimPacts counts only the attacking faction and, when the player joins the attack, the player's pawns as attackers. Allied factions and mercenaries help fight but do not keep a battle going.
+
 ## [0.11.0] - 2026-11-07 - Draft
 
 The owner's reports of 7 November 2026 (evening): the Harrier could not fly sorties while a RimPacts client state was attacking, and the owner asked for a far more detailed parts list. Plus a fault found in the owner's log. Read from the code; not yet tested in game.
@@ -25,7 +42,7 @@ The owner's reports of 7 November 2026 (evening): the Harrier could not fly sort
 
 ### Save compatibility
 
-- With InterRim Ballistic Missile, the world keeps a small record of struck towns and their garrisons (saved, stable keys). Removing the mod leaves one harmless error line about it on the next load.
+- With InterRim Ballistic Missile, the world keeps a small record of struck towns and their garrisons (saved, stable keys). Removing the mod leaves one harmless error line about it on the next load. (0.11.1 no longer saves the one-off letter-reading flag; a save that has it loads without complaint.)
 - A Harrier saved with four parts gains the ten new ones at full health when the save loads; its own four keep their health. Parts are only ever appended to the list, never moved or removed, which is what keeps old saves right.
 
 ### Dependencies
