@@ -8,9 +8,10 @@ specific to RimWorld and the owner's other game repositories carry drifting copi
 
 **Gotchas**
 
-- **This is a record; three tools are built.** On 7 Nov 2026 log triage (tool 1) shipped as `scripts/triage-log.py`, the
-  save index (tool 2, without map grids or save comparison yet) as `scripts/query-save.py`, and the mod and Def index
-  (tool 3) as `scripts/query-defs.py`; the others are proposals.
+- **This is a record; four tools are built.** On 7 Nov 2026 log triage (tool 1) shipped as `scripts/triage-log.py`, the
+  save index (tool 2, without map grids or save comparison yet) as `scripts/query-save.py`, the mod and Def index
+  (tool 3) as `scripts/query-defs.py`, and Workshop research (tool 5) as `scripts/workshop-research.py`; the others are
+  proposals.
 - **A tool saves nothing until an instruction points at it.** Each tool's first change here adds a one-line
   rule to `AGENTS.md` ("before reading a log, run ..."), in the same commit.
 - **Save tools always read a frozen copy** in the session's scratchpad and delete it afterwards, as
@@ -140,6 +141,12 @@ other), and `ParentName` inheritance (twice).
   that mention crashes, errors, breakage or the current game version.
 - **Limit:** Workshop item pages are region-blocked here, so required items come from the description and
   comments. Ostranauts' `pull-workshop.py` is the first code to lift.
+- **Built 7 Nov 2026** (phobos-modkit 0.5.0, `scripts/workshop-research.py`). Found while building: the item's
+  comments page was rate-limited first thing, but the comment-render endpoint the page itself loads from worked,
+  and gives the same markup with each commenter's account number, so the uploader's replies can be told apart.
+  Items whose uploader's profile is private give no comments to signed-out visitors (Vehicle Framework's do not);
+  the report names them. After a 429, 90 s of waiting was not enough and 150 s was, so the tool waits 150 s once.
+  Its `versions` report found 209 of the owner's 323 active Workshop mods declaring 1.7 in their Steam tags.
 
 ### 6. StartupImpact sessions
 
@@ -211,4 +218,5 @@ there). In short:
 4. The shared report model and derived-data cache. **Done 7 Nov 2026**: phobos-modkit 0.3.0 (see Shared frameworks).
 5. The mod and Def index, which tool 1's mod attribution and tool 7 build on. **Done 7 Nov 2026**: phobos-modkit 0.4.0,
    called through `scripts/query-defs.py`.
-6. Tools 4 to 8 as the need arises, each its own change with its own tests.
+6. Workshop research. **Done 7 Nov 2026**: phobos-modkit 0.5.0, called through `scripts/workshop-research.py`.
+7. Tools 4, 6, 7 and 8 as the need arises, each its own change with its own tests.

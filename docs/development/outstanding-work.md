@@ -57,7 +57,7 @@ reasons are in [analysis tooling](analysis-tooling.md). Each tool's first change
 | T2b | Save index: map grids (terrain, roofs, gas) and comparing two saves by load ID | Rust | Open |
 | T3 | Mod and Def index (SQLite in the kit's cache) | Python | Done: phobos-modkit 0.4.0, `scripts/query-defs.py`, AGENTS.md rule |
 | T4 | Assembly metadata reader | C# | Open |
-| T5 | Workshop research | Python | Open |
+| T5 | Workshop research | Python | Done: phobos-modkit 0.5.0, `scripts/workshop-research.py`, AGENTS.md rule |
 | T6 | StartupImpact sessions | Python | Open |
 | T7 | Version readiness scan | Python | Open |
 | T8 | Release tooling | Python | Open |

@@ -47,7 +47,9 @@ delivered, record the delivery in the changelog or design record, and add or ame
   mods; add `--online` now and then to re-read the Vanilla Expanded collection. Its suggestions are written by
   hand: when a refresh shows one taken up or stale, update them from the mods' Workshop pages and label your
   own reasoning. **Read a mod's latest player comments before suggesting it** (owner, 22 Oct 2026: a Workshop
-  description and a recent update date don't show unfixed bugs), and say which picks are comment-checked. `docs/development/project-direction.md` names the mods that matter to these designs. The PC
+  description and a recent update date don't show unfixed bugs), and say which picks are comment-checked. **Read
+  them with `python scripts/workshop-research.py report <mod>`** (names, package IDs or Workshop IDs; paced and
+  cached), and use its `versions` report for which active mods declare the game's version. `docs/development/project-direction.md` names the mods that matter to these designs. The PC
   is high-end: treat measured performance as a best case for players.
 - The owner is a licensed amateur radio operator and an applied chemist. Radio and chemistry realism
   matter; still label every approximation, authored value and gameplay simplification as such.
