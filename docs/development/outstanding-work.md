@@ -44,6 +44,23 @@ testing is the owner's and is not listed here; each mod's changelog says what is
 | R5 | After a nuke, an ally's RimPacts assault "never eventuated" and the battle was lost; about twelve towns were lost later | RimPacts trims the assault to the defenders left standing, about two after the strike ([record](missile-patches.md)) | Done: Patches 0.11.0, the assault faces the pre-strike garrison. The town losses are unexamined: they happened after the last save; needs the letter or a replay |
 | R4 | (Found in the log) 7,662 errors from the IRBM strike job after loading another game | The job named a closed map in a log line, and the Framework's queue could not empty itself | Done: Framework 0.8.1 and Patches 0.11.0 |
 
+## Analysis tooling (from 7 Nov 2026)
+
+Built in the shared [phobos-modkit](https://github.com/phobos-dthorga/phobos-modkit) repository and consumed here; the order and
+reasons are in [analysis tooling](analysis-tooling.md). Each tool's first change here adds its rule to `AGENTS.md`.
+
+| # | Item | Language | Status |
+| --- | --- | --- | --- |
+| T0 | Create phobos-modkit (public, MIT) with its documents | docs | Done: documents only |
+| T1 | Log triage, with the RimWorld adapter | Python | Open |
+| T2 | Save index and query, working slice | Rust | Open |
+| T3 | Mod and Def index | Python | Open |
+| T4 | Assembly metadata reader | C# | Open |
+| T5 | Workshop research | Python | Open |
+| T6 | StartupImpact sessions | Python | Open |
+| T7 | Version readiness scan | Python | Open |
+| T8 | Release tooling | Python | Open |
+
 ## Deferred
 
 | Item | Reason |

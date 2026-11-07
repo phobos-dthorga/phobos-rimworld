@@ -129,6 +129,12 @@ Five mods until 7 November 2026; each record below keeps its own mod's name and 
 - [View-angle models: research record (7 Nov 2026)](view-angle-models.md): why generated assets come out at odd angles, which
   published models can lock or move the camera, their licences and memory needs on the owner's card, and the trial order.
 
+## Analysis tooling
+
+- [Analysis tooling: proposals (7 Nov 2026)](analysis-tooling.md): eight deterministic tools for logs, saves, mod Defs,
+  assemblies and the Workshop, so sessions read summaries instead of 300 MB saves; the language of each, and why they live in
+  the shared phobos-modkit repository.
+
 ## RimWorld
 
 - [The owner's mod list](owner-mod-list.md): every mod the owner has on, checked against each mod's own rules,
