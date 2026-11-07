@@ -3,7 +3,8 @@
 The owner asked (7 Nov 2026) whether there is a model, or models, we could download that would suit RimWorld's own art style better,
 because a lot of the local model's assets come out at odd angles. **A research record only**: nothing here has been downloaded,
 installed, trained or generated, and no candidate has been tried. Every claim about a model comes from its own model card or
-repository, read on 7 November 2026; everything marked *agent inference* is ours.
+repository, read on 7 November 2026; everything marked *agent inference* is ours. **Update, 8 Nov 2026:** route 2 has had its
+first trial; see "First trial: night 3" near the end.
 
 ## Read this first (gotchas)
 
@@ -136,6 +137,23 @@ For route 2, in one change on the owner's go:
 
 Route 3 adds the ComfyUI-GGUF custom node, two GGUF files and a `qwen-angles` engine; route 4 adds a 3D environment and Blender. Neither
 is planned until route 2 has been judged.
+
+## First trial: night 3 (8 Nov 2026)
+
+Route 2 ran in night 3, on the owner's go (8 Nov 2026), beside a plain redraw of the same two pieces from a top-down stand-in.
+As prepared, no new engine was needed: the depth map went in as the first reference image, the design as the second, with
+`refcontrol` in the prompt. **The owner has not judged these images yet; everything below is agent observation.**
+
+| Test piece | Plain top-down redraw (stand-in as reference) | Depth route (depth map, then the pick) |
+| --- | --- | --- |
+| Electrolyser | Straight down, thick near-black outline, control box kept | Straight down, thick outline, control box lost its detail |
+| Hyperbaric chamber | Straight down, thick outline, rounded capsule | Straight down, keeps pick 102's look closely, thinner outline |
+
+- **Both routes cured the angle on both pieces** in the images looked at (seed 11 of each; the review page has all four seeds).
+- **The depth route keeps the pick's look; the plain redraw keeps the vanilla outline better.** Which matters more is the owner's call.
+- **Near-copy check:** the depth chamber images sit very close to pick 102 by design. Before 9d8f6af the check counted our own
+  picks as game art and flagged them; after the fix, nothing in either route is flagged.
+- **Route 3 and route 4 stay unplanned** unless the owner finds both of these wanting.
 
 ## Sources
 
