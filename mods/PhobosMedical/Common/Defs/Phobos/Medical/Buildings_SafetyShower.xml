@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- A safety shower and eyewash, the second set's second piece (owner's order, 7 Nov 2026). Stood on to rinse. Water per rinse from the
+       ANSI/ISEA Z358.1 figures as reported by ISHN, approximate (on its comp); with Dubs Bad Hygiene it is drawn from the plumbing, without
+       it assumed. Cost and work authored. Placeholder art. -->
+  <ThingDef ParentName="BuildingBase">
+    <defName>PhobosMedical_SafetyShower</defName>
+    <label>safety shower and eyewash</label>
+    <description>A drench shower with a pull handle over an eyewash bowl, for washing acid off the skin and out of the eyes. Anyone with acid on them who can walk runs here by themselves and rinses for a quarter of an hour; doctors draw water here to rinse patients who can't walk. Rinsing stops the acid burning deeper and the cool water eases the pain.
+
+A shower uses a lot of water: about 1,100 litres a rinse, or about 23 litres when only the eyes need it.</description>
+    <graphicData>
+      <texPath>Phobos/Medical/Things/SafetyShower</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>(1,1)</drawSize>
+    </graphicData>
+    <altitudeLayer>Building</altitudeLayer>
+    <passability>Standable</passability>
+    <rotatable>false</rotatable>
+    <statBases>
+      <MaxHitPoints>100</MaxHitPoints>
+      <WorkToBuild>1500</WorkToBuild>
+      <Mass>25</Mass>
+      <Flammability>0.2</Flammability>
+    </statBases>
+    <size>(1,1)</size>
+    <costList>
+      <Steel>40</Steel>
+      <ComponentIndustrial>1</ComponentIndustrial>
+    </costList>
+    <building>
+      <destroySound>BuildingDestroyed_Metal_Small</destroySound>
+    </building>
+    <designationCategory>Misc</designationCategory>
+    <minifiedDef>MinifiedThing</minifiedDef>
+    <thingCategories>
+      <li>BuildingsMisc</li>
+    </thingCategories>
+    <constructionSkillPrerequisite>3</constructionSkillPrerequisite>
+    <comps>
+      <li Class="Phobos.Medical.Comps.CompProperties_PhobosRinseStation" />
+    </comps>
+  </ThingDef>
+</Defs>

@@ -13,6 +13,8 @@ public class BurnsAndSmokeSettings : ModSettings
     public bool burnLoad = true;
     public bool burnShock = true;
     public bool airway = true;
+    /// <summary>Acid left on the skin keeps burning until it is spent or rinsed off.</summary>
+    public bool chemicalBurns = true;
     /// <summary>Deeply burned limbs form a constricting eschar.</summary>
     public bool eschar = true;
     public bool smoke = true;
@@ -33,6 +35,7 @@ public class BurnsAndSmokeSettings : ModSettings
         Scribe_Values.Look(ref burnShock, "PhobosBurns_BurnShock", true);
         Scribe_Values.Look(ref airway, "PhobosBurns_Airway", true);
         Scribe_Values.Look(ref eschar, "PhobosBurns_Eschar", true);
+        Scribe_Values.Look(ref chemicalBurns, "PhobosBurns_ChemicalBurns", true);
         Scribe_Values.Look(ref smoke, "PhobosBurns_Smoke", true);
         Scribe_Values.Look(ref carbonMonoxide, "PhobosBurns_CarbonMonoxide", true);
         Scribe_Values.Look(ref fireHeatOutdoors, "PhobosBurns_FireHeatOutdoors", true);
@@ -75,6 +78,7 @@ public static class BurnsAndSmokeMod
         if (Settings.burnLoad) report.On("burn load"); else report.Off("burn load", "setting");
         if (Settings.burnShock) report.On("burn shock"); else report.Off("burn shock", "setting");
         if (Settings.airway) report.On("airway burns"); else report.Off("airway burns", "setting");
+        if (Settings.chemicalBurns) report.On("acid on the skin"); else report.Off("acid on the skin", "setting");
         if (!Settings.eschar) report.Off("eschar", "setting");
         else report.On(OptionalMods.IsActive(OptionalMods.MoreInjuries) ? "eschar, More Injuries' gangrene for a starved limb" : "eschar, ischaemic damage for a starved limb");
         if (Settings.smoke) report.On("smoke inhalation, " + (PhobosGases.UsesCombatExtendedSmoke ? "Combat Extended's condition as the signal" : "the game's smoke as the signal")); else report.Off("smoke inhalation", "setting");
@@ -98,6 +102,7 @@ public static class BurnsAndSmokeMod
         listing.CheckboxLabeled("PhobosBurns_SettingBurnShock".Translate(), ref Settings.burnShock, "PhobosBurns_SettingBurnShockDesc".Translate());
         listing.CheckboxLabeled("PhobosBurns_SettingAirway".Translate(), ref Settings.airway, "PhobosBurns_SettingAirwayDesc".Translate());
         listing.CheckboxLabeled("PhobosBurns_SettingEschar".Translate(), ref Settings.eschar, "PhobosBurns_SettingEscharDesc".Translate());
+        listing.CheckboxLabeled("PhobosBurns_SettingChemicalBurns".Translate(), ref Settings.chemicalBurns, "PhobosBurns_SettingChemicalBurnsDesc".Translate());
         listing.CheckboxLabeled("PhobosBurns_SettingSmoke".Translate(), ref Settings.smoke, "PhobosBurns_SettingSmokeDesc".Translate());
         listing.CheckboxLabeled("PhobosBurns_SettingCarbonMonoxide".Translate(), ref Settings.carbonMonoxide, "PhobosBurns_SettingCarbonMonoxideDesc".Translate());
         listing.CheckboxLabeled("PhobosBurns_SettingFireHeat".Translate(), ref Settings.fireHeatOutdoors, "PhobosBurns_SettingFireHeatDesc".Translate());

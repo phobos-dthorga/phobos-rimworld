@@ -480,6 +480,12 @@ burn dressings for burns; and an electrolyser and a liquid oxygen store to make 
 - **No operations in a hyperbaric chamber:** move the patient to a hospital bed for surgery. The chamber says who is waiting.
 - **Oxygen does not repair lungs.** A shut airway (breathing at zero) needs a tube: **from 0.7.0 a doctor with Medicine 4 or better
   places one with an intubation kit by themselves**, or you order a tracheotomy. Doctors say so when you right-click.
+- **New in 0.7.0: acid keeps burning until it is washed off, and the safety shower washes it off** (not yet tested in game). An acid
+  burn leaves **acid on the skin** for about three hours, deepening the burns. **Anyone who can walk runs to the nearest safety shower
+  by themselves** (within 60 cells) and rinses for a quarter of an hour; **doctors draw water there and rinse patients who can't walk**.
+  The cool water eases the pain for a few hours. **With Dubs Bad Hygiene, lay plumbing to the shower:** each rinse takes about 1,100
+  litres (23 when only the eyes are burned), the real standard's figure, and a dry shower says so. Without it, water is assumed. The
+  acid has its own setting in the burns section.
 - **New in 0.7.0: the ventilator** (not yet tested in game). Build it touching a hospital bed. It breathes for a patient whose
   breathing has failed, **up to a safe level, not normal**, but **only through a breathing tube**: an intubation kit's or a
   tracheostomy. A doctor places the tube by themselves when someone lies at a working ventilator and needs it, or when an airway is
@@ -490,7 +496,7 @@ burn dressings for burns; and an electrolyser and a liquid oxygen store to make 
 - **Oxygen canisters, and the field kits made from them, explode when they burn.** That is Vanilla Gravship Expanded's rule.
 - **Silver burn dressings are a medicine.** Doctors use them for any tend, like herbal or industrial medicine, under the medical care setting that allows them (normal medicine or better).
 - **Move patients out of the burning room.** A patient on oxygen still takes in the carbon monoxide around them.
-- **Some art is a placeholder:** the electrolyser, the hyperbaric chamber, the ventilator and the intubation kit, until generated art is picked. The rest is AI-generated art picked by the owner on 5 and 7 November 2026; only the burn unit bed has been seen in game. The records beside the textures say how each was made.
+- **Some art is a placeholder:** the electrolyser, the hyperbaric chamber, the ventilator, the intubation kit and the safety shower, until generated art is picked. The rest is AI-generated art picked by the owner on 5 and 7 November 2026; only the burn unit bed has been seen in game. The records beside the textures say how each was made.
 
 ### What it does
 
@@ -502,6 +508,7 @@ burn dressings for burns; and an electrolyser and a liquid oxygen store to make 
 | Field oxygen kit | Item, used up | Made from 1 oxygen canister, 5 steel and 2 cloth at a machining table | One patient lying down, for about an hour | Medicine production and Oxygen Network |
 | Manual resuscitator | Item, kept | Made from 4 cloth, 6 steel and 1 component at a machining table | One patient at a time, while a doctor pumps | Medicine production |
 | Ventilator (new in 0.7.0) | Bedside machine | Power (200 W) | 1 patient with a breathing tube, in a bed it touches | Medicine production |
+| Safety shower and eyewash (new in 0.7.0) | Building, stood on | Water: about 1,100 litres a rinse (23 for eyes alone), from Dubs Bad Hygiene's plumbing if active | Anyone who walks to it; doctors draw water here for patients | None |
 | Intubation kit (new in 0.7.0) | Item, used up | Made from 3 steel and 2 cloth at a machining table; a doctor with Medicine 4 or better | One patient | Medicine production |
 | Silver burn dressing | Medicine | Made from 2 cloth, 4 silver and 1 neutroamine at a drug lab | Any tend | Medicine production |
 | Burn unit bed | Bed | Power (200 W) for its blower | Its own burned patient | Hospital bed |

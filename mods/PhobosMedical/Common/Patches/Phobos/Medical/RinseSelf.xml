@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <!-- People with acid on their skin run to a safety shower: into the game's constant think tree for people, after moving away from heat
+       (which comes first), or after "flee a potential explosion" if that is missing. Conditional, so a rebuilt tree only loses this. -->
+  <Operation Class="PatchOperationConditional">
+    <xpath>Defs/ThinkTreeDef[defName="HumanlikeConstant"]//li[@Class="Phobos.BurnsAndSmoke.Heat.JobGiver_PhobosMoveAwayFromHeat"]</xpath>
+    <match Class="PatchOperationInsert">
+      <xpath>Defs/ThinkTreeDef[defName="HumanlikeConstant"]//li[@Class="Phobos.BurnsAndSmoke.Heat.JobGiver_PhobosMoveAwayFromHeat"]</xpath>
+      <order>Append</order>
+      <value>
+        <li Class="Phobos.Medical.Jobs.JobGiver_PhobosRinseSelf" />
+      </value>
+    </match>
+    <nomatch Class="PatchOperationConditional">
+      <xpath>Defs/ThinkTreeDef[defName="HumanlikeConstant"]//li[@Class="JobGiver_FleePotentialExplosion"]</xpath>
+      <match Class="PatchOperationInsert">
+        <xpath>Defs/ThinkTreeDef[defName="HumanlikeConstant"]//li[@Class="JobGiver_FleePotentialExplosion"]</xpath>
+        <order>Append</order>
+        <value>
+          <li Class="Phobos.Medical.Jobs.JobGiver_PhobosRinseSelf" />
+        </value>
+      </match>
+    </nomatch>
+  </Operation>
+</Patch>

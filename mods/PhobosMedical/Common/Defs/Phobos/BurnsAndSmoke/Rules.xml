@@ -70,6 +70,8 @@
          room, nine tenths in a 300-cell hangar). And how far a pawn looks for a cooler cell when the heat would burn them. -->
     <fireHeatRoomCellsWarmedEvenly>30</fireHeatRoomCellsWarmedEvenly>
     <fireHeatFleeSearchRadiusCells>12</fireHeatFleeSearchRadiusCells>
+    <!-- Acid on the skin: 2 burn damage an hour while fresh, spread over the acid burns, falling as it is spent (authored). -->
+    <chemicalDeepenPerHourAtFull>2</chemicalDeepenPerHourAtFull>
     <!-- Eschar (burns phase 2, owner's go of 7 Nov 2026). A limb whose open burn damage reaches 60% of its health forms a
          constricting eschar (the owner's figure; the game has no "all round the limb", so damage stands in for it). From severity 0.7
          blood flow fails: with More Injuries that can start its gangrene, without it the limb takes ischaemic damage, 0.4 an hour at

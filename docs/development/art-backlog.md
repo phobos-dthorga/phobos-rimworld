@@ -57,6 +57,7 @@ Equipment's picked background, re-titled by script.
 | Bedside oxygen stand | Shipped pick, 0.2.3 (replacing 0.1.1's) | Nothing | | |
 | Burn unit bed | Shipped pick, 0.2.0. East and north are the top-down view turned | Nothing: a bed drawn from directly above needs no separate side views (agent judgement) | | |
 | Ventilator (1x1) | Scripted placeholder in 0.7.0 | Generated art: a bedside cabinet from above with a breathing-wave screen, a bellows column and a tube to the bed | Yes | Go |
+| Safety shower and eyewash (1x1) | Scripted placeholder in 0.7.0 | Generated art: a green drench head with a pull handle over a grated tray, and an eyewash bowl, from above | Yes | Go |
 | Intubation kit (item) | Scripted placeholder in 0.7.0 | Generated art: a laryngoscope and a clear breathing tube with its cuff | Yes | Go |
 | Workshop preview (640x360) | Shipped pick, 0.2.3 | Nothing | | |
 

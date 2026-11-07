@@ -25,6 +25,36 @@
     </requiredCapacities>
   </WorkGiverDef>
 
+  <!-- Rinsing acid off at a safety shower: oneself, or a patient who can't walk (a doctor draws the water and brings it). -->
+  <JobDef>
+    <defName>PhobosMedical_Rinse</defName>
+    <driverClass>Phobos.Medical.Jobs.JobDriver_PhobosRinse</driverClass>
+    <reportString>rinsing off acid.</reportString>
+    <casualInterruptible>false</casualInterruptible>
+    <suspendable>false</suspendable>
+  </JobDef>
+
+  <JobDef>
+    <defName>PhobosMedical_RinsePatient</defName>
+    <driverClass>Phobos.Medical.Jobs.JobDriver_PhobosRinsePatient</driverClass>
+    <reportString>rinsing acid off TargetB.</reportString>
+    <casualInterruptible>false</casualInterruptible>
+  </JobDef>
+
+  <WorkGiverDef>
+    <defName>PhobosMedical_DoctorRinsePatient</defName>
+    <label>rinse acid off patients</label>
+    <giverClass>Phobos.Medical.Jobs.WorkGiver_PhobosRinsePatient</giverClass>
+    <workType>Doctor</workType>
+    <priorityInType>92</priorityInType>
+    <verb>rinse acid off</verb>
+    <gerund>rinsing acid off</gerund>
+    <canBeDoneByMechs>false</canBeDoneByMechs>
+    <requiredCapacities>
+      <li>Manipulation</li>
+    </requiredCapacities>
+  </WorkGiverDef>
+
   <WorkGiverDef>
     <defName>PhobosMedical_DoctorUseDevice</defName>
     <label>use breathing devices</label>

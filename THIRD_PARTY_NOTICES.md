@@ -56,8 +56,9 @@ factory hopper in XML. Nothing from VFE Factory is in this repository.
 [Dubs Bad Hygiene](https://steamcommunity.com/sharedfiles/filedetails/?id=836308268) by **Dubwise** (no licence stated in
 its Workshop folder). D'thorga Factory Additions' optional tie-in assembly references the installed `BadHygiene.dll` to draw
 water from its plumbing, and loads only while that mod is active. D'thorga Water Tap requires it, references the same installed
-`BadHygiene.dll` to fill bottles from its plumbing, and adds a comp to its water bottle in XML. Nothing from Dubs Bad Hygiene
-is in this repository.
+`BadHygiene.dll` to fill bottles from its plumbing, and adds a comp to its water bottle in XML. D'thorga Medical's optional tie-in
+assembly (the electrolyser's water and, from 0.7.0, the safety shower's) reads the same plumbing through D'thorga Framework's reader.
+Nothing from Dubs Bad Hygiene is in this repository.
 
 ## More Injuries (Continued) and More Injuries: Organ Failure
 

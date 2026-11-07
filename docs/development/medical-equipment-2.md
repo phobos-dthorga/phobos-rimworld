@@ -1,7 +1,7 @@
 # Medical equipment, second set: design (7 Nov 2026)
 
-A design record. **Built so far** (D'thorga Medical 0.7.0, not yet tested in game): the ventilator and its intubation kit; see
-Built below. The owner chose all eight proposals from the
+A design record. **Built so far** (D'thorga Medical 0.7.0, not yet tested in game): the ventilator and its intubation kit, the safety
+shower and eyewash; see Built below. The owner chose all eight proposals from the
 [art backlog](art-backlog.md#proposed-medical-equipment-agent-ideas-6-nov-2026-for-the-owner) for D'thorga Medical Equipment (7 Nov
 2026), in this order. The first set (oxygen, burn care, the field kit and the hand pump) is in the [medical equipment record](medical-equipment.md).
 
@@ -45,6 +45,23 @@ Built below. The owner chose all eight proposals from the
   measured with every breathing treatment left out (the oxygen condition's measuring switch is now shared). Nothing at zero: with a
   tube in, zero means no lungs left. It says who it treats, who needs a tube, and who breathes well enough.
 - Placeholder art for both, drawn in code (`assets/phobos-medical/draw_placeholders.py`).
+
+**Safety shower and eyewash** (7 Nov 2026). Decisions, labelled:
+
+- **What it treats.** The game's acid burn is a one-off injury, so nothing would deepen and a rinse would have nothing to stop. Our
+  inference from first aid (flush chemical burns with water for a long time): an acid burn now leaves **acid on the skin** for about
+  three hours (authored), deepening the acid burns by 2 damage an hour at first (authored), spread over them through the burn's own
+  damage kind (found from the Defs by its injury, never by name), ignoring armour since the acid is under it. Marked by
+  `PhobosRinsedByWaterExtension` on `AcidBurn`; the caustic gas model can mark its own. A burns setting.
+- **Water** (sourced, approximate): ANSI/ISEA Z358.1 asks a drench shower for 75.7 litres a minute and an eyewash for 1.5 litres a
+  minute, each for 15 minutes, as reported by ISHN ([ISHN, "ANSI/ISEA Z358.1-2014 emergency eyewash and shower equipment"](https://www.ishn.com/articles/105549-ansiisea-z3581--2014-emergency-eyewash-and-shower-equipment), secondary source). So one rinse is 625 ticks and about 1,136 litres, or 22.7 when every acid burn is on an eye. With
+  Dubs Bad Hygiene the Medical tie-in draws it from the plumbing through the Framework's reader (a failed draw marks the shower dry for
+  an hour, with the electrolyser's reasons); without it, water is assumed. A core interface, `IPhobosWaterSource`, keeps the core free
+  of the tie-in.
+- **Who rinses** (agent choice): anyone who can walk, by a job giver inserted into the game's constant think tree for people after
+  moving away from heat, to the nearest usable shower within 60 cells; patients lying down get Doctor work (priority 92): the doctor
+  draws water at the shower, carries it over and rinses them. The shower is stood on. No research.
+- **After a rinse**: cool water eases burn pain (pain factor 0.85) for about four hours (authored).
 
 ## Open questions
 

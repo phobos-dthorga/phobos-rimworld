@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <!-- With Dubs Bad Hygiene, the safety shower draws each rinse's water from the plumbing under it or against its side. -->
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/ThingDef[defName="PhobosMedical_SafetyShower"]/comps</xpath>
+    <value>
+      <li Class="Phobos.Medical.Hygiene.CompProperties_PhobosRinseWater" />
+    </value>
+  </Operation>
+</Patch>

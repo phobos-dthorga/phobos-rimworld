@@ -15,6 +15,8 @@
   <PhobosBurns_SettingFireHeatDesc>Outdoors the game counts the air beside a blaze as no hotter than the weather. On, each fire in the open heats the cells around it, hottest at the flame and fading within a few cells: anyone beside it suffers heatstroke and, close in, burns from the heat; crops stop growing; food spoils. Rooms have their own setting below. Stands down by itself while a mod that models the air cell by cell is active.</PhobosBurns_SettingFireHeatDesc>
   <PhobosBurns_SettingEschar>Deeply burned limbs tighten</PhobosBurns_SettingEschar>
   <PhobosBurns_SettingEscharDesc>On, an arm or leg burned deeply enough grows a hard crust that tightens over the next day as the limb swells, until blood can no longer reach it. A doctor can cut it open (an escharotomy) to release it. Left alone, the limb is slowly starved and can be lost.</PhobosBurns_SettingEscharDesc>
+  <PhobosBurns_SettingChemicalBurns>Acid keeps burning until it is washed off</PhobosBurns_SettingChemicalBurns>
+  <PhobosBurns_SettingChemicalBurnsDesc>On, an acid burn leaves acid on the skin that keeps deepening the burns for a few hours, unless it is rinsed off at a safety shower. Anyone who can walk runs to the nearest one by themselves; doctors bring water for patients who can't.</PhobosBurns_SettingChemicalBurnsDesc>
   <PhobosBurns_FluidsGiven>{DOCTOR} has started a saline drip for {PATIENT}'s burn shock.</PhobosBurns_FluidsGiven>
   <PhobosBurns_FluidsNotNeeded>{PATIENT} no longer needs fluids for burn shock.</PhobosBurns_FluidsNotNeeded>
   <PhobosBurns_SettingFireHeatIndoors>Fires heat the air around them in large rooms</PhobosBurns_SettingFireHeatIndoors>

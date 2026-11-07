@@ -88,6 +88,10 @@ public class PhobosBurnRulesDef : PhobosRulesDef
     public float fireHeatRoomCellsWarmedEvenly = 30f;
     /// <summary>How far a pawn looks for a cooler cell when the heat would burn them (authored).</summary>
     public float fireHeatFleeSearchRadiusCells = 12f;
+    // Acid on the skin (D'thorga Medical 0.7.0, with the safety shower).
+    /// <summary>Burn damage an hour, spread over the acid burns, while fresh acid is still on the skin (authored).</summary>
+    public float chemicalDeepenPerHourAtFull = 2f;
+
     // Eschar (burns phase 2, owner's go of 7 Nov 2026).
     /// <summary>A limb whose open burn damage reaches this share of its health forms a constricting eschar (owner's go: 60%).</summary>
     public float escharPartHealthFraction = 0.6f;
@@ -108,6 +112,14 @@ public class PhobosBurnRulesDef : PhobosRulesDef
     public List<string> perCellTemperatureMods = new();
 
     public static PhobosBurnRulesDef Current => Current<PhobosBurnRulesDef>();
+}
+
+/// <summary>
+/// Marks an injury Def as a chemical burn whose chemical stays on the skin until rinsed off with water: while it does, the burns deepen.
+/// On the game's acid burn; other mods add it in XML.
+/// </summary>
+public class PhobosRinsedByWaterExtension : DefModExtension
+{
 }
 
 /// <summary>

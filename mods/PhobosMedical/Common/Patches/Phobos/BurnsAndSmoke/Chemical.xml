@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <!-- The game's acid burn (from acid sprayers, acidic creatures and abilities) leaves acid on the skin until it is rinsed off. Other
+       mods' chemical burns join by adding this extension in XML. -->
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>Defs/HediffDef[defName="AcidBurn"]</xpath>
+    <value>
+      <li Class="Phobos.BurnsAndSmoke.Defs.PhobosRinsedByWaterExtension" />
+    </value>
+  </Operation>
+</Patch>

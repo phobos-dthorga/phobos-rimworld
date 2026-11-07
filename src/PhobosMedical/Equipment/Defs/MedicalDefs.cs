@@ -83,6 +83,8 @@ public static class MedicalDefOf
     public static HediffDef PhobosMedical_OnOxygen = null!;
     public static HediffDef PhobosMedical_Ventilated = null!;
     public static JobDef PhobosMedical_UseDevice = null!;
+    public static JobDef PhobosMedical_Rinse = null!;
+    public static JobDef PhobosMedical_RinsePatient = null!;
 
     static MedicalDefOf() => DefOfHelper.EnsureInitializedInCtor(typeof(MedicalDefOf));
 }

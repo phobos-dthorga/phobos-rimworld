@@ -36,6 +36,8 @@ TUBE = (178, 214, 226, 255)
 GREEN = (116, 176, 132, 255)
 OXYGEN = (201, 163, 79, 255)  # The oxygen network's overlay colour, so the outlet reads as oxygen.
 HYDROGEN = (196, 86, 74, 255)
+SAFETY_GREEN = (64, 156, 92, 255)
+SAFETY_YELLOW = (226, 196, 64, 255)
 WATER = (86, 158, 204, 255)
 
 
@@ -148,6 +150,24 @@ def intubation_kit(draw):
     box(draw, (400, 850, 520, 950), GREEN, 20)  # Connector.
 
 
+def safety_shower(draw):
+    """A safety shower and eyewash from above: a green drench head on a yellow-banded stand, a pull handle, and a round eyewash bowl
+    with two spray nozzles."""
+    box(draw, (150, 150, 874, 874), PANEL_DARK, 60)  # Grated floor tray.
+    for x in range(220, 820, 80):
+        draw.line((x, 200, x, 824), fill=PANEL_DEEP, width=14)
+    draw.ellipse((250, 180, 774, 704), fill=SAFETY_GREEN, outline=OUTLINE, width=LINE)  # Drench head.
+    draw.ellipse((420, 350, 604, 534), fill=PANEL, outline=OUTLINE, width=28)
+    for angle_x, angle_y in ((512, 260), (512, 624), (330, 442), (694, 442)):
+        draw.ellipse((angle_x - 22, angle_y - 22, angle_x + 22, angle_y + 22), fill=WATER, outline=OUTLINE, width=10)
+    draw.line((700, 640, 860, 860), fill=OUTLINE, width=50)  # Pull rod and handle.
+    draw.line((700, 640, 860, 860), fill=SAFETY_YELLOW, width=26)
+    draw.ellipse((820, 820, 920, 920), fill=SAFETY_YELLOW, outline=OUTLINE, width=16)
+    draw.ellipse((170, 640, 450, 920), fill=VESSEL, outline=OUTLINE, width=LINE)  # Eyewash bowl.
+    for x in (250, 330):
+        draw.ellipse((x, 740, x + 60, 800), fill=SAFETY_GREEN, outline=OUTLINE, width=12)
+
+
 def placeholder(painter, name, what, canvas, final, multi, outstanding):
     """A game texture standing in for outstanding generated art, with its record. multi writes the south view and the east and north
     views turned from it (anticlockwise 90 and 180 degrees, as the burn unit bed's), for a bed drawn from directly above."""
@@ -200,6 +220,8 @@ DRAWINGS = {
         ventilator, 'Ventilator', 'a bedside ventilator, 1 by 1, from above', WORK, 256, False, 'generated art'),
     'IntubationKitPlaceholder': lambda: placeholder(
         intubation_kit, 'IntubationKit', 'an intubation kit (laryngoscope and breathing tube) as an item', WORK, 128, False, 'generated art'),
+    'SafetyShowerPlaceholder': lambda: placeholder(
+        safety_shower, 'SafetyShower', 'a safety shower and eyewash, 1 by 1, from above', WORK, 256, False, 'generated art'),
 }
 
 if __name__ == '__main__':

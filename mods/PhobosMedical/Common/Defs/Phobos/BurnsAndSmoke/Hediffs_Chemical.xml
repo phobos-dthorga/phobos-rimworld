@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- Acid on the skin: spent in about three hours (authored), deepening the chemical burns meanwhile through its comp. Rinsing removes it. -->
+  <HediffDef>
+    <defName>PhobosBurns_ChemicalOnSkin</defName>
+    <label>acid on the skin</label>
+    <labelNoun>acid on the skin</labelNoun>
+    <description>Acid is still on the skin, eating deeper into the burns it made. It takes a few hours to be spent. Rinsing it off with plenty of water at a safety shower stops it at once.</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <defaultLabelColor>(0.75, 0.85, 0.3)</defaultLabelColor>
+    <initialSeverity>1</initialSeverity>
+    <maxSeverity>1</maxSeverity>
+    <isBad>true</isBad>
+    <tendable>false</tendable>
+    <everCurableByItem>false</everCurableByItem>
+    <scenarioCanAdd>false</scenarioCanAdd>
+    <comps>
+      <li Class="HediffCompProperties_SeverityPerDay">
+        <severityPerDay>-8</severityPerDay>
+      </li>
+      <li Class="Phobos.BurnsAndSmoke.Comps.HediffCompProperties_PhobosChemicalDeepening" />
+    </comps>
+    <stages>
+      <li>
+        <painOffset>0.1</painOffset>
+      </li>
+    </stages>
+  </HediffDef>
+
+  <!-- After a rinse: cool water eases burn pain for about four hours (authored). -->
+  <HediffDef>
+    <defName>PhobosBurns_Rinsed</defName>
+    <label>rinsed</label>
+    <labelNoun>a rinse</labelNoun>
+    <description>The acid has been washed off with plenty of cool water, which also eases the pain of the burns for a few hours.</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <defaultLabelColor>(0.55, 0.8, 0.95)</defaultLabelColor>
+    <initialSeverity>1</initialSeverity>
+    <maxSeverity>1</maxSeverity>
+    <isBad>false</isBad>
+    <tendable>false</tendable>
+    <everCurableByItem>false</everCurableByItem>
+    <scenarioCanAdd>false</scenarioCanAdd>
+    <comps>
+      <li Class="HediffCompProperties_SeverityPerDay">
+        <severityPerDay>-6</severityPerDay>
+      </li>
+    </comps>
+    <stages>
+      <li>
+        <painFactor>0.85</painFactor>
+      </li>
+    </stages>
+  </HediffDef>
+</Defs>

@@ -35,7 +35,9 @@ public class HediffGiver_PhobosBurns : HediffGiver
 
     public override bool OnHediffAdded(Pawn pawn, Hediff hediff)
     {
-        if (pawn.RaceProps.Humanlike) AirwayService.NoteHediffAdded(pawn, hediff);
+        if (!pawn.RaceProps.Humanlike) return false;
+        AirwayService.NoteHediffAdded(pawn, hediff);
+        ChemicalService.NoteHediffAdded(pawn, hediff);
         return false;
     }
 

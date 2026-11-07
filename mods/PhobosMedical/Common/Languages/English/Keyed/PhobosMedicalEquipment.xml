@@ -20,6 +20,10 @@
   <PhobosMedical_VentilatorNeedsTube>{PATIENTS} needs a breathing tube first: a doctor with Medicine 4 or better will place one with an intubation kit.</PhobosMedical_VentilatorNeedsTube>
   <PhobosMedical_VentilatorNotNeeded>Breathing well enough without it: {PATIENTS}. It starts if their breathing fails.</PhobosMedical_VentilatorNotNeeded>
 
+  <PhobosMedical_RinseStationReady>Ready: anyone with acid on their skin runs here to rinse it off, and doctors draw water here for patients who can't walk.</PhobosMedical_RinseStationReady>
+  <PhobosMedical_RinseStationDry>No water came out at the last rinse. It is tried again shortly.</PhobosMedical_RinseStationDry>
+  <PhobosMedical_RinseNoWater>{PAWN} could not be rinsed: {REASON}</PhobosMedical_RinseNoWater>
+
   <PhobosMedical_BurnBedSwitchedOff>Blower switched off, so nobody gets air-cell care. It still works as a hospital bed.</PhobosMedical_BurnBedSwitchedOff>
   <PhobosMedical_BurnBedNoPower>Waiting for power for its blower. It still works as a hospital bed.</PhobosMedical_BurnBedNoPower>
   <PhobosMedical_BurnBedWaiting>Waiting for a patient with open burns.</PhobosMedical_BurnBedWaiting>
