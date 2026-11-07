@@ -120,6 +120,8 @@ Five mods until 7 November 2026; each record below keeps its own mod's name and 
 - [Art automation and medical equipment: design (4 Nov 2026)](art-automation-and-medical-equipment.md): where all the current work
   stands, a hands-off overnight art pipeline, what makes training material, vanilla sprite sizes and the EULA, the medical
   equipment your mods already have, what they lack, and the open questions.
+- [View-angle models: research record (7 Nov 2026)](view-angle-models.md): why generated assets come out at odd angles, which
+  published models can lock or move the camera, their licences and memory needs on the owner's card, and the trial order.
 
 ## RimWorld
 

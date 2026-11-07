@@ -168,6 +168,9 @@ Proposed 6 Nov 2026 for the owner to confirm. Generation doesn't need them; expo
   the smooth upscale of tiny sprites may be what teaches the soft look (agent's reading, untested). Then v1, v2 and v3 on the same
   prompts and seeds, with references and without.
 - **The cost:** more training images, more chances of a near-copy, and a slower check; everything stays on the owner's PC and in `.local/`, never committed.
+- **Caption the view** (agent proposal, 7 Nov 2026): every v3 training caption and every request carries one fixed phrase for the view,
+  "seen from directly above, south face hinted", so the view becomes a word the model can be asked for. Why, and the other ways to fix
+  the angle, are in [the view-angle models record](view-angle-models.md).
 
 ## Next requests (7 Nov 2026)
 
@@ -175,3 +178,6 @@ The store's frost (its code waits for it, owner), the electrolyser, the chamber'
 station, the Burns and Smoke and Medical Save Bridge previews, the second set of medical equipment
 ([its record](medical-equipment-2.md)) and the four vents ([ventilation and hydrogen](ventilation-and-hydrogen.md)). Every new button
 gets its icon in the same change (owner rule, 7 Nov 2026).
+
+**Fixing the angle first:** the chamber redraw and the electrolyser are the test pieces for the depth-control trial in
+[the view-angle models record](view-angle-models.md), on the owner's go; the rest of the list runs through the current route.
