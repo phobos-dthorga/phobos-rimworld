@@ -1,0 +1,15 @@
+{
+  "target": "mods/PhobosMedical/Common/Textures/Phobos/Medical/Things/BurnUnitBed_south.png",
+  "source": ".local/art/picks-5nov/burn-unit-bed-both-11.png",
+  "source_sha256": "25451621cf9465c74babfc76c5d14cc74d03992a97575a93e823cffadb70f842",
+  "target_sha256": "c3ae4fee5079c082f81bb94bde1d0db3e8bf74f71555616879784fe8bcb6e8f0",
+  "size": [
+    256,
+    256
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "date": "2026-11-05T18:00:11",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

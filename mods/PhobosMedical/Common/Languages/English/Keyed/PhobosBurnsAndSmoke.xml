@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <PhobosBurns_SettingBurnLoad>Burned body fraction</PhobosBurns_SettingBurnLoad>
+  <PhobosBurns_SettingBurnLoadDesc>Adds up every burn on the skin into one condition: cold sensitivity, hunger, pain and strain on the heart that grow with the area burned.</PhobosBurns_SettingBurnLoadDesc>
+  <PhobosBurns_SettingBurnShock>Burn shock</PhobosBurns_SettingBurnShock>
+  <PhobosBurns_SettingBurnShockDesc>Large burns can kill within days unless the burns are tended, the patient rests in bed and the shock itself is tended, with the best medicine you have. Older patients and inhalation injuries do worse.</PhobosBurns_SettingBurnShockDesc>
+  <PhobosBurns_SettingAirway>Airway burns</PhobosBurns_SettingAirway>
+  <PhobosBurns_SettingAirwayDesc>A pawn that burns, or is burned about the head and neck, may get an airway burn whose swelling builds over hours. A tracheotomy relieves it.</PhobosBurns_SettingAirwayDesc>
+  <PhobosBurns_SettingSmoke>Smoke inhalation</PhobosBurns_SettingSmoke>
+  <PhobosBurns_SettingSmokeDesc>Breathing smoke damages the lungs for days and can lead to pneumonia. The smoke itself comes from Combat Extended when that mod's smoke runs, otherwise from the game's own smoke, which fires now make under a roof.</PhobosBurns_SettingSmokeDesc>
+  <PhobosBurns_SettingCarbonMonoxide>Carbon monoxide</PhobosBurns_SettingCarbonMonoxide>
+  <PhobosBurns_SettingCarbonMonoxideDesc>Fires in closed rooms make carbon monoxide, which a gas mask does not stop. It builds in the blood, confuses, drops and kills, and clears slowly in clean air.</PhobosBurns_SettingCarbonMonoxideDesc>
+  <PhobosBurns_SettingFireHeat>Fires heat the air around them in the open</PhobosBurns_SettingFireHeat>
+  <PhobosBurns_SettingFireHeatDesc>Outdoors the game counts the air beside a blaze as no hotter than the weather. On, each fire in the open heats the cells around it, hottest at the flame and fading within a few cells: anyone beside it suffers heatstroke and, close in, burns from the heat; crops stop growing; food spoils. Rooms keep the game's own heating. Stands down by itself while a mod that models the air cell by cell is active.</PhobosBurns_SettingFireHeatDesc>
+  <PhobosBurns_SettingAcuteSmokeWithCombatExtended>Also apply this mod's smoke inhalation with Combat Extended</PhobosBurns_SettingAcuteSmokeWithCombatExtended>
+  <PhobosBurns_SettingAcuteSmokeWithCombatExtendedDesc>Off by default: with Combat Extended's smoke running, its own smoke inhalation condition is the one that applies, and this mod adds only the lasting lung damage and carbon monoxide. On, both acute conditions apply.</PhobosBurns_SettingAcuteSmokeWithCombatExtendedDesc>
+
+  <PhobosBurns_TipBurnLoadPlain>Burned skin loses fluid and heat. Tend every burn, keep the patient warm and fed, and in bed if it is serious.</PhobosBurns_TipBurnLoadPlain>
+  <PhobosBurns_TipBurnLoad>About {BURNED}% of the body is burned. Tend every burn; past {SHOCKSTART}% burn shock follows.</PhobosBurns_TipBurnLoad>
+  <PhobosBurns_TipBurnShockPlain>Tend the burns, keep the patient in bed, and tend the shock itself to give fluids: the better the medicine, the more it helps. Industrial medicine holds the worst cases steady; glitterworld medicine turns them round.</PhobosBurns_TipBurnShockPlain>
+  <PhobosBurns_TipBurnShock>Revised Baux score {SCORE}; heading for {TARGET}% with the care given now.</PhobosBurns_TipBurnShock>
+  <PhobosBurns_TipBurnShockEngineer>Age {AGE} + burned {BURNED}% + inhalation {INHALATION}; burns tended {TENDED}%; in bed: {INBED}; fluids quality {FLUIDS}%. Target = (score - {NODEATH}) / {RANGE}, times 1 - {TENDEDRELIEF} x tended - {BEDRELIEF} if in bed - {FLUIDSRELIEF} x fluids quality (floor {FLOOR}); at least {STARTFLOOR} while {SHOCKSTART}% or more is burned.</PhobosBurns_TipBurnShockEngineer>
+  <PhobosBurns_TipCarbonMonoxidePlain>Get the patient into clean air, outdoors if possible. A gas mask does not help.</PhobosBurns_TipCarbonMonoxidePlain>
+  <PhobosBurns_TipCarbonMonoxide>Blood carrying carbon monoxide: {LEVEL}%. Halves every {ROOFED} hours under a roof, {OUTDOORS} hours in open air.</PhobosBurns_TipCarbonMonoxide>
+  <PhobosBurns_TipLungInjuryPlain>Tending helps the lungs recover. Badly damaged lungs invite pneumonia.</PhobosBurns_TipLungInjuryPlain>
+  <PhobosBurns_TipLungInjury>From breathing smoke. Lung damage {LEVEL}%. Recovers {UNTENDED}% a day untended, {TENDED}% a day tended well.</PhobosBurns_TipLungInjury>
+  <PhobosBurns_TipAirway>{AGE} hours since the burn; this episode peaks at {PEAK}% of the full swelling, at {PEAKHOURS} hours, and is gone by {RESOLVEHOURS} hours.</PhobosBurns_TipAirway>
+  <PhobosBurns_TipSmokeAftermathLungs>Smoke like this scars the lungs over the hours that follow.</PhobosBurns_TipSmokeAftermathLungs>
+  <PhobosBurns_TipSmokeAftermathCarbonMonoxide>A fire in a closed room also fills it with carbon monoxide, which lingers after the smoke has thinned and which no filter mask stops.</PhobosBurns_TipSmokeAftermathCarbonMonoxide>
+  <PhobosBurns_Yes>yes</PhobosBurns_Yes>
+  <PhobosBurns_No>no</PhobosBurns_No>
+</LanguageData>

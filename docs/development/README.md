@@ -11,6 +11,8 @@ promise current behaviour. For using the mods, start at the [documentation index
   where things go, the C# toolchain (RimWorld 1.7 leads; 1.6 kept as the minimum) and deploying to the game.
 - [Writing READMEs and in-game text](player-language.md)
 - [The medical mods together](../medical-mods.md): the player's view of which medical mod does what, with a flow diagram.
+- [Mod consolidation (7 Nov 2026)](mod-consolidation.md): why eleven mods became six (five medical mods into D'thorga
+  Medical, two patch mods into D'thorga Patches), who decided what, how identities and settings were kept, and what came of it.
 - Which mod needs which: the diagram in the [project README](../../README.md#the-mods).
 
 ## The radio framework
@@ -35,25 +37,17 @@ promise current behaviour. For using the mods, start at the [documentation index
   factory hoppers, or storage flagged with Pipe System's extension; since 0.6.0 also switched-on storage), where
   it pushes, what the flag does not change, and the recipe for flagging another mod's storage.
 
-## Vehicle patches
+## D'thorga Patches (vehicle and missile patches)
 
 - [Vehicle patches: research and decisions (2 Nov 2026)](vehicle-patches.md): why the Harrier's flight framework fails beside
   RimPacts (a Harmony patch in a generic class breaks the next patch of that method), its build cost and bomb costs against
   the owner's other vehicles, bombs and rockets at the ammunition fabricator, heavy castings at the rotary forger, keeping a
   sortie's map open, Spaceship Turret Hull under Combat Extended, 1.7 readiness, and bug reports for the mods' authors.
 
-## Missile patches
-
 - [Missile patches: research and decisions (7 Nov 2026)](missile-patches.md): why a strategic warhead from InterRim Ballistic
   Missile hung the owner's game at detonation (one frame for the whole map, and a room rebuild after every fallen wall), how
   D'thorga Missile Patches spreads the blast over frames and holds the rebuild, who chose what, the owner's test protocol, and a
   bug report for the mod's author.
-
-## Medical save bridge
-
-- [Medical save bridge: research and decisions (3 Nov 2026)](medical-save-bridge.md): why adding More Injuries to a save that
-  runs Medical System Expansion 2 wiped wounds and revived corpses (parts are saved by index, and More Injuries appends eight),
-  the game's own conversion hooks the bridge sits on, who chose what, and the owner's test protocol.
 
 ## Framework
 
@@ -63,20 +57,30 @@ promise current behaviour. For using the mods, start at the [documentation index
   helpers, supplied oxygen (0.2.0), the health layer and per-person care choices the medical mods share (0.3.0), and the owner's
   test protocol.
 
-## Burns and smoke
+## D'thorga Medical
+
+Five mods until 7 November 2026; each record below keeps its own mod's name and scope.
+
+### Medical save bridge
+
+- [Medical save bridge: research and decisions (3 Nov 2026)](medical-save-bridge.md): why adding More Injuries to a save that
+  runs Medical System Expansion 2 wiped wounds and revived corpses (parts are saved by index, and More Injuries appends eight),
+  the game's own conversion hooks the bridge sits on, who chose what, and the owner's test protocol.
+
+### Burns and smoke
 
 - [Burns and smoke: research and decisions (4 Nov 2026)](burns-and-smoke.md): what an incendiary raid left in the save (112
   plain burns and nothing else), how the game, Combat Extended and More Injuries handle fire and smoke, the medical sources
   behind the burned fraction, burn shock, airway burns, lung injury and carbon monoxide, fire heat in the open (0.5.0), who chose
   what, and the test protocol.
 
-## Caustic gas
+### Caustic gas
 
 - [Caustic gas: research and decisions (5 Nov 2026)](caustic-gas.md): what the game's tox gas really does (read from the code), the owner's
   slow-acting default and fast-acting setting, three exposures for eyes, lungs and skin, the conditions proposed and reused, who chose
   what, and a test protocol for when it is built. A game design with authored figures; nothing is built.
 
-## Medical equipment
+### Medical equipment
 
 - [Medical equipment: research and decisions (5 Nov 2026)](medical-equipment.md): bedside oxygen on the pattern of the vitals
   monitor and IV stand, the burn unit bed, what is reused from Vanilla Gravship Expanded, why Organ Failure's ventilator cannot
@@ -86,14 +90,14 @@ promise current behaviour. For using the mods, start at the [documentation index
 - [Ventilation and hydrogen: design (7 Nov 2026)](ventilation-and-hydrogen.md): the electrolyser's hydrogen as a flammable room
   gas, and the extractor fan, passive vent, fume hood and hydrogen detector. Nothing built.
 
-## Emergency dosing
+### Emergency dosing
 
 - [Emergency dosing: research and decisions (5 Nov 2026)](emergency-dosing.md): why no doctor ever gives a painkiller or
   sedative on their own (More Injuries' drugs are drafted-only right-click options, Search and Rescue's doctors are undrafted
   by rule), the owner's effects-not-names rule and the index it produced, the need, safety and choice rules, self-medication,
   the disease-fighting drugs and the bleeding hold (0.3.0), two upstream faults for the owner to report, and the test protocol.
 
-## Triage
+### Triage
 
 - [Triage: research and decisions (6 Nov 2026)](triage.md): what Search and Rescue and More Injuries already do and what neither
   does (queue surgery), how the game creates, orders and forgets a bill, the owner's choices on authority and defaults, the

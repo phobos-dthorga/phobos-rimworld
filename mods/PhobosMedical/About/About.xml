@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ModMetaData>
+  <packageId>PhobosDthorga.Medical</packageId>
+  <name>D'thorga Medical</name>
+  <author>Phobos A. D'thorga</author>
+  <url>https://github.com/phobos-dthorga/phobos-rimworld</url>
+  <modVersion>0.6.0</modVersion>
+  <description>Burns and smoke that matter, doctors who dose and operate on their own, hospital and field equipment to treat it all, and a safe way to add More Injuries to a colony you are already playing. Built to sit beside More Injuries and Combat Extended; neither is required.
+
+It replaces five earlier mods: D'thorga Burns and Smoke, D'thorga Emergency Dosing, D'thorga Triage, D'thorga Medical Equipment and D'thorga Medical Save Bridge. Switch all five off when you switch this on. Your colony and your settings carry over.
+
+Burns and smoke:
+
+- Burned body fraction: every burn on the skin adds up. Large burns make a patient cold, hungry, in pain and weak-hearted.
+
+- Burn shock: past about a sixth of the body burned, shock sets in, and it kills within days unless the burns are tended, the patient rests in bed and the shock itself is tended to give fluids. Older patients and inhalation injuries do worse (the revised Baux score).
+
+- Airway burns whose swelling builds over hours and can close the throat; a tracheotomy opens a way past it.
+
+- Smoke that damages the lungs for days, and carbon monoxide from fires in closed rooms, which lingers after the smoke has cleared and ignores a gas mask.
+
+- Fire heat in the open: each fire heats the cells around it, so anyone beside a blaze suffers heatstroke and, close in, burns.
+
+Emergency dosing:
+
+- A patient in severe pain gets the best pain relief within reach from a doctor, and a sedative in extreme pain when no painkiller can be given. Nothing is given while an earlier dose still works or where it would be dangerous.
+
+- A patient losing the race against a deadly disease gets a medical drug that speeds up their immunity. A colonist in serious pain takes a painkiller their drug policy allows.
+
+- Any mod's drugs qualify, found by what they do, never by name.
+
+Triage:
+
+- Doctors queue the life-saving operations a patient needs, the one most likely to succeed among those your colony can do, never riskier than you allow. When no one can, a message says what is missing.
+
+- Each person has a button for how far the doctors may go without orders. Doctors with several patients take the worst case first, by a triage tag.
+
+Medical equipment:
+
+- Oxygen concentrator, burn unit bed, silver burn dressing and manual resuscitator.
+
+- With Vanilla Gravship Expanded, on its oxygen canisters and pipes: a bedside oxygen stand, a hyperbaric chamber, a field oxygen kit, an oxygen electrolyser and a liquid oxygen store.
+
+Colonies saved before More Injuries:
+
+- When you load a colony saved before More Injuries (or another mod that adds body parts), you are asked whether to convert its injuries first. Converting keeps every wound, lost limb and bionic on the right part, and stops More Injuries' first-load clean-up from wiping wounds and raising the dead.
+
+Needs Harmony, D'thorga Framework and Vanilla Expanded Framework; Vanilla Gravship Expanded is strongly recommended. Safe to add to a running colony.
+
+Community-created content. Portions of the materials used to create this content/mod are trademarks and/or copyrighted works of Ludeon Studios Inc. All rights reserved by Ludeon. This content/mod is not official and is not endorsed by Ludeon.</description>
+  <supportedVersions>
+    <li>1.6</li>
+    <li>1.7</li>
+  </supportedVersions>
+  <modDependencies>
+    <li>
+      <packageId>brrainz.harmony</packageId>
+      <displayName>Harmony</displayName>
+      <steamWorkshopUrl>steam://url/CommunityFilePage/2009463077</steamWorkshopUrl>
+      <downloadUrl>https://github.com/pardeike/HarmonyRimWorld/releases/latest</downloadUrl>
+    </li>
+    <li>
+      <packageId>PhobosDthorga.Framework</packageId>
+      <displayName>D'thorga Framework</displayName>
+      <downloadUrl>https://github.com/phobos-dthorga/phobos-rimworld</downloadUrl>
+    </li>
+    <li>
+      <packageId>OskarPotocki.VanillaFactionsExpanded.Core</packageId>
+      <displayName>Vanilla Expanded Framework</displayName>
+      <steamWorkshopUrl>steam://url/CommunityFilePage/2023507013</steamWorkshopUrl>
+    </li>
+  </modDependencies>
+  <loadAfter>
+    <li>Ludeon.RimWorld</li>
+    <li>brrainz.harmony</li>
+    <li>OskarPotocki.VanillaFactionsExpanded.Core</li>
+    <li>PhobosDthorga.Framework</li>
+    <li>CETeam.CombatExtended</li>
+    <li>Th3Fr3d.ExtendedInjuries</li>
+    <li>wenders.moreinjuries.organbridge</li>
+    <li>MSE2.Core</li>
+    <li>ch4acko3.searchandrescue</li>
+    <li>Orion.Hospitality</li>
+    <li>vanillaexpanded.gravship</li>
+    <li>VanillaExpanded.VFEMedical</li>
+    <li>Dubwise.DubsBadHygiene</li>
+  </loadAfter>
+  <!-- The five mods this one replaced (7 November 2026). Running any of them beside it would load the same parts twice. -->
+  <incompatibleWith>
+    <li>PhobosDthorga.BurnsAndSmoke</li>
+    <li>PhobosDthorga.Dosing</li>
+    <li>PhobosDthorga.Triage</li>
+    <li>PhobosDthorga.MedicalEquipment</li>
+    <li>PhobosDthorga.MedicalSaveBridge</li>
+  </incompatibleWith>
+</ModMetaData>

@@ -23,7 +23,7 @@ You need Git, Python 3 and a .NET SDK that builds `net10.0`.
 git clone https://github.com/phobos-dthorga/phobos-rimworld.git
 cd phobos-rimworld
 python scripts/deploy.py --build --apply --all          build every project, then copy every mod
-python scripts/deploy.py --build --apply PhobosTriage   build, then copy one mod (name the folder under mods/)
+python scripts/deploy.py --build --apply PhobosMedical  build, then copy one mod (name the folder under mods/)
 python scripts/deploy.py --all                          only list what would be copied
 ```
 

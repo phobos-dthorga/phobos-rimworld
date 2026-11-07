@@ -19,7 +19,7 @@ from pathlib import Path
 from PIL import Image, ImageDraw
 
 ROOT = Path(__file__).resolve().parents[2]
-TEXTURES = ROOT / 'mods/PhobosVehiclePatches/Mods/HarrierVtol/Textures/Phobos/VehiclePatches'
+TEXTURES = ROOT / 'mods/PhobosPatches/Mods/HarrierVtol/Textures/Phobos/VehiclePatches'
 WORK = 1024  # Drawn large and scaled down, which smooths the edges.
 FINAL = 128
 LINE = 40

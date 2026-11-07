@@ -65,8 +65,8 @@ class AllModsTests(unittest.TestCase):
 
     def test_the_real_repository_lists_every_mod(self):
         mods = deploy.all_mods()
-        for expected in ('PhobosFramework', 'PhobosBurnsAndSmoke', 'PhobosRadioFramework', 'PhobosFactoryAdditions',
-                         'PhobosMedicalSaveBridge', 'PhobosVehiclePatches', 'PhobosWaterTap'):
+        for expected in ('PhobosFramework', 'PhobosMedical', 'PhobosRadioFramework', 'PhobosFactoryAdditions',
+                         'PhobosPatches', 'PhobosWaterTap'):
             self.assertIn(expected, mods)
         # Every project builds into a real mod, and every mod's code is built; tie-in projects share their mod's folder.
         folders = {re.search(r'<ModFolder>\s*([^<\s]+)', project.read_text(encoding='utf-8')).group(1) for project in deploy.projects()}

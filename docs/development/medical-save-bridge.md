@@ -1,6 +1,8 @@
 # Medical save bridge: research and decisions (3 Nov 2026)
 
-The record behind [D'thorga Medical Save Bridge](../../mods/PhobosMedicalSaveBridge/README.md). **The first load was tested in game
+**Since 7 November 2026 this mod is a part of [D'thorga Medical](../../mods/PhobosMedical/README.md)** ([why](mod-consolidation.md)); paths below are updated, the rest is as recorded.
+
+The record behind [D'thorga Medical Save Bridge](../../mods/PhobosMedical/README.md). **The first load was tested in game
 by the owner on 3 November 2026**, with 0.1.0 and again with 0.1.1 (results at the end), then saved and reloaded; a new colony is not. The
 player guide is the mod's README; this holds the code readings, the evidence, the sources and who chose what. It started from
 a handoff the owner brought from a claude.ai investigation of the PG17 colony's logs and saves; what that handoff marked as a
@@ -107,7 +109,7 @@ builds of both mods), kept in the ignored `.local/decompiled/`. **Verified** mea
 
 Mods: More Injuries on, the bridge after More Injuries and MSE2, everything else as it is. The handoff said to keep Organ Failure
 and Medieval Solutions off; the owner had them on and it was fine (results below).
-Deploy with the game closed: `python scripts/deploy.py --build --apply PhobosMedicalSaveBridge`.
+Deploy with the game closed: `python scripts/deploy.py --build --apply PhobosMedical`.
 
 1. Before switching anything on, open clean PG17 and screenshot the health tabs of at least three colonists with lost limbs or
    bionics, and of one with MSE2 modules.

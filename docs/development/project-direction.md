@@ -67,6 +67,10 @@ load folder or patch.
 | 19 Oct 2026 | Phase 1 ships one mode (FM voice at 12 dB) and one coax type; the weak-signal digital mode, a second coax and water-ingress degradation wait for later phases | agent default |
 | 19 Oct 2026 | No Harmony reference until a feature needs a patch | agent default |
 | 19 Oct 2026 | GitHub Actions builds and runs only the game-free physics tests, because VEF cannot be present there; the mod builds on the owner's machine | agent default, forced by the VEF licence |
+| 7 Nov 2026 | **Fewer, broader mods, merged before anything is published**: Burns and Smoke, Emergency Dosing, Triage, Medical Equipment and Medical Save Bridge become **D'thorga Medical**; Vehicle Patches and Missile Patches become **D'thorga Patches** ([mod consolidation](mod-consolidation.md)) | owner (on the agent's recommendation) |
+| 7 Nov 2026 | **The save bridge joins D'thorga Medical** and asks on load: convert now, not now, or never for this save | owner (the agent had recommended keeping it separate) |
+| 7 Nov 2026 | Factory Additions, Water Tap, Radio Framework and D'thorga Framework stay separate mods | owner (agreed with the agent's recommendation) |
+| 7 Nov 2026 | Identities and versions of the merged mods: `PhobosDthorga.Medical` 0.6.0 and `PhobosDthorga.Patches` 0.7.0, continuing above the highest version merged in; every namespace, class, defName and saved key kept | agent default (version argued to the owner, who agreed with the plan as a whole) |
 
 ## Open checks
 

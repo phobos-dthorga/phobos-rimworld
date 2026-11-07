@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <!-- D'thorga Medical's own window: the headings of its parts. Each part's settings keep their own keys, in the part's file. -->
+  <PhobosMedical_SectionBurns>Burns and smoke</PhobosMedical_SectionBurns>
+  <PhobosMedical_SectionDosing>Emergency dosing</PhobosMedical_SectionDosing>
+  <PhobosMedical_SectionTriage>Triage</PhobosMedical_SectionTriage>
+  <PhobosMedical_SectionEquipment>Medical equipment</PhobosMedical_SectionEquipment>
+  <PhobosMedical_SectionSaveBridge>Colonies saved before More Injuries</PhobosMedical_SectionSaveBridge>
+  <PhobosMedical_SectionRemoving>Taking this mod out of a colony</PhobosMedical_SectionRemoving>
+
+  <!-- The save bridge: asked from the load menu, before the colony exists. -->
+  <PhobosSaveBridge_SettingAbout>When you load a colony saved before More Injuries, or before another mod that adds body parts, you are asked whether to convert its injuries first.</PhobosSaveBridge_SettingAbout>
+  <PhobosSaveBridge_SettingNever>Saves you chose never to convert: {COUNT}</PhobosSaveBridge_SettingNever>
+  <PhobosSaveBridge_SettingForget>Ask about them again</PhobosSaveBridge_SettingForget>
+  <PhobosSaveBridge_Forgotten>The next time you load any of those {COUNT} saves, you will be asked again.</PhobosSaveBridge_Forgotten>
+  <PhobosSaveBridge_AskTitle>Convert this colony's injuries?</PhobosSaveBridge_AskTitle>
+  <PhobosSaveBridge_AskText>This colony was saved before {MODS} was added. Saved wounds, lost limbs and planned operations point at body parts by number, and the added mod changes those numbers. Left alone, wounds land on the wrong parts, lost limbs can grow back, and the dead can get up again.</PhobosSaveBridge_AskText>
+  <PhobosSaveBridge_AskBodies>Bodies that changed: {BODIES}.</PhobosSaveBridge_AskBodies>
+  <PhobosSaveBridge_AskChoices>Convert now: fix the numbers while the colony loads. Once you save, it is done for good.\nNot now: load the colony as it is, and ask again next time. Don't save it if you mean to convert later: whatever goes wrong now is kept when you save.\nNever for this save: load as it is and don't ask about this save again. You can undo this in the mod settings.\n\nPress Escape to go back without loading.</PhobosSaveBridge_AskChoices>
+  <PhobosSaveBridge_Convert>Convert now</PhobosSaveBridge_Convert>
+  <PhobosSaveBridge_NotNow>Not now</PhobosSaveBridge_NotNow>
+  <PhobosSaveBridge_Never>Never for this save</PhobosSaveBridge_Never>
+  <PhobosSaveBridge_AndMore>and {COUNT} more</PhobosSaveBridge_AndMore>
+</LanguageData>

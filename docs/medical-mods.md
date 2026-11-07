@@ -3,12 +3,14 @@
 What happens when a colonist is hurt, and which mod does what, with House D'thorga's medical mods beside More Injuries and
 Search and Rescue. As of 6 November 2026. **Parts of this are not yet tested in game**; each mod's README says which.
 
+**Since 7 November 2026 the five D'thorga medical mods are one, [D'thorga Medical](../mods/PhobosMedical/README.md)**; this guide still names them by their former names (Burns and Smoke, Emergency Dosing, Triage, Medical Equipment, Medical Save Bridge), which are now its parts. Each part can still be switched off in its settings.
+
 ## Read this first (gotchas)
 
 - **Field care and surgery are separate jobs, done by separate mods.** Search and Rescue and More Injuries (other authors) handle
   the patient where they fell: tourniquets, bandages, CPR, airways, transfusions, and the carry to a bed. D'thorga Triage handles
   the operations once they are in bed. Neither replaces the other.
-- **Nothing here needs another D'thorga medical mod**, only D'thorga Framework. Each mod works alone and does more beside the others.
+- **One mod, D'thorga Medical, holds every part**, and needs D'thorga Framework. The parts still work alone and do more together.
 - **A bed is where most of it happens.** Painkillers, oxygen, air-cell burn care and every operation need the patient down or in a
   bed. Build hospital beds with vitals monitors, and put oxygen machines touching them.
 - **Stock decides everything.** Medicine, painkillers, oxygen canisters and surgical tools have to be made or bought. A doctor
@@ -65,9 +67,8 @@ All of these except the Save Bridge share **D'thorga Framework**: one answer to 
 
 ## Where to read more
 
-- Each mod's README, gotchas first: [Framework](../mods/PhobosFramework/README.md), [Burns and Smoke](../mods/PhobosBurnsAndSmoke/README.md),
-  [Emergency Dosing](../mods/PhobosDosing/README.md), [Medical Equipment](../mods/PhobosMedicalEquipment/README.md),
-  [Triage](../mods/PhobosTriage/README.md), [Medical Save Bridge](../mods/PhobosMedicalSaveBridge/README.md).
+- The READMEs, gotchas first: [Framework](../mods/PhobosFramework/README.md) and [D'thorga Medical](../mods/PhobosMedical/README.md),
+  with a section for each former mod: burns and smoke, emergency dosing, triage, medical equipment and the save bridge.
 - The design records, with what was read from the game's and other mods' code: [burns and smoke](development/burns-and-smoke.md),
   [emergency dosing](development/emergency-dosing.md), [medical equipment](development/medical-equipment.md),
   [triage](development/triage.md), [the framework](development/phobos-framework.md).

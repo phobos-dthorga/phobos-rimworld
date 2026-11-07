@@ -1,0 +1,15 @@
+{
+  "target": "mods/PhobosMedical/Common/Textures/Phobos/Medical/Things/BurnDressing.png",
+  "source": "assets/phobos-medical/generated/burn-dressing/burn-dressing-101.png",
+  "source_sha256": "a52f57012ce59d56f18b0d6d06b4a4e9a3251b0afd4127be8030bdf7966e0119",
+  "target_sha256": "e95d412f58ab7f073111e1f964784810f648c3dade886064c28a4b6fd3690072",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "date": "2026-11-07T07:58:54",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- Compiles D'thorga Medical's game-free rules straight from src/, so these tests need no RimWorld and run on GitHub. One
+       folder per part, as in src/PhobosMedical; the five test projects of the former mods were merged here on 7 November 2026. -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
+    <RootNamespace>Phobos.Medical.Rules.Tests</RootNamespace>
+    <OutputPath>bin/</OutputPath>
+    <GenerateDependencyFile>true</GenerateDependencyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="../../src/PhobosMedical/*/Rules/*.cs" Link="Rules/%(RecursiveDir)%(Filename)%(Extension)" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.11.0" />
+    <PackageReference Include="xunit" Version="2.9.3" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="4.0.1" />
+  </ItemGroup>
+</Project>

@@ -1,10 +1,10 @@
 {
   "oxygen-concentrator": {
-    "image": "../../mods/PhobosMedicalEquipment/Common/Textures/Phobos/Medical/Things/OxygenConcentrator.png",
+    "image": "../../mods/PhobosMedical/Common/Textures/Phobos/Medical/Things/OxygenConcentrator.png",
     "label": "In the mod now: the hand-drawn stand-in"
   },
   "oxygen-concentrator-from-stand-in": {
-    "image": "../../mods/PhobosMedicalEquipment/Common/Textures/Phobos/Medical/Things/OxygenConcentrator.png",
+    "image": "../../mods/PhobosMedical/Common/Textures/Phobos/Medical/Things/OxygenConcentrator.png",
     "label": "In the mod now: the hand-drawn stand-in"
   }
 }

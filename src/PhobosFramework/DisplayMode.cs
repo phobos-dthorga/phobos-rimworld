@@ -1,3 +1,4 @@
+using UnityEngine;
 using Verse;
 
 namespace Phobos.Framework;
@@ -32,5 +33,44 @@ public static class SettingsUi
                 mode = candidate;
             }
         }
+    }
+
+    /// <summary>A heading between the parts of one settings window, in the game's medium font, with a line under it.</summary>
+    public static void Section(Listing_Standard listing, string label)
+    {
+        listing.Gap(16f);
+        Text.Font = GameFont.Medium;
+        listing.Label(label);
+        Text.Font = GameFont.Small;
+        listing.GapLine();
+    }
+}
+
+/// <summary>
+/// A settings page that scrolls when it is taller than the window. Keep one per Mod (it remembers the scroll position and the
+/// height the page needed last frame): Begin in DoSettingsWindowContents, draw into the listing it returns, then End.
+/// </summary>
+public sealed class SettingsScroll
+{
+    const float ScrollBarWidth = 16f;
+    const float BottomMargin = 12f;
+
+    Vector2 position;
+    float height = 1200f;
+
+    public Listing_Standard Begin(Rect inRect)
+    {
+        var view = new Rect(0f, 0f, inRect.width - ScrollBarWidth, height);
+        Widgets.BeginScrollView(inRect, ref position, view);
+        var listing = new Listing_Standard();
+        listing.Begin(view);
+        return listing;
+    }
+
+    public void End(Listing_Standard listing)
+    {
+        height = listing.CurHeight + BottomMargin;
+        listing.End();
+        Widgets.EndScrollView();
     }
 }

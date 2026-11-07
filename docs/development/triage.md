@@ -1,6 +1,8 @@
 # Triage: research and decisions (6 November 2026)
 
-D'thorga Triage (`mods/PhobosTriage`, `src/PhobosTriage`): doctors queue the life-saving operations a patient needs, and take
+**Since 7 November 2026 this mod is a part of [D'thorga Medical](../../mods/PhobosMedical/README.md)** ([why](mod-consolidation.md)); paths below are updated, the rest is as recorded.
+
+D'thorga Triage (`mods/PhobosMedical`, `src/PhobosMedical/Triage`): doctors queue the life-saving operations a patient needs, and take
 the worst case first. This record holds what was read, who chose what, and the test protocol. The mod is **not yet tested in
 game**.
 

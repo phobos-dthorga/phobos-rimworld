@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<loadFolders>
+  <!-- One folder per patched mod, loaded only while that mod is active; a tie-in's assembly sits in a version folder below it
+       (1.7 leads, 1.6 stays until it is retired). D'thorga Vehicle Patches and D'thorga Missile Patches were merged into this
+       mod on 7 November 2026. -->
+  <v1.6>
+    <li>/</li>
+    <li IfModActive="potemkinvillager.av8bharrier">Mods/HarrierVtol</li>
+    <li IfModActive="potemkinvillager.av8bharrier">Mods/HarrierVtol/1.6</li>
+    <li IfModActive="RimThunder.Core">Mods/RimThunder</li>
+    <li IfModActiveAll="MK.SpaceshipTurretHull,CETeam.CombatExtended">Mods/SpaceshipTurretHull</li>
+    <li IfModActive="kazepsi.irbm">Mods/IRBM</li>
+    <li IfModActive="kazepsi.irbm">Mods/IRBM/1.6</li>
+  </v1.6>
+  <v1.7>
+    <li>/</li>
+    <li IfModActive="potemkinvillager.av8bharrier">Mods/HarrierVtol</li>
+    <li IfModActive="potemkinvillager.av8bharrier">Mods/HarrierVtol/1.7</li>
+    <li IfModActive="RimThunder.Core">Mods/RimThunder</li>
+    <li IfModActiveAll="MK.SpaceshipTurretHull,CETeam.CombatExtended">Mods/SpaceshipTurretHull</li>
+    <li IfModActive="kazepsi.irbm">Mods/IRBM</li>
+    <li IfModActive="kazepsi.irbm">Mods/IRBM/1.7</li>
+  </v1.7>
+</loadFolders>

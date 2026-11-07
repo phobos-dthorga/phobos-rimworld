@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <PhobosMedical_SettingsCategory>D'thorga Medical</PhobosMedical_SettingsCategory>
+  <PhobosMedical_SettingRemoveAll>Remove every condition this mod adds, from every pawn</PhobosMedical_SettingRemoveAll>
+  <PhobosMedical_SettingRemoveAllDesc>Before you take this mod out of a colony: press this, deconstruct the machines and burn unit beds, then save and switch the mod off. It removes the burns, smoke, oxygen and device conditions this mod adds; wounds and burns from the game itself stay.</PhobosMedical_SettingRemoveAllDesc>
+  <PhobosMedical_RemoveNeedsGame>Load a colony first: there are no pawns to change in the main menu.</PhobosMedical_RemoveNeedsGame>
+  <PhobosMedical_RemoveDone>Removed {COUNT} conditions. Save the game before you switch the mod off.</PhobosMedical_RemoveDone>
+
+  <PhobosMedical_StatusSwitchedOff>Switched off, so nobody gets oxygen from it.</PhobosMedical_StatusSwitchedOff>
+  <PhobosMedical_StatusNoPower>Waiting for power.</PhobosMedical_StatusNoPower>
+  <PhobosMedical_StatusNoBed>Not against a bed it can serve. Build it touching a hospital bed.</PhobosMedical_StatusNoBed>
+  <PhobosMedical_StatusNoOxygen>Out of oxygen: waiting for canisters or a connected oxygen pipe.</PhobosMedical_StatusNoOxygen>
+  <PhobosMedical_StatusWaiting>Waiting for a patient who needs oxygen.</PhobosMedical_StatusWaiting>
+  <PhobosMedical_StatusTreating>Giving oxygen to {PATIENTS}.</PhobosMedical_StatusTreating>
+  <PhobosMedical_StatusNotNeeded>Breathing well enough without it: {PATIENTS}. Oxygen starts if breathing weakens, or after smoke or fumes.</PhobosMedical_StatusNotNeeded>
+
+  <PhobosMedical_BurnBedSwitchedOff>Blower switched off, so nobody gets air-cell care. It still works as a hospital bed.</PhobosMedical_BurnBedSwitchedOff>
+  <PhobosMedical_BurnBedNoPower>Waiting for power for its blower. It still works as a hospital bed.</PhobosMedical_BurnBedNoPower>
+  <PhobosMedical_BurnBedWaiting>Waiting for a patient with open burns.</PhobosMedical_BurnBedWaiting>
+  <PhobosMedical_BurnBedTreating>Giving air-cell care to {PATIENTS}.</PhobosMedical_BurnBedTreating>
+  <PhobosMedical_BurnBedNotNeeded>No open burns on {PATIENTS}, so no air-cell care. It still works as a hospital bed.</PhobosMedical_BurnBedNotNeeded>
+
+  <PhobosMedical_TipOnOxygenPlain>Clears carbon monoxide about {TIMES} times faster, and eases low breathing.</PhobosMedical_TipOnOxygenPlain>
+  <PhobosMedical_TipOnOxygen>Carbon monoxide half-life on this oxygen: {MINUTES} minutes, against about {ROOMAIR} on room air. Eases low breathing, up to normal.</PhobosMedical_TipOnOxygen>
+  <PhobosMedical_TipBreathingOnly>Eases low breathing, up to normal. It is room air, so it does not clear carbon monoxide faster.</PhobosMedical_TipBreathingOnly>
+
+  <PhobosMedical_WaterNoPlumbing>Waiting for water: lay a water pipe under it or against its side.</PhobosMedical_WaterNoPlumbing>
+  <PhobosMedical_WaterTowersEmpty>Waiting for water: the water towers on its pipes are empty.</PhobosMedical_WaterTowersEmpty>
+  <PhobosMedical_WaterFlowing>Splitting about {LITRES} litres of water an hour.</PhobosMedical_WaterFlowing>
+
+  <PhobosMedical_StoreCold>Kept cold, so none of its oxygen boils away.</PhobosMedical_StoreCold>
+  <PhobosMedical_StoreNotFilling>Taking in no oxygen until its power is back: it can't keep more cold. It still gives out what it holds.</PhobosMedical_StoreNotFilling>
+
+  <PhobosMedical_SurgeryBarChamber>Inside the hyperbaric chamber: move them to a bed to operate.</PhobosMedical_SurgeryBarChamber>
+  <PhobosMedical_ChamberNoSurgery>{PATIENT} has an operation waiting, which can't be done inside the chamber. Move them to a hospital bed for it.</PhobosMedical_ChamberNoSurgery>
+
+  <!-- The one place in play that names another mod: the owner's exception to the in-world text rule (7 Nov 2026). Shown once per install. -->
+  <PhobosMedical_GravshipLetterLabel>Vanilla Gravship Expanded recommended</PhobosMedical_GravshipLetterLabel>
+  <PhobosMedical_GravshipLetterText>D'thorga Medical Equipment is running without Vanilla Gravship Expanded, which its oxygen pipes and canisters come from. Five of its pieces only exist with that mod: the bedside oxygen stand, the field oxygen kit, the hyperbaric chamber, the oxygen electrolyser and the liquid oxygen store.\n\nWithout it you still have the oxygen concentrator, the burn unit bed, silver burn dressings and the manual resuscitator. Vanilla Gravship Expanded needs the Odyssey expansion.\n\nThis letter is shown once.</PhobosMedical_GravshipLetterText>
+  <PhobosMedical_SettingGravshipOn>Vanilla Gravship Expanded is active: every piece of equipment is available.</PhobosMedical_SettingGravshipOn>
+  <PhobosMedical_SettingGravshipOff>Vanilla Gravship Expanded is not active, so the bedside stand, field oxygen kit, hyperbaric chamber, electrolyser and liquid oxygen store are off. It is strongly recommended, and needs the Odyssey expansion.</PhobosMedical_SettingGravshipOff>
+  <PhobosMedical_StoreBoilingOff>Waiting for power for its cooler: until then about {SHARE} of its oxygen boils off and is vented each day.</PhobosMedical_StoreBoilingOff>
+
+  <PhobosMedical_DeviceRefusalAirwayShut>{PATIENT}'s airway is shut, so no air or oxygen can reach the lungs. The airway must be opened first.</PhobosMedical_DeviceRefusalAirwayShut>
+  <PhobosMedical_DeviceRefusalNoDevice>{PATIENT} needs breathing help, but there is no field oxygen kit or manual resuscitator within reach.</PhobosMedical_DeviceRefusalNoDevice>
+  <PhobosMedical_DeviceRefusalAlreadyOnOxygen>{PATIENT} is already breathing supplied oxygen.</PhobosMedical_DeviceRefusalAlreadyOnOxygen>
+</LanguageData>

@@ -5,6 +5,20 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.6.0] - 2026-11-07 - Draft
+
+Made with the merge of seven D'thorga mods into two (owner's decision, 7 November 2026), as the pieces both merged mods needed. No change in play. Not yet tested in game.
+
+### Added
+
+- For modders: a one-time settings import. A mod that changes its folder or its Mod class reads the settings file its old self left, once, so a player's choices carry over. D'thorga Medical and D'thorga Patches use it.
+- For modders: section headings and a scrolling page for settings windows longer than the screen. D'thorga Medical's one window, with a section per part, uses them.
+- For modders: a load line can name the part of a mod it reports, for a mod made of several parts that logs one line per part.
+
+### Compatibility and limits
+
+- The shared build rules now stop any project's assembly being copied beside another mod's. A copy of this framework's assembly had shipped inside D'thorga Medical Equipment since 0.5.0.
+
 ## [0.5.0] - 2026-11-07 - Draft
 
 Not yet tested in game.

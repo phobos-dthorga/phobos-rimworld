@@ -14,19 +14,18 @@ builds every project and installs every mod, with RimWorld closed.
 | Project (`src/`) | Builds into (`mods/`, per version) | References besides the game | Harmony | Rule tests (`tests/`) | On GitHub |
 | --- | --- | --- | --- | --- | --- |
 | `PhobosFramework` | `PhobosFramework/` | nothing | no | `PhobosFramework.Rules.Tests` | builds and tests |
-| `PhobosBurnsAndSmoke` | `PhobosBurnsAndSmoke/` | the framework | yes (one postfix: fire heat in the open) | `PhobosBurnsAndSmoke.Rules.Tests` | builds and tests |
-| `PhobosDosing` | `PhobosDosing/` | the framework | no | `PhobosDosing.Rules.Tests` | builds and tests |
-| `PhobosMedicalEquipment` | `PhobosMedicalEquipment/` | the framework, VEF's `PipeSystem.dll` (Vanilla Gravship Expanded through Defs only) | yes | `PhobosMedicalEquipment.Rules.Tests` | builds and tests |
-| `PhobosTriage` | `PhobosTriage/` | the framework | no | `PhobosTriage.Rules.Tests` | builds and tests |
-| `PhobosMedicalSaveBridge` | `PhobosMedicalSaveBridge/` | nothing (More Injuries by name at run time) | yes | `PhobosMedicalSaveBridge.Rules.Tests` | builds and tests |
+| `PhobosMedical` | `PhobosMedical/` | the framework, VEF's `PipeSystem.dll` (Vanilla Gravship Expanded through Defs only; More Injuries by name at run time) | yes | `PhobosMedical.Rules.Tests` | builds and tests |
 | `PhobosFactory` | `PhobosFactoryAdditions/` | VEF's `PipeSystem.dll`, VFE Factory's `VanillaFurnitureExpandedFactory.dll` | yes | `PhobosFactory.Rules.Tests` | tests only |
 | `PhobosFactory.Hygiene` | `PhobosFactoryAdditions/Mods/DubsBadHygiene/` | the factory core, the framework's hygiene tie-in, `PipeSystem.dll`, Dubs Bad Hygiene's `BadHygiene.dll` | yes | none | no |
 | `PhobosFramework.Hygiene` | `PhobosFramework/Mods/DubsBadHygiene/` | Dubs Bad Hygiene's `BadHygiene.dll`: the shared plumbing reader | no | none | no |
-| `PhobosMedicalEquipment.Hygiene` | `PhobosMedicalEquipment/Mods/DubsBadHygiene/` | the medical core, the framework's hygiene tie-in, `BadHygiene.dll` | no | none | no |
-| `PhobosVehiclePatches` | `PhobosVehiclePatches/Mods/HarrierVtol/` | Vehicle Framework's `Vehicles.dll`, `SmashTools.dll`, `UpdateLogTool.dll` | yes | none | no |
+| `PhobosMedical.Hygiene` | `PhobosMedical/Mods/DubsBadHygiene/` | the medical core, the framework's hygiene tie-in, `BadHygiene.dll` | no | none | no |
+| `PhobosPatches.Harrier` | `PhobosPatches/Mods/HarrierVtol/` | the framework, Vehicle Framework's `Vehicles.dll`, `SmashTools.dll`, `UpdateLogTool.dll` | yes | none | no |
+| `PhobosPatches.Irbm` | `PhobosPatches/Mods/IRBM/` | the framework, InterRim Ballistic Missile's `IRBM.dll` | yes | `PhobosPatches.Rules.Tests` | tests only |
 | `PhobosWaterTap` | `PhobosWaterTap/` | Dubs Bad Hygiene's `BadHygiene.dll` | no | `PhobosWaterTap.Rules.Tests` | tests only |
 | `PhobosRadio` | `PhobosRadioFramework/` | VEF's `PipeSystem.dll` | no | `PhobosRadio.Physics.Tests` | tests only |
 
+- **D'thorga Medical is one project with a folder per former mod** (`BurnsAndSmoke/`, `Dosing/`, `Triage/`, `Equipment/`, `SaveBridge/`), each keeping its namespace, because saves name classes by namespace (7 November 2026, [why](mod-consolidation.md)).
+- **No project's DLL is copied beside another mod's**: `Directory.Build.targets` makes every project reference `Private=false` by default, transitive ones included. Before 7 November 2026 a transitive copy of `PhobosFramework.dll` shipped in Medical Equipment's Dubs Bad Hygiene folder.
 - **Other mods' assemblies are referenced from the installed mod and never copied** (`Private=false`): their licences do not
   let us redistribute them (VEF is CC BY-NC-ND 4.0; VFE Factory and Dubs Bad Hygiene publish none). That is also why the
   projects that reference them cannot build on GitHub; their game-free rules still run there.

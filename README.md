@@ -19,18 +19,14 @@ game by the owner. **Code → Download ZIP** gives you source, not a built mod.
 
 ## The mods
 
-As of **6 November 2026**.
+As of **7 November 2026**. Seven mods became two that day ([why](docs/development/mod-consolidation.md)).
 
 | Mod | Version | What it does | Tested in game |
 | --- | --- | --- | --- |
-| [D'thorga Framework](mods/PhobosFramework/README.md) | 0.3.1 | The shared library: what a pawn breathes, carbon monoxide from fires, the health layer the medical mods share, per-person care choices | Partly: gas layer and oxygen, through other mods |
-| [D'thorga Burns and Smoke](mods/PhobosBurnsAndSmoke/README.md) | 0.5.0 | Burned body fraction, burn shock, airway burns with a tracheotomy, smoke-damaged lungs, carbon monoxide, and fires that heat the air around them in the open | Partly: burns, shock and the More Injuries tie-ins |
-| [D'thorga Emergency Dosing](mods/PhobosDosing/README.md) | 0.3.1 | Doctors give painkillers, sedatives and disease-fighting drugs on their own; colonists in pain take what their drug policy allows | Partly: doctors' dosing |
-| [D'thorga Medical Equipment](mods/PhobosMedicalEquipment/README.md) | 0.2.2 | Bedside oxygen (a concentrator and a canister stand) and a burn unit bed | Partly: oxygen and the burn bed |
-| [D'thorga Triage](mods/PhobosTriage/README.md) | 0.1.1 | Doctors queue the life-saving operations a patient needs, and take the worst case first | No |
-| [D'thorga Medical Save Bridge](mods/PhobosMedicalSaveBridge/README.md) | 0.1.2 | Adds More Injuries to a running colony by re-numbering saved body parts on the first load | Yes: the first load |
-| [D'thorga Factory Additions](mods/PhobosFactoryAdditions/README.md) | 0.11.2 | Additions to Vanilla Furniture Expanded - Factory: belts from any storage, an automated fabrication bay, other mods' drug labs as factory bills, and fixes | Partly |
-| [D'thorga Vehicle Patches](mods/PhobosVehiclePatches/README.md) | 0.5.0 | Fixes and honest costs for the Harrier VTOL, RimThunder's heavy casting and Spaceship Turret Hull under Combat Extended | No |
+| [D'thorga Framework](mods/PhobosFramework/README.md) | 0.6.0 | The shared library: what a pawn breathes, carbon monoxide from fires, the health layer the medical mods share, per-person care choices | Partly: gas layer and oxygen, through other mods |
+| [D'thorga Medical](mods/PhobosMedical/README.md) | 0.6.0 | Five mods in one since 7 November 2026: burns, burn shock, airway burns and smoke; doctors who dose and operate on their own (triage); oxygen, a burn unit bed and other hospital kit; and a safe way to add More Injuries to a running colony | Partly, as the five mods before the merge; not yet as one |
+| [D'thorga Factory Additions](mods/PhobosFactoryAdditions/README.md) | 0.11.3 | Additions to Vanilla Furniture Expanded - Factory: belts from any storage, an automated fabrication bay, other mods' drug labs as factory bills, and fixes | Partly |
+| [D'thorga Patches](mods/PhobosPatches/README.md) | 0.7.0 | Fixes and honest costs for other authors' mods: the Harrier VTOL, RimThunder's heavy casting, Spaceship Turret Hull under Combat Extended, and InterRim Ballistic Missile's strategic blast | Partly: the missile fix once (no freeze, but slow) |
 | [D'thorga Water Tap](mods/PhobosWaterTap/README.md) | 0.2.1 | A plumbing fixture for Dubs Bad Hygiene that keeps bottled water ready and refills from your water towers | No |
 | [D'thorga Radio Framework](mods/PhobosRadioFramework/README.md) | 0.1.2 | Phase 1 of the radio design: hand-held VHF and UHF radios, a base station, coax and antennas, a real link budget | No |
 
@@ -40,13 +36,9 @@ What each mod needs from other authors, and from one another:
 flowchart LR
     subgraph ours["House D'thorga"]
         Framework["D'thorga Framework"]
-        Burns["Burns and Smoke"]
-        Dosing["Emergency Dosing"]
-        Equipment["Medical Equipment"]
-        Triage["Triage"]
-        Bridge["Medical Save Bridge"]
+        Medical["D'thorga Medical"]
+        Patches["D'thorga Patches"]
         Factory["Factory Additions"]
-        Vehicles["Vehicle Patches"]
         Tap["Water Tap"]
         Radio["Radio Framework"]
     end
@@ -56,25 +48,25 @@ flowchart LR
         VFEF["VFE - Factory"]
         DBH["Dubs Bad Hygiene"]
     end
-    Burns --> Framework
-    Dosing --> Framework
-    Equipment --> Framework
-    Triage --> Framework
-    Burns --> Harmony
-    Bridge --> Harmony
+    Medical --> Framework
+    Patches --> Framework
+    Factory --> Framework
+    Medical --> Harmony
+    Patches --> Harmony
     Factory --> Harmony
-    Equipment --> VEF
+    Medical --> VEF
     Factory --> VEF
     Radio --> VEF
     Factory --> VFEF
     Tap --> DBH
+    Medical -. "tie-in" .-> DBH
     Factory -. "tie-in" .-> DBH
     Tap -. "tie-in" .-> VFEF
 ```
 
 A solid arrow means "needs, loaded before it"; a dotted one is an optional tie-in that loads only while that mod is active. Optional tie-ins (More Injuries, Combat Extended, Vanilla Gravship Expanded, the
-vehicle mods Vehicle Patches fixes, and more) switch on only when that mod is active; each README lists them. How the medical
-mods share the work when a colonist is hurt is in [the medical mods together](docs/medical-mods.md).
+mods D'thorga Patches fixes, and more) switch on only when that mod is active; each README lists them. How D'thorga Medical's
+parts share the work when a colonist is hurt is in [the medical mods together](docs/medical-mods.md).
 
 ## Choose your starting point
 

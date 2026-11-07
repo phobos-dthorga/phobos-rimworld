@@ -1,6 +1,8 @@
 # Missile patches: research and decisions (7 Nov 2026)
 
-The record behind [D'thorga Missile Patches](../../mods/PhobosMissilePatches/README.md). **Not yet tested in game.** The player
+**Since 7 November 2026 this mod is a part of [D'thorga Patches](../../mods/PhobosPatches/README.md)** ([why](mod-consolidation.md)); paths below are updated, the rest is as recorded.
+
+The record behind D'thorga Missile Patches. **Tried once in game: no freeze, but far too slow** (see [results from play](#results-from-play)). The player
 guide is the mod's README; this holds the log evidence, the code readings, the sources and who chose what.
 
 ## The hang: a strategic warhead landing
@@ -79,7 +81,7 @@ swap), filth and rubble for each damaged building, each mod's patches on `TakeDa
 ## What the fix does
 
 A Harmony prefix on `StrategicImpactCountdown.ApplyStrategicDamage` skips the original and queues a `StrategicSweep`
-(`src/PhobosMissilePatches/StrategicSweeps.cs`); a postfix on `Root_Play.Update` runs the queue a slice per frame.
+(`src/PhobosPatches.Irbm/StrategicSweeps.cs`); a postfix on `Root_Play.Update` runs the queue a slice per frame.
 
 - **Spread over frames.** Each frame hits things until a real-time budget is spent (12 ms by default, a setting from 2 to 50;
   at least 8 things a frame so a slow thing can't make the blast creep). The game draws, the white screen fades as before,
@@ -133,7 +135,24 @@ whole private method and was not worth that on a guess.
    "Rebuild rooms once per moment during a blast" and repeat step 2; report the difference in the blast line's seconds.
 5. Optional: a "surgical" or "clean" strategic warhead, which strikes ten times a game second apart, to see the passes queue.
 
+## Results from play
+
+**7 November 2026, the owner, Missile Patches 0.1.0** (read from `Player.log`, run started 13:11:45): load line as expected ("strategic
+blasts spread over frames, 12 ms a frame, rooms rebuilt once a frame during a blast"). A DF-5 struck Lance Village at 13:18:37 (the
+same target as the hang). **The game did not hang:** no Application Hang in the Windows log, and the log kept running. **But the blast
+did not finish:** at 13:32:57, more than 14 minutes later, it was still crossing the map, with no "Blast over" line, and
+"Tried to destroy already-destroyed thing" errors from our sweep (now walls first, centre outward) at roughly the rate of the hang.
+
+**Correction to "What the fix does".** Holding the room rebuild was **not** most of the saving, as this record and the README first
+said: the same error rate means the work per thing is about what it was, so the rebuild was not the main cost. The two likely costs,
+both unmeasured: the frame budget (12 ms is a small share of a frame on a game with about 340 mods, so the blast gets perhaps a seventh
+of real time; agent's estimate from the timings), and the per-building work of every mod's damage and destruction hooks plus the
+game's roof-holder checks (`RoofCollapseCellsFinder.ProcessRoofHolderDespawned`, a flood fill over connected roof for each fallen wall,
+read 7 Nov 2026). **Work stopped here at the owner's request**: they have proposals for what to do about this mod.
+
 ## Bug report to post (draft; the owner posts it)
+
+**Hold this draft:** its cause is the room rebuild, which play did not bear out (see above). Revise it once the cost is measured.
 
 To Psionic Zephyr, on the Workshop page of InterRim Ballistic Missile:
 

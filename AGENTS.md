@@ -117,7 +117,7 @@ delivered, record the delivery in the changelog or design record, and add or ame
   job reports, refusals and messages never name a mod, a signal or a setting, and describe the body and what to do about it. Mod
   names and sources belong in READMEs, changelogs, the mod settings window, dev actions and the load line. **One exception**
   (owner, 7 Nov 2026): a one-time letter, shown once per install when a colony first loads, may recommend an optional mod by name
-  where much of a mod depends on it (Vanilla Gravship Expanded for D'thorga Medical Equipment).
+  where much of a mod depends on it (Vanilla Gravship Expanded for D'thorga Medical's equipment).
 - Player text is never hard-coded in C#: what code shows lives in `Languages/English/Keyed`, and a Def's labels and descriptions stay
   in its XML in English, as the game's own do, for translators to override with `DefInjected`. Stable keys prefixed `Phobos`, complete
   messages with named placeholders (`scripts/check-mod-layout.py` refuses numbered ones). A figure in a message comes from the rule or
@@ -167,6 +167,12 @@ delivered, record the delivery in the changelog or design record, and add or ame
   helpers (optional mods by name, the load line, the display mode, rules Defs, the debug category, the
   uninstall sweep) and goes through its `PhobosGases` for any gas; never a second gas model. Existing mods
   adopt the helpers when next touched, not in a sweep.
+- **Fewer, broader mods** (owner, 7 November 2026: "an absolute metric tonne of disparate mods" had become hard to maintain;
+  `docs/development/mod-consolidation.md`). A new feature joins the existing mod for its audience as a part, with its own section in
+  that mod's settings and README, rather than becoming a mod: medical work goes in D'thorga Medical, a fix or patch for another
+  author's mod goes in D'thorga Patches under that mod's `IfModActive` folder. A new mod needs a different audience or different hard
+  dependencies, and says why in its design record. A merge keeps every namespace, class name, defName, language key and saved
+  key, carries the player's settings over once (`SettingsImport`), and lists the replaced mods under `incompatibleWith`.
 - **Existing effects first, own gases when they earn it** (owner, 4 November 2026). Infer an effect from
   gases and functionality that already exist (the game's, another mod's) where they are present; add a
   gas of our own only where its value is greater than inference could give, where nothing exists to infer
@@ -194,7 +200,7 @@ delivered, record the delivery in the changelog or design record, and add or ame
   XML into this repository or a build, and never adapt its code (`THIRD_PARTY_NOTICES.md`).
 - **Other Vanilla Expanded mods may become hard dependencies where one earns its place** (owner, 7 Nov 2026: they are
   stable, long-lived and of high quality), not by default, and never as a habit of adding mods. Say when one brings a DLC with it:
-  Vanilla Gravship Expanded needs Odyssey, so D'thorga Medical Equipment keeps it optional and strongly recommends it.
+  Vanilla Gravship Expanded needs Odyssey, so D'thorga Medical keeps it optional and strongly recommends it.
 - **Worn apparel is never spawned.** A hand-held worn by a pawn has `Spawned == false`; find radios by
   enumerating `map.mapPawns` and `pawn.apparel.WornApparel` at recompute time, never through spawn hooks.
 - **Derived state is never saved.** `RadioNet` and every link cache hold only what can be recomputed from

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ModMetaData>
+  <packageId>PhobosDthorga.Patches</packageId>
+  <name>D'thorga Patches</name>
+  <author>Phobos A. D'thorga</author>
+  <url>https://github.com/phobos-dthorga/phobos-rimworld</url>
+  <modVersion>0.7.0</modVersion>
+  <description>Fixes and patches for other authors' mods, each switched on only while that mod is active. It copies nothing from them. It replaces D'thorga Vehicle Patches and D'thorga Missile Patches: switch those off when you switch this on.
+
+Harrier VTOL Attack Aircraft:
+
+A realistic build cost: a jet engine, four nozzles, landing gear, fuel tanks, wiring and more, in place of six advanced components and a single engine block. It uses RimThunder's turbine engine when RimThunder is active, and Vanilla Vehicles Expanded parts for the rest.
+
+A fix for the jet failing to load fully when RimPacts is active. The Harrier's flight framework and RimPacts both patch the same Vehicle Framework method, and the way RimPacts does it stops the framework loading most of its patches, including boarding, refuelling and landing. This keeps RimPacts' landing rule working and lets both load.
+
+With Combat Extended, bombs whose ingredients are closer to what they weigh, each built on a stackable steel bomb case of its own (Mk. 82 or Mk. 84), so automated machining bays don't clog. The Drop Tanks upgrade uses Vanilla Vehicles Expanded fuel tanks.
+
+With The Dead Man's Switch and Combat Extended, the bombs and 57 mm rockets can also be made at its ammunition fabricator.
+
+A sortie's map stays open while the jet is flying over it with its pilot aboard, whichever mod made that map. Before, a map from Real Ruins, RimMarket and some others could close under the jet.
+
+RimThunder and The Dead Man's Switch - Expedition:
+
+RimThunder's heavy casting can also be made at the rotary forger, 12 at a time.
+
+Spaceship Turret Hull and Combat Extended:
+
+The armed hull sections load and fire Combat Extended ammunition like any other turret. Hulls already built must be rebuilt to get this.
+
+InterRim Ballistic Missile:
+
+A strategic warhead no longer freezes the game when it lands. The missile mod destroys everything on the struck map in a single frame, which on a large, heavily modded map can run for minutes until Windows closes the game. With this, the blast crosses the map a slice per frame, from the centre outward, and the game keeps responding. Everything the warhead would have destroyed is still destroyed. On a large map the blast can still take a long time; this is being worked on.
+
+Needs Harmony and D'thorga Framework. Load it after the mods it patches. It does nothing if none of them is active.
+
+Community-created content. Portions of the materials used to create this content/mod are trademarks and/or copyrighted works of Ludeon Studios Inc. All rights reserved by Ludeon. This content/mod is not official and is not endorsed by Ludeon.</description>
+  <supportedVersions>
+    <li>1.6</li>
+    <li>1.7</li>
+  </supportedVersions>
+  <modDependencies>
+    <li>
+      <packageId>brrainz.harmony</packageId>
+      <displayName>Harmony</displayName>
+      <steamWorkshopUrl>steam://url/CommunityFilePage/2009463077</steamWorkshopUrl>
+      <downloadUrl>https://github.com/pardeike/HarmonyRimWorld/releases/latest</downloadUrl>
+    </li>
+    <li>
+      <packageId>PhobosDthorga.Framework</packageId>
+      <displayName>D'thorga Framework</displayName>
+      <downloadUrl>https://github.com/phobos-dthorga/phobos-rimworld</downloadUrl>
+    </li>
+  </modDependencies>
+  <loadAfter>
+    <li>Ludeon.RimWorld</li>
+    <li>Ludeon.RimWorld.Biotech</li>
+    <li>brrainz.harmony</li>
+    <li>PhobosDthorga.Framework</li>
+    <li>SmashPhil.VehicleFramework</li>
+    <li>OskarPotocki.VanillaVehiclesExpanded</li>
+    <li>RimThunder.Core</li>
+    <li>wowgag.RimPacts</li>
+    <li>CETeam.CombatExtended</li>
+    <li>potemkinvillager.fixedwingaircraft</li>
+    <li>potemkinvillager.av8bharrier</li>
+    <li>MK.SpaceshipTurretHull</li>
+    <li>kazepsi.irbm</li>
+  </loadAfter>
+  <!-- The two mods this one replaced (7 November 2026). Running either beside it would load the same patches twice. -->
+  <incompatibleWith>
+    <li>PhobosDthorga.VehiclePatches</li>
+    <li>PhobosDthorga.MissilePatches</li>
+  </incompatibleWith>
+</ModMetaData>

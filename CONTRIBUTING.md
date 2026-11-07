@@ -21,7 +21,7 @@ and pull request steps below are for external contributors.
    python scripts/check-doc-links.py
    python scripts/check-mod-layout.py
    python -m unittest discover -s tests
-   dotnet test tests/PhobosTriage.Rules.Tests     one per tests/*.Rules.Tests or *.Tests project you touched
+   dotnet test tests/PhobosMedical.Rules.Tests    one per tests/*.Rules.Tests or *.Tests project you touched
    ```
 
    Building a C# project needs the .NET SDK (for the `net10.0` and `net472` targets) and nothing else: the game's reference assemblies come from

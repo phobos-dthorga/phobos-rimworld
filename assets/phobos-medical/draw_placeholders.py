@@ -20,7 +20,7 @@ from PIL import Image, ImageDraw
 
 ROOT = Path(__file__).resolve().parents[2]
 REFERENCES = ROOT / 'assets/phobos-medical/references'
-TEXTURES = ROOT / 'mods/PhobosMedicalEquipment/Common/Textures/Phobos/Medical/Things'
+TEXTURES = ROOT / 'mods/PhobosMedical/Common/Textures/Phobos/Medical/Things'
 WORK = 1024  # Drawn large and scaled down, which smooths the edges.
 LINE = 44
 OUTLINE = (24, 24, 26, 255)

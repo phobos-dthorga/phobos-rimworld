@@ -1,6 +1,6 @@
 # Caustic gas: research and decisions (5 Nov 2026)
 
-A record for a future feature of [D'thorga Burns and Smoke](../../mods/PhobosBurnsAndSmoke/README.md): what the game's tox gas does
+A record for a future feature of [D'thorga Burns and Smoke](../../mods/PhobosMedical/README.md): what the game's tox gas does
 now, and the lingering injuries a caustic gas could add. **Nothing is built and nothing is tested in game.**
 
 ## The problem
@@ -174,7 +174,7 @@ None yet. Nothing is built.
 - **Stripping contaminated clothing** (agent proposal, phase 2): under the slow-acting model, clothes keep dosing the skin for hours after the
   gas clears unless removed. A cheap, strong hook, held until the core is tested.
 - **Lung rot** as the aftermath instead of irritable airways: recorded as the alternative.
-- **Oxygen:** [D'thorga Medical Equipment](../../mods/PhobosMedicalEquipment/README.md) provides bedside oxygen and does not repair lungs. Whether
+- **Oxygen:** [D'thorga Medical Equipment](../../mods/PhobosMedical/README.md) provides bedside oxygen and does not repair lungs. Whether
   chemical lung injury should count as a condition oxygen helps is a question for when this is built.
 - **Next gases under the rule** ([framework record](phobos-framework.md)): Biological Warfare's clouds, chemfuel vapour and Rimatomics, each argued
   in its own record.

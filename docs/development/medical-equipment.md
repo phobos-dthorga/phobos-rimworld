@@ -1,6 +1,8 @@
 # Medical equipment: research and decisions (5 Nov 2026, updated 7 Nov 2026)
 
-The record behind [D'thorga Medical Equipment](../../mods/PhobosMedicalEquipment/README.md). **The owner reports a patient's breathing improving on the concentrator (5 Nov 2026, on 0.1.0) and the burn unit bed working (6 Nov 2026, on 0.2.0); the bedside stand and everything added in 0.3.0 are not yet tested in game.** The wider plan, with the oxygen chain and the art, is in the [art automation and medical equipment design](art-automation-and-medical-equipment.md).
+**Since 7 November 2026 this mod is a part of [D'thorga Medical](../../mods/PhobosMedical/README.md)** ([why](mod-consolidation.md)); paths below are updated, the rest is as recorded.
+
+The record behind [D'thorga Medical Equipment](../../mods/PhobosMedical/README.md). **The owner reports a patient's breathing improving on the concentrator (5 Nov 2026, on 0.1.0) and the burn unit bed working (6 Nov 2026, on 0.2.0); the bedside stand and everything added in 0.3.0 are not yet tested in game.** The wider plan, with the oxygen chain and the art, is in the [art automation and medical equipment design](art-automation-and-medical-equipment.md).
 
 ## The problem
 

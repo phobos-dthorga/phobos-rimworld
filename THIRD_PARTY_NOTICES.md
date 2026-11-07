@@ -92,7 +92,7 @@ the ignored `.local/`.
 
 ## Vehicle mods patched by D'thorga Vehicle Patches
 
-D'thorga Vehicle Patches (`mods/PhobosVehiclePatches/`) changes values by name in XML and copies nothing:
+D'thorga Patches (`mods/PhobosPatches/`; D'thorga Vehicle Patches until 7 November 2026) changes values by name in XML and copies nothing:
 
 - [Harrier VTOL Attack Aircraft](https://steamcommunity.com/sharedfiles/filedetails/?id=3826359341) by potemkinvillager, with parts
   from [Vanilla Vehicles Expanded](https://steamcommunity.com/sharedfiles/filedetails/?id=3014906877) by Oskar Potocki and the
@@ -109,7 +109,7 @@ by name at runtime. Nothing from any of them is in this repository.
 
 ## InterRim Ballistic Missile, patched by D'thorga Missile Patches
 
-D'thorga Missile Patches (`mods/PhobosMissilePatches/`) loads only while
+D'thorga Patches' missile part (`mods/PhobosPatches/Mods/IRBM`; D'thorga Missile Patches until 7 November 2026) loads only while
 [InterRim Ballistic Missile](https://steamcommunity.com/sharedfiles/filedetails/?id=3682304832) by Psionic Zephyr (`kazepsi.irbm`)
 is active. Its assembly references the installed `IRBM.dll` at build time (`Private=false`), never copied, and replaces one of its
 methods with a Harmony prefix that queues the same work over several frames; the per-thing rules are written again in our own

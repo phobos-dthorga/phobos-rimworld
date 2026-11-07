@@ -27,6 +27,14 @@
     <TargetPath Condition="'$(ModFolder)' != ''">$(TargetDir)$(TargetFileName)</TargetPath>
     <DebugType>none</DebugType>
   </PropertyGroup>
+  <!-- A referenced project's DLL ships only in its own mod, never beside another mod's, and that holds for the references it brings
+       with it too: setting Private=false on a ProjectReference covers only that reference, so a transitive copy of
+       PhobosFramework.dll shipped in Medical Equipment's Dubs Bad Hygiene folder until 7 November 2026. -->
+  <ItemDefinitionGroup>
+    <ProjectReference>
+      <Private>false</Private>
+    </ProjectReference>
+  </ItemDefinitionGroup>
   <!-- The game's reference assemblies: Krafs.Rimworld.Ref publishes one per game build. -->
   <ItemGroup Condition="'$(TargetFramework)' == 'net472'">
     <PackageReference Include="Krafs.Rimworld.Ref" Version="1.6.4871" />

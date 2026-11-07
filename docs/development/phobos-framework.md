@@ -118,6 +118,19 @@ one button per choice; it is put on every humanlike race by a startup sweep rath
 
 **Plumbing (0.5.0, 7 Nov 2026):** `PhobosFramework.Hygiene`, loaded only with Dubs Bad Hygiene, holds `PlumbingFeed`: the one reader of Dubs' water, moved from D'thorga Factory Additions. `TryPull(building, litres, out quality)` searches the cells under and beside a building; `TryPullFrom(net, litres, out quality)` takes a net the caller knows (a fixture's own pipe). Both answer flowing, no plumbing or empty towers. Factory Additions and Medical Equipment's electrolyser use it; D'thorga Water Tap's own reader adopts it when next touched.
 
+## Merge helpers (0.6.0, 7 Nov 2026)
+
+Made for the owner's decision to merge seven mods into two ([mod consolidation](mod-consolidation.md)), and used by both merged mods
+in the same change. `SettingsImport` reads the settings file a mod's old folder and Mod class left behind, through the game's own
+public `LoadedModManager.ReadModSettings`, and copies its fields into the object the game already handed the mod, so the game keeps
+saving that one (`ModSettings.Mod` has an internal setter, so a read object cannot be handed to the game directly). It mirrors the
+game's private file naming, `Config/Mod_<folder>_<class>.xml` (read from the 1.6 and 1.7 assemblies). `SettingsUi.Section` and
+`SettingsScroll` give a long settings window headings and a scroll bar. `LoadReport` takes an optional part name.
+
+**Considered and not built here** (agent's calls, for the owner): a frame-budgeted work queue (from D'thorga Patches' missile fix),
+which waits for the owner's proposals on that mod; and a base class for interval map components, which would change the timing code of
+parts that are tested in game, so it waits until one of them is next changed for its own sake.
+
 ## Open points and upstream
 
 - Door and vent discovery on 1.7 reads correctly but is unverified in play (read from the 1.7 assembly, 5 Nov 2026): `Region.Neighbors` walks the
