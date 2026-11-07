@@ -18,6 +18,12 @@ public static class BurnsDefOf
     public static DamageDef PhobosBurns_Ischaemia = null!;
     public static HediffDef PhobosBurns_ChemicalOnSkin = null!;
     public static HediffDef PhobosBurns_Rinsed = null!;
+    public static HediffDef PhobosBurns_CausticExposure = null!;
+    public static HediffDef PhobosBurns_CausticEye = null!;
+    public static HediffDef PhobosBurns_CausticWeakness = null!;
+    public static HediffDef PhobosBurns_IrritableAirways = null!;
+    public static HediffDef PhobosBurns_IrritableAirwaysLasting = null!;
+    public static DamageDef PhobosBurns_CausticSkin = null!;
 
     static BurnsDefOf() => DefOfHelper.EnsureInitializedInCtor(typeof(BurnsDefOf));
 }

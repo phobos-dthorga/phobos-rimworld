@@ -108,9 +108,9 @@
        tendable; tending speeds the recovery. Past half severity it invites pneumonia. All figures authored. -->
   <HediffDef>
     <defName>PhobosBurns_LungInjury</defName>
-    <label>smoke-damaged lungs</label>
-    <labelNoun>smoke-damaged lungs</labelNoun>
-    <description>Hot, chemical smoke has scorched the lower airways. Breathing is harder for days, and badly damaged lungs invite pneumonia. Tending helps the lungs recover; rest helps too.</description>
+    <label>chemical lung injury</label>
+    <labelNoun>a chemical lung injury</labelNoun>
+    <description>Smoke or a caustic gas has injured the lower airways. Breathing is harder for days, and badly damaged lungs invite pneumonia. Tending helps the lungs recover; rest helps too.</description>
     <hediffClass>HediffWithComps</hediffClass>
     <defaultLabelColor>(0.6, 0.5, 0.4)</defaultLabelColor>
     <maxSeverity>1</maxSeverity>

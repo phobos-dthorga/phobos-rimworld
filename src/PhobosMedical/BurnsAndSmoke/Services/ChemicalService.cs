@@ -80,6 +80,7 @@ public static class ChemicalService
     {
         Hediff? onSkin = pawn.health.hediffSet.GetFirstHediffOfDef(BurnsDefOf.PhobosBurns_ChemicalOnSkin);
         if (onSkin != null) pawn.health.RemoveHediff(onSkin);
+        CausticService.Decontaminate(pawn);
         Hediff? rinsed = pawn.health.hediffSet.GetFirstHediffOfDef(BurnsDefOf.PhobosBurns_Rinsed);
         if (rinsed == null) pawn.health.AddHediff(BurnsDefOf.PhobosBurns_Rinsed);
         else rinsed.Severity = 1f;

@@ -8,4 +8,11 @@
       <li Class="Phobos.BurnsAndSmoke.Defs.PhobosRinsedByWaterExtension" />
     </value>
   </Operation>
+  <!-- The game's chemical burn, which caustic gas puts on the skin, leaves chemical on the skin too, so a gassed pawn is rinsed. -->
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>Defs/HediffDef[defName="ChemicalBurn"]</xpath>
+    <value>
+      <li Class="Phobos.BurnsAndSmoke.Defs.PhobosRinsedByWaterExtension" />
+    </value>
+  </Operation>
 </Patch>

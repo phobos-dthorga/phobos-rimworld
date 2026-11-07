@@ -70,6 +70,34 @@
          room, nine tenths in a 300-cell hangar). And how far a pawn looks for a cooler cell when the heat would burn them. -->
     <fireHeatRoomCellsWarmedEvenly>30</fireHeatRoomCellsWarmedEvenly>
     <fireHeatFleeSearchRadiusCells>12</fireHeatFleeSearchRadiusCells>
+    <!-- Caustic gas (docs/development/caustic-gas.md): a game design with no real-agent data (owner, 5 Nov 2026); every figure authored.
+         Doses grow 0.6 an hour at full exposure and fade 0.5 a day once their harm has begun and the gas has gone. Slow-acting (the
+         default): harm from hour 4, eyes worst at 12, lungs rising to hour 60, weakened immunity from hour 72 after a heavy dose. Fast-acting:
+         eyes at once from density 0.2, lungs from hour 36 down to 4 with dose, skin only in the top band (0.8) and bare. -->
+    <causticDosePerHourAtFull>0.6</causticDosePerHourAtFull>
+    <causticDoseFadePerDay>0.5</causticDoseFadePerDay>
+    <causticLightDose>0.2</causticLightDose>
+    <causticHeavyDose>0.5</causticHeavyDose>
+    <causticMassiveDose>0.8</causticMassiveDose>
+    <causticSlowOnsetHours>4</causticSlowOnsetHours>
+    <causticEyePeakHours>12</causticEyePeakHours>
+    <causticSlowLungPeakHours>60</causticSlowLungPeakHours>
+    <causticFastLungLatestHours>36</causticFastLungLatestHours>
+    <causticFastLungSoonestHours>4</causticFastLungSoonestHours>
+    <causticFastLungRiseHours>24</causticFastLungRiseHours>
+    <causticFastEyeDensity>0.2</causticFastEyeDensity>
+    <causticFastSkinDensity>0.8</causticFastSkinDensity>
+    <causticEyeSeverityPerDose>1.2</causticEyeSeverityPerDose>
+    <causticLungInjuryPerDose>0.8</causticLungInjuryPerDose>
+    <causticThroatChancePerDose>1</causticThroatChancePerDose>
+    <causticSkinBurnPerHourAtFull>4</causticSkinBurnPerHourAtFull>
+    <causticCoveredSkinFactor>0.25</causticCoveredSkinFactor>
+    <causticImmunityOnsetHours>72</causticImmunityOnsetHours>
+    <causticWeaknessMild>0.3</causticWeaknessMild>
+    <causticWeaknessSevere>0.6</causticWeaknessSevere>
+    <causticAftermathLungSeverity>0.5</causticAftermathLungSeverity>
+    <causticAftermathCriticalLungSeverity>0.75</causticAftermathCriticalLungSeverity>
+    <causticAftermathLastingChance>0.2</causticAftermathLastingChance>
     <!-- Acid on the skin: 2 burn damage an hour while fresh, spread over the acid burns, falling as it is spent (authored). -->
     <chemicalDeepenPerHourAtFull>2</chemicalDeepenPerHourAtFull>
     <!-- Eschar (burns phase 2, owner's go of 7 Nov 2026). A limb whose open burn damage reaches 60% of its health forms a

@@ -88,6 +88,43 @@ public class PhobosBurnRulesDef : PhobosRulesDef
     public float fireHeatRoomCellsWarmedEvenly = 30f;
     /// <summary>How far a pawn looks for a cooler cell when the heat would burn them (authored).</summary>
     public float fireHeatFleeSearchRadiusCells = 12f;
+    // Caustic gas (D'thorga Medical 0.7.0; docs/development/caustic-gas.md). A game design: every figure authored.
+    /// <summary>Each exposure's dose gained per game hour at full exposure.</summary>
+    public float causticDosePerHourAtFull = 0.6f;
+    /// <summary>Doses fade this much a day once their delayed harm has begun and the gas has gone.</summary>
+    public float causticDoseFadePerDay = 0.5f;
+    /// <summary>Dose bands: light, heavy, massive (the condition's stages match).</summary>
+    public float causticLightDose = 0.2f;
+    public float causticHeavyDose = 0.5f;
+    public float causticMassiveDose = 0.8f;
+    /// <summary>Slow-acting: the hour the delayed harm begins, and the hour the eyes are worst.</summary>
+    public float causticSlowOnsetHours = 4f;
+    public float causticEyePeakHours = 12f;
+    /// <summary>Slow-acting lungs: injury rises from the onset to this hour (days 2 to 3).</summary>
+    public float causticSlowLungPeakHours = 60f;
+    /// <summary>Fast-acting lungs: injury starts between these hours (sooner after a bigger dose) and takes this long to rise.</summary>
+    public float causticFastLungLatestHours = 36f;
+    public float causticFastLungSoonestHours = 4f;
+    public float causticFastLungRiseHours = 24f;
+    /// <summary>Fast-acting: the eyes hurt only from this cell density, and the skin burns only in this top band.</summary>
+    public float causticFastEyeDensity = 0.2f;
+    public float causticFastSkinDensity = 0.8f;
+    /// <summary>Eye injury per point of eye dose, lung injury per point of lung dose, and the airway burn's chance per point of lung dose.</summary>
+    public float causticEyeSeverityPerDose = 1.2f;
+    public float causticLungInjuryPerDose = 0.8f;
+    public float causticThroatChancePerDose = 1f;
+    /// <summary>Chemical burn damage per game hour at a full skin dose, and the share of the dose covered skin takes.</summary>
+    public float causticSkinBurnPerHourAtFull = 4f;
+    public float causticCoveredSkinFactor = 0.25f;
+    /// <summary>Slow-acting immunity: weakened from this hour after a heavy dose; mild and severe severities.</summary>
+    public float causticImmunityOnsetHours = 72f;
+    public float causticWeaknessMild = 0.3f;
+    public float causticWeaknessSevere = 0.6f;
+    /// <summary>Irritable airways after lung injury of this severity (the severe stage), and the chance after critical (0.75) that they stay.</summary>
+    public float causticAftermathLungSeverity = 0.5f;
+    public float causticAftermathCriticalLungSeverity = 0.75f;
+    public float causticAftermathLastingChance = 0.2f;
+
     // Acid on the skin (D'thorga Medical 0.7.0, with the safety shower).
     /// <summary>Burn damage an hour, spread over the acid burns, while fresh acid is still on the skin (authored).</summary>
     public float chemicalDeepenPerHourAtFull = 2f;

@@ -1,7 +1,8 @@
 # Caustic gas: research and decisions (5 Nov 2026)
 
 A record for a future feature of [D'thorga Burns and Smoke](../../mods/PhobosMedical/README.md): what the game's tox gas does
-now, and the lingering injuries a caustic gas could add. **Nothing is built and nothing is tested in game.**
+now, and the lingering injuries a caustic gas could add. **Built in D'thorga Medical 0.7.0 (7 Nov 2026), not yet tested in game**;
+see As built below for where it differs from the proposal.
 
 ## The problem
 
@@ -149,6 +150,32 @@ pass, and the delayed tracks act from the dose condition's rare comp ticks.
 **Framework follow-up when built:** `MaskFactor` or a new helper exposes `immuneToToxGasExposure` for the eye track, and Burns and Smoke's
 minimum Framework version rises with it.
 
+## As built (D'thorga Medical 0.7.0, 7 Nov 2026)
+
+The proposal above, built as written except for these (agent choices unless marked):
+
+- **Where it runs:** on the burns pass (every 300 ticks), as the record proposed; a pawn in tox gas or carrying the dose is worth a pass.
+  `Hediff_PhobosCausticExposure` holds the three doses, the clock and the one-off flags, saved with stable keys; `CausticService`
+  decides and does everything; `CausticRule` holds the curves, with rule tests.
+- **Peaks, not current doses, drive the delayed eye, throat, lung and immunity tracks.** The doses fade from the onset hour, so by
+  hour 24 a fading figure would have stopped the lungs rising and left nothing for immunity at hour 72. The skin keeps the current dose,
+  so it fades (and clothes keep dosing until it does).
+- **Eye immunity uses the game's own check**, `GasUtility.IsAffectedByExposure` (worn item or gene immune to tox gas exposure), instead of
+  the Framework follow-up the record named; the Framework's minimum version did not need to rise for it.
+- **Skin**: the game's `ChemicalBurn` had no damage kind, so `PhobosBurns_CausticSkin` adds it, a point at a time from a running
+  total, on a random outside part by coverage, ignoring armour (the dose already counted the clothes). Covered share is each outside
+  part's share of the skin under any worn item; a sealed suit is any worn item with toxic environment resistance 0.999 or more.
+- **The safety shower decontaminates** (agent choice, beyond the record): `ChemicalBurn` is now marked rinsable, so caustic skin burns
+  put chemical on the skin, the pawn runs to a shower, and rinsing also clears the skin dose. "Acid on the skin" is relabelled
+  "chemical on the skin" (presentation only).
+- **Immunity** reads the higher of the eye and lung peaks against the heavy and massive bands.
+- **Settings:** a master switch, the fast-acting model (off: slow-acting by default, owner's choice) and one toggle per track. The
+  throat track also needs the airway setting, the lung track the smoke setting. Plain mode's tooltip names the hazard and the care
+  without figures; Operator and Engineer show the three doses and the hours to onset.
+- **Not built, still open for the owner:** lasting eye scarring (our own stage or the game's blindness), plants and corpses, stripping
+  contaminated clothing, and whether chemical lung injury counts as a condition oxygen helps.
+- The lung injury's label is now "chemical lung injury", as the record decided (its defName is unchanged).
+
 ## Test protocol (owner runs it, once built)
 
 Times are game time, and the gas thins as it spreads, so treat them as rough.
@@ -165,7 +192,7 @@ Times are game time, and the gas thins as it spreads, so treat them as rough.
 
 ## Results from play
 
-None yet. Nothing is built.
+None yet. Built in 0.7.0, not yet tested in game.
 
 ## Open points and upstream
 

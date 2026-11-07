@@ -17,6 +17,20 @@
   <PhobosBurns_SettingEscharDesc>On, an arm or leg burned deeply enough grows a hard crust that tightens over the next day as the limb swells, until blood can no longer reach it. A doctor can cut it open (an escharotomy) to release it. Left alone, the limb is slowly starved and can be lost.</PhobosBurns_SettingEscharDesc>
   <PhobosBurns_SettingChemicalBurns>Acid keeps burning until it is washed off</PhobosBurns_SettingChemicalBurns>
   <PhobosBurns_SettingChemicalBurnsDesc>On, an acid burn leaves acid on the skin that keeps deepening the burns for a few hours, unless it is rinsed off at a safety shower. Anyone who can walk runs to the nearest one by themselves; doctors bring water for patients who can't.</PhobosBurns_SettingChemicalBurnsDesc>
+  <PhobosBurns_SettingCausticGas>Tox gas does lasting harm</PhobosBurns_SettingCausticGas>
+  <PhobosBurns_SettingCausticGasDesc>On, tox gas is a caustic gas: besides the game's own stinging and toxic buildup, it can injure the eyes, swell the throat, injure the lungs, burn the skin and, after a heavy dose, weaken immunity, and badly injured lungs can stay irritable. A gas mask protects the eyes and lungs, not the skin; only a sealed suit protects everything. Washing at a safety shower takes it off the skin.</PhobosBurns_SettingCausticGasDesc>
+  <PhobosBurns_SettingCausticFast>Tox gas acts fast</PhobosBurns_SettingCausticFast>
+  <PhobosBurns_SettingCausticFastDesc>Off (the default): the gas stings, then seems to pass, and the real harm comes on hours later, over the next days. On, closer to the game's own feel: it hurts at once, so you know who was hit, skin burns only in the thickest gas, and immunity is not weakened.</PhobosBurns_SettingCausticFastDesc>
+  <PhobosBurns_SettingCausticEyes>Tox gas: injures the eyes</PhobosBurns_SettingCausticEyes>
+  <PhobosBurns_SettingCausticThroat>Tox gas: can swell the throat</PhobosBurns_SettingCausticThroat>
+  <PhobosBurns_SettingCausticLungs>Tox gas: injures the lungs</PhobosBurns_SettingCausticLungs>
+  <PhobosBurns_SettingCausticSkin>Tox gas: burns the skin</PhobosBurns_SettingCausticSkin>
+  <PhobosBurns_SettingCausticImmunity>Tox gas: a heavy dose weakens immunity</PhobosBurns_SettingCausticImmunity>
+  <PhobosBurns_SettingCausticImmunityDesc>Only when tox gas is slow-acting.</PhobosBurns_SettingCausticImmunityDesc>
+  <PhobosBurns_SettingCausticAftermath>Tox gas: badly injured lungs can stay irritable</PhobosBurns_SettingCausticAftermath>
+  <PhobosBurns_CausticTipLaterPlain>The worst of it comes on later. Watch their eyes, lungs and skin over the next few days, and wash them at a safety shower.</PhobosBurns_CausticTipLaterPlain>
+  <PhobosBurns_CausticTipNowPlain>The harm is coming on now: eyes, lungs and skin. Tend them and keep them in bed.</PhobosBurns_CausticTipNowPlain>
+  <PhobosBurns_CausticTip>Dose: eyes {EYES}, lungs {LUNGS}, skin {SKIN}. Harm begins in about {HOURS} hours.</PhobosBurns_CausticTip>
   <PhobosBurns_FluidsGiven>{DOCTOR} has started a saline drip for {PATIENT}'s burn shock.</PhobosBurns_FluidsGiven>
   <PhobosBurns_FluidsNotNeeded>{PATIENT} no longer needs fluids for burn shock.</PhobosBurns_FluidsNotNeeded>
   <PhobosBurns_SettingFireHeatIndoors>Fires heat the air around them in large rooms</PhobosBurns_SettingFireHeatIndoors>

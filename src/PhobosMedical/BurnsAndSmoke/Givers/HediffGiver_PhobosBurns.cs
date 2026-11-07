@@ -31,6 +31,7 @@ public class HediffGiver_PhobosBurns : HediffGiver
         SmokeExposureService.Apply(pawn, rules, settings, hours);
         AirwayService.Apply(pawn, rules, settings);
         EscharService.Apply(pawn, rules, settings);
+        CausticService.Apply(pawn, rules, settings, interval);
     }
 
     public override bool OnHediffAdded(Pawn pawn, Hediff hediff)
@@ -47,11 +48,11 @@ public class HediffGiver_PhobosBurns : HediffGiver
         if (set.HasHediff(BurnsDefOf.PhobosBurns_BurnLoad) || set.HasHediff(BurnsDefOf.PhobosBurns_BurnShock)
             || set.HasHediff(BurnsDefOf.PhobosBurns_AirwayBurn) || set.HasHediff(BurnsDefOf.PhobosBurns_CarbonMonoxide)
             || set.HasHediff(BurnsDefOf.PhobosBurns_LungInjury) || set.HasHediff(BurnsDefOf.PhobosBurns_SmokeInhalation)
-            || set.HasHediff(BurnsDefOf.PhobosBurns_Eschar))
+            || set.HasHediff(BurnsDefOf.PhobosBurns_Eschar) || set.HasHediff(BurnsDefOf.PhobosBurns_CausticExposure))
         {
             return true;
         }
         if (BurnLoadService.HasBurn(pawn) || pawn.IsBurning()) return true;
-        return SmokeExposureService.Exposed(pawn);
+        return SmokeExposureService.Exposed(pawn) || CausticService.InToxGas(pawn);
     }
 }

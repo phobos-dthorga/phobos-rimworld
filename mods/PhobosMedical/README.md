@@ -131,6 +131,10 @@ flowchart TD
 | burns (burned body fraction) | every burn on the skin, by its kind's area per point of damage, and every part burned off, weighted by each part's share of the skin | wider burns, lost parts | tending the burns and stumps; it is recomputed every 300 ticks |
 | burn shock | 15% or more of the body burned; always at least its first stage from there | age, area, an airway burn or carbon monoxide (the revised Baux score) | tending the burns, bed rest, tending the shock with good medicine |
 | airway burn | burning, or burns to the head and neck | time: swelling peaks at 8 hours, holds to 24, gone by 48 | a tracheotomy; or waiting, if it never closes |
+| caustic gas dose | standing in tox gas | more time in thicker gas | time; washing at a safety shower clears the skin's share |
+| caustic eye injury | caustic gas in the eyes | the dose | tending speeds healing |
+| weakened immunity | a heavy caustic gas dose, from day 3 (slow-acting only) | a bigger dose | time: about two weeks |
+| irritable airways | severe chemical lung injury | | time: about two months; after a critical injury it can stay |
 | constricting eschar | an arm or leg burned to 60% of its health | time: tightens over about half a day | an escharotomy; or the burns on that limb healing |
 | ischaemic damage | a limb an eschar has starved of blood, without More Injuries | the eschar staying tight | an escharotomy stops it; it heals like any injury |
 | smoke-damaged lungs | breathing smoke | thicker smoke, longer | tending; rest; heals 4% a day untended, 16% tended well |
@@ -484,6 +488,13 @@ burn dressings for burns; and an electrolyser and a liquid oxygen store to make 
 - **No operations in a hyperbaric chamber:** move the patient to a hospital bed for surgery. The chamber says who is waiting.
 - **Oxygen does not repair lungs.** A shut airway (breathing at zero) needs a tube: **from 0.7.0 a doctor with Medicine 4 or better
   places one with an intubation kit by themselves**, or you order a tracheotomy. Doctors say so when you right-click.
+- **New in 0.7.0: tox gas is a caustic gas** (the owner's design of 5 November 2026, not yet tested in game; needs Biotech for the gas).
+  Besides the game's own stinging and toxic buildup, it can injure the eyes, swell the throat, injure the lungs, burn the skin, and after
+  a heavy dose weaken immunity for about two weeks; badly injured lungs can stay irritable for months. **By default it is slow-acting:**
+  it stings, seems to pass, and **the harm comes on from about 4 hours later**, over the next two or three days, so keep gassed
+  colonists in bed and watch them. A setting makes it fast-acting, closer to the game's own feel. **A gas mask protects the eyes and
+  lungs, not the skin**; only a sealed suit protects everything. **Washing at a safety shower takes it off the skin.** Each part of it
+  has its own setting.
 - **New in 0.7.0: acid keeps burning until it is washed off, and the safety shower washes it off** (not yet tested in game). An acid
   burn leaves **acid on the skin** for about three hours, deepening the burns. **Anyone who can walk runs to the nearest safety shower
   by themselves** (within 60 cells) and rinses for a quarter of an hour; **doctors draw water there and rinse patients who can't walk**.

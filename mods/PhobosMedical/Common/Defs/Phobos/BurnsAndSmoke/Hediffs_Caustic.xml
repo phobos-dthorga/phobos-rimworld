@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- The caustic gas model (docs/development/caustic-gas.md): a game design with no real-agent data (owner, 5 Nov 2026); every figure
+       is authored. The game's own irritation and toxic buildup are untouched. -->
+
+  <!-- The dose: three exposures and the delayed harm's clock, held by the code; severity is the largest exposure. Saved. -->
+  <HediffDef>
+    <defName>PhobosBurns_CausticExposure</defName>
+    <label>caustic gas dose</label>
+    <labelNoun>a caustic gas dose</labelNoun>
+    <description>This person breathed or was soaked in caustic gas. The stinging fades fast, but the harm can come on hours later: sore and damaged eyes, a swelling throat, injured lungs and chemical burns on the skin, and after a heavy dose, weakened immunity for a couple of weeks. Washing at a safety shower takes it off the skin.</description>
+    <hediffClass>Phobos.BurnsAndSmoke.Comps.Hediff_PhobosCausticExposure</hediffClass>
+    <defaultLabelColor>(0.7, 0.8, 0.3)</defaultLabelColor>
+    <initialSeverity>0.01</initialSeverity>
+    <maxSeverity>1</maxSeverity>
+    <isBad>true</isBad>
+    <tendable>false</tendable>
+    <everCurableByItem>false</everCurableByItem>
+    <scenarioCanAdd>false</scenarioCanAdd>
+    <stages>
+      <li>
+        <label>trace</label>
+        <becomeVisible>false</becomeVisible>
+      </li>
+      <li>
+        <minSeverity>0.05</minSeverity>
+        <label>slight</label>
+      </li>
+      <li>
+        <minSeverity>0.2</minSeverity>
+        <label>light</label>
+      </li>
+      <li>
+        <minSeverity>0.5</minSeverity>
+        <label>heavy</label>
+      </li>
+      <li>
+        <minSeverity>0.8</minSeverity>
+        <label>massive</label>
+      </li>
+    </stages>
+  </HediffDef>
+
+  <!-- An eye injury from the gas: on each eye; heals 0.15 a day untended, about 0.4 tended (tending stands in for rinsing the eyes). -->
+  <HediffDef>
+    <defName>PhobosBurns_CausticEye</defName>
+    <label>caustic eye injury</label>
+    <labelNoun>a caustic eye injury</labelNoun>
+    <description>Caustic gas has burned the surface of the eye. It stings and blurs, and a bad injury leaves the eye nearly blind for a time. It heals on its own, faster when tended.</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <defaultLabelColor>(0.8, 0.6, 0.4)</defaultLabelColor>
+    <maxSeverity>1</maxSeverity>
+    <isBad>true</isBad>
+    <tendable>true</tendable>
+    <everCurableByItem>false</everCurableByItem>
+    <scenarioCanAdd>false</scenarioCanAdd>
+    <comps>
+      <li Class="HediffCompProperties_TendDuration">
+        <baseTendDurationHours>24</baseTendDurationHours>
+        <severityPerDayTended>-0.25</severityPerDayTended>
+      </li>
+      <li Class="HediffCompProperties_SeverityPerDay">
+        <severityPerDay>-0.15</severityPerDay>
+      </li>
+    </comps>
+    <stages>
+      <li>
+        <label>sore</label>
+        <becomeVisible>false</becomeVisible>
+      </li>
+      <li>
+        <minSeverity>0.1</minSeverity>
+        <label>irritated</label>
+        <partEfficiencyOffset>-0.2</partEfficiencyOffset>
+      </li>
+      <li>
+        <minSeverity>0.3</minSeverity>
+        <label>inflamed</label>
+        <partEfficiencyOffset>-0.5</partEfficiencyOffset>
+        <painOffset>0.05</painOffset>
+      </li>
+      <li>
+        <minSeverity>0.6</minSeverity>
+        <label>burned</label>
+        <partEfficiencyOffset>-0.9</partEfficiencyOffset>
+        <painOffset>0.1</painOffset>
+      </li>
+    </stages>
+  </HediffDef>
+
+  <!-- Weakened immunity after a heavy dose (slow-acting only): fades over about two weeks from severe. -->
+  <HediffDef>
+    <defName>PhobosBurns_CausticWeakness</defName>
+    <label>weakened immunity</label>
+    <labelNoun>weakened immunity</labelNoun>
+    <description>A heavy dose of caustic gas has worn the body down. For a couple of weeks it fights off disease more slowly.</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <defaultLabelColor>(0.7, 0.7, 0.5)</defaultLabelColor>
+    <maxSeverity>1</maxSeverity>
+    <isBad>true</isBad>
+    <tendable>false</tendable>
+    <everCurableByItem>false</everCurableByItem>
+    <scenarioCanAdd>false</scenarioCanAdd>
+    <comps>
+      <li Class="HediffCompProperties_SeverityPerDay">
+        <severityPerDay>-0.043</severityPerDay>
+      </li>
+    </comps>
+    <stages>
+      <li>
+        <label>mild</label>
+        <statOffsets>
+          <ImmunityGainSpeed>-0.3</ImmunityGainSpeed>
+        </statOffsets>
+      </li>
+      <li>
+        <minSeverity>0.45</minSeverity>
+        <label>severe</label>
+        <statOffsets>
+          <ImmunityGainSpeed>-0.6</ImmunityGainSpeed>
+        </statOffsets>
+      </li>
+    </stages>
+  </HediffDef>
+
+  <!-- Irritable airways after severe lung injury: fades over about 60 days. Chosen over the game's lung rot, which is progressive and tied to
+       rot stink (agent proposal; the alternative is recorded). -->
+  <HediffDef Name="PhobosBurns_IrritableAirwaysBase" Abstract="True">
+    <hediffClass>HediffWithComps</hediffClass>
+    <defaultLabelColor>(0.6, 0.5, 0.4)</defaultLabelColor>
+    <maxSeverity>1</maxSeverity>
+    <isBad>true</isBad>
+    <tendable>false</tendable>
+    <everCurableByItem>false</everCurableByItem>
+    <scenarioCanAdd>false</scenarioCanAdd>
+    <stages>
+      <li>
+        <label>mild</label>
+        <capMods>
+          <li>
+            <capacity>Breathing</capacity>
+            <offset>-0.1</offset>
+          </li>
+        </capMods>
+      </li>
+      <li>
+        <minSeverity>0.5</minSeverity>
+        <label>moderate</label>
+        <capMods>
+          <li>
+            <capacity>Breathing</capacity>
+            <offset>-0.2</offset>
+          </li>
+        </capMods>
+      </li>
+    </stages>
+  </HediffDef>
+
+  <HediffDef ParentName="PhobosBurns_IrritableAirwaysBase">
+    <defName>PhobosBurns_IrritableAirways</defName>
+    <label>irritable airways</label>
+    <labelNoun>irritable airways</labelNoun>
+    <description>After a bad chemical lung injury, the airways tighten easily. Breathing is a little harder for a couple of months.</description>
+    <comps>
+      <li Class="HediffCompProperties_SeverityPerDay">
+        <severityPerDay>-0.01</severityPerDay>
+      </li>
+    </comps>
+  </HediffDef>
+
+  <!-- After critical lung injury, a 20% chance (authored) that the airways stay irritable. -->
+  <HediffDef ParentName="PhobosBurns_IrritableAirwaysBase">
+    <defName>PhobosBurns_IrritableAirwaysLasting</defName>
+    <label>lasting irritable airways</label>
+    <labelNoun>lasting irritable airways</labelNoun>
+    <description>A critical chemical lung injury has left the airways tightening easily for good. Breathing stays a little harder.</description>
+  </HediffDef>
+
+  <!-- The damage that puts the game's chemical burn on the skin (the game has the burn but no damage for it): no armour, the dose already
+       counted the clothes; no blood. -->
+  <DamageDef>
+    <defName>PhobosBurns_CausticSkin</defName>
+    <label>caustic burn</label>
+    <workerClass>DamageWorker_AddInjury</workerClass>
+    <externalViolence>false</externalViolence>
+    <hasForcefulImpact>false</hasForcefulImpact>
+    <makesBlood>false</makesBlood>
+    <canInterruptJobs>false</canInterruptJobs>
+    <harmsHealth>true</harmsHealth>
+    <hediff>ChemicalBurn</hediff>
+    <deathMessage>{0} has died of caustic burns.</deathMessage>
+  </DamageDef>
+</Defs>

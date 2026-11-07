@@ -13,6 +13,16 @@ public class BurnsAndSmokeSettings : ModSettings
     public bool burnLoad = true;
     public bool burnShock = true;
     public bool airway = true;
+    /// <summary>Tox gas does lingering harm, by the caustic gas model.</summary>
+    public bool causticGas = true;
+    /// <summary>The fast-acting model (closer to the game's own feel) instead of the slow-acting default.</summary>
+    public bool causticFastActing;
+    public bool causticEyes = true;
+    public bool causticThroat = true;
+    public bool causticLungs = true;
+    public bool causticSkin = true;
+    public bool causticImmunity = true;
+    public bool causticAftermath = true;
     /// <summary>Acid left on the skin keeps burning until it is spent or rinsed off.</summary>
     public bool chemicalBurns = true;
     /// <summary>Deeply burned limbs form a constricting eschar.</summary>
@@ -36,6 +46,14 @@ public class BurnsAndSmokeSettings : ModSettings
         Scribe_Values.Look(ref airway, "PhobosBurns_Airway", true);
         Scribe_Values.Look(ref eschar, "PhobosBurns_Eschar", true);
         Scribe_Values.Look(ref chemicalBurns, "PhobosBurns_ChemicalBurns", true);
+        Scribe_Values.Look(ref causticGas, "PhobosBurns_CausticGas", true);
+        Scribe_Values.Look(ref causticFastActing, "PhobosBurns_CausticFastActing", false);
+        Scribe_Values.Look(ref causticEyes, "PhobosBurns_CausticEyes", true);
+        Scribe_Values.Look(ref causticThroat, "PhobosBurns_CausticThroat", true);
+        Scribe_Values.Look(ref causticLungs, "PhobosBurns_CausticLungs", true);
+        Scribe_Values.Look(ref causticSkin, "PhobosBurns_CausticSkin", true);
+        Scribe_Values.Look(ref causticImmunity, "PhobosBurns_CausticImmunity", true);
+        Scribe_Values.Look(ref causticAftermath, "PhobosBurns_CausticAftermath", true);
         Scribe_Values.Look(ref smoke, "PhobosBurns_Smoke", true);
         Scribe_Values.Look(ref carbonMonoxide, "PhobosBurns_CarbonMonoxide", true);
         Scribe_Values.Look(ref fireHeatOutdoors, "PhobosBurns_FireHeatOutdoors", true);
@@ -79,6 +97,9 @@ public static class BurnsAndSmokeMod
         if (Settings.burnShock) report.On("burn shock"); else report.Off("burn shock", "setting");
         if (Settings.airway) report.On("airway burns"); else report.Off("airway burns", "setting");
         if (Settings.chemicalBurns) report.On("acid on the skin"); else report.Off("acid on the skin", "setting");
+        if (!Settings.causticGas) report.Off("caustic gas", "setting");
+        else if (!ModsConfig.BiotechActive) report.Off("caustic gas", "no tox gas without Biotech");
+        else report.On("caustic gas, " + (Settings.causticFastActing ? "fast-acting" : "slow-acting"));
         if (!Settings.eschar) report.Off("eschar", "setting");
         else report.On(OptionalMods.IsActive(OptionalMods.MoreInjuries) ? "eschar, More Injuries' gangrene for a starved limb" : "eschar, ischaemic damage for a starved limb");
         if (Settings.smoke) report.On("smoke inhalation, " + (PhobosGases.UsesCombatExtendedSmoke ? "Combat Extended's condition as the signal" : "the game's smoke as the signal")); else report.Off("smoke inhalation", "setting");
@@ -103,6 +124,17 @@ public static class BurnsAndSmokeMod
         listing.CheckboxLabeled("PhobosBurns_SettingAirway".Translate(), ref Settings.airway, "PhobosBurns_SettingAirwayDesc".Translate());
         listing.CheckboxLabeled("PhobosBurns_SettingEschar".Translate(), ref Settings.eschar, "PhobosBurns_SettingEscharDesc".Translate());
         listing.CheckboxLabeled("PhobosBurns_SettingChemicalBurns".Translate(), ref Settings.chemicalBurns, "PhobosBurns_SettingChemicalBurnsDesc".Translate());
+        listing.CheckboxLabeled("PhobosBurns_SettingCausticGas".Translate(), ref Settings.causticGas, "PhobosBurns_SettingCausticGasDesc".Translate());
+        if (Settings.causticGas)
+        {
+            listing.CheckboxLabeled("PhobosBurns_SettingCausticFast".Translate(), ref Settings.causticFastActing, "PhobosBurns_SettingCausticFastDesc".Translate());
+            listing.CheckboxLabeled("PhobosBurns_SettingCausticEyes".Translate(), ref Settings.causticEyes);
+            listing.CheckboxLabeled("PhobosBurns_SettingCausticThroat".Translate(), ref Settings.causticThroat);
+            listing.CheckboxLabeled("PhobosBurns_SettingCausticLungs".Translate(), ref Settings.causticLungs);
+            listing.CheckboxLabeled("PhobosBurns_SettingCausticSkin".Translate(), ref Settings.causticSkin);
+            listing.CheckboxLabeled("PhobosBurns_SettingCausticImmunity".Translate(), ref Settings.causticImmunity, "PhobosBurns_SettingCausticImmunityDesc".Translate());
+            listing.CheckboxLabeled("PhobosBurns_SettingCausticAftermath".Translate(), ref Settings.causticAftermath);
+        }
         listing.CheckboxLabeled("PhobosBurns_SettingSmoke".Translate(), ref Settings.smoke, "PhobosBurns_SettingSmokeDesc".Translate());
         listing.CheckboxLabeled("PhobosBurns_SettingCarbonMonoxide".Translate(), ref Settings.carbonMonoxide, "PhobosBurns_SettingCarbonMonoxideDesc".Translate());
         listing.CheckboxLabeled("PhobosBurns_SettingFireHeat".Translate(), ref Settings.fireHeatOutdoors, "PhobosBurns_SettingFireHeatDesc".Translate());
