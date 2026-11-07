@@ -12,7 +12,9 @@ and pull request steps below are for external contributors.
 
 1. Search [existing issues](https://github.com/phobos-dthorga/phobos-rimworld/issues). Discuss a substantial
    feature before building it; small fixes can go straight to a pull request.
-2. Fork and create a focused branch. Keep unrelated edits out.
+2. Fork and create a focused branch. Keep unrelated edits out. The shared tools come from a pinned submodule,
+   [phobos-modkit](https://github.com/phobos-dthorga/phobos-modkit): after cloning, run
+   `git submodule update --init` once, or the scripts and some tests cannot find them.
 3. Describe the problem, the resulting behaviour, the checks you ran and what remains uncertain.
    Screenshots help with UI changes; use GitHub-native Mermaid for diagrams.
 4. Run the checks. None of them needs RimWorld:

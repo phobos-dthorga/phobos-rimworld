@@ -290,3 +290,8 @@ delivered, record the delivery in the changelog or design record, and add or ame
 - Scale checks to the change; test rules and persistence, not static documentation. Before committing,
   run `python scripts/check-doc-links.py`, `python scripts/check-mod-layout.py` and
   `python -m unittest discover -s tests`. Gate commits on the exit codes, not on grep output.
+- **The shared tools come from the pinned phobos-modkit submodule** (`external/phobos-modkit`, owner's request of
+  7 Nov 2026 for a shared repository): **after cloning, or in a new worktree, run `git submodule update --init`**
+  before the scripts or tests. A fix to a shared tool goes to phobos-modkit first, under its own AGENTS.md; then
+  move the pin here with `git -C external/phobos-modkit checkout <tag>` and a commit. Never edit the submodule in
+  place.
