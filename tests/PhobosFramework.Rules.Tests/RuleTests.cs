@@ -18,6 +18,22 @@ public class BreathingRuleTests
     public void ABadFigureIsIgnored() => Assert.Equal(5.3f, BreathingRule.ClearanceHalfLifeHours(5.3f, 0f));
 
     [Fact]
+    public void OxygenHealsAtTheConditionsRateTimesTheTreatmentsFactor()
+    {
+        Assert.Equal(1f, BreathingRule.HealingFor(4f, 1f, 15000), 4);
+        Assert.Equal(2f, BreathingRule.HealingFor(4f, 2f, 15000), 4);
+    }
+
+    [Fact]
+    public void NoRateNoFactorOrNoTimeHealsNothing()
+    {
+        Assert.Equal(0f, BreathingRule.HealingFor(0f, 1f, 2500));
+        Assert.Equal(0f, BreathingRule.HealingFor(4f, 0f, 2500));
+        Assert.Equal(0f, BreathingRule.HealingFor(4f, 1f, 0));
+        Assert.Equal(0f, BreathingRule.HealingFor(-1f, 1f, 2500));
+    }
+
+    [Fact]
     public void TheBetterOfTwoTreatmentsWins()
     {
         Assert.Equal(0.4f, BreathingRule.Shortest(1.25f, 0.4f));

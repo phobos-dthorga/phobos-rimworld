@@ -82,6 +82,13 @@ public class PhobosBurnRulesDef : PhobosRulesDef
     /// <summary>The most several fires can add together; the game's display holds up to 999 C (authored).</summary>
     public float fireHeatMaxRise = 900f;
     /// <summary>
+    /// Fire heat in rooms: a room this many cells or smaller gets no extra local heat, as the game's even spread already heats it
+    /// through; larger rooms get the part the spread misses. Authored: a 5 by 6 room.
+    /// </summary>
+    public float fireHeatRoomCellsWarmedEvenly = 30f;
+    /// <summary>How far a pawn looks for a cooler cell when the heat would burn them (authored).</summary>
+    public float fireHeatFleeSearchRadiusCells = 12f;
+    /// <summary>
     /// Mods that model the air cell by cell themselves; while one is active our zones are not computed, so heat is never
     /// counted twice. Other such mods can be added here in XML.
     /// </summary>

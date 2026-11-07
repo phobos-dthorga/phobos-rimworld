@@ -1,11 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Patch>
-  <!-- More Injuries' organ hypoxia counts as needing oxygen. Its own code still decides how it clears. -->
+  <!-- More Injuries' hypoxia counts as needing oxygen, and heals faster on it (owner, 7 Nov 2026: supplied oxygen treats it). The
+       extra healing is added to its own; a permanent scar never heals. Rates authored, a gameplay simplification: oxygen lets
+       starved tissue recover, so organ hypoxia gains most; for the brain the benefit is less certain, so it gains half. -->
   <Operation Class="PatchOperationAddModExtension">
     <xpath>Defs/HediffDef[defName="OrganHypoxia"]</xpath>
     <value>
       <li Class="Phobos.Framework.Breathing.PhobosOxygenResponsiveExtension">
         <minSeverity>0.05</minSeverity>
+        <healingPerDayOnOxygen>4</healingPerDayOnOxygen>
+      </li>
+    </value>
+  </Operation>
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>Defs/HediffDef[defName="BrainDamage_Hypoxia"]</xpath>
+    <value>
+      <li Class="Phobos.Framework.Breathing.PhobosOxygenResponsiveExtension">
+        <minSeverity>0.05</minSeverity>
+        <healingPerDayOnOxygen>2</healingPerDayOnOxygen>
       </li>
     </value>
   </Operation>

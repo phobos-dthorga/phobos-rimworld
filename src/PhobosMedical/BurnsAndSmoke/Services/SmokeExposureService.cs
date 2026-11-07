@@ -2,6 +2,7 @@ using Phobos.BurnsAndSmoke.Defs;
 using Phobos.BurnsAndSmoke.Rules;
 using Phobos.Framework.Gases;
 using Phobos.Framework.Rules;
+using RimWorld;
 using Verse;
 
 namespace Phobos.BurnsAndSmoke.Services;
@@ -51,7 +52,10 @@ public static class SmokeExposureService
         float breathedSmoke = PhobosGases.Breathed(pawn, GasKind.Smoke);
         if (settings.smoke && breathedSmoke > 0f)
         {
-            Raise(pawn, BurnsDefOf.PhobosBurns_LungInjury, rules.lungInjuryPerHourAtFullSmoke * breathedSmoke * hours, 1f);
+            // While the pawn is itself on fire, More Injuries' fire inhalation (when the player has it on) burns the lungs; ours
+            // stands down for that moment so the lungs are never damaged twice for one exposure.
+            if (!(pawn.IsBurning() && MoreInjuriesInhalation.On))
+                Raise(pawn, BurnsDefOf.PhobosBurns_LungInjury, rules.lungInjuryPerHourAtFullSmoke * breathedSmoke * hours, 1f);
             if (!PhobosGases.UsesCombatExtendedSmoke || settings.acuteSmokeWithCombatExtended)
             {
                 float checks = hours * 2500f / 50f;

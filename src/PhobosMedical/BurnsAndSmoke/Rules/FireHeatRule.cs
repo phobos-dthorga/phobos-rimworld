@@ -18,6 +18,25 @@ public static class FireHeatRule
         return peakRisePerFullFire * size / (spread * spread);
     }
 
+    /// <summary>
+    /// The share of a fire's local heat a room adds on top of its own temperature. The game spreads a fire's heat evenly over its
+    /// room, so a small room already shows it: nothing extra up to <paramref name="evenlyWarmedCells"/>, then the part of the room
+    /// the even spread misses, approaching all of it in a hangar. Authored.
+    /// </summary>
+    public static float IndoorShare(int roomCells, float evenlyWarmedCells)
+    {
+        if (roomCells <= 0) return 0f;
+        if (evenlyWarmedCells <= 0f) return 1f;
+        if (roomCells <= evenlyWarmedCells) return 0f;
+        return 1f - evenlyWarmedCells / roomCells;
+    }
+
+    /// <summary>The game burns a pawn when the air is this many degrees above the top of their comfortable range (HediffGiver_Heat).</summary>
+    public const float GameBurnMarginAboveComfort = 150f;
+
+    /// <summary>Whether air at <paramref name="cellTemperature"/> burns a pawn whose comfortable range tops out at <paramref name="comfortableMax"/>.</summary>
+    public static bool BurnsAt(float cellTemperature, float comfortableMax) => cellTemperature > comfortableMax + GameBurnMarginAboveComfort;
+
     /// <summary>Several fires add up; this caps the sum so a wildfire never shows a figure the game's display cannot hold.</summary>
     public static float Cap(float totalRise, float maxRise) => totalRise > maxRise ? maxRise : totalRise;
 }

@@ -66,11 +66,17 @@ is in this repository.
 **GPL-3.0**. Our mods reach it by name only:
 
 - **Medical Save Bridge** finds one of its types by name at runtime.
-- **Burns and Smoke** patches its Defs in XML (adding its public secondary-condition handlers to our own conditions, and removing
-  one worker from its registration list), and gates the tracheotomy behind its Emergency Medicine research.
-- **Medical Equipment** marks one of its conditions as helped by oxygen, in XML.
+- **Burns and Smoke** patches its Defs in XML (adding its public secondary-condition handlers to our own conditions), gates the
+  tracheotomy behind its Emergency Medicine research, and reads its fire inhalation setting by name at runtime (D'thorga Medical
+  0.7.0; before that, an XML patch removed that worker from its registration list).
+- **Medical Equipment** marks its two hypoxia conditions as helped by oxygen, and healed faster on it, in XML.
 - **Triage** finds its operations by the condition each recipe removes, as it finds any mod's, and never names it in code. Its
   mechanite therapy for brain damage names nothing it removes, so an XML patch lists the five conditions it treats.
+
+Its decompiled assembly and published source were read for research in the ignored `.local/` and summarised in our own words.
+**Nothing from More Injuries is in this repository, and none of its code is adapted.**
+[More Injuries: Organ Failure](https://steamcommunity.com/sharedfiles/filedetails/?id=3733035523) by wenders was read the same
+way as the worked example of a third mod driving those handlers; nothing from it is here.
 
 ## Useful Marks
 
@@ -78,12 +84,6 @@ is in this repository.
 D'thorga Medical's tie-in assembly (`mods/PhobosMedical/Mods/UsefulMarks`, loaded only while it is active) references its
 installed `UsefulColonistBar.dll` at build time (`Private=false`) and adds triage tags as marks through its public
 `PawnLabelCustomColors_WorldComponent.RegisterProvider`. Nothing from it is copied into this repository or a build.
-
-
-Its decompiled assembly and published source were read for research in the ignored `.local/` and summarised in our own words.
-**Nothing from More Injuries is in this repository, and none of its code is adapted.**
-[More Injuries: Organ Failure](https://steamcommunity.com/sharedfiles/filedetails/?id=3733035523) by wenders was read the same
-way as the worked example of a third mod driving those handlers; nothing from it is here.
 
 ## Combat Extended
 

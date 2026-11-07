@@ -108,7 +108,8 @@ gas), `amountPerRareTick`, and `onlyWhenPowered`, `onlyWhenSwitchedOn` or `onlyW
 The helpers: `OptionalMods` (active mods and Defs by name, cached), `LoadReport` (the one load line, optionally naming the part of a
 mod it reports), `DisplayMode` and `SettingsUi.DrawDisplayMode`, `SettingsUi.Section` and `SettingsScroll` (headings and a scrolling
 settings page), `SettingsImport` (carry a player's settings across a change of mod folder or Mod class, once), `SettingsUi.Warning` and
-`SettingsUi.Choice` (a setting's cost in amber; a menu of choices), `PatientPreferences.IconFor`, `MenuFor` and `LabelFor`
+`SettingsUi.Choice` (a setting's cost in amber; a menu of choices), `OptionalMods.StaticMember` and `SettingField` (another
+mod's setting by name), `PhobosBreathing.HealOnSuppliedOxygen` (conditions that heal faster on oxygen), `PatientPreferences.IconFor`, `MenuFor` and `LabelFor`
 (a per-person choice drawn the same everywhere), `FrameWorkQueue` (run a long job a slice per frame, see below),
 `RoomRebuildHold` (rebuild a map's rooms once per slice while many things are destroyed), `PhobosRulesDef` (a
 rules Def whose first instance wins), `DebugCategory.Name`, and `CleanupService.RemoveHediffsOf(pack)` for a clean uninstall.

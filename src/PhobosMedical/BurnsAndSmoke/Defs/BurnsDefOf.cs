@@ -12,6 +12,7 @@ public static class BurnsDefOf
     public static HediffDef PhobosBurns_CarbonMonoxide = null!;
     public static HediffDef PhobosBurns_LungInjury = null!;
     public static HediffDef PhobosBurns_SmokeInhalation = null!;
+    public static JobDef PhobosBurns_MoveAwayFromHeat = null!;
 
     static BurnsDefOf() => DefOfHelper.EnsureInitializedInCtor(typeof(BurnsDefOf));
 }

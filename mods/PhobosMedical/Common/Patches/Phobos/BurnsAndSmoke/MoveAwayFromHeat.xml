@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <!-- People and animals get out of air hot enough to burn them. The game's constant think trees (checked every 30 ticks, able to
+       interrupt the current job) have no insert tags, so the job giver goes in beside the game's own: after "flee a potential
+       explosion" for people, after "flee danger" for animals. Conditional, so a mod that rebuilt these trees sees no error; the
+       behaviour is then simply absent. -->
+  <Operation Class="PatchOperationConditional">
+    <xpath>Defs/ThinkTreeDef[defName="HumanlikeConstant"]//li[@Class="JobGiver_FleePotentialExplosion"]</xpath>
+    <match Class="PatchOperationInsert">
+      <xpath>Defs/ThinkTreeDef[defName="HumanlikeConstant"]//li[@Class="JobGiver_FleePotentialExplosion"]</xpath>
+      <order>Append</order>
+      <value>
+        <li Class="Phobos.BurnsAndSmoke.Heat.JobGiver_PhobosMoveAwayFromHeat" />
+      </value>
+    </match>
+  </Operation>
+  <Operation Class="PatchOperationConditional">
+    <xpath>Defs/ThinkTreeDef[defName="AnimalConstant"]//li[@Class="JobGiver_AnimalFlee"]</xpath>
+    <match Class="PatchOperationInsert">
+      <xpath>Defs/ThinkTreeDef[defName="AnimalConstant"]//li[@Class="JobGiver_AnimalFlee"]</xpath>
+      <order>Append</order>
+      <value>
+        <li Class="Phobos.BurnsAndSmoke.Heat.JobGiver_PhobosMoveAwayFromHeat" />
+      </value>
+    </match>
+  </Operation>
+</Patch>

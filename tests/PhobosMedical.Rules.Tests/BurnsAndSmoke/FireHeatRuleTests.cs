@@ -35,6 +35,25 @@ public class FireHeatRuleTests
     }
 
     [Fact]
+    public void ASmallRoomAddsNothingAndAHangarNearlyAll()
+    {
+        Assert.Equal(0f, FireHeatRule.IndoorShare(20, 30f));
+        Assert.Equal(0f, FireHeatRule.IndoorShare(30, 30f));
+        Assert.Equal(0.25f, FireHeatRule.IndoorShare(40, 30f), 4);
+        Assert.Equal(0.9f, FireHeatRule.IndoorShare(300, 30f), 4);
+        Assert.Equal(0f, FireHeatRule.IndoorShare(0, 30f));
+        Assert.Equal(1f, FireHeatRule.IndoorShare(10, 0f));
+    }
+
+    [Fact]
+    public void AirBurnsOnlyPastTheGamesMarginOverComfort()
+    {
+        Assert.False(FireHeatRule.BurnsAt(176f, 26f));
+        Assert.True(FireHeatRule.BurnsAt(176.5f, 26f));
+        Assert.False(FireHeatRule.BurnsAt(200f, 60f));
+    }
+
+    [Fact]
     public void SeveralFiresAddUpToTheCapAndNoFurther()
     {
         float three = 3f * FireHeatRule.Rise(Full, Full, 0f, Peak, Radius);

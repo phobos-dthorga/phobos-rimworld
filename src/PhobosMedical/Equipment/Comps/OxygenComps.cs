@@ -95,6 +95,7 @@ public class Hediff_PhobosOnOxygen : HediffWithComps
         if (ticksToCheck > 0) return;
         ticksToCheck = CheckIntervalTicks;
         CheckBreathing();
+        PhobosBreathing.HealOnSuppliedOxygen(pawn, this, CheckIntervalTicks);
     }
 
     void CheckBreathing() => SetRaisesBreathing(OxygenRule.RaisesBreathing(BreathingWithoutOxygen()));

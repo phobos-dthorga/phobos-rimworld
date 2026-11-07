@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- Moving out of a fire's hot zone: the game's own walking driver, with its own report so a player sees why the work stopped. -->
+  <JobDef>
+    <defName>PhobosBurns_MoveAwayFromHeat</defName>
+    <driverClass>JobDriver_Goto</driverClass>
+    <reportString>moving away from the heat.</reportString>
+    <casualInterruptible>false</casualInterruptible>
+    <suspendable>false</suspendable>
+  </JobDef>
+</Defs>

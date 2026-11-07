@@ -65,6 +65,11 @@
     <fireHeatPeakRise>600</fireHeatPeakRise>
     <fireHeatRadiusCells>5</fireHeatRadiusCells>
     <fireHeatMaxRise>900</fireHeatMaxRise>
+    <!-- Fire heat in rooms (authored): the game spreads a fire's heat evenly over its room, so a room of up to 30 cells gets no
+         extra local heat; a larger one gets the part the even spread misses (1 - 30 / cells: a quarter of the zone in a 40-cell
+         room, nine tenths in a 300-cell hangar). And how far a pawn looks for a cooler cell when the heat would burn them. -->
+    <fireHeatRoomCellsWarmedEvenly>30</fireHeatRoomCellsWarmedEvenly>
+    <fireHeatFleeSearchRadiusCells>12</fireHeatFleeSearchRadiusCells>
     <!-- Mods that model the air cell by cell themselves: while one is active the zones are not computed. Add others here. -->
     <perCellTemperatureMods>
       <li>acutus.AtmosphereOverhaul.release</li>

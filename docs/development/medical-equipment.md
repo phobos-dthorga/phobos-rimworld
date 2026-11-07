@@ -115,8 +115,10 @@ The owner wants our own medical equipment, hospital and field. Carbon monoxide a
 
 Updated 7 Nov 2026, after D'thorga Medical 0.6.0; the open work is listed in [outstanding work](outstanding-work.md).
 
-- More Injuries' hypoxia counts as needing oxygen, but only breathing eases it. **The owner chose (7 Nov 2026) that supplied oxygen
-  treats it**; not built yet.
+- **Done in D'thorga Medical 0.7.0** (owner, 7 Nov 2026: supplied oxygen treats More Injuries' hypoxia; not yet tested in game):
+  organ hypoxia heals 4 a day faster on oxygen and cerebral hypoxia 2 (authored; the brain's benefit is less certain), times the
+  treatment's factor (the chamber 2). Permanent damage never heals. The rate sits on the Framework's `PhobosOxygenResponsiveExtension`
+  and the treatment calls `PhobosBreathing.HealOnSuppliedOxygen`, so any mod's condition or treatment can join in XML.
 - The store's look in game (the owner, 7 Nov 2026), then its frost once the art exists (art on the owner's go).
 - **Done:** Triage reads the Framework's surgery bars and holds an operation for someone in the chamber (Triage 0.2.0); the chamber,
   the unpowered store, the electrolyser's water from Dubs Bad Hygiene and the one-time letter (0.4.0 to 0.5.0).

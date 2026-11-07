@@ -208,8 +208,17 @@ source, constants identical):
 
 - **A Harmony postfix on `TryGetTemperatureForCell`**, the first Harmony in this mod: the game has no extension point for a
   cell's temperature. A postfix, so every other mod's answer comes first and ours is added. Harmony becomes a dependency.
-- **Outdoor cells only.** A zone cell is one whose room `UsesOutdoorTemperature`; rooms keep the game's model, and a cell inside
-  a wall (no room) is skipped. Heat indoors on top of the room is a later question.
+- **Outdoor cells only** (0.5.0 to 0.6.0). A zone cell was one whose room `UsesOutdoorTemperature`; a cell inside a wall (no room)
+  is skipped. **Rooms joined in D'thorga Medical 0.7.0** (owner, 7 Nov 2026: heat indoors too): the game spreads a fire's heat
+  evenly over its room, so a room cell gets the share that even spread misses, `1 - 30 / room cells` and nothing at 30 cells or
+  fewer (authored). Its own setting, `PhobosBurns_FireHeatIndoors`.
+- **Moving away from heat** (owner, 7 Nov 2026: pawns and animals flee hot zones; built in 0.7.0). A job giver inserted by XML into
+  the game's constant think trees (`HumanlikeConstant` after `JobGiver_FleePotentialExplosion`, `AnimalConstant` after
+  `JobGiver_AnimalFlee`; they run every 30 ticks and interrupt the current job, and have no insert tags), no Harmony. It starts only
+  in one of our zones, when the full cell temperature passes the game's own burn threshold (`HediffGiver_Heat`: 150 degrees over the
+  top of the pawn's comfortable range), and sends the pawn at a sprint to the nearest standable, reachable, fire-free cell below it
+  within 12 cells. Firefighters (`BeatFire`, `ExtinguishSelf`) and player-forced jobs are left alone (agent choice); the game's own
+  gate skips drafted, downed, burning, asleep and mentally broken pawns; mechanoids are skipped as heat does not burn them.
 - **Stand down beside a per-cell model.** The rules Def lists package ids (`acutus.AtmosphereOverhaul.release`, `Garwel.Celsius`,
   the latter from its GitHub About.xml); with one active the zones are not computed and the load line says so.
 - **The shape is authored:** a peak for a full-size fire (the game's `MaxFireSize`, 1.75), scaled by the fire's size, falling with
@@ -234,15 +243,27 @@ source, constants identical):
 6. A wildfire with Dubs Performance Analyzer running: the cost of `MapComponent_PhobosFireHeat` and of `FireHeatPatch`.
 7. Save and reload: nothing new in the save.
 
+**Checks for D'thorga Medical 0.7.0** (four, the ones that matter; not yet run):
+
+1. Light a fire in a large room (a hangar of 200 cells or more) and hold Alt over cells beside it: hotter than the room, fading
+   within five cells. In a small room (30 cells or fewer) the cells match the room.
+2. Leave a colonist working beside that fire: they should break off, read "moving away from the heat" and sprint clear. A colonist
+   beating out a fire stays at it.
+3. With More Injuries: switch its fire inhalation off and on in its settings; our settings window and the load line should follow.
+4. With More Injuries: a patient with hypoxia in a bed served by oxygen should see it fall faster than one without.
+
 ## Open points and upstream
 
-- Fire heat indoors on top of the room's temperature (a blaze in a hangar is a room barely warmed), and whether animals and
-  pawns should flee hot zones; after the owner has seen the open-air zones.
+- **Done in D'thorga Medical 0.7.0:** fire heat indoors and moving away from heat (Decisions above), and More Injuries' own
+  fire inhalation setting respected (below). Not yet tested in game.
 
 - Supporting gear for burn care without a burn ward (owner's wish, 4 Nov 2026): D'thorga Medical Equipment's burn unit bed (0.2.0)
   gives air-cell care; a dressing or a fluids kit that raises the fluids quality is still a candidate there.
 - `Recipe_RemoveHediff` does not apply `addsHediff` on 1.7 (read from the 1.7 assembly, 5 Nov 2026), so the subclass is needed. The 1.6 reference assembly has no method bodies to read; the subclass checks before adding, so a difference there could not double it.
-- Whether to respect More Injuries' own `EnableFireInhalation` setting instead of removing its worker.
+- **More Injuries' `EnableFireInhalation` is respected** (owner, 7 Nov 2026; 0.7.0). The XML patch that removed its worker is
+  gone; its setting, an internal field behind a source-generated property, is read by name through the Framework. With it on, our
+  lasting lung injury from smoke is not added while the pawn is itself burning, since its worker burns the lungs at those moments
+  (agent choice: the narrowest overlap that avoids damaging the lungs twice).
 - **Phase 2, go given by the owner on 7 Nov 2026:** constricting eschar on limbs burned past 60% of a part's health, an
   escharotomy surgery, ischaemic damage, a hand-off to More Injuries' gangrene, and a fluid-resuscitation bill that consumes its
   saline bag. Next after Medical Equipment's 0.4.0 fixes and the hydrogen work.

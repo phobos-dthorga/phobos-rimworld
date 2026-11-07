@@ -56,17 +56,29 @@ the mods' code.
 - **Fires in the open are now hot.** The game gives a fire's heat to its room and throws it away outdoors, so beside a blaze the air
   was the weather's temperature. Now each fire in the open heats the cells around it: a full-size fire adds about 600 degrees at
   the flame, 150 one cell away, 67 at two, 24 at four, and nothing past five. Anyone standing beside it suffers heatstroke and, close
-  in, burns from the hot air; crops stop growing; food spoils. **Rooms keep the game's own heating**, and fires spread as before.
+  in, burns from the hot air; crops stop growing; food spoils. Fires spread as before.
   Hold Alt over a cell to see its temperature. Switch it off in the settings if you prefer the old behaviour.
+- **New in 0.7.0: fires heat large rooms around them too** (owner's choice, not yet tested in game). The game spreads a fire's heat
+  evenly over its room, so a blaze in a hangar barely warmed it. Now a fire in a room also heats the cells around it, on top of the
+  room's temperature: **nothing extra in a room of 30 cells or fewer**, which the game heats through anyway, a quarter of the open-air
+  heat in a 40-cell room, nine tenths in a 300-cell hangar. It has its own setting.
+- **New in 0.7.0: people and animals get out of heat that would burn them** (owner's choice, not yet tested in game). Anyone not
+  drafted who stands near a fire in air hot enough to burn them sprints to the nearest cooler spot, within 12 cells, and their
+  activity reads "moving away from the heat". **Firefighters beating out a fire stay at it, and so does anyone you ordered there.**
+  Drafted colonists never move on their own. It has its own setting.
 - **With Atmosphere Overhaul or Celsius active, the fire heat stands down by itself**: those mods model the air cell by cell, and
   heat must not be counted twice. The load line says which mod it stood down for. Other such mods can be added to the rules Def.
 - **Safe to add to a running colony.** Its conditions are recomputed from the burns a pawn has, so old burns count at once.
 - **Before removing it, press the settings button "Remove every burn condition from every pawn", save, then switch the mod off.**
   Otherwise the next load prints one line per missing condition and carries on. Either way it prints one harmless line per map
   about the missing fire-heat map component.
-- **With More Injuries, its own "fire inhalation" feature is switched off by this mod** (a patch in the More Injuries folder; delete
-  that file to keep both). More Injuries put plain burns on both lungs whenever a burning pawn was hurt; this mod models the
-  inhalation itself. Carbon monoxide and a closing airway feed More Injuries' hypoxia and brain damage.
+- **With More Injuries, its own "fire inhalation" setting now decides** (changed in 0.7.0, owner's choice; earlier versions
+  switched that feature off). On (More Injuries' default), More Injuries burns both lungs whenever a burning pawn is hurt, and this
+  mod's smoke damage to the lungs stands down while that person is on fire, so the lungs are never damaged twice. Off, this mod's
+  smoke damage applies alone. Change it in More Injuries' settings; this mod's settings show which way it is set. Carbon monoxide
+  and a closing airway feed More Injuries' hypoxia and brain damage.
+- **New in 0.7.0: oxygen helps More Injuries' hypoxia heal** (owner's choice, not yet tested in game). A patient on supplied oxygen
+  heals hypoxia faster, the hyperbaric chamber twice as fast again; damage that has turned permanent never heals.
 - **With Combat Extended's smoke running, CE's smoke inhalation is the signal.** This mod adds the lasting lung damage and
   the carbon monoxide on top. A gas mask stops the smoke effects but **not the carbon monoxide**.
 - **Without Combat Extended's smoke, burning rooms fill with the game's own smoke** (the framework does this), which also

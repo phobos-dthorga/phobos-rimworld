@@ -21,15 +21,25 @@ The owner's answers of 7 November 2026 to every open question (docs/development/
 - Triage: the choice of how far the doctors may go is also a small button on the health tab, beside the game's medicine setting, with the same menu as the button on the person. Owner's choice.
 - Triage, with More Injuries: its mechanite therapy for brain damage is found for the five conditions it treats. It uses glitterworld medicine, so a colonist set to any repair may have it queued.
 
+- Burns: fires heat the cells around them in large rooms too, on top of the room's own temperature, with its own setting: nothing extra in a room of 30 cells or fewer, which the game already heats through, then the share the game's even spread misses (a quarter in a 40-cell room, nine tenths in a 300-cell hangar). Figures authored. Owner's choice.
+- Burns: people and animals not drafted sprint out of air near a fire that is hot enough to burn them, to the nearest cooler spot within 12 cells, reading moving away from the heat. Firefighters beating a fire stay at it, as does anyone ordered there (agent choice). Uses the game's own burn threshold, 150 degrees over the top of a person's comfortable range, so clothing counts. Its own setting. Owner's choice.
+- Equipment, with More Injuries: supplied oxygen helps its hypoxia heal, on top of its own healing: organ hypoxia by 4 a day, cerebral hypoxia by 2 (authored; the benefit to the brain is less certain), twice that in the hyperbaric chamber. Permanent damage never heals. Owner's choice.
+
 ### Changed
 
+- Burns, with More Injuries: its own fire inhalation setting decides again, rather than this mod removing that feature (owner's choice). With it on, this mod's smoke damage to the lungs stands down while a person is on fire, so the lungs are never damaged twice; the settings window shows which way it is set.
 - Triage keeps queuing fracture repairs under save life or a limb, rather than leaving fractures to More Injuries' splints. No change in play: the owner chose to keep it.
 - Emergency dosing: a masochist, or anyone else for whom pain is no hardship (the game's own pain mood is cancelled for them, as by a belief in idealised pain), no longer fetches their own painkillers. Doctors still treat them in bed. Read from the game's pain thought, not from the trait's name, so a modded trait that does the same counts too.
 
 ### Dependencies
 
-- D'thorga Framework 0.8.0 or later, for the shared menu of a person's care choices. Useful Marks is optional; with it, triage tags join its marks.
+- D'thorga Framework 0.8.0 or later, for the shared menu of a person's care choices, healing on oxygen and reading More Injuries' setting. Useful Marks is optional; with it, triage tags join its marks.
 
+
+### Compatibility and limits
+
+- People move away from heat through a patch to the game's constant behaviour for people and animals, next to its own fleeing from explosions and danger. A mod that rebuilt those leaves this out without an error. Mechanoids never move away, as heat does not burn them.
+- Fire heat in rooms changes what heaters and coolers near a fire read for their own cell, as fire heat in the open already did. Not yet tested in game.
 
 ## [0.6.0] - 2026-11-07 - Draft
 

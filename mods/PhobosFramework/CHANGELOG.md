@@ -12,6 +12,8 @@ Made with D'thorga Medical 0.7.0, its first user. No change in play on its own. 
 ### Added
 
 - For modders: a per-person choice's icon, its menu and its label with the current option, from the choices registry, so every place that offers the choice draws the same thing. The pawn's own button now uses them.
+- For modders: a condition oxygen helps can say how much faster it heals on supplied oxygen, and a treatment how much better than a mask it is; the treatment calls one shared method to heal. Permanent conditions never heal.
+- For modders: reading another mod's setting by name, from its static settings holder, even when a source generator hides the field inside a longer name.
 
 ## [0.7.1] - 2026-11-07 - Draft
 

@@ -13,6 +13,15 @@ public static class BreathingRule
         return supplied < fromSurroundings ? supplied : fromSurroundings;
     }
 
+    const float TicksPerDay = 60000f;
+
+    /// <summary>Severity healed in <paramref name="ticks"/> on oxygen, from the condition's rate and the treatment's factor; never negative.</summary>
+    public static float HealingFor(float perDayOnOxygen, float treatmentFactor, int ticks)
+    {
+        if (perDayOnOxygen <= 0f || treatmentFactor <= 0f || ticks <= 0) return 0f;
+        return perDayOnOxygen * treatmentFactor * ticks / TicksPerDay;
+    }
+
     /// <summary>The better of two supplied half-lives, either of which may be absent.</summary>
     public static float? Shortest(float? current, float candidate)
     {

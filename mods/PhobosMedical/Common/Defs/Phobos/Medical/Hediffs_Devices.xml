@@ -113,6 +113,8 @@
     <modExtensions>
       <li Class="Phobos.Framework.Breathing.PhobosSuppliedOxygenExtension">
         <carbonMonoxideHalfLifeHours>0.375</carbonMonoxideHalfLifeHours>
+        <!-- Under pressure the blood carries far more dissolved oxygen, so oxygen-helped conditions heal twice as fast as on a mask (authored). -->
+        <healingFactor>2</healingFactor>
       </li>
     </modExtensions>
   </HediffDef>
