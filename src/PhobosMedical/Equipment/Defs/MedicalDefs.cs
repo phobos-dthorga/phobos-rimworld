@@ -21,6 +21,13 @@ public class PhobosMedicalRulesDef : PhobosRulesDef
     public float ventilatorBreathingFloor = 0.6f;
     /// <summary>The breathing each of the ventilator treatment's stages adds over the one before (its Def has stages to match).</summary>
     public float ventilatorStep = 0.1f;
+
+    /// <summary>Carbon monoxide in the room, as the burns part measures it, at which an alarm sounds (authored).</summary>
+    public float alarmCarbonMonoxideLevel = 0.05f;
+    /// <summary>Smoke density at the alarm's cell at which it sounds (authored).</summary>
+    public float alarmSmokeLevel = 0.1f;
+    /// <summary>An alarm stays on until the gas falls below this share of its level (authored).</summary>
+    public float alarmQuietShare = 0.5f;
 }
 
 /// <summary>

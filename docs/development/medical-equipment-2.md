@@ -1,7 +1,7 @@
 # Medical equipment, second set: design (7 Nov 2026)
 
 A design record. **Built so far** (D'thorga Medical 0.7.0, not yet tested in game): the ventilator and its intubation kit, the safety
-shower and eyewash; see Built below. The owner chose all eight proposals from the
+shower and eyewash, the carbon monoxide and smoke alarm; see Built below. The owner chose all eight proposals from the
 [art backlog](art-backlog.md#proposed-medical-equipment-agent-ideas-6-nov-2026-for-the-owner) for D'thorga Medical Equipment (7 Nov
 2026), in this order. The first set (oxygen, burn care, the field kit and the hand pump) is in the [medical equipment record](medical-equipment.md).
 
@@ -62,6 +62,17 @@ shower and eyewash; see Built below. The owner chose all eight proposals from th
   moving away from heat, to the nearest usable shower within 60 cells; patients lying down get Doctor work (priority 92): the doctor
   draws water at the shower, carries it over and rinses them. The shower is stood on. No research.
 - **After a rinse**: cool water eases burn pain (pain factor 0.85) for about four hours (authored).
+
+**Carbon monoxide and smoke alarm** (7 Nov 2026). Decisions, labelled:
+
+- **Two alarms** (owner: as in Ostranauts): this one now; the hydrogen detector with the vents.
+- **What it senses** (agent choice): smoke density at its own cell from the Framework, and carbon monoxide there as the burns part
+  measures it (the Framework's room gas where carried, otherwise inferred from smoke and enclosure), unfiltered by masks. Levels 0.05
+  carbon monoxide and 0.1 smoke (authored; the game's fractions, not parts per million), holding until the gas falls to half.
+- **What it does**: one warning message naming the room's role and what to do, when it starts or a second gas joins; it **wakes
+  everyone asleep in its room** (owner's choice) through the game's own wake-up, never someone downed or unconscious. No sound
+  (the sound rule: quiet, never alarming), so the message and the inspect line carry it. Switching it off silences it.
+- **A ceiling fixture** (agent choice): not an edifice, so it shares a cell with furniture; 5 W, Electricity research.
 
 ## Open questions
 

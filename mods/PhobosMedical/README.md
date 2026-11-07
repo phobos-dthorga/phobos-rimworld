@@ -486,6 +486,10 @@ burn dressings for burns; and an electrolyser and a liquid oxygen store to make 
   The cool water eases the pain for a few hours. **With Dubs Bad Hygiene, lay plumbing to the shower:** each rinse takes about 1,100
   litres (23 when only the eyes are burned), the real standard's figure, and a dry shower says so. Without it, water is assumed. The
   acid has its own setting in the burns section.
+- **New in 0.7.0: the carbon monoxide and smoke alarm** (not yet tested in game). Hang one in each bedroom and hospital: it takes no floor
+  space and can sit over furniture. **When smoke or carbon monoxide passes a dangerous level it warns you which room, and wakes anyone
+  asleep there** (not someone unconscious). Carbon monoxide has no smell, so this is the only warning. It stays on until the air clears;
+  switch it off to silence it. The hydrogen detector is a separate alarm, planned with the vents.
 - **New in 0.7.0: the ventilator** (not yet tested in game). Build it touching a hospital bed. It breathes for a patient whose
   breathing has failed, **up to a safe level, not normal**, but **only through a breathing tube**: an intubation kit's or a
   tracheostomy. A doctor places the tube by themselves when someone lies at a working ventilator and needs it, or when an airway is
@@ -496,7 +500,7 @@ burn dressings for burns; and an electrolyser and a liquid oxygen store to make 
 - **Oxygen canisters, and the field kits made from them, explode when they burn.** That is Vanilla Gravship Expanded's rule.
 - **Silver burn dressings are a medicine.** Doctors use them for any tend, like herbal or industrial medicine, under the medical care setting that allows them (normal medicine or better).
 - **Move patients out of the burning room.** A patient on oxygen still takes in the carbon monoxide around them.
-- **Some art is a placeholder:** the electrolyser, the hyperbaric chamber, the ventilator, the intubation kit and the safety shower, until generated art is picked. The rest is AI-generated art picked by the owner on 5 and 7 November 2026; only the burn unit bed has been seen in game. The records beside the textures say how each was made.
+- **Some art is a placeholder:** the electrolyser, the hyperbaric chamber, the ventilator, the intubation kit, the safety shower and the alarm, until generated art is picked. The rest is AI-generated art picked by the owner on 5 and 7 November 2026; only the burn unit bed has been seen in game. The records beside the textures say how each was made.
 
 ### What it does
 
@@ -509,6 +513,7 @@ burn dressings for burns; and an electrolyser and a liquid oxygen store to make 
 | Manual resuscitator | Item, kept | Made from 4 cloth, 6 steel and 1 component at a machining table | One patient at a time, while a doctor pumps | Medicine production |
 | Ventilator (new in 0.7.0) | Bedside machine | Power (200 W) | 1 patient with a breathing tube, in a bed it touches | Medicine production |
 | Safety shower and eyewash (new in 0.7.0) | Building, stood on | Water: about 1,100 litres a rinse (23 for eyes alone), from Dubs Bad Hygiene's plumbing if active | Anyone who walks to it; doctors draw water here for patients | None |
+| Carbon monoxide and smoke alarm (new in 0.7.0) | Ceiling fixture, takes no floor space | Power (5 W) | The room it hangs in | Electricity |
 | Intubation kit (new in 0.7.0) | Item, used up | Made from 3 steel and 2 cloth at a machining table; a doctor with Medicine 4 or better | One patient | Medicine production |
 | Silver burn dressing | Medicine | Made from 2 cloth, 4 silver and 1 neutroamine at a drug lab | Any tend | Medicine production |
 | Burn unit bed | Bed | Power (200 W) for its blower | Its own burned patient | Hospital bed |

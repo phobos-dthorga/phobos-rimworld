@@ -24,6 +24,16 @@
   <PhobosMedical_RinseStationDry>No water came out at the last rinse. It is tried again shortly.</PhobosMedical_RinseStationDry>
   <PhobosMedical_RinseNoWater>{PAWN} could not be rinsed: {REASON}</PhobosMedical_RinseNoWater>
 
+  <PhobosMedical_AlarmQuiet>Quiet: no dangerous smoke or carbon monoxide here.</PhobosMedical_AlarmQuiet>
+  <PhobosMedical_AlarmSwitchedOff>Switched off, so it warns nobody.</PhobosMedical_AlarmSwitchedOff>
+  <PhobosMedical_AlarmSoundingCarbonMonoxide>Sounding: carbon monoxide. Get everyone out and open the room to the air.</PhobosMedical_AlarmSoundingCarbonMonoxide>
+  <PhobosMedical_AlarmSoundingSmoke>Sounding: smoke. Get everyone out and find the fire.</PhobosMedical_AlarmSoundingSmoke>
+  <PhobosMedical_AlarmSoundingBoth>Sounding: smoke and carbon monoxide. Get everyone out.</PhobosMedical_AlarmSoundingBoth>
+  <PhobosMedical_AlarmCarbonMonoxide>Carbon monoxide alarm in the {ROOM}: get everyone out and open it to the air. You cannot see or smell it.</PhobosMedical_AlarmCarbonMonoxide>
+  <PhobosMedical_AlarmSmoke>Smoke alarm in the {ROOM}: get everyone out and find the fire.</PhobosMedical_AlarmSmoke>
+  <PhobosMedical_AlarmBoth>Smoke and carbon monoxide alarm in the {ROOM}: get everyone out.</PhobosMedical_AlarmBoth>
+  <PhobosMedical_AlarmWoke>It woke {COUNT} sleeping there.</PhobosMedical_AlarmWoke>
+
   <PhobosMedical_BurnBedSwitchedOff>Blower switched off, so nobody gets air-cell care. It still works as a hospital bed.</PhobosMedical_BurnBedSwitchedOff>
   <PhobosMedical_BurnBedNoPower>Waiting for power for its blower. It still works as a hospital bed.</PhobosMedical_BurnBedNoPower>
   <PhobosMedical_BurnBedWaiting>Waiting for a patient with open burns.</PhobosMedical_BurnBedWaiting>

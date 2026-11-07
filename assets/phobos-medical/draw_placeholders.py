@@ -168,6 +168,16 @@ def safety_shower(draw):
         draw.ellipse((x, 740, x + 60, 800), fill=SAFETY_GREEN, outline=OUTLINE, width=12)
 
 
+def gas_alarm(draw):
+    """A ceiling alarm from below: a white disc with a slotted grille, a test button and a red light."""
+    draw.ellipse((140, 140, 884, 884), fill=VESSEL, outline=OUTLINE, width=LINE)
+    draw.ellipse((300, 300, 724, 724), fill=PANEL, outline=OUTLINE, width=30)
+    for y in range(380, 660, 70):
+        draw.line((370, y, 654, y), fill=PANEL_DEEP, width=24)
+    draw.ellipse((640, 200, 740, 300), fill=HYDROGEN, outline=OUTLINE, width=18)  # Red light.
+    box(draw, (440, 760, 584, 840), PANEL_DARK, 20)  # Test button.
+
+
 def placeholder(painter, name, what, canvas, final, multi, outstanding):
     """A game texture standing in for outstanding generated art, with its record. multi writes the south view and the east and north
     views turned from it (anticlockwise 90 and 180 degrees, as the burn unit bed's), for a bed drawn from directly above."""
@@ -222,6 +232,8 @@ DRAWINGS = {
         intubation_kit, 'IntubationKit', 'an intubation kit (laryngoscope and breathing tube) as an item', WORK, 128, False, 'generated art'),
     'SafetyShowerPlaceholder': lambda: placeholder(
         safety_shower, 'SafetyShower', 'a safety shower and eyewash, 1 by 1, from above', WORK, 256, False, 'generated art'),
+    'GasAlarmPlaceholder': lambda: placeholder(
+        gas_alarm, 'GasAlarm', 'a ceiling carbon monoxide and smoke alarm, seen from below', WORK, 128, False, 'generated art'),
 }
 
 if __name__ == '__main__':

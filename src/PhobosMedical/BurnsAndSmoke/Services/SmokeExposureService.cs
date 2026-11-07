@@ -70,6 +70,16 @@ public static class SmokeExposureService
         if (uptake > 0f) Raise(pawn, BurnsDefOf.PhobosBurns_CarbonMonoxide, uptake, rules.coCap);
     }
 
+    /// <summary>Carbon monoxide in the air at a cell, unfiltered (what an alarm there would sense): the framework's gas where it is
+    /// carried, otherwise inferred from the cell's smoke and how enclosed it is. Zero while carbon monoxide is switched off.</summary>
+    public static float CarbonMonoxideAt(IntVec3 cell, Map map)
+    {
+        if (!BurnsAndSmokeMod.Settings.carbonMonoxide) return 0f;
+        PhobosGasDef? gas = CarbonMonoxideGas;
+        if (gas != null && PhobosGases.Source(gas) == GasSource.Own) return PhobosGases.Concentration(cell, map, gas);
+        return CarbonMonoxideRule.InferredBreathed(PhobosGases.Density(cell, map, GasKind.Smoke), PhobosGases.Enclosure(cell, map));
+    }
+
     /// <summary>The framework's carbon monoxide where it is carried; otherwise smoke breathed in an enclosed space stands in.</summary>
     public static float BreathedCarbonMonoxide(Pawn pawn, float breathedSmoke)
     {

@@ -9,5 +9,10 @@
     <!-- A ventilator holds failing breathing up to 0.6, in steps of 0.1 (authored; its condition has six stages to match). -->
     <ventilatorBreathingFloor>0.6</ventilatorBreathingFloor>
     <ventilatorStep>0.1</ventilatorStep>
+    <!-- The carbon monoxide and smoke alarm (authored): sounds at 0.05 carbon monoxide or 0.1 smoke, the game's own fractions, not parts
+         per million, and stays on until the gas falls below half of that. -->
+    <alarmCarbonMonoxideLevel>0.05</alarmCarbonMonoxideLevel>
+    <alarmSmokeLevel>0.1</alarmSmokeLevel>
+    <alarmQuietShare>0.5</alarmQuietShare>
   </Phobos.Medical.Defs.PhobosMedicalRulesDef>
 </Defs>
