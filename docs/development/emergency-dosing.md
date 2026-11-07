@@ -217,6 +217,9 @@ Both are other authors' interplay, not ours; drafts the owner can post.
   wound infection (0.6441 a day times 0.2; our arithmetic). One case is not enough to change it. For the owner, after more play.
 - Vaccines and other prevention for the healthy: a separate decision about giving doses to people who are not ill. For the owner.
 - Telling bacterial from viral disease, so antibiotics help only against the first. It would mean labelling each disease by hand. Set aside for now.
+- **Settled by the owner, 7 Nov 2026 (D'thorga Medical 0.7.0):** doctors give pain relief from 40% (was 60%), the immunity margin is
+  two days (was one), and anyone for whom the game nullifies the pain thought (masochists, idealised pain) skips self-medication.
+  Vaccines and prevention get a design record of their own. The points below are kept as they were raised.
 - A patient in bed between 40% and 60% pain gets nothing: too high for comfort, below the doctors' band, and left alone by
   self-medication. Whether doctors should come down to 40% is for the owner, after play.
 - Whether Masochists should skip self-medication: the game nullifies their pain thought, and this version does not exempt them.

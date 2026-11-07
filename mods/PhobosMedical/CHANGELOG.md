@@ -6,6 +6,20 @@ entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.7.0] - 2026-11-07 - Draft
+
+The owner's answers of 7 November 2026 to every open question (docs/development/outstanding-work.md). Not yet tested in game.
+
+### Balance
+
+- Emergency dosing: doctors give pain relief from 40% pain, where the game's severe label starts, instead of 60%. A patient in bed between 40% and 60% no longer goes without. Owner's choice.
+- Emergency dosing: a disease counts as winning the race when immunity would arrive within two days of the lethal mark, instead of one, so doctors give a disease-fighting drug sooner. A patient had been lost by under one point of immunity. Owner's choice.
+
+### Changed
+
+- Emergency dosing: a masochist, or anyone else for whom pain is no hardship (the game's own pain mood is cancelled for them, as by a belief in idealised pain), no longer fetches their own painkillers. Doctors still treat them in bed. Read from the game's pain thought, not from the trait's name, so a modded trait that does the same counts too.
+
+
 ## [0.6.0] - 2026-11-07 - Draft
 
 Owner's decision (7 November 2026): fewer, broader mods before anything is published. D'thorga Burns and Smoke, Emergency Dosing, Triage, Medical Equipment and Medical Save Bridge become one mod, D'thorga Medical; the owner chose to include the save bridge, behind a question on load. The version continues above the highest of the five (Medical Equipment and Burns and Smoke, 0.5.0) with a middle-number step, because the question is new. Not yet tested in game.

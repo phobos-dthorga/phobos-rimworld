@@ -8,7 +8,7 @@ It replaces five earlier mods, merged into it on 7 November 2026 ([why](../../do
 Burns and Smoke**, **D'thorga Emergency Dosing**, **D'thorga Triage**, **D'thorga Medical Equipment** and **D'thorga Medical Save
 Bridge**. Each is now a part of this mod, with its own section below.
 
-Version 0.6.0, built 7 November 2026 for House D'thorga. **Not yet tested in game as D'thorga Medical.** What the owner tested of
+Version 0.7.0, built 7 November 2026 for House D'thorga. **Not yet tested in game as D'thorga Medical.** What the owner tested of
 the five parts before the merge is in each part's section; the parts' behaviour is unchanged, except that the save bridge now asks
 first.
 
@@ -83,7 +83,7 @@ the mods' code.
 - **Only humanlike pawns** get these conditions in this version. Animals burn as before.
 - **Beside the other D'thorga medical mods:** with **Triage**, the doctors queue the tracheotomy for a closing airway on their own;
   with **Medical Equipment**, a powered burn unit bed gives burned patients air-cell care and oxygen clears carbon monoxide about
-  four times faster; with **Emergency Dosing**, a doctor gives a painkiller for burn pain at 60% or more. See
+  four times faster; with **Emergency Dosing**, a doctor gives a painkiller for burn pain at 40% or more. See
   [the medical mods together](../../docs/medical-mods.md).
 - **A part burned off counts as all of its skin burned** while the stump is fresh, so a pawn who loses an arm and a leg to
   fire goes straight to a serious burn and burn shock; once the stump is tended, or 1.5 days old, it fades out over about two
@@ -188,8 +188,8 @@ framework's health layer are not yet tested in game. The rest is read from the g
 ### Gotchas for this part
 
 - **Needs D'thorga Framework 0.3.0 or later**, loaded before it. No Harmony. Nothing is saved: **safe to add or remove at any time**.
-- **Who gets dosed:** a colonist, slave, prisoner or guest past babyhood who is **down or in bed**, in **severe pain** (60% or more;
-  the game labels pain severe from 40%), under medical care of at least the level in the settings (default: herbal medicine or
+- **Who gets dosed:** a colonist, slave, prisoner or guest past babyhood who is **down or in bed**, in **severe pain** (40% or more,
+  where the game's "severe" label starts; 60% until 0.7.0), under medical care of at least the level in the settings (default: herbal medicine or
   better; "no medicine" is never dosed), and not reserved by another doctor. A pawn up and working in pain is left alone: a painkiller could drop them where they stand.
 - **What is given:** the painkiller with the strongest relief net of its side effects, from the doctor's inventory first, then
   the nearest unforbidden stack. **In extreme pain (80% or more) a sedative is given when no medical painkiller can be.**
@@ -208,7 +208,7 @@ framework's health layer are not yet tested in game. The rest is read from the g
 - **Stock is your job.** The colony needs the drugs made or bought; a doctor who carries them (Combat Extended loadouts, Smart
   Medicine's stock-up) is fastest.
 - **Doctors also give drugs that help fight disease, and only doctors do.** A patient down or in bed with a disease that can kill them, when immunity would
-  arrive too late or within a day of the lethal mark, gets a medical drug that adds at least 10% to immunity gain speed. **A patient already winning gets none, so
+  arrive too late or within two days of the lethal mark (one day until 0.7.0), gets a medical drug that adds at least 10% to immunity gain speed. **A patient already winning gets none, so
   your stock lasts.** Drinks such as tea never count, nor do drugs that give a disease.
 - **A patient bleeding at 30% a day or more waits for a painkiller until that is under control**, on both the doctors' and the self-medication paths. A sedative in extreme
   pain and a drug for fighting disease do not wait. The bleeding has to be tended for this to clear.
@@ -220,9 +220,10 @@ framework's health layer are not yet tested in game. The rest is read from the g
   goes and takes the best painkiller whose policy line allows it, for joy or on a schedule. **Addiction and overdose are real
   risks, so check your drug policies before enabling this on a colony.** The setting is on by default.
 - **Chemical interest and fascination ignore the policy**, as they do for joy in the game, and reach for it sooner (30% and 20%).
-  **Teetotalers never self-medicate**, and neither do children.
+  **Teetotalers never self-medicate**, and neither do children. **Nor do masochists** (since 0.7.0), or anyone else for whom pain is
+  no hardship, such as a believer in idealised pain: doctors still treat them in bed.
 - **A pawn under medical rest is left to the doctors.** That means anyone in bed, or who should be, including anyone with a tended wound still
-  healing. In bed, doctors only step in from 60% pain, so a patient between 40% and 60% gets nothing yet.
+  healing. In bed, doctors step in from 40% pain, the same point as self-medication (since 0.7.0).
 - **Guests have no drug policy in the game.** With the guests setting on, they take medical painkillers from your stock and never recreational ones,
   so your morphine can go to a visitor. It is off by default.
 - **Nobody knocks themself out.** A pawn on their feet refuses a dose that would leave consciousness or breathing under 40%, so a drowsy colonist may
@@ -237,7 +238,7 @@ A doctor's decision, for one patient:
 flowchart TD
     Patient["Down or in bed, under care at the settings' level or better,<br/>and nobody else has reserved them"] --> Need{"What do they need?"}
     Need -- "pain 80% or more" --> Sedation["Pain relief, or a sedative<br/>if no painkiller can be given"]
-    Need -- "pain 60% or more" --> Pain["Pain relief"]
+    Need -- "pain 40% or more" --> Pain["Pain relief"]
     Need -- "a deadly disease winning the race<br/>against their immunity" --> Immunity["A disease-fighting drug"]
     Sedation --> Safe
     Pain --> Safe
@@ -249,7 +250,7 @@ flowchart TD
 
 | Need | Who | Given | Not given when |
 | --- | --- | --- | --- |
-| pain relief | resting, pain at or past 60% | the medical painkiller with the best score | a medical painkiller still at a quarter of a dose or more; overdose at 30% or more; a dangerous stage would be reached; consciousness or breathing would fall under 15% |
+| pain relief | resting, pain at or past 40% | the medical painkiller with the best score | a medical painkiller still at a quarter of a dose or more; overdose at 30% or more; a dangerous stage would be reached; consciousness or breathing would fall under 15% |
 | sedation | resting, pain at or past 80%, no medical painkiller can be given | the sedative with the best score | its own last dose still working; otherwise the same |
 | last resort | setting on, nothing above can be given | the recreational painkiller with the best score | the same |
 

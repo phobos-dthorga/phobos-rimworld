@@ -14,9 +14,9 @@ testing is the owner's and is not listed here; each mod's changelog says what is
 | A2 | Stale records after the merge (Medical Equipment's "next", the art backlog's pre-merge previews, Triage's open points) | docs | Fix | Done |
 | A3 | Water Tap draws through the Framework's shared water reader | Water Tap 0.2.2 | Do it | Done |
 | A4 | Read Ludeon's 1.7 Modder Primer | docs | Do it | Done: [modding reference](rimworld-modding-reference.md#building-c-mods) |
-| B1 | Immunity race: dose when losing by under **two days** (was one) | Medical (dosing) | Two days | Open |
-| B2 | Doctors give pain relief from **40%** pain (was 60%) | Medical (dosing) | From 40% | Open |
-| B3 | Masochists skip self-medication | Medical (dosing) | Yes | Open |
+| B1 | Immunity race: dose when losing by under **two days** (was one) | Medical (dosing) | Two days | Done: Medical 0.7.0 |
+| B2 | Doctors give pain relief from **40%** pain (was 60%) | Medical (dosing) | From 40% | Done: Medical 0.7.0 |
+| B3 | Masochists skip self-medication | Medical (dosing) | Yes | Done: Medical 0.7.0 |
 | C1 | A colour-coded icon for every triage tag, in the game's row of small status icons by a pawn's name | Medical (triage) | Every tag: red immediate, yellow urgent, green delayed, white minor, black expectant | Open |
 | C2 | "How far the doctors may go" as a dropdown on the health tab, beside medical care (the button stays) | Medical (triage) | Add it | Open |
 | C3 | Triage queues fracture repairs under "save life or a limb" | Medical (triage) | Triage queues them | Open |

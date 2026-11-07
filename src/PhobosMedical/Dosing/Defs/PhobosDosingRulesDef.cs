@@ -13,8 +13,8 @@ public class PhobosDosingRulesDef : PhobosRulesDef
     /// <summary>How often the list of patients who need a dose is rebuilt per map.</summary>
     public int recomputeIntervalTicks = 250;
 
-    /// <summary>Pain from which a resting patient gets a painkiller. Authored: inside the game's "severe" label, which runs 0.4 to 0.8.</summary>
-    public float painThreshold = 0.6f;
+    /// <summary>Pain from which a resting patient gets a painkiller: where the game's "severe" label starts. Owner's choice (7 Nov 2026; was 0.6).</summary>
+    public float painThreshold = 0.4f;
     /// <summary>Pain from which a sedative may be given when nothing lighter can: where the game's "extreme" label starts.</summary>
     public float sedationPainThreshold = 0.8f;
 
@@ -34,8 +34,8 @@ public class PhobosDosingRulesDef : PhobosRulesDef
 
     /// <summary>A drug must add at least this to immunity gain speed to count as one for fighting disease. Authored.</summary>
     public float minImmunityGain = 0.1f;
-    /// <summary>A disease counts as winning when immunity would arrive this many days or less before the lethal mark. Authored.</summary>
-    public float immunityRaceMarginDays = 1f;
+    /// <summary>A disease counts as winning when immunity would arrive this many days or less before the lethal mark. Owner's choice (7 Nov 2026; was 1).</summary>
+    public float immunityRaceMarginDays = 2f;
 
     /// <summary>An item must take away at least this share of the pain to be indexed: relief as a side effect does not make a painkiller.</summary>
     public float minPainRelief = 0.3f;

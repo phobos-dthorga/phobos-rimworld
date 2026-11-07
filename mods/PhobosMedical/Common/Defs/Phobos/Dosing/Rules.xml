@@ -9,17 +9,19 @@
     <!-- How often the list of patients who need a dose is rebuilt per map, when a doctor asks. -->
     <recomputeIntervalTicks>250</recomputeIntervalTicks>
 
-    <!-- The game labels pain severe from 0.4 and extreme from 0.8 (HealthCardUtility.GetPainLabel). 0.6 is authored, inside severe. -->
-    <painThreshold>0.6</painThreshold>
+    <!-- The game labels pain severe from 0.4 and extreme from 0.8 (HealthCardUtility.GetPainLabel). 0.4, where severe starts and where
+         a pawn on their feet looks for relief, is the owner's choice (7 Nov 2026; it was 0.6, which left 40 to 60% untreated in bed). -->
+    <painThreshold>0.4</painThreshold>
     <sedationPainThreshold>0.8</sedationPainThreshold>
 
     <!-- A painkiller waits while the patient bleeds this fast or faster: 0.3 is 30% a day on the health tab. Authored. -->
     <bleedHoldRate>0.3</bleedHoldRate>
 
     <!-- Doctors' drugs for fighting disease: the least they must add to immunity gain speed, and how many days of margin make a disease
-         count as winning the race against immunity. Authored. -->
+         count as winning the race against immunity. The gain is authored; two days of margin is the owner's choice (7 Nov 2026; it was
+         one, and a patient was lost by under one point of immunity). -->
     <minImmunityGain>0.1</minImmunityGain>
-    <immunityRaceMarginDays>1</immunityRaceMarginDays>
+    <immunityRaceMarginDays>2</immunityRaceMarginDays>
 
     <!-- Self-medication: the pain from which a pawn who is up and about looks for a painkiller (the owner's choice), and how much
          lower that is with chemical interest and chemical fascination (authored). Teetotalers never do. -->

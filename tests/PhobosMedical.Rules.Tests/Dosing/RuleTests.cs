@@ -105,6 +105,14 @@ public class ImmunityTests
     }
 
     [Fact]
+    public void TwoDaysOfMarginCatchWhatOneDayMissed()
+    {
+        // Immune in 2 days, lethal in 3.5 (owner's two-day margin, 7 Nov 2026): one day calls it winning, two days losing.
+        Assert.False(ImmunityRule.Losing(0.3f, 1f, 0.2f, 0f, 0.5f, 1f));
+        Assert.True(ImmunityRule.Losing(0.3f, 1f, 0.2f, 0f, 0.5f, 2f));
+    }
+
+    [Fact]
     public void ADiseaseThatIsNotGettingWorseOrCannotKillIsNotWinning()
     {
         Assert.False(ImmunityRule.Losing(0.5f, 1f, 0f, 0f, 0f, 1f));

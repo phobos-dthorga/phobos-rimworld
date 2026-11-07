@@ -18,6 +18,8 @@ public enum SelfBlock
     NotUpAndAbout,
     UnderMedicalRest,
     Teetotaler,
+    /// <summary>Pain is no hardship to this pawn: the game's own pain thought is nullified for them (a masochist, an idealised-pain belief).</summary>
+    PainWelcome,
 }
 
 /// <summary>One line of the decision: an indexed item, where it was found, and the rule's verdict.</summary>
@@ -197,7 +199,27 @@ public static class DoseService
         if (pawn.Downed || pawn.Drafted || pawn.InMentalState || !pawn.Awake()) return SelfBlock.NotUpAndAbout;
         if (pawn.InBed() || HealthAIUtility.ShouldSeekMedicalRest(pawn)) return SelfBlock.UnderMedicalRest;
         if (pawn.IsTeetotaler()) return SelfBlock.Teetotaler;
+        if (PainIsWelcome(pawn)) return SelfBlock.PainWelcome;
         return SelfBlock.None;
+    }
+
+    static ThoughtDef? painThought;
+    static bool lookedForPainThought;
+
+    /// <summary>
+    /// Whether pain is no hardship to this pawn, by effect rather than by trait name (owner's rule): the game's own pain thought is
+    /// nullified for them. In the base game that is the Masochist trait, and with Ideology a belief that idealises pain; a modded trait
+    /// that nullifies the thought counts too. Such a pawn doesn't fetch their own painkillers (owner, 7 Nov 2026); doctors still treat
+    /// them in bed.
+    /// </summary>
+    static bool PainIsWelcome(Pawn pawn)
+    {
+        if (!lookedForPainThought)
+        {
+            painThought = DefDatabase<ThoughtDef>.GetNamedSilentFail("Pain");
+            lookedForPainThought = true;
+        }
+        return painThought != null && ThoughtUtility.ThoughtNullified(pawn, painThought);
     }
 
     static int DrugDesire(Pawn pawn) => pawn.story?.traits?.DegreeOfTrait(TraitDefOf.DrugDesire) ?? 0;
