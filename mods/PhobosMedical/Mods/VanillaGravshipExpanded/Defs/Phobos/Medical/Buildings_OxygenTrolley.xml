@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- An oxygen cylinder trolley, the second set's fourth piece (owner's order, 7 Nov 2026), with Vanilla Gravship Expanded only (its
+       canisters). Unlike the bedside stand it needs no bed: it serves one patient lying in any of the eight cells around it, in a bed or on
+       the floor, and is light and quick to pick up and set down, so it is wheeled to a casualty (agent choice). Two large cylinders' worth of
+       canisters. Cost, work and capacity authored; placeholder art. -->
+  <ThingDef ParentName="BuildingBase">
+    <defName>PhobosMedical_OxygenTrolley</defName>
+    <label>oxygen cylinder trolley</label>
+    <description>Two oxygen cylinders, a regulator and a mask on a wheeled frame. It needs no bed: set it down beside anyone lying in the next cell, in a bed or on the floor, and if they need oxygen they get it. It is light and quick to pick up and move to where it is needed. It runs on oxygen canisters and fills itself from an oxygen pipe laid to it.
+
+It helps with low breathing and clears carbon monoxide faster. It does not repair damaged lungs, and it cannot help if the airway is closed. Canisters explode when they burn.</description>
+    <graphicData>
+      <texPath>Phobos/Medical/Things/OxygenTrolley</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>(1,1)</drawSize>
+      <shadowData>
+        <volume>(0.4, 0.4, 0.4)</volume>
+      </shadowData>
+    </graphicData>
+    <altitudeLayer>Building</altitudeLayer>
+    <passability>PassThroughOnly</passability>
+    <fillPercent>0.2</fillPercent>
+    <rotatable>false</rotatable>
+    <tickerType>Rare</tickerType>
+    <statBases>
+      <MaxHitPoints>60</MaxHitPoints>
+      <WorkToBuild>300</WorkToBuild>
+      <Mass>12</Mass>
+      <Flammability>0.5</Flammability>
+    </statBases>
+    <size>(1,1)</size>
+    <costList>
+      <Steel>25</Steel>
+      <ComponentIndustrial>1</ComponentIndustrial>
+    </costList>
+    <researchPrerequisites>
+      <li>MedicineProduction</li>
+      <li>VGE_OxygenNetwork</li>
+    </researchPrerequisites>
+    <building>
+      <destroySound>BuildingDestroyed_Metal_Small</destroySound>
+    </building>
+    <designationCategory>Misc</designationCategory>
+    <minifiedDef>MinifiedThing</minifiedDef>
+    <thingCategories>
+      <li>BuildingsMisc</li>
+    </thingCategories>
+    <comps>
+      <li Class="CompProperties_Flickable"/>
+      <li Class="CompProperties_Refuelable">
+        <fuelLabel>oxygen</fuelLabel>
+        <fuelGizmoLabel>Oxygen</fuelGizmoLabel>
+        <outOfFuelMessage>Needs oxygen canisters</outOfFuelMessage>
+        <fuelCapacity>40</fuelCapacity>
+        <initialFuelPercent>0</initialFuelPercent>
+        <autoRefuelPercent>0.5</autoRefuelPercent>
+        <consumeFuelOnlyWhenUsed>true</consumeFuelOnlyWhenUsed>
+        <showFuelGizmo>true</showFuelGizmo>
+        <fuelFilter>
+          <thingDefs>
+            <li>VGE_OxygenCanister</li>
+          </thingDefs>
+        </fuelFilter>
+      </li>
+      <li Class="Phobos.Medical.Comps.CompProperties_PhobosOxygenSupply">
+        <maxPatients>1</maxPatients>
+        <fuelPerPatientHour>1</fuelPerPatientHour>
+        <servesAdjacent>true</servesAdjacent>
+      </li>
+    </comps>
+  </ThingDef>
+</Defs>

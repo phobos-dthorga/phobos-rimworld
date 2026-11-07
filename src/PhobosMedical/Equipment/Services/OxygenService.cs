@@ -39,7 +39,7 @@ public static class OxygenService
     {
         CompPowerTrader? power = machine.parent.TryGetComp<CompPowerTrader>();
         bool hasOxygen = machine.Fuel == null || machine.Fuel.HasFuel;
-        int beds = machine.parent is Building_Bed ? 1 : machine.Facility?.LinkedBuildings?.Count ?? 0;
+        int beds = machine.parent is Building_Bed || machine.Props.servesAdjacent ? 1 : machine.Facility?.LinkedBuildings?.Count ?? 0;
         return OxygenRule.Status(FlickUtility.WantsToBeOn(machine.parent), power == null || power.PowerOn, beds, hasOxygen, patients, notNeeding);
     }
 
@@ -48,13 +48,32 @@ public static class OxygenService
         && OxygenRule.NeedsOxygen(Breathing(pawn), PhobosBreathing.HasOxygenResponsiveCondition(pawn), rules.breathingNeedThreshold);
 
     static bool CanSupply(CompPhobosOxygenSupply machine) =>
-        machine.parent.Spawned && (machine.parent is Building_Bed || machine.Facility != null) && StatusOf(machine, 0, 0) == OxygenStatus.Waiting;
+        machine.parent.Spawned && (machine.parent is Building_Bed || machine.Facility != null || machine.Props.servesAdjacent)
+        && StatusOf(machine, 0, 0) == OxygenStatus.Waiting;
 
     public static float Breathing(Pawn pawn) => pawn.health.capacities.GetLevel(PawnCapacityDefOf.Breathing);
 
-    /// <summary>Whoever lies in the machine, if it is a bed (a pressure chamber), else whoever lies in the beds it links to.</summary>
-    static IEnumerable<Pawn> Occupants(CompPhobosOxygenSupply machine) =>
-        machine.parent is Building_Bed own ? own.CurOccupants : PatientsInLinkedBeds(machine.Facility);
+    /// <summary>Whoever lies in the machine, if it is a bed (a pressure chamber); whoever lies beside it, for a trolley; else whoever lies
+    /// in the beds it links to.</summary>
+    static IEnumerable<Pawn> Occupants(CompPhobosOxygenSupply machine)
+    {
+        if (machine.parent is Building_Bed own) return own.CurOccupants;
+        return machine.Props.servesAdjacent ? PatientsLyingBeside(machine.parent) : PatientsInLinkedBeds(machine.Facility);
+    }
+
+    static IEnumerable<Pawn> PatientsLyingBeside(Thing machine)
+    {
+        Map map = machine.Map;
+        foreach (IntVec3 cell in GenAdj.CellsAdjacent8Way(machine))
+        {
+            if (!cell.InBounds(map)) continue;
+            List<Thing> things = cell.GetThingList(map);
+            for (int i = 0; i < things.Count; i++)
+            {
+                if (things[i] is Pawn pawn && Patients.IsLyingPatient(pawn)) yield return pawn;
+            }
+        }
+    }
 
     static IEnumerable<Pawn> PatientsInLinkedBeds(CompFacility? facility)
     {

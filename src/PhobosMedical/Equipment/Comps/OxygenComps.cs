@@ -22,6 +22,8 @@ public class CompProperties_PhobosOxygenSupply : CompProperties
     public float fuelPerPatientHour = 1f;
     /// <summary>The condition it gives; empty for the ordinary oxygen condition. A stronger treatment (a pressure chamber) names its own.</summary>
     public HediffDef? treatment;
+    /// <summary>Serves anyone lying in the eight cells around it, in a bed or on the floor, with no bed link: a trolley wheeled to a casualty.</summary>
+    public bool servesAdjacent;
 
     public CompProperties_PhobosOxygenSupply() => compClass = typeof(CompPhobosOxygenSupply);
 }

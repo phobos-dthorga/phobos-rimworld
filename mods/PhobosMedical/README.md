@@ -473,8 +473,8 @@ burn dressings for burns; and an electrolyser and a liquid oxygen store to make 
 - **Safe to add to a running colony.** How it works beside the other medical mods is in
   [the medical mods together](../../docs/medical-mods.md).
 - **Before removing it: deconstruct its buildings, take its items out of the colony (sell, destroy or use them up), press the settings button "Remove every treatment condition from every pawn", save, then switch the mod off.** Buildings and items left behind are dropped by the game with an error line when it loads without the mod.
-- **Most of the oxygen kit needs Vanilla Gravship Expanded and its Oxygen Network research.** Everything that stores or pipes oxygen uses that mod's canisters and pipes: the bedside stand, the field oxygen kit, the hyperbaric chamber, the electrolyser and the liquid oxygen store. Without it you get the concentrator, the burn unit bed, the burn dressings and the hand pump.
-- **Taking Vanilla Gravship Expanded out later** removes those five pieces from the colony (the game drops them with an error line). Patients on their treatments lose them within the hour, cleanly.
+- **Most of the oxygen kit needs Vanilla Gravship Expanded and its Oxygen Network research.** Everything that stores or pipes oxygen uses that mod's canisters and pipes: the bedside stand, the oxygen trolley, the field oxygen kit, the hyperbaric chamber, the electrolyser and the liquid oxygen store. Without it you get the concentrator, the ventilator, the burn unit bed, the burn dressings, the hand pump, the intubation kit, the safety shower and the alarm.
+- **Taking Vanilla Gravship Expanded out later** removes those six pieces from the colony (the game drops them with an error line). Patients on their treatments lose them within the hour, cleanly.
 - **Build a bedside machine touching a hospital bed,** as you would a vitals monitor. One machine per bed, though it can serve two beds it touches. Any bed that accepts a vitals monitor works.
 - **Nobody has to be told.** A patient in a served bed or chamber who needs oxygen gets it, and doctors use the field kit and the hand pump by themselves, as Doctor work. Doctors carry a downed patient who needs oxygen to a free chamber first. Use a machine's switch to stop it.
 - **No operations in a hyperbaric chamber:** move the patient to a hospital bed for surgery. The chamber says who is waiting.
@@ -486,6 +486,9 @@ burn dressings for burns; and an electrolyser and a liquid oxygen store to make 
   The cool water eases the pain for a few hours. **With Dubs Bad Hygiene, lay plumbing to the shower:** each rinse takes about 1,100
   litres (23 when only the eyes are burned), the real standard's figure, and a dry shower says so. Without it, water is assumed. The
   acid has its own setting in the burns section.
+- **New in 0.7.0, with Vanilla Gravship Expanded: the oxygen cylinder trolley** (not yet tested in game). **It needs no bed**: set it
+  down next to anyone lying in the next cell, in a bed or on the floor, and if they need oxygen they get it. It is quick to pick up and
+  move (uninstall it, then place it), so take it to a casualty who can't be moved yet. One patient at a time, 40 canisters' worth.
 - **New in 0.7.0: the carbon monoxide and smoke alarm** (not yet tested in game). Hang one in each bedroom and hospital: it takes no floor
   space and can sit over furniture. **When smoke or carbon monoxide passes a dangerous level it warns you which room, and wakes anyone
   asleep there** (not someone unconscious). Carbon monoxide has no smell, so this is the only warning. It stays on until the air clears;
@@ -500,7 +503,7 @@ burn dressings for burns; and an electrolyser and a liquid oxygen store to make 
 - **Oxygen canisters, and the field kits made from them, explode when they burn.** That is Vanilla Gravship Expanded's rule.
 - **Silver burn dressings are a medicine.** Doctors use them for any tend, like herbal or industrial medicine, under the medical care setting that allows them (normal medicine or better).
 - **Move patients out of the burning room.** A patient on oxygen still takes in the carbon monoxide around them.
-- **Some art is a placeholder:** the electrolyser, the hyperbaric chamber, the ventilator, the intubation kit, the safety shower and the alarm, until generated art is picked. The rest is AI-generated art picked by the owner on 5 and 7 November 2026; only the burn unit bed has been seen in game. The records beside the textures say how each was made.
+- **Some art is a placeholder:** the electrolyser, the hyperbaric chamber, the ventilator, the intubation kit, the safety shower, the alarm and the oxygen trolley, until generated art is picked. The rest is AI-generated art picked by the owner on 5 and 7 November 2026; only the burn unit bed has been seen in game. The records beside the textures say how each was made.
 
 ### What it does
 
@@ -513,6 +516,7 @@ burn dressings for burns; and an electrolyser and a liquid oxygen store to make 
 | Manual resuscitator | Item, kept | Made from 4 cloth, 6 steel and 1 component at a machining table | One patient at a time, while a doctor pumps | Medicine production |
 | Ventilator (new in 0.7.0) | Bedside machine | Power (200 W) | 1 patient with a breathing tube, in a bed it touches | Medicine production |
 | Safety shower and eyewash (new in 0.7.0) | Building, stood on | Water: about 1,100 litres a rinse (23 for eyes alone), from Dubs Bad Hygiene's plumbing if active | Anyone who walks to it; doctors draw water here for patients | None |
+| Oxygen cylinder trolley (new in 0.7.0) | Movable building | 1 oxygen canister per patient per in-game hour (holds 40), or an oxygen pipe | 1 patient lying in any cell beside it, in a bed or on the floor | Medicine production and Oxygen Network |
 | Carbon monoxide and smoke alarm (new in 0.7.0) | Ceiling fixture, takes no floor space | Power (5 W) | The room it hangs in | Electricity |
 | Intubation kit (new in 0.7.0) | Item, used up | Made from 3 steel and 2 cloth at a machining table; a doctor with Medicine 4 or better | One patient | Medicine production |
 | Silver burn dressing | Medicine | Made from 2 cloth, 4 silver and 1 neutroamine at a drug lab | Any tend | Medicine production |

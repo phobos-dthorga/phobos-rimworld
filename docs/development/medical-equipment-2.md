@@ -1,7 +1,8 @@
 # Medical equipment, second set: design (7 Nov 2026)
 
 A design record. **Built so far** (D'thorga Medical 0.7.0, not yet tested in game): the ventilator and its intubation kit, the safety
-shower and eyewash, the carbon monoxide and smoke alarm; see Built below. The owner chose all eight proposals from the
+shower and eyewash, the carbon monoxide and smoke alarm, the oxygen cylinder trolley;
+see Built below. The owner chose all eight proposals from the
 [art backlog](art-backlog.md#proposed-medical-equipment-agent-ideas-6-nov-2026-for-the-owner) for D'thorga Medical Equipment (7 Nov
 2026), in this order. The first set (oxygen, burn care, the field kit and the hand pump) is in the [medical equipment record](medical-equipment.md).
 
@@ -73,6 +74,13 @@ shower and eyewash, the carbon monoxide and smoke alarm; see Built below. The ow
   everyone asleep in its room** (owner's choice) through the game's own wake-up, never someone downed or unconscious. No sound
   (the sound rule: quiet, never alarming), so the message and the inspect line carry it. Switching it off silences it.
 - **A ceiling fixture** (agent choice): not an edifice, so it shares a cell with furniture; 5 W, Electricity research.
+
+**Oxygen cylinder trolley** (7 Nov 2026, Vanilla Gravship Expanded only). The bedside stand was already movable, so the trolley earns
+its place by **needing no bed** (agent choice): a new oxygen-supply comp setting, `servesAdjacent`, serves anyone lying in the eight
+cells around it, in a bed or on the floor, so it is wheeled to a casualty who can't be moved. One patient, 40 canisters (two large
+cylinders' worth), light and quick to pick up (work 300); all authored. Pipes link to it through Vanilla Expanded Framework as to the
+stand. The cylinders are drawn in the oxygen network's colour: the real Australian colour code from the design is still unverified, so
+it is not used.
 
 ## Open questions
 

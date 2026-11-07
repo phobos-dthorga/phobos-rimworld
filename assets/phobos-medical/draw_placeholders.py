@@ -178,6 +178,23 @@ def gas_alarm(draw):
     box(draw, (440, 760, 584, 840), PANEL_DARK, 20)  # Test button.
 
 
+def oxygen_trolley(draw):
+    """An oxygen cylinder trolley from above: a dark wheeled frame with a push handle, two cylinders seen end-on with their valves, and a
+    regulator with a coiled mask tube."""
+    for x, y in ((210, 230), (734, 230), (210, 770), (734, 770)):  # Wheels.
+        draw.ellipse((x - 50, y - 50, x + 50, y + 50), fill=PANEL_DEEP, outline=OUTLINE, width=18)
+    box(draw, (200, 200, 824, 824), PANEL_DARK, 60)  # Frame.
+    draw.line((200, 900, 824, 900), fill=OUTLINE, width=60)  # Push handle.
+    draw.line((200, 900, 824, 900), fill=PANEL, width=30)
+    for cx in (370, 654):
+        draw.ellipse((cx - 130, 300, cx + 130, 560), fill=OXYGEN, outline=OUTLINE, width=LINE)
+        draw.ellipse((cx - 56, 374, cx + 56, 486), fill=PANEL, outline=OUTLINE, width=22)  # Valve.
+    box(draw, (420, 610, 604, 760), PANEL, 30)  # Regulator.
+    draw.ellipse((470, 640, 554, 724), fill=SCREEN, outline=OUTLINE, width=14)
+    draw.arc((560, 600, 900, 940), 200, 340, fill=OUTLINE, width=50)
+    draw.arc((560, 600, 900, 940), 200, 340, fill=TUBE, width=26)
+
+
 def placeholder(painter, name, what, canvas, final, multi, outstanding):
     """A game texture standing in for outstanding generated art, with its record. multi writes the south view and the east and north
     views turned from it (anticlockwise 90 and 180 degrees, as the burn unit bed's), for a bed drawn from directly above."""
@@ -234,6 +251,8 @@ DRAWINGS = {
         safety_shower, 'SafetyShower', 'a safety shower and eyewash, 1 by 1, from above', WORK, 256, False, 'generated art'),
     'GasAlarmPlaceholder': lambda: placeholder(
         gas_alarm, 'GasAlarm', 'a ceiling carbon monoxide and smoke alarm, seen from below', WORK, 128, False, 'generated art'),
+    'OxygenTrolleyPlaceholder': lambda: placeholder(
+        oxygen_trolley, 'OxygenTrolley', 'an oxygen cylinder trolley, 1 by 1, from above', WORK, 256, False, 'generated art'),
 }
 
 if __name__ == '__main__':
