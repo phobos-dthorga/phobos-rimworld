@@ -5,16 +5,25 @@ Fixes and patches for other authors' mods, each switched on only while that mod 
 RimPacts, honest bomb costs under Combat Extended with a bomb case of its own, bombs and rockets at The Dead Man's Switch's ammunition
 fabricator, fuel tanks for its Drop Tanks upgrade, and a sortie's map kept open under the jet), RimThunder's heavy casting at the
 rotary forger, **Spaceship Turret Hull** by MK under Combat Extended, and **InterRim Ballistic Missile** by Psionic Zephyr (a strategic
-warhead's blast spread over frames instead of freezing the game).
+warhead's blast spread over frames instead of freezing the game). With **Visit Settlements** by Nina.Goblin, a visited settlement's
+map no longer closes under your people (0.13.0).
 
 It replaces two earlier mods, merged into it on 7 November 2026: **D'thorga Vehicle Patches** and **D'thorga Missile Patches**
 ([why](../../docs/development/mod-consolidation.md)).
 
-Version 0.12.0, built 7 November 2026 for House D'thorga. **Not yet tested in game as D'thorga Patches.** The Harrier and turret hull
+Version 0.13.0, built 8 November 2026 for House D'thorga. **Not yet tested in game as D'thorga Patches.** The Harrier and turret hull
 parts are unchanged from Vehicle Patches 0.6.0 (not yet tested in game); the missile part was tried once by the owner, see
 [InterRim Ballistic Missile](#interrim-ballistic-missile).
 
 ## Read this first (gotchas)
+
+- **New in 0.13.0, with Visit Settlements (not yet tested in game): a visited settlement's map no longer vanishes with your people on
+  it.** Visit Settlements closed such a map the moment anyone there went down, if it saw no colonist of yours standing. Colonists
+  inside a vehicle didn't count, so the first raider, guard or animal to fall closed the map and **everyone of yours on it was lost**:
+  a tank and its crew left in limbo, mechs later taken by other factions, and with RimPacts a defence counted as lost. **The map now
+  stays open while any colonist of yours there is conscious (on foot or aboard a vehicle), while any mechanoid of yours there is on its
+  feet, or while a RimPacts defence or battle is fought there.** Pawns already lost this way are not brought back: **load a save from
+  before**.
 
 - **Switching from D'thorga Vehicle Patches or D'thorga Missile Patches: switch both off in RimSort, and this one on, in the same
   change.** Running an old one beside this would load the same patches twice; RimSort warns you, because the About file lists them as
@@ -373,6 +382,31 @@ and **count Combat Extended fragments on map**. Each finished blast logs one lin
 sheltered or already gone.
 
 The record is [Missile patches](../../docs/development/missile-patches.md).
+
+## Visit Settlements
+
+**What it fixes (0.13.0, not yet tested in game).** Visit Settlements closes the map of a settlement you entered with its **Visit**
+button the moment any pawn there goes down, if every colonist of yours standing on the map is down. It counts only colonists
+standing on the map, so with all of them inside a vehicle there is nobody to count, the check passes, and the map closes with your
+people on it. The game then treats everyone left there as lost. In a RimPacts defence that also loses the defence, because RimPacts
+sees the battle map gone.
+
+**What it does now.** The map stays open while:
+
+- a colonist of yours there is conscious, on foot or aboard a vehicle, shuttle or pod;
+- a mechanoid of yours there is on its feet;
+- or a RimPacts defence or battle is being fought there (RimPacts keeps those maps open itself, and this keeps Visit Settlements from
+  closing them under it).
+
+When none of these holds, Visit Settlements' rule stands as before. Each time the map is kept open, the log says so once an in-game
+hour. **Safe to add to and remove from a save**: it saves nothing. **Pawns already lost this way stay lost**; load a save from before
+the map closed.
+
+**How to tell it's working.** The load line says "a visited settlement's map stays open while your people can still act there or a
+battle is on". When it saves a map, the log says "Kept the map of ... open". If Visit Settlements changes its code, the load line
+says the part is off and why.
+
+The record is in [Missile patches](../../docs/development/missile-patches.md#visit-settlements-closes-a-rimpacts-battle-map-8-nov-2026).
 
 ## Where to find things
 

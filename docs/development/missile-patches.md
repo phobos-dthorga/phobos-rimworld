@@ -240,6 +240,57 @@ and was reloaded away, so it is unexamined). Read from PG2 of 7 Nov 2026 (letter
   days after it); reuse the game's keys so every language has them; no alert in the right-hand list (the owner asked for the
   quest window's style). Not yet tested in game.
 
+## Visit Settlements closes a RimPacts battle map (8 Nov 2026)
+
+**The report.** The owner lost a RimPacts world war defence of Barracuda's Stream (Ryūmon Protectorate, the owner's puppet state)
+against The Cannibal Lineup, reloading several times with and without the Harrier: always lost about 13 in-game minutes after PG2,
+and the force never came home.
+
+**What the saves showed** (`scripts/query-save.py` on phobos-modkit 0.7.0 and 0.8.0, built for this: world objects, component
+values and `diff --component`):
+
+- PG2 (tick 48,332,465): the defence at stage 3, the raid landed at 48,331,250; on the map 60 Cannibal Lineup fighters standing, 59
+  Ryūmon defenders, the owner's six DMS II mechs and an M1A2 with four colonists aboard. Visit Settlements' world component listed
+  the map (registered between Autosave-15 and PG1, so the caravan entered through its Visit button).
+- PG3 after the loss: RimPacts' history records the defence lost at tick 48,333,000 and one occupation mark for Barracuda's Stream
+  (control only; no settlement changed owner anywhere). The battle map was gone. The tank and its four colonists were world pawns,
+  out of play; the three mechs were world pawns of three other factions (Orbital Guild, Anlium, The Cannibal Lineup).
+
+**Read in the code** (summarised in our own words; decompiles stay in `.local`):
+
+- RimPacts 1.7 (30 Oct 2026) checks a defence every 250 ticks; at stage 3 it is won when the attacking faction has no conscious
+  fighter on the map (fogged, podded and vehicle-borne count), and **lost the moment the settlement's map is gone**. It keeps a defence
+  or watched battle map open through a postfix on `Settlement.ShouldRemoveMapNow`. The "End defense" button appears only once all
+  the player's forces have left.
+- Ruled out: our Harrier map patch and the Harrier framework's (both only keep maps), Vehicle Framework (only `CheckRemoveMapNow`),
+  Custom Base Framework and RimExodus (direct removal only on a failed generation or their own camp maps), RimPacts' own map removal
+  (spectated battles only; none was on). The owner's tests with and without the Harrier ruled it out in play.
+- **Visit Settlements 1.7 (22 Oct 2026)** postfixes `Pawn_HealthTracker.MakeDowned`: when any pawn on a map it tracks goes down
+  and `FreeColonistsSpawned` are all downed, it calls `Game.DeinitAndRemoveMap` directly. With every colonist inside the tank that list
+  is empty, the check is true, and the first downing closes the map, past every keep-open rule. The game passes the pawns left on it
+  to the world as lost (`MapDeiniter.PassPawnsToWorld`). The mechs changing faction afterwards is our inference: the game reuses
+  world pawns when it generates pawns for other factions.
+
+**The fix (Patches 0.13.0, not yet tested in game).** A tie-in assembly in `Mods/VisitSettlements/<version>`, loaded only with Visit
+Settlements, prefixes its private `DeinitializeMap(Map)` and skips it while a colonist of the player's there is conscious (on foot,
+aboard a Vehicle Framework vehicle through its `AllPawnsAboard`, or in a spawned holder), a player mechanoid there is on its feet, or a
+RimPacts defence or watched battle is on there (`DefendMissionOn`, `SpectateOn`, read by name). Agent choices for the owner: mechs
+count whether or not they have an overseer (they can still fight and carry the downed); a battle keeps the map even with everyone
+down, as RimPacts' own rule does; no setting, as it only fixes a fault; one log line per map an in-game hour.
+
+**Owner's workaround before 0.13.0:** keep one colonist on foot and conscious on a map entered with Visit; enter RimPacts defences
+through RimPacts' own option or shuttle. Confirmed by the owner in play on 8 Nov 2026 ("you're bang on right").
+
+### Bug report for Visit Settlements (draft; the owner posts it)
+
+> Hi Nina, thanks for Visit Settlements. A report from RimWorld 1.7 (build of 22 Oct): the downed check in
+> `VS_Pawn_Downed_Patch.Postfix` uses `map.mapPawns.FreeColonistsSpawned.All(p => p.Downed)`. When every colonist on a visited map
+> is inside a vehicle (Vehicle Framework), a shuttle or a pod, that list is empty, `All` returns true, and the first pawn of anyone's
+> to go down calls `DeinitializeMap`, closing the map with the player's people aboard. The game then passes them to the world as
+> lost, and with RimPacts a defence fought there counts as lost. Because `DeinitAndRemoveMap` is called directly, other mods' keep-open
+> rules (RimPacts' defences and battles) are skipped too. Requiring at least one free colonist in `FreeColonists` (not only spawned
+> ones), or calling `map.Parent.CheckRemoveMapNow()` instead of removing the map directly, would avoid it. Happy to share details.
+
 ## Bug report to post (draft; the owner posts it)
 
 **Hold this draft** (owner, 7 Nov 2026: after the owner's test confirms the cause). Its cause below is the room rebuild, which play did not bear out; the likelier cause now is Combat Extended's wall fragments, which D'thorga Patches holds back during a strike. Run the dev action that counts Combat Extended fragments on the map during a strike, then revise the cause and post.

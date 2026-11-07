@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- D'thorga Patches' Visit Settlements assembly (from 0.13.0). It lives in Visit Settlements' load folder
+       (Mods/VisitSettlements/<version>), so it loads only while Visit Settlements is active. It finds Visit Settlements' method
+       and RimPacts' battle state by name and references neither mod's assembly; Vehicle Framework's crew are read by property name
+       too. Built for RimWorld 1.7 (net10.0, Harmony 3) and 1.6 (net472, Harmony 2); Directory.Build.targets turns the target into
+       the game version, the output folder and the references. -->
+  <PropertyGroup>
+    <TargetFrameworks>net472;net10.0</TargetFrameworks>
+    <RootNamespace>Phobos.VisitSettlementsPatches</RootNamespace>
+    <AssemblyName>PhobosPatches.VisitSettlements</AssemblyName>
+    <ModFolder>PhobosPatches</ModFolder>
+    <TieInFolder>Mods/VisitSettlements/</TieInFolder>
+    <UsesHarmony>true</UsesHarmony>
+    <Version>0.13.0</Version>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../PhobosFramework/PhobosFramework.csproj" Private="false" />
+  </ItemGroup>
+</Project>

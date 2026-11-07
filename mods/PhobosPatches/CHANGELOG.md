@@ -6,6 +6,22 @@ says the owner tested it.
 
 ## [Unreleased]
 
+## [0.13.0] - 2026-11-08 - Draft
+
+The owner's report of 8 November 2026: a RimPacts defence of Barracuda's Stream was lost every time, about a quarter of an hour into the fight, and the tank, its four colonists and three mechs never came home. Visit Settlements had closed the battle map under them. Not yet tested in game.
+
+### Fixed
+
+- Visit Settlements: a visited settlement's map no longer closes when a pawn goes down while your people can still act there. Visit Settlements closed it if no colonist of yours stood on the map, so colonists inside a vehicle were lost with it, and with RimPacts the defence or battle there was lost too. The map now stays open while a colonist of yours there is conscious (on foot or aboard a vehicle, shuttle or pod), while a mechanoid of yours there is on its feet, or while a RimPacts defence or battle is fought there. Otherwise Visit Settlements' rule stands. Each save of a map is noted in the log once an in-game hour.
+
+### Save compatibility
+
+- Saves nothing; safe to add to and remove from a save. Pawns already lost this way are not brought back; load a save from before the map closed.
+
+### Compatibility and limits
+
+- Visit Settlements, RimPacts and Vehicle Framework are read by name; no assembly of theirs is referenced. If Visit Settlements changes the method this patches, the part stays off and the load line says why. The patch skips Visit Settlements' map closing only in the cases above; the reason is recorded in the code.
+
 ## [0.12.0] - 2026-11-07 - Draft
 
 The owner's request of 7 November 2026: RimPacts' world war quest gave no sign of its deadline ("bring it in line with the game's vanilla style"). Not yet tested in game.
