@@ -2,10 +2,10 @@
 
 Patches for other authors' vehicle mods, each switched on only while that mod is active. It lets RimThunder's heavy casting be made at
 the rotary forger, 12 at a time, and covers **Harrier VTOL Attack Aircraft** by potemkinvillager: a realistic build cost, a fix for the jet failing to load fully alongside RimPacts,
-honest bomb costs under Combat Extended, bombs and rockets at The Dead Man's Switch's ammunition fabricator, fuel tanks for its
+honest bomb costs under Combat Extended with a bomb case of its own, bombs and rockets at The Dead Man's Switch's ammunition fabricator, fuel tanks for its
 Drop Tanks upgrade, and a sortie's map kept open under the jet. It also makes **Spaceship Turret Hull** by MK work with Combat Extended. It copies nothing from those mods.
 
-Version 0.5.0, built 6 November 2026 for House D'thorga. **Not yet tested in game.**
+Version 0.6.0, built 7 November 2026 for House D'thorga. **Not yet tested in game.**
 
 ## Read this first (gotchas)
 
@@ -16,17 +16,24 @@ Version 0.5.0, built 6 November 2026 for House D'thorga. **Not yet tested in gam
   also runs on 1.7.
 - **Safe to add to a running save.** A jet you already built keeps working; only new builds pay the new cost. Bombs already made
   stay as they are.
+- **Updating from 0.5.0 or earlier with Vanilla Furniture Expanded - Factory: delete every Mk. 82 and Mk. 84 bill on your automated
+  machining bays first**, then add them again after the update. A bay remembers its bill's old ingredient list (heavy castings), and
+  once steel or a bomb case reaches its hoppers it would throw an error every few seconds. Deleting a half-filled bill drops what it had
+  taken beside the bay. Bills at the machining table and the ammunition fabricator need nothing.
 - **Safe to remove.** Costs go back to the Harrier's own, and with RimPacts active the Harrier's framework fails to load fully again.
   **With Combat Extended active, deconstruct any turret hulls built under this mod first** (not yet tested either way).
   **Delete any bomb or rocket bills you added at an ammunition fabricator, and any heavy casting bills at a rotary forger, first**, because they may
-  no longer list those recipes.
+  no longer list those recipes. **With Combat Extended, use up or sell your bomb cases first** and delete their bills: the cases are this
+  mod's items and vanish with it.
 - **The jet now needs RimThunder's turbine, if RimThunder is active.** It's a long job:
   - **Research:** engine making, Otto Cycle and turbocharged. The jet's blueprint stays hidden until they're done.
   - **An assembly platform** to make it on (RimThunder, 200 steel, 15 components).
   - **Each turbine:** 3 heavy castings (made at a smelter, 100 steel each), 15 components, 1 advanced component and 180,000 ticks of work.
 - **Construction skill 10** is now needed to build the jet, as for the Hind and Mongoose.
-- **Bombs cost much more under Combat Extended.** Four Mk. 82s take 8 heavy castings, 80 FSX, 1,200 chemfuel and 8 components.
-- **Heavy castings are a new step for bombs too**, if RimThunder is active. Without RimThunder, bomb cases cost steel instead.
+- **Bombs cost much more under Combat Extended.** Four Mk. 82s take 4 Mk. 82 bomb cases (1,120 steel), 80 FSX, 1,200 chemfuel and 8 components.
+- **Bomb cases are a new step for bombs** under Combat Extended (since 0.6.0, in place of heavy castings): make a Mk. 82 or Mk. 84 bomb
+  case from steel first, at the machining table, the rotary forger or an automated machining bay. **They stack to 4**, so a hopper
+  slot holds four. **If your bays' hoppers were set to take heavy castings, allow the two bomb cases there instead.**
 - **A sortie's map now stays open while the jet is over it.** Before, a map from Real Ruins, RimMarket and some other mods could close
   with the jet still in the air. See [Sorties](#sorties-what-the-code-says) for what a sortie needs from you.
 - **Heavy castings at a rotary forger now come 12 at a time**, from 1,200 steel. **If you set up a heavy casting bill at a forger before
@@ -79,15 +86,32 @@ Under Combat Extended bombs are items with their real weight, but a 907 kg bomb 
 weighs what it should. **The two fuel and explosive fills stop short of their real weight on purpose**, because matching it would take
 far too long to make (174 FSX for one Mk. 82, 858 prometheum for one incendiary).
 
-| Bomb | Stock | Now (with RimThunder) | Materials weigh |
+| Bomb | Stock | Now | Materials weigh |
 | --- | --- | --- | --- |
-| Mk. 82 (227 kg) | 60 steel, 45 chemfuel, 2 components | 2 heavy castings, 20 FSX, 300 chemfuel, 2 components | 176 kg |
-| Mk. 84 incendiary (907 kg) | 120 steel, 120 chemfuel, 2 components | 6 heavy castings, 100 prometheum, 1,500 chemfuel, 2 components | 576 kg |
-| Mk. 84 EMP | 120 steel, 6 components | 6 heavy castings, 840 steel, 12 components | 877 kg |
-| Mk. 84 smoke | 120 steel, 50 chemfuel, 1 component | 6 heavy castings, 760 steel, 1,000 chemfuel, 1 component | 881 kg |
-| Mk. 84 poison gas (Biotech) | 120 steel, 4 wastepacks, 1 component | 6 heavy castings, 72 wastepacks, 1 component | 883 kg |
+| Mk. 82 (227 kg) | 60 steel, 45 chemfuel, 2 components | 1 Mk. 82 bomb case, 20 FSX, 300 chemfuel, 2 components | 166 kg |
+| Mk. 84 incendiary (907 kg) | 120 steel, 120 chemfuel, 2 components | 1 Mk. 84 bomb case, 100 prometheum, 1,500 chemfuel, 2 components | 604 kg |
+| Mk. 84 EMP | 120 steel, 6 components | 1 Mk. 84 bomb case, 840 steel, 12 components | 905 kg |
+| Mk. 84 smoke | 120 steel, 50 chemfuel, 1 component | 1 Mk. 84 bomb case, 760 steel, 1,000 chemfuel, 1 component | 909 kg |
+| Mk. 84 poison gas (Biotech) | 120 steel, 4 wastepacks, 1 component | 1 Mk. 84 bomb case, 72 wastepacks, 1 component | 911 kg |
 
-Without RimThunder, each 2 heavy castings become 280 steel and each 6 become 956. Their selling price now follows from their ingredients.
+Their selling price now follows from their ingredients.
+
+#### Bomb cases
+
+Each bomb starts as an empty steel case, made first and then filled. **This replaced RimThunder's heavy castings in 0.6.0**: castings
+don't stack, so on an automated machining bay each one took a whole hopper slot, and the bays clogged on them.
+
+| Case | Steel | Weighs | Work | Crafting skill | Stack |
+| --- | --- | --- | --- | --- | --- |
+| Mk. 82 bomb case | 280 | 140 kg | 1,000 | 6 | 4 |
+| Mk. 84 bomb case (all four Mk. 84s) | 956 | 478 kg | 3,000 | 7 | 4 |
+
+- **Where:** the machining table; the rotary forger, with The Dead Man's Switch - Expedition; and the automated machining bay, with
+  Vanilla Furniture Expanded - Factory, which gives the bay a bill for each case by itself.
+- **No research of their own.** Each bomb keeps its own research.
+- The weight is the real case's, so the steel balances it. They can be smelted back to steel.
+- **The picture is a stand-in**, drawn by hand in code until generated art is picked.
+- Only under Combat Extended: without it the cases don't exist.
 Without Combat Extended nothing here changes: the jet loads its bombs from steel. To rescale a bomb, change its numbers in
 `Mods/HarrierVtol/Patches/Bombs_HarrierVtol.xml`.
 
@@ -192,6 +216,7 @@ The jet's fuel tank logged "Parsed 2.5 as int" at every start. Writing the value
 
 - The jet's blueprint is under Architect, Vehicles.
 - Bombs and rockets are bills at the machining table, as before, and at The Dead Man's Switch's ammunition fabricator.
+- Bomb cases (Combat Extended only) are bills at the machining table, the rotary forger and the automated machining bay.
 - Heavy castings are a bill at the electric smelter and the assembly platform, one at a time, and at the rotary forger, 12 at a time.
 - The turbine is a bill at RimThunder's assembly platform.
 
@@ -204,6 +229,9 @@ patch of the same method**, because Harmony stores a patch as a method token, wh
 
 ## Checks done
 
+- 7 November 2026: Pipe System's hopper intake and saved bill code read (1.7 build), and the owner's PG2 save read to see why the
+  machining bays clogged. The patch was run offline against the Harrier's, Combat Extended's and the forger's real files, with and
+  without the forger: every step matches. **Not yet tested in game.**
 - 6 November 2026: the forger's start, finish and product placement code read again (Fortified, current 1.7 build), with the 1.7 game's
   placement code. `scripts/check-factory-patches.py --mod PhobosVehiclePatches` passes. **Not yet tested in game.**
 - 5 November 2026: Spaceship Turret Hull's Defs and source, Combat Extended's turret class, reload job, shot and roof code, and the 1.7 game's save loader read. The patch was run offline against both mods' real files, the owner's PG22 save read to see what's built, and `scripts/check-factory-patches.py --mod PhobosVehiclePatches` passes. **Not yet tested in game.**

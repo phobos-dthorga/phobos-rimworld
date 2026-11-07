@@ -4,7 +4,7 @@
   <name>D'thorga Vehicle Patches</name>
   <author>Phobos A. D'thorga</author>
   <url>https://github.com/phobos-dthorga/phobos-rimworld</url>
-  <modVersion>0.5.0</modVersion>
+  <modVersion>0.6.0</modVersion>
   <description>Patches for other authors' vehicle mods, each switched on only while that mod is active. It copies nothing from them.
 
 Harrier VTOL Attack Aircraft:
@@ -13,7 +13,7 @@ A realistic build cost: a jet engine, four nozzles, landing gear, fuel tanks, wi
 
 A fix for the jet failing to load fully when RimPacts is active. The Harrier's flight framework and RimPacts both patch the same Vehicle Framework method, and the way RimPacts does it stops the framework loading most of its patches, including boarding, refuelling and landing. This keeps RimPacts' landing rule working and lets both load.
 
-With Combat Extended, bombs whose ingredients are closer to what they weigh. The Drop Tanks upgrade uses Vanilla Vehicles Expanded fuel tanks.
+With Combat Extended, bombs whose ingredients are closer to what they weigh, each built on a stackable steel bomb case of its own (Mk. 82 or Mk. 84), so automated machining bays don't clog. The Drop Tanks upgrade uses Vanilla Vehicles Expanded fuel tanks.
 
 With The Dead Man's Switch and Combat Extended, the bombs and 57 mm rockets can also be made at its ammunition fabricator.
 

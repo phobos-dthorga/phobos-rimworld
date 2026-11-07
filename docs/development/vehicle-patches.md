@@ -81,7 +81,10 @@ its 155 mm HE takes 94 steel, 17 FSX and 2 components, about 57 kg.
 
 **Item masses:** heavy casting 75 kg, FSX and prometheum 0.5 kg, steel 0.5 kg, chemfuel 0.05 kg, wastepack 6 kg, components 0.6 kg.
 
-| Bomb | New | Materials weigh | Without RimThunder |
+**Superseded in 0.6.0** (see [the bomb case](#the-bomb-case-060-7-nov-2026)): the cases below were heavy castings, or steel without
+RimThunder, until then. The fills are unchanged.
+
+| Bomb | 0.1.0 to 0.5.0 | Materials weighed | Without RimThunder |
 | --- | --- | --- | --- |
 | Mk. 82 | 2 castings, 20 FSX, 300 chemfuel, 2 components | 176 kg of 227 | 280 steel for the castings |
 | Mk. 84 incendiary | 6 castings, 100 prometheum, 1,500 chemfuel, 2 components | 576 kg of 907 | 956 steel |
@@ -159,11 +162,57 @@ it to each of the five bombs' `recipeMaker/recipeUsers`, which `RecipeDefGenerat
 
 **Agent's reading of the gain:** about 600 ticks of fixed colonist waits for 12 castings, about 50 each, against about 500 ticks of colonist work per casting at the smelter at base `SmeltingSpeed`. Walking time for the carries depends on the base layout and isn't counted.
 
-**Why 12 suits RimThunder, agent's reading:** RimThunder's and its add-ons' recipes ask for 1 to 3 castings each (every use in the installed XML), and this mod's Mk. 82 cases ask for 2, so one batch covers several builds without leaving the bill idle for lack of steel in most colonies.
+**Why 12 suits RimThunder, agent's reading:** RimThunder's and its add-ons' recipes ask for 1 to 3 castings each (every use in the installed XML), and this mod's Mk. 82 cases asked for 2 (until 0.6.0), so one batch covers several builds without leaving the bill idle for lack of steel in most colonies.
 
 **Unverified:** whether a one-at-a-time bill already set up at a forger under 0.3.0 or 0.4.0 keeps running once the forger no longer lists `CastFromMold`. The README tells the player to delete it.
 
 **Unchanged:** RimThunder's mass balance. 100 steel (50 kg at 0.5 kg each) gives a 75 kg casting and a lump of slag, so mass isn't conserved; that is RimThunder's own ratio, kept so both recipes agree.
+
+## The bomb case (0.6.0, 7 Nov 2026)
+
+**Owner's report:** heavy castings clog VFE Factory's automated machining bays making the bombs. **Owner's choice:** a stackable bomb
+case of our own in place of the castings (offered with plain steel by weight and steel at casting cost), and a stand-in picture drawn
+in code until generated art is picked.
+
+**What the save showed** (PG2, 7 Nov 2026, a read-only copy deleted afterwards; Pipe System 1.7 decompiled in `.local/`):
+
+- RimThunder's casting inherits `stackLimit` 1 from its `HeavyItemBase`. A hopper holds one stack per slot (`maxItemsInCell`; 4 on our
+  deep hopper), so a casting fills a slot by itself. Each bay had one castings-only deep hopper at Critical priority, full with 4
+  castings: two Mk. 82s' worth, brought one hauling trip each.
+- **Neither bay was waiting on castings at that moment.** The bay at (260, 109) had 19 of 20 FSX, with its FSX hopper empty and 63 FSX on
+  the map. The bay at (260, 117) waited for 2 components: their hopper group was at Low priority, and colonists only haul to better
+  storage. Both were reported to the owner as layout and stock matters.
+- The intake itself (`Process.CheckInputSlots`, `ThingAndResourceOwner.AddFromThing`) handles a one-item stack correctly. The fault is
+  the slot each casting uses, not a code error. No log line named them.
+
+**A hazard in the update, from the code.** `Process` saves its `ingredientsOwners` (one per ingredient, keyed by ThingDef) and builds
+them only in `Setup()`, when the bill is added. After a recipe change, a saved bill still lists castings, while `CheckInputSlots`
+matches items against the Def's new ingredients and calls `AdvancedProcessorsManager.AddIngredient`, whose `GetOwnerFor` then returns
+null. That would throw every 100 ticks once a case reached an input cell. Hence the README's first step: delete the bays' bomb bills
+before updating. `ResetOwners` drops an unfinished bill's counted ingredients beside the machine, so nothing is lost.
+
+**The design** (agent defaults unless stated):
+
+| Item | Steel | Mass | Work | Skill | Stack |
+| --- | --- | --- | --- | --- | --- |
+| `PhobosBombCaseMk82` | 280 | 140 kg | 1,000 | Crafting 6 | 4 |
+| `PhobosBombCaseMk84` | 956 | 478 kg | 3,000 | Crafting 7 | 4 |
+
+- One case per bomb, two sizes: one body per real bomb, and the fewest hopper slots.
+- Masses are the case weights above (total weight less fill, secondary sources), so the steel balances at 0.5 kg a unit. Work is what
+  the 2 and 6 castings took (RimThunder's 500 each). Skill matches each size's bombs. No research: each bomb keeps its own. No slag,
+  since a case is forged and machined, not cast. Bulk 20 and 40, as the bombs. Smeltable; no MarketValue, so it follows from the steel.
+- Made at the machining table; the rotary forger is added when it exists. VFE Factory's generator then gives the automated machining
+  bay a bill for each case, from `recipeMaker.recipeUsers` containing `TableMachining`.
+- The two ThingDefs are added by the bomb patch itself, inside its guard on the Mk. 82's 227 kg, so they exist only under Combat
+  Extended, where they are used. The forger step sits in the same sequence, after them.
+- New totals: Mk. 82 166 kg; Mk. 84 incendiary 604 kg (short on purpose, as before), EMP 905, smoke 909, poison gas 911.
+- **The picture** is a Pillow stand-in by `assets/vehicle-patches/draw_standins.py`: olive drab, open fuze-well ring and tail, two lugs,
+  no fins and no yellow band. On US bombs a yellow band marks an explosive filling, so an empty case carries none (common knowledge,
+  not checked against a primary source). Generated art is in `art-backlog.md`.
+
+**Checked offline:** the patch applied to the Harrier's, Combat Extended's and the forger's real Defs by a small script copying the
+game's operation rules, with and without the forger: every step matched as intended. **Not yet tested in game.**
 
 ## Sorties, RimWorld 1.7 and Combat Extended: the review (0.3.1, 3 Nov 2026)
 
@@ -223,6 +272,9 @@ it to each of the five bombs' `recipeMaker/recipeUsers`, which `RecipeDefGenerat
 | 3 Nov 2026 | Keep a sortie's map open through the game's own check rather than patching each mod's rule; player vehicles with a free colonist aboard, all of them | agent default |
 | 6 Nov 2026 | Heavy castings at the forger in batches of 12, in place of one at a time | owner (request; agent agreed with 12) |
 | 6 Nov 2026 | A recipe of our own for the forger only; smelter and platform keep RimThunder's; slag kept; 12 times the work | agent defaults |
+| 7 Nov 2026 | Replace heavy castings in the bombs with a stackable bomb case of our own | owner (choice from three agent options; agent recommended plain steel) |
+| 7 Nov 2026 | A hand-drawn stand-in picture until generated art | owner (direction) |
+| 7 Nov 2026 | Two case sizes, one per bomb; real case weights in steel; castings' work; bombs' skill; stack 4; no research, no slag; machining table plus forger; only under CE | agent defaults |
 
 ## Spaceship Turret Hull under Combat Extended (5 Nov 2026)
 

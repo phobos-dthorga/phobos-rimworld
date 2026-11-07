@@ -106,6 +106,13 @@ Five textures are the owner's picks (7 Nov 2026); the base station and the two f
 | Deep factory hopper and automated fabrication bay | Inherit Vanilla Expanded's art through their parent Defs (none of it copied) | Yes | Optional: own art would set them apart from the buildings they extend. Recommendation (agent): low priority |
 | Workshop preview | Shipped pick: preview-factory-additions-202 (7 Nov) | | |
 
+### D'thorga Vehicle Patches
+
+| Asset | Now | Local model? | Note |
+| --- | --- | --- | --- |
+| Mk. 82 and Mk. 84 bomb cases (items, 0.6.0) | Scripted stand-ins, drawn by `assets/vehicle-patches/draw_standins.py` (owner's direction, 7 Nov) | Yes | Two empty olive-drab bomb bodies from above, the Mk. 84 fatter: open nose ring, open tail, two lugs, no fins and no yellow band (the band marks a filling). The stand-ins can serve as layout references. Waiting on a go |
+| Workshop preview | Shipped pick (7 Nov) | | |
+
 ### Button icons (owner, 6 Nov 2026)
 
 | Button | Mod | Now | Needs | Local model? |

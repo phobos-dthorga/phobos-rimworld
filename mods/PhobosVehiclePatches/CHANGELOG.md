@@ -5,12 +5,38 @@ yet. Not yet tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.6.0] - 2026-11-07 - Draft
+
+Owner's request: the Harrier's bombs no longer take RimThunder's heavy castings, which clogged the automated machining bays. The owner chose a stackable bomb case of our own, with a stand-in picture until generated art is picked. Not yet tested in game.
+
 ### Added
 
+- Two new items under Combat Extended: the Mk. 82 bomb case and the Mk. 84 bomb case, the empty steel bodies of the bombs. Each bomb now takes one. They are made at the machining table, at the rotary forger from The Dead Man's Switch - Expedition, and at Vanilla Furniture Expanded - Factory's automated machining bay, which gives itself a bill for each.
+- Their pictures are stand-ins, drawn by hand in code (agent-made, held for the owner's review); generated art is to follow on the owner's go.
 - A Workshop preview picture: a generated background the owner picked (7 November 2026), with the name added by script. No change in play.
+
+### Changed
+
+- Every Mk. 82 and Mk. 84 takes one bomb case in place of 2 or 6 heavy castings. The bombs no longer depend on RimThunder: with or without it, the cost is the same.
+
+### Fixed
+
+- The automated machining bays no longer clog on bomb ingredients. Heavy castings don't stack, so each took a whole hopper slot: a deep hopper held only enough for two Mk. 82s, and haulers carried them one at a time. The cases stack to 4.
+
+### Balance
+
+- Mk. 82 case: 280 steel, 140 kg, 1,000 work, Crafting 6. Mk. 84 case: 956 steel, 478 kg, 3,000 work, Crafting 7. Real case weights, so the steel balances; the same work as the castings they replace. No research of their own. Stack size 4, the skill levels and the work are agent choices for the owner to review.
+- Materials now weigh 166 kg for the Mk. 82 and 604 to 911 kg for the Mk. 84s. A Mk. 82 case costs 280 steel, against 200 steel for its two castings before.
+
+### Save compatibility
+
+- Before updating, delete every Mk. 82 and Mk. 84 bill on the automated machining bays, then add them again afterwards. A bay keeps its bill's old ingredient list in the save, and once steel or a case reaches its hoppers it would throw an error every few seconds (read in Pipe System's code, not seen in game). Deleting a half-filled bill drops what it had taken beside the bay.
+- Bills at the machining table and the ammunition fabricator change in place. Heavy castings already made still serve RimThunder's vehicles, or smelt back to steel.
+- Before removing this mod with Combat Extended active, use up or sell the bomb cases and delete their bills: they are this mod's items.
 
 ### Compatibility and limits
 
+- Hoppers set to take heavy castings for the bays must be set to take the two cases instead.
 - README: supported game versions, where its Harmony comes from, and the turret hull step before removal, in the gotchas.
 
 ## [0.5.0] - 2026-11-06 - Draft
