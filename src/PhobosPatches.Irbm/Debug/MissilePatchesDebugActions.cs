@@ -63,6 +63,26 @@ public static class MissilePatchesDebugActions
         Log.Message(MissilePatchesMod.LogPrefix + " Dropped " + pending + " queued job" + (pending == 1 ? "" : "s") + ".");
     }
 
+    [DebugAction(DebugCategory.Name, "Missile Patches: dismiss every \"Area revealed\" letter", actionType = DebugActionType.Action,
+        allowedGameStates = AllowedGameStates.Playing)]
+    public static void DismissAreaRevealedLetters()
+    {
+        // For the letters a strike sent before 0.10.0. The game gives these letters no def or class of their own, so they are found by
+        // the label the game itself gave them, translated the same way; a dev clean-up only, never a gameplay rule.
+        string label = "LetterLabelAreaRevealed".Translate();
+        List<Letter> letters = Find.LetterStack.LettersListForReading;
+        int dismissed = 0;
+        for (int i = letters.Count - 1; i >= 0; i--)
+        {
+            if (letters[i].Label.RawText != label) continue;
+            Find.LetterStack.RemoveLetter(letters[i]);
+            dismissed++;
+        }
+        string text = MissilePatchesMod.LogPrefix + " Dismissed " + dismissed + " \"" + label + "\" letter" + (dismissed == 1 ? "" : "s") + ".";
+        Messages.Message(text, MessageTypeDefOf.NeutralEvent, historical: false);
+        Log.Message(text);
+    }
+
     [DebugAction(DebugCategory.Name, "Missile Patches: count Combat Extended fragments on map", actionType = DebugActionType.Action, allowedGameStates = AllowedGameStates.PlayingOnMap)]
     public static void CountFragments()
     {

@@ -31,6 +31,7 @@ public class MissilePatchesSettings : ModSettings
     public bool radiation = true;
     public bool pollution = true;
     public bool emp = true;
+    public bool quietReveals = true;
 
     /// <summary>Dubs Rimatomics' own high-yield strike makes six (WorldObject_ICBMfission, read 7 Nov 2026).</summary>
     public const int MaxFalloutClouds = 6;
@@ -55,6 +56,7 @@ public class MissilePatchesSettings : ModSettings
         Scribe_Values.Look(ref radiation, "PhobosMissilePatches_Radiation", true);
         Scribe_Values.Look(ref pollution, "PhobosMissilePatches_Pollution", true);
         Scribe_Values.Look(ref emp, "PhobosMissilePatches_Emp", true);
+        Scribe_Values.Look(ref quietReveals, "PhobosMissilePatches_QuietReveals", true);
     }
 }
 
@@ -62,13 +64,14 @@ public class MissilePatchesSettings : ModSettings
 /// D'thorga Patches' InterRim Ballistic Missile part (D'thorga Missile Patches until 7 November 2026; the namespace keeps the old
 /// name), switched on only while that mod is active (this assembly lives in its load folder). A strategic warhead's blast runs a slice
 /// per frame through D'thorga Framework's queue, by the missile mod's rules but without the costly damage path (0.8.0); a warhead
-/// marked as a blast gets D'thorga's own strike, with zones from ground zero and fallout (0.9.0).
+/// marked as a blast gets D'thorga's own strike, with zones from ground zero and fallout (0.9.0); the caves and vaults a blast breaks
+/// open send no letters (0.10.0).
 /// </summary>
 public class MissilePatchesMod : Mod
 {
     /// <summary>The Harmony ID is the packageId; never change it once the mod is published.</summary>
     public const string PackageId = "PhobosDthorga.Patches";
-    public const string ModVersion = "0.9.0";
+    public const string ModVersion = "0.10.0";
     public const string LogPrefix = "[D'thorga Patches]";
 
     public static MissilePatchesSettings Settings { get; private set; } = new();
@@ -107,6 +110,8 @@ public class MissilePatchesMod : Mod
         report.On("shelter: " + Settings.shelter);
         report.On(Settings.rubble ? "buildings leave rubble" : "buildings vaporised");
         report.On("corpses " + (Settings.corpses == CorpseMode.Vaporised ? "vaporised" : "left"));
+        if (Settings.quietReveals) report.On("no \"Area revealed\" letters during a blast");
+        else report.Off("no \"Area revealed\" letters during a blast", "setting");
         if (!Settings.holdRoomRebuilds) report.Off("rooms rebuilt once a frame during a blast", "setting");
         else if (!RoomRebuildHold.Available) report.Off("rooms rebuilt once a frame during a blast", "the game's room updater has no working flag");
         else report.On("rooms rebuilt once a frame during a blast");
@@ -155,6 +160,7 @@ public class MissilePatchesMod : Mod
             mode => ("PhobosMissilePatches_Corpses" + mode).Translate(), mode => Settings.corpses = mode, "PhobosMissilePatches_SettingCorpsesDesc".Translate());
         listing.CheckboxLabeled("PhobosMissilePatches_SettingHoldRooms".Translate(), ref Settings.holdRoomRebuilds, "PhobosMissilePatches_SettingHoldRoomsDesc".Translate());
         listing.CheckboxLabeled("PhobosMissilePatches_SettingMessages".Translate(), ref Settings.messages, "PhobosMissilePatches_SettingMessagesDesc".Translate());
+        listing.CheckboxLabeled("PhobosMissilePatches_SettingQuietReveals".Translate(), ref Settings.quietReveals, "PhobosMissilePatches_SettingQuietRevealsDesc".Translate());
 
         if (CombatExtendedFragments.Present)
         {

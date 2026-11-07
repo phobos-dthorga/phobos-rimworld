@@ -10,7 +10,7 @@ warhead's blast spread over frames instead of freezing the game).
 It replaces two earlier mods, merged into it on 7 November 2026: **D'thorga Vehicle Patches** and **D'thorga Missile Patches**
 ([why](../../docs/development/mod-consolidation.md)).
 
-Version 0.9.0, built 7 November 2026 for House D'thorga. **Not yet tested in game as D'thorga Patches.** The Harrier and turret hull
+Version 0.10.0, built 7 November 2026 for House D'thorga. **Not yet tested in game as D'thorga Patches.** The Harrier and turret hull
 parts are unchanged from Vehicle Patches 0.6.0 (not yet tested in game); the missile part was tried once by the owner, see
 [InterRim Ballistic Missile](#interrim-ballistic-missile).
 
@@ -57,6 +57,10 @@ parts are unchanged from Vehicle Patches 0.6.0 (not yet tested in game); the mis
   around the centre of the struck map (not yet tested in game). **Other settlements in range burn but stand** unless you choose a full
   strike everywhere. **With Dubs Rimatomics, it brings Rimatomics' radioactive fallout** and drifting fallout clouds instead of the
   missile mod's nuclear winter. The other strategic warheads keep the missile mod's own effects.
+- **InterRim Ballistic Missile: since 0.10.0 a blast sends no "Area revealed" letters** (not yet tested in game). A blast breaks
+  open every sealed cave and vault on the map and the game sent one letter for each, about eighty in the owner's game. It's a
+  setting, on by default. **Letters already sent stay**: right-click each away, or use the dev action **Missile Patches: dismiss
+  every "Area revealed" letter**.
 - **Not yet tested in game,** except one missile run on 0.7.0. Everything else here is read from the mods' code and files.
 
 ## What it does
@@ -294,6 +298,7 @@ itself (a setting).
 | The dead | Vaporised | Vaporised, left where they fell | None |
 | Rebuild rooms once per moment during a blast | On | On, off | Off if rooms ever behave oddly after a blast; please report it |
 | Tell me when a blast takes a while, and when it ends | On | On, off | None |
+| No "Area revealed" letters while a blast runs | On | On, off | None. On also silences the warning about mechanoids found inside a pocket the blast opened |
 | Wall fragments from a strategic blast (only with Combat Extended) | None during a blast | None, a tenth as many, as many as in a fight | A tenth: several times slower. As in a fight: a blast on a town can take tens of minutes |
 | Fireball, blast and heat by distance from ground zero | On | On, off | Off: no burns, wilting, ash or pulse, and the warhead's fires light a fifth of every cell in one moment |
 | Full strike on every settlement in range | Off | On, off | On: each map in range takes a full strike of its own |
@@ -310,7 +315,8 @@ changed only in memory, for the moments the blast runs, and put back after; its 
 
 **Dev mode**, D'thorga category: **Missile Patches: strike current map** runs an extinction-class blast on the map you are looking at
 (**it destroys everything there**; use a throwaway save), **strike current map with D'thorga's blast model** (the same, shaped),
-**log blast queue**, **drop queued blasts**, and **count Combat Extended fragments on map**. Each finished blast logs one line: things, seconds, frames, and how many were vaporised, wrecked, damaged,
+**log blast queue**, **drop queued blasts**, **dismiss every "Area revealed" letter** (for those a strike sent before 0.10.0),
+and **count Combat Extended fragments on map**. Each finished blast logs one line: things, seconds, frames, and how many were vaporised, wrecked, damaged,
 sheltered or already gone.
 
 The record is [Missile patches](../../docs/development/missile-patches.md).

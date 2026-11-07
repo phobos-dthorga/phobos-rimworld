@@ -10,7 +10,7 @@
     <ModFolder>PhobosPatches</ModFolder>
     <TieInFolder>Mods/HarrierVtol/</TieInFolder>
     <UsesHarmony>true</UsesHarmony>
-    <Version>0.9.0</Version>
+    <Version>0.10.0</Version>
     <!-- Vehicle Framework targets .NET Framework 4.8 and our 1.6 build 4.7.2. The game loads both whatever they declare, so
          the mismatch only matters to the compiler's reference check. -->
     <ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>true</ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>

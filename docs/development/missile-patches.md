@@ -175,6 +175,22 @@ slice by default, through its settings object by name, put back after each slice
 strikes fold into passes; the queue moved to D'thorga Framework (`FrameWorkQueue`). Settings and their cost warnings are in the
 README. Stage 2, a blast model of our own for the extinction-class warhead, is in [strategic strike](strategic-strike.md) (0.9.0).
 
+## No "Area revealed" letters during a blast (0.10.0, 7 Nov 2026)
+
+**Owner's call** after the strike on Lance Village left about eighty "Area revealed" letters, which piled into the game's "more..."
+bundle and could only be cleared one right-click at a time: no such letters for a strategic blast, since it leaves nothing in the
+places it opens.
+
+- **Why there were so many** (read from the 1.7 code, `Verse.FogGrid`): removing a wall or rock calls `FloodUnfogAdjacent`, which sends
+  one letter for every separate fogged pocket that opens, unless its `sendLetters` argument is false. A blast removes rock all over
+  the map, so every cave, ruin and vault sends its own. The bundle button (`Verse.BundleLetter`) refuses right-click by design, and
+  its menu entries only open letters.
+- **What the fix does:** a prefix on both `FloodUnfogAdjacent` overloads sets `sendLetters` to false while a blast works on that map
+  (one of our blast jobs queued for it, or the missile mod's own pass while spreading is off). It skips nothing; the fog clears as
+  before. The mechanoid warning shares the letter and goes quiet with it during a blast (agent choice within the owner's "every
+  letter of this kind"). A setting, on by default; a dev action dismisses letters sent before 0.10.0.
+- **Not yet tested in game.**
+
 ## Bug report to post (draft; the owner posts it)
 
 **Hold this draft:** its cause is the room rebuild, which play did not bear out (see above). Revise it once the cost is measured.

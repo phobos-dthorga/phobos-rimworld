@@ -6,6 +6,19 @@ says the owner tested it.
 
 ## [Unreleased]
 
+## [0.10.0] - 2026-11-07 - Draft
+
+Owner's request: a strategic strike left about eighty "Area revealed" letters that could not be cleared quickly. Read from the game's code; not yet tested in game.
+
+### Added
+
+- A strategic blast sends no "Area revealed" letters while it runs, on the map it is striking. The game sent one for every sealed cave, ruin and vault the blast broke open; the blast leaves nothing in them. The fog clears as before, and reveals at other times send their letters as before. A setting, on by default.
+- Dev action: dismiss every "Area revealed" letter, for those a strike sent before this version.
+
+### Compatibility and limits
+
+- The warning about mechanoids found inside an opened pocket shares the letter and is silenced with it during a blast. Covers both of this mod's blast paths and the missile mod's own one-moment pass when spreading is switched off.
+
 ## [0.9.0] - 2026-11-07 - Draft
 
 Stage 2 of the owner-approved plan: a strike model of our own for the extinction-class warhead, after Dubs Rimatomics' nuke. Read from the mods' code; not yet tested in game.

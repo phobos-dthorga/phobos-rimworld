@@ -30,6 +30,8 @@
   <PhobosMissilePatches_SettingHoldRoomsDesc>On, the game works out its rooms and regions once per moment instead of after every wall that falls. Switch it off only if a blast leaves rooms behaving oddly, and report it.</PhobosMissilePatches_SettingHoldRoomsDesc>
   <PhobosMissilePatches_SettingMessages>Tell me when a blast takes a while, and when it ends</PhobosMissilePatches_SettingMessages>
   <PhobosMissilePatches_SettingMessagesDesc>A message when a blast is still running after two seconds, and one when it has spent itself.</PhobosMissilePatches_SettingMessagesDesc>
+  <PhobosMissilePatches_SettingQuietReveals>No "Area revealed" letters while a blast runs</PhobosMissilePatches_SettingQuietReveals>
+  <PhobosMissilePatches_SettingQuietRevealsDesc>A blast breaks open every sealed cave, ruin and vault on the map at once, and the game sends a letter for each, dozens at a time. On, none are sent while the blast runs, including the warning about mechanoids found inside: the blast leaves nothing in them. Reveals at other times send their letters as before.</PhobosMissilePatches_SettingQuietRevealsDesc>
 
   <PhobosMissilePatches_SettingFragments>Wall fragments from a strategic blast</PhobosMissilePatches_SettingFragments>
   <PhobosMissilePatches_SettingFragmentsDesc>Walls shattered by heavy damage throw fragments. A strategic blast pauses the game, so the fragments of every wall hang in the air at once.</PhobosMissilePatches_SettingFragmentsDesc>
