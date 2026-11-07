@@ -373,7 +373,8 @@ class NearCopyTests(RehearsalCase):
         self.assertEqual(sources, [str(art_run.ROOT / 'a'), str(art_run.ROOT / 'b'), 'c'])
 
     def test_our_own_art_is_not_a_source(self):
-        requests = [{'references': ['assets/set/references/mine.png', 'mods/M/Textures/mine.png', '.local/references/game.png']}]
+        requests = [{'references': ['assets/set/references/mine.png', 'mods/M/Textures/mine.png', '.local/art/picks-7nov/pick.png',
+                                    '.local/references/game.png']}]
         self.assertEqual(art_run.near_copy_sources(requests), [str(art_run.ROOT / '.local' / 'references')])
 
     def post_process(self, flagged, writes=True):

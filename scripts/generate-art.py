@@ -401,6 +401,22 @@ def output_root(request_file):
     return Path(request_file).resolve().parent.parent / 'generated'
 
 
+GENERATED_GITIGNORE = """# Generated candidates stay local until one is approved; approved masters are added explicitly with
+# `git add -f` and listed in the asset README. Contact sheets and reports are review aids only.
+*
+!.gitignore
+"""
+
+
+def keep_out_of_git(out_root):
+    """Gives a generated folder the ignore file the others carry, if it has none, before any image lands in it. A new art set's
+    first run once left its candidates showing as untracked (vehicle-patches, 8 Nov 2026), one careless add from being committed."""
+    out_root.mkdir(parents=True, exist_ok=True)
+    ignore = out_root / '.gitignore'
+    if not ignore.exists():
+        ignore.write_text(GENERATED_GITIGNORE, encoding='utf-8')
+
+
 def plan(request_file, only=None):
     """Every image a request file asks for, as (request, seed, target path); touches neither the server nor the GPU."""
     requests = json.loads(Path(request_file).read_text(encoding='utf-8'))
@@ -467,6 +483,7 @@ def run(request_file, only=None, comfy_path=DEFAULT_COMFY, start=False, should_s
     Returns made, failures, restarts, timings, the folders touched and the stop reason, if any."""
     requests = json.loads(Path(request_file).read_text(encoding='utf-8'))
     out_root = output_root(request_file)
+    keep_out_of_git(out_root)
     if not server_up():
         if not start:
             raise RuntimeError(f'ComfyUI is not running at {SERVER}; pass --start or start it yourself')

@@ -76,12 +76,14 @@ def make_checker(stop_at, min_free_gb, watch_paths, game_names):
     return should_stop
 
 
-OWN_ART = ('mods', 'assets')
+OWN_ART = ('mods', 'assets', '.local/art')
 
 
 def near_copy_sources(requests, extra=()):
     """The folders holding a batch's references, plus any named by hand, each once. Our own art is left out: it lives in the
-    repository, which never holds game art, and looking like it is the point of using it as a reference."""
+    repository, which never holds game art, or in .local/art, which holds only the owner's picks from our own generations (the
+    game's art extracted for reference lives in .local/references and stays a source). Looking like our own art is the point of
+    using it as a reference; before this, a pick used as a reference flagged every image drawn from it and itself."""
     folders = [ROOT / ref if not Path(ref).is_absolute() else Path(ref) for req in requests for ref in req.get('references', [])]
     folders = [path for path in folders if not any(path.is_relative_to(ROOT / own) for own in OWN_ART)]
     return list(dict.fromkeys([*(str(path.parent) for path in folders), *(str(Path(path)) for path in extra)]))

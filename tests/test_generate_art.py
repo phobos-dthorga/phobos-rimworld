@@ -227,5 +227,18 @@ class DisplayPathTests(unittest.TestCase):
         self.assertTrue(art.display_path(outside).endswith('elsewhere/x.png'))
 
 
+class KeepOutOfGitTests(unittest.TestCase):
+    def test_a_new_generated_folder_gets_the_ignore_file_and_an_existing_one_is_kept(self):
+        import tempfile
+        from pathlib import Path
+        with tempfile.TemporaryDirectory() as work:
+            out_root = Path(work) / 'set' / 'generated'
+            art.keep_out_of_git(out_root)
+            self.assertEqual((out_root / '.gitignore').read_text(encoding='utf-8'), art.GENERATED_GITIGNORE)
+            (out_root / '.gitignore').write_text('# hand-edited\n*\n', encoding='utf-8')
+            art.keep_out_of_git(out_root)
+            self.assertEqual((out_root / '.gitignore').read_text(encoding='utf-8'), '# hand-edited\n*\n')
+
+
 if __name__ == '__main__':
     unittest.main()
