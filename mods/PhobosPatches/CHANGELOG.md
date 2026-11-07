@@ -6,6 +6,22 @@ says the owner tested it.
 
 ## [Unreleased]
 
+## [0.12.0] - 2026-11-07 - Draft
+
+The owner's request of 7 November 2026: RimPacts' world war quest gave no sign of its deadline ("bring it in line with the game's vanilla style"). Not yet tested in game.
+
+### Added
+
+- RimPacts: a world war quest shows its countdown the way the game's own quests do, a red time left in the quest list and "Expires in ..." on the quest, with the date on hover, in the game's own words for every language. It counts to RimPacts' daily check that actually fails the war, which can be up to a day after the quest's 3 days. A quest already running picks it up within a few seconds of loading. Nothing RimPacts decides changes.
+
+### Save compatibility
+
+- The countdown is a standard game quest part added to RimPacts' quest and saved with it; removing this mod leaves it to finish harmlessly. A new game component holds nothing; removing the mod leaves one harmless error line about it on the next load.
+
+### Compatibility and limits
+
+- RimPacts is read by name. If a RimPacts update renames what is read, the countdown stays off and the load line says why.
+
 ## [0.11.1] - 2026-11-07 - Draft
 
 The owner's report of 7 November 2026 (late evening): after a nuke on Lance Village the ally's assault still arrived with two soldiers, and about twelve towns changed hands. Read from the owner's two saves, their log and RimPacts 1.7's code; not yet tested in game.

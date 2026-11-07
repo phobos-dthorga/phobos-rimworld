@@ -230,6 +230,15 @@ and was reloaded away, so it is unexamined). Read from PG2 of 7 Nov 2026 (letter
   have counted the war won. RimPacts counts as attackers only the attacking faction's live fighters and the player's when the player
   joins the attack (`CountSpectateSides`); allied factions (Ryūga, the 688th) and the mercenary company fight but do not count. The
   owner's DMS II mechs counted, as the player joined the attack. Nothing in our patches touched the quest.
+- **The countdown (Patches 0.12.0; owner: "bring it in line with the game's vanilla style").** The quest window shows a red time left
+  and "Expires in" only for an accepted quest holding an enabled QuestPart_Delay with `isBad` and expiry text (`MainTabWindow_Quests`,
+  1.7). RimPacts' quest (`wwQuestObj`, with its own `QuestPart_RptWarQuest`) has none: its deadline is `wwQuestDeadlineTick` in its
+  world component. A game component in a new RimPacts tie-in assembly (`Mods/RimPacts/<version>`, loaded only with RimPacts) checks
+  every 250 ticks and adds one vanilla QuestPart_Delay to the running quest, enabled through the game's own `Enable`, ending at the
+  first daily check at or after the deadline (RimPacts' saved `nextDailyCheckTick`, a day apart), with the game's `QuestExpiresIn`
+  and `QuestExpiresOn` text. Agent choices: count to the deciding check rather than the nominal deadline (the owner's war failed 0.87
+  days after it); reuse the game's keys so every language has them; no alert in the right-hand list (the owner asked for the
+  quest window's style). Not yet tested in game.
 
 ## Bug report to post (draft; the owner posts it)
 

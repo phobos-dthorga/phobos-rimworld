@@ -10,7 +10,7 @@ warhead's blast spread over frames instead of freezing the game).
 It replaces two earlier mods, merged into it on 7 November 2026: **D'thorga Vehicle Patches** and **D'thorga Missile Patches**
 ([why](../../docs/development/mod-consolidation.md)).
 
-Version 0.11.1, built 7 November 2026 for House D'thorga. **Not yet tested in game as D'thorga Patches.** The Harrier and turret hull
+Version 0.12.0, built 7 November 2026 for House D'thorga. **Not yet tested in game as D'thorga Patches.** The Harrier and turret hull
 parts are unchanged from Vehicle Patches 0.6.0 (not yet tested in game); the missile part was tried once by the owner, see
 [InterRim Ballistic Missile](#interrim-ballistic-missile).
 
@@ -75,8 +75,10 @@ parts are unchanged from Vehicle Patches 0.6.0 (not yet tested in game); the mis
   standing, RimPacts still ends the battle as your ally's win.
 - **With RimPacts, a world war attack must win before its deadline.** RimPacts gives a world war attack 3 days from accepting it.
   The deadline is checked once a day, and if the target town has not fallen by then the war counts as lost, whatever is happening on
-  the battlefield, and **control of about a dozen border towns passes to the enemy**. This is RimPacts' rule, not ours. **Strike and
-  attack early in those 3 days.**
+  the battlefield, and **control of about a dozen border towns passes to the enemy**. This is RimPacts' rule, not ours. **New in
+  0.12.0 (not yet tested in game): the quest now shows its countdown the way the game's own quests do**, a red time left in the
+  quest list and "Expires in ..." on the quest, counting to the daily check that actually decides the war (up to a day after the 3
+  days). **Strike and attack early.**
 - **InterRim Ballistic Missile: since 0.10.0 a blast sends no "Area revealed" letters** (not yet tested in game). A blast breaks
   open every sealed cave and vault on the map and the game sent one letter for each, about eighty in the owner's game. It's a
   setting, on by default. **Letters already sent stay**: right-click each away, or use the dev action **Missile Patches: dismiss

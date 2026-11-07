@@ -11,6 +11,7 @@
     <li IfModActiveAll="MK.SpaceshipTurretHull,CETeam.CombatExtended">Mods/SpaceshipTurretHull</li>
     <li IfModActive="kazepsi.irbm">Mods/IRBM</li>
     <li IfModActive="kazepsi.irbm">Mods/IRBM/1.6</li>
+    <li IfModActive="wowgag.RimPacts">Mods/RimPacts/1.6</li>
   </v1.6>
   <v1.7>
     <li>/</li>
@@ -20,5 +21,6 @@
     <li IfModActiveAll="MK.SpaceshipTurretHull,CETeam.CombatExtended">Mods/SpaceshipTurretHull</li>
     <li IfModActive="kazepsi.irbm">Mods/IRBM</li>
     <li IfModActive="kazepsi.irbm">Mods/IRBM/1.7</li>
+    <li IfModActive="wowgag.RimPacts">Mods/RimPacts/1.7</li>
   </v1.7>
 </loadFolders>
