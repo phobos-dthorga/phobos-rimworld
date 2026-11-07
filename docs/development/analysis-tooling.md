@@ -8,8 +8,8 @@ specific to RimWorld and the owner's other game repositories carry drifting copi
 
 **Gotchas**
 
-- **This is a record; one tool is built.** Log triage (tool 1) shipped on 7 Nov 2026 as `scripts/triage-log.py`; the
-  others are proposals.
+- **This is a record; two tools are built.** Log triage (tool 1) shipped on 7 Nov 2026 as `scripts/triage-log.py`, and
+  the save index (tool 2, without map grids or save comparison yet) as `scripts/query-save.py`; the others are proposals.
 - **A tool saves nothing until an instruction points at it.** Each tool's first change here adds a one-line
   rule to `AGENTS.md` ("before reading a log, run ..."), in the same commit.
 - **Save tools always read a frozen copy** in the session's scratchpad and delete it afterwards, as
@@ -175,6 +175,10 @@ there). In short:
 2. Log triage, consumed here first: the largest saving and no new toolchain. **Done 7 Nov 2026**: phobos-modkit 0.1.1,
    called through `scripts/triage-log.py`. On the owner's logs a 2.1 MB log became an 8 KB summary in under 4 s, and a 38 MB
    broken-session log one of under 5 KB.
-3. The save indexer's working slice with the RimWorld schema.
+3. The save indexer's working slice with the RimWorld schema. **Done 7 Nov 2026**: phobos-modkit 0.2.2, called through
+   `scripts/query-save.py`. PG2 (308 MB, 8.2 million elements) indexes in 1.4 s, against 7.6 s for one pass of Python's own
+   reader; reports then take about 0.6 s. Agent choice made while building: the Rust program only builds the index, and
+   the reports are Python, sharing the log tool's command line and Markdown and reading the index with Python's own SQLite.
+   Map grids and comparing two saves are the next slice (backlog T2b).
 4. The mod and Def index, which tool 1's mod attribution and tool 7 build on.
 5. Tools 4 to 8 as the need arises, each its own change with its own tests.
