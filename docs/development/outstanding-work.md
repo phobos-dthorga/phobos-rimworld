@@ -54,7 +54,7 @@ reasons are in [analysis tooling](analysis-tooling.md). Each tool's first change
 | T0 | Create phobos-modkit (public, MIT) with its documents | docs | Done: documents only |
 | T1 | Log triage, with the RimWorld adapter | Python | Done: phobos-modkit 0.1.1, `scripts/triage-log.py`, AGENTS.md rule |
 | T2 | Save index and query, working slice | Rust | Done: phobos-modkit 0.2.2, `scripts/query-save.py`, AGENTS.md rule |
-| T2b | Save index: map grids (terrain, roofs, gas) and comparing two saves by load ID | Rust | Open |
+| T2b | Save index: map grids (terrain, roofs, gas) and comparing two saves by load ID | Rust | Done: phobos-modkit 0.6.0, `grid` and `diff` in `scripts/query-save.py` |
 | T3 | Mod and Def index (SQLite in the kit's cache) | Python | Done: phobos-modkit 0.4.0, `scripts/query-defs.py`, AGENTS.md rule |
 | T4 | Assembly metadata reader | C# | Open |
 | T5 | Workshop research | Python | Done: phobos-modkit 0.5.0, `scripts/workshop-research.py`, AGENTS.md rule |

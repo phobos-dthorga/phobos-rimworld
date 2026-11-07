@@ -104,6 +104,12 @@ other), and `ParentName` inheritance (twice).
   holding little-endian 16-bit values; short Def hashes are the game's stable string hash modulo 65,535.
 - **Working slice first:** things, pawns, hediffs, the game header, the mod list, `schema` and `things`.
   Grids and `diff` come second.
+- **Grids and `diff` built 7 Nov 2026** (phobos-modkit 0.6.0). Read from the 1.7 game code first: grids are base64
+  of raw deflate (plain when not smaller), cells row by row; terrain, roofs and deep resources hold 16-bit Def numbers;
+  gas holds four 8-bit densities per cell; fog and pollution are bits. Naming Defs needed the game's short-hash rule
+  and, for terrain, the Defs the game makes in code: with rough, hewn and smooth stone and carpets added to the Def
+  index, terrain on the owner's maps went from 70 to 98 or 99 percent of cells named. `diff` matches things by ID and
+  hediffs by load ID; PG2 against the 18:50 autosave took about 4 s.
 
 ### 3. Mod and Def index
 
@@ -214,7 +220,7 @@ there). In short:
    `scripts/query-save.py`. PG2 (308 MB, 8.2 million elements) indexes in 1.4 s, against 7.6 s for one pass of Python's own
    reader; reports then take about 0.6 s. Agent choice made while building: the Rust program only builds the index, and
    the reports are Python, sharing the log tool's command line and Markdown and reading the index with Python's own SQLite.
-   Map grids and comparing two saves are the next slice (backlog T2b).
+   Map grids and comparing two saves followed the same day (backlog T2b, phobos-modkit 0.6.0).
 4. The shared report model and derived-data cache. **Done 7 Nov 2026**: phobos-modkit 0.3.0 (see Shared frameworks).
 5. The mod and Def index, which tool 1's mod attribution and tool 7 build on. **Done 7 Nov 2026**: phobos-modkit 0.4.0,
    called through `scripts/query-defs.py`.
