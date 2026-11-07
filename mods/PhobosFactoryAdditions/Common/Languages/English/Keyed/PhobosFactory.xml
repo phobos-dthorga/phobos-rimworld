@@ -38,4 +38,5 @@
 
   <!-- The cause in the game's food poisoning message. -->
   <PhobosFactory_FoodPoisonCause_ContaminatedWater>contaminated water</PhobosFactory_FoodPoisonCause_ContaminatedWater>
+  <PhobosFactory_BillRebuilt>The bill {BILL} at {MACHINE} was brought up to its recipe; anything it had counted was set down beside the machine.</PhobosFactory_BillRebuilt>
 </LanguageData>

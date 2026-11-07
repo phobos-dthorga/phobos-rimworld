@@ -368,7 +368,36 @@ so it is no loop.
    entry (12 times on our list). Read from the decompile, not seen in play; worth a report to Vehicle Framework's authors if the owner
    wants one.
 
-## Bug reports to post (drafts; the owner posts them)
+## Sorties blocked by RimPacts battles, and the parts list (7 Nov 2026, evening)
+
+The owner's reports: the Harrier cannot fly sorties while a RimPacts client state is attacking or in an assault, and the parts list
+should be as detailed as other vehicles'. Read from the decompiles (RimPacts 1.7, the fixed-wing framework, Vehicle Framework 1.6);
+**not seen in play.** Built in D'thorga Patches 0.11.0.
+
+**The sortie.** A client-state attack opens the target town's own map (RimPacts has no world object of its own for it) and registers
+a spectate battle. Until the player presses RimPacts' "Join" on that settlement, `WorldComponent_RimPacts.SpectateLandBlockReason`
+is non-null for that map and RimPacts' arrival filter removes every option with a landing step. The fixed-wing framework's postfix on
+`LaunchProtocol.GetArrivalOptions` keeps only such options for an open map, so the list is empty and `CompVehicleLauncher.Select`
+returns Reject: no text, nothing happens. Our re-added RimPacts postfix carries the same rule. Hostility is not involved: the sortie
+path has no hostility check, and the coalition truce only adds visit and trade options the jet drops anyway. A second case the agent
+suspected but could not confirm: during a RimPacts world war, a closed enemy town under a ceasefire or declared neutral loses its
+"attack" options, which empties the list the same way. **Decisions:** a postfix on `CompVehicleLauncher.CanTarget` turns the empty list
+into a failed target with the reason (every refusal says why); a setting lets fixed-wing aircraft skip RimPacts' filter (off by default:
+RimPacts counts vehicle crew as the player's forces, so an overflight holds the battle's map and weighs in its end roll, which is what
+its gate exists to prevent). The logs neither support nor contradict: RimPacts logs only in its verbose mode, and no error names the jet.
+
+**The parts list.** Vehicle Framework saves a vehicle's parts as healths by position (`VehicleStatHandler.ExposeData`, confirmed in
+the owner's Autosave-12: four healths, no keys), so a Def may gain parts only at the end of its list, and a saved vehicle never gets
+them unless code adds them. `VehicleUpgrade.Unlock` dereferences `GetComponent(key)` with no null check, so an upgrade naming a part a
+saved vehicle lacks throws. The Harrier's own code reads two keys, `Engine` (hover below 40%) and `Body` (cook-off), both configurable
+in its extension; its framework reads no part at all, and `FlightControl` is read by nothing in Vehicle Framework 1.6. **Decisions:**
+ten parts appended by XML (keys prefixed Phobos, the four originals untouched), the engine given `priorityStatEfficiency` so its
+failure still stops the jet now that nozzles and landing gear share its stat averages; a postfix on `VehicleStatHandler.ExposeData`
+in PostLoadInit appends missing parts the way `InitializeComponents` makes them; a postfix on `CanLaunchWithCargoCapacity` grounds a
+vehicle whose flight control is under 0.35 (authored) when its design has a part carrying that stat; CE armour on the new parts
+follows the jet's own CE scale. Health figures: new parts 420 in all beside the original 860 (authored).
+
+
 
 Written for the mods' authors.
 

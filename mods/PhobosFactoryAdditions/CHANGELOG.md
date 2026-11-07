@@ -5,6 +5,20 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.11.4] - 2026-11-07 - Draft
+
+The owner's report of 7 November 2026 (evening): an automated machining bay seemed to read only the first stack in a deep factory hopper. Read from Pipe System 1.7 and the owner's save; not yet tested in game.
+
+### Fixed
+
+- A bill saved before its recipe changed is rebuilt from the recipe the first time it ticks after a load (if it has not started) or when it next finishes a batch: counted ingredients are set down beside the machine, the target count is kept, and a message names the bill and the machine. Pipe System built a bill's ingredient list once and never compared it with the recipe again, so after a recipe change the bill asked for the old ingredients for ever.
+- An item on an input cell that a bill's saved ingredient list cannot take is skipped instead of throwing. The exception ended the hopper scan before the items behind it on the cell were read, which looked like a hopper read only as far as its first stack.
+- A bill's ingredient left marked as being filled by Pipe System's own hopper scan (it marks the ingredient it was called for whenever it takes any item, and unmarks only the one the item went to) is unmarked again. Cosmetic for hopper-fed bills, which pawns never deliver to.
+
+### Compatibility and limits
+
+- Machines still draw only from their input cells, every stack on them; the README now says so, and that pawns never deliver to a hopper-fed machine.
+
 ## [0.11.3] - 2026-11-07 - Draft
 
 No change in play intended. Not yet tested in game.

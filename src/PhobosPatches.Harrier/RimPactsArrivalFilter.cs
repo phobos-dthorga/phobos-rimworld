@@ -67,8 +67,14 @@ public static class RimPactsArrivalFilter
     }
 
     /// <summary>The replacement for RimPacts' postfix: the same pass-through signature, in a plain class.</summary>
-    public static IEnumerable<ArrivalOption> Postfix(IEnumerable<ArrivalOption> values, GlobalTargetInfo target) =>
-        filter == null ? values : filter(values, target);
+    public static IEnumerable<ArrivalOption> Postfix(IEnumerable<ArrivalOption> values, GlobalTargetInfo target, LaunchProtocol __instance)
+    {
+        if (filter == null) return values;
+        // The player's choice (D'thorga Patches 0.11.0): a fixed-wing sortie may fly over a battle not yet joined. RimPacts' rule for
+        // everything else stands, and the targeter says why when it refuses (SortieGatePatch).
+        if (VehiclePatchesMod.Settings.sortieOverUnjoinedBattle && FixedWing.Is(__instance?.Vehicle)) return values;
+        return filter(values, target);
+    }
 
     private static void ReplaceGenericPostfix()
     {

@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <!--
+    A fuller parts list for the Harrier (owner's request, 7 Nov 2026): ten parts added beside the jet's own four (airframe, cockpit,
+    engine, wing fuel tanks), in the style of the most detailed Vehicle Framework vehicles (Vanilla Vehicles Expanded's aircraft
+    carry 27). The four original parts keep their keys, health and order: Vehicle Framework saves a vehicle's parts by position, so
+    the existing ones are never moved and new ones are only ever appended (D'thorga Patches gives a saved Harrier the new parts on
+    load, at full health). Every figure is authored. Cells are the vehicle's own, facing north: x across (-2 to 2), z along (3 is the
+    nose). The airframe covers every cell at weight 3, so a hit on a cell with a new external part lands on that part a quarter to a
+    third of the time, and internal parts are reached through the airframe as before.
+
+    What each part does: the engine, intake and nozzles drive move and flight speed (the engine carries priority, so a dead engine still
+    stops the jet, as it did when it was the only such part); avionics, hydraulics and wiring carry flight control, the worst of
+    which grounds the jet below 35% (D'thorga Patches' rule; the framework itself only shows the figure); landing gear carries move
+    speed on the ground; the alternator, canopy, radar and pylons take hits and need repair, and nothing else. The wing fuel tanks
+    are the jet's own and keep their leak and fire.
+  -->
+  <Operation Class="PatchOperationSequence">
+    <operations>
+      <li Class="PatchOperationAdd">
+        <xpath>Defs/Vehicles.VehicleDef[defName="Harrier_Jet"]/components/li[key="Engine"]</xpath>
+        <value>
+          <priorityStatEfficiency>true</priorityStatEfficiency>
+        </value>
+      </li>
+      <li Class="PatchOperationAdd">
+        <xpath>Defs/Vehicles.VehicleDef[defName="Harrier_Jet"]/components</xpath>
+        <value>
+          <li>
+            <key>PhobosCanopy</key>
+            <label>canopy</label>
+            <health>40</health>
+            <depth>External</depth>
+            <armor>
+              <ArmorRating_Blunt>0.25</ArmorRating_Blunt>
+              <ArmorRating_Sharp>0.40</ArmorRating_Sharp>
+            </armor>
+            <hitbox>
+              <cells>
+                <li>(0, 2)</li>
+              </cells>
+            </hitbox>
+          </li>
+          <li>
+            <key>PhobosAvionics</key>
+            <label>avionics</label>
+            <health>40</health>
+            <depth>Internal</depth>
+            <armor>
+              <ArmorRating_Blunt>0.20</ArmorRating_Blunt>
+              <ArmorRating_Sharp>0.40</ArmorRating_Sharp>
+            </armor>
+            <hitbox>
+              <cells>
+                <li>(0, 3)</li>
+              </cells>
+            </hitbox>
+            <categories>
+              <li>FlightControl</li>
+            </categories>
+          </li>
+          <li>
+            <key>PhobosRadar</key>
+            <label>nose radar</label>
+            <health>30</health>
+            <depth>Internal</depth>
+            <armor>
+              <ArmorRating_Blunt>0.20</ArmorRating_Blunt>
+              <ArmorRating_Sharp>0.40</ArmorRating_Sharp>
+            </armor>
+            <hitbox>
+              <cells>
+                <li>(0, 3)</li>
+              </cells>
+            </hitbox>
+          </li>
+          <li>
+            <key>PhobosIntake</key>
+            <label>intakes and compressor</label>
+            <health>50</health>
+            <depth>Internal</depth>
+            <armor>
+              <ArmorRating_Blunt>0.30</ArmorRating_Blunt>
+              <ArmorRating_Sharp>0.50</ArmorRating_Sharp>
+            </armor>
+            <hitbox>
+              <cells>
+                <li>(-1, 1)</li>
+                <li>(1, 1)</li>
+              </cells>
+            </hitbox>
+            <categories>
+              <li>FlightSpeed</li>
+            </categories>
+          </li>
+          <li>
+            <key>PhobosNozzles</key>
+            <label>thrust nozzles and exhaust</label>
+            <health>50</health>
+            <depth>External</depth>
+            <armor>
+              <ArmorRating_Blunt>0.34</ArmorRating_Blunt>
+              <ArmorRating_Sharp>0.60</ArmorRating_Sharp>
+            </armor>
+            <hitbox>
+              <cells>
+                <li>(-1, 0)</li>
+                <li>(1, 0)</li>
+              </cells>
+            </hitbox>
+            <categories>
+              <li>MoveSpeed</li>
+              <li>FlightSpeed</li>
+            </categories>
+          </li>
+          <li>
+            <key>PhobosHydraulics</key>
+            <label>hydraulics</label>
+            <health>40</health>
+            <depth>Internal</depth>
+            <armor>
+              <ArmorRating_Blunt>0.30</ArmorRating_Blunt>
+              <ArmorRating_Sharp>0.50</ArmorRating_Sharp>
+            </armor>
+            <hitbox>
+              <cells>
+                <li>(0, -1)</li>
+              </cells>
+            </hitbox>
+            <categories>
+              <li>FlightControl</li>
+            </categories>
+          </li>
+          <li>
+            <key>PhobosWiring</key>
+            <label>wiring and electrics</label>
+            <health>30</health>
+            <depth>Internal</depth>
+            <armor>
+              <ArmorRating_Blunt>0.20</ArmorRating_Blunt>
+              <ArmorRating_Sharp>0.40</ArmorRating_Sharp>
+            </armor>
+            <hitbox>
+              <cells>
+                <li>(0, -2)</li>
+              </cells>
+            </hitbox>
+            <categories>
+              <li>FlightControl</li>
+            </categories>
+          </li>
+          <li>
+            <key>PhobosAlternator</key>
+            <label>alternator</label>
+            <health>30</health>
+            <depth>Internal</depth>
+            <armor>
+              <ArmorRating_Blunt>0.30</ArmorRating_Blunt>
+              <ArmorRating_Sharp>0.50</ArmorRating_Sharp>
+            </armor>
+            <hitbox>
+              <cells>
+                <li>(0, 1)</li>
+              </cells>
+            </hitbox>
+          </li>
+          <li>
+            <key>PhobosLandingGear</key>
+            <label>landing gear</label>
+            <health>60</health>
+            <depth>External</depth>
+            <armor>
+              <ArmorRating_Blunt>0.34</ArmorRating_Blunt>
+              <ArmorRating_Sharp>0.60</ArmorRating_Sharp>
+            </armor>
+            <hitbox>
+              <cells>
+                <li>(0, 2)</li>
+                <li>(0, -1)</li>
+              </cells>
+            </hitbox>
+            <categories>
+              <li>MoveSpeed</li>
+            </categories>
+          </li>
+          <li>
+            <key>PhobosPylons</key>
+            <label>wing pylons</label>
+            <health>50</health>
+            <depth>External</depth>
+            <armor>
+              <ArmorRating_Blunt>0.34</ArmorRating_Blunt>
+              <ArmorRating_Sharp>0.60</ArmorRating_Sharp>
+            </armor>
+            <hitbox>
+              <cells>
+                <li>(-2, -1)</li>
+                <li>(2, -1)</li>
+              </cells>
+            </hitbox>
+          </li>
+        </value>
+      </li>
+
+      <!-- The plasteel armour upgrade covers the new external parts too, at the same quarter of their armour it gives the airframe
+           (its own entries use a quarter of each part's base). -->
+      <li Class="PatchOperationAdd">
+        <xpath>Defs/Vehicles.UpgradeTreeDef[defName="Harrier_UpgradeTree"]/nodes/li[key="Harrier_PlasteelArmour"]/upgrades/li[@Class="Vehicles.VehicleUpgrade"]/armor</xpath>
+        <value>
+          <li>
+            <key>PhobosNozzles</key>
+            <type>Add</type>
+            <statModifiers>
+              <ArmorRating_Blunt>0.085</ArmorRating_Blunt>
+              <ArmorRating_Sharp>0.15</ArmorRating_Sharp>
+            </statModifiers>
+          </li>
+          <li>
+            <key>PhobosLandingGear</key>
+            <type>Add</type>
+            <statModifiers>
+              <ArmorRating_Blunt>0.085</ArmorRating_Blunt>
+              <ArmorRating_Sharp>0.15</ArmorRating_Sharp>
+            </statModifiers>
+          </li>
+          <li>
+            <key>PhobosPylons</key>
+            <type>Add</type>
+            <statModifiers>
+              <ArmorRating_Blunt>0.085</ArmorRating_Blunt>
+              <ArmorRating_Sharp>0.15</ArmorRating_Sharp>
+            </statModifiers>
+          </li>
+          <li>
+            <key>PhobosIntake</key>
+            <type>Add</type>
+            <statModifiers>
+              <ArmorRating_Blunt>0.075</ArmorRating_Blunt>
+              <ArmorRating_Sharp>0.125</ArmorRating_Sharp>
+            </statModifiers>
+          </li>
+        </value>
+      </li>
+
+      <!-- Under Combat Extended the jet's own patch gives its four parts armour in millimetres and megapascals (airframe 2.5 / 6,
+           cockpit 4 / 8, engine 3 / 7, wing tanks 1.5 / 4); the new parts follow the same scale, with the jet's own choice that rifle
+           fire goes through a light airframe (its author's comment). The armour upgrade's entries follow its CE values (airframe
+           +0.625 / +1.5). Authored. -->
+      <li Class="PatchOperationFindMod">
+        <mods>
+          <li>Combat Extended</li>
+        </mods>
+        <match Class="PatchOperationSequence">
+          <operations>
+            <li Class="PatchOperationReplace">
+              <xpath>Defs/Vehicles.VehicleDef[defName="Harrier_Jet"]/components/li[key="PhobosCanopy"]/armor</xpath>
+              <value><armor><ArmorRating_Blunt>8</ArmorRating_Blunt><ArmorRating_Sharp>4</ArmorRating_Sharp></armor></value>
+            </li>
+            <li Class="PatchOperationReplace">
+              <xpath>Defs/Vehicles.VehicleDef[defName="Harrier_Jet"]/components/li[key="PhobosAvionics" or key="PhobosRadar" or key="PhobosWiring"]/armor</xpath>
+              <value><armor><ArmorRating_Blunt>5</ArmorRating_Blunt><ArmorRating_Sharp>2</ArmorRating_Sharp></armor></value>
+            </li>
+            <li Class="PatchOperationReplace">
+              <xpath>Defs/Vehicles.VehicleDef[defName="Harrier_Jet"]/components/li[key="PhobosIntake" or key="PhobosHydraulics" or key="PhobosAlternator" or key="PhobosNozzles"]/armor</xpath>
+              <value><armor><ArmorRating_Blunt>7</ArmorRating_Blunt><ArmorRating_Sharp>3</ArmorRating_Sharp></armor></value>
+            </li>
+            <li Class="PatchOperationReplace">
+              <xpath>Defs/Vehicles.VehicleDef[defName="Harrier_Jet"]/components/li[key="PhobosLandingGear" or key="PhobosPylons"]/armor</xpath>
+              <value><armor><ArmorRating_Blunt>6</ArmorRating_Blunt><ArmorRating_Sharp>2.5</ArmorRating_Sharp></armor></value>
+            </li>
+            <li Class="PatchOperationReplace">
+              <xpath>Defs/Vehicles.UpgradeTreeDef[defName="Harrier_UpgradeTree"]/nodes/li[key="Harrier_PlasteelArmour"]/upgrades/li[@Class="Vehicles.VehicleUpgrade"]/armor/li[key="PhobosNozzles" or key="PhobosLandingGear" or key="PhobosPylons" or key="PhobosIntake"]/statModifiers</xpath>
+              <value><statModifiers><ArmorRating_Blunt>1.5</ArmorRating_Blunt><ArmorRating_Sharp>0.625</ArmorRating_Sharp></statModifiers></value>
+            </li>
+          </operations>
+        </match>
+      </li>
+    </operations>
+  </Operation>
+</Patch>

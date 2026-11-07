@@ -1,5 +1,7 @@
 using HarmonyLib;
+using Phobos.Shared;
 using Phobos.Framework;
+using UnityEngine;
 using Verse;
 
 namespace Phobos.VehiclePatches;
@@ -9,18 +11,36 @@ namespace Phobos.VehiclePatches;
 /// Mod constructor, not a static constructor: mods are constructed before any static constructor runs, so this is in place
 /// before RimPacts and the Harrier's flight framework patch anything.
 /// </summary>
+/// <summary>Player preferences for the Harrier part. The saved key never changes.</summary>
+public class VehiclePatchesSettings : ModSettings
+{
+    /// <summary>Aircraft may fly a sortie over a RimPacts battle the player has not joined (RimPacts' own rule says no).</summary>
+    public bool sortieOverUnjoinedBattle;
+
+    public override void ExposeData()
+    {
+        base.ExposeData();
+        Scribe_Values.Look(ref sortieOverUnjoinedBattle, "PhobosVehiclePatches_SortieOverUnjoinedBattle", false);
+    }
+}
+
 public class VehiclePatchesMod : Mod
 {
+    public static VehiclePatchesSettings Settings { get; private set; } = new();
+
     /// <summary>The Harmony ID is the packageId; never change it once the mod is published.</summary>
     public const string HarmonyId = "PhobosDthorga.Patches";
-    public const string ModVersion = "0.10.0";
+    public const string ModVersion = "0.11.0";
     public const string LogPrefix = "[D'thorga Patches]";
 
     public VehiclePatchesMod(ModContentPack content) : base(content)
     {
+        Settings = GetSettings<VehiclePatchesSettings>();
         var harmony = new Harmony(HarmonyId);
         RimPactsArrivalFilter.Watch(harmony);
         AirborneCrewKeepsMap.Apply(harmony);
+        // The attribute patches: the sortie gate's reason, the flight-control rule and a saved vehicle's new parts.
+        HarmonyPatchApplier.ApplyEach(harmony, typeof(VehiclePatchesMod).Assembly, LogPrefix);
         LongEventHandler.ExecuteWhenFinished(LogLoaded);
     }
 
@@ -28,8 +48,21 @@ public class VehiclePatchesMod : Mod
     {
         var report = new LoadReport(LogPrefix, ModVersion, "Harrier VTOL");
         report.On("sortie maps kept open under the jet");
-        if (OptionalMods.IsActive("wowgag.RimPacts")) report.On("RimPacts' landing rule through a plain postfix");
+        if (OptionalMods.IsActive("wowgag.RimPacts")) report.On("RimPacts' landing rule through a plain postfix" + (Settings.sortieOverUnjoinedBattle ? ", sorties exempt (setting)" : "") + ", with its reason shown");
         else report.Off("RimPacts' landing rule through a plain postfix", "RimPacts is not active");
+        report.On("the Harrier's fuller parts list, flight controls grounding it below " + (FlightControlRule.MinimumFlightControl * 100f).ToString("0") + "%");
         report.Log();
+    }
+
+    public override string SettingsCategory() => "PhobosVehiclePatches_SettingsCategory".Translate();
+
+    public override void DoSettingsWindowContents(Rect inRect)
+    {
+        var listing = new Listing_Standard();
+        listing.Begin(inRect);
+        SettingsUi.Section(listing, "PhobosVehiclePatches_SectionSorties".Translate());
+        listing.CheckboxLabeled("PhobosVehiclePatches_SettingOverflight".Translate(), ref Settings.sortieOverUnjoinedBattle, "PhobosVehiclePatches_SettingOverflightDesc".Translate());
+        if (Settings.sortieOverUnjoinedBattle) SettingsUi.Warning(listing, "PhobosVehiclePatches_OverflightWarning".Translate());
+        listing.End();
     }
 }

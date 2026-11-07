@@ -51,6 +51,7 @@ public sealed class StrikeWork : FrameWork
         Thing? launcher, string? sourceLabel)
     {
         Map = map;
+        PlaceLabel = map.Parent?.Label ?? "an unnamed map";
         this.props = props;
         this.zones = zones;
         rules = PhobosStrikeRulesDef.Rules;
@@ -88,9 +89,10 @@ public sealed class StrikeWork : FrameWork
     public int Next => nextThing + nextCell;
     public int Count => Total + cells.Length;
 
-    public string PlaceLabel => Map.Parent?.Label ?? Map.ToString();
+    /// <summary>Read once, while the map is alive: a map that has been closed throws on its parent.</summary>
+    public string PlaceLabel { get; }
     public override string Label => (Full ? "Strike on " : "Heat and fallout over ") + PlaceLabel;
-    public override bool StillValid => Map.Index >= 0 && !Map.Disposed;
+    public override bool StillValid => Current.Game != null && !Map.Disposed && Map.Index >= 0 && Find.Maps.Contains(Map);
     public override int MinimumStepsPerSlice => IrbmBudgetRule.MinimumThingsPerSlice;
     public override bool Finished => things != null && nextThing >= things.Count && nextCell >= cells.Length;
 

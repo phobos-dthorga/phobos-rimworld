@@ -112,6 +112,27 @@ mod does it to the corpse fridge of "[sbz] Fridge" (`Mods/SbzFridge/`). Checks b
   to make belts take only what the storage's own filter allows (the corpse fridge has it);
 - a machine whose input cell lands on it will grab from it, which may be the point.
 
+## Bills that outlive their recipe (7 Nov 2026)
+
+The owner reported an automated machining bay reading only the first stack in a deep factory hopper (components, with FSX behind them
+that the bill said it lacked). Read from Pipe System 1.7 and the owner's Autosave-12 of that evening:
+
+- **The scan reads every stack.** `Process.CheckInputSlots` walks each input cell's full thing list (and a container's inner items)
+  and offers every item to every ingredient; the save showed FSX 20/20 counted from the second stack of the hopper in the screenshot.
+- **A bill's ingredient owners are built once** (`Process.Setup`, when the bill is added), saved, and never compared with the recipe
+  again. After a recipe change the owners stay old while the scan matches cell items against the new recipe; an item the old owners
+  cannot take reaches `AdvancedProcessorsManager.AddIngredient` with a null owner and throws, ending the scan before the items behind
+  it. The owner's bays had run two recipes (heavy castings, then bomb cases: both are in their cached ingredient lists).
+- **Machines draw only from their input cells** (the machining bay's three, at offsets (0,3), (-3,0), (3,0) rotated with it), and a
+  hopper-fed bill is never put in the list pawns deliver to (`SetAwaitingIngredients` is skipped when `autoGrabFromHoppers` and input
+  slots are set). In the save, one bay waited on 2 components with three empty input hoppers (29 components sat in the next bay's
+  hopper), and the other on a bomb case with its bomb-case owner stuck as "being filled": the scan marks the owner it was called for
+  whenever it takes any item, and unmarks only the item's own owner.
+- **Fixes in D'thorga Factory Additions 0.11.4:** stale bills rebuilt from the recipe on their first tick after a load (unstarted) or
+  on their next reset (running), counted ingredients set down beside the machine, target count kept, a player message; a null-owner
+  guard that skips the item instead of throwing; the stuck mark cleared after each scan. The README now states the input-cell and
+  priority rules. Not yet tested in game.
+
 ## Sources
 
 - VFE Factory (Oskar Potocki, Sarg Bjornson, Taranchuk), Workshop item 3686924415, assembly read 24 to

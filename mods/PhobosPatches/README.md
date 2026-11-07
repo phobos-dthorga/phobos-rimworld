@@ -10,7 +10,7 @@ warhead's blast spread over frames instead of freezing the game).
 It replaces two earlier mods, merged into it on 7 November 2026: **D'thorga Vehicle Patches** and **D'thorga Missile Patches**
 ([why](../../docs/development/mod-consolidation.md)).
 
-Version 0.10.0, built 7 November 2026 for House D'thorga. **Not yet tested in game as D'thorga Patches.** The Harrier and turret hull
+Version 0.11.0, built 7 November 2026 for House D'thorga. **Not yet tested in game as D'thorga Patches.** The Harrier and turret hull
 parts are unchanged from Vehicle Patches 0.6.0 (not yet tested in game); the missile part was tried once by the owner, see
 [InterRim Ballistic Missile](#interrim-ballistic-missile).
 
@@ -25,10 +25,19 @@ parts are unchanged from Vehicle Patches 0.6.0 (not yet tested in game); the mis
   also runs on 1.7.
 - **Safe to add to a running save.** A jet you already built keeps working; only new builds pay the new cost. Bombs already made
   stay as they are.
-- **Updating from 0.5.0 or earlier with Vanilla Furniture Expanded - Factory: delete every Mk. 82 and Mk. 84 bill on your automated
-  machining bays first**, then add them again after the update. A bay remembers its bill's old ingredient list (heavy castings), and
-  once steel or a bomb case reaches its hoppers it would throw an error every few seconds. Deleting a half-filled bill drops what it had
-  taken beside the bay. Bills at the machining table and the ammunition fabricator need nothing.
+- **Updating with Vanilla Furniture Expanded - Factory:** a bay used to remember its bill's old ingredient list after a recipe
+  change and had to have its Mk. 82 and Mk. 84 bills deleted and re-added. **With D'thorga Factory Additions 0.11.4 or later the bay
+  brings such a bill up to date itself** and sets anything it had counted down beside it; without it, delete and re-add the bills.
+- **New in 0.11.0: the Harrier has fourteen parts** (not yet tested in game). Beside its airframe, cockpit, engine and wing fuel
+  tanks, the Health tab now lists a canopy, avionics, a nose radar, intakes and compressor, thrust nozzles and exhaust, hydraulics,
+  wiring and electrics, an alternator, landing gear and wing pylons, each taking hits and needing repair. **Avionics, hydraulics and
+  wiring are the flight controls: with any of them below about 35% the jet cannot take off until repaired**, and the launch button
+  says so. **A Harrier you already have gains the new parts, at full health, when the save loads.** The plasteel armour upgrade
+  covers the new outer parts too.
+- **New in 0.11.0: a sortie that does nothing now tells you why.** With RimPacts, while one of your client states is attacking or
+  defending a town, that town's map is open but RimPacts lets nobody land there until you have joined the battle **from the town's
+  own button on the world map**. The sortie targeter used to reject the click in silence; now it says to join the battle first. A
+  setting lets sorties fly over an unjoined battle anyway, with a warning about what RimPacts then counts.
 - **Safe to remove.** Costs go back to the Harrier's own, and with RimPacts active the Harrier's framework fails to load fully again.
   **With Combat Extended active, deconstruct any turret hulls built under this mod first** (not yet tested either way).
   **Delete any bomb or rocket bills you added at an ammunition fabricator, and any heavy casting bills at a rotary forger, first**, because they may
@@ -205,6 +214,37 @@ Read from the Harrier's flight framework, not seen in play. The Harrier mod does
 - **Don't land on a sortie map.** The Harrier lands vertically anywhere, but it takes off only from a beacon runway, so a jet landed
   away from one stays there. A rough landing also wrecks its engine.
 - **No sortie from under a roof.** The launch check refuses it; taxi out first.
+- **No sortie onto a RimPacts battle you have not joined** (0.11.0). When a client state of yours attacks or defends a town, RimPacts
+  opens that map and strips every "land here" choice until you join from the town's button; the jet's framework keeps only those
+  choices for an open map, so there was nothing left to pick and the click did nothing. The targeter now says so. The setting
+  **Sorties may fly over a battle you have not joined** lifts RimPacts' rule for aircraft only; RimPacts then counts the crew as your
+  forces in that battle, which may hold its map open and weighs in its outcome. Read from the code, not seen in play.
+- **No take-off with damaged flight controls** (0.11.0): avionics, hydraulics or wiring below about 35% ground the jet. Repair them.
+
+### The Harrier's parts (0.11.0)
+
+The owner asked for a parts list as detailed as other well-made vehicles' (7 November 2026). Vehicle Framework gives a vehicle "components":
+each has health, armour, the cells it sits under, whether it is outside or inside, and what breaks when it is damaged. The Harrier
+shipped with four; the most detailed Vanilla Vehicles Expanded aircraft carry 27. Not yet tested in game; every figure is authored.
+
+| Part | Where | Health | What its damage does |
+| --- | --- | --- | --- |
+| Airframe, cockpit, engine, wing fuel tanks | The jet's own four, unchanged | 470, 130, 160, 100 | As before: the engine drives move and flight speed (and now overrides the other parts when it fails), the tanks leak and burn |
+| Canopy | Outside, over the cockpit | 40 | Takes hits that would have hit the cockpit |
+| Avionics, nose radar | Inside the nose | 40, 30 | Avionics are a flight control; the radar only needs repair |
+| Intakes and compressor | Inside, either side of the engine | 50 | Flight speed |
+| Thrust nozzles and exhaust | Outside, either side of the engine | 50 | Move and flight speed |
+| Hydraulics, wiring and electrics | Inside the tail | 40, 30 | Flight controls |
+| Alternator | Inside, beside the engine | 30 | Repair only |
+| Landing gear | Outside, nose and belly | 60 | Move speed on the ground |
+| Wing pylons | Outside, under the wing tips | 50 | Repair only |
+
+**Flight controls:** Vehicle Framework shows a "flight control" figure, the worst of the parts that carry it, but nothing in the framework
+or the jet's own code reads it (read 7 November 2026). This mod gives it one effect: **below 35% the jet cannot take off**, and the launch
+and sortie buttons say which parts to repair. **A saved Harrier gains the new parts at full health when its save loads**: the framework
+saves parts by position with no names, so parts are only ever added to the end of the list, never moved or removed. Under Combat
+Extended the new parts take the jet's own armour scale (a light airframe that rifle fire goes through, its author's choice), and the
+plasteel armour upgrade adds to the nozzles, landing gear, pylons and intakes as it does to the airframe.
 
 ### Turret hulls under Combat Extended
 

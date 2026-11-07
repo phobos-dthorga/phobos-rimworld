@@ -35,6 +35,7 @@ public sealed class IrbmSweep : FrameWork
         List<ThingCategory>? scanCategories, bool penetrateThickRoof, bool lockCorePart, bool completeDismantle)
     {
         Map = map;
+        PlaceLabel = map.Parent?.Label ?? "an unnamed map";
         DamageDef = damageDef;
         Amount = amount;
         ArmorPen = armorPen;
@@ -72,9 +73,10 @@ public sealed class IrbmSweep : FrameWork
     public int Next => next;
     public int Count => targets?.Count ?? 0;
 
-    public string PlaceLabel => Map.Parent?.Label ?? Map.ToString();
+    /// <summary>Read once, while the map is alive: a map that has been closed throws on its parent.</summary>
+    public string PlaceLabel { get; }
     public override string Label => "Strategic blast over " + PlaceLabel;
-    public override bool StillValid => Map.Index >= 0 && !Map.Disposed;
+    public override bool StillValid => Current.Game != null && !Map.Disposed && Map.Index >= 0 && Find.Maps.Contains(Map);
     public override float BudgetMs => MissilePatchesMod.BudgetMs(SecondsSinceStart);
     public override int MinimumStepsPerSlice => IrbmBudgetRule.MinimumThingsPerSlice;
     public override bool Finished => targets != null && next >= targets.Count && passesDone + 1 >= Passes;

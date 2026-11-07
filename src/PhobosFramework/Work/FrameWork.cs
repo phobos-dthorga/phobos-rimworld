@@ -1,3 +1,4 @@
+using System;
 using Phobos.Framework.Rules;
 using UnityEngine;
 
@@ -22,6 +23,16 @@ public abstract class FrameWork
 
     /// <summary>For the log: what the job is, in a few words.</summary>
     public abstract string Label { get; }
+
+    /// <summary>The label for logs, which must never throw: a job whose map has gone still needs a name in the line that drops it.</summary>
+    public string SafeLabel
+    {
+        get
+        {
+            try { return Label; }
+            catch (Exception) { return GetType().Name; }
+        }
+    }
 
     /// <summary>False once the job can no longer run (its map is gone); the queue drops it and calls <see cref="Dropped"/>.</summary>
     public virtual bool StillValid => true;

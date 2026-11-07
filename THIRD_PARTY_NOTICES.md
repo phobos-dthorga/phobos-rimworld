@@ -125,6 +125,9 @@ Its Harrier tie-in assembly references the installed `Vehicles.dll`, `SmashTools
 [Vehicle Framework](https://steamcommunity.com/sharedfiles/filedetails/?id=3014915404) by Smash Phil (MIT licence), never
 copied, and finds [RimPacts - Diplomacy Overhaul](https://steamcommunity.com/sharedfiles/filedetails/?id=3762723122) by wowgag
 by name at runtime. Nothing from any of them is in this repository.
+From 0.11.0 it also reads RimPacts' `WorldComponent_RimPacts.Instance.SpectateLandBlockReason` by name at runtime, to say why a
+sortie onto a battle is refused, and creates Vehicle Framework components for a saved vehicle through Vehicle Framework's own
+public types (`VehicleComponent`, `VehicleStatHandler`), referenced from the installed mod and never copied.
 
 ## InterRim Ballistic Missile, patched by D'thorga Missile Patches
 

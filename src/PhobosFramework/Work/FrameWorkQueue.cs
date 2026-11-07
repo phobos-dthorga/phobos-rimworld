@@ -38,18 +38,26 @@ public static class FrameWorkQueue
     /// <summary>Forgets every job without finishing it (dev actions, a new game).</summary>
     public static void Clear()
     {
-        foreach (FrameWork work in queue)
+        // Dropping a job must never keep the queue alive: a label or a drop that throws (a job whose map is gone after a new game
+        // is loaded) once left the queue full and this method throwing on every frame (the owner's log, 7 Nov 2026).
+        try
         {
-            try
+            foreach (FrameWork work in queue)
             {
-                work.Dropped();
-            }
-            catch (Exception error)
-            {
-                Log.Warning(FrameworkMod.LogPrefix + " " + work.Label + " could not be dropped cleanly: " + error.Message);
+                try
+                {
+                    work.Dropped();
+                }
+                catch (Exception error)
+                {
+                    Log.Warning(FrameworkMod.LogPrefix + " " + work.SafeLabel + " could not be dropped cleanly: " + error.Message);
+                }
             }
         }
-        queue.Clear();
+        finally
+        {
+            queue.Clear();
+        }
     }
 
     /// <summary>One slice of the job at the head of the queue.</summary>
@@ -94,7 +102,7 @@ public static class FrameWorkQueue
         catch (Exception error)
         {
             queue.Remove(work);
-            Log.Error(FrameworkMod.LogPrefix + " " + work.Label + " stopped after an error: " + error);
+            Log.Error(FrameworkMod.LogPrefix + " " + work.SafeLabel + " stopped after an error: " + error);
         }
     }
 

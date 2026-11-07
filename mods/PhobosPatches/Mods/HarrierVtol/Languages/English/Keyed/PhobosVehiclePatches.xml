@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <PhobosVehiclePatches_SettingsCategory>D'thorga Patches: Harrier</PhobosVehiclePatches_SettingsCategory>
+  <PhobosVehiclePatches_SectionSorties>Sorties</PhobosVehiclePatches_SectionSorties>
+  <PhobosVehiclePatches_SettingOverflight>Sorties may fly over a battle you have not joined</PhobosVehiclePatches_SettingOverflight>
+  <PhobosVehiclePatches_SettingOverflightDesc>Off (the default): when an ally of yours is attacking or defending a town and you have not yet joined that battle from the town's own button, aircraft cannot fly a sortie there, and the targeter says so. On, aircraft may fly there anyway.</PhobosVehiclePatches_SettingOverflightDesc>
+  <PhobosVehiclePatches_OverflightWarning>A crew flying over a battle you have not joined counts as your forces there: the battle may not end while they are over it, and its outcome is weighed with them in it.</PhobosVehiclePatches_OverflightWarning>
+  <PhobosVehiclePatches_JoinBattleFirst>You have not joined the battle at {PLACE}. Select the town and join it first, then fly the sortie.</PhobosVehiclePatches_JoinBattleFirst>
+  <PhobosVehiclePatches_FlightControlsDamaged>{VEHICLE}'s flight controls are too damaged to fly: avionics, hydraulics and wiring must be repaired to at least {PERCENT}%.</PhobosVehiclePatches_FlightControlsDamaged>
+</LanguageData>

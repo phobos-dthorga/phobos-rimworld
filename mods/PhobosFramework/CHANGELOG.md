@@ -5,6 +5,14 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.8.1] - 2026-11-07 - Draft
+
+Found in the owner's log of 7 November 2026: 7,662 errors in one session. Not yet tested in game.
+
+### Fixed
+
+- The frame-work queue: when a loaded game empties the queue, a job whose map has gone could throw while being named in the log, which left the queue full and threw again on every frame. Every log line now names a job through a label that cannot throw, and the queue is emptied even when a drop fails.
+
 ## [0.8.0] - 2026-11-07 - Draft
 
 Made with D'thorga Medical 0.7.0, its first user. No change in play on its own. Not yet tested in game.

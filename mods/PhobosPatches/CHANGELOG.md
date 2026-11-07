@@ -6,6 +6,35 @@ says the owner tested it.
 
 ## [Unreleased]
 
+## [0.11.0] - 2026-11-07 - Draft
+
+The owner's reports of 7 November 2026 (evening): the Harrier could not fly sorties while a RimPacts client state was attacking, and the owner asked for a far more detailed parts list. Plus a fault found in the owner's log. Read from the code; not yet tested in game.
+
+### Added
+
+- Harrier: ten more parts beside its own four, fourteen in all: canopy, avionics, nose radar, intakes and compressor, thrust nozzles and exhaust, hydraulics, wiring and electrics, alternator, landing gear and wing pylons, each with its own health, cells and armour. The engine now overrides the other parts when it fails. Every figure authored. Owner's request.
+- Harrier: flight controls that matter. Avionics, hydraulics and wiring carry the framework's flight-control figure, which nothing read before; below 35% the jet cannot take off, and the launch and sortie buttons say which parts to repair. The floor is authored.
+- Harrier: the plasteel armour upgrade covers the nozzles, landing gear, pylons and intakes too, at a quarter of their armour, under Combat Extended at its scale.
+- Harrier, with RimPacts: a sortie clicked on a battle the player has not joined now says why it is refused (RimPacts' own landing gate, which the fixed-wing framework turned into a silent rejection) instead of doing nothing.
+- A setting, off by default, that lets aircraft fly a sortie over a battle not yet joined, with a warning that RimPacts then counts the crew as the player's forces there. Owner's report; the rule itself is RimPacts'.
+
+### Fixed
+
+- InterRim Ballistic Missile: after a strike, loading another game could leave a finished strike job throwing an error on every frame (7,662 lines in the owner's log of 7 November 2026): the job named its map in a log line after that map was gone. The place is now read once while the map is alive, a job whose map is gone is dropped, and D'thorga Framework 0.8.1 empties its queue even when a drop fails.
+
+### Save compatibility
+
+- A Harrier saved with four parts gains the ten new ones at full health when the save loads; its own four keep their health. Parts are only ever appended to the list, never moved or removed, which is what keeps old saves right.
+
+### Dependencies
+
+- D'thorga Framework 0.8.1 or later.
+
+### Compatibility and limits
+
+- The flight-control rule applies to any vehicle whose design gives a part the flight-control figure; in the owner's list that is the Harrier alone.
+- RimPacts' gate is read by name at runtime; without RimPacts nothing changes.
+
 ## [0.10.0] - 2026-11-07 - Draft
 
 Owner's request: a strategic strike left about eighty "Area revealed" letters that could not be cleared quickly. Read from the game's code; not yet tested in game.
