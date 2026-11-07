@@ -266,6 +266,75 @@ def fluids_kit(draw):
     draw.line((760, 830, 880, 780), fill=VESSEL, width=14)
 
 
+def depth_reference(painter, name, what, size):
+    """A depth map for the depth-control add-on, drawn from a stand-in's own layout: black is far (the floor), white is near (the
+    tallest part, seen from directly above), softened so the model reads shapes rather than edges. Goes beside the references."""
+    from PIL import ImageFilter
+    image = Image.new('L', size, 0)
+    painter(ImageDraw.Draw(image))
+    image = image.filter(ImageFilter.GaussianBlur(10)).convert('RGB')
+    path = REFERENCES / f'{name}-depth.png'
+    path.parent.mkdir(parents=True, exist_ok=True)
+    image.save(path, optimize=True)
+    digest = hashlib.sha256(path.read_bytes()).hexdigest()
+    path.with_suffix('.record.md').write_text(
+        f'# {name}, depth\n\nA {size[0]} x {size[1]} px depth map of {what}, from `assets/phobos-medical/draw_placeholders.py`, '
+        f'{dt.date.today():%d %B %Y}: near is white, far is black, drawn from the stand-in\'s layout. No image generator, game art or '
+        f'other author\'s art was used. SHA-256 `{digest}`. It guides the depth-control trial and does not ship in a mod.\n', encoding='utf-8')
+    print('wrote', path.name)
+
+
+def electrolyser_depth(draw):
+    """The electrolyser's heights, from its layout: base frame low, cell stack higher, end plates and gas outlets highest."""
+    draw.rounded_rectangle((110, 150, 914, 830), radius=40, fill=70)
+    draw.rounded_rectangle((170, 200, 854, 700), radius=30, fill=170)
+    for x in (150, 834):
+        draw.rounded_rectangle((x - 40, 180, x + 40, 720), radius=20, fill=205)
+    draw.rounded_rectangle((300, 40, 420, 210), radius=30, fill=235)
+    draw.rounded_rectangle((604, 40, 724, 210), radius=30, fill=235)
+    draw.rounded_rectangle((30, 380, 150, 500), radius=30, fill=120)
+    draw.rounded_rectangle((380, 740, 644, 950), radius=30, fill=140)
+
+
+def hyperbaric_chamber_narrow_depth(draw):
+    """The chamber's heights, 1 by 3 on a square canvas: a lying cylinder (brightest along its top), the door at the foot, the wheel
+    standing proud."""
+    left, right = 540, 996
+    for x in range(left, right):
+        share = (x - left) / (right - left)
+        height = int(120 + 110 * (1 - (2 * share - 1) ** 2))
+        draw.line((x, 70, x, 1466), fill=height)
+    draw.rounded_rectangle((590, 1290, 946, 1470), radius=80, fill=205)
+    draw.ellipse((708, 1320, 828, 1440), fill=245)
+    draw.ellipse((870, 1330, 930, 1390), fill=215)
+
+
+NIGHT_REFERENCES = (
+    ('ventilator', 'Ventilator', 'a bedside ventilator'),
+    ('intubation_kit', 'IntubationKit', 'an intubation kit'),
+    ('safety_shower', 'SafetyShower', 'a safety shower and eyewash'),
+    ('gas_alarm', 'GasAlarm', 'a ceiling carbon monoxide and smoke alarm'),
+    ('oxygen_trolley', 'OxygenTrolley', 'an oxygen cylinder trolley'),
+    ('nebuliser', 'Nebuliser', 'a bedside nebuliser'),
+    ('bronchodilator_vial', 'BronchodilatorVial', 'a strip of bronchodilator vials'),
+    ('anaesthesia_machine', 'AnaesthesiaMachine', 'an anaesthesia machine'),
+    ('decompression_kit', 'DecompressionKit', 'a needle decompression kit'),
+    ('steriliser', 'Steriliser', 'a steriliser'),
+    ('fluids_kit', 'FluidsKit', 'a fluids kit'),
+    ('electrolyser', 'Electrolyser', 'an oxygen electrolyser, 2 by 2'),
+)
+
+
+def night_references():
+    """Every large layout reference and depth map the night-3 requests use (7 Nov 2026)."""
+    for painter_name, name, what in NIGHT_REFERENCES:
+        reference_only(globals()[painter_name], name, f'{what}, from above', (WORK, WORK), 'The layout reference for its generated art.')
+    reference_only(hyperbaric_chamber_narrow, 'HyperbaricChamberNarrow', 'the hyperbaric chamber as built, 1 by 3 on a square canvas', (1536, 1536),
+                   'The layout reference for its top-down redraw.')
+    depth_reference(electrolyser_depth, 'Electrolyser', 'the oxygen electrolyser', (WORK, WORK))
+    depth_reference(hyperbaric_chamber_narrow_depth, 'HyperbaricChamberNarrow', 'the hyperbaric chamber as built, 1 by 3', (1536, 1536))
+
+
 def placeholder(painter, name, what, canvas, final, multi, outstanding):
     """A game texture standing in for outstanding generated art, with its record. multi writes the south view and the east and north
     views turned from it (anticlockwise 90 and 180 degrees, as the burn unit bed's), for a bed drawn from directly above."""
@@ -334,6 +403,7 @@ DRAWINGS = {
         decompression_kit, 'DecompressionKit', 'a needle decompression kit as an item', WORK, 128, False, 'generated art'),
     'SteriliserPlaceholder': lambda: placeholder(
         steriliser, 'Steriliser', 'a steriliser (autoclave), 1 by 1, from above', WORK, 256, False, 'generated art'),
+    'NightReferences': night_references,
     'FluidsKitPlaceholder': lambda: placeholder(
         fluids_kit, 'FluidsKit', 'a fluids kit (a bag of fluid and a giving set) as an item', WORK, 128, False, 'generated art'),
 }

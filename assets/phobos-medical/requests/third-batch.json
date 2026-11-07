@@ -1,0 +1,263 @@
+[
+  {
+    "name": "ventilator",
+    "engine": "klein-base",
+    "lora_comparison": false,
+    "prompt": "phobosvanilla, The machine in the first reference image, a bedside medical ventilator: a pale grey cabinet on four small castors, a wide blue screen showing a white breathing wave, a clear bellows column with ribbed bands, three small coloured knobs, a dark slot and a corrugated clear tube curling off to the right. Keep its shape, layout and colours. Draw it in exactly the art style of the second reference image: a game sprite seen from directly above, south face hinted, with a thick near-black outline around every shape, soft flat cel shading, a muted palette, rounded panel corners and a few small clean details. One object, centred, on a plain pure white background. No floor, no cast shadow, no text, no labels, no people.",
+    "subject": "a bedside medical ventilator: a pale grey cabinet on four small castors, a wide blue screen showing a white breathing wave, a clear bellows column with ribbed bands, three small coloured knobs, a dark slot and a corrugated clear tube curling off to the right.",
+    "references": [
+      "assets/phobos-medical/references/Ventilator-large.png",
+      ".local/references/vanilla-medical/VitalsMonitor_south.png"
+    ],
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      11,
+      12,
+      13,
+      14
+    ],
+    "lora": "phobos-private-vanilla.safetensors"
+  },
+  {
+    "name": "intubation-kit",
+    "engine": "klein-base",
+    "lora_comparison": false,
+    "prompt": "phobosvanilla, The item in the first reference image, an intubation kit lying flat: a laryngoscope with a ridged dark grey handle and a curved pale steel blade with a small lamp at its tip, beside a clear curved breathing tube with a blue cuff and a green connector. Keep its shape, layout and colours. Draw it in exactly the art style of the second reference image: a game sprite seen from directly above, south face hinted, with a thick near-black outline around every shape, soft flat cel shading, a muted palette, rounded panel corners and a few small clean details. One object, centred, on a plain pure white background. No floor, no cast shadow, no text, no labels, no people.",
+    "subject": "an intubation kit lying flat: a laryngoscope with a ridged dark grey handle and a curved pale steel blade with a small lamp at its tip, beside a clear curved breathing tube with a blue cuff and a green connector.",
+    "references": [
+      "assets/phobos-medical/references/IntubationKit-large.png",
+      ".local/references/vanilla-medical/MedicineIndustrial_a.png"
+    ],
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      11,
+      12,
+      13,
+      14
+    ],
+    "lora": "phobos-private-vanilla.safetensors"
+  },
+  {
+    "name": "safety-shower",
+    "engine": "klein-base",
+    "lora_comparison": false,
+    "prompt": "phobosvanilla, The machine in the first reference image, a safety shower and eyewash: a round green drench head over a dark grated floor tray, a yellow pull rod ending in a yellow handle, and a white eyewash bowl with two green nozzles at one corner. Keep its shape, layout and colours. Draw it in exactly the art style of the second reference image: a game sprite seen from directly above, south face hinted, with a thick near-black outline around every shape, soft flat cel shading, a muted palette, rounded panel corners and a few small clean details. One object, centred, on a plain pure white background. No floor, no cast shadow, no text, no labels, no people.",
+    "subject": "a safety shower and eyewash: a round green drench head over a dark grated floor tray, a yellow pull rod ending in a yellow handle, and a white eyewash bowl with two green nozzles at one corner.",
+    "references": [
+      "assets/phobos-medical/references/SafetyShower-large.png",
+      ".local/references/vanilla-medical/VitalsMonitor_south.png"
+    ],
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      11,
+      12,
+      13,
+      14
+    ],
+    "lora": "phobos-private-vanilla.safetensors"
+  },
+  {
+    "name": "gas-alarm",
+    "engine": "klein-base",
+    "lora_comparison": false,
+    "prompt": "phobosvanilla, The object in the first reference image, a small round carbon monoxide and smoke alarm fixed to a ceiling: a white disc with a slotted grey grille, a small red light and a test button. Keep its shape, layout and colours. Draw it in exactly the art style of the second reference image: a game sprite seen from directly above, south face hinted, with a thick near-black outline around every shape, soft flat cel shading, a muted palette, rounded panel corners and a few small clean details. One object, centred, on a plain pure white background. No floor, no cast shadow, no text, no labels, no people.",
+    "subject": "a small round carbon monoxide and smoke alarm fixed to a ceiling: a white disc with a slotted grey grille, a small red light and a test button.",
+    "references": [
+      "assets/phobos-medical/references/GasAlarm-large.png",
+      ".local/references/vanilla-medical/VitalsMonitor_south.png"
+    ],
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      11,
+      12,
+      13,
+      14
+    ],
+    "lora": "phobos-private-vanilla.safetensors"
+  },
+  {
+    "name": "oxygen-trolley",
+    "engine": "klein-base",
+    "lora_comparison": false,
+    "prompt": "phobosvanilla, The machine in the first reference image, an oxygen cylinder trolley: a dark wheeled steel frame with a push handle carrying two gold oxygen cylinders seen end-on with their valves, a regulator with a blue gauge, and a coiled clear mask tube. Keep its shape, layout and colours. Draw it in exactly the art style of the second reference image: a game sprite seen from directly above, south face hinted, with a thick near-black outline around every shape, soft flat cel shading, a muted palette, rounded panel corners and a few small clean details. One object, centred, on a plain pure white background. No floor, no cast shadow, no text, no labels, no people.",
+    "subject": "an oxygen cylinder trolley: a dark wheeled steel frame with a push handle carrying two gold oxygen cylinders seen end-on with their valves, a regulator with a blue gauge, and a coiled clear mask tube.",
+    "references": [
+      "assets/phobos-medical/references/OxygenTrolley-large.png",
+      ".local/references/vanilla-medical/VitalsMonitor_south.png"
+    ],
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      11,
+      12,
+      13,
+      14
+    ],
+    "lora": "phobos-private-vanilla.safetensors"
+  },
+  {
+    "name": "nebuliser",
+    "engine": "klein-base",
+    "lora_comparison": false,
+    "prompt": "phobosvanilla, The machine in the first reference image, a bedside nebuliser: a small pale grey compressor box with vents and a blue dial, a clear tube to a clear face mask with a small medicine cup, and a few puffs of white mist. Keep its shape, layout and colours. Draw it in exactly the art style of the second reference image: a game sprite seen from directly above, south face hinted, with a thick near-black outline around every shape, soft flat cel shading, a muted palette, rounded panel corners and a few small clean details. One object, centred, on a plain pure white background. No floor, no cast shadow, no text, no labels, no people.",
+    "subject": "a bedside nebuliser: a small pale grey compressor box with vents and a blue dial, a clear tube to a clear face mask with a small medicine cup, and a few puffs of white mist.",
+    "references": [
+      "assets/phobos-medical/references/Nebuliser-large.png",
+      ".local/references/vanilla-medical/VitalsMonitor_south.png"
+    ],
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      11,
+      12,
+      13,
+      14
+    ],
+    "lora": "phobos-private-vanilla.safetensors"
+  },
+  {
+    "name": "bronchodilator-vial",
+    "engine": "klein-base",
+    "lora_comparison": false,
+    "prompt": "phobosvanilla, The item in the first reference image, a strip of three small clear plastic vials with twist-off white tops, each half filled with an amber liquid. Keep its shape, layout and colours. Draw it in exactly the art style of the second reference image: a game sprite seen from directly above, south face hinted, with a thick near-black outline around every shape, soft flat cel shading, a muted palette, rounded panel corners and a few small clean details. One object, centred, on a plain pure white background. No floor, no cast shadow, no text, no labels, no people.",
+    "subject": "a strip of three small clear plastic vials with twist-off white tops, each half filled with an amber liquid.",
+    "references": [
+      "assets/phobos-medical/references/BronchodilatorVial-large.png",
+      ".local/references/vanilla-medical/MedicineIndustrial_a.png"
+    ],
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      11,
+      12,
+      13,
+      14
+    ],
+    "lora": "phobos-private-vanilla.safetensors"
+  },
+  {
+    "name": "anaesthesia-machine",
+    "engine": "klein-base",
+    "lora_comparison": false,
+    "prompt": "phobosvanilla, The machine in the first reference image, an anaesthesia machine on a trolley: a pale grey cabinet on castors with a blue monitor screen showing a breathing wave, a red and a yellow vaporiser, a row of clear glass flow meters and a round blue breathing bag. Keep its shape, layout and colours. Draw it in exactly the art style of the second reference image: a game sprite seen from directly above, south face hinted, with a thick near-black outline around every shape, soft flat cel shading, a muted palette, rounded panel corners and a few small clean details. One object, centred, on a plain pure white background. No floor, no cast shadow, no text, no labels, no people.",
+    "subject": "an anaesthesia machine on a trolley: a pale grey cabinet on castors with a blue monitor screen showing a breathing wave, a red and a yellow vaporiser, a row of clear glass flow meters and a round blue breathing bag.",
+    "references": [
+      "assets/phobos-medical/references/AnaesthesiaMachine-large.png",
+      ".local/references/vanilla-medical/VitalsMonitor_south.png"
+    ],
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      11,
+      12,
+      13,
+      14
+    ],
+    "lora": "phobos-private-vanilla.safetensors"
+  },
+  {
+    "name": "decompression-kit",
+    "engine": "klein-base",
+    "lora_comparison": false,
+    "prompt": "phobosvanilla, The item in the first reference image, a needle decompression kit lying flat: a long pale steel needle with a green plastic hub, beside a long clear plastic sheath. Keep its shape, layout and colours. Draw it in exactly the art style of the second reference image: a game sprite seen from directly above, south face hinted, with a thick near-black outline around every shape, soft flat cel shading, a muted palette, rounded panel corners and a few small clean details. One object, centred, on a plain pure white background. No floor, no cast shadow, no text, no labels, no people.",
+    "subject": "a needle decompression kit lying flat: a long pale steel needle with a green plastic hub, beside a long clear plastic sheath.",
+    "references": [
+      "assets/phobos-medical/references/DecompressionKit-large.png",
+      ".local/references/vanilla-medical/MedicineIndustrial_a.png"
+    ],
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      11,
+      12,
+      13,
+      14
+    ],
+    "lora": "phobos-private-vanilla.safetensors"
+  },
+  {
+    "name": "steriliser",
+    "engine": "klein-base",
+    "lora_comparison": false,
+    "prompt": "phobosvanilla, The machine in the first reference image, a medical steam steriliser: a square pale grey cabinet with a large round white pressure door, a dark locking wheel in its centre, a round blue gauge and a strip of small green indicator lights. Keep its shape, layout and colours. Draw it in exactly the art style of the second reference image: a game sprite seen from directly above, south face hinted, with a thick near-black outline around every shape, soft flat cel shading, a muted palette, rounded panel corners and a few small clean details. One object, centred, on a plain pure white background. No floor, no cast shadow, no text, no labels, no people.",
+    "subject": "a medical steam steriliser: a square pale grey cabinet with a large round white pressure door, a dark locking wheel in its centre, a round blue gauge and a strip of small green indicator lights.",
+    "references": [
+      "assets/phobos-medical/references/Steriliser-large.png",
+      ".local/references/vanilla-medical/VitalsMonitor_south.png"
+    ],
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      11,
+      12,
+      13,
+      14
+    ],
+    "lora": "phobos-private-vanilla.safetensors"
+  },
+  {
+    "name": "fluids-kit",
+    "engine": "klein-base",
+    "lora_comparison": false,
+    "prompt": "phobosvanilla, The item in the first reference image, a fluids kit lying flat: a clear plastic bag of fluid with a white label, a coiled clear giving set tube and a small needle. Keep its shape, layout and colours. Draw it in exactly the art style of the second reference image: a game sprite seen from directly above, south face hinted, with a thick near-black outline around every shape, soft flat cel shading, a muted palette, rounded panel corners and a few small clean details. One object, centred, on a plain pure white background. No floor, no cast shadow, no text, no labels, no people.",
+    "subject": "a fluids kit lying flat: a clear plastic bag of fluid with a white label, a coiled clear giving set tube and a small needle.",
+    "references": [
+      "assets/phobos-medical/references/FluidsKit-large.png",
+      ".local/references/vanilla-medical/MedicineIndustrial_a.png"
+    ],
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      11,
+      12,
+      13,
+      14
+    ],
+    "lora": "phobos-private-vanilla.safetensors"
+  },
+  {
+    "name": "electrolyser-top-down",
+    "engine": "klein-base",
+    "lora_comparison": false,
+    "prompt": "phobosvanilla, The machine in the first reference image, an oxygen electrolyser, a square industrial machine: a grey base frame holding a long stack of thin cell plates between two thick end plates, a gold oxygen outlet and a red hydrogen vent at the back, a blue water inlet at the left side and a small control panel with a blue screen and two lights at the front. Keep its shape, layout and colours. Draw it in exactly the art style of the second reference image: a game sprite seen from directly above, south face hinted, with a thick near-black outline around every shape, soft flat cel shading, a muted palette, rounded panel corners and a few small clean details. One object, centred, on a plain pure white background. No floor, no cast shadow, no text, no labels, no people.",
+    "subject": "an oxygen electrolyser, a square industrial machine: a grey base frame holding a long stack of thin cell plates between two thick end plates, a gold oxygen outlet and a red hydrogen vent at the back, a blue water inlet at the left side and a small control panel with a blue screen and two lights at the front.",
+    "references": [
+      "assets/phobos-medical/references/Electrolyser-large.png",
+      ".local/references/vanilla-medical/VitalsMonitor_south.png"
+    ],
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      11,
+      12,
+      13,
+      14
+    ],
+    "lora": "phobos-private-vanilla.safetensors"
+  },
+  {
+    "name": "hyperbaric-chamber-top-down",
+    "engine": "klein-base",
+    "lora_comparison": false,
+    "prompt": "phobosvanilla, The machine in the first reference image, a one-patient hyperbaric chamber lying north to south, one tile wide and three long, in the middle third of a square picture: a long white cylindrical vessel with rounded ends, a clear acrylic top over a padded blue tray with a pillow at the north end, and a heavy round door with a brass locking wheel and a small gauge at the south end. Use the third reference image for its look. Keep its shape, layout and colours. Draw it in exactly the art style of the second reference image: a game sprite seen from directly above, south face hinted, with a thick near-black outline around every shape, soft flat cel shading, a muted palette, rounded panel corners and a few small clean details. One object, centred, on a plain pure white background. No floor, no cast shadow, no text, no labels, no people.",
+    "subject": "a one-patient hyperbaric chamber lying north to south, one tile wide and three long, in the middle third of a square picture: a long white cylindrical vessel with rounded ends, a clear acrylic top over a padded blue tray with a pillow at the north end, and a heavy round door with a brass locking wheel and a small gauge at the south end. Use the third reference image for its look.",
+    "references": [
+      "assets/phobos-medical/references/HyperbaricChamberNarrow-large.png",
+      ".local/references/vanilla-medical/VitalsMonitor_south.png",
+      ".local/art/picks-7nov/hyperbaric-chamber-102.png"
+    ],
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      11,
+      12,
+      13,
+      14
+    ],
+    "lora": "phobos-private-vanilla.safetensors"
+  }
+]

@@ -1,0 +1,42 @@
+[
+  {
+    "name": "electrolyser-depth",
+    "engine": "klein-base",
+    "lora_comparison": false,
+    "prompt": "refcontrol, a square industrial oxygen electrolyser seen from directly above, south face hinted, in the look of the second reference image: a stack of grey cell plates between thick end plates, a gold oxygen outlet and a red hydrogen vent, a game sprite with a thick near-black outline and soft flat cel shading, on a plain pure white background, no text.",
+    "references": [
+      "assets/phobos-medical/references/Electrolyser-depth.png",
+      "assets/phobos-medical/references/Electrolyser-large.png"
+    ],
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      11,
+      12,
+      13,
+      14
+    ],
+    "lora": "flux2_klein_4b_refcontrol_depth.safetensors",
+    "lora_strength": 0.9
+  },
+  {
+    "name": "hyperbaric-chamber-depth",
+    "engine": "klein-base",
+    "lora_comparison": false,
+    "prompt": "refcontrol, a one-patient hyperbaric chamber lying north to south seen from directly above, south face hinted, in the look of the second reference image: a long white cylindrical vessel with a clear acrylic top and a round door with a brass wheel at the south end, a game sprite with a thick near-black outline and soft flat cel shading, on a plain pure white background, no text.",
+    "references": [
+      "assets/phobos-medical/references/HyperbaricChamberNarrow-depth.png",
+      ".local/art/picks-7nov/hyperbaric-chamber-102.png"
+    ],
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      11,
+      12,
+      13,
+      14
+    ],
+    "lora": "flux2_klein_4b_refcontrol_depth.safetensors",
+    "lora_strength": 0.9
+  }
+]

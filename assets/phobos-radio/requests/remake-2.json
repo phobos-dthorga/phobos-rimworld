@@ -1,0 +1,40 @@
+[
+  {
+    "name": "base-station-remake-2",
+    "engine": "klein-base",
+    "lora_comparison": false,
+    "prompt": "phobosvanilla, A radio base station on a square steel desk: a boxy VHF transceiver with a blank blue display, a small power supply box with an amber light, a coiled microphone cable and a desk microphone. Draw it in exactly the art style of the reference images: a game sprite seen from directly above, south face hinted, with a thick near-black outline around every shape, soft flat cel shading, a muted palette, rounded panel corners and a few small clean details. One object, centred, on a plain pure white background. No floor, no cast shadow, no text, no labels, no people.",
+    "references": [
+      ".local/references/vanilla-medical/VitalsMonitor_south.png",
+      ".local/references/vanilla-medical/ChemfuelTank_south.png"
+    ],
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      11,
+      12,
+      13,
+      14
+    ],
+    "lora": "phobos-private-vanilla.safetensors"
+  },
+  {
+    "name": "whip-remake-2",
+    "engine": "klein-base",
+    "lora_comparison": false,
+    "prompt": "phobosvanilla, A whip antenna standing upright: a thin flexible steel rod rising from a heavy round base with a coaxial connector, drawn tall and narrow. Draw it in exactly the art style of the reference images: a game sprite seen from directly above, south face hinted, with a thick near-black outline around every shape, soft flat cel shading, a muted palette, rounded panel corners and a few small clean details. One object, centred, on a plain pure white background. No floor, no cast shadow, no text, no labels, no people.",
+    "references": [
+      ".local/references/vanilla-medical/VitalsMonitor_south.png",
+      ".local/references/vanilla-medical/OxygenPump_south.png"
+    ],
+    "width": 768,
+    "height": 1152,
+    "seeds": [
+      11,
+      12,
+      13,
+      14
+    ],
+    "lora": "phobos-private-vanilla.safetensors"
+  }
+]

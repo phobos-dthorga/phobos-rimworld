@@ -16,6 +16,10 @@ A second training from the same images, with other settings, then installing its
     python scripts/art/lora_experiment.py retrain vanilla --name vanilla-v2 --trigger phobosvanilla --steps 3000 --resolutions 768,1024
     python scripts/art-run.py train C:/AI/lora-experiments/vanilla-v2/config.yaml --stop-at 07:00
     python scripts/art/lora_experiment.py install - --name vanilla-v2
+A sharper dataset (v3): enlarge pixel-exact instead of the AI upscale, add the fixed view phrase to every caption, then set the new
+model beside the earlier ones' images on the same subjects and seeds:
+    python scripts/art/lora_experiment.py assemble .local/references/vanilla-training-v3 --name vanilla-v3 --trigger phobosvanilla --enlarge nearest --caption-suffix "seen from directly above, south face hinted" --steps 3000 --resolutions 768,1024
+    python scripts/art/lora_experiment.py compare-models assets/phobos-medical/requests/first-batch.json --name vanilla-v3 --trigger phobosvanilla --loras phobos-private-vanilla-v3.safetensors
 
 The upscales have their own folder because they are copies on purpose: beside the candidates they would trip the near-copy check.
 """
@@ -121,19 +125,57 @@ def write_requests(source, work):
     print(f'{len(requests)} upscale requests in {target}')
 
 
-def assemble(source, work, name, trigger):
+ENLARGE = """
+import math, sys
+from pathlib import Path
+from PIL import Image
+for line in Path(sys.argv[1]).read_text(encoding='utf-8').splitlines():
+    source, target, width, height = line.split('|')
+    image = Image.open(source).convert('RGBA')
+    factor = max(1, math.ceil(max(int(width), int(height)) / max(image.size)))
+    image = image.resize((image.width * factor, image.height * factor), Image.NEAREST)
+    image.resize((int(width), int(height)), Image.LANCZOS).save(target)
+"""
+
+
+def enlarge_nearest(sources, dataset):
+    """The sharper upscale for v3 (owner, 7 Nov 2026): each sprite enlarged pixel-exact by a whole factor, then brought to the training
+    size with one smoothing step, so the outlines stay crisp instead of the AI upscaler's softness. Runs under ComfyUI's Python, which
+    has Pillow. Returns the stems written."""
+    import subprocess
+    import tempfile
+    lines, stems = [], []
+    for path in sources:
+        width, height = fit_long_side(*png_size(path))
+        lines.append(f'{path.resolve()}|{(dataset / f"{path.stem}.png").resolve()}|{width}|{height}')
+        stems.append(path.stem)
+    with tempfile.TemporaryDirectory() as temp:
+        listing = Path(temp) / 'list.txt'
+        listing.write_text('\n'.join(lines), encoding='utf-8')
+        subprocess.run([str(COMFY / 'python_embeded' / 'python.exe'), '-c', ENLARGE, str(listing)], check=True)
+    return stems
+
+
+def assemble(source, work, name, trigger, enlarge='ai', caption_suffix='', settings=None):
     dataset = work / 'dataset'
     dataset.mkdir(parents=True, exist_ok=True)
     count = 0
-    for path in sorted(Path(source).glob('*.png')):
+    sources = sorted(Path(source).glob('*.png'))
+    if enlarge == 'nearest':
+        for stem in enlarge_nearest(sources, dataset):
+            caption = caption_for(stem, trigger) + (f', {caption_suffix}' if caption_suffix else '')
+            (dataset / f'{stem}.txt').write_text(caption, encoding='utf-8')
+            count += 1
+    for path in sources if enlarge != 'nearest' else []:
         upscaled = work / 'upscale' / 'generated' / path.stem / f'{path.stem}-0.png'
         if not upscaled.is_file():
             print(f'not upscaled yet, left out: {path.stem}')
             continue
         shutil.copyfile(upscaled, dataset / f'{path.stem}.png')
-        (dataset / f'{path.stem}.txt').write_text(caption_for(path.stem, trigger), encoding='utf-8')
+        caption = caption_for(path.stem, trigger) + (f', {caption_suffix}' if caption_suffix else '')
+        (dataset / f'{path.stem}.txt').write_text(caption, encoding='utf-8')
         count += 1
-    config = training_config(name, dataset, work / 'output', trigger)
+    config = training_config(name, dataset, work / 'output', trigger, settings)
     (work / 'config.yaml').write_text(json.dumps(config, indent=2), encoding='utf-8')
     print(f'{count} images and captions in {dataset}; config in {work / "config.yaml"}')
 
@@ -176,6 +218,25 @@ def settings_from(args):
     return settings
 
 
+def compare_models(request_file, work, loras, trigger, seeds=ROUTE_SEEDS):
+    """The same subjects and seeds as earlier comparisons, through named style models only (LoRA alone, and LoRA with references),
+    so a new model can be set beside the images the earlier ones already made."""
+    out = []
+    for req in json.loads(Path(request_file).read_text(encoding='utf-8')):
+        if req.get('engine') != 'klein-base' or not req.get('references') or req.get('lora_comparison') is False:
+            continue
+        base = {key: req[key] for key in ('engine', 'width', 'height', 'prompt', 'references') if key in req}
+        for lora in loras:
+            tag = Path(lora).stem.replace('phobos-private-', '')
+            out.append({key: value for key, value in base.items() if key != 'references'}
+                       | {'name': f'{req["name"]}-lora-{tag}', 'seeds': list(seeds), 'prompt': f'{trigger}, {req.get("subject", req["prompt"])}', 'lora': lora})
+            out.append(base | {'name': f'{req["name"]}-both-{tag}', 'seeds': list(seeds), 'prompt': f'{trigger}, {req["prompt"]}', 'lora': lora})
+    target = work / 'requests' / 'compare-models.json'
+    target.parent.mkdir(parents=True, exist_ok=True)
+    target.write_text(json.dumps(out, indent=2), encoding='utf-8')
+    print(f'{len(out)} requests in {target}, for {", ".join(loras)}')
+
+
 def compare(request_file, work, name, trigger):
     """Copy the newest LoRA where ComfyUI finds it and write the three-route comparison."""
     lora, outputs = install(work, name)
@@ -187,7 +248,7 @@ def compare(request_file, work, name, trigger):
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
-    parser.add_argument('step', choices=('requests', 'assemble', 'compare', 'retrain', 'install'))
+    parser.add_argument('step', choices=('requests', 'assemble', 'compare', 'compare-models', 'retrain', 'install'))
     parser.add_argument('source', help='a folder of PNGs; for compare, a request file; for retrain, the earlier experiment name; '
                         'for install, anything (-)')
     parser.add_argument('--name', required=True)
@@ -195,12 +256,20 @@ def main(argv=None):
     parser.add_argument('--steps', type=int)
     parser.add_argument('--lr', type=float)
     parser.add_argument('--resolutions', help='comma-separated, such as 768,1024')
+    parser.add_argument('--enlarge', choices=('ai', 'nearest'), default='ai', help='assemble: the AI upscales, or a pixel-exact enlarge')
+    parser.add_argument('--caption-suffix', default='', help='assemble: words added to every caption, such as the fixed view phrase')
+    parser.add_argument('--loras', default='', help='compare-models: comma-separated LoRA file names')
     args = parser.parse_args(argv)
     work = WORK_ROOT / args.name
     if args.step == 'requests':
         write_requests(args.source, work)
     elif args.step == 'assemble':
-        assemble(args.source, work, args.name, args.trigger)
+        assemble(args.source, work, args.name, args.trigger, args.enlarge, args.caption_suffix, settings_from(args))
+    elif args.step == 'compare-models':
+        loras = [name.strip() for name in args.loras.split(',') if name.strip()]
+        if not loras:
+            raise SystemExit('compare-models needs --loras')
+        compare_models(args.source, work, loras, args.trigger)
     elif args.step == 'retrain':
         retrain(args.source, work, args.name, args.trigger, settings_from(args))
     elif args.step == 'install':

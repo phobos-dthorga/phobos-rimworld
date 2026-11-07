@@ -105,11 +105,26 @@ def write(name, what, image):
     print('wrote', path.name)
 
 
+def reference(name, what, image):
+    """The same drawing at full size, as a layout reference for generated art; references are not tracked on main."""
+    folder = Path(__file__).resolve().parent / 'references'
+    folder.mkdir(parents=True, exist_ok=True)
+    path = folder / f'{name}-large.png'
+    image.save(path, optimize=True)
+    digest = hashlib.sha256(path.read_bytes()).hexdigest()
+    path.with_suffix('.record.md').write_text(
+        f'# {name}, large\n\nA {WORK} x {WORK} px drawing of {what}, from `assets/vehicle-patches/draw_standins.py`, {dt.date.today():%d %B %Y}. '
+        f'No image generator, game art or other author\'s art was used. SHA-256 `{digest}`. A layout reference; it does not ship.\n', encoding='utf-8')
+    print('wrote', path.name)
+
+
 DRAWINGS = {
     'BombCaseMk82': lambda: write('BombCaseMk82', 'an empty Mk. 82 bomb case, seen from above, no fins or band',
                                   bomb_case(780, 100, (0.42, 0.6))),
     'BombCaseMk84': lambda: write('BombCaseMk84', 'an empty Mk. 84 bomb case, seen from above, no fins or band',
                                   bomb_case(900, 160, (0.36, 0.64))),
+    'References': lambda: (reference('BombCaseMk82', 'an empty Mk. 82 bomb case, seen from above', bomb_case(780, 100, (0.42, 0.6))),
+                           reference('BombCaseMk84', 'an empty Mk. 84 bomb case, seen from above', bomb_case(900, 160, (0.36, 0.64)))),
 }
 
 if __name__ == '__main__':

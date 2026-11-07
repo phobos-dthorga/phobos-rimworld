@@ -1,0 +1,21 @@
+[
+  {
+    "name": "liquid-oxygen-store-frost",
+    "engine": "klein-base",
+    "lora_comparison": false,
+    "prompt": "phobosvanilla, The storage tank in the first reference image exactly as it is, the same shapes, layout and colours, but with its cold outer surfaces covered in a thin crust of white frost and pale blue rime: ice crystals along the pipes, valves and fittings and over the lower half of the vessel, thickest at the bottom. Only add the frost. Draw it in exactly the art style of the second reference image: a game sprite seen from directly above, south face hinted, with a thick near-black outline around every shape, soft flat cel shading, a muted palette, rounded panel corners and a few small clean details. One object, centred, on a plain pure white background. No floor, no cast shadow, no text, no labels, no people.",
+    "references": [
+      ".local/art/picks-7nov/liquid-oxygen-store-103.png",
+      ".local/references/vanilla-medical/VitalsMonitor_south.png"
+    ],
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      11,
+      12,
+      13,
+      14
+    ],
+    "lora": "phobos-private-vanilla.safetensors"
+  }
+]

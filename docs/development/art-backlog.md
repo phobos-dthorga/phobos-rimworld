@@ -185,6 +185,25 @@ Proposed 6 Nov 2026 for the owner to confirm. Generation doesn't need them; expo
   "seen from directly above, south face hinted", so the view becomes a word the model can be asked for. Why, and the other ways to fix
   the angle, are in [the view-angle models record](view-angle-models.md).
 
+## Night 3 queue (owner's choices, 7 Nov 2026)
+
+Prepared, not run: it waits for the owner's go and stop time. Plan `.local/art/night-3.json`; one command:
+`python scripts/art-run.py night .local/art/night-3.json --stop-at HH:MM`. The dry run passed every step. Four seeds a piece (11 to 14),
+references plus the v1 style model, and the fixed view phrase "seen from directly above, south face hinted" in every prompt.
+
+| Step | What | Images | Estimate (night 2's rate, about 3 to 4 minutes an image) |
+| --- | --- | --- | --- |
+| 1 | Fetch the depth-control add-on (RefControl, thedeoxen, Apache 2.0, hash recorded) | | a minute |
+| 2 | The second set of medical equipment (11 pieces), the electrolyser and the chamber's top-down 1 by 3 redraw, each from its stand-in drawn large | 52 | about 3 hours |
+| 3 | Depth-control trial: the electrolyser and chamber with depth maps drawn from their stand-ins | 8 | about 30 minutes |
+| 4 | The liquid oxygen store's frost, from the shipped pick (a script cuts it out later) | 4 | about 15 minutes |
+| 5 | The radio base station and a real whip | 8 | about 30 minutes |
+| 6 | The Mk. 82 and Mk. 84 bomb cases, from their stand-ins | 8 | about 30 minutes |
+| 7 | Train style model v3: 240 private game sprites (126 buildings and furniture, 83 items, 31 command buttons; no plants, animals, pawns, ruins, fleshmass or void art), enlarged pixel-exact, captions carrying the view phrase, 3000 steps at 768 and 1024 | | about 3.5 hours |
+| 8 to 10 | Install v3 and draw the first batch's 9 subjects through it (style model alone, and with references) on seeds 11 and 12, beside v1's and v2's images from earlier nights | 36 | about 2 hours |
+
+**About 10 hours in all**: everything but training and the comparison is done in the first 5. A stop time cuts the latest steps first.
+
 ## Next requests (7 Nov 2026)
 
 The store's frost (its code waits for it, owner), the electrolyser, the chamber's top-down 1 by 3 redraw, a real whip, the radio base
