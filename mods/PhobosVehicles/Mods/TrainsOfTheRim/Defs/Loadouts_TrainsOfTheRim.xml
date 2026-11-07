@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    Trains of the Rim's steam locomotives burn wood or chemfuel under a boiler, which is nothing like a car engine's coolant and oil,
+    so they get no systems: a loadout with none claims them first. The diesel shunter is a combustion engine and gets the general
+    land systems. A boiler system (water, steam pressure, firebox) would be its own design. Not yet tested in game.
+  -->
+  <Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
+    <defName>PhobosVehicleLoadout_TOTR_Steam</defName>
+    <label>steam locomotive (no systems)</label>
+    <kind>None</kind>
+    <priority>Vehicle</priority>
+    <selector>
+      <vehicleDefs>
+        <li>TOTR_Steam_Locomotive_Frisco_Chemfuel</li>
+        <li>TOTR_Steam_Locomotive_Frisco_Wood</li>
+        <li>TOTR_Tank_Engine_Chemfuel</li>
+        <li>TOTR_Tank_Engine_Wood</li>
+      </vehicleDefs>
+    </selector>
+  </Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
+</Defs>

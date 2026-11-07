@@ -5,6 +5,37 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.9.0] - 2026-11-08 - Draft
+
+The owner's vehicle systems (8 November 2026): real systems for every Vehicle Framework vehicle, as a generic service any mod can
+extend in XML. Built overnight while the owner slept, phases A to C of the design. **Not yet tested in game.** Design:
+docs/development/vehicle-systems-design.md.
+
+### Added
+
+- With Vehicle Framework active, on RimWorld 1.7: a battery and alternator, coolant and oil, the engine's hours and a service, tyres or tracks, brakes and a gearbox on every vehicle that fits, found by what the vehicle runs on and whether it drives, floats or flies. Air brakes and hydraulics are ready for named vehicles.
+- A flat or frozen battery, a broken starter, gelled fuel (a setting), worn-through brakes or air brakes still held on stop a vehicle starting or driving, and the button or order says why and what to do.
+- Overheating, low oil, worn tyres and overdue services damage parts, slow the vehicle or make parts fail; steam rises from a hot engine; a letter tells you when an engine boils over.
+- Mechanics service vehicles: haulers load the supplies into the vehicle's cargo, then a constructor does the work. A spanner button asks for a service now.
+- Switches for headlights and the cab heater; a parked vehicle beside a powered conduit or battery trickle-charges.
+- An idling engine warms the room it stands in.
+- Each vehicle's inspect text shows its systems by display mode: Plain names only what needs a look.
+- Settings: which vehicles (all or only D'thorga ones, per mod, per kind), each system on or off, figures only, cold fuel, display mode, and a button that removes the added parts from a colony before the mod is removed.
+- For modders: system, loadout and rules Defs, with input, condition and effect classes any mod can add to; a schema check that runs without the game (scripts/check-vehicle-schemas.py); a guide (docs/vehicle-systems-modding.md); dev actions to log a vehicle's systems, set a quantity, ask for a service and remove the parts.
+
+### Compatibility and limits
+
+- RimWorld 1.7 only (owner, 8 November 2026). Vehicle Framework's Steam build is for 1.6 and the 1.7 game loads it; the part is built against that and may need a rebuild when Vehicle Framework releases 1.7.
+- Under Combat Extended, the added parts take the engine's cells and armour so shots can reach them.
+- Aircraft get the electrical system and the service only; electric vehicles get nothing yet.
+- Patches one Vehicle Framework method to add the parts and comp before Vehicle Framework resolves each design, and its save code, to drop or add parts a design has lost or gained.
+
+### Save compatibility
+
+- Safe to add to a running colony: vehicles gain the parts at full health and the systems start from the vehicle's surroundings.
+- Switching vehicles or systems off in the settings is safe: saved vehicles drop the parts their design no longer has.
+- **Removing D'thorga Framework or Vehicle Framework from such a colony needs the removal button first**, then a save. Without it, saved vehicles may fail to load (read from Vehicle Framework's code, not seen in game).
+
 ## [0.8.1] - 2026-11-07 - Draft
 
 Found in the owner's log of 7 November 2026: 7,662 errors in one session. Not yet tested in game.

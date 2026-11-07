@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    The lubrication system: the oil's level, temperature and pressure. Design: docs/development/vehicle-systems-design.md. Not yet
+    tested in game.
+
+    Sources and labels:
+    - Engine oil runs at about 85 to 105 degrees C when warm and breaks down faster held above about 110 to 120. Secondary and low
+      quality: enthusiasts' forums; to be replaced by an engine maker's manual. The 120 degree floor is authored.
+    - Oil follows the coolant's temperature (authored rate), so a hot engine has hot oil.
+    - Oil burned in running: 0.15 % of the sump an hour at full load (authored; real engines burn far less, but a service every
+      few in-game weeks is the point).
+    - Oil pressure here is the pump's ability, from the oil pump part's health and the oil level (authored curve); it does harm
+      only while the engine runs.
+    The oil is topped up by the service (PhobosVehicleSystem_Service).
+  -->
+  <Phobos.VehicleSystems.PhobosVehicleSystemDef>
+    <defName>PhobosVehicleSystem_Lubrication</defName>
+    <label>lubrication</label>
+    <description>The engine's oil: its level, its temperature and the pump's pressure. Low oil or a damaged pump wears the engine while it runs; oil cooked too hot does too.</description>
+    <roles>
+      <li>Engine</li>
+      <li>OilPump</li>
+    </roles>
+    <parameters>
+      <oilBurnPerHour>0.0015</oilBurnPerHour>
+      <oilFollowRate>3</oilFollowRate>
+    </parameters>
+    <quantities>
+      <li>
+        <name>oilLevel</name>
+        <label>oil level</label>
+        <unit>Fraction</unit>
+        <min>0</min>
+        <max>1</max>
+        <startsAt>Full</startsAt>
+        <stages>
+          <li>
+            <to>0.5</to>
+            <label>low</label>
+            <notable>true</notable>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_Message">
+                <message>PhobosVehicleSystems_MsgOilLow</message>
+                <type>CautionInput</type>
+              </li>
+            </effects>
+          </li>
+        </stages>
+      </li>
+      <li>
+        <name>oilTemperature</name>
+        <label>oil</label>
+        <unit>Celsius</unit>
+        <min>-60</min>
+        <max>200</max>
+        <startsAt>Ambient</startsAt>
+        <stages>
+          <li>
+            <from>120</from>
+            <label>cooking</label>
+            <notable>true</notable>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_DamagePart">
+                <role>Engine</role>
+                <perHour>0.5</perHour>
+                <when Class="Phobos.VehicleSystems.When_EngineRunning" />
+              </li>
+            </effects>
+          </li>
+        </stages>
+      </li>
+      <li>
+        <name>oilPressure</name>
+        <label>oil pressure</label>
+        <unit>Fraction</unit>
+        <hidden>true</hidden>
+        <derivedFrom>
+          <li Class="Phobos.VehicleSystems.Input_PartEfficiency">
+            <role>OilPump</role>
+          </li>
+          <li Class="Phobos.VehicleSystems.Input_Quantity">
+            <quantity>oilLevel</quantity>
+            <curve>
+              <points>
+                <li>(0, 0)</li>
+                <li>(0.3, 0.4)</li>
+                <li>(0.6, 1)</li>
+                <li>(1, 1)</li>
+              </points>
+            </curve>
+          </li>
+        </derivedFrom>
+        <stages>
+          <li>
+            <to>0.45</to>
+            <label>low</label>
+            <notable>true</notable>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_DamagePart">
+                <role>Engine</role>
+                <perHour>2</perHour>
+                <when Class="Phobos.VehicleSystems.When_EngineRunning" />
+              </li>
+              <li Class="Phobos.VehicleSystems.Effect_Message">
+                <message>PhobosVehicleSystems_MsgOilPressureLow</message>
+              </li>
+            </effects>
+          </li>
+        </stages>
+      </li>
+    </quantities>
+    <flows>
+      <li>
+        <name>followCoolant</name>
+        <quantity>oilTemperature</quantity>
+        <kind>Toward</kind>
+        <target Class="Phobos.VehicleSystems.Input_Quantity">
+          <quantity>coolantTemperature</quantity>
+          <fallback Class="Phobos.VehicleSystems.Input_Ambient" />
+        </target>
+        <factorParameter>oilFollowRate</factorParameter>
+      </li>
+      <li>
+        <name>burn</name>
+        <quantity>oilLevel</quantity>
+        <kind>From</kind>
+        <factorParameter>oilBurnPerHour</factorParameter>
+        <inputs>
+          <li Class="Phobos.VehicleSystems.Input_EngineLoad" />
+        </inputs>
+      </li>
+    </flows>
+    <onPartHit>
+      <li>
+        <role>OilPump</role>
+        <quantity>oilLevel</quantity>
+        <perHealthLost>-0.01</perHealthLost>
+      </li>
+      <li>
+        <role>Engine</role>
+        <quantity>oilLevel</quantity>
+        <perHealthLost>-0.004</perHealthLost>
+      </li>
+    </onPartHit>
+  </Phobos.VehicleSystems.PhobosVehicleSystemDef>
+
+  <!--
+    Fuel that thickens in deep cold, the way diesel gels. Off unless the player turns it on (settings), because chemfuel is the
+    game's own fuel and nothing says it behaves like diesel: a gameplay choice, labelled so. No. 2 diesel gels near -8 degrees C
+    (secondary: Wikipedia, "Gel point (petroleum)"; ASTM D975 is the authority). Warming the vehicle in a heated room fixes it.
+  -->
+  <Phobos.VehicleSystems.PhobosVehicleSystemDef>
+    <defName>PhobosVehicleSystem_Fuel</defName>
+    <label>fuel in the cold</label>
+    <description>When the setting is on, fuel thickens below about -8 °C and the engine will not start until the vehicle is warmer.</description>
+    <quantities>
+      <li>
+        <name>fuelGel</name>
+        <label>fuel</label>
+        <unit>Fraction</unit>
+        <hidden>true</hidden>
+        <derivedFrom>
+          <li Class="Phobos.VehicleSystems.Input_Setting">
+            <setting>fuelGelling</setting>
+          </li>
+          <li Class="Phobos.VehicleSystems.Input_Ambient">
+            <curve>
+              <points>
+                <li>(-20, 1)</li>
+                <li>(-8, 0)</li>
+              </points>
+            </curve>
+          </li>
+        </derivedFrom>
+        <stages>
+          <li>
+            <from>0.5</from>
+            <label>gelled</label>
+            <notable>true</notable>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_RefuseDraft">
+                <reason>PhobosVehicleSystems_RefuseFuelGelled</reason>
+              </li>
+            </effects>
+          </li>
+        </stages>
+      </li>
+    </quantities>
+  </Phobos.VehicleSystems.PhobosVehicleSystemDef>
+</Defs>

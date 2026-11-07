@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    The Humvee (HUMVEE by lunartika, HMV_A). The real HMMWV runs a 24 V system from two 12 V batteries in series (US Army ordnance
+    training text OD1615, "Introduction to the HMMWV", electrical system: armyordnance.tpub.com/OD1615/Electrical-System-49.htm,
+    read 8 Nov 2026). Its charging output of about 60 A comes from owners' reports on the Steel Soldiers forum (low quality, not
+    checked against the technical manual). Battery capacity stays the heavy default (authored). The mod gives the Humvee an engine,
+    a gearbox, four wheels and four suspension units; the service binds the engine and gearbox and appends the rest. Its diesel
+    makes the cold-fuel setting a fair fit. Not yet tested in game.
+  -->
+  <Phobos.VehicleSystems.PhobosVehicleLoadoutDef ParentName="PhobosVehicleLoadoutLandHeavy">
+    <defName>PhobosVehicleLoadout_HUMVEE</defName>
+    <label>Humvee</label>
+    <priority>Vehicle</priority>
+    <selector>
+      <vehicleDefs>
+        <li>HMV_A</li>
+      </vehicleDefs>
+      <massMin>-1</massMin>
+    </selector>
+    <systems Inherit="False">
+      <li>
+        <def>PhobosVehicleSystem_Electrical</def>
+        <set>
+          <batteryAmpHours>100</batteryAmpHours>
+          <alternatorAmps>60</alternatorAmps>
+          <starterAmpHours>0.3</starterAmpHours>
+        </set>
+      </li>
+      <li><def>PhobosVehicleSystem_Cooling</def></li>
+      <li><def>PhobosVehicleSystem_Lubrication</def></li>
+      <li><def>PhobosVehicleSystem_Fuel</def></li>
+      <li><def>PhobosVehicleSystem_Service</def></li>
+      <li><def>PhobosVehicleSystem_RunningGear</def></li>
+      <li><def>PhobosVehicleSystem_Brakes</def></li>
+      <li><def>PhobosVehicleSystem_Transmission</def></li>
+    </systems>
+  </Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
+</Defs>

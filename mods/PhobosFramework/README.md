@@ -5,11 +5,21 @@ colonist is breathing, makes fires fill roofed rooms with the game's own smoke w
 carries carbon monoxide from fires, holds the per-person care choices the D'thorga medical mods offer, and holds the small
 helpers every D'thorga mod shares.
 
-Version 0.8.1, built 7 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
-oxygen working through Burns and Smoke and Medical Equipment (5 November 2026). The health layer new in 0.3.0 is not yet tested in
-game. The rest is read from the game's and the mods' code.
+Version 0.9.0, built 8 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
+oxygen working through Burns and Smoke and Medical Equipment (5 November 2026). The health layer new in 0.3.0 and the **vehicle
+systems new in 0.9.0 are not yet tested in game.** The rest is read from the game's and the mods' code.
+
+With **Vehicle Framework** active (RimWorld 1.7 only), it also gives vehicles real systems: a battery and alternator, coolant and
+oil, tyres or tracks, brakes, a gearbox, and wear that a mechanic services. See [Vehicle systems](#vehicle-systems-with-vehicle-framework).
 
 ## Read this first (gotchas)
+
+- **Vehicle systems change every Vehicle Framework vehicle you have, from any mod**, unless you choose otherwise in the settings
+  (**D'thorga Framework: vehicle systems**). They append parts (battery, radiator, oil pump, brakes and so on) to vehicle designs.
+  **Decide before you load a colony**: changing which vehicles get them needs a restart. Switching vehicles off later is safe.
+- **Removing D'thorga Framework or Vehicle Framework from a colony that used vehicle systems: press the removal button first.**
+  Vehicles save their parts in order, so load the colony, press **Remove the added parts from this colony's vehicles** in the
+  settings, save, then remove the mod. Without that, saved vehicles may fail to load.
 
 - **Load it before any D'thorga mod that needs it.** The About file asks for that order, so RimSort does it for you. It needs
   no other mod and no Harmony.
@@ -70,6 +80,41 @@ flowchart LR
 guests) and under what care, how dangerous a condition is and how soon it kills, and which doctor could operate. It also puts one
 button per registered care choice on each of those people: D'thorga Triage's "Doctors may operate" is the first. How the medical
 mods share the work is in [the medical mods together](../../docs/medical-mods.md).
+
+## Vehicle systems (with Vehicle Framework)
+
+Every vehicle gets systems that fit what it is, found by what it runs on and whether it drives, floats or flies, not by its name.
+Other mods (D'thorga Vehicles first) can give a named vehicle its own figures. Nothing here is tested in game yet.
+
+| System | What you see | What goes wrong | What fixes it |
+| --- | --- | --- | --- |
+| Battery and alternator | Battery charge; the alternator charges it while the engine runs | A damaged alternator stops charging; a flat or very cold battery **won't start the engine** (the draft button says why); a flat battery in deep frost can crack | Park beside a powered conduit or battery to trickle-charge; warm the vehicle; repair the parts |
+| Coolant | Coolant temperature, warm at 88 to 110 °C | A holed radiator, low coolant or hard work in the heat: **running hot**, then overheating (engine damage), then boiling over (a letter) | Stop and let it cool; repair the radiator; a service refills the coolant |
+| Oil | Oil level, temperature and pressure | Low oil or a damaged oil pump wears the engine while it runs | A service tops up the oil |
+| Wear and service | Hours since the last service | Parts fail now and then, more once a service is due (120 running hours) and far more once overdue (180) | A **service**: haulers load 12 chemfuel and 1 component into the vehicle's cargo, then a constructor works on it |
+| Tyres and tracks | Tread wear | Worn tyres slow the vehicle; worn through, they fail on the move | A service with 15 steel and 2 components |
+| Brakes | Brake wear, with every stop | Worn brakes slow the vehicle; worn through or wrecked, **it won't drive** | A service with 1 component |
+| Gearbox | Gearbox temperature | A damaged gearbox heats up and wears while driving | Repair the gearbox |
+| Cold fuel (a setting, off) | | Below about -8 °C chemfuel gels like diesel: **won't start** | Warm the vehicle in a heated room |
+| Air brakes (named heavy trucks only) | Air pressure | After standing long, **it won't drive** until the engine has run a few minutes | Let it idle |
+
+- **The service button** (a spanner) asks for a service now, even if none is due. Services also start by themselves when due.
+- **Switches** for headlights and the cab heater: each draws on the battery or the alternator while it runs.
+- **Boats** cool with sea water (no radiator part). **Aircraft** get only the battery, alternator and service; their engines cool
+  unlike a car's, which waits for a later design. **Electric vehicles** get none yet.
+- **The engine heats the room it stands in** while it runs, through the game's own temperature, so an idling truck warms a garage.
+- **Engine running** means drafted, or moving in a caravan, or flying, with fuel aboard. Idling counts as half the work.
+- **Combat Extended:** the added parts take the engine's cells and armour, so shots can reach them.
+- **Figures and supplies are gameplay choices**, each labelled with its source or as authored in the system files. Chemfuel stands
+  in for oil and coolant and steel for tyres, because the game has neither.
+
+**Settings (D'thorga Framework: vehicle systems):** which vehicles (all, or only D'thorga ones; per mod; per kind: light and heavy
+land vehicles, boats, aircraft), each system on or off, **figures only** (everything shows, nothing happens to the vehicle), cold
+fuel, how much the vehicle shows (Plain, Operator, Engineer), and the removal button. The first group needs a restart.
+
+**For modders:** every system and loadout is XML you can add to or change. The guide is
+[vehicle systems for modders](../../docs/vehicle-systems-modding.md); `python scripts/check-vehicle-schemas.py` checks your files
+offline.
 
 ## Settings
 

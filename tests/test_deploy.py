@@ -68,9 +68,14 @@ class AllModsTests(unittest.TestCase):
         for expected in ('PhobosFramework', 'PhobosMedical', 'PhobosRadioFramework', 'PhobosFactoryAdditions',
                          'PhobosPatches', 'PhobosWaterTap'):
             self.assertIn(expected, mods)
-        # Every project builds into a real mod, and every mod's code is built; tie-in projects share their mod's folder.
+        # Every project builds into a real mod; tie-in projects share their mod's folder. A mod with no project is XML only
+        # (D'thorga Vehicles 0.1.0), so it must load no version folder, where an assembly would be.
         folders = {re.search(r'<ModFolder>\s*([^<\s]+)', project.read_text(encoding='utf-8')).group(1) for project in deploy.projects()}
-        self.assertEqual(sorted(folders), sorted(mods))
+        self.assertLessEqual(folders, set(mods))
+        for mod in set(mods) - folders:
+            load_folders = Path(ROOT, 'mods', mod, 'LoadFolders.xml')
+            text = load_folders.read_text(encoding='utf-8') if load_folders.exists() else ''
+            self.assertNotRegex(text, r'<li[^>]*>\s*(Mods/[^<]*/)?1\.\d\s*</li>', mod + ' has no code but loads a version folder')
 
     def test_build_runs_dotnet_on_every_project_and_stops_at_the_first_failure(self):
         calls = []

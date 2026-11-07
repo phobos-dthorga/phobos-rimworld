@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    The cooling system of a liquid-cooled combustion engine: the engine heats its coolant in proportion to the fuel it burns, the
+    thermostat opens the radiator to the air, and a slow soak cools everything toward the air. Design:
+    docs/development/vehicle-systems-design.md. Not yet tested in game. The integrator and these exact figures are checked offline
+    (tests/PhobosFramework.Vehicles.Rules.Tests, CoolingFigureTests): change both together.
+
+    Sources and labels:
+    - Thermostats begin to open at about 82 to 90 degrees C. Secondary: engine handbooks quoted on owners' forums; a Detroit Diesel
+      thermostat listed at 87 degrees C. We use 88 with an 8 degree band (authored).
+    - A warm engine's coolant runs at about 85 to 105 degrees C, and pressurised systems run above 100. Secondary: Wikipedia,
+      "Internal combustion engine cooling".
+    - Overheating damages the engine's materials and lubricant; boiling coolant causes a sudden loss of cooling, and a failing
+      head gasket feeds back into more heat. Secondary: Wikipedia, "Internal combustion engine cooling" and "Head gasket". The
+      floors of 110, 120 and 130 degrees C are authored for a pressurised system.
+    - Cold running wears an engine faster; cold starts are a large share of all wear. Secondary: a Szczecin Maritime University study
+      of start-up wear; SAE 2006-01-3413 as cited second-hand (unverified). The wear figures are authored and small.
+    - Heat at full load (420 degrees an hour), the radiator's rate (6 an hour), the soak (0.6 an hour) and the slower radiator when
+      stopped (0.7) are authored so an engine warms in about a quarter hour and settles at 88 to 110 degrees C.
+    - Room heat: the engine's waste heat goes into the room it stands in, 12 heat units a second at full load (authored; a
+      vanilla heater gives about 21), instead of Vehicle Framework's flat ambient heat.
+  -->
+  <Phobos.VehicleSystems.PhobosVehicleSystemDef>
+    <defName>PhobosVehicleSystem_Cooling</defName>
+    <label>cooling system</label>
+    <description>The coolant, the thermostat and the radiator. An engine runs warm and steady while they work; with a holed radiator, low coolant or hard work in the heat it runs hot, overheats and boils over, and the engine takes damage.</description>
+    <roles>
+      <li>Engine</li>
+      <li>Radiator</li>
+    </roles>
+    <parameters>
+      <heatAtFullLoad>420</heatAtFullLoad>
+      <radiatorRate>6</radiatorRate>
+      <soakRate>0.6</soakRate>
+      <thermostatOpens>88</thermostatOpens>
+    </parameters>
+    <quantities>
+      <li>
+        <name>coolantTemperature</name>
+        <label>coolant</label>
+        <unit>Celsius</unit>
+        <min>-60</min>
+        <max>200</max>
+        <startsAt>Ambient</startsAt>
+        <stages>
+          <li>
+            <to>40</to>
+            <label>cold</label>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_DamagePart">
+                <role>Engine</role>
+                <perHour>0.15</perHour>
+                <when Class="Phobos.VehicleSystems.When_EngineRunning" />
+              </li>
+            </effects>
+          </li>
+          <li>
+            <from>40</from>
+            <to>110</to>
+            <label>warm</label>
+          </li>
+          <li>
+            <from>110</from>
+            <to>120</to>
+            <label>running hot</label>
+            <notable>true</notable>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_Fleck">
+                <fleck>Smoke</fleck>
+                <perHour>40</perHour>
+                <scale>0.8</scale>
+              </li>
+              <li Class="Phobos.VehicleSystems.Effect_Message">
+                <message>PhobosVehicleSystems_MsgRunningHot</message>
+                <type>CautionInput</type>
+              </li>
+            </effects>
+          </li>
+          <li>
+            <from>120</from>
+            <to>130</to>
+            <label>overheating</label>
+            <notable>true</notable>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_DamagePart">
+                <role>Engine</role>
+                <perHour>3</perHour>
+              </li>
+              <li Class="Phobos.VehicleSystems.Effect_Fleck">
+                <fleck>Smoke</fleck>
+                <perHour>80</perHour>
+                <scale>1.1</scale>
+              </li>
+              <li Class="Phobos.VehicleSystems.Effect_Message">
+                <message>PhobosVehicleSystems_MsgOverheating</message>
+              </li>
+            </effects>
+          </li>
+          <li>
+            <from>130</from>
+            <label>boiling over</label>
+            <notable>true</notable>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_DamagePart">
+                <role>Engine</role>
+                <perHour>6</perHour>
+              </li>
+              <li Class="Phobos.VehicleSystems.Effect_RateQuantity">
+                <quantity>coolantLevel</quantity>
+                <perHour>-0.5</perHour>
+              </li>
+              <li Class="Phobos.VehicleSystems.Effect_Fleck">
+                <fleck>Smoke</fleck>
+                <perHour>140</perHour>
+                <scale>1.4</scale>
+              </li>
+              <li Class="Phobos.VehicleSystems.Effect_Letter">
+                <label>PhobosVehicleSystems_LetterBoilingLabel</label>
+                <text>PhobosVehicleSystems_LetterBoilingText</text>
+              </li>
+            </effects>
+          </li>
+        </stages>
+      </li>
+      <li>
+        <name>coolantLevel</name>
+        <label>coolant level</label>
+        <unit>Fraction</unit>
+        <min>0</min>
+        <max>1</max>
+        <startsAt>Full</startsAt>
+        <stages>
+          <li>
+            <to>0.6</to>
+            <label>low</label>
+            <notable>true</notable>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_Message">
+                <message>PhobosVehicleSystems_MsgCoolantLow</message>
+                <type>CautionInput</type>
+              </li>
+            </effects>
+          </li>
+        </stages>
+      </li>
+      <li>
+        <!-- How hard the engine works, for its room heat. -->
+        <name>engineLoad</name>
+        <label>engine load</label>
+        <unit>Fraction</unit>
+        <hidden>true</hidden>
+        <derivedFrom>
+          <li Class="Phobos.VehicleSystems.Input_EngineLoad" />
+        </derivedFrom>
+        <stages>
+          <li>
+            <from>0.01</from>
+            <label>running</label>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_PushHeat">
+                <heatPerSecond>12</heatPerSecond>
+                <scaleBy Class="Phobos.VehicleSystems.Input_EngineLoad" />
+              </li>
+            </effects>
+          </li>
+        </stages>
+      </li>
+    </quantities>
+    <flows>
+      <li>
+        <!-- Heat from the fuel burned, rising steeply as coolant is lost (less coolant to carry it). -->
+        <name>combustion</name>
+        <quantity>coolantTemperature</quantity>
+        <kind>Into</kind>
+        <factorParameter>heatAtFullLoad</factorParameter>
+        <inputs>
+          <li Class="Phobos.VehicleSystems.Input_EngineLoad" />
+          <li Class="Phobos.VehicleSystems.Input_Quantity">
+            <quantity>coolantLevel</quantity>
+            <curve>
+              <points>
+                <li>(0, 2.5)</li>
+                <li>(0.5, 1.4)</li>
+                <li>(1, 1)</li>
+              </points>
+            </curve>
+          </li>
+        </inputs>
+      </li>
+      <li>
+        <!-- The radiator, through the thermostat: as good as the radiator part, better on the move, useless without coolant. -->
+        <name>radiator</name>
+        <quantity>coolantTemperature</quantity>
+        <kind>Toward</kind>
+        <target Class="Phobos.VehicleSystems.Input_Ambient" />
+        <factorParameter>radiatorRate</factorParameter>
+        <openAboveParameter>thermostatOpens</openAboveParameter>
+        <band>8</band>
+        <inputs>
+          <li Class="Phobos.VehicleSystems.Input_PartEfficiency">
+            <role>Radiator</role>
+          </li>
+          <li Class="Phobos.VehicleSystems.Input_Moving">
+            <stopped>0.7</stopped>
+            <moving>1</moving>
+          </li>
+          <li Class="Phobos.VehicleSystems.Input_Quantity">
+            <quantity>coolantLevel</quantity>
+            <curve>
+              <points>
+                <li>(0, 0.05)</li>
+                <li>(1, 1)</li>
+              </points>
+            </curve>
+          </li>
+        </inputs>
+      </li>
+      <li>
+        <name>soak</name>
+        <quantity>coolantTemperature</quantity>
+        <kind>Toward</kind>
+        <target Class="Phobos.VehicleSystems.Input_Ambient" />
+        <factorParameter>soakRate</factorParameter>
+      </li>
+    </flows>
+    <onEvents>
+      <li>
+        <!-- A cold start wears the engine a little (authored; small, because every draft is a start). -->
+        <eventDef>IgnitionOn</eventDef>
+        <effects>
+          <li Class="Phobos.VehicleSystems.Effect_DamagePart">
+            <role>Engine</role>
+            <amount>0.05</amount>
+            <when Class="Phobos.VehicleSystems.When_QuantityBelow">
+              <quantity>coolantTemperature</quantity>
+              <value>20</value>
+            </when>
+          </li>
+        </effects>
+      </li>
+    </onEvents>
+    <onPartHit>
+      <li>
+        <role>Radiator</role>
+        <quantity>coolantLevel</quantity>
+        <perHealthLost>-0.015</perHealthLost>
+      </li>
+      <li>
+        <role>Engine</role>
+        <quantity>coolantLevel</quantity>
+        <perHealthLost>-0.005</perHealthLost>
+      </li>
+    </onPartHit>
+  </Phobos.VehicleSystems.PhobosVehicleSystemDef>
+</Defs>

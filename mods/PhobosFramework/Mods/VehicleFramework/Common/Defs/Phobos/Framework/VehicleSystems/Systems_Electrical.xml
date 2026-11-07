@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    The electrical system: a lead-acid starting battery, charged by the alternator while the engine runs and drained by the loads
+    the alternator cannot cover and by each start. Design: docs/development/vehicle-systems-design.md. Not yet tested in game.
+
+    Sources and labels (every figure below is one of these):
+    - A typical car battery is 12 V and about 40 to 45 Ah; heavy vehicles put two in series for 24 V. Secondary: Wikipedia,
+      "Automotive battery".
+    - A battery gives about 80 % of its capacity at 0 degrees C and about 50 % at -18 degrees C against 27 degrees C. Secondary:
+      Battery University BU-502; Midtronics. The curve between and beyond those points is our interpolation (authored).
+    - A discharged lead-acid battery can freeze and crack. Secondary: Battery University BU-502. The thresholds are authored.
+    - Light vehicles' alternators give about 50 to 70 A. Secondary: Wikipedia, "Alternator (automotive)".
+    - A start of about 150 A for about 6 s is 0.25 Ah (our inference from typical starter currents; authored); a cold start draws
+      more (authored factor).
+    - The charging taper (a full battery accepts little) and the self-discharge are authored.
+    Charge is a fraction of the battery's capacity, so every flow below is amperes divided by ampere-hours: a fraction per hour.
+  -->
+  <Phobos.VehicleSystems.PhobosVehicleSystemDef>
+    <defName>PhobosVehicleSystem_Electrical</defName>
+    <label>electrical system</label>
+    <description>The starting battery, the alternator that charges it while the engine runs, and the lights and heater it powers. A flat battery cannot start the engine; a cold one has less to give.</description>
+    <roles>
+      <li>Battery</li>
+      <li>Alternator</li>
+      <li>Starter</li>
+    </roles>
+    <parameters>
+      <batteryAmpHours>45</batteryAmpHours>
+      <alternatorAmps>65</alternatorAmps>
+      <starterAmpHours>0.25</starterAmpHours>
+      <shoreChargeAmps>10</shoreChargeAmps>
+    </parameters>
+    <quantities>
+      <li>
+        <name>charge</name>
+        <label>battery</label>
+        <unit>Fraction</unit>
+        <min>0</min>
+        <max>1</max>
+        <startsAt>Full</startsAt>
+        <stages>
+          <li>
+            <to>0.3</to>
+            <label>low</label>
+            <notable>true</notable>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_Message">
+                <message>PhobosVehicleSystems_MsgBatteryLow</message>
+              </li>
+            </effects>
+          </li>
+          <li>
+            <from>0.3</from>
+            <label>charged</label>
+          </li>
+        </stages>
+      </li>
+      <li>
+        <!-- What the battery can give a starter now: its charge times its capacity at this temperature. -->
+        <name>startingPower</name>
+        <label>starting power</label>
+        <unit>Fraction</unit>
+        <hidden>true</hidden>
+        <derivedFrom>
+          <li Class="Phobos.VehicleSystems.Input_Quantity">
+            <quantity>charge</quantity>
+          </li>
+          <li Class="Phobos.VehicleSystems.Input_Ambient">
+            <curve>
+              <points>
+                <li>(-40, 0.3)</li>
+                <li>(-18, 0.5)</li>
+                <li>(0, 0.8)</li>
+                <li>(27, 1)</li>
+                <li>(60, 1)</li>
+              </points>
+            </curve>
+          </li>
+        </derivedFrom>
+        <stages>
+          <li>
+            <to>0.1</to>
+            <label>too weak to start</label>
+            <notable>true</notable>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_RefuseDraft">
+                <reason>PhobosVehicleSystems_RefuseFlatBattery</reason>
+              </li>
+            </effects>
+          </li>
+          <li>
+            <from>0.1</from>
+            <label>enough to start</label>
+          </li>
+        </stages>
+      </li>
+      <li>
+        <name>starter</name>
+        <label>starter motor</label>
+        <unit>Fraction</unit>
+        <hidden>true</hidden>
+        <derivedFrom>
+          <li Class="Phobos.VehicleSystems.Input_PartEfficiency">
+            <role>Starter</role>
+          </li>
+        </derivedFrom>
+        <stages>
+          <li>
+            <to>0.2</to>
+            <label>broken</label>
+            <notable>true</notable>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_RefuseDraft">
+                <reason>PhobosVehicleSystems_RefuseStarter</reason>
+              </li>
+            </effects>
+          </li>
+        </stages>
+      </li>
+      <li>
+        <!-- A discharged battery in deep cold: 1 when it is empty below -40 degrees C, 0 above -10 degrees C or above 40 % charge. -->
+        <name>frost</name>
+        <label>battery frost</label>
+        <unit>Fraction</unit>
+        <hidden>true</hidden>
+        <derivedFrom>
+          <li Class="Phobos.VehicleSystems.Input_Ambient">
+            <curve>
+              <points>
+                <li>(-40, 1)</li>
+                <li>(-10, 0)</li>
+              </points>
+            </curve>
+          </li>
+          <li Class="Phobos.VehicleSystems.Input_Quantity">
+            <quantity>charge</quantity>
+            <curve>
+              <points>
+                <li>(0, 1)</li>
+                <li>(0.4, 0)</li>
+              </points>
+            </curve>
+          </li>
+        </derivedFrom>
+        <stages>
+          <li>
+            <from>0.05</from>
+            <label>freezing</label>
+            <notable>true</notable>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_DamagePart">
+                <role>Battery</role>
+                <perHour>2</perHour>
+              </li>
+              <li Class="Phobos.VehicleSystems.Effect_Message">
+                <message>PhobosVehicleSystems_MsgBatteryFreezing</message>
+              </li>
+            </effects>
+          </li>
+        </stages>
+      </li>
+    </quantities>
+    <flows>
+      <li>
+        <!-- What the alternator gives beyond the loads, less as the battery fills (authored taper). -->
+        <name>charging</name>
+        <quantity>charge</quantity>
+        <kind>Into</kind>
+        <divideByParameter>batteryAmpHours</divideByParameter>
+        <inputs>
+          <li Class="Phobos.VehicleSystems.Input_ElectricalBalance">
+            <side>Surplus</side>
+          </li>
+          <li Class="Phobos.VehicleSystems.Input_Quantity">
+            <quantity>charge</quantity>
+            <curve>
+              <points>
+                <li>(0, 1)</li>
+                <li>(0.8, 1)</li>
+                <li>(1, 0)</li>
+              </points>
+            </curve>
+          </li>
+        </inputs>
+      </li>
+      <li>
+        <!-- What the loads draw beyond the alternator: all of it with the engine off. -->
+        <name>drain</name>
+        <quantity>charge</quantity>
+        <kind>From</kind>
+        <divideByParameter>batteryAmpHours</divideByParameter>
+        <inputs>
+          <li Class="Phobos.VehicleSystems.Input_ElectricalBalance">
+            <side>Deficit</side>
+          </li>
+        </inputs>
+      </li>
+      <li>
+        <!-- A parked vehicle beside a powered grid trickle-charges (a gameplay simplification: the grid gives the charge free). -->
+        <name>shoreCharging</name>
+        <quantity>charge</quantity>
+        <kind>Into</kind>
+        <factorParameter>shoreChargeAmps</factorParameter>
+        <divideByParameter>batteryAmpHours</divideByParameter>
+        <when Class="Phobos.VehicleSystems.When_EngineRunning">
+          <invert>true</invert>
+        </when>
+        <inputs>
+          <li Class="Phobos.VehicleSystems.Input_ShorePower" />
+          <li Class="Phobos.VehicleSystems.Input_Quantity">
+            <quantity>charge</quantity>
+            <curve>
+              <points>
+                <li>(0, 1)</li>
+                <li>(0.8, 1)</li>
+                <li>(1, 0)</li>
+              </points>
+            </curve>
+          </li>
+        </inputs>
+      </li>
+      <li>
+        <!-- About 5 % a month (authored; Battery University gives a few per cent a month at room temperature). -->
+        <name>selfDischarge</name>
+        <quantity>charge</quantity>
+        <kind>From</kind>
+        <factor>0.00007</factor>
+      </li>
+    </flows>
+    <onEvents>
+      <li>
+        <!-- Each start draws on the battery, more in the cold. -->
+        <eventDef>IgnitionOn</eventDef>
+        <effects>
+          <li Class="Phobos.VehicleSystems.Effect_AddQuantity">
+            <quantity>charge</quantity>
+            <amount>-1</amount>
+            <scaleByParameter>starterAmpHours</scaleByParameter>
+            <divideByParameter>batteryAmpHours</divideByParameter>
+            <scaleBy Class="Phobos.VehicleSystems.Input_Ambient">
+              <curve>
+                <points>
+                  <li>(-30, 3)</li>
+                  <li>(-18, 2.5)</li>
+                  <li>(0, 1.5)</li>
+                  <li>(20, 1)</li>
+                </points>
+              </curve>
+            </scaleBy>
+          </li>
+        </effects>
+      </li>
+    </onEvents>
+    <onPartHit>
+      <li>
+        <role>Battery</role>
+        <quantity>charge</quantity>
+        <perHealthLost>-0.01</perHealthLost>
+      </li>
+    </onPartHit>
+  </Phobos.VehicleSystems.PhobosVehicleSystemDef>
+</Defs>

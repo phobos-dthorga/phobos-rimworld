@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <!-- D'thorga Framework's vehicle systems part. Text a player reads in play describes the vehicle and what to do, never a mod, a
+       schema or a setting (AGENTS.md); the settings window may name things plainly. -->
+
+  <!-- Settings window -->
+  <PhobosVehicleSystems_SettingsCategory>D'thorga Framework: vehicle systems</PhobosVehicleSystems_SettingsCategory>
+  <PhobosVehicleSystems_SectionWhich>Which vehicles</PhobosVehicleSystems_SectionWhich>
+  <PhobosVehicleSystems_RestartNote>Changes in this section take effect after a restart. Turning vehicles off is safe for a running colony: their added parts are dropped when the save loads.</PhobosVehicleSystems_RestartNote>
+  <PhobosVehicleSystems_ScopeAllVehicles>Every vehicle with a fitting design</PhobosVehicleSystems_ScopeAllVehicles>
+  <PhobosVehicleSystems_ScopeAllVehiclesDesc>Every vehicle from any mod gets batteries, coolant, oil, tyres, brakes and the rest, by what it runs on and whether it drives, floats or flies.</PhobosVehicleSystems_ScopeAllVehiclesDesc>
+  <PhobosVehicleSystems_ScopePhobosOnly>Only D'thorga vehicles</PhobosVehicleSystems_ScopePhobosOnly>
+  <PhobosVehicleSystems_ScopePhobosOnlyDesc>Other mods' vehicles stay exactly as their authors made them.</PhobosVehicleSystems_ScopePhobosOnlyDesc>
+  <PhobosVehicleSystems_ModVehicles>{MOD}: {COUNT} vehicles</PhobosVehicleSystems_ModVehicles>
+  <PhobosVehicleSystems_KindCombustionLand>Light land vehicles</PhobosVehicleSystems_KindCombustionLand>
+  <PhobosVehicleSystems_KindCombustionHeavy>Heavy land vehicles</PhobosVehicleSystems_KindCombustionHeavy>
+  <PhobosVehicleSystems_KindBoat>Boats</PhobosVehicleSystems_KindBoat>
+  <PhobosVehicleSystems_KindAircraft>Aircraft</PhobosVehicleSystems_KindAircraft>
+  <PhobosVehicleSystems_SectionSystems>Systems</PhobosVehicleSystems_SectionSystems>
+  <PhobosVehicleSystems_SettingShowOnly>Figures only, no consequences</PhobosVehicleSystems_SettingShowOnly>
+  <PhobosVehicleSystems_SettingShowOnlyDesc>The systems run and show their state, but nothing happens to the vehicles: no wear, failures, refusals or slowing. Messages still tell you what would have happened.</PhobosVehicleSystems_SettingShowOnlyDesc>
+  <PhobosVehicleSystems_SettingFuelGelling>Fuel thickens in deep cold</PhobosVehicleSystems_SettingFuelGelling>
+  <PhobosVehicleSystems_SettingFuelGellingDesc>Below about -8 °C chemfuel behaves like diesel and gels: a cold vehicle will not start until it is warmer, in a heated room or on a warmer day. Off by default, because nothing says chemfuel is diesel.</PhobosVehicleSystems_SettingFuelGellingDesc>
+  <PhobosVehicleSystems_SectionShow>What vehicles show</PhobosVehicleSystems_SectionShow>
+  <PhobosVehicleSystems_SectionRemove>Removing vehicle systems from a colony</PhobosVehicleSystems_SectionRemove>
+  <PhobosVehicleSystems_RemoveExplain>Vehicles save their parts in order, so a save made with these systems cannot simply lose them. Before you remove D'thorga Framework or Vehicle Framework from a colony, load it, press this button, save, then remove the mod. Turning vehicles or systems off above needs none of this.</PhobosVehicleSystems_RemoveExplain>
+  <PhobosVehicleSystems_RemoveButton>Remove the added parts from this colony's vehicles</PhobosVehicleSystems_RemoveButton>
+  <PhobosVehicleSystems_RemoveConfirm>Remove every part the vehicle systems added, from every vehicle in this colony, and stop the systems until you restart? Save straight afterwards, then remove the mod.</PhobosVehicleSystems_RemoveConfirm>
+  <PhobosVehicleSystems_RemoveDone>Done. Save now, then remove the mod. The systems stay stopped until you restart.</PhobosVehicleSystems_RemoveDone>
+  <PhobosVehicleSystems_RemoveResult>The added parts were removed from {COUNT} vehicles. Save now, then remove the mod.</PhobosVehicleSystems_RemoveResult>
+
+  <!-- Buttons -->
+  <PhobosVehicleSystems_RequestService>Service when possible</PhobosVehicleSystems_RequestService>
+  <PhobosVehicleSystems_RequestServiceDesc>Have a mechanic service this vehicle as soon as they can, even if nothing is due yet. Haulers first load the supplies each service needs into its cargo; then a constructor does the work. The vehicle must be parked and not in use.</PhobosVehicleSystems_RequestServiceDesc>
+  <PhobosVehicleSystems_LoadDraw>Draws {AMPS} A from the battery or the alternator while it runs.</PhobosVehicleSystems_LoadDraw>
+
+  <!-- Inspect text -->
+  <PhobosVehicleSystems_InspectStage>{QUANTITY}: {STAGE}</PhobosVehicleSystems_InspectStage>
+  <PhobosVehicleSystems_InspectFigure>{QUANTITY} {VALUE}</PhobosVehicleSystems_InspectFigure>
+  <PhobosVehicleSystems_InspectFigureStage>{QUANTITY} {VALUE} ({STAGE})</PhobosVehicleSystems_InspectFigureStage>
+  <PhobosVehicleSystems_InspectServiceDue>Waiting for a mechanic: {SERVICE}.</PhobosVehicleSystems_InspectServiceDue>
+  <PhobosVehicleSystems_InspectServiceNeeds>Waiting for supplies for {SERVICE}: {COUNT} {SUPPLY}.</PhobosVehicleSystems_InspectServiceNeeds>
+  <PhobosVehicleSystems_InspectEngineer>Engine load {LOAD}, electrical draw {AMPS} A, air {AIR}.</PhobosVehicleSystems_InspectEngineer>
+  <PhobosVehicleSystems_HoursValue>{HOURS} h</PhobosVehicleSystems_HoursValue>
+
+  <!-- Work -->
+  <PhobosVehicleSystems_NoSupply>No {SUPPLY} to load.</PhobosVehicleSystems_NoSupply>
+  <PhobosVehicleSystems_Serviced>{MECHANIC} has finished {SERVICE} on the {VEHICLE}.</PhobosVehicleSystems_Serviced>
+
+  <!-- Refusals: each names the cause and the fix -->
+  <PhobosVehicleSystems_RefuseFlatBattery>The {VEHICLE}'s battery is too weak to start the engine. Park it beside a powered conduit or battery to charge, or warm it: a cold battery gives less.</PhobosVehicleSystems_RefuseFlatBattery>
+  <PhobosVehicleSystems_RefuseStarter>The {VEHICLE}'s starter motor is broken. Repair the vehicle to start it.</PhobosVehicleSystems_RefuseStarter>
+  <PhobosVehicleSystems_RefuseFuelGelled>The {VEHICLE}'s fuel has thickened in the cold. Warm the vehicle in a heated room, or wait for a warmer day.</PhobosVehicleSystems_RefuseFuelGelled>
+  <PhobosVehicleSystems_RefuseBrakesWorn>The {VEHICLE}'s brakes are worn through. A mechanic must fit new pads before it drives.</PhobosVehicleSystems_RefuseBrakesWorn>
+  <PhobosVehicleSystems_RefuseBrakesWrecked>The {VEHICLE}'s brakes are wrecked. Repair the vehicle before it drives.</PhobosVehicleSystems_RefuseBrakesWrecked>
+  <PhobosVehicleSystems_RefuseAirBrakes>The {VEHICLE}'s air brakes are still held on. Leave the engine running a few minutes to build air pressure.</PhobosVehicleSystems_RefuseAirBrakes>
+
+  <!-- Messages -->
+  <PhobosVehicleSystems_MsgBatteryLow>The {VEHICLE}'s battery is running low.</PhobosVehicleSystems_MsgBatteryLow>
+  <PhobosVehicleSystems_MsgBatteryFreezing>The {VEHICLE}'s flat battery is freezing and may crack. Charge it or move it somewhere warmer.</PhobosVehicleSystems_MsgBatteryFreezing>
+  <PhobosVehicleSystems_MsgRunningHot>The {VEHICLE}'s engine is running hot.</PhobosVehicleSystems_MsgRunningHot>
+  <PhobosVehicleSystems_MsgOverheating>The {VEHICLE}'s engine is overheating and taking damage. Stop it and let it cool.</PhobosVehicleSystems_MsgOverheating>
+  <PhobosVehicleSystems_MsgCoolantLow>The {VEHICLE} is low on coolant. A service will top it up.</PhobosVehicleSystems_MsgCoolantLow>
+  <PhobosVehicleSystems_MsgOilLow>The {VEHICLE} is low on oil. A service will top it up.</PhobosVehicleSystems_MsgOilLow>
+  <PhobosVehicleSystems_MsgOilPressureLow>The {VEHICLE}'s oil pressure is low; the engine wears while it runs.</PhobosVehicleSystems_MsgOilPressureLow>
+  <PhobosVehicleSystems_MsgServiceDue>The {VEHICLE} is due for a service.</PhobosVehicleSystems_MsgServiceDue>
+  <PhobosVehicleSystems_MsgServiceOverdue>The {VEHICLE} is overdue for a service; its parts are failing more often.</PhobosVehicleSystems_MsgServiceOverdue>
+  <PhobosVehicleSystems_MsgBreakdown>The {VEHICLE}'s {PART} has failed.</PhobosVehicleSystems_MsgBreakdown>
+  <PhobosVehicleSystems_MsgTyresWorn>The {VEHICLE}'s tyres or tracks are worn.</PhobosVehicleSystems_MsgTyresWorn>
+  <PhobosVehicleSystems_MsgTyreFailed>The {VEHICLE}'s worn-out {PART} has failed on the move.</PhobosVehicleSystems_MsgTyreFailed>
+  <PhobosVehicleSystems_MsgBrakesWorn>The {VEHICLE}'s brakes are worn; its driver is taking it gently.</PhobosVehicleSystems_MsgBrakesWorn>
+  <PhobosVehicleSystems_MsgTransmissionHot>The {VEHICLE}'s gearbox is overheating and wearing as it drives.</PhobosVehicleSystems_MsgTransmissionHot>
+  <PhobosVehicleSystems_MsgHydraulicsLow>The {VEHICLE} is low on hydraulic fluid.</PhobosVehicleSystems_MsgHydraulicsLow>
+
+  <!-- Letters -->
+  <PhobosVehicleSystems_LetterBoilingLabel>Engine boiling over: {VEHICLE}</PhobosVehicleSystems_LetterBoilingLabel>
+  <PhobosVehicleSystems_LetterBoilingText>The {VEHICLE}'s coolant is boiling away and the engine is cooking itself.\n\nStop the vehicle now. Once it has cooled, repair the radiator and have a mechanic service it to refill the coolant.</PhobosVehicleSystems_LetterBoilingText>
+</LanguageData>

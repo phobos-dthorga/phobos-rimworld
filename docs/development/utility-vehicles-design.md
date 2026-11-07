@@ -1,6 +1,10 @@
 # Utility vehicles: design (8 Nov 2026)
 
-A design record. **Nothing is built and nothing is tested in game.** The owner asked on 8 Nov 2026 for utilitarian
+**The stand-in is built: D'thorga Vehicles 0.1.0 (8 Nov 2026), named loadouts only (air brakes for the Big Rig and the HEMTT, the
+Humvee's 24-volt system, gas-turbine tanks without cooling, steam locomotives left alone). No vehicle of ours is built. Not yet
+tested in game.** The vehicles below wait for the owner's go after the framework is tested.
+
+A design record. The owner asked on 8 Nov 2026 for utilitarian
 vehicles in RimWorld, a mobile drill rig first and "all sorts" after, each with per-part health that affects how well
 it does its job. **The vehicles wait for the framework** (owner, 8 Nov 2026): the
 [vehicle systems service](vehicle-systems-design.md) is built first, and the mod this record describes, D'thorga

@@ -45,6 +45,11 @@ jobs:
       # D'thorga Framework's gas-mixing, signal, mask and source rules are game-free.
       - name: Build and run the game-free framework rule tests
         run: dotnet test tests/PhobosFramework.Rules.Tests --nologo
+      # D'thorga Framework's vehicle systems: the integrator, stages and the shipped cooling figures are game-free.
+      - name: Build and run the game-free vehicle systems rule tests
+        run: dotnet test tests/PhobosFramework.Vehicles.Rules.Tests --nologo
+      - name: Check the vehicle systems schemas
+        run: python3 scripts/check-vehicle-schemas.py
       # D'thorga Medical's rules, one folder per part: burns, dosing, triage, equipment and the save bridge's re-numbering.
       - name: Build and run the game-free medical rule tests
         run: dotnet test tests/PhobosMedical.Rules.Tests --nologo

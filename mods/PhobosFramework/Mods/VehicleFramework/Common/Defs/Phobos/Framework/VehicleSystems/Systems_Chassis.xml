@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    The chassis systems (phase C of the design): running gear (tyres or tracks), brakes and the transmission. Design:
+    docs/development/vehicle-systems-design.md. Not yet tested in game. Every rate, threshold and factor here is authored; the
+    supplies are gameplay stand-ins (the game has no rubber), said so in the README.
+  -->
+  <Phobos.VehicleSystems.PhobosVehicleSystemDef>
+    <defName>PhobosVehicleSystem_RunningGear</defName>
+    <label>tyres and tracks</label>
+    <description>Tyres and track pads wear as the vehicle drives. Worn ones make drivers go slower; worn through, they fail on the road. A mechanic renews them with steel and components loaded aboard.</description>
+    <roles>
+      <li>Wheels</li>
+    </roles>
+    <parameters>
+      <wearPerHour>0.0025</wearPerHour>
+    </parameters>
+    <quantities>
+      <li>
+        <name>treadWear</name>
+        <label>tread wear</label>
+        <unit>Fraction</unit>
+        <min>0</min>
+        <max>1</max>
+        <startsAt>Empty</startsAt>
+        <stages>
+          <li>
+            <from>0.6</from>
+            <to>0.9</to>
+            <label>worn</label>
+            <notable>true</notable>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_StatFactor">
+                <stat>MoveSpeed</stat>
+                <factor>0.93</factor>
+              </li>
+              <li Class="Phobos.VehicleSystems.Effect_Message">
+                <message>PhobosVehicleSystems_MsgTyresWorn</message>
+                <type>CautionInput</type>
+              </li>
+            </effects>
+          </li>
+          <li>
+            <from>0.9</from>
+            <label>worn through</label>
+            <notable>true</notable>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_StatFactor">
+                <stat>MoveSpeed</stat>
+                <factor>0.8</factor>
+              </li>
+              <li Class="Phobos.VehicleSystems.Effect_Breakdown">
+                <role>Wheels</role>
+                <mtbHours>30</mtbHours>
+                <healthFraction>0.5</healthFraction>
+                <message>PhobosVehicleSystems_MsgTyreFailed</message>
+                <when Class="Phobos.VehicleSystems.When_Moving" />
+              </li>
+            </effects>
+          </li>
+        </stages>
+      </li>
+    </quantities>
+    <flows>
+      <li>
+        <name>wear</name>
+        <quantity>treadWear</quantity>
+        <kind>Into</kind>
+        <factorParameter>wearPerHour</factorParameter>
+        <inputs>
+          <li Class="Phobos.VehicleSystems.Input_Moving" />
+        </inputs>
+      </li>
+    </flows>
+    <service>
+      <label>new tyres or track pads</label>
+      <dueQuantity>treadWear</dueQuantity>
+      <dueAbove>0.6</dueAbove>
+      <restores>
+        <li>
+          <quantity>treadWear</quantity>
+          <value>0</value>
+        </li>
+      </restores>
+      <supplies>
+        <Steel>15</Steel>
+        <ComponentIndustrial>2</ComponentIndustrial>
+      </supplies>
+      <work>2000</work>
+    </service>
+  </Phobos.VehicleSystems.PhobosVehicleSystemDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleSystemDef>
+    <defName>PhobosVehicleSystem_Brakes</defName>
+    <label>brakes</label>
+    <description>The brakes wear with every stop. Worn brakes make drivers take it gently; worn through, or with the brake part wrecked, the vehicle will not drive until a mechanic fits new pads.</description>
+    <roles>
+      <li>Brakes</li>
+    </roles>
+    <quantities>
+      <li>
+        <name>brakeWear</name>
+        <label>brake wear</label>
+        <unit>Fraction</unit>
+        <min>0</min>
+        <max>1</max>
+        <startsAt>Empty</startsAt>
+        <stages>
+          <li>
+            <from>0.7</from>
+            <to>0.95</to>
+            <label>worn</label>
+            <notable>true</notable>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_StatFactor">
+                <stat>MoveSpeed</stat>
+                <factor>0.9</factor>
+              </li>
+              <li Class="Phobos.VehicleSystems.Effect_Message">
+                <message>PhobosVehicleSystems_MsgBrakesWorn</message>
+                <type>CautionInput</type>
+              </li>
+            </effects>
+          </li>
+          <li>
+            <from>0.95</from>
+            <label>worn through</label>
+            <notable>true</notable>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_RefuseMove">
+                <reason>PhobosVehicleSystems_RefuseBrakesWorn</reason>
+              </li>
+            </effects>
+          </li>
+        </stages>
+      </li>
+      <li>
+        <name>brakeParts</name>
+        <label>brakes</label>
+        <unit>Fraction</unit>
+        <hidden>true</hidden>
+        <derivedFrom>
+          <li Class="Phobos.VehicleSystems.Input_PartEfficiency">
+            <role>Brakes</role>
+          </li>
+        </derivedFrom>
+        <stages>
+          <li>
+            <to>0.2</to>
+            <label>wrecked</label>
+            <notable>true</notable>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_RefuseMove">
+                <reason>PhobosVehicleSystems_RefuseBrakesWrecked</reason>
+              </li>
+            </effects>
+          </li>
+        </stages>
+      </li>
+    </quantities>
+    <flows>
+      <li>
+        <name>drivingWear</name>
+        <quantity>brakeWear</quantity>
+        <kind>Into</kind>
+        <factor>0.0005</factor>
+        <inputs>
+          <li Class="Phobos.VehicleSystems.Input_Moving" />
+        </inputs>
+      </li>
+    </flows>
+    <onEvents>
+      <li>
+        <eventDef>MoveStop</eventDef>
+        <effects>
+          <li Class="Phobos.VehicleSystems.Effect_AddQuantity">
+            <quantity>brakeWear</quantity>
+            <amount>0.0008</amount>
+          </li>
+        </effects>
+      </li>
+    </onEvents>
+    <onPartHit>
+      <li>
+        <role>Brakes</role>
+        <quantity>brakeWear</quantity>
+        <perHealthLost>0.02</perHealthLost>
+      </li>
+    </onPartHit>
+    <service>
+      <label>new brake pads</label>
+      <dueQuantity>brakeWear</dueQuantity>
+      <dueAbove>0.7</dueAbove>
+      <restores>
+        <li>
+          <quantity>brakeWear</quantity>
+          <value>0</value>
+        </li>
+      </restores>
+      <supplies>
+        <ComponentIndustrial>1</ComponentIndustrial>
+      </supplies>
+      <work>800</work>
+    </service>
+  </Phobos.VehicleSystems.PhobosVehicleSystemDef>
+
+  <!--
+    The transmission's oil heats with work on the move, more in a damaged gearbox, and cools toward the air (authored: settles near
+    90 degrees C at full work, past 120 once the gearbox is badly worn).
+  -->
+  <Phobos.VehicleSystems.PhobosVehicleSystemDef>
+    <defName>PhobosVehicleSystem_Transmission</defName>
+    <label>transmission</label>
+    <description>The gearbox's oil heats with hard driving, faster in a damaged gearbox. Too hot, the gearbox wears while the vehicle moves.</description>
+    <roles>
+      <li>Transmission</li>
+    </roles>
+    <parameters>
+      <heatAtFullLoad>180</heatAtFullLoad>
+      <coolRate>2</coolRate>
+      <soakRate>0.5</soakRate>
+    </parameters>
+    <quantities>
+      <li>
+        <name>transmissionTemperature</name>
+        <label>gearbox</label>
+        <unit>Celsius</unit>
+        <min>-60</min>
+        <max>200</max>
+        <startsAt>Ambient</startsAt>
+        <stages>
+          <li>
+            <from>120</from>
+            <label>overheating</label>
+            <notable>true</notable>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_DamagePart">
+                <role>Transmission</role>
+                <perHour>1</perHour>
+                <when Class="Phobos.VehicleSystems.When_Moving" />
+              </li>
+              <li Class="Phobos.VehicleSystems.Effect_Message">
+                <message>PhobosVehicleSystems_MsgTransmissionHot</message>
+                <type>CautionInput</type>
+              </li>
+            </effects>
+          </li>
+        </stages>
+      </li>
+    </quantities>
+    <flows>
+      <li>
+        <name>work</name>
+        <quantity>transmissionTemperature</quantity>
+        <kind>Into</kind>
+        <factorParameter>heatAtFullLoad</factorParameter>
+        <inputs>
+          <li Class="Phobos.VehicleSystems.Input_EngineLoad">
+            <curve>
+              <points>
+                <li>(0, 0)</li>
+                <li>(0.5, 0.1)</li>
+                <li>(1, 1)</li>
+              </points>
+            </curve>
+          </li>
+          <li Class="Phobos.VehicleSystems.Input_PartEfficiency">
+            <role>Transmission</role>
+            <curve>
+              <points>
+                <li>(0, 3)</li>
+                <li>(0.5, 1.6)</li>
+                <li>(1, 1)</li>
+              </points>
+            </curve>
+          </li>
+        </inputs>
+      </li>
+      <li>
+        <name>airflow</name>
+        <quantity>transmissionTemperature</quantity>
+        <kind>Toward</kind>
+        <target Class="Phobos.VehicleSystems.Input_Ambient" />
+        <factorParameter>coolRate</factorParameter>
+        <inputs>
+          <li Class="Phobos.VehicleSystems.Input_Moving">
+            <stopped>0.5</stopped>
+            <moving>1</moving>
+          </li>
+        </inputs>
+      </li>
+      <li>
+        <name>soak</name>
+        <quantity>transmissionTemperature</quantity>
+        <kind>Toward</kind>
+        <target Class="Phobos.VehicleSystems.Input_Ambient" />
+        <factorParameter>soakRate</factorParameter>
+      </li>
+    </flows>
+  </Phobos.VehicleSystems.PhobosVehicleSystemDef>
+</Defs>

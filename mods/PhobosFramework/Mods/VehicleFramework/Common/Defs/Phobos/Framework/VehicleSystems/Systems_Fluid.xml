@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    Fluid power (phase C of the design): air brakes for heavy trucks, and hydraulics for working vehicles. Design:
+    docs/development/vehicle-systems-design.md. Not yet tested in game.
+
+    Air brakes. Heavy trucks hold their brakes on with springs that only air pressure releases, so a truck parked long enough to
+    lose its air cannot move until the engine's compressor builds pressure again (secondary: the general description of spring
+    brakes in truck air-brake systems, e.g. Wikipedia, "Air brake (road vehicle)"; unverified against a maker's manual). The
+    compressor's rate, the leak and the 55 % release threshold are authored. Used by named loadouts for real air-braked trucks
+    (D'thorga Vehicles), never by default.
+
+    Hydraulics. A pump driven by the engine, fluid that leaks when its lines are hit, and the pressure that results. Nothing in the
+    shipped loadouts uses it yet: it is ready for working vehicles (drill rigs, cranes, tippers) whose jobs read the pressure. All
+    figures authored.
+  -->
+  <Phobos.VehicleSystems.PhobosVehicleSystemDef>
+    <defName>PhobosVehicleSystem_AirBrakes</defName>
+    <label>air brakes</label>
+    <description>Heavy trucks' brakes stay on until the engine's compressor builds enough air to release them. A truck that stood long enough to lose its air must idle a few minutes before it can drive.</description>
+    <roles>
+      <li>Compressor</li>
+    </roles>
+    <parameters>
+      <compressorRate>12</compressorRate>
+      <leakPerHour>0.05</leakPerHour>
+    </parameters>
+    <quantities>
+      <li>
+        <name>airPressure</name>
+        <label>air</label>
+        <unit>Fraction</unit>
+        <min>0</min>
+        <max>1</max>
+        <startsAt>Full</startsAt>
+        <stages>
+          <li>
+            <to>0.55</to>
+            <label>brakes held on</label>
+            <notable>true</notable>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_RefuseMove">
+                <reason>PhobosVehicleSystems_RefuseAirBrakes</reason>
+              </li>
+            </effects>
+          </li>
+        </stages>
+      </li>
+    </quantities>
+    <flows>
+      <li>
+        <name>compressor</name>
+        <quantity>airPressure</quantity>
+        <kind>Into</kind>
+        <factorParameter>compressorRate</factorParameter>
+        <inputs>
+          <li Class="Phobos.VehicleSystems.Input_EngineRunning" />
+          <li Class="Phobos.VehicleSystems.Input_PartEfficiency">
+            <role>Compressor</role>
+          </li>
+          <li Class="Phobos.VehicleSystems.Input_Quantity">
+            <quantity>airPressure</quantity>
+            <curve>
+              <points>
+                <li>(0, 1)</li>
+                <li>(0.95, 1)</li>
+                <li>(1, 0)</li>
+              </points>
+            </curve>
+          </li>
+        </inputs>
+      </li>
+      <li>
+        <name>leak</name>
+        <quantity>airPressure</quantity>
+        <kind>From</kind>
+        <factorParameter>leakPerHour</factorParameter>
+      </li>
+    </flows>
+    <onEvents>
+      <li>
+        <!-- Each stop spends air on the brakes. -->
+        <eventDef>MoveStop</eventDef>
+        <effects>
+          <li Class="Phobos.VehicleSystems.Effect_AddQuantity">
+            <quantity>airPressure</quantity>
+            <amount>-0.03</amount>
+          </li>
+        </effects>
+      </li>
+    </onEvents>
+    <onPartHit>
+      <li>
+        <role>Compressor</role>
+        <quantity>airPressure</quantity>
+        <perHealthLost>-0.02</perHealthLost>
+      </li>
+    </onPartHit>
+  </Phobos.VehicleSystems.PhobosVehicleSystemDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleSystemDef>
+    <defName>PhobosVehicleSystem_Hydraulics</defName>
+    <label>hydraulics</label>
+    <description>An engine-driven pump and the fluid it moves. Hit lines leak; low fluid or a damaged pump means low pressure for whatever the vehicle lifts or drives with it.</description>
+    <roles>
+      <li>HydraulicPump</li>
+      <li>HydraulicLines</li>
+    </roles>
+    <quantities>
+      <li>
+        <name>hydraulicFluid</name>
+        <label>hydraulic fluid</label>
+        <unit>Fraction</unit>
+        <min>0</min>
+        <max>1</max>
+        <startsAt>Full</startsAt>
+        <stages>
+          <li>
+            <to>0.5</to>
+            <label>low</label>
+            <notable>true</notable>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_Message">
+                <message>PhobosVehicleSystems_MsgHydraulicsLow</message>
+                <type>CautionInput</type>
+              </li>
+            </effects>
+          </li>
+        </stages>
+      </li>
+      <li>
+        <name>hydraulicPressure</name>
+        <label>hydraulic pressure</label>
+        <unit>Fraction</unit>
+        <derivedFrom>
+          <li Class="Phobos.VehicleSystems.Input_EngineRunning" />
+          <li Class="Phobos.VehicleSystems.Input_PartEfficiency">
+            <role>HydraulicPump</role>
+          </li>
+          <li Class="Phobos.VehicleSystems.Input_Quantity">
+            <quantity>hydraulicFluid</quantity>
+            <curve>
+              <points>
+                <li>(0, 0)</li>
+                <li>(0.4, 0.5)</li>
+                <li>(0.7, 1)</li>
+                <li>(1, 1)</li>
+              </points>
+            </curve>
+          </li>
+        </derivedFrom>
+      </li>
+    </quantities>
+    <onPartHit>
+      <li>
+        <role>HydraulicLines</role>
+        <quantity>hydraulicFluid</quantity>
+        <perHealthLost>-0.02</perHealthLost>
+      </li>
+      <li>
+        <role>HydraulicPump</role>
+        <quantity>hydraulicFluid</quantity>
+        <perHealthLost>-0.01</perHealthLost>
+      </li>
+    </onPartHit>
+    <service>
+      <label>a hydraulic top-up</label>
+      <dueQuantity>hydraulicFluid</dueQuantity>
+      <dueBelow>0.6</dueBelow>
+      <restores>
+        <li>
+          <quantity>hydraulicFluid</quantity>
+          <value>1</value>
+        </li>
+      </restores>
+      <supplies>
+        <Chemfuel>8</Chemfuel>
+      </supplies>
+      <work>600</work>
+    </service>
+  </Phobos.VehicleSystems.PhobosVehicleSystemDef>
+</Defs>

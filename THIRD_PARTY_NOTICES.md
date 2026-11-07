@@ -129,6 +129,17 @@ From 0.11.0 it also reads RimPacts' `WorldComponent_RimPacts.Instance.SpectateLa
 sortie onto a battle is refused, and creates Vehicle Framework components for a saved vehicle through Vehicle Framework's own
 public types (`VehicleComponent`, `VehicleStatHandler`), referenced from the installed mod and never copied.
 
+## Vehicle Framework, extended by D'thorga Framework's vehicle systems
+
+D'thorga Framework's vehicle systems part (`mods/PhobosFramework/Mods/VehicleFramework`, from 0.9.0) loads only while
+[Vehicle Framework](https://steamcommunity.com/sharedfiles/filedetails/?id=3014915404) by Smash Phil (MIT licence) is active. Its
+assembly references the installed `Vehicles.dll` and `SmashTools.dll`, never copied, subclasses Vehicle Framework's public
+`VehicleComp`, `VehicleCompProperties`, `VehicleStatPart`, `Reactor`, `VehicleWorkGiver` and `JobDriver_WorkVehicle`, and patches
+`VehicleDef.ResolveReferences` and `VehicleStatHandler.ExposeData`. Its XML names Vehicle Framework's stat and event Defs by name.
+D'thorga Vehicles (`mods/PhobosVehicles`) names vehicles of Vanilla Vehicles Expanded - Tier 3, HUMVEE, RimThunder - Roaring
+Tiger, RimThunder - Desert Sabre - Continued and Trains of the Rim by Def name only, in folders loaded only while each is active.
+Nothing from any of them is in this repository or a build.
+
 ## InterRim Ballistic Missile, patched by D'thorga Missile Patches
 
 D'thorga Patches' missile part (`mods/PhobosPatches/Mods/IRBM`; D'thorga Missile Patches until 7 November 2026) loads only while

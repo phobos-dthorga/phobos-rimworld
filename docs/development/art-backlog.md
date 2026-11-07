@@ -136,6 +136,7 @@ Five textures are the owner's picks (7 Nov 2026); the base station and the two f
 | Coax build icon | Phobos Radio Framework | Shipped pick: coax-icon-12 (7 Nov) | Nothing | Yes |
 | Belt access toggle | D'thorga Factory Additions | Vanilla Expanded's conveyor icon, looked up at run time | Nothing | |
 | Bottle tap's four arrows | D'thorga Water Tap | The game's own plus and minus buttons | Nothing | |
+| Service, load switch, headlights, cab heater | D'thorga Framework (vehicle systems, 0.9.0) | Stand-ins drawn in code by `assets/vehicle-systems/draw_icons.py` (8 Nov 2026), each with a record | Generated icons, on the owner's go | Yes |
 
 **Any future button gets its icon in the same change**, or reuses a game or required-mod icon that is confirmed to exist; a lookup that
 can fail falls back to a visible stand-in of our own, never silently to the red X (owner, 7 Nov 2026; in AGENTS.md).

@@ -31,6 +31,7 @@ from the owner's saves.
 | `PhobosFramework.Hygiene` | `PhobosFramework/Mods/DubsBadHygiene/` | Dubs Bad Hygiene's `BadHygiene.dll`: the shared plumbing reader | no | none | no |
 | `PhobosMedical.UsefulMarks` | `PhobosMedical/Mods/UsefulMarks/` | the medical core, Useful Marks' `UsefulColonistBar.dll` | no | none | no |
 | `PhobosMedical.Hygiene` | `PhobosMedical/Mods/DubsBadHygiene/` | the medical core, the framework's hygiene tie-in, `BadHygiene.dll` | no | none | no |
+| `PhobosFramework.Vehicles` | `PhobosFramework/Mods/VehicleFramework/` (1.7 only) | the framework, Vehicle Framework's `Vehicles.dll` and `SmashTools.dll`: the vehicle systems | yes | `PhobosFramework.Vehicles.Rules.Tests` | tests only |
 | `PhobosPatches.Harrier` | `PhobosPatches/Mods/HarrierVtol/` | the framework, Vehicle Framework's `Vehicles.dll`, `SmashTools.dll`, `UpdateLogTool.dll` | yes | none | no |
 | `PhobosPatches.Irbm` | `PhobosPatches/Mods/IRBM/` | the framework, InterRim Ballistic Missile's `IRBM.dll` | yes | `PhobosPatches.Rules.Tests` | tests only |
 | `PhobosWaterTap` | `PhobosWaterTap/` | Dubs Bad Hygiene's `BadHygiene.dll` | no | `PhobosWaterTap.Rules.Tests` | tests only |
@@ -56,7 +57,8 @@ from the owner's saves.
   Harmony. **2 Nov**: the Dubs Bad Hygiene tie-in and Vehicle Patches' Harrier tie-in, the first tie-in assemblies. **3 Nov**:
   Medical Save Bridge. **4 Nov**: Water Tap, D'thorga Framework, Burns and Smoke, and the switch to **1.7 leading** with every
   project built for both versions. **5 Nov**: Emergency Dosing and Medical Equipment. **6 Nov**: Triage. **8 Nov**: the owner
-  retired 1.6 support; everything new is 1.7 only.
+  retired 1.6 support; everything new is 1.7 only. The same night: D'thorga Framework's vehicle systems, the first single-target (1.7)
+  project.
 - Vehicle Framework targets .NET Framework 4.8 and Vehicle Patches 4.7.2, so that project sets
   `ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch`; the game loads both whatever they declare.
 
@@ -68,6 +70,7 @@ python scripts/check-mod-layout.py
 python -m unittest discover -s tests
 dotnet test tests/<Project>             each rule-test project whose rules you changed
 python scripts/check-factory-patches.py (needs the installed game; for Factory Additions and its tie-ins)
+python scripts/check-vehicle-schemas.py (offline; for the vehicle systems' systems and loadouts)
 python scripts/deploy.py --build --apply --all   (with RimWorld closed)
 ```
 

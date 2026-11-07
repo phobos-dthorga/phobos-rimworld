@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    RimThunder - Roaring Tiger. Not yet tested in game.
+
+    The M1075 HEMTT (a heavy tactical truck) brakes with air: its US Army maintenance manual has a brake and air system chapter
+    (TM 9-2320-279-20-2, the HEMTT family's unit maintenance manual). It gets the heavy systems plus air brakes.
+
+    The M1A2 Abrams runs a gas turbine (the AGT1500; secondary: Wikipedia, "M1 Abrams"), which has no liquid coolant or radiator, so
+    it gets the heavy systems without the cooling system. Its oil then follows the air (the lubrication system's fallback), a
+    simplification. The same loadout is written for Desert Sabre's M1A2 SEP.
+  -->
+  <Phobos.VehicleSystems.PhobosVehicleLoadoutDef ParentName="PhobosVehicleLoadoutLandHeavy">
+    <defName>PhobosVehicleLoadout_RT_HEMTT</defName>
+    <label>heavy truck with air brakes</label>
+    <priority>Vehicle</priority>
+    <selector>
+      <vehicleDefs>
+        <li>RT_M1075_HEMTT</li>
+      </vehicleDefs>
+      <massMin>-1</massMin>
+    </selector>
+    <systems>
+      <li><def>PhobosVehicleSystem_AirBrakes</def></li>
+    </systems>
+    <partRoles>
+      <li>
+        <role>Compressor</role>
+        <find>
+          <li>
+            <keyContains>compressor</keyContains>
+          </li>
+        </find>
+        <add>
+          <key>PhobosAirCompressor</key>
+          <label>air compressor</label>
+          <health>25</health>
+          <cellsOf>Engine</cellsOf>
+        </add>
+      </li>
+    </partRoles>
+  </Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleLoadoutDef Name="PhobosVehicleLoadoutGasTurbineTank" ParentName="PhobosVehicleLoadoutLandHeavy">
+    <defName>PhobosVehicleLoadout_RT_M1A2</defName>
+    <label>gas-turbine tank</label>
+    <priority>Vehicle</priority>
+    <selector>
+      <vehicleDefs>
+        <li>RT_M1A2_MainBattleTank</li>
+      </vehicleDefs>
+      <massMin>-1</massMin>
+    </selector>
+    <systems Inherit="False">
+      <li>
+        <def>PhobosVehicleSystem_Electrical</def>
+        <set>
+          <batteryAmpHours>100</batteryAmpHours>
+          <alternatorAmps>100</alternatorAmps>
+          <starterAmpHours>0.3</starterAmpHours>
+        </set>
+      </li>
+      <li><def>PhobosVehicleSystem_Lubrication</def></li>
+      <li><def>PhobosVehicleSystem_Service</def></li>
+      <li><def>PhobosVehicleSystem_RunningGear</def></li>
+      <li><def>PhobosVehicleSystem_Brakes</def></li>
+      <li><def>PhobosVehicleSystem_Transmission</def></li>
+    </systems>
+  </Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
+</Defs>

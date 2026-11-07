@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ModMetaData>
+  <packageId>PhobosDthorga.Vehicles</packageId>
+  <name>D'thorga Vehicles</name>
+  <author>Phobos A. D'thorga</author>
+  <url>https://github.com/phobos-dthorga/phobos-rimworld</url>
+  <modVersion>0.1.0</modVersion>
+  <description>Vehicles that keep running only while they are looked after. This first version adds no vehicles of its own: it fits the vehicles of other mods you already drive with the right systems for what they really are.
+
+What it does now:
+
+- Heavy trucks with air brakes (Vanilla Vehicles Expanded's Big Rig, RimThunder's HEMTT) must idle a few minutes to build air before they can drive.
+- The Humvee runs a 24-volt electrical system with two batteries.
+- Tanks with gas-turbine engines (RimThunder's M1A2) have no radiator: their engines are air-cooled.
+- Steam locomotives (Trains of the Rim) are left as they are, since a boiler is not a car engine.
+
+Every other vehicle gets the general systems D'thorga Framework gives by what the vehicle runs on: battery and alternator, coolant and oil, tyres or tracks, brakes, gearbox, wear and service. Utility vehicles of our own (a survey truck, a drill rig, a tipper, a generator) come later.
+
+Needs Vehicle Framework and D'thorga Framework. Safe to add to a running colony. Safe to remove: the named vehicles go back to the general systems.
+
+Community-created content. Portions of the materials used to create this content/mod are trademarks and/or copyrighted works of Ludeon Studios Inc. All rights reserved by Ludeon. This content/mod is not official and is not endorsed by Ludeon.</description>
+  <supportedVersions>
+    <li>1.7</li>
+  </supportedVersions>
+  <modDependencies>
+    <li>
+      <packageId>SmashPhil.VehicleFramework</packageId>
+      <displayName>Vehicle Framework</displayName>
+      <steamWorkshopUrl>steam://url/CommunityFilePage/3014915404</steamWorkshopUrl>
+      <downloadUrl>https://github.com/SmashPhil/Vehicle-Framework</downloadUrl>
+    </li>
+    <li>
+      <packageId>PhobosDthorga.Framework</packageId>
+      <displayName>D'thorga Framework</displayName>
+      <downloadUrl>https://github.com/phobos-dthorga/phobos-rimworld</downloadUrl>
+    </li>
+  </modDependencies>
+  <loadAfter>
+    <li>Ludeon.RimWorld</li>
+    <li>SmashPhil.VehicleFramework</li>
+    <li>PhobosDthorga.Framework</li>
+    <li>OskarPotocki.VanillaVehiclesExpanded</li>
+    <li>OskarPotocki.VanillaVehiclesExpandedTier3</li>
+    <li>hmv.lunartika</li>
+    <li>aoba.rimthunder.roca</li>
+    <li>rimthunderteams.rimthunder.desertsabre</li>
+    <li>princeofpluto.vehicles.trains</li>
+  </loadAfter>
+</ModMetaData>

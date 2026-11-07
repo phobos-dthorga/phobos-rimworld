@@ -1,6 +1,10 @@
-# Vehicle systems: design (8 Nov 2026)
+# Vehicle systems: design (8 Nov 2026, built the same night)
 
-A design record. **Nothing is built and nothing is tested in game.** The owner asked on 8 Nov 2026 for real vehicle
+**Built in D'thorga Framework 0.9.0 (8 Nov 2026), phases A to C, while the owner slept, on the owner's go. Not yet tested in game.**
+What differs from the design below is in [As built](#as-built-framework-090-8-nov-2026), with the owner's test list. The rest of
+this record is the design as it was reviewed.
+
+A design record. The owner asked on 8 Nov 2026 for real vehicle
 systems in RimWorld: electrical (battery, alternator), coolant and oil temperature, "and others, this is just a start",
 each with per-part health; built as a **generic, schema-driven service** on D'thorga Framework; applied to our own
 vehicles and **retrofitted to other authors' Vehicle Framework vehicles as configurable settings**; and extensible by
@@ -387,6 +391,71 @@ public class Effect_FlashBeacon : VehicleSystemEffect
 | Variants as Vehicle Framework upgrade nodes? | Yes, as an option a loadout may declare |
 | Figures: Celsius everywhere, and ampere-hours for charge? | Celsius (the game's unit); charge shown as a percentage in Plain and Operator modes |
 | The display name of the stand-in content mod | "D'thorga Vehicles" |
+
+## As built (Framework 0.9.0, 8 Nov 2026)
+
+The owner said "proceed with Phase A through to Phase C" and to save questions for the morning, so every open question above was
+answered with the agent's lean and is listed again at the end of this section. **Not yet tested in game.** Built and checked offline:
+the assembly compiles against the installed Vehicle Framework (1.6 build) and RimWorld 1.7; 24 rule tests pass, including the shipped
+cooling figures; the schema check passes every system and loadout; the repository's checks pass.
+
+**Where things are:** the code in `src/PhobosFramework.Vehicles/` (namespace `Phobos.VehicleSystems`), the Defs, language file and
+icons in `mods/PhobosFramework/Mods/VehicleFramework/Common/`, the offline check in `scripts/check-vehicle-schemas.py`, the guide in
+[vehicle systems for modders](../vehicle-systems-modding.md). D'thorga Vehicles 0.1.0 (`mods/PhobosVehicles/`) is the stand-in mod.
+
+| Phase | Built |
+| --- | --- |
+| A | The service (loadouts, part roles, injection, the comp, the rare-tick loop, events, part hits, stat factors, draft and move refusals, inspect text by display mode, switches), the electrical, cooling and lubrication systems, cold fuel (a setting), the default loadouts (light and heavy land, boats, aircraft), the settings, the removal sweep, dev actions, the schema check, the modder guide, D'thorga Vehicles' named loadouts |
+| B | Wear and service: the hour meter, breakdowns by mean time between failures (more once due, far more once overdue), the service with supplies hauled into the cargo and Construction work at the vehicle, a "service when possible" button |
+| C | Tyres and tracks, brakes, the gearbox's temperature, air brakes (named heavy trucks), hydraulics (ready, unused) |
+
+**Changed from the design, and why (agent choices, for the owner):**
+
+- **Namespace `Phobos.VehicleSystems`**, not `Phobos.Framework.Vehicles`: it is what every schema file names in `Class=`, so it is
+  short and says what it is.
+- **The parts go in from a prefix on `VehicleDef.ResolveReferences`**, not from the game's implied-Defs step: by then every
+  cross-reference in the loadouts (stats, systems) is resolved, and Vehicle Framework still resolves the appended parts' hitboxes
+  itself straight after.
+- **Saved vehicles are kept in step both ways.** A prefix on Vehicle Framework's save code drops saved parts beyond the design's list,
+  so switching vehicles or systems off in the settings is safe; a postfix creates parts a design gained, at full health (the
+  D'thorga Patches rule, written again here because Patches' copy builds for 1.6 too and cannot reference this 1.7-only part; Patches
+  adopts this one when it drops 1.6). The appended parts' healths are also saved by key, in case their order changes.
+- **Removing the whole service still needs the sweep** (settings button or dev action) before saving, because without the service
+  loaded nothing trims the saved parts.
+- **`cellsOf`** names the role whose part lends its cells and armour (the design said `cellsNear`); finders' `priority` is
+  `Yes`, `No` or `Any`, because the game's XML loader cannot be trusted with a nullable bool.
+- **Flat battery fix:** a parked vehicle beside a powered building trickle-charges. The grid gives the charge free, a labelled
+  simplification. **A jump-start from another vehicle is not built**: it needs a job across two vehicles; it is the first follow-up.
+- **The service carries its supplies in the vehicle's cargo**: haulers load them (a hauling job), then a constructor services the
+  vehicle through Vehicle Framework's own vehicle work job. One job per system that is due; a request services every system once.
+- **Not built:** tuning in Vehicle Framework's own per-vehicle window (its window shows fields, and the parameters live in
+  loadouts, so it would need one field per parameter; a question for the owner), loadout variants as upgrade nodes, aircraft cooling,
+  electric vehicles' motor temperature, fuel quality beyond gelling, a boiler system for steam locomotives.
+- **Supplies are stand-ins**: chemfuel for oil, coolant and hydraulic fluid; steel and components for tyres and track pads;
+  components for brake pads and filters. Labelled in the system files and the README.
+- **The added parts on a light land vehicle:** battery, starter, radiator, oil pump, brakes, and an alternator or gearbox only where
+  the vehicle has none. Vanilla Vehicles Expanded's land vehicles keep their own engine, gearbox and alternator.
+- **Cost:** one comp per fitted vehicle, its systems integrated every 250 ticks in up to four steps each, a few flows per system;
+  nothing per tick. Not measured.
+
+**Open questions answered by the agent's lean (the owner may change any):** the Framework placement; the stages-and-effects shape;
+a flat battery refuses only on a map (caravans on the world map are not stopped); aircraft get only the electrical system and the
+service; Celsius, with charge as a percentage; the display name D'thorga Vehicles.
+
+**Test list for the owner** (short, the consequential checks first):
+
+1. Load a colony with Vehicle Framework and the new Framework. The log's line "(vehicle systems)" says how many designs were fitted;
+   any warning names `Vehicle systems:`. Report both.
+2. Select a Vanilla Vehicles Expanded truck, switch the display mode to Operator in the settings: battery, coolant, oil, wear and the
+   rest show in the inspect pane. The health tab lists the new parts.
+3. Draft it and drive: the coolant warms to about 90 °C within a few in-game minutes and stays there.
+4. Dev mode, D'thorga, "Vehicle systems: set a quantity": set its coolant temperature to the top. Steam rises, a message and then a
+   letter come, and the engine takes damage. Set the battery charge to 0, undraft and draft: the draft is refused with the reason.
+   Build a powered conduit beside it: the charge rises.
+5. Press the spanner (service when possible) with chemfuel and a component in storage: a hauler loads them into the cargo, then a
+   constructor services it and a message says so.
+6. Save, reload: the figures are kept and no error mentions `Phobos.VehicleSystems`. In the settings, switch the truck's mod off,
+   restart and load: the truck loads without the added parts and without errors.
 
 ## Sources
 

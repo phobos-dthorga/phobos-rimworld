@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    Wear and service (phase B of the design): an hour meter on the engine, breakdowns rolled the way the game rolls a building's
+    (a mean time between failures), more often once a service is due and much more once it is overdue, and the service that resets
+    it. Design: docs/development/vehicle-systems-design.md. Not yet tested in game.
+
+    Labels:
+    - The interval (120 running hours, overdue at 180) and every mean time between failures are authored. They count only hours
+      with the engine running, so a vehicle parked for a season does not wear.
+    - The service's supplies are gameplay stand-ins, said so in the README: chemfuel for oil and coolant (both are refined
+      products; chemfuel is the game's refined product), one component for filters and seals.
+    - The service tops up the oil and the coolant whichever systems hold them, so it serves every combustion loadout.
+  -->
+  <Phobos.VehicleSystems.PhobosVehicleSystemDef>
+    <defName>PhobosVehicleSystem_Service</defName>
+    <label>wear and service</label>
+    <description>An hour meter on the engine. Parts fail now and then as they age, more often once a service is due and far more once it is overdue. A mechanic's service, with chemfuel and a component loaded aboard, tops up the oil and the coolant and resets the meter.</description>
+    <roles>
+      <li>Engine</li>
+      <li>Alternator</li>
+      <li>Starter</li>
+      <li>Radiator</li>
+    </roles>
+    <quantities>
+      <li>
+        <name>engineHours</name>
+        <label>since service</label>
+        <unit>Hours</unit>
+        <min>0</min>
+        <max>100000</max>
+        <startsAt>Empty</startsAt>
+        <stages>
+          <li>
+            <to>120</to>
+            <label>fresh</label>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_Breakdown">
+                <role>Engine</role>
+                <mtbHours>3000</mtbHours>
+                <healthFraction>0.25</healthFraction>
+                <message>PhobosVehicleSystems_MsgBreakdown</message>
+                <when Class="Phobos.VehicleSystems.When_EngineRunning" />
+              </li>
+            </effects>
+          </li>
+          <li>
+            <from>120</from>
+            <to>180</to>
+            <label>due for a service</label>
+            <notable>true</notable>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_Message">
+                <message>PhobosVehicleSystems_MsgServiceDue</message>
+                <type>CautionInput</type>
+              </li>
+              <li Class="Phobos.VehicleSystems.Effect_Breakdown">
+                <role>Engine</role>
+                <mtbHours>800</mtbHours>
+                <healthFraction>0.25</healthFraction>
+                <message>PhobosVehicleSystems_MsgBreakdown</message>
+                <when Class="Phobos.VehicleSystems.When_EngineRunning" />
+              </li>
+              <li Class="Phobos.VehicleSystems.Effect_Breakdown">
+                <role>Alternator</role>
+                <mtbHours>1500</mtbHours>
+                <healthFraction>0.5</healthFraction>
+                <message>PhobosVehicleSystems_MsgBreakdown</message>
+                <when Class="Phobos.VehicleSystems.When_EngineRunning" />
+              </li>
+            </effects>
+          </li>
+          <li>
+            <from>180</from>
+            <label>overdue for a service</label>
+            <notable>true</notable>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_Message">
+                <message>PhobosVehicleSystems_MsgServiceOverdue</message>
+              </li>
+              <li Class="Phobos.VehicleSystems.Effect_Breakdown">
+                <role>Engine</role>
+                <mtbHours>250</mtbHours>
+                <healthFraction>0.3</healthFraction>
+                <message>PhobosVehicleSystems_MsgBreakdown</message>
+                <when Class="Phobos.VehicleSystems.When_EngineRunning" />
+              </li>
+              <li Class="Phobos.VehicleSystems.Effect_Breakdown">
+                <role>Alternator</role>
+                <mtbHours>600</mtbHours>
+                <healthFraction>0.5</healthFraction>
+                <message>PhobosVehicleSystems_MsgBreakdown</message>
+                <when Class="Phobos.VehicleSystems.When_EngineRunning" />
+              </li>
+              <li Class="Phobos.VehicleSystems.Effect_Breakdown">
+                <role>Starter</role>
+                <mtbHours>600</mtbHours>
+                <healthFraction>0.5</healthFraction>
+                <message>PhobosVehicleSystems_MsgBreakdown</message>
+                <when Class="Phobos.VehicleSystems.When_EngineRunning" />
+              </li>
+              <li Class="Phobos.VehicleSystems.Effect_Breakdown">
+                <role>Radiator</role>
+                <mtbHours>600</mtbHours>
+                <healthFraction>0.4</healthFraction>
+                <message>PhobosVehicleSystems_MsgBreakdown</message>
+                <when Class="Phobos.VehicleSystems.When_EngineRunning" />
+              </li>
+              <li Class="Phobos.VehicleSystems.Effect_DamagePart">
+                <role>Engine</role>
+                <perHour>0.2</perHour>
+                <when Class="Phobos.VehicleSystems.When_EngineRunning" />
+              </li>
+            </effects>
+          </li>
+        </stages>
+      </li>
+    </quantities>
+    <flows>
+      <li>
+        <name>meter</name>
+        <quantity>engineHours</quantity>
+        <kind>Into</kind>
+        <inputs>
+          <li Class="Phobos.VehicleSystems.Input_EngineRunning" />
+        </inputs>
+      </li>
+    </flows>
+    <service>
+      <label>an engine service</label>
+      <dueQuantity>engineHours</dueQuantity>
+      <dueAbove>120</dueAbove>
+      <restores>
+        <li>
+          <quantity>engineHours</quantity>
+          <value>0</value>
+        </li>
+        <li>
+          <quantity>oilLevel</quantity>
+          <value>1</value>
+        </li>
+        <li>
+          <quantity>coolantLevel</quantity>
+          <value>1</value>
+        </li>
+      </restores>
+      <supplies>
+        <Chemfuel>12</Chemfuel>
+        <ComponentIndustrial>1</ComponentIndustrial>
+      </supplies>
+      <work>1500</work>
+    </service>
+  </Phobos.VehicleSystems.PhobosVehicleSystemDef>
+</Defs>

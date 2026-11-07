@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    RimThunder - Desert Sabre - Continued. Its M1A2 SEP runs the same gas turbine as Roaring Tiger's M1A2 (secondary: Wikipedia,
+    "M1 Abrams"), so it gets the same systems: the heavy set without the cooling system. Written in full here, not inherited from
+    the Roaring Tiger file, so it works with Desert Sabre alone. Not yet tested in game.
+  -->
+  <Phobos.VehicleSystems.PhobosVehicleLoadoutDef ParentName="PhobosVehicleLoadoutLandHeavy">
+    <defName>PhobosVehicleLoadout_RT_M1A2SEP</defName>
+    <label>gas-turbine tank</label>
+    <priority>Vehicle</priority>
+    <selector>
+      <vehicleDefs>
+        <li>RT_M1A2SEP_MainBattleTank</li>
+      </vehicleDefs>
+      <massMin>-1</massMin>
+    </selector>
+    <systems Inherit="False">
+      <li>
+        <def>PhobosVehicleSystem_Electrical</def>
+        <set>
+          <batteryAmpHours>100</batteryAmpHours>
+          <alternatorAmps>100</alternatorAmps>
+          <starterAmpHours>0.3</starterAmpHours>
+        </set>
+      </li>
+      <li><def>PhobosVehicleSystem_Lubrication</def></li>
+      <li><def>PhobosVehicleSystem_Service</def></li>
+      <li><def>PhobosVehicleSystem_RunningGear</def></li>
+      <li><def>PhobosVehicleSystem_Brakes</def></li>
+      <li><def>PhobosVehicleSystem_Transmission</def></li>
+    </systems>
+  </Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
+</Defs>

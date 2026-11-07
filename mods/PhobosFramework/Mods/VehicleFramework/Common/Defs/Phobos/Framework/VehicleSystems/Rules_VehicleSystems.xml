@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- The vehicle systems service's own constants (agent defaults, not tuned). Physics lives in the system Defs; player preferences
+       are mod settings. The first loaded instance wins, so another mod may patch these in XML. -->
+  <Phobos.VehicleSystems.PhobosVehicleRulesDef>
+    <defName>PhobosVehicleRules</defName>
+    <maxCatchUpHours>24</maxCatchUpHours>
+    <stepHours>0.025</stepHours>
+    <messageCooldownHours>6</messageCooldownHours>
+    <letterCooldownHours>48</letterCooldownHours>
+    <nightStartsHour>19</nightStartsHour>
+    <nightEndsHour>6</nightEndsHour>
+    <shorePowerReach>1</shorePowerReach>
+  </Phobos.VehicleSystems.PhobosVehicleRulesDef>
+
+  <!-- The service: supplies loaded into the vehicle's cargo (hauling), then the work at the vehicle (construction). -->
+  <JobDef>
+    <defName>PhobosVehicleSystems_LoadServiceSupplies</defName>
+    <driverClass>Phobos.VehicleSystems.JobDriver_PhobosLoadServiceSupplies</driverClass>
+    <reportString>loading service supplies into TargetA.</reportString>
+    <casualInterruptible>true</casualInterruptible>
+  </JobDef>
+
+  <JobDef>
+    <defName>PhobosVehicleSystems_ServiceVehicle</defName>
+    <driverClass>Phobos.VehicleSystems.JobDriver_PhobosServiceVehicle</driverClass>
+    <reportString>servicing TargetA.</reportString>
+    <casualInterruptible>true</casualInterruptible>
+  </JobDef>
+
+  <WorkGiverDef>
+    <defName>PhobosVehicleSystems_LoadServiceSupplies</defName>
+    <label>load service supplies into vehicles</label>
+    <giverClass>Phobos.VehicleSystems.WorkGiver_PhobosLoadServiceSupplies</giverClass>
+    <workType>Hauling</workType>
+    <verb>load supplies into</verb>
+    <gerund>loading supplies into</gerund>
+    <priorityInType>25</priorityInType>
+    <requiredCapacities>
+      <li>Manipulation</li>
+    </requiredCapacities>
+  </WorkGiverDef>
+
+  <WorkGiverDef>
+    <defName>PhobosVehicleSystems_ServiceVehicle</defName>
+    <label>service vehicles</label>
+    <giverClass>Phobos.VehicleSystems.WorkGiver_PhobosServiceVehicle</giverClass>
+    <workType>Construction</workType>
+    <verb>service</verb>
+    <gerund>servicing</gerund>
+    <priorityInType>60</priorityInType>
+    <requiredCapacities>
+      <li>Manipulation</li>
+    </requiredCapacities>
+  </WorkGiverDef>
+</Defs>

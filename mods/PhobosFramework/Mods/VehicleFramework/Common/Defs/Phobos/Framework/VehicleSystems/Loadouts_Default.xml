@@ -1,0 +1,468 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    The default loadouts: which vehicles get which systems, matched by what a vehicle does (its fuel, whether it flies or floats,
+    its mass), never by its name. A named loadout in another mod (priority Mod or Vehicle) beats these. Design:
+    docs/development/vehicle-systems-design.md; how to write one: docs/vehicle-systems-modding.md. Not yet tested in game.
+
+    Part roles are found on the vehicle's own parts first: the engine by its effect (an internal part that carries move speed,
+    the priority one first); the alternator, gearbox and the rest by tag, then by a hint in the part's key, because nothing else
+    marks them (Vanilla Vehicles Expanded's alternator carries no stat). A role nothing plays gets an appended part that takes the
+    engine's cells and armour, so Combat Extended can reach it. Parts are only ever appended, never reordered.
+
+    Electrical figures (secondary unless said): a light vehicle's 12 V, 45 Ah battery and 65 A alternator (Wikipedia, "Automotive
+    battery" and "Alternator (automotive)"); a heavy vehicle's two 12 V batteries in series for 24 V (100 Ah, authored) and a 24 V,
+    100 A alternator (Delco Remy 28SI product listing). Loads: two 55 W headlamps at 12 V draw about 9 A (Ohm's law, our
+    inference); the heater blower and the instruments are authored. Heavy vehicles' loads are halved in amperes at 24 V.
+    The 350 mass line between light and heavy is authored, in Vehicle Framework's mass units.
+  -->
+  <Phobos.VehicleSystems.PhobosVehicleLoadoutDef Name="PhobosVehicleLoadoutCombustionBase" Abstract="True">
+    <priority>Effect</priority>
+    <selector>
+      <fuelled>Yes</fuelled>
+      <electricPowered>No</electricPowered>
+      <flies>No</flies>
+    </selector>
+    <partRoles>
+      <li>
+        <role>Engine</role>
+        <find>
+          <li>
+            <categories>
+              <li>MoveSpeed</li>
+            </categories>
+            <depth>Internal</depth>
+            <priority>Yes</priority>
+          </li>
+          <li>
+            <categories>
+              <li>MoveSpeed</li>
+            </categories>
+            <depth>Internal</depth>
+          </li>
+          <li>
+            <keyContains>engine</keyContains>
+          </li>
+        </find>
+      </li>
+      <li>
+        <role>Alternator</role>
+        <find>
+          <li>
+            <tag>Alternator</tag>
+          </li>
+          <li>
+            <keyContains>alternator</keyContains>
+          </li>
+        </find>
+        <add>
+          <key>PhobosAlternator</key>
+          <label>alternator</label>
+          <health>25</health>
+          <cellsOf>Engine</cellsOf>
+        </add>
+      </li>
+      <li>
+        <role>Battery</role>
+        <find>
+          <li>
+            <tag>Battery</tag>
+          </li>
+          <li>
+            <keyContains>battery</keyContains>
+          </li>
+        </find>
+        <add>
+          <key>PhobosBattery</key>
+          <label>battery</label>
+          <health>20</health>
+          <cellsOf>Engine</cellsOf>
+        </add>
+      </li>
+      <li>
+        <role>Starter</role>
+        <find>
+          <li>
+            <keyContains>starter</keyContains>
+          </li>
+        </find>
+        <add>
+          <key>PhobosStarter</key>
+          <label>starter motor</label>
+          <health>20</health>
+          <cellsOf>Engine</cellsOf>
+        </add>
+      </li>
+      <li>
+        <role>OilPump</role>
+        <find>
+          <li>
+            <keyContains>oilpump</keyContains>
+          </li>
+        </find>
+        <add>
+          <key>PhobosOilPump</key>
+          <label>oil pump</label>
+          <health>20</health>
+          <cellsOf>Engine</cellsOf>
+        </add>
+      </li>
+      <li>
+        <role>Transmission</role>
+        <find>
+          <li>
+            <keyContains>gearbox</keyContains>
+          </li>
+          <li>
+            <keyContains>transmission</keyContains>
+          </li>
+        </find>
+        <add>
+          <key>PhobosTransmission</key>
+          <label>gearbox</label>
+          <health>40</health>
+          <cellsOf>Engine</cellsOf>
+        </add>
+      </li>
+    </partRoles>
+  </Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleLoadoutDef Name="PhobosVehicleLoadoutLandBase" ParentName="PhobosVehicleLoadoutCombustionBase" Abstract="True">
+    <selector>
+      <vehicleTypes>
+        <li>Land</li>
+      </vehicleTypes>
+    </selector>
+    <systems>
+      <li><def>PhobosVehicleSystem_Electrical</def></li>
+      <li><def>PhobosVehicleSystem_Cooling</def></li>
+      <li><def>PhobosVehicleSystem_Lubrication</def></li>
+      <li><def>PhobosVehicleSystem_Fuel</def></li>
+      <li><def>PhobosVehicleSystem_Service</def></li>
+      <li><def>PhobosVehicleSystem_RunningGear</def></li>
+      <li><def>PhobosVehicleSystem_Brakes</def></li>
+      <li><def>PhobosVehicleSystem_Transmission</def></li>
+    </systems>
+    <partRoles>
+      <li>
+        <role>Radiator</role>
+        <find>
+          <li>
+            <keyContains>radiator</keyContains>
+          </li>
+        </find>
+        <add>
+          <key>PhobosRadiator</key>
+          <label>radiator</label>
+          <health>30</health>
+          <depth>External</depth>
+          <hitWeight>0.5</hitWeight>
+          <cellsOf>Engine</cellsOf>
+        </add>
+      </li>
+      <li>
+        <role>Wheels</role>
+        <all>true</all>
+        <find>
+          <li>
+            <tag>Wheel</tag>
+          </li>
+          <li>
+            <categories>
+              <li>MoveSpeed</li>
+            </categories>
+            <depth>External</depth>
+          </li>
+        </find>
+      </li>
+      <li>
+        <role>Brakes</role>
+        <find>
+          <li>
+            <keyContains>brake</keyContains>
+          </li>
+        </find>
+        <add>
+          <key>PhobosBrakes</key>
+          <label>brakes</label>
+          <health>30</health>
+          <cellsOf>Wheels</cellsOf>
+        </add>
+      </li>
+    </partRoles>
+  </Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleLoadoutDef Name="PhobosVehicleLoadoutLandLight" ParentName="PhobosVehicleLoadoutLandBase">
+    <defName>PhobosVehicleLoadout_LandLight</defName>
+    <label>light land vehicle</label>
+    <kind>CombustionLand</kind>
+    <selector>
+      <massMax>349.99</massMax>
+    </selector>
+    <loads>
+      <li>
+        <name>headlights</name>
+        <label>headlights</label>
+        <description>The headlights come on at night while the engine runs.</description>
+        <amps>9</amps>
+        <toggle>true</toggle>
+        <iconPath>Phobos/VehicleSystems/Headlights</iconPath>
+        <when Class="Phobos.VehicleSystems.When_All">
+          <conditions>
+            <li Class="Phobos.VehicleSystems.When_Night" />
+            <li Class="Phobos.VehicleSystems.When_EngineRunning" />
+          </conditions>
+        </when>
+      </li>
+      <li>
+        <name>cabHeater</name>
+        <label>cab heater</label>
+        <description>The cab heater's fan runs below 5 °C while the engine runs.</description>
+        <amps>12</amps>
+        <toggle>true</toggle>
+        <iconPath>Phobos/VehicleSystems/CabHeater</iconPath>
+        <when Class="Phobos.VehicleSystems.When_All">
+          <conditions>
+            <li Class="Phobos.VehicleSystems.When_AmbientBelow">
+              <celsius>5</celsius>
+            </li>
+            <li Class="Phobos.VehicleSystems.When_EngineRunning" />
+          </conditions>
+        </when>
+      </li>
+      <li>
+        <name>instruments</name>
+        <label>ignition and instruments</label>
+        <amps>4</amps>
+        <when Class="Phobos.VehicleSystems.When_EngineRunning" />
+      </li>
+    </loads>
+  </Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleLoadoutDef Name="PhobosVehicleLoadoutLandHeavy" ParentName="PhobosVehicleLoadoutLandBase">
+    <defName>PhobosVehicleLoadout_LandHeavy</defName>
+    <label>heavy land vehicle</label>
+    <kind>CombustionHeavy</kind>
+    <selector>
+      <massMin>350</massMin>
+    </selector>
+    <systems Inherit="False">
+      <li>
+        <def>PhobosVehicleSystem_Electrical</def>
+        <set>
+          <batteryAmpHours>100</batteryAmpHours>
+          <alternatorAmps>100</alternatorAmps>
+          <starterAmpHours>0.3</starterAmpHours>
+        </set>
+      </li>
+      <li><def>PhobosVehicleSystem_Cooling</def></li>
+      <li><def>PhobosVehicleSystem_Lubrication</def></li>
+      <li><def>PhobosVehicleSystem_Fuel</def></li>
+      <li><def>PhobosVehicleSystem_Service</def></li>
+      <li><def>PhobosVehicleSystem_RunningGear</def></li>
+      <li><def>PhobosVehicleSystem_Brakes</def></li>
+      <li><def>PhobosVehicleSystem_Transmission</def></li>
+    </systems>
+    <loads>
+      <li>
+        <name>headlights</name>
+        <label>headlights</label>
+        <description>The headlights come on at night while the engine runs.</description>
+        <amps>6</amps>
+        <toggle>true</toggle>
+        <iconPath>Phobos/VehicleSystems/Headlights</iconPath>
+        <when Class="Phobos.VehicleSystems.When_All">
+          <conditions>
+            <li Class="Phobos.VehicleSystems.When_Night" />
+            <li Class="Phobos.VehicleSystems.When_EngineRunning" />
+          </conditions>
+        </when>
+      </li>
+      <li>
+        <name>cabHeater</name>
+        <label>cab heater</label>
+        <description>The cab heater's fan runs below 5 °C while the engine runs.</description>
+        <amps>8</amps>
+        <toggle>true</toggle>
+        <iconPath>Phobos/VehicleSystems/CabHeater</iconPath>
+        <when Class="Phobos.VehicleSystems.When_All">
+          <conditions>
+            <li Class="Phobos.VehicleSystems.When_AmbientBelow">
+              <celsius>5</celsius>
+            </li>
+            <li Class="Phobos.VehicleSystems.When_EngineRunning" />
+          </conditions>
+        </when>
+      </li>
+      <li>
+        <name>instruments</name>
+        <label>ignition and instruments</label>
+        <amps>3</amps>
+        <when Class="Phobos.VehicleSystems.When_EngineRunning" />
+      </li>
+    </loads>
+  </Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
+
+  <!--
+    Boats: raw-water cooling, so the cooling system runs without a radiator part (the role stays unbound and reads as sound) and
+    with a stronger cooling rate (authored: the sea is a large, cold radiator). No tyres or brakes.
+  -->
+  <Phobos.VehicleSystems.PhobosVehicleLoadoutDef ParentName="PhobosVehicleLoadoutCombustionBase">
+    <defName>PhobosVehicleLoadout_Boat</defName>
+    <label>boat</label>
+    <kind>Boat</kind>
+    <selector>
+      <vehicleTypes>
+        <li>Sea</li>
+      </vehicleTypes>
+    </selector>
+    <systems>
+      <li><def>PhobosVehicleSystem_Electrical</def></li>
+      <li>
+        <def>PhobosVehicleSystem_Cooling</def>
+        <set>
+          <radiatorRate>9</radiatorRate>
+        </set>
+      </li>
+      <li><def>PhobosVehicleSystem_Lubrication</def></li>
+      <li><def>PhobosVehicleSystem_Fuel</def></li>
+      <li><def>PhobosVehicleSystem_Service</def></li>
+      <li><def>PhobosVehicleSystem_Transmission</def></li>
+    </systems>
+    <loads>
+      <li>
+        <name>navigationLights</name>
+        <label>navigation lights</label>
+        <description>The navigation lights burn at night while the engine runs.</description>
+        <amps>4</amps>
+        <toggle>true</toggle>
+        <iconPath>Phobos/VehicleSystems/Headlights</iconPath>
+        <when Class="Phobos.VehicleSystems.When_All">
+          <conditions>
+            <li Class="Phobos.VehicleSystems.When_Night" />
+            <li Class="Phobos.VehicleSystems.When_EngineRunning" />
+          </conditions>
+        </when>
+      </li>
+      <li>
+        <name>instruments</name>
+        <label>ignition and instruments</label>
+        <amps>3</amps>
+        <when Class="Phobos.VehicleSystems.When_EngineRunning" />
+      </li>
+    </loads>
+  </Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
+
+  <!--
+    Aircraft: the electrical system and the engine's hours and service only. A jet's or a rotor's engine cools and lubricates
+    unlike a car's, and Vehicle Framework gives no flight load, so cooling waits (design: aircraft deferred). No radiator, oil pump,
+    gearbox, tyres or brakes are appended.
+  -->
+  <Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
+    <defName>PhobosVehicleLoadout_Aircraft</defName>
+    <label>aircraft</label>
+    <kind>Aircraft</kind>
+    <priority>Effect</priority>
+    <selector>
+      <fuelled>Yes</fuelled>
+      <electricPowered>No</electricPowered>
+      <flies>Yes</flies>
+    </selector>
+    <systems>
+      <li><def>PhobosVehicleSystem_Electrical</def></li>
+      <li><def>PhobosVehicleSystem_Service</def></li>
+    </systems>
+    <partRoles>
+      <li>
+        <role>Engine</role>
+        <find>
+          <li>
+            <categories>
+              <li>FlightSpeed</li>
+            </categories>
+            <depth>Internal</depth>
+          </li>
+          <li>
+            <categories>
+              <li>MoveSpeed</li>
+            </categories>
+            <depth>Internal</depth>
+          </li>
+          <li>
+            <keyContains>engine</keyContains>
+          </li>
+        </find>
+      </li>
+      <li>
+        <role>Alternator</role>
+        <find>
+          <li>
+            <tag>Alternator</tag>
+          </li>
+          <li>
+            <keyContains>alternator</keyContains>
+          </li>
+          <li>
+            <keyContains>generator</keyContains>
+          </li>
+        </find>
+        <add>
+          <key>PhobosAlternator</key>
+          <label>generator</label>
+          <health>25</health>
+          <cellsOf>Engine</cellsOf>
+        </add>
+      </li>
+      <li>
+        <role>Battery</role>
+        <find>
+          <li>
+            <keyContains>battery</keyContains>
+          </li>
+        </find>
+        <add>
+          <key>PhobosBattery</key>
+          <label>battery</label>
+          <health>20</health>
+          <cellsOf>Engine</cellsOf>
+        </add>
+      </li>
+      <li>
+        <role>Starter</role>
+        <find>
+          <li>
+            <keyContains>starter</keyContains>
+          </li>
+        </find>
+        <add>
+          <key>PhobosStarter</key>
+          <label>starter</label>
+          <health>20</health>
+          <cellsOf>Engine</cellsOf>
+        </add>
+      </li>
+    </partRoles>
+    <loads>
+      <li>
+        <name>avionics</name>
+        <label>avionics</label>
+        <amps>15</amps>
+        <when Class="Phobos.VehicleSystems.When_EngineRunning" />
+      </li>
+      <li>
+        <name>navigationLights</name>
+        <label>navigation lights</label>
+        <description>The navigation lights burn at night while the engine runs.</description>
+        <amps>5</amps>
+        <toggle>true</toggle>
+        <iconPath>Phobos/VehicleSystems/Headlights</iconPath>
+        <when Class="Phobos.VehicleSystems.When_All">
+          <conditions>
+            <li Class="Phobos.VehicleSystems.When_Night" />
+            <li Class="Phobos.VehicleSystems.When_EngineRunning" />
+          </conditions>
+        </when>
+      </li>
+    </loads>
+  </Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
+</Defs>

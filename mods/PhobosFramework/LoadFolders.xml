@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <loadFolders>
-  <!-- One assembly per game version: 1.7 leads, 1.6 stays until it is retired (docs/development/building.md). Combat Extended is reached by
-       name. The Dubs Bad Hygiene tie-in (the shared plumbing reader) loads only with that mod, from its own version folder. -->
+  <!-- One assembly per game version: 1.7 leads, 1.6 stays for the existing parts until 1.6 is retired (docs/development/building.md).
+       Combat Extended is reached by name. The Dubs Bad Hygiene tie-in (the shared plumbing reader) loads only with that mod, from its
+       own version folder. The vehicle systems part loads only with Vehicle Framework, and only on 1.7 (owner, 8 November 2026: new
+       work is 1.7 only). -->
   <v1.6>
     <li>/</li>
     <li>Common</li>
@@ -13,5 +15,7 @@
     <li>Common</li>
     <li>1.7</li>
     <li IfModActive="Dubwise.DubsBadHygiene">Mods/DubsBadHygiene/1.7</li>
+    <li IfModActive="SmashPhil.VehicleFramework">Mods/VehicleFramework/Common</li>
+    <li IfModActive="SmashPhil.VehicleFramework">Mods/VehicleFramework/1.7</li>
   </v1.7>
 </loadFolders>

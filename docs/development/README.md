@@ -58,10 +58,12 @@ promise current behaviour. For using the mods, start at the [documentation index
 - [Vehicle systems: design (8 Nov 2026)](vehicle-systems-design.md): the owner's generic, schema-driven service for real
   vehicle systems (electrical, coolant and oil first) on D'thorga Framework's Vehicle-Framework-optional part, retrofitted to
   other authors' vehicles through loadout Defs anyone can write; the schema shape, the service, settings, the first two
-  systems, the roadmap and who chose what. Written for the owner's review before any code; nothing built.
+  systems, the roadmap and who chose what; then what was built in D'thorga Framework 0.9.0 (phases A to C, 8 Nov 2026), how it
+  differs, and the owner's test list. Not yet tested in game.
 - [Utility vehicles: design (8 Nov 2026)](utility-vehicles-design.md): the new content mod and why it starts as a stand-in,
   the parts model and stats, the extraction-chain family in full (survey truck, drill rig, tipper hauler, generator set),
-  the catalogue of other utility vehicles, the Vehicle Framework 1.7 gate and the art plan; nothing built.
+  the catalogue of other utility vehicles, the Vehicle Framework 1.7 gate and the art plan; the stand-in mod (0.1.0) is built, no
+  vehicle of ours is.
 - [Vehicle Framework mechanics: research (8 Nov 2026)](vehicle-framework-mechanics.md): Vehicle Framework's 1.7 status and
   authors, the parts and health system, ticking, events, fuel and electric rules, its per-vehicle settings, how parts and
   comps retrofit onto other mods' designs and what saves hold, the game's temperature and breakdown hooks, Vanilla
