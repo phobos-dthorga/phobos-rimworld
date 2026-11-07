@@ -11,6 +11,8 @@ public enum DeviceNeed
     Intubation,
     /// <summary>A needle decompression kit: pressure building in the chest, to relieve until the operation.</summary>
     Decompression,
+    /// <summary>A fluids kit: burn shock with no fluids yet, or poorer fluids than the kit gives.</summary>
+    Fluids,
 }
 
 /// <summary>Why a doctor won't use a device on a patient, most urgent first: when several devices refuse, the lowest is the one to tell.</summary>
@@ -60,6 +62,10 @@ public static class DeviceRule
         if (hasTube) return DeviceRefusal.AlreadyHasTube;
         return airwayClosing || ventilatorWaiting ? DeviceRefusal.None : DeviceRefusal.NotNeeded;
     }
+
+    /// <summary>A fluids kit helps burn shock whose fluids so far (its tend quality, 0 when untended) are poorer than the kit's.</summary>
+    public static DeviceRefusal Fluids(bool inBurnShock, float currentFluidsQuality, float kitQuality) =>
+        inBurnShock && currentFluidsQuality < kitQuality ? DeviceRefusal.None : DeviceRefusal.NotNeeded;
 
     /// <summary>A needle helps pressure in the chest worth relieving; nothing else.</summary>
     public static DeviceRefusal Decompression(bool pressureToRelieve) => pressureToRelieve ? DeviceRefusal.None : DeviceRefusal.NotNeeded;

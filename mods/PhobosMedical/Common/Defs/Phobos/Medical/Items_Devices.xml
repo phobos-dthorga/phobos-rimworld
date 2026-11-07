@@ -141,6 +141,56 @@
     </thingCategories>
   </ThingDef>
 
+  <!-- A fluids kit for burn shock: a bag of fluid and a giving set. Doctors hang one by themselves on a patient in burn shock whose fluids so
+       far are poorer than the kit's (quality 0.9, the burn rules Def's, authored), as a quick job. It goes through the same fluids care as
+       More Injuries' saline bill, which stays for players who order it (owner: More Injuries' saline when active, ours otherwise; both
+       work, one service). Cost, work and skill authored. Placeholder art. -->
+  <ThingDef ParentName="ResourceBase">
+    <defName>PhobosMedical_FluidsKit</defName>
+    <label>fluids kit</label>
+    <description>A bag of fluid with a needle and a giving set, for replacing the fluid a badly burned patient loses through their burns. Doctors hang one by themselves on a patient in burn shock who has had no fluids yet, or poorer ones. Used up.</description>
+    <graphicData>
+      <texPath>Phobos/Medical/Things/FluidsKit</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>0.8</drawSize>
+    </graphicData>
+    <stackLimit>10</stackLimit>
+    <techLevel>Industrial</techLevel>
+    <statBases>
+      <MaxHitPoints>40</MaxHitPoints>
+      <Mass>1</Mass>
+      <Flammability>0.5</Flammability>
+      <DeteriorationRate>2</DeteriorationRate>
+      <WorkToMake>500</WorkToMake>
+    </statBases>
+    <costList>
+      <Cloth>1</Cloth>
+      <Steel>2</Steel>
+    </costList>
+    <recipeMaker>
+      <workSpeedStat>DrugSynthesisSpeed</workSpeedStat>
+      <workSkill>Intellectual</workSkill>
+      <recipeUsers>
+        <li>DrugLab</li>
+      </recipeUsers>
+      <researchPrerequisite>MedicineProduction</researchPrerequisite>
+      <skillRequirements>
+        <Intellectual>3</Intellectual>
+      </skillRequirements>
+    </recipeMaker>
+    <thingCategories>
+      <li>Manufactured</li>
+    </thingCategories>
+    <modExtensions>
+      <li Class="Phobos.Medical.Defs.PhobosPatientDeviceExtension">
+        <need>Fluids</need>
+        <treatment>PhobosMedical_OnDrip</treatment>
+        <workTicks>300</workTicks>
+        <consumed>true</consumed>
+      </li>
+    </modExtensions>
+  </ThingDef>
+
   <!-- Silver sulfadiazine is a long-used topical antimicrobial for burns: a silver salt of the sulfonamide sulfadiazine. Neutroamine
        stands in for the drug precursor and silver for the silver. The game's infection chance has no patient-side modifier, only the
        tend's quality, the room and the wound, so the honest route with no patch is a medicine that gives a better tend: doctors use

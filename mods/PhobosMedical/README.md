@@ -209,7 +209,11 @@ framework's health layer are not yet tested in game. The rest is read from the g
 
 ### Gotchas for this part
 
-- **Needs D'thorga Framework 0.3.0 or later**, loaded before it. No Harmony. Nothing is saved: **safe to add or remove at any time**.
+- **Needs D'thorga Framework 0.3.0 or later**, loaded before it. From 0.7.0 one Harmony patch, for fussing. Nothing is saved: **safe
+  to add or remove at any time**.
+- **New in 0.7.0: patients in extreme pain fuss** (owner's go, not yet tested in game). Someone **awake and in extreme pain** (80% or
+  more, the game's label) flinches while being tended, so the tend comes out **10% worse, up to a quarter worse at the very worst
+  pain**. **Pain relief prevents it**: doctors give it from 40% pain. Someone asleep or under anaesthetic doesn't fuss. It has a setting.
 - **Who gets dosed:** a colonist, slave, prisoner or guest past babyhood who is **down or in bed**, in **severe pain** (40% or more,
   where the game's "severe" label starts; 60% until 0.7.0), under medical care of at least the level in the settings (default: herbal medicine or
   better; "no medicine" is never dosed), and not reserved by another doctor. A pawn up and working in pain is left alone: a painkiller could drop them where they stand.
@@ -291,7 +295,7 @@ an earlier dose still working, a dangerous dose, and so on. Nothing shows for a 
 ### Settings
 
 Doctors give medication on their own (on); dose patients whose medical care is at least (herbal or better); use recreational
-drugs for pain (off); give medical drugs to patients who refuse drugs (off); doctors give drugs that help fight disease (on); people in pain fetch their own painkillers (on); guests may
+drugs for pain (off); give medical drugs to patients who refuse drugs (off); doctors give drugs that help fight disease (on); patients in extreme pain are harder to tend (on); people in pain fetch their own painkillers (on); guests may
 take painkillers from your stock (off, for mods such as Hospitality); the display mode. The recreational setting is about what doctors give: a
 pawn fetching their own goes by their drug policy instead.
 
@@ -491,6 +495,9 @@ burn dressings for burns; and an electrolyser and a liquid oxygen store to make 
   **The anaesthesia machine** goes against a hospital bed like a vitals monitor and makes **operations in that bed 8% likelier to
   succeed**. **The steriliser** makes the room it stands in count as cleaner (about seven sterile tiles' worth), which lowers infection
   and helps surgery; a room already spotless gains little from it.
+- **New in 0.7.0: the fluids kit for burn shock** (not yet tested in game). Doctors hang one by themselves on a patient in burn shock who
+  has had no fluids yet, or poorer ones than the kit gives (it counts as nearly the best care). It works with or without More
+  Injuries; with it, you can also order More Injuries' saline bag as a bill, which counts as the very best care.
 - **New in 0.7.0, with More Injuries: the needle decompression kit** (not yet tested in game). For a collapsed lung crushing the heart: a
   doctor with **Medicine 5 or better** uses it by themselves and **buys about a day**. **The lung still needs its operation**: the kit
   never clears it.
@@ -512,7 +519,7 @@ burn dressings for burns; and an electrolyser and a liquid oxygen store to make 
 - **Silver burn dressings are a medicine.** Doctors use them for any tend, like herbal or industrial medicine, under the medical care setting that allows them (normal medicine or better).
 - **Move patients out of the burning room.** A patient on oxygen still takes in the carbon monoxide around them.
 - **Some art is a placeholder:** the electrolyser, the hyperbaric chamber, the ventilator, the intubation kit, the safety shower, the alarm, the oxygen trolley, the nebuliser and its vials, the anaesthesia machine, the
-  needle decompression kit and the steriliser, until generated art is picked. The rest is AI-generated art picked by the owner on 5 and 7 November 2026; only the burn unit bed has been seen in game. The records beside the textures say how each was made.
+  needle decompression kit, the fluids kit and the steriliser, until generated art is picked. The rest is AI-generated art picked by the owner on 5 and 7 November 2026; only the burn unit bed has been seen in game. The records beside the textures say how each was made.
 
 ### What it does
 
@@ -530,6 +537,7 @@ burn dressings for burns; and an electrolyser and a liquid oxygen store to make 
 | Bronchodilator vial (new in 0.7.0) | Item, the nebuliser's fuel | 4 from 1 neutroamine at a drug lab | | Drug production |
 | Anaesthesia machine (new in 0.7.0) | Bedside machine | Power (150 W) | Surgery in a bed it touches: +8% success | Vitals monitor |
 | Needle decompression kit (new in 0.7.0, More Injuries only) | Item, used up | Made from 3 steel and 1 cloth at a machining table; a doctor with Medicine 5 or better | One patient with a collapsed lung | Emergency medicine |
+| Fluids kit (new in 0.7.0) | Item, used up | Made from 1 cloth and 2 steel at a drug lab | One patient in burn shock | Medicine production |
 | Steriliser (new in 0.7.0) | Building | Nothing | The room it stands in counts as cleaner | Medicine production |
 | Carbon monoxide and smoke alarm (new in 0.7.0) | Ceiling fixture, takes no floor space | Power (5 W) | The room it hangs in | Electricity |
 | Intubation kit (new in 0.7.0) | Item, used up | Made from 3 steel and 2 cloth at a machining table; a doctor with Medicine 4 or better | One patient | Medicine production |

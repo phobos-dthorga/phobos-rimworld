@@ -95,6 +95,19 @@ Core 1.7.4998; the save PG19 of 5 Nov 00:42.
   not apply, which is right: the rule only sedates at pain shock. Its chloroform doctor-skill curve does not apply either; the
   fixed 0.35 self-use dose does.
 
+## Fussing (D'thorga Medical 0.7.0, 7 Nov 2026)
+
+Owner's go (released 7 Nov 2026); not yet tested in game. More Injuries' "resisting treatment" text is flavour only, so nothing in the
+owner's list already does this.
+
+- **What**: an awake patient in extreme pain (from 0.8, the game's label and our sedation threshold) is tended worse: the base tend
+  quality is multiplied by 0.9 at the threshold, falling in a straight line to 0.75 at full pain (authored). Asleep, unconscious or
+  anaesthetised patients don't fuss. The pain relief doctors give from 0.4 keeps most patients below it, so the two parts reinforce
+  each other.
+- **How**: the dosing part's first Harmony patch, a postfix on `TendUtility.CalculateBaseTendQuality(Pawn, Pawn, float, float)`, the
+  overload every tend goes through (the ThingDef overload calls it; read from the 1.7 decompile). The game has no extension point for
+  the patient's state in tend quality. It multiplies the result and never skips the original. A setting, on by default.
+
 ## Drugs for fighting disease, and the bleeding hold (0.3.0, 5 Nov 2026)
 
 Both approved by the owner on 5 November 2026. **Not yet tested in game.**

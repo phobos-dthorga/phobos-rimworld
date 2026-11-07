@@ -254,6 +254,18 @@ def steriliser(draw):
         draw.ellipse((775, y - 25, 825, y + 25), fill=GREEN, outline=OUTLINE, width=10)
 
 
+def fluids_kit(draw):
+    """A fluids kit: a clear bag of fluid with its label and a coiled giving set ending in a needle."""
+    draw.rounded_rectangle((250, 120, 690, 700), radius=90, fill=ACRYLIC, outline=OUTLINE, width=LINE)
+    draw.rounded_rectangle((330, 260, 610, 460), radius=30, fill=VESSEL, outline=OUTLINE, width=20)
+    draw.line((380, 360, 560, 360), fill=WATER, width=22)
+    box(draw, (420, 680, 520, 780), PANEL_DARK, 20)
+    draw.arc((300, 700, 760, 960), 180, 360, fill=OUTLINE, width=44)
+    draw.arc((300, 700, 760, 960), 180, 360, fill=TUBE, width=22)
+    draw.line((760, 830, 880, 780), fill=OUTLINE, width=34)
+    draw.line((760, 830, 880, 780), fill=VESSEL, width=14)
+
+
 def placeholder(painter, name, what, canvas, final, multi, outstanding):
     """A game texture standing in for outstanding generated art, with its record. multi writes the south view and the east and north
     views turned from it (anticlockwise 90 and 180 degrees, as the burn unit bed's), for a bed drawn from directly above."""
@@ -322,6 +334,8 @@ DRAWINGS = {
         decompression_kit, 'DecompressionKit', 'a needle decompression kit as an item', WORK, 128, False, 'generated art'),
     'SteriliserPlaceholder': lambda: placeholder(
         steriliser, 'Steriliser', 'a steriliser (autoclave), 1 by 1, from above', WORK, 256, False, 'generated art'),
+    'FluidsKitPlaceholder': lambda: placeholder(
+        fluids_kit, 'FluidsKit', 'a fluids kit (a bag of fluid and a giving set) as an item', WORK, 128, False, 'generated art'),
 }
 
 if __name__ == '__main__':

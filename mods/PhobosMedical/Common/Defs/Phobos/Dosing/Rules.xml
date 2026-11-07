@@ -52,5 +52,10 @@
     <bleedWeight>1</bleedWeight>
     <bleedWeightWhenNotBleeding>0.25</bleedWeightWhenNotBleeding>
     <addictionWeight>0.5</addictionWeight>
+    <!-- Fussing (D'thorga Medical 0.7.0): an awake patient in extreme pain (from 0.8, the game's label) is tended 10% worse, falling to 25%
+         worse at full pain (authored). Pain relief keeps patients below it. -->
+    <fussingPainThreshold>0.8</fussingPainThreshold>
+    <fussingFactorAtThreshold>0.9</fussingFactorAtThreshold>
+    <fussingFactorAtFullPain>0.75</fussingFactorAtFullPain>
   </Phobos.Dosing.Defs.PhobosDosingRulesDef>
 </Defs>

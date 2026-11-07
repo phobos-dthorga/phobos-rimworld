@@ -279,7 +279,9 @@ Our inference: the game has burn depth per injury but nothing for "all round the
   comp stands down while More Injuries is active, so the two never stack.
 - **Fluids** (owner's go): with More Injuries, a bill consuming one `SalineBag` that counts as tending the burn shock at quality 1
   (authored) through the game's own `Hediff.Tended`, so the shock reads it as its fluids term. Offered only during burn shock; no
-  anaesthetic, never fails. Without More Injuries there is no saline bag; D'thorga Medical's planned fluids kit covers that.
+  anaesthetic, never fails. Without More Injuries there is no saline bag; D'thorga Medical's fluids kit covers that (built in 0.7.0:
+  a device doctors use by themselves on burn shock whose fluids so far are poorer than the kit's 0.9, authored, through the same
+  fluids service; with More Injuries both exist).
 
 **Checks for the owner** (three):
 

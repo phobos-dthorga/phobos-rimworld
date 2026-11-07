@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
+using Phobos.BurnsAndSmoke.Defs;
+using Phobos.BurnsAndSmoke.Services;
 using Phobos.Framework.Breathing;
 using Phobos.Framework.Defs;
 using Phobos.Framework.Health;
@@ -57,6 +59,8 @@ public static class DeviceService
                 PhobosBreathing.SuppliedCarbonMonoxideHalfLifeHours(patient) != null, breathing),
             DeviceNeed.BreathingAssist => DeviceRule.BreathingAssist(BreathingWithoutAssist(patient), rules.breathingAssistThreshold),
             DeviceNeed.Decompression => DeviceRule.Decompression(PressureRelief.Any(patient)),
+            DeviceNeed.Fluids => DeviceRule.Fluids(FluidsService.NeedsFluids(patient), FluidsService.CurrentQuality(patient),
+                PhobosBurnRulesDef.Current.fluidKitTendQuality),
             DeviceNeed.Intubation => DeviceRule.Intubation(AirwayTubes.HasTube(patient),
                 AirwayTubes.Closing(patient, breathing, rules.breathingAssistThreshold), VentilatorService.WaitingForTube(patient)),
             _ => DeviceRefusal.NotNeeded,
@@ -122,6 +126,7 @@ public static class DeviceService
         MedicalTreatment.GiveOrRefresh(patient, device.treatment);
         if (device.need == DeviceNeed.Intubation) AirwayTubes.RemoveBypassed(patient);
         if (device.need == DeviceNeed.Decompression) PressureRelief.Relieve(patient);
+        if (device.need == DeviceNeed.Fluids) FluidsService.Give(patient, PhobosBurnRulesDef.Current.fluidKitTendQuality);
     }
 
     /// <summary>Breathing without what a hand pump (or any breathing treatment) already gives, so a doctor doesn't stop pumping because

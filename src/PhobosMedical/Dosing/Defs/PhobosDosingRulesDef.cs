@@ -17,6 +17,12 @@ public class PhobosDosingRulesDef : PhobosRulesDef
     public float painThreshold = 0.4f;
     /// <summary>Pain from which a sedative may be given when nothing lighter can: where the game's "extreme" label starts.</summary>
     public float sedationPainThreshold = 0.8f;
+    /// <summary>Pain from which an awake patient fusses while being tended: where the game's "extreme" label starts.</summary>
+    public float fussingPainThreshold = 0.8f;
+    /// <summary>The tend quality factor at that threshold (authored).</summary>
+    public float fussingFactorAtThreshold = 0.9f;
+    /// <summary>The tend quality factor at full pain (authored).</summary>
+    public float fussingFactorAtFullPain = 0.75f;
 
     /// <summary>Pain from which a pawn who is up and about looks for a painkiller: the game's "serious pain" mood band starts at 0.15 and "intense" at 0.4. Owner's choice.</summary>
     public float selfPainThreshold = 0.4f;

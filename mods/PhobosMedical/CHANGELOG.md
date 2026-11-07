@@ -35,7 +35,9 @@ The owner's answers of 7 November 2026 to every open question (docs/development/
 - Equipment: an anaesthesia machine, the sixth piece: a 150 W bedside facility that adds 8% to surgery success in its bed through the game's own surgery factor (authored; the vitals monitor adds 5%).
 - Equipment, with More Injuries: a needle decompression kit, the seventh piece. A doctor with Medicine 5 or better uses it by themselves on a collapsed lung under pressure, taking 0.5 off it (about a day), never clearing it, so the operation is still needed.
 - Equipment: a steriliser, the last piece: an unpowered autoclave whose cleanliness counts toward its room's, lowering infection and helping surgery the game's way (cleanliness 4, about seven sterile tiles, authored).
-- Equipment: placeholder art for every new piece of the second set, drawn in code, with records.
+- Dosing: fussing. An awake patient in extreme pain (from 80%, the game's label) is tended 10% worse, falling to 25% worse at full pain (authored), through one Harmony postfix on the game's tend quality. Pain relief keeps patients below it; anyone asleep or anaesthetised doesn't fuss. Its own setting, on by default. Owner's go.
+- Equipment: a fluids kit for burn shock, made at a drug lab. Doctors use it by themselves on burn shock with no fluids yet or poorer ones, as care of quality 0.9 (authored), through the same fluids care as More Injuries' saline bill, which counts as 1. Owner's choice: More Injuries' saline when active, ours otherwise; both work.
+- Equipment: placeholder art for every new piece of the second set and the fluids kit, drawn in code, with records.
 - Equipment: the one-time letter about Vanilla Gravship Expanded names the new pieces, and calls the mod D'thorga Medical rather than its name before the merge.
 - Equipment, with More Injuries: supplied oxygen helps its hypoxia heal, on top of its own healing: organ hypoxia by 4 a day, cerebral hypoxia by 2 (authored; the benefit to the brain is less certain), twice that in the hyperbaric chamber. Permanent damage never heals. Owner's choice.
 

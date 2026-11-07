@@ -72,7 +72,7 @@ This letter is shown once.</PhobosMedical_GravshipLetterText>
   <PhobosMedical_StoreBoilingOff>Waiting for power for its cooler: until then about {SHARE} of its oxygen boils off and is vented each day.</PhobosMedical_StoreBoilingOff>
 
   <PhobosMedical_DeviceRefusalAirwayShut>{PATIENT}'s airway is shut, so no air or oxygen can reach the lungs. The airway must be opened first.</PhobosMedical_DeviceRefusalAirwayShut>
-  <PhobosMedical_DeviceRefusalNoDevice>{PATIENT} needs help breathing, but there is no field oxygen kit, manual resuscitator or intubation kit within reach.</PhobosMedical_DeviceRefusalNoDevice>
+  <PhobosMedical_DeviceRefusalNoDevice>{PATIENT} needs a kit a doctor uses by themselves, but none is within reach (a field oxygen kit, manual resuscitator, intubation kit, decompression kit or fluids kit).</PhobosMedical_DeviceRefusalNoDevice>
   <PhobosMedical_DeviceRefusalNeedsSkill>{PATIENT} needs something only a doctor with Medicine {SKILL} or better can do.</PhobosMedical_DeviceRefusalNeedsSkill>
   <PhobosMedical_DeviceRefusalAlreadyHasTube>{PATIENT} already has a breathing tube.</PhobosMedical_DeviceRefusalAlreadyHasTube>
   <PhobosMedical_DeviceRefusalAlreadyOnOxygen>{PATIENT} is already breathing supplied oxygen.</PhobosMedical_DeviceRefusalAlreadyOnOxygen>

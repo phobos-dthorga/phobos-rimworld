@@ -81,6 +81,8 @@
     <escharIschaemiaFromSeverity>0.7</escharIschaemiaFromSeverity>
     <ischaemicDamagePerHourAtFull>0.4</ischaemicDamagePerHourAtFull>
     <fluidBillTendQuality>1</fluidBillTendQuality>
+    <!-- A fluids kit counts as care of quality 0.9 for burn shock (authored). -->
+    <fluidKitTendQuality>0.9</fluidKitTendQuality>
     <!-- Mods that model the air cell by cell themselves: while one is active the zones are not computed. Add others here. -->
     <perCellTemperatureMods>
       <li>acutus.AtmosphereOverhaul.release</li>

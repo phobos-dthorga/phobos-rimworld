@@ -63,6 +63,7 @@ Equipment's picked background, re-titled by script.
 | Bronchodilator vial (item) | Scripted placeholder in 0.7.0 | Generated art: a strip of twist-top plastic vials | Yes | Go |
 | Anaesthesia machine (1x1) | Scripted placeholder in 0.7.0 | Generated art: a trolley with a monitor, coloured vaporisers, flow meters and a breathing bag, from above | Yes | Go |
 | Needle decompression kit (item, More Injuries) | Scripted placeholder in 0.7.0 | Generated art: a long needle with a green hub beside its sheath | Yes | Go |
+| Fluids kit (item) | Scripted placeholder in 0.7.0 | Generated art: a clear bag of fluid with a label and a coiled giving set | Yes | Go |
 | Steriliser (1x1) | Scripted placeholder in 0.7.0 | Generated art: a square autoclave with a round pressure door and locking wheel, from above | Yes | Go |
 | Carbon monoxide and smoke alarm (ceiling) | Scripted placeholder in 0.7.0 | Generated art: a small white ceiling disc with a grille and a red light, seen from below | Yes | Go |
 | Intubation kit (item) | Scripted placeholder in 0.7.0 | Generated art: a laryngoscope and a clear breathing tube with its cuff | Yes | Go |

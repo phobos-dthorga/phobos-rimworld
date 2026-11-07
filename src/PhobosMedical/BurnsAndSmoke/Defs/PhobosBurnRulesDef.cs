@@ -104,6 +104,8 @@ public class PhobosBurnRulesDef : PhobosRulesDef
     /// is, so the top of the scale).
     /// </summary>
     public float fluidBillTendQuality = 1f;
+    /// <summary>The care a fluids kit counts as for burn shock (authored: a bag hung by any doctor, just short of a measured drip).</summary>
+    public float fluidKitTendQuality = 0.9f;
 
     /// <summary>
     /// Mods that model the air cell by cell themselves; while one is active our zones are not computed, so heat is never

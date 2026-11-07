@@ -24,6 +24,8 @@ public class DosingSettings : ModSettings
     public bool selfMedication = true;
     /// <summary>Guests may do the same, from the colony's stock.</summary>
     public bool guestsSelfMedicate;
+    /// <summary>An awake patient in extreme pain is harder to tend well.</summary>
+    public bool fussing = true;
 
     public override void ExposeData()
     {
@@ -35,13 +37,14 @@ public class DosingSettings : ModSettings
         Scribe_Values.Look(ref immunityDosing, "PhobosDosing_ImmunityDosing", true);
         Scribe_Values.Look(ref selfMedication, "PhobosDosing_SelfMedication", true);
         Scribe_Values.Look(ref guestsSelfMedicate, "PhobosDosing_GuestsSelfMedicate", false);
+        Scribe_Values.Look(ref fussing, "PhobosDosing_Fussing", true);
     }
 }
 
 /// <summary>
 /// D'thorga Medical's emergency dosing part (D'thorga Emergency Dosing until 7 November 2026): doctors give painkillers and
 /// sedatives to patients who need them, from whatever mod made them. One work giver under Doctor, one job, an index of ingestibles
-/// read from the Defs at startup, and one think-tree giver for pawns who fetch their own. No Harmony; nothing saved.
+/// read from the Defs at startup, and one think-tree giver for pawns who fetch their own. One Harmony postfix, for fussing; nothing saved.
 /// </summary>
 public static class DosingMod
 {
@@ -69,6 +72,7 @@ public static class DosingMod
             string fighting = "drugs for fighting disease: " + NamesOf(DoseIndex.ImmunityOptions);
             if (Settings.immunityDosing) report.On(fighting); else report.Off(fighting, "setting");
         }
+        if (Settings.fussing) report.On("fussing in extreme pain"); else report.Off("fussing in extreme pain", "setting");
         if (Settings.selfMedication) report.On("self-medication" + (Settings.guestsSelfMedicate ? ", guests too" : ", colonists only")); else report.Off("self-medication", "setting");
         return report;
     }
@@ -113,6 +117,7 @@ public static class DosingMod
         listing.CheckboxLabeled("PhobosDosing_SettingRecreational".Translate(), ref Settings.recreationalForPain, "PhobosDosing_SettingRecreationalDesc".Translate());
         listing.CheckboxLabeled("PhobosDosing_SettingIgnoreAversion".Translate(), ref Settings.ignoreAversionForMedical, "PhobosDosing_SettingIgnoreAversionDesc".Translate());
         listing.CheckboxLabeled("PhobosDosing_SettingImmunity".Translate(), ref Settings.immunityDosing, "PhobosDosing_SettingImmunityDesc".Translate());
+        listing.CheckboxLabeled("PhobosDosing_SettingFussing".Translate(), ref Settings.fussing, "PhobosDosing_SettingFussingDesc".Translate());
         listing.Gap();
         listing.CheckboxLabeled("PhobosDosing_SettingSelfMedication".Translate(), ref Settings.selfMedication, "PhobosDosing_SettingSelfMedicationDesc".Translate());
         listing.CheckboxLabeled("PhobosDosing_SettingGuestsSelfMedicate".Translate(), ref Settings.guestsSelfMedicate, "PhobosDosing_SettingGuestsSelfMedicateDesc".Translate());
