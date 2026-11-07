@@ -1,5 +1,5 @@
 <Project Sdk="Microsoft.NET.Sdk">
-  <!-- D'thorga Medical's assembly, built for RimWorld 1.7 (net10.0) and 1.6 (net472); Directory.Build.targets turns the target
+  <!-- D'thorga Medical's assembly, built for RimWorld 1.7 only (net10.0); Directory.Build.targets turns the target
        into the game version, the output folder and the game reference. Five mods were merged into it on 7 November 2026: each
        keeps its folder here and its namespace (Phobos.BurnsAndSmoke, Phobos.Dosing, Phobos.Triage, Phobos.Medical for the
        equipment, Phobos.MedicalSaveBridge), because saves name classes by namespace and must keep loading.
@@ -8,12 +8,12 @@
        copied: its licence (CC BY-NC-ND 4.0) permits depending on it, not redistributing it. Harmony is compiled against, never
        shipped. -->
   <PropertyGroup>
-    <TargetFrameworks>net472;net10.0</TargetFrameworks>
+    <TargetFramework>net10.0</TargetFramework>
     <RootNamespace>Phobos.Medical</RootNamespace>
     <AssemblyName>PhobosMedical</AssemblyName>
     <ModFolder>PhobosMedical</ModFolder>
     <UsesHarmony>true</UsesHarmony>
-    <Version>0.7.0</Version>
+    <Version>0.7.1</Version>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="../PhobosFramework/PhobosFramework.csproj" Private="false" />

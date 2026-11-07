@@ -3,7 +3,7 @@
 A water bottle tap for **Dubs Bad Hygiene**: a small plumbing fixture that keeps a stack of bottled water ready and refills it by
 itself from your water towers. Nobody has to stand at a basin filling bottles.
 
-Version 0.2.2, built 7 November 2026 for House D'thorga. **Not yet tested in game.**
+Version 0.2.3, built 9 November 2026 for House D'thorga. **Not yet tested in game.**
 
 ## Read this first (gotchas)
 
@@ -30,7 +30,7 @@ Version 0.2.2, built 7 November 2026 for House D'thorga. **Not yet tested in gam
 - **Safe to remove, once you deconstruct your taps.** A tap left standing vanishes with the mod and leaves a gap in the pipe. The bottle
   rule saves nothing, so bottles are unaffected. Each tap saves how many bottles it keeps, and each map its colony limit, so **the first load after removing the mod logs two errors
   about the missing class** (read from the game's code, not yet seen in game). The game drops it and goes on, and they stop once you save.
-- **RimWorld 1.7 and 1.6.** Each has its own build, against Dubs Bad Hygiene's assembly for that version.
+- **RimWorld 1.7 only** (from 0.2.3; 1.6 is no longer supported). It builds against Dubs Bad Hygiene's 1.7 assembly.
 - **Not yet tested in game.** Everything here is read from the game's and the mods' code, and built and checked offline.
 
 ## What it does

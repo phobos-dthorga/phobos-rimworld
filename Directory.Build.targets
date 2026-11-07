@@ -1,12 +1,10 @@
 <Project>
   <!-- Imported after every project under src/. Everything that depends on the target framework lives here once, so a
        project file only names its mod folder, its tie-in folder if any, and whether it patches with Harmony
-       (docs/development/building.md). RimWorld 1.7 leads (owner, 4 November 2026): net10.0 compiles against the 1.7
-       reference and ships in mods/<Mod>/1.7/Assemblies; net472 keeps the minimum 1.6 build in 1.6/Assemblies until 1.6
-       is retired. -->
+       (docs/development/building.md). RimWorld 1.7 only (owner, 8 November 2026): every project builds net10.0 against the
+       1.7 reference and ships in mods/<Mod>/1.7/Assemblies. -->
   <PropertyGroup>
-    <GameVersion Condition="'$(TargetFramework)' == 'net472'">1.6</GameVersion>
-    <GameVersion Condition="'$(TargetFramework)' == 'net10.0'">1.7</GameVersion>
+    <GameVersion>1.7</GameVersion>
     <!-- Other mods' assemblies are referenced from the installed Workshop items and never copied (THIRD_PARTY_NOTICES.md).
          Override the root with -p:WorkshopRoot=... or the environment variable of that name, or each folder below. -->
     <WorkshopRoot Condition="'$(WorkshopRoot)' == ''">C:\Program Files (x86)\Steam\steamapps\workshop\content\294100</WorkshopRoot>
@@ -16,7 +14,7 @@
     <!-- VFE Factory and Vehicle Framework ship only 1.6 (checked 4 November 2026); the game loads that on 1.7 and so do we. -->
     <VfeFactoryAssemblies Condition="'$(VfeFactoryAssemblies)' == ''">$(WorkshopRoot)\3686924415\1.6\Assemblies</VfeFactoryAssemblies>
     <VehicleFrameworkAssemblies Condition="'$(VehicleFrameworkAssemblies)' == ''">$(WorkshopRoot)\3014915404\1.6\Assemblies</VehicleFrameworkAssemblies>
-    <!-- Useful Marks ships 1.5, 1.6 and 1.7 builds (checked 7 November 2026); D'thorga Medical's tie-in compiles against each. -->
+    <!-- Useful Marks ships 1.5, 1.6 and 1.7 builds (checked 7 November 2026); D'thorga Medical's tie-in compiles against the 1.7 one. -->
     <UsefulMarksAssemblies Condition="'$(UsefulMarksAssemblies)' == ''">$(WorkshopRoot)\3506573327\$(GameVersion)\Assemblies</UsefulMarksAssemblies>
     <!-- InterRim Ballistic Missile ships only 1.6 (checked 7 November 2026); the game loads that on 1.7 and so do we. -->
     <IrbmAssemblies Condition="'$(IrbmAssemblies)' == ''">$(WorkshopRoot)\3682304832\1.6\Assemblies</IrbmAssemblies>
@@ -38,18 +36,12 @@
     </ProjectReference>
   </ItemDefinitionGroup>
   <!-- The game's reference assemblies: Krafs.Rimworld.Ref publishes one per game build. -->
-  <ItemGroup Condition="'$(TargetFramework)' == 'net472'">
-    <PackageReference Include="Krafs.Rimworld.Ref" Version="1.6.4871" />
-  </ItemGroup>
-  <ItemGroup Condition="'$(TargetFramework)' == 'net10.0'">
+  <ItemGroup>
     <PackageReference Include="Krafs.Rimworld.Ref" Version="1.7.4998-unstable" />
   </ItemGroup>
-  <!-- Players get Harmony from the Harmony mod (Harmony 2 on 1.6, Harmony 3 on 1.7); compile against it only, so
-       0Harmony.dll never ships. A project opts in with <UsesHarmony>true</UsesHarmony>. -->
-  <ItemGroup Condition="'$(UsesHarmony)' == 'true' and '$(TargetFramework)' == 'net472'">
-    <PackageReference Include="Lib.Harmony" Version="2.4.3" ExcludeAssets="runtime" />
-  </ItemGroup>
-  <ItemGroup Condition="'$(UsesHarmony)' == 'true' and '$(TargetFramework)' == 'net10.0'">
+  <!-- Players get Harmony 3 from the Harmony mod on 1.7; compile against it only, so 0Harmony.dll never ships. A project
+       opts in with <UsesHarmony>true</UsesHarmony>. -->
+  <ItemGroup Condition="'$(UsesHarmony)' == 'true'">
     <PackageReference Include="Lib.Harmony" Version="3.0.0-rc.4" ExcludeAssets="runtime" />
   </ItemGroup>
   <!-- The shared patch helper, compiled into every project that patches (internal, so copies never clash). Existing mods move to it

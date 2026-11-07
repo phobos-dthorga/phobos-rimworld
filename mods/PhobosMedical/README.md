@@ -8,7 +8,7 @@ It replaces five earlier mods, merged into it on 7 November 2026 ([why](../../do
 Burns and Smoke**, **D'thorga Emergency Dosing**, **D'thorga Triage**, **D'thorga Medical Equipment** and **D'thorga Medical Save
 Bridge**. Each is now a part of this mod, with its own section below.
 
-Version 0.7.0, built 7 November 2026 for House D'thorga. **Not yet tested in game as D'thorga Medical.** What the owner tested of
+Version 0.7.1, built 9 November 2026 for House D'thorga. **Not yet tested in game as D'thorga Medical.** What the owner tested of
 the five parts before the merge is in each part's section; the parts' behaviour is unchanged, except that the save bridge now asks
 first.
 
@@ -25,6 +25,7 @@ first.
 - **Needs Harmony, D'thorga Framework and Vanilla Expanded Framework. Vanilla Gravship Expanded is strongly recommended**: the
   bedside stand, field oxygen kit, hyperbaric chamber, electrolyser and liquid oxygen store use its oxygen, and a letter says so
   once if it is missing. **More Injuries and Combat Extended are optional** and used when present.
+- **RimWorld 1.7 only** (from 0.7.1; 1.6 is no longer supported).
 - **Safe to add to a running colony.**
 - **Taking it out of a colony:** in the mod settings, press **Remove every condition this mod adds, from every pawn**,
   deconstruct the machines and burn unit beds, then save and switch the mod off.

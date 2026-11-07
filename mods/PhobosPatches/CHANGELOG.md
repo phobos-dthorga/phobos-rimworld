@@ -6,6 +6,22 @@ says the owner tested it.
 
 ## [Unreleased]
 
+## [0.13.1] - 2026-11-09 - Draft
+
+No change in play on 1.7. Not yet tested in game.
+
+### Changed
+
+- A saved Harrier now gains its new parts through D'thorga Framework's vehicle systems, which do the same for every vehicle, instead of a copy of its own. The parts and their health are as before.
+
+### Dependencies
+
+- The Harrier part needs D'thorga Framework 0.10.0 or later.
+
+### Compatibility and limits
+
+- RimWorld 1.7 only: the 1.6 build, its load folder and 1.6 in the About file are gone (owner, 8 November 2026: 1.6 is a dying version). Players on 1.6 keep the last version that had it.
+
 ## [0.13.0] - 2026-11-08 - Draft
 
 The owner's report of 8 November 2026: a RimPacts defence of Barracuda's Stream was lost every time, about a quarter of an hour into the fight, and the tank, its four colonists and three mechs never came home. Visit Settlements had closed the battle map under them. Not yet tested in game.

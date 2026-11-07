@@ -101,6 +101,7 @@ public static class VehicleSystems
             foreach (string name in unknown) Problems.Add(loadout.defName + ": " + entry.def.defName + " has no parameter " + name);
             props.systems.Add(new ResolvedSystem(entry.def, parameters));
         }
+        Tuning.Fill(props);
         int added = 0;
         // Bind every role to the design's own parts first, so an appended part's "cells of" can name any found role.
         var pending = new List<PartRoleSpec>();

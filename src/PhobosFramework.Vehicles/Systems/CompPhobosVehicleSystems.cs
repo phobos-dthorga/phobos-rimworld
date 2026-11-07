@@ -13,10 +13,69 @@ namespace Phobos.VehicleSystems;
 
 /// <summary>
 /// The comp the service puts on each vehicle design a loadout claims. Built in code while Defs load (VehicleSystems.Inject), never
-/// written in XML: it carries the resolved systems, which of the vehicle's parts play each role, and what was appended.
+/// written in XML: it carries the resolved systems, which of the vehicle's parts play each role, and what was appended. Its tuning
+/// fields appear in Vehicle Framework's per-vehicle settings window (see <see cref="Tuning"/>).
 /// </summary>
+[VehicleSettingsClass]
 public class CompProperties_PhobosVehicleSystems : VehicleCompProperties
 {
+    // ---- Tuning in Vehicle Framework's settings window: each field is one shipped system's parameter. ----
+
+    [PostToSettings(Label = "PhobosVehicleSystems_TuneBatteryAmpHours", Tooltip = "PhobosVehicleSystems_TuneBatteryAmpHoursDesc", Translate = true, UISettingsType = UISettingsType.FloatBox)]
+    [NumericBoxValues(MinValue = 1f, MaxValue = 2000f)]
+    [TunesParameter("PhobosVehicleSystem_Electrical", "batteryAmpHours")]
+    public float batteryAmpHours;
+
+    [PostToSettings(Label = "PhobosVehicleSystems_TuneAlternatorAmps", Tooltip = "PhobosVehicleSystems_TuneAlternatorAmpsDesc", Translate = true, UISettingsType = UISettingsType.FloatBox)]
+    [NumericBoxValues(MinValue = 0f, MaxValue = 1000f)]
+    [TunesParameter("PhobosVehicleSystem_Electrical", "alternatorAmps")]
+    public float alternatorAmps;
+
+    [PostToSettings(Label = "PhobosVehicleSystems_TuneStarterAmpHours", Tooltip = "PhobosVehicleSystems_TuneStarterAmpHoursDesc", Translate = true, UISettingsType = UISettingsType.FloatBox)]
+    [NumericBoxValues(MinValue = 0f, MaxValue = 10f)]
+    [TunesParameter("PhobosVehicleSystem_Electrical", "starterAmpHours")]
+    public float starterAmpHours;
+
+    [PostToSettings(Label = "PhobosVehicleSystems_TuneEngineHeat", Tooltip = "PhobosVehicleSystems_TuneEngineHeatDesc", Translate = true, UISettingsType = UISettingsType.FloatBox)]
+    [NumericBoxValues(MinValue = 0f, MaxValue = 5000f)]
+    [TunesParameter("PhobosVehicleSystem_Cooling", "heatAtFullLoad")]
+    public float engineHeatAtFullLoad;
+
+    [PostToSettings(Label = "PhobosVehicleSystems_TuneRadiatorRate", Tooltip = "PhobosVehicleSystems_TuneRadiatorRateDesc", Translate = true, UISettingsType = UISettingsType.FloatBox)]
+    [NumericBoxValues(MinValue = 0f, MaxValue = 100f)]
+    [TunesParameter("PhobosVehicleSystem_Cooling", "radiatorRate")]
+    public float radiatorRate;
+
+    [PostToSettings(Label = "PhobosVehicleSystems_TuneThermostat", Tooltip = "PhobosVehicleSystems_TuneThermostatDesc", Translate = true, UISettingsType = UISettingsType.FloatBox)]
+    [NumericBoxValues(MinValue = 40f, MaxValue = 130f)]
+    [TunesParameter("PhobosVehicleSystem_Cooling", "thermostatOpens")]
+    public float thermostatOpens;
+
+    [PostToSettings(Label = "PhobosVehicleSystems_TuneOilBurn", Tooltip = "PhobosVehicleSystems_TuneOilBurnDesc", Translate = true, UISettingsType = UISettingsType.FloatBox)]
+    [NumericBoxValues(MinValue = 0f, MaxValue = 1f)]
+    [TunesParameter("PhobosVehicleSystem_Lubrication", "oilBurnPerHour")]
+    public float oilBurnPerHour;
+
+    [PostToSettings(Label = "PhobosVehicleSystems_TuneTreadWear", Tooltip = "PhobosVehicleSystems_TuneTreadWearDesc", Translate = true, UISettingsType = UISettingsType.FloatBox)]
+    [NumericBoxValues(MinValue = 0f, MaxValue = 1f)]
+    [TunesParameter("PhobosVehicleSystem_RunningGear", "wearPerHour")]
+    public float treadWearPerHour;
+
+    [PostToSettings(Label = "PhobosVehicleSystems_TuneGearboxHeat", Tooltip = "PhobosVehicleSystems_TuneGearboxHeatDesc", Translate = true, UISettingsType = UISettingsType.FloatBox)]
+    [NumericBoxValues(MinValue = 0f, MaxValue = 5000f)]
+    [TunesParameter("PhobosVehicleSystem_Transmission", "heatAtFullLoad")]
+    public float gearboxHeatAtFullLoad;
+
+    [PostToSettings(Label = "PhobosVehicleSystems_TuneCompressor", Tooltip = "PhobosVehicleSystems_TuneCompressorDesc", Translate = true, UISettingsType = UISettingsType.FloatBox)]
+    [NumericBoxValues(MinValue = 0f, MaxValue = 100f)]
+    [TunesParameter("PhobosVehicleSystem_AirBrakes", "compressorRate")]
+    public float compressorRate;
+
+    [PostToSettings(Label = "PhobosVehicleSystems_TuneAirLeak", Tooltip = "PhobosVehicleSystems_TuneAirLeakDesc", Translate = true, UISettingsType = UISettingsType.FloatBox)]
+    [NumericBoxValues(MinValue = 0f, MaxValue = 10f)]
+    [TunesParameter("PhobosVehicleSystem_AirBrakes", "leakPerHour")]
+    public float airLeakPerHour;
+
     public PhobosVehicleLoadoutDef? loadout;
     public List<ResolvedSystem> systems = new();
     public Dictionary<string, List<string>> roleKeys = new();
@@ -278,7 +337,7 @@ public class CompPhobosVehicleSystems : VehicleComp
         return StageRule.StageIndex(state.values[quantity], bounds.from, bounds.to);
     }
 
-    void EvaluateStages(SystemState state, float hours)
+    internal void EvaluateStages(SystemState state, float hours)
     {
         var context = new SystemContext(this, state);
         for (int q = 0; q < state.values.Length; q++)
@@ -687,6 +746,63 @@ public class CompPhobosVehicleSystems : VehicleComp
         {
             Messages.Message("PhobosVehicleSystems_Serviced".Translate(mechanic.LabelShort.Named("MECHANIC"), Vehicle.LabelShort.Named("VEHICLE"),
                 service.label.Named("SERVICE")), Vehicle, MessageTypeDefOf.TaskCompletion);
+        }
+        return true;
+    }
+
+    // ---- Jump-starting ----
+
+    static int JumpQuantity(SystemState state) => state.Def.jumpStart == null ? -1 : state.Def.QuantityIndex(state.Def.jumpStart.quantity);
+
+    /// <summary>The first system whose jump-start quantity is below the level a jump-start raises it to, or null.</summary>
+    public SystemState? JumpStartNeed()
+    {
+        if (!Usable) return null;
+        UpdateNow();
+        if (states == null) return null;
+        foreach (SystemState state in states)
+        {
+            int index = JumpQuantity(state);
+            if (index >= 0 && Enabled(state) && state.values[index] < state.Def.jumpStart!.raiseTo) return state;
+        }
+        return null;
+    }
+
+    /// <summary>Whether this vehicle can give a jump-start for that system: it has it, and enough charge or a running engine.</summary>
+    public bool CanDonate(PhobosVehicleSystemDef def)
+    {
+        if (!Usable) return false;
+        UpdateNow();
+        SystemState? state = states?.FirstOrDefault(s => s.Def == def && Enabled(s));
+        if (state == null) return false;
+        int index = JumpQuantity(state);
+        return index >= 0 && (EngineRunning || state.values[index] >= def.jumpStart!.donorMinimum);
+    }
+
+    /// <summary>
+    /// Raises this vehicle's quantity to the jump-start level from the donor's, which loses the same ampere-hours unless its engine
+    /// runs. Says so. Returns false when either vehicle can no longer take part.
+    /// </summary>
+    public bool ReceiveJumpStart(CompPhobosVehicleSystems donor, Pawn helper)
+    {
+        SystemState? need = JumpStartNeed();
+        JumpStartSpec? spec = need?.Def.jumpStart;
+        if (need == null || spec == null || !donor.CanDonate(need.Def)) return false;
+        SystemState donorState = donor.states!.First(s => s.Def == need.Def);
+        int index = JumpQuantity(need);
+        double missing = spec.raiseTo - need.values[index];
+        double capacity = new SystemContext(this, need).Parameter(spec.capacityParameter);
+        double donorCapacity = new SystemContext(donor, donorState).Parameter(spec.capacityParameter);
+        need.values[index] = SystemIntegrator.Clamp(spec.raiseTo, need.min[index], need.max[index]);
+        need.Def.Worker.UpdateDerived(new SystemContext(this, need));
+        if (!donor.EngineRunning && donorCapacity > 0) donor.AddToQuantity(spec.quantity, -(float)(missing * capacity / donorCapacity));
+        EvaluateStages(need, 0f);
+        donor.EvaluateStages(donorState, 0f);
+        RecacheStatFactors();
+        if (Vehicle.Faction == Faction.OfPlayer)
+        {
+            Messages.Message("PhobosVehicleSystems_JumpStarted".Translate(helper.LabelShort.Named("HELPER"), Vehicle.LabelShort.Named("VEHICLE"),
+                donor.Vehicle.LabelShort.Named("DONOR")), Vehicle, MessageTypeDefOf.TaskCompletion);
         }
         return true;
     }

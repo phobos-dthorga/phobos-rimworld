@@ -28,6 +28,14 @@
     <casualInterruptible>true</casualInterruptible>
   </JobDef>
 
+  <!-- A jump-start, ordered from the flat vehicle's menu: leads from a donor vehicle near it. -->
+  <JobDef>
+    <defName>PhobosVehicleSystems_JumpStart</defName>
+    <driverClass>Phobos.VehicleSystems.JobDriver_PhobosJumpStart</driverClass>
+    <reportString>jump-starting TargetA.</reportString>
+    <casualInterruptible>false</casualInterruptible>
+  </JobDef>
+
   <WorkGiverDef>
     <defName>PhobosVehicleSystems_LoadServiceSupplies</defName>
     <label>load service supplies into vehicles</label>

@@ -236,14 +236,12 @@ delivered, record the delivery in the changelog or design record, and add or ame
   delete or relocate the player's things to enforce a new rule. Each README says whether removal is safe
   and what to do first.
 - **Versions: RimWorld 1.7 only** (owner, 8 November 2026; 1.7 had led since 4 November 2026). 1.6 is a dying
-  version and gets no resources: every new C# project builds one target, `net10.0` against the 1.7 reference
-  (Harmony 3), into `mods/<Mod>/1.7/Assemblies/`; a new mod has no `1.6` folder and declares only 1.7 in
-  `supportedVersions`. Existing projects drop their `net472` target, PolySharp and `1.6` folders when next
-  touched (agent default, owner to confirm), and the GitHub workflow's 1.6 build goes with the last of them;
-  never fix a 1.6-only failure. Per-version folders through `LoadFolders.xml` (`1.7`, and `Mods/<Other>/1.7`
+  version and gets no resources: every C# project builds one target, `net10.0` against the 1.7 reference
+  (Harmony 3), into `mods/<Mod>/1.7/Assemblies/`; no mod has a `1.6` folder or declares 1.6 in `supportedVersions`
+  (every mod dropped it on 9 November 2026, at the owner's request); never fix a 1.6-only failure. Per-version folders through `LoadFolders.xml` (`1.7`, and `Mods/<Other>/1.7`
   for a tie-in assembly), shared XML in `Common/`; `Directory.Build.targets` turns the target into the game
-  version, output folder and references (`docs/development/building.md`). Never write a polyfill type by hand or
-  make PolySharp's types public while any remain: they stay internal so mods can't clash. Prefer RimWorld's own
+  version, output folder and references (`docs/development/building.md`). Never write a polyfill type by hand.
+  Prefer RimWorld's own
   wrappers (`Widgets`, `GenUI`, `ContentFinder`) over direct Unity calls; 1.7 runs Unity calls through a
   compatibility shim.
 - Expose reasonable player preferences as documented mod settings; keep identities and physics rules

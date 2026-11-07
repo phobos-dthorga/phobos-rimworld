@@ -1,7 +1,7 @@
 # Vehicle systems for modders
 
 How to give your Vehicle Framework vehicles their own batteries, coolant, air brakes or anything else, and how to add systems of
-your own, with D'thorga Framework's vehicle systems (0.9.0, RimWorld 1.7). Everything is XML; C# only when you want a new kind of
+your own, with D'thorga Framework's vehicle systems (0.10.0, RimWorld 1.7). Everything is XML; C# only when you want a new kind of
 input, condition or effect. **Not yet tested in game**: the schema may change before the first public release, and this page will
 say so when it does.
 
@@ -154,6 +154,7 @@ pump empties, with a stage that stops the vehicle starting when it runs dry.
 | `onEvents` | Effects run once on one of Vehicle Framework's events (`IgnitionOn`, `IgnitionOff`, `MoveStart`, `MoveStop`, `Refueled`, `OutOfFuel` and the rest). |
 | `onPartHit` | When a part playing `role` is hit, `quantity` changes by `perHealthLost` for each hit point lost. |
 | `service` | What a mechanic does: `label`, due when `dueQuantity` passes `dueAbove` or `dueBelow`, `supplies` loaded into the cargo first, `work` (ticks at construction speed 1), then `restores` (any system's quantities). |
+| `jumpStart` | How a colonist jump-starts the vehicle from another: `quantity` (raised to `raiseTo` when below it), `capacityParameter` (the unit the charge moves in), `donorMinimum` (or a running engine), `reach` in cells, `work` in ticks. The player orders it from the flat vehicle's right-click menu. |
 | `workerClass` | A `VehicleSystemWorker` subclass for maths XML cannot say. |
 
 The service runs every 250 ticks (the rare tick Vehicle Framework calls on every comp), in steps of at most 0.025 game hours, and
@@ -207,6 +208,13 @@ Every effect takes `when`. Those marked as consequences are skipped when the pla
 | `Effect_SetQuantity` | once: `quantity` set to `value` | no |
 | `Effect_RateQuantity` | `perHour` added to `quantity` while the stage lasts | no |
 
+## Tuning in Vehicle Framework's window
+
+Players can change some of the shipped systems' parameters per vehicle in Vehicle Framework's own settings: battery capacity,
+alternator output, starter draw, engine heat, radiator cooling, thermostat, oil use, tyre wear, gearbox heat, and the air
+brakes' compressor and leak. Each field starts at the vehicle's figure after its loadout's overrides, and the player's change
+wins over the loadout. Vehicle Framework shows fields, not lists, so your own systems' parameters are tuned in loadouts only.
+
 ## A class of your own
 
 Inputs, conditions and effects are plain classes the XML loader builds; subclass the base and name it in full.
@@ -239,12 +247,12 @@ is active.
 
 | System | Quantities | Roles | Notes |
 | --- | --- | --- | --- |
-| `PhobosVehicleSystem_Electrical` | charge, starting power, starter, battery frost | Battery, Alternator, Starter | Parameters `batteryAmpHours`, `alternatorAmps`, `starterAmpHours`, `shoreChargeAmps` |
+| `PhobosVehicleSystem_Electrical` | charge, starting power, starter, battery frost | Battery, Alternator, Starter | Parameters `batteryAmpHours`, `alternatorAmps`, `starterAmpHours`, `shoreChargeAmps`; jump-starts |
 | `PhobosVehicleSystem_Cooling` | coolant temperature and level, engine load | Engine, Radiator | `heatAtFullLoad`, `radiatorRate`, `soakRate`, `thermostatOpens` |
 | `PhobosVehicleSystem_Lubrication` | oil level, temperature, pressure | Engine, OilPump | Oil follows the coolant, or the air without a cooling system |
 | `PhobosVehicleSystem_Fuel` | fuel gel | | Only with the player's cold-fuel setting |
 | `PhobosVehicleSystem_Service` | hours since service | Engine, Alternator, Starter, Radiator | Service: 12 chemfuel, 1 component |
-| `PhobosVehicleSystem_RunningGear` | tread wear | Wheels | Service: 15 steel, 2 components |
+| `PhobosVehicleSystem_RunningGear` | tread wear | Wheels | Service: 15 steel, 2 components, 10 chemfuel (the rubber) |
 | `PhobosVehicleSystem_Brakes` | brake wear, brake parts | Brakes | Service: 1 component |
 | `PhobosVehicleSystem_Transmission` | gearbox temperature | Transmission | |
 | `PhobosVehicleSystem_AirBrakes` | air pressure | Compressor | Named loadouts only |

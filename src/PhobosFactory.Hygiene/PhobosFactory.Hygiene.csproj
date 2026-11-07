@@ -1,15 +1,15 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <!-- D'thorga Factory Additions' Dubs Bad Hygiene tie-in, in its own assembly so the core assembly never references an
        optional mod. LoadFolders.xml loads Mods/DubsBadHygiene (its XML) and Mods/DubsBadHygiene/<version> (its assembly)
-       only while Dubs Bad Hygiene is active. Built for 1.7 and 1.6 like the core; building this also builds the core. -->
+       only while Dubs Bad Hygiene is active. Built for 1.7 only, like the core; building this also builds the core. -->
   <PropertyGroup>
-    <TargetFrameworks>net472;net10.0</TargetFrameworks>
+    <TargetFramework>net10.0</TargetFramework>
     <RootNamespace>Phobos.Factory.Hygiene</RootNamespace>
     <AssemblyName>PhobosFactory.Hygiene</AssemblyName>
     <ModFolder>PhobosFactoryAdditions</ModFolder>
     <TieInFolder>Mods/DubsBadHygiene/</TieInFolder>
     <UsesHarmony>true</UsesHarmony>
-    <Version>0.11.4</Version>
+    <Version>0.11.5</Version>
   </PropertyGroup>
   <ItemGroup>
     <!-- Referenced from the installed mods (one folder per game version) and never copied, as in PhobosFactory.csproj. -->

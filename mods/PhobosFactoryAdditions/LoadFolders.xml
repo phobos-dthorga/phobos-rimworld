@@ -1,28 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <loadFolders>
-  <!-- One assembly per game version (1.7 leads, 1.6 stays until it is retired). One folder per optional mod; the pipe
+  <!-- RimWorld 1.7 only (owner, 8 November 2026). One folder per optional mod; the pipe
        tie-in folders (chemfuel, neutroamine) come last; the hygiene tie-in's assembly sits in its own version folder. -->
-  <v1.6>
-    <li>/</li>
-    <li>Common</li>
-    <li>1.6</li>
-    <li IfModActive="sbz.NeatStorageFridge">Mods/SbzFridge</li>
-    <li IfModActive="Papito.MedicinesPlus.AT">Mods/MedicinesPlus</li>
-    <li IfModActive="Ushanka.BiologicalWarfare">Mods/BiologicalWarfare</li>
-    <li IfModActive="CETeam.CombatExtended">Mods/CombatExtended</li>
-    <li IfModActive="Dubwise.Rimatomics">Mods/Rimatomics</li>
-    <li IfModActive="NoSleep.Hemofungus">Mods/Hemofungus</li>
-    <li IfModActive="MrHydralisk.ComplementaryOdyssey">Mods/ComplementaryOdyssey</li>
-    <li IfModActive="MrHydralisk.GlitterworldMedicineProduction">Mods/GlitterworldMedicine</li>
-    <li IfModActive="kongkim.FarmableNeutroamine">Mods/FarmableNeutroamine</li>
-    <li IfModActive="AgentOrange.PassiveExoskeletons">Mods/PassiveExoskeletons</li>
-    <li IfModActive="local.washingmachine">Mods/WashingMachine</li>
-    <li IfModActive="VanillaExpanded.VCookE">Mods/VanillaCookingExpanded</li>
-    <li IfModActive="VanillaExpanded.VChemfuelE">Mods/VanillaChemfuelExpanded</li>
-    <li IfModActive="vanillaracesexpanded.android">Mods/VanillaRacesExpandedAndroid</li>
-    <li IfModActive="Dubwise.DubsBadHygiene">Mods/DubsBadHygiene</li>
-    <li IfModActive="Dubwise.DubsBadHygiene">Mods/DubsBadHygiene/1.6</li>
-  </v1.6>
   <v1.7>
     <li>/</li>
     <li>Common</li>

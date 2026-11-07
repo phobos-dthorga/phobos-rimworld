@@ -1,17 +1,17 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <!-- D'thorga Patches' InterRim Ballistic Missile assembly (D'thorga Missile Patches until 7 November 2026). It lives in InterRim Ballistic Missile's load folder (Mods/IRBM/<version>), so it
-       loads only while that mod is active. Built for RimWorld 1.7 (net10.0, Harmony 3) and 1.6 (net472, Harmony 2);
+       loads only while that mod is active. Built for RimWorld 1.7 only (net10.0, Harmony 3);
        Directory.Build.targets turns the target into the game version, the output folder, the references and the IRBM
        folder (1.6 only: IRBM ships no 1.7 build). It references D'thorga Framework for the shared helpers. -->
   <PropertyGroup>
-    <TargetFrameworks>net472;net10.0</TargetFrameworks>
+    <TargetFramework>net10.0</TargetFramework>
     <RootNamespace>Phobos.MissilePatches</RootNamespace>
     <AssemblyName>PhobosPatches.Irbm</AssemblyName>
     <ModFolder>PhobosPatches</ModFolder>
     <TieInFolder>Mods/IRBM/</TieInFolder>
     <UsesHarmony>true</UsesHarmony>
-    <Version>0.13.0</Version>
-    <!-- IRBM targets .NET Framework 4.8 and our 1.6 build 4.7.2. The game loads both whatever they declare, so the mismatch
+    <Version>0.13.1</Version>
+    <!-- IRBM targets .NET Framework 4.8, and the game loads it whatever it declares, so the mismatch
          only matters to the compiler's reference check. -->
     <ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>true</ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>
   </PropertyGroup>

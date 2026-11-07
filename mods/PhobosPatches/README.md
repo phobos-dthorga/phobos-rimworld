@@ -11,7 +11,7 @@ map no longer closes under your people (0.13.0).
 It replaces two earlier mods, merged into it on 7 November 2026: **D'thorga Vehicle Patches** and **D'thorga Missile Patches**
 ([why](../../docs/development/mod-consolidation.md)).
 
-Version 0.13.0, built 8 November 2026 for House D'thorga. **Not yet tested in game as D'thorga Patches.** The Harrier and turret hull
+Version 0.13.1, built 9 November 2026 for House D'thorga. **Not yet tested in game as D'thorga Patches.** The Harrier and turret hull
 parts are unchanged from Vehicle Patches 0.6.0 (not yet tested in game); the missile part was tried once by the owner, see
 [InterRim Ballistic Missile](#interrim-ballistic-missile).
 
@@ -30,8 +30,9 @@ parts are unchanged from Vehicle Patches 0.6.0 (not yet tested in game); the mis
   incompatible. Your save needs nothing: the old mods saved nothing of their own. The missile settings carry over by themselves.
 - **Needs Harmony and D'thorga Framework. Load it after the mods it patches.** The About file asks for this, so RimSort does it for
   you. **You have to switch it on yourself**: nothing else requires it. It does nothing without the mods it patches.
-- **RimWorld 1.7 and 1.6.** Its small assembly is built for each. Vehicle Framework still ships only a 1.6 build, which the game
-  also runs on 1.7.
+- **RimWorld 1.7 only** (from 0.13.1; 1.6 is no longer supported). Vehicle Framework still ships only a 1.6 build, which the
+  game runs on 1.7. **The Harrier part needs D'thorga Framework 0.10.0 or later**, whose vehicle systems now give a saved
+  Harrier its new parts.
 - **Safe to add to a running save.** A jet you already built keeps working; only new builds pay the new cost. Bombs already made
   stay as they are.
 - **Updating with Vanilla Furniture Expanded - Factory:** a bay used to remember its bill's old ingredient list after a recipe

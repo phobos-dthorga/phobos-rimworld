@@ -3,12 +3,12 @@
        core never references an optional mod; LoadFolders.xml loads Mods/UsefulMarks/<version> only while Useful Marks is active.
        Useful Marks' UsefulColonistBar.dll (by Andromeda) is referenced from the installed mod and never copied. -->
   <PropertyGroup>
-    <TargetFrameworks>net472;net10.0</TargetFrameworks>
+    <TargetFramework>net10.0</TargetFramework>
     <RootNamespace>Phobos.Triage.UsefulMarks</RootNamespace>
     <AssemblyName>PhobosMedical.UsefulMarks</AssemblyName>
     <ModFolder>PhobosMedical</ModFolder>
     <TieInFolder>Mods/UsefulMarks/</TieInFolder>
-    <Version>0.7.0</Version>
+    <Version>0.7.1</Version>
     <ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>true</ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>
   </PropertyGroup>
   <ItemGroup>

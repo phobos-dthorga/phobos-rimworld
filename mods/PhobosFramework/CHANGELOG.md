@@ -5,6 +5,25 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.10.0] - 2026-11-09 - Draft
+
+The owner's follow-ups of 9 November 2026. Not yet tested in game.
+
+### Added
+
+- Vehicle systems: jump-starting. Select a colonist and right-click a vehicle whose battery is too low to start: another of your vehicles within 8 cells, with a charged battery or its engine running, lends it enough to start. The donor loses the same charge unless its engine runs. Every refusal says why (no donor near, nowhere to stand).
+- Vehicle systems: per-vehicle tuning in Vehicle Framework's own settings window: battery capacity, alternator output, starter draw, engine heat, radiator cooling, thermostat, oil use, tyre wear, gearbox heat and the air brakes' compressor and leak. Each starts at the vehicle's own figure.
+- For modders: a system may declare a jump-start (which quantity, raised to what, from donors within what reach); the schema check reads it.
+
+### Balance
+
+- New tyres or track pads take 10 chemfuel as well, a stand-in for the rubber (owner, 9 November 2026).
+- The flat-battery refusal now names the jump-start first.
+
+### Compatibility and limits
+
+- RimWorld 1.7 only: the 1.6 build, its load folder and 1.6 in the About file are gone (owner, 8 November 2026: 1.6 is a dying version). Players on 1.6 keep the last version that had it.
+
 ## [0.9.0] - 2026-11-08 - Draft
 
 The owner's vehicle systems (8 November 2026): real systems for every Vehicle Framework vehicle, as a generic service any mod can

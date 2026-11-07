@@ -39,8 +39,8 @@ Follow [community expectations](CODE_OF_CONDUCT.md). See [SUPPORT](SUPPORT.md) f
 Read [AGENTS.md](AGENTS.md) and the [project direction](docs/development/project-direction.md) before
 changing behaviour. Prefer useful working slices. The UI presents state and delegates to services; data
 lives in Defs so other modders can extend it; tie-ins with other mods are optional; code another Phobos
-mod would need goes in [D'thorga Framework](mods/PhobosFramework/README.md). RimWorld 1.7 leads and 1.6 is
-built too. Preserve saved identities and `packageId`s.
+mod would need goes in [D'thorga Framework](mods/PhobosFramework/README.md). Everything is RimWorld
+1.7 only. Preserve saved identities and `packageId`s.
 
 Exercise the behaviour you change. Record the RimWorld version and mod list for gameplay observations;
 builds and unit tests are not gameplay tests. Never commit game files, decompiled code, saves, credentials

@@ -19,7 +19,7 @@ XML on GitHub. Read 8 Nov 2026.
 - **Vanilla Vehicles Expanded (VVE)** cannot be removed from a save (Oskar Potocki, Workshop comment, 7 Nov 2026), and
   neither can VF: both hold the player's vehicles.
 - **Parts are saved by position.** A design may only ever append parts; a saved vehicle never gains them unless code
-  adds them ([D'thorga Patches does](../../src/PhobosPatches.Harrier/VehiclePartsOnLoad.cs)); a design with fewer parts
+  adds them ([D'thorga Framework's vehicle systems do](../../src/PhobosFramework.Vehicles/Service/Patches.cs), since 9 Nov 2026 for D'thorga Patches' Harrier too); a design with fewer parts
   than its saved vehicle fails on load (inferred from the code).
 - **Combat Extended replaces VF's damage model**: it hits only parts on the cells its shot crosses.
 - **Licence:** MIT, copyright 2019 to 2026 SmashPhil ([LICENSE](https://github.com/SmashPhil/Vehicle-Framework/blob/develop/LICENSE)).
@@ -189,7 +189,7 @@ at all must be the mod's own setting and needs a restart.
   snapshot settings for the injected comps; injecting later from a static constructor has no ordering guarantee against
   VF's own and would need a manual `ResolveReferences`.
 - **Saves:** `VehicleStatHandler.ExposeData` saves parts as a list of healths with no keys and rebinds them by index to
-  the design's list on load; D'thorga Patches' [parts-on-load postfix](../../src/PhobosPatches.Harrier/VehiclePartsOnLoad.cs)
+  the design's list on load; the [parts-on-load postfix](../../src/PhobosFramework.Vehicles/Service/Patches.cs) (D'thorga Patches' until 9 Nov 2026, now D'thorga Framework's)
   creates missing parts at full health in the same load step (`Activator.CreateInstance(compClass, vehicle)`,
   `Initialize`, `PostCreate`, the private `componentsByKeys`, `RecacheStatCategories`, `MarkAllDirty`). A design with
   **fewer** parts than the save would index past the list (inferred). Other saved state per vehicle: the pather,

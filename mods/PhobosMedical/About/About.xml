@@ -4,7 +4,7 @@
   <name>D'thorga Medical</name>
   <author>Phobos A. D'thorga</author>
   <url>https://github.com/phobos-dthorga/phobos-rimworld</url>
-  <modVersion>0.7.0</modVersion>
+  <modVersion>0.7.1</modVersion>
   <description>Burns and smoke that matter, doctors who dose and operate on their own, hospital and field equipment to treat it all, and a safe way to add More Injuries to a colony you are already playing. Built to sit beside More Injuries and Combat Extended; neither is required.
 
 It replaces five earlier mods: D'thorga Burns and Smoke, D'thorga Emergency Dosing, D'thorga Triage, D'thorga Medical Equipment and D'thorga Medical Save Bridge. Switch all five off when you switch this on. Your colony and your settings carry over.
@@ -49,7 +49,6 @@ Needs Harmony, D'thorga Framework and Vanilla Expanded Framework; Vanilla Gravsh
 
 Community-created content. Portions of the materials used to create this content/mod are trademarks and/or copyrighted works of Ludeon Studios Inc. All rights reserved by Ludeon. This content/mod is not official and is not endorsed by Ludeon.</description>
   <supportedVersions>
-    <li>1.6</li>
     <li>1.7</li>
   </supportedVersions>
   <modDependencies>

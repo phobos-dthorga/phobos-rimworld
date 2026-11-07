@@ -1,15 +1,15 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <!-- D'thorga Patches' RimPacts assembly (from 0.12.0). It lives in RimPacts' load folder (Mods/RimPacts/<version>), so it loads
        only while RimPacts is active. It reads RimPacts by name through reflection and references none of its assemblies. Built for
-       RimWorld 1.7 (net10.0) and 1.6 (net472); Directory.Build.targets turns the target into the game version, the output folder
+       RimWorld 1.7 only (net10.0); Directory.Build.targets turns the target into the game version, the output folder
        and the references. It references D'thorga Framework for the shared helpers. -->
   <PropertyGroup>
-    <TargetFrameworks>net472;net10.0</TargetFrameworks>
+    <TargetFramework>net10.0</TargetFramework>
     <RootNamespace>Phobos.RimPactsPatches</RootNamespace>
     <AssemblyName>PhobosPatches.RimPacts</AssemblyName>
     <ModFolder>PhobosPatches</ModFolder>
     <TieInFolder>Mods/RimPacts/</TieInFolder>
-    <Version>0.13.0</Version>
+    <Version>0.13.1</Version>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="../PhobosFramework/PhobosFramework.csproj" Private="false" />

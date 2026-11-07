@@ -1,17 +1,16 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <!-- D'thorga Patches' Harrier assembly (D'thorga Vehicle Patches until 7 November 2026). It lives in the Harrier's load folder (Mods/HarrierVtol/<version>), so it loads only
-       while the Harrier is active, and the Harrier requires Vehicle Framework. Built for RimWorld 1.7 (net10.0, Harmony 3)
-       and 1.6 (net472, Harmony 2); Directory.Build.targets turns the target into the game version, the output folder, the
+       while the Harrier is active, and the Harrier requires Vehicle Framework. Built for RimWorld 1.7 (net10.0, Harmony 3) only; Directory.Build.targets turns the target into the game version, the output folder, the
        references and the Vehicle Framework folder (1.6 only: it ships no 1.7 build yet). -->
   <PropertyGroup>
-    <TargetFrameworks>net472;net10.0</TargetFrameworks>
+    <TargetFramework>net10.0</TargetFramework>
     <RootNamespace>Phobos.VehiclePatches</RootNamespace>
     <AssemblyName>PhobosPatches.Harrier</AssemblyName>
     <ModFolder>PhobosPatches</ModFolder>
     <TieInFolder>Mods/HarrierVtol/</TieInFolder>
     <UsesHarmony>true</UsesHarmony>
-    <Version>0.13.0</Version>
-    <!-- Vehicle Framework targets .NET Framework 4.8 and our 1.6 build 4.7.2. The game loads both whatever they declare, so
+    <Version>0.13.1</Version>
+    <!-- Vehicle Framework targets .NET Framework 4.8, and the game loads it whatever it declares, so
          the mismatch only matters to the compiler's reference check. -->
     <ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>true</ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>
   </PropertyGroup>

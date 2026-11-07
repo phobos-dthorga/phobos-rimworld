@@ -3,15 +3,15 @@
 Radio that works like radio: every contact is decided by a real link budget, and doubling the distance
 costs 6 dB. This is **Phase 1**: local VHF and UHF on one map.
 
-Version 0.1.2, built 5 November 2026 for House D'thorga. **Not yet tested in game.** It was built and deployed on 19 October
+Version 0.1.3, built 9 November 2026 for House D'thorga. **Not yet tested in game.** It was built and deployed on 19 October
 2026, but the Def loading, the coax net, the gizmos and the mood have not been seen running.
 
 ## Read this first (gotchas)
 
 - **Requires Vanilla Expanded Framework** (its pipe network carries the coax feedline). Load this mod
   after Core, the DLCs and Vanilla Expanded Framework. It needs no Harmony.
-- **RimWorld 1.7 and 1.6.** It has a build for each, and 1.7 leads. Its About file still lists only 1.6, so on 1.7 the mod list
-  may call it outdated; that is a label, not a fault.
+- **RimWorld 1.7 only** (from 0.1.3; 1.6 is no longer supported). Its About file now lists 1.7, so the mod list no longer calls
+  it outdated.
 - **Decide before you start a colony:** the mod setting *Metres per cell* (default 1, from 0.5 to 30) changes every path
   and feedline loss. Changing it mid-save changes which links work. The "In touch" mood can be turned off in the same settings.
 - **Safe to add to a running save.** Removing it is safe once you have deconstructed every radio building

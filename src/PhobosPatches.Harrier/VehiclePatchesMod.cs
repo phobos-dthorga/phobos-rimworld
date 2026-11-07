@@ -30,7 +30,7 @@ public class VehiclePatchesMod : Mod
 
     /// <summary>The Harmony ID is the packageId; never change it once the mod is published.</summary>
     public const string HarmonyId = "PhobosDthorga.Patches";
-    public const string ModVersion = "0.13.0";
+    public const string ModVersion = "0.13.1";
     public const string LogPrefix = "[D'thorga Patches]";
 
     public VehiclePatchesMod(ModContentPack content) : base(content)
@@ -39,7 +39,8 @@ public class VehiclePatchesMod : Mod
         var harmony = new Harmony(HarmonyId);
         RimPactsArrivalFilter.Watch(harmony);
         AirborneCrewKeepsMap.Apply(harmony);
-        // The attribute patches: the sortie gate's reason, the flight-control rule and a saved vehicle's new parts.
+        // The attribute patches: the sortie gate's reason and the flight-control rule. A saved Harrier's new parts are created by
+        // D'thorga Framework's vehicle systems (0.10.0), which load whenever Vehicle Framework does.
         HarmonyPatchApplier.ApplyEach(harmony, typeof(VehiclePatchesMod).Assembly, LogPrefix);
         LongEventHandler.ExecuteWhenFinished(LogLoaded);
     }

@@ -252,6 +252,16 @@
         </effects>
       </li>
     </onEvents>
+    <!-- A jump-start from another of the player's vehicles within 8 cells raises a battery below 30 % to 30 %. The donor loses the
+         same ampere-hours unless its engine runs (its alternator covers it). Figures authored. -->
+    <jumpStart>
+      <quantity>charge</quantity>
+      <capacityParameter>batteryAmpHours</capacityParameter>
+      <raiseTo>0.3</raiseTo>
+      <donorMinimum>0.5</donorMinimum>
+      <reach>8</reach>
+      <work>300</work>
+    </jumpStart>
     <onPartHit>
       <li>
         <role>Battery</role>

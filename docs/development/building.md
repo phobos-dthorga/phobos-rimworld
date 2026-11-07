@@ -1,17 +1,13 @@
 # Building, testing and deploying
 
-**Status (6 Nov 2026): eleven C# projects, RimWorld 1.7 leads.** Every project builds two assemblies from one project file:
-`net10.0` against the 1.7.4998 reference (Harmony 3 where a mod patches) into `mods/<Mod>/1.7/Assemblies/`, and `net472`
-against the 1.6 reference (Harmony 2, PolySharp) into `mods/<Mod>/1.6/Assemblies/`, the minimum backwards support until 1.6
-is retired (owner, 4 Nov 2026). A tie-in assembly builds into `mods/<Mod>/Mods/<Other>/<version>/Assemblies/` instead.
+**Status (9 Nov 2026): fourteen C# projects, RimWorld 1.7 only** (owner, 8 Nov 2026). Every project builds one assembly,
+`net10.0` against the 1.7.4998 reference (Harmony 3 where a mod patches), into `mods/<Mod>/1.7/Assemblies/`. A tie-in assembly
+builds into `mods/<Mod>/Mods/<Other>/1.7/Assemblies/` instead. Other mods that still ship only a 1.6 build (Vehicle Framework,
+VFE Factory, InterRim Ballistic Missile) are referenced from that folder, which the 1.7 game loads too.
 `Directory.Build.targets` at the root turns the target into the game version, the output folder, the game and Harmony
 references and the Workshop folders of other mods' assemblies, so a project file only names its mod folder (`ModFolder`), its
 tie-in folder if any (`TieInFolder`) and whether it patches (`UsesHarmony`). `python scripts/deploy.py --build --apply --all`
 builds every project and installs every mod, with RimWorld closed.
-
-**8 Nov 2026: RimWorld 1.7 only from here** (owner). New projects build the single `net10.0` target and new mods declare
-only 1.7; the two-target description above is the state of the existing projects until each is next touched, when its
-`net472` target, PolySharp and `1.6` folder go (AGENTS.md). The 1.6 build in the GitHub workflow goes with the last of them.
 
 **Shared tools come from a submodule.** [phobos-modkit](https://github.com/phobos-dthorga/phobos-modkit) is pinned at
 `external/phobos-modkit`; after cloning, run `git submodule update --init` once. `scripts/triage-log.py` uses it. A fix to a
@@ -58,7 +54,7 @@ from the owner's saves.
   Medical Save Bridge. **4 Nov**: Water Tap, D'thorga Framework, Burns and Smoke, and the switch to **1.7 leading** with every
   project built for both versions. **5 Nov**: Emergency Dosing and Medical Equipment. **6 Nov**: Triage. **8 Nov**: the owner
   retired 1.6 support; everything new is 1.7 only. The same night: D'thorga Framework's vehicle systems, the first single-target (1.7)
-  project.
+  project. **9 Nov**: every project and mod dropped 1.6 (owner): one target each, no PolySharp, no `1.6` load folders.
 - Vehicle Framework targets .NET Framework 4.8 and Vehicle Patches 4.7.2, so that project sets
   `ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch`; the game loads both whatever they declare.
 
@@ -75,7 +71,7 @@ python scripts/deploy.py --build --apply --all   (with RimWorld closed)
 ```
 
 The first three are the ones AGENTS.md requires before every commit; gate on their exit codes. **On GitHub**
-(`.github/workflows/checks.yml`) every push runs those three, every rule-test project, and builds for 1.7 and 1.6 every
+(`.github/workflows/checks.yml`) every push runs those three, every rule-test project, and builds for 1.7 every
 project that references only the game, D'thorga Framework and Harmony. `check-factory-patches` and `deploy` need the installed
 game and run only on a machine with RimWorld.
 
@@ -119,14 +115,13 @@ mods/<Mod>/                 the mod exactly as players get it, minus built DLLs
   About/About.xml           identity, dependencies, supported versions, modVersion
   About/Preview.png         mod list and Workshop image
   About/PublishedFileId.txt written by the game at first upload; committed then
-  LoadFolders.xml           which folders load for 1.7 and 1.6, and for optional mods
-  Common/Defs, Patches, Languages, Textures, Sounds   shared by every version
+  LoadFolders.xml           which folders load on 1.7, and for optional mods
+  Common/Defs, Patches, Languages, Textures, Sounds
   1.7/Assemblies/           built from src/ against the 1.7 reference, never committed
-  1.6/Assemblies/           built from src/ against the 1.6 reference, never committed
   Mods/<OtherMod>/          optional tie-in content, loaded only when that mod is active
-  Mods/<OtherMod>/1.7/, 1.6/   a tie-in's own assembly, one per game version
+  Mods/<OtherMod>/1.7/       a tie-in's own assembly
   README.md, CHANGELOG.md
-src/<Project>/              C# source, building into mods/<Mod>/<version>/Assemblies/ for both versions
+src/<Project>/              C# source, building into mods/<Mod>/1.7/Assemblies/
 workshop/<Mod>/             Workshop page drafts and release notes, once publishing starts
 ```
 
@@ -134,16 +129,10 @@ The `Mods/<OtherMod>/` folder name is a house convention, not a game rule. **Nam
 the folder** (`Patches/MedicineGranulator_MedicinesPlus.xml`): files are keyed by their path inside a load
 folder, so two `Patches/MedicineGranulator.xml` in different folders means only one loads.
 
-A starting `LoadFolders.xml`, one assembly folder per game version:
+A starting `LoadFolders.xml`:
 
 ```xml
 <loadFolders>
-  <v1.6>
-    <li>/</li>
-    <li>Common</li>
-    <li>1.6</li>
-    <li IfModActive="CETeam.CombatExtended">Mods/CombatExtended</li>
-  </v1.6>
   <v1.7>
     <li>/</li>
     <li>Common</li>
@@ -153,7 +142,7 @@ A starting `LoadFolders.xml`, one assembly folder per game version:
 </loadFolders>
 ```
 
-A tie-in with its own assembly lists both its content folder and its version folder under each block
+A tie-in with its own assembly lists both its content folder and its version folder
 (`Mods/HarrierVtol` and `Mods/HarrierVtol/1.7`); `check-mod-layout` treats any folder whose last part is a game version
 as a build-product folder that need not be committed.
 
@@ -162,32 +151,31 @@ Check each optional mod's real `packageId` in its `About.xml` before using it. C
 
 ## The C# toolchain
 
-| | RimWorld 1.6 (minimum backwards support) | RimWorld 1.7 (leads) |
-| --- | --- | --- |
-| Target | `net472` | `net10.0` |
-| Game references | `Krafs.Rimworld.Ref` 1.6.4871 | `Krafs.Rimworld.Ref` 1.7.4998-unstable (matches the owner's game build) |
-| Harmony | `Lib.Harmony` 2.4.3, compile-time only | `Lib.Harmony` 3.0.0-rc.4, compile-time only |
-| Newer C# (records, `init`, `required`) | `PolySharp` 1.16.0, compile-time only, set once in `Directory.Build.props` | Not needed: .NET 10 has the types |
-| Output | `mods/<Mod>/1.6/Assemblies/` | `mods/<Mod>/1.7/Assemblies/` |
-| Tools | .NET SDK 10 builds both | Visual Studio 2026 or Rider 2026 to edit |
+| | RimWorld 1.7 (the only version, owner, 8 Nov 2026) |
+| --- | --- |
+| Target | `net10.0` |
+| Game references | `Krafs.Rimworld.Ref` 1.7.4998-unstable (matches the owner's game build) |
+| Harmony | `Lib.Harmony` 3.0.0-rc.4, compile-time only |
+| Output | `mods/<Mod>/1.7/Assemblies/` |
+| Tools | .NET SDK 10 builds it; Visual Studio 2026 or Rider 2026 to edit |
 
 The sources and dates are in the [RimWorld modding reference](rimworld-modding-reference.md#building-c-mods).
 `Directory.Build.props` sets the shared options (the latest C# language version, nullable references, deterministic builds,
-warnings as errors, no `.deps.json`, PolySharp for every `net472` build), and `Directory.Build.targets` everything that
-depends on the target: `GameVersion` (1.7 for `net10.0`, 1.6 for `net472`), the output folder
+warnings as errors, no `.deps.json`), and `Directory.Build.targets` everything that
+depends on the target: `GameVersion` (1.7), the output folder
 `mods/$(ModFolder)/$(TieInFolder)$(GameVersion)/Assemblies/` (set as `OutDir`, `TargetDir` and `TargetPath`, because the SDK
-has already derived those from `OutputPath` by the time the file is imported), the Krafs reference for each version, Harmony
-2 or 3 when a project sets `UsesHarmony`, and the Workshop folders `VefAssemblies` and `DbhAssemblies` (one per game version:
-both mods ship 1.7 assemblies), `VfeFactoryAssemblies` and `VehicleFrameworkAssemblies` (1.6 only: neither ships a 1.7
+has already derived those from `OutputPath` by the time the file is imported), the Krafs reference, Harmony
+3 when a project sets `UsesHarmony`, and the Workshop folders `VefAssemblies` and `DbhAssemblies` (both mods ship 1.7
+assemblies), `VfeFactoryAssemblies` and `VehicleFrameworkAssemblies` (1.6 only: neither ships a 1.7
 build yet, and the game loads their 1.6 assemblies on 1.7). Override any of them with `-p:Name=...` or an environment
 variable, or `WorkshopRoot` for all four.
 
-A project file that references another mod (D'thorga Radio Framework's; the 18 Oct 2026 probe that proved the 1.6 setup used the longer single-target form):
+A project file that references another mod (D'thorga Radio Framework's):
 
 ```xml
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net472;net10.0</TargetFrameworks>
+    <TargetFramework>net10.0</TargetFramework>
     <RootNamespace>Phobos.Radio</RootNamespace>
     <AssemblyName>PhobosRadio</AssemblyName>
     <ModFolder>PhobosRadioFramework</ModFolder>
@@ -213,36 +201,23 @@ when VEF lives elsewhere. Harmony is not referenced until a feature needs a patc
 </ItemGroup>
 ```
 
-That is the route taken on 4 Nov 2026: one project, both targets, the conditions in `Directory.Build.targets`. A project
+One project, one target, the conditions in `Directory.Build.targets`. A project
 that patches adds `<UsesHarmony>true</UsesHarmony>`; a tie-in assembly adds `<TieInFolder>Mods/HarrierVtol/</TieInFolder>`.
 Harmony 3.0.0-rc.4 accepted every existing patch at build time; its nullable annotations are stricter than Harmony 2's, which
 surfaced one unchecked dereference in Vehicle Patches.
 
-## Newer C# on RimWorld 1.6
+## RimWorld 1.6, retired
 
-RimWorld 1.6 compiles against Unity's copies of the .NET Framework 4.7.2 libraries (April 2018), which
-`Krafs.Rimworld.Ref` supplies in full. What that means for C# 14, from the probe build on 18 Oct 2026:
-
-| Feature | Without PolySharp | With PolySharp |
-| --- | --- | --- |
-| Syntax only: pattern matching, switch expressions, file-scoped namespaces | Works | Works |
-| `record`, `init` | Fails: `IsExternalInit` is not defined (CS0518) | Works |
-| `required` members | Fails: three missing attributes (CS0656) | Works |
-| `[NotNullWhen]`, `[NotNull]` and most nullable attributes | Works: Unity's `mscorlib` has them, public | Works |
-| `[MemberNotNull]` | **Fails: Unity's `mscorlib` has it, but internal (CS0122)** | Works |
-| Features needing runtime support, such as default interface methods | Not tested; expected to fail on Unity's runtime | No polyfill can add runtime support |
-
-PolySharp is a source generator by Sergio Pedri (MIT, [NuGet](https://www.nuget.org/packages/PolySharp)).
-It writes only the types a project is missing, as **internal** types inside the mod's own assembly. The probe's
-26 generated types were all internal, so two mods carrying them cannot clash, and PolySharp itself never
-ships.
+From 18 Oct to 9 Nov 2026 every project also built `net472` against the 1.6 reference, with Harmony 2 and PolySharp (Sergio
+Pedri's MIT source generator) for the C# features Unity's .NET Framework 4.7.2 libraries lack (`record`, `init`, `required`,
+`[MemberNotNull]`). The owner retired 1.6 on 8 Nov 2026 and every mod dropped it on 9 Nov 2026. The git history before then has
+the two-target setup, should it ever be wanted again.
 
 ## Building on Linux
 
-The probe needed only three packages: Krafs, Lib.Harmony and PolySharp. Because Krafs brings the whole framework reference set,
-the .NET 10 SDK compiles both targets on Linux with no Mono and no Windows targeting pack. **GitHub's `ubuntu-latest` runner
-proves it on every push** for the projects that reference no other mod's assembly (the table above). Running `net472` code on
-Linux would still need Mono, so code is exercised in the game.
+The build needs only two packages: Krafs and Lib.Harmony. Because Krafs brings the whole reference set, the .NET 10 SDK compiles
+every project on Linux with no Mono and no Windows targeting pack. **GitHub's `ubuntu-latest` runner
+proves it on every push** for the projects that reference no other mod's assembly (the table above). Code is exercised in the game.
 
 ## Deploying to the game
 
@@ -250,7 +225,7 @@ Linux would still need Mono, so code is exercised in the game.
 
 - previews by default, and copies only with `--apply`;
 - with `--all` takes every folder under `mods/` that has an `About/About.xml`; with `--build` (whether mods are named or `--all`)
-  runs `dotnet build` on every project under `src/` first (both game versions), stopping at the first failure before anything
+  runs `dotnet build` on every project under `src/` first, stopping at the first failure before anything
   is copied;
 - refuses while RimWorld is running, found by its process name (`RimWorld.exe` for 1.7 on Windows, `RimWorldWin64.exe` and
   `RimWorldWin.exe` for 1.6, and the Linux and Mac names);

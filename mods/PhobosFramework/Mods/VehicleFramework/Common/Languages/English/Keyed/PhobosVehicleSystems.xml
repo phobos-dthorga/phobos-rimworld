@@ -48,7 +48,7 @@
   <PhobosVehicleSystems_Serviced>{MECHANIC} has finished {SERVICE} on the {VEHICLE}.</PhobosVehicleSystems_Serviced>
 
   <!-- Refusals: each names the cause and the fix -->
-  <PhobosVehicleSystems_RefuseFlatBattery>The {VEHICLE}'s battery is too weak to start the engine. Park it beside a powered conduit or battery to charge, or warm it: a cold battery gives less.</PhobosVehicleSystems_RefuseFlatBattery>
+  <PhobosVehicleSystems_RefuseFlatBattery>The {VEHICLE}'s battery is too weak to start the engine. Have a colonist jump-start it from another vehicle parked near it, park it beside a powered conduit or battery to charge, or warm it: a cold battery gives less.</PhobosVehicleSystems_RefuseFlatBattery>
   <PhobosVehicleSystems_RefuseStarter>The {VEHICLE}'s starter motor is broken. Repair the vehicle to start it.</PhobosVehicleSystems_RefuseStarter>
   <PhobosVehicleSystems_RefuseFuelGelled>The {VEHICLE}'s fuel has thickened in the cold. Warm the vehicle in a heated room, or wait for a warmer day.</PhobosVehicleSystems_RefuseFuelGelled>
   <PhobosVehicleSystems_RefuseBrakesWorn>The {VEHICLE}'s brakes are worn through. A mechanic must fit new pads before it drives.</PhobosVehicleSystems_RefuseBrakesWorn>
@@ -71,6 +71,37 @@
   <PhobosVehicleSystems_MsgBrakesWorn>The {VEHICLE}'s brakes are worn; its driver is taking it gently.</PhobosVehicleSystems_MsgBrakesWorn>
   <PhobosVehicleSystems_MsgTransmissionHot>The {VEHICLE}'s gearbox is overheating and wearing as it drives.</PhobosVehicleSystems_MsgTransmissionHot>
   <PhobosVehicleSystems_MsgHydraulicsLow>The {VEHICLE} is low on hydraulic fluid.</PhobosVehicleSystems_MsgHydraulicsLow>
+
+  <!-- Jump-starting -->
+  <PhobosVehicleSystems_JumpStartOption>Jump-start the {VEHICLE} from the {DONOR}</PhobosVehicleSystems_JumpStartOption>
+  <PhobosVehicleSystems_CannotJumpStartNoDonor>Cannot jump-start the {VEHICLE}: no vehicle with a charged battery or a running engine is within {REACH} cells. Park one beside it.</PhobosVehicleSystems_CannotJumpStartNoDonor>
+  <PhobosVehicleSystems_CannotJumpStartNoPath>Cannot jump-start the {VEHICLE}: there is nowhere to stand beside it that can be reached.</PhobosVehicleSystems_CannotJumpStartNoPath>
+  <PhobosVehicleSystems_JumpStarted>{HELPER} has jump-started the {VEHICLE} from the {DONOR}. It will start now; drive it to charge the battery.</PhobosVehicleSystems_JumpStarted>
+  <PhobosVehicleSystems_JumpStartFailed>{HELPER} could not jump-start the {VEHICLE}: the {DONOR} has too little charge left or has moved away.</PhobosVehicleSystems_JumpStartFailed>
+
+  <!-- Tuning in Vehicle Framework's per-vehicle settings window (settings text, so it may name things plainly) -->
+  <PhobosVehicleSystems_TuneBatteryAmpHours>Battery capacity (ampere-hours)</PhobosVehicleSystems_TuneBatteryAmpHours>
+  <PhobosVehicleSystems_TuneBatteryAmpHoursDesc>How much charge the starting battery holds. A typical car battery is about 45; a heavy vehicle's pair about 100.</PhobosVehicleSystems_TuneBatteryAmpHoursDesc>
+  <PhobosVehicleSystems_TuneAlternatorAmps>Alternator output (amperes)</PhobosVehicleSystems_TuneAlternatorAmps>
+  <PhobosVehicleSystems_TuneAlternatorAmpsDesc>What the alternator gives while the engine runs, before the lights and heater take their share.</PhobosVehicleSystems_TuneAlternatorAmpsDesc>
+  <PhobosVehicleSystems_TuneStarterAmpHours>Starter draw per start (ampere-hours)</PhobosVehicleSystems_TuneStarterAmpHours>
+  <PhobosVehicleSystems_TuneStarterAmpHoursDesc>What each start takes from the battery in mild weather; more in the cold.</PhobosVehicleSystems_TuneStarterAmpHoursDesc>
+  <PhobosVehicleSystems_TuneEngineHeat>Engine heat at full load (°C an hour)</PhobosVehicleSystems_TuneEngineHeat>
+  <PhobosVehicleSystems_TuneEngineHeatDesc>How fast the engine heats its coolant while driving. Higher runs hotter.</PhobosVehicleSystems_TuneEngineHeatDesc>
+  <PhobosVehicleSystems_TuneRadiatorRate>Radiator cooling (share an hour)</PhobosVehicleSystems_TuneRadiatorRate>
+  <PhobosVehicleSystems_TuneRadiatorRateDesc>How strongly the radiator pulls the coolant toward the air once the thermostat opens. Higher runs cooler.</PhobosVehicleSystems_TuneRadiatorRateDesc>
+  <PhobosVehicleSystems_TuneThermostat>Thermostat opens at (°C)</PhobosVehicleSystems_TuneThermostat>
+  <PhobosVehicleSystems_TuneThermostatDesc>The coolant temperature at which the radiator starts working. Real thermostats open at about 82 to 90.</PhobosVehicleSystems_TuneThermostatDesc>
+  <PhobosVehicleSystems_TuneOilBurn>Oil burned (share an hour at full load)</PhobosVehicleSystems_TuneOilBurn>
+  <PhobosVehicleSystems_TuneOilBurnDesc>How fast the engine uses its oil. Lower means fewer top-ups between services.</PhobosVehicleSystems_TuneOilBurnDesc>
+  <PhobosVehicleSystems_TuneTreadWear>Tyre and track wear (share an hour moving)</PhobosVehicleSystems_TuneTreadWear>
+  <PhobosVehicleSystems_TuneTreadWearDesc>How fast tyres or track pads wear on the move. At 0.0025 they are worn after about 240 hours of driving.</PhobosVehicleSystems_TuneTreadWearDesc>
+  <PhobosVehicleSystems_TuneGearboxHeat>Gearbox heat at full load (°C an hour)</PhobosVehicleSystems_TuneGearboxHeat>
+  <PhobosVehicleSystems_TuneGearboxHeatDesc>How fast hard driving heats the gearbox's oil.</PhobosVehicleSystems_TuneGearboxHeatDesc>
+  <PhobosVehicleSystems_TuneCompressor>Air compressor (share an hour)</PhobosVehicleSystems_TuneCompressor>
+  <PhobosVehicleSystems_TuneCompressorDesc>How fast the engine builds air for the air brakes. Only trucks with air brakes use it.</PhobosVehicleSystems_TuneCompressorDesc>
+  <PhobosVehicleSystems_TuneAirLeak>Air leak (share an hour)</PhobosVehicleSystems_TuneAirLeak>
+  <PhobosVehicleSystems_TuneAirLeakDesc>How fast a parked truck loses its brake air. Only trucks with air brakes use it.</PhobosVehicleSystems_TuneAirLeakDesc>
 
   <!-- Letters -->
   <PhobosVehicleSystems_LetterBoilingLabel>Engine boiling over: {VEHICLE}</PhobosVehicleSystems_LetterBoilingLabel>

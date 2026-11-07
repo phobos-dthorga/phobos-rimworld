@@ -4,7 +4,7 @@
   <name>D'thorga Patches</name>
   <author>Phobos A. D'thorga</author>
   <url>https://github.com/phobos-dthorga/phobos-rimworld</url>
-  <modVersion>0.13.0</modVersion>
+  <modVersion>0.13.1</modVersion>
   <description>Fixes and patches for other authors' mods, each switched on only while that mod is active. It copies nothing from them. It replaces D'thorga Vehicle Patches and D'thorga Missile Patches: switch those off when you switch this on.
 
 Harrier VTOL Attack Aircraft:
@@ -37,7 +37,6 @@ Needs Harmony and D'thorga Framework. Load it after the mods it patches. It does
 
 Community-created content. Portions of the materials used to create this content/mod are trademarks and/or copyrighted works of Ludeon Studios Inc. All rights reserved by Ludeon. This content/mod is not official and is not endorsed by Ludeon.</description>
   <supportedVersions>
-    <li>1.6</li>
     <li>1.7</li>
   </supportedVersions>
   <modDependencies>

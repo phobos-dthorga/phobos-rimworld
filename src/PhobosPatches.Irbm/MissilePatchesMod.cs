@@ -71,7 +71,7 @@ public class MissilePatchesMod : Mod
 {
     /// <summary>The Harmony ID is the packageId; never change it once the mod is published.</summary>
     public const string PackageId = "PhobosDthorga.Patches";
-    public const string ModVersion = "0.13.0";
+    public const string ModVersion = "0.13.1";
     public const string LogPrefix = "[D'thorga Patches]";
 
     public static MissilePatchesSettings Settings { get; private set; } = new();

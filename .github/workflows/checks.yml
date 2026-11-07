@@ -36,9 +36,9 @@ jobs:
       # D'thorga Water Tap's assembly needs BadHygiene.dll; its rules are game-free.
       - name: Build and run the game-free water tap rule tests
         run: dotnet test tests/PhobosWaterTap.Rules.Tests --nologo
-      # Mods that reference only the game, D'thorga Framework and Harmony build here too, for both game
-      # versions: the 1.7 reference (Krafs.Rimworld.Ref 1.7 prerelease), the 1.6 one and Harmony come from NuGet.
-      - name: Build the mods that need no other mod's assembly, for 1.7 and 1.6
+      # Mods that reference only the game, D'thorga Framework and Harmony build here too:
+      # the 1.7 reference (Krafs.Rimworld.Ref 1.7 prerelease) and Harmony come from NuGet. RimWorld 1.7 only.
+      - name: Build the mods that need no other mod's assembly, for 1.7
         run: |
           dotnet build src/PhobosFramework/PhobosFramework.csproj --nologo
           dotnet build src/PhobosMedical/PhobosMedical.csproj --nologo

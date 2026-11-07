@@ -1,13 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
-  <!-- D'thorga Water Tap's assembly, built for RimWorld 1.7 (net10.0) and 1.6 (net472); Directory.Build.targets turns the
+  <!-- D'thorga Water Tap's assembly, built for RimWorld 1.7 only (net10.0); Directory.Build.targets turns the
        target into the game version, the output folder, the game reference and the Dubs Bad Hygiene folder (DbhAssemblies,
        one per game version). It has no Harmony patches: the tap and the bottle's water quality are ordinary comps. -->
   <PropertyGroup>
-    <TargetFrameworks>net472;net10.0</TargetFrameworks>
+    <TargetFramework>net10.0</TargetFramework>
     <RootNamespace>Phobos.WaterTap</RootNamespace>
     <AssemblyName>PhobosWaterTap</AssemblyName>
     <ModFolder>PhobosWaterTap</ModFolder>
-    <Version>0.2.2</Version>
+    <Version>0.2.3</Version>
   </PropertyGroup>
   <ItemGroup>
     <!-- Dubs Bad Hygiene's assembly, referenced from the installed mod and never copied. -->

@@ -5,6 +5,15 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.1.3] - 2026-11-09 - Draft
+
+No change in play on 1.7. Not yet tested in game.
+
+### Compatibility and limits
+
+- RimWorld 1.7 only: the 1.6 build, its load folder and 1.6 in the About file are gone (owner, 8 November 2026: 1.6 is a dying version). Players on 1.6 keep the last version that had it.
+- The About file now lists 1.7, so the mod list no longer calls it outdated on 1.7.
+
 ### Changed
 
 - Generated art the owner picked (7 November 2026) in place of five placeholders: the hand-held radio, the mast (a guyed lattice tower), the signal and feedline icons, and the whip antenna, which uses a thin lattice mast as a stand-in until a whip is picked. The mast and whip are drawn at their real shape, tall and narrow, instead of a square. Each passed the near-copy check; the record beside each texture says how it was made. The base station and the feedline keep their placeholders.

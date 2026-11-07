@@ -18,7 +18,7 @@ A mod folder holds:
 - `About/About.xml`: `packageId` of the form `PhobosDthorga.<ModName>`, `name`, `author`, `description`,
   `supportedVersions`, `modVersion` (MAJOR.MINOR.PATCH), dependencies and load order;
 - `About/Preview.png`, and `About/PublishedFileId.txt` once the game has uploaded it;
-- `LoadFolders.xml`, `Common/` and the version folders `1.7/` and `1.6/` (built assemblies, never committed);
+- `LoadFolders.xml`, `Common/` and the version folder `1.7/` (built assemblies, never committed; RimWorld 1.7 only);
 - `README.md`, opening with **Read this first (gotchas)**, and `CHANGELOG.md`.
 
 `python scripts/check-mod-layout.py` checks all of this. The full layout, and where C# source goes, is in

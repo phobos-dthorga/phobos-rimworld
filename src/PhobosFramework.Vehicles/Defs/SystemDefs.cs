@@ -141,6 +141,23 @@ public class ServiceSpec
 }
 
 /// <summary>
+/// How a colonist jump-starts a vehicle from another: when the quantity is below <c>raiseTo</c>, a donor vehicle of the player's
+/// within <c>reach</c> cells whose same quantity is at least <c>donorMinimum</c> (or whose engine runs) gives it enough to reach
+/// <c>raiseTo</c>. The charge moved is worked out in the unit of <c>capacityParameter</c> (ampere-hours), so a big battery takes
+/// more from a small one. A donor with its engine running gives without losing charge: its alternator covers it.
+/// </summary>
+public class JumpStartSpec
+{
+    public string quantity = "";
+    public string capacityParameter = "";
+    public float raiseTo = 0.3f;
+    public float donorMinimum = 0.5f;
+    public float reach = 8f;
+    /// <summary>Work in ticks: fetching the leads, connecting, cranking.</summary>
+    public int work = 300;
+}
+
+/// <summary>
 /// One kind of vehicle system (electrical, cooling, lubrication, wear, running gear, brakes and more): quantities moved by flows,
 /// stages with effects, events, part hits and a service. Everything is data, so another mod adds a system or changes one in XML;
 /// inputs, conditions and effects are classes another mod can add to (docs/vehicle-systems-modding.md).
@@ -154,6 +171,7 @@ public class PhobosVehicleSystemDef : Def
     public List<EventRule> onEvents = new();
     public List<PartHitRule> onPartHit = new();
     public ServiceSpec? service;
+    public JumpStartSpec? jumpStart;
     /// <summary>The part roles the system reads; the schema check warns when a loadout binds none of them.</summary>
     public List<string> roles = new();
 
@@ -207,6 +225,11 @@ public class PhobosVehicleSystemDef : Def
         {
             if (QuantityIndex(service.dueQuantity) < 0) yield return "the service is due on an unknown quantity " + service.dueQuantity;
             if (float.IsNaN(service.dueAbove) && float.IsNaN(service.dueBelow)) yield return "the service never falls due";
+        }
+        if (jumpStart != null)
+        {
+            if (QuantityIndex(jumpStart.quantity) < 0) yield return "the jump-start names an unknown quantity " + jumpStart.quantity;
+            if (!parameters.values.ContainsKey(jumpStart.capacityParameter)) yield return "the jump-start names an undeclared parameter " + jumpStart.capacityParameter;
         }
     }
 }

@@ -190,6 +190,12 @@ def check(root):
             for restore in items(service, 'restores'):
                 if text(restore, 'quantity') not in all_quantities:
                     errors.append(f'{where}: the service restores a quantity no system has ({text(restore, "quantity")})')
+        jump = node.find('jumpStart')
+        if jump is not None:
+            if text(jump, 'quantity') not in system['quantities']:
+                errors.append(f'{where}: the jump-start names an unknown quantity ({text(jump, "quantity")})')
+            if text(jump, 'capacityParameter') not in system['parameters']:
+                errors.append(f'{where}: the jump-start names the undeclared parameter {text(jump, "capacityParameter")}')
 
     loadouts = {}
     for node, source in resolved[LOADOUT_TAG]:

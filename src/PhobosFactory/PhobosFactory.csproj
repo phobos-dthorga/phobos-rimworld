@@ -1,14 +1,14 @@
 <Project Sdk="Microsoft.NET.Sdk">
-  <!-- D'thorga Factory Additions' assembly, built for RimWorld 1.7 (net10.0, Harmony 3) and 1.6 (net472, Harmony 2);
+  <!-- D'thorga Factory Additions' assembly, built for RimWorld 1.7 only (net10.0, Harmony 3);
        Directory.Build.targets turns the target into the game version, the output folder, the references and the Workshop
        folders below. Shared options (C# version, nullable, PolySharp, no deps.json) come from Directory.Build.props. -->
   <PropertyGroup>
-    <TargetFrameworks>net472;net10.0</TargetFrameworks>
+    <TargetFramework>net10.0</TargetFramework>
     <RootNamespace>Phobos.Factory</RootNamespace>
     <AssemblyName>PhobosFactory</AssemblyName>
     <ModFolder>PhobosFactoryAdditions</ModFolder>
     <UsesHarmony>true</UsesHarmony>
-    <Version>0.11.4</Version>
+    <Version>0.11.5</Version>
   </PropertyGroup>
   <ItemGroup>
     <!-- Vanilla Expanded Framework's PipeSystem.dll (one folder per game version), referenced from the installed mod and

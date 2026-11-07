@@ -5,6 +5,14 @@ yet. Not yet tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.2.3] - 2026-11-09 - Draft
+
+No change in play on 1.7. Not yet tested in game.
+
+### Compatibility and limits
+
+- RimWorld 1.7 only: the 1.6 build, its load folder and 1.6 in the About file are gone (owner, 8 November 2026: 1.6 is a dying version). Players on 1.6 keep the last version that had it.
+
 ## [0.2.2] - 2026-11-07 - Draft
 
 The owner chose to tidy this up on 7 November 2026. No change in play. Not yet tested in game.

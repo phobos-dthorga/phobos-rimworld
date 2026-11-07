@@ -1,13 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
-  <!-- D'thorga Radio Framework's assembly, built for RimWorld 1.7 (net10.0) and 1.6 (net472); Directory.Build.targets turns
+  <!-- D'thorga Radio Framework's assembly, built for RimWorld 1.7 only (net10.0); Directory.Build.targets turns
        the target into the game version, the output folder, the game reference and the Vanilla Expanded Framework folder
        (VefAssemblies, one per game version). Shared options come from Directory.Build.props at the repository root. -->
   <PropertyGroup>
-    <TargetFrameworks>net472;net10.0</TargetFrameworks>
+    <TargetFramework>net10.0</TargetFramework>
     <RootNamespace>Phobos.Radio</RootNamespace>
     <AssemblyName>PhobosRadio</AssemblyName>
     <ModFolder>PhobosRadioFramework</ModFolder>
-    <Version>0.1.2</Version>
+    <Version>0.1.3</Version>
   </PropertyGroup>
   <ItemGroup>
     <!-- Vanilla Expanded Framework's PipeSystem.dll, referenced from the installed mod and never copied: its licence

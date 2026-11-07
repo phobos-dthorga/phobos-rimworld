@@ -12,6 +12,7 @@ public static class VehicleSystemsJobDefOf
 {
     public static JobDef PhobosVehicleSystems_LoadServiceSupplies = null!;
     public static JobDef PhobosVehicleSystems_ServiceVehicle = null!;
+    public static JobDef PhobosVehicleSystems_JumpStart = null!;
 
     static VehicleSystemsJobDefOf() => DefOfHelper.EnsureInitializedInCtor(typeof(VehicleSystemsJobDefOf));
 }

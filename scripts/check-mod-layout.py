@@ -3,7 +3,7 @@
 Each mods/<Mod>/ holds About/About.xml (RimWorld's mod identity), a README and a CHANGELOG.md.
 About.xml needs the fields RimWorld requires, a packageId of the house form PhobosDthorga.<ModName>
 (unique in the repository, ignoring case as RimWorld does) and a MAJOR.MINOR.PATCH modVersion. Every
-non-version folder LoadFolders.xml names must exist; version folders such as 1.6 may hold only built
+non-version folder LoadFolders.xml names must exist; version folders such as 1.7 may hold only built
 assemblies, which git ignores. No two folders in one LoadFolders.xml block may hold a Defs or Patches file
 at the same path, since the game would load only one of them (files_the_game_loads). Build products never
 belong in mods/: they are built from src/. A C# project under src/ that names a mod in <ModFolder> carries that mod's
@@ -117,7 +117,7 @@ def check_load_folders(mod, load_folders, rels, errors):
             prefix = folder + '/' if folder else ''
             inside = [rel[len(prefix):] for rel in rels if rel.startswith(prefix)]
             folder_files.append((folder or '/', [p for p in inside if p.startswith(XML_CONTENT_FOLDERS)]))
-            # Version folders (1.6, Mods/HarrierVtol/1.7) hold only built assemblies, which are never committed.
+            # Version folders (1.7, Mods/HarrierVtol/1.7) hold only built assemblies, which are never committed.
             if not folder or GAME_VERSION.match(folder.rsplit('/', 1)[-1]):
                 continue
             if not inside:
