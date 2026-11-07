@@ -149,3 +149,6 @@ The candidate base class for interval map components is still not built (see 0.6
 - Gravships: the game's smoke, CE's smoke and our room gas all stay on the old map when a ship moves.
 - A `CeSmokeCarrier` when a mod must add smoke under Combat Extended.
 - Further own gases where they earn it (chemfuel vapour, Rimatomics, Biological Warfare tie-ins), each argued against the rule.
+- **A Vehicle-Framework-optional part for vehicle systems** (owner, 8 Nov 2026): the schema-driven electrical, cooling and
+  lubrication service, loaded only with Vehicle Framework the way the Dubs Bad Hygiene tie-in is; designed in
+  [vehicle systems](vehicle-systems-design.md), to be built after the owner's review. 1.7 only.

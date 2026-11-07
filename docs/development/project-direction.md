@@ -71,6 +71,11 @@ load folder or patch.
 | 7 Nov 2026 | **The save bridge joins D'thorga Medical** and asks on load: convert now, not now, or never for this save | owner (the agent had recommended keeping it separate) |
 | 7 Nov 2026 | Factory Additions, Water Tap, Radio Framework and D'thorga Framework stay separate mods | owner (agreed with the agent's recommendation) |
 | 7 Nov 2026 | Identities and versions of the merged mods: `PhobosDthorga.Medical` 0.6.0 and `PhobosDthorga.Patches` 0.7.0, continuing above the highest version merged in; every namespace, class, defName and saved key kept | agent default (version argued to the owner, who agreed with the plan as a whole) |
+| 8 Nov 2026 | **RimWorld 1.7 only going forward**: no resources on 1.6 compatibility; new projects single-target, existing ones drop 1.6 when next touched (AGENTS.md) | owner (the "when next touched" part is an agent default) |
+| 8 Nov 2026 | **Real vehicle systems as a generic, schema-driven service** (electrical, coolant and oil first; "this is just a start"), retrofitted to other authors' Vehicle Framework vehicles as settings, extensible by anyone through XML loadouts, documented ([design](vehicle-systems-design.md)) | owner (placement in D'thorga Framework's Vehicle-Framework-optional part is an agent default) |
+| 8 Nov 2026 | **A new mod, D'thorga Vehicles** (`PhobosDthorga.Vehicles`), for utility vehicles on Vehicle Framework; created as a stand-in carrying loadouts for other mods' vehicles until the framework is built ([design](utility-vehicles-design.md)) | owner (on the agent's recommendation) |
+| 8 Nov 2026 | The framework before any custom vehicle; the records before any code | owner |
+| 8 Nov 2026 | Vehicle art through a pay-per-image API rather than a subscription or PixelLab for bodies; the Gemini image API first, the OpenAI image API second ([research](vehicle-art-services.md)) | agent recommendation, owner to confirm (the owner asked for alternatives to ChatGPT) |
 
 ## Open checks
 

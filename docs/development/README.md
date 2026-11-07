@@ -53,6 +53,23 @@ promise current behaviour. For using the mods, start at the [documentation index
 - [Strategic strike: design and decisions (7 Nov 2026)](strategic-strike.md): D'thorga Patches' own model for the extinction-class
   warhead after Dubs Rimatomics' nuke: fireball, blast and heat zones, burns, the pulse, Rimatomics' fallout, who chose what.
 
+## D'thorga Vehicles (vehicle systems and utility vehicles)
+
+- [Vehicle systems: design (8 Nov 2026)](vehicle-systems-design.md): the owner's generic, schema-driven service for real
+  vehicle systems (electrical, coolant and oil first) on D'thorga Framework's Vehicle-Framework-optional part, retrofitted to
+  other authors' vehicles through loadout Defs anyone can write; the schema shape, the service, settings, the first two
+  systems, the roadmap and who chose what. Written for the owner's review before any code; nothing built.
+- [Utility vehicles: design (8 Nov 2026)](utility-vehicles-design.md): the new content mod and why it starts as a stand-in,
+  the parts model and stats, the extraction-chain family in full (survey truck, drill rig, tipper hauler, generator set),
+  the catalogue of other utility vehicles, the Vehicle Framework 1.7 gate and the art plan; nothing built.
+- [Vehicle Framework mechanics: research (8 Nov 2026)](vehicle-framework-mechanics.md): Vehicle Framework's 1.7 status and
+  authors, the parts and health system, ticking, events, fuel and electric rules, its per-vehicle settings, how parts and
+  comps retrofit onto other mods' designs and what saves hold, the game's temperature and breakdown hooks, Vanilla
+  Vehicles Expanded's powertrain data, prior art and art requirements; read from source, not observed in play.
+- [Art services for vehicle sprites: research (8 Nov 2026)](vehicle-art-services.md): pay-per-image APIs against
+  subscriptions and PixelLab for Vehicle Framework's three-facing bodies and masks, output terms and ownership traps,
+  the rotate-then-edit pipeline and the cost of four vehicles; prices as read that day.
+
 ## Framework
 
 - [D'thorga Framework: research and decisions (4 Nov 2026)](phobos-framework.md): the owner's rules (existing effects first,

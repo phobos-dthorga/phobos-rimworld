@@ -9,6 +9,10 @@ references and the Workshop folders of other mods' assemblies, so a project file
 tie-in folder if any (`TieInFolder`) and whether it patches (`UsesHarmony`). `python scripts/deploy.py --build --apply --all`
 builds every project and installs every mod, with RimWorld closed.
 
+**8 Nov 2026: RimWorld 1.7 only from here** (owner). New projects build the single `net10.0` target and new mods declare
+only 1.7; the two-target description above is the state of the existing projects until each is next touched, when its
+`net472` target, PolySharp and `1.6` folder go (AGENTS.md). The 1.6 build in the GitHub workflow goes with the last of them.
+
 **Shared tools come from a submodule.** [phobos-modkit](https://github.com/phobos-dthorga/phobos-modkit) is pinned at
 `external/phobos-modkit`; after cloning, run `git submodule update --init` once. `scripts/triage-log.py` uses it. A fix to a
 shared tool goes to phobos-modkit first; then the pin moves here with `git -C external/phobos-modkit checkout <tag>` and a
@@ -51,7 +55,8 @@ from the owner's saves.
 - **19 Oct**: the radio framework's Phase 1 built (0.1.0 Draft). **29 Oct**: Factory Additions' assembly, the first with
   Harmony. **2 Nov**: the Dubs Bad Hygiene tie-in and Vehicle Patches' Harrier tie-in, the first tie-in assemblies. **3 Nov**:
   Medical Save Bridge. **4 Nov**: Water Tap, D'thorga Framework, Burns and Smoke, and the switch to **1.7 leading** with every
-  project built for both versions. **5 Nov**: Emergency Dosing and Medical Equipment. **6 Nov**: Triage.
+  project built for both versions. **5 Nov**: Emergency Dosing and Medical Equipment. **6 Nov**: Triage. **8 Nov**: the owner
+  retired 1.6 support; everything new is 1.7 only.
 - Vehicle Framework targets .NET Framework 4.8 and Vehicle Patches 4.7.2, so that project sets
   `ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch`; the game loads both whatever they declare.
 

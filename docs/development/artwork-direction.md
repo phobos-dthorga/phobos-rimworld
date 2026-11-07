@@ -19,7 +19,7 @@ art at 2× or 4× and downscale deterministically.
 | --- | --- | --- | --- |
 | Code-drawn vector-style sprites (`assets/phobos-radio/make_textures.py`) | None | Yes, when done with care | Reproducible, no AI disclosure needed, exact geometry for linked atlases. The current ones are crude placeholders. |
 | **Local generation: ComfyUI with Flux.1-schnell** on the owner's RTX 4070 Ti (12 GB) | None beyond disk and time | Good for item and building bases and for the Workshop preview | Set up 19 Oct 2026 under `C:\AI\` (not in the repository). `scripts/generate-art.py` drives it and writes a record beside every image. |
-| ChatGPT Imagegen (a paid plan) | Subscription | Good; the Ostranauts workflow exists | Only if local generation disappoints, and then for one month at the public-beta gate. |
+| ChatGPT Imagegen (a paid plan) | Subscription | Good; the Ostranauts workflow exists | Only if local generation disappoints, and then for one month at the public-beta gate. **Revised 8 Nov 2026:** the paid route is a pay-per-image API, not a subscription; see [art services for vehicle sprites](vehicle-art-services.md). |
 
 ## Licences and disclosure
 
