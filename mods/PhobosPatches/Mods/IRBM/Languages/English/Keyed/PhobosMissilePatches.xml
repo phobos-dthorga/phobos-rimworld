@@ -2,13 +2,43 @@
 <LanguageData>
   <PhobosMissilePatches_SettingsCategory>D'thorga Patches</PhobosMissilePatches_SettingsCategory>
   <PhobosMissilePatches_SectionIrbm>InterRim Ballistic Missile</PhobosMissilePatches_SectionIrbm>
+  <PhobosMissilePatches_SectionBlast>Strategic blasts</PhobosMissilePatches_SectionBlast>
+  <PhobosMissilePatches_SectionCombatExtended>Strategic blasts with Combat Extended</PhobosMissilePatches_SectionCombatExtended>
 
   <PhobosMissilePatches_SettingSpread>Spread a strategic blast over several moments</PhobosMissilePatches_SettingSpread>
-  <PhobosMissilePatches_SettingSpreadDesc>On, a strategic warhead destroys the struck map a slice at a time, from the centre outward, and the game keeps responding. Off, the missile mod's own way: everything in one go, which can freeze the game for minutes on a large map.</PhobosMissilePatches_SettingSpreadDesc>
+  <PhobosMissilePatches_SettingSpreadDesc>On, a strategic warhead destroys the struck map a slice at a time, from the centre outward, and the game keeps responding. Off, the missile mod's own way: everything in one go.</PhobosMissilePatches_SettingSpreadDesc>
+  <PhobosMissilePatches_WarnSpreadOff>Off: the whole blast happens in one frame, which can freeze the game for minutes on a large map until Windows closes it.</PhobosMissilePatches_WarnSpreadOff>
   <PhobosMissilePatches_SettingBudget>Time each moment may spend on the blast: {MS} ms</PhobosMissilePatches_SettingBudget>
   <PhobosMissilePatches_SettingBudgetDesc>Higher finishes the blast sooner but makes the game stutter while it runs; lower keeps it smooth and takes longer. A moment is one drawn frame, about 16 ms at 60 frames a second.</PhobosMissilePatches_SettingBudgetDesc>
+  <PhobosMissilePatches_WarnBudget>Above 25 ms the game visibly stutters while a blast runs.</PhobosMissilePatches_WarnBudget>
+  <PhobosMissilePatches_SettingWhiteScreen>Take up to {MS} ms a moment while the screen is still white</PhobosMissilePatches_SettingWhiteScreen>
+  <PhobosMissilePatches_SettingWhiteScreenDesc>For the first seconds after impact the screen is white or fading back, so a slower moment costs nothing you can see, and the blast is mostly done before you see the map again.</PhobosMissilePatches_SettingWhiteScreenDesc>
+  <PhobosMissilePatches_SettingShelter>What shelters people and things from a blast</PhobosMissilePatches_SettingShelter>
+  <PhobosMissilePatches_SettingShelterDesc>Overhead mountain shields what is under it. Built roofs never do: the blast tears them off first.</PhobosMissilePatches_SettingShelterDesc>
+  <PhobosMissilePatches_ShelterAnyRockRoof>Any overhead mountain</PhobosMissilePatches_ShelterAnyRockRoof>
+  <PhobosMissilePatches_ShelterThickRockOnly>Only thick overhead mountain</PhobosMissilePatches_ShelterThickRockOnly>
+  <PhobosMissilePatches_ShelterNothing>Nothing</PhobosMissilePatches_ShelterNothing>
+  <PhobosMissilePatches_WarnShelter>The blast now sweeps mountain interiors too, which takes several times longer on a mountainous map.</PhobosMissilePatches_WarnShelter>
+  <PhobosMissilePatches_SettingRubble>Leave rubble and salvage where buildings stood</PhobosMissilePatches_SettingRubble>
+  <PhobosMissilePatches_SettingRubbleDesc>Off, buildings in the blast are gone without trace. On, each leaves its rubble, slag and a share of its materials, as when a building is destroyed in a fight.</PhobosMissilePatches_SettingRubbleDesc>
+  <PhobosMissilePatches_WarnRubble>Many times slower: every building's rubble and materials are placed one by one.</PhobosMissilePatches_WarnRubble>
+  <PhobosMissilePatches_SettingCorpses>The dead</PhobosMissilePatches_SettingCorpses>
+  <PhobosMissilePatches_SettingCorpsesDesc>Whether the bodies of those the blast kills are left where they fell.</PhobosMissilePatches_SettingCorpsesDesc>
+  <PhobosMissilePatches_CorpsesVaporised>Vaporised</PhobosMissilePatches_CorpsesVaporised>
+  <PhobosMissilePatches_CorpsesLeftAsTheyFall>Left where they fell</PhobosMissilePatches_CorpsesLeftAsTheyFall>
   <PhobosMissilePatches_SettingHoldRooms>Rebuild rooms once per moment during a blast</PhobosMissilePatches_SettingHoldRooms>
-  <PhobosMissilePatches_SettingHoldRoomsDesc>On, the game works out its rooms and regions once per slice instead of after every wall that falls, which is most of what made the blast slow. Switch it off only if a blast leaves rooms behaving oddly, and report it.</PhobosMissilePatches_SettingHoldRoomsDesc>
+  <PhobosMissilePatches_SettingHoldRoomsDesc>On, the game works out its rooms and regions once per moment instead of after every wall that falls. Switch it off only if a blast leaves rooms behaving oddly, and report it.</PhobosMissilePatches_SettingHoldRoomsDesc>
+  <PhobosMissilePatches_SettingMessages>Tell me when a blast takes a while, and when it ends</PhobosMissilePatches_SettingMessages>
+  <PhobosMissilePatches_SettingMessagesDesc>A message when a blast is still running after two seconds, and one when it has spent itself.</PhobosMissilePatches_SettingMessagesDesc>
+
+  <PhobosMissilePatches_SettingFragments>Wall fragments from a strategic blast</PhobosMissilePatches_SettingFragments>
+  <PhobosMissilePatches_SettingFragmentsDesc>Walls shattered by heavy damage throw fragments. A strategic blast pauses the game, so the fragments of every wall hang in the air at once.</PhobosMissilePatches_SettingFragmentsDesc>
+  <PhobosMissilePatches_FragmentsNone>None during a blast</PhobosMissilePatches_FragmentsNone>
+  <PhobosMissilePatches_FragmentsReduced>A tenth as many</PhobosMissilePatches_FragmentsReduced>
+  <PhobosMissilePatches_FragmentsAsCombatExtended>As many as in a fight</PhobosMissilePatches_FragmentsAsCombatExtended>
+  <PhobosMissilePatches_WarnFragmentsReduced>Buildings are torn down the slow way so their fragments can fly: about ten fragments each, and the blast takes several times longer.</PhobosMissilePatches_WarnFragmentsReduced>
+  <PhobosMissilePatches_WarnFragmentsFull>About a hundred fragments per building, piling up while the game is paused until each one slows the next: a blast on a town can take tens of minutes.</PhobosMissilePatches_WarnFragmentsFull>
+  <PhobosMissilePatches_FragmentsOffInCombatExtended>Wall fragments are switched off in Combat Extended's own settings, so this changes nothing.</PhobosMissilePatches_FragmentsOffInCombatExtended>
 
   <PhobosMissilePatches_BlastStillRunning>The blast is still tearing through {PLACE}.</PhobosMissilePatches_BlastStillRunning>
   <PhobosMissilePatches_BlastSpent>The blast over {PLACE} has spent itself.</PhobosMissilePatches_BlastSpent>

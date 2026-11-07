@@ -131,6 +131,15 @@ game's private file naming, `Config/Mod_<folder>_<class>.xml` (read from the 1.6
 which waits for the owner's proposals on that mod; and a base class for interval map components, which would change the timing code of
 parts that are tested in game, so it waits until one of them is next changed for its own sake.
 
+## Work queue (0.7.0, 7 Nov 2026)
+
+Made for D'thorga Patches' strategic blast, the owner's standing request that shared code live in the framework. `FrameWorkQueue`
+runs `FrameWork` jobs one at a time, a slice per frame within the job's budget (`SliceBudgetRule`, game-free and tested), from
+`GameComponent_PhobosFrameWork.GameComponentUpdate`: the game calls component updates every frame, paused or not (`Game.UpdatePlay`,
+read from the 1.7 assembly), so the framework still needs no Harmony. A new or loaded game empties the queue; jobs are never saved.
+`RoomRebuildHold` sets `RegionAndRoomUpdater`'s private `working` flag by reflection for a slice and rebuilds once at its end.
+The candidate base class for interval map components is still not built (see 0.6.0 below).
+
 ## Open points and upstream
 
 - Door and vent discovery on 1.7 reads correctly but is unverified in play (read from the 1.7 assembly, 5 Nov 2026): `Region.Neighbors` walks the

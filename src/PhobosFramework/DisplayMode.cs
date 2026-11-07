@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 using Verse;
 
@@ -33,6 +35,42 @@ public static class SettingsUi
                 mode = candidate;
             }
         }
+    }
+
+    /// <summary>The colour of a setting's cost warning: amber, readable on the dark settings window (agent choice).</summary>
+    public static readonly Color WarningColor = new(1f, 0.72f, 0.3f);
+
+    /// <summary>
+    /// A setting's cost, in amber small print under it: what a choice does to the game's speed. Pass null or empty to draw nothing,
+    /// so the caller can show the warning only for the choices that cost.
+    /// </summary>
+    public static void Warning(Listing_Standard listing, string? text)
+    {
+        if (string.IsNullOrEmpty(text)) return;
+        Color colour = GUI.color;
+        GameFont font = Text.Font;
+        GUI.color = WarningColor;
+        Text.Font = GameFont.Tiny;
+        listing.Label(text);
+        Text.Font = font;
+        GUI.color = colour;
+    }
+
+    /// <summary>
+    /// A labelled button that opens a menu of choices. The menu outlives the settings frame, so the choice lands through
+    /// <paramref name="choose"/>, which should write the settings object directly.
+    /// </summary>
+    public static void Choice<T>(Listing_Standard listing, string label, T current, IEnumerable<T> options, Func<T, string> optionLabel,
+        Action<T> choose, string? tooltip = null)
+    {
+        if (!listing.ButtonTextLabeled(label, optionLabel(current), tooltip: tooltip)) return;
+        var menu = new List<FloatMenuOption>();
+        foreach (T option in options)
+        {
+            T chosen = option;
+            menu.Add(new FloatMenuOption(optionLabel(chosen), () => choose(chosen)));
+        }
+        Find.WindowStack.Add(new FloatMenu(menu));
     }
 
     /// <summary>A heading between the parts of one settings window, in the game's medium font, with a line under it.</summary>

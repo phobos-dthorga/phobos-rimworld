@@ -150,6 +150,31 @@ of real time; agent's estimate from the timings), and the per-building work of e
 game's roof-holder checks (`RoofCollapseCellsFinder.ProcessRoofHolderDespawned`, a flood fill over connected roof for each fallen wall,
 read 7 Nov 2026). **Work stopped here at the owner's request**: they have proposals for what to do about this mod.
 
+## Stage 1: the strike finishes (0.8.0, 7 Nov 2026)
+
+The owner asked for proposals in our own flavour, with Dubs Rimatomics' nukes as inspiration, and approved a two-stage plan.
+
+**Where the time went** (read from code; the owner's Combat Extended settings file has `fragmentsFromWalls` on):
+
+1. **Combat Extended's wall fragments.** CE's prefix on `DamageWorker.Apply` (`Harmony_DamageWorker_Apply`) gives a building hit
+   with 10,000 Bomb (x4 for impassable buildings) up to 100 medium fragments, and drains `CompFragments.FragRoutine` at once. The
+   game is paused through a strike, so they stay, and `Thing.DeSpawn`'s `spawnedThings.Remove` and `ListerThings.Remove` scan ever
+   longer lists. This fits the owner's log: about 60 hits a minute at first, 3 a minute at the end. Not measured.
+2. **Roof checks per fallen wall**: `RoofCollapseCellsFinder.ProcessRoofHolderDespawned` flood-fills the connected roof (unbounded)
+   and checks about 145 cells within 6.9 of a holder, each a bounded flood fill.
+3. **The kill path**: leavings, filth, effects, lord and faction notices, and seven mods' patches on `TakeDamage`, `Kill`,
+   `Destroy` and `DeSpawn`, each spawning more things.
+
+**How Rimatomics does it** (`NuclearStrike.cs`, 1.7): it strips every built roof first; skips every cell under natural rock roof,
+thin or thick; vanishes things near ground zero with `Destroy(Vanish)`; damages beyond with a log falloff; and runs its passes back
+to back behind a "Detonating..." loading screen. One tile only, no time budget.
+
+**What 0.8.0 does**: `HitRule` vanishes what the warhead's damage would destroy (pawns still take it); built roofs go first; the
+shelter setting (default any rock roof, the owner's choice) keeps sheltered cells out of the snapshot; CE's fragments are off during a
+slice by default, through its settings object by name, put back after each slice; 40 ms a frame while the screen is white; repeat
+strikes fold into passes; the queue moved to D'thorga Framework (`FrameWorkQueue`). Settings and their cost warnings are in the
+README. Stage 2, a blast model of our own, follows.
+
 ## Bug report to post (draft; the owner posts it)
 
 **Hold this draft:** its cause is the room rebuild, which play did not bear out (see above). Revise it once the cost is measured.

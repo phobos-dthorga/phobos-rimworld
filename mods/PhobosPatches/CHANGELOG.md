@@ -6,6 +6,39 @@ says the owner tested it.
 
 ## [Unreleased]
 
+## [0.8.0] - 2026-11-07 - Draft
+
+Owner's request: a strategic strike still took far too long after 0.7.0 (in the owner's game, 18 minutes and unfinished). Stage 1 of the owner-approved plan; read from the mods' code, not yet tested in game.
+
+### Changed
+
+- A strategic blast now ends in seconds rather than minutes. What the warhead's damage would destroy vanishes, as in Dubs Rimatomics' nuke, instead of going through the full damage path with its rubble, filth, effects and every mod's damage handling. People still take the damage and die properly; what the damage could not destroy is left to the missile mod's rule.
+- Built roofs are torn off in one pass before any wall falls, so falling walls no longer check the whole connected roof for collapse.
+- Overhead mountain shelters what is under it, thin or thick, and those cells are never swept. The missile mod sheltered only under thick overhead mountain; that rule is one of the setting's choices.
+- While the screen is white or fading back, a blast may take up to 40 ms a frame.
+- A container's contents vanish with it; a living sleeper inside dies first.
+- Repeat strikes of the same warhead queued behind one another fold into passes of one sweep.
+- The blast runs through D'thorga Framework's shared work queue instead of a patch of its own on the game's frame update.
+- The finished-blast log line counts what was vaporised, wrecked, damaged, sheltered and already gone, and the frames and time taken.
+
+### Added
+
+- Settings: what shelters (any overhead mountain, only thick, nothing), rubble and salvage, the dead (vaporised or left), the larger budget while the screen is white, and the messages. Each choice that costs speed shows its cost in amber.
+- With Combat Extended: a setting for wall fragments during a strategic blast, none by default, a tenth, or as in a fight. Combat Extended's own setting is changed only in memory for the moments a blast runs.
+- Dev action: count Combat Extended fragments on the map.
+
+### Fixed
+
+- The likely cause of the crawl: Combat Extended threw about a hundred wall fragments for every building, and while the game is paused they never flew away, so each slowed every later removal. Read in Combat Extended's code with the owner's settings, not measured.
+
+### Dependencies
+
+- D'thorga Framework 0.7.0, for its work queue.
+
+### Compatibility and limits
+
+- Not yet tested in game. A blast in progress is not saved. Without the rubble setting, buildings leave nothing behind.
+
 ## [0.7.0] - 2026-11-07 - Draft
 
 Owner's decision (7 November 2026): fewer, broader mods before anything is published. D'thorga Vehicle Patches and D'thorga Missile Patches become one mod, D'thorga Patches. The version continues from Vehicle Patches, with a middle-number step because the missile fix is new to it. Not yet tested in game as D'thorga Patches.

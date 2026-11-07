@@ -89,6 +89,8 @@ the ignored `.local/`.
 - **Medical Equipment** marks its smoke inhalation as helped by oxygen and its burns as burns for the burn unit bed, in XML.
 - **Factory Additions** adds a medicine granulator bill for CE's psycho in XML.
 - **Vehicle Patches** sets Combat Extended values on the Harrier's bombs and on Spaceship Turret Hull's turrets, in XML.
+- **D'thorga Patches' missile part** reads Combat Extended's public `Controller.settings` and changes its wall-fragment fields
+  (`fragmentsFromWalls`, `fragmentsFromWallsIntensity`) by name, in memory only, for the moments a strategic blast runs.
 
 ## Vehicle mods patched by D'thorga Vehicle Patches
 

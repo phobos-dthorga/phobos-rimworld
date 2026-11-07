@@ -4,7 +4,7 @@
   <name>D'thorga Patches</name>
   <author>Phobos A. D'thorga</author>
   <url>https://github.com/phobos-dthorga/phobos-rimworld</url>
-  <modVersion>0.7.0</modVersion>
+  <modVersion>0.8.0</modVersion>
   <description>Fixes and patches for other authors' mods, each switched on only while that mod is active. It copies nothing from them. It replaces D'thorga Vehicle Patches and D'thorga Missile Patches: switch those off when you switch this on.
 
 Harrier VTOL Attack Aircraft:
@@ -29,7 +29,7 @@ The armed hull sections load and fire Combat Extended ammunition like any other 
 
 InterRim Ballistic Missile:
 
-A strategic warhead no longer freezes the game when it lands. The missile mod destroys everything on the struck map in a single frame, which on a large, heavily modded map can run for minutes until Windows closes the game. With this, the blast crosses the map a slice per frame, from the centre outward, and the game keeps responding. Everything the warhead would have destroyed is still destroyed. On a large map the blast can still take a long time; this is being worked on.
+A strategic warhead no longer freezes the game when it lands. The missile mod destroys everything on the struck map in a single frame, which on a large, heavily modded map can run for minutes until Windows closes the game. With this, the blast crosses the map a slice per frame, from the centre outward, and the game keeps responding. Everything the warhead would have destroyed is gone, without the rubble, filth and fragments that made it slow, so a strike now ends in seconds. Overhead mountain shelters what is under it, and settings choose the shelter, rubble, the dead and, with Combat Extended, wall fragments; each that costs speed says so.
 
 Needs Harmony and D'thorga Framework. Load it after the mods it patches. It does nothing if none of them is active.
 

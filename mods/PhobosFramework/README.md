@@ -5,7 +5,7 @@ colonist is breathing, makes fires fill roofed rooms with the game's own smoke w
 carries carbon monoxide from fires, holds the per-person care choices the D'thorga medical mods offer, and holds the small
 helpers every D'thorga mod shares.
 
-Version 0.6.0, built 7 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
+Version 0.7.0, built 7 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
 oxygen working through Burns and Smoke and Medical Equipment (5 November 2026). The health layer new in 0.3.0 is not yet tested in
 game. The rest is read from the game's and the mods' code.
 
@@ -107,8 +107,14 @@ gas), `amountPerRareTick`, and `onlyWhenPowered`, `onlyWhenSwitchedOn` or `onlyW
 
 The helpers: `OptionalMods` (active mods and Defs by name, cached), `LoadReport` (the one load line, optionally naming the part of a
 mod it reports), `DisplayMode` and `SettingsUi.DrawDisplayMode`, `SettingsUi.Section` and `SettingsScroll` (headings and a scrolling
-settings page), `SettingsImport` (carry a player's settings across a change of mod folder or Mod class, once), `PhobosRulesDef` (a
+settings page), `SettingsImport` (carry a player's settings across a change of mod folder or Mod class, once), `SettingsUi.Warning` and
+`SettingsUi.Choice` (a setting's cost in amber; a menu of choices), `FrameWorkQueue` (run a long job a slice per frame, see below),
+`RoomRebuildHold` (rebuild a map's rooms once per slice while many things are destroyed), `PhobosRulesDef` (a
 rules Def whose first instance wins), `DebugCategory.Name`, and `CleanupService.RemoveHediffsOf(pack)` for a clean uninstall.
+
+A long job: subclass `Phobos.Framework.Work.FrameWork` (`Start` takes the snapshot, `Step` does one unit, `Finished`, and
+`BudgetMs` per frame), then `FrameWorkQueue.Enqueue(job)`. The queue runs from a game component's per-frame update, paused or not.
+Jobs are never saved.
 
 ```csharp
 bool fresh = !SettingsImport.HasOwnFile(this);                   // in the Mod constructor

@@ -10,7 +10,7 @@ warhead's blast spread over frames instead of freezing the game).
 It replaces two earlier mods, merged into it on 7 November 2026: **D'thorga Vehicle Patches** and **D'thorga Missile Patches**
 ([why](../../docs/development/mod-consolidation.md)).
 
-Version 0.7.0, built 7 November 2026 for House D'thorga. **Not yet tested in game as D'thorga Patches.** The Harrier and turret hull
+Version 0.8.0, built 7 November 2026 for House D'thorga. **Not yet tested in game as D'thorga Patches.** The Harrier and turret hull
 parts are unchanged from Vehicle Patches 0.6.0 (not yet tested in game); the missile part was tried once by the owner, see
 [InterRim Ballistic Missile](#interrim-ballistic-missile).
 
@@ -48,10 +48,12 @@ parts are unchanged from Vehicle Patches 0.6.0 (not yet tested in game); the mis
 - **Heavy castings at a rotary forger now come 12 at a time**, from 1,200 steel. **If you set up a heavy casting bill at a forger before
   version 0.5.0, delete it and add the new one**: the old one-at-a-time bill may keep running. The smelter and assembly platform still make one at a time.
 - **Turret hulls you've already built must be rebuilt** to take ammo under Combat Extended. Deconstruct and rebuild each one, **while the ship is landed**: in space the gap lets the air out. See [Turret hulls under Combat Extended](#turret-hulls-under-combat-extended).
-- **InterRim Ballistic Missile: a strategic blast no longer freezes the game, but on a big map it can still take many minutes.** In
-  the owner's first try the blast was still crossing an enemy town after 14 minutes. Wait for the message that it has spent itself
-  before saving; a blast still running when you save is forgotten on load. See [InterRim Ballistic Missile](#interrim-ballistic-missile).
-- **Not yet tested in game,** except that one missile run. Everything else here is read from the mods' code and files.
+- **InterRim Ballistic Missile: since 0.8.0 a strategic blast should end in seconds** (not yet tested in game). What it destroys
+  vanishes without rubble, and **overhead mountain now shelters what is under it** (thin or thick; the missile mod sheltered only
+  under thick). **With Combat Extended, wall fragments are off during a blast by default**: they were what made 0.7.0 crawl. All
+  three are settings, and each choice that costs speed says so in amber. Wait for the message that a blast has spent itself before
+  saving: a blast still running when you save is forgotten on load. See [InterRim Ballistic Missile](#interrim-ballistic-missile).
+- **Not yet tested in game,** except one missile run on 0.7.0. Everything else here is read from the mods' code and files.
 
 ## What it does
 
@@ -226,41 +228,55 @@ The jet's fuel tank logged "Parsed 2.5 as int" at every start. Writing the value
 
 ## InterRim Ballistic Missile
 
-**Merged in from D'thorga Missile Patches 0.1.0 (7 November 2026). Partly tried in game; not working well enough yet.**
+**Merged in from D'thorga Missile Patches 0.1.0; rebuilt in 0.8.0 (7 November 2026). Not yet tested in game as 0.8.0.**
 
 **What was wrong.** When a strategic warhead lands on a settlement whose map is open, the missile mod fades the screen to white and
 then, in a single frame, damages every pawn, building, item and plant on that map. On the owner's heavily modded game that frame ran
-for more than two minutes until Windows closed the game as not responding.
+for more than two minutes until Windows closed the game as not responding. Version 0.7.0 spread the blast over frames: no more
+freeze, but on an enemy town the blast was still running 18 minutes later, slowing as it went.
 
-**What this does.** The blast is queued and crossed a slice per frame, from the centre of the map outward, within a time budget (a
-setting). The game keeps drawing and stays responsive. While a slice runs, the game's room rebuild is held and done once at the end
-of the slice instead of after each fallen wall. Every thing the warhead would have destroyed is still destroyed, by the missile
-mod's own rules: the same damage, armour penetration, thick-rock-roof shelter, core-part hit on pawns, and dismantle paths. Things
-already gone by the time the wave reaches them are skipped.
+**Why it crawled** (read from the mods' code, 7 November 2026). Every building went through the full damage path. With Combat
+Extended's wall fragments on, each one threw about a hundred fragments; the game stays paused during a strike, so they never flew
+away, and every one made the next removal slower. Each fallen wall also checked the whole connected roof for collapse, and left
+rubble, filth and leavings that grew the map's lists further.
 
-**What happened in play** (the owner, 7 November 2026, a DF-5 on an enemy town): **the game did not freeze**, and Windows never
-closed it. **But the blast was still crossing the map 14 minutes later**, so it is far too slow on a big map. The likely reason is
-that 12 ms a frame is a small share of a frame on a game with hundreds of mods, so the blast gets only a small part of the time;
-the room rebuild was not the main cost after all. This is read from the log's timings, not measured. **Work on it is paused for the
-owner's proposals on what to do about this mod.**
+**What it does now.**
+
+- **What the warhead would destroy simply vanishes**, as in Dubs Rimatomics' nuke: no rubble, filth, fragments or roof checks. People
+  still take the warhead's damage and die properly. Anything the damage could not destroy is left to the missile mod's own rule.
+- **Built roofs are torn off first**, in one pass, before any wall falls.
+- **Overhead mountain shelters what is under it** (a setting), and those cells are never swept, which is a large part of the speed.
+- **A container's contents go with it**; a sleeper in a casket dies first.
+- **The blast takes up to 40 ms a frame while the screen is still white** or fading back, and your setting (12 ms) afterwards.
+- **A warhead that strikes again and again** (gamma ray, cold, the dismantling warhead) folds repeat strikes queued behind one another
+  into passes of one sweep.
+- It runs through D'thorga Framework's shared queue, which any D'thorga mod can use for long jobs.
 
 **Messages.** A blast that runs longer than two seconds says the blast is still tearing through the place, and says when it has spent
-itself.
+itself (a setting).
 
-**Settings** (Mod settings, D'thorga Patches):
+**Settings** (Mod settings, D'thorga Patches). A setting that costs speed shows its cost in amber under it when chosen.
 
-| Setting | Default | What it does |
-| --- | --- | --- |
-| Spread a strategic blast over several moments | On | Off gives you the missile mod's own one-frame blast. |
-| Time each moment may spend on the blast | 12 ms | 2 to 50 ms. Higher finishes sooner and stutters more. |
-| Rebuild rooms once per moment during a blast | On | Off if a blast ever leaves rooms behaving oddly; please report it. |
+| Setting | Default | Choices | Cost |
+| --- | --- | --- | --- |
+| Spread a strategic blast over several moments | On | On, off | Off: the missile mod's own one-frame blast, which can freeze the game for minutes |
+| Time each moment may spend on the blast | 12 ms | 2 to 50 ms | Above 25 ms: visible stutter while it runs |
+| Take up to 40 ms a moment while the screen is still white | On | On, off | None you can see |
+| What shelters people and things from a blast | Any overhead mountain | Any overhead mountain, only thick overhead mountain (the missile mod's rule), nothing | The last two sweep mountain interiors too: several times slower on a mountain map |
+| Leave rubble and salvage where buildings stood | Off | On, off | On: many times slower |
+| The dead | Vaporised | Vaporised, left where they fell | None |
+| Rebuild rooms once per moment during a blast | On | On, off | Off if rooms ever behave oddly after a blast; please report it |
+| Tell me when a blast takes a while, and when it ends | On | On, off | None |
+| Wall fragments from a strategic blast (only with Combat Extended) | None during a blast | None, a tenth as many, as many as in a fight | A tenth: several times slower. As in a fight: a blast on a town can take tens of minutes |
 
 **Limits.** A blast in progress is not saved: what it had not reached survives a reload. The fires, terrain changes and cloud the
-warhead makes still happen in the frame the screen reaches white, as the missile mod does them.
+warhead makes still happen in the frame the screen turns white, as the missile mod does them. Combat Extended's fragment setting is
+changed only in memory, for the moments the blast runs, and put back after; its settings file is never touched.
 
 **Dev mode**, D'thorga category: **Missile Patches: strike current map** runs an extinction-class blast on the map you are looking at
-(**it destroys everything there**; use a throwaway save), **log blast queue** and **drop queued blasts**. Each finished blast logs one
-line: how many things it hit, in how many seconds and frames, and any errors it swallowed.
+(**it destroys everything there**; use a throwaway save), **log blast queue**, **drop queued blasts**, and **count Combat Extended
+fragments on map**. Each finished blast logs one line: things, seconds, frames, and how many were vaporised, wrecked, damaged,
+sheltered or already gone.
 
 The record is [Missile patches](../../docs/development/missile-patches.md).
 
@@ -278,8 +294,8 @@ The map fix is in `src/PhobosPatches.Harrier/AirborneCrewKeepsMap.cs`: one postf
 check every site's removal rule reads. The RimPacts fix is in `src/PhobosPatches.Harrier/RimPactsArrivalFilter.cs`. **A Harmony patch method in a generic class breaks the next
 patch of the same method**, because Harmony stores a patch as a method token, which can't hold generic arguments. The record is in
 [Vehicle patches](../../docs/development/vehicle-patches.md). The missile part is in `src/PhobosPatches.Irbm`: a
-prefix on the missile mod's `StrategicImpactCountdown.ApplyStrategicDamage` that queues the pass, and a postfix on
-`Root_Play.Update` that runs it.
+prefix on the missile mod's `StrategicImpactCountdown.ApplyStrategicDamage` queues an `IrbmSweep`, which D'thorga Framework's
+`FrameWorkQueue` runs a slice per frame.
 
 ## Checks done
 

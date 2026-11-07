@@ -5,6 +5,20 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.7.0] - 2026-11-07 - Draft
+
+Made with D'thorga Patches 0.8.0, its first user. No change in play on its own. Not yet tested in game.
+
+### Added
+
+- For modders: a work queue that runs a long job a slice per drawn frame, paused or not, within a time budget, so the game keeps responding. A job says how to start, how to take one step and when it is done; identical jobs queued behind one another can fold into one.
+- For modders: a hold on a map's room and region rebuild while a slice destroys many things, released and rebuilt once at the end of the slice.
+- For modders: a cost warning under a setting, in amber, and a labelled button that opens a menu of choices.
+
+### Save compatibility
+
+- Adds one game component that saves nothing. A save made with it logs one line about a missing class if the framework is later removed.
+
 ## [0.6.0] - 2026-11-07 - Draft
 
 Made with the merge of seven D'thorga mods into two (owner's decision, 7 November 2026), as the pieces both merged mods needed. No change in play. Not yet tested in game.
@@ -76,7 +90,7 @@ Not yet tested in game.
 
 ### Added
 
-- A care choice can name its own icon (`iconPath` on `PatientPreference`); a missing one falls back to the medicine icon.
+- A care choice can name its own icon (iconPath on PatientPreference); a missing one falls back to the medicine icon.
 
 ### Compatibility and limits
 
