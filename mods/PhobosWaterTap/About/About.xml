@@ -4,7 +4,7 @@
   <name>D'thorga Water Tap</name>
   <author>Phobos A. D'thorga</author>
   <url>https://github.com/phobos-dthorga/phobos-rimworld</url>
-  <modVersion>0.2.1</modVersion>
+  <modVersion>0.2.2</modVersion>
   <description>A water bottle tap for Dubs Bad Hygiene: a small plumbing fixture that keeps a stack of bottled water ready, refilling by itself from your water towers. Nobody has to stand at a basin filling bottles.
 
 Colonists drink from it and pack bottles from it the way they do from any loose bottles. Caravans can load from it. You choose how many bottles it keeps ready, up to 10.
@@ -24,6 +24,11 @@ Community-created content. Portions of the materials used to create this content
   </supportedVersions>
   <modDependencies>
     <li>
+      <packageId>PhobosDthorga.Framework</packageId>
+      <displayName>D'thorga Framework</displayName>
+      <downloadUrl>https://github.com/phobos-dthorga/phobos-rimworld</downloadUrl>
+    </li>
+    <li>
       <packageId>Dubwise.DubsBadHygiene</packageId>
       <displayName>Dubs Bad Hygiene</displayName>
       <steamWorkshopUrl>https://steamcommunity.com/sharedfiles/filedetails/?id=836308268</steamWorkshopUrl>
@@ -32,6 +37,7 @@ Community-created content. Portions of the materials used to create this content
   <loadAfter>
     <li>Ludeon.RimWorld</li>
     <li>Dubwise.DubsBadHygiene</li>
+    <li>PhobosDthorga.Framework</li>
     <li>OskarPotocki.VanillaFactionsExpanded.Core</li>
     <li>VanillaExpanded.VFEFactory</li>
   </loadAfter>

@@ -3,13 +3,14 @@
 A water bottle tap for **Dubs Bad Hygiene**: a small plumbing fixture that keeps a stack of bottled water ready and refills it by
 itself from your water towers. Nobody has to stand at a basin filling bottles.
 
-Version 0.2.1, built 4 November 2026 for House D'thorga. **Not yet tested in game.**
+Version 0.2.2, built 7 November 2026 for House D'thorga. **Not yet tested in game.**
 
 ## Read this first (gotchas)
 
 - **Needs Dubs Bad Hygiene, with its thirst option on.** Without thirst, Dubs Bad Hygiene has no water bottles, so the tap doesn't
   appear at all. **It isn't made for Dubs Bad Hygiene Lite**, or for the full mod's lite mode: neither has plumbing. Load it after
-  Dubs Bad Hygiene. The About file asks for this, so RimSort does it for you. It needs nothing else, not even Harmony.
+  Dubs Bad Hygiene. The About file asks for this, so RimSort does it for you. **It also needs D'thorga Framework** (since 0.2.2),
+  whose shared reader draws the water; no Harmony.
 - **It needs a pipe and a water tower.** Research **plumbing**, then find it under **Architect > Hygiene**. Build it on a pipe or next
   to one. Wells and pumps fill towers, and the tap draws from towers only, like every other Dubs Bad Hygiene fixture.
 - **It replaces a pipe it's built on, and then carries the water itself**, like a basin does. If you deconstruct it, lay a pipe back on

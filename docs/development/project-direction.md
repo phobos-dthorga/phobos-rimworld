@@ -85,7 +85,7 @@ load folder or patch.
       replace or upgrade (Phase 2), HF pace, direction-finding harshness, licence tiers, public name.
 - [ ] **Decide whether licence tiers cap power by mode**, as the real Australian classes do. The
       [reference checks](radio-reference-checks.md) suggest it.
-- [ ] Read Ludeon's official 1.7 Modder Primer before the 1.7 build.
+- [x] Read Ludeon's official 1.7 Modder Primer (7 Nov 2026; findings in [the modding reference](rimworld-modding-reference.md#building-c-mods)).
 - [ ] **The 6 dB gate**: 0.1.0 Draft was built and deployed on 19 Oct 2026; the owner's play test (the
       README's "What to try first") decides whether the rule feels right before Phase 2 opens. Every
       tuning value is in `Common/Defs/Radio/Rules.xml` and the patches.

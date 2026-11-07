@@ -144,11 +144,11 @@ Nothing yet.
 
 ## Open points and upstream
 
-- A field hold for tension pneumothorax (needle decompression) as a Medical Equipment item, buying time until the operation:
-  the one surgical-only killer that real field care can hold.
-- A health-tab dropdown beside the game's medical care one, which needs a Harmony postfix on the health card.
-- Whether the "to save life or a limb" tier should leave fractures to More Injuries' own splint giver: its giver stops once any
-  splint or repair bill exists, and the lowest-cost pick here is the splint, so the fracture is splinted either way.
-- Whether to show the expectant tag on colonists at all (text only; the owner may prefer it hidden).
-- More Injuries' brain-damage therapy and any recipe with a custom worker need the extension; a patch in a `Mods/MoreInjuries`
-  folder could add it, named by Def there as the oxygen tie-in does.
+**The owner's answers, 7 November 2026** (tracked in [outstanding work](outstanding-work.md); none built yet):
+
+- **Tags as icons:** every tag gets a colour-coded icon in the game's own row of small status icons by a pawn's name (red immediate,
+  yellow urgent, green delayed, white minor, black expectant). This settles whether colonists show the expectant tag: they do.
+- **Health-tab dropdown:** add it beside the game's medical care setting (a Harmony postfix on the health card); the button stays.
+- **Fractures:** triage queues them under "save life or a limb", rather than leaving them to More Injuries' splint giver.
+- **Needle decompression** for a collapsed lung under pressure is in the second equipment set, as a kit.
+- **More Injuries' brain-damage therapy** and recipes with custom workers get the extension through a `Mods/MoreInjuries` patch.

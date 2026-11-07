@@ -1,4 +1,5 @@
 using DubsBadHygiene;
+using Phobos.Framework.Hygiene;
 using Phobos.WaterTap.Rules;
 using RimWorld;
 using Verse;
@@ -6,8 +7,8 @@ using Verse;
 namespace Phobos.WaterTap;
 
 /// <summary>
-/// Fills a tap's bottles from its pipe network. Water is drawn the way Dubs Bad Hygiene's own fixtures draw it
-/// (PlumbingNet.PullWater, from the water towers on the net), and each bottle carries the quality of that water
+/// Fills a tap's bottles from its pipe network. Water is drawn through D'thorga Framework's shared plumbing reader
+/// (PlumbingFeed.TryPullFrom, which calls Dubs Bad Hygiene's own PlumbingNet.PullWater on the water towers of the net), and each bottle carries the quality of that water
 /// (CompContamination, which Dubs Bad Hygiene reads when someone drinks). Taps stop once the map holds its colony limit,
 /// so that hauling bottles away can't drain the water towers into a flood of bottles. The count is every bottle spawned
 /// on the map, in storage or on the floor. Bottles in pawns' pockets don't count: they are spoken for, and counting them
@@ -41,7 +42,7 @@ public static class TapService
         if (bottles <= 0) return;
         PlumbingNet net = tap.Pipe!.pipeNet;
         ContaminationLevel water = WorstWater(net);
-        if (!net.PullWater(bottles * tap.Props.waterPerBottle, out _)) return;
+        if (PlumbingFeed.TryPullFrom(net, bottles * tap.Props.waterPerBottle, out _) != WaterDraw.Flowing) return;
 
         Thing fresh = ThingMaker.MakeThing(tap.Props.bottle);
         fresh.stackCount = bottles;

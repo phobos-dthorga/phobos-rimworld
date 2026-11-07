@@ -7,10 +7,13 @@
     <RootNamespace>Phobos.WaterTap</RootNamespace>
     <AssemblyName>PhobosWaterTap</AssemblyName>
     <ModFolder>PhobosWaterTap</ModFolder>
-    <Version>0.2.1</Version>
+    <Version>0.2.2</Version>
   </PropertyGroup>
   <ItemGroup>
     <!-- Dubs Bad Hygiene's assembly, referenced from the installed mod and never copied. -->
+    <!-- D'thorga Framework's Dubs Bad Hygiene tie-in, the one shared reader of its water (7 Nov 2026). Its DLL ships only in the
+         framework's own Mods/DubsBadHygiene folder, which loads whenever Dubs Bad Hygiene does, as this mod requires. -->
+    <ProjectReference Include="../PhobosFramework.Hygiene/PhobosFramework.Hygiene.csproj" />
     <Reference Include="BadHygiene">
       <HintPath>$(DbhAssemblies)\BadHygiene.dll</HintPath>
       <Private>false</Private>

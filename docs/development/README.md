@@ -11,6 +11,8 @@ promise current behaviour. For using the mods, start at the [documentation index
   where things go, the C# toolchain (RimWorld 1.7 leads; 1.6 kept as the minimum) and deploying to the game.
 - [Writing READMEs and in-game text](player-language.md)
 - [The medical mods together](../medical-mods.md): the player's view of which medical mod does what, with a flow diagram.
+- [Outstanding work (from 7 Nov 2026)](outstanding-work.md): every open item, the owner's decision on it and its status; kept
+  current by every change.
 - [Mod consolidation (7 Nov 2026)](mod-consolidation.md): why eleven mods became six (five medical mods into D'thorga
   Medical, two patch mods into D'thorga Patches), who decided what, how identities and settings were kept, and what came of it.
 - Which mod needs which: the diagram in the [project README](../../README.md#the-mods).

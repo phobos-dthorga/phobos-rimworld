@@ -5,6 +5,19 @@ yet. Not yet tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.2.2] - 2026-11-07 - Draft
+
+The owner chose to tidy this up on 7 November 2026. No change in play. Not yet tested in game.
+
+### Changed
+
+- The tap draws its water through D'thorga Framework's shared reader of Dubs Bad Hygiene's plumbing, which the factory machines and the oxygen electrolyser already use, instead of a copy of its own. The water drawn, the towers it comes from and the bottles' quality are as before.
+
+### Dependencies
+
+- Needs D'thorga Framework, as every D'thorga mod with code does. Load it after the framework; RimSort does this from the About file.
+
+
 ### Compatibility and limits
 
 - README: the supported game versions in the gotchas, what each tap saves, and a diagram of how a tap fills and refills.

@@ -102,7 +102,30 @@ The 1.7 column comes from the community page
 - **Debugging:** Doorstop is no longer needed; attach the IDE to the game process. Developer mode adds a
   Frame Profiler, and the `-mod=` launch argument loads a chosen set of mods (IDs separated by `,` or `;`).
 - `Player.log` moves into a `Logs` subfolder.
-- Ludeon has an official Modder Primer (a Google Doc linked from that page). It was not read for this record.
+- Ludeon's official [Modder Primer for 1.7](https://docs.google.com/document/d/e/2PACX-1vSykw5_DYaaw42nEznI9zmBZVT_Vgg2bxYq_v2XWvAsHC3QSKFuDK2OyiQ5WC9jvVRUcrjpFt7xLLF5/pub)
+  (a Google Doc linked from that page; no date shown, "a work in progress", updated in place) was **read on 7 Nov 2026**. What it
+  says, and what it means for us:
+  - "In 99% of cases, mods made for 1.6 'Just Work' on 1.7, without even needing to be recompiled"; the named exceptions are mods
+    that depend on Prepatcher or change asset loading. "ANY other incompatibility is a bug, on our (Ludeon's) side." **Ours:** we
+    use neither, so a 1.7 fault in our code that 1.6 doesn't show is worth reporting to Ludeon as well as fixing.
+  - Target `net10.0`, referencing Assembly-CSharp, Waylith and UnityStubs only. **Ours:** already so (`Directory.Build.targets`).
+  - UnityStubs stays: "there is no intention that mods attempt to transition away from using this compatibility layer." **Ours:**
+    keep using the game's wrappers and Unity names; no migration to Waylith APIs planned. (The wiki's claim that native calls are
+    faster is the wiki's, not the primer's.)
+  - Multithreading is `Waylith.Jobs` (any C# method as a job; `Schedule*` returns an id, `WaylithJobRuntime.Complete` blocks); CoreCLR
+    "has effectively removed the need to use Burst". **Ours:** nothing uses threads; D'thorga Framework's `FrameWorkQueue` spreads
+    long work over frames on the main thread, which stays the rule for anything that touches game state.
+  - **The Frame Profiler** (dev mode, Actions/tools, General) records frames with GC markers, and its "Instrumentation" filter takes
+    `AssemblyName!Namespace.Type.Method` with `?` and `*`; the Assemblies dialog adds a mod's assemblies or single Harmony patches.
+    "Many [red GC lines] likely indicates that the game, or a mod, is allocating too much memory per frame." **Ours:** the way to
+    measure a slow job, e.g. `PhobosPatches.Irbm!*` during a strategic blast.
+  - Launch arguments: `-mod=<packageId>[;<packageId>...]` (only those mods plus Core and DLCs; ModsConfig.xml not read), `-Headless`,
+    `-NoWindow`, `-BakeModAssetPacks=<mod>`, `-ColdBoot`, `-WatchShaders`, `-Verbose`, `-DisableLogStackTraces`, `-NoFileLogCallstacks`,
+    `-NoFileLog`, `-console`. **Ours:** `-mod=` makes a clean test of one D'thorga mod possible without touching the owner's list.
+  - Shaders are GLSL (`#version 450`, `void main()`) loaded from a `Shaders/` folder with ShaderDef and MaterialDef; UVs are flipped
+    against Unity. **Ours:** no shaders; DMS2-style frost would need one, if the owner wants it beyond a texture fade.
+  - **Not covered by the primer:** Harmony versions or patch rules, About.xml, XML patching, LoadFolders, mod settings, game and map
+    components, debug actions, reflection, saves and Scribe. The Harmony 3 statements above are the wiki's.
 
 ## Paths (Windows, Steam)
 

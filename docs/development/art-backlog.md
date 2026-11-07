@@ -39,7 +39,10 @@ happen before a run. A record only: nothing here has been generated for it. How 
 **Local model?** "Yes" means a single object or picture the model handles; "Script" means it stays drawn by code; "Part" means the
 model draws the picture and a script does the rest.
 
-### D'thorga Medical Equipment
+### D'thorga Medical (Medical Equipment's art)
+
+Since 7 Nov 2026 Medical Equipment is a part of D'thorga Medical, and the five medical mods share one Workshop preview: Medical
+Equipment's picked background, re-titled by script.
 
 | Asset | Now | Needs | Local model? | Waiting on |
 | --- | --- | --- | --- | --- |
@@ -128,10 +131,9 @@ can fail falls back to a visible stand-in of our own, never silently to the red 
 
 ### Mods with no preview yet
 
-Only D'thorga Medical Save Bridge has no `About/Preview.png` now: the owner picked previews for the rest on 7 Nov 2026. Burns and
-Smoke's is a stand-in, since the owner is not satisfied with either background; a new batch for it, and one for the Medical Save
-Bridge, are outstanding. Each needs a preview before the Workshop (Part: generated background,
-scripted name).
+None since 7 Nov 2026. The merge into D'thorga Medical and D'thorga Patches retired the Burns and Smoke, Medical Save Bridge, Emergency
+Dosing, Triage and Missile Patches previews: D'thorga Medical uses Medical Equipment's picked background and D'thorga Patches Vehicle
+Patches', both re-titled by script. The earlier backgrounds stay on the `art-masters` branch.
 
 ### Needing no art
 
@@ -175,7 +177,7 @@ Proposed 6 Nov 2026 for the owner to confirm. Generation doesn't need them; expo
 ## Next requests (7 Nov 2026)
 
 The store's frost (its code waits for it, owner), the electrolyser, the chamber's top-down 1 by 3 redraw, a real whip, the radio base
-station, the Burns and Smoke and Medical Save Bridge previews, the second set of medical equipment
+station, the second set of medical equipment
 ([its record](medical-equipment-2.md)) and the four vents ([ventilation and hydrogen](ventilation-and-hydrogen.md)). Every new button
 gets its icon in the same change (owner rule, 7 Nov 2026).
 
