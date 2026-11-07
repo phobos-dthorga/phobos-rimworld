@@ -7,7 +7,7 @@ tested in game unless an entry says the owner tested it.
 
 ## [0.7.1] - 2026-11-07 - Draft
 
-Owner's report: many settings seemed to have gone missing since the merge. Not yet tested in game.
+Owner's report: many settings seemed to have gone missing since the merge. **Tested in game: the owner reports every setting back (7 November 2026).**
 
 ### Fixed
 
