@@ -84,6 +84,7 @@ Community-created content. Portions of the materials used to create this content
     <li>vanillaexpanded.gravship</li>
     <li>VanillaExpanded.VFEMedical</li>
     <li>Dubwise.DubsBadHygiene</li>
+    <li>Andromeda.UsefulMarks</li>
   </loadAfter>
   <!-- The five mods this one replaced (7 November 2026). Running any of them beside it would load the same parts twice. -->
   <incompatibleWith>

@@ -5,6 +5,14 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.8.0] - 2026-11-07 - Draft
+
+Made with D'thorga Medical 0.7.0, its first user. No change in play on its own. Not yet tested in game.
+
+### Added
+
+- For modders: a per-person choice's icon, its menu and its label with the current option, from the choices registry, so every place that offers the choice draws the same thing. The pawn's own button now uses them.
+
 ## [0.7.1] - 2026-11-07 - Draft
 
 Owner's report: many settings seemed to have gone missing since the merge. **Tested in game: the owner reports every setting back (7 November 2026).**

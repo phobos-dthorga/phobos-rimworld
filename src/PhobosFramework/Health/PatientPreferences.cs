@@ -1,3 +1,5 @@
+using UnityEngine;
+using RimWorld;
 using System;
 using System.Collections.Generic;
 using Verse;
@@ -39,9 +41,45 @@ public sealed class PatientPreference
     }
 }
 
-/// <summary>The registry: mods add their preferences and inspect lines at startup, the comp draws them.</summary>
+/// <summary>
+/// The registry: mods add their preferences and inspect lines at startup, the comp draws them. The icon and menu of a choice live here
+/// so every place that offers it (the pawn's button, D'thorga Medical's health-tab button) draws the same thing.
+/// </summary>
 public static class PatientPreferences
 {
+    static Texture2D? defaultIcon;
+    /// <summary>The game's industrial medicine icon, as on its medical care menu. The game has no texture of its own for "normal care".</summary>
+    static Texture2D DefaultIcon => defaultIcon ??= ThingDefOf.MedicineIndustrial?.uiIcon ?? BaseContent.BadTex;
+    static readonly Dictionary<string, Texture2D> icons = new();
+
+    /// <summary>A preference's own icon when it names one that exists, else the default.</summary>
+    public static Texture2D IconFor(PatientPreference preference)
+    {
+        if (string.IsNullOrEmpty(preference.IconPath)) return DefaultIcon;
+        if (!icons.TryGetValue(preference.IconPath!, out Texture2D? icon))
+        {
+            icon = ContentFinder<Texture2D>.Get(preference.IconPath, false) ?? DefaultIcon;
+            icons[preference.IconPath!] = icon;
+        }
+        return icon;
+    }
+
+    /// <summary>The choices as a menu; picking one saves it on the pawn's patient comp.</summary>
+    public static List<FloatMenuOption> MenuFor(Pawn pawn, PatientPreference preference)
+    {
+        var options = new List<FloatMenuOption>();
+        for (int i = 0; i < preference.OptionKeys.Count; i++)
+        {
+            int index = i;
+            options.Add(new FloatMenuOption(preference.OptionKeys[i].Translate(), () => pawn.TryGetComp<CompPhobosPatient>()?.SetChoice(preference.Key, index)));
+        }
+        return options;
+    }
+
+    /// <summary>The choice's label with the pawn's current option, as on the pawn's button.</summary>
+    public static string LabelFor(Pawn pawn, PatientPreference preference) =>
+        preference.LabelKey.Translate(preference.OptionKeys[Choice(pawn, preference)].Translate().Named("CHOICE"));
+
     static readonly List<PatientPreference> all = new();
     static readonly List<Func<Pawn, string?>> inspectLines = new();
 

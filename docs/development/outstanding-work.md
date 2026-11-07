@@ -17,10 +17,10 @@ testing is the owner's and is not listed here; each mod's changelog says what is
 | B1 | Immunity race: dose when losing by under **two days** (was one) | Medical (dosing) | Two days | Done: Medical 0.7.0 |
 | B2 | Doctors give pain relief from **40%** pain (was 60%) | Medical (dosing) | From 40% | Done: Medical 0.7.0 |
 | B3 | Masochists skip self-medication | Medical (dosing) | Yes | Done: Medical 0.7.0 |
-| C1 | A colour-coded icon for every triage tag, in the game's row of small status icons by a pawn's name | Medical (triage) | Every tag: red immediate, yellow urgent, green delayed, white minor, black expectant | Open |
-| C2 | "How far the doctors may go" as a dropdown on the health tab, beside medical care (the button stays) | Medical (triage) | Add it | Open |
-| C3 | Triage queues fracture repairs under "save life or a limb" | Medical (triage) | Triage queues them | Open |
-| C4 | More Injuries' brain-damage therapy and custom-worker recipes found by triage | Medical (triage) | With C1 to C3 | Open |
+| C1 | A colour-coded icon for every triage tag, in the game's row of small status icons by a pawn's name | Medical (triage) | Every tag: red immediate, yellow urgent, green delayed, white minor, black expectant | Done: Medical 0.7.0 (Useful Marks row, or beside the name without it) |
+| C2 | "How far the doctors may go" as a dropdown on the health tab, beside medical care (the button stays) | Medical (triage) | Add it | Done: Medical 0.7.0 (a button beside the medicine setting) |
+| C3 | Triage queues fracture repairs under "save life or a limb" | Medical (triage) | Triage queues them | Done: no change needed, triage already queued them |
+| C4 | More Injuries' brain-damage therapy and custom-worker recipes found by triage | Medical (triage) | With C1 to C3 | Done: Medical 0.7.0 |
 | D1 | Respect More Injuries' own fire-inhalation setting | Medical (burns) | Respect it | Open |
 | D2 | Fire heat indoors: hot cells near a fire in a large room | Medical (burns) | Yes | Open |
 | D3 | Pawns and animals flee cells hot enough to burn | Medical (burns) | Yes | Open |

@@ -144,7 +144,14 @@ Nothing yet.
 
 ## Open points and upstream
 
-**The owner's answers, 7 November 2026** (tracked in [outstanding work](outstanding-work.md); none built yet):
+**The owner's answers, 7 November 2026** (tracked in [outstanding work](outstanding-work.md); built in D'thorga Medical 0.7.0, not
+yet tested in game). How: the base game draws no icons by a pawn's name, so the row the owner meant is Useful Marks' (Andromeda), which
+lets other mods add marks through `PawnLabelCustomColors_WorldComponent.RegisterProvider`; a tie-in assembly adds one mark per tag, and
+without Useful Marks a postfix on `PawnUIOverlay.DrawPawnGUIOverlay` draws the icon right of the name. The health tab's medicine row is
+drawn inside a private method with no room for a row of ours, so the choice is a button beside the medicine button (a postfix on
+`MedicalCareUtility.MedicalCareSelectButton`, only while the health tab draws). Fractures needed no change: triage already queued them.
+More Injuries' brain therapy is found through a `PhobosTriageExtension` patch listing the five conditions that inherit its treatment
+extension; it is auto-queued like any other (agent choice), since glitterworld medicine is medicine, not a rare tool.
 
 - **Tags as icons:** every tag gets a colour-coded icon in the game's own row of small status icons by a pawn's name (red immediate,
   yellow urgent, green delayed, white minor, black expectant). This settles whether colonists show the expectant tag: they do.

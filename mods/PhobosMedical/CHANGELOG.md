@@ -15,9 +15,20 @@ The owner's answers of 7 November 2026 to every open question (docs/development/
 - Emergency dosing: doctors give pain relief from 40% pain, where the game's severe label starts, instead of 60%. A patient in bed between 40% and 60% no longer goes without. Owner's choice.
 - Emergency dosing: a disease counts as winning the race when immunity would arrive within two days of the lethal mark, instead of one, so doctors give a disease-fighting drug sooner. A patient had been lost by under one point of immunity. Owner's choice.
 
+### Added
+
+- Triage: each patient's triage tag shows as a small icon by their name on the map, coloured as in field triage: red immediate, yellow urgent, green delayed, white minor, black expectant. With Useful Marks active it is one of Useful Marks' marks, through its own way for other mods to add marks; without it, the icon sits just right of the name. The icon is a stand-in drawn in code. Owner's choice.
+- Triage: the choice of how far the doctors may go is also a small button on the health tab, beside the game's medicine setting, with the same menu as the button on the person. Owner's choice.
+- Triage, with More Injuries: its mechanite therapy for brain damage is found for the five conditions it treats. It uses glitterworld medicine, so a colonist set to any repair may have it queued.
+
 ### Changed
 
+- Triage keeps queuing fracture repairs under save life or a limb, rather than leaving fractures to More Injuries' splints. No change in play: the owner chose to keep it.
 - Emergency dosing: a masochist, or anyone else for whom pain is no hardship (the game's own pain mood is cancelled for them, as by a belief in idealised pain), no longer fetches their own painkillers. Doctors still treat them in bed. Read from the game's pain thought, not from the trait's name, so a modded trait that does the same counts too.
+
+### Dependencies
+
+- D'thorga Framework 0.8.0 or later, for the shared menu of a person's care choices. Useful Marks is optional; with it, triage tags join its marks.
 
 
 ## [0.6.0] - 2026-11-07 - Draft

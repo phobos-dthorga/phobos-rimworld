@@ -308,6 +308,18 @@ the drug comp's addictiveness and category are read from the same Defs. Balance 
 
 Doctors queue the life-saving operations a patient needs, and take the worst case first.
 
+**New in D'thorga Medical 0.7.0** (the owner's choices, 7 November 2026; not yet tested in game):
+
+- **Each patient's triage tag shows as a small icon by their name on the map**, coloured as in field triage: **red** immediate,
+  **yellow** urgent, **green** delayed, **white** minor, **black** expectant (nothing your colony can do will save them). With
+  **Useful Marks** active, the tag is one of its marks in its row by the name; without it, the icon sits just right of the name.
+- **The "how far the doctors may go" choice is also on the health tab**, as a small button right beside the game's medicine setting.
+  It opens the same menu as the button on the person.
+- **Fractures:** the doctors keep queuing fracture repairs under "save life or a limb", as before.
+- **More Injuries' mechanite therapy for brain damage is now found**, for motor dysfunction, language aphasia, visual agnosia,
+  frontal lobe damage and confusion. **It uses glitterworld medicine**, so a colonist set to "any repair" may have it queued; set them
+  lower if you'd rather order it yourself.
+
 *As D'thorga Triage, its last version before the merge:* Version 0.2.0, built 7 November 2026 for House D'thorga. **Not yet tested in game.** Everything here is read from the game's and
 the mods' code.
 

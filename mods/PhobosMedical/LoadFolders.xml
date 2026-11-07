@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <loadFolders>
   <!-- One assembly per game version (1.7 leads, 1.6 stays until it is retired), shared XML in Common, and one folder per optional
-       mod, loaded only while it is active; the Dubs Bad Hygiene tie-in's assembly sits in a version folder below it. Five mods were
+       mod, loaded only while it is active; the Dubs Bad Hygiene and Useful Marks tie-ins' assemblies sit in version folders. Five mods were
        merged into this one on 7 November 2026; their optional folders share these, with no two files on the same path. -->
   <v1.6>
     <li>/</li>
@@ -12,6 +12,7 @@
     <li IfModActive="vanillaexpanded.gravship">Mods/VanillaGravshipExpanded</li>
     <li IfModActive="Dubwise.DubsBadHygiene">Mods/DubsBadHygiene</li>
     <li IfModActive="Dubwise.DubsBadHygiene">Mods/DubsBadHygiene/1.6</li>
+    <li IfModActive="Andromeda.UsefulMarks">Mods/UsefulMarks/1.6</li>
   </v1.6>
   <v1.7>
     <li>/</li>
@@ -22,5 +23,6 @@
     <li IfModActive="vanillaexpanded.gravship">Mods/VanillaGravshipExpanded</li>
     <li IfModActive="Dubwise.DubsBadHygiene">Mods/DubsBadHygiene</li>
     <li IfModActive="Dubwise.DubsBadHygiene">Mods/DubsBadHygiene/1.7</li>
+    <li IfModActive="Andromeda.UsefulMarks">Mods/UsefulMarks/1.7</li>
   </v1.7>
 </loadFolders>

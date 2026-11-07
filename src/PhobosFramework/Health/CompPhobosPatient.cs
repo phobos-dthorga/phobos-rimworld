@@ -18,22 +18,6 @@ public class CompProperties_PhobosPatient : CompProperties
 /// </summary>
 public class CompPhobosPatient : ThingComp
 {
-    static Texture2D? defaultIcon;
-    /// <summary>The game's industrial medicine icon, as on its medical care menu. The game has no texture of its own for "normal care".</summary>
-    static Texture2D DefaultIcon => defaultIcon ??= ThingDefOf.MedicineIndustrial?.uiIcon ?? BaseContent.BadTex;
-    static readonly Dictionary<string, Texture2D> icons = new();
-
-    /// <summary>A preference's own icon when it names one that exists, else the default.</summary>
-    static Texture2D IconFor(PatientPreference preference)
-    {
-        if (string.IsNullOrEmpty(preference.IconPath)) return DefaultIcon;
-        if (!icons.TryGetValue(preference.IconPath!, out Texture2D? icon))
-        {
-            icon = ContentFinder<Texture2D>.Get(preference.IconPath, false) ?? DefaultIcon;
-            icons[preference.IconPath!] = icon;
-        }
-        return icon;
-    }
 
     List<string> keys = new();
     List<int> values = new();
@@ -103,21 +87,10 @@ public class CompPhobosPatient : ThingComp
             {
                 defaultLabel = preference.LabelKey.Translate(preference.OptionKeys[choice].Translate().Named("CHOICE")),
                 defaultDesc = preference.DescKey.Translate(),
-                icon = IconFor(preference),
-                action = () => Find.WindowStack.Add(new FloatMenu(MenuFor(pawn, preference))),
+                icon = PatientPreferences.IconFor(preference),
+                action = () => Find.WindowStack.Add(new FloatMenu(PatientPreferences.MenuFor(pawn, preference))),
             };
         }
-    }
-
-    List<FloatMenuOption> MenuFor(Pawn pawn, PatientPreference preference)
-    {
-        var options = new List<FloatMenuOption>();
-        for (int i = 0; i < preference.OptionKeys.Count; i++)
-        {
-            int index = i;
-            options.Add(new FloatMenuOption(preference.OptionKeys[i].Translate(), () => SetChoice(preference.Key, index)));
-        }
-        return options;
     }
 
     public override string? CompInspectStringExtra()

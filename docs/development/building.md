@@ -18,6 +18,7 @@ builds every project and installs every mod, with RimWorld closed.
 | `PhobosFactory` | `PhobosFactoryAdditions/` | VEF's `PipeSystem.dll`, VFE Factory's `VanillaFurnitureExpandedFactory.dll` | yes | `PhobosFactory.Rules.Tests` | tests only |
 | `PhobosFactory.Hygiene` | `PhobosFactoryAdditions/Mods/DubsBadHygiene/` | the factory core, the framework's hygiene tie-in, `PipeSystem.dll`, Dubs Bad Hygiene's `BadHygiene.dll` | yes | none | no |
 | `PhobosFramework.Hygiene` | `PhobosFramework/Mods/DubsBadHygiene/` | Dubs Bad Hygiene's `BadHygiene.dll`: the shared plumbing reader | no | none | no |
+| `PhobosMedical.UsefulMarks` | `PhobosMedical/Mods/UsefulMarks/` | the medical core, Useful Marks' `UsefulColonistBar.dll` | no | none | no |
 | `PhobosMedical.Hygiene` | `PhobosMedical/Mods/DubsBadHygiene/` | the medical core, the framework's hygiene tie-in, `BadHygiene.dll` | no | none | no |
 | `PhobosPatches.Harrier` | `PhobosPatches/Mods/HarrierVtol/` | the framework, Vehicle Framework's `Vehicles.dll`, `SmashTools.dll`, `UpdateLogTool.dll` | yes | none | no |
 | `PhobosPatches.Irbm` | `PhobosPatches/Mods/IRBM/` | the framework, InterRim Ballistic Missile's `IRBM.dll` | yes | `PhobosPatches.Rules.Tests` | tests only |

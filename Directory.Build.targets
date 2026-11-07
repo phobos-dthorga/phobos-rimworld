@@ -16,6 +16,8 @@
     <!-- VFE Factory and Vehicle Framework ship only 1.6 (checked 4 November 2026); the game loads that on 1.7 and so do we. -->
     <VfeFactoryAssemblies Condition="'$(VfeFactoryAssemblies)' == ''">$(WorkshopRoot)\3686924415\1.6\Assemblies</VfeFactoryAssemblies>
     <VehicleFrameworkAssemblies Condition="'$(VehicleFrameworkAssemblies)' == ''">$(WorkshopRoot)\3014915404\1.6\Assemblies</VehicleFrameworkAssemblies>
+    <!-- Useful Marks ships 1.5, 1.6 and 1.7 builds (checked 7 November 2026); D'thorga Medical's tie-in compiles against each. -->
+    <UsefulMarksAssemblies Condition="'$(UsefulMarksAssemblies)' == ''">$(WorkshopRoot)\3506573327\$(GameVersion)\Assemblies</UsefulMarksAssemblies>
     <!-- InterRim Ballistic Missile ships only 1.6 (checked 7 November 2026); the game loads that on 1.7 and so do we. -->
     <IrbmAssemblies Condition="'$(IrbmAssemblies)' == ''">$(WorkshopRoot)\3682304832\1.6\Assemblies</IrbmAssemblies>
     <!-- Where the built assembly lands: mods/<ModFolder>/<TieInFolder/><GameVersion>/Assemblies/. OutDir, not OutputPath:

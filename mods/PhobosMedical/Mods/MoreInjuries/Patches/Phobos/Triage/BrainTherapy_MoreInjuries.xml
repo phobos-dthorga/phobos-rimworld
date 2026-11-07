@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <!-- More Injuries' mechanite therapy for brain damage uses a custom worker that names nothing it removes, so triage could not find
+       it. It treats any condition carrying More Injuries' brain-damage treatment extension, one per course over two days, reducing it
+       by part (MoreInjuries.HealthConditions.BrainDamage.Recipe_TreatRandomBrainDamage, read from its published source, 7 Nov 2026):
+       the five below inherit that extension from BrainDamageBase. Personality shift and cerebral hypoxia do not. The therapy uses
+       glitterworld medicine, so a colonist set to "any repair" may have it queued. -->
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>Defs/RecipeDef[defName="TreatBrainDamage"]</xpath>
+    <value>
+      <li Class="Phobos.Triage.Defs.PhobosTriageExtension">
+        <treatsHediffs>
+          <li>BrainDamage_MotorDysfunction</li>
+          <li>BrainDamage_LanguageAphasia</li>
+          <li>BrainDamage_VisualAgnosia</li>
+          <li>BrainDamage_FrontalLobe</li>
+          <li>BrainDamage_Confusion</li>
+        </treatsHediffs>
+      </li>
+    </value>
+  </Operation>
+</Patch>
