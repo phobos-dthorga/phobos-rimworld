@@ -6,5 +6,8 @@
     <breathingNeedThreshold>0.8</breathingNeedThreshold>
     <!-- Breathing below this is weak enough for a doctor to push air in by hand with a manual resuscitator. -->
     <breathingAssistThreshold>0.5</breathingAssistThreshold>
+    <!-- A ventilator holds failing breathing up to 0.6, in steps of 0.1 (authored; its condition has six stages to match). -->
+    <ventilatorBreathingFloor>0.6</ventilatorBreathingFloor>
+    <ventilatorStep>0.1</ventilatorStep>
   </Phobos.Medical.Defs.PhobosMedicalRulesDef>
 </Defs>

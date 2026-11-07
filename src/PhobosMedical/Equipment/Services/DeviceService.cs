@@ -23,11 +23,19 @@ public static class DeviceService
     static List<ThingDef>? devices;
     static readonly MapPatientCache<Pawn> patients = new(Rebuild);
 
-    /// <summary>Every item that is a patient device, in the order a doctor should reach for them: whoever can't breathe comes first.</summary>
+    /// <summary>Every item that is a patient device, in the order a doctor should reach for them: a tube first (it is quick and only
+    /// offered when an airway is closing or a ventilator waits for it), then whoever can't breathe, then the rest.</summary>
     public static IReadOnlyList<ThingDef> Devices => devices ??= DefDatabase<ThingDef>.AllDefsListForReading
         .Where(def => def.HasModExtension<PhobosPatientDeviceExtension>())
-        .OrderBy(def => def.GetModExtension<PhobosPatientDeviceExtension>().need == DeviceNeed.BreathingAssist ? 0 : 1)
+        .OrderBy(def => Order(def.GetModExtension<PhobosPatientDeviceExtension>().need))
         .ToList();
+
+    static int Order(DeviceNeed need) => need switch
+    {
+        DeviceNeed.Intubation => 0,
+        DeviceNeed.BreathingAssist => 1,
+        _ => 2,
+    };
 
     public static PhobosPatientDeviceExtension Extension(ThingDef device) => device.GetModExtension<PhobosPatientDeviceExtension>();
 
@@ -48,6 +56,8 @@ public static class DeviceService
             DeviceNeed.SuppliedOxygen => DeviceRule.FieldOxygen(OxygenService.NeedsOxygen(patient, rules),
                 PhobosBreathing.SuppliedCarbonMonoxideHalfLifeHours(patient) != null, breathing),
             DeviceNeed.BreathingAssist => DeviceRule.BreathingAssist(BreathingWithoutAssist(patient), rules.breathingAssistThreshold),
+            DeviceNeed.Intubation => DeviceRule.Intubation(AirwayTubes.HasTube(patient),
+                AirwayTubes.Closing(patient, breathing, rules.breathingAssistThreshold), VentilatorService.WaitingForTube(patient)),
             _ => DeviceRefusal.NotNeeded,
         };
     }
@@ -61,6 +71,7 @@ public static class DeviceService
     public static Job? MakeJob(Pawn doctor, Pawn patient, bool explain = false)
     {
         DeviceRefusal reason = DeviceRefusal.NotNeeded;
+        int skillNeeded = 0;
         bool anyPatient = false;
         foreach (ThingDef def in Devices)
         {
@@ -71,6 +82,12 @@ public static class DeviceService
             if (refusal != DeviceRefusal.None)
             {
                 reason = DeviceRule.MostUrgent(reason, refusal);
+                continue;
+            }
+            if (device.minMedicineSkill > 0 && (doctor.skills?.GetSkill(SkillDefOf.Medicine)?.Level ?? 0) < device.minMedicineSkill)
+            {
+                reason = DeviceRule.MostUrgent(reason, DeviceRefusal.NeedsSkill);
+                skillNeeded = device.minMedicineSkill;
                 continue;
             }
             Thing? item = FindDevice(doctor, def);
@@ -84,7 +101,7 @@ public static class DeviceService
             return job;
         }
         if (explain && anyPatient && DeviceRule.WorthTelling(reason))
-            JobFailReason.Is(("PhobosMedical_DeviceRefusal" + reason).Translate(patient.LabelShort.Named("PATIENT")));
+            JobFailReason.Is(("PhobosMedical_DeviceRefusal" + reason).Translate(patient.LabelShort.Named("PATIENT"), skillNeeded.Named("SKILL")));
         return null;
     }
 
@@ -97,19 +114,17 @@ public static class DeviceService
             TraverseParms.For(doctor), 9999f, thing => !thing.IsForbidden(doctor) && doctor.CanReserve(thing));
     }
 
-    /// <summary>Gives or keeps up the device's treatment. The condition sets its own effect on breathing.</summary>
-    public static void Apply(Pawn patient, PhobosPatientDeviceExtension device) => MedicalTreatment.GiveOrRefresh(patient, device.treatment);
-
-    /// <summary>Breathing without what a hand pump already gives, so a doctor doesn't stop pumping because their own pumping helps.</summary>
-    static float BreathingWithoutAssist(Pawn patient)
+    /// <summary>Gives or keeps up the device's treatment. The condition sets its own effect on breathing; a tube also bypasses the
+    /// upper-airway conditions it gets past.</summary>
+    public static void Apply(Pawn patient, PhobosPatientDeviceExtension device)
     {
-        List<Hediff> hediffs = patient.health.hediffSet.hediffs;
-        for (int i = 0; i < hediffs.Count; i++)
-        {
-            if (hediffs[i] is Hediff_PhobosOnOxygen treatment) return treatment.BreathingWithoutOxygen();
-        }
-        return OxygenService.Breathing(patient);
+        MedicalTreatment.GiveOrRefresh(patient, device.treatment);
+        if (device.need == DeviceNeed.Intubation) AirwayTubes.RemoveBypassed(patient);
     }
+
+    /// <summary>Breathing without what a hand pump (or any breathing treatment) already gives, so a doctor doesn't stop pumping because
+    /// their own pumping helps.</summary>
+    static float BreathingWithoutAssist(Pawn patient) => Hediff_PhobosOnOxygen.BreathingWithoutTreatments(patient);
 
     static void Rebuild(Map map, List<Pawn> list)
     {

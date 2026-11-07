@@ -17,6 +17,49 @@ public enum OxygenStatus
     Treating,
 }
 
+/// <summary>What a ventilator is doing, in the order a player needs to fix things.</summary>
+public enum VentilatorStatus
+{
+    SwitchedOff,
+    NoPower,
+    NoBed,
+    Waiting,
+    /// <summary>Someone in a linked bed breathes well enough on their own.</summary>
+    NotNeeded,
+    /// <summary>Someone needs it but has no breathing tube yet.</summary>
+    NeedsTube,
+    Treating,
+}
+
+/// <summary>
+/// How a ventilator holds failing breathing up. Game-free. It pushes air in through a tube until breathing reaches a floor; it adds
+/// nothing to breathing already at the floor, and nothing at zero, where no lung is left to fill (an open tube means zero is not a shut
+/// airway). The floor and the step are authored, from the rules Def.
+/// </summary>
+public static class VentilatorRule
+{
+    public static bool Needs(float breathingWithout, float floor) => breathingWithout > 0f && breathingWithout < floor;
+
+    /// <summary>The treatment stage to use: stage n adds n steps of breathing, the fewest that reach the floor, up to the last stage.</summary>
+    public static int StageFor(float breathingWithout, float floor, float step, int lastStage)
+    {
+        if (!Needs(breathingWithout, floor) || step <= 0f || lastStage <= 0) return 0;
+        int stage = (int)System.Math.Ceiling((floor - breathingWithout) / step - 0.0001f);
+        if (stage < 1) stage = 1;
+        return stage > lastStage ? lastStage : stage;
+    }
+
+    public static VentilatorStatus Status(bool switchedOn, bool powered, int linkedBeds, int treating, int needingTube, int notNeeding)
+    {
+        if (!switchedOn) return VentilatorStatus.SwitchedOff;
+        if (!powered) return VentilatorStatus.NoPower;
+        if (linkedBeds <= 0) return VentilatorStatus.NoBed;
+        if (treating > 0) return VentilatorStatus.Treating;
+        if (needingTube > 0) return VentilatorStatus.NeedsTube;
+        return notNeeding > 0 ? VentilatorStatus.NotNeeded : VentilatorStatus.Waiting;
+    }
+}
+
 /// <summary>Who gets oxygen, how much it costs and what the machine should say. Game-free. Every figure is passed in from the rules Def.</summary>
 public static class OxygenRule
 {

@@ -478,13 +478,19 @@ burn dressings for burns; and an electrolyser and a liquid oxygen store to make 
 - **Build a bedside machine touching a hospital bed,** as you would a vitals monitor. One machine per bed, though it can serve two beds it touches. Any bed that accepts a vitals monitor works.
 - **Nobody has to be told.** A patient in a served bed or chamber who needs oxygen gets it, and doctors use the field kit and the hand pump by themselves, as Doctor work. Doctors carry a downed patient who needs oxygen to a free chamber first. Use a machine's switch to stop it.
 - **No operations in a hyperbaric chamber:** move the patient to a hospital bed for surgery. The chamber says who is waiting.
-- **Oxygen does not repair lungs, and nothing here helps if the airway is shut** (breathing at zero): that patient needs a tracheotomy. Doctors say so when you right-click.
+- **Oxygen does not repair lungs.** A shut airway (breathing at zero) needs a tube: **from 0.7.0 a doctor with Medicine 4 or better
+  places one with an intubation kit by themselves**, or you order a tracheotomy. Doctors say so when you right-click.
+- **New in 0.7.0: the ventilator** (not yet tested in game). Build it touching a hospital bed. It breathes for a patient whose
+  breathing has failed, **up to a safe level, not normal**, but **only through a breathing tube**: an intubation kit's or a
+  tracheostomy. A doctor places the tube by themselves when someone lies at a working ventilator and needs it, or when an airway is
+  swelling shut; the tube takes the place of the swollen airway, so the airway burn goes. The tube comes out after two days, and the
+  patient can't talk while it is in. **It can't help someone with no lungs left.** The machine says who it is waiting on.
 - **The electrolyser is power-hungry on purpose:** 3000 W for one patient's oxygen, which is roughly what real electrolysis costs. Vanilla Gravship Expanded's oxygen harvester gives far more for far less; the electrolyser is for vacuum and thin air, where the harvester can't run.
 - **The liquid oxygen store needs power for its cooler.** Without it the store takes in no more oxygen, and about 2% of what it holds boils off each day. If it is badly damaged it bursts into a fireball: keep it away from fires and fighting.
 - **Oxygen canisters, and the field kits made from them, explode when they burn.** That is Vanilla Gravship Expanded's rule.
 - **Silver burn dressings are a medicine.** Doctors use them for any tend, like herbal or industrial medicine, under the medical care setting that allows them (normal medicine or better).
 - **Move patients out of the burning room.** A patient on oxygen still takes in the carbon monoxide around them.
-- **Some art is a placeholder:** the electrolyser and the hyperbaric chamber, until generated art is picked. The rest is AI-generated art picked by the owner on 5 and 7 November 2026; only the burn unit bed has been seen in game. The records beside the textures say how each was made.
+- **Some art is a placeholder:** the electrolyser, the hyperbaric chamber, the ventilator and the intubation kit, until generated art is picked. The rest is AI-generated art picked by the owner on 5 and 7 November 2026; only the burn unit bed has been seen in game. The records beside the textures say how each was made.
 
 ### What it does
 
@@ -495,6 +501,8 @@ burn dressings for burns; and an electrolyser and a liquid oxygen store to make 
 | Hyperbaric chamber | A bed for one, 1 by 3 | Power (800 W) and 6 canisters per in-game hour while treating, or an oxygen pipe | Its own patient | Hospital bed and Oxygen Network |
 | Field oxygen kit | Item, used up | Made from 1 oxygen canister, 5 steel and 2 cloth at a machining table | One patient lying down, for about an hour | Medicine production and Oxygen Network |
 | Manual resuscitator | Item, kept | Made from 4 cloth, 6 steel and 1 component at a machining table | One patient at a time, while a doctor pumps | Medicine production |
+| Ventilator (new in 0.7.0) | Bedside machine | Power (200 W) | 1 patient with a breathing tube, in a bed it touches | Medicine production |
+| Intubation kit (new in 0.7.0) | Item, used up | Made from 3 steel and 2 cloth at a machining table; a doctor with Medicine 4 or better | One patient | Medicine production |
 | Silver burn dressing | Medicine | Made from 2 cloth, 4 silver and 1 neutroamine at a drug lab | Any tend | Medicine production |
 | Burn unit bed | Bed | Power (200 W) for its blower | Its own burned patient | Hospital bed |
 | Oxygen electrolyser | Building, 2 by 2 | Power (3000 W) | Puts 1 unit of oxygen an hour into an oxygen pipe | Oxygen Network |

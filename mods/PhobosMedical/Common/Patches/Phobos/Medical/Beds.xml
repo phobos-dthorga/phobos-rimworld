@@ -5,6 +5,7 @@
     <xpath>Defs/ThingDef/comps/li[@Class="CompProperties_AffectedByFacilities"]/linkableFacilities[li="VitalsMonitor"]</xpath>
     <value>
       <li>PhobosMedical_OxygenConcentrator</li>
+      <li>PhobosMedical_Ventilator</li>
     </value>
   </Operation>
 </Patch>

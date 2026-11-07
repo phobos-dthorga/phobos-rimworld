@@ -16,6 +16,24 @@ public class PhobosMedicalRulesDef : PhobosRulesDef
 
     /// <summary>Breathing below this is weak enough for a doctor to push air in by hand. Authored.</summary>
     public float breathingAssistThreshold = 0.5f;
+
+    /// <summary>A ventilator holds failing breathing up to this. Authored: enough to keep a patient out of danger, short of normal.</summary>
+    public float ventilatorBreathingFloor = 0.6f;
+    /// <summary>The breathing each of the ventilator treatment's stages adds over the one before (its Def has stages to match).</summary>
+    public float ventilatorStep = 0.1f;
+}
+
+/// <summary>
+/// Marks a condition as a breathing tube past the upper airway (an intubation, a tracheostomy): a ventilator can breathe through it, and
+/// an intubation kit is not used again. Matched by this extension, never by name, so other mods' tubes join in XML.
+/// </summary>
+public class PhobosOpenAirwayExtension : DefModExtension
+{
+}
+
+/// <summary>Marks a condition of the upper airway that a breathing tube bypasses (a swollen, burned airway): fitting a tube removes it.</summary>
+public class PhobosBypassedByTubeExtension : DefModExtension
+{
 }
 
 /// <summary>Marks an injury Def as a burn that a burn unit bed eases. On the game's burns and Combat Extended's; other mods add it in XML.</summary>
@@ -47,6 +65,8 @@ public class PhobosPatientDeviceExtension : DefModExtension
     /// <summary>The doctor keeps working it, and the treatment lasts only while they do (a hand pump), refreshed every <see cref="refreshTicks"/>.</summary>
     public bool sustained;
     public int refreshTicks = 250;
+    /// <summary>The doctor's Medicine skill this device needs; 0 for any doctor.</summary>
+    public int minMedicineSkill;
 
     public override System.Collections.Generic.IEnumerable<string> ConfigErrors()
     {
@@ -61,6 +81,7 @@ public class PhobosPatientDeviceExtension : DefModExtension
 public static class MedicalDefOf
 {
     public static HediffDef PhobosMedical_OnOxygen = null!;
+    public static HediffDef PhobosMedical_Ventilated = null!;
     public static JobDef PhobosMedical_UseDevice = null!;
 
     static MedicalDefOf() => DefOfHelper.EnsureInitializedInCtor(typeof(MedicalDefOf));

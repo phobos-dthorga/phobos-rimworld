@@ -84,6 +84,10 @@
         </capMods>
       </li>
     </stages>
+    <modExtensions>
+      <!-- A breathing tube gets past the swelling, so fitting one removes this (D'thorga Medical 0.7.0). -->
+      <li Class="Phobos.Medical.Defs.PhobosBypassedByTubeExtension" />
+    </modExtensions>
   </HediffDef>
 
   <!-- What a tracheotomy leaves: a tube in the neck for a few days. -->
@@ -118,5 +122,9 @@
         </capMods>
       </li>
     </stages>
+    <modExtensions>
+      <!-- A tube past the upper airway: a ventilator can breathe through it. -->
+      <li Class="Phobos.Medical.Defs.PhobosOpenAirwayExtension" />
+    </modExtensions>
   </HediffDef>
 </Defs>

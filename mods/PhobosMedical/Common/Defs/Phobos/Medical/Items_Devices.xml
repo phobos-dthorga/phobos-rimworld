@@ -51,6 +51,56 @@
     </modExtensions>
   </ThingDef>
 
+  <!-- An intubation kit: a laryngoscope to see past the tongue and a single-use breathing tube. Doctors use it by themselves on a patient
+       whose airway is closing, or who lies at a ventilator waiting for a tube; a quick doctor job (owner, 7 Nov 2026), Medicine 4 or better
+       (authored skill check). The tube is used up. Cost, work and skill authored. Placeholder art. -->
+  <ThingDef ParentName="ResourceBase">
+    <defName>PhobosMedical_IntubationKit</defName>
+    <label>intubation kit</label>
+    <description>A laryngoscope and a single-use breathing tube. A doctor slides the tube past the tongue and the vocal cords into the windpipe, so air gets past an airway that is swelling shut, and a ventilator can breathe through it. Doctors with Medicine 4 or better use it by themselves when it is needed. The tube is used up.</description>
+    <graphicData>
+      <texPath>Phobos/Medical/Things/IntubationKit</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>0.8</drawSize>
+    </graphicData>
+    <stackLimit>10</stackLimit>
+    <techLevel>Industrial</techLevel>
+    <statBases>
+      <MaxHitPoints>50</MaxHitPoints>
+      <Mass>0.3</Mass>
+      <Flammability>0.8</Flammability>
+      <DeteriorationRate>2</DeteriorationRate>
+      <WorkToMake>500</WorkToMake>
+    </statBases>
+    <costList>
+      <Steel>3</Steel>
+      <Cloth>2</Cloth>
+    </costList>
+    <recipeMaker>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <recipeUsers>
+        <li>TableMachining</li>
+      </recipeUsers>
+      <researchPrerequisite>MedicineProduction</researchPrerequisite>
+      <skillRequirements>
+        <Crafting>3</Crafting>
+      </skillRequirements>
+    </recipeMaker>
+    <thingCategories>
+      <li>Manufactured</li>
+    </thingCategories>
+    <modExtensions>
+      <li Class="Phobos.Medical.Defs.PhobosPatientDeviceExtension">
+        <need>Intubation</need>
+        <treatment>PhobosMedical_Intubated</treatment>
+        <workTicks>400</workTicks>
+        <consumed>true</consumed>
+        <minMedicineSkill>4</minMedicineSkill>
+      </li>
+    </modExtensions>
+  </ThingDef>
+
   <!-- Silver sulfadiazine is a long-used topical antimicrobial for burns: a silver salt of the sulfonamide sulfadiazine. Neutroamine
        stands in for the drug precursor and silver for the silver. The game's infection chance has no patient-side modifier, only the
        tend's quality, the room and the wound, so the honest route with no patch is a medicine that gives a better tend: doctors use

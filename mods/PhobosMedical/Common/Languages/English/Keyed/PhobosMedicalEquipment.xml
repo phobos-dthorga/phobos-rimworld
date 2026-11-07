@@ -14,6 +14,12 @@
   <PhobosMedical_StatusTreating>Giving oxygen to {PATIENTS}.</PhobosMedical_StatusTreating>
   <PhobosMedical_StatusNotNeeded>Breathing well enough without it: {PATIENTS}. Oxygen starts if breathing weakens, or after smoke or fumes.</PhobosMedical_StatusNotNeeded>
 
+  <PhobosMedical_VentilatorSwitchedOff>Switched off, so it breathes for nobody.</PhobosMedical_VentilatorSwitchedOff>
+  <PhobosMedical_VentilatorWaiting>Waiting for a patient whose breathing has failed.</PhobosMedical_VentilatorWaiting>
+  <PhobosMedical_VentilatorTreating>Breathing for {PATIENTS}.</PhobosMedical_VentilatorTreating>
+  <PhobosMedical_VentilatorNeedsTube>{PATIENTS} needs a breathing tube first: a doctor with Medicine 4 or better will place one with an intubation kit.</PhobosMedical_VentilatorNeedsTube>
+  <PhobosMedical_VentilatorNotNeeded>Breathing well enough without it: {PATIENTS}. It starts if their breathing fails.</PhobosMedical_VentilatorNotNeeded>
+
   <PhobosMedical_BurnBedSwitchedOff>Blower switched off, so nobody gets air-cell care. It still works as a hospital bed.</PhobosMedical_BurnBedSwitchedOff>
   <PhobosMedical_BurnBedNoPower>Waiting for power for its blower. It still works as a hospital bed.</PhobosMedical_BurnBedNoPower>
   <PhobosMedical_BurnBedWaiting>Waiting for a patient with open burns.</PhobosMedical_BurnBedWaiting>
@@ -42,6 +48,8 @@
   <PhobosMedical_StoreBoilingOff>Waiting for power for its cooler: until then about {SHARE} of its oxygen boils off and is vented each day.</PhobosMedical_StoreBoilingOff>
 
   <PhobosMedical_DeviceRefusalAirwayShut>{PATIENT}'s airway is shut, so no air or oxygen can reach the lungs. The airway must be opened first.</PhobosMedical_DeviceRefusalAirwayShut>
-  <PhobosMedical_DeviceRefusalNoDevice>{PATIENT} needs breathing help, but there is no field oxygen kit or manual resuscitator within reach.</PhobosMedical_DeviceRefusalNoDevice>
+  <PhobosMedical_DeviceRefusalNoDevice>{PATIENT} needs help breathing, but there is no field oxygen kit, manual resuscitator or intubation kit within reach.</PhobosMedical_DeviceRefusalNoDevice>
+  <PhobosMedical_DeviceRefusalNeedsSkill>{PATIENT} needs a breathing tube, but placing one takes a doctor with Medicine {SKILL} or better.</PhobosMedical_DeviceRefusalNeedsSkill>
+  <PhobosMedical_DeviceRefusalAlreadyHasTube>{PATIENT} already has a breathing tube.</PhobosMedical_DeviceRefusalAlreadyHasTube>
   <PhobosMedical_DeviceRefusalAlreadyOnOxygen>{PATIENT} is already breathing supplied oxygen.</PhobosMedical_DeviceRefusalAlreadyOnOxygen>
 </LanguageData>

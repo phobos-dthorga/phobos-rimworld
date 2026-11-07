@@ -74,8 +74,9 @@ public class Hediff_PhobosOnOxygen : HediffWithComps
     const int RaisesBreathingStage = 1;
     const int CheckIntervalTicks = 250;
 
-    /// <summary>True while measuring a patient's breathing without these treatments. One flag serves every instance: the game calculates on one thread.</summary>
-    static bool measuringWithout;
+    /// <summary>True while measuring a patient's breathing without any breathing treatment (this, hand ventilation, a ventilator). One
+    /// flag serves every instance: the game calculates on one thread.</summary>
+    internal static bool MeasuringWithout { get; private set; }
 
     /// <summary>Starts true so a struggling patient keeps their help between loading a save and the first check.</summary>
     bool raisesBreathing = true;
@@ -100,13 +101,16 @@ public class Hediff_PhobosOnOxygen : HediffWithComps
 
     void CheckBreathing() => SetRaisesBreathing(OxygenRule.RaisesBreathing(BreathingWithoutOxygen()));
 
-    public override int CurStageIndex => measuringWithout || !raisesBreathing ? LeavesBreathingStage : RaisesBreathingStage;
+    public override int CurStageIndex => MeasuringWithout || !raisesBreathing ? LeavesBreathingStage : RaisesBreathingStage;
 
-    public float BreathingWithoutOxygen()
+    public float BreathingWithoutOxygen() => BreathingWithoutTreatments(pawn);
+
+    /// <summary>A patient's breathing with every breathing treatment left out: what their own body manages.</summary>
+    public static float BreathingWithoutTreatments(Pawn patient)
     {
-        measuringWithout = true;
-        try { return PawnCapacityUtility.CalculateCapacityLevel(pawn.health.hediffSet, PawnCapacityDefOf.Breathing); }
-        finally { measuringWithout = false; }
+        MeasuringWithout = true;
+        try { return PawnCapacityUtility.CalculateCapacityLevel(patient.health.hediffSet, PawnCapacityDefOf.Breathing); }
+        finally { MeasuringWithout = false; }
     }
 
     public void SetRaisesBreathing(bool value)

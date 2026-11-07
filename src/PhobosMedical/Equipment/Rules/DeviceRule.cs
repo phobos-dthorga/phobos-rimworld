@@ -7,6 +7,8 @@ public enum DeviceNeed
     SuppliedOxygen,
     /// <summary>A manual resuscitator: breathing so weak the patient needs air pushed in by hand.</summary>
     BreathingAssist,
+    /// <summary>An intubation kit: a breathing tube past a closing upper airway, or for a ventilator to breathe through.</summary>
+    Intubation,
 }
 
 /// <summary>Why a doctor won't use a device on a patient, most urgent first: when several devices refuse, the lowest is the one to tell.</summary>
@@ -17,7 +19,11 @@ public enum DeviceRefusal
     AirwayShut,
     /// <summary>The patient needs a device, but none can be reached.</summary>
     NoDevice,
+    /// <summary>The device needs more medical skill than the doctor has.</summary>
+    NeedsSkill,
     AlreadyOnOxygen,
+    /// <summary>A breathing tube is already in (a tracheostomy or an earlier intubation).</summary>
+    AlreadyHasTube,
     NotNeeded,
 }
 
@@ -40,6 +46,17 @@ public static class DeviceRule
     {
         if (breathing <= 0f) return DeviceRefusal.AirwayShut;
         return breathing < threshold ? DeviceRefusal.None : DeviceRefusal.NotNeeded;
+    }
+
+    /// <summary>
+    /// A breathing tube helps a patient without one whose upper airway is closing (breathing weak, with a condition a tube bypasses), or
+    /// who lies at a working ventilator that needs a tube to breathe through. It works even with breathing at zero: getting past a shut
+    /// airway is what it is for.
+    /// </summary>
+    public static DeviceRefusal Intubation(bool hasTube, bool airwayClosing, bool ventilatorWaiting)
+    {
+        if (hasTube) return DeviceRefusal.AlreadyHasTube;
+        return airwayClosing || ventilatorWaiting ? DeviceRefusal.None : DeviceRefusal.NotNeeded;
     }
 
     /// <summary>Whether a refusal is worth showing in the right-click menu: not "breathes well enough", which is simply normal.</summary>

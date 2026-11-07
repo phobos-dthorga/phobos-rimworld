@@ -1,6 +1,7 @@
 # Medical equipment, second set: design (7 Nov 2026)
 
-A design record, nothing built. The owner chose all eight proposals from the
+A design record. **Built so far** (D'thorga Medical 0.7.0, not yet tested in game): the ventilator and its intubation kit; see
+Built below. The owner chose all eight proposals from the
 [art backlog](art-backlog.md#proposed-medical-equipment-agent-ideas-6-nov-2026-for-the-owner) for D'thorga Medical Equipment (7 Nov
 2026), in this order. The first set (oxygen, burn care, the field kit and the hand pump) is in the [medical equipment record](medical-equipment.md).
 
@@ -26,11 +27,30 @@ A design record, nothing built. The owner chose all eight proposals from the
 | **Needle decompression kit** | Item, used up | A field hold for a collapsed lung under pressure: buys time until D'thorga Triage's operation, through More Injuries' conditions when active | Needle thoracostomy |
 | **Steriliser** | Building, 1x1 or 2x1, power | Lowers surgical infection in its room, through the game's own room stats. The weakest of the eight: it overlaps with cleanliness | An autoclave |
 
+## Built
+
+**Ventilator and intubation kit** (7 Nov 2026). Decisions, labelled:
+
+- **Intubation is a quick doctor job with a kit** (owner: a doctor job). It runs through the device system the field kit and the hand
+  pump use, as a consumed item with a new need, `Intubation`, and a skill floor on the device extension, `minMedicineSkill` 4 (agent
+  choice), checked against the doctor; a doctor without it is told why. Doctors reach for a tube first when one is needed.
+- **When a tube is needed** (agent choice): no tube yet, and either an upper airway is closing (a condition marked
+  `PhobosBypassedByTubeExtension`, the airway burn, with breathing under the hand pump's threshold) or the patient lies at a working
+  ventilator that needs one. It works at breathing zero: getting past a shut airway is its point.
+- **What the tube does:** the `PhobosMedical_Intubated` condition, marked `PhobosOpenAirwayExtension` like the tracheostomy, stops
+  talking and lasts two days (authored, past the airway burn's 48 hours); fitting it removes the bypassed airway condition, as the
+  tracheotomy does.
+- **The ventilator** (bedside facility, 200 W, one patient; authored) breathes through any open-airway condition. Its condition picks
+  one of six stages, each adding a tenth of breathing, the fewest that reach the rules Def's floor of 0.6 (authored), from breathing
+  measured with every breathing treatment left out (the oxygen condition's measuring switch is now shared). Nothing at zero: with a
+  tube in, zero means no lungs left. It says who it treats, who needs a tube, and who breathes well enough.
+- Placeholder art for both, drawn in code (`assets/phobos-medical/draw_placeholders.py`).
+
 ## Open questions
 
 | Question | For |
 | --- | --- |
-| The ventilator's intubation: a job any doctor can do, or a surgery bill? Agent lean: a short doctor job, as the field kit | Owner |
+| The ventilator's intubation: a job any doctor can do, or a surgery bill? **Answered: a doctor job (owner, 7 Nov 2026); built with a kit and Medicine 4** | Owner |
 | Does the alarm also wake sleeping pawns in the room? | Owner |
 | The anaesthesia machine and the nebuliser need Emergency Dosing to give a drug by machine. Built in Dosing (shared) or here? | Agent, when it starts |
 | Which More Injuries condition is the collapsed lung, and what it already allows | Agent, from its Defs |

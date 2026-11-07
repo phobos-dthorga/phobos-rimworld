@@ -112,6 +112,42 @@ def hyperbaric_chamber_narrow(draw):
     draw.ellipse((870, 1330, 930, 1390), fill=SCREEN, outline=OUTLINE, width=12)  # Pressure gauge.
 
 
+def ventilator(draw):
+    """A bedside ventilator from above: a grey cabinet on castors, a screen with a breathing wave, a clear bellows column and a
+    corrugated tube curling off to the bed."""
+    for x in (258, 666):
+        box(draw, (x, 804, x + 100, 924), PANEL_DEEP, 24)
+    box(draw, (190, 120, 834, 852), PANEL)
+    box(draw, (250, 180, 774, 470), SCREEN, 40)
+    points = [(290, 330), (380, 330), (420, 240), (470, 410), (520, 330), (600, 330), (640, 260), (690, 400), (734, 330)]
+    draw.line(points, fill=VESSEL, width=22, joint='curve')
+    box(draw, (260, 520, 460, 800), ACRYLIC, 60)  # Bellows column.
+    for y in range(570, 780, 50):
+        draw.line((280, y, 440, y), fill=PANEL_DARK, width=16)
+    for i, x in enumerate((540, 620, 700)):
+        draw.ellipse((x, 560, x + 60, 620), fill=(GREEN, BRASS, HYDROGEN)[i], outline=OUTLINE, width=12)
+    box(draw, (520, 680, 780, 780), PANEL_DARK, 20)
+    draw.arc((600, 600, 960, 960), 280, 60, fill=OUTLINE, width=70)
+    draw.arc((600, 600, 960, 960), 280, 60, fill=TUBE, width=40)
+
+
+def intubation_kit(draw):
+    """An intubation kit as an item: a laryngoscope (a handle with a curved blade and a lamp at its tip) beside a clear breathing tube
+    with its blue cuff and connector."""
+    blade = [(255, 470), (290, 330), (390, 240), (540, 215)]
+    draw.line(blade, fill=OUTLINE, width=100, joint='curve')
+    draw.line(blade, fill=VESSEL, width=56, joint='curve')
+    draw.ellipse((510, 175, 600, 265), fill=BRASS, outline=OUTLINE, width=18)  # Lamp at the tip.
+    box(draw, (175, 430, 335, 900), PANEL_DARK, 50)  # Handle, over the blade's root.
+    for y in (520, 600, 680, 760):
+        draw.line((205, y, 305, y), fill=PANEL_DEEP, width=18)
+    tube = [(470, 900), (640, 850), (780, 720), (850, 540), (850, 330)]
+    draw.line(tube, fill=OUTLINE, width=96, joint='curve')
+    draw.line(tube, fill=TUBE, width=54, joint='curve')
+    draw.ellipse((780, 360, 920, 520), fill=PAD, outline=OUTLINE, width=20)  # Cuff.
+    box(draw, (400, 850, 520, 950), GREEN, 20)  # Connector.
+
+
 def placeholder(painter, name, what, canvas, final, multi, outstanding):
     """A game texture standing in for outstanding generated art, with its record. multi writes the south view and the east and north
     views turned from it (anticlockwise 90 and 180 degrees, as the burn unit bed's), for a bed drawn from directly above."""
@@ -160,6 +196,10 @@ DRAWINGS = {
     'HyperbaricChamberPlaceholder': lambda: placeholder(
         hyperbaric_chamber_narrow, 'HyperbaricChamber', 'a one-patient hyperbaric chamber, 1 by 3, from above, head to the north', 1536,
         384, True, "a top-down redraw at 1 by 3, with the owner's pick hyperbaric-chamber-102 as the design reference"),
+    'VentilatorPlaceholder': lambda: placeholder(
+        ventilator, 'Ventilator', 'a bedside ventilator, 1 by 1, from above', WORK, 256, False, 'generated art'),
+    'IntubationKitPlaceholder': lambda: placeholder(
+        intubation_kit, 'IntubationKit', 'an intubation kit (laryngoscope and breathing tube) as an item', WORK, 128, False, 'generated art'),
 }
 
 if __name__ == '__main__':

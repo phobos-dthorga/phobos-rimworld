@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- A ventilator, the second set's first piece (owner's order, 7 Nov 2026). Placed against a hospital bed like the concentrator. It breathes
+       for a patient whose breathing has failed, but only through a breathing tube: an intubation kit's tube or a tracheostomy. Power, cost,
+       work and the floor are authored; real intensive-care ventilators draw roughly 100 to 300 W (from memory, unverified). Placeholder art. -->
+  <ThingDef ParentName="BuildingBase">
+    <defName>PhobosMedical_Ventilator</defName>
+    <label>ventilator</label>
+    <description>A bedside machine that breathes for a patient whose own breathing has failed, pushing air into the lungs through a breathing tube. Build it against a hospital bed. It needs a tube to breathe through: a doctor places one with an intubation kit, or a tracheotomy leaves one.
+
+It holds weak breathing up to a safe level, not to normal, and it cannot help someone with no lungs left.</description>
+    <graphicData>
+      <texPath>Phobos/Medical/Things/Ventilator</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>(1,1)</drawSize>
+      <shadowData>
+        <volume>(0.5, 0.3, 0.45)</volume>
+      </shadowData>
+    </graphicData>
+    <altitudeLayer>Building</altitudeLayer>
+    <passability>PassThroughOnly</passability>
+    <fillPercent>0.25</fillPercent>
+    <rotatable>false</rotatable>
+    <tickerType>Rare</tickerType>
+    <statBases>
+      <MaxHitPoints>80</MaxHitPoints>
+      <WorkToBuild>4000</WorkToBuild>
+      <Mass>20</Mass>
+      <Flammability>0.7</Flammability>
+    </statBases>
+    <size>(1,1)</size>
+    <costList>
+      <Steel>50</Steel>
+      <ComponentIndustrial>4</ComponentIndustrial>
+    </costList>
+    <researchPrerequisites>
+      <li>MedicineProduction</li>
+    </researchPrerequisites>
+    <building>
+      <destroySound>BuildingDestroyed_Metal_Small</destroySound>
+    </building>
+    <designationCategory>Misc</designationCategory>
+    <minifiedDef>MinifiedThing</minifiedDef>
+    <thingCategories>
+      <li>BuildingsMisc</li>
+    </thingCategories>
+    <constructionSkillPrerequisite>5</constructionSkillPrerequisite>
+    <placeWorkers>
+      <li>PlaceWorker_ShowFacilitiesConnections</li>
+    </placeWorkers>
+    <comps>
+      <li Class="CompProperties_Power">
+        <compClass>CompPowerTrader</compClass>
+        <shortCircuitInRain>true</shortCircuitInRain>
+        <basePowerConsumption>200</basePowerConsumption>
+      </li>
+      <li Class="CompProperties_Flickable"/>
+      <li Class="CompProperties_Facility">
+        <maxSimultaneous>1</maxSimultaneous>
+        <mustBePlacedAdjacent>true</mustBePlacedAdjacent>
+      </li>
+      <li Class="Phobos.Medical.Comps.CompProperties_PhobosVentilator">
+        <maxPatients>1</maxPatients>
+      </li>
+    </comps>
+  </ThingDef>
+</Defs>
