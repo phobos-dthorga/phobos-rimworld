@@ -198,12 +198,56 @@ The two pawns that differ are deserters, each with one more missing part, from p
 belonged to one dead Sergeant who has left the save. The other 36 hediffs that went are not structural, and 12 of them left with
 their owners: temporary conditions such as heatstroke, dehydration and a bite. Still to run: step 5 (new colony).
 
+## Bug reports to post (drafts; the owner posts them)
+
+Written for the mods' authors, as GitHub issues. Both describe what the code does, read from the published builds on 3 November 2026;
+neither has been reproduced on a fresh save by us.
+
+**For More Injuries (Continued), frederik-hoeft/rimworld-more-injuries:**
+
+> **Adding More Injuries to an existing save shifts body-part indices, and the first-load reset then wipes and revives pawns**
+>
+> Hi, and thank you for More Injuries. Adding it to a running 1.7 colony goes wrong in a way every mid-save user will meet, with or
+> without other medical mods:
+>
+> 1. The game saves a hediff's body part as its index in the body's part list (`Scribe_BodyParts`, `BodyPartRecord.Index`, filled
+>    depth-first). `Patch_BodyParts.xml` inserts the spinal cord, the abdomen and the leg arteries inside the Human body, so every old
+>    part after the first insertion point loads one or three places off (we observed offsets of 1 for parts 5 to 54 and 3 for 55 to
+>    63 by comparing saves). Old injuries and missing parts land on the wrong parts.
+> 2. On the first load `MoreInjuryComp` finds no saved `jobParameters`, and the `Pawn.ExposeData` postfix removes every injury and
+>    missing part, clears capacities, bills and immunity, and re-places bionics. The source comment already notes the part "may be
+>    incorrect".
+> 3. The same postfix sets any dead pawn back to Mobile ("died due incorrect hediff placement ... Fully resetting pawn"). It can't
+>    tell a pawn the shift killed from a corpse that was always dead, so in our case 105 corpses came back as living pawns with no
+>    mind state or needs, and the colonist bar and wealth recount then threw `NullReferenceException` every frame.
+>
+> Two suggestions: register a `BackCompatibilityConverter` whose `GetBackCompatibleBodyPartIndex` maps old Human indices to new
+> ones on the first load (the shift is fixed and known), so nothing needs wiping; and never revive a pawn that was dead before the
+> load (for example, only reset pawns that are alive in the save). We wrote a small compatibility bridge that does the re-indexing
+> for our own players and would happily retire it if More Injuries handles this itself.
+
+**For Medical System Expansion 2, JonM0/MedicalSystemExpansion2:**
+
+> **`ReinstallWrongClassed` re-adds hediffs under missing parts and resets their severity**
+>
+> Hi, and thanks for MSE2. When another mod changes a hediff def's class (More Injuries makes injuries `BetterInjury` and missing
+> parts `BetterMissingPart`, both subclasses of the vanilla ones), the Workshop build's class loading (`HediffClassLoading`, a
+> postfix on `HediffSet.ExposeData` in ResolvingCrossRefs; we could not find it in the GitHub repository) removes each such hediff
+> and re-adds a fresh one through `HediffSet.AddDirect`. Two problems follow:
+>
+> 1. `AddDirect` refuses a part under one that is already missing, so every child of a lost limb logs "Tried to add health diff to
+>    missing part" and is lost (762 lines and 339 reinstalls in one of our saves).
+> 2. The fresh hediff is made at its initial severity, so an old wound's damage and age are lost.
+>
+> Suggestions: skip hediffs whose part is under a missing part (or re-add in parent-first order), and copy the old hediff's
+> severity, age and comps' saved state into the new instance (or convert the instance in place) rather than making it anew.
+
 ## Open points and upstream
 
 - Steps 2, 4 and 5 are faults every More Injuries user meets when adding it mid-save, MSE2 or not. Worth a GitHub issue on
   frederik-hoeft/rimworld-more-injuries once the bridge is tested: re-number parts with `GetBackCompatibleBodyPartIndex`
   instead of wiping, and never reset a pawn that was already dead. For MSE2: `ReinstallWrongClassed` should not go through
   `AddDirect` on parts under a missing one, and should carry the old hediff's severity and age instead of re-making it at initial
-  severity. Both wait for the owner's go-ahead.
+  severity. **Drafts below** (the owner's go, 7 Nov 2026); the owner posts them.
 - More Injuries' add-ons (Organ Failure, Medieval Solutions) were not read. Neither adds parts, and the owner's load with both on
   was clean, but their own first-load behaviour is still unread.

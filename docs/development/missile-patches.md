@@ -193,7 +193,7 @@ places it opens.
 
 ## Bug report to post (draft; the owner posts it)
 
-**Hold this draft:** its cause is the room rebuild, which play did not bear out (see above). Revise it once the cost is measured.
+**Hold this draft** (owner, 7 Nov 2026: after the owner's test confirms the cause). Its cause below is the room rebuild, which play did not bear out; the likelier cause now is Combat Extended's wall fragments, which D'thorga Patches holds back during a strike. Run the dev action that counts Combat Extended fragments on the map during a strike, then revise the cause and post.
 
 To Psionic Zephyr, on the Workshop page of InterRim Ballistic Missile:
 
