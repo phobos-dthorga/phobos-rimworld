@@ -311,12 +311,62 @@ game's operation rules, with and without the forger: every step matched as inten
 
 ## Not changed, for the owner to decide
 
-- Upgrade costs and CE armour weren't compared with the Hind's.
-- A shot-down VTOL Raids Harrier may leave a share of the new cost; not checked.
+- Upgrade costs, CE armour and what a shot-down Harrier leaves: checked on 7 Nov 2026, see the next section.
 - The owner's log also has `Unable to unlock Vehicles.CompUpgradeTree post-load for Humvee`, twice. Unrelated to this.
 - Loading the Harrier above RimPacts also avoids the failure, with no code. It's fragile, since any later patch of that method brings it back.
 - The Harrier can't take off without a beacon runway, so a vertical landing on a sortie map strands it. A vertical take-off would be a Harrier feature, not a patch.
 - Small patched members that CoreCLR might inline (`CanTaxi`, `VtolContent.ParkingIcon`): only an in-game check can tell.
+
+## The Harrier against the Hind: upgrades, CE armour and wreckage (7 Nov 2026)
+
+The owner asked to check both and propose (7 Nov 2026). Read from the Workshop items (Harrier 3826359341, Hind 3822052079, Mongoose
+3819896964, VTOL Raids 3821646218, **all by potemkinvillager**) and the Vehicle Framework 1.6 decompile in `.local/`. Nothing is changed;
+**nothing here was seen in play.** Values use this record's prices (steel 1.9, plasteel 9, components 32, VVE fuel tank 95). The Hind runs
+on rabiosus's VTOL Vehicle framework, the Harrier on its own fixed-wing fork.
+
+**Upgrades (outside Combat Extended): in proportion, no change proposed.**
+
+| | Harrier | Hind |
+| --- | --- | --- |
+| Plasteel armour | 120 plasteel, 4 components, 6,000 work: about 1,208 silver, 15% of our new build value (7,895; it was 27% of stock 4,530) | 150 plasteel, 4 components, 6,000 work: about 1,478, 22% of 6,655 |
+| Most fitted at once | Armour and one loadout, about 19% of build | Machine gun, heavy machine gun and armour, about 40% |
+| Sharp armour per plasteel, body | +0.00125 | +0.00117 |
+
+The loadouts (six bombs, the Mk. 84 variants, our drop tanks) are cheap pylon swaps that replace each other, which seems fair.
+
+**Combat Extended armour: the base values are the author's choice; the armour upgrade is poor value.** Both mods ship their own CE
+patches. Sharp is mm RHA, blunt MPa.
+
+| Part | Harrier (700 kg) | Hind (1,100 kg) | Mongoose (600 kg) |
+| --- | --- | --- | --- |
+| Body | 2.5 / 6 | 11.25 / 22.5 | 9 / 18 |
+| Cockpit | 4 / 8 | 8.1 / 13.75 | 6.5 / 11 |
+| Engines | 3 / 7 | 8.75 / 17.5 each | 7 / 14 each |
+| Fuel tank | 1.5 / 4 | 5 / 10 | 4 / 8 |
+| Armour upgrade, body | +0.625 / +1.5 | +2.25 / +4.5 | +1.8 / +3.6 |
+
+The Harrier's body is 22% of the Hind's under CE (69% outside it). The author's own comment in the CE patch says the first values stopped
+every rifle round, so the jet was cut to a light airframe that rifle fire goes through, trading armour for speed (flight speed 16 against
+the Hind's 10). The upgrade, though, takes the body from 2.5 to 3.125 mm for 120 plasteel, still under the 6 mm of a 5.56 mm round the
+author quotes: 0.0052 mm a plasteel against the Hind's 0.015, about a third of the value.
+
+**What a shot-down Harrier leaves: a fair share, no change proposed.** Every way it dies (cook-off, crash, combat) ends in a kill that
+Vehicle Framework refunds at **25% of the cost list** (`RefundMaterialCount`, KillFinalize 0.25, checked), read from the adjusted cost
+list, so it follows our new materials. Steel comes out as slag. Fuel, loaded ammunition and fitted upgrades refund 25% too. VTOL Raids
+changes nothing here; a raider that flies off the map vanishes and leaves nothing. Expected from our list: about 100 steel, 30 plasteel, 7
+or 8 components, the VVE parts at a quarter each, and a 25% chance of the turbine, about 1,974 silver all told (stock list about 1,133; the
+Hind about 1,664), plus a quarter of its chemfuel and ammunition. A quarter of the build is the same for every Vehicle Framework vehicle,
+so it is no loop.
+
+**Proposals for the owner** (every count authored):
+
+1. **Cheaper CE armour upgrade:** a CE-only patch cutting `Harrier_PlasteelArmour` to about 40 plasteel and 2 components, the Hind's 150
+   scaled by 0.625 / 2.25. The base CE armour stays as its author set it, and our README would say rifles go through the jet under CE.
+2. **Upgrades outside CE and the wreckage:** no change. The 25% is hard-coded in Vehicle Framework, and the turbine's lumpy 25% chance
+   would need C# to smooth.
+3. **Never add killed leavings to a vehicle:** Vehicle Framework adds them inside its cost-list loop, so they would drop once per cost
+   entry (12 times on our list). Read from the decompile, not seen in play; worth a report to Vehicle Framework's authors if the owner
+   wants one.
 
 ## Bug reports to post (drafts; the owner posts them)
 
