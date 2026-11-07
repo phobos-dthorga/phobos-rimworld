@@ -68,7 +68,8 @@ is in this repository.
 - **Medical Save Bridge** finds one of its types by name at runtime.
 - **Burns and Smoke** patches its Defs in XML (adding its public secondary-condition handlers to our own conditions), gates the
   tracheotomy behind its Emergency Medicine research, and reads its fire inhalation setting by name at runtime (D'thorga Medical
-  0.7.0; before that, an XML patch removed that worker from its registration list).
+  0.7.0; before that, an XML patch removed that worker from its registration list). From 0.7.0 its handlers also start its
+  gangrene on a limb an eschar has starved, and a fluids bill of ours uses its saline bag by defName, loaded only while it is active.
 - **Medical Equipment** marks its two hypoxia conditions as helped by oxygen, and healed faster on it, in XML.
 - **Triage** finds its operations by the condition each recipe removes, as it finds any mod's, and never names it in code. Its
   mechanite therapy for brain damage names nothing it removes, so an XML patch lists the five conditions it treats.

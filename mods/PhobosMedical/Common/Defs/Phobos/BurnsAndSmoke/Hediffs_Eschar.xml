@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- Constricting eschar (burns phase 2, owner's go of 7 Nov 2026). Formed by the burns pass on a limb whose open burn damage reaches
+       60% of its health; tightens at 1.5 a day as the limb swells (authored: blood flow fails within about half a day, a real course
+       of hours; NCBI Bookshelf NBK482120). Stage offsets authored; the last cripples, so Triage queues the escharotomy under "save life
+       or a limb". Without More Injuries the comp does ischaemic damage once blood flow fails; with it, a patch lets its gangrene start
+       instead. -->
+  <HediffDef>
+    <defName>PhobosBurns_Eschar</defName>
+    <label>constricting eschar</label>
+    <labelNoun>a constricting eschar</labelNoun>
+    <description>Deep burns all round this limb have hardened into a leathery crust that cannot stretch. As the flesh beneath swells, it squeezes the limb tighter, until blood can no longer reach the hand or foot. A doctor can cut through the crust (an escharotomy) to release it. Left alone, the limb is slowly starved and can be lost.</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <defaultLabelColor>(0.9, 0.55, 0.3)</defaultLabelColor>
+    <initialSeverity>0.05</initialSeverity>
+    <maxSeverity>1</maxSeverity>
+    <isBad>true</isBad>
+    <tendable>false</tendable>
+    <everCurableByItem>false</everCurableByItem>
+    <scenarioCanAdd>false</scenarioCanAdd>
+    <comps>
+      <li Class="HediffCompProperties_SeverityPerDay">
+        <severityPerDay>1.5</severityPerDay>
+      </li>
+      <li Class="Phobos.BurnsAndSmoke.Comps.HediffCompProperties_PhobosIschaemia" />
+    </comps>
+    <stages>
+      <li>
+        <label>tight</label>
+        <partEfficiencyOffset>-0.1</partEfficiencyOffset>
+        <painOffset>0.05</painOffset>
+      </li>
+      <li>
+        <minSeverity>0.4</minSeverity>
+        <label>constricting</label>
+        <partEfficiencyOffset>-0.35</partEfficiencyOffset>
+        <painOffset>0.12</painOffset>
+      </li>
+      <li>
+        <minSeverity>0.7</minSeverity>
+        <label>cutting off blood</label>
+        <partEfficiencyOffset>-0.7</partEfficiencyOffset>
+        <painOffset>0.2</painOffset>
+      </li>
+    </stages>
+  </HediffDef>
+
+  <!-- What the escharotomy leaves: long cuts through the crust, healing over about four days (authored). -->
+  <HediffDef>
+    <defName>PhobosBurns_EscharotomyWound</defName>
+    <label>escharotomy incisions</label>
+    <labelNoun>escharotomy incisions</labelNoun>
+    <description>Long cuts through the burned crust, made to let the limb swell freely and the blood flow again. They heal on their own over a few days.</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <defaultLabelColor>(0.8, 0.7, 0.6)</defaultLabelColor>
+    <initialSeverity>1</initialSeverity>
+    <maxSeverity>1</maxSeverity>
+    <isBad>true</isBad>
+    <tendable>false</tendable>
+    <everCurableByItem>false</everCurableByItem>
+    <scenarioCanAdd>false</scenarioCanAdd>
+    <comps>
+      <li Class="HediffCompProperties_SeverityPerDay">
+        <severityPerDay>-0.25</severityPerDay>
+      </li>
+    </comps>
+    <stages>
+      <li>
+        <partEfficiencyOffset>-0.1</partEfficiencyOffset>
+        <painOffset>0.05</painOffset>
+      </li>
+    </stages>
+  </HediffDef>
+
+  <!-- Ischaemic damage: flesh that died for want of blood, an ordinary injury (it heals slowly, can scar, and a limb that loses all its
+       health is lost). Figures from the game's crush injury (Core, Hediffs_Injuries.xml) where they fit, otherwise authored. -->
+  <HediffDef ParentName="InjuryBase">
+    <defName>PhobosBurns_IschaemicDamage</defName>
+    <label>ischaemic damage</label>
+    <labelNoun>ischaemic damage</labelNoun>
+    <description>Flesh that has died for lack of blood, squeezed off by a burned crust. It heals only slowly, and a limb that loses too much is lost.</description>
+    <comps>
+      <li Class="HediffCompProperties_TendDuration">
+        <labelTendedWell>bandaged</labelTendedWell>
+        <labelTendedWellInner>tended</labelTendedWellInner>
+        <labelSolidTendedWell>tended</labelSolidTendedWell>
+      </li>
+      <li Class="HediffCompProperties_Infecter">
+        <infectionChance>0.15</infectionChance>
+      </li>
+      <li Class="HediffCompProperties_GetsPermanent">
+        <permanentLabel>ischaemic scar</permanentLabel>
+      </li>
+    </comps>
+    <injuryProps>
+      <painPerSeverity>0.0125</painPerSeverity>
+      <averagePainPerSeverityPermanent>0.00625</averagePainPerSeverityPermanent>
+      <bleedRate>0</bleedRate>
+      <canMerge>true</canMerge>
+      <destroyedLabel>Lost to ischaemia</destroyedLabel>
+    </injuryProps>
+  </HediffDef>
+
+  <!-- The damage that adds it: no armour (it comes from inside), no blood, never interrupts a job, never spreads to the parent part. -->
+  <DamageDef>
+    <defName>PhobosBurns_Ischaemia</defName>
+    <label>ischaemia</label>
+    <workerClass>DamageWorker_AddInjury</workerClass>
+    <externalViolence>false</externalViolence>
+    <hasForcefulImpact>false</hasForcefulImpact>
+    <makesBlood>false</makesBlood>
+    <canInterruptJobs>false</canInterruptJobs>
+    <harmsHealth>true</harmsHealth>
+    <hediff>PhobosBurns_IschaemicDamage</hediff>
+    <deathMessage>{0} has died of a burned limb starved of blood.</deathMessage>
+  </DamageDef>
+
+  <!-- Escharotomy: cut through the crust. Offered on each limb that has an eschar (the game's remove-a-condition surgery finds the
+       parts). Simpler than a tracheotomy, so a lower skill and no research (agent choice). -->
+  <RecipeDef ParentName="SurgeryFlesh">
+    <defName>PhobosBurns_Escharotomy</defName>
+    <label>escharotomy</label>
+    <description>Cut through the hard crust of a deeply burned limb so it can swell freely and the blood can reach it again. The eschar is released; the incisions heal on their own over a few days.</description>
+    <workerClass>Phobos.BurnsAndSmoke.Surgery.Recipe_PhobosRemoveAddHediff</workerClass>
+    <jobString>Performing escharotomy.</jobString>
+    <workAmount>600</workAmount>
+    <removesHediff>PhobosBurns_Eschar</removesHediff>
+    <addsHediff>PhobosBurns_EscharotomyWound</addsHediff>
+    <successfullyRemovedHediffMessage>{0} has released the eschar on {1}'s limb.</successfullyRemovedHediffMessage>
+    <deathOnFailedSurgeryChance>0.01</deathOnFailedSurgeryChance>
+    <surgerySuccessChanceFactor>1.5</surgerySuccessChanceFactor>
+    <targetsBodyPart>true</targetsBodyPart>
+    <skillRequirements>
+      <Medicine>4</Medicine>
+    </skillRequirements>
+    <recipeUsers>
+      <li>Human</li>
+    </recipeUsers>
+    <ingredients>
+      <li>
+        <filter>
+          <categories>
+            <li>Medicine</li>
+          </categories>
+        </filter>
+        <count>1</count>
+      </li>
+    </ingredients>
+    <fixedIngredientFilter>
+      <categories>
+        <li>Medicine</li>
+      </categories>
+    </fixedIngredientFilter>
+  </RecipeDef>
+</Defs>

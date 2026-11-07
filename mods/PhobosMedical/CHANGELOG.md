@@ -23,11 +23,14 @@ The owner's answers of 7 November 2026 to every open question (docs/development/
 
 - Burns: fires heat the cells around them in large rooms too, on top of the room's own temperature, with its own setting: nothing extra in a room of 30 cells or fewer, which the game already heats through, then the share the game's even spread misses (a quarter in a 40-cell room, nine tenths in a 300-cell hangar). Figures authored. Owner's choice.
 - Burns: people and animals not drafted sprint out of air near a fire that is hot enough to burn them, to the nearest cooler spot within 12 cells, reading moving away from the heat. Firefighters beating a fire stay at it, as does anyone ordered there (agent choice). Uses the game's own burn threshold, 150 degrees over the top of a person's comfortable range, so clothing counts. Its own setting. Owner's choice.
+- Burns: an arm or leg whose open burns reach 60% of its health grows a constricting eschar that tightens over about half a day, with its own setting. An escharotomy on that limb releases it; its incisions heal in about four days. Left tight, the limb is starved: with More Injuries it can turn gangrenous through More Injuries' own handlers, otherwise it takes ischaemic damage until it is lost (about three days for a human leg). The eschar goes once the limb's burns heal below the mark. The 60% is the owner's figure; the rest is authored. Burns phase 2, owner's go.
+- Burns, with More Injuries: a bill to give fluids for burn shock with one of its saline bags, offered only during burn shock. It counts as tending the shock at the best quality while it lasts. Burns phase 2, owner's go.
 - Equipment, with More Injuries: supplied oxygen helps its hypoxia heal, on top of its own healing: organ hypoxia by 4 a day, cerebral hypoxia by 2 (authored; the benefit to the brain is less certain), twice that in the hyperbaric chamber. Permanent damage never heals. Owner's choice.
 
 ### Changed
 
 - Burns, with More Injuries: its own fire inhalation setting decides again, rather than this mod removing that feature (owner's choice). With it on, this mod's smoke damage to the lungs stands down while a person is on fire, so the lungs are never damaged twice; the settings window shows which way it is set.
+- The tracheotomy's surgery class now checks the operated part, so the escharotomy can tell an eschar on one limb from one on another. No change for the tracheotomy.
 - Triage keeps queuing fracture repairs under save life or a limb, rather than leaving fractures to More Injuries' splints. No change in play: the owner chose to keep it.
 - Emergency dosing: a masochist, or anyone else for whom pain is no hardship (the game's own pain mood is cancelled for them, as by a belief in idealised pain), no longer fetches their own painkillers. Doctors still treat them in bed. Read from the game's pain thought, not from the trait's name, so a modded trait that does the same counts too.
 

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <!-- With More Injuries, a limb an eschar has starved of blood can go gangrenous on that same limb, through its public secondary-
+       condition handlers (the form of its own hypoxia handlers; the figures are ours, authored): nothing below severity 0.7, where
+       blood flow fails, then up to a 4% chance an hour at the tightest, about a day on average. Our own ischaemic damage stands down
+       while More Injuries is active, so the two never stack. CausedBy shows the cause in the health tab. -->
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/HediffDef[defName="PhobosBurns_Eschar"]/comps</xpath>
+    <value>
+      <li Class="MoreInjuries.HealthConditions.Secondary.HediffCompProperties_CausedBy"></li>
+      <li Class="MoreInjuries.HealthConditions.Secondary.HediffCompProperties_SecondaryCondition">
+        <severityCurve>
+          <points>
+            <li>0, 0</li>
+            <li>0.7, 0</li>
+            <li>0.75, 0.5</li>
+            <li>1, 1</li>
+          </points>
+        </severityCurve>
+        <handlers>
+          <li Class="MoreInjuries.HealthConditions.Secondary.Handlers.HediffCompHandler_SecondaryCondition_Tick">
+            <tickInterval>2500</tickInterval>
+            <baseChance>0.04</baseChance>
+            <hediffMakerProps Class="MoreInjuries.HealthConditions.Secondary.Handlers.HediffMakers.HediffMakerProperties_SingleHediff">
+              <hediffMakerDef>
+                <hediffDef>GangreneDry</hediffDef>
+                <minSeverity>0.01</minSeverity>
+                <maxSeverity>0.05</maxSeverity>
+                <allowMultiple>false</allowMultiple>
+                <allowDuplicate>false</allowDuplicate>
+              </hediffMakerDef>
+            </hediffMakerProps>
+            <targetEvaluator Class="MoreInjuries.HealthConditions.Secondary.Handlers.TargetEvaluators.BodyPartHediffTargetEvaluator_SameAsParent" />
+          </li>
+        </handlers>
+      </li>
+    </value>
+  </Operation>
+</Patch>

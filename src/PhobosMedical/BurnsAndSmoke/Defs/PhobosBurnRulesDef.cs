@@ -88,6 +88,19 @@ public class PhobosBurnRulesDef : PhobosRulesDef
     public float fireHeatRoomCellsWarmedEvenly = 30f;
     /// <summary>How far a pawn looks for a cooler cell when the heat would burn them (authored).</summary>
     public float fireHeatFleeSearchRadiusCells = 12f;
+    // Eschar (burns phase 2, owner's go of 7 Nov 2026).
+    /// <summary>A limb whose open burn damage reaches this share of its health forms a constricting eschar (owner's go: 60%).</summary>
+    public float escharPartHealthFraction = 0.6f;
+    /// <summary>Eschar severity from which blood flow fails and, without More Injuries, ischaemic damage starts (authored).</summary>
+    public float escharIschaemiaFromSeverity = 0.7f;
+    /// <summary>Ischaemic damage per hour at the tightest eschar, without More Injuries (authored: a human leg is lost in about three days).</summary>
+    public float ischaemicDamagePerHourAtFull = 0.4f;
+    /// <summary>
+    /// The care a fluids bill counts as for burn shock, as a tend quality (authored: a measured drip is the best fluid replacement there
+    /// is, so the top of the scale).
+    /// </summary>
+    public float fluidBillTendQuality = 1f;
+
     /// <summary>
     /// Mods that model the air cell by cell themselves; while one is active our zones are not computed, so heat is never
     /// counted twice. Other such mods can be added here in XML.

@@ -77,6 +77,14 @@ the mods' code.
   mod's smoke damage to the lungs stands down while that person is on fire, so the lungs are never damaged twice. Off, this mod's
   smoke damage applies alone. Change it in More Injuries' settings; this mod's settings show which way it is set. Carbon monoxide
   and a closing airway feed More Injuries' hypoxia and brain damage.
+- **New in 0.7.0: deeply burned limbs tighten** (owner's go, not yet tested in game). An arm or leg whose burns reach **60% of its
+  health** grows a hard crust, a **constricting eschar**, that tightens over about half a day as the limb swells until blood can't
+  reach it. **A doctor's escharotomy** (a quick operation on that limb, Medicine 4, any medicine) cuts it open; the incisions heal in
+  about four days. With Triage the doctors queue it themselves once blood is being cut off. **Left alone, the limb is lost**: with More
+  Injuries it can turn gangrenous, about a day after blood flow fails; without it, the limb takes ischaemic damage until it is lost,
+  in about three days for a human leg. The crust softens and goes once the burns on that limb heal. It has its own setting.
+- **New in 0.7.0, with More Injuries: give fluids for burn shock.** An operation-list bill that uses one of More Injuries' **saline
+  bags** and counts as the best possible care for the shock while it lasts. It is offered only while the patient is in burn shock.
 - **New in 0.7.0: oxygen helps More Injuries' hypoxia heal** (owner's choice, not yet tested in game). A patient on supplied oxygen
   heals hypoxia faster, the hyperbaric chamber twice as fast again; damage that has turned permanent never heals.
 - **With Combat Extended's smoke running, CE's smoke inhalation is the signal.** This mod adds the lasting lung damage and
@@ -123,6 +131,8 @@ flowchart TD
 | burns (burned body fraction) | every burn on the skin, by its kind's area per point of damage, and every part burned off, weighted by each part's share of the skin | wider burns, lost parts | tending the burns and stumps; it is recomputed every 300 ticks |
 | burn shock | 15% or more of the body burned; always at least its first stage from there | age, area, an airway burn or carbon monoxide (the revised Baux score) | tending the burns, bed rest, tending the shock with good medicine |
 | airway burn | burning, or burns to the head and neck | time: swelling peaks at 8 hours, holds to 24, gone by 48 | a tracheotomy; or waiting, if it never closes |
+| constricting eschar | an arm or leg burned to 60% of its health | time: tightens over about half a day | an escharotomy; or the burns on that limb healing |
+| ischaemic damage | a limb an eschar has starved of blood, without More Injuries | the eschar staying tight | an escharotomy stops it; it heals like any injury |
 | smoke-damaged lungs | breathing smoke | thicker smoke, longer | tending; rest; heals 4% a day untended, 16% tended well |
 | pneumonia | severe lung damage | | tending and immunity, like a wound infection |
 | carbon monoxide poisoning | the framework's carbon monoxide in a closed burning room | staying in the room | clean air: halves every 5.3 hours under a roof, 3 in the open; on supplied oxygen, about every 75 minutes, with D'thorga Medical Equipment |

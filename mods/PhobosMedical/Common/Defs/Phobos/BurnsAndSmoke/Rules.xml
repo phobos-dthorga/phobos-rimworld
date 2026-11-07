@@ -70,6 +70,15 @@
          room, nine tenths in a 300-cell hangar). And how far a pawn looks for a cooler cell when the heat would burn them. -->
     <fireHeatRoomCellsWarmedEvenly>30</fireHeatRoomCellsWarmedEvenly>
     <fireHeatFleeSearchRadiusCells>12</fireHeatFleeSearchRadiusCells>
+    <!-- Eschar (burns phase 2, owner's go of 7 Nov 2026). A limb whose open burn damage reaches 60% of its health forms a
+         constricting eschar (the owner's figure; the game has no "all round the limb", so damage stands in for it). From severity 0.7
+         blood flow fails: with More Injuries that can start its gangrene, without it the limb takes ischaemic damage, 0.4 an hour at
+         the tightest (authored: a human leg in about three days). A fluids bill counts as care of quality 1 for burn shock
+         (authored: a measured drip is the best fluid replacement). -->
+    <escharPartHealthFraction>0.6</escharPartHealthFraction>
+    <escharIschaemiaFromSeverity>0.7</escharIschaemiaFromSeverity>
+    <ischaemicDamagePerHourAtFull>0.4</ischaemicDamagePerHourAtFull>
+    <fluidBillTendQuality>1</fluidBillTendQuality>
     <!-- Mods that model the air cell by cell themselves: while one is active the zones are not computed. Add others here. -->
     <perCellTemperatureMods>
       <li>acutus.AtmosphereOverhaul.release</li>

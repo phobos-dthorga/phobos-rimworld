@@ -9,8 +9,8 @@ namespace Phobos.BurnsAndSmoke.Givers;
 /// The one engine hook: the game calls every hediff giver in a race's giver sets every 60 ticks per pawn, and tells it about
 /// every condition added. This one is patched into the OrganicStandard set, so it reaches every flesh race, and works only on
 /// humanlike pawns that have burns, are burning, carry one of our conditions, or stand in smoke or carbon monoxide: everyone
-/// else costs a few comparisons. Every pass recomputes the burn load and shock, applies smoke and carbon monoxide, and rolls
-/// the airway burn.
+/// else costs a few comparisons. Every pass recomputes the burn load and shock, applies smoke and carbon monoxide, rolls the
+/// airway burn, and forms or releases eschar on deeply burned limbs.
 /// </summary>
 public class HediffGiver_PhobosBurns : HediffGiver
 {
@@ -30,6 +30,7 @@ public class HediffGiver_PhobosBurns : HediffGiver
         BurnLoadService.Recompute(pawn, rules, settings, days);
         SmokeExposureService.Apply(pawn, rules, settings, hours);
         AirwayService.Apply(pawn, rules, settings);
+        EscharService.Apply(pawn, rules, settings);
     }
 
     public override bool OnHediffAdded(Pawn pawn, Hediff hediff)
@@ -43,7 +44,8 @@ public class HediffGiver_PhobosBurns : HediffGiver
         HediffSet set = pawn.health.hediffSet;
         if (set.HasHediff(BurnsDefOf.PhobosBurns_BurnLoad) || set.HasHediff(BurnsDefOf.PhobosBurns_BurnShock)
             || set.HasHediff(BurnsDefOf.PhobosBurns_AirwayBurn) || set.HasHediff(BurnsDefOf.PhobosBurns_CarbonMonoxide)
-            || set.HasHediff(BurnsDefOf.PhobosBurns_LungInjury) || set.HasHediff(BurnsDefOf.PhobosBurns_SmokeInhalation))
+            || set.HasHediff(BurnsDefOf.PhobosBurns_LungInjury) || set.HasHediff(BurnsDefOf.PhobosBurns_SmokeInhalation)
+            || set.HasHediff(BurnsDefOf.PhobosBurns_Eschar))
         {
             return true;
         }

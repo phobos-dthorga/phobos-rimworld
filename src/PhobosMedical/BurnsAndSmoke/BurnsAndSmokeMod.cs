@@ -13,6 +13,8 @@ public class BurnsAndSmokeSettings : ModSettings
     public bool burnLoad = true;
     public bool burnShock = true;
     public bool airway = true;
+    /// <summary>Deeply burned limbs form a constricting eschar.</summary>
+    public bool eschar = true;
     public bool smoke = true;
     public bool carbonMonoxide = true;
     /// <summary>Fires in the open heat the cells around them.</summary>
@@ -30,6 +32,7 @@ public class BurnsAndSmokeSettings : ModSettings
         Scribe_Values.Look(ref burnLoad, "PhobosBurns_BurnLoad", true);
         Scribe_Values.Look(ref burnShock, "PhobosBurns_BurnShock", true);
         Scribe_Values.Look(ref airway, "PhobosBurns_Airway", true);
+        Scribe_Values.Look(ref eschar, "PhobosBurns_Eschar", true);
         Scribe_Values.Look(ref smoke, "PhobosBurns_Smoke", true);
         Scribe_Values.Look(ref carbonMonoxide, "PhobosBurns_CarbonMonoxide", true);
         Scribe_Values.Look(ref fireHeatOutdoors, "PhobosBurns_FireHeatOutdoors", true);
@@ -72,6 +75,8 @@ public static class BurnsAndSmokeMod
         if (Settings.burnLoad) report.On("burn load"); else report.Off("burn load", "setting");
         if (Settings.burnShock) report.On("burn shock"); else report.Off("burn shock", "setting");
         if (Settings.airway) report.On("airway burns"); else report.Off("airway burns", "setting");
+        if (!Settings.eschar) report.Off("eschar", "setting");
+        else report.On(OptionalMods.IsActive(OptionalMods.MoreInjuries) ? "eschar, More Injuries' gangrene for a starved limb" : "eschar, ischaemic damage for a starved limb");
         if (Settings.smoke) report.On("smoke inhalation, " + (PhobosGases.UsesCombatExtendedSmoke ? "Combat Extended's condition as the signal" : "the game's smoke as the signal")); else report.Off("smoke inhalation", "setting");
         if (Settings.carbonMonoxide) report.On("carbon monoxide, " + SmokeExposureService.DescribeCarbonMonoxideSource()); else report.Off("carbon monoxide", "setting");
         if (!Settings.fireHeatOutdoors) report.Off("fire heat in the open", "setting");
@@ -92,6 +97,7 @@ public static class BurnsAndSmokeMod
         listing.CheckboxLabeled("PhobosBurns_SettingBurnLoad".Translate(), ref Settings.burnLoad, "PhobosBurns_SettingBurnLoadDesc".Translate());
         listing.CheckboxLabeled("PhobosBurns_SettingBurnShock".Translate(), ref Settings.burnShock, "PhobosBurns_SettingBurnShockDesc".Translate());
         listing.CheckboxLabeled("PhobosBurns_SettingAirway".Translate(), ref Settings.airway, "PhobosBurns_SettingAirwayDesc".Translate());
+        listing.CheckboxLabeled("PhobosBurns_SettingEschar".Translate(), ref Settings.eschar, "PhobosBurns_SettingEscharDesc".Translate());
         listing.CheckboxLabeled("PhobosBurns_SettingSmoke".Translate(), ref Settings.smoke, "PhobosBurns_SettingSmokeDesc".Translate());
         listing.CheckboxLabeled("PhobosBurns_SettingCarbonMonoxide".Translate(), ref Settings.carbonMonoxide, "PhobosBurns_SettingCarbonMonoxideDesc".Translate());
         listing.CheckboxLabeled("PhobosBurns_SettingFireHeat".Translate(), ref Settings.fireHeatOutdoors, "PhobosBurns_SettingFireHeatDesc".Translate());

@@ -252,6 +252,41 @@ source, constants identical):
 3. With More Injuries: switch its fire inhalation off and on in its settings; our settings window and the load line should follow.
 4. With More Injuries: a patient with hypoxia in a bed served by oxygen should see it fall faster than one without.
 
+## Phase 2: eschar, escharotomy, ischaemia and fluids (7 November 2026)
+
+Built in D'thorga Medical 0.7.0 on the owner's go; **not yet tested in game**. Labels: owner's figure, agent choice, authored.
+
+**What the medicine says.** Deep (full-thickness) burns all round a limb harden into an eschar that cannot stretch; as the tissue
+beneath swells over the first hours with fluid, pressure rises until blood flow to the limb fails, and an escharotomy (cutting
+through the eschar) releases it ([NCBI Bookshelf, NBK482120](https://www.ncbi.nlm.nih.gov/books/NBK482120/), "Escharotomy").
+Our inference: the game has burn depth per injury but nothing for "all round the limb", so damage against the limb's health stands in.
+
+**Decisions:**
+
+- **Onset** (owner's figure): open burn damage on a limb at or over **60% of its health**, scars excluded. A limb is a part tagged
+  moving-limb core (legs) or manipulation-limb segment (arms), so any race's limbs count; humanlike pawns only, as the rest of this
+  part. The burns pass (every 300 ticks) adds the eschar and removes it once the limb's burns heal below the mark (agent choice).
+- **Course** (authored): severity starts at 0.05 and rises 1.5 a day: tight, then constricting from 0.4, then cutting off blood from
+  0.7 (part efficiency -0.7, so Triage counts it as crippling and queues the escharotomy under "save life or a limb").
+- **Escharotomy**: the game's remove-a-condition surgery, so it is offered on each limb with an eschar; our subclass leaves
+  escharotomy incisions that heal in four days. Medicine 4, any medicine, no research (agent choice: simpler than a tracheotomy).
+  The subclass now checks the operated part, not the whole body.
+- **Ischaemia, handed to More Injuries** (owner's go): with More Injuries active, a patch gives the eschar its public secondary-
+  condition handler (`HediffCompHandler_SecondaryCondition_Tick`) making `GangreneDry` on the same part
+  (`BodyPartHediffTargetEvaluator_SameAsParent`), gated by severity from 0.7 and 4% an hour at the tightest (authored). Without it, a
+  comp on the eschar deals our own ischaemic damage once an hour through the game's damage system (a `DamageDef` with no armour, no
+  blood, no propagation), 0.4 an hour at the tightest (authored), so the limb is lost the game's way when its health runs out. The
+  comp stands down while More Injuries is active, so the two never stack.
+- **Fluids** (owner's go): with More Injuries, a bill consuming one `SalineBag` that counts as tending the burn shock at quality 1
+  (authored) through the game's own `Hediff.Tended`, so the shock reads it as its fluids term. Offered only during burn shock; no
+  anaesthetic, never fails. Without More Injuries there is no saline bag; D'thorga Medical's planned fluids kit covers that.
+
+**Checks for the owner** (three):
+
+1. Give a colonist deep burns on one leg (dev tools, several burns there) and wait: a constricting eschar on that leg, tightening.
+2. Order the escharotomy on that leg: the eschar goes and escharotomy incisions stay.
+3. With More Injuries and a saline bag in stock, a patient in burn shock shows the fluids bill; after it, the shock's tooltip shows top care.
+
 ## Open points and upstream
 
 - **Done in D'thorga Medical 0.7.0:** fire heat indoors and moving away from heat (Decisions above), and More Injuries' own
@@ -264,9 +299,7 @@ source, constants identical):
   gone; its setting, an internal field behind a source-generated property, is read by name through the Framework. With it on, our
   lasting lung injury from smoke is not added while the pawn is itself burning, since its worker burns the lungs at those moments
   (agent choice: the narrowest overlap that avoids damaging the lungs twice).
-- **Phase 2, go given by the owner on 7 Nov 2026:** constricting eschar on limbs burned past 60% of a part's health, an
-  escharotomy surgery, ischaemic damage, a hand-off to More Injuries' gangrene, and a fluid-resuscitation bill that consumes its
-  saline bag. Next after Medical Equipment's 0.4.0 fixes and the hydrogen work.
+- **Phase 2, built in D'thorga Medical 0.7.0** (go given by the owner on 7 Nov 2026; not yet tested in game). See Phase 2 below.
 - **Vents** for smoke and carbon monoxide may live here (agent lean; [ventilation and hydrogen](ventilation-and-hydrogen.md)).
 - Later: animals, letters for the life-threatening stages. The oxygen treatment came in 0.4.0, through D'thorga Medical Equipment.
 - Upstream, for More Injuries' author: the `CE_WearingGasMask` check never matches Combat Extended's `WearingGasMask`.

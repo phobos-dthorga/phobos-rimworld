@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- Fluid resuscitation for burn shock, with More Injuries' saline bag (burns phase 2, owner's go of 7 Nov 2026). Offered only while
+       the patient has burn shock; it counts as tending the shock at quality 1 (the rules Def's fluidBillTendQuality, authored), so the
+       shock's tooltip shows it as the fluids term. A drip, not an operation: no anaesthetic and it does not fail. Without More Injuries
+       there is no saline bag; D'thorga Medical's own fluids kit (planned) covers that. -->
+  <RecipeDef ParentName="SurgeryFlesh">
+    <defName>PhobosBurns_FluidResuscitation</defName>
+    <label>give fluids for burn shock</label>
+    <description>Run a saline drip to replace the fluid a badly burned patient is losing. While it lasts, it counts as the best possible care for their burn shock.</description>
+    <workerClass>Phobos.BurnsAndSmoke.Surgery.Recipe_PhobosGiveFluids</workerClass>
+    <jobString>Giving fluids.</jobString>
+    <workAmount>300</workAmount>
+    <anesthetize>false</anesthetize>
+    <targetsBodyPart>false</targetsBodyPart>
+    <skillRequirements>
+      <Medicine>3</Medicine>
+    </skillRequirements>
+    <recipeUsers>
+      <li>Human</li>
+    </recipeUsers>
+    <ingredients>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>SalineBag</li>
+          </thingDefs>
+        </filter>
+        <count>1</count>
+      </li>
+    </ingredients>
+    <fixedIngredientFilter>
+      <thingDefs>
+        <li>SalineBag</li>
+      </thingDefs>
+    </fixedIngredientFilter>
+  </RecipeDef>
+</Defs>
