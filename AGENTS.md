@@ -29,6 +29,14 @@ delivered, record the delivery in the changelog or design record, and add or ame
   reported fault is the owner's error, and **start with `python scripts/triage-log.py`**: it summarises the log
   against `Player-prev.log` and names the mods involved, and `--show <ID>` prints one message in full. Open the
   raw log only for what the summary cannot answer.
+- **Tools before LLM reading, even when the tool needs work first** (owner, 7 November 2026). When an analysis
+  (of logs, saves, mod Defs, assemblies, Workshop pages or anything else) can be done by a tool we already have,
+  in phobos-modkit or `scripts/`, use the tool. When it could be done by one only after a fix, an update or a new
+  feature, **make that change first and then run the tool**, rather than spend more tokens having an agent read
+  the raw material for the same or much the same answer. Shared changes go to phobos-modkit under its own
+  rules, then the pin moves here. Read raw material by hand only for what no reasonable tool change would
+  answer, and say so in the reply. The tools, their order and their gaps are in
+  `docs/development/analysis-tooling.md`.
 - The owner plays RimWorld 1.7 (since 26 October 2026; the last 1.6 save is archived) with all five DLCs and a large mod list
   (about 340 mods, managed with RimSort, including Combat Extended). **Keep `docs/development/owner-mod-list.md` up
   to date** (owner, 22 Oct 2026): run `python scripts/refresh-mod-list.py` (it only reads the game's files)
