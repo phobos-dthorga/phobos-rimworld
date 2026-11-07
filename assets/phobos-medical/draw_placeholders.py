@@ -195,6 +195,65 @@ def oxygen_trolley(draw):
     draw.arc((560, 600, 900, 940), 200, 340, fill=TUBE, width=26)
 
 
+def nebuliser(draw):
+    """A nebuliser from above: a small compressor box with a dial, a tube to a mask with its cup of drug and a puff of mist."""
+    box(draw, (180, 300, 640, 800), PANEL, 50)
+    for y in range(380, 720, 60):
+        draw.line((230, y, 420, y), fill=PANEL_DARK, width=20)
+    draw.ellipse((470, 380, 590, 500), fill=SCREEN, outline=OUTLINE, width=16)
+    box(draw, (470, 560, 590, 640), GREEN, 16)
+    draw.arc((500, 120, 900, 520), 90, 200, fill=OUTLINE, width=50)
+    draw.arc((500, 120, 900, 520), 90, 200, fill=TUBE, width=26)
+    draw.ellipse((640, 160, 860, 380), fill=ACRYLIC, outline=OUTLINE, width=LINE)  # Mask.
+    box(draw, (700, 380, 800, 480), BRASS, 20)  # Drug cup.
+    for x, y, r in ((720, 110, 50), (800, 80, 40), (870, 130, 34)):
+        draw.ellipse((x - r, y - r, x + r, y + r), fill=VESSEL, outline=OUTLINE, width=10)  # Mist.
+
+
+def bronchodilator_vial(draw):
+    """A strip of three small twist-top plastic vials, each showing its drug."""
+    for x in (170, 410, 650):
+        draw.rounded_rectangle((x, 300, x + 210, 840), radius=60, fill=ACRYLIC, outline=OUTLINE, width=26)
+        draw.rounded_rectangle((x + 50, 170, x + 160, 320), radius=24, fill=VESSEL, outline=OUTLINE, width=22)
+        draw.rounded_rectangle((x + 34, 500, x + 176, 810), radius=40, fill=BRASS, outline=OUTLINE, width=16)
+
+
+def anaesthesia_machine(draw):
+    """An anaesthesia machine from above: a trolley with a monitor, two coloured vaporisers, a row of flow meters and a breathing bag."""
+    for x in (258, 666):
+        box(draw, (x, 804, x + 100, 924), PANEL_DEEP, 24)
+    box(draw, (170, 120, 854, 852), PANEL)
+    box(draw, (230, 170, 794, 400), SCREEN, 30)
+    draw.line([(270, 300), (360, 300), (390, 230), (430, 360), (470, 300), (760, 300)], fill=VESSEL, width=18, joint='curve')
+    for x, colour in ((250, HYDROGEN), (400, SAFETY_YELLOW)):
+        box(draw, (x, 450, x + 120, 680), colour, 30)  # Vaporisers.
+    for x in range(570, 790, 60):
+        box(draw, (x, 450, x + 40, 680), ACRYLIC, 14)  # Flow meters.
+    draw.ellipse((700, 700, 900, 900), fill=PAD, outline=OUTLINE, width=LINE)  # Breathing bag.
+
+
+def decompression_kit(draw):
+    """A needle decompression kit: a long needle with a cannula hub, beside its sheath."""
+    box(draw, (160, 640, 860, 760), ACRYLIC, 60)  # Sheath.
+    draw.line((220, 420, 760, 420), fill=OUTLINE, width=70)
+    draw.line((220, 420, 760, 420), fill=VESSEL, width=36)  # Needle.
+    box(draw, (700, 340, 880, 500), SAFETY_GREEN, 30)  # Hub.
+    draw.polygon([(160, 420), (230, 385), (230, 455)], fill=OUTLINE)
+
+
+def steriliser(draw):
+    """A steriliser from above: a square cabinet with a round pressure door, a locking wheel, a gauge and a control strip."""
+    box(draw, (130, 130, 894, 894), PANEL)
+    draw.ellipse((220, 220, 720, 720), fill=VESSEL, outline=OUTLINE, width=LINE)
+    draw.ellipse((360, 360, 580, 580), fill=PANEL_DARK, outline=OUTLINE, width=28)
+    draw.line((470, 380, 470, 560), fill=OUTLINE, width=24)
+    draw.line((380, 470, 560, 470), fill=OUTLINE, width=24)
+    draw.ellipse((740, 220, 860, 340), fill=SCREEN, outline=OUTLINE, width=16)  # Gauge.
+    box(draw, (740, 400, 860, 820), PANEL_DARK, 20)
+    for y in (460, 560, 660, 760):
+        draw.ellipse((775, y - 25, 825, y + 25), fill=GREEN, outline=OUTLINE, width=10)
+
+
 def placeholder(painter, name, what, canvas, final, multi, outstanding):
     """A game texture standing in for outstanding generated art, with its record. multi writes the south view and the east and north
     views turned from it (anticlockwise 90 and 180 degrees, as the burn unit bed's), for a bed drawn from directly above."""
@@ -253,6 +312,16 @@ DRAWINGS = {
         gas_alarm, 'GasAlarm', 'a ceiling carbon monoxide and smoke alarm, seen from below', WORK, 128, False, 'generated art'),
     'OxygenTrolleyPlaceholder': lambda: placeholder(
         oxygen_trolley, 'OxygenTrolley', 'an oxygen cylinder trolley, 1 by 1, from above', WORK, 256, False, 'generated art'),
+    'NebuliserPlaceholder': lambda: placeholder(
+        nebuliser, 'Nebuliser', 'a bedside nebuliser, 1 by 1, from above', WORK, 256, False, 'generated art'),
+    'BronchodilatorVialPlaceholder': lambda: placeholder(
+        bronchodilator_vial, 'BronchodilatorVial', 'a strip of bronchodilator vials as an item', WORK, 128, False, 'generated art'),
+    'AnaesthesiaMachinePlaceholder': lambda: placeholder(
+        anaesthesia_machine, 'AnaesthesiaMachine', 'an anaesthesia machine, 1 by 1, from above', WORK, 256, False, 'generated art'),
+    'DecompressionKitPlaceholder': lambda: placeholder(
+        decompression_kit, 'DecompressionKit', 'a needle decompression kit as an item', WORK, 128, False, 'generated art'),
+    'SteriliserPlaceholder': lambda: placeholder(
+        steriliser, 'Steriliser', 'a steriliser (autoclave), 1 by 1, from above', WORK, 256, False, 'generated art'),
 }
 
 if __name__ == '__main__':

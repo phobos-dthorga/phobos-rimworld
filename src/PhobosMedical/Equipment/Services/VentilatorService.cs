@@ -37,7 +37,7 @@ public static class VentilatorService
         var treated = new List<Pawn>();
         var needingTube = new List<Pawn>();
         var notNeeding = new List<Pawn>();
-        foreach (Pawn patient in PatientsInLinkedBeds(machine.Facility).Distinct())
+        foreach (Pawn patient in LinkedBeds.Patients(machine.Facility).Distinct())
         {
             if (!patient.RaceProps.IsFlesh || patient.Dead || !VentilatorRule.Needs(Hediff_PhobosOnOxygen.BreathingWithoutTreatments(patient), rules.ventilatorBreathingFloor))
                 notNeeding.Add(patient);
@@ -82,13 +82,4 @@ public static class VentilatorService
         return power == null || power.PowerOn;
     }
 
-    static IEnumerable<Pawn> PatientsInLinkedBeds(CompFacility? facility)
-    {
-        if (facility?.LinkedBuildings == null) yield break;
-        foreach (Thing linked in facility.LinkedBuildings)
-        {
-            if (linked is not Building_Bed bed) continue;
-            foreach (Pawn occupant in bed.CurOccupants) yield return occupant;
-        }
-    }
 }

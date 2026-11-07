@@ -58,7 +58,7 @@ public static class OxygenService
     static IEnumerable<Pawn> Occupants(CompPhobosOxygenSupply machine)
     {
         if (machine.parent is Building_Bed own) return own.CurOccupants;
-        return machine.Props.servesAdjacent ? PatientsLyingBeside(machine.parent) : PatientsInLinkedBeds(machine.Facility);
+        return machine.Props.servesAdjacent ? PatientsLyingBeside(machine.parent) : LinkedBeds.Patients(machine.Facility);
     }
 
     static IEnumerable<Pawn> PatientsLyingBeside(Thing machine)
@@ -75,13 +75,4 @@ public static class OxygenService
         }
     }
 
-    static IEnumerable<Pawn> PatientsInLinkedBeds(CompFacility? facility)
-    {
-        if (facility?.LinkedBuildings == null) yield break;
-        foreach (Thing linked in facility.LinkedBuildings)
-        {
-            if (linked is not Building_Bed bed) continue;
-            foreach (Pawn occupant in bed.CurOccupants) yield return occupant;
-        }
-    }
 }

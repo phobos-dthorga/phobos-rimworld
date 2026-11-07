@@ -56,6 +56,7 @@ public static class DeviceService
             DeviceNeed.SuppliedOxygen => DeviceRule.FieldOxygen(OxygenService.NeedsOxygen(patient, rules),
                 PhobosBreathing.SuppliedCarbonMonoxideHalfLifeHours(patient) != null, breathing),
             DeviceNeed.BreathingAssist => DeviceRule.BreathingAssist(BreathingWithoutAssist(patient), rules.breathingAssistThreshold),
+            DeviceNeed.Decompression => DeviceRule.Decompression(PressureRelief.Any(patient)),
             DeviceNeed.Intubation => DeviceRule.Intubation(AirwayTubes.HasTube(patient),
                 AirwayTubes.Closing(patient, breathing, rules.breathingAssistThreshold), VentilatorService.WaitingForTube(patient)),
             _ => DeviceRefusal.NotNeeded,
@@ -120,6 +121,7 @@ public static class DeviceService
     {
         MedicalTreatment.GiveOrRefresh(patient, device.treatment);
         if (device.need == DeviceNeed.Intubation) AirwayTubes.RemoveBypassed(patient);
+        if (device.need == DeviceNeed.Decompression) PressureRelief.Relieve(patient);
     }
 
     /// <summary>Breathing without what a hand pump (or any breathing treatment) already gives, so a doctor doesn't stop pumping because

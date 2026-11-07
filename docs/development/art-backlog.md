@@ -59,6 +59,11 @@ Equipment's picked background, re-titled by script.
 | Ventilator (1x1) | Scripted placeholder in 0.7.0 | Generated art: a bedside cabinet from above with a breathing-wave screen, a bellows column and a tube to the bed | Yes | Go |
 | Safety shower and eyewash (1x1) | Scripted placeholder in 0.7.0 | Generated art: a green drench head with a pull handle over a grated tray, and an eyewash bowl, from above | Yes | Go |
 | Oxygen cylinder trolley (1x1, VGE) | Scripted placeholder in 0.7.0 | Generated art: a wheeled frame with two oxygen cylinders end-on, a regulator and a mask tube, from above | Yes | Go |
+| Nebuliser (1x1) | Scripted placeholder in 0.7.0 | Generated art: a small compressor with a tube to a mask and a drug cup, from above | Yes | Go |
+| Bronchodilator vial (item) | Scripted placeholder in 0.7.0 | Generated art: a strip of twist-top plastic vials | Yes | Go |
+| Anaesthesia machine (1x1) | Scripted placeholder in 0.7.0 | Generated art: a trolley with a monitor, coloured vaporisers, flow meters and a breathing bag, from above | Yes | Go |
+| Needle decompression kit (item, More Injuries) | Scripted placeholder in 0.7.0 | Generated art: a long needle with a green hub beside its sheath | Yes | Go |
+| Steriliser (1x1) | Scripted placeholder in 0.7.0 | Generated art: a square autoclave with a round pressure door and locking wheel, from above | Yes | Go |
 | Carbon monoxide and smoke alarm (ceiling) | Scripted placeholder in 0.7.0 | Generated art: a small white ceiling disc with a grille and a red light, seen from below | Yes | Go |
 | Intubation kit (item) | Scripted placeholder in 0.7.0 | Generated art: a laryngoscope and a clear breathing tube with its cuff | Yes | Go |
 | Workshop preview (640x360) | Shipped pick, 0.2.3 | Nothing | | |

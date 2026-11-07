@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <!-- With Combat Extended, its smoke inhalation counts as airway spasm a nebuliser eases, as our own acute smoke inhalation does. -->
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>Defs/HediffDef[defName="SmokeInhalation"]</xpath>
+    <value>
+      <li Class="Phobos.Medical.Defs.PhobosBedsideTreatableExtension">
+        <tags>
+          <li>Bronchospasm</li>
+        </tags>
+        <minSeverity>0.1</minSeverity>
+      </li>
+    </value>
+  </Operation>
+</Patch>

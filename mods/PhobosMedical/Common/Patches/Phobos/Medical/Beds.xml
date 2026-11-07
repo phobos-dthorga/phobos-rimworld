@@ -6,6 +6,8 @@
     <value>
       <li>PhobosMedical_OxygenConcentrator</li>
       <li>PhobosMedical_Ventilator</li>
+      <li>PhobosMedical_Nebuliser</li>
+      <li>PhobosMedical_AnaesthesiaMachine</li>
     </value>
   </Operation>
 </Patch>

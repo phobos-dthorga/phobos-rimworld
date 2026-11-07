@@ -34,6 +34,12 @@
   <PhobosMedical_AlarmBoth>Smoke and carbon monoxide alarm in the {ROOM}: get everyone out.</PhobosMedical_AlarmBoth>
   <PhobosMedical_AlarmWoke>It woke {COUNT} sleeping there.</PhobosMedical_AlarmWoke>
 
+  <PhobosMedical_NebuliserSwitchedOff>Switched off, so nobody gets a bronchodilator from it.</PhobosMedical_NebuliserSwitchedOff>
+  <PhobosMedical_NebuliserNoFuel>Out of bronchodilator: load vials made at a drug lab.</PhobosMedical_NebuliserNoFuel>
+  <PhobosMedical_NebuliserWaiting>Waiting for a patient whose airways have tightened after smoke.</PhobosMedical_NebuliserWaiting>
+  <PhobosMedical_NebuliserTreating>Giving a bronchodilator mist to {PATIENTS}.</PhobosMedical_NebuliserTreating>
+  <PhobosMedical_NebuliserNotNeeded>No tightened airways in {PATIENTS}, so no mist.</PhobosMedical_NebuliserNotNeeded>
+
   <PhobosMedical_BurnBedSwitchedOff>Blower switched off, so nobody gets air-cell care. It still works as a hospital bed.</PhobosMedical_BurnBedSwitchedOff>
   <PhobosMedical_BurnBedNoPower>Waiting for power for its blower. It still works as a hospital bed.</PhobosMedical_BurnBedNoPower>
   <PhobosMedical_BurnBedWaiting>Waiting for a patient with open burns.</PhobosMedical_BurnBedWaiting>
@@ -67,7 +73,7 @@ This letter is shown once.</PhobosMedical_GravshipLetterText>
 
   <PhobosMedical_DeviceRefusalAirwayShut>{PATIENT}'s airway is shut, so no air or oxygen can reach the lungs. The airway must be opened first.</PhobosMedical_DeviceRefusalAirwayShut>
   <PhobosMedical_DeviceRefusalNoDevice>{PATIENT} needs help breathing, but there is no field oxygen kit, manual resuscitator or intubation kit within reach.</PhobosMedical_DeviceRefusalNoDevice>
-  <PhobosMedical_DeviceRefusalNeedsSkill>{PATIENT} needs a breathing tube, but placing one takes a doctor with Medicine {SKILL} or better.</PhobosMedical_DeviceRefusalNeedsSkill>
+  <PhobosMedical_DeviceRefusalNeedsSkill>{PATIENT} needs something only a doctor with Medicine {SKILL} or better can do.</PhobosMedical_DeviceRefusalNeedsSkill>
   <PhobosMedical_DeviceRefusalAlreadyHasTube>{PATIENT} already has a breathing tube.</PhobosMedical_DeviceRefusalAlreadyHasTube>
   <PhobosMedical_DeviceRefusalAlreadyOnOxygen>{PATIENT} is already breathing supplied oxygen.</PhobosMedical_DeviceRefusalAlreadyOnOxygen>
 </LanguageData>

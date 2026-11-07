@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- A needle decompression kit, the second set's seventh piece, only with More Injuries (its collapsed lung is the one condition of pressure in
+       the chest). A field hold: it lets the trapped air out, taking 0.5 off the collapse (about a day of its worsening at 0.5 a day), never
+       clearing it, so its thoracotomy is still needed. Doctors with Medicine 5 or better use it by themselves (agent choice). Cost, work and
+       skill authored. Placeholder art. -->
+  <ThingDef ParentName="ResourceBase">
+    <defName>PhobosMedical_DecompressionKit</defName>
+    <label>needle decompression kit</label>
+    <description>A long, wide needle in a plastic sheath, for letting out air trapped in the chest when a collapsed lung is crushing the heart. It buys roughly a day; the lung still has to be repaired by an operation. Doctors with Medicine 5 or better use it by themselves when it is needed. Used up.</description>
+    <graphicData>
+      <texPath>Phobos/Medical/Things/DecompressionKit</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>0.7</drawSize>
+    </graphicData>
+    <stackLimit>10</stackLimit>
+    <techLevel>Industrial</techLevel>
+    <statBases>
+      <MaxHitPoints>40</MaxHitPoints>
+      <Mass>0.1</Mass>
+      <Flammability>0.6</Flammability>
+      <DeteriorationRate>2</DeteriorationRate>
+      <WorkToMake>400</WorkToMake>
+    </statBases>
+    <costList>
+      <Steel>3</Steel>
+      <Cloth>1</Cloth>
+    </costList>
+    <recipeMaker>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <recipeUsers>
+        <li>TableMachining</li>
+      </recipeUsers>
+      <researchPrerequisite>EmergencyMedicine</researchPrerequisite>
+      <skillRequirements>
+        <Crafting>3</Crafting>
+      </skillRequirements>
+    </recipeMaker>
+    <thingCategories>
+      <li>Manufactured</li>
+    </thingCategories>
+    <modExtensions>
+      <li Class="Phobos.Medical.Defs.PhobosPatientDeviceExtension">
+        <need>Decompression</need>
+        <treatment>PhobosMedical_ChestNeedle</treatment>
+        <workTicks>300</workTicks>
+        <consumed>true</consumed>
+        <minMedicineSkill>5</minMedicineSkill>
+      </li>
+    </modExtensions>
+  </ThingDef>
+
+  <!-- What the needle leaves: a cannula in the chest wall for about a day (authored). -->
+  <HediffDef>
+    <defName>PhobosMedical_ChestNeedle</defName>
+    <label>chest needle</label>
+    <labelNoun>a chest needle</labelNoun>
+    <description>A needle left in the chest wall to let trapped air out. It has bought time, not a cure: the collapsed lung still has to be repaired by an operation.</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <defaultLabelColor>(0.6, 0.7, 0.9)</defaultLabelColor>
+    <initialSeverity>1</initialSeverity>
+    <maxSeverity>1</maxSeverity>
+    <isBad>false</isBad>
+    <tendable>false</tendable>
+    <everCurableByItem>false</everCurableByItem>
+    <scenarioCanAdd>false</scenarioCanAdd>
+    <comps>
+      <li Class="HediffCompProperties_SeverityPerDay">
+        <severityPerDay>-1</severityPerDay>
+      </li>
+    </comps>
+    <stages>
+      <li>
+        <painOffset>0.05</painOffset>
+      </li>
+    </stages>
+  </HediffDef>
+</Defs>

@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- A nebuliser, the second set's fifth piece (owner's order, 7 Nov 2026). Built against a hospital bed. It eases airway spasm after smoke
+       by turning a bronchodilator into a mist the patient breathes; the drug is its own vial, burned as fuel (agent choice: Emergency Dosing
+       gives drugs that already exist by their effect, and nothing in the game opens airways). Power, cost, the rate and the effect authored.
+       Placeholder art. -->
+  <ThingDef ParentName="BuildingBase">
+    <defName>PhobosMedical_Nebuliser</defName>
+    <label>nebuliser</label>
+    <description>A small bedside compressor that turns a liquid drug into a fine mist breathed through a mask. Loaded with bronchodilator vials, it opens airways that have tightened after breathing smoke, so the patient breathes easier. Build it against a hospital bed: anyone in that bed whose airways are in spasm gets it by themselves.
+
+It does not repair damaged lungs or clear carbon monoxide.</description>
+    <graphicData>
+      <texPath>Phobos/Medical/Things/Nebuliser</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>(1,1)</drawSize>
+      <shadowData>
+        <volume>(0.4, 0.25, 0.4)</volume>
+      </shadowData>
+    </graphicData>
+    <altitudeLayer>Building</altitudeLayer>
+    <passability>PassThroughOnly</passability>
+    <fillPercent>0.2</fillPercent>
+    <rotatable>false</rotatable>
+    <tickerType>Rare</tickerType>
+    <statBases>
+      <MaxHitPoints>60</MaxHitPoints>
+      <WorkToBuild>1500</WorkToBuild>
+      <Mass>6</Mass>
+      <Flammability>0.7</Flammability>
+    </statBases>
+    <size>(1,1)</size>
+    <costList>
+      <Steel>20</Steel>
+      <ComponentIndustrial>1</ComponentIndustrial>
+    </costList>
+    <researchPrerequisites>
+      <li>MedicineProduction</li>
+    </researchPrerequisites>
+    <building>
+      <destroySound>BuildingDestroyed_Metal_Small</destroySound>
+    </building>
+    <designationCategory>Misc</designationCategory>
+    <minifiedDef>MinifiedThing</minifiedDef>
+    <thingCategories>
+      <li>BuildingsMisc</li>
+    </thingCategories>
+    <placeWorkers>
+      <li>PlaceWorker_ShowFacilitiesConnections</li>
+    </placeWorkers>
+    <comps>
+      <li Class="CompProperties_Power">
+        <compClass>CompPowerTrader</compClass>
+        <shortCircuitInRain>true</shortCircuitInRain>
+        <basePowerConsumption>60</basePowerConsumption>
+      </li>
+      <li Class="CompProperties_Flickable"/>
+      <li Class="CompProperties_Refuelable">
+        <fuelLabel>bronchodilator</fuelLabel>
+        <fuelGizmoLabel>Bronchodilator</fuelGizmoLabel>
+        <outOfFuelMessage>Needs bronchodilator vials</outOfFuelMessage>
+        <fuelCapacity>10</fuelCapacity>
+        <initialFuelPercent>0</initialFuelPercent>
+        <autoRefuelPercent>0.3</autoRefuelPercent>
+        <consumeFuelOnlyWhenUsed>true</consumeFuelOnlyWhenUsed>
+        <showFuelGizmo>true</showFuelGizmo>
+        <fuelFilter>
+          <thingDefs>
+            <li>PhobosMedical_BronchodilatorVial</li>
+          </thingDefs>
+        </fuelFilter>
+      </li>
+      <li Class="CompProperties_Facility">
+        <maxSimultaneous>1</maxSimultaneous>
+        <mustBePlacedAdjacent>true</mustBePlacedAdjacent>
+      </li>
+      <li Class="Phobos.Medical.Comps.CompProperties_PhobosBedsideTreatment">
+        <tag>Bronchospasm</tag>
+        <treatment>PhobosMedical_Nebulised</treatment>
+        <maxPatients>1</maxPatients>
+        <!-- A vial lasts about four in-game hours of treatment (authored). -->
+        <fuelPerPatientHour>0.25</fuelPerPatientHour>
+        <statusKeyPrefix>PhobosMedical_Nebuliser</statusKeyPrefix>
+      </li>
+    </comps>
+  </ThingDef>
+
+  <!-- The anaesthesia machine, the second set's sixth piece. Built against a hospital bed like a vitals monitor: safer anaesthesia means safer
+       surgery, through the game's own surgery success factor on the bed (+8%, authored; the vitals monitor gives +5%). Placeholder art. -->
+  <ThingDef ParentName="BuildingBase">
+    <defName>PhobosMedical_AnaesthesiaMachine</defName>
+    <label>anaesthesia machine</label>
+    <description>Vaporisers, flow meters and a breathing circuit on a trolley, for keeping a patient safely asleep through an operation and watching their breathing while they are under. Build it against a hospital bed: operations in that bed go better.</description>
+    <graphicData>
+      <texPath>Phobos/Medical/Things/AnaesthesiaMachine</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>(1,1)</drawSize>
+      <shadowData>
+        <volume>(0.5, 0.35, 0.45)</volume>
+      </shadowData>
+    </graphicData>
+    <altitudeLayer>Building</altitudeLayer>
+    <passability>PassThroughOnly</passability>
+    <fillPercent>0.25</fillPercent>
+    <rotatable>false</rotatable>
+    <statBases>
+      <MaxHitPoints>90</MaxHitPoints>
+      <WorkToBuild>5000</WorkToBuild>
+      <Mass>30</Mass>
+      <Flammability>0.7</Flammability>
+    </statBases>
+    <size>(1,1)</size>
+    <costList>
+      <Steel>60</Steel>
+      <ComponentIndustrial>4</ComponentIndustrial>
+    </costList>
+    <researchPrerequisites>
+      <li>VitalsMonitor</li>
+    </researchPrerequisites>
+    <building>
+      <destroySound>BuildingDestroyed_Metal_Small</destroySound>
+    </building>
+    <designationCategory>Misc</designationCategory>
+    <minifiedDef>MinifiedThing</minifiedDef>
+    <thingCategories>
+      <li>BuildingsMisc</li>
+    </thingCategories>
+    <constructionSkillPrerequisite>5</constructionSkillPrerequisite>
+    <placeWorkers>
+      <li>PlaceWorker_ShowFacilitiesConnections</li>
+    </placeWorkers>
+    <comps>
+      <li Class="CompProperties_Power">
+        <compClass>CompPowerTrader</compClass>
+        <shortCircuitInRain>true</shortCircuitInRain>
+        <basePowerConsumption>150</basePowerConsumption>
+      </li>
+      <li Class="CompProperties_Flickable"/>
+      <li Class="CompProperties_Facility">
+        <statOffsets>
+          <SurgerySuccessChanceFactor>0.08</SurgerySuccessChanceFactor>
+        </statOffsets>
+        <maxSimultaneous>1</maxSimultaneous>
+        <mustBePlacedAdjacent>true</mustBePlacedAdjacent>
+      </li>
+    </comps>
+  </ThingDef>
+
+  <!-- The steriliser, the second set's last piece. An autoclave keeps instruments clean; in the game that is the room's cleanliness, which
+       already lowers infection and raises surgery success, so the steriliser adds to it (agent choice; the record calls it the weakest of the
+       eight because it overlaps with cleanliness). Cleanliness 4 is about seven sterile tiles' worth (each 0.6), authored. Heated by its own
+       burner, so it needs no power (agent choice). Placeholder art. -->
+  <ThingDef ParentName="BuildingBase">
+    <defName>PhobosMedical_Steriliser</defName>
+    <label>steriliser</label>
+    <description>A pressure steam steriliser, an autoclave, for cleaning instruments and dressings between patients. A room with one in it counts as cleaner, so wounds tended and operations done there are less likely to become infected.</description>
+    <graphicData>
+      <texPath>Phobos/Medical/Things/Steriliser</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>(1,1)</drawSize>
+      <shadowData>
+        <volume>(0.5, 0.4, 0.5)</volume>
+      </shadowData>
+    </graphicData>
+    <altitudeLayer>Building</altitudeLayer>
+    <passability>PassThroughOnly</passability>
+    <fillPercent>0.4</fillPercent>
+    <rotatable>false</rotatable>
+    <statBases>
+      <MaxHitPoints>120</MaxHitPoints>
+      <WorkToBuild>2500</WorkToBuild>
+      <Mass>40</Mass>
+      <Flammability>0.3</Flammability>
+      <Cleanliness>4</Cleanliness>
+    </statBases>
+    <size>(1,1)</size>
+    <costList>
+      <Steel>60</Steel>
+      <ComponentIndustrial>2</ComponentIndustrial>
+    </costList>
+    <researchPrerequisites>
+      <li>MedicineProduction</li>
+    </researchPrerequisites>
+    <building>
+      <destroySound>BuildingDestroyed_Metal_Small</destroySound>
+    </building>
+    <designationCategory>Misc</designationCategory>
+    <minifiedDef>MinifiedThing</minifiedDef>
+    <thingCategories>
+      <li>BuildingsMisc</li>
+    </thingCategories>
+  </ThingDef>
+</Defs>

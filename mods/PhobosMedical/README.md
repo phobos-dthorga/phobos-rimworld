@@ -486,6 +486,14 @@ burn dressings for burns; and an electrolyser and a liquid oxygen store to make 
   The cool water eases the pain for a few hours. **With Dubs Bad Hygiene, lay plumbing to the shower:** each rinse takes about 1,100
   litres (23 when only the eyes are burned), the real standard's figure, and a dry shower says so. Without it, water is assumed. The
   acid has its own setting in the burns section.
+- **New in 0.7.0: the nebuliser, the anaesthesia machine and the steriliser** (not yet tested in game). **The nebuliser** goes against a
+  hospital bed and eases airways that tightened after smoke: load it with **bronchodilator vials**, made at a drug lab from neutroamine.
+  **The anaesthesia machine** goes against a hospital bed like a vitals monitor and makes **operations in that bed 8% likelier to
+  succeed**. **The steriliser** makes the room it stands in count as cleaner (about seven sterile tiles' worth), which lowers infection
+  and helps surgery; a room already spotless gains little from it.
+- **New in 0.7.0, with More Injuries: the needle decompression kit** (not yet tested in game). For a collapsed lung crushing the heart: a
+  doctor with **Medicine 5 or better** uses it by themselves and **buys about a day**. **The lung still needs its operation**: the kit
+  never clears it.
 - **New in 0.7.0, with Vanilla Gravship Expanded: the oxygen cylinder trolley** (not yet tested in game). **It needs no bed**: set it
   down next to anyone lying in the next cell, in a bed or on the floor, and if they need oxygen they get it. It is quick to pick up and
   move (uninstall it, then place it), so take it to a casualty who can't be moved yet. One patient at a time, 40 canisters' worth.
@@ -503,7 +511,8 @@ burn dressings for burns; and an electrolyser and a liquid oxygen store to make 
 - **Oxygen canisters, and the field kits made from them, explode when they burn.** That is Vanilla Gravship Expanded's rule.
 - **Silver burn dressings are a medicine.** Doctors use them for any tend, like herbal or industrial medicine, under the medical care setting that allows them (normal medicine or better).
 - **Move patients out of the burning room.** A patient on oxygen still takes in the carbon monoxide around them.
-- **Some art is a placeholder:** the electrolyser, the hyperbaric chamber, the ventilator, the intubation kit, the safety shower, the alarm and the oxygen trolley, until generated art is picked. The rest is AI-generated art picked by the owner on 5 and 7 November 2026; only the burn unit bed has been seen in game. The records beside the textures say how each was made.
+- **Some art is a placeholder:** the electrolyser, the hyperbaric chamber, the ventilator, the intubation kit, the safety shower, the alarm, the oxygen trolley, the nebuliser and its vials, the anaesthesia machine, the
+  needle decompression kit and the steriliser, until generated art is picked. The rest is AI-generated art picked by the owner on 5 and 7 November 2026; only the burn unit bed has been seen in game. The records beside the textures say how each was made.
 
 ### What it does
 
@@ -517,6 +526,11 @@ burn dressings for burns; and an electrolyser and a liquid oxygen store to make 
 | Ventilator (new in 0.7.0) | Bedside machine | Power (200 W) | 1 patient with a breathing tube, in a bed it touches | Medicine production |
 | Safety shower and eyewash (new in 0.7.0) | Building, stood on | Water: about 1,100 litres a rinse (23 for eyes alone), from Dubs Bad Hygiene's plumbing if active | Anyone who walks to it; doctors draw water here for patients | None |
 | Oxygen cylinder trolley (new in 0.7.0) | Movable building | 1 oxygen canister per patient per in-game hour (holds 40), or an oxygen pipe | 1 patient lying in any cell beside it, in a bed or on the floor | Medicine production and Oxygen Network |
+| Nebuliser (new in 0.7.0) | Bedside machine | Power (60 W) and bronchodilator vials, about one per 4 in-game hours of treatment | 1 patient whose airways tightened after smoke, in a bed it touches | Medicine production |
+| Bronchodilator vial (new in 0.7.0) | Item, the nebuliser's fuel | 4 from 1 neutroamine at a drug lab | | Drug production |
+| Anaesthesia machine (new in 0.7.0) | Bedside machine | Power (150 W) | Surgery in a bed it touches: +8% success | Vitals monitor |
+| Needle decompression kit (new in 0.7.0, More Injuries only) | Item, used up | Made from 3 steel and 1 cloth at a machining table; a doctor with Medicine 5 or better | One patient with a collapsed lung | Emergency medicine |
+| Steriliser (new in 0.7.0) | Building | Nothing | The room it stands in counts as cleaner | Medicine production |
 | Carbon monoxide and smoke alarm (new in 0.7.0) | Ceiling fixture, takes no floor space | Power (5 W) | The room it hangs in | Electricity |
 | Intubation kit (new in 0.7.0) | Item, used up | Made from 3 steel and 2 cloth at a machining table; a doctor with Medicine 4 or better | One patient | Medicine production |
 | Silver burn dressing | Medicine | Made from 2 cloth, 4 silver and 1 neutroamine at a drug lab | Any tend | Medicine production |

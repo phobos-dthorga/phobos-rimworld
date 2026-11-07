@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Phobos.Framework.Defs;
 using Phobos.Medical.Rules;
 using RimWorld;
@@ -36,6 +37,26 @@ public class PhobosMedicalRulesDef : PhobosRulesDef
 /// </summary>
 public class PhobosOpenAirwayExtension : DefModExtension
 {
+}
+
+/// <summary>
+/// Marks a condition a bedside machine treats, by a tag the machine names (the nebuliser's is "Bronchospasm"), from a severity. Matched by
+/// this extension, never by name, so other mods' conditions and machines join in XML.
+/// </summary>
+public class PhobosBedsideTreatableExtension : DefModExtension
+{
+    public List<string> tags = new();
+    public float minSeverity;
+}
+
+/// <summary>
+/// Marks a condition of pressure building in the chest (a collapsed lung under tension) that a needle decompression kit relieves: it takes
+/// <see cref="severityRelieved"/> off, never below a trace, from <see cref="minSeverity"/>. It buys time; the operation still has to follow.
+/// </summary>
+public class PhobosPressureReliefExtension : DefModExtension
+{
+    public float minSeverity = 0.2f;
+    public float severityRelieved = 0.5f;
 }
 
 /// <summary>Marks a condition of the upper airway that a breathing tube bypasses (a swollen, burned airway): fitting a tube removes it.</summary>

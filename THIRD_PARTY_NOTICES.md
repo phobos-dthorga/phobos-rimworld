@@ -71,7 +71,8 @@ Nothing from Dubs Bad Hygiene is in this repository.
   tracheotomy behind its Emergency Medicine research, and reads its fire inhalation setting by name at runtime (D'thorga Medical
   0.7.0; before that, an XML patch removed that worker from its registration list). From 0.7.0 its handlers also start its
   gangrene on a limb an eschar has starved, and a fluids bill of ours uses its saline bag by defName, loaded only while it is active.
-- **Medical Equipment** marks its two hypoxia conditions as helped by oxygen, and healed faster on it, in XML.
+- **Medical Equipment** marks its two hypoxia conditions as helped by oxygen, and healed faster on it, and its collapsed lung as
+  relieved by our needle decompression kit (only defined while it is active), in XML.
 - **Triage** finds its operations by the condition each recipe removes, as it finds any mod's, and never names it in code. Its
   mechanite therapy for brain damage names nothing it removes, so an XML patch lists the five conditions it treats.
 
@@ -97,7 +98,7 @@ the ignored `.local/`.
 - **D'thorga Framework** reads the public setting `Controller.settings.SmokeEffects`, the condition `SmokeInhalation` and the
   stat `SmokeSensitivity` by name at runtime.
 - **Burns and Smoke** patches one of its Defs (`BurnSecondary`) and adds a tooltip comp to its smoke inhalation, in XML.
-- **Medical Equipment** marks its smoke inhalation as helped by oxygen and its burns as burns for the burn unit bed, in XML.
+- **Medical Equipment** marks its smoke inhalation as helped by oxygen and by the nebuliser, and its burns as burns for the burn unit bed, in XML.
 - **Factory Additions** adds a medicine granulator bill for CE's psycho in XML.
 - **Vehicle Patches** sets Combat Extended values on the Harrier's bombs and on Spaceship Turret Hull's turrets, in XML.
 - **D'thorga Patches' missile part** reads Combat Extended's public `Controller.settings` and changes its wall-fragment fields

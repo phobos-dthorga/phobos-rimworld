@@ -1,8 +1,6 @@
 # Medical equipment, second set: design (7 Nov 2026)
 
-A design record. **Built so far** (D'thorga Medical 0.7.0, not yet tested in game): the ventilator and its intubation kit, the safety
-shower and eyewash, the carbon monoxide and smoke alarm, the oxygen cylinder trolley;
-see Built below. The owner chose all eight proposals from the
+A design record. **All eight pieces are built** (D'thorga Medical 0.7.0, 7 Nov 2026, not yet tested in game); see Built below. The owner chose all eight proposals from the
 [art backlog](art-backlog.md#proposed-medical-equipment-agent-ideas-6-nov-2026-for-the-owner) for D'thorga Medical Equipment (7 Nov
 2026), in this order. The first set (oxygen, burn care, the field kit and the hand pump) is in the [medical equipment record](medical-equipment.md).
 
@@ -82,11 +80,32 @@ cylinders' worth), light and quick to pick up (work 300); all authored. Pipes li
 stand. The cylinders are drawn in the oxygen network's colour: the real Australian colour code from the design is still unverified, so
 it is not used.
 
+**Nebuliser** (7 Nov 2026). The drug is its own **bronchodilator vial**, burned as fuel, made at a drug lab, 4 from 1 neutroamine
+(agent choice: Emergency Dosing gives drugs that already exist by their effect, and nothing in the game opens airways, so the drug
+lives here). A new generic comp, `CompProperties_PhobosBedsideTreatment`, treats patients in linked beds who carry a condition tagged
+for it (`PhobosBedsideTreatableExtension`, tag `Bronchospasm`): our acute smoke inhalation, and Combat Extended's smoke inhalation by
+a patch, from severity 0.1. The mist adds 0.15 breathing up to normal; a vial per four hours; 60 W (all authored). The three copies of
+"patients in linked beds" became one helper.
+
+**Anaesthesia machine** (7 Nov 2026): XML only, a bedside facility adding 0.08 to the bed's `SurgerySuccessChanceFactor` (the vitals
+monitor adds 0.05; authored), 150 W, behind the vitals monitor research. It does not touch Emergency Dosing: the game's own
+anaesthetic is applied by the operation itself.
+
+**Needle decompression kit** (7 Nov 2026, More Injuries only). **The collapsed lung is More Injuries' `LungCollapse`**, a condition
+that worsens 0.5 a day through obstructive shock stages to cardiac arrest and is removed only by its thoracotomy. A patch marks it
+`PhobosPressureReliefExtension` (from severity 0.2, its first shock stage); the kit is a device with a new need, `Decompression`,
+Medicine 5 (agent choice), taking 0.5 off (about a day) and never below a trace, so the operation is still offered. It leaves a chest
+needle condition for a day. The item exists only with More Injuries.
+
+**Steriliser** (7 Nov 2026): XML only. Cleanliness 4 counted into the room's cleanliness (about seven sterile tiles at 0.6), which the
+game already turns into lower infection and better surgery. Unpowered, heated by its own burner (agent choice), so its effect never
+depends on power that would not show in the stat.
+
 ## Open questions
 
 | Question | For |
 | --- | --- |
 | The ventilator's intubation: a job any doctor can do, or a surgery bill? **Answered: a doctor job (owner, 7 Nov 2026); built with a kit and Medicine 4** | Owner |
 | Does the alarm also wake sleeping pawns in the room? | Owner |
-| The anaesthesia machine and the nebuliser need Emergency Dosing to give a drug by machine. Built in Dosing (shared) or here? | Agent, when it starts |
-| Which More Injuries condition is the collapsed lung, and what it already allows | Agent, from its Defs |
+| The anaesthesia machine and the nebuliser need Emergency Dosing to give a drug by machine. Built in Dosing (shared) or here? **Answered: here; the nebuliser has its own vial, the anaesthesia machine needs no drug** | Agent, when it starts |
+| Which More Injuries condition is the collapsed lung, and what it already allows. **Answered: `LungCollapse`, removed only by its thoracotomy** | Agent, from its Defs |

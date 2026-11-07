@@ -9,6 +9,8 @@ public enum DeviceNeed
     BreathingAssist,
     /// <summary>An intubation kit: a breathing tube past a closing upper airway, or for a ventilator to breathe through.</summary>
     Intubation,
+    /// <summary>A needle decompression kit: pressure building in the chest, to relieve until the operation.</summary>
+    Decompression,
 }
 
 /// <summary>Why a doctor won't use a device on a patient, most urgent first: when several devices refuse, the lowest is the one to tell.</summary>
@@ -58,6 +60,12 @@ public static class DeviceRule
         if (hasTube) return DeviceRefusal.AlreadyHasTube;
         return airwayClosing || ventilatorWaiting ? DeviceRefusal.None : DeviceRefusal.NotNeeded;
     }
+
+    /// <summary>A needle helps pressure in the chest worth relieving; nothing else.</summary>
+    public static DeviceRefusal Decompression(bool pressureToRelieve) => pressureToRelieve ? DeviceRefusal.None : DeviceRefusal.NotNeeded;
+
+    /// <summary>The severity left after a needle: the relief taken off, never below a trace, so the condition (and its operation) stays.</summary>
+    public static float AfterRelief(float severity, float relieved, float trace) => severity - relieved < trace ? trace : severity - relieved;
 
     /// <summary>Whether a refusal is worth showing in the right-click menu: not "breathes well enough", which is simply normal.</summary>
     public static bool WorthTelling(DeviceRefusal refusal) => refusal is not (DeviceRefusal.None or DeviceRefusal.NotNeeded);

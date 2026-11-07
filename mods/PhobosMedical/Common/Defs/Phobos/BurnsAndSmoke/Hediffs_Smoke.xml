@@ -390,6 +390,13 @@
       </li>
     </stages>
     <modExtensions>
+      <li Class="Phobos.Medical.Defs.PhobosBedsideTreatableExtension">
+        <!-- Smoke tightens the airways; a nebuliser's bronchodilator eases it (D'thorga Medical 0.7.0). -->
+        <tags>
+          <li>Bronchospasm</li>
+        </tags>
+        <minSeverity>0.1</minSeverity>
+      </li>
       <li Class="Phobos.Framework.Breathing.PhobosOxygenResponsiveExtension">
         <minSeverity>0.1</minSeverity>
       </li>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- A bronchodilator mist: breathing +0.15 with a ceiling at normal while it runs (authored), lingering 600 ticks after the machine's last
+       pass (250). It opens tightened airways; it repairs nothing. -->
+  <HediffDef>
+    <defName>PhobosMedical_Nebulised</defName>
+    <label>nebulised bronchodilator</label>
+    <labelNoun>a nebulised bronchodilator</labelNoun>
+    <description>This patient is breathing a mist of a drug that relaxes tightened airways, so air moves more easily. It lasts while the nebuliser runs and a little after. It does not repair damaged lungs.</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <defaultLabelColor>(0.55, 0.8, 0.95)</defaultLabelColor>
+    <isBad>false</isBad>
+    <tendable>false</tendable>
+    <everCurableByItem>false</everCurableByItem>
+    <scenarioCanAdd>false</scenarioCanAdd>
+    <comps>
+      <li Class="Phobos.Framework.Health.HediffCompProperties_PhobosTreatment">
+        <lingerTicks>600</lingerTicks>
+      </li>
+    </comps>
+    <stages>
+      <li>
+        <capMods>
+          <li>
+            <capacity>Breathing</capacity>
+            <offset>0.15</offset>
+            <setMax>1</setMax>
+          </li>
+        </capMods>
+      </li>
+    </stages>
+  </HediffDef>
+</Defs>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <!-- More Injuries' collapsed lung is pressure in the chest a needle relieves, from its first obstructive shock stage (0.2). -->
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>Defs/HediffDef[defName="LungCollapse"]</xpath>
+    <value>
+      <li Class="Phobos.Medical.Defs.PhobosPressureReliefExtension">
+        <minSeverity>0.2</minSeverity>
+        <severityRelieved>0.5</severityRelieved>
+      </li>
+    </value>
+  </Operation>
+</Patch>
