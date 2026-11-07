@@ -3,6 +3,7 @@ using IRBM;
 using LudeonTK;
 using Phobos.Framework.Debug;
 using Phobos.Framework.Work;
+using Phobos.MissilePatches.Strike;
 using RimWorld;
 using Verse;
 
@@ -22,6 +23,22 @@ public static class MissilePatchesDebugActions
             penetrateThickRoof: false, lockCorePart: true, completeDismantle: false);
     }
 
+    [DebugAction(DebugCategory.Name, "Missile Patches: strike current map with D'thorga's blast model (destroys the centre)",
+        actionType = DebugActionType.Action, allowedGameStates = AllowedGameStates.PlayingOnMap)]
+    public static void StrikeWithBlastModel()
+    {
+        // The extinction-class warhead's own payload and zones, through the launcher a real missile uses (no missile: a third-party letter).
+        MissileWarheadDef? warhead = DefDatabase<MissileWarheadDef>.GetNamedSilentFail("IRBM_Warhead_Strategic_Standard");
+        var props = warhead?.payloadComps?.Find(comp => comp is WorldObjectCompProperties_StrategicPayload) as WorldObjectCompProperties_StrategicPayload;
+        PhobosStrikeExtension? zones = warhead?.GetModExtension<PhobosStrikeExtension>();
+        if (props == null || zones == null)
+        {
+            Log.Warning(MissilePatchesMod.LogPrefix + " The extinction-class warhead or its strike zones were not found; nothing was struck.");
+            return;
+        }
+        StrikeLauncher.Launch(null, props, zones, new List<Map> { Find.CurrentMap }, null);
+    }
+
     [DebugAction(DebugCategory.Name, "Missile Patches: log blast queue", actionType = DebugActionType.Action, allowedGameStates = AllowedGameStates.Playing)]
     public static void LogQueue()
     {
@@ -31,6 +48,7 @@ public static class MissilePatchesDebugActions
             text.Append("\n  ").Append(work.Label).Append(work.Started ? ", started " + work.SecondsSinceStart.ToString("0.0") + " s ago, "
                 + work.Frames + " frames, " + work.WorkMs.ToString("0") + " ms of work" : ", waiting");
             if (work is IrbmSweep sweep) text.Append(", at ").Append(sweep.Next).Append(" of ").Append(sweep.Count).Append(", passes ").Append(sweep.Passes);
+            if (work is StrikeWork strike) text.Append(", at ").Append(strike.Next).Append(" of ").Append(strike.Count).Append(strike.Full ? ", full strike" : ", heat and fallout");
         }
         text.Append("\n  Room rebuilds can be held: ").Append(RoomRebuildHold.Available).Append(". Combat Extended's fragments: ")
             .Append(CombatExtendedFragments.Present ? (CombatExtendedFragments.OnInCombatExtended ? "on in its settings" : "off in its settings") : "not found");

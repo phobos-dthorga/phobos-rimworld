@@ -4,6 +4,7 @@ using HarmonyLib;
 using Phobos.Framework;
 using Phobos.Framework.Work;
 using Phobos.MissilePatches.Rules;
+using Phobos.MissilePatches.Strike;
 using Phobos.Shared;
 using UnityEngine;
 using Verse;
@@ -22,6 +23,17 @@ public class MissilePatchesSettings : ModSettings
     public CorpseMode corpses = CorpseMode.Vaporised;
     public FragmentMode fragments = FragmentMode.None;
     public bool messages = true;
+    public bool blastModel = true;
+    public bool fullStrikeEverywhere;
+    public FireMode fires = FireMode.Moderate;
+    public FalloutMode fallout = FalloutMode.Automatic;
+    public int falloutClouds = MaxFalloutClouds;
+    public bool radiation = true;
+    public bool pollution = true;
+    public bool emp = true;
+
+    /// <summary>Dubs Rimatomics' own high-yield strike makes six (WorldObject_ICBMfission, read 7 Nov 2026).</summary>
+    public const int MaxFalloutClouds = 6;
 
     public override void ExposeData()
     {
@@ -35,19 +47,28 @@ public class MissilePatchesSettings : ModSettings
         Scribe_Values.Look(ref corpses, "PhobosMissilePatches_Corpses", CorpseMode.Vaporised);
         Scribe_Values.Look(ref fragments, "PhobosMissilePatches_Fragments", FragmentMode.None);
         Scribe_Values.Look(ref messages, "PhobosMissilePatches_Messages", true);
+        Scribe_Values.Look(ref blastModel, "PhobosMissilePatches_BlastModel", true);
+        Scribe_Values.Look(ref fullStrikeEverywhere, "PhobosMissilePatches_FullStrikeEverywhere", false);
+        Scribe_Values.Look(ref fires, "PhobosMissilePatches_Fires", FireMode.Moderate);
+        Scribe_Values.Look(ref fallout, "PhobosMissilePatches_Fallout", FalloutMode.Automatic);
+        Scribe_Values.Look(ref falloutClouds, "PhobosMissilePatches_FalloutClouds", MaxFalloutClouds);
+        Scribe_Values.Look(ref radiation, "PhobosMissilePatches_Radiation", true);
+        Scribe_Values.Look(ref pollution, "PhobosMissilePatches_Pollution", true);
+        Scribe_Values.Look(ref emp, "PhobosMissilePatches_Emp", true);
     }
 }
 
 /// <summary>
 /// D'thorga Patches' InterRim Ballistic Missile part (D'thorga Missile Patches until 7 November 2026; the namespace keeps the old
 /// name), switched on only while that mod is active (this assembly lives in its load folder). A strategic warhead's blast runs a slice
-/// per frame through D'thorga Framework's queue, by the missile mod's rules but without the costly damage path.
+/// per frame through D'thorga Framework's queue, by the missile mod's rules but without the costly damage path (0.8.0); a warhead
+/// marked as a blast gets D'thorga's own strike, with zones from ground zero and fallout (0.9.0).
 /// </summary>
 public class MissilePatchesMod : Mod
 {
     /// <summary>The Harmony ID is the packageId; never change it once the mod is published.</summary>
     public const string PackageId = "PhobosDthorga.Patches";
-    public const string ModVersion = "0.8.0";
+    public const string ModVersion = "0.9.0";
     public const string LogPrefix = "[D'thorga Patches]";
 
     public static MissilePatchesSettings Settings { get; private set; } = new();
@@ -89,6 +110,14 @@ public class MissilePatchesMod : Mod
         if (!Settings.holdRoomRebuilds) report.Off("rooms rebuilt once a frame during a blast", "setting");
         else if (!RoomRebuildHold.Available) report.Off("rooms rebuilt once a frame during a blast", "the game's room updater has no working flag");
         else report.On("rooms rebuilt once a frame during a blast");
+        if (Settings.blastModel)
+        {
+            report.On("D'thorga's blast model for marked warheads, " + (Settings.fullStrikeEverywhere ? "full strike on every map in reach" : "heat and fallout only beyond the target"));
+            report.On("fires " + Settings.fires + ", fallout " + Settings.fallout + (RimatomicsTieIn.Active ? " (Rimatomics active)" : " (Rimatomics not active)"));
+            if (!Settings.emp) report.Off("electromagnetic pulse", "setting");
+            if (!Settings.pollution) report.Off("ground pollution", "setting");
+        }
+        else report.Off("D'thorga's blast model", "setting");
         if (OptionalMods.IsActive(OptionalMods.CombatExtended))
         {
             if (CombatExtendedFragments.Present) report.On("Combat Extended's wall fragments during a strike: " + Settings.fragments
@@ -141,7 +170,38 @@ public class MissilePatchesMod : Mod
             SettingsUi.Warning(listing, warning);
             if (!CombatExtendedFragments.OnInCombatExtended) listing.Label("PhobosMissilePatches_FragmentsOffInCombatExtended".Translate());
         }
+        DrawAfterEffects(listing);
         scroll.End(listing);
+    }
+
+    static void DrawAfterEffects(Listing_Standard listing)
+    {
+        SettingsUi.Section(listing, "PhobosMissilePatches_SectionAfterEffects".Translate());
+        listing.CheckboxLabeled("PhobosMissilePatches_SettingBlastModel".Translate(), ref Settings.blastModel, "PhobosMissilePatches_SettingBlastModelDesc".Translate());
+        SettingsUi.Warning(listing, Settings.blastModel ? null : "PhobosMissilePatches_WarnBlastModelOff".Translate().ToString());
+        if (!Settings.blastModel) return;
+        listing.CheckboxLabeled("PhobosMissilePatches_SettingFullStrike".Translate(), ref Settings.fullStrikeEverywhere, "PhobosMissilePatches_SettingFullStrikeDesc".Translate());
+        SettingsUi.Warning(listing, Settings.fullStrikeEverywhere ? "PhobosMissilePatches_WarnFullStrike".Translate().ToString() : null);
+        SettingsUi.Choice(listing, "PhobosMissilePatches_SettingFires".Translate(), Settings.fires, (FireMode[])Enum.GetValues(typeof(FireMode)),
+            mode => ("PhobosMissilePatches_Fires" + mode).Translate(), mode => Settings.fires = mode, "PhobosMissilePatches_SettingFiresDesc".Translate());
+        SettingsUi.Warning(listing, Settings.fires >= FireMode.Moderate ? "PhobosMissilePatches_WarnFires".Translate().ToString() : null);
+        SettingsUi.Choice(listing, "PhobosMissilePatches_SettingFallout".Translate(), Settings.fallout, (FalloutMode[])Enum.GetValues(typeof(FalloutMode)),
+            mode => ("PhobosMissilePatches_Fallout" + mode).Translate(), mode => Settings.fallout = mode, "PhobosMissilePatches_SettingFalloutDesc".Translate());
+        if (Settings.fallout == FalloutMode.Automatic && RimatomicsTieIn.Active)
+        {
+            listing.Label("PhobosMissilePatches_SettingClouds".Translate(Settings.falloutClouds.Named("COUNT")), tooltip: "PhobosMissilePatches_SettingCloudsDesc".Translate());
+            Settings.falloutClouds = Mathf.RoundToInt(listing.Slider(Settings.falloutClouds, 0f, MissilePatchesSettings.MaxFalloutClouds));
+            listing.CheckboxLabeled("PhobosMissilePatches_SettingRadiation".Translate(), ref Settings.radiation, "PhobosMissilePatches_SettingRadiationDesc".Translate());
+        }
+        else if (Settings.fallout == FalloutMode.Automatic)
+        {
+            listing.Label("PhobosMissilePatches_RimatomicsAbsent".Translate());
+        }
+        if (ModsConfig.BiotechActive)
+        {
+            listing.CheckboxLabeled("PhobosMissilePatches_SettingPollution".Translate(), ref Settings.pollution, "PhobosMissilePatches_SettingPollutionDesc".Translate());
+        }
+        listing.CheckboxLabeled("PhobosMissilePatches_SettingEmp".Translate(), ref Settings.emp, "PhobosMissilePatches_SettingEmpDesc".Translate());
     }
 
     static float SliceBudget(float value) => value < IrbmBudgetRule.MinFrameBudgetMs ? IrbmBudgetRule.MinFrameBudgetMs

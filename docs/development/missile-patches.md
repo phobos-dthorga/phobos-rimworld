@@ -173,7 +173,7 @@ to back behind a "Detonating..." loading screen. One tile only, no time budget.
 shelter setting (default any rock roof, the owner's choice) keeps sheltered cells out of the snapshot; CE's fragments are off during a
 slice by default, through its settings object by name, put back after each slice; 40 ms a frame while the screen is white; repeat
 strikes fold into passes; the queue moved to D'thorga Framework (`FrameWorkQueue`). Settings and their cost warnings are in the
-README. Stage 2, a blast model of our own, follows.
+README. Stage 2, a blast model of our own for the extinction-class warhead, is in [strategic strike](strategic-strike.md) (0.9.0).
 
 ## Bug report to post (draft; the owner posts it)
 

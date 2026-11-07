@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- D'thorga's strategic strike: the figures to tune in play. One Def; the first loaded wins. Every figure is authored (a gameplay
+       choice for the owner to tune) unless the comment beside it names a source. At one metre per cell a real strategic warhead's
+       fireball would cover the whole map; the zones and curves exist for play, as Dubs Rimatomics' do. The zone radii themselves are
+       on each warhead (Patches/Phobos/Strike_Standard.xml). Player preferences (shelter, fires, fallout and the rest) are mod settings. -->
+  <Phobos.MissilePatches.Strike.PhobosStrikeRulesDef>
+    <defName>PhobosMissilePatches_StrikeRules</defName>
+    <label>strategic strike rules</label>
+
+    <!-- People in the blast zone take the falloff as Bomb damage times this, armour penetration 0, as Dubs Rimatomics' blast wave
+         does (NuclearStrike.BlastWavePawn, read 7 Nov 2026). Beyond the blast zone, times the thermal factor. -->
+    <pawnBlastFactor>1</pawnBlastFactor>
+    <pawnThermalBlastFactor>0.3</pawnThermalBlastFactor>
+    <!-- Burns: the falloff times this, split into hits of at most maxBurnPerHit over the skin, at most maxBurnHits of them, so
+         D'thorga Medical's burn load sees a burned body rather than one charred part. -->
+    <burnFactor>0.25</burnFactor>
+    <maxBurnPerHit>12</maxBurnPerHit>
+    <maxBurnHits>10</maxBurnHits>
+    <!-- Buildings and items beyond the blast zone take the falloff as Bomb damage times this. -->
+    <buildingThermalFactor>1</buildingThermalFactor>
+    <!-- A neighbouring map within the warhead's reach is treated as this many cells from ground zero. -->
+    <neighbourDistance>200</neighbourDistance>
+
+    <!-- The chance a cell catches fire in the blast zone, by the fires setting, falling to edge factor times that at the reach. A cell
+         with nothing flammable never catches. Dubs Rimatomics gives a quarter of surviving plants a fire. -->
+    <sparseFireChance>0.02</sparseFireChance>
+    <moderateFireChance>0.08</moderateFireChance>
+    <firestormFireChance>0.3</firestormFireChance>
+    <fireEdgeFactor>0.15</fireEdgeFactor>
+    <fireSize>0.5</fireSize>
+
+    <!-- In the blast zone, the chance of ash on a cell and of the ground being polluted (Biotech). The fireball zone gets both on every
+         cell. -->
+    <blastAshChance>0.5</blastAshChance>
+    <blastPollutionChance>0.35</blastPollutionChance>
+
+    <!-- The pulse: EMP damage to every powered building and mechanoid left standing outside shelter. The game stuns for 30 ticks per
+         point of EMP damage (StunHandler.StunDurationTicksPerDamage), so 400 is about three in-game hours. -->
+    <empAmount>400</empAmount>
+
+    <!-- With Dubs Rimatomics: radiation at the fireball's edge, falling with distance (its applyRads scales this by its own radiation
+         setting and the pawn's toxic resistance), and the chance of flash blindness at the fireball's edge, falling likewise. -->
+    <radiationStrength>5</radiationStrength>
+    <flashBlindChance>0.6</flashBlindChance>
+    <!-- Rimatomics' fallout on a struck map lasts this many days, and its drifting clouds live this many: the ranges its own strike
+         uses (NuclearStrike, WorldObject_ICBMfission.MakeFallout, read 7 Nov 2026). -->
+    <falloutDays>10~30</falloutDays>
+    <cloudLifespanDays>2~40</cloudLifespanDays>
+
+    <!-- The struck map's screen stays white until the fireball and blast zones are done, but never longer than this. While it is white
+         or fading back, a slice may take this many milliseconds. -->
+    <holdWhiteMaxSeconds>8</holdWhiteMaxSeconds>
+    <whiteScreenBudgetMs>40</whiteScreenBudgetMs>
+  </Phobos.MissilePatches.Strike.PhobosStrikeRulesDef>
+</Defs>

@@ -92,6 +92,11 @@ the ignored `.local/`.
 - **D'thorga Patches' missile part** reads Combat Extended's public `Controller.settings` and changes its wall-fragment fields
   (`fragmentsFromWalls`, `fragmentsFromWallsIntensity`) by name, in memory only, for the moments a strategic blast runs.
 
+D'thorga Patches' strike model reaches [Dubs Rimatomics](https://steamcommunity.com/sharedfiles/filedetails/?id=1127530465) by
+**Dubwise** by name only, while it is active: its `NuclearFallout` condition, `Fallout` world object, `FlashBlindness` hediff and
+`DubUtils.applyRads`. Its damage falloff curve is described in our own code and records, not copied. Nothing from it is in this
+repository or a build.
+
 ## Vehicle mods patched by D'thorga Vehicle Patches
 
 D'thorga Patches (`mods/PhobosPatches/`; D'thorga Vehicle Patches until 7 November 2026) changes values by name in XML and copies nothing:

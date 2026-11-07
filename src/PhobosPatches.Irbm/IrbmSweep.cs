@@ -28,10 +28,7 @@ public sealed class IrbmSweep : FrameWork
     bool fragmentsLive;
     CorpseMode corpses;
 
-    bool heldRooms;
-    CombatExtendedFragments.Override fragmentChange;
-    bool previousIgnore;
-    string? previousLabel;
+    readonly BlastSlice slice = new();
     bool longMessageShown;
 
     public IrbmSweep(Map map, DamageDef damageDef, float amount, float armorPen, Thing? launcher, string? sourceLabel,
@@ -150,24 +147,12 @@ public sealed class IrbmSweep : FrameWork
 
     protected override void BeginSlice()
     {
-        // The missile mod's own context for its damage patches: no damage multipliers, and the missile's name in the logs.
-        previousIgnore = IRBM_DamageContext.ignoreDamageMultipliers;
-        previousLabel = IRBM_DamageContext.currentDamageSourceLabel;
-        IRBM_DamageContext.ignoreDamageMultipliers = true;
-        IRBM_DamageContext.currentDamageSourceLabel = SourceLabel;
-        if (IRBM_DefOf.IRBM_MissileWeapon != null && !SourceLabel.NullOrEmpty()) IRBM_DefOf.IRBM_MissileWeapon.label = SourceLabel;
-        heldRooms = MissilePatchesMod.Settings.holdRoomRebuilds && RoomRebuildHold.TryHold(Map);
-        fragmentChange = CombatExtendedFragments.Apply(MissilePatchesMod.Settings.fragments);
+        slice.Begin(Map, SourceLabel);
     }
 
     protected override void EndSlice()
     {
-        CombatExtendedFragments.Restore(fragmentChange);
-        fragmentChange = default;
-        if (heldRooms) RoomRebuildHold.Release(Map);
-        heldRooms = false;
-        IRBM_DamageContext.ignoreDamageMultipliers = previousIgnore;
-        IRBM_DamageContext.currentDamageSourceLabel = previousLabel;
+        slice.End(Map);
         if (!longMessageShown && !Finished && SecondsSinceStart >= IrbmBudgetRule.LongBlastSeconds && MissilePatchesMod.Settings.messages)
         {
             longMessageShown = true;
@@ -238,7 +223,7 @@ public sealed class IrbmSweep : FrameWork
     /// A container's contents vanish with it, as in Dubs Rimatomics' nuke; a living pawn inside (a sleeper in a casket) is killed
     /// first, so it dies rather than being sent off the map alive.
     /// </summary>
-    static void EmptyHeldThings(Thing thing)
+    internal static void EmptyHeldThings(Thing thing)
     {
         if (thing is not IThingHolder holder) return;
         ThingOwner? owner = holder.GetDirectlyHeldThings();

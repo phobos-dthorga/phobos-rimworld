@@ -103,7 +103,7 @@ public static class FrameWorkQueue
     {
         if (Current.Game != game)
         {
-            queue.Clear();
+            Clear();
             game = Current.Game;
         }
         return game != null;

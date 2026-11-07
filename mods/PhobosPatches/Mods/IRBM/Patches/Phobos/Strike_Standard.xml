@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <!-- Marks the missile mod's extinction-class warhead as a blast for D'thorga's strike model. Its other strategic warheads (gamma ray,
+       deep freeze, storms, the dismantling and vacuum warheads) are not blasts and keep the missile mod's own effects, run fast.
+       Radii in cells, authored after Dubs Rimatomics' high-yield strike (reach 250, a fireball of a tenth of it); the blast zone's
+       edge, 110 cells, is where the falloff still carries about 200 damage. Another mod's warhead can take the same extension. -->
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>Defs/IRBM.MissileWarheadDef[defName="IRBM_Warhead_Strategic_Standard"]</xpath>
+    <value>
+      <li Class="Phobos.MissilePatches.Strike.PhobosStrikeExtension">
+        <fireballRadius>25</fireballRadius>
+        <blastRadius>110</blastRadius>
+        <reach>250</reach>
+        <fallout>true</fallout>
+        <emp>true</emp>
+        <pollution>true</pollution>
+      </li>
+    </value>
+  </Operation>
+</Patch>

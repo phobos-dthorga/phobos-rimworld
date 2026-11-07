@@ -40,6 +40,35 @@
   <PhobosMissilePatches_WarnFragmentsFull>About a hundred fragments per building, piling up while the game is paused until each one slows the next: a blast on a town can take tens of minutes.</PhobosMissilePatches_WarnFragmentsFull>
   <PhobosMissilePatches_FragmentsOffInCombatExtended>Wall fragments are switched off in Combat Extended's own settings, so this changes nothing.</PhobosMissilePatches_FragmentsOffInCombatExtended>
 
+  <PhobosMissilePatches_SectionAfterEffects>The blast, the heat and what follows</PhobosMissilePatches_SectionAfterEffects>
+  <PhobosMissilePatches_SettingBlastModel>Fireball, blast and heat by distance from ground zero</PhobosMissilePatches_SettingBlastModel>
+  <PhobosMissilePatches_SettingBlastModelDesc>For the extinction-class warhead: everything near the centre of the struck map is vaporised and the ground scoured; further out buildings fall and people burn; at the edges walls stand, plants wilt and fires start. Off, the warhead destroys everything on the map evenly.</PhobosMissilePatches_SettingBlastModelDesc>
+  <PhobosMissilePatches_WarnBlastModelOff>Off: no burns, wilting, ash or pulse, and the warhead's fires light a fifth of every cell on the map in a single moment.</PhobosMissilePatches_WarnBlastModelOff>
+  <PhobosMissilePatches_SettingFullStrike>Full strike on every settlement in range</PhobosMissilePatches_SettingFullStrike>
+  <PhobosMissilePatches_SettingFullStrikeDesc>Off, only the settlement the missile was aimed at takes the fireball and blast; other open maps within the warhead's reach get the heat, fires and fallout. On, each of them is struck as if it were ground zero.</PhobosMissilePatches_SettingFullStrikeDesc>
+  <PhobosMissilePatches_WarnFullStrike>Each map in range takes a full strike of its own, one after another: several times longer when you have more than one map open nearby.</PhobosMissilePatches_WarnFullStrike>
+  <PhobosMissilePatches_SettingFires>Fires beyond the blast</PhobosMissilePatches_SettingFires>
+  <PhobosMissilePatches_SettingFiresDesc>How many fires the heat starts in what is still standing, most near the blast and fewer towards the edges.</PhobosMissilePatches_SettingFiresDesc>
+  <PhobosMissilePatches_FiresNone>None</PhobosMissilePatches_FiresNone>
+  <PhobosMissilePatches_FiresSparse>Sparse</PhobosMissilePatches_FiresSparse>
+  <PhobosMissilePatches_FiresModerate>Moderate</PhobosMissilePatches_FiresModerate>
+  <PhobosMissilePatches_FiresFirestorm>Firestorm</PhobosMissilePatches_FiresFirestorm>
+  <PhobosMissilePatches_WarnFires>Hundreds to thousands of fires burn at once when the game runs again, and each costs a little every moment until it dies.</PhobosMissilePatches_WarnFires>
+  <PhobosMissilePatches_SettingFallout>Fallout and radiation</PhobosMissilePatches_SettingFallout>
+  <PhobosMissilePatches_SettingFalloutDesc>What settles on the land after the strike.</PhobosMissilePatches_SettingFalloutDesc>
+  <PhobosMissilePatches_FalloutAutomatic>Radioactive fallout where it can, otherwise nuclear winter</PhobosMissilePatches_FalloutAutomatic>
+  <PhobosMissilePatches_FalloutMissileWinterOnly>Nuclear winter only</PhobosMissilePatches_FalloutMissileWinterOnly>
+  <PhobosMissilePatches_FalloutNone>Nothing</PhobosMissilePatches_FalloutNone>
+  <PhobosMissilePatches_RimatomicsAbsent>Radioactive fallout, radiation sickness and flash blindness come from Dubs Rimatomics, which is not active, so the strike brings nuclear winter.</PhobosMissilePatches_RimatomicsAbsent>
+  <PhobosMissilePatches_SettingClouds>Fallout clouds drifting from the strike: {COUNT}</PhobosMissilePatches_SettingClouds>
+  <PhobosMissilePatches_SettingCloudsDesc>Clouds that drift across the world for days or weeks and bring fallout to any settlement they pass over.</PhobosMissilePatches_SettingCloudsDesc>
+  <PhobosMissilePatches_SettingRadiation>Radiation sickness and flash blindness for survivors</PhobosMissilePatches_SettingRadiation>
+  <PhobosMissilePatches_SettingRadiationDesc>Those who live through the strike in the open take a dose of radiation, worse nearer the centre, and may be blinded by the flash.</PhobosMissilePatches_SettingRadiationDesc>
+  <PhobosMissilePatches_SettingPollution>Ground pollution near the centre</PhobosMissilePatches_SettingPollution>
+  <PhobosMissilePatches_SettingPollutionDesc>The scoured ground at the centre is polluted, and patches of the ground around it.</PhobosMissilePatches_SettingPollutionDesc>
+  <PhobosMissilePatches_SettingEmp>Electromagnetic pulse</PhobosMissilePatches_SettingEmp>
+  <PhobosMissilePatches_SettingEmpDesc>Powered buildings and mechanoids still standing in the open stop for a few hours.</PhobosMissilePatches_SettingEmpDesc>
+
   <PhobosMissilePatches_BlastStillRunning>The blast is still tearing through {PLACE}.</PhobosMissilePatches_BlastStillRunning>
   <PhobosMissilePatches_BlastSpent>The blast over {PLACE} has spent itself.</PhobosMissilePatches_BlastSpent>
 </LanguageData>

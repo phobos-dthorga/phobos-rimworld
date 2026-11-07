@@ -6,6 +6,33 @@ says the owner tested it.
 
 ## [Unreleased]
 
+## [0.9.0] - 2026-11-07 - Draft
+
+Stage 2 of the owner-approved plan: a strike model of our own for the extinction-class warhead, after Dubs Rimatomics' nuke. Read from the mods' code; not yet tested in game.
+
+### Added
+
+- The extinction-class warhead strikes with a fireball, a blast zone and a heat zone around the centre of the struck map. In the fireball everything is gone and the ground is scoured, ashen and polluted; in the blast zone buildings, items and plants are gone and people take the blast and burns by distance; in the heat zone walls may stand, plants wilt, people burn and fires start, fewer towards the edge.
+- Burns are spread over the skin in several hits, so D'thorga Medical's burn load and shock see a burned body.
+- An electromagnetic pulse stops powered buildings and mechanoids still standing in the open for a few hours.
+- With Dubs Rimatomics: its radioactive fallout on each struck map for 10 to 30 days, up to six of its fallout clouds drifting across the world, radiation sickness for survivors in the open by distance, and flash blindness by chance. Without it, the missile mod's nuclear winter as before. No fallout in space.
+- Other settlements within the warhead's reach get the heat, fires and fallout, not the fireball and blast, unless the player chooses a full strike everywhere.
+- The screen stays white until the fireball and blast are done, at most 8 seconds.
+- Settings: the blast model, a full strike everywhere, fires, fallout, fallout clouds, radiation, ground pollution and the pulse, each with its cost shown when it has one.
+- Dev action: strike the current map with the blast model.
+
+### Changed
+
+- For the extinction-class warhead, the missile mod's own fires on a fifth of every cell in one moment are replaced by the fires of the heat zone, spread over moments. Its letter, flash, sound, cloud and world effects are unchanged. The other strategic warheads keep the missile mod's effects, run by the fast sweep.
+
+### Balance
+
+- Zones of 25 and 110 cells and a reach of 250, with Dubs Rimatomics' falloff curve: about 576 damage at the fireball's edge and 205 at the blast zone's edge. Burns a quarter of the falloff, heat-zone blast 0.3 of it, fire chances 0.02, 0.08 and 0.3 by setting, pulse 400 EMP. All authored, tunable in XML, for the owner's review.
+
+### Compatibility and limits
+
+- Dubs Rimatomics is optional and read by name only; Rimatomics++ keeps the names used. Ground zero is the map's centre, since the missile mod has no impact point on the map. A strike in progress is not saved.
+
 ## [0.8.0] - 2026-11-07 - Draft
 
 Owner's request: a strategic strike still took far too long after 0.7.0 (in the owner's game, 18 minutes and unfinished). Stage 1 of the owner-approved plan; read from the mods' code, not yet tested in game.

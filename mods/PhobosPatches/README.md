@@ -10,7 +10,7 @@ warhead's blast spread over frames instead of freezing the game).
 It replaces two earlier mods, merged into it on 7 November 2026: **D'thorga Vehicle Patches** and **D'thorga Missile Patches**
 ([why](../../docs/development/mod-consolidation.md)).
 
-Version 0.8.0, built 7 November 2026 for House D'thorga. **Not yet tested in game as D'thorga Patches.** The Harrier and turret hull
+Version 0.9.0, built 7 November 2026 for House D'thorga. **Not yet tested in game as D'thorga Patches.** The Harrier and turret hull
 parts are unchanged from Vehicle Patches 0.6.0 (not yet tested in game); the missile part was tried once by the owner, see
 [InterRim Ballistic Missile](#interrim-ballistic-missile).
 
@@ -53,6 +53,10 @@ parts are unchanged from Vehicle Patches 0.6.0 (not yet tested in game); the mis
   under thick). **With Combat Extended, wall fragments are off during a blast by default**: they were what made 0.7.0 crawl. All
   three are settings, and each choice that costs speed says so in amber. Wait for the message that a blast has spent itself before
   saving: a blast still running when you save is forgotten on load. See [InterRim Ballistic Missile](#interrim-ballistic-missile).
+- **InterRim Ballistic Missile: since 0.9.0 the extinction-class warhead strikes with a fireball, a blast zone and a thermal zone**
+  around the centre of the struck map (not yet tested in game). **Other settlements in range burn but stand** unless you choose a full
+  strike everywhere. **With Dubs Rimatomics, it brings Rimatomics' radioactive fallout** and drifting fallout clouds instead of the
+  missile mod's nuclear winter. The other strategic warheads keep the missile mod's own effects.
 - **Not yet tested in game,** except one missile run on 0.7.0. Everything else here is read from the mods' code and files.
 
 ## What it does
@@ -252,6 +256,29 @@ rubble, filth and leavings that grew the map's lists further.
   into passes of one sweep.
 - It runs through D'thorga Framework's shared queue, which any D'thorga mod can use for long jobs.
 
+### The extinction-class warhead: D'thorga's strike (0.9.0)
+
+The missile mod's one true blast warhead now strikes with a shape, after Dubs Rimatomics' own nuke. **Ground zero is the centre of the
+struck map** (the missile mod has no impact point on the map):
+
+| Zone | Distance from the centre | What happens |
+| --- | --- | --- |
+| Fireball | Within 25 cells | Everything is gone, overhead mountain too; the ground is scoured to bare earth, ashen and polluted |
+| Blast | 25 to 110 cells | Buildings, items and plants are gone; people take the blast and burns, worse nearer the centre |
+| Heat | 110 cells to the edge | Walls may stand; plants wilt; people burn and, with Rimatomics, may be flash-blinded and irradiated; fires start, fewer towards the edge |
+| Other settlements in range | | The heat, fires and fallout only, unless you choose a full strike everywhere |
+
+- **Burns are spread over the skin**, so D'thorga Medical's burn load and burn shock see a burned body.
+- **The pulse** stops powered buildings and mechanoids still standing in the open for a few hours.
+- **Fallout**: with Dubs Rimatomics, its radioactive fallout settles on every struck map for 10 to 30 days, and up to six clouds of it
+  drift across the world from the strike. Without Rimatomics, the missile mod's nuclear winter, as before. No fallout in space.
+- **The screen stays white** until the fireball and blast are done (at most 8 seconds), then fades on the heat zone burning.
+- The missile mod's letter, flash, sound, cloud and world effects (settlements without a map destroyed, world pollution, the doomsday
+  clock) are its own, unchanged.
+
+The figures (zone radii, damage curve, burns, fire chances, the pulse's strength) are gameplay choices, tunable in XML; the design
+record is [strategic strike](../../docs/development/strategic-strike.md).
+
 **Messages.** A blast that runs longer than two seconds says the blast is still tearing through the place, and says when it has spent
 itself (a setting).
 
@@ -268,14 +295,22 @@ itself (a setting).
 | Rebuild rooms once per moment during a blast | On | On, off | Off if rooms ever behave oddly after a blast; please report it |
 | Tell me when a blast takes a while, and when it ends | On | On, off | None |
 | Wall fragments from a strategic blast (only with Combat Extended) | None during a blast | None, a tenth as many, as many as in a fight | A tenth: several times slower. As in a fight: a blast on a town can take tens of minutes |
+| Fireball, blast and heat by distance from ground zero | On | On, off | Off: no burns, wilting, ash or pulse, and the warhead's fires light a fifth of every cell in one moment |
+| Full strike on every settlement in range | Off | On, off | On: each map in range takes a full strike of its own |
+| Fires beyond the blast | Moderate | None, sparse, moderate, firestorm | Moderate and above: hundreds to thousands of fires burning at once |
+| Fallout and radiation | Fallout where it can, else nuclear winter | That, nuclear winter only, nothing | None |
+| Fallout clouds drifting from the strike (with Rimatomics) | 6 | 0 to 6 | None |
+| Radiation sickness and flash blindness for survivors (with Rimatomics) | On | On, off | None |
+| Ground pollution near the centre (with Biotech) | On | On, off | None |
+| Electromagnetic pulse | On | On, off | None |
 
 **Limits.** A blast in progress is not saved: what it had not reached survives a reload. The fires, terrain changes and cloud the
 warhead makes still happen in the frame the screen turns white, as the missile mod does them. Combat Extended's fragment setting is
 changed only in memory, for the moments the blast runs, and put back after; its settings file is never touched.
 
 **Dev mode**, D'thorga category: **Missile Patches: strike current map** runs an extinction-class blast on the map you are looking at
-(**it destroys everything there**; use a throwaway save), **log blast queue**, **drop queued blasts**, and **count Combat Extended
-fragments on map**. Each finished blast logs one line: things, seconds, frames, and how many were vaporised, wrecked, damaged,
+(**it destroys everything there**; use a throwaway save), **strike current map with D'thorga's blast model** (the same, shaped),
+**log blast queue**, **drop queued blasts**, and **count Combat Extended fragments on map**. Each finished blast logs one line: things, seconds, frames, and how many were vaporised, wrecked, damaged,
 sheltered or already gone.
 
 The record is [Missile patches](../../docs/development/missile-patches.md).

@@ -48,6 +48,8 @@ promise current behaviour. For using the mods, start at the [documentation index
   Missile hung the owner's game at detonation (one frame for the whole map, and a room rebuild after every fallen wall), how
   D'thorga Missile Patches spreads the blast over frames and holds the rebuild, who chose what, the owner's test protocol, and a
   bug report for the mod's author.
+- [Strategic strike: design and decisions (7 Nov 2026)](strategic-strike.md): D'thorga Patches' own model for the extinction-class
+  warhead after Dubs Rimatomics' nuke: fireball, blast and heat zones, burns, the pulse, Rimatomics' fallout, who chose what.
 
 ## Framework
 
