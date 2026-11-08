@@ -72,6 +72,19 @@ Added 9 Nov 2026: the vehicle work of 8 and 9 November did not update this file 
 | C7 | Supplied oxygen and chemical lung injury | Oxygen eases and speeds recovery | Done: Medical 0.8.0 |
 | C8 | Contaminated clothing | The shower is enough by default; extra decontamination with Dubs Bad Hygiene; strip and rinse as a main-menu setting | Done: Medical 0.8.0 |
 
+## Ideas, not decided (9 Nov 2026)
+
+Agent proposals made after the electric vehicles and caustic gas builds, kept here at the owner's request so they are not lost. None is
+decided or started; each needs the owner's go.
+
+| # | Idea | Mod | Why | Status |
+| --- | --- | --- | --- | --- |
+| I1 | A diesel-electric utility vehicle that powers a base: parked, its generator feeds the power grid (a mobile generator set) | Vehicles, Framework | The owner wants diesel-electric utility vehicles with mechanics of their own (V3); the engine model, traction motor heat and the electrical system already exist | Idea |
+| I2 | A small battery buffer on a diesel-electric (a hybrid), so it can creep quietly a short way on electricity alone | Framework | Builds on the traction battery of the electric vehicles (V5) | Idea |
+| I3 | Choose a vehicle's class (light, medium, heavy) by its empty mass instead of Vehicle Framework's Mass | Framework | Loadouts still use VF's Mass, which is not comparable between mods; the empty masses (V8) would sort Vanilla Vehicles Expanded's tanks into the heavy class | Idea |
+| I4 | A field decontamination kit for caravans: strip and rinse away from any shower | Medical | Strip and rinse (C8) needs a shower; there is none in the wild | Idea |
+| I5 | A night heater for electric vehicles, drawing a share of the traction battery an hour | Framework | Left out of V5: the night heater's fuel is counted in chemfuel units | Idea |
+
 ## Housekeeping (9 Nov 2026)
 
 | # | Item | Status |
