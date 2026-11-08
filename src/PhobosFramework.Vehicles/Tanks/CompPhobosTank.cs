@@ -591,6 +591,20 @@ public class CompPhobosTank : VehicleComp
         Tell("PhobosVehicleSystems_TankCompartmentSelected".Translate(Vehicle.LabelShort.Named("VEHICLE"), (selected + 1).Named("INDEX")), MessageTypeDefOf.SilentInput);
     }
 
+    /// <summary>Whether the selected compartment already holds fluid that more of the same can join.</summary>
+    public bool CanTopUp => Selected.HasLoad;
+
+    /// <summary>Fills the selected compartment with a purchase. BulkOrders has already checked and taken payment.</summary>
+    public void ReceiveBulk(PhobosTankContentsDef fluid, float units)
+    {
+        TankCompartment compartment = Selected;
+        if (!HasLoad) temperature = ArrivalTemperature(fluid, Outside);
+        compartment.contents = fluid;
+        compartment.residue = null;
+        compartment.amount += units;
+        AfterLoadChange();
+    }
+
     /// <summary>Why the tanker cannot set up now, or null.</summary>
     public string? CannotDeploy()
     {
@@ -716,6 +730,13 @@ public class CompPhobosTank : VehicleComp
         if (NeedsPurge) lines.Add("PhobosVehicleSystems_TankInspectNeedsPurge".Translate(ResidueLabels.Named("CONTENTS")).Resolve());
         if (deployed && pumpStatus != null) lines.Add(pumpStatus);
         return string.Join("\n", lines);
+    }
+
+    public override IEnumerable<Gizmo> CompCaravanGizmos()
+    {
+        foreach (Gizmo gizmo in base.CompCaravanGizmos()) yield return gizmo;
+        if (Vehicle.Faction != Faction.OfPlayer || Fitted == null) yield break;
+        foreach (Gizmo gizmo in TankGizmos.ForCaravan(this)) yield return gizmo;
     }
 
     public override IEnumerable<Gizmo> CompGetGizmosExtra()

@@ -9,6 +9,19 @@ tested in game unless an entry says the owner tested it.
 
 - A tank's damage marks follow the health of their part. Vehicle Framework never reads a part requirement written on an overlay, so the tank now draws them itself. **Not yet tested in game.**
 
+## [0.38.0] - 2026-11-09 - Draft
+
+Bulk buying, for D'thorga Vehicles 0.16.0 (owner, 9 November 2026). **Not yet tested in game.** Design: docs/development/utility-vehicles-design.md.
+
+### Added
+
+- A tanker in a caravan at a settlement can buy a fluid in bulk straight into its tank, a quarter, half or all of the room left, paying with the caravan's silver. The price is the game's own, with the caravan's best negotiator; what a settlement sells follows what its traders deal in.
+- A settlement cannot sell the same fluid in bulk again for 15 days.
+
+### Compatibility and limits
+
+- It works beside the trade window and does not change it. It only buys, and only fluids that exist as items, so nothing is sold that travels only by pipe.
+
 ## [0.37.0] - 2026-11-09 - Draft
 
 Tank compartments, for D'thorga Vehicles 0.15.0 (owner, 9 November 2026). **Not yet tested in game.** Design: docs/development/utility-vehicles-design.md.

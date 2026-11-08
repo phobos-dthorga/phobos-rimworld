@@ -24,6 +24,19 @@ tested in game unless an entry says the owner tested it.
 
 - BMP-1 IFV (Vehicle Framework), by Turbo, is no longer on the Steam Workshop (Steam showed no public item on 8 November 2026: removed or made private). Its loadout here loads only while that mod is active, so it stays dormant and costs nothing; a player with their own copy still gets it.
 
+## [0.16.0] - 2026-11-09 - Draft
+
+Buying by the tanker-load, air brakes and readable upgrades (owner, 9 November 2026). **Not yet tested in game.** Needs D'thorga Framework 0.38.0.
+
+### Added
+
+- The bulk tanker has air brakes and an air compressor, like the other heavy trucks: after standing for hours it must idle a few minutes before it can drive.
+- The bulk tanker can buy fluids in bulk at a settlement, with the tanker in your caravan.
+
+### Changed
+
+- Each upgrade shows its name above its icon, and some have shorter names so that they fit. Their saved keys are unchanged.
+
 ## [0.15.0] - 2026-11-09 - Draft
 
 Compartments for the bulk tanker (owner, 9 November 2026). **Not yet tested in game.** Needs D'thorga Framework 0.37.0.

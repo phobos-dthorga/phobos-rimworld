@@ -146,6 +146,14 @@ def three_compartments():
     return divided(3)
 
 
+def bulk_order():
+    image, draw = canvas()
+    tank(draw, STEEL)
+    draw.ellipse((300, 300, 470, 470), fill=(214, 214, 220, 255), outline=OUTLINE, width=LINE)
+    draw.ellipse((345, 345, 425, 425), outline=OUTLINE, width=12)
+    return image
+
+
 def write(folder, name, draw_fn, what):
     folder.mkdir(parents=True, exist_ok=True)
     path = folder / f'{name}.png'
@@ -167,6 +175,7 @@ if __name__ == '__main__':
     write(BUTTONS, 'Compartment', compartment, 'a tank in three divisions with the middle one lit')
     write(BUTTONS, 'TwoCompartments', two_compartments, 'a tank divided in two')
     write(BUTTONS, 'ThreeCompartments', three_compartments, 'a tank divided in three')
+    write(BUTTONS, 'BulkOrder', bulk_order, 'a tank with a silver coin')
     write(PARTS, 'EngineAssembly', engine, 'an olive engine block with three cylinder heads')
     write(PARTS, 'DrivetrainKit', drivetrain, 'an axle with two tyres and a gearbox')
     write(PARTS, 'ElectricalKit', electrical, 'an olive box with an orange lightning bolt')

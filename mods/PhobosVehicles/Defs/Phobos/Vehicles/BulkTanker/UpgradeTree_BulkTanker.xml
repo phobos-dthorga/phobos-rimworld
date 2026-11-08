@@ -11,11 +11,12 @@
     <nodes>
     <li>
       <key>LiquidTank</key>
-      <label>general liquid tank</label>
+      <label>general tank</label>
+      <displayLabel>true</displayLabel>
       <description>A plain baffled tank for liquids: 3,000 units.</description>
       <icon>Phobos/Vehicles/BulkTanker/Upgrades/LiquidTank</icon>
       <work>4000</work>
-      <gridCoordinate>(4, 6)</gridCoordinate>
+      <gridCoordinate>(2, 6)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
       <disableIfUpgradeNodesEnabled>
         <li>InsulatedLiquidTank</li>
@@ -51,11 +52,12 @@
     </li>
     <li>
       <key>InsulatedLiquidTank</key>
-      <label>insulated liquid tank</label>
+      <label>insulated tank</label>
+      <displayLabel>true</displayLabel>
       <description>A lagged tank: 2,700 units. Its contents take about a day to reach the outside temperature, and food spoils half as fast.</description>
       <icon>Phobos/Vehicles/BulkTanker/Upgrades/InsulatedLiquidTank</icon>
       <work>4000</work>
-      <gridCoordinate>(10, 6)</gridCoordinate>
+      <gridCoordinate>(9, 6)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
       <disableIfUpgradeNodesEnabled>
         <li>LiquidTank</li>
@@ -92,7 +94,8 @@
     </li>
     <li>
       <key>HighVolumeLiquidTank</key>
-      <label>high-volume liquid tank</label>
+      <label>high-volume tank</label>
+      <displayLabel>true</displayLabel>
       <description>A squarer tank that holds more: 3,300 units. A full load slows the truck more.</description>
       <icon>Phobos/Vehicles/BulkTanker/Upgrades/HighVolumeLiquidTank</icon>
       <work>4000</work>
@@ -133,10 +136,11 @@
     <li>
       <key>HoseReel</key>
       <label>second hose reel</label>
+      <displayLabel>true</displayLabel>
       <description>A second hose: the pump moves half as much again.</description>
       <icon>Phobos/Vehicles/BulkTanker/Upgrades/HoseReel</icon>
       <work>1500</work>
-      <gridCoordinate>(19, 15)</gridCoordinate>
+      <gridCoordinate>(12, 15)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
       <upgrades>
         <li Class="Vehicles.StatUpgrade">
@@ -167,10 +171,11 @@
     <li>
       <key>TwoCompartments</key>
       <label>two compartments</label>
+      <displayLabel>true</displayLabel>
       <description>A bulkhead divides a liquid tank in two, each half with its own fluid. Filled alike, they hold as much as the whole tank.</description>
       <icon>Phobos/VehicleSystems/Tank/TwoCompartments</icon>
       <work>2500</work>
-      <gridCoordinate>(27, 15)</gridCoordinate>
+      <gridCoordinate>(21, 15)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
       <disableIfUpgradeNodesEnabled>
         <li>PressureVessel</li>
@@ -185,10 +190,11 @@
     <li>
       <key>ThreeCompartments</key>
       <label>three compartments</label>
+      <displayLabel>true</displayLabel>
       <description>A second bulkhead: three fluids at once, one to each hatch.</description>
       <icon>Phobos/VehicleSystems/Tank/ThreeCompartments</icon>
       <work>2500</work>
-      <gridCoordinate>(33, 15)</gridCoordinate>
+      <gridCoordinate>(30, 15)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
       <prerequisiteNodes>
         <li>TwoCompartments</li>

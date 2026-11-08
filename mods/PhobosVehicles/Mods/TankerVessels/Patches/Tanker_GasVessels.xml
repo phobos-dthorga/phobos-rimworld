@@ -7,10 +7,11 @@
     <li>
       <key>PressureVessel</key>
       <label>pressure vessel</label>
+      <displayLabel>true</displayLabel>
       <description>A cylinder with domed ends and a relief valve, for gases: 1,200 units.</description>
       <icon>Phobos/Vehicles/BulkTanker/Upgrades/PressureVessel</icon>
       <work>4000</work>
-      <gridCoordinate>(22, 6)</gridCoordinate>
+      <gridCoordinate>(23, 6)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
       <disableIfUpgradeNodesEnabled>
         <li>LiquidTank</li>
@@ -50,11 +51,12 @@
     </li>
     <li>
       <key>LightPressureVessel</key>
-      <label>light pressure vessel</label>
+      <label>light vessel</label>
+      <displayLabel>true</displayLabel>
       <description>A slim, cheaper vessel: 800 units, and much less weight on the truck.</description>
       <icon>Phobos/Vehicles/BulkTanker/Upgrades/LightPressureVessel</icon>
       <work>4000</work>
-      <gridCoordinate>(28, 6)</gridCoordinate>
+      <gridCoordinate>(30, 6)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
       <disableIfUpgradeNodesEnabled>
         <li>LiquidTank</li>
@@ -95,10 +97,11 @@
     <li>
       <key>HeavyWallVessel</key>
       <label>heavy-wall vessel</label>
+      <displayLabel>true</displayLabel>
       <description>A thick-walled vessel: 1,000 units, with a tougher shell.</description>
       <icon>Phobos/Vehicles/BulkTanker/Upgrades/HeavyWallVessel</icon>
       <work>4000</work>
-      <gridCoordinate>(34, 6)</gridCoordinate>
+      <gridCoordinate>(37, 6)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
       <disableIfUpgradeNodesEnabled>
         <li>LiquidTank</li>

@@ -154,6 +154,8 @@ public class CompProperties_PhobosTank : VehicleCompProperties
     public int explosionDamage = 40;
     /// <summary>However strong the load, its blast stops here, so one truck cannot erase the map (authored).</summary>
     public float explosionMaxRadius = 15f;
+    /// <summary>Days before a settlement can sell the same fluid in bulk again (authored).</summary>
+    public int bulkRestockDays = 15;
     public List<TankDamageOverlay> damageOverlays = new();
     /// <summary>The hose laid out while the tanker is set up.</summary>
     public GraphicDataOverlay? hosesOut;

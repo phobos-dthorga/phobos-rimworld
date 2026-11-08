@@ -47,3 +47,4 @@ Three checks, on a copy of a save, after installing with RimWorld closed.
 2. **Choose chemfuel, park beside chemfuel stacks, Set up, then Load.** Does the tank fill, does the hose appear, and is the truck refused a move while set up? Then Pack up and use Unload to refuel a parked vehicle.
 3. **Change contents.** Empty it, try to choose something else (it should say to purge), then right-click the truck with a colonist to purge it.
 4. **Fit two compartments.** Is there a Compartment button? Set one to chemfuel and try beer in the other: the menu should refuse it and say why.
+5. **Take it in a caravan to a friendly settlement** with silver aboard. Does Bulk order appear, list fluids and prices, and fill the tank?

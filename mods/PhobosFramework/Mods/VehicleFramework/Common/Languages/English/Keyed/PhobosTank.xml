@@ -43,6 +43,17 @@
   <PhobosVehicleSystems_TankInspectCompartmentUnset>Compartment {INDEX}: empty, holds {CAPACITY}</PhobosVehicleSystems_TankInspectCompartmentUnset>
   <PhobosVehicleSystems_TankGizmoCompartment>Compartment {INDEX} of {COUNT}</PhobosVehicleSystems_TankGizmoCompartment>
   <PhobosVehicleSystems_TankGizmoCompartmentDesc>Choose which compartment the pump and the contents button work on. The pump serves one compartment at a time.</PhobosVehicleSystems_TankGizmoCompartmentDesc>
+  <PhobosVehicleSystems_TankGizmoBulkOrder>Bulk order</PhobosVehicleSystems_TankGizmoBulkOrder>
+  <PhobosVehicleSystems_TankGizmoBulkOrderDesc>Buy a fluid from {SETTLEMENT} straight into the selected compartment, paying with the silver in this caravan.</PhobosVehicleSystems_TankGizmoBulkOrderDesc>
+  <PhobosVehicleSystems_TankBulkNotTrading>{SETTLEMENT} is not trading right now.</PhobosVehicleSystems_TankBulkNotTrading>
+  <PhobosVehicleSystems_TankBulkNoNegotiator>Nobody in this caravan can negotiate.</PhobosVehicleSystems_TankBulkNoNegotiator>
+  <PhobosVehicleSystems_TankBulkNothing>This settlement sells nothing this tank can carry.</PhobosVehicleSystems_TankBulkNothing>
+  <PhobosVehicleSystems_TankBulkOffer>{CONTENTS}, {PRICE} silver per 100 {UNIT}</PhobosVehicleSystems_TankBulkOffer>
+  <PhobosVehicleSystems_TankBulkAmount>{UNITS} {UNIT} for {COST} silver</PhobosVehicleSystems_TankBulkAmount>
+  <PhobosVehicleSystems_TankBulkSoldOut>sold out here for {DAYS} more days</PhobosVehicleSystems_TankBulkSoldOut>
+  <PhobosVehicleSystems_TankBulkNoRoom>no room left in this compartment</PhobosVehicleSystems_TankBulkNoRoom>
+  <PhobosVehicleSystems_TankBulkTooDear>not enough silver in this caravan</PhobosVehicleSystems_TankBulkTooDear>
+  <PhobosVehicleSystems_TankBulkBought>{VEHICLE} took on {UNITS} {UNIT} of {CONTENTS} for {COST} silver.</PhobosVehicleSystems_TankBulkBought>
   <PhobosVehicleSystems_TankNothingToCarry>Nothing this tank can carry is available.</PhobosVehicleSystems_TankNothingToCarry>
   <PhobosVehicleSystems_TankInspect>Tank: {AMOUNT} of {CAPACITY} {UNIT} of {CONTENTS}</PhobosVehicleSystems_TankInspect>
   <PhobosVehicleSystems_TankInspectUnset>Tank: empty, holds {CAPACITY}. Choose what it will carry.</PhobosVehicleSystems_TankInspectUnset>
