@@ -83,6 +83,9 @@ public class CompProperties_PhobosVehicleSystems : VehicleCompProperties
     public List<string> addedKeys = new();
     /// <summary>How many parts the design had before the service appended any; the uninstall sweep cuts saved vehicles back to it.</summary>
     public int originalPartCount;
+    /// <summary>The loadout's drivetrain (with its overrides) and flight profile, if any.</summary>
+    public LoadoutDrivetrain? drivetrain;
+    public PhobosVehicleFlightProfileDef? flightProfile;
 
     public CompProperties_PhobosVehicleSystems()
     {
@@ -110,6 +113,33 @@ public class CompPhobosVehicleSystems : VehicleComp
     bool updating;
     bool healthsRestored;
     bool registered;
+    Powertrain? powertrain;
+    bool powertrainBuilt;
+
+    /// <summary>Spawned vehicles with this comp, for the per-tick speed cap (one dictionary read instead of a comp search).</summary>
+    static readonly Dictionary<VehiclePawn, CompPhobosVehicleSystems> spawned = new();
+
+    public static CompPhobosVehicleSystems? Of(VehiclePawn vehicle) => spawned.TryGetValue(vehicle, out CompPhobosVehicleSystems? comp) ? comp : null;
+
+    /// <summary>The vehicle's drivetrain or turbine, built on first use from its loadout; null when it has none.</summary>
+    public Powertrain? Powertrain
+    {
+        get
+        {
+            if (!powertrainBuilt && Vehicle != null)
+            {
+                powertrainBuilt = true;
+                powertrain = Powertrain.For(this);
+            }
+            return powertrain;
+        }
+    }
+
+    /// <summary>The share of its speed the vehicle may use this tick (the path follower's patch reads it).</summary>
+    public float SpeedCap => Usable ? Powertrain?.SpeedCap ?? 1f : 1f;
+
+    /// <summary>Engine running by Vehicle Framework's own signs (drafted, caravan moving, in flight), before any flight phase.</summary>
+    public bool EngineRunningRaw { get; private set; }
 
     // Read once per update and by the inputs during it.
     public bool EngineRunning { get; private set; }
@@ -192,7 +222,14 @@ public class CompPhobosVehicleSystems : VehicleComp
     public override void PostSpawnSetup(bool respawningAfterLoad)
     {
         base.PostSpawnSetup(respawningAfterLoad);
+        if (Usable) spawned[Vehicle] = this;
         RestorePartHealths();
+    }
+
+    public override void PostDeSpawn(Map map, DestroyMode mode = DestroyMode.Vanish)
+    {
+        base.PostDeSpawn(map, mode);
+        if (Vehicle != null) spawned.Remove(Vehicle);
     }
 
     public override void EventRegistration()
@@ -216,6 +253,24 @@ public class CompPhobosVehicleSystems : VehicleComp
             VehicleEventDef captured = eventDef;
             Vehicle.AddEvent(captured, () => OnVehicleEvent(captured));
         }
+        if (Powertrain != null)
+        {
+            // Once a second while it moves or flies, the drivetrain or turbine takes a sample; cargo and passengers change its mass.
+            Vehicle.AddEvent(VehicleEventDefOf.ScanShort, OnScanShort);
+            Vehicle.AddEvent(VehicleEventDefOf.CargoAdded, () => Powertrain?.MarkMassDirty());
+            Vehicle.AddEvent(VehicleEventDefOf.CargoRemoved, () => Powertrain?.MarkMassDirty());
+            Vehicle.AddEvent(VehicleEventDefOf.PawnEntered, () => Powertrain?.MarkMassDirty());
+            Vehicle.AddEvent(VehicleEventDefOf.PawnExited, () => Powertrain?.MarkMassDirty());
+        }
+    }
+
+    void OnScanShort()
+    {
+        Powertrain? train = Powertrain;
+        if (train == null || !Usable) return;
+        bool active = train.IsAircraft ? Vehicle.Drafted || train.AircraftRunning : Vehicle.Spawned && Vehicle.vehiclePather != null && Vehicle.vehiclePather.Moving;
+        if (!active && train.Cap >= 1f && train.Result.Rpm <= 0) return;
+        train.Sample();
     }
 
     public override void CompTickRare()
@@ -280,6 +335,7 @@ public class CompPhobosVehicleSystems : VehicleComp
             if (hours <= 0) return;
             lastUpdateTick = now;
             RefreshCaches();
+            Powertrain?.ApplyFuel(hours);
             foreach (SystemState state in states)
             {
                 if (Enabled(state)) state.Def.Worker.Advance(new SystemContext(this, state), hours);
@@ -309,7 +365,21 @@ public class CompPhobosVehicleSystems : VehicleComp
         bool movingOnMap = vehicle.Spawned && vehicle.vehiclePather != null && vehicle.vehiclePather.Moving;
         Moving = movingOnMap || caravanMoving || flying;
         EngineRunning = hasFuel && (drafted || caravanMoving || flying);
+        EngineRunningRaw = EngineRunning;
         EngineLoad = EngineRunning ? (Moving ? 1f : 0.5f) : 0f;
+        Powertrain? train = Powertrain;
+        if (train != null && VehicleSystemsMod.Settings.drivetrainMode != DrivetrainMode.Off)
+        {
+            train.Sample();
+            if (train.IsAircraft)
+            {
+                // Aircraft on a map: the flight framework's phase says whether the engines run (Vehicle Framework's flag is set only
+                // while leaving the map).
+                EngineRunning = hasFuel && (train.AircraftRunning || flying);
+                Moving = train.AircraftMoving || flying;
+            }
+            if (train.Full) EngineLoad = EngineRunning ? (float)train.Result.Load : 0f;
+        }
         shorePowered = null;
         loadAmps = 0f;
         if (states != null && states.Count > 0) loadAmps = SumLoads(new SystemContext(this, states[0]));
@@ -499,6 +569,37 @@ public class CompPhobosVehicleSystems : VehicleComp
     // ---- What the game asks ----
 
     public float ActiveLoadAmps() => loadAmps;
+
+    /// <summary>Engine speed in rpm: the model's when the vehicle has a drivetrain or turbine, else idle or a cruise figure.</summary>
+    public float EngineRpm(float idle, float cruise)
+    {
+        Powertrain? train = Powertrain;
+        if (train != null && VehicleSystemsMod.Settings.drivetrainMode != DrivetrainMode.Off && EngineRunning) return (float)train.Result.Rpm;
+        return EngineRunning ? (Moving ? cruise : idle) : 0f;
+    }
+
+    /// <summary>Engine heat as a share of full-load heat: the model's when the player chose Full, else the old load figure.</summary>
+    public float EngineHeatShare()
+    {
+        Powertrain? train = Powertrain;
+        if (train != null && train.Full && train.Ground) return EngineRunning ? (float)train.HeatShare : 0f;
+        return EngineLoad;
+    }
+
+    /// <summary>Power at the wheels in kW, or 0 without a drivetrain.</summary>
+    public float DrivePowerKw() => (float)(Powertrain?.Result.DrivePowerKw ?? 0);
+
+    /// <summary>The share of a role's parts below a health fraction (flat tyres, for rolling resistance).</summary>
+    public float RoleShareBelow(string role, float fraction)
+    {
+        int below = 0, count = 0;
+        foreach (VehicleComponent part in PartsOf(role))
+        {
+            count++;
+            if (part.HealthPercent < fraction) below++;
+        }
+        return count == 0 ? 0f : below / (float)count;
+    }
 
     /// <summary>Whether the parked vehicle stands beside a building on a grid with power to give. Read at most once per update.</summary>
     public bool ShorePowered()
@@ -707,11 +808,21 @@ public class CompPhobosVehicleSystems : VehicleComp
         return false;
     }
 
-    /// <summary>The due service whose supplies are all aboard, or null.</summary>
+    /// <summary>Whether the due service's water can be had now (always, unless a water source such as plumbing is required and none
+    /// is beside the vehicle).</summary>
+    public bool WaterReady(out string? reason)
+    {
+        reason = null;
+        ServiceSpec? service = DueService()?.Def.service;
+        if (service == null || service.waterLitres <= 0f) return true;
+        return VehicleWater.CanDraw(Vehicle, service.waterLitres, out reason);
+    }
+
+    /// <summary>The due service whose supplies are all aboard and whose water can be had, or null.</summary>
     public SystemState? ReadyService()
     {
         SystemState? state = DueService();
-        if (state?.Def.service == null || MissingSupply(out _, out _)) return null;
+        if (state?.Def.service == null || MissingSupply(out _, out _) || !WaterReady(out _)) return null;
         return state;
     }
 
@@ -721,6 +832,7 @@ public class CompPhobosVehicleSystems : VehicleComp
         SystemState? state = ReadyService();
         ServiceSpec? service = state?.Def.service;
         if (state == null || service == null) return false;
+        if (service.waterLitres > 0f && !VehicleWater.TryDraw(Vehicle, service.waterLitres)) return false;
         ThingOwner cargo = Vehicle.inventory.innerContainer;
         foreach (ThingDefCountClass supply in service.supplies)
         {

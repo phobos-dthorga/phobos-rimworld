@@ -9,5 +9,8 @@
     <li IfModActive="aoba.rimthunder.roca">Mods/RimThunderRoaringTiger</li>
     <li IfModActive="rimthunderteams.rimthunder.desertsabre">Mods/RimThunderDesertSabre</li>
     <li IfModActive="princeofpluto.vehicles.trains">Mods/TrainsOfTheRim</li>
+    <li IfModActive="potemkinvillager.av8bharrier">Mods/HarrierVtol</li>
+    <li IfModActive="potemkinvillager.mi24hindhelicopter">Mods/HindHelicopter</li>
+    <li IfModActive="potemkinvillager.mongooseattackhelicopter">Mods/MongooseHelicopter</li>
   </v1.7>
 </loadFolders>

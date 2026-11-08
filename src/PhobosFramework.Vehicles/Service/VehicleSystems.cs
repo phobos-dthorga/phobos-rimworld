@@ -80,7 +80,7 @@ public static class VehicleSystems
         {
             if (loadout.selector.Matches(def)) matches.Add(loadout);
         }
-        int pick = LoadoutChoice.Pick(matches.Select(m => m.priority).ToList(), out tied);
+        int pick = LoadoutChoice.Pick(matches.Select(m => m.priority).ToList(), matches.Select(m => m.rank).ToList(), out tied);
         return pick < 0 ? null : matches[pick];
     }
 
@@ -91,6 +91,8 @@ public static class VehicleSystems
         {
             loadout = loadout,
             originalPartCount = def.components.Count,
+            drivetrain = loadout.drivetrain,
+            flightProfile = loadout.flightProfile,
         };
         foreach (LoadoutSystem entry in loadout.systems)
         {

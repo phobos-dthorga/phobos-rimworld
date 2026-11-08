@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    The Mongoose (Mongoose_AttackHelicopter): two turboshafts, bound by their own parts (EngineStarboard as the first engine, EnginePort as the second),
+    with the helicopter flight profile (docs/development/vehicle-turbine-design.md). With one engine out the other carries the load
+    on its contingency rating and runs hot; a hover may then be beyond it. Not yet tested in game. Ratings and limits are the
+    Framework's authored helicopter turboshaft (Drivetrains.xml).
+  -->
+  <Phobos.VehicleSystems.PhobosVehicleLoadoutDef ParentName="PhobosVehicleLoadoutAircraft">
+    <defName>PhobosVehicleLoadout_Mongoose</defName>
+    <label>attack helicopter (twin turboshaft)</label>
+    <priority>Vehicle</priority>
+    <selector>
+      <vehicleDefs>
+        <li>Mongoose_AttackHelicopter</li>
+      </vehicleDefs>
+    </selector>
+    <drivetrain>
+      <def>PhobosDrivetrain_AeroTurboshaft</def>
+    </drivetrain>
+    <flightProfile>PhobosFlightProfile_Helicopter</flightProfile>
+    <partRoles>
+      <li>
+        <role>Engine1</role>
+        <find>
+          <li>
+            <keyContains>EngineStarboard</keyContains>
+          </li>
+        </find>
+      </li>
+      <li>
+        <role>Engine2</role>
+        <find>
+          <li>
+            <keyContains>EnginePort</keyContains>
+          </li>
+        </find>
+      </li>
+    </partRoles>
+  </Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
+</Defs>

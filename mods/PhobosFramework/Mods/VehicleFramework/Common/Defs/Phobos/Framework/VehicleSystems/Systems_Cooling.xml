@@ -18,6 +18,13 @@
       of start-up wear; SAE 2006-01-3413 as cited second-hand (unverified). The wear figures are authored and small.
     - Heat at full load (420 degrees an hour), the radiator's rate (6 an hour), the soak (0.6 an hour) and the slower radiator when
       stopped (0.7) are authored so an engine warms in about a quarter hour and settles at 88 to 110 degrees C.
+    - With a drivetrain (docs/development/vehicle-drivetrain-design.md), the heat follows the fuel the model burns: about 28% of the
+      fuel's energy goes into the coolant (secondary: the record's energy balance), as a share of the heat at the engine's rated
+      power, so 420 degrees an hour still means full load. Without one, it follows the simple engine load as before.
+    - The radiator's fan and water pump turn with the engine, so a stopped or idling engine cools less (authored curve on engine
+      speed: 60% stopped, 75% at idle, full from 1,500 rpm).
+    - A coolant top-up is its own service, due once the coolant is down to 60%: the glycol share is a little chemfuel (a gameplay
+      stand-in) and the water comes from plumbing beside the vehicle where the colony has plumbing, otherwise free (owner, 9 Nov 2026).
     - Room heat: the engine's waste heat goes into the room it stands in, 12 heat units a second at full load (authored; a
       vanilla heater gives about 21), instead of Vehicle Framework's flat ambient heat.
   -->
@@ -175,7 +182,7 @@
         <kind>Into</kind>
         <factorParameter>heatAtFullLoad</factorParameter>
         <inputs>
-          <li Class="Phobos.VehicleSystems.Input_EngineLoad" />
+          <li Class="Phobos.VehicleSystems.Input_EngineHeat" />
           <li Class="Phobos.VehicleSystems.Input_Quantity">
             <quantity>coolantLevel</quantity>
             <curve>
@@ -204,6 +211,15 @@
           <li Class="Phobos.VehicleSystems.Input_Moving">
             <stopped>0.7</stopped>
             <moving>1</moving>
+          </li>
+          <li Class="Phobos.VehicleSystems.Input_EngineRpm">
+            <curve>
+              <points>
+                <li>(0, 0.6)</li>
+                <li>(700, 0.75)</li>
+                <li>(1500, 1)</li>
+              </points>
+            </curve>
           </li>
           <li Class="Phobos.VehicleSystems.Input_Quantity">
             <quantity>coolantLevel</quantity>
@@ -240,6 +256,22 @@
         </effects>
       </li>
     </onEvents>
+    <service>
+      <label>a coolant top-up</label>
+      <dueQuantity>coolantLevel</dueQuantity>
+      <dueBelow>0.6</dueBelow>
+      <restores>
+        <li>
+          <quantity>coolantLevel</quantity>
+          <value>1</value>
+        </li>
+      </restores>
+      <supplies>
+        <Chemfuel>3</Chemfuel>
+      </supplies>
+      <waterLitres>10</waterLitres>
+      <work>300</work>
+    </service>
     <onPartHit>
       <li>
         <role>Radiator</role>

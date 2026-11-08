@@ -100,6 +100,26 @@ public static class PartsOnLoad
     }
 }
 
+/// <summary>
+/// The drivetrain's speed cap: a vehicle whose engine cannot deliver the power, or whose wheels cannot get the grip, pays less path
+/// cost each tick and so moves slower, without touching its MoveSpeed stat or path planning (drivetrain design). Vehicle Framework has
+/// no extension point here. It runs first so Vanilla Vehicles Expanded's acceleration postfix, which also scales this cost and adds up
+/// what it pays to decide when to brake, counts the capped figure (read from its 1.7 source, 9 Nov 2026).
+/// </summary>
+[HarmonyPatch(typeof(VehiclePathFollower), "CostToPayThisTick")]
+public static class SpeedCapPatch
+{
+    [HarmonyPriority(Priority.First)]
+    public static void Postfix(ref float __result, VehiclePawn ___vehicle)
+    {
+        if (___vehicle == null) return;
+        CompPhobosVehicleSystems? comp = CompPhobosVehicleSystems.Of(___vehicle);
+        if (comp == null) return;
+        float cap = comp.SpeedCap;
+        if (cap < 1f) __result *= cap;
+    }
+}
+
 /// <summary>Lets the systems' stages scale any Vehicle Framework stat (a worn tyre slows the vehicle).</summary>
 public class VehicleStatPart_PhobosSystems : VehicleStatPart
 {

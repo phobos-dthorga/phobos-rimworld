@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <loadFolders>
   <!-- RimWorld 1.7 only (owner, 8 November 2026; docs/development/building.md). Combat Extended is reached by name. The Dubs Bad
-       Hygiene tie-in (the shared plumbing reader) loads only with that mod, and the vehicle systems part only with Vehicle Framework. -->
+       Hygiene tie-in (the shared plumbing reader) loads only with that mod, the vehicle systems part only with Vehicle Framework, and
+       its water from plumbing only with both. -->
   <v1.7>
     <li>/</li>
     <li>Common</li>
@@ -9,5 +10,6 @@
     <li IfModActive="Dubwise.DubsBadHygiene">Mods/DubsBadHygiene/1.7</li>
     <li IfModActive="SmashPhil.VehicleFramework">Mods/VehicleFramework/Common</li>
     <li IfModActive="SmashPhil.VehicleFramework">Mods/VehicleFramework/1.7</li>
+    <li IfModActiveAll="SmashPhil.VehicleFramework,Dubwise.DubsBadHygiene">Mods/VehiclesHygiene/1.7</li>
   </v1.7>
 </loadFolders>

@@ -128,6 +128,9 @@ by name at runtime. Nothing from any of them is in this repository.
 From 0.11.0 it also reads RimPacts' `WorldComponent_RimPacts.Instance.SpectateLandBlockReason` by name at runtime, to say why a
 sortie onto a battle is refused, and creates Vehicle Framework components for a saved vehicle through Vehicle Framework's own
 public types (`VehicleComponent`, `VehicleStatHandler`), referenced from the installed mod and never copied.
+From 0.14.0 it patches four of the Harrier's own methods, reached by name with no reference to the Harrier's assembly
+(`Harrier.CanHover`, and `VerticalLanding.Order`, `Gizmos` and `Cancel`), to apply D'thorga Framework's hover limit, and references
+the framework's vehicle systems assembly for it.
 
 ## Vehicle Framework, extended by D'thorga Framework's vehicle systems
 
@@ -135,10 +138,20 @@ D'thorga Framework's vehicle systems part (`mods/PhobosFramework/Mods/VehicleFra
 [Vehicle Framework](https://steamcommunity.com/sharedfiles/filedetails/?id=3014915404) by Smash Phil (MIT licence) is active. Its
 assembly references the installed `Vehicles.dll` and `SmashTools.dll`, never copied, subclasses Vehicle Framework's public
 `VehicleComp`, `VehicleCompProperties`, `VehicleStatPart`, `Reactor`, `VehicleWorkGiver` and `JobDriver_WorkVehicle`, and patches
-`VehicleDef.ResolveReferences` and `VehicleStatHandler.ExposeData`. Its XML names Vehicle Framework's stat and event Defs by name.
+`VehicleDef.ResolveReferences`, `VehicleStatHandler.ExposeData` and (from 0.11.0, the drivetrain's speed cap)
+`VehiclePathFollower.CostToPayThisTick`. Its XML names Vehicle Framework's stat and event Defs by name.
+From 0.11.0 its flight profiles read, by member name at runtime and with no reference to either assembly, the `FlightState`
+field and attack-run and landing members of the fixed-wing framework fork bundled with
+[Harrier VTOL Attack Aircraft](https://steamcommunity.com/sharedfiles/filedetails/?id=3826359341) by potemkinvillager, and of
+[VTOL Vehicle](https://steamcommunity.com/sharedfiles/filedetails/?id=3730919989) by rabiosus (`rabiosus.vtolvehicle`). Their
+decompiles were read for research only and stay out of the repository. Its water part (`Mods/VehiclesHygiene`, loaded only with
+[Dubs Bad Hygiene](https://steamcommunity.com/sharedfiles/filedetails/?id=836308268) by Dubwise as well) reads plumbing through
+the framework's own plumbing reader and references the installed `BadHygiene.dll`, never copied.
 D'thorga Vehicles (`mods/PhobosVehicles`) names vehicles of Vanilla Vehicles Expanded - Tier 3, HUMVEE, RimThunder - Roaring
-Tiger, RimThunder - Desert Sabre - Continued and Trains of the Rim by Def name only, in folders loaded only while each is active.
-Nothing from any of them is in this repository or a build.
+Tiger, RimThunder - Desert Sabre - Continued, Trains of the Rim, Harrier VTOL Attack Aircraft,
+[Hind Helicopter Gunship](https://steamcommunity.com/sharedfiles/filedetails/?id=3822052079) and
+[Mongoose Attack Helicopter](https://steamcommunity.com/sharedfiles/filedetails/?id=3819896964) (both by potemkinvillager) by Def
+and part name only, in folders loaded only while each is active. Nothing from any of them is in this repository or a build.
 
 ## InterRim Ballistic Missile, patched by D'thorga Missile Patches
 

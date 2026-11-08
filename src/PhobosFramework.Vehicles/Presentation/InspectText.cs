@@ -40,14 +40,57 @@ public static class InspectText
         {
             lines.Add(comp.MissingSupply(out ThingDef? missing, out int count) && missing != null
                 ? "PhobosVehicleSystems_InspectServiceNeeds".Translate(due.Def.service.label.Named("SERVICE"), count.Named("COUNT"), missing.label.Named("SUPPLY")).Resolve()
-                : "PhobosVehicleSystems_InspectServiceDue".Translate(due.Def.service.label.Named("SERVICE")).Resolve());
+                : !comp.WaterReady(out string? waterReason) && waterReason != null
+                    ? "PhobosVehicleSystems_InspectServiceWater".Translate(due.Def.service.label.Named("SERVICE"), waterReason.Named("REASON")).Resolve()
+                    : "PhobosVehicleSystems_InspectServiceDue".Translate(due.Def.service.label.Named("SERVICE")).Resolve());
         }
+        string? engine = EngineLine(comp, mode);
+        if (engine != null) lines.Add(engine);
         if (mode == DisplayMode.Engineer)
         {
             lines.Add("PhobosVehicleSystems_InspectEngineer".Translate(comp.EngineLoad.ToStringPercent().Named("LOAD"),
                 comp.ActiveLoadAmps().ToString("0").Named("AMPS"), comp.Ambient.ToStringTemperature("F0").Named("AIR")).Resolve());
         }
         return lines.Count == 0 ? null : string.Join("\n", lines);
+    }
+
+    /// <summary>The engine's line: Plain only when it labours or the wheels spin; Operator gear and rpm (or spool and turbine
+    /// temperature); Engineer adds load and kilowatts.</summary>
+    static string? EngineLine(CompPhobosVehicleSystems comp, DisplayMode mode)
+    {
+        Powertrain? train = comp.Powertrain;
+        if (train == null || VehicleSystemsMod.Settings.drivetrainMode == DrivetrainMode.Off || !comp.EngineRunning) return null;
+        Phobos.Framework.Vehicles.Rules.DriveResult r = train.Result;
+        bool spinning = r.Limit == Phobos.Framework.Vehicles.Rules.DriveLimit.Traction && train.Full;
+        if (mode == DisplayMode.Plain)
+        {
+            if (spinning) return "PhobosVehicleSystems_InspectWheelsSpinning".Translate();
+            if (r.Load > 0.9) return "PhobosVehicleSystems_InspectLabouring".Translate();
+            return null;
+        }
+        string line;
+        if (train.Turbine != null)
+        {
+            line = "PhobosVehicleSystems_InspectTurbine".Translate(train.TurbineNow.SpeedPercent.ToString("0").Named("SPOOL"),
+                ((float)train.TurbineNow.Temperature).ToStringTemperature("F0").Named("TEMPERATURE")).Resolve();
+            if (train.IsAircraft && train.PhaseSpec != null && !train.PhaseSpec.label.NullOrEmpty()) line += " " + "PhobosVehicleSystems_InspectPhase".Translate(train.PhaseSpec.label.Named("PHASE")).Resolve();
+        }
+        else if (r.Gear > 0)
+        {
+            line = "PhobosVehicleSystems_InspectGear".Translate(r.Gear.Named("GEAR"), r.Rpm.ToString("N0").Named("RPM")).Resolve();
+        }
+        else
+        {
+            line = "PhobosVehicleSystems_InspectRpm".Translate(r.Rpm.ToString("N0").Named("RPM")).Resolve();
+        }
+        if (spinning) line += " " + "PhobosVehicleSystems_InspectWheelsSpinning".Translate().Resolve();
+        if (mode == DisplayMode.Engineer)
+        {
+            line += " " + "PhobosVehicleSystems_InspectPower".Translate(((float)r.Load).ToStringPercent().Named("LOAD"), r.EnginePowerKw.ToString("0").Named("ENGINE"),
+                r.FuelPowerKw.ToString("0").Named("FUEL"), r.HeatKw.ToString("0").Named("HEAT")).Resolve();
+            if (train.Cap < 0.99) line += " " + "PhobosVehicleSystems_InspectCap".Translate(((float)train.Cap).ToStringPercent().Named("CAP")).Resolve();
+        }
+        return line;
     }
 
     public static string Format(QuantitySpec quantity, double value) => quantity.unit switch

@@ -9,13 +9,15 @@
     <ModFolder>PhobosPatches</ModFolder>
     <TieInFolder>Mods/HarrierVtol/</TieInFolder>
     <UsesHarmony>true</UsesHarmony>
-    <Version>0.13.1</Version>
+    <Version>0.14.0</Version>
     <!-- Vehicle Framework targets .NET Framework 4.8, and the game loads it whatever it declares, so
          the mismatch only matters to the compiler's reference check. -->
     <ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>true</ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="../PhobosFramework/PhobosFramework.csproj" Private="false" />
+    <!-- The Framework's vehicle systems part, for the hover limit; it loads whenever Vehicle Framework does, as the Harrier needs. -->
+    <ProjectReference Include="../PhobosFramework.Vehicles/PhobosFramework.Vehicles.csproj" Private="false" />
   </ItemGroup>
   <ItemGroup>
     <!-- Vehicle Framework's assemblies (MIT), referenced from the installed mod and never copied. -->

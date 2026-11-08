@@ -79,6 +79,18 @@
           <li Class="Phobos.VehicleSystems.Input_PartEfficiency">
             <role>OilPump</role>
           </li>
+          <li Class="Phobos.VehicleSystems.Input_EngineRpm">
+            <!-- The pump turns with the engine: pressure is lower at idle (authored curve; a stopped engine reads as idle, so a
+                 parked engine never shows low pressure on its own). -->
+            <curve>
+              <points>
+                <li>(0, 0.75)</li>
+                <li>(700, 0.75)</li>
+                <li>(1500, 1)</li>
+                <li>(6000, 1)</li>
+              </points>
+            </curve>
+          </li>
           <li Class="Phobos.VehicleSystems.Input_Quantity">
             <quantity>oilLevel</quantity>
             <curve>

@@ -176,6 +176,20 @@ public class SmallRuleTests
     }
 
     [Fact]
+    public void RankBreaksATieWithinAPriorityButNeverBeatsAHigherPriority()
+    {
+        // A tracked heavy vehicle matches the heavy and the tracked loadouts (both Effect): the tracked one's rank wins, untied.
+        int pick = LoadoutChoice.Pick(new[] { LoadoutPriority.Effect, LoadoutPriority.Effect }, new[] { 1, 0 }, out bool tied);
+        Assert.Equal(0, pick);
+        Assert.False(tied);
+        // A named loadout (Vehicle) beats any rank below it.
+        Assert.Equal(1, LoadoutChoice.Pick(new[] { LoadoutPriority.Effect, LoadoutPriority.Vehicle }, new[] { 5, 0 }, out _));
+        // Equal priority and rank: the last loaded wins and says so.
+        Assert.Equal(1, LoadoutChoice.Pick(new[] { LoadoutPriority.Effect, LoadoutPriority.Effect }, new[] { 1, 1 }, out tied));
+        Assert.True(tied);
+    }
+
+    [Fact]
     public void OverridesReplaceDefaultsAndUnknownNamesAreReported()
     {
         var unknown = new List<string>();

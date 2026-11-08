@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Xml;
 using Phobos.Framework.Defs;
 using Phobos.Framework.Vehicles.Rules;
@@ -136,6 +137,9 @@ public class ServiceSpec
     public float dueBelow = float.NaN;
     public List<QuantityRestore> restores = new();
     public List<ThingDefCountClass> supplies = new();
+    /// <summary>Litres of water the service draws when it is done: from Dubs Bad Hygiene's plumbing beside the vehicle when that mod is
+    /// active, otherwise free, as the base game treats water (owner, 9 Nov 2026).</summary>
+    public float waterLitres;
     /// <summary>Work in ticks for a mechanic of construction speed 1.</summary>
     public float work = 1200f;
 }
@@ -324,6 +328,9 @@ public class LoadoutSelector
     public float massMin = float.NaN;
     public float massMax = float.NaN;
     public List<string>? partTags;
+    /// <summary>Some part's key ends with one of these (Track: Vanilla Vehicles Expanded's tracked designs). A hint by name, because
+    /// nothing else marks a tracked vehicle.</summary>
+    public List<string>? partKeySuffixes;
 
     public bool Matches(VehicleDef def)
     {
@@ -352,6 +359,12 @@ public class LoadoutSelector
             float mass = BaseStat(def, DefDatabase<VehicleStatDef>.GetNamedSilentFail("Mass"));
             if (!float.IsNaN(massMin) && mass < massMin) return false;
             if (!float.IsNaN(massMax) && mass > massMax) return false;
+        }
+        if (partKeySuffixes != null)
+        {
+            bool found = def.components != null && def.components.Any(part => part.key != null
+                && partKeySuffixes.Any(suffix => part.key.EndsWith(suffix, System.StringComparison.OrdinalIgnoreCase)));
+            if (!found) return false;
         }
         if (partTags != null)
         {
@@ -398,6 +411,12 @@ public class LoadoutSystem
 public class PhobosVehicleLoadoutDef : Def
 {
     public LoadoutPriority priority = LoadoutPriority.Effect;
+    /// <summary>Breaks ties within a priority, higher winning: the tracked loadout beats the plain land ones.</summary>
+    public int rank;
+    /// <summary>The engine and drivetrain (drivetrain design), or an aircraft's engine (turbine design).</summary>
+    public LoadoutDrivetrain? drivetrain;
+    /// <summary>An aircraft's flight phases and the demand each puts on its engines.</summary>
+    public PhobosVehicleFlightProfileDef? flightProfile;
     /// <summary>Groups loadouts in the settings window: CombustionLand, Aircraft, Boat, Electric, Rail, Heavy.</summary>
     public string kind = "General";
     public LoadoutSelector selector = new();

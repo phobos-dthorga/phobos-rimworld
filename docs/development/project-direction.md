@@ -79,6 +79,10 @@ load folder or patch.
 | 9 Nov 2026 | **Drop RimWorld 1.6 from every mod now**, not when each is next touched | owner |
 | 9 Nov 2026 | Vehicle systems: jump-starting from another vehicle, and per-vehicle tuning in Vehicle Framework's own settings window | owner |
 | 9 Nov 2026 | Tyres and track pads take chemfuel as a stand-in for rubber, beside steel and components | owner |
+| 9 Nov 2026 | Drivetrain: a vehicle that cannot grip **crawls** (15% floor, "Wheels spinning"), never stops ([design](vehicle-drivetrain-design.md)) | owner |
+| 9 Nov 2026 | Fuel use: **keep other authors' fuel figures**; a load-dependent fuel setting, off by default | owner (agent's recommendation) |
+| 9 Nov 2026 | A jump jet too heavy or too hot to hover onto its pad: **a player setting** (use the runway, the default; allow at a cost to the engine; warn only) ([design](vehicle-turbine-design.md)) | owner (the three choices and the default are the agent's) |
+| 9 Nov 2026 | Vehicles' water (coolant top-ups, the Harrier's injection water): **Dubs Bad Hygiene plumbing beside the parked vehicle when it is active, otherwise free**; coolant's glycol share is a little chemfuel | owner (agent's recommendation) |
 
 ## Open checks
 

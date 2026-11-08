@@ -8,14 +8,15 @@
     Labels:
     - The interval (120 running hours, overdue at 180) and every mean time between failures are authored. They count only hours
       with the engine running, so a vehicle parked for a season does not wear.
-    - The service's supplies are gameplay stand-ins, said so in the README: chemfuel for oil and coolant (both are refined
-      products; chemfuel is the game's refined product), one component for filters and seals.
-    - The service tops up the oil and the coolant whichever systems hold them, so it serves every combustion loadout.
+    - The service's supplies are gameplay stand-ins, said so in the README: chemfuel for oil (a refined product;
+      chemfuel is the game's refined product), one component for filters and seals.
+    - The service tops up the oil whichever system holds it, so it serves every combustion loadout. Coolant has its own top-up in
+      the cooling system since Framework 0.11.0, so the chemfuel here dropped from 12 to 9 (authored).
   -->
   <Phobos.VehicleSystems.PhobosVehicleSystemDef>
     <defName>PhobosVehicleSystem_Service</defName>
     <label>wear and service</label>
-    <description>An hour meter on the engine. Parts fail now and then as they age, more often once a service is due and far more once it is overdue. A mechanic's service, with chemfuel and a component loaded aboard, tops up the oil and the coolant and resets the meter.</description>
+    <description>An hour meter on the engine. Parts fail now and then as they age, more often once a service is due and far more once it is overdue. A mechanic's service, with chemfuel and a component loaded aboard, tops up the oil and resets the meter.</description>
     <roles>
       <li>Engine</li>
       <li>Alternator</li>
@@ -139,13 +140,9 @@
           <quantity>oilLevel</quantity>
           <value>1</value>
         </li>
-        <li>
-          <quantity>coolantLevel</quantity>
-          <value>1</value>
-        </li>
       </restores>
       <supplies>
-        <Chemfuel>12</Chemfuel>
+        <Chemfuel>9</Chemfuel>
         <ComponentIndustrial>1</ComponentIndustrial>
       </supplies>
       <work>1500</work>

@@ -63,10 +63,13 @@ promise current behaviour. For using the mods, start at the [documentation index
 - [Vehicle drivetrain and engine speed: design (8 Nov 2026)](vehicle-drivetrain-design.md): rpm and a semi-realistic
   drivetrain worked backwards from the speed Vehicle Framework already gives (gear, load, fuel power, heat), a speed cap only
   where power or traction runs out, the two clocks, archetypes chosen by effect, parts and damage, a worked example and the
-  owner's open questions. Not built.
+  owner's open questions; then what D'thorga Framework 0.11.0 built (9 Nov 2026), the owner's answers and a test list. Not yet
+  tested in game.
 - [Gas turbines: design (8 Nov 2026)](vehicle-turbine-design.md): turboshaft helicopters, the Harrier's vectored-thrust engine
   with water injection, and the tank turbine; flight phases as the aircraft load signal, the vertical-landing hover margin,
-  hot and hung starts from the electrical system, twin engines, and what to confirm in the flight frameworks first. Not built.
+  hot and hung starts from the electrical system, twin engines, and what to confirm in the flight frameworks first; then what was
+  built on 9 Nov 2026 (Framework 0.11.0, Vehicles 0.2.0, Patches 0.14.0), what the decompiles said, the owner's answers and a
+  test list. Not yet tested in game.
 - [Vehicle simulation references (8 Nov 2026)](vehicle-references.md): the study library for the three vehicle designs (books,
   papers, open code and game documentation), each with its terms, what to take from it and whether it was read.
 - [Utility vehicles: design (8 Nov 2026)](utility-vehicles-design.md): the new content mod and why it starts as a stand-in,

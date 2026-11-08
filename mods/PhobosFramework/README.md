@@ -5,12 +5,13 @@ colonist is breathing, makes fires fill roofed rooms with the game's own smoke w
 carries carbon monoxide from fires, holds the per-person care choices the D'thorga medical mods offer, and holds the small
 helpers every D'thorga mod shares.
 
-Version 0.10.0, built 9 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
+Version 0.11.0, built 9 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
 oxygen working through Burns and Smoke and Medical Equipment (5 November 2026). The health layer new in 0.3.0 and the **vehicle
-systems new in 0.9.0 are not yet tested in game.** The rest is read from the game's and the mods' code.
+systems new in 0.9.0, and their engines, drivetrains and gas turbines new in 0.11.0, are not yet tested in game.** The rest is read from the game's and the mods' code.
 
 With **Vehicle Framework** active (RimWorld 1.7 only), it also gives vehicles real systems: a battery and alternator, coolant and
-oil, tyres or tracks, brakes, a gearbox, and wear that a mechanic services. See [Vehicle systems](#vehicle-systems-with-vehicle-framework).
+oil, an engine and drivetrain (gears, engine speed, load, grip), gas turbines for aircraft, tyres or tracks, brakes, a gearbox,
+and wear that a mechanic services. See [Vehicle systems](#vehicle-systems-with-vehicle-framework).
 
 ## Read this first (gotchas)
 
@@ -21,6 +22,13 @@ oil, tyres or tracks, brakes, a gearbox, and wear that a mechanic services. See 
 - **Removing D'thorga Framework or Vehicle Framework from a colony that used vehicle systems: press the removal button first.**
   Vehicles save their parts in order, so load the colony, press **Remove the added parts from this colony's vehicles** in the
   settings, save, then remove the mod. Without that, saved vehicles may fail to load.
+- **From 0.11.0, vehicles can be slowed by their own engines**: a laden truck climbing through sand, mud or snow runs out of
+  power or grip and **crawls with "Wheels spinning"** (never below 15% of its speed). If you would rather keep every vehicle's
+  speed as its author set it, choose **Drivetrain shown, speeds unchanged** in the settings (no restart needed).
+- **Jump jets and hot days**: by default a Harrier too heavy for its engine to hover in the day's heat **lands on a runway
+  instead of its pad** (with D'thorga Patches). The setting offers "allow it, at a cost to the engine" and "warn only".
+- **With Dubs Bad Hygiene, a vehicle's coolant top-up and a Harrier's injection water need a plumbing pipe with a water tower
+  beside or under the parked vehicle.** Without Dubs Bad Hygiene, water is free.
 
 - **Load it before any D'thorga mod that needs it.** The About file asks for that order, so RimSort does it for you. It needs
   no other mod and no Harmony.
@@ -90,28 +98,36 @@ Other mods (D'thorga Vehicles first) can give a named vehicle its own figures. N
 | System | What you see | What goes wrong | What fixes it |
 | --- | --- | --- | --- |
 | Battery and alternator | Battery charge; the alternator charges it while the engine runs | A damaged alternator stops charging; a flat or very cold battery **won't start the engine** (the draft button says why); a flat battery in deep frost can crack | **Jump-start it**: select a colonist and right-click the flat vehicle, with another vehicle parked within 8 cells; or park beside a powered conduit or battery to trickle-charge; warm the vehicle; repair the parts |
-| Coolant | Coolant temperature, warm at 88 to 110 °C | A holed radiator, low coolant or hard work in the heat: **running hot**, then overheating (engine damage), then boiling over (a letter) | Stop and let it cool; repair the radiator; a service refills the coolant |
+| Engine and drivetrain | Plain: "Engine labouring" or "Wheels spinning" only; Operator: the gear and engine speed; Engineer: load, engine, fuel and heat in kW | Cargo, passengers, hills and soft ground work the engine harder (more heat); out of power or grip, the vehicle slows, and **crawls** where it cannot grip; a damaged gearbox loses its top gears; a damaged clutch slips under load | Lighten it, take a road, or repair the gearbox and clutch |
+| Coolant | Coolant temperature, warm at 88 to 110 °C | A holed radiator, low coolant or hard work in the heat: **running hot**, then overheating (engine damage), then boiling over (a letter) | Stop and let it cool; repair the radiator; a **coolant top-up** (due at 60%) takes 3 chemfuel and water: **with Dubs Bad Hygiene, from a plumbing pipe beside the parked vehicle**, otherwise free |
 | Oil | Oil level, temperature and pressure | Low oil or a damaged oil pump wears the engine while it runs | A service tops up the oil |
-| Wear and service | Hours since the last service | Parts fail now and then, more once a service is due (120 running hours) and far more once overdue (180) | A **service**: haulers load 12 chemfuel and 1 component into the vehicle's cargo, then a constructor works on it |
+| Wear and service | Hours since the last service | Parts fail now and then, more once a service is due (120 running hours) and far more once overdue (180) | A **service**: haulers load 9 chemfuel and 1 component into the vehicle's cargo, then a constructor works on it |
 | Tyres and tracks | Tread wear | Worn tyres slow the vehicle; worn through, they fail on the move | A service with 15 steel, 2 components and 10 chemfuel |
 | Brakes | Brake wear, with every stop | Worn brakes slow the vehicle; worn through or wrecked, **it won't drive** | A service with 1 component |
 | Gearbox | Gearbox temperature | A damaged gearbox heats up and wears while driving | Repair the gearbox |
 | Cold fuel (a setting, off) | | Below about -8 °C chemfuel gels like diesel: **won't start** | Warm the vehicle in a heated room |
 | Air brakes (named heavy trucks only) | Air pressure | After standing long, **it won't drive** until the engine has run a few minutes | Let it idle |
+| Gas turbine (aircraft; D'thorga Vehicles' M1A2 tanks) | Turbine speed and temperature, and the flight phase | Run past its limits, the hot section wears, then the engine takes damage; a worn hot section breaks down; a weak battery lights it hot (wear) or **cannot light it** (the draft says why); with one of two engines out, the other runs hot | Ease off or land; **jump-start** a weak battery for a clean start; a **hot-section overhaul** (10 plasteel, 3 components) |
+| Water injection (the Harrier, with D'thorga Vehicles) | Injection water | Without water the engine has only its dry ratings, so a heavy jet on a hot day may not hover | A refill of 227 litres: **with Dubs Bad Hygiene, from a plumbing pipe beside it**, otherwise free |
 
 - **The service button** (a spanner) asks for a service now, even if none is due. Services also start by themselves when due.
 - **Switches** for headlights and the cab heater: each draws on the battery or the alternator while it runs.
-- **Boats** cool with sea water (no radiator part). **Aircraft** get only the battery, alternator and service; their engines cool
-  unlike a car's, which waits for a later design. **Electric vehicles** get none yet.
+- **Boats** cool with sea water (no radiator part). **Aircraft** get the battery, generator, service and a gas turbine; their
+  engines cool unlike a car's, so they have no coolant. **Electric vehicles** get none yet.
+- **Vehicle kinds**: light (Vehicle Framework mass under 120, petrol), medium (120 to 350, diesel), heavy (350 and more, 24 V and
+  diesel), tracked (any vehicle with track parts), boats and aircraft.
 - **The engine heats the room it stands in** while it runs, through the game's own temperature, so an idling truck warms a garage.
 - **Engine running** means drafted, or moving in a caravan, or flying, with fuel aboard. Idling counts as half the work.
 - **Combat Extended:** the added parts take the engine's cells and armour, so shots can reach them.
 - **Figures and supplies are gameplay choices**, each labelled with its source or as authored in the system files. Chemfuel stands
   in for oil, coolant and the rubber in tyres, because the game has none of them.
 
-**Settings (D'thorga Framework: vehicle systems):** which vehicles (all, or only D'thorga ones; per mod; per kind: light and heavy
-land vehicles, boats, aircraft), each system on or off, **figures only** (everything shows, nothing happens to the vehicle), cold
-fuel, how much the vehicle shows (Plain, Operator, Engineer), and the removal button. The first group needs a restart.
+**Settings (D'thorga Framework: vehicle systems):** which vehicles (all, or only D'thorga ones; per mod; per kind: light, heavy and
+tracked land vehicles, boats, aircraft), each system on or off, **figures only** (everything shows, nothing happens to the vehicle),
+cold fuel, how much the vehicle shows (Plain, Operator, Engineer), and the removal button. The first group needs a restart.
+**Engines and drivetrains:** the drivetrain off, shown only, or full (default full); **fuel use that follows engine load** (off:
+vehicles burn what their authors set); and **when an aircraft is too heavy or too hot to hover onto its pad**: use the runway
+(default), allow it at a cost to the engine, or warn only. These take effect at once.
 
 **Per vehicle, in Vehicle Framework's own settings** (each vehicle's page in its mod settings): battery capacity, alternator
 output, starter draw, engine heat, radiator cooling, thermostat, oil use, tyre wear, gearbox heat and the air brakes' compressor

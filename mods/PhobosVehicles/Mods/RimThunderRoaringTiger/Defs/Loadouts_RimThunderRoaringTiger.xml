@@ -65,6 +65,10 @@
       <li><def>PhobosVehicleSystem_RunningGear</def></li>
       <li><def>PhobosVehicleSystem_Brakes</def></li>
       <li><def>PhobosVehicleSystem_Transmission</def></li>
+      <li><def>PhobosVehicleSystem_Turbine</def></li>
     </systems>
+    <drivetrain>
+      <def>PhobosDrivetrain_TrackedTurbine</def>
+    </drivetrain>
   </Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
 </Defs>

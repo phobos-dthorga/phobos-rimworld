@@ -11,7 +11,7 @@ map no longer closes under your people (0.13.0).
 It replaces two earlier mods, merged into it on 7 November 2026: **D'thorga Vehicle Patches** and **D'thorga Missile Patches**
 ([why](../../docs/development/mod-consolidation.md)).
 
-Version 0.13.1, built 9 November 2026 for House D'thorga. **Not yet tested in game as D'thorga Patches.** The Harrier and turret hull
+Version 0.14.0, built 9 November 2026 for House D'thorga. **Not yet tested in game as D'thorga Patches.** The Harrier and turret hull
 parts are unchanged from Vehicle Patches 0.6.0 (not yet tested in game); the missile part was tried once by the owner, see
 [InterRim Ballistic Missile](#interrim-ballistic-missile).
 
@@ -31,8 +31,13 @@ parts are unchanged from Vehicle Patches 0.6.0 (not yet tested in game); the mis
 - **Needs Harmony and D'thorga Framework. Load it after the mods it patches.** The About file asks for this, so RimSort does it for
   you. **You have to switch it on yourself**: nothing else requires it. It does nothing without the mods it patches.
 - **RimWorld 1.7 only** (from 0.13.1; 1.6 is no longer supported). Vehicle Framework still ships only a 1.6 build, which the
-  game runs on 1.7. **The Harrier part needs D'thorga Framework 0.10.0 or later**, whose vehicle systems now give a saved
+  game runs on 1.7. **The Harrier part needs D'thorga Framework 0.11.0 or later**, whose vehicle systems now give a saved
   Harrier its new parts.
+- **New in 0.14.0: a Harrier too heavy for its engine to hover in the day's heat will not hover onto its pad** (not yet tested in
+  game). The vertical-landing button and order say why, an automatic return home uses a runway instead, and a landing that runs out
+  of injection water part-way is called off with the reason. **This follows D'thorga Framework's setting "When an aircraft is too
+  heavy or too hot to hover onto its pad"**: use the runway (default), allow it at a cost to the engine, or warn only. It needs
+  D'thorga Vehicles 0.2.0 for the Harrier's real engine figures; without it the Framework's general jet engine judges the hover.
 - **Safe to add to a running save.** A jet you already built keeps working; only new builds pay the new cost. Bombs already made
   stay as they are.
 - **Updating with Vanilla Furniture Expanded - Factory:** a bay used to remember its bill's old ingredient list after a recipe

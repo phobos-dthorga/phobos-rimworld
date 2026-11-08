@@ -70,17 +70,21 @@ Without `Inherit="False"` a list adds to the parent's; with it, it replaces it. 
 
 | Field | What it does |
 | --- | --- |
-| `priority` | `Vehicle`, `Mod`, `Effect` (the defaults) or `Default`. Among equals the last loaded wins, with a warning in the log. |
-| `kind` | The settings window's group: `CombustionLand`, `CombustionHeavy`, `Boat`, `Aircraft`, or your own word. |
-| `selector` | Which vehicles. Every condition given must hold: `vehicleDefs`, `packageIds`, `vehicleTypes` (Land, Sea, Air, Universal), `fuelled`, `electricPowered`, `flies` (each `Yes`, `No` or `Any`), `fuelTypes`, `excludeFuelTypes`, `massMin`, `massMax`, `partTags`. |
+| `priority` | `Vehicle`, `Mod`, `Effect` (the defaults) or `Default`. Among equals the higher `rank` wins, then the last loaded, with a warning in the log. |
+| `rank` | A whole number (default 0) that breaks ties within a priority: the shipped tracked loadout has 1, so it beats the light, medium and heavy ones. |
+| `kind` | The settings window's group: `CombustionLand`, `CombustionHeavy`, `CombustionTracked`, `Boat`, `Aircraft`, or your own word. |
+| `selector` | Which vehicles. Every condition given must hold: `vehicleDefs`, `packageIds`, `vehicleTypes` (Land, Sea, Air, Universal), `fuelled`, `electricPowered`, `flies` (each `Yes`, `No` or `Any`), `fuelTypes`, `excludeFuelTypes`, `massMin`, `massMax`, `partTags`, `partKeySuffixes` (a part key ends in one of them, as tracks end in `Track`). |
+| `drivetrain` | The engine and drivetrain: a `def` (a `PhobosVehicleDrivetrainDef`) and an optional `set` of overrides (`kilowattsPerTonne`, `drivenShare`, `wheelRadius`, `dragArea`, `kilogramsPerVehicleMass`, `emptyKilograms`, `fuelKilogramsFull`, `idleFuelShare`, `efficiency`). See [Engines and drivetrains](#engines-and-drivetrains). |
+| `flightProfile` | An aircraft's `PhobosVehicleFlightProfileDef`: its phases and what each asks of the engines. |
 | `systems` | Each `def` (a system) with an optional `set` of parameter overrides, written as elements: `<set><batteryAmpHours>90</batteryAmpHours></set>`. |
 | `partRoles` | Each `role` with `find` rules and an optional `add`. `all` binds every match (wheels). |
 | `loads` | Electrical consumers: `name`, `label`, `description`, `amps`, `when` (a condition), `toggle` (the player gets a switch), `defaultOn`, `iconPath`. |
 
 ### Part roles
 
-A role is a name a system reads (`Engine`, `Alternator`, `Battery`, `Starter`, `Radiator`, `OilPump`, `Transmission`, `Wheels`,
-`Brakes`, `Compressor`, `HydraulicPump`, `HydraulicLines`). The first `find` rule that matches any of the vehicle's own parts binds
+A role is a name a system reads (`Engine`, `Alternator`, `Battery`, `Starter`, `Radiator`, `OilPump`, `Transmission`, `Clutch`,
+`Wheels`, `Brakes`, `Compressor`, `HydraulicPump`, `HydraulicLines`; `Engine1` and `Engine2` for twin engines, which the
+drivetrain counts instead of `Engine` when they are bound). The first `find` rule that matches any of the vehicle's own parts binds
 the role. A finder may ask for a `key`, a `keyContains` hint, `categories` (stats the part feeds), a `depth`, `priority` (`Yes` or
 `No`) and a `tag`, all of which must hold. If nothing matches and the role has an `add`, the service appends that part:
 
@@ -153,7 +157,7 @@ pump empties, with a stage that stops the vehicle starting when it runs dry.
 | `flows` | Rate rules on one quantity: `kind` `Into` and `From` (units per hour) or `Toward` a `target` input (the share of the gap closed per hour, done exactly, so it never overshoots). The rate is `factor`, times `factorParameter`, over `divideByParameter`, times every input. `openAbove` or `openAboveParameter` (and `openBelow`) with a `band` gate it like a thermostat. `when` limits it to a condition. |
 | `onEvents` | Effects run once on one of Vehicle Framework's events (`IgnitionOn`, `IgnitionOff`, `MoveStart`, `MoveStop`, `Refueled`, `OutOfFuel` and the rest). |
 | `onPartHit` | When a part playing `role` is hit, `quantity` changes by `perHealthLost` for each hit point lost. |
-| `service` | What a mechanic does: `label`, due when `dueQuantity` passes `dueAbove` or `dueBelow`, `supplies` loaded into the cargo first, `work` (ticks at construction speed 1), then `restores` (any system's quantities). |
+| `service` | What a mechanic does: `label`, due when `dueQuantity` passes `dueAbove` or `dueBelow`, `supplies` loaded into the cargo first, `waterLitres` drawn from the registered water source when the work ends (free when none is registered; see [Water](#water-for-services)), `work` (ticks at construction speed 1), then `restores` (any system's quantities). |
 | `jumpStart` | How a colonist jump-starts the vehicle from another: `quantity` (raised to `raiseTo` when below it), `capacityParameter` (the unit the charge moves in), `donorMinimum` (or a running engine), `reach` in cells, `work` in ticks. The player orders it from the flat vehicle's right-click menu. |
 | `workerClass` | A `VehicleSystemWorker` subclass for maths XML cannot say. |
 
@@ -171,12 +175,16 @@ Every input takes an optional `curve` (points `(x, y)` mapping the raw reading) 
 | `Input_Parameter` | a `parameter` of the system |
 | `Input_Ambient` | the temperature around the vehicle, °C (its room on a map, the weather on the world map) |
 | `Input_EngineRunning` | `running` (1) or `off` (0): drafted, or moving in a caravan, or flying, with fuel |
-| `Input_EngineLoad` | 0 off, 0.5 idling, 1 moving or flying |
+| `Input_EngineLoad` | 0 off, 0.5 idling, 1 moving or flying; with a drivetrain and the player's "full drivetrain", the model's load (0 to 1) |
+| `Input_EngineRpm` | engine speed in rpm from the drivetrain, times `multiplier` (an alternator's pulley); without one, `idle` (800) or `cruise` (2000) |
+| `Input_EngineHeat` | heat into the coolant as a share of the heat at rated power, from the drivetrain; without one, the engine load |
+| `Input_DrivePower` | power at the driven wheels, kW (0 without a drivetrain) |
+| `Input_Turbine` | a turbine `reading`: `Temperature` (degrees C), `OverContinuous` and `OverTop` (degrees past those limits), `SpeedPercent`, `LifePerHour`, `Demand`, `EnginesOut` |
 | `Input_Moving` | `moving` (1) or `stopped` (0) |
 | `Input_PartEfficiency` | the average efficiency of the parts bound to `role`, or `missing` (1) |
 | `Input_Quantity` | another `quantity` of the vehicle, in any system, or the `fallback` input |
 | `Input_LoadAmps` | the amperes the switched-on loads draw now |
-| `Input_ElectricalBalance` | `Surplus` or `Deficit`: the alternator (`supplyParameter` amperes times `supplyRole`'s efficiency, while running) against the loads |
+| `Input_ElectricalBalance` | `Surplus` or `Deficit`: the alternator (`supplyParameter` amperes times `supplyRole`'s efficiency times the optional `supplyFactor` input, while running) against the loads |
 | `Input_ShorePower` | 1 when the parked vehicle stands beside a powered grid |
 | `Input_Condition` | 1 when `condition` holds |
 | `Input_Setting` | 1 when the player's setting of that name is on (`fuelGelling`) |
@@ -207,6 +215,75 @@ Every effect takes `when`. Those marked as consequences are skipped when the pla
 | `Effect_AddQuantity` | once: `amount` times `scaleByParameter`, over `divideByParameter`, times `scaleBy`, added to `quantity` | no |
 | `Effect_SetQuantity` | once: `quantity` set to `value` | no |
 | `Effect_RateQuantity` | `perHour` added to `quantity` while the stage lasts | no |
+
+## Engines and drivetrains
+
+A `PhobosVehicleDrivetrainDef` is a vehicle's engine, gearbox, running gear and mass. The service works backwards from the speed
+the vehicle is moving at to the gear, rpm, load, fuel power and heat, and caps the speed only where the engine's power or the
+tyres' grip runs out (never below 15%: "Wheels spinning"). The design is in
+[the drivetrain record](development/vehicle-drivetrain-design.md). Vehicle Framework still decides every speed below the cap.
+
+```xml
+<Phobos.VehicleSystems.PhobosVehicleDrivetrainDef>
+  <defName>MyMod_Drivetrain_Tractor</defName>
+  <label>tractor diesel</label>
+  <engine>
+    <kind>Piston</kind>                  <!-- Piston, Electric, Turboshaft, Turbofan -->
+    <idleRpm>700</idleRpm><launchRpm>1000</launchRpm><ratedRpm>2200</ratedRpm>
+    <kilowattsPerTonne>12</kilowattsPerTonne>
+    <torqueCurve><points><li>(0.3, 0.8)</li><li>(0.6, 1)</li><li>(1, 0.9)</li><li>(1.1, 0)</li></points></torqueCurve>
+  </engine>
+  <transmission>
+    <kind>Automatic</kind>               <!-- Automatic, Direct, Propeller, None -->
+    <gears><li>6.0</li><li>3.5</li><li>2.0</li><li>1.0</li></gears>
+    <finalDrive>5.2</finalDrive>
+    <upshiftRpm>1900</upshiftRpm><downshiftRpm>1100</downshiftRpm>
+  </transmission>
+  <running><wheelRadius>0.6</wheelRadius><drivenShare>1</drivenShare></running>
+  <mass><emptyKilograms>4500</emptyKilograms></mass>
+</Phobos.VehicleSystems.PhobosVehicleDrivetrainDef>
+```
+
+| Block | Fields (defaults) |
+| --- | --- |
+| `engine` | `kind`, `idleRpm` (700), `launchRpm` (1100), `ratedRpm` (3000), `kilowattsPerTonne` (30), `torqueCurve` (share of peak torque against rpm over rated; must end at 0), `frictionConstant`, `frictionLinear`, `frictionQuadratic` (Willans friction shares), `indicatedEfficiency` (0.40), `coolantHeatShare` (0.28), `idleFuelShare`, `turbine` |
+| `transmission` | `kind`, `gears` (falling from first to top), `finalDrive` (4.1), `upshiftRpm` (2400), `downshiftRpm` (1300), `efficiency` (0.88) |
+| `running` | `wheelRadius` (0.38 m), `drivenShare` (0.5: the share of weight on driven wheels), `dragArea` |
+| `mass` | `kilogramsPerVehicleMass` (12), `emptyKilograms` (a real kerb mass, used instead), `fuelKilogramsFull` |
+
+A gas turbine adds a `turbine` block to the engine: `idleSpeedPercent` (60), `idleTemperatureAboveAmbient` (363), `deratePerDegree`
+(0.007 above 15 degrees C), `startSpeedPercent` (15), and `ratings`, each with `name`, `share` of maximum continuous output,
+`speedPercent`, `temperatureLimit`, `minutes` (every rating above the first needs one), `thrustKilonewtons` (every rating or none:
+a jet's hover check uses them) and `wet` (one rating may be the water-injected one). A wet rating needs a `waterInjection` block
+(`tankKilograms`, `kilogramsPerSecond`) and a system holding the `injectionWater` quantity in the loadout
+(`PhobosVehicleSystem_WaterInjection`); add `PhobosVehicleSystem_Turbine` for temperature, hot-section wear and starts. The
+shipped archetypes are in `Drivetrains.xml`, every figure labelled. The design is in
+[the turbine record](development/vehicle-turbine-design.md).
+
+### Flight profiles
+
+Vehicle Framework gives no throttle, so an aircraft's load comes from its phase. A `PhobosVehicleFlightProfileDef` lists the
+`phases` (`phase`, `label` for the inspect line, `demand` as a share of maximum continuous output, or `hover` true to work it out
+from the aircraft's weight; `running` and `moving`, default true) and a `reader` that tells them apart.
+`Phobos.VehicleSystems.PhaseReader_Members` reads members by name, so your flight framework needs no reference to ours: each rule
+gives a `phase`, an optional `comp` (a comp's class name), a `member` (a field or property, dotted for a path) and `equals` (text,
+compared with the value's name) or `atLeast` (a number). The first matching rule wins. `hoverPowerAtMaxGross` (0.9) is a
+helicopter's hover power at maximum gross weight. Write your own reader by subclassing `PhaseReader`.
+
+### The hover check for flight mods
+
+`HoverLimits.Beyond(vehicle)` is true when the aircraft has a flight profile with hover phases, the player runs the full
+drivetrain, and its engine cannot hold a hover now, dry or with water. `HoverLimits.RefusesPad(vehicle)` adds the player's
+choice (refuse the pad) and `HoverLimits.RefusalText(vehicle)` gives the in-world reason. D'thorga Patches uses them on the
+Harrier's pad landings. "Allow at a cost" and "warn only" need nothing from a flight mod.
+
+## Water for services
+
+A service's `waterLitres` comes from the one registered water source. None is registered by default, so water is free, as the
+game treats it. With Dubs Bad Hygiene, D'thorga Framework registers its plumbing: a pipe with a water tower under or beside the
+parked vehicle, and the service waits with the reason until one is there. Another mod may register its own source by
+implementing `VehicleWater.ISource` (`CanDraw` with an in-world reason, `TryDraw`) and calling `VehicleWater.Register` at startup;
+the last one registered is used, and a source that throws is dropped (water is free again until restart).
 
 ## Tuning in Vehicle Framework's window
 
@@ -248,15 +325,17 @@ is active.
 | System | Quantities | Roles | Notes |
 | --- | --- | --- | --- |
 | `PhobosVehicleSystem_Electrical` | charge, starting power, starter, battery frost | Battery, Alternator, Starter | Parameters `batteryAmpHours`, `alternatorAmps`, `starterAmpHours`, `shoreChargeAmps`; jump-starts |
-| `PhobosVehicleSystem_Cooling` | coolant temperature and level, engine load | Engine, Radiator | `heatAtFullLoad`, `radiatorRate`, `soakRate`, `thermostatOpens` |
+| `PhobosVehicleSystem_Cooling` | coolant temperature and level, engine load | Engine, Radiator | `heatAtFullLoad`, `radiatorRate`, `soakRate`, `thermostatOpens`; coolant top-up service: 3 chemfuel and 10 litres of water |
 | `PhobosVehicleSystem_Lubrication` | oil level, temperature, pressure | Engine, OilPump | Oil follows the coolant, or the air without a cooling system |
 | `PhobosVehicleSystem_Fuel` | fuel gel | | Only with the player's cold-fuel setting |
-| `PhobosVehicleSystem_Service` | hours since service | Engine, Alternator, Starter, Radiator | Service: 12 chemfuel, 1 component |
+| `PhobosVehicleSystem_Service` | hours since service | Engine, Alternator, Starter, Radiator | Service: 9 chemfuel, 1 component (the oil) |
 | `PhobosVehicleSystem_RunningGear` | tread wear | Wheels | Service: 15 steel, 2 components, 10 chemfuel (the rubber) |
 | `PhobosVehicleSystem_Brakes` | brake wear, brake parts | Brakes | Service: 1 component |
 | `PhobosVehicleSystem_Transmission` | gearbox temperature | Transmission | |
 | `PhobosVehicleSystem_AirBrakes` | air pressure | Compressor | Named loadouts only |
 | `PhobosVehicleSystem_Hydraulics` | fluid, pressure | HydraulicPump, HydraulicLines | For working vehicles; nothing uses it yet |
+| `PhobosVehicleSystem_Turbine` | turbine temperature, over the limits, hot-section life, engines out, turbine start | Engine | Hung and hot starts from the electrical system's starting power; overhaul: 10 plasteel, 3 components |
+| `PhobosVehicleSystem_WaterInjection` | injection water | | Refill: 227 litres of water |
 
 Every figure's source, or the word authored, is in the comment at the top of each system's file
 (`mods/PhobosFramework/Mods/VehicleFramework/Common/Defs/Phobos/Framework/VehicleSystems/`). The design and the reasons behind it

@@ -60,6 +60,72 @@ public class Input_EngineLoad : VehicleSystemInput
     protected override float Raw(SystemContext context) => context.Comp.EngineLoad;
 }
 
+/// <summary>
+/// Engine speed in rpm from the drivetrain or turbine model, times a <c>multiplier</c> (an alternator's pulley ratio, 2.5 in Delco
+/// Remy's example). Without a model it reads <c>idle</c> or <c>cruise</c> while the engine runs, and 0 when it is off.
+/// </summary>
+public class Input_EngineRpm : VehicleSystemInput
+{
+    public float multiplier = 1f;
+    public float idle = 800f;
+    public float cruise = 2000f;
+    protected override float Raw(SystemContext context) => context.Comp.EngineRpm(idle, cruise) * multiplier;
+}
+
+/// <summary>Engine heat into the coolant as a share of full-load heat, from the drivetrain model; without one, the engine load.</summary>
+public class Input_EngineHeat : VehicleSystemInput
+{
+    protected override float Raw(SystemContext context) => context.Comp.EngineHeatShare();
+}
+
+/// <summary>Power at the driven wheels in kW (0 without a drivetrain), for a gearbox's losses.</summary>
+public class Input_DrivePower : VehicleSystemInput
+{
+    protected override float Raw(SystemContext context) => context.Comp.DrivePowerKw();
+}
+
+/// <summary>A reading from the turbine model: temperature, degrees over the continuous or top limit, spool speed, hot-section life
+/// used per hour, demand, or engines out.</summary>
+public class Input_Turbine : VehicleSystemInput
+{
+    public enum Reading
+    {
+        Temperature,
+        OverContinuous,
+        OverTop,
+        SpeedPercent,
+        LifePerHour,
+        Demand,
+        EnginesOut,
+    }
+
+    public Reading reading = Reading.Temperature;
+
+    protected override float Raw(SystemContext context)
+    {
+        Powertrain? train = context.Comp.Powertrain;
+        if (train?.Turbine == null) return reading == Reading.Temperature ? context.Comp.Ambient : reading is Reading.OverContinuous or Reading.OverTop ? -1000f : 0f;
+        TurbineState state = train.TurbineNow;
+        return reading switch
+        {
+            Reading.Temperature => (float)state.Temperature,
+            Reading.OverContinuous => (float)state.OverContinuous,
+            Reading.OverTop => (float)state.OverTop,
+            Reading.SpeedPercent => (float)state.SpeedPercent,
+            Reading.LifePerHour => context.Comp.EngineRunning ? (float)TurbineModel.LifePerHour(state.OverContinuous) : 0f,
+            Reading.Demand => (float)state.Demand,
+            Reading.EnginesOut => EnginesOut(train),
+            _ => 0f,
+        };
+    }
+
+    static float EnginesOut(Powertrain train)
+    {
+        (int working, int engines) = train.Engines();
+        return engines - working;
+    }
+}
+
 /// <summary>Whether the vehicle is moving.</summary>
 public class Input_Moving : VehicleSystemInput
 {
@@ -110,10 +176,13 @@ public class Input_ElectricalBalance : VehicleSystemInput
     public Side side = Side.Surplus;
     public string supplyParameter = "alternatorAmps";
     public string supplyRole = "Alternator";
+    /// <summary>Scales the supply: the alternator's output against its rotor speed (nothing below cut-in, full at speed).</summary>
+    public VehicleSystemInput? supplyFactor;
 
     protected override float Raw(SystemContext context)
     {
         double supply = context.Comp.EngineRunning ? context.Parameter(supplyParameter) * context.Comp.PartEfficiency(supplyRole, 1f) : 0;
+        if (supply > 0 && supplyFactor != null) supply *= supplyFactor.Evaluate(context);
         double demand = context.Comp.ActiveLoadAmps();
         return (float)(side == Side.Surplus ? ElectricalBalance.Surplus(supply, demand) : ElectricalBalance.Deficit(supply, demand));
     }

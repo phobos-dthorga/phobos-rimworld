@@ -5,6 +5,40 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.11.0] - 2026-11-09 - Draft
+
+The drivetrain and gas-turbine designs (records of 8 November 2026), built with the owner's four answers of 9 November 2026.
+**Not yet tested in game.** Designs: docs/development/vehicle-drivetrain-design.md and docs/development/vehicle-turbine-design.md.
+
+### Added
+
+- Vehicle systems: an engine and drivetrain for every land vehicle and boat. Vehicles pick a gear, run at an engine speed and work harder with cargo, passengers, ammunition, hills, sand, mud and snow. A light vehicle gets a petrol engine; medium and heavy ones a diesel; tracked ones (found by their track parts) a tracked diesel; boats a propeller.
+- A vehicle slows where its engine runs out of power or its wheels run out of grip, and crawls on at no less than 15% of its speed with "Wheels spinning" rather than stopping (owner's choice). Vehicle Framework's own speeds and path planning are untouched.
+- The engine's heat into its coolant follows the fuel it burns; the alternator gives nothing below its cut-in speed and about half at idle, so lights left on at idle slowly drain the battery; oil pressure and the radiator's fan follow engine speed.
+- Gas turbines: aircraft and the M1A2 tanks of D'thorga Vehicles run a turbine model with spool speed, turbine temperature, time-limited ratings and an allowance for hot days. Run past its limits a turbine wears its hot section and then takes damage; a worn hot section breaks down until a mechanic overhauls it. A weak battery gives a hot start (wear and a message) or none at all (the draft is refused with the reason); a jump-start gives a clean start.
+- Aircraft phases (idling, taxiing, take-off, attack run, vertical landing, cruising) set the engines' work, read from the flight frameworks by name: the Harrier's fixed-wing framework, the VTOL Vehicle framework of the Hind and the Mongoose, and Vehicle Framework's own launch state for any other aircraft.
+- Twin engines: a loadout can bind two engines; with one out, the other carries the load on its emergency rating and runs hot.
+- Water injection (the Harrier): a tank that lets the engine run its wet rating for a short, hard hover, refilled by a mechanic.
+- A coolant top-up is its own service now, due once the coolant is down to 60%: 3 chemfuel for the glycol, and water. With Dubs Bad Hygiene, vehicles take water from a plumbing pipe beside or under the parked vehicle with a water tower on it, and wait for one; without it, water is free (owner's choice).
+- Inspect text: Plain shows only "Engine labouring" or "Wheels spinning"; Operator adds the gear and engine speed, or a turbine's speed and temperature and the flight phase; Engineer adds load, engine, fuel and heat in kW and how far the vehicle is held back.
+- Settings: the drivetrain off, shown only, or full (default full); fuel use that follows engine load (off by default: authors' fuel figures stand, owner's choice); and what happens when a jump jet is too heavy or the day too hot to hover onto its pad: use the runway (default), allow it with the engine run past its limits, or warn only (owner's choice).
+- For modders: drivetrain and flight profile Defs, loadout fields for both (with per-loadout overrides), a rank that breaks ties between equal loadouts, a part-key suffix selector, a service's water in litres, new inputs (engine speed, engine heat, drive power, turbine readings), a water source any mod can register, and a hover check a flight mod can ask. The schema check reads all of them.
+
+### Changed
+
+- The engine service no longer tops up the coolant (the coolant top-up does), and its chemfuel drops from 12 to 9.
+- The default loadouts gain a medium land vehicle (Vehicle Framework mass 120 to 350, 12 V electrics with a diesel), a tracked vehicle and a clutch part on land vehicles.
+
+### Compatibility and limits
+
+- Patches Vehicle Framework's path follower to apply the speed cap, before Vanilla Vehicles Expanded's own patch there; nothing else about movement changes.
+- The figures are authored or secondary and labelled in the Defs: kerb mass is Vehicle Framework's mass times 12 kg unless a loadout gives a real one; turbine temperature limits are placeholders. Engine sound, an APU for the M1A2 and a skid-steer turning cost wait (Vehicle Framework's turning events are not yet released).
+- The Dubs Bad Hygiene water part is its own assembly, loaded only with both mods active.
+
+### Save compatibility
+
+- Safe to add to a running colony. Nothing the drivetrain or turbine works out is saved; vehicles gain a clutch part, and the turbine and water systems where their loadouts name them, as in 0.9.0. The removal button still applies before removing the mod.
+
 ## [0.10.0] - 2026-11-09 - Draft
 
 The owner's follow-ups of 9 November 2026. Not yet tested in game.

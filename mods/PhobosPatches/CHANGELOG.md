@@ -6,6 +6,23 @@ says the owner tested it.
 
 ## [Unreleased]
 
+## [0.14.0] - 2026-11-09 - Draft
+
+The owner's choice of 9 November 2026 for a jump jet too heavy or too hot to hover: a setting, defaulting to the runway. **Not yet
+tested in game.**
+
+### Added
+
+- The Harrier's pad landings follow D'thorga Framework's hover check: when its engine cannot hold the jet in a hover at its weight in the day's heat, and the player chose to refuse the pad, the vertical-landing button is disabled with the reason, the order is refused with it, an automatic return uses a runway, and a landing whose hover fails part-way is called off with the reason instead of the Harrier's damaged-engine text.
+
+### Dependencies
+
+- The Harrier part needs D'thorga Framework 0.11.0 or later. D'thorga Vehicles 0.2.0 gives the Harrier its real engine figures.
+
+### Compatibility and limits
+
+- Patches four of the Harrier's own methods by name (its hover check, the vertical-landing order, its buttons and its cancel). The order's patch skips the original only when it would refuse with the wrong reason.
+
 ## [0.13.1] - 2026-11-09 - Draft
 
 No change in play on 1.7. Not yet tested in game.

@@ -1,6 +1,6 @@
 # Vehicle drivetrain and engine speed: design (8 Nov 2026)
 
-A design record. **Nothing is built and nothing is tested in game.** The owner asked on 8 Nov 2026 to introduce engine
+A design record. **Built in D'thorga Framework 0.11.0 on 9 Nov 2026 (see [As built](#as-built-dthorga-framework-0110-9-nov-2026)); not yet tested in game.** The text above that section keeps its original scope. The owner asked on 8 Nov 2026 to introduce engine
 speed (rpm) and, "if at all possible, a semi-realistic drivetrain provided we can maintain good performance". It was
 written while the [vehicle systems](vehicle-systems-design.md) service was being coded, and checked afterwards against
 what D'thorga Framework 0.9.0 built (8 Nov 2026). It **adds** to that schema (one optional loadout field, one new Def type,
@@ -239,6 +239,56 @@ torque curve ending at zero.
 | Load-dependent fuel use | Off (VF's rates unchanged; heat still follows the model) / On (fuel scales with the model's fuel power, normalised so a nominal cruise matches VF's rate) | Off | No |
 | Stuck in soft ground | Floor (slow crawl, "Wheels spinning") / Stop (the vehicle refuses the path) | Floor | No |
 
+## As built (D'thorga Framework 0.11.0, 9 Nov 2026)
+
+**Built and checked offline; not yet tested in game.** Code: `src/PhobosFramework.Vehicles/Rules/DrivetrainModel.cs` (game-free,
+with the rule tests), `Systems/Powertrain.cs` (the vehicle's side), `Defs/PowertrainDefs.cs`, and the archetypes in
+`mods/PhobosFramework/Mods/VehicleFramework/Common/Defs/Phobos/Framework/VehicleSystems/Drivetrains.xml`.
+
+**The owner's answers (9 Nov 2026):**
+
+| Question | Owner's answer | As built |
+| --- | --- | --- |
+| 2. Crawl or stop without traction? | **Crawl** | A 15% floor and "Wheels spinning"; no stop setting |
+| 3. Load-dependent fuel use? | **Keep the authors' figures; the setting off by default** | The setting exists, off; on, fuel follows the model's fuel power, normalised so a nominal cruise matches the author's rate |
+
+Questions 1, 4, 5 and 6 took the agent's leans (agent choices, owner to revise): two clocks; kerb mass 12 kg per VF Mass unit,
+overridable per loadout (`mass` in the drivetrain Def, or `kilogramsPerVehicleMass` and `emptyKilograms` in a loadout's `set`);
+Plain mode says only "Engine labouring" (load above 90%) or "Wheels spinning"; engine sound later.
+
+**Corrections from reading Vehicle Framework and Vanilla Vehicles Expanded (9 Nov 2026), which the build follows:**
+
+- **The speed cap hooks `VehiclePathFollower.CostToPayThisTick()`** (private; a postfix multiplying its result by the cap),
+  with Harmony priority First so it runs **before** VVE's postfix on the same method, which reads the result to decide braking.
+  Vehicle Framework's MoveSpeed stat and path planning are untouched.
+- **VF's Mass stat already includes cargo**, so kerb mass uses the design's base Mass; inventory, passengers (their own mass),
+  turret ammunition and fuel are added, cached for 250 ticks and dirtied on cargo and passenger events.
+- **Speed is sampled from the sub-cell position** (the path follower's next cell and the share of its cost left), because a
+  vehicle's Position changes only per cell. Never from DrawPos.
+- **Terrain**: rolling resistance and grip are curves on the terrain's own path cost (built floors 0, soil 2, sand 4, soft sand
+  and mud 14, marsh and shallow water 30; authored, shaped from the secondary tables in the references), with snow on top.
+- **Tracked vehicles are found by a part key ending in Track** (a new selector field, `partKeySuffixes`), because two of VVE's
+  tracked vehicles carry no Wheel tag. The tracked loadout wins a tie with the mass-based ones through a new loadout `rank`.
+- **Skid-steer turning cost is not built**: VF's rotation events exist only on its development branch.
+
+**Also built:** a medium land loadout (VF Mass 120 to 350, 12 V electrics and a diesel) between light (petrol) and heavy; a
+clutch part on land vehicles (slips under load when damaged); the gearbox losing its top gear below 40% and keeping only 1st and
+2nd below 20%; a flat tyre tripling its rolling resistance. Cooling's combustion heat reads the model's heat (as a share of the
+heat at rated power, so 420 degrees an hour still means full load); the radiator's fan, the oil pump and the alternator follow
+engine speed (the alternator: nothing below 1,200 rotor rpm, about half at idle through a 2.5 pulley; authored curve). Caravans on
+the world map take a cruise point from the tile's hilliness and road.
+
+**Checked offline:** the worked example within tolerance (the Mule in 3rd at about 1,545 rpm and 13% load on asphalt; loose sand
+power-capped, bogged in two-wheel drive and through in all-wheel drive; the Bulldog's sand cap), gear hysteresis, gearbox damage,
+the propeller law, the terrain curves, and a 500-sample benchmark under 50 ms (`tests/PhobosFramework.Vehicles.Rules.Tests`).
+
+**To test in game (owner):**
+
+1. A Vanilla Vehicles Expanded truck driving on a road and on soil, in Operator mode: the gear and rpm change sensibly.
+2. A laden truck in soft sand or mud: it slows, and crawls with "Wheels spinning" rather than stopping.
+3. A truck idling at night with its headlights on: the battery slowly drains; driving charges it.
+4. Save and reload with vehicles moving: no errors, the same gears after a few seconds.
+
 ## Open questions for the owner
 
 | Question | Agent lean |
@@ -254,6 +304,7 @@ torque curve ending at zero.
 
 - **Owner (8 Nov 2026):** introduce rpm and a semi-realistic drivetrain, provided performance holds; build a body of
   references to study.
+- **Owner (9 Nov 2026):** crawl without traction; keep the authors' fuel figures with the setting off.
 - **Agent proposals, owner to confirm:** the quasi-static method; VF keeps deciding speed and we only cap it; the two
   clocks; nothing saved; ScanShort sampling; the archetypes and every authored figure; the speed-cap floor; the
   settings table.

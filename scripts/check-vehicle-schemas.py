@@ -6,7 +6,9 @@ Reads each mods/*/ XML file for Phobos.VehicleSystems.PhobosVehicleSystemDef and
 the way the game does (a child's elements override, list items append unless Inherit="False"), and checks what the game would only
 find at load, or never: quantities and flows that name each other, parameters declared before use, stages in order, roles a system
 reads declared and bound, loadouts that name real systems and parameters, appended parts with unique keys and a role to take cells
-from, the effect, input and condition classes the service ships, and the translation keys messages and refusals use. Another mod's
+from, the effect, input and condition classes the service ships, and the translation keys messages and refusals use. Drivetrains
+(gears, shift points, torque curve, turbine ratings and water injection), flight profiles (a reader for every phase they use) and
+the loadouts that name them are checked too (Framework 0.11.0). Another mod's
 own classes (outside Phobos.VehicleSystems) are taken on trust. Exit code 1 when anything is wrong; warnings alone exit 0.
 The schema itself is documented in docs/vehicle-systems-modding.md.
 """
@@ -20,8 +22,11 @@ from pathlib import Path
 
 SYSTEM_TAG = 'Phobos.VehicleSystems.PhobosVehicleSystemDef'
 LOADOUT_TAG = 'Phobos.VehicleSystems.PhobosVehicleLoadoutDef'
+DRIVETRAIN_TAG = 'Phobos.VehicleSystems.PhobosVehicleDrivetrainDef'
+PROFILE_TAG = 'Phobos.VehicleSystems.PhobosVehicleFlightProfileDef'
 OUR_NAMESPACE = 'Phobos.VehicleSystems.'
 SCHEMA_SOURCE = 'src/PhobosFramework.Vehicles/Schema'
+EXTRA_CLASS_SOURCES = ('src/PhobosFramework.Vehicles/Defs/PowertrainDefs.cs',)  # the flight profile's phase readers
 CLASS_LINE = re.compile(r'^public (?:abstract )?class (\w+)', re.M)
 KEY_FIELDS = {'message', 'reason', 'label', 'text'}  # fields of effects that hold translation keys
 PARAMETER_FIELDS = ('factorParameter', 'divideByParameter', 'openAboveParameter', 'openBelowParameter', 'scaleByParameter',
@@ -68,7 +73,7 @@ def merge(parent, child):
 
 def gather(root):
     """Every system and loadout Def under mods/, inheritance resolved, with the file each came from."""
-    raw = {SYSTEM_TAG: [], LOADOUT_TAG: []}
+    raw = {SYSTEM_TAG: [], LOADOUT_TAG: [], DRIVETRAIN_TAG: [], PROFILE_TAG: []}
     keys = set()
     for path in sorted(Path(root, 'mods').rglob('*.xml')):
         relative = path.relative_to(root).as_posix()
@@ -100,9 +105,61 @@ def gather(root):
 
 def our_classes(root):
     names = set()
-    for path in Path(root, SCHEMA_SOURCE).glob('*.cs'):
-        names.update(CLASS_LINE.findall(path.read_text(encoding='utf-8')))
+    paths = list(Path(root, SCHEMA_SOURCE).glob('*.cs')) + [Path(root, extra) for extra in EXTRA_CLASS_SOURCES]
+    for path in paths:
+        if path.exists():
+            names.update(CLASS_LINE.findall(path.read_text(encoding='utf-8')))
     return names
+
+
+def number(element, tag, default):
+    value = text(element, tag)
+    try:
+        return float(value) if value is not None else default
+    except ValueError:
+        return None
+
+
+def check_drivetrain(node, where, errors):
+    # What the Def's own ConfigErrors says, before the game does, plus the turbine's ladder and water.
+    engine = node.find('engine') if node.find('engine') is not None else ET.Element('engine')
+    transmission = node.find('transmission') if node.find('transmission') is not None else ET.Element('transmission')
+    kind = text(engine, 'kind', 'Piston')
+    if text(transmission, 'kind', 'Automatic') == 'Automatic':
+        gears = [float(li.text) for li in items(transmission, 'gears')]
+        if not gears:
+            errors.append(f'{where}: an automatic transmission has no gears')
+        if any(b >= a for a, b in zip(gears, gears[1:])):
+            errors.append(f'{where}: gears must fall from first to top')
+        if number(transmission, 'upshiftRpm', 2400) <= number(transmission, 'downshiftRpm', 1300):
+            errors.append(f'{where}: the upshift rpm must be above the downshift rpm')
+    if kind == 'Piston' and not (number(engine, 'idleRpm', 700) <= number(engine, 'launchRpm', 1100) <= number(engine, 'ratedRpm', 3000)):
+        errors.append(f'{where}: the launch rpm must lie between idle and rated')
+    curve = items(engine.find('torqueCurve'), 'points') if engine.find('torqueCurve') is not None else []
+    if curve and float(curve[-1].text.strip().strip('()').split(',')[1]) != 0:
+        errors.append(f'{where}: the torque curve must end at zero')
+    turbine = engine.find('turbine')
+    if kind in ('Turboshaft', 'Turbofan') and turbine is None:
+        errors.append(f'{where}: a {kind} engine has no turbine block')
+    if turbine is None:
+        return
+    ratings = items(turbine, 'ratings')
+    if not ratings:
+        errors.append(f'{where}: a turbine has no ratings')
+        return
+    for below, above in zip(ratings, ratings[1:]):
+        if number(above, 'share', 1) <= number(below, 'share', 1) or number(above, 'temperatureLimit', 775) < number(below, 'temperatureLimit', 775):
+            errors.append(f'{where}: turbine ratings must rise in share and temperature ({text(below, "name")} to {text(above, "name")})')
+        if number(above, 'minutes', 0) <= 0:
+            errors.append(f'{where}: the rating {text(above, "name")} above maximum continuous needs a time limit in minutes')
+    wet = [r for r in ratings if text(r, 'wet') == 'true']
+    if len(wet) > 1:
+        errors.append(f'{where}: more than one wet rating')
+    if bool(wet) != (turbine.find('waterInjection') is not None):
+        errors.append(f'{where}: a wet rating and a water injection block go together')
+    thrust = [number(r, 'thrustKilonewtons', 0) > 0 for r in ratings]
+    if any(thrust) and not all(thrust):
+        errors.append(f'{where}: give every rating a thrust, or none')
 
 
 def walk_classes(element):
@@ -187,6 +244,9 @@ def check(root):
                 errors.append(f'{where}: the service is due on an unknown quantity')
             if text(service, 'dueAbove') is None and text(service, 'dueBelow') is None:
                 errors.append(f'{where}: the service never falls due')
+            water = number(service, 'waterLitres', 0)
+            if water is None or water < 0:
+                errors.append(f"{where}: the service's waterLitres must be a number of litres, 0 or more")
             for restore in items(service, 'restores'):
                 if text(restore, 'quantity') not in all_quantities:
                     errors.append(f'{where}: the service restores a quantity no system has ({text(restore, "quantity")})')
@@ -197,6 +257,35 @@ def check(root):
             if text(jump, 'capacityParameter') not in system['parameters']:
                 errors.append(f'{where}: the jump-start names the undeclared parameter {text(jump, "capacityParameter")}')
 
+    drivetrains = {}
+    for node, source in resolved[DRIVETRAIN_TAG]:
+        name = text(node, 'defName')
+        where = f'{source}: {name}'
+        if name in drivetrains:
+            errors.append(f'{where}: defined twice')
+        drivetrains[name] = node
+        check_drivetrain(node, where, errors)
+    profiles = {}
+    for node, source in resolved[PROFILE_TAG]:
+        name = text(node, 'defName')
+        where = f'{source}: {name}'
+        profiles[name] = node
+        phases = [text(li, 'phase') for li in items(node, 'phases')]
+        if len(phases) != len(set(phases)) or None in phases:
+            errors.append(f'{where}: a phase has no name or a repeated one')
+        reader = node.find('reader')
+        if phases and reader is None:
+            errors.append(f'{where}: phases but no reader to tell them apart')
+        if reader is not None:
+            cls = reader.attrib.get('Class', '')
+            if cls.startswith(OUR_NAMESPACE) and cls[len(OUR_NAMESPACE):] not in classes:
+                errors.append(f'{where}: no class {cls}')
+            for rule in items(reader, 'rules'):
+                if text(rule, 'phase') not in phases:
+                    errors.append(f'{where}: the reader names the phase {text(rule, "phase")}, which <phases> does not list')
+                if not text(rule, 'member') or (text(rule, 'equals') is None and text(rule, 'atLeast') is None):
+                    errors.append(f'{where}: a reader rule needs a member and an equals or atLeast')
+    water_systems = {name for name, system in systems.items() if 'injectionWater' in system['quantities']}
     loadouts = {}
     for node, source in resolved[LOADOUT_TAG]:
         name = text(node, 'defName')
@@ -236,6 +325,25 @@ def check(root):
         for system_name in used:
             for role in sorted(systems[system_name]['roles'] - bound):
                 warnings.append(f'{where}: {system_name} reads the role {role}, which this loadout binds to nothing (it reads as sound)')
+        drivetrain = node.find('drivetrain')
+        train = None
+        if drivetrain is not None:
+            train = drivetrains.get(text(drivetrain, 'def'))
+            if train is None:
+                errors.append(f'{where}: no drivetrain {text(drivetrain, "def")}')
+        profile = text(node, 'flightProfile')
+        if profile is not None and profile not in profiles:
+            errors.append(f'{where}: no flight profile {profile}')
+        engine = None if train is None else train.find('engine')
+        turbine = None if engine is None else engine.find('turbine')
+        if profile is not None and turbine is None:
+            warnings.append(f'{where}: a flight profile with no turbine engine: its phases drive nothing but the inspect line')
+        if turbine is not None and 'PhobosVehicleSystem_Turbine' not in used:
+            warnings.append(f'{where}: a turbine engine without the turbine system: no temperature, hot-section wear or hung starts')
+        if turbine is not None and turbine.find('waterInjection') is not None and not water_systems.intersection(used):
+            errors.append(f'{where}: the engine injects water but no system here holds the injectionWater quantity')
+        if text(node, 'rank') is not None and number(node, 'rank', 0) is None:
+            errors.append(f'{where}: rank must be a whole number')
         names = [text(load, 'name') for load in items(node, 'loads')]
         if len(names) != len(set(names)) or None in names:
             errors.append(f'{where}: a load has no name or a repeated one')
@@ -243,7 +351,8 @@ def check(root):
             cls = element.attrib['Class']
             if cls.startswith(OUR_NAMESPACE) and cls[len(OUR_NAMESPACE):] not in classes:
                 errors.append(f'{where}: no class {cls}')
-    return {'systems': sorted(systems), 'loadouts': sorted(loadouts), 'errors': errors, 'warnings': warnings}
+    return {'systems': sorted(systems), 'loadouts': sorted(loadouts), 'drivetrains': sorted(drivetrains), 'profiles': sorted(profiles),
+            'errors': errors, 'warnings': warnings}
 
 
 def main():
@@ -255,7 +364,8 @@ def main():
     if args.json:
         print(json.dumps(result, indent=2))
     else:
-        print(f'{len(result["systems"])} systems, {len(result["loadouts"])} loadouts; '
+        print(f'{len(result["systems"])} systems, {len(result["loadouts"])} loadouts, {len(result["drivetrains"])} drivetrains, '
+              f'{len(result["profiles"])} flight profiles; '
               f'{len(result["errors"])} errors, {len(result["warnings"])} warnings.')
         for line in result['errors']:
             print('ERROR   ' + line)

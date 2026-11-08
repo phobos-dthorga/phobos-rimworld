@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    Gas turbines (docs/development/vehicle-turbine-design.md): turbine temperature from the model, hot-section life used above the
+    continuous limit, engines out, and starting from the electrical system. Not yet tested in game.
+
+    Sources and labels:
+    - Over-temperature damages the hot section; eroded compressor blades, worn seals and growing tip clearances lower a turbine's
+      performance over time; a weak battery may not spin a turbine fast enough to cool the combustion section, giving a hot start
+      (secondary: Aviation Week, "Engine Limitations Are Not Mere Suggestions"). The life rate, the hot-start cost and the start
+      thresholds are authored.
+    - A ground start spins the core to about 25% and fuel goes in once it passes 15% (secondary: JSBSim FGTurbine); here a starting
+      power below 25% cannot reach light-off (a hung start), and below 40% lights it hot (authored thresholds).
+    - The hot-section overhaul's supplies are gameplay stand-ins: plasteel for the blades, components for the rest.
+  -->
+  <Phobos.VehicleSystems.PhobosVehicleSystemDef>
+    <defName>PhobosVehicleSystem_Turbine</defName>
+    <label>gas turbine</label>
+    <description>The turbine's temperature, its hot-section life and its start. Run past its limits it wears fast and can be damaged; a weak battery gives a hot start or none; with one of two engines out the other has to work harder.</description>
+    <roles>
+      <li>Engine</li>
+    </roles>
+    <quantities>
+      <li>
+        <name>turbineTemperature</name>
+        <label>turbine</label>
+        <unit>Celsius</unit>
+        <min>-60</min>
+        <max>1500</max>
+        <derivedFrom>
+          <li Class="Phobos.VehicleSystems.Input_Turbine"><reading>Temperature</reading></li>
+        </derivedFrom>
+      </li>
+      <li>
+        <name>turbineOverLimit</name>
+        <label>turbine temperature</label>
+        <unit>Plain</unit>
+        <min>-2000</min>
+        <max>2000</max>
+        <hidden>true</hidden>
+        <derivedFrom>
+          <li Class="Phobos.VehicleSystems.Input_Turbine"><reading>OverContinuous</reading></li>
+        </derivedFrom>
+        <stages>
+          <li>
+            <from>0</from>
+            <label>over its continuous limit</label>
+            <notable>true</notable>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_Message">
+                <message>PhobosVehicleSystems_MsgTurbineHot</message>
+                <type>CautionInput</type>
+              </li>
+            </effects>
+          </li>
+        </stages>
+      </li>
+      <li>
+        <name>turbineOverTop</name>
+        <label>turbine temperature</label>
+        <unit>Plain</unit>
+        <min>-2000</min>
+        <max>2000</max>
+        <hidden>true</hidden>
+        <derivedFrom>
+          <li Class="Phobos.VehicleSystems.Input_Turbine"><reading>OverTop</reading></li>
+        </derivedFrom>
+        <stages>
+          <li>
+            <from>0</from>
+            <label>over every limit</label>
+            <notable>true</notable>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_DamagePart">
+                <role>Engine</role>
+                <perHour>4</perHour>
+              </li>
+              <li Class="Phobos.VehicleSystems.Effect_Message">
+                <message>PhobosVehicleSystems_MsgTurbineOverTop</message>
+              </li>
+            </effects>
+          </li>
+        </stages>
+      </li>
+      <li>
+        <name>hotSectionLife</name>
+        <label>hot-section life used</label>
+        <unit>Fraction</unit>
+        <min>0</min>
+        <max>3</max>
+        <startsAt>Empty</startsAt>
+        <stages>
+          <li>
+            <from>1</from>
+            <label>hot section worn</label>
+            <notable>true</notable>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_Breakdown">
+                <role>Engine</role>
+                <mtbHours>150</mtbHours>
+                <healthFraction>0.3</healthFraction>
+                <message>PhobosVehicleSystems_MsgBreakdown</message>
+                <when Class="Phobos.VehicleSystems.When_EngineRunning" />
+              </li>
+              <li Class="Phobos.VehicleSystems.Effect_Message">
+                <message>PhobosVehicleSystems_MsgHotSectionWorn</message>
+                <type>CautionInput</type>
+              </li>
+            </effects>
+          </li>
+        </stages>
+      </li>
+      <li>
+        <name>enginesOut</name>
+        <label>engines</label>
+        <unit>Plain</unit>
+        <min>0</min>
+        <max>4</max>
+        <hidden>true</hidden>
+        <derivedFrom>
+          <li Class="Phobos.VehicleSystems.Input_Turbine"><reading>EnginesOut</reading></li>
+        </derivedFrom>
+        <stages>
+          <li>
+            <from>1</from>
+            <label>one engine out</label>
+            <notable>true</notable>
+          </li>
+        </stages>
+      </li>
+      <li>
+        <!-- The battery's starting power, as the electrical system works it out; a turbine needs more than a piston engine. -->
+        <name>turbineStart</name>
+        <label>turbine start</label>
+        <unit>Fraction</unit>
+        <hidden>true</hidden>
+        <derivedFrom>
+          <li Class="Phobos.VehicleSystems.Input_Quantity">
+            <quantity>startingPower</quantity>
+            <fallback Class="Phobos.VehicleSystems.Input_Constant"><value>1</value></fallback>
+          </li>
+        </derivedFrom>
+        <stages>
+          <li>
+            <to>0.25</to>
+            <label>too weak to light</label>
+            <notable>true</notable>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_RefuseDraft">
+                <reason>PhobosVehicleSystems_RefuseHungStart</reason>
+              </li>
+            </effects>
+          </li>
+        </stages>
+      </li>
+    </quantities>
+    <flows>
+      <li>
+        <name>hotSectionWear</name>
+        <quantity>hotSectionLife</quantity>
+        <kind>Into</kind>
+        <inputs>
+          <li Class="Phobos.VehicleSystems.Input_Turbine"><reading>LifePerHour</reading></li>
+        </inputs>
+      </li>
+    </flows>
+    <onEvents>
+      <li>
+        <!-- A weak battery lights the turbine hot: life used, and a message. -->
+        <eventDef>IgnitionOn</eventDef>
+        <effects>
+          <li Class="Phobos.VehicleSystems.Effect_AddQuantity">
+            <quantity>hotSectionLife</quantity>
+            <amount>0.03</amount>
+            <when Class="Phobos.VehicleSystems.When_QuantityBelow">
+              <quantity>turbineStart</quantity>
+              <value>0.4</value>
+            </when>
+          </li>
+          <li Class="Phobos.VehicleSystems.Effect_Message">
+            <message>PhobosVehicleSystems_MsgHotStart</message>
+            <type>CautionInput</type>
+            <when Class="Phobos.VehicleSystems.When_QuantityBelow">
+              <quantity>turbineStart</quantity>
+              <value>0.4</value>
+            </when>
+          </li>
+        </effects>
+      </li>
+    </onEvents>
+    <service>
+      <label>a hot-section overhaul</label>
+      <dueQuantity>hotSectionLife</dueQuantity>
+      <dueAbove>1</dueAbove>
+      <restores>
+        <li>
+          <quantity>hotSectionLife</quantity>
+          <value>0</value>
+        </li>
+      </restores>
+      <supplies>
+        <Plasteel>10</Plasteel>
+        <ComponentIndustrial>3</ComponentIndustrial>
+      </supplies>
+      <work>3000</work>
+    </service>
+  </Phobos.VehicleSystems.PhobosVehicleSystemDef>
+
+  <!--
+    Water injection (the Harrier's Pegasus): up to 227 kg of water sprayed into the combustion chamber and turbine to cool the blades,
+    used at about 35 imperial gallons a minute (2.65 kg/s) for at most about 90 s; without it the limits drop back to the dry
+    ratings (secondary: All-Aero on the Pegasus; Wikipedia on its blade temperature limit). The tank's use is worked out by the turbine
+    model while a wet rating is in use. The refill is a service (water from Dubs Bad Hygiene's plumbing when that mod is active,
+    otherwise free, as the base game treats water: owner, 9 Nov 2026).
+  -->
+  <Phobos.VehicleSystems.PhobosVehicleSystemDef>
+    <defName>PhobosVehicleSystem_WaterInjection</defName>
+    <label>water injection</label>
+    <description>A tank of water the engine sprays in to cool its turbine for a short, hard hover. Once it runs out, the engine has only its dry ratings. A mechanic refills it.</description>
+    <quantities>
+      <li>
+        <name>injectionWater</name>
+        <label>injection water</label>
+        <unit>Fraction</unit>
+        <min>0</min>
+        <max>1</max>
+        <startsAt>Full</startsAt>
+        <stages>
+          <li>
+            <to>0.05</to>
+            <label>empty</label>
+            <notable>true</notable>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_Message">
+                <message>PhobosVehicleSystems_MsgInjectionWaterOut</message>
+                <type>CautionInput</type>
+              </li>
+            </effects>
+          </li>
+        </stages>
+      </li>
+    </quantities>
+    <service>
+      <label>an injection water refill</label>
+      <dueQuantity>injectionWater</dueQuantity>
+      <dueBelow>0.5</dueBelow>
+      <restores>
+        <li>
+          <quantity>injectionWater</quantity>
+          <value>1</value>
+        </li>
+      </restores>
+      <waterLitres>227</waterLitres>
+      <work>400</work>
+    </service>
+  </Phobos.VehicleSystems.PhobosVehicleSystemDef>
+</Defs>

@@ -31,6 +31,19 @@ public class VehicleSystemsSettings : ModSettings
     /// <summary>Chemfuel thickens in deep cold the way diesel gels. Live.</summary>
     public bool fuelGelling;
     public DisplayMode displayMode = DisplayMode.Plain;
+    /// <summary>The drivetrain and turbines: off, figures only, or feeding load, heat and the speed cap. Live.</summary>
+    public DrivetrainMode drivetrainMode = DrivetrainMode.Full;
+    /// <summary>Fuel follows the engine model's load instead of the vehicle author's flat rates (owner, 9 Nov 2026: off by default). Live.</summary>
+    public bool loadDependentFuel;
+    /// <summary>What happens when a jet is too heavy or the day too hot for it to hover onto its pad (owner, 9 Nov 2026: a choice). Live.</summary>
+    public HoverLimit hoverLimit = HoverLimit.RefusePadUseRunway;
+
+    public enum HoverLimit
+    {
+        RefusePadUseRunway,
+        AllowWithDamage,
+        WarnOnly,
+    }
 
     public bool FlagOn(string name) => name switch
     {
@@ -48,6 +61,9 @@ public class VehicleSystemsSettings : ModSettings
         Scribe_Values.Look(ref showOnly, "PhobosVehicleSystems_ShowOnly", false);
         Scribe_Values.Look(ref fuelGelling, "PhobosVehicleSystems_FuelGelling", false);
         Scribe_Values.Look(ref displayMode, "PhobosVehicleSystems_DisplayMode", DisplayMode.Plain);
+        Scribe_Values.Look(ref drivetrainMode, "PhobosVehicleSystems_DrivetrainMode", DrivetrainMode.Full);
+        Scribe_Values.Look(ref loadDependentFuel, "PhobosVehicleSystems_LoadDependentFuel", false);
+        Scribe_Values.Look(ref hoverLimit, "PhobosVehicleSystems_HoverLimit", HoverLimit.RefusePadUseRunway);
         if (Scribe.mode == LoadSaveMode.PostLoadInit)
         {
             disabledPackages ??= new List<string>();
@@ -145,6 +161,26 @@ public class VehicleSystemsMod : Mod
         listing.Gap(6f);
         listing.CheckboxLabeled("PhobosVehicleSystems_SettingShowOnly".Translate(), ref s.showOnly, "PhobosVehicleSystems_SettingShowOnlyDesc".Translate());
         listing.CheckboxLabeled("PhobosVehicleSystems_SettingFuelGelling".Translate(), ref s.fuelGelling, "PhobosVehicleSystems_SettingFuelGellingDesc".Translate());
+
+        SettingsUi.Section(listing, "PhobosVehicleSystems_SectionEngines".Translate());
+        foreach (DrivetrainMode mode in System.Enum.GetValues(typeof(DrivetrainMode)))
+        {
+            if (listing.RadioButton(("PhobosVehicleSystems_Drivetrain" + mode).Translate(), s.drivetrainMode == mode, 8f, ("PhobosVehicleSystems_Drivetrain" + mode + "Desc").Translate()))
+            {
+                s.drivetrainMode = mode;
+            }
+        }
+        listing.Gap(6f);
+        listing.CheckboxLabeled("PhobosVehicleSystems_SettingLoadFuel".Translate(), ref s.loadDependentFuel, "PhobosVehicleSystems_SettingLoadFuelDesc".Translate());
+        listing.Gap(6f);
+        listing.Label("PhobosVehicleSystems_SettingHoverLimit".Translate());
+        foreach (VehicleSystemsSettings.HoverLimit limit in System.Enum.GetValues(typeof(VehicleSystemsSettings.HoverLimit)))
+        {
+            if (listing.RadioButton(("PhobosVehicleSystems_Hover" + limit).Translate(), s.hoverLimit == limit, 8f, ("PhobosVehicleSystems_Hover" + limit + "Desc").Translate()))
+            {
+                s.hoverLimit = limit;
+            }
+        }
 
         SettingsUi.Section(listing, "PhobosVehicleSystems_SectionShow".Translate());
         SettingsUi.DrawDisplayMode(listing, ref s.displayMode);

@@ -16,6 +16,7 @@
   <PhobosVehicleSystems_KindCombustionHeavy>Heavy land vehicles</PhobosVehicleSystems_KindCombustionHeavy>
   <PhobosVehicleSystems_KindBoat>Boats</PhobosVehicleSystems_KindBoat>
   <PhobosVehicleSystems_KindAircraft>Aircraft</PhobosVehicleSystems_KindAircraft>
+  <PhobosVehicleSystems_KindCombustionTracked>Tracked vehicles</PhobosVehicleSystems_KindCombustionTracked>
   <PhobosVehicleSystems_SectionSystems>Systems</PhobosVehicleSystems_SectionSystems>
   <PhobosVehicleSystems_SettingShowOnly>Figures only, no consequences</PhobosVehicleSystems_SettingShowOnly>
   <PhobosVehicleSystems_SettingShowOnlyDesc>The systems run and show their state, but nothing happens to the vehicles: no wear, failures, refusals or slowing. Messages still tell you what would have happened.</PhobosVehicleSystems_SettingShowOnlyDesc>
@@ -23,6 +24,22 @@
   <PhobosVehicleSystems_SettingFuelGellingDesc>Below about -8 °C chemfuel behaves like diesel and gels: a cold vehicle will not start until it is warmer, in a heated room or on a warmer day. Off by default, because nothing says chemfuel is diesel.</PhobosVehicleSystems_SettingFuelGellingDesc>
   <PhobosVehicleSystems_SectionShow>What vehicles show</PhobosVehicleSystems_SectionShow>
   <PhobosVehicleSystems_SectionRemove>Removing vehicle systems from a colony</PhobosVehicleSystems_SectionRemove>
+  <PhobosVehicleSystems_SectionEngines>Engines and drivetrains</PhobosVehicleSystems_SectionEngines>
+  <PhobosVehicleSystems_DrivetrainOff>Drivetrain off</PhobosVehicleSystems_DrivetrainOff>
+  <PhobosVehicleSystems_DrivetrainOffDesc>No gears, engine speed or traction. Engine load stays the simple moving-or-idling figure the other systems used before.</PhobosVehicleSystems_DrivetrainOffDesc>
+  <PhobosVehicleSystems_DrivetrainDisplayOnly>Drivetrain shown, speeds unchanged</PhobosVehicleSystems_DrivetrainDisplayOnly>
+  <PhobosVehicleSystems_DrivetrainDisplayOnlyDesc>Vehicles show their gear, engine speed and load, and heat and charge follow them, but no vehicle is ever slowed by its engine, its weight or the ground.</PhobosVehicleSystems_DrivetrainDisplayOnlyDesc>
+  <PhobosVehicleSystems_DrivetrainFull>Full drivetrain (default)</PhobosVehicleSystems_DrivetrainFull>
+  <PhobosVehicleSystems_DrivetrainFullDesc>As above, and a vehicle slows where its engine runs out of power (heavy loads, steep or soft ground) or its wheels run out of grip. A vehicle that cannot grip crawls on at a fraction of its speed rather than stopping.</PhobosVehicleSystems_DrivetrainFullDesc>
+  <PhobosVehicleSystems_SettingLoadFuel>Fuel use follows engine load</PhobosVehicleSystems_SettingLoadFuel>
+  <PhobosVehicleSystems_SettingLoadFuelDesc>Off by default: vehicles burn fuel at the rate their authors set. On: a laden vehicle climbing through sand burns more, an empty one on a road less, and an idling engine burns a little while parked. At an ordinary cruise the rate matches the author's.</PhobosVehicleSystems_SettingLoadFuelDesc>
+  <PhobosVehicleSystems_SettingHoverLimit>When an aircraft is too heavy or too hot to hover onto its pad</PhobosVehicleSystems_SettingHoverLimit>
+  <PhobosVehicleSystems_HoverRefusePadUseRunway>Use the runway instead (default)</PhobosVehicleSystems_HoverRefusePadUseRunway>
+  <PhobosVehicleSystems_HoverRefusePadUseRunwayDesc>A jump jet whose engine cannot hold it in a hover, because it is heavily laden or the day is hot, lands on a runway like an ordinary jet. An order to land on the pad is refused with the reason.</PhobosVehicleSystems_HoverRefusePadUseRunwayDesc>
+  <PhobosVehicleSystems_HoverAllowWithDamage>Allow it, at a cost to the engine</PhobosVehicleSystems_HoverAllowWithDamage>
+  <PhobosVehicleSystems_HoverAllowWithDamageDesc>The landing goes ahead with the engine run past its limits: its hot section wears and you are told.</PhobosVehicleSystems_HoverAllowWithDamageDesc>
+  <PhobosVehicleSystems_HoverWarnOnly>Allow it, with a warning only</PhobosVehicleSystems_HoverWarnOnly>
+  <PhobosVehicleSystems_HoverWarnOnlyDesc>The landing goes ahead as the aircraft's own mod allows, and a message says it was beyond the engine.</PhobosVehicleSystems_HoverWarnOnlyDesc>
   <PhobosVehicleSystems_RemoveExplain>Vehicles save their parts in order, so a save made with these systems cannot simply lose them. Before you remove D'thorga Framework or Vehicle Framework from a colony, load it, press this button, save, then remove the mod. Turning vehicles or systems off above needs none of this.</PhobosVehicleSystems_RemoveExplain>
   <PhobosVehicleSystems_RemoveButton>Remove the added parts from this colony's vehicles</PhobosVehicleSystems_RemoveButton>
   <PhobosVehicleSystems_RemoveConfirm>Remove every part the vehicle systems added, from every vehicle in this colony, and stop the systems until you restart? Save straight afterwards, then remove the mod.</PhobosVehicleSystems_RemoveConfirm>
@@ -41,6 +58,17 @@
   <PhobosVehicleSystems_InspectServiceDue>Waiting for a mechanic: {SERVICE}.</PhobosVehicleSystems_InspectServiceDue>
   <PhobosVehicleSystems_InspectServiceNeeds>Waiting for supplies for {SERVICE}: {COUNT} {SUPPLY}.</PhobosVehicleSystems_InspectServiceNeeds>
   <PhobosVehicleSystems_InspectEngineer>Engine load {LOAD}, electrical draw {AMPS} A, air {AIR}.</PhobosVehicleSystems_InspectEngineer>
+  <PhobosVehicleSystems_InspectServiceWater>Waiting for water for {SERVICE}: {REASON}</PhobosVehicleSystems_InspectServiceWater>
+  <PhobosVehicleSystems_InspectWheelsSpinning>Wheels spinning.</PhobosVehicleSystems_InspectWheelsSpinning>
+  <PhobosVehicleSystems_InspectLabouring>Engine labouring.</PhobosVehicleSystems_InspectLabouring>
+  <PhobosVehicleSystems_InspectGear>Gear {GEAR}, {RPM} rpm.</PhobosVehicleSystems_InspectGear>
+  <PhobosVehicleSystems_InspectRpm>Engine {RPM} rpm.</PhobosVehicleSystems_InspectRpm>
+  <PhobosVehicleSystems_InspectTurbine>Turbine speed {SPOOL}%, turbine {TEMPERATURE}.</PhobosVehicleSystems_InspectTurbine>
+  <PhobosVehicleSystems_InspectPhase>({PHASE})</PhobosVehicleSystems_InspectPhase>
+  <PhobosVehicleSystems_InspectPower>Load {LOAD}: engine {ENGINE} kW, fuel {FUEL} kW, heat {HEAT} kW.</PhobosVehicleSystems_InspectPower>
+  <PhobosVehicleSystems_InspectCap>Held to {CAP} of its speed.</PhobosVehicleSystems_InspectCap>
+  <PhobosVehicleSystems_WaterNoPlumbing>park it beside a plumbing pipe with a water tower on it.</PhobosVehicleSystems_WaterNoPlumbing>
+  <PhobosVehicleSystems_WaterTowersEmpty>the water towers on the pipe beside it are nearly empty.</PhobosVehicleSystems_WaterTowersEmpty>
   <PhobosVehicleSystems_HoursValue>{HOURS} h</PhobosVehicleSystems_HoursValue>
 
   <!-- Work -->
@@ -54,6 +82,7 @@
   <PhobosVehicleSystems_RefuseBrakesWorn>The {VEHICLE}'s brakes are worn through. A mechanic must fit new pads before it drives.</PhobosVehicleSystems_RefuseBrakesWorn>
   <PhobosVehicleSystems_RefuseBrakesWrecked>The {VEHICLE}'s brakes are wrecked. Repair the vehicle before it drives.</PhobosVehicleSystems_RefuseBrakesWrecked>
   <PhobosVehicleSystems_RefuseAirBrakes>The {VEHICLE}'s air brakes are still held on. Leave the engine running a few minutes to build air pressure.</PhobosVehicleSystems_RefuseAirBrakes>
+  <PhobosVehicleSystems_RefuseHungStart>The {VEHICLE}'s battery cannot spin its turbine fast enough to light. Have a colonist jump-start it from another vehicle parked near it, or charge the battery beside a powered conduit.</PhobosVehicleSystems_RefuseHungStart>
 
   <!-- Messages -->
   <PhobosVehicleSystems_MsgBatteryLow>The {VEHICLE}'s battery is running low.</PhobosVehicleSystems_MsgBatteryLow>
@@ -71,6 +100,14 @@
   <PhobosVehicleSystems_MsgBrakesWorn>The {VEHICLE}'s brakes are worn; its driver is taking it gently.</PhobosVehicleSystems_MsgBrakesWorn>
   <PhobosVehicleSystems_MsgTransmissionHot>The {VEHICLE}'s gearbox is overheating and wearing as it drives.</PhobosVehicleSystems_MsgTransmissionHot>
   <PhobosVehicleSystems_MsgHydraulicsLow>The {VEHICLE} is low on hydraulic fluid.</PhobosVehicleSystems_MsgHydraulicsLow>
+  <PhobosVehicleSystems_MsgTurbineHot>The {VEHICLE}'s turbine is running past its continuous limit; its hot section is wearing fast.</PhobosVehicleSystems_MsgTurbineHot>
+  <PhobosVehicleSystems_MsgTurbineOverTop>The {VEHICLE}'s turbine is past every limit and taking damage. Ease off or land.</PhobosVehicleSystems_MsgTurbineOverTop>
+  <PhobosVehicleSystems_MsgHotSectionWorn>The {VEHICLE}'s turbine hot section is worn out and may fail. A mechanic should overhaul it.</PhobosVehicleSystems_MsgHotSectionWorn>
+  <PhobosVehicleSystems_MsgHotStart>The {VEHICLE}'s weak battery lit its turbine hot, wearing the hot section. A jump-start gives a clean start.</PhobosVehicleSystems_MsgHotStart>
+  <PhobosVehicleSystems_MsgInjectionWaterOut>The {VEHICLE} has used its injection water; its engine is back to its dry limits until a mechanic refills the tank.</PhobosVehicleSystems_MsgInjectionWaterOut>
+  <PhobosVehicleSystems_MsgHoverRefused>The {VEHICLE} is too heavy for its engine to hover onto the pad in this heat. Land it on a runway, or lighten it.</PhobosVehicleSystems_MsgHoverRefused>
+  <PhobosVehicleSystems_MsgHoverStrained>The {VEHICLE} is hovering beyond its engine's limits; its hot section is taking the strain.</PhobosVehicleSystems_MsgHoverStrained>
+  <PhobosVehicleSystems_MsgHoverBeyond>The {VEHICLE} is hovering beyond what its engine can hold at this weight in this heat.</PhobosVehicleSystems_MsgHoverBeyond>
 
   <!-- Jump-starting -->
   <PhobosVehicleSystems_JumpStartOption>Jump-start the {VEHICLE} from the {DONOR}</PhobosVehicleSystems_JumpStartOption>

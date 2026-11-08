@@ -32,6 +32,14 @@ public sealed class PlumbingFeed
     public WaterDraw TryPull(Thing building, float litres, out ContaminationLevel quality) =>
         TryPullFrom(FindNet(building, litres), litres, out quality);
 
+    /// <summary>What a draw of these litres would find now, without drawing anything (a vehicle's service checks before work starts).</summary>
+    public WaterDraw Check(Thing building, float litres)
+    {
+        PlumbingNet? net = FindNet(building, litres);
+        if (net == null || net.WaterTowers.Count == 0) return WaterDraw.NoPlumbing;
+        return net.WaterStorage >= litres ? WaterDraw.Flowing : WaterDraw.TowersEmpty;
+    }
+
     /// <summary>
     /// Draws the water from a net the caller already knows, such as a fixture's own pipe (D'thorga Water Tap's taps, which can adopt
     /// this when next touched), with the same three answers: no net or no tower is no plumbing, too little water is empty towers.

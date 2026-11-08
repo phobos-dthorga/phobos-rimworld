@@ -1,6 +1,6 @@
 # Gas turbines: design (8 Nov 2026)
 
-A design record. **Nothing here is built and nothing is tested in game.** The owner asked on 8 Nov 2026 for turbine engines
+A design record. **Built on 9 Nov 2026 (see [As built](#as-built-dthorga-framework-0110-dthorga-vehicles-020-dthorga-patches-0140-9-nov-2026)); not yet tested in game.** The text above that section keeps its original scope. The owner asked on 8 Nov 2026 for turbine engines
 ("jet turbines such as the Chinook or the mod I'm also using with the Harrier", "there's the M1A1 Abrams too") and said to
 write it up. It extends the [drivetrain and engine speed design](vehicle-drivetrain-design.md) and is written against
 [vehicle systems](vehicle-systems-design.md) **as built in D'thorga Framework 0.9.0** (8 Nov 2026). Studied sources are in
@@ -210,6 +210,63 @@ The 3 Nov reading of the fork's 21,000 lines answered other questions. Before th
 3. **Both**: whether either framework already models engine temperature or limits (none was noted on 3 Nov).
 4. **The Chinook and M1A1 mods**, once named: part keys (one engine part or two), fuel figures and mass.
 
+## As built (D'thorga Framework 0.11.0, D'thorga Vehicles 0.2.0, D'thorga Patches 0.14.0; 9 Nov 2026)
+
+**Built and checked offline; not yet tested in game.** Code: `src/PhobosFramework.Vehicles/Rules/TurbineModel.cs` (game-free),
+`Systems/Powertrain.cs`, `Defs/PowertrainDefs.cs` (the flight profile and its phase reader), `Service/HoverLimits.cs`, the
+`PhobosVehicleSystem_Turbine` and `PhobosVehicleSystem_WaterInjection` systems (`Systems_Turbine.xml`), the profiles
+(`FlightProfiles.xml`), D'thorga Vehicles' Harrier, Hind and Mongoose loadouts, and D'thorga Patches' `HoverGate.cs`.
+
+**The owner's answers (9 Nov 2026):**
+
+| Question | Owner's answer | As built |
+| --- | --- | --- |
+| 1. Too heavy or too hot to land vertically? | **A player setting**: "Offer configurable settings to the player from the menu for this kind of thing." | D'thorga Framework's setting: **use the runway** (default; D'thorga Patches refuses the pad with the reason, and an automatic return falls back to the Harrier's runway landing), **allow it at a cost to the engine** (the engine runs past its top rating: hot-section wear, then damage, and a message), or **warn only** (the engine is held at its top rating, and a message) |
+| 2. What refills the Harrier's water? | **Dubs Bad Hygiene plumbing beside the parked vehicle when Dubs is active, otherwise free** | A service of 227 litres; with Dubs, from a pipe with a water tower beside or under the jet (a tie-in assembly loaded only with both mods). Coolant top-ups use the same water, and their glycol is 3 chemfuel |
+| 3. Turbine fuel use? | **Keep the mods' figures; the setting off** | As the drivetrain's: the setting covers turbines, off by default |
+
+Questions 4, 5 and 7 took the agent's leans (agent choices, owner to revise): a second engine role only in named loadouts (the
+Hind and the Mongoose already have two engine parts, `EngineStarboard` and `EnginePort`, so nothing is appended); % spool speed
+and degrees C in Operator mode, kW in Engineer; a hot start costs hot-section life and a message. **Question 6: no Chinook and
+no M1A1 are among the owner's 72 active vehicle Defs** (query-defs, 9 Nov 2026), so no loadouts were written for them; selection
+by effect fits them if they are added, and naming their mods would let a loadout use their real figures.
+
+**What the decompiles said (9 Nov 2026), which the build follows:**
+
+- **Phases come from the frameworks' own `FlightState` field** (Grounded, GroundedIdle, SpoolingUp, SpoolingDown, TakingOff,
+  Flying, Landing, DepartingMap, Crashing), the same names in the Harrier's fork and in rabiosus's VTOL Vehicle framework. VF's
+  `inFlight` is true on a map only while leaving it, so it marks world flight only. The Harrier's attack run is its controller's
+  `FixedWingAttackRunActive`; its pad landing is `CompHarrier.landingPhase` 2 or more.
+- **Not optional assemblies after all**: one data-driven reader, `PhaseReader_Members`, reads those members by name through
+  cached reflection, so the Framework references neither framework. A member that does not exist never matches.
+- **Every pad-landing path asks the Harrier's static `Harrier.CanHover(vehicle, props)`** (the button, the order, each tick of the
+  approach and hover, and the automatic return to a parking spot, which falls back to the runway when it is false). D'thorga
+  Patches postfixes it, and replaces the Harrier's damaged-engine text with the hover limit's reason on the button, the order and
+  the cancel.
+- **Fuel**: all three aircraft burn fuel only through the frameworks while taking off, flying or leaving; a parked aircraft idling
+  burns nothing, so idling counts for heat and wear only.
+
+**Differences from the draft:** hot-section life is one counter per vehicle, not one per engine (twin engines share it; a wrecked
+engine counts as out); the water rating is a `wet` flag on a rating rather than a named rating in the water block; the hover check
+for a jet uses thrust (weight against the best rating's derated thrust) and for a helicopter momentum theory against an authored
+90% of both engines at maximum gross weight; the Harrier's kerb mass is its real empty mass (6,340 kg) and full fuel an authored
+3,400 kg. **Not built:** the M1A2's APU upgrade node (it needs a patch to RimThunder's upgrade trees) and "offer to drop the
+stores".
+
+**Checked offline:** the Harrier's hover table at 15, 30 and 40 degrees C (dry at 15, wet only at 30, not at all at 40), the
+helicopter's hover power with heat, the 40 degree derate and the one-engine contingency share, the spool and temperature lines,
+and the life curve (`tests/PhobosFramework.Vehicles.Rules.Tests`).
+
+**To test in game (owner):**
+
+1. The Harrier in Operator mode through taxi, take-off and an attack run: turbine speed and temperature rise and fall with the phase.
+2. A laden Harrier on a hot day ordered onto its pad, under each of the three settings: refused with the reason (and an automatic
+   return uses the runway); allowed with a message and hot-section wear; allowed with a warning only.
+3. A Hind with one engine wrecked: "one engine out", and the other runs hot.
+4. A coolant top-up and an injection-water refill, with and without Dubs Bad Hygiene plumbing beside the vehicle.
+5. An M1A2 idling: warm turbine, no coolant system; with a weak battery, a hot start message.
+6. Save and reload mid-flight: no errors.
+
 ## Open questions for the owner
 
 | Question | Agent lean |
@@ -225,6 +282,8 @@ The 3 Nov reading of the fork's 21,000 lines answered other questions. Before th
 ## Who chose what
 
 - **Owner (8 Nov 2026):** turbines for the Harrier, a Chinook and an Abrams; write it up.
+- **Owner (9 Nov 2026):** the hover limit as a player setting; water from Dubs Bad Hygiene plumbing, else free; keep the mods'
+  fuel figures.
 - **Agent proposals, owner to confirm:** the three kinds; `EngineLoad` as the one hook; phases as the aircraft load signal; the
   hover-margin check on vertical landing; the authored derate, short-lift rating, idle shares, demand table and life curve; the
   phase readers as optional assemblies; the APU as an upgrade node.

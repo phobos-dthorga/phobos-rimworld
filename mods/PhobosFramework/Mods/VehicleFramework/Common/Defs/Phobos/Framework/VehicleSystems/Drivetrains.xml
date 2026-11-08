@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    Drivetrain archetypes (docs/development/vehicle-drivetrain-design.md), chosen by the default loadouts by what a vehicle is: its
+    mass, its tracks, whether it floats or flies. Not yet tested in game. Every figure is authored unless named here; each is a
+    starting point to replace with a published gearbox and engine:
+    - Light wheeled petrol: Jolt Physics' default gear ratios and shift rpm pair (a game engine's defaults, not a measured vehicle).
+    - Peak torque near two thirds of rated rpm, the shape of a typical diesel or petrol curve (secondary, general).
+    - Indicated efficiency 0.40 diesel, 0.35 petrol, and 28% of fuel heat into the coolant (authored; to check against Heywood).
+    - The Willans friction shares (constant, linear, quadratic in rpm ÷ rated) are authored; the constant keeps an idling engine
+      honest about its fuel.
+    - The propeller law (power with the cube of shaft speed) is secondary; design speed at 85% of rated rpm is authored.
+    - Kerb mass is Vehicle Framework's Mass × 12 kg (authored), overridable per loadout.
+    Gas turbines (docs/development/vehicle-turbine-design.md): ratings, limits and idle shares authored unless named. JSBSim's generic
+    turbine gives the idle temperature line (ambient + 363 °C) and a start at 15% core speed (secondary: JSBSim FGTurbine).
+  -->
+  <Phobos.VehicleSystems.PhobosVehicleDrivetrainDef>
+    <defName>PhobosDrivetrain_LightPetrol</defName>
+    <label>petrol car drivetrain</label>
+    <engine>
+      <kind>Piston</kind>
+      <idleRpm>800</idleRpm>
+      <launchRpm>1300</launchRpm>
+      <ratedRpm>5500</ratedRpm>
+      <kilowattsPerTonne>60</kilowattsPerTonne>
+      <torqueCurve><points><li>(0, 0)</li><li>(0.25, 0.65)</li><li>(0.5, 0.95)</li><li>(0.65, 1)</li><li>(0.85, 0.95)</li><li>(1, 0.85)</li><li>(1.1, 0)</li></points></torqueCurve>
+      <indicatedEfficiency>0.35</indicatedEfficiency>
+    </engine>
+    <transmission>
+      <kind>Automatic</kind>
+      <gears><li>2.66</li><li>1.78</li><li>1.30</li><li>1.00</li><li>0.74</li></gears>
+      <finalDrive>3.9</finalDrive>
+      <upshiftRpm>4000</upshiftRpm>
+      <downshiftRpm>2000</downshiftRpm>
+      <efficiency>0.90</efficiency>
+    </transmission>
+    <running>
+      <wheelRadius>0.31</wheelRadius>
+      <drivenShare>0.5</drivenShare>
+      <dragArea>0.7</dragArea>
+    </running>
+  </Phobos.VehicleSystems.PhobosVehicleDrivetrainDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleDrivetrainDef>
+    <defName>PhobosDrivetrain_HeavyDiesel</defName>
+    <label>diesel truck drivetrain</label>
+    <engine>
+      <kind>Piston</kind>
+      <idleRpm>700</idleRpm>
+      <launchRpm>1100</launchRpm>
+      <ratedRpm>3000</ratedRpm>
+      <kilowattsPerTonne>30</kilowattsPerTonne>
+      <torqueCurve><points><li>(0, 0)</li><li>(0.25, 0.6)</li><li>(0.5, 0.95)</li><li>(0.65, 1)</li><li>(0.85, 0.95)</li><li>(1, 0.85)</li><li>(1.1, 0)</li></points></torqueCurve>
+      <indicatedEfficiency>0.40</indicatedEfficiency>
+    </engine>
+    <transmission>
+      <kind>Automatic</kind>
+      <gears><li>4.0</li><li>2.4</li><li>1.5</li><li>1.0</li><li>0.8</li></gears>
+      <finalDrive>4.1</finalDrive>
+      <upshiftRpm>2400</upshiftRpm>
+      <downshiftRpm>1300</downshiftRpm>
+      <efficiency>0.88</efficiency>
+    </transmission>
+    <running>
+      <wheelRadius>0.38</wheelRadius>
+      <drivenShare>0.5</drivenShare>
+      <dragArea>2.4</dragArea>
+    </running>
+  </Phobos.VehicleSystems.PhobosVehicleDrivetrainDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleDrivetrainDef>
+    <defName>PhobosDrivetrain_TrackedDiesel</defName>
+    <label>tracked diesel drivetrain</label>
+    <engine>
+      <kind>Piston</kind>
+      <idleRpm>650</idleRpm>
+      <launchRpm>1000</launchRpm>
+      <ratedRpm>2400</ratedRpm>
+      <kilowattsPerTonne>20</kilowattsPerTonne>
+      <torqueCurve><points><li>(0, 0)</li><li>(0.25, 0.6)</li><li>(0.5, 0.95)</li><li>(0.65, 1)</li><li>(0.85, 0.95)</li><li>(1, 0.85)</li><li>(1.1, 0)</li></points></torqueCurve>
+      <indicatedEfficiency>0.40</indicatedEfficiency>
+    </engine>
+    <transmission>
+      <kind>Automatic</kind>
+      <gears><li>5.0</li><li>2.9</li><li>1.8</li><li>1.2</li><li>0.85</li></gears>
+      <finalDrive>6.0</finalDrive>
+      <upshiftRpm>2000</upshiftRpm>
+      <downshiftRpm>1100</downshiftRpm>
+      <efficiency>0.80</efficiency>
+    </transmission>
+    <running>
+      <wheelRadius>0.32</wheelRadius>
+      <drivenShare>1</drivenShare>
+      <dragArea>4.0</dragArea>
+    </running>
+  </Phobos.VehicleSystems.PhobosVehicleDrivetrainDef>
+
+  <!--
+    A tank's gas turbine on the tracked running gear: the AGT1500 class (1,120 kW, secondary). It burns almost as much fuel idling as
+    moving, because the turbine keeps turning when the tracks stop (secondary: StrategyPage, 2003): idle fuel share 0.6 (authored).
+    Temperature limits are placeholders (authored). Its heat goes to oil and exhaust, so its loadouts carry no coolant system.
+  -->
+  <Phobos.VehicleSystems.PhobosVehicleDrivetrainDef>
+    <defName>PhobosDrivetrain_TrackedTurbine</defName>
+    <label>tank turbine drivetrain</label>
+    <engine>
+      <kind>Turboshaft</kind>
+      <idleRpm>1000</idleRpm>
+      <launchRpm>1500</launchRpm>
+      <ratedRpm>3000</ratedRpm>
+      <kilowattsPerTonne>20</kilowattsPerTonne>
+      <torqueCurve><points><li>(0, 0)</li><li>(0.33, 0.9)</li><li>(0.6, 1)</li><li>(1, 0.9)</li><li>(1.1, 0)</li></points></torqueCurve>
+      <indicatedEfficiency>0.28</indicatedEfficiency>
+      <idleFuelShare>0.6</idleFuelShare>
+      <turbine>
+        <idleSpeedPercent>60</idleSpeedPercent>
+        <ratings>
+          <li><name>maxContinuous</name><share>1</share><speedPercent>100</speedPercent><temperatureLimit>800</temperatureLimit></li>
+          <li><name>maxPower</name><share>1.1</share><speedPercent>103</speedPercent><temperatureLimit>840</temperatureLimit><minutes>10</minutes></li>
+        </ratings>
+      </turbine>
+    </engine>
+    <transmission>
+      <kind>Automatic</kind>
+      <gears><li>5.0</li><li>2.9</li><li>1.8</li><li>1.2</li><li>0.85</li></gears>
+      <finalDrive>6.0</finalDrive>
+      <upshiftRpm>2600</upshiftRpm>
+      <downshiftRpm>1500</downshiftRpm>
+      <efficiency>0.80</efficiency>
+    </transmission>
+    <running>
+      <wheelRadius>0.32</wheelRadius>
+      <drivenShare>1</drivenShare>
+      <dragArea>4.0</dragArea>
+    </running>
+  </Phobos.VehicleSystems.PhobosVehicleDrivetrainDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleDrivetrainDef>
+    <defName>PhobosDrivetrain_Electric</defName>
+    <label>electric drivetrain</label>
+    <engine>
+      <kind>Electric</kind>
+      <idleRpm>0</idleRpm>
+      <launchRpm>0</launchRpm>
+      <ratedRpm>3000</ratedRpm>
+      <kilowattsPerTonne>60</kilowattsPerTonne>
+      <indicatedEfficiency>0.92</indicatedEfficiency>
+      <coolantHeatShare>0.05</coolantHeatShare>
+    </engine>
+    <transmission>
+      <kind>Direct</kind>
+      <finalDrive>9.0</finalDrive>
+      <efficiency>0.92</efficiency>
+    </transmission>
+    <running>
+      <wheelRadius>0.33</wheelRadius>
+      <drivenShare>0.5</drivenShare>
+      <dragArea>0.8</dragArea>
+    </running>
+  </Phobos.VehicleSystems.PhobosVehicleDrivetrainDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleDrivetrainDef>
+    <defName>PhobosDrivetrain_Boat</defName>
+    <label>boat engine and propeller</label>
+    <engine>
+      <kind>Piston</kind>
+      <idleRpm>700</idleRpm>
+      <launchRpm>700</launchRpm>
+      <ratedRpm>2800</ratedRpm>
+      <kilowattsPerTonne>25</kilowattsPerTonne>
+      <indicatedEfficiency>0.40</indicatedEfficiency>
+    </engine>
+    <transmission>
+      <kind>Propeller</kind>
+      <efficiency>0.95</efficiency>
+    </transmission>
+  </Phobos.VehicleSystems.PhobosVehicleDrivetrainDef>
+
+  <!-- Aircraft engines. No transmission: their load comes from the flight profile's phases. -->
+  <Phobos.VehicleSystems.PhobosVehicleDrivetrainDef>
+    <defName>PhobosDrivetrain_AeroTurbofan</defName>
+    <label>jet engine</label>
+    <engine>
+      <kind>Turbofan</kind>
+      <ratedRpm>10000</ratedRpm>
+      <idleFuelShare>0.25</idleFuelShare>
+      <turbine>
+        <idleSpeedPercent>60</idleSpeedPercent>
+        <ratings>
+          <li><name>maxContinuous</name><share>1</share><speedPercent>100</speedPercent><temperatureLimit>780</temperatureLimit></li>
+          <li><name>takeoff</name><share>1.15</share><speedPercent>104</speedPercent><temperatureLimit>830</temperatureLimit><minutes>5</minutes></li>
+        </ratings>
+      </turbine>
+    </engine>
+    <transmission>
+      <kind>None</kind>
+    </transmission>
+  </Phobos.VehicleSystems.PhobosVehicleDrivetrainDef>
+
+  <!--
+    A helicopter's turboshaft. Rotor speed stays near 100%: the power turbine governor trims fuel to the gas producer as the load
+    changes (secondary: the CH-47 operator's manual, TM 1-1520-240-10). Ratings and limits authored; the T55-L-714A's 815 °C power
+    turbine inlet temperature was seen only on a Wikipedia mirror (secondary, low quality).
+  -->
+  <Phobos.VehicleSystems.PhobosVehicleDrivetrainDef>
+    <defName>PhobosDrivetrain_AeroTurboshaft</defName>
+    <label>helicopter turboshaft</label>
+    <engine>
+      <kind>Turboshaft</kind>
+      <ratedRpm>20000</ratedRpm>
+      <idleFuelShare>0.25</idleFuelShare>
+      <turbine>
+        <idleSpeedPercent>60</idleSpeedPercent>
+        <ratings>
+          <li><name>maxContinuous</name><share>1</share><speedPercent>100</speedPercent><temperatureLimit>775</temperatureLimit></li>
+          <li><name>takeoff</name><share>1.1</share><speedPercent>102</speedPercent><temperatureLimit>815</temperatureLimit><minutes>5</minutes></li>
+          <li><name>contingency</name><share>1.2</share><speedPercent>104</speedPercent><temperatureLimit>850</temperatureLimit><minutes>2.5</minutes></li>
+        </ratings>
+      </turbine>
+    </engine>
+    <transmission>
+      <kind>None</kind>
+    </transmission>
+  </Phobos.VehicleSystems.PhobosVehicleDrivetrainDef>
+</Defs>

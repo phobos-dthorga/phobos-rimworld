@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    Flight profiles (docs/development/vehicle-turbine-design.md): an aircraft's phases and the demand each puts on its engines, as a
+    share of maximum continuous output. Demands are authored. The readers name members by their names in each flight framework, read
+    from decompiles on 9 Nov 2026 and never copied: no Phobos assembly references these mods. A member that does not exist simply
+    never matches. Vehicle Framework's own "in flight" flag is set on a map only while leaving it, so on-map phases come from the
+    frameworks' FlightState field.
+  -->
+
+  <!--
+    The Fixed-Wing Aircraft Framework fork the Harrier uses (potemkinvillager): FlightState (Grounded, GroundedIdle, SpoolingUp,
+    SpoolingDown, TakingOff, Flying, Landing, DepartingMap, Crashing), IsTaxiing, the controller's FixedWingAttackRunActive, and the
+    Harrier's own CompHarrier.landingPhase (2 or more is the hover hand-over and descent onto the pad). The Harrier takes off from a
+    runway only; vertical landing is where the hover check applies.
+  -->
+  <Phobos.VehicleSystems.PhobosVehicleFlightProfileDef>
+    <defName>PhobosFlightProfile_FixedWingJet</defName>
+    <label>fixed-wing jet</label>
+    <reader Class="Phobos.VehicleSystems.PhaseReader_Members">
+      <rules>
+        <li><phase>VerticalLanding</phase><comp>CompHarrier</comp><member>landingPhase</member><atLeast>2</atLeast></li>
+        <li><phase>AttackRun</phase><member>flightController.FixedWingAttackRunActive</member><equals>True</equals></li>
+        <li><phase>Departing</phase><member>FlightState</member><equals>DepartingMap</equals></li>
+        <li><phase>WorldFlight</phase><comp>CompVehicleLauncher</comp><member>inFlight</member><equals>True</equals></li>
+        <li><phase>TakeoffRoll</phase><member>FlightState</member><equals>TakingOff</equals></li>
+        <li><phase>RunwayLanding</phase><member>FlightState</member><equals>Landing</equals></li>
+        <li><phase>OnStation</phase><member>FlightState</member><equals>Flying</equals></li>
+        <li><phase>Taxi</phase><member>IsTaxiing</member><equals>True</equals></li>
+        <li><phase>SpoolingUp</phase><member>FlightState</member><equals>SpoolingUp</equals></li>
+        <li><phase>SpoolingDown</phase><member>FlightState</member><equals>SpoolingDown</equals></li>
+        <li><phase>Idle</phase><member>FlightState</member><equals>GroundedIdle</equals></li>
+      </rules>
+    </reader>
+    <phases>
+      <li><phase>Idle</phase><label>idling</label><demand>0.08</demand><moving>false</moving></li>
+      <li><phase>SpoolingUp</phase><label>spooling up</label><demand>0.2</demand><moving>false</moving></li>
+      <li><phase>SpoolingDown</phase><label>spooling down</label><demand>0.05</demand><moving>false</moving></li>
+      <li><phase>Taxi</phase><label>taxiing</label><demand>0.15</demand></li>
+      <li><phase>TakeoffRoll</phase><label>taking off</label><demand>1.0</demand></li>
+      <li><phase>Departing</phase><label>climbing away</label><demand>0.85</demand></li>
+      <li><phase>WorldFlight</phase><label>cruising</label><demand>0.6</demand></li>
+      <li><phase>OnStation</phase><label>on station</label><demand>0.5</demand></li>
+      <li><phase>AttackRun</phase><label>on an attack run</label><demand>0.8</demand></li>
+      <li><phase>RunwayLanding</phase><label>landing</label><demand>0.4</demand></li>
+      <li><phase>VerticalLanding</phase><label>hovering down</label><hover>true</hover></li>
+    </phases>
+  </Phobos.VehicleSystems.PhobosVehicleFlightProfileDef>
+
+  <!--
+    rabiosus's VTOL Vehicle framework (the Hind and the Mongoose): the same FlightState names. Hover and forward flight share the Flying
+    state, so on station is an authored average between hover and cruise; take-off and landing are hovers. hoverPowerAtMaxGross is
+    the design's authored figure for a twin turboshaft (hover needing 90% of both engines' power at maximum gross weight).
+  -->
+  <Phobos.VehicleSystems.PhobosVehicleFlightProfileDef>
+    <defName>PhobosFlightProfile_Helicopter</defName>
+    <label>helicopter</label>
+    <hoverPowerAtMaxGross>0.9</hoverPowerAtMaxGross>
+    <reader Class="Phobos.VehicleSystems.PhaseReader_Members">
+      <rules>
+        <li><phase>Departing</phase><member>FlightState</member><equals>DepartingMap</equals></li>
+        <li><phase>WorldFlight</phase><comp>CompVehicleLauncher</comp><member>inFlight</member><equals>True</equals></li>
+        <li><phase>TakingOff</phase><member>FlightState</member><equals>TakingOff</equals></li>
+        <li><phase>Landing</phase><member>FlightState</member><equals>Landing</equals></li>
+        <li><phase>OnStation</phase><member>FlightState</member><equals>Flying</equals></li>
+        <li><phase>SpoolingUp</phase><member>FlightState</member><equals>SpoolingUp</equals></li>
+        <li><phase>SpoolingDown</phase><member>FlightState</member><equals>SpoolingDown</equals></li>
+        <li><phase>Idle</phase><member>FlightState</member><equals>GroundedIdle</equals></li>
+      </rules>
+    </reader>
+    <phases>
+      <li><phase>Idle</phase><label>idling</label><demand>0.1</demand><moving>false</moving></li>
+      <li><phase>SpoolingUp</phase><label>spooling up</label><demand>0.25</demand><moving>false</moving></li>
+      <li><phase>SpoolingDown</phase><label>spooling down</label><demand>0.05</demand><moving>false</moving></li>
+      <li><phase>TakingOff</phase><label>lifting off</label><hover>true</hover></li>
+      <li><phase>Landing</phase><label>settling to land</label><hover>true</hover></li>
+      <li><phase>OnStation</phase><label>on station</label><demand>0.7</demand></li>
+      <li><phase>Departing</phase><label>climbing away</label><demand>0.85</demand></li>
+      <li><phase>WorldFlight</phase><label>cruising</label><demand>0.6</demand></li>
+    </phases>
+  </Phobos.VehicleSystems.PhobosVehicleFlightProfileDef>
+
+  <!-- Any other Vehicle Framework aircraft: in flight from its launcher's flag; drafted on the ground counts as taxiing. -->
+  <Phobos.VehicleSystems.PhobosVehicleFlightProfileDef>
+    <defName>PhobosFlightProfile_StockAircraft</defName>
+    <label>aircraft</label>
+    <reader Class="Phobos.VehicleSystems.PhaseReader_Members">
+      <rules>
+        <li><phase>WorldFlight</phase><comp>CompVehicleLauncher</comp><member>inFlight</member><equals>True</equals></li>
+        <li><phase>Taxi</phase><member>Drafted</member><equals>True</equals></li>
+      </rules>
+    </reader>
+    <phases>
+      <li><phase>Taxi</phase><label>taxiing</label><demand>0.15</demand></li>
+      <li><phase>WorldFlight</phase><label>cruising</label><demand>0.6</demand></li>
+    </phases>
+  </Phobos.VehicleSystems.PhobosVehicleFlightProfileDef>
+</Defs>

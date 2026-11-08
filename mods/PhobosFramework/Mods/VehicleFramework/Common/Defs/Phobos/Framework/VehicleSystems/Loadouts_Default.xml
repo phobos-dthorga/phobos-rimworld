@@ -14,7 +14,11 @@
     battery" and "Alternator (automotive)"); a heavy vehicle's two 12 V batteries in series for 24 V (100 Ah, authored) and a 24 V,
     100 A alternator (Delco Remy 28SI product listing). Loads: two 55 W headlamps at 12 V draw about 9 A (Ohm's law, our
     inference); the heater blower and the instruments are authored. Heavy vehicles' loads are halved in amperes at 24 V.
-    The 350 mass line between light and heavy is authored, in Vehicle Framework's mass units.
+    The 120 and 350 mass lines between light, medium and heavy are authored, in Vehicle Framework's mass units.
+
+    Drivetrains (docs/development/vehicle-drivetrain-design.md, figures in Drivetrains.xml): a light vehicle gets a petrol engine,
+    medium and heavy ones a diesel, a tracked one (a part key ending in Track, as Vanilla Vehicles Expanded's tracks are named) a
+    tracked diesel and wins a tie through its rank; boats a propeller, aircraft a turbofan with the stock flight profile.
   -->
   <Phobos.VehicleSystems.PhobosVehicleLoadoutDef Name="PhobosVehicleLoadoutCombustionBase" Abstract="True">
     <priority>Effect</priority>
@@ -189,6 +193,22 @@
           <cellsOf>Wheels</cellsOf>
         </add>
       </li>
+      <li>
+        <!-- The clutch or torque converter: a damaged one slips under high load (drivetrain design). -->
+        <role>Clutch</role>
+        <find>
+          <li>
+            <keyContains>clutch</keyContains>
+          </li>
+        </find>
+        <add>
+          <key>PhobosClutch</key>
+          <label>clutch</label>
+          <health>25</health>
+          <hitWeight>0.2</hitWeight>
+          <cellsOf>Transmission</cellsOf>
+        </add>
+      </li>
     </partRoles>
   </Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
 
@@ -197,8 +217,11 @@
     <label>light land vehicle</label>
     <kind>CombustionLand</kind>
     <selector>
-      <massMax>349.99</massMax>
+      <massMax>119.99</massMax>
     </selector>
+    <drivetrain>
+      <def>PhobosDrivetrain_LightPetrol</def>
+    </drivetrain>
     <loads>
       <li>
         <name>headlights</name>
@@ -239,6 +262,19 @@
     </loads>
   </Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
 
+  <!-- Medium land vehicles: a light vehicle's 12 V electrics with a diesel engine (pickups, light trucks). -->
+  <Phobos.VehicleSystems.PhobosVehicleLoadoutDef ParentName="PhobosVehicleLoadoutLandLight">
+    <defName>PhobosVehicleLoadout_LandMedium</defName>
+    <label>medium land vehicle</label>
+    <selector>
+      <massMin>120</massMin>
+      <massMax>349.99</massMax>
+    </selector>
+    <drivetrain>
+      <def>PhobosDrivetrain_HeavyDiesel</def>
+    </drivetrain>
+  </Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
+
   <Phobos.VehicleSystems.PhobosVehicleLoadoutDef Name="PhobosVehicleLoadoutLandHeavy" ParentName="PhobosVehicleLoadoutLandBase">
     <defName>PhobosVehicleLoadout_LandHeavy</defName>
     <label>heavy land vehicle</label>
@@ -246,6 +282,9 @@
     <selector>
       <massMin>350</massMin>
     </selector>
+    <drivetrain>
+      <def>PhobosDrivetrain_HeavyDiesel</def>
+    </drivetrain>
     <systems Inherit="False">
       <li>
         <def>PhobosVehicleSystem_Electrical</def>
@@ -303,6 +342,23 @@
     </loads>
   </Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
 
+  <!-- Tracked vehicles of any mass: the heavy set with a tracked diesel. Rank 1 beats the light, medium and heavy loadouts. -->
+  <Phobos.VehicleSystems.PhobosVehicleLoadoutDef ParentName="PhobosVehicleLoadoutLandHeavy">
+    <defName>PhobosVehicleLoadout_LandTracked</defName>
+    <label>tracked vehicle</label>
+    <kind>CombustionTracked</kind>
+    <rank>1</rank>
+    <selector>
+      <massMin>-1</massMin>
+      <partKeySuffixes>
+        <li>Track</li>
+      </partKeySuffixes>
+    </selector>
+    <drivetrain>
+      <def>PhobosDrivetrain_TrackedDiesel</def>
+    </drivetrain>
+  </Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
+
   <!--
     Boats: raw-water cooling, so the cooling system runs without a radiator part (the role stays unbound and reads as sound) and
     with a stronger cooling rate (authored: the sea is a large, cold radiator). No tyres or brakes.
@@ -316,6 +372,9 @@
         <li>Sea</li>
       </vehicleTypes>
     </selector>
+    <drivetrain>
+      <def>PhobosDrivetrain_Boat</def>
+    </drivetrain>
     <systems>
       <li><def>PhobosVehicleSystem_Electrical</def></li>
       <li>
@@ -354,11 +413,12 @@
   </Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
 
   <!--
-    Aircraft: the electrical system and the engine's hours and service only. A jet's or a rotor's engine cools and lubricates
-    unlike a car's, and Vehicle Framework gives no flight load, so cooling waits (design: aircraft deferred). No radiator, oil pump,
-    gearbox, tyres or brakes are appended.
+    Aircraft: the electrical system, the engine's hours and service, and a gas turbine (docs/development/vehicle-turbine-design.md)
+    with the stock flight profile, which reads Vehicle Framework's launch state. A jet's or a rotor's engine cools and lubricates
+    unlike a car's, so there is no coolant or radiator; no oil pump, gearbox, tyres or brakes are appended. Named loadouts give a
+    jump jet or a helicopter its own engine and flight profile.
   -->
-  <Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
+  <Phobos.VehicleSystems.PhobosVehicleLoadoutDef Name="PhobosVehicleLoadoutAircraft">
     <defName>PhobosVehicleLoadout_Aircraft</defName>
     <label>aircraft</label>
     <kind>Aircraft</kind>
@@ -371,7 +431,12 @@
     <systems>
       <li><def>PhobosVehicleSystem_Electrical</def></li>
       <li><def>PhobosVehicleSystem_Service</def></li>
+      <li><def>PhobosVehicleSystem_Turbine</def></li>
     </systems>
+    <drivetrain>
+      <def>PhobosDrivetrain_AeroTurbofan</def>
+    </drivetrain>
+    <flightProfile>PhobosFlightProfile_StockAircraft</flightProfile>
     <partRoles>
       <li>
         <role>Engine</role>

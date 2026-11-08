@@ -117,6 +117,87 @@ class VehicleSchemaCheckTests(unittest.TestCase):
         self.assertEqual(result['errors'], [])
         self.assertTrue(any('binds to nothing' in w for w in result['warnings']))
 
+    def test_a_good_drivetrain_and_flight_profile_pass(self):
+        result = self.run_with(POWER)
+        self.assertEqual(result['errors'], [])
+        self.assertEqual(result['drivetrains'], ['Test_Diesel', 'Test_Jet'])
+        self.assertEqual(result['profiles'], ['Test_Profile'])
+
+    def test_gears_that_do_not_fall_and_crossed_shift_points_are_caught(self):
+        result = self.run_with(POWER.replace('<li>3.5</li><li>2.0</li>', '<li>2.0</li><li>3.5</li>')
+                               .replace('<upshiftRpm>2400</upshiftRpm>', '<upshiftRpm>1000</upshiftRpm>'))
+        self.assertTrue(any('gears must fall' in e for e in result['errors']))
+        self.assertTrue(any('upshift rpm' in e for e in result['errors']))
+
+    def test_a_turbine_ladder_out_of_order_or_without_time_limits_is_caught(self):
+        result = self.run_with(POWER.replace('<share>1.3</share>', '<share>0.9</share>').replace('<minutes>5</minutes>', ''))
+        self.assertTrue(any('must rise in share' in e for e in result['errors']))
+        self.assertTrue(any('needs a time limit' in e for e in result['errors']))
+
+    def test_a_wet_rating_without_water_injection_is_caught(self):
+        result = self.run_with(POWER.replace('<waterInjection><tankKilograms>100</tankKilograms></waterInjection>', ''))
+        self.assertTrue(any('go together' in e for e in result['errors']))
+
+    def test_a_reader_naming_an_unlisted_phase_is_caught(self):
+        result = self.run_with(POWER.replace('<rules><li><phase>Cruise</phase>', '<rules><li><phase>Hover</phase>'))
+        self.assertTrue(any('names the phase Hover' in e for e in result['errors']))
+
+    def test_a_loadout_naming_no_drivetrain_or_profile_is_caught(self):
+        result = self.run_with(POWER.replace('<def>Test_Jet</def>', '<def>Test_Jit</def>').replace(
+            '<flightProfile>Test_Profile</flightProfile>', '<flightProfile>Test_Profil</flightProfile>'))
+        self.assertTrue(any('no drivetrain Test_Jit' in e for e in result['errors']))
+        self.assertTrue(any('no flight profile Test_Profil' in e for e in result['errors']))
+
+    def test_water_injection_needs_a_system_holding_the_water(self):
+        result = self.run_with(POWER.replace('<name>injectionWater</name>', '<name>tankWater</name>'))
+        self.assertTrue(any('injectionWater quantity' in e for e in result['errors']))
+
+    def test_a_service_with_negative_water_is_caught(self):
+        result = self.run_with(POWER.replace('<waterLitres>10</waterLitres>', '<waterLitres>-1</waterLitres>'))
+        self.assertTrue(any('waterLitres' in e for e in result['errors']))
+
+
+POWER = SYSTEM.replace('</Defs>', """
+  <Phobos.VehicleSystems.PhobosVehicleSystemDef>
+    <defName>Test_Water</defName>
+    <quantities><li><name>injectionWater</name></li></quantities>
+    <service><dueQuantity>injectionWater</dueQuantity><dueBelow>0.5</dueBelow><waterLitres>10</waterLitres></service>
+  </Phobos.VehicleSystems.PhobosVehicleSystemDef>
+  <Phobos.VehicleSystems.PhobosVehicleSystemDef>
+    <defName>PhobosVehicleSystem_Turbine</defName>
+  </Phobos.VehicleSystems.PhobosVehicleSystemDef>
+  <Phobos.VehicleSystems.PhobosVehicleDrivetrainDef>
+    <defName>Test_Diesel</defName>
+    <engine><kind>Piston</kind><idleRpm>700</idleRpm><launchRpm>1100</launchRpm><ratedRpm>3000</ratedRpm></engine>
+    <transmission><kind>Automatic</kind><gears><li>3.5</li><li>2.0</li></gears><upshiftRpm>2400</upshiftRpm><downshiftRpm>1300</downshiftRpm></transmission>
+  </Phobos.VehicleSystems.PhobosVehicleDrivetrainDef>
+  <Phobos.VehicleSystems.PhobosVehicleDrivetrainDef>
+    <defName>Test_Jet</defName>
+    <engine><kind>Turbofan</kind>
+      <turbine>
+        <ratings>
+          <li><name>continuous</name><share>1</share><temperatureLimit>800</temperatureLimit></li>
+          <li><name>wet</name><share>1.3</share><temperatureLimit>900</temperatureLimit><minutes>5</minutes><wet>true</wet></li>
+        </ratings>
+        <waterInjection><tankKilograms>100</tankKilograms></waterInjection>
+      </turbine>
+    </engine>
+    <transmission><kind>None</kind></transmission>
+  </Phobos.VehicleSystems.PhobosVehicleDrivetrainDef>
+  <Phobos.VehicleSystems.PhobosVehicleFlightProfileDef>
+    <defName>Test_Profile</defName>
+    <reader Class="OtherMod.Reader"><rules><li><phase>Cruise</phase><member>FlightState</member><equals>Flying</equals></li></rules></reader>
+    <phases><li><phase>Cruise</phase><label>cruising</label><demand>0.6</demand></li></phases>
+  </Phobos.VehicleSystems.PhobosVehicleFlightProfileDef>
+  <Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
+    <defName>Test_Aircraft</defName>
+    <systems><li><def>Test_Water</def></li><li><def>PhobosVehicleSystem_Turbine</def></li></systems>
+    <drivetrain><def>Test_Jet</def></drivetrain>
+    <flightProfile>Test_Profile</flightProfile>
+  </Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
+</Defs>
+""")
+
 
 if __name__ == '__main__':
     unittest.main()

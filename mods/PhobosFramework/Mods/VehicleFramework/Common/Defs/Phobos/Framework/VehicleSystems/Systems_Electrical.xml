@@ -11,6 +11,10 @@
       Battery University BU-502; Midtronics. The curve between and beyond those points is our interpolation (authored).
     - A discharged lead-acid battery can freeze and crack. Secondary: Battery University BU-502. The thresholds are authored.
     - Light vehicles' alternators give about 50 to 70 A. Secondary: Wikipedia, "Alternator (automotive)".
+    - An alternator gives nothing below its cut-in speed and its full output only well above idle; it turns about 2.5 to 3 times
+      engine speed through its pulley (secondary: the drivetrain record's sources, docs/development/vehicle-drivetrain-design.md).
+      The output curve on rotor speed (nothing below 1,200 rpm, half at 1,800, 70% at 2,400, full from 6,000) is shaped from
+      those sources and authored; an idling engine gives roughly half, so lights left on at idle slowly drain the battery.
     - A start of about 150 A for about 6 s is 0.25 Ah (our inference from typical starter currents; authored); a cold start draws
       more (authored factor).
     - The charging taper (a full battery accepts little) and the self-discharge are authored.
@@ -171,6 +175,18 @@
         <inputs>
           <li Class="Phobos.VehicleSystems.Input_ElectricalBalance">
             <side>Surplus</side>
+            <supplyFactor Class="Phobos.VehicleSystems.Input_EngineRpm">
+              <multiplier>2.5</multiplier>
+              <curve>
+                <points>
+                  <li>(1200, 0)</li>
+                  <li>(1800, 0.5)</li>
+                  <li>(2400, 0.7)</li>
+                  <li>(4000, 0.9)</li>
+                  <li>(6000, 1)</li>
+                </points>
+              </curve>
+            </supplyFactor>
           </li>
           <li Class="Phobos.VehicleSystems.Input_Quantity">
             <quantity>charge</quantity>
@@ -193,6 +209,18 @@
         <inputs>
           <li Class="Phobos.VehicleSystems.Input_ElectricalBalance">
             <side>Deficit</side>
+            <supplyFactor Class="Phobos.VehicleSystems.Input_EngineRpm">
+              <multiplier>2.5</multiplier>
+              <curve>
+                <points>
+                  <li>(1200, 0)</li>
+                  <li>(1800, 0.5)</li>
+                  <li>(2400, 0.7)</li>
+                  <li>(4000, 0.9)</li>
+                  <li>(6000, 1)</li>
+                </points>
+              </curve>
+            </supplyFactor>
           </li>
         </inputs>
       </li>

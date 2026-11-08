@@ -74,18 +74,23 @@ public static class LoadoutChoice
     /// The index of the winning candidate: the highest priority, and among equals the last loaded. <paramref name="tied"/> says
     /// whether another candidate had the same priority, so the load line can warn.
     /// </summary>
-    public static int Pick(IReadOnlyList<LoadoutPriority> priorities, out bool tied)
+    public static int Pick(IReadOnlyList<LoadoutPriority> priorities, out bool tied) => Pick(priorities, null, out tied);
+
+    /// <summary>As above, with a rank that breaks ties within a priority (higher wins): a tracked loadout beats the plain land ones.</summary>
+    public static int Pick(IReadOnlyList<LoadoutPriority> priorities, IReadOnlyList<int>? ranks, out bool tied)
     {
         tied = false;
         int best = -1;
         for (int i = 0; i < priorities.Count; i++)
         {
-            if (best < 0 || priorities[i] > priorities[best])
+            int rank = ranks?[i] ?? 0;
+            int bestRank = best < 0 ? 0 : ranks?[best] ?? 0;
+            if (best < 0 || priorities[i] > priorities[best] || (priorities[i] == priorities[best] && rank > bestRank))
             {
                 best = i;
                 tied = false;
             }
-            else if (priorities[i] == priorities[best])
+            else if (priorities[i] == priorities[best] && rank == bestRank)
             {
                 best = i;
                 tied = true;

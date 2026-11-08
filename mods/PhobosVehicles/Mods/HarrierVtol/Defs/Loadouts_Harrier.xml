@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    The Harrier VTOL Attack Aircraft (potemkinvillager.av8bharrier): a Pegasus turbofan with water injection, the fixed-wing jet's
+    flight profile and the hover check on vertical landings (docs/development/vehicle-turbine-design.md). Not yet tested in game.
+
+    Sources and labels:
+    - Lift ratings at sea level: 64.3 kN maximum continuous at 91% rpm, 95.9 kN for 15 s wet at 107% rpm (secondary: All-Aero on the
+      Pegasus). The short-lift dry rating (86.3 kN, 90% of wet) has no source found and is authored.
+    - Water injection: up to 227 kg, used at about 2.65 kg a second (secondary: All-Aero on the Pegasus).
+    - Temperature limits (800, 900, 950 degrees C) are authored placeholders; the record found none published.
+    - Empty mass about 6,340 kg (secondary: Pima Air and Space Museum, via docs/development/vehicle-patches.md). Full internal fuel
+      3,400 kg is authored.
+  -->
+  <Phobos.VehicleSystems.PhobosVehicleDrivetrainDef>
+    <defName>PhobosDrivetrain_Pegasus</defName>
+    <label>vectored-thrust turbofan</label>
+    <engine>
+      <kind>Turbofan</kind>
+      <ratedRpm>10000</ratedRpm>
+      <idleFuelShare>0.25</idleFuelShare>
+      <turbine>
+        <idleSpeedPercent>60</idleSpeedPercent>
+        <ratings>
+          <li><name>maxContinuous</name><share>1</share><speedPercent>91</speedPercent><temperatureLimit>800</temperatureLimit><thrustKilonewtons>64.3</thrustKilonewtons></li>
+          <li><name>shortLiftDry</name><share>1.34</share><speedPercent>103</speedPercent><temperatureLimit>900</temperatureLimit><minutes>2.5</minutes><thrustKilonewtons>86.3</thrustKilonewtons></li>
+          <li><name>wet</name><share>1.49</share><speedPercent>107</speedPercent><temperatureLimit>950</temperatureLimit><minutes>0.25</minutes><thrustKilonewtons>95.9</thrustKilonewtons><wet>true</wet></li>
+        </ratings>
+        <waterInjection>
+          <tankKilograms>227</tankKilograms>
+          <kilogramsPerSecond>2.65</kilogramsPerSecond>
+        </waterInjection>
+      </turbine>
+    </engine>
+    <transmission>
+      <kind>None</kind>
+    </transmission>
+    <mass>
+      <emptyKilograms>6340</emptyKilograms>
+      <fuelKilogramsFull>3400</fuelKilogramsFull>
+    </mass>
+  </Phobos.VehicleSystems.PhobosVehicleDrivetrainDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleLoadoutDef ParentName="PhobosVehicleLoadoutAircraft">
+    <defName>PhobosVehicleLoadout_Harrier</defName>
+    <label>jump jet</label>
+    <priority>Vehicle</priority>
+    <selector>
+      <vehicleDefs>
+        <li>Harrier_Jet</li>
+      </vehicleDefs>
+    </selector>
+    <systems>
+      <li><def>PhobosVehicleSystem_WaterInjection</def></li>
+    </systems>
+    <drivetrain>
+      <def>PhobosDrivetrain_Pegasus</def>
+    </drivetrain>
+    <flightProfile>PhobosFlightProfile_FixedWingJet</flightProfile>
+  </Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
+</Defs>
