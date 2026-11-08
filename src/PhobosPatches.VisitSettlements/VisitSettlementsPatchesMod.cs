@@ -14,8 +14,9 @@ public class VisitSettlementsPatchesMod : Mod
 {
     /// <summary>The Harmony ID is the packageId, shared by every part; never change it once the mod is published.</summary>
     public const string PackageId = "PhobosDthorga.Patches";
-    public const string ModVersion = "0.15.0";
+    public const string ModVersion = "0.16.0";
     public const string LogPrefix = "[D'thorga Patches]";
+    public static readonly Phobos.Logging.PhobosLog Logger = Phobos.Framework.Logging.Logs.For("D'thorga Patches", "Visit Settlements");
     const string Feature = "a visited settlement's map stays open while your people can still act there or a battle is on";
     const string FoodFeature = "friendly settlements' food drops leave out pawns that do not eat";
     const string GuardFeature = "a fault in its settlement events waits its usual days instead of repeating every tick";

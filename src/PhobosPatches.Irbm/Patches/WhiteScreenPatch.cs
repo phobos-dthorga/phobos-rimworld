@@ -42,7 +42,7 @@ public static class Patch_OnWhiteScreenReached_Strike
         }
         catch (Exception error)
         {
-            Log.Error(MissilePatchesMod.LogPrefix + " The strike could not start; the screen is cleared. " + error);
+            MissilePatchesMod.Logger.Error("The strike could not start; the screen is cleared. " + error);
             ScreenFader.StartFade(Color.clear, IrbmBudgetRule.WhiteScreenSeconds);
         }
         finally

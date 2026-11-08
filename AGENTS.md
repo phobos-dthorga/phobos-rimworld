@@ -360,6 +360,9 @@ delivered, record the delivery in the changelog or design record, and add or ame
 - **Tests leave nothing behind.** A test that makes a git repository sets `core.fsmonitor false` in it and deletes it with
   read-only handling (git's object files are read-only; `ignore_errors=True` hides the failure). `python scripts/cleanup.py`
   lists what the tools and tests left (old install backups, test repositories, git watcher daemons); the owner runs `--apply`.
+- **Log through the shared logger** (phobos-log, public, pinned at `external/phobos-log` and compiled into D'thorga Framework; owner, 8
+  Nov 2026): `Phobos.Framework.Logging.Logs.For(mod, part)` in a static field named `Logger`, never `Log`, with its gates before a line
+  that can repeat. A dev action's own answer still goes through the game's `Log`. Existing mods adopt it when next touched.
 - **The shared tools come from the pinned phobos-modkit submodule** (`external/phobos-modkit`, owner's request of
   7 Nov 2026 for a shared repository): **after cloning, or in a new worktree, run `git submodule update --init`**
   before the scripts or tests. A fix to a shared tool goes to phobos-modkit first, under its own AGENTS.md; then

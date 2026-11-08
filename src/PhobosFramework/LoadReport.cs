@@ -35,9 +35,12 @@ public sealed class LoadReport
         return this;
     }
 
-    public override string ToString() =>
-        prefix + " " + version + " loaded" + (part == null ? "" : " (" + part + ")") + ". On: " + (on.Count == 0 ? "nothing" : string.Join(", ", on)) + "."
+    public override string ToString() => prefix + " " + Body();
+
+    string Body() =>
+        version + " loaded" + (part == null ? "" : " (" + part + ")") + ". On: " + (on.Count == 0 ? "nothing" : string.Join(", ", on)) + "."
         + (off.Count == 0 ? "" : " OFF: " + string.Join(", ", off) + ".");
 
-    public void Log() => Verse.Log.Message(ToString());
+    /// <summary>Written under the mod's own log category, the prefix without its brackets, so it keeps the shape players quote.</summary>
+    public void Log() => Logging.HostLog.Write(prefix.Trim('[', ']', ' '), Logging.HostLevel.Info, Body());
 }

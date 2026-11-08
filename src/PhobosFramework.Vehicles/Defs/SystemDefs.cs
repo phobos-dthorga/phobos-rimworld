@@ -164,6 +164,21 @@ public class ServiceSpec
     public float dueBelow = float.NaN;
     public List<QuantityRestore> restores = new();
     public List<ThingDefCountClass> supplies = new();
+    /// <summary>Supplies used as well only when nothing provides water (without Dubs Bad Hygiene): chemfuel in place of a coolant's
+    /// water (owner, 8 Nov 2026). With a water source, the service draws its water and needs none of these.</summary>
+    public List<ThingDefCountClass> suppliesWithoutWaterSource = new();
+    List<ThingDefCountClass>? suppliesWithFallback;
+
+    /// <summary>What the service takes from the cargo as things stand now.</summary>
+    public List<ThingDefCountClass> SuppliesNow
+    {
+        get
+        {
+            if (VehicleWater.HasSource || suppliesWithoutWaterSource.Count == 0) return supplies;
+            return suppliesWithFallback ??= supplies.Concat(suppliesWithoutWaterSource).ToList();
+        }
+    }
+
     /// <summary>Conditions the service clears on every part of the vehicle; the service is due while the vehicle has one of them.</summary>
     public List<PhobosVehicleConditionDef> clearsConditions = new();
     /// <summary>Litres of water the service draws when it is done: from Dubs Bad Hygiene's plumbing beside the vehicle when that mod is

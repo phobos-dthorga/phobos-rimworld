@@ -44,7 +44,7 @@ public static class PatchedDefsDump
         FrameworkMod.Settings.Write();
         if (document?.DocumentElement == null)
         {
-            Log.Warning(FrameworkMod.LogPrefix + " A patched-Defs file was asked for, but the patched XML was not seen (another mod may apply "
+            FrameworkMod.Logger.Warn("A patched-Defs file was asked for, but the patched XML was not seen (another mod may apply "
                 + "patches its own way). Nothing written; the request is off again.");
             return;
         }
@@ -76,12 +76,12 @@ public static class PatchedDefsDump
             }
             if (File.Exists(path)) File.Delete(path);
             File.Move(temporary, path);
-            Log.Message(FrameworkMod.LogPrefix + " Wrote " + count + " Defs with every patch applied to " + path + " in "
+            FrameworkMod.Logger.Info("Wrote " + count + " Defs with every patch applied to " + path + " in "
                 + watch.ElapsedMilliseconds + " ms. The request is off again.");
         }
         catch (Exception error) when (error is IOException or UnauthorizedAccessException or XmlException)
         {
-            Log.Warning(FrameworkMod.LogPrefix + " The patched-Defs file could not be written: " + error.Message);
+            FrameworkMod.Logger.Warn("The patched-Defs file could not be written: " + error.Message);
         }
     }
 }

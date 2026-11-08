@@ -1,3 +1,6 @@
 [submodule "external/phobos-modkit"]
 	path = external/phobos-modkit
 	url = https://github.com/phobos-dthorga/phobos-modkit.git
+[submodule "external/phobos-log"]
+	path = external/phobos-log
+	url = https://github.com/phobos-dthorga/phobos-log.git

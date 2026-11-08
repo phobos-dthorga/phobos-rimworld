@@ -309,6 +309,9 @@ parked vehicle, and the service waits with the reason until one is there. Anothe
 implementing `VehicleWater.ISource` (`CanDraw` with an in-world reason, `TryDraw`) and calling `VehicleWater.Register` at startup;
 the last one registered is used, and a source that throws is dropped (water is free again until restart).
 
+A service's `suppliesWithoutWaterSource` are taken from the cargo, on top of `supplies`, only while no source is registered: the shipped
+coolant top-up uses them so that chemfuel stands in for the water without Dubs Bad Hygiene.
+
 ## The world map and the cab
 
 The systems keep running while a vehicle travels in a caravan: wear, charge, heat and fuel, with the engine counted as running
@@ -516,7 +519,7 @@ is active.
 | System | Quantities | Roles | Notes |
 | --- | --- | --- | --- |
 | `PhobosVehicleSystem_Electrical` | charge, starting power, starter, battery frost | Battery, Alternator, Starter | Parameters `batteryAmpHours`, `alternatorAmps`, `starterAmpHours`, `shoreChargeAmps`; jump-starts |
-| `PhobosVehicleSystem_Cooling` | coolant temperature and level, engine load | Engine, Radiator | `heatAtFullLoad`, `radiatorRate`, `soakRate`, `thermostatOpens`; coolant top-up service: 3 chemfuel and 10 litres of water |
+| `PhobosVehicleSystem_Cooling` | coolant temperature and level, engine load | Engine, Radiator | `heatAtFullLoad`, `radiatorRate`, `soakRate`, `thermostatOpens`; coolant top-up service: 10 litres of water from the registered source, or 3 chemfuel when there is none |
 | `PhobosVehicleSystem_Lubrication` | oil level, temperature, pressure | Engine, OilPump | Oil follows the coolant; with no cooling system, it runs warm while the engine does (`Input_OilWithoutCoolant`) |
 | `PhobosVehicleSystem_Fuel` | fuel gel | | Only with the player's cold-fuel setting |
 | `PhobosVehicleSystem_Service` | hours since service | Engine, Alternator, Starter, Radiator | Service: 9 chemfuel, 1 component (the oil) |

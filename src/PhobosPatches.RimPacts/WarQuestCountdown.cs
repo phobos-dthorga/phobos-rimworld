@@ -43,7 +43,7 @@ public static class WarQuestCountdown
         enable = typeof(QuestPartActivable).GetMethod("Enable", BindingFlags.NonPublic | BindingFlags.Instance, null, new[] { typeof(SignalArgs) }, null);
         Ready = instance != null && questField != null && acceptedField != null && deadlineField != null && nextDailyField != null && enable != null;
         if (!Ready)
-            Log.Warning(RimPactsPatchesMod.LogPrefix + " RimPacts' world war quest has changed, so its quest shows no countdown.");
+            RimPactsPatchesMod.Logger.Warn("RimPacts' world war quest has changed, so its quest shows no countdown.");
     }
 
     public static void Refresh()
@@ -55,7 +55,7 @@ public static class WarQuestCountdown
         catch (Exception error)
         {
             Ready = false;
-            Log.Error(RimPactsPatchesMod.LogPrefix + " could not show the world war quest's countdown, so it is off until the game restarts: " + error);
+            RimPactsPatchesMod.Logger.Error("could not show the world war quest's countdown, so it is off until the game restarts: " + error);
         }
     }
 
@@ -92,7 +92,7 @@ public static class WarQuestCountdown
             };
             quest.AddPart(part);
             enable!.Invoke(part, new object[] { default(SignalArgs) });
-            Log.Message(RimPactsPatchesMod.LogPrefix + " The world war quest \"" + quest.name + "\" now shows its deadline: "
+            RimPactsPatchesMod.Logger.Info("The world war quest \"" + quest.name + "\" now shows its deadline: "
                 + (ends - now).ToStringTicksToPeriod() + " left.");
             return;
         }

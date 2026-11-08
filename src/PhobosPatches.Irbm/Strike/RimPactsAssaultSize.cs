@@ -55,7 +55,7 @@ public static class RimPactsAssaultSize
         if (count == null || instance == null || battleMap == null || battleAttacker == null || battleTarget == null
             || battleSpawned == null || battleSpawnDone == null)
         {
-            Log.Warning(MissilePatchesMod.LogPrefix + " RimPacts' assault sizing has changed, so a struck town's assault is left to RimPacts.");
+            MissilePatchesMod.Logger.Warn("RimPacts' assault sizing has changed, so a struck town's assault is left to RimPacts.");
             return;
         }
         try
@@ -65,7 +65,7 @@ public static class RimPactsAssaultSize
         }
         catch (Exception error)
         {
-            Log.Warning(MissilePatchesMod.LogPrefix + " could not patch RimPacts' assault sizing: " + error.Message);
+            MissilePatchesMod.Logger.Warn("could not patch RimPacts' assault sizing: " + error.Message);
         }
     }
 
@@ -81,7 +81,7 @@ public static class RimPactsAssaultSize
         }
         catch (Exception error)
         {
-            Log.ErrorOnce(MissilePatchesMod.LogPrefix + " could not size RimPacts' assault; RimPacts' own size stands: " + error.Message, 0x50485321);
+            MissilePatchesMod.Logger.ErrorOnce("could not size RimPacts' assault; RimPacts' own size stands: " + error.Message);
         }
     }
 
@@ -99,7 +99,7 @@ public static class RimPactsAssaultSize
         {
             lastLoggedTown = town;
             lastLoggedTick = now;
-            Log.Message(MissilePatchesMod.LogPrefix + " " + (attacker?.Name ?? "An ally") + "'s assault on " + town.Label + " is sized against "
+            MissilePatchesMod.Logger.Info((attacker?.Name ?? "An ally") + "'s assault on " + town.Label + " is sized against "
                 + adjusted + " defenders, the garrison before the strike (RimPacts counted " + standing + " still standing).");
         }
         return adjusted;

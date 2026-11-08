@@ -5,6 +5,27 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.33.0] - 2026-11-08 - Draft
+
+The shared logger, and what coolant is made of (owner, 8 November 2026). **Not yet tested in game.** Design: docs/development/logging-framework-design.md.
+
+### Added
+
+- Shared, in the core: the shared logging core (phobos-log 1.0.0, compiled in) and Logging/Logs, a log per mod or part under the mod's own category in Player.log, with lines that can repeat written once or at most so often, and one budget of lines per mod.
+
+### Changed
+
+- This mod's lines, and the load line of every D'thorga mod, are written under the mod's own category in Player.log instead of the game's. Quote them the same way.
+- With Dubs Bad Hygiene, a coolant top-up is 10 litres of water from plumbing beside the vehicle and no chemfuel. Without it, the top-up takes 3 chemfuel in place of the water, as oil does; water is no longer free for it. The Harrier's injection water and a boiler's feed water are unchanged.
+
+### Fixed
+
+- A line written very early in loading, before the engine's log is ready, now goes through the game's own log instead of failing.
+
+### Compatibility and limits
+
+- A dev action's own answer still goes through the game's log, so it shows in the usual place.
+
 ## [0.32.0] - 2026-11-08 - Draft
 
 Two ways of handling a large fleet, at the owner's request (8 November 2026). **Not yet tested in game.**

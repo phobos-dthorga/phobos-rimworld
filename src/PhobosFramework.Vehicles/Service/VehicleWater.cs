@@ -23,6 +23,9 @@ public static class VehicleWater
     /// <summary>The name of the registered source, for the load line.</summary>
     public static string SourceName { get; private set; } = "free (no water source registered)";
 
+    /// <summary>Whether anything provides water; without a source, water is free or a service's fallback supplies stand in.</summary>
+    public static bool HasSource => source != null;
+
     public static void Register(ISource waterSource, string name)
     {
         source = waterSource;

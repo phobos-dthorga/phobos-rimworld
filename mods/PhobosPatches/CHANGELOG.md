@@ -10,6 +10,18 @@ says the owner tested it.
 
 - Dates in this mod's records that were written a day ahead now read 8 November 2026. Text only; nothing in game changes.
 
+## [0.16.0] - 2026-11-08 - Draft
+
+The shared logger (owner, 8 November 2026). **Not yet tested in game.**
+
+### Changed
+
+- The Harrier, IRBM, RimPacts and Visit Settlements parts write under their own categories in Player.log, within one budget of lines for the mod, so a repeating fault of ours can never fill the game's log. What they say is unchanged.
+
+### Dependencies
+
+- The Harrier part needs D'thorga Framework 0.33.0.
+
 ## [0.15.0] - 2026-11-08 - Draft
 
 Outposts and caravans with vehicles, at the owner's request (8 November 2026). **Not yet tested in game.**

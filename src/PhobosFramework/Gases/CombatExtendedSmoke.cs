@@ -76,7 +76,7 @@ public static class CombatExtendedSmoke
             }
             catch (Exception exception)
             {
-                Log.Warning(FrameworkMod.LogPrefix + " Could not read Combat Extended's smoke setting; assuming it is on. " + exception.Message);
+                FrameworkMod.Logger.Warn("Could not read Combat Extended's smoke setting; assuming it is on. " + exception.Message);
             }
         }
         if (settingsField == null || smokeEffectsProperty == null) return true;

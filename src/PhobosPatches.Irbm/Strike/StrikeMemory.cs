@@ -62,7 +62,7 @@ public class WorldComponent_PhobosStrikeMemory : WorldComponent
         memory.towns.Add(town);
         memory.defenders.Add(count);
         memory.ticks.Add(now);
-        Log.Message(MissilePatchesMod.LogPrefix + " " + town.Label + " had " + count + " defenders standing before the strike; an ally's assault on it will face that many.");
+        MissilePatchesMod.Logger.Info(town.Label + " had " + count + " defenders standing before the strike; an ally's assault on it will face that many.");
     }
 
     /// <summary>The garrison counted before a recent strike on this town: null if none, negative for an entry from an older draft of

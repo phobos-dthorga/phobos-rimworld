@@ -1070,7 +1070,7 @@ public class CompPhobosVehicleSystems : VehicleComp
     /// haulers fetch it all and the vehicle says it all.</summary>
     public List<(ThingDef def, int count)> MissingSupplies() =>
         SupplyRules.Shortfall(DueServices().Where(s => s.Def.service != null)
-            .Select(s => s.Def.service!.supplies.Select(supply => (supply.thingDef, supply.count))), CountInCargo);
+            .Select(s => s.Def.service!.SuppliesNow.Select(supply => (supply.thingDef, supply.count))), CountInCargo);
 
     /// <summary>The first supply the due services still lack, for a hauler to fetch.</summary>
     public bool MissingSupply(out ThingDef? def, out int count)
@@ -1085,7 +1085,7 @@ public class CompPhobosVehicleSystems : VehicleComp
 
     /// <summary>Whether one service's own supplies are all aboard.</summary>
     bool SuppliesAboard(SystemState state) =>
-        state.Def.service == null || state.Def.service.supplies.All(supply => CountInCargo(supply.thingDef) >= supply.count);
+        state.Def.service == null || state.Def.service.SuppliesNow.All(supply => CountInCargo(supply.thingDef) >= supply.count);
 
     /// <summary>Whether the due service's water can be had now (always, unless a water source such as plumbing is required and none
     /// is beside the vehicle).</summary>
@@ -1143,7 +1143,7 @@ public class CompPhobosVehicleSystems : VehicleComp
         float water = ServiceWater(state);
         if (water > 0f && !VehicleWater.TryDraw(Vehicle, water)) return false;
         ThingOwner cargo = Vehicle.inventory.innerContainer;
-        foreach (ThingDefCountClass supply in service.supplies)
+        foreach (ThingDefCountClass supply in service.SuppliesNow)
         {
             int remaining = supply.count;
             foreach (Thing thing in cargo.Where(t => t.def == supply.thingDef).ToList())

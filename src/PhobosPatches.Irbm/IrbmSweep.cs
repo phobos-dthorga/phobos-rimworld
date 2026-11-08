@@ -241,7 +241,7 @@ public sealed class IrbmSweep : FrameWork
                 }
                 catch (Exception error)
                 {
-                    Log.Warning(MissilePatchesMod.LogPrefix + " A pawn in " + thing.LabelShort + " could not be killed: " + error.Message);
+                    MissilePatchesMod.Logger.Warn("A pawn in " + thing.LabelShort + " could not be killed: " + error.Message);
                 }
             }
         }
@@ -250,14 +250,14 @@ public sealed class IrbmSweep : FrameWork
 
     protected override void Finish()
     {
-        string line = MissilePatchesMod.LogPrefix + " Blast over " + PlaceLabel + ": " + Total + " things in " + SecondsSinceStart.ToString("0.0")
+        string line = "Blast over " + PlaceLabel + ": " + Total + " things in " + SecondsSinceStart.ToString("0.0")
             + " s over " + Frames + " frame" + (Frames == 1 ? "" : "s") + " (" + WorkMs.ToString("0") + " ms of work)"
             + ": vaporised " + Vaporised + ", wrecked " + Wrecked + ", damaged " + Damaged + ", pawns hit " + PawnsHit
             + ", sheltered " + Sheltered + " (" + shelter + "), already gone " + Gone + ", roofs stripped " + RoofsStripped
             + (Passes > 1 ? ", passes " + Passes : "")
             + (Errors > 0 ? ", " + Errors + " error" + (Errors == 1 ? "" : "s") + " swallowed; the first: " + FirstError : "")
             + ".";
-        if (Errors > 0) Log.Warning(line); else Log.Message(line);
+        if (Errors > 0) MissilePatchesMod.Logger.Warn(line); else MissilePatchesMod.Logger.Info(line);
         if (longMessageShown)
         {
             Messages.Message("PhobosMissilePatches_BlastSpent".Translate(PlaceLabel.Named("PLACE")), MessageTypeDefOf.NeutralEvent, historical: false);
@@ -265,7 +265,7 @@ public sealed class IrbmSweep : FrameWork
     }
 
     protected override void Dropped() =>
-        Log.Message(MissilePatchesMod.LogPrefix + " The blast over " + PlaceLabel + " was dropped at " + next + " of " + Count + ".");
+        MissilePatchesMod.Logger.Info("The blast over " + PlaceLabel + " was dropped at " + next + " of " + Count + ".");
 }
 
 /// <summary>

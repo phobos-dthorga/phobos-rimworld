@@ -26,7 +26,6 @@ namespace Phobos.VehiclePatches;
 /// </summary>
 public static class RimPactsArrivalFilter
 {
-    private const string LogPrefix = VehiclePatchesMod.LogPrefix + " ";
     private const string RimPactsId = "wowgag.RimPacts";
     private const string FilterTypeName = "RimPacts.RptVfArrivalFilter`1";
 
@@ -45,7 +44,7 @@ public static class RimPactsArrivalFilter
         var install = bridge == null ? null : AccessTools.Method(bridge, "Install", new[] { typeof(Harmony) });
         if (install == null)
         {
-            Log.Warning(LogPrefix + "RimPacts' RptVehicleBridge.Install is gone, so its vehicle patch is left as it is.");
+            VehiclePatchesMod.Logger.Warn("RimPacts' RptVehicleBridge.Install is gone, so its vehicle patch is left as it is.");
             return;
         }
         ourHarmony = harmony;
@@ -62,7 +61,7 @@ public static class RimPactsArrivalFilter
         }
         catch (Exception error)
         {
-            Log.Error(LogPrefix + "Could not replace RimPacts' generic postfix, so the Harrier's flight framework may fail to load. " + error);
+            VehiclePatchesMod.Logger.Error("Could not replace RimPacts' generic postfix, so the Harrier's flight framework may fail to load. " + error);
         }
     }
 
@@ -86,7 +85,7 @@ public static class RimPactsArrivalFilter
         var method = rimPacts?.GetType(FilterTypeName)?.MakeGenericType(typeof(ArrivalOption)).GetMethod("Postfix", BindingFlags.Public | BindingFlags.Static);
         if (method == null)
         {
-            Log.Warning(LogPrefix + FilterTypeName + " is gone, so RimPacts' vehicle patch is left as it is.");
+            VehiclePatchesMod.Logger.Warn(FilterTypeName + " is gone, so RimPacts' vehicle patch is left as it is.");
             return;
         }
         filter = (Func<IEnumerable<ArrivalOption>, GlobalTargetInfo, IEnumerable<ArrivalOption>>)
@@ -94,6 +93,6 @@ public static class RimPactsArrivalFilter
 
         ourHarmony!.Unpatch(original, HarmonyPatchType.Postfix, RimPactsId);
         ourHarmony.Patch(original, postfix: new HarmonyMethod(AccessTools.Method(typeof(RimPactsArrivalFilter), nameof(Postfix))));
-        Log.Message(LogPrefix + "RimPacts' landing rule now runs through a plain postfix, so other mods can patch GetArrivalOptions as well.");
+        VehiclePatchesMod.Logger.Info("RimPacts' landing rule now runs through a plain postfix, so other mods can patch GetArrivalOptions as well.");
     }
 }

@@ -419,14 +419,14 @@ public sealed class StrikeWork : FrameWork
     protected override void Finish()
     {
         if (IsTarget && !fadeStarted) StartFade();
-        string line = MissilePatchesMod.LogPrefix + " " + Label + ": " + Total + " things and " + cells.Length + " cells in "
+        string line = Label + ": " + Total + " things and " + cells.Length + " cells in "
             + SecondsSinceStart.ToString("0.0") + " s over " + Frames + " frame" + (Frames == 1 ? "" : "s") + " (" + WorkMs.ToString("0") + " ms of work)"
             + ": vaporised " + Vaporised + ", wrecked " + Wrecked + ", damaged " + Damaged + ", killed " + Killed + ", burned " + Burned
             + ", blinded " + Blinded + ", irradiated " + Irradiated + ", stunned " + Stunned + ", plants wilted " + Wilted
             + ", sheltered " + Sheltered + " (" + shelter + "), already gone " + Gone + ", roofs stripped " + RoofsStripped
             + ", ground scoured " + Scoured + ", cells polluted " + Polluted + ", fires " + Fires
             + (Errors > 0 ? ", " + Errors + " error" + (Errors == 1 ? "" : "s") + " swallowed; the first: " + FirstError : "") + ".";
-        if (Errors > 0) Log.Warning(line); else Log.Message(line);
+        if (Errors > 0) MissilePatchesMod.Logger.Warn(line); else MissilePatchesMod.Logger.Info(line);
         if (longMessageShown)
         {
             Messages.Message("PhobosMissilePatches_BlastSpent".Translate(PlaceLabel.Named("PLACE")), MessageTypeDefOf.NeutralEvent, historical: false);
@@ -436,6 +436,6 @@ public sealed class StrikeWork : FrameWork
     protected override void Dropped()
     {
         if (IsTarget && !fadeStarted) StartFade();
-        Log.Message(MissilePatchesMod.LogPrefix + " " + Label + " was dropped at " + Next + " of " + Count + ".");
+        MissilePatchesMod.Logger.Info(Label + " was dropped at " + Next + " of " + Count + ".");
     }
 }

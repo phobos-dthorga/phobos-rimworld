@@ -50,7 +50,7 @@ public static class FrameWorkQueue
                 }
                 catch (Exception error)
                 {
-                    Log.Warning(FrameworkMod.LogPrefix + " " + work.SafeLabel + " could not be dropped cleanly: " + error.Message);
+                    FrameworkMod.Logger.Warn(work.SafeLabel + " could not be dropped cleanly: " + error.Message);
                 }
             }
         }
@@ -102,7 +102,7 @@ public static class FrameWorkQueue
         catch (Exception error)
         {
             queue.Remove(work);
-            Log.Error(FrameworkMod.LogPrefix + " " + work.SafeLabel + " stopped after an error: " + error);
+            FrameworkMod.Logger.Error(work.SafeLabel + " stopped after an error: " + error);
         }
     }
 
@@ -121,7 +121,8 @@ public static class FrameWorkQueue
 /// <summary>Drives <see cref="FrameWorkQueue"/> and <see cref="Logging.GameLogKeeper"/> once per frame, paused or not. Saves nothing.</summary>
 public sealed class GameComponent_PhobosFrameWork : GameComponent
 {
-    public GameComponent_PhobosFrameWork(Game game) { }
+    /// <summary>Each game, new or loaded, makes one of these: the shared logger's once-only lines open again for it.</summary>
+    public GameComponent_PhobosFrameWork(Game game) => Phobos.Logging.PhobosLog.NewSession();
 
     public override void GameComponentUpdate()
     {

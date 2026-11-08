@@ -45,7 +45,7 @@ public static class StrikeLauncher
         if (rimatomicsFallout && target != null && !InSpace(target.Tile) && settings.falloutClouds > 0)
         {
             int clouds = RimatomicsTieIn.SpawnClouds(target.Tile, settings.falloutClouds, rules.cloudLifespanDays);
-            Log.Message(MissilePatchesMod.LogPrefix + " " + clouds + " fallout cloud" + (clouds == 1 ? "" : "s") + " drift from " + (target.Parent?.Label ?? "the strike") + ".");
+            MissilePatchesMod.Logger.Info(clouds + " fallout cloud" + (clouds == 1 ? "" : "s") + " drift from " + (target.Parent?.Label ?? "the strike") + ".");
         }
         SendLetter(missile, maps);
         if (target == null) ScreenFader.StartFade(Color.clear, IrbmBudgetRule.WhiteScreenSeconds);

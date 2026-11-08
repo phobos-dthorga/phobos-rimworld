@@ -71,8 +71,9 @@ public class MissilePatchesMod : Mod
 {
     /// <summary>The Harmony ID is the packageId; never change it once the mod is published.</summary>
     public const string PackageId = "PhobosDthorga.Patches";
-    public const string ModVersion = "0.15.0";
+    public const string ModVersion = "0.16.0";
     public const string LogPrefix = "[D'thorga Patches]";
+    public static readonly Phobos.Logging.PhobosLog Logger = Phobos.Framework.Logging.Logs.For("D'thorga Patches", "IRBM");
 
     public static MissilePatchesSettings Settings { get; private set; } = new();
 
@@ -86,7 +87,7 @@ public class MissilePatchesMod : Mod
         if (fresh && SettingsImport.ImportInto(Settings, "PhobosMissilePatches", nameof(MissilePatchesMod)))
         {
             LongEventHandler.ExecuteWhenFinished(WriteSettings);
-            Log.Message(LogPrefix + " Settings carried over from D'thorga Missile Patches.");
+            Logger.Info("Settings carried over from D'thorga Missile Patches.");
         }
         var harmony = new Harmony(PackageId);
         HarmonyPatchApplier.ApplyEach(harmony, Assembly.GetExecutingAssembly(), LogPrefix);

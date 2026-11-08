@@ -26,7 +26,7 @@ public class OutpostPatchesMod : Mod
 {
     /// <summary>The Harmony ID is the packageId, shared by every part; never change it once the mod is published.</summary>
     public const string PackageId = "PhobosDthorga.Patches";
-    public const string ModVersion = "0.15.0";
+    public const string ModVersion = "0.16.0";
     public const string LogPrefix = "[D'thorga Patches]";
 
     public static OutpostPatchesSettings Settings { get; private set; } = new();

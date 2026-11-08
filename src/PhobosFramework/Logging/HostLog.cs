@@ -27,6 +27,8 @@ public enum HostLevel
 /// </summary>
 public static class HostLog
 {
+    const string EngineNotReady = "LogNotInitializedException";
+
     static readonly Dictionary<string, object> categories = new();
     static bool unavailable;
 
@@ -41,6 +43,11 @@ public static class HostLog
             {
                 WriteToCategory(category, level, text);
                 return;
+            }
+            catch (Exception error) when (error.GetType().Name == EngineNotReady)
+            {
+                // Named, not caught by type: a catch naming the engine's own type would fail with it if a later build moved it.
+                // Too early for the engine's log: this one line goes through the game's own.
             }
             catch (Exception error) when (error is TypeLoadException or MissingMethodException or MissingFieldException or FileNotFoundException)
             {

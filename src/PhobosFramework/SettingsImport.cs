@@ -34,7 +34,7 @@ public static class SettingsImport
         }
         catch (Exception error)
         {
-            Log.Warning(FrameworkMod.LogPrefix + " Could not read the old settings of " + oldFolderName + "; that part starts with defaults. " + error.Message);
+            FrameworkMod.Logger.Warn("Could not read the old settings of " + oldFolderName + "; that part starts with defaults. " + error.Message);
             return null;
         }
     }

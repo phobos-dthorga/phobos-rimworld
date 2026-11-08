@@ -30,7 +30,7 @@ public abstract class PhobosRulesDef : Def
                     else
                     {
                         current = new T { defName = typeof(T).Name + "_Fallback" };
-                        Log.Warning(FrameworkMod.LogPrefix + " No " + typeof(T).Name + " loaded; using built-in defaults.");
+                        FrameworkMod.Logger.Warn("No " + typeof(T).Name + " loaded; using built-in defaults.");
                     }
                 }
                 return current;

@@ -1,3 +1,5 @@
+using LogSignature = Phobos.Logging.LogSignature;
+using StormTally = Phobos.Logging.StormTally;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -127,7 +129,7 @@ public static class GameLogKeeper
         lock (gate)
         {
             text.Append("\nCounted since the last time: ").Append(tally.Total).Append(" messages, ").Append(tally.Others).Append(" past the tally's ")
-                .Append(GameLogRule.TallyCapacity).Append(" signatures.");
+                .Append(StormTally.DefaultCapacity).Append(" signatures.");
             foreach (var entry in tally.Top(5)) text.Append("\n  ").Append(entry.Value).Append("  ").Append(entry.Key);
         }
         return text.ToString();

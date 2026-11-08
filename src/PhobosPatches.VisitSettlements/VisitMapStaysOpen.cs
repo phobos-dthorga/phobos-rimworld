@@ -71,8 +71,7 @@ public static class VisitMapStaysOpen
         catch (Exception error)
         {
             // Never stand between Visit Settlements and its own rule because of a fault of ours.
-            Log.ErrorOnce(VisitSettlementsPatchesMod.LogPrefix + " could not check a visited map, so Visit Settlements' rule stood: " + error,
-                0x5653_4b4d);
+            VisitSettlementsPatchesMod.Logger.ErrorOnce("could not check a visited map, so Visit Settlements' rule stood: " + error);
             return true;
         }
     }
@@ -125,7 +124,7 @@ public static class VisitMapStaysOpen
     static void Note(Map map, KeepReason reason)
     {
         int now = Find.TickManager.TicksGame;
-        if (!TickThrottle.Due(now, lastLogTick.TryGetValue(map.uniqueID, out int last) ? last : TickThrottle.Never, LogIntervalTicks)) return;
+        if (!Phobos.Logging.Throttle.IsDue(now, lastLogTick.TryGetValue(map.uniqueID, out int last) ? last : Phobos.Logging.Throttle.Never, LogIntervalTicks)) return;
         lastLogTick[map.uniqueID] = now;
         string why = reason switch
         {
@@ -134,7 +133,7 @@ public static class VisitMapStaysOpen
             KeepReason.CrewUp => "colonists aboard a vehicle there are still conscious",
             _ => "a mechanoid of ours there is still on its feet",
         };
-        Log.Message(VisitSettlementsPatchesMod.LogPrefix + " Kept the map of " + (map.Parent?.LabelCap ?? map.ToString())
+        VisitSettlementsPatchesMod.Logger.Info("Kept the map of " + (map.Parent?.LabelCap ?? map.ToString())
             + " open: Visit Settlements would have closed it when a pawn went down, but " + why + ".");
     }
 }

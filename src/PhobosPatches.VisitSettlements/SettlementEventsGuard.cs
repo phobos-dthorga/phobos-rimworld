@@ -39,7 +39,7 @@ public static class SettlementEventsGuard
     static MethodInfo? worldTick;
     static AccessTools.FieldRef<object, int>? dayCounter;
     static AccessTools.FieldRef<object, int>? raidCounter;
-    static int lastWarningTick = TickThrottle.Never;
+    static Phobos.Logging.Throttle faultWarning;
 
     public static bool FoodReady => perPawnFood != null;
     public static bool GuardReady => worldTick != null && dayCounter != null && raidCounter != null;
@@ -107,18 +107,15 @@ public static class SettlementEventsGuard
                 dayCounter!(instance) = 0;
                 raidCounter!(instance) = 0;
             }
-            int now = Find.TickManager?.TicksGame ?? 0;
-            if (TickThrottle.Due(now, lastWarningTick, GenDate.TicksPerDay))
+            if (VisitSettlementsPatchesMod.Logger.Every(ref faultWarning, GenDate.TicksPerDay))
             {
-                lastWarningTick = now;
-                Log.Warning(VisitSettlementsPatchesMod.LogPrefix + " Visit Settlements' settlement events failed; they will try again in their "
+                VisitSettlementsPatchesMod.Logger.Warn("Visit Settlements' settlement events failed; they will try again in their "
                     + "usual number of days instead of on every tick (this is said at most once an in-game day). The fault: " + __exception);
             }
         }
         catch (Exception ours)
         {
-            Log.ErrorOnce(VisitSettlementsPatchesMod.LogPrefix + " could not reset Visit Settlements' settlement events after a fault: " + ours,
-                0x5653_4556);
+            VisitSettlementsPatchesMod.Logger.ErrorOnce("could not reset Visit Settlements' settlement events after a fault: " + ours);
         }
         return null;
     }
