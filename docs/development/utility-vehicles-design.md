@@ -1,8 +1,10 @@
 # Utility vehicles: design (8 Nov 2026)
 
-**The stand-in is built and has grown: D'thorga Vehicles 0.10.0 (8 Nov 2026) carries 27 named loadouts and 15 drivetrains for other
-authors' vehicles. No vehicle of ours is built. Not yet tested in game.** The vehicles below wait for the owner's go after the
-framework is tested. **Updated 8 Nov 2026 (owner's directions, answered in this record):** a fifth vehicle designed in full, the bulk
+**The stand-in is built and has grown: D'thorga Vehicles (0.16.0, 9 Nov 2026) carries loadouts and drivetrains for other
+authors' vehicles. One vehicle of ours is built, the bulk tanker (Framework 0.34.0 onward, Vehicles 0.12.0 onward); not yet tested in
+game. The other four are designed in full in their own records (9 Nov 2026, research and record only):**
+[the survey truck](vehicle-survey-truck.md), [the drill rig](vehicle-drill-rig.md), [the tipper hauler](vehicle-tipper-hauler.md) and
+[the generator set](vehicle-generator-set.md). They wait for the owner's answers to their questions and the owner's go. **Updated 8 Nov 2026 (owner's directions, answered in this record):** a fifth vehicle designed in full, the bulk
 tanker, liquid or gas by upgrade; every vehicle of ours upgradeable and extendable from its first Def, with the art following the
 upgrade tree; parts from Vehicle Framework's mechanics by default and from RimThunder's and Vanilla Vehicles Expanded's part items
 where they are present, our own parts only as fallbacks. Every figure read from another mod in this update was read with the patches
@@ -61,7 +63,7 @@ vehicles the owner already drives. Our vehicles, their loadouts and art come aft
 ## Principles for every utility vehicle (agent proposal)
 
 1. **Physics sets the kit, the kit sets the play.** Mass and footprint follow the real machine; a drill mast needs a
-   long deck and outriggers; a generator set is a trailer-sized box.
+   long deck and outriggers; a generator set is a small self-propelled truck with a generator on its back.
 2. **One stat per job.** Each vehicle's work is a `VehicleStatDef` of ours (table below) fed by the parts that do it.
    Parts → efficiency → stat → outcome, with a floor below which the job refuses and the refusal names the part.
 3. **Deploy to work.** A working vehicle sets up (outriggers down, mast up) through a comp of ours that uses VF's own
@@ -105,7 +107,7 @@ vehicles the owner already drives. Our vehicles, their loadouts and art come aft
 | `Phobos_RigStability` | MinValue | Outriggers, mast | The deploy gizmo: below the floor it refuses and names the part |
 | `Phobos_RigControl` | MinValue | Control console, wiring | Deploying and drilling: below the floor, the rig will not run |
 | `Phobos_ScanRate` | Average | Sensor boom, geophone array, recorder | The survey job's work per tick |
-| `Phobos_GeneratorOutput` | Average | Engine, alternator, regulator | The watts offered to the net while deployed |
+| `Phobos_GeneratorOutput` | Average | Engine, traction generator, regulator | The watts offered to the net while deployed |
 | `Phobos_TipRate` | Average | Tipping rams, hydraulic pump | The tipping job's duration |
 | `Phobos_PumpRate` | Average | Pump and power take-off, hose reel | The tanker's transfer rate (and a water tanker's fire monitor later) |
 | `Phobos_TankIntegrity` | MinValue | Tank shell, tank fittings | The tanker's leak and vent rate; below the floor the tank will not hold a load |
@@ -165,151 +167,41 @@ cost and mass are authored and untuned. Each vehicle's **Upgrades** row is a ske
 are marked with "or" (in XML, `disableIfUpgradeNodeEnabled` on each side), and each node names the figure it moves; the nodes are the
 agent's and wait for the owner.
 
-### Survey truck
+### The four unbuilt vehicles, in their own records (9 Nov 2026)
 
-A light truck carrying a geophysical sensor boom: the ground-penetrating scanner on wheels. It drives to a site, sets
-up, and a colonist runs the survey (Intellectual, as the game's scanner asks), which reuses the scanner's own find
-routine against the deep resource grid. Prior art: none.
+Each has a design record in the tanker's shape: what it does to the player, the honest mechanics it hooks, its figures, upgrade tree,
+parts, art request and open questions. Research and record only; nothing of them is built. The sections that used to stand here
+(8 Nov 2026) were the sketches those records replace; the figures below are the records', all authored unless a record says otherwise.
 
-| Item | Value |
-| --- | --- |
-| Footprint, drawSize | (2, 4), (3, 5) |
-| Mass | 160 |
-| Fuel | Chemfuel, 16 a day, capacity 70 |
-| Crew | Driver; one surveyor at the console while deployed (a job, not a seat) |
-| Research | Ground-penetrating scanner; the game's research that unlocks the building |
-| Cost (authored) | The light-truck set by role (table above), plus 140 steel, 6 components and 1 ground-penetrating scanner's worth of parts (60 steel, 4 components) |
-| Upgrades (sketch) | Geophone array or magnetometer boom (ScanRate, and what the survey finds: ore, or groundwater and gas with Dubs Bad Hygiene and Helixien gas present); long-range recorder (ScanRate); work lights (night surveying, an electrical load). Overlays: the boom type, the recorder cabin |
-| Tie-ins | Vanilla Helixien Gas Expanded: find gas (open); Dubs Bad Hygiene: find groundwater for a well rig (open) |
-
-| Part | Health | Depth | Cells | Feeds | Job |
+| Vehicle | Size | What it lets the player do | What it stops them doing | How it changes the way they play | Record |
 | --- | --- | --- | --- | --- | --- |
-| Chassis | 120 | External | all, weight 3 | BodyIntegrity | Takes the hits that reach nothing else |
-| Cab | 50 | External | (0, 2) (1, 2) | | Crew |
-| Engine | 50 | Internal, priority | (0, 2) (1, 2) | MoveSpeed | Dead engine stops the truck |
-| Fuel tank | 30 | Internal | (0, 0) | | Leak reactor |
-| Front axle and wheels | 30 | External | (0, 1) (1, 1) | MoveSpeed | |
-| Rear axle and wheels | 30 | External | (0, −1) (1, −1) | MoveSpeed | |
-| Outriggers | 40 | External | (0, −1) (1, −1) | Phobos_RigStability | Must be sound to set up |
-| Sensor boom | 40 | External | (0, 0) (1, 0) (0, −1) (1, −1) | Phobos_ScanRate | The survey's speed |
-| Geophone array | 30 | External | (0, −1) (1, −1) | Phobos_ScanRate | |
-| Recorder and console | 30 | Internal | (0, 1) | Phobos_ScanRate, Phobos_RigControl | Below the control floor the survey will not run |
-| Wiring | 25 | Internal | (0, 0) | Phobos_RigControl | |
-| Hydraulic pump | 30 | Internal | (1, 0) | Phobos_RigStability | Raises the boom and the outriggers |
-| Lights | 15 | External | (0, 2) (1, 2) | | An electrical load at night |
+| Survey truck | 2 x 7 light, about 4.5 t | Find deep ore (deepchem included) under the map it stands on, and, by upgrade, a lump on another tile; run a powered array on the generator set's net or its own big battery | Mint ore for free: each find on a map slows the next; the array runs only on power the truck cannot make alone | Expeditions have a reason: find, then drill, then haul | [survey truck](vehicle-survey-truck.md) |
+| Mobile drill rig | 3 x 10 heavy, about 20 t | Drill a found lump at the game's rates, with chunks when it is spent; raise deepchem to the tanker beside it; drill an oil well head with Rimefeller; drill on the camp's power | Beat a built deep drill per portion; move while set up | A lump is worked from a truck, with insects as the game gives them | [drill rig](vehicle-drill-rig.md) |
+| Tipper hauler | 3 x 8 heavy, about 10 t | Carry a stone road leg's worth of chunks or blocks and tip the whole load in one job behind the truck | Tip where there is no room; carry more than the body's health allows | Hauling ore from the rig is a drive, not a hundred carries | [tipper hauler](vehicle-tipper-hauler.md) |
+| Generator set | 2 x 6 light, about 6 t, diesel-electric | Drive on traction motors; parked, feed the grid through a stub building and power every vehicle of ours beside it | Out-produce the game's generator per chemfuel; charge Vehicle Framework's electric vehicles without a battery on the net | A camp has power where the truck is parked, and the family plugs into it | [generator set](vehicle-generator-set.md) |
 
-The systems loadout adds a radiator, battery, alternator and starter beside the engine.
+How the five feed one another:
 
-### Mobile drill rig
+```mermaid
+flowchart LR
+    S[Survey truck: finds a lump] --> R[Drill rig: drills it]
+    R -->|ore and chunks| T[Tipper hauler: hauls to base]
+    R -->|deepchem| K[Bulk tanker: carries fluids]
+    K -->|chemfuel| S
+    K -->|chemfuel| R
+    K -->|chemfuel| G[Generator set: the camp's power]
+    G -->|power| S
+    G -->|power| R
+```
 
-A truck-mounted exploration rig: a mast folded along the deck, raised over the rear when set up, outriggers at the
-corners. Real rigs of this kind (truck-mounted reverse-circulation, diamond and water-well rigs) are the grounding;
-the simplifications are labelled. It drills the deep resource grid under its own footprint at the game's portion
-sizes and yields stone chunks where the grid is empty, as the deep drill does. A colonist operates it (Mining, with the
-game's mining speed, as the deep drill asks). Prior art: none.
+**Build order after the tanker (open; two records disagree, both leans recorded):** the generator record leans to **the generator set
+first** (the smallest, it proves the diesel-electric drive and the power stub, and every other vehicle plugs into it); the rig record
+leans to **the rig first** (it proves the shared deploy base and the drilling job). The family record's lean is the generator set,
+then the rig and survey truck together, then the tipper. The owner decides, after the tanker has been seen working in game.
 
-| Item | Value |
-| --- | --- |
-| Footprint, drawSize | (2, 5), (3, 6) |
-| Mass | 420 |
-| Fuel | Chemfuel, 30 a day driving, 45 a day drilling (authored; a rig works its engine harder than the road does) |
-| Crew | Driver; one driller at the controls while deployed (a job) |
-| Research | Deep drilling |
-| Cost (authored) | The heavy-truck set by role (table above), plus 320 steel, 40 plasteel, 10 components and 1 deep drill's worth of parts (the game's deep drill costs 150 steel and 2 components; the rig's drilling parts are priced above it so a rig never undercuts a built drill) |
-| Upgrades (sketch) | Diamond bit or reverse-circulation hammer (DrillRate against rock hardness); tall mast (depth reached, at a RigStability cost); tracked undercarriage or wheels (terrain against road speed); electric power pack (the electric variant below becomes a node, charging where VF charges electric vehicles). Overlays: the mast, the undercarriage, the power pack |
-| Electric variant | Open: VF's electric fuel would let the rig charge on a cell with power; deferred (agent lean: chemfuel first) |
-| Tie-ins | Dubs Bad Hygiene: drill a well head in a dry biome (sketched below); Vanilla Helixien Gas Expanded: a gas well |
-
-| Part | Health | Depth | Cells | Feeds | Job |
-| --- | --- | --- | --- | --- | --- |
-| Chassis | 180 | External | all, weight 3 | BodyIntegrity | |
-| Cab | 50 | External | (0, 2) (1, 2) | | Crew |
-| Engine | 60 | Internal, priority | (0, 2) (1, 2) | MoveSpeed, Phobos_DrillRate | Drives the road and the rig |
-| Transmission | 40 | Internal | (0, 1) (1, 1) | MoveSpeed | |
-| Front axle and wheels | 35 | External | (0, 2) (1, 2) | MoveSpeed | |
-| Rear axles and wheels | 50 | External | (0, −1) (1, −1) (0, −2) (1, −2) | MoveSpeed | Tandem axles |
-| Fuel tank | 40 | Internal | (0, 0) | | Leak reactor |
-| Hydraulic pump | 35 | Internal | (1, 0) | Phobos_RigStability, Phobos_TipRate | Raises the mast and outriggers |
-| Hydraulic lines | 25 | Internal | (0, 0) (0, −1) | Phobos_RigStability | A hydraulic leak reactor later |
-| Outriggers | 50 | External | (0, 1) (1, 1) (0, −2) (1, −2) | Phobos_RigStability | Below the floor the rig will not set up |
-| Mast | 70 | External | (0, −1) (1, −1) (0, −2) (1, −2) | Phobos_RigStability | Raised when deployed (overlay) |
-| Rotary head | 45 | External | (0, −2) (1, −2) | Phobos_DrillRate | Turns the string |
-| Drill string | 40 | External | (0, −2) | Phobos_DrillRate | |
-| Drill bit | 25 | External | (0, −2) | Phobos_DrillRate | A consumable later: wears with rock drilled (open) |
-| Draw-works and winch | 40 | External | (0, −1) (1, −1) | Phobos_DrillRate | Trips the string |
-| Flushing pump | 35 | Internal | (1, −1) | Phobos_DrillRate | Clears cuttings; dry drilling is slow |
-| Compressor | 35 | Internal | (1, 0) | Phobos_DrillRate | |
-| Control console | 35 | Internal | (0, 1) | Phobos_RigControl | Below the floor nothing runs |
-| Wiring | 30 | Internal | (1, 1) (1, 0) | Phobos_RigControl | |
-| Cuttings chute | 20 | External | (1, −2) | | Takes hits |
-| Lights | 15 | External | (0, 2) (1, 2) (0, −2) (1, −2) | | Load at night |
-
-Rules (authored): deploying needs stability and control at or above 0.5; drilling needs control at or above 0.35;
-drill work per tick is the game's deep-drill work scaled by `Phobos_DrillRate` and the operator's mining speed; the
-rig's deploy and drilling states are motes and overlays, never text alone.
-
-### Tipper hauler
-
-A dump truck: a high `CargoCapacity` body that tips its whole load onto a stockpile zone in one job, so hauling ore
-from the rig to the base is a drive, not a hundred carries. Prior art: Forklift Logistics and Caravan Hauler haul;
-nothing tips.
-
-| Item | Value |
-| --- | --- |
-| Footprint, drawSize | (2, 4), (3, 5) |
-| Mass | 300 |
-| Fuel | Chemfuel, 26 a day, capacity 100 |
-| Crew | Driver |
-| Research | Vehicles' own tier, or VVE's hauler research where present |
-| Cost (authored) | The heavy-truck set by role (table above), plus 260 steel and 8 components |
-| Upgrades (sketch) | High sides (CargoCapacity); rock body or bulk body (chunks against loose ore, CargoCapacity and TipRate); tailgate spreader (tips in a line for road building, a Rails and Roads of the Rim tie-in). Overlays: the body type, the sides, the tailgate |
-
-| Part | Health | Depth | Cells | Feeds | Job |
-| --- | --- | --- | --- | --- | --- |
-| Chassis | 150 | External | all, weight 3 | BodyIntegrity | |
-| Cab | 50 | External | (0, 2) (1, 2) | | |
-| Engine | 55 | Internal, priority | (0, 2) (1, 2) | MoveSpeed | |
-| Transmission | 40 | Internal | (0, 1) (1, 1) | MoveSpeed | |
-| Front axle and wheels | 35 | External | (0, 2) (1, 2) | MoveSpeed | |
-| Rear axles and wheels | 50 | External | (0, −1) (1, −1) | MoveSpeed | |
-| Fuel tank | 35 | Internal | (0, 1) | | Leak reactor |
-| Tipper body | 80 | External | (0, 0) (1, 0) (0, −1) (1, −1) | CargoCapacity | Holed body spills capacity |
-| Tipping rams | 40 | Internal | (0, 0) (1, 0) | Phobos_TipRate | Slow rams, slow tip |
-| Hydraulic pump | 35 | Internal | (1, 1) | Phobos_TipRate | |
-| Tailgate | 30 | External | (0, −1) (1, −1) | CargoCapacity | |
-| Wiring | 25 | Internal | (0, 1) | | |
-| Lights | 15 | External | (0, 2) (1, 2) | | |
-
-### Mobile generator set
-
-A towed-size engine and alternator on wheels. Parked and set up, it feeds the power net through its own cells (the
-route, a power comp that transmits while deployed, is verified at build). `Phobos_GeneratorOutput` scales the watts.
-Prior art: RV with built-in PD (power from vehicle fuel, 1.6).
-
-| Item | Value |
-| --- | --- |
-| Footprint, drawSize | (2, 3), (3, 4) |
-| Mass | 220 |
-| Fuel | Chemfuel, 12 a day driving, 24 a day generating at full output (authored; the game's chemfuel generator burns 4.5 a day for 1,000 W, and the set's output is priced against it so fuel per watt is no better) |
-| Output | 1,200 W at full health (authored) |
-| Crew | Driver only; no one tends it while it runs |
-| Research | Electricity; chemfuel power |
-| Cost (authored) | The light-truck set by role (table above), plus 200 steel, 6 components and a chemfuel generator's worth of parts (100 steel, 3 components) |
-| Upgrades (sketch) | Bigger alternator (GeneratorOutput, more fuel); diesel-electric drive (the owner's wanted mechanic: the engine turns the alternator and traction motors drive the wheels, so the set is the agent's candidate for the diesel-electric vehicle); sound enclosure (quieter, hotter engine); shore cable reel (feeds a net further away). Overlays: the enclosure, the cable reel |
-
-| Part | Health | Depth | Cells | Feeds | Job |
-| --- | --- | --- | --- | --- | --- |
-| Chassis | 110 | External | all, weight 3 | BodyIntegrity | |
-| Cab | 40 | External | (0, 1) (1, 1) | | |
-| Engine | 55 | Internal, priority | (0, 1) (1, 1) | MoveSpeed, Phobos_GeneratorOutput | One engine drives both |
-| Alternator | 40 | Internal | (0, 0) (1, 0) | Phobos_GeneratorOutput | |
-| Voltage regulator | 25 | Internal | (1, 0) | Phobos_GeneratorOutput | |
-| Fuel tank | 35 | Internal | (0, −1) | | Leak reactor |
-| Axle and wheels | 35 | External | (0, 0) (1, 0) | MoveSpeed | |
-| Outriggers | 30 | External | (0, −1) (1, −1) | Phobos_RigStability | Set up before it runs |
-| Radiator | 30 | External | (0, 1) (1, 1) | | The systems service's cooling |
-| Control panel | 25 | Internal | (0, −1) | Phobos_RigControl | |
-| Wiring | 25 | Internal | (1, −1) | Phobos_RigControl | |
+**What the records corrected in this one:** the deep drill costs **100 steel and 2 components** (its Def, as written and as patched),
+not 150; a generator set is a self-propelled truck, not a trailer; the rig's pump feeds only `Phobos_RigStability`; a tracks node and
+the Rails and Roads spreader node moved no figure and are cut; the game has no depth, so the mast moves reach.
 
 ### Bulk tanker (owner's addition, 8 Nov 2026; the design is the agent's, owner to confirm)
 
@@ -538,6 +430,9 @@ already do it (IDs in the mechanics record); the lean is the agent's.
 
 ## Art plan (agent recommendation, owner to confirm; the research is in [art services](vehicle-art-services.md))
 
+- **Size it first** (owner, 9 Nov 2026): before a vehicle's first picture, measure its planned footprint against the biggest comparable
+  vehicle on the owner's list and generate at 1.5 times its drawn size ([the rules](paid-image-generation-rules.md)); the tanker had to
+  grow from 2 x 6 to 3 x 10 after its first look.
 - **Per vehicle:** three bare-platform bodies, three masks, one overlay set per visible upgrade node plus the deployed and damage
   overlays, one icon; 128 px per drawSize unit (principle 8, 8 Nov 2026). The tanker is the cheapest pilot: one body and two tank
   overlays show the whole upgrade idea.
@@ -565,7 +460,17 @@ already do it (IDs in the mechanics record); the lean is the agent's.
 - **Owner (8 Nov 2026):** utilitarian vehicles with per-part health and efficiency; a mobile drill rig first; a new
   mod; the framework before the vehicles, the mod as a stand-in; three to four vehicles in full; 1.7 only; the art
   route open to suggestions.
-- **Owner (8 Nov 2026, later):** the bulk tanker is built first, on a 2 x 6 footprint, with attempt 2 of the pilot as its body.
+- **Owner (8 Nov 2026, later):** the bulk tanker is built first, on a 2 x 6 footprint, with attempt 2 of the pilot as its body
+  (resized to 3 x 10 on 9 Nov 2026 after the owner's first look; heavy trucks of ours are sized against RimThunder's 3 x 10 PLS).
+- **Owner (9 Nov 2026, the four unbuilt vehicles):** one design record per vehicle; **no Helixien gas hooks** (the mod is switched
+  off on the owner's list) **and deepchem in**; the survey truck does **both** surveys by upgrade (deep ore under its own map as the
+  base, a long-range node that finds a lump on another tile); a **high-power survey mode** by a costly overhaul node, run on the
+  generator set's power or on a **large battery** node that makes it semi-independent of the generator truck, recharged by the engine
+  **idling itself** when the battery is low; **diminishing returns per map** on finds; **uranium in the survey truck's cost** (sealed
+  radioisotope sources, as real logging tools use); the generator set is **self-propelled and diesel-electric**, the family's
+  diesel-electric vehicle; **the generator set is the camp's power for every vehicle of ours** with electric loads.
+- **Owner (9 Nov 2026):** vehicle parts are ours, other mods' accepted as substitutes only where it makes sense (the reversal of
+  principle 9, [vehicle health, slice 3](vehicle-health-consequences.md)).
 - **Owner (8 Nov 2026):** every vehicle of ours fully upgradeable and extendable by its character, with the art planned around
   the tree; parts from Vehicle Framework by default, RimThunder's and Vanilla Vehicles Expanded's part items as soft dependencies,
   together or as replacements, our own replacements where neither is present; a fifth vehicle in full, a tanker that is liquid or
@@ -593,23 +498,25 @@ already do it (IDs in the mechanics record); the lean is the agent's.
 | --- | --- |
 | The family: survey truck, drill rig, tipper hauler, generator set, bulk tanker? | Yes (the tanker joined on 8 Nov 2026) |
 | Which vehicle is built first? | **The bulk tanker** (owner, 8 Nov 2026, taking the agent's lean: cheapest to draw, and it proves the upgrade model; this replaces the earlier request for the drill rig first) |
-| Which vehicle is the diesel-electric one? | The generator set (its engine already turns an alternator) |
+| Which vehicle is the diesel-electric one? | **The generator set** (owner, 9 Nov 2026: self-propelled, diesel-electric) |
 | The tanker's name | "Bulk tanker" as a working name |
 | Hemogen as tanker contents? | **Yes**, and it spoils like nutrient paste (owner, 8 Nov 2026) |
 | Insulation on the tanker: do contents freeze and gel? | **Yes**, as the section Temperature says; insulation is the insulated tank, not a separate node (owner, 8 Nov 2026) |
 | A flammable load exploding at zero tank integrity: on or off by default? | **On**, scaled to the load, with a setting to turn it off (owner, 8 Nov 2026) |
-| Chemfuel rig, or an electric variant alongside? | Chemfuel first |
+| Chemfuel rig, or an electric variant alongside? | Chemfuel first; electric drilling on the camp's power is a node ([the drill rig](vehicle-drill-rig.md)) |
 | Drill-bit wear as a consumable? | Later, with the systems service's wear phase |
-| Wheels or tracks on the rig? | Wheels (a truck rig); tracks as a variant |
+| Wheels or tracks on the rig? | Wheels. A tracks node was dropped on 9 Nov 2026: a node never changes the parts list (principle 8) |
 | Which art service? | **The OpenAI image API for vehicle bodies; local generation for icons** (owner, 8 Nov 2026); no subscription |
 | Any C# before VF 1.7 ships? | Yes, against the installed build the game already loads; expect a rebuild |
 | The mod's display name | D'thorga Vehicles |
+| Which vehicle is built next, after the tanker? | The family record and the generator record lean to the generator set first; the rig record leans to the rig first. Owner to decide, after the tanker is seen working in game |
+| Each vehicle's own open questions | In its record: [survey truck](vehicle-survey-truck.md), [drill rig](vehicle-drill-rig.md), [tipper hauler](vehicle-tipper-hauler.md), [generator set](vehicle-generator-set.md) |
 
 ## Sources
 
 - Vehicle Framework and Vanilla Vehicles Expanded code and XML: [Vehicle Framework mechanics](vehicle-framework-mechanics.md).
 - The game's deep drill, ground-penetrating scanner and chemfuel generator figures: RimWorld 1.7 Defs as installed
-  (deep drill 150 steel and 2 components; chemfuel generator 4.5 fuel a day for 1,000 W), to be re-read at build.
+  (deep drill 100 steel and 2 components, corrected 9 Nov 2026 from the Def as patched; chemfuel generator 4.5 fuel a day for 1,000 W), to be re-read at build.
 - Prior-art mods: the community collections of VF mods named in the mechanics record, read 8 Nov 2026.
 - Real rigs as grounding only (no figure is taken from them): truck-mounted reverse-circulation, diamond and water-well
   rigs as built by the mining-equipment makers; unverified, named for orientation.

@@ -123,8 +123,16 @@ promise current behaviour. For using the mods, start at the [documentation index
 - [Utility vehicles: design (8 Nov 2026)](utility-vehicles-design.md): the new content mod and why it starts as a stand-in,
   the parts model and stats, the upgrade-tree and parts-by-provider principles (8 Nov 2026), the extraction-chain family in full
   (survey truck, drill rig, tipper hauler, generator set, and the bulk tanker that is liquid or gas by upgrade),
-  the catalogue of other utility vehicles, the Vehicle Framework 1.7 gate and the art plan; the stand-in mod (0.10.0) is built, no
-  vehicle of ours is.
+  the catalogue of other utility vehicles, the Vehicle Framework 1.7 gate and the art plan; the tanker is built (not yet tested in
+  game), the other four have records of their own, below.
+- [The survey truck: design (9 Nov 2026)](vehicle-survey-truck.md): the ground-penetrating scanner on wheels, with a long-range mode,
+  a powered array and a battery by upgrade; uranium in its cost; deepchem found, no gas. Research and record only.
+- [The mobile drill rig: design (9 Nov 2026)](vehicle-drill-rig.md): drills the game's deep resource grid at its rates, deepchem to the
+  tanker beside it, an oil-well kit with Rimefeller, electric drilling on the camp's power. Research and record only.
+- [The tipper hauler: design (9 Nov 2026)](vehicle-tipper-hauler.md): a high-capacity body and one tip job; the chunk arithmetic; a
+  spreader for Rails and Roads of the Rim. Research and record only.
+- [The mobile generator set: design (9 Nov 2026)](vehicle-generator-set.md): the family's diesel-electric vehicle; parked, it feeds the
+  grid through a stub building; the camp's power rule for every vehicle of ours. Research and record only.
 - [Vehicle Framework mechanics: research (8 Nov 2026)](vehicle-framework-mechanics.md): Vehicle Framework's 1.7 status and
   authors, the parts and health system, ticking, events, fuel and electric rules, its per-vehicle settings, how parts and
   comps retrofit onto other mods' designs and what saves hold, the game's temperature and breakdown hooks, Vanilla
