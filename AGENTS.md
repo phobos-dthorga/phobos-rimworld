@@ -299,6 +299,9 @@ delivered, record the delivery in the changelog or design record, and add or ame
   run `python scripts/check-doc-links.py`, `python scripts/check-mod-layout.py` and
   `python -m unittest discover -s tests`, and `python scripts/check-vehicle-schemas.py` when a vehicle system or loadout
   changes. Gate commits on the exit codes, not on grep output.
+- **Tests leave nothing behind.** A test that makes a git repository sets `core.fsmonitor false` in it and deletes it with
+  read-only handling (git's object files are read-only; `ignore_errors=True` hides the failure). `python scripts/cleanup.py`
+  lists what the tools and tests left (old install backups, test repositories, git watcher daemons); the owner runs `--apply`.
 - **The shared tools come from the pinned phobos-modkit submodule** (`external/phobos-modkit`, owner's request of
   7 Nov 2026 for a shared repository): **after cloning, or in a new worktree, run `git submodule update --init`**
   before the scripts or tests. A fix to a shared tool goes to phobos-modkit first, under its own AGENTS.md; then

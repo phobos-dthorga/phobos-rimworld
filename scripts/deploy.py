@@ -1,7 +1,8 @@
 """Copy mods from mods/ into RimWorld's Mods folder.
 
 Previews by default; --apply copies. --all takes every mod under mods/; --build runs dotnet build on every
-project under src/ first, so the assemblies are current. Refuses while RimWorld is running, backs up what
+project under src/ first, so the assemblies are current. Refuses while RimWorld is running, or while anything
+holds an installed mod's folder open (naming any File Explorer window open inside it), before changing any mod; backs up what
 it replaces to .local/deploy-backups/, and never touches ModsConfig.xml or any mod manager's lists. The
 game path comes from --game, the RIMWORLD_PATH environment variable, .local/install-settings.json
 ("rimworldPath"), or the default Steam location, in that order.
@@ -19,6 +20,8 @@ from pathlib import Path
 import shutil
 import subprocess
 import sys
+from urllib.parse import unquote
+from urllib.request import url2pathname
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_GAME_PATH = Path(r'C:\Program Files (x86)\Steam\steamapps\common\RimWorld')
@@ -85,6 +88,69 @@ def game_running(process_names=GAME_PROCESSES):
     return False
 
 
+def explorer_windows():
+    """The local folders open in File Explorer windows (Windows only; empty elsewhere or if the query fails)."""
+    if sys.platform != 'win32':
+        return []
+    command = '(New-Object -ComObject Shell.Application).Windows() | ForEach-Object { $_.LocationURL }'
+    try:
+        out = subprocess.run(['powershell', '-NoProfile', '-NonInteractive', '-Command', command], capture_output=True, text=True,
+                             check=False, timeout=20).stdout
+    except (OSError, subprocess.SubprocessError):
+        return []
+    folders = []
+    for line in out.splitlines():
+        line = line.strip()
+        if line.lower().startswith('file:///'):
+            folders.append(Path(url2pathname(unquote(line[len('file:///'):]))))
+    return folders
+
+
+def inside(path, folder):
+    """True if path is folder or anywhere below it (case-insensitive, as Windows paths are)."""
+    path, folder = str(Path(path)).lower().rstrip('\\/'), str(Path(folder)).lower().rstrip('\\/')
+    return path == folder or path.startswith(folder + os.sep) or path.startswith(folder + '/')
+
+
+def held_message(target, error, windows):
+    """Why a mod folder cannot be moved, and what to close: an Explorer window open inside it when there is one."""
+    open_inside = [w for w in windows if inside(w, target)]
+    if open_inside:
+        hint = 'A File Explorer window is open inside it: ' + '; '.join(str(w) for w in open_inside) + '. Close that window'
+    else:
+        hint = ('Something holds a file or folder inside it open: close any File Explorer window, terminal or editor open in it, '
+                'and RimSort if it is showing the mod')
+    return f'{target} cannot be moved ({error}). {hint}, then deploy again. Nothing was changed.'
+
+
+def check_movable(mods, game, windows=explorer_windows, log=print):
+    """
+    Before anything is copied: rename each installed mod folder aside and straight back, so a folder something holds open stops the
+    whole run before any mod changes (on 8 Nov 2026 an Explorer window inside one mod left every later mod uninstalled while earlier
+    ones updated). Raises RuntimeError naming every held folder.
+    """
+    stamp = _dt.datetime.now().strftime('%Y%m%d-%H%M%S')
+    held = []
+    for mod in mods:
+        target = Path(game) / 'Mods' / mod
+        if not target.exists():
+            continue
+        probe = Path(game) / f'{mod}-deploy-check-{stamp}'
+        try:
+            target.rename(probe)
+        except OSError as error:
+            held.append((target, error.strerror))
+            continue
+        try:
+            probe.rename(target)
+        except OSError as error:
+            raise RuntimeError(f'{target} was moved to {probe} for a check and could not be moved back ({error.strerror}). '
+                               f'Rename {probe.name} back to {mod} by hand.') from error
+    if held:
+        found = windows()
+        raise RuntimeError('\n'.join(held_message(target, reason, found) for target, reason in held))
+
+
 def deploy(mod, game, apply, root=ROOT, backups=BACKUPS, running=game_running, log=print):
     """Preview or copy one mod. Returns the number of files that would be, or were, copied."""
     files = package(mod, root)
@@ -111,8 +177,7 @@ def deploy(mod, game, apply, root=ROOT, backups=BACKUPS, running=game_running, l
         try:
             target.rename(staged)
         except OSError as error:
-            raise RuntimeError(f'{target} is in use ({error.strerror}). Close RimWorld, then deploy again. '
-                               'Nothing was changed.') from error
+            raise RuntimeError(held_message(target, error.strerror, explorer_windows())) from error
         shutil.move(str(staged), str(backup))
         log(f'  previous install moved to {backup}')
     for rel, source in files.items():
@@ -159,6 +224,8 @@ def main(argv=None):
         raise RuntimeError('RimWorld is running. Close it, then deploy again.')
     if args.build:
         build()
+    if args.apply:
+        check_movable(mods, game)
     for mod in mods:
         deploy(mod, game, args.apply)
     if args.apply:

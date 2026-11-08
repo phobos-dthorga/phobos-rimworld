@@ -2,6 +2,7 @@
 import json
 import os
 import shutil
+import stat
 import subprocess
 import sys
 import tempfile
@@ -12,6 +13,18 @@ sys.path.insert(0, os.path.join(ROOT, 'scripts', 'art'))
 import archive_branch  # noqa: E402
 
 
+def remove_tree(path):
+    """Deletes a throwaway repository. Git marks its object files read-only, which Windows will not delete, so clear the flag and
+    retry; ignore_errors alone left every test's .git/objects behind (hundreds of folders in TEMP before 9 Nov 2026)."""
+    def writable_then_retry(function, failed, *_):
+        os.chmod(failed, stat.S_IWRITE)
+        function(failed)
+    if sys.version_info >= (3, 12):
+        shutil.rmtree(path, onexc=writable_then_retry)
+    else:
+        shutil.rmtree(path, onerror=writable_then_retry)
+
+
 def git(repo, *args):
     return subprocess.run(['git', *args], cwd=repo, capture_output=True, text=True, check=True).stdout.strip()
 
@@ -20,6 +33,9 @@ class ArchiveBranchTests(unittest.TestCase):
     def setUp(self):
         self.repo = tempfile.mkdtemp(prefix='archive-test-')
         git(self.repo, 'init', '-q', '-b', 'main')
+        # A global core.fsmonitor would start a watcher daemon in every throwaway repository, outliving the test (220 were running on
+        # 9 Nov 2026). This repository's own setting wins.
+        git(self.repo, 'config', 'core.fsmonitor', 'false')
         git(self.repo, 'config', 'user.email', 'test@example.invalid')
         git(self.repo, 'config', 'user.name', 'Test')
         self.write('README.md', 'main\n')
@@ -27,7 +43,7 @@ class ArchiveBranchTests(unittest.TestCase):
         git(self.repo, 'commit', '-q', '-m', 'main')
 
     def tearDown(self):
-        shutil.rmtree(self.repo, ignore_errors=True)
+        remove_tree(self.repo)
 
     def write(self, name, text):
         path = os.path.join(self.repo, name)

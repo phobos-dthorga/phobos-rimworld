@@ -230,6 +230,11 @@ proves it on every push** for the projects that reference no other mod's assembl
   is copied;
 - refuses while RimWorld is running, found by its process name (`RimWorld.exe` for 1.7 on Windows, `RimWorldWin64.exe` and
   `RimWorldWin.exe` for 1.6, and the Linux and Mac names);
+- with `--apply`, first renames every named mod's installed folder aside and straight back, so a folder something holds open
+  stops the whole run before **any** mod changes, and the refusal names any File Explorer window open inside it (otherwise it
+  names the usual holders: a terminal or editor open in it, RimSort). **From 8 Nov 2026 to 9 Nov 2026 an Explorer window open in
+  `PhobosVehicles\Mods\TrainsOfTheRim\Defs` stopped every install at D'thorga Vehicles**, after earlier mods had updated and
+  before D'thorga Water Tap; Windows reports an open folder as "Access is denied", not "in use";
 - moves the previous install to `.local/deploy-backups/`, renaming it on the game's own drive first: Windows
   refuses that rename while the game holds any file in it open, so an unrecognised running game still stops it
   with nothing changed;
@@ -242,3 +247,13 @@ The game path comes from `--game`, the `RIMWORLD_PATH` environment variable, `.l
 `workshopPath`, `rimworldConfigPath` and `modkitCachePath`), or the default Steam path. **Until 30 Oct 2026 the script knew only 1.6's process name**: one deploy that day
 began while the owner's 1.7 game ran and stopped at the first locked file, with the install intact; the rename
 step and the 1.7 name come from that.
+
+## Cleaning up
+
+`python scripts/cleanup.py` lists what the tools and tests leave behind; `--apply` deletes it (the owner runs that). It keeps the
+newest install backup of each current mod (`--keep N` for more) and deletes the rest, including backups of merged mods; deletes
+the throwaway test repositories (`archive-test-*`) in the system temporary folder; and stops git's file-watcher daemons, which a
+global `core.fsmonitor` starts in every repository (a cache: git starts one again when needed). It reports, never deletes, a
+folder a failed deploy left in the game folder. **Tests that make a git repository set `core.fsmonitor false` in it and delete it
+with read-only handling** (`remove_tree` in `tests/test_archive_branch.py`): git's object files are read-only, and
+`shutil.rmtree(..., ignore_errors=True)` left 400 repositories and 220 daemons behind before 9 Nov 2026.

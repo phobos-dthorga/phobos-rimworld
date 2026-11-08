@@ -168,6 +168,56 @@ class DeployTests(unittest.TestCase):
                 deploy.deploy('Example', game, apply=True, root=root, running=lambda: False, log=lambda s: None)
 
 
+class HeldFolderTests(unittest.TestCase):
+    def test_a_free_install_passes_the_check_and_stays_where_it_was(self):
+        with tempfile.TemporaryDirectory() as game:
+            target = Path(game) / 'Mods' / 'Example'
+            (target / 'About').mkdir(parents=True)
+            deploy.check_movable(['Example', 'NotInstalled'], game, windows=lambda: [], log=lambda s: None)
+            self.assertTrue((target / 'About').is_dir())
+            self.assertEqual(['Mods'], [p.name for p in Path(game).iterdir()])
+
+    @unittest.skipUnless(sys.platform == 'win32', 'Windows refuses to rename a folder holding an open file')
+    def test_a_held_install_stops_every_mod_and_names_the_explorer_window(self):
+        with tempfile.TemporaryDirectory() as game:
+            free = Path(game) / 'Mods' / 'Free'
+            free.mkdir(parents=True)
+            held = Path(game) / 'Mods' / 'Held'
+            (held / 'Defs').mkdir(parents=True)
+            open_file = held / 'Defs' / 'Things.xml'
+            open_file.write_text('<Defs />', encoding='utf-8')
+            with open(open_file, 'rb'), self.assertRaises(RuntimeError) as caught:
+                deploy.check_movable(['Free', 'Held'], game, windows=lambda: [held / 'Defs'], log=lambda s: None)
+            message = str(caught.exception)
+            self.assertIn('File Explorer window is open inside it', message)
+            self.assertIn(str(held / 'Defs'), message)
+            self.assertIn('Nothing was changed', message)
+            self.assertTrue(free.is_dir())
+
+    def test_the_message_without_a_window_names_the_usual_holders(self):
+        message = deploy.held_message(Path('C:/Game/Mods/Example'), 'Access is denied', [Path('C:/Elsewhere')])
+        self.assertIn('terminal or editor', message)
+        self.assertIn('RimSort', message)
+        self.assertNotIn('Close RimWorld', message)
+
+    def test_inside_matches_the_folder_and_below_only(self):
+        self.assertTrue(deploy.inside(Path('C:/Game/Mods/Example/Defs'), Path('C:/game/mods/example')))
+        self.assertTrue(deploy.inside(Path('C:/Game/Mods/Example'), Path('C:/Game/Mods/Example')))
+        self.assertFalse(deploy.inside(Path('C:/Game/Mods/ExampleTwo'), Path('C:/Game/Mods/Example')))
+
+    def test_apply_checks_every_mod_before_deploying_any(self):
+        calls = []
+        originals = deploy.deploy, deploy.check_movable, deploy.game_running
+        deploy.deploy = lambda mod, game, apply, **kw: calls.append(('deploy', mod)) or 0
+        deploy.check_movable = lambda mods, game, **kw: calls.append(('check', tuple(mods)))
+        deploy.game_running = lambda *a, **kw: False
+        try:
+            deploy.main(['--apply', '--game', 'nowhere', 'A', 'B'])
+        finally:
+            deploy.deploy, deploy.check_movable, deploy.game_running = originals
+        self.assertEqual([('check', ('A', 'B')), ('deploy', 'A'), ('deploy', 'B')], calls)
+
+
 class GameRunningTests(unittest.TestCase):
     def test_tasklist_finds_rimworld_1_6_and_1_7(self):
         for image in ('RimWorld.exe', 'RimWorldWin64.exe', 'rimworld.EXE'):
