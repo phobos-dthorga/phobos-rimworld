@@ -107,7 +107,7 @@ first ([record](vehicle-health-design.md)). Slices in order; each needs the one 
 | H0 | Measurement (a dev timing readout) and the NPC lite tier, with the setting to run the full model for everyone | Framework | Lite by default, setting (8 Nov 2026) | Done: Framework 0.25.0 |
 | H1 | The Health tab replacing Vehicle Framework's: VF's stats with impactor tooltips, parts grouped pawn-style with the stages and refusals under them, a crew row, hover highlight, on the world map too; a setting keeps VF's tab | Framework | First deliverable (8 Nov 2026) | Done: Framework 0.26.0 |
 | H2 | Conditions proper: per-part severities with stages, from hits, stages and wear; resolved by repair, fading or a service | Framework | Architecture chosen (8 Nov 2026); Def shape after a read of Vehicle Framework's develop branch | Done: Framework 0.29.0 (not yet tested in game), three agent-authored conditions for the owner's review |
-| H3 | Consequences and repair depth: leaks with the danger clock, destroyed parts needing supplies (setting, on), field fixes, permanent conditions; wreck-on-death as a separate question | Framework, Vehicles | Supplies for destroyed parts and serious conditions (8 Nov 2026) | Open |
+| H3 | Consequences and repair depth: leaks with the danger clock, destroyed parts needing supplies (setting, on), field fixes, permanent conditions; wreck-on-death as a separate question | Framework, Vehicles | Supplies for destroyed parts and serious conditions (8 Nov 2026) | Open: behaviour proposed with six questions for the owner ([record](vehicle-health-consequences.md)); waits for slice 2 to be seen working in game |
 | H4 | The performance table in the record, filled from the owner's runs (Dubs Performance Analyzer, the 1.7 Frame Profiler, our readout) | docs | | Open: the owner runs the protocol |
 
 ## Caustic gas, the rest (8 Nov 2026)
@@ -153,8 +153,8 @@ reasons are in [analysis tooling](analysis-tooling.md). Each tool's first change
 | T3 | Mod and Def index (SQLite in the kit's cache) | Python | Done: phobos-modkit 0.4.0, `scripts/query-defs.py`, AGENTS.md rule |
 | T4 | Assembly metadata reader | C# | Done for Harmony patches: phobos-modkit 0.14.0, `scripts/query-patches.py`, AGENTS.md rule (8 Nov 2026). Constants, strings and API checks left to REA once the owner has it |
 | T5 | Workshop research | Python | Done: phobos-modkit 0.5.0, `scripts/workshop-research.py`, AGENTS.md rule |
-| T6 | StartupImpact sessions | Python | Open |
-| T7 | Version readiness scan | Python | Open |
+| T6 | StartupImpact sessions | Python | Done: phobos-modkit 0.17.0, `scripts/startup-impact.py` (8 Nov 2026) |
+| T7 | Version readiness scan | Python | Done: phobos-modkit 0.17.0, `scripts/version-readiness.py` (8 Nov 2026) |
 | T8 | Release tooling | Python | Done for version bumps and changelog checks: phobos-modkit 0.10.1, `scripts/release.py`, `config/maintained-constants.json` (8 Nov 2026). Workshop publishing waits for the first public beta gate |
 | T9 | Shared report model and derived-data cache | Python | Done: phobos-modkit 0.3.0 |
 | T10 | Game adapter contract (generic log and save commands) | Python | Waits for a second game adapter |

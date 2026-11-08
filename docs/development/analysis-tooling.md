@@ -163,12 +163,13 @@ REA once the owner has it, and to the code index for decompiled C#; `apicheck` i
 ### 6. StartupImpact sessions
 
 Every session's time, mod list and hash, load time and per-mod cost: the trend, the costliest mods, and what
-changed between any two launches.
+changed between any two launches. Built: phobos-modkit 0.17.0, `python scripts/startup-impact.py` (8 Nov 2026).
 
 ### 7. Version readiness scan
 
 Per active mod: declared versions, Steam tags, and a byte scan for transpilers, Prepatcher and asset
-bundles, compared with the last run. Built on tools 3 and 5.
+bundles, compared with the last run. Built on tools 3 and 5. Built: phobos-modkit 0.17.0, `python scripts/version-readiness.py`
+(8 Nov 2026). It says what a mod declares and how closely it depends on the game, never whether it works.
 
 ### 8. Release tooling
 

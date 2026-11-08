@@ -106,6 +106,8 @@ promise current behaviour. For using the mods, start at the [documentation index
 - [The vehicle tabs: design (8 Nov 2026)](vehicle-tabs-design.md): the Dashboard and Systems inspector tabs, how they hook into
   Vehicle Framework's Def resolution, the saved day of history behind the graphs, the widgets that went to the Framework core,
   and what RimHUD does with them; D'thorga Framework 0.17.0. Not yet tested in game.
+- [Vehicle health, slice 3: what it would do to the player (8 Nov 2026)](vehicle-health-consequences.md): the danger clock, destroyed
+  parts needing supplies, serious conditions, field fixes; a proposal with six questions for the owner, nothing built.
 - [The vehicle garage and fleet tools: design (8 Nov 2026)](vehicle-garage-design.md): a staffed outpost that holds and slowly
   repairs vehicles, what the outposts code allows and where it fails for vehicles, and the owner's four fleet tools. Not yet tested in game.
 - [Vehicle figures: research (8 Nov 2026)](vehicle-figures-research.md): sourced engine, transmission and weight figures for the

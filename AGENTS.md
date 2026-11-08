@@ -57,6 +57,11 @@ delivered, record the delivery in the changelog or design record, and add or ame
   every Harmony patch on it in load order (wildcards), `mod <name>` for what a mod patches, `hotspots` for methods several mods
   patch; "may skip the original" marks a bool prefix. It reads every active mod's assemblies through their metadata, never
   running them. Use it before decompiling a mod to look for patches, and before adding a patch of ours, to see who else is there.
+- **Answer how long the game takes to start, and which mods cost it, with `python scripts/startup-impact.py`** (owner, 8 Nov 2026):
+  every launch, the costliest mods, `compare` for what changed between two launches, `mod <name>` for one mod. Start-up time varies
+  between identical launches, so trust only a difference that repeats. **Answer which active mods are ready for a game version
+  with `python scripts/version-readiness.py`** (`--game-version 1.8` for another; `python scripts/workshop-research.py versions` first
+  for the Steam tags): what each declares and how closely it depends on the game, never whether it works.
 - **Answer what settings the owner plays with using `python scripts/mod-settings.py`** (owner, 8 Nov 2026): our mods' saved
   values beside their defaults, read from our C# source; `--mod <pattern>` for any other mod (Combat Extended, Vehicle Framework);
   `snapshot FILE`, then `compare FILE`, for what changed between two sessions. Run it with a reported fault before asking the
