@@ -237,3 +237,25 @@ public class Effect_Breakdown : VehicleSystemEffect
             context.Vehicle, MessageTypeDefOf.NegativeEvent);
     }
 }
+
+/// <summary>
+/// An explosion at the vehicle, once, through the game's own explosions (a boiler's crown sheet failing), and the parts playing a
+/// role broken. Only ever reached through a player's setting that allows it (boiler explosions are off by default; owner, 9 Nov 2026).
+/// Away from a map (in a caravan) only the parts break.
+/// </summary>
+public class Effect_Explosion : VehicleSystemEffect
+{
+    public float radius = 5.9f;
+    public int damage = 60;
+    public DamageDef? damageDef;
+    public string? breakRole;
+
+    public override void OnEnter(SystemContext context)
+    {
+        VehiclePawn vehicle = context.Vehicle;
+        if (breakRole != null) context.Comp.BreakRole(breakRole, 1f);
+        if (!vehicle.Spawned || vehicle.Map == null) return;
+        GenExplosion.DoExplosion(vehicle.Position, vehicle.Map, radius, damageDef ?? DamageDefOf.Bomb, vehicle, damage);
+    }
+}
+

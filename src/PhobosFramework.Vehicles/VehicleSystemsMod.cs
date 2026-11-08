@@ -37,6 +37,12 @@ public class VehicleSystemsSettings : ModSettings
     public bool loadDependentFuel;
     /// <summary>What happens when a jet is too heavy or the day too hot for it to hover onto its pad (owner, 9 Nov 2026: a choice). Live.</summary>
     public HoverLimit hoverLimit = HoverLimit.RefusePadUseRunway;
+    /// <summary>A steam boiler without a fusible plug explodes if its crown sheet is uncovered (owner, 9 Nov 2026: off by default, with
+    /// a warning). Live.</summary>
+    public bool boilerExplosions;
+    /// <summary>Water stops draw a steam locomotive's real tender or tank capacity instead of a tenth of it (owner, 9 Nov 2026: scaled by
+    /// default). Live.</summary>
+    public bool realisticFeedWater;
 
     public enum HoverLimit
     {
@@ -48,6 +54,8 @@ public class VehicleSystemsSettings : ModSettings
     public bool FlagOn(string name) => name switch
     {
         "fuelGelling" => fuelGelling,
+        "boilerExplosions" => boilerExplosions,
+        "realisticFeedWater" => realisticFeedWater,
         _ => false,
     };
 
@@ -64,6 +72,8 @@ public class VehicleSystemsSettings : ModSettings
         Scribe_Values.Look(ref drivetrainMode, "PhobosVehicleSystems_DrivetrainMode", DrivetrainMode.Full);
         Scribe_Values.Look(ref loadDependentFuel, "PhobosVehicleSystems_LoadDependentFuel", false);
         Scribe_Values.Look(ref hoverLimit, "PhobosVehicleSystems_HoverLimit", HoverLimit.RefusePadUseRunway);
+        Scribe_Values.Look(ref boilerExplosions, "PhobosVehicleSystems_BoilerExplosions", false);
+        Scribe_Values.Look(ref realisticFeedWater, "PhobosVehicleSystems_RealisticFeedWater", false);
         if (Scribe.mode == LoadSaveMode.PostLoadInit)
         {
             disabledPackages ??= new List<string>();
@@ -103,6 +113,8 @@ public class VehicleSystemsMod : Mod
         report.On(systems + " systems, " + loadouts + " loadouts, " + fitted + " of " + VehicleSystems.Designs.Count + " vehicle designs fitted, "
                   + VehicleSystems.Designs.Sum(d => d.partsAdded) + " parts appended");
         if (Settings.showOnly) report.On("figures only (setting)");
+        if (Settings.boilerExplosions) report.On("boiler explosions (setting)");
+        if (Settings.realisticFeedWater) report.On("realistic feed water (setting)");
         foreach (IGrouping<string, DesignRecord> skipped in VehicleSystems.Designs.Where(d => d.skippedBecause != null && d.loadout != null).GroupBy(d => d.skippedBecause!))
         {
             report.Off(skipped.Count() + " design" + (skipped.Count() == 1 ? "" : "s"), skipped.Key);
@@ -181,6 +193,11 @@ public class VehicleSystemsMod : Mod
                 s.hoverLimit = limit;
             }
         }
+
+        SettingsUi.Section(listing, "PhobosVehicleSystems_SectionSteam".Translate());
+        listing.CheckboxLabeled("PhobosVehicleSystems_SettingRealisticFeedWater".Translate(), ref s.realisticFeedWater, "PhobosVehicleSystems_SettingRealisticFeedWaterDesc".Translate());
+        listing.CheckboxLabeled("PhobosVehicleSystems_SettingBoilerExplosions".Translate(), ref s.boilerExplosions, "PhobosVehicleSystems_SettingBoilerExplosionsDesc".Translate());
+        if (s.boilerExplosions) SettingsUi.Warning(listing, "PhobosVehicleSystems_BoilerExplosionsWarning".Translate());
 
         SettingsUi.Section(listing, "PhobosVehicleSystems_SectionShow".Translate());
         SettingsUi.DrawDisplayMode(listing, ref s.displayMode);

@@ -16,8 +16,11 @@ Part 3 of the owner's approved proposals of 9 Nov 2026, after [power and lift](v
 - **Raising steam takes hours.** A cold engine **refuses to move** until it has half its working pressure, and says why.
 - **Low water melts the fusible plug**: a letter, the boiler vented, and no steam until a mechanic fits a new plug.
 - **Water stops**: the tender or side tanks refill as a service, drawing only the shortfall, from Dubs Bad Hygiene's water towers
-  when that mod is active, otherwise free (owner, 9 Nov 2026). **The Frisco's tender holds 68,000 L**, a lot of water for a colony's
-  towers: that is its real size **[S]**.
+  when that mod is active, otherwise free (owner, 9 Nov 2026). **By default a stop draws a tenth of the real capacity** (owner, 9 Nov
+  2026): 6,800 L for the Frisco, under one Dubs water tower's 8,000 (the huge tower holds 50,000, from the mod's own descriptions).
+  **The realistic feed water setting** restores the real 68,000 L **[S]**.
+- **Boiler explosions** (owner, 9 Nov 2026): **off by default**; a main-menu setting with a warning turns them on. Then a boiler
+  without a fusible plug whose crown sheet is uncovered with the fire lit explodes.
 
 ## The model
 
@@ -35,8 +38,12 @@ Four quantities, all saved by system and name like the coolant:
 - **The crown sheet**: covered by water, the firebox plate stays near the water's temperature; uncovered, it heats toward the
   fire's 1,500 to 2,500 F, and steel has lost about 85% of its strength by 1,600 F **[P: NTSB SIR-96/05]**. A fusible plug melts
   first (UK: pure lead, 327 degrees C **[P: HRA boiler code]**), sprays steam onto the fire and vents the boiler, and "the locomotive
-  must be taken to a maintenance facility for repair" **[P: NTSB]**. US rules never required plugs; both locomotives here carry one
-  **[A]**. **A crown-sheet failure without a plug (a boiler explosion) is not modelled**: the owner's call if it should be.
+  must be taken to a maintenance facility for repair" **[P: NTSB]**. US rules never required plugs **[P: 49 CFR 230.59]**. **The Frisco carries none** (we found no record either way for the 4500
+  class **[A]**); the Tommy follows British practice and carries one. With the boiler explosions setting on, a plugless dry crown
+  sheet tears: the water flashes to steam of "perhaps 1500 or 2000 times" its volume, and at only 60 psi each cubic foot of boiler
+  water holds the energy of a pound of black powder **[P: NTSB, quoting Railway Mechanical Engineer and G. B. Airy]**. The game's
+  explosion (5.9 cells, 60 blast damage **[A]**, far smaller than a real one) wrecks the boiler, with a letter. With the setting
+  off, every boiler behaves as if plugged.
 - **What saturated steam means for the player**: a boiler at 255 psi is only about 20 degrees C hotter than one at 160 psi (209
   against 188 degrees C, from NIST's IAPWS-95 tables **[P]**), but holds far more energy; the model shows pressure, not temperature.
 - **Priming** (water carried into the cylinders from too high a level) is not modelled: the injector holds the glass below it.
@@ -47,8 +54,8 @@ Four quantities, all saved by system and name like the coolant:
 
 | Locomotive | Real class | Feed water | From cold to move / to full pressure | Feed water at hard work |
 | --- | --- | --- | --- | --- |
-| Frisco 4-8-4 | St. Louis-San Francisco 4500 class **[S]** | 68,000 L tender (18,000 US gal) **[S]** | about 3 1/3 h / 8 h **[A, inside the 6 to 10 h quoted for big engines, S anecdotal]** | about 3 h **[I: 100 to 200 US gal a mile, S]** |
-| Tommy 0-6-0T | LB&SCR E2, the class Thomas was drawn from **[S]** | 4,955 L side tanks (1,090 imp gal) **[S]** | about 1 1/3 h / 2 3/4 h **[A, inside the GCR's 3 to 7 h, P]** | about 1 2/3 h **[I: about 30 imp gal a mile, S]** |
+| Frisco 4-8-4 | St. Louis-San Francisco 4500 class **[S]** | 68,000 L tender (18,000 US gal) **[S]**; 6,800 L drawn by default **[owner: a tenth]** | about 3 1/3 h / 8 h **[A, inside the 6 to 10 h quoted for big engines, S anecdotal]** | about 3 h **[I: 100 to 200 US gal a mile, S]** |
+| Tommy 0-6-0T | LB&SCR E2, the class Thomas was drawn from **[S]** | 4,955 L side tanks (1,090 imp gal) **[S]**; 496 L drawn by default | about 1 1/3 h / 2 3/4 h **[A, inside the GCR's 3 to 7 h, P]** | about 1 2/3 h **[I: about 30 imp gal a mile, S]** |
 
 A boiler held hot cools slowly (8% of the way to cold each hour **[A]**), so a locomotive run yesterday raises steam again in about
 two hours, as heritage crews describe **[S]**. Rule tests hold the raising times and the feed water's endurance.
@@ -58,8 +65,9 @@ two hours, as heritage crews describe **[S]**. Rule tests hold the raising times
 - `PhobosVehicleSystem_Boiler` (role `Boiler`) with parameters `firingRate`, `steamUse`, `coolingRate`, `waterUse`, `injectorRate`,
   `feedShare` and `feedWaterLitres`, each overridable in a loadout's `set`; `PhobosVehicleSystem_FusiblePlug` (its own system, so it
   has its own service).
-- A service may take its water from a system parameter (`waterLitresParameter`) and draw only the shortfall
-  (`waterForShortfall`). The schema check reads both.
+- A service may take its water from a system parameter (`waterLitresParameter`), use a scaled one unless the player's realistic
+  setting is on (`scaledWaterLitresParameter`, `realisticWaterSetting`), and draw only the shortfall (`waterForShortfall`).
+- `fusiblePlugFitted` (0 or 1) on the boiler; `Effect_Explosion`; `When_ParameterBelow`. The schema check reads them all.
 - The loadout kind `Steam`.
 
 ## To test in game (owner)
@@ -72,5 +80,8 @@ two hours, as heritage crews describe **[S]**. Rule tests hold the raising times
 
 - **Owner (9 Nov 2026):** a boiler system for the steam locomotives (approved with parts 1 and 2); water from Dubs Bad Hygiene
   plumbing, else free.
-- **Agent choices, owner to revise:** fusible plugs on both locomotives and no explosion; the firing, cooling, water and injector
+- **Owner (9 Nov 2026, later):** boiler explosions allowed, off by default, behind a main-menu setting with a warning; the tender
+  scaled down by default with a realistic setting.
+- **Agent choices, owner to revise:** no plug on the Frisco and a plug on the Tommy; a tenth as the scale; the explosion's size; a
+  damaged boiler steaming slower; the firing, cooling, water and injector
   rates; the glass's crown line; steel as the plug's supplies; pressure shown as a share rather than in psi.

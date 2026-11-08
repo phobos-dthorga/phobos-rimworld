@@ -16,13 +16,19 @@
       1,500 to 2,500 F and steel has lost about 85% of its strength by 1,600 F (primary: NTSB SIR-96/05, quoting Railway Mechanical
       Engineer, 1943). A fusible plug in the crown melts first (UK pure lead at 327 degrees C; primary: the Heritage Railway
       Association's boiler code HGR-B9008), vents steam onto the fire, and "the locomotive must be taken to a maintenance facility for
-      repair" (primary: NTSB). Both locomotives here carry one (authored: US rules never required them); a crown-sheet failure
-      without one, an explosion, is not modelled.
+      repair" (primary: NTSB). US rules never required plugs (primary: 49 CFR 230.59, via the NTSB). A loadout says whether its
+      boiler has one (fusiblePlugFitted). Without one, a dry crown sheet tears and the boiler explodes: the water flashes to steam of
+      "perhaps 1500 or 2000 times" its volume, and at only 60 psi each cubic foot of boiler water holds the energy of a pound of black
+      powder (primary: NTSB, quoting Railway Mechanical Engineer and G. B. Airy). That happens only with the player's boiler
+      explosions setting on (owner, 9 Nov 2026: off by default, with a warning); with it off, every boiler behaves as if plugged.
+      The explosion's size here (5.9 cells, 60 blast damage) is authored, far smaller than a real one.
     - The water glass must read at least 3 inches above the crown sheet (primary: 49 CFR 230.51): here the glass reads 0 to 1 and
       the crown is uncovered at 0.1 (authored). The injector keeps the glass near 0.8 from the feed water while there is any; priming
       from too high a level is therefore not modelled.
     - Feed water: the tender or side tanks, refilled at a water stop as a service (Dubs Bad Hygiene's water towers when that mod is
-      active, otherwise free; owner, 9 Nov 2026), only the shortfall drawn. Each loadout gives its capacity in litres.
+      active, otherwise free; owner, 9 Nov 2026), only the shortfall drawn. Each loadout gives its real capacity in litres and a
+      scaled one, a tenth of it, used unless the player turns on realistic feed water (owner, 9 Nov 2026: scaled by default; a
+      Dubs water tower holds 8,000 and a huge one 50,000, from the mod's own descriptions).
   -->
   <Phobos.VehicleSystems.PhobosVehicleSystemDef>
     <defName>PhobosVehicleSystem_Boiler</defName>
@@ -39,6 +45,8 @@
       <injectorRate>4</injectorRate>
       <feedShare>0.2</feedShare>
       <feedWaterLitres>5000</feedWaterLitres>
+      <feedWaterLitresScaled>500</feedWaterLitresScaled>
+      <fusiblePlugFitted>1</fusiblePlugFitted>
     </parameters>
     <quantities>
       <li>
@@ -91,19 +99,77 @@
             <label>crown sheet uncovered</label>
             <notable>true</notable>
             <effects>
+              <!-- With a plug (or with explosions off): the plug melts and vents the boiler. -->
               <li Class="Phobos.VehicleSystems.Effect_SetQuantity">
                 <quantity>fusiblePlug</quantity>
                 <value>0</value>
-                <when Class="Phobos.VehicleSystems.When_EngineRunning" />
-              </li>
-              <li Class="Phobos.VehicleSystems.Effect_SetQuantity">
-                <quantity>steamPressure</quantity>
-                <value>0</value>
-                <when Class="Phobos.VehicleSystems.When_EngineRunning" />
+                <when Class="Phobos.VehicleSystems.When_All">
+                <conditions>
+                  <li Class="Phobos.VehicleSystems.When_EngineRunning" />
+                  <li Class="Phobos.VehicleSystems.When_All">
+                    <invert>true</invert>
+                    <conditions>
+                    <li Class="Phobos.VehicleSystems.When_Setting"><setting>boilerExplosions</setting></li>
+                    <li Class="Phobos.VehicleSystems.When_ParameterBelow"><parameter>fusiblePlugFitted</parameter><value>0.5</value></li>
+                    </conditions>
+                  </li>
+                </conditions>
+              </when>
               </li>
               <li Class="Phobos.VehicleSystems.Effect_Letter">
                 <label>PhobosVehicleSystems_LetterPlugMeltedLabel</label>
                 <text>PhobosVehicleSystems_LetterPlugMeltedText</text>
+                <when Class="Phobos.VehicleSystems.When_All">
+                <conditions>
+                  <li Class="Phobos.VehicleSystems.When_EngineRunning" />
+                  <li Class="Phobos.VehicleSystems.When_All">
+                    <invert>true</invert>
+                    <conditions>
+                    <li Class="Phobos.VehicleSystems.When_Setting"><setting>boilerExplosions</setting></li>
+                    <li Class="Phobos.VehicleSystems.When_ParameterBelow"><parameter>fusiblePlugFitted</parameter><value>0.5</value></li>
+                    </conditions>
+                  </li>
+                </conditions>
+              </when>
+              </li>
+              <!-- Without a plug and with explosions on: the crown sheet fails. -->
+              <li Class="Phobos.VehicleSystems.Effect_Explosion">
+                <radius>5.9</radius>
+                <damage>60</damage>
+                <breakRole>Boiler</breakRole>
+                <when Class="Phobos.VehicleSystems.When_All">
+                <conditions>
+                  <li Class="Phobos.VehicleSystems.When_EngineRunning" />
+                  <li Class="Phobos.VehicleSystems.When_All">
+                    <invert>false</invert>
+                    <conditions>
+                    <li Class="Phobos.VehicleSystems.When_Setting"><setting>boilerExplosions</setting></li>
+                    <li Class="Phobos.VehicleSystems.When_ParameterBelow"><parameter>fusiblePlugFitted</parameter><value>0.5</value></li>
+                    </conditions>
+                  </li>
+                </conditions>
+              </when>
+              </li>
+              <li Class="Phobos.VehicleSystems.Effect_Letter">
+                <label>PhobosVehicleSystems_LetterBoilerExplodedLabel</label>
+                <text>PhobosVehicleSystems_LetterBoilerExplodedText</text>
+                <letter>ThreatBig</letter>
+                <when Class="Phobos.VehicleSystems.When_All">
+                <conditions>
+                  <li Class="Phobos.VehicleSystems.When_EngineRunning" />
+                  <li Class="Phobos.VehicleSystems.When_All">
+                    <invert>false</invert>
+                    <conditions>
+                    <li Class="Phobos.VehicleSystems.When_Setting"><setting>boilerExplosions</setting></li>
+                    <li Class="Phobos.VehicleSystems.When_ParameterBelow"><parameter>fusiblePlugFitted</parameter><value>0.5</value></li>
+                    </conditions>
+                  </li>
+                </conditions>
+              </when>
+              </li>
+              <li Class="Phobos.VehicleSystems.Effect_SetQuantity">
+                <quantity>steamPressure</quantity>
+                <value>0</value>
                 <when Class="Phobos.VehicleSystems.When_EngineRunning" />
               </li>
             </effects>
@@ -153,6 +219,9 @@
         <factorParameter>firingRate</factorParameter>
         <inputs>
           <li Class="Phobos.VehicleSystems.Input_EngineRunning" />
+          <li Class="Phobos.VehicleSystems.Input_PartEfficiency">
+            <role>Boiler</role>
+          </li>
           <li Class="Phobos.VehicleSystems.Input_Quantity">
             <quantity>fusiblePlug</quantity>
             <curve>
@@ -258,6 +327,7 @@
         </li>
       </restores>
       <waterLitresParameter>feedWaterLitres</waterLitresParameter>
+      <scaledWaterLitresParameter>feedWaterLitresScaled</scaledWaterLitresParameter>
       <waterForShortfall>true</waterForShortfall>
       <work>300</work>
     </service>

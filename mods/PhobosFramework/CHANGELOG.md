@@ -5,6 +5,21 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.14.0] - 2026-11-09 - Draft
+
+The owner's answers on steam locomotives, 9 November 2026. **Not yet tested in game.**
+
+### Added
+
+- Setting: **boiler explosions**, off by default, with a warning in the settings window. On, a boiler without a fusible plug whose water falls below the firebox crown with the fire lit explodes, wrecking the boiler and hurting what stands near, with a letter. Boilers with a plug still only vent.
+- Setting: **realistic feed water**, off by default. Off, a water stop draws a tenth of a locomotive's real tender or tank capacity; on, the real figure.
+- A damaged boiler raises steam more slowly.
+- For modders: an explosion effect, a condition on a system parameter, and a service's scaled water figure with the setting that restores the real one. The schema check reads them.
+
+### Save compatibility
+
+- Safe to add to a running colony. The two settings are new and start off.
+
 ## [0.13.0] - 2026-11-09 - Draft
 
 Steam boilers: part 3 of the owner's approved proposals of 9 November 2026. **Not yet tested in game.** Design: docs/development/vehicle-steam-design.md.

@@ -41,6 +41,12 @@
   <PhobosVehicleSystems_HoverAllowWithDamageDesc>The landing or lift-off goes ahead with the engines run past their limits: they wear and you are told.</PhobosVehicleSystems_HoverAllowWithDamageDesc>
   <PhobosVehicleSystems_HoverWarnOnly>Allow it, with a warning only</PhobosVehicleSystems_HoverWarnOnly>
   <PhobosVehicleSystems_HoverWarnOnlyDesc>The landing or lift-off goes ahead as the aircraft's own mod allows, and a message says it was beyond the engines.</PhobosVehicleSystems_HoverWarnOnlyDesc>
+  <PhobosVehicleSystems_SectionSteam>Steam locomotives</PhobosVehicleSystems_SectionSteam>
+  <PhobosVehicleSystems_SettingRealisticFeedWater>Realistic feed water</PhobosVehicleSystems_SettingRealisticFeedWater>
+  <PhobosVehicleSystems_SettingRealisticFeedWaterDesc>Off by default: a water stop draws a tenth of a locomotive's real tender or tank capacity, so a 4-8-4's refill fits in one Dubs Bad Hygiene water tower. On: it draws the real figure, 68,000 litres for the big 4-8-4, which needs several towers or a huge one.</PhobosVehicleSystems_SettingRealisticFeedWaterDesc>
+  <PhobosVehicleSystems_SettingBoilerExplosions>Boiler explosions</PhobosVehicleSystems_SettingBoilerExplosions>
+  <PhobosVehicleSystems_SettingBoilerExplosionsDesc>Off by default. On: a boiler without a fusible plug (the American 4-8-4) whose water falls below the firebox crown with the fire lit explodes, wrecking the boiler and hurting everything nearby. Boilers with a plug still only vent.</PhobosVehicleSystems_SettingBoilerExplosionsDesc>
+  <PhobosVehicleSystems_BoilerExplosionsWarning>Warning: an exploding boiler can kill the crew and anyone nearby and wreck what stands around it, without a second chance. Watch the water glass, and give it water stops in time.</PhobosVehicleSystems_BoilerExplosionsWarning>
   <PhobosVehicleSystems_RemoveExplain>Vehicles save their parts in order, so a save made with these systems cannot simply lose them. Before you remove D'thorga Framework or Vehicle Framework from a colony, load it, press this button, save, then remove the mod. Turning vehicles or systems off above needs none of this.</PhobosVehicleSystems_RemoveExplain>
   <PhobosVehicleSystems_RemoveButton>Remove the added parts from this colony's vehicles</PhobosVehicleSystems_RemoveButton>
   <PhobosVehicleSystems_RemoveConfirm>Remove every part the vehicle systems added, from every vehicle in this colony, and stop the systems until you restart? Save straight afterwards, then remove the mod.</PhobosVehicleSystems_RemoveConfirm>
@@ -156,4 +162,6 @@
   <PhobosVehicleSystems_LetterBoilingText>The {VEHICLE}'s coolant is boiling away and the engine is cooking itself.\n\nStop the vehicle now. Once it has cooled, repair the radiator and have a mechanic service it to refill the coolant.</PhobosVehicleSystems_LetterBoilingText>
   <PhobosVehicleSystems_LetterPlugMeltedLabel>Fusible plug melted: {VEHICLE}</PhobosVehicleSystems_LetterPlugMeltedLabel>
   <PhobosVehicleSystems_LetterPlugMeltedText>The water in the {VEHICLE}'s boiler fell below the firebox crown. The lead plug in the crown melted and blew steam onto the fire, venting the boiler before the crown sheet could fail.\n\nIt cannot raise steam again until a mechanic fits a new plug. Give it feed water at a water stop before you light it again.</PhobosVehicleSystems_LetterPlugMeltedText>
+  <PhobosVehicleSystems_LetterBoilerExplodedLabel>Boiler explosion: {VEHICLE}</PhobosVehicleSystems_LetterBoilerExplodedLabel>
+  <PhobosVehicleSystems_LetterBoilerExplodedText>The water in the {VEHICLE}'s boiler fell below the firebox crown while the fire burned. With no fusible plug to vent it, the dry crown sheet softened and tore, and the boiler's water flashed to steam all at once.\n\nThe boiler is wrecked. Tend the wounded; repair the boiler before it can steam again, and keep its water up next time.</PhobosVehicleSystems_LetterBoilerExplodedText>
 </LanguageData>

@@ -158,7 +158,7 @@ pump empties, with a stage that stops the vehicle starting when it runs dry.
 | `flows` | Rate rules on one quantity: `kind` `Into` and `From` (units per hour) or `Toward` a `target` input (the share of the gap closed per hour, done exactly, so it never overshoots). The rate is `factor`, times `factorParameter`, over `divideByParameter`, times every input. `openAbove` or `openAboveParameter` (and `openBelow`) with a `band` gate it like a thermostat. `when` limits it to a condition. |
 | `onEvents` | Effects run once on one of Vehicle Framework's events (`IgnitionOn`, `IgnitionOff`, `MoveStart`, `MoveStop`, `Refueled`, `OutOfFuel` and the rest). |
 | `onPartHit` | When a part playing `role` is hit, `quantity` changes by `perHealthLost` for each hit point lost. |
-| `service` | What a mechanic does: `label`, due when `dueQuantity` passes `dueAbove` or `dueBelow`, `supplies` loaded into the cargo first, `waterLitres` (or `waterLitresParameter`, a system parameter each loadout can set, and `waterForShortfall`, to draw only what the due quantity is short of) drawn from the registered water source when the work ends (free when none is registered; see [Water](#water-for-services)), `work` (ticks at construction speed 1), then `restores` (any system's quantities). |
+| `service` | What a mechanic does: `label`, due when `dueQuantity` passes `dueAbove` or `dueBelow`, `supplies` loaded into the cargo first, `waterLitres` (or `waterLitresParameter`, a system parameter each loadout can set; `scaledWaterLitresParameter`, a scaled figure used unless the player's `realisticWaterSetting` is on, `realisticFeedWater` by default; and `waterForShortfall`, to draw only what the due quantity is short of) drawn from the registered water source when the work ends (free when none is registered; see [Water](#water-for-services)), `work` (ticks at construction speed 1), then `restores` (any system's quantities). |
 | `jumpStart` | How a colonist jump-starts the vehicle from another: `quantity` (raised to `raiseTo` when below it), `capacityParameter` (the unit the charge moves in), `donorMinimum` (or a running engine), `reach` in cells, `work` in ticks. The player orders it from the flat vehicle's right-click menu. |
 | `workerClass` | A `VehicleSystemWorker` subclass for maths XML cannot say. |
 
@@ -194,7 +194,8 @@ Every input takes an optional `curve` (points `(x, y)` mapping the raw reading) 
 ### Conditions
 
 `When_Always`, `When_EngineRunning`, `When_Moving`, `When_Night` (hours in the rules Def), `When_AmbientBelow` and
-`When_AmbientAbove` (`celsius`), `When_QuantityBelow` and `When_QuantityAbove` (`quantity`, `value`), `When_Setting` (`setting`),
+`When_AmbientAbove` (`celsius`), `When_QuantityBelow` and `When_QuantityAbove` (`quantity`, `value`), `When_ParameterBelow` (`parameter`, `value`), `When_Setting`
+(`setting`: `fuelGelling`, `boilerExplosions`, `realisticFeedWater`),
 `When_All` and `When_Any` (`conditions`). Every condition takes `invert`.
 
 ### Effects
@@ -217,6 +218,7 @@ Every effect takes `when`. Those marked as consequences are skipped when the pla
 | `Effect_AddQuantity` | once: `amount` times `scaleByParameter`, over `divideByParameter`, times `scaleBy`, added to `quantity` | no |
 | `Effect_SetQuantity` | once: `quantity` set to `value` | no |
 | `Effect_RateQuantity` | `perHour` added to `quantity` while the stage lasts | no |
+| `Effect_Explosion` | once: the game's explosion at the vehicle, `radius` and `damage` (`damageDef`, blast by default), and `breakRole`'s parts broken; only on a map | yes |
 
 ## Engines and drivetrains
 
@@ -352,7 +354,7 @@ is active.
 | `PhobosVehicleSystem_WaterInjection` | injection water | | Refill: 227 litres of water |
 | `PhobosVehicleSystem_RotorDrive` | over-torque | RotorDrive | Wear while over-torqued |
 | `PhobosVehicleSystem_TractionMotors` | traction motor temperature | TractionMotor | `heatAtContinuous`, `coolingRate` |
-| `PhobosVehicleSystem_Boiler` | steam pressure, water in the glass, feed water | Boiler | `firingRate`, `steamUse`, `coolingRate`, `waterUse`, `injectorRate`, `feedShare`, `feedWaterLitres`; a water stop service |
+| `PhobosVehicleSystem_Boiler` | steam pressure, water in the glass, feed water | Boiler | `firingRate`, `steamUse`, `coolingRate`, `waterUse`, `injectorRate`, `feedShare`, `feedWaterLitres`, `feedWaterLitresScaled`, `fusiblePlugFitted` (0: with the boiler explosions setting on, a dry crown sheet explodes); a water stop service |
 | `PhobosVehicleSystem_FusiblePlug` | fusible plug | Boiler | Melts if the crown is uncovered with the fire lit; a new plug: 2 steel |
 
 Every figure's source, or the word authored, is in the comment at the top of each system's file

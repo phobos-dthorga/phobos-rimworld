@@ -22,7 +22,7 @@ is labelled in the Defs: **[P]** primary, **[S]** secondary, **[I]** our inferen
 
 | Vehicle (mod) | Engine | Gearbox | Weight | Notes |
 | --- | --- | --- | --- | --- |
-| **L-ATV** (GTek's Vehicles) | 254 kW at 3,200 rpm **[see below]** | Allison 2500, six ratios **[P]** | 6,400 kg **[S]** | 740 A Niehoff alternator **[S]**; four-wheel drive **[P]** |
+| **L-ATV** (GTek's Vehicles) | 276 kW (370 hp) at 3,200 rpm **[owner's choice, see below]** | Allison 2500, six ratios **[P]** | 6,400 kg **[S]** | 740 A Niehoff alternator **[S]**; four-wheel drive **[P]** |
 | MaxxPro (GTek's Vehicles) | 280 kW at 2,000 rpm **[P, excerpt]** | Allison 3000-series, five speeds **[S]**; ratios **[A]** | 15,422 kg **[S]** | 400 A alternator, 24 V **[S]** |
 | Humvee (HUMVEE) | 119.4 kW at 3,400 rpm, idle 650 **[P: TM 9-2320-280-20-1]** | 4L80-E, 2.48 to 0.75 **[P]** | 2,500 kg **[S]** | Alternators 60 to 400 A at 28 V **[P]**; we keep 60 |
 | Land Cruiser J70 (Frontline Workshop) | 1VD-FTV, 151 kW at 3,400 rpm **[S]** | H152F five-speed manual **[S]**; ratios **[A]** | 2,165 kg **[S]** | Part-time four-wheel drive: half the weight driven on the road **[A]** |
@@ -38,8 +38,8 @@ is labelled in the Defs: **[P]** primary, **[S]** secondary, **[I]** our inferen
 
 **The L-ATV's power.** Oshkosh never published it. Secondary sources give 340, 400 or 425 hp. The Allison 2500's published rating is
 254 kW (340 hp) with engine torque limiting **[P: Allison sheet SA5340EN]**, and the 2500 SP the L-ATV uses is "contact your Allison
-representative". We use 254 kW, the transmission's published ceiling, so the figure the wheels can see is the one a primary source
-supports **[our choice]**. In play: on a road at its in-game speed it cruises in fourth to sixth with power in hand; fully laden in
+representative". The first build used 254 kW, that published ceiling. **The owner chose the middle of 340 and 400 hp (9 Nov 2026):
+370 hp, 276 kW**, which sits above the general 2500's published rating; the SP's own may be higher. In play: on a road at its in-game speed it cruises in fourth to sixth with power in hand; fully laden in
 soft sand, four-wheel drive keeps its grip and the engine sets the pace (a rule test holds both).
 
 ## Simplifications
@@ -58,4 +58,5 @@ soft sand, four-wheel drive keeps its grip and the engine sets the pace (a rule 
 ## Who chose what
 
 - **Owner (9 Nov 2026):** real figures for the single-engine military vehicles, the L-ATV first.
-- **Agent choices, owner to revise:** the L-ATV's 254 kW; the final drives from top speed; every authored figure listed above.
+- **Owner (9 Nov 2026, later):** the L-ATV at 370 hp, the middle of the published figures.
+- **Agent choices, owner to revise:** the final drives from top speed; every authored figure listed above.

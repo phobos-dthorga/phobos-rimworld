@@ -5,7 +5,7 @@ colonist is breathing, makes fires fill roofed rooms with the game's own smoke w
 carries carbon monoxide from fires, holds the per-person care choices the D'thorga medical mods offer, and holds the small
 helpers every D'thorga mod shares.
 
-Version 0.13.0, built 9 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
+Version 0.14.0, built 9 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
 oxygen working through Burns and Smoke and Medical Equipment (5 November 2026). The health layer new in 0.3.0 and the **vehicle
 systems new in 0.9.0, and their engines, drivetrains and gas turbines new in 0.11.0, are not yet tested in game.** The rest is read from the game's and the mods' code.
 
@@ -30,6 +30,10 @@ and wear that a mechanic services. See [Vehicle systems](#vehicle-systems-with-v
 - **From 0.12.0, helicopters and pods that launch through Vehicle Framework are checked before they lift off**: too heavy for the
   day's heat, or with engines or thrusters out, **the launch button refuses and says why** (unload, repair, or wait for cooler
   air). The same setting decides, so "warn only" lets them go.
+- **Steam locomotives (0.14.0): two settings to decide before you run one.** **Boiler explosions** are off by default: on, a
+  boiler without a fusible plug (the American 4-8-4) whose water runs below the firebox crown explodes, and the settings window
+  warns you. **Realistic feed water** is off by default: a water stop draws a tenth of the real tender (6,800 litres for the 4-8-4,
+  under one Dubs water tower's 8,000); on, the real 68,000.
 - **With Dubs Bad Hygiene, a vehicle's coolant top-up and a Harrier's injection water need a plumbing pipe with a water tower
   beside or under the parked vehicle.** Without Dubs Bad Hygiene, water is free.
 
@@ -133,7 +137,8 @@ tracked land vehicles, boats, aircraft), each system on or off, **figures only**
 cold fuel, how much the vehicle shows (Plain, Operator, Engineer), and the removal button. The first group needs a restart.
 **Engines and drivetrains:** the drivetrain off, shown only, or full (default full); **fuel use that follows engine load** (off:
 vehicles burn what their authors set); and **when an aircraft is too heavy or too hot to hover onto its pad**: use the runway
-(default), allow it at a cost to the engine, or warn only; from 0.12.0 it covers lift-off too. These take effect at once.
+(default), allow it at a cost to the engine, or warn only; from 0.12.0 it covers lift-off too. **Steam locomotives:** realistic
+feed water (off: a tenth of the real figure) and boiler explosions (off, with a warning). These take effect at once.
 
 **Per vehicle, in Vehicle Framework's own settings** (each vehicle's page in its mod settings): battery capacity, alternator
 output, starter draw, engine heat, radiator cooling, thermostat, oil use, tyre wear, gearbox heat and the air brakes' compressor

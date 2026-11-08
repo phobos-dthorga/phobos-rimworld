@@ -117,11 +117,11 @@ public class PowerAndLiftTests
     [Fact]
     public void AtTheContinuousRatingTheMotorsNeverOverheat() => Assert.True(double.IsPositiveInfinity(MinutesToOverheat(1)));
 
-    // The L-ATV's real figures (mods/PhobosVehicles/Defs/Drivetrains_RealVehicles.xml): 254 kW at 3,200 rpm, the Allison 2500's
+    // The L-ATV's real figures (mods/PhobosVehicles/Defs/Drivetrains_RealVehicles.xml): 276 kW (the owner's middle figure) at 3,200 rpm, the Allison 2500's
     // ratios, a 9.42 final drive worked out from its top speed, 0.55 m wheels, 6,400 kg kerb, permanent four-wheel drive.
     static DrivetrainSpec Latv() => new()
     {
-        IdleRpm = 700, LaunchRpm = 1325, RatedRpm = 3200, RatedPowerKw = 254, Gears = new[] { 3.51, 1.90, 1.44, 1.00, 0.74, 0.64 },
+        IdleRpm = 700, LaunchRpm = 1325, RatedRpm = 3200, RatedPowerKw = 276, Gears = new[] { 3.51, 1.90, 1.44, 1.00, 0.74, 0.64 },
         FinalDrive = 9.42, UpshiftRpm = 2624, DownshiftRpm = 1440, Efficiency = 0.88, WheelRadius = 0.55, DrivenShare = 1, DragArea = 5.0,
     };
 
@@ -145,7 +145,7 @@ public class PowerAndLiftTests
     public void TheLatvSlowsButNeverBogsInSoftSandWithAllWheelsDriving()
     {
         // At its full 2,313 kg payload in soft sand, four-wheel drive keeps the grip (0.35 x 8.7 t x g, 30 kN, over the 21 kN rolling
-        // load), but 254 kW cannot hold 12.8 m/s against it: the engine, not the tyres, sets the pace.
+        // load), but 276 kW cannot hold 12.8 m/s against it: the engine, not the tyres, sets the pace.
         DriveResult r = DrivetrainModel.Evaluate(Latv(), Ground(12.8, 8_713, 0.25, 0.35));
         Assert.Equal(DriveLimit.Power, r.Limit);
         Assert.InRange(r.Cap, 0.6, 0.95);

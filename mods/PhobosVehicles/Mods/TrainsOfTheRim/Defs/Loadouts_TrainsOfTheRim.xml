@@ -16,6 +16,10 @@
       844's figures) and about 1 2/3 hours in the tank engine's tanks (at about 30 imperial gallons a mile, secondary: the LMS
       Society's monograph), our inference turned into the feedShare figures.
     - Their brake pipes are their brakes.
+    - Water stops draw a tenth of the real figures (6,800 and 496 L) unless the player turns on realistic feed water (owner, 9 Nov
+      2026). The Frisco has no fusible plug, as US rules never required one (we found no record either way for the 4500 class;
+      authored), so with the boiler explosions setting on, letting its crown sheet run dry explodes the boiler. The tank engine
+      follows British practice and carries a plug.
   -->
   <Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
     <defName>PhobosVehicleLoadout_TOTR_Steam</defName>
@@ -37,6 +41,8 @@
           <coolingRate>0.08</coolingRate>
           <feedShare>0.11</feedShare>
           <feedWaterLitres>68000</feedWaterLitres>
+          <feedWaterLitresScaled>6800</feedWaterLitresScaled>
+          <fusiblePlugFitted>0</fusiblePlugFitted>
         </set>
       </li>
       <li><def>PhobosVehicleSystem_FusiblePlug</def></li>
@@ -82,6 +88,7 @@
           <coolingRate>0.08</coolingRate>
           <feedShare>0.2</feedShare>
           <feedWaterLitres>4955</feedWaterLitres>
+          <feedWaterLitresScaled>496</feedWaterLitresScaled>
         </set>
       </li>
       <li><def>PhobosVehicleSystem_FusiblePlug</def></li>

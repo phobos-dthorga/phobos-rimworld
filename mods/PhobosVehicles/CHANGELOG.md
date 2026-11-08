@@ -5,6 +5,23 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.6.0] - 2026-11-09 - Draft
+
+The owner's answers of 9 November 2026. **Not yet tested in game.**
+
+### Balance
+
+- The L-ATV's engine is now 370 hp (276 kW), the middle of the published 340 and 400 hp (owner's choice), up from 340.
+- Water stops draw a tenth of the steam locomotives' real tender and tank capacities by default: 6,800 litres for the 4-8-4 and 496 for the tank engine. The realistic feed water setting restores 68,000 and 4,955.
+
+### Changed
+
+- The 4-8-4 carries no fusible plug, as US rules never required one, so with the boiler explosions setting on, letting its water run below the crown explodes the boiler. The tank engine keeps its plug.
+
+### Dependencies
+
+- Needs D'thorga Framework 0.14.0 or later.
+
 ## [0.5.0] - 2026-11-09 - Draft
 
 Steam boilers: part 3 of the owner's approved proposals of 9 November 2026. **Not yet tested in game.**

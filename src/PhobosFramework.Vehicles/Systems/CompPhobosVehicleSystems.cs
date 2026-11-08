@@ -827,7 +827,9 @@ public class CompPhobosVehicleSystems : VehicleComp
         ServiceSpec? service = state?.Def.service;
         if (state == null || service == null) return 0f;
         float litres = service.waterLitres;
-        if (service.waterLitresParameter != null && state.system.parameters.TryGetValue(service.waterLitresParameter, out double fromParameter))
+        string? parameter = service.scaledWaterLitresParameter != null && !VehicleSystemsMod.Settings.FlagOn(service.realisticWaterSetting)
+            ? service.scaledWaterLitresParameter : service.waterLitresParameter;
+        if (parameter != null && state.system.parameters.TryGetValue(parameter, out double fromParameter))
         {
             litres = (float)fromParameter;
         }

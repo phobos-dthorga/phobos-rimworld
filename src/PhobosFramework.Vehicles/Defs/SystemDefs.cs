@@ -144,6 +144,10 @@ public class ServiceSpec
     public string? waterLitresParameter;
     /// <summary>Draw only the share the due quantity is short of its restored value (a half-empty tender takes half its litres).</summary>
     public bool waterForShortfall;
+    /// <summary>A parameter holding a scaled-down figure used instead, unless the player chose realistic water (the setting named by
+    /// <see cref="realisticWaterSetting"/>): a steam tender's real 68,000 L would empty most colonies' towers.</summary>
+    public string? scaledWaterLitresParameter;
+    public string realisticWaterSetting = "realisticFeedWater";
     /// <summary>Work in ticks for a mechanic of construction speed 1.</summary>
     public float work = 1200f;
 }

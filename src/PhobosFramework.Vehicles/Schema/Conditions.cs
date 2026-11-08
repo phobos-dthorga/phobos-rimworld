@@ -99,6 +99,15 @@ public class When_QuantityAbove : VehicleSystemCondition
 }
 
 /// <summary>A player's setting of this name (settings: fuelGelling).</summary>
+/// <summary>Whether one of this system's parameters, after the loadout's overrides, is below a value (a boiler without a fusible
+/// plug: fusiblePlugFitted 0).</summary>
+public class When_ParameterBelow : VehicleSystemCondition
+{
+    public string parameter = "";
+    public float value;
+    protected override bool HoldsRaw(SystemContext context) => context.Parameter(parameter) < value;
+}
+
 public class When_Setting : VehicleSystemCondition
 {
     public string setting = "";

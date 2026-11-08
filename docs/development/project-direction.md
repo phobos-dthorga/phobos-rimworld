@@ -84,6 +84,8 @@ load folder or patch.
 | 9 Nov 2026 | A jump jet too heavy or too hot to hover onto its pad: **a player setting** (use the runway, the default; allow at a cost to the engine; warn only) ([design](vehicle-turbine-design.md)) | owner (the three choices and the default are the agent's) |
 | 9 Nov 2026 | Vehicles' water (coolant top-ups, the Harrier's injection water): **Dubs Bad Hygiene plumbing beside the parked vehicle when it is active, otherwise free**; coolant's glycol share is a little chemfuel | owner (agent's recommendation) |
 | 9 Nov 2026 | **More engines and related systems where real counterparts have them**: thrust-lifted pods (Frog, Toad, Goliath), rotor drives for every helicopter, a diesel-electric for the Goat DE2, a boiler system for the steam locomotives, and real figures for the single-engine military vehicles, **the L-ATV first**; the boats, the Warbird and the Smuggler left out; built in parts ([power and lift](vehicle-power-and-lift-design.md)) | owner (on the agent's proposals) |
+| 9 Nov 2026 | Steam: **boiler explosions allowed, off by default**, behind a main-menu setting with a warning; **the tender scaled down by default** (a tenth) with a realistic setting ([steam](vehicle-steam-design.md)) | owner (the tenth and the plugless 4-8-4 are the agent's) |
+| 9 Nov 2026 | The L-ATV's engine at **the middle of the published figures**: 370 hp (276 kW) ([real figures](vehicle-real-figures-design.md)) | owner |
 
 ## Open checks
 
