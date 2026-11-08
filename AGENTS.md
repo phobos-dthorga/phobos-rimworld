@@ -35,6 +35,13 @@ delivered, record the delivery in the changelog or design record, and add or ame
   definition, the one the game keeps and every patch naming it; `show` for its XML and parents, `--lines 0` for a long Def in
   full; `list`, `patches`,
   `sql`) before searching mod folders by hand. It shows Defs as written, without other mods' patches applied.
+- **Answer questions about the game's or another mod's code with `python scripts/query-code.py`** (owner, 9 Nov 2026):
+  `show Type.Member` for its source, `outline Type` for what a type holds, `refs Name` for every line using a name grouped
+  by the member it is in, `find "*Pattern*"`; `--in "VehicleFramework*"` narrows to one decompile, `--in ours` to our
+  `src/`. It reads every tree in `.local/decompiled` and indexes them in the kit's cache. Use it before grepping a decompile
+  or sending an agent to read one, and cite what it shows as `file:line`. A tree not yet decompiled needs decompiling
+  first (into `.local/decompiled/<name>`); a single assembly's metadata, call graph or constants are REA's job once the
+  owner has it set up (`docs/development/analysis-tooling.md`).
 - **Answer what settings the owner plays with using `python scripts/mod-settings.py`** (owner, 9 Nov 2026): our mods' saved
   values beside their defaults, read from our C# source; `--mod <pattern>` for any other mod (Combat Extended, Vehicle Framework);
   `snapshot FILE`, then `compare FILE`, for what changed between two sessions. Run it with a reported fault before asking the
