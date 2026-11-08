@@ -43,6 +43,37 @@ public class Input_Ambient : VehicleSystemInput
     protected override float Raw(SystemContext context) => context.Comp.Ambient;
 }
 
+/// <summary>
+/// The temperature oil settles at with no coolant to follow (a gas turbine, an air-cooled engine): the air while the engine is off,
+/// running, from <c>idleCelsius</c> at no load to <c>fullCelsius</c> at full load.
+/// </summary>
+public class Input_OilWithoutCoolant : VehicleSystemInput
+{
+    public float idleCelsius = 55f;
+    public float fullCelsius = 95f;
+
+    protected override float Raw(SystemContext context) =>
+        (float)DriveHeatRules.OilTargetWithoutCoolant(context.Comp.EngineRunning, context.Comp.Ambient, context.Comp.EngineLoad, idleCelsius, fullCelsius);
+}
+
+/// <summary>
+/// The share of a gearbox's full-work heat being made now: 0 with the engine off, <c>stopped</c> standing with it running; on the move
+/// <c>flatOut</c> without the drivetrain model, and with it from <c>cruising</c> at no load to <c>flatOut</c> at full load.
+/// </summary>
+public class Input_GearboxWork : VehicleSystemInput
+{
+    public float stopped = 0.1f;
+    public float cruising = 0.7f;
+    public float flatOut = 1f;
+
+    protected override float Raw(SystemContext context)
+    {
+        Powertrain? train = context.Comp.Powertrain;
+        return (float)DriveHeatRules.GearboxWork(context.Comp.EngineRunning, context.Comp.Moving, train != null && train.Full && train.Ground,
+            context.Comp.EngineLoad, stopped, cruising, flatOut);
+    }
+}
+
 /// <summary>Whether the engine is running: the vehicle is drafted (or its caravan is moving, or it is flying) with fuel aboard.</summary>
 public class Input_EngineRunning : VehicleSystemInput
 {

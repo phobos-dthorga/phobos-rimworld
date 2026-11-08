@@ -12,6 +12,8 @@
     - A ground start spins the core to about 25% and fuel goes in once it passes 15% (secondary: JSBSim FGTurbine); here a starting
       power below 25% cannot reach light-off (a hung start), and below 40% lights it hot (authored thresholds).
     - The hot-section overhaul's supplies are gameplay stand-ins: plasteel for the blades, components for the rest.
+    - The temperature shown follows the model at once while the engine runs and, once it stops, cools with the metal's heat: about
+      half the gap in a quarter hour, near the air in two (authored rate; Framework 0.29.1). Limits and wear read the model's figure.
   -->
   <Phobos.VehicleSystems.PhobosVehicleSystemDef>
     <defName>PhobosVehicleSystem_Turbine</defName>
@@ -20,6 +22,10 @@
     <roles>
       <li>Engine</li>
     </roles>
+    <parameters>
+      <temperatureFollowRate>60</temperatureFollowRate>
+      <coolDownRate>2.5</coolDownRate>
+    </parameters>
     <quantities>
       <li>
         <name>turbineTemperature</name>
@@ -27,9 +33,7 @@
         <unit>Celsius</unit>
         <min>-60</min>
         <max>1500</max>
-        <derivedFrom>
-          <li Class="Phobos.VehicleSystems.Input_Turbine"><reading>Temperature</reading></li>
-        </derivedFrom>
+        <startsAt>Ambient</startsAt>
       </li>
       <li>
         <name>turbineOverLimit</name>
@@ -156,6 +160,22 @@
       </li>
     </quantities>
     <flows>
+      <li>
+        <name>followModel</name>
+        <quantity>turbineTemperature</quantity>
+        <kind>Toward</kind>
+        <target Class="Phobos.VehicleSystems.Input_Turbine"><reading>Temperature</reading></target>
+        <factorParameter>temperatureFollowRate</factorParameter>
+        <when Class="Phobos.VehicleSystems.When_EngineRunning" />
+      </li>
+      <li>
+        <name>coolDown</name>
+        <quantity>turbineTemperature</quantity>
+        <kind>Toward</kind>
+        <target Class="Phobos.VehicleSystems.Input_Ambient" />
+        <factorParameter>coolDownRate</factorParameter>
+        <when Class="Phobos.VehicleSystems.When_EngineRunning"><invert>true</invert></when>
+      </li>
       <li>
         <name>hotSectionWear</name>
         <quantity>hotSectionLife</quantity>

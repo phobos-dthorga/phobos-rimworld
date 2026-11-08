@@ -125,7 +125,7 @@ public class ITab_VehicleDashboard : ITab
                     train.TurbineNow.OverTop > 0 ? PhobosWidgets.Bad : train.TurbineNow.OverContinuous > 0 ? PhobosWidgets.Caution : PhobosWidgets.Good,
                     "PhobosVehicleSystems_SysTurbine".Translate(),
                     "PhobosVehicleSystems_InspectTurbine".Translate(train.TurbineNow.SpeedPercent.ToString("0").Named("SPOOL"),
-                        ((float)train.TurbineNow.Temperature).ToStringTemperature("F0").Named("TEMPERATURE")).Resolve());
+                        train.ShownTurbineTemperature.ToStringTemperature("F0").Named("TEMPERATURE")).Resolve());
             }
             else
             {

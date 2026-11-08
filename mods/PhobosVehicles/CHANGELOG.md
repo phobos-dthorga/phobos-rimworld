@@ -7,6 +7,7 @@ tested in game unless an entry says the owner tested it.
 
 ### Changed
 
+- A note in the M1A2's loadout file now says where its oil's temperature comes from (D'thorga Framework 0.29.1 fixed it). Text only; nothing in game changes here.
 - The mod description and the README's Coming later section now describe what 0.10.0 does (turbines, boilers, real figures, climate control, the electric Lightning) instead of 0.1.0, and name the five utility vehicles planned, each with an upgrade tree, with parts from RimThunder and Vanilla Vehicles Expanded where present (owner's directions, 9 November 2026; design record docs/development/utility-vehicles-design.md). Text only; nothing in game changes.
 
 ### Compatibility and limits

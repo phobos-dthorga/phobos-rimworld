@@ -5,6 +5,24 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.29.1] - 2026-11-09 - Draft
+
+Temperatures that stayed at the air's, from the owner's test of the Cherokee and the M1A2 Abrams (9 November 2026). **Not yet tested in game.**
+
+### Fixed
+
+- Oil in an engine with no coolant (every gas turbine, so the Abrams and every aircraft) followed the air even with the engine running. It now runs from 55 degrees C idling to 95 at full load, and falls back to the air once the engine is off. The figures are authored.
+- A gearbox stayed near the air's temperature however far it was driven: its heat was tuned for the old load figure, and the drivetrain model's real loads are far lower on a light cruise. It now warms on any drive and most at full load, and a little while standing with the engine running.
+- A turbine's temperature dropped to the air's the moment the engine stopped. It now cools with the metal, about half the gap in a quarter of an hour and near the air in two hours. Its limits and wear are unchanged, and still follow the engine's work.
+
+### Save compatibility
+
+- Safe on a running colony. A turbine's temperature begins at the air's on the first load, then is saved.
+
+### Compatibility and limits
+
+- Vehicle Framework does not tick a vehicle during a world-map flight, so temperatures are caught up on landing, as if the time had passed at what the engine is doing then.
+
 ## [0.29.0] - 2026-11-09 - Draft
 
 Part conditions: the third slice of the vehicle health work (owner, 9 November 2026), after a read of Vehicle Framework's development branch for 1.7. **Not yet tested in game.** Design: docs/development/vehicle-health-design.md.

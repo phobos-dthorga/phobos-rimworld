@@ -87,7 +87,7 @@ public static class InspectText
         if (train.Turbine != null)
         {
             line = "PhobosVehicleSystems_InspectTurbine".Translate(train.TurbineNow.SpeedPercent.ToString("0").Named("SPOOL"),
-                ((float)train.TurbineNow.Temperature).ToStringTemperature("F0").Named("TEMPERATURE")).Resolve();
+                train.ShownTurbineTemperature.ToStringTemperature("F0").Named("TEMPERATURE")).Resolve();
             if (train.IsAircraft && train.PhaseSpec != null && !train.PhaseSpec.label.NullOrEmpty()) line += " " + "PhobosVehicleSystems_InspectPhase".Translate(train.PhaseSpec.label.Named("PHASE")).Resolve();
         }
         else if (r.Gear > 0)

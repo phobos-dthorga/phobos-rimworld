@@ -227,6 +227,24 @@ public sealed class Powertrain
 
     public void MarkMassDirty() => massTick = -1;
 
+    /// <summary>
+    /// The turbine's temperature to show: the gas turbine system's quantity, which follows the model while the engine runs and cools
+    /// over about an hour after it stops; the model's own figure while that system is switched off. Limits and wear use the model's.
+    /// </summary>
+    public float ShownTurbineTemperature
+    {
+        get
+        {
+            IReadOnlyList<SystemState> states = comp.States;
+            for (int i = 0; i < states.Count; i++)
+            {
+                int index = states[i].Def.QuantityIndex("turbineTemperature");
+                if (index >= 0 && comp.IsEnabled(states[i])) return (float)states[i].values[index];
+            }
+            return (float)TurbineNow.Temperature;
+        }
+    }
+
     /// <summary>Whether the engines run, for an aircraft: its phase says so.</summary>
     public bool AircraftRunning => PhaseSpec?.running ?? false;
 

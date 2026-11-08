@@ -219,7 +219,9 @@
 
   <!--
     The transmission's oil heats with work on the move, more in a damaged gearbox, and cools toward the air (authored: settles near
-    90 degrees C at full work, past 120 once the gearbox is badly worn).
+    90 degrees C at full work, past 120 once the gearbox is badly worn). Most of a gearbox's heat at ordinary loads comes from churning
+    its oil, so a light cruise still warms it (Input_GearboxWork: authored shares, 70% at no load on the move, 10% standing; Framework
+    0.29.1, after the drivetrain model's real loads left a driven tank's gearbox at the air's temperature).
   -->
   <Phobos.VehicleSystems.PhobosVehicleSystemDef>
     <defName>PhobosVehicleSystem_Transmission</defName>
@@ -268,15 +270,7 @@
         <kind>Into</kind>
         <factorParameter>heatAtFullLoad</factorParameter>
         <inputs>
-          <li Class="Phobos.VehicleSystems.Input_EngineLoad">
-            <curve>
-              <points>
-                <li>(0, 0)</li>
-                <li>(0.5, 0.1)</li>
-                <li>(1, 1)</li>
-              </points>
-            </curve>
-          </li>
+          <li Class="Phobos.VehicleSystems.Input_GearboxWork" />
           <li Class="Phobos.VehicleSystems.Input_PartEfficiency">
             <role>Transmission</role>
             <curve>

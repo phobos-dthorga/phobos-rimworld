@@ -10,7 +10,7 @@
     The M113, M113(M) and M48H get their real engines' power and weights (D'thorga Vehicles' Defs folder).
 
     The M1A2 Abrams runs a gas turbine (the AGT1500; secondary: Wikipedia, "M1 Abrams"), which has no liquid coolant or radiator, so
-    it gets the heavy systems without the cooling system. Its oil then follows the air (the lubrication system's fallback), a
+    it gets the heavy systems without the cooling system. Its oil then runs at the lubrication system's own figures for an engine with no coolant, a
     simplification. The same loadout is written for Desert Sabre's M1A2 SEP.
   -->
   <Phobos.VehicleSystems.PhobosVehicleLoadoutDef ParentName="PhobosVehicleLoadoutLandHeavy">

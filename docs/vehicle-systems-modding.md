@@ -185,6 +185,8 @@ Every input takes an optional `curve` (points `(x, y)` mapping the raw reading) 
 | `Input_DrivePower` | power at the driven wheels, kW (0 without a drivetrain) |
 | `Input_Turbine` | a turbine `reading`: `Temperature` (degrees C), `OverContinuous` and `OverTop` (degrees past those limits), `SpeedPercent`, `LifePerHour`, `Demand`, `EnginesOut`, `OverTorque` (demand over the rotor drive's limit, minus 1) |
 | `Input_TractionLoad` | a diesel-electric's pull over its traction motors' continuous rating (above 1 they heat) |
+| `Input_GearboxWork` | the share of a gearbox's full-work heat: 0 off, `stopped` (0.1) standing, on the move `flatOut` (1) without the drivetrain model and with it `cruising` (0.7) rising to `flatOut` at full load |
+| `Input_OilWithoutCoolant` | where oil settles with no coolant to follow: the air while off; running, `idleCelsius` (55) to `fullCelsius` (95) with load |
 | `Input_Moving` | `moving` (1) or `stopped` (0) |
 | `Input_PartEfficiency` | the average efficiency of the parts bound to `role`, or `missing` (1) |
 | `Input_Quantity` | another `quantity` of the vehicle, in any system, or the `fallback` input |
@@ -515,7 +517,7 @@ is active.
 | --- | --- | --- | --- |
 | `PhobosVehicleSystem_Electrical` | charge, starting power, starter, battery frost | Battery, Alternator, Starter | Parameters `batteryAmpHours`, `alternatorAmps`, `starterAmpHours`, `shoreChargeAmps`; jump-starts |
 | `PhobosVehicleSystem_Cooling` | coolant temperature and level, engine load | Engine, Radiator | `heatAtFullLoad`, `radiatorRate`, `soakRate`, `thermostatOpens`; coolant top-up service: 3 chemfuel and 10 litres of water |
-| `PhobosVehicleSystem_Lubrication` | oil level, temperature, pressure | Engine, OilPump | Oil follows the coolant, or the air without a cooling system |
+| `PhobosVehicleSystem_Lubrication` | oil level, temperature, pressure | Engine, OilPump | Oil follows the coolant; with no cooling system, it runs warm while the engine does (`Input_OilWithoutCoolant`) |
 | `PhobosVehicleSystem_Fuel` | fuel gel | | Only with the player's cold-fuel setting |
 | `PhobosVehicleSystem_Service` | hours since service | Engine, Alternator, Starter, Radiator | Service: 9 chemfuel, 1 component (the oil) |
 | `PhobosVehicleSystem_RunningGear` | tread wear | Wheels | Service: 15 steel, 2 components, 10 chemfuel (the rubber) |

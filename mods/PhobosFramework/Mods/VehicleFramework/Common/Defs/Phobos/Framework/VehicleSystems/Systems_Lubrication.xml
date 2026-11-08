@@ -7,7 +7,10 @@
     Sources and labels:
     - Engine oil runs at about 85 to 105 degrees C when warm and breaks down faster held above about 110 to 120. Secondary and low
       quality: enthusiasts' forums; to be replaced by an engine maker's manual. The 120 degree floor is authored.
-    - Oil follows the coolant's temperature (authored rate), so a hot engine has hot oil.
+    - Oil follows the coolant's temperature (authored rate), so a hot engine has hot oil. An engine with no coolant (a gas turbine,
+      an air-cooled engine) has oil heated by its bearings and held down by its cooler: 55 degrees C idling to 95 at full load while it
+      runs, the air once it is off (authored, no published figure checked; Framework 0.29.1, after the owner saw a running tank's oil
+      at -15 degrees C).
     - Oil burned in running: 0.15 % of the sump an hour at full load (authored; real engines burn far less, but a service every
       few in-game weeks is the point).
     - Oil pressure here is the pump's ability, from the oil pump part's health and the oil level (authored curve); it does harm
@@ -130,7 +133,7 @@
         <kind>Toward</kind>
         <target Class="Phobos.VehicleSystems.Input_Quantity">
           <quantity>coolantTemperature</quantity>
-          <fallback Class="Phobos.VehicleSystems.Input_Ambient" />
+          <fallback Class="Phobos.VehicleSystems.Input_OilWithoutCoolant" />
         </target>
         <factorParameter>oilFollowRate</factorParameter>
       </li>

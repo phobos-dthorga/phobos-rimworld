@@ -19,7 +19,7 @@ write it up. It extends the [drivetrain and engine speed design](vehicle-drivetr
   engine model named in the loadout, the model sets it instead. Every system that already reads `Input_EngineLoad` (oil heat,
   wear, the alternator) then sees real load with no change to its XML.
 - **The same method as the drivetrain.** Work out the power or thrust the vehicle needs; derive spool speed, turbine temperature,
-  fuel power and wear from it. Turbine temperature is **calculated, not integrated**. Oil temperature and water level go through
+  fuel power and wear from it. Turbine temperature is **calculated, not integrated** (limits and wear still read it so; since Framework 0.29.1 the figure shown is a quantity that follows it while running and cools over about an hour after shutdown). Oil temperature and water level go through
   the built `SystemIntegrator`, which already takes exact exponential steps with a banded thermostat. Hot-section life is a
   counter.
 - **Aircraft get their load from flight phases.** Vehicle Framework gives no throttle, but both flight frameworks keep distinct

@@ -184,7 +184,7 @@ public class ITab_VehicleSystems : ITab
                 PhobosWidgets.Section(ref y, 0f, viewWidth, "PhobosVehicleSystems_SysTurbine".Translate());
                 TurbineState t = train.TurbineNow;
                 Widgets.Label(new Rect(0f, y, viewWidth, Row), "PhobosVehicleSystems_InspectTurbine".Translate(t.SpeedPercent.ToString("0").Named("SPOOL"),
-                    ((float)t.Temperature).ToStringTemperature("F0").Named("TEMPERATURE")).Resolve()
+                    train.ShownTurbineTemperature.ToStringTemperature("F0").Named("TEMPERATURE")).Resolve()
                     + (train.PhaseSpec != null && !train.PhaseSpec.label.NullOrEmpty() ? " " + "PhobosVehicleSystems_InspectPhase".Translate(train.PhaseSpec.label.Named("PHASE")).Resolve() : ""));
                 y += Row;
                 (int working, int engines) = train.Engines();
