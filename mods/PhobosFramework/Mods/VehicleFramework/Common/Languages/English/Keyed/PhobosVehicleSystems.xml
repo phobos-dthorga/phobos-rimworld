@@ -156,6 +156,8 @@
   <PhobosVehicleSystems_CaravanCapExplanation>{VEHICLE} held to {CAP} of its speed by its engine or the ground</PhobosVehicleSystems_CaravanCapExplanation>
 
   <!-- Tuning in Vehicle Framework's per-vehicle settings window (settings text, so it may name things plainly) -->
+  <PhobosVehicleSystems_TuneEmptyMass>Empty mass (kg)</PhobosVehicleSystems_TuneEmptyMass>
+  <PhobosVehicleSystems_TuneEmptyMassDesc>The vehicle's weight with no cargo, crew or fuel, in kilograms. Cargo, passengers, hills and soft ground work the engine against this, and the engine's power follows it unless the vehicle has a power of its own.</PhobosVehicleSystems_TuneEmptyMassDesc>
   <PhobosVehicleSystems_TuneBatteryAmpHours>Battery capacity (ampere-hours)</PhobosVehicleSystems_TuneBatteryAmpHours>
   <PhobosVehicleSystems_TuneBatteryAmpHoursDesc>How much charge the starting battery holds. A typical car battery is about 45; a heavy vehicle's pair about 100.</PhobosVehicleSystems_TuneBatteryAmpHoursDesc>
   <PhobosVehicleSystems_TuneAlternatorAmps>Alternator output (amperes)</PhobosVehicleSystems_TuneAlternatorAmps>

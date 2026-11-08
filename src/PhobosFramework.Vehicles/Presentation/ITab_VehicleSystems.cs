@@ -84,7 +84,7 @@ public class ITab_VehicleSystems : ITab
         VehicleComponent? hovered = null;
         foreach (SystemState system in comp.States)
         {
-            if (!comp.IsEnabled(system)) continue;
+            if (!comp.IsEnabled(system) || !HasRows(comp, system, engineer)) continue;
             if (state.PendingSection == system.Def.defName)
             {
                 state.Scroll.y = y;
@@ -96,15 +96,14 @@ public class ITab_VehicleSystems : ITab
                 QuantitySpec quantity = system.Def.quantities[q];
                 if (quantity.hidden && !engineer) continue;
                 StageSpec? stage = system.CurrentStage(q);
-                string figure = InspectText.Format(quantity, system.values[q]);
+                GaugeReading reading = GaugeReading.For(system, q);
                 string text = stage != null
-                    ? "PhobosVehicleSystems_InspectFigureStage".Translate(quantity.label.CapitalizeFirst().Named("QUANTITY"), figure.Named("VALUE"), stage.label.Named("STAGE")).Resolve()
-                    : "PhobosVehicleSystems_InspectFigure".Translate(quantity.label.CapitalizeFirst().Named("QUANTITY"), figure.Named("VALUE")).Resolve();
+                    ? "PhobosVehicleSystems_InspectFigureStage".Translate(reading.Label.Named("QUANTITY"), reading.Figure.Named("VALUE"), stage.label.Named("STAGE")).Resolve()
+                    : "PhobosVehicleSystems_InspectFigure".Translate(reading.Label.Named("QUANTITY"), reading.Figure.Named("VALUE")).Resolve();
                 Widgets.Label(new Rect(0f, y, viewWidth * 0.55f, Row), text);
                 if (quantity.unit is QuantityUnit.Fraction or QuantityUnit.Celsius)
                 {
-                    float fill = (float)((system.values[q] - system.min[q]) / System.Math.Max(1e-6, system.max[q] - system.min[q]));
-                    PhobosWidgets.Gauge(new Rect(viewWidth * 0.58f, y + 3f, viewWidth * 0.42f, Row - 6f), fill, ITab_VehicleDashboard.StageColour(stage));
+                    PhobosWidgets.Gauge(new Rect(viewWidth * 0.58f, y + 3f, viewWidth * 0.42f, Row - 6f), reading.Fill, ITab_VehicleDashboard.StageColour(stage));
                 }
                 y += Row;
                 if (engineer)
@@ -145,7 +144,7 @@ public class ITab_VehicleSystems : ITab
                     }
                     // No part icon and no Vehicle Framework colour helper: both pass Unity types, which a 1.7 build cannot use
                     // through Vehicle Framework's 1.6 assembly. The health colour is the core's own.
-                    Widgets.Label(new Rect(8f, y, viewWidth * 0.55f, Row), "PhobosVehicleSystems_SysPart".Translate(role.Named("ROLE"), part.props.label.Named("PART")).Resolve());
+                    Widgets.Label(new Rect(8f, y, viewWidth * 0.55f, Row), PartLabel(role, part.props.label));
                     using (new TextBlock(TextAnchor.MiddleRight))
                     {
                         Widgets.Label(new Rect(viewWidth * 0.58f, y, viewWidth * 0.42f, Row),
@@ -208,13 +207,35 @@ public class ITab_VehicleSystems : ITab
         Highlight(comp.Vehicle, hovered);
     }
 
+    /// <summary>"Wheels: front left wheel", or only the part's name when it says the same as its role ("Battery", not "Battery:
+    /// Battery").</summary>
+    public static string PartLabel(string role, string part) =>
+        string.Equals(role.Trim(), part.Trim(), System.StringComparison.OrdinalIgnoreCase)
+            ? part.CapitalizeFirst()
+            : "PhobosVehicleSystems_SysPart".Translate(role.Named("ROLE"), part.Named("PART")).Resolve();
+
+    /// <summary>Whether a system has anything to show in this mode: a quantity that is not hidden, or a bound part. A system with
+    /// neither (one switched off by a setting, such as fuel in the cold) is left out rather than shown as an empty heading.</summary>
+    static bool HasRows(CompPhobosVehicleSystems comp, SystemState system, bool engineer)
+    {
+        for (int q = 0; q < system.values.Length; q++)
+        {
+            if (engineer || !system.Def.quantities[q].hidden) return true;
+        }
+        foreach (string role in system.Def.roles)
+        {
+            if (comp.Props.roleKeys.TryGetValue(role, out List<string>? keys) && keys.Count > 0) return true;
+        }
+        return false;
+    }
+
     /// <summary>The scroll view's height, laid out the same way as FillTab draws it.</summary>
     static float ContentHeight(CompPhobosVehicleSystems comp, bool engineer, float width)
     {
         float y = 0f;
         foreach (SystemState system in comp.States)
         {
-            if (!comp.IsEnabled(system)) continue;
+            if (!comp.IsEnabled(system) || !HasRows(comp, system, engineer)) continue;
             y += 28f;
             for (int q = 0; q < system.values.Length; q++)
             {

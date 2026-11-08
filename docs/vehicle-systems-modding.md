@@ -362,11 +362,32 @@ or clear, to see the caravan slow and its explanation). The cab's temperature is
 **fill history with a test curve** (a day of sine waves in every graph), **open the Dashboard tab**, **open the Systems tab** and
 **log tab state** (how many vehicles' tab state is held; it should be none after the tab closes).
 
+## A vehicle's own weight and power
+
+Vehicle Framework's `Mass` is not comparable between mods, so a vehicle can carry its own figures:
+
+```xml
+<Operation Class="PatchOperationAddModExtension">
+  <xpath>Defs/Vehicles.VehicleDef[defName="VVE_Dirtbike"]</xpath>
+  <value>
+    <li Class="Phobos.VehicleSystems.PhobosVehicleFiguresExtension">
+      <emptyKilograms>110</emptyKilograms>   <!-- empty (kerb) mass -->
+      <ratedKilowatts>30</ratedKilowatts>    <!-- optional: engine power, when power per tonne would be far off -->
+    </li>
+  </value>
+</Operation>
+```
+
+Empty mass, most specific first: the player's tuning in Vehicle Framework's window; this extension; the loadout's or drivetrain's
+`emptyKilograms`; `Mass` times `kilogramsPerVehicleMass` (12), never below 50 kg. Engine power: this extension; the loadout's or
+drivetrain's `ratedKilowatts`; power per tonne times the empty mass. A quantity that counts what is used up can carry a
+`remainingLabel` ("tread"): the tabs' gauges then show what is left, full when new.
+
 ## Tuning in Vehicle Framework's window
 
 Players can change some of the shipped systems' parameters per vehicle in Vehicle Framework's own settings: battery capacity,
-alternator output, starter draw, engine heat, radiator cooling, thermostat, oil use, tyre wear, gearbox heat, and the air
-brakes' compressor and leak. Each field starts at the vehicle's figure after its loadout's overrides, and the player's change
+alternator output, starter draw, engine heat, radiator cooling, thermostat, oil use, tyre wear, gearbox heat, the air
+brakes' compressor and leak, and (0.19.0) the empty mass. Each field starts at the vehicle's figure after its loadout's overrides, and the player's change
 wins over the loadout. Vehicle Framework shows fields, not lists, so your own systems' parameters are tuned in loadouts only.
 
 ## A class of your own

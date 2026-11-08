@@ -52,6 +52,13 @@ rule asks, with the history ring and its codec in the core's `Rules/History.cs` 
 4. Hover a part row in Systems: the part lights up on the vehicle; it stops when the tab closes ("log tab state": none held).
 5. With RimHUD, docked and floating: the tabs sit in RimHUD's strip and draw as on the plain pane.
 
+## Results from play
+
+- **9 Nov 2026, the owner's first look (screenshots, L-ATV):** both tabs draw beside Vehicle Framework's; the Dashboard's gauges,
+  switch colours and "Nothing needs you." line read as designed; the Systems tab's sections and part health read right. The owner
+  asked for wear gauges to show what is left, and the agent saw parts repeated after their role and an empty section for a system
+  switched off by a setting: all three changed in Framework 0.19.0. The rest of the test list is not yet run.
+
 ## Who chose what
 
 - **Owner (9 Nov 2026):** the two tabs and their names; a day of saved history.

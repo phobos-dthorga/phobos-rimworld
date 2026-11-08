@@ -29,6 +29,10 @@ public sealed class TunesParameterAttribute : Attribute
 /// </summary>
 public static class Tuning
 {
+    /// <summary>The "system" name for the drivetrain's own tunable figures, which no system Def owns.</summary>
+    public const string Drivetrain = "drivetrain";
+    public const string EmptyKilograms = "emptyKilograms";
+
     static Dictionary<(string system, string parameter), FieldInfo>? fields;
 
     static Dictionary<(string, string), FieldInfo> Fields
@@ -47,10 +51,18 @@ public static class Tuning
     }
 
     /// <summary>Fills the tuning fields with this design's values (or the system's defaults where it lacks the system).</summary>
-    public static void Fill(CompProperties_PhobosVehicleSystems props)
+    public static void Fill(CompProperties_PhobosVehicleSystems props, VehicleDef vehicleDef)
     {
         foreach (KeyValuePair<(string system, string parameter), FieldInfo> pair in Fields)
         {
+            if (pair.Key.system == Drivetrain)
+            {
+                if (pair.Key.parameter == EmptyKilograms && props.drivetrain?.def != null)
+                {
+                    pair.Value.SetValue(props, (float)Powertrain.KerbFor(vehicleDef, props.drivetrain.def, props.drivetrain.set));
+                }
+                continue;
+            }
             double? value = null;
             foreach (ResolvedSystem system in props.systems)
             {

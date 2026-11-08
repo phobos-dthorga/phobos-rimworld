@@ -211,6 +211,8 @@ def check(root):
                 errors.append(f'{where}: {qname} showOnDashboard must be true or false')
             if text(quantity, 'showOnDashboard') == 'true' and text(quantity, 'hidden') == 'true':
                 errors.append(f'{where}: {qname} is hidden and on the dashboard at once')
+            if quantity.find('remainingLabel') is not None and not text(quantity, 'remainingLabel'):
+                errors.append(f'{where}: {qname} has an empty remainingLabel')
         parameters = {child.tag for child in (node.find('parameters') if node.find('parameters') is not None else [])}
         roles = {(li.text or '').strip() for li in items(node, 'roles')}
         systems[name] = {'quantities': quantities, 'parameters': parameters, 'roles': roles, 'node': node, 'where': where}

@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <!--
+    Empty masses for Vanilla Vehicles Expanded's vehicles (owner's choice, 9 Nov 2026: authored masses by the real class each description names;
+    docs/development/vehicle-kerb-mass-check.md). Vehicle Framework's Mass figures are not comparable between mods, and on the
+    framework's rule of 12 kg per Mass these came out with bikes three times too heavy and tanks a tenth of their weight.
+    Every figure is AUTHORED: a round weight for a real vehicle of the class the description names, approximate, general. Three
+    follow a real aircraft and say so (secondary sources, approximate). Engine power follows the drivetrain's power per tonne,
+    except where a figure is given (motorcycles, whose power per tonne is far above a car's). Not yet tested in game.
+  -->
+  <!-- Dirtbike: an off-road motorcycle, about 110 kg; a 250 cc dirt bike makes about 30 kW (approximate, general) -->
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>Defs/Vehicles.VehicleDef[defName="VVE_Dirtbike"]</xpath>
+    <value>
+      <li Class="Phobos.VehicleSystems.PhobosVehicleFiguresExtension">
+        <emptyKilograms>110</emptyKilograms>
+        <ratedKilowatts>30</ratedKilowatts>
+      </li>
+    </value>
+  </Operation>
+  <!-- Charley: a road motorcycle, about 230 kg and 55 kW (approximate, general) -->
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>Defs/Vehicles.VehicleDef[defName="VVE_Charley"]</xpath>
+    <value>
+      <li Class="Phobos.VehicleSystems.PhobosVehicleFiguresExtension">
+        <emptyKilograms>230</emptyKilograms>
+        <ratedKilowatts>55</ratedKilowatts>
+      </li>
+    </value>
+  </Operation>
+  <!-- Prowler: a single-seat off-road buggy, about 700 kg -->
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>Defs/Vehicles.VehicleDef[defName="VVE_Prowler"]</xpath>
+    <value>
+      <li Class="Phobos.VehicleSystems.PhobosVehicleFiguresExtension">
+        <emptyKilograms>700</emptyKilograms>
+      </li>
+    </value>
+  </Operation>
+  <!-- Traveller: a small road car, about 1.3 t -->
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>Defs/Vehicles.VehicleDef[defName="VVE_Traveller"]</xpath>
+    <value>
+      <li Class="Phobos.VehicleSystems.PhobosVehicleFiguresExtension">
+        <emptyKilograms>1300</emptyKilograms>
+      </li>
+    </value>
+  </Operation>
+  <!-- Mule: a light pickup or cargo truck, about 2 t -->
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>Defs/Vehicles.VehicleDef[defName="VVE_Mule"]</xpath>
+    <value>
+      <li Class="Phobos.VehicleSystems.PhobosVehicleFiguresExtension">
+        <emptyKilograms>2000</emptyKilograms>
+      </li>
+    </value>
+  </Operation>
+  <!-- Wagon: an estate car or light four-wheel drive, about 2.2 t -->
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>Defs/Vehicles.VehicleDef[defName="VVE_Wagon"]</xpath>
+    <value>
+      <li Class="Phobos.VehicleSystems.PhobosVehicleFiguresExtension">
+        <emptyKilograms>2200</emptyKilograms>
+      </li>
+    </value>
+  </Operation>
+  <!-- Snatcher: a people carrier or minibus, about 2.5 t -->
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>Defs/Vehicles.VehicleDef[defName="VVE_Snatcher"]</xpath>
+    <value>
+      <li Class="Phobos.VehicleSystems.PhobosVehicleFiguresExtension">
+        <emptyKilograms>2500</emptyKilograms>
+      </li>
+    </value>
+  </Operation>
+  <!-- Bang Bus: a minibus with light armour plates, about 2.6 t -->
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>Defs/Vehicles.VehicleDef[defName="VVE_BangBus"]</xpath>
+    <value>
+      <li Class="Phobos.VehicleSystems.PhobosVehicleFiguresExtension">
+        <emptyKilograms>2600</emptyKilograms>
+      </li>
+    </value>
+  </Operation>
+  <!-- Scytheman: a farm tractor carrying a rocket launcher, about 4 t -->
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>Defs/Vehicles.VehicleDef[defName="VVE_Scytheman"]</xpath>
+    <value>
+      <li Class="Phobos.VehicleSystems.PhobosVehicleFiguresExtension">
+        <emptyKilograms>4000</emptyKilograms>
+      </li>
+    </value>
+  </Operation>
+  <!-- Highwayman: a light armoured car for three, about 4.4 t (a scout car of that kind) -->
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>Defs/Vehicles.VehicleDef[defName="VVE_Highwayman"]</xpath>
+    <value>
+      <li Class="Phobos.VehicleSystems.PhobosVehicleFiguresExtension">
+        <emptyKilograms>4400</emptyKilograms>
+      </li>
+    </value>
+  </Operation>
+  <!-- Roadrunner: a medium cargo truck, about 5 t empty -->
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>Defs/Vehicles.VehicleDef[defName="VVE_Roadrunner"]</xpath>
+    <value>
+      <li Class="Phobos.VehicleSystems.PhobosVehicleFiguresExtension">
+        <emptyKilograms>5000</emptyKilograms>
+      </li>
+    </value>
+  </Operation>
+  <!-- Wisent: a military all-terrain truck, about 10 t empty -->
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>Defs/Vehicles.VehicleDef[defName="VVE_Wisent"]</xpath>
+    <value>
+      <li Class="Phobos.VehicleSystems.PhobosVehicleFiguresExtension">
+        <emptyKilograms>10000</emptyKilograms>
+      </li>
+    </value>
+  </Operation>
+  <!-- Tango: a slow, hardy armoured personnel carrier with a turret, about 14 t -->
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>Defs/Vehicles.VehicleDef[defName="VVE_Tango"]</xpath>
+    <value>
+      <li Class="Phobos.VehicleSystems.PhobosVehicleFiguresExtension">
+        <emptyKilograms>14000</emptyKilograms>
+      </li>
+    </value>
+  </Operation>
+  <!-- Bunsen: a light tank, about 15 t -->
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>Defs/Vehicles.VehicleDef[defName="VVE_Bunsen"]</xpath>
+    <value>
+      <li Class="Phobos.VehicleSystems.PhobosVehicleFiguresExtension">
+        <emptyKilograms>15000</emptyKilograms>
+      </li>
+    </value>
+  </Operation>
+  <!-- Roadkill: a medium tank, about 30 t -->
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>Defs/Vehicles.VehicleDef[defName="VVE_Roadkill"]</xpath>
+    <value>
+      <li Class="Phobos.VehicleSystems.PhobosVehicleFiguresExtension">
+        <emptyKilograms>30000</emptyKilograms>
+      </li>
+    </value>
+  </Operation>
+  <!-- Bulldog: a main battle tank, about 45 t -->
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>Defs/Vehicles.VehicleDef[defName="VVE_Bulldog"]</xpath>
+    <value>
+      <li Class="Phobos.VehicleSystems.PhobosVehicleFiguresExtension">
+        <emptyKilograms>45000</emptyKilograms>
+      </li>
+    </value>
+  </Operation>
+  <!-- Dinghy: a small open boat with an outboard motor, about 350 kg -->
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>Defs/Vehicles.VehicleDef[defName="VVE_Dinghy"]</xpath>
+    <value>
+      <li Class="Phobos.VehicleSystems.PhobosVehicleFiguresExtension">
+        <emptyKilograms>350</emptyKilograms>
+      </li>
+    </value>
+  </Operation>
+  <!-- Trawler: a small inshore trawler, about 8 t -->
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>Defs/Vehicles.VehicleDef[defName="VVE_Trawler"]</xpath>
+    <value>
+      <li Class="Phobos.VehicleSystems.PhobosVehicleFiguresExtension">
+        <emptyKilograms>8000</emptyKilograms>
+      </li>
+    </value>
+  </Operation>
+  <!-- Mosquito: a light helicopter, about 1 t empty -->
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>Defs/Vehicles.VehicleDef[defName="VVE_Mosquito"]</xpath>
+    <value>
+      <li Class="Phobos.VehicleSystems.PhobosVehicleFiguresExtension">
+        <emptyKilograms>1000</emptyKilograms>
+      </li>
+    </value>
+  </Operation>
+  <!-- Smuggler: a light twin-engined utility aircraft that needs a landing strip, about 3.4 t empty -->
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>Defs/Vehicles.VehicleDef[defName="VVE_Smuggler"]</xpath>
+    <value>
+      <li Class="Phobos.VehicleSystems.PhobosVehicleFiguresExtension">
+        <emptyKilograms>3400</emptyKilograms>
+      </li>
+    </value>
+  </Operation>
+  <!-- Warbird: a piston fighter like the P-51D Mustang, empty about 3,465 kg (secondary sources, approximate: warbirdsresourcegroup.org) -->
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>Defs/Vehicles.VehicleDef[defName="VVE_Warbird"]</xpath>
+    <value>
+      <li Class="Phobos.VehicleSystems.PhobosVehicleFiguresExtension">
+        <emptyKilograms>3465</emptyKilograms>
+      </li>
+    </value>
+  </Operation>
+</Patch>

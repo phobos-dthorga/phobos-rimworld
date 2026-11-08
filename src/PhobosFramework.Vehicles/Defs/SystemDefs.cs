@@ -77,6 +77,9 @@ public class QuantitySpec
     public bool hidden;
     /// <summary>Shown as a gauge on the vehicle's Dashboard tab.</summary>
     public bool showOnDashboard;
+    /// <summary>For a quantity that counts what is used up (tread wear): the label for what is left ("tread"). The tabs' gauges then
+    /// show what is left, full when new, as the battery and oil gauges do; the inspect line keeps the quantity's own label.</summary>
+    [MustTranslate] public string? remainingLabel;
     public List<StageSpec> stages = new();
 
     public bool Derived => derivedFrom != null;
@@ -425,6 +428,27 @@ public class CabinSpec
 public class PhobosVehicleCabinExtension : DefModExtension
 {
     public bool closed = true;
+}
+
+/// <summary>
+/// A vehicle's own figures, for a design whose Vehicle Framework Mass says little about its real weight (VF's Mass figures are not
+/// comparable between mods): its empty (kerb) mass in kilograms and, where the class rule of power per tonne would be far off (a
+/// motorcycle), its engine's rated power in kilowatts. Each wins over a loadout's or drivetrain's figure and over the per-Mass and
+/// per-tonne rules; the player's tuning of empty mass in Vehicle Framework's window wins over it. Content mods add it with
+/// PatchOperationAddModExtension (docs/vehicle-systems-modding.md).
+/// </summary>
+public class PhobosVehicleFiguresExtension : DefModExtension
+{
+    public float emptyKilograms = float.NaN;
+    public float ratedKilowatts = float.NaN;
+
+    public static bool Given(float value) => !float.IsNaN(value) && value > 0;
+
+    public override IEnumerable<string> ConfigErrors()
+    {
+        foreach (string error in base.ConfigErrors()) yield return error;
+        if (!Given(emptyKilograms) && !Given(ratedKilowatts)) yield return "give emptyKilograms or ratedKilowatts, as a positive figure";
+    }
 }
 
 /// <summary>One system in a loadout, with the loadout's overrides of its parameters.</summary>

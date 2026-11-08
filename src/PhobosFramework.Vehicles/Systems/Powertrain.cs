@@ -73,9 +73,7 @@ public sealed class Powertrain
         VehicleDef vehicleDef = comp.Vehicle.VehicleDef;
         float Get(string name, float fallback) => overrides != null && overrides.values.TryGetValue(name, out float v) ? v : fallback;
         MassXml mass = def?.mass ?? new MassXml();
-        float empty = Get("emptyKilograms", mass.emptyKilograms);
-        KerbKg = !float.IsNaN(empty) && empty > 0 ? empty
-            : Math.Max(50, LoadoutSelector.BaseStat(vehicleDef, DefDatabase<VehicleStatDef>.GetNamedSilentFail("Mass")) * Get("kilogramsPerVehicleMass", mass.kilogramsPerVehicleMass));
+        KerbKg = Tuning.Value(vehicleDef, Tuning.Drivetrain, Tuning.EmptyKilograms, KerbFor(vehicleDef, def, overrides));
         fuelKgFull = Get("fuelKilogramsFull", mass.fuelKilogramsFull);
         EngineXml engine = def?.engine ?? new EngineXml();
         Spec = new DrivetrainSpec
@@ -85,7 +83,9 @@ public sealed class Powertrain
             IdleRpm = engine.idleRpm,
             LaunchRpm = engine.launchRpm,
             RatedRpm = engine.ratedRpm,
-            RatedPowerKw = Get("ratedKilowatts", engine.ratedKilowatts) is float rated && !float.IsNaN(rated) && rated > 0 ? rated
+            RatedPowerKw = vehicleDef.GetModExtension<PhobosVehicleFiguresExtension>() is { } own && PhobosVehicleFiguresExtension.Given(own.ratedKilowatts)
+                ? own.ratedKilowatts
+                : Get("ratedKilowatts", engine.ratedKilowatts) is float rated && !float.IsNaN(rated) && rated > 0 ? rated
                 : Get("kilowattsPerTonne", engine.kilowattsPerTonne) * KerbKg / 1000,
             FrictionConstant = engine.frictionConstant,
             FrictionLinear = engine.frictionLinear,
@@ -145,6 +145,26 @@ public sealed class Powertrain
                 }
             }
         }
+    }
+
+    /// <summary>The lightest kerb mass the per-Mass rule gives, kilograms (authored floor).</summary>
+    public const double MinimumKerbKg = 50;
+
+    /// <summary>
+    /// A design's empty mass before the player's tuning, most specific first: the vehicle's own PhobosVehicleFiguresExtension; the
+    /// loadout's or drivetrain's emptyKilograms; else Vehicle Framework's Mass times kilograms per Mass (12 by default), never below
+    /// <see cref="MinimumKerbKg"/>.
+    /// </summary>
+    public static double KerbFor(VehicleDef vehicleDef, PhobosVehicleDrivetrainDef? def, ParameterSet? overrides)
+    {
+        float Get(string name, float fallback) => overrides != null && overrides.values.TryGetValue(name, out float v) ? v : fallback;
+        PhobosVehicleFiguresExtension? own = vehicleDef.GetModExtension<PhobosVehicleFiguresExtension>();
+        if (own != null && PhobosVehicleFiguresExtension.Given(own.emptyKilograms)) return own.emptyKilograms;
+        MassXml mass = def?.mass ?? new MassXml();
+        float empty = Get("emptyKilograms", mass.emptyKilograms);
+        if (!float.IsNaN(empty) && empty > 0) return empty;
+        return Math.Max(MinimumKerbKg, LoadoutSelector.BaseStat(vehicleDef, DefDatabase<VehicleStatDef>.GetNamedSilentFail("Mass"))
+            * Get("kilogramsPerVehicleMass", mass.kilogramsPerVehicleMass));
     }
 
     /// <summary>The most engines a loadout may bind (Engine1 to Engine8).</summary>

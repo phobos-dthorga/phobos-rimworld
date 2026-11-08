@@ -5,6 +5,27 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.8.0] - 2026-11-09 - Draft
+
+Empty masses for Vanilla Vehicles Expanded, with D'thorga Framework 0.19.0 (owner's choice, 9 November 2026). **Not yet tested in game.** Design: docs/development/vehicle-kerb-mass-check.md.
+
+### Balance
+
+- 33 Vanilla Vehicles Expanded vehicles weigh what a real vehicle of their class weighs, instead of 12 kg per Vehicle Framework Mass: the Dirtbike 110 kg instead of 360, the Bulldog 45 t instead of 5.4 t, the Trawler 8 t instead of 960 kg. Cargo now weighs on tanks and bikes as it should. All authored, approximate; three follow a real aircraft (Louie as a UH-1H, Cherokee as a CH-47D, Warbird as a P-51D, secondary sources).
+- The Dirtbike and the Charley get a motorcycle's engine power (30 and 55 kW), since the light-car rule would have left a real-weight bike with 6.6 kW.
+
+### Dependencies
+
+- Needs D'thorga Framework 0.19.0 or later.
+
+### Compatibility and limits
+
+- The three orbital pods (Frog, Toad, Goliath) keep the general rule: no real vehicle to weigh them by.
+
+### Save compatibility
+
+- Safe to add and remove; the figures live in the vehicle designs, not in saves.
+
 ## [0.7.0] - 2026-11-09 - Draft
 
 The cab, with D'thorga Framework 0.16.0. **Not yet tested in game.**

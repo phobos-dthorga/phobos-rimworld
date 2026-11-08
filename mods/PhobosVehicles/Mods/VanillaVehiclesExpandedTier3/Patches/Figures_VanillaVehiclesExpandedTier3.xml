@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <!--
+    Empty masses for Vanilla Vehicles Expanded - Tier 3's vehicles (owner's choice, 9 Nov 2026: authored masses by the real class each description names;
+    docs/development/vehicle-kerb-mass-check.md). Vehicle Framework's Mass figures are not comparable between mods, and on the
+    framework's rule of 12 kg per Mass these came out with bikes three times too heavy and tanks a tenth of their weight.
+    Every figure is AUTHORED: a round weight for a real vehicle of the class the description names, approximate, general. Three
+    follow a real aircraft and say so (secondary sources, approximate). Engine power follows the drivetrain's power per tonne,
+    except where a figure is given (motorcycles, whose power per tonne is far above a car's). Not yet tested in game.
+  -->
+  <!-- Lightning: a fast light van, about 1.8 t -->
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>Defs/Vehicles.VehicleDef[defName="VVE_Lightning"]</xpath>
+    <value>
+      <li Class="Phobos.VehicleSystems.PhobosVehicleFiguresExtension">
+        <emptyKilograms>1800</emptyKilograms>
+      </li>
+    </value>
+  </Operation>
+  <!-- Springbok: an old, robust four-wheel drive, about 2.1 t -->
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>Defs/Vehicles.VehicleDef[defName="VVE_Springbok"]</xpath>
+    <value>
+      <li Class="Phobos.VehicleSystems.PhobosVehicleFiguresExtension">
+        <emptyKilograms>2100</emptyKilograms>
+      </li>
+    </value>
+  </Operation>
+  <!-- Hermano: a refrigerated box truck, about 5.5 t empty -->
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>Defs/Vehicles.VehicleDef[defName="VVE_Hermano"]</xpath>
+    <value>
+      <li Class="Phobos.VehicleSystems.PhobosVehicleFiguresExtension">
+        <emptyKilograms>5500</emptyKilograms>
+      </li>
+    </value>
+  </Operation>
+  <!-- Nomad: a lightly armoured all-terrain personnel carrier, about 8 t -->
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>Defs/Vehicles.VehicleDef[defName="VVE_Nomad"]</xpath>
+    <value>
+      <li Class="Phobos.VehicleSystems.PhobosVehicleFiguresExtension">
+        <emptyKilograms>8000</emptyKilograms>
+      </li>
+    </value>
+  </Operation>
+  <!-- Big Rig: a road tractor unit, about 9 t -->
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>Defs/Vehicles.VehicleDef[defName="VVE_BigRig"]</xpath>
+    <value>
+      <li Class="Phobos.VehicleSystems.PhobosVehicleFiguresExtension">
+        <emptyKilograms>9000</emptyKilograms>
+      </li>
+    </value>
+  </Operation>
+  <!-- Paladin: a wheeled armoured personnel carrier, about 14 t -->
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>Defs/Vehicles.VehicleDef[defName="VVE_Paladin"]</xpath>
+    <value>
+      <li Class="Phobos.VehicleSystems.PhobosVehicleFiguresExtension">
+        <emptyKilograms>14000</emptyKilograms>
+      </li>
+    </value>
+  </Operation>
+  <!-- Badger: a tracked infantry fighting vehicle, about 18 t -->
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>Defs/Vehicles.VehicleDef[defName="VVE_Badger"]</xpath>
+    <value>
+      <li Class="Phobos.VehicleSystems.PhobosVehicleFiguresExtension">
+        <emptyKilograms>18000</emptyKilograms>
+      </li>
+    </value>
+  </Operation>
+  <!-- Burya: a truck-mounted multiple rocket launcher, about 20 t -->
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>Defs/Vehicles.VehicleDef[defName="VVE_Burya"]</xpath>
+    <value>
+      <li Class="Phobos.VehicleSystems.PhobosVehicleFiguresExtension">
+        <emptyKilograms>20000</emptyKilograms>
+      </li>
+    </value>
+  </Operation>
+  <!-- Udar: a self-propelled artillery piece, about 25 t -->
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>Defs/Vehicles.VehicleDef[defName="VVE_Udar"]</xpath>
+    <value>
+      <li Class="Phobos.VehicleSystems.PhobosVehicleFiguresExtension">
+        <emptyKilograms>25000</emptyKilograms>
+      </li>
+    </value>
+  </Operation>
+  <!-- Marshal: a heavier-gunned main battle tank, about 55 t -->
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>Defs/Vehicles.VehicleDef[defName="VVE_Marshal"]</xpath>
+    <value>
+      <li Class="Phobos.VehicleSystems.PhobosVehicleFiguresExtension">
+        <emptyKilograms>55000</emptyKilograms>
+      </li>
+    </value>
+  </Operation>
+  <!-- Louie: an armoured utility helicopter like the UH-1H Huey, empty about 2,365 kg (secondary sources, approximate: valiantaircommand.com) -->
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>Defs/Vehicles.VehicleDef[defName="VVE_Louie"]</xpath>
+    <value>
+      <li Class="Phobos.VehicleSystems.PhobosVehicleFiguresExtension">
+        <emptyKilograms>2365</emptyKilograms>
+      </li>
+    </value>
+  </Operation>
+  <!-- Cherokee: a heavy twin-rotor transport like the CH-47D Chinook, empty about 10,500 kg (secondary sources range 10,150 to 11,150 kg, approximate) -->
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>Defs/Vehicles.VehicleDef[defName="VVE_Cherokee"]</xpath>
+    <value>
+      <li Class="Phobos.VehicleSystems.PhobosVehicleFiguresExtension">
+        <emptyKilograms>10500</emptyKilograms>
+      </li>
+    </value>
+  </Operation>
+</Patch>

@@ -77,6 +77,11 @@ public class CompProperties_PhobosVehicleSystems : VehicleCompProperties
     [TunesParameter("PhobosVehicleSystem_AirBrakes", "leakPerHour")]
     public float airLeakPerHour;
 
+    [PostToSettings(Label = "PhobosVehicleSystems_TuneEmptyMass", Tooltip = "PhobosVehicleSystems_TuneEmptyMassDesc", Translate = true, UISettingsType = UISettingsType.FloatBox)]
+    [NumericBoxValues(MinValue = 10f, MaxValue = 500000f)]
+    [TunesParameter(Tuning.Drivetrain, Tuning.EmptyKilograms)]
+    public float emptyKilograms;
+
     public PhobosVehicleLoadoutDef? loadout;
     public List<ResolvedSystem> systems = new();
     public Dictionary<string, List<string>> roleKeys = new();

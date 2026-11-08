@@ -5,6 +5,28 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.19.0] - 2026-11-09 - Draft
+
+Kerb masses and the tabs after the owner's first look in game (9 November 2026). **Not yet tested in game.** Design: docs/development/vehicle-kerb-mass-check.md.
+
+### Added
+
+- Empty mass (kg) in Vehicle Framework's settings window for every vehicle with systems: the weight cargo, passengers, hills and soft ground are worked against, filled with the vehicle's own figure.
+- For modders: PhobosVehicleFiguresExtension gives one vehicle its own empty mass and, where a class rule would be far off, its engine power; it wins over loadouts and the 12 kg per Mass rule. remainingLabel on a quantity makes the tabs' gauges show what is left.
+
+### Changed
+
+- The tabs' tread and brake gauges show what is left (Tread 100% when new), as the battery and oil gauges do (owner's choice). The inspect line still gives the wear.
+- The Systems tab no longer repeats a part's name after its role (Battery, not Battery: Battery), and leaves out a system with nothing to show, such as fuel in the cold while its setting is off.
+
+### Compatibility and limits
+
+- Loadouts still pick a vehicle's class (light, medium, heavy) by Vehicle Framework's Mass, not by the empty mass.
+
+### Save compatibility
+
+- Safe to add. The tuning field is saved in Vehicle Framework's own settings file, not in saves.
+
 ## [0.18.0] - 2026-11-09 - Draft
 
 The follow-ups to the world map and the tabs (owner's go, 9 November 2026). **Not yet tested in game.** Design: docs/development/vehicle-crew-and-ground-design.md.

@@ -107,3 +107,31 @@ public static class InspectText
         _ => value.ToString("0.##"),
     };
 }
+
+/// <summary>What a tab's gauge shows for a quantity: its label, how full the bar is and the figure; for a quantity with a
+/// remainingLabel, what is left rather than what is used.</summary>
+public readonly struct GaugeReading
+{
+    public readonly string Label;
+    public readonly float Fill;
+    public readonly string Figure;
+
+    GaugeReading(string label, float fill, string figure)
+    {
+        Label = label;
+        Fill = fill;
+        Figure = figure;
+    }
+
+    public static GaugeReading For(SystemState state, int q)
+    {
+        QuantitySpec quantity = state.Def.quantities[q];
+        double min = state.min[q], max = state.max[q], value = state.values[q];
+        double share = (value - min) / System.Math.Max(1e-6, max - min);
+        if (!quantity.remainingLabel.NullOrEmpty())
+        {
+            return new GaugeReading(quantity.remainingLabel!.CapitalizeFirst(), (float)(1 - share), InspectText.Format(quantity, max - (value - min)));
+        }
+        return new GaugeReading(quantity.label.CapitalizeFirst(), (float)share, InspectText.Format(quantity, value));
+    }
+}

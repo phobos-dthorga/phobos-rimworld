@@ -62,10 +62,9 @@ public class ITab_VehicleDashboard : ITab
                 QuantitySpec quantity = state.Def.quantities[q];
                 StageSpec? stage = state.CurrentStage(q);
                 var rect = new Rect(x, y, width, GaugeHeight);
-                float fill = (float)((state.values[q] - state.min[q]) / System.Math.Max(1e-6, state.max[q] - state.min[q]));
-                string figure = InspectText.Format(quantity, state.values[q]);
-                PhobosWidgets.Gauge(rect, fill, StageColour(stage), quantity.label.CapitalizeFirst(), figures ? figure : null,
-                    stage != null ? quantity.label.CapitalizeFirst() + ": " + stage.label + (figures ? " (" + figure + ")" : "") : quantity.label.CapitalizeFirst());
+                GaugeReading reading = GaugeReading.For(state, q);
+                PhobosWidgets.Gauge(rect, reading.Fill, StageColour(stage), reading.Label, figures ? reading.Figure : null,
+                    stage != null ? reading.Label + ": " + stage.label + (figures ? " (" + reading.Figure + ")" : "") : reading.Label);
                 if (Widgets.ButtonInvisible(rect))
                 {
                     ITab_VehicleSystems.ScrollTo(comp.Vehicle.thingIDNumber, state.Def.defName);

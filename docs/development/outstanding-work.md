@@ -55,12 +55,22 @@ Added 9 Nov 2026: the vehicle work of 8 and 9 November did not update this file 
 | V2 | What a service uses for oil and coolant (chemfuel stands in; with Dubs Bad Hygiene coolant could be its water) | Framework | Unsure (9 Nov 2026) | Open |
 | V3 | The utility vehicles: a tanker first, then survey truck, drill rig, tipper hauler, generator set | Vehicles | Yes, after the framework | Open: waits for vehicle body art (V4) |
 | V4 | Vehicle body art through OpenAI's image API (an engine in `scripts/art-run.py`); icons on the owner's local model | art | OpenAI for bodies, local for icons (9 Nov 2026); **the stand-in icons are good enough: replace them only when little else is left** (9 Nov 2026) | Open: bodies wait for the owner's API key; icons low priority |
-| V5 | Systems for electric vehicles | Framework | Not asked | Open |
+| V5 | Systems for electric vehicles, with an optional patch making Vanilla Vehicles Expanded's Lightning electric to test them; our own diesel-electric utility vehicles later (V3) | Framework, Vehicles | Framework and a test vehicle (9 Nov 2026) | In progress |
 | V6 | The M1A2's APU upgrade node; "drop the stores" for a jet too heavy to land vertically | Vehicles, Patches | Proposed | Deferred: the APU needs a patch to RimThunder's upgrade trees |
 | V7 | Engine sound pitched by engine speed | Framework | Later | Deferred: only if Vehicle Framework exposes the sustainer |
-| V8 | Kerb mass of 12 kg per Vehicle Framework mass unit for retrofitted vehicles, checked for outliers (dirt bikes, tanks) | Framework | Starting figure | Open (named vehicles in D'thorga Vehicles carry real masses) |
+| V8 | Kerb mass of 12 kg per Vehicle Framework mass unit for retrofitted vehicles, checked for outliers (dirt bikes, tanks) | Framework, Vehicles | Authored masses for Vanilla Vehicles Expanded; tunable (9 Nov 2026) | Done: Framework 0.19.0, Vehicles 0.8.0 ([record](vehicle-kerb-mass-check.md)) |
 | V9 | When Vehicle Framework ships for 1.7: rebuild, and re-check the tab hook's order, the caravan patches' method names, and the part icons and colours the Systems tab leaves out | Framework | Expected | Waiting on Vehicle Framework |
 | V10 | The boats, the Warbird and the Smuggler keep one engine | Vehicles | Agreed to leave out | Deferred |
+| V11 | The tabs after the owner's first look (9 Nov 2026): wear gauges show what is left, no repeated part names, no empty sections | Framework | Show what is left | Done: Framework 0.19.0 |
+
+## Caustic gas, the rest (9 Nov 2026)
+
+| # | Item | Owner's decision | Status |
+| --- | --- | --- | --- |
+| C5 | Lasting eye damage after a severe caustic eye injury | Our own corneal scarring | Open |
+| C6 | Plants and corpses in dense gas | Plants wilt, corpses unaffected | Open |
+| C7 | Supplied oxygen and chemical lung injury | Oxygen eases and speeds recovery | Open |
+| C8 | Contaminated clothing | The shower is enough by default; extra decontamination with Dubs Bad Hygiene; strip and rinse as a main-menu setting | Open |
 
 ## Housekeeping (9 Nov 2026)
 
