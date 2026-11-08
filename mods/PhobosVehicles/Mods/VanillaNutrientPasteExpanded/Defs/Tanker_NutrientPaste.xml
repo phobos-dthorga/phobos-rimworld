@@ -8,6 +8,7 @@
     <phase>Liquid</phase>
     <unitLabel>units</unitLabel>
     <kilogramsPerUnit>1.1</kilogramsPerUnit>
+    <spillFilth>Filth_Slime</spillFilth>
     <spoilsAfterDays>0.75</spoilsAfterDays>
     <ports>
       <li Class="Phobos.VehicleSystems.Pipes.Port_PipeNet">

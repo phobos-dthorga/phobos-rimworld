@@ -9,7 +9,7 @@
     <unitLabel>litres</unitLabel>
     <kilogramsPerUnit>0.9</kilogramsPerUnit>
     <flammable>true</flammable>
-    <spillFilth>Filth_Fuel</spillFilth>
+    <spillFilth>Filth_OilSmear</spillFilth>
     <thickensBelow>-8</thickensBelow>
     <thickestAt>-20</thickestAt>
     <thickensOnlyWithSetting>fuelGelling</thickensOnlyWithSetting>

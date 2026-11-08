@@ -8,6 +8,7 @@
     <phase>Liquid</phase>
     <unitLabel>litres</unitLabel>
     <kilogramsPerUnit>1</kilogramsPerUnit>
+    <spillFilth>Filth_Water</spillFilth>
     <freezesBelow>0</freezesBelow>
     <ports>
       <li Class="Phobos.VehicleSystems.Hygiene.Port_DubsPlumbing" />
