@@ -150,4 +150,43 @@ public class PowerAndLiftTests
         Assert.Equal(DriveLimit.Power, r.Limit);
         Assert.InRange(r.Cap, 0.6, 0.95);
     }
+
+    // The boilers (Systems_Boiler.xml and the Trains of the Rim loadouts): pressure as a share of working pressure, fired in and
+    // cooled toward nothing; steam drawn by the load.
+    static double HoursToPressure(double firing, double cooling, double target)
+    {
+        double pressure = 0;
+        for (int step = 1; step <= 24 * 60; step++)
+        {
+            var values = new[] { pressure };
+            var flows = new List<FlowSample>
+            {
+                new() { Quantity = 0, Kind = FlowKind.Into, Rate = firing },
+                new() { Quantity = 0, Kind = FlowKind.Toward, Rate = cooling, Target = 0 },
+            };
+            SystemIntegrator.Advance(values, new[] { 0.0 }, new[] { 1.06 }, flows, 1 / 60.0);
+            pressure = values[0];
+            if (pressure >= target) return step / 60.0;
+        }
+        return double.PositiveInfinity;
+    }
+
+    [Theory]
+    [InlineData(0.4, 0.5, 1.1, 1.6)]    // the tank engine moves after about 1 1/3 hours
+    [InlineData(0.4, 1.0, 2.5, 3.1)]    // and is at full pressure in under 3 (the GCR's 3 to 7 hours to be ready)
+    [InlineData(0.17, 0.5, 3.0, 3.7)]   // the Frisco moves after about 3 1/3 hours
+    [InlineData(0.17, 1.0, 7.5, 8.5)]   // and is at full pressure in about 8 (6 to 10 quoted for big engines)
+    public void BoilersRaiseSteamInTheirSourcedTimes(double firing, double target, double earliest, double latest) =>
+        Assert.InRange(HoursToPressure(firing, 0.08, target), earliest, latest);
+
+    [Theory]
+    [InlineData(0.2, 1.4, 2.0)]   // the tank engine's tanks: about 1 2/3 hours of hard work
+    [InlineData(0.11, 2.7, 3.3)]  // the Frisco's tender: about 3 hours
+    public void FeedWaterLastsAsTheResearchSays(double feedShare, double earliest, double latest)
+    {
+        // At full load the glass loses 3 an hour and the injector, keeping it near 0.8, takes that much from the feed water times
+        // the share the glass is of it.
+        double hours = 1 / (3 * feedShare);
+        Assert.InRange(hours, earliest, latest);
+    }
 }

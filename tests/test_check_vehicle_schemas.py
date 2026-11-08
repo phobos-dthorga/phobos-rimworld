@@ -168,6 +168,10 @@ class VehicleSchemaCheckTests(unittest.TestCase):
             '<continuousTractiveEffortKilonewtons>150</continuousTractiveEffortKilonewtons></transmission>'))
         self.assertTrue(any('continuous tractive effort' in e for e in result['errors']))
 
+    def test_a_service_drawing_water_from_an_undeclared_parameter_is_caught(self):
+        result = self.run_with(POWER.replace('<waterLitres>10</waterLitres>', '<waterLitresParameter>tankLitres</waterLitresParameter>'))
+        self.assertTrue(any('undeclared parameter tankLitres' in e for e in result['errors']))
+
     def test_a_service_with_negative_water_is_caught(self):
         result = self.run_with(POWER.replace('<waterLitres>10</waterLitres>', '<waterLitres>-1</waterLitres>'))
         self.assertTrue(any('waterLitres' in e for e in result['errors']))

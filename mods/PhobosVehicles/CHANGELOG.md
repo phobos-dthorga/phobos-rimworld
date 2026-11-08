@@ -5,6 +5,22 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.5.0] - 2026-11-09 - Draft
+
+Steam boilers: part 3 of the owner's approved proposals of 9 November 2026. **Not yet tested in game.**
+
+### Added
+
+- Trains of the Rim's Frisco 4-8-4 and Tommy 0-6-0T, chemfuel and wood alike, get a boiler: the Frisco with the 4500 class's 68,000 L tender and a big engine's slow start, the tank engine with the LB&SCR E2's 4,955 L of tank water and a quicker one. Their brake pipes are their brakes.
+
+### Dependencies
+
+- Needs D'thorga Framework 0.13.0 or later.
+
+### Save compatibility
+
+- Safe to add to and remove from a running colony: the locomotives gain or drop the boiler as their loadout says.
+
 ## [0.4.0] - 2026-11-09 - Draft
 
 Real figures for named vehicles: part 2 of the owner's approved proposals of 9 November 2026, the L-ATV first. **Not yet tested in game.** Design: docs/development/vehicle-real-figures-design.md.

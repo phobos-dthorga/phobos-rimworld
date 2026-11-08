@@ -4,7 +4,7 @@
   <name>D'thorga Framework</name>
   <author>Phobos A. D'thorga</author>
   <url>https://github.com/phobos-dthorga/phobos-rimworld</url>
-  <modVersion>0.12.0</modVersion>
+  <modVersion>0.13.0</modVersion>
   <description>The shared library the D'thorga mods build on. On its own it changes almost nothing; other mods ask it for what a colonist is breathing and for the small helpers they all share.
 
 What it does:

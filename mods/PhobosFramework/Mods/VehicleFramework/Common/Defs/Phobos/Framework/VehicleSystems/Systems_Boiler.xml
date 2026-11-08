@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    A steam locomotive's boiler (docs/development/vehicle-steam-design.md; figures from docs/development/steam-and-diesel-electric-research.md).
+    The fire is lit while the locomotive is drafted with fuel aboard (Vehicle Framework's "engine running"); its fuel is the mod's own
+    (wood or chemfuel). Not yet tested in game.
+
+    Sources and labels:
+    - Steam pressure is held as a share of the boiler's working pressure. Raising steam from cold took "approximately 3 to 7 hours"
+      on a heritage railway (primary: the Great Central Railway's engine-shed page); big engines 6 to 10 hours (secondary, anecdotal),
+      and a boiler held hot overnight "only takes a couple of hours of firing in the morning" (secondary). The firing and cooling
+      rates are set per loadout to land inside those ranges (authored).
+    - Safety valves: at least one opens at or below the working pressure and pressure may never pass 6% above it (primary: US 49 CFR
+      230.48 and 230.49), so pressure stops at 1.06 and blowing off wastes water.
+    - The crown sheet: covered by water, the firebox plate stays near the water's temperature; uncovered, it heats toward the fire's
+      1,500 to 2,500 F and steel has lost about 85% of its strength by 1,600 F (primary: NTSB SIR-96/05, quoting Railway Mechanical
+      Engineer, 1943). A fusible plug in the crown melts first (UK pure lead at 327 degrees C; primary: the Heritage Railway
+      Association's boiler code HGR-B9008), vents steam onto the fire, and "the locomotive must be taken to a maintenance facility for
+      repair" (primary: NTSB). Both locomotives here carry one (authored: US rules never required them); a crown-sheet failure
+      without one, an explosion, is not modelled.
+    - The water glass must read at least 3 inches above the crown sheet (primary: 49 CFR 230.51): here the glass reads 0 to 1 and
+      the crown is uncovered at 0.1 (authored). The injector keeps the glass near 0.8 from the feed water while there is any; priming
+      from too high a level is therefore not modelled.
+    - Feed water: the tender or side tanks, refilled at a water stop as a service (Dubs Bad Hygiene's water towers when that mod is
+      active, otherwise free; owner, 9 Nov 2026), only the shortfall drawn. Each loadout gives its capacity in litres.
+  -->
+  <Phobos.VehicleSystems.PhobosVehicleSystemDef>
+    <defName>PhobosVehicleSystem_Boiler</defName>
+    <label>boiler</label>
+    <description>A steam locomotive's boiler and fire. It takes hours to raise steam from cold; the injector feeds it from the tender or tanks; let the water fall below the firebox crown and the fusible plug melts, venting the boiler, and it needs a new plug before it can steam again.</description>
+    <roles>
+      <li>Boiler</li>
+    </roles>
+    <parameters>
+      <firingRate>0.4</firingRate>
+      <steamUse>0.45</steamUse>
+      <coolingRate>0.08</coolingRate>
+      <waterUse>3</waterUse>
+      <injectorRate>4</injectorRate>
+      <feedShare>0.2</feedShare>
+      <feedWaterLitres>5000</feedWaterLitres>
+    </parameters>
+    <quantities>
+      <li>
+        <name>steamPressure</name>
+        <label>steam pressure</label>
+        <unit>Fraction</unit>
+        <min>0</min>
+        <max>1.06</max>
+        <startsAt>Empty</startsAt>
+        <stages>
+          <li>
+            <to>0.5</to>
+            <label>raising steam</label>
+            <notable>true</notable>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_RefuseMove">
+                <reason>PhobosVehicleSystems_RefuseRaisingSteam</reason>
+              </li>
+            </effects>
+          </li>
+          <li>
+            <from>1</from>
+            <label>blowing off</label>
+            <notable>true</notable>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_RateQuantity">
+                <quantity>boilerWater</quantity>
+                <perHour>-0.3</perHour>
+              </li>
+              <li Class="Phobos.VehicleSystems.Effect_Fleck">
+                <fleck>Smoke</fleck>
+                <perHour>120</perHour>
+                <scale>1.2</scale>
+              </li>
+            </effects>
+          </li>
+        </stages>
+      </li>
+      <li>
+        <name>boilerWater</name>
+        <label>water in the glass</label>
+        <unit>Fraction</unit>
+        <min>0</min>
+        <max>1</max>
+        <startsAt>Value</startsAt>
+        <startValue>0.8</startValue>
+        <stages>
+          <li>
+            <to>0.1</to>
+            <label>crown sheet uncovered</label>
+            <notable>true</notable>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_SetQuantity">
+                <quantity>fusiblePlug</quantity>
+                <value>0</value>
+                <when Class="Phobos.VehicleSystems.When_EngineRunning" />
+              </li>
+              <li Class="Phobos.VehicleSystems.Effect_SetQuantity">
+                <quantity>steamPressure</quantity>
+                <value>0</value>
+                <when Class="Phobos.VehicleSystems.When_EngineRunning" />
+              </li>
+              <li Class="Phobos.VehicleSystems.Effect_Letter">
+                <label>PhobosVehicleSystems_LetterPlugMeltedLabel</label>
+                <text>PhobosVehicleSystems_LetterPlugMeltedText</text>
+                <when Class="Phobos.VehicleSystems.When_EngineRunning" />
+              </li>
+            </effects>
+          </li>
+          <li>
+            <from>0.1</from>
+            <to>0.3</to>
+            <label>low water</label>
+            <notable>true</notable>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_Message">
+                <message>PhobosVehicleSystems_MsgBoilerWaterLow</message>
+                <type>CautionInput</type>
+              </li>
+            </effects>
+          </li>
+        </stages>
+      </li>
+      <li>
+        <name>feedWater</name>
+        <label>feed water</label>
+        <unit>Fraction</unit>
+        <min>0</min>
+        <max>1</max>
+        <startsAt>Full</startsAt>
+        <stages>
+          <li>
+            <to>0.15</to>
+            <label>nearly dry</label>
+            <notable>true</notable>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_Message">
+                <message>PhobosVehicleSystems_MsgFeedWaterLow</message>
+                <type>CautionInput</type>
+              </li>
+            </effects>
+          </li>
+        </stages>
+      </li>
+    </quantities>
+    <flows>
+      <li>
+        <!-- The fire, while it is lit and the plug holds. -->
+        <name>firing</name>
+        <quantity>steamPressure</quantity>
+        <kind>Into</kind>
+        <factorParameter>firingRate</factorParameter>
+        <inputs>
+          <li Class="Phobos.VehicleSystems.Input_EngineRunning" />
+          <li Class="Phobos.VehicleSystems.Input_Quantity">
+            <quantity>fusiblePlug</quantity>
+            <curve>
+              <points>
+                <li>(0.49, 0)</li>
+                <li>(0.5, 1)</li>
+              </points>
+            </curve>
+          </li>
+        </inputs>
+      </li>
+      <li>
+        <!-- Steam to the cylinders: more the harder it works. -->
+        <name>cylinders</name>
+        <quantity>steamPressure</quantity>
+        <kind>From</kind>
+        <factorParameter>steamUse</factorParameter>
+        <inputs>
+          <li Class="Phobos.VehicleSystems.Input_EngineLoad" />
+        </inputs>
+      </li>
+      <li>
+        <!-- A boiler losing its heat to the air: slowly, so a hot one keeps steam for hours. -->
+        <name>cooling</name>
+        <quantity>steamPressure</quantity>
+        <kind>Toward</kind>
+        <target Class="Phobos.VehicleSystems.Input_Constant"><value>0</value></target>
+        <factorParameter>coolingRate</factorParameter>
+      </li>
+      <li>
+        <name>evaporation</name>
+        <quantity>boilerWater</quantity>
+        <kind>From</kind>
+        <factorParameter>waterUse</factorParameter>
+        <inputs>
+          <li Class="Phobos.VehicleSystems.Input_EngineLoad" />
+        </inputs>
+      </li>
+      <li>
+        <!-- The injector keeps the glass near 0.8 while there is feed water. -->
+        <name>injector</name>
+        <quantity>boilerWater</quantity>
+        <kind>Into</kind>
+        <factorParameter>injectorRate</factorParameter>
+        <inputs>
+          <li Class="Phobos.VehicleSystems.Input_Quantity">
+            <quantity>boilerWater</quantity>
+            <curve>
+              <points>
+                <li>(0.7, 1)</li>
+                <li>(0.8, 0)</li>
+              </points>
+            </curve>
+          </li>
+          <li Class="Phobos.VehicleSystems.Input_Quantity">
+            <quantity>feedWater</quantity>
+            <curve>
+              <points>
+                <li>(0, 0)</li>
+                <li>(0.01, 1)</li>
+              </points>
+            </curve>
+          </li>
+        </inputs>
+      </li>
+      <li>
+        <!-- What the injector takes from the tender or tanks: the boiler's glass is a small share of the feed water. -->
+        <name>feed</name>
+        <quantity>feedWater</quantity>
+        <kind>From</kind>
+        <factorParameter>injectorRate</factorParameter>
+        <inputs>
+          <li Class="Phobos.VehicleSystems.Input_Parameter"><parameter>feedShare</parameter></li>
+          <li Class="Phobos.VehicleSystems.Input_Quantity">
+            <quantity>boilerWater</quantity>
+            <curve>
+              <points>
+                <li>(0.7, 1)</li>
+                <li>(0.8, 0)</li>
+              </points>
+            </curve>
+          </li>
+          <li Class="Phobos.VehicleSystems.Input_Quantity">
+            <quantity>feedWater</quantity>
+            <curve>
+              <points>
+                <li>(0, 0)</li>
+                <li>(0.01, 1)</li>
+              </points>
+            </curve>
+          </li>
+        </inputs>
+      </li>
+    </flows>
+    <service>
+      <label>a water stop</label>
+      <dueQuantity>feedWater</dueQuantity>
+      <dueBelow>0.4</dueBelow>
+      <restores>
+        <li>
+          <quantity>feedWater</quantity>
+          <value>1</value>
+        </li>
+      </restores>
+      <waterLitresParameter>feedWaterLitres</waterLitresParameter>
+      <waterForShortfall>true</waterForShortfall>
+      <work>300</work>
+    </service>
+  </Phobos.VehicleSystems.PhobosVehicleSystemDef>
+
+  <!--
+    The fusible plug, its own system so a mechanic can fit a new one (a system holds one service). A melted plug stops the fire and
+    the locomotive until then. Supplies are gameplay stand-ins: steel for the gunmetal body and its lead core (authored).
+  -->
+  <Phobos.VehicleSystems.PhobosVehicleSystemDef>
+    <defName>PhobosVehicleSystem_FusiblePlug</defName>
+    <label>fusible plug</label>
+    <description>A lead plug in the firebox crown that melts if the water falls too low, venting the boiler before the crown sheet fails. Once melted, the locomotive cannot steam until a mechanic fits a new one.</description>
+    <roles>
+      <li>Boiler</li>
+    </roles>
+    <quantities>
+      <li>
+        <name>fusiblePlug</name>
+        <label>fusible plug</label>
+        <unit>Plain</unit>
+        <min>0</min>
+        <max>1</max>
+        <startsAt>Full</startsAt>
+        <hidden>true</hidden>
+        <stages>
+          <li>
+            <to>0.5</to>
+            <label>melted</label>
+            <notable>true</notable>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_RefuseMove">
+                <reason>PhobosVehicleSystems_RefusePlugMelted</reason>
+              </li>
+            </effects>
+          </li>
+        </stages>
+      </li>
+    </quantities>
+    <service>
+      <label>a new fusible plug</label>
+      <dueQuantity>fusiblePlug</dueQuantity>
+      <dueBelow>0.5</dueBelow>
+      <restores>
+        <li>
+          <quantity>fusiblePlug</quantity>
+          <value>1</value>
+        </li>
+      </restores>
+      <supplies>
+        <Steel>2</Steel>
+      </supplies>
+      <work>1200</work>
+    </service>
+  </Phobos.VehicleSystems.PhobosVehicleSystemDef>
+</Defs>

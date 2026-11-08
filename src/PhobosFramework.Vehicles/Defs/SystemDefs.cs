@@ -140,6 +140,10 @@ public class ServiceSpec
     /// <summary>Litres of water the service draws when it is done: from Dubs Bad Hygiene's plumbing beside the vehicle when that mod is
     /// active, otherwise free, as the base game treats water (owner, 9 Nov 2026).</summary>
     public float waterLitres;
+    /// <summary>A parameter of the system holding the litres instead (so each loadout sets its own: a locomotive's tender).</summary>
+    public string? waterLitresParameter;
+    /// <summary>Draw only the share the due quantity is short of its restored value (a half-empty tender takes half its litres).</summary>
+    public bool waterForShortfall;
     /// <summary>Work in ticks for a mechanic of construction speed 1.</summary>
     public float work = 1200f;
 }

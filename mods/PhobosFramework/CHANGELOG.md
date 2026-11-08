@@ -5,6 +5,24 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.13.0] - 2026-11-09 - Draft
+
+Steam boilers: part 3 of the owner's approved proposals of 9 November 2026. **Not yet tested in game.** Design: docs/development/vehicle-steam-design.md.
+
+### Added
+
+- A boiler system for steam locomotives: hours to raise steam from cold (a cold engine refuses to move and says why), safety valves blowing off at the top, a water glass the injector keeps up from the tender or tanks, and a water stop to refill them, drawing only the shortfall (from Dubs Bad Hygiene's water towers when that mod is active, otherwise free).
+- A fusible plug: let the water fall below the firebox crown with the fire lit and it melts, venting the boiler, with a letter; the engine cannot steam until a mechanic fits a new one.
+- For modders: the boiler and fusible plug systems; a service's water from a system parameter and for the shortfall only; the Steam loadout kind. The schema check reads them.
+
+### Compatibility and limits
+
+- Boiler explosions, priming and water treatment are not modelled. The rates are authored inside the researched ranges and labelled.
+
+### Save compatibility
+
+- Safe to add to a running colony: steam locomotives start cold with full feed water.
+
 ## [0.12.0] - 2026-11-09 - Draft
 
 Power and lift, part 1 of the owner's approved proposals of 9 November 2026. **Not yet tested in game.** Design:

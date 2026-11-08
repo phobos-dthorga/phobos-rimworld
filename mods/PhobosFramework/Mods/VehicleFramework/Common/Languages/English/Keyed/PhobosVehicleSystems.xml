@@ -17,6 +17,7 @@
   <PhobosVehicleSystems_KindBoat>Boats</PhobosVehicleSystems_KindBoat>
   <PhobosVehicleSystems_KindAircraft>Aircraft</PhobosVehicleSystems_KindAircraft>
   <PhobosVehicleSystems_KindCombustionTracked>Tracked vehicles</PhobosVehicleSystems_KindCombustionTracked>
+  <PhobosVehicleSystems_KindSteam>Steam locomotives</PhobosVehicleSystems_KindSteam>
   <PhobosVehicleSystems_SectionSystems>Systems</PhobosVehicleSystems_SectionSystems>
   <PhobosVehicleSystems_SettingShowOnly>Figures only, no consequences</PhobosVehicleSystems_SettingShowOnly>
   <PhobosVehicleSystems_SettingShowOnlyDesc>The systems run and show their state, but nothing happens to the vehicles: no wear, failures, refusals or slowing. Messages still tell you what would have happened.</PhobosVehicleSystems_SettingShowOnlyDesc>
@@ -83,6 +84,8 @@
   <PhobosVehicleSystems_RefuseBrakesWrecked>The {VEHICLE}'s brakes are wrecked. Repair the vehicle before it drives.</PhobosVehicleSystems_RefuseBrakesWrecked>
   <PhobosVehicleSystems_RefuseAirBrakes>The {VEHICLE}'s air brakes are still held on. Leave the engine running a few minutes to build air pressure.</PhobosVehicleSystems_RefuseAirBrakes>
   <PhobosVehicleSystems_RefuseLiftOff>The {VEHICLE}'s engines cannot lift it as it is: too heavy for this heat, or with engines out. Unload some cargo or passengers, repair its engines, or wait for cooler air.</PhobosVehicleSystems_RefuseLiftOff>
+  <PhobosVehicleSystems_RefuseRaisingSteam>The {VEHICLE} has too little steam to move. Keep it drafted with its fire lit until the boiler is up to pressure: from cold that takes hours.</PhobosVehicleSystems_RefuseRaisingSteam>
+  <PhobosVehicleSystems_RefusePlugMelted>The {VEHICLE}'s fusible plug has melted and its boiler is vented. A mechanic must fit a new plug before it can raise steam again.</PhobosVehicleSystems_RefusePlugMelted>
   <PhobosVehicleSystems_RefuseHungStart>The {VEHICLE}'s battery cannot spin its turbine fast enough to light. Have a colonist jump-start it from another vehicle parked near it, or charge the battery beside a powered conduit.</PhobosVehicleSystems_RefuseHungStart>
 
   <!-- Messages -->
@@ -111,6 +114,8 @@
   <PhobosVehicleSystems_MsgOverTorque>The {VEHICLE}'s rotor drive is being asked for more than it can take, and is wearing. Lighten it or ease off.</PhobosVehicleSystems_MsgOverTorque>
   <PhobosVehicleSystems_MsgTractionMotorsHot>The {VEHICLE}'s traction motors are running hot from hard pulling.</PhobosVehicleSystems_MsgTractionMotorsHot>
   <PhobosVehicleSystems_MsgTractionMotorsOverheating>The {VEHICLE}'s traction motors are overheating and burning their windings. Ease the load and let them cool.</PhobosVehicleSystems_MsgTractionMotorsOverheating>
+  <PhobosVehicleSystems_MsgBoilerWaterLow>The {VEHICLE}'s boiler water is low. Keep its feed water topped up, or the fire will burn the crown sheet dry.</PhobosVehicleSystems_MsgBoilerWaterLow>
+  <PhobosVehicleSystems_MsgFeedWaterLow>The {VEHICLE} is nearly out of feed water. It needs a water stop soon.</PhobosVehicleSystems_MsgFeedWaterLow>
   <PhobosVehicleSystems_MsgHoverRefused>The {VEHICLE} is too heavy for its engine to hover onto the pad in this heat. Land it on a runway, or lighten it.</PhobosVehicleSystems_MsgHoverRefused>
   <PhobosVehicleSystems_MsgHoverStrained>The {VEHICLE} is hovering beyond its engine's limits; its hot section is taking the strain.</PhobosVehicleSystems_MsgHoverStrained>
   <PhobosVehicleSystems_MsgHoverBeyond>The {VEHICLE} is hovering beyond what its engine can hold at this weight in this heat.</PhobosVehicleSystems_MsgHoverBeyond>
@@ -149,4 +154,6 @@
   <!-- Letters -->
   <PhobosVehicleSystems_LetterBoilingLabel>Engine boiling over: {VEHICLE}</PhobosVehicleSystems_LetterBoilingLabel>
   <PhobosVehicleSystems_LetterBoilingText>The {VEHICLE}'s coolant is boiling away and the engine is cooking itself.\n\nStop the vehicle now. Once it has cooled, repair the radiator and have a mechanic service it to refill the coolant.</PhobosVehicleSystems_LetterBoilingText>
+  <PhobosVehicleSystems_LetterPlugMeltedLabel>Fusible plug melted: {VEHICLE}</PhobosVehicleSystems_LetterPlugMeltedLabel>
+  <PhobosVehicleSystems_LetterPlugMeltedText>The water in the {VEHICLE}'s boiler fell below the firebox crown. The lead plug in the crown melted and blew steam onto the fire, venting the boiler before the crown sheet could fail.\n\nIt cannot raise steam again until a mechanic fits a new plug. Give it feed water at a water stop before you light it again.</PhobosVehicleSystems_LetterPlugMeltedText>
 </LanguageData>

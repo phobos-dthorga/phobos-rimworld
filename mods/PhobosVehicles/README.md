@@ -4,11 +4,11 @@ Vehicles that keep running only while they are looked after. **This first versio
 vehicles of other mods you already drive the systems that match what they really are, on top of the general systems D'thorga
 Framework gives every vehicle.
 
-Version 0.4.0, built 9 November 2026 for House D'thorga. **Not yet tested in game.**
+Version 0.5.0, built 9 November 2026 for House D'thorga. **Not yet tested in game.**
 
 ## Read this first (gotchas)
 
-- **Needs Vehicle Framework and D'thorga Framework 0.12.0 or later**, on **RimWorld 1.7 only**. Load it after both; the About file
+- **Needs Vehicle Framework and D'thorga Framework 0.13.0 or later**, on **RimWorld 1.7 only**. Load it after both; the About file
   asks for that, so RimSort does it for you.
 - **The general systems come from D'thorga Framework**, not from this mod: battery and alternator, coolant and oil, tyres or tracks,
   brakes, gearbox, wear and service. Their guide and settings are in
@@ -42,7 +42,7 @@ Version 0.4.0, built 9 November 2026 for House D'thorga. **Not yet tested in gam
 | **L-ATV** (GTek's Vehicles) | The real L-ATV's engine power, Allison six-speed ratios, weight, tyres and four-wheel drive, and its 740 A alternator | Oshkosh's and Allison's published figures |
 | MaxxPro (GTek's Vehicles), Humvee, Land Cruiser J70, T-54 and Wiesel (Frontline Workshop), M113, M48H and the "HEMTT" (Roaring Tiger), M10 Booker and M2A3 Bradley (Desert Sabre), the BMP-1 family, both M1A2s | Their real engines' power, weights and gearboxes where published, each labelled in the files; the "HEMTT" is really the PLS, so it gets the PLS's figures | So each one climbs, labours and bogs like itself rather than like a generic diesel |
 | Goat DE2 (Trains of the Rim) | Diesel-electric: no gearbox, traction motors that heat when pulling hard, rail wheels, air brakes from its brake pipe with a compressor | Its description says diesel-electric, and it has a traction motor and a brake pipe of its own |
-| Steam locomotives (Trains of the Rim) | No vehicle systems | A boiler is not a car engine; a boiler system would be its own design |
+| Steam locomotives (Trains of the Rim) | A boiler: hours to raise steam, a water glass, a tender or tanks to refill at a water stop, a fusible plug that melts if the water runs low | The Frisco follows the real 4500 class (a 68,000 L tender) and the tank engine the LB&SCR E2, the class Thomas was drawn from |
 
 Every source and simplification is in the loadout files under `Mods/`.
 

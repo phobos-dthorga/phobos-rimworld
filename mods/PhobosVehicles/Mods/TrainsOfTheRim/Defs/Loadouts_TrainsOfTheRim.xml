@@ -1,23 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
   <!--
-    Trains of the Rim's steam locomotives burn wood or chemfuel under a boiler, which is nothing like a car engine's coolant and oil,
-    so they get no systems: a loadout with none claims them first, until the boiler system (part 3 of the owner's approved proposals,
-    9 Nov 2026) is built. Not yet tested in game.
+    Trains of the Rim's steam locomotives get a boiler (docs/development/vehicle-steam-design.md; figures from
+    docs/development/steam-and-diesel-electric-research.md). The fire is lit while one is drafted with fuel aboard; the mod's own
+    fuel (wood or chemfuel) and rates stand. Not yet tested in game.
+
+    - The Frisco 4-8-4 is the St. Louis-San Francisco 4500 class (secondary: Wikipedia): an 18,000 US gallon tender (68,000 L).
+      Nos. 4500 to 4502 were built to burn oil, the rest coal (secondary); the mod's chemfuel and wood versions both get the same
+      boiler. A big engine: firing and steam use set so it takes about 3 1/3 hours from cold to move and 8 to full pressure (inside
+      the 6 to 10 hours quoted for big engines, secondary and anecdotal; authored).
+    - The Tommy 0-6-0T follows the LB&SCR E2, the class Thomas was drawn from (secondary: Wikipedia): 1,090 imperial gallons of
+      water in its side tanks (4,955 L). About 1 1/3 hours from cold to move and 2 3/4 to full pressure (inside the Great Central
+      Railway's 3 to 7 hours to be ready for service, primary; authored).
+    - Feed water lasts about 3 hours of hard work in the Frisco's tender (at 100 to 200 US gallons a mile, secondary: Union Pacific
+      844's figures) and about 1 2/3 hours in the tank engine's tanks (at about 30 imperial gallons a mile, secondary: the LMS
+      Society's monograph), our inference turned into the feedShare figures.
+    - Their brake pipes are their brakes.
   -->
   <Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
     <defName>PhobosVehicleLoadout_TOTR_Steam</defName>
-    <label>steam locomotive (no systems)</label>
-    <kind>None</kind>
+    <label>steam locomotive (4-8-4)</label>
+    <kind>Steam</kind>
     <priority>Vehicle</priority>
     <selector>
       <vehicleDefs>
         <li>TOTR_Steam_Locomotive_Frisco_Chemfuel</li>
         <li>TOTR_Steam_Locomotive_Frisco_Wood</li>
+      </vehicleDefs>
+    </selector>
+    <systems>
+      <li>
+        <def>PhobosVehicleSystem_Boiler</def>
+        <set>
+          <firingRate>0.17</firingRate>
+          <steamUse>0.19</steamUse>
+          <coolingRate>0.08</coolingRate>
+          <feedShare>0.11</feedShare>
+          <feedWaterLitres>68000</feedWaterLitres>
+        </set>
+      </li>
+      <li><def>PhobosVehicleSystem_FusiblePlug</def></li>
+      <li><def>PhobosVehicleSystem_Brakes</def></li>
+    </systems>
+    <partRoles>
+      <li>
+        <role>Boiler</role>
+        <find>
+          <li>
+            <key>Boiler</key>
+          </li>
+        </find>
+      </li>
+      <li>
+        <role>Brakes</role>
+        <find>
+          <li>
+            <key>BrakePipe</key>
+          </li>
+        </find>
+      </li>
+    </partRoles>
+  </Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
+    <defName>PhobosVehicleLoadout_TOTR_TankEngine</defName>
+    <label>steam tank engine (0-6-0T)</label>
+    <kind>Steam</kind>
+    <priority>Vehicle</priority>
+    <selector>
+      <vehicleDefs>
         <li>TOTR_Tank_Engine_Chemfuel</li>
         <li>TOTR_Tank_Engine_Wood</li>
       </vehicleDefs>
     </selector>
+    <systems>
+      <li>
+        <def>PhobosVehicleSystem_Boiler</def>
+        <set>
+          <firingRate>0.4</firingRate>
+          <steamUse>0.45</steamUse>
+          <coolingRate>0.08</coolingRate>
+          <feedShare>0.2</feedShare>
+          <feedWaterLitres>4955</feedWaterLitres>
+        </set>
+      </li>
+      <li><def>PhobosVehicleSystem_FusiblePlug</def></li>
+      <li><def>PhobosVehicleSystem_Brakes</def></li>
+    </systems>
+    <partRoles>
+      <li>
+        <role>Boiler</role>
+        <find>
+          <li>
+            <key>Boiler</key>
+          </li>
+        </find>
+      </li>
+      <li>
+        <role>Brakes</role>
+        <find>
+          <li>
+            <key>BrakePipe</key>
+          </li>
+        </find>
+      </li>
+    </partRoles>
   </Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
 
   <!--

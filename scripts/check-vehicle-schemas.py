@@ -252,6 +252,9 @@ def check(root):
                 errors.append(f'{where}: the service is due on an unknown quantity')
             if text(service, 'dueAbove') is None and text(service, 'dueBelow') is None:
                 errors.append(f'{where}: the service never falls due')
+            water_parameter = text(service, 'waterLitresParameter')
+            if water_parameter is not None and water_parameter not in system['parameters']:
+                errors.append(f'{where}: the service draws water from the undeclared parameter {water_parameter}')
             water = number(service, 'waterLitres', 0)
             if water is None or water < 0:
                 errors.append(f"{where}: the service's waterLitres must be a number of litres, 0 or more")

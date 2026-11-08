@@ -815,9 +815,31 @@ public class CompPhobosVehicleSystems : VehicleComp
     public bool WaterReady(out string? reason)
     {
         reason = null;
-        ServiceSpec? service = DueService()?.Def.service;
-        if (service == null || service.waterLitres <= 0f) return true;
-        return VehicleWater.CanDraw(Vehicle, service.waterLitres, out reason);
+        SystemState? state = DueService();
+        float litres = ServiceWater(state);
+        if (litres <= 0f) return true;
+        return VehicleWater.CanDraw(Vehicle, litres, out reason);
+    }
+
+    /// <summary>The litres a due service draws: its fixed figure or its parameter, and only the shortfall when it says so.</summary>
+    public float ServiceWater(SystemState? state)
+    {
+        ServiceSpec? service = state?.Def.service;
+        if (state == null || service == null) return 0f;
+        float litres = service.waterLitres;
+        if (service.waterLitresParameter != null && state.system.parameters.TryGetValue(service.waterLitresParameter, out double fromParameter))
+        {
+            litres = (float)fromParameter;
+        }
+        if (litres > 0f && service.waterForShortfall)
+        {
+            QuantityRestore? restore = service.restores.FirstOrDefault(r => r.quantity == service.dueQuantity);
+            if (restore != null && restore.value > 0f && TryGetQuantity(service.dueQuantity, out float now))
+            {
+                litres *= Mathf.Clamp01((restore.value - now) / restore.value);
+            }
+        }
+        return litres;
     }
 
     /// <summary>The due service whose supplies are all aboard and whose water can be had, or null.</summary>
@@ -834,7 +856,8 @@ public class CompPhobosVehicleSystems : VehicleComp
         SystemState? state = ReadyService();
         ServiceSpec? service = state?.Def.service;
         if (state == null || service == null) return false;
-        if (service.waterLitres > 0f && !VehicleWater.TryDraw(Vehicle, service.waterLitres)) return false;
+        float water = ServiceWater(state);
+        if (water > 0f && !VehicleWater.TryDraw(Vehicle, water)) return false;
         ThingOwner cargo = Vehicle.inventory.innerContainer;
         foreach (ThingDefCountClass supply in service.supplies)
         {
