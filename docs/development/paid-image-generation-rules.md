@@ -232,17 +232,18 @@ the body's canvas size, so the cut-out registers over the body without scaling.
 
 ## The pilot flow
 
-1. Write the request file in `assets/phobos-vehicles/requests/`, one request for the north body of one vehicle,
-   `"engine": "openai"`, `"quality": "medium"`, `1024 x 1536`, three or four attempt numbers, no references for a
+1. **Size it first** (owner, 9 Nov 2026, after the tanker was picked at 2 x 6 and had to become 3 x 10). Measure the planned footprint against the biggest comparable vehicle on the owner's list, by what its art covers in cells, not only its footprint. Then choose a canvas whose long edge is **at least 1.5 times the in-game drawn length** at 128 px a cell: a 10-cell truck is 1,280 px in game, so at least 1,920 px, which is `1024 x 2048`. Overlays use the same canvas as their body. Cost rises about with the pixels (US$0.0295 at 768 x 1536, medium), so read the dry run.
+2. Write the request file in `assets/phobos-vehicles/requests/`, one request for the north body of one vehicle,
+   `"engine": "openai"`, `"quality": "medium"`, the canvas from step 1, three or four attempt numbers, no references for a
    first design (or a `style only` reference to an approved pick, if one exists).
-2. `python scripts/art-run.py generate <file> --dry-run`: read the cost ceiling and any refusal. Nothing is sent.
-3. Tell the owner the ceiling and get the go.
-4. `python scripts/art-run.py generate <file> --stop-at HH:MM --max-usd 0.50` (the game may be running: a paid-only run
+3. `python scripts/art-run.py generate <file> --dry-run`: read the cost ceiling and any refusal. Nothing is sent.
+4. Tell the owner the ceiling and get the go.
+5. `python scripts/art-run.py generate <file> --stop-at HH:MM --max-usd 0.50` (the game may be running: a paid-only run
    needs no graphics card).
-5. Read the run report and the review page; check the near-copy result; write the review of each attempt into the
+6. Read the run report and the review page; check the near-copy result; write the review of each attempt into the
    batch record at native size and half size.
-6. The owner picks, or asks for one correction. One correction, then a change of approach.
-7. From the pick: turn by script for east and south (`scripts/art/export_vehicle.py`), and pay for a reference edit only if the owner sees the lighting is wrong, since an edit redraws the picture and can drift from the pick and from its overlays (8 Nov 2026); masks and icon
+7. The owner picks, or asks for one correction. One correction, then a change of approach.
+8. From the pick: turn by script for east and south (`scripts/art/export_vehicle.py`), and pay for a reference edit only if the owner sees the lighting is wrong, since an edit redraws the picture and can drift from the pick and from its overlays (8 Nov 2026); masks and icon
    by script; archive the unpicked attempts with their reasons; master to `art-masters`.
 
 ## Review checklist (every attempt, before the owner sees it)
