@@ -51,6 +51,12 @@ public class ITab_VehicleSystems : ITab
     protected override void CloseTab()
     {
         base.CloseTab();
+        ClearState();
+    }
+
+    /// <summary>Forgets every vehicle's scroll and pending section and stops lighting a part (this tab or the world's closed).</summary>
+    public static void ClearState()
+    {
         states.Clear();
         Highlight(null, null);
     }
@@ -72,10 +78,18 @@ public class ITab_VehicleSystems : ITab
     {
         CompPhobosVehicleSystems? comp = CompOf(SelThing);
         if (comp == null || !comp.Usable) return;
+        Draw(comp, new Rect(0f, 0f, size.x, size.y).ContractedBy(Margin), onWorld: false);
+    }
+
+    /// <summary>
+    /// Draws one vehicle's systems in <paramref name="outer"/>, scrolling: for this tab on a map, and for the world map's tab on a caravan
+    /// or an aircraft in flight (<paramref name="onWorld"/>), where nothing is lit up on the vehicle (it is not on a map).
+    /// </summary>
+    public static void Draw(CompPhobosVehicleSystems comp, Rect outer, bool onWorld)
+    {
         DisplayMode mode = VehicleSystemsMod.Settings.displayMode;
         bool engineer = mode == DisplayMode.Engineer;
         State state = states.Get(comp.Vehicle.thingIDNumber);
-        var outer = new Rect(0f, 0f, size.x, size.y).ContractedBy(Margin);
         float viewWidth = outer.width - 16f;
         float height = ContentHeight(comp, engineer, viewWidth);
         var view = new Rect(0f, 0f, viewWidth, height);
@@ -204,7 +218,7 @@ public class ITab_VehicleSystems : ITab
             }
         }
         Widgets.EndScrollView();
-        Highlight(comp.Vehicle, hovered);
+        if (!onWorld) Highlight(comp.Vehicle, hovered);
     }
 
     /// <summary>"Wheels: front left wheel", or only the part's name when it says the same as its role ("Battery", not "Battery:

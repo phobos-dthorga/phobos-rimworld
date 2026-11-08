@@ -36,9 +36,17 @@ public class ITab_VehicleDashboard : ITab
     {
         CompPhobosVehicleSystems? comp = CompOf(SelThing);
         if (comp == null || !comp.Usable) return;
+        Draw(comp, new Rect(0f, 0f, size.x, size.y).ContractedBy(Margin), onWorld: false);
+    }
+
+    /// <summary>
+    /// Draws one vehicle's dashboard in <paramref name="outer"/>: for this tab on a map, and for the world map's tab on a caravan or an
+    /// aircraft in flight (<paramref name="onWorld"/>), where a gauge click opens the world's Systems tab instead.
+    /// </summary>
+    public static void Draw(CompPhobosVehicleSystems comp, Rect outer, bool onWorld)
+    {
         DisplayMode mode = VehicleSystemsMod.Settings.displayMode;
         bool figures = mode != DisplayMode.Plain;
-        var outer = new Rect(0f, 0f, size.x, size.y).ContractedBy(Margin);
         float y = outer.y;
 
         // What it waits for.
@@ -68,7 +76,11 @@ public class ITab_VehicleDashboard : ITab
                 if (Widgets.ButtonInvisible(rect))
                 {
                     ITab_VehicleSystems.ScrollTo(comp.Vehicle.thingIDNumber, state.Def.defName);
-                    if (mode != DisplayMode.Plain) InspectPaneUtility.OpenTab(typeof(ITab_VehicleSystems));
+                    if (mode != DisplayMode.Plain)
+                    {
+                        if (onWorld) PhobosTabs.OpenWorldTab(typeof(WITab_PhobosVehicleSystems));
+                        else InspectPaneUtility.OpenTab(typeof(ITab_VehicleSystems));
+                    }
                 }
                 x += width + 6f;
             }

@@ -5,7 +5,7 @@ colonist is breathing, makes fires fill roofed rooms with the game's own smoke w
 carries carbon monoxide from fires, holds the per-person care choices the D'thorga medical mods offer, and holds the small
 helpers every D'thorga mod shares.
 
-Version 0.22.0, built 9 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
+Version 0.23.0, built 9 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
 oxygen working through Burns and Smoke and Medical Equipment (5 November 2026). The health layer new in 0.3.0 and the **vehicle
 systems new in 0.9.0, and their engines, drivetrains and gas turbines new in 0.11.0, are not yet tested in game.** The rest is read from the game's and the mods' code.
 
@@ -136,7 +136,8 @@ Other mods (D'thorga Vehicles first) can give a named vehicle its own figures. N
   **Dashboard** (does anything need me now? gauges, warning lights, what it waits for, the switches) and **Systems** (every figure,
   every part's health, the engine, and in Engineer mode a day's graph of each quantity). Systems is hidden in Plain mode. Tread
   and brake gauges show what is left. A gauge
-  on the Dashboard opens Systems at that system.
+  on the Dashboard opens Systems at that system. **From 0.23.0 both tabs are on the world map too**, on a vehicle caravan and an
+  aircraft in flight, with a list of the caravan's vehicles down the left.
 - **Climate control** (0.22.0): modern vehicles hold the cab near 21 °C by themselves while the engine runs (a switch, on by
   default); older ones have the heater (below 5 °C outside) and the air conditioner (above 26 °C) by hand. The setting **Every closed
   cab has climate control** (off) gives it to every vehicle.

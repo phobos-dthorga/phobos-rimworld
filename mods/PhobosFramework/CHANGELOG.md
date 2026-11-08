@@ -5,6 +5,19 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.23.0] - 2026-11-09 - Draft
+
+The vehicle tabs on the world map (owner, 9 November 2026). **Not yet tested in game.** Design: docs/development/vehicle-tabs-design.md.
+
+### Added
+
+- The Dashboard and Systems tabs on a vehicle caravan and on an aircraft in flight, beside Vehicle Framework's own: the systems keep running off the map, and now you can see them there. With several vehicles, a list down the left chooses which one the tab shows, each with a light (green; amber when something is notable; red when it will not move) and what it waits for in its tooltip. The switches work from there, and a service asked for there is done once the vehicle is on a map.
+- Shared, in the core: opening a world inspector tab from code.
+
+### Changed
+
+- The map tabs and the world tabs draw through the same code, so they always show the same thing.
+
 ## [0.22.0] - 2026-11-09 - Draft
 
 Automatic climate control (owner, 9 November 2026). **Not yet tested in game.** Design: docs/development/vehicle-world-map-design.md.

@@ -345,7 +345,9 @@ and the service button. The **Systems** tab lists every system that runs on the 
 mode shows hidden ones too) with its figure, stage and a bar for Fraction and Celsius units; each role's parts; the drivetrain and
 turbine figures; and in Engineer mode a graph of the last day (the comp keeps one sample per rare tick of every shown quantity,
 saved with the vehicle) and the flows an hour. The widgets are the Framework core's `Phobos.Framework.Interface.PhobosWidgets` (in the core's `UI/` folder), so a tab
-of your own can draw the same gauges and graphs; `TabState<T>` holds per-thing state for a shared tab instance.
+of your own can draw the same gauges and graphs; `TabState<T>` holds per-thing state for a shared tab instance. From 0.23.0 both tabs
+also show on a vehicle caravan and an aircraft in flight on the world map, drawn by the same code (`ITab_VehicleDashboard.Draw` and
+`ITab_VehicleSystems.Draw`), with a vehicle list when there are several.
 
 ## Dev actions
 

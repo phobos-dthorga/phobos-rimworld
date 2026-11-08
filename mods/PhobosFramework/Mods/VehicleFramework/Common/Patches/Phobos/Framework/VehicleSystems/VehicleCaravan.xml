@@ -10,4 +10,13 @@
       </li>
     </value>
   </Operation>
+  <!-- The Dashboard and Systems tabs on the world map (owner, 9 Nov 2026; Framework 0.23.0): on a vehicle caravan and an aircraft in
+       flight, beside Vehicle Framework's own. Both Defs already have an inspectorTabs list. -->
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/WorldObjectDef[defName="VehicleCaravan" or defName="AerialVehicle"]/inspectorTabs</xpath>
+    <value>
+      <li>Phobos.VehicleSystems.WITab_PhobosVehicleDashboard</li>
+      <li>Phobos.VehicleSystems.WITab_PhobosVehicleSystems</li>
+    </value>
+  </Operation>
 </Patch>

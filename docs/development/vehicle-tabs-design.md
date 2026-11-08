@@ -59,6 +59,17 @@ rule asks, with the history ring and its codec in the core's `Rules/History.cs` 
   asked for wear gauges to show what is left, and the agent saw parts repeated after their role and an empty section for a system
   switched off by a setting: all three changed in Framework 0.19.0. The rest of the test list is not yet run.
 
+## On the world map (Framework 0.23.0, 9 Nov 2026)
+
+The owner asked whether the tabs should show on the world map; the agent recommended it, and the owner agreed. `WITab_PhobosVehicles`
+(`Presentation/WITab_PhobosVehicles.cs`) adds a Dashboard and a Systems world tab to Vehicle Framework's `VehicleCaravan` and
+`AerialVehicle` world object Defs (an XML patch beside the caravan comp's). They draw through the map tabs' own static `Draw(comp, rect,
+onWorld)`, so the two cannot drift apart. With several vehicles a list down the left chooses one (a light: red when it will not move
+or a stage refuses or damages, amber when any stage is notable, green; its waiting line in the tooltip); the choice is per world
+object and cleared when the tab closes. Off the map nothing is lit up on the vehicle, and a gauge click opens the world's Systems tab
+through the core's `PhobosTabs.OpenWorldTab`. A town, outpost or camp the player has entered is a map, so its vehicles have the map
+tabs; a waypoint belongs to its caravan. Not yet tested in game.
+
 ## Who chose what
 
 - **Owner (9 Nov 2026):** the two tabs and their names; a day of saved history.

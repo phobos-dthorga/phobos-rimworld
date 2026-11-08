@@ -158,7 +158,8 @@ The candidate base class for interval map components is still not built (see 0.6
   0.20.0 added `Patching/PatchFlags.cs`: `PatchFlags.Register` (a mod's setting, read by XML patches) and `PatchOperationPhobosFlag`
   (operations applied only while that setting is on; mods register in their constructors, which run before patches). 0.21.0 added
   `Health/LeavesLasting.cs` (a condition that leaves a lasting one on its part when it heals, by its worst) and `Rules/LastingRule.cs`;
-  the uninstall sweep's `CleanupService.Sweeping` tells it to stand aside.
+  the uninstall sweep's `CleanupService.Sweeping` tells it to stand aside. 0.21.1 added `Rules/SupplyRules.cs` (several jobs' needs
+  against stock); 0.23.0 `UI/PhobosTabs.cs` (opening a world inspector tab from code).
 
 ## Open points and upstream
 
