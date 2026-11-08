@@ -17,6 +17,9 @@ delivered, record the delivery in the changelog or design record, and add or ame
 - Candidly recommend simplifying, setting aside or changing direction when gameplay value, engine limits
   or maintenance cost make further work unconvincing. Never continue merely because effort was spent;
   never invent hour estimates.
+- **Every new behaviour answers for itself before it is built** (owner, 8 Nov 2026): its design record says what it lets the player
+  do, what it stops them doing, and how it changes the way they do things. Ask this when a behaviour is introduced, not for every
+  figure or Def. A behaviour with no answer to any of the three is not built.
 - Explain what works, what was checked and what remains uncertain. Distinguish observed game behaviour
   from proposed designs and untested assumptions. A build, an offline check or a unit test is never an
   in-game test. **Nothing counts as tested in game until the owner says so**; write "not yet tested in
