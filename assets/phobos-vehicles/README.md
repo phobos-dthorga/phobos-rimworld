@@ -44,11 +44,11 @@ The painted areas are grey in the texture, as Vanilla Vehicles Expanded's are, s
 
 ## Tanker overlays (8 Nov 2026)
 
-**Status: made, waiting for the owner's picks.** All 12 attempts are saved exactly as generated on `art-references` (3b3ae05, `vehicles/tanker-overlays/`). Tool: OpenAI gpt-image-2 through `/images/edits`, medium quality, 768 x 1536, one named reference each, US$0.0385 an image; AI-generated. Prompts are in [requests/tanker-liquid-tank.json](requests/tanker-liquid-tank.json) and [requests/tanker-overlays.json](requests/tanker-overlays.json). The whole tanker has cost US$0.576 so far: US$0.118 for the body, US$0.115 for the liquid tank and US$0.343 for the rest.
+**Status: the owner accepted all twelve (8 Nov 2026), as the defaults below and as variants for upgrades, extensions and storage types.** All 12 are saved exactly as generated on `art-masters` (37b08f9, `vehicles/tanker/overlays/`) and on `art-references` (3b3ae05, `vehicles/tanker-overlays/`). Tool: OpenAI gpt-image-2 through `/images/edits`, medium quality, 768 x 1536, one named reference each, US$0.0385 an image; AI-generated. Prompts are in [requests/tanker-liquid-tank.json](requests/tanker-liquid-tank.json) and [requests/tanker-overlays.json](requests/tanker-overlays.json). The whole tanker has cost US$0.576 so far: US$0.118 for the body, US$0.115 for the liquid tank and US$0.343 for the rest.
 
-The review is the agent's, with each attempt fitted onto the exported truck. The provisional pick is what `generated/export/` holds; the owner may choose differently.
+The review is the agent's, with each attempt fitted onto the exported truck. The default is exported under the plain name in `generated/export/`, and the alternates with `_B` and `_C`.
 
-| Overlay | Fit box in master pixels | Attempts | Provisional | Notes |
+| Overlay | Fit box in master pixels | Attempts | Default | Notes |
 | --- | --- | --- | --- | --- |
 | Liquid tank | 232 556 532 1410 | 3 | 1 | Round ends and bolted hatches read most like a road tank. 3 has squarer ends |
 | Pressure vessel | 252 590 512 1370 | 3 | 2 | Fullest cylinder, solid orange band. 1 is slim, and 3's band looks translucent |

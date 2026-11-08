@@ -338,6 +338,21 @@ node, not the base texture), a `StatUpgrade` sets the capacity, and the unlocked
 | `LiquidTank` | 3,000 units | Two thirds of Vanilla Chemfuel Expanded's fixed chemfuel tank (4,500 units for 140 steel, patched Def read 8 Nov 2026), so a tanker never beats a built tank per steel; it buys mobility | A horizontal elliptical tank with a manway and a ladder |
 | `PressureVessel` | 1,200 units | A pressure vessel holds far less per tonne of steel than an open tank; authored ratio | A single cylinder with hemispherical ends, a relief valve and a gauge cabinet |
 
+**Variants from the accepted art (owner, 8 Nov 2026: all twelve overlay attempts are accepted, for upgrades, extensions and storage types;
+the mapping and figures are the agent's proposal, owner to confirm).** Under principle 8 each variant that becomes a node must move a figure.
+
+| Accepted art | Proposed node | What it would change (authored) |
+| --- | --- | --- |
+| Liquid tank 1, default | `LiquidTank` | The general tank above: 3,000 units |
+| Liquid tank 2, wider with slim hatches | `InsulatedLiquidTank` | 2,700 units; contents change temperature slowly. Replaces the separate `Insulation` node if the owner keeps that mechanic |
+| Liquid tank 3, squarer ends | `HighVolumeLiquidTank` | 3,300 units; a full load slows the truck more |
+| Pressure vessel 2, default | `PressureVessel` | The vessel above: 1,200 units |
+| Pressure vessel 1, slim | `LightPressureVessel` | 800 units; cheaper and lighter |
+| Pressure vessel 3, wide band | `HeavyWallVessel` | 1,000 units; a tougher shell (`Phobos_TankIntegrity`) |
+| Hose reel 1 and hose 2 | Held for a later node | Alternates, such as a second hose type |
+
+With more than two tank nodes, each names all the others in `disableIfUpgradeNodesEnabled` (the list form of the field read at `:21696`).
+
 **Contents are a Def anyone can write.** `PhobosTankContentsDef` (a new Def type in D'thorga Framework's Vehicle-Framework part, XML):
 label, `phase` (Liquid or Gas, which decides the node it needs), unit label, `kilogramsPerUnit` (the mass balance), `flammable`, and a
 list of **ports**: the classes that move contents between the tank and the world. Each contents Def ships in the folder of the mod
