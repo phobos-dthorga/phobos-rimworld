@@ -5,6 +5,14 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.21.2] - 2026-11-09 - Draft
+
+From the owner's test of the Harrier (9 November 2026). **Not yet tested in game.**
+
+### Fixed
+
+- Aircraft and boats had no cab heater, so a closed cockpit or cabin could only cool and froze in the cold even in flight. Aircraft now heat it with air bled from the engines, boats with the engine's heat, below 5 degrees while the engine runs, with a switch as land vehicles have. A parked vehicle with its engine off still follows the weather, as before.
+
 ## [0.21.1] - 2026-11-09 - Draft
 
 From the owner's test of the Harrier (9 November 2026). **Not yet tested in game.**

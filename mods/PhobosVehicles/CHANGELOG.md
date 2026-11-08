@@ -5,6 +5,14 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.9.1] - 2026-11-09 - Draft
+
+With D'thorga Framework 0.21.2. **Not yet tested in game.**
+
+### Fixed
+
+- The steam locomotives' cabs never warmed: the firebox now keeps the cab warm below 5 degrees while the locomotive is in steam, with a switch.
+
 ## [0.9.0] - 2026-11-09 - Draft
 
 The Lightning as an electric van, with D'thorga Framework 0.20.0. **Not yet tested in game.** Design: docs/development/vehicle-electric-design.md.

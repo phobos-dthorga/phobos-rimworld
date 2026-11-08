@@ -484,6 +484,23 @@
         <when Class="Phobos.VehicleSystems.When_EngineRunning" />
       </li>
       <li>
+        <!-- Added in Framework 0.21.2: boats had no cab heater, so a closed cabin could only cool. Amps authored, as a land vehicle's fan. -->
+        <name>cabHeater</name>
+        <label>cab heater</label>
+        <description>The cabin heater runs below 5 °C while the engine runs, on the engine's heat.</description>
+        <amps>12</amps>
+        <toggle>true</toggle>
+        <iconPath>Phobos/VehicleSystems/CabHeater</iconPath>
+        <when Class="Phobos.VehicleSystems.When_All">
+          <conditions>
+            <li Class="Phobos.VehicleSystems.When_AmbientBelow">
+              <celsius>5</celsius>
+            </li>
+            <li Class="Phobos.VehicleSystems.When_EngineRunning" />
+          </conditions>
+        </when>
+      </li>
+      <li>
         <name>airConditioner</name>
         <label>air conditioner</label>
         <description>The air conditioner cools the cab above 26 °C while the engine runs.</description>
@@ -632,6 +649,23 @@
         <when Class="Phobos.VehicleSystems.When_All">
           <conditions>
             <li Class="Phobos.VehicleSystems.When_Night" />
+            <li Class="Phobos.VehicleSystems.When_EngineRunning" />
+          </conditions>
+        </when>
+      </li>
+      <li>
+        <!-- Added in Framework 0.21.2: aircraft had no cab heater, so a closed cockpit could only cool. Real aircraft heat it with bleed air from the engines (general); the amps, for the valves and fan, are authored. -->
+        <name>cabHeater</name>
+        <label>cab heater</label>
+        <description>The cockpit and cabin are heated below 5 °C while the engines run, with hot air bled from them.</description>
+        <amps>4</amps>
+        <toggle>true</toggle>
+        <iconPath>Phobos/VehicleSystems/CabHeater</iconPath>
+        <when Class="Phobos.VehicleSystems.When_All">
+          <conditions>
+            <li Class="Phobos.VehicleSystems.When_AmbientBelow">
+              <celsius>5</celsius>
+            </li>
             <li Class="Phobos.VehicleSystems.When_EngineRunning" />
           </conditions>
         </when>

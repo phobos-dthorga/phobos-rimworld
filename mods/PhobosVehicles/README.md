@@ -4,7 +4,7 @@ Vehicles that keep running only while they are looked after. **This first versio
 vehicles of other mods you already drive the systems that match what they really are, on top of the general systems D'thorga
 Framework gives every vehicle.
 
-Version 0.9.0, built 9 November 2026 for House D'thorga. **Not yet tested in game.**
+Version 0.9.1, built 9 November 2026 for House D'thorga. **Not yet tested in game.**
 
 ## Read this first (gotchas)
 

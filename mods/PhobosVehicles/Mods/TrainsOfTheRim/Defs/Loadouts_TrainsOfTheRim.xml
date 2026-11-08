@@ -67,6 +67,26 @@
         </find>
       </li>
     </partRoles>
+    <loads>
+      <li>
+        <!-- Added in D'thorga Vehicles 0.9.1: the cab had no heater, so it only ever followed the weather. On a steam locomotive the
+             firebox warms the footplate (general); it needs no current, so 0 amps. -->
+        <name>cabHeater</name>
+        <label>firebox warmth</label>
+        <description>The firebox keeps the cab warm below 5 °C while the fire is lit and the locomotive is in steam.</description>
+        <amps>0</amps>
+        <toggle>true</toggle>
+        <iconPath>Phobos/VehicleSystems/CabHeater</iconPath>
+        <when Class="Phobos.VehicleSystems.When_All">
+          <conditions>
+            <li Class="Phobos.VehicleSystems.When_AmbientBelow">
+              <celsius>5</celsius>
+            </li>
+            <li Class="Phobos.VehicleSystems.When_EngineRunning" />
+          </conditions>
+        </when>
+      </li>
+    </loads>
   </Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
 
   <Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
@@ -114,6 +134,26 @@
         </find>
       </li>
     </partRoles>
+    <loads>
+      <li>
+        <!-- Added in D'thorga Vehicles 0.9.1: the cab had no heater, so it only ever followed the weather. On a steam locomotive the
+             firebox warms the footplate (general); it needs no current, so 0 amps. -->
+        <name>cabHeater</name>
+        <label>firebox warmth</label>
+        <description>The firebox keeps the cab warm below 5 °C while the fire is lit and the locomotive is in steam.</description>
+        <amps>0</amps>
+        <toggle>true</toggle>
+        <iconPath>Phobos/VehicleSystems/CabHeater</iconPath>
+        <when Class="Phobos.VehicleSystems.When_All">
+          <conditions>
+            <li Class="Phobos.VehicleSystems.When_AmbientBelow">
+              <celsius>5</celsius>
+            </li>
+            <li Class="Phobos.VehicleSystems.When_EngineRunning" />
+          </conditions>
+        </when>
+      </li>
+    </loads>
   </Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
 
   <!--
