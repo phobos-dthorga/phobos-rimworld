@@ -11,9 +11,13 @@
   and antennas in XML. Tie-ins with other mods are optional and switch on only when those mods are active.
 - **Keep it a working slice.** Build the smallest version that proves the idea in play, then grow it. Drop
   an idea that isn't worth its upkeep.
+- **A future framework idea** (owner, 22 Oct 2026): true gas mixing for rooms and ships, as Ostranauts has,
+  built on Vanilla Expanded Framework with an extendable Phobos framework of its own. It goes ahead if other
+  modders don't get there first, or fast enough. Not started.
 
 ## The owner's game (18 Oct 2026)
 
+The living, refreshed list is [the owner's mod list](owner-mod-list.md); this section keeps its 18 Oct scope.
 RimWorld 1.6.4871 on Steam's main branch, with all five DLCs and about 280 Workshop mods, managed with
 RimSort. Combat Extended is in the list, so the owner is starting a new colony rather than continuing an
 older save. 1.7 stays on the beta branch for now.

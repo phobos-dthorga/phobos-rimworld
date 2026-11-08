@@ -195,6 +195,8 @@ Five mods until 7 November 2026; each record below keeps its own mod's name and 
 
 - [The owner's mod list](owner-mod-list.md): every mod the owner has on, checked against each mod's own rules,
   with the official Vanilla Expanded collection and suggestions for what to add next. Kept current by
-  `scripts/refresh-mod-list.py`.
+  `scripts/refresh-mod-list.py`, which also caches the collection in `vanilla-expanded-collection.json`.
 - [RimWorld modding reference (18 Oct 2026)](rimworld-modding-reference.md): versions, the Waylith engine and
   1.7, package IDs, `About.xml`, load folders, C# build targets, paths, and Ludeon's EULA on mods, with sources.
+- [RimWorld 1.7 readiness (24 Oct 2026)](rimworld-1.7-readiness.md): which of the owner's mods declare 1.7,
+  which frameworks hold the rest back, what players report broken, and how to try 1.7 on a copy.
