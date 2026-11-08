@@ -23,6 +23,10 @@
     <li IfModActive="vanillaexpanded.gravship">Mods/VanillaGravshipExpanded</li>
     <li IfModActive="vanillaracesexpanded.sanguophage">Mods/VanillaRacesSanguophage</li>
     <li IfModActive="Dubwise.DubsBadHygiene">Mods/DubsBadHygiene</li>
+    <li IfModActive="vanillaexpanded.gravship,ceteam.combatextended">Mods/TankerVessels</li>
+    <li IfModActive="ceteam.combatextended">Mods/CombatExtended</li>
+    <li IfModActive="ludeon.rimworld.biotech">Mods/Biotech</li>
+    <li IfModActive="dubwise.rimefeller">Mods/Rimefeller</li>
     <li IfModActiveAll="rimthunder.core,OskarPotocki.VanillaVehiclesExpanded">Mods/PartsRimThunderAndVVE</li>
     <li IfModActive="rimthunder.core" IfModNotActive="OskarPotocki.VanillaVehiclesExpanded">Mods/PartsRimThunder</li>
     <li IfModActive="OskarPotocki.VanillaVehiclesExpanded" IfModNotActive="rimthunder.core">Mods/PartsVVE</li>

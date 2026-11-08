@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- Fecal sludge: the honey wagon. Dubs' own 25 units of sewage to the barrel. Dropped in Dubs' lite mode, as the barrel itself is. Flavour text is agent-authored, for the owner's review. -->
+  <Phobos.VehicleSystems.PhobosTankContentsDef DBHLite="true">
+    <defName>PhobosTank_FecalSludge</defName>
+    <label>fecal sludge</label>
+    <description>The colony's finest, by the tankful. The drivers call it honey. Nobody asks them why.</description>
+    <phase>Liquid</phase>
+    <unitLabel>units</unitLabel>
+    <kilogramsPerUnit>0.8</kilogramsPerUnit>
+    <spillFilth>FilthFaeces</spillFilth>
+    <ports>
+      <li Class="Phobos.VehicleSystems.Hygiene.Port_DubsSeptic" />
+      <li Class="Phobos.VehicleSystems.Port_Items">
+        <thing>FecalSludge</thing>
+        <unitsPerItem>25</unitsPerItem>
+      </li>
+    </ports>
+  </Phobos.VehicleSystems.PhobosTankContentsDef>
+</Defs>

@@ -5,6 +5,19 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.35.0] - 2026-11-09 - Draft
+
+More that a tank's contents can do, for D'thorga Vehicles 0.13.0 (owner, 9 November 2026). **Not yet tested in game.**
+
+### Added
+
+- A fluid can now detonate when its tank is hit, explode as something other than flame, reach further when it does, light itself when spilled, pollute the ground, and say what happened to it when its clock runs out. A blast has a cap, so one truck cannot erase the map.
+- A tanker can pump out a Dubs Bad Hygiene septic tank.
+
+### Fixed
+
+- A tank of something moved in whole items could never be emptied once a leak left less than one item in it.
+
 ## [0.34.0] - 2026-11-08 - Draft
 
 Bulk tanks on vehicles, for D'thorga Vehicles' bulk tanker (owner, 8 November 2026). **Not yet tested in game.** Design: docs/development/utility-vehicles-design.md.

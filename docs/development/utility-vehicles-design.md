@@ -450,6 +450,22 @@ power take-off pump is the real machine.
 
 **Not built:** RimThunder engine-class upgrade nodes (principle 9), `Port_FireMonitor`, crude oil and helixien gas ports, masks for overlays.
 
+### As built: the second wave of fluids (9 Nov 2026, D'thorga Framework 0.35.0 and D'thorga Vehicles 0.13.0, Drafts)
+
+**Not yet tested in game.** The owner asked for items that are really fluids: FSX and prometheum, and the agent's list, all but liquid oxygen. Each is a contents Def using the item port, so stacks on the ground pump straight in.
+
+| Fluid | What it lets the player do | What it stops | How it changes play |
+| --- | --- | --- | --- |
+| FSX | Move it in bulk, or park a truck bomb | Nothing | A hit may set off the load (25%, authored) |
+| Prometheum | Move it in bulk | Pressure vessel only (agent's reading of "ignites on contact with oxygen") | Any spill catches fire |
+| Toxic sludge | Haul waste off your land in one trip | Nothing | 8 days to get rid of it unless frozen (the game's own figure); a spill or dissolved load pollutes, 6 cells a pack as the game does |
+| Fecal sludge | Empty septic tanks without barrels | Nothing | One trip replaces dozens |
+| Napalm, crude, beer, wort, insect jelly | Bulk haulage | Nothing | Wort runs on the game's 5-day clock; napalm's blast reaches further |
+
+**Agent defaults, owner to revise:** ten units to an FSX or prometheum, thirty to a wastepack; a blast cap of 15 cells; blast factors of 1.4 (FSX) and 1.25 (napalm). The owner did not answer these, so they are the agent's stated leans.
+
+**Deferred, on the owner's word (9 Nov 2026): liquid oxygen.** D'thorga Medical's liquid oxygen store (`docs/development/medical-equipment.md`) would be a real cryogenic cargo: insulated tank only, boiling off slowly. It waits on functionality not built yet: the store's own pipe connection needs reading, and a boil-off behaviour for tanks.
+
 ### What each one needs in art
 
 Per vehicle: a north, east and south **base body** at 128 px per drawSize unit, drawn as the bare platform (principle 8), a colour

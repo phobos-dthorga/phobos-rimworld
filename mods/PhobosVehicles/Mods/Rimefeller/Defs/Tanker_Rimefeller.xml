@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- Napalm and crude oil in barrels, one unit to the item. Napalm's blast factor is authored. Crude through Rimefeller's own pipes is not built. -->
+  <Phobos.VehicleSystems.PhobosTankContentsDef>
+    <defName>PhobosTank_Napalm</defName>
+    <label>napalm</label>
+    <description>Sticky, and very keen to burn.</description>
+    <phase>Liquid</phase>
+    <unitLabel>units</unitLabel>
+    <kilogramsPerUnit>0.05</kilogramsPerUnit>
+    <flammable>true</flammable>
+    <spillFilth>Filth_Fuel</spillFilth>
+    <explosionRadiusFactor>1.25</explosionRadiusFactor>
+    <ports>
+      <li Class="Phobos.VehicleSystems.Port_Items">
+        <thing>Napalm</thing>
+      </li>
+    </ports>
+  </Phobos.VehicleSystems.PhobosTankContentsDef>
+  <Phobos.VehicleSystems.PhobosTankContentsDef>
+    <defName>PhobosTank_CrudeBarrels</defName>
+    <label>crude oil</label>
+    <description>Crude oil, emptied out of its barrels.</description>
+    <phase>Liquid</phase>
+    <unitLabel>units</unitLabel>
+    <kilogramsPerUnit>0.05</kilogramsPerUnit>
+    <flammable>true</flammable>
+    <spillFilth>Filth_OilSlick</spillFilth>
+    <ports>
+      <li Class="Phobos.VehicleSystems.Port_Items">
+        <thing>OilBarrel</thing>
+      </li>
+    </ports>
+  </Phobos.VehicleSystems.PhobosTankContentsDef>
+</Defs>

@@ -40,6 +40,18 @@ public class PhobosTankContentsDef : Def
     public float spoilsAfterDays;
     /// <summary>The relief valve opens at this outside temperature, or in a fire. NaN never vents.</summary>
     public float ventsAbove = float.NaN;
+    /// <summary>How the loss is described when the clock runs out ("spoiled", "dissolved").</summary>
+    public string spoilWord = "spoiled";
+    /// <summary>The chance that a hit on the shell sets off the whole load (FSX). Needs the tank explosion setting.</summary>
+    public float detonatesOnHit;
+    /// <summary>What the load explodes as; flame if not given.</summary>
+    public DamageDef? explosionDamage;
+    /// <summary>How much further this load's blast reaches than chemfuel's.</summary>
+    public float explosionRadiusFactor = 1f;
+    /// <summary>A spill catches fire by itself (prometheum).</summary>
+    public bool ignitesWhenSpilled;
+    /// <summary>Cells of ground each unit pollutes when it is spilled or dissolves (Biotech).</summary>
+    public float pollutionCellsPerUnit;
     /// <summary>Where it can be pumped from and to, tried in order.</summary>
     public List<TankPort> ports = new();
 
@@ -93,6 +105,8 @@ public class CompProperties_PhobosTank : VehicleCompProperties
     public float explosionReferenceUnits = 4500f;
     public float explosionReferenceRadius = 12f;
     public int explosionDamage = 40;
+    /// <summary>However strong the load, its blast stops here, so one truck cannot erase the map (authored).</summary>
+    public float explosionMaxRadius = 15f;
     /// <summary>The hose laid out while the tanker is set up.</summary>
     public GraphicDataOverlay? hosesOut;
 

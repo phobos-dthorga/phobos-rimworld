@@ -83,4 +83,10 @@ public class TankRuleTests
 
     [Fact]
     public void AnEmptyTankDoesNotExplode() => Assert.Equal(0f, TankRule.ExplosionRadius(0f, 4500f, 12f));
+
+    [Fact]
+    public void AStrongerLoadHasALargerBlast() => Assert.Equal(16.8f, TankRule.ExplosionRadius(4500f, 4500f, 12f, 1.4f), 3);
+
+    [Fact]
+    public void TheBlastNeverPassesItsCap() => Assert.Equal(15f, TankRule.ExplosionRadius(4500f, 4500f, 12f, 1.4f, 15f), 3);
 }

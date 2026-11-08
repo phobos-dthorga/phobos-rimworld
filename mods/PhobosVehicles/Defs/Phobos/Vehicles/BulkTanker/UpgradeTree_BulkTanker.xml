@@ -3,7 +3,7 @@
   <!--
     The bulk tanker's upgrades (docs/development/utility-vehicles-design.md, Bulk tanker). Only one tank at a time: each names the others in
     disableIfUpgradeNodesEnabled, so one must come off before another goes on. Capacities and costs are authored. The gas vessels are
-    added by a patch in Mods/VanillaGravshipExpanded, because nothing else here carries a gas yet. Node keys are saved in the player's
+    added by a patch in Mods/TankerVessels, loaded only with a mod that gives them something to carry. Node keys are saved in the player's
     game: never rename or remove one. Not yet tested in game.
   -->
   <Vehicles.UpgradeTreeDef>

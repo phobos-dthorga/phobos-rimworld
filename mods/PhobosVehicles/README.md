@@ -4,7 +4,7 @@ Vehicles that keep running only while they are looked after. It adds one vehicle
 vehicles of other mods you already drive the systems that match what they really are, on top of the general systems D'thorga
 Framework gives every vehicle.
 
-Version 0.12.0, built 8 November 2026 for House D'thorga. **Not yet tested in game.**
+Version 0.13.0, built 9 November 2026 for House D'thorga. **Not yet tested in game.**
 
 ## Read this first (gotchas)
 
@@ -76,6 +76,13 @@ Every source and simplification is in the loadout files under `Mods/`.
 | Water | Dubs Bad Hygiene's plumbing | Freezes below 0 °C and cannot be pumped until it thaws |
 | Nutrient paste, hemogen | Their pipes | Above 0 °C the whole load spoils after about 18 hours; the insulated tank doubles that |
 | Astrofuel, oxygen | Vanilla Gravship Expanded's pipes | Oxygen vents in a fire or great heat |
+| Beer, insect jelly | Stacks on the ground | None |
+| Wort | Stacks on the ground | The whole load spoils after 5 days above 0 °C |
+| FSX (Combat Extended) | Stacks on the ground | None, but a hit on the tank may set off the load |
+| Prometheum (Combat Extended) | Stacks on the ground | Pressure vessel only; any spill catches fire |
+| Toxic sludge (Biotech) | Wastepacks on the ground | Dissolves after 8 days above 0 °C; a spill or a dissolved load pollutes the ground |
+| Fecal sludge (Dubs Bad Hygiene) | Septic tanks and barrels | None. It is what it is |
+| Napalm, crude oil (Rimefeller) | Stacks and barrels on the ground | None |
 
 **Gotchas:** an empty tank must be **purged** before it can carry something else: select a colonist and right-click the truck (four in-game hours; it takes water where Dubs Bad Hygiene is active). **Taking a tank off with a load in it spills the load.** A damaged tank leaks, and a destroyed tank holding something flammable explodes unless you turn that off in D'thorga Framework's settings. A full tank slows the truck.
 

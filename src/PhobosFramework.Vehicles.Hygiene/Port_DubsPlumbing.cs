@@ -57,6 +57,17 @@ public class Port_DubsPlumbing : TankPort
         return given;
     }
 
+    internal static IEnumerable<Thing> ThingsBeside(CompPhobosTank tank)
+    {
+        Map map = tank.Vehicle.Map;
+        foreach (IntVec3 cell in tank.ContactCells())
+        {
+            if (!cell.InBounds(map)) continue;
+            List<Thing> things = cell.GetThingList(map);
+            for (int i = 0; i < things.Count; i++) yield return things[i];
+        }
+    }
+
     static PlumbingNet? FindNet(CompPhobosTank tank)
     {
         Map map = tank.Vehicle.Map;

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- Things the game keeps as items that are really fluids: pumped from stacks, set down as stacks, one unit to one item. Wort keeps the game's own 5 days to spoil. Masses per unit are the items' own. -->
+  <Phobos.VehicleSystems.PhobosTankContentsDef>
+    <defName>PhobosTank_Beer</defName>
+    <label>beer</label>
+    <description>Beer by the tankful.</description>
+    <phase>Liquid</phase>
+    <unitLabel>bottles</unitLabel>
+    <kilogramsPerUnit>0.3</kilogramsPerUnit>
+    <spillFilth>Filth_Water</spillFilth>
+    <ports>
+      <li Class="Phobos.VehicleSystems.Port_Items">
+        <thing>Beer</thing>
+      </li>
+    </ports>
+  </Phobos.VehicleSystems.PhobosTankContentsDef>
+  <Phobos.VehicleSystems.PhobosTankContentsDef>
+    <defName>PhobosTank_Wort</defName>
+    <label>wort</label>
+    <description>Unfermented beer, on its way to the barrels. It will not keep.</description>
+    <phase>Liquid</phase>
+    <unitLabel>units</unitLabel>
+    <kilogramsPerUnit>0.8</kilogramsPerUnit>
+    <spillFilth>Filth_Slime</spillFilth>
+    <spoilsAfterDays>5</spoilsAfterDays>
+    <ports>
+      <li Class="Phobos.VehicleSystems.Port_Items">
+        <thing>Wort</thing>
+      </li>
+    </ports>
+  </Phobos.VehicleSystems.PhobosTankContentsDef>
+  <Phobos.VehicleSystems.PhobosTankContentsDef>
+    <defName>PhobosTank_InsectJelly</defName>
+    <label>insect jelly</label>
+    <description>A truck of jelly. Nobody asked where the hive went.</description>
+    <phase>Liquid</phase>
+    <unitLabel>units</unitLabel>
+    <kilogramsPerUnit>0.025</kilogramsPerUnit>
+    <spillFilth>Filth_Slime</spillFilth>
+    <ports>
+      <li Class="Phobos.VehicleSystems.Port_Items">
+        <thing>InsectJelly</thing>
+      </li>
+    </ports>
+  </Phobos.VehicleSystems.PhobosTankContentsDef>
+</Defs>

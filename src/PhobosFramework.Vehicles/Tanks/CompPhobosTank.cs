@@ -31,6 +31,8 @@ public class CompPhobosTank : VehicleComp
     const float EmptyBelow = 0.5f;
     /// <summary>Degrees above its freezing point that a fresh load arrives at (authored).</summary>
     const float ArrivalMargin = 5f;
+    /// <summary>How big a fire a self-igniting spill starts (authored).</summary>
+    const float SpillFireSize = 0.6f;
 
     PhobosTankContentsDef? contents;
     /// <summary>What the empty tank last held, until it is purged.</summary>
@@ -213,8 +215,8 @@ public class CompPhobosTank : VehicleComp
         residue = was;
         if (Vehicle.Spawned && was.flammable && VehicleSystemsMod.Settings.FlagOn("tankExplosions"))
         {
-            float radius = TankRule.ExplosionRadius(lost, Props.explosionReferenceUnits, Props.explosionReferenceRadius);
-            if (radius > 0.5f) GenExplosion.DoExplosion(Vehicle.Position, Vehicle.Map, radius, DamageDefOf.Flame, Vehicle, Props.explosionDamage);
+            float radius = TankRule.ExplosionRadius(lost, Props.explosionReferenceUnits, Props.explosionReferenceRadius, was.explosionRadiusFactor, Props.explosionMaxRadius);
+            if (radius > 0.5f) GenExplosion.DoExplosion(Vehicle.Position, Vehicle.Map, radius, was.explosionDamage ?? DamageDefOf.Flame, Vehicle, Props.explosionDamage);
         }
         Tell("PhobosVehicleSystems_TankBurst".Translate(Vehicle.LabelShort.Named("VEHICLE"), was.label.Named("CONTENTS")), MessageTypeDefOf.NegativeEvent);
     }
@@ -258,8 +260,9 @@ public class CompPhobosTank : VehicleComp
         if (contents == null || contents.spoilsAfterDays <= 0f) return;
         spoilHours = TankRule.NextSpoilHours(spoilHours, temperature, HoursPerRareTick, fitting.spoilRate);
         if (!TankRule.Spoiled(spoilHours, contents.spoilsAfterDays)) return;
-        Tell("PhobosVehicleSystems_TankSpoiled".Translate(Vehicle.LabelShort.Named("VEHICLE"), contents.label.Named("CONTENTS")), MessageTypeDefOf.NegativeEvent);
+        Tell("PhobosVehicleSystems_TankSpoiled".Translate(Vehicle.LabelShort.Named("VEHICLE"), contents.label.Named("CONTENTS"), contents.spoilWord.Named("SPOILED")), MessageTypeDefOf.NegativeEvent);
         PhobosTankContentsDef was = contents;
+        Pollute(amount);
         ClearLoad();
         residue = was;
     }
@@ -361,10 +364,21 @@ public class CompPhobosTank : VehicleComp
 
     void SpillOnGround(float units)
     {
-        ThingDef? filth = contents?.spillFilth;
-        if (filth == null || !Vehicle.Spawned || units <= 0f) return;
-        int count = Mathf.Clamp(Mathf.CeilToInt(units / 100f), 1, 6);
-        FilthMaker.TryMakeFilth(Vehicle.Position, Vehicle.Map, filth, count);
+        if (contents == null || !Vehicle.Spawned || units <= 0f) return;
+        if (contents.spillFilth != null)
+        {
+            int count = Mathf.Clamp(Mathf.CeilToInt(units / 100f), 1, 6);
+            FilthMaker.TryMakeFilth(Vehicle.Position, Vehicle.Map, contents.spillFilth, count);
+        }
+        if (contents.ignitesWhenSpilled) FireUtility.TryStartFireIn(Vehicle.Position, Vehicle.Map, SpillFireSize, Vehicle);
+        Pollute(units);
+    }
+
+    void Pollute(float units)
+    {
+        if (contents == null || contents.pollutionCellsPerUnit <= 0f || !Vehicle.Spawned || !ModsConfig.BiotechActive) return;
+        int cells = GenMath.RoundRandom(units * contents.pollutionCellsPerUnit);
+        if (cells > 0) PollutionUtility.GrowPollutionAt(Vehicle.Position, Vehicle.Map, cells);
     }
 
     void Tell(string text, MessageTypeDef type) => Messages.Message(text, Vehicle, type, historical: false);
@@ -374,6 +388,11 @@ public class CompPhobosTank : VehicleComp
     public void ShellHit(float units)
     {
         if (!HasLoad || units <= 0f) return;
+        if (contents is { detonatesOnHit: > 0f } && VehicleSystemsMod.Settings.FlagOn("tankExplosions") && Rand.Chance(contents.detonatesOnHit))
+        {
+            Rupture();
+            return;
+        }
         float lost = Mathf.Min(units, amount);
         amount -= lost;
         SpillOnGround(lost);

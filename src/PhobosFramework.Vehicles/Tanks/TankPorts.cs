@@ -37,7 +37,11 @@ public class Port_Items : TankPort
         reason = null;
         if (thing == null) return 0f;
         int wanted = (int)(most / unitsPerItem);
-        if (wanted <= 0) return 0f;
+        if (wanted <= 0)
+        {
+            reason = "PhobosVehicleSystems_TankFull".Translate().Resolve();
+            return 0f;
+        }
         Map map = tank.Vehicle.Map;
         int taken = 0;
         foreach (IntVec3 cell in tank.ContactCells())
@@ -59,7 +63,11 @@ public class Port_Items : TankPort
         reason = null;
         if (thing == null) return 0f;
         int count = Math.Min((int)(most / unitsPerItem), thing.stackLimit);
-        if (count <= 0) return 0f;
+        if (count <= 0)
+        {
+            // Dregs too small to make one item are lost, or a leaked tank could never be emptied.
+            return tank.Amount < unitsPerItem ? most : 0f;
+        }
         Thing stack = ThingMaker.MakeThing(thing);
         stack.stackCount = count;
         VehiclePawn vehicle = tank.Vehicle;

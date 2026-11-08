@@ -18,7 +18,7 @@
   <PhobosVehicleSystems_TankRemovedSpilled>The tank came off {VEHICLE} with its load still in it, and the load spilled.</PhobosVehicleSystems_TankRemovedSpilled>
   <PhobosVehicleSystems_TankBurst>The tank on {VEHICLE} has burst, and its {CONTENTS} is lost!</PhobosVehicleSystems_TankBurst>
   <PhobosVehicleSystems_TankVenting>The relief valve on {VEHICLE} is venting its {CONTENTS}!</PhobosVehicleSystems_TankVenting>
-  <PhobosVehicleSystems_TankSpoiled>The {CONTENTS} in {VEHICLE} has spoiled. The tank needs purging.</PhobosVehicleSystems_TankSpoiled>
+  <PhobosVehicleSystems_TankSpoiled>The {CONTENTS} in {VEHICLE} has {SPOILED}. The tank needs purging.</PhobosVehicleSystems_TankSpoiled>
   <PhobosVehicleSystems_TankFrozen>The {CONTENTS} in the tank has frozen.</PhobosVehicleSystems_TankFrozen>
   <PhobosVehicleSystems_TankControlsDamaged>The valves and wiring are too damaged to run the pump.</PhobosVehicleSystems_TankControlsDamaged>
   <PhobosVehicleSystems_TankPumpDamaged>The pump and hoses are too damaged to run.</PhobosVehicleSystems_TankPumpDamaged>
@@ -32,6 +32,7 @@
   <PhobosVehicleSystems_TankPipeEmpty>The pipes hold nothing to draw.</PhobosVehicleSystems_TankPipeEmpty>
   <PhobosVehicleSystems_TankPipeFull>The storage on those pipes is full.</PhobosVehicleSystems_TankPipeFull>
   <PhobosVehicleSystems_TankTowersFull>The water towers on those pipes are full.</PhobosVehicleSystems_TankTowersFull>
+  <PhobosVehicleSystems_TankNoSeptic>There is no septic tank beside the truck.</PhobosVehicleSystems_TankNoSeptic>
   <PhobosVehicleSystems_TankNothingToCarry>Nothing this tank can carry is available.</PhobosVehicleSystems_TankNothingToCarry>
   <PhobosVehicleSystems_TankInspect>Tank: {AMOUNT} of {CAPACITY} {UNIT} of {CONTENTS}, at {TEMPERATURE}</PhobosVehicleSystems_TankInspect>
   <PhobosVehicleSystems_TankInspectUnset>Tank: empty, holds {CAPACITY}. Choose what it will carry.</PhobosVehicleSystems_TankInspectUnset>

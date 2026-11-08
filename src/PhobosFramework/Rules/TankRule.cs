@@ -48,9 +48,9 @@ public static class TankRule
         MathF.Min(held, MathF.Max(0f, 1f - integrity) * capacity * fractionPerHourAtZero * hours);
 
     /// <summary>The blast radius of a load, scaling with the cube root of what is aboard: the volume of a blast follows its energy.</summary>
-    public static float ExplosionRadius(float amount, float referenceAmount, float referenceRadius)
+    public static float ExplosionRadius(float amount, float referenceAmount, float referenceRadius, float factor = 1f, float maxRadius = float.MaxValue)
     {
         if (amount <= 0f || referenceAmount <= 0f) return 0f;
-        return referenceRadius * MathF.Cbrt(amount / referenceAmount);
+        return MathF.Min(maxRadius, referenceRadius * MathF.Cbrt(amount / referenceAmount) * factor);
     }
 }

@@ -16,6 +16,26 @@ tested in game unless an entry says the owner tested it.
 
 - BMP-1 IFV (Vehicle Framework), by Turbo, is no longer on the Steam Workshop (Steam showed no public item on 8 November 2026: removed or made private). Its loadout here loads only while that mod is active, so it stays dormant and costs nothing; a player with their own copy still gets it.
 
+## [0.13.0] - 2026-11-09 - Draft
+
+Things the game keeps as items that are really fluids (owner, 9 November 2026). **Not yet tested in game.** Needs D'thorga Framework 0.35.0.
+
+### Added
+
+- Beer, wort and insect jelly out of the box.
+- FSX and prometheum with Combat Extended. FSX may go off when the tank is hit. Prometheum travels only in a pressure vessel, and any spill burns.
+- Toxic wastepacks as sludge with Biotech: they dissolve after 8 days unless frozen, as packs do, and a spill or a dissolved load pollutes the ground.
+- Fecal sludge with Dubs Bad Hygiene, pumped from septic tanks or barrels and set down as barrels.
+- Napalm and crude oil barrels with Rimefeller.
+
+### Changed
+
+- Pressure vessels now also appear with Combat Extended.
+
+### Balance
+
+- Ten units to one FSX or prometheum, thirty to a wastepack, twenty-five to a sludge barrel. A blast stops at 15 cells. All authored but the sludge barrel, which is Dubs' own figure.
+
 ## [0.12.0] - 2026-11-08 - Draft
 
 The first vehicle of our own: the bulk tanker (owner, 8 November 2026). **Not yet tested in game.** Needs D'thorga Framework 0.34.0. Design: docs/development/utility-vehicles-design.md. Art: OpenAI gpt-image-2, picked and accepted by the owner, recorded in the textures folder.

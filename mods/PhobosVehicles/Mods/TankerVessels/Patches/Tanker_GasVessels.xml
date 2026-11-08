@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Patch>
-  <!-- The tanker's pressure vessels appear only when something can fill them: oxygen, from Vanilla Gravship Expanded's net. -->
+  <!-- The tanker's pressure vessels appear only when something can fill them: oxygen from Vanilla Gravship Expanded, or prometheum from Combat Extended. -->
   <Operation Class="PatchOperationAdd">
     <xpath>Defs/Vehicles.UpgradeTreeDef[defName="Phobos_Tanker_UpgradeTree"]/nodes</xpath>
     <value>

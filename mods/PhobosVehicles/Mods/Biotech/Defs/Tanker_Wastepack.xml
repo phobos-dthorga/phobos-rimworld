@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- Toxic wastepacks as sludge, thirty units to the pack, so a full tank is 100 packs (agent default). The game's own rules: they dissolve after 8 days unless frozen, and pollute six cells a pack, so a spill or a dissolved load does the same. -->
+  <Phobos.VehicleSystems.PhobosTankContentsDef>
+    <defName>PhobosTank_Wastepack</defName>
+    <label>toxic sludge</label>
+    <description>Toxic waste, on its way to being somebody else's problem.</description>
+    <phase>Liquid</phase>
+    <unitLabel>units</unitLabel>
+    <kilogramsPerUnit>0.2</kilogramsPerUnit>
+    <spillFilth>Filth_Slime</spillFilth>
+    <spoilsAfterDays>8</spoilsAfterDays>
+    <spoilWord>dissolved</spoilWord>
+    <pollutionCellsPerUnit>0.2</pollutionCellsPerUnit>
+    <ports>
+      <li Class="Phobos.VehicleSystems.Port_Items">
+        <thing>Wastepack</thing>
+        <unitsPerItem>30</unitsPerItem>
+      </li>
+    </ports>
+  </Phobos.VehicleSystems.PhobosTankContentsDef>
+</Defs>

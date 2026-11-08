@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- FSX and prometheum, ten units to the item, so a full general tank is 300 items, twelve stacks (agent default, 9 Nov 2026). Prometheum 'ignites on contact with oxygen', so it travels sealed in a pressure vessel and any spill burns. Blast factors and the detonation chance are authored. -->
+  <Phobos.VehicleSystems.PhobosTankContentsDef>
+    <defName>PhobosTank_FSX</defName>
+    <label>FSX</label>
+    <description>High explosive, in bulk. Drive carefully.</description>
+    <phase>Liquid</phase>
+    <unitLabel>units</unitLabel>
+    <kilogramsPerUnit>0.05</kilogramsPerUnit>
+    <flammable>true</flammable>
+    <spillFilth>Filth_Fuel</spillFilth>
+    <detonatesOnHit>0.25</detonatesOnHit>
+    <explosionDamage>Bomb</explosionDamage>
+    <explosionRadiusFactor>1.4</explosionRadiusFactor>
+    <ports>
+      <li Class="Phobos.VehicleSystems.Port_Items">
+        <thing>FSX</thing>
+        <unitsPerItem>10</unitsPerItem>
+      </li>
+    </ports>
+  </Phobos.VehicleSystems.PhobosTankContentsDef>
+  <Phobos.VehicleSystems.PhobosTankContentsDef>
+    <defName>PhobosTank_Prometheum</defName>
+    <label>prometheum</label>
+    <description>An incendiary that lights itself the moment it meets the air.</description>
+    <phase>Gas</phase>
+    <unitLabel>units</unitLabel>
+    <kilogramsPerUnit>0.05</kilogramsPerUnit>
+    <flammable>true</flammable>
+    <ignitesWhenSpilled>true</ignitesWhenSpilled>
+    <ports>
+      <li Class="Phobos.VehicleSystems.Port_Items">
+        <thing>Prometheum</thing>
+        <unitsPerItem>10</unitsPerItem>
+      </li>
+    </ports>
+  </Phobos.VehicleSystems.PhobosTankContentsDef>
+</Defs>
