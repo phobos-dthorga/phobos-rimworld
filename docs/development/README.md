@@ -86,6 +86,10 @@ promise current behaviour. For using the mods, start at the [documentation index
   and what was skipped or wrong, a closed cab's own temperature through the game's held-temperature lookup, the night heater,
   caravan speed caps and refusals, the jump-start kit and its two settings; D'thorga Framework 0.16.0 and D'thorga Vehicles
   0.7.0. Not yet tested in game.
+- [A pawn-like health model for vehicles: research and direction (9 Nov 2026)](vehicle-health-design.md): what the game does
+  for a pawn and Vehicle Framework for a vehicle (it switches the pawn health stack off), why a condition layer on Vehicle
+  Framework's parts beats reviving that stack, the performance budget and measurement protocol, the NPC lite tier, and the
+  four-slice roadmap from the Health tab to repair depth. Not yet tested in game.
 - [Electric vehicles: design (9 Nov 2026)](vehicle-electric-design.md): traction battery temperature and wear, the electric drive,
   charging that follows the battery, and the Lightning as a test van behind a setting; Framework 0.20.0, Vehicles 0.9.0. Not yet
   tested in game.

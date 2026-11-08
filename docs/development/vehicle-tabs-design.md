@@ -70,6 +70,12 @@ object and cleared when the tab closes. Off the map nothing is lit up on the veh
 through the core's `PhobosTabs.OpenWorldTab`. A town, outpost or camp the player has entered is a map, so its vehicles have the map
 tabs; a waypoint belongs to its caravan. Not yet tested in game.
 
+## A third tab: Health (9 Nov 2026)
+
+The owner's aim of a pawn-like health model for vehicles starts with a Health tab of our own that replaces Vehicle Framework's; its
+research, direction and the tab's design are in [the vehicle health record](vehicle-health-design.md). It shares the widgets and
+the `Draw(comp, rect, onWorld)` pattern of the two tabs here.
+
 ## Who chose what
 
 - **Owner (9 Nov 2026):** the two tabs and their names; a day of saved history.

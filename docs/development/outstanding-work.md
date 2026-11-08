@@ -66,6 +66,19 @@ Added 9 Nov 2026: the vehicle work of 8 and 9 November did not update this file 
 | V12 | Cab heaters for aircraft, boats and steam cabs (a gap found from the owner's Harrier); automatic climate control by era with a blanket setting | Framework, Vehicles | Climate control with a main-menu option (9 Nov 2026) | Done: Framework 0.21.2 and 0.22.0, Vehicles 0.9.1 and 0.10.0 |
 | V11 | The tabs after the owner's first look (9 Nov 2026): wear gauges show what is left, no repeated part names, no empty sections | Framework | Show what is left | Done: Framework 0.19.0 |
 
+## Vehicle health (from 9 Nov 2026)
+
+The owner's primary aim for the vehicles: pawn-like health and injury detail for player vehicles, diffuse for NPCs, performance
+first ([record](vehicle-health-design.md)). Slices in order; each needs the one before.
+
+| # | Item | Mod | Owner's decision | Status |
+| --- | --- | --- | --- | --- |
+| H0 | Measurement (a dev timing readout) and the NPC lite tier, with the setting to run the full model for everyone | Framework | Lite by default, setting (9 Nov 2026) | In progress |
+| H1 | The Health tab replacing Vehicle Framework's: VF's stats with impactor tooltips, parts grouped pawn-style with the stages and refusals under them, a crew row, hover highlight, on the world map too; a setting keeps VF's tab | Framework | First deliverable (9 Nov 2026) | In progress |
+| H2 | Conditions proper: per-part severities with stages, from hits, stages and wear; resolved by repair, fading or a service | Framework | Architecture chosen (9 Nov 2026); Def shape waits for a read of Vehicle Framework's develop branch | Open |
+| H3 | Consequences and repair depth: leaks with the danger clock, destroyed parts needing supplies (setting, on), field fixes, permanent conditions; wreck-on-death as a separate question | Framework, Vehicles | Supplies for destroyed parts and serious conditions (9 Nov 2026) | Open |
+| H4 | The performance table in the record, filled from the owner's runs (Dubs Performance Analyzer, the 1.7 Frame Profiler, our readout) | docs | | Open: the owner runs the protocol |
+
 ## Caustic gas, the rest (9 Nov 2026)
 
 | # | Item | Owner's decision | Status |
