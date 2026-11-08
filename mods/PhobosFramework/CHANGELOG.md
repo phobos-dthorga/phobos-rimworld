@@ -5,6 +5,37 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.16.0] - 2026-11-09 - Draft
+
+The world map: caravans, the cab's climate, the night heater and jump-starts, from the owner's decisions of 9 November 2026. **Not yet tested in game.** Design: docs/development/vehicle-world-map-design.md.
+
+### Added
+
+- A closed cab has its own temperature, and everyone aboard feels it instead of the weather, on maps and in caravans: the game's own cold, heat and comfort rules apply to it. The cab drifts toward the outside and toward what the heater or the new air conditioner holds while the engine runs. Open vehicles (motorcycles, an open boat) shelter nobody.
+- A night heater (a setting, off by default): with the engine off at a caravan's night camp, a vehicle whose night heater is switched on burns a little fuel to keep its cab warm. Switch it on before leaving.
+- Caravans move as their slowest vehicle: a laden truck held back by its engine or the ground slows the whole caravan, and the caravan's explanation says which vehicle.
+- A vehicle that will not move (a flat battery, worn brakes, a cold boiler) stops its caravan, and the caravan's inspect text says why.
+- A jump-start kit, the leads a jump-start needs: crafted at a machining table or a fabrication bench, never used up. With the setting Jump-start leads must be crafted (on by default) a jump-start on the map fetches one from stock and a caravan needs one aboard, each refusal saying so.
+- The setting Every vehicle carries a booster pack (off by default): a jump-start then needs no other vehicle, on the map or in a caravan.
+- Caravan jump-starts: a button on the caravan jump-starts a vehicle of it from another vehicle in the caravan (or its booster pack), with the reason when it cannot.
+- Dev actions: toggle a load, give a jump-start kit, flatten the battery, log caravan state and set caravan cap (both on the world map).
+- Shared, in the Framework's core: the held-temperature registry any mod can give its holders a temperature through, and a finder for a tool in stock or aboard a caravan.
+- For modders: a loadout's cabin block and a vehicle's cabin extension; the conditions When_CaravanResting and When_LoadActive; a fuel effect's rate from a parameter; the caravan comp. The schema check reads them.
+
+### Changed
+
+- A jump-start on the map now needs a jump-start kit unless the setting says the leads are free (in 0.10.0 they were).
+- With the load-dependent fuel setting on, a caravan's fuel correction follows Vehicle Framework's own world-map rate (with each vehicle's world multiplier) instead of the map rate; it was wrong by that multiplier.
+
+### Compatibility and limits
+
+- Patches the game's held-temperature lookup (a postfix: the game's own answers stand), Vehicle Framework's caravan ticks-per-move and its vehicles' world-map movement check, and adds a comp to its vehicle caravan world object by XML.
+- The cab's figures are authored; the night heater's fuel is approximate. Biome is not yet read for a caravan's drivetrain.
+
+### Save compatibility
+
+- Safe to add to a running colony: cabs start at the outside temperature; the new settings start at their defaults. The caravan comp joins saved caravans on load.
+
 ## [0.15.0] - 2026-11-09 - Draft
 
 Combat Extended corrections for the vehicle systems, from a reading of CE's vehicle code on 9 November 2026. **Not yet tested in game.**

@@ -177,6 +177,12 @@ class VehicleSchemaCheckTests(unittest.TestCase):
                                               '<add><key>TestEngine</key><health>10</health><hitWeightCE>0</hitWeightCE></add>'))
         self.assertTrue(any('positive hitWeightCE' in e for e in result['errors']))
 
+    def test_a_load_condition_naming_no_load_and_a_bad_cabin_are_caught(self):
+        result = self.run_with(SYSTEM.replace('<defName>Test_Loadout</defName>', '<defName>Test_Loadout</defName><cabin><closed>maybe</closed></cabin>'
+                                              '<loads><li><name>lamp</name><amps>1</amps><when Class="Phobos.VehicleSystems.When_LoadActive"><load>fan</load></when></li></loads>'))
+        self.assertTrue(any('cabin closed' in e for e in result['errors']))
+        self.assertTrue(any('When_LoadActive names a load' in e for e in result['errors']))
+
     def test_a_service_with_negative_water_is_caught(self):
         result = self.run_with(POWER.replace('<waterLitres>10</waterLitres>', '<waterLitres>-1</waterLitres>'))
         self.assertTrue(any('waterLitres' in e for e in result['errors']))

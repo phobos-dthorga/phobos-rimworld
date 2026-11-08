@@ -87,6 +87,7 @@
       <li><def>PhobosVehicleSystem_Brakes</def></li>
       <li><def>PhobosVehicleSystem_Transmission</def></li>
       <li><def>PhobosVehicleSystem_Turbine</def></li>
+      <li><def>PhobosVehicleSystem_Cabin</def></li>
     </systems>
     <drivetrain>
       <def>PhobosDrivetrain_AGT1500</def>

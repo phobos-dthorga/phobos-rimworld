@@ -165,7 +165,37 @@ public class CompPhobosVehicleSystems : VehicleComp
 
     static PhobosVehicleRulesDef Rules => PhobosVehicleRulesDef.Current<PhobosVehicleRulesDef>();
 
-    static bool Enabled(SystemState state) => !VehicleSystemsMod.Settings.disabledSystems.Contains(state.Def.defName);
+    bool Enabled(SystemState state) => !VehicleSystemsMod.Settings.disabledSystems.Contains(state.Def.defName) && (!state.Def.needsClosedCab || ClosedCab);
+
+    bool? closedCab;
+
+    /// <summary>Whether this vehicle's cab shelters everyone aboard: the vehicle's own extension, else its loadout's cabin block.</summary>
+    public bool ClosedCab
+    {
+        get
+        {
+            closedCab ??= Vehicle?.VehicleDef?.GetModExtension<PhobosVehicleCabinExtension>()?.closed ?? Props.loadout?.cabin.closed ?? true;
+            return closedCab.Value;
+        }
+    }
+
+    /// <summary>Why the vehicle will not move now, cached on each update for the caravan's inspect text and Vehicle Framework's
+    /// world-map checks; null when it may.</summary>
+    public string? MoveRefusal { get; private set; }
+
+    /// <summary>Whether a load of the loadout is on: switched on by the player when it has a switch, and its own condition holds.</summary>
+    public bool LoadActive(string name)
+    {
+        PhobosVehicleLoadoutDef? loadout = Props.loadout;
+        if (loadout == null || states == null || states.Count == 0) return false;
+        foreach (ElectricalLoadSpec load in loadout.loads)
+        {
+            if (load.name != name) continue;
+            if (load.toggle && !IsOn(load)) return false;
+            return load.when == null || load.when.Holds(new SystemContext(this, states[0]));
+        }
+        return false;
+    }
 
     // ---- Saving ----
 
@@ -224,12 +254,19 @@ public class CompPhobosVehicleSystems : VehicleComp
         base.PostSpawnSetup(respawningAfterLoad);
         if (Usable) spawned[Vehicle] = this;
         RestorePartHealths();
+        powertrain?.ForgetGround();
     }
 
     public override void PostDeSpawn(Map map, DestroyMode mode = DestroyMode.Vanish)
     {
         base.PostDeSpawn(map, mode);
         if (Vehicle != null) spawned.Remove(Vehicle);
+    }
+
+    public override void PostDestroy(DestroyMode mode, Map previousMap)
+    {
+        base.PostDestroy(mode, previousMap);
+        if (Vehicle != null) CabClimate.Forget(Vehicle);
     }
 
     public override void EventRegistration()
@@ -349,6 +386,9 @@ public class CompPhobosVehicleSystems : VehicleComp
                 EvaluateStages(state, (float)hours);
             }
             RecacheStatFactors();
+            MoveRefusal = FirstRefusal(draft: false);
+            if (ClosedCab && TryGetQuantity("cabTemperature", out float cab)) CabClimate.Set(Vehicle, cab);
+            else CabClimate.Forget(Vehicle);
         }
         finally
         {
@@ -979,28 +1019,38 @@ public class CompPhobosVehicleSystems : VehicleComp
 
     /// <summary>
     /// Raises this vehicle's quantity to the jump-start level from the donor's, which loses the same ampere-hours unless its engine
-    /// runs. Says so. Returns false when either vehicle can no longer take part.
+    /// runs; with no donor (the player assumes every vehicle carries a booster pack) the charge comes from nowhere. Says so. Returns
+    /// false when either vehicle can no longer take part.
     /// </summary>
-    public bool ReceiveJumpStart(CompPhobosVehicleSystems donor, Pawn helper)
+    public bool ReceiveJumpStart(CompPhobosVehicleSystems? donor, Pawn helper)
     {
         SystemState? need = JumpStartNeed();
         JumpStartSpec? spec = need?.Def.jumpStart;
-        if (need == null || spec == null || !donor.CanDonate(need.Def)) return false;
-        SystemState donorState = donor.states!.First(s => s.Def == need.Def);
+        if (need == null || spec == null) return false;
+        if (donor == null && !VehicleSystemsMod.Settings.FlagOn("assumeBoosterPack")) return false;
+        if (donor != null && !donor.CanDonate(need.Def)) return false;
+        SystemState? donorState = donor?.states!.First(s => s.Def == need.Def);
         int index = JumpQuantity(need);
         double missing = spec.raiseTo - need.values[index];
-        double capacity = new SystemContext(this, need).Parameter(spec.capacityParameter);
-        double donorCapacity = new SystemContext(donor, donorState).Parameter(spec.capacityParameter);
         need.values[index] = SystemIntegrator.Clamp(spec.raiseTo, need.min[index], need.max[index]);
         need.Def.Worker.UpdateDerived(new SystemContext(this, need));
-        if (!donor.EngineRunning && donorCapacity > 0) donor.AddToQuantity(spec.quantity, -(float)(missing * capacity / donorCapacity));
+        if (donor != null && donorState != null)
+        {
+            double capacity = new SystemContext(this, need).Parameter(spec.capacityParameter);
+            double donorCapacity = new SystemContext(donor, donorState).Parameter(spec.capacityParameter);
+            if (!donor.EngineRunning && donorCapacity > 0) donor.AddToQuantity(spec.quantity, -(float)(missing * capacity / donorCapacity));
+            donor.EvaluateStages(donorState, 0f);
+        }
         EvaluateStages(need, 0f);
-        donor.EvaluateStages(donorState, 0f);
         RecacheStatFactors();
+        MoveRefusal = FirstRefusal(draft: false);
         if (Vehicle.Faction == Faction.OfPlayer)
         {
-            Messages.Message("PhobosVehicleSystems_JumpStarted".Translate(helper.LabelShort.Named("HELPER"), Vehicle.LabelShort.Named("VEHICLE"),
-                donor.Vehicle.LabelShort.Named("DONOR")), Vehicle, MessageTypeDefOf.TaskCompletion);
+            NamedArgument vehicle = Vehicle.LabelShort.Named("VEHICLE");
+            NamedArgument who = helper.LabelShort.Named("HELPER");
+            Messages.Message(donor != null
+                ? "PhobosVehicleSystems_JumpStarted".Translate(who, vehicle, donor.Vehicle.LabelShort.Named("DONOR"))
+                : "PhobosVehicleSystems_JumpStartedBooster".Translate(who, vehicle), Vehicle, MessageTypeDefOf.TaskCompletion);
         }
         return true;
     }

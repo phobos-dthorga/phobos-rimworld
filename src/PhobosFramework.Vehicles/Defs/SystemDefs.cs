@@ -182,6 +182,8 @@ public class PhobosVehicleSystemDef : Def
     public List<FlowSpec> flows = new();
     public List<EventRule> onEvents = new();
     public List<PartHitRule> onPartHit = new();
+    /// <summary>The system stands down on a vehicle with an open cab (the Cabin system).</summary>
+    public bool needsClosedCab;
     public ServiceSpec? service;
     public JumpStartSpec? jumpStart;
     /// <summary>The part roles the system reads; the schema check warns when a loadout binds none of them.</summary>
@@ -411,6 +413,18 @@ public class LoadoutSelector
     }
 }
 
+/// <summary>Whether a loadout's vehicles have a closed cab that shelters everyone aboard (the Cabin system) or an open one.</summary>
+public class CabinSpec
+{
+    public bool closed = true;
+}
+
+/// <summary>On a VehicleDef, in any mod's XML: whether this vehicle's cab is closed, overriding its loadout's cabin block.</summary>
+public class PhobosVehicleCabinExtension : DefModExtension
+{
+    public bool closed = true;
+}
+
 /// <summary>One system in a loadout, with the loadout's overrides of its parameters.</summary>
 public class LoadoutSystem
 {
@@ -429,6 +443,8 @@ public class PhobosVehicleLoadoutDef : Def
     public int rank;
     /// <summary>The engine and drivetrain (drivetrain design), or an aircraft's engine (turbine design).</summary>
     public LoadoutDrivetrain? drivetrain;
+    /// <summary>Closed or open cab (closed by default); a vehicle's PhobosVehicleCabinExtension overrides it.</summary>
+    public CabinSpec cabin = new();
     /// <summary>An aircraft's flight phases and the demand each puts on its engines.</summary>
     public PhobosVehicleFlightProfileDef? flightProfile;
     /// <summary>Groups loadouts in the settings window: CombustionLand, Aircraft, Boat, Electric, Rail, Heavy.</summary>

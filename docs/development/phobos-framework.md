@@ -144,7 +144,10 @@ The candidate base class for interval map components is still not built (see 0.6
 
 - **Generic functions go to the core** (owner's rule of 9 Nov 2026, in AGENTS.md): `Rules/CombatExtendedRules.cs` (how Combat
   Extended reads hit weights and blast penetration, with tests) and `Debug/DebugSelection.cs` (the selected things, comps and world
-  objects for dev actions) came in with the vehicle systems' CE corrections and serve every Phobos mod.
+  objects for dev actions) came in with the vehicle systems' CE corrections and serve every Phobos mod. 0.16.0 added
+  `Environment/HeldTemperature.cs` (a registry giving things held inside something a fixed temperature, as transport pods have; the
+  one Harmony postfix stays in the vehicle part because the core has no Harmony) and `Items/ItemFinder.cs` (a tool in stock a pawn can
+  fetch, or aboard a caravan).
 
 ## Open points and upstream
 

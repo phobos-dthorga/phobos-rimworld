@@ -47,6 +47,7 @@
       </li>
       <li><def>PhobosVehicleSystem_FusiblePlug</def></li>
       <li><def>PhobosVehicleSystem_Brakes</def></li>
+      <li><def>PhobosVehicleSystem_Cabin</def></li>
     </systems>
     <partRoles>
       <li>
@@ -93,6 +94,7 @@
       </li>
       <li><def>PhobosVehicleSystem_FusiblePlug</def></li>
       <li><def>PhobosVehicleSystem_Brakes</def></li>
+      <li><def>PhobosVehicleSystem_Cabin</def></li>
     </systems>
     <partRoles>
       <li>
@@ -178,6 +180,7 @@
       <li><def>PhobosVehicleSystem_Brakes</def></li>
       <li><def>PhobosVehicleSystem_AirBrakes</def></li>
       <li><def>PhobosVehicleSystem_TractionMotors</def></li>
+      <li><def>PhobosVehicleSystem_Cabin</def></li>
     </systems>
     <drivetrain>
       <def>PhobosDrivetrain_GoatDE2</def>

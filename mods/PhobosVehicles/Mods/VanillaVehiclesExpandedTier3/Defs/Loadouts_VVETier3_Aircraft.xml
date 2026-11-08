@@ -24,6 +24,7 @@
     <systems Inherit="False">
       <li><def>PhobosVehicleSystem_Electrical</def></li>
       <li><def>PhobosVehicleSystem_Service</def></li>
+      <li><def>PhobosVehicleSystem_Cabin</def></li>
     </systems>
     <drivetrain>
       <def>PhobosDrivetrain_Thrusters</def>

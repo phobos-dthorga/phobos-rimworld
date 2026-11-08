@@ -4,11 +4,11 @@ Vehicles that keep running only while they are looked after. **This first versio
 vehicles of other mods you already drive the systems that match what they really are, on top of the general systems D'thorga
 Framework gives every vehicle.
 
-Version 0.6.0, built 9 November 2026 for House D'thorga. **Not yet tested in game.**
+Version 0.7.0, built 9 November 2026 for House D'thorga. **Not yet tested in game.**
 
 ## Read this first (gotchas)
 
-- **Needs Vehicle Framework and D'thorga Framework 0.14.0 or later**, on **RimWorld 1.7 only**. Load it after both; the About file
+- **Needs Vehicle Framework and D'thorga Framework 0.16.0 or later**, on **RimWorld 1.7 only**. Load it after both; the About file
   asks for that, so RimSort does it for you.
 - **The general systems come from D'thorga Framework**, not from this mod: battery and alternator, coolant and oil, tyres or tracks,
   brakes, gearbox, wear and service. Their guide and settings are in
@@ -18,6 +18,8 @@ Version 0.6.0, built 9 November 2026 for House D'thorga. **Not yet tested in gam
   a saved vehicle keeps or drops the air compressor as its design does.
 - **From 0.3.0, a laden helicopter or pod may refuse to lift off** on a hot day or with engines out; the launch button says
   why. D'thorga Framework's hover-limit setting can allow it at a cost or just warn.
+- **Open vehicles shelter nobody** (0.7.0): on Vanilla Vehicles Expanded's Dirtbike, Charley and Dinghy the crew feels the weather;
+  every other vehicle here has a closed cab with a heater and an air conditioner.
 - **The Harrier, the Hind, the Mongoose and the Cherokee run gas turbines** from 0.2.0. A Harrier too heavy for its engine to hover in
   the day's heat **lands on a runway instead of its pad** by default (with D'thorga Patches); D'thorga Framework's settings offer
   "allow it, at a cost to the engine" and "warn only". **Its injection water needs refilling** after a hard hover: a mechanic does

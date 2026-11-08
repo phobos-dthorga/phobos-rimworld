@@ -369,6 +369,12 @@ def check(root):
         names = [text(load, 'name') for load in items(node, 'loads')]
         if len(names) != len(set(names)) or None in names:
             errors.append(f'{where}: a load has no name or a repeated one')
+        cabin = node.find('cabin')
+        if cabin is not None and text(cabin, 'closed', 'true') not in ('true', 'false'):
+            errors.append(f'{where}: cabin closed must be true or false')
+        for element in walk_classes(node):
+            if element.attrib['Class'].endswith('When_LoadActive') and text(element, 'load') not in names:
+                errors.append(f'{where}: When_LoadActive names a load this loadout does not have ({text(element, "load")})')
         for element in walk_classes(node):
             cls = element.attrib['Class']
             if cls.startswith(OUR_NAMESPACE) and cls[len(OUR_NAMESPACE):] not in classes:

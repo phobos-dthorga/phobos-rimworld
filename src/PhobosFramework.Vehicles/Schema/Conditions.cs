@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using RimWorld;
+using Vehicles;
 using Verse;
 
 namespace Phobos.VehicleSystems;
@@ -112,4 +113,17 @@ public class When_Setting : VehicleSystemCondition
 {
     public string setting = "";
     protected override bool HoldsRaw(SystemContext context) => VehicleSystemsMod.Settings.FlagOn(setting);
+}
+
+/// <summary>The vehicle is in a caravan resting for the night on the world map (its engine is off at camp).</summary>
+public class When_CaravanResting : VehicleSystemCondition
+{
+    protected override bool HoldsRaw(SystemContext context) => context.Vehicle.GetVehicleCaravan()?.NightResting == true;
+}
+
+/// <summary>One of the loadout's electrical loads is on: switched on by the player (if it has a switch) and its own condition holds.</summary>
+public class When_LoadActive : VehicleSystemCondition
+{
+    public string load = "";
+    protected override bool HoldsRaw(SystemContext context) => context.Comp.LoadActive(load);
 }

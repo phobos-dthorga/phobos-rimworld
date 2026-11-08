@@ -74,6 +74,7 @@ Without `Inherit="False"` a list adds to the parent's; with it, it replaces it. 
 | `rank` | A whole number (default 0) that breaks ties within a priority: the shipped tracked loadout has 1, so it beats the light, medium and heavy ones. |
 | `kind` | The settings window's group: `CombustionLand`, `CombustionHeavy`, `CombustionTracked`, `Boat`, `Aircraft`, or your own word. |
 | `selector` | Which vehicles. Every condition given must hold: `vehicleDefs`, `packageIds`, `vehicleTypes` (Land, Sea, Air, Universal), `fuelled`, `electricPowered`, `flies` (each `Yes`, `No` or `Any`), `fuelTypes`, `excludeFuelTypes`, `massMin`, `massMax`, `partTags`, `partKeySuffixes` (a part key ends in one of them, as tracks end in `Track`). |
+| `cabin` | `closed` (default true): whether the vehicles have a closed cab that shelters everyone aboard (the Cabin system gives it a temperature). A vehicle overrides it with a `Phobos.VehicleSystems.PhobosVehicleCabinExtension` on its VehicleDef (`closed` false for motorcycles and open boats). |
 | `drivetrain` | The engine and drivetrain: a `def` (a `PhobosVehicleDrivetrainDef`) and an optional `set` of overrides (`kilowattsPerTonne`, `drivenShare`, `wheelRadius`, `dragArea`, `kilogramsPerVehicleMass`, `emptyKilograms`, `fuelKilogramsFull`, `idleFuelShare`, `efficiency`). See [Engines and drivetrains](#engines-and-drivetrains). |
 | `flightProfile` | An aircraft's `PhobosVehicleFlightProfileDef`: its phases and what each asks of the engines. |
 | `systems` | Each `def` (a system) with an optional `set` of parameter overrides, written as elements: `<set><batteryAmpHours>90</batteryAmpHours></set>`. |
@@ -196,7 +197,9 @@ Every input takes an optional `curve` (points `(x, y)` mapping the raw reading) 
 
 `When_Always`, `When_EngineRunning`, `When_Moving`, `When_Night` (hours in the rules Def), `When_AmbientBelow` and
 `When_AmbientAbove` (`celsius`), `When_QuantityBelow` and `When_QuantityAbove` (`quantity`, `value`), `When_ParameterBelow` (`parameter`, `value`), `When_Setting`
-(`setting`: `fuelGelling`, `boilerExplosions`, `realisticFeedWater`),
+(`setting`: `fuelGelling`, `boilerExplosions`, `realisticFeedWater`, `nightHeater`, `jumpStartNeedsKit`, `assumeBoosterPack`),
+`When_CaravanResting` (the vehicle's caravan rests for the night), `When_LoadActive` (`load`: one of the loadout's loads is switched
+on and its condition holds),
 `When_All` and `When_Any` (`conditions`). Every condition takes `invert`.
 
 ### Effects
@@ -302,14 +305,30 @@ parked vehicle, and the service waits with the reason until one is there. Anothe
 implementing `VehicleWater.ISource` (`CanDraw` with an in-world reason, `TryDraw`) and calling `VehicleWater.Register` at startup;
 the last one registered is used, and a source that throws is dropped (water is free again until restart).
 
+## The world map and the cab
+
+The systems keep running while a vehicle travels in a caravan: wear, charge, heat and fuel, with the engine counted as running
+only while the caravan moves (a caravan rests from 22:00 to 06:00, engine off). The drivetrain's speed cap slows the caravan
+(Vehicle Framework's ticks per move, with an explanation line), and a `RefuseMove` effect stops it, through the caravan comp the
+Framework adds to Vehicle Framework's vehicle caravan (`Common/Patches/Phobos/Framework/VehicleSystems/VehicleCaravan.xml`), whose
+inspect text carries the reason. Services, water stops and shore charging need a map.
+
+A closed cab's temperature (the Cabin system's `cabTemperature`) reaches the game through the Framework core's held-temperature
+registry (`Phobos.Framework.Environment.HeldTemperature`): the game asks a held pawn's holders for a fixed temperature before the
+cell or the tile, and the vehicle part registers Vehicle Framework's role handler with the cab's reading. Any mod can register a
+reader for its own holder type the same way. A jump-start needs a `PhobosVehicleSystems_JumpStartKit` in stock or aboard when the
+player's setting says so (`JumpStarts.NeedsKit`), found through the core's `Phobos.Framework.Items.ItemFinder`.
+
 ## Dev actions
 
 With dev mode on, the debug actions menu's D'thorga category holds, for the selected vehicles: **log selected** (every system's
 quantities, stages and parts), **set a quantity** (any non-derived quantity to 0, 25, 50, 75 or 100% of its range), **request a
 service**, **remove from this colony** (the sweep before removing the mod), **hit a part** (a 20-point hit on a role's first part
 through Vehicle Framework's own damage path, which Combat Extended replaces, so part-hit rules can be checked under both), **log
-part health memory** (what the systems last saw of each part's health) and **explode the boiler now** (runs a system's explosion
-effect whatever the player's setting, after a confirmation: destructive).
+part health memory** (what the systems last saw of each part's health), **explode the boiler now** (runs a system's explosion
+effect whatever the player's setting, after a confirmation: destructive), **toggle a load**, **give a jump-start kit**, **flatten
+the battery**, and on the world map with a vehicle caravan selected **log caravan state** and **set caravan cap** (half, crawl or
+clear, to see the caravan slow and its explanation). The cab's temperature is set through **set a quantity**.
 
 ## Tuning in Vehicle Framework's window
 
@@ -364,6 +383,7 @@ is active.
 | `PhobosVehicleSystem_WaterInjection` | injection water | | Refill: 227 litres of water |
 | `PhobosVehicleSystem_RotorDrive` | over-torque | RotorDrive | Wear while over-torqued |
 | `PhobosVehicleSystem_TractionMotors` | traction motor temperature | TractionMotor | `heatAtContinuous`, `coolingRate` |
+| `PhobosVehicleSystem_Cabin` | cab temperature, night heater running | | `heaterTarget`, `coolerTarget`, `insulationRate`, `heaterRate`, `coolerRate`, `nightHeaterRate`, `nightHeaterFuelPerHour`; `needsClosedCab`, so it stands down on open vehicles; reads the loads `cabHeater`, `airConditioner` and `nightHeater` |
 | `PhobosVehicleSystem_Boiler` | steam pressure, water in the glass, feed water | Boiler | `firingRate`, `steamUse`, `coolingRate`, `waterUse`, `injectorRate`, `feedShare`, `feedWaterLitres`, `feedWaterLitresScaled`, `fusiblePlugFitted` (0: with the boiler explosions setting on, a dry crown sheet explodes); a water stop service |
 | `PhobosVehicleSystem_FusiblePlug` | fusible plug | Boiler | Melts if the crown is uncovered with the fire lit; a new plug: 2 steel |
 

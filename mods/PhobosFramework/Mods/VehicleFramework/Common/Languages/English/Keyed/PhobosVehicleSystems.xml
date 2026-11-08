@@ -34,6 +34,8 @@
   <PhobosVehicleSystems_DrivetrainFullDesc>As above, and a vehicle slows where its engine runs out of power (heavy loads, steep or soft ground) or its wheels run out of grip. A vehicle that cannot grip crawls on at a fraction of its speed rather than stopping.</PhobosVehicleSystems_DrivetrainFullDesc>
   <PhobosVehicleSystems_SettingLoadFuel>Fuel use follows engine load</PhobosVehicleSystems_SettingLoadFuel>
   <PhobosVehicleSystems_SettingLoadFuelDesc>Off by default: vehicles burn fuel at the rate their authors set. On: a laden vehicle climbing through sand burns more, an empty one on a road less, and an idling engine burns a little while parked. At an ordinary cruise the rate matches the author's.</PhobosVehicleSystems_SettingLoadFuelDesc>
+  <PhobosVehicleSystems_SettingNightHeater>Night heater at camp</PhobosVehicleSystems_SettingNightHeater>
+  <PhobosVehicleSystems_SettingNightHeaterDesc>Off by default: a caravan's vehicles shut their engines down at the night camp, and their cabs cool to the night air. On: a vehicle whose night heater switch is on burns a little fuel through the night to keep its cab warm, as trucks' parking heaters do. Switch each vehicle's night heater on before the caravan leaves.</PhobosVehicleSystems_SettingNightHeaterDesc>
   <PhobosVehicleSystems_SettingHoverLimit>When an aircraft is too heavy or too hot to lift off or hover onto its pad</PhobosVehicleSystems_SettingHoverLimit>
   <PhobosVehicleSystems_HoverRefusePadUseRunway>Refuse it: use the runway, or lighten it (default)</PhobosVehicleSystems_HoverRefusePadUseRunway>
   <PhobosVehicleSystems_HoverRefusePadUseRunwayDesc>A jump jet whose engine cannot hold it in a hover, because it is heavily laden or the day is hot, lands on a runway like an ordinary jet. An order to land on the pad is refused with the reason. A helicopter or a thrust-lifted pod whose engines cannot lift it, because it is laden, the day is hot or engines are out, will not launch until it is lightened, repaired or the air cools.</PhobosVehicleSystems_HoverRefusePadUseRunwayDesc>
@@ -47,6 +49,11 @@
   <PhobosVehicleSystems_SettingBoilerExplosions>Boiler explosions</PhobosVehicleSystems_SettingBoilerExplosions>
   <PhobosVehicleSystems_SettingBoilerExplosionsDesc>Off by default. On: a boiler without a fusible plug (the American 4-8-4) whose water falls below the firebox crown with the fire lit explodes, wrecking the boiler and hurting everything nearby. Boilers with a plug still only vent.</PhobosVehicleSystems_SettingBoilerExplosionsDesc>
   <PhobosVehicleSystems_BoilerExplosionsWarning>Warning: an exploding boiler can kill the crew and anyone nearby and wreck what stands around it, without a second chance. Watch the water glass, and give it water stops in time.</PhobosVehicleSystems_BoilerExplosionsWarning>
+  <PhobosVehicleSystems_SectionJumpStarts>Jump-starts</PhobosVehicleSystems_SectionJumpStarts>
+  <PhobosVehicleSystems_SettingJumpStartNeedsKit>Jump-start leads must be crafted</PhobosVehicleSystems_SettingJumpStartNeedsKit>
+  <PhobosVehicleSystems_SettingJumpStartNeedsKitDesc>On by default: a jump-start needs a jump-start kit, in stock on the map (the helper fetches it) or aboard the caravan. Craft one at a machining table or a fabrication bench; it is never used up. Off: the leads are free, as before.</PhobosVehicleSystems_SettingJumpStartNeedsKitDesc>
+  <PhobosVehicleSystems_SettingAssumeBoosterPack>Every vehicle carries a booster pack</PhobosVehicleSystems_SettingAssumeBoosterPack>
+  <PhobosVehicleSystems_SettingAssumeBoosterPackDesc>Off by default: a jump-start needs another vehicle near enough (or in the same caravan) with charge to give, so a lone vehicle with a flat battery waits for one. On: every vehicle is taken to carry a charged booster pack, and a jump-start needs no other vehicle, on the map or in a caravan.</PhobosVehicleSystems_SettingAssumeBoosterPackDesc>
   <PhobosVehicleSystems_RemoveExplain>Vehicles save their parts in order, so a save made with these systems cannot simply lose them. Before you remove D'thorga Framework or Vehicle Framework from a colony, load it, press this button, save, then remove the mod. Turning vehicles or systems off above needs none of this.</PhobosVehicleSystems_RemoveExplain>
   <PhobosVehicleSystems_RemoveButton>Remove the added parts from this colony's vehicles</PhobosVehicleSystems_RemoveButton>
   <PhobosVehicleSystems_RemoveConfirm>Remove every part the vehicle systems added, from every vehicle in this colony, and stop the systems until you restart? Save straight afterwards, then remove the mod.</PhobosVehicleSystems_RemoveConfirm>
@@ -132,6 +139,17 @@
   <PhobosVehicleSystems_CannotJumpStartNoPath>Cannot jump-start the {VEHICLE}: there is nowhere to stand beside it that can be reached.</PhobosVehicleSystems_CannotJumpStartNoPath>
   <PhobosVehicleSystems_JumpStarted>{HELPER} has jump-started the {VEHICLE} from the {DONOR}. It will start now; drive it to charge the battery.</PhobosVehicleSystems_JumpStarted>
   <PhobosVehicleSystems_JumpStartFailed>{HELPER} could not jump-start the {VEHICLE}: the {DONOR} has too little charge left or has moved away.</PhobosVehicleSystems_JumpStartFailed>
+  <PhobosVehicleSystems_JumpStartOptionBooster>Jump-start the {VEHICLE} from its booster pack</PhobosVehicleSystems_JumpStartOptionBooster>
+  <PhobosVehicleSystems_JumpStartedBooster>{HELPER} has jump-started the {VEHICLE} from its booster pack. It will start now; drive it to charge the battery.</PhobosVehicleSystems_JumpStartedBooster>
+  <PhobosVehicleSystems_CannotJumpStartNoKit>Cannot jump-start the {VEHICLE}: there is no jump-start kit to fetch. Craft one at a machining table or a fabrication bench.</PhobosVehicleSystems_CannotJumpStartNoKit>
+  <PhobosVehicleSystems_CaravanJumpStart>Jump-start {VEHICLE} from {DONOR}</PhobosVehicleSystems_CaravanJumpStart>
+  <PhobosVehicleSystems_CaravanJumpStartBooster>Jump-start {VEHICLE} from its booster pack</PhobosVehicleSystems_CaravanJumpStartBooster>
+  <PhobosVehicleSystems_CaravanJumpStartDesc>A crew member connects the leads and cranks the {VEHICLE}. The charge comes from the other vehicle, or from the booster pack every vehicle carries.</PhobosVehicleSystems_CaravanJumpStartDesc>
+  <PhobosVehicleSystems_CannotJumpStartNoKitCaravan>No jump-start kit in the caravan to connect the {VEHICLE} with.</PhobosVehicleSystems_CannotJumpStartNoKitCaravan>
+  <PhobosVehicleSystems_CannotJumpStartNoDonorCaravan>No other vehicle in the caravan has the charge to give the {VEHICLE}.</PhobosVehicleSystems_CannotJumpStartNoDonorCaravan>
+  <PhobosVehicleSystems_CannotJumpStartNoHelper>Nobody in the caravan is able to jump-start the {VEHICLE}.</PhobosVehicleSystems_CannotJumpStartNoHelper>
+  <PhobosVehicleSystems_CaravanRefusal>{VEHICLE}: {REASON}</PhobosVehicleSystems_CaravanRefusal>
+  <PhobosVehicleSystems_CaravanCapExplanation>{VEHICLE} held to {CAP} of its speed by its engine or the ground</PhobosVehicleSystems_CaravanCapExplanation>
 
   <!-- Tuning in Vehicle Framework's per-vehicle settings window (settings text, so it may name things plainly) -->
   <PhobosVehicleSystems_TuneBatteryAmpHours>Battery capacity (ampere-hours)</PhobosVehicleSystems_TuneBatteryAmpHours>

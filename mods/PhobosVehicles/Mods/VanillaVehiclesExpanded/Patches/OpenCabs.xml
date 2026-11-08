@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <!-- Vanilla Vehicles Expanded's open vehicles shelter nobody from the weather: the Dirtbike and the Charley (motorcycles) and the
+       Dinghy (an open boat), by their descriptions. Every other VVE design keeps a closed cab (the Mule's own Roof part says as much).
+       An agent reading of the descriptions, 9 Nov 2026; docs/development/vehicle-world-map-design.md. -->
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>Defs/Vehicles.VehicleDef[defName="VVE_Dirtbike" or defName="VVE_Charley" or defName="VVE_Dinghy"]</xpath>
+    <value>
+      <li Class="Phobos.VehicleSystems.PhobosVehicleCabinExtension">
+        <closed>false</closed>
+      </li>
+    </value>
+  </Operation>
+</Patch>

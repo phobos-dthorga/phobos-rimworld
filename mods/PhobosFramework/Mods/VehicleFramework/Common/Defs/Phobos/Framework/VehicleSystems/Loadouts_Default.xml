@@ -149,6 +149,7 @@
       <li><def>PhobosVehicleSystem_RunningGear</def></li>
       <li><def>PhobosVehicleSystem_Brakes</def></li>
       <li><def>PhobosVehicleSystem_Transmission</def></li>
+      <li><def>PhobosVehicleSystem_Cabin</def></li>
     </systems>
     <partRoles>
       <li>
@@ -264,6 +265,39 @@
         <amps>4</amps>
         <when Class="Phobos.VehicleSystems.When_EngineRunning" />
       </li>
+      <li>
+        <name>airConditioner</name>
+        <label>air conditioner</label>
+        <description>The air conditioner cools the cab above 26 °C while the engine runs.</description>
+        <amps>30</amps>
+        <toggle>true</toggle>
+        <iconPath>Phobos/VehicleSystems/AirConditioner</iconPath>
+        <when Class="Phobos.VehicleSystems.When_All">
+          <conditions>
+            <li Class="Phobos.VehicleSystems.When_AmbientAbove">
+              <celsius>26</celsius>
+            </li>
+            <li Class="Phobos.VehicleSystems.When_EngineRunning" />
+          </conditions>
+        </when>
+      </li>
+      <li>
+        <name>nightHeater</name>
+        <label>night heater</label>
+        <description>A fuel-burning heater that keeps the cab warm while the caravan camps for the night with the engine off. Switch it on before you leave; it needs the night heater setting.</description>
+        <amps>2</amps>
+        <toggle>true</toggle>
+        <defaultOn>false</defaultOn>
+        <iconPath>Phobos/VehicleSystems/NightHeater</iconPath>
+        <when Class="Phobos.VehicleSystems.When_All">
+          <conditions>
+            <li Class="Phobos.VehicleSystems.When_CaravanResting" />
+            <li Class="Phobos.VehicleSystems.When_Setting">
+              <setting>nightHeater</setting>
+            </li>
+          </conditions>
+        </when>
+      </li>
     </loads>
   </Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
 
@@ -306,6 +340,7 @@
       <li><def>PhobosVehicleSystem_RunningGear</def></li>
       <li><def>PhobosVehicleSystem_Brakes</def></li>
       <li><def>PhobosVehicleSystem_Transmission</def></li>
+      <li><def>PhobosVehicleSystem_Cabin</def></li>
     </systems>
     <loads>
       <li>
@@ -343,6 +378,39 @@
         <label>ignition and instruments</label>
         <amps>3</amps>
         <when Class="Phobos.VehicleSystems.When_EngineRunning" />
+      </li>
+      <li>
+        <name>airConditioner</name>
+        <label>air conditioner</label>
+        <description>The air conditioner cools the cab above 26 °C while the engine runs.</description>
+        <amps>20</amps>
+        <toggle>true</toggle>
+        <iconPath>Phobos/VehicleSystems/AirConditioner</iconPath>
+        <when Class="Phobos.VehicleSystems.When_All">
+          <conditions>
+            <li Class="Phobos.VehicleSystems.When_AmbientAbove">
+              <celsius>26</celsius>
+            </li>
+            <li Class="Phobos.VehicleSystems.When_EngineRunning" />
+          </conditions>
+        </when>
+      </li>
+      <li>
+        <name>nightHeater</name>
+        <label>night heater</label>
+        <description>A fuel-burning heater that keeps the cab warm while the caravan camps for the night with the engine off. Switch it on before you leave; it needs the night heater setting.</description>
+        <amps>2</amps>
+        <toggle>true</toggle>
+        <defaultOn>false</defaultOn>
+        <iconPath>Phobos/VehicleSystems/NightHeater</iconPath>
+        <when Class="Phobos.VehicleSystems.When_All">
+          <conditions>
+            <li Class="Phobos.VehicleSystems.When_CaravanResting" />
+            <li Class="Phobos.VehicleSystems.When_Setting">
+              <setting>nightHeater</setting>
+            </li>
+          </conditions>
+        </when>
       </li>
     </loads>
   </Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
@@ -392,6 +460,7 @@
       <li><def>PhobosVehicleSystem_Fuel</def></li>
       <li><def>PhobosVehicleSystem_Service</def></li>
       <li><def>PhobosVehicleSystem_Transmission</def></li>
+      <li><def>PhobosVehicleSystem_Cabin</def></li>
     </systems>
     <loads>
       <li>
@@ -413,6 +482,39 @@
         <label>ignition and instruments</label>
         <amps>3</amps>
         <when Class="Phobos.VehicleSystems.When_EngineRunning" />
+      </li>
+      <li>
+        <name>airConditioner</name>
+        <label>air conditioner</label>
+        <description>The air conditioner cools the cab above 26 °C while the engine runs.</description>
+        <amps>20</amps>
+        <toggle>true</toggle>
+        <iconPath>Phobos/VehicleSystems/AirConditioner</iconPath>
+        <when Class="Phobos.VehicleSystems.When_All">
+          <conditions>
+            <li Class="Phobos.VehicleSystems.When_AmbientAbove">
+              <celsius>26</celsius>
+            </li>
+            <li Class="Phobos.VehicleSystems.When_EngineRunning" />
+          </conditions>
+        </when>
+      </li>
+      <li>
+        <name>nightHeater</name>
+        <label>night heater</label>
+        <description>A fuel-burning heater that keeps the cab warm while the caravan camps for the night with the engine off. Switch it on before you leave; it needs the night heater setting.</description>
+        <amps>2</amps>
+        <toggle>true</toggle>
+        <defaultOn>false</defaultOn>
+        <iconPath>Phobos/VehicleSystems/NightHeater</iconPath>
+        <when Class="Phobos.VehicleSystems.When_All">
+          <conditions>
+            <li Class="Phobos.VehicleSystems.When_CaravanResting" />
+            <li Class="Phobos.VehicleSystems.When_Setting">
+              <setting>nightHeater</setting>
+            </li>
+          </conditions>
+        </when>
       </li>
     </loads>
   </Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
@@ -437,6 +539,7 @@
       <li><def>PhobosVehicleSystem_Electrical</def></li>
       <li><def>PhobosVehicleSystem_Service</def></li>
       <li><def>PhobosVehicleSystem_Turbine</def></li>
+      <li><def>PhobosVehicleSystem_Cabin</def></li>
     </systems>
     <drivetrain>
       <def>PhobosDrivetrain_AeroTurbofan</def>
@@ -530,6 +633,39 @@
           <conditions>
             <li Class="Phobos.VehicleSystems.When_Night" />
             <li Class="Phobos.VehicleSystems.When_EngineRunning" />
+          </conditions>
+        </when>
+      </li>
+      <li>
+        <name>airConditioner</name>
+        <label>air conditioner</label>
+        <description>The air conditioner cools the cab above 26 °C while the engine runs.</description>
+        <amps>20</amps>
+        <toggle>true</toggle>
+        <iconPath>Phobos/VehicleSystems/AirConditioner</iconPath>
+        <when Class="Phobos.VehicleSystems.When_All">
+          <conditions>
+            <li Class="Phobos.VehicleSystems.When_AmbientAbove">
+              <celsius>26</celsius>
+            </li>
+            <li Class="Phobos.VehicleSystems.When_EngineRunning" />
+          </conditions>
+        </when>
+      </li>
+      <li>
+        <name>nightHeater</name>
+        <label>night heater</label>
+        <description>A fuel-burning heater that keeps the cab warm while the caravan camps for the night with the engine off. Switch it on before you leave; it needs the night heater setting.</description>
+        <amps>2</amps>
+        <toggle>true</toggle>
+        <defaultOn>false</defaultOn>
+        <iconPath>Phobos/VehicleSystems/NightHeater</iconPath>
+        <when Class="Phobos.VehicleSystems.When_All">
+          <conditions>
+            <li Class="Phobos.VehicleSystems.When_CaravanResting" />
+            <li Class="Phobos.VehicleSystems.When_Setting">
+              <setting>nightHeater</setting>
+            </li>
           </conditions>
         </when>
       </li>

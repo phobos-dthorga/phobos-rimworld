@@ -5,7 +5,7 @@ colonist is breathing, makes fires fill roofed rooms with the game's own smoke w
 carries carbon monoxide from fires, holds the per-person care choices the D'thorga medical mods offer, and holds the small
 helpers every D'thorga mod shares.
 
-Version 0.15.0, built 9 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
+Version 0.16.0, built 9 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
 oxygen working through Burns and Smoke and Medical Equipment (5 November 2026). The health layer new in 0.3.0 and the **vehicle
 systems new in 0.9.0, and their engines, drivetrains and gas turbines new in 0.11.0, are not yet tested in game.** The rest is read from the game's and the mods' code.
 
@@ -30,6 +30,12 @@ and wear that a mechanic services. See [Vehicle systems](#vehicle-systems-with-v
 - **From 0.12.0, helicopters and pods that launch through Vehicle Framework are checked before they lift off**: too heavy for the
   day's heat, or with engines or thrusters out, **the launch button refuses and says why** (unload, repair, or wait for cooler
   air). The same setting decides, so "warn only" lets them go.
+- **From 0.16.0 a jump-start needs a jump-start kit** (a setting, on by default): craft one at a machining table or a fabrication
+  bench before you need one, and carry one in every caravan. The setting **Every vehicle carries a booster pack** (off) lets a lone
+  vehicle jump-start itself.
+- **From 0.16.0 a closed cab shelters its passengers**: they feel the cab's temperature, not the weather, as long as the heater or
+  the air conditioner has the engine to run on. At a caravan's night camp the engine is off and the cab cools, unless the **night
+  heater** setting is on and the vehicle's night heater switch was on before it left.
 - **Steam locomotives (0.14.0): two settings to decide before you run one.** **Boiler explosions** are off by default: on, a
   boiler without a fusible plug (the American 4-8-4) whose water runs below the firebox crown explodes, and the settings window
   warns you. **Realistic feed water** is off by default: a water stop draws a tenth of the real tender (6,800 litres for the 4-8-4,
@@ -115,6 +121,7 @@ Other mods (D'thorga Vehicles first) can give a named vehicle its own figures. N
 | Cold fuel (a setting, off) | | Below about -8 °C chemfuel gels like diesel: **won't start** | Warm the vehicle in a heated room |
 | Air brakes (named heavy trucks only) | Air pressure | After standing long, **it won't drive** until the engine has run a few minutes | Let it idle |
 | Gas turbine (aircraft; D'thorga Vehicles' M1A2 tanks) | Turbine speed and temperature, and the flight phase | Run past its limits, the hot section wears, then the engine takes damage; a worn hot section breaks down; a weak battery lights it hot (wear) or **cannot light it** (the draft says why); with one of two engines out, the other runs hot | Ease off or land; **jump-start** a weak battery for a clean start; a **hot-section overhaul** (10 plasteel, 3 components) |
+| Cab (closed vehicles) | Cab temperature | Freezing or stifling cab: the game's cold and heat injuries, and bad moods, as outdoors | The heater and the air conditioner while the engine runs; the night heater at camp (a setting) |
 | Rotor drive (helicopters named by D'thorga Vehicles) | Over-torque, when it happens | The gearbox takes less power than the engines can give; asked for more it is **over-torqued** and wears; damaged, the helicopter lifts less | Lighten it; repair the transmission and rotor masts |
 | Boiler (steam locomotives) | Steam pressure, the water glass, feed water | From cold, **it won't move** until it has steam (hours); run the feed water dry and **the fusible plug melts**, venting the boiler | Keep it drafted with the fire lit; **a water stop** refills the tender or tanks (with Dubs Bad Hygiene, from water towers); a mechanic fits a new plug |
 | Traction motors (diesel-electric locomotives) | Traction motor temperature | Pulling hard from a standstill heats them: **running hot**, then burning their windings | Ease the load and let them cool; repair the motor |
@@ -122,6 +129,9 @@ Other mods (D'thorga Vehicles first) can give a named vehicle its own figures. N
 
 - **The service button** (a spanner) asks for a service now, even if none is due. Services also start by themselves when due.
 - **Switches** for headlights and the cab heater: each draws on the battery or the alternator while it runs.
+- **Caravans**: the systems keep running on the world map. A caravan moves as its slowest vehicle (its explanation names it), a
+  vehicle that will not move stops the caravan (the caravan's inspect text says why), and a crew member can jump-start it from
+  another vehicle in the caravan with a kit aboard. Services and water stops still need a map.
 - **Boats** cool with sea water (no radiator part). **Aircraft** get the battery, generator, service and a gas turbine; their
   engines cool unlike a car's, so they have no coolant. **Electric vehicles** get none yet.
 - **Vehicle kinds**: light (Vehicle Framework mass under 120, petrol), medium (120 to 350, diesel), heavy (350 and more, 24 V and
@@ -140,7 +150,8 @@ cold fuel, how much the vehicle shows (Plain, Operator, Engineer), and the remov
 **Engines and drivetrains:** the drivetrain off, shown only, or full (default full); **fuel use that follows engine load** (off:
 vehicles burn what their authors set); and **when an aircraft is too heavy or too hot to hover onto its pad**: use the runway
 (default), allow it at a cost to the engine, or warn only; from 0.12.0 it covers lift-off too. **Steam locomotives:** realistic
-feed water (off: a tenth of the real figure) and boiler explosions (off, with a warning). These take effect at once.
+feed water (off: a tenth of the real figure) and boiler explosions (off, with a warning). **Night heater at camp** (off). **Jump-starts:**
+leads must be crafted (on), every vehicle carries a booster pack (off). These take effect at once.
 
 **Per vehicle, in Vehicle Framework's own settings** (each vehicle's page in its mod settings): battery capacity, alternator
 output, starter draw, engine heat, radiator cooling, thermostat, oil use, tyre wear, gearbox heat and the air brakes' compressor

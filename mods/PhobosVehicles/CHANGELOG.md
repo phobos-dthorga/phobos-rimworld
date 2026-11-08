@@ -5,6 +5,19 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.7.0] - 2026-11-09 - Draft
+
+The cab, with D'thorga Framework 0.16.0. **Not yet tested in game.**
+
+### Added
+
+- Every vehicle named here gets the cab system: a closed cab with a heater and an air conditioner, and the night heater for caravans.
+- Vanilla Vehicles Expanded's Dirtbike, Charley and Dinghy are marked open: they shelter nobody.
+
+### Dependencies
+
+- Needs D'thorga Framework 0.16.0 or later.
+
 ## [0.6.0] - 2026-11-09 - Draft
 
 The owner's answers of 9 November 2026. **Not yet tested in game.**

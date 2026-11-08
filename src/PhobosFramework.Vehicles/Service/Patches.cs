@@ -4,6 +4,10 @@ using System.Collections.Generic;
 using System.Reflection;
 using HarmonyLib;
 using Vehicles;
+using System.Text;
+using Phobos.Framework.Environment;
+using Phobos.Framework.Vehicles.Rules;
+using Vehicles.World;
 using Verse;
 
 namespace Phobos.VehicleSystems;
@@ -167,5 +171,75 @@ public static class LiftOffPatch
         if (!__result || __instance.Vehicle is not VehiclePawn vehicle || !HoverLimits.RefusesLaunch(vehicle)) return;
         __result = false;
         disableReason = HoverLimits.LaunchRefusalText(vehicle);
+    }
+}
+
+/// <summary>
+/// A passenger's temperature comes from the cab (docs/development/vehicle-world-map-design.md): the game asks a held thing's
+/// holders for a fixed temperature before it looks at the cell or the world tile (so a transport pod stays at 14 °C), and a
+/// passenger's holder is the vehicle's role handler. The Framework's registry answers for holder types that registered a reader
+/// (CabClimate registers VehicleRoleHandler); everything else falls through to the game. A postfix, so the game's own answers stand.
+/// </summary>
+[HarmonyPatch(typeof(ThingOwnerUtility), nameof(ThingOwnerUtility.TryGetFixedTemperature))]
+public static class HeldTemperaturePatch
+{
+    public static void Postfix(IThingHolder holder, Thing forThing, ref float temperature, ref bool __result)
+    {
+        if (__result || holder == null) return;
+        if (HeldTemperature.TryGet(holder, out float held))
+        {
+            temperature = held;
+            __result = true;
+        }
+    }
+}
+
+/// <summary>
+/// The drivetrain's speed cap on the world map: a caravan moves as its slowest vehicle, so a laden truck on mountains takes longer
+/// per tile, and the caravan's own explanation says which vehicle holds it back. Vehicle Framework's utility has no extension point
+/// for this; a postfix on the figure it returns.
+/// </summary>
+[HarmonyPatch(typeof(VehicleCaravanTicksPerMoveUtility), nameof(VehicleCaravanTicksPerMoveUtility.GetTicksPerMove),
+    new[] { typeof(List<Pawn>), typeof(float), typeof(float), typeof(StringBuilder) })]
+public static class CaravanSpeedCapPatch
+{
+    public static void Postfix(List<Pawn> pawns, StringBuilder explanation, ref int __result)
+    {
+        if (pawns == null || pawns.Count == 0) return;
+        double worst = 1;
+        CompPhobosVehicleSystems? slowest = null;
+        foreach (Pawn pawn in pawns)
+        {
+            if (pawn is not VehiclePawn vehicle) continue;
+            CompPhobosVehicleSystems? comp = vehicle.GetComp<CompPhobosVehicleSystems>();
+            if (comp == null || !comp.Usable) continue;
+            float cap = comp.SpeedCap;
+            if (cap < worst)
+            {
+                worst = cap;
+                slowest = comp;
+            }
+        }
+        if (slowest == null || worst >= 1) return;
+        double combined = CaravanRules.CombineCaps(new[] { worst });
+        __result = CaravanRules.TicksPerMove(__result, combined);
+        explanation?.AppendLine().Append("PhobosVehicleSystems_CaravanCapExplanation".Translate(slowest.Vehicle.LabelShort.Named("VEHICLE"),
+            ((float)combined).ToStringPercent().Named("CAP")).Resolve());
+    }
+}
+
+/// <summary>
+/// A vehicle that will not move (a flat battery, worn brakes, a cold boiler) stops its caravan too: Vehicle Framework asks each
+/// vehicle's CanMoveFinal on the world map and halts the caravan when one says no (its VehicleCantMove). On a map the float menu
+/// asks the comp's CanMove instead, so this applies only off-map; the reason is in the caravan's inspect text.
+/// </summary>
+[HarmonyPatch(typeof(VehiclePawn), nameof(VehiclePawn.CanMoveFinal), MethodType.Getter)]
+public static class CaravanRefusalPatch
+{
+    public static void Postfix(VehiclePawn __instance, ref bool __result)
+    {
+        if (!__result || __instance.Spawned) return;
+        CompPhobosVehicleSystems? comp = __instance.GetComp<CompPhobosVehicleSystems>();
+        if (comp != null && comp.Usable && comp.MoveRefusal != null) __result = false;
     }
 }

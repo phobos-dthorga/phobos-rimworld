@@ -4,6 +4,8 @@ using LudeonTK;
 using Phobos.Framework.Debug;
 using RimWorld;
 using Vehicles;
+using RimWorld.Planet;
+using Vehicles.World;
 using Verse;
 
 namespace Phobos.VehicleSystems;
@@ -133,5 +135,94 @@ public static class VehicleSystemsDebugActions
                 "Explode the " + comp.Vehicle.LabelShort + "'s boiler now? This wrecks it and hurts everything near it.",
                 () => foundEffect.OnEnter(new SystemContext(captured, foundState)), destructive: true));
         }
+    }
+
+    [DebugAction(DebugCategory.Name, "Vehicle systems: toggle a load", allowedGameStates = AllowedGameStates.PlayingOnMap)]
+    static List<DebugActionNode> ToggleLoad()
+    {
+        var nodes = new List<DebugActionNode>();
+        CompPhobosVehicleSystems? first = Selected().FirstOrDefault();
+        if (first?.Props.loadout == null) return nodes;
+        foreach (ElectricalLoadSpec load in first.Props.loadout.loads.Where(l => l.toggle))
+        {
+            ElectricalLoadSpec captured = load;
+            nodes.Add(new DebugActionNode(load.name, DebugActionType.Action, () =>
+            {
+                foreach (CompPhobosVehicleSystems comp in Selected())
+                {
+                    comp.SetSwitch(captured, !comp.IsOn(captured));
+                    comp.UpdateNow();
+                    Log.Message(VehicleSystemsMod.LogPrefix + " " + comp.Vehicle.LabelShort + ": " + captured.name + (comp.IsOn(captured) ? " on" : " off")
+                        + (comp.LoadActive(captured.name) ? ", active" : ", not active"));
+                }
+            }));
+        }
+        return nodes;
+    }
+
+    [DebugAction(DebugCategory.Name, "Vehicle systems: give a jump-start kit", allowedGameStates = AllowedGameStates.PlayingOnMap)]
+    static void GiveKit()
+    {
+        ThingDef? kit = JumpStarts.KitDef;
+        if (kit == null) return;
+        foreach (Thing selected in DebugSelection.SelectedThings<Thing>().Where(t => t.Spawned).ToList())
+        {
+            GenSpawn.Spawn(ThingMaker.MakeThing(kit), selected.Position, selected.Map);
+        }
+    }
+
+    [DebugAction(DebugCategory.Name, "Vehicle systems: flatten the battery", allowedGameStates = AllowedGameStates.PlayingOnMap)]
+    static void FlattenBattery()
+    {
+        foreach (CompPhobosVehicleSystems comp in Selected())
+        {
+            comp.SetQuantity("charge", 0f);
+            comp.SetQuantity("startingPower", 0f);
+            comp.UpdateNow();
+        }
+    }
+
+    [DebugAction(DebugCategory.Name, "Vehicle systems: log caravan state", allowedGameStates = AllowedGameStates.PlayingOnWorld)]
+    static void LogCaravanState()
+    {
+        foreach (VehicleCaravan caravan in DebugSelection.SelectedWorldObjects<VehicleCaravan>())
+        {
+            var text = new System.Text.StringBuilder(VehicleSystemsMod.LogPrefix + " " + caravan.LabelCap + ": moving " + caravan.vehiclePather.MovingNow
+                + ", resting " + caravan.NightResting);
+            foreach (VehiclePawn vehicle in caravan.VehiclesListForReading)
+            {
+                CompPhobosVehicleSystems? comp = vehicle.GetComp<CompPhobosVehicleSystems>();
+                if (comp == null || !comp.Usable) continue;
+                comp.UpdateNow();
+                text.Append("\n").Append(vehicle.LabelShort).Append(": engine ").Append(comp.EngineRunning ? "running" : "off")
+                    .Append(", cap ").Append(comp.SpeedCap.ToString("0.00")).Append(", refusal ").Append(comp.MoveRefusal ?? "none")
+                    .Append(", cab ").Append(CabClimate.TryGet(vehicle, out float cab) ? cab.ToString("0.#") + " C" : "open")
+                    .Append("\n").Append(comp.DebugDescription());
+            }
+            Log.Message(text.ToString());
+        }
+    }
+
+    [DebugAction(DebugCategory.Name, "Vehicle systems: set caravan cap", allowedGameStates = AllowedGameStates.PlayingOnWorld)]
+    static List<DebugActionNode> SetCaravanCap()
+    {
+        var nodes = new List<DebugActionNode>();
+        foreach ((string name, double? cap) in new (string, double?)[] { ("half", 0.5), ("crawl", 0.15), ("clear", null) })
+        {
+            double? captured = cap;
+            nodes.Add(new DebugActionNode(name, DebugActionType.Action, () =>
+            {
+                foreach (VehicleCaravan caravan in DebugSelection.SelectedWorldObjects<VehicleCaravan>())
+                {
+                    foreach (VehiclePawn vehicle in caravan.VehiclesListForReading)
+                    {
+                        Powertrain? train = vehicle.GetComp<CompPhobosVehicleSystems>()?.Powertrain;
+                        if (train != null) train.DebugCapOverride = captured;
+                    }
+                    caravan.Notify_VehicleTeleported();
+                }
+            }));
+        }
+        return nodes;
     }
 }

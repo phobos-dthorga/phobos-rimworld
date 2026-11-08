@@ -33,6 +33,8 @@ AMBER = (240, 196, 92, 255)
 AMBER_SHADE = (206, 156, 60, 255)
 RED = (196, 84, 64, 255)
 RED_SHADE = (150, 60, 46, 255)
+BLUE = (124, 176, 220, 255)
+OUTLINE_LEAD = (44, 44, 48, 255)
 
 
 def canvas():
@@ -135,19 +137,82 @@ def cab_heater():
     return image
 
 
+def air_conditioner():
+    image, draw = canvas()
+    # A vent box with slats, and three pale-blue cold waves falling from it.
+    box = [(220, 140), (804, 140), (804, 420), (220, 420)]
+    outlined_polygon(draw, box, STEEL, STEEL_SHADE, [(740, 180), (770, 180), (770, 386), (740, 386)])
+    for x in (330, 450, 570, 690):
+        draw.line([(x, 190), (x, 370)], fill=OUTLINE, width=34)
+    for x in (330, 512, 694):
+        points = []
+        for i in range(41):
+            t = i / 40
+            y = 480 + t * 400
+            points.append((x + math.sin(t * math.pi * 2.2) * 50, y))
+        thick_line(draw, points, 56, BLUE)
+    return image
+
+
+def night_heater():
+    image, draw = canvas()
+    # A squat heater on legs with a flame in its window, and a crescent moon above it.
+    body = [(200, 420), (824, 420), (824, 860), (200, 860)]
+    outlined_polygon(draw, body, STEEL_SHADE, STEEL, [(240, 460), (784, 460), (784, 500), (240, 500)])
+    for x in (260, 764):
+        draw.line([(x, 860), (x, 960)], fill=OUTLINE, width=50)
+    window = [(360, 520), (664, 520), (664, 800), (360, 800)]
+    draw.polygon(window, fill=OUTLINE)
+    draw.polygon(shrink(window, 24), fill=(70, 40, 30, 255))
+    flame = [(512, 560), (600, 660), (560, 700), (620, 780), (512, 790), (404, 780), (464, 700), (424, 660)]
+    draw.polygon(flame, fill=AMBER)
+    draw.polygon([(512, 640), (560, 710), (512, 775), (464, 710)], fill=RED)
+    cx, cy, r = 760, 230, 130
+    draw.ellipse((cx - r - LINE, cy - r - LINE, cx + r + LINE, cy + r + LINE), fill=OUTLINE)
+    draw.ellipse((cx - r, cy - r, cx + r, cy + r), fill=PALE)
+    draw.ellipse((cx - r + 70, cy - r - 10, cx + r + 70, cy + r - 10), fill=(0, 0, 0, 0))
+    return image
+
+
+def jump_start_kit():
+    image, draw = canvas()
+    # Two coiled leads, red and black, each ending in a sprung clamp.
+    for colour, offset in ((RED, 0), (OUTLINE_LEAD, 220)):
+        points = []
+        for i in range(61):
+            t = i / 60
+            x = 150 + t * 560
+            y = 300 + offset + math.sin(t * math.pi * 3) * 70
+            points.append((x, y))
+        thick_line(draw, points, 40, colour)
+        jaw_x, jaw_y = 710, 300 + offset
+        for dy in (-60, 60):
+            thick_line(draw, [(jaw_x, jaw_y), (jaw_x + 190, jaw_y + dy)], 44, STEEL)
+        draw.ellipse((jaw_x - 60, jaw_y - 60, jaw_x + 60, jaw_y + 60), fill=OUTLINE)
+        draw.ellipse((jaw_x - 36, jaw_y - 36, jaw_x + 36, jaw_y + 36), fill=colour)
+    return image
+
+
 DRAWINGS = {
     'Service': (service, 'a steel spanner laid diagonally, open jaw and ring end, for "service when possible"'),
     'Switch': (switch, 'a rocker switch on a pale plate, the fallback icon for any switchable load'),
     'Headlights': (headlights, 'a headlamp with a chrome rim and three amber beams'),
     'CabHeater': (cab_heater, "three red heat waves rising from a steel fan grille"),
+    'AirConditioner': (air_conditioner, 'three pale-blue cold waves falling from a slatted steel vent'),
+    'NightHeater': (night_heater, 'a squat parking heater on legs with a flame in its window and a crescent moon above'),
+    'JumpStartKit': (jump_start_kit, 'two coiled jump leads, red and black, each ending in a sprung steel clamp'),
 }
+
+# Textures that live in a subfolder (an item's texture under Things/).
+SUBFOLDERS = {'JumpStartKit': 'Things'}
 
 
 def write(name):
     draw_fn, description = DRAWINGS[name]
     image = draw_fn().resize((FINAL, FINAL), Image.LANCZOS)
-    TEXTURES.mkdir(parents=True, exist_ok=True)
-    path = TEXTURES / (name + '.png')
+    folder = TEXTURES / SUBFOLDERS.get(name, '')
+    folder.mkdir(parents=True, exist_ok=True)
+    path = folder / (name + '.png')
     image.save(path)
     digest = hashlib.sha256(path.read_bytes()).hexdigest()
     today = dt.date.today().strftime('%d %B %Y')
@@ -159,7 +224,7 @@ def write(name):
         '**Outstanding:** generated art can replace it on the owner\'s go (docs/development/art-backlog.md).\n\n'
         f'- `{name}.png`: SHA-256 `{digest}`\n'
     )
-    (TEXTURES / (name + '.record.md')).write_text(record, encoding='utf-8', newline='\n')
+    (folder / (name + '.record.md')).write_text(record, encoding='utf-8', newline='\n')
     print(name, digest)
 
 

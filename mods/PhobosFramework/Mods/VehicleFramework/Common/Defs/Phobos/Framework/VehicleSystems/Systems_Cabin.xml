@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    The cab (docs/development/vehicle-world-map-design.md): a closed cab has its own temperature, which the game reads for everyone
+    aboard instead of the weather (the Framework's held-temperature hook), on maps and in caravans alike. The cab drifts toward the
+    outside, and toward the heater's or the air conditioner's target while one runs with the engine; at a caravan's night camp an
+    optional night heater (a player setting) burns a little fuel to keep it warm. Open cabs (a loadout's cabin block, or a vehicle's
+    PhobosVehicleCabinExtension) have no cab: this system stands down for them. Not yet tested in game.
+
+    Figures, all authored: the heater holds 18 degrees C and the air conditioner 24 in mild weather; the insulation closes the gap to
+    the outside at 2 an hour (a parked cab meets the air in about an hour and a half); the heater pulls at 6 an hour (in -20 outside
+    the cab settles near 8), the cooler at 4 (in 40 outside, near 29), the night heater at 3 (in -10, near 7). A real diesel parking
+    heater burns about 0.2 to 0.5 L an hour (approximate, general); 0.4 chemfuel an hour here. The rule tests hold these figures.
+  -->
+  <Phobos.VehicleSystems.PhobosVehicleSystemDef>
+    <defName>PhobosVehicleSystem_Cabin</defName>
+    <label>cab</label>
+    <description>The cab's own warmth and cool: the heater and the air conditioner work while the engine runs, and a night heater can keep it warm at camp. Everyone aboard feels the cab, not the weather.</description>
+    <needsClosedCab>true</needsClosedCab>
+    <parameters>
+      <heaterTarget>18</heaterTarget>
+      <coolerTarget>24</coolerTarget>
+      <insulationRate>2</insulationRate>
+      <heaterRate>6</heaterRate>
+      <coolerRate>4</coolerRate>
+      <nightHeaterRate>3</nightHeaterRate>
+      <nightHeaterFuelPerHour>0.4</nightHeaterFuelPerHour>
+    </parameters>
+    <quantities>
+      <li>
+        <name>cabTemperature</name>
+        <label>cab</label>
+        <unit>Celsius</unit>
+        <min>-60</min>
+        <max>80</max>
+        <startsAt>Ambient</startsAt>
+        <stages>
+          <li>
+            <to>0</to>
+            <label>freezing</label>
+            <notable>true</notable>
+          </li>
+          <li>
+            <from>0</from>
+            <to>10</to>
+            <label>cold</label>
+            <notable>true</notable>
+          </li>
+          <li>
+            <from>10</from>
+            <to>28</to>
+            <label>comfortable</label>
+          </li>
+          <li>
+            <from>28</from>
+            <to>38</to>
+            <label>hot</label>
+            <notable>true</notable>
+          </li>
+          <li>
+            <from>38</from>
+            <label>stifling</label>
+            <notable>true</notable>
+          </li>
+        </stages>
+      </li>
+      <li>
+        <!-- Whether the night heater runs now: switched on, at a night camp, with the setting on. Its fuel is below. -->
+        <name>nightHeaterRunning</name>
+        <label>night heater</label>
+        <unit>Plain</unit>
+        <min>0</min>
+        <max>1</max>
+        <hidden>true</hidden>
+        <derivedFrom>
+          <li Class="Phobos.VehicleSystems.Input_Condition">
+            <condition Class="Phobos.VehicleSystems.When_LoadActive"><load>nightHeater</load></condition>
+          </li>
+        </derivedFrom>
+        <stages>
+          <li>
+            <from>0.5</from>
+            <label>burning</label>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_ConsumeFuel">
+                <perHourParameter>nightHeaterFuelPerHour</perHourParameter>
+              </li>
+            </effects>
+          </li>
+        </stages>
+      </li>
+    </quantities>
+    <flows>
+      <li>
+        <name>outside</name>
+        <quantity>cabTemperature</quantity>
+        <kind>Toward</kind>
+        <target Class="Phobos.VehicleSystems.Input_Ambient" />
+        <factorParameter>insulationRate</factorParameter>
+      </li>
+      <li>
+        <name>heater</name>
+        <quantity>cabTemperature</quantity>
+        <kind>Toward</kind>
+        <target Class="Phobos.VehicleSystems.Input_Parameter"><parameter>heaterTarget</parameter></target>
+        <factorParameter>heaterRate</factorParameter>
+        <when Class="Phobos.VehicleSystems.When_LoadActive"><load>cabHeater</load></when>
+      </li>
+      <li>
+        <name>cooler</name>
+        <quantity>cabTemperature</quantity>
+        <kind>Toward</kind>
+        <target Class="Phobos.VehicleSystems.Input_Parameter"><parameter>coolerTarget</parameter></target>
+        <factorParameter>coolerRate</factorParameter>
+        <when Class="Phobos.VehicleSystems.When_LoadActive"><load>airConditioner</load></when>
+      </li>
+      <li>
+        <name>nightHeater</name>
+        <quantity>cabTemperature</quantity>
+        <kind>Toward</kind>
+        <target Class="Phobos.VehicleSystems.Input_Parameter"><parameter>heaterTarget</parameter></target>
+        <factorParameter>nightHeaterRate</factorParameter>
+        <when Class="Phobos.VehicleSystems.When_LoadActive"><load>nightHeater</load></when>
+      </li>
+    </flows>
+  </Phobos.VehicleSystems.PhobosVehicleSystemDef>
+</Defs>

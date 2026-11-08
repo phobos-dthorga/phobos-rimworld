@@ -43,6 +43,12 @@ public class VehicleSystemsSettings : ModSettings
     /// <summary>Water stops draw a steam locomotive's real tender or tank capacity instead of a tenth of it (owner, 9 Nov 2026: scaled by
     /// default). Live.</summary>
     public bool realisticFeedWater;
+    /// <summary>A fuel-burning night heater keeps a closed cab warm while a caravan camps (owner, 9 Nov 2026: a setting, off). Live.</summary>
+    public bool nightHeater;
+    /// <summary>A jump-start needs a crafted jump-start kit, in stock or aboard (owner, 9 Nov 2026: default on). Live.</summary>
+    public bool jumpStartNeedsKit = true;
+    /// <summary>Every vehicle is assumed to carry a booster pack, so a jump-start needs no other vehicle (owner, 9 Nov 2026: off). Live.</summary>
+    public bool assumeBoosterPack;
 
     public enum HoverLimit
     {
@@ -56,6 +62,9 @@ public class VehicleSystemsSettings : ModSettings
         "fuelGelling" => fuelGelling,
         "boilerExplosions" => boilerExplosions,
         "realisticFeedWater" => realisticFeedWater,
+        "nightHeater" => nightHeater,
+        "jumpStartNeedsKit" => jumpStartNeedsKit,
+        "assumeBoosterPack" => assumeBoosterPack,
         _ => false,
     };
 
@@ -74,6 +83,9 @@ public class VehicleSystemsSettings : ModSettings
         Scribe_Values.Look(ref hoverLimit, "PhobosVehicleSystems_HoverLimit", HoverLimit.RefusePadUseRunway);
         Scribe_Values.Look(ref boilerExplosions, "PhobosVehicleSystems_BoilerExplosions", false);
         Scribe_Values.Look(ref realisticFeedWater, "PhobosVehicleSystems_RealisticFeedWater", false);
+        Scribe_Values.Look(ref nightHeater, "PhobosVehicleSystems_NightHeater", false);
+        Scribe_Values.Look(ref jumpStartNeedsKit, "PhobosVehicleSystems_JumpStartNeedsKit", true);
+        Scribe_Values.Look(ref assumeBoosterPack, "PhobosVehicleSystems_AssumeBoosterPack", false);
         if (Scribe.mode == LoadSaveMode.PostLoadInit)
         {
             disabledPackages ??= new List<string>();
@@ -115,6 +127,10 @@ public class VehicleSystemsMod : Mod
         if (Settings.showOnly) report.On("figures only (setting)");
         if (Settings.boilerExplosions) report.On("boiler explosions (setting)");
         if (Settings.realisticFeedWater) report.On("realistic feed water (setting)");
+        if (Settings.nightHeater) report.On("night heater at camp (setting)");
+        if (Settings.jumpStartNeedsKit) report.On("jump-start leads must be crafted (setting)");
+        else report.Off("jump-start leads", "free (setting)");
+        if (Settings.assumeBoosterPack) report.On("booster pack assumed on every vehicle (setting)");
         foreach (IGrouping<string, DesignRecord> skipped in VehicleSystems.Designs.Where(d => d.skippedBecause != null && d.loadout != null).GroupBy(d => d.skippedBecause!))
         {
             report.Off(skipped.Count() + " design" + (skipped.Count() == 1 ? "" : "s"), skipped.Key);
@@ -184,6 +200,7 @@ public class VehicleSystemsMod : Mod
         }
         listing.Gap(6f);
         listing.CheckboxLabeled("PhobosVehicleSystems_SettingLoadFuel".Translate(), ref s.loadDependentFuel, "PhobosVehicleSystems_SettingLoadFuelDesc".Translate());
+        listing.CheckboxLabeled("PhobosVehicleSystems_SettingNightHeater".Translate(), ref s.nightHeater, "PhobosVehicleSystems_SettingNightHeaterDesc".Translate());
         listing.Gap(6f);
         listing.Label("PhobosVehicleSystems_SettingHoverLimit".Translate());
         foreach (VehicleSystemsSettings.HoverLimit limit in System.Enum.GetValues(typeof(VehicleSystemsSettings.HoverLimit)))
@@ -198,6 +215,10 @@ public class VehicleSystemsMod : Mod
         listing.CheckboxLabeled("PhobosVehicleSystems_SettingRealisticFeedWater".Translate(), ref s.realisticFeedWater, "PhobosVehicleSystems_SettingRealisticFeedWaterDesc".Translate());
         listing.CheckboxLabeled("PhobosVehicleSystems_SettingBoilerExplosions".Translate(), ref s.boilerExplosions, "PhobosVehicleSystems_SettingBoilerExplosionsDesc".Translate());
         if (s.boilerExplosions) SettingsUi.Warning(listing, "PhobosVehicleSystems_BoilerExplosionsWarning".Translate());
+
+        SettingsUi.Section(listing, "PhobosVehicleSystems_SectionJumpStarts".Translate());
+        listing.CheckboxLabeled("PhobosVehicleSystems_SettingJumpStartNeedsKit".Translate(), ref s.jumpStartNeedsKit, "PhobosVehicleSystems_SettingJumpStartNeedsKitDesc".Translate());
+        listing.CheckboxLabeled("PhobosVehicleSystems_SettingAssumeBoosterPack".Translate(), ref s.assumeBoosterPack, "PhobosVehicleSystems_SettingAssumeBoosterPackDesc".Translate());
 
         SettingsUi.Section(listing, "PhobosVehicleSystems_SectionShow".Translate());
         SettingsUi.DrawDisplayMode(listing, ref s.displayMode);

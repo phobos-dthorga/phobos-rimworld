@@ -165,11 +165,13 @@ public class Effect_Letter : VehicleSystemEffect
 public class Effect_ConsumeFuel : VehicleSystemEffect
 {
     public float perHour;
+    /// <summary>A parameter of the system holding the rate instead, so loadouts can tune it.</summary>
+    public string? perHourParameter;
 
     public override void Apply(SystemContext context, float hours)
     {
         CompFueledTravel? fuel = context.Vehicle.CompFueledTravel;
-        if (fuel != null && !fuel.EmptyTank) fuel.ConsumeFuel(perHour * hours);
+        if (fuel != null && !fuel.EmptyTank) fuel.ConsumeFuel((perHourParameter != null ? context.Parameter(perHourParameter) : perHour) * hours);
     }
 }
 

@@ -60,6 +60,7 @@ public sealed class Powertrain
     int lastTick = -1;
     double lastSpeed;
     IntVec3 groundCell = IntVec3.Invalid;
+    Map? groundMap;
     double groundRolling = 0.012;
     double groundGrip = 0.8;
 
@@ -188,7 +189,17 @@ public sealed class Powertrain
     public bool Full => Mode == DrivetrainMode.Full;
 
     /// <summary>The speed cap the path follower applies: 1 unless the model holds the vehicle back and the player chose Full.</summary>
-    public float SpeedCap => Full && Ground ? (float)Cap : 1f;
+    public float SpeedCap => DebugCapOverride is double forced ? (float)forced : Full && Ground ? (float)Cap : 1f;
+
+    /// <summary>A cap forced by a dev action, to check the caravan slowing; null in play.</summary>
+    public double? DebugCapOverride;
+
+    /// <summary>Forgets the terrain under the vehicle, on arrival at a map.</summary>
+    public void ForgetGround()
+    {
+        groundCell = IntVec3.Invalid;
+        groundMap = null;
+    }
 
     /// <summary>Heat as a share of full-load heat, the unit the cooling system's flows were calibrated in.</summary>
     public double HeatShare => Result.HeatKw / fullLoadHeatKw;
@@ -427,9 +438,10 @@ public sealed class Powertrain
             grip = fixedGrip;
             return;
         }
-        if (vehicle.Position != groundCell)
+        if (vehicle.Position != groundCell || vehicle.Map != groundMap)
         {
             groundCell = vehicle.Position;
+            groundMap = vehicle.Map;
             Map map = vehicle.Map;
             double cost = map.terrainGrid.TerrainAt(groundCell)?.pathCost ?? 0;
             cost += WeatherBuildupUtility.MovementTicksAddOn(map.snowGrid.GetCategory(groundCell));
@@ -466,9 +478,13 @@ public sealed class Powertrain
         if (!VehicleSystemsMod.Settings.loadDependentFuel || !Full || !Ground || hours <= 0) return;
         CompFueledTravel? fuel = comp.Vehicle.CompFueledTravel;
         if (fuel == null || fuel.Props.electricPowered || !comp.EngineRunningRaw) return;
-        double vfShare = comp.Moving ? 1 : 0.5;
+        // On a map Vehicle Framework burns its daily rate while moving and half of it idling; on the world map its own per-tick world
+        // rate (with the author's world multiplier) while the caravan moves, and nothing while it stands.
+        bool onMap = comp.Vehicle.Spawned;
+        double vfPerHour = onMap ? fuel.FuelEfficiency / 24.0 : FuelRules.WorldPerHour(fuel.ConsumptionRateWorldPerTick, ElapsedRule.TicksPerHour);
+        double vfShare = comp.Moving ? 1 : onMap ? 0.5 : 0;
         double modelShare = Result.FuelPowerKw / Math.Max(0.1, nominalCruiseFuelKw);
-        double perHour = fuel.FuelEfficiency / 24.0 * (modelShare - vfShare);
+        double perHour = FuelRules.ExtraPerHour(vfPerHour, vfShare, modelShare);
         if (perHour > 0 && !fuel.EmptyTank) fuel.ConsumeFuel((float)(perHour * hours));
         else if (perHour < 0) fuel.Refuel((float)(-perHour * hours));
     }

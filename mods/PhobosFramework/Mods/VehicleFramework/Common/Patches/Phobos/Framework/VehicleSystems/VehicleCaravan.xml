@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <!-- Every vehicle caravan carries the vehicle systems' caravan comp: why a vehicle will not move, and the caravan jump-start
+       (docs/development/vehicle-world-map-design.md). Vehicle Framework's VehicleCaravan Def already has a comps list. -->
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/WorldObjectDef[defName="VehicleCaravan"]/comps</xpath>
+    <value>
+      <li>
+        <compClass>Phobos.VehicleSystems.WorldObjectComp_PhobosVehicleCaravan</compClass>
+      </li>
+    </value>
+  </Operation>
+</Patch>

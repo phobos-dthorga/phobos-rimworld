@@ -86,6 +86,8 @@ load folder or patch.
 | 9 Nov 2026 | **More engines and related systems where real counterparts have them**: thrust-lifted pods (Frog, Toad, Goliath), rotor drives for every helicopter, a diesel-electric for the Goat DE2, a boiler system for the steam locomotives, and real figures for the single-engine military vehicles, **the L-ATV first**; the boats, the Warbird and the Smuggler left out; built in parts ([power and lift](vehicle-power-and-lift-design.md)) | owner (on the agent's proposals) |
 | 9 Nov 2026 | Steam: **boiler explosions allowed, off by default**, behind a main-menu setting with a warning; **the tender scaled down by default** (a tenth) with a realistic setting ([steam](vehicle-steam-design.md)) | owner (the tenth and the plugless 4-8-4 are the agent's) |
 | 9 Nov 2026 | The L-ATV's engine at **the middle of the published figures**: 370 hp (276 kW) ([real figures](vehicle-real-figures-design.md)) | owner |
+| 9 Nov 2026 | The world map: **a closed cab with its own temperature** (the game's cold, heat and comfort rules apply); **engine off at a caravan's night camp, with an optional fuel-burning night heater as a setting**; **the drivetrain's speed cap and the "will not move" refusals apply to caravans**, with a caravan jump-start; **a craftable jump-start kit** behind the setting "Jump-start leads must be crafted" (on) and "Every vehicle carries a booster pack" (off) ([world map](vehicle-world-map-design.md)) | owner (the cab's figures and the open VVE vehicles are the agent's) |
+| 9 Nov 2026 | **Generic functions go to the Framework core**, in the same change as their first consumer (AGENTS.md) | owner |
 
 ## Open checks
 

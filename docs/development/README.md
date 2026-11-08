@@ -82,6 +82,10 @@ promise current behaviour. For using the mods, start at the [documentation index
 - [Steam boilers: design (9 Nov 2026)](vehicle-steam-design.md): raising steam over hours, safety valves, the water glass and
   injector, water stops, and the fusible plug that melts if the crown sheet is uncovered, for Trains of the Rim's Frisco 4-8-4
   and Tommy 0-6-0T; D'thorga Framework 0.13.0 and D'thorga Vehicles 0.5.0. Not yet tested in game.
+- [The world map and the cab: design (9 Nov 2026)](vehicle-world-map-design.md): what the vehicle systems did in caravans
+  and what was skipped or wrong, a closed cab's own temperature through the game's held-temperature lookup, the night heater,
+  caravan speed caps and refusals, the jump-start kit and its two settings; D'thorga Framework 0.16.0 and D'thorga Vehicles
+  0.7.0. Not yet tested in game.
 - [Vehicle figures: research (9 Nov 2026)](vehicle-figures-research.md): sourced engine, transmission and weight figures for the
   L-ATV, MaxxPro, Humvee, PLS, M113, Bradley, M48H, M10, T-54, BMP-1, Wiesel, Land Cruiser J70, the Abrams' turbine and five
   helicopters, with what was not found.

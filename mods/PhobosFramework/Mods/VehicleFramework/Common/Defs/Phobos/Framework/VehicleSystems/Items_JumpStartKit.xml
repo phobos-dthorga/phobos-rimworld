@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    The jump-start kit (owner, 9 Nov 2026): a pair of heavy leads with clamps, the thing a jump-start needs when the player's setting
+    says the leads must be crafted (its default). Never used up. Cost, work and skill are authored stand-ins (steel for copper leads
+    and clamps, a component for the insulation and fuses); no research gate (agent default: cruder than any vehicle). Placeholder
+    art, drawn in code (JumpStartKit.record.md). Not yet tested in game.
+  -->
+  <ThingDef ParentName="ResourceBase">
+    <defName>PhobosVehicleSystems_JumpStartKit</defName>
+    <label>jump-start kit</label>
+    <description>A pair of heavy leads with sprung clamps, long enough to reach from one vehicle's battery to another's. A colonist fetches it to jump-start a vehicle whose battery is too flat to turn the engine, and keeps it afterwards. Carry one in a caravan: a vehicle that will not start far from home is stranded without it.</description>
+    <graphicData>
+      <texPath>Phobos/VehicleSystems/Things/JumpStartKit</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>0.85</drawSize>
+    </graphicData>
+    <stackLimit>1</stackLimit>
+    <techLevel>Industrial</techLevel>
+    <statBases>
+      <MaxHitPoints>80</MaxHitPoints>
+      <Mass>3</Mass>
+      <Flammability>0.6</Flammability>
+      <DeteriorationRate>1.5</DeteriorationRate>
+      <WorkToMake>900</WorkToMake>
+      <MarketValue>60</MarketValue>
+    </statBases>
+    <costList>
+      <Steel>20</Steel>
+      <ComponentIndustrial>1</ComponentIndustrial>
+    </costList>
+    <recipeMaker>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <recipeUsers>
+        <li>TableMachining</li>
+        <li>FabricationBench</li>
+      </recipeUsers>
+      <skillRequirements>
+        <Crafting>3</Crafting>
+      </skillRequirements>
+    </recipeMaker>
+    <thingCategories>
+      <li>Manufactured</li>
+    </thingCategories>
+  </ThingDef>
+</Defs>
