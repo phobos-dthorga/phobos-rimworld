@@ -60,6 +60,39 @@ public static class VehicleSystemsDebugActions
         return nodes;
     }
 
+    /// <summary>Gives the selected vehicles' part of a role a condition at a severity, so each stage can be seen without arranging a
+    /// hit or a cause; a severity of 0 removes it.</summary>
+    [DebugAction(DebugCategory.Name, "Vehicle systems: give a part condition", allowedGameStates = AllowedGameStates.PlayingOnMap)]
+    static List<DebugActionNode> GiveCondition()
+    {
+        var nodes = new List<DebugActionNode>();
+        CompPhobosVehicleSystems? first = Selected().FirstOrDefault();
+        if (first == null) return nodes;
+        foreach (PhobosVehicleConditionDef def in DefDatabase<PhobosVehicleConditionDef>.AllDefsListForReading)
+        {
+            var conditionNode = new DebugActionNode(def.defName);
+            foreach (string role in first.Props.roleKeys.Keys)
+            {
+                var roleNode = new DebugActionNode(role);
+                foreach (float severity in new[] { 0f, 0.2f, 0.5f, 0.8f, 1f })
+                {
+                    PhobosVehicleConditionDef capturedDef = def;
+                    string capturedRole = role;
+                    roleNode.AddChild(new DebugActionNode(severity.ToString("0.#"), DebugActionType.Action, () =>
+                    {
+                        foreach (CompPhobosVehicleSystems comp in Selected())
+                        {
+                            Log.Message(VehicleSystemsMod.LogPrefix + " " + comp.DebugSetCondition(capturedRole, capturedDef, severity));
+                        }
+                    }));
+                }
+                conditionNode.AddChild(roleNode);
+            }
+            nodes.Add(conditionNode);
+        }
+        return nodes;
+    }
+
     [DebugAction(DebugCategory.Name, "Vehicle systems: request a service", allowedGameStates = AllowedGameStates.PlayingOnMap)]
     static void RequestService()
     {

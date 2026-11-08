@@ -5,6 +5,31 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.29.0] - 2026-11-09 - Draft
+
+Part conditions: the third slice of the vehicle health work (owner, 9 November 2026), after a read of Vehicle Framework's development branch for 1.7. **Not yet tested in game.** Design: docs/development/vehicle-health-design.md.
+
+### Added
+
+- Vehicle parts can have conditions, as a body part has an injury: a severity with stages, under the part on the Health tab. A vehicle part's health is still the one health figure; a condition says what it cannot, such as a radiator that goes on leaking after the shot.
+- Three to begin with (labels and figures agent-authored, held for the owner's review): a holed radiator, which leaks coolant faster the worse it is, from shot and shrapnel; a shorted battery, which drains itself, from the same; and a warped cylinder head, from boiling over, which makes the engine run hotter and, when bad, slower. All three go when the part is repaired to full health.
+- For modders, in XML: a condition Def; part-hit rules that give a condition and that name the kinds of damage they count; an effect that gives a condition from a system's stage; services that clear conditions. The guide is docs/vehicle-systems-modding.md, Part conditions.
+- A dev action that gives the selected vehicle's part any condition at any severity.
+- Shared, in the core: Rules/SeverityRule, a severity that hits add to, that fades, and that a repair to full clears (tested).
+
+### Changed
+
+- The systems' refusals, stat factors and their explanations now read one list of the stages in force, so a condition's stage acts exactly as a system's does.
+
+### Save compatibility
+
+- Safe to add to a running colony. Conditions are saved by part key; one whose part has gone is dropped with a line in the log. The uninstall sweep clears them with everything else.
+
+### Compatibility and limits
+
+- Vehicle Framework's development branch for 1.7 adds hand brakes that scratch every wheel when a vehicle brakes (on by default in its settings); the shipped conditions ignore scratches, and none of them is on wheels. Its own wheel wear will come on top of the tread wear here when that version ships: not yet decided, recorded in the design.
+- Another faction's vehicles get conditions from hits too, but on the light tier they only advance while one of their parts is being hit.
+
 ## [0.28.0] - 2026-11-09 - Draft
 
 The game's log kept going past its message limit (owner, 9 November 2026). **Not yet tested in game.** Design: docs/development/logging-framework-design.md.

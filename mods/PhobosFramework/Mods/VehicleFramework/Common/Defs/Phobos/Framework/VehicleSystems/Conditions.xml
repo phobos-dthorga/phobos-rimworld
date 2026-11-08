@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    Part conditions: slice 2 of the vehicle health design (docs/development/vehicle-health-design.md), Framework 0.29.0. A condition
+    belongs to one Vehicle Framework part, as an injury belongs to a body part, and adds what the part's health cannot say: a holed
+    radiator goes on leaking after the shot. Each stage has the same effects a system's stage has. Not yet tested in game.
+
+    Labels, descriptions and stage names are agent-authored (9 Nov 2026), held for the owner's review. Every rate is authored for
+    play, not measured:
+    - A holed radiator loses coolant at a rate that grows with the damage: a seep takes about 20 game hours to bring the coolant to
+      its top-up level (60%), a bad leak about 5, and a radiator torn open under an hour and a half. Coolant loss then overheats the engine through
+      the cooling system's own stages. Real radiators leak at every rate from drips to a gush; these three are a gameplay ladder.
+    - A shorted battery discharges itself: a damaged lead-acid battery with an internal short self-discharges far faster than a
+      sound one (secondary: battery makers' service notes on shorted cells). The rates (1% and 5% of charge an hour) are authored.
+    - A warped cylinder head follows severe overheating (secondary: Wikipedia, "Head gasket" and "Cylinder head"): combustion gas
+      reaches the coolant and the engine runs hotter, and a badly warped head loses compression and power. The extra heat (10 and 30
+      degrees an hour while running, against 420 at full load) and the power loss (10%) are authored.
+    All three clear when the part is repaired to full health (Vehicle Framework's own repair); none fades by itself.
+  -->
+  <Phobos.VehicleSystems.PhobosVehicleConditionDef>
+    <defName>PhobosVehicleCondition_HoledRadiator</defName>
+    <label>holed</label>
+    <description>Shot or shrapnel has holed the radiator, and the coolant leaks away. Repair the radiator to stop it, and top the coolant up.</description>
+    <stages>
+      <li>
+        <to>0.3</to>
+        <label>seeping</label>
+        <notable>true</notable>
+        <effects>
+          <li Class="Phobos.VehicleSystems.Effect_RateQuantity">
+            <quantity>coolantLevel</quantity>
+            <perHour>-0.02</perHour>
+          </li>
+        </effects>
+      </li>
+      <li>
+        <from>0.3</from>
+        <to>0.7</to>
+        <label>leaking</label>
+        <notable>true</notable>
+        <effects>
+          <li Class="Phobos.VehicleSystems.Effect_RateQuantity">
+            <quantity>coolantLevel</quantity>
+            <perHour>-0.08</perHour>
+          </li>
+        </effects>
+      </li>
+      <li>
+        <from>0.7</from>
+        <label>pouring out</label>
+        <notable>true</notable>
+        <effects>
+          <li Class="Phobos.VehicleSystems.Effect_RateQuantity">
+            <quantity>coolantLevel</quantity>
+            <perHour>-0.3</perHour>
+          </li>
+        </effects>
+      </li>
+    </stages>
+  </Phobos.VehicleSystems.PhobosVehicleConditionDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleConditionDef>
+    <defName>PhobosVehicleCondition_ShortedBattery</defName>
+    <label>shorted</label>
+    <description>A hit has damaged the battery's cells, and it drains itself even when nothing draws on it. Repair the battery to stop it.</description>
+    <stages>
+      <li>
+        <to>0.4</to>
+        <label>slow drain</label>
+        <notable>true</notable>
+        <effects>
+          <li Class="Phobos.VehicleSystems.Effect_RateQuantity">
+            <quantity>charge</quantity>
+            <perHour>-0.01</perHour>
+          </li>
+        </effects>
+      </li>
+      <li>
+        <from>0.4</from>
+        <label>draining fast</label>
+        <notable>true</notable>
+        <effects>
+          <li Class="Phobos.VehicleSystems.Effect_RateQuantity">
+            <quantity>charge</quantity>
+            <perHour>-0.05</perHour>
+          </li>
+        </effects>
+      </li>
+    </stages>
+  </Phobos.VehicleSystems.PhobosVehicleConditionDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleConditionDef>
+    <defName>PhobosVehicleCondition_WarpedHead</defName>
+    <label>warped cylinder head</label>
+    <description>Boiling over has warped the engine's cylinder head. Hot gas leaks into the coolant, so the engine runs hotter, and a badly warped head costs power. Repair the engine to fix it.</description>
+    <stages>
+      <li>
+        <to>0.4</to>
+        <label>slightly</label>
+        <notable>true</notable>
+        <effects>
+          <li Class="Phobos.VehicleSystems.Effect_RateQuantity">
+            <quantity>coolantTemperature</quantity>
+            <perHour>10</perHour>
+            <when Class="Phobos.VehicleSystems.When_EngineRunning" />
+          </li>
+        </effects>
+      </li>
+      <li>
+        <from>0.4</from>
+        <label>badly</label>
+        <notable>true</notable>
+        <effects>
+          <li Class="Phobos.VehicleSystems.Effect_RateQuantity">
+            <quantity>coolantTemperature</quantity>
+            <perHour>30</perHour>
+            <when Class="Phobos.VehicleSystems.When_EngineRunning" />
+          </li>
+          <li Class="Phobos.VehicleSystems.Effect_StatFactor">
+            <stat>MoveSpeed</stat>
+            <factor>0.9</factor>
+          </li>
+        </effects>
+      </li>
+    </stages>
+  </Phobos.VehicleSystems.PhobosVehicleConditionDef>
+</Defs>

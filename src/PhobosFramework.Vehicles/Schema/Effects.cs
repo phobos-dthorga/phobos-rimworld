@@ -248,6 +248,28 @@ public class Effect_SetQuantity : VehicleSystemEffect
     public override void OnEnter(SystemContext context) => context.Comp.SetQuantity(quantity, value);
 }
 
+/// <summary>
+/// Gives a part of the role a condition (or adds to the one it has): <c>severity</c> once when the stage starts or the event fires,
+/// <c>perHour</c> while the stage lasts. A cause, not a hit: boiling over warps the cylinder head.
+/// </summary>
+public class Effect_AddCondition : VehicleSystemEffect
+{
+    public PhobosVehicleConditionDef? condition;
+    public string role = "";
+    public float severity;
+    public float perHour;
+
+    public override void OnEnter(SystemContext context)
+    {
+        if (condition != null && severity > 0f) context.Comp.AddCondition(role, condition, severity, context.State.Def.defName);
+    }
+
+    public override void Apply(SystemContext context, float hours)
+    {
+        if (condition != null && perHour > 0f) context.Comp.AddCondition(role, condition, perHour * hours, context.State.Def.defName);
+    }
+}
+
 /// <summary>Moves a quantity of this vehicle per hour while the stage lasts: a boil-over drains the coolant.</summary>
 public class Effect_RateQuantity : VehicleSystemEffect
 {

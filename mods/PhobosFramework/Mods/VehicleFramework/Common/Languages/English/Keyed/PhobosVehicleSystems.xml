@@ -206,6 +206,8 @@
   <PhobosVehicleSystems_HealthInternal>Inside</PhobosVehicleSystems_HealthInternal>
   <PhobosVehicleSystems_HealthDestroyed>destroyed</PhobosVehicleSystems_HealthDestroyed>
   <PhobosVehicleSystems_HealthLeaking>leaking fuel</PhobosVehicleSystems_HealthLeaking>
+  <PhobosVehicleSystems_HealthCondition>{CONDITION}: {STAGE}</PhobosVehicleSystems_HealthCondition>
+  <PhobosVehicleSystems_HealthConditionFigure>{CONDITION}: {STAGE} ({SEVERITY})</PhobosVehicleSystems_HealthConditionFigure>
   <PhobosVehicleSystems_HealthReactorExplosive>Can explode when badly damaged.</PhobosVehicleSystems_HealthReactorExplosive>
   <PhobosVehicleSystems_HealthCrew>Crew</PhobosVehicleSystems_HealthCrew>
   <PhobosVehicleSystems_HealthCrewNone>Nobody aboard.</PhobosVehicleSystems_HealthCrewNone>

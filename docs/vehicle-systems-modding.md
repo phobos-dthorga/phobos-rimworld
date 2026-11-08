@@ -160,8 +160,8 @@ pump empties, with a stage that stops the vehicle starting when it runs dry.
 | `stages` | Ranges `from` (inclusive) and `to` (exclusive), either open-ended, in rising order: `label`, `notable` (Plain mode names it), `effects`. A value in a gap is in no stage. |
 | `flows` | Rate rules on one quantity: `kind` `Into` and `From` (units per hour) or `Toward` a `target` input (the share of the gap closed per hour, done exactly, so it never overshoots). The rate is `factor`, times `factorParameter`, over `divideByParameter`, times every input. `openAbove` or `openAboveParameter` (and `openBelow`) with a `band` gate it like a thermostat. `when` limits it to a condition. |
 | `onEvents` | Effects run once on one of Vehicle Framework's events (`IgnitionOn`, `IgnitionOff`, `MoveStart`, `MoveStop`, `Refueled`, `OutOfFuel` and the rest). |
-| `onPartHit` | When a part playing `role` is hit, `quantity` changes by `perHealthLost` for each hit point lost. |
-| `service` | What a mechanic does: `label`, due when `dueQuantity` passes `dueAbove` or `dueBelow`, `supplies` loaded into the cargo first, `waterLitres` (or `waterLitresParameter`, a system parameter each loadout can set; `scaledWaterLitresParameter`, a scaled figure used unless the player's `realisticWaterSetting` is on, `realisticFeedWater` by default; and `waterForShortfall`, to draw only what the due quantity is short of) drawn from the registered water source when the work ends (free when none is registered; see [Water](#water-for-services)), `work` (ticks at construction speed 1), then `restores` (any system's quantities). |
+| `onPartHit` | When a part playing `role` is hit, `quantity` changes by `perHealthLost` for each hit point lost, or the part gets `condition` with `perHealthLost` severity per hit point ([Part conditions](#part-conditions)). `armorCategories` (Sharp, Blunt, Heat) and `damageDefs` limit a rule to kinds of damage, `exceptDamageDefs` rules kinds out; with no filter any hit counts. |
+| `service` | What a mechanic does: `label`, due when `dueQuantity` passes `dueAbove` or `dueBelow` (or while the vehicle has a condition in `clearsConditions`, which the service then clears), `supplies` loaded into the cargo first, `waterLitres` (or `waterLitresParameter`, a system parameter each loadout can set; `scaledWaterLitresParameter`, a scaled figure used unless the player's `realisticWaterSetting` is on, `realisticFeedWater` by default; and `waterForShortfall`, to draw only what the due quantity is short of) drawn from the registered water source when the work ends (free when none is registered; see [Water](#water-for-services)), `work` (ticks at construction speed 1), then `restores` (any system's quantities). |
 | `jumpStart` | How a colonist jump-starts the vehicle from another: `quantity` (raised to `raiseTo` when below it), `capacityParameter` (the unit the charge moves in), `donorMinimum` (or a running engine), `reach` in cells, `work` in ticks. The player orders it from the flat vehicle's right-click menu. |
 | `workerClass` | A `VehicleSystemWorker` subclass for maths XML cannot say. |
 
@@ -223,6 +223,7 @@ Every effect takes `when`. Those marked as consequences are skipped when the pla
 | `Effect_AddQuantity` | once: `amount` times `scaleByParameter`, over `divideByParameter`, times `scaleBy`, added to `quantity` | no |
 | `Effect_SetQuantity` | once: `quantity` set to `value` | no |
 | `Effect_RateQuantity` | `perHour` added to `quantity` while the stage lasts | no |
+| `Effect_AddCondition` | gives a part of `role` the `condition`: `severity` once on entry, `perHour` while the stage lasts | yes |
 | `Effect_Explosion` | once: the game's explosion at the vehicle, `radius` and `damage` (`damageDef`, blast by default), and `breakRole`'s parts broken; only on a map | yes |
 
 ## Engines and drivetrains
@@ -392,6 +393,55 @@ It shows every part of the vehicle, bound or not, grouped External then Internal
 first role** (`roles[0]`): put the role the condition belongs to first. A stage shows when it is `notable` or carries effects; a
 hidden quantity's stage shows only when it carries effects (a refusal, say). The tab rebuilds its rows when the comp's
 `HealthViewVersion` changes (a hit, a repair, an update) and never otherwise.
+
+## Part conditions
+
+A condition belongs to one Vehicle Framework part, as an injury belongs to a body part, and says what the part's health cannot: a
+holed radiator goes on leaking after the shot. **The part's health stays the one health figure**; a condition adds a severity
+from 0 to 1 with stages, and each stage takes the same `effects` as a system's stage (a leak is an `Effect_RateQuantity` on the
+cooling system's `coolantLevel`; a fault is an `Effect_StatFactor` or an `Effect_RefuseMove`).
+
+```xml
+<Phobos.VehicleSystems.PhobosVehicleConditionDef>
+  <defName>MyMod_CrackedTank</defName>
+  <label>cracked</label>
+  <description>The tank leaks. Repair it to stop the leak.</description>
+  <fadePerHour>0</fadePerHour>        <!-- severity lost per hour by itself -->
+  <clearsOnRepair>true</clearsOnRepair> <!-- a repair to full health clears it -->
+  <stages>
+    <li><to>0.5</to><label>seeping</label><notable>true</notable>
+      <effects><li Class="Phobos.VehicleSystems.Effect_RateQuantity"><quantity>hydraulicFluid</quantity><perHour>-0.02</perHour></li></effects></li>
+    <li><from>0.5</from><label>leaking</label><notable>true</notable>
+      <effects><li Class="Phobos.VehicleSystems.Effect_RateQuantity"><quantity>hydraulicFluid</quantity><perHour>-0.1</perHour></li></effects></li>
+  </stages>
+</Phobos.VehicleSystems.PhobosVehicleConditionDef>
+```
+
+| Where a condition comes from | How |
+| --- | --- |
+| A hit | An `onPartHit` rule with `condition`: `perHealthLost` severity for each hit point the part lost, filtered by kind of damage |
+| A cause | `Effect_AddCondition` in a system's stage: boiling over warps the cylinder head |
+| Wear | The same effect in a wear quantity's stage |
+
+| How it goes | Field |
+| --- | --- |
+| A repair that brings the part to full health (Vehicle Framework's own repair; it stops at 99.5%, which counts as full) | `clearsOnRepair` (true by default) |
+| Fading by itself | `fadePerHour` |
+| A service with supplies | the system's `service` lists it under `clearsConditions`; the service falls due while the vehicle has it |
+
+- **The kind of damage comes from the reactor.** A hit the systems only notice in the part's health (the rare-tick sweep) has no
+  kind, and counts only for a rule without filters.
+- **Vehicle Framework's hand brakes** (on its development branch for 1.7, on by default in its settings) scratch every part tagged
+  `Wheel` with `Scratch` damage each time a vehicle brakes. Give a condition rule on wheels `<exceptDamageDefs><li>Scratch</li>
+  </exceptDamageDefs>`, or braking will count as a hit.
+- A condition's effects read the figures of the system that gave it (its `Parameter`s); it stands down while that system is
+  switched off in the settings.
+- Conditions are saved by the part's key, never its position. One whose part has gone (a removed mod's part, a changed design) is
+  dropped on the next update with a line in the log; the uninstall sweep drops them all.
+- The Health tab shows each condition under its part ("Holed: leaking", with the severity in Operator and Engineer); clicking it
+  opens the Systems tab at the system that gave it.
+- The dev action **Vehicle systems: give a part condition** sets any condition on the selected vehicle's part of a role, to see
+  each stage without arranging a hit; **Vehicle systems: hit a part** hits it through Vehicle Framework's damage path.
 
 ## Detail tiers
 

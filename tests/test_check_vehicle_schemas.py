@@ -192,6 +192,33 @@ class VehicleSchemaCheckTests(unittest.TestCase):
         self.assertTrue(any('waterLitres' in e for e in result['errors']))
 
 
+    def test_a_good_condition_with_a_hit_rule_and_a_cause_passes(self):
+        result = self.run_with(CONDITIONS)
+        self.assertEqual(result['errors'], [])
+        self.assertIn('PhobosVehicleCondition_TestHoled', result['conditions'])
+
+    def test_a_condition_stage_outside_zero_to_one_is_caught(self):
+        result = self.run_with(CONDITIONS.replace('<from>0.5</from>', '<from>1.5</from>'))
+        self.assertTrue(any('outside a severity of 0 to 1' in e for e in result['errors']))
+
+    def test_a_rule_or_cause_naming_a_missing_condition_of_ours_is_caught(self):
+        result = self.run_with(CONDITIONS.replace('<condition>PhobosVehicleCondition_TestHoled</condition>',
+                                                  '<condition>PhobosVehicleCondition_Nowhere</condition>'))
+        self.assertTrue(any('does not exist (PhobosVehicleCondition_Nowhere)' in e for e in result['errors']))
+
+    def test_another_mods_condition_is_trusted(self):
+        result = self.run_with(CONDITIONS.replace('<condition>PhobosVehicleCondition_TestHoled</condition>',
+                                                  '<condition>OtherMod_Cracked</condition>'))
+        self.assertFalse(any('does not exist' in e for e in result['errors']))
+
+    def test_a_condition_effect_naming_no_quantity_is_caught(self):
+        result = self.run_with(CONDITIONS.replace('<quantity>heat</quantity><perHour>-1</perHour>', '<quantity>coolant</quantity><perHour>-1</perHour>'))
+        self.assertTrue(any('names a quantity no system has (coolant)' in e for e in result['errors']))
+
+    def test_a_hit_rule_with_neither_quantity_nor_condition_is_caught(self):
+        result = self.run_with(CONDITIONS.replace('<condition>PhobosVehicleCondition_TestHoled</condition>', ''))
+        self.assertTrue(any('moves no quantity and gives no condition' in e for e in result['errors']))
+
 POWER = SYSTEM.replace('</Defs>', """
   <Phobos.VehicleSystems.PhobosVehicleSystemDef>
     <defName>Test_Water</defName>
@@ -233,6 +260,24 @@ POWER = SYSTEM.replace('</Defs>', """
 </Defs>
 """)
 
+
+CONDITIONS = SYSTEM.replace('<flows>', """<onPartHit>
+      <li><role>Engine</role><condition>PhobosVehicleCondition_TestHoled</condition><perHealthLost>0.03</perHealthLost>
+        <armorCategories><li>Sharp</li></armorCategories><exceptDamageDefs><li>Scratch</li></exceptDamageDefs></li>
+    </onPartHit>
+    <flows>""").replace('<effects><li Class="Phobos.VehicleSystems.Effect_Message">', """<effects><li Class="Phobos.VehicleSystems.Effect_AddCondition">
+              <condition>PhobosVehicleCondition_TestHoled</condition><role>Engine</role><perHour>0.2</perHour></li>
+              <li Class="Phobos.VehicleSystems.Effect_Message">""").replace('</Defs>', """
+  <Phobos.VehicleSystems.PhobosVehicleConditionDef>
+    <defName>PhobosVehicleCondition_TestHoled</defName>
+    <label>holed</label>
+    <stages>
+      <li><to>0.5</to><label>seeping</label>
+        <effects><li Class="Phobos.VehicleSystems.Effect_RateQuantity"><quantity>heat</quantity><perHour>-1</perHour></li></effects></li>
+      <li><from>0.5</from><label>leaking</label></li>
+    </stages>
+  </Phobos.VehicleSystems.PhobosVehicleConditionDef>
+</Defs>""")
 
 if __name__ == '__main__':
     unittest.main()

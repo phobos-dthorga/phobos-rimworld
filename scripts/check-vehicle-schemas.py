@@ -8,7 +8,8 @@ find at load, or never: quantities and flows that name each other, parameters de
 reads declared and bound, loadouts that name real systems and parameters, appended parts with unique keys and a role to take cells
 from, the effect, input and condition classes the service ships, and the translation keys messages and refusals use. Drivetrains
 (gears, shift points, torque curve, turbine ratings and water injection), flight profiles (a reader for every phase they use) and
-the loadouts that name them are checked too (Framework 0.11.0). Another mod's
+the loadouts that name them are checked too (Framework 0.11.0), and part conditions (Framework 0.29.0): stages in order within a
+severity of 0 to 1, their effects as a system's, and every rule, cause and service that names one. Another mod's
 own classes (outside Phobos.VehicleSystems) are taken on trust. Exit code 1 when anything is wrong; warnings alone exit 0.
 The schema itself is documented in docs/vehicle-systems-modding.md.
 """
@@ -24,6 +25,8 @@ SYSTEM_TAG = 'Phobos.VehicleSystems.PhobosVehicleSystemDef'
 LOADOUT_TAG = 'Phobos.VehicleSystems.PhobosVehicleLoadoutDef'
 DRIVETRAIN_TAG = 'Phobos.VehicleSystems.PhobosVehicleDrivetrainDef'
 PROFILE_TAG = 'Phobos.VehicleSystems.PhobosVehicleFlightProfileDef'
+CONDITION_TAG = 'Phobos.VehicleSystems.PhobosVehicleConditionDef'
+OUR_CONDITION_PREFIX = 'PhobosVehicleCondition_'  # a condition of another mod's is taken on trust
 OUR_NAMESPACE = 'Phobos.VehicleSystems.'
 SCHEMA_SOURCE = 'src/PhobosFramework.Vehicles/Schema'
 EXTRA_CLASS_SOURCES = ('src/PhobosFramework.Vehicles/Defs/PowertrainDefs.cs',)  # the flight profile's phase readers
@@ -73,7 +76,7 @@ def merge(parent, child):
 
 def gather(root):
     """Every system and loadout Def under mods/, inheritance resolved, with the file each came from."""
-    raw = {SYSTEM_TAG: [], LOADOUT_TAG: [], DRIVETRAIN_TAG: [], PROFILE_TAG: []}
+    raw = {SYSTEM_TAG: [], LOADOUT_TAG: [], DRIVETRAIN_TAG: [], PROFILE_TAG: [], CONDITION_TAG: []}
     keys = set()
     for path in sorted(Path(root, 'mods').rglob('*.xml')):
         relative = path.relative_to(root).as_posix()
@@ -176,11 +179,62 @@ def walk_classes(element):
             yield node
 
 
+def check_effects(element, where, classes, keys, all_quantities, roles, errors, warnings):
+    """The classes, quantities, roles and translation keys named inside a system's or a condition's stages."""
+    for node in walk_classes(element):
+        cls = node.attrib['Class']
+        if cls.startswith(OUR_NAMESPACE) and cls[len(OUR_NAMESPACE):] not in classes:
+            errors.append(f'{where}: no class {cls}')
+        quantity = text(node, 'quantity')
+        if quantity is not None and quantity not in all_quantities:
+            errors.append(f'{where}: {cls.split(".")[-1]} names a quantity no system has ({quantity})')
+        role = text(node, 'role')
+        if roles is not None and role is not None and role not in roles:
+            warnings.append(f'{where}: {cls.split(".")[-1]} reads the role {role}, which <roles> does not list')
+        for child in node:
+            if child.tag in KEY_FIELDS and cls.split('.')[-1].startswith('Effect_') and child.text and child.text.strip() not in keys:
+                errors.append(f'{where}: the translation key {child.text.strip()} is missing')
+
+
+def check_condition_name(name, conditions, where, what, errors):
+    if name is None:
+        errors.append(f'{where}: {what} names no condition')
+    elif name.startswith(OUR_CONDITION_PREFIX) and name not in conditions:
+        errors.append(f'{where}: {what} names a condition that does not exist ({name})')
+
+
 def check(root):
     resolved, keys = gather(root)
     classes = our_classes(root)
     errors, warnings = [], []
     systems = {}
+    conditions = {}
+    for node, source in resolved[CONDITION_TAG]:
+        name = text(node, 'defName')
+        where = f'{source}: {name}'
+        if not name:
+            errors.append(f'{source}: a condition has no defName')
+            continue
+        if name in conditions:
+            errors.append(f'{where}: defined twice')
+        conditions[name] = (node, where)
+        stages = items(node, 'stages')
+        if not stages:
+            errors.append(f'{where}: a condition needs at least one stage')
+        previous_top = float('-inf')
+        for stage in stages:
+            bottom = float(text(stage, 'from', '0'))
+            top = float(text(stage, 'to', '1'))
+            if top <= bottom or bottom < previous_top:
+                errors.append(f'{where}: stages overlap or are out of order')
+            if not (0 <= bottom <= 1 and 0 <= top <= 1):
+                errors.append(f'{where}: the stage {text(stage, "label")} lies outside a severity of 0 to 1')
+            previous_top = top
+            if not text(stage, 'label'):
+                errors.append(f'{where}: a stage has no label')
+        fade = number(node, 'fadePerHour', 0)
+        if fade is None or fade < 0:
+            errors.append(f'{where}: fadePerHour must be 0 or more')
     for node, source in resolved[SYSTEM_TAG]:
         name = text(node, 'defName')
         where = f'{source}: {name}'
@@ -232,24 +286,25 @@ def check(root):
             if element.tag in PARAMETER_FIELDS and element.text and element.text.strip() not in system['parameters'] \
                     and element.tag != 'supplyParameter':
                 errors.append(f'{where}: {element.tag} names the undeclared parameter {element.text.strip()}')
+        check_effects(node, where, classes, keys, all_quantities, system['roles'], errors, warnings)
         for element in walk_classes(node):
             cls = element.attrib['Class']
-            if cls.startswith(OUR_NAMESPACE) and cls[len(OUR_NAMESPACE):] not in classes:
-                errors.append(f'{where}: no class {cls}')
             if cls.endswith(('Input_Parameter', 'When_ParameterBelow')) and text(element, 'parameter') not in system['parameters']:
                 errors.append(f'{where}: Input_Parameter names the undeclared parameter {text(element, "parameter")}')
-            quantity = text(element, 'quantity')
-            if quantity is not None and quantity not in all_quantities:
-                errors.append(f'{where}: {cls.split(".")[-1]} names a quantity no system has ({quantity})')
-            role = text(element, 'role')
-            if role is not None and role not in system['roles']:
-                warnings.append(f'{where}: {cls.split(".")[-1]} reads the role {role}, which <roles> does not list')
-            for child in element:
-                if child.tag in KEY_FIELDS and cls.split('.')[-1].startswith('Effect_') and child.text and child.text.strip() not in keys:
-                    errors.append(f'{where}: the translation key {child.text.strip()} is missing')
+            if cls.endswith('Effect_AddCondition'):
+                check_condition_name(text(element, 'condition'), conditions, where, 'Effect_AddCondition', errors)
+                if not (number(element, 'severity', 0) or 0) > 0 and not (number(element, 'perHour', 0) or 0) > 0:
+                    errors.append(f'{where}: Effect_AddCondition adds no severity')
         for rule in items(node, 'onPartHit'):
-            if text(rule, 'quantity') not in all_quantities:
-                errors.append(f'{where}: a part-hit rule names a quantity no system has ({text(rule, "quantity")})')
+            quantity, condition = text(rule, 'quantity'), text(rule, 'condition')
+            if quantity is None and condition is None:
+                errors.append(f'{where}: a part-hit rule on {text(rule, "role")} moves no quantity and gives no condition')
+            if quantity is not None and quantity not in all_quantities:
+                errors.append(f'{where}: a part-hit rule names a quantity no system has ({quantity})')
+            if condition is not None:
+                check_condition_name(condition, conditions, where, 'a part-hit rule', errors)
+                if not (number(rule, 'perHealthLost', 0) or 0) > 0:
+                    errors.append(f'{where}: the part-hit rule giving {condition} adds no severity')
             if text(rule, 'role') not in system['roles']:
                 warnings.append(f'{where}: a part-hit rule reads the role {text(rule, "role")}, which <roles> does not list')
         service = node.find('service')
@@ -268,12 +323,17 @@ def check(root):
             for restore in items(service, 'restores'):
                 if text(restore, 'quantity') not in all_quantities:
                     errors.append(f'{where}: the service restores a quantity no system has ({text(restore, "quantity")})')
+            for cleared in items(service, 'clearsConditions'):
+                check_condition_name((cleared.text or '').strip() or None, conditions, where, 'the service', errors)
         jump = node.find('jumpStart')
         if jump is not None:
             if text(jump, 'quantity') not in system['quantities']:
                 errors.append(f'{where}: the jump-start names an unknown quantity ({text(jump, "quantity")})')
             if text(jump, 'capacityParameter') not in system['parameters']:
                 errors.append(f'{where}: the jump-start names the undeclared parameter {text(jump, "capacityParameter")}')
+
+    for name, (node, where) in conditions.items():
+        check_effects(node, where, classes, keys, all_quantities, None, errors, warnings)
 
     drivetrains = {}
     for node, source in resolved[DRIVETRAIN_TAG]:
@@ -386,7 +446,7 @@ def check(root):
             if cls.startswith(OUR_NAMESPACE) and cls[len(OUR_NAMESPACE):] not in classes:
                 errors.append(f'{where}: no class {cls}')
     return {'systems': sorted(systems), 'loadouts': sorted(loadouts), 'drivetrains': sorted(drivetrains), 'profiles': sorted(profiles),
-            'errors': errors, 'warnings': warnings}
+            'conditions': sorted(conditions), 'errors': errors, 'warnings': warnings}
 
 
 def main():
@@ -399,7 +459,7 @@ def main():
         print(json.dumps(result, indent=2))
     else:
         print(f'{len(result["systems"])} systems, {len(result["loadouts"])} loadouts, {len(result["drivetrains"])} drivetrains, '
-              f'{len(result["profiles"])} flight profiles; '
+              f'{len(result["profiles"])} flight profiles, {len(result["conditions"])} conditions; '
               f'{len(result["errors"])} errors, {len(result["warnings"])} warnings.')
         for line in result['errors']:
             print('ERROR   ' + line)

@@ -114,13 +114,35 @@ public class EventRule
     public List<VehicleSystemEffect> effects = new();
 }
 
-/// <summary>A quantity that changes when a part playing a role is hit: a holed radiator loses coolant.</summary>
+/// <summary>
+/// What a hit on a part playing a role does: a quantity changes (a holed radiator loses coolant at once), or the part gets a condition
+/// (it goes on leaking). The filters limit the rule to kinds of damage; with none, any hit counts. A hit whose kind is unknown (one
+/// the systems only noticed in the part's health) counts only for a rule without filters.
+/// </summary>
 public class PartHitRule
 {
     public string role = "";
     public string quantity = "";
-    /// <summary>The change per hit point the part loses (negative to drain).</summary>
+    /// <summary>The change per hit point the part loses (negative to drain); for a condition, the severity per hit point.</summary>
     public float perHealthLost;
+    public PhobosVehicleConditionDef? condition;
+    /// <summary>Only damage of these armour categories (Sharp, Blunt, Heat).</summary>
+    public List<DamageArmorCategoryDef>? armorCategories;
+    /// <summary>Only these kinds of damage (EMP).</summary>
+    public List<DamageDef>? damageDefs;
+    /// <summary>Never these kinds of damage: Scratch, which Vehicle Framework's hand brakes use on wheels, and animals' bites.</summary>
+    public List<DamageDef>? exceptDamageDefs;
+
+    bool Filtered => armorCategories != null || damageDefs != null;
+
+    public bool Matches(DamageDef? damage)
+    {
+        if (damage == null) return !Filtered && exceptDamageDefs == null;
+        if (exceptDamageDefs != null && exceptDamageDefs.Contains(damage)) return false;
+        if (!Filtered) return true;
+        return (damageDefs != null && damageDefs.Contains(damage))
+               || (armorCategories != null && damage.armorCategory != null && armorCategories.Contains(damage.armorCategory));
+    }
 }
 
 /// <summary>A quantity set back when the vehicle is serviced.</summary>
@@ -142,6 +164,8 @@ public class ServiceSpec
     public float dueBelow = float.NaN;
     public List<QuantityRestore> restores = new();
     public List<ThingDefCountClass> supplies = new();
+    /// <summary>Conditions the service clears on every part of the vehicle; the service is due while the vehicle has one of them.</summary>
+    public List<PhobosVehicleConditionDef> clearsConditions = new();
     /// <summary>Litres of water the service draws when it is done: from Dubs Bad Hygiene's plumbing beside the vehicle when that mod is
     /// active, otherwise free, as the base game treats water (owner, 9 Nov 2026).</summary>
     public float waterLitres;
@@ -239,6 +263,12 @@ public class PhobosVehicleSystemDef : Def
         foreach (EventRule rule in onEvents)
         {
             if (rule.eventDef == null) yield return "an event rule names no event";
+        }
+        foreach (PartHitRule rule in onPartHit)
+        {
+            if (string.IsNullOrEmpty(rule.role)) yield return "a part-hit rule names no role";
+            if (string.IsNullOrEmpty(rule.quantity) && rule.condition == null) yield return "the part-hit rule on " + rule.role + " moves no quantity and gives no condition";
+            if (rule.condition != null && rule.perHealthLost <= 0f) yield return "the part-hit rule giving " + rule.condition.defName + " adds no severity";
         }
         if (service != null)
         {

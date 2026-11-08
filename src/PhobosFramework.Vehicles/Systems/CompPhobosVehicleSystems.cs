@@ -123,6 +123,12 @@ public class CompPhobosVehicleSystems : VehicleComp
     bool registered;
     Powertrain? powertrain;
     bool powertrainBuilt;
+    VehicleConditions? conditions;
+    /// <summary>The kind of damage the reactor last saw on each part, until the health it cost is counted; derived, never saved.</summary>
+    readonly Dictionary<string, DamageDef> recentDamage = new();
+
+    /// <summary>The conditions on this vehicle's parts (slice 2 of the vehicle health design).</summary>
+    public VehicleConditions Conditions => conditions ??= new VehicleConditions(this);
 
     /// <summary>Spawned vehicles with this comp, for the per-tick speed cap (one dictionary read instead of a comp search).</summary>
     static readonly Dictionary<VehiclePawn, CompPhobosVehicleSystems> spawned = new();
@@ -287,6 +293,7 @@ public class CompPhobosVehicleSystems : VehicleComp
         Scribe_Collections.Look(ref servicedSaved, "PhobosVehicleSystems_Serviced", LookMode.Value);
         Scribe_Values.Look(ref lastUpdateTick, "PhobosVehicleSystems_LastUpdate", -1);
         Scribe_Values.Look(ref serviceRequested, "PhobosVehicleSystems_ServiceRequested", false);
+        Conditions.ExposeData();
         if (Scribe.mode == LoadSaveMode.PostLoadInit)
         {
             savedValues ??= new Dictionary<string, float>();
@@ -426,6 +433,7 @@ public class CompPhobosVehicleSystems : VehicleComp
             for (int i = 0; i < state.values.Length; i++) state.stage[i] = StageOf(state, i);
             states.Add(state);
         }
+        Conditions.RestoreStages();
         if (lastUpdateTick < 0 && Current.Game != null) lastUpdateTick = Find.TickManager.TicksGame;
         RecacheStatFactors();
     }
@@ -458,6 +466,7 @@ public class CompPhobosVehicleSystems : VehicleComp
             {
                 EvaluateStages(state, (float)hours);
             }
+            Conditions.Advance((float)hours);
             RecacheStatFactors();
             History.Sample(states, now);
             MoveRefusal = FirstRefusal(draft: false);
@@ -610,11 +619,12 @@ public class CompPhobosVehicleSystems : VehicleComp
     /// the systems last saw it is what the part-hit rules count (a holed radiator loses coolant for the hole, not for the shot).
     /// A rise (a repair) only resets the memory; wear and breakdowns the systems cause store the health themselves, so they never count.
     /// </summary>
-    public void Notify_PartSeen(string role, VehicleComponent part)
+    public void Notify_PartSeen(string role, VehicleComponent part, DamageDef? damage = null)
     {
         using PhobosTiming.Scope timing = PhobosTiming.Measure("vehicle hit");
         if (!Usable || part?.props?.key == null) return;
         string key = part.props.key;
+        if (damage != null) recentDamage[key] = damage;
         float health = part.Health;
         if (!lastPartHealth.TryGetValue(key, out float last))
         {
@@ -623,8 +633,21 @@ public class CompPhobosVehicleSystems : VehicleComp
         }
         lastPartHealth[key] = health;
         float lost = last - health;
-        if (lost <= 0f) return;
-        Notify_PartHit(role, lost);
+        if (lost < 0f)
+        {
+            // A repair: conditions that clear on repair go once the part is full again.
+            recentDamage.Remove(key);
+            if (conditions != null && conditions.Count > 0)
+            {
+                conditions.OnHealthRose(part, last, health);
+                AfterConditionsChanged();
+            }
+            return;
+        }
+        if (lost == 0f) return;
+        recentDamage.TryGetValue(key, out DamageDef? kind);
+        recentDamage.Remove(key);
+        Notify_PartHit(role, part, lost, kind);
     }
 
     /// <summary>Remembers a part's health after the systems changed it themselves, so the change is not counted as a hit.</summary>
@@ -658,19 +681,93 @@ public class CompPhobosVehicleSystems : VehicleComp
         return text.ToString();
     }
 
-    /// <summary>Health a bound part lost to a hit: each part-hit rule of the role moves its quantity by that much.</summary>
-    void Notify_PartHit(string role, float healthLost)
+    /// <summary>
+    /// Health a bound part lost to a hit, and the kind of damage when the reactor saw it: each part-hit rule of the role that the
+    /// damage matches moves its quantity by that much, or gives the part its condition.
+    /// </summary>
+    void Notify_PartHit(string role, VehicleComponent part, float healthLost, DamageDef? damage)
     {
         if (!Usable || healthLost <= 0f) return;
         UpdateNow();
         if (states == null) return;
+        bool conditionGiven = false;
         foreach (SystemState state in states)
         {
             if (!Enabled(state)) continue;
             foreach (PartHitRule rule in state.Def.onPartHit)
             {
-                if (rule.role == role) AddToQuantity(rule.quantity, rule.perHealthLost * healthLost);
+                if (rule.role != role || !rule.Matches(damage)) continue;
+                if (!string.IsNullOrEmpty(rule.quantity)) AddToQuantity(rule.quantity, rule.perHealthLost * healthLost);
+                if (rule.condition != null)
+                {
+                    Conditions.Add(rule.condition, part, role, state.Def.defName, (float)SeverityRule.FromHit(rule.perHealthLost, healthLost));
+                    conditionGiven = true;
+                }
             }
+        }
+        if (conditionGiven) AfterConditionsChanged();
+    }
+
+    /// <summary>Gives a part of the role the condition, or adds to it where a part already has it (Effect_AddCondition).</summary>
+    public void AddCondition(string role, PhobosVehicleConditionDef def, float amount, string system)
+    {
+        if (!Usable || amount <= 0f) return;
+        VehicleComponent? chosen = null;
+        foreach (VehicleComponent part in PartsOf(role))
+        {
+            chosen ??= part;
+            if (conditions != null && conditions.Holds(def, part.props.key))
+            {
+                chosen = part;
+                break;
+            }
+        }
+        if (chosen != null) Conditions.Add(def, chosen, role, system, amount);
+    }
+
+    /// <summary>For the dev action: sets the condition on the role's first part to a severity (0 removes it) and says what it did.</summary>
+    public string DebugSetCondition(string role, PhobosVehicleConditionDef def, float severity)
+    {
+        UpdateNow();
+        VehicleComponent? part = PartsOf(role).FirstOrDefault();
+        if (part == null || states == null) return Vehicle.LabelShort + " has no part playing " + role + ".";
+        Conditions.Set(def, part, role, states.Count > 0 ? states[0].Def.defName : "", severity);
+        AfterConditionsChanged();
+        return Vehicle.LabelShort + ": " + def.defName + " on " + part.props.key + " at " + severity.ToString("0.##") + ".";
+    }
+
+    /// <summary>A condition came, grew or went outside an update: its stages, the stat factors, the refusals and the tab follow now.</summary>
+    void AfterConditionsChanged()
+    {
+        if (states == null) return;
+        Conditions.EvaluateAll();
+        RecacheStatFactors();
+        MoveRefusal = FirstRefusal(draft: false);
+        HealthViewVersion++;
+    }
+
+    /// <summary>Every stage in force, with the context its effects run in: the systems' quantities, then the parts' conditions. The
+    /// one list the refusals, the stat factors and their reasons read, so a condition acts exactly as a system's stage does.</summary>
+    IEnumerable<(SystemContext context, StageSpec stage, string owner)> StagesInForce()
+    {
+        if (states == null) yield break;
+        foreach (SystemState state in states)
+        {
+            if (!Enabled(state)) continue;
+            var context = new SystemContext(this, state);
+            for (int q = 0; q < state.values.Length; q++)
+            {
+                StageSpec? stage = state.CurrentStage(q);
+                if (stage != null) yield return (context, stage, state.Def.quantities[q].label);
+            }
+        }
+        if (conditions == null) yield break;
+        foreach (VehicleCondition condition in conditions.All)
+        {
+            StageSpec? stage = condition.CurrentStage;
+            if (stage == null) continue;
+            SystemContext? context = conditions.ContextFor(condition);
+            if (context != null) yield return (context, stage, condition.def!.label);
         }
     }
 
@@ -838,20 +935,13 @@ public class CompPhobosVehicleSystems : VehicleComp
     {
         // Only the player's vehicles refuse: another faction's raid or caravan must never be left stranded by a flat battery.
         if (states == null || Vehicle.Faction != Faction.OfPlayer) return null;
-        foreach (SystemState state in states)
+        foreach ((SystemContext context, StageSpec stage, string _) in StagesInForce())
         {
-            if (!Enabled(state)) continue;
-            var context = new SystemContext(this, state);
-            for (int q = 0; q < state.values.Length; q++)
+            foreach (VehicleSystemEffect effect in stage.effects)
             {
-                StageSpec? stage = state.CurrentStage(q);
-                if (stage == null) continue;
-                foreach (VehicleSystemEffect effect in stage.effects)
-                {
-                    if (!effect.Active(context)) continue;
-                    string? reason = draft ? effect.DraftRefusal(context) : effect.MoveRefusal(context);
-                    if (reason != null) return reason;
-                }
+                if (!effect.Active(context)) continue;
+                string? reason = draft ? effect.DraftRefusal(context) : effect.MoveRefusal(context);
+                if (reason != null) return reason;
             }
         }
         return null;
@@ -866,21 +956,13 @@ public class CompPhobosVehicleSystems : VehicleComp
     /// <summary>The stage labels behind a stat's factor, for the stat card's explanation.</summary>
     public IEnumerable<string> StatFactorReasons(VehicleStatDef stat)
     {
-        if (states == null) yield break;
-        foreach (SystemState state in states)
+        foreach ((SystemContext context, StageSpec stage, string owner) in StagesInForce())
         {
-            if (!Enabled(state)) continue;
-            var context = new SystemContext(this, state);
-            for (int q = 0; q < state.values.Length; q++)
+            foreach (VehicleSystemEffect effect in stage.effects)
             {
-                StageSpec? stage = state.CurrentStage(q);
-                if (stage == null) continue;
-                foreach (VehicleSystemEffect effect in stage.effects)
+                if (effect.Active(context) && effect.StatFactor(stat) != 1f)
                 {
-                    if (effect.Active(context) && effect.StatFactor(stat) != 1f)
-                    {
-                        yield return state.Def.quantities[q].label + ": " + stage.label + " x" + effect.StatFactor(stat).ToStringByStyle(ToStringStyle.FloatTwo);
-                    }
+                    yield return owner + ": " + stage.label + " x" + effect.StatFactor(stat).ToStringByStyle(ToStringStyle.FloatTwo);
                 }
             }
         }
@@ -890,26 +972,16 @@ public class CompPhobosVehicleSystems : VehicleComp
     {
         var fresh = new Dictionary<VehicleStatDef, float>();
         float charge = 1f;
-        if (states != null)
+        foreach ((SystemContext context, StageSpec stage, string _) in StagesInForce())
         {
-            foreach (SystemState state in states)
+            foreach (VehicleSystemEffect effect in stage.effects)
             {
-                if (!Enabled(state)) continue;
-                var context = new SystemContext(this, state);
-                for (int q = 0; q < state.values.Length; q++)
+                if (!effect.Active(context)) continue;
+                charge *= effect.ChargeFactor;
+                foreach (VehicleStatDef stat in DefDatabase<VehicleStatDef>.AllDefsListForReading)
                 {
-                    StageSpec? stage = state.CurrentStage(q);
-                    if (stage == null) continue;
-                    foreach (VehicleSystemEffect effect in stage.effects)
-                    {
-                        if (!effect.Active(context)) continue;
-                        charge *= effect.ChargeFactor;
-                        foreach (VehicleStatDef stat in DefDatabase<VehicleStatDef>.AllDefsListForReading)
-                        {
-                            float factor = effect.StatFactor(stat);
-                            if (factor != 1f) fresh[stat] = (fresh.TryGetValue(stat, out float before) ? before : 1f) * factor;
-                        }
-                    }
+                    float factor = effect.StatFactor(stat);
+                    if (factor != 1f) fresh[stat] = (fresh.TryGetValue(stat, out float before) ? before : 1f) * factor;
                 }
             }
         }
@@ -960,6 +1032,7 @@ public class CompPhobosVehicleSystems : VehicleComp
         ServiceSpec? service = state.Def.service;
         if (service == null || !Enabled(state)) return false;
         if (serviceRequested && !servicedThisRequest.Contains(state.Def.defName)) return true;
+        if (conditions != null && conditions.AnyClearedBy(service)) return true;
         int index = state.Def.QuantityIndex(service.dueQuantity);
         if (index < 0) return false;
         double value = state.values[index];
@@ -1082,6 +1155,7 @@ public class CompPhobosVehicleSystems : VehicleComp
             }
         }
         foreach (QuantityRestore restore in service.restores) SetQuantity(restore.quantity, restore.value);
+        Conditions.ClearBy(service);
         servicedThisRequest.Add(state.Def.defName);
         if (serviceRequested && !Props.systems.Any(s => s.def.service != null && !servicedThisRequest.Contains(s.def.defName)
                                                          && !VehicleSystemsMod.Settings.disabledSystems.Contains(s.def.defName)))
@@ -1181,6 +1255,8 @@ public class CompPhobosVehicleSystems : VehicleComp
         statFactors.Clear();
         serviceRequested = false;
         servicedThisRequest.Clear();
+        conditions?.Clear();
+        recentDamage.Clear();
     }
 
     // ---- Presentation (reads only) ----
@@ -1247,6 +1323,14 @@ public class CompPhobosVehicleSystems : VehicleComp
                 {
                     text.AppendLine("    " + state.Def.quantities[i].name + " = " + state.values[i].ToString("0.###") + " stage " + (state.CurrentStage(i)?.label ?? "-"));
                 }
+            }
+        }
+        if (conditions != null)
+        {
+            foreach (VehicleCondition condition in conditions.All)
+            {
+                text.AppendLine("  condition " + condition.def!.defName + " on " + condition.partKey + " (" + condition.role + ", from " + condition.system
+                                + ") severity " + condition.severity.ToString("0.###") + " stage " + (condition.CurrentStage?.label ?? "-"));
             }
         }
         foreach (KeyValuePair<VehicleStatDef, float> pair in statFactors) text.AppendLine("  factor " + pair.Key.defName + " x" + pair.Value.ToString("0.###"));

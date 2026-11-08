@@ -358,7 +358,27 @@ public class ITab_PhobosVehicleHealth : ITab
             if (part.Health <= 0f) row.Conditions.Add(new ConditionRow { Label = "PhobosVehicleSystems_HealthDestroyed".Translate(), Colour = PhobosWidgets.Bad });
             if (leaking && HasReactor<Reactor_FuelLeak>(part)) row.Conditions.Add(new ConditionRow { Label = "PhobosVehicleSystems_HealthLeaking".Translate(), Colour = PhobosWidgets.Bad });
             if (role != null) AddStages(comp, role, row);
+            AddConditions(comp, part, figures, row);
             return row;
+        }
+
+        /// <summary>The part's own conditions (a holed radiator), each with its stage, and its severity when figures are shown.</summary>
+        static void AddConditions(CompPhobosVehicleSystems comp, VehicleComponent part, bool figures, PartRow row)
+        {
+            foreach (VehicleCondition condition in comp.Conditions.On(part.props.key))
+            {
+                StageSpec? stage = condition.CurrentStage;
+                if (stage == null) continue;
+                NamedArgument name = condition.def!.label.CapitalizeFirst().Named("CONDITION");
+                row.Conditions.Add(new ConditionRow
+                {
+                    Label = figures
+                        ? "PhobosVehicleSystems_HealthConditionFigure".Translate(name, stage.label.Named("STAGE"), condition.severity.ToStringPercent().Named("SEVERITY")).Resolve()
+                        : "PhobosVehicleSystems_HealthCondition".Translate(name, stage.label.Named("STAGE")).Resolve(),
+                    Colour = ITab_VehicleDashboard.StageColour(stage),
+                    SystemDefName = string.IsNullOrEmpty(condition.system) ? null : condition.system,
+                });
+            }
         }
 
         /// <summary>The stages of every system whose first role is this part's role (so a system's conditions sit under one part, as a

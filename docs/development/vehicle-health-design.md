@@ -115,6 +115,35 @@ armour (CE:621-644), **writes `component.health` directly, calls every reactor w
 `DamageTaken` but never `HealthChanged`, and bypasses a custom `compClass`'s `TakeDamage`** (CE:548-578). VF's damage multipliers,
 EMP and extinguishing are lost under CE.
 
+### Vehicle Framework's development branch (read 9 Nov 2026)
+
+Read before freezing slice 2's Def shape, as the roadmap asked: SmashPhil's `develop` branch (github.com/SmashPhil/Vehicle-Framework,
+last pushed 31 October 2026, MIT), cloned read-only into `.local/research/VehicleFramework-develop` and diffed against `release/1.6`
+(147 commits, 920 files). SmashPhil's code; our summary. **Nothing here is released yet**; the 1.7 game still loads VF 1.6.
+
+- **The health model is unchanged.** `VehicleComponent`, `VehicleStatHandler`, the reactors and `VehiclePawn_Health` differ from
+  1.6 only in comments, logging and formatting. Reactors still run inside `VehicleComponent.TakeDamage` after the health is
+  written (`VehicleComponent.cs` 113-123); `Reactor.Repaired` still has no caller; the `Penetration` result is `NonPenetrated`,
+  `Deflected`, `Diminished`, `Penetrated` or `Electrified`, and a hit made with `ignoreArmor` reports `NonPenetrated` like any
+  other. No part conditions of VF's own: the Def shape below does not collide with anything coming.
+- **New: hand brakes.** With VF's setting `useHandBrakes` (on by default), braking damages every part tagged `Wheel` with
+  `Scratch`, ignoring armour, `brakeDamagePerNode` (0.15) per path node decelerated (`VehiclePathFollower.EngageBrakes`, 528-552).
+  The scratch goes through `TakeDamage`, so it fires reactors and `DamageTaken` like a real hit. VF's own Defs tag no part, but
+  ten of the owner's subscribed Workshop mods have `<li>Wheel</li>` in their vehicle Defs (Vanilla Vehicles Expanded among them), and our Wheels role binds by
+  that tag. Consequences: condition rules must filter by kind of damage (built: `exceptDamageDefs`), and wheels will wear twice once
+  this ships, VF's health loss beside our tread wear. **Open question for the owner when VF 1.7 ships**: leave both, or have tread
+  wear stand down while VF's hand brakes are on.
+- **New: acceleration and braking** (`AccelerationController`, an `AccelerationRate` stat, a `Braking` event, tyre screech): may
+  meet our drivetrain's speed cap; to read when it ships, not now.
+- **New events:** `FactionChanged`, `PositionChanged`, `RotationChanged`.
+- **Destroy now drops leavings** through the game's `GenLeaving.DoLeavingsFor` before converting the destroy mode (VehiclePawn.cs,
+  Destroy): a vehicle Def's own leavings will drop on death. Relevant to the wreck question in slice 3.
+- **The Health tab** loses its unused "job settings" page; nothing else moves. Our replacement is unaffected.
+- **Other patches on the damage path** (read with `scripts/query-code.py` after decompiling both mods into `.local/decompiled`):
+  the Hind's and the Mongoose's `NearestPart` prefix only moves a hit's cell to the nearest outer part, for their own vehicles;
+  their `Critical` postfixes queue the game's `Kill` when a part listed in their extension reaches zero, wound the crew and start
+  crash fires. Neither changes what a condition sees.
+
 ### Pawn to vehicle: the honest analogues
 
 | Pawn | Vehicle | Verdict |
@@ -242,8 +271,30 @@ vehicles). Record TPS and our milliseconds in the table below.
 | --- | --- | --- | --- |
 | 0 | **Measurement and the NPC tier:** the core detail-tier rule (tested) and timing accumulator; `CompTickRare` by tier; the setting "Every vehicle runs the full model" (off); dev actions for the timing report and tiers | nothing | Built in Framework 0.25.0 (this round); not yet tested in game |
 | 1 | **The Health tab as a projection of what exists:** replaces VF's tab in `inspectorTabs` (a setting keeps VF's); VF's stats drawn by us from its figures (its drawing helper takes a Unity type the 1.7 build cannot pass) with an impactor tooltip (the parts in each stat's categories and our factors); parts grouped External then Internal by role, each with health, efficiency and armour; under each part the stages, refusals and VF leaks that already exist; a crew row; hover lights the hitbox; the same tab on the world map | slice 0 for honest numbers | Built in Framework 0.26.0 (this round); not yet tested in game |
-| 2 | **Conditions proper:** per-part severity quantities keyed by part; hit-born (damage kind by role or depth, from the reactor, idempotent), stage-born (`Effect_AddCondition`), wear-born; stat effects through the existing stat part; `clearsOnRepair`, fading, or a service; the tab's "under each part" slot fills; the schema check covers them | slice 1's slot; slice 0's tier; **read SmashPhil's develop branch before freezing the Def shape** | Open |
+| 2 | **Conditions proper:** per-part severity quantities keyed by part; hit-born (damage kind by role or depth, from the reactor, idempotent), stage-born (`Effect_AddCondition`), wear-born; stat effects through the existing stat part; `clearsOnRepair`, fading, or a service; the tab's "under each part" slot fills; the schema check covers them | slice 1's slot; slice 0's tier; SmashPhil's develop branch read (above) | Built in Framework 0.29.0; not yet tested in game |
 | 3 | **Consequences and repair depth:** leaks as conditions with the danger clock ("engine seizes in about 2 h"); destroyed parts need replacement supplies (owner, setting on); field fixes; permanent conditions; the part-efficiency postfix only if the owner wants the efficiency column itself to move; wreck-on-death as a separate recorded question | slice 2 | Open |
+
+### Slice 2 as built (Framework 0.29.0)
+
+- **The Def** (`PhobosVehicleConditionDef`): `label`, `description`, `stages` (the systems' own `StageSpec`, over a severity of 0
+  to 1), `fadePerHour`, `clearsOnRepair` (true by default). Its severity is a `QuantitySpec` built from the Def, so the stage rule,
+  the tabs' formatting and the stage colours work on it unchanged: **no second engine**.
+- **Sources:** a part-hit rule with `condition` (severity per hit point lost) and the filters `armorCategories`, `damageDefs` and
+  `exceptDamageDefs`; the kind of damage is recorded by our reactor and consumed when the health it cost is counted, so Combat
+  Extended's double reactor calls add once. `Effect_AddCondition` gives one from any system's stage, so wear-born conditions are
+  the same effect in a wear stage.
+- **Resolution:** a rise in the part's health to full (99.5%, VF's own repair limit) clears a `clearsOnRepair` condition; a
+  condition on a part that was already full is not cleared by standing there (the core's `SeverityRule`, tested). Fading by
+  `fadePerHour`. A service lists conditions in `clearsConditions`, falls due while one is held, and clears them.
+- **One list of stages in force** now feeds the refusals, the stat factors, their explanations and the charge factor, systems and
+  conditions alike. A condition's effects run in the context of the system that gave it, and stand down while that system is
+  switched off.
+- **Saved** by part key in the systems comp (`PhobosVehicleSystems_Conditions`); a condition whose part is gone is dropped with one
+  log line on the next update; one whose Def is gone is dropped on load; the uninstall sweep clears them.
+- **Content, agent-authored for the owner's review:** a holed radiator (three leak rates), a shorted battery (two drain rates), a
+  warped cylinder head from boiling over (extra heat, then 10% slower). Every figure authored; sources for the behaviour in
+  `Conditions.xml`.
+- **Not in this slice:** the danger clock for leaks, destroyed parts needing supplies, field fixes and permanent conditions (slice 3).
 
 ## Risks and unknowns
 
@@ -277,13 +328,20 @@ vehicles). Record TPS and our milliseconds in the table below.
   with a setting; supplies for destroyed parts and serious conditions, behind a setting, later.
 - **Agent, with the owner's approval of the plan:** the no-second-engine rule; every budget figure; the measurement protocol; the
   analogue table's verdicts; the slice order and what each needs; the condition sources and resolution rules sketched for slice 2.
+- **Agent choices in slice 2, owner to revise:** the Def shape above; the filters' names; repairs clearing at full health only
+  (not severity falling with partial repair); a condition's effects reading the figures of the system that gave it; the three
+  conditions, their stages and every rate.
 - **Agent defaults, owner to revise:** the Health tab's layout (VF's stat rows kept, the pawn-style grouping on the right); the
   tier rule's exact gates; the timing labels.
 
 ## Sources
 
 - Ludeon Studios, RimWorld 1.7 (decompiled to `.local/decompiled/full/all.cs` for research; never committed).
-- SmashPhil, Vehicle Framework 1.6 (`.local/decompiled/VehicleFramework-1.6/`), MIT.
+- SmashPhil, Vehicle Framework 1.6 (`.local/decompiled/VehicleFramework-1.6/`), MIT; its `develop` branch at commit b557926d
+  (31 Oct 2026), [github.com/SmashPhil/Vehicle-Framework](https://github.com/SmashPhil/Vehicle-Framework/tree/develop), read in
+  `.local/research/`.
+- The authors of the Hind Helicopter Gunship and Mongoose Attack Helicopter (Workshop 3822052079 and 3819896964), decompiled for
+  research into `.local/decompiled/`.
 - The Combat Extended team, Vehicle Framework compatibility (`.local/decompiled/CE-VehiclesCompat/`).
 - Our records: [vehicle systems](vehicle-systems-design.md), [Vehicle Framework mechanics](vehicle-framework-mechanics.md),
   [the vehicle tabs](vehicle-tabs-design.md), [analysis tooling](analysis-tooling.md) (why milliseconds per tick have no file we

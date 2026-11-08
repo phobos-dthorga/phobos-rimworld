@@ -297,6 +297,21 @@
         <quantity>charge</quantity>
         <perHealthLost>-0.01</perHealthLost>
       </li>
+      <li>
+        <!-- Framework 0.29.0: damaged cells go on draining (Conditions.xml). Authored. -->
+        <role>Battery</role>
+        <condition>PhobosVehicleCondition_ShortedBattery</condition>
+        <perHealthLost>0.03</perHealthLost>
+        <armorCategories>
+          <li>Sharp</li>
+          <li>Blunt</li>
+        </armorCategories>
+        <!-- Not an animal's scratch or bite, and not the scratch Vehicle Framework's hand brakes give wheels. -->
+        <exceptDamageDefs>
+          <li>Scratch</li>
+          <li>Bite</li>
+        </exceptDamageDefs>
+      </li>
     </onPartHit>
   </Phobos.VehicleSystems.PhobosVehicleSystemDef>
 
