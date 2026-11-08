@@ -328,7 +328,7 @@ node, not the base texture), a `StatUpgrade` sets the capacity, and the unlocked
 | Crew | Driver; the pump runs unattended once the hoses are connected |
 | Research | Chassis and liquid tank: the Vehicles tier (VVE's hauler research where present). Pressure vessel: the research of the first gas building present (Helixien gas; Odyssey's vacuum technology for the oxygen net), else Fabrication |
 | Cost (authored) | The heavy-truck set by role (table above), plus 280 steel and 8 components. Liquid tank node: 120 steel. Pressure vessel node: 160 steel, 20 plasteel, 2 components. A refit refunds half (VF's default `refundFraction`) |
-| Upgrades | `LiquidTank` or `PressureVessel` (below); `HoseReel` (a second hose, PumpRate x1.5); `Insulation` (contents follow the outside temperature slowly: freezing water, gelling chemfuel; whether this matters is the owner's call). Overlays: the liquid tank, the pressure vessel, the hoses out, damage |
+| Upgrades | `LiquidTank` or `PressureVessel` (below); `HoseReel` (a second hose, PumpRate x1.5); `InsulatedLiquidTank` (see Temperature, below). Overlays: the liquid tank, the pressure vessel, the hoses out, damage |
 | Tie-ins | Every fluid mod below, each in its own `IfModActive` folder; none required |
 
 **The two tank nodes:**
@@ -344,7 +344,7 @@ the mapping and figures are the agent's proposal, owner to confirm).** Under pri
 | Accepted art | Proposed node | What it would change (authored) |
 | --- | --- | --- |
 | Liquid tank 1, default | `LiquidTank` | The general tank above: 3,000 units |
-| Liquid tank 2, wider with slim hatches | `InsulatedLiquidTank` | 2,700 units; contents change temperature slowly. Replaces the separate `Insulation` node if the owner keeps that mechanic |
+| Liquid tank 2, wider with slim hatches | `InsulatedLiquidTank` | 2,700 units; contents change temperature slowly (owner, 8 Nov 2026; it replaces the separate insulation node first sketched) |
 | Liquid tank 3, squarer ends | `HighVolumeLiquidTank` | 3,300 units; a full load slows the truck more |
 | Pressure vessel 2, default | `PressureVessel` | The vessel above: 1,200 units |
 | Pressure vessel 1, slim | `LightPressureVessel` | 800 units; cheaper and lighter |
@@ -354,7 +354,7 @@ the mapping and figures are the agent's proposal, owner to confirm).** Under pri
 With more than two tank nodes, each names all the others in `disableIfUpgradeNodesEnabled` (the list form of the field read at `:21696`).
 
 **Contents are a Def anyone can write.** `PhobosTankContentsDef` (a new Def type in D'thorga Framework's Vehicle-Framework part, XML):
-label, `phase` (Liquid or Gas, which decides the node it needs), unit label, `kilogramsPerUnit` (the mass balance), `flammable`, and a
+label, `phase` (Liquid or Gas, which decides the node it needs), unit label, `kilogramsPerUnit` (the mass balance), `flammable`, its temperature behaviour (below), and a
 list of **ports**: the classes that move contents between the tank and the world. Each contents Def ships in the folder of the mod
 that gives it meaning, so a player with no fluid mod still has a chemfuel tanker that refuels vehicles and loads from barrels.
 
@@ -368,7 +368,7 @@ that gives it meaning, so a player with no fluid mod still has a chemfuel tanker
 | Oxygen | Gas | `Port_PipeNet` on `VGE_OxygenNet` (its unit is u³; its Def links oxygen canisters at 1:1) | Vanilla Gravship Expanded, Chapter 1 | Second: the only gas net on the owner's list today |
 | Helixien gas | Gas | `Port_PipeNet` on Vanilla Helixien Gas Expanded's net | VHGE (not on the owner's list) | When the owner adds the mod |
 | Crude oil | Liquid | `Port_Rimefeller`: its own pipe model (`CompStorageTank.Storage`, `BasePipeNet`), a second model to read | Rimefeller | Later |
-| Hemogen | Liquid | `Port_PipeNet` on `VRE_HemogenNet` | Vanilla Races Expanded - Sanguophage | Owner's call |
+| Hemogen | Liquid | `Port_PipeNet` on `VRE_HemogenNet` | Vanilla Races Expanded - Sanguophage | Second (owner, 8 Nov 2026) |
 
 **How transfer works (the honest model).** The tanker never registers as a pipe connector: VEF registers connectors at spawn from
 their neighbours (`PipeNetManager.RegisterConnector`, PipeSystem 1.7 `PipeNetManager.cs:93`), and a thing that moves would leave a
@@ -379,6 +379,21 @@ finds in the cardinal neighbours of the vehicle's cells: a pipe net through `Pip
 a vehicle's `CompFueledTravel`. Three gizmos, Load, Unload and Hold; each says what it is doing and names what stops it (no
 counterpart beside the tanker, the counterpart full or empty, the pump below its floor). Rare tick; nothing per tick.
 
+**Temperature (owner approved, 8 Nov 2026; the agent's proposal).** The contents have their own temperature, which moves slowly towards the outside
+air; the Dashboard shows it. It slows the player or puts them on a clock, and stops them only where physics would. Each contents Def
+carries its own limits, so a modder's fluid can freeze, thicken, spoil or vent without code.
+
+| Contents | Trigger | What it stops | How it changes play | What it opens up |
+| --- | --- | --- | --- | --- |
+| Water | Tank below 0 °C | **Pumping**, until it thaws; the truck can still drive | Winter runs need timing, or a heated garage overnight | The insulated tank makes winter deliveries possible |
+| Chemfuel, deepchem | Below about −8 °C, worst at −20 °C, only with the existing fuel-thickening setting on (off by default: chemfuel is not diesel) | Nothing | Pumping slows to a floor of 15%, as a vehicle without grip crawls and never stops | Refuelling in deep cold is possible but slow |
+| Nutrient paste, hemogen | Above 0 °C | **The whole load spoils** after 0.75 days, about 18 in-game hours; below 0 °C the clock pauses | Long summer hauls become a race | The insulated tank buys time, so it matters in hot climates too |
+| Compressed gas | Fire or extreme heat | The relief valve vents the load fast | Move the truck away or lose the cargo | A damaged valve (the tank fittings part) is worth repairing before a dangerous run |
+
+**Sources and simplifications.** Water's 0 °C is physics. The −8 and −20 °C curve is the one the fuel system already uses (No. 2 diesel's gel point, secondary source, in `Systems_Lubrication.xml`); applying it to chemfuel is a gameplay choice. The 0.75 days and the pause below 0 °C are Vanilla Expanded Framework's own rule for unpowered stores (`CompResourceStorage.Tick`, PipeSystem 1.7 `CompResourceStorage.cs:110`, default `daysToRotStart`), and a tanker has no power, so the clock always runs. Gas pressure follows absolute temperature: 0 to 40 °C is only about 15% (273 K to 313 K), so ordinary weather has no effect, while a 300 °C fire about doubles it. The insulation time (about a day to reach the outside temperature, against six hours for a plain tank) is authored. Insulation slows the change and never prevents it.
+
+**Left out, because they would not change a decision:** ordinary hot days on gas; cold gas, where the pressure falls but the amount carried does not; and liquid expansion in a full tank, which would only be a fill limit. **Known:** Dubs Bad Hygiene's water towers were not found to freeze (no freezing in `CompWaterStorage`), so a tanker's water is more exposed than a fixed tower: the owner accepts this for a thin mobile tank. On a temperate map, most of this rarely comes up.
+
 **Contents as a systems-service quantity.** The loadout adds `PhobosVehicleSystem_Tank`: quantity `contents` from 0 to the
 capacity, on the Dashboard; `kilogramsPerUnit x contents` joins the vehicle's mass through the kerb-mass extension (whether VF's
 Mass stat then slows the vehicle is verified at build). Stages: **residue** below 2 % (the tank is not clean); **heavy** above 60 %
@@ -387,7 +402,7 @@ purge job (4 hours, a colonist; water where Dubs Bad Hygiene is present), and wa
 contaminated at Dubs' Untreated level. Refusals name the step: "drain the tank", "purge the tank". **Open at build:** Vehicle
 Framework has no Def-level way found so far to refuse taking a node off a loaded tank (`RemoveUnlock`, `:21827`, only queues the work),
 so the drain-first rule needs either one Harmony patch there or a removal that spills what is left. **Prerequisites are all-of**
-(`PrerequisitesMet`, `:21674`), so "either tank" cannot be a prerequisite: the hose reel and the insulation take none and do their
+(`PrerequisitesMet`, `:21674`), so "either tank" cannot be a prerequisite: the hose reel takes none and does its
 work once a tank is fitted.
 
 | Part | Health | Depth | Cells | Feeds | Job |
@@ -522,8 +537,8 @@ already do it (IDs in the mechanics record); the lean is the agent's.
 | Which vehicle is built first? | **The bulk tanker** (owner, 8 Nov 2026, taking the agent's lean: cheapest to draw, and it proves the upgrade model; this replaces the earlier request for the drill rig first) |
 | Which vehicle is the diesel-electric one? | The generator set (its engine already turns an alternator) |
 | The tanker's name | "Bulk tanker" as a working name |
-| Hemogen as tanker contents? | Listed as possible; the owner decides |
-| Insulation on the tanker: do contents freeze and gel? | Only if the owner wants the mechanic; otherwise drop the node |
+| Hemogen as tanker contents? | **Yes**, and it spoils like nutrient paste (owner, 8 Nov 2026) |
+| Insulation on the tanker: do contents freeze and gel? | **Yes**, as the section Temperature says; insulation is the insulated tank, not a separate node (owner, 8 Nov 2026) |
 | A flammable load exploding at zero tank integrity: on or off by default? | On, scaled to the load, as VCHE's fixed tank already explodes; a setting turns it off |
 | Chemfuel rig, or an electric variant alongside? | Chemfuel first |
 | Drill-bit wear as a consumable? | Later, with the systems service's wear phase |
