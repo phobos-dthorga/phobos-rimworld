@@ -120,14 +120,17 @@ reasons are in [analysis tooling](analysis-tooling.md). Each tool's first change
 | T2 | Save index and query, working slice | Rust | Done: phobos-modkit 0.2.2, `scripts/query-save.py`, AGENTS.md rule |
 | T2b | Save index: map grids (terrain, roofs, gas) and comparing two saves by load ID | Rust | Done: phobos-modkit 0.6.0, `grid` and `diff` in `scripts/query-save.py` |
 | T3 | Mod and Def index (SQLite in the kit's cache) | Python | Done: phobos-modkit 0.4.0, `scripts/query-defs.py`, AGENTS.md rule |
-| T4 | Assembly metadata reader | C# | Open |
+| T4 | Assembly metadata reader | C# | Done for Harmony patches: phobos-modkit 0.14.0, `scripts/query-patches.py`, AGENTS.md rule (9 Nov 2026). Constants, strings and API checks left to REA once the owner has it |
 | T5 | Workshop research | Python | Done: phobos-modkit 0.5.0, `scripts/workshop-research.py`, AGENTS.md rule |
 | T6 | StartupImpact sessions | Python | Open |
 | T7 | Version readiness scan | Python | Open |
-| T8 | Release tooling | Python | Open |
+| T8 | Release tooling | Python | Done for version bumps and changelog checks: phobos-modkit 0.10.1, `scripts/release.py`, `config/maintained-constants.json` (9 Nov 2026). Workshop publishing waits for the first public beta gate |
 | T9 | Shared report model and derived-data cache | Python | Done: phobos-modkit 0.3.0 |
 | T10 | Game adapter contract (generic log and save commands) | Python | Waits for a second game adapter |
-| T11 | Resolved-Defs dump: a D'thorga Framework dev action the kit indexes, so Defs show with patches applied | C# and Python | Proposal: needs the owner's go-ahead |
+| T12 | The check gate: every build, test and check in one command | Python | Done: phobos-modkit 0.11.0, `scripts/check-all.py`, AGENTS.md rule (9 Nov 2026) |
+| T13 | Mod settings snapshot | Python | Done: phobos-modkit 0.12.0, `scripts/mod-settings.py`, AGENTS.md rule (9 Nov 2026) |
+| T14 | Decompiled-code index | Python | Done: phobos-modkit 0.13.1, `scripts/query-code.py`, AGENTS.md rule (9 Nov 2026) |
+| T11 | Resolved-Defs dump: a D'thorga Framework dev action the kit indexes, so Defs show with patches applied | C# and Python | Done, not yet tested in game: Framework 0.27.0 and phobos-modkit 0.15.0, `scripts/query-defs.py patched` (9 Nov 2026) |
 
 ## Deferred
 
