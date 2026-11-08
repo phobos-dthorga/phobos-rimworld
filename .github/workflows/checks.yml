@@ -17,6 +17,10 @@ jobs:
       - uses: actions/setup-dotnet@26b0ec14cb23fa6904739307f278c14f94c95bf1 # v5
         with:
           dotnet-version: 10.0.x
+      # The art tools' tests read and write images with Pillow. Pinned to the version on the owner's PC. The flag is needed because the
+      # runner's Python refuses packages installed outside a virtual environment; this machine is thrown away after the run.
+      - name: Install Pillow
+        run: python3 -m pip install --break-system-packages pillow==12.3.0
       # The same gate as on the owner's PC (config/gate.json, phobos-modkit's gate): links, mod layout and text keys,
       # vehicle schemas, version copies, changelogs, the Python tests and every rule-test project under tests/, found by
       # glob so a new one is never left out. The mods' own builds are skipped: they reference other mods' assemblies
