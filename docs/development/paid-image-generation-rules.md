@@ -44,7 +44,7 @@ not an observation of gpt-image-2 on our vehicles.
    quality, token counts, cost, date, the provider's terms as read that day, and the review (what was checked at native
    size and what was decided). The engine writes most of this per image; the review and the decision are written by hand
    in the batch's request record. A deviation from the plan is written down with its reason.
-9. **Rejected and unselected pictures leave `main` with their reason.** They go to the `art-references` branch through
+9. **Every generated picture is saved on an art branch unless it is truly fugly, exactly as generated** (owner, 8 Nov 2026): the original file byte for byte with its record; crops, cut-outs and resizes are new files and never replace it; when in doubt, keep it. **Rejected and unselected pictures leave `main` with their reason.** They go to the `art-references` branch through
    `scripts/art/archive_branch.py` (never deleted, never silently kept). Inputs of a selected picture (its sketch, the pick
    it was edited from) stay on `main`; a master shipped or picked goes to `art-masters`.
 10. **Approved picks stay.** An approved picture is not regenerated for a hypothetical improvement or to match a newer
