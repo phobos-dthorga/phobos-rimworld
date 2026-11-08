@@ -27,6 +27,7 @@ public enum TankPumpMode
 public class CompPhobosTank : VehicleComp
 {
     const string HoseOverlayKey = "PhobosTankHoses";
+    const string DamageOverlayKey = "PhobosTankDamage";
     const float HoursPerRareTick = GenTicks.TickRareInterval / (float)GenDate.TicksPerHour;
     const float EmptyBelow = 0.5f;
     /// <summary>Degrees above its freezing point that a fresh load arrives at (authored).</summary>
@@ -46,6 +47,8 @@ public class CompPhobosTank : VehicleComp
     int quality;
     bool ventWarned;
     bool registered;
+    /// <summary>Which damage overlays are drawn now. Derived from part health, never saved.</summary>
+    bool[]? damageShown;
 
     /// <summary>Why the pump last did nothing, for the inspect line. Derived, never saved.</summary>
     string? pumpStatus;
@@ -134,7 +137,11 @@ public class CompPhobosTank : VehicleComp
     public override void PostSpawnSetup(bool respawningAfterLoad)
     {
         base.PostSpawnSetup(respawningAfterLoad);
-        if (deployed) LongEventHandler.ExecuteWhenFinished(() => ShowHoses(true));
+        LongEventHandler.ExecuteWhenFinished(() =>
+        {
+            if (deployed) ShowHoses(true);
+            RedrawDamage();
+        });
     }
 
     public override void PostDeSpawn(Map map, DestroyMode mode = DestroyMode.Vanish)
@@ -151,6 +158,8 @@ public class CompPhobosTank : VehicleComp
         if (registered) return;
         registered = true;
         Vehicle.AddEvent(VehicleEventDefOf.UpgradeRefundCompleted, OnTankRemoved);
+        Vehicle.AddEvent(VehicleEventDefOf.UpgradeRefundCompleted, SyncDamage);
+        Vehicle.AddEvent(VehicleEventDefOf.UpgradeCompleted, SyncDamage);
     }
 
     /// <summary>Taking a tank off with a load in it spills the load: Vehicle Framework has no way to refuse the job (agent's choice, 8 Nov
@@ -177,6 +186,7 @@ public class CompPhobosTank : VehicleComp
     public override void CompTickRare()
     {
         base.CompTickRare();
+        SyncDamage();
         TankFitting? fitting = Fitted;
         float outside = Outside;
         if (fitting == null || contents == null || !HasLoad)
@@ -483,6 +493,38 @@ public class CompPhobosTank : VehicleComp
         contents = null;
         Tell("PhobosVehicleSystems_TankPurged".Translate(Vehicle.LabelShort.Named("VEHICLE")), MessageTypeDefOf.TaskCompletion);
         return true;
+    }
+
+    /// <summary>Starts the damage overlays again from nothing, after spawning.</summary>
+    void RedrawDamage()
+    {
+        GraphicOverlayRenderer? renderer = Vehicle.DrawTracker?.overlayRenderer;
+        if (renderer == null) return;
+        for (int i = 0; i < Props.damageOverlays.Count; i++) renderer.RemoveOverlays(DamageOverlayKey + i);
+        damageShown = null;
+        SyncDamage();
+    }
+
+    /// <summary>Shows each damage overlay while its part is damaged. Runs on the rare tick because Combat Extended writes part health
+    /// without an event, and after a tank is fitted or removed.</summary>
+    void SyncDamage()
+    {
+        GraphicOverlayRenderer? renderer = Vehicle.DrawTracker?.overlayRenderer;
+        if (renderer == null || !Vehicle.Spawned || Props.damageOverlays.Count == 0) return;
+        damageShown ??= new bool[Props.damageOverlays.Count];
+        TankFitting? fitting = Fitted;
+        for (int i = 0; i < Props.damageOverlays.Count; i++)
+        {
+            TankDamageOverlay entry = Props.damageOverlays[i];
+            VehicleComponent? part = Vehicle.statHandler?.GetComponent(entry.part);
+            bool applies = entry.scope == TankDamageScope.Vehicle
+                || (fitting != null && (entry.scope == TankDamageScope.Liquid ? fitting.phase == TankPhase.Liquid : fitting.phase == TankPhase.Gas));
+            bool show = applies && part != null && part.HealthPercent < entry.belowHealth && entry.overlay != null;
+            if (show == damageShown[i]) continue;
+            damageShown[i] = show;
+            if (show) renderer.AddOverlay(DamageOverlayKey + i, GraphicOverlay.Create(entry.overlay!, Vehicle));
+            else renderer.RemoveOverlays(DamageOverlayKey + i);
+        }
     }
 
     void ShowHoses(bool on)

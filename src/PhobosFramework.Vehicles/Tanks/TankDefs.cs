@@ -80,6 +80,25 @@ public class TankFitting
     public float loadWeight = 1f;
 }
 
+/// <summary>When a damage overlay applies: always, or only with that kind of tank fitted.</summary>
+public enum TankDamageScope
+{
+    Vehicle,
+    Liquid,
+    Gas,
+}
+
+/// <summary>Marks drawn over the vehicle while a part is damaged. Drawn by the tank's comp: Vehicle Framework never reads a graphic overlay's
+/// part requirement, so one written on the overlay itself shows all the time.</summary>
+public class TankDamageOverlay
+{
+    public string part = "";
+    /// <summary>Shown while the part's health is below this share (authored).</summary>
+    public float belowHealth = 0.6f;
+    public TankDamageScope scope = TankDamageScope.Vehicle;
+    public GraphicDataOverlay? overlay;
+}
+
 public class CompProperties_PhobosTank : VehicleCompProperties
 {
     public List<TankFitting> fittings = new();
@@ -107,6 +126,7 @@ public class CompProperties_PhobosTank : VehicleCompProperties
     public int explosionDamage = 40;
     /// <summary>However strong the load, its blast stops here, so one truck cannot erase the map (authored).</summary>
     public float explosionMaxRadius = 15f;
+    public List<TankDamageOverlay> damageOverlays = new();
     /// <summary>The hose laid out while the tanker is set up.</summary>
     public GraphicDataOverlay? hosesOut;
 

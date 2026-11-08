@@ -42,23 +42,9 @@
           <graphicData>
             <texPath>Phobos/Vehicles/BulkTanker/BulkTanker_LiquidTank</texPath>
             <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
-            <drawSize>(3, 7)</drawSize>
+            <drawSize>(4, 11)</drawSize>
             <shaderType>Cutout</shaderType>
             <layer>1</layer>
-          </graphicData>
-        </li>
-        <li>
-          <component>
-            <key>TankShell</key>
-            <healthPercent>0.6</healthPercent>
-            <comparison>LessThan</comparison>
-          </component>
-          <graphicData>
-            <texPath>Phobos/Vehicles/BulkTanker/BulkTanker_DamageTank</texPath>
-            <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
-            <drawSize>(3, 7)</drawSize>
-            <shaderType>Cutout</shaderType>
-            <layer>2</layer>
           </graphicData>
         </li>
       </graphicOverlays>
@@ -97,23 +83,9 @@
           <graphicData>
             <texPath>Phobos/Vehicles/BulkTanker/BulkTanker_LiquidTank_B</texPath>
             <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
-            <drawSize>(3, 7)</drawSize>
+            <drawSize>(4, 11)</drawSize>
             <shaderType>Cutout</shaderType>
             <layer>1</layer>
-          </graphicData>
-        </li>
-        <li>
-          <component>
-            <key>TankShell</key>
-            <healthPercent>0.6</healthPercent>
-            <comparison>LessThan</comparison>
-          </component>
-          <graphicData>
-            <texPath>Phobos/Vehicles/BulkTanker/BulkTanker_DamageTank</texPath>
-            <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
-            <drawSize>(3, 7)</drawSize>
-            <shaderType>Cutout</shaderType>
-            <layer>2</layer>
           </graphicData>
         </li>
       </graphicOverlays>
@@ -151,23 +123,9 @@
           <graphicData>
             <texPath>Phobos/Vehicles/BulkTanker/BulkTanker_LiquidTank_C</texPath>
             <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
-            <drawSize>(3, 7)</drawSize>
+            <drawSize>(4, 11)</drawSize>
             <shaderType>Cutout</shaderType>
             <layer>1</layer>
-          </graphicData>
-        </li>
-        <li>
-          <component>
-            <key>TankShell</key>
-            <healthPercent>0.6</healthPercent>
-            <comparison>LessThan</comparison>
-          </component>
-          <graphicData>
-            <texPath>Phobos/Vehicles/BulkTanker/BulkTanker_DamageTank</texPath>
-            <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
-            <drawSize>(3, 7)</drawSize>
-            <shaderType>Cutout</shaderType>
-            <layer>2</layer>
           </graphicData>
         </li>
       </graphicOverlays>
@@ -199,7 +157,7 @@
           <graphicData>
             <texPath>Phobos/Vehicles/BulkTanker/BulkTanker_HoseReel</texPath>
             <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
-            <drawSize>(3, 7)</drawSize>
+            <drawSize>(4, 11)</drawSize>
             <shaderType>Cutout</shaderType>
             <layer>1</layer>
           </graphicData>

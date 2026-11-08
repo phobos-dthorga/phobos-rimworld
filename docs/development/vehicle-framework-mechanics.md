@@ -279,8 +279,9 @@ mining rig, bulldozer or mobile workbench was found.**
   `GraphicDataRGB` adds `colorThree`, `pattern`, `tiles`, `displacement`. Turrets use `Graphic_Turret` with `_m`.
 - Animated classes: `Graphic_Animate`, `Graphic_Rotator`, `Graphic_Propeller`, `Graphic_ReversePropeller`.
 - `drawProperties.graphicOverlays` (identifier, graphic data, rotation, `component`): an overlay's
-  `ComponentRequirement` shows or hides it by a part's health fraction. No damage-overlay class exists; this is the
-  route for damage states and raised equipment.
+  `ComponentRequirement` was read here as showing or hiding it by a part's health fraction. **It does not** (found 9 Nov 2026 when the
+  bulk tanker looked damaged from new): only turrets ever call `RecacheComponent` and `RegisterEvents`, so on a graphic overlay
+  `MeetsRequirements` stays at its default of true and the overlay always shows. Draw damage states from a comp, as `CompPhobosTank` does.
 - VVE's Mule: size (2, 4), drawSize (3, 5); north 384 by 640, east 640 by 384, south, each with a mask; six PNGs and no
   west. **128 px per drawSize unit.**
 

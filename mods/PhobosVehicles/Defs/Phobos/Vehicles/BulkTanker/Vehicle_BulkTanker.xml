@@ -2,8 +2,8 @@
 <Defs>
   <!--
     The bulk tanker: a heavy truck whose tank is an upgrade, a liquid tanker or a gas tanker by the player's choice
-    (docs/development/utility-vehicles-design.md). Footprint 2 x 6 (owner, 8 Nov 2026). Health, cost, mass and speed are authored and
-    untuned. Part keys are saved by position: append only, never reorder. Cells run z from -2 to 3, read off the picked art. Not yet
+    (docs/development/utility-vehicles-design.md). Footprint 3 x 10, drawn 4 x 11, the size of the biggest truck on the owner's list, RimThunder's PLS (3 x 10). At 2 x 6 it looked tiny, and the owner finds even Vanilla Vehicles Expanded's 3 x 6 Big Rig small (9 Nov 2026). Health, cost, mass and speed are authored and
+    untuned. Part keys are saved by position: append only, never reorder. Cells run x from -1 to 1 and z from -4 to 5, read off the picked art. Not yet
     tested in game.
   -->
   <Vehicles.VehicleDef ParentName="BaseVehiclePawn">
@@ -14,13 +14,13 @@
       <texPath>Phobos/Vehicles/BulkTanker/BulkTanker</texPath>
       <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
       <shaderType>CutoutComplexPattern</shaderType>
-      <drawSize>(3, 7)</drawSize>
+      <drawSize>(4, 11)</drawSize>
       <color>(162, 156, 123)</color>
       <colorTwo>(195, 110, 36)</colorTwo>
     </graphicData>
     <fillPercent>1</fillPercent>
     <buildDef>Phobos_Tanker_Blueprint</buildDef>
-    <size>(2, 6)</size>
+    <size>(3, 10)</size>
     <vehicleCategory>Transport</vehicleCategory>
     <techLevel>Industrial</techLevel>
     <vehicleType>Land</vehicleType>
@@ -42,26 +42,8 @@
       <Phobos_RigControl>1</Phobos_RigControl>
     </vehicleStats>
     <race>
-      <baseBodySize>5</baseBodySize>
+      <baseBodySize>7</baseBodySize>
     </race>
-    <drawProperties>
-      <graphicOverlays>
-        <li>
-          <component>
-            <key>Chassis</key>
-            <healthPercent>0.6</healthPercent>
-            <comparison>LessThan</comparison>
-          </component>
-          <graphicData>
-            <texPath>Phobos/Vehicles/BulkTanker/BulkTanker_DamageBody</texPath>
-            <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
-            <drawSize>(3, 7)</drawSize>
-            <shaderType>Cutout</shaderType>
-            <layer>2</layer>
-          </graphicData>
-        </li>
-      </graphicOverlays>
-    </drawProperties>
     <properties>
       <worldSpeedMultiplier>1</worldSpeedMultiplier>
       <winterSpeedMultiplier>1.5</winterSpeedMultiplier>
@@ -79,7 +61,7 @@
           </handlingTypes>
           <hitbox>
             <cells>
-              <li>(0, 2)</li>
+              <li>(0, 3)</li>
             </cells>
           </hitbox>
         </li>
@@ -89,7 +71,7 @@
           <slots>1</slots>
           <hitbox>
             <cells>
-              <li>(1, 2)</li>
+              <li>(1, 3)</li>
             </cells>
           </hitbox>
         </li>
@@ -103,8 +85,8 @@
       <depth>External</depth>
       <hitWeight>3</hitWeight>
       <hitbox>
-        <from>(0, -2)</from>
-        <to>(1, 3)</to>
+        <from>(-1, -4)</from>
+        <to>(1, 5)</to>
       </hitbox>
       <categories>
         <li>BodyIntegrity</li>
@@ -117,8 +99,9 @@
       <depth>External</depth>
       <hitbox>
         <cells>
-          <li>(0, 2)</li>
-          <li>(1, 2)</li>
+          <li>(-1, 3)</li>
+          <li>(0, 3)</li>
+          <li>(1, 3)</li>
         </cells>
       </hitbox>
     </li>
@@ -130,8 +113,12 @@
       <priorityStatEfficiency>true</priorityStatEfficiency>
       <hitbox>
         <cells>
-          <li>(0, 3)</li>
-          <li>(1, 3)</li>
+          <li>(-1, 5)</li>
+          <li>(0, 5)</li>
+          <li>(1, 5)</li>
+          <li>(-1, 4)</li>
+          <li>(0, 4)</li>
+          <li>(1, 4)</li>
         </cells>
       </hitbox>
       <categories>
@@ -146,8 +133,9 @@
       <depth>Internal</depth>
       <hitbox>
         <cells>
-          <li>(0, 1)</li>
-          <li>(1, 1)</li>
+          <li>(-1, 2)</li>
+          <li>(0, 2)</li>
+          <li>(1, 2)</li>
         </cells>
       </hitbox>
       <categories>
@@ -164,8 +152,8 @@
       </tags>
       <hitbox>
         <cells>
-          <li>(0, 3)</li>
-          <li>(1, 3)</li>
+          <li>(-1, 4)</li>
+          <li>(1, 4)</li>
         </cells>
       </hitbox>
       <categories>
@@ -182,10 +170,10 @@
       </tags>
       <hitbox>
         <cells>
-          <li>(0, -1)</li>
-          <li>(1, -1)</li>
-          <li>(0, -2)</li>
+          <li>(-1, -2)</li>
           <li>(1, -2)</li>
+          <li>(-1, -3)</li>
+          <li>(1, -3)</li>
         </cells>
       </hitbox>
       <categories>
@@ -202,7 +190,7 @@
       </reactors>
       <hitbox>
         <cells>
-          <li>(0, 1)</li>
+          <li>(-1, 2)</li>
         </cells>
       </hitbox>
     </li>
@@ -216,14 +204,24 @@
       </reactors>
       <hitbox>
         <cells>
+          <li>(-1, 1)</li>
           <li>(0, 1)</li>
           <li>(1, 1)</li>
+          <li>(-1, 0)</li>
           <li>(0, 0)</li>
           <li>(1, 0)</li>
+          <li>(-1, -1)</li>
           <li>(0, -1)</li>
           <li>(1, -1)</li>
+          <li>(-1, -2)</li>
           <li>(0, -2)</li>
           <li>(1, -2)</li>
+          <li>(-1, -3)</li>
+          <li>(0, -3)</li>
+          <li>(1, -3)</li>
+          <li>(-1, -4)</li>
+          <li>(0, -4)</li>
+          <li>(1, -4)</li>
         </cells>
       </hitbox>
       <categories>
@@ -237,8 +235,9 @@
       <depth>External</depth>
       <hitbox>
         <cells>
-          <li>(0, -2)</li>
-          <li>(1, -2)</li>
+          <li>(-1, -4)</li>
+          <li>(0, -4)</li>
+          <li>(1, -4)</li>
         </cells>
       </hitbox>
       <categories>
@@ -252,7 +251,7 @@
       <depth>Internal</depth>
       <hitbox>
         <cells>
-          <li>(1, 2)</li>
+          <li>(1, 3)</li>
         </cells>
       </hitbox>
       <categories>
@@ -266,8 +265,8 @@
       <depth>External</depth>
       <hitbox>
         <cells>
-          <li>(0, -2)</li>
-          <li>(1, -2)</li>
+          <li>(0, -4)</li>
+          <li>(1, -4)</li>
         </cells>
       </hitbox>
       <categories>
@@ -309,10 +308,11 @@
       <depth>External</depth>
       <hitbox>
         <cells>
-          <li>(0, 3)</li>
-          <li>(1, 3)</li>
-          <li>(0, -2)</li>
-          <li>(1, -2)</li>
+          <li>(-1, 5)</li>
+          <li>(0, 5)</li>
+          <li>(1, 5)</li>
+          <li>(-1, -4)</li>
+          <li>(1, -4)</li>
         </cells>
       </hitbox>
     </li>
@@ -379,11 +379,52 @@
           <loadWeight>0.85</loadWeight>
         </li>
         </fittings>
+        <damageOverlays>
+          <li>
+            <part>Chassis</part>
+            <scope>Vehicle</scope>
+            <overlay>
+              <graphicData>
+                <texPath>Phobos/Vehicles/BulkTanker/BulkTanker_DamageBody</texPath>
+                <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+                <drawSize>(4, 11)</drawSize>
+                <shaderType>Cutout</shaderType>
+                <layer>2</layer>
+              </graphicData>
+            </overlay>
+          </li>
+          <li>
+            <part>TankShell</part>
+            <scope>Liquid</scope>
+            <overlay>
+              <graphicData>
+                <texPath>Phobos/Vehicles/BulkTanker/BulkTanker_DamageTank</texPath>
+                <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+                <drawSize>(4, 11)</drawSize>
+                <shaderType>Cutout</shaderType>
+                <layer>2</layer>
+              </graphicData>
+            </overlay>
+          </li>
+          <li>
+            <part>TankShell</part>
+            <scope>Gas</scope>
+            <overlay>
+              <graphicData>
+                <texPath>Phobos/Vehicles/BulkTanker/BulkTanker_DamageVessel</texPath>
+                <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+                <drawSize>(4, 11)</drawSize>
+                <shaderType>Cutout</shaderType>
+                <layer>2</layer>
+              </graphicData>
+            </overlay>
+          </li>
+        </damageOverlays>
         <hosesOut>
           <graphicData>
             <texPath>Phobos/Vehicles/BulkTanker/BulkTanker_HoseOut</texPath>
             <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
-            <drawSize>(3, 7)</drawSize>
+            <drawSize>(4, 11)</drawSize>
             <shaderType>Cutout</shaderType>
             <layer>1</layer>
           </graphicData>
@@ -399,7 +440,7 @@
     <graphicData>
       <texPath>Phobos/Vehicles/BulkTanker/BulkTanker</texPath>
       <graphicClass>Graphic_Multi</graphicClass>
-      <drawSize>(3, 7)</drawSize>
+      <drawSize>(4, 11)</drawSize>
     </graphicData>
     <statBases>
       <MaxHitPoints>250</MaxHitPoints>
@@ -410,7 +451,7 @@
       <li>Machining</li>
       <li>Electricity</li>
     </researchPrerequisites>
-    <size>(2, 6)</size>
+    <size>(3, 10)</size>
     <costList>
       <Steel>280</Steel>
       <ComponentIndustrial>8</ComponentIndustrial>
