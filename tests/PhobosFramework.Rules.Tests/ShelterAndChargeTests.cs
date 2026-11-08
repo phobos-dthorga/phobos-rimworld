@@ -66,3 +66,20 @@ public class LastingRuleTests
         Assert.Equal(0.55, LastingRule.SeverityFor(0.8, 0.6), 6);
     }
 }
+
+public class SupplyRuleTests
+{
+    [Fact]
+    public void TwoServicesNeedsAddUpLessWhatIsAboard()
+    {
+        var engineService = new[] { ("chemfuel", 9), ("component", 1) };
+        var overhaul = new[] { ("plasteel", 10), ("component", 3) };
+        var aboard = new System.Collections.Generic.Dictionary<string, int> { ["component"] = 2 };
+        var shortfall = SupplyRules.Shortfall(new[] { engineService, overhaul }, k => aboard.TryGetValue(k, out int n) ? n : 0);
+        Assert.Equal(new[] { ("chemfuel", 9), ("component", 2), ("plasteel", 10) }, shortfall);
+    }
+
+    [Fact]
+    public void NothingIsShortWhenEverythingIsAboard() =>
+        Assert.Empty(SupplyRules.Shortfall(new[] { new[] { ("steel", 15) } }, _ => 20));
+}

@@ -5,6 +5,15 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.21.1] - 2026-11-09 - Draft
+
+From the owner's test of the Harrier (9 November 2026). **Not yet tested in game.**
+
+### Fixed
+
+- A vehicle with two services due at once (an engine service and a hot-section overhaul) asked only for the first service's first missing supply, so the second waited unseen behind it. Haulers now fetch everything every due service lacks, the inspect line and the Dashboard list it all (Waiting for supplies for an engine service and a hot-section overhaul: chemfuel x9, component x4, plasteel x10), and a mechanic starts whichever service already has its supplies aboard.
+- Shared, in the core: the rule that adds several jobs' needs against what is in stock, with tests.
+
 ## [0.21.0] - 2026-11-09 - Draft
 
 For D'thorga Medical 0.8.0's caustic gas. **Not yet tested in game.**

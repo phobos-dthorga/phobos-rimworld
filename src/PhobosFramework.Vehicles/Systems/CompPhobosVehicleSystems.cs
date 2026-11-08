@@ -3,6 +3,7 @@ using System.Linq;
 using System.Text;
 using Phobos.Framework;
 using Phobos.Framework.Items;
+using Phobos.Framework.Rules;
 using Phobos.Framework.Vehicles.Rules;
 using RimWorld;
 using SmashTools;
@@ -907,14 +908,20 @@ public class CompPhobosVehicleSystems : VehicleComp
     /// <summary>The first system whose service is due, or null.</summary>
     public SystemState? DueService()
     {
-        if (!Usable) return null;
+        foreach (SystemState state in DueServices()) return state;
+        return null;
+    }
+
+    /// <summary>Every system whose service is due, in the loadout's order.</summary>
+    public IEnumerable<SystemState> DueServices()
+    {
+        if (!Usable) yield break;
         EnsureStates();
-        if (states == null) return null;
+        if (states == null) yield break;
         foreach (SystemState state in states)
         {
-            if (Due(state)) return state;
+            if (Due(state)) yield return state;
         }
-        return null;
     }
 
     public IEnumerable<ServiceSpec> AllServices() => Props.systems.Select(s => s.def.service).OfType<ServiceSpec>();
@@ -925,32 +932,35 @@ public class CompPhobosVehicleSystems : VehicleComp
         return cargo == null ? 0 : cargo.TotalStackCountOfDef(def);
     }
 
-    /// <summary>The first supply the due service still lacks in the vehicle's cargo.</summary>
+    /// <summary>Everything every due service still lacks in the vehicle's cargo, added up by kind (the core's SupplyRules), so the
+    /// haulers fetch it all and the vehicle says it all.</summary>
+    public List<(ThingDef def, int count)> MissingSupplies() =>
+        SupplyRules.Shortfall(DueServices().Where(s => s.Def.service != null)
+            .Select(s => s.Def.service!.supplies.Select(supply => (supply.thingDef, supply.count))), CountInCargo);
+
+    /// <summary>The first supply the due services still lack, for a hauler to fetch.</summary>
     public bool MissingSupply(out ThingDef? def, out int count)
     {
         def = null;
         count = 0;
-        SystemState? state = DueService();
-        if (state?.Def.service == null) return false;
-        foreach (ThingDefCountClass supply in state.Def.service.supplies)
-        {
-            int short_ = supply.count - CountInCargo(supply.thingDef);
-            if (short_ > 0)
-            {
-                def = supply.thingDef;
-                count = short_;
-                return true;
-            }
-        }
-        return false;
+        List<(ThingDef def, int count)> missing = MissingSupplies();
+        if (missing.Count == 0) return false;
+        (def, count) = missing[0];
+        return true;
     }
+
+    /// <summary>Whether one service's own supplies are all aboard.</summary>
+    bool SuppliesAboard(SystemState state) =>
+        state.Def.service == null || state.Def.service.supplies.All(supply => CountInCargo(supply.thingDef) >= supply.count);
 
     /// <summary>Whether the due service's water can be had now (always, unless a water source such as plumbing is required and none
     /// is beside the vehicle).</summary>
-    public bool WaterReady(out string? reason)
+    public bool WaterReady(out string? reason) => WaterReady(DueService(), out reason);
+
+    /// <summary>Whether this service's water can be had now.</summary>
+    public bool WaterReady(SystemState? state, out string? reason)
     {
         reason = null;
-        SystemState? state = DueService();
         float litres = ServiceWater(state);
         if (litres <= 0f) return true;
         return VehicleWater.CanDraw(Vehicle, litres, out reason);
@@ -979,12 +989,15 @@ public class CompPhobosVehicleSystems : VehicleComp
         return litres;
     }
 
-    /// <summary>The due service whose supplies are all aboard and whose water can be had, or null.</summary>
+    /// <summary>The first due service whose own supplies are all aboard and whose water can be had, or null: a mechanic need not wait
+    /// for another service's supplies.</summary>
     public SystemState? ReadyService()
     {
-        SystemState? state = DueService();
-        if (state?.Def.service == null || MissingSupply(out _, out _) || !WaterReady(out _)) return null;
-        return state;
+        foreach (SystemState state in DueServices())
+        {
+            if (state.Def.service != null && SuppliesAboard(state) && WaterReady(state, out _)) return state;
+        }
+        return null;
     }
 
     /// <summary>Uses the supplies from the cargo, restores the quantities, and says so.</summary>

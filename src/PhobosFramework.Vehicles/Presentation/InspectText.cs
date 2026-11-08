@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Phobos.Framework;
+using RimWorld;
 using Verse;
 
 namespace Phobos.VehicleSystems;
@@ -53,11 +54,19 @@ public static class InspectText
         if (comp.MoveRefusal != null) return comp.MoveRefusal;
         SystemState? due = comp.DueService();
         if (due?.Def.service == null) return null;
-        return comp.MissingSupply(out ThingDef? missing, out int count) && missing != null
-            ? "PhobosVehicleSystems_InspectServiceNeeds".Translate(due.Def.service.label.Named("SERVICE"), count.Named("COUNT"), missing.label.Named("SUPPLY")).Resolve()
-            : !comp.WaterReady(out string? waterReason) && waterReason != null
-                ? "PhobosVehicleSystems_InspectServiceWater".Translate(due.Def.service.label.Named("SERVICE"), waterReason.Named("REASON")).Resolve()
-                : "PhobosVehicleSystems_InspectServiceDue".Translate(due.Def.service.label.Named("SERVICE")).Resolve();
+        // A service ready to do comes first; otherwise every supply every due service lacks, then any water one waits for.
+        SystemState? ready = comp.ReadyService();
+        if (ready?.Def.service != null) return "PhobosVehicleSystems_InspectServiceDue".Translate(ready.Def.service.label.Named("SERVICE")).Resolve();
+        List<(ThingDef def, int count)> missing = comp.MissingSupplies();
+        if (missing.Count > 0)
+        {
+            string services = comp.DueServices().Where(s => s.Def.service != null).Select(s => s.Def.service!.label).ToCommaList(useAnd: true);
+            string supplies = missing.Select(m => GenLabel.ThingLabel(m.def, null, m.count)).ToCommaList(useAnd: true);
+            return "PhobosVehicleSystems_InspectServiceNeeds".Translate(services.Named("SERVICE"), supplies.Named("SUPPLIES")).Resolve();
+        }
+        return !comp.WaterReady(out string? waterReason) && waterReason != null
+            ? "PhobosVehicleSystems_InspectServiceWater".Translate(due.Def.service.label.Named("SERVICE"), waterReason.Named("REASON")).Resolve()
+            : "PhobosVehicleSystems_InspectServiceDue".Translate(due.Def.service.label.Named("SERVICE")).Resolve();
     }
 
     /// <summary>The engine's line: Plain only when it labours or the wheels spin; Operator gear and rpm (or spool and turbine

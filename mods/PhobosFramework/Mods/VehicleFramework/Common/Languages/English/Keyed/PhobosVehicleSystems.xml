@@ -77,7 +77,7 @@
   <PhobosVehicleSystems_InspectFigure>{QUANTITY} {VALUE}</PhobosVehicleSystems_InspectFigure>
   <PhobosVehicleSystems_InspectFigureStage>{QUANTITY} {VALUE} ({STAGE})</PhobosVehicleSystems_InspectFigureStage>
   <PhobosVehicleSystems_InspectServiceDue>Waiting for a mechanic: {SERVICE}.</PhobosVehicleSystems_InspectServiceDue>
-  <PhobosVehicleSystems_InspectServiceNeeds>Waiting for supplies for {SERVICE}: {COUNT} {SUPPLY}.</PhobosVehicleSystems_InspectServiceNeeds>
+  <PhobosVehicleSystems_InspectServiceNeeds>Waiting for supplies for {SERVICE}: {SUPPLIES}.</PhobosVehicleSystems_InspectServiceNeeds>
   <PhobosVehicleSystems_InspectEngineer>Engine load {LOAD}, electrical draw {AMPS} A, air {AIR}.</PhobosVehicleSystems_InspectEngineer>
   <PhobosVehicleSystems_InspectServiceWater>Waiting for water for {SERVICE}: {REASON}</PhobosVehicleSystems_InspectServiceWater>
   <PhobosVehicleSystems_InspectWheelsSpinning>Wheels spinning.</PhobosVehicleSystems_InspectWheelsSpinning>
