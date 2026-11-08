@@ -54,7 +54,7 @@ Added 9 Nov 2026: the vehicle work of 8 and 9 November did not update this file 
 | V1 | Vehicle systems: battery, coolant, oil, wear and services, tyres, brakes, drivetrains, gas turbines, power and lift, steam, Combat Extended corrections, the world map and the cab, the Dashboard and Systems tabs, booster packs, world-map ground, cab moods, RimHUD | Framework 0.9.0 to 0.18.0, Vehicles 0.1.0 to 0.7.0 | Approved in parts | Done; not yet tested in game |
 | V2 | What a service uses for oil and coolant (chemfuel stands in; with Dubs Bad Hygiene coolant could be its water) | Framework | Unsure (9 Nov 2026) | Open |
 | V3 | The utility vehicles: a tanker first, then survey truck, drill rig, tipper hauler, generator set | Vehicles | Yes, after the framework | Open: waits for vehicle body art (V4) |
-| V4 | Vehicle body art through OpenAI's image API (an engine in `scripts/art-run.py`); icons on the owner's local model | art | OpenAI for bodies, local for icons (9 Nov 2026) | Open: waits for the owner's API key, and the GPU go for icons |
+| V4 | Vehicle body art through OpenAI's image API (an engine in `scripts/art-run.py`); icons on the owner's local model | art | OpenAI for bodies, local for icons (9 Nov 2026); **the stand-in icons are good enough: replace them only when little else is left** (9 Nov 2026) | Open: bodies wait for the owner's API key; icons low priority |
 | V5 | Systems for electric vehicles | Framework | Not asked | Open |
 | V6 | The M1A2's APU upgrade node; "drop the stores" for a jet too heavy to land vertically | Vehicles, Patches | Proposed | Deferred: the APU needs a patch to RimThunder's upgrade trees |
 | V7 | Engine sound pitched by engine speed | Framework | Later | Deferred: only if Vehicle Framework exposes the sustainer |
@@ -67,7 +67,7 @@ Added 9 Nov 2026: the vehicle work of 8 and 9 November did not update this file 
 | # | Item | Status |
 | --- | --- | --- |
 | K1 | `python scripts/cleanup.py --apply`: 297 old install backups, about 400 test repositories, 220 git watcher daemons | Open: the owner runs it |
-| K2 | Another session's uncommitted edits in the tree since 8 Nov 2026 (`docs/development/README.md`, `project-direction.md`, the new `rimworld-1.7-readiness.md`); this stream's lines in the first two are committed | Open: the owner to say whether that session is still at work |
+| K2 | Another session's uncommitted edits in the tree since 8 Nov 2026 (`docs/development/README.md`, `project-direction.md`, the new `rimworld-1.7-readiness.md`) | Done: the owner confirmed every session finished (9 Nov 2026); committed as that session's dated records |
 
 ## Analysis tooling (from 7 Nov 2026)
 
