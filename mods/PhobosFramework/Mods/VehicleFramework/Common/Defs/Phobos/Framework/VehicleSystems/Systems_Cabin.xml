@@ -29,6 +29,7 @@
     <quantities>
       <li>
         <name>cabTemperature</name>
+        <showOnDashboard>true</showOnDashboard>
         <label>cab</label>
         <unit>Celsius</unit>
         <min>-60</min>

@@ -88,6 +88,7 @@ load folder or patch.
 | 9 Nov 2026 | The L-ATV's engine at **the middle of the published figures**: 370 hp (276 kW) ([real figures](vehicle-real-figures-design.md)) | owner |
 | 9 Nov 2026 | The world map: **a closed cab with its own temperature** (the game's cold, heat and comfort rules apply); **engine off at a caravan's night camp, with an optional fuel-burning night heater as a setting**; **the drivetrain's speed cap and the "will not move" refusals apply to caravans**, with a caravan jump-start; **a craftable jump-start kit** behind the setting "Jump-start leads must be crafted" (on) and "Every vehicle carries a booster pack" (off) ([world map](vehicle-world-map-design.md)) | owner (the cab's figures and the open VVE vehicles are the agent's) |
 | 9 Nov 2026 | **Generic functions go to the Framework core**, in the same change as their first consumer (AGENTS.md) | owner |
+| 9 Nov 2026 | **Two vehicle inspector tabs**: "Dashboard" (glanceable) and "Systems" (in depth, hidden in Plain mode); **a day of graph history, saved** (an exception to "nothing derived is saved"); RimHUD needs no hook ([tabs](vehicle-tabs-design.md)) | owner (the layouts are the agent's) |
 
 ## Open checks
 

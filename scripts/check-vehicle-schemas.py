@@ -207,6 +207,10 @@ def check(root):
                 previous_top = top
                 if not text(stage, 'label'):
                     errors.append(f'{where}: a stage of {qname} has no label')
+            if text(quantity, 'showOnDashboard', 'false') not in ('true', 'false'):
+                errors.append(f'{where}: {qname} showOnDashboard must be true or false')
+            if text(quantity, 'showOnDashboard') == 'true' and text(quantity, 'hidden') == 'true':
+                errors.append(f'{where}: {qname} is hidden and on the dashboard at once')
         parameters = {child.tag for child in (node.find('parameters') if node.find('parameters') is not None else [])}
         roles = {(li.text or '').strip() for li in items(node, 'roles')}
         systems[name] = {'quantities': quantities, 'parameters': parameters, 'roles': roles, 'node': node, 'where': where}

@@ -38,6 +38,7 @@
     <quantities>
       <li>
         <name>charge</name>
+        <showOnDashboard>true</showOnDashboard>
         <label>battery</label>
         <unit>Fraction</unit>
         <min>0</min>

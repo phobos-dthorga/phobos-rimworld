@@ -175,6 +175,31 @@
   <PhobosVehicleSystems_TuneAirLeak>Air leak (share an hour)</PhobosVehicleSystems_TuneAirLeak>
   <PhobosVehicleSystems_TuneAirLeakDesc>How fast a parked truck loses its brake air. Only trucks with air brakes use it.</PhobosVehicleSystems_TuneAirLeakDesc>
 
+  <!-- The Dashboard and Systems tabs -->
+  <PhobosVehicleSystems_TabDashboard>Dashboard</PhobosVehicleSystems_TabDashboard>
+  <PhobosVehicleSystems_TabSystems>Systems</PhobosVehicleSystems_TabSystems>
+  <PhobosVehicleSystems_DashReady>Nothing needs you.</PhobosVehicleSystems_DashReady>
+  <PhobosVehicleSystems_DashSwitchOn>on</PhobosVehicleSystems_DashSwitchOn>
+  <PhobosVehicleSystems_DashSwitchOff>off</PhobosVehicleSystems_DashSwitchOff>
+  <PhobosVehicleSystems_SysDrivetrain>Engine and drivetrain</PhobosVehicleSystems_SysDrivetrain>
+  <PhobosVehicleSystems_SysTurbine>Turbine</PhobosVehicleSystems_SysTurbine>
+  <PhobosVehicleSystems_SysPart>{ROLE}: {PART}</PhobosVehicleSystems_SysPart>
+  <PhobosVehicleSystems_SysFlowRate>{RATE} an hour</PhobosVehicleSystems_SysFlowRate>
+  <PhobosVehicleSystems_SysFlowToward>toward {TARGET} at {RATE} of the gap an hour</PhobosVehicleSystems_SysFlowToward>
+  <PhobosVehicleSystems_SysGear>Gear {GEAR}</PhobosVehicleSystems_SysGear>
+  <PhobosVehicleSystems_SysRpm>{RPM} rpm</PhobosVehicleSystems_SysRpm>
+  <PhobosVehicleSystems_SysLoad>load {LOAD}</PhobosVehicleSystems_SysLoad>
+  <PhobosVehicleSystems_SysMass>Mass {MASS} kg</PhobosVehicleSystems_SysMass>
+  <PhobosVehicleSystems_SysCap>Held to {CAP} of its speed by {LIMIT}.</PhobosVehicleSystems_SysCap>
+  <PhobosVehicleSystems_LimitPower>its engine</PhobosVehicleSystems_LimitPower>
+  <PhobosVehicleSystems_LimitTraction>its grip on the ground</PhobosVehicleSystems_LimitTraction>
+  <PhobosVehicleSystems_SysRating>Rating: {RATING}</PhobosVehicleSystems_SysRating>
+  <PhobosVehicleSystems_SysEnginesWorking>{WORKING} of {ENGINES} engines working</PhobosVehicleSystems_SysEnginesWorking>
+  <PhobosVehicleSystems_SysHoverMargin>Hover margin {MARGIN}: {HOW}</PhobosVehicleSystems_SysHoverMargin>
+  <PhobosVehicleSystems_HoverDry>can hover</PhobosVehicleSystems_HoverDry>
+  <PhobosVehicleSystems_HoverWet>can hover only with water injection</PhobosVehicleSystems_HoverWet>
+  <PhobosVehicleSystems_HoverNone>cannot hover</PhobosVehicleSystems_HoverNone>
+
   <!-- Letters -->
   <PhobosVehicleSystems_LetterBoilingLabel>Engine boiling over: {VEHICLE}</PhobosVehicleSystems_LetterBoilingLabel>
   <PhobosVehicleSystems_LetterBoilingText>The {VEHICLE}'s coolant is boiling away and the engine is cooking itself.\n\nStop the vehicle now. Once it has cooled, repair the radiator and have a mechanic service it to refill the coolant.</PhobosVehicleSystems_LetterBoilingText>

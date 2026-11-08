@@ -51,6 +51,7 @@
     <quantities>
       <li>
         <name>steamPressure</name>
+        <showOnDashboard>true</showOnDashboard>
         <label>steam pressure</label>
         <unit>Fraction</unit>
         <min>0</min>

@@ -167,6 +167,12 @@ public class CompPhobosVehicleSystems : VehicleComp
 
     bool Enabled(SystemState state) => !VehicleSystemsMod.Settings.disabledSystems.Contains(state.Def.defName) && (!state.Def.needsClosedCab || ClosedCab);
 
+    /// <summary>Whether a system runs on this vehicle now (not switched off in the settings, and its cab is closed if it needs one).</summary>
+    public bool IsEnabled(SystemState state) => Enabled(state);
+
+    /// <summary>The last day of each shown quantity, for the Systems tab's graphs.</summary>
+    public QuantityHistory History { get; } = new();
+
     bool? closedCab;
 
     /// <summary>Whether this vehicle's cab shelters everyone aboard: the vehicle's own extension, else its loadout's cabin block.</summary>
@@ -228,6 +234,8 @@ public class CompPhobosVehicleSystems : VehicleComp
         }
         Scribe_Collections.Look(ref savedValues, "PhobosVehicleSystems_Values", LookMode.Value, LookMode.Value);
         Scribe_Collections.Look(ref loadSwitches, "PhobosVehicleSystems_Loads", LookMode.Value, LookMode.Value);
+        // The graphs' history: the owner's exception to "derived state is never saved" (9 Nov 2026), a few kilobytes per vehicle.
+        History.ExposeData(Props.systems);
         Scribe_Collections.Look(ref savedPartHealth, "PhobosVehicleSystems_PartHealth", LookMode.Value, LookMode.Value);
         Scribe_Collections.Look(ref servicedSaved, "PhobosVehicleSystems_Serviced", LookMode.Value);
         Scribe_Values.Look(ref lastUpdateTick, "PhobosVehicleSystems_LastUpdate", -1);
@@ -386,6 +394,7 @@ public class CompPhobosVehicleSystems : VehicleComp
                 EvaluateStages(state, (float)hours);
             }
             RecacheStatFactors();
+            History.Sample(states, now);
             MoveRefusal = FirstRefusal(draft: false);
             if (ClosedCab && TryGetQuantity("cabTemperature", out float cab)) CabClimate.Set(Vehicle, cab);
             else CabClimate.Forget(Vehicle);

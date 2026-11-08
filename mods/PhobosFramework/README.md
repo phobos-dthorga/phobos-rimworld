@@ -5,7 +5,7 @@ colonist is breathing, makes fires fill roofed rooms with the game's own smoke w
 carries carbon monoxide from fires, holds the per-person care choices the D'thorga medical mods offer, and holds the small
 helpers every D'thorga mod shares.
 
-Version 0.16.0, built 9 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
+Version 0.17.0, built 9 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
 oxygen working through Burns and Smoke and Medical Equipment (5 November 2026). The health layer new in 0.3.0 and the **vehicle
 systems new in 0.9.0, and their engines, drivetrains and gas turbines new in 0.11.0, are not yet tested in game.** The rest is read from the game's and the mods' code.
 
@@ -127,6 +127,10 @@ Other mods (D'thorga Vehicles first) can give a named vehicle its own figures. N
 | Traction motors (diesel-electric locomotives) | Traction motor temperature | Pulling hard from a standstill heats them: **running hot**, then burning their windings | Ease the load and let them cool; repair the motor |
 | Water injection (the Harrier, with D'thorga Vehicles) | Injection water | Without water the engine has only its dry ratings, so a heavy jet on a hot day may not hover | A refill of 227 litres: **with Dubs Bad Hygiene, from a plumbing pipe beside it**, otherwise free |
 
+- **Two tabs on every vehicle with systems** (0.17.0), beside Vehicle Framework's Customize, Cargo, Pawns and Health:
+  **Dashboard** (does anything need me now? gauges, warning lights, what it waits for, the switches) and **Systems** (every figure,
+  every part's health, the engine, and in Engineer mode a day's graph of each quantity). Systems is hidden in Plain mode. A gauge
+  on the Dashboard opens Systems at that system.
 - **The service button** (a spanner) asks for a service now, even if none is due. Services also start by themselves when due.
 - **Switches** for headlights and the cab heater: each draws on the battery or the alternator while it runs.
 - **Caravans**: the systems keep running on the world map. A caravan moves as its slowest vehicle (its explanation names it), a

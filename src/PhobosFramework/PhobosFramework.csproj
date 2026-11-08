@@ -8,6 +8,6 @@
     <RootNamespace>Phobos.Framework</RootNamespace>
     <AssemblyName>PhobosFramework</AssemblyName>
     <ModFolder>PhobosFramework</ModFolder>
-    <Version>0.16.0</Version>
+    <Version>0.17.0</Version>
   </PropertyGroup>
 </Project>

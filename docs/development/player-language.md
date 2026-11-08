@@ -65,3 +65,11 @@ It follows the Phobos Ostranauts and Phobos Kenshi guides, adapted to RimWorld.
   labels and descriptions stay in its XML, for translators to override with `DefInjected`.
 - **Creative text written by Claude** (contact stories, faction voices, letters) is labelled
   agent-written in the changelog, and held for the owner's review.
+
+## Vehicle tabs (9 Nov 2026)
+
+The vehicle systems' two inspector tabs follow the display mode like everything else. **Dashboard** is for every mode: gauges,
+warning lights, the waiting line and the switches, with no figure a Plain-mode player must read (figures appear on the gauges only
+in Operator and Engineer). **Systems** is the Engineer's view and is hidden in Plain mode: every figure and stage, every part's
+health, the engine's gear and speed in Operator, and in Engineer the graphs, the flows an hour, kilowatts, mass and the hover
+margin. The reason for anything is the same in both tabs; only the depth differs.

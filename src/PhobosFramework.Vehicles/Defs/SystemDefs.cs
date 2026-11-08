@@ -75,6 +75,8 @@ public class QuantitySpec
     public List<VehicleSystemInput>? derivedFrom;
     /// <summary>Hidden quantities work as usual but never appear on the inspect line.</summary>
     public bool hidden;
+    /// <summary>Shown as a gauge on the vehicle's Dashboard tab.</summary>
+    public bool showOnDashboard;
     public List<StageSpec> stages = new();
 
     public bool Derived => derivedFrom != null;

@@ -5,6 +5,29 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.17.0] - 2026-11-09 - Draft
+
+The vehicle tabs (owner, 9 November 2026). **Not yet tested in game.** Design: docs/development/vehicle-tabs-design.md.
+
+### Added
+
+- Two inspector tabs on every vehicle with systems, beside Vehicle Framework's own. **Dashboard**: does anything need me now? A gauge for each quantity that matters (battery, coolant, oil, tyres, brakes, steam, the turbine's hot section, the cab), a warning light for every notable stage (red when it refuses or damages), the one thing the vehicle waits for, the switches and the service button; in Operator and Engineer mode the tachometer and gear, or the turbine's speed. A gauge click opens the Systems tab at that system.
+- **Systems**: what exactly is going on. Every quantity with its figure, stage and bar; each role's parts with their health, lighting the part up on the vehicle when hovered; the drivetrain's gear, speed, load and what holds it back; the turbine's rating and engines. In Engineer mode the last day's graph of each quantity, the flows an hour, kilowatts, mass and the hover margin. Hidden in Plain mode.
+- The last day of each quantity is kept and saved for the graphs (the owner's exception to "nothing derived is saved": a few kilobytes per vehicle).
+- Dev actions: fill history with a test curve, open the Dashboard tab, open the Systems tab, log tab state.
+- Shared, in the Framework's core: a history ring and its save codec, the gauge, warning light, graph, section and tachometer widgets, and per-thing tab state, for every Phobos mod's tabs.
+- For modders: showOnDashboard on a quantity. The schema check reads it.
+
+### Compatibility and limits
+
+- The tabs are ordinary inspector tabs: RimHUD draws them in its own tab strip unchanged (Vehicle Framework already hands the vehicle pane back from RimHUD). Vehicle Framework 1.7 may order its Def resolution differently; the tabs are added where its Upgrades tab is.
+- The Systems tab shows each part's name and health in its own green, amber and red, without Vehicle Framework's part icons: Vehicle Framework ships only a 1.6 build, whose drawing helpers can't be called from a 1.7 build. To revisit when it ships for 1.7.
+- For modders: the core's UI helpers are in the Phobos.Framework.Interface namespace (folder UI), because a namespace named UI would hide the game's own UI class.
+
+### Save compatibility
+
+- Safe to add to a running colony: graphs start empty and fill over the first day. Each vehicle's save gains the history strings.
+
 ## [0.16.0] - 2026-11-09 - Draft
 
 The world map: caravans, the cab's climate, the night heater and jump-starts, from the owner's decisions of 9 November 2026. **Not yet tested in game.** Design: docs/development/vehicle-world-map-design.md.

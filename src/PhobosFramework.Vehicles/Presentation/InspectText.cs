@@ -35,15 +35,8 @@ public static class InspectText
         }
         var lines = new List<string>();
         if (parts.Count > 0) lines.Add(string.Join(", ", parts).CapitalizeFirst());
-        SystemState? due = comp.DueService();
-        if (due?.Def.service != null)
-        {
-            lines.Add(comp.MissingSupply(out ThingDef? missing, out int count) && missing != null
-                ? "PhobosVehicleSystems_InspectServiceNeeds".Translate(due.Def.service.label.Named("SERVICE"), count.Named("COUNT"), missing.label.Named("SUPPLY")).Resolve()
-                : !comp.WaterReady(out string? waterReason) && waterReason != null
-                    ? "PhobosVehicleSystems_InspectServiceWater".Translate(due.Def.service.label.Named("SERVICE"), waterReason.Named("REASON")).Resolve()
-                    : "PhobosVehicleSystems_InspectServiceDue".Translate(due.Def.service.label.Named("SERVICE")).Resolve());
-        }
+        string? waiting = WaitingLine(comp);
+        if (waiting != null) lines.Add(waiting);
         string? engine = EngineLine(comp, mode);
         if (engine != null) lines.Add(engine);
         if (mode == DisplayMode.Engineer)
@@ -52,6 +45,19 @@ public static class InspectText
                 comp.ActiveLoadAmps().ToString("0").Named("AMPS"), comp.Ambient.ToStringTemperature("F0").Named("AIR")).Resolve());
         }
         return lines.Count == 0 ? null : string.Join("\n", lines);
+    }
+
+    /// <summary>The one thing the vehicle waits for: a mechanic, a supply, water, or the reason it will not move; null when nothing.</summary>
+    public static string? WaitingLine(CompPhobosVehicleSystems comp)
+    {
+        if (comp.MoveRefusal != null) return comp.MoveRefusal;
+        SystemState? due = comp.DueService();
+        if (due?.Def.service == null) return null;
+        return comp.MissingSupply(out ThingDef? missing, out int count) && missing != null
+            ? "PhobosVehicleSystems_InspectServiceNeeds".Translate(due.Def.service.label.Named("SERVICE"), count.Named("COUNT"), missing.label.Named("SUPPLY")).Resolve()
+            : !comp.WaterReady(out string? waterReason) && waterReason != null
+                ? "PhobosVehicleSystems_InspectServiceWater".Translate(due.Def.service.label.Named("SERVICE"), waterReason.Named("REASON")).Resolve()
+                : "PhobosVehicleSystems_InspectServiceDue".Translate(due.Def.service.label.Named("SERVICE")).Resolve();
     }
 
     /// <summary>The engine's line: Plain only when it labours or the wheels spin; Operator gear and rpm (or spool and turbine

@@ -156,6 +156,11 @@ public static class VehicleSystems
         }
         def.comps ??= new List<CompProperties>();
         def.comps.Add(props);
+        // The Dashboard and Systems tabs, before ThingDef.ResolveReferences resolves the tab list (this runs in its prefix; re-check the
+        // order when Vehicle Framework releases 1.7). Only fitted designs get them.
+        def.inspectorTabs ??= new List<System.Type>();
+        if (!def.inspectorTabs.Contains(typeof(ITab_VehicleDashboard))) def.inspectorTabs.Add(typeof(ITab_VehicleDashboard));
+        if (!def.inspectorTabs.Contains(typeof(ITab_VehicleSystems))) def.inspectorTabs.Add(typeof(ITab_VehicleSystems));
         return added;
     }
 

@@ -84,6 +84,7 @@
       </li>
       <li>
         <name>hotSectionLife</name>
+        <showOnDashboard>true</showOnDashboard>
         <label>hot-section life used</label>
         <unit>Fraction</unit>
         <min>0</min>

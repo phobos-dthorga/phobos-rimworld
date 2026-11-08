@@ -1,0 +1,124 @@
+using System.Collections.Generic;
+using Phobos.Framework.Rules;
+using UnityEngine;
+using Verse;
+
+// Not "Phobos.Framework.UI": a namespace named UI would hide the game's Verse.UI class from every Phobos.Framework.* namespace.
+namespace Phobos.Framework.Interface;
+
+/// <summary>
+/// The little displays every Phobos tab draws the same way: a gauge, a warning light, a history graph, a section heading, a
+/// tachometer. Presentation only, on the game's own widgets; callers pass what to show and handle any click themselves.
+/// </summary>
+public static class PhobosWidgets
+{
+    public static readonly Color Good = new(0.36f, 0.72f, 0.36f);
+    public static readonly Color Caution = new(0.92f, 0.70f, 0.28f);
+    public static readonly Color Bad = new(0.85f, 0.32f, 0.28f);
+    public static readonly Color Off = new(0.45f, 0.45f, 0.48f);
+
+    /// <summary>Health at or above this share reads as good (authored).</summary>
+    public const float HealthGoodShare = 0.7f;
+    /// <summary>Health at or above this share, and below good, reads as caution; below it, bad (authored).</summary>
+    public const float HealthCautionShare = 0.35f;
+
+    /// <summary>
+    /// The colour for a share of health (0 to 1): good, caution, bad, or off when nothing is left. Our own colours, so a tab
+    /// never needs another mod's colour helper (on RimWorld 1.7, a 1.6 mod's method that returns a Unity type cannot be called
+    /// from a 1.7 build).
+    /// </summary>
+    public static Color HealthColour(float share) =>
+        share <= 0f ? Off : share >= HealthGoodShare ? Good : share >= HealthCautionShare ? Caution : Bad;
+    static readonly Color GaugeBackground = new(0.12f, 0.12f, 0.13f);
+
+    /// <summary>A horizontal gauge: a bar filled to a share, in a colour, with an optional label above and figure inside.</summary>
+    public static void Gauge(Rect rect, float fill, Color colour, string? label = null, string? figure = null, string? tooltip = null)
+    {
+        float barHeight = label == null ? rect.height : Mathf.Max(10f, rect.height - 18f);
+        var bar = new Rect(rect.x, rect.yMax - barHeight, rect.width, barHeight);
+        if (label != null)
+        {
+            using (new TextBlock(GameFont.Tiny, TextAnchor.LowerLeft))
+            {
+                Widgets.Label(new Rect(rect.x, rect.y, rect.width, rect.height - barHeight), label);
+            }
+        }
+        Widgets.DrawBoxSolid(bar, GaugeBackground);
+        Widgets.DrawBoxSolid(new Rect(bar.x, bar.y, bar.width * Mathf.Clamp01(fill), bar.height), colour);
+        Widgets.DrawBox(bar);
+        if (figure != null)
+        {
+            using (new TextBlock(GameFont.Tiny, TextAnchor.MiddleCenter))
+            {
+                Widgets.Label(bar, figure);
+            }
+        }
+        if (tooltip != null) TooltipHandler.TipRegion(rect, tooltip);
+    }
+
+    /// <summary>A warning light: a coloured square with its label beside it. Returns the width used.</summary>
+    public static float WarningLight(Rect rect, Color colour, string label)
+    {
+        float size = Mathf.Min(rect.height, 14f);
+        var light = new Rect(rect.x, rect.y + (rect.height - size) / 2f, size, size);
+        Widgets.DrawBoxSolid(light, colour);
+        Widgets.DrawBox(light);
+        float textWidth;
+        using (new TextBlock(GameFont.Tiny, TextAnchor.MiddleLeft))
+        {
+            textWidth = Mathf.Min(Text.CalcSize(label).x + 4f, rect.width - size - 6f);
+            Widgets.Label(new Rect(light.xMax + 4f, rect.y, textWidth, rect.height), label);
+        }
+        return size + 4f + textWidth;
+    }
+
+    /// <summary>A section heading with a rule under it, advancing the caller's y. Returns the heading's rect.</summary>
+    public static Rect Section(ref float curY, float x, float width, string label)
+    {
+        var rect = new Rect(x, curY, width, 24f);
+        using (new TextBlock(GameFont.Small, TextAnchor.LowerLeft))
+        {
+            Widgets.Label(rect, label);
+        }
+        Widgets.DrawLineHorizontal(x, rect.yMax, width);
+        curY = rect.yMax + 4f;
+        return rect;
+    }
+
+    /// <summary>A graph of a ring's samples over the last hours, on the game's curve drawer, scaled to min..max.</summary>
+    public static void HistoryGraph(Rect rect, HistoryRing ring, float min, float max, Color colour, int hours, string valueFormat = "0.#")
+    {
+        if (ring.Count < 2) return;
+        var curve = new SimpleCurve();
+        float hoursPerSample = (float)hours / ring.Capacity;
+        for (int i = 0; i < ring.Count; i++)
+        {
+            curve.Add(new CurvePoint(-(ring.Count - 1 - i) * hoursPerSample, ring[i]), sort: false);
+        }
+        var style = new SimpleCurveDrawerStyle
+        {
+            DrawBackground = true,
+            DrawBackgroundLines = true,
+            DrawMeasures = true,
+            DrawLegend = false,
+            DrawCurveMousePoint = true,
+            UseFixedScale = true,
+            FixedScale = new Vector2(min, max),
+            UseFixedSection = true,
+            FixedSection = new FloatRange(-hours, 0f),
+            UseAntiAliasedLines = true,
+            MeasureLabelsXCount = 4,
+            MeasureLabelsYCount = 3,
+            XIntegersOnly = true,
+        };
+        var curves = new List<SimpleCurveDrawInfo> { new() { curve = curve, color = colour, valueFormat = valueFormat } };
+        SimpleCurveDrawer.DrawCurves(rect, curves, style);
+    }
+
+    /// <summary>A tachometer as a bar: fill against the redline, green to the rated speed and red past it.</summary>
+    public static void Tachometer(Rect rect, float rpm, float rated, float redlineShare = 1.1f, string? label = null, string? figure = null)
+    {
+        float redline = Mathf.Max(1f, rated * redlineShare);
+        Gauge(rect, rpm / redline, rpm > rated ? Bad : Good, label, figure);
+    }
+}

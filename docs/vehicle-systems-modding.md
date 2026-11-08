@@ -156,6 +156,7 @@ pump empties, with a stage that stops the vehicle starting when it runs dry.
 | --- | --- |
 | `parameters` | Named figures with their defaults, as elements. Loadouts override them; flows and effects name them. |
 | `quantities` | State variables: `name`, `label`, `unit` (`Plain`, `Celsius`, `Fraction`, `Hours`), `min`, `max`, `startsAt` (`Ambient`, `Full`, `Empty`, `Value` with `startValue`), `hidden` (no figure shown; notable stages still show), `stages`. A quantity with `derivedFrom` is not integrated: each interval it is the product of those inputs. |
+| `showOnDashboard` | The quantity gets a gauge on the vehicle's Dashboard tab (not for a hidden quantity). |
 | `stages` | Ranges `from` (inclusive) and `to` (exclusive), either open-ended, in rising order: `label`, `notable` (Plain mode names it), `effects`. A value in a gap is in no stage. |
 | `flows` | Rate rules on one quantity: `kind` `Into` and `From` (units per hour) or `Toward` a `target` input (the share of the gap closed per hour, done exactly, so it never overshoots). The rate is `factor`, times `factorParameter`, over `divideByParameter`, times every input. `openAbove` or `openAboveParameter` (and `openBelow`) with a `band` gate it like a thermostat. `when` limits it to a condition. |
 | `onEvents` | Effects run once on one of Vehicle Framework's events (`IgnitionOn`, `IgnitionOff`, `MoveStart`, `MoveStop`, `Refueled`, `OutOfFuel` and the rest). |
@@ -319,6 +320,18 @@ cell or the tile, and the vehicle part registers Vehicle Framework's role handle
 reader for its own holder type the same way. A jump-start needs a `PhobosVehicleSystems_JumpStartKit` in stock or aboard when the
 player's setting says so (`JumpStarts.NeedsKit`), found through the core's `Phobos.Framework.Items.ItemFinder`.
 
+## How a system appears in the tabs
+
+Every vehicle with systems gets two inspector tabs (`Presentation/ITab_VehicleDashboard.cs`, `ITab_VehicleSystems.cs`), added to
+the design beside Vehicle Framework's own. The **Dashboard** shows a gauge for each quantity with `showOnDashboard`, coloured by its
+stage (green; amber for a `notable` stage; red when the stage refuses, damages or explodes), a warning light for every notable
+stage, the waiting line (a refusal, or the due service and what it lacks), a button for each `toggle` load with its `iconPath`,
+and the service button. The **Systems** tab lists every system that runs on the vehicle: each quantity that is not `hidden` (Engineer
+mode shows hidden ones too) with its figure, stage and a bar for Fraction and Celsius units; each role's parts; the drivetrain and
+turbine figures; and in Engineer mode a graph of the last day (the comp keeps one sample per rare tick of every shown quantity,
+saved with the vehicle) and the flows an hour. The widgets are the Framework core's `Phobos.Framework.Interface.PhobosWidgets` (in the core's `UI/` folder), so a tab
+of your own can draw the same gauges and graphs; `TabState<T>` holds per-thing state for a shared tab instance.
+
 ## Dev actions
 
 With dev mode on, the debug actions menu's D'thorga category holds, for the selected vehicles: **log selected** (every system's
@@ -328,7 +341,9 @@ through Vehicle Framework's own damage path, which Combat Extended replaces, so 
 part health memory** (what the systems last saw of each part's health), **explode the boiler now** (runs a system's explosion
 effect whatever the player's setting, after a confirmation: destructive), **toggle a load**, **give a jump-start kit**, **flatten
 the battery**, and on the world map with a vehicle caravan selected **log caravan state** and **set caravan cap** (half, crawl or
-clear, to see the caravan slow and its explanation). The cab's temperature is set through **set a quantity**.
+clear, to see the caravan slow and its explanation). The cab's temperature is set through **set a quantity**. For the tabs:
+**fill history with a test curve** (a day of sine waves in every graph), **open the Dashboard tab**, **open the Systems tab** and
+**log tab state** (how many vehicles' tab state is held; it should be none after the tab closes).
 
 ## Tuning in Vehicle Framework's window
 

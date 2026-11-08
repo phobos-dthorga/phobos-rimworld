@@ -86,6 +86,9 @@ promise current behaviour. For using the mods, start at the [documentation index
   and what was skipped or wrong, a closed cab's own temperature through the game's held-temperature lookup, the night heater,
   caravan speed caps and refusals, the jump-start kit and its two settings; D'thorga Framework 0.16.0 and D'thorga Vehicles
   0.7.0. Not yet tested in game.
+- [The vehicle tabs: design (9 Nov 2026)](vehicle-tabs-design.md): the Dashboard and Systems inspector tabs, how they hook into
+  Vehicle Framework's Def resolution, the saved day of history behind the graphs, the widgets that went to the Framework core,
+  and what RimHUD does with them; D'thorga Framework 0.17.0. Not yet tested in game.
 - [Vehicle figures: research (9 Nov 2026)](vehicle-figures-research.md): sourced engine, transmission and weight figures for the
   L-ATV, MaxxPro, Humvee, PLS, M113, Bradley, M48H, M10, T-54, BMP-1, Wiesel, Land Cruiser J70, the Abrams' turbine and five
   helicopters, with what was not found.

@@ -225,4 +225,19 @@ public static class VehicleSystemsDebugActions
         }
         return nodes;
     }
+
+    [DebugAction(DebugCategory.Name, "Vehicle systems: fill history with a test curve", allowedGameStates = AllowedGameStates.PlayingOnMap)]
+    static void FillHistory()
+    {
+        foreach (CompPhobosVehicleSystems comp in Selected()) comp.History.DebugFill(comp.States);
+    }
+
+    [DebugAction(DebugCategory.Name, "Vehicle systems: open the Dashboard tab", allowedGameStates = AllowedGameStates.PlayingOnMap)]
+    static void OpenDashboard() => InspectPaneUtility.OpenTab(typeof(ITab_VehicleDashboard));
+
+    [DebugAction(DebugCategory.Name, "Vehicle systems: open the Systems tab", allowedGameStates = AllowedGameStates.PlayingOnMap)]
+    static void OpenSystems() => InspectPaneUtility.OpenTab(typeof(ITab_VehicleSystems));
+
+    [DebugAction(DebugCategory.Name, "Vehicle systems: log tab state", allowedGameStates = AllowedGameStates.Playing)]
+    static void LogTabState() => Log.Message(VehicleSystemsMod.LogPrefix + " Systems tab holds state for " + ITab_VehicleSystems.StateCount + " vehicles.");
 }

@@ -19,6 +19,7 @@
     <quantities>
       <li>
         <name>treadWear</name>
+        <showOnDashboard>true</showOnDashboard>
         <label>tread wear</label>
         <unit>Fraction</unit>
         <min>0</min>
@@ -102,6 +103,7 @@
     <quantities>
       <li>
         <name>brakeWear</name>
+        <showOnDashboard>true</showOnDashboard>
         <label>brake wear</label>
         <unit>Fraction</unit>
         <min>0</min>

@@ -147,7 +147,11 @@ The candidate base class for interval map components is still not built (see 0.6
   objects for dev actions) came in with the vehicle systems' CE corrections and serve every Phobos mod. 0.16.0 added
   `Environment/HeldTemperature.cs` (a registry giving things held inside something a fixed temperature, as transport pods have; the
   one Harmony postfix stays in the vehicle part because the core has no Harmony) and `Items/ItemFinder.cs` (a tool in stock a pawn can
-  fetch, or aboard a caravan).
+  fetch, or aboard a caravan). 0.17.0 added `Rules/History.cs` (a history ring and its save codec, with tests),
+  `Persistence/ScribeHistory.cs`, `UI/PhobosWidgets.cs` (gauge, warning light, history graph, section, tachometer) and
+  `UI/TabState.cs` (per-thing state for a shared inspector tab), built for the vehicle tabs and open to every Phobos tab. Their
+  namespace is `Phobos.Framework.Interface`, not `.UI`: a namespace named `UI` would hide the game's `Verse.UI` class from every
+  `Phobos.Framework.*` namespace.
 
 ## Open points and upstream
 

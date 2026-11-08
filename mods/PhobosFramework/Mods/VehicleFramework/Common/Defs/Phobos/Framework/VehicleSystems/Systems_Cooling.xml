@@ -45,6 +45,7 @@
     <quantities>
       <li>
         <name>coolantTemperature</name>
+        <showOnDashboard>true</showOnDashboard>
         <label>coolant</label>
         <unit>Celsius</unit>
         <min>-60</min>

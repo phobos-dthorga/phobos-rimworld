@@ -29,6 +29,7 @@
     <quantities>
       <li>
         <name>oilLevel</name>
+        <showOnDashboard>true</showOnDashboard>
         <label>oil level</label>
         <unit>Fraction</unit>
         <min>0</min>

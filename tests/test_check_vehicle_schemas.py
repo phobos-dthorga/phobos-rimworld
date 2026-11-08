@@ -183,6 +183,10 @@ class VehicleSchemaCheckTests(unittest.TestCase):
         self.assertTrue(any('cabin closed' in e for e in result['errors']))
         self.assertTrue(any('When_LoadActive names a load' in e for e in result['errors']))
 
+    def test_a_hidden_dashboard_quantity_is_caught(self):
+        result = self.run_with(SYSTEM.replace('<name>heat</name>', '<name>heat</name><hidden>true</hidden><showOnDashboard>true</showOnDashboard>'))
+        self.assertTrue(any('hidden and on the dashboard' in e for e in result['errors']))
+
     def test_a_service_with_negative_water_is_caught(self):
         result = self.run_with(POWER.replace('<waterLitres>10</waterLitres>', '<waterLitres>-1</waterLitres>'))
         self.assertTrue(any('waterLitres' in e for e in result['errors']))
