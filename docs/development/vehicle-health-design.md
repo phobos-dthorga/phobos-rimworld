@@ -256,6 +256,11 @@ vehicles). Record TPS and our milliseconds in the table below.
 - **Parts saved by index:** conditions keyed by part key; a condition whose part is gone is dropped with one log line; the
   uninstall sweep drops them all.
 - **Two health panels:** VF's caravan manifest window keeps VF's panel; players may see two layouts. Recorded; cover later or accept.
+- **Other mods patch the damage path too** (read with `scripts/query-patches.py`, 9 Nov 2026): besides Combat Extended's
+  prefix that replaces `VehicleStatHandler.ApplyDamage`, the Hind and Mongoose helicopters add priority-800 prefixes to it
+  ("NearestPart") and postfixes on `TakeDamage` and `RecalculateHealthPercent` ("Critical"), and the BMP-1 patches
+  `ExposeData` and `GetStatValue`. Slice 2's hit-born conditions must hold with all of them; read their code with
+  `scripts/query-code.py` before freezing the Def shape.
 - **A postfix on `VehicleComponent.get_Efficiency`** would run on every stat recompute of every vehicle, NPC included; if it is
   ever added it must be a dictionary miss for vehicles without conditions. The stat-level path is preferred.
 - **VF's free repair against conditions:** replacement supplies for destroyed parts is a balance change for every VF vehicle; it

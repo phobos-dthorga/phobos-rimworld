@@ -139,6 +139,12 @@ other), and `ParentName` inheritance (twice).
   `us_strings.py`), and `apicheck` (does a consumer still match its provider).
 - **Limit:** patches applied in code rather than by attribute need a decompile, and the tool says so.
 
+**Built 9 Nov 2026, the `harmony` part** (owner's go-ahead): phobos-modkit 0.14.0's `rimworld-patches`, called through
+`scripts/query-patches.py`. Better than this plan's limit: `harmony.Patch` calls are read from the IL too (the original
+looked up through `AccessTools`, the patch methods passed to `HarmonyMethod`), and a `TargetMethod`'s target from its code.
+On the owner's 254 active mods: 5,356 patches in 333 assemblies, read in 6 s. `types`, `members` and `strings` are left to
+REA once the owner has it, and to the code index for decompiled C#; `apicheck` is not built.
+
 ### 5. Workshop research
 
 - Details through Steam's keyless `GetPublishedFileDetails`; the latest 50 comments from the comments page;

@@ -42,6 +42,10 @@ delivered, record the delivery in the changelog or design record, and add or ame
   or sending an agent to read one, and cite what it shows as `file:line`. A tree not yet decompiled needs decompiling
   first (into `.local/decompiled/<name>`); a single assembly's metadata, call graph or constants are REA's job once the
   owner has it set up (`docs/development/analysis-tooling.md`).
+- **Answer which mods patch a method with `python scripts/query-patches.py`** (owner, 9 Nov 2026): `who "Type.Method"` for
+  every Harmony patch on it in load order (wildcards), `mod <name>` for what a mod patches, `hotspots` for methods several mods
+  patch; "may skip the original" marks a bool prefix. It reads every active mod's assemblies through their metadata, never
+  running them. Use it before decompiling a mod to look for patches, and before adding a patch of ours, to see who else is there.
 - **Answer what settings the owner plays with using `python scripts/mod-settings.py`** (owner, 9 Nov 2026): our mods' saved
   values beside their defaults, read from our C# source; `--mod <pattern>` for any other mod (Combat Extended, Vehicle Framework);
   `snapshot FILE`, then `compare FILE`, for what changed between two sessions. Run it with a reported fault before asking the
