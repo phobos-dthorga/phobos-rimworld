@@ -143,7 +143,9 @@ delivered, record the delivery in the changelog or design record, and add or ame
   where much of a mod depends on it (Vanilla Gravship Expanded for D'thorga Medical's equipment).
 - Player text is never hard-coded in C#: what code shows lives in `Languages/English/Keyed`, and a Def's labels and descriptions stay
   in its XML in English, as the game's own do, for translators to override with `DefInjected`. Stable keys prefixed `Phobos`, complete
-  messages with named placeholders (`scripts/check-mod-layout.py` refuses numbered ones). A figure in a message comes from the rule or
+  messages with named placeholders (`scripts/check-mod-layout.py` refuses numbered ones, a key translated in C# with no English
+  entry, and a `{NAME}` a fully named call does not supply). Translate a key by its literal name (`"PhobosX_Y".Translate(...)`) so the
+  check can read it; a key chosen at run time goes unchecked. A figure in a message comes from the rule or
   Def that owns it, as a placeholder, never as fixed text; never translate defNames, saved keys or
   settings keys, and never drive gameplay from translated text.
 
@@ -306,10 +308,13 @@ delivered, record the delivery in the changelog or design record, and add or ame
   `python scripts/deploy.py --build --apply --all` builds every project and installs every mod (owner, 4
   November 2026); name mods instead of `--all` for one. Never edit `ModsConfig.xml` or the owner's RimSort
   lists unless the owner asks, and back them up first.
-- Scale checks to the change; test rules and persistence, not static documentation. Before committing,
-  run `python scripts/check-doc-links.py`, `python scripts/check-mod-layout.py` and
-  `python -m unittest discover -s tests`, and `python scripts/check-vehicle-schemas.py` when a vehicle system or loadout
-  changes. Gate commits on the exit codes, not on grep output.
+- Scale checks to the change; test rules and persistence, not static documentation. **Before committing, run
+  `python scripts/check-all.py` and chain the commit on its exit code** (`python scripts/check-all.py && git commit ...`),
+  never on reading output: phobos-modkit's gate builds every project, runs every rule-test project and the Python tests,
+  and checks links, mod layout, text keys, vehicle schemas, version copies and changelogs, printing only what failed
+  (owner's go-ahead, 9 Nov 2026; the steps are in `config/gate.json`, found by glob, so a new project is never left out).
+  `--only` and `--skip` narrow it while iterating; never hand-type a loop of builds and tests (one missed four of seven
+  test projects). Read a failed step's full output, whose path the report gives, only when its summary is not enough.
 - **Tests leave nothing behind.** A test that makes a git repository sets `core.fsmonitor false` in it and deletes it with
   read-only handling (git's object files are read-only; `ignore_errors=True` hides the failure). `python scripts/cleanup.py`
   lists what the tools and tests left (old install backups, test repositories, git watcher daemons); the owner runs `--apply`.

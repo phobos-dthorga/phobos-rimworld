@@ -114,6 +114,23 @@ class LayoutCheckTests(unittest.TestCase):
         contents['config/maintained-constants.json'] = b'{"constants": {}}'
         self.assertIn('no Example.version', '\n'.join(run(contents)['errors']))
 
+    def test_translated_keys_and_their_placeholders_must_exist(self):
+        keyed = (b'<LanguageData><PhobosEx_Hello>Hello {PAWN_labelShort}, {COUNT} left</PhobosEx_Hello>'
+                 b'<PhobosEx_Tab>Tab</PhobosEx_Tab></LanguageData>')
+        contents = mod('Example', extra={'Languages/English/Keyed/Example.xml': keyed})
+        good = ('class A { void B() { labelKey = "PhobosEx_Tab"; '
+                'Log("PhobosEx_Hello".Translate(pawn.Named("PAWN"), (n + 1).Named("COUNT"))); '
+                'Log("PhobosEx_Hello".Translate(args, more)); } }')
+        contents['src/Example/A.cs'] = good.encode()
+        self.assertEqual(run(contents)['errors'], [])
+        contents['src/Example/A.cs'] = ('class A { void B() { labelKey = "PhobosEx_NoTab";\n'
+                                        'Log("PhobosEx_Missing".Translate());\n'
+                                        'Log("PhobosEx_Hello".Translate(pawn.Named("PAWN"), Fmt("x,y").Named("COUNTS"))); } }').encode()
+        errors = '\n'.join(run(contents)['errors'])
+        self.assertIn('src/Example/A.cs:1: tab label "PhobosEx_NoTab" has no English Keyed entry', errors)
+        self.assertIn('src/Example/A.cs:2: "PhobosEx_Missing" has no English Keyed entry', errors)
+        self.assertIn('src/Example/A.cs:3: "PhobosEx_Hello" is translated without {COUNT}', errors)
+
     def test_the_real_listing_includes_the_projects_the_version_check_reads(self):
         # The version check once saw no projects at all, because the listing held only mods/ (found 7 Nov 2026).
         listing = layout.listed_files(ROOT)

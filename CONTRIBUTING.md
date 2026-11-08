@@ -20,13 +20,15 @@ and pull request steps below are for external contributors.
 4. Run the checks. None of them needs RimWorld:
 
    ```text
-   python scripts/check-doc-links.py
-   python scripts/check-mod-layout.py
-   python -m unittest discover -s tests
-   dotnet test tests/PhobosMedical.Rules.Tests    one per tests/*.Rules.Tests or *.Tests project you touched
+   python scripts/check-all.py                     everything; prints only what failed
+   python scripts/check-all.py --only "test *"     while iterating: the rule tests only
    ```
 
-   Building a C# project needs the .NET SDK (for the `net10.0` and `net472` targets) and nothing else: the game's reference assemblies come from
+   It builds every project under `src/`, runs every test project under `tests/` and the Python tests, and checks
+   links, mod layout, text keys, vehicle schemas, version copies and changelogs (the steps are in
+   `config/gate.json`). Without the .NET SDK the builds and rule tests are skipped, and the report says so.
+
+   Building a C# project needs the .NET SDK (for the `net10.0` target) and nothing else: the game's reference assemblies come from
    NuGet ([building](docs/development/building.md)).
 
 5. Open a pull request. Expect review and possible revisions; there is no fixed review timetable.

@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "description": "Every check before a commit (AGENTS.md): python scripts/check-all.py runs them and prints only what failed.",
+  "stages": [
+    {
+      "name": "Build and check",
+      "steps": [
+        {"name": "build {stem}", "each": "src/*/*.csproj", "lane": "dotnet", "parser": "msbuild", "requires": "dotnet",
+         "run": ["dotnet", "build", "{path}", "--nologo", "-v", "q"]},
+        {"name": "doc links", "run": ["{python}", "scripts/check-doc-links.py"]},
+        {"name": "mod layout and text keys", "run": ["{python}", "scripts/check-mod-layout.py"]},
+        {"name": "vehicle schemas", "run": ["{python}", "scripts/check-vehicle-schemas.py"]},
+        {"name": "version copies", "run": ["{python}", "scripts/release.py", "constants", "--check"]},
+        {"name": "changelog {dir}", "each": "mods/*/CHANGELOG.md", "lane": "changelogs",
+         "run": ["{python}", "scripts/release.py", "changelog", "{path}"]},
+        {"name": "python tests", "parser": "unittest", "run": ["{python}", "-m", "unittest", "discover", "-s", "tests"]}
+      ]
+    },
+    {
+      "name": "Rule tests",
+      "steps": [
+        {"name": "test {stem}", "each": "tests/*/*.csproj", "lane": "dotnet", "parser": "dotnet-test", "requires": "dotnet",
+         "run": ["dotnet", "test", "{path}", "--nologo"]}
+      ]
+    }
+  ]
+}

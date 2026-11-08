@@ -158,6 +158,99 @@ def check_versions(files, read, about_versions, errors):
                     errors.append(f'{name}: ModVersion {found.group(1)} differs from mods/{folder.group(1)}/{ABOUT} modVersion {expected}')
 
 
+ENGLISH_KEYED = re.compile(r'(^|/)Languages/English/Keyed/[^/]+\.xml$')
+TRANSLATE_CALL = re.compile(r'"(Phobos[A-Za-z0-9_]+)"\s*\.\s*(?:Translate|TranslateSimple)\s*\(')
+LABEL_KEY = re.compile(r'\blabelKey\s*=\s*"(Phobos[A-Za-z0-9_]+)"')
+NAMED_ARGUMENT = re.compile(r'\.Named\(\s*"([A-Za-z0-9_]+)"')
+TEXT_PLACEHOLDER = re.compile(r'\{([A-Za-z][A-Za-z0-9]*)(?:_[^}]*)?\}')
+
+
+def call_arguments(text, start):
+    """The text between the parenthesis at start and its partner, skipping strings; '' when unbalanced."""
+    depth, index, quote = 0, start, None
+    while index < len(text):
+        char = text[index]
+        if quote:
+            if char == '\\':
+                index += 1
+            elif char == quote:
+                quote = None
+        elif char in '"\'':
+            quote = char
+        elif char == '(':
+            depth += 1
+        elif char == ')':
+            depth -= 1
+            if depth == 0:
+                return text[start + 1:index]
+        index += 1
+    return ''
+
+
+def top_level_arguments(arguments):
+    """A call's arguments split at the commas outside brackets and strings."""
+    parts, depth, quote, current = [], 0, None, ''
+    index = 0
+    while index < len(arguments):
+        char = arguments[index]
+        current += char
+        if quote:
+            if char == '\\' and index + 1 < len(arguments):
+                current += arguments[index + 1]
+                index += 1
+            elif char == quote:
+                quote = None
+        elif char in '"\'':
+            quote = char
+        elif char in '([{':
+            depth += 1
+        elif char in ')]}':
+            depth -= 1
+        elif char == ',' and depth == 0:
+            parts.append(current[:-1].strip())
+            current = ''
+        index += 1
+    if current.strip():
+        parts.append(current.strip())
+    return parts
+
+
+def check_translation_keys(files, read, errors):
+    """Every key our C# translates by name has an English entry (else the game shows players the key itself), and when the
+    call names its placeholders, every {NAME} in the English text is among them (else players see {NAME}). Keys built at
+    run time, or chosen inside a switch before .Translate(), cannot be read this way and are not checked."""
+    keyed = {}
+    for name in files:
+        if name.startswith('mods/') and ENGLISH_KEYED.search(name):
+            try:
+                root = ET.fromstring(read(name))
+            except ET.ParseError:
+                continue  # check_keyed reports it
+            for entry in root:
+                keyed.setdefault(entry.tag, entry.text or '')
+    for name in sorted(n for n in files if n.startswith('src/') and n.endswith('.cs')):
+        text = read(name).decode('utf-8', 'replace')
+        for found in LABEL_KEY.finditer(text):
+            if found.group(1) not in keyed:
+                line = text.count('\n', 0, found.start()) + 1
+                errors.append(f'{name}:{line}: tab label "{found.group(1)}" has no English Keyed entry; the tab would show the key')
+        for found in TRANSLATE_CALL.finditer(text):
+            key, line = found.group(1), text.count('\n', 0, found.start()) + 1
+            if key not in keyed:
+                errors.append(f'{name}:{line}: "{key}" has no English Keyed entry; players would see the key itself')
+                continue
+            arguments = call_arguments(text, found.end() - 1)
+            # Only a call whose every argument is spelt out as .Named("...") can be read: a variable may carry any name.
+            parts = top_level_arguments(arguments)
+            if parts and not all(NAMED_ARGUMENT.search(part) for part in parts):
+                continue
+            named = {n.upper() for n in NAMED_ARGUMENT.findall(arguments)}
+            wanted = {p.upper() for p in TEXT_PLACEHOLDER.findall(keyed[key])}
+            if wanted - named:
+                missing = ', '.join('{' + p + '}' for p in sorted(wanted - named))
+                errors.append(f'{name}:{line}: "{key}" is translated without {missing}; players would see it as written')
+
+
 CATALOGUE = 'config/maintained-constants.json'
 
 
@@ -228,6 +321,7 @@ def check(root, files=None, read=None):
                 errors.append(f'{mod}: {rel} is a build product; build it from src/ instead of committing it')
     check_versions(files, read, about_versions, errors)
     check_catalogue(files, read, about_versions, errors)
+    check_translation_keys(files, read, errors)
     for package_id, mods in sorted(owners.items()):
         if len(mods) > 1:
             errors.append(f'packageId {package_id} is used by {", ".join(mods)}; RimWorld loads only the first')
