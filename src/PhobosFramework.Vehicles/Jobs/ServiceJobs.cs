@@ -45,22 +45,29 @@ public class WorkGiver_PhobosLoadServiceSupplies : WorkGiver_Scanner
     {
         if (t is not VehiclePawn vehicle || t.Faction != pawn.Faction || !ServiceTargets.Workable(pawn, vehicle, forced)) return null;
         CompPhobosVehicleSystems? comp = vehicle.GetComp<CompPhobosVehicleSystems>();
-        if (comp == null || !comp.MissingSupply(out ThingDef? def, out int count) || def == null) return null;
-        Thing? supply = Find(pawn, def);
-        if (supply == null)
+        if (comp == null) return null;
+        List<(ThingDef def, int count)> missing = comp.MissingSupplies();
+        if (missing.Count == 0) return null;
+        Thing? supply = null;
+        int count = 0;
+        // The first thing that can be found: one part nobody has made must not hold up everything else the vehicle is waiting for.
+        foreach ((ThingDef wanted, int wantedCount) in missing)
         {
+            supply = Find(pawn, wanted);
+            count = wantedCount;
+            if (supply != null) break;
             // Our part is not to be had: another mod's, where one would do.
-            foreach ((ThingDef other, int otherCount) in comp.Repairs.AlternativesFor(def))
+            foreach ((ThingDef other, int otherCount) in comp.Repairs.AlternativesFor(wanted))
             {
                 supply = Find(pawn, other);
-                if (supply == null) continue;
                 count = otherCount;
-                break;
+                if (supply != null) break;
             }
+            if (supply != null) break;
         }
         if (supply == null)
         {
-            JobFailReason.Is("PhobosVehicleSystems_NoSupply".Translate(def.label.Named("SUPPLY")));
+            JobFailReason.Is("PhobosVehicleSystems_NoSupply".Translate(missing[0].def.label.Named("SUPPLY")));
             return null;
         }
         IntVec3 cell = vehicle.SurroundingCells.Where(c => c.Standable(pawn.Map) && pawn.CanReach(c, PathEndMode.OnCell, Danger.Some))
@@ -119,7 +126,25 @@ public class WorkGiver_PhobosServiceVehicle : VehicleWorkGiver
         !vehicle.Drafted && vehicle.GetComp<CompPhobosVehicleSystems>()?.ReadyService() != null;
 }
 
-public class JobDriver_PhobosServiceVehicle : JobDriver_WorkVehicle
+/// <summary>
+/// Work at a vehicle that may take longer than Vehicle Framework's own repair step. Its base class ends the work toil after 2,000 ticks
+/// unless told otherwise, whatever work is left, and the job then repeats for ever without finishing; and it does not save the work
+/// done, so a load would finish the job at once. Read from Vehicle Framework 1.6 (JobDriver_WorkVehicle), 9 Nov 2026.
+/// </summary>
+public abstract class PhobosVehicleWorkDriver : JobDriver_WorkVehicle
+{
+    protected override ToilCompleteMode ToilCompleteMode => ToilCompleteMode.Never;
+
+    public override void ExposeData()
+    {
+        base.ExposeData();
+        float work = Work;
+        Scribe_Values.Look(ref work, "PhobosVehicleSystems_Work");
+        if (Scribe.mode == LoadSaveMode.LoadingVars) Work = work;
+    }
+}
+
+public class JobDriver_PhobosServiceVehicle : PhobosVehicleWorkDriver
 {
     protected override JobDef JobDef => VehicleSystemsJobDefOf.PhobosVehicleSystems_ServiceVehicle;
 
@@ -147,7 +172,7 @@ public class WorkGiver_PhobosRepairWithSupplies : VehicleWorkGiver
         !vehicle.Drafted && vehicle.GetComp<CompPhobosVehicleSystems>()?.Repairs.Ready != null;
 }
 
-public class JobDriver_PhobosRepairWithSupplies : JobDriver_WorkVehicle
+public class JobDriver_PhobosRepairWithSupplies : PhobosVehicleWorkDriver
 {
     protected override JobDef JobDef => VehicleSystemsJobDefOf.PhobosVehicleSystems_RepairWithSupplies;
 

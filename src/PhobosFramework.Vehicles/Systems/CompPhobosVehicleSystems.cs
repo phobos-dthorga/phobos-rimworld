@@ -653,7 +653,7 @@ public class CompPhobosVehicleSystems : VehicleComp
         if (lost == 0f) return;
         recentDamage.TryGetValue(key, out DamageDef? kind);
         recentDamage.Remove(key);
-        Notify_PartHit(role, part, lost, kind);
+        Notify_PartHit(part, lost, kind);
     }
 
     /// <summary>Remembers a part's health after the systems changed it themselves, so the change is not counted as a hit.</summary>
@@ -691,10 +691,12 @@ public class CompPhobosVehicleSystems : VehicleComp
     /// Health a bound part lost to a hit, and the kind of damage when the reactor saw it: each part-hit rule of the role that the
     /// damage matches moves its quantity by that much, or gives the part its condition.
     /// </summary>
-    void Notify_PartHit(string role, VehicleComponent part, float healthLost, DamageDef? damage)
+    void Notify_PartHit(VehicleComponent part, float healthLost, DamageDef? damage)
     {
         if (!Usable || healthLost <= 0f) return;
-        UpdateNow();
+        // Another faction's vehicle counts its hits but does not evolve (the light tier).
+        if (Tier == DetailTier.Full) UpdateNow();
+        else EnsureStates();
         if (states == null) return;
         bool conditionGiven = false;
         foreach (SystemState state in states)
@@ -702,16 +704,28 @@ public class CompPhobosVehicleSystems : VehicleComp
             if (!Enabled(state)) continue;
             foreach (PartHitRule rule in state.Def.onPartHit)
             {
-                if (rule.role != role || !rule.Matches(damage)) continue;
+                // Every role the part plays: the health lost is counted once, whichever role's reactor saw it first.
+                if (!PartPlays(part, rule.role) || !rule.Matches(damage)) continue;
                 if (!string.IsNullOrEmpty(rule.quantity)) AddToQuantity(rule.quantity, rule.perHealthLost * healthLost);
                 if (rule.condition != null)
                 {
-                    Conditions.Add(rule.condition, part, role, state.Def.defName, (float)SeverityRule.FromHit(rule.perHealthLost, healthLost));
+                    Conditions.Add(rule.condition, part, rule.role, state.Def.defName, (float)SeverityRule.FromHit(rule.perHealthLost, healthLost));
                     conditionGiven = true;
                 }
             }
         }
         if (conditionGiven) AfterConditionsChanged();
+    }
+
+    bool PartPlays(VehicleComponent part, string role) => Props.roleKeys.TryGetValue(role, out List<string>? keys) && keys.Contains(part.props.key);
+
+    /// <summary>A part mended away from a map (a garage), where no update will see its health rise: what a repair clears, clears now.</summary>
+    public void Notify_RepairedAway(VehicleComponent part, float healthBefore)
+    {
+        RememberPartHealth(part);
+        if (conditions == null || conditions.Count == 0) return;
+        conditions.OnHealthRose(part, healthBefore, part.Health);
+        AfterConditionsChanged();
     }
 
     /// <summary>Gives a part of the role the condition, or adds to it where a part already has it (Effect_AddCondition).</summary>
@@ -879,6 +893,7 @@ public class CompPhobosVehicleSystems : VehicleComp
         part.SetHealth(part.Health - amount);
         RememberPartHealth(part);
         Vehicle.statHandler.MarkAllDirty();
+        Repairs.NotifyRepairable();    // Vehicle Framework's list of vehicles to repair is fed only by real hits
     }
 
     /// <summary>A sudden failure: one living part of the role loses a share of its full health. Returns the part, or null.</summary>
@@ -889,6 +904,7 @@ public class CompPhobosVehicleSystems : VehicleComp
         part.SetHealth(part.Health - fraction * part.MaxHealth);
         RememberPartHealth(part);
         Vehicle.statHandler.MarkAllDirty();
+        Repairs.NotifyRepairable();
         return part;
     }
 

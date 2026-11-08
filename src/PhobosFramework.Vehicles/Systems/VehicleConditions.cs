@@ -129,6 +129,15 @@ public sealed class VehicleConditions
         if (index >= 0) RemoveAt(index);
     }
 
+    /// <summary>Removes every condition on a part: it has been replaced.</summary>
+    public void RemoveOn(string partKey)
+    {
+        for (int i = list.Count - 1; i >= 0; i--)
+        {
+            if (list[i].partKey == partKey) RemoveAt(i);
+        }
+    }
+
     /// <summary>A field fix: the condition halves, once, and its stage follows.</summary>
     public void FieldFix(VehicleCondition condition)
     {
@@ -190,7 +199,8 @@ public sealed class VehicleConditions
     /// <summary>Works the stages out again without time passing (after a load, a hit or a service).</summary>
     public void EvaluateAll()
     {
-        foreach (VehicleCondition condition in list) Evaluate(condition, 0f);
+        // By index: a stage's effect may give the vehicle another condition, which joins the end of the list.
+        for (int i = 0; i < list.Count; i++) Evaluate(list[i], 0f);
     }
 
     void Evaluate(VehicleCondition condition, float hours)

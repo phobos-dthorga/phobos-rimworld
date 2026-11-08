@@ -9,6 +9,28 @@ tested in game unless an entry says the owner tested it.
 
 - A tank's damage marks follow the health of their part. Vehicle Framework never reads a part requirement written on an overlay, so the tank now draws them itself. **Not yet tested in game.**
 
+## [0.38.1] - 2026-11-09 - Draft
+
+Bugs found by reviewing the vehicle repair code before it was tested. **Not yet tested in game.**
+
+### Fixed
+
+- A service or repair that needed more than about 2,000 ticks of a mechanic's time could never finish: the mechanic worked, stopped and started again for ever, and no supplies were used. This also affected existing services, such as a hot-section overhaul.
+- Saving and loading while such a job was under way would have finished it at once.
+- A vehicle worn only by overheating, low oil or a breakdown was not picked up for repair until something actually shot it.
+- One part nobody had made stopped everything else a vehicle was waiting for from being hauled to it.
+- A newly fitted part kept the old part's conditions. It now starts clean.
+- A radiator repaired to full in a garage could keep leaking after a save and load.
+- The request to patch leaks stayed on after the leaks had gone, so the next leak was patched unasked.
+- Another faction's vehicle ran a full update when hit. It now counts the hit and nothing more, as the lighter model is meant to.
+- A part that plays two roles counted a hit for only the first.
+- A vehicle in a caravan or garage no longer says it is waiting for a patch nobody asked for.
+- Shared logging core 1.0.1: a rare odd line could make the count of repeating messages throw.
+
+### Compatibility and limits
+
+- Our errors now go to the log under our own name, so the game's setting that pauses or opens the log on an error does not react to them. The line is still written.
+
 ## [0.38.0] - 2026-11-09 - Draft
 
 Bulk buying, for D'thorga Vehicles 0.16.0 (owner, 9 November 2026). **Not yet tested in game.** Design: docs/development/utility-vehicles-design.md.

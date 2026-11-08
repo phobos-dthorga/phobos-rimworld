@@ -153,6 +153,9 @@ public sealed class VehicleRepairs
     {
         var pending = new List<RepairWork>();
         if (!PlayersVehicle || comp.Vehicle.statHandler == null) return pending;
+        _ = comp.States;    // the conditions' stages are worked out with the systems'
+        // A request outlives nothing it was for: once no condition can be patched, the next one must wait to be asked for.
+        if (fieldFixRequested && !comp.Conditions.All.Any(CanFieldFix)) fieldFixRequested = false;
         if (Settings.destroyedPartsNeedSupplies)
         {
             foreach (VehicleComponent part in comp.Vehicle.statHandler.components)
@@ -238,10 +241,12 @@ public sealed class VehicleRepairs
     /// <summary>The one thing the repairs wait for, for the inspect line; null with none pending.</summary>
     public string? WaitingLine()
     {
-        if (Pending.Count == 0) return null;
-        RepairWork? ready = Ready;
+        // A patch nobody asked for is on offer in a caravan, but the vehicle is not waiting for it.
+        List<RepairWork> waiting = Pending.Where(r => r.Kind != RepairKind.FieldFix || fieldFixRequested).ToList();
+        if (waiting.Count == 0) return null;
+        RepairWork? ready = waiting.FirstOrDefault(r => AffordableOption(r) != null);
         if (ready != null) return "PhobosVehicleSystems_RepairWaitingMechanic".Translate(ready.Label.CapitalizeFirst().Named("WORK")).Resolve();
-        return NeedsLine(Pending[0]);
+        return NeedsLine(waiting[0]);
     }
 
     public string NeedsLine(RepairWork repair)
@@ -265,6 +270,7 @@ public sealed class VehicleRepairs
         switch (repair.Kind)
         {
             case RepairKind.ReplacePart:
+                comp.Conditions.RemoveOn(repair.Part!.props.key);    // a new part has none of the old one's troubles
                 comp.RestorePart(repair.Part!, Rules.replacedPartHealth);
                 NotifyRepairable();
                 text = "PhobosVehicleSystems_RepairReplaced".Translate(who, vehicle, repair.Part!.props.label.Named("PART")).Resolve();
@@ -286,7 +292,7 @@ public sealed class VehicleRepairs
     }
 
     /// <summary>Vehicle Framework keeps a list of vehicles to repair: a replaced part can be mended again, so the vehicle rejoins it.</summary>
-    void NotifyRepairable()
+    internal void NotifyRepairable()
     {
         if (comp.Vehicle.Spawned) MapComponentCache<ListerVehiclesRepairable>.GetComponent(comp.Vehicle.Map).NotifyVehicleTookDamage(comp.Vehicle);
     }

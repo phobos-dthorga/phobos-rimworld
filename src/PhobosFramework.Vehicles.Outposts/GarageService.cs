@@ -149,7 +149,9 @@ public static class GarageService
                 float missing = part.MaxHealth - part.Health;
                 if (missing <= 0f) continue;
                 float heal = Math.Min(missing, left);
+                float before = part.Health;
                 part.HealComponent(heal);
+                vehicle.GetComp<CompPhobosVehicleSystems>()?.Notify_RepairedAway(part, before);
                 left -= heal;
             }
         }
