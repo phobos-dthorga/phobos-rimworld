@@ -40,6 +40,12 @@ delivered, record the delivery in the changelog or design record, and add or ame
   `sql`) before searching mod folders by hand. It shows Defs as written, without other mods' patches applied; **`patched
   <defName>` shows a Def with every patch applied and a diff from its written form**, from the file D'thorga Framework writes
   on request (dev mode: its settings or the dev action "write patched Defs at the next start", then a restart).
+- **Read another mod's Defs as patched by default** (owner, 8 Nov 2026). `python scripts/query-defs.py patched <defName>`, from
+  `PatchedDefs.xml`, is the first source for what a Def really is in the owner's game; `who` and `show` then say who defines and
+  patches it and give the parent chain. Fall back to the as-written view only when the file has a blind spot, and say which: it is
+  missing or older than the change in question (the report says when it may be); the Def is made in code; C# changes it at startup
+  (Vanilla Expanded Framework sets its delivery spot's build category that way); inherited values are needed (the file is written
+  before inheritance); or the mod was not active when it was written.
 - **Answer questions about the game's or another mod's code with `python scripts/query-code.py`** (owner, 8 Nov 2026):
   `show Type.Member` for its source, `outline Type` for what a type holds, `refs Name` for every line using a name grouped
   by the member it is in, `find "*Pattern*"`; `--in "VehicleFramework*"` narrows to one decompile, `--in ours` to our

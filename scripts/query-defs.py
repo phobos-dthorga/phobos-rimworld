@@ -43,7 +43,7 @@ def main(argv=None, out=None):
     if out is None and hasattr(sys.stdout, 'reconfigure'):
         sys.stdout.reconfigure(encoding='utf-8', errors='replace')
     argv = list(sys.argv[1:] if argv is None else argv)
-    if argv and argv[0] == 'patched' and '--dump' not in argv and '-h' not in argv and '--help' not in argv:
+    if argv and argv[0] in ('patched', 'who', 'show') and '--dump' not in argv and '-h' not in argv and '--help' not in argv:
         argv += ['--dump', str(patched_defs_path(deploy.SETTINGS_FILE))]
     return rimworld_defs(argv, settings_file=deploy.SETTINGS_FILE, out=out)
 
