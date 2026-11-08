@@ -208,6 +208,11 @@ public class ITab_VehicleSystems : ITab
                 Widgets.Label(new Rect(0f, y, viewWidth, Row), "PhobosVehicleSystems_SysRating".Translate((t.Rating ?? "").Named("RATING")).Resolve() + ", "
                     + "PhobosVehicleSystems_SysEnginesWorking".Translate(working.Named("WORKING"), engines.Named("ENGINES")).Resolve());
                 y += Row;
+                if (engineer && train.BleedShare > 0)
+                {
+                    Widgets.Label(new Rect(0f, y, viewWidth, Row), "PhobosVehicleSystems_SysBleed".Translate(((float)train.BleedShare).ToStringPercent("0.#").Named("SHARE")).Resolve());
+                    y += Row;
+                }
                 if (engineer && train.JudgesHover)
                 {
                     (bool dry, bool wet, double margin) = train.HoverCheck();
@@ -275,7 +280,7 @@ public class ITab_VehicleSystems : ITab
         if (train != null && VehicleSystemsMod.Settings.drivetrainMode != DrivetrainMode.Off)
         {
             if (train.Ground) y += 28f + Row + (engineer ? 2 * Row : 0f) + (train.Cap < 0.99 ? Row : 0f) + 6f;
-            if (train.Turbine != null) y += 28f + 2 * Row + (engineer && train.JudgesHover ? Row : 0f);
+            if (train.Turbine != null) y += 28f + 2 * Row + (engineer && train.BleedShare > 0 ? Row : 0f) + (engineer && train.JudgesHover ? Row : 0f);
         }
         return y + Row;
     }

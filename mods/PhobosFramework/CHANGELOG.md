@@ -5,6 +5,20 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.24.0] - 2026-11-09 - Draft
+
+Bleed air (owner, 9 November 2026). **Not yet tested in game.** Design: docs/development/vehicle-turbine-design.md.
+
+### Added
+
+- Bleed air from gas turbines. In a hover the Harrier's puffer jets take about 3% more of its engine's work, up to half as much again in strong wind; cockpit heat or climate control takes half a per cent on every turbine aircraft. The engine holds its thrust by working harder, so it runs hotter, wears its hot section a little faster and has a little less hover margin; only past its limits does the hover suffer. NASA measured the Harrier's reaction control bleed in hover (Borchers and colleagues, 1994).
+- Engineer mode shows the bleed on the Systems tab's turbine line.
+- For modders: reactionControlBleed, gustBleedFactor and cabinBleed on a flight profile.
+
+### Balance
+
+- A heavy Harrier on a hot, windy day has slightly less margin to hover than before.
+
 ## [0.23.0] - 2026-11-09 - Draft
 
 The vehicle tabs on the world map (owner, 9 November 2026). **Not yet tested in game.** Design: docs/development/vehicle-tabs-design.md.

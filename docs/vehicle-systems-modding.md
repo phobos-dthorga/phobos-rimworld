@@ -393,6 +393,13 @@ vehicle's `PhobosVehicleCabinExtension` or its loadout's `cabin` block says `cli
 or when the player's setting gives it to every closed cab. The Cabin system then holds the cab near `climateTarget` (21), and the
 manual heater and air conditioner stand down (their `when` holds only while `climateControl` is not active).
 
+## Bleed air on a flight profile
+
+`reactionControlBleed` (the extra share of the engine's work its puffer jets take in a hover phase), `gustBleedFactor` (how much strong
+wind raises it; 0.5 is half as much again) and `cabinBleed` (the share while the cab heater or climate control runs). Each raises the
+engine's demand for the same thrust (`BleedRule`), so the turbine runs hotter and the hover margin shrinks by as much. All default to
+0, except the gust factor.
+
 ## Electric vehicles
 
 `PhobosVehicleLoadout_LandElectric` (kind `Electric`) claims every land vehicle Vehicle Framework runs on electricity. Its systems use

@@ -190,3 +190,22 @@ public class PowerAndLiftTests
         Assert.InRange(hours, earliest, latest);
     }
 }
+
+/// <summary>Bleed air (BleedRule; NASA TM-104021 for the Harrier's reaction control bleed in hover).</summary>
+public class BleedRuleTests
+{
+    [Fact]
+    public void ReactionControlBleedsOnlyInAHoverAndMoreInGusts()
+    {
+        Assert.Equal(0, BleedRule.Share(false, 0.03, 0.5, 2, false, 0.005), 6);
+        Assert.Equal(0.03, BleedRule.Share(true, 0.03, 0.5, 0.3, false, 0.005), 6);   // calm air
+        Assert.Equal(0.045, BleedRule.Share(true, 0.03, 0.5, 2, false, 0.005), 6);    // strong gusts: half as much again
+    }
+
+    [Fact]
+    public void CabinHeatAddsItsShareWheneverItRuns() =>
+        Assert.Equal(0.035, BleedRule.Share(true, 0.03, 0.5, 0.5, true, 0.005), 6);
+
+    [Fact]
+    public void BleedRaisesTheDemandForTheSameThrust() => Assert.Equal(0.927, BleedRule.Demand(0.9, 0.03), 6);
+}

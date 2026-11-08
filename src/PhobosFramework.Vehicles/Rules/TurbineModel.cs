@@ -165,3 +165,42 @@ public static class TurbineModel
     /// temperature-dependent, but no figure is cited yet). Zero inside the limit.</summary>
     public static double LifePerHour(double overContinuous) => overContinuous <= 0 ? 0 : 0.01 * Math.Pow(2, overContinuous / 25);
 }
+
+/// <summary>
+/// Bleed air: air a gas turbine's compressor gives up for other work, so the engine works harder for the same thrust or power
+/// (docs/development/vehicle-turbine-design.md). The Harrier's reaction control (its puffer jets) bleeds in a hover, more in gusty air:
+/// NASA measured 4.5 to 9.2 lb/s on a YAV-8B in hover, above 6 lb/s 60% of the time, and found the Pegasus held its thrust for bleed up
+/// to the mean by running hotter, losing thrust only past its temperature limit (Borchers and colleagues, NASA TM-104021, 1994). So
+/// bleed raises the engine's demand here rather than cutting thrust; the turbine model then heats, wears and reaches its limits as
+/// before. Game-free.
+/// </summary>
+public static class BleedRule
+{
+    /// <summary>The wind speed at which gusts add nothing (calm air), in the game's wind units (authored).</summary>
+    public const double CalmWind = 0.5;
+    /// <summary>The wind speed above calm at which gusts add their full share (authored).</summary>
+    public const double FullGustSpan = 1.0;
+
+    /// <summary>How far into gusty air the wind is, 0 (calm) to 1.</summary>
+    public static double GustShare(double windSpeed)
+    {
+        double share = (windSpeed - CalmWind) / FullGustSpan;
+        return share < 0 ? 0 : share > 1 ? 1 : share;
+    }
+
+    /// <summary>
+    /// The extra share of the engine's work bled off: the reaction controls' share while hovering, raised by up to
+    /// <paramref name="gustFactor"/> in gusty air (NASA's peaks were about half again the usual bleed), plus the cabin's share while it
+    /// is heated or conditioned with bleed air.
+    /// </summary>
+    public static double Share(bool hovering, double reactionControl, double gustFactor, double windSpeed, bool cabinOn, double cabin)
+    {
+        double share = 0;
+        if (hovering && reactionControl > 0) share += reactionControl * (1 + gustFactor * GustShare(windSpeed));
+        if (cabinOn && cabin > 0) share += cabin;
+        return share;
+    }
+
+    /// <summary>The engine's demand with the bleed: the same thrust or power asks the engine for more.</summary>
+    public static double Demand(double demand, double share) => demand * (1 + (share > 0 ? share : 0));
+}

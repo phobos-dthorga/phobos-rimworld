@@ -269,6 +269,25 @@ and the life curve (`tests/PhobosFramework.Vehicles.Rules.Tests`).
 5. An M1A2 idling: warm turbine, no coolant system; with a weak battery, a hot start message.
 6. Save and reload mid-flight: no errors.
 
+## Bleed air (Framework 0.24.0, 9 Nov 2026)
+
+The owner asked for it after the cockpit heating (bleed air heats a real cockpit): "Yes, please! Provided we can still maintain good
+performance". **Not yet tested in game.**
+
+- **Source:** P. F. Borchers, E. Moralez III, V. K. Merrick and M. W. Stortz, *YAV-8B reaction control system bleed and control power
+  usage in hover and transition*, NASA TM-104021, April 1994 ([NASA NTRS](https://ntrs.nasa.gov/citations/19940030488)). Read on
+  9 Nov 2026 from the scanned report: total reaction control bleed in hover varied from 9.2 to 4.5 lb/s, above 6 lb/s for 60% of the
+  time and 8 lb/s for about 4%; peaks came with transient control (gusts, corrections); the Pegasus could provide twice the most the
+  reaction controls used; and Rolls-Royce sized it "to provide constant thrust for bleed levels up to this mean total bleed, with
+  turbine entry temperature (TET) limits dictating a thrust reduction for higher bleed rates" (pages 1 and 6 of the report).
+- **The model (our inference from that):** bleed raises the engine's demand for the same thrust (`BleedRule.Demand`), so the turbine
+  model runs it hotter and wears it as before, and only past its ratings does the hover fail; the hover margin shrinks by the same
+  share. Reaction control bleeds only in hover phases, 3% of the engine's work in calm air (authored from NASA's flows; the share of
+  the engine's work is our estimate, not a measured figure), up to half as much again as the wind rises from 0.5 to 1.5 in the game's
+  wind units (NASA's peaks were about half again the usual bleed). Cabin heat or climate control on any turbine aircraft takes 0.5%
+  (authored). A helicopter steers with its rotors: no reaction control bleed.
+- **Cost:** one wind read, two load checks and a multiplication per aircraft per systems update (every 250 ticks).
+
 ## Open questions for the owner
 
 | Question | Agent lean |

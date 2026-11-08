@@ -182,6 +182,14 @@ public class PhobosVehicleFlightProfileDef : Def
     /// the aircraft before it launches, under the player's hover-limit setting.
     /// </summary>
     public bool liftCheckAtLaunch;
+    /// <summary>Bleed air for reaction control (puffer jets) while hovering, as an extra share of the engine's work (Framework 0.24.0;
+    /// BleedRule). 0 for none: a helicopter steers with its rotors.</summary>
+    public float reactionControlBleed;
+    /// <summary>How much gusty air raises the reaction control bleed, as a share of it at full gusts (0.5: half as much again).</summary>
+    public float gustBleedFactor = 0.5f;
+    /// <summary>Bleed air for cabin heat and air conditioning while the cab heater or climate control runs, as an extra share of the
+    /// engine's work. 0 for none.</summary>
+    public float cabinBleed;
 
     public FlightPhaseSpec? Phase(string? name) => name == null ? null : phases.FirstOrDefault(p => p.phase == name);
 

@@ -355,9 +355,11 @@ public sealed class Powertrain
         bool water = HasWater();
         TurbineSpec usable = water ? spec : dryTurbine ?? spec;
         ApplyDriveLimit(usable);
-        double demand = PhaseSpec == null ? 0 : PhaseSpec.hover ? HoverDemand(usable) : PhaseSpec.demand;
-        TurbineNow = TurbineModel.Evaluate(usable, demand, comp.Ambient, Condition(), working, engines, running);
         bool hovering = running && PhaseSpec != null && PhaseSpec.hover;
+        BleedShare = running ? Bleed(vehicle, hovering) : 0;
+        double demand = PhaseSpec == null ? 0 : PhaseSpec.hover ? HoverDemand(usable) : PhaseSpec.demand;
+        demand = BleedRule.Demand(demand, BleedShare);
+        TurbineNow = TurbineModel.Evaluate(usable, demand, comp.Ambient, Condition(), working, engines, running);
         bool beyond = hovering && Full && TurbineNow.OverTop > 0;
         if (beyond && VehicleSystemsMod.Settings.hoverLimit == VehicleSystemsSettings.HoverLimit.WarnOnly)
         {
@@ -381,6 +383,17 @@ public sealed class Powertrain
             Cap = 1,
         };
         Cap = 1;
+    }
+
+    /// <summary>The share of the engine's work bled off now: reaction control in a hover (more in wind) and cabin heat (derived).</summary>
+    public double BleedShare { get; private set; }
+
+    double Bleed(VehiclePawn vehicle, bool hovering)
+    {
+        if (Profile == null) return 0;
+        float wind = vehicle.Spawned && vehicle.Map != null ? vehicle.Map.windManager.WindSpeed : 0f;
+        bool cabin = Profile.cabinBleed > 0 && (comp.LoadActive("cabHeater") || comp.LoadActive("climateControl"));
+        return BleedRule.Share(hovering, Profile.reactionControlBleed, Profile.gustBleedFactor, wind, cabin, Profile.cabinBleed);
     }
 
     /// <summary>Whether this hover's over-limit message has been sent (once per hover; derived, never saved).</summary>
@@ -410,11 +423,15 @@ public sealed class Powertrain
         if (spec.Continuous.ThrustKn > 0 || spec.Ratings.Any(r => r.ThrustKn > 0))
         {
             (double dry, double wet) = TurbineModel.HoverMargin(spec, MassKg(), comp.Ambient, Condition() * EngineShare());
+            // The same thrust asks more of the engine with bleed air taken (BleedRule), so the margin shrinks by as much.
+            double bled = BleedRule.Demand(1, Profile != null ? Bleed(comp.Vehicle, hovering: true) : 0);
+            dry /= bled;
+            wet /= bled;
             if (!HasWater()) wet = dry;
             return (dry >= 1, wet >= 1, Math.Max(dry, wet));
         }
         ApplyDriveLimit(spec);
-        double needed = HoverDemand(spec);
+        double needed = BleedRule.Demand(HoverDemand(spec), Profile != null ? Bleed(comp.Vehicle, hovering: true) : 0);
         double available = TurbineModel.LiftPowerAvailable(spec, comp.Ambient, Condition(), EngineShare());
         return (available >= needed, available >= needed, available / Math.Max(0.01, needed));
     }

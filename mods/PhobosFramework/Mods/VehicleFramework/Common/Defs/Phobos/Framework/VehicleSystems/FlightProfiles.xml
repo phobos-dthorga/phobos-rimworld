@@ -16,6 +16,14 @@
   -->
   <Phobos.VehicleSystems.PhobosVehicleFlightProfileDef>
     <defName>PhobosFlightProfile_FixedWingJet</defName>
+    <!-- Bleed air (Framework 0.24.0): in a hover the reaction controls (puffer jets) take about 3% more of the engine's work, half as
+         much again in strong gusts, and cockpit heat or air conditioning half a per cent. NASA measured 4.5 to 9.2 lb/s of reaction
+         control bleed on a YAV-8B in hover, the peaks with gusts and corrections, and found the Pegasus held its thrust for bleed up to
+         the mean by running hotter (Borchers, Moralez, Merrick and Stortz, NASA TM-104021, 1994; ntrs.nasa.gov/citations/19940030488).
+         The shares are authored from that; the cabin's is authored. -->
+    <reactionControlBleed>0.03</reactionControlBleed>
+    <gustBleedFactor>0.5</gustBleedFactor>
+    <cabinBleed>0.005</cabinBleed>
     <label>fixed-wing jet</label>
     <reader Class="Phobos.VehicleSystems.PhaseReader_Members">
       <rules>
@@ -54,6 +62,9 @@
   -->
   <Phobos.VehicleSystems.PhobosVehicleFlightProfileDef>
     <defName>PhobosFlightProfile_Helicopter</defName>
+    <!-- Cabin heat and air conditioning from bleed air (Framework 0.24.0; authored). A helicopter steers with its rotors: no reaction
+         control bleed. -->
+    <cabinBleed>0.005</cabinBleed>
     <label>helicopter</label>
     <hoverPowerAtMaxGross>0.9</hoverPowerAtMaxGross>
     <reader Class="Phobos.VehicleSystems.PhaseReader_Members">
@@ -83,6 +94,9 @@
   <!-- Any other Vehicle Framework aircraft: in flight from its launcher's flag; drafted on the ground counts as taxiing. -->
   <Phobos.VehicleSystems.PhobosVehicleFlightProfileDef>
     <defName>PhobosFlightProfile_StockAircraft</defName>
+    <!-- Cabin heat and air conditioning from bleed air (Framework 0.24.0; authored). A helicopter steers with its rotors: no reaction
+         control bleed. -->
+    <cabinBleed>0.005</cabinBleed>
     <label>aircraft</label>
     <reader Class="Phobos.VehicleSystems.PhaseReader_Members">
       <rules>
@@ -103,6 +117,9 @@
   -->
   <Phobos.VehicleSystems.PhobosVehicleFlightProfileDef>
     <defName>PhobosFlightProfile_StockRotorcraft</defName>
+    <!-- Cabin heat and air conditioning from bleed air (Framework 0.24.0; authored). A helicopter steers with its rotors: no reaction
+         control bleed. -->
+    <cabinBleed>0.005</cabinBleed>
     <label>helicopter</label>
     <hoverPowerAtMaxGross>0.85</hoverPowerAtMaxGross>
     <liftCheckAtLaunch>true</liftCheckAtLaunch>
