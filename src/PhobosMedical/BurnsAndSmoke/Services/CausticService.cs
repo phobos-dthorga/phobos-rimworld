@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Phobos.BurnsAndSmoke.Comps;
 using Phobos.BurnsAndSmoke.Defs;
@@ -31,12 +32,15 @@ public static class CausticService
         var dose = pawn.health.hediffSet.GetFirstHediffOfDef(BurnsDefOf.PhobosBurns_CausticExposure) as Hediff_PhobosCausticExposure;
         float density = pawn.Spawned && pawn.Map != null ? PhobosGases.Density(pawn.Position, pawn.Map, GasKind.Toxic) : 0f;
         bool exposed = density > 0f;
+        float clothes = settings.causticStripAndRinse ? ClothesExposure(pawn, rules) : 0f;
         if (dose == null)
         {
-            if (!exposed) return;
+            if (!exposed && clothes <= 0f) return;
             dose = (Hediff_PhobosCausticExposure)pawn.health.AddHediff(BurnsDefOf.PhobosBurns_CausticExposure);
         }
         if (exposed) Expose(pawn, dose, density, rules, fast, hours);
+        if (exposed && settings.causticStripAndRinse) ContaminateWorn(pawn, density, rules, hours);
+        if (clothes > 0f) dose.skinDose = CausticRule.AddDose(dose.skinDose, clothes, rules.causticDosePerHourAtFull, hours);
         dose.ticksSinceFirst += intervalTicks;
         dose.ticksSinceExposed = exposed ? 0 : dose.ticksSinceExposed + intervalTicks;
         float elapsed = dose.ticksSinceFirst / TicksPerHour;
@@ -159,6 +163,108 @@ public static class CausticService
             dose.skinDose = 0f;
             dose.skinPending = 0f;
         }
+    }
+
+    // ---- Contaminated clothing (strip and rinse, a setting) and washing elsewhere (Dubs Bad Hygiene) ----
+
+    /// <summary>Ways other mods tell us a pawn is washing (Dubs Bad Hygiene's shower or bath): each says whether the pawn is washing
+    /// its whole body now. Registered by tie-ins at startup.</summary>
+    public static readonly List<Func<Pawn, bool>> WashingProbes = new();
+
+    public static bool WashingElsewhere(Pawn pawn)
+    {
+        for (int i = 0; i < WashingProbes.Count; i++)
+        {
+            try
+            {
+                if (WashingProbes[i](pawn)) return true;
+            }
+            catch (Exception)
+            {
+                // A tie-in's probe must never break the burns pass.
+            }
+        }
+        return false;
+    }
+
+    /// <summary>Called on every burns pass: a pawn washing elsewhere is decontaminated and rinsed as at a safety shower.</summary>
+    public static void CheckWashing(Pawn pawn, BurnsAndSmokeSettings settings)
+    {
+        if (WashingProbes.Count == 0 || !pawn.Spawned) return;
+        bool needs = ChemicalService.NeedsRinse(pawn)
+            || (pawn.health.hediffSet.GetFirstHediffOfDef(BurnsDefOf.PhobosBurns_CausticExposure) is Hediff_PhobosCausticExposure dose && dose.skinDose > 0f);
+        if (!needs || !WashingElsewhere(pawn)) return;
+        if (settings.causticStripAndRinse) StripContaminated(pawn);
+        ChemicalService.Rinse(pawn);
+    }
+
+    static void ContaminateWorn(Pawn pawn, float density, PhobosBurnRulesDef rules, float hours)
+    {
+        List<Apparel>? worn = pawn.apparel?.WornApparel;
+        if (worn == null || SealedSuit(pawn)) return;
+        for (int i = 0; i < worn.Count; i++)
+        {
+            worn[i].TryGetComp<CompPhobosContamination>()?.Add(density * rules.causticClothesPerHourAtFull * hours);
+        }
+    }
+
+    /// <summary>How much the worn clothes dose the skin, as a gas density: each garment's residue times the share of the skin it covers.</summary>
+    static float ClothesExposure(Pawn pawn, PhobosBurnRulesDef rules)
+    {
+        List<Apparel>? worn = pawn.apparel?.WornApparel;
+        if (worn == null || worn.Count == 0) return 0f;
+        float total = 0f;
+        for (int i = 0; i < worn.Count; i++)
+        {
+            CompPhobosContamination? comp = worn[i].TryGetComp<CompPhobosContamination>();
+            if (comp == null || !comp.Contaminated) continue;
+            total += comp.Level * CoveredShare(pawn, worn[i]);
+        }
+        total *= rules.causticClothesDoseFactor;
+        return total > 1f ? 1f : total;
+    }
+
+    public static bool WearsContaminated(Pawn pawn)
+    {
+        List<Apparel>? worn = pawn.apparel?.WornApparel;
+        if (worn == null) return false;
+        for (int i = 0; i < worn.Count; i++)
+        {
+            if (worn[i].TryGetComp<CompPhobosContamination>()?.Contaminated == true) return true;
+        }
+        return false;
+    }
+
+    /// <summary>Strip and rinse: takes off every contaminated garment and drops it, forbidden, where the pawn stands. Says so.</summary>
+    public static void StripContaminated(Pawn pawn)
+    {
+        Pawn_ApparelTracker? tracker = pawn.apparel;
+        List<Apparel>? worn = tracker?.WornApparel;
+        if (tracker == null || worn == null || !pawn.Spawned) return;
+        var stripped = new List<Apparel>();
+        for (int i = 0; i < worn.Count; i++)
+        {
+            if (worn[i].TryGetComp<CompPhobosContamination>()?.Contaminated == true) stripped.Add(worn[i]);
+        }
+        foreach (Apparel apparel in stripped)
+        {
+            tracker.TryDrop(apparel, out Apparel _, pawn.PositionHeld, forbid: true);
+        }
+        if (stripped.Count > 0 && pawn.Faction == Faction.OfPlayer)
+        {
+            Messages.Message("PhobosBurns_MsgStripped".Translate(pawn.LabelShort.Named("PAWN"), stripped.Count.Named("COUNT")), pawn, MessageTypeDefOf.NeutralEvent);
+        }
+    }
+
+    /// <summary>The share of the skin one garment covers.</summary>
+    static float CoveredShare(Pawn pawn, Apparel apparel)
+    {
+        float covered = 0f;
+        foreach (BodyPartRecord part in pawn.health.hediffSet.GetNotMissingParts(BodyPartHeight.Undefined, BodyPartDepth.Outside))
+        {
+            if (apparel.def.apparel.CoversBodyPart(part)) covered += SkinShares.For(part);
+        }
+        return covered > 1f ? 1f : covered;
     }
 
     /// <summary>Hours until the delayed harm begins, for the tooltip; 0 once it has.</summary>

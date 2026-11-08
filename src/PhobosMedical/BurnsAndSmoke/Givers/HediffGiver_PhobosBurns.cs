@@ -32,6 +32,7 @@ public class HediffGiver_PhobosBurns : HediffGiver
         AirwayService.Apply(pawn, rules, settings);
         EscharService.Apply(pawn, rules, settings);
         CausticService.Apply(pawn, rules, settings, interval);
+        CausticService.CheckWashing(pawn, settings);
     }
 
     public override bool OnHediffAdded(Pawn pawn, Hediff hediff)
@@ -53,6 +54,8 @@ public class HediffGiver_PhobosBurns : HediffGiver
             return true;
         }
         if (BurnLoadService.HasBurn(pawn) || pawn.IsBurning()) return true;
+        if (set.HasHediff(BurnsDefOf.PhobosBurns_ChemicalOnSkin)) return true;
+        if (BurnsAndSmokeMod.Settings.causticStripAndRinse && CausticService.WearsContaminated(pawn)) return true;
         return SmokeExposureService.Exposed(pawn) || CausticService.InToxGas(pawn);
     }
 }

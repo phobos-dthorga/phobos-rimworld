@@ -27,6 +27,9 @@ public class BurnsAndSmokeSettings : ModSettings
     public bool causticScarring = true;
     /// <summary>Plants in dense caustic gas wilt and can die (owner, 9 Nov 2026).</summary>
     public bool causticPlants = true;
+    /// <summary>Clothes worn in the gas carry it and keep burning the skin until stripped and rinsed (owner, 9 Nov 2026: a setting, off;
+    /// by default the shower is enough).</summary>
+    public bool causticStripAndRinse;
     /// <summary>Acid left on the skin keeps burning until it is spent or rinsed off.</summary>
     public bool chemicalBurns = true;
     /// <summary>Deeply burned limbs form a constricting eschar.</summary>
@@ -60,6 +63,7 @@ public class BurnsAndSmokeSettings : ModSettings
         Scribe_Values.Look(ref causticAftermath, "PhobosBurns_CausticAftermath", true);
         Scribe_Values.Look(ref causticScarring, "PhobosBurns_CausticScarring", true);
         Scribe_Values.Look(ref causticPlants, "PhobosBurns_CausticPlants", true);
+        Scribe_Values.Look(ref causticStripAndRinse, "PhobosBurns_CausticStripAndRinse", false);
         Scribe_Values.Look(ref smoke, "PhobosBurns_Smoke", true);
         Scribe_Values.Look(ref carbonMonoxide, "PhobosBurns_CarbonMonoxide", true);
         Scribe_Values.Look(ref fireHeatOutdoors, "PhobosBurns_FireHeatOutdoors", true);
@@ -109,7 +113,8 @@ public static class BurnsAndSmokeMod
         if (!Settings.causticGas) report.Off("caustic gas", "setting");
         else if (!ModsConfig.BiotechActive) report.Off("caustic gas", "no tox gas without Biotech");
         else report.On("caustic gas, " + (Settings.causticFastActing ? "fast-acting" : "slow-acting")
-            + (Settings.causticScarring && Settings.causticEyes ? ", corneal scarring" : "") + (Settings.causticPlants ? ", plants wilt" : ""));
+            + (Settings.causticScarring && Settings.causticEyes ? ", corneal scarring" : "") + (Settings.causticPlants ? ", plants wilt" : "")
+            + (Settings.causticStripAndRinse ? ", strip and rinse" : "") + (CausticService.WashingProbes.Count > 0 ? ", washing elsewhere decontaminates" : ""));
         if (!Settings.eschar) report.Off("eschar", "setting");
         else report.On(OptionalMods.IsActive(OptionalMods.MoreInjuries) ? "eschar, More Injuries' gangrene for a starved limb" : "eschar, ischaemic damage for a starved limb");
         if (Settings.smoke) report.On("smoke inhalation, " + (PhobosGases.UsesCombatExtendedSmoke ? "Combat Extended's condition as the signal" : "the game's smoke as the signal")); else report.Off("smoke inhalation", "setting");
@@ -146,6 +151,7 @@ public static class BurnsAndSmokeMod
             listing.CheckboxLabeled("PhobosBurns_SettingCausticAftermath".Translate(), ref Settings.causticAftermath);
             listing.CheckboxLabeled("PhobosBurns_SettingCausticScarring".Translate(), ref Settings.causticScarring, "PhobosBurns_SettingCausticScarringDesc".Translate());
             listing.CheckboxLabeled("PhobosBurns_SettingCausticPlants".Translate(), ref Settings.causticPlants, "PhobosBurns_SettingCausticPlantsDesc".Translate());
+            listing.CheckboxLabeled("PhobosBurns_SettingCausticStrip".Translate(), ref Settings.causticStripAndRinse, "PhobosBurns_SettingCausticStripDesc".Translate());
         }
         listing.CheckboxLabeled("PhobosBurns_SettingSmoke".Translate(), ref Settings.smoke, "PhobosBurns_SettingSmokeDesc".Translate());
         listing.CheckboxLabeled("PhobosBurns_SettingCarbonMonoxide".Translate(), ref Settings.carbonMonoxide, "PhobosBurns_SettingCarbonMonoxideDesc".Translate());

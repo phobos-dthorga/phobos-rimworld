@@ -29,7 +29,9 @@ public static class ChemicalService
         else onSkin.Severity = 1f;
     }
 
-    public static bool NeedsRinse(Pawn pawn) => pawn.health.hediffSet.HasHediff(BurnsDefOf.PhobosBurns_ChemicalOnSkin);
+    /// <summary>Acid on the skin; or, with strip and rinse on, clothes carrying caustic residue.</summary>
+    public static bool NeedsRinse(Pawn pawn) => pawn.health.hediffSet.HasHediff(BurnsDefOf.PhobosBurns_ChemicalOnSkin)
+        || (BurnsAndSmokeMod.Settings.causticStripAndRinse && CausticService.WearsContaminated(pawn));
 
     /// <summary>Whether every open chemical burn is on an eye, so an eyewash's water is enough.</summary>
     public static bool OnEyesOnly(Pawn pawn)

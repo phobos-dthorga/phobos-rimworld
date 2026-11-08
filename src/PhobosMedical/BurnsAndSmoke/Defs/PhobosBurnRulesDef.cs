@@ -130,6 +130,14 @@ public class PhobosBurnRulesDef : PhobosRulesDef
     public float causticPlantDamagePerHourAtFull = 20f;
     /// <summary>How often the plants are checked, in ticks (an in-game hour).</summary>
     public int causticPlantIntervalTicks = 2500;
+    /// <summary>Strip and rinse: residue a garment takes up an hour in full-density gas (authored, as the dose's own rate).</summary>
+    public float causticClothesPerHourAtFull = 0.6f;
+    /// <summary>Strip and rinse: a worn garment doses the skin as gas of its residue times this density (authored).</summary>
+    public float causticClothesDoseFactor = 0.3f;
+    /// <summary>Strip and rinse: residue lost a day as it off-gasses (authored: a soaked garment is clear in about four days).</summary>
+    public float causticClothesFadePerDay = 0.25f;
+    /// <summary>Strip and rinse: below this a garment counts as clean (authored).</summary>
+    public float causticClothesThreshold = 0.05f;
 
     // Acid on the skin (D'thorga Medical 0.7.0, with the safety shower).
     /// <summary>Burn damage an hour, spread over the acid burns, while fresh acid is still on the skin (authored).</summary>

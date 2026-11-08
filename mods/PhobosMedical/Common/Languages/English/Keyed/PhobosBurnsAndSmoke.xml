@@ -32,6 +32,11 @@
   <PhobosBurns_SettingCausticScarringDesc>On by default: once a burned eye heals, it keeps a scarred cornea that dims its sight for good, more after a worse burn. A replacement eye or a healer mech serum puts it right.</PhobosBurns_SettingCausticScarringDesc>
   <PhobosBurns_SettingCausticPlants>Tox gas: plants wilt</PhobosBurns_SettingCausticPlants>
   <PhobosBurns_SettingCausticPlantsDesc>On by default: plants and crops in dense tox gas are scorched hour by hour and die if it lingers. Corpses are left alone.</PhobosBurns_SettingCausticPlantsDesc>
+  <PhobosBurns_SettingCausticStrip>Tox gas: strip and rinse</PhobosBurns_SettingCausticStrip>
+  <PhobosBurns_SettingCausticStripDesc>Off by default, when washing at a shower is enough. On: clothes worn in tox gas soak it up and keep burning the skin while worn. A gassed colonist goes to a shower, strips the contaminated clothes (they are left forbidden) and rinses. The clothes clear in about four days, or at once in a washing machine.</PhobosBurns_SettingCausticStripDesc>
+  <PhobosBurns_ContaminatedLabel>{LABEL} (contaminated)</PhobosBurns_ContaminatedLabel>
+  <PhobosBurns_ContaminatedInspect>Soaked with caustic residue: it keeps burning whoever wears it until it clears or is washed.</PhobosBurns_ContaminatedInspect>
+  <PhobosBurns_MsgStripped>{PAWN} has stripped off {COUNT} contaminated garments before rinsing. They are forbidden until they clear or are washed.</PhobosBurns_MsgStripped>
   <PhobosBurns_CausticTipLaterPlain>The worst of it comes on later. Watch their eyes, lungs and skin over the next few days, and wash them at a safety shower.</PhobosBurns_CausticTipLaterPlain>
   <PhobosBurns_CausticTipNowPlain>The harm is coming on now: eyes, lungs and skin. Tend them and keep them in bed.</PhobosBurns_CausticTipNowPlain>
   <PhobosBurns_CausticTip>Dose: eyes {EYES}, lungs {LUNGS}, skin {SKIN}. Harm begins in about {HOURS} hours.</PhobosBurns_CausticTip>

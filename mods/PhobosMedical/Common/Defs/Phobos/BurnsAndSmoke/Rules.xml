@@ -101,6 +101,10 @@
     <causticPlantMinDensity>0.3</causticPlantMinDensity>
     <causticPlantDamagePerHourAtFull>20</causticPlantDamagePerHourAtFull>
     <causticPlantIntervalTicks>2500</causticPlantIntervalTicks>
+    <causticClothesPerHourAtFull>0.6</causticClothesPerHourAtFull>
+    <causticClothesDoseFactor>0.3</causticClothesDoseFactor>
+    <causticClothesFadePerDay>0.25</causticClothesFadePerDay>
+    <causticClothesThreshold>0.05</causticClothesThreshold>
     <!-- Acid on the skin: 2 burn damage an hour while fresh, spread over the acid burns, falling as it is spent (authored). -->
     <chemicalDeepenPerHourAtFull>2</chemicalDeepenPerHourAtFull>
     <!-- Eschar (burns phase 2, owner's go of 7 Nov 2026). A limb whose open burn damage reaches 60% of its health forms a

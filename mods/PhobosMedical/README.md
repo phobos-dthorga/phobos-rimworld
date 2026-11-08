@@ -497,7 +497,10 @@ burn dressings for burns; and an electrolyser and a liquid oxygen store to make 
   colonists in bed and watch them. A setting makes it fast-acting, closer to the game's own feel. **A gas mask protects the eyes and
   lungs, not the skin**; only a sealed suit protects everything. **Washing at a safety shower takes it off the skin.** Each part of it
   has its own setting. **From 0.8.0** a badly burned eye leaves a **scarred cornea** that dims it for good (a replacement eye or a
-  healer mech serum fixes it), and **plants and crops in dense tox gas wilt** and die if it lingers.
+  healer mech serum fixes it), and **plants and crops in dense tox gas wilt** and die if it lingers. **With Dubs Bad Hygiene, its showers
+  and baths work as safety showers**, and an ordinary shower, bath, hot tub, swim or wash takes the gas and acid off the skin. The
+  setting **strip and rinse** (off) makes gassed clothes keep burning until a colonist strips them at a shower; they are left forbidden
+  and clear in about four days, or at once in a washing machine.
 - **New in 0.7.0: acid keeps burning until it is washed off, and the safety shower washes it off** (not yet tested in game). An acid
   burn leaves **acid on the skin** for about three hours, deepening the burns. **Anyone who can walk runs to the nearest safety shower
   by themselves** (within 60 cells) and rinses for a quarter of an hour; **doctors draw water there and rinse patients who can't walk**.

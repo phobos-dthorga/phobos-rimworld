@@ -231,6 +231,17 @@
     <deathMessage>{0} has died of caustic burns.</deathMessage>
   </DamageDef>
 
+  <!-- Strip and rinse (a setting, off): contaminated clothes, for apparel policies and stockpiles. New policies leave them out. -->
+  <SpecialThingFilterDef>
+    <defName>PhobosBurns_AllowContaminatedApparel</defName>
+    <label>allow contaminated</label>
+    <description>Allow clothes soaked with caustic residue from tox gas.</description>
+    <parentCategory>Apparel</parentCategory>
+    <allowedByDefault>false</allowedByDefault>
+    <saveKey>PhobosBurns_AllowContaminated</saveKey>
+    <workerClass>Phobos.BurnsAndSmoke.Comps.SpecialThingFilterWorker_PhobosContaminated</workerClass>
+  </SpecialThingFilterDef>
+
   <!-- Plants in dense caustic gas are scorched (owner, 9 Nov 2026: plants wilt, corpses unaffected). Chlorine and similar gases burn
        leaves and kill plants (general). Hit points only; never applied to anything but plants. -->
   <DamageDef>

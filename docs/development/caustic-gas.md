@@ -188,8 +188,14 @@ The owner's answers to the open points (9 Nov 2026). **Not yet tested in game.**
   in-game hour, 20 hit points an hour at full density (authored: a crop of about 85 lives about four hours in thick gas). Its own setting, on.
 - **Supplied oxygen eases and speeds recovery.** It already eased low breathing (+20%, never past normal); chemical lung injury now
   heals 0.06 a day more on oxygen (authored: half as much again as tending), from smoke or caustic gas alike.
-- **Contaminated clothing:** the shower stays enough by default; Dubs Bad Hygiene users get extra decontamination, and strip and rinse
-  becomes a main-menu setting. Built separately (see below when it lands).
+- **Contaminated clothing:** the shower stays enough by default (as built in 0.7.0: a rinse clears the skin dose, clothes included).
+  **With Dubs Bad Hygiene:** its shower and bath bases carry the rinse station and plumbing-water comps, so they work as safety showers;
+  and any of its washing jobs (shower, bath, hot tub, swimming, washing at a water cell or wash bucket; not the sauna) rinses as a
+  safety shower does, through a probe its tie-in registers. **Strip and rinse (a setting, off):** worn garments take up residue in the
+  gas (0.6 an hour at full density, as the dose), dose the skin while worn at 0.3 of their residue times the skin they cover, fade 0.25
+  a day, and count as clean below 0.05 (all authored); a colonist wearing one seeks a shower, strips it there (dropped forbidden), and
+  rinses. Dubs Bad Hygiene's washing machine cleans them (a prefix on its unloading). A special filter, "allow contaminated", is off in
+  new apparel policies and stockpiles.
 
 ## Test protocol (owner runs it, once built)
 

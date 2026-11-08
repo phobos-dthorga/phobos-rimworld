@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Phobos.BurnsAndSmoke;
 using Phobos.BurnsAndSmoke.Services;
 using Phobos.Framework.Health;
 using Phobos.Medical.Comps;
@@ -89,7 +90,12 @@ public static class RinseService
         return false;
     }
 
-    public static void Finish(Pawn rinsed) => ChemicalService.Rinse(rinsed);
+    /// <summary>The rinse ends: with strip and rinse on, contaminated clothes come off first; then the skin is washed.</summary>
+    public static void Finish(Pawn rinsed)
+    {
+        if (BurnsAndSmokeMod.Settings.causticStripAndRinse) CausticService.StripContaminated(rinsed);
+        ChemicalService.Rinse(rinsed);
+    }
 
     static void Rebuild(Map map, List<Pawn> list)
     {

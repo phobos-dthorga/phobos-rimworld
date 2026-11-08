@@ -16,6 +16,8 @@ The rest of the caustic gas, from the owner's answers of 9 November 2026. **Not 
 - Plants and crops in dense tox gas are scorched hour by hour and die if it lingers; corpses are left alone. Its own setting, on by default.
 - Supplied oxygen now speeds the recovery of chemical lung injury, from smoke or caustic gas, by half as much again as tending alone. It already eased low breathing.
 - Dev actions: heal caustic eye injuries of selected pawns now (to see the scarring), scorch plants in tox gas now.
+- With Dubs Bad Hygiene: its showers and baths serve as safety showers (anyone with acid on the skin runs to the nearest and rinses, drawing the water from the plumbing), and taking a shower or a bath, a hot tub, a swim, or a wash at a water cell or a wash bucket washes acid and caustic residue off as a rinse does.
+- Strip and rinse (setting, off by default, when the shower alone is enough): clothes worn in tox gas soak it up, are shown as contaminated, and keep burning the skin while worn. A gassed colonist goes to a shower, strips them (left forbidden) and rinses. They clear in about four days, or at once in Dubs Bad Hygiene's washing machine. New apparel policies and stockpiles leave contaminated clothes out.
 
 ### Dependencies
 
@@ -24,6 +26,13 @@ The rest of the caustic gas, from the owner's answers of 9 November 2026. **Not 
 ### Save compatibility
 
 - Safe to add. Eye injuries already healing remember their worst from now on, so one already past its worst before the update may leave no scar.
+- Strip and rinse saves each garment's residue with it. Removing the mod drops that, with no error.
+
+### Compatibility and limits
+
+- Whether pawns rinse well at Dubs Bad Hygiene's showers and baths, which pawns pass through rather than stand on, is not yet tested in game. The sauna does not wash.
+- Apparel policies and stockpiles made before this version allow contaminated clothes until the filter is unticked, so stripped clothes are dropped forbidden.
+- The washing machine clears residue through one Harmony prefix on its unloading, which never skips it.
 
 ## [0.7.1] - 2026-11-09 - Draft
 
