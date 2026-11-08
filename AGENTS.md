@@ -131,7 +131,8 @@ delivered, record the delivery in the changelog or design record, and add or ame
 - A mod's version lives in `About/About.xml` (`modVersion`), every project of the mod, its `ModVersion` constants, its
   README and `docs/README.md`, all registered in `config/maintained-constants.json`. **Set it with
   `python scripts/release.py constants --set <Mod>.version=X.Y.Z --apply`** (phobos-modkit's updater checks every copy
-  before writing any), never by hand; then write the changelog entry and the README's built date in the same commit.
+  before writing any), never by hand; then write the changelog entry and the README's built date in the same commit,
+  **and stage `config/maintained-constants.json` with them**: the tool records the new value there too.
   `scripts/check-mod-layout.py` refuses a copy the catalogue does not list, and `python scripts/release.py changelog
   mods/*/CHANGELOG.md` checks every entry fits a Workshop page.
 - Every change to a mod updates its `CHANGELOG.md` in the same commit: an Unreleased section, then dated
