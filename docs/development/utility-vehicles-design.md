@@ -339,7 +339,7 @@ node, not the base texture), a `StatUpgrade` sets the capacity, and the unlocked
 | `PressureVessel` | 1,200 units | A pressure vessel holds far less per tonne of steel than an open tank; authored ratio | A single cylinder with hemispherical ends, a relief valve and a gauge cabinet |
 
 **Variants from the accepted art (owner, 8 Nov 2026: all twelve overlay attempts are accepted, for upgrades, extensions and storage types;
-the mapping and figures are the agent's proposal, owner to confirm).** Under principle 8 each variant that becomes a node must move a figure.
+the owner approved the mapping below, 8 Nov 2026; the figures are authored).** Under principle 8 each variant that becomes a node must move a figure.
 
 | Accepted art | Proposed node | What it would change (authored) |
 | --- | --- | --- |
@@ -414,7 +414,7 @@ work once a tank is fitted.
 | Front axle and wheels | 35 | External | (0, 3) (1, 3) | MoveSpeed | |
 | Rear axles and wheels | 50 | External | (0, −1) (1, −1) (0, −2) (1, −2) | MoveSpeed | Tandem axles |
 | Truck fuel tank | 35 | Internal | (0, 1) | | VF's fuel-leak reactor |
-| Tank shell | 90 | External | (0, 1) (1, 1) (0, 0) (1, 0) (0, −1) (1, −1) (0, −2) (1, −2) | Phobos_TankIntegrity | Our reactor: a hit drains liquid as a puddle (chemfuel: filth that burns) or vents gas fast; flammable contents at zero integrity explode through VF's `Reactor_Explosive`, scaled to the load, as VCHE's fixed tank already does (`CompProperties_ExplosiveContent`, flame, radius up to 12 at 4,500 units; patched Def read 8 Nov 2026); the default is the owner's call |
+| Tank shell | 90 | External | (0, 1) (1, 1) (0, 0) (1, 0) (0, −1) (1, −1) (0, −2) (1, −2) | Phobos_TankIntegrity | Our reactor: a hit drains liquid as a puddle (chemfuel: filth that burns) or vents gas fast; flammable contents at zero integrity explode through VF's `Reactor_Explosive`, scaled to the load, as VCHE's fixed tank already does (`CompProperties_ExplosiveContent`, flame, radius up to 12 at 4,500 units; patched Def read 8 Nov 2026); on by default, with a setting to turn it off (owner, 8 Nov 2026) |
 | Tank fittings | 40 | External | (0, −2) (1, −2) | Phobos_TankIntegrity | Baffles on the liquid tank; the relief valve and gauge on the pressure vessel (the node sets the label; the part key never changes) |
 | Pump and power take-off | 40 | Internal | (1, 2) | Phobos_PumpRate | Below the floor nothing moves |
 | Hose reel and couplings | 30 | External | (0, −2) (1, −2) | Phobos_PumpRate | Needed to deploy |
@@ -539,7 +539,7 @@ already do it (IDs in the mechanics record); the lean is the agent's.
 | The tanker's name | "Bulk tanker" as a working name |
 | Hemogen as tanker contents? | **Yes**, and it spoils like nutrient paste (owner, 8 Nov 2026) |
 | Insulation on the tanker: do contents freeze and gel? | **Yes**, as the section Temperature says; insulation is the insulated tank, not a separate node (owner, 8 Nov 2026) |
-| A flammable load exploding at zero tank integrity: on or off by default? | On, scaled to the load, as VCHE's fixed tank already explodes; a setting turns it off |
+| A flammable load exploding at zero tank integrity: on or off by default? | **On**, scaled to the load, with a setting to turn it off (owner, 8 Nov 2026) |
 | Chemfuel rig, or an electric variant alongside? | Chemfuel first |
 | Drill-bit wear as a consumable? | Later, with the systems service's wear phase |
 | Wheels or tracks on the rig? | Wheels (a truck rig); tracks as a variant |
