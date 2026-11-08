@@ -349,5 +349,12 @@ public static class VehicleSystemsDebugActions
     static void OpenSystems() => InspectPaneUtility.OpenTab(typeof(ITab_VehicleSystems));
 
     [DebugAction(DebugCategory.Name, "Vehicle systems: log tab state", allowedGameStates = AllowedGameStates.Playing)]
-    static void LogTabState() => Log.Message(VehicleSystemsMod.LogPrefix + " Systems tab holds state for " + ITab_VehicleSystems.StateCount + " vehicles.");
+    static void LogTabState() => Log.Message(VehicleSystemsMod.LogPrefix + " Systems tab holds state for " + ITab_VehicleSystems.StateCount
+        + " vehicles; Health tab holds views for " + ITab_PhobosVehicleHealth.ViewCount + ".");
+
+    [DebugAction(DebugCategory.Name, "Vehicle systems: open the Health tab", allowedGameStates = AllowedGameStates.PlayingOnMap)]
+    static void OpenHealth() => InspectPaneUtility.OpenTab(typeof(ITab_PhobosVehicleHealth));
+
+    [DebugAction(DebugCategory.Name, "Vehicle systems: rebuild the health view", allowedGameStates = AllowedGameStates.Playing)]
+    static void RebuildHealthView() => ITab_PhobosVehicleHealth.Invalidate();
 }

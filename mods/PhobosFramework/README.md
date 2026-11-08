@@ -5,7 +5,7 @@ colonist is breathing, makes fires fill roofed rooms with the game's own smoke w
 carries carbon monoxide from fires, holds the per-person care choices the D'thorga medical mods offer, and holds the small
 helpers every D'thorga mod shares.
 
-Version 0.25.0, built 9 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
+Version 0.26.0, built 9 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
 oxygen working through Burns and Smoke and Medical Equipment (5 November 2026). The health layer new in 0.3.0 and the **vehicle
 systems new in 0.9.0, and their engines, drivetrains and gas turbines new in 0.11.0, are not yet tested in game.** The rest is read from the game's and the mods' code.
 
@@ -132,7 +132,9 @@ Other mods (D'thorga Vehicles first) can give a named vehicle its own figures. N
 | Electric drive (electric vehicles) | Motor temperature | Hard work, or a damaged motor, heats it: less power, then damage | Ease off; repair the motor |
 | Water injection (the Harrier, with D'thorga Vehicles) | Injection water | Without water the engine has only its dry ratings, so a heavy jet on a hot day may not hover | A refill of 227 litres: **with Dubs Bad Hygiene, from a plumbing pipe beside it**, otherwise free |
 
-- **Two tabs on every vehicle with systems** (0.17.0), beside Vehicle Framework's Customize, Cargo, Pawns and Health:
+- **Three tabs on every vehicle with systems**, beside Vehicle Framework's Customize, Cargo and Pawns. **Health** (0.26.0, in
+  Vehicle Framework's place; a setting keeps theirs): the vehicle's speed and strength with what each part does to them, every part
+  grouped outside and inside with its health and what ails it, and the crew. Then the two from 0.17.0:
   **Dashboard** (does anything need me now? gauges, warning lights, what it waits for, the switches) and **Systems** (every figure,
   every part's health, the engine, and in Engineer mode a day's graph of each quantity). Systems is hidden in Plain mode. Tread
   and brake gauges show what is left. A gauge

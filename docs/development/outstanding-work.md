@@ -74,7 +74,7 @@ first ([record](vehicle-health-design.md)). Slices in order; each needs the one 
 | # | Item | Mod | Owner's decision | Status |
 | --- | --- | --- | --- | --- |
 | H0 | Measurement (a dev timing readout) and the NPC lite tier, with the setting to run the full model for everyone | Framework | Lite by default, setting (9 Nov 2026) | Done: Framework 0.25.0 |
-| H1 | The Health tab replacing Vehicle Framework's: VF's stats with impactor tooltips, parts grouped pawn-style with the stages and refusals under them, a crew row, hover highlight, on the world map too; a setting keeps VF's tab | Framework | First deliverable (9 Nov 2026) | In progress |
+| H1 | The Health tab replacing Vehicle Framework's: VF's stats with impactor tooltips, parts grouped pawn-style with the stages and refusals under them, a crew row, hover highlight, on the world map too; a setting keeps VF's tab | Framework | First deliverable (9 Nov 2026) | Done: Framework 0.26.0 |
 | H2 | Conditions proper: per-part severities with stages, from hits, stages and wear; resolved by repair, fading or a service | Framework | Architecture chosen (9 Nov 2026); Def shape waits for a read of Vehicle Framework's develop branch | Open |
 | H3 | Consequences and repair depth: leaks with the danger clock, destroyed parts needing supplies (setting, on), field fixes, permanent conditions; wreck-on-death as a separate question | Framework, Vehicles | Supplies for destroyed parts and serious conditions (9 Nov 2026) | Open |
 | H4 | The performance table in the record, filled from the owner's runs (Dubs Performance Analyzer, the 1.7 Frame Profiler, our readout) | docs | | Open: the owner runs the protocol |

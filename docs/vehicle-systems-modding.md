@@ -385,6 +385,14 @@ Empty mass, most specific first: the player's tuning in Vehicle Framework's wind
 drivetrain's `ratedKilowatts`; power per tonne times the empty mass. A quantity that counts what is used up can carry a
 `remainingLabel` ("tread"): the tabs' gauges then show what is left, full when new.
 
+## The Health tab
+
+`ITab_PhobosVehicleHealth` replaces `Vehicles.ITab_Vehicle_Health` in each fitted design's `inspectorTabs` (a setting keeps VF's).
+It shows every part of the vehicle, bound or not, grouped External then Internal. **A system's stages appear under the parts of its
+first role** (`roles[0]`): put the role the condition belongs to first. A stage shows when it is `notable` or carries effects; a
+hidden quantity's stage shows only when it carries effects (a refusal, say). The tab rebuilds its rows when the comp's
+`HealthViewVersion` changes (a hit, a repair, an update) and never otherwise.
+
 ## Detail tiers
 
 Every fitted vehicle has a tier, read on the rare tick from the Framework core's `DetailTierRule`: the player's own vehicles are

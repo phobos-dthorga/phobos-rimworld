@@ -15,6 +15,7 @@
   <Operation Class="PatchOperationAdd">
     <xpath>Defs/WorldObjectDef[defName="VehicleCaravan" or defName="AerialVehicle"]/inspectorTabs</xpath>
     <value>
+      <li>Phobos.VehicleSystems.WITab_PhobosVehicleHealth</li>
       <li>Phobos.VehicleSystems.WITab_PhobosVehicleDashboard</li>
       <li>Phobos.VehicleSystems.WITab_PhobosVehicleSystems</li>
     </value>

@@ -5,6 +5,26 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.26.0] - 2026-11-09 - Draft
+
+The Health tab: the second slice of the vehicle health work (owner, 9 November 2026). **Not yet tested in game.** Design: docs/development/vehicle-health-design.md.
+
+### Added
+
+- A Health tab of this mod's own on every vehicle with systems, in Vehicle Framework's place, laid out like a colonist's: on the left the vehicle's speed, strength and the rest, each with a tooltip naming the parts it is made from and what this mod's systems do to it; what the vehicle waits for; the crew with the game's own word for each. On the right every part, grouped outside and inside and by what it does, with its health, how well it works and (in Operator and Engineer mode) its armour, and under each part what already ails it: the stages of the systems that read it (coolant running hot under the engine, worn tread under a wheel, a flat battery that will not start), a fuel leak, or destroyed. Hovering a part lights it on the vehicle; clicking a condition opens the Systems tab at it. On the world map too, on caravans and aircraft in flight.
+- A setting, Keep Vehicle Framework's own Health tab (off; needs a restart).
+- Dev actions: open the Health tab, rebuild the health view; the tab-state log counts its views.
+
+### Changed
+
+- The Systems and Health tabs share one way of lighting a part on the vehicle.
+
+### Compatibility and limits
+
+- Vehicle Framework's own health panel still appears in its caravan manifest's details window; the two lay the parts out differently.
+- No part icons until Vehicle Framework ships for 1.7 (their drawing helpers pass Unity types a 1.7 build cannot use), and the stat rows are drawn by this mod from Vehicle Framework's figures for the same reason.
+- The tab rebuilds its rows only when a hit, a repair or a systems update says something changed, and draws them without building text in between.
+
 ## [0.25.0] - 2026-11-09 - Draft
 
 Measurement and the lite tier for other factions' vehicles: the first slice of the vehicle health work (owner, 9 November 2026). **Not yet tested in game.** Design: docs/development/vehicle-health-design.md.

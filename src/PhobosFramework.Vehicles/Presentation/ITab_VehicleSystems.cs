@@ -1,6 +1,4 @@
 using System.Collections.Generic;
-using System.Reflection;
-using HarmonyLib;
 using Phobos.Framework;
 using Phobos.Framework.Rules;
 using Phobos.Framework.Interface;
@@ -29,8 +27,6 @@ public class ITab_VehicleSystems : ITab
     const float Row = 22f;
     const float Graph = 64f;
     static readonly TabState<State> states = new();
-    static readonly MethodInfo? highlightSetter = AccessTools.PropertySetter(typeof(VehiclePawn), "HighlightedComponent");
-    static VehiclePawn? highlighted;
 
     public ITab_VehicleSystems()
     {
@@ -58,20 +54,7 @@ public class ITab_VehicleSystems : ITab
     public static void ClearState()
     {
         states.Clear();
-        Highlight(null, null);
-    }
-
-    static void Highlight(VehiclePawn? vehicle, VehicleComponent? part)
-    {
-        if (highlightSetter == null) return;
-        if (part == null)
-        {
-            if (highlighted != null) highlightSetter.Invoke(highlighted, new object?[] { null });
-            highlighted = null;
-            return;
-        }
-        highlightSetter.Invoke(vehicle, new object?[] { part });
-        highlighted = vehicle;
+        VehicleHighlight.Clear();
     }
 
     protected override void FillTab()
@@ -223,7 +206,7 @@ public class ITab_VehicleSystems : ITab
             }
         }
         Widgets.EndScrollView();
-        if (!onWorld) Highlight(comp.Vehicle, hovered);
+        if (!onWorld) VehicleHighlight.Set(comp.Vehicle, hovered);
     }
 
     /// <summary>"Wheels: front left wheel", or only the part's name when it says the same as its role ("Battery", not "Battery:

@@ -188,6 +188,10 @@ public class CompPhobosVehicleSystems : VehicleComp
     /// <summary>Whether a system runs on this vehicle now (not switched off in the settings, and its cab is closed if it needs one).</summary>
     public bool IsEnabled(SystemState state) => Enabled(state);
 
+    /// <summary>Counts up whenever something the Health tab shows may have changed (a hit, a repair, an update), so the tab rebuilds
+    /// its rows then and only then. Derived, never saved.</summary>
+    public int HealthViewVersion { get; private set; }
+
     /// <summary>The last day of each shown quantity, for the Systems tab's graphs.</summary>
     public QuantityHistory History { get; } = new();
 
@@ -341,6 +345,10 @@ public class CompPhobosVehicleSystems : VehicleComp
             VehicleEventDef captured = eventDef;
             Vehicle.AddEvent(captured, () => OnVehicleEvent(captured));
         }
+        // The Health tab's rows go stale on a hit or a repair (DamageTaken fires under Combat Extended too; HealthChanged does not).
+        Vehicle.AddEvent(VehicleEventDefOf.DamageTaken, () => HealthViewVersion++);
+        Vehicle.AddEvent(VehicleEventDefOf.Repaired, () => HealthViewVersion++);
+        Vehicle.AddEvent(VehicleEventDefOf.HealthChanged, () => HealthViewVersion++);
         if (Powertrain != null)
         {
             // Once a second while it moves or flies, the drivetrain or turbine takes a sample; cargo and passengers change its mass.
@@ -453,6 +461,7 @@ public class CompPhobosVehicleSystems : VehicleComp
             RecacheStatFactors();
             History.Sample(states, now);
             MoveRefusal = FirstRefusal(draft: false);
+            HealthViewVersion++;
             if (ClosedCab && TryGetQuantity("cabTemperature", out float cab)) CabClimate.Set(Vehicle, cab);
             else CabClimate.Forget(Vehicle);
         }

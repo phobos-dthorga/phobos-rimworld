@@ -72,4 +72,6 @@ The vehicle systems' two inspector tabs follow the display mode like everything 
 warning lights, the waiting line and the switches, with no figure a Plain-mode player must read (figures appear on the gauges only
 in Operator and Engineer). **Systems** is the Engineer's view and is hidden in Plain mode: every figure and stage, every part's
 health, the engine's gear and speed in Operator, and in Engineer the graphs, the flows an hour, kilowatts, mass and the hover
-margin. The reason for anything is the same in both tabs; only the depth differs.
+margin. The reason for anything is the same in both tabs; only the depth differs. **Health** (0.26.0) is for every mode, laid out
+like a colonist's: Plain shows bars and the game's own words (good, worn, poor, failing); Operator adds percentages and armour;
+Engineer adds the figures behind each stat.

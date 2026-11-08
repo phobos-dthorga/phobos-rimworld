@@ -201,6 +201,31 @@
   <!-- The Dashboard and Systems tabs -->
   <PhobosVehicleSystems_TabDashboard>Dashboard</PhobosVehicleSystems_TabDashboard>
   <PhobosVehicleSystems_TabSystems>Systems</PhobosVehicleSystems_TabSystems>
+  <PhobosVehicleSystems_TabHealth>Health</PhobosVehicleSystems_TabHealth>
+  <PhobosVehicleSystems_HealthExternal>Outside</PhobosVehicleSystems_HealthExternal>
+  <PhobosVehicleSystems_HealthInternal>Inside</PhobosVehicleSystems_HealthInternal>
+  <PhobosVehicleSystems_HealthDestroyed>destroyed</PhobosVehicleSystems_HealthDestroyed>
+  <PhobosVehicleSystems_HealthLeaking>leaking fuel</PhobosVehicleSystems_HealthLeaking>
+  <PhobosVehicleSystems_HealthReactorExplosive>Can explode when badly damaged.</PhobosVehicleSystems_HealthReactorExplosive>
+  <PhobosVehicleSystems_HealthCrew>Crew</PhobosVehicleSystems_HealthCrew>
+  <PhobosVehicleSystems_HealthCrewNone>Nobody aboard.</PhobosVehicleSystems_HealthCrewNone>
+  <PhobosVehicleSystems_HealthCrewRow>{ROLE}: {NAME}, {CONDITION}</PhobosVehicleSystems_HealthCrewRow>
+  <PhobosVehicleSystems_HealthStatOperation>Made from its parts ({HOW}):</PhobosVehicleSystems_HealthStatOperation>
+  <PhobosVehicleSystems_HealthStatPart>  {PART}: {EFFICIENCY}</PhobosVehicleSystems_HealthStatPart>
+  <PhobosVehicleSystems_HealthStatCeiling>(sets the ceiling)</PhobosVehicleSystems_HealthStatCeiling>
+  <PhobosVehicleSystems_HealthOperationAverage>the average, weighted</PhobosVehicleSystems_HealthOperationAverage>
+  <PhobosVehicleSystems_HealthOperationLowest>the lowest</PhobosVehicleSystems_HealthOperationLowest>
+  <PhobosVehicleSystems_HealthOperationHighest>the highest</PhobosVehicleSystems_HealthOperationHighest>
+  <PhobosVehicleSystems_HealthOperationSum>added up</PhobosVehicleSystems_HealthOperationSum>
+  <PhobosVehicleSystems_HealthPartHealth>Health {HEALTH} of {MAX}.</PhobosVehicleSystems_HealthPartHealth>
+  <PhobosVehicleSystems_HealthPartFeeds>Working at {EFFICIENCY}, for:</PhobosVehicleSystems_HealthPartFeeds>
+  <PhobosVehicleSystems_HealthFeedsNoStat>Its damage slows nothing by itself.</PhobosVehicleSystems_HealthFeedsNoStat>
+  <PhobosVehicleSystems_HealthWordGood>good</PhobosVehicleSystems_HealthWordGood>
+  <PhobosVehicleSystems_HealthWordWorn>worn</PhobosVehicleSystems_HealthWordWorn>
+  <PhobosVehicleSystems_HealthWordPoor>poor</PhobosVehicleSystems_HealthWordPoor>
+  <PhobosVehicleSystems_HealthWordBad>failing</PhobosVehicleSystems_HealthWordBad>
+  <PhobosVehicleSystems_SettingKeepVfHealthTab>Keep Vehicle Framework's own Health tab (needs a restart)</PhobosVehicleSystems_SettingKeepVfHealthTab>
+  <PhobosVehicleSystems_SettingKeepVfHealthTabDesc>Off by default: vehicles with systems get this mod's Health tab in Vehicle Framework's place, with the parts grouped outside and inside, what each part does to the vehicle's speed and strength, and the conditions under each part. On: Vehicle Framework's own list stays. Takes effect when the game next starts.</PhobosVehicleSystems_SettingKeepVfHealthTabDesc>
   <PhobosVehicleSystems_DashLiteModel>This vehicle is not yours: its systems are not followed closely.</PhobosVehicleSystems_DashLiteModel>
   <PhobosVehicleSystems_DashReady>Nothing needs you.</PhobosVehicleSystems_DashReady>
   <PhobosVehicleSystems_DashSwitchOn>on</PhobosVehicleSystems_DashSwitchOn>

@@ -159,6 +159,13 @@ public static class VehicleSystems
         // The Dashboard and Systems tabs, before ThingDef.ResolveReferences resolves the tab list (this runs in its prefix; re-check the
         // order when Vehicle Framework releases 1.7). Only fitted designs get them.
         def.inspectorTabs ??= new List<System.Type>();
+        // Our Health tab takes Vehicle Framework's slot (docs/development/vehicle-health-design.md), unless the player keeps theirs.
+        if (!VehicleSystemsMod.Settings.keepVehicleFrameworkHealthTab && !def.inspectorTabs.Contains(typeof(ITab_PhobosVehicleHealth)))
+        {
+            int slot = def.inspectorTabs.IndexOf(typeof(ITab_Vehicle_Health));
+            if (slot >= 0) def.inspectorTabs[slot] = typeof(ITab_PhobosVehicleHealth);
+            else def.inspectorTabs.Add(typeof(ITab_PhobosVehicleHealth));
+        }
         if (!def.inspectorTabs.Contains(typeof(ITab_VehicleDashboard))) def.inspectorTabs.Add(typeof(ITab_VehicleDashboard));
         if (!def.inspectorTabs.Contains(typeof(ITab_VehicleSystems))) def.inspectorTabs.Add(typeof(ITab_VehicleSystems));
         return added;

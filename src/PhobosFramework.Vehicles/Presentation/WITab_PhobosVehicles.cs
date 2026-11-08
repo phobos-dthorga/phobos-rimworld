@@ -150,3 +150,20 @@ public class WITab_PhobosVehicleSystems : WITab_PhobosVehicles
         ITab_VehicleSystems.ClearState();
     }
 }
+
+public class WITab_PhobosVehicleHealth : WITab_PhobosVehicles
+{
+    public WITab_PhobosVehicleHealth()
+    {
+        size = new Vector2(860f, 430f);
+        labelKey = "PhobosVehicleSystems_TabHealth";
+    }
+
+    protected override void DrawVehicle(CompPhobosVehicleSystems comp, Rect rect) => ITab_PhobosVehicleHealth.Draw(comp, rect, onWorld: true);
+
+    protected override void CloseTab()
+    {
+        base.CloseTab();
+        ITab_PhobosVehicleHealth.ClearState();
+    }
+}
