@@ -1,0 +1,19 @@
+{
+  "file": "whip-antenna-4.png",
+  "sha256": "35742def76f19cdf61677986277282c7212432ba79c11fa027b480bf436a5403",
+  "date": "2026-10-19T05:57:17",
+  "generator": "ComfyUI 0.41.0, local, Flux.1-schnell fp8 (Comfy-Org packaging, Apache 2.0)",
+  "model": "flux1-schnell-fp8.safetensors",
+  "model_sha256": "ead426278b49030e9da5df862994f25ce94ab2ee4df38b556ddddb3db093bf72",
+  "prompt": "A short vertical whip antenna on a small steel pole with a square base plate, seen from a high top-down angle so the pole is visible as a short upright line with a tiny cast shadow, game sprite in the style of RimWorld: clean flat colours, soft simple shading, thin dark outlines, muted grey palette with a warm amber tip, no perspective grid, no text, centred on a plain pure white background, nothing else in frame.",
+  "negative_prompt": "",
+  "seed": 4,
+  "steps": 4,
+  "cfg": 1.0,
+  "sampler": "euler/simple",
+  "size": [
+    768,
+    1024
+  ],
+  "request_file": "assets/phobos-radio/requests/phase1-sprites.json"
+}

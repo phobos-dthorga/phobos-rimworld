@@ -1,0 +1,26 @@
+{
+  "file": "klein-station-top-63.png",
+  "sha256": "9bef7628c71190cca59fc06a00538f83199e485a1417c639d2dafd33614b56a7",
+  "date": "2026-10-19T12:09:37",
+  "generator": "ComfyUI 0.41.0, local, FLUX.2 Klein 4B distilled (Black Forest Labs, Apache 2.0; Comfy-Org packaging)",
+  "engine": "klein",
+  "model": "flux-2-klein-4b.safetensors",
+  "model_sha256": "ec3d4e733a771f61c052fb4856c48b336c55eaf2c65487c2a1faeb9bbda7a343",
+  "prompt": "Redraw image 1 as a RimWorld building sprite seen from directly above, a floor-plan view: only the desk top is visible, filling the frame edge to edge; remove the desk legs, the front face and anything below the desk top. Keep the crowded radio equipment, desk microphone, coiled cable and papers, the same palette, soft shading and thin outlines. Pure white background, no text, no people.",
+  "negative_prompt": "",
+  "seed": 63,
+  "steps": 4,
+  "cfg": 1.0,
+  "sampler": "euler/simple",
+  "size": [
+    1024,
+    1024
+  ],
+  "request_file": "assets/phobos-radio/requests/phase1-klein-2.json",
+  "references": [
+    {
+      "image": "assets/phobos-radio/generated/base-station-v3/base-station-v3-45.png",
+      "sha256": "d57050d34d6aaa3961bdbcab506c0b9758cd0a4495237a4b67d8932081ce26a0"
+    }
+  ]
+}

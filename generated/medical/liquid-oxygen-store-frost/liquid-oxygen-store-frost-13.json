@@ -1,0 +1,33 @@
+{
+  "file": "liquid-oxygen-store-frost-13.png",
+  "sha256": "83d95b0c53cd77492d098de0f6f02254c34c9e09660cce77bdd3efb2471ccbc1",
+  "date": "2026-11-08T07:22:00",
+  "generator": "ComfyUI 0.41.0, local, FLUX.2 Klein 4B base fp8 (Black Forest Labs, Apache 2.0)",
+  "engine": "klein-base",
+  "model": "flux-2-klein-base-4b-fp8.safetensors",
+  "model_sha256": "44bab3a86fe98b85d21dd2a4729ebdc3ae51fb8a39f76e457e18c724219e6840",
+  "prompt": "phobosvanilla, The storage tank in the first reference image exactly as it is, the same shapes, layout and colours, but with its cold outer surfaces covered in a thin crust of white frost and pale blue rime: ice crystals along the pipes, valves and fittings and over the lower half of the vessel, thickest at the bottom. Only add the frost. Draw it in exactly the art style of the second reference image: a game sprite seen from directly above, south face hinted, with a thick near-black outline around every shape, soft flat cel shading, a muted palette, rounded panel corners and a few small clean details. One object, centred, on a plain pure white background. No floor, no cast shadow, no text, no labels, no people.",
+  "negative_prompt": "",
+  "seed": 13,
+  "steps": 50,
+  "cfg": 4.0,
+  "sampler": "euler/flux2",
+  "size": [
+    1024,
+    1024
+  ],
+  "request_file": "assets/phobos-medical/requests/frost.json",
+  "seconds": 163.8,
+  "references": [
+    {
+      "image": ".local/art/picks-7nov/liquid-oxygen-store-103.png",
+      "sha256": "bee85514d5a1c6a652d35ddd8df3164002a77f1a0e7a6a679faf1b240ac94a3d"
+    },
+    {
+      "image": ".local/references/vanilla-medical/VitalsMonitor_south.png",
+      "sha256": "1912014e71c08cae342dc9db86df0c68eefe7764cce6c1cc97802206f5b15188"
+    }
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "lora_strength": 1.0
+}

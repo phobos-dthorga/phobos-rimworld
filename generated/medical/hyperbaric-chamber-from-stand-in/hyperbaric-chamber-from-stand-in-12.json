@@ -1,0 +1,33 @@
+{
+  "file": "hyperbaric-chamber-from-stand-in-12.png",
+  "sha256": "b8a22c01fbad09ed62a5b876fae2a15ac018227ace76240d19587bd54b6e005e",
+  "date": "2026-11-06T21:38:31",
+  "generator": "ComfyUI 0.41.0, local, FLUX.2 Klein 4B base fp8 (Black Forest Labs, Apache 2.0)",
+  "engine": "klein-base",
+  "model": "flux-2-klein-base-4b-fp8.safetensors",
+  "model_sha256": "44bab3a86fe98b85d21dd2a4729ebdc3ae51fb8a39f76e457e18c724219e6840",
+  "prompt": "phobosvanilla, The machine in the first reference image, a hyperbaric oxygen chamber for one patient, seen from directly above with its head end to the top: a long white pressure vessel with rounded ends, a clear acrylic top showing a padded blue patient tray and pillow inside, two dark cradle bands across it, a heavy round grey door with a brass hand wheel at the bottom end, and a small control pedestal with a round pressure gauge beside it. Keep its shape, layout and colours. Redraw it in exactly the art style of the second reference image, seen from directly above, flat and top-down like the first reference, with no tilt and no perspective: a game sprite with a thick near-black outline around every shape, soft flat cel shading, a muted palette and a few small clean details. One object, centred, on a plain pure white background. No floor, no cast shadow, no text, no labels, no people.",
+  "negative_prompt": "",
+  "seed": 12,
+  "steps": 50,
+  "cfg": 4.0,
+  "sampler": "euler/flux2",
+  "size": [
+    1024,
+    1536
+  ],
+  "request_file": "assets/phobos-medical/requests/second-batch.json",
+  "seconds": 204.7,
+  "references": [
+    {
+      "image": "assets/phobos-medical/references/HyperbaricChamber-large.png",
+      "sha256": "3b6ab1e4b5a06d088941a296f43cc18a6bba8210749b90f89a1903e137b18a98"
+    },
+    {
+      "image": ".local/references/vanilla-medical/BiosculpterPod_south.png",
+      "sha256": "88cf6c4af0473731d3ee65b4ec7489e7084de0dd3830eeb8cc74843f2f4488c4"
+    }
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "lora_strength": 1.0
+}

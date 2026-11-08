@@ -1,0 +1,31 @@
+{
+  "file": "electrolyser-101.png",
+  "sha256": "66008ac20e197718d52343bf8da9c306e99f20ec0a8959852bd78d61ee10646d",
+  "date": "2026-11-05T12:32:21",
+  "generator": "ComfyUI 0.41.0, local, FLUX.2 Klein 4B base fp8 (Black Forest Labs, Apache 2.0)",
+  "engine": "klein-base",
+  "model": "flux-2-klein-base-4b-fp8.safetensors",
+  "model_sha256": "44bab3a86fe98b85d21dd2a4729ebdc3ae51fb8a39f76e457e18c724219e6840",
+  "prompt": "An industrial water electrolyser: a steel frame holding a long stack of many thin cell plates clamped between two thick end plates with tie rods, a blue water feed pipe and two separate gas outlet pipes on top. Draw it in exactly the art style of the reference images: a game sprite seen from above at a slight angle, with a thick near-black outline around every shape, soft flat cel shading, a muted palette, rounded panel corners and a few small clean details. One object, centred, on a plain pure white background. No floor, no cast shadow, no text, no labels, no people.",
+  "negative_prompt": "",
+  "seed": 101,
+  "steps": 50,
+  "cfg": 4.0,
+  "sampler": "euler/flux2",
+  "size": [
+    1024,
+    1024
+  ],
+  "request_file": "assets/phobos-medical/requests/first-batch.json",
+  "seconds": 154.2,
+  "references": [
+    {
+      "image": ".local/references/vanilla-medical/OxygenPump_south.png",
+      "sha256": "d5f4997f8612cffc5dc5feab53295518bf227fb13c1c3d59d4dc101383fef3a3"
+    },
+    {
+      "image": ".local/references/vanilla-medical/ChemfuelTank_south.png",
+      "sha256": "3a5ffdcd740d6679e942c5254f449174c91ad327673901f0a67f81ead45d62f8"
+    }
+  ]
+}

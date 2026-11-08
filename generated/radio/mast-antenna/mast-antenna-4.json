@@ -1,0 +1,19 @@
+{
+  "file": "mast-antenna-4.png",
+  "sha256": "224b4489c15f32447ccd2382dd4dfb1f39e2152217578e002900104a30f5af86",
+  "date": "2026-10-19T05:57:49",
+  "generator": "ComfyUI 0.41.0, local, Flux.1-schnell fp8 (Comfy-Org packaging, Apache 2.0)",
+  "model": "flux1-schnell-fp8.safetensors",
+  "model_sha256": "ead426278b49030e9da5df862994f25ce94ab2ee4df38b556ddddb3db093bf72",
+  "prompt": "A tall lattice radio mast, a narrow triangular steel tower with cross-bracing and a thin collinear antenna on top, guyed with three wires to small ground anchors, seen from a high top-down angle so it reads as a tall upright structure with a short cast shadow, game sprite in the style of RimWorld: clean flat colours, soft simple shading, thin dark outlines, muted grey palette with a warm amber tip, no text, centred on a plain pure white background, nothing else in frame.",
+  "negative_prompt": "",
+  "seed": 4,
+  "steps": 4,
+  "cfg": 1.0,
+  "sampler": "euler/simple",
+  "size": [
+    768,
+    1024
+  ],
+  "request_file": "assets/phobos-radio/requests/phase1-sprites.json"
+}

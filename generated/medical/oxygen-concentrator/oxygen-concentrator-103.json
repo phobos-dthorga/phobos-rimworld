@@ -1,0 +1,31 @@
+{
+  "file": "oxygen-concentrator-103.png",
+  "sha256": "a68f6416154e3ac8e1d359a0af7ebb016435e83bd0a462c889260a79b08c98f9",
+  "date": "2026-11-05T12:17:04",
+  "generator": "ComfyUI 0.41.0, local, FLUX.2 Klein 4B base fp8 (Black Forest Labs, Apache 2.0)",
+  "engine": "klein-base",
+  "model": "flux-2-klein-base-4b-fp8.safetensors",
+  "model_sha256": "44bab3a86fe98b85d21dd2a4729ebdc3ae51fb8a39f76e457e18c724219e6840",
+  "prompt": "A bedside oxygen concentrator: a squat pale grey medical cabinet on small castors, with two upright sieve columns visible through a side panel, a small flow dial and a coil of clear tubing. Draw it in exactly the art style of the reference images: a game sprite seen from above at a slight angle, with a thick near-black outline around every shape, soft flat cel shading, a muted palette, rounded panel corners and a few small clean details. One object, centred, on a plain pure white background. No floor, no cast shadow, no text, no labels, no people.",
+  "negative_prompt": "",
+  "seed": 103,
+  "steps": 50,
+  "cfg": 4.0,
+  "sampler": "euler/flux2",
+  "size": [
+    1024,
+    1024
+  ],
+  "request_file": "assets/phobos-medical/requests/first-batch.json",
+  "seconds": 149.6,
+  "references": [
+    {
+      "image": ".local/references/vanilla-medical/VitalsMonitor_south.png",
+      "sha256": "1912014e71c08cae342dc9db86df0c68eefe7764cce6c1cc97802206f5b15188"
+    },
+    {
+      "image": ".local/references/vanilla-medical/OxygenPump_south.png",
+      "sha256": "d5f4997f8612cffc5dc5feab53295518bf227fb13c1c3d59d4dc101383fef3a3"
+    }
+  ]
+}

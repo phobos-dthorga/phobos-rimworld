@@ -1,0 +1,21 @@
+{
+  "file": "preview-medical-save-bridge-201.png",
+  "sha256": "55cfd9a7726c61d67f6e98cc453ea8b6b41762de4fced10c690b3ae019ad682e",
+  "date": "2026-11-06T22:18:39",
+  "generator": "ComfyUI 0.41.0, local, Z-Image base int8 (Alibaba Tongyi lab, Apache 2.0; Comfy-Org packaging)",
+  "engine": "zimage",
+  "model": "z_image_int8_convrot.safetensors",
+  "model_sha256": "eb2b470694fbd9778f15efd309000ea0091312c018c10a352c120b1da9bf4279",
+  "prompt": "An old stone bridge over a dark river at dusk, a lantern on each end, a medical cross painted on a signpost. A clean digital painting seen from above at a slight angle, muted colours, thick dark outlines, simple flat shading, the lower third kept dark and plain for a title. No text, no letters, no logos, no people.",
+  "negative_prompt": "",
+  "seed": 201,
+  "steps": 25,
+  "cfg": 4.0,
+  "sampler": "res_multistep/simple",
+  "size": [
+    1280,
+    720
+  ],
+  "request_file": "assets/phobos-previews/requests/backgrounds.json",
+  "seconds": 24.5
+}

@@ -1,0 +1,33 @@
+{
+  "file": "steriliser-13.png",
+  "sha256": "4dd56224dc555a642d0745102a02e7c680310194a4a88804bc5da84c89b8430c",
+  "date": "2026-11-08T05:53:55",
+  "generator": "ComfyUI 0.41.0, local, FLUX.2 Klein 4B base fp8 (Black Forest Labs, Apache 2.0)",
+  "engine": "klein-base",
+  "model": "flux-2-klein-base-4b-fp8.safetensors",
+  "model_sha256": "44bab3a86fe98b85d21dd2a4729ebdc3ae51fb8a39f76e457e18c724219e6840",
+  "prompt": "phobosvanilla, The machine in the first reference image, a medical steam steriliser: a square pale grey cabinet with a large round white pressure door, a dark locking wheel in its centre, a round blue gauge and a strip of small green indicator lights. Keep its shape, layout and colours. Draw it in exactly the art style of the second reference image: a game sprite seen from directly above, south face hinted, with a thick near-black outline around every shape, soft flat cel shading, a muted palette, rounded panel corners and a few small clean details. One object, centred, on a plain pure white background. No floor, no cast shadow, no text, no labels, no people.",
+  "negative_prompt": "",
+  "seed": 13,
+  "steps": 50,
+  "cfg": 4.0,
+  "sampler": "euler/flux2",
+  "size": [
+    1024,
+    1024
+  ],
+  "request_file": "assets/phobos-medical/requests/third-batch.json",
+  "seconds": 170.4,
+  "references": [
+    {
+      "image": "assets/phobos-medical/references/Steriliser-large.png",
+      "sha256": "c3f72065cf87660ea0de40a6c53c89851383878ce292c36d6ec71d036d0b25b9"
+    },
+    {
+      "image": ".local/references/vanilla-medical/VitalsMonitor_south.png",
+      "sha256": "1912014e71c08cae342dc9db86df0c68eefe7764cce6c1cc97802206f5b15188"
+    }
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "lora_strength": 1.0
+}

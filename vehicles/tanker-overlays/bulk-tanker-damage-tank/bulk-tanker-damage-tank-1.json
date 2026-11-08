@@ -1,0 +1,51 @@
+{
+  "file": "bulk-tanker-damage-tank-1.png",
+  "sha256": "378db5a2215e37af2d6480e43cbb5c72cbcab7d41776b4f0f1b58d2204851632",
+  "date": "2026-11-08T22:17:09",
+  "generator": "OpenAI gpt-image-2 through the OpenAI image API (paid per image)",
+  "engine": "openai",
+  "model": "gpt-image-2",
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL game sprite overlay of damage marks for a long tank. Image 1 shows the tank: use it only to place the marks over its shape. Do NOT redraw the tank.\n\nDraw ONLY the marks, on a plain pure white background: a few dented scrapes, two or three small punctured holes with torn edges, and soft patches of black soot, scattered over the long tank shape, spread from end to end so that they reach near its top, bottom and both sides. Near-black and charcoal only.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo tank, truck, deck, walkway, hatches, ladder, cargo, people, animals, text, letters, numbers or logos. No floor, ground, perspective or tilt.",
+  "seed": 1,
+  "seed_note": "an attempt number naming the file; the API takes no seed, so a rerun gives a different image",
+  "quality": "medium",
+  "size": [
+    768,
+    1536
+  ],
+  "request_file": "assets/phobos-vehicles/requests/tanker-overlays.json",
+  "ai_disclosure": "Made with generative AI: OpenAI gpt-image-2, prompted by the Phobos art scripts.",
+  "terms": "OpenAI Services Agreement, sections 4.1 and 4.4, as recorded in the Phobos Ostranauts repository on 2026-10-07 and summarised again on 2026-11-08: API customers own Output, OpenAI assigns any rights it has, and Output may not be unique; no use of Output to build competing models. Dated secondary records: the openai.com page refuses automated reads, so the owner confirms the current text.",
+  "endpoint": "/images/edits",
+  "usage": {
+    "input_tokens": 1403,
+    "input_tokens_details": {
+      "image_tokens": 1152,
+      "text_tokens": 251
+    },
+    "output_tokens": 916,
+    "output_tokens_details": {
+      "image_tokens": 916,
+      "text_tokens": 0
+    },
+    "total_tokens": 2319
+  },
+  "cost_usd": 0.038,
+  "cost_is_estimate": false,
+  "reported_quality": "medium",
+  "reported_size": "768x1536",
+  "reported_background": "opaque",
+  "reported_output_format": "png",
+  "returned_size": [
+    768,
+    1536
+  ],
+  "seconds": 21.6,
+  "references": [
+    {
+      "image": "assets/phobos-vehicles/generated/bulk-tanker-liquid-tank/bulk-tanker-liquid-tank-1.png",
+      "sha256": "790ff78afc91f33b2c4b9c17238655266d2a4ba102610352172042bc2d5fa807",
+      "role": "position only: lay the marks over this tank's shape; do not redraw the tank"
+    }
+  ]
+}

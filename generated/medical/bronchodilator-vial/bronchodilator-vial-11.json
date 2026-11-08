@@ -1,0 +1,33 @@
+{
+  "file": "bronchodilator-vial-11.png",
+  "sha256": "9e4c63486b64225404382a5edf7a703664ba00d5ab3d0d679cf9decd610ac14d",
+  "date": "2026-11-08T05:14:13",
+  "generator": "ComfyUI 0.41.0, local, FLUX.2 Klein 4B base fp8 (Black Forest Labs, Apache 2.0)",
+  "engine": "klein-base",
+  "model": "flux-2-klein-base-4b-fp8.safetensors",
+  "model_sha256": "44bab3a86fe98b85d21dd2a4729ebdc3ae51fb8a39f76e457e18c724219e6840",
+  "prompt": "phobosvanilla, The item in the first reference image, a strip of three small clear plastic vials with twist-off white tops, each half filled with an amber liquid. Keep its shape, layout and colours. Draw it in exactly the art style of the second reference image: a game sprite seen from directly above, south face hinted, with a thick near-black outline around every shape, soft flat cel shading, a muted palette, rounded panel corners and a few small clean details. One object, centred, on a plain pure white background. No floor, no cast shadow, no text, no labels, no people.",
+  "negative_prompt": "",
+  "seed": 11,
+  "steps": 50,
+  "cfg": 4.0,
+  "sampler": "euler/flux2",
+  "size": [
+    1024,
+    1024
+  ],
+  "request_file": "assets/phobos-medical/requests/third-batch.json",
+  "seconds": 170.4,
+  "references": [
+    {
+      "image": "assets/phobos-medical/references/BronchodilatorVial-large.png",
+      "sha256": "36f40c2248d243611241b9d344031e0d6d58dc1dd71e9c97353d4175ebe52123"
+    },
+    {
+      "image": ".local/references/vanilla-medical/MedicineIndustrial_a.png",
+      "sha256": "1257cf2d03aa58dea41ce09e7b2a4e96a9d8f5ed57d8f6744fd176bec7c72c00"
+    }
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "lora_strength": 1.0
+}

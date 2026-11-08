@@ -1,0 +1,33 @@
+{
+  "file": "gas-alarm-13.png",
+  "sha256": "dfe364f47d738a14a28e9f4dfe0696a20aba9642da04fd9690ac33e0600bf72a",
+  "date": "2026-11-08T04:07:09",
+  "generator": "ComfyUI 0.41.0, local, FLUX.2 Klein 4B base fp8 (Black Forest Labs, Apache 2.0)",
+  "engine": "klein-base",
+  "model": "flux-2-klein-base-4b-fp8.safetensors",
+  "model_sha256": "44bab3a86fe98b85d21dd2a4729ebdc3ae51fb8a39f76e457e18c724219e6840",
+  "prompt": "phobosvanilla, The object in the first reference image, a small round carbon monoxide and smoke alarm fixed to a ceiling: a white disc with a slotted grey grille, a small red light and a test button. Keep its shape, layout and colours. Draw it in exactly the art style of the second reference image: a game sprite seen from directly above, south face hinted, with a thick near-black outline around every shape, soft flat cel shading, a muted palette, rounded panel corners and a few small clean details. One object, centred, on a plain pure white background. No floor, no cast shadow, no text, no labels, no people.",
+  "negative_prompt": "",
+  "seed": 13,
+  "steps": 50,
+  "cfg": 4.0,
+  "sampler": "euler/flux2",
+  "size": [
+    1024,
+    1024
+  ],
+  "request_file": "assets/phobos-medical/requests/third-batch.json",
+  "seconds": 153.5,
+  "references": [
+    {
+      "image": "assets/phobos-medical/references/GasAlarm-large.png",
+      "sha256": "5f3238d120e657a50c769c68ad5bed898e8d69a3b4a8e7adbd004f8768588d8a"
+    },
+    {
+      "image": ".local/references/vanilla-medical/VitalsMonitor_south.png",
+      "sha256": "1912014e71c08cae342dc9db86df0c68eefe7764cce6c1cc97802206f5b15188"
+    }
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "lora_strength": 1.0
+}

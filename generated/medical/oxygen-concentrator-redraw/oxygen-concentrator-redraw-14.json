@@ -1,0 +1,33 @@
+{
+  "file": "oxygen-concentrator-redraw-14.png",
+  "sha256": "9e60636b7a003813f31589a698bf159e784d899085a8fd8fc0dbf42bb48ac81d",
+  "date": "2026-11-06T21:31:42",
+  "generator": "ComfyUI 0.41.0, local, FLUX.2 Klein 4B base fp8 (Black Forest Labs, Apache 2.0)",
+  "engine": "klein-base",
+  "model": "flux-2-klein-base-4b-fp8.safetensors",
+  "model_sha256": "44bab3a86fe98b85d21dd2a4729ebdc3ae51fb8a39f76e457e18c724219e6840",
+  "prompt": "phobosvanilla, The machine in the first reference image, a bedside oxygen concentrator: a squat pale grey medical cabinet on small castors, a plain box with straight vertical sides that is the same width from top to bottom, with no waist and no narrowing anywhere. A dark window shows two upright green sieve columns, with a round blue flow dial, a small dark slot under the dial, a darker grey band along the base and a loop of clear tubing at the lower right. Keep its shape, layout and colours. Draw it in exactly the art style of the second reference image: a game sprite seen from above at a slight angle, with a thick near-black outline around every shape, soft flat cel shading, a muted palette, rounded panel corners and a few small clean details. One object, centred, on a plain pure white background. No floor, no cast shadow, no text, no labels, no people.",
+  "negative_prompt": "",
+  "seed": 14,
+  "steps": 50,
+  "cfg": 4.0,
+  "sampler": "euler/flux2",
+  "size": [
+    1024,
+    1024
+  ],
+  "request_file": "assets/phobos-medical/requests/second-batch.json",
+  "seconds": 150.5,
+  "references": [
+    {
+      "image": "assets/phobos-medical/references/OxygenConcentrator-large.png",
+      "sha256": "ead8449e7d8dcd26c790b793413d7d6c937ab592cb18e8947af79d767eb23ce3"
+    },
+    {
+      "image": ".local/references/vanilla-medical/VitalsMonitor_south.png",
+      "sha256": "1912014e71c08cae342dc9db86df0c68eefe7764cce6c1cc97802206f5b15188"
+    }
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "lora_strength": 1.0
+}

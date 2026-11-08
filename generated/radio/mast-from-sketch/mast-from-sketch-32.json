@@ -1,0 +1,22 @@
+{
+  "file": "mast-from-sketch-32.png",
+  "sha256": "0bb8bbcea8eb6c0e9a7f8fa353a8caac0dc1ad8391af60c4f78b075211179692",
+  "date": "2026-10-19T06:09:11",
+  "generator": "ComfyUI 0.41.0, local, Flux.1-schnell fp8 (Comfy-Org packaging, Apache 2.0)",
+  "model": "flux1-schnell-fp8.safetensors",
+  "model_sha256": "ead426278b49030e9da5df862994f25ce94ab2ee4df38b556ddddb3db093bf72",
+  "prompt": "A tall narrow lattice radio mast of grey steel with cross-bracing, a thin collinear antenna with an amber tip on top, a square base plate at the bottom, seen from a high angle as a game building sprite in the style of RimWorld: clean flat colours, soft simple shading, thin dark outlines, no text, plain pure white background.",
+  "negative_prompt": "",
+  "seed": 32,
+  "steps": 4,
+  "cfg": 1.0,
+  "sampler": "euler/simple",
+  "size": [
+    512,
+    1280
+  ],
+  "request_file": "assets/phobos-radio/requests/phase1-img2img.json",
+  "init_image": "mods/PhobosRadioFramework/Common/Textures/Phobos/Radio/Things/Mast.png",
+  "init_sha256": "364a52f5bcc874b6b5565e5008d3dfedf8fcf868f746065715d10cc5de71f63a",
+  "denoise": 0.7
+}

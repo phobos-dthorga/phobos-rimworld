@@ -1,0 +1,19 @@
+{
+  "file": "workshop-preview-1.png",
+  "sha256": "9a04a925822b5b677489019978ddc36f1503ec85fdc4a6ad670608026386a451",
+  "date": "2026-10-19T05:58:00",
+  "generator": "ComfyUI 0.41.0, local, Flux.1-schnell fp8 (Comfy-Org packaging, Apache 2.0)",
+  "model": "flux1-schnell-fp8.safetensors",
+  "model_sha256": "ead426278b49030e9da5df862994f25ce94ab2ee4df38b556ddddb3db093bf72",
+  "prompt": "Illustration for a RimWorld mod preview: a lone colonist in a worn parka on a windswept hillside at dusk, holding a hand-held radio to their ear, looking back toward a small frontier settlement in the valley below where a tall lattice radio mast stands beside a lit cabin, faint concentric signal arcs drawn in the sky between them. Painterly but clean, muted earth tones with amber light from the windows, dark teal dusk sky, wide composition, no text, no logos, no watermark.",
+  "negative_prompt": "",
+  "seed": 1,
+  "steps": 4,
+  "cfg": 1.0,
+  "sampler": "euler/simple",
+  "size": [
+    1280,
+    720
+  ],
+  "request_file": "assets/phobos-radio/requests/phase1-sprites.json"
+}

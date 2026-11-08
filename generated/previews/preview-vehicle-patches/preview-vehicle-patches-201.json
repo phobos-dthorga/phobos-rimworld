@@ -1,0 +1,21 @@
+{
+  "file": "preview-vehicle-patches-201.png",
+  "sha256": "33318b40992424cdccf7d743df8e03e8e273b973f1b196f5589b809b21c5dec6",
+  "date": "2026-11-06T22:17:53",
+  "generator": "ComfyUI 0.41.0, local, Z-Image base int8 (Alibaba Tongyi lab, Apache 2.0; Comfy-Org packaging)",
+  "engine": "zimage",
+  "model": "z_image_int8_convrot.safetensors",
+  "model_sha256": "eb2b470694fbd9778f15efd309000ea0091312c018c10a352c120b1da9bf4279",
+  "prompt": "A rugged armoured truck parked in a frontier garage, a welding torch glowing, spare wheels and tool chests. A clean digital painting seen from above at a slight angle, muted colours, thick dark outlines, simple flat shading, the lower third kept dark and plain for a title. No text, no letters, no logos, no people.",
+  "negative_prompt": "",
+  "seed": 201,
+  "steps": 25,
+  "cfg": 4.0,
+  "sampler": "res_multistep/simple",
+  "size": [
+    1280,
+    720
+  ],
+  "request_file": "assets/phobos-previews/requests/backgrounds.json",
+  "seconds": 24.4
+}

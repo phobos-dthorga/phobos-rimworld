@@ -1,0 +1,30 @@
+{
+  "file": "klein-mast-from-refs-54.png",
+  "sha256": "372e904c68cde835f243cd38f3697e8392efdebbc4788976fddf4ccb6a8388a4",
+  "date": "2026-10-19T12:07:21",
+  "generator": "ComfyUI 0.41.0, local, FLUX.2 Klein 4B distilled (Black Forest Labs, Apache 2.0; Comfy-Org packaging)",
+  "engine": "klein",
+  "model": "flux-2-klein-4b.safetensors",
+  "model_sha256": "ec3d4e733a771f61c052fb4856c48b336c55eaf2c65487c2a1faeb9bbda7a343",
+  "prompt": "Redraw image 1 (a rough sketch of a tall lattice radio mast with a collinear antenna on top and a square base plate) in the rendering style, palette, soft shading and thin outlines of image 2. Keep image 1's silhouette and proportions; add realistic cross-bracing and a small cast shadow at the base. Pure white background, no text.",
+  "negative_prompt": "",
+  "seed": 54,
+  "steps": 4,
+  "cfg": 1.0,
+  "sampler": "euler/simple",
+  "size": [
+    512,
+    1280
+  ],
+  "request_file": "assets/phobos-radio/requests/phase1-klein.json",
+  "references": [
+    {
+      "image": "mods/PhobosRadioFramework/Common/Textures/Phobos/Radio/Things/Mast.png",
+      "sha256": "364a52f5bcc874b6b5565e5008d3dfedf8fcf868f746065715d10cc5de71f63a"
+    },
+    {
+      "image": "assets/phobos-radio/generated/base-station-v3/base-station-v3-45.png",
+      "sha256": "d57050d34d6aaa3961bdbcab506c0b9758cd0a4495237a4b67d8932081ce26a0"
+    }
+  ]
+}

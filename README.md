@@ -41,3 +41,12 @@ Added with `scripts/art/archive_branch.py` on `main`, which only ever adds commi
 - Attempt 1: Not picked: plain tyres with no mudguards, so the rear wheels look bolted on.
 - Attempt 3: Not picked: the agent's first choice for its curved saddle cradles; the owner preferred attempt 2.
 - Attempt 4: Not picked: the bonnet tapers like a trapezoid, which reads as perspective.
+
+## Tanker overlays
+
+`vehicles/tanker-overlays/`: every attempt at the bulk tanker's upgrade overlays (8 Nov 2026), exactly as OpenAI gpt-image-2 returned them, each with its JSON record: the liquid tank, the pressure vessel, the hose reel, the hose laid out, and damage marks.
+
+## Earlier generated candidates
+
+`generated/<art set>/<request>/`: the candidates from earlier local runs (5 to 8 Nov 2026), exactly as generated, each with its JSON record, saved under the owner's rule that all generated art is kept unless truly fugly. They were made on the owner's PC with local models. Not selected for any mod unless the working branch says so. Contact sheets are left out, since they are only review aids. Images the near-copy check flagged against the game's own art stay off this public branch.
+

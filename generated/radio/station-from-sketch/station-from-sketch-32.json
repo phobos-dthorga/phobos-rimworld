@@ -1,0 +1,22 @@
+{
+  "file": "station-from-sketch-32.png",
+  "sha256": "8c3a93f9dbe8867de17e61cbca8e0b0759e5ff712d9cdc4212f839b3485850c2",
+  "date": "2026-10-19T06:08:09",
+  "generator": "ComfyUI 0.41.0, local, Flux.1-schnell fp8 (Comfy-Org packaging, Apache 2.0)",
+  "model": "flux1-schnell-fp8.safetensors",
+  "model_sha256": "ead426278b49030e9da5df862994f25ce94ab2ee4df38b556ddddb3db093bf72",
+  "prompt": "Floor-plan view straight down onto a square steel desk top: a boxy VHF transceiver with a blank blue display, a small power supply box with an amber light, a coiled microphone cable, and a short whip antenna standing at one corner seen from above. Game building sprite in the style of RimWorld: clean flat colours, soft simple shading, thin dark outlines, muted grey and dark olive palette with one warm amber accent, no text, no digits, no people, plain pure white background.",
+  "negative_prompt": "",
+  "seed": 32,
+  "steps": 4,
+  "cfg": 1.0,
+  "sampler": "euler/simple",
+  "size": [
+    1024,
+    1024
+  ],
+  "request_file": "assets/phobos-radio/requests/phase1-img2img.json",
+  "init_image": "mods/PhobosRadioFramework/Common/Textures/Phobos/Radio/Things/BaseStation.png",
+  "init_sha256": "65b4e65235945210786097a8fdcfb6ec3cafc6bd79ff3f4e557d2fa578f6aa06",
+  "denoise": 0.7
+}

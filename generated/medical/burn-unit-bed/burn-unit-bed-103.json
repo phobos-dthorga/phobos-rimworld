@@ -1,0 +1,31 @@
+{
+  "file": "burn-unit-bed-103.png",
+  "sha256": "0688f4f590893d073afe979bfaf4eab751dc705a07d911a943a6be14892c20ce",
+  "date": "2026-11-05T13:17:43",
+  "generator": "ComfyUI 0.41.0, local, FLUX.2 Klein 4B base fp8 (Black Forest Labs, Apache 2.0)",
+  "engine": "klein-base",
+  "model": "flux-2-klein-base-4b-fp8.safetensors",
+  "model_sha256": "44bab3a86fe98b85d21dd2a4729ebdc3ae51fb8a39f76e457e18c724219e6840",
+  "prompt": "A burn unit bed: a hospital bed with a steel frame and a thick air mattress made of many soft pale inflated cells, a small blower unit at the foot and a raised frame that holds the sheets off the patient. Draw it in exactly the art style of the reference images: a game sprite seen from above at a slight angle, with a thick near-black outline around every shape, soft flat cel shading, a muted palette, rounded panel corners and a few small clean details. One object, centred, on a plain pure white background. No floor, no cast shadow, no text, no labels, no people.",
+  "negative_prompt": "",
+  "seed": 103,
+  "steps": 50,
+  "cfg": 4.0,
+  "sampler": "euler/flux2",
+  "size": [
+    1024,
+    1024
+  ],
+  "request_file": "assets/phobos-medical/requests/first-batch.json",
+  "seconds": 150.2,
+  "references": [
+    {
+      "image": ".local/references/vanilla-medical/HospitalBed_south.png",
+      "sha256": "7455dfbd3118122a4de8f470620f5bf0b8b55b2e7f04e645a9a29e6cb147804b"
+    },
+    {
+      "image": ".local/references/vanilla-medical/VitalsMonitor_south.png",
+      "sha256": "1912014e71c08cae342dc9db86df0c68eefe7764cce6c1cc97802206f5b15188"
+    }
+  ]
+}

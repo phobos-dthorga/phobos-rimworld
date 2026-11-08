@@ -1,0 +1,19 @@
+{
+  "file": "base-station-v3-42.png",
+  "sha256": "778917eaef54ee5d5e54b16149d49d8f6aed4d4dc44cc506722c6a6564e9ce53",
+  "date": "2026-10-19T06:11:21",
+  "generator": "ComfyUI 0.41.0, local, Flux.1-schnell fp8 (Comfy-Org packaging, Apache 2.0)",
+  "model": "flux1-schnell-fp8.safetensors",
+  "model_sha256": "ead426278b49030e9da5df862994f25ce94ab2ee4df38b556ddddb3db093bf72",
+  "prompt": "RimWorld building sprite, seen from above at the game's slight top-down angle so the desk top fills the frame and only a thin strip of its dark front edge shows at the bottom. A dark grey steel desk crowded edge to edge with radio equipment, almost no bare desk visible: a boxy VHF transceiver with a blank blue display and large tuning knob, a second receiver stacked beside it, a power supply with an amber light, a desk microphone on a stand, a coiled handset cable, a headset, a log book and a few loose papers, a short whip antenna standing at one back corner. Pale grey and off-white equipment with soft gradient shading and thin dark outlines, muted palette with one warm amber accent, no text, no digits, no people, the whole desk centred and filling the image on a plain pure white background.",
+  "negative_prompt": "",
+  "seed": 42,
+  "steps": 4,
+  "cfg": 1.0,
+  "sampler": "euler/simple",
+  "size": [
+    1024,
+    1024
+  ],
+  "request_file": "assets/phobos-radio/requests/phase1-station-v3.json"
+}

@@ -1,0 +1,22 @@
+{
+  "file": "klein-mast-sheet-61.png",
+  "sha256": "0c19163e1d7937b5f00d79ca245c6ff21704f2f0293f70d92dd31a4adc2fe74c",
+  "date": "2026-10-19T12:10:44",
+  "generator": "ComfyUI 0.41.0, local, FLUX.2 Klein 4B distilled (Black Forest Labs, Apache 2.0; Comfy-Org packaging)",
+  "engine": "klein",
+  "model": "flux-2-klein-4b.safetensors",
+  "model_sha256": "ec3d4e733a771f61c052fb4856c48b336c55eaf2c65487c2a1faeb9bbda7a343",
+  "prompt": "2x2 sprite sheet of a tall lattice radio mast of grey steel with cross-bracing, a thin antenna with an amber tip on top and a square base plate, flat colours with soft shading and thin dark outlines.",
+  "negative_prompt": "",
+  "seed": 61,
+  "steps": 4,
+  "cfg": 1.0,
+  "sampler": "euler/simple",
+  "size": [
+    1024,
+    1024
+  ],
+  "request_file": "assets/phobos-radio/requests/phase1-klein-2.json",
+  "lora": "flux2-klein-spritesheet-lora.safetensors",
+  "lora_strength": 1.1
+}
