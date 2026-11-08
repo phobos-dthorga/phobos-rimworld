@@ -125,7 +125,7 @@
     "PhobosPatches.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.14.2",
+      "value": "0.15.0",
       "description": "D'thorga Patches's version: About.xml, every project of the mod, its ModVersion constants and both READMEs",
       "targets": [
         {
@@ -154,6 +154,14 @@
         },
         {
           "path": "src/PhobosPatches.RimPacts/RimPactsPatchesMod.cs",
+          "pattern": "\\bModVersion\\s*=\\s*\"(?P<value>[0-9.]+)\""
+        },
+        {
+          "path": "src/PhobosPatches.Outposts/PhobosPatches.Outposts.csproj",
+          "pattern": "<Version>(?P<value>[0-9.]+)</Version>"
+        },
+        {
+          "path": "src/PhobosPatches.Outposts/OutpostPatchesMod.cs",
           "pattern": "\\bModVersion\\s*=\\s*\"(?P<value>[0-9.]+)\""
         },
         {

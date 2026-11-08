@@ -10,6 +10,26 @@ says the owner tested it.
 
 - Dates in this mod's records that were written a day ahead now read 8 November 2026. Text only; nothing in game changes.
 
+## [0.15.0] - 2026-11-08 - Draft
+
+Outposts and caravans with vehicles, at the owner's request (8 November 2026). **Not yet tested in game.**
+
+### Added
+
+- A setting, D'thorga Patches: outposts, on by default, with the reason for it in the settings window. Turning it off puts the original behaviour back, with no restart.
+
+### Fixed
+
+- With Vanilla Expanded Framework and Vehicle Framework, the create outpost window refuses a caravan that holds a vehicle and says why. Read from the outposts code and not reproduced in game: founding that way can throw an error part way through, leaving an empty outpost that is abandoned at once, and can lose the vehicles and anyone riding in them.
+
+### Compatibility and limits
+
+- Loads only while Vanilla Expanded Framework and Vehicle Framework are both active. The window's other reasons for refusing are unchanged.
+
+### Save compatibility
+
+- Safe to add to and remove from a save: it saves nothing in the game, and only changes what the window allows.
+
 ## [0.14.2] - 2026-11-08 - Draft
 
 The Harrier's bomb cases had names their IDs could not survive, found in the owner's log (8 November 2026). **Not yet tested in game.**

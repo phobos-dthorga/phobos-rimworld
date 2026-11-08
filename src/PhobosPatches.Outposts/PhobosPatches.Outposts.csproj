@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- D'thorga Patches' outposts assembly (from 0.15.0). It lives in Mods/Outposts/<version>, which LoadFolders.xml loads only while both
+       Vanilla Expanded Framework (whose Outposts.dll holds the outposts code) and Vehicle Framework are active: the fault it guards
+       needs both. Other mods' assemblies are referenced from the installed mods and never copied. RimWorld 1.7 only. -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <RootNamespace>Phobos.OutpostPatches</RootNamespace>
+    <AssemblyName>PhobosPatches.Outposts</AssemblyName>
+    <ModFolder>PhobosPatches</ModFolder>
+    <TieInFolder>Mods/Outposts/</TieInFolder>
+    <UsesHarmony>true</UsesHarmony>
+    <Version>0.15.0</Version>
+    <ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>true</ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../PhobosFramework/PhobosFramework.csproj" Private="false" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Outposts">
+      <HintPath>$(VefAssemblies)\Outposts.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="Vehicles">
+      <HintPath>$(VehicleFrameworkAssemblies)\Vehicles.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="SmashTools">
+      <HintPath>$(VehicleFrameworkAssemblies)\SmashTools.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+</Project>

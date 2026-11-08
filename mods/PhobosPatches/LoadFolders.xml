@@ -13,5 +13,7 @@
     <li IfModActive="kazepsi.irbm">Mods/IRBM/1.7</li>
     <li IfModActive="wowgag.RimPacts">Mods/RimPacts/1.7</li>
     <li IfModActive="ninagoblin.visitsettlements">Mods/VisitSettlements/1.7</li>
+    <li IfModActiveAll="OskarPotocki.VanillaFactionsExpanded.Core,SmashPhil.VehicleFramework">Mods/Outposts</li>
+    <li IfModActiveAll="OskarPotocki.VanillaFactionsExpanded.Core,SmashPhil.VehicleFramework">Mods/Outposts/1.7</li>
   </v1.7>
 </loadFolders>

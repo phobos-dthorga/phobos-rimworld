@@ -6,17 +6,22 @@ RimPacts, honest bomb costs under Combat Extended with a bomb case of its own, b
 fabricator, fuel tanks for its Drop Tanks upgrade, and a sortie's map kept open under the jet), RimThunder's heavy casting at the
 rotary forger, **Spaceship Turret Hull** by MK under Combat Extended, and **InterRim Ballistic Missile** by Psionic Zephyr (a strategic
 warhead's blast spread over frames instead of freezing the game). With **Visit Settlements** by Nina.Goblin, a visited settlement's
-map no longer closes under your people (0.13.0).
+map no longer closes under your people (0.13.0). With **Vanilla Expanded Framework**'s outposts and **Vehicle Framework**, a caravan
+with vehicles is refused at the "create outpost" window, because founding one that way can lose them (0.15.0, with a setting).
 
 It replaces two earlier mods, merged into it on 7 November 2026: **D'thorga Vehicle Patches** and **D'thorga Missile Patches**
 ([why](../../docs/development/mod-consolidation.md)).
 
-Version 0.14.2, built 8 November 2026 for House D'thorga. **Not yet tested in game as D'thorga Patches.** The Harrier and turret hull
+Version 0.15.0, built 8 November 2026 for House D'thorga. **Not yet tested in game as D'thorga Patches.** The Harrier and turret hull
 parts are unchanged from Vehicle Patches 0.6.0 (not yet tested in game); the missile part was tried once by the owner, see
 [InterRim Ballistic Missile](#interrim-ballistic-missile).
 
 ## Read this first (gotchas)
 
+- **New in 0.15.0, with Vanilla Expanded Framework and Vehicle Framework (not yet tested in game): a caravan with vehicles can no
+  longer found an outpost through the "create outpost" window.** Leave the vehicles somewhere first and come on foot. The window says
+  so when it refuses. To go back to the original behaviour, turn off **Mod settings > D'thorga Patches: outposts**; the setting
+  explains the risk, and no restart is needed.
 - **New in 0.13.0, with Visit Settlements (not yet tested in game): a visited settlement's map no longer vanishes with your people on
   it.** Visit Settlements closed such a map the moment anyone there went down, if it saw no colonist of yours standing. Colonists
   inside a vehicle didn't count, so the first raider, guard or animal to fall closed the map and **everyone of yours on it was lost**:
@@ -101,6 +106,15 @@ parts are unchanged from Vehicle Patches 0.6.0 (not yet tested in game); the mis
 - **Not yet tested in game,** except one missile run on 0.7.0. Everything else here is read from the mods' code and files.
 
 ## What it does
+
+### Outposts and caravans with vehicles
+
+Vanilla Expanded Framework's outposts code does not cope with today's Vehicle Framework vehicles. **Read from the code and not
+reproduced in game:** founding an outpost from a caravan with vehicles looks able to throw an error part way through, leaving an empty
+outpost that is abandoned at once, and to lose the vehicles and anyone riding in them when the caravan is removed.
+
+So the "create outpost" window refuses such a caravan, with a reason, where it had no other reason to refuse. The setting
+**D'thorga Patches: outposts** (on by default) puts the original behaviour back for anyone who wants it.
 
 ### The Harrier's build cost
 

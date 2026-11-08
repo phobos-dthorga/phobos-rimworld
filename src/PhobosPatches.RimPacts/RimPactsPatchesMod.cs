@@ -9,7 +9,7 @@ namespace Phobos.RimPactsPatches;
 /// </summary>
 public class RimPactsPatchesMod : Mod
 {
-    public const string ModVersion = "0.14.2";
+    public const string ModVersion = "0.15.0";
     public const string LogPrefix = "[D'thorga Patches]";
 
     public RimPactsPatchesMod(ModContentPack content) : base(content)

@@ -106,6 +106,8 @@ promise current behaviour. For using the mods, start at the [documentation index
 - [The vehicle tabs: design (8 Nov 2026)](vehicle-tabs-design.md): the Dashboard and Systems inspector tabs, how they hook into
   Vehicle Framework's Def resolution, the saved day of history behind the graphs, the widgets that went to the Framework core,
   and what RimHUD does with them; D'thorga Framework 0.17.0. Not yet tested in game.
+- [The vehicle garage and fleet tools: design (8 Nov 2026)](vehicle-garage-design.md): a staffed outpost that holds and slowly
+  repairs vehicles, what the outposts code allows and where it fails for vehicles, and the owner's four fleet tools. Not yet tested in game.
 - [Vehicle figures: research (8 Nov 2026)](vehicle-figures-research.md): sourced engine, transmission and weight figures for the
   L-ATV, MaxxPro, Humvee, PLS, M113, Bradley, M48H, M10, T-54, BMP-1, Wiesel, Land Cruiser J70, the Abrams' turbine and five
   helicopters, with what was not found.

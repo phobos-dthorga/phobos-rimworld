@@ -30,6 +30,7 @@ from the owner's saves.
 | `PhobosFramework.Vehicles` | `PhobosFramework/Mods/VehicleFramework/` (1.7 only) | the framework, Vehicle Framework's `Vehicles.dll` and `SmashTools.dll`: the vehicle systems | yes | `PhobosFramework.Vehicles.Rules.Tests` | tests only |
 | `PhobosFramework.Vehicles.Hygiene` | `PhobosFramework/Mods/VehiclesHygiene/` (with Vehicle Framework and Dubs Bad Hygiene both active) | the vehicle systems, the framework's hygiene tie-in, `Vehicles.dll`, `BadHygiene.dll`: vehicles' water from plumbing | no | none | no |
 | `PhobosPatches.Harrier` | `PhobosPatches/Mods/HarrierVtol/` | the framework and its vehicle systems, Vehicle Framework's `Vehicles.dll`, `SmashTools.dll`, `UpdateLogTool.dll` | yes | none | no |
+| `PhobosPatches.Outposts` | `PhobosPatches/Mods/Outposts/` (with Vanilla Expanded Framework and Vehicle Framework both active) | the framework, VEF's `Outposts.dll`, Vehicle Framework's `Vehicles.dll` and `SmashTools.dll` | yes | none | no |
 | `PhobosPatches.Irbm` | `PhobosPatches/Mods/IRBM/` | the framework, InterRim Ballistic Missile's `IRBM.dll` | yes | `PhobosPatches.Rules.Tests` | tests only |
 | `PhobosWaterTap` | `PhobosWaterTap/` | Dubs Bad Hygiene's `BadHygiene.dll` | no | `PhobosWaterTap.Rules.Tests` | tests only |
 | `PhobosRadio` | `PhobosRadioFramework/` | VEF's `PipeSystem.dll` | no | `PhobosRadio.Physics.Tests` | tests only |

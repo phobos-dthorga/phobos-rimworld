@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <PhobosOutpostPatches_SettingsCategory>D'thorga Patches: outposts</PhobosOutpostPatches_SettingsCategory>
+  <PhobosOutpostPatches_SectionConvoys>Caravans with vehicles</PhobosOutpostPatches_SectionConvoys>
+  <PhobosOutpostPatches_SettingRefuse>Refuse to found an outpost from a caravan with vehicles (recommended)</PhobosOutpostPatches_SettingRefuse>
+  <PhobosOutpostPatches_SettingRefuseDesc>On (the default): the "create outpost" window refuses a caravan that holds a vehicle, and says why. Leave the vehicles somewhere first and found the outpost from a caravan on foot. Off: the window works as Vanilla Expanded Framework wrote it. Takes effect the next time the window opens; no restart needed.</PhobosOutpostPatches_SettingRefuseDesc>
+  <PhobosOutpostPatches_WhyThisExists>Why this exists: Vanilla Expanded Framework's outposts code was not written for today's Vehicle Framework. Reading that code, founding an outpost from a caravan with vehicles looks able to throw an error part way through, leaving an empty outpost that is abandoned at once, and to lose the vehicles and anyone riding in them when the caravan is removed. This has not been reproduced in a game. If the framework's authors fix it, you can turn this off.</PhobosOutpostPatches_WhyThisExists>
+  <PhobosOutpostPatches_OriginalBehaviourWarning>Off: the original behaviour. Founding an outpost from a caravan with vehicles may lose those vehicles and their crews. Save first if you try it.</PhobosOutpostPatches_OriginalBehaviourWarning>
+  <PhobosOutpostPatches_RefusedWithVehicles>Not with vehicles in the caravan. Leave them somewhere first and come on foot.</PhobosOutpostPatches_RefusedWithVehicles>
+</LanguageData>
