@@ -346,5 +346,9 @@
         </add>
       </li>
     </partRoles>
-  </Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
+      <!-- Automatic climate control (D'thorga Vehicles 0.10.0): a modern diesel-electric shunter has an automatic cab climate system (general). -->
+    <cabin>
+      <climateControl>true</climateControl>
+    </cabin>
+</Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
 </Defs>

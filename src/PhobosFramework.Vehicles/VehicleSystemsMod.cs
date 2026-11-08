@@ -53,6 +53,9 @@ public class VehicleSystemsSettings : ModSettings
     /// <summary>People aboard a closed cab are glad of it or unhappy in it, by their own comfort range (agent default, owner to revise:
     /// on). Live.</summary>
     public bool cabMoods = true;
+    /// <summary>Every closed cab has automatic climate control, not only the vehicles built with it (owner, 9 Nov 2026: a blanket
+    /// option; agent default: off). Live.</summary>
+    public bool climateControlAll;
     /// <summary>An electric vehicle's battery that overheats far enough catches fire and bursts (agent default, as boiler explosions:
     /// off, with a warning). Live.</summary>
     public bool batteryFires;
@@ -76,6 +79,7 @@ public class VehicleSystemsSettings : ModSettings
         "jumpStartNeedsKit" => jumpStartNeedsKit,
         "assumeBoosterPack" => assumeBoosterPack,
         "cabMoods" => cabMoods,
+        "climateControlAll" => climateControlAll,
         "batteryFires" => batteryFires,
         "electricLightning" => electricLightning,
         _ => false,
@@ -100,6 +104,7 @@ public class VehicleSystemsSettings : ModSettings
         Scribe_Values.Look(ref jumpStartNeedsKit, "PhobosVehicleSystems_JumpStartNeedsKit", true);
         Scribe_Values.Look(ref assumeBoosterPack, "PhobosVehicleSystems_AssumeBoosterPack", false);
         Scribe_Values.Look(ref cabMoods, "PhobosVehicleSystems_CabMoods", true);
+        Scribe_Values.Look(ref climateControlAll, "PhobosVehicleSystems_ClimateControlAll", false);
         Scribe_Values.Look(ref batteryFires, "PhobosVehicleSystems_BatteryFires", false);
         Scribe_Values.Look(ref electricLightning, "PhobosVehicleSystems_ElectricLightning", false);
         if (Scribe.mode == LoadSaveMode.PostLoadInit)
@@ -150,6 +155,7 @@ public class VehicleSystemsMod : Mod
         else report.Off("jump-start leads", "free (setting)");
         if (Settings.assumeBoosterPack) report.On("booster pack assumed on every vehicle (setting)");
         if (!Settings.cabMoods) report.Off("cab moods", "off (setting)");
+        if (Settings.climateControlAll) report.On("climate control in every closed cab (setting)");
         if (Settings.batteryFires) report.On("battery fires (setting)");
         if (Settings.electricLightning) report.On("the Lightning runs on batteries (setting)");
         foreach (IGrouping<string, DesignRecord> skipped in VehicleSystems.Designs.Where(d => d.skippedBecause != null && d.loadout != null).GroupBy(d => d.skippedBecause!))
@@ -223,6 +229,7 @@ public class VehicleSystemsMod : Mod
         listing.CheckboxLabeled("PhobosVehicleSystems_SettingLoadFuel".Translate(), ref s.loadDependentFuel, "PhobosVehicleSystems_SettingLoadFuelDesc".Translate());
         listing.CheckboxLabeled("PhobosVehicleSystems_SettingNightHeater".Translate(), ref s.nightHeater, "PhobosVehicleSystems_SettingNightHeaterDesc".Translate());
         listing.CheckboxLabeled("PhobosVehicleSystems_SettingCabMoods".Translate(), ref s.cabMoods, "PhobosVehicleSystems_SettingCabMoodsDesc".Translate());
+        listing.CheckboxLabeled("PhobosVehicleSystems_SettingClimateAll".Translate(), ref s.climateControlAll, "PhobosVehicleSystems_SettingClimateAllDesc".Translate());
         listing.Gap(6f);
         listing.Label("PhobosVehicleSystems_SettingHoverLimit".Translate());
         foreach (VehicleSystemsSettings.HoverLimit limit in System.Enum.GetValues(typeof(VehicleSystemsSettings.HoverLimit)))

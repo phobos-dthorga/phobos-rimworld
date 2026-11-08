@@ -25,6 +25,9 @@
       <coolerRate>4</coolerRate>
       <nightHeaterRate>3</nightHeaterRate>
       <nightHeaterFuelPerHour>0.4</nightHeaterFuelPerHour>
+      <!-- Automatic climate control (Framework 0.22.0): holds the cab near 21 degrees C, heating below 20 and cooling above 22, with
+           the same heater and air conditioner rates (authored set point; a common car default). -->
+      <climateTarget>21</climateTarget>
     </parameters>
     <quantities>
       <li>
@@ -114,6 +117,32 @@
         <target Class="Phobos.VehicleSystems.Input_Parameter"><parameter>coolerTarget</parameter></target>
         <factorParameter>coolerRate</factorParameter>
         <when Class="Phobos.VehicleSystems.When_LoadActive"><load>airConditioner</load></when>
+      </li>
+      <li>
+        <name>climateHeating</name>
+        <quantity>cabTemperature</quantity>
+        <kind>Toward</kind>
+        <target Class="Phobos.VehicleSystems.Input_Parameter"><parameter>climateTarget</parameter></target>
+        <factorParameter>heaterRate</factorParameter>
+        <when Class="Phobos.VehicleSystems.When_All">
+          <conditions>
+            <li Class="Phobos.VehicleSystems.When_LoadActive"><load>climateControl</load></li>
+            <li Class="Phobos.VehicleSystems.When_QuantityBelow"><quantity>cabTemperature</quantity><value>20</value></li>
+          </conditions>
+        </when>
+      </li>
+      <li>
+        <name>climateCooling</name>
+        <quantity>cabTemperature</quantity>
+        <kind>Toward</kind>
+        <target Class="Phobos.VehicleSystems.Input_Parameter"><parameter>climateTarget</parameter></target>
+        <factorParameter>coolerRate</factorParameter>
+        <when Class="Phobos.VehicleSystems.When_All">
+          <conditions>
+            <li Class="Phobos.VehicleSystems.When_LoadActive"><load>climateControl</load></li>
+            <li Class="Phobos.VehicleSystems.When_QuantityAbove"><quantity>cabTemperature</quantity><value>22</value></li>
+          </conditions>
+        </when>
       </li>
       <li>
         <name>nightHeater</name>

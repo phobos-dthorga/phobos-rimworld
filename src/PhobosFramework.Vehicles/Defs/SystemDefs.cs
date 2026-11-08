@@ -325,6 +325,9 @@ public class ElectricalLoadSpec
     public bool toggle;
     public bool defaultOn = true;
     public string? iconPath;
+    /// <summary>Whether this vehicle has the load fitted at all (climate control only on vehicles built with it): while it does not
+    /// hold, the load never runs and its switch is not shown. Null: always fitted.</summary>
+    public VehicleSystemCondition? available;
 }
 
 /// <summary>Three-way XML switch for a selector: match either way, only yes, only no.</summary>
@@ -422,12 +425,16 @@ public class LoadoutSelector
 public class CabinSpec
 {
     public bool closed = true;
+    /// <summary>The vehicles have automatic climate control fitted (Framework 0.22.0): it holds the cab near a set temperature.</summary>
+    public bool climateControl;
 }
 
 /// <summary>On a VehicleDef, in any mod's XML: whether this vehicle's cab is closed, overriding its loadout's cabin block.</summary>
 public class PhobosVehicleCabinExtension : DefModExtension
 {
     public bool closed = true;
+    /// <summary>This vehicle has automatic climate control fitted, whatever its loadout says (Framework 0.22.0).</summary>
+    public bool climateControl;
 }
 
 /// <summary>

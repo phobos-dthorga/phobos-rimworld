@@ -70,5 +70,9 @@
         </find>
       </li>
     </partRoles>
-  </Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
+      <!-- Automatic climate control (D'thorga Vehicles 0.10.0): the A129's environmental control system holds the cockpit's temperature by itself (general). -->
+    <cabin>
+      <climateControl>true</climateControl>
+    </cabin>
+</Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
 </Defs>

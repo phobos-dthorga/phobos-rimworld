@@ -383,6 +383,14 @@ Empty mass, most specific first: the player's tuning in Vehicle Framework's wind
 drivetrain's `ratedKilowatts`; power per tonne times the empty mass. A quantity that counts what is used up can carry a
 `remainingLabel` ("tread"): the tabs' gauges then show what is left, full when new.
 
+## Climate control
+
+A loadout's electrical load may carry `available`, a condition saying whether the vehicle has it fitted at all: while it does not hold,
+the load never runs and its switch is not shown. The shipped `climateControl` load uses `When_ClimateControl`, which holds when the
+vehicle's `PhobosVehicleCabinExtension` or its loadout's `cabin` block says `climateControl`, when the design is spacer tech or later,
+or when the player's setting gives it to every closed cab. The Cabin system then holds the cab near `climateTarget` (21), and the
+manual heater and air conditioner stand down (their `when` holds only while `climateControl` is not active).
+
 ## Electric vehicles
 
 `PhobosVehicleLoadout_LandElectric` (kind `Electric`) claims every land vehicle Vehicle Framework runs on electricity. Its systems use

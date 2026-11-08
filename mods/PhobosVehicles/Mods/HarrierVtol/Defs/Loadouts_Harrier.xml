@@ -60,5 +60,9 @@
       <def>PhobosDrivetrain_Pegasus</def>
     </drivetrain>
     <flightProfile>PhobosFlightProfile_FixedWingJet</flightProfile>
-  </Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
+      <!-- Automatic climate control (D'thorga Vehicles 0.10.0): the AV-8B's environmental control system holds the cockpit's temperature by itself (general). -->
+    <cabin>
+      <climateControl>true</climateControl>
+    </cabin>
+</Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
 </Defs>

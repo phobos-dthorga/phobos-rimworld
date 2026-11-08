@@ -35,6 +35,7 @@
       <packHeaterShare>0.04</packHeaterShare>
       <cabHeaterShare>0.03</cabHeaterShare>
       <airConditionerShare>0.02</airConditionerShare>
+      <climateControlShare>0.025</climateControlShare>
       <agePerHour>0.00008</agePerHour>
       <hotAgePerHour>0.0003</hotAgePerHour>
       <coldChargeAgePerHour>0.001</coldChargeAgePerHour>
@@ -278,6 +279,31 @@
             <effects>
               <li Class="Phobos.VehicleSystems.Effect_ConsumeFuel">
                 <perHourParameter>cabHeaterShare</perHourParameter>
+                <ofCapacity>true</ofCapacity>
+              </li>
+            </effects>
+          </li>
+        </stages>
+      </li>
+      <li>
+        <name>climateControlDraw</name>
+        <label>climate control draw</label>
+        <unit>Plain</unit>
+        <min>0</min>
+        <max>1</max>
+        <hidden>true</hidden>
+        <derivedFrom>
+          <li Class="Phobos.VehicleSystems.Input_Condition">
+            <condition Class="Phobos.VehicleSystems.When_LoadActive"><load>climateControl</load></condition>
+          </li>
+        </derivedFrom>
+        <stages>
+          <li>
+            <from>0.5</from>
+            <label>drawing</label>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_ConsumeFuel">
+                <perHourParameter>climateControlShare</perHourParameter>
                 <ofCapacity>true</ofCapacity>
               </li>
             </effects>

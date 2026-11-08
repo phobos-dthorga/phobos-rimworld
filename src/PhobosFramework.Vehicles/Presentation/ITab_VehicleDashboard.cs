@@ -128,7 +128,7 @@ public class ITab_VehicleDashboard : ITab
         PhobosVehicleLoadoutDef? loadout = comp.Props.loadout;
         if (loadout != null)
         {
-            foreach (ElectricalLoadSpec load in loadout.loads.Where(l => l.toggle))
+            foreach (ElectricalLoadSpec load in loadout.loads.Where(l => l.toggle && comp.LoadAvailable(l)))
             {
                 var rect = new Rect(switchX, y, SwitchSize, SwitchSize);
                 bool on = comp.IsOn(load);

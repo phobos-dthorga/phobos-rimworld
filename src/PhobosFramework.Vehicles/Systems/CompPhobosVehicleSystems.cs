@@ -205,10 +205,35 @@ public class CompPhobosVehicleSystems : VehicleComp
         {
             if (load.name != name) continue;
             if (load.toggle && !IsOn(load)) return false;
-            return load.when == null || load.when.Holds(new SystemContext(this, states[0]));
+            var context = new SystemContext(this, states[0]);
+            if (load.available != null && !load.available.Holds(context)) return false;
+            return load.when == null || load.when.Holds(context);
         }
         return false;
     }
+
+    /// <summary>Whether this vehicle has the load fitted (its <c>available</c> condition), so its switch shows.</summary>
+    public bool LoadAvailable(ElectricalLoadSpec load) =>
+        load.available == null || states == null || states.Count == 0 || load.available.Holds(new SystemContext(this, states[0]));
+
+    /// <summary>
+    /// Whether the cab has automatic climate control fitted: the player's setting gives it to every closed cab; otherwise the vehicle's
+    /// own cab extension, its loadout's cabin block, or a spacer-tech design or later (agent rule, owner to revise).
+    /// </summary>
+    public bool ClimateControlFitted
+    {
+        get
+        {
+            if (!ClosedCab) return false;
+            if (VehicleSystemsMod.Settings.climateControlAll) return true;
+            climateFitted ??= Vehicle?.VehicleDef?.GetModExtension<PhobosVehicleCabinExtension>()?.climateControl == true
+                || Props.loadout?.cabin.climateControl == true
+                || (Vehicle?.VehicleDef != null && Vehicle.VehicleDef.techLevel >= TechLevel.Spacer);
+            return climateFitted.Value;
+        }
+    }
+
+    bool? climateFitted;
 
     // ---- Saving ----
 
@@ -468,6 +493,7 @@ public class CompPhobosVehicleSystems : VehicleComp
         foreach (ElectricalLoadSpec load in loadout.loads)
         {
             if (load.toggle && !IsOn(load)) continue;
+            if (load.available != null && !load.available.Holds(context)) continue;
             if (load.when != null && !load.when.Holds(context)) continue;
             amps += load.amps;
         }
@@ -1140,7 +1166,7 @@ public class CompPhobosVehicleSystems : VehicleComp
         {
             foreach (ElectricalLoadSpec load in loadout.loads)
             {
-                if (!load.toggle) continue;
+                if (!load.toggle || !LoadAvailable(load)) continue;
                 ElectricalLoadSpec captured = load;
                 yield return new Command_Toggle
                 {

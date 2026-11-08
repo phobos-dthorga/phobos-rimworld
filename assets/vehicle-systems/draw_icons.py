@@ -214,6 +214,29 @@ def booster_pack():
     return image
 
 
+def climate_control():
+    image, draw = canvas()
+    # A thermometer in the middle, a red flame on the left and a pale-blue snowflake on the right: heating and cooling by itself.
+    stem = [(452, 160), (572, 160), (572, 640), (452, 640)]
+    draw.rounded_rectangle((452 - LINE, 140 - LINE, 572 + LINE, 660), radius=80, fill=OUTLINE)
+    draw.rounded_rectangle((452, 140, 572, 660), radius=60, fill=PALE)
+    cx, cy, r = 512, 760, 130
+    draw.ellipse((cx - r - LINE, cy - r - LINE, cx + r + LINE, cy + r + LINE), fill=OUTLINE)
+    draw.ellipse((cx - r, cy - r, cx + r, cy + r), fill=RED)
+    draw.rectangle((482, 380, 542, 700), fill=RED)
+    for y in (240, 330, 420, 510):
+        draw.line([(452, y), (500, y)], fill=OUTLINE, width=20)
+    flame = [(200, 760), (250, 600), (300, 680), (330, 520), (380, 640), (400, 760), (300, 840)]
+    draw.polygon(flame, fill=OUTLINE)
+    draw.polygon(shrink(flame, 26), fill=AMBER)
+    sx, sy = 780, 520
+    for angle in (0, 60, 120):
+        dx = math.cos(math.radians(angle)) * 150
+        dy = math.sin(math.radians(angle)) * 150
+        thick_line(draw, [(sx - dx, sy - dy), (sx + dx, sy + dy)], 34, BLUE)
+    return image
+
+
 DRAWINGS = {
     'Service': (service, 'a steel spanner laid diagonally, open jaw and ring end, for "service when possible"'),
     'Switch': (switch, 'a rocker switch on a pale plate, the fallback icon for any switchable load'),
@@ -222,6 +245,7 @@ DRAWINGS = {
     'AirConditioner': (air_conditioner, 'three pale-blue cold waves falling from a slatted steel vent'),
     'NightHeater': (night_heater, 'a squat parking heater on legs with a flame in its window and a crescent moon above'),
     'JumpStartKit': (jump_start_kit, 'two coiled jump leads, red and black, each ending in a sprung steel clamp'),
+    'ClimateControl': (climate_control, 'a pale thermometer with a red bulb between an amber flame and a pale-blue snowflake'),
     'BoosterPack': (booster_pack, 'a squat pale battery case with a carrying handle, three charge bars (two lit amber) and two short leads with steel clamps'),
 }
 

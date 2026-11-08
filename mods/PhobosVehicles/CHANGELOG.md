@@ -5,6 +5,18 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.10.0] - 2026-11-09 - Draft
+
+Automatic climate control by era, with D'thorga Framework 0.22.0 (owner, 9 November 2026: by technology and age). **Not yet tested in game.**
+
+### Added
+
+- Climate control on the modern vehicles: the L-ATV, the MaxxPro, the M1A2 SEP, the M10 Booker, the Harrier, the Mongoose and the Goat shunter, and Vanilla Vehicles Expanded's Tier 3 vehicles except the Springbok and the Louie. Older designs keep the heater and air conditioner by hand. An agent reading of each vehicle's era, for the owner to revise.
+
+### Dependencies
+
+- Needs D'thorga Framework 0.22.0 or later.
+
 ## [0.9.1] - 2026-11-09 - Draft
 
 With D'thorga Framework 0.21.2. **Not yet tested in game.**

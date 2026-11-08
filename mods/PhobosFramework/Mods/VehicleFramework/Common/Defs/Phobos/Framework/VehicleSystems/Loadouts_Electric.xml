@@ -177,6 +177,10 @@
               <celsius>5</celsius>
             </li>
             <li Class="Phobos.VehicleSystems.When_EngineRunning" />
+            <li Class="Phobos.VehicleSystems.When_LoadActive">
+              <load>climateControl</load>
+              <invert>true</invert>
+            </li>
           </conditions>
         </when>
       </li>
@@ -184,6 +188,19 @@
         <name>instruments</name>
         <label>computers and instruments</label>
         <amps>6</amps>
+        <when Class="Phobos.VehicleSystems.When_EngineRunning" />
+      </li>
+      <li>
+        <!-- Automatic climate control (Framework 0.22.0): only on vehicles fitted with it (When_ClimateControl), or every closed cab
+             with the player's setting. It runs the heater and air conditioner itself to hold the cab near 21 degrees C, so the manual
+             ones stand down while it runs. The draw is an average of the fans, blower and controls (authored). -->
+        <name>climateControl</name>
+        <label>climate control</label>
+        <description>Holds the cab near 21 °C by itself while the engine runs, heating or cooling as needed. Switch it off to use the heater and air conditioner by hand.</description>
+        <amps>8</amps>
+        <toggle>true</toggle>
+        <iconPath>Phobos/VehicleSystems/ClimateControl</iconPath>
+        <available Class="Phobos.VehicleSystems.When_ClimateControl" />
         <when Class="Phobos.VehicleSystems.When_EngineRunning" />
       </li>
       <li>
@@ -199,6 +216,10 @@
               <celsius>26</celsius>
             </li>
             <li Class="Phobos.VehicleSystems.When_EngineRunning" />
+            <li Class="Phobos.VehicleSystems.When_LoadActive">
+              <load>climateControl</load>
+              <invert>true</invert>
+            </li>
           </conditions>
         </when>
       </li>

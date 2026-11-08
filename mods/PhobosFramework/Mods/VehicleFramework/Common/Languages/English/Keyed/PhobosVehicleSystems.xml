@@ -224,6 +224,8 @@
   <!-- The crew: cab comfort and the head-up display value -->
   <PhobosVehicleSystems_SettingCabMoods>Passengers feel the cab</PhobosVehicleSystems_SettingCabMoods>
   <PhobosVehicleSystems_SettingCabMoodsDesc>On by default: people aboard a vehicle with a closed cab are glad of a warm cab in the cold or a cool one in the heat, and unhappy in a cab that is too cold or too hot for them, by their own comfortable range. Off: no such moods.</PhobosVehicleSystems_SettingCabMoodsDesc>
+  <PhobosVehicleSystems_SettingClimateAll>Every closed cab has climate control</PhobosVehicleSystems_SettingClimateAll>
+  <PhobosVehicleSystems_SettingClimateAllDesc>Off by default: automatic climate control comes only on vehicles built with it (modern ones; the switch shows on those). On: every vehicle with a closed cab has it, and holds its cab near 21 °C by itself while the engine runs.</PhobosVehicleSystems_SettingClimateAllDesc>
   <PhobosVehicleSystems_HudVehicle>Vehicle</PhobosVehicleSystems_HudVehicle>
   <PhobosVehicleSystems_HudNone>none</PhobosVehicleSystems_HudNone>
   <PhobosVehicleSystems_HudAboard>{VEHICLE} ({ROLE})</PhobosVehicleSystems_HudAboard>

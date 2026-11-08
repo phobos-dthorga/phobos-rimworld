@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <!-- Automatic climate control on Vanilla Vehicles Expanded's Tier 3 vehicles, its most advanced (owner, 9 Nov 2026: climate control by
+       technology and age; D'thorga Vehicles 0.10.0). Left out by their descriptions: the Springbok ("old, robust build") and the Louie
+       (an armoured utility helicopter of the Huey's kind). An agent reading, owner to revise. Not yet tested in game. -->
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>Defs/Vehicles.VehicleDef[defName="VVE_Badger" or defName="VVE_BigRig" or defName="VVE_Burya" or defName="VVE_Cherokee" or defName="VVE_Goliath" or defName="VVE_Hermano" or defName="VVE_Lightning" or defName="VVE_Marshal" or defName="VVE_Nomad" or defName="VVE_Paladin" or defName="VVE_Udar"]</xpath>
+    <value>
+      <li Class="Phobos.VehicleSystems.PhobosVehicleCabinExtension">
+        <climateControl>true</climateControl>
+      </li>
+    </value>
+  </Operation>
+</Patch>

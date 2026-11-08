@@ -91,6 +91,15 @@ block, `When_LoadActive` naming a real load.
    aboard ("give a jump-start kit") and refuses with the reason without one; switch 1 off needs no kit; switch 2 on needs no donor.
 6. On the map: a jump-start fetches the kit, or refuses without one.
 
+## Later: cab heaters and climate control (9 Nov 2026)
+
+- **Fixed in Framework 0.21.2 and Vehicles 0.9.1:** aircraft and boats had no cab heater, and steam cabs no heat at all, so their cabs
+  could only cool. Found from the owner's Harrier at -9 °C; a parked vehicle with its engine off still follows the weather, by design.
+- **Automatic climate control (owner, 9 Nov 2026; Framework 0.22.0, Vehicles 0.10.0):** vehicles fitted with it hold the cab near
+  21 °C, heating below 20 and cooling above 22 while the engine runs, at the heater's and air conditioner's rates; the manual ones stand
+  down meanwhile. Fitted by era (agent reading: modern real vehicles, Vanilla Vehicles Expanded's Tier 3 but the Springbok and Louie),
+  by spacer tech, or on every closed cab with the setting (off). Not yet tested in game.
+
 ## Who chose what
 
 - **Owner (9 Nov 2026):** the four decisions above; the kit; the two settings.

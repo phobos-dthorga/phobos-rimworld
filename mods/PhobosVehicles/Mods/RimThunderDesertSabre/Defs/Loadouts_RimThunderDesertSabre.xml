@@ -37,7 +37,11 @@
     <drivetrain>
       <def>PhobosDrivetrain_AGT1500</def>
     </drivetrain>
-  </Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
+      <!-- Automatic climate control (D'thorga Vehicles 0.10.0): the M1A2 SEP has a crew climate system (general). -->
+    <cabin>
+      <climateControl>true</climateControl>
+    </cabin>
+</Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
 
   <Phobos.VehicleSystems.PhobosVehicleLoadoutDef ParentName="PhobosVehicleLoadoutLandHeavy">
     <defName>PhobosVehicleLoadout_RT_M10Booker</defName>
@@ -52,7 +56,11 @@
     <drivetrain>
       <def>PhobosDrivetrain_M10Booker</def>
     </drivetrain>
-  </Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
+      <!-- Automatic climate control (D'thorga Vehicles 0.10.0): the M10 Booker (2020s) has crew climate control (general). -->
+    <cabin>
+      <climateControl>true</climateControl>
+    </cabin>
+</Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
 
   <Phobos.VehicleSystems.PhobosVehicleLoadoutDef ParentName="PhobosVehicleLoadoutLandHeavy">
     <defName>PhobosVehicleLoadout_RT_M2A3</defName>

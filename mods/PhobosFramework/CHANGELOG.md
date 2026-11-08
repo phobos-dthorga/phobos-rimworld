@@ -5,6 +5,17 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.22.0] - 2026-11-09 - Draft
+
+Automatic climate control (owner, 9 November 2026). **Not yet tested in game.** Design: docs/development/vehicle-world-map-design.md.
+
+### Added
+
+- Automatic climate control on vehicles built with it: a switch, on by default, that holds the cab near 21 degrees by heating below 20 and cooling above 22 while the engine runs, so a mild day no longer leaves the cab at 10 degrees. The manual heater and air conditioner stand down while it runs. Fitted by the vehicle (D'thorga Vehicles marks modern ones), its loadout, or any spacer-tech design.
+- Every closed cab has climate control (setting, off by default): a blanket option for players who want it on every vehicle.
+- On electric vehicles it draws on the traction battery, as the heater does.
+- For modders: available on an electrical load (whether the vehicle has it fitted, so its switch shows), climateControl on a loadout's cabin block and on PhobosVehicleCabinExtension, and When_ClimateControl.
+
 ## [0.21.2] - 2026-11-09 - Draft
 
 From the owner's test of the Harrier (9 November 2026). **Not yet tested in game.**

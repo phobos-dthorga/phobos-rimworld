@@ -35,5 +35,9 @@
     <drivetrain>
       <def>PhobosDrivetrain_MaxxPro</def>
     </drivetrain>
-  </Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
+      <!-- Automatic climate control (D'thorga Vehicles 0.10.0): the MaxxPro carries an automatic climate system for its crew (general). -->
+    <cabin>
+      <climateControl>true</climateControl>
+    </cabin>
+</Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
 </Defs>

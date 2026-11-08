@@ -115,6 +115,12 @@ public class When_Setting : VehicleSystemCondition
     protected override bool HoldsRaw(SystemContext context) => VehicleSystemsMod.Settings.FlagOn(setting);
 }
 
+/// <summary>The cab has automatic climate control fitted (the vehicle, its loadout, its tech level or the player's setting).</summary>
+public class When_ClimateControl : VehicleSystemCondition
+{
+    protected override bool HoldsRaw(SystemContext context) => context.Comp.ClimateControlFitted;
+}
+
 /// <summary>An electric vehicle is charging from the grid (Vehicle Framework connects it to a powered network with stored energy).</summary>
 public class When_Charging : VehicleSystemCondition
 {
