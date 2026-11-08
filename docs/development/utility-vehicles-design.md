@@ -502,7 +502,7 @@ already do it (IDs in the mechanics record); the lean is the agent's.
 | Question | Agent lean |
 | --- | --- |
 | The family: survey truck, drill rig, tipper hauler, generator set, bulk tanker? | Yes (the tanker joined on 9 Nov 2026) |
-| Which vehicle is built first? The owner asked for the drill rig first (8 Nov 2026); the work list (V3) says the tanker | **Owner to settle.** Agent lean: the tanker, since it is the cheapest to draw and proves the upgrade model that every other vehicle depends on |
+| Which vehicle is built first? | **The bulk tanker** (owner, 8 Nov 2026, taking the agent's lean: cheapest to draw, and it proves the upgrade model; this replaces the earlier request for the drill rig first) |
 | Which vehicle is the diesel-electric one? | The generator set (its engine already turns an alternator) |
 | The tanker's name | "Bulk tanker" as a working name |
 | Hemogen as tanker contents? | Listed as possible; the owner decides |
