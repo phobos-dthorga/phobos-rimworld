@@ -5,6 +5,30 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.12.0] - 2026-11-09 - Draft
+
+Power and lift, part 1 of the owner's approved proposals of 9 November 2026. **Not yet tested in game.** Design:
+docs/development/vehicle-power-and-lift-design.md.
+
+### Added
+
+- Any number of engines (up to eight): each one out takes its share of output.
+- Helicopters' rotor drives: the main transmission and rotor masts take only so much power. Lift is the smaller of what the engines give and what the drive takes; asked for more, the drive is over-torqued and wears, and a damaged drive takes less.
+- Thrust-lifted craft: lift as a multiple of the craft's full weight on every thruster, so each thruster lost takes lift away.
+- A lift-off check for aircraft that launch through Vehicle Framework itself (its helicopters and pods): too heavy for the day's heat or with engines out, they follow the hover-limit setting, now worded to cover lift-off. Refused, the launch button says why: unload, repair the engines, or wait for cooler air. Allowed at a cost, the engines wear at lift-off.
+- Diesel-electric locomotives: no gearbox, the engine runs at the power asked of it, the traction motors pull hardest at a standstill and heat when pulled past their continuous rating, running hot and then burning their windings until they cool.
+- Steel wheels on rails roll and grip as rails do, whatever the ground beneath.
+- For modders: Engine1 to Engine8 roles; the RotorDrive and TractionMotor roles with their systems; the turbine block's transmission limit and lift-to-weight; the Thruster engine kind; a real engine's rated power in kW; the DieselElectric transmission with its tractive efforts; fixed rolling resistance and grip; the lift check on flight profiles and two new profiles for Vehicle Framework's own helicopters and pods; a part finder taking several key hints; new inputs for over-torque and traction load. The schema check reads them all.
+
+### Compatibility and limits
+
+- Patches Vehicle Framework's launch check (the same method its launch button asks) to add the lift-off refusal, and listens for its launch event.
+- The pods' lift figures and the traction motors' heating are authored. The Huey's and the Mangusta's drive limits come from published figures; where none was found, the limit is authored and labelled.
+
+### Save compatibility
+
+- Safe to add to a running colony. Vehicles named by D'thorga Vehicles gain the rotor drive or traction motor systems; nothing the model works out is saved.
+
 ## [0.11.0] - 2026-11-09 - Draft
 
 The drivetrain and gas-turbine designs (records of 8 November 2026), built with the owner's four answers of 9 November 2026.

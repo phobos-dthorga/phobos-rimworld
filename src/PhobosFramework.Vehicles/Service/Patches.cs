@@ -147,3 +147,20 @@ public class Reactor_PhobosVehicleSystems : Reactor
         vehicle.GetComp<CompPhobosVehicleSystems>()?.Notify_PartHit(role, dinfo.Amount);
     }
 }
+
+/// <summary>
+/// The lift-off check (owner's hover-limit setting, 9 Nov 2026): an aircraft that lifts off through Vehicle Framework's own launch
+/// (its stock helicopters and the drop pods) and whose engines cannot lift it now, too heavy, too hot or with engines out, is refused
+/// with the reason when the player chose to refuse. Every launch path and the launch button ask this method, which already gives
+/// the button its reason (read from Vehicle Framework 1.6, 9 Nov 2026); a postfix adds ours only when it would otherwise allow.
+/// </summary>
+[HarmonyPatch(typeof(CompVehicleLauncher), nameof(CompVehicleLauncher.CanLaunchWithCargoCapacity))]
+public static class LiftOffPatch
+{
+    public static void Postfix(CompVehicleLauncher __instance, ref bool __result, ref string disableReason)
+    {
+        if (!__result || __instance.Vehicle is not VehiclePawn vehicle || !HoverLimits.RefusesLaunch(vehicle)) return;
+        __result = false;
+        disableReason = HoverLimits.LaunchRefusalText(vehicle);
+    }
+}

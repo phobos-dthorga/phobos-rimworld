@@ -138,11 +138,19 @@ def check_drivetrain(node, where, errors):
     curve = items(engine.find('torqueCurve'), 'points') if engine.find('torqueCurve') is not None else []
     if curve and float(curve[-1].text.strip().strip('()').split(',')[1]) != 0:
         errors.append(f'{where}: the torque curve must end at zero')
+    if text(transmission, 'kind', 'Automatic') == 'DieselElectric':
+        most = number(transmission, 'maxTractiveEffortKilonewtons', 0)
+        held = number(transmission, 'continuousTractiveEffortKilonewtons', 0)
+        if most is None or held is None or most < 0 or held < 0 or (most and held > most):
+            errors.append(f'{where}: the continuous tractive effort must be a positive figure no greater than the maximum')
     turbine = engine.find('turbine')
-    if kind in ('Turboshaft', 'Turbofan') and turbine is None:
+    if kind in ('Turboshaft', 'Turbofan', 'Thruster') and turbine is None:
         errors.append(f'{where}: a {kind} engine has no turbine block')
     if turbine is None:
         return
+    limit = number(turbine, 'transmissionLimit', float('nan'))
+    if limit is None or limit <= 0:
+        errors.append(f'{where}: transmissionLimit must be a positive share of the engines\' output')
     ratings = items(turbine, 'ratings')
     if not ratings:
         errors.append(f'{where}: a turbine has no ratings')
@@ -338,10 +346,17 @@ def check(root):
         turbine = None if engine is None else engine.find('turbine')
         if profile is not None and turbine is None:
             warnings.append(f'{where}: a flight profile with no turbine engine: its phases drive nothing but the inspect line')
-        if turbine is not None and 'PhobosVehicleSystem_Turbine' not in used:
+        kind = text(engine, 'kind', 'Piston') if engine is not None else None
+        if turbine is not None and kind != 'Thruster' and 'PhobosVehicleSystem_Turbine' not in used:
             warnings.append(f'{where}: a turbine engine without the turbine system: no temperature, hot-section wear or hung starts')
         if turbine is not None and turbine.find('waterInjection') is not None and not water_systems.intersection(used):
             errors.append(f'{where}: the engine injects water but no system here holds the injectionWater quantity')
+        if kind == 'Thruster' and turbine is not None:
+            overrides = drivetrain.find('set') if drivetrain is not None else None
+            lift = text(overrides, 'liftToWeightAtMaxGross') if overrides is not None else None
+            if lift is None and text(turbine, 'liftToWeightAtMaxGross') is None and not any(
+                    number(r, 'thrustKilonewtons', 0) for r in items(turbine, 'ratings')):
+                errors.append(f'{where}: thrusters need a liftToWeightAtMaxGross or ratings with thrust')
         if text(node, 'rank') is not None and number(node, 'rank', 0) is None:
             errors.append(f'{where}: rank must be a whole number')
         names = [text(load, 'name') for load in items(node, 'loads')]

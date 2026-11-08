@@ -33,13 +33,13 @@
   <PhobosVehicleSystems_DrivetrainFullDesc>As above, and a vehicle slows where its engine runs out of power (heavy loads, steep or soft ground) or its wheels run out of grip. A vehicle that cannot grip crawls on at a fraction of its speed rather than stopping.</PhobosVehicleSystems_DrivetrainFullDesc>
   <PhobosVehicleSystems_SettingLoadFuel>Fuel use follows engine load</PhobosVehicleSystems_SettingLoadFuel>
   <PhobosVehicleSystems_SettingLoadFuelDesc>Off by default: vehicles burn fuel at the rate their authors set. On: a laden vehicle climbing through sand burns more, an empty one on a road less, and an idling engine burns a little while parked. At an ordinary cruise the rate matches the author's.</PhobosVehicleSystems_SettingLoadFuelDesc>
-  <PhobosVehicleSystems_SettingHoverLimit>When an aircraft is too heavy or too hot to hover onto its pad</PhobosVehicleSystems_SettingHoverLimit>
-  <PhobosVehicleSystems_HoverRefusePadUseRunway>Use the runway instead (default)</PhobosVehicleSystems_HoverRefusePadUseRunway>
-  <PhobosVehicleSystems_HoverRefusePadUseRunwayDesc>A jump jet whose engine cannot hold it in a hover, because it is heavily laden or the day is hot, lands on a runway like an ordinary jet. An order to land on the pad is refused with the reason.</PhobosVehicleSystems_HoverRefusePadUseRunwayDesc>
+  <PhobosVehicleSystems_SettingHoverLimit>When an aircraft is too heavy or too hot to lift off or hover onto its pad</PhobosVehicleSystems_SettingHoverLimit>
+  <PhobosVehicleSystems_HoverRefusePadUseRunway>Refuse it: use the runway, or lighten it (default)</PhobosVehicleSystems_HoverRefusePadUseRunway>
+  <PhobosVehicleSystems_HoverRefusePadUseRunwayDesc>A jump jet whose engine cannot hold it in a hover, because it is heavily laden or the day is hot, lands on a runway like an ordinary jet. An order to land on the pad is refused with the reason. A helicopter or a thrust-lifted pod whose engines cannot lift it, because it is laden, the day is hot or engines are out, will not launch until it is lightened, repaired or the air cools.</PhobosVehicleSystems_HoverRefusePadUseRunwayDesc>
   <PhobosVehicleSystems_HoverAllowWithDamage>Allow it, at a cost to the engine</PhobosVehicleSystems_HoverAllowWithDamage>
-  <PhobosVehicleSystems_HoverAllowWithDamageDesc>The landing goes ahead with the engine run past its limits: its hot section wears and you are told.</PhobosVehicleSystems_HoverAllowWithDamageDesc>
+  <PhobosVehicleSystems_HoverAllowWithDamageDesc>The landing or lift-off goes ahead with the engines run past their limits: they wear and you are told.</PhobosVehicleSystems_HoverAllowWithDamageDesc>
   <PhobosVehicleSystems_HoverWarnOnly>Allow it, with a warning only</PhobosVehicleSystems_HoverWarnOnly>
-  <PhobosVehicleSystems_HoverWarnOnlyDesc>The landing goes ahead as the aircraft's own mod allows, and a message says it was beyond the engine.</PhobosVehicleSystems_HoverWarnOnlyDesc>
+  <PhobosVehicleSystems_HoverWarnOnlyDesc>The landing or lift-off goes ahead as the aircraft's own mod allows, and a message says it was beyond the engines.</PhobosVehicleSystems_HoverWarnOnlyDesc>
   <PhobosVehicleSystems_RemoveExplain>Vehicles save their parts in order, so a save made with these systems cannot simply lose them. Before you remove D'thorga Framework or Vehicle Framework from a colony, load it, press this button, save, then remove the mod. Turning vehicles or systems off above needs none of this.</PhobosVehicleSystems_RemoveExplain>
   <PhobosVehicleSystems_RemoveButton>Remove the added parts from this colony's vehicles</PhobosVehicleSystems_RemoveButton>
   <PhobosVehicleSystems_RemoveConfirm>Remove every part the vehicle systems added, from every vehicle in this colony, and stop the systems until you restart? Save straight afterwards, then remove the mod.</PhobosVehicleSystems_RemoveConfirm>
@@ -82,6 +82,7 @@
   <PhobosVehicleSystems_RefuseBrakesWorn>The {VEHICLE}'s brakes are worn through. A mechanic must fit new pads before it drives.</PhobosVehicleSystems_RefuseBrakesWorn>
   <PhobosVehicleSystems_RefuseBrakesWrecked>The {VEHICLE}'s brakes are wrecked. Repair the vehicle before it drives.</PhobosVehicleSystems_RefuseBrakesWrecked>
   <PhobosVehicleSystems_RefuseAirBrakes>The {VEHICLE}'s air brakes are still held on. Leave the engine running a few minutes to build air pressure.</PhobosVehicleSystems_RefuseAirBrakes>
+  <PhobosVehicleSystems_RefuseLiftOff>The {VEHICLE}'s engines cannot lift it as it is: too heavy for this heat, or with engines out. Unload some cargo or passengers, repair its engines, or wait for cooler air.</PhobosVehicleSystems_RefuseLiftOff>
   <PhobosVehicleSystems_RefuseHungStart>The {VEHICLE}'s battery cannot spin its turbine fast enough to light. Have a colonist jump-start it from another vehicle parked near it, or charge the battery beside a powered conduit.</PhobosVehicleSystems_RefuseHungStart>
 
   <!-- Messages -->
@@ -105,6 +106,11 @@
   <PhobosVehicleSystems_MsgHotSectionWorn>The {VEHICLE}'s turbine hot section is worn out and may fail. A mechanic should overhaul it.</PhobosVehicleSystems_MsgHotSectionWorn>
   <PhobosVehicleSystems_MsgHotStart>The {VEHICLE}'s weak battery lit its turbine hot, wearing the hot section. A jump-start gives a clean start.</PhobosVehicleSystems_MsgHotStart>
   <PhobosVehicleSystems_MsgInjectionWaterOut>The {VEHICLE} has used its injection water; its engine is back to its dry limits until a mechanic refills the tank.</PhobosVehicleSystems_MsgInjectionWaterOut>
+  <PhobosVehicleSystems_MsgLiftStrained>The {VEHICLE} lifted off beyond its engines' limits, and they took the strain.</PhobosVehicleSystems_MsgLiftStrained>
+  <PhobosVehicleSystems_MsgLiftBeyond>The {VEHICLE} lifted off beyond what its engines can carry at this weight in this heat.</PhobosVehicleSystems_MsgLiftBeyond>
+  <PhobosVehicleSystems_MsgOverTorque>The {VEHICLE}'s rotor drive is being asked for more than it can take, and is wearing. Lighten it or ease off.</PhobosVehicleSystems_MsgOverTorque>
+  <PhobosVehicleSystems_MsgTractionMotorsHot>The {VEHICLE}'s traction motors are running hot from hard pulling.</PhobosVehicleSystems_MsgTractionMotorsHot>
+  <PhobosVehicleSystems_MsgTractionMotorsOverheating>The {VEHICLE}'s traction motors are overheating and burning their windings. Ease the load and let them cool.</PhobosVehicleSystems_MsgTractionMotorsOverheating>
   <PhobosVehicleSystems_MsgHoverRefused>The {VEHICLE} is too heavy for its engine to hover onto the pad in this heat. Land it on a runway, or lighten it.</PhobosVehicleSystems_MsgHoverRefused>
   <PhobosVehicleSystems_MsgHoverStrained>The {VEHICLE} is hovering beyond its engine's limits; its hot section is taking the strain.</PhobosVehicleSystems_MsgHoverStrained>
   <PhobosVehicleSystems_MsgHoverBeyond>The {VEHICLE} is hovering beyond what its engine can hold at this weight in this heat.</PhobosVehicleSystems_MsgHoverBeyond>

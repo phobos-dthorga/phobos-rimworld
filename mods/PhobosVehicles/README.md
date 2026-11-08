@@ -4,11 +4,11 @@ Vehicles that keep running only while they are looked after. **This first versio
 vehicles of other mods you already drive the systems that match what they really are, on top of the general systems D'thorga
 Framework gives every vehicle.
 
-Version 0.2.0, built 9 November 2026 for House D'thorga. **Not yet tested in game.**
+Version 0.3.0, built 9 November 2026 for House D'thorga. **Not yet tested in game.**
 
 ## Read this first (gotchas)
 
-- **Needs Vehicle Framework and D'thorga Framework 0.11.0 or later**, on **RimWorld 1.7 only**. Load it after both; the About file
+- **Needs Vehicle Framework and D'thorga Framework 0.12.0 or later**, on **RimWorld 1.7 only**. Load it after both; the About file
   asks for that, so RimSort does it for you.
 - **The general systems come from D'thorga Framework**, not from this mod: battery and alternator, coolant and oil, tyres or tracks,
   brakes, gearbox, wear and service. Their guide and settings are in
@@ -16,7 +16,9 @@ Version 0.2.0, built 9 November 2026 for House D'thorga. **Not yet tested in gam
   vehicles below.
 - **Safe to add to and remove from a running colony.** The vehicles below switch between their own systems and the general ones;
   a saved vehicle keeps or drops the air compressor as its design does.
-- **The Harrier, the Hind, the Mongoose and the Cherokee run gas turbines** from this version. A Harrier too heavy for its engine to hover in
+- **From 0.3.0, a laden helicopter or pod may refuse to lift off** on a hot day or with engines out; the launch button says
+  why. D'thorga Framework's hover-limit setting can allow it at a cost or just warn.
+- **The Harrier, the Hind, the Mongoose and the Cherokee run gas turbines** from 0.2.0. A Harrier too heavy for its engine to hover in
   the day's heat **lands on a runway instead of its pad** by default (with D'thorga Patches); D'thorga Framework's settings offer
   "allow it, at a cost to the engine" and "warn only". **Its injection water needs refilling** after a hard hover: a mechanic does
   it, from plumbing beside the jet when Dubs Bad Hygiene is active.
@@ -34,7 +36,10 @@ Version 0.2.0, built 9 November 2026 for House D'thorga. **Not yet tested in gam
 | M1A2 and M1A2 SEP (RimThunder) | No coolant system; a gas turbine on a tracked drivetrain, which burns hard even at idle | A gas-turbine engine has no radiator, and the AGT1500 idles at a high share of its full-power fuel flow |
 | Harrier (Harrier VTOL Attack Aircraft) | A vectored-thrust turbofan with its real lift ratings, water injection, its own flight phases and a hover check at its real empty mass | The Pegasus engine's published ratings and water injection (All-Aero); the jet's empty mass (Pima Air and Space Museum) |
 | Hind (Hind Helicopter Gunship) and Mongoose (Mongoose Attack Helicopter) | Two turboshafts, bound to their own engine parts; one out, the other carries the load and runs hot | Both are twin-engine helicopters with an engine part on each side |
-| Cherokee (Vanilla Vehicles Expanded - Tier 3) | Two turboshafts, bound to its left and right turbo shaft parts; one out, the other carries the load and runs hot | A tandem-rotor heavy lifter in the Chinook's mould, with an engine pod on each side |
+| Cherokee (Vanilla Vehicles Expanded - Tier 3) | Two turboshafts, bound to its left and right turbo shaft parts; one out, the other carries the load and runs hot; its transmissions and rotor masts are its rotor drive; its lift is checked before launch | A tandem-rotor heavy lifter in the Chinook's mould, with an engine pod on each side |
+| Louie (VVE - Tier 3) and Mosquito (Vanilla Vehicles Expanded) | One turboshaft each, the rotor mast as the rotor drive, lift checked before launch | The Louie is the mod's Huey nod (Huey, Dewey and Louie), and the UH-1H had one turboshaft |
+| Frog and Toad (Vanilla Vehicles Expanded), Goliath (VVE - Tier 3) | Their own three, four and four thrusters as engines: each one lost takes lift away, and a pod that cannot lift its load will not launch | Thrust-lifted pods; the Goliath is built heavy, as the mod describes it |
+| Goat DE2 (Trains of the Rim) | Diesel-electric: no gearbox, traction motors that heat when pulling hard, rail wheels, air brakes from its brake pipe with a compressor | Its description says diesel-electric, and it has a traction motor and a brake pipe of its own |
 | Steam locomotives (Trains of the Rim) | No vehicle systems | A boiler is not a car engine; a boiler system would be its own design |
 
 Every source and simplification is in the loadout files under `Mods/`.

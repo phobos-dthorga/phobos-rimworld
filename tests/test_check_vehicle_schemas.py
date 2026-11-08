@@ -152,6 +152,22 @@ class VehicleSchemaCheckTests(unittest.TestCase):
         result = self.run_with(POWER.replace('<name>injectionWater</name>', '<name>tankWater</name>'))
         self.assertTrue(any('injectionWater quantity' in e for e in result['errors']))
 
+    def test_thrusters_without_lift_are_caught_and_need_no_turbine_system(self):
+        pod = POWER.replace('<defName>Test_Jet</defName>\n    <engine><kind>Turbofan</kind>', '<defName>Test_Jet</defName>\n    <engine><kind>Thruster</kind>')
+        result = self.run_with(pod)
+        self.assertTrue(any('thrusters need a liftToWeightAtMaxGross' in e for e in result['errors']))
+        lifted = pod.replace('<waterInjection>', '<liftToWeightAtMaxGross>1.4</liftToWeightAtMaxGross><waterInjection>')
+        result = self.run_with(lifted.replace('<li><def>PhobosVehicleSystem_Turbine</def></li>', ''))
+        self.assertEqual(result['errors'], [])
+        self.assertFalse(any('without the turbine system' in w for w in result['warnings']))
+
+    def test_a_diesel_electric_holding_more_than_its_most_pull_is_caught(self):
+        result = self.run_with(POWER.replace(
+            '<transmission><kind>Automatic</kind><gears><li>3.5</li><li>2.0</li></gears><upshiftRpm>2400</upshiftRpm><downshiftRpm>1300</downshiftRpm></transmission>',
+            '<transmission><kind>DieselElectric</kind><maxTractiveEffortKilonewtons>100</maxTractiveEffortKilonewtons>'
+            '<continuousTractiveEffortKilonewtons>150</continuousTractiveEffortKilonewtons></transmission>'))
+        self.assertTrue(any('continuous tractive effort' in e for e in result['errors']))
+
     def test_a_service_with_negative_water_is_caught(self):
         result = self.run_with(POWER.replace('<waterLitres>10</waterLitres>', '<waterLitres>-1</waterLitres>'))
         self.assertTrue(any('waterLitres' in e for e in result['errors']))

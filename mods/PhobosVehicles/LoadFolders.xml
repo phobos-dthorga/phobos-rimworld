@@ -4,6 +4,7 @@
        whose vehicles it names, loaded only while that mod is active. -->
   <v1.7>
     <li>/</li>
+    <li IfModActive="OskarPotocki.VanillaVehiclesExpanded">Mods/VanillaVehiclesExpanded</li>
     <li IfModActive="OskarPotocki.VanillaVehiclesExpandedTier3">Mods/VanillaVehiclesExpandedTier3</li>
     <li IfModActive="hmv.lunartika">Mods/HUMVEE</li>
     <li IfModActive="aoba.rimthunder.roca">Mods/RimThunderRoaringTiger</li>

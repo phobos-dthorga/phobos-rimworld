@@ -41,7 +41,12 @@ public sealed class Powertrain
     readonly double fuelKgFull;
     readonly double waterTankKg;
     readonly double waterKgPerSecond;
+    readonly double transmissionLimit;
+    readonly double fixedRolling;
+    readonly double fixedGrip;
     public readonly double KerbKg;
+    /// <summary>The roles that count as engines: Engine1, Engine2 and so on when a loadout binds them, else the one Engine.</summary>
+    readonly string[] engineRoles;
 
     public DriveResult Result;
     public TurbineState TurbineNow;
@@ -78,7 +83,8 @@ public sealed class Powertrain
             IdleRpm = engine.idleRpm,
             LaunchRpm = engine.launchRpm,
             RatedRpm = engine.ratedRpm,
-            RatedPowerKw = Get("kilowattsPerTonne", engine.kilowattsPerTonne) * KerbKg / 1000,
+            RatedPowerKw = Get("ratedKilowatts", engine.ratedKilowatts) is float rated && !float.IsNaN(rated) && rated > 0 ? rated
+                : Get("kilowattsPerTonne", engine.kilowattsPerTonne) * KerbKg / 1000,
             FrictionConstant = engine.frictionConstant,
             FrictionLinear = engine.frictionLinear,
             FrictionQuadratic = engine.frictionQuadratic,
@@ -93,7 +99,13 @@ public sealed class Powertrain
             DrivenShare = Get("drivenShare", def?.running.drivenShare ?? 0.5f),
             DragArea = Get("dragArea", def?.running.dragArea ?? 2.4f),
             DesignSpeed = LoadoutSelector.BaseStat(vehicleDef, DefDatabase<VehicleStatDef>.GetNamedSilentFail("MoveSpeed")) * MetresPerCell,
+            MaxTractiveEffortN = (def?.transmission.maxTractiveEffortKilonewtons ?? 0) * 1000,
+            ContinuousTractiveEffortN = (def?.transmission.continuousTractiveEffortKilonewtons ?? 0) * 1000,
         };
+        fixedRolling = def?.running.fixedRollingResistance ?? float.NaN;
+        fixedGrip = def?.running.fixedGrip ?? float.NaN;
+        engineRoles = Enumerable.Range(1, MaxEngines).Select(i => "Engine" + i).Where(role => comp.Props.roleKeys.ContainsKey(role)).ToArray();
+        if (engineRoles.Length == 0) engineRoles = new[] { "Engine" };
         if (def != null && def.transmission.gears.Count > 0) Spec.Gears = def.transmission.gears.Select(g => (double)g).ToArray();
         if (engine.torqueCurve != null && engine.torqueCurve.Points.Count >= 2)
         {
@@ -110,14 +122,34 @@ public sealed class Powertrain
             };
             nominalCruiseFuelKw = Math.Max(0.1, DrivetrainModel.Evaluate(Spec, cruise).FuelPowerKw);
         }
+        transmissionLimit = double.PositiveInfinity;
         if (engine.turbine is { } t)
         {
             Turbine = MakeTurbine(t, includeWet: true);
             dryTurbine = MakeTurbine(t, includeWet: false);
             waterTankKg = t.waterInjection?.tankKilograms ?? 0;
             waterKgPerSecond = t.waterInjection?.kilogramsPerSecond ?? 0;
+            float limit = Get("transmissionLimit", t.transmissionLimit);
+            if (!float.IsNaN(limit) && limit > 0) transmissionLimit = limit;
+            float liftToWeight = Get("liftToWeightAtMaxGross", t.liftToWeightAtMaxGross);
+            if (!float.IsNaN(liftToWeight) && liftToWeight > 0)
+            {
+                // Thrust-lifted craft: every rating's thrust follows from the authored lift-to-weight at maximum gross weight.
+                double thrust = TurbineModel.ThrustForLiftToWeight(liftToWeight, MaxGrossKg());
+                foreach (TurbineSpec turbine in new[] { Turbine, dryTurbine })
+                {
+                    double top = turbine.Top.Share;
+                    foreach (TurbineRating rating in turbine.Ratings) rating.ThrustKn = thrust * rating.Share / Math.Max(0.01, top);
+                }
+            }
         }
     }
+
+    /// <summary>The most engines a loadout may bind (Engine1 to Engine8).</summary>
+    public const int MaxEngines = 8;
+
+    /// <summary>Empty mass, a full cargo hold and full fuel: the weight a craft is designed to lift.</summary>
+    double MaxGrossKg() => KerbKg + comp.Vehicle.GetStatValue(VehicleStatDefOf.CargoCapacity) + fuelKgFull;
 
     static TurbineSpec MakeTurbine(TurbineXml xml, bool includeWet)
     {
@@ -168,20 +200,27 @@ public sealed class Powertrain
 
     public bool AircraftMoving => PhaseSpec != null && PhaseSpec.running && PhaseSpec.moving;
 
-    /// <summary>The working engines and how many there are: twin engines bind Engine1 and Engine2, one engine binds Engine.</summary>
+    /// <summary>The working engines and how many there are: a loadout binds Engine1, Engine2 and so on (twin turboshafts, a pod's
+    /// thrusters), else the one Engine counts. An engine below 20% health is out.</summary>
     public (int working, int engines) Engines()
     {
-        if (comp.Props.roleKeys.ContainsKey("Engine1"))
+        int working = 0;
+        foreach (string role in engineRoles)
         {
-            int working = 0;
-            foreach (string role in new[] { "Engine1", "Engine2" })
-            {
-                if (comp.PartEfficiency(role, 1f) > 0.2f) working++;
-            }
-            return (working, 2);
+            if (comp.PartEfficiency(role, 1f) > 0.2f) working++;
         }
-        return (comp.PartEfficiency("Engine", 1f) > 0.2f ? 1 : 0, 1);
+        return (working, engineRoles.Length);
     }
+
+    /// <summary>Sets what the rotor drive accepts now: its rated share times the RotorDrive parts' condition (infinite without a limit).</summary>
+    void ApplyDriveLimit(TurbineSpec spec)
+    {
+        spec.DriveLimitShare = double.IsInfinity(transmissionLimit) ? double.PositiveInfinity
+            : transmissionLimit * Math.Max(0.05, comp.PartEfficiency("RotorDrive", 1f));
+    }
+
+    /// <summary>The traction motors' load now: pull ÷ their continuous rating (0 without a rating).</summary>
+    public double TractionMotorLoad => comp.EngineRunningRaw ? DrivetrainModel.TractionMotorLoad(Spec, Result.TractiveForceN) : 0;
 
     double Condition()
     {
@@ -283,6 +322,7 @@ public sealed class Powertrain
         TurbineSpec spec = Turbine ?? new TurbineSpec();
         bool water = HasWater();
         TurbineSpec usable = water ? spec : dryTurbine ?? spec;
+        ApplyDriveLimit(usable);
         double demand = PhaseSpec == null ? 0 : PhaseSpec.hover ? HoverDemand(usable) : PhaseSpec.demand;
         TurbineNow = TurbineModel.Evaluate(usable, demand, comp.Ambient, Condition(), working, engines, running);
         bool hovering = running && PhaseSpec != null && PhaseSpec.hover;
@@ -314,8 +354,11 @@ public sealed class Powertrain
     /// <summary>Whether this hover's over-limit message has been sent (once per hover; derived, never saved).</summary>
     bool hoverWarned;
 
-    /// <summary>Whether this engine can judge a hover: an aircraft whose flight profile has hover phases.</summary>
-    public bool JudgesHover => Profile != null && Profile.phases.Any(phase => phase.hover);
+    /// <summary>Whether this engine can judge a hover: an aircraft whose flight profile has hover phases, or checks its lift at launch.</summary>
+    public bool JudgesHover => Profile != null && (Profile.liftCheckAtLaunch || Profile.phases.Any(phase => phase.hover));
+
+    /// <summary>Whether lift-off through Vehicle Framework's own launch is checked against the engines (stock rotorcraft and pods).</summary>
+    public bool ChecksLiftAtLaunch => Profile != null && Profile.liftCheckAtLaunch;
 
     bool HasWater() => waterTankKg > 0 && comp.TryGetQuantity("injectionWater", out float water) && water > 0.001f;
 
@@ -338,8 +381,9 @@ public sealed class Powertrain
             if (!HasWater()) wet = dry;
             return (dry >= 1, wet >= 1, Math.Max(dry, wet));
         }
+        ApplyDriveLimit(spec);
         double needed = HoverDemand(spec);
-        double available = TurbineModel.Derate(spec, comp.Ambient) * Condition() * EngineShare() * spec.Top.Share;
+        double available = TurbineModel.LiftPowerAvailable(spec, comp.Ambient, Condition(), EngineShare());
         return (available >= needed, available >= needed, available / Math.Max(0.01, needed));
     }
 
@@ -375,6 +419,13 @@ public sealed class Powertrain
 
     void ReadGround(VehiclePawn vehicle, out double rolling, out double grip)
     {
+        if (!double.IsNaN(fixedRolling) && !double.IsNaN(fixedGrip))
+        {
+            // Running gear with its own surface (steel wheels on rails): the ground beneath doesn't matter.
+            rolling = fixedRolling;
+            grip = fixedGrip;
+            return;
+        }
         if (vehicle.Position != groundCell)
         {
             groundCell = vehicle.Position;

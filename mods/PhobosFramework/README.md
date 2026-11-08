@@ -5,7 +5,7 @@ colonist is breathing, makes fires fill roofed rooms with the game's own smoke w
 carries carbon monoxide from fires, holds the per-person care choices the D'thorga medical mods offer, and holds the small
 helpers every D'thorga mod shares.
 
-Version 0.11.0, built 9 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
+Version 0.12.0, built 9 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
 oxygen working through Burns and Smoke and Medical Equipment (5 November 2026). The health layer new in 0.3.0 and the **vehicle
 systems new in 0.9.0, and their engines, drivetrains and gas turbines new in 0.11.0, are not yet tested in game.** The rest is read from the game's and the mods' code.
 
@@ -27,6 +27,9 @@ and wear that a mechanic services. See [Vehicle systems](#vehicle-systems-with-v
   speed as its author set it, choose **Drivetrain shown, speeds unchanged** in the settings (no restart needed).
 - **Jump jets and hot days**: by default a Harrier too heavy for its engine to hover in the day's heat **lands on a runway
   instead of its pad** (with D'thorga Patches). The setting offers "allow it, at a cost to the engine" and "warn only".
+- **From 0.12.0, helicopters and pods that launch through Vehicle Framework are checked before they lift off**: too heavy for the
+  day's heat, or with engines or thrusters out, **the launch button refuses and says why** (unload, repair, or wait for cooler
+  air). The same setting decides, so "warn only" lets them go.
 - **With Dubs Bad Hygiene, a vehicle's coolant top-up and a Harrier's injection water need a plumbing pipe with a water tower
   beside or under the parked vehicle.** Without Dubs Bad Hygiene, water is free.
 
@@ -108,6 +111,8 @@ Other mods (D'thorga Vehicles first) can give a named vehicle its own figures. N
 | Cold fuel (a setting, off) | | Below about -8 °C chemfuel gels like diesel: **won't start** | Warm the vehicle in a heated room |
 | Air brakes (named heavy trucks only) | Air pressure | After standing long, **it won't drive** until the engine has run a few minutes | Let it idle |
 | Gas turbine (aircraft; D'thorga Vehicles' M1A2 tanks) | Turbine speed and temperature, and the flight phase | Run past its limits, the hot section wears, then the engine takes damage; a worn hot section breaks down; a weak battery lights it hot (wear) or **cannot light it** (the draft says why); with one of two engines out, the other runs hot | Ease off or land; **jump-start** a weak battery for a clean start; a **hot-section overhaul** (10 plasteel, 3 components) |
+| Rotor drive (helicopters named by D'thorga Vehicles) | Over-torque, when it happens | The gearbox takes less power than the engines can give; asked for more it is **over-torqued** and wears; damaged, the helicopter lifts less | Lighten it; repair the transmission and rotor masts |
+| Traction motors (diesel-electric locomotives) | Traction motor temperature | Pulling hard from a standstill heats them: **running hot**, then burning their windings | Ease the load and let them cool; repair the motor |
 | Water injection (the Harrier, with D'thorga Vehicles) | Injection water | Without water the engine has only its dry ratings, so a heavy jet on a hot day may not hover | A refill of 227 litres: **with Dubs Bad Hygiene, from a plumbing pipe beside it**, otherwise free |
 
 - **The service button** (a spanner) asks for a service now, even if none is due. Services also start by themselves when due.
@@ -127,7 +132,7 @@ tracked land vehicles, boats, aircraft), each system on or off, **figures only**
 cold fuel, how much the vehicle shows (Plain, Operator, Engineer), and the removal button. The first group needs a restart.
 **Engines and drivetrains:** the drivetrain off, shown only, or full (default full); **fuel use that follows engine load** (off:
 vehicles burn what their authors set); and **when an aircraft is too heavy or too hot to hover onto its pad**: use the runway
-(default), allow it at a cost to the engine, or warn only. These take effect at once.
+(default), allow it at a cost to the engine, or warn only; from 0.12.0 it covers lift-off too. These take effect at once.
 
 **Per vehicle, in Vehicle Framework's own settings** (each vehicle's page in its mod settings): battery capacity, alternator
 output, starter draw, engine heat, radiator cooling, thermostat, oil use, tyre wear, gearbox heat and the air brakes' compressor

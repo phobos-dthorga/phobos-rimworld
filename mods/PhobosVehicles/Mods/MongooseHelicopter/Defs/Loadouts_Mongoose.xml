@@ -5,6 +5,11 @@
     with the helicopter flight profile (docs/development/vehicle-turbine-design.md). With one engine out the other carries the load
     on its contingency rating and runs hot; a hover may then be beyond it. Not yet tested in game. Ratings and limits are the
     Framework's authored helicopter turboshaft (Drivetrains.xml).
+    The Mongoose is the Agusta A129 Mangusta ("mangusta" is Italian for mongoose). Its main gearbox took 970 kW (1,300 shp) against
+    two Rolls-Royce Gem engines of 664 kW (890 shp) each (secondary: Wikipedia, "Agusta A129 Mangusta", for the engines; Flight
+    International, "Italian A129s assessed for upgrade", for the gearbox, seen only as a search excerpt). Taking 664 kW as the
+    take-off rating, the drive takes 970 / (2 x 664 / 1.1) = 0.80 of both engines' maximum continuous (our inference). Low
+    confidence until the article is read in full. The gearbox part is appended (Framework 0.12.0).
   -->
   <Phobos.VehicleSystems.PhobosVehicleLoadoutDef ParentName="PhobosVehicleLoadoutAircraft">
     <defName>PhobosVehicleLoadout_Mongoose</defName>
@@ -15,11 +20,39 @@
         <li>Mongoose_AttackHelicopter</li>
       </vehicleDefs>
     </selector>
+    <systems>
+      <li><def>PhobosVehicleSystem_RotorDrive</def></li>
+    </systems>
     <drivetrain>
       <def>PhobosDrivetrain_AeroTurboshaft</def>
+      <set>
+        <transmissionLimit>0.8</transmissionLimit>
+      </set>
     </drivetrain>
     <flightProfile>PhobosFlightProfile_Helicopter</flightProfile>
     <partRoles>
+      <li>
+        <!-- The main rotor gearbox: neither mod gives the helicopter one, so it is appended among the engines (owner, 9 Nov 2026:
+             rotor drives for every helicopter). -->
+        <role>RotorDrive</role>
+        <all>true</all>
+        <find>
+          <li>
+            <keyContainsAny>
+              <li>Gearbox</li>
+              <li>Transmission</li>
+              <li>RotorMast</li>
+            </keyContainsAny>
+          </li>
+        </find>
+        <add>
+          <key>PhobosMainGearbox</key>
+          <label>main rotor gearbox</label>
+          <health>40</health>
+          <hitWeight>0.3</hitWeight>
+          <cellsOf>Engine1</cellsOf>
+        </add>
+      </li>
       <li>
         <role>Engine1</role>
         <find>

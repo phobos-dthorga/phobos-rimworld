@@ -244,6 +244,9 @@ public class PartFinder
     public string? key;
     /// <summary>A hint by name, for parts that carry no effect to find them by (Vanilla Vehicles Expanded's alternator).</summary>
     public string? keyContains;
+    /// <summary>Hints by name, any of which will do: a role made of several kinds of part (a helicopter's transmissions and rotor
+    /// masts, bound together with "all").</summary>
+    public List<string>? keyContainsAny;
     public List<VehicleStatDef>? categories;
     public VehicleComponent.VehiclePartDepth depth = VehicleComponent.VehiclePartDepth.Undefined;
     public Match priority = Match.Any;
@@ -253,6 +256,7 @@ public class PartFinder
     {
         if (key != null && part.key != key) return false;
         if (keyContains != null && (part.key == null || part.key.IndexOf(keyContains, System.StringComparison.OrdinalIgnoreCase) < 0)) return false;
+        if (keyContainsAny != null && (part.key == null || !keyContainsAny.Any(hint => part.key.IndexOf(hint, System.StringComparison.OrdinalIgnoreCase) >= 0))) return false;
         if (depth != VehicleComponent.VehiclePartDepth.Undefined && part.depth != depth) return false;
         if (priority != Match.Any && part.priorityStatEfficiency != (priority == Match.Yes)) return false;
         if (tag != null && (part.tags == null || !part.tags.Contains(tag))) return false;

@@ -5,7 +5,11 @@
     mould: two turboshafts in pods either side of the rear pylon. Its own parts already include both (LeftTurboShaft and
     RightTurboShaft), so they are bound as the first and second engines and nothing is appended; its FrontEngine and RearEngine
     parts carry flight speed and control, and stay the engine role the shared systems read. It flies through Vehicle Framework's
-    own launch, so the stock aircraft profile reads its phases (taxiing when drafted, cruising in flight). The turboshaft's ratings
+    own launch, so the stock rotorcraft profile reads its phases (rotors turning when drafted, cruising in flight) and checks its
+    lift before it launches. Its front and rear transmissions and rotor masts are its rotor drive (power and lift design, Framework
+    0.12.0). Its drive limit, 0.9 of both engines' maximum continuous, is authored: no published figure for the CH-47's combining
+    or rotor transmissions was found (9 Nov 2026), though a CH-47A/B Army document says the "transmission torque limit is reached
+    before engine power limit" (seen only as a search excerpt). The turboshaft's ratings
     and limits are the Framework's authored helicopter turboshaft (Drivetrains.xml), whose one sourced figure is the CH-47's T55
     (secondary, low quality). Not yet tested in game.
   -->
@@ -18,11 +22,29 @@
         <li>VVE_Cherokee</li>
       </vehicleDefs>
     </selector>
+    <systems>
+      <li><def>PhobosVehicleSystem_RotorDrive</def></li>
+    </systems>
     <drivetrain>
       <def>PhobosDrivetrain_AeroTurboshaft</def>
+      <set>
+        <transmissionLimit>0.9</transmissionLimit>
+      </set>
     </drivetrain>
-    <flightProfile>PhobosFlightProfile_StockAircraft</flightProfile>
+    <flightProfile>PhobosFlightProfile_StockRotorcraft</flightProfile>
     <partRoles>
+      <li>
+        <role>RotorDrive</role>
+        <all>true</all>
+        <find>
+          <li>
+            <keyContainsAny>
+              <li>Transmission</li>
+              <li>RotorMast</li>
+            </keyContainsAny>
+          </li>
+        </find>
+      </li>
       <li>
         <role>Engine1</role>
         <find>

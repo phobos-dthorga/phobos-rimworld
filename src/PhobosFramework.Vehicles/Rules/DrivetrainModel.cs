@@ -9,6 +9,9 @@ public enum EngineKind
     Electric,
     Turboshaft,
     Turbofan,
+    /// <summary>Thrusters that hold a craft up on thrust alone (Vehicle Framework's drop pods): lift from a thrust-to-weight figure,
+    /// no spool or turbine temperature.</summary>
+    Thruster,
 }
 
 /// <summary>How engine speed relates to road speed.</summary>
@@ -22,6 +25,12 @@ public enum TransmissionKind
     Propeller,
     /// <summary>No drive to the ground at all: aircraft engines, whose load comes from the flight phase.</summary>
     None,
+    /// <summary>
+    /// A diesel engine driving a generator, and traction motors on the axles: no gearbox. Engine speed follows the power asked of it
+    /// (the throttle's notches), tractive effort is capped by the motors at low speed and by the engine's power above that, and the
+    /// motors heat with their current (diesel-electric locomotives).
+    /// </summary>
+    DieselElectric,
 }
 
 /// <summary>Why the model is holding a vehicle below the speed Vehicle Framework intends.</summary>
@@ -56,6 +65,10 @@ public sealed class DrivetrainSpec
     public double DragArea = 2.4;
     /// <summary>The speed in m/s Vehicle Framework gives at full health on good ground: boats run 85% of rated rpm there.</summary>
     public double DesignSpeed = 10;
+    /// <summary>Diesel-electric: the most the traction motors can pull, in newtons (starting tractive effort); 0 for no cap.</summary>
+    public double MaxTractiveEffortN;
+    /// <summary>Diesel-electric: the pull the traction motors can hold indefinitely, in newtons; above it they heat (0: not rated).</summary>
+    public double ContinuousTractiveEffortN;
 
     /// <summary>Torque at rated rpm such that power there equals rated power.</summary>
     public double ReferenceTorque => RatedPowerKw * 1000 / (RatedRpm * Math.PI / 30) / Math.Max(0.01, Curve(TorqueX, TorqueY, 1));
@@ -108,6 +121,8 @@ public struct DriveResult
     public double Cap;
     public DriveLimit Limit;
     public bool ClutchSlipping;
+    /// <summary>The pull at the driven wheels, newtons.</summary>
+    public double TractiveForceN;
 }
 
 /// <summary>
@@ -194,6 +209,13 @@ public static class DrivetrainModel
             tractionCap = spare <= 0 ? 0 : Math.Sqrt(spare / (0.5 * AirDensity * Math.Max(0.01, spec.DragArea))) / speed;
         }
 
+        result.TractiveForceN = Math.Min(force, tractionLimit);
+        if (spec.Transmission == TransmissionKind.DieselElectric)
+        {
+            DieselElectric(spec, c, speed, force, requiredKw, tractionCap, ref result);
+            return result;
+        }
+
         if (spec.Transmission == TransmissionKind.Propeller)
         {
             double share = speed / Math.Max(0.1, spec.DesignSpeed) * 0.85;
@@ -241,6 +263,52 @@ public static class DrivetrainModel
         Finish(spec, ref result);
         return result;
     }
+
+    /// <summary>
+    /// The diesel-electric case: the wheels get the engine's rated power less the generator's and motors' losses at any speed, but no
+    /// more pull than the traction motors' maximum; the engine runs at the power asked of it, its speed rising with the throttle from
+    /// idle to rated (a straight line, authored: real throttles step through notches).
+    /// </summary>
+    static void DieselElectric(DrivetrainSpec spec, in DriveConditions c, double speed, double force, double requiredKw, double tractionCap,
+        ref DriveResult result)
+    {
+        double usableKw = spec.RatedPowerKw * spec.Efficiency;
+        double forceLimit = spec.MaxTractiveEffortN > 0 ? spec.MaxTractiveEffortN : double.MaxValue;
+        double powerCap = 1;
+        if (force * speed / 1000 > usableKw || force > forceLimit) powerCap = DieselElectricSpeed(spec, c, speed, usableKw, forceLimit) / speed;
+        double cap = Math.Min(powerCap, tractionCap);
+        result.Gear = 0;
+        result.TractiveForceN = Math.Min(result.TractiveForceN, forceLimit);
+        result.EnginePowerKw = Math.Min(spec.RatedPowerKw, requiredKw);
+        if (cap < 1)
+        {
+            result.Limit = tractionCap < powerCap ? DriveLimit.Traction : DriveLimit.Power;
+            result.Cap = Math.Max(CrawlFloor, cap);
+            result.EnginePowerKw = Math.Min(spec.RatedPowerKw, Math.Max(requiredKw * result.Cap, result.TractiveForceN * speed * result.Cap / 1000 / Math.Max(0.1, spec.Efficiency)));
+        }
+        result.Load = Clamp01(result.EnginePowerKw / Math.Max(0.1, spec.RatedPowerKw));
+        if (result.Limit != DriveLimit.None) result.Load = 1;
+        result.Rpm = spec.IdleRpm + (spec.RatedRpm - spec.IdleRpm) * result.Load;
+        Finish(spec, ref result);
+    }
+
+    /// <summary>A bisection (16 steps) for the highest speed a diesel-electric can hold within its power and its motors' pull.</summary>
+    static double DieselElectricSpeed(DrivetrainSpec spec, in DriveConditions c, double intended, double usableKw, double forceLimit)
+    {
+        double low = 0, high = intended;
+        for (int i = 0; i < 16; i++)
+        {
+            double mid = (low + high) / 2;
+            double load = RoadLoad(spec, c, mid);
+            if (load <= forceLimit && load * mid / 1000 <= usableKw) low = mid;
+            else high = mid;
+        }
+        return low;
+    }
+
+    /// <summary>The traction motors' load: pull ÷ their continuous rating (above 1 they heat), 0 when not rated.</summary>
+    public static double TractionMotorLoad(DrivetrainSpec spec, double tractiveForceN) =>
+        spec.ContinuousTractiveEffortN > 0 ? Math.Max(0, tractiveForceN) / spec.ContinuousTractiveEffortN : 0;
 
     static void Idle(DrivetrainSpec spec, ref DriveResult result)
     {

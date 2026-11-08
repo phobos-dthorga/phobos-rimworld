@@ -35,6 +35,12 @@ public class TurbineXml
     public float startSpeedPercent = 15f;
     public List<TurbineRatingXml> ratings = new();
     public WaterInjectionXml? waterInjection;
+    /// <summary>What the rotor drive accepts, as a share of all engines' combined maximum-continuous output (NaN: no limit). Its
+    /// RotorDrive parts' condition scales it; demand above it is over-torque.</summary>
+    public float transmissionLimit = float.NaN;
+    /// <summary>Thrust-lifted craft: thrust on every thruster as a multiple of maximum gross weight (empty, full cargo, full fuel). Sets
+    /// every rating's thrust (NaN: use thrustKilonewtons).</summary>
+    public float liftToWeightAtMaxGross = float.NaN;
 }
 
 public class EngineXml
@@ -44,6 +50,8 @@ public class EngineXml
     public float launchRpm = 1100f;
     public float ratedRpm = 3000f;
     public float kilowattsPerTonne = 30f;
+    /// <summary>A real engine's rated power in kW, used instead of kilowattsPerTonne (NaN: from the mass).</summary>
+    public float ratedKilowatts = float.NaN;
     public SimpleCurve? torqueCurve;
     public float frictionConstant = 0.03f;
     public float frictionLinear = 0.04f;
@@ -62,12 +70,20 @@ public class TransmissionXml
     public float upshiftRpm = 2400f;
     public float downshiftRpm = 1300f;
     public float efficiency = 0.88f;
+    /// <summary>Diesel-electric: the traction motors' most pull (starting tractive effort), kN; 0 for no cap.</summary>
+    public float maxTractiveEffortKilonewtons;
+    /// <summary>Diesel-electric: the pull the motors hold indefinitely (continuous tractive effort), kN; above it they heat.</summary>
+    public float continuousTractiveEffortKilonewtons;
 }
 
 public class RunningXml
 {
     public float wheelRadius = 0.38f;
     public float drivenShare = 0.5f;
+    /// <summary>Running gear on its own surface (steel wheels on rails): rolling resistance and grip that ignore the terrain (NaN: read
+    /// the terrain).</summary>
+    public float fixedRollingResistance = float.NaN;
+    public float fixedGrip = float.NaN;
     public float dragArea = 2.4f;
 }
 
@@ -161,6 +177,11 @@ public class PhobosVehicleFlightProfileDef : Def
     /// <summary>For helicopters: hover power at maximum gross weight in sea-level air at 15 °C, as a share of all engines' maximum
     /// continuous power (authored per aircraft).</summary>
     public float hoverPowerAtMaxGross = 0.9f;
+    /// <summary>
+    /// For aircraft that lift off through Vehicle Framework's own launch (its stock helicopters and pods): check the engines can lift
+    /// the aircraft before it launches, under the player's hover-limit setting.
+    /// </summary>
+    public bool liftCheckAtLaunch;
 
     public FlightPhaseSpec? Phase(string? name) => name == null ? null : phases.FirstOrDefault(p => p.phase == name);
 

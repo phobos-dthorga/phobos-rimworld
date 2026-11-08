@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    Power and lift (docs/development/vehicle-power-and-lift-design.md): a helicopter's rotor drive and a diesel-electric's traction
+    motors. Not yet tested in game.
+
+    Sources and labels:
+    - A helicopter's main transmission is rated for a power that can be below its engines' total, so the gearbox sets the limit, and
+      running past it (over-torque) damages the drive. The limit itself is each drivetrain's or loadout's transmissionLimit, labelled
+      where it is set; the damage rate here is authored.
+    - Traction motors heat with the square of their current (resistive loss), and a motor's pull follows its current, so heat follows
+      the square of pull over the continuous rating (our inference from the physics).
+    - Short-time ratings: a US Army manual for a 500 hp Baldwin-Lima-Hamilton switcher (TM 55-2210-223-12) allows 1,200 A without
+      limit, 1,400 A for 20 minutes, 1,600 A for 10 minutes and 1,920 A for 5 minutes, then 15 to 30 minutes idling to cool
+      (primary, as transcribed in our research record). The heating (910 degrees C an hour at the continuous rating) and cooling
+      (7 an hour, a time constant of about 8.5 minutes) are fitted to it: from cold, 1.17, 1.33 and 1.6 times the continuous pull
+      reach the overheating line in about 20, 10 and 5.5 minutes (our fit), and at the continuous rating a motor settles 130
+      degrees C above the air. The 155 and 180 degree C lines follow insulation thermal classes F and H (authored reading).
+  -->
+  <Phobos.VehicleSystems.PhobosVehicleSystemDef>
+    <defName>PhobosVehicleSystem_RotorDrive</defName>
+    <label>rotor drive</label>
+    <description>The main transmission and rotor masts between a helicopter's engines and its rotors. They take only so much power: asked for more, they are over-torqued and wear; damaged, they take less, and the helicopter lifts less.</description>
+    <roles>
+      <li>RotorDrive</li>
+    </roles>
+    <quantities>
+      <li>
+        <name>rotorOverTorque</name>
+        <label>rotor drive</label>
+        <unit>Plain</unit>
+        <min>-1</min>
+        <max>5</max>
+        <hidden>true</hidden>
+        <derivedFrom>
+          <li Class="Phobos.VehicleSystems.Input_Turbine"><reading>OverTorque</reading></li>
+        </derivedFrom>
+        <stages>
+          <li>
+            <from>0</from>
+            <label>over-torqued</label>
+            <notable>true</notable>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_DamagePart">
+                <role>RotorDrive</role>
+                <perHour>4</perHour>
+              </li>
+              <li Class="Phobos.VehicleSystems.Effect_Message">
+                <message>PhobosVehicleSystems_MsgOverTorque</message>
+              </li>
+            </effects>
+          </li>
+        </stages>
+      </li>
+    </quantities>
+  </Phobos.VehicleSystems.PhobosVehicleSystemDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleSystemDef>
+    <defName>PhobosVehicleSystem_TractionMotors</defName>
+    <label>traction motors</label>
+    <description>The electric motors on a diesel-electric's axles. They pull hardest at a standstill, but pulling past their continuous rating heats them, and an overheated motor burns out its windings. Give them time at an easy pull to cool.</description>
+    <roles>
+      <li>TractionMotor</li>
+    </roles>
+    <parameters>
+      <heatAtContinuous>910</heatAtContinuous>
+      <coolingRate>7</coolingRate>
+    </parameters>
+    <quantities>
+      <li>
+        <name>tractionMotorTemperature</name>
+        <label>traction motors</label>
+        <unit>Celsius</unit>
+        <min>-60</min>
+        <max>300</max>
+        <startsAt>Ambient</startsAt>
+        <stages>
+          <li>
+            <from>155</from>
+            <to>180</to>
+            <label>running hot</label>
+            <notable>true</notable>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_Message">
+                <message>PhobosVehicleSystems_MsgTractionMotorsHot</message>
+                <type>CautionInput</type>
+              </li>
+            </effects>
+          </li>
+          <li>
+            <from>180</from>
+            <label>overheating</label>
+            <notable>true</notable>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_DamagePart">
+                <role>TractionMotor</role>
+                <perHour>6</perHour>
+              </li>
+              <li Class="Phobos.VehicleSystems.Effect_Message">
+                <message>PhobosVehicleSystems_MsgTractionMotorsOverheating</message>
+              </li>
+            </effects>
+          </li>
+        </stages>
+      </li>
+    </quantities>
+    <flows>
+      <li>
+        <!-- Heat with the square of the pull over the continuous rating. -->
+        <name>windings</name>
+        <quantity>tractionMotorTemperature</quantity>
+        <kind>Into</kind>
+        <factorParameter>heatAtContinuous</factorParameter>
+        <inputs>
+          <li Class="Phobos.VehicleSystems.Input_TractionLoad">
+            <curve>
+              <points>
+                <li>(0, 0)</li>
+                <li>(0.5, 0.25)</li>
+                <li>(1, 1)</li>
+                <li>(1.5, 2.25)</li>
+                <li>(2, 4)</li>
+              </points>
+            </curve>
+          </li>
+        </inputs>
+      </li>
+      <li>
+        <!-- The motor blowers and the air carry it away. -->
+        <name>blowers</name>
+        <quantity>tractionMotorTemperature</quantity>
+        <kind>Toward</kind>
+        <target Class="Phobos.VehicleSystems.Input_Ambient" />
+        <factorParameter>coolingRate</factorParameter>
+      </li>
+    </flows>
+  </Phobos.VehicleSystems.PhobosVehicleSystemDef>
+</Defs>

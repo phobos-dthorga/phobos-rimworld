@@ -26,6 +26,12 @@ public sealed class TurbineSpec
     public double DeratePerDegree = 0.007;
     public double StartSpeedPercent = 15;
     public List<TurbineRating> Ratings = new() { new TurbineRating { Name = "maxContinuous" } };
+    /// <summary>
+    /// What the rotor drive (the main transmission and rotor masts) accepts, as a share of all engines' combined maximum-continuous
+    /// output, already scaled by the drive's condition; infinite when no drive limits it. Helicopters' transmissions are often rated
+    /// below their engines' total, so the gearbox, not the engines, sets the limit.
+    /// </summary>
+    public double DriveLimitShare = double.PositiveInfinity;
 
     public TurbineRating Continuous => Ratings[0];
     public TurbineRating Top => Ratings[Ratings.Count - 1];
@@ -42,6 +48,8 @@ public struct TurbineState
     public double OverContinuous;
     /// <summary>Degrees above the top rating's limit.</summary>
     public double OverTop;
+    /// <summary>How far demand exceeds what the rotor drive accepts (demand ÷ limit − 1; negative inside it, −1 with no limit).</summary>
+    public double OverTorque;
     public string Rating;
 }
 
@@ -65,7 +73,7 @@ public static class TurbineModel
     /// <summary>Works the turbine through at a demand (a share of maximum continuous).</summary>
     public static TurbineState Evaluate(TurbineSpec spec, double demand, double ambient, double condition, int working, int engines, bool running)
     {
-        var state = new TurbineState { Demand = demand, Rating = spec.Continuous.Name };
+        var state = new TurbineState { Demand = demand, Rating = spec.Continuous.Name, OverTorque = running ? OverTorque(spec, demand) : -1 };
         if (!running || working <= 0)
         {
             state.Temperature = ambient;
@@ -105,6 +113,20 @@ public static class TurbineModel
         state.OverTop = state.Temperature - spec.Top.TemperatureLimit;
         return state;
     }
+
+    /// <summary>Demand against the rotor drive's limit: demand ÷ limit − 1 (−1 with no limit, so it never reads as over).</summary>
+    public static double OverTorque(TurbineSpec spec, double demand) =>
+        double.IsInfinity(spec.DriveLimitShare) ? -1 : demand / Math.Max(0.01, spec.DriveLimitShare) - 1;
+
+    /// <summary>What can hold a helicopter up: the engines' output after the derate, condition and engines out, capped by the rotor drive.</summary>
+    public static double LiftPowerAvailable(TurbineSpec spec, double ambient, double condition, double engineShare) =>
+        Math.Min(Derate(spec, ambient) * Math.Max(0, condition) * engineShare * spec.Top.Share, spec.DriveLimitShare);
+
+    /// <summary>
+    /// The thrust each rating must give for a thrust-lifted craft built to lift <paramref name="liftToWeight"/> times its maximum gross
+    /// weight on every thruster (authored per craft), kN in total.
+    /// </summary>
+    public static double ThrustForLiftToWeight(double liftToWeight, double maxGrossKg) => liftToWeight * maxGrossKg * DrivetrainModel.Gravity / 1000;
 
     /// <summary>The share of full-power fuel burned at a demand: the idle share plus the rest in proportion (a Willans shape).</summary>
     public static double FuelFraction(double idleShare, double demand) => idleShare + (1 - idleShare) * Math.Min(1, Math.Max(0, demand));

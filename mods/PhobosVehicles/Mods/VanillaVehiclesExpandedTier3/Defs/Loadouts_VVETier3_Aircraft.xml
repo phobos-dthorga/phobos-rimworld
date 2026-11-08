@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    Vanilla Vehicles Expanded - Tier 3's Goliath and Louie (docs/development/vehicle-power-and-lift-design.md). Not yet tested in game.
+
+    - The Goliath is a heavy siege pod on four thrusters of its own, bound as its engines. The mod says it is so heavy it needs
+      single-use boosters to lift off, so its lift-to-weight at maximum gross weight is authored low, 1.2: with one thruster out it
+      cannot lift fully laden.
+    - The Louie is VVE's nod to the Bell UH-1 "Huey" (Huey, Dewey and Louie): one turboshaft, as the UH-1H had, and its own
+      RotorMast as the rotor drive. The UH-1H's T53-L-13 gives 1,400 shp but is "limited to 1,100 shp (820 kW) by transmission"
+      (secondary: Wikipedia, "Bell UH-1 Iroquois", from Jane's 1987-88; a DTIC test document says the same, seen only as a search
+      excerpt). Taking 1,400 shp as the take-off rating (1.1 times maximum continuous in the Framework's turboshaft), the drive takes
+      1,100 / (1,400 / 1.1) = 0.86 of maximum continuous (our inference from the secondary figures).
+  -->
+  <Phobos.VehicleSystems.PhobosVehicleLoadoutDef ParentName="PhobosVehicleLoadoutAircraft">
+    <defName>PhobosVehicleLoadout_VVE_Goliath</defName>
+    <label>thrust-lifted siege pod (four thrusters)</label>
+    <priority>Vehicle</priority>
+    <selector>
+      <vehicleDefs>
+        <li>VVE_Goliath</li>
+      </vehicleDefs>
+    </selector>
+    <systems Inherit="False">
+      <li><def>PhobosVehicleSystem_Electrical</def></li>
+      <li><def>PhobosVehicleSystem_Service</def></li>
+    </systems>
+    <drivetrain>
+      <def>PhobosDrivetrain_Thrusters</def>
+      <set>
+        <liftToWeightAtMaxGross>1.2</liftToWeightAtMaxGross>
+      </set>
+    </drivetrain>
+    <flightProfile>PhobosFlightProfile_StockThrustLift</flightProfile>
+    <partRoles>
+      <li>
+        <role>Engine1</role>
+        <find>
+          <li>
+            <key>FirstThruster</key>
+          </li>
+        </find>
+      </li>
+      <li>
+        <role>Engine2</role>
+        <find>
+          <li>
+            <key>SecondThruster</key>
+          </li>
+        </find>
+      </li>
+      <li>
+        <role>Engine3</role>
+        <find>
+          <li>
+            <key>ThirdThruster</key>
+          </li>
+        </find>
+      </li>
+      <li>
+        <role>Engine4</role>
+        <find>
+          <li>
+            <key>FourthThruster</key>
+          </li>
+        </find>
+      </li>
+    </partRoles>
+  </Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleLoadoutDef ParentName="PhobosVehicleLoadoutAircraft">
+    <defName>PhobosVehicleLoadout_VVE_Louie</defName>
+    <label>utility helicopter</label>
+    <priority>Vehicle</priority>
+    <selector>
+      <vehicleDefs>
+        <li>VVE_Louie</li>
+      </vehicleDefs>
+    </selector>
+    <systems>
+      <li><def>PhobosVehicleSystem_RotorDrive</def></li>
+    </systems>
+    <drivetrain>
+      <def>PhobosDrivetrain_AeroTurboshaft</def>
+      <set>
+        <transmissionLimit>0.86</transmissionLimit>
+      </set>
+    </drivetrain>
+    <flightProfile>PhobosFlightProfile_StockRotorcraft</flightProfile>
+    <partRoles>
+      <li>
+        <role>RotorDrive</role>
+        <all>true</all>
+        <find>
+          <li>
+            <keyContainsAny>
+              <li>RotorMast</li>
+            </keyContainsAny>
+          </li>
+        </find>
+      </li>
+    </partRoles>
+  </Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
+</Defs>

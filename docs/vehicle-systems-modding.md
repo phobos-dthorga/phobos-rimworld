@@ -85,7 +85,8 @@ Without `Inherit="False"` a list adds to the parent's; with it, it replaces it. 
 A role is a name a system reads (`Engine`, `Alternator`, `Battery`, `Starter`, `Radiator`, `OilPump`, `Transmission`, `Clutch`,
 `Wheels`, `Brakes`, `Compressor`, `HydraulicPump`, `HydraulicLines`; `Engine1` and `Engine2` for twin engines, which the
 drivetrain counts instead of `Engine` when they are bound). The first `find` rule that matches any of the vehicle's own parts binds
-the role. A finder may ask for a `key`, a `keyContains` hint, `categories` (stats the part feeds), a `depth`, `priority` (`Yes` or
+the role. A finder may ask for a `key`, a `keyContains` hint, `keyContainsAny` (several hints, any of which will do: one role
+made of several kinds of part), `categories` (stats the part feeds), a `depth`, `priority` (`Yes` or
 `No`) and a `tag`, all of which must hold. If nothing matches and the role has an `add`, the service appends that part:
 
 | `add` field | Meaning |
@@ -179,7 +180,8 @@ Every input takes an optional `curve` (points `(x, y)` mapping the raw reading) 
 | `Input_EngineRpm` | engine speed in rpm from the drivetrain, times `multiplier` (an alternator's pulley); without one, `idle` (800) or `cruise` (2000) |
 | `Input_EngineHeat` | heat into the coolant as a share of the heat at rated power, from the drivetrain; without one, the engine load |
 | `Input_DrivePower` | power at the driven wheels, kW (0 without a drivetrain) |
-| `Input_Turbine` | a turbine `reading`: `Temperature` (degrees C), `OverContinuous` and `OverTop` (degrees past those limits), `SpeedPercent`, `LifePerHour`, `Demand`, `EnginesOut` |
+| `Input_Turbine` | a turbine `reading`: `Temperature` (degrees C), `OverContinuous` and `OverTop` (degrees past those limits), `SpeedPercent`, `LifePerHour`, `Demand`, `EnginesOut`, `OverTorque` (demand over the rotor drive's limit, minus 1) |
+| `Input_TractionLoad` | a diesel-electric's pull over its traction motors' continuous rating (above 1 they heat) |
 | `Input_Moving` | `moving` (1) or `stopped` (0) |
 | `Input_PartEfficiency` | the average efficiency of the parts bound to `role`, or `missing` (1) |
 | `Input_Quantity` | another `quantity` of the vehicle, in any system, or the `fallback` input |
@@ -251,13 +253,23 @@ tyres' grip runs out (never below 15%: "Wheels spinning"). The design is in
 | `running` | `wheelRadius` (0.38 m), `drivenShare` (0.5: the share of weight on driven wheels), `dragArea` |
 | `mass` | `kilogramsPerVehicleMass` (12), `emptyKilograms` (a real kerb mass, used instead), `fuelKilogramsFull` |
 
+`engine` also takes `ratedKilowatts`, a real engine's rated power used instead of `kilowattsPerTonne`. A `DieselElectric`
+transmission adds `maxTractiveEffortKilonewtons` (the traction motors' most pull) and `continuousTractiveEffortKilonewtons` (what
+they hold indefinitely; above it the `PhobosVehicleSystem_TractionMotors` system heats them, through `Input_TractionLoad`).
+`running` takes `fixedRollingResistance` and `fixedGrip` for running gear on its own surface (rails). A loadout binds `Engine1` to
+`Engine8` for several engines; each below 20% health is out.
+
 A gas turbine adds a `turbine` block to the engine: `idleSpeedPercent` (60), `idleTemperatureAboveAmbient` (363), `deratePerDegree`
 (0.007 above 15 degrees C), `startSpeedPercent` (15), and `ratings`, each with `name`, `share` of maximum continuous output,
 `speedPercent`, `temperatureLimit`, `minutes` (every rating above the first needs one), `thrustKilonewtons` (every rating or none:
 a jet's hover check uses them) and `wet` (one rating may be the water-injected one). A wet rating needs a `waterInjection` block
 (`tankKilograms`, `kilogramsPerSecond`) and a system holding the `injectionWater` quantity in the loadout
 (`PhobosVehicleSystem_WaterInjection`); add `PhobosVehicleSystem_Turbine` for temperature, hot-section wear and starts. The
-shipped archetypes are in `Drivetrains.xml`, every figure labelled. The design is in
+shipped archetypes are in `Drivetrains.xml`, every figure labelled. The turbine block also takes `transmissionLimit` (what a
+helicopter's rotor drive accepts, as a share of all engines' maximum-continuous output, scaled by the `RotorDrive` parts' condition;
+demand above it is over-torque, which `PhobosVehicleSystem_RotorDrive` turns into wear) and `liftToWeightAtMaxGross` (for the
+`Thruster` engine kind: thrust as a multiple of empty mass plus full cargo and fuel). A loadout may override either in its
+drivetrain `set`. See [the power and lift record](development/vehicle-power-and-lift-design.md). The design is in
 [the turbine record](development/vehicle-turbine-design.md).
 
 ### Flight profiles
@@ -268,7 +280,9 @@ from the aircraft's weight; `running` and `moving`, default true) and a `reader`
 `Phobos.VehicleSystems.PhaseReader_Members` reads members by name, so your flight framework needs no reference to ours: each rule
 gives a `phase`, an optional `comp` (a comp's class name), a `member` (a field or property, dotted for a path) and `equals` (text,
 compared with the value's name) or `atLeast` (a number). The first matching rule wins. `hoverPowerAtMaxGross` (0.9) is a
-helicopter's hover power at maximum gross weight. Write your own reader by subclassing `PhaseReader`.
+helicopter's hover power at maximum gross weight. `liftCheckAtLaunch` checks an aircraft that launches through Vehicle
+Framework itself against its weight before it lifts off (the shipped `PhobosFlightProfile_StockRotorcraft` and
+`PhobosFlightProfile_StockThrustLift` do). Write your own reader by subclassing `PhaseReader`.
 
 ### The hover check for flight mods
 
@@ -336,6 +350,8 @@ is active.
 | `PhobosVehicleSystem_Hydraulics` | fluid, pressure | HydraulicPump, HydraulicLines | For working vehicles; nothing uses it yet |
 | `PhobosVehicleSystem_Turbine` | turbine temperature, over the limits, hot-section life, engines out, turbine start | Engine | Hung and hot starts from the electrical system's starting power; overhaul: 10 plasteel, 3 components |
 | `PhobosVehicleSystem_WaterInjection` | injection water | | Refill: 227 litres of water |
+| `PhobosVehicleSystem_RotorDrive` | over-torque | RotorDrive | Wear while over-torqued |
+| `PhobosVehicleSystem_TractionMotors` | traction motor temperature | TractionMotor | `heatAtContinuous`, `coolingRate` |
 
 Every figure's source, or the word authored, is in the comment at the top of each system's file
 (`mods/PhobosFramework/Mods/VehicleFramework/Common/Defs/Phobos/Framework/VehicleSystems/`). The design and the reasons behind it

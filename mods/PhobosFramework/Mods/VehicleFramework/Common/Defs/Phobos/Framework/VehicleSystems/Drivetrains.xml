@@ -222,4 +222,56 @@
       <kind>None</kind>
     </transmission>
   </Phobos.VehicleSystems.PhobosVehicleDrivetrainDef>
+  <!--
+    Thrusters (docs/development/vehicle-power-and-lift-design.md): a craft held up on thrust alone, such as Vehicle Framework's drop
+    pods. Lift is set by an authored multiple of maximum gross weight (empty, full cargo, full fuel) on every thruster; each
+    thruster lost takes its share away, so a pod with thrusters out may not lift until lightened or repaired. No derate with heat,
+    no spool or turbine temperature (authored simplification). Loadouts set liftToWeightAtMaxGross per craft.
+  -->
+  <Phobos.VehicleSystems.PhobosVehicleDrivetrainDef>
+    <defName>PhobosDrivetrain_Thrusters</defName>
+    <label>lift thrusters</label>
+    <engine>
+      <kind>Thruster</kind>
+      <ratedRpm>10000</ratedRpm>
+      <turbine>
+        <idleSpeedPercent>0</idleSpeedPercent>
+        <deratePerDegree>0</deratePerDegree>
+        <liftToWeightAtMaxGross>1.4</liftToWeightAtMaxGross>
+        <ratings>
+          <li><name>full</name><share>1</share><speedPercent>100</speedPercent><temperatureLimit>2000</temperatureLimit></li>
+        </ratings>
+      </turbine>
+    </engine>
+    <transmission>
+      <kind>None</kind>
+    </transmission>
+  </Phobos.VehicleSystems.PhobosVehicleDrivetrainDef>
+
+  <!--
+    A diesel-electric locomotive: the engine drives a generator, traction motors drive the axles, no gearbox. Steel wheels on rails
+    roll on about 0.002 and grip at about 0.25 to 0.3 (authored here from general railway figures, to be sourced in the design
+    record). Every figure is a starting point; named loadouts give a real engine's power and its motors' ratings.
+  -->
+  <Phobos.VehicleSystems.PhobosVehicleDrivetrainDef>
+    <defName>PhobosDrivetrain_DieselElectric</defName>
+    <label>diesel-electric</label>
+    <engine>
+      <kind>Piston</kind>
+      <idleRpm>450</idleRpm>
+      <launchRpm>450</launchRpm>
+      <ratedRpm>1000</ratedRpm>
+      <kilowattsPerTonne>8</kilowattsPerTonne>
+    </engine>
+    <transmission>
+      <kind>DieselElectric</kind>
+      <efficiency>0.8</efficiency>
+    </transmission>
+    <running>
+      <drivenShare>1</drivenShare>
+      <fixedRollingResistance>0.002</fixedRollingResistance>
+      <fixedGrip>0.25</fixedGrip>
+      <dragArea>8</dragArea>
+    </running>
+  </Phobos.VehicleSystems.PhobosVehicleDrivetrainDef>
 </Defs>

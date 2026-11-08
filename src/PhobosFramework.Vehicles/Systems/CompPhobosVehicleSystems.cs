@@ -261,6 +261,8 @@ public class CompPhobosVehicleSystems : VehicleComp
             Vehicle.AddEvent(VehicleEventDefOf.CargoRemoved, () => Powertrain?.MarkMassDirty());
             Vehicle.AddEvent(VehicleEventDefOf.PawnEntered, () => Powertrain?.MarkMassDirty());
             Vehicle.AddEvent(VehicleEventDefOf.PawnExited, () => Powertrain?.MarkMassDirty());
+            // An aircraft lifting off through Vehicle Framework's own launch pays for a lift beyond its engines (the player's setting).
+            if (Powertrain.ChecksLiftAtLaunch) Vehicle.AddEvent(VehicleEventDefOf.AerialVehicleLaunch, () => HoverLimits.OnLaunch(Vehicle));
         }
     }
 

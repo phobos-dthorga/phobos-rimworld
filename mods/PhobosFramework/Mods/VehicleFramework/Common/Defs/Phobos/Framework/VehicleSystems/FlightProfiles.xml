@@ -95,4 +95,43 @@
       <li><phase>WorldFlight</phase><label>cruising</label><demand>0.6</demand></li>
     </phases>
   </Phobos.VehicleSystems.PhobosVehicleFlightProfileDef>
+  <!--
+    Vehicle Framework's own helicopters (Vanilla Vehicles Expanded's Mosquito, Louie and Cherokee): they lift off through the
+    framework's launch, so the engines are checked against the helicopter's weight and the day's heat before it lifts, under the
+    player's hover-limit setting. hoverPowerAtMaxGross is authored (85% of the engines' maximum-continuous power at maximum gross
+    weight, sea level, 15 degrees C).
+  -->
+  <Phobos.VehicleSystems.PhobosVehicleFlightProfileDef>
+    <defName>PhobosFlightProfile_StockRotorcraft</defName>
+    <label>helicopter</label>
+    <hoverPowerAtMaxGross>0.85</hoverPowerAtMaxGross>
+    <liftCheckAtLaunch>true</liftCheckAtLaunch>
+    <reader Class="Phobos.VehicleSystems.PhaseReader_Members">
+      <rules>
+        <li><phase>WorldFlight</phase><comp>CompVehicleLauncher</comp><member>inFlight</member><equals>True</equals></li>
+        <li><phase>Taxi</phase><member>Drafted</member><equals>True</equals></li>
+      </rules>
+    </reader>
+    <phases>
+      <li><phase>Taxi</phase><label>rotors turning</label><demand>0.2</demand><moving>false</moving></li>
+      <li><phase>WorldFlight</phase><label>cruising</label><demand>0.7</demand></li>
+    </phases>
+  </Phobos.VehicleSystems.PhobosVehicleFlightProfileDef>
+
+  <!-- Thrust-lifted pods: checked against their weight with every thruster still working before they launch. -->
+  <Phobos.VehicleSystems.PhobosVehicleFlightProfileDef>
+    <defName>PhobosFlightProfile_StockThrustLift</defName>
+    <label>thrust-lifted pod</label>
+    <liftCheckAtLaunch>true</liftCheckAtLaunch>
+    <reader Class="Phobos.VehicleSystems.PhaseReader_Members">
+      <rules>
+        <li><phase>WorldFlight</phase><comp>CompVehicleLauncher</comp><member>inFlight</member><equals>True</equals></li>
+        <li><phase>Idle</phase><member>Drafted</member><equals>True</equals></li>
+      </rules>
+    </reader>
+    <phases>
+      <li><phase>Idle</phase><label>thrusters warm</label><demand>0.05</demand><moving>false</moving></li>
+      <li><phase>WorldFlight</phase><label>under thrust</label><demand>0.8</demand></li>
+    </phases>
+  </Phobos.VehicleSystems.PhobosVehicleFlightProfileDef>
 </Defs>

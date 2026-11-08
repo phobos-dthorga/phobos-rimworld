@@ -6,7 +6,10 @@
 
     Sources and labels:
     - Lift ratings at sea level: 64.3 kN maximum continuous at 91% rpm, 95.9 kN for 15 s wet at 107% rpm (secondary: All-Aero on the
-      Pegasus). The short-lift dry rating (86.3 kN, 90% of wet) has no source found and is authored.
+      Pegasus; Wikipedia, "Rolls-Royce Pegasus", sources them to the US Navy's AV-8B standard aircraft characteristics of October
+      1986). These are the Pegasus 11-21's (F402-RR-406), the early AV-8B's engine; the later 11-61 (F402-RR-408) gives up to
+      106 kN (secondary: Wikipedia, citing Rolls-Royce) and, Rolls-Royce says, up to 15 per cent more thrust at high ambient
+      temperatures (primary: Rolls-Royce's Pegasus page). We keep the 11-21's figures, for which a full lift ladder is published. The short-lift dry rating (86.3 kN, 90% of wet) has no source found and is authored.
     - Water injection: up to 227 kg, used at about 2.65 kg a second (secondary: All-Aero on the Pegasus).
     - Temperature limits (800, 900, 950 degrees C) are authored placeholders; the record found none published.
     - Empty mass about 6,340 kg (secondary: Pima Air and Space Museum, via docs/development/vehicle-patches.md). Full internal fuel

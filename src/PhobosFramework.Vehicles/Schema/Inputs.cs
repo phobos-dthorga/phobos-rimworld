@@ -97,6 +97,8 @@ public class Input_Turbine : VehicleSystemInput
         LifePerHour,
         Demand,
         EnginesOut,
+        /// <summary>How far demand exceeds the rotor drive's limit (demand ÷ limit − 1; −1 with no limit).</summary>
+        OverTorque,
     }
 
     public Reading reading = Reading.Temperature;
@@ -104,7 +106,17 @@ public class Input_Turbine : VehicleSystemInput
     protected override float Raw(SystemContext context)
     {
         Powertrain? train = context.Comp.Powertrain;
-        if (train?.Turbine == null) return reading == Reading.Temperature ? context.Comp.Ambient : reading is Reading.OverContinuous or Reading.OverTop ? -1000f : 0f;
+        if (train?.Turbine == null)
+        {
+            return reading switch
+            {
+                Reading.Temperature => context.Comp.Ambient,
+                Reading.OverContinuous or Reading.OverTop => -1000f,
+                Reading.OverTorque => -1f,
+                Reading.EnginesOut => train == null ? 0f : EnginesOut(train),
+                _ => 0f,
+            };
+        }
         TurbineState state = train.TurbineNow;
         return reading switch
         {
@@ -115,6 +127,7 @@ public class Input_Turbine : VehicleSystemInput
             Reading.LifePerHour => context.Comp.EngineRunning ? (float)TurbineModel.LifePerHour(state.OverContinuous) : 0f,
             Reading.Demand => (float)state.Demand,
             Reading.EnginesOut => EnginesOut(train),
+            Reading.OverTorque => context.Comp.EngineRunning ? (float)state.OverTorque : -1f,
             _ => 0f,
         };
     }
@@ -124,6 +137,12 @@ public class Input_Turbine : VehicleSystemInput
         (int working, int engines) = train.Engines();
         return engines - working;
     }
+}
+
+/// <summary>A diesel-electric's traction motors: their pull ÷ their continuous rating (above 1 they heat), 0 without a rating.</summary>
+public class Input_TractionLoad : VehicleSystemInput
+{
+    protected override float Raw(SystemContext context) => (float)(context.Comp.Powertrain?.TractionMotorLoad ?? 0);
 }
 
 /// <summary>Whether the vehicle is moving.</summary>

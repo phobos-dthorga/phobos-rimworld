@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    Vanilla Vehicles Expanded's aircraft with more than one engine part or a rotor drive (docs/development/vehicle-power-and-lift-design.md).
+    Not yet tested in game.
+
+    - The Frog and the Toad are thrust-lifted pods with three and four thrusters of their own (FirstThruster and so on), bound as
+      their engines: each one lost takes its share of lift, and a pod whose thrusters cannot lift it will not launch (the player's
+      hover-limit setting). Their lift-to-weight at maximum gross weight is authored for these fictional craft: the Frog 1.5 (one
+      thruster out, it just lifts when full), the Toad 1.4 (one out, it still lifts; two out, only lightened).
+    - The Mosquito is a light four-seat helicopter: one turboshaft (an agent's choice: the mod does not say what drives it) and its
+      own RotorMast as the rotor drive. Its drive limit, 0.9 of maximum continuous, is authored: the mod names no real helicopter.
+  -->
+  <Phobos.VehicleSystems.PhobosVehicleLoadoutDef ParentName="PhobosVehicleLoadoutAircraft">
+    <defName>PhobosVehicleLoadout_VVE_Frog</defName>
+    <label>thrust-lifted pod (three thrusters)</label>
+    <priority>Vehicle</priority>
+    <selector>
+      <vehicleDefs>
+        <li>VVE_Frog</li>
+      </vehicleDefs>
+    </selector>
+    <systems Inherit="False">
+      <li><def>PhobosVehicleSystem_Electrical</def></li>
+      <li><def>PhobosVehicleSystem_Service</def></li>
+    </systems>
+    <drivetrain>
+      <def>PhobosDrivetrain_Thrusters</def>
+      <set>
+        <liftToWeightAtMaxGross>1.5</liftToWeightAtMaxGross>
+      </set>
+    </drivetrain>
+    <flightProfile>PhobosFlightProfile_StockThrustLift</flightProfile>
+    <partRoles>
+      <li>
+        <role>Engine1</role>
+        <find>
+          <li>
+            <key>FirstThruster</key>
+          </li>
+        </find>
+      </li>
+      <li>
+        <role>Engine2</role>
+        <find>
+          <li>
+            <key>SecondThruster</key>
+          </li>
+        </find>
+      </li>
+      <li>
+        <role>Engine3</role>
+        <find>
+          <li>
+            <key>ThirdThruster</key>
+          </li>
+        </find>
+      </li>
+    </partRoles>
+  </Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleLoadoutDef ParentName="PhobosVehicleLoadoutAircraft">
+    <defName>PhobosVehicleLoadout_VVE_Toad</defName>
+    <label>thrust-lifted assault pod (four thrusters)</label>
+    <priority>Vehicle</priority>
+    <selector>
+      <vehicleDefs>
+        <li>VVE_Toad</li>
+      </vehicleDefs>
+    </selector>
+    <systems Inherit="False">
+      <li><def>PhobosVehicleSystem_Electrical</def></li>
+      <li><def>PhobosVehicleSystem_Service</def></li>
+    </systems>
+    <drivetrain>
+      <def>PhobosDrivetrain_Thrusters</def>
+      <set>
+        <liftToWeightAtMaxGross>1.4</liftToWeightAtMaxGross>
+      </set>
+    </drivetrain>
+    <flightProfile>PhobosFlightProfile_StockThrustLift</flightProfile>
+    <partRoles>
+      <li>
+        <role>Engine1</role>
+        <find>
+          <li>
+            <key>FirstThruster</key>
+          </li>
+        </find>
+      </li>
+      <li>
+        <role>Engine2</role>
+        <find>
+          <li>
+            <key>SecondThruster</key>
+          </li>
+        </find>
+      </li>
+      <li>
+        <role>Engine3</role>
+        <find>
+          <li>
+            <key>ThirdThruster</key>
+          </li>
+        </find>
+      </li>
+      <li>
+        <role>Engine4</role>
+        <find>
+          <li>
+            <key>FourthThruster</key>
+          </li>
+        </find>
+      </li>
+    </partRoles>
+  </Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleLoadoutDef ParentName="PhobosVehicleLoadoutAircraft">
+    <defName>PhobosVehicleLoadout_VVE_Mosquito</defName>
+    <label>light helicopter</label>
+    <priority>Vehicle</priority>
+    <selector>
+      <vehicleDefs>
+        <li>VVE_Mosquito</li>
+      </vehicleDefs>
+    </selector>
+    <systems>
+      <li><def>PhobosVehicleSystem_RotorDrive</def></li>
+    </systems>
+    <drivetrain>
+      <def>PhobosDrivetrain_AeroTurboshaft</def>
+      <set>
+        <transmissionLimit>0.9</transmissionLimit>
+      </set>
+    </drivetrain>
+    <flightProfile>PhobosFlightProfile_StockRotorcraft</flightProfile>
+    <partRoles>
+      <li>
+        <role>RotorDrive</role>
+        <all>true</all>
+        <find>
+          <li>
+            <keyContainsAny>
+              <li>RotorMast</li>
+            </keyContainsAny>
+          </li>
+        </find>
+      </li>
+    </partRoles>
+  </Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
+</Defs>

@@ -139,7 +139,8 @@ D'thorga Framework's vehicle systems part (`mods/PhobosFramework/Mods/VehicleFra
 assembly references the installed `Vehicles.dll` and `SmashTools.dll`, never copied, subclasses Vehicle Framework's public
 `VehicleComp`, `VehicleCompProperties`, `VehicleStatPart`, `Reactor`, `VehicleWorkGiver` and `JobDriver_WorkVehicle`, and patches
 `VehicleDef.ResolveReferences`, `VehicleStatHandler.ExposeData` and (from 0.11.0, the drivetrain's speed cap)
-`VehiclePathFollower.CostToPayThisTick`. Its XML names Vehicle Framework's stat and event Defs by name.
+`VehiclePathFollower.CostToPayThisTick`, and (from 0.12.0, the lift-off check) `CompVehicleLauncher.CanLaunchWithCargoCapacity`.
+Its XML names Vehicle Framework's stat and event Defs by name.
 From 0.11.0 its flight profiles read, by member name at runtime and with no reference to either assembly, the `FlightState`
 field and attack-run and landing members of the fixed-wing framework fork bundled with
 [Harrier VTOL Attack Aircraft](https://steamcommunity.com/sharedfiles/filedetails/?id=3826359341) by potemkinvillager, and of
@@ -150,8 +151,8 @@ the framework's own plumbing reader and references the installed `BadHygiene.dll
 D'thorga Vehicles (`mods/PhobosVehicles`) names vehicles of Vanilla Vehicles Expanded - Tier 3, HUMVEE, RimThunder - Roaring
 Tiger, RimThunder - Desert Sabre - Continued, Trains of the Rim, Harrier VTOL Attack Aircraft,
 [Hind Helicopter Gunship](https://steamcommunity.com/sharedfiles/filedetails/?id=3822052079) and
-[Mongoose Attack Helicopter](https://steamcommunity.com/sharedfiles/filedetails/?id=3819896964) (both by potemkinvillager) by Def
-and part name only, in folders loaded only while each is active. Nothing from any of them is in this repository or a build.
+[Mongoose Attack Helicopter](https://steamcommunity.com/sharedfiles/filedetails/?id=3819896964) (both by potemkinvillager) and
+Vanilla Vehicles Expanded by Def and part name only, in folders loaded only while each is active. Nothing from any of them is in this repository or a build.
 
 ## InterRim Ballistic Missile, patched by D'thorga Missile Patches
 

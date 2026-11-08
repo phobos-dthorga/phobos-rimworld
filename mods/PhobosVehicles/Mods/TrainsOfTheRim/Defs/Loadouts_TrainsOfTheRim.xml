@@ -2,8 +2,8 @@
 <Defs>
   <!--
     Trains of the Rim's steam locomotives burn wood or chemfuel under a boiler, which is nothing like a car engine's coolant and oil,
-    so they get no systems: a loadout with none claims them first. The diesel shunter is a combustion engine and gets the general
-    land systems. A boiler system (water, steam pressure, firebox) would be its own design. Not yet tested in game.
+    so they get no systems: a loadout with none claims them first, until the boiler system (part 3 of the owner's approved proposals,
+    9 Nov 2026) is built. Not yet tested in game.
   -->
   <Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
     <defName>PhobosVehicleLoadout_TOTR_Steam</defName>
@@ -18,5 +18,196 @@
         <li>TOTR_Tank_Engine_Wood</li>
       </vehicleDefs>
     </selector>
+  </Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
+
+  <!--
+    The Goat DE2 (TOTR_Diesel_Shunter_Locomotive), "a small 2 axle diesel electic locomotive" in the mod's words, with an Engine, a
+    TractionMotor and a BrakePipe of its own (docs/development/vehicle-power-and-lift-design.md). Its figures follow the closest real
+    machine found, the two-axle EffiShunter 300 (primary: CZ LOKO's product page): 328 kW, 113 kN starting tractive effort, 36 t.
+    - 113 kN on 36 t is an adhesion of about 0.32 (our inference), used as the rails' grip.
+    - Its continuous tractive effort is not published; the British Rail Class 08's starting pull is about 3.2 times its continuous
+      (secondary: Wikipedia and the Keighley and Worth Valley Railway's data file), which gives 35 kN (our inference).
+    - The engine's idle and rated speeds and the 0.8 generator-and-motor efficiency are the Framework's authored diesel-electric.
+    - Real locomotives brake with air, so it gets the air brakes and an appended compressor, as the Big Rig does; no gearbox, clutch
+      or tyres.
+  -->
+  <Phobos.VehicleSystems.PhobosVehicleDrivetrainDef>
+    <defName>PhobosDrivetrain_GoatDE2</defName>
+    <label>two-axle diesel-electric shunter</label>
+    <engine>
+      <kind>Piston</kind>
+      <idleRpm>450</idleRpm>
+      <launchRpm>450</launchRpm>
+      <ratedRpm>1000</ratedRpm>
+      <ratedKilowatts>328</ratedKilowatts>
+    </engine>
+    <transmission>
+      <kind>DieselElectric</kind>
+      <efficiency>0.8</efficiency>
+      <maxTractiveEffortKilonewtons>113</maxTractiveEffortKilonewtons>
+      <continuousTractiveEffortKilonewtons>35</continuousTractiveEffortKilonewtons>
+    </transmission>
+    <running>
+      <drivenShare>1</drivenShare>
+      <fixedRollingResistance>0.002</fixedRollingResistance>
+      <fixedGrip>0.32</fixedGrip>
+      <dragArea>8</dragArea>
+    </running>
+    <mass>
+      <emptyKilograms>36000</emptyKilograms>
+    </mass>
+  </Phobos.VehicleSystems.PhobosVehicleDrivetrainDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleLoadoutDef ParentName="PhobosVehicleLoadoutLandHeavy">
+    <defName>PhobosVehicleLoadout_TOTR_GoatDE2</defName>
+    <label>diesel-electric shunter</label>
+    <priority>Vehicle</priority>
+    <selector>
+      <vehicleDefs>
+        <li>TOTR_Diesel_Shunter_Locomotive</li>
+      </vehicleDefs>
+      <massMin>-1</massMin>
+    </selector>
+    <systems Inherit="False">
+      <li>
+        <def>PhobosVehicleSystem_Electrical</def>
+        <set>
+          <batteryAmpHours>100</batteryAmpHours>
+          <alternatorAmps>100</alternatorAmps>
+          <starterAmpHours>0.3</starterAmpHours>
+        </set>
+      </li>
+      <li><def>PhobosVehicleSystem_Cooling</def></li>
+      <li><def>PhobosVehicleSystem_Lubrication</def></li>
+      <li><def>PhobosVehicleSystem_Fuel</def></li>
+      <li><def>PhobosVehicleSystem_Service</def></li>
+      <li><def>PhobosVehicleSystem_Brakes</def></li>
+      <li><def>PhobosVehicleSystem_AirBrakes</def></li>
+      <li><def>PhobosVehicleSystem_TractionMotors</def></li>
+    </systems>
+    <drivetrain>
+      <def>PhobosDrivetrain_GoatDE2</def>
+    </drivetrain>
+    <partRoles Inherit="False">
+      <li>
+        <role>Engine</role>
+        <find>
+          <li>
+            <key>Engine</key>
+          </li>
+        </find>
+      </li>
+      <li>
+        <role>Alternator</role>
+        <find>
+          <li>
+            <keyContains>alternator</keyContains>
+          </li>
+        </find>
+        <add>
+          <key>PhobosAlternator</key>
+          <label>auxiliary generator</label>
+          <health>25</health>
+          <cellsOf>Engine</cellsOf>
+        </add>
+      </li>
+      <li>
+        <role>Battery</role>
+        <find>
+          <li>
+            <keyContains>battery</keyContains>
+          </li>
+        </find>
+        <add>
+          <key>PhobosBattery</key>
+          <label>battery</label>
+          <health>20</health>
+          <cellsOf>Engine</cellsOf>
+        </add>
+      </li>
+      <li>
+        <role>Starter</role>
+        <find>
+          <li>
+            <keyContains>starter</keyContains>
+          </li>
+        </find>
+        <add>
+          <key>PhobosStarter</key>
+          <label>starter motor</label>
+          <health>20</health>
+          <cellsOf>Engine</cellsOf>
+        </add>
+      </li>
+      <li>
+        <role>OilPump</role>
+        <find>
+          <li>
+            <keyContains>oilpump</keyContains>
+          </li>
+        </find>
+        <add>
+          <key>PhobosOilPump</key>
+          <label>oil pump</label>
+          <health>20</health>
+          <cellsOf>Engine</cellsOf>
+        </add>
+      </li>
+      <li>
+        <role>Radiator</role>
+        <find>
+          <li>
+            <keyContains>radiator</keyContains>
+          </li>
+        </find>
+        <add>
+          <key>PhobosRadiator</key>
+          <label>radiator</label>
+          <health>30</health>
+          <depth>External</depth>
+          <hitWeight>0.5</hitWeight>
+          <cellsOf>Engine</cellsOf>
+        </add>
+      </li>
+      <li>
+        <role>Wheels</role>
+        <all>true</all>
+        <find>
+          <li>
+            <tag>Wheel</tag>
+          </li>
+        </find>
+      </li>
+      <li>
+        <role>Brakes</role>
+        <find>
+          <li>
+            <key>BrakePipe</key>
+          </li>
+        </find>
+      </li>
+      <li>
+        <role>TractionMotor</role>
+        <find>
+          <li>
+            <key>TractionMotor</key>
+          </li>
+        </find>
+      </li>
+      <li>
+        <role>Compressor</role>
+        <find>
+          <li>
+            <keyContains>compressor</keyContains>
+          </li>
+        </find>
+        <add>
+          <key>PhobosAirCompressor</key>
+          <label>air compressor</label>
+          <health>25</health>
+          <cellsOf>Engine</cellsOf>
+        </add>
+      </li>
+    </partRoles>
   </Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
 </Defs>

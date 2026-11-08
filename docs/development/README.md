@@ -72,6 +72,16 @@ promise current behaviour. For using the mods, start at the [documentation index
   test list. Not yet tested in game.
 - [Vehicle simulation references (8 Nov 2026)](vehicle-references.md): the study library for the three vehicle designs (books,
   papers, open code and game documentation), each with its terms, what to take from it and whether it was read.
+- [Power and lift: design (9 Nov 2026)](vehicle-power-and-lift-design.md): any number of engines, helicopters' rotor drives
+  (the Huey's and the Mangusta's transmission limits), thrust-lifted pods losing lift with each thruster, a lift-off check for
+  Vehicle Framework's own aircraft, and a diesel-electric with traction motors fitted to a US Army manual's short-time ratings;
+  built in D'thorga Framework 0.12.0 and D'thorga Vehicles 0.3.0. Not yet tested in game.
+- [Vehicle figures: research (9 Nov 2026)](vehicle-figures-research.md): sourced engine, transmission and weight figures for the
+  L-ATV, MaxxPro, Humvee, PLS, M113, Bradley, M48H, M10, T-54, BMP-1, Wiesel, Land Cruiser J70, the Abrams' turbine and five
+  helicopters, with what was not found.
+- [Steam and diesel-electric: research (9 Nov 2026)](steam-and-diesel-electric-research.md): the Frisco 4500 class and small
+  tank engines, safety valves, crown sheets and fusible plugs, steam tables, fuels and efficiency, diesel-electric shunters'
+  short-time ratings, and engine-out precedents for thrust-lifted craft.
 - [Utility vehicles: design (8 Nov 2026)](utility-vehicles-design.md): the new content mod and why it starts as a stand-in,
   the parts model and stats, the extraction-chain family in full (survey truck, drill rig, tipper hauler, generator set),
   the catalogue of other utility vehicles, the Vehicle Framework 1.7 gate and the art plan; the stand-in mod (0.1.0) is built, no

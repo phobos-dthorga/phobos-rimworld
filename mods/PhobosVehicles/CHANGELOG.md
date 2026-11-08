@@ -5,6 +5,31 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-11-09 - Draft
+
+Power and lift: the owner's approved proposals of 9 November 2026, part 1. **Not yet tested in game.**
+
+### Added
+
+- Vanilla Vehicles Expanded's Frog and Toad and Tier 3's Goliath fly on their own thrusters (three, four and four): each thruster lost takes lift away, and a pod that cannot lift its load will not launch. The Goliath is built heavy, as the mod describes it.
+- The Mosquito and the Louie get a turboshaft and their rotor masts as a rotor drive; the Louie is the mod's nod to the Huey, and like the real UH-1H its transmission, not its engine, limits its lift.
+- The Hind and the Mongoose gain a main rotor gearbox part and a rotor drive limit.
+- The Cherokee's transmissions and rotor masts become its rotor drive, and its lift is checked before it launches.
+- Trains of the Rim's Goat DE2 runs as a diesel-electric: no gearbox, traction motors that heat when pulling hard, rail wheels, and air brakes from its brake pipe with a compressor.
+
+### Dependencies
+
+- Needs D'thorga Framework 0.12.0 or later. Vanilla Vehicles Expanded's loadouts load only while it is active.
+
+### Compatibility and limits
+
+- The pods' lift figures are authored for fictional craft. The Louie's drive limit follows the UH-1H's transmission limit and the Mongoose's the A129's gearbox; the Cherokee's, the Hind's and the Mosquito's are authored, as no figure was found.
+- The Harrier's engine figures are labelled as the Pegasus 11-21's, the early AV-8B's engine.
+
+### Save compatibility
+
+- Safe to add to and remove from a running colony: these vehicles gain or drop the new systems and an air compressor part as their loadouts say.
+
 ## [0.2.0] - 2026-11-09 - Draft
 
 D'thorga Framework 0.11.0's engines, drivetrains and gas turbines, fitted to named vehicles. **Not yet tested in game.**
