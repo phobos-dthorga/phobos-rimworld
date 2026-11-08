@@ -43,3 +43,7 @@ Portions of the materials used to create this content are trademarks and/or copy
 reserved by Ludeon. This content is not official and is not endorsed by Ludeon.
 
 Added with `scripts/art/archive_branch.py` on `main`, which only ever adds commits and refuses game art and model files.
+
+## Vehicles
+
+- `vehicles/tanker/`: the bulk tanker's north base body, **attempt 2 of the pilot, the owner's pick (8 Nov 2026)**, exactly as OpenAI gpt-image-2 returned it (768 x 1536, medium quality, US$0.0295), with its JSON record. The prompt is in `assets/phobos-vehicles/requests/tanker-pilot.json` on the working branch.
