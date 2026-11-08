@@ -62,6 +62,12 @@
       <li Class="HediffCompProperties_SeverityPerDay">
         <severityPerDay>-0.15</severityPerDay>
       </li>
+      <li Class="Phobos.Framework.Health.HediffCompProperties_PhobosLeavesLasting">
+        <!-- A burned eye (the 0.6 stage) leaves a scarred cornea once it heals, by the worst it reached (owner, 9 Nov 2026). -->
+        <lasting>PhobosBurns_CornealScarring</lasting>
+        <fromSeverity>0.6</fromSeverity>
+        <flag>PhobosBurns.causticScarring</flag>
+      </li>
     </comps>
     <stages>
       <li>
@@ -84,6 +90,40 @@
         <label>burned</label>
         <partEfficiencyOffset>-0.9</partEfficiencyOffset>
         <painOffset>0.1</painOffset>
+      </li>
+    </stages>
+  </HediffDef>
+
+  <!-- Corneal scarring after a burned eye heals (owner, 9 Nov 2026: our own, partial, by how bad the injury was). Alkali and acid
+       burns of the eye can scar the cornea and cloud sight for good (general, approximate). Stages and offsets authored. Permanent; the
+       game's eye replacements or a healer mech serum cure it (it is a bad condition curable by an item). -->
+  <HediffDef>
+    <defName>PhobosBurns_CornealScarring</defName>
+    <label>scarred cornea</label>
+    <labelNoun>a scarred cornea</labelNoun>
+    <description>A caustic burn has left scars on the clear front of the eye. Sight through it stays dimmed for good. A replacement eye, or a healer mech serum, puts it right.</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <defaultLabelColor>(0.7, 0.7, 0.75)</defaultLabelColor>
+    <initialSeverity>0.1</initialSeverity>
+    <maxSeverity>1</maxSeverity>
+    <isBad>true</isBad>
+    <tendable>false</tendable>
+    <everCurableByItem>true</everCurableByItem>
+    <scenarioCanAdd>false</scenarioCanAdd>
+    <stages>
+      <li>
+        <label>faint</label>
+        <partEfficiencyOffset>-0.1</partEfficiencyOffset>
+      </li>
+      <li>
+        <minSeverity>0.35</minSeverity>
+        <label>clouded</label>
+        <partEfficiencyOffset>-0.25</partEfficiencyOffset>
+      </li>
+      <li>
+        <minSeverity>0.7</minSeverity>
+        <label>dense</label>
+        <partEfficiencyOffset>-0.5</partEfficiencyOffset>
       </li>
     </stages>
   </HediffDef>
@@ -189,5 +229,19 @@
     <harmsHealth>true</harmsHealth>
     <hediff>ChemicalBurn</hediff>
     <deathMessage>{0} has died of caustic burns.</deathMessage>
+  </DamageDef>
+
+  <!-- Plants in dense caustic gas are scorched (owner, 9 Nov 2026: plants wilt, corpses unaffected). Chlorine and similar gases burn
+       leaves and kill plants (general). Hit points only; never applied to anything but plants. -->
+  <DamageDef>
+    <defName>PhobosBurns_CausticScorch</defName>
+    <label>caustic scorch</label>
+    <workerClass>DamageWorker</workerClass>
+    <externalViolence>false</externalViolence>
+    <hasForcefulImpact>false</hasForcefulImpact>
+    <makesBlood>false</makesBlood>
+    <canInterruptJobs>false</canInterruptJobs>
+    <harmsHealth>false</harmsHealth>
+    <deathMessage>{0} has been scorched by caustic gas.</deathMessage>
   </DamageDef>
 </Defs>

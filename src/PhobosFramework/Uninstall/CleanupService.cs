@@ -11,8 +11,24 @@ namespace Phobos.Framework.Uninstall;
 /// </summary>
 public static class CleanupService
 {
+    /// <summary>True while a sweep runs, so conditions that leave another behind when removed (HediffComp_PhobosLeavesLasting) do not.</summary>
+    public static bool Sweeping { get; private set; }
+
     /// <summary>Removes every hediff whose Def belongs to <paramref name="pack"/> from every pawn, alive or dead, anywhere.</summary>
     public static int RemoveHediffsOf(ModContentPack pack)
+    {
+        Sweeping = true;
+        try
+        {
+            return RemoveAll(pack);
+        }
+        finally
+        {
+            Sweeping = false;
+        }
+    }
+
+    static int RemoveAll(ModContentPack pack)
     {
         int removed = 0;
         var seen = new HashSet<Pawn>();

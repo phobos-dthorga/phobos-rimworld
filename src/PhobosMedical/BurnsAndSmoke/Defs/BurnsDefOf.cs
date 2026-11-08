@@ -11,6 +11,7 @@ public static class BurnsDefOf
     public static HediffDef PhobosBurns_AirwayBurn = null!;
     public static HediffDef PhobosBurns_CarbonMonoxide = null!;
     public static HediffDef PhobosBurns_LungInjury = null!;
+    public static DamageDef PhobosBurns_CausticScorch = null!;
     public static HediffDef PhobosBurns_SmokeInhalation = null!;
     public static JobDef PhobosBurns_MoveAwayFromHeat = null!;
     public static HediffDef PhobosBurns_Eschar = null!;

@@ -23,6 +23,10 @@ public class BurnsAndSmokeSettings : ModSettings
     public bool causticSkin = true;
     public bool causticImmunity = true;
     public bool causticAftermath = true;
+    /// <summary>A badly burned eye leaves a scarred cornea once it heals (owner, 9 Nov 2026).</summary>
+    public bool causticScarring = true;
+    /// <summary>Plants in dense caustic gas wilt and can die (owner, 9 Nov 2026).</summary>
+    public bool causticPlants = true;
     /// <summary>Acid left on the skin keeps burning until it is spent or rinsed off.</summary>
     public bool chemicalBurns = true;
     /// <summary>Deeply burned limbs form a constricting eschar.</summary>
@@ -54,6 +58,8 @@ public class BurnsAndSmokeSettings : ModSettings
         Scribe_Values.Look(ref causticSkin, "PhobosBurns_CausticSkin", true);
         Scribe_Values.Look(ref causticImmunity, "PhobosBurns_CausticImmunity", true);
         Scribe_Values.Look(ref causticAftermath, "PhobosBurns_CausticAftermath", true);
+        Scribe_Values.Look(ref causticScarring, "PhobosBurns_CausticScarring", true);
+        Scribe_Values.Look(ref causticPlants, "PhobosBurns_CausticPlants", true);
         Scribe_Values.Look(ref smoke, "PhobosBurns_Smoke", true);
         Scribe_Values.Look(ref carbonMonoxide, "PhobosBurns_CarbonMonoxide", true);
         Scribe_Values.Look(ref fireHeatOutdoors, "PhobosBurns_FireHeatOutdoors", true);
@@ -74,6 +80,9 @@ public static class BurnsAndSmokeMod
     public const string LogPrefix = "[D'thorga Medical: burns and smoke]";
 
     public static BurnsAndSmokeSettings Settings => MedicalMod.Settings.burns;
+
+    /// <summary>The setting flag the caustic eye injury's lasting scar reads (the Framework's PatchFlags; registered by MedicalMod).</summary>
+    public const string ScarringFlag = "PhobosBurns.causticScarring";
     /// <summary>The mod's content pack, for the uninstall sweep (it removes every condition whose Def belongs to it).</summary>
     public static ModContentPack? Pack => MedicalMod.Pack;
     /// <summary>Another mod models the air cell by cell (the rules Def lists them), so our hot zones stand down. Set once Defs are loaded.</summary>
@@ -99,7 +108,8 @@ public static class BurnsAndSmokeMod
         if (Settings.chemicalBurns) report.On("acid on the skin"); else report.Off("acid on the skin", "setting");
         if (!Settings.causticGas) report.Off("caustic gas", "setting");
         else if (!ModsConfig.BiotechActive) report.Off("caustic gas", "no tox gas without Biotech");
-        else report.On("caustic gas, " + (Settings.causticFastActing ? "fast-acting" : "slow-acting"));
+        else report.On("caustic gas, " + (Settings.causticFastActing ? "fast-acting" : "slow-acting")
+            + (Settings.causticScarring && Settings.causticEyes ? ", corneal scarring" : "") + (Settings.causticPlants ? ", plants wilt" : ""));
         if (!Settings.eschar) report.Off("eschar", "setting");
         else report.On(OptionalMods.IsActive(OptionalMods.MoreInjuries) ? "eschar, More Injuries' gangrene for a starved limb" : "eschar, ischaemic damage for a starved limb");
         if (Settings.smoke) report.On("smoke inhalation, " + (PhobosGases.UsesCombatExtendedSmoke ? "Combat Extended's condition as the signal" : "the game's smoke as the signal")); else report.Off("smoke inhalation", "setting");
@@ -134,6 +144,8 @@ public static class BurnsAndSmokeMod
             listing.CheckboxLabeled("PhobosBurns_SettingCausticSkin".Translate(), ref Settings.causticSkin);
             listing.CheckboxLabeled("PhobosBurns_SettingCausticImmunity".Translate(), ref Settings.causticImmunity, "PhobosBurns_SettingCausticImmunityDesc".Translate());
             listing.CheckboxLabeled("PhobosBurns_SettingCausticAftermath".Translate(), ref Settings.causticAftermath);
+            listing.CheckboxLabeled("PhobosBurns_SettingCausticScarring".Translate(), ref Settings.causticScarring, "PhobosBurns_SettingCausticScarringDesc".Translate());
+            listing.CheckboxLabeled("PhobosBurns_SettingCausticPlants".Translate(), ref Settings.causticPlants, "PhobosBurns_SettingCausticPlantsDesc".Translate());
         }
         listing.CheckboxLabeled("PhobosBurns_SettingSmoke".Translate(), ref Settings.smoke, "PhobosBurns_SettingSmokeDesc".Translate());
         listing.CheckboxLabeled("PhobosBurns_SettingCarbonMonoxide".Translate(), ref Settings.carbonMonoxide, "PhobosBurns_SettingCarbonMonoxideDesc".Translate());

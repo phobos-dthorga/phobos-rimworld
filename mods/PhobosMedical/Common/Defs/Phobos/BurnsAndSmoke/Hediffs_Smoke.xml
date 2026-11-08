@@ -110,7 +110,7 @@
     <defName>PhobosBurns_LungInjury</defName>
     <label>chemical lung injury</label>
     <labelNoun>a chemical lung injury</labelNoun>
-    <description>Smoke or a caustic gas has injured the lower airways. Breathing is harder for days, and badly damaged lungs invite pneumonia. Tending helps the lungs recover; rest helps too.</description>
+    <description>Smoke or a caustic gas has injured the lower airways. Breathing is harder for days, and badly damaged lungs invite pneumonia. Tending helps the lungs recover, and so do rest and supplied oxygen.</description>
     <hediffClass>HediffWithComps</hediffClass>
     <defaultLabelColor>(0.6, 0.5, 0.4)</defaultLabelColor>
     <maxSeverity>1</maxSeverity>
@@ -200,6 +200,9 @@
     <modExtensions>
       <li Class="Phobos.Framework.Breathing.PhobosOxygenResponsiveExtension">
         <minSeverity>0.05</minSeverity>
+        <!-- Supplied oxygen is the standard supportive care for chemical lung injury (general); it speeds recovery here by half as much
+             again as tending alone (owner, 9 Nov 2026; authored). -->
+        <healingPerDayOnOxygen>0.06</healingPerDayOnOxygen>
       </li>
     </modExtensions>
   </HediffDef>

@@ -6,6 +6,25 @@ entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.8.0] - 2026-11-09 - Draft
+
+The rest of the caustic gas, from the owner's answers of 9 November 2026. **Not yet tested in game.** Design: docs/development/caustic-gas.md.
+
+### Added
+
+- A badly burned eye leaves a scarred cornea once it heals: sight through it stays dimmed for good, more after a worse burn (faint, clouded, dense). A replacement eye or a healer mech serum puts it right. Its own setting, on by default.
+- Plants and crops in dense tox gas are scorched hour by hour and die if it lingers; corpses are left alone. Its own setting, on by default.
+- Supplied oxygen now speeds the recovery of chemical lung injury, from smoke or caustic gas, by half as much again as tending alone. It already eased low breathing.
+- Dev actions: heal caustic eye injuries of selected pawns now (to see the scarring), scorch plants in tox gas now.
+
+### Dependencies
+
+- Needs D'thorga Framework 0.21.0 or later.
+
+### Save compatibility
+
+- Safe to add. Eye injuries already healing remember their worst from now on, so one already past its worst before the update may leave no scar.
+
 ## [0.7.1] - 2026-11-09 - Draft
 
 No change in play on 1.7. Not yet tested in game.

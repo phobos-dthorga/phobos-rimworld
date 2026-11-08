@@ -67,9 +67,9 @@ Added 9 Nov 2026: the vehicle work of 8 and 9 November did not update this file 
 
 | # | Item | Owner's decision | Status |
 | --- | --- | --- | --- |
-| C5 | Lasting eye damage after a severe caustic eye injury | Our own corneal scarring | Open |
-| C6 | Plants and corpses in dense gas | Plants wilt, corpses unaffected | Open |
-| C7 | Supplied oxygen and chemical lung injury | Oxygen eases and speeds recovery | Open |
+| C5 | Lasting eye damage after a severe caustic eye injury | Our own corneal scarring | Done: Medical 0.8.0 |
+| C6 | Plants and corpses in dense gas | Plants wilt, corpses unaffected | Done: Medical 0.8.0 |
+| C7 | Supplied oxygen and chemical lung injury | Oxygen eases and speeds recovery | Done: Medical 0.8.0 |
 | C8 | Contaminated clothing | The shower is enough by default; extra decontamination with Dubs Bad Hygiene; strip and rinse as a main-menu setting | Open |
 
 ## Housekeeping (9 Nov 2026)

@@ -176,6 +176,21 @@ The proposal above, built as written except for these (agent choices unless mark
   contaminated clothing, and whether chemical lung injury counts as a condition oxygen helps.
 - The lung injury's label is now "chemical lung injury", as the record decided (its defName is unchanged).
 
+## Built 9 Nov 2026 (D'thorga Medical 0.8.0)
+
+The owner's answers to the open points (9 Nov 2026). **Not yet tested in game.**
+
+- **Lasting eye damage: our own scarred cornea**, partial, by how bad the injury was. A caustic eye injury that reached the burned stage
+  (0.6) leaves `PhobosBurns_CornealScarring` on that eye when it heals: from a faint trace at 0.6 to dense at 1 (D'thorga Framework's
+  `HediffComp_PhobosLeavesLasting` and `LastingRule`, tested; offsets authored: -10%, -25%, -50% sight). Curable by a replacement eye
+  or a healer mech serum (a bad condition curable by an item). Its own setting, on.
+- **Plants wilt, corpses unaffected.** `MapComponent_PhobosCausticPlants` scorches every plant in tox gas at least 0.3 dense, once an
+  in-game hour, 20 hit points an hour at full density (authored: a crop of about 85 lives about four hours in thick gas). Its own setting, on.
+- **Supplied oxygen eases and speeds recovery.** It already eased low breathing (+20%, never past normal); chemical lung injury now
+  heals 0.06 a day more on oxygen (authored: half as much again as tending), from smoke or caustic gas alike.
+- **Contaminated clothing:** the shower stays enough by default; Dubs Bad Hygiene users get extra decontamination, and strip and rinse
+  becomes a main-menu setting. Built separately (see below when it lands).
+
 ## Test protocol (owner runs it, once built)
 
 Times are game time, and the gas thins as it spreads, so treat them as rough.
@@ -196,8 +211,8 @@ None yet. Built in 0.7.0, not yet tested in game.
 
 ## Open points and upstream
 
-- **For the owner:** should lasting eye scarring be our own stage or the game's blindness?
-- **For the owner:** plants and corpses. The game's fallout kills plants and its gas does not. Under the gas rule this is a call-out, not a default.
+- **Decided 9 Nov 2026 (owner):** our own scarred cornea, built in Medical 0.8.0.
+- **Decided 9 Nov 2026 (owner):** plants wilt, corpses unaffected; built in Medical 0.8.0.
 - **Stripping contaminated clothing** (agent proposal, phase 2): under the slow-acting model, clothes keep dosing the skin for hours after the
   gas clears unless removed. A cheap, strong hook, held until the core is tested.
 - **Lung rot** as the aftermath instead of irritable airways: recorded as the alternative.

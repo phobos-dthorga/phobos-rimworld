@@ -124,6 +124,12 @@ public class PhobosBurnRulesDef : PhobosRulesDef
     public float causticAftermathLungSeverity = 0.5f;
     public float causticAftermathCriticalLungSeverity = 0.75f;
     public float causticAftermathLastingChance = 0.2f;
+    /// <summary>Plants in caustic gas at least this dense are scorched (owner, 9 Nov 2026: plants wilt; authored).</summary>
+    public float causticPlantMinDensity = 0.3f;
+    /// <summary>Hit points a plant loses an hour in full-density gas (authored: a crop of about 85 lives about four hours in it).</summary>
+    public float causticPlantDamagePerHourAtFull = 20f;
+    /// <summary>How often the plants are checked, in ticks (an in-game hour).</summary>
+    public int causticPlantIntervalTicks = 2500;
 
     // Acid on the skin (D'thorga Medical 0.7.0, with the safety shower).
     /// <summary>Burn damage an hour, spread over the acid burns, while fresh acid is still on the skin (authored).</summary>

@@ -9,7 +9,7 @@
     <defName>PhobosMedical_OnOxygen</defName>
     <label>on oxygen</label>
     <labelNoun>oxygen treatment</labelNoun>
-    <description>This patient is breathing supplied oxygen through a mask. It eases low breathing and clears carbon monoxide much faster. It does not repair damaged lungs, and it stops soon after they leave the bed.</description>
+    <description>This patient is breathing supplied oxygen through a mask. It eases low breathing, clears carbon monoxide much faster, and helps injured lungs and starved tissue recover. It stops soon after they leave the bed.</description>
     <hediffClass>Phobos.Medical.Comps.Hediff_PhobosOnOxygen</hediffClass>
     <defaultLabelColor>(0.55, 0.8, 0.95)</defaultLabelColor>
     <isBad>false</isBad>

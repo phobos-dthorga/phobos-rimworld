@@ -8,7 +8,7 @@ It replaces five earlier mods, merged into it on 7 November 2026 ([why](../../do
 Burns and Smoke**, **D'thorga Emergency Dosing**, **D'thorga Triage**, **D'thorga Medical Equipment** and **D'thorga Medical Save
 Bridge**. Each is now a part of this mod, with its own section below.
 
-Version 0.7.1, built 9 November 2026 for House D'thorga. **Not yet tested in game as D'thorga Medical.** What the owner tested of
+Version 0.8.0, built 9 November 2026 for House D'thorga. **Not yet tested in game as D'thorga Medical.** What the owner tested of
 the five parts before the merge is in each part's section; the parts' behaviour is unchanged, except that the save bridge now asks
 first.
 
@@ -22,7 +22,7 @@ first.
   game.**
 - **Your settings carry over, once,** from the five old mods' settings files, the first time the game starts with this mod. There is
   now one display mode for every part (Plain, Operator or Engineer), taken from Medical Equipment's.
-- **Needs Harmony, D'thorga Framework and Vanilla Expanded Framework. Vanilla Gravship Expanded is strongly recommended**: the
+- **Needs Harmony, D'thorga Framework 0.21.0 or later and Vanilla Expanded Framework. Vanilla Gravship Expanded is strongly recommended**: the
   bedside stand, field oxygen kit, hyperbaric chamber, electrolyser and liquid oxygen store use its oxygen, and a letter says so
   once if it is missing. **More Injuries and Combat Extended are optional** and used when present.
 - **RimWorld 1.7 only** (from 0.7.1; 1.6 is no longer supported).
@@ -134,11 +134,12 @@ flowchart TD
 | airway burn | burning, or burns to the head and neck | time: swelling peaks at 8 hours, holds to 24, gone by 48 | a tracheotomy; or waiting, if it never closes |
 | caustic gas dose | standing in tox gas | more time in thicker gas | time; washing at a safety shower clears the skin's share |
 | caustic eye injury | caustic gas in the eyes | the dose | tending speeds healing |
+| scarred cornea | a caustic eye injury that was burned (60% or worse) at its worst, once it heals | a worse burn | a replacement eye or a healer mech serum |
 | weakened immunity | a heavy caustic gas dose, from day 3 (slow-acting only) | a bigger dose | time: about two weeks |
 | irritable airways | severe chemical lung injury | | time: about two months; after a critical injury it can stay |
 | constricting eschar | an arm or leg burned to 60% of its health | time: tightens over about half a day | an escharotomy; or the burns on that limb healing |
 | ischaemic damage | a limb an eschar has starved of blood, without More Injuries | the eschar staying tight | an escharotomy stops it; it heals like any injury |
-| smoke-damaged lungs | breathing smoke | thicker smoke, longer | tending; rest; heals 4% a day untended, 16% tended well |
+| smoke-damaged lungs | breathing smoke | thicker smoke, longer | tending; rest; supplied oxygen (from 0.8.0, 6% a day more); heals 4% a day untended, 16% tended well |
 | pneumonia | severe lung damage | | tending and immunity, like a wound infection |
 | carbon monoxide poisoning | the framework's carbon monoxide in a closed burning room | staying in the room | clean air: halves every 5.3 hours under a roof, 3 in the open; on supplied oxygen, about every 75 minutes, with D'thorga Medical Equipment |
 | acute smoke inhalation | breathing the game's smoke, only when Combat Extended's smoke is not running | thicker smoke | clean air; clears in a day or so |
@@ -487,7 +488,7 @@ burn dressings for burns; and an electrolyser and a liquid oxygen store to make 
 - **Build a bedside machine touching a hospital bed,** as you would a vitals monitor. One machine per bed, though it can serve two beds it touches. Any bed that accepts a vitals monitor works.
 - **Nobody has to be told.** A patient in a served bed or chamber who needs oxygen gets it, and doctors use the field kit and the hand pump by themselves, as Doctor work. Doctors carry a downed patient who needs oxygen to a free chamber first. Use a machine's switch to stop it.
 - **No operations in a hyperbaric chamber:** move the patient to a hospital bed for surgery. The chamber says who is waiting.
-- **Oxygen does not repair lungs.** A shut airway (breathing at zero) needs a tube: **from 0.7.0 a doctor with Medicine 4 or better
+- **Oxygen does not open a closed airway**, though from 0.8.0 it helps injured lungs recover faster. A shut airway (breathing at zero) needs a tube: **from 0.7.0 a doctor with Medicine 4 or better
   places one with an intubation kit by themselves**, or you order a tracheotomy. Doctors say so when you right-click.
 - **New in 0.7.0: tox gas is a caustic gas** (the owner's design of 5 November 2026, not yet tested in game; needs Biotech for the gas).
   Besides the game's own stinging and toxic buildup, it can injure the eyes, swell the throat, injure the lungs, burn the skin, and after
@@ -495,7 +496,8 @@ burn dressings for burns; and an electrolyser and a liquid oxygen store to make 
   it stings, seems to pass, and **the harm comes on from about 4 hours later**, over the next two or three days, so keep gassed
   colonists in bed and watch them. A setting makes it fast-acting, closer to the game's own feel. **A gas mask protects the eyes and
   lungs, not the skin**; only a sealed suit protects everything. **Washing at a safety shower takes it off the skin.** Each part of it
-  has its own setting.
+  has its own setting. **From 0.8.0** a badly burned eye leaves a **scarred cornea** that dims it for good (a replacement eye or a
+  healer mech serum fixes it), and **plants and crops in dense tox gas wilt** and die if it lingers.
 - **New in 0.7.0: acid keeps burning until it is washed off, and the safety shower washes it off** (not yet tested in game). An acid
   burn leaves **acid on the skin** for about three hours, deepening the burns. **Anyone who can walk runs to the nearest safety shower
   by themselves** (within 60 cells) and rinses for a quarter of an hour; **doctors draw water there and rinse patients who can't walk**.

@@ -47,7 +47,7 @@ public class MedicalMod : Mod
     public const string PackageId = "PhobosDthorga.Medical";
     /// <summary>The Harmony ID is the packageId; never change it once the mod is published.</summary>
     public const string HarmonyId = PackageId;
-    public const string ModVersion = "0.7.1";
+    public const string ModVersion = "0.8.0";
     public const string LogPrefix = "[D'thorga Medical]";
 
     /// <summary>The five mods this one replaced: package ID, name, settings folder and Mod class (for the one-time import).</summary>
@@ -75,6 +75,8 @@ public class MedicalMod : Mod
         bool fresh = !SettingsImport.HasOwnFile(this);
         Settings = GetSettings<MedicalSettings>();
         if (fresh) ImportFormerSettings();
+        Phobos.Framework.Patching.PatchFlags.Register(BurnsAndSmokeMod.ScarringFlag,
+            () => Settings.burns.causticGas && Settings.burns.causticEyes && Settings.burns.causticScarring);
 
         var harmony = new Harmony(HarmonyId);
         HarmonyPatchApplier.ApplyEach(harmony, typeof(MedicalMod).Assembly, LogPrefix);

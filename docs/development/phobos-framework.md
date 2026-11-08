@@ -156,7 +156,9 @@ The candidate base class for interval map components is still not built (see 0.6
   shelter's temperature against their comfort range), `WorldMap/BiomeGround.cs` (a world tile's ground from its biome's Defs;
   namespace `Phobos.Framework.WorldMap`, not `.World`, which would hide `Verse.World`) and a condition on `ItemFinder`'s finders.
   0.20.0 added `Patching/PatchFlags.cs`: `PatchFlags.Register` (a mod's setting, read by XML patches) and `PatchOperationPhobosFlag`
-  (operations applied only while that setting is on; mods register in their constructors, which run before patches).
+  (operations applied only while that setting is on; mods register in their constructors, which run before patches). 0.21.0 added
+  `Health/LeavesLasting.cs` (a condition that leaves a lasting one on its part when it heals, by its worst) and `Rules/LastingRule.cs`;
+  the uninstall sweep's `CleanupService.Sweeping` tells it to stand aside.
 
 ## Open points and upstream
 

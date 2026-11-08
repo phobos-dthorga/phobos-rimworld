@@ -8,7 +8,7 @@
     <AssemblyName>PhobosMedical.Hygiene</AssemblyName>
     <ModFolder>PhobosMedical</ModFolder>
     <TieInFolder>Mods/DubsBadHygiene/</TieInFolder>
-    <Version>0.7.1</Version>
+    <Version>0.8.0</Version>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="BadHygiene">

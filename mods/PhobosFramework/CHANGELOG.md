@@ -5,6 +5,14 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.21.0] - 2026-11-09 - Draft
+
+For D'thorga Medical 0.8.0's caustic gas. **Not yet tested in game.**
+
+### Added
+
+- Shared, in the core: a condition component that leaves a lasting condition on the same body part when it heals, by the worst it reached (D'thorga Medical's scarred cornea), with its rule and tests. It leaves nothing on a part that has gone or been replaced, after death, or during the uninstall sweep.
+
 ## [0.20.0] - 2026-11-09 - Draft
 
 Electric vehicles (owner, 9 November 2026). **Not yet tested in game.** Design: docs/development/vehicle-electric-design.md.

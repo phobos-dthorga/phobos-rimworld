@@ -62,6 +62,30 @@ public static class BurnsDebugActions
         }
     }
 
+    [DebugAction(DebugCategory.Name, "Burns: heal caustic eye injuries of selected pawns now", actionType = DebugActionType.Action, allowedGameStates = AllowedGameStates.PlayingOnMap)]
+    static void HealCausticEyes()
+    {
+        foreach (Pawn pawn in DebugSelection.SelectedThings<Pawn>())
+        {
+            var eyes = new System.Collections.Generic.List<Hediff>();
+            foreach (Hediff hediff in pawn.health.hediffSet.hediffs)
+            {
+                if (hediff.def == Defs.BurnsDefOf.PhobosBurns_CausticEye) eyes.Add(hediff);
+            }
+            foreach (Hediff eye in eyes) pawn.health.RemoveHediff(eye);
+            Log.Message(BurnsAndSmokeMod.LogPrefix + " " + pawn.LabelShort + ": healed " + eyes.Count + " caustic eye injuries; a burned one (0.6 or worse at its worst) leaves a scarred cornea.");
+        }
+    }
+
+    [DebugAction(DebugCategory.Name, "Burns: scorch plants in tox gas now", actionType = DebugActionType.Action, allowedGameStates = AllowedGameStates.PlayingOnMap)]
+    static void ScorchPlants()
+    {
+        MapComponent_PhobosCausticPlants? comp = Find.CurrentMap?.GetComponent<MapComponent_PhobosCausticPlants>();
+        if (comp == null) return;
+        int hurt = comp.Scorch(1f, Defs.PhobosBurnRulesDef.Current);
+        Log.Message(BurnsAndSmokeMod.LogPrefix + " Scorched " + hurt + " plants for an hour of tox gas" + (MapComponent_PhobosCausticPlants.Enabled ? "." : " (the plants setting or caustic gas is off; ran anyway)."));
+    }
+
     [DebugAction(DebugCategory.Name, "Medical: remove every condition D'thorga Medical adds, from every pawn", actionType = DebugActionType.Action, allowedGameStates = AllowedGameStates.Playing)]
     public static void RemoveAll()
     {

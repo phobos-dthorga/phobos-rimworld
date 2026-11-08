@@ -28,6 +28,10 @@
   <PhobosBurns_SettingCausticImmunity>Tox gas: a heavy dose weakens immunity</PhobosBurns_SettingCausticImmunity>
   <PhobosBurns_SettingCausticImmunityDesc>Only when tox gas is slow-acting.</PhobosBurns_SettingCausticImmunityDesc>
   <PhobosBurns_SettingCausticAftermath>Tox gas: badly injured lungs can stay irritable</PhobosBurns_SettingCausticAftermath>
+  <PhobosBurns_SettingCausticScarring>Tox gas: a badly burned eye scars</PhobosBurns_SettingCausticScarring>
+  <PhobosBurns_SettingCausticScarringDesc>On by default: once a burned eye heals, it keeps a scarred cornea that dims its sight for good, more after a worse burn. A replacement eye or a healer mech serum puts it right.</PhobosBurns_SettingCausticScarringDesc>
+  <PhobosBurns_SettingCausticPlants>Tox gas: plants wilt</PhobosBurns_SettingCausticPlants>
+  <PhobosBurns_SettingCausticPlantsDesc>On by default: plants and crops in dense tox gas are scorched hour by hour and die if it lingers. Corpses are left alone.</PhobosBurns_SettingCausticPlantsDesc>
   <PhobosBurns_CausticTipLaterPlain>The worst of it comes on later. Watch their eyes, lungs and skin over the next few days, and wash them at a safety shower.</PhobosBurns_CausticTipLaterPlain>
   <PhobosBurns_CausticTipNowPlain>The harm is coming on now: eyes, lungs and skin. Tend them and keep them in bed.</PhobosBurns_CausticTipNowPlain>
   <PhobosBurns_CausticTip>Dose: eyes {EYES}, lungs {LUNGS}, skin {SKIN}. Harm begins in about {HOURS} hours.</PhobosBurns_CausticTip>

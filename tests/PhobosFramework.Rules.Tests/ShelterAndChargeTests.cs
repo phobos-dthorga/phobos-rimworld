@@ -52,3 +52,17 @@ public class ChargeRuleTests
         Assert.Equal(1, ChargeRules.Recharged(1, 4, 5, 0), 6);
     }
 }
+
+public class LastingRuleTests
+{
+    [Fact]
+    public void NothingIsLeftBelowTheThreshold() => Assert.Equal(0, LastingRule.SeverityFor(0.59, 0.6), 6);
+
+    [Fact]
+    public void AtTheThresholdAFaintTraceAndAtFullTheWorst()
+    {
+        Assert.Equal(LastingRule.Faintest, LastingRule.SeverityFor(0.6, 0.6), 6);
+        Assert.Equal(1, LastingRule.SeverityFor(1, 0.6), 6);
+        Assert.Equal(0.55, LastingRule.SeverityFor(0.8, 0.6), 6);
+    }
+}
