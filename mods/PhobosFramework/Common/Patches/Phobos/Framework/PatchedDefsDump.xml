@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Hands the game's combined, patched XML to D'thorga Framework's patched-Defs file when a developer asked for one at this start
+     (the mod's settings, dev mode). It changes nothing, and does nothing at all otherwise. -->
+<Patch>
+  <Operation Class="Phobos.Framework.Debug.PatchOperationPhobosKeepPatchedXml" />
+</Patch>

@@ -12,6 +12,8 @@
   <PhobosFramework_GasSourceModeExistingOnlyDesc>The framework carries no gas of its own. Mods that depend on one fall back to a simpler estimate, or do nothing.</PhobosFramework_GasSourceModeExistingOnlyDesc>
 
   <PhobosFramework_SettingShowGasOverlay>Show gases at the mouse (dev mode)</PhobosFramework_SettingShowGasOverlay>
+  <PhobosFramework_SettingWritePatchedDefs>Write every Def with all patches applied at the next start (dev mode)</PhobosFramework_SettingWritePatchedDefs>
+  <PhobosFramework_SettingWritePatchedDefsDesc>For mod developers. At the next start, once the game has loaded, every Def is written as it stands after every mod's XML patches (before inheritance) to {PATH}, for phobos-modkit's Def tool. Takes a few seconds and a few hundred megabytes on disk with a large mod list; turns itself off once written. The file holds other authors' Defs: keep it on this computer.</PhobosFramework_SettingWritePatchedDefsDesc>
   <PhobosFramework_SettingShowGasOverlayDesc>In development mode, a small label follows the mouse naming every gas the framework can see in that cell's room.</PhobosFramework_SettingShowGasOverlayDesc>
 
   <PhobosFramework_SettingDisplayMode>How much to show</PhobosFramework_SettingDisplayMode>

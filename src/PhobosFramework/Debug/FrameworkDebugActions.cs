@@ -10,6 +10,15 @@ namespace Phobos.Framework.Debug;
 /// <summary>Dev-mode reads and the gas overlay. Nothing here changes game state except the explicit "add" actions.</summary>
 public static class FrameworkDebugActions
 {
+    [DebugAction(DebugCategory.Name, "Framework: write patched Defs at the next start", allowedGameStates = AllowedGameStates.Entry | AllowedGameStates.Playing)]
+    public static void AskForPatchedDefs()
+    {
+        FrameworkMod.Settings.writePatchedDefsOnce = true;
+        FrameworkMod.Settings.Write();
+        Log.Message(FrameworkMod.LogPrefix + " Restart the game: once it has loaded, every Def with all patches applied is written to "
+            + PatchedDefsDump.OutputPath + " (the request then turns itself off).");
+    }
+
     [DebugAction(DebugCategory.Name, "Framework: log gases at cell", actionType = DebugActionType.ToolMap, allowedGameStates = AllowedGameStates.PlayingOnMap)]
     public static void LogGasesAtCell()
     {

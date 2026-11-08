@@ -13,12 +13,15 @@ public class FrameworkSettings : ModSettings
     public GasSourceMode gasSourceMode = GasSourceMode.Automatic;
     /// <summary>Dev mode only: a tooltip at the mouse cell naming every gas the framework can see there.</summary>
     public bool showGasOverlay;
+    /// <summary>Dev mode only, one-shot: write every Def with all patches applied at the next start (Debug/PatchedDefsDump).</summary>
+    public bool writePatchedDefsOnce;
 
     public override void ExposeData()
     {
         base.ExposeData();
         Scribe_Values.Look(ref gasSourceMode, "PhobosFramework_GasSourceMode", GasSourceMode.Automatic);
         Scribe_Values.Look(ref showGasOverlay, "PhobosFramework_ShowGasOverlay", false);
+        Scribe_Values.Look(ref writePatchedDefsOnce, "PhobosFramework_WritePatchedDefsOnce", false);
     }
 }
 
@@ -31,7 +34,7 @@ public class FrameworkSettings : ModSettings
 public class FrameworkMod : Mod
 {
     public const string PackageId = "PhobosDthorga.Framework";
-    public const string ModVersion = "0.26.0";
+    public const string ModVersion = "0.27.0";
     public const string LogPrefix = "[D'thorga Framework]";
 
     public static FrameworkSettings Settings { get; private set; } = new();
@@ -76,6 +79,11 @@ public class FrameworkMod : Mod
         listing.Gap();
         listing.CheckboxLabeled("PhobosFramework_SettingShowGasOverlay".Translate(), ref Settings.showGasOverlay,
             "PhobosFramework_SettingShowGasOverlayDesc".Translate());
+        if (Prefs.DevMode)
+        {
+            listing.CheckboxLabeled("PhobosFramework_SettingWritePatchedDefs".Translate(), ref Settings.writePatchedDefsOnce,
+                "PhobosFramework_SettingWritePatchedDefsDesc".Translate(Debug.PatchedDefsDump.OutputPath.Named("PATH")));
+        }
         listing.End();
     }
 }

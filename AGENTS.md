@@ -34,7 +34,9 @@ delivered, record the delivery in the changelog or design record, and add or ame
 - **Answer which mod defines or patches a Def with `python scripts/query-defs.py`** (`who <defName>` for every
   definition, the one the game keeps and every patch naming it; `show` for its XML and parents, `--lines 0` for a long Def in
   full; `list`, `patches`,
-  `sql`) before searching mod folders by hand. It shows Defs as written, without other mods' patches applied.
+  `sql`) before searching mod folders by hand. It shows Defs as written, without other mods' patches applied; **`patched
+  <defName>` shows a Def with every patch applied and a diff from its written form**, from the file D'thorga Framework writes
+  on request (dev mode: its settings or the dev action "write patched Defs at the next start", then a restart).
 - **Answer questions about the game's or another mod's code with `python scripts/query-code.py`** (owner, 9 Nov 2026):
   `show Type.Member` for its source, `outline Type` for what a type holds, `refs Name` for every line using a name grouped
   by the member it is in, `find "*Pattern*"`; `--in "VehicleFramework*"` narrows to one decompile, `--in ours` to our

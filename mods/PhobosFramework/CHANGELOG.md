@@ -5,6 +5,20 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.27.0] - 2026-11-09 - Draft
+
+A file of every Def with all patches applied, for mod developers (owner's go-ahead, 9 November 2026). **Not yet tested in game.**
+
+### Added
+
+- A dev-mode setting, Write every Def with all patches applied at the next start, and a dev action that asks for the same. At the next start, once the game has loaded, every Def is written as it stands after every mod's XML patches (before inheritance) to PhobosPatchedDefs/PatchedDefs.xml in the RimWorld user folder, and the request turns itself off. phobos-modkit's Def tool reads the file to show a Def as patched and what the patches changed.
+
+### Compatibility and limits
+
+- It does nothing unless asked: a patch operation of this mod's hands the game's combined XML to the writer only while the request is on, and changes nothing. With the request on, the game's XML is kept in memory a little longer than usual and writing takes a few seconds; the file runs to a few hundred megabytes with a large mod list.
+- The file holds other authors' Defs: it stays in the player's own RimWorld folder.
+- A mod that applies patches its own way, outside the game's patch list, may change Defs after the file's snapshot; the log line says when the patched XML was not seen at all.
+
 ## [0.26.0] - 2026-11-09 - Draft
 
 The Health tab: the second slice of the vehicle health work (owner, 9 November 2026). **Not yet tested in game.** Design: docs/development/vehicle-health-design.md.

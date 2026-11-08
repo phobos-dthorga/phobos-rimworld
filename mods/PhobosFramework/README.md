@@ -5,7 +5,7 @@ colonist is breathing, makes fires fill roofed rooms with the game's own smoke w
 carries carbon monoxide from fires, holds the per-person care choices the D'thorga medical mods offer, and holds the small
 helpers every D'thorga mod shares.
 
-Version 0.26.0, built 9 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
+Version 0.27.0, built 9 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
 oxygen working through Burns and Smoke and Medical Equipment (5 November 2026). The health layer new in 0.3.0 and the **vehicle
 systems new in 0.9.0, and their engines, drivetrains and gas turbines new in 0.11.0, are not yet tested in game.** The rest is read from the game's and the mods' code.
 
@@ -204,6 +204,9 @@ offline.
 - **Where gases come from**: Automatic, always the framework's own gases, or never (then mods that depend on one fall back
   to a simpler estimate).
 - **Show gases at the mouse (dev mode)**: a small label follows the mouse naming every gas in that cell's room.
+- **Write every Def with all patches applied at the next start (dev mode)** (0.27.0): for mod developers; one file at
+  the next start, in the RimWorld user folder (`PhobosPatchedDefs/PatchedDefs.xml`), then the setting turns itself off.
+  The dev action "Framework: write patched Defs at the next start" does the same. Not yet tested in game.
 
 ## For modders
 
