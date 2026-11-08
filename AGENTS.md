@@ -35,6 +35,10 @@ delivered, record the delivery in the changelog or design record, and add or ame
   definition, the one the game keeps and every patch naming it; `show` for its XML and parents, `--lines 0` for a long Def in
   full; `list`, `patches`,
   `sql`) before searching mod folders by hand. It shows Defs as written, without other mods' patches applied.
+- **Answer what settings the owner plays with using `python scripts/mod-settings.py`** (owner, 9 Nov 2026): our mods' saved
+  values beside their defaults, read from our C# source; `--mod <pattern>` for any other mod (Combat Extended, Vehicle Framework);
+  `snapshot FILE`, then `compare FILE`, for what changed between two sessions. Run it with a reported fault before asking the
+  owner which options are on, and never read the Config folder by hand. RimWorld writes nothing for a value at its default.
 - **Tools before LLM reading, even when the tool needs work first** (owner, 7 November 2026). When an analysis
   (of logs, saves, mod Defs, assemblies, Workshop pages or anything else) can be done by a tool we already have,
   in phobos-modkit or `scripts/`, use the tool. When it could be done by one only after a fix, an update or a new

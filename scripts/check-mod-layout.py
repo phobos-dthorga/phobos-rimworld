@@ -15,7 +15,11 @@ import os
 from pathlib import Path
 import re
 import subprocess
+import sys
 import xml.etree.ElementTree as ET
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from _csharp import call_arguments, disagreements, read_settings_classes, strip_comments, top_level_arguments  # noqa: E402
 
 PACKAGE_PREFIX = 'PhobosDthorga.'
 PACKAGE_ID = re.compile(r'^[A-Za-z0-9]+(\.[A-Za-z0-9]+)+$')
@@ -165,56 +169,6 @@ NAMED_ARGUMENT = re.compile(r'\.Named\(\s*"([A-Za-z0-9_]+)"')
 TEXT_PLACEHOLDER = re.compile(r'\{([A-Za-z][A-Za-z0-9]*)(?:_[^}]*)?\}')
 
 
-def call_arguments(text, start):
-    """The text between the parenthesis at start and its partner, skipping strings; '' when unbalanced."""
-    depth, index, quote = 0, start, None
-    while index < len(text):
-        char = text[index]
-        if quote:
-            if char == '\\':
-                index += 1
-            elif char == quote:
-                quote = None
-        elif char in '"\'':
-            quote = char
-        elif char == '(':
-            depth += 1
-        elif char == ')':
-            depth -= 1
-            if depth == 0:
-                return text[start + 1:index]
-        index += 1
-    return ''
-
-
-def top_level_arguments(arguments):
-    """A call's arguments split at the commas outside brackets and strings."""
-    parts, depth, quote, current = [], 0, None, ''
-    index = 0
-    while index < len(arguments):
-        char = arguments[index]
-        current += char
-        if quote:
-            if char == '\\' and index + 1 < len(arguments):
-                current += arguments[index + 1]
-                index += 1
-            elif char == quote:
-                quote = None
-        elif char in '"\'':
-            quote = char
-        elif char in '([{':
-            depth += 1
-        elif char in ')]}':
-            depth -= 1
-        elif char == ',' and depth == 0:
-            parts.append(current[:-1].strip())
-            current = ''
-        index += 1
-    if current.strip():
-        parts.append(current.strip())
-    return parts
-
-
 def check_translation_keys(files, read, errors):
     """Every key our C# translates by name has an English entry (else the game shows players the key itself), and when the
     call names its placeholders, every {NAME} in the English text is among them (else players see {NAME}). Keys built at
@@ -229,7 +183,7 @@ def check_translation_keys(files, read, errors):
             for entry in root:
                 keyed.setdefault(entry.tag, entry.text or '')
     for name in sorted(n for n in files if n.startswith('src/') and n.endswith('.cs')):
-        text = read(name).decode('utf-8', 'replace')
+        text = strip_comments(read(name).decode('utf-8', 'replace'))  # a commented-out call is not a call
         for found in LABEL_KEY.finditer(text):
             if found.group(1) not in keyed:
                 line = text.count('\n', 0, found.start()) + 1
@@ -249,6 +203,15 @@ def check_translation_keys(files, read, errors):
             if wanted - named:
                 missing = ', '.join('{' + p + '}' for p in sorted(wanted - named))
                 errors.append(f'{name}:{line}: "{key}" is translated without {missing}; players would see it as written')
+
+
+def check_settings_defaults(files, read, errors):
+    """A saved setting whose field starts at one value while a missing key loads as another (the third argument of
+    Scribe_Values.Look): a new player and one whose settings file predates the key get different settings."""
+    sources = {n: read(n).decode('utf-8', 'replace') for n in files if n.startswith('src/') and n.endswith('.cs')}
+    for cls, key in disagreements(read_settings_classes(sources)):
+        errors.append(f'{key.path}:{key.line}: {cls.name}.{key.field} starts at {key.initial} but "{key.key}" loads as '
+                      f'{key.default} when missing; make them the same')
 
 
 CATALOGUE = 'config/maintained-constants.json'
@@ -322,6 +285,7 @@ def check(root, files=None, read=None):
     check_versions(files, read, about_versions, errors)
     check_catalogue(files, read, about_versions, errors)
     check_translation_keys(files, read, errors)
+    check_settings_defaults(files, read, errors)
     for package_id, mods in sorted(owners.items()):
         if len(mods) > 1:
             errors.append(f'packageId {package_id} is used by {", ".join(mods)}; RimWorld loads only the first')
