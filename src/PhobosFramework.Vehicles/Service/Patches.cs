@@ -243,3 +243,19 @@ public static class CaravanRefusalPatch
         if (comp != null && comp.Usable && comp.MoveRefusal != null) __result = false;
     }
 }
+
+/// <summary>
+/// How fast an electric vehicle charges from the grid follows its battery's state: a cold battery takes charge slowly (charging a
+/// frozen lithium battery fast damages it), a hot one too. Vehicle Framework draws ChargeRate from the grid's stored energy and adds
+/// the same to the vehicle each time it charges, so scaling the getter keeps both sides equal. No extension point: the rate is a
+/// protected property of CompFueledTravel. Postfix only.
+/// </summary>
+[HarmonyPatch(typeof(CompFueledTravel), "ChargeRate", MethodType.Getter)]
+public static class ChargeRatePatch
+{
+    public static void Postfix(CompFueledTravel __instance, ref float __result)
+    {
+        CompPhobosVehicleSystems? comp = __instance.Vehicle?.GetComp<CompPhobosVehicleSystems>();
+        if (comp != null && comp.Usable) __result *= comp.ChargeFactor;
+    }
+}

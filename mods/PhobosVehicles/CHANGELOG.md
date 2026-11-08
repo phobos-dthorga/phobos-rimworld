@@ -5,6 +5,22 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.9.0] - 2026-11-09 - Draft
+
+The Lightning as an electric van, with D'thorga Framework 0.20.0. **Not yet tested in game.** Design: docs/development/vehicle-electric-design.md.
+
+### Added
+
+- With D'thorga Framework's setting The Lightning runs on batteries (off by default, needs a restart), Vanilla Vehicles Expanded - Tier 3's Lightning runs on electricity: about 72 kWh, charged from a powered network with stored energy in about 10 hours, with the same range as before and 500 kg more weight. All figures authored.
+
+### Dependencies
+
+- Needs D'thorga Framework 0.20.0 or later.
+
+### Save compatibility
+
+- Turning the setting off again returns Lightnings to chemfuel on the next start. What a built Lightning's charge becomes then is Vehicle Framework's to decide and was not checked: empty its battery first if in doubt.
+
 ## [0.8.0] - 2026-11-09 - Draft
 
 Empty masses for Vanilla Vehicles Expanded, with D'thorga Framework 0.19.0 (owner's choice, 9 November 2026). **Not yet tested in game.** Design: docs/development/vehicle-kerb-mass-check.md.

@@ -20,7 +20,7 @@
     - The charging taper (a full battery accepts little) and the self-discharge are authored.
     Charge is a fraction of the battery's capacity, so every flow below is amperes divided by ampere-hours: a fraction per hour.
   -->
-  <Phobos.VehicleSystems.PhobosVehicleSystemDef>
+  <Phobos.VehicleSystems.PhobosVehicleSystemDef Name="PhobosVehicleSystemElectricalBase">
     <defName>PhobosVehicleSystem_Electrical</defName>
     <label>electrical system</label>
     <description>The starting battery, the alternator that charges it while the engine runs, and the lights and heater it powers. A flat battery cannot start the engine; a cold one has less to give.</description>
@@ -298,5 +298,83 @@
         <perHealthLost>-0.01</perHealthLost>
       </li>
     </onPartHit>
+  </Phobos.VehicleSystems.PhobosVehicleSystemDef>
+
+  <!--
+    An electric vehicle's low-voltage electrics (Framework 0.20.0; docs/development/vehicle-electric-design.md): the same 12 V battery,
+    jump-starts and loads, but charged by a DC-DC converter from the traction battery whenever the vehicle is switched on, at any
+    speed, instead of by an alternator turning with the engine. Real electric cars keep a 12 V battery for the computers and the
+    contactors that connect the traction battery, so a flat one still stops the car (general, approximate). Inherits the rest from
+    the system above; only the flows differ.
+  -->
+  <Phobos.VehicleSystems.PhobosVehicleSystemDef ParentName="PhobosVehicleSystemElectricalBase">
+    <defName>PhobosVehicleSystem_AuxiliaryElectrical</defName>
+    <label>low-voltage electrics</label>
+    <description>The 12 V battery that wakes the vehicle's computers and connects its traction battery, and the lights and fans it powers. The converter keeps it charged from the traction battery while the vehicle is switched on; a flat one still stops the vehicle starting.</description>
+    <flows Inherit="False">
+      <li>
+        <name>charging</name>
+        <quantity>charge</quantity>
+        <kind>Into</kind>
+        <divideByParameter>batteryAmpHours</divideByParameter>
+        <inputs>
+          <li Class="Phobos.VehicleSystems.Input_ElectricalBalance">
+            <side>Surplus</side>
+            <supplyFactor Class="Phobos.VehicleSystems.Input_EngineRunning" />
+          </li>
+          <li Class="Phobos.VehicleSystems.Input_Quantity">
+            <quantity>charge</quantity>
+            <curve>
+              <points>
+                <li>(0, 1)</li>
+                <li>(0.8, 1)</li>
+                <li>(1, 0)</li>
+              </points>
+            </curve>
+          </li>
+        </inputs>
+      </li>
+      <li>
+        <name>drain</name>
+        <quantity>charge</quantity>
+        <kind>From</kind>
+        <divideByParameter>batteryAmpHours</divideByParameter>
+        <inputs>
+          <li Class="Phobos.VehicleSystems.Input_ElectricalBalance">
+            <side>Deficit</side>
+            <supplyFactor Class="Phobos.VehicleSystems.Input_EngineRunning" />
+          </li>
+        </inputs>
+      </li>
+      <li>
+        <name>shoreCharging</name>
+        <quantity>charge</quantity>
+        <kind>Into</kind>
+        <factorParameter>shoreChargeAmps</factorParameter>
+        <divideByParameter>batteryAmpHours</divideByParameter>
+        <when Class="Phobos.VehicleSystems.When_EngineRunning">
+          <invert>true</invert>
+        </when>
+        <inputs>
+          <li Class="Phobos.VehicleSystems.Input_ShorePower" />
+          <li Class="Phobos.VehicleSystems.Input_Quantity">
+            <quantity>charge</quantity>
+            <curve>
+              <points>
+                <li>(0, 1)</li>
+                <li>(0.8, 1)</li>
+                <li>(1, 0)</li>
+              </points>
+            </curve>
+          </li>
+        </inputs>
+      </li>
+      <li>
+        <name>selfDischarge</name>
+        <quantity>charge</quantity>
+        <kind>From</kind>
+        <factor>0.00007</factor>
+      </li>
+    </flows>
   </Phobos.VehicleSystems.PhobosVehicleSystemDef>
 </Defs>

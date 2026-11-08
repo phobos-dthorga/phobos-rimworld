@@ -5,6 +5,28 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.20.0] - 2026-11-09 - Draft
+
+Electric vehicles (owner, 9 November 2026). **Not yet tested in game.** Design: docs/development/vehicle-electric-design.md.
+
+### Added
+
+- Systems for every electric land vehicle Vehicle Framework runs: a traction battery whose temperature sets its power and how fast it charges (slow when cold or hot, none when overheating), which wears with age and heat and holds less charge as it does, until new battery modules are fitted; an electric drive whose motor heats with work, more when damaged; 12 V electrics charged by a converter whenever the vehicle is on, so jump-starts still work; brakes that wear a third as fast; and a cab whose heater and air conditioner cost range.
+- Battery fires (setting, off by default, with a warning): a traction battery in thermal runaway bursts into flame.
+- The Lightning runs on batteries (setting, off by default, needs a restart): with D'thorga Vehicles, Vanilla Vehicles Expanded's Lightning becomes an electric van to try these systems.
+- Dev action: log charging.
+- For modders: Effect_ChargeFactor, Effect_LimitCharge, When_Charging, and ofCapacity on Effect_ConsumeFuel. The brakes' wear figures are parameters. Shared, in the core: PatchOperationPhobosFlag, an XML patch that applies only while a registered setting is on.
+
+### Compatibility and limits
+
+- Charging speed follows the battery through a postfix on Vehicle Framework's charge rate, which has no extension point.
+- Electric vehicles get no night heater yet; its fuel is counted in chemfuel.
+- None of the owner's vehicles is electric without the Lightning setting.
+
+### Save compatibility
+
+- Safe to add. Electric vehicles already built gain the new parts on load, as every retrofit does.
+
 ## [0.19.0] - 2026-11-09 - Draft
 
 Kerb masses and the tabs after the owner's first look in game (9 November 2026). **Not yet tested in game.** Design: docs/development/vehicle-kerb-mass-check.md.

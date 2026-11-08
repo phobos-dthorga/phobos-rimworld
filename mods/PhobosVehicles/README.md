@@ -4,11 +4,11 @@ Vehicles that keep running only while they are looked after. **This first versio
 vehicles of other mods you already drive the systems that match what they really are, on top of the general systems D'thorga
 Framework gives every vehicle.
 
-Version 0.8.0, built 9 November 2026 for House D'thorga. **Not yet tested in game.**
+Version 0.9.0, built 9 November 2026 for House D'thorga. **Not yet tested in game.**
 
 ## Read this first (gotchas)
 
-- **Needs Vehicle Framework and D'thorga Framework 0.19.0 or later**, on **RimWorld 1.7 only**. Load it after both; the About file
+- **Needs Vehicle Framework and D'thorga Framework 0.20.0 or later**, on **RimWorld 1.7 only**. Load it after both; the About file
   asks for that, so RimSort does it for you.
 - **The general systems come from D'thorga Framework**, not from this mod: battery and alternator, coolant and oil, tyres or tracks,
   brakes, gearbox, wear and service. Their guide and settings are in
@@ -29,6 +29,9 @@ Version 0.8.0, built 9 November 2026 for House D'thorga. **Not yet tested in gam
 - **Vanilla Vehicles Expanded's vehicles weigh what real ones of their kind weigh** (0.8.0): bikes are lighter and tanks far heavier
   than before, so cargo matters on a tank and hardly at all on a bike. Change any vehicle's weight in Vehicle Framework's settings
   window ("Empty mass").
+- **The Lightning can run on batteries** (0.9.0): turn on **"The Lightning runs on batteries"** in D'thorga Framework's settings and
+  restart. It then charges parked over a powered conduit, from the network's stored energy (about five batteries' worth for a full
+  charge), instead of taking chemfuel.
 - **Not yet tested in game.** Everything is read from the mods' files and checked offline.
 
 ## What it changes

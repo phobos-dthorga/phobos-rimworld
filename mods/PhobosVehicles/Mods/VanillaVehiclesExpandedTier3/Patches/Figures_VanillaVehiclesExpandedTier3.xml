@@ -116,4 +116,42 @@
       </li>
     </value>
   </Operation>
+  <!--
+    The Lightning as an electric van (owner, 9 Nov 2026: a test vehicle for the electric systems; docs/development/vehicle-electric-design.md).
+    Only while D'thorga Framework's setting "The Lightning runs on batteries" is on (default off), from the next start. In this file,
+    after the Lightning's figures above, so the order is certain. Figures, all authored: 3,000 units of charge at 1 Wd each, about
+    72 kWh, a large van's pack (general, approximate); the same range as its 80 chemfuel at 36.5 a day, so 1,369 a day; charging at
+    14 Wd every 120 ticks, about 7 kW, a home charger's rate, so about 10 hours from empty; 500 kg more for the pack. Its gearbox and
+    chemfuel tank parts stay as their author made them (parts may only be appended).
+  -->
+  <Operation Class="Phobos.Framework.Patching.PatchOperationPhobosFlag">
+    <flag>PhobosVehicleSystems.electricLightning</flag>
+    <operations>
+      <li Class="PatchOperationReplace">
+        <xpath>Defs/Vehicles.VehicleDef[defName="VVE_Lightning"]/comps/li[@Class="Vehicles.CompProperties_FueledTravel"]/fuelCapacity</xpath>
+        <value>
+          <fuelCapacity>3000</fuelCapacity>
+        </value>
+      </li>
+      <li Class="PatchOperationReplace">
+        <xpath>Defs/Vehicles.VehicleDef[defName="VVE_Lightning"]/comps/li[@Class="Vehicles.CompProperties_FueledTravel"]/fuelConsumptionRate</xpath>
+        <value>
+          <fuelConsumptionRate>1369</fuelConsumptionRate>
+        </value>
+      </li>
+      <li Class="PatchOperationAdd">
+        <xpath>Defs/Vehicles.VehicleDef[defName="VVE_Lightning"]/comps/li[@Class="Vehicles.CompProperties_FueledTravel"]</xpath>
+        <value>
+          <electricPowered>true</electricPowered>
+          <chargeRate>14</chargeRate>
+        </value>
+      </li>
+      <li Class="PatchOperationReplace">
+        <xpath>Defs/Vehicles.VehicleDef[defName="VVE_Lightning"]/modExtensions/li[@Class="Phobos.VehicleSystems.PhobosVehicleFiguresExtension"]/emptyKilograms</xpath>
+        <value>
+          <emptyKilograms>2300</emptyKilograms>
+        </value>
+      </li>
+    </operations>
+  </Operation>
 </Patch>

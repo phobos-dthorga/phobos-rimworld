@@ -30,6 +30,8 @@ public abstract class VehicleSystemEffect
     public virtual string? DraftRefusal(SystemContext context) => null;
     public virtual string? MoveRefusal(SystemContext context) => null;
     public virtual float StatFactor(VehicleStatDef stat) => 1f;
+    /// <summary>A factor on how fast an electric vehicle charges from the grid while the stage lasts (1 for no change).</summary>
+    public virtual float ChargeFactor => 1f;
 }
 
 /// <summary>
@@ -168,10 +170,44 @@ public class Effect_ConsumeFuel : VehicleSystemEffect
     /// <summary>A parameter of the system holding the rate instead, so loadouts can tune it.</summary>
     public string? perHourParameter;
 
+    /// <summary>The rate is a share of the tank or battery's capacity an hour, not an amount: for electric vehicles, whose units of
+    /// charge differ from mod to mod.</summary>
+    public bool ofCapacity;
+
     public override void Apply(SystemContext context, float hours)
     {
         CompFueledTravel? fuel = context.Vehicle.CompFueledTravel;
-        if (fuel != null && !fuel.EmptyTank) fuel.ConsumeFuel((perHourParameter != null ? context.Parameter(perHourParameter) : perHour) * hours);
+        if (fuel == null || fuel.EmptyTank) return;
+        float rate = perHourParameter != null ? context.Parameter(perHourParameter) : perHour;
+        if (ofCapacity) rate *= fuel.FuelCapacity;
+        fuel.ConsumeFuel(Mathf.Min(rate * hours, fuel.Fuel));
+    }
+}
+
+/// <summary>Multiplies how fast an electric vehicle charges from the grid while the stage lasts (a cold or hot battery charges slowly).</summary>
+public class Effect_ChargeFactor : VehicleSystemEffect
+{
+    public float factor = 1f;
+    public override float ChargeFactor => factor;
+}
+
+/// <summary>
+/// Holds the tank or battery to a share of its capacity: a worn battery holds less. The share is <c>quantity</c>'s value, or what is
+/// left of it with <c>remaining</c> (1 minus a wear figure), never below <c>floor</c>. Charge above it is lost.
+/// </summary>
+public class Effect_LimitCharge : VehicleSystemEffect
+{
+    public string quantity = "";
+    public bool remaining = true;
+    public float floor = 0.05f;
+
+    public override void Apply(SystemContext context, float hours)
+    {
+        CompFueledTravel? fuel = context.Vehicle.CompFueledTravel;
+        if (fuel == null || !context.Comp.TryGetQuantity(quantity, out float value)) return;
+        float share = Mathf.Clamp(remaining ? 1f - value : value, floor, 1f);
+        float cap = fuel.FuelCapacity * share;
+        if (fuel.Fuel > cap + 0.01f) fuel.ConsumeFuel(fuel.Fuel - cap);
     }
 }
 

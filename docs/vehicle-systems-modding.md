@@ -383,6 +383,15 @@ Empty mass, most specific first: the player's tuning in Vehicle Framework's wind
 drivetrain's `ratedKilowatts`; power per tonne times the empty mass. A quantity that counts what is used up can carry a
 `remainingLabel` ("tread"): the tabs' gauges then show what is left, full when new.
 
+## Electric vehicles
+
+`PhobosVehicleLoadout_LandElectric` (kind `Electric`) claims every land vehicle Vehicle Framework runs on electricity. Its systems use
+four schema pieces any system may: `Effect_ChargeFactor` (`factor`: how fast the vehicle charges from the grid while the stage lasts;
+the stages' factors multiply), `Effect_LimitCharge` (`quantity`, `remaining`, `floor`: holds the charge to a share of capacity),
+`When_Charging`, and `ofCapacity` on `Effect_ConsumeFuel` (the rate is a share of capacity an hour, since mods' units of charge
+differ). A mod can make a vehicle electric for players who want it with the core's `PatchOperationPhobosFlag` (`flag`, `operations`),
+which applies only while a setting flag its mod registered with `PatchFlags.Register` is on (see the Lightning in D'thorga Vehicles).
+
 ## Tuning in Vehicle Framework's window
 
 Players can change some of the shipped systems' parameters per vehicle in Vehicle Framework's own settings: battery capacity,

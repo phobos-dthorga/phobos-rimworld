@@ -13,7 +13,7 @@
     - The service tops up the oil whichever system holds it, so it serves every combustion loadout. Coolant has its own top-up in
       the cooling system since Framework 0.11.0, so the chemfuel here dropped from 12 to 9 (authored).
   -->
-  <Phobos.VehicleSystems.PhobosVehicleSystemDef>
+  <Phobos.VehicleSystems.PhobosVehicleSystemDef Name="PhobosVehicleSystemServiceBase">
     <defName>PhobosVehicleSystem_Service</defName>
     <label>wear and service</label>
     <description>An hour meter on the engine. Parts fail now and then as they age, more often once a service is due and far more once it is overdue. A mechanic's service, with chemfuel and a component loaded aboard, tops up the oil and resets the meter.</description>
@@ -146,6 +146,20 @@
         <ComponentIndustrial>1</ComponentIndustrial>
       </supplies>
       <work>1500</work>
+    </service>
+  </Phobos.VehicleSystems.PhobosVehicleSystemDef>
+
+  <!-- An electric vehicle's service (Framework 0.20.0): the same hour meter and breakdowns, with no oil to top up, so a component and
+       no chemfuel (authored). Inherits the rest from the service above. -->
+  <Phobos.VehicleSystems.PhobosVehicleSystemDef ParentName="PhobosVehicleSystemServiceBase">
+    <defName>PhobosVehicleSystem_ElectricService</defName>
+    <description>An hour meter on the motor. Parts fail now and then as they age, more often once a service is due and far more once it is overdue. A mechanic's service, with a component loaded aboard, checks the motor, the converter and the connections and resets the meter.</description>
+    <service>
+      <label>a motor service</label>
+      <supplies Inherit="False">
+        <ComponentIndustrial>1</ComponentIndustrial>
+      </supplies>
+      <work>1000</work>
     </service>
   </Phobos.VehicleSystems.PhobosVehicleSystemDef>
 </Defs>

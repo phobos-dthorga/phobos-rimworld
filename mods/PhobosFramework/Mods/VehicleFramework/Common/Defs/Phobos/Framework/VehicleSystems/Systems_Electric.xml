@@ -1,0 +1,510 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    Electric vehicles (owner, 9 Nov 2026; Framework 0.20.0; docs/development/vehicle-electric-design.md). Vehicle Framework already
+    keeps an electric vehicle's charge as its fuel and charges it from a powered grid with stored energy; these systems add what a
+    real traction battery and motor do with it. Not yet tested in game.
+
+    Figures (each general and approximate, or authored):
+    - Lithium-ion cells work best at about 15 to 35 degrees C; below freezing they give less power, and charging them fast below
+      0 degrees C plates lithium and wears them, so a car's battery management slows or stops charging until the pack warms (general,
+      approximate). The stage edges and factors below are authored from that.
+    - Battery packs are heavy and slow to change temperature; a thermal management system heats or cools them toward a set point
+      while the car is on or charging, at a cost in range. Rates authored; the heater's draw (4 % of capacity an hour, about a 3 kW
+      heater on a 72 kWh pack) authored.
+    - Heating the cab draws on the traction battery (no engine heat to borrow): 3 % of capacity an hour for the heater, 2 % for the
+      air conditioner (authored; real winter range losses of 10 to 40 % are commonly reported, general).
+    - Packs lose capacity with use, faster when hot and when charged below freezing; about 10 % over three game years of daily use
+      at the rates below (authored). A worn pack holds less charge.
+    - A damaged or overheated lithium pack can enter thermal runaway and burn; a fire here needs the player's setting (off).
+    - Motors and inverters are cooled by a liquid loop; a damaged motor heats more. Rates and limits authored.
+  -->
+  <Phobos.VehicleSystems.PhobosVehicleSystemDef>
+    <defName>PhobosVehicleSystem_TractionBattery</defName>
+    <label>traction battery</label>
+    <description>The big battery that drives the vehicle. Cold, it gives less power and takes charge slowly; hot, the same, and it wears. Its heater and the cab's climate draw on it. It loses capacity with age and heat, until new battery modules are fitted.</description>
+    <roles>
+      <li>TractionBattery</li>
+    </roles>
+    <parameters>
+      <managedTemperature>25</managedTemperature>
+      <managementRate>2</managementRate>
+      <insulationRate>0.3</insulationRate>
+      <dischargeHeat>12</dischargeHeat>
+      <chargeHeat>3</chargeHeat>
+      <packHeaterShare>0.04</packHeaterShare>
+      <cabHeaterShare>0.03</cabHeaterShare>
+      <airConditionerShare>0.02</airConditionerShare>
+      <agePerHour>0.00008</agePerHour>
+      <hotAgePerHour>0.0003</hotAgePerHour>
+      <coldChargeAgePerHour>0.001</coldChargeAgePerHour>
+    </parameters>
+    <quantities>
+      <li>
+        <name>packTemperature</name>
+        <showOnDashboard>true</showOnDashboard>
+        <label>traction battery</label>
+        <unit>Celsius</unit>
+        <min>-60</min>
+        <max>200</max>
+        <startsAt>Ambient</startsAt>
+        <stages>
+          <li>
+            <to>-10</to>
+            <label>frozen</label>
+            <notable>true</notable>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_StatFactor">
+                <stat>MoveSpeed</stat>
+                <factor>0.7</factor>
+              </li>
+              <li Class="Phobos.VehicleSystems.Effect_ChargeFactor">
+                <factor>0.15</factor>
+              </li>
+              <li Class="Phobos.VehicleSystems.Effect_Message">
+                <message>PhobosVehicleSystems_MsgTractionBatteryCold</message>
+                <type>CautionInput</type>
+              </li>
+            </effects>
+          </li>
+          <li>
+            <from>-10</from>
+            <to>5</to>
+            <label>cold</label>
+            <notable>true</notable>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_StatFactor">
+                <stat>MoveSpeed</stat>
+                <factor>0.9</factor>
+              </li>
+              <li Class="Phobos.VehicleSystems.Effect_ChargeFactor">
+                <factor>0.4</factor>
+              </li>
+            </effects>
+          </li>
+          <li>
+            <from>5</from>
+            <to>15</to>
+            <label>cool</label>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_ChargeFactor">
+                <factor>0.8</factor>
+              </li>
+            </effects>
+          </li>
+          <li>
+            <from>15</from>
+            <to>40</to>
+            <label>comfortable</label>
+          </li>
+          <li>
+            <from>40</from>
+            <to>55</to>
+            <label>warm</label>
+            <notable>true</notable>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_StatFactor">
+                <stat>MoveSpeed</stat>
+                <factor>0.85</factor>
+              </li>
+              <li Class="Phobos.VehicleSystems.Effect_ChargeFactor">
+                <factor>0.5</factor>
+              </li>
+              <li Class="Phobos.VehicleSystems.Effect_Message">
+                <message>PhobosVehicleSystems_MsgTractionBatteryHot</message>
+                <type>CautionInput</type>
+              </li>
+            </effects>
+          </li>
+          <li>
+            <from>55</from>
+            <to>85</to>
+            <label>overheating</label>
+            <notable>true</notable>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_StatFactor">
+                <stat>MoveSpeed</stat>
+                <factor>0.5</factor>
+              </li>
+              <li Class="Phobos.VehicleSystems.Effect_ChargeFactor">
+                <factor>0</factor>
+              </li>
+              <li Class="Phobos.VehicleSystems.Effect_DamagePart">
+                <role>TractionBattery</role>
+                <perHour>4</perHour>
+              </li>
+              <li Class="Phobos.VehicleSystems.Effect_Message">
+                <message>PhobosVehicleSystems_MsgTractionBatteryOverheating</message>
+              </li>
+            </effects>
+          </li>
+          <li>
+            <!-- Thermal runaway: the pack burns. Only with the player's battery fires setting; otherwise it stays overheating. -->
+            <from>85</from>
+            <label>thermal runaway</label>
+            <notable>true</notable>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_ChargeFactor">
+                <factor>0</factor>
+              </li>
+              <li Class="Phobos.VehicleSystems.Effect_DamagePart">
+                <role>TractionBattery</role>
+                <perHour>12</perHour>
+              </li>
+              <li Class="Phobos.VehicleSystems.Effect_RefuseDraft">
+                <reason>PhobosVehicleSystems_RefuseTractionBatteryRunaway</reason>
+              </li>
+              <li Class="Phobos.VehicleSystems.Effect_Explosion">
+                <radius>2.9</radius>
+                <damage>30</damage>
+                <damageDef>Flame</damageDef>
+                <breakRole>TractionBattery</breakRole>
+                <when Class="Phobos.VehicleSystems.When_Setting"><setting>batteryFires</setting></when>
+              </li>
+              <li Class="Phobos.VehicleSystems.Effect_Message">
+                <message>PhobosVehicleSystems_MsgTractionBatteryRunaway</message>
+                <type>ThreatBig</type>
+              </li>
+            </effects>
+          </li>
+        </stages>
+      </li>
+      <li>
+        <name>packWear</name>
+        <showOnDashboard>true</showOnDashboard>
+        <remainingLabel>battery health</remainingLabel>
+        <label>battery wear</label>
+        <unit>Fraction</unit>
+        <min>0</min>
+        <max>1</max>
+        <startsAt>Empty</startsAt>
+        <stages>
+          <li>
+            <to>0.3</to>
+            <label>healthy</label>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_LimitCharge">
+                <quantity>packWear</quantity>
+              </li>
+            </effects>
+          </li>
+          <li>
+            <from>0.3</from>
+            <to>0.6</to>
+            <label>worn</label>
+            <notable>true</notable>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_LimitCharge">
+                <quantity>packWear</quantity>
+              </li>
+              <li Class="Phobos.VehicleSystems.Effect_Message">
+                <message>PhobosVehicleSystems_MsgTractionBatteryWorn</message>
+                <type>CautionInput</type>
+              </li>
+            </effects>
+          </li>
+          <li>
+            <from>0.6</from>
+            <label>failing</label>
+            <notable>true</notable>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_LimitCharge">
+                <quantity>packWear</quantity>
+              </li>
+              <li Class="Phobos.VehicleSystems.Effect_StatFactor">
+                <stat>MoveSpeed</stat>
+                <factor>0.8</factor>
+              </li>
+            </effects>
+          </li>
+        </stages>
+      </li>
+      <li>
+        <!-- Whether the pack heater runs: below 15 degrees C while switched on or charging. It draws on the pack (range). -->
+        <name>packHeaterRunning</name>
+        <label>battery heater</label>
+        <unit>Plain</unit>
+        <min>0</min>
+        <max>1</max>
+        <hidden>true</hidden>
+        <derivedFrom>
+          <li Class="Phobos.VehicleSystems.Input_Condition">
+            <condition Class="Phobos.VehicleSystems.When_All">
+              <conditions>
+                <li Class="Phobos.VehicleSystems.When_QuantityBelow">
+                  <quantity>packTemperature</quantity>
+                  <value>15</value>
+                </li>
+                <li Class="Phobos.VehicleSystems.When_Any">
+                  <conditions>
+                    <li Class="Phobos.VehicleSystems.When_EngineRunning" />
+                    <li Class="Phobos.VehicleSystems.When_Charging" />
+                  </conditions>
+                </li>
+              </conditions>
+            </condition>
+          </li>
+        </derivedFrom>
+        <stages>
+          <li>
+            <from>0.5</from>
+            <label>heating</label>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_ConsumeFuel">
+                <perHourParameter>packHeaterShare</perHourParameter>
+                <ofCapacity>true</ofCapacity>
+              </li>
+            </effects>
+          </li>
+        </stages>
+      </li>
+      <li>
+        <!-- The cab's heater and air conditioner draw on the pack, not on an engine's waste heat. -->
+        <name>cabHeaterDraw</name>
+        <label>cab heater draw</label>
+        <unit>Plain</unit>
+        <min>0</min>
+        <max>1</max>
+        <hidden>true</hidden>
+        <derivedFrom>
+          <li Class="Phobos.VehicleSystems.Input_Condition">
+            <condition Class="Phobos.VehicleSystems.When_LoadActive"><load>cabHeater</load></condition>
+          </li>
+        </derivedFrom>
+        <stages>
+          <li>
+            <from>0.5</from>
+            <label>drawing</label>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_ConsumeFuel">
+                <perHourParameter>cabHeaterShare</perHourParameter>
+                <ofCapacity>true</ofCapacity>
+              </li>
+            </effects>
+          </li>
+        </stages>
+      </li>
+      <li>
+        <name>airConditionerDraw</name>
+        <label>air conditioner draw</label>
+        <unit>Plain</unit>
+        <min>0</min>
+        <max>1</max>
+        <hidden>true</hidden>
+        <derivedFrom>
+          <li Class="Phobos.VehicleSystems.Input_Condition">
+            <condition Class="Phobos.VehicleSystems.When_LoadActive"><load>airConditioner</load></condition>
+          </li>
+        </derivedFrom>
+        <stages>
+          <li>
+            <from>0.5</from>
+            <label>drawing</label>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_ConsumeFuel">
+                <perHourParameter>airConditionerShare</perHourParameter>
+                <ofCapacity>true</ofCapacity>
+              </li>
+            </effects>
+          </li>
+        </stages>
+      </li>
+    </quantities>
+    <flows>
+      <li>
+        <name>discharge</name>
+        <quantity>packTemperature</quantity>
+        <kind>Into</kind>
+        <factorParameter>dischargeHeat</factorParameter>
+        <inputs>
+          <li Class="Phobos.VehicleSystems.Input_EngineHeat" />
+        </inputs>
+      </li>
+      <li>
+        <name>charging</name>
+        <quantity>packTemperature</quantity>
+        <kind>Into</kind>
+        <factorParameter>chargeHeat</factorParameter>
+        <when Class="Phobos.VehicleSystems.When_Charging" />
+      </li>
+      <li>
+        <name>management</name>
+        <quantity>packTemperature</quantity>
+        <kind>Toward</kind>
+        <target Class="Phobos.VehicleSystems.Input_Parameter"><parameter>managedTemperature</parameter></target>
+        <factorParameter>managementRate</factorParameter>
+        <when Class="Phobos.VehicleSystems.When_Any">
+          <conditions>
+            <li Class="Phobos.VehicleSystems.When_EngineRunning" />
+            <li Class="Phobos.VehicleSystems.When_Charging" />
+          </conditions>
+        </when>
+      </li>
+      <li>
+        <name>outside</name>
+        <quantity>packTemperature</quantity>
+        <kind>Toward</kind>
+        <target Class="Phobos.VehicleSystems.Input_Ambient" />
+        <factorParameter>insulationRate</factorParameter>
+      </li>
+      <li>
+        <name>ageing</name>
+        <quantity>packWear</quantity>
+        <kind>Into</kind>
+        <factorParameter>agePerHour</factorParameter>
+        <when Class="Phobos.VehicleSystems.When_Any">
+          <conditions>
+            <li Class="Phobos.VehicleSystems.When_EngineRunning" />
+            <li Class="Phobos.VehicleSystems.When_Charging" />
+          </conditions>
+        </when>
+      </li>
+      <li>
+        <name>heatAgeing</name>
+        <quantity>packWear</quantity>
+        <kind>Into</kind>
+        <factorParameter>hotAgePerHour</factorParameter>
+        <when Class="Phobos.VehicleSystems.When_QuantityAbove">
+          <quantity>packTemperature</quantity>
+          <value>40</value>
+        </when>
+      </li>
+      <li>
+        <name>coldCharging</name>
+        <quantity>packWear</quantity>
+        <kind>Into</kind>
+        <factorParameter>coldChargeAgePerHour</factorParameter>
+        <when Class="Phobos.VehicleSystems.When_All">
+          <conditions>
+            <li Class="Phobos.VehicleSystems.When_Charging" />
+            <li Class="Phobos.VehicleSystems.When_QuantityBelow">
+              <quantity>packTemperature</quantity>
+              <value>0</value>
+            </li>
+          </conditions>
+        </when>
+      </li>
+    </flows>
+    <onPartHit>
+      <li>
+        <!-- Damaged cells short and heat: a heavy hit can start the pack toward runaway (authored, degrees per point of health). -->
+        <role>TractionBattery</role>
+        <quantity>packTemperature</quantity>
+        <perHealthLost>1.5</perHealthLost>
+      </li>
+    </onPartHit>
+    <service>
+      <label>new battery modules</label>
+      <dueQuantity>packWear</dueQuantity>
+      <dueAbove>0.5</dueAbove>
+      <restores>
+        <li>
+          <quantity>packWear</quantity>
+          <value>0</value>
+        </li>
+      </restores>
+      <supplies>
+        <ComponentIndustrial>10</ComponentIndustrial>
+        <Steel>20</Steel>
+      </supplies>
+      <work>3000</work>
+    </service>
+  </Phobos.VehicleSystems.PhobosVehicleSystemDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleSystemDef>
+    <defName>PhobosVehicleSystem_ElectricDrive</defName>
+    <label>electric drive</label>
+    <description>The traction motor and its inverter, cooled by a liquid loop. Hard work heats them; a damaged motor heats far more, and an overheated one loses power, then burns.</description>
+    <roles>
+      <li>Engine</li>
+    </roles>
+    <parameters>
+      <heatAtFullLoad>60</heatAtFullLoad>
+      <coolantTarget>45</coolantTarget>
+      <coolingRate>1</coolingRate>
+      <airRate>0.5</airRate>
+    </parameters>
+    <quantities>
+      <li>
+        <name>motorTemperature</name>
+        <label>motor</label>
+        <unit>Celsius</unit>
+        <min>-60</min>
+        <max>250</max>
+        <startsAt>Ambient</startsAt>
+        <stages>
+          <li>
+            <from>120</from>
+            <to>150</to>
+            <label>hot</label>
+            <notable>true</notable>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_StatFactor">
+                <stat>MoveSpeed</stat>
+                <factor>0.8</factor>
+              </li>
+              <li Class="Phobos.VehicleSystems.Effect_Message">
+                <message>PhobosVehicleSystems_MsgMotorHot</message>
+                <type>CautionInput</type>
+              </li>
+            </effects>
+          </li>
+          <li>
+            <from>150</from>
+            <label>overheating</label>
+            <notable>true</notable>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_StatFactor">
+                <stat>MoveSpeed</stat>
+                <factor>0.5</factor>
+              </li>
+              <li Class="Phobos.VehicleSystems.Effect_DamagePart">
+                <role>Engine</role>
+                <perHour>5</perHour>
+              </li>
+              <li Class="Phobos.VehicleSystems.Effect_Message">
+                <message>PhobosVehicleSystems_MsgMotorOverheating</message>
+              </li>
+            </effects>
+          </li>
+        </stages>
+      </li>
+    </quantities>
+    <flows>
+      <li>
+        <!-- Heat with the work, three times as much from a wrecked motor (authored). -->
+        <name>work</name>
+        <quantity>motorTemperature</quantity>
+        <kind>Into</kind>
+        <factorParameter>heatAtFullLoad</factorParameter>
+        <inputs>
+          <li Class="Phobos.VehicleSystems.Input_EngineHeat" />
+          <li Class="Phobos.VehicleSystems.Input_PartEfficiency">
+            <role>Engine</role>
+            <curve>
+              <points>
+                <li>(0, 3)</li>
+                <li>(1, 1)</li>
+              </points>
+            </curve>
+          </li>
+        </inputs>
+      </li>
+      <li>
+        <name>coolant</name>
+        <quantity>motorTemperature</quantity>
+        <kind>Toward</kind>
+        <target Class="Phobos.VehicleSystems.Input_Parameter"><parameter>coolantTarget</parameter></target>
+        <factorParameter>coolingRate</factorParameter>
+        <when Class="Phobos.VehicleSystems.When_EngineRunning" />
+      </li>
+      <li>
+        <name>air</name>
+        <quantity>motorTemperature</quantity>
+        <kind>Toward</kind>
+        <target Class="Phobos.VehicleSystems.Input_Ambient" />
+        <factorParameter>airRate</factorParameter>
+      </li>
+    </flows>
+  </Phobos.VehicleSystems.PhobosVehicleSystemDef>
+</Defs>

@@ -18,6 +18,7 @@
   <PhobosVehicleSystems_KindAircraft>Aircraft</PhobosVehicleSystems_KindAircraft>
   <PhobosVehicleSystems_KindCombustionTracked>Tracked vehicles</PhobosVehicleSystems_KindCombustionTracked>
   <PhobosVehicleSystems_KindSteam>Steam locomotives</PhobosVehicleSystems_KindSteam>
+  <PhobosVehicleSystems_KindElectric>Electric vehicles</PhobosVehicleSystems_KindElectric>
   <PhobosVehicleSystems_SectionSystems>Systems</PhobosVehicleSystems_SectionSystems>
   <PhobosVehicleSystems_SettingShowOnly>Figures only, no consequences</PhobosVehicleSystems_SettingShowOnly>
   <PhobosVehicleSystems_SettingShowOnlyDesc>The systems run and show their state, but nothing happens to the vehicles: no wear, failures, refusals or slowing. Messages still tell you what would have happened.</PhobosVehicleSystems_SettingShowOnlyDesc>
@@ -49,6 +50,12 @@
   <PhobosVehicleSystems_SettingBoilerExplosions>Boiler explosions</PhobosVehicleSystems_SettingBoilerExplosions>
   <PhobosVehicleSystems_SettingBoilerExplosionsDesc>Off by default. On: a boiler without a fusible plug (the American 4-8-4) whose water falls below the firebox crown with the fire lit explodes, wrecking the boiler and hurting everything nearby. Boilers with a plug still only vent.</PhobosVehicleSystems_SettingBoilerExplosionsDesc>
   <PhobosVehicleSystems_BoilerExplosionsWarning>Warning: an exploding boiler can kill the crew and anyone nearby and wreck what stands around it, without a second chance. Watch the water glass, and give it water stops in time.</PhobosVehicleSystems_BoilerExplosionsWarning>
+  <PhobosVehicleSystems_SectionElectric>Electric vehicles</PhobosVehicleSystems_SectionElectric>
+  <PhobosVehicleSystems_SettingBatteryFires>Battery fires</PhobosVehicleSystems_SettingBatteryFires>
+  <PhobosVehicleSystems_SettingBatteryFiresDesc>Off by default. On: an electric vehicle's traction battery that overheats past the point of no return (from damage, or from being driven hard while already overheating) catches fire and bursts, wrecking the battery and burning what stands nearby. Off: it still overheats, loses power and takes damage, but never burns.</PhobosVehicleSystems_SettingBatteryFiresDesc>
+  <PhobosVehicleSystems_BatteryFiresWarning>Warning: a burning battery can set the vehicle, its crew and the buildings around it alight. Keep damaged electric vehicles away from your base until the battery has cooled.</PhobosVehicleSystems_BatteryFiresWarning>
+  <PhobosVehicleSystems_SettingElectricLightning>The Lightning runs on batteries (needs a restart)</PhobosVehicleSystems_SettingElectricLightning>
+  <PhobosVehicleSystems_SettingElectricLightningDesc>Off by default. On, with D'thorga Vehicles and Vanilla Vehicles Expanded - Tier 3: the Lightning becomes an electric van, to try the electric vehicle systems. It charges from a powered network with stored energy (about five batteries' worth for a full charge) instead of taking chemfuel, and keeps its range. Takes effect when the game next starts. Lightnings already built keep the chemfuel in their tanks as charge.</PhobosVehicleSystems_SettingElectricLightningDesc>
   <PhobosVehicleSystems_SectionJumpStarts>Jump-starts</PhobosVehicleSystems_SectionJumpStarts>
   <PhobosVehicleSystems_SettingJumpStartNeedsKit>Jump-start leads must be crafted</PhobosVehicleSystems_SettingJumpStartNeedsKit>
   <PhobosVehicleSystems_SettingJumpStartNeedsKitDesc>On by default: a jump-start needs a jump-start kit, in stock on the map (the helper fetches it) or aboard the caravan. Craft one at a machining table or a fabrication bench; it is never used up. Off: the leads are free, as before.</PhobosVehicleSystems_SettingJumpStartNeedsKitDesc>
@@ -125,6 +132,14 @@
   <PhobosVehicleSystems_MsgLiftStrained>The {VEHICLE} lifted off beyond its engines' limits, and they took the strain.</PhobosVehicleSystems_MsgLiftStrained>
   <PhobosVehicleSystems_MsgLiftBeyond>The {VEHICLE} lifted off beyond what its engines can carry at this weight in this heat.</PhobosVehicleSystems_MsgLiftBeyond>
   <PhobosVehicleSystems_MsgOverTorque>The {VEHICLE}'s rotor drive is being asked for more than it can take, and is wearing. Lighten it or ease off.</PhobosVehicleSystems_MsgOverTorque>
+  <PhobosVehicleSystems_MsgTractionBatteryCold>The {VEHICLE}'s traction battery is too cold to give its full power, and it takes charge only slowly until it warms.</PhobosVehicleSystems_MsgTractionBatteryCold>
+  <PhobosVehicleSystems_MsgTractionBatteryHot>The {VEHICLE}'s traction battery is running hot. It gives less power and charges slowly.</PhobosVehicleSystems_MsgTractionBatteryHot>
+  <PhobosVehicleSystems_MsgTractionBatteryOverheating>The {VEHICLE}'s traction battery is overheating and damaging itself. Stop driving it and let it cool.</PhobosVehicleSystems_MsgTractionBatteryOverheating>
+  <PhobosVehicleSystems_MsgTractionBatteryRunaway>The {VEHICLE}'s traction battery has gone into thermal runaway. Keep everyone away from it.</PhobosVehicleSystems_MsgTractionBatteryRunaway>
+  <PhobosVehicleSystems_MsgTractionBatteryWorn>The {VEHICLE}'s traction battery has worn and holds noticeably less charge. New battery modules would restore it.</PhobosVehicleSystems_MsgTractionBatteryWorn>
+  <PhobosVehicleSystems_RefuseTractionBatteryRunaway>The {VEHICLE}'s traction battery is in thermal runaway.</PhobosVehicleSystems_RefuseTractionBatteryRunaway>
+  <PhobosVehicleSystems_MsgMotorHot>The {VEHICLE}'s motor is running hot and holding back its power.</PhobosVehicleSystems_MsgMotorHot>
+  <PhobosVehicleSystems_MsgMotorOverheating>The {VEHICLE}'s motor is overheating and burning its windings. Stop and let it cool, and repair it.</PhobosVehicleSystems_MsgMotorOverheating>
   <PhobosVehicleSystems_MsgTractionMotorsHot>The {VEHICLE}'s traction motors are running hot from hard pulling.</PhobosVehicleSystems_MsgTractionMotorsHot>
   <PhobosVehicleSystems_MsgTractionMotorsOverheating>The {VEHICLE}'s traction motors are overheating and burning their windings. Ease the load and let them cool.</PhobosVehicleSystems_MsgTractionMotorsOverheating>
   <PhobosVehicleSystems_MsgBoilerWaterLow>The {VEHICLE}'s boiler water is low. Keep its feed water topped up, or the fire will burn the crown sheet dry.</PhobosVehicleSystems_MsgBoilerWaterLow>

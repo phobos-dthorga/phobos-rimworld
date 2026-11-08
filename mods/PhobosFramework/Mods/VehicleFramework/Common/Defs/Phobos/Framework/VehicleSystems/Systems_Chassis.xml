@@ -101,6 +101,12 @@
     <roles>
       <li>Brakes</li>
     </roles>
+    <!-- Wear on the move and at each stop (authored). An electric vehicle slows mostly on its motor (regenerative braking), so its
+         loadout lowers both. -->
+    <parameters>
+      <wearPerHourMoving>0.0005</wearPerHourMoving>
+      <wearPerStop>0.0008</wearPerStop>
+    </parameters>
     <quantities>
       <li>
         <name>brakeWear</name>
@@ -169,7 +175,7 @@
         <name>drivingWear</name>
         <quantity>brakeWear</quantity>
         <kind>Into</kind>
-        <factor>0.0005</factor>
+        <factorParameter>wearPerHourMoving</factorParameter>
         <inputs>
           <li Class="Phobos.VehicleSystems.Input_Moving" />
         </inputs>
@@ -181,7 +187,8 @@
         <effects>
           <li Class="Phobos.VehicleSystems.Effect_AddQuantity">
             <quantity>brakeWear</quantity>
-            <amount>0.0008</amount>
+            <amount>1</amount>
+            <scaleByParameter>wearPerStop</scaleByParameter>
           </li>
         </effects>
       </li>

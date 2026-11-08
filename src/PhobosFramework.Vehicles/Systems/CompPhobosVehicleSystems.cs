@@ -798,6 +798,9 @@ public class CompPhobosVehicleSystems : VehicleComp
     /// <summary>The factor the current stages put on a stat; read by the stat part on every Vehicle Framework stat.</summary>
     public float StatFactor(VehicleStatDef stat) => statFactors.TryGetValue(stat, out float factor) ? factor : 1f;
 
+    /// <summary>How fast an electric vehicle charges from the grid now, against Vehicle Framework's own rate (derived, never saved).</summary>
+    public float ChargeFactor { get; private set; } = 1f;
+
     /// <summary>The stage labels behind a stat's factor, for the stat card's explanation.</summary>
     public IEnumerable<string> StatFactorReasons(VehicleStatDef stat)
     {
@@ -824,6 +827,7 @@ public class CompPhobosVehicleSystems : VehicleComp
     void RecacheStatFactors()
     {
         var fresh = new Dictionary<VehicleStatDef, float>();
+        float charge = 1f;
         if (states != null)
         {
             foreach (SystemState state in states)
@@ -837,6 +841,7 @@ public class CompPhobosVehicleSystems : VehicleComp
                     foreach (VehicleSystemEffect effect in stage.effects)
                     {
                         if (!effect.Active(context)) continue;
+                        charge *= effect.ChargeFactor;
                         foreach (VehicleStatDef stat in DefDatabase<VehicleStatDef>.AllDefsListForReading)
                         {
                             float factor = effect.StatFactor(stat);
@@ -846,6 +851,7 @@ public class CompPhobosVehicleSystems : VehicleComp
                 }
             }
         }
+        ChargeFactor = charge;
         var changed = new HashSet<VehicleStatDef>(fresh.Keys);
         changed.SymmetricExceptWith(statFactors.Keys);
         foreach (KeyValuePair<VehicleStatDef, float> pair in fresh)

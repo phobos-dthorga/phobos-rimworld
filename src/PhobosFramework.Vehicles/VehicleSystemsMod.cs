@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using HarmonyLib;
 using Phobos.Framework;
+using Phobos.Framework.Patching;
 using Phobos.Shared;
 using RimWorld;
 using UnityEngine;
@@ -52,6 +53,12 @@ public class VehicleSystemsSettings : ModSettings
     /// <summary>People aboard a closed cab are glad of it or unhappy in it, by their own comfort range (agent default, owner to revise:
     /// on). Live.</summary>
     public bool cabMoods = true;
+    /// <summary>An electric vehicle's battery that overheats far enough catches fire and bursts (agent default, as boiler explosions:
+    /// off, with a warning). Live.</summary>
+    public bool batteryFires;
+    /// <summary>D'thorga Vehicles turns Vanilla Vehicles Expanded's Lightning into an electric van, to try the electric systems (owner,
+    /// 9 Nov 2026: a test vehicle; agent default: off). Needs a restart: it changes the vehicle's design while the game loads.</summary>
+    public bool electricLightning;
 
     public enum HoverLimit
     {
@@ -69,6 +76,8 @@ public class VehicleSystemsSettings : ModSettings
         "jumpStartNeedsKit" => jumpStartNeedsKit,
         "assumeBoosterPack" => assumeBoosterPack,
         "cabMoods" => cabMoods,
+        "batteryFires" => batteryFires,
+        "electricLightning" => electricLightning,
         _ => false,
     };
 
@@ -91,6 +100,8 @@ public class VehicleSystemsSettings : ModSettings
         Scribe_Values.Look(ref jumpStartNeedsKit, "PhobosVehicleSystems_JumpStartNeedsKit", true);
         Scribe_Values.Look(ref assumeBoosterPack, "PhobosVehicleSystems_AssumeBoosterPack", false);
         Scribe_Values.Look(ref cabMoods, "PhobosVehicleSystems_CabMoods", true);
+        Scribe_Values.Look(ref batteryFires, "PhobosVehicleSystems_BatteryFires", false);
+        Scribe_Values.Look(ref electricLightning, "PhobosVehicleSystems_ElectricLightning", false);
         if (Scribe.mode == LoadSaveMode.PostLoadInit)
         {
             disabledPackages ??= new List<string>();
@@ -117,6 +128,8 @@ public class VehicleSystemsMod : Mod
     public VehicleSystemsMod(ModContentPack content) : base(content)
     {
         Settings = GetSettings<VehicleSystemsSettings>();
+        // XML patches (PatchOperationPhobosFlag) run after every mod's constructor, so the flags are ready for them.
+        PatchFlags.Register("PhobosVehicleSystems.electricLightning", () => Settings.electricLightning);
         HarmonyPatchApplier.ApplyEach(new Harmony(HarmonyId), typeof(VehicleSystemsMod).Assembly, LogPrefix);
         LongEventHandler.ExecuteWhenFinished(LogLoaded);
     }
@@ -137,6 +150,8 @@ public class VehicleSystemsMod : Mod
         else report.Off("jump-start leads", "free (setting)");
         if (Settings.assumeBoosterPack) report.On("booster pack assumed on every vehicle (setting)");
         if (!Settings.cabMoods) report.Off("cab moods", "off (setting)");
+        if (Settings.batteryFires) report.On("battery fires (setting)");
+        if (Settings.electricLightning) report.On("the Lightning runs on batteries (setting)");
         foreach (IGrouping<string, DesignRecord> skipped in VehicleSystems.Designs.Where(d => d.skippedBecause != null && d.loadout != null).GroupBy(d => d.skippedBecause!))
         {
             report.Off(skipped.Count() + " design" + (skipped.Count() == 1 ? "" : "s"), skipped.Key);
@@ -222,6 +237,11 @@ public class VehicleSystemsMod : Mod
         listing.CheckboxLabeled("PhobosVehicleSystems_SettingRealisticFeedWater".Translate(), ref s.realisticFeedWater, "PhobosVehicleSystems_SettingRealisticFeedWaterDesc".Translate());
         listing.CheckboxLabeled("PhobosVehicleSystems_SettingBoilerExplosions".Translate(), ref s.boilerExplosions, "PhobosVehicleSystems_SettingBoilerExplosionsDesc".Translate());
         if (s.boilerExplosions) SettingsUi.Warning(listing, "PhobosVehicleSystems_BoilerExplosionsWarning".Translate());
+
+        SettingsUi.Section(listing, "PhobosVehicleSystems_SectionElectric".Translate());
+        listing.CheckboxLabeled("PhobosVehicleSystems_SettingBatteryFires".Translate(), ref s.batteryFires, "PhobosVehicleSystems_SettingBatteryFiresDesc".Translate());
+        if (s.batteryFires) SettingsUi.Warning(listing, "PhobosVehicleSystems_BatteryFiresWarning".Translate());
+        listing.CheckboxLabeled("PhobosVehicleSystems_SettingElectricLightning".Translate(), ref s.electricLightning, "PhobosVehicleSystems_SettingElectricLightningDesc".Translate());
 
         SettingsUi.Section(listing, "PhobosVehicleSystems_SectionJumpStarts".Translate());
         listing.CheckboxLabeled("PhobosVehicleSystems_SettingJumpStartNeedsKit".Translate(), ref s.jumpStartNeedsKit, "PhobosVehicleSystems_SettingJumpStartNeedsKitDesc".Translate());

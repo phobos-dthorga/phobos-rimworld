@@ -5,7 +5,7 @@ colonist is breathing, makes fires fill roofed rooms with the game's own smoke w
 carries carbon monoxide from fires, holds the per-person care choices the D'thorga medical mods offer, and holds the small
 helpers every D'thorga mod shares.
 
-Version 0.19.0, built 9 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
+Version 0.20.0, built 9 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
 oxygen working through Burns and Smoke and Medical Equipment (5 November 2026). The health layer new in 0.3.0 and the **vehicle
 systems new in 0.9.0, and their engines, drivetrains and gas turbines new in 0.11.0, are not yet tested in game.** The rest is read from the game's and the mods' code.
 
@@ -128,6 +128,8 @@ Other mods (D'thorga Vehicles first) can give a named vehicle its own figures. N
 | Rotor drive (helicopters named by D'thorga Vehicles) | Over-torque, when it happens | The gearbox takes less power than the engines can give; asked for more it is **over-torqued** and wears; damaged, the helicopter lifts less | Lighten it; repair the transmission and rotor masts |
 | Boiler (steam locomotives) | Steam pressure, the water glass, feed water | From cold, **it won't move** until it has steam (hours); run the feed water dry and **the fusible plug melts**, venting the boiler | Keep it drafted with the fire lit; **a water stop** refills the tender or tanks (with Dubs Bad Hygiene, from water towers); a mechanic fits a new plug |
 | Traction motors (diesel-electric locomotives) | Traction motor temperature | Pulling hard from a standstill heats them: **running hot**, then burning their windings | Ease the load and let them cool; repair the motor |
+| Traction battery (electric vehicles) | Battery temperature and health | Cold or hot, it gives less power and charges slowly; overheating, it takes damage and will not charge; past that, thermal runaway (fire only with the **Battery fires** setting). It wears with age and heat and holds less charge | Its heater holds it warm while on or charging; **new battery modules** (10 components, 20 steel) |
+| Electric drive (electric vehicles) | Motor temperature | Hard work, or a damaged motor, heats it: less power, then damage | Ease off; repair the motor |
 | Water injection (the Harrier, with D'thorga Vehicles) | Injection water | Without water the engine has only its dry ratings, so a heavy jet on a hot day may not hover | A refill of 227 litres: **with Dubs Bad Hygiene, from a plumbing pipe beside it**, otherwise free |
 
 - **Two tabs on every vehicle with systems** (0.17.0), beside Vehicle Framework's Customize, Cargo, Pawns and Health:
@@ -155,8 +157,12 @@ Other mods (D'thorga Vehicles first) can give a named vehicle its own figures. N
 - **With RimHUD**: a value named **Vehicle (D'thorga Framework)** can be added to RimHUD's pawn display in its layout editor. It
   shows which vehicle a person is aboard and in what role; its tooltip gives the fuel, the cab and what the vehicle waits for, and
   a click selects the vehicle.
+- **Electric vehicles** (0.20.0): the traction battery and electric drive above, 12 V electrics charged by a converter, brakes that
+  wear a third as fast, and a cab whose heater and air conditioner cost range. They charge parked over a powered conduit, from the
+  network's stored energy. **None of the owner's vehicles is electric** unless the setting **The Lightning runs on batteries** (with
+  D'thorga Vehicles) is on.
 - **Boats** cool with sea water (no radiator part). **Aircraft** get the battery, generator, service and a gas turbine; their
-  engines cool unlike a car's, so they have no coolant. **Electric vehicles** get none yet.
+  engines cool unlike a car's, so they have no coolant.
 - **Vehicle kinds**: light (Vehicle Framework mass under 120, petrol), medium (120 to 350, diesel), heavy (350 and more, 24 V and
   diesel), tracked (any vehicle with track parts), boats and aircraft.
 - **The engine heats the room it stands in** while it runs, through the game's own temperature, so an idling truck warms a garage.

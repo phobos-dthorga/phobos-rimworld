@@ -115,6 +115,12 @@ public class When_Setting : VehicleSystemCondition
     protected override bool HoldsRaw(SystemContext context) => VehicleSystemsMod.Settings.FlagOn(setting);
 }
 
+/// <summary>An electric vehicle is charging from the grid (Vehicle Framework connects it to a powered network with stored energy).</summary>
+public class When_Charging : VehicleSystemCondition
+{
+    protected override bool HoldsRaw(SystemContext context) => context.Vehicle.CompFueledTravel is { } fuel && fuel.Props.ElectricPowered && fuel.Charging;
+}
+
 /// <summary>The vehicle is in a caravan resting for the night on the world map (its engine is off at camp).</summary>
 public class When_CaravanResting : VehicleSystemCondition
 {

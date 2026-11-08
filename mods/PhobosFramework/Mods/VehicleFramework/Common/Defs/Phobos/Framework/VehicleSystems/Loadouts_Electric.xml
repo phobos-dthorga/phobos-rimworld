@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    Electric land vehicles (owner, 9 Nov 2026; Framework 0.20.0; docs/development/vehicle-electric-design.md): any land vehicle Vehicle
+    Framework runs on electricity, matched by that and never by name. The traction battery and electric drive systems, the 12 V
+    electrics charged by a DC-DC converter, the electric drivetrain (one fixed reduction), tyres and brakes, and the cab. No coolant,
+    oil, gearbox, fuel-in-the-cold or night heater: an electric vehicle has none of them (the night heater's fuel figure is in units
+    of chemfuel; a later version may give electric vehicles their own). Not yet tested in game.
+
+    Figures: a 12 V, 45 Ah battery as the combustion loadouts (Wikipedia, "Automotive battery", secondary); a DC-DC converter of about
+    1.5 kW, so 100 A at 12 V (general, approximate); the computers' and contactors' draw at switch-on 0.02 Ah (authored). Brake wear
+    a third of a combustion vehicle's: most slowing is regenerative (authored; electric cars' brake pads are commonly reported to last
+    two to three times as long, general).
+  -->
+  <Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
+    <defName>PhobosVehicleLoadout_LandElectric</defName>
+    <label>electric land vehicle</label>
+    <kind>Electric</kind>
+    <priority>Effect</priority>
+    <selector>
+      <fuelled>Yes</fuelled>
+      <electricPowered>Yes</electricPowered>
+      <flies>No</flies>
+      <vehicleTypes>
+        <li>Land</li>
+      </vehicleTypes>
+    </selector>
+    <drivetrain>
+      <def>PhobosDrivetrain_Electric</def>
+    </drivetrain>
+    <systems>
+      <li>
+        <def>PhobosVehicleSystem_AuxiliaryElectrical</def>
+        <set>
+          <alternatorAmps>100</alternatorAmps>
+          <starterAmpHours>0.02</starterAmpHours>
+        </set>
+      </li>
+      <li><def>PhobosVehicleSystem_TractionBattery</def></li>
+      <li><def>PhobosVehicleSystem_ElectricDrive</def></li>
+      <li><def>PhobosVehicleSystem_ElectricService</def></li>
+      <li><def>PhobosVehicleSystem_RunningGear</def></li>
+      <li>
+        <def>PhobosVehicleSystem_Brakes</def>
+        <set>
+          <wearPerHourMoving>0.00017</wearPerHourMoving>
+          <wearPerStop>0.00027</wearPerStop>
+        </set>
+      </li>
+      <li><def>PhobosVehicleSystem_Cabin</def></li>
+    </systems>
+    <partRoles>
+      <li>
+        <role>Engine</role>
+        <find>
+          <li>
+            <categories>
+              <li>MoveSpeed</li>
+            </categories>
+            <depth>Internal</depth>
+            <priority>Yes</priority>
+          </li>
+          <li>
+            <categories>
+              <li>MoveSpeed</li>
+            </categories>
+            <depth>Internal</depth>
+          </li>
+          <li>
+            <keyContains>motor</keyContains>
+          </li>
+          <li>
+            <keyContains>engine</keyContains>
+          </li>
+        </find>
+      </li>
+      <li>
+        <role>TractionBattery</role>
+        <find>
+          <li>
+            <keyContains>traction</keyContains>
+          </li>
+          <li>
+            <keyContains>batterypack</keyContains>
+          </li>
+        </find>
+        <add>
+          <key>PhobosTractionBattery</key>
+          <label>traction battery</label>
+          <health>60</health>
+          <cellsOf>Engine</cellsOf>
+        </add>
+      </li>
+      <li>
+        <role>Alternator</role>
+        <find>
+          <li>
+            <keyContains>converter</keyContains>
+          </li>
+        </find>
+        <add>
+          <key>PhobosDcDcConverter</key>
+          <label>DC-DC converter</label>
+          <health>20</health>
+          <cellsOf>Engine</cellsOf>
+        </add>
+      </li>
+      <li>
+        <role>Battery</role>
+        <find>
+          <li>
+            <tag>Battery</tag>
+          </li>
+        </find>
+        <add>
+          <key>PhobosBattery</key>
+          <label>12 V battery</label>
+          <health>20</health>
+          <cellsOf>Engine</cellsOf>
+        </add>
+      </li>
+      <li>
+        <role>Wheels</role>
+        <all>true</all>
+        <find>
+          <li>
+            <tag>Wheel</tag>
+          </li>
+          <li>
+            <categories>
+              <li>MoveSpeed</li>
+            </categories>
+            <depth>External</depth>
+          </li>
+        </find>
+      </li>
+      <li>
+        <role>Brakes</role>
+        <find>
+          <li>
+            <keyContains>brake</keyContains>
+          </li>
+        </find>
+        <add>
+          <key>PhobosBrakes</key>
+          <label>brakes</label>
+          <health>30</health>
+          <cellsOf>Wheels</cellsOf>
+        </add>
+      </li>
+    </partRoles>
+    <loads>
+      <li>
+        <name>headlights</name>
+        <label>headlights</label>
+        <description>The headlights come on at night while the vehicle is switched on.</description>
+        <amps>9</amps>
+        <toggle>true</toggle>
+        <iconPath>Phobos/VehicleSystems/Headlights</iconPath>
+        <when Class="Phobos.VehicleSystems.When_All">
+          <conditions>
+            <li Class="Phobos.VehicleSystems.When_Night" />
+            <li Class="Phobos.VehicleSystems.When_EngineRunning" />
+          </conditions>
+        </when>
+      </li>
+      <li>
+        <name>cabHeater</name>
+        <label>cab heater</label>
+        <description>The cab heater runs below 5 °C while the vehicle is switched on. It draws on the traction battery, so it costs range.</description>
+        <amps>12</amps>
+        <toggle>true</toggle>
+        <iconPath>Phobos/VehicleSystems/CabHeater</iconPath>
+        <when Class="Phobos.VehicleSystems.When_All">
+          <conditions>
+            <li Class="Phobos.VehicleSystems.When_AmbientBelow">
+              <celsius>5</celsius>
+            </li>
+            <li Class="Phobos.VehicleSystems.When_EngineRunning" />
+          </conditions>
+        </when>
+      </li>
+      <li>
+        <name>instruments</name>
+        <label>computers and instruments</label>
+        <amps>6</amps>
+        <when Class="Phobos.VehicleSystems.When_EngineRunning" />
+      </li>
+      <li>
+        <name>airConditioner</name>
+        <label>air conditioner</label>
+        <description>The air conditioner cools the cab above 26 °C while the vehicle is switched on. It draws on the traction battery, so it costs range.</description>
+        <amps>10</amps>
+        <toggle>true</toggle>
+        <iconPath>Phobos/VehicleSystems/AirConditioner</iconPath>
+        <when Class="Phobos.VehicleSystems.When_All">
+          <conditions>
+            <li Class="Phobos.VehicleSystems.When_AmbientAbove">
+              <celsius>26</celsius>
+            </li>
+            <li Class="Phobos.VehicleSystems.When_EngineRunning" />
+          </conditions>
+        </when>
+      </li>
+    </loads>
+  </Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
+</Defs>

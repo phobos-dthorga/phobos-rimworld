@@ -155,6 +155,8 @@ The candidate base class for interval map components is still not built (see 0.6
   `PhobosFramework_ChargesFull` recipe filter) and `Rules/ChargeRules.cs`, `Rules/ShelterComfort.cs` (how a pawn feels about a
   shelter's temperature against their comfort range), `WorldMap/BiomeGround.cs` (a world tile's ground from its biome's Defs;
   namespace `Phobos.Framework.WorldMap`, not `.World`, which would hide `Verse.World`) and a condition on `ItemFinder`'s finders.
+  0.20.0 added `Patching/PatchFlags.cs`: `PatchFlags.Register` (a mod's setting, read by XML patches) and `PatchOperationPhobosFlag`
+  (operations applied only while that setting is on; mods register in their constructors, which run before patches).
 
 ## Open points and upstream
 

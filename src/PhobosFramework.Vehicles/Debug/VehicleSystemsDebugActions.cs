@@ -220,6 +220,22 @@ public static class VehicleSystemsDebugActions
         return text.ToString();
     }
 
+    [DebugAction(DebugCategory.Name, "Vehicle systems: log charging", allowedGameStates = AllowedGameStates.PlayingOnMap)]
+    static void LogCharging()
+    {
+        foreach (CompPhobosVehicleSystems comp in Selected())
+        {
+            CompFueledTravel? fuel = comp.Vehicle.CompFueledTravel;
+            if (fuel == null) continue;
+            comp.UpdateNow();
+            string pack = comp.TryGetQuantity("packTemperature", out float temperature) ? temperature.ToString("0.#") + " C" : "none";
+            string wear = comp.TryGetQuantity("packWear", out float worn) ? worn.ToStringPercent() : "none";
+            Log.Message(VehicleSystemsMod.LogPrefix + " " + comp.Vehicle.LabelShort + ": electric " + fuel.Props.ElectricPowered + ", charge "
+                + fuel.Fuel.ToString("0.#") + " of " + fuel.FuelCapacity.ToString("0") + ", charging " + fuel.Charging + ", charge factor "
+                + comp.ChargeFactor.ToString("0.##") + ", pack " + pack + ", wear " + wear);
+        }
+    }
+
     [DebugAction(DebugCategory.Name, "Vehicle systems: flatten the battery", allowedGameStates = AllowedGameStates.PlayingOnMap)]
     static void FlattenBattery()
     {
