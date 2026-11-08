@@ -61,6 +61,10 @@ public class VehicleSystemsSettings : ModSettings
     public bool fullModelForEveryone;
     /// <summary>Keep Vehicle Framework's own Health tab instead of ours (agent default: ours). Needs a restart: tabs are set while Defs load.</summary>
     public bool keepVehicleFrameworkHealthTab;
+    /// <summary>The fleet board's button on the bottom bar. Takes effect at once.</summary>
+    public bool fleetBoardButton = true;
+    /// <summary>Days of warning before a vehicle left parked in the wild is lost; 0 is no warning.</summary>
+    public int parkedWarningDays = 3;
     /// <summary>An electric vehicle's battery that overheats far enough catches fire and bursts (agent default, as boiler explosions:
     /// off, with a warning). Live.</summary>
     public bool batteryFires;
@@ -114,6 +118,8 @@ public class VehicleSystemsSettings : ModSettings
         Scribe_Values.Look(ref climateControlAll, "PhobosVehicleSystems_ClimateControlAll", false);
         Scribe_Values.Look(ref fullModelForEveryone, "PhobosVehicleSystems_FullForEveryone", false);
         Scribe_Values.Look(ref keepVehicleFrameworkHealthTab, "PhobosVehicleSystems_KeepVfHealthTab", false);
+        Scribe_Values.Look(ref fleetBoardButton, "PhobosVehicleSystems_FleetBoardButton", true);
+        Scribe_Values.Look(ref parkedWarningDays, "PhobosVehicleSystems_ParkedWarningDays", 3);
         Scribe_Values.Look(ref batteryFires, "PhobosVehicleSystems_BatteryFires", false);
         Scribe_Values.Look(ref electricLightning, "PhobosVehicleSystems_ElectricLightning", false);
         if (Scribe.mode == LoadSaveMode.PostLoadInit)
@@ -266,6 +272,11 @@ public class VehicleSystemsMod : Mod
         SettingsUi.Section(listing, "PhobosVehicleSystems_SectionJumpStarts".Translate());
         listing.CheckboxLabeled("PhobosVehicleSystems_SettingJumpStartNeedsKit".Translate(), ref s.jumpStartNeedsKit, "PhobosVehicleSystems_SettingJumpStartNeedsKitDesc".Translate());
         listing.CheckboxLabeled("PhobosVehicleSystems_SettingAssumeBoosterPack".Translate(), ref s.assumeBoosterPack, "PhobosVehicleSystems_SettingAssumeBoosterPackDesc".Translate());
+
+        SettingsUi.Section(listing, "PhobosVehicleSystems_SectionFleet".Translate());
+        listing.CheckboxLabeled("PhobosVehicleSystems_SettingFleetButton".Translate(), ref s.fleetBoardButton, "PhobosVehicleSystems_SettingFleetButtonDesc".Translate());
+        listing.Label("PhobosVehicleSystems_SettingParkedWarning".Translate(s.parkedWarningDays.Named("DAYS")));
+        s.parkedWarningDays = (int)listing.Slider(s.parkedWarningDays, 0f, 14f);
 
         SettingsUi.Section(listing, "PhobosVehicleSystems_SectionShow".Translate());
         SettingsUi.DrawDisplayMode(listing, ref s.displayMode);

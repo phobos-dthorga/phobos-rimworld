@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <!-- The fleet board and the parked-vehicle letter. Text a player reads in play stays in the game world. -->
+  <PhobosFleet_Count>{COUNT} vehicles</PhobosFleet_Count>
+  <PhobosFleet_FilterHint>Search by name or place</PhobosFleet_FilterHint>
+  <PhobosFleet_Refresh>Refresh</PhobosFleet_Refresh>
+  <PhobosFleet_Empty>No vehicles to show.</PhobosFleet_Empty>
+  <PhobosFleet_ColumnName>Vehicle</PhobosFleet_ColumnName>
+  <PhobosFleet_ColumnWhere>Where</PhobosFleet_ColumnWhere>
+  <PhobosFleet_ColumnFuel>Fuel</PhobosFleet_ColumnFuel>
+  <PhobosFleet_ColumnWorstPart>Worst part</PhobosFleet_ColumnWorstPart>
+  <PhobosFleet_ColumnStatus>Status</PhobosFleet_ColumnStatus>
+  <PhobosFleet_ColumnCrew>Crew</PhobosFleet_ColumnCrew>
+  <PhobosFleet_TipWorstPart>Worst part: {PART}, at {HEALTH}</PhobosFleet_TipWorstPart>
+  <PhobosFleet_WhereInFlight>In flight</PhobosFleet_WhereInFlight>
+  <PhobosFleet_WhereParked>Left parked</PhobosFleet_WhereParked>
+  <PhobosFleet_WhereParkedUntil>Left parked, gone in {TIME}</PhobosFleet_WhereParkedUntil>
+
+  <PhobosFleet_ParkedWarningLabel>Parked vehicles at risk</PhobosFleet_ParkedWarningLabel>
+  <PhobosFleet_ParkedWarningText>Vehicles left parked in the wild will be gone in {TIME} unless a caravan collects them: {VEHICLES}.</PhobosFleet_ParkedWarningText>
+
+  <!-- Settings window -->
+  <PhobosVehicleSystems_SectionFleet>Your fleet</PhobosVehicleSystems_SectionFleet>
+  <PhobosVehicleSystems_SettingFleetButton>Show the fleet button on the bottom bar</PhobosVehicleSystems_SettingFleetButton>
+  <PhobosVehicleSystems_SettingFleetButtonDesc>The fleet board lists every vehicle you own, wherever it is. Takes effect at once.</PhobosVehicleSystems_SettingFleetButtonDesc>
+  <PhobosVehicleSystems_SettingParkedWarning>Warn before a parked vehicle is lost: {DAYS} days ahead (0 turns the warning off)</PhobosVehicleSystems_SettingParkedWarning>
+</LanguageData>

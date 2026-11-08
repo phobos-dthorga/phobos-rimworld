@@ -76,8 +76,8 @@ The design is [the vehicle garage and fleet tools](vehicle-garage-design.md).
 | --- | --- | --- | --- | --- |
 | G1 | The garage: parking and slow repairs | Framework, Vehicles | Yes (8 Nov 2026) | Built: Framework 0.31.0, Vehicles 0.11.0. Not yet tested in game |
 | G2 | Refuse convoys at the normal "create outpost" window, with a setting | Patches | Yes (8 Nov 2026) | Built: Patches 0.15.0. Not yet tested in game |
-| G3 | Parked-vehicle warning | Framework | Yes (8 Nov 2026) | Next |
-| G4 | Fleet board | Framework | Yes (8 Nov 2026) | Next |
+| G3 | Parked-vehicle warning | Framework | Yes (8 Nov 2026) | Built: Framework 0.32.0. Not yet tested in game |
+| G4 | Fleet board | Framework | Yes (8 Nov 2026) | Built: Framework 0.32.0. Not yet tested in game |
 | G5 | Standing crews and convoys | Framework | Yes (8 Nov 2026) | Needs a read of the form-caravan dialog first |
 | G6 | Home depot bays | Framework, Vehicles | Yes (8 Nov 2026) | Needs a read of Vehicle Framework's job and path code first |
 | G7 | Post the outposts report to Vanilla Expanded Framework | Owner | Optional | Text in the design record |

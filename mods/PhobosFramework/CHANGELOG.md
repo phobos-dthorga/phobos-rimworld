@@ -5,6 +5,23 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.32.0] - 2026-11-08 - Draft
+
+Two ways of handling a large fleet, at the owner's request (8 November 2026). **Not yet tested in game.**
+
+### Added
+
+- With Vehicle Framework: the fleet board, a button on the bottom bar listing every vehicle you own wherever it is (on a map, in a convoy, in flight, in a garage or left parked), with fuel, worst part, condition and crew. Sort by any column, search by name or place, click a vehicle to go to it. A setting hides the button.
+- A letter before a vehicle left parked in the wild is lost, naming the vehicles and how long is left, once per parked group. Three days ahead by default; a setting changes that or turns it off.
+
+### Compatibility and limits
+
+- The button's icon reuses the vehicle service picture until art is picked. The board costs nothing while closed and rebuilds its list a few times a game hour while open.
+
+### Save compatibility
+
+- Safe to add to and remove from a save. It saves only which parked groups have been warned about.
+
 ## [0.31.0] - 2026-11-08 - Draft
 
 The vehicle garage's rules and code, at the owner's request (8 November 2026). The garage itself is a Def in D'thorga Vehicles. **Not yet tested in game.**
