@@ -287,6 +287,8 @@ public class PartToAdd
     public int health = 20;
     public VehicleComponent.VehiclePartDepth depth = VehicleComponent.VehiclePartDepth.Internal;
     public float hitWeight = 0.3f;
+    /// <summary>The hit weight under Combat Extended, which sorts the other way (a smaller weight is hit more); NaN inverts hitWeight.</summary>
+    public float hitWeightCE = float.NaN;
     public float efficiencyWeight = 1f;
     public List<IntVec2>? cells;
     /// <summary>Take the cells (and the armour, unless given) of the part bound to this role, so Combat Extended can reach it.</summary>

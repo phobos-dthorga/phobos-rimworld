@@ -242,7 +242,8 @@ public sealed class Powertrain
         {
             foreach (VehicleTurret turret in vehicle.CompVehicleTurrets.Turrets)
             {
-                if (turret.loadedAmmo != null && turret.shellCount > 0) total += turret.loadedAmmo.BaseMass * turret.shellCount;
+                // shellCount counts shots; each item aboard gives chargePerAmmoCount of them (one, under Combat Extended's ammo).
+                if (turret.loadedAmmo != null && turret.shellCount > 0) total += turret.loadedAmmo.BaseMass * turret.shellCount * Math.Max(0.01f, turret.def.chargePerAmmoCount);
             }
         }
         if (vehicle.CompFueledTravel != null) total += vehicle.CompFueledTravel.FuelPercent * fuelKgFull;

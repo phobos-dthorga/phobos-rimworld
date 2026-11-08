@@ -137,14 +137,19 @@ public class VehicleStatPart_PhobosSystems : VehicleStatPart
     }
 }
 
-/// <summary>On every part bound to a role: tells the vehicle's systems the part was hit and how hard.</summary>
+/// <summary>
+/// On every part bound to a role: tells the vehicle's systems the part was hit. What counts is the health the part lost, not the
+/// shot's damage: Combat Extended gives reactors the full damage before armour, sometimes twice, even when the armour stopped the
+/// round (read 9 Nov 2026), and Vehicle Framework may fire before or after the health is written, so the comp compares the part's
+/// health with what it last saw, here and on its next update.
+/// </summary>
 public class Reactor_PhobosVehicleSystems : Reactor
 {
     public string role = "";
 
     public override void Hit(VehiclePawn vehicle, VehicleComponent component, ref DamageInfo dinfo, VehicleComponent.Penetration penetration)
     {
-        vehicle.GetComp<CompPhobosVehicleSystems>()?.Notify_PartHit(role, dinfo.Amount);
+        vehicle.GetComp<CompPhobosVehicleSystems>()?.Notify_PartSeen(role, component);
     }
 }
 

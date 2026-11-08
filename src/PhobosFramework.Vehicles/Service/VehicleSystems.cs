@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
+using Phobos.Framework;
+using Phobos.Framework.Rules;
 using Phobos.Framework.Vehicles.Rules;
 using RimWorld;
 using Vehicles;
@@ -182,7 +184,8 @@ public static class VehicleSystems
             label = add.label,
             health = add.health,
             depth = add.depth,
-            hitWeight = add.hitWeight,
+            // Combat Extended sorts parts the other way round (a smaller weight is hit more): keep the intent under both.
+            hitWeight = (float)CombatExtendedRules.HitWeight(add.hitWeight, add.hitWeightCE, OptionalMods.IsActive(OptionalMods.CombatExtended)),
             efficiencyWeight = add.efficiencyWeight,
             hitbox = hitbox,
             categories = add.categories != null ? new List<VehicleStatDef>(add.categories) : new List<VehicleStatDef>(),

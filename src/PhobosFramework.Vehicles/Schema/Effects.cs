@@ -1,3 +1,5 @@
+using Phobos.Framework;
+using Phobos.Framework.Rules;
 using Phobos.Framework.Vehicles.Rules;
 using RimWorld;
 using UnityEngine;
@@ -247,6 +249,9 @@ public class Effect_Explosion : VehicleSystemEffect
 {
     public float radius = 5.9f;
     public int damage = 60;
+    /// <summary>Armour penetration on the scale in use (the game's, or Combat Extended's MPa); NaN takes the damage's share of
+    /// it, so the blast is as armour-worthy as the game's or CE's own blasts of the same damage.</summary>
+    public float armorPenetration = float.NaN;
     public DamageDef? damageDef;
     public string? breakRole;
 
@@ -255,7 +260,10 @@ public class Effect_Explosion : VehicleSystemEffect
         VehiclePawn vehicle = context.Vehicle;
         if (breakRole != null) context.Comp.BreakRole(breakRole, 1f);
         if (!vehicle.Spawned || vehicle.Map == null) return;
-        GenExplosion.DoExplosion(vehicle.Position, vehicle.Map, radius, damageDef ?? DamageDefOf.Bomb, vehicle, damage);
+        float penetration = float.IsNaN(armorPenetration)
+            ? CombatExtendedRules.BlastPenetrationForDamage(damage, OptionalMods.IsActive(OptionalMods.CombatExtended))
+            : armorPenetration;
+        GenExplosion.DoExplosion(vehicle.Position, vehicle.Map, radius, damageDef ?? DamageDefOf.Bomb, vehicle, damage, penetration);
     }
 }
 

@@ -85,11 +85,16 @@ every 60 ticks of work they heal the first damaged part in list order by the veh
 
 **Damage.** `VehicleComponent.TakeDamage` fires the `DamageTaken` and `HealthChanged` events; `HealComponent` fires
 `Repaired` and `HealthChanged`. Under VF alone, a hit on a cell with no live part at the current depth falls through
-to a random internal part by `hitWeight`, then any live part. **Under Combat Extended** (its `VehiclesCompat`, when
-`patchArmorDamage` is on) a prefix replaces `ApplyDamage`: the shot walks a line of cells and hits only parts on those
-cells; random internal hits happen only with its `hitRandomVehicleComponents` setting and only for internal parts whose
-hitbox avoids the edges, and that check uses 0-to-size coordinates against VF's centred ones. Parts added by a mod
-therefore want real cells and a low `hitWeight`.
+to a random internal part by `hitWeight` (a bigger weight is hit more), then any live part. **Under Combat Extended**
+(its `VehiclesCompat`, when `patchArmorDamage` is on; re-read 9 Nov 2026) a prefix replaces `ApplyDamage`: the shot walks a
+line of cells along its angle and hits only parts on those cells, External parts first and inward only once it has got
+through; its "hit any component" setting applies on the first cell only, to External parts whose hitbox avoids the edges.
+**CE sorts the parts on a cell by a random draw times `hitWeight`, smallest first, so there a smaller weight is hit
+more**, the reverse of VF; armour is the part's `armor` times its efficiency, sharp in mm and blunt in MPa, and a blunt hit
+with penetration under half the armour does nothing. CE lowers `component.health` directly and still runs every reactor,
+passing the damage before armour, sometimes twice per part and even when the armour stopped the round. Parts added by a mod
+therefore want real cells, a low `hitWeight` under VF and a high one under CE (D'thorga Framework inverts it, or takes
+`hitWeightCE`), and a reactor that counts health lost rather than damage dealt.
 
 **VVE's parts, as shipped** (`1.7/Defs/VehicleDefs/Tier1/Mule/Mule_VehiclePawn.xml`, abridged):
 

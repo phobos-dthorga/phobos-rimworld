@@ -172,6 +172,11 @@ class VehicleSchemaCheckTests(unittest.TestCase):
         result = self.run_with(POWER.replace('<waterLitres>10</waterLitres>', '<waterLitresParameter>tankLitres</waterLitresParameter>'))
         self.assertTrue(any('undeclared parameter tankLitres' in e for e in result['errors']))
 
+    def test_a_part_with_a_bad_combat_extended_hit_weight_is_caught(self):
+        result = self.run_with(SYSTEM.replace('<add><key>TestEngine</key><health>10</health></add>',
+                                              '<add><key>TestEngine</key><health>10</health><hitWeightCE>0</hitWeightCE></add>'))
+        self.assertTrue(any('positive hitWeightCE' in e for e in result['errors']))
+
     def test_a_service_with_negative_water_is_caught(self):
         result = self.run_with(POWER.replace('<waterLitres>10</waterLitres>', '<waterLitres>-1</waterLitres>'))
         self.assertTrue(any('waterLitres' in e for e in result['errors']))

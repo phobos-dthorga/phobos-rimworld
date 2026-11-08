@@ -5,6 +5,26 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.15.0] - 2026-11-09 - Draft
+
+Combat Extended corrections for the vehicle systems, from a reading of CE's vehicle code on 9 November 2026. **Not yet tested in game.**
+
+### Fixed
+
+- Under Combat Extended the parts the systems add were hit far more often than meant: CE sorts parts the opposite way to Vehicle Framework, so a low hit weight meant hit more. Each added part's weight is now inverted under CE, or set by its own CE weight.
+- A part hit now counts the health the part lost, not the shot's damage. Under CE a rifle round the armour stopped used to drain coolant, oil or charge as if it had gone through, sometimes twice.
+- A boiler explosion now carries an armour penetration on the scale in use (about 24 MPa under CE for its 60 damage, as CE's own blasts of that size); before, armoured things took nothing from it under CE.
+- A loaded turret's ammunition mass now counts the shots per item, as Vehicle Framework does.
+
+### Added
+
+- For modders: hitWeightCE on an added part; armorPenetration on the explosion effect; dev actions to hit a selected part through the damage model in use, to log the systems' memory of part health, and to explode a boiler now (destructive, with a confirmation). The schema check reads hitWeightCE.
+- Shared, in the Framework's core: the Combat Extended rules (hit weights, blast penetration) and dev-selection helpers, for every Phobos mod.
+
+### Compatibility and limits
+
+- Read from CE's vehicle compatibility code and Defs; whether Vehicle Framework fires a part's reactor before or after CE writes its health is unverified, and the systems tolerate both.
+
 ## [0.14.0] - 2026-11-09 - Draft
 
 The owner's answers on steam locomotives, 9 November 2026. **Not yet tested in game.**

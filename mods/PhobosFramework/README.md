@@ -5,7 +5,7 @@ colonist is breathing, makes fires fill roofed rooms with the game's own smoke w
 carries carbon monoxide from fires, holds the per-person care choices the D'thorga medical mods offer, and holds the small
 helpers every D'thorga mod shares.
 
-Version 0.14.0, built 9 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
+Version 0.15.0, built 9 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
 oxygen working through Burns and Smoke and Medical Equipment (5 November 2026). The health layer new in 0.3.0 and the **vehicle
 systems new in 0.9.0, and their engines, drivetrains and gas turbines new in 0.11.0, are not yet tested in game.** The rest is read from the game's and the mods' code.
 
@@ -128,7 +128,9 @@ Other mods (D'thorga Vehicles first) can give a named vehicle its own figures. N
   diesel), tracked (any vehicle with track parts), boats and aircraft.
 - **The engine heats the room it stands in** while it runs, through the game's own temperature, so an idling truck warms a garage.
 - **Engine running** means drafted, or moving in a caravan, or flying, with fuel aboard. Idling counts as half the work.
-- **Combat Extended:** the added parts take the engine's cells and armour, so shots can reach them.
+- **Combat Extended:** the added parts take the engine's cells and armour, so shots can reach them; from 0.15.0 their hit weights
+  follow CE's own rule (it sorts the other way round), a part hit counts only the health the part really lost (a round the armour
+  stopped drains nothing), and a boiler explosion carries a blast penetration on CE's scale.
 - **Figures and supplies are gameplay choices**, each labelled with its source or as authored in the system files. Chemfuel stands
   in for oil, coolant and the rubber in tyres, because the game has none of them.
 

@@ -334,6 +334,9 @@ def check(root):
                     errors.append(f'{where}: the part added for {role_name} takes cells from the unbound role {cells_of}')
                 if int(text(add, 'health', '20')) <= 0:
                     errors.append(f'{where}: the part added for {role_name} has no health')
+                ce_weight = number(add, 'hitWeightCE', 1)
+                if ce_weight is None or ce_weight <= 0:
+                    errors.append(f'{where}: the part added for {role_name} needs a positive hitWeightCE')
         for system_name in used:
             for role in sorted(systems[system_name]['roles'] - bound):
                 warnings.append(f'{where}: {system_name} reads the role {role}, which this loadout binds to nothing (it reads as sound)')

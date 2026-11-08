@@ -291,6 +291,7 @@ public class CompPhobosVehicleSystems : VehicleComp
         {
             VehicleComponent? part = Vehicle.statHandler.GetComponent(pair.Key);
             if (part != null && Mathf.Abs(part.Health - pair.Value) > 0.01f) part.SetHealth(pair.Value);
+            if (part != null) RememberPartHealth(part);
         }
         Vehicle.statHandler.MarkAllDirty();
     }
@@ -336,6 +337,7 @@ public class CompPhobosVehicleSystems : VehicleComp
             double hours = ElapsedRule.Hours(now, lastUpdateTick, Rules.maxCatchUpHours);
             if (hours <= 0) return;
             lastUpdateTick = now;
+            SweepPartHealth();
             RefreshCaches();
             Powertrain?.ApplyFuel(hours);
             foreach (SystemState state in states)
@@ -469,10 +471,65 @@ public class CompPhobosVehicleSystems : VehicleComp
         }
     }
 
-    /// <summary>Called by the reactor on a part bound to a role when it is hit.</summary>
-    public void Notify_PartHit(string role, float damage)
+    /// <summary>The health of each bound part when the systems last looked, by part key; derived, never saved.</summary>
+    readonly Dictionary<string, float> lastPartHealth = new();
+
+    /// <summary>
+    /// Called by the reactor when a bound part is hit, and by each update for every bound part: the health the part has lost since
+    /// the systems last saw it is what the part-hit rules count (a holed radiator loses coolant for the hole, not for the shot).
+    /// A rise (a repair) only resets the memory; wear and breakdowns the systems cause store the health themselves, so they never count.
+    /// </summary>
+    public void Notify_PartSeen(string role, VehicleComponent part)
     {
-        if (!Usable || damage <= 0f) return;
+        if (!Usable || part?.props?.key == null) return;
+        string key = part.props.key;
+        float health = part.Health;
+        if (!lastPartHealth.TryGetValue(key, out float last))
+        {
+            lastPartHealth[key] = health;
+            return;
+        }
+        lastPartHealth[key] = health;
+        float lost = last - health;
+        if (lost <= 0f) return;
+        Notify_PartHit(role, lost);
+    }
+
+    /// <summary>Remembers a part's health after the systems changed it themselves, so the change is not counted as a hit.</summary>
+    void RememberPartHealth(VehicleComponent part)
+    {
+        if (part?.props?.key != null) lastPartHealth[part.props.key] = part.Health;
+    }
+
+    /// <summary>Looks at every bound part for health lost since the last look (a hit the reactor saw before the health was written).</summary>
+    void SweepPartHealth()
+    {
+        foreach (KeyValuePair<string, List<string>> pair in Props.roleKeys)
+        {
+            foreach (VehicleComponent part in PartsOf(pair.Key)) Notify_PartSeen(pair.Key, part);
+        }
+    }
+
+    /// <summary>The part-health memory beside each part's health now, for the dev action.</summary>
+    public string DebugPartMemory()
+    {
+        var text = new System.Text.StringBuilder();
+        foreach (KeyValuePair<string, List<string>> pair in Props.roleKeys)
+        {
+            foreach (VehicleComponent part in PartsOf(pair.Key))
+            {
+                string key = part.props.key;
+                text.Append(pair.Key).Append('/').Append(key).Append(": health ").Append(part.Health.ToString("0.#"))
+                    .Append(", last seen ").Append(lastPartHealth.TryGetValue(key, out float last) ? last.ToString("0.#") : "never").Append('\n');
+            }
+        }
+        return text.ToString();
+    }
+
+    /// <summary>Health a bound part lost to a hit: each part-hit rule of the role moves its quantity by that much.</summary>
+    void Notify_PartHit(string role, float healthLost)
+    {
+        if (!Usable || healthLost <= 0f) return;
         UpdateNow();
         if (states == null) return;
         foreach (SystemState state in states)
@@ -480,7 +537,7 @@ public class CompPhobosVehicleSystems : VehicleComp
             if (!Enabled(state)) continue;
             foreach (PartHitRule rule in state.Def.onPartHit)
             {
-                if (rule.role == role) AddToQuantity(rule.quantity, rule.perHealthLost * damage);
+                if (rule.role == role) AddToQuantity(rule.quantity, rule.perHealthLost * healthLost);
             }
         }
     }
@@ -555,6 +612,7 @@ public class CompPhobosVehicleSystems : VehicleComp
         VehicleComponent? part = PartsOf(role).Where(p => p.Health > 0f).RandomElementWithFallback();
         if (part == null) return;
         part.SetHealth(part.Health - amount);
+        RememberPartHealth(part);
         Vehicle.statHandler.MarkAllDirty();
     }
 
@@ -564,6 +622,7 @@ public class CompPhobosVehicleSystems : VehicleComp
         VehicleComponent? part = PartsOf(role).Where(p => p.Health > 0f).RandomElementWithFallback();
         if (part == null) return null;
         part.SetHealth(part.Health - fraction * part.MaxHealth);
+        RememberPartHealth(part);
         Vehicle.statHandler.MarkAllDirty();
         return part;
     }

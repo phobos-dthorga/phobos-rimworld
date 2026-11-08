@@ -182,6 +182,12 @@ delivered, record the delivery in the changelog or design record, and add or ame
   the content mod. One provider per Def or service, no circular dependencies. Other authors must be able
   to use a framework without our content mods. Name meaningful constants; derive displayed figures from
   the authoritative rule; extract duplication when you meet it, not later.
+- **Generic functions go to the Framework core** (owner, 9 November 2026). Any function that can reasonably be made
+  generic, or that more than one Phobos mod or part uses, goes into D'thorga Framework's core (`src/PhobosFramework`,
+  `mods/PhobosFramework`'s root folders) in the same change as its first consumer, even while only one consumer exists:
+  game-free rules in its `Rules/` with tests in `tests/PhobosFramework.Rules.Tests`, UI helpers in `UI/`, persistence
+  helpers in `Persistence/`. A mod or part keeps only what is specific to it: its Defs, its policy and its text. When in
+  doubt, put it in the core.
 - **D'thorga Framework is that library** (owner, 4 November 2026; `mods/PhobosFramework`, `src/PhobosFramework`,
   `docs/development/phobos-framework.md`). Every Phobos RimWorld mod with C# depends on it for the shared
   helpers (optional mods by name, the load line, the display mode, rules Defs, the debug category, the

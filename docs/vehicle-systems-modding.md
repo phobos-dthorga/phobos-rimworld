@@ -92,7 +92,8 @@ made of several kinds of part), `categories` (stats the part feeds), a `depth`, 
 | `add` field | Meaning |
 | --- | --- |
 | `key`, `label` | The part's identity and its in-world name. Prefix the key with your mod's prefix. |
-| `health`, `depth`, `hitWeight`, `efficiencyWeight` | As Vehicle Framework's own parts (defaults 20, Internal, 0.3, 1). |
+| `health`, `depth`, `hitWeight`, `efficiencyWeight` | As Vehicle Framework's own parts (defaults 20, Internal, 0.3, 1). Vehicle Framework hits a bigger `hitWeight` more often. |
+| `hitWeightCE` | The weight under Combat Extended, which sorts the other way (a smaller weight is hit more); left out, `hitWeight` is inverted there. |
 | `cells` or `cellsOf` | Explicit hitbox cells, or the cells (and armour) of the part bound to another role, usually `Engine`, so Combat Extended's shots can reach it. |
 | `categories`, `armor`, `tags` | As Vehicle Framework's own parts. |
 
@@ -300,6 +301,15 @@ game treats it. With Dubs Bad Hygiene, D'thorga Framework registers its plumbing
 parked vehicle, and the service waits with the reason until one is there. Another mod may register its own source by
 implementing `VehicleWater.ISource` (`CanDraw` with an in-world reason, `TryDraw`) and calling `VehicleWater.Register` at startup;
 the last one registered is used, and a source that throws is dropped (water is free again until restart).
+
+## Dev actions
+
+With dev mode on, the debug actions menu's D'thorga category holds, for the selected vehicles: **log selected** (every system's
+quantities, stages and parts), **set a quantity** (any non-derived quantity to 0, 25, 50, 75 or 100% of its range), **request a
+service**, **remove from this colony** (the sweep before removing the mod), **hit a part** (a 20-point hit on a role's first part
+through Vehicle Framework's own damage path, which Combat Extended replaces, so part-hit rules can be checked under both), **log
+part health memory** (what the systems last saw of each part's health) and **explode the boiler now** (runs a system's explosion
+effect whatever the player's setting, after a confirmation: destructive).
 
 ## Tuning in Vehicle Framework's window
 

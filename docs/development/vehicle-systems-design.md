@@ -27,7 +27,9 @@ written; the build is the next plan. Code readings behind it are in
   1.7 and the owner plays that way. SmashPhil is active and has said a 1.7 release "with more changes" is near (GitHub
   issue 379, 1 Nov 2026). We compile against the installed DLL and expect a rebuild when 1.7 ships.
 - **Combat Extended hits only parts with real cells** (its own damage model replaces Vehicle Framework's). Every part
-  the service adds carries cells next to the engine's and a low hit weight.
+  the service adds carries cells next to the engine's and a low hit weight under Vehicle Framework, which the service
+  inverts under Combat Extended, where a smaller weight is hit more (corrected 9 Nov 2026; each part may give its own
+  `hitWeightCE`). Part hits count the health a part lost, not the shot's damage, so a round the armour stopped drains nothing.
 - **Text stays in the world.** Inspect lines, refusals and messages describe the vehicle, never a mod, a schema or a
   setting. The Framework's display mode decides how much a player sees: Plain shows no figure the player did not ask for.
 - **Every figure is labelled**: primary source, secondary source, our inference or authored. The real-world figures
