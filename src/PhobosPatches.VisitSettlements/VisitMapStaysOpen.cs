@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using HarmonyLib;
 using Phobos.Framework;
+using Phobos.Framework.Rules;
 using Phobos.VisitSettlementsPatches.Rules;
 using RimWorld;
 using RimWorld.Planet;
@@ -124,7 +125,7 @@ public static class VisitMapStaysOpen
     static void Note(Map map, KeepReason reason)
     {
         int now = Find.TickManager.TicksGame;
-        if (lastLogTick.TryGetValue(map.uniqueID, out int last) && now - last < LogIntervalTicks) return;
+        if (!TickThrottle.Due(now, lastLogTick.TryGetValue(map.uniqueID, out int last) ? last : TickThrottle.Never, LogIntervalTicks)) return;
         lastLogTick[map.uniqueID] = now;
         string why = reason switch
         {

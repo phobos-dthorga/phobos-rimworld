@@ -291,6 +291,41 @@ through RimPacts' own option or shuttle. Confirmed by the owner in play on 8 Nov
 > rules (RimPacts' defences and battles) are skipped too. Requiring at least one free colonist in `FreeColonists` (not only spawned
 > ones), or calling `map.Parent.CheckRemoveMapNow()` instead of removing the map directly, would avoid it. Happy to share details.
 
+## Visit Settlements' food drops throw every tick (9 Nov 2026)
+
+**What the owner saw.** `Player-prev.log` of 8 November ended at the game's 10,000-message limit at 18:24 after 6,846 identical
+`NullReferenceException`s from `VS_WorldComponent_SettlementEvents.WorldComponentTick` in six minutes; the next session's `Player.log`
+did the same at 20:07 after 8,247. After the limit no mod can log anything for the rest of the session
+([logging record](logging-framework-design.md)).
+
+**The cause** (read from the owner's log trace and Visit Settlements' 1.7 assembly of 22 October 2026, decompiled to
+`.local/decompiled/VisitSettlements-1.7`; Nina.Goblin's code, our summary). The world component counts ticks and, at
+`regularDaysCount` days, calls `DropFoodPodsForSettlements()`, then resets `tickCounter` to 0. That routine sums, for each friendly
+settlement map it keeps, `pawn.needs.food.FoodFallPerTickAssumingCategory(...)` over every non-hostile, non-player pawn. A pawn that
+does not eat has no food need (`needs.food` is null): a mechanoid, a robot or an android, which the owner's list brings (the Dead Man's
+Switch mechanoids, Apex Mechanoids, Enemy Mechanitors). The lambda throws (`<>c__DisplayClass8_0.<DropFoodPodsForSettlements>b__1`,
+called from `Enumerable.Sum`), the reset after the call never runs, and the component calls it again on the next tick: once a tick,
+for the rest of the session. Its raid timer has the same shape (`raidTickCounter` resets only after `TryTriggerRaidEvent` returns).
+
+**The fix, D'thorga Patches 0.14.1 (not yet tested in game).** `SettlementEventsGuard` in the Visit Settlements part, found by name and
+shape with no reference to Visit Settlements' assembly: a prefix on that one lambda (found as the only method named after the routine
+that takes a `Pawn` and returns a `float`; the routine's other float lambda takes a `Thing`) returns 0 for a pawn with no food need and
+skips the original only then, when it would throw (recorded reason: no extension point inside a lambda); and a finalizer on the
+world tick that, if anything still throws there, resets both counters as a success would have and logs one warning an in-game day
+(core `Rules/TickThrottle.cs`). The finalizer swallows the exception on purpose: rethrown, the game would log it again next tick,
+which is the fault itself; it logs the original in full.
+
+**Bug report to post (draft; the owner posts it)**, to Nina.Goblin on Visit Settlements' Workshop page:
+
+> Hi Nina, another one from RimWorld 1.7 (build of 22 Oct), with a large mod list. `DropFoodPodsForSettlements` sums
+> `pawn.needs.food.FoodFallPerTickAssumingCategory(...)` over every friendly pawn on a settlement map, but a pawn that doesn't eat
+> (a mechanoid, a robot, an android from another mod) has `needs.food == null`, so the sum throws. Because `WorldComponentTick` resets
+> `tickCounter` only after the call returns, it calls it again on every tick: about 7,000 errors in six minutes for me, which hits
+> RimWorld's 10,000-message log limit and stops all logging for the session. Skipping pawns with `needs?.food == null` in that sum
+> would fix it, and resetting the counter before the call (or in a `finally`) would stop any future fault there from repeating every
+> tick. `raidTickCounter` and `TryTriggerRaidEvent` have the same shape. I've put a small compatibility patch for both in D'thorga
+> Patches and will retire it if the mod changes. Thanks for the mod!
+
 ## Bug report to post (draft; the owner posts it)
 
 **Hold this draft** (owner, 7 Nov 2026: after the owner's test confirms the cause). Its cause below is the room rebuild, which play did not bear out; the likelier cause now is Combat Extended's wall fragments, which D'thorga Patches holds back during a strike. Run the dev action that counts Combat Extended fragments on the map during a strike, then revise the cause and post.

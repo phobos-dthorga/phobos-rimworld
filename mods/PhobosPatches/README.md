@@ -11,7 +11,7 @@ map no longer closes under your people (0.13.0).
 It replaces two earlier mods, merged into it on 7 November 2026: **D'thorga Vehicle Patches** and **D'thorga Missile Patches**
 ([why](../../docs/development/mod-consolidation.md)).
 
-Version 0.14.0, built 9 November 2026 for House D'thorga. **Not yet tested in game as D'thorga Patches.** The Harrier and turret hull
+Version 0.14.1, built 9 November 2026 for House D'thorga. **Not yet tested in game as D'thorga Patches.** The Harrier and turret hull
 parts are unchanged from Vehicle Patches 0.6.0 (not yet tested in game); the missile part was tried once by the owner, see
 [InterRim Ballistic Missile](#interrim-ballistic-missile).
 
@@ -412,7 +412,17 @@ the map closed.
 battle is on". When it saves a map, the log says "Kept the map of ... open". If Visit Settlements changes its code, the load line
 says the part is off and why.
 
-The record is in [Missile patches](../../docs/development/missile-patches.md#visit-settlements-closes-a-rimpacts-battle-map-8-nov-2026).
+**Its settlement events no longer fail on every tick (0.14.1, not yet tested in game).** Visit Settlements drops food for the friendly
+settlements it keeps maps of, every few days. It added up every friendly pawn's hunger, and a pawn that does not eat (a mechanoid, a
+robot, an android) has no hunger to read, so the sum failed; it failed before Visit Settlements reset its day count, so it tried again,
+and failed again, on every tick. On the owner's colony that was thousands of errors in minutes, enough to reach the game's
+10,000-message log limit, after which no mod can log anything for the rest of the session. Now a pawn that does not eat needs no
+food, and if anything else in those events ever fails, they wait their usual days instead of retrying every tick, with one warning a
+day in the log. The load line says "friendly settlements' food drops leave out pawns that do not eat" and "a fault in its settlement
+events waits its usual days instead of repeating every tick".
+
+The record is in [Missile patches](../../docs/development/missile-patches.md#visit-settlements-closes-a-rimpacts-battle-map-8-nov-2026),
+and the food-drop fault in its [own section](../../docs/development/missile-patches.md#visit-settlements-food-drops-throw-every-tick-9-nov-2026).
 
 ## Where to find things
 

@@ -6,6 +6,19 @@ says the owner tested it.
 
 ## [Unreleased]
 
+## [0.14.1] - 2026-11-09 - Draft
+
+A fix for Visit Settlements' settlement events, found in the owner's log (9 November 2026). **Not yet tested in game.**
+
+### Fixed
+
+- With Visit Settlements, a friendly settlement holding a pawn that does not eat (a mechanoid, a robot, an android) no longer makes its food drops throw an error on every tick. The food sum counted every friendly pawn's food need, and such a pawn has none; the error came before the day counter was reset, so it repeated every tick: 6,846 errors in six minutes on the owner's colony, then 8,247 the next session, each time enough to reach the game's 10,000-message limit and stop every mod's logging for the rest of the session. A pawn that does not eat now needs no food, and the drops go ahead for the others.
+- If anything else ever fails in those events, they now wait their usual number of days before trying again instead of failing on every tick, and the log says so at most once an in-game day.
+
+### Compatibility and limits
+
+- Found by name and shape in Visit Settlements' code (version of 22 October 2026); if that code changes, the load line says which part is off and why. Nothing is saved; safe to add and remove.
+
 ## [0.14.0] - 2026-11-09 - Draft
 
 The owner's choice of 9 November 2026 for a jump jet too heavy or too hot to hover: a setting, defaulting to the runway. **Not yet
