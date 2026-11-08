@@ -287,6 +287,14 @@ delivered, record the delivery in the changelog or design record, and add or ame
   branch, reference drawings and superseded or comparison picks on `art-references`, each with its sidecar or record. Add to them only
   with `scripts/art/archive_branch.py`, which adds commits on top, never rewrites, and refuses game art, the private style model and
   its dataset, and model files. `assets/*/references/` is ignored on `main`; the scripts that draw references draw them again.
+- **Paid generation follows `docs/development/paid-image-generation-rules.md`** (owner, 9 Nov 2026: the OpenAI image API
+  for vehicle bodies, with the rules learnt in Phobos Ostranauts). **Only our own art is ever uploaded** to a provider: the
+  game's textures, other authors' art and screenshots stay on this PC, and the engine refuses them as references. Every
+  paid run has `--dry-run` first and `--max-usd` on the real run; agents never buy credit, raise the owner's account limit
+  or move to a dearer quality unasked. One pilot picture, inspected at native size, before a family or a facing set; the
+  camera instruction first in every prompt; each reference with a named role; bodies drawn empty (no cargo, crew, gear,
+  damage or text: those are overlays or nothing); one correction per defect, then a change of approach; rejects archived
+  with their reason; approved picks stay unless the owner reopens them.
 - Sounds only where usefulness is high: quiet, never alarming, with a volume setting.
 
 ## Builds, installation and checks

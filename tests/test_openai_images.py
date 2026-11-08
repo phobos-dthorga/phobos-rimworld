@@ -88,6 +88,25 @@ class RequestCheckTests(unittest.TestCase):
         problems = paid.request_problems(good_request(lora='v1.safetensors', steps=20))
         self.assertEqual(len(problems), 2)
 
+    def test_only_our_own_art_may_be_sent(self):
+        """The Phobos Ostranauts rule: the game's textures and other authors' art never go to a provider."""
+        allowed = (ROOT / 'assets', ROOT / 'mods', ROOT / '.local' / 'art')
+        ours = good_request(references=['assets/phobos-vehicles/picks/north.png', str(ROOT / 'mods' / 'X' / 'Textures' / 'a.png')])
+        self.assertEqual(paid.request_problems(ours, allowed, ROOT), [])
+        game = good_request(references=['.local/references/vanilla-vehicles/Truck_north.png'])
+        problems = paid.request_problems(game, allowed, ROOT)
+        self.assertEqual(len(problems), 1)
+        self.assertIn('outside our own art', problems[0])
+        self.assertEqual(paid.request_problems(game), [], 'without roots to check against, the caller has opted out')
+
+    def test_references_may_carry_a_role(self):
+        req = good_request(references=[{'image': 'assets/a.png', 'role': 'style only'}, 'assets/b.png'])
+        self.assertEqual(paid.reference_paths(req), ['assets/a.png', 'assets/b.png'])
+        self.assertEqual(paid.reference_roles(req), ['style only', None])
+        self.assertEqual(paid.request_problems(req), [])
+        self.assertTrue(paid.request_problems(good_request(references=[{'role': 'no image'}])))
+        self.assertTrue(paid.request_problems(good_request(references=[{'image': 'assets/a.png', 'weight': 2}])))
+
 
 class CostTests(unittest.TestCase):
     def test_cost_comes_from_the_token_counts(self):
@@ -133,6 +152,16 @@ class CallTests(unittest.TestCase):
         self.assertNotIn('response_format', body)
         self.assertEqual(request.get_header('Authorization'), 'Bearer sk-test-key')
         self.assertAlmostEqual(info['cost_usd'], round(paid.cost_usd(USAGE), 4))
+
+    def test_the_returned_size_is_recorded_and_a_mismatch_is_said(self):
+        png_1x1 = (b'\x89PNG\r\n\x1a\n' + b'\x00\x00\x00\x0dIHDR' + (1).to_bytes(4, 'big') + (1).to_bytes(4, 'big') + b'\x08\x00\x00\x00\x00')
+        reply = {'data': [{'b64_json': base64.b64encode(png_1x1).decode('ascii')}], 'usage': USAGE}
+        _, info = paid.make_image(good_request(), [], 'k', opener=FakeOpenAI(reply))
+        self.assertEqual(info['returned_size'], [1, 1])
+        self.assertIn('asked for 1024x1536, received 1x1', info['size_note'])
+        _, info = paid.make_image(good_request(), [], 'k', opener=FakeOpenAI(image_reply()))
+        self.assertIsNone(info['returned_size'], 'the stand-in bytes are not a PNG')
+        self.assertNotIn('size_note', info)
 
     def test_references_make_an_edit_with_each_image_in_order(self):
         fake = FakeOpenAI(image_reply())
@@ -192,6 +221,7 @@ class PaidRunCase(unittest.TestCase):
         self.calls = []
         # Point ComfyUI at a port nothing listens on: a paid-only run must never need it.
         for patch in (mock.patch.object(art, 'SERVER', 'http://127.0.0.1:9'),
+                      mock.patch.object(art, 'OWN_ART_ROOTS', (*art.OWN_ART_ROOTS, self.work)),
                       mock.patch.object(art.paid, 'make_image', self.fake_make_image)):
             patch.start()
             self.addCleanup(patch.stop)
@@ -215,7 +245,7 @@ class PaidRunCase(unittest.TestCase):
 
 class PaidRunTests(PaidRunCase):
     def test_images_and_records_without_comfyui(self):
-        self.write(good_request(references=[str(self.reference)]))
+        self.write(good_request(references=[{'image': str(self.reference), 'role': 'the north body, turned a quarter'}]))
         result = self.run_paid()
         self.assertEqual(result['made'], 2)
         self.assertAlmostEqual(result['spent_usd'], 0.08)
@@ -226,6 +256,7 @@ class PaidRunTests(PaidRunCase):
         self.assertIn('generative AI', record['ai_disclosure'])
         self.assertIn('terms', record)
         self.assertEqual(len(record['references']), 1)
+        self.assertEqual(record['references'][0]['role'], 'the north body, turned a quarter')
         self.assertNotIn('sk-test', json.dumps(record))
         self.assertTrue((self.generated / '.gitignore').is_file())
 
@@ -267,6 +298,14 @@ class PaidRunTests(PaidRunCase):
         self.write(good_request(width=1000))
         with self.assertRaises(ValueError):
             self.run_paid()
+        self.assertEqual(self.calls, [])
+
+    def test_a_game_texture_as_a_reference_sends_nothing(self):
+        outside = self.work.parent / 'not-ours.png'
+        self.write(good_request(references=[str(outside)]))
+        with self.assertRaises(ValueError) as caught:
+            self.run_paid()
+        self.assertIn('outside our own art', str(caught.exception))
         self.assertEqual(self.calls, [])
 
     def test_paid_requests_have_no_graph(self):

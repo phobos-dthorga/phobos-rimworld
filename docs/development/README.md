@@ -189,6 +189,10 @@ Five mods until 7 November 2026; each record below keeps its own mod's name and 
   equipment your mods already have, what they lack, and the open questions.
 - [View-angle models: research record (7 Nov 2026)](view-angle-models.md): why generated assets come out at odd angles, which
   published models can lock or move the camera, their licences and memory needs on the owner's card, and the trial order.
+- [Paid image generation: rules and lessons from Phobos Ostranauts (9 Nov 2026)](paid-image-generation-rules.md): the twelve
+  rules for every picture bought from the OpenAI image API, where each came from in the Ostranauts records (projection
+  failures, pilots before families, reference roles, what a provider ignores, records, cost discipline), what differs for
+  Vehicle Framework bodies, the prompt skeleton, the pilot flow, the review checklist and what the engine enforces.
 
 ## Analysis tooling
 

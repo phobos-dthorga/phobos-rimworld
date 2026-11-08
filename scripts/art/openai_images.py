@@ -6,8 +6,12 @@ environment variable only; it is never written to a file, a record or a report, 
 blanked out before it is shown.
 
 A request without references is a plain generation; one with references (up to MAX_REFERENCES) is an edit, the route for
-"the north body, turned a quarter: fix the light". The API has no seed, so a request's "seeds" are attempt numbers that
-name the files; running the same attempt again gives a different picture.
+"the north body, turned a quarter: fix the light". A reference is a path, or {"image": path, "role": "what it is for"}; the
+role goes into the record and should be named in the prompt ("Image 1 is ..."). **Only our own art may be sent**: a reference
+outside the roots the caller allows (our assets, our mods' textures, the owner's picks) is refused before anything is sent,
+because the game's textures and other authors' art may never be uploaded to a provider (the Phobos Ostranauts rule, kept
+here; docs/development/paid-image-generation-rules.md). The API has no seed, so a request's "seeds" are attempt numbers
+that name the files; running the same attempt again gives a different picture.
 
 Figures and sources (read 8 November 2026; they move, so re-read before trusting a cost):
 - Request fields, sizes and response: OpenAI's API reference, https://developers.openai.com/api/reference/resources/images
@@ -18,7 +22,9 @@ Figures and sources (read 8 November 2026; they move, so re-read before trusting
 """
 import base64
 import json
+from pathlib import Path
 import re
+import struct
 import time
 import urllib.error
 import urllib.request
@@ -28,8 +34,10 @@ API = 'https://api.openai.com/v1'
 MODEL = 'gpt-image-2'
 KEY_VARIABLE = 'OPENAI_API_KEY'
 TERMS_READ = '2026-11-08'
-TERMS_NOTE = ('OpenAI terms of use as summarised on ' + TERMS_READ + ': the user owns the outputs, which may not be unique; '
-              'no use of outputs to build competing models (secondary source, ConductAtlas; the openai.com page refused the fetch).')
+TERMS_NOTE = ('OpenAI Services Agreement, sections 4.1 and 4.4, as recorded in the Phobos Ostranauts repository on 2026-10-07 and '
+              'summarised again on ' + TERMS_READ + ': API customers own Output, OpenAI assigns any rights it has, and Output may '
+              'not be unique; no use of Output to build competing models. Dated secondary records: the openai.com page refuses '
+              'automated reads, so the owner confirms the current text.')
 
 QUALITIES = ('low', 'medium', 'high')
 BACKGROUNDS = ('auto', 'opaque', 'transparent')  # transparent is a preview feature on gpt-image-2 (API reference).
@@ -80,8 +88,25 @@ def settings(req):
     return {'quality': req.get('quality', 'medium'), 'background': req.get('background'), 'moderation': req.get('moderation')}
 
 
-def request_problems(req):
-    """Everything the API would refuse about a request, found before any money is spent."""
+def reference_paths(req):
+    """The reference images of a request, as written (strings or {"image", "role"} entries)."""
+    return [ref.get('image', '') if isinstance(ref, dict) else ref for ref in req.get('references', [])]
+
+
+def reference_roles(req):
+    """What each reference is for, in order; None where the request gives no role."""
+    return [ref.get('role') if isinstance(ref, dict) else None for ref in req.get('references', [])]
+
+
+def outside_own_art(path, allowed_roots):
+    """Whether a reference lies outside every root of our own art, and so may not be sent to a provider."""
+    resolved = Path(path).resolve()
+    return not any(resolved.is_relative_to(Path(root).resolve()) for root in allowed_roots)
+
+
+def request_problems(req, allowed_roots=None, root=None):
+    """Everything the API would refuse about a request, found before any money is spent, plus what our own rules refuse:
+    a reference outside allowed_roots (resolved against root when relative) is never sent."""
     problems = []
     name = req.get('name', '?')
     width, height = req.get('width'), req.get('height')
@@ -100,12 +125,20 @@ def request_problems(req):
         problems.append(f'{name}: background {chosen["background"]!r} is not one of {", ".join(BACKGROUNDS)}')
     if chosen['moderation'] is not None and chosen['moderation'] not in MODERATION:
         problems.append(f'{name}: moderation {chosen["moderation"]!r} is not one of {", ".join(MODERATION)}')
-    references = req.get('references', [])
+    references = reference_paths(req)
     if len(references) > MAX_REFERENCES:
         problems.append(f'{name}: {len(references)} references; the API takes at most {MAX_REFERENCES}')
+    for ref in req.get('references', []):
+        if isinstance(ref, dict) and ('image' not in ref or set(ref) - {'image', 'role'}):
+            problems.append(f'{name}: a reference entry needs "image" and may have "role", nothing else')
     for ref in references:
         if not str(ref).lower().endswith(REFERENCE_SUFFIXES):
             problems.append(f'{name}: reference {ref} is not a PNG, JPEG or WebP file')
+        elif allowed_roots is not None:
+            path = Path(ref) if Path(ref).is_absolute() or root is None else Path(root) / ref
+            if outside_own_art(path, allowed_roots):
+                problems.append(f'{name}: reference {ref} is outside our own art, so it may not be sent to a paid service '
+                                "(the game's textures and other authors' art stay on this PC)")
     for unused in ('init', 'lora', 'steps', 'cfg', 'model'):
         if unused in req:
             problems.append(f'{name}: {unused!r} is a local-engine setting the OpenAI engine cannot use')
@@ -118,7 +151,7 @@ def estimate_usd(req):
     """The most one image of this request should cost, for the cap's look-ahead (see ESTIMATE_PER_IMAGE)."""
     quality = settings(req)['quality']
     scale = max(1.0, req['width'] * req['height'] / ESTIMATE_BASE_PIXELS)
-    references = len(req.get('references', []))
+    references = len(reference_paths(req))
     return ESTIMATE_PER_IMAGE.get(quality, ESTIMATE_PER_IMAGE['high']) * scale + \
         references * REFERENCE_TOKEN_ALLOWANCE * PRICE_PER_MILLION['image_input'] / 1e6
 
@@ -225,6 +258,13 @@ def post(path, data, content_type, api_key, opener=urllib.request.urlopen, sleep
     raise ApiError('no answer from OpenAI')
 
 
+def png_size(data):
+    """Width and height from a PNG's header, or None if the bytes are not a PNG."""
+    if len(data) < 24 or data[:8] != b'\x89PNG\r\n\x1a\n' or data[12:16] != b'IHDR':
+        return None
+    return list(struct.unpack('>II', data[16:24]))
+
+
 def make_image(req, references, api_key, opener=urllib.request.urlopen, sleep=time.sleep):
     """One image. references: (file name, bytes) pairs, empty for a plain generation. Returns the PNG bytes and what the
     record keeps: the endpoint, the settings the API reports it used, the token counts and the cost."""
@@ -245,4 +285,10 @@ def make_image(req, references, api_key, opener=urllib.request.urlopen, sleep=ti
     for key in ('quality', 'size', 'background', 'output_format'):
         if reply.get(key) is not None:
             info[f'reported_{key}'] = reply[key]
-    return base64.b64decode(images[0]), info
+    data = base64.b64decode(images[0])
+    # Ostranauts' lesson: a provider does not always return the size asked for (2048 asked, 1254 returned). Record what
+    # came back and say so when it differs, so no export assumes the requested size.
+    info['returned_size'] = png_size(data)
+    if info['returned_size'] and info['returned_size'] != [req['width'], req['height']]:
+        info['size_note'] = f'asked for {req["width"]}x{req["height"]}, received {info["returned_size"][0]}x{info["returned_size"][1]}'
+    return data, info

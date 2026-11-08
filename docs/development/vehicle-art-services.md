@@ -78,16 +78,20 @@ corners, straight top-down, no perspective. Outputs ship in a free public Worksh
 ## Running the OpenAI engine
 
 **The owner's pick (9 Nov 2026): the OpenAI image API for vehicle bodies, local generation for icons.** The engine was built
-on 8 Nov 2026 (`scripts/art/openai_images.py`, used by `scripts/generate-art.py` and `scripts/art-run.py`); offline tests in
-`tests/test_openai_images.py`. **No real image has been made with it yet.**
+on 9 Nov 2026 (`scripts/art/openai_images.py`, used by `scripts/generate-art.py` and `scripts/art-run.py`); offline tests in
+`tests/test_openai_images.py`. **No real image has been made with it yet.** The rules for using it, learnt in Phobos
+Ostranauts, are in [paid image generation rules](paid-image-generation-rules.md): read them before writing a request.
 
 - **The key** is read from the `OPENAI_API_KEY` environment variable only (the owner's user variable). It is never written to
   a file, record or report, and key-shaped text in an error is blanked. The owner's key is a restricted key: it may make
-  images but not list models, which the engine never needs. On 8 Nov 2026 a deliberately invalid request (a 7 by 7 size)
+  images but not list models, which the engine never needs. On 9 Nov 2026 a deliberately invalid request (a 7 by 7 size)
   showed the key and `gpt-image-2` are accepted; an invalid request makes no image and costs nothing.
 - **A request** uses `"engine": "openai"`, a prompt, a width and height (each divisible by 16, shape between 1:3 and 3:1,
   at most 3840 by 2160), optional `"quality"` (`low`, `medium` the default, `high`), `"background"`, `"moderation"`, and
-  up to 16 `"references"` (PNG, JPEG or WebP), which turn the call into an edit. `"seeds"` are attempt numbers that name the
+  up to 16 `"references"` (PNG, JPEG or WebP), which turn the call into an edit. A reference is a path or
+  `{"image": path, "role": "what it is for"}`; the role is recorded and belongs in the prompt too. **A reference must be our
+  own art** (under `assets/`, `mods/` or `.local/art/`): the engine refuses the game's extracted textures and other authors'
+  art before anything is sent. `"seeds"` are attempt numbers that name the
   files; the API has no seed, so a rerun differs. Local settings (`init`, `lora`, `steps`, `cfg`, `model`) are refused.
 - **The cap:** `--max-usd` is required for any paid request (`"max_usd"` in a night step). Before each image the run checks
   that what is spent plus that image's highest estimate stays within the cap, and stops otherwise. The cost recorded is worked
@@ -97,10 +101,11 @@ on 8 Nov 2026 (`scripts/art/openai_images.py`, used by `scripts/generate-art.py`
   only. Rate limits and server errors are retried twice; a timeout is never retried.
 - **No graphics card:** a run with only paid requests never starts ComfyUI and does not stop for the game. The stop time and
   the disk floor still apply.
-- **Each record** adds the quality, the endpoint, the token counts, the cost, an AI disclosure and the terms note as read on
-  the day, beside the usual prompt, size, date and SHA-256.
+- **Each record** adds the quality, the endpoint, the token counts, the cost, the size that came back (and a note when it
+  differs from the size asked), each reference's role, an AI disclosure and the terms note as read on the day, beside the
+  usual prompt, size, date and SHA-256.
 
-```
+```text
 python scripts/art-run.py generate <requests.json> --dry-run
 python scripts/art-run.py generate <requests.json> --stop-at 23:00 --max-usd 0.50
 ```

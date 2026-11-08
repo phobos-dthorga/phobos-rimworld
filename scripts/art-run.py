@@ -86,7 +86,7 @@ def near_copy_sources(requests, extra=()):
     repository, which never holds game art, or in .local/art, which holds only the owner's picks from our own generations (the
     game's art extracted for reference lives in .local/references and stays a source). Looking like our own art is the point of
     using it as a reference; before this, a pick used as a reference flagged every image drawn from it and itself."""
-    folders = [ROOT / ref if not Path(ref).is_absolute() else Path(ref) for req in requests for ref in req.get('references', [])]
+    folders = [ROOT / ref if not Path(ref).is_absolute() else Path(ref) for req in requests for ref in art.reference_paths(req)]
     folders = [path for path in folders if not any(path.is_relative_to(ROOT / own) for own in OWN_ART)]
     return list(dict.fromkeys([*(str(path.parent) for path in folders), *(str(Path(path)) for path in extra)]))
 
@@ -236,7 +236,7 @@ def generate(args, stop_at, game_names):
             how = (f'{art.paid.settings(req)["quality"]} quality, up to US${art.paid.estimate_usd(req):.3f} an image'
                    if art.is_paid(req) else f'{req.get("steps", engine["steps"])} steps')
             print(f'  {req["name"]}: {req.get("engine", "schnell")}, {how}, '
-                  f'{len(req["seeds"])} seeds, {len(req.get("references", []))} references, {req["width"]}x{req["height"]}')
+                  f'{len(req["seeds"])} seeds, {len(art.reference_paths(req))} references, {req["width"]}x{req["height"]}')
         if any_paid:
             print(f'paid images still to make should cost at most about US${estimate:.2f}')
         for problem in paid_problems:

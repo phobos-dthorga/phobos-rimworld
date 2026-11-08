@@ -81,6 +81,17 @@ ENGINES = {
 }
 
 
+# Art of our own, the only art a paid service may ever see: our asset folders, our mods' textures and the owner's picks. The
+# game's extracted textures (.local/references) and other authors' art are read locally only. The same roots are the ones
+# art-run.py leaves out of the near-copy check.
+OWN_ART_ROOTS = (ROOT / 'assets', ROOT / 'mods', ROOT / '.local' / 'art')
+
+
+def reference_paths(req):
+    """A request's reference images as paths, whether written as strings or as {"image", "role"} entries."""
+    return paid.reference_paths(req)
+
+
 def is_paid(req):
     """Whether a request is made by a paid remote engine rather than the local ComfyUI."""
     return ENGINES.get(req.get('engine', 'schnell'), {}).get('remote', False)
@@ -88,7 +99,7 @@ def is_paid(req):
 
 def paid_problems(requests):
     """What the OpenAI API would refuse in a request file's paid requests, before any money is spent."""
-    return [problem for req in requests if is_paid(req) for problem in paid.request_problems(req)]
+    return [problem for req in requests if is_paid(req) for problem in paid.request_problems(req, OWN_ART_ROOTS, ROOT)]
 
 
 def paid_estimate(images):
@@ -460,7 +471,7 @@ def preview_graphs(request_file, only=None):
     for req, seed, _ in plan(request_file, only):
         if req['name'] in graphs or is_paid(req):
             continue
-        references = [f'phobos-init-{req["name"]}-ref{i + 1}.png' for i in range(len(req.get('references', [])))]
+        references = [f'phobos-init-{req["name"]}-ref{i + 1}.png' for i in range(len(reference_paths(req)))]
         init = f'phobos-init-{req["name"]}.png' if req.get('init') else None
         graphs[req['name']] = build_graph(req, seed, references, init, float(req.get('denoise', 0.7)))
     return graphs
@@ -530,7 +541,12 @@ def make_paid_record(req, target, data, attempt, request_file, reference_sources
     if seconds is not None:
         record['seconds'] = seconds
     if reference_sources:
-        record['references'] = [{'image': display_path(s), 'sha256': hashlib.sha256(s.read_bytes()).hexdigest()} for s in reference_sources]
+        record['references'] = []
+        for source, role in zip(reference_sources, paid.reference_roles(req)):
+            entry = {'image': display_path(source), 'sha256': hashlib.sha256(source.read_bytes()).hexdigest()}
+            if role:
+                entry['role'] = role
+            record['references'].append(entry)
     return record
 
 
@@ -590,13 +606,13 @@ def run(request_file, only=None, comfy_path=DEFAULT_COMFY, start=False, should_s
             init_name, init_source, denoise = None, None, 1.0
             reference_names, reference_sources, reference_files = [], [], []
             if remote:
-                reference_sources = [resolve(ref) for ref in req.get('references', [])]
+                reference_sources = [resolve(ref) for ref in reference_paths(req)]
                 reference_files = [(source.name, source.read_bytes()) for source in reference_sources]
             else:
                 if req.get('init'):
                     init_name, init_source = stage_init(comfy_path, req['init'], req['name'])
                     denoise = float(req.get('denoise', 0.7))
-                for i, ref in enumerate(req.get('references', [])):
+                for i, ref in enumerate(reference_paths(req)):
                     name, source = stage_init(comfy_path, ref, f'{req["name"]}-ref{i + 1}')
                     reference_names.append(name)
                     reference_sources.append(source)
