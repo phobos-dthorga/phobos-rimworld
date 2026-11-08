@@ -186,12 +186,25 @@ class RequestFileTests(unittest.TestCase):
         for subject, entry in baselines.items():
             self.assertTrue((generated / entry['src']).is_file(), subject)
 
-    def test_the_stand_in_reference_is_in_the_repository(self):
+    def test_the_stand_in_reference_is_kept_off_main_and_archived(self):
+        # Our reference drawings are not on main (owner, 7 Nov 2026): assets/*/references/ is ignored, and the art-references
+        # branch keeps each one under drawings/. A clean checkout of main (CI) has neither the file nor that branch; the test
+        # once asked for the file itself and failed there on every commit, skipping every .NET step after it.
         import json
+        import subprocess
         with open(os.path.join(ROOT, 'assets', 'phobos-medical', 'requests', 'first-batch.json'), encoding='utf-8') as file:
             subject = next(r for r in json.load(file) if r['name'] == 'oxygen-concentrator-from-stand-in')
-        self.assertTrue(os.path.isfile(os.path.join(ROOT, subject['references'][0])))
+        reference = subject['references'][0]
+        self.assertRegex(reference, r'^assets/[^/]+/references/')
         self.assertIs(subject['lora_comparison'], False)
+        git = ['git', '-c', 'core.fsmonitor=false']
+        branch = subprocess.run(git + ['rev-parse', '--verify', '--quiet', 'origin/art-references'], cwd=ROOT,
+                                capture_output=True, check=False)
+        if branch.returncode != 0:
+            self.skipTest('this checkout has no art-references branch (a clean checkout of main)')
+        archived = subprocess.run(git + ['cat-file', '-e', 'origin/art-references:drawings/' + os.path.basename(reference)],
+                                  cwd=ROOT, capture_output=True, check=False)
+        self.assertEqual(archived.returncode, 0, 'the art-references branch should keep ' + os.path.basename(reference))
 
     def test_the_medical_requests_build_valid_graphs_with_no_server(self):
         spec = importlib.util.spec_from_file_location('generate_art_for_requests', os.path.join(ROOT, 'scripts', 'generate-art.py'))
