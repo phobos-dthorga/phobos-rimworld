@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
-  <!-- Our own vehicle parts, loaded only when neither RimThunder nor Vanilla Vehicles Expanded is active. Priced near Vanilla Vehicles Expanded's engine block (40 steel, 4 silver, 6 components); counts authored. Smelting gives back half the steel. -->
+  <!-- Our own vehicle parts, which always exist (owner, 9 Nov 2026): they set what a destroyed part costs to replace, whichever other mods are
+       installed, and another mod's parts are accepted only where they make sense (PartSupplies.xml). Priced near Vanilla Vehicles Expanded's
+       engine block; every figure is authored. Moved here from D'thorga Vehicles in Framework 0.36.0, so any Vehicle Framework vehicle can use them. -->
   <ThingDef ParentName="ResourceBase">
     <defName>PhobosVehicles_EngineAssembly</defName>
     <label>engine assembly</label>
@@ -128,6 +130,91 @@
     </recipeMaker>
     <smeltProducts>
       <Steel>12</Steel>
+    </smeltProducts>
+  </ThingDef>
+  <ThingDef ParentName="ResourceBase">
+    <defName>PhobosVehicles_Transmission</defName>
+    <label>transmission</label>
+    <description>A complete gearbox for a vehicle, ready to bolt in.</description>
+    <graphicData>
+      <texPath>Phobos/Vehicles/Parts/Transmission</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <soundInteract>Metal_Drop</soundInteract>
+    <soundDrop>Standard_Drop</soundDrop>
+    <stackLimit>5</stackLimit>
+    <statBases>
+      <MaxHitPoints>120</MaxHitPoints>
+      <Mass>30</Mass>
+      <Flammability>0.2</Flammability>
+      <WorkToMake>3500</WorkToMake>
+    </statBases>
+    <thingCategories>
+      <li>Manufactured</li>
+    </thingCategories>
+    <costList>
+      <Steel>40</Steel>
+      <ComponentIndustrial>4</ComponentIndustrial>
+    </costList>
+    <recipeMaker>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <effectWorking>Smith</effectWorking>
+      <soundWorking>Recipe_Machining</soundWorking>
+      <workSkill>Crafting</workSkill>
+      <unfinishedThingDef>UnfinishedComponent</unfinishedThingDef>
+      <researchPrerequisite>Machining</researchPrerequisite>
+      <recipeUsers>
+        <li>TableMachining</li>
+      </recipeUsers>
+      <skillRequirements>
+        <Crafting>6</Crafting>
+      </skillRequirements>
+    </recipeMaker>
+    <smeltProducts>
+      <Steel>20</Steel>
+    </smeltProducts>
+  </ThingDef>
+  <ThingDef ParentName="ResourceBase">
+    <defName>PhobosVehicles_TurbineAssembly</defName>
+    <label>gas turbine assembly</label>
+    <description>A complete gas turbine for an aircraft or a heavy vehicle, its hot section built from plasteel.</description>
+    <graphicData>
+      <texPath>Phobos/Vehicles/Parts/TurbineAssembly</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <soundInteract>Metal_Drop</soundInteract>
+    <soundDrop>Standard_Drop</soundDrop>
+    <stackLimit>5</stackLimit>
+    <statBases>
+      <MaxHitPoints>120</MaxHitPoints>
+      <Mass>35</Mass>
+      <Flammability>0.2</Flammability>
+      <WorkToMake>8000</WorkToMake>
+    </statBases>
+    <thingCategories>
+      <li>Manufactured</li>
+    </thingCategories>
+    <costList>
+      <Steel>60</Steel>
+      <Plasteel>15</Plasteel>
+      <ComponentIndustrial>10</ComponentIndustrial>
+    </costList>
+    <recipeMaker>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <effectWorking>Smith</effectWorking>
+      <soundWorking>Recipe_Machining</soundWorking>
+      <workSkill>Crafting</workSkill>
+      <unfinishedThingDef>UnfinishedComponent</unfinishedThingDef>
+      <researchPrerequisite>Fabrication</researchPrerequisite>
+      <recipeUsers>
+        <li>TableMachining</li>
+      </recipeUsers>
+      <skillRequirements>
+        <Crafting>8</Crafting>
+      </skillRequirements>
+    </recipeMaker>
+    <smeltProducts>
+      <Steel>30</Steel>
     </smeltProducts>
   </ThingDef>
 </Defs>

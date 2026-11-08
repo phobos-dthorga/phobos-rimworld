@@ -4,7 +4,7 @@ Vehicles that keep running only while they are looked after. It adds one vehicle
 vehicles of other mods you already drive the systems that match what they really are, on top of the general systems D'thorga
 Framework gives every vehicle.
 
-Version 0.13.0, built 9 November 2026 for House D'thorga. **Not yet tested in game.**
+Version 0.14.0, built 9 November 2026 for House D'thorga. **Not yet tested in game.**
 
 ## Read this first (gotchas)
 
@@ -62,7 +62,7 @@ Every source and simplification is in the loadout files under `Mods/`.
 
 ## The bulk tanker
 
-**Not yet tested in game.** A heavy truck, 2 by 6 cells, built with a bare deck.
+**Not yet tested in game.** A heavy truck, 3 by 10 cells, built with a bare deck.
 
 1. **Fit a tank** in its Upgrades tab: a general, insulated or high-volume liquid tank, or a pressure vessel if Vanilla Gravship Expanded is active. Only one tank at a time.
 2. **Choose what it carries** with its Choose contents button.

@@ -35,6 +35,30 @@ public class WorldObjectComp_PhobosVehicleCaravan : WorldObjectComp
         return lines.Count == 0 ? null : string.Join("\n", lines);
     }
 
+    /// <summary>A repair done at a halt, with supplies from the vehicle's cargo. All at once: an authored simplification, as the caravan
+    /// jump-start is. Presentation only: the repair is the comp's.</summary>
+    static Gizmo? RepairGizmo(VehicleCaravan caravan, CompPhobosVehicleSystems comp)
+    {
+        if (comp.Repairs.Pending.Count == 0) return null;
+        RepairWork? ready = comp.Repairs.Ready;
+        RepairWork shown = ready ?? comp.Repairs.Pending[0];
+        var command = new Command_Action
+        {
+            defaultLabel = "PhobosVehicleSystems_CaravanRepair".Translate(comp.Vehicle.LabelShort.Named("VEHICLE")).Resolve(),
+            defaultDesc = shown.Label.CapitalizeFirst(),
+            icon = SystemIcons.For("Phobos/VehicleSystems/CaravanRepair"),
+        };
+        Pawn? mechanic = caravan.PawnsListForReading.FirstOrDefault(p => p is not VehiclePawn && p.IsColonist && !p.Downed && !p.WorkTagIsDisabled(WorkTags.Constructing));
+        if (caravan.vehiclePather != null && caravan.vehiclePather.MovingNow) command.Disable("PhobosVehicleSystems_CaravanRepairMoving".Translate().Resolve());
+        else if (mechanic == null) command.Disable("PhobosVehicleSystems_CaravanRepairNoMechanic".Translate().Resolve());
+        else if (ready == null) command.Disable(comp.Repairs.NeedsLine(shown));
+        command.action = () =>
+        {
+            if (mechanic != null) comp.Repairs.CompleteReady(mechanic);
+        };
+        return command;
+    }
+
     public override IEnumerable<Gizmo> GetGizmos()
     {
         VehicleCaravan? caravan = Caravan;
@@ -43,6 +67,8 @@ public class WorldObjectComp_PhobosVehicleCaravan : WorldObjectComp
         {
             Gizmo? gizmo = JumpStarts.CaravanGizmo(caravan, comp);
             if (gizmo != null) yield return gizmo;
+            Gizmo? repair = RepairGizmo(caravan, comp);
+            if (repair != null) yield return repair;
         }
     }
 }

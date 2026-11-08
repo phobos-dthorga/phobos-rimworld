@@ -18,6 +18,8 @@ public sealed class VehicleCondition : IExposable
     public string role = "";
     public string system = "";
     public float severity;
+    /// <summary>Patched in the field once; another patch adds nothing.</summary>
+    public bool fieldFixed;
     [Unsaved] public int stage = -1;
 
     public StageSpec? CurrentStage => def != null && stage >= 0 && stage < def.stages.Count ? def.stages[stage] : null;
@@ -29,6 +31,7 @@ public sealed class VehicleCondition : IExposable
         Scribe_Values.Look(ref role, "role", "");
         Scribe_Values.Look(ref system, "system", "");
         Scribe_Values.Look(ref severity, "severity");
+        Scribe_Values.Look(ref fieldFixed, "fieldFixed", false);
     }
 }
 
@@ -116,8 +119,21 @@ public sealed class VehicleConditions
         for (int i = list.Count - 1; i >= 0; i--)
         {
             VehicleCondition condition = list[i];
-            if (condition.partKey == key && SeverityRule.ClearedByRepair(condition.def!.clearsOnRepair, before, after, part.MaxHealth)) RemoveAt(i);
+            if (condition.partKey == key && SeverityRule.ClearedByRepair(condition.def!.RepairClears(condition.severity), before, after, part.MaxHealth)) RemoveAt(i);
         }
+    }
+
+    public void Remove(VehicleCondition condition)
+    {
+        int index = list.IndexOf(condition);
+        if (index >= 0) RemoveAt(index);
+    }
+
+    /// <summary>A field fix: the condition halves, once, and its stage follows.</summary>
+    public void FieldFix(VehicleCondition condition)
+    {
+        condition.severity = (float)SeverityRule.FieldFixed(condition.severity);
+        condition.fieldFixed = true;
     }
 
     /// <summary>Removes every condition the service clears. Returns how many went.</summary>

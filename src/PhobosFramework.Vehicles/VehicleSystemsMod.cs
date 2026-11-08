@@ -33,6 +33,14 @@ public class VehicleSystemsSettings : ModSettings
     public bool fuelGelling;
     /// <summary>A flammable load explodes when its tank is destroyed under it (owner, 8 Nov 2026: on, with this setting to turn it off). Live.</summary>
     public bool tankExplosions = true;
+    /// <summary>A destroyed part needs replacement supplies; ordinary damage stays free (vehicle health, slice 3). Live.</summary>
+    public bool destroyedPartsNeedSupplies = true;
+    /// <summary>How much of the part an engine or transmission costs to replace: at 100%, the whole part. Live.</summary>
+    public float wholePartShare = 1f;
+    /// <summary>How much of the full materials any other destroyed part costs to replace. Agent default. Live.</summary>
+    public float otherPartShare = 0.5f;
+    /// <summary>Colonists can patch leaks and shorts in the field. Live.</summary>
+    public bool fieldFixes = true;
     public DisplayMode displayMode = DisplayMode.Plain;
     /// <summary>The drivetrain and turbines: off, figures only, or feeding load, heat and the speed cap. Live.</summary>
     public DrivetrainMode drivetrainMode = DrivetrainMode.Full;
@@ -109,6 +117,10 @@ public class VehicleSystemsSettings : ModSettings
         Scribe_Values.Look(ref showOnly, "PhobosVehicleSystems_ShowOnly", false);
         Scribe_Values.Look(ref fuelGelling, "PhobosVehicleSystems_FuelGelling", false);
         Scribe_Values.Look(ref tankExplosions, "PhobosVehicleSystems_TankExplosions", true);
+        Scribe_Values.Look(ref destroyedPartsNeedSupplies, "PhobosVehicleSystems_DestroyedPartsNeedSupplies", true);
+        Scribe_Values.Look(ref wholePartShare, "PhobosVehicleSystems_WholePartShare", 1f);
+        Scribe_Values.Look(ref otherPartShare, "PhobosVehicleSystems_OtherPartShare", 0.5f);
+        Scribe_Values.Look(ref fieldFixes, "PhobosVehicleSystems_FieldFixes", true);
         Scribe_Values.Look(ref displayMode, "PhobosVehicleSystems_DisplayMode", DisplayMode.Plain);
         Scribe_Values.Look(ref drivetrainMode, "PhobosVehicleSystems_DrivetrainMode", DrivetrainMode.Full);
         Scribe_Values.Look(ref loadDependentFuel, "PhobosVehicleSystems_LoadDependentFuel", false);
@@ -273,6 +285,17 @@ public class VehicleSystemsMod : Mod
         listing.CheckboxLabeled("PhobosVehicleSystems_SettingBatteryFires".Translate(), ref s.batteryFires, "PhobosVehicleSystems_SettingBatteryFiresDesc".Translate());
         if (s.batteryFires) SettingsUi.Warning(listing, "PhobosVehicleSystems_BatteryFiresWarning".Translate());
         listing.CheckboxLabeled("PhobosVehicleSystems_SettingElectricLightning".Translate(), ref s.electricLightning, "PhobosVehicleSystems_SettingElectricLightningDesc".Translate());
+
+        SettingsUi.Section(listing, "PhobosVehicleSystems_SectionRepairs".Translate());
+        listing.CheckboxLabeled("PhobosVehicleSystems_SettingDestroyedParts".Translate(), ref s.destroyedPartsNeedSupplies, "PhobosVehicleSystems_SettingDestroyedPartsDesc".Translate());
+        if (s.destroyedPartsNeedSupplies)
+        {
+            listing.Label("PhobosVehicleSystems_SettingWholePartShare".Translate(s.wholePartShare.ToStringPercent().Named("SHARE")), tooltip: "PhobosVehicleSystems_SettingWholePartShareDesc".Translate());
+            s.wholePartShare = listing.Slider(s.wholePartShare, 0f, 1f);
+            listing.Label("PhobosVehicleSystems_SettingOtherPartShare".Translate(s.otherPartShare.ToStringPercent().Named("SHARE")), tooltip: "PhobosVehicleSystems_SettingOtherPartShareDesc".Translate());
+            s.otherPartShare = listing.Slider(s.otherPartShare, 0f, 1f);
+        }
+        listing.CheckboxLabeled("PhobosVehicleSystems_SettingFieldFixes".Translate(), ref s.fieldFixes, "PhobosVehicleSystems_SettingFieldFixesDesc".Translate());
 
         SettingsUi.Section(listing, "PhobosVehicleSystems_SectionJumpStarts".Translate());
         listing.CheckboxLabeled("PhobosVehicleSystems_SettingJumpStartNeedsKit".Translate(), ref s.jumpStartNeedsKit, "PhobosVehicleSystems_SettingJumpStartNeedsKitDesc".Translate());

@@ -15,12 +15,15 @@
     - A warped cylinder head follows severe overheating (secondary: Wikipedia, "Head gasket" and "Cylinder head"): combustion gas
       reaches the coolant and the engine runs hotter, and a badly warped head loses compression and power. The extra heat (10 and 30
       degrees an hour while running, against 420 at full load) and the power loss (10%) are authored.
-    All three clear when the part is repaired to full health (Vehicle Framework's own repair); none fades by itself.
+    All three clear when the part is repaired to full health (Vehicle Framework's own repair), but a badly warped head needs its own
+    job (slice 3): a head that is badly warped is not put right by patching the engine. None fades by itself. A holed radiator and a
+    shorted battery can be patched in the field; a warped head cannot.
   -->
   <Phobos.VehicleSystems.PhobosVehicleConditionDef>
     <defName>PhobosVehicleCondition_HoledRadiator</defName>
     <label>holed</label>
     <description>Shot or shrapnel has holed the radiator, and the coolant leaks away. Repair the radiator to stop it, and top the coolant up.</description>
+    <fieldFixable>true</fieldFixable>
     <stages>
       <li>
         <to>0.3</to>
@@ -63,6 +66,7 @@
     <defName>PhobosVehicleCondition_ShortedBattery</defName>
     <label>shorted</label>
     <description>A hit has damaged the battery's cells, and it drains itself even when nothing draws on it. Repair the battery to stop it.</description>
+    <fieldFixable>true</fieldFixable>
     <stages>
       <li>
         <to>0.4</to>
@@ -92,7 +96,16 @@
   <Phobos.VehicleSystems.PhobosVehicleConditionDef>
     <defName>PhobosVehicleCondition_WarpedHead</defName>
     <label>warped cylinder head</label>
-    <description>Boiling over has warped the engine's cylinder head. Hot gas leaks into the coolant, so the engine runs hotter, and a badly warped head costs power. Repair the engine to fix it.</description>
+    <description>Boiling over has warped the engine's cylinder head. Hot gas leaks into the coolant, so the engine runs hotter, and a badly warped head costs power. Repair the engine to fix a slight warp; a bad one needs the head taken off and machined flat.</description>
+    <needsServiceFrom>0.4</needsServiceFrom>
+    <service>
+      <label>machining the cylinder head flat</label>
+      <supplies>
+        <Steel>15</Steel>
+        <ComponentIndustrial>3</ComponentIndustrial>
+      </supplies>
+      <work>3000</work>
+    </service>
     <stages>
       <li>
         <to>0.4</to>

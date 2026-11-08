@@ -582,4 +582,12 @@ public class PhobosVehicleRulesDef : PhobosRulesDef
     public int nightEndsHour = 6;
     /// <summary>How far, in cells, a parked vehicle can reach a powered building to charge from it.</summary>
     public int shorePowerReach = 1;
+    /// <summary>The share of full health a replaced part comes back with; ordinary repair does the rest.</summary>
+    public float replacedPartHealth = 0.25f;
+    /// <summary>Work in ticks to patch a leak or a short in the field.</summary>
+    public float fieldFixWork = 600f;
+    /// <summary>What a field fix uses up.</summary>
+    public List<ThingDefCountClass> fieldFixSupplies = new();
+    /// <summary>A danger clock is shown only within this many hours.</summary>
+    public float dangerClockHours = 72f;
 }

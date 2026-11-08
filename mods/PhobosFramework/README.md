@@ -5,7 +5,7 @@ colonist is breathing, makes fires fill roofed rooms with the game's own smoke w
 carries carbon monoxide from fires, holds the per-person care choices the D'thorga medical mods offer, and holds the small
 helpers every D'thorga mod shares.
 
-Version 0.35.0, built 9 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
+Version 0.36.0, built 9 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
 oxygen working through Burns and Smoke and Medical Equipment (5 November 2026). The health layer new in 0.3.0 and the **vehicle
 systems new in 0.9.0, and their engines, drivetrains and gas turbines new in 0.11.0, are not yet tested in game.** The rest is read from the game's and the mods' code.
 
@@ -152,6 +152,10 @@ Other mods (D'thorga Vehicles first) can give a named vehicle its own figures. N
 - **Parts can have conditions** (0.29.0), shown under the part on the Health tab: a radiator holed by shot or shrapnel goes on
   leaking coolant, a shot battery drains itself, and boiling over warps the cylinder head, so the engine runs hotter and, when it is
   bad, slower. **Repair the part to full health to clear them** (a colonist's repair job, or a caravan's). Not yet tested in game.
+- **A destroyed part needs replacing** (0.36.0): at 0% it waits for supplies in the vehicle's cargo and a mechanic, then ordinary free repair
+  carries on. **An engine or transmission costs the whole part by default, anything else half its materials; both are in the settings, and
+  the setting Destroyed parts need replacing turns it off.** Make our engine, turbine and transmission at the machining table. A vehicle
+  whose engine is destroyed cannot move until it has a new one. Not yet tested in game.
 - **Other factions' vehicles run a simpler model** (0.25.0): raiders' and visitors' vehicles on your map take hits but nothing in
   them heats, wears or runs down by itself, which keeps a raid cheap; capture one and it wakes to the full model. The setting
   **Every faction's vehicles run the full model** (off) makes them cost what yours do.

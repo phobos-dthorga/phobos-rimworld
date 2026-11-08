@@ -5,6 +5,14 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+### Fixed
+
+- The bulk tanker no longer looks damaged when it is new: its damage marks now appear only while the part is really damaged. Found in the owner's first look. **Not yet tested in game.**
+
+### Balance
+
+- The bulk tanker is now 3 by 10 cells, the size of RimThunder's biggest truck, instead of 2 by 6, which looked tiny beside everything else (owner's first look). A tanker already built keeps its place on the map, so it may overlap what is beside it: move it clear first.
+
 ### Changed
 
 - A leaking or burst tank now leaves the right mess: blood from hemogen, slime from nutrient paste, water from water and an oil smear from deepchem, as well as the chemfuel puddles it already left. **Not yet tested in game.**
@@ -15,6 +23,18 @@ tested in game unless an entry says the owner tested it.
 ### Compatibility and limits
 
 - BMP-1 IFV (Vehicle Framework), by Turbo, is no longer on the Steam Workshop (Steam showed no public item on 8 November 2026: removed or made private). Its loadout here loads only while that mod is active, so it stays dormant and costs nothing; a player with their own copy still gets it.
+
+## [0.14.0] - 2026-11-09 - Draft
+
+Our vehicle parts moved to D'thorga Framework (owner, 9 November 2026). **Not yet tested in game.**
+
+### Changed
+
+- The engine assembly, drivetrain kit and electrical kit are now provided by D'thorga Framework 0.36.0 and always exist, not only when neither RimThunder nor Vanilla Vehicles Expanded is active. Their internal names are unchanged.
+
+### Dependencies
+
+- Needs D'thorga Framework 0.36.0.
 
 ## [0.13.0] - 2026-11-09 - Draft
 

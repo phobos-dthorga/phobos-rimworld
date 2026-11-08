@@ -448,6 +448,38 @@ cooling system's `coolantLevel`; a fault is an `Effect_StatFactor` or an `Effect
 - The dev action **Vehicle systems: give a part condition** sets any condition on the selected vehicle's part of a role, to see
   each stage without arranging a hit; **Vehicle systems: hit a part** hits it through Vehicle Framework's damage path.
 
+## Parts and repairs
+
+**A destroyed part (0%) needs a replacement before ordinary free repair can continue**, on the player's own vehicles, unless the player
+turns that off. `PhobosVehiclePartSupplyDef` says what each role costs; the first that fits wins, and the one with `isDefault` covers parts
+with no role, by size. Add your own in XML:
+
+```xml
+<Phobos.VehicleSystems.PhobosVehiclePartSupplyDef>
+  <defName>MyMod_LaserEmitterSupply</defName>
+  <label>laser emitter</label>
+  <roles><li>LaserEmitter</li></roles>
+  <materials><Plasteel>20</Plasteel><ComponentSpacer>2</ComponentSpacer></materials>
+  <work>3000</work>
+  <substitutes>
+    <li MayRequire="some.other.mod"><thing>TheirEmitter</thing><maxKilograms>6000</maxKilograms></li>
+  </substitutes>
+</Phobos.VehicleSystems.PhobosVehiclePartSupplyDef>
+```
+
+| Field | What it does |
+| --- | --- |
+| `roles` | The part roles it covers |
+| `turbine` | `Yes` or `No`: only vehicles with, or without, a gas turbine |
+| `wholePart`, `item`, `itemCount` | Charged at the player's whole-part share: at 100% the item itself, below that a share of its cost |
+| `materials` | Full cost, of which the player's share for other parts is charged |
+| `steelPerHealth`, `componentsPerHealth`, `isDefault` | The default, by the size of the part |
+| `substitutes` | Another mod's part accepted instead, each with optional `minKilograms` and `maxKilograms` of empty mass. **List one only where it makes sense** |
+| `work` | Ticks of Construction work |
+
+A condition can also need a job of its own: `needsServiceFrom` (the severity from which a repair no longer clears it) with `service` (`label`,
+`supplies`, `work`). `fieldFixable` lets a colonist patch it once, halving its severity; `PhobosVehicleRulesDef` holds what a patch uses.
+
 ## Detail tiers
 
 Every fitted vehicle has a tier, read on the rare tick from the Framework core's `DetailTierRule`: the player's own vehicles are

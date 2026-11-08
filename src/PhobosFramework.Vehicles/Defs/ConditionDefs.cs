@@ -20,6 +20,16 @@ public class PhobosVehicleConditionDef : Def
     /// <summary>A repair that brings the part to full health clears it (Vehicle Framework's free repair). Off for a condition only a
     /// service with supplies should clear.</summary>
     public bool clearsOnRepair = true;
+    /// <summary>From this severity up, a repair no longer clears it: it needs <see cref="service"/>. Not set: every severity is alike.</summary>
+    public float needsServiceFrom = float.NaN;
+    /// <summary>The job that puts it right at or above <see cref="needsServiceFrom"/>: its label, supplies and work.</summary>
+    public ServiceSpec? service;
+    /// <summary>A colonist can patch it in the field: it halves, once, and only a proper repair or service ends it.</summary>
+    public bool fieldFixable;
+
+    public bool NeedsService(float severity) => !float.IsNaN(needsServiceFrom) && severity >= needsServiceFrom;
+
+    public bool RepairClears(float severity) => clearsOnRepair && !NeedsService(severity);
 
     [Unsaved] QuantitySpec? severity;
 
@@ -52,5 +62,6 @@ public class PhobosVehicleConditionDef : Def
         }
         if (!StageRule.Ordered(from, to)) yield return "stages overlap or are out of order";
         if (fadePerHour < 0f) yield return "fadePerHour is below 0";
+        if (!float.IsNaN(needsServiceFrom) && service == null) yield return "needsServiceFrom is set, with no service to put it right";
     }
 }

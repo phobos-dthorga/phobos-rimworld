@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    What replacing a destroyed part costs, by the role the part plays (vehicle health slice 3, docs/development/vehicle-health-consequences.md;
+    Framework 0.36.0). The owner's decisions of 9 Nov 2026: engines and transmissions cost the whole part by default, everything else
+    a share of its materials, both settable in the mod settings; our parts always exist, and another mod's are accepted only where they
+    make sense. Every figure and the mass classes are authored, held for the owner's review. The first Def that fits a part wins.
+
+    The substitutes are named per role so each is only offered where it suits: a light engine does not go in a tank, Vanilla Vehicles
+    Expanded's car parts do not go in anything above a car's weight (6 tonnes, authored), and a piston engine never replaces a turbine.
+  -->
+  <Phobos.VehicleSystems.PhobosVehiclePartSupplyDef>
+    <defName>PhobosPartSupply_PistonEngine</defName>
+    <label>piston engine</label>
+    <roles>
+      <li>Engine</li>
+      <li>Engine1</li>
+      <li>Engine2</li>
+      <li>Engine3</li>
+      <li>Engine4</li>
+    </roles>
+    <turbine>No</turbine>
+    <wholePart>true</wholePart>
+    <item>PhobosVehicles_EngineAssembly</item>
+    <work>4000</work>
+    <substitutes>
+      <li MayRequire="rimthunder.core"><thing>EngineLight</thing><maxKilograms>4000</maxKilograms></li>
+      <li MayRequire="rimthunder.core"><thing>EngineMedium</thing><minKilograms>4000</minKilograms><maxKilograms>15000</maxKilograms></li>
+      <li MayRequire="rimthunder.core"><thing>EngineHeavy</thing><minKilograms>15000</minKilograms></li>
+      <li MayRequire="oskarpotocki.vanillavehiclesexpanded"><thing>VVE_EngineBlock</thing><maxKilograms>6000</maxKilograms></li>
+    </substitutes>
+  </Phobos.VehicleSystems.PhobosVehiclePartSupplyDef>
+
+  <Phobos.VehicleSystems.PhobosVehiclePartSupplyDef>
+    <defName>PhobosPartSupply_TurbineEngine</defName>
+    <label>gas turbine</label>
+    <roles>
+      <li>Engine</li>
+      <li>Engine1</li>
+      <li>Engine2</li>
+      <li>Engine3</li>
+      <li>Engine4</li>
+    </roles>
+    <turbine>Yes</turbine>
+    <wholePart>true</wholePart>
+    <item>PhobosVehicles_TurbineAssembly</item>
+    <work>5000</work>
+    <substitutes>
+      <li MayRequire="rimthunder.core"><thing>EngineTurbine</thing></li>
+    </substitutes>
+  </Phobos.VehicleSystems.PhobosVehiclePartSupplyDef>
+
+  <Phobos.VehicleSystems.PhobosVehiclePartSupplyDef>
+    <defName>PhobosPartSupply_Transmission</defName>
+    <label>transmission</label>
+    <roles>
+      <li>Transmission</li>
+    </roles>
+    <wholePart>true</wholePart>
+    <item>PhobosVehicles_Transmission</item>
+    <work>3000</work>
+    <substitutes>
+      <li MayRequire="rimthunder.core"><thing>ComponentTransmission</thing></li>
+      <li MayRequire="oskarpotocki.vanillavehiclesexpanded"><thing>VVE_CarTransmission</thing><maxKilograms>6000</maxKilograms></li>
+    </substitutes>
+  </Phobos.VehicleSystems.PhobosVehiclePartSupplyDef>
+
+  <Phobos.VehicleSystems.PhobosVehiclePartSupplyDef>
+    <defName>PhobosPartSupply_Wheels</defName>
+    <label>running gear</label>
+    <roles>
+      <li>Wheels</li>
+    </roles>
+    <materials>
+      <Steel>10</Steel>
+      <ComponentIndustrial>1</ComponentIndustrial>
+    </materials>
+    <work>800</work>
+    <substitutes>
+      <li MayRequire="rimthunder.core"><thing>ComponentWheelTire</thing></li>
+      <li MayRequire="oskarpotocki.vanillavehiclesexpanded"><thing>VVE_CarWheel</thing><maxKilograms>6000</maxKilograms></li>
+    </substitutes>
+  </Phobos.VehicleSystems.PhobosVehiclePartSupplyDef>
+
+  <Phobos.VehicleSystems.PhobosVehiclePartSupplyDef>
+    <defName>PhobosPartSupply_Radiator</defName>
+    <label>radiator</label>
+    <roles>
+      <li>Radiator</li>
+    </roles>
+    <materials>
+      <Steel>20</Steel>
+      <ComponentIndustrial>2</ComponentIndustrial>
+    </materials>
+    <substitutes>
+      <li MayRequire="oskarpotocki.vanillavehiclesexpanded"><thing>VVE_CarRadiator</thing><maxKilograms>6000</maxKilograms></li>
+    </substitutes>
+  </Phobos.VehicleSystems.PhobosVehiclePartSupplyDef>
+
+  <Phobos.VehicleSystems.PhobosVehiclePartSupplyDef>
+    <defName>PhobosPartSupply_Battery</defName>
+    <label>battery</label>
+    <roles>
+      <li>Battery</li>
+    </roles>
+    <materials>
+      <Steel>10</Steel>
+      <ComponentIndustrial>2</ComponentIndustrial>
+    </materials>
+    <work>800</work>
+    <substitutes>
+      <li MayRequire="oskarpotocki.vanillavehiclesexpanded"><thing>VVE_CarBattery</thing><maxKilograms>6000</maxKilograms></li>
+    </substitutes>
+  </Phobos.VehicleSystems.PhobosVehiclePartSupplyDef>
+
+  <Phobos.VehicleSystems.PhobosVehiclePartSupplyDef>
+    <defName>PhobosPartSupply_Alternator</defName>
+    <label>alternator</label>
+    <roles>
+      <li>Alternator</li>
+    </roles>
+    <materials>
+      <Steel>10</Steel>
+      <ComponentIndustrial>2</ComponentIndustrial>
+    </materials>
+    <work>800</work>
+    <substitutes>
+      <li MayRequire="oskarpotocki.vanillavehiclesexpanded"><thing>VVE_CarAlternator</thing><maxKilograms>6000</maxKilograms></li>
+    </substitutes>
+  </Phobos.VehicleSystems.PhobosVehiclePartSupplyDef>
+
+  <Phobos.VehicleSystems.PhobosVehiclePartSupplyDef>
+    <defName>PhobosPartSupply_SmallMechanical</defName>
+    <label>small mechanical part</label>
+    <roles>
+      <li>Starter</li>
+      <li>OilPump</li>
+      <li>Brakes</li>
+      <li>Clutch</li>
+      <li>Compressor</li>
+      <li>HydraulicPump</li>
+      <li>HydraulicLines</li>
+    </roles>
+    <materials>
+      <Steel>12</Steel>
+      <ComponentIndustrial>2</ComponentIndustrial>
+    </materials>
+    <work>800</work>
+  </Phobos.VehicleSystems.PhobosVehiclePartSupplyDef>
+
+  <Phobos.VehicleSystems.PhobosVehiclePartSupplyDef>
+    <defName>PhobosPartSupply_RotorDrive</defName>
+    <label>rotor drive</label>
+    <roles>
+      <li>RotorDrive</li>
+    </roles>
+    <materials>
+      <Steel>30</Steel>
+      <ComponentIndustrial>4</ComponentIndustrial>
+    </materials>
+    <work>2500</work>
+  </Phobos.VehicleSystems.PhobosVehiclePartSupplyDef>
+
+  <Phobos.VehicleSystems.PhobosVehiclePartSupplyDef>
+    <defName>PhobosPartSupply_ElectricDrive</defName>
+    <label>electric drive</label>
+    <roles>
+      <li>TractionBattery</li>
+      <li>TractionMotor</li>
+    </roles>
+    <materials>
+      <Steel>40</Steel>
+      <ComponentIndustrial>8</ComponentIndustrial>
+    </materials>
+    <work>3000</work>
+  </Phobos.VehicleSystems.PhobosVehiclePartSupplyDef>
+
+  <Phobos.VehicleSystems.PhobosVehiclePartSupplyDef>
+    <defName>PhobosPartSupply_Boiler</defName>
+    <label>boiler</label>
+    <roles>
+      <li>Boiler</li>
+    </roles>
+    <materials>
+      <Steel>80</Steel>
+      <ComponentIndustrial>2</ComponentIndustrial>
+    </materials>
+    <work>4000</work>
+  </Phobos.VehicleSystems.PhobosVehiclePartSupplyDef>
+
+  <!-- Every part with no role of its own, most of a vehicle's armour and hull: by its size. Before the player's share. -->
+  <Phobos.VehicleSystems.PhobosVehiclePartSupplyDef>
+    <defName>PhobosPartSupply_Default</defName>
+    <label>hull or fitting</label>
+    <isDefault>true</isDefault>
+    <steelPerHealth>0.5</steelPerHealth>
+    <componentsPerHealth>0.02</componentsPerHealth>
+    <work>1500</work>
+  </Phobos.VehicleSystems.PhobosVehiclePartSupplyDef>
+</Defs>

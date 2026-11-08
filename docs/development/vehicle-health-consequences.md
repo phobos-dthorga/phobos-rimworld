@@ -1,7 +1,7 @@
-# Vehicle health, slice 3: what it would do to the player (8 Nov 2026)
+# Vehicle health, slice 3: what it does to the player (8 Nov 2026, built 9 Nov 2026)
 
-**Status: a proposal for the owner's review. Nothing here is built, and part conditions (slice 2) are not yet tested in game.** Slice
-3 waits for the owner to see a part condition work. Findings marked "from the code" are read from our decompile of Vehicle Framework
+**Status: built in Framework 0.36.0 and Vehicles 0.14.0, on the owner's go of 9 Nov 2026. Not yet tested in game, nor is slice 2 it builds
+on.** The answers to its questions are in [Decisions](#decisions-9-nov-2026). Findings marked "from the code" are read from our decompile of Vehicle Framework
 1.6 (the build the 1.7 game loads) and summarised in our own words; what this record says will happen in play is a proposal.
 
 This record answers the project's rule that every new behaviour says, before it is built, what it lets the player do, what it stops
@@ -9,9 +9,10 @@ them doing and how it changes the way they play. The architecture is settled in 
 
 ## Read this first
 
-- **Six questions need the owner's answers** (at the end). The one that shapes the most play is **how much a destroyed part costs**.
-- **Agent's recommendation:** build the danger clock, then destroyed parts needing supplies, then field fixes. Convert one serious
-  condition to need a service. **Leave permanent damage out for now, and leave wrecks until Vehicle Framework 1.7 ships.**
+- **Built:** the danger clock, destroyed parts needing supplies, one serious condition needing a service, and field fixes. **Permanent
+  damage is left out for now, and wrecks wait until Vehicle Framework 1.7 ships.**
+- **The player sets the prices** in the mod settings: engines and transmissions at 100% of the whole part by default, everything else
+  at 50% of its materials (agent default for the 50%).
 - **Every vehicle from every mod is affected** by destroyed parts needing supplies, so it stays behind a setting (on by default, the
   owner's decision of 8 Nov 2026).
 - **Other factions' vehicles are left out** of all of this: they run the light model, and a raider must never be stranded by it.
@@ -88,7 +89,29 @@ left when a vehicle dies. Better to see what 1.7 does before building on it.
   the answer; a part that stops the vehicle moving is the case to watch in play.
 - **Vehicle Framework 1.7 may change the repair job.** Every touch of it stays in one class.
 
-## Questions for the owner
+## Decisions (9 Nov 2026)
+
+The owner: "proceed with your H3 proposal in full", so the agent's recommendations below stand, with these additions.
+
+- **Cost:** the whole part for engines and transmissions by default, a share of the cost for everything else, **both configurable in the
+  mod settings** (owner).
+- **Our own framework of parts and supplies** (owner): our parts always exist and set the cost; other mods' are accepted as substitutes
+  **only where it makes sense**. This reverses "parts come from providers".
+- **The framework should grow into tuning and upgrades** (owner: "one of possible tuning and full of upgrades as well"). **Not built
+  yet:** it needs its own record of what each lets the player do, stops and changes, before any of it is written.
+
+### As built
+
+| Piece | Where | Note |
+| --- | --- | --- |
+| Our parts | `Parts.xml` in the Framework | Engine assembly, turbine assembly, transmission, and the two kits moved from D'thorga Vehicles |
+| What each role costs | `PartSupplies.xml`, `PhobosVehiclePartSupplyDef` | The first Def that fits wins; substitutes filtered by empty mass and by turbine or not (authored) |
+| Free repair leaves destroyed parts alone | Two postfixes on `VehicleStatHandler` | It leaves them for the job that fits a new part, on the map and at a garage |
+| Fitting a part, a serious service, a field fix | `VehicleRepairs`, one job (Construction) | Supplies are hauled to the cargo as a service's are; another mod's part is hauled when ours cannot be found |
+| In a caravan | A button per vehicle, at a halt | Done at once: an authored simplification, as the caravan jump-start is |
+| The garage | Skips destroyed parts and charges nothing for them | **Limit:** it cannot fit new parts, so the vehicle has to come home for that |
+
+## Questions for the owner (answered)
 
 | # | Question | Agent's recommendation |
 | --- | --- | --- |

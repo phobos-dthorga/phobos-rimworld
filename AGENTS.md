@@ -251,10 +251,10 @@ delivered, record the delivery in the changelog or design record, and add or ame
   tree shaped by the vehicle, every node moving a figure that changes an outcome, node keys stable once a save can hold them; the
   base body is drawn bare and every visible node is its own overlay set, planned before the first picture
   (`docs/development/utility-vehicles-design.md`, principle 8).
-- **Vehicle parts come from providers by role** (owner, 8 Nov 2026): Vehicle Framework's own mechanics first (it ships no part
-  items); RimThunder's and Vanilla Vehicles Expanded's part items through `IfModActive` folders and `PatchOperationFindMod`,
-  together or as replacements; our own parts only in fallback folders for players with neither, never a copy of a part a provider
-  ships (principle 9 and its table).
+- **Vehicle parts are ours, and other mods' are substitutes** (owner, 9 Nov 2026, reversing "providers first"): our part items always
+  exist in D'thorga Framework and set what a repair costs, whichever mods are installed; RimThunder's and Vanilla Vehicles Expanded's
+  are accepted only where they make sense, named per role in `PhobosVehiclePartSupplyDef` with `MayRequire`, never in C#. The framework
+  is meant to grow into tuning and upgrades (`docs/development/vehicle-health-consequences.md`).
 - **UI presents, services decide.** Gizmos, inspect tabs, windows, designators and placement previews read
   state and delegate to one service call; they never mutate game state, roll chances or grant rewards.
 - **XML first, C# where Defs cannot express it.** Hardware and tuning are Defs (new Def types such as

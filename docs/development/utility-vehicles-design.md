@@ -84,7 +84,10 @@ vehicles the owner already drives. Our vehicles, their loadouts and art come aft
    new node later is fine, a removed or renamed node key is not (VF saves the unlocked keys and skips a key it cannot find on load,
    `CompUpgradeTree.ReloadUnlocks`, `:21884`). Parts stay fixed per Def and append-only; a node changes stats, comps, overlays and
    labels, never the parts list.
-9. **Parts by role, from providers** (owner, 8 Nov 2026). Vehicle Framework ships no part items (its ThingDefs are motes and the
+9. **Parts by role, from providers** (owner, 8 Nov 2026; **reversed by the owner on 9 Nov 2026:** our part items now always exist in
+   D'thorga Framework and set repair costs, with other mods' accepted only where they make sense; see
+   [vehicle health, slice 3](vehicle-health-consequences.md). The text and table below are kept as written; the tanker's build cost
+   still swaps in providers' items and has not been changed.) Vehicle Framework ships no part items (its ThingDefs are motes and the
    airdrop container; read 8 Nov 2026), so "VF parts by default" means its mechanics: components, upgrade trees, roles, reactors,
    overlays, fuel and caravans, used before anything of ours is written. Part **items** come from the mods that make them, named by
    role in each vehicle's cost and each node's ingredients and resolved in XML (`LoadFolders.xml` `IfModActive` folders and
@@ -322,7 +325,7 @@ node, not the base texture), a `StatUpgrade` sets the capacity, and the unlocked
 
 | Item | Value |
 | --- | --- |
-| Footprint, drawSize | (2, 6), (3, 7) (owner, 8 Nov 2026: longer than first designed, so the owner's picked body fits without being stretched; the picked art scales to 1.96 cells wide at 6 cells long) |
+| Footprint, drawSize | (3, 10), (4, 11) (9 Nov 2026, after the owner's first look: 2 x 6 was two thirds the width of the other heavy trucks. This matches RimThunder's PLS, the biggest truck on the list; the picked art is 3.27 cells wide at 10 long) |
 | Mass | 340 empty; contents add their own mass by density (below) |
 | Fuel | Chemfuel, 28 a day driving, 6 a day pumping (the engine at idle drives the pump through a power take-off) |
 | Crew | Driver; the pump runs unattended once the hoses are connected |
@@ -422,7 +425,7 @@ work once a tank is fitted.
 | Wiring | 25 | Internal | (1, 0) | Phobos_RigControl | |
 | Lights | 15 | External | (0, 3) (1, 3) (0, −2) (1, −2) | | Load at night |
 
-Cells run z from −2 to 3 on a 2 x 6 footprint, and are read off the picked art: bonnet and front wheels at z 3, cab and pump at z 2, the deck from z 1 back, the rear axles at z −1 and −2. Colours for the Def, which give the picked body its tone while leaving it repaintable: `color` (162, 156, 123), `colorTwo` (195, 110, 36).
+Cells run x from −1 to 1 and z from −4 to 5 on a 3 x 10 footprint, and are read off the picked art: bonnet at z 5 and 4 with the front wheels at z 4, cab and pump at z 3, the deck from z 1 back, the rear axles at z −2 and −3. Colours for the Def, which give the picked body its tone while leaving it repaintable: `color` (162, 156, 123), `colorTwo` (195, 110, 36).
 
 **Argued against here:** registering the tank as a VEF connector (stale the moment the vehicle moves); two VehicleDefs for the two
 tanks (a refit would be a new vehicle and lose the parts' saved health); adding parts by upgrade (VF parts are fixed per Def and saved
@@ -447,6 +450,8 @@ power take-off pump is the real machine.
 - **A fresh load of something that can freeze arrives 5 °C above its freezing point** and cools in the tank, otherwise an empty tank could never load water in the cold.
 - **A fire vents gas by the outside temperature or the vehicle burning**, not the contents' temperature, which lags by hours.
 - **Gas vessels are patched in with Vanilla Gravship Expanded**, since nothing else carries a gas yet. Water needs Dubs Bad Hygiene.
+
+**Size, from the owner's first look (9 Nov 2026):** the owner finds even Vanilla Vehicles Expanded's 3 x 6 Big Rig small, so heavy trucks of ours are sized against RimThunder's 3 x 10 PLS. The footprints of the other four designs above predate this and need revisiting before their art. **Damage marks** are drawn by the tank's comp: Vehicle Framework never reads a part requirement on a graphic overlay.
 
 **Not built:** RimThunder engine-class upgrade nodes (principle 9), `Port_FireMonitor`, crude oil and helixien gas ports, masks for overlays.
 

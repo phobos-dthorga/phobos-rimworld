@@ -32,4 +32,7 @@ public static class SeverityRule
         clearsOnRepair && maxHealth > 0 && healthAfter > healthBefore && healthAfter / maxHealth >= RepairedShare;
 
     public static bool IsGone(double severity) => severity < Gone;
+
+    /// <summary>What a field fix leaves of a condition: half, enough to bring most of them down a stage. It never clears one.</summary>
+    public static double FieldFixed(double severity) => severity * 0.5;
 }

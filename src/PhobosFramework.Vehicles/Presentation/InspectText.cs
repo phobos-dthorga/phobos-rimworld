@@ -52,6 +52,8 @@ public static class InspectText
     public static string? WaitingLine(CompPhobosVehicleSystems comp)
     {
         if (comp.MoveRefusal != null) return comp.MoveRefusal;
+        string? repair = comp.Repairs.WaitingLine();
+        if (repair != null) return repair;
         SystemState? due = comp.DueService();
         if (due?.Def.service == null) return null;
         // A service ready to do comes first; otherwise every supply every due service lacks, then any water one waits for.

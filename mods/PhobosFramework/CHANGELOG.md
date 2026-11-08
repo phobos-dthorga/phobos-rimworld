@@ -5,6 +5,37 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+### Fixed
+
+- A tank's damage marks follow the health of their part. Vehicle Framework never reads a part requirement written on an overlay, so the tank now draws them itself. **Not yet tested in game.**
+
+## [0.36.0] - 2026-11-09 - Draft
+
+What a badly damaged vehicle costs, and a parts framework of our own (owner, 9 November 2026). **Not yet tested in game.** Design: docs/development/vehicle-health-consequences.md.
+
+### Added
+
+- A destroyed part now needs replacing before ordinary free repair can continue. The supplies are hauled to the vehicle's cargo and a mechanic fits them; the part comes back at a quarter of its health. Damaged parts are still mended free. A setting turns this off.
+- Settings for the price: replacing an engine or transmission costs 100% of the whole part by default, any other part 50% of its materials. Either can be anywhere from nothing upward.
+- Our own parts, which always exist: an engine assembly, a gas turbine assembly and a transmission, made at the machining table. Other mods' matching parts are accepted instead only where they make sense: a RimThunder engine by the vehicle's weight, Vanilla Vehicles Expanded's car parts only on car-sized vehicles.
+- A danger clock on the Health tab: how long a leak or a short has before the level reaches the next bad stage, worked out from what the level is really doing.
+- A badly warped cylinder head now needs its own job, with steel and components; a slightly warped one is still cleared by repairing the engine.
+- Field fixes: a colonist can patch a leak or a short with a component, away from any base. The patch halves it, once, and never repairs the part. A button on the vehicle asks for it.
+- In a caravan at a halt, a button per vehicle does these repairs, at once and from its own cargo.
+- For modders, in XML: what each part role costs and which substitutes it takes, and conditions that need a job of their own or can be patched. The guide is docs/vehicle-systems-modding.md, Parts and repairs.
+- Shared, in the core: Rules/CostShareRule and Rules/DangerClockRule (tested).
+
+### Compatibility and limits
+
+- Every player's vehicle from any mod is affected, and a vehicle whose engine is destroyed cannot move until it has a new one. Have parts made before you need them, or turn the setting off.
+- The garage skips destroyed parts and charges nothing for them. It cannot fit new ones, so that vehicle has to go home first.
+- The danger clock is an estimate, and says about.
+- All the labels and every figure are agent-authored, held for the owner's review.
+
+### Save compatibility
+
+- Safe on a running colony. A part already destroyed in a saved game will now wait for supplies.
+
 ## [0.35.0] - 2026-11-09 - Draft
 
 More that a tank's contents can do, for D'thorga Vehicles 0.13.0 (owner, 9 November 2026). **Not yet tested in game.**

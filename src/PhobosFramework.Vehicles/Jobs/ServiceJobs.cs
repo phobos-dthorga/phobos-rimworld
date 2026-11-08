@@ -13,6 +13,7 @@ public static class VehicleSystemsJobDefOf
     public static JobDef PhobosVehicleSystems_LoadServiceSupplies = null!;
     public static JobDef PhobosVehicleSystems_ServiceVehicle = null!;
     public static JobDef PhobosVehicleSystems_JumpStart = null!;
+    public static JobDef PhobosVehicleSystems_RepairWithSupplies = null!;
 
     static VehicleSystemsJobDefOf() => DefOfHelper.EnsureInitializedInCtor(typeof(VehicleSystemsJobDefOf));
 }
@@ -45,8 +46,18 @@ public class WorkGiver_PhobosLoadServiceSupplies : WorkGiver_Scanner
         if (t is not VehiclePawn vehicle || t.Faction != pawn.Faction || !ServiceTargets.Workable(pawn, vehicle, forced)) return null;
         CompPhobosVehicleSystems? comp = vehicle.GetComp<CompPhobosVehicleSystems>();
         if (comp == null || !comp.MissingSupply(out ThingDef? def, out int count) || def == null) return null;
-        Thing? supply = GenClosest.ClosestThingReachable(pawn.Position, pawn.Map, ThingRequest.ForDef(def), PathEndMode.ClosestTouch,
-            TraverseParms.For(pawn), 9999f, x => !x.IsForbidden(pawn) && pawn.CanReserve(x));
+        Thing? supply = Find(pawn, def);
+        if (supply == null)
+        {
+            // Our part is not to be had: another mod's, where one would do.
+            foreach ((ThingDef other, int otherCount) in comp.Repairs.AlternativesFor(def))
+            {
+                supply = Find(pawn, other);
+                if (supply == null) continue;
+                count = otherCount;
+                break;
+            }
+        }
         if (supply == null)
         {
             JobFailReason.Is("PhobosVehicleSystems_NoSupply".Translate(def.label.Named("SUPPLY")));
@@ -59,6 +70,9 @@ public class WorkGiver_PhobosLoadServiceSupplies : WorkGiver_Scanner
         job.count = System.Math.Min(count, supply.stackCount);
         return job;
     }
+
+    static Thing? Find(Pawn pawn, ThingDef def) => GenClosest.ClosestThingReachable(pawn.Position, pawn.Map, ThingRequest.ForDef(def),
+        PathEndMode.ClosestTouch, TraverseParms.For(pawn), 9999f, x => !x.IsForbidden(pawn) && pawn.CanReserve(x));
 }
 
 /// <summary>Carries the supply to the vehicle and puts it in its cargo.</summary>
@@ -118,6 +132,34 @@ public class JobDriver_PhobosServiceVehicle : JobDriver_WorkVehicle
     protected override void WorkComplete(Pawn actor)
     {
         Vehicle.GetComp<CompPhobosVehicleSystems>()?.CompleteService(actor);
+        ReadyForNextToil();
+    }
+}
+
+/// <summary>Does a repair whose supplies are aboard: fits a new part, puts a serious condition right, or patches a leak.</summary>
+public class WorkGiver_PhobosRepairWithSupplies : VehicleWorkGiver
+{
+    public override JobDef JobDef => VehicleSystemsJobDefOf.PhobosVehicleSystems_RepairWithSupplies;
+
+    public override IEnumerable<Thing> PotentialWorkThingsGlobal(Pawn pawn) => ServiceTargets.Vehicles(pawn);
+
+    public override bool CanBeWorkedOn(VehiclePawn vehicle) =>
+        !vehicle.Drafted && vehicle.GetComp<CompPhobosVehicleSystems>()?.Repairs.Ready != null;
+}
+
+public class JobDriver_PhobosRepairWithSupplies : JobDriver_WorkVehicle
+{
+    protected override JobDef JobDef => VehicleSystemsJobDefOf.PhobosVehicleSystems_RepairWithSupplies;
+
+    protected override float TotalWork => Vehicle.GetComp<CompPhobosVehicleSystems>()?.Repairs.Ready?.Work ?? 1f;
+
+    protected override StatDef Stat => StatDefOf.ConstructionSpeed;
+
+    protected override SkillDef Skill => SkillDefOf.Construction;
+
+    protected override void WorkComplete(Pawn actor)
+    {
+        Vehicle.GetComp<CompPhobosVehicleSystems>()?.Repairs.CompleteReady(actor);
         ReadyForNextToil();
     }
 }

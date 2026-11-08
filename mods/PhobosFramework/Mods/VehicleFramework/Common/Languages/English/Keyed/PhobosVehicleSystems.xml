@@ -206,6 +206,33 @@
   <PhobosVehicleSystems_HealthInternal>Inside</PhobosVehicleSystems_HealthInternal>
   <PhobosVehicleSystems_HealthDestroyed>destroyed</PhobosVehicleSystems_HealthDestroyed>
   <PhobosVehicleSystems_HealthLeaking>leaking fuel</PhobosVehicleSystems_HealthLeaking>
+  <PhobosVehicleSystems_RepairReplace>replacing the {PART}</PhobosVehicleSystems_RepairReplace>
+  <PhobosVehicleSystems_RepairFieldFix>patching the {PART}</PhobosVehicleSystems_RepairFieldFix>
+  <PhobosVehicleSystems_RepairWaitingMechanic>{WORK}: everything is aboard, waiting for a mechanic.</PhobosVehicleSystems_RepairWaitingMechanic>
+  <PhobosVehicleSystems_RepairNeeds>{WORK}: needs {SUPPLIES} in its cargo.</PhobosVehicleSystems_RepairNeeds>
+  <PhobosVehicleSystems_RepairNeedsOr>{WORK}: needs {SUPPLIES} in its cargo, or one of these instead: {OTHERS}.</PhobosVehicleSystems_RepairNeedsOr>
+  <PhobosVehicleSystems_RepairReplaced>{MECHANIC} fitted a new {PART} to the {VEHICLE}.</PhobosVehicleSystems_RepairReplaced>
+  <PhobosVehicleSystems_RepairFieldFixed>{MECHANIC} patched the {PART} on the {VEHICLE}. It will hold for now, until it is properly repaired.</PhobosVehicleSystems_RepairFieldFixed>
+  <PhobosVehicleSystems_HealthClock>{QUANTITY} {STAGE} in {TIME}</PhobosVehicleSystems_HealthClock>
+  <PhobosVehicleSystems_HealthClockEmpty>empty</PhobosVehicleSystems_HealthClockEmpty>
+  <PhobosVehicleSystems_HealthClockHours>about {HOURS} hours</PhobosVehicleSystems_HealthClockHours>
+  <PhobosVehicleSystems_HealthClockUnderHour>under an hour</PhobosVehicleSystems_HealthClockUnderHour>
+  <PhobosVehicleSystems_HealthFieldFixed>patched in the field</PhobosVehicleSystems_HealthFieldFixed>
+  <PhobosVehicleSystems_HealthNeedsService>needs {SERVICE}</PhobosVehicleSystems_HealthNeedsService>
+  <PhobosVehicleSystems_RequestFieldFix>Patch leaks</PhobosVehicleSystems_RequestFieldFix>
+  <PhobosVehicleSystems_RequestFieldFixDesc>Have a mechanic patch this vehicle's leaks and shorts with a component from its cargo. A patch slows the damage so it can limp home; it does not repair the part, and it can only be done once.</PhobosVehicleSystems_RequestFieldFixDesc>
+  <PhobosVehicleSystems_CaravanRepair>Repair {VEHICLE}</PhobosVehicleSystems_CaravanRepair>
+  <PhobosVehicleSystems_CaravanRepairMoving>The caravan has to stop first.</PhobosVehicleSystems_CaravanRepairMoving>
+  <PhobosVehicleSystems_CaravanRepairNoMechanic>Nobody in the caravan can do construction work.</PhobosVehicleSystems_CaravanRepairNoMechanic>
+  <PhobosVehicleSystems_SectionRepairs>Repairs</PhobosVehicleSystems_SectionRepairs>
+  <PhobosVehicleSystems_SettingDestroyedParts>Destroyed parts need replacing</PhobosVehicleSystems_SettingDestroyedParts>
+  <PhobosVehicleSystems_SettingDestroyedPartsDesc>A part at 0% needs supplies in the vehicle's cargo and a mechanic before ordinary repair can continue. Damaged parts are still mended for free. Applies to your own vehicles, from any mod.</PhobosVehicleSystems_SettingDestroyedPartsDesc>
+  <PhobosVehicleSystems_SettingWholePartShare>Replacing an engine or transmission costs: {SHARE}</PhobosVehicleSystems_SettingWholePartShare>
+  <PhobosVehicleSystems_SettingWholePartShareDesc>At 100%, the whole part. Below that, this share of the materials the part is made from. At 0%, nothing.</PhobosVehicleSystems_SettingWholePartShareDesc>
+  <PhobosVehicleSystems_SettingOtherPartShare>Replacing any other part costs: {SHARE}</PhobosVehicleSystems_SettingOtherPartShare>
+  <PhobosVehicleSystems_SettingOtherPartShareDesc>This share of the full materials for the part. At 0%, nothing.</PhobosVehicleSystems_SettingOtherPartShareDesc>
+  <PhobosVehicleSystems_SettingFieldFixes>Field fixes</PhobosVehicleSystems_SettingFieldFixes>
+  <PhobosVehicleSystems_SettingFieldFixesDesc>Colonists can patch leaks and shorts away from a base, using a component.</PhobosVehicleSystems_SettingFieldFixesDesc>
   <PhobosVehicleSystems_HealthCondition>{CONDITION}: {STAGE}</PhobosVehicleSystems_HealthCondition>
   <PhobosVehicleSystems_HealthConditionFigure>{CONDITION}: {STAGE} ({SEVERITY})</PhobosVehicleSystems_HealthConditionFigure>
   <PhobosVehicleSystems_HealthReactorExplosive>Can explode when badly damaged.</PhobosVehicleSystems_HealthReactorExplosive>

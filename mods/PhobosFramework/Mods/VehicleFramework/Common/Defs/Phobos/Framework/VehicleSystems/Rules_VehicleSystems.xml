@@ -6,6 +6,12 @@
     <defName>PhobosVehicleRules</defName>
     <maxCatchUpHours>24</maxCatchUpHours>
     <stepHours>0.025</stepHours>
+    <replacedPartHealth>0.25</replacedPartHealth>
+    <fieldFixWork>600</fieldFixWork>
+    <dangerClockHours>72</dangerClockHours>
+    <fieldFixSupplies>
+      <ComponentIndustrial>1</ComponentIndustrial>
+    </fieldFixSupplies>
     <messageCooldownHours>6</messageCooldownHours>
     <letterCooldownHours>48</letterCooldownHours>
     <nightStartsHour>19</nightStartsHour>
@@ -44,6 +50,27 @@
     <verb>load supplies into</verb>
     <gerund>loading supplies into</gerund>
     <priorityInType>25</priorityInType>
+    <requiredCapacities>
+      <li>Manipulation</li>
+    </requiredCapacities>
+  </WorkGiverDef>
+
+  <!-- A repair that needs supplies: a new part, a serious condition put right, or a leak patched (vehicle health, slice 3). -->
+  <JobDef>
+    <defName>PhobosVehicleSystems_RepairWithSupplies</defName>
+    <driverClass>Phobos.VehicleSystems.JobDriver_PhobosRepairWithSupplies</driverClass>
+    <reportString>repairing TargetA.</reportString>
+    <casualInterruptible>true</casualInterruptible>
+  </JobDef>
+
+  <WorkGiverDef>
+    <defName>PhobosVehicleSystems_RepairWithSupplies</defName>
+    <label>fit vehicle parts</label>
+    <giverClass>Phobos.VehicleSystems.WorkGiver_PhobosRepairWithSupplies</giverClass>
+    <workType>Construction</workType>
+    <verb>repair</verb>
+    <gerund>repairing</gerund>
+    <priorityInType>61</priorityInType>
     <requiredCapacities>
       <li>Manipulation</li>
     </requiredCapacities>

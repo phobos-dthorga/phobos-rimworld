@@ -117,7 +117,7 @@ public static class GarageService
     public static int Bays(Outpost_PhobosGarage garage) => GarageRule.Bays(garage.PawnCount, garage.Figures.baysPerPerson, garage.Figures.maxBays);
 
     static float Damage(Outpost_PhobosGarage garage) =>
-        garage.HeldVehicles.Sum(v => v.statHandler.components.Sum(c => Math.Max(c.MaxHealth - c.Health, 0f)));
+        garage.HeldVehicles.Sum(v => v.statHandler.ComponentsPrioritized.Sum(c => Math.Max(c.MaxHealth - c.Health, 0f)));
 
     static float PointsPerCycle(Outpost_PhobosGarage garage) =>
         GarageRule.PointsPerCycle(garage.TotalSkill(SkillDefOf.Construction), garage.Figures.repairPointsPerSkillLevel);

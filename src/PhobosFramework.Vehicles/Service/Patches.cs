@@ -142,6 +142,33 @@ public class VehicleStatPart_PhobosSystems : VehicleStatPart
 }
 
 /// <summary>
+/// A destroyed part waits for supplies (vehicle health, slice 3): this list is what Vehicle Framework's repair job, its caravans and the
+/// garage heal from, and it has no extension point. A postfix that takes the waiting parts out of a list made fresh for each call.
+/// </summary>
+[HarmonyPatch(typeof(VehicleStatHandler), nameof(VehicleStatHandler.ComponentsPrioritized), MethodType.Getter)]
+public static class DestroyedPartsLeftForSupplies
+{
+    public static void Postfix(VehiclePawn ___vehicle, List<VehicleComponent> __result)
+    {
+        VehicleRepairs? repairs = ___vehicle?.GetComp<CompPhobosVehicleSystems>()?.Repairs;
+        if (repairs != null) __result.RemoveAll(repairs.PartBlocked);
+    }
+}
+
+/// <summary>The same for the question "does it need repairs?", or mechanics would walk to a vehicle with nothing they could do.</summary>
+[HarmonyPatch(typeof(VehicleStatHandler), nameof(VehicleStatHandler.NeedsRepairs), MethodType.Getter)]
+public static class DestroyedPartsNeedNoFreeRepair
+{
+    public static void Postfix(VehicleStatHandler __instance, VehiclePawn ___vehicle, ref bool __result)
+    {
+        if (!__result) return;
+        VehicleRepairs? repairs = ___vehicle?.GetComp<CompPhobosVehicleSystems>()?.Repairs;
+        if (repairs == null) return;
+        __result = __instance.components.Any(part => part.HealthPercent < 1f && !repairs.PartBlocked(part));
+    }
+}
+
+/// <summary>
 /// On every part bound to a role: tells the vehicle's systems the part was hit. What counts is the health the part lost, not the
 /// shot's damage: Combat Extended gives reactors the full damage before armour, sometimes twice, even when the armour stopped the
 /// round (read 8 Nov 2026), and Vehicle Framework may fire before or after the health is written, so the comp compares the part's

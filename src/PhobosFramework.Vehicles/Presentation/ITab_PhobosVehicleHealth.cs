@@ -356,6 +356,10 @@ public class ITab_PhobosVehicleHealth : ITab
             bool capturedFigures = figures;
             row.Tip = () => PartTip(captured, capturedFigures);
             if (part.Health <= 0f) row.Conditions.Add(new ConditionRow { Label = "PhobosVehicleSystems_HealthDestroyed".Translate(), Colour = PhobosWidgets.Bad });
+            foreach (RepairWork repair in comp.Repairs.Pending)
+            {
+                if (repair.Kind == RepairKind.ReplacePart && repair.Part == part) row.Conditions.Add(new ConditionRow { Label = comp.Repairs.NeedsLine(repair), Colour = PhobosWidgets.Caution });
+            }
             if (leaking && HasReactor<Reactor_FuelLeak>(part)) row.Conditions.Add(new ConditionRow { Label = "PhobosVehicleSystems_HealthLeaking".Translate(), Colour = PhobosWidgets.Bad });
             if (role != null) AddStages(comp, role, row);
             AddConditions(comp, part, figures, row);
@@ -378,6 +382,10 @@ public class ITab_PhobosVehicleHealth : ITab
                     Colour = ITab_VehicleDashboard.StageColour(stage),
                     SystemDefName = string.IsNullOrEmpty(condition.system) ? null : condition.system,
                 });
+                if (condition.fieldFixed) row.Conditions.Add(new ConditionRow { Label = "PhobosVehicleSystems_HealthFieldFixed".Translate(), Colour = PhobosWidgets.Caution });
+                string? clock = comp.Repairs.DangerClock(condition);
+                if (clock != null) row.Conditions.Add(new ConditionRow { Label = clock, Colour = PhobosWidgets.Bad });
+                if (condition.def.NeedsService(condition.severity)) row.Conditions.Add(new ConditionRow { Label = "PhobosVehicleSystems_HealthNeedsService".Translate(condition.def.service!.label.Named("SERVICE")).Resolve(), Colour = PhobosWidgets.Caution });
             }
         }
 

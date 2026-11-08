@@ -10,7 +10,7 @@ from PIL import Image, ImageDraw
 
 ROOT = Path(__file__).resolve().parents[2]
 BUTTONS = ROOT / 'mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Tank'
-PARTS = ROOT / 'mods/PhobosVehicles/Mods/PartsFallback/Textures/Phobos/Vehicles/Parts'
+PARTS = ROOT / 'mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/Vehicles/Parts'
 WORK = 512
 FINAL = 128
 OUTLINE = (24, 24, 26, 255)

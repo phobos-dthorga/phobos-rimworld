@@ -127,6 +127,11 @@ public class CompPhobosVehicleSystems : VehicleComp
     /// <summary>The kind of damage the reactor last saw on each part, until the health it cost is counted; derived, never saved.</summary>
     readonly Dictionary<string, DamageDef> recentDamage = new();
 
+    VehicleRepairs? repairs;
+
+    /// <summary>Repairs that need supplies: destroyed parts, serious conditions, field fixes (slice 3 of the vehicle health design).</summary>
+    public VehicleRepairs Repairs => repairs ??= new VehicleRepairs(this);
+
     /// <summary>The conditions on this vehicle's parts (slice 2 of the vehicle health design).</summary>
     public VehicleConditions Conditions => conditions ??= new VehicleConditions(this);
 
@@ -294,6 +299,7 @@ public class CompPhobosVehicleSystems : VehicleComp
         Scribe_Values.Look(ref lastUpdateTick, "PhobosVehicleSystems_LastUpdate", -1);
         Scribe_Values.Look(ref serviceRequested, "PhobosVehicleSystems_ServiceRequested", false);
         Conditions.ExposeData();
+        Repairs.ExposeData();
         if (Scribe.mode == LoadSaveMode.PostLoadInit)
         {
             savedValues ??= new Dictionary<string, float>();
@@ -725,6 +731,36 @@ public class CompPhobosVehicleSystems : VehicleComp
         if (chosen != null) Conditions.Add(def, chosen, role, system, amount);
     }
 
+    /// <summary>Uses up so many of a thing from the vehicle's cargo.</summary>
+    internal void TakeFromCargo(ThingDef def, int count)
+    {
+        ThingOwner? cargo = Vehicle.inventory?.innerContainer;
+        if (cargo == null) return;
+        int remaining = count;
+        foreach (Thing thing in cargo.Where(t => t.def == def).ToList())
+        {
+            if (remaining <= 0) break;
+            int take = Mathf.Min(remaining, thing.stackCount);
+            thing.SplitOff(take).Destroy();
+            remaining -= take;
+        }
+    }
+
+    /// <summary>A destroyed part replaced: back to a share of its full health, from which the ordinary free repair continues.</summary>
+    internal void RestorePart(VehicleComponent part, float healthShare)
+    {
+        part.SetHealth(Mathf.Max(1f, part.MaxHealth * healthShare));
+        RememberPartHealth(part);
+        Vehicle.statHandler.MarkAllDirty();
+    }
+
+    /// <summary>A repair finished: what depends on the parts and conditions follows now.</summary>
+    internal void AfterRepair()
+    {
+        UpdateNow();
+        AfterConditionsChanged();
+    }
+
     /// <summary>For the dev action: sets the condition on the role's first part to a severity (0 removes it) and says what it did.</summary>
     public string DebugSetCondition(string role, PhobosVehicleConditionDef def, float severity)
     {
@@ -1060,7 +1096,7 @@ public class CompPhobosVehicleSystems : VehicleComp
 
     public IEnumerable<ServiceSpec> AllServices() => Props.systems.Select(s => s.def.service).OfType<ServiceSpec>();
 
-    int CountInCargo(ThingDef def)
+    internal int CountInCargo(ThingDef def)
     {
         ThingOwner? cargo = Vehicle.inventory?.innerContainer;
         return cargo == null ? 0 : cargo.TotalStackCountOfDef(def);
@@ -1070,7 +1106,7 @@ public class CompPhobosVehicleSystems : VehicleComp
     /// haulers fetch it all and the vehicle says it all.</summary>
     public List<(ThingDef def, int count)> MissingSupplies() =>
         SupplyRules.Shortfall(DueServices().Where(s => s.Def.service != null)
-            .Select(s => s.Def.service!.SuppliesNow.Select(supply => (supply.thingDef, supply.count))), CountInCargo);
+            .Select(s => s.Def.service!.SuppliesNow.Select(supply => (supply.thingDef, supply.count))).Concat(Repairs.UnmetPayments()), CountInCargo);
 
     /// <summary>The first supply the due services still lack, for a hauler to fetch.</summary>
     public bool MissingSupply(out ThingDef? def, out int count)
@@ -1143,17 +1179,7 @@ public class CompPhobosVehicleSystems : VehicleComp
         float water = ServiceWater(state);
         if (water > 0f && !VehicleWater.TryDraw(Vehicle, water)) return false;
         ThingOwner cargo = Vehicle.inventory.innerContainer;
-        foreach (ThingDefCountClass supply in service.SuppliesNow)
-        {
-            int remaining = supply.count;
-            foreach (Thing thing in cargo.Where(t => t.def == supply.thingDef).ToList())
-            {
-                if (remaining <= 0) break;
-                int take = Mathf.Min(remaining, thing.stackCount);
-                thing.SplitOff(take).Destroy();
-                remaining -= take;
-            }
-        }
+        foreach (ThingDefCountClass supply in service.SuppliesNow) TakeFromCargo(supply.thingDef, supply.count);
         foreach (QuantityRestore restore in service.restores) SetQuantity(restore.quantity, restore.value);
         Conditions.ClearBy(service);
         servicedThisRequest.Add(state.Def.defName);
@@ -1257,6 +1283,7 @@ public class CompPhobosVehicleSystems : VehicleComp
         servicedThisRequest.Clear();
         conditions?.Clear();
         recentDamage.Clear();
+        repairs?.Invalidate();
     }
 
     // ---- Presentation (reads only) ----
@@ -1288,6 +1315,17 @@ public class CompPhobosVehicleSystems : VehicleComp
                     toggleAction = () => SetSwitch(captured, !IsOn(captured)),
                 };
             }
+        }
+        if (Repairs.AnyFieldFixable)
+        {
+            yield return new Command_Toggle
+            {
+                defaultLabel = "PhobosVehicleSystems_RequestFieldFix".Translate(),
+                defaultDesc = "PhobosVehicleSystems_RequestFieldFixDesc".Translate(),
+                icon = SystemIcons.For("Phobos/VehicleSystems/FieldFix"),
+                isActive = () => Repairs.FieldFixRequested,
+                toggleAction = () => Repairs.SetFieldFixRequested(!Repairs.FieldFixRequested),
+            };
         }
         if (AllServices().Any())
         {
