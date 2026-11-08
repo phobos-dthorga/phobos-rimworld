@@ -7,7 +7,7 @@ tested in game unless an entry says the owner tested it.
 
 ## [0.27.0] - 2026-11-09 - Draft
 
-A file of every Def with all patches applied, for mod developers (owner's go-ahead, 9 November 2026). **Not yet tested in game.**
+A file of every Def with all patches applied, for mod developers (owner's go-ahead, 9 November 2026). **Tested in game:** the owner wrote one on 8 November 2026 (72.8 MB, 335 mods) and phobos-modkit's Def tool read it.
 
 ### Added
 

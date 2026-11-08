@@ -86,6 +86,10 @@ promise current behaviour. For using the mods, start at the [documentation index
   and what was skipped or wrong, a closed cab's own temperature through the game's held-temperature lookup, the night heater,
   caravan speed caps and refusals, the jump-start kit and its two settings; D'thorga Framework 0.16.0 and D'thorga Vehicles
   0.7.0. Not yet tested in game.
+- [A shared logging framework: research and direction (9 Nov 2026)](logging-framework-design.md): why every mod's log dies at
+  10,000 messages a session (one mod's storm killed the owner's), the 1.7 pipeline from Verse.Log through Waylith to Player.log and
+  back, what other mods' loggers do, and the direction: a bounded revive without Harmony, our own log categories with budgets, a
+  shared logger in a sibling repository, a schema and reader across games, and no Rust inside the game. Nothing built yet.
 - [A pawn-like health model for vehicles: research and direction (9 Nov 2026)](vehicle-health-design.md): what the game does
   for a pawn and Vehicle Framework for a vehicle (it switches the pawn health stack off), why a condition layer on Vehicle
   Framework's parts beats reviving that stack, the performance budget and measurement protocol, the NPC lite tier, and the

@@ -206,7 +206,8 @@ offline.
 - **Show gases at the mouse (dev mode)**: a small label follows the mouse naming every gas in that cell's room.
 - **Write every Def with all patches applied at the next start (dev mode)** (0.27.0): for mod developers; one file at
   the next start, in the RimWorld user folder (`PhobosPatchedDefs/PatchedDefs.xml`), then the setting turns itself off.
-  The dev action "Framework: write patched Defs at the next start" does the same. Not yet tested in game.
+  The dev action "Framework: write patched Defs at the next start" does the same. Tested in game: the owner wrote one on
+  8 November 2026 and the Def tool read it.
 
 ## For modders
 

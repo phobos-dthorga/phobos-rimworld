@@ -66,6 +66,20 @@ Added 9 Nov 2026: the vehicle work of 8 and 9 November did not update this file 
 | V12 | Cab heaters for aircraft, boats and steam cabs (a gap found from the owner's Harrier); automatic climate control by era with a blanket setting | Framework, Vehicles | Climate control with a main-menu option (9 Nov 2026) | Done: Framework 0.21.2 and 0.22.0, Vehicles 0.9.1 and 0.10.0 |
 | V11 | The tabs after the owner's first look (9 Nov 2026): wear gauges show what is left, no repeated part names, no empty sections | Framework | Show what is left | Done: Framework 0.19.0 |
 
+## Logging (from 9 Nov 2026)
+
+The game stops every mod's logging at 10,000 messages a session; one other mod's error storm killed the owner's log on 8 November
+([record](logging-framework-design.md)). Owner's decisions, 9 Nov 2026: a bounded revive without Harmony; no Rust in-game; a new
+sibling repository for the shared logger; record only this round.
+
+| # | Item | Mod | Owner's decision | Status |
+| --- | --- | --- | --- | --- |
+| L1 | The research record; the engine shims decompiled for the code index | docs | Record only (9 Nov 2026) | Done |
+| L2 | GameLogKeeper: revive the game's log when it caps itself (bounded, a setting, on by default), the storm counter naming the culprit, the probe dev actions T1 to T5 and the benchmark | Framework | Revive, no Harmony (9 Nov 2026) | Open |
+| L3 | Create the sibling repository (owner names it; proposed phobos-log), the game-free rules (once, throttle, budget, signature) and the RimWorld category sink; the Framework and D'thorga Patches adopt it, other mods on touch | new repo, Framework, Patches | Sibling repository (9 Nov 2026) | Open: waits for the owner's name and visibility |
+| L4 | The JSON-lines sink, the schema document and the modkit reader shared by every game | phobos-log, phobos-modkit | | Open: when Ostranauts adopts or a need is named |
+| L5 | The Ostranauts host sink (BepInEx) | phobos-log, phobos-ostranauts | | Open |
+
 ## Vehicle health (from 9 Nov 2026)
 
 The owner's primary aim for the vehicles: pawn-like health and injury detail for player vehicles, diffuse for NPCs, performance
