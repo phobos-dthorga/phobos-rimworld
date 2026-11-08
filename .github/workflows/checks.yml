@@ -9,49 +9,22 @@ permissions:
 jobs:
   checks:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          submodules: true  # external/phobos-modkit, the shared tools scripts/triage-log.py calls
-      - name: Check local documentation links
-        run: python3 scripts/check-doc-links.py
-      - name: Check the mods/ layout and About.xml files
-        run: python3 scripts/check-mod-layout.py
-      - name: Exercise the repository tooling
-        run: python3 -m unittest discover -s tests -v
+          submodules: true  # external/phobos-modkit, the shared tools the scripts and the gate call
       - uses: actions/setup-dotnet@26b0ec14cb23fa6904739307f278c14f94c95bf1 # v5
         with:
           dotnet-version: 10.0.x
-      # The mod itself cannot build here: it references Vanilla Expanded Framework's PipeSystem.dll,
-      # which its licence does not let us copy into the repository. The physics is game-free and runs.
-      - name: Build and run the game-free physics tests
-        run: dotnet test tests/PhobosRadio.Physics.Tests --nologo
-      # D'thorga Factory Additions' assembly needs PipeSystem.dll too; its output rule is game-free.
-      - name: Build and run the game-free factory rule tests
-        run: dotnet test tests/PhobosFactory.Rules.Tests --nologo
-      # D'thorga Patches' missile part needs IRBM.dll; its blast budget and order rules are game-free.
-      - name: Build and run the game-free patch rule tests
-        run: dotnet test tests/PhobosPatches.Rules.Tests --nologo
-      # D'thorga Water Tap's assembly needs BadHygiene.dll; its rules are game-free.
-      - name: Build and run the game-free water tap rule tests
-        run: dotnet test tests/PhobosWaterTap.Rules.Tests --nologo
+      # The same gate as on the owner's PC (config/gate.json, phobos-modkit's gate): links, mod layout and text keys,
+      # vehicle schemas, version copies, changelogs, the Python tests and every rule-test project under tests/, found by
+      # glob so a new one is never left out. The mods' own builds are skipped: they reference other mods' assemblies
+      # (Vanilla Expanded Framework's PipeSystem.dll, Vehicle Framework, Dubs Bad Hygiene, IRBM), which are not on NuGet
+      # and may not be copied here (THIRD_PARTY_NOTICES.md). The rule tests compile their game-free sources themselves.
+      - name: Run every check that needs no other mod (the gate, without the mod builds)
+        run: python3 scripts/check-all.py --skip "build *" --keep-going
       # Only assemblies that reference nothing but the game and Harmony build here: the 1.7 reference (Krafs.Rimworld.Ref
-      # 1.7 prerelease) and Harmony come from NuGet. RimWorld 1.7 only. D'thorga Medical references Vanilla Expanded
-      # Framework's PipeSystem.dll (its equipment's pipe networks), which is not on NuGet and may not be copied here
-      # (THIRD_PARTY_NOTICES.md), so it and the other mods built against installed mods build on the owner's PC only
-      # (python scripts/check-all.py); their game-free rules are tested below.
+      # 1.7 prerelease) and Harmony come from NuGet. RimWorld 1.7 only.
       - name: Build the assemblies that need no other mod's, for 1.7
-        run: |
-          dotnet build src/PhobosFramework/PhobosFramework.csproj --nologo
-      # D'thorga Framework's gas-mixing, signal, mask and source rules are game-free.
-      - name: Build and run the game-free framework rule tests
-        run: dotnet test tests/PhobosFramework.Rules.Tests --nologo
-      # D'thorga Framework's vehicle systems: the integrator, stages and the shipped cooling figures are game-free.
-      - name: Build and run the game-free vehicle systems rule tests
-        run: dotnet test tests/PhobosFramework.Vehicles.Rules.Tests --nologo
-      - name: Check the vehicle systems schemas
-        run: python3 scripts/check-vehicle-schemas.py
-      # D'thorga Medical's rules, one folder per part: burns, dosing, triage, equipment and the save bridge's re-numbering.
-      - name: Build and run the game-free medical rule tests
-        run: dotnet test tests/PhobosMedical.Rules.Tests --nologo
+        run: dotnet build src/PhobosFramework/PhobosFramework.csproj --nologo
