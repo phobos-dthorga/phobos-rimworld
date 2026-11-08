@@ -322,7 +322,7 @@ node, not the base texture), a `StatUpgrade` sets the capacity, and the unlocked
 
 | Item | Value |
 | --- | --- |
-| Footprint, drawSize | (2, 5), (3, 6); the drill rig's chassis class |
+| Footprint, drawSize | (2, 6), (3, 7) (owner, 8 Nov 2026: longer than first designed, so the owner's picked body fits without being stretched; the picked art scales to 1.96 cells wide at 6 cells long) |
 | Mass | 340 empty; contents add their own mass by density (below) |
 | Fuel | Chemfuel, 28 a day driving, 6 a day pumping (the engine at idle drives the pump through a power take-off) |
 | Crew | Driver; the pump runs unattended once the hoses are connected |
@@ -379,18 +379,20 @@ work once a tank is fitted.
 | --- | --- | --- | --- | --- | --- |
 | Chassis | 170 | External | all, weight 3 | BodyIntegrity | |
 | Cab | 50 | External | (0, 2) (1, 2) | | Crew |
-| Engine | 60 | Internal, priority | (0, 2) (1, 2) | MoveSpeed, Phobos_PumpRate | Drives the road and the pump |
+| Engine | 60 | Internal, priority | (0, 3) (1, 3) | MoveSpeed, Phobos_PumpRate | Drives the road and the pump |
 | Transmission | 40 | Internal | (0, 1) (1, 1) | MoveSpeed | |
-| Front axle and wheels | 35 | External | (0, 2) (1, 2) | MoveSpeed | |
+| Front axle and wheels | 35 | External | (0, 3) (1, 3) | MoveSpeed | |
 | Rear axles and wheels | 50 | External | (0, −1) (1, −1) (0, −2) (1, −2) | MoveSpeed | Tandem axles |
 | Truck fuel tank | 35 | Internal | (0, 1) | | VF's fuel-leak reactor |
-| Tank shell | 90 | External | (0, 0) (1, 0) (0, −1) (1, −1) (0, −2) (1, −2) | Phobos_TankIntegrity | Our reactor: a hit drains liquid as a puddle (chemfuel: filth that burns) or vents gas fast; flammable contents at zero integrity explode through VF's `Reactor_Explosive`, scaled to the load, as VCHE's fixed tank already does (`CompProperties_ExplosiveContent`, flame, radius up to 12 at 4,500 units; patched Def read 8 Nov 2026); the default is the owner's call |
+| Tank shell | 90 | External | (0, 1) (1, 1) (0, 0) (1, 0) (0, −1) (1, −1) (0, −2) (1, −2) | Phobos_TankIntegrity | Our reactor: a hit drains liquid as a puddle (chemfuel: filth that burns) or vents gas fast; flammable contents at zero integrity explode through VF's `Reactor_Explosive`, scaled to the load, as VCHE's fixed tank already does (`CompProperties_ExplosiveContent`, flame, radius up to 12 at 4,500 units; patched Def read 8 Nov 2026); the default is the owner's call |
 | Tank fittings | 40 | External | (0, −2) (1, −2) | Phobos_TankIntegrity | Baffles on the liquid tank; the relief valve and gauge on the pressure vessel (the node sets the label; the part key never changes) |
-| Pump and power take-off | 40 | Internal | (1, 1) | Phobos_PumpRate | Below the floor nothing moves |
-| Hose reel and couplings | 30 | External | (0, −2) | Phobos_PumpRate | Needed to deploy |
+| Pump and power take-off | 40 | Internal | (1, 2) | Phobos_PumpRate | Below the floor nothing moves |
+| Hose reel and couplings | 30 | External | (0, −2) (1, −2) | Phobos_PumpRate | Needed to deploy |
 | Manifold and valves | 30 | Internal | (0, 0) | Phobos_RigControl | Below the floor the pump will not run |
 | Wiring | 25 | Internal | (1, 0) | Phobos_RigControl | |
-| Lights | 15 | External | (0, 2) (1, 2) (0, −2) (1, −2) | | Load at night |
+| Lights | 15 | External | (0, 3) (1, 3) (0, −2) (1, −2) | | Load at night |
+
+Cells run z from −2 to 3 on a 2 x 6 footprint, and are read off the picked art: bonnet and front wheels at z 3, cab and pump at z 2, the deck from z 1 back, the rear axles at z −1 and −2. Colours for the Def, which give the picked body its tone while leaving it repaintable: `color` (162, 156, 123), `colorTwo` (195, 110, 36).
 
 **Argued against here:** registering the tank as a VEF connector (stale the moment the vehicle moves); two VehicleDefs for the two
 tanks (a refit would be a new vehicle and lose the parts' saved health); adding parts by upgrade (VF parts are fixed per Def and saved
@@ -475,7 +477,7 @@ already do it (IDs in the mechanics record); the lean is the agent's.
 - **Owner (8 Nov 2026):** utilitarian vehicles with per-part health and efficiency; a mobile drill rig first; a new
   mod; the framework before the vehicles, the mod as a stand-in; three to four vehicles in full; 1.7 only; the art
   route open to suggestions.
-- **Owner (8 Nov 2026, later):** the bulk tanker is built first.
+- **Owner (8 Nov 2026, later):** the bulk tanker is built first, on a 2 x 6 footprint, with attempt 2 of the pilot as its body.
 - **Owner (8 Nov 2026):** every vehicle of ours fully upgradeable and extendable by its character, with the art planned around
   the tree; parts from Vehicle Framework by default, RimThunder's and Vanilla Vehicles Expanded's part items as soft dependencies,
   together or as replacements, our own replacements where neither is present; a fifth vehicle in full, a tanker that is liquid or

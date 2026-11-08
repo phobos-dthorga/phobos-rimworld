@@ -1,0 +1,141 @@
+[
+  {
+    "name": "bulk-tanker-pressure-vessel",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 768,
+    "height": 1536,
+    "seeds": [
+      1,
+      2,
+      3
+    ],
+    "references": [
+      {
+        "image": "assets/phobos-vehicles/generated/bulk-tanker-liquid-tank/bulk-tanker-liquid-tank-1.png",
+        "role": "style only: match the outline weight, shading and steel finish; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "vehicle": "Phobos_Tanker, footprint (2, 6), drawSize (3, 7)",
+      "this_request": "PressureVessel upgrade overlay, north",
+      "fit_box_in_master_pixels": [
+        252,
+        590,
+        512,
+        1370
+      ]
+    },
+    "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL game sprite part for the D'thorga bulk tanker: the pressure vessel for carrying gases, which bolts onto its deck. Image 1 is our approved tank: match its outline weight, shading and steel finish only; do not copy its shape. \n\nDraw ONLY the vessel, alone on a plain pure white background, nothing else on the canvas. Tall narrow canvas, the long axis from top to bottom.\n\nIts top plan is: one single slim cylinder with fully round domed ends, clearly narrower and shorter than a road tank; a smooth cream-white painted shell, lighter along its centre and darker towards both long edges, with one muted orange band around the middle and no walkway; on the centre line near the top a small round guard ring around a cluster of three relief valves; one small plain closed valve cabinet at the rear end.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo truck, deck, cargo, people, animals, dust, mud, text, letters, numbers, logos, dials, screens or lamps. No floor, ground, road, shadow outside the object, perspective, tilt or visible side faces. Top surfaces only."
+  },
+  {
+    "name": "bulk-tanker-hose-reel",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 768,
+    "height": 1536,
+    "seeds": [
+      1,
+      2
+    ],
+    "references": [
+      {
+        "image": "assets/phobos-vehicles/generated/bulk-tanker-liquid-tank/bulk-tanker-liquid-tank-1.png",
+        "role": "style only: match the outline weight, shading and steel finish; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "vehicle": "Phobos_Tanker, footprint (2, 6), drawSize (3, 7)",
+      "this_request": "HoseReel upgrade overlay, north",
+      "fit_box_in_master_pixels": [
+        262,
+        1418,
+        502,
+        1490
+      ]
+    },
+    "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL game sprite part for the D'thorga bulk tanker: a hose reel mounted across the rear of its deck. Image 1 is our approved tank: match its outline weight, shading and steel finish only; do not copy its shape. \n\nDraw ONLY the reel, alone and centred on a plain pure white background, nothing else on the canvas.\n\nIts top plan is: one wide short drum lying across the canvas from left to right, about three and a half times as wide as it is deep, wrapped in neat turns of thick black rubber hose, between two dark steel end plates.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo truck, deck, cargo, people, animals, dust, mud, text, letters, numbers, logos, dials, screens or lamps. No floor, ground, road, shadow outside the object, perspective, tilt or visible side faces. Top surfaces only."
+  },
+  {
+    "name": "bulk-tanker-hoses-out",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 768,
+    "height": 1536,
+    "seeds": [
+      1,
+      2
+    ],
+    "references": [
+      {
+        "image": "assets/phobos-vehicles/generated/bulk-tanker-liquid-tank/bulk-tanker-liquid-tank-1.png",
+        "role": "style only: match the outline weight, shading and steel finish; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "vehicle": "Phobos_Tanker, footprint (2, 6), drawSize (3, 7)",
+      "this_request": "hoses out while deployed, overlay, north",
+      "fit_box_in_master_pixels": [
+        505,
+        1240,
+        765,
+        1530
+      ]
+    },
+    "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL game sprite part for the D'thorga bulk tanker: its delivery hose, unrolled along the ground while the truck is parked and pumping. Image 1 is our approved tank: match its outline weight, shading and steel finish only; do not copy its shape. \n\nDraw ONLY the hose, alone on a plain pure white background, nothing else on the canvas.\n\nIts plan is: one thick black rubber hose that starts at the left edge of the group, runs out to the right in a single lazy S-curve, and ends in one chunky dull brass coupling.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo truck, deck, cargo, people, animals, dust, mud, text, letters, numbers, logos, dials, screens or lamps. No floor, ground, road, shadow outside the object, perspective, tilt or visible side faces. Top surfaces only."
+  },
+  {
+    "name": "bulk-tanker-damage-tank",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 768,
+    "height": 1536,
+    "seeds": [
+      1
+    ],
+    "references": [
+      {
+        "image": "assets/phobos-vehicles/generated/bulk-tanker-liquid-tank/bulk-tanker-liquid-tank-1.png",
+        "role": "position only: lay the marks over this tank's shape; do not redraw the tank"
+      }
+    ],
+    "art_plan": {
+      "vehicle": "Phobos_Tanker, footprint (2, 6), drawSize (3, 7)",
+      "this_request": "tank shell damage overlay, north",
+      "fit_box_in_master_pixels": [
+        232,
+        556,
+        532,
+        1410
+      ]
+    },
+    "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL game sprite overlay of damage marks for a long tank. Image 1 shows the tank: use it only to place the marks over its shape. Do NOT redraw the tank.\n\nDraw ONLY the marks, on a plain pure white background: a few dented scrapes, two or three small punctured holes with torn edges, and soft patches of black soot, scattered over the long tank shape, spread from end to end so that they reach near its top, bottom and both sides. Near-black and charcoal only.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo tank, truck, deck, walkway, hatches, ladder, cargo, people, animals, text, letters, numbers or logos. No floor, ground, perspective or tilt."
+  },
+  {
+    "name": "bulk-tanker-damage-body",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 768,
+    "height": 1536,
+    "seeds": [
+      1
+    ],
+    "references": [
+      {
+        "image": "assets/phobos-vehicles/generated/bulk-tanker-body-north/bulk-tanker-body-north-2.png",
+        "role": "position only: lay the marks over this truck's cab and deck; do not redraw the truck"
+      }
+    ],
+    "art_plan": {
+      "vehicle": "Phobos_Tanker, footprint (2, 6), drawSize (3, 7)",
+      "this_request": "body damage overlay, north",
+      "fit_box_in_master_pixels": [
+        150,
+        30,
+        620,
+        1500
+      ]
+    },
+    "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL game sprite overlay of damage marks for a truck. Image 1 shows the truck: use it only to place the marks over its shape. Do NOT redraw the truck.\n\nDraw ONLY the marks, on a plain pure white background: a few dented scrapes, cracks, two or three small punched holes with torn edges, and soft patches of black soot, scattered over the cab and along the deck, spread from end to end and side to side. Near-black and charcoal only.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo truck, cab, deck, wheels, cargo, people, animals, text, letters, numbers or logos. No floor, ground, perspective or tilt."
+  }
+]

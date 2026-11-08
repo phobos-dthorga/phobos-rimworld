@@ -242,7 +242,7 @@ the body's canvas size, so the cut-out registers over the body without scaling.
 5. Read the run report and the review page; check the near-copy result; write the review of each attempt into the
    batch record at native size and half size.
 6. The owner picks, or asks for one correction. One correction, then a change of approach.
-7. From the pick: turn by script for east and south, then one reference edit each with the roles named; masks and icon
+7. From the pick: turn by script for east and south (`scripts/art/export_vehicle.py`), and pay for a reference edit only if the owner sees the lighting is wrong, since an edit redraws the picture and can drift from the pick and from its overlays (8 Nov 2026); masks and icon
    by script; archive the unpicked attempts with their reasons; master to `art-masters`.
 
 ## Review checklist (every attempt, before the owner sees it)

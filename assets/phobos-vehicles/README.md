@@ -31,3 +31,32 @@ near-white rather than pure white (the cut-out must allow for that). The deck ca
 asked for, as the rules warned that sizes are weak guidance. Following the rule against rerolling for what a script can do, this is
 a job for the export script: widen the picture by a measured factor, or change the design's footprint. **To settle when the pick is
 made.** A side-by-side with a vehicle already in the game has not been done, so how it sits beside them is unknown.
+
+## Tanker body, exported (8 Nov 2026)
+
+From attempt 2, by `scripts/art/export_vehicle.py`, free, with the original untouched. Footprint 2 x 6, drawSize (3, 7), so 384 x 896 north; 1.96 cells wide. North, east, south, a colour mask for each and a 64 px icon. East and south are the north turned, so they cannot drift from it. Files are in `generated/export/` and can be made again from the master:
+
+```text
+python scripts/art/export_vehicle.py body generated/bulk-tanker-body-north/bulk-tanker-body-north-2.png --out generated/export --name BulkTanker --cells-long 6 --draw 3 7
+```
+
+The painted areas are grey in the texture, as Vanilla Vehicles Expanded's are, so a player can repaint the truck: red in the mask is the olive, green the orange stripe. The Def's `color` (162, 156, 123) and `colorTwo` (195, 110, 36) give the picked tones back. The pale cab roof, deck, glass and tyres are not paintable. **Not yet seen in game.**
+
+## Tanker overlays (8 Nov 2026)
+
+**Status: made, waiting for the owner's picks.** All 12 attempts are saved exactly as generated on `art-references` (3b3ae05, `vehicles/tanker-overlays/`). Tool: OpenAI gpt-image-2 through `/images/edits`, medium quality, 768 x 1536, one named reference each, US$0.0385 an image; AI-generated. Prompts are in [requests/tanker-liquid-tank.json](requests/tanker-liquid-tank.json) and [requests/tanker-overlays.json](requests/tanker-overlays.json). The whole tanker has cost US$0.576 so far: US$0.118 for the body, US$0.115 for the liquid tank and US$0.343 for the rest.
+
+The review is the agent's, with each attempt fitted onto the exported truck. The provisional pick is what `generated/export/` holds; the owner may choose differently.
+
+| Overlay | Fit box in master pixels | Attempts | Provisional | Notes |
+| --- | --- | --- | --- | --- |
+| Liquid tank | 232 556 532 1410 | 3 | 1 | Round ends and bolted hatches read most like a road tank. 3 has squarer ends |
+| Pressure vessel | 252 590 512 1370 | 3 | 2 | Fullest cylinder, solid orange band. 1 is slim, and 3's band looks translucent |
+| Hose reel | 262 1418 502 1490 | 2 | 2 | Both came out less wide than asked, so it is small on the rear deck |
+| Hose laid out | 505 1240 765 1530 | 2 | 1 | Both start at the side of the tank rather than the reel, and cross over the rear tyres |
+| Tank damage | 232 556 532 1410, with `--marks` | 1 | 1 | Holes, gashes and soot |
+| Body damage | 150 30 620 1500, with `--marks` | 1 | 1 | Cracks, holes and soot over the cab and deck |
+
+Damage marks are exported with `--marks`, which keeps only their darkness: as drawn, the soot had pale edges and looked like white smoke. That was fixed by script rather than by paying again.
+
+**Not checked:** whether overlays can be repainted with the truck, so they have no masks yet (to read at build); how any of it looks beside a vehicle already in the game.

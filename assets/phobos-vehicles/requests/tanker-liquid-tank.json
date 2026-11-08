@@ -1,0 +1,31 @@
+[
+  {
+    "name": "bulk-tanker-liquid-tank",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 768,
+    "height": 1536,
+    "seeds": [
+      1,
+      2,
+      3
+    ],
+    "references": [
+      {
+        "image": "assets/phobos-vehicles/generated/bulk-tanker-body-north/bulk-tanker-body-north-2.png",
+        "role": "approved truck body: match its outline weight, shading and finish only, and see where its deck is; do not redraw it"
+      }
+    ],
+    "art_plan": {
+      "vehicle": "Phobos_Tanker, footprint (2, 6), drawSize (3, 7)",
+      "this_request": "LiquidTank upgrade overlay, north",
+      "fit_box_in_master_pixels": [
+        232,
+        556,
+        532,
+        1410
+      ]
+    },
+    "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL game sprite part for the D'thorga bulk tanker: the liquid tank that bolts onto its deck. Image 1 is our approved truck: match its outline weight, shading and finish only, and use it only to see the size and place of the deck. Do NOT redraw the truck.\n\nDraw ONLY the tank, alone on a plain pure white background: no cab, no wheels, no deck, no cradles, nothing else on the canvas. Tall narrow canvas, with the tank's long axis running from top to bottom, occupying the place where the deck is in Image 1.\n\nIts top plan is: one long road tank with rounded ends; a pale dusty grey steel shell, lighter along its centre and darker towards both long edges, with thin reinforcing bands across it at even spacing; a narrow ribbed walkway along the centre line; three round manway hatches on the centre line; one short ladder at the rear left.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo truck, cargo, people, animals, hoses, dust, mud, damage, rust, text, letters, numbers, logos, dials, screens or lamps. No floor, ground, road, shadow outside the tank, perspective, tilt or visible side faces. Top surfaces only."
+  }
+]
