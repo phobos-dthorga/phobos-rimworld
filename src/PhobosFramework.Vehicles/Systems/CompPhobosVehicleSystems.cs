@@ -719,6 +719,42 @@ public class CompPhobosVehicleSystems : VehicleComp
 
     bool PartPlays(VehicleComponent part, string role) => Props.roleKeys.TryGetValue(role, out List<string>? keys) && keys.Contains(part.props.key);
 
+    readonly ProgressWatch freeRepairWatch = new();
+    int repairsPausedUntil = -1;
+
+    /// <summary>The watchdog has stood mechanics down from this vehicle for now. Derived, never saved: a load simply tries again.</summary>
+    public bool RepairsPaused
+    {
+        get
+        {
+            if (repairsPausedUntil < 0) return false;
+            int now = Find.TickManager.TicksGame;
+            return now < repairsPausedUntil && repairsPausedUntil - now <= PhobosVehicleRulesDef.Current<PhobosVehicleRulesDef>().repairPauseTicks;
+        }
+    }
+
+    /// <summary>A step of Vehicle Framework's free repair finished: true when the steps have stopped raising the vehicle's health.</summary>
+    public bool Notify_FreeRepairStep(Pawn mechanic)
+    {
+        PhobosVehicleRulesDef rules = PhobosVehicleRulesDef.Current<PhobosVehicleRulesDef>();
+        float health = Vehicle.statHandler.components.Sum(part => part.Health);
+        if (!freeRepairWatch.Note(Find.TickManager.TicksGame, health, rules.repairStallTicks, rules.repairStepGapTicks)) return false;
+        PauseRepairs(mechanic);
+        return true;
+    }
+
+    /// <summary>Stands repairs to this vehicle down for a while and says so, instead of a mechanic working for ever at nothing.</summary>
+    public void PauseRepairs(Pawn? mechanic)
+    {
+        repairsPausedUntil = Find.TickManager.TicksGame + PhobosVehicleRulesDef.Current<PhobosVehicleRulesDef>().repairPauseTicks;
+        freeRepairWatch.Reset();
+        VehicleSystemsMod.Logger.Warn("Repairs to " + Vehicle.LabelShort + " (" + Vehicle.def.defName + ") got nowhere for " + (mechanic?.LabelShort ?? "a mechanic") + "; standing down for now.");
+        if (Vehicle.Faction == Faction.OfPlayer)
+        {
+            Messages.Message("PhobosVehicleSystems_RepairStalled".Translate(Vehicle.LabelShort.Named("VEHICLE")), Vehicle, MessageTypeDefOf.NegativeEvent);
+        }
+    }
+
     /// <summary>A part mended away from a map (a garage), where no update will see its health rise: what a repair clears, clears now.</summary>
     public void Notify_RepairedAway(VehicleComponent part, float healthBefore)
     {

@@ -28,6 +28,32 @@ public static class CostShareRule
     }
 }
 
+/// <summary>
+/// Whether work is getting anywhere, game-free. Each step reports a measure (work left, total health); while the measure stays put for
+/// the stall limit, the work has stalled. A long gap between steps starts afresh, so work resumed days later is not called stalled.
+/// </summary>
+public sealed class ProgressWatch
+{
+    int lastStep = -1;
+    int lastProgress = -1;
+    double lastMeasure;
+
+    public bool Note(int now, double measure, int stallTicks, int gapTicks)
+    {
+        bool fresh = lastStep < 0 || now < lastStep || now - lastStep > gapTicks || Math.Abs(measure - lastMeasure) > 1e-4;
+        lastStep = now;
+        if (fresh)
+        {
+            lastMeasure = measure;
+            lastProgress = now;
+            return false;
+        }
+        return now - lastProgress >= stallTicks;
+    }
+
+    public void Reset() => lastStep = -1;
+}
+
 /// <summary>How long until a quantity reaches a level at the rate it is moving, game-free: an estimate, for a danger clock.</summary>
 public static class DangerClockRule
 {

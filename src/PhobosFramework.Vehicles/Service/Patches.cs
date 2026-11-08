@@ -155,6 +155,32 @@ public static class DestroyedPartsLeftForSupplies
     }
 }
 
+/// <summary>
+/// The watchdog on Vehicle Framework's own free repair (owner, 9 Nov 2026: a long repair and a stuck one look alike): each step reports the
+/// vehicle's total health, and a mechanic whose steps stop raising it is stood down and told so. No extension point on the job; a postfix.
+/// </summary>
+[HarmonyPatch(typeof(JobDriver_RepairVehicle), "WorkComplete")]
+public static class FreeRepairWatchdog
+{
+    public static void Postfix(JobDriver_RepairVehicle __instance, Pawn actor)
+    {
+        if (__instance.job?.targetA.Thing is not VehiclePawn vehicle) return;
+        CompPhobosVehicleSystems? comp = vehicle.GetComp<CompPhobosVehicleSystems>();
+        if (comp == null || !comp.Notify_FreeRepairStep(actor) || actor.CurJob != __instance.job) return;
+        actor.jobs.EndCurrentJob(Verse.AI.JobCondition.Incompletable);
+    }
+}
+
+/// <summary>While the watchdog has repairs waiting, Vehicle Framework's work giver leaves the vehicle alone.</summary>
+[HarmonyPatch(typeof(WorkGiver_RepairVehicle), nameof(WorkGiver_RepairVehicle.CanBeWorkedOn))]
+public static class FreeRepairWaits
+{
+    public static void Postfix(VehiclePawn vehicle, ref bool __result)
+    {
+        if (__result && vehicle.GetComp<CompPhobosVehicleSystems>()?.RepairsPaused == true) __result = false;
+    }
+}
+
 /// <summary>The same for the question "does it need repairs?", or mechanics would walk to a vehicle with nothing they could do.</summary>
 [HarmonyPatch(typeof(VehicleStatHandler), nameof(VehicleStatHandler.NeedsRepairs), MethodType.Getter)]
 public static class DestroyedPartsNeedNoFreeRepair

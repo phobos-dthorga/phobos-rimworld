@@ -588,6 +588,12 @@ public class PhobosVehicleRulesDef : PhobosRulesDef
     public float fieldFixWork = 600f;
     /// <summary>What a field fix uses up.</summary>
     public List<ThingDefCountClass> fieldFixSupplies = new();
+    /// <summary>Work at a vehicle that gets nowhere for this many ticks is stopped (the repair watchdog).</summary>
+    public int repairStallTicks = 2500;
+    /// <summary>Steps further apart than this are separate attempts, not one that stalled.</summary>
+    public int repairStepGapTicks = 600;
+    /// <summary>How long repairs to that vehicle then wait before they are tried again.</summary>
+    public int repairPauseTicks = 60000;
     /// <summary>A danger clock is shown only within this many hours.</summary>
     public float dangerClockHours = 72f;
 }

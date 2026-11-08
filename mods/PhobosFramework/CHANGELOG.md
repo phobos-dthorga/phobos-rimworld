@@ -9,6 +9,19 @@ tested in game unless an entry says the owner tested it.
 
 - A tank's damage marks follow the health of their part. Vehicle Framework never reads a part requirement written on an overlay, so the tank now draws them itself. **Not yet tested in game.**
 
+## [0.39.1] - 2026-11-09 - Draft
+
+A watchdog on vehicle repairs, at the owner's request (9 November 2026): a long repair and a stuck one look alike. **Not yet tested in game.**
+
+### Added
+
+- A mechanic whose work on a vehicle has got nowhere for an in-game hour now stops, and a message says so. Repairs to that vehicle wait a day before being tried again, and its inspect line says that is why. This covers services, fitting parts, field fixes and the ordinary free repair.
+
+### Compatibility and limits
+
+- A long repair that is making progress is never stopped, however long it takes. Only work that has stopped moving counts.
+- The wait is not saved, so loading a game lets repairs try again at once.
+
 ## [0.39.0] - 2026-11-09 - Draft
 
 The bulk order gets the game's own controls (owner, 9 November 2026). **Not yet tested in game.**

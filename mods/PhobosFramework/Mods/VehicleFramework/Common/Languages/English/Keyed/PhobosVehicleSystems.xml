@@ -206,6 +206,8 @@
   <PhobosVehicleSystems_HealthInternal>Inside</PhobosVehicleSystems_HealthInternal>
   <PhobosVehicleSystems_HealthDestroyed>destroyed</PhobosVehicleSystems_HealthDestroyed>
   <PhobosVehicleSystems_HealthLeaking>leaking fuel</PhobosVehicleSystems_HealthLeaking>
+  <PhobosVehicleSystems_RepairStalled>The repairs to the {VEHICLE} were getting nowhere, so the mechanic has stopped. They will be tried again tomorrow.</PhobosVehicleSystems_RepairStalled>
+  <PhobosVehicleSystems_RepairPausedLine>Repairs got nowhere, and will be tried again tomorrow.</PhobosVehicleSystems_RepairPausedLine>
   <PhobosVehicleSystems_RepairReplace>replacing the {PART}</PhobosVehicleSystems_RepairReplace>
   <PhobosVehicleSystems_RepairFieldFix>patching the {PART}</PhobosVehicleSystems_RepairFieldFix>
   <PhobosVehicleSystems_RepairWaitingMechanic>{WORK}: everything is aboard, waiting for a mechanic.</PhobosVehicleSystems_RepairWaitingMechanic>

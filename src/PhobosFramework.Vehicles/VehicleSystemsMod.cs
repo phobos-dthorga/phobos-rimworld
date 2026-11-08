@@ -157,6 +157,8 @@ public class VehicleSystemsSettings : ModSettings
 /// </summary>
 public class VehicleSystemsMod : Mod
 {
+    public static readonly Phobos.Logging.PhobosLog Logger = Phobos.Framework.Logging.Logs.For("D'thorga Framework", "Vehicle systems");
+
     /// <summary>The Harmony ID is the Framework's packageId with the part's name; never change it once published.</summary>
     public const string HarmonyId = "PhobosDthorga.Framework.VehicleSystems";
     public const string LogPrefix = "[D'thorga Framework]";

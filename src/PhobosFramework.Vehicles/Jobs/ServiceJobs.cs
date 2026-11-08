@@ -123,7 +123,7 @@ public class WorkGiver_PhobosServiceVehicle : VehicleWorkGiver
     public override IEnumerable<Thing> PotentialWorkThingsGlobal(Pawn pawn) => ServiceTargets.Vehicles(pawn);
 
     public override bool CanBeWorkedOn(VehiclePawn vehicle) =>
-        !vehicle.Drafted && vehicle.GetComp<CompPhobosVehicleSystems>()?.ReadyService() != null;
+        !vehicle.Drafted && vehicle.GetComp<CompPhobosVehicleSystems>() is { RepairsPaused: false } comp && comp.ReadyService() != null;
 }
 
 /// <summary>
@@ -133,7 +133,38 @@ public class WorkGiver_PhobosServiceVehicle : VehicleWorkGiver
 /// </summary>
 public abstract class PhobosVehicleWorkDriver : JobDriver_WorkVehicle
 {
+    readonly Phobos.Framework.Rules.ProgressWatch watch = new();
+
     protected override ToilCompleteMode ToilCompleteMode => ToilCompleteMode.Never;
+
+    protected CompPhobosVehicleSystems? Systems => Vehicle.GetComp<CompPhobosVehicleSystems>();
+
+    /// <summary>With no time limit on the work, a mechanic who cannot advance it (a work speed of nothing) would stand there for ever.</summary>
+    bool Stalled()
+    {
+        if (pawn.pather.Moving)
+        {
+            watch.Reset();
+            return false;
+        }
+        PhobosVehicleRulesDef rules = PhobosVehicleRulesDef.Current<PhobosVehicleRulesDef>();
+        if (!watch.Note(Find.TickManager.TicksGame, Work, rules.repairStallTicks, rules.repairStepGapTicks)) return false;
+        Systems?.PauseRepairs(pawn);
+        return true;
+    }
+
+    protected override IEnumerable<Toil> MakeNewToils()
+    {
+        this.FailOn(Stalled);
+        foreach (Toil toil in base.MakeNewToils()) yield return toil;
+    }
+
+    /// <summary>The job ended and did nothing: repairs wait, rather than a mechanic being sent straight back.</summary>
+    protected void Finished(Pawn actor, bool done)
+    {
+        if (!done) Systems?.PauseRepairs(actor);
+        ReadyForNextToil();
+    }
 
     public override void ExposeData()
     {
@@ -156,8 +187,7 @@ public class JobDriver_PhobosServiceVehicle : PhobosVehicleWorkDriver
 
     protected override void WorkComplete(Pawn actor)
     {
-        Vehicle.GetComp<CompPhobosVehicleSystems>()?.CompleteService(actor);
-        ReadyForNextToil();
+        Finished(actor, Systems?.CompleteService(actor) == true);
     }
 }
 
@@ -169,7 +199,7 @@ public class WorkGiver_PhobosRepairWithSupplies : VehicleWorkGiver
     public override IEnumerable<Thing> PotentialWorkThingsGlobal(Pawn pawn) => ServiceTargets.Vehicles(pawn);
 
     public override bool CanBeWorkedOn(VehiclePawn vehicle) =>
-        !vehicle.Drafted && vehicle.GetComp<CompPhobosVehicleSystems>()?.Repairs.Ready != null;
+        !vehicle.Drafted && vehicle.GetComp<CompPhobosVehicleSystems>() is { RepairsPaused: false } comp && comp.Repairs.Ready != null;
 }
 
 public class JobDriver_PhobosRepairWithSupplies : PhobosVehicleWorkDriver
@@ -184,7 +214,6 @@ public class JobDriver_PhobosRepairWithSupplies : PhobosVehicleWorkDriver
 
     protected override void WorkComplete(Pawn actor)
     {
-        Vehicle.GetComp<CompPhobosVehicleSystems>()?.Repairs.CompleteReady(actor);
-        ReadyForNextToil();
+        Finished(actor, Systems?.Repairs.CompleteReady(actor) == true);
     }
 }

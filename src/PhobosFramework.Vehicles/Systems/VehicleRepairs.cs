@@ -241,6 +241,7 @@ public sealed class VehicleRepairs
     /// <summary>The one thing the repairs wait for, for the inspect line; null with none pending.</summary>
     public string? WaitingLine()
     {
+        if (comp.RepairsPaused) return "PhobosVehicleSystems_RepairPausedLine".Translate().Resolve();
         // A patch nobody asked for is on offer in a caravan, but the vehicle is not waiting for it.
         List<RepairWork> waiting = Pending.Where(r => r.Kind != RepairKind.FieldFix || fieldFixRequested).ToList();
         if (waiting.Count == 0) return null;

@@ -9,6 +9,9 @@
     <replacedPartHealth>0.25</replacedPartHealth>
     <fieldFixWork>600</fieldFixWork>
     <dangerClockHours>72</dangerClockHours>
+    <repairStallTicks>2500</repairStallTicks>
+    <repairStepGapTicks>600</repairStepGapTicks>
+    <repairPauseTicks>60000</repairPauseTicks>
     <fieldFixSupplies>
       <ComponentIndustrial>1</ComponentIndustrial>
     </fieldFixSupplies>

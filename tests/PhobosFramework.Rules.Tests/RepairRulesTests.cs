@@ -50,5 +50,43 @@ public class RepairRulesTests
     }
 
     [Fact]
+    public void WorkThatGetsNowhereStalls()
+    {
+        var watch = new ProgressWatch();
+        Assert.False(watch.Note(100, 500, 2500, 600));
+        Assert.False(watch.Note(600, 500, 2500, 600));
+        Assert.False(watch.Note(1200, 500, 2500, 600));
+        Assert.False(watch.Note(1800, 500, 2500, 600));
+        Assert.True(watch.Note(2600, 500, 2500, 800));
+    }
+
+    [Fact]
+    public void ProgressRestartsTheClock()
+    {
+        var watch = new ProgressWatch();
+        watch.Note(100, 500, 2500, 600);
+        watch.Note(600, 500, 2500, 600);
+        Assert.False(watch.Note(1100, 480, 2500, 600));
+        Assert.False(watch.Note(1700, 480, 2500, 600));
+        Assert.False(watch.Note(2300, 480, 2500, 600));
+    }
+
+    [Fact]
+    public void WorkResumedAfterALongGapIsNotStalled()
+    {
+        var watch = new ProgressWatch();
+        watch.Note(100, 500, 2500, 600);
+        Assert.False(watch.Note(90000, 500, 2500, 600));
+    }
+
+    [Fact]
+    public void AnEarlierGameLoadedSinceIsNotStalled()
+    {
+        var watch = new ProgressWatch();
+        watch.Note(90000, 500, 2500, 600);
+        Assert.False(watch.Note(1000, 500, 2500, 600));
+    }
+
+    [Fact]
     public void AFieldFixHalvesTheSeverity() => Assert.Equal(0.3, SeverityRule.FieldFixed(0.6), 6);
 }
