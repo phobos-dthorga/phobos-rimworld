@@ -15,6 +15,22 @@ tested in game unless an entry says the owner tested it.
 
 - BMP-1 IFV (Vehicle Framework), by Turbo, is no longer on the Steam Workshop (Steam showed no public item on 8 November 2026: removed or made private). Its loadout here loads only while that mod is active, so it stays dormant and costs nothing; a player with their own copy still gets it.
 
+## [0.12.0] - 2026-11-08 - Draft
+
+The first vehicle of our own: the bulk tanker (owner, 8 November 2026). **Not yet tested in game.** Needs D'thorga Framework 0.34.0. Design: docs/development/utility-vehicles-design.md. Art: OpenAI gpt-image-2, picked and accepted by the owner, recorded in the textures folder.
+
+### Added
+
+- The bulk tanker: a 2 by 6 heavy truck whose tank is an upgrade. Three liquid tanks (general, insulated, high-volume), and three pressure vessels (standard, light, heavy-wall) where Vanilla Gravship Expanded gives it a gas to carry, plus a second hose reel.
+- It carries chemfuel out of the box, refuelling vehicles and pumping stacks on the ground. Deepchem, chemfuel pipes, water, nutrient paste, hemogen, astrofuel and oxygen each come with the mod that gives them meaning.
+- It is built from the parts your mods provide: RimThunder's engine and running gear, Vanilla Vehicles Expanded's electrics and cooling, or three parts of our own, made at the machining table, if you have neither.
+
+### Compatibility and limits
+
+- Not safe to remove from a save once a tanker is built: scrap it first, as with any Vehicle Framework vehicle.
+- All health, cost, mass, capacity and pump figures are authored and untuned.
+- Not built yet: RimThunder engine upgrades for the tree, the fire monitor, crude oil from Rimefeller, and helixien gas. The overlays are not repainted with the truck.
+
 ## [0.11.0] - 2026-11-08 - Draft
 
 The garage, at the owner's request (8 November 2026). **Not yet tested in game.**

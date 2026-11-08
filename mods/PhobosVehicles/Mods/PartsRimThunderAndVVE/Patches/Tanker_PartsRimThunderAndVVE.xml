@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <!-- RimThunder supplies the engine, transmission, fuel tank and tyres; Vanilla Vehicles Expanded the electrics, radiator and suspension. Steel stays first: Vehicle Framework reads the first cost item for the destruction sound. Counts are authored. -->
+  <Operation Class="PatchOperationReplace">
+    <xpath>Defs/Vehicles.VehicleBuildDef[defName="Phobos_Tanker_Blueprint"]/costList</xpath>
+    <value>
+      <costList>
+              <Steel>280</Steel>
+              <EngineHeavy>1</EngineHeavy>
+              <ComponentTransmission>1</ComponentTransmission>
+              <ComponentFuelTank>1</ComponentFuelTank>
+              <ComponentWheelTire>6</ComponentWheelTire>
+              <VVE_CarAlternator>1</VVE_CarAlternator>
+              <VVE_CarBattery>1</VVE_CarBattery>
+              <VVE_CarWiring>1</VVE_CarWiring>
+              <VVE_CarRadiator>1</VVE_CarRadiator>
+              <VVE_CarSuspension>3</VVE_CarSuspension>
+              <ComponentIndustrial>8</ComponentIndustrial>
+      </costList>
+    </value>
+  </Operation>
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/Vehicles.VehicleBuildDef[defName="Phobos_Tanker_Blueprint"]/researchPrerequisites</xpath>
+    <value>
+      <li>EnginePlus</li>
+    </value>
+  </Operation>
+</Patch>

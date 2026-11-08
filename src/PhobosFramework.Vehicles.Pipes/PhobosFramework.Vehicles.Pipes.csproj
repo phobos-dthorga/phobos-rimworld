@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- D'thorga Framework's bulk-tank port for Vanilla Expanded Framework's pipe networks. Its own assembly in Mods/VehiclesPipes/1.7,
+       which LoadFolders.xml loads only while both Vehicle Framework and Vanilla Expanded Framework are active (IfModActiveAll). RimWorld
+       1.7 only. Other mods' assemblies are referenced from the installed mods and never copied. -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <RootNamespace>Phobos.VehicleSystems.Pipes</RootNamespace>
+    <AssemblyName>PhobosFramework.Vehicles.Pipes</AssemblyName>
+    <ModFolder>PhobosFramework</ModFolder>
+    <TieInFolder>Mods/VehiclesPipes/</TieInFolder>
+    <Version>0.34.0</Version>
+    <ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>true</ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../PhobosFramework/PhobosFramework.csproj" Private="false" />
+    <ProjectReference Include="../PhobosFramework.Vehicles/PhobosFramework.Vehicles.csproj" Private="false" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Vehicles">
+      <HintPath>$(VehicleFrameworkAssemblies)\Vehicles.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="PipeSystem">
+      <HintPath>$(VefAssemblies)\PipeSystem.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+</Project>

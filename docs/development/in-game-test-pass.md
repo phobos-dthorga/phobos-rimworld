@@ -38,3 +38,11 @@ if play brings them up. Nothing here counts as tested until the owner says so; e
 - The IRBM strike model (Patches 0.8.0 and 0.9.0) needs a strategic warhead to land: run it when you choose to; its bug report
   waits for that test ([outstanding work](outstanding-work.md), item J).
 - The probes T3 and T5 (stream counts, timing) are for measuring later, not for this pass.
+
+## The bulk tanker (Framework 0.34.0, Vehicles 0.12.0)
+
+Three checks, on a copy of a save, after installing with RimWorld closed.
+
+1. **Build one, then fit the general liquid tank.** Does the truck look right, with the tank on its deck in every facing? Does the Upgrades tab show the tanks, and refuse a second one?
+2. **Choose chemfuel, park beside chemfuel stacks, Set up, then Load.** Does the tank fill, does the hose appear, and is the truck refused a move while set up? Then Pack up and use Unload to refuel a parked vehicle.
+3. **Change contents.** Empty it, try to choose something else (it should say to purge), then right-click the truck with a colonist to purge it.

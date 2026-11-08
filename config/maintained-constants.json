@@ -41,7 +41,7 @@
     "PhobosFramework.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.33.0",
+      "value": "0.34.0",
       "description": "D'thorga Framework's version: About.xml, every project of the mod, its ModVersion constants and both READMEs",
       "targets": [
         {
@@ -66,6 +66,10 @@
         },
         {
           "path": "src/PhobosFramework.Vehicles.Hygiene/PhobosFramework.Vehicles.Hygiene.csproj",
+          "pattern": "<Version>(?P<value>[0-9.]+)</Version>"
+        },
+        {
+          "path": "src/PhobosFramework.Vehicles.Pipes/PhobosFramework.Vehicles.Pipes.csproj",
           "pattern": "<Version>(?P<value>[0-9.]+)</Version>"
         },
         {
@@ -221,7 +225,7 @@
     "PhobosVehicles.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.11.0",
+      "value": "0.12.0",
       "description": "D'thorga Vehicles's version: About.xml, every project of the mod, its ModVersion constants and both READMEs",
       "targets": [
         {

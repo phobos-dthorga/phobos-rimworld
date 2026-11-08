@@ -257,3 +257,9 @@ public class Input_Setting : VehicleSystemInput
     public string setting = "";
     protected override float Raw(SystemContext context) => VehicleSystemsMod.Settings.FlagOn(setting) ? 1f : 0f;
 }
+
+/// <summary>How heavily the tank's load sits on the vehicle: how full it is, times what that kind of tank weighs.</summary>
+public class Input_TankLoad : VehicleSystemInput
+{
+    protected override float Raw(SystemContext context) => context.Vehicle.GetComp<CompPhobosTank>()?.WeightedLoad ?? 0f;
+}

@@ -1,10 +1,10 @@
 # D'thorga Vehicles
 
-Vehicles that keep running only while they are looked after. **This first version adds no vehicles of its own.** It gives the
+Vehicles that keep running only while they are looked after. It adds one vehicle of its own, **the bulk tanker**, and gives the
 vehicles of other mods you already drive the systems that match what they really are, on top of the general systems D'thorga
 Framework gives every vehicle.
 
-Version 0.11.0, built 8 November 2026 for House D'thorga. **Not yet tested in game.**
+Version 0.12.0, built 8 November 2026 for House D'thorga. **Not yet tested in game.**
 
 ## Read this first (gotchas)
 
@@ -17,8 +17,9 @@ Version 0.11.0, built 8 November 2026 for House D'thorga. **Not yet tested in ga
   brakes, gearbox, wear and service. Their guide and settings are in
   [D'thorga Framework's README](../PhobosFramework/README.md#vehicle-systems-with-vehicle-framework). This mod only changes the
   vehicles below.
-- **Safe to add to and remove from a running colony.** The vehicles below switch between their own systems and the general ones;
-  a saved vehicle keeps or drops the air compressor as its design does.
+- **Safe to add to a running colony. Safe to remove only if you have no bulk tanker:** scrap any tanker first, as with any Vehicle
+  Framework vehicle. The other vehicles below switch between their own systems and the general ones; a saved vehicle keeps or drops the
+  air compressor as its design does.
 - **From 0.3.0, a laden helicopter or pod may refuse to lift off** on a hot day or with engines out; the launch button says
   why. D'thorga Framework's hover-limit setting can allow it at a cost or just warn.
 - **Open vehicles shelter nobody** (0.7.0): on Vanilla Vehicles Expanded's Dirtbike, Charley and Dinghy the crew feels the weather;
@@ -59,12 +60,31 @@ Version 0.11.0, built 8 November 2026 for House D'thorga. **Not yet tested in ga
 
 Every source and simplification is in the loadout files under `Mods/`.
 
+## The bulk tanker
+
+**Not yet tested in game.** A heavy truck, 2 by 6 cells, built with a bare deck.
+
+1. **Fit a tank** in its Upgrades tab: a general, insulated or high-volume liquid tank, or a pressure vessel if Vanilla Gravship Expanded is active. Only one tank at a time.
+2. **Choose what it carries** with its Choose contents button.
+3. **Park it** on or beside the pipes, the stacks or the vehicle you want, then press **Set up**. It cannot move until you press Pack up.
+4. Press **Load** or **Unload**. The inspect pane says what the pump is waiting for.
+
+| It carries | Pumped to and from | Temperature |
+| --- | --- | --- |
+| Chemfuel | Other vehicles' fuel tanks, stacks on the ground, Vanilla Chemfuel Expanded's pipes | Thickens and pumps slowly in deep cold, only with the fuel setting on |
+| Deepchem | Vanilla Chemfuel Expanded's pipes | As chemfuel |
+| Water | Dubs Bad Hygiene's plumbing | Freezes below 0 °C and cannot be pumped until it thaws |
+| Nutrient paste, hemogen | Their pipes | Above 0 °C the whole load spoils after about 18 hours; the insulated tank doubles that |
+| Astrofuel, oxygen | Vanilla Gravship Expanded's pipes | Oxygen vents in a fire or great heat |
+
+**Gotchas:** an empty tank must be **purged** before it can carry something else: select a colonist and right-click the truck (four in-game hours; it takes water where Dubs Bad Hygiene is active). **Taking a tank off with a load in it spills the load.** A damaged tank leaks, and a destroyed tank holding something flammable explodes unless you turn that off in D'thorga Framework's settings. A full tank slows the truck.
+
+**Parts:** it is built from RimThunder's engine and running gear and Vanilla Vehicles Expanded's electrics when you have them, and from three parts of ours, made at a machining table, if you have neither.
+
 ## Coming later
 
-Utility vehicles of our own, each with a part for every job and an upgrade tree of its own: a survey truck, a mobile drill rig, a
-tipper hauler, a generator set and a bulk tanker that carries liquids or gases depending on the tank you fit
-([the design](../../docs/development/utility-vehicles-design.md)). Their engines and running gear will come from RimThunder and
-Vanilla Vehicles Expanded when you have them, and from parts of ours when you do not.
+More utility vehicles of our own, each with a part for every job and an upgrade tree of its own: a survey truck, a mobile drill rig, a
+tipper hauler and a generator set ([the design](../../docs/development/utility-vehicles-design.md)).
 
 ## For modders
 

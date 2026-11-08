@@ -5,6 +5,23 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.34.0] - 2026-11-08 - Draft
+
+Bulk tanks on vehicles, for D'thorga Vehicles' bulk tanker (owner, 8 November 2026). **Not yet tested in game.** Design: docs/development/utility-vehicles-design.md.
+
+### Added
+
+- A bulk tank any vehicle can carry, with the tank fitted through the vehicle's upgrade tree. Anyone can add a fluid in XML: what tank it needs, its weight, whether it freezes, thickens, spoils or vents, and where it can be pumped.
+- Set up a tanker, then load or unload it: from pipes of Vanilla Expanded Framework's networks, from Dubs Bad Hygiene's plumbing, from stacks on the ground, or into another vehicle's fuel tank. It cannot move while set up.
+- A tank's contents warm and cool slowly with the air. Water freezes and cannot be pumped; fuel can thicken and pump slowly; food spoils completely on a clock; gas vents in a fire or great heat, and a vessel whose relief valve is too damaged bursts.
+- A damaged tank leaks, and a destroyed one bursts. An empty tank must be purged, by a colonist, before it can carry something else.
+- A new setting, on by default: a flammable load explodes when its tank is destroyed, more violently the fuller it is.
+
+### Compatibility and limits
+
+- Taking a tank off with a load in it spills the load: Vehicle Framework gives no way to refuse that job.
+- Only a Vehicle Framework vehicle can have a tank. The pipe port needs Vanilla Expanded Framework, the plumbing port Dubs Bad Hygiene; neither is required.
+
 ## [0.33.0] - 2026-11-08 - Draft
 
 The shared logger, and what coolant is made of (owner, 8 November 2026). **Not yet tested in game.** Design: docs/development/logging-framework-design.md.

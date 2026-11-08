@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <PhobosVehicleSystems_SettingTankExplosions>Flammable tank loads explode</PhobosVehicleSystems_SettingTankExplosions>
+  <PhobosVehicleSystems_SettingTankExplosionsDesc>When on, a tank holding something flammable explodes if it is destroyed, more violently the fuller it is. When off, the load only spills.</PhobosVehicleSystems_SettingTankExplosionsDesc>
+  <PhobosVehicleSystems_TankNoneFitted>No tank fitted.</PhobosVehicleSystems_TankNoneFitted>
+  <PhobosVehicleSystems_TankNoContents>Choose what the tank will hold first.</PhobosVehicleSystems_TankNoContents>
+  <PhobosVehicleSystems_TankNotOnMap>It can only be set up on a map.</PhobosVehicleSystems_TankNotOnMap>
+  <PhobosVehicleSystems_TankStopFirst>{VEHICLE} must stop and be parked first.</PhobosVehicleSystems_TankStopFirst>
+  <PhobosVehicleSystems_TankSetUpRefusal>{VEHICLE} is set up, with its hoses out. Pack it up first.</PhobosVehicleSystems_TankSetUpRefusal>
+  <PhobosVehicleSystems_TankSetUp>{VEHICLE} is set up, with its hoses out.</PhobosVehicleSystems_TankSetUp>
+  <PhobosVehicleSystems_TankPackedUp>{VEHICLE} is packed up and ready to move.</PhobosVehicleSystems_TankPackedUp>
+  <PhobosVehicleSystems_TankPumpLoading>{VEHICLE} is loading.</PhobosVehicleSystems_TankPumpLoading>
+  <PhobosVehicleSystems_TankPumpUnloading>{VEHICLE} is unloading.</PhobosVehicleSystems_TankPumpUnloading>
+  <PhobosVehicleSystems_TankPumpHolding>{VEHICLE} has stopped pumping.</PhobosVehicleSystems_TankPumpHolding>
+  <PhobosVehicleSystems_TankContentsSet>{VEHICLE} will carry {CONTENTS}.</PhobosVehicleSystems_TankContentsSet>
+  <PhobosVehicleSystems_TankDrainFirst>empty the {CONTENTS} first</PhobosVehicleSystems_TankDrainFirst>
+  <PhobosVehicleSystems_TankPurgeFirst>purge the {CONTENTS} from the tank first</PhobosVehicleSystems_TankPurgeFirst>
+  <PhobosVehicleSystems_TankRemovedSpilled>The tank came off {VEHICLE} with its load still in it, and the load spilled.</PhobosVehicleSystems_TankRemovedSpilled>
+  <PhobosVehicleSystems_TankBurst>The tank on {VEHICLE} has burst, and its {CONTENTS} is lost!</PhobosVehicleSystems_TankBurst>
+  <PhobosVehicleSystems_TankVenting>The relief valve on {VEHICLE} is venting its {CONTENTS}!</PhobosVehicleSystems_TankVenting>
+  <PhobosVehicleSystems_TankSpoiled>The {CONTENTS} in {VEHICLE} has spoiled. The tank needs purging.</PhobosVehicleSystems_TankSpoiled>
+  <PhobosVehicleSystems_TankFrozen>The {CONTENTS} in the tank has frozen.</PhobosVehicleSystems_TankFrozen>
+  <PhobosVehicleSystems_TankControlsDamaged>The valves and wiring are too damaged to run the pump.</PhobosVehicleSystems_TankControlsDamaged>
+  <PhobosVehicleSystems_TankPumpDamaged>The pump and hoses are too damaged to run.</PhobosVehicleSystems_TankPumpDamaged>
+  <PhobosVehicleSystems_TankHoled>The tank is too badly holed to take a load.</PhobosVehicleSystems_TankHoled>
+  <PhobosVehicleSystems_TankFull>The tank is full.</PhobosVehicleSystems_TankFull>
+  <PhobosVehicleSystems_TankEmpty>The tank is empty.</PhobosVehicleSystems_TankEmpty>
+  <PhobosVehicleSystems_TankNothingToPump>There is nothing beside the truck to pump to or from.</PhobosVehicleSystems_TankNothingToPump>
+  <PhobosVehicleSystems_TankNoStacksBeside>There is no {ITEM} beside the truck.</PhobosVehicleSystems_TankNoStacksBeside>
+  <PhobosVehicleSystems_TankNoVehicleBeside>There is no vehicle in reach that needs this fuel.</PhobosVehicleSystems_TankNoVehicleBeside>
+  <PhobosVehicleSystems_TankNoPipe>There is no matching pipe under or beside the truck.</PhobosVehicleSystems_TankNoPipe>
+  <PhobosVehicleSystems_TankPipeEmpty>The pipes hold nothing to draw.</PhobosVehicleSystems_TankPipeEmpty>
+  <PhobosVehicleSystems_TankPipeFull>The storage on those pipes is full.</PhobosVehicleSystems_TankPipeFull>
+  <PhobosVehicleSystems_TankTowersFull>The water towers on those pipes are full.</PhobosVehicleSystems_TankTowersFull>
+  <PhobosVehicleSystems_TankNothingToCarry>Nothing this tank can carry is available.</PhobosVehicleSystems_TankNothingToCarry>
+  <PhobosVehicleSystems_TankInspect>Tank: {AMOUNT} of {CAPACITY} {UNIT} of {CONTENTS}, at {TEMPERATURE}</PhobosVehicleSystems_TankInspect>
+  <PhobosVehicleSystems_TankInspectUnset>Tank: empty, holds {CAPACITY}. Choose what it will carry.</PhobosVehicleSystems_TankInspectUnset>
+  <PhobosVehicleSystems_TankInspectNeedsPurge>Last held {CONTENTS}: needs purging before it can carry anything else.</PhobosVehicleSystems_TankInspectNeedsPurge>
+  <PhobosVehicleSystems_TankPurgeNoWater>There was not enough water to purge {VEHICLE}.</PhobosVehicleSystems_TankPurgeNoWater>
+  <PhobosVehicleSystems_TankPurged>{VEHICLE} is purged and clean.</PhobosVehicleSystems_TankPurged>
+  <PhobosVehicleSystems_TankCannotPurge>Cannot purge {VEHICLE}: {REASON}</PhobosVehicleSystems_TankCannotPurge>
+  <PhobosVehicleSystems_TankCannotPurgeNoPath>Cannot purge {VEHICLE}: no way to reach it</PhobosVehicleSystems_TankCannotPurgeNoPath>
+  <PhobosVehicleSystems_TankPurgeOption>Purge {CONTENTS} from {VEHICLE}</PhobosVehicleSystems_TankPurgeOption>
+  <PhobosVehicleSystems_TankGizmoChoose>Choose contents</PhobosVehicleSystems_TankGizmoChoose>
+  <PhobosVehicleSystems_TankGizmoContents>Carrying: {CONTENTS}</PhobosVehicleSystems_TankGizmoContents>
+  <PhobosVehicleSystems_TankGizmoChooseDesc>Choose what this tank will hold. An empty tank that last held something else must be purged first.</PhobosVehicleSystems_TankGizmoChooseDesc>
+  <PhobosVehicleSystems_TankGizmoSetUp>Set up</PhobosVehicleSystems_TankGizmoSetUp>
+  <PhobosVehicleSystems_TankGizmoSetUpDesc>Put the hoses out so the pump can run. The truck cannot move while it is set up.</PhobosVehicleSystems_TankGizmoSetUpDesc>
+  <PhobosVehicleSystems_TankGizmoPackUp>Pack up</PhobosVehicleSystems_TankGizmoPackUp>
+  <PhobosVehicleSystems_TankGizmoPackUpDesc>Take the hoses in so the truck can move.</PhobosVehicleSystems_TankGizmoPackUpDesc>
+  <PhobosVehicleSystems_TankGizmoLoad>Load</PhobosVehicleSystems_TankGizmoLoad>
+  <PhobosVehicleSystems_TankGizmoLoadDesc>Pump into the tank from whatever is under or beside the truck.</PhobosVehicleSystems_TankGizmoLoadDesc>
+  <PhobosVehicleSystems_TankGizmoUnload>Unload</PhobosVehicleSystems_TankGizmoUnload>
+  <PhobosVehicleSystems_TankGizmoUnloadDesc>Pump out of the tank to whatever is under or beside the truck.</PhobosVehicleSystems_TankGizmoUnloadDesc>
+  <PhobosVehicleSystems_TankGizmoHold>Hold</PhobosVehicleSystems_TankGizmoHold>
+  <PhobosVehicleSystems_TankGizmoHoldDesc>Stop pumping.</PhobosVehicleSystems_TankGizmoHoldDesc>
+  <PhobosVehicleSystems_TankGizmoAlready>The pump is already doing this.</PhobosVehicleSystems_TankGizmoAlready>
+</LanguageData>

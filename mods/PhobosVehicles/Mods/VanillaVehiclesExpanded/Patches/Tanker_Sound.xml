@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <!-- The tanker borrows an engine note from Vanilla Vehicles Expanded when it is present: the big truck's if Tier 3 is active. -->
+  <Operation Class="PatchOperationFindMod">
+    <mods>
+      <li>Vanilla Vehicles Expanded - Tier 3</li>
+    </mods>
+    <match Class="PatchOperationAdd">
+      <xpath>Defs/Vehicles.VehicleDef[defName="Phobos_Tanker"]</xpath>
+      <value>
+        <soundSustainersOnEvent>
+          <li>
+            <start>IgnitionOn</start>
+            <stop>IgnitionOff</stop>
+            <value>VVE_VehicleEngineBigTruck</value>
+          </li>
+        </soundSustainersOnEvent>
+      </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>Defs/Vehicles.VehicleDef[defName="Phobos_Tanker"]</xpath>
+      <value>
+        <soundSustainersOnEvent>
+          <li>
+            <start>IgnitionOn</start>
+            <stop>IgnitionOff</stop>
+            <value>VVE_VehicleEngineMuscleCar</value>
+          </li>
+        </soundSustainersOnEvent>
+      </value>
+    </nomatch>
+  </Operation>
+</Patch>

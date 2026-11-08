@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- Water in the tanker. It freezes at 0 C and spills as nothing worth drawing. -->
+  <Phobos.VehicleSystems.PhobosTankContentsDef>
+    <defName>PhobosTank_Water</defName>
+    <label>water</label>
+    <description>Water for the plumbing.</description>
+    <phase>Liquid</phase>
+    <unitLabel>litres</unitLabel>
+    <kilogramsPerUnit>1</kilogramsPerUnit>
+    <freezesBelow>0</freezesBelow>
+    <ports>
+      <li Class="Phobos.VehicleSystems.Hygiene.Port_DubsPlumbing" />
+    </ports>
+  </Phobos.VehicleSystems.PhobosTankContentsDef>
+</Defs>

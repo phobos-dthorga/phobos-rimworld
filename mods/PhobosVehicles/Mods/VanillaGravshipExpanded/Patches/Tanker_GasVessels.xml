@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <!-- The tanker's pressure vessels appear only when something can fill them: oxygen, from Vanilla Gravship Expanded's net. -->
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/Vehicles.UpgradeTreeDef[defName="Phobos_Tanker_UpgradeTree"]/nodes</xpath>
+    <value>
+    <li>
+      <key>PressureVessel</key>
+      <label>pressure vessel</label>
+      <description>A cylinder with domed ends and a relief valve, for gases: 1,200 units.</description>
+      <icon>Phobos/Vehicles/BulkTanker/Upgrades/PressureVessel</icon>
+      <work>4000</work>
+      <gridCoordinate>(22, 6)</gridCoordinate>
+      <drawSize>(80, 80)</drawSize>
+      <disableIfUpgradeNodesEnabled>
+        <li>LiquidTank</li>
+        <li>InsulatedLiquidTank</li>
+        <li>HighVolumeLiquidTank</li>
+        <li>LightPressureVessel</li>
+        <li>HeavyWallVessel</li>
+      </disableIfUpgradeNodesEnabled>
+      <upgrades>
+        <li Class="Vehicles.StatUpgrade">
+          <vehicleStats>
+            <li>
+              <def>Phobos_TankCapacity</def>
+              <value>1200</value>
+            </li>
+          </vehicleStats>
+        </li>
+      </upgrades>
+      <ingredients>
+        <Steel>160</Steel>
+        <Plasteel>20</Plasteel>
+        <ComponentIndustrial>2</ComponentIndustrial>
+      </ingredients>
+      <graphicOverlays>
+        <li>
+          <graphicData>
+            <texPath>Phobos/Vehicles/BulkTanker/BulkTanker_PressureVessel</texPath>
+            <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+            <drawSize>(3, 7)</drawSize>
+            <shaderType>Cutout</shaderType>
+            <layer>1</layer>
+          </graphicData>
+        </li>
+        <li>
+          <component>
+            <key>TankShell</key>
+            <healthPercent>0.6</healthPercent>
+            <comparison>LessThan</comparison>
+          </component>
+          <graphicData>
+            <texPath>Phobos/Vehicles/BulkTanker/BulkTanker_DamageVessel</texPath>
+            <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+            <drawSize>(3, 7)</drawSize>
+            <shaderType>Cutout</shaderType>
+            <layer>2</layer>
+          </graphicData>
+        </li>
+      </graphicOverlays>
+    </li>
+    <li>
+      <key>LightPressureVessel</key>
+      <label>light pressure vessel</label>
+      <description>A slim, cheaper vessel: 800 units, and much less weight on the truck.</description>
+      <icon>Phobos/Vehicles/BulkTanker/Upgrades/LightPressureVessel</icon>
+      <work>4000</work>
+      <gridCoordinate>(28, 6)</gridCoordinate>
+      <drawSize>(80, 80)</drawSize>
+      <disableIfUpgradeNodesEnabled>
+        <li>LiquidTank</li>
+        <li>InsulatedLiquidTank</li>
+        <li>HighVolumeLiquidTank</li>
+        <li>PressureVessel</li>
+        <li>HeavyWallVessel</li>
+      </disableIfUpgradeNodesEnabled>
+      <upgrades>
+        <li Class="Vehicles.StatUpgrade">
+          <vehicleStats>
+            <li>
+              <def>Phobos_TankCapacity</def>
+              <value>800</value>
+            </li>
+          </vehicleStats>
+        </li>
+      </upgrades>
+      <ingredients>
+        <Steel>110</Steel>
+        <Plasteel>10</Plasteel>
+        <ComponentIndustrial>2</ComponentIndustrial>
+      </ingredients>
+      <graphicOverlays>
+        <li>
+          <graphicData>
+            <texPath>Phobos/Vehicles/BulkTanker/BulkTanker_PressureVessel_B</texPath>
+            <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+            <drawSize>(3, 7)</drawSize>
+            <shaderType>Cutout</shaderType>
+            <layer>1</layer>
+          </graphicData>
+        </li>
+        <li>
+          <component>
+            <key>TankShell</key>
+            <healthPercent>0.6</healthPercent>
+            <comparison>LessThan</comparison>
+          </component>
+          <graphicData>
+            <texPath>Phobos/Vehicles/BulkTanker/BulkTanker_DamageVessel</texPath>
+            <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+            <drawSize>(3, 7)</drawSize>
+            <shaderType>Cutout</shaderType>
+            <layer>2</layer>
+          </graphicData>
+        </li>
+      </graphicOverlays>
+    </li>
+    <li>
+      <key>HeavyWallVessel</key>
+      <label>heavy-wall vessel</label>
+      <description>A thick-walled vessel: 1,000 units, with a tougher shell.</description>
+      <icon>Phobos/Vehicles/BulkTanker/Upgrades/HeavyWallVessel</icon>
+      <work>4000</work>
+      <gridCoordinate>(34, 6)</gridCoordinate>
+      <drawSize>(80, 80)</drawSize>
+      <disableIfUpgradeNodesEnabled>
+        <li>LiquidTank</li>
+        <li>InsulatedLiquidTank</li>
+        <li>HighVolumeLiquidTank</li>
+        <li>PressureVessel</li>
+        <li>LightPressureVessel</li>
+      </disableIfUpgradeNodesEnabled>
+      <upgrades>
+        <li Class="Vehicles.StatUpgrade">
+          <vehicleStats>
+            <li>
+              <def>Phobos_TankCapacity</def>
+              <value>1000</value>
+            </li>
+          </vehicleStats>
+        </li>
+        <li Class="Vehicles.VehicleUpgrade">
+          <health>
+            <li>
+              <key>TankShell</key>
+              <value>60</value>
+              <type>Add</type>
+            </li>
+          </health>
+        </li>
+      </upgrades>
+      <ingredients>
+        <Steel>200</Steel>
+        <Plasteel>35</Plasteel>
+        <ComponentIndustrial>2</ComponentIndustrial>
+      </ingredients>
+      <graphicOverlays>
+        <li>
+          <graphicData>
+            <texPath>Phobos/Vehicles/BulkTanker/BulkTanker_PressureVessel_C</texPath>
+            <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+            <drawSize>(3, 7)</drawSize>
+            <shaderType>Cutout</shaderType>
+            <layer>1</layer>
+          </graphicData>
+        </li>
+        <li>
+          <component>
+            <key>TankShell</key>
+            <healthPercent>0.6</healthPercent>
+            <comparison>LessThan</comparison>
+          </component>
+          <graphicData>
+            <texPath>Phobos/Vehicles/BulkTanker/BulkTanker_DamageVessel</texPath>
+            <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+            <drawSize>(3, 7)</drawSize>
+            <shaderType>Cutout</shaderType>
+            <layer>2</layer>
+          </graphicData>
+        </li>
+      </graphicOverlays>
+    </li>
+    </value>
+  </Operation>
+</Patch>

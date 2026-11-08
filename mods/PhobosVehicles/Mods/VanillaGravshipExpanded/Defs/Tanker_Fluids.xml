@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- Astrofuel and oxygen from Vanilla Gravship Expanded. The oxygen vents in a fire or above 100 C (authored). kilogramsPerUnit authored. -->
+  <Phobos.VehicleSystems.PhobosTankContentsDef>
+    <defName>PhobosTank_Astrofuel</defName>
+    <label>astrofuel</label>
+    <description>Fuel for gravships.</description>
+    <phase>Liquid</phase>
+    <unitLabel>units</unitLabel>
+    <kilogramsPerUnit>0.8</kilogramsPerUnit>
+    <flammable>true</flammable>
+    <spillFilth>Filth_Fuel</spillFilth>
+    <ports>
+      <li Class="Phobos.VehicleSystems.Pipes.Port_PipeNet">
+        <net>VGE_AstrofuelNet</net>
+      </li>
+    </ports>
+  </Phobos.VehicleSystems.PhobosTankContentsDef>
+  <Phobos.VehicleSystems.PhobosTankContentsDef>
+    <defName>PhobosTank_Oxygen</defName>
+    <label>oxygen</label>
+    <description>Compressed oxygen.</description>
+    <phase>Gas</phase>
+    <unitLabel>units</unitLabel>
+    <kilogramsPerUnit>0.2</kilogramsPerUnit>
+    <ventsAbove>100</ventsAbove>
+    <ports>
+      <li Class="Phobos.VehicleSystems.Pipes.Port_PipeNet">
+        <net>VGE_OxygenNet</net>
+      </li>
+    </ports>
+  </Phobos.VehicleSystems.PhobosTankContentsDef>
+</Defs>

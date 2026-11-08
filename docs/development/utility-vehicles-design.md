@@ -429,6 +429,27 @@ tanks (a refit would be a new vehicle and lose the parts' saved health); adding 
 by position); a fire engine of its own (it is a water tanker with a monitor port). **Diesel-electric:** the tanker stays diesel; a
 power take-off pump is the real machine.
 
+### As built: the bulk tanker (8 Nov 2026, D'thorga Framework 0.34.0 and D'thorga Vehicles 0.12.0, Drafts)
+
+**Not yet tested in game.** Built on the owner's go. Comps and rules are in D'thorga Framework (`src/PhobosFramework.Vehicles/Tanks`, `TankRule` in the core, a new tie-in assembly for pipe nets); the vehicle, tree, contents, textures and parts are in D'thorga Vehicles.
+
+| What the player does | What it lets them do | What it stops | How it changes play |
+| --- | --- | --- | --- |
+| Fits a tank | Carry a liquid or a gas | Only one tank at a time | The tree decides what the truck can haul |
+| Sets up beside something | Pump to and from pipes, plumbing, stacks and other vehicles | The truck cannot move or be drafted | A delivery is a place and a stop, not a route |
+| Lets it get cold, hot or shot | Insulation and repair buy time | Frozen water will not pump; a holed tank will not load | Temperature and damage are planned around |
+
+**Differences from the design above, each the agent's choice for the owner to revise:**
+
+- **Removing a tank with a load in it spills the load.** Vehicle Framework gives no way to refuse the job, so this needs no Harmony patch.
+- **The insulated tank halves the spoilage clock** (`spoilRate` 0.5). The approved table said it buys time on hot hauls, but a clock that only pauses below 0 °C would give it nothing to do above freezing.
+- **The contamination clause is dropped for fuel:** purging is required before a change of contents, so water cannot follow chemfuel unpurged. Dubs Bad Hygiene's own quality is tracked instead: contaminated water pumped into a tower contaminates it.
+- **A fresh load of something that can freeze arrives 5 °C above its freezing point** and cools in the tank, otherwise an empty tank could never load water in the cold.
+- **A fire vents gas by the outside temperature or the vehicle burning**, not the contents' temperature, which lags by hours.
+- **Gas vessels are patched in with Vanilla Gravship Expanded**, since nothing else carries a gas yet. Water needs Dubs Bad Hygiene.
+
+**Not built:** RimThunder engine-class upgrade nodes (principle 9), `Port_FireMonitor`, crude oil and helixien gas ports, masks for overlays.
+
 ### What each one needs in art
 
 Per vehicle: a north, east and south **base body** at 128 px per drawSize unit, drawn as the bare platform (principle 8), a colour

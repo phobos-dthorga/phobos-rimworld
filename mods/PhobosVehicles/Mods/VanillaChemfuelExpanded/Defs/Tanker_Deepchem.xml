@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- Deepchem in the tanker: the pipeline from a pumpjack field you never built. kilogramsPerUnit authored. -->
+  <Phobos.VehicleSystems.PhobosTankContentsDef>
+    <defName>PhobosTank_Deepchem</defName>
+    <label>deepchem</label>
+    <description>Crude from the deep, for the refinery.</description>
+    <phase>Liquid</phase>
+    <unitLabel>litres</unitLabel>
+    <kilogramsPerUnit>0.9</kilogramsPerUnit>
+    <flammable>true</flammable>
+    <spillFilth>Filth_Fuel</spillFilth>
+    <thickensBelow>-8</thickensBelow>
+    <thickestAt>-20</thickestAt>
+    <thickensOnlyWithSetting>fuelGelling</thickensOnlyWithSetting>
+    <ports>
+      <li Class="Phobos.VehicleSystems.Pipes.Port_PipeNet">
+        <net>VCHE_DeepchemNet</net>
+      </li>
+    </ports>
+  </Phobos.VehicleSystems.PhobosTankContentsDef>
+</Defs>

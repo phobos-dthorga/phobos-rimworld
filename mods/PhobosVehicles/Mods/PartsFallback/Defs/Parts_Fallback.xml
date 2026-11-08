@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- Our own vehicle parts, loaded only when neither RimThunder nor Vanilla Vehicles Expanded is active. Priced near Vanilla Vehicles Expanded's engine block (40 steel, 4 silver, 6 components); counts authored. Smelting gives back half the steel. -->
+  <ThingDef ParentName="ResourceBase">
+    <defName>PhobosVehicles_EngineAssembly</defName>
+    <label>engine assembly</label>
+    <description>A complete diesel engine for a heavy vehicle.</description>
+    <graphicData>
+      <texPath>Phobos/Vehicles/Parts/EngineAssembly</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <soundInteract>Metal_Drop</soundInteract>
+    <soundDrop>Standard_Drop</soundDrop>
+    <stackLimit>5</stackLimit>
+    <statBases>
+      <MaxHitPoints>120</MaxHitPoints>
+      <MarketValue>420</MarketValue>
+      <Mass>40</Mass>
+      <Flammability>0.2</Flammability>
+      <WorkToMake>5000</WorkToMake>
+    </statBases>
+    <thingCategories>
+      <li>Manufactured</li>
+    </thingCategories>
+    <costList>
+      <Steel>60</Steel>
+      <ComponentIndustrial>8</ComponentIndustrial>
+    </costList>
+    <recipeMaker>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <effectWorking>Smith</effectWorking>
+      <soundWorking>Recipe_Machining</soundWorking>
+      <workSkill>Crafting</workSkill>
+      <unfinishedThingDef>UnfinishedComponent</unfinishedThingDef>
+      <researchPrerequisite>Machining</researchPrerequisite>
+      <recipeUsers>
+        <li>TableMachining</li>
+      </recipeUsers>
+      <skillRequirements>
+        <Crafting>6</Crafting>
+      </skillRequirements>
+    </recipeMaker>
+    <smeltProducts>
+      <Steel>30</Steel>
+    </smeltProducts>
+  </ThingDef>
+  <ThingDef ParentName="ResourceBase">
+    <defName>PhobosVehicles_DrivetrainKit</defName>
+    <label>drivetrain kit</label>
+    <description>Transmission, axles, wheels and a fuel tank for a heavy vehicle.</description>
+    <graphicData>
+      <texPath>Phobos/Vehicles/Parts/DrivetrainKit</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <soundInteract>Metal_Drop</soundInteract>
+    <soundDrop>Standard_Drop</soundDrop>
+    <stackLimit>5</stackLimit>
+    <statBases>
+      <MaxHitPoints>120</MaxHitPoints>
+      <MarketValue>380</MarketValue>
+      <Mass>60</Mass>
+      <Flammability>0.2</Flammability>
+      <WorkToMake>5000</WorkToMake>
+    </statBases>
+    <thingCategories>
+      <li>Manufactured</li>
+    </thingCategories>
+    <costList>
+      <Steel>90</Steel>
+      <ComponentIndustrial>6</ComponentIndustrial>
+    </costList>
+    <recipeMaker>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <effectWorking>Smith</effectWorking>
+      <soundWorking>Recipe_Machining</soundWorking>
+      <workSkill>Crafting</workSkill>
+      <unfinishedThingDef>UnfinishedComponent</unfinishedThingDef>
+      <researchPrerequisite>Machining</researchPrerequisite>
+      <recipeUsers>
+        <li>TableMachining</li>
+      </recipeUsers>
+      <skillRequirements>
+        <Crafting>6</Crafting>
+      </skillRequirements>
+    </recipeMaker>
+    <smeltProducts>
+      <Steel>45</Steel>
+    </smeltProducts>
+  </ThingDef>
+  <ThingDef ParentName="ResourceBase">
+    <defName>PhobosVehicles_ElectricalKit</defName>
+    <label>electrical kit</label>
+    <description>Alternator, batteries, wiring and a radiator for a heavy vehicle.</description>
+    <graphicData>
+      <texPath>Phobos/Vehicles/Parts/ElectricalKit</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <soundInteract>Metal_Drop</soundInteract>
+    <soundDrop>Standard_Drop</soundDrop>
+    <stackLimit>5</stackLimit>
+    <statBases>
+      <MaxHitPoints>120</MaxHitPoints>
+      <MarketValue>340</MarketValue>
+      <Mass>14</Mass>
+      <Flammability>0.2</Flammability>
+      <WorkToMake>5000</WorkToMake>
+    </statBases>
+    <thingCategories>
+      <li>Manufactured</li>
+    </thingCategories>
+    <costList>
+      <Steel>25</Steel>
+      <ComponentIndustrial>8</ComponentIndustrial>
+    </costList>
+    <recipeMaker>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <effectWorking>Smith</effectWorking>
+      <soundWorking>Recipe_Machining</soundWorking>
+      <workSkill>Crafting</workSkill>
+      <unfinishedThingDef>UnfinishedComponent</unfinishedThingDef>
+      <researchPrerequisite>Machining</researchPrerequisite>
+      <recipeUsers>
+        <li>TableMachining</li>
+      </recipeUsers>
+      <skillRequirements>
+        <Crafting>6</Crafting>
+      </skillRequirements>
+    </recipeMaker>
+    <smeltProducts>
+      <Steel>12</Steel>
+    </smeltProducts>
+  </ThingDef>
+</Defs>

@@ -514,6 +514,12 @@ public class Effect_Horn : VehicleSystemEffect
 D'thorga Framework (`Mods/VehicleFramework/1.7/Assemblies`) without copying it, and load your assembly only while Vehicle Framework
 is active.
 
+## Bulk tanks
+
+Give a vehicle a `Phobos.VehicleSystems.CompProperties_PhobosTank` listing its `fittings`: each names an upgrade node, the phase it holds (`Liquid` or `Gas`), how many hours its contents take to reach the outside temperature (`hoursToOutside`), `spoilRate` and `loadWeight`. The node's `StatUpgrade` sets `Phobos_TankCapacity`, and the vehicle's parts feed `Phobos_PumpRate`, `Phobos_TankIntegrity` and `Phobos_RigControl`.
+
+A fluid is a `Phobos.VehicleSystems.PhobosTankContentsDef`: `phase`, `unitLabel`, `kilogramsPerUnit`, `flammable`, `spillFilth`, the optional limits `freezesBelow`, `thickensBelow` with `thickestAt`, `spoilsAfterDays` and `ventsAbove`, and its `ports`. Shipped ports: `Port_Items`, `Port_VehicleFuel`, `Phobos.VehicleSystems.Pipes.Port_PipeNet` (with `net`, needs Vanilla Expanded Framework) and `Phobos.VehicleSystems.Hygiene.Port_DubsPlumbing` (needs Dubs Bad Hygiene). Subclass `TankPort` for your own: `Draw` and `Give` return the units moved. See D'thorga Vehicles' bulk tanker for a worked example.
+
 ## The shipped systems
 
 | System | Quantities | Roles | Notes |

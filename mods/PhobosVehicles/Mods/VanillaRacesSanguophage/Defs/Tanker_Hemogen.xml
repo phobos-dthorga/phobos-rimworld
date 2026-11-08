@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- Hemogen. Spoils as nutrient paste does (owner, 8 Nov 2026). kilogramsPerUnit authored. -->
+  <Phobos.VehicleSystems.PhobosTankContentsDef>
+    <defName>PhobosTank_Hemogen</defName>
+    <label>hemogen</label>
+    <description>Blood, by the tankful.</description>
+    <phase>Liquid</phase>
+    <unitLabel>units</unitLabel>
+    <kilogramsPerUnit>1.05</kilogramsPerUnit>
+    <spoilsAfterDays>0.75</spoilsAfterDays>
+    <ports>
+      <li Class="Phobos.VehicleSystems.Pipes.Port_PipeNet">
+        <net>VRE_HemogenNet</net>
+      </li>
+    </ports>
+  </Phobos.VehicleSystems.PhobosTankContentsDef>
+</Defs>

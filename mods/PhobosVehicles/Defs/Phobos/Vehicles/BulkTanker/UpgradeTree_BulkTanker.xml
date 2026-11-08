@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    The bulk tanker's upgrades (docs/development/utility-vehicles-design.md, Bulk tanker). Only one tank at a time: each names the others in
+    disableIfUpgradeNodesEnabled, so one must come off before another goes on. Capacities and costs are authored. The gas vessels are
+    added by a patch in Mods/VanillaGravshipExpanded, because nothing else here carries a gas yet. Node keys are saved in the player's
+    game: never rename or remove one. Not yet tested in game.
+  -->
+  <Vehicles.UpgradeTreeDef>
+    <defName>Phobos_Tanker_UpgradeTree</defName>
+    <nodes>
+    <li>
+      <key>LiquidTank</key>
+      <label>general liquid tank</label>
+      <description>A plain baffled tank for liquids: 3,000 units.</description>
+      <icon>Phobos/Vehicles/BulkTanker/Upgrades/LiquidTank</icon>
+      <work>4000</work>
+      <gridCoordinate>(4, 6)</gridCoordinate>
+      <drawSize>(80, 80)</drawSize>
+      <disableIfUpgradeNodesEnabled>
+        <li>InsulatedLiquidTank</li>
+        <li>HighVolumeLiquidTank</li>
+        <li>PressureVessel</li>
+        <li>LightPressureVessel</li>
+        <li>HeavyWallVessel</li>
+      </disableIfUpgradeNodesEnabled>
+      <upgrades>
+        <li Class="Vehicles.StatUpgrade">
+          <vehicleStats>
+            <li>
+              <def>Phobos_TankCapacity</def>
+              <value>3000</value>
+            </li>
+          </vehicleStats>
+        </li>
+      </upgrades>
+      <ingredients>
+        <Steel>120</Steel>
+      </ingredients>
+      <graphicOverlays>
+        <li>
+          <graphicData>
+            <texPath>Phobos/Vehicles/BulkTanker/BulkTanker_LiquidTank</texPath>
+            <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+            <drawSize>(3, 7)</drawSize>
+            <shaderType>Cutout</shaderType>
+            <layer>1</layer>
+          </graphicData>
+        </li>
+        <li>
+          <component>
+            <key>TankShell</key>
+            <healthPercent>0.6</healthPercent>
+            <comparison>LessThan</comparison>
+          </component>
+          <graphicData>
+            <texPath>Phobos/Vehicles/BulkTanker/BulkTanker_DamageTank</texPath>
+            <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+            <drawSize>(3, 7)</drawSize>
+            <shaderType>Cutout</shaderType>
+            <layer>2</layer>
+          </graphicData>
+        </li>
+      </graphicOverlays>
+    </li>
+    <li>
+      <key>InsulatedLiquidTank</key>
+      <label>insulated liquid tank</label>
+      <description>A lagged tank: 2,700 units. Its contents take about a day to reach the outside temperature, and food spoils half as fast.</description>
+      <icon>Phobos/Vehicles/BulkTanker/Upgrades/InsulatedLiquidTank</icon>
+      <work>4000</work>
+      <gridCoordinate>(10, 6)</gridCoordinate>
+      <drawSize>(80, 80)</drawSize>
+      <disableIfUpgradeNodesEnabled>
+        <li>LiquidTank</li>
+        <li>HighVolumeLiquidTank</li>
+        <li>PressureVessel</li>
+        <li>LightPressureVessel</li>
+        <li>HeavyWallVessel</li>
+      </disableIfUpgradeNodesEnabled>
+      <upgrades>
+        <li Class="Vehicles.StatUpgrade">
+          <vehicleStats>
+            <li>
+              <def>Phobos_TankCapacity</def>
+              <value>2700</value>
+            </li>
+          </vehicleStats>
+        </li>
+      </upgrades>
+      <ingredients>
+        <Steel>150</Steel>
+        <ComponentIndustrial>2</ComponentIndustrial>
+      </ingredients>
+      <graphicOverlays>
+        <li>
+          <graphicData>
+            <texPath>Phobos/Vehicles/BulkTanker/BulkTanker_LiquidTank_B</texPath>
+            <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+            <drawSize>(3, 7)</drawSize>
+            <shaderType>Cutout</shaderType>
+            <layer>1</layer>
+          </graphicData>
+        </li>
+        <li>
+          <component>
+            <key>TankShell</key>
+            <healthPercent>0.6</healthPercent>
+            <comparison>LessThan</comparison>
+          </component>
+          <graphicData>
+            <texPath>Phobos/Vehicles/BulkTanker/BulkTanker_DamageTank</texPath>
+            <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+            <drawSize>(3, 7)</drawSize>
+            <shaderType>Cutout</shaderType>
+            <layer>2</layer>
+          </graphicData>
+        </li>
+      </graphicOverlays>
+    </li>
+    <li>
+      <key>HighVolumeLiquidTank</key>
+      <label>high-volume liquid tank</label>
+      <description>A squarer tank that holds more: 3,300 units. A full load slows the truck more.</description>
+      <icon>Phobos/Vehicles/BulkTanker/Upgrades/HighVolumeLiquidTank</icon>
+      <work>4000</work>
+      <gridCoordinate>(16, 6)</gridCoordinate>
+      <drawSize>(80, 80)</drawSize>
+      <disableIfUpgradeNodesEnabled>
+        <li>LiquidTank</li>
+        <li>InsulatedLiquidTank</li>
+        <li>PressureVessel</li>
+        <li>LightPressureVessel</li>
+        <li>HeavyWallVessel</li>
+      </disableIfUpgradeNodesEnabled>
+      <upgrades>
+        <li Class="Vehicles.StatUpgrade">
+          <vehicleStats>
+            <li>
+              <def>Phobos_TankCapacity</def>
+              <value>3300</value>
+            </li>
+          </vehicleStats>
+        </li>
+      </upgrades>
+      <ingredients>
+        <Steel>160</Steel>
+      </ingredients>
+      <graphicOverlays>
+        <li>
+          <graphicData>
+            <texPath>Phobos/Vehicles/BulkTanker/BulkTanker_LiquidTank_C</texPath>
+            <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+            <drawSize>(3, 7)</drawSize>
+            <shaderType>Cutout</shaderType>
+            <layer>1</layer>
+          </graphicData>
+        </li>
+        <li>
+          <component>
+            <key>TankShell</key>
+            <healthPercent>0.6</healthPercent>
+            <comparison>LessThan</comparison>
+          </component>
+          <graphicData>
+            <texPath>Phobos/Vehicles/BulkTanker/BulkTanker_DamageTank</texPath>
+            <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+            <drawSize>(3, 7)</drawSize>
+            <shaderType>Cutout</shaderType>
+            <layer>2</layer>
+          </graphicData>
+        </li>
+      </graphicOverlays>
+    </li>
+    <li>
+      <key>HoseReel</key>
+      <label>second hose reel</label>
+      <description>A second hose: the pump moves half as much again.</description>
+      <icon>Phobos/Vehicles/BulkTanker/Upgrades/HoseReel</icon>
+      <work>1500</work>
+      <gridCoordinate>(19, 15)</gridCoordinate>
+      <drawSize>(80, 80)</drawSize>
+      <upgrades>
+        <li Class="Vehicles.StatUpgrade">
+          <vehicleStats>
+            <li>
+              <def>Phobos_PumpRate</def>
+              <value>300</value>
+            </li>
+          </vehicleStats>
+        </li>
+      </upgrades>
+      <ingredients>
+        <Steel>30</Steel>
+        <ComponentIndustrial>1</ComponentIndustrial>
+      </ingredients>
+      <graphicOverlays>
+        <li>
+          <graphicData>
+            <texPath>Phobos/Vehicles/BulkTanker/BulkTanker_HoseReel</texPath>
+            <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+            <drawSize>(3, 7)</drawSize>
+            <shaderType>Cutout</shaderType>
+            <layer>1</layer>
+          </graphicData>
+        </li>
+      </graphicOverlays>
+    </li>
+    </nodes>
+  </Vehicles.UpgradeTreeDef>
+</Defs>

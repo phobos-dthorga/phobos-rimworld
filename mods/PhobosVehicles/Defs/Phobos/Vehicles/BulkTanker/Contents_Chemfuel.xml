@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- Chemfuel in the tanker, one unit to one chemfuel. Thickening is the fuel system's curve (No. 2 diesel's gel point, secondary source,
+       in Systems_Lubrication.xml), behind the same setting, because chemfuel is not diesel. kilogramsPerUnit is authored, near a light fuel. -->
+  <Phobos.VehicleSystems.PhobosTankContentsDef>
+    <defName>PhobosTank_Chemfuel</defName>
+    <label>chemfuel</label>
+    <description>Fuel for vehicles and generators.</description>
+    <phase>Liquid</phase>
+    <unitLabel>litres</unitLabel>
+    <kilogramsPerUnit>0.8</kilogramsPerUnit>
+    <flammable>true</flammable>
+    <spillFilth>Filth_Fuel</spillFilth>
+    <thickensBelow>-8</thickensBelow>
+    <thickestAt>-20</thickestAt>
+    <thickensOnlyWithSetting>fuelGelling</thickensOnlyWithSetting>
+    <ports>
+      <li Class="Phobos.VehicleSystems.Port_VehicleFuel">
+        <thing>Chemfuel</thing>
+      </li>
+      <li Class="Phobos.VehicleSystems.Port_Items">
+        <thing>Chemfuel</thing>
+      </li>
+    </ports>
+  </Phobos.VehicleSystems.PhobosTankContentsDef>
+</Defs>

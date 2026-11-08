@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- Nutrient paste. Spoils after 0.75 days above 0 C, Vanilla Expanded Framework's rule for unpowered stores. kilogramsPerUnit authored. -->
+  <Phobos.VehicleSystems.PhobosTankContentsDef>
+    <defName>PhobosTank_NutrientPaste</defName>
+    <label>nutrient paste</label>
+    <description>Food by the tankful, while it lasts.</description>
+    <phase>Liquid</phase>
+    <unitLabel>units</unitLabel>
+    <kilogramsPerUnit>1.1</kilogramsPerUnit>
+    <spoilsAfterDays>0.75</spoilsAfterDays>
+    <ports>
+      <li Class="Phobos.VehicleSystems.Pipes.Port_PipeNet">
+        <net>VNPE_NutrientPasteNet</net>
+      </li>
+    </ports>
+  </Phobos.VehicleSystems.PhobosTankContentsDef>
+</Defs>

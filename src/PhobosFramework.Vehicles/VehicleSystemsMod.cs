@@ -31,6 +31,8 @@ public class VehicleSystemsSettings : ModSettings
     public bool showOnly;
     /// <summary>Chemfuel thickens in deep cold the way diesel gels. Live.</summary>
     public bool fuelGelling;
+    /// <summary>A flammable load explodes when its tank is destroyed under it (owner, 8 Nov 2026: on, with this setting to turn it off). Live.</summary>
+    public bool tankExplosions = true;
     public DisplayMode displayMode = DisplayMode.Plain;
     /// <summary>The drivetrain and turbines: off, figures only, or feeding load, heat and the speed cap. Live.</summary>
     public DrivetrainMode drivetrainMode = DrivetrainMode.Full;
@@ -82,6 +84,7 @@ public class VehicleSystemsSettings : ModSettings
     public bool FlagOn(string name) => name switch
     {
         "fuelGelling" => fuelGelling,
+        "tankExplosions" => tankExplosions,
         "boilerExplosions" => boilerExplosions,
         "realisticFeedWater" => realisticFeedWater,
         "nightHeater" => nightHeater,
@@ -105,6 +108,7 @@ public class VehicleSystemsSettings : ModSettings
         Scribe_Collections.Look(ref disabledSystems, "PhobosVehicleSystems_DisabledSystems", LookMode.Value);
         Scribe_Values.Look(ref showOnly, "PhobosVehicleSystems_ShowOnly", false);
         Scribe_Values.Look(ref fuelGelling, "PhobosVehicleSystems_FuelGelling", false);
+        Scribe_Values.Look(ref tankExplosions, "PhobosVehicleSystems_TankExplosions", true);
         Scribe_Values.Look(ref displayMode, "PhobosVehicleSystems_DisplayMode", DisplayMode.Plain);
         Scribe_Values.Look(ref drivetrainMode, "PhobosVehicleSystems_DrivetrainMode", DrivetrainMode.Full);
         Scribe_Values.Look(ref loadDependentFuel, "PhobosVehicleSystems_LoadDependentFuel", false);
@@ -235,6 +239,7 @@ public class VehicleSystemsMod : Mod
         listing.Gap(6f);
         listing.CheckboxLabeled("PhobosVehicleSystems_SettingShowOnly".Translate(), ref s.showOnly, "PhobosVehicleSystems_SettingShowOnlyDesc".Translate());
         listing.CheckboxLabeled("PhobosVehicleSystems_SettingFuelGelling".Translate(), ref s.fuelGelling, "PhobosVehicleSystems_SettingFuelGellingDesc".Translate());
+        listing.CheckboxLabeled("PhobosVehicleSystems_SettingTankExplosions".Translate(), ref s.tankExplosions, "PhobosVehicleSystems_SettingTankExplosionsDesc".Translate());
 
         SettingsUi.Section(listing, "PhobosVehicleSystems_SectionEngines".Translate());
         foreach (DrivetrainMode mode in System.Enum.GetValues(typeof(DrivetrainMode)))

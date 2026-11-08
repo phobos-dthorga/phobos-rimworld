@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- Bulk tanks on vehicles (docs/development/utility-vehicles-design.md, Bulk tanker). The stats, the load on the truck and the purge job. Stages are authored. Not yet tested in game. -->
+  <Vehicles.VehicleStatDef>
+    <defName>Phobos_PumpRate</defName>
+    <label>pump rate</label>
+    <description>How many units the pump moves in an hour.</description>
+    <category>VehicleBasics</category>
+    <defaultBaseValue>0</defaultBaseValue>
+    <minValue>0</minValue>
+    <toStringStyle>Integer</toStringStyle>
+    <formatString>{0} an hour</formatString>
+    <operationType>Average</operationType>
+    <upgradeEffectType>Positive</upgradeEffectType>
+    <showOnVehicleTypes>
+      <li>Land</li>
+    </showOnVehicleTypes>
+  </Vehicles.VehicleStatDef>
+  <Vehicles.VehicleStatDef>
+    <defName>Phobos_TankIntegrity</defName>
+    <label>tank integrity</label>
+    <description>How sound the tank is. A damaged tank leaks.</description>
+    <category>VehicleBasics</category>
+    <defaultBaseValue>1</defaultBaseValue>
+    <minValue>0</minValue>
+    <toStringStyle>PercentZero</toStringStyle>
+    <formatString>{0}</formatString>
+    <operationType>MinValue</operationType>
+    <upgradeEffectType>Positive</upgradeEffectType>
+    <showOnVehicleTypes>
+      <li>Land</li>
+    </showOnVehicleTypes>
+  </Vehicles.VehicleStatDef>
+  <Vehicles.VehicleStatDef>
+    <defName>Phobos_TankCapacity</defName>
+    <label>tank capacity</label>
+    <description>How much the fitted tank holds.</description>
+    <category>VehicleBasics</category>
+    <defaultBaseValue>0</defaultBaseValue>
+    <minValue>0</minValue>
+    <toStringStyle>Integer</toStringStyle>
+    <formatString>{0} units</formatString>
+    <operationType>None</operationType>
+    <upgradeEffectType>Positive</upgradeEffectType>
+    <showOnVehicleTypes>
+      <li>Land</li>
+    </showOnVehicleTypes>
+  </Vehicles.VehicleStatDef>
+  <Vehicles.VehicleStatDef>
+    <defName>Phobos_RigControl</defName>
+    <label>controls</label>
+    <description>How well the valves and wiring work. Below a certain point the equipment will not run.</description>
+    <category>VehicleBasics</category>
+    <defaultBaseValue>1</defaultBaseValue>
+    <minValue>0</minValue>
+    <toStringStyle>PercentZero</toStringStyle>
+    <formatString>{0}</formatString>
+    <operationType>MinValue</operationType>
+    <upgradeEffectType>Positive</upgradeEffectType>
+    <showOnVehicleTypes>
+      <li>Land</li>
+    </showOnVehicleTypes>
+  </Vehicles.VehicleStatDef>
+  <Phobos.VehicleSystems.PhobosVehicleSystemDef>
+    <defName>PhobosVehicleSystem_TankLoad</defName>
+    <label>tank load</label>
+    <description>A full tank is heavy: the truck slows, and a high-volume tank slows it more.</description>
+    <quantities>
+      <li>
+        <name>tankLoad</name>
+        <label>tank load</label>
+        <unit>Fraction</unit>
+        <max>1.5</max>
+        <showOnDashboard>true</showOnDashboard>
+        <derivedFrom>
+          <li Class="Phobos.VehicleSystems.Input_TankLoad" />
+        </derivedFrom>
+        <stages>
+          <li>
+            <from>0.6</from>
+            <to>1.05</to>
+            <label>heavy</label>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_StatFactor">
+                <stat>MoveSpeed</stat>
+                <factor>0.85</factor>
+              </li>
+            </effects>
+          </li>
+          <li>
+            <from>1.05</from>
+            <label>very heavy</label>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_StatFactor">
+                <stat>MoveSpeed</stat>
+                <factor>0.75</factor>
+              </li>
+            </effects>
+          </li>
+        </stages>
+      </li>
+    </quantities>
+  </Phobos.VehicleSystems.PhobosVehicleSystemDef>
+  <JobDef>
+    <defName>PhobosVehicleSystems_PurgeTank</defName>
+    <driverClass>Phobos.VehicleSystems.JobDriver_PhobosPurgeTank</driverClass>
+    <reportString>purging the tank of TargetA.</reportString>
+    <allowOpportunisticPrefix>true</allowOpportunisticPrefix>
+  </JobDef>
+</Defs>

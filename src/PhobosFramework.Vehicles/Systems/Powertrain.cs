@@ -286,7 +286,7 @@ public sealed class Powertrain
         if (massTick >= 0 && now - massTick < 250) return massKg;
         massTick = now;
         VehiclePawn vehicle = comp.Vehicle;
-        double total = KerbKg + MassUtility.InventoryMass(vehicle);
+        double total = KerbKg + MassUtility.InventoryMass(vehicle) + (vehicle.GetComp<CompPhobosTank>()?.LoadKilograms ?? 0f);
         foreach (Pawn pawn in vehicle.AllPawnsAboard) total += pawn.GetStatValue(StatDefOf.Mass);
         if (vehicle.CompVehicleTurrets?.Turrets != null)
         {

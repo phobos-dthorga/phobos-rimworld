@@ -18,8 +18,8 @@ Each mod's README is its player guide, with the gotchas first. **Every mod is Ri
 
 | Mod | Version | What it does | Guide |
 | --- | --- | --- | --- |
-| **D'thorga Framework** | 0.33.0 | The shared library: what a pawn breathes, carbon monoxide from fires, the health layer and per-person care choices the medical mods share, and with Vehicle Framework the vehicle systems (battery, coolant, oil, engines and drivetrains, gas turbines, tyres, brakes, wear and service) | [README](../mods/PhobosFramework/README.md) |
-| **D'thorga Vehicles** | 0.11.0 | Vehicles that need looking after; for now, named loadouts that give other mods' vehicles the systems they really have | [README](../mods/PhobosVehicles/README.md) |
+| **D'thorga Framework** | 0.34.0 | The shared library: what a pawn breathes, carbon monoxide from fires, the health layer and per-person care choices the medical mods share, and with Vehicle Framework the vehicle systems (battery, coolant, oil, engines and drivetrains, gas turbines, tyres, brakes, wear and service) | [README](../mods/PhobosFramework/README.md) |
+| **D'thorga Vehicles** | 0.12.0 | Vehicles that need looking after: the bulk tanker, and named loadouts that give other mods' vehicles the systems they really have | [README](../mods/PhobosVehicles/README.md) |
 | **D'thorga Medical** | 0.8.0 | Burns and smoke, emergency dosing, triage, hospital and field equipment, and a safe way to add More Injuries to a running colony: five mods in one | [README](../mods/PhobosMedical/README.md) |
 | **D'thorga Factory Additions** | 0.11.5 | Additions to Vanilla Furniture Expanded - Factory: belts from any storage, an automated fabrication bay, a deep hopper, other mods' drug labs as factory bills, and fixes | [README](../mods/PhobosFactoryAdditions/README.md) |
 | **D'thorga Patches** | 0.16.0 | The Harrier VTOL, RimThunder's heavy casting, Spaceship Turret Hull under Combat Extended, and InterRim Ballistic Missile's strategic blast | [README](../mods/PhobosPatches/README.md) |
