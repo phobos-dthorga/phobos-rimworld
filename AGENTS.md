@@ -111,9 +111,12 @@ delivered, record the delivery in the changelog or design record, and add or ame
 - Version numbers (owner rule from Phobos Ostranauts): a fix or patch raises the last number (0.3.0 to
   0.3.1), new functionality the middle number, a total rework or API overhaul the first. A release mixing a
   fix and a feature takes the middle bump. Classify before setting a version.
-- A mod's version lives in `About/About.xml` (`modVersion`), its `CHANGELOG.md` and its README; keep them
-  in step in the same commit. When version copies multiply, adopt Ostranauts' constants updater rather than
-  hand-editing copies.
+- A mod's version lives in `About/About.xml` (`modVersion`), every project of the mod, its `ModVersion` constants, its
+  README and `docs/README.md`, all registered in `config/maintained-constants.json`. **Set it with
+  `python scripts/release.py constants --set <Mod>.version=X.Y.Z --apply`** (phobos-modkit's updater checks every copy
+  before writing any), never by hand; then write the changelog entry and the README's built date in the same commit.
+  `scripts/check-mod-layout.py` refuses a copy the catalogue does not list, and `python scripts/release.py changelog
+  mods/*/CHANGELOG.md` checks every entry fits a Workshop page.
 - Every change to a mod updates its `CHANGELOG.md` in the same commit: an Unreleased section, then dated
   entries marked **Draft** until publication is confirmed, then **Released** with the real date. Sections:
   Added, Changed, Fixed, Balance, Dependencies, Save compatibility, Compatibility and limits. Record

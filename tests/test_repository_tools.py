@@ -3,6 +3,7 @@
 Nothing here reads or writes the RimWorld installation; every mod below is synthetic.
 """
 import importlib.util
+import json
 import os
 import re
 from pathlib import Path
@@ -98,9 +99,26 @@ class LayoutCheckTests(unittest.TestCase):
         self.assertIn('<Version> 9.9.9 differs', errors)
         self.assertIn('ModVersion 9.9.8 differs', errors)
 
+    def test_every_version_copy_is_in_the_constants_catalogue(self):
+        version = re.search(rb'<modVersion>([^<]+)</modVersion>', GOOD_ABOUT).group(1).decode()
+        contents = mod('Example')
+        contents['src/Example/Example.csproj'] = f'<Project><ModFolder>Example</ModFolder><Version>{version}</Version></Project>'.encode()
+        contents['src/Example/ExampleMod.cs'] = f'public const string ModVersion = "{version}";'.encode()
+        targets = [{'path': 'mods/Example/About/About.xml'}, {'path': 'src/Example/Example.csproj'}]
+        contents['config/maintained-constants.json'] = json.dumps({'constants': {'Example.version': {'targets': targets}}}).encode()
+        errors = '\n'.join(run(contents)['errors'])
+        self.assertIn('src/Example/ExampleMod.cs carries mods/Example\'s version', errors)
+        targets.append({'path': 'src/Example/ExampleMod.cs'})
+        contents['config/maintained-constants.json'] = json.dumps({'constants': {'Example.version': {'targets': targets}}}).encode()
+        self.assertEqual(run(contents)['errors'], [])
+        contents['config/maintained-constants.json'] = b'{"constants": {}}'
+        self.assertIn('no Example.version', '\n'.join(run(contents)['errors']))
+
     def test_the_real_listing_includes_the_projects_the_version_check_reads(self):
         # The version check once saw no projects at all, because the listing held only mods/ (found 7 Nov 2026).
-        self.assertTrue(any(name.startswith('src/') and name.endswith('.csproj') for name in layout.listed_files(ROOT)))
+        listing = layout.listed_files(ROOT)
+        self.assertTrue(any(name.startswith('src/') and name.endswith('.csproj') for name in listing))
+        self.assertIn(layout.CATALOGUE, listing)
 
     def test_missing_files_are_named(self):
         errors = '\n'.join(run({'mods/Bare/Defs/Thing.xml': b'<Defs />'})['errors'])

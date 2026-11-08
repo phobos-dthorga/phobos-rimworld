@@ -170,6 +170,12 @@ Ostranauts' changelog grammar, release-note export (with the Workshop page limit
 shared link checker, and a layout checker whose rules (the EULA disclaimer, package ID pattern, placeholder
 style) stay in each game repository as data.
 
+**Adopted 9 Nov 2026** (owner's go-ahead the same day): phobos-modkit 0.10.0 brought the changelog check and the
+constants updater from Ostranauts; 0.10.1 fixed its refusal of "C#" in a changelog line. `scripts/release.py` calls them;
+`config/maintained-constants.json` registers every copy of each mod's version (42 copies across 7 mods: up to 11 for
+D'thorga Patches), and `scripts/check-mod-layout.py` refuses a copy it does not list. Before this, each bump was a
+hand-written script over eight copies.
+
 ### Not proposed
 
 - **Performance in play** (milliseconds per tick) has no file we can read; the owner uses Dubs Performance

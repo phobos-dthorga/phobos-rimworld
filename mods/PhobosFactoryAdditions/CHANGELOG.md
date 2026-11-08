@@ -115,7 +115,7 @@ yet tested in game.
   you use it. Off, no belt takes from that hopper, whichever side the belt is on.
 - A hopper switched off still receives from belts that point into it, still feeds any factory machine whose input cell
   it is on, and still lets colonists take from it under Allow taking. Its inspect text says "Belts may not take from here."
-- The same switch on storage flagged as a hopper: the chemfuel tap and the [sbz] corpse fridge. Agent choice, held for
+- The same switch on storage flagged as a hopper: the chemfuel tap and the corpse fridge from seobongzu's Fridge mod. Agent choice, held for
   the owner's review: it uses the same rule, and it answers the corpse fridge's old gotcha that any belt touching it
   empties it.
 - The new texts are agent-written, held for the owner's review.
@@ -317,7 +317,7 @@ yet tested in game.
   Tick it before switching a bay on, or its belt leaves the FSX.
 - Cost, estimated from the code and not measured: two field checks per belt per tick for stuck belts; the filter
   check only when a belt takes from the corpse fridge or switched-on storage; nothing for the fridge check when
-  [sbz] Fridge isn't loaded.
+  seobongzu's Fridge mod isn't loaded.
 - Two new Harmony patches on VFE Factory's belt: a prefix on its tick, and a prefix on its pull that replaces the
   pull for filter-marked storage only. If an update renames what they use, the log says which part switched off.
 ## [0.6.1] - 2026-10-30 - Draft
@@ -668,7 +668,7 @@ The corpse fridge as a source for belts and machines. Not yet tested in game.
 
 ### Added
 
-- With "[sbz] Fridge" (seobongzu) active, its corpse fridge counts as a factory hopper: conveyor belts with
+- With seobongzu's Fridge mod active, its corpse fridge counts as a factory hopper: conveyor belts with
   the fridge behind them or at either side pull corpses out of it, and an automated mincer whose input cell
   lands on the fridge takes corpses straight from it. One Def extension, loaded only while that mod is on.
 

@@ -35,8 +35,10 @@ VERSION_CONSTANT = re.compile(r'\bModVersion\s*=\s*"([^"]+)"')
 
 
 def listed_files(root):
-    """Tracked and untracked, non-ignored files under mods/ and src/ (for check_versions), as POSIX paths relative to root."""
-    out = subprocess.check_output(['git', 'ls-files', '--cached', '--others', '--exclude-standard', '-z', '--', 'mods', 'src'],
+    """Tracked and untracked, non-ignored files under mods/ and src/ (for check_versions) and the constants catalogue, as POSIX
+    paths relative to root."""
+    out = subprocess.check_output(['git', 'ls-files', '--cached', '--others', '--exclude-standard', '-z', '--', 'mods', 'src',
+                                   'config/maintained-constants.json'],
                                   cwd=root)
     return [name for name in out.decode('utf-8').split('\0') if name and (Path(root) / name).is_file()]
 
@@ -156,6 +158,39 @@ def check_versions(files, read, about_versions, errors):
                     errors.append(f'{name}: ModVersion {found.group(1)} differs from mods/{folder.group(1)}/{ABOUT} modVersion {expected}')
 
 
+CATALOGUE = 'config/maintained-constants.json'
+
+
+def check_catalogue(files, read, about_versions, errors):
+    """Every copy of a mod's version is registered in the constants catalogue, so scripts/release.py constants --set updates
+    it: a copy left out would keep its old number at the next bump (the drift check above would catch it only afterwards)."""
+    if CATALOGUE not in files:
+        return
+    try:
+        constants = json.loads(read(CATALOGUE).decode('utf-8'))['constants']
+    except (ValueError, KeyError) as error:
+        errors.append(f'{CATALOGUE}: unreadable ({error})')
+        return
+    for mod in sorted(about_versions):
+        key = f'{mod}.version'
+        if key not in constants:
+            errors.append(f'{CATALOGUE}: no {key} for mods/{mod}; add it with every copy of the version')
+            continue
+        listed = {target.get('path') for target in constants[key].get('targets', [])}
+        copies = [f'mods/{mod}/{ABOUT}']
+        for project in sorted(name for name in files if name.startswith('src/') and name.endswith('.csproj')):
+            folder = PROJECT_MOD_FOLDER.search(read(project).decode('utf-8', 'replace'))
+            if not folder or folder.group(1) != mod:
+                continue
+            copies.append(project)
+            source = project.rsplit('/', 1)[0] + '/'
+            copies += [n for n in sorted(files) if n.startswith(source) and n.endswith('.cs')
+                       and VERSION_CONSTANT.search(read(n).decode('utf-8', 'replace'))]
+        for copy in copies:
+            if copy not in listed:
+                errors.append(f'{CATALOGUE}: {copy} carries mods/{mod}\'s version but {key} does not list it; add it to the targets')
+
+
 def check(root, files=None, read=None):
     """Check the mods among files (default: git's list); read(path) returns a file's bytes."""
     files = listed_files(root) if files is None else files
@@ -192,6 +227,7 @@ def check(root, files=None, read=None):
             if rel.lower().endswith(BUILD_SUFFIXES) or any(part in BUILD_FOLDERS for part in rel.split('/')[:-1]):
                 errors.append(f'{mod}: {rel} is a build product; build it from src/ instead of committing it')
     check_versions(files, read, about_versions, errors)
+    check_catalogue(files, read, about_versions, errors)
     for package_id, mods in sorted(owners.items()):
         if len(mods) > 1:
             errors.append(f'packageId {package_id} is used by {", ".join(mods)}; RimWorld loads only the first')

@@ -1,0 +1,262 @@
+{
+  "schemaVersion": 1,
+  "targetsUnder": [
+    "mods/",
+    "src/",
+    "docs/"
+  ],
+  "constants": {
+    "PhobosFactoryAdditions.version": {
+      "type": "version",
+      "parts": 3,
+      "value": "0.11.5",
+      "description": "D'thorga Factory Additions's version: About.xml, every project of the mod, its ModVersion constants and both READMEs",
+      "targets": [
+        {
+          "path": "mods/PhobosFactoryAdditions/About/About.xml",
+          "pattern": "<modVersion>(?P<value>[0-9.]+)</modVersion>"
+        },
+        {
+          "path": "src/PhobosFactory/PhobosFactory.csproj",
+          "pattern": "<Version>(?P<value>[0-9.]+)</Version>"
+        },
+        {
+          "path": "src/PhobosFactory.Hygiene/PhobosFactory.Hygiene.csproj",
+          "pattern": "<Version>(?P<value>[0-9.]+)</Version>"
+        },
+        {
+          "path": "docs/README.md",
+          "pattern": "\\| \\*\\*D'thorga\\ Factory\\ Additions\\*\\* \\| (?P<value>[0-9.]+) \\|"
+        },
+        {
+          "path": "mods/PhobosFactoryAdditions/README.md",
+          "pattern": "^Version (?P<value>[0-9.]+), built"
+        }
+      ],
+      "review": [
+        "Write the version's entry in mods/PhobosFactoryAdditions/CHANGELOG.md (an Unreleased section, then a dated Draft entry).",
+        "Change the built date on the Version line of mods/PhobosFactoryAdditions/README.md."
+      ]
+    },
+    "PhobosFramework.version": {
+      "type": "version",
+      "parts": 3,
+      "value": "0.26.0",
+      "description": "D'thorga Framework's version: About.xml, every project of the mod, its ModVersion constants and both READMEs",
+      "targets": [
+        {
+          "path": "mods/PhobosFramework/About/About.xml",
+          "pattern": "<modVersion>(?P<value>[0-9.]+)</modVersion>"
+        },
+        {
+          "path": "src/PhobosFramework/PhobosFramework.csproj",
+          "pattern": "<Version>(?P<value>[0-9.]+)</Version>"
+        },
+        {
+          "path": "src/PhobosFramework/FrameworkMod.cs",
+          "pattern": "\\bModVersion\\s*=\\s*\"(?P<value>[0-9.]+)\""
+        },
+        {
+          "path": "src/PhobosFramework.Hygiene/PhobosFramework.Hygiene.csproj",
+          "pattern": "<Version>(?P<value>[0-9.]+)</Version>"
+        },
+        {
+          "path": "src/PhobosFramework.Vehicles/PhobosFramework.Vehicles.csproj",
+          "pattern": "<Version>(?P<value>[0-9.]+)</Version>"
+        },
+        {
+          "path": "src/PhobosFramework.Vehicles.Hygiene/PhobosFramework.Vehicles.Hygiene.csproj",
+          "pattern": "<Version>(?P<value>[0-9.]+)</Version>"
+        },
+        {
+          "path": "docs/README.md",
+          "pattern": "\\| \\*\\*D'thorga\\ Framework\\*\\* \\| (?P<value>[0-9.]+) \\|"
+        },
+        {
+          "path": "mods/PhobosFramework/README.md",
+          "pattern": "^Version (?P<value>[0-9.]+), built"
+        }
+      ],
+      "review": [
+        "Write the version's entry in mods/PhobosFramework/CHANGELOG.md (an Unreleased section, then a dated Draft entry).",
+        "Change the built date on the Version line of mods/PhobosFramework/README.md."
+      ]
+    },
+    "PhobosMedical.version": {
+      "type": "version",
+      "parts": 3,
+      "value": "0.8.0",
+      "description": "D'thorga Medical's version: About.xml, every project of the mod, its ModVersion constants and both READMEs",
+      "targets": [
+        {
+          "path": "mods/PhobosMedical/About/About.xml",
+          "pattern": "<modVersion>(?P<value>[0-9.]+)</modVersion>"
+        },
+        {
+          "path": "src/PhobosMedical/PhobosMedical.csproj",
+          "pattern": "<Version>(?P<value>[0-9.]+)</Version>"
+        },
+        {
+          "path": "src/PhobosMedical/MedicalMod.cs",
+          "pattern": "\\bModVersion\\s*=\\s*\"(?P<value>[0-9.]+)\""
+        },
+        {
+          "path": "src/PhobosMedical.Hygiene/PhobosMedical.Hygiene.csproj",
+          "pattern": "<Version>(?P<value>[0-9.]+)</Version>"
+        },
+        {
+          "path": "src/PhobosMedical.UsefulMarks/PhobosMedical.UsefulMarks.csproj",
+          "pattern": "<Version>(?P<value>[0-9.]+)</Version>"
+        },
+        {
+          "path": "docs/README.md",
+          "pattern": "\\| \\*\\*D'thorga\\ Medical\\*\\* \\| (?P<value>[0-9.]+) \\|"
+        },
+        {
+          "path": "mods/PhobosMedical/README.md",
+          "pattern": "^Version (?P<value>[0-9.]+), built"
+        }
+      ],
+      "review": [
+        "Write the version's entry in mods/PhobosMedical/CHANGELOG.md (an Unreleased section, then a dated Draft entry).",
+        "Change the built date on the Version line of mods/PhobosMedical/README.md."
+      ]
+    },
+    "PhobosPatches.version": {
+      "type": "version",
+      "parts": 3,
+      "value": "0.14.0",
+      "description": "D'thorga Patches's version: About.xml, every project of the mod, its ModVersion constants and both READMEs",
+      "targets": [
+        {
+          "path": "mods/PhobosPatches/About/About.xml",
+          "pattern": "<modVersion>(?P<value>[0-9.]+)</modVersion>"
+        },
+        {
+          "path": "src/PhobosPatches.Harrier/PhobosPatches.Harrier.csproj",
+          "pattern": "<Version>(?P<value>[0-9.]+)</Version>"
+        },
+        {
+          "path": "src/PhobosPatches.Harrier/VehiclePatchesMod.cs",
+          "pattern": "\\bModVersion\\s*=\\s*\"(?P<value>[0-9.]+)\""
+        },
+        {
+          "path": "src/PhobosPatches.Irbm/PhobosPatches.Irbm.csproj",
+          "pattern": "<Version>(?P<value>[0-9.]+)</Version>"
+        },
+        {
+          "path": "src/PhobosPatches.Irbm/MissilePatchesMod.cs",
+          "pattern": "\\bModVersion\\s*=\\s*\"(?P<value>[0-9.]+)\""
+        },
+        {
+          "path": "src/PhobosPatches.RimPacts/PhobosPatches.RimPacts.csproj",
+          "pattern": "<Version>(?P<value>[0-9.]+)</Version>"
+        },
+        {
+          "path": "src/PhobosPatches.RimPacts/RimPactsPatchesMod.cs",
+          "pattern": "\\bModVersion\\s*=\\s*\"(?P<value>[0-9.]+)\""
+        },
+        {
+          "path": "src/PhobosPatches.VisitSettlements/PhobosPatches.VisitSettlements.csproj",
+          "pattern": "<Version>(?P<value>[0-9.]+)</Version>"
+        },
+        {
+          "path": "src/PhobosPatches.VisitSettlements/VisitSettlementsPatchesMod.cs",
+          "pattern": "\\bModVersion\\s*=\\s*\"(?P<value>[0-9.]+)\""
+        },
+        {
+          "path": "docs/README.md",
+          "pattern": "\\| \\*\\*D'thorga\\ Patches\\*\\* \\| (?P<value>[0-9.]+) \\|"
+        },
+        {
+          "path": "mods/PhobosPatches/README.md",
+          "pattern": "^Version (?P<value>[0-9.]+), built"
+        }
+      ],
+      "review": [
+        "Write the version's entry in mods/PhobosPatches/CHANGELOG.md (an Unreleased section, then a dated Draft entry).",
+        "Change the built date on the Version line of mods/PhobosPatches/README.md."
+      ]
+    },
+    "PhobosRadioFramework.version": {
+      "type": "version",
+      "parts": 3,
+      "value": "0.1.3",
+      "description": "D'thorga Radio Framework's version: About.xml, every project of the mod, its ModVersion constants and both READMEs",
+      "targets": [
+        {
+          "path": "mods/PhobosRadioFramework/About/About.xml",
+          "pattern": "<modVersion>(?P<value>[0-9.]+)</modVersion>"
+        },
+        {
+          "path": "src/PhobosRadio/PhobosRadio.csproj",
+          "pattern": "<Version>(?P<value>[0-9.]+)</Version>"
+        },
+        {
+          "path": "docs/README.md",
+          "pattern": "\\| \\*\\*D'thorga\\ Radio\\ Framework\\*\\* \\| (?P<value>[0-9.]+) \\|"
+        },
+        {
+          "path": "mods/PhobosRadioFramework/README.md",
+          "pattern": "^Version (?P<value>[0-9.]+), built"
+        }
+      ],
+      "review": [
+        "Write the version's entry in mods/PhobosRadioFramework/CHANGELOG.md (an Unreleased section, then a dated Draft entry).",
+        "Change the built date on the Version line of mods/PhobosRadioFramework/README.md."
+      ]
+    },
+    "PhobosVehicles.version": {
+      "type": "version",
+      "parts": 3,
+      "value": "0.10.0",
+      "description": "D'thorga Vehicles's version: About.xml, every project of the mod, its ModVersion constants and both READMEs",
+      "targets": [
+        {
+          "path": "mods/PhobosVehicles/About/About.xml",
+          "pattern": "<modVersion>(?P<value>[0-9.]+)</modVersion>"
+        },
+        {
+          "path": "docs/README.md",
+          "pattern": "\\| \\*\\*D'thorga\\ Vehicles\\*\\* \\| (?P<value>[0-9.]+) \\|"
+        },
+        {
+          "path": "mods/PhobosVehicles/README.md",
+          "pattern": "^Version (?P<value>[0-9.]+), built"
+        }
+      ],
+      "review": [
+        "Write the version's entry in mods/PhobosVehicles/CHANGELOG.md (an Unreleased section, then a dated Draft entry).",
+        "Change the built date on the Version line of mods/PhobosVehicles/README.md."
+      ]
+    },
+    "PhobosWaterTap.version": {
+      "type": "version",
+      "parts": 3,
+      "value": "0.2.3",
+      "description": "D'thorga Water Tap's version: About.xml, every project of the mod, its ModVersion constants and both READMEs",
+      "targets": [
+        {
+          "path": "mods/PhobosWaterTap/About/About.xml",
+          "pattern": "<modVersion>(?P<value>[0-9.]+)</modVersion>"
+        },
+        {
+          "path": "src/PhobosWaterTap/PhobosWaterTap.csproj",
+          "pattern": "<Version>(?P<value>[0-9.]+)</Version>"
+        },
+        {
+          "path": "docs/README.md",
+          "pattern": "\\| \\*\\*D'thorga\\ Water\\ Tap\\*\\* \\| (?P<value>[0-9.]+) \\|"
+        },
+        {
+          "path": "mods/PhobosWaterTap/README.md",
+          "pattern": "^Version (?P<value>[0-9.]+), built"
+        }
+      ],
+      "review": [
+        "Write the version's entry in mods/PhobosWaterTap/CHANGELOG.md (an Unreleased section, then a dated Draft entry).",
+        "Change the built date on the Version line of mods/PhobosWaterTap/README.md."
+      ]
+    }
+  }
+}
