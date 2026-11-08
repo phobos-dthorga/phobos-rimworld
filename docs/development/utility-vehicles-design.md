@@ -140,7 +140,8 @@ The roles, and who fills each when both providers are present (the owner's list)
 
 Rules of the table: **RimThunder supplies the engine, transmission, fuel tank and running gear; VVE the electrical and cooling set**
 when both are present (RimThunder's engines are the richer set, VVE's electrical set the finer). Our fallback parts load only from
-folders conditioned on neither provider being active (`IfModNotActive`; the exact list semantics are checked at build), are made at
+folders conditioned on neither provider being active (`IfModNotActive="rimthunder.core,oskarpotocki.vanillavehiclesexpanded"`: the
+game loads such a folder only when none of the listed mods is active, `LoadFolder.ShouldLoad`), are made at
 the machining table behind the game's own research, are priced near VVE's engine block, and disassemble back to steel and components
 as RimThunder's engines do. **The precedent is already in the tree**: D'thorga Patches swaps RimThunder's turbine into the Harrier's
 cost (`mods/PhobosPatches/Mods/HarrierVtol/Patches/Cost_HarrierVtol.xml`). With RimThunder active, an `IfModActive` patch also adds
@@ -158,7 +159,8 @@ gear, 1 electrical set, 1 radiator, suspension where VVE is present).
 Five vehicles that share the deploy-and-work model and feed one another: find the deposit, drill it, haul the ore, carry the fluids,
 power the camp. Cells are the vehicle's own facing north, x across and z along, centred as VF centres them. Health,
 cost and mass are authored and untuned. Each vehicle's **Upgrades** row is a sketch of its tree under principle 8: exclusive pairs
-are marked with "or", and each node names the figure it moves; the nodes are the agent's and wait for the owner.
+are marked with "or" (in XML, `disableIfUpgradeNodeEnabled` on each side), and each node names the figure it moves; the nodes are the
+agent's and wait for the owner.
 
 ### Survey truck
 
@@ -310,7 +312,9 @@ Prior art: RV with built-in PD (power from vehicle fuel, 1.6).
 
 A heavy truck whose tank is an upgrade: a **liquid tanker** or a **gas tanker** by the player's choice, carrying whatever the mods
 present give it to carry. One chassis, one `VehicleDef` (`Phobos_Tanker`). Vehicle Framework's upgrade tree does the switching:
-nodes that `replaces` one another are mutually exclusive, a node carries its own `graphicOverlays` (the tank body is drawn by the
+each tank node names the other in `disableIfUpgradeNodeEnabled`, so one tank must come off before the other can go on
+(`CompUpgradeTree.Disabled`, `:21690`; `replaces` would swap them in one step and refund the old tank, `FinishUnlock`, `:21777`, with
+no chance to drain it; corrected 8 Nov 2026), a node carries its own `graphicOverlays` (the tank body is drawn by the
 node, not the base texture), a `StatUpgrade` sets the capacity, and the unlocked set is saved and re-applied on load
 (`CompUpgradeTree.ReloadUnlocks`, VF 1.6 decompile `Vehicles.decompiled.cs:21875`); our comp asks `CompUpgradeTree.NodeUnlocked`
 (`:21659`) which tank is fitted. Prior art: none carries fluid on Vehicle Framework; Trains of the Rim's tanker car is cargo only
@@ -365,7 +369,11 @@ capacity, on the Dashboard; `kilogramsPerUnit x contents` joins the vehicle's ma
 Mass stat then slows the vehicle is verified at build). Stages: **residue** below 2 % (the tank is not clean); **heavy** above 60 %
 (`Effect_StatFactor` 0.85 on MoveSpeed, authored). **The chemist's rule:** changing contents or tank type needs an empty tank and a
 purge job (4 hours, a colonist; water where Dubs Bad Hygiene is present), and water drawn from a tank that last held chemfuel is
-contaminated at Dubs' Untreated level. Refusals name the step: "drain the tank", "purge the tank".
+contaminated at Dubs' Untreated level. Refusals name the step: "drain the tank", "purge the tank". **Open at build:** Vehicle
+Framework has no Def-level way found so far to refuse taking a node off a loaded tank (`RemoveUnlock`, `:21827`, only queues the work),
+so the drain-first rule needs either one Harmony patch there or a removal that spills what is left. **Prerequisites are all-of**
+(`PrerequisitesMet`, `:21674`), so "either tank" cannot be a prerequisite: the hose reel and the insulation take none and do their
+work once a tank is fitted.
 
 | Part | Health | Depth | Cells | Feeds | Job |
 | --- | --- | --- | --- | --- | --- |
@@ -433,7 +441,8 @@ already do it (IDs in the mechanics record); the lean is the agent's.
   fields, the `VehicleComp` hooks, the overlay API and the settings attributes against the new build, rebuild and
   re-deploy.
 - **Order** (owner: framework first): the vehicle systems service and the stand-in mod's loadouts for VVE, the Harrier
-  and the HUMVEE, proven on vehicles the owner already drives; then this family, one vehicle at a time: Defs and stats,
+  and the HUMVEE, proven on vehicles the owner already drives; then this family, **the bulk tanker first** (owner, 8 Nov 2026), one
+  vehicle at a time: Defs and stats,
   the deploy comp and the jobs, the floors and refusals, art, README and changelog, and the owner's short test
   protocol (a drive, a set-up, a refusal, a repair, a save and reload).
 
@@ -466,6 +475,7 @@ already do it (IDs in the mechanics record); the lean is the agent's.
 - **Owner (8 Nov 2026):** utilitarian vehicles with per-part health and efficiency; a mobile drill rig first; a new
   mod; the framework before the vehicles, the mod as a stand-in; three to four vehicles in full; 1.7 only; the art
   route open to suggestions.
+- **Owner (8 Nov 2026, later):** the bulk tanker is built first.
 - **Owner (9 Nov 2026):** every vehicle of ours fully upgradeable and extendable by its character, with the art planned around
   the tree; parts from Vehicle Framework by default, RimThunder's and Vanilla Vehicles Expanded's part items as soft dependencies,
   together or as replacements, our own replacements where neither is present; a fifth vehicle in full, a tanker that is liquid or

@@ -1,0 +1,17 @@
+[
+  {
+    "name": "bulk-tanker-body-north",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 768,
+    "height": 1536,
+    "seeds": [1, 2, 3, 4],
+    "art_plan": {
+      "vehicle": "Phobos_Tanker, drawSize (3, 6), 128 px per unit, so 384 x 768 in game; requested at twice that on the same 1:2 canvas",
+      "this_request": "north base body only, the bare platform",
+      "overlays_planned_on_this_canvas": ["LiquidTank", "PressureVessel", "HoseReel", "hoses out while deployed", "damage states"],
+      "design": "docs/development/utility-vehicles-design.md, Bulk tanker"
+    },
+    "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL game vehicle sprite for the D'thorga bulk tanker: a heavy working truck that carries fuel, water and gases across a hard-scrabble frontier colony. Draw the BARE PLATFORM only: the chassis, cab and empty deck. The tank is drawn separately as an overlay.\n\nTall narrow canvas. The truck is long and narrow, about two and a half times as long as it is wide, centred with an even margin on a plain pure white background. North facing: the bonnet and cab at the TOP edge, the deck at the BOTTOM edge. Dusty olive cab and panels, dark rubber tyres, a pale grey cab roof, dark weathered steel deck, one muted orange accent stripe across the cab.\n\nIts roof plan is: a short bonnet at the top, then a short cab roof with a windscreen strip; behind the cab a long flat open steel deck with two heavy frame rails running its length and four evenly spaced empty saddle cradles across them; the tops of one pair of wheels beside the cab and two pairs of wheels beside the rear of the deck; one small plain pump housing on the right side just behind the cab.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo tank, cargo, people, animals, turrets, raised masts, hoses, dust, mud, damage, text, letters, numbers, logos, dials, screens or lamps. No floor, ground, road, shadow outside the vehicle, perspective, tilt or visible side faces. Top surfaces only."
+  }
+]
