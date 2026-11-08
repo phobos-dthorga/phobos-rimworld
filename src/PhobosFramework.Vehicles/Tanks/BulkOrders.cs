@@ -35,6 +35,8 @@ public sealed class BulkOffer
     public PhobosTankContentsDef Fluid = null!;
     public Port_Items Port = null!;
     public float PricePerItem;
+    /// <summary>One unspawned item, for the game's price and its count control.</summary>
+    public Thing Sample = null!;
 }
 
 /// <summary>
@@ -76,7 +78,7 @@ public static class BulkOrders
             Thing sample = ThingMaker.MakeThing(port.thing, GenStuff.DefaultStuffFor(port.thing));
             float priceType = kind.PriceTypeFor(port.thing, TradeAction.PlayerBuys).PriceMultiplier();
             float price = TradeUtility.GetPricePlayerBuy(sample, priceType, 1f, negotiator.GetStatValue(StatDefOf.TradePriceImprovement), settlement.TradePriceImprovementOffsetForPlayer);
-            offers.Add(new BulkOffer { Fluid = fluid, Port = port, PricePerItem = price });
+            offers.Add(new BulkOffer { Fluid = fluid, Port = port, PricePerItem = price, Sample = sample });
         }
         return offers;
     }
@@ -92,7 +94,7 @@ public static class BulkOrders
             string? refused = tank.CannotHold(offer.Fluid);
             if (refused != null) return refused;
         }
-        if (BulkOrderRule.UnitsForShare(tank.Space, 1f, offer.Port.unitsPerItem) <= 0f) return "PhobosVehicleSystems_TankBulkNoRoom".Translate().Resolve();
+        if (BulkOrderRule.MaxItems(tank.Space, offer.Port.unitsPerItem) <= 0) return "PhobosVehicleSystems_TankBulkNoRoom".Translate().Resolve();
         return null;
     }
 

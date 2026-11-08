@@ -6,14 +6,13 @@ namespace Phobos.Framework.Rules.Tests;
 public class BulkOrderRuleTests
 {
     [Theory]
-    [InlineData(3000f, 1f, 1f, 3000f)]
-    [InlineData(3000f, 0.25f, 1f, 750f)]
-    [InlineData(3000f, 0.25f, 10f, 750f)]
-    [InlineData(1000f, 0.25f, 30f, 240f)]
-    [InlineData(5f, 1f, 10f, 0f)]
-    [InlineData(0f, 1f, 1f, 0f)]
-    public void AnOrderIsWholeItems(float space, float share, float unitsPerItem, float expected) =>
-        Assert.Equal(expected, BulkOrderRule.UnitsForShare(space, share, unitsPerItem), 3);
+    [InlineData(3000f, 1f, 3000)]
+    [InlineData(3000f, 10f, 300)]
+    [InlineData(1000f, 30f, 33)]
+    [InlineData(5f, 10f, 0)]
+    [InlineData(0f, 1f, 0)]
+    public void AnOrderIsWholeItems(float space, float unitsPerItem, int expected) =>
+        Assert.Equal(expected, BulkOrderRule.MaxItems(space, unitsPerItem));
 
     [Theory]
     [InlineData(3.22f, 3000f, 1f, 9660)]

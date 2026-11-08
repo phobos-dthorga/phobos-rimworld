@@ -90,7 +90,7 @@ Every source and simplification is in the loadout files under `Mods/`.
 
 **Air brakes:** like the other heavy trucks, it must idle a few minutes to build air after standing for hours.
 
-**Bulk buying:** take the tanker in a caravan to a settlement, pick the compartment, and press **Bulk order**. You buy a quarter, half or all of the room left, at the game's own price, with the silver in the caravan. What is on offer depends on what that settlement trades in, and the same fluid can't be bought there again for 15 days. Only fluids that exist as items can be bought. You can't do this from home: visiting traders don't sell by the tanker-load.
+**Bulk buying:** take the tanker in a caravan to a settlement, pick the compartment, and press **Bulk order**. Choose how much with the same number box and arrows as the trade window. You pay the game's own price, with the silver in the caravan. What is on offer depends on what that settlement trades in, and the same fluid can't be bought there again for 15 days. Only fluids that exist as items can be bought. You can't do this from home: visiting traders don't sell by the tanker-load.
 
 **Parts:** it is built from RimThunder's engine and running gear and Vanilla Vehicles Expanded's electrics when you have them, and from three parts of ours, made at a machining table, if you have neither.
 

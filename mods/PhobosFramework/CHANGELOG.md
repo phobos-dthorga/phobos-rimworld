@@ -9,6 +9,14 @@ tested in game unless an entry says the owner tested it.
 
 - A tank's damage marks follow the health of their part. Vehicle Framework never reads a part requirement written on an overlay, so the tank now draws them itself. **Not yet tested in game.**
 
+## [0.39.0] - 2026-11-09 - Draft
+
+The bulk order gets the game's own controls (owner, 9 November 2026). **Not yet tested in game.**
+
+### Changed
+
+- A bulk order now opens a small window with the number box and arrows of the game's trade window, the live price and a Buy button, in place of three preset amounts.
+
 ## [0.38.1] - 2026-11-09 - Draft
 
 Bugs found by reviewing the vehicle repair code before it was tested. **Not yet tested in game.**

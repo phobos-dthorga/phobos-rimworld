@@ -6,11 +6,11 @@ namespace Phobos.Framework.Rules;
 /// the game's own buying price; everything here only counts.</summary>
 public static class BulkOrderRule
 {
-    /// <summary>How many units a share of the free space is, in whole items, so nothing is sold that could not be poured back out.</summary>
-    public static float UnitsForShare(float space, float share, float unitsPerItem)
+    /// <summary>The most whole items that fit in the free space, so nothing is sold that could not be poured back out.</summary>
+    public static int MaxItems(float space, float unitsPerItem)
     {
-        if (space <= 0f || share <= 0f || unitsPerItem <= 0f) return 0f;
-        return MathF.Floor(space * share / unitsPerItem) * unitsPerItem;
+        if (space <= 0f || unitsPerItem <= 0f) return 0;
+        return (int)MathF.Floor(space / unitsPerItem);
     }
 
     /// <summary>The silver for these units at the game's price for one item, rounded up so a purchase never comes out cheaper than the trade window.</summary>

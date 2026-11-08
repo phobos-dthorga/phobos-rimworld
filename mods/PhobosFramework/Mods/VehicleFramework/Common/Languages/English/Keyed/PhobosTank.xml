@@ -50,6 +50,9 @@
   <PhobosVehicleSystems_TankBulkNothing>This settlement sells nothing this tank can carry.</PhobosVehicleSystems_TankBulkNothing>
   <PhobosVehicleSystems_TankBulkOffer>{CONTENTS}, {PRICE} silver per 100 {UNIT}</PhobosVehicleSystems_TankBulkOffer>
   <PhobosVehicleSystems_TankBulkAmount>{UNITS} {UNIT} for {COST} silver</PhobosVehicleSystems_TankBulkAmount>
+  <PhobosVehicleSystems_TankBulkWindowTitle>{CONTENTS} from {SETTLEMENT}</PhobosVehicleSystems_TankBulkWindowTitle>
+  <PhobosVehicleSystems_TankBulkSilverHeld>The caravan has {SILVER} silver.</PhobosVehicleSystems_TankBulkSilverHeld>
+  <PhobosVehicleSystems_TankBulkBuy>Buy</PhobosVehicleSystems_TankBulkBuy>
   <PhobosVehicleSystems_TankBulkSoldOut>sold out here for {DAYS} more days</PhobosVehicleSystems_TankBulkSoldOut>
   <PhobosVehicleSystems_TankBulkNoRoom>no room left in this compartment</PhobosVehicleSystems_TankBulkNoRoom>
   <PhobosVehicleSystems_TankBulkTooDear>not enough silver in this caravan</PhobosVehicleSystems_TankBulkTooDear>

@@ -55,27 +55,9 @@ public static class TankGizmos
             string? refused = BulkOrders.OfferRefusal(tank, settlement, offer);
             options.Add(refused != null
                 ? new FloatMenuOption(label + ": " + refused, null)
-                : new FloatMenuOption(label, () => Find.WindowStack.Add(new FloatMenu(AmountOptions(tank, settlement, captured)))));
+                : new FloatMenuOption(label, () => Find.WindowStack.Add(new Dialog_PhobosBulkOrder(tank, settlement, captured))));
         }
         if (options.Count == 0) options.Add(new FloatMenuOption("PhobosVehicleSystems_TankBulkNothing".Translate(), null));
-        return options;
-    }
-
-    static List<FloatMenuOption> AmountOptions(CompPhobosTank tank, Settlement settlement, BulkOffer offer)
-    {
-        var options = new List<FloatMenuOption>();
-        int silver = BulkOrders.Silver(tank.Vehicle);
-        foreach (float share in new[] { 0.25f, 0.5f, 1f })
-        {
-            float units = BulkOrderRule.UnitsForShare(tank.Space, share, offer.Port.unitsPerItem);
-            if (units <= 0f) continue;
-            int cost = BulkOrderRule.Cost(offer.PricePerItem, units, offer.Port.unitsPerItem);
-            string label = "PhobosVehicleSystems_TankBulkAmount".Translate(units.ToString("N0").Named("UNITS"), offer.Fluid.unitLabel.Named("UNIT"), cost.Named("COST"));
-            options.Add(cost > silver
-                ? new FloatMenuOption(label + ": " + "PhobosVehicleSystems_TankBulkTooDear".Translate().Resolve(), null)
-                : new FloatMenuOption(label, () => BulkOrders.Buy(tank, settlement, offer, units)));
-        }
-        if (options.Count == 0) options.Add(new FloatMenuOption("PhobosVehicleSystems_TankBulkNoRoom".Translate(), null));
         return options;
     }
 

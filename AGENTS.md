@@ -283,6 +283,7 @@ delivered, record the delivery in the changelog or design record, and add or ame
 - **Derived state is never saved.** `RadioNet` and every link cache hold only what can be recomputed from
   Defs and spawned things; they save nothing, touch no VEF state during load, and recompute lazily on
   first use. Thought workers and gizmos read caches; they never compute.
+- **Interfaces follow the game's own patterns** (owner, 9 Nov 2026: people spot anything out of the ordinary at once). Windows, menus and quantity controls use the game's own widgets and conventions, such as the trade window's number box and arrows for an amount, and values are not rounded where the game would not round them.
 - **Vanilla precedence.** Use the game's own systems instead of parallel ones: power through power comps,
   heat into rooms through the game's temperature system, weather, research, letters, quests, factions and
   goodwill. Hook or extend them; never replace them wholesale.

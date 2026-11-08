@@ -5,6 +5,10 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+### Changed
+
+- The README now describes the bulk order window. Text only.
+
 ### Fixed
 
 - The bulk tanker no longer looks damaged when it is new: its damage marks now appear only while the part is really damaged. Found in the owner's first look. **Not yet tested in game.**
