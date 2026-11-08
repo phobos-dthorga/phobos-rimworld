@@ -79,7 +79,7 @@ corners, straight top-down, no perspective. Outputs ship in a free public Worksh
 
 **The owner's pick (8 Nov 2026): the OpenAI image API for vehicle bodies, local generation for icons.** The engine was built
 on 8 Nov 2026 (`scripts/art/openai_images.py`, used by `scripts/generate-art.py` and `scripts/art-run.py`); offline tests in
-`tests/test_openai_images.py`. **No real image has been made with it yet.** The rules for using it, learnt in Phobos
+`tests/test_openai_images.py`. **First real images: the tanker pilot, 8 Nov 2026, four at US$0.0295 each** ([record](../../assets/phobos-vehicles/README.md)). The rules for using it, learnt in Phobos
 Ostranauts, are in [paid image generation rules](paid-image-generation-rules.md): read them before writing a request.
 
 - **The key** is read from the `OPENAI_API_KEY` environment variable only (the owner's user variable). It is never written to
