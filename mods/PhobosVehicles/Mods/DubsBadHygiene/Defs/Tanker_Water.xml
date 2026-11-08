@@ -6,6 +6,7 @@
     <label>water</label>
     <description>Water for the plumbing.</description>
     <phase>Liquid</phase>
+    <foodStatus>Food</foodStatus>
     <unitLabel>litres</unitLabel>
     <kilogramsPerUnit>1</kilogramsPerUnit>
     <spillFilth>Filth_Water</spillFilth>

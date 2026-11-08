@@ -342,6 +342,7 @@
           <hoursToOutside>6</hoursToOutside>
           <spoilRate>1</spoilRate>
           <loadWeight>1</loadWeight>
+          <maxCompartments>3</maxCompartments>
         </li>
         <li>
           <node>InsulatedLiquidTank</node>
@@ -349,6 +350,7 @@
           <hoursToOutside>24</hoursToOutside>
           <spoilRate>0.5</spoilRate>
           <loadWeight>0.9</loadWeight>
+          <maxCompartments>3</maxCompartments>
         </li>
         <li>
           <node>HighVolumeLiquidTank</node>
@@ -356,6 +358,7 @@
           <hoursToOutside>6</hoursToOutside>
           <spoilRate>1</spoilRate>
           <loadWeight>1.15</loadWeight>
+          <maxCompartments>3</maxCompartments>
         </li>
         <li>
           <node>PressureVessel</node>
@@ -379,6 +382,16 @@
           <loadWeight>0.85</loadWeight>
         </li>
         </fittings>
+        <compartmentNodes>
+          <li>
+            <node>TwoCompartments</node>
+            <compartments>2</compartments>
+          </li>
+          <li>
+            <node>ThreeCompartments</node>
+            <compartments>3</compartments>
+          </li>
+        </compartmentNodes>
         <damageOverlays>
           <li>
             <part>Chassis</part>

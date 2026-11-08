@@ -9,6 +9,21 @@ tested in game unless an entry says the owner tested it.
 
 - A tank's damage marks follow the health of their part. Vehicle Framework never reads a part requirement written on an overlay, so the tank now draws them itself. **Not yet tested in game.**
 
+## [0.37.0] - 2026-11-09 - Draft
+
+Tank compartments, for D'thorga Vehicles 0.15.0 (owner, 9 November 2026). **Not yet tested in game.** Design: docs/development/utility-vehicles-design.md.
+
+### Added
+
+- A tank can be divided into compartments, each with its own fluid. They share the tank's capacity equally and share its temperature. The pump serves one compartment at a time, chosen with a button.
+- A new setting, on by default: a tank holds one kind of fluid until its compartment upgrades are fitted. Off, every liquid tank has its compartments free.
+- Food is kept apart from everything else. A fluid counts as food if its item has a nutrition value; a modder can whitelist or blacklist any fluid in XML. The contents menu says why a choice is refused.
+
+### Fixed
+
+- A tank that leaked or vented dry no longer forgets what it held, so it still asks to be purged.
+- A tanker leaving the map no longer keeps its hoses drawn.
+
 ## [0.36.0] - 2026-11-09 - Draft
 
 What a badly damaged vehicle costs, and a parts framework of our own (owner, 9 November 2026). **Not yet tested in game.** Design: docs/development/vehicle-health-consequences.md.

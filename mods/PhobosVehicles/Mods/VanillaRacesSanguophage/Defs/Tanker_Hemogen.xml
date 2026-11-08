@@ -6,6 +6,7 @@
     <label>hemogen</label>
     <description>Blood, by the tankful.</description>
     <phase>Liquid</phase>
+    <foodStatus>Food</foodStatus>
     <unitLabel>units</unitLabel>
     <kilogramsPerUnit>1.05</kilogramsPerUnit>
     <spillFilth>Filth_Blood</spillFilth>

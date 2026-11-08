@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using RimWorld;
 using Vehicles;
 using Verse;
@@ -12,6 +13,14 @@ public enum TankPhase
     Gas,
 }
 
+/// <summary>Whether a fluid counts as food. Auto reads the game's own nutrition figure; the other two are the whitelist and blacklist.</summary>
+public enum TankFoodStatus
+{
+    Auto,
+    Food,
+    NotFood,
+}
+
 /// <summary>
 /// A fluid a tanker can carry. Anyone can write one in XML: its phase decides the tank it needs, its limits decide how temperature
 /// treats it, and its ports decide where it can be pumped from and to. Each ships in the folder of the mod that gives it meaning.
@@ -21,6 +30,8 @@ public class PhobosTankContentsDef : Def
     public TankPhase phase = TankPhase.Liquid;
     /// <summary>What one unit is called in the tank's readout (litres, for instance).</summary>
     public string unitLabel = "units";
+    /// <summary>Food cannot share a tank with anything that is not food. Auto: food if its item has a nutrition value.</summary>
+    public TankFoodStatus foodStatus = TankFoodStatus.Auto;
     /// <summary>The mass balance: what one unit adds to the vehicle.</summary>
     public float kilogramsPerUnit = 1f;
     /// <summary>Burns, and may explode when the tank is destroyed under it.</summary>
@@ -57,6 +68,13 @@ public class PhobosTankContentsDef : Def
 
     public bool Vents => !float.IsNaN(ventsAbove);
 
+    public bool IsFood => foodStatus switch
+    {
+        TankFoodStatus.Food => true,
+        TankFoodStatus.NotFood => false,
+        _ => ports.OfType<Port_Items>().Any(port => port.thing?.ingestible != null && port.thing.GetStatValueAbstract(StatDefOf.Nutrition) > 0f),
+    };
+
     public override IEnumerable<string> ConfigErrors()
     {
         foreach (string error in base.ConfigErrors()) yield return error;
@@ -78,6 +96,15 @@ public class TankFitting
     public float spoilRate = 1f;
     /// <summary>How much a full tank of this kind weighs on the truck, for its heavy stages (1 is the general tank).</summary>
     public float loadWeight = 1f;
+    /// <summary>The most compartments this tank can be divided into (one per hatch on the liquid tanks).</summary>
+    public int maxCompartments = 1;
+}
+
+/// <summary>An upgrade node that divides the tank.</summary>
+public class TankCompartmentNode
+{
+    public string node = "";
+    public int compartments = 1;
 }
 
 /// <summary>When a damage overlay applies: always, or only with that kind of tank fitted.</summary>
@@ -102,6 +129,7 @@ public class TankDamageOverlay
 public class CompProperties_PhobosTank : VehicleCompProperties
 {
     public List<TankFitting> fittings = new();
+    public List<TankCompartmentNode> compartmentNodes = new();
     /// <summary>The part whose loss bursts the tank.</summary>
     public string shellPart = "TankShell";
     /// <summary>The part holding the relief valve.</summary>

@@ -20,6 +20,7 @@
     <label>wort</label>
     <description>Unfermented beer, on its way to the barrels. It will not keep.</description>
     <phase>Liquid</phase>
+    <foodStatus>Food</foodStatus>
     <unitLabel>units</unitLabel>
     <kilogramsPerUnit>0.8</kilogramsPerUnit>
     <spillFilth>Filth_Slime</spillFilth>

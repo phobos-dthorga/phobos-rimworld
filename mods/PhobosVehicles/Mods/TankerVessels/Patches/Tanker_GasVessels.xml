@@ -18,6 +18,8 @@
         <li>HighVolumeLiquidTank</li>
         <li>LightPressureVessel</li>
         <li>HeavyWallVessel</li>
+        <li>TwoCompartments</li>
+        <li>ThreeCompartments</li>
       </disableIfUpgradeNodesEnabled>
       <upgrades>
         <li Class="Vehicles.StatUpgrade">
@@ -60,6 +62,8 @@
         <li>HighVolumeLiquidTank</li>
         <li>PressureVessel</li>
         <li>HeavyWallVessel</li>
+        <li>TwoCompartments</li>
+        <li>ThreeCompartments</li>
       </disableIfUpgradeNodesEnabled>
       <upgrades>
         <li Class="Vehicles.StatUpgrade">
@@ -102,6 +106,8 @@
         <li>HighVolumeLiquidTank</li>
         <li>PressureVessel</li>
         <li>LightPressureVessel</li>
+        <li>TwoCompartments</li>
+        <li>ThreeCompartments</li>
       </disableIfUpgradeNodesEnabled>
       <upgrades>
         <li Class="Vehicles.StatUpgrade">

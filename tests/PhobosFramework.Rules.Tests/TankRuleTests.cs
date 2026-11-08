@@ -84,6 +84,14 @@ public class TankRuleTests
     [Fact]
     public void AnEmptyTankDoesNotExplode() => Assert.Equal(0f, TankRule.ExplosionRadius(0f, 4500f, 12f));
 
+    [Theory]
+    [InlineData(3000f, 1, 3000f)]
+    [InlineData(3000f, 2, 1500f)]
+    [InlineData(3000f, 3, 1000f)]
+    [InlineData(3000f, 0, 3000f)]
+    public void CompartmentsDivideTheTankEqually(float capacity, int compartments, float expected) =>
+        Assert.Equal(expected, TankRule.CompartmentCapacity(capacity, compartments), 3);
+
     [Fact]
     public void AStrongerLoadHasALargerBlast() => Assert.Equal(16.8f, TankRule.ExplosionRadius(4500f, 4500f, 12f, 1.4f), 3);
 

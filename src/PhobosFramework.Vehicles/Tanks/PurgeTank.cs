@@ -32,7 +32,7 @@ public class FloatMenuOptionProvider_PhobosPurgeTank : FloatMenuOptionProvider
         IntVec3 cell = vehicle.SurroundingCells.Where(c => c.InBounds(vehicle.Map) && c.Standable(vehicle.Map) && worker.CanReach(c, PathEndMode.OnCell, Danger.Some))
             .OrderBy(c => c.DistanceToSquared(worker.Position)).FirstOrFallback(IntVec3.Invalid);
         if (!cell.IsValid) return new FloatMenuOption("PhobosVehicleSystems_TankCannotPurgeNoPath".Translate(name), null);
-        string label = "PhobosVehicleSystems_TankPurgeOption".Translate(name, tank.Residue!.label.Named("CONTENTS"));
+        string label = "PhobosVehicleSystems_TankPurgeOption".Translate(name, tank.ResidueLabels.Named("CONTENTS"));
         return FloatMenuUtility.DecoratePrioritizedTask(new FloatMenuOption(label, () =>
         {
             Job job = JobMaker.MakeJob(TankDefOf.PhobosVehicleSystems_PurgeTank, vehicle, cell);

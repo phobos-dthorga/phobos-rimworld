@@ -6,6 +6,7 @@
     <label>nutrient paste</label>
     <description>Food by the tankful, while it lasts.</description>
     <phase>Liquid</phase>
+    <foodStatus>Food</foodStatus>
     <unitLabel>units</unitLabel>
     <kilogramsPerUnit>1.1</kilogramsPerUnit>
     <spillFilth>Filth_Slime</spillFilth>

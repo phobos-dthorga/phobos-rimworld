@@ -33,8 +33,18 @@
   <PhobosVehicleSystems_TankPipeFull>The storage on those pipes is full.</PhobosVehicleSystems_TankPipeFull>
   <PhobosVehicleSystems_TankTowersFull>The water towers on those pipes are full.</PhobosVehicleSystems_TankTowersFull>
   <PhobosVehicleSystems_TankNoSeptic>There is no septic tank beside the truck.</PhobosVehicleSystems_TankNoSeptic>
+  <PhobosVehicleSystems_SettingTankCompartments>A tank needs upgrades for compartments</PhobosVehicleSystems_SettingTankCompartments>
+  <PhobosVehicleSystems_SettingTankCompartmentsDesc>When on, a tank holds one kind of fluid until you fit its compartment upgrades. When off, every liquid tank has three compartments for free.</PhobosVehicleSystems_SettingTankCompartmentsDesc>
+  <PhobosVehicleSystems_TankCompartmentsSpilled>{VEHICLE} no longer has room for all of its load, and the rest spilled.</PhobosVehicleSystems_TankCompartmentsSpilled>
+  <PhobosVehicleSystems_TankCompartmentSelected>{VEHICLE} is now working on compartment {INDEX}.</PhobosVehicleSystems_TankCompartmentSelected>
+  <PhobosVehicleSystems_TankFoodApart>{CONTENTS} cannot share this tank with {OTHER}: food must be kept apart from everything else</PhobosVehicleSystems_TankFoodApart>
+  <PhobosVehicleSystems_TankInspectTemperature>Tank temperature: {TEMPERATURE}</PhobosVehicleSystems_TankInspectTemperature>
+  <PhobosVehicleSystems_TankInspectCompartment>Compartment {INDEX}: {AMOUNT} of {CAPACITY} {UNIT} of {CONTENTS}</PhobosVehicleSystems_TankInspectCompartment>
+  <PhobosVehicleSystems_TankInspectCompartmentUnset>Compartment {INDEX}: empty, holds {CAPACITY}</PhobosVehicleSystems_TankInspectCompartmentUnset>
+  <PhobosVehicleSystems_TankGizmoCompartment>Compartment {INDEX} of {COUNT}</PhobosVehicleSystems_TankGizmoCompartment>
+  <PhobosVehicleSystems_TankGizmoCompartmentDesc>Choose which compartment the pump and the contents button work on. The pump serves one compartment at a time.</PhobosVehicleSystems_TankGizmoCompartmentDesc>
   <PhobosVehicleSystems_TankNothingToCarry>Nothing this tank can carry is available.</PhobosVehicleSystems_TankNothingToCarry>
-  <PhobosVehicleSystems_TankInspect>Tank: {AMOUNT} of {CAPACITY} {UNIT} of {CONTENTS}, at {TEMPERATURE}</PhobosVehicleSystems_TankInspect>
+  <PhobosVehicleSystems_TankInspect>Tank: {AMOUNT} of {CAPACITY} {UNIT} of {CONTENTS}</PhobosVehicleSystems_TankInspect>
   <PhobosVehicleSystems_TankInspectUnset>Tank: empty, holds {CAPACITY}. Choose what it will carry.</PhobosVehicleSystems_TankInspectUnset>
   <PhobosVehicleSystems_TankInspectNeedsPurge>Last held {CONTENTS}: needs purging before it can carry anything else.</PhobosVehicleSystems_TankInspectNeedsPurge>
   <PhobosVehicleSystems_TankPurgeNoWater>There was not enough water to purge {VEHICLE}.</PhobosVehicleSystems_TankPurgeNoWater>

@@ -164,6 +164,45 @@
         </li>
       </graphicOverlays>
     </li>
+    <li>
+      <key>TwoCompartments</key>
+      <label>two compartments</label>
+      <description>A bulkhead divides a liquid tank in two, each half with its own fluid. Filled alike, they hold as much as the whole tank.</description>
+      <icon>Phobos/VehicleSystems/Tank/TwoCompartments</icon>
+      <work>2500</work>
+      <gridCoordinate>(27, 15)</gridCoordinate>
+      <drawSize>(80, 80)</drawSize>
+      <disableIfUpgradeNodesEnabled>
+        <li>PressureVessel</li>
+        <li>LightPressureVessel</li>
+        <li>HeavyWallVessel</li>
+      </disableIfUpgradeNodesEnabled>
+      <ingredients>
+        <Steel>40</Steel>
+        <ComponentIndustrial>2</ComponentIndustrial>
+      </ingredients>
+    </li>
+    <li>
+      <key>ThreeCompartments</key>
+      <label>three compartments</label>
+      <description>A second bulkhead: three fluids at once, one to each hatch.</description>
+      <icon>Phobos/VehicleSystems/Tank/ThreeCompartments</icon>
+      <work>2500</work>
+      <gridCoordinate>(33, 15)</gridCoordinate>
+      <drawSize>(80, 80)</drawSize>
+      <prerequisiteNodes>
+        <li>TwoCompartments</li>
+      </prerequisiteNodes>
+      <disableIfUpgradeNodesEnabled>
+        <li>PressureVessel</li>
+        <li>LightPressureVessel</li>
+        <li>HeavyWallVessel</li>
+      </disableIfUpgradeNodesEnabled>
+      <ingredients>
+        <Steel>40</Steel>
+        <ComponentIndustrial>2</ComponentIndustrial>
+      </ingredients>
+    </li>
     </nodes>
   </Vehicles.UpgradeTreeDef>
 </Defs>

@@ -33,6 +33,8 @@ public class VehicleSystemsSettings : ModSettings
     public bool fuelGelling;
     /// <summary>A flammable load explodes when its tank is destroyed under it (owner, 8 Nov 2026: on, with this setting to turn it off). Live.</summary>
     public bool tankExplosions = true;
+    /// <summary>A tank holds one kind of fluid until its compartment upgrades are fitted (owner, 9 Nov 2026: on). Off, every liquid tank has its most compartments free. Live.</summary>
+    public bool tankCompartmentsNeedUpgrades = true;
     /// <summary>A destroyed part needs replacement supplies; ordinary damage stays free (vehicle health, slice 3). Live.</summary>
     public bool destroyedPartsNeedSupplies = true;
     /// <summary>How much of the part an engine or transmission costs to replace: at 100%, the whole part. Live.</summary>
@@ -93,6 +95,7 @@ public class VehicleSystemsSettings : ModSettings
     {
         "fuelGelling" => fuelGelling,
         "tankExplosions" => tankExplosions,
+        "tankCompartmentsNeedUpgrades" => tankCompartmentsNeedUpgrades,
         "boilerExplosions" => boilerExplosions,
         "realisticFeedWater" => realisticFeedWater,
         "nightHeater" => nightHeater,
@@ -117,6 +120,7 @@ public class VehicleSystemsSettings : ModSettings
         Scribe_Values.Look(ref showOnly, "PhobosVehicleSystems_ShowOnly", false);
         Scribe_Values.Look(ref fuelGelling, "PhobosVehicleSystems_FuelGelling", false);
         Scribe_Values.Look(ref tankExplosions, "PhobosVehicleSystems_TankExplosions", true);
+        Scribe_Values.Look(ref tankCompartmentsNeedUpgrades, "PhobosVehicleSystems_TankCompartmentsNeedUpgrades", true);
         Scribe_Values.Look(ref destroyedPartsNeedSupplies, "PhobosVehicleSystems_DestroyedPartsNeedSupplies", true);
         Scribe_Values.Look(ref wholePartShare, "PhobosVehicleSystems_WholePartShare", 1f);
         Scribe_Values.Look(ref otherPartShare, "PhobosVehicleSystems_OtherPartShare", 0.5f);
@@ -252,6 +256,7 @@ public class VehicleSystemsMod : Mod
         listing.CheckboxLabeled("PhobosVehicleSystems_SettingShowOnly".Translate(), ref s.showOnly, "PhobosVehicleSystems_SettingShowOnlyDesc".Translate());
         listing.CheckboxLabeled("PhobosVehicleSystems_SettingFuelGelling".Translate(), ref s.fuelGelling, "PhobosVehicleSystems_SettingFuelGellingDesc".Translate());
         listing.CheckboxLabeled("PhobosVehicleSystems_SettingTankExplosions".Translate(), ref s.tankExplosions, "PhobosVehicleSystems_SettingTankExplosionsDesc".Translate());
+        listing.CheckboxLabeled("PhobosVehicleSystems_SettingTankCompartments".Translate(), ref s.tankCompartmentsNeedUpgrades, "PhobosVehicleSystems_SettingTankCompartmentsDesc".Translate());
 
         SettingsUi.Section(listing, "PhobosVehicleSystems_SectionEngines".Translate());
         foreach (DrivetrainMode mode in System.Enum.GetValues(typeof(DrivetrainMode)))

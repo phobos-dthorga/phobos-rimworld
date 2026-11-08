@@ -120,6 +120,32 @@ def electrical():
     return image
 
 
+def divided(parts, highlight=None):
+    image, draw = canvas()
+    left, top, right, bottom = 60, 150, 452, 362
+    draw.rounded_rectangle((left, top, right, bottom), radius=90, fill=STEEL, outline=OUTLINE, width=LINE)
+    width = (right - left) / parts
+    if highlight is not None:
+        x = left + width * highlight
+        draw.rectangle((x + 12, top + 18, x + width - 12, bottom - 18), fill=ORANGE)
+    for i in range(1, parts):
+        x = left + width * i
+        draw.line((x, top + 8, x, bottom - 8), fill=OUTLINE, width=LINE)
+    return image
+
+
+def compartment():
+    return divided(3, 1)
+
+
+def two_compartments():
+    return divided(2)
+
+
+def three_compartments():
+    return divided(3)
+
+
 def write(folder, name, draw_fn, what):
     folder.mkdir(parents=True, exist_ok=True)
     path = folder / f'{name}.png'
@@ -138,6 +164,9 @@ if __name__ == '__main__':
     write(BUTTONS, 'Load', load, 'a green arrow pointing down')
     write(BUTTONS, 'Unload', unload, 'an orange arrow pointing up')
     write(BUTTONS, 'Hold', hold, 'two red bars')
+    write(BUTTONS, 'Compartment', compartment, 'a tank in three divisions with the middle one lit')
+    write(BUTTONS, 'TwoCompartments', two_compartments, 'a tank divided in two')
+    write(BUTTONS, 'ThreeCompartments', three_compartments, 'a tank divided in three')
     write(PARTS, 'EngineAssembly', engine, 'an olive engine block with three cylinder heads')
     write(PARTS, 'DrivetrainKit', drivetrain, 'an axle with two tyres and a gearbox')
     write(PARTS, 'ElectricalKit', electrical, 'an olive box with an orange lightning bolt')

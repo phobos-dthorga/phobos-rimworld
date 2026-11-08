@@ -24,6 +24,18 @@ tested in game unless an entry says the owner tested it.
 
 - BMP-1 IFV (Vehicle Framework), by Turbo, is no longer on the Steam Workshop (Steam showed no public item on 8 November 2026: removed or made private). Its loadout here loads only while that mod is active, so it stays dormant and costs nothing; a player with their own copy still gets it.
 
+## [0.15.0] - 2026-11-09 - Draft
+
+Compartments for the bulk tanker (owner, 9 November 2026). **Not yet tested in game.** Needs D'thorga Framework 0.37.0.
+
+### Added
+
+- Two upgrades divide a liquid tank into two, then three compartments, one to each hatch, so it can carry different fluids on one trip. Pressure vessels stay whole.
+
+### Balance
+
+- Food cannot share a tank with anything else. Water, nutrient paste, hemogen and wort are listed as food by hand, since no item of theirs carries a nutrition value; beer and insect jelly count by their own.
+
 ## [0.14.0] - 2026-11-09 - Draft
 
 Our vehicle parts moved to D'thorga Framework (owner, 9 November 2026). **Not yet tested in game.**

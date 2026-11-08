@@ -10,6 +10,7 @@ public static class TankGizmos
 
     public static IEnumerable<Gizmo> For(CompPhobosTank tank)
     {
+        if (tank.Compartments.Count > 1) yield return CompartmentButton(tank);
         yield return ContentsButton(tank);
         yield return DeployButton(tank);
         if (!tank.Deployed) yield break;
@@ -17,6 +18,14 @@ public static class TankGizmos
         yield return ModeButton(tank, TankPumpMode.Unload, "PhobosVehicleSystems_TankGizmoUnload".Translate(), "PhobosVehicleSystems_TankGizmoUnloadDesc".Translate(), "Unload");
         yield return ModeButton(tank, TankPumpMode.Hold, "PhobosVehicleSystems_TankGizmoHold".Translate(), "PhobosVehicleSystems_TankGizmoHoldDesc".Translate(), "Hold");
     }
+
+    static Gizmo CompartmentButton(CompPhobosTank tank) => new Command_Action
+    {
+        defaultLabel = "PhobosVehicleSystems_TankGizmoCompartment".Translate((tank.SelectedIndex + 1).Named("INDEX"), tank.Compartments.Count.Named("COUNT")).Resolve(),
+        defaultDesc = "PhobosVehicleSystems_TankGizmoCompartmentDesc".Translate().Resolve(),
+        icon = SystemIcons.For(Icons + "Compartment"),
+        action = tank.SelectNextCompartment,
+    };
 
     static Gizmo ContentsButton(CompPhobosTank tank) => new Command_Action
     {

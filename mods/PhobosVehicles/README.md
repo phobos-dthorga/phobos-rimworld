@@ -4,7 +4,7 @@ Vehicles that keep running only while they are looked after. It adds one vehicle
 vehicles of other mods you already drive the systems that match what they really are, on top of the general systems D'thorga
 Framework gives every vehicle.
 
-Version 0.14.0, built 9 November 2026 for House D'thorga. **Not yet tested in game.**
+Version 0.15.0, built 9 November 2026 for House D'thorga. **Not yet tested in game.**
 
 ## Read this first (gotchas)
 
@@ -85,6 +85,8 @@ Every source and simplification is in the loadout files under `Mods/`.
 | Napalm, crude oil (Rimefeller) | Stacks and barrels on the ground | None |
 
 **Gotchas:** an empty tank must be **purged** before it can carry something else: select a colonist and right-click the truck (four in-game hours; it takes water where Dubs Bad Hygiene is active). **Taking a tank off with a load in it spills the load.** A damaged tank leaks, and a destroyed tank holding something flammable explodes unless you turn that off in D'thorga Framework's settings. A full tank slows the truck.
+
+**Compartments:** two upgrades divide a liquid tank into two, then three compartments, so it can carry different fluids at once. They share the capacity equally; filled alike they hold as much as the whole tank. Use the **Compartment** button to choose which one the pump and the contents button work on. **Food can't share a tank with anything else**, and the contents menu says so. A setting in D'thorga Framework gives every liquid tank its compartments for free.
 
 **Parts:** it is built from RimThunder's engine and running gear and Vanilla Vehicles Expanded's electrics when you have them, and from three parts of ours, made at a machining table, if you have neither.
 

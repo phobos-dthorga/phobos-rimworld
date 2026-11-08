@@ -19,32 +19,62 @@ public enum TankPumpMode
     Unload,
 }
 
+/// <summary>One division of a tank, with its own fluid. A tank without compartment upgrades has exactly one.</summary>
+public class TankCompartment : IExposable
+{
+    const float EmptyBelow = 0.5f;
+
+    public PhobosTankContentsDef? contents;
+    /// <summary>What this empty compartment last held, until it is purged.</summary>
+    public PhobosTankContentsDef? residue;
+    public float amount;
+    public float spoilHours;
+    /// <summary>A number a port may keep about the load's quality (Dubs Bad Hygiene's contamination level).</summary>
+    public int quality;
+
+    public bool HasLoad => amount >= EmptyBelow;
+    public float Kilograms => contents == null ? 0f : amount * contents.kilogramsPerUnit;
+
+    /// <summary>Empties it, leaving what it held as residue to be purged.</summary>
+    public void Clear()
+    {
+        if (contents != null) residue = contents;
+        amount = 0f;
+        spoilHours = 0f;
+        quality = 0;
+    }
+
+    public void ExposeData()
+    {
+        Scribe_Defs.Look(ref contents, "PhobosTankContents");
+        Scribe_Defs.Look(ref residue, "PhobosTankResidue");
+        Scribe_Values.Look(ref amount, "PhobosTankAmount");
+        Scribe_Values.Look(ref spoilHours, "PhobosTankSpoilHours");
+        Scribe_Values.Look(ref quality, "PhobosTankQuality");
+    }
+}
+
 /// <summary>
-/// A vehicle's bulk tank (docs/development/utility-vehicles-design.md, Bulk tanker). Which tank is fitted is read from the upgrade tree;
-/// the contents, their temperature and the set-up state are saved here. Everything runs on the rare tick. Gizmos in TankGizmos read this
-/// and call its service methods; nothing else changes it.
+/// A vehicle's bulk tank (docs/development/utility-vehicles-design.md, Bulk tanker). Which tank is fitted, and how many compartments it has,
+/// is read from the upgrade tree; each compartment's fluid and the tank's temperature and set-up state are saved here. One tank, one
+/// temperature; the pump serves one compartment at a time, the selected one. Everything runs on the rare tick. Gizmos in TankGizmos read
+/// this and call its service methods; nothing else changes it.
 /// </summary>
 public class CompPhobosTank : VehicleComp
 {
     const string HoseOverlayKey = "PhobosTankHoses";
     const string DamageOverlayKey = "PhobosTankDamage";
     const float HoursPerRareTick = GenTicks.TickRareInterval / (float)GenDate.TicksPerHour;
-    const float EmptyBelow = 0.5f;
     /// <summary>Degrees above its freezing point that a fresh load arrives at (authored).</summary>
     const float ArrivalMargin = 5f;
     /// <summary>How big a fire a self-igniting spill starts (authored).</summary>
     const float SpillFireSize = 0.6f;
 
-    PhobosTankContentsDef? contents;
-    /// <summary>What the empty tank last held, until it is purged.</summary>
-    PhobosTankContentsDef? residue;
-    float amount;
+    List<TankCompartment> compartments = new();
+    int selected;
     float temperature = 21f;
-    float spoilHours;
     bool deployed;
     TankPumpMode mode = TankPumpMode.Hold;
-    /// <summary>A number a port may keep about the load's quality (Dubs Bad Hygiene's contamination level).</summary>
-    int quality;
     bool ventWarned;
     bool registered;
     /// <summary>Which damage overlays are drawn now. Derived from part health, never saved.</summary>
@@ -54,22 +84,46 @@ public class CompPhobosTank : VehicleComp
     string? pumpStatus;
 
     public CompProperties_PhobosTank Props => (CompProperties_PhobosTank)props;
-    public PhobosTankContentsDef? Contents => contents;
-    public PhobosTankContentsDef? Residue => residue;
-    public float Amount => amount;
     public float Temperature => temperature;
     public bool Deployed => deployed;
     public TankPumpMode Mode => mode;
     public float Capacity => Vehicle.GetStatValue(TankDefOf.Phobos_TankCapacity);
-    public float Space => Mathf.Max(0f, Capacity - amount);
-    public bool HasLoad => amount >= EmptyBelow;
-    public float LoadKilograms => contents == null ? 0f : amount * contents.kilogramsPerUnit;
-    public bool NeedsPurge => residue != null && !HasLoad;
+
+    public IReadOnlyList<TankCompartment> Compartments
+    {
+        get
+        {
+            EnsureOne();
+            return compartments;
+        }
+    }
+
+    /// <summary>The compartment the pump and the contents button work on.</summary>
+    TankCompartment Selected
+    {
+        get
+        {
+            EnsureOne();
+            return compartments[Mathf.Clamp(selected, 0, compartments.Count - 1)];
+        }
+    }
+
+    public int SelectedIndex => Mathf.Clamp(selected, 0, Mathf.Max(0, compartments.Count - 1));
+    public PhobosTankContentsDef? Contents => Selected.contents;
+    public float Amount => Selected.amount;
+    public float CompartmentCapacity => TankRule.CompartmentCapacity(Capacity, Compartments.Count);
+    public float Space => Mathf.Max(0f, CompartmentCapacity - Selected.amount);
+    public bool HasLoad => Compartments.Any(c => c.HasLoad);
+    public float LoadKilograms => Compartments.Sum(c => c.Kilograms);
+    public bool NeedsPurge => Compartments.Any(NeedsPurging);
+    public string ResidueLabels => Compartments.Where(NeedsPurging).Select(c => c.residue!.label).Distinct().ToCommaList();
+
+    static bool NeedsPurging(TankCompartment compartment) => compartment.residue != null && !compartment.HasLoad;
 
     public int Quality
     {
-        get => quality;
-        set => quality = value;
+        get => Selected.quality;
+        set => Selected.quality = value;
     }
 
     public float WeightedLoad
@@ -78,7 +132,7 @@ public class CompPhobosTank : VehicleComp
         {
             TankFitting? fitting = Fitted;
             float capacity = fitting == null ? 0f : Capacity;
-            return capacity <= 0f ? 0f : amount / capacity * fitting!.loadWeight;
+            return capacity <= 0f ? 0f : Compartments.Sum(c => c.amount) / capacity * fitting!.loadWeight;
         }
     }
 
@@ -91,10 +145,33 @@ public class CompPhobosTank : VehicleComp
             if (tree == null) return null;
             foreach (TankFitting fitting in Props.fittings)
             {
-                UpgradeNode? node = tree.Props.def.GetNode(fitting.node);
-                if (node != null && tree.NodeUnlocked(node)) return fitting;
+                if (Unlocked(tree, fitting.node)) return fitting;
             }
             return null;
+        }
+    }
+
+    static bool Unlocked(CompUpgradeTree tree, string key)
+    {
+        UpgradeNode? node = tree.Props.def.GetNode(key);
+        return node != null && tree.NodeUnlocked(node);
+    }
+
+    /// <summary>How many compartments the fitted tank has: by its upgrades, or its most if the player's setting makes them free.</summary>
+    int WantedCompartments
+    {
+        get
+        {
+            TankFitting? fitting = Fitted;
+            CompUpgradeTree? tree = Vehicle.CompUpgradeTree;
+            if (fitting == null || tree == null) return 1;
+            if (!VehicleSystemsMod.Settings.FlagOn("tankCompartmentsNeedUpgrades")) return Mathf.Max(1, fitting.maxCompartments);
+            int count = 1;
+            foreach (TankCompartmentNode entry in Props.compartmentNodes)
+            {
+                if (entry.compartments > count && Unlocked(tree, entry.node)) count = entry.compartments;
+            }
+            return Mathf.Clamp(count, 1, Mathf.Max(1, fitting.maxCompartments));
         }
     }
 
@@ -108,11 +185,11 @@ public class CompPhobosTank : VehicleComp
         }
     }
 
-    bool Frozen => HasLoad && contents != null && TankRule.Frozen(temperature, contents.freezesBelow);
+    bool SelectedFrozen => Selected.HasLoad && Selected.contents != null && TankRule.Frozen(temperature, Selected.contents.freezesBelow);
 
     /// <summary>A fresh load arrives at the outside temperature, but what can freeze arrives liquid and cools in the tank.</summary>
-    float ArrivalTemperature(float outside) =>
-        contents == null || float.IsNaN(contents.freezesBelow) ? outside : Mathf.Max(outside, contents.freezesBelow + ArrivalMargin);
+    float ArrivalTemperature(PhobosTankContentsDef def, float outside) =>
+        float.IsNaN(def.freezesBelow) ? outside : Mathf.Max(outside, def.freezesBelow + ArrivalMargin);
 
     /// <summary>The cells a hose or a coupling reaches: under the vehicle and all round it.</summary>
     public IEnumerable<IntVec3> ContactCells()
@@ -121,17 +198,20 @@ public class CompPhobosTank : VehicleComp
         foreach (IntVec3 cell in Vehicle.SurroundingCells) yield return cell;
     }
 
+    void EnsureOne()
+    {
+        if (compartments.Count == 0) compartments.Add(new TankCompartment());
+    }
+
     public override void PostExposeData()
     {
         base.PostExposeData();
-        Scribe_Defs.Look(ref contents, "PhobosTankContents");
-        Scribe_Defs.Look(ref residue, "PhobosTankResidue");
-        Scribe_Values.Look(ref amount, "PhobosTankAmount");
+        Scribe_Collections.Look(ref compartments, "PhobosTankCompartments", LookMode.Deep);
+        Scribe_Values.Look(ref selected, "PhobosTankSelected");
         Scribe_Values.Look(ref temperature, "PhobosTankTemperature", 21f);
-        Scribe_Values.Look(ref spoilHours, "PhobosTankSpoilHours");
         Scribe_Values.Look(ref deployed, "PhobosTankDeployed");
         Scribe_Values.Look(ref mode, "PhobosTankMode", TankPumpMode.Hold);
-        Scribe_Values.Look(ref quality, "PhobosTankQuality");
+        compartments ??= new List<TankCompartment>();
     }
 
     public override void PostSpawnSetup(bool respawningAfterLoad)
@@ -147,6 +227,7 @@ public class CompPhobosTank : VehicleComp
     public override void PostDeSpawn(Map map, DestroyMode mode = DestroyMode.Vanish)
     {
         // Leaving the map, for a caravan or a launch, takes the hoses in.
+        ShowHoses(false);
         deployed = false;
         this.mode = TankPumpMode.Hold;
         base.PostDeSpawn(map, mode);
@@ -158,8 +239,14 @@ public class CompPhobosTank : VehicleComp
         if (registered) return;
         registered = true;
         Vehicle.AddEvent(VehicleEventDefOf.UpgradeRefundCompleted, OnTankRemoved);
-        Vehicle.AddEvent(VehicleEventDefOf.UpgradeRefundCompleted, SyncDamage);
-        Vehicle.AddEvent(VehicleEventDefOf.UpgradeCompleted, SyncDamage);
+        Vehicle.AddEvent(VehicleEventDefOf.UpgradeRefundCompleted, OnTreeChanged);
+        Vehicle.AddEvent(VehicleEventDefOf.UpgradeCompleted, OnTreeChanged);
+    }
+
+    void OnTreeChanged()
+    {
+        SyncCompartments();
+        SyncDamage();
     }
 
     /// <summary>Taking a tank off with a load in it spills the load: Vehicle Framework has no way to refuse the job (agent's choice, 8 Nov
@@ -169,12 +256,44 @@ public class CompPhobosTank : VehicleComp
         if (Fitted != null) return;
         if (HasLoad)
         {
-            SpillOnGround(amount);
+            foreach (TankCompartment compartment in Compartments) SpillOnGround(compartment.contents, compartment.amount);
             Tell("PhobosVehicleSystems_TankRemovedSpilled".Translate(Vehicle.LabelShort.Named("VEHICLE")), MessageTypeDefOf.NegativeEvent);
         }
-        ClearLoad();
-        contents = null;
-        residue = null;
+        compartments.Clear();
+        selected = 0;
+        AfterLoadChange();
+    }
+
+    /// <summary>Makes the compartments match the tree and the player's setting. What no longer fits is spilled, and the player is told, as when
+    /// a tank is taken off with a load in it.</summary>
+    void SyncCompartments()
+    {
+        EnsureOne();
+        int wanted = WantedCompartments;
+        while (compartments.Count < wanted) compartments.Add(new TankCompartment());
+        bool spilled = false;
+        for (int i = compartments.Count - 1; i >= wanted; i--)
+        {
+            TankCompartment extra = compartments[i];
+            if (extra.HasLoad)
+            {
+                SpillOnGround(extra.contents, extra.amount);
+                spilled = true;
+            }
+            compartments.RemoveAt(i);
+        }
+        selected = Mathf.Clamp(selected, 0, compartments.Count - 1);
+        float room = CompartmentCapacity;
+        foreach (TankCompartment compartment in compartments)
+        {
+            if (room <= 0f || compartment.amount <= room + 0.5f) continue;
+            SpillOnGround(compartment.contents, compartment.amount - room);
+            compartment.amount = room;
+            spilled = true;
+        }
+        if (!spilled) return;
+        Tell("PhobosVehicleSystems_TankCompartmentsSpilled".Translate(Vehicle.LabelShort.Named("VEHICLE")), MessageTypeDefOf.NegativeEvent);
+        AfterLoadChange();
     }
 
     public override AcceptanceReport CanMove(FloatMenuContext context) =>
@@ -187,24 +306,22 @@ public class CompPhobosTank : VehicleComp
     {
         base.CompTickRare();
         SyncDamage();
+        SyncCompartments();
         TankFitting? fitting = Fitted;
         float outside = Outside;
-        if (fitting == null || contents == null || !HasLoad)
+        if (fitting == null || !HasLoad)
         {
             temperature = outside;
-            spoilHours = 0f;
             ventWarned = false;
-            if (fitting != null && deployed) Pump(fitting);
+            if (fitting != null && deployed) Pump();
             return;
         }
         temperature = TankRule.NextTemperature(temperature, outside, HoursPerRareTick, fitting.hoursToOutside);
         if (Burst()) return;
         Leak();
-        if (!HasLoad) return;
         Vent(outside);
-        if (!HasLoad) return;
         Spoil(fitting);
-        if (HasLoad && deployed) Pump(fitting);
+        if (deployed) Pump();
     }
 
     bool Burst()
@@ -215,72 +332,100 @@ public class CompPhobosTank : VehicleComp
         return true;
     }
 
+    /// <summary>The whole tank goes at once, whatever its compartments hold. Only what burns feeds the blast.</summary>
     void Rupture()
     {
-        float lost = amount;
-        PhobosTankContentsDef? was = contents;
-        if (was == null) return;
-        SpillOnGround(lost);
-        ClearLoad();
-        residue = was;
-        if (Vehicle.Spawned && was.flammable && VehicleSystemsMod.Settings.FlagOn("tankExplosions"))
+        List<TankCompartment> loaded = Compartments.Where(c => c.HasLoad && c.contents != null).ToList();
+        if (loaded.Count == 0) return;
+        float burning = 0f;
+        float factor = 1f;
+        DamageDef? damage = null;
+        foreach (TankCompartment compartment in loaded)
         {
-            float radius = TankRule.ExplosionRadius(lost, Props.explosionReferenceUnits, Props.explosionReferenceRadius, was.explosionRadiusFactor, Props.explosionMaxRadius);
-            if (radius > 0.5f) GenExplosion.DoExplosion(Vehicle.Position, Vehicle.Map, radius, was.explosionDamage ?? DamageDefOf.Flame, Vehicle, Props.explosionDamage);
+            PhobosTankContentsDef fluid = compartment.contents!;
+            SpillOnGround(fluid, compartment.amount);
+            if (fluid.flammable)
+            {
+                burning += compartment.amount;
+                factor = Mathf.Max(factor, fluid.explosionRadiusFactor);
+                damage ??= fluid.explosionDamage;
+            }
         }
-        Tell("PhobosVehicleSystems_TankBurst".Translate(Vehicle.LabelShort.Named("VEHICLE"), was.label.Named("CONTENTS")), MessageTypeDefOf.NegativeEvent);
+        string labels = loaded.Select(c => c.contents!.label).Distinct().ToCommaList();
+        foreach (TankCompartment compartment in loaded) compartment.Clear();
+        AfterLoadChange();
+        if (Vehicle.Spawned && burning > 0f && VehicleSystemsMod.Settings.FlagOn("tankExplosions"))
+        {
+            float radius = TankRule.ExplosionRadius(burning, Props.explosionReferenceUnits, Props.explosionReferenceRadius, factor, Props.explosionMaxRadius);
+            if (radius > 0.5f) GenExplosion.DoExplosion(Vehicle.Position, Vehicle.Map, radius, damage ?? DamageDefOf.Flame, Vehicle, Props.explosionDamage);
+        }
+        Tell("PhobosVehicleSystems_TankBurst".Translate(Vehicle.LabelShort.Named("VEHICLE"), labels.Named("CONTENTS")), MessageTypeDefOf.NegativeEvent);
     }
 
     void Leak()
     {
         float integrity = Vehicle.GetStatValue(TankDefOf.Phobos_TankIntegrity);
-        float lost = TankRule.Leaked(Capacity, integrity, Props.leakFractionPerHour, HoursPerRareTick, amount);
-        if (lost <= 0f) return;
-        amount -= lost;
-        SpillOnGround(lost);
-        AfterLoadChange();
+        float room = CompartmentCapacity;
+        foreach (TankCompartment compartment in Compartments)
+        {
+            if (!compartment.HasLoad) continue;
+            float lost = TankRule.Leaked(room, integrity, Props.leakFractionPerHour, HoursPerRareTick, compartment.amount);
+            if (lost <= 0f) continue;
+            compartment.amount -= lost;
+            SpillOnGround(compartment.contents, lost);
+            if (!compartment.HasLoad) compartment.Clear();
+            AfterLoadChange();
+        }
     }
 
     /// <summary>A relief valve opens in a fire or extreme heat and vents the load; one too damaged to open lets the vessel burst.</summary>
     void Vent(float outside)
     {
-        if (contents is not { Vents: true }) return;
-        if (outside < contents.ventsAbove && !Vehicle.IsBurning())
+        foreach (TankCompartment compartment in Compartments)
         {
-            ventWarned = false;
-            return;
-        }
-        VehicleComponent? valve = Vehicle.statHandler?.GetComponent(Props.valvePart);
-        if (valve != null && valve.Efficiency < Props.controlFloor)
-        {
-            Rupture();
-            return;
-        }
-        amount = Mathf.Max(0f, amount - Capacity * Props.ventFractionPerHour * HoursPerRareTick);
-        AfterLoadChange();
-        if (!ventWarned)
-        {
-            ventWarned = true;
-            Tell("PhobosVehicleSystems_TankVenting".Translate(Vehicle.LabelShort.Named("VEHICLE"), contents.label.Named("CONTENTS")), MessageTypeDefOf.NegativeEvent);
+            PhobosTankContentsDef? fluid = compartment.contents;
+            if (!compartment.HasLoad || fluid is not { Vents: true }) continue;
+            if (outside < fluid.ventsAbove && !Vehicle.IsBurning())
+            {
+                ventWarned = false;
+                continue;
+            }
+            VehicleComponent? valve = Vehicle.statHandler?.GetComponent(Props.valvePart);
+            if (valve != null && valve.Efficiency < Props.controlFloor)
+            {
+                Rupture();
+                return;
+            }
+            compartment.amount = Mathf.Max(0f, compartment.amount - CompartmentCapacity * Props.ventFractionPerHour * HoursPerRareTick);
+            if (!compartment.HasLoad) compartment.Clear();
+            AfterLoadChange();
+            if (!ventWarned)
+            {
+                ventWarned = true;
+                Tell("PhobosVehicleSystems_TankVenting".Translate(Vehicle.LabelShort.Named("VEHICLE"), fluid.label.Named("CONTENTS")), MessageTypeDefOf.NegativeEvent);
+            }
         }
     }
 
     void Spoil(TankFitting fitting)
     {
-        if (contents == null || contents.spoilsAfterDays <= 0f) return;
-        spoilHours = TankRule.NextSpoilHours(spoilHours, temperature, HoursPerRareTick, fitting.spoilRate);
-        if (!TankRule.Spoiled(spoilHours, contents.spoilsAfterDays)) return;
-        Tell("PhobosVehicleSystems_TankSpoiled".Translate(Vehicle.LabelShort.Named("VEHICLE"), contents.label.Named("CONTENTS"), contents.spoilWord.Named("SPOILED")), MessageTypeDefOf.NegativeEvent);
-        PhobosTankContentsDef was = contents;
-        Pollute(amount);
-        ClearLoad();
-        residue = was;
+        foreach (TankCompartment compartment in Compartments)
+        {
+            PhobosTankContentsDef? fluid = compartment.contents;
+            if (!compartment.HasLoad || fluid == null || fluid.spoilsAfterDays <= 0f) continue;
+            compartment.spoilHours = TankRule.NextSpoilHours(compartment.spoilHours, temperature, HoursPerRareTick, fitting.spoilRate);
+            if (!TankRule.Spoiled(compartment.spoilHours, fluid.spoilsAfterDays)) continue;
+            Tell("PhobosVehicleSystems_TankSpoiled".Translate(Vehicle.LabelShort.Named("VEHICLE"), fluid.label.Named("CONTENTS"), fluid.spoilWord.Named("SPOILED")), MessageTypeDefOf.NegativeEvent);
+            Pollute(fluid, compartment.amount);
+            compartment.Clear();
+            AfterLoadChange();
+        }
     }
 
     /// <summary>Why the pump cannot run now, in-world, or null. The gizmos and the inspect line show it.</summary>
     public string? PumpBlocked()
     {
-        if (Frozen) return "PhobosVehicleSystems_TankFrozen".Translate(contents!.label.Named("CONTENTS")).Resolve();
+        if (SelectedFrozen) return "PhobosVehicleSystems_TankFrozen".Translate(Selected.contents!.label.Named("CONTENTS")).Resolve();
         if (Vehicle.GetStatValue(TankDefOf.Phobos_RigControl) < Props.controlFloor) return "PhobosVehicleSystems_TankControlsDamaged".Translate().Resolve();
         if (PumpShare() < Props.pumpFloor) return "PhobosVehicleSystems_TankPumpDamaged".Translate().Resolve();
         return null;
@@ -292,17 +437,18 @@ public class CompPhobosTank : VehicleComp
         return design <= 0f ? 0f : Vehicle.GetStatValue(TankDefOf.Phobos_PumpRate) / design;
     }
 
-    float ThickFactor()
+    float ThickFactor(PhobosTankContentsDef fluid)
     {
-        if (contents == null) return 1f;
-        if (contents.thickensOnlyWithSetting != null && !VehicleSystemsMod.Settings.FlagOn(contents.thickensOnlyWithSetting)) return 1f;
-        return TankRule.PumpFactor(temperature, contents.thickensBelow, contents.thickestAt, contents.thickFloor);
+        if (fluid.thickensOnlyWithSetting != null && !VehicleSystemsMod.Settings.FlagOn(fluid.thickensOnlyWithSetting)) return 1f;
+        return TankRule.PumpFactor(temperature, fluid.thickensBelow, fluid.thickestAt, fluid.thickFloor);
     }
 
-    void Pump(TankFitting fitting)
+    void Pump()
     {
         pumpStatus = null;
-        if (mode == TankPumpMode.Hold || contents == null) return;
+        TankCompartment compartment = Selected;
+        PhobosTankContentsDef? fluid = compartment.contents;
+        if (mode == TankPumpMode.Hold || fluid == null) return;
         pumpStatus = PumpBlocked();
         if (pumpStatus != null) return;
         float rate = Vehicle.GetStatValue(TankDefOf.Phobos_PumpRate);
@@ -313,36 +459,37 @@ public class CompPhobosTank : VehicleComp
                 pumpStatus = "PhobosVehicleSystems_TankHoled".Translate().Resolve();
                 return;
             }
-            float most = TankRule.Moved(rate, HoursPerRareTick, ThickFactor(), float.MaxValue, Space);
+            float most = TankRule.Moved(rate, HoursPerRareTick, ThickFactor(fluid), float.MaxValue, Space);
             if (most <= 0f)
             {
                 pumpStatus = "PhobosVehicleSystems_TankFull".Translate().Resolve();
                 return;
             }
-            bool wasEmpty = !HasLoad;
-            float moved = RunPorts(most, load: true);
+            bool tankWasEmpty = !HasLoad;
+            float moved = RunPorts(fluid, most, load: true);
             if (moved <= 0f) return;
-            if (wasEmpty) temperature = ArrivalTemperature(Outside);
-            amount += moved;
+            if (tankWasEmpty) temperature = ArrivalTemperature(fluid, Outside);
+            compartment.residue = null;
+            compartment.amount += moved;
             AfterLoadChange();
             return;
         }
-        if (!HasLoad)
+        if (!compartment.HasLoad)
         {
             pumpStatus = "PhobosVehicleSystems_TankEmpty".Translate().Resolve();
             return;
         }
-        float out_ = RunPorts(TankRule.Moved(rate, HoursPerRareTick, ThickFactor(), amount, float.MaxValue), load: false);
-        if (out_ <= 0f) return;
-        amount = Mathf.Max(0f, amount - out_);
-        if (!HasLoad) FinishEmptying();
+        float given = RunPorts(fluid, TankRule.Moved(rate, HoursPerRareTick, ThickFactor(fluid), compartment.amount, float.MaxValue), load: false);
+        if (given <= 0f) return;
+        compartment.amount = Mathf.Max(0f, compartment.amount - given);
+        if (!compartment.HasLoad) compartment.Clear();
         AfterLoadChange();
     }
 
-    float RunPorts(float most, bool load)
+    float RunPorts(PhobosTankContentsDef fluid, float most, bool load)
     {
         string? reason = null;
-        foreach (TankPort port in contents!.ports)
+        foreach (TankPort port in fluid.ports)
         {
             float moved = load ? port.Draw(this, most, out string? why) : port.Give(this, most, out why);
             if (moved > 0f)
@@ -356,38 +503,24 @@ public class CompPhobosTank : VehicleComp
         return 0f;
     }
 
-    void FinishEmptying()
-    {
-        residue = contents;
-        ClearLoad();
-    }
-
-    void ClearLoad()
-    {
-        amount = 0f;
-        spoilHours = 0f;
-        quality = 0;
-        AfterLoadChange();
-    }
-
     void AfterLoadChange() => Vehicle.GetComp<CompPhobosVehicleSystems>()?.Powertrain?.MarkMassDirty();
 
-    void SpillOnGround(float units)
+    void SpillOnGround(PhobosTankContentsDef? fluid, float units)
     {
-        if (contents == null || !Vehicle.Spawned || units <= 0f) return;
-        if (contents.spillFilth != null)
+        if (fluid == null || !Vehicle.Spawned || units <= 0f) return;
+        if (fluid.spillFilth != null)
         {
             int count = Mathf.Clamp(Mathf.CeilToInt(units / 100f), 1, 6);
-            FilthMaker.TryMakeFilth(Vehicle.Position, Vehicle.Map, contents.spillFilth, count);
+            FilthMaker.TryMakeFilth(Vehicle.Position, Vehicle.Map, fluid.spillFilth, count);
         }
-        if (contents.ignitesWhenSpilled) FireUtility.TryStartFireIn(Vehicle.Position, Vehicle.Map, SpillFireSize, Vehicle);
-        Pollute(units);
+        if (fluid.ignitesWhenSpilled) FireUtility.TryStartFireIn(Vehicle.Position, Vehicle.Map, SpillFireSize, Vehicle);
+        Pollute(fluid, units);
     }
 
-    void Pollute(float units)
+    void Pollute(PhobosTankContentsDef fluid, float units)
     {
-        if (contents == null || contents.pollutionCellsPerUnit <= 0f || !Vehicle.Spawned || !ModsConfig.BiotechActive) return;
-        int cells = GenMath.RoundRandom(units * contents.pollutionCellsPerUnit);
+        if (fluid.pollutionCellsPerUnit <= 0f || !Vehicle.Spawned || !ModsConfig.BiotechActive) return;
+        int cells = GenMath.RoundRandom(units * fluid.pollutionCellsPerUnit);
         if (cells > 0) PollutionUtility.GrowPollutionAt(Vehicle.Position, Vehicle.Map, cells);
     }
 
@@ -395,22 +528,24 @@ public class CompPhobosTank : VehicleComp
 
     // ---- Services the gizmos and the purge job call. ----
 
+    /// <summary>A hit strikes one compartment that holds something. If that load can detonate, the whole tank may go.</summary>
     public void ShellHit(float units)
     {
-        if (!HasLoad || units <= 0f) return;
-        if (contents is { detonatesOnHit: > 0f } && VehicleSystemsMod.Settings.FlagOn("tankExplosions") && Rand.Chance(contents.detonatesOnHit))
+        if (units <= 0f) return;
+        if (!Compartments.Where(c => c.HasLoad).TryRandomElement(out TankCompartment struck)) return;
+        if (struck.contents is { detonatesOnHit: > 0f } && VehicleSystemsMod.Settings.FlagOn("tankExplosions") && Rand.Chance(struck.contents.detonatesOnHit))
         {
             Rupture();
             return;
         }
-        float lost = Mathf.Min(units, amount);
-        amount -= lost;
-        SpillOnGround(lost);
-        if (!HasLoad) FinishEmptying();
+        float lost = Mathf.Min(units, struck.amount);
+        struck.amount -= lost;
+        SpillOnGround(struck.contents, lost);
+        if (!struck.HasLoad) struck.Clear();
         AfterLoadChange();
     }
 
-    /// <summary>The fluids this tank could be set to hold; the reason explains why not, when not.</summary>
+    /// <summary>The fluids this tank could be set to hold; CannotHold explains why not, when not.</summary>
     public IEnumerable<PhobosTankContentsDef> ContentsChoices()
     {
         TankFitting? fitting = Fitted;
@@ -418,11 +553,21 @@ public class CompPhobosTank : VehicleComp
         return DefDatabase<PhobosTankContentsDef>.AllDefsListForReading.Where(def => def.phase == fitting.phase);
     }
 
-    /// <summary>Why the contents cannot be changed to this, or null.</summary>
+    /// <summary>Why the selected compartment cannot be set to this, or null.</summary>
     public string? CannotHold(PhobosTankContentsDef def)
     {
-        if (HasLoad) return "PhobosVehicleSystems_TankDrainFirst".Translate(contents!.label.Named("CONTENTS")).Resolve();
-        if (residue != null && residue != def) return "PhobosVehicleSystems_TankPurgeFirst".Translate(residue.label.Named("CONTENTS")).Resolve();
+        TankCompartment compartment = Selected;
+        if (compartment.HasLoad) return "PhobosVehicleSystems_TankDrainFirst".Translate(compartment.contents!.label.Named("CONTENTS")).Resolve();
+        if (compartment.residue != null && compartment.residue != def) return "PhobosVehicleSystems_TankPurgeFirst".Translate(compartment.residue.label.Named("CONTENTS")).Resolve();
+        foreach (TankCompartment other in Compartments)
+        {
+            if (other == compartment) continue;
+            PhobosTankContentsDef? neighbour = other.contents ?? other.residue;
+            if (neighbour != null && neighbour.IsFood != def.IsFood)
+            {
+                return "PhobosVehicleSystems_TankFoodApart".Translate(def.label.Named("CONTENTS"), neighbour.label.Named("OTHER")).Resolve();
+            }
+        }
         return null;
     }
 
@@ -434,15 +579,23 @@ public class CompPhobosTank : VehicleComp
             Tell(refused, MessageTypeDefOf.RejectInput);
             return;
         }
-        contents = def;
+        Selected.contents = def;
         Tell("PhobosVehicleSystems_TankContentsSet".Translate(Vehicle.LabelShort.Named("VEHICLE"), def.label.Named("CONTENTS")), MessageTypeDefOf.SilentInput);
+    }
+
+    /// <summary>Moves the pump and the contents button on to the next compartment.</summary>
+    public void SelectNextCompartment()
+    {
+        selected = (SelectedIndex + 1) % Compartments.Count;
+        pumpStatus = null;
+        Tell("PhobosVehicleSystems_TankCompartmentSelected".Translate(Vehicle.LabelShort.Named("VEHICLE"), (selected + 1).Named("INDEX")), MessageTypeDefOf.SilentInput);
     }
 
     /// <summary>Why the tanker cannot set up now, or null.</summary>
     public string? CannotDeploy()
     {
         if (Fitted == null) return "PhobosVehicleSystems_TankNoneFitted".Translate().Resolve();
-        if (contents == null) return "PhobosVehicleSystems_TankNoContents".Translate().Resolve();
+        if (Selected.contents == null && !Compartments.Any(c => c.contents != null)) return "PhobosVehicleSystems_TankNoContents".Translate().Resolve();
         if (!Vehicle.Spawned) return "PhobosVehicleSystems_TankNotOnMap".Translate().Resolve();
         if (Vehicle.Drafted) return "PhobosVehicleSystems_TankStopFirst".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve();
         if (PumpShare() < Props.pumpFloor) return "PhobosVehicleSystems_TankPumpDamaged".Translate().Resolve();
@@ -464,23 +617,23 @@ public class CompPhobosTank : VehicleComp
         if (!on) mode = TankPumpMode.Hold;
         pumpStatus = null;
         ShowHoses(on);
-        Tell((on ? "PhobosVehicleSystems_TankSetUp" : "PhobosVehicleSystems_TankPackedUp").Translate(Vehicle.LabelShort.Named("VEHICLE")), MessageTypeDefOf.SilentInput);
+        Tell(on ? "PhobosVehicleSystems_TankSetUp".Translate(Vehicle.LabelShort.Named("VEHICLE")) : "PhobosVehicleSystems_TankPackedUp".Translate(Vehicle.LabelShort.Named("VEHICLE")), MessageTypeDefOf.SilentInput);
     }
 
     public void SetMode(TankPumpMode wanted)
     {
         mode = wanted;
         pumpStatus = null;
-        string key = wanted switch
+        NamedArgument name = Vehicle.LabelShort.Named("VEHICLE");
+        Tell(wanted switch
         {
-            TankPumpMode.Load => "PhobosVehicleSystems_TankPumpLoading",
-            TankPumpMode.Unload => "PhobosVehicleSystems_TankPumpUnloading",
-            _ => "PhobosVehicleSystems_TankPumpHolding",
-        };
-        Tell(key.Translate(Vehicle.LabelShort.Named("VEHICLE")), MessageTypeDefOf.SilentInput);
+            TankPumpMode.Load => "PhobosVehicleSystems_TankPumpLoading".Translate(name),
+            TankPumpMode.Unload => "PhobosVehicleSystems_TankPumpUnloading".Translate(name),
+            _ => "PhobosVehicleSystems_TankPumpHolding".Translate(name),
+        }, MessageTypeDefOf.SilentInput);
     }
 
-    /// <summary>Finishes a purge, drawing its water; false (with the message said) if the water is not there.</summary>
+    /// <summary>Finishes a purge of every empty compartment that needs one, drawing its water; false (with the message said) if the water is not there.</summary>
     public bool FinishPurge()
     {
         if (!NeedsPurge) return false;
@@ -489,8 +642,11 @@ public class CompPhobosTank : VehicleComp
             Tell("PhobosVehicleSystems_TankPurgeNoWater".Translate(Vehicle.LabelShort.Named("VEHICLE")), MessageTypeDefOf.RejectInput);
             return false;
         }
-        residue = null;
-        contents = null;
+        foreach (TankCompartment compartment in Compartments.Where(NeedsPurging))
+        {
+            compartment.residue = null;
+            compartment.contents = null;
+        }
         Tell("PhobosVehicleSystems_TankPurged".Translate(Vehicle.LabelShort.Named("VEHICLE")), MessageTypeDefOf.TaskCompletion);
         return true;
     }
@@ -535,16 +691,31 @@ public class CompPhobosTank : VehicleComp
         if (on && Vehicle.Spawned) renderer.AddOverlay(HoseOverlayKey, GraphicOverlay.Create(Props.hosesOut, Vehicle));
     }
 
+    string InspectLine(TankCompartment compartment, int index, float room)
+    {
+        NamedArgument capacity = room.ToString("N0").Named("CAPACITY");
+        if (Compartments.Count == 1)
+        {
+            return compartment.contents == null
+                ? "PhobosVehicleSystems_TankInspectUnset".Translate(capacity).Resolve()
+                : "PhobosVehicleSystems_TankInspect".Translate(compartment.amount.ToString("N0").Named("AMOUNT"), capacity, compartment.contents.unitLabel.Named("UNIT"), compartment.contents.label.Named("CONTENTS")).Resolve();
+        }
+        NamedArgument number = (index + 1).Named("INDEX");
+        return compartment.contents == null
+            ? "PhobosVehicleSystems_TankInspectCompartmentUnset".Translate(number, capacity).Resolve()
+            : "PhobosVehicleSystems_TankInspectCompartment".Translate(number, compartment.amount.ToString("N0").Named("AMOUNT"), capacity, compartment.contents.unitLabel.Named("UNIT"), compartment.contents.label.Named("CONTENTS")).Resolve();
+    }
+
     public override string? CompInspectStringExtra()
     {
         if (Fitted == null) return "PhobosVehicleSystems_TankNoneFitted".Translate().Resolve();
-        string line = contents == null
-            ? "PhobosVehicleSystems_TankInspectUnset".Translate(Capacity.ToString("N0").Named("CAPACITY")).Resolve()
-            : "PhobosVehicleSystems_TankInspect".Translate(amount.ToString("N0").Named("AMOUNT"), Capacity.ToString("N0").Named("CAPACITY"),
-                contents.unitLabel.Named("UNIT"), contents.label.Named("CONTENTS"), temperature.ToStringTemperature("F0").Named("TEMPERATURE")).Resolve();
-        if (NeedsPurge) line += "\n" + "PhobosVehicleSystems_TankInspectNeedsPurge".Translate(residue!.label.Named("CONTENTS")).Resolve();
-        if (deployed && pumpStatus != null) line += "\n" + pumpStatus;
-        return line;
+        float room = CompartmentCapacity;
+        var lines = new List<string>();
+        for (int i = 0; i < Compartments.Count; i++) lines.Add(InspectLine(Compartments[i], i, room));
+        if (HasLoad) lines.Add("PhobosVehicleSystems_TankInspectTemperature".Translate(temperature.ToStringTemperature("F0").Named("TEMPERATURE")).Resolve());
+        if (NeedsPurge) lines.Add("PhobosVehicleSystems_TankInspectNeedsPurge".Translate(ResidueLabels.Named("CONTENTS")).Resolve());
+        if (deployed && pumpStatus != null) lines.Add(pumpStatus);
+        return string.Join("\n", lines);
     }
 
     public override IEnumerable<Gizmo> CompGetGizmosExtra()

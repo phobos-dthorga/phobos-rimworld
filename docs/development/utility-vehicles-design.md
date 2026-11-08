@@ -471,6 +471,22 @@ power take-off pump is the real machine.
 
 **Deferred, on the owner's word (9 Nov 2026): liquid oxygen.** D'thorga Medical's liquid oxygen store (`docs/development/medical-equipment.md`) would be a real cryogenic cargo: insulated tank only, boiling off slowly. It waits on functionality not built yet: the store's own pipe connection needs reading, and a boil-off behaviour for tanks.
 
+### As built: compartments (9 Nov 2026, D'thorga Framework 0.37.0 and D'thorga Vehicles 0.15.0, Drafts)
+
+**Not yet tested in game.** Owner's decisions, 9 Nov 2026: a tank holds one fill type by default, with a setting on by default; compartment upgrades divide its capacity; filled alike they still hold the whole capacity; food cannot share with anything else, and the player is told why; what counts as food is anything with a nutrition value, with a whitelist and blacklist.
+
+| | |
+| --- | --- |
+| Lets the player | Carry up to three fluids on one trip, a delivery round rather than a single drop |
+| Stops them | Pumping two compartments at once; mixing food with anything else; dividing a pressure vessel |
+| Changes | A burst tank loses every compartment at once, and only what burns feeds the blast |
+
+**Agent's choices:** three compartments at most, one to each hatch on the liquid tanks; one tank temperature; water, nutrient paste, hemogen and wort whitelisted as food, because no item of theirs carries a nutrition value (the owner may blacklist any of them). The rule is food against non-food only, so sludge may share with fuel.
+
+### Bulk trading and quests (owner's decisions, 9 Nov 2026; not built)
+
+**Bulk buying only at a settlement the player has travelled to**, with the tanker in the caravan: "the player should have reasons to go out and explore, not an easy way to sit at home". No buying from visiting traders or orbital traders. The agent's route is a Bulk order button on the caravan, priced from the game's own values, buying only, and leaving `RimWorld.TradeDeal` alone: at least seven mods on the owner's list patch its `TryExecute`. **Quests come later**, generic and in the Framework, so other vehicles of ours can use them too.
+
 ### What each one needs in art
 
 Per vehicle: a north, east and south **base body** at 128 px per drawSize unit, drawn as the bare platform (principle 8), a colour

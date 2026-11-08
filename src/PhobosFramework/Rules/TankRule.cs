@@ -47,6 +47,9 @@ public static class TankRule
     public static float Leaked(float capacity, float integrity, float fractionPerHourAtZero, float hours, float held) =>
         MathF.Min(held, MathF.Max(0f, 1f - integrity) * capacity * fractionPerHourAtZero * hours);
 
+    /// <summary>How much one of a tank's equal compartments holds. Filled alike, they still add up to the whole tank.</summary>
+    public static float CompartmentCapacity(float capacity, int compartments) => capacity / MathF.Max(1, compartments);
+
     /// <summary>The blast radius of a load, scaling with the cube root of what is aboard: the volume of a blast follows its energy.</summary>
     public static float ExplosionRadius(float amount, float referenceAmount, float referenceRadius, float factor = 1f, float maxRadius = float.MaxValue)
     {
