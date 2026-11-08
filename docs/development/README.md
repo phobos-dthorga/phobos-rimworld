@@ -11,6 +11,8 @@ promise current behaviour. For using the mods, start at the [documentation index
   where things go, the C# toolchain (RimWorld 1.7 leads; 1.6 kept as the minimum) and deploying to the game.
 - [Writing READMEs and in-game text](player-language.md)
 - [The medical mods together](../medical-mods.md): the player's view of which medical mod does what, with a flow diagram.
+- [In-game test pass (9 Nov 2026)](in-game-test-pass.md): the short list of checks for the owner's next session, three that
+  matter and four if play brings them up, with what passes for each.
 - [Outstanding work (from 7 Nov 2026)](outstanding-work.md): every open item, the owner's decision on it and its status; kept
   current by every change.
 - [Mod consolidation (7 Nov 2026)](mod-consolidation.md): why eleven mods became six (five medical mods into D'thorga

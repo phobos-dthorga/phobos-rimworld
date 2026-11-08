@@ -2,7 +2,8 @@
 
 Everything still open across the D'thorga mods, as the owner decided it on 7 November 2026, when they asked for every open item as a
 question. **Keep this file current:** every change that starts, finishes or defers an item updates it in the same commit. In-game
-testing is the owner's and is not listed here; each mod's changelog says what is tested.
+testing is the owner's and is not listed here; each mod's changelog says what is tested, and the next session's short list is
+[the in-game test pass](in-game-test-pass.md).
 
 **Status key:** open, in progress, done (with the version), deferred (with the reason).
 
@@ -77,7 +78,7 @@ sibling repository for the shared logger; record only this round.
 | L1 | The research record; the engine shims decompiled for the code index | docs | Record only (9 Nov 2026) | Done |
 | L0 | Visit Settlements' food drops throw every tick when a friendly settlement holds a pawn that does not eat (the storm that killed both logs) | Patches | Fix at the source (9 Nov 2026) | Done: Patches 0.14.1 (not yet tested in game); bug report drafted for the owner to post |
 | L2 | GameLogKeeper: revive the game's log when it caps itself (bounded, a setting, on by default), the storm counter naming the culprit, the probe dev actions T1 to T5 and the benchmark | Framework | Revive, no Harmony (9 Nov 2026) | Done: Framework 0.28.0 (not yet tested in game) |
-| L3 | Create the sibling repository (owner names it; proposed phobos-log), the game-free rules (once, throttle, budget, signature) and the RimWorld category sink; the Framework and D'thorga Patches adopt it, other mods on touch | new repo, Framework, Patches | Sibling repository (9 Nov 2026) | Open: waits for the owner's name and visibility |
+| L3 | Create the sibling repository (owner names it; proposed phobos-log), the game-free rules (once, throttle, budget, signature) and the RimWorld category sink; the Framework and D'thorga Patches adopt it, other mods on touch | new repo, Framework, Patches | Sibling repository (9 Nov 2026) | In progress: named phobos-log by the owner (9 Nov 2026); its first version (0.1.0, 11 tests) is built and committed locally; creating the public GitHub repository waits for the owner, then the Framework and Patches adopt it |
 | L4 | The JSON-lines sink, the schema document and the modkit reader shared by every game | phobos-log, phobos-modkit | | Open: when Ostranauts adopts or a need is named |
 | L5 | The Ostranauts host sink (BepInEx) | phobos-log, phobos-ostranauts | | Open |
 
