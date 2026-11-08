@@ -11,10 +11,13 @@ What it does now:
 
 - Heavy trucks with air brakes (Vanilla Vehicles Expanded's Big Rig, RimThunder's HEMTT) must idle a few minutes to build air before they can drive.
 - The Humvee runs a 24-volt electrical system with two batteries.
-- Tanks with gas-turbine engines (RimThunder's M1A2) have no radiator: their engines are air-cooled.
-- Steam locomotives (Trains of the Rim) are left as they are, since a boiler is not a car engine.
+- Tanks with gas-turbine engines (RimThunder's M1A2) have no radiator: their engines are air-cooled and burn hard even at idle.
+- The Harrier, the Hind, the Mongoose and the Cherokee run gas turbines with their real lift limits; the Frog, Toad and Goliath lose lift with each thruster out.
+- Steam locomotives (Trains of the Rim) raise steam over hours, need water stops and have a fusible plug; the Goat shunter is diesel-electric.
+- Military vehicles get their real engines, weights and gearboxes where published; Vanilla Vehicles Expanded's vehicles weigh what real ones of their kind weigh.
+- Modern vehicles have climate control; the Lightning can run on batteries with a setting.
 
-Every other vehicle gets the general systems D'thorga Framework gives by what the vehicle runs on: battery and alternator, coolant and oil, tyres or tracks, brakes, gearbox, wear and service. Utility vehicles of our own (a survey truck, a drill rig, a tipper, a generator) come later.
+Every other vehicle gets the general systems D'thorga Framework gives by what the vehicle runs on: battery and alternator, coolant and oil, tyres or tracks, brakes, gearbox, wear and service. Utility vehicles of our own (a survey truck, a drill rig, a tipper, a generator set and a liquid-or-gas tanker), each with an upgrade tree, come later.
 
 Needs Vehicle Framework and D'thorga Framework. Safe to add to a running colony. Safe to remove: the named vehicles go back to the general systems.
 

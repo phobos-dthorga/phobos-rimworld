@@ -183,7 +183,8 @@ not an observation of gpt-image-2 on our vehicles.
 | Look | Coarse pixel art, 16 px a tile, 96-colour palettes, nearest-neighbour exports | RimWorld's clean cel look: thick near-black outline, soft flat shading, pale panels, rounded corners; area resampling |
 | Camera | Straight overhead for world sprites | The same: Vehicle Framework bodies are straight top-down |
 | Facings | One sprite, the game rotates it | Three bodies (north, east, south; west mirrored), derived from one design |
-| State | Colour, normal and damage maps, loose forms | Colour masks for the pattern shader, overlays for raised gear and damage; no normal maps |
+| State | Colour, normal and damage maps, loose forms | Colour masks for the pattern shader; overlays for raised gear and damage; no normal maps |
+| Upgrades | None | **The body is the bare platform, and every upgrade node that changes the look is its own overlay set** on the body's canvas (owner, 9 Nov 2026: every vehicle is upgradeable, and the art follows the tree). The request record lists the nodes before the first picture, so a later node never redraws the body |
 | Background | Mostly opaque full-footprint squares (transparency kept failing) | Transparent bodies with a margin: generate on plain white and cut out by script (Ostranauts' edge flood fill), or use the API's transparent background, which is in preview on gpt-image-2 |
 | Portrait | The world sprite served as the portrait | A 64 px icon, by downscale of the north body |
 | Provider | ChatGPT's built-in tool (no cost or seed disclosed) | The gpt-image-2 API: token usage returned, cost recorded per picture, no seed |
@@ -198,7 +199,8 @@ object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on 
 no vertical front or side faces.
 
 Create an ORIGINAL game vehicle sprite for [the D'thorga survey truck]: [one sentence on what it
-is and does, in the world of a hard-scrabble frontier colony].
+is and does, in the world of a hard-scrabble frontier colony]. Draw the BARE PLATFORM only: the
+chassis, cab and empty deck. [The mast / tank / boom] is drawn separately as an overlay.
 
 [If references: Image 1 is our approved [vehicle]: match its outline weight, shading and finish
 only; do not copy its shape. Image 2 is this vehicle turned a quarter: keep its layout exactly,
@@ -224,7 +226,9 @@ tilt or visible side faces. Top surfaces only.
 ```
 
 The maker palette, the parts and the exclusions change per vehicle; after each attempt, add what went wrong to the
-exclusions and change nothing else (rule 7).
+exclusions and change nothing else (rule 7). **An overlay request** uses the same skeleton with the approved body as Image 1
+("match its outline weight, shading and finish; draw only the [tank] in its place on the deck; everything else pure white"), on
+the body's canvas size, so the cut-out registers over the body without scaling.
 
 ## The pilot flow
 

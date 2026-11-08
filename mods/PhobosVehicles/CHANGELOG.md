@@ -5,6 +5,10 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+### Changed
+
+- The mod description and the README's Coming later section now describe what 0.10.0 does (turbines, boilers, real figures, climate control, the electric Lightning) instead of 0.1.0, and name the five utility vehicles planned, each with an upgrade tree, with parts from RimThunder and Vanilla Vehicles Expanded where present (owner's directions, 9 November 2026; design record docs/development/utility-vehicles-design.md). Text only; nothing in game changes.
+
 ### Compatibility and limits
 
 - BMP-1 IFV (Vehicle Framework), by Turbo, is no longer on the Steam Workshop (Steam showed no public item on 9 November 2026: removed or made private). Its loadout here loads only while that mod is active, so it stays dormant and costs nothing; a player with their own copy still gets it.

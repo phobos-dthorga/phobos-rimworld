@@ -113,8 +113,9 @@ promise current behaviour. For using the mods, start at the [documentation index
   tank engines, safety valves, crown sheets and fusible plugs, steam tables, fuels and efficiency, diesel-electric shunters'
   short-time ratings, and engine-out precedents for thrust-lifted craft.
 - [Utility vehicles: design (8 Nov 2026)](utility-vehicles-design.md): the new content mod and why it starts as a stand-in,
-  the parts model and stats, the extraction-chain family in full (survey truck, drill rig, tipper hauler, generator set),
-  the catalogue of other utility vehicles, the Vehicle Framework 1.7 gate and the art plan; the stand-in mod (0.1.0) is built, no
+  the parts model and stats, the upgrade-tree and parts-by-provider principles (9 Nov 2026), the extraction-chain family in full
+  (survey truck, drill rig, tipper hauler, generator set, and the bulk tanker that is liquid or gas by upgrade),
+  the catalogue of other utility vehicles, the Vehicle Framework 1.7 gate and the art plan; the stand-in mod (0.10.0) is built, no
   vehicle of ours is.
 - [Vehicle Framework mechanics: research (8 Nov 2026)](vehicle-framework-mechanics.md): Vehicle Framework's 1.7 status and
   authors, the parts and health system, ticking, events, fuel and electric rules, its per-vehicle settings, how parts and

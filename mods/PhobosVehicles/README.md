@@ -58,8 +58,10 @@ Every source and simplification is in the loadout files under `Mods/`.
 
 ## Coming later
 
-Utility vehicles of our own, each with a part for every job: a survey truck, a mobile drill rig, a tipper hauler and a generator
-set first ([the design](../../docs/development/utility-vehicles-design.md)).
+Utility vehicles of our own, each with a part for every job and an upgrade tree of its own: a survey truck, a mobile drill rig, a
+tipper hauler, a generator set and a bulk tanker that carries liquids or gases depending on the tank you fit
+([the design](../../docs/development/utility-vehicles-design.md)). Their engines and running gear will come from RimThunder and
+Vanilla Vehicles Expanded when you have them, and from parts of ours when you do not.
 
 ## For modders
 
