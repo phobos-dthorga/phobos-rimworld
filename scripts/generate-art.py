@@ -1,13 +1,17 @@
-"""Generate artwork candidates through a local ComfyUI server and record how each was made.
+"""Generate artwork candidates through a local ComfyUI server, or the paid OpenAI image API, and record how each was made.
 
 Reads a request file (JSON: a list of requests with a name, a prompt, sizes and seeds), submits one graph for every seed
 through the request's engine (see ENGINES), waits for the images and saves them with a record beside each one: prompt, seed,
-steps, size, model file and its SHA-256, server version and date. Nothing is sent anywhere but the local server. Needs ComfyUI
-running (python scripts/generate-art.py --start starts it from COMFYUI_PATH or C:/AI/ComfyUI/ComfyUI_windows_portable).
-For anything unattended use scripts/art-run.py, which adds the stop time, the game check and the safe finish.
+steps, size, model file and its SHA-256, server version and date. Local engines send nothing anywhere but the local server and
+need ComfyUI running (python scripts/generate-art.py --start starts it from COMFYUI_PATH or
+C:/AI/ComfyUI/ComfyUI_windows_portable). The "openai" engine sends the prompt and references to OpenAI, is paid per image,
+needs the OPENAI_API_KEY environment variable and a spending cap (--max-usd), and never starts ComfyUI (see
+scripts/art/openai_images.py). For anything unattended use scripts/art-run.py, which adds the stop time, the game check and
+the safe finish.
 
     python scripts/generate-art.py assets/phobos-radio/requests/phase1-sprites.json
     python scripts/generate-art.py --start --only base-station assets/phobos-radio/requests/phase1-sprites.json
+    python scripts/generate-art.py --max-usd 0.50 assets/phobos-vehicles/requests/first-body.json
 """
 import argparse
 import datetime as _dt
@@ -24,6 +28,9 @@ import urllib.request
 import uuid
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / 'scripts' / 'art'))
+import openai_images as paid  # noqa: E402
+
 DEFAULT_COMFY = Path(os.environ.get('COMFYUI_PATH', r'C:\AI\ComfyUI\ComfyUI_windows_portable'))
 SERVER = os.environ.get('COMFYUI_URL', 'http://127.0.0.1:8188')
 DEFAULT_MODEL = 'flux1-schnell-fp8.safetensors'
@@ -67,7 +74,26 @@ ENGINES = {
     'upscale': {
         'label': 'Real-ESRGAN x4plus (Xintao Wang and colleagues, BSD 3-Clause)',
         'model': UPSCALE_MODEL, 'folder': 'upscale_models', 'steps': 0, 'cfg': 0.0, 'sampler': 'none', 'timeout': 600},
+    # Paid per image, on OpenAI's servers: no graph, no graphics card, no seed. Owner's choice of service, 8 Nov 2026.
+    'openai': {
+        'label': f'OpenAI {paid.MODEL} through the OpenAI image API (paid per image)', 'remote': True,
+        'model': paid.MODEL, 'folder': None, 'steps': 0, 'cfg': 0.0, 'sampler': 'none', 'timeout': paid.TIMEOUT_SECONDS},
 }
+
+
+def is_paid(req):
+    """Whether a request is made by a paid remote engine rather than the local ComfyUI."""
+    return ENGINES.get(req.get('engine', 'schnell'), {}).get('remote', False)
+
+
+def paid_problems(requests):
+    """What the OpenAI API would refuse in a request file's paid requests, before any money is spent."""
+    return [problem for req in requests if is_paid(req) for problem in paid.request_problems(req)]
+
+
+def paid_estimate(images):
+    """The most the paid images still to make should cost, from (request, seed, target) items."""
+    return sum(paid.estimate_usd(req) for req, _, target in images if is_paid(req) and not target.exists())
 
 
 class Stopped(Exception):
@@ -221,6 +247,8 @@ def build_graph(req, seed, reference_names=(), init_name=None, denoise=1.0):
     if engine_name not in ENGINES:
         raise ValueError(f'{req["name"]}: unknown engine {engine_name!r}; the engines are {", ".join(ENGINES)}')
     engine = ENGINES[engine_name]
+    if engine.get('remote'):
+        raise ValueError(f'{req["name"]}: the {engine_name} engine runs on a remote service and has no ComfyUI graph')
     prefix = f'phobos/{req["name"]}'
     steps = req.get('steps', engine['steps'])
     cfg = float(req.get('cfg', engine['cfg']))
@@ -426,10 +454,11 @@ def plan(request_file, only=None):
 
 
 def preview_graphs(request_file, only=None):
-    """One graph per request, built with the names the references will have, for validate_graph."""
+    """One graph per local request, built with the names the references will have, for validate_graph. Paid requests have
+    no graph; paid_problems checks them instead."""
     graphs = {}
     for req, seed, _ in plan(request_file, only):
-        if req['name'] in graphs:
+        if req['name'] in graphs or is_paid(req):
             continue
         references = [f'phobos-init-{req["name"]}-ref{i + 1}.png' for i in range(len(req.get('references', [])))]
         init = f'phobos-init-{req["name"]}.png' if req.get('init') else None
@@ -476,58 +505,125 @@ def make_record(req, engine_name, target, data, version, model, model_hash, seed
     return record
 
 
-def run(request_file, only=None, comfy_path=DEFAULT_COMFY, start=False, should_stop=None, keep_going=False, restart_server=None):
+def make_paid_record(req, target, data, attempt, request_file, reference_sources, info, seconds=None):
+    """The record for an image from the paid OpenAI engine: what was asked, what it cost and the terms read that day."""
+    record = {
+        'file': target.name,
+        'sha256': hashlib.sha256(data).hexdigest(),
+        'date': _dt.datetime.now().isoformat(timespec='seconds'),
+        'generator': ENGINES['openai']['label'],
+        'engine': 'openai',
+        'model': paid.MODEL,
+        'prompt': req.get('prompt', ''),
+        'seed': attempt,
+        'seed_note': 'an attempt number naming the file; the API takes no seed, so a rerun gives a different image',
+        'quality': paid.settings(req)['quality'],
+        'size': [req['width'], req['height']],
+        'request_file': display_path(request_file),
+        'ai_disclosure': f'Made with generative AI: OpenAI {paid.MODEL}, prompted by the Phobos art scripts.',
+        'terms': paid.TERMS_NOTE,
+        **info,
+    }
+    for key in ('background', 'moderation'):
+        if paid.settings(req)[key] is not None:
+            record[key] = paid.settings(req)[key]
+    if seconds is not None:
+        record['seconds'] = seconds
+    if reference_sources:
+        record['references'] = [{'image': display_path(s), 'sha256': hashlib.sha256(s.read_bytes()).hexdigest()} for s in reference_sources]
+    return record
+
+
+def resolve(path):
+    path = Path(path)
+    return path if path.is_absolute() else ROOT / path
+
+
+def run(request_file, only=None, comfy_path=DEFAULT_COMFY, start=False, should_stop=None, keep_going=False, restart_server=None,
+        budget=None, api_key=None):
     """Make every missing image. should_stop returns a reason to end the run, checked before and during each image.
     keep_going records a failed image and moves on, for unattended runs; several failures in a row still end the run.
     restart_server, if given, returns whether it brought up a fresh server, and the image that failed is then tried again.
-    Returns made, failures, restarts, timings, the folders touched and the stop reason, if any."""
-    requests = json.loads(Path(request_file).read_text(encoding='utf-8'))
+    budget (an openai_images.Budget) is required when any request is paid; api_key defaults to the OPENAI_API_KEY variable.
+    ComfyUI is only needed, and only started, when a request uses a local engine.
+    Returns made, failures, restarts, timings, the folders touched, what was spent and the stop reason, if any."""
+    requests = [req for req in json.loads(Path(request_file).read_text(encoding='utf-8')) if not only or req['name'] == only]
     out_root = output_root(request_file)
     keep_out_of_git(out_root)
-    if not server_up():
-        if not start:
-            raise RuntimeError(f'ComfyUI is not running at {SERVER}; pass --start or start it yourself')
-        start_server(comfy_path)
-    version = get_json('/system_stats')['system'].get('comfyui_version', 'unknown')
+    any_paid = any(is_paid(req) for req in requests)
+    any_local = any(not is_paid(req) for req in requests)
+    if any_paid:
+        problems = paid_problems(requests)
+        if problems:
+            raise ValueError('the paid requests would be refused, so nothing was sent:\n  ' + '\n  '.join(problems))
+        if budget is None:
+            raise ValueError('paid requests need a spending cap (--max-usd)')
+        api_key = api_key or os.environ.get(paid.KEY_VARIABLE)
+        if not api_key:
+            raise RuntimeError(f'the {paid.KEY_VARIABLE} environment variable is not set, so the OpenAI engine cannot run')
+    version = 'none (no local engine used)'
+    if any_local:
+        if not server_up():
+            if not start:
+                raise RuntimeError(f'ComfyUI is not running at {SERVER}; pass --start or start it yourself')
+            start_server(comfy_path)
+        version = get_json('/system_stats')['system'].get('comfyui_version', 'unknown')
     models_dir = Path(comfy_path) / 'ComfyUI' / 'models'
     hashes = {}
     result = {'made': 0, 'skipped': 0, 'failures': [], 'restarts': [], 'timings': [], 'folders': [], 'stopped': None}
+    if budget is not None:
+        result['spent_usd'], result['max_usd'] = budget.spent_usd, budget.max_usd
     consecutive = 0
     try:
         for req in requests:
-            if only and req['name'] != only:
-                continue
             engine_name = req.get('engine', 'schnell')
             engine = ENGINES[engine_name]
-            model = req.get('model', engine['model']) if engine_name == 'schnell' else engine['model']
-            model_path = models_dir / engine['folder'] / model
-            model_hash = sha256_of(model_path, hashes) if model_path.is_file() else 'unknown (model not in the local folder)'
+            remote = engine.get('remote', False)
+            model, model_hash = engine['model'], None
+            if not remote:
+                model = req.get('model', engine['model']) if engine_name == 'schnell' else engine['model']
+                model_path = models_dir / engine['folder'] / model
+                model_hash = sha256_of(model_path, hashes) if model_path.is_file() else 'unknown (model not in the local folder)'
             folder = out_root / req['name']
             folder.mkdir(parents=True, exist_ok=True)
             result['folders'].append(req['name'])
             init_name, init_source, denoise = None, None, 1.0
-            if req.get('init'):
-                init_name, init_source = stage_init(comfy_path, req['init'], req['name'])
-                denoise = float(req.get('denoise', 0.7))
-            reference_names, reference_sources = [], []
-            for i, ref in enumerate(req.get('references', [])):
-                name, source = stage_init(comfy_path, ref, f'{req["name"]}-ref{i + 1}')
-                reference_names.append(name)
-                reference_sources.append(source)
+            reference_names, reference_sources, reference_files = [], [], []
+            if remote:
+                reference_sources = [resolve(ref) for ref in req.get('references', [])]
+                reference_files = [(source.name, source.read_bytes()) for source in reference_sources]
+            else:
+                if req.get('init'):
+                    init_name, init_source = stage_init(comfy_path, req['init'], req['name'])
+                    denoise = float(req.get('denoise', 0.7))
+                for i, ref in enumerate(req.get('references', [])):
+                    name, source = stage_init(comfy_path, ref, f'{req["name"]}-ref{i + 1}')
+                    reference_names.append(name)
+                    reference_sources.append(source)
             for seed in req['seeds']:
                 target = folder / f'{req["name"]}-{seed}.png'
                 if target.exists():
                     print(f'  {target.name} exists, skipped')
                     result['skipped'] += 1
                     continue
-                data = None
+                data, paid_info = None, None
                 while data is None:
                     if should_stop:
                         reason = should_stop()
                         if reason:
                             raise Stopped(reason)
+                    if remote:
+                        refusal = budget.refusal(paid.estimate_usd(req))
+                        if refusal:
+                            raise Stopped(refusal)
                     began = time.monotonic()
                     try:
+                        if remote:
+                            print(f'  {req["name"]} attempt {seed}: asking OpenAI', flush=True)
+                            data, paid_info = paid.make_image(req, reference_files, api_key)
+                            budget.add(paid_info['cost_usd'] if paid_info['cost_usd'] is not None else paid.estimate_usd(req))
+                            result['spent_usd'] = round(budget.spent_usd, 4)
+                            break
                         graph = build_graph(req, seed, reference_names, init_name, denoise)
                         queued = post_json('/prompt', {'prompt': graph, 'client_id': str(uuid.uuid4())})
                         print(f'  {req["name"]} seed {seed}: queued {queued["prompt_id"]}', flush=True)
@@ -537,8 +633,14 @@ def run(request_file, only=None, comfy_path=DEFAULT_COMFY, start=False, should_s
                             raise RuntimeError('no image came back')
                         data = fetch_image(images[0])
                     except (RuntimeError, TimeoutError, ValueError, urllib.error.URLError, OSError) as error:
+                        if isinstance(error, paid.ApiError) and error.fatal:
+                            result['failures'].append({'image': target.name, 'error': str(error)[:500]})
+                            raise Stopped(f'OpenAI refused in a way no later image can get past: {str(error)[:300]}') from error
+                        if remote and isinstance(error, paid.ApiError) and error.status is None:
+                            budget.spent_usd += paid.estimate_usd(req)  # No answer, but OpenAI may have made and billed it.
+                            result['spent_usd'] = round(budget.spent_usd, 4)
                         timed_out = isinstance(error, TimeoutError)
-                        if timed_out:
+                        if timed_out and not remote:
                             _cancel_stuck_image()
                         if not keep_going:
                             raise
@@ -547,7 +649,7 @@ def run(request_file, only=None, comfy_path=DEFAULT_COMFY, start=False, should_s
                         if consecutive >= CONSECUTIVE_FAILURES_TO_GIVE_UP:
                             result['failures'].append({'image': target.name, 'error': str(error)[:500]})
                             raise Stopped(f'{consecutive} images failed in a row; the last error was: {str(error)[:300]}') from error
-                        if (restart_server and len(result['restarts']) < MAX_SERVER_RESTARTS
+                        if (not remote and restart_server and len(result['restarts']) < MAX_SERVER_RESTARTS
                                 and should_restart(server_up(), timed_out, consecutive) and restart_server()):
                             result['restarts'].append(f'at {target.name}, after: {str(error)[:200]}')
                             print('  started a fresh ComfyUI; trying that image again', flush=True)
@@ -559,16 +661,22 @@ def run(request_file, only=None, comfy_path=DEFAULT_COMFY, start=False, should_s
                 consecutive = 0
                 seconds = round(time.monotonic() - began, 1)
                 target.write_bytes(data)
-                record = make_record(req, engine_name, target, data, version, model, model_hash, seed, request_file,
-                                     init_source, denoise, reference_sources, seconds)
+                if remote:
+                    record = make_paid_record(req, target, data, seed, request_file, reference_sources, paid_info, seconds)
+                else:
+                    record = make_record(req, engine_name, target, data, version, model, model_hash, seed, request_file,
+                                         init_source, denoise, reference_sources, seconds)
                 target.with_suffix('.json').write_text(json.dumps(record, indent=2), encoding='utf-8')
                 result['timings'].append({'request': req['name'], 'engine': engine_name, 'steps': req.get('steps', engine['steps']), 'seconds': seconds})
                 result['made'] += 1
-                print(f'  wrote {display_path(target)}', flush=True)
+                cost = f' (US${paid_info["cost_usd"]:.3f})' if remote and paid_info.get('cost_usd') is not None else ''
+                print(f'  wrote {display_path(target)}{cost}', flush=True)
     except Stopped as stop:
         result['stopped'] = str(stop)
         print(f'stopped: {stop}', flush=True)
     print(f'{result["made"]} images made')
+    if budget is not None:
+        print(f'spent about US${budget.spent_usd:.3f} of the US${budget.max_usd:.2f} cap')
     return result
 
 
@@ -578,8 +686,10 @@ def main(argv=None):
     parser.add_argument('--only', help='run only the request with this name')
     parser.add_argument('--start', action='store_true', help='start ComfyUI if it is not running')
     parser.add_argument('--comfy', default=str(DEFAULT_COMFY), help='ComfyUI portable folder')
+    parser.add_argument('--max-usd', type=float, help='spending cap in US dollars for paid engines; required when any request is paid')
     args = parser.parse_args(argv)
-    run(args.request_file, args.only, Path(args.comfy), args.start)
+    budget = paid.Budget(args.max_usd) if args.max_usd is not None else None
+    run(args.request_file, args.only, Path(args.comfy), args.start, budget=budget)
     return 0
 
 

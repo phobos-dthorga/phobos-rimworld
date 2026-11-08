@@ -296,8 +296,9 @@ already do it (IDs in the mechanics record); the lean is the agent's.
   pay-per-image with no subscription; the whole family costs a few dollars. **PixelLab is not for the bodies**: its
   rotation tools stop at 128 to 256 px and are trained on characters; the 19 Oct 2026 reasoning in
   [artwork direction](artwork-direction.md) stands. It could draw 64 px icons if the owner wants it used.
-- **Who does what:** the agent drives the API through a new engine in `scripts/art-run.py` with the owner's key kept
-  in `.local/`; the owner buys one small credit and makes every pick. Every image goes through the near-copy check
+- **Who does what:** the agent drives the API through the `openai` engine of `scripts/art-run.py` (built 8 Nov 2026,
+  [how to run it](vehicle-art-services.md#running-the-openai-engine)) with the owner's key in the `OPENAI_API_KEY`
+  environment variable, never in a file; the owner buys the credit, sets the account's spending limit and makes every pick. Every image goes through the near-copy check
   and gets a record (tool, model, prompt, date, SHA-256, AI disclosure) with the service's output terms as read on the
   day; masters go to the `art-masters` branch. The local Klein route stays a free baseline for icons and items.
 

@@ -1,6 +1,8 @@
 """Run art work unattended, with the safeguards: one command from a request file to a review page and a report.
 
-Ends at the stop time, the moment RimWorld starts, or before a drive falls under the free-space floor. However it ends, it
+Ends at the stop time, the moment RimWorld starts, or before a drive falls under the free-space floor. Requests for the paid
+"openai" engine also need --max-usd (or "max_usd" in a night step), never start ComfyUI, and do not stop for the game, since
+they use none of the graphics card; the run ends before any image that could pass the cap. However it ends, it
 frees the graphics memory, stops any server it started, and writes a report. Keeps Windows awake only while it runs. If ComfyUI
 dies or hangs it starts a fresh one and tries that image again. Candidates are checked against their references for near-copies.
 
@@ -12,7 +14,7 @@ dies or hangs it starts a fresh one and tries that image again. Candidates are c
 A night plan is a JSON list run in order under one stop time. A failed step does not end the night; a later step that needs its
 work fails in turn and says so. Each step is one of:
 
-    {"generate": "request file", "near_copy_against": ["extra source folder"]}
+    {"generate": "request file", "near_copy_against": ["extra source folder"], "max_usd": 0.50}
     {"train": "ai-toolkit config"}
     {"run": ["scripts/art/some_tool.py", "arguments"]}
 """
@@ -194,6 +196,9 @@ def write_report(folder, kind, source, started, stop_at, result, notes, problems
     for key, label in (('made', 'Images made'), ('skipped', 'Already there, skipped'), ('exit_code', 'Exit code')):
         if key in result:
             lines.append(f'- **{label}:** {result[key]}')
+    if 'spent_usd' in result:
+        lines.append(f'- **Spent:** about US${result["spent_usd"]:.3f} of the US${result["max_usd"]:.2f} cap, worked out from '
+                     f'the token counts OpenAI returned (each image\'s record has its own figure)')
     if result.get('failures'):
         lines += ['', '## Failures', ''] + [f'- {item["image"]}: {item["error"]}' for item in result['failures']]
     if result.get('restarts'):
@@ -219,13 +224,37 @@ def generate(args, stop_at, game_names):
     generated = art.output_root(request_file)
     missing = [item for item in images if not item[2].exists()]
     print(f'{len(images)} images asked for, {len(missing)} still to make')
+    requests = list({item[0]['name']: item[0] for item in images}.values())
+    any_paid = any(art.is_paid(req) for req in requests)
+    any_local = any(not art.is_paid(req) for req in requests)
+    paid_problems = art.paid_problems(requests)
+    estimate = art.paid_estimate(images)
     graphs = art.preview_graphs(request_file, args.only)
     if args.dry_run:
-        for req in {item[0]['name']: item[0] for item in images}.values():
+        for req in requests:
             engine = art.ENGINES[req.get('engine', 'schnell')]
-            print(f'  {req["name"]}: {req.get("engine", "schnell")}, {req.get("steps", engine["steps"])} steps, '
+            how = (f'{art.paid.settings(req)["quality"]} quality, up to US${art.paid.estimate_usd(req):.3f} an image'
+                   if art.is_paid(req) else f'{req.get("steps", engine["steps"])} steps')
+            print(f'  {req["name"]}: {req.get("engine", "schnell")}, {how}, '
                   f'{len(req["seeds"])} seeds, {len(req.get("references", []))} references, {req["width"]}x{req["height"]}')
-        return 0, None
+        if any_paid:
+            print(f'paid images still to make should cost at most about US${estimate:.2f}')
+        for problem in paid_problems:
+            print(f'  REFUSED: {problem}')
+        return (2 if paid_problems else 0), None
+    if any_paid:
+        if paid_problems:
+            print('not starting: the paid requests would be refused, so nothing was sent:\n  ' + '\n  '.join(paid_problems))
+            return NOT_STARTED, None
+        if args.max_usd is None:
+            print(f'not starting: paid requests need a spending cap; pass --max-usd (these should cost at most about US${estimate:.2f})')
+            return NOT_STARTED, None
+        if not art.os.environ.get(art.paid.KEY_VARIABLE):
+            print(f'not starting: the {art.paid.KEY_VARIABLE} environment variable is not set')
+            return NOT_STARTED, None
+    budget = art.paid.Budget(args.max_usd) if any_paid else None
+    if not any_local:
+        game_names = ()  # Every image is made on OpenAI's servers: the game can have the graphics card meanwhile.
 
     comfy = Path(args.comfy)
     watch = [comfy, generated.parent]
@@ -256,19 +285,24 @@ def generate(args, stop_at, game_names):
 
     stay_awake(True)
     try:
-        if not art.server_up():
-            server['process'] = art.start_server(comfy)
-        info = art.get_json('/object_info')
-        invalid = [f'{name}: {problem}' for name, graph in graphs.items() for problem in art.validate_graph(graph, info)]
+        invalid = []
+        if any_local:
+            if not art.server_up():
+                server['process'] = art.start_server(comfy)
+            info = art.get_json('/object_info')
+            invalid = [f'{name}: {problem}' for name, graph in graphs.items() for problem in art.validate_graph(graph, info)]
         if invalid:
             result['stopped'] = 'the graphs failed their check, so no image was attempted'
             result['failures'] = [{'image': 'graph check', 'error': problem} for problem in invalid]
         else:
-            result = art.run(request_file, args.only, comfy, False, should_stop, keep_going=True, restart_server=restart_server)
+            result = art.run(request_file, args.only, comfy, False, should_stop, keep_going=True, restart_server=restart_server,
+                             budget=budget)
     except (RuntimeError, urllib.error.URLError, OSError, ValueError, FileNotFoundError) as error:
-        result['stopped'] = f'the run failed: {error}'
+        result['stopped'] = f'the run failed: {art.paid.redact(error)}'
     finally:
-        notes = free_gpu(server['process'])
+        if budget is not None:
+            result['spent_usd'], result['max_usd'] = round(budget.spent_usd, 4), budget.max_usd
+        notes = free_gpu(server['process']) if any_local else ['none used: every image was made on OpenAI\'s servers']
         problems, near_copy = post_process(comfy, generated, result['folders'] or [item[0]['name'] for item in images], sources)
         stay_awake(False)
         report = write_report(generated, 'generate', request_file, started, stop_at, result, notes, problems, near_copy)
@@ -326,9 +360,10 @@ def night_problems(steps):
         if len(kinds) != 1:
             problems.append(f'step {index} needs exactly one of {", ".join(NIGHT_STEPS)}')
             continue
-        unknown = set(step) - {kinds[0], 'near_copy_against'}
-        if unknown or ('near_copy_against' in step and kinds[0] != 'generate'):
-            problems.append(f'step {index} has settings it cannot use: {sorted(unknown) or ["near_copy_against"]}')
+        unknown = set(step) - {kinds[0], 'near_copy_against', 'max_usd'}
+        generate_only = [key for key in ('near_copy_against', 'max_usd') if key in step and kinds[0] != 'generate']
+        if unknown or generate_only:
+            problems.append(f'step {index} has settings it cannot use: {sorted(unknown) or generate_only}')
         if kinds[0] == 'run':
             script = step['run'][0].replace('\\', '/') if step['run'] else ''
             if not script.startswith('scripts/') or '..' in script or not (ROOT / script).is_file():
@@ -347,6 +382,8 @@ def step_command(step, stop_at, args):
         command += ['--also-stop-on', name]
     for folder in step.get('near_copy_against', []):
         command += ['--near-copy-against', folder]
+    if 'max_usd' in step:
+        command += ['--max-usd', str(step['max_usd'])]
     return command
 
 
@@ -416,7 +453,8 @@ def main(argv=None):
     parser.add_argument('--min-free-gb', type=float, default=safeguards.DEFAULT_MIN_FREE_GB)
     parser.add_argument('--also-stop-on', action='append', default=[], metavar='NAME.exe', help='another process that ends the run, such as another game')
     parser.add_argument('--near-copy-against', action='append', default=[], metavar='FOLDER', help='check candidates against this folder too')
-    parser.add_argument('--dry-run', action='store_true', help='print the work without touching ComfyUI or the GPU')
+    parser.add_argument('--max-usd', type=float, help='spending cap in US dollars for paid engines (openai); required when any request is paid')
+    parser.add_argument('--dry-run', action='store_true', help='print the work, and what paid images could cost, without touching ComfyUI, the GPU or any paid service')
     args = parser.parse_args(argv)
     if not args.stop_at and not args.dry_run:
         parser.error('--stop-at is required: an unattended run must have an end')
