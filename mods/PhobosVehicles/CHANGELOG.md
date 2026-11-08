@@ -5,6 +5,10 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+### Compatibility and limits
+
+- BMP-1 IFV (Vehicle Framework), by Turbo, is no longer on the Steam Workshop (Steam showed no public item on 9 November 2026: removed or made private). Its loadout here loads only while that mod is active, so it stays dormant and costs nothing; a player with their own copy still gets it.
+
 ## [0.10.0] - 2026-11-09 - Draft
 
 Automatic climate control by era, with D'thorga Framework 0.22.0 (owner, 9 November 2026: by technology and age). **Not yet tested in game.**

@@ -258,8 +258,8 @@ vehicles). Record TPS and our milliseconds in the table below.
 - **Two health panels:** VF's caravan manifest window keeps VF's panel; players may see two layouts. Recorded; cover later or accept.
 - **Other mods patch the damage path too** (read with `scripts/query-patches.py`, 9 Nov 2026): besides Combat Extended's
   prefix that replaces `VehicleStatHandler.ApplyDamage`, the Hind and Mongoose helicopters add priority-800 prefixes to it
-  ("NearestPart") and postfixes on `TakeDamage` and `RecalculateHealthPercent` ("Critical"), and the BMP-1 patches
-  `ExposeData` and `GetStatValue`. Slice 2's hit-born conditions must hold with all of them; read their code with
+  ("NearestPart") and postfixes on `TakeDamage` and `RecalculateHealthPercent` ("Critical"); the BMP-1 patched `ExposeData`
+  and `GetStatValue` too, but it left the Workshop and the owner's list the same day. Slice 2's hit-born conditions must hold with all of them; read their code with
   `scripts/query-code.py` before freezing the Def shape.
 - **A postfix on `VehicleComponent.get_Efficiency`** would run on every stat recompute of every vehicle, NPC included; if it is
   ever added it must be a dictionary miss for vehicles without conditions. The stat-level path is preferred.

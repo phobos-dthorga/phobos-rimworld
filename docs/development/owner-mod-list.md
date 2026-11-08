@@ -14,7 +14,7 @@ login). Everything between a `BEGIN GENERATED` and an `END GENERATED` marker is 
 suggestions are written by hand, and the refresh leaves them alone.
 
 <!-- BEGIN GENERATED: summary -->
-**As of 2026-11-08** (the date of the game's mod list): RimWorld 1.7.5000 rev1275, **335 mods switched on** (6 game and DLCs, 322 Workshop, 7 local), and **22 more subscribed but switched off**. 213 of the 329 switched-on mods already declare RimWorld 1.7.
+**As of 2026-11-08** (the date of the game's mod list): RimWorld 1.7.5000 rev1275, **335 mods switched on** (6 game and DLCs, 321 Workshop, 8 local), and **21 more subscribed but switched off**. 214 of the 329 switched-on mods already declare RimWorld 1.7.
 <!-- END GENERATED: summary -->
 
 ## Read this first (gotchas)
@@ -34,7 +34,7 @@ suggestions are written by hand, and the refresh leaves them alone.
 <!-- BEGIN GENERATED: checks -->
 - **Missing requirements:** none.
 - **Switched on but not installed:** none.
-- **Not marked for 1.7: 116**
+- **Not marked for 1.7: 115**
   - Better Stacktraces (declares 1.6)
   - Adaptive Storage Framework (declares 1.4, 1.5, 1.6)
   - HugsLib (declares 1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6)
@@ -119,7 +119,6 @@ suggestions are written by hand, and the refresh leaves them alone.
   - \[CF\] Anomaly Upscaled (declares 1.5, 1.6)
   - \[kyzy\] Bio Ranch (declares 1.6)
   - Alpha Genes Integrated (declares 1.6)
-  - BMP-1 IFV (Vehicle Framework) (declares 1.6)
   - Frontline Workshop (declares 1.6)
   - GTek's Vehicles - Oshkosh L-ATV (declares 1.5, 1.6)
   - Improved Map Search (declares 1.6)
@@ -604,8 +603,8 @@ Read from [the collection](https://steamcommunity.com/sharedfiles/filedetails/?i
 | 187 | [Vanilla Apparel Expanded — Accessories](https://steamcommunity.com/sharedfiles/filedetails/?id=2521176396) | Oskar Potocki, xrushha and 2 more | `vanillaexpanded.vaeaccessories` | 2026-11-06 | yes |
 | 10 | [Vanilla Backgrounds Expanded](https://steamcommunity.com/sharedfiles/filedetails/?id=2775017012) | legodude17, Oskar Potocki | `vanillaexpanded.backgrounds` | 2026-10-14 | yes |
 | 188 | [Vanilla Brewing Expanded](https://steamcommunity.com/sharedfiles/filedetails/?id=2186560858) | Oskar Potocki, Sarg Bjornson and 1 more | `vanillaexpanded.vbrewe` | 2026-10-14 | yes |
-| 283 | [Vanilla Brewing Expanded - Coffees and Teas](https://steamcommunity.com/sharedfiles/filedetails/?id=2275449762) | Sarg Bjornson, Chowder and 1 more | `vanillaexpanded.vbrewecandt` | 2026-10-14 | yes |
-| 284 | [Vanilla Chemfuel Expanded](https://steamcommunity.com/sharedfiles/filedetails/?id=2792917473) | Oskar Potocki, Kikohi | `vanillaexpanded.vchemfuele` | 2026-10-14 | yes |
+| 282 | [Vanilla Brewing Expanded - Coffees and Teas](https://steamcommunity.com/sharedfiles/filedetails/?id=2275449762) | Sarg Bjornson, Chowder and 1 more | `vanillaexpanded.vbrewecandt` | 2026-10-14 | yes |
+| 283 | [Vanilla Chemfuel Expanded](https://steamcommunity.com/sharedfiles/filedetails/?id=2792917473) | Oskar Potocki, Kikohi | `vanillaexpanded.vchemfuele` | 2026-10-14 | yes |
 | 189 | [Vanilla Cooking Expanded](https://steamcommunity.com/sharedfiles/filedetails/?id=2134308519) | Oskar Potocki, Sarg Bjornson and 1 more | `vanillaexpanded.vcooke` | 2026-11-04 | yes |
 | 14 | [Vanilla Expanded Framework](https://steamcommunity.com/sharedfiles/filedetails/?id=2023507013) | Oskar Potocki, XeoNovaDan and 5 more | `oskarpotocki.vanillafactionsexpanded.core` | 2026-11-06 | yes |
 | 191 | [Vanilla Factions Expanded - Classical](https://steamcommunity.com/sharedfiles/filedetails/?id=2787850474) | Oskar Potocki, ISOREX and 3 more | `oskarpotocki.vfe.classical` | 2026-10-14 | yes |
@@ -625,17 +624,17 @@ Read from [the collection](https://steamcommunity.com/sharedfiles/filedetails/?i
 | 201 | [Vanilla Furniture Expanded - Production](https://steamcommunity.com/sharedfiles/filedetails/?id=1880253632) | Oskar Potocki, Trunken and 1 more | `vanillaexpanded.vfeproduction` | 2026-10-14 | yes |
 | 202 | [Vanilla Furniture Expanded - Props and Decor](https://steamcommunity.com/sharedfiles/filedetails/?id=2102143149) | Oskar Potocki, Sarg Bjornson | `vanillaexpanded.vfepropsanddecor` | 2026-10-14 | yes |
 | 204 | [Vanilla Gravship Expanded - Chapter 1](https://steamcommunity.com/sharedfiles/filedetails/?id=3609835606) | Oskar Potocki, Sarg Bjornson and 3 more | `vanillaexpanded.gravship` | 2026-10-20 | yes |
-| 285 | [Vanilla Gravship Expanded - Chapter 2](https://steamcommunity.com/sharedfiles/filedetails/?id=3799737423) | Oskar Potocki, Sarg Bjornson and 2 more | `vanillaexpanded.gravship2` | 2026-10-20 | yes |
+| 284 | [Vanilla Gravship Expanded - Chapter 2](https://steamcommunity.com/sharedfiles/filedetails/?id=3799737423) | Oskar Potocki, Sarg Bjornson and 2 more | `vanillaexpanded.gravship2` | 2026-10-20 | yes |
 | 206 | [Vanilla Ideology Expanded - Dryads](https://steamcommunity.com/sharedfiles/filedetails/?id=2720631512) | Oskar Potocki, Sarg Bjornson and 2 more | `vanillaexpanded.ideo.dryads` | 2026-10-14 | yes |
-| 287 | [Vanilla Ideology Expanded - Memes and Structures](https://steamcommunity.com/sharedfiles/filedetails/?id=2636329500) | Oskar Potocki, Sarg Bjornson and 1 more | `vanillaexpanded.vmemese` | 2026-11-06 | yes |
+| 286 | [Vanilla Ideology Expanded - Memes and Structures](https://steamcommunity.com/sharedfiles/filedetails/?id=2636329500) | Oskar Potocki, Sarg Bjornson and 1 more | `vanillaexpanded.vmemese` | 2026-11-06 | yes |
 | 207 | [Vanilla Nutrient Paste Expanded](https://steamcommunity.com/sharedfiles/filedetails/?id=2920385763) | Oskar Potocki, Kikohi | `vanillaexpanded.vnutriente` | 2026-10-14 | yes |
 | 208 | [Vanilla Outposts Expanded](https://steamcommunity.com/sharedfiles/filedetails/?id=2688941031) | legodude17, Oskar Potocki | `vanillaexpanded.outposts` | 2026-10-14 | yes |
 | 209 | [Vanilla Persona Weapons Expanded](https://steamcommunity.com/sharedfiles/filedetails/?id=2826922787) | Oskar Potocki, Taranchuk | `vanillaexpanded.vpersonaweaponse` | 2026-10-14 | yes |
 | 210 | [Vanilla Plants Expanded](https://steamcommunity.com/sharedfiles/filedetails/?id=2134308522) | Oskar Potocki, Sarg Bjornson and 1 more | `vanillaexpanded.vplantse` | 2026-11-06 | yes |
-| 291 | [Vanilla Plants Expanded - More Plants](https://steamcommunity.com/sharedfiles/filedetails/?id=2748889667) | Sarg Bjornson, Oskar Potocki | `vanillaexpanded.vplantsemore` | 2026-10-14 | yes |
-| 292 | [Vanilla Plants Expanded - Mushrooms](https://steamcommunity.com/sharedfiles/filedetails/?id=3006389281) | Taranchuk, Sarg Bjornson and 1 more | `vanillaexpanded.vplantsemushrooms` | 2026-10-14 | yes |
+| 290 | [Vanilla Plants Expanded - More Plants](https://steamcommunity.com/sharedfiles/filedetails/?id=2748889667) | Sarg Bjornson, Oskar Potocki | `vanillaexpanded.vplantsemore` | 2026-10-14 | yes |
+| 291 | [Vanilla Plants Expanded - Mushrooms](https://steamcommunity.com/sharedfiles/filedetails/?id=3006389281) | Taranchuk, Sarg Bjornson and 1 more | `vanillaexpanded.vplantsemushrooms` | 2026-10-14 | yes |
 | 211 | [Vanilla Psycasts Expanded](https://steamcommunity.com/sharedfiles/filedetails/?id=2842502659) | erdelf, Oskar Potocki and 6 more | `vanillaexpanded.vpsycastse` | 2026-10-15 | yes |
-| 293 | [Vanilla Psycasts Expanded - Hemosage](https://steamcommunity.com/sharedfiles/filedetails/?id=2990596478) | Oskar Potocki, Taranchuk and 2 more | `vanillaexpanded.vpe.hemosage` | 2026-10-14 | yes |
+| 292 | [Vanilla Psycasts Expanded - Hemosage](https://steamcommunity.com/sharedfiles/filedetails/?id=2990596478) | Oskar Potocki, Taranchuk and 2 more | `vanillaexpanded.vpe.hemosage` | 2026-10-14 | yes |
 | 212 | [Vanilla Races Expanded - Genie](https://steamcommunity.com/sharedfiles/filedetails/?id=2901424072) | Oskar Potocki, Sarg Bjornson | `vanillaracesexpanded.genie` | 2026-10-14 | yes |
 | 213 | [Vanilla Races Expanded - Highmate](https://steamcommunity.com/sharedfiles/filedetails/?id=2995385834) | Oskar Potocki, Taranchuk and 1 more | `vanillaracesexpanded.highmate` | 2026-10-14 | yes |
 | 214 | [Vanilla Races Expanded - Hussar](https://steamcommunity.com/sharedfiles/filedetails/?id=2893586390) | Oskar Potocki, xrushha and 2 more | `vanillaracesexpanded.hussar` | 2026-10-14 | yes |
@@ -644,13 +643,13 @@ Read from [the collection](https://steamcommunity.com/sharedfiles/filedetails/?i
 | 217 | [Vanilla Races Expanded - Saurid](https://steamcommunity.com/sharedfiles/filedetails/?id=2880990495) | Oskar Potocki, Neronix17 | `vanillaracesexpanded.saurid` | 2026-10-14 | yes |
 | 218 | [Vanilla Races Expanded - Waster](https://steamcommunity.com/sharedfiles/filedetails/?id=2983471725) | Oskar Potocki, Sarg Bjornson | `vanillaracesexpanded.waster` | 2026-10-14 | yes |
 | 219 | [Vanilla Recycling Expanded](https://steamcommunity.com/sharedfiles/filedetails/?id=3155781848) | OskarPotocki, Sarg Bjornson and 1 more | `vanillaexpanded.recycling` | 2026-10-14 | yes |
-| 294 | [Vanilla Skills Expanded](https://steamcommunity.com/sharedfiles/filedetails/?id=3400246558) | legodude17, Oskar Potocki and 1 more | `vanillaexpanded.skills` | 2026-11-03 | yes |
+| 293 | [Vanilla Skills Expanded](https://steamcommunity.com/sharedfiles/filedetails/?id=3400246558) | legodude17, Oskar Potocki and 1 more | `vanillaexpanded.skills` | 2026-11-03 | yes |
 | 220 | [Vanilla Temperature Expanded](https://steamcommunity.com/sharedfiles/filedetails/?id=3202046258) | Oskar Potocki, xrushha and 2 more | `vanillaexpanded.temperature` | 2026-11-06 | yes |
 | 221 | [Vanilla Textures Expanded](https://steamcommunity.com/sharedfiles/filedetails/?id=2016436324) | Oskar Potocki, Helixien and 5 more | `vanillaexpanded.vtexe` | 2026-10-14 | yes |
-| 295 | [Vanilla Textures Expanded - Variations](https://steamcommunity.com/sharedfiles/filedetails/?id=2493234474) | Sarg Bjornson | `vanillaexpanded.vtexvariations` | 2026-10-14 | yes |
+| 294 | [Vanilla Textures Expanded - Variations](https://steamcommunity.com/sharedfiles/filedetails/?id=2493234474) | Sarg Bjornson | `vanillaexpanded.vtexvariations` | 2026-10-14 | yes |
 | 222 | [Vanilla Vehicles Expanded](https://steamcommunity.com/sharedfiles/filedetails/?id=3014906877) | Oskar Potocki, xrushha and 4 more | `oskarpotocki.vanillavehiclesexpanded` | 2026-10-15 | — |
-| 296 | [Vanilla Vehicles Expanded - Tier 3](https://steamcommunity.com/sharedfiles/filedetails/?id=3047892432) | Oskar Potocki, xrushha and 3 more | `oskarpotocki.vanillavehiclesexpandedtier3` | 2026-10-15 | — |
-| 297 | [Vanilla Vehicles Expanded - Upgrades](https://steamcommunity.com/sharedfiles/filedetails/?id=3302208420) | Oskar Potocki, Smash Phil | `oskarpotocki.vanillavehiclesexpandedupgrades` | 2026-10-15 | yes |
+| 295 | [Vanilla Vehicles Expanded - Tier 3](https://steamcommunity.com/sharedfiles/filedetails/?id=3047892432) | Oskar Potocki, xrushha and 3 more | `oskarpotocki.vanillavehiclesexpandedtier3` | 2026-10-15 | — |
+| 296 | [Vanilla Vehicles Expanded - Upgrades](https://steamcommunity.com/sharedfiles/filedetails/?id=3302208420) | Oskar Potocki, Smash Phil | `oskarpotocki.vanillavehiclesexpandedupgrades` | 2026-10-15 | yes |
 | 223 | [Vanilla Weapons Expanded - Bioferrite](https://steamcommunity.com/sharedfiles/filedetails/?id=3287469135) | Oskar Potocki, xrushha and 2 more | `vanillaexpanded.vwebf` | 2026-10-14 | yes |
 | 224 | [Vanilla Weapons Expanded - Coilguns](https://steamcommunity.com/sharedfiles/filedetails/?id=2375692535) | Oskar Potocki, AveryTheKitty and 2 more | `vanillaexpanded.vwec` | 2026-10-14 | yes |
 
@@ -659,15 +658,15 @@ Read from [the collection](https://steamcommunity.com/sharedfiles/filedetails/?i
 | Load # | Mod | Author | Package ID | Updated | 1.7 |
 | --- | --- | --- | --- | --- | --- |
 | 231 | [\[BTD\] Gravship Blueprints](https://steamcommunity.com/sharedfiles/filedetails/?id=3575162262) | beeteedubs | `btd.remix.gravshipblueprints` | 2026-11-02 | yes |
-| 300 | [\[BTD\] Ship Pack: Community Designs](https://steamcommunity.com/sharedfiles/filedetails/?id=3832496468) | beeteedubs | `btd.gbp.shippack.communitydesigns` | 2026-11-02 | yes |
+| 299 | [\[BTD\] Ship Pack: Community Designs](https://steamcommunity.com/sharedfiles/filedetails/?id=3832496468) | beeteedubs | `btd.gbp.shippack.communitydesigns` | 2026-11-02 | yes |
 | 232 | [\[CF\] Anomaly Upscaled](https://steamcommunity.com/sharedfiles/filedetails/?id=3239664028) | Crimson | `cf.anomalyupscaled` | 2025-06-12 | — |
-| 233 | [\[DG\]Gravship Tactical Holotable](https://steamcommunity.com/sharedfiles/filedetails/?id=3820234401) | Gravship Furniture Expansion | `gravship.tactical.holotable` | 2026-11-02 | yes |
-| 301 | [\[DG\]More Door Variants](https://steamcommunity.com/sharedfiles/filedetails/?id=3832293718) | Local mod | `local.moredoorvariants` | 2026-11-05 | yes |
-| 234 | [\[DG\]Simple Washing Machine](https://steamcommunity.com/sharedfiles/filedetails/?id=3820234705) | Local mod | `local.washingmachine` | 2026-11-05 | yes |
-| 302 | [\[DG\]Wall Mounted Function Furniture](https://steamcommunity.com/sharedfiles/filedetails/?id=3807382130) | Local mod | `wallmounted.functionfurniture` | 2026-11-02 | yes |
+| 233 | [\[DG\]Gravship Tactical Holotable](https://steamcommunity.com/sharedfiles/filedetails/?id=3820234401) | Gravship Furniture Expansion | `gravship.tactical.holotable` | 2026-11-08 | yes |
+| 300 | [\[DG\]More Door Variants](https://steamcommunity.com/sharedfiles/filedetails/?id=3832293718) | Local mod | `local.moredoorvariants` | 2026-11-08 | yes |
+| 234 | [\[DG\]Simple Washing Machine](https://steamcommunity.com/sharedfiles/filedetails/?id=3820234705) | Local mod | `local.washingmachine` | 2026-11-08 | yes |
+| 301 | [\[DG\]Wall Mounted Function Furniture](https://steamcommunity.com/sharedfiles/filedetails/?id=3807382130) | Local mod | `wallmounted.functionfurniture` | 2026-11-08 | yes |
 | 235 | [\[FSF\] Better Exploration Loot](https://steamcommunity.com/sharedfiles/filedetails/?id=3526957922) | FrozenSnowFox | `frozensnowfox.betterexplorationloot` | 2026-10-12 | yes |
 | 236 | [\[kyzy\] Bio Ranch](https://steamcommunity.com/sharedfiles/filedetails/?id=3771252359) | kyzy\_4399 | `kyzy.bioranch` | 2026-09-21 | — |
-| 303 | [\[kyzy\] Ship Wall Enhanced](https://steamcommunity.com/sharedfiles/filedetails/?id=3537799933) | Kyzy\_4399 | `kyzy.shipwallenhanced` | 2026-09-17 | — |
+| 302 | [\[kyzy\] Ship Wall Enhanced](https://steamcommunity.com/sharedfiles/filedetails/?id=3537799933) | Kyzy\_4399 | `kyzy.shipwallenhanced` | 2026-09-17 | — |
 | 23 | [\[MUS\]太空基地家具Space Base Furniture](https://steamcommunity.com/sharedfiles/filedetails/?id=3523916780) | ELUN982697019 | `mingtuwuxiang.spacebasedecorative` | 2025-09-02 | — |
 | 24 | [\[Og\] Repair Your Gear](https://steamcommunity.com/sharedfiles/filedetails/?id=3513376486) | Oganesson | `og.repair.your.gear` | 2026-10-19 | yes |
 | 25 | [\[qsx\] Insectoids: Lore Realized](https://steamcommunity.com/sharedfiles/filedetails/?id=3831266112) | qsx1110 | `qsx.hivequeen` | 2026-11-02 | yes |
@@ -687,9 +686,9 @@ Read from [the collection](https://steamcommunity.com/sharedfiles/filedetails/?i
 | 37 | [Anomaly Research Asteroid](https://steamcommunity.com/sharedfiles/filedetails/?id=3527726648) | Zoarak963 | `zoarak.anomalyplat` | 2025-07-17 | — |
 | 38 | [Anthrosonae](https://steamcommunity.com/sharedfiles/filedetails/?id=2902258418) | Willow, Erin and 1 more | `atk.anthrosonae` | 2025-08-11 | — |
 | 39 | [Apex Mechanoids](https://steamcommunity.com/sharedfiles/filedetails/?id=3792325789) | Mortis, Aelflead Wayne and 8 more | `mortis.apexmechanoids` | 2026-11-04 | yes |
-| 304 | [Aquariums!](https://steamcommunity.com/sharedfiles/filedetails/?id=3478462020) | NightmareCorporation | `nightmare.aquariums` | 2026-10-19 | yes |
+| 303 | [Aquariums!](https://steamcommunity.com/sharedfiles/filedetails/?id=3478462020) | NightmareCorporation | `nightmare.aquariums` | 2026-10-19 | yes |
 | 40 | [Auto-Cut Blight - 1.6](https://steamcommunity.com/sharedfiles/filedetails/?id=3520167264) | Defi | `defi.autocutblight` | 2025-07-08 | — |
-| 305 | [Automatic Hydroponics](https://steamcommunity.com/sharedfiles/filedetails/?id=3528490718) | Poncho | `poncho.automatichydroponics` | 2026-07-20 | — |
+| 304 | [Automatic Hydroponics](https://steamcommunity.com/sharedfiles/filedetails/?id=3528490718) | Poncho | `poncho.automatichydroponics` | 2026-07-20 | — |
 | 331 | [Automatic Hydroponics Expanded](https://steamcommunity.com/sharedfiles/filedetails/?id=3536424131) | Jijiang | `automatichydroponics.expanded` | 2026-10-16 | yes |
 | 238 | [BattIePatch: Enhanced Bioregeneration](https://steamcommunity.com/sharedfiles/filedetails/?id=3241232294) | BattIeBear | `battiebear.battiepatch.enhancedbioregeneration` | 2026-10-25 | yes |
 | 41 | [Bean's Turret Pack](https://steamcommunity.com/sharedfiles/filedetails/?id=3271187804) | Bean | `bean.turretpack` | 2026-10-30 | yes |
@@ -701,11 +700,10 @@ Read from [the collection](https://steamcommunity.com/sharedfiles/filedetails/?i
 | 239 | [Biotech for Gravship](https://steamcommunity.com/sharedfiles/filedetails/?id=3722358861) | Alsariul | `als.biotechgravship` | 2026-10-16 | yes |
 | 46 | [Bladelink](https://steamcommunity.com/sharedfiles/filedetails/?id=3535749804) | Heavenly Guardian | `heavenlyguardian.bladelink` | 2025-10-06 | — |
 | 47 | [Blueprints Forked - 1.6](https://steamcommunity.com/sharedfiles/filedetails/?id=3525001145) | Defi | `defi.blueprints.fork` | 2025-07-14 | — |
-| 240 | [BMP-1 IFV (Vehicle Framework)](https://steamcommunity.com/sharedfiles/filedetails/?id=3800287230) | Turbo | `turbo.rimworld.bmp1ifv` | 2026-10-21 | — |
 | 48 | [Build From Inventory - Continued](https://steamcommunity.com/sharedfiles/filedetails/?id=3534185281) | Uuugggg | `memegoddess.buildfrominventory` | 2026-10-22 | yes |
-| 306 | [Bullet Sounds](https://steamcommunity.com/sharedfiles/filedetails/?id=3806470380) | Senilia | `senilia.bulletsounds` | 2026-11-07 | yes |
+| 305 | [Bullet Sounds](https://steamcommunity.com/sharedfiles/filedetails/?id=3806470380) | Senilia | `senilia.bulletsounds` | 2026-11-08 | yes |
 | 49 | [Butchery Work Scales With Body Size](https://steamcommunity.com/sharedfiles/filedetails/?id=3809027243) | Leo39994 | `leo.butcheryscales` | 2026-10-16 | yes |
-| 307 | [Campfire Stews](https://steamcommunity.com/sharedfiles/filedetails/?id=3467551920) | BadOaks | `badoaks.campfirestews` | 2025-07-23 | — |
+| 306 | [Campfire Stews](https://steamcommunity.com/sharedfiles/filedetails/?id=3467551920) | BadOaks | `badoaks.campfirestews` | 2025-07-23 | — |
 | 50 | [Cargo Holds](https://steamcommunity.com/sharedfiles/filedetails/?id=3536708812) | joolsdgg | `jdgg.adaptive.cargoholds` | 2025-12-12 | — |
 | 51 | [Cargo waste container](https://steamcommunity.com/sharedfiles/filedetails/?id=2888532939) | AobaKuma | `aoba.cargocontainer.waste` | 2025-12-03 | — |
 | 52 | [Character Editor](https://steamcommunity.com/sharedfiles/filedetails/?id=1874644848) | void | `void.charactereditor` | 2026-10-20 | yes |
@@ -718,25 +716,26 @@ Read from [the collection](https://steamcommunity.com/sharedfiles/filedetails/?i
 | 58 | [Combat Extended Guns](https://steamcommunity.com/sharedfiles/filedetails/?id=3565025938) | CE Team | `ceteam.combatextendedguns` | 2026-10-15 | — |
 | 59 | [Complementary Odyssey](https://steamcommunity.com/sharedfiles/filedetails/?id=3546612303) | MrHydralisk | `mrhydralisk.complementaryodyssey` | 2026-08-01 | — |
 | 60 | [Crew Presets](https://steamcommunity.com/sharedfiles/filedetails/?id=3756372833) | Luke | `luke.crewpresets` | 2026-10-27 | yes |
-| 308 | [Ctrl F - Continued](https://steamcommunity.com/sharedfiles/filedetails/?id=3529520961) | Uuugggg | `memegoddess.ctrlf` | 2026-10-16 | yes |
-| 241 | [Custom Base Framework](https://steamcommunity.com/sharedfiles/filedetails/?id=3813689040) | Evil Eye Guy | `evileyeguy.custombaseframework` | 2026-11-07 | yes |
-| 309 | D'thorga Factory Additions | Phobos A. D'thorga | `phobosdthorga.factoryadditions` | — | yes |
-| 242 | D'thorga Framework | Phobos A. D'thorga | `phobosdthorga.framework` | — | yes |
+| 307 | [Ctrl F - Continued](https://steamcommunity.com/sharedfiles/filedetails/?id=3529520961) | Uuugggg | `memegoddess.ctrlf` | 2026-10-16 | yes |
+| 240 | [Custom Base Framework](https://steamcommunity.com/sharedfiles/filedetails/?id=3813689040) | Evil Eye Guy | `evileyeguy.custombaseframework` | 2026-11-07 | yes |
+| 308 | D'thorga Factory Additions | Phobos A. D'thorga | `phobosdthorga.factoryadditions` | — | yes |
+| 241 | D'thorga Framework | Phobos A. D'thorga | `phobosdthorga.framework` | — | yes |
 | 332 | D'thorga Medical | Phobos A. D'thorga | `phobosdthorga.medical` | — | yes |
-| 310 | D'thorga Patches | Phobos A. D'thorga | `phobosdthorga.patches` | — | yes |
+| 309 | D'thorga Patches | Phobos A. D'thorga | `phobosdthorga.patches` | — | yes |
+| 310 | D'thorga Vehicles | Phobos A. D'thorga | `phobosdthorga.vehicles` | — | yes |
 | 311 | D'thorga Water Tap | Phobos A. D'thorga | `phobosdthorga.watertap` | — | yes |
 | 61 | [Dawn of a New Day](https://steamcommunity.com/sharedfiles/filedetails/?id=3771580900) | AlenDio | `alendio.dawnofanewday` | 2026-11-01 | yes |
 | 62 | [Death Rattle Continued \[1.2+\]](https://steamcommunity.com/sharedfiles/filedetails/?id=2896207870) | cat2002 - Troopersmith1 - Linq- deathrat | `troopersmith1.deathrattle` | 2025-07-20 | — |
 | 63 | [Deep And Deeper](https://steamcommunity.com/sharedfiles/filedetails/?id=3509420021) | Shashlichnik, p (aka Шашлычник and 1 more | `shashlichnik.deepanddeeper` | 2025-09-13 | — |
-| 243 | [Deep Pills](https://steamcommunity.com/sharedfiles/filedetails/?id=3758899296) | ODs | `ods.deeppills` | 2026-10-31 | yes |
+| 242 | [Deep Pills](https://steamcommunity.com/sharedfiles/filedetails/?id=3758899296) | ODs | `ods.deeppills` | 2026-10-31 | yes |
 | 64 | [Defensive Positions - Forked](https://steamcommunity.com/sharedfiles/filedetails/?id=3550360467) | GonDragon | `gondragon.defensivepositions` | 2025-10-12 | — |
 | 65 | [Dignified Departure](https://steamcommunity.com/sharedfiles/filedetails/?id=3790055136) | Marukun | `mrk.dignifieddeparture` | 2026-10-13 | yes |
 | 312 | [DMS: Mech Auto-Equip](https://steamcommunity.com/sharedfiles/filedetails/?id=3604474540) | trigger | `trigger.dms.mechweapons.autoequip` | 2026-03-23 | — |
 | 66 | [Dub's Paint Shop](https://steamcommunity.com/sharedfiles/filedetails/?id=1579516669) | Dubwise | `dubwise.dubspaintshop` | 2026-10-13 | yes |
 | 67 | [Dubs Bad Hygiene](https://steamcommunity.com/sharedfiles/filedetails/?id=836308268) | Dubwise | `dubwise.dubsbadhygiene` | 2026-10-26 | yes |
-| 244 | [Dubs Bad Hygiene - Spring Water Patch](https://steamcommunity.com/sharedfiles/filedetails/?id=3531641684) | azrazalea | `azrazalea.dbh.springwater.patch` | 2026-10-14 | yes |
+| 243 | [Dubs Bad Hygiene - Spring Water Patch](https://steamcommunity.com/sharedfiles/filedetails/?id=3531641684) | azrazalea | `azrazalea.dbh.springwater.patch` | 2026-10-14 | yes |
 | 68 | [Dubs Break Mod](https://steamcommunity.com/sharedfiles/filedetails/?id=1722398508) | Dubwise | `dubwise.dubsbreakmod` | 2026-10-13 | yes |
-| 245 | [Dubs Central Heating](https://steamcommunity.com/sharedfiles/filedetails/?id=2619214952) | Dubwise | `dubwise.dubscentralheating` | 2026-10-16 | yes |
+| 244 | [Dubs Central Heating](https://steamcommunity.com/sharedfiles/filedetails/?id=2619214952) | Dubwise | `dubwise.dubscentralheating` | 2026-10-16 | yes |
 | 69 | [Dubs Mint Menus](https://steamcommunity.com/sharedfiles/filedetails/?id=1446523594) | Dubwise | `dubwise.dubsmintmenus` | 2026-10-28 | yes |
 | 70 | [Dubs Mint Minimap](https://steamcommunity.com/sharedfiles/filedetails/?id=1662119905) | Dubwise | `dubwise.dubsmintminimap` | 2026-10-13 | yes |
 | 335 | [Dubs Performance Analyzer](https://steamcommunity.com/sharedfiles/filedetails/?id=2038874626) | Dubwise | `dubwise.dubsperformanceanalyzer.steam` | 2026-10-25 | yes |
@@ -745,7 +744,7 @@ Read from [the collection](https://steamcommunity.com/sharedfiles/filedetails/?i
 | 73 | [EdB Prepare Carefully](https://steamcommunity.com/sharedfiles/filedetails/?id=735106432) | EdB | `edb.preparecarefully` | 2025-08-03 | — |
 | 74 | [Electrofishing](https://steamcommunity.com/sharedfiles/filedetails/?id=3542849317) | acutus | `acutus.electrofishing` | 2025-08-08 | — |
 | 75 | [Enemy Mechanitors](https://steamcommunity.com/sharedfiles/filedetails/?id=3793204027) | asunib | `asunib.enemymechanitors` | 2026-10-25 | yes |
-| 76 | [Enhanced Ideology](https://steamcommunity.com/sharedfiles/filedetails/?id=3793123680) | dsweber2, ilyvion and 1 more | `dsweber2.enhancedideology` | 2026-11-07 | yes |
+| 76 | [Enhanced Ideology](https://steamcommunity.com/sharedfiles/filedetails/?id=3793123680) | dsweber2, ilyvion and 1 more | `dsweber2.enhancedideology` | 2026-11-08 | yes |
 | 77 | [Enhanced Vat Learning](https://steamcommunity.com/sharedfiles/filedetails/?id=3551263267) | Nina.Goblin | `ninagoblin.enhancedvatlearning` | 2026-10-15 | yes |
 | 313 | [Everybody Gets One - Continued](https://steamcommunity.com/sharedfiles/filedetails/?id=3530806680) | Uuugggg | `memegoddess.everybodygetsone` | 2026-10-22 | yes |
 | 21 | [Exosuit Framework](https://steamcommunity.com/sharedfiles/filedetails/?id=3352894993) | AobaKuma | `aoba.exosuit.framework` | 2026-10-17 | yes |
@@ -757,46 +756,46 @@ Read from [the collection](https://steamcommunity.com/sharedfiles/filedetails/?i
 | 83 | [Float Sub-Menus](https://steamcommunity.com/sharedfiles/filedetails/?id=2864015430) | kathanon | `kathanon.floatsubmenu` | 2025-07-20 | — |
 | 84 | [Floor-Mounted Aquarium](https://steamcommunity.com/sharedfiles/filedetails/?id=3538928291) | Jijiang | `floor.mounted.aquarium` | 2026-10-16 | yes |
 | 22 | [Fortified Features Framework](https://steamcommunity.com/sharedfiles/filedetails/?id=3498575851) | AOBA | `aoba.framework` | 2026-11-02 | yes |
-| 246 | [Frontline Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=3817025489) | Serina, Airo | `serinairo.frontlineworkshop` | 2026-10-22 | — |
+| 245 | [Frontline Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=3817025489) | Serina, Airo | `serinairo.frontlineworkshop` | 2026-10-22 | — |
 | 85 | [Gene Ripper](https://steamcommunity.com/sharedfiles/filedetails/?id=3524806362) | Defi | `defi.generipper` | 2025-08-12 | — |
-| 247 | [Gerrymon's Misc Props: Fences](https://steamcommunity.com/sharedfiles/filedetails/?id=3797400517) | Gerrymon | `gmmp.fences` | 2026-10-19 | yes |
-| 248 | [Gerrymon's Misc Props: Graveyard](https://steamcommunity.com/sharedfiles/filedetails/?id=3780458386) | Gerrymon | `gmmp.graveyard` | 2026-10-19 | yes |
+| 246 | [Gerrymon's Misc Props: Fences](https://steamcommunity.com/sharedfiles/filedetails/?id=3797400517) | Gerrymon | `gmmp.fences` | 2026-10-19 | yes |
+| 247 | [Gerrymon's Misc Props: Graveyard](https://steamcommunity.com/sharedfiles/filedetails/?id=3780458386) | Gerrymon | `gmmp.graveyard` | 2026-10-19 | yes |
 | 86 | [Giddy-Up 2 - Continued](https://steamcommunity.com/sharedfiles/filedetails/?id=3674332861) | Roolo, Owlchemist and 2 more | `memegoddess.giddyup` | 2026-11-02 | yes |
 | 87 | [Glass+Lights](https://steamcommunity.com/sharedfiles/filedetails/?id=826153738) | NanoCE | `nanoce.glasslights` | 2025-07-25 | — |
 | 88 | [Glitterworld Medicine Production](https://steamcommunity.com/sharedfiles/filedetails/?id=2885153505) | MrHydralisk | `mrhydralisk.glitterworldmedicineproduction` | 2026-10-21 | yes |
 | 89 | [Gore Perfected](https://steamcommunity.com/sharedfiles/filedetails/?id=3814447022) | tiepi | `tiepi.goreperfected` | 2026-11-05 | yes |
 | 90 | [Graphics Settings](https://steamcommunity.com/sharedfiles/filedetails/?id=1678847247) | Telefonmast | `telefonmast.graphicssettings` | 2026-10-27 | yes |
 | 91 | [Grav Reactor](https://steamcommunity.com/sharedfiles/filedetails/?id=3550335990) | Hope | `hope.gravreactor` | 2025-08-16 | — |
-| 249 | [Gravship Captain Set](https://steamcommunity.com/sharedfiles/filedetails/?id=3528780638) | Kilo | `kilo.capvachelm` | 2026-10-15 | yes |
-| 250 | [Gravship Water Systems](https://steamcommunity.com/sharedfiles/filedetails/?id=3587768178) | ocarina0001, tefnut and 1 more | `tefnut.gravship.water.systems` | 2026-10-15 | yes |
+| 248 | [Gravship Captain Set](https://steamcommunity.com/sharedfiles/filedetails/?id=3528780638) | Kilo | `kilo.capvachelm` | 2026-10-15 | yes |
+| 249 | [Gravship Water Systems](https://steamcommunity.com/sharedfiles/filedetails/?id=3587768178) | ocarina0001, tefnut and 1 more | `tefnut.gravship.water.systems` | 2026-10-15 | yes |
 | 92 | [Grazing Area](https://steamcommunity.com/sharedfiles/filedetails/?id=3769685249) | gguake | `gguake.grazingarea` | 2026-10-13 | yes |
 | 93 | [Growth Moments Make Sense Now](https://steamcommunity.com/sharedfiles/filedetails/?id=3264556972) | Jdalt | `jdalt.gmmsn` | 2026-01-02 | — |
 | 94 | [GTek's Vehicles - Navistar MaxxPro MRAP](https://steamcommunity.com/sharedfiles/filedetails/?id=3290888503) | GrahammerTek | `killerbot.navistarmaxxpro` | 2025-08-28 | — |
-| 251 | [GTek's Vehicles - Oshkosh L-ATV](https://steamcommunity.com/sharedfiles/filedetails/?id=3319106730) | GrahammerTek | `killerbot.jltv` | 2025-08-28 | — |
+| 250 | [GTek's Vehicles - Oshkosh L-ATV](https://steamcommunity.com/sharedfiles/filedetails/?id=3319106730) | GrahammerTek | `killerbot.jltv` | 2025-08-28 | — |
 | 1 | [Harmony](https://steamcommunity.com/sharedfiles/filedetails/?id=2009463077) | Andreas Pardeike | `brrainz.harmony` | 2026-10-15 | yes |
-| 252 | [Harrier VTOL Attack Aircraft](https://steamcommunity.com/sharedfiles/filedetails/?id=3826359341) | potemkinvillager | `potemkinvillager.av8bharrier` | 2026-11-01 | yes |
+| 251 | [Harrier VTOL Attack Aircraft](https://steamcommunity.com/sharedfiles/filedetails/?id=3826359341) | potemkinvillager | `potemkinvillager.av8bharrier` | 2026-11-01 | yes |
 | 95 | [Health Display](https://steamcommunity.com/sharedfiles/filedetails/?id=3522897532) | Sam | `gt.sam.healthdisplay` | 2026-10-30 | yes |
 | 96 | [Hemofungus](https://steamcommunity.com/sharedfiles/filedetails/?id=3259446830) | NoSleep | `nosleep.hemofungus` | 2025-06-19 | — |
 | 97 | [Hemogen Pack - Emergency transfusion](https://steamcommunity.com/sharedfiles/filedetails/?id=3778942862) | Aoba | `aoba.hemogendirect` | 2026-10-15 | yes |
-| 253 | [Hind Helicopter Gunship](https://steamcommunity.com/sharedfiles/filedetails/?id=3822052079) | potemkinvillager | `potemkinvillager.mi24hindhelicopter` | 2026-10-24 | yes |
-| 254 | [Hospitality (Continued)](https://steamcommunity.com/sharedfiles/filedetails/?id=3509486825) | Zaljerem | `orion.hospitality` | 2026-11-01 | yes |
+| 252 | [Hind Helicopter Gunship](https://steamcommunity.com/sharedfiles/filedetails/?id=3822052079) | potemkinvillager | `potemkinvillager.mi24hindhelicopter` | 2026-10-24 | yes |
+| 253 | [Hospitality (Continued)](https://steamcommunity.com/sharedfiles/filedetails/?id=3509486825) | Zaljerem | `orion.hospitality` | 2026-11-01 | yes |
 | 314 | [Hospitality + Ideology Patch](https://steamcommunity.com/sharedfiles/filedetails/?id=3789536584) | Fumblesneeze | `fumblesneeze.guestbedgizmo` | 2026-09-06 | — |
 | 315 | [Hospitality: Casino](https://steamcommunity.com/sharedfiles/filedetails/?id=2939292644) | Adamas | `adamas.hospitalitycasino` | 2026-10-14 | yes |
 | 316 | [Hospitality: Spa](https://steamcommunity.com/sharedfiles/filedetails/?id=2971831654) | Adamas | `adamas.hospitalityspa` | 2026-10-16 | yes |
 | 317 | [Hospitality: Vending machines](https://steamcommunity.com/sharedfiles/filedetails/?id=3014885065) | Adamas | `adamas.vendingmachines` | 2026-10-16 | yes |
 | 13 | [HugsLib](https://steamcommunity.com/sharedfiles/filedetails/?id=818773962) | UnlimitedHugs | `unlimitedhugs.hugslib` | 2025-07-13 | — |
-| 255 | [HUMVEE](https://steamcommunity.com/sharedfiles/filedetails/?id=3824413979) | LUNARTIKA | `hmv.lunartika` | 2026-10-24 | yes |
+| 254 | [HUMVEE](https://steamcommunity.com/sharedfiles/filedetails/?id=3824413979) | LUNARTIKA | `hmv.lunartika` | 2026-10-24 | yes |
 | 318 | HUMVEE - Combat Extended Patch | Phobos A. D'thorga | `phobosdthorga.humveece` | — | yes |
 | 98 | [Implants Ripper](https://steamcommunity.com/sharedfiles/filedetails/?id=3801329151) | MaoSaur | `maosaur.implantsripper` | 2026-10-16 | yes |
-| 256 | [Improved Map Search](https://steamcommunity.com/sharedfiles/filedetails/?id=3547866455) | kathanon | `kathanon.groupedmapsearch` | 2025-09-21 | — |
+| 255 | [Improved Map Search](https://steamcommunity.com/sharedfiles/filedetails/?id=3547866455) | kathanon | `kathanon.groupedmapsearch` | 2025-09-21 | — |
 | 99 | [Info Card Plus](https://steamcommunity.com/sharedfiles/filedetails/?id=3776660810) | Kaamalauppias | `kaamalauppias.infocardplus` | 2026-08-22 | — |
 | 100 | [Interaction Bubbles](https://steamcommunity.com/sharedfiles/filedetails/?id=1516158345) | Jaxe | `jaxe.bubbles` | 2025-08-25 | — |
 | 101 | [InterRim Ballistic Missile](https://steamcommunity.com/sharedfiles/filedetails/?id=3682304832) | Psionic Zephyr | `kazepsi.irbm` | 2026-06-30 | — |
 | 102 | [Ion Weaponry (Continued)](https://steamcommunity.com/sharedfiles/filedetails/?id=3532877485) | Zaljerem | `zal.ionweaponry` | 2025-07-24 | — |
-| 257 | [IRBM Vanilla Retexture](https://steamcommunity.com/sharedfiles/filedetails/?id=3769399772) | Fort\_Maximus | `fort.irbmvanillaretex` | 2026-07-22 | — |
+| 256 | [IRBM Vanilla Retexture](https://steamcommunity.com/sharedfiles/filedetails/?id=3769399772) | Fort\_Maximus | `fort.irbmvanillaretex` | 2026-07-22 | — |
 | 103 | [Keep Converting](https://steamcommunity.com/sharedfiles/filedetails/?id=3461478214) | Linnun | `linnun.keepconverting` | 2026-10-27 | yes |
 | 104 | [Launch Sites Expire](https://steamcommunity.com/sharedfiles/filedetails/?id=3525571078) | cass | `cass.launchsitesexpire` | 2025-07-18 | — |
-| 258 | [Life Support Pack](https://steamcommunity.com/sharedfiles/filedetails/?id=3530278586) | Kilo | `kilo.lifesuppack` | 2026-10-15 | yes |
+| 257 | [Life Support Pack](https://steamcommunity.com/sharedfiles/filedetails/?id=3530278586) | Kilo | `kilo.lifesuppack` | 2026-10-15 | yes |
 | 105 | [LightsOut](https://steamcommunity.com/sharedfiles/filedetails/?id=2584269293) | juanlopez2008 | `juanlopez2008.lightsout` | 2026-10-17 | yes |
 | 2 | [Loading Progress](https://steamcommunity.com/sharedfiles/filedetails/?id=3535481557) | ilyvion | `ilyvion.loadingprogress` | 2026-11-05 | yes |
 | 106 | [Local Mineral Scanner](https://steamcommunity.com/sharedfiles/filedetails/?id=3798782281) | Sam Hunt | `samhunt.localmineralscanner` | 2026-10-20 | yes |
@@ -814,15 +813,15 @@ Read from [the collection](https://steamcommunity.com/sharedfiles/filedetails/?i
 | 117 | [Milky Way](https://steamcommunity.com/sharedfiles/filedetails/?id=3773448562) | Andromeda | `andromeda.milkyway` | 2026-10-22 | yes |
 | 118 | [Mine Sight](https://steamcommunity.com/sharedfiles/filedetails/?id=3769804600) | rabiosus | `rabiosus.minesight` | 2026-10-29 | yes |
 | 119 | [ModularWeapons 2](https://steamcommunity.com/sharedfiles/filedetails/?id=3497834944) | kaitorisenkou | `kaitorisenkou.modularweapons2` | 2026-10-14 | yes |
-| 259 | [Mongoose Attack Helicopter](https://steamcommunity.com/sharedfiles/filedetails/?id=3819896964) | potemkinvillager | `potemkinvillager.mongooseattackhelicopter` | 2026-10-25 | yes |
-| 260 | [More Injuries (Continued)](https://steamcommunity.com/sharedfiles/filedetails/?id=3348840185) | Th3\_Fr3d, Keshash and 3 more | `th3fr3d.extendedinjuries` | 2025-08-22 | — |
+| 258 | [Mongoose Attack Helicopter](https://steamcommunity.com/sharedfiles/filedetails/?id=3819896964) | potemkinvillager | `potemkinvillager.mongooseattackhelicopter` | 2026-10-25 | yes |
+| 259 | [More Injuries (Continued)](https://steamcommunity.com/sharedfiles/filedetails/?id=3348840185) | Th3\_Fr3d, Keshash and 3 more | `th3fr3d.extendedinjuries` | 2025-08-22 | — |
 | 320 | [More Injuries: Organ Failure](https://steamcommunity.com/sharedfiles/filedetails/?id=3733035523) | Wenders | `wenders.moreinjuries.organbridge` | 2026-10-03 | — |
 | 120 | [More Quests in Space](https://steamcommunity.com/sharedfiles/filedetails/?id=3551388162) | Holgast | `hol.spacequests` | 2025-08-18 | — |
-| 261 | [Munitions Industries for VFE - Factory](https://steamcommunity.com/sharedfiles/filedetails/?id=3695330973) | turkler | `turkler.leammomod` | 2026-05-24 | — |
+| 260 | [Munitions Industries for VFE - Factory](https://steamcommunity.com/sharedfiles/filedetails/?id=3695330973) | turkler | `turkler.leammomod` | 2026-05-24 | — |
 | 121 | [MutatorWorldIcons](https://steamcommunity.com/sharedfiles/filedetails/?id=3551904193) | Snobi | `snobi.mutatorworldicons` | 2026-01-12 | — |
 | 122 | [NANAME Floors](https://steamcommunity.com/sharedfiles/filedetails/?id=3293767181) | OELS | `oels.nanamefloors` | 2026-10-15 | yes |
-| 262 | [Nice Bill Tab](https://steamcommunity.com/sharedfiles/filedetails/?id=3520130671) | Andromeda | `andromeda.nicebilltab` | 2026-10-22 | yes |
-| 263 | [Nice Research Tab](https://steamcommunity.com/sharedfiles/filedetails/?id=3773496046) | Andromeda | `andromeda.niceresearchtab` | 2026-10-22 | yes |
+| 261 | [Nice Bill Tab](https://steamcommunity.com/sharedfiles/filedetails/?id=3520130671) | Andromeda | `andromeda.nicebilltab` | 2026-10-22 | yes |
+| 262 | [Nice Research Tab](https://steamcommunity.com/sharedfiles/filedetails/?id=3773496046) | Andromeda | `andromeda.niceresearchtab` | 2026-10-22 | yes |
 | 123 | [Nice-o-sphere](https://steamcommunity.com/sharedfiles/filedetails/?id=3547322717) | Nepenthe | `nep.niceosphere` | 2025-08-18 | — |
 | 124 | [Nightmare Core](https://steamcommunity.com/sharedfiles/filedetails/?id=3047049650) | NightmareCorporation | `nightmare.core` | 2026-10-19 | yes |
 | 125 | [No More Lethal Damage Threshold](https://steamcommunity.com/sharedfiles/filedetails/?id=2657551690) | Jdalt40 | `jdalt.nmldt` | 2025-08-18 | — |
@@ -837,7 +836,7 @@ Read from [the collection](https://steamcommunity.com/sharedfiles/filedetails/?i
 | 134 | [Performance - Slower Pawn Tick Rate](https://steamcommunity.com/sharedfiles/filedetails/?id=3524116050) | Arkymn | `arkymn.slowerpawntickrate` | 2026-10-12 | yes |
 | 135 | [Permits: Re-Examined](https://steamcommunity.com/sharedfiles/filedetails/?id=3521089734) | Smxrez | `smxrez.permitsreexamined` | 2026-02-19 | — |
 | 136 | [Pick Up And Haul](https://steamcommunity.com/sharedfiles/filedetails/?id=1279012058) | Mehni | `mehni.pickupandhaul` | 2025-08-28 | — |
-| 264 | [Pick Up And Haul - Shared Storage Access](https://steamcommunity.com/sharedfiles/filedetails/?id=3774922633) | 79193 | `sugarcube.puahsharedstorage` | 2026-11-05 | — |
+| 263 | [Pick Up And Haul - Shared Storage Access](https://steamcommunity.com/sharedfiles/filedetails/?id=3774922633) | 79193 | `sugarcube.puahsharedstorage` | 2026-11-05 | — |
 | 137 | [Planetsmith](https://steamcommunity.com/sharedfiles/filedetails/?id=3773634615) | aspctt | `aspctt.planetsmith` | 2026-10-17 | yes |
 | 138 | [Please use the pews ! (Ritual Seats Range Fix)](https://steamcommunity.com/sharedfiles/filedetails/?id=3792610727) | Reqo | `reqo.pleaseusethepews` | 2026-09-06 | — |
 | 139 | [Power armor has vacsuit vacuum resistance](https://steamcommunity.com/sharedfiles/filedetails/?id=3534065822) | bazoka81 | `ucp.vacpowerarmor` | 2026-10-12 | yes |
@@ -855,9 +854,9 @@ Read from [the collection](https://steamcommunity.com/sharedfiles/filedetails/?i
 | 322 | [Replace Stuff - Continued](https://steamcommunity.com/sharedfiles/filedetails/?id=3526354009) | Uuugggg | `memegoddess.replacestuff` | 2026-11-02 | yes |
 | 149 | [Research Commission](https://steamcommunity.com/sharedfiles/filedetails/?id=3822832387) | Marukun | `mrk.researchcommission` | 2026-10-29 | yes |
 | 150 | [Research Papers](https://steamcommunity.com/sharedfiles/filedetails/?id=3492739424) | ChaoticEnrico | `chaoticenrico.researchpapers` | 2026-10-17 | yes |
-| 265 | [Research Papers Tech Levels (Retexture)](https://steamcommunity.com/sharedfiles/filedetails/?id=3759752068) | Morton | `morton.retextureresearchpaperstechlevels` | 2026-08-12 | — |
+| 264 | [Research Papers Tech Levels (Retexture)](https://steamcommunity.com/sharedfiles/filedetails/?id=3759752068) | Morton | `morton.retextureresearchpaperstechlevels` | 2026-08-12 | — |
 | 151 | [Rim Embark: Start site filtering](https://steamcommunity.com/sharedfiles/filedetails/?id=3829585169) | Kechna | `kechna.rimembark` | 2026-11-06 | yes |
-| 266 | [Rimatomics++](https://steamcommunity.com/sharedfiles/filedetails/?id=3774907235) | NachoToast | `nachotoast.rimatomicsplusplus` | 2026-10-19 | yes |
+| 265 | [Rimatomics++](https://steamcommunity.com/sharedfiles/filedetails/?id=3774907235) | NachoToast | `nachotoast.rimatomicsplusplus` | 2026-10-19 | yes |
 | 152 | [Rimdex](https://steamcommunity.com/sharedfiles/filedetails/?id=3794687829) | Evil Eye Guy | `evileyeguy.rimdex` | 2026-10-29 | yes |
 | 153 | [Rimefeller](https://steamcommunity.com/sharedfiles/filedetails/?id=1321849735) | Dubwise | `dubwise.rimefeller` | 2026-10-22 | yes |
 | 154 | [RimHUD](https://steamcommunity.com/sharedfiles/filedetails/?id=1508850027) | Jaxe | `jaxe.rimhud` | 2025-08-15 | — |
@@ -865,64 +864,64 @@ Read from [the collection](https://steamcommunity.com/sharedfiles/filedetails/?i
 | 334 | [RimMarket — Hospitality Compatibility Patch](https://steamcommunity.com/sharedfiles/filedetails/?id=3820401180) | Inoz\_Labs | `inozlabs.rimmarket.hospitality.compatibility` | 2026-10-15 | — |
 | 155 | [RimPacts - Diplomacy Overhaul](https://steamcommunity.com/sharedfiles/filedetails/?id=3762723122) | wowgag | `wowgag.rimpacts` | 2026-11-07 | yes |
 | 156 | [RimThunder - Core](https://steamcommunity.com/sharedfiles/filedetails/?id=3070495204) | RimThunderTeams | `rimthunder.core` | 2026-07-04 | — |
-| 267 | [RimThunder - Desert Sabre - Continued](https://steamcommunity.com/sharedfiles/filedetails/?id=3724793908) | RimThunderTeams x Blackbirdanon | `rimthunderteams.rimthunder.desertsabre` | 2026-05-12 | — |
-| 268 | [RimThunder - Roaring Tiger](https://steamcommunity.com/sharedfiles/filedetails/?id=3022258867) | Aoba | `aoba.rimthunder.roca` | 2025-07-13 | — |
+| 266 | [RimThunder - Desert Sabre - Continued](https://steamcommunity.com/sharedfiles/filedetails/?id=3724793908) | RimThunderTeams x Blackbirdanon | `rimthunderteams.rimthunder.desertsabre` | 2026-05-12 | — |
+| 267 | [RimThunder - Roaring Tiger](https://steamcommunity.com/sharedfiles/filedetails/?id=3022258867) | Aoba | `aoba.rimthunder.roca` | 2025-07-13 | — |
 | 157 | [RimWorld: Living Waters](https://steamcommunity.com/sharedfiles/filedetails/?id=3834245888) | Patrick Schwarzer | `patrickschwarzer.rivers` | 2026-11-07 | yes |
 | 158 | [RimWorld: Waves](https://steamcommunity.com/sharedfiles/filedetails/?id=3831078430) | Patrick Schwarzer | `patrickschwarzer.waves` | 2026-11-06 | yes |
 | 324 | Roaring Tiger - M1A2 and M1075 Only | Phobos A. D'thorga | `phobosdthorga.roaringtigertrim` | — | yes |
 | 159 | [RunAndGun - Continued](https://steamcommunity.com/sharedfiles/filedetails/?id=3562365100) | MemeGoddess | `memegoddess.runandgun` | 2026-10-22 | yes |
-| 269 | [Scrubdaddy's Bodies](https://steamcommunity.com/sharedfiles/filedetails/?id=3537481455) | ScrubDaddy | `scrubdaddy.bodies` | 2025-08-05 | — |
+| 268 | [Scrubdaddy's Bodies](https://steamcommunity.com/sharedfiles/filedetails/?id=3537481455) | ScrubDaddy | `scrubdaddy.bodies` | 2025-08-05 | — |
 | 160 | [ScrubDaddy's Hairstyles](https://steamcommunity.com/sharedfiles/filedetails/?id=3536769145) | ScrubDaddy | `scrubdaddy.hairstyles` | 2025-07-28 | — |
-| 270 | [Search and Destroy (Continued)](https://steamcommunity.com/sharedfiles/filedetails/?id=3232242247) | MemeGoddess | `memegoddess.searchanddestroy` | 2026-11-02 | yes |
+| 269 | [Search and Destroy (Continued)](https://steamcommunity.com/sharedfiles/filedetails/?id=3232242247) | MemeGoddess | `memegoddess.searchanddestroy` | 2026-11-02 | yes |
 | 325 | [Search and Rescue](https://steamcommunity.com/sharedfiles/filedetails/?id=3796056278) | CH4AcKO3 | `ch4acko3.searchandrescue` | 2026-11-06 | yes |
-| 271 | [Simple Cape and Hood Retexture](https://steamcommunity.com/sharedfiles/filedetails/?id=3543386604) | Stokes52 | `stokes.simplehoodcape` | 2025-08-09 | — |
+| 270 | [Simple Cape and Hood Retexture](https://steamcommunity.com/sharedfiles/filedetails/?id=3543386604) | Stokes52 | `stokes.simplehoodcape` | 2025-08-09 | — |
 | 161 | [Simple sidearms](https://steamcommunity.com/sharedfiles/filedetails/?id=927155256) | PeteTimesSix | `petetimessix.simplesidearms` | 2025-08-13 | — |
 | 162 | [Smart Farming](https://steamcommunity.com/sharedfiles/filedetails/?id=3220129183) | Owlchemist | `owlchemist.smartfarming` | 2025-07-28 | — |
 | 163 | [Smart Medicine - Continued](https://steamcommunity.com/sharedfiles/filedetails/?id=3526251680) | Uuugggg | `memegoddess.smartmedicine` | 2026-11-02 | yes |
 | 164 | [Smart Odyssey](https://steamcommunity.com/sharedfiles/filedetails/?id=3522762411) | Sarg Bjornson | `sarg.smartodyssey` | 2026-10-14 | yes |
 | 165 | [Smarter Construction](https://steamcommunity.com/sharedfiles/filedetails/?id=2202185773) | dhultgren | `dhultgren.smarterconstruction` | 2026-10-13 | yes |
-| 272 | [Smooth Terrain](https://steamcommunity.com/sharedfiles/filedetails/?id=3502765685) | ChaoticEnrico | `chaoticenrico.smoothterrain` | 2026-10-17 | yes |
+| 271 | [Smooth Terrain](https://steamcommunity.com/sharedfiles/filedetails/?id=3502765685) | ChaoticEnrico | `chaoticenrico.smoothterrain` | 2026-10-17 | yes |
 | 166 | [Spaceship Solar Hull](https://steamcommunity.com/sharedfiles/filedetails/?id=3536171886) | MK | `mk.spaceshipsolarhull` | 2025-07-27 | — |
 | 167 | [Spaceship Turret Hull](https://steamcommunity.com/sharedfiles/filedetails/?id=3536128547) | MK | `mk.spaceshipturrethull` | 2025-07-27 | — |
 | 168 | [Tameable Entities](https://steamcommunity.com/sharedfiles/filedetails/?id=3781878408) | Pyromann | `pyromann.conditionedentities` | 2026-10-22 | — |
-| 273 | [Taste of Vanilla - Bean Turrets](https://steamcommunity.com/sharedfiles/filedetails/?id=3545135569) | IcyCheeseCake | `icc.tov.bt` | 2026-11-02 | yes |
+| 272 | [Taste of Vanilla - Bean Turrets](https://steamcommunity.com/sharedfiles/filedetails/?id=3545135569) | IcyCheeseCake | `icc.tov.bt` | 2026-11-02 | yes |
 | 169 | [Tavern](https://steamcommunity.com/sharedfiles/filedetails/?id=3775694305) | ODs | `ods.tavern` | 2026-11-04 | yes |
 | 170 | [TD Enhancement Pack - Continued](https://steamcommunity.com/sharedfiles/filedetails/?id=3525414162) | Uuugggg | `memegoddess.tdpack` | 2026-10-22 | yes |
-| 274 | [TD Find Lib - Continued](https://steamcommunity.com/sharedfiles/filedetails/?id=3529443295) | Uuugggg | `memegoddess.tdfindlib` | 2026-11-02 | yes |
+| 273 | [TD Find Lib - Continued](https://steamcommunity.com/sharedfiles/filedetails/?id=3529443295) | Uuugggg | `memegoddess.tdfindlib` | 2026-11-02 | yes |
 | 171 | [TDS Bug Fixes - Continued](https://steamcommunity.com/sharedfiles/filedetails/?id=3529433984) | Uuugggg | `memegoddess.tdsbugfixes` | 2026-10-31 | yes |
 | 172 | [Tech Level Progression](https://steamcommunity.com/sharedfiles/filedetails/?id=2923367852) | MrHydralisk | `mrhydralisk.techlevelprogression` | 2026-03-25 | — |
 | 173 | [Techwear](https://steamcommunity.com/sharedfiles/filedetails/?id=3806038418) | Hyaukyuu | `hyaukyuu.techapparel` | 2026-10-03 | — |
 | 174 | [The Cosmic Odyssey - Accessory Expanded](https://steamcommunity.com/sharedfiles/filedetails/?id=3758010444) | Akarthus | `akarthus.thecosmicodyssey.accessoryexpanded` | 2026-10-17 | yes |
 | 175 | [The Dead Man's Switch](https://steamcommunity.com/sharedfiles/filedetails/?id=3819799478) | AobaKuma, Bread Mo and 3 more | `aoba.deadmanswitch.core` | 2026-11-03 | yes |
-| 275 | [The Dead Man's Switch - Expedition](https://steamcommunity.com/sharedfiles/filedetails/?id=3689879335) | AobaKuma, Bread Mo and 2 more | `aoba.deadmanswitch.expedition` | 2026-11-07 | yes |
-| 276 | [The Dead Man's Switch - MobileDragoon](https://steamcommunity.com/sharedfiles/filedetails/?id=3377130226) | AobaKuma | `aoba.deadmanswitch.mobiledragoon` | 2026-10-15 | yes |
-| 277 | [The Dead Man's Switch - More weapon sounds](https://steamcommunity.com/sharedfiles/filedetails/?id=3600522698) | Senilia | `senilia.deadmanswitch.moreweaponsounds` | 2026-11-07 | yes |
-| 278 | [Tilled Soil](https://steamcommunity.com/sharedfiles/filedetails/?id=725747149) | Sam | `gt.sam.tilledsoil` | 2026-10-30 | yes |
-| 279 | [Trains of the Rim](https://steamcommunity.com/sharedfiles/filedetails/?id=3530446424) | PrinceOfPluto | `princeofpluto.vehicles.trains` | 2025-08-26 | — |
+| 274 | [The Dead Man's Switch - Expedition](https://steamcommunity.com/sharedfiles/filedetails/?id=3689879335) | AobaKuma, Bread Mo and 2 more | `aoba.deadmanswitch.expedition` | 2026-11-07 | yes |
+| 275 | [The Dead Man's Switch - MobileDragoon](https://steamcommunity.com/sharedfiles/filedetails/?id=3377130226) | AobaKuma | `aoba.deadmanswitch.mobiledragoon` | 2026-10-15 | yes |
+| 276 | [The Dead Man's Switch - More weapon sounds](https://steamcommunity.com/sharedfiles/filedetails/?id=3600522698) | Senilia | `senilia.deadmanswitch.moreweaponsounds` | 2026-11-08 | yes |
+| 277 | [Tilled Soil](https://steamcommunity.com/sharedfiles/filedetails/?id=725747149) | Sam | `gt.sam.tilledsoil` | 2026-10-30 | yes |
+| 278 | [Trains of the Rim](https://steamcommunity.com/sharedfiles/filedetails/?id=3530446424) | PrinceOfPluto | `princeofpluto.vehicles.trains` | 2025-08-26 | — |
 | 176 | [True Non-Senescence](https://steamcommunity.com/sharedfiles/filedetails/?id=3547377353) | Lunar Dawn | `lunardawn.truenonsenescence` | 2026-10-28 | yes |
-| 280 | [TSIND Garage Doors QA](https://steamcommunity.com/sharedfiles/filedetails/?id=3547665095) | TSIND | `tsind.garagedoors.qa` | 2026-10-13 | yes |
+| 279 | [TSIND Garage Doors QA](https://steamcommunity.com/sharedfiles/filedetails/?id=3547665095) | TSIND | `tsind.garagedoors.qa` | 2026-10-13 | yes |
 | 177 | [Tucked Furniture](https://steamcommunity.com/sharedfiles/filedetails/?id=3808739466) | Keno | `keno.tuckedfurniture` | 2026-11-04 | yes |
 | 178 | [Tunnelers ARE deep drills](https://steamcommunity.com/sharedfiles/filedetails/?id=3521193199) | MrKociak | `mrkociak.biotechtunnelersaredeepdrills` | 2025-09-11 | — |
 | 179 | [Turn It On and Off - RePowered](https://steamcommunity.com/sharedfiles/filedetails/?id=2228219259) | Mlie | `mlie.turnonoffrepowered` | 2026-09-07 | — |
 | 180 | [Ultratec Passenger Shuttle](https://steamcommunity.com/sharedfiles/filedetails/?id=3551564384) | Barbed wire | `barbedwire.ultratecpassengershuttle` | 2025-09-02 | — |
 | 181 | [UniversalGeneCompiler](https://steamcommunity.com/sharedfiles/filedetails/?id=3787321674) | 松鼠 | `chezhou.universalgenecompiler` | 2026-10-26 | yes |
 | 182 | [Use Bedrolls - Continued](https://steamcommunity.com/sharedfiles/filedetails/?id=3534169351) | Uuugggg | `memegoddess.usebedrolls` | 2026-10-31 | yes |
-| 281 | [Useful Marks](https://steamcommunity.com/sharedfiles/filedetails/?id=3506573327) | Andromeda | `andromeda.usefulmarks` | 2026-10-22 | yes |
-| 282 | [Ushankas Biological Warfare](https://steamcommunity.com/sharedfiles/filedetails/?id=3221550806) | Ushanka | `ushanka.biologicalwarfare` | 2025-12-30 | — |
+| 280 | [Useful Marks](https://steamcommunity.com/sharedfiles/filedetails/?id=3506573327) | Andromeda | `andromeda.usefulmarks` | 2026-10-22 | yes |
+| 281 | [Ushankas Biological Warfare](https://steamcommunity.com/sharedfiles/filedetails/?id=3221550806) | Ushanka | `ushanka.biologicalwarfare` | 2025-12-30 | — |
 | 183 | [Ushankas Glittertech Expansion](https://steamcommunity.com/sharedfiles/filedetails/?id=3522676478) | Ushanka | `ushanka.glittertechexpansion` | 2026-04-04 | — |
 | 184 | [Ushankas Luciferium Expansion](https://steamcommunity.com/sharedfiles/filedetails/?id=3227008885) | Ushanka | `ushanka.luciferiumexpansion` | 2025-07-21 | — |
 | 185 | [Ushankas Necroa Archovirus](https://steamcommunity.com/sharedfiles/filedetails/?id=3531035748) | Ushanka | `ushanka.necroaarchovirus` | 2025-07-21 | — |
 | 186 | [VacSlipsuit](https://steamcommunity.com/sharedfiles/filedetails/?id=3536829054) | Kilo | `kilo.vacslipsuit` | 2026-10-15 | yes |
 | 190 | [Vanilla Expanded: Hero Backgrounds](https://steamcommunity.com/sharedfiles/filedetails/?id=3313700572) | ferny | `ferny.vanillaexpandedherobackgrounds` | 2026-10-12 | yes |
 | 203 | [Vanilla Genes Rebalanced](https://steamcommunity.com/sharedfiles/filedetails/?id=2905707100) | RedMattis | `redmattis.vanillagenesrebalanced` | 2025-06-21 | — |
-| 286 | [Vanilla Gravship Expanded - Mechanoid Crew](https://steamcommunity.com/sharedfiles/filedetails/?id=3832271230) | Leo | `leo.vgemechanoidcrew` | 2026-11-02 | yes |
+| 285 | [Vanilla Gravship Expanded - Mechanoid Crew](https://steamcommunity.com/sharedfiles/filedetails/?id=3832271230) | Leo | `leo.vgemechanoidcrew` | 2026-11-02 | yes |
 | 205 | [Vanilla Hair Retextured](https://steamcommunity.com/sharedfiles/filedetails/?id=2748834409) | Neronix17 | `neronix17.retexture.vanillahair` | 2026-10-29 | yes |
-| 288 | [Vanilla Nutrient Paste Expanded: Reimagined Progression](https://steamcommunity.com/sharedfiles/filedetails/?id=3530651481) | MrHydralisk | `mrhydralisk.vnpereimaginedprogression` | 2026-06-28 | — |
-| 289 | [Vanilla Outposts Expanded: Additional Outposts](https://steamcommunity.com/sharedfiles/filedetails/?id=2873841790) | MrHydralisk | `mrhydralisk.voeadditionaloutposts` | 2025-08-19 | — |
+| 287 | [Vanilla Nutrient Paste Expanded: Reimagined Progression](https://steamcommunity.com/sharedfiles/filedetails/?id=3530651481) | MrHydralisk | `mrhydralisk.vnpereimaginedprogression` | 2026-06-28 | — |
+| 288 | [Vanilla Outposts Expanded: Additional Outposts](https://steamcommunity.com/sharedfiles/filedetails/?id=2873841790) | MrHydralisk | `mrhydralisk.voeadditionaloutposts` | 2025-08-19 | — |
 | 326 | [Vanilla Outposts Expanded: Power Grid](https://steamcommunity.com/sharedfiles/filedetails/?id=2915686437) | MrHydralisk | `mrhydralisk.voepowergrid` | 2025-07-18 | — |
-| 290 | [Vanilla Outposts Expanded: Prisoner Patch](https://steamcommunity.com/sharedfiles/filedetails/?id=3002936071) | MrHydralisk | `mrhydralisk.voeprisonerpatch` | 2025-07-18 | — |
+| 289 | [Vanilla Outposts Expanded: Prisoner Patch](https://steamcommunity.com/sharedfiles/filedetails/?id=3002936071) | MrHydralisk | `mrhydralisk.voeprisonerpatch` | 2025-07-18 | — |
 | 18 | [Vehicle Framework](https://steamcommunity.com/sharedfiles/filedetails/?id=3014915404) | Smash Phil | `smashphil.vehicleframework` | 2025-10-21 | — |
-| 298 | [VFE Factories: Buffs and tweaks](https://steamcommunity.com/sharedfiles/filedetails/?id=3708068232) | Kimoju | `kimo.vfef.rebalance` | 2026-06-03 | — |
+| 297 | [VFE Factories: Buffs and tweaks](https://steamcommunity.com/sharedfiles/filedetails/?id=3708068232) | Kimoju | `kimo.vfef.rebalance` | 2026-06-03 | — |
 | 225 | [Visible Wealth](https://steamcommunity.com/sharedfiles/filedetails/?id=3461137081) | 1trickPwnyta | `visiblewealth.1trickpwnyta` | 2025-09-06 | — |
 | 226 | [Visit Settlements](https://steamcommunity.com/sharedfiles/filedetails/?id=3535955435) | Nina.Goblin | `ninagoblin.visitsettlements` | 2026-10-22 | yes |
 | 327 | [VNPE RP Retexture](https://steamcommunity.com/sharedfiles/filedetails/?id=3534603208) | MO, TAWM | `vnpe.rp.retextur.mo` | 2025-07-29 | — |
@@ -933,7 +932,7 @@ Read from [the collection](https://steamcommunity.com/sharedfiles/filedetails/?i
 | 228 | [Warehouse Storage](https://steamcommunity.com/sharedfiles/filedetails/?id=3519963835) | vin | `vin.warehouse.storage` | 2025-07-12 | — |
 | 229 | [What's Missing? - Forked](https://steamcommunity.com/sharedfiles/filedetails/?id=3781470232) | Revolus | `nachotoast.revolus.whatsmissing` | 2026-10-15 | yes |
 | 230 | [Who shot my leg off?](https://steamcommunity.com/sharedfiles/filedetails/?id=3491552121) | Tixiv | `tixiv.whoshotmylegoff` | 2025-06-13 | — |
-| 299 | [Worldbuilder](https://steamcommunity.com/sharedfiles/filedetails/?id=3522102833) | ferny | `ferny.worldbuilder` | 2026-10-24 | yes |
+| 298 | [Worldbuilder](https://steamcommunity.com/sharedfiles/filedetails/?id=3522102833) | ferny | `ferny.worldbuilder` | 2026-10-24 | yes |
 | 12 | [XML Extensions](https://steamcommunity.com/sharedfiles/filedetails/?id=2574315206) | Imranfish | `imranfish.xmlextensions` | 2026-11-06 | yes |
 <!-- END GENERATED: active -->
 
@@ -942,12 +941,11 @@ Read from [the collection](https://steamcommunity.com/sharedfiles/filedetails/?i
 <!-- BEGIN GENERATED: inactive -->
 | Mod | Author | Package ID | Updated | 1.7 |
 | --- | --- | --- | --- | --- |
-| [\[KCB\] Mini Expeditions](https://steamcommunity.com/sharedfiles/filedetails/?id=3823866055) | Kimchibok | `kimchibok.expedition` | 2026-11-04 | yes |
-| [Atmosphere Overhaul](https://steamcommunity.com/sharedfiles/filedetails/?id=3830470974) | Acutus | `acutus.atmosphereoverhaul.release` | 2026-11-06 | yes |
+| [\[KCB\] Mini Expeditions](https://steamcommunity.com/sharedfiles/filedetails/?id=3823866055) | Kimchibok | `kimchibok.expedition` | 2026-11-08 | yes |
+| [Atmosphere Overhaul](https://steamcommunity.com/sharedfiles/filedetails/?id=3830470974) | Acutus | `acutus.atmosphereoverhaul.release` | 2026-11-08 | yes |
 | [CeleTech Arsenal - Shuttle Extension](https://steamcommunity.com/sharedfiles/filedetails/?id=3760923537) | LongRange, 灵能罐头 | `longrange.celetech.shuttleextension` | 2026-09-07 | **no** |
 | [Customize Weapon](https://steamcommunity.com/sharedfiles/filedetails/?id=3550585103) | Vortex | `vortex.customizeweapon` | 2026-11-07 | yes |
 | D'thorga Radio Framework | Phobos A. D'thorga | `phobosdthorga.radioframework` | — | yes |
-| D'thorga Vehicles | Phobos A. D'thorga | `phobosdthorga.vehicles` | — | yes |
 | [Empire Refactored](https://steamcommunity.com/sharedfiles/filedetails/?id=3701480464) | Matathias | `matathias.empire` | 2026-09-11 | **no** |
 | [Hearts of RimWorld - Grand Strategy Overhaul](https://steamcommunity.com/sharedfiles/filedetails/?id=3833698946) | 生吃螃蟹要吐壳 | `shengchipangxieyaotuke.heartsofrimworld` | 2026-11-07 | yes |
 | [Humvee (Continued)](https://steamcommunity.com/sharedfiles/filedetails/?id=3764661857) | ARCA-RUS | `mlie.humvee` | 2026-07-14 | **no** |
