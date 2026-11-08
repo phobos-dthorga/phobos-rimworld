@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- The vehicle garage: a staffed outpost that holds vehicles with no time limit and mends them (docs/development/vehicle-garage-design.md).
+       The class and the rules are D'thorga Framework's; every figure here is authored balance, for the owner to tune. The world-map icon
+       is a stand-in: the game's caravan picture, until generated art is picked. -->
+  <WorldObjectDef ParentName="OutpostBase">
+    <defName>PhobosOutpostGarage</defName>
+    <label>garage</label>
+    <description>A staffed garage. Vehicles left here stay with no time limit until someone comes for them, and the people stationed here slowly mend them from the steel and components kept in its stores. Bring steel and components by caravan.</description>
+    <worldObjectClass>Phobos.VehicleSystems.Garage.Outpost_PhobosGarage</worldObjectClass>
+    <expandingIconTexture>World/WorldObjects/Expanding/Caravan</expandingIconTexture>
+    <inspectorTabs>
+      <li>Phobos.VehicleSystems.WITab_PhobosVehicleHealth</li>
+      <li>Phobos.VehicleSystems.WITab_PhobosVehicleDashboard</li>
+      <li>Phobos.VehicleSystems.WITab_PhobosVehicleSystems</li>
+    </inspectorTabs>
+    <modExtensions>
+      <li Class="Phobos.VehicleSystems.Garage.PhobosGarageExtension">
+        <MinPawns>1</MinPawns>
+        <RequiredSkills>
+          <Construction>6</Construction>
+        </RequiredSkills>
+        <CostToMake>
+          <Steel>200</Steel>
+          <ComponentIndustrial>10</ComponentIndustrial>
+        </CostToMake>
+        <!-- Three days between repair cycles. -->
+        <TicksPerProduction>180000</TicksPerProduction>
+        <baysPerPerson>3</baysPerPerson>
+        <maxBays>12</maxBays>
+        <repairPointsPerSkillLevel>40</repairPointsPerSkillLevel>
+        <repairPointsPerSteel>10</repairPointsPerSteel>
+        <repairPointsPerComponent>400</repairPointsPerComponent>
+        <releasedVehicleDays>30</releasedVehicleDays>
+      </li>
+    </modExtensions>
+  </WorldObjectDef>
+</Defs>

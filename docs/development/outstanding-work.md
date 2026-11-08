@@ -68,6 +68,20 @@ Added 8 Nov 2026: the vehicle work of 8 November did not update this file as it 
 | V11 | The tabs after the owner's first look (8 Nov 2026): wear gauges show what is left, no repeated part names, no empty sections | Framework | Show what is left | Done: Framework 0.19.0 |
 | V15 | Every vehicle of ours upgradeable and extendable from its first Def, with the art planned around its upgrade tree (bare body, one overlay set per visible node); parts by role from Vehicle Framework's mechanics, RimThunder's and Vanilla Vehicles Expanded's items as soft dependencies, our own fallback parts only where neither is present; the tanker's contents Def and ports ([design](utility-vehicles-design.md), principles 8 and 9) | Vehicles, Framework | Directions given (8 Nov 2026); the trees, the role split and the fallback parts are agent proposals | Proposed: records written 8 Nov 2026, nothing built |
 
+## Garage and fleet tools (from 8 Nov 2026)
+
+The design is [the vehicle garage and fleet tools](vehicle-garage-design.md).
+
+| # | What | Where | Owner | Status |
+| --- | --- | --- | --- | --- |
+| G1 | The garage: parking and slow repairs | Framework, Vehicles | Yes (8 Nov 2026) | Built: Framework 0.31.0, Vehicles 0.11.0. Not yet tested in game |
+| G2 | Refuse convoys at the normal "create outpost" window, with a setting | Patches | Yes (8 Nov 2026) | Built: Patches 0.15.0. Not yet tested in game |
+| G3 | Parked-vehicle warning | Framework | Yes (8 Nov 2026) | Next |
+| G4 | Fleet board | Framework | Yes (8 Nov 2026) | Next |
+| G5 | Standing crews and convoys | Framework | Yes (8 Nov 2026) | Needs a read of the form-caravan dialog first |
+| G6 | Home depot bays | Framework, Vehicles | Yes (8 Nov 2026) | Needs a read of Vehicle Framework's job and path code first |
+| G7 | Post the outposts report to Vanilla Expanded Framework | Owner | Optional | Text in the design record |
+
 ## Logging (from 8 Nov 2026)
 
 The game stops every mod's logging at 10,000 messages a session; one other mod's error storm killed the owner's log on 8 November

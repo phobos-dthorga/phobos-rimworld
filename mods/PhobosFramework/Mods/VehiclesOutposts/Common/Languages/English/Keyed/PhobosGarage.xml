@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <!-- The vehicle garage. Text a player reads in play stays in the game world and never names a mod or a setting. -->
+  <PhobosGarage_Found>Set up a garage here</PhobosGarage_Found>
+  <PhobosGarage_FoundDesc>Build a staffed garage on this spot and leave these vehicles in it. They stay until someone comes for them, with no time limit, and the people stationed there mend them from the steel and components kept in its stores.</PhobosGarage_FoundDesc>
+  <PhobosGarage_FoundTitle>Who stays at the garage?</PhobosGarage_FoundTitle>
+  <PhobosGarage_FoundAccept>Build the garage</PhobosGarage_FoundAccept>
+  <PhobosGarage_FoundDone>The garage at {NAME} is open and the vehicles are parked inside.</PhobosGarage_FoundDone>
+  <PhobosGarage_PersonLine>{NAME} (Construction {SKILL})</PhobosGarage_PersonLine>
+
+  <PhobosGarage_Park>Park vehicles</PhobosGarage_Park>
+  <PhobosGarage_ParkDesc>Leave every vehicle in this convoy at the garage. The crews carry on from here on foot, and cargo stays in the vehicles.</PhobosGarage_ParkDesc>
+  <PhobosGarage_ParkDone>{COUNT} vehicles parked at {NAME}.</PhobosGarage_ParkDone>
+
+  <PhobosGarage_TakeOut>Take out vehicles</PhobosGarage_TakeOut>
+  <PhobosGarage_TakeOutDesc>Choose vehicles parked at this garage for this caravan to take with it.</PhobosGarage_TakeOutDesc>
+  <PhobosGarage_TakeOutTitle>Which vehicles?</PhobosGarage_TakeOutTitle>
+  <PhobosGarage_TakeOutAccept>Take them</PhobosGarage_TakeOutAccept>
+  <PhobosGarage_TakeOutDone>{COUNT} vehicles taken out of {NAME}.</PhobosGarage_TakeOutDone>
+
+  <PhobosGarage_RefusedNoVehicles>There are no vehicles to leave here.</PhobosGarage_RefusedNoVehicles>
+  <PhobosGarage_RefusedMoving>The convoy has to stop first.</PhobosGarage_RefusedMoving>
+  <PhobosGarage_RefusedAircraft>Aircraft cannot be kept in a garage.</PhobosGarage_RefusedAircraft>
+  <PhobosGarage_RefusedNobodyStays>Choose at least one person to stay.</PhobosGarage_RefusedNobodyStays>
+  <PhobosGarage_RefusedTooManyVehicles>That would be {COUNT} vehicles, and there are only {BAYS} bays. More people stationed here means more bays.</PhobosGarage_RefusedTooManyVehicles>
+  <PhobosGarage_RefusedNoneChosen>Choose at least one vehicle.</PhobosGarage_RefusedNoneChosen>
+  <PhobosGarage_RefusedNoDriver>This caravan has nobody to drive them.</PhobosGarage_RefusedNoDriver>
+  <PhobosGarage_PackRefused>Vehicles are still parked here. Take them out first.</PhobosGarage_PackRefused>
+
+  <PhobosGarage_InspectBays>Vehicles parked: {USED} of {BAYS} bays</PhobosGarage_InspectBays>
+  <PhobosGarage_RepairNext>Next repairs in {TIME}.</PhobosGarage_RepairNext>
+  <PhobosGarage_WaitingSteel>Repairs are waiting for steel.</PhobosGarage_WaitingSteel>
+  <PhobosGarage_WaitingComponents>Repairs are waiting for components.</PhobosGarage_WaitingComponents>
+  <PhobosGarage_WaitingSkill>Repairs are waiting for someone who can do construction.</PhobosGarage_WaitingSkill>
+
+  <PhobosGarage_ReleasedLabel>Garage closed</PhobosGarage_ReleasedLabel>
+  <PhobosGarage_ReleasedText>The garage at {NAME} has closed with nobody left to run it. Its {COUNT} vehicles are still standing there, but without anyone to watch them they will be gone in {DAYS} days unless someone collects them.</PhobosGarage_ReleasedText>
+</LanguageData>

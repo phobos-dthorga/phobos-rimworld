@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <!-- Every vehicle convoy gets the button that founds a garage where it stands (docs/development/vehicle-garage-design.md). Vehicle
+       Framework's VehicleCaravan Def already has a comps list. -->
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/WorldObjectDef[defName="VehicleCaravan"]/comps</xpath>
+    <value>
+      <li>
+        <compClass>Phobos.VehicleSystems.Garage.WorldObjectComp_PhobosGarageFounder</compClass>
+      </li>
+    </value>
+  </Operation>
+</Patch>

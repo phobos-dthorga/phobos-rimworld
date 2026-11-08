@@ -15,6 +15,22 @@ tested in game unless an entry says the owner tested it.
 
 - BMP-1 IFV (Vehicle Framework), by Turbo, is no longer on the Steam Workshop (Steam showed no public item on 8 November 2026: removed or made private). Its loadout here loads only while that mod is active, so it stays dormant and costs nothing; a player with their own copy still gets it.
 
+## [0.11.0] - 2026-11-08 - Draft
+
+The garage, at the owner's request (8 November 2026). **Not yet tested in game.**
+
+### Added
+
+- With Vanilla Expanded Framework: the garage, a staffed outpost on the world map. It costs 200 steel and 10 components, needs Construction 6 among those who stay, and gives three bays per person up to twelve. Every three days it repairs from its stores, 40 points per skill level, a steel for each 10 points and a component for each 400. All of these are authored balance.
+
+### Compatibility and limits
+
+- The world-map icon is a stand-in, the game's caravan picture, until art is picked.
+
+### Save compatibility
+
+- Safe to add to a save. **Before removing it, take every vehicle out of every garage**: a garage and the vehicles in it go with the mod.
+
 ## [0.10.0] - 2026-11-08 - Draft
 
 Automatic climate control by era, with D'thorga Framework 0.22.0 (owner, 8 November 2026: by technology and age). **Not yet tested in game.**

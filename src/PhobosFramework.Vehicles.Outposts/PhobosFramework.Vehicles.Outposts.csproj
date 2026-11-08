@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- D'thorga Framework's vehicle garage (docs/development/vehicle-garage-design.md). Its own assembly in Mods/VehiclesOutposts/1.7, which
+       LoadFolders.xml loads only while both Vehicle Framework and Vanilla Expanded Framework (whose Outposts.dll holds the outposts code)
+       are active. RimWorld 1.7 only. Other mods' assemblies are referenced from the installed mods, never copied. -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <RootNamespace>Phobos.VehicleSystems.Garage</RootNamespace>
+    <AssemblyName>PhobosFramework.Vehicles.Outposts</AssemblyName>
+    <ModFolder>PhobosFramework</ModFolder>
+    <TieInFolder>Mods/VehiclesOutposts/</TieInFolder>
+    <Version>0.31.0</Version>
+    <ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>true</ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../PhobosFramework/PhobosFramework.csproj" Private="false" />
+    <ProjectReference Include="../PhobosFramework.Vehicles/PhobosFramework.Vehicles.csproj" Private="false" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Outposts">
+      <HintPath>$(VefAssemblies)\Outposts.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="Vehicles">
+      <HintPath>$(VehicleFrameworkAssemblies)\Vehicles.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="SmashTools">
+      <HintPath>$(VehicleFrameworkAssemblies)\SmashTools.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+</Project>

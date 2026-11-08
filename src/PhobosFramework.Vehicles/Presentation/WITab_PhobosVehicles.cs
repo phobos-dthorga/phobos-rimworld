@@ -41,6 +41,7 @@ public abstract class WITab_PhobosVehicles : WITab
         {
             VehicleCaravan caravan => caravan.VehiclesListForReading,
             AerialVehicleInFlight aircraft when aircraft.Vehicle != null => new[] { aircraft.Vehicle },
+            IPhobosVehicleHolder holder => holder.HeldVehicles,
             _ => Enumerable.Empty<VehiclePawn>(),
         };
         foreach (VehiclePawn vehicle in vehicles)

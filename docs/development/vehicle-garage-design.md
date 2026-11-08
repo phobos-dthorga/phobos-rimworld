@@ -75,6 +75,15 @@ replied in those 50. The first report fits the second hazard above, but nothing 
 
 Limits known now: repairs do not clear the condition layer's conditions (that stays with on-map service), and aircraft and anything that cannot form a caravan are refused.
 
+## As built (Framework 0.31.0, Vehicles 0.11.0; not yet tested in game)
+
+- `Outpost_PhobosGarage` holds vehicles in a saved `ThingOwner` and `GarageService` holds every rule. The rules for bays and repair budgets are game-free, in `GarageRule`, with tests.
+- The button icons are the outposts code's, found by path: its `TexOutposts` fields can't be read from our 1.7 build because their Unity type comes from another assembly.
+- Stores are spent one stack at a time, because the outposts code's `TakeItems` goes wrong when a request spans several stacks (from the code, `Outpost.cs:153`).
+- A convoy at a garage doesn't get the outposts code's "add a person" button, which lists vehicles and fails on them. Its crew can join once on foot.
+- **Removal:** a garage and the vehicles inside it go with the mod, so the README says to empty them first.
+- **Not settled by reading the code:** whether the convoy's button shows on the world map, and whether a vehicle saved inside a garage comes back whole. These are the owner's first checks.
+
 ## Fleet tools
 
 | Tool | What it does | Uncertain |

@@ -5,6 +5,25 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.31.0] - 2026-11-08 - Draft
+
+The vehicle garage's rules and code, at the owner's request (8 November 2026). The garage itself is a Def in D'thorga Vehicles. **Not yet tested in game.**
+
+### Added
+
+- With Vehicle Framework and Vanilla Expanded Framework: a garage class for the outposts system, holding vehicles with no time limit, and repairing them every few days from steel and components in its stores.
+- A button on every vehicle convoy to set up a garage where it stands, and buttons at a garage to park a convoy and to take vehicles out.
+- The world-map Health, Dashboard and Systems tabs show the vehicles a garage holds. Other mods' world objects can join in by implementing the new vehicle holder interface.
+- A game-free rule for bays and for what one repair cycle can spend, with tests.
+
+### Compatibility and limits
+
+- Loads only while Vehicle Framework and Vanilla Expanded Framework are both active. A garage parks a whole convoy at a time; aircraft are refused. Parked vehicles are frozen, so fuel, batteries and conditions hold still; repairs mend parts only, and conditions still need on-map service.
+
+### Save compatibility
+
+- Safe to add to a save. **Before removing it, take every vehicle out of every garage**: a garage and the vehicles in it go with the mod.
+
 ## [0.30.0] - 2026-11-08 - Draft
 
 For D'thorga Patches 0.14.2. No change in play. **Not yet tested in game.**

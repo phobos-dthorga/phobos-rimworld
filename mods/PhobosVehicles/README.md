@@ -4,10 +4,13 @@ Vehicles that keep running only while they are looked after. **This first versio
 vehicles of other mods you already drive the systems that match what they really are, on top of the general systems D'thorga
 Framework gives every vehicle.
 
-Version 0.10.0, built 8 November 2026 for House D'thorga. **Not yet tested in game.**
+Version 0.11.0, built 8 November 2026 for House D'thorga. **Not yet tested in game.**
 
 ## Read this first (gotchas)
 
+- **New in 0.11.0, with Vanilla Expanded Framework (not yet tested in game): garages.** A convoy that has stopped can set up a garage on
+  the world map. Vehicles left in one stay with no time limit, and whoever is stationed there mends them from steel and components
+  you bring by caravan. **Before removing this mod, take every vehicle out of every garage**, or they go with it.
 - **Needs Vehicle Framework and D'thorga Framework 0.22.0 or later**, on **RimWorld 1.7 only**. Load it after both; the About file
   asks for that, so RimSort does it for you.
 - **The general systems come from D'thorga Framework**, not from this mod: battery and alternator, coolant and oil, tyres or tracks,

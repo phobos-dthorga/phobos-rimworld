@@ -4,7 +4,7 @@
   <name>D'thorga Vehicles</name>
   <author>Phobos A. D'thorga</author>
   <url>https://github.com/phobos-dthorga/phobos-rimworld</url>
-  <modVersion>0.10.0</modVersion>
+  <modVersion>0.11.0</modVersion>
   <description>Vehicles that keep running only while they are looked after. This first version adds no vehicles of its own: it fits the vehicles of other mods you already drive with the right systems for what they really are.
 
 What it does now:
@@ -40,6 +40,7 @@ Community-created content. Portions of the materials used to create this content
   </modDependencies>
   <loadAfter>
     <li>Ludeon.RimWorld</li>
+    <li>OskarPotocki.VanillaFactionsExpanded.Core</li>
     <li>SmashPhil.VehicleFramework</li>
     <li>PhobosDthorga.Framework</li>
     <li>OskarPotocki.VanillaVehiclesExpanded</li>
