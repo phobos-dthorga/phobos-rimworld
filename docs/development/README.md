@@ -106,6 +106,8 @@ promise current behaviour. For using the mods, start at the [documentation index
 - [The vehicle tabs: design (8 Nov 2026)](vehicle-tabs-design.md): the Dashboard and Systems inspector tabs, how they hook into
   Vehicle Framework's Def resolution, the saved day of history behind the graphs, the widgets that went to the Framework core,
   and what RimHUD does with them; D'thorga Framework 0.17.0. Not yet tested in game.
+- [Vehicle tuning and upgrades: what it would do to the player (9 Nov 2026)](vehicle-tuning-and-upgrades.md): fittings and engine tunes for
+  any vehicle; a proposal with six questions for the owner, nothing built.
 - [A setup wizard on first load: the idea (9 Nov 2026)](first-load-setup-wizard.md): the owner's idea, kept for later; what it would cover,
   when to raise it and what to settle first.
 - [Vehicle health, slice 3: what it does to the player (8 Nov 2026, built 9 Nov 2026)](vehicle-health-consequences.md): the danger clock,

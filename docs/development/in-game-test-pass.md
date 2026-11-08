@@ -1,28 +1,30 @@
-# In-game test pass (8 Nov 2026)
+# In-game test pass (8 Nov 2026, refreshed 9 Nov 2026)
 
 A short list of the checks that matter most among what is built and not yet tested in game, for the owner to run in their colony
-(owner's request of 8 November 2026: "a short in-game test pass list"). Three checks first, then four that are worth a look only
-if play brings them up. Nothing here counts as tested until the owner says so; each result goes into that mod's changelog.
+(owner's request of 8 November 2026). The most consequential come first. Nothing here counts as tested until the owner says so; each
+result goes into that mod's changelog.
 
 ## Read this first
 
-- **Install first, with RimWorld closed:** `python scripts/deploy.py --build --apply --all`, or say "go" and an agent runs it.
-  The game holds D'thorga Framework 0.27.0 and D'thorga Patches 0.14.0; checks 1 to 3 need **Framework 0.29.0 and Patches
-  0.14.1**. The other five mods already match the repository (read from the installed About files, 8 Nov 2026). **Close any Explorer
-  window open in a mod folder**, or the install fails.
-- **Play on a copy of the live save if you prefer**, but the Visit Settlements check needs the colony where the storm happened
-  (a friendly settlement there holds a pawn that does not eat).
-- **After the session, just say "done"**: the agent reads Player.log with `python scripts/triage-log.py` and the save with
-  `python scripts/query-save.py`, so nothing needs copying out by hand. Say anything that looked wrong, even if it seems small.
-- Dev mode is needed for checks 2 and 3 (Options, then Development mode).
+- **Framework 0.36.0 or later and Patches 0.16.0 are enough for checks 1 to 6.** Install only through `python scripts/deploy.py --build
+  --apply --all`, with RimWorld closed, and close any Explorer window open in a mod folder.
+- **Use a copy of the save for check 1:** it destroys parts on purpose.
+- **Dev mode is needed for checks 1, 2 and 5** (Options, then Development mode). The dev actions are in the D'thorga group.
+- **After the session, say "done"**, or tell whichever session you are in: the log and save can be read with `python scripts/triage-log.py`
+  and `python scripts/query-save.py`. Say anything that looked wrong, even if it seems small.
 
-## The three that matter
+## The ones that matter
 
 | # | What it proves | What to do | What passes |
 | --- | --- | --- | --- |
-| 1 | **Visit Settlements' food drops no longer throw every tick** (Patches 0.14.1). This storm filled the log twice on 8 November | Load the colony and play **one in-game day** at any speed | Player.log holds no repeating error from Visit Settlements' settlement events, and at most one warning a day from our guard. The agent checks it |
-| 2 | **The game's log comes back after its 10,000-message limit** (Framework 0.28.0, setting on by default), and two open questions in the logging design | Dev mode on. In the debug actions menu, D'thorga group: **"Framework: log probe T2, one line through our category"**, then **"Framework: log probe T1/T4, flood past the game's limit"**; wait a few seconds, then **"Framework: game log status"** | The game pauses for a moment while the flood is written. Afterwards the in-game log window keeps showing new messages, and the status line says it revived once. **Tell the agent whether the T2 line showed in the in-game log window**: the logging design waits on that answer |
-| 3 | **The vehicle Health tab** (Framework 0.26.0) and **part conditions** (0.29.0): parts grouped as a pawn's are, the stages and refusals under them, the crew row, a condition under its part | Select one vehicle on the colony map and open **Health**; hover a few parts. Then dev mode, D'thorga group: **"Vehicle systems: hit a part"**, choose **Radiator**, and look under the radiator. Repair the vehicle. Last, form a short caravan with it and open the tab on the world map | The tab draws with no red error, hovering a part highlights it, the hit radiator shows **"Holed"** with a stage and the coolant falls on the Dashboard, the repair clears it, and the same tab opens on the world map |
+| 1 | **A destroyed part needs replacing** (Framework 0.36.0). This changes repairs on every vehicle you own, so it is the riskiest new thing | Select a vehicle. **"Vehicle systems: hit a part"**, choose **Radiator**, twice, until it reads 0%. Open **Health**. Then leave the vehicle parked with steel and components stored nearby, and give a mechanic time | The Health tab says it is destroyed and what it needs. Haulers bring the supplies, a mechanic fits it, a message says so, and the part returns at 25%. **Ordinary repair then finishes it for free. Watch for a mechanic walking back and forth doing nothing** |
+| 2 | **Part conditions** (Framework 0.29.0): a hit radiator stays holed | Same dev action on a healthy radiator, **once**. Look under the radiator on **Health**. Press **Patch leaks** on the vehicle. Then let a mechanic repair it | **"Holed: leaking"** under the radiator with a clock line ("Coolant level ... in about ... hours"). After the patch it reads "patched in the field" and leaks more slowly. A repair to full clears it |
+| 3 | **Temperatures** (Framework 0.29.1) | Run the Abrams for an in-game hour or two, driving some of it. Fly the Cherokee, then shut it down | Oil climbs to 55 degrees C or more, the gearbox warms well above the air, and a stopped turbine cools gradually |
+| 4 | **Repairs in a caravan** (Framework 0.36.0) | Form a caravan with a damaged vehicle carrying supplies, and stop it | A **Repair** button appears per vehicle needing it, says why when it cannot, and works at a halt |
+| 5 | **The game's log comes back after its limit** (Framework 0.28.0) | **"Framework: log probe T2, one line through our category"**, then **"Framework: log probe T1/T4, flood past the game's limit"**, then **"Framework: game log status"** | The game pauses for a moment, the in-game log window keeps taking new messages, and the status says it revived once. **Say whether the T2 line showed in the in-game log window: the logging design waits on that** |
+| 6 | **The Health tab on the world map and the shared logger** (Framework 0.26.0, 0.33.0) | Open **Health** on a caravan's vehicle. Launch once and look at the load lines | The tab draws with no red error. Player.log shows lines as [D'thorga Framework] and [D'thorga Patches: Harrier], not [Verse] |
+
+**The Visit Settlements fix (Patches 0.14.1) looks good from the log of 8 November:** its counter fired and reset with no error. Say so and it is marked tested.
 
 ## If play brings them up
 
