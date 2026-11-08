@@ -174,4 +174,5 @@ reasons are in [analysis tooling](analysis-tooling.md). Each tool's first change
 | D'thorga treatments for IRBM's other strategic warheads | After the owner has tested the nuke |
 | Generated art (the store's frost, the electrolyser, the chamber redraw, a whip, the radio base station, the new equipment) | Only on the owner's "go"; new pieces ship with scripted placeholders |
 | A base class for interval map components in the Framework | Would change the timing code of parts the owner has tested; waits until one is changed for its own sake |
+| [A setup wizard on first load](first-load-setup-wizard.md): how the player wants our mods to play, above all how they affect third-party mods | Owner, 9 Nov 2026: when the time is right; the agent may raise it (agent's view: once the settings have settled, at the public beta gate at the latest) |
 | Workshop publication tooling | At the first public beta, per AGENTS.md |
