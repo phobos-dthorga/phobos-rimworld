@@ -49,6 +49,9 @@ public class VehicleSystemsSettings : ModSettings
     public bool jumpStartNeedsKit = true;
     /// <summary>Every vehicle is assumed to carry a booster pack, so a jump-start needs no other vehicle (owner, 9 Nov 2026: off). Live.</summary>
     public bool assumeBoosterPack;
+    /// <summary>People aboard a closed cab are glad of it or unhappy in it, by their own comfort range (agent default, owner to revise:
+    /// on). Live.</summary>
+    public bool cabMoods = true;
 
     public enum HoverLimit
     {
@@ -65,6 +68,7 @@ public class VehicleSystemsSettings : ModSettings
         "nightHeater" => nightHeater,
         "jumpStartNeedsKit" => jumpStartNeedsKit,
         "assumeBoosterPack" => assumeBoosterPack,
+        "cabMoods" => cabMoods,
         _ => false,
     };
 
@@ -86,6 +90,7 @@ public class VehicleSystemsSettings : ModSettings
         Scribe_Values.Look(ref nightHeater, "PhobosVehicleSystems_NightHeater", false);
         Scribe_Values.Look(ref jumpStartNeedsKit, "PhobosVehicleSystems_JumpStartNeedsKit", true);
         Scribe_Values.Look(ref assumeBoosterPack, "PhobosVehicleSystems_AssumeBoosterPack", false);
+        Scribe_Values.Look(ref cabMoods, "PhobosVehicleSystems_CabMoods", true);
         if (Scribe.mode == LoadSaveMode.PostLoadInit)
         {
             disabledPackages ??= new List<string>();
@@ -131,6 +136,7 @@ public class VehicleSystemsMod : Mod
         if (Settings.jumpStartNeedsKit) report.On("jump-start leads must be crafted (setting)");
         else report.Off("jump-start leads", "free (setting)");
         if (Settings.assumeBoosterPack) report.On("booster pack assumed on every vehicle (setting)");
+        if (!Settings.cabMoods) report.Off("cab moods", "off (setting)");
         foreach (IGrouping<string, DesignRecord> skipped in VehicleSystems.Designs.Where(d => d.skippedBecause != null && d.loadout != null).GroupBy(d => d.skippedBecause!))
         {
             report.Off(skipped.Count() + " design" + (skipped.Count() == 1 ? "" : "s"), skipped.Key);
@@ -201,6 +207,7 @@ public class VehicleSystemsMod : Mod
         listing.Gap(6f);
         listing.CheckboxLabeled("PhobosVehicleSystems_SettingLoadFuel".Translate(), ref s.loadDependentFuel, "PhobosVehicleSystems_SettingLoadFuelDesc".Translate());
         listing.CheckboxLabeled("PhobosVehicleSystems_SettingNightHeater".Translate(), ref s.nightHeater, "PhobosVehicleSystems_SettingNightHeaterDesc".Translate());
+        listing.CheckboxLabeled("PhobosVehicleSystems_SettingCabMoods".Translate(), ref s.cabMoods, "PhobosVehicleSystems_SettingCabMoodsDesc".Translate());
         listing.Gap(6f);
         listing.Label("PhobosVehicleSystems_SettingHoverLimit".Translate());
         foreach (VehicleSystemsSettings.HoverLimit limit in System.Enum.GetValues(typeof(VehicleSystemsSettings.HoverLimit)))

@@ -5,7 +5,7 @@ colonist is breathing, makes fires fill roofed rooms with the game's own smoke w
 carries carbon monoxide from fires, holds the per-person care choices the D'thorga medical mods offer, and holds the small
 helpers every D'thorga mod shares.
 
-Version 0.17.0, built 9 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
+Version 0.18.0, built 9 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
 oxygen working through Burns and Smoke and Medical Equipment (5 November 2026). The health layer new in 0.3.0 and the **vehicle
 systems new in 0.9.0, and their engines, drivetrains and gas turbines new in 0.11.0, are not yet tested in game.** The rest is read from the game's and the mods' code.
 
@@ -31,10 +31,12 @@ and wear that a mechanic services. See [Vehicle systems](#vehicle-systems-with-v
   day's heat, or with engines or thrusters out, **the launch button refuses and says why** (unload, repair, or wait for cooler
   air). The same setting decides, so "warn only" lets them go.
 - **From 0.16.0 a jump-start needs a jump-start kit** (a setting, on by default): craft one at a machining table or a fabrication
-  bench before you need one, and carry one in every caravan. The setting **Every vehicle carries a booster pack** (off) lets a lone
-  vehicle jump-start itself.
+  bench before you need one, and carry one in every caravan. **From 0.18.0 a booster pack** (research: batteries) jump-starts a
+  vehicle with no second vehicle and no kit: it holds 4 starts, charges again in the cargo of a running vehicle, and is recharged
+  fully at a machining table. The setting **Every vehicle carries a booster pack** (off) makes packs unnecessary.
 - **From 0.16.0 a closed cab shelters its passengers**: they feel the cab's temperature, not the weather, as long as the heater or
-  the air conditioner has the engine to run on. At a caravan's night camp the engine is off and the cab cools, unless the **night
+  the air conditioner has the engine to run on. **From 0.18.0 they also have moods about it** (a warm cab in the cold, a cold cab
+  that is too cold for them); the setting **Passengers feel the cab** (on) turns them off. At a caravan's night camp the engine is off and the cab cools, unless the **night
   heater** setting is on and the vehicle's night heater switch was on before it left.
 - **Steam locomotives (0.14.0): two settings to decide before you run one.** **Boiler explosions** are off by default: on, a
   boiler without a fusible plug (the American 4-8-4) whose water runs below the firebox crown explodes, and the settings window
@@ -48,7 +50,8 @@ and wear that a mechanic services. See [Vehicle systems](#vehicle-systems-with-v
 - **Safe to add to a running colony.** It saves the carbon monoxide in rooms, as the cells it sits in, and the per-person care
   choices you set; a save without it loads with no gas, and the choices are ignored without a line.
 - **Safe to remove**, after the mods that depend on it are removed. The next load prints a line for each of its map components
-  it cannot find (up to three per map); they are harmless.
+  it cannot find (up to three per map); they are harmless. Jump-start kits and booster packs (with Vehicle Framework) vanish with
+  it, with an error line each when the save loads: sell or destroy them first if you want a clean log.
 - **It reuses what exists before adding its own** (owner's rule, 4 November 2026). Smoke is the game's smoke or Combat
   Extended's; only carbon monoxide is the framework's own gas, because nothing else carries it. The setting
   **Where gases come from** overrides this: Automatic (the default), always the framework's own gases, or never.
@@ -110,7 +113,7 @@ Other mods (D'thorga Vehicles first) can give a named vehicle its own figures. N
 
 | System | What you see | What goes wrong | What fixes it |
 | --- | --- | --- | --- |
-| Battery and alternator | Battery charge; the alternator charges it while the engine runs | A damaged alternator stops charging; a flat or very cold battery **won't start the engine** (the draft button says why); a flat battery in deep frost can crack | **Jump-start it**: select a colonist and right-click the flat vehicle, with another vehicle parked within 8 cells; or park beside a powered conduit or battery to trickle-charge; warm the vehicle; repair the parts |
+| Battery and alternator | Battery charge; the alternator charges it while the engine runs | A damaged alternator stops charging; a flat or very cold battery **won't start the engine** (the draft button says why); a flat battery in deep frost can crack | **Jump-start it**: select a colonist and right-click the flat vehicle, with another vehicle parked within 8 cells and a jump-start kit, or with a booster pack; or park beside a powered conduit or battery to trickle-charge; warm the vehicle; repair the parts |
 | Engine and drivetrain | Plain: "Engine labouring" or "Wheels spinning" only; Operator: the gear and engine speed; Engineer: load, engine, fuel and heat in kW | Cargo, passengers, hills and soft ground work the engine harder (more heat); out of power or grip, the vehicle slows, and **crawls** where it cannot grip; a damaged gearbox loses its top gears; a damaged clutch slips under load | Lighten it, take a road, or repair the gearbox and clutch |
 | Coolant | Coolant temperature, warm at 88 to 110 °C | A holed radiator, low coolant or hard work in the heat: **running hot**, then overheating (engine damage), then boiling over (a letter) | Stop and let it cool; repair the radiator; a **coolant top-up** (due at 60%) takes 3 chemfuel and water: **with Dubs Bad Hygiene, from a plumbing pipe beside the parked vehicle**, otherwise free |
 | Oil | Oil level, temperature and pressure | Low oil or a damaged oil pump wears the engine while it runs | A service tops up the oil |
@@ -135,7 +138,20 @@ Other mods (D'thorga Vehicles first) can give a named vehicle its own figures. N
 - **Switches** for headlights and the cab heater: each draws on the battery or the alternator while it runs.
 - **Caravans**: the systems keep running on the world map. A caravan moves as its slowest vehicle (its explanation names it), a
   vehicle that will not move stops the caravan (the caravan's inspect text says why), and a crew member can jump-start it from
-  another vehicle in the caravan with a kit aboard. Services and water stops still need a map.
+  another vehicle in the caravan with a kit aboard, or with a booster pack aboard. Services and water stops still need a map.
+- **The ground on the world map** (0.18.0): a caravan's engines work against the tile's ground as well as its hills. Deserts are
+  sand, swamps are mud, jungle is undergrowth, and winter adds snow; a road is firm whatever the land around it. A laden or
+  underpowered vehicle slows on heavy ground and the caravan's explanation names it. Vehicle Framework's own travel times for each
+  biome still apply as well.
+- **Booster packs** (0.18.0): craft at a machining table or fabrication bench after researching batteries. A colonist carries one
+  to a flat vehicle; no kit and no second vehicle needed. Each holds 4 starts (the inspect pane shows how many are left), gains a
+  start back every 2 hours in the cargo of a vehicle whose engine runs, and is recharged fully by a bill at a machining table.
+- **Cab moods** (0.18.0): people aboard a closed cab are glad of a warm cab when it is colder outside than they like, or a cool one
+  in the heat, and unhappy in a cab too cold or too hot for them, judged by their own comfortable range (clothes, genes and traits
+  count). Open vehicles give no such moods.
+- **With RimHUD**: a value named **Vehicle (D'thorga Framework)** can be added to RimHUD's pawn display in its layout editor. It
+  shows which vehicle a person is aboard and in what role; its tooltip gives the fuel, the cab and what the vehicle waits for, and
+  a click selects the vehicle.
 - **Boats** cool with sea water (no radiator part). **Aircraft** get the battery, generator, service and a gas turbine; their
   engines cool unlike a car's, so they have no coolant. **Electric vehicles** get none yet.
 - **Vehicle kinds**: light (Vehicle Framework mass under 120, petrol), medium (120 to 350, diesel), heavy (350 and more, 24 V and

@@ -151,7 +151,10 @@ The candidate base class for interval map components is still not built (see 0.6
   `Persistence/ScribeHistory.cs`, `UI/PhobosWidgets.cs` (gauge, warning light, history graph, section, tachometer) and
   `UI/TabState.cs` (per-thing state for a shared inspector tab), built for the vehicle tabs and open to every Phobos tab. Their
   namespace is `Phobos.Framework.Interface`, not `.UI`: a namespace named `UI` would hide the game's `Verse.UI` class from every
-  `Phobos.Framework.*` namespace.
+  `Phobos.Framework.*` namespace. 0.18.0 added `Items/Charges.cs` (`CompPhobosCharges`, a thing that holds a few uses, with the
+  `PhobosFramework_ChargesFull` recipe filter) and `Rules/ChargeRules.cs`, `Rules/ShelterComfort.cs` (how a pawn feels about a
+  shelter's temperature against their comfort range), `WorldMap/BiomeGround.cs` (a world tile's ground from its biome's Defs;
+  namespace `Phobos.Framework.WorldMap`, not `.World`, which would hide `Verse.World`) and a condition on `ItemFinder`'s finders.
 
 ## Open points and upstream
 

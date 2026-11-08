@@ -21,4 +21,6 @@
   <PhobosFramework_DisplayModeOperatorDesc>The figures a practitioner would want to see.</PhobosFramework_DisplayModeOperatorDesc>
   <PhobosFramework_DisplayModeEngineer>Engineer</PhobosFramework_DisplayModeEngineer>
   <PhobosFramework_DisplayModeEngineerDesc>The full working, line by line.</PhobosFramework_DisplayModeEngineerDesc>
+
+  <PhobosFramework_ChargesLeft>{COUNT} of {MAX} uses left.</PhobosFramework_ChargesLeft>
 </LanguageData>

@@ -72,3 +72,44 @@ public class WorldMapRuleTests
         Assert.True(Run(-10, -10, false, false, true, 2) > 5, "3 x (18 - T) balances 2 x (T + 10): about 6.8 °C");
     }
 }
+
+/// <summary>The caravan's ground by biome, road and winter (docs/development/vehicle-crew-and-ground-design.md).</summary>
+public class WorldGroundRuleTests
+{
+    [Fact]
+    public void OpenSoilIsWhatCaravansDroveOnBefore() =>
+        Assert.Equal(0.05, DrivetrainModel.RollingResistanceForPathCost(WorldGroundRules.PathCost(2, 1, false, 0)), 6);
+
+    [Fact]
+    public void ADesertsSandRollsHeavierThanSoilAndASwampHeavierStill()
+    {
+        double soil = DrivetrainModel.RollingResistanceForPathCost(WorldGroundRules.PathCost(2, 1, false, 0));
+        double sand = DrivetrainModel.RollingResistanceForPathCost(WorldGroundRules.PathCost(4, 1, false, 0));
+        double swamp = DrivetrainModel.RollingResistanceForPathCost(WorldGroundRules.PathCost(2, 4, false, 0));
+        Assert.True(sand > soil);
+        Assert.True(swamp > sand);
+        Assert.Equal(11, WorldGroundRules.PathCost(2, 4, false, 0), 6);
+    }
+
+    [Fact]
+    public void ARoadIgnoresTheBiomeButNotTheSnow()
+    {
+        Assert.Equal(0, WorldGroundRules.PathCost(14, 4, true, 0), 6);
+        Assert.Equal(8, WorldGroundRules.PathCost(14, 4, true, 2), 6);
+        Assert.Equal(0.012, DrivetrainModel.RollingResistanceForPathCost(WorldGroundRules.PathCost(4, 1, true, 0)), 6);
+    }
+
+    [Fact]
+    public void DeepWinterIsMediumSnowAndCutsGrip()
+    {
+        Assert.Equal(10, WorldGroundRules.PathCost(2, 1, false, 2), 6);
+        Assert.True(DrivetrainModel.GripForPathCost(WorldGroundRules.PathCost(2, 1, false, 2)) < DrivetrainModel.GripForPathCost(2));
+    }
+
+    [Theory]
+    [InlineData(1, 0)]
+    [InlineData(2, 0.02)]
+    [InlineData(3, 0.05)]
+    [InlineData(4, 0.08)]
+    public void HillsSetTheGrade(int hilliness, double grade) => Assert.Equal(grade, WorldGroundRules.Grade(hilliness), 6);
+}

@@ -5,6 +5,39 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.18.0] - 2026-11-09 - Draft
+
+The follow-ups to the world map and the tabs (owner's go, 9 November 2026). **Not yet tested in game.** Design: docs/development/vehicle-crew-and-ground-design.md.
+
+### Added
+
+- Booster packs: craft one at a machining table or fabrication bench after researching batteries. A colonist carries it to a vehicle whose battery is too flat to start and jump-starts it with no second vehicle and no jump-start kit. It holds 4 starts, shown in its inspect pane, gains a start back every 2 hours in the cargo of a vehicle whose engine runs, and a bill at a machining table recharges it fully. Caravans with a charged pack aboard get the same jump-start.
+- The ground on the world map: a caravan's engines now work against the tile's ground as well as its hills. Each biome's own typical terrain (sand in a desert, soil in a forest), its difficulty (swamps and jungle) and the game's winter snow set how hard the going is; a road is firm whatever the land around it. Laden or underpowered vehicles slow on heavy ground and the caravan's explanation names them.
+- Cab moods: people aboard a closed cab are glad of a warm cab in the cold or a cool one in the heat, and unhappy in a cab too cold or too hot for them, by their own comfortable range. A setting, Passengers feel the cab (on), turns them off.
+- With RimHUD: a Vehicle value for RimHUD's pawn display, added in its layout editor, showing which vehicle a person is aboard and in what role; the tooltip gives the fuel, the cab and what the vehicle waits for, and a click selects the vehicle.
+- Dev actions: give a booster pack (full, one start left, flat), log cab comfort; the caravan log now shows the tile's ground and each passenger's cab comfort.
+- Shared, in the Framework's core: a component for things that hold a few uses (with a recharging recipe filter), the shelter comfort rule, the biome ground reader and item finders that take a condition, for every Phobos mod.
+
+### Changed
+
+- A jump-start from a booster pack, crafted or assumed by the setting, no longer needs a jump-start kit: the pack has its own clamps. The kit is still needed for leads from another vehicle.
+- Refusals now name both ways out: another vehicle with the leads, or a booster pack with a start left.
+
+### Fixed
+
+- A jump-start that fetched a jump-start kit ended the moment the colonist picked it up, and fetching it raised an error (both from 0.16.0, found reading the code; never seen in game).
+
+### Compatibility and limits
+
+- The world-map ground adds to Vehicle Framework's own travel times per biome rather than replacing them: the biome's difficulty slows the whole caravan there, and the ground here works the engines. Ice is treated by its path cost, so it reads as heavy going rather than slippery and easy rolling.
+- The recharge bill makes a fresh pack from the part-used one, so its hit points come back full: a small repair, judged not worth code.
+- RimHUD's value is read by RimHUD through its published custom widget interface (api version 1); nothing here references RimHUD's code.
+- Cab moods are small beside the game's own (3 for a warm or cool cab, minus 2 or 5 for a cold or hot one), authored.
+
+### Save compatibility
+
+- Safe to add to a running colony. Booster packs save their starts left. Removing the Framework drops kits and packs with an error line each.
+
 ## [0.17.0] - 2026-11-09 - Draft
 
 The vehicle tabs (owner, 9 November 2026). **Not yet tested in game.** Design: docs/development/vehicle-tabs-design.md.

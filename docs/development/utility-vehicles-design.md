@@ -289,8 +289,10 @@ already do it (IDs in the mechanics record); the lean is the agent's.
   that fixes lighting and end details, so all three facings share one design. Overlays as edits of the body, cut out by
   script. Masks by script posterisation of the panel zones, with a model pass only where the script cannot separate
   them. The icon by script.
-- **Services:** the Gemini image API (Nano Banana 2.1, about US$0.034 an image) first; the OpenAI image API
-  (gpt-image-2 medium, about US$0.041) second; FLUX.2 edits on fal.ai as the backup for the turned-image edits. All
+- **Services (owner's pick, 9 Nov 2026: the OpenAI image API for the bodies, the owner's local generation for icons):** the
+  research put the Gemini image API (Nano Banana 2.1, about US$0.034 an image) first and the OpenAI image API (gpt-image-2
+  medium, about US$0.041) second; the owner chose OpenAI, which they know, and which their own sources rate best for RimWorld's
+  look; FLUX.2 edits on fal.ai as the backup for the turned-image edits. All
   pay-per-image with no subscription; the whole family costs a few dollars. **PixelLab is not for the bodies**: its
   rotation tools stop at 128 to 256 px and are trained on characters; the 19 Oct 2026 reasoning in
   [artwork direction](artwork-direction.md) stands. It could draw 64 px icons if the owner wants it used.
@@ -327,7 +329,7 @@ already do it (IDs in the mechanics record); the lean is the agent's.
 | Chemfuel rig, or an electric variant alongside? | Chemfuel first |
 | Drill-bit wear as a consumable? | Later, with the systems service's wear phase |
 | Wheels or tracks on the rig? | Wheels (a truck rig); tracks as a variant |
-| Which art service? | Gemini API first, OpenAI API second; no subscription |
+| Which art service? | **The OpenAI image API for vehicle bodies; local generation for icons** (owner, 9 Nov 2026); no subscription |
 | Any C# before VF 1.7 ships? | Yes, against the installed build the game already loads; expect a rebuild |
 | The mod's display name | D'thorga Vehicles |
 

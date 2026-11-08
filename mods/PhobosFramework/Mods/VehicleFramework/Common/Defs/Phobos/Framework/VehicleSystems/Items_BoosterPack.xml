@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    The booster pack (owner's follow-up, 9 Nov 2026): a battery in a case with its own short leads, for a jump-start with no second
+    vehicle. It holds 4 starts (authored; real lead-acid packs are sold on 10 to 20 starts of a small car, far fewer of a heavy diesel,
+    approximate), recharges a start every 2 hours carried in the cargo of a vehicle whose engine runs (authored; a 12 V socket charges
+    a pack in roughly 4 to 8 hours, approximate), and is recharged fully from the mains at a machining table or fabrication bench.
+    Needs no jump-start kit: it carries its own clamps. Research: batteries. Cost, mass and work are authored stand-ins (a lead-acid
+    pack weighs about 7 to 9 kg; 6 here). Placeholder art, drawn in code (BoosterPack.record.md). Not yet tested in game.
+
+    The recharge recipe makes a fresh pack from a part-used one, so the new pack is at full hit points: a small repair, judged not
+    worth code (docs/development/vehicle-crew-and-ground-design.md).
+  -->
+  <ThingDef ParentName="ResourceBase">
+    <defName>PhobosVehicleSystems_BoosterPack</defName>
+    <label>booster pack</label>
+    <description>A heavy battery in a carrying case, with its own short leads and clamps. A colonist carries it to a vehicle whose battery is too flat to turn the engine and starts it without a second vehicle. It holds a few starts; it charges again slowly in the cargo of a running vehicle, or fully from the mains at a machining table.</description>
+    <graphicData>
+      <texPath>Phobos/VehicleSystems/Things/BoosterPack</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>0.85</drawSize>
+    </graphicData>
+    <stackLimit>1</stackLimit>
+    <techLevel>Industrial</techLevel>
+    <statBases>
+      <MaxHitPoints>80</MaxHitPoints>
+      <Mass>6</Mass>
+      <Flammability>0.4</Flammability>
+      <DeteriorationRate>1.5</DeteriorationRate>
+      <WorkToMake>1500</WorkToMake>
+      <MarketValue>110</MarketValue>
+    </statBases>
+    <costList>
+      <Steel>15</Steel>
+      <ComponentIndustrial>2</ComponentIndustrial>
+    </costList>
+    <recipeMaker>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <researchPrerequisite>Batteries</researchPrerequisite>
+      <recipeUsers>
+        <li>TableMachining</li>
+        <li>FabricationBench</li>
+      </recipeUsers>
+      <skillRequirements>
+        <Crafting>4</Crafting>
+      </skillRequirements>
+    </recipeMaker>
+    <thingCategories>
+      <li>Manufactured</li>
+    </thingCategories>
+    <comps>
+      <li Class="Phobos.Framework.Items.CompProperties_PhobosCharges">
+        <uses>4</uses>
+        <rechargeHoursPerUse>2</rechargeHoursPerUse>
+        <inspectKey>PhobosVehicleSystems_BoosterPackCharge</inspectKey>
+      </li>
+    </comps>
+  </ThingDef>
+
+  <RecipeDef>
+    <defName>PhobosVehicleSystems_RechargeBoosterPack</defName>
+    <label>recharge booster pack</label>
+    <description>Connect a part-used booster pack to the mains until it holds every start again.</description>
+    <jobString>Recharging a booster pack.</jobString>
+    <workAmount>600</workAmount>
+    <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+    <soundWorking>Recipe_Machining</soundWorking>
+    <researchPrerequisite>Batteries</researchPrerequisite>
+    <ingredients>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>PhobosVehicleSystems_BoosterPack</li>
+          </thingDefs>
+        </filter>
+        <count>1</count>
+      </li>
+    </ingredients>
+    <fixedIngredientFilter>
+      <thingDefs>
+        <li>PhobosVehicleSystems_BoosterPack</li>
+      </thingDefs>
+      <specialFiltersToDisallow>
+        <li>PhobosFramework_ChargesFull</li>
+      </specialFiltersToDisallow>
+    </fixedIngredientFilter>
+    <products>
+      <PhobosVehicleSystems_BoosterPack>1</PhobosVehicleSystems_BoosterPack>
+    </products>
+    <recipeUsers>
+      <li>TableMachining</li>
+      <li>FabricationBench</li>
+    </recipeUsers>
+  </RecipeDef>
+</Defs>

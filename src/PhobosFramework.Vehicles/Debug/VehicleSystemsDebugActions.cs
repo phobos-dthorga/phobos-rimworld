@@ -2,6 +2,10 @@ using System.Collections.Generic;
 using System.Linq;
 using LudeonTK;
 using Phobos.Framework.Debug;
+using Phobos.Framework.Items;
+using Phobos.Framework.Rules;
+using Phobos.Framework.Vehicles.Rules;
+using Phobos.Framework.WorldMap;
 using RimWorld;
 using Vehicles;
 using RimWorld.Planet;
@@ -171,6 +175,51 @@ public static class VehicleSystemsDebugActions
         }
     }
 
+    [DebugAction(DebugCategory.Name, "Vehicle systems: give a booster pack", allowedGameStates = AllowedGameStates.PlayingOnMap)]
+    static List<DebugActionNode> GivePack()
+    {
+        var nodes = new List<DebugActionNode>();
+        foreach ((string name, float? uses) in new (string, float?)[] { ("full", null), ("one start left", 1f), ("flat", 0f) })
+        {
+            float? captured = uses;
+            nodes.Add(new DebugActionNode(name, DebugActionType.Action, () =>
+            {
+                ThingDef? def = JumpStarts.PackDef;
+                if (def == null) return;
+                foreach (Thing selected in DebugSelection.SelectedThings<Thing>().Where(t => t.Spawned).ToList())
+                {
+                    Thing pack = ThingMaker.MakeThing(def);
+                    if (captured is { } set) pack.TryGetComp<CompPhobosCharges>()?.DebugSet(set);
+                    GenSpawn.Spawn(pack, selected.Position, selected.Map);
+                }
+            }));
+        }
+        return nodes;
+    }
+
+    [DebugAction(DebugCategory.Name, "Vehicle systems: log cab comfort", allowedGameStates = AllowedGameStates.PlayingOnMap)]
+    static void LogCabComfort()
+    {
+        foreach (CompPhobosVehicleSystems comp in Selected()) Log.Message(VehicleSystemsMod.LogPrefix + " " + CabComfortLine(comp));
+    }
+
+    /// <summary>The cab, the outside and each person aboard with their comfort range and the stage the cab thought would take.</summary>
+    static string CabComfortLine(CompPhobosVehicleSystems comp)
+    {
+        VehiclePawn vehicle = comp.Vehicle;
+        if (!CabClimate.TryGet(vehicle, out float cab)) return vehicle.LabelShort + ": open cab, no cab moods";
+        var text = new System.Text.StringBuilder(vehicle.LabelShort + ": cab " + cab.ToString("0.#") + " C, outside " + comp.Ambient.ToString("0.#")
+            + " C, moods " + (VehicleSystemsMod.Settings.cabMoods ? "on" : "off (setting)"));
+        foreach (Pawn pawn in vehicle.AllPawnsAboard)
+        {
+            float min = pawn.GetStatValue(StatDefOf.ComfyTemperatureMin);
+            float max = pawn.GetStatValue(StatDefOf.ComfyTemperatureMax);
+            text.Append("\n  ").Append(pawn.LabelShort).Append(": comfortable ").Append(min.ToString("0")).Append(" to ").Append(max.ToString("0"))
+                .Append(" C, ").Append(ShelterComfort.Stage(cab, comp.Ambient, min, max));
+        }
+        return text.ToString();
+    }
+
     [DebugAction(DebugCategory.Name, "Vehicle systems: flatten the battery", allowedGameStates = AllowedGameStates.PlayingOnMap)]
     static void FlattenBattery()
     {
@@ -197,10 +246,23 @@ public static class VehicleSystemsDebugActions
                 text.Append("\n").Append(vehicle.LabelShort).Append(": engine ").Append(comp.EngineRunning ? "running" : "off")
                     .Append(", cap ").Append(comp.SpeedCap.ToString("0.00")).Append(", refusal ").Append(comp.MoveRefusal ?? "none")
                     .Append(", cab ").Append(CabClimate.TryGet(vehicle, out float cab) ? cab.ToString("0.#") + " C" : "open")
+                    .Append("\n").Append(GroundLine(comp.Powertrain))
+                    .Append("\n").Append(CabComfortLine(comp))
                     .Append("\n").Append(comp.DebugDescription());
             }
             Log.Message(text.ToString());
         }
+    }
+
+    /// <summary>The caravan tile's ground as the drivetrain last read it: biome, typical terrain, road, snow and the path cost.</summary>
+    static string GroundLine(Powertrain? train)
+    {
+        if (train?.WorldGroundRead is not { } ground) return "ground: not read yet (the caravan has not moved since load)";
+        return "ground: " + ground.Biome.defName + ", typical terrain " + (BiomeGround.TypicalTerrain(ground.Biome)?.defName ?? "none") + " (path cost "
+            + ground.TerrainPathCost + "), difficulty " + ground.BiomeDifficulty.ToString("0.#") + ", " + (ground.Road ? "road" : "no road") + ", winter "
+            + ground.WinterOffset.ToString("0.##") + ", hills " + ground.Hilliness + " -> path cost " + train.WorldPathCost.ToString("0.#")
+            + ", rolling " + DrivetrainModel.RollingResistanceForPathCost(train.WorldPathCost).ToString("0.###")
+            + ", grip " + DrivetrainModel.GripForPathCost(train.WorldPathCost).ToString("0.##");
     }
 
     [DebugAction(DebugCategory.Name, "Vehicle systems: set caravan cap", allowedGameStates = AllowedGameStates.PlayingOnWorld)]

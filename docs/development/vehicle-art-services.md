@@ -9,6 +9,9 @@ for items and icons, and this record replaces that record's paid-route row.
 
 ## Read this first
 
+- **The owner's pick (9 Nov 2026): the OpenAI image API for vehicle bodies**, which they already know and their own sources rate
+  best for RimWorld's look; **icons stay on the owner's local generation**, which already drew on-style icons for free. The owner
+  is setting up an API account (ID verification, prepaid credit with automatic top-up off). The comparison below is kept as read.
 - **Rotate, then edit.** A true top-down east facing is the north facing turned a quarter, and south is north turned a
   half. A script does the turns for free; the model then only fixes lighting and the parts that differ end to end.
   Facings that start from the same pixels match far better than three separate generations.

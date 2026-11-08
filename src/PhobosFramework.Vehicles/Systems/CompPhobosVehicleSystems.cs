@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Phobos.Framework;
+using Phobos.Framework.Items;
 using Phobos.Framework.Vehicles.Rules;
 using RimWorld;
 using SmashTools;
@@ -385,6 +386,7 @@ public class CompPhobosVehicleSystems : VehicleComp
             SweepPartHealth();
             RefreshCaches();
             Powertrain?.ApplyFuel(hours);
+            if (EngineRunning) ChargeCarriedPacks(hours);
             foreach (SystemState state in states)
             {
                 if (Enabled(state)) state.Def.Worker.Advance(new SystemContext(this, state), hours);
@@ -402,6 +404,20 @@ public class CompPhobosVehicleSystems : VehicleComp
         finally
         {
             updating = false;
+        }
+    }
+
+    /// <summary>
+    /// Booster packs and anything else with charges that recharge over time, carried in this vehicle's cargo, charge while its engine
+    /// runs (the alternator's surplus; its draw on the electrical system is left out, an authored simplification).
+    /// </summary>
+    void ChargeCarriedPacks(double hours)
+    {
+        ThingOwner? cargo = Vehicle.inventory?.innerContainer;
+        if (cargo == null) return;
+        for (int i = 0; i < cargo.Count; i++)
+        {
+            if (cargo[i].TryGetComp<CompPhobosCharges>() is { } charges && charges.Props.rechargeHoursPerUse > 0 && !charges.Full) charges.Recharge(hours);
         }
     }
 
@@ -1028,16 +1044,18 @@ public class CompPhobosVehicleSystems : VehicleComp
 
     /// <summary>
     /// Raises this vehicle's quantity to the jump-start level from the donor's, which loses the same ampere-hours unless its engine
-    /// runs; with no donor (the player assumes every vehicle carries a booster pack) the charge comes from nowhere. Says so. Returns
-    /// false when either vehicle can no longer take part.
+    /// runs; with no donor, from a crafted booster pack (which spends a start) or, when the player assumes every vehicle carries one,
+    /// from nowhere. Says so. Returns false when the vehicle, the donor or the pack can no longer take part.
     /// </summary>
-    public bool ReceiveJumpStart(CompPhobosVehicleSystems? donor, Pawn helper)
+    public bool ReceiveJumpStart(CompPhobosVehicleSystems? donor, Pawn helper, Thing? pack = null)
     {
         SystemState? need = JumpStartNeed();
         JumpStartSpec? spec = need?.Def.jumpStart;
         if (need == null || spec == null) return false;
-        if (donor == null && !VehicleSystemsMod.Settings.FlagOn("assumeBoosterPack")) return false;
+        CompPhobosCharges? charges = donor == null ? pack?.TryGetComp<CompPhobosCharges>() : null;
+        if (donor == null && charges == null && !VehicleSystemsMod.Settings.FlagOn("assumeBoosterPack")) return false;
         if (donor != null && !donor.CanDonate(need.Def)) return false;
+        if (charges != null && !charges.TryUse()) return false;
         SystemState? donorState = donor?.states!.First(s => s.Def == need.Def);
         int index = JumpQuantity(need);
         double missing = spec.raiseTo - need.values[index];
@@ -1059,7 +1077,9 @@ public class CompPhobosVehicleSystems : VehicleComp
             NamedArgument who = helper.LabelShort.Named("HELPER");
             Messages.Message(donor != null
                 ? "PhobosVehicleSystems_JumpStarted".Translate(who, vehicle, donor.Vehicle.LabelShort.Named("DONOR"))
-                : "PhobosVehicleSystems_JumpStartedBooster".Translate(who, vehicle), Vehicle, MessageTypeDefOf.TaskCompletion);
+                : charges != null
+                    ? "PhobosVehicleSystems_JumpStartedPack".Translate(who, vehicle, charges.WholeUses.Named("COUNT"))
+                    : "PhobosVehicleSystems_JumpStartedBooster".Translate(who, vehicle), Vehicle, MessageTypeDefOf.TaskCompletion);
         }
         return true;
     }

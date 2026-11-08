@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    Shared item helpers for every Phobos mod. A thing with CompProperties_PhobosCharges holds a few uses; a recipe that recharges it
+    disallows this filter in its fixed ingredient filter, so only things with a use missing are taken. Hidden from the player's
+    storage filters (not configurable).
+  -->
+  <SpecialThingFilterDef>
+    <defName>PhobosFramework_ChargesFull</defName>
+    <label>fully charged</label>
+    <description>Things that hold every use they can.</description>
+    <parentCategory>Root</parentCategory>
+    <allowedByDefault>true</allowedByDefault>
+    <configurable>false</configurable>
+    <saveKey>PhobosFramework_ChargesFull</saveKey>
+    <workerClass>Phobos.Framework.Items.SpecialThingFilterWorker_PhobosChargesFull</workerClass>
+  </SpecialThingFilterDef>
+</Defs>

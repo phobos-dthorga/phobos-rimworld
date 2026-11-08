@@ -193,6 +193,27 @@ def jump_start_kit():
     return image
 
 
+def booster_pack():
+    image, draw = canvas()
+    # A squat battery case with a carrying handle, three amber charge bars, and two short leads with clamps out to the right.
+    handle = [(360, 170), (560, 170), (560, 300), (360, 300)]
+    draw.rounded_rectangle((330 - LINE, 150 - LINE, 590 + LINE, 330), radius=70, fill=OUTLINE)
+    draw.rounded_rectangle((330, 150, 590, 330), radius=50, fill=STEEL_SHADE)
+    draw.rectangle(handle[0] + handle[2], fill=(0, 0, 0, 0))
+    case = [(160, 300), (760, 300), (760, 860), (160, 860)]
+    outlined_polygon(draw, case, PALE_SHADE, STEEL_SHADE, [(690, 340), (724, 340), (724, 826), (690, 826)])
+    panel = [(240, 400), (600, 400), (600, 560), (240, 560)]
+    draw.polygon(panel, fill=OUTLINE)
+    for i in range(3):
+        x0 = 268 + i * 112
+        draw.rectangle((x0, 428, x0 + 84, 532), fill=AMBER if i < 2 else (70, 64, 52, 255))
+    for colour, y in ((RED, 660), (OUTLINE_LEAD, 780)):
+        thick_line(draw, [(700, y), (800, y - 20), (860, y - 60)], 36, colour)
+        for dy in (-40, 40):
+            thick_line(draw, [(860, y - 60), (960, y - 60 + dy)], 34, STEEL)
+    return image
+
+
 DRAWINGS = {
     'Service': (service, 'a steel spanner laid diagonally, open jaw and ring end, for "service when possible"'),
     'Switch': (switch, 'a rocker switch on a pale plate, the fallback icon for any switchable load'),
@@ -201,10 +222,11 @@ DRAWINGS = {
     'AirConditioner': (air_conditioner, 'three pale-blue cold waves falling from a slatted steel vent'),
     'NightHeater': (night_heater, 'a squat parking heater on legs with a flame in its window and a crescent moon above'),
     'JumpStartKit': (jump_start_kit, 'two coiled jump leads, red and black, each ending in a sprung steel clamp'),
+    'BoosterPack': (booster_pack, 'a squat pale battery case with a carrying handle, three charge bars (two lit amber) and two short leads with steel clamps'),
 }
 
 # Textures that live in a subfolder (an item's texture under Things/).
-SUBFOLDERS = {'JumpStartKit': 'Things'}
+SUBFOLDERS = {'JumpStartKit': 'Things', 'BoosterPack': 'Things'}
 
 
 def write(name):

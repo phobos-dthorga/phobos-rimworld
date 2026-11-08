@@ -76,6 +76,8 @@ load folder or patch.
 | 8 Nov 2026 | **A new mod, D'thorga Vehicles** (`PhobosDthorga.Vehicles`), for utility vehicles on Vehicle Framework; created as a stand-in carrying loadouts for other mods' vehicles until the framework is built ([design](utility-vehicles-design.md)) | owner (on the agent's recommendation) |
 | 8 Nov 2026 | The framework before any custom vehicle; the records before any code | owner |
 | 8 Nov 2026 | Vehicle art through a pay-per-image API rather than a subscription or PixelLab for bodies; the Gemini image API first, the OpenAI image API second ([research](vehicle-art-services.md)) | agent recommendation, owner to confirm (the owner asked for alternatives to ChatGPT) |
+| 9 Nov 2026 | **The OpenAI image API for vehicle bodies; the owner's local generation for icons** ([research](vehicle-art-services.md)); PixelLab not used, its pixel art does not suit RimWorld | owner |
+| 9 Nov 2026 | Vehicle follow-ups: a crafted **booster pack** with starts (no kit needed), **the world map's ground** from each biome's Defs, **cab moods** by each person's comfort range (a setting, on), a **RimHUD** value ([record](vehicle-crew-and-ground-design.md)) | owner's go; figures and defaults agent choices |
 | 9 Nov 2026 | **Drop RimWorld 1.6 from every mod now**, not when each is next touched | owner |
 | 9 Nov 2026 | Vehicle systems: jump-starting from another vehicle, and per-vehicle tuning in Vehicle Framework's own settings window | owner |
 | 9 Nov 2026 | Tyres and track pads take chemfuel as a stand-in for rubber, beside steel and components | owner |

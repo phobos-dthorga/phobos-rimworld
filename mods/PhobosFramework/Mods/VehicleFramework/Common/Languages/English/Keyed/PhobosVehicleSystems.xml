@@ -53,7 +53,7 @@
   <PhobosVehicleSystems_SettingJumpStartNeedsKit>Jump-start leads must be crafted</PhobosVehicleSystems_SettingJumpStartNeedsKit>
   <PhobosVehicleSystems_SettingJumpStartNeedsKitDesc>On by default: a jump-start needs a jump-start kit, in stock on the map (the helper fetches it) or aboard the caravan. Craft one at a machining table or a fabrication bench; it is never used up. Off: the leads are free, as before.</PhobosVehicleSystems_SettingJumpStartNeedsKitDesc>
   <PhobosVehicleSystems_SettingAssumeBoosterPack>Every vehicle carries a booster pack</PhobosVehicleSystems_SettingAssumeBoosterPack>
-  <PhobosVehicleSystems_SettingAssumeBoosterPackDesc>Off by default: a jump-start needs another vehicle near enough (or in the same caravan) with charge to give, so a lone vehicle with a flat battery waits for one. On: every vehicle is taken to carry a charged booster pack, and a jump-start needs no other vehicle, on the map or in a caravan.</PhobosVehicleSystems_SettingAssumeBoosterPackDesc>
+  <PhobosVehicleSystems_SettingAssumeBoosterPackDesc>Off by default: a jump-start needs another vehicle near enough (or in the same caravan) with charge to give, or a crafted booster pack with a start left, so a lone vehicle with a flat battery and no pack waits for help. On: every vehicle is taken to carry a charged booster pack, and a jump-start needs no other vehicle and no pack, on the map or in a caravan.</PhobosVehicleSystems_SettingAssumeBoosterPackDesc>
   <PhobosVehicleSystems_RemoveExplain>Vehicles save their parts in order, so a save made with these systems cannot simply lose them. Before you remove D'thorga Framework or Vehicle Framework from a colony, load it, press this button, save, then remove the mod. Turning vehicles or systems off above needs none of this.</PhobosVehicleSystems_RemoveExplain>
   <PhobosVehicleSystems_RemoveButton>Remove the added parts from this colony's vehicles</PhobosVehicleSystems_RemoveButton>
   <PhobosVehicleSystems_RemoveConfirm>Remove every part the vehicle systems added, from every vehicle in this colony, and stop the systems until you restart? Save straight afterwards, then remove the mod.</PhobosVehicleSystems_RemoveConfirm>
@@ -135,18 +135,22 @@
 
   <!-- Jump-starting -->
   <PhobosVehicleSystems_JumpStartOption>Jump-start the {VEHICLE} from the {DONOR}</PhobosVehicleSystems_JumpStartOption>
-  <PhobosVehicleSystems_CannotJumpStartNoDonor>Cannot jump-start the {VEHICLE}: no vehicle with a charged battery or a running engine is within {REACH} cells. Park one beside it.</PhobosVehicleSystems_CannotJumpStartNoDonor>
+  <PhobosVehicleSystems_CannotJumpStartNoDonor>Cannot jump-start the {VEHICLE}: no vehicle with a charged battery or a running engine is within {REACH} cells, and there is no booster pack with a start left. Park one beside it, or bring a charged booster pack.</PhobosVehicleSystems_CannotJumpStartNoDonor>
   <PhobosVehicleSystems_CannotJumpStartNoPath>Cannot jump-start the {VEHICLE}: there is nowhere to stand beside it that can be reached.</PhobosVehicleSystems_CannotJumpStartNoPath>
   <PhobosVehicleSystems_JumpStarted>{HELPER} has jump-started the {VEHICLE} from the {DONOR}. It will start now; drive it to charge the battery.</PhobosVehicleSystems_JumpStarted>
   <PhobosVehicleSystems_JumpStartFailed>{HELPER} could not jump-start the {VEHICLE}: the {DONOR} has too little charge left or has moved away.</PhobosVehicleSystems_JumpStartFailed>
   <PhobosVehicleSystems_JumpStartOptionBooster>Jump-start the {VEHICLE} from its booster pack</PhobosVehicleSystems_JumpStartOptionBooster>
   <PhobosVehicleSystems_JumpStartedBooster>{HELPER} has jump-started the {VEHICLE} from its booster pack. It will start now; drive it to charge the battery.</PhobosVehicleSystems_JumpStartedBooster>
-  <PhobosVehicleSystems_CannotJumpStartNoKit>Cannot jump-start the {VEHICLE}: there is no jump-start kit to fetch. Craft one at a machining table or a fabrication bench.</PhobosVehicleSystems_CannotJumpStartNoKit>
+  <PhobosVehicleSystems_CannotJumpStartNoKit>Cannot jump-start the {VEHICLE}: there is no jump-start kit to fetch for the leads, and no booster pack with a start left. Craft a kit at a machining table or a fabrication bench.</PhobosVehicleSystems_CannotJumpStartNoKit>
   <PhobosVehicleSystems_CaravanJumpStart>Jump-start {VEHICLE} from {DONOR}</PhobosVehicleSystems_CaravanJumpStart>
   <PhobosVehicleSystems_CaravanJumpStartBooster>Jump-start {VEHICLE} from its booster pack</PhobosVehicleSystems_CaravanJumpStartBooster>
-  <PhobosVehicleSystems_CaravanJumpStartDesc>A crew member connects the leads and cranks the {VEHICLE}. The charge comes from the other vehicle, or from the booster pack every vehicle carries.</PhobosVehicleSystems_CaravanJumpStartDesc>
-  <PhobosVehicleSystems_CannotJumpStartNoKitCaravan>No jump-start kit in the caravan to connect the {VEHICLE} with.</PhobosVehicleSystems_CannotJumpStartNoKitCaravan>
-  <PhobosVehicleSystems_CannotJumpStartNoDonorCaravan>No other vehicle in the caravan has the charge to give the {VEHICLE}.</PhobosVehicleSystems_CannotJumpStartNoDonorCaravan>
+  <PhobosVehicleSystems_CaravanJumpStartPack>Jump-start {VEHICLE} with a booster pack</PhobosVehicleSystems_CaravanJumpStartPack>
+  <PhobosVehicleSystems_JumpStartOptionPack>Jump-start the {VEHICLE} with a booster pack</PhobosVehicleSystems_JumpStartOptionPack>
+  <PhobosVehicleSystems_JumpStartedPack>{HELPER} has jump-started the {VEHICLE} with a booster pack, which has {COUNT} starts left. It will start now; drive it to charge the battery.</PhobosVehicleSystems_JumpStartedPack>
+  <PhobosVehicleSystems_BoosterPackCharge>Charge for {COUNT} of {MAX} starts.</PhobosVehicleSystems_BoosterPackCharge>
+  <PhobosVehicleSystems_CaravanJumpStartDesc>A crew member connects the {VEHICLE} and cranks it. The charge comes from another vehicle through the leads, or from a booster pack.</PhobosVehicleSystems_CaravanJumpStartDesc>
+  <PhobosVehicleSystems_CannotJumpStartNoKitCaravan>No jump-start kit in the caravan to connect the {VEHICLE} with, and no booster pack aboard with a start left.</PhobosVehicleSystems_CannotJumpStartNoKitCaravan>
+  <PhobosVehicleSystems_CannotJumpStartNoDonorCaravan>No other vehicle in the caravan has the charge to give the {VEHICLE}, and no booster pack aboard has a start left.</PhobosVehicleSystems_CannotJumpStartNoDonorCaravan>
   <PhobosVehicleSystems_CannotJumpStartNoHelper>Nobody in the caravan is able to jump-start the {VEHICLE}.</PhobosVehicleSystems_CannotJumpStartNoHelper>
   <PhobosVehicleSystems_CaravanRefusal>{VEHICLE}: {REASON}</PhobosVehicleSystems_CaravanRefusal>
   <PhobosVehicleSystems_CaravanCapExplanation>{VEHICLE} held to {CAP} of its speed by its engine or the ground</PhobosVehicleSystems_CaravanCapExplanation>
@@ -199,6 +203,16 @@
   <PhobosVehicleSystems_HoverDry>can hover</PhobosVehicleSystems_HoverDry>
   <PhobosVehicleSystems_HoverWet>can hover only with water injection</PhobosVehicleSystems_HoverWet>
   <PhobosVehicleSystems_HoverNone>cannot hover</PhobosVehicleSystems_HoverNone>
+
+  <!-- The crew: cab comfort and the head-up display value -->
+  <PhobosVehicleSystems_SettingCabMoods>Passengers feel the cab</PhobosVehicleSystems_SettingCabMoods>
+  <PhobosVehicleSystems_SettingCabMoodsDesc>On by default: people aboard a vehicle with a closed cab are glad of a warm cab in the cold or a cool one in the heat, and unhappy in a cab that is too cold or too hot for them, by their own comfortable range. Off: no such moods.</PhobosVehicleSystems_SettingCabMoodsDesc>
+  <PhobosVehicleSystems_HudVehicle>Vehicle</PhobosVehicleSystems_HudVehicle>
+  <PhobosVehicleSystems_HudNone>none</PhobosVehicleSystems_HudNone>
+  <PhobosVehicleSystems_HudAboard>{VEHICLE} ({ROLE})</PhobosVehicleSystems_HudAboard>
+  <PhobosVehicleSystems_HudFuel>Fuel: {FUEL}</PhobosVehicleSystems_HudFuel>
+  <PhobosVehicleSystems_HudCab>Cab: {TEMPERATURE}</PhobosVehicleSystems_HudCab>
+  <PhobosVehicleSystems_HudClick>Click to select the {VEHICLE}.</PhobosVehicleSystems_HudClick>
 
   <!-- Letters -->
   <PhobosVehicleSystems_LetterBoilingLabel>Engine boiling over: {VEHICLE}</PhobosVehicleSystems_LetterBoilingLabel>

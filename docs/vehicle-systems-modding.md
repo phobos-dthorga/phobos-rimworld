@@ -320,6 +320,21 @@ cell or the tile, and the vehicle part registers Vehicle Framework's role handle
 reader for its own holder type the same way. A jump-start needs a `PhobosVehicleSystems_JumpStartKit` in stock or aboard when the
 player's setting says so (`JumpStarts.NeedsKit`), found through the core's `Phobos.Framework.Items.ItemFinder`.
 
+**From 0.18.0** (`docs/development/vehicle-crew-and-ground-design.md`):
+
+- **The ground on the world map.** A caravan's drivetrain reads the tile through the core's `Phobos.Framework.WorldMap.BiomeGround`:
+  the biome's typical terrain (its `terrainsByFertility` entry at fertility 0.5), its `movementDifficulty`, the game's winter offset
+  and the road. `WorldGroundRules.PathCost` turns them into a path cost for the same ground curves a map cell uses. **A biome of
+  your own needs nothing extra**: give it a `terrainsByFertility` list and a `movementDifficulty`, as the game's biomes have.
+- **Booster packs.** `PhobosVehicleSystems_BoosterPack` carries the core's `Phobos.Framework.Items.CompProperties_PhobosCharges`
+  (`uses`, `rechargeHoursPerUse`, `inspectKey`). Any item of yours with that comp and a `rechargeHoursPerUse` above 0 also
+  recharges in the cargo of a running vehicle. A recipe that recharges such an item disallows the core's special filter
+  `PhobosFramework_ChargesFull` in its fixed ingredient filter (see `Items_BoosterPack.xml`).
+- **Cab moods.** `ThoughtDef PhobosVehicleSystems_CabComfort` has six stages in the order of the core's
+  `Phobos.Framework.Rules.ShelterStage`. Patch its labels, descriptions or moods in XML; keep the order.
+- **RimHUD.** `Mods/VehiclesRimHUD/Common` holds a `RimHUD.CustomValueDef` naming `Phobos.VehicleSystems.RimHudVehicleValue`, loaded
+  only with both Vehicle Framework and RimHUD. RimHUD calls its `GetParameters(Pawn)` by reflection.
+
 ## How a system appears in the tabs
 
 Every vehicle with systems gets two inspector tabs (`Presentation/ITab_VehicleDashboard.cs`, `ITab_VehicleSystems.cs`), added to
@@ -339,9 +354,11 @@ quantities, stages and parts), **set a quantity** (any non-derived quantity to 0
 service**, **remove from this colony** (the sweep before removing the mod), **hit a part** (a 20-point hit on a role's first part
 through Vehicle Framework's own damage path, which Combat Extended replaces, so part-hit rules can be checked under both), **log
 part health memory** (what the systems last saw of each part's health), **explode the boiler now** (runs a system's explosion
-effect whatever the player's setting, after a confirmation: destructive), **toggle a load**, **give a jump-start kit**, **flatten
-the battery**, and on the world map with a vehicle caravan selected **log caravan state** and **set caravan cap** (half, crawl or
-clear, to see the caravan slow and its explanation). The cab's temperature is set through **set a quantity**. For the tabs:
+effect whatever the player's setting, after a confirmation: destructive), **toggle a load**, **give a jump-start kit**, **give a
+booster pack** (full, one start left, or flat), **flatten the battery**, **log cab comfort** (the cab, the outside, and each person
+aboard with their comfortable range and the mood it gives), and on the world map with a vehicle caravan selected **log caravan
+state** (now with the tile's ground: biome, typical terrain, road, winter and the path cost) and **set caravan cap** (half, crawl
+or clear, to see the caravan slow and its explanation). The cab's temperature is set through **set a quantity**. For the tabs:
 **fill history with a test curve** (a day of sine waves in every graph), **open the Dashboard tab**, **open the Systems tab** and
 **log tab state** (how many vehicles' tab state is held; it should be none after the tab closes).
 

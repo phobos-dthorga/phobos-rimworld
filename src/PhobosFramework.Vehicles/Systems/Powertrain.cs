@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Phobos.Framework.Vehicles.Rules;
+using Phobos.Framework.WorldMap;
 using RimWorld;
 using RimWorld.Planet;
 using UnityEngine;
@@ -307,8 +308,7 @@ public sealed class Powertrain
         else if (caravan != null && caravan.vehiclePather != null && caravan.vehiclePather.MovingNow)
         {
             conditions.Speed = Spec.DesignSpeed;
-            WorldGround(caravan.Tile, out conditions.RollingResistance, out conditions.Grade);
-            conditions.Grip = 0.7;
+            WorldGround(caravan.Tile, out conditions.RollingResistance, out conditions.Grade, out conditions.Grip);
         }
         else
         {
@@ -452,24 +452,50 @@ public sealed class Powertrain
         grip = groundGrip;
     }
 
-    /// <summary>A caravan's road and hills: on a road the rolling resistance of asphalt, off it that of soil; grade by hilliness
-    /// (authored: flat 0%, small hills 2%, large hills 5%, mountainous 8%).</summary>
-    static void WorldGround(PlanetTile tile, out double rolling, out double grade)
+    /// <summary>
+    /// A caravan's ground: the tile's biome (its typical terrain and difficulty), road and snow as a path cost through the same curves
+    /// a map cell uses, and the grade by hilliness (WorldGroundRules; docs/development/vehicle-crew-and-ground-design.md). Rails and
+    /// other running gear with their own surface keep it. Read once per tile and in-game hour (derived, never saved).
+    /// </summary>
+    void WorldGround(PlanetTile tile, out double rolling, out double grade, out double grip)
     {
-        rolling = 0.05;
-        grade = 0;
-        if (!tile.Valid) return;
-        Tile? data = Find.WorldGrid[tile];
-        if (data == null) return;
-        if (data is SurfaceTile surface && surface.Roads != null && surface.Roads.Count > 0) rolling = 0.012;
-        grade = data.hilliness switch
+        int now = Find.TickManager.TicksGame;
+        if (tile != worldTile || now - worldTileTick >= ElapsedRule.TicksPerHour)
         {
-            Hilliness.SmallHills => 0.02,
-            Hilliness.LargeHills => 0.05,
-            Hilliness.Mountainous => 0.08,
-            _ => 0,
-        };
+            worldTile = tile;
+            worldTileTick = now;
+            if (BiomeGround.TryRead(tile, out TileGround ground))
+            {
+                WorldPathCost = WorldGroundRules.PathCost(ground.TerrainPathCost, ground.BiomeDifficulty, ground.Road, ground.WinterOffset);
+                worldGrade = WorldGroundRules.Grade((int)ground.Hilliness);
+                WorldGroundRead = ground;
+            }
+            else
+            {
+                WorldPathCost = 2;
+                worldGrade = 0;
+                WorldGroundRead = null;
+            }
+        }
+        rolling = DrivetrainModel.RollingResistanceForPathCost(WorldPathCost);
+        grip = DrivetrainModel.GripForPathCost(WorldPathCost);
+        grade = worldGrade;
+        if (!double.IsNaN(fixedRolling) && !double.IsNaN(fixedGrip))
+        {
+            rolling = fixedRolling;
+            grip = fixedGrip;
+        }
     }
+
+    PlanetTile worldTile = PlanetTile.Invalid;
+    int worldTileTick = -1;
+    double worldGrade;
+
+    /// <summary>The caravan tile's path cost as last read, for the dev log and the Systems tab.</summary>
+    public double WorldPathCost { get; private set; } = 2;
+
+    /// <summary>The caravan tile's ground as last read (null off the world map or before the first read), for the dev log.</summary>
+    public TileGround? WorldGroundRead { get; private set; }
 
     /// <summary>When the player lets fuel follow the model: the difference between the model's fuel use and Vehicle Framework's own
     /// (full rate moving, half idling), burned or given back over the hours that passed. Normalised so a nominal cruise matches.</summary>

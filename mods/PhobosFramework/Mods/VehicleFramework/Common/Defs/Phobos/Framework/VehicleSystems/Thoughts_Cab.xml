@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    How people aboard a closed cab feel about it (owner's follow-up, 9 Nov 2026; docs/development/vehicle-crew-and-ground-design.md).
+    Each person compares the cab with their own comfortable range (their apparel, genes and traits count): glad of a warm cab when it
+    is colder than that outside, or a cool one when hotter; unhappy below or above the range, and more so 10 degrees beyond it. The
+    stages' order is the Framework core's ShelterStage order. Mood figures are authored, small beside the game's own (a good meal +5,
+    sleeping on the ground -4). Valid while despawned: people aboard a vehicle are not spawned. Agent-authored text, held for the
+    owner's review. Not yet tested in game.
+  -->
+  <ThoughtDef>
+    <defName>PhobosVehicleSystems_CabComfort</defName>
+    <workerClass>Phobos.VehicleSystems.ThoughtWorker_PhobosCab</workerClass>
+    <validWhileDespawned>true</validWhileDespawned>
+    <stages>
+      <li>
+        <label>warm cab</label>
+        <description>It's bitter out there, but the cab is warm.</description>
+        <baseMoodEffect>3</baseMoodEffect>
+      </li>
+      <li>
+        <label>cool cab</label>
+        <description>The heat outside is brutal, but the cab is cool.</description>
+        <baseMoodEffect>3</baseMoodEffect>
+      </li>
+      <li>
+        <label>chilly cab</label>
+        <description>The cab is cold. I can see my breath.</description>
+        <baseMoodEffect>-2</baseMoodEffect>
+      </li>
+      <li>
+        <label>freezing cab</label>
+        <description>The cab is freezing. My hands are numb on everything I touch.</description>
+        <baseMoodEffect>-5</baseMoodEffect>
+      </li>
+      <li>
+        <label>hot cab</label>
+        <description>The cab is hot and stuffy.</description>
+        <baseMoodEffect>-2</baseMoodEffect>
+      </li>
+      <li>
+        <label>stifling cab</label>
+        <description>The cab is an oven. I can hardly breathe in here.</description>
+        <baseMoodEffect>-5</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+</Defs>
