@@ -159,7 +159,8 @@ The candidate base class for interval map components is still not built (see 0.6
   (operations applied only while that setting is on; mods register in their constructors, which run before patches). 0.21.0 added
   `Health/LeavesLasting.cs` (a condition that leaves a lasting one on its part when it heals, by its worst) and `Rules/LastingRule.cs`;
   the uninstall sweep's `CleanupService.Sweeping` tells it to stand aside. 0.21.1 added `Rules/SupplyRules.cs` (several jobs' needs
-  against stock); 0.23.0 `UI/PhobosTabs.cs` (opening a world inspector tab from code).
+  against stock); 0.23.0 `UI/PhobosTabs.cs` (opening a world inspector tab from code); 0.25.0 `Rules/DetailTierRule.cs` (Full, Lite
+  or Off by faction and presence, tested) and `Debug/PhobosTiming.cs` (a dev-mode timing accumulator, free outside dev mode).
 
 ## Open points and upstream
 

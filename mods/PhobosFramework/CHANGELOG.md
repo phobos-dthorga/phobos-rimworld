@@ -5,6 +5,24 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.25.0] - 2026-11-09 - Draft
+
+Measurement and the lite tier for other factions' vehicles: the first slice of the vehicle health work (owner, 9 November 2026). **Not yet tested in game.** Design: docs/development/vehicle-health-design.md.
+
+### Added
+
+- A setting, Every faction's vehicles run the full model (off by default).
+- Dev actions: a timing report (how long the vehicle systems took, by kind of work, with how many vehicles run full, lite or off), reset timing, and log the tier of the selected vehicles. Dev mode must be on while the work runs for it to be timed.
+- Shared, in the core: the detail tier rule (tested) and a timing accumulator any Phobos mod can wrap work in, free outside dev mode.
+
+### Changed
+
+- Other factions' vehicles on your map no longer run the full systems model every rare tick: they take hits and keep what they are given, but nothing in them heats, wears or runs down on its own. Until now every raider's vehicle cost what yours did. Off the map they run nothing. A captured vehicle wakes to the full model on its next update from its saved values.
+
+### Compatibility and limits
+
+- Nothing saved changes; the tier is worked out afresh each time. Hits on another faction's vehicle are still counted, so a captured vehicle's systems remember them.
+
 ## [0.24.0] - 2026-11-09 - Draft
 
 Bleed air (owner, 9 November 2026). **Not yet tested in game.** Design: docs/development/vehicle-turbine-design.md.

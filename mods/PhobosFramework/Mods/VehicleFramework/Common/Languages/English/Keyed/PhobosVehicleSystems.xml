@@ -20,6 +20,8 @@
   <PhobosVehicleSystems_KindSteam>Steam locomotives</PhobosVehicleSystems_KindSteam>
   <PhobosVehicleSystems_KindElectric>Electric vehicles</PhobosVehicleSystems_KindElectric>
   <PhobosVehicleSystems_SectionSystems>Systems</PhobosVehicleSystems_SectionSystems>
+  <PhobosVehicleSystems_SettingFullForEveryone>Every faction's vehicles run the full model</PhobosVehicleSystems_SettingFullForEveryone>
+  <PhobosVehicleSystems_SettingFullForEveryoneDesc>Off by default: only your own vehicles run every system in full. Other factions' vehicles on your map take hits and keep what they are given, but nothing in them heats, wears or runs down on its own, which keeps a raid's vehicles cheap. On: raiders' and visitors' vehicles overheat, leak and run dry exactly as yours do, at the same cost each.</PhobosVehicleSystems_SettingFullForEveryoneDesc>
   <PhobosVehicleSystems_SettingShowOnly>Figures only, no consequences</PhobosVehicleSystems_SettingShowOnly>
   <PhobosVehicleSystems_SettingShowOnlyDesc>The systems run and show their state, but nothing happens to the vehicles: no wear, failures, refusals or slowing. Messages still tell you what would have happened.</PhobosVehicleSystems_SettingShowOnlyDesc>
   <PhobosVehicleSystems_SettingFuelGelling>Fuel thickens in deep cold</PhobosVehicleSystems_SettingFuelGelling>
@@ -199,6 +201,7 @@
   <!-- The Dashboard and Systems tabs -->
   <PhobosVehicleSystems_TabDashboard>Dashboard</PhobosVehicleSystems_TabDashboard>
   <PhobosVehicleSystems_TabSystems>Systems</PhobosVehicleSystems_TabSystems>
+  <PhobosVehicleSystems_DashLiteModel>This vehicle is not yours: its systems are not followed closely.</PhobosVehicleSystems_DashLiteModel>
   <PhobosVehicleSystems_DashReady>Nothing needs you.</PhobosVehicleSystems_DashReady>
   <PhobosVehicleSystems_DashSwitchOn>on</PhobosVehicleSystems_DashSwitchOn>
   <PhobosVehicleSystems_DashSwitchOff>off</PhobosVehicleSystems_DashSwitchOff>

@@ -385,6 +385,13 @@ Empty mass, most specific first: the player's tuning in Vehicle Framework's wind
 drivetrain's `ratedKilowatts`; power per tonne times the empty mass. A quantity that counts what is used up can carry a
 `remainingLabel` ("tread"): the tabs' gauges then show what is left, full when new.
 
+## Detail tiers
+
+Every fitted vehicle has a tier, read on the rare tick from the Framework core's `DetailTierRule`: the player's own vehicles are
+`Full` wherever they are; another faction's are `Lite` on a map (hits are counted through the reactor and the rare-tick sweep;
+no system advances, no event effects, no drivetrain samples) and `Off` elsewhere, unless the player's setting gives everyone full
+detail. `comp.Tier` says which. Effects and inputs of your own need no change: they are simply not evaluated on a Lite vehicle.
+
 ## Climate control
 
 A loadout's electrical load may carry `available`, a condition saying whether the vehicle has it fitted at all: while it does not hold,

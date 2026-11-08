@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Phobos.Framework;
 using Phobos.Framework.Interface;
+using Phobos.Framework.Rules;
 using Phobos.Framework.Vehicles.Rules;
 using RimWorld;
 using UnityEngine;
@@ -49,8 +50,10 @@ public class ITab_VehicleDashboard : ITab
         bool figures = mode != DisplayMode.Plain;
         float y = outer.y;
 
-        // What it waits for.
-        string waiting = InspectText.WaitingLine(comp) ?? "PhobosVehicleSystems_DashReady".Translate();
+        // What it waits for; or, for another faction's vehicle, that its systems are not followed closely.
+        string waiting = comp.Tier != DetailTier.Full
+            ? "PhobosVehicleSystems_DashLiteModel".Translate()
+            : InspectText.WaitingLine(comp) ?? "PhobosVehicleSystems_DashReady".Translate();
         using (new TextBlock(GameFont.Small, TextAnchor.UpperLeft))
         {
             float height = Mathf.Max(24f, Text.CalcHeight(waiting, outer.width));

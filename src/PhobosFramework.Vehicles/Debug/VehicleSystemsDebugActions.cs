@@ -304,6 +304,38 @@ public static class VehicleSystemsDebugActions
         return nodes;
     }
 
+    [DebugAction(DebugCategory.Name, "Vehicle systems: timing report", allowedGameStates = AllowedGameStates.Playing)]
+    static void TimingReport()
+    {
+        int full = 0, lite = 0, off = 0;
+        foreach (VehiclePawn vehicle in VehicleSystems.AllVehicles())
+        {
+            CompPhobosVehicleSystems? comp = vehicle.GetComp<CompPhobosVehicleSystems>();
+            if (comp == null || !comp.Usable) continue;
+            switch (comp.Tier)
+            {
+                case DetailTier.Full: full++; break;
+                case DetailTier.Lite: lite++; break;
+                default: off++; break;
+            }
+        }
+        Log.Message(VehicleSystemsMod.LogPrefix + " Timing (dev mode on while the work ran):\n" + PhobosTiming.Report()
+            + "\nVehicles with systems: " + full + " full, " + lite + " lite, " + off + " off.");
+    }
+
+    [DebugAction(DebugCategory.Name, "Vehicle systems: reset timing", allowedGameStates = AllowedGameStates.Playing)]
+    static void ResetTiming() => PhobosTiming.Reset();
+
+    [DebugAction(DebugCategory.Name, "Vehicle systems: log tier of selected", allowedGameStates = AllowedGameStates.PlayingOnMap)]
+    static void LogTier()
+    {
+        foreach (CompPhobosVehicleSystems comp in Selected())
+        {
+            Log.Message(VehicleSystemsMod.LogPrefix + " " + comp.Vehicle.LabelShort + ": tier " + comp.Tier + " (faction "
+                + (comp.Vehicle.Faction?.Name ?? "none") + ", spawned " + comp.Vehicle.Spawned + ").");
+        }
+    }
+
     [DebugAction(DebugCategory.Name, "Vehicle systems: fill history with a test curve", allowedGameStates = AllowedGameStates.PlayingOnMap)]
     static void FillHistory()
     {

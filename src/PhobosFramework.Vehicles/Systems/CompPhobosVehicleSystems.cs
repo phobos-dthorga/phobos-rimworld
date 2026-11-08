@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Phobos.Framework;
+using Phobos.Framework.Debug;
 using Phobos.Framework.Items;
 using Phobos.Framework.Rules;
 using Phobos.Framework.Vehicles.Rules;
@@ -160,6 +161,16 @@ public class CompPhobosVehicleSystems : VehicleComp
 
     /// <summary>Whether the service runs for this vehicle: it has systems and the player has not swept them out.</summary>
     public bool Usable => Vehicle != null && Props.systems.Count > 0 && !VehicleSystems.Swept;
+
+    /// <summary>
+    /// How closely this vehicle is simulated (the core's DetailTierRule; owner, 9 Nov 2026): the player's own in full; another
+    /// faction's lightly while on a map (hits are counted, nothing evolves) and not at all off it, unless the setting asks for full
+    /// detail for everyone. Re-read on the rare tick, so a captured vehicle wakes up. Derived, never saved.
+    /// </summary>
+    public DetailTier Tier { get; private set; } = DetailTier.Full;
+
+    DetailTier ReadTier() => Vehicle == null ? DetailTier.Off
+        : DetailTierRule.For(Vehicle.Faction == Faction.OfPlayer, Vehicle.Spawned, VehicleSystemsMod.Settings.fullModelForEveryone);
 
     public IReadOnlyList<SystemState> States
     {
@@ -346,7 +357,7 @@ public class CompPhobosVehicleSystems : VehicleComp
     void OnScanShort()
     {
         Powertrain? train = Powertrain;
-        if (train == null || !Usable) return;
+        if (train == null || !Usable || Tier != DetailTier.Full) return;
         bool active = train.IsAircraft ? Vehicle.Drafted || train.AircraftRunning : Vehicle.Spawned && Vehicle.vehiclePather != null && Vehicle.vehiclePather.Moving;
         if (!active && train.Cap >= 1f && train.Result.Rpm <= 0) return;
         train.Sample();
@@ -355,7 +366,20 @@ public class CompPhobosVehicleSystems : VehicleComp
     public override void CompTickRare()
     {
         base.CompTickRare();
-        UpdateNow();
+        Tier = ReadTier();
+        switch (Tier)
+        {
+            case DetailTier.Full:
+                using (PhobosTiming.Measure("vehicle rare tick / full")) UpdateNow();
+                break;
+            case DetailTier.Lite:
+                // Hits are counted (Combat Extended writes part health without an event), nothing evolves.
+                using (PhobosTiming.Measure("vehicle rare tick / lite"))
+                {
+                    if (states != null) SweepPartHealth();
+                }
+                break;
+        }
     }
 
     /// <summary>Gives the appended parts back the healths saved by key, in case their order moved since the save.</summary>
@@ -550,6 +574,7 @@ public class CompPhobosVehicleSystems : VehicleComp
 
     void OnVehicleEvent(VehicleEventDef eventDef)
     {
+        if (Tier != DetailTier.Full) return;
         if (!Usable) return;
         UpdateNow();
         if (states == null) return;
@@ -578,6 +603,7 @@ public class CompPhobosVehicleSystems : VehicleComp
     /// </summary>
     public void Notify_PartSeen(string role, VehicleComponent part)
     {
+        using PhobosTiming.Scope timing = PhobosTiming.Measure("vehicle hit");
         if (!Usable || part?.props?.key == null) return;
         string key = part.props.key;
         float health = part.Health;
