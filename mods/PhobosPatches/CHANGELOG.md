@@ -6,9 +6,13 @@ says the owner tested it.
 
 ## [Unreleased]
 
-## [0.14.1] - 2026-11-09 - Draft
+### Changed
 
-A fix for Visit Settlements' settlement events, found in the owner's log (9 November 2026). **Not yet tested in game.**
+- Dates in this mod's records that were written a day ahead now read 8 November 2026. Text only; nothing in game changes.
+
+## [0.14.1] - 2026-11-08 - Draft
+
+A fix for Visit Settlements' settlement events, found in the owner's log (8 November 2026). **Not yet tested in game.**
 
 ### Fixed
 
@@ -23,9 +27,9 @@ A fix for Visit Settlements' settlement events, found in the owner's log (9 Nove
 
 - Needs D'thorga Framework 0.28.0 or later (its once-a-day throttle).
 
-## [0.14.0] - 2026-11-09 - Draft
+## [0.14.0] - 2026-11-08 - Draft
 
-The owner's choice of 9 November 2026 for a jump jet too heavy or too hot to hover: a setting, defaulting to the runway. **Not yet
+The owner's choice of 8 November 2026 for a jump jet too heavy or too hot to hover: a setting, defaulting to the runway. **Not yet
 tested in game.**
 
 ### Added
@@ -40,7 +44,7 @@ tested in game.**
 
 - Patches four of the Harrier's own methods by name (its hover check, the vertical-landing order, its buttons and its cancel). The order's patch skips the original only when it would refuse with the wrong reason.
 
-## [0.13.1] - 2026-11-09 - Draft
+## [0.13.1] - 2026-11-08 - Draft
 
 No change in play on 1.7. Not yet tested in game.
 

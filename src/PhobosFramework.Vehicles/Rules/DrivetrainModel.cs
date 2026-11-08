@@ -135,7 +135,7 @@ public static class DrivetrainModel
 {
     public const double Gravity = 9.81;
     public const double AirDensity = 1.2;
-    /// <summary>A vehicle that cannot get traction still crawls at this share of its speed (owner, 9 Nov 2026: crawl, never stop).</summary>
+    /// <summary>A vehicle that cannot get traction still crawls at this share of its speed (owner, 8 Nov 2026: crawl, never stop).</summary>
     public const double CrawlFloor = 0.15;
     /// <summary>Torque in hand a gear must keep to be chosen (10%, as the design says).</summary>
     public const double TorqueReserve = 1.1;

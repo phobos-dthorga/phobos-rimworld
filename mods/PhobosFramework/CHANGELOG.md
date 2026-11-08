@@ -5,9 +5,13 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
-## [0.29.1] - 2026-11-09 - Draft
+### Changed
 
-Temperatures that stayed at the air's, from the owner's test of the Cherokee and the M1A2 Abrams (9 November 2026). **Not yet tested in game.**
+- Dates in this mod's records that were written a day ahead now read 8 November 2026. Text only; nothing in game changes.
+
+## [0.29.1] - 2026-11-08 - Draft
+
+Temperatures that stayed at the air's, from the owner's test of the Cherokee and the M1A2 Abrams (8 November 2026). **Not yet tested in game.**
 
 ### Fixed
 
@@ -23,9 +27,9 @@ Temperatures that stayed at the air's, from the owner's test of the Cherokee and
 
 - Vehicle Framework does not tick a vehicle during a world-map flight, so temperatures are caught up on landing, as if the time had passed at what the engine is doing then.
 
-## [0.29.0] - 2026-11-09 - Draft
+## [0.29.0] - 2026-11-08 - Draft
 
-Part conditions: the third slice of the vehicle health work (owner, 9 November 2026), after a read of Vehicle Framework's development branch for 1.7. **Not yet tested in game.** Design: docs/development/vehicle-health-design.md.
+Part conditions: the third slice of the vehicle health work (owner, 8 November 2026), after a read of Vehicle Framework's development branch for 1.7. **Not yet tested in game.** Design: docs/development/vehicle-health-design.md.
 
 ### Added
 
@@ -48,9 +52,9 @@ Part conditions: the third slice of the vehicle health work (owner, 9 November 2
 - Vehicle Framework's development branch for 1.7 adds hand brakes that scratch every wheel when a vehicle brakes (on by default in its settings); the shipped conditions ignore scratches, and none of them is on wheels. Its own wheel wear will come on top of the tread wear here when that version ships: not yet decided, recorded in the design.
 - Another faction's vehicles get conditions from hits too, but on the light tier they only advance while one of their parts is being hit.
 
-## [0.28.0] - 2026-11-09 - Draft
+## [0.28.0] - 2026-11-08 - Draft
 
-The game's log kept going past its message limit (owner, 9 November 2026). **Not yet tested in game.** Design: docs/development/logging-framework-design.md.
+The game's log kept going past its message limit (owner, 8 November 2026). **Not yet tested in game.** Design: docs/development/logging-framework-design.md.
 
 ### Added
 
@@ -64,9 +68,9 @@ The game's log kept going past its message limit (owner, 9 November 2026). **Not
 - Lines under the framework's own category still reach Player.log after the game's limit (read from the 1.7 engine); they also count toward it.
 - Nothing saved changes; the counting lives in memory only.
 
-## [0.27.0] - 2026-11-09 - Draft
+## [0.27.0] - 2026-11-08 - Draft
 
-A file of every Def with all patches applied, for mod developers (owner's go-ahead, 9 November 2026). **Tested in game:** the owner wrote one on 8 November 2026 (72.8 MB, 335 mods) and phobos-modkit's Def tool read it.
+A file of every Def with all patches applied, for mod developers (owner's go-ahead, 8 November 2026). **Tested in game:** the owner wrote one on 8 November 2026 (72.8 MB, 335 mods) and phobos-modkit's Def tool read it.
 
 ### Added
 
@@ -78,9 +82,9 @@ A file of every Def with all patches applied, for mod developers (owner's go-ahe
 - The file holds other authors' Defs: it stays in the player's own RimWorld folder.
 - A mod that applies patches its own way, outside the game's patch list, may change Defs after the file's snapshot; the log line says when the patched XML was not seen at all.
 
-## [0.26.0] - 2026-11-09 - Draft
+## [0.26.0] - 2026-11-08 - Draft
 
-The Health tab: the second slice of the vehicle health work (owner, 9 November 2026). **Not yet tested in game.** Design: docs/development/vehicle-health-design.md.
+The Health tab: the second slice of the vehicle health work (owner, 8 November 2026). **Not yet tested in game.** Design: docs/development/vehicle-health-design.md.
 
 ### Added
 
@@ -98,9 +102,9 @@ The Health tab: the second slice of the vehicle health work (owner, 9 November 2
 - No part icons until Vehicle Framework ships for 1.7 (their drawing helpers pass Unity types a 1.7 build cannot use), and the stat rows are drawn by this mod from Vehicle Framework's figures for the same reason.
 - The tab rebuilds its rows only when a hit, a repair or a systems update says something changed, and draws them without building text in between.
 
-## [0.25.0] - 2026-11-09 - Draft
+## [0.25.0] - 2026-11-08 - Draft
 
-Measurement and the lite tier for other factions' vehicles: the first slice of the vehicle health work (owner, 9 November 2026). **Not yet tested in game.** Design: docs/development/vehicle-health-design.md.
+Measurement and the lite tier for other factions' vehicles: the first slice of the vehicle health work (owner, 8 November 2026). **Not yet tested in game.** Design: docs/development/vehicle-health-design.md.
 
 ### Added
 
@@ -116,9 +120,9 @@ Measurement and the lite tier for other factions' vehicles: the first slice of t
 
 - Nothing saved changes; the tier is worked out afresh each time. Hits on another faction's vehicle are still counted, so a captured vehicle's systems remember them.
 
-## [0.24.0] - 2026-11-09 - Draft
+## [0.24.0] - 2026-11-08 - Draft
 
-Bleed air (owner, 9 November 2026). **Not yet tested in game.** Design: docs/development/vehicle-turbine-design.md.
+Bleed air (owner, 8 November 2026). **Not yet tested in game.** Design: docs/development/vehicle-turbine-design.md.
 
 ### Added
 
@@ -130,9 +134,9 @@ Bleed air (owner, 9 November 2026). **Not yet tested in game.** Design: docs/dev
 
 - A heavy Harrier on a hot, windy day has slightly less margin to hover than before.
 
-## [0.23.0] - 2026-11-09 - Draft
+## [0.23.0] - 2026-11-08 - Draft
 
-The vehicle tabs on the world map (owner, 9 November 2026). **Not yet tested in game.** Design: docs/development/vehicle-tabs-design.md.
+The vehicle tabs on the world map (owner, 8 November 2026). **Not yet tested in game.** Design: docs/development/vehicle-tabs-design.md.
 
 ### Added
 
@@ -143,9 +147,9 @@ The vehicle tabs on the world map (owner, 9 November 2026). **Not yet tested in 
 
 - The map tabs and the world tabs draw through the same code, so they always show the same thing.
 
-## [0.22.0] - 2026-11-09 - Draft
+## [0.22.0] - 2026-11-08 - Draft
 
-Automatic climate control (owner, 9 November 2026). **Not yet tested in game.** Design: docs/development/vehicle-world-map-design.md.
+Automatic climate control (owner, 8 November 2026). **Not yet tested in game.** Design: docs/development/vehicle-world-map-design.md.
 
 ### Added
 
@@ -154,24 +158,24 @@ Automatic climate control (owner, 9 November 2026). **Not yet tested in game.** 
 - On electric vehicles it draws on the traction battery, as the heater does.
 - For modders: available on an electrical load (whether the vehicle has it fitted, so its switch shows), climateControl on a loadout's cabin block and on PhobosVehicleCabinExtension, and When_ClimateControl.
 
-## [0.21.2] - 2026-11-09 - Draft
+## [0.21.2] - 2026-11-08 - Draft
 
-From the owner's test of the Harrier (9 November 2026). **Not yet tested in game.**
+From the owner's test of the Harrier (8 November 2026). **Not yet tested in game.**
 
 ### Fixed
 
 - Aircraft and boats had no cab heater, so a closed cockpit or cabin could only cool and froze in the cold even in flight. Aircraft now heat it with air bled from the engines, boats with the engine's heat, below 5 degrees while the engine runs, with a switch as land vehicles have. A parked vehicle with its engine off still follows the weather, as before.
 
-## [0.21.1] - 2026-11-09 - Draft
+## [0.21.1] - 2026-11-08 - Draft
 
-From the owner's test of the Harrier (9 November 2026). **Not yet tested in game.**
+From the owner's test of the Harrier (8 November 2026). **Not yet tested in game.**
 
 ### Fixed
 
 - A vehicle with two services due at once (an engine service and a hot-section overhaul) asked only for the first service's first missing supply, so the second waited unseen behind it. Haulers now fetch everything every due service lacks, the inspect line and the Dashboard list it all (Waiting for supplies for an engine service and a hot-section overhaul: chemfuel x9, component x4, plasteel x10), and a mechanic starts whichever service already has its supplies aboard.
 - Shared, in the core: the rule that adds several jobs' needs against what is in stock, with tests.
 
-## [0.21.0] - 2026-11-09 - Draft
+## [0.21.0] - 2026-11-08 - Draft
 
 For D'thorga Medical 0.8.0's caustic gas. **Not yet tested in game.**
 
@@ -179,9 +183,9 @@ For D'thorga Medical 0.8.0's caustic gas. **Not yet tested in game.**
 
 - Shared, in the core: a condition component that leaves a lasting condition on the same body part when it heals, by the worst it reached (D'thorga Medical's scarred cornea), with its rule and tests. It leaves nothing on a part that has gone or been replaced, after death, or during the uninstall sweep.
 
-## [0.20.0] - 2026-11-09 - Draft
+## [0.20.0] - 2026-11-08 - Draft
 
-Electric vehicles (owner, 9 November 2026). **Not yet tested in game.** Design: docs/development/vehicle-electric-design.md.
+Electric vehicles (owner, 8 November 2026). **Not yet tested in game.** Design: docs/development/vehicle-electric-design.md.
 
 ### Added
 
@@ -201,9 +205,9 @@ Electric vehicles (owner, 9 November 2026). **Not yet tested in game.** Design: 
 
 - Safe to add. Electric vehicles already built gain the new parts on load, as every retrofit does.
 
-## [0.19.0] - 2026-11-09 - Draft
+## [0.19.0] - 2026-11-08 - Draft
 
-Kerb masses and the tabs after the owner's first look in game (9 November 2026). **Not yet tested in game.** Design: docs/development/vehicle-kerb-mass-check.md.
+Kerb masses and the tabs after the owner's first look in game (8 November 2026). **Not yet tested in game.** Design: docs/development/vehicle-kerb-mass-check.md.
 
 ### Added
 
@@ -223,9 +227,9 @@ Kerb masses and the tabs after the owner's first look in game (9 November 2026).
 
 - Safe to add. The tuning field is saved in Vehicle Framework's own settings file, not in saves.
 
-## [0.18.0] - 2026-11-09 - Draft
+## [0.18.0] - 2026-11-08 - Draft
 
-The follow-ups to the world map and the tabs (owner's go, 9 November 2026). **Not yet tested in game.** Design: docs/development/vehicle-crew-and-ground-design.md.
+The follow-ups to the world map and the tabs (owner's go, 8 November 2026). **Not yet tested in game.** Design: docs/development/vehicle-crew-and-ground-design.md.
 
 ### Added
 
@@ -256,9 +260,9 @@ The follow-ups to the world map and the tabs (owner's go, 9 November 2026). **No
 
 - Safe to add to a running colony. Booster packs save their starts left. Removing the Framework drops kits and packs with an error line each.
 
-## [0.17.0] - 2026-11-09 - Draft
+## [0.17.0] - 2026-11-08 - Draft
 
-The vehicle tabs (owner, 9 November 2026). **Not yet tested in game.** Design: docs/development/vehicle-tabs-design.md.
+The vehicle tabs (owner, 8 November 2026). **Not yet tested in game.** Design: docs/development/vehicle-tabs-design.md.
 
 ### Added
 
@@ -279,9 +283,9 @@ The vehicle tabs (owner, 9 November 2026). **Not yet tested in game.** Design: d
 
 - Safe to add to a running colony: graphs start empty and fill over the first day. Each vehicle's save gains the history strings.
 
-## [0.16.0] - 2026-11-09 - Draft
+## [0.16.0] - 2026-11-08 - Draft
 
-The world map: caravans, the cab's climate, the night heater and jump-starts, from the owner's decisions of 9 November 2026. **Not yet tested in game.** Design: docs/development/vehicle-world-map-design.md.
+The world map: caravans, the cab's climate, the night heater and jump-starts, from the owner's decisions of 8 November 2026. **Not yet tested in game.** Design: docs/development/vehicle-world-map-design.md.
 
 ### Added
 
@@ -310,9 +314,9 @@ The world map: caravans, the cab's climate, the night heater and jump-starts, fr
 
 - Safe to add to a running colony: cabs start at the outside temperature; the new settings start at their defaults. The caravan comp joins saved caravans on load.
 
-## [0.15.0] - 2026-11-09 - Draft
+## [0.15.0] - 2026-11-08 - Draft
 
-Combat Extended corrections for the vehicle systems, from a reading of CE's vehicle code on 9 November 2026. **Not yet tested in game.**
+Combat Extended corrections for the vehicle systems, from a reading of CE's vehicle code on 8 November 2026. **Not yet tested in game.**
 
 ### Fixed
 
@@ -330,9 +334,9 @@ Combat Extended corrections for the vehicle systems, from a reading of CE's vehi
 
 - Read from CE's vehicle compatibility code and Defs; whether Vehicle Framework fires a part's reactor before or after CE writes its health is unverified, and the systems tolerate both.
 
-## [0.14.0] - 2026-11-09 - Draft
+## [0.14.0] - 2026-11-08 - Draft
 
-The owner's answers on steam locomotives, 9 November 2026. **Not yet tested in game.**
+The owner's answers on steam locomotives, 8 November 2026. **Not yet tested in game.**
 
 ### Added
 
@@ -345,9 +349,9 @@ The owner's answers on steam locomotives, 9 November 2026. **Not yet tested in g
 
 - Safe to add to a running colony. The two settings are new and start off.
 
-## [0.13.0] - 2026-11-09 - Draft
+## [0.13.0] - 2026-11-08 - Draft
 
-Steam boilers: part 3 of the owner's approved proposals of 9 November 2026. **Not yet tested in game.** Design: docs/development/vehicle-steam-design.md.
+Steam boilers: part 3 of the owner's approved proposals of 8 November 2026. **Not yet tested in game.** Design: docs/development/vehicle-steam-design.md.
 
 ### Added
 
@@ -363,9 +367,9 @@ Steam boilers: part 3 of the owner's approved proposals of 9 November 2026. **No
 
 - Safe to add to a running colony: steam locomotives start cold with full feed water.
 
-## [0.12.0] - 2026-11-09 - Draft
+## [0.12.0] - 2026-11-08 - Draft
 
-Power and lift, part 1 of the owner's approved proposals of 9 November 2026. **Not yet tested in game.** Design:
+Power and lift, part 1 of the owner's approved proposals of 8 November 2026. **Not yet tested in game.** Design:
 docs/development/vehicle-power-and-lift-design.md.
 
 ### Added
@@ -387,9 +391,9 @@ docs/development/vehicle-power-and-lift-design.md.
 
 - Safe to add to a running colony. Vehicles named by D'thorga Vehicles gain the rotor drive or traction motor systems; nothing the model works out is saved.
 
-## [0.11.0] - 2026-11-09 - Draft
+## [0.11.0] - 2026-11-08 - Draft
 
-The drivetrain and gas-turbine designs (records of 8 November 2026), built with the owner's four answers of 9 November 2026.
+The drivetrain and gas-turbine designs (records of 8 November 2026), built with the owner's four answers of 8 November 2026.
 **Not yet tested in game.** Designs: docs/development/vehicle-drivetrain-design.md and docs/development/vehicle-turbine-design.md.
 
 ### Added
@@ -421,9 +425,9 @@ The drivetrain and gas-turbine designs (records of 8 November 2026), built with 
 
 - Safe to add to a running colony. Nothing the drivetrain or turbine works out is saved; vehicles gain a clutch part, and the turbine and water systems where their loadouts name them, as in 0.9.0. The removal button still applies before removing the mod.
 
-## [0.10.0] - 2026-11-09 - Draft
+## [0.10.0] - 2026-11-08 - Draft
 
-The owner's follow-ups of 9 November 2026. Not yet tested in game.
+The owner's follow-ups of 8 November 2026. Not yet tested in game.
 
 ### Added
 
@@ -433,7 +437,7 @@ The owner's follow-ups of 9 November 2026. Not yet tested in game.
 
 ### Balance
 
-- New tyres or track pads take 10 chemfuel as well, a stand-in for the rubber (owner, 9 November 2026).
+- New tyres or track pads take 10 chemfuel as well, a stand-in for the rubber (owner, 8 November 2026).
 - The flat-battery refusal now names the jump-start first.
 
 ### Compatibility and limits

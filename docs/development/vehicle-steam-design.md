@@ -1,7 +1,7 @@
-# Steam boilers (9 Nov 2026)
+# Steam boilers (8 Nov 2026)
 
 A design record, built the same day in D'thorga Framework 0.13.0 and D'thorga Vehicles 0.5.0 (Drafts). **Not yet tested in game.**
-Part 3 of the owner's approved proposals of 9 Nov 2026, after [power and lift](vehicle-power-and-lift-design.md) and
+Part 3 of the owner's approved proposals of 8 Nov 2026, after [power and lift](vehicle-power-and-lift-design.md) and
 [real figures](vehicle-real-figures-design.md). Figures come from
 [the steam and diesel-electric research](steam-and-diesel-electric-research.md); labels **[P]** primary, **[S]** secondary,
 **[I]** our inference, **[A]** authored.
@@ -16,10 +16,10 @@ Part 3 of the owner's approved proposals of 9 Nov 2026, after [power and lift](v
 - **Raising steam takes hours.** A cold engine **refuses to move** until it has half its working pressure, and says why.
 - **Low water melts the fusible plug**: a letter, the boiler vented, and no steam until a mechanic fits a new plug.
 - **Water stops**: the tender or side tanks refill as a service, drawing only the shortfall, from Dubs Bad Hygiene's water towers
-  when that mod is active, otherwise free (owner, 9 Nov 2026). **By default a stop draws a tenth of the real capacity** (owner, 9 Nov
+  when that mod is active, otherwise free (owner, 8 Nov 2026). **By default a stop draws a tenth of the real capacity** (owner, 8 Nov
   2026): 6,800 L for the Frisco, under one Dubs water tower's 8,000 (the huge tower holds 50,000, from the mod's own descriptions).
   **The realistic feed water setting** restores the real 68,000 L **[S]**.
-- **Boiler explosions** (owner, 9 Nov 2026): **off by default**; a main-menu setting with a warning turns them on. Then a boiler
+- **Boiler explosions** (owner, 8 Nov 2026): **off by default**; a main-menu setting with a warning turns them on. Then a boiler
   without a fusible plug whose crown sheet is uncovered with the fire lit explodes.
 
 ## The model
@@ -78,9 +78,9 @@ two hours, as heritage crews describe **[S]**. Rule tests hold the raising times
 
 ## Who chose what
 
-- **Owner (9 Nov 2026):** a boiler system for the steam locomotives (approved with parts 1 and 2); water from Dubs Bad Hygiene
+- **Owner (8 Nov 2026):** a boiler system for the steam locomotives (approved with parts 1 and 2); water from Dubs Bad Hygiene
   plumbing, else free.
-- **Owner (9 Nov 2026, later):** boiler explosions allowed, off by default, behind a main-menu setting with a warning; the tender
+- **Owner (8 Nov 2026, later):** boiler explosions allowed, off by default, behind a main-menu setting with a warning; the tender
   scaled down by default with a realistic setting.
 - **Agent choices, owner to revise:** no plug on the Frisco and a plug on the Tommy; a tenth as the scale; the explosion's size; a
   damaged boiler steaming slower; the firing, cooling, water and injector

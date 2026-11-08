@@ -291,7 +291,7 @@ through RimPacts' own option or shuttle. Confirmed by the owner in play on 8 Nov
 > rules (RimPacts' defences and battles) are skipped too. Requiring at least one free colonist in `FreeColonists` (not only spawned
 > ones), or calling `map.Parent.CheckRemoveMapNow()` instead of removing the map directly, would avoid it. Happy to share details.
 
-## Visit Settlements' food drops throw every tick (9 Nov 2026)
+## Visit Settlements' food drops throw every tick (8 Nov 2026)
 
 **What the owner saw.** `Player-prev.log` of 8 November ended at the game's 10,000-message limit at 18:24 after 6,846 identical
 `NullReferenceException`s from `VS_WorldComponent_SettlementEvents.WorldComponentTick` in six minutes; the next session's `Player.log`

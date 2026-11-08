@@ -1,6 +1,6 @@
-# A pawn-like health model for vehicles: research and direction (9 Nov 2026)
+# A pawn-like health model for vehicles: research and direction (8 Nov 2026)
 
-A design record. The owner's primary aim for the vehicle work (9 Nov 2026): a health and injury model for vehicles and aircraft as
+A design record. The owner's primary aim for the vehicle work (8 Nov 2026): a health and injury model for vehicles and aircraft as
 detailed as the game's for colonists, where the detail is most extreme, with NPC vehicles allowed to be far more diffuse, and
 **performance as the one hard constraint**. The first deliverable the owner named: rectify the vehicle Health tab so it shows all
 the complex damage a vehicle can take, no differently from a pawn. Three read-only explorations (the game's pawn model, Vehicle
@@ -13,7 +13,7 @@ Framework's part model, our own code) and one critique fed this record. **Nothin
   and gets `health`, `hediffSet`, `capacities` and `summaryHealth` at creation; Vehicle Framework (VF) then blocks hediffs, never
   ticks health, absorbs every hit into its own part model, and replaces the condition label. "Vehicles are recoded pawns" is true
   of the structure and false of the behaviour.
-- **Owner's decisions (9 Nov 2026):** (1) **a condition layer on VF's parts**, VF's part health the one authority, our own Health
+- **Owner's decisions (8 Nov 2026):** (1) **a condition layer on VF's parts**, VF's part health the one authority, our own Health
   tab replacing VF's; reviving the pawn hediff stack rejected; (2) this round: this record, measurement and an NPC tier, then the
   Health tab; (3) **NPC vehicles run a lite tier by default**, with a setting to run the full model for everyone; (4) the repair
   direction for later: **destroyed parts and serious conditions need supplies**, behind a setting; ordinary damage keeps VF's
@@ -115,7 +115,7 @@ armour (CE:621-644), **writes `component.health` directly, calls every reactor w
 `DamageTaken` but never `HealthChanged`, and bypasses a custom `compClass`'s `TakeDamage`** (CE:548-578). VF's damage multipliers,
 EMP and extinguishing are lost under CE.
 
-### Vehicle Framework's development branch (read 9 Nov 2026)
+### Vehicle Framework's development branch (read 8 Nov 2026)
 
 Read before freezing slice 2's Def shape, as the roadmap asked: SmashPhil's `develop` branch (github.com/SmashPhil/Vehicle-Framework,
 last pushed 31 October 2026, MIT), cloned read-only into `.local/research/VehicleFramework-develop` and diffed against `release/1.6`
@@ -159,7 +159,7 @@ last pushed 31 October 2026, MIT), cloned read-only into `.local/research/Vehicl
 | A permanent scar | A warped head, a bent chassis: an efficiency loss until a rebuild service | Later (slice 3) |
 | Tending | A field fix with a component that slows a leak without repairing the part | Later (slice 3) |
 | Natural healing | None; VF turns it off | Do not imitate |
-| A missing part | A part at zero health; VF repairs it free | Change the rule (owner, 9 Nov 2026): a destroyed part needs replacement supplies, behind a setting (slice 3) |
+| A missing part | A part at zero health; VF repairs it free | Change the rule (owner, 8 Nov 2026): a destroyed part needs replacement supplies, behind a setting (slice 3) |
 | Crew injury | VF's `HitPawn` onto real pawn health | Display a crew row; never duplicate |
 
 ## What we already have
@@ -222,7 +222,7 @@ flowchart LR
 
 ## Performance
 
-The owner's colony runs at 36 to 50 TPS of 60 at normal speed (screenshots, 9 Nov 2026): each tick already costs about 20 to
+The owner's colony runs at 36 to 50 TPS of 60 at normal speed (screenshots, 8 Nov 2026): each tick already costs about 20 to
 28 ms against a 16.7 ms frame. The budget is therefore "nothing you can see on top of that", measured on the owner's high-end PC
 and treated as a best case for players (AGENTS.md).
 
@@ -239,7 +239,7 @@ and treated as a best case for players (AGENTS.md).
 a tab, a save conversion, Def load. **Never** on a cadence, never per frame with no tab open, never anything per tick that scales
 with parts times conditions. The 12 ms frame work queue is for one-off long jobs, never the steady state.
 
-**NPC vehicles, the diffuse tier** (owner, 9 Nov 2026: lite by default, a setting to run the full model for everyone). A pure rule
+**NPC vehicles, the diffuse tier** (owner, 8 Nov 2026: lite by default, a setting to run the full model for everyone). A pure rule
 in the core decides each vehicle's tier from its faction and whether it is spawned: a player vehicle is **Full**; a non-player
 vehicle on a map is **Lite** (no rare-tick integration, no history, no services, no loads; hits are counted and a condition's
 effect is applied once and never evolves); a non-player vehicle not on a map is **Off**. The tier is re-read on the rare tick
@@ -307,7 +307,7 @@ vehicles). Record TPS and our milliseconds in the table below.
 - **Parts saved by index:** conditions keyed by part key; a condition whose part is gone is dropped with one log line; the
   uninstall sweep drops them all.
 - **Two health panels:** VF's caravan manifest window keeps VF's panel; players may see two layouts. Recorded; cover later or accept.
-- **Other mods patch the damage path too** (read with `scripts/query-patches.py`, 9 Nov 2026): besides Combat Extended's
+- **Other mods patch the damage path too** (read with `scripts/query-patches.py`, 8 Nov 2026): besides Combat Extended's
   prefix that replaces `VehicleStatHandler.ApplyDamage`, the Hind and Mongoose helicopters add priority-800 prefixes to it
   ("NearestPart") and postfixes on `TakeDamage` and `RecalculateHealthPercent` ("Critical"); the BMP-1 patched `ExposeData`
   and `GetStatValue` too, but it left the Workshop and the owner's list the same day. Slice 2's hit-born conditions must hold with all of them; read their code with
@@ -323,7 +323,7 @@ vehicles). Record TPS and our milliseconds in the table below.
 
 ## Who chose what
 
-- **Owner (9 Nov 2026):** the aim (pawn-like detail for player vehicles, diffuse for NPCs, performance first); the Health tab as the
+- **Owner (8 Nov 2026):** the aim (pawn-like detail for player vehicles, diffuse for NPCs, performance first); the Health tab as the
   first deliverable; the condition layer on VF's parts rather than the pawn stack; this round's scope; the lite tier by default
   with a setting; supplies for destroyed parts and serious conditions, behind a setting, later.
 - **Agent, with the owner's approval of the plan:** the no-second-engine rule; every budget figure; the measurement protocol; the

@@ -63,7 +63,7 @@
         <severityPerDay>-0.15</severityPerDay>
       </li>
       <li Class="Phobos.Framework.Health.HediffCompProperties_PhobosLeavesLasting">
-        <!-- A burned eye (the 0.6 stage) leaves a scarred cornea once it heals, by the worst it reached (owner, 9 Nov 2026). -->
+        <!-- A burned eye (the 0.6 stage) leaves a scarred cornea once it heals, by the worst it reached (owner, 8 Nov 2026). -->
         <lasting>PhobosBurns_CornealScarring</lasting>
         <fromSeverity>0.6</fromSeverity>
         <flag>PhobosBurns.causticScarring</flag>
@@ -94,7 +94,7 @@
     </stages>
   </HediffDef>
 
-  <!-- Corneal scarring after a burned eye heals (owner, 9 Nov 2026: our own, partial, by how bad the injury was). Alkali and acid
+  <!-- Corneal scarring after a burned eye heals (owner, 8 Nov 2026: our own, partial, by how bad the injury was). Alkali and acid
        burns of the eye can scar the cornea and cloud sight for good (general, approximate). Stages and offsets authored. Permanent; the
        game's eye replacements or a healer mech serum cure it (it is a bad condition curable by an item). -->
   <HediffDef>
@@ -242,7 +242,7 @@
     <workerClass>Phobos.BurnsAndSmoke.Comps.SpecialThingFilterWorker_PhobosContaminated</workerClass>
   </SpecialThingFilterDef>
 
-  <!-- Plants in dense caustic gas are scorched (owner, 9 Nov 2026: plants wilt, corpses unaffected). Chlorine and similar gases burn
+  <!-- Plants in dense caustic gas are scorched (owner, 8 Nov 2026: plants wilt, corpses unaffected). Chlorine and similar gases burn
        leaves and kill plants (general). Hit points only; never applied to anything but plants. -->
   <DamageDef>
     <defName>PhobosBurns_CausticScorch</defName>

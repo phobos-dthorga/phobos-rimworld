@@ -1,20 +1,20 @@
-# The world map and the cab: caravans, climate, night heater, jump-starts (9 Nov 2026)
+# The world map and the cab: caravans, climate, night heater, jump-starts (8 Nov 2026)
 
 A design record, built the same day in D'thorga Framework 0.16.0 and D'thorga Vehicles 0.7.0 (Drafts). **Not yet tested in
 game.** The owner asked how the vehicle systems behave in caravans on the world map, and about the cab heater, air conditioning
-and passenger comfort (9 Nov 2026), then decided the four questions below. Labels: **[P]** primary, **[S]** secondary, **[I]** our
+and passenger comfort (8 Nov 2026), then decided the four questions below. Labels: **[P]** primary, **[S]** secondary, **[I]** our
 inference, **[A]** authored.
 
 ## Read this first
 
-- **The systems already ran in caravans** (read from Vehicle Framework 1.6 and the game, 9 Nov 2026): a vehicle in a caravan is a
+- **The systems already ran in caravans** (read from Vehicle Framework 1.6 and the game, 8 Nov 2026): a vehicle in a caravan is a
   world pawn that keeps ticking, so wear, charge, heat and fuel all carried on. What was silently skipped: the drivetrain's speed
   cap, the "will not move" refusals, services, jump-starts and shore charging. What was wrong: the load-dependent fuel correction
   (it ignored Vehicle Framework's world-map multiplier), and a resting caravan read as "engine off" so the heater never ran at
   night (which turned out to be right, see below).
 - **Nothing sheltered a passenger.** Neither the game nor Vehicle Framework gives a vehicle an interior temperature; a pawn aboard
   felt the tile's weather. The cab heater was a 12 A electrical load and nothing more.
-- **Owner's decisions (9 Nov 2026):** a closed cab with its own temperature; engine off at rest with an optional fuel-burning
+- **Owner's decisions (8 Nov 2026):** a closed cab with its own temperature; engine off at rest with an optional fuel-burning
   night heater as a setting; the speed cap and the refusals apply to caravans, with a caravan jump-start; a craftable jump-start
   kit, with two settings: "Jump-start leads must be crafted" (on) and "Every vehicle carries a booster pack" (off).
 
@@ -91,17 +91,17 @@ block, `When_LoadActive` naming a real load.
    aboard ("give a jump-start kit") and refuses with the reason without one; switch 1 off needs no kit; switch 2 on needs no donor.
 6. On the map: a jump-start fetches the kit, or refuses without one.
 
-## Later: cab heaters and climate control (9 Nov 2026)
+## Later: cab heaters and climate control (8 Nov 2026)
 
 - **Fixed in Framework 0.21.2 and Vehicles 0.9.1:** aircraft and boats had no cab heater, and steam cabs no heat at all, so their cabs
   could only cool. Found from the owner's Harrier at -9 °C; a parked vehicle with its engine off still follows the weather, by design.
-- **Automatic climate control (owner, 9 Nov 2026; Framework 0.22.0, Vehicles 0.10.0):** vehicles fitted with it hold the cab near
+- **Automatic climate control (owner, 8 Nov 2026; Framework 0.22.0, Vehicles 0.10.0):** vehicles fitted with it hold the cab near
   21 °C, heating below 20 and cooling above 22 while the engine runs, at the heater's and air conditioner's rates; the manual ones stand
   down meanwhile. Fitted by era (agent reading: modern real vehicles, Vanilla Vehicles Expanded's Tier 3 but the Springbok and Louie),
   by spacer tech, or on every closed cab with the setting (off). Not yet tested in game.
 
 ## Who chose what
 
-- **Owner (9 Nov 2026):** the four decisions above; the kit; the two settings.
+- **Owner (8 Nov 2026):** the four decisions above; the kit; the two settings.
 - **Agent choices, owner to revise:** every rate and target in the cab's table; the air conditioner's amps; 0.4 fuel an hour; the
   open VVE vehicles; the kit's cost and no research gate; the instant caravan jump-start; the booster pack as a later item.

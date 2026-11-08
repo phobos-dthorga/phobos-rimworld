@@ -47,56 +47,56 @@ testing is the owner's and is not listed here; each mod's changelog says what is
 
 ## Vehicles (from 8 Nov 2026)
 
-Added 9 Nov 2026: the vehicle work of 8 and 9 November did not update this file as it went. Records:
+Added 8 Nov 2026: the vehicle work of 8 November did not update this file as it went. Records:
 [vehicle systems](vehicle-systems-design.md), [utility vehicles](utility-vehicles-design.md), and the dated records they link.
 
 | # | Item | Mod | Owner's decision | Status |
 | --- | --- | --- | --- | --- |
 | V1 | Vehicle systems: battery, coolant, oil, wear and services, tyres, brakes, drivetrains, gas turbines, power and lift, steam, Combat Extended corrections, the world map and the cab, the Dashboard and Systems tabs, booster packs, world-map ground, cab moods, RimHUD | Framework 0.9.0 to 0.18.0, Vehicles 0.1.0 to 0.7.0 | Approved in parts | Done; not yet tested in game |
-| V2 | What a service uses for oil and coolant (chemfuel stands in; with Dubs Bad Hygiene coolant could be its water) | Framework | Unsure (9 Nov 2026) | Open |
-| V3 | The utility vehicles, five designed in full: survey truck, drill rig, tipper hauler, generator set and, since 9 Nov 2026, the bulk tanker (liquid or gas by upgrade). **The tanker is built first** (owner, 8 Nov 2026) ([design](utility-vehicles-design.md)) | Vehicles | Yes, after the framework; the five and the tanker's shape (9 Nov 2026); tanker first (8 Nov 2026) | Open: the tanker's body art comes first (V4); its Defs and code wait for the owner's go |
-| V4 | Vehicle body art through OpenAI's image API (the `openai` engine of `scripts/art-run.py`, built 9 Nov 2026 under [the paid rules](paid-image-generation-rules.md)); icons on the owner's local model | art | OpenAI for bodies, local for icons (9 Nov 2026); **the stand-in icons are good enough: replace them only when little else is left** (9 Nov 2026) | Open: the engine is built and the key accepted; the tanker's pilot request is written (`assets/phobos-vehicles/requests/tanker-pilot.json`, four attempts, at most about US$0.21) and waits for the owner's go; icons low priority |
-| V5 | Systems for electric vehicles, with an optional patch making Vanilla Vehicles Expanded's Lightning electric to test them; our own diesel-electric utility vehicles later (V3) | Framework, Vehicles | Framework and a test vehicle (9 Nov 2026) | Done: Framework 0.20.0, Vehicles 0.9.0 ([record](vehicle-electric-design.md)); a night heater for electric vehicles left for later |
+| V2 | What a service uses for oil and coolant (chemfuel stands in; with Dubs Bad Hygiene coolant could be its water) | Framework | Unsure (8 Nov 2026) | Open |
+| V3 | The utility vehicles, five designed in full: survey truck, drill rig, tipper hauler, generator set and, since 8 Nov 2026, the bulk tanker (liquid or gas by upgrade). **The tanker is built first** (owner, 8 Nov 2026) ([design](utility-vehicles-design.md)) | Vehicles | Yes, after the framework; the five and the tanker's shape (8 Nov 2026); tanker first (8 Nov 2026) | Open: the tanker's body art comes first (V4); its Defs and code wait for the owner's go |
+| V4 | Vehicle body art through OpenAI's image API (the `openai` engine of `scripts/art-run.py`, built 8 Nov 2026 under [the paid rules](paid-image-generation-rules.md)); icons on the owner's local model | art | OpenAI for bodies, local for icons (8 Nov 2026); **the stand-in icons are good enough: replace them only when little else is left** (8 Nov 2026) | Open: the engine is built and the key accepted; the tanker's pilot request is written (`assets/phobos-vehicles/requests/tanker-pilot.json`, four attempts, at most about US$0.21) and waits for the owner's go; icons low priority |
+| V5 | Systems for electric vehicles, with an optional patch making Vanilla Vehicles Expanded's Lightning electric to test them; our own diesel-electric utility vehicles later (V3) | Framework, Vehicles | Framework and a test vehicle (8 Nov 2026) | Done: Framework 0.20.0, Vehicles 0.9.0 ([record](vehicle-electric-design.md)); a night heater for electric vehicles left for later |
 | V6 | The M1A2's APU upgrade node; "drop the stores" for a jet too heavy to land vertically | Vehicles, Patches | Proposed | Deferred: the APU needs a patch to RimThunder's upgrade trees |
 | V7 | Engine sound pitched by engine speed | Framework | Later | Deferred: only if Vehicle Framework exposes the sustainer |
-| V8 | Kerb mass of 12 kg per Vehicle Framework mass unit for retrofitted vehicles, checked for outliers (dirt bikes, tanks) | Framework, Vehicles | Authored masses for Vanilla Vehicles Expanded; tunable (9 Nov 2026) | Done: Framework 0.19.0, Vehicles 0.8.0 ([record](vehicle-kerb-mass-check.md)) |
+| V8 | Kerb mass of 12 kg per Vehicle Framework mass unit for retrofitted vehicles, checked for outliers (dirt bikes, tanks) | Framework, Vehicles | Authored masses for Vanilla Vehicles Expanded; tunable (8 Nov 2026) | Done: Framework 0.19.0, Vehicles 0.8.0 ([record](vehicle-kerb-mass-check.md)) |
 | V9 | When Vehicle Framework ships for 1.7: rebuild, and re-check the tab hook's order, the caravan patches' method names, and the part icons and colours the Systems tab leaves out | Framework | Expected | Waiting on Vehicle Framework |
 | V10 | The boats, the Warbird and the Smuggler keep one engine | Vehicles | Agreed to leave out | Deferred |
-| V14 | Bleed air: the Harrier's puffer jets in a hover (more in wind) and cockpit heat raise the engine's work | Framework | Yes, if it stays cheap (9 Nov 2026) | Done: Framework 0.24.0 |
-| V13 | The Dashboard and Systems tabs on the world map: vehicle caravans and aircraft in flight, with a vehicle list | Framework | Yes (9 Nov 2026) | Done: Framework 0.23.0 |
-| V12 | Cab heaters for aircraft, boats and steam cabs (a gap found from the owner's Harrier); automatic climate control by era with a blanket setting | Framework, Vehicles | Climate control with a main-menu option (9 Nov 2026) | Done: Framework 0.21.2 and 0.22.0, Vehicles 0.9.1 and 0.10.0 |
-| V11 | The tabs after the owner's first look (9 Nov 2026): wear gauges show what is left, no repeated part names, no empty sections | Framework | Show what is left | Done: Framework 0.19.0 |
-| V15 | Every vehicle of ours upgradeable and extendable from its first Def, with the art planned around its upgrade tree (bare body, one overlay set per visible node); parts by role from Vehicle Framework's mechanics, RimThunder's and Vanilla Vehicles Expanded's items as soft dependencies, our own fallback parts only where neither is present; the tanker's contents Def and ports ([design](utility-vehicles-design.md), principles 8 and 9) | Vehicles, Framework | Directions given (9 Nov 2026); the trees, the role split and the fallback parts are agent proposals | Proposed: records written 9 Nov 2026, nothing built |
+| V14 | Bleed air: the Harrier's puffer jets in a hover (more in wind) and cockpit heat raise the engine's work | Framework | Yes, if it stays cheap (8 Nov 2026) | Done: Framework 0.24.0 |
+| V13 | The Dashboard and Systems tabs on the world map: vehicle caravans and aircraft in flight, with a vehicle list | Framework | Yes (8 Nov 2026) | Done: Framework 0.23.0 |
+| V12 | Cab heaters for aircraft, boats and steam cabs (a gap found from the owner's Harrier); automatic climate control by era with a blanket setting | Framework, Vehicles | Climate control with a main-menu option (8 Nov 2026) | Done: Framework 0.21.2 and 0.22.0, Vehicles 0.9.1 and 0.10.0 |
+| V11 | The tabs after the owner's first look (8 Nov 2026): wear gauges show what is left, no repeated part names, no empty sections | Framework | Show what is left | Done: Framework 0.19.0 |
+| V15 | Every vehicle of ours upgradeable and extendable from its first Def, with the art planned around its upgrade tree (bare body, one overlay set per visible node); parts by role from Vehicle Framework's mechanics, RimThunder's and Vanilla Vehicles Expanded's items as soft dependencies, our own fallback parts only where neither is present; the tanker's contents Def and ports ([design](utility-vehicles-design.md), principles 8 and 9) | Vehicles, Framework | Directions given (8 Nov 2026); the trees, the role split and the fallback parts are agent proposals | Proposed: records written 8 Nov 2026, nothing built |
 
-## Logging (from 9 Nov 2026)
+## Logging (from 8 Nov 2026)
 
 The game stops every mod's logging at 10,000 messages a session; one other mod's error storm killed the owner's log on 8 November
-([record](logging-framework-design.md)). Owner's decisions, 9 Nov 2026: a bounded revive without Harmony; no Rust in-game; a new
+([record](logging-framework-design.md)). Owner's decisions, 8 Nov 2026: a bounded revive without Harmony; no Rust in-game; a new
 sibling repository for the shared logger; record only this round.
 
 | # | Item | Mod | Owner's decision | Status |
 | --- | --- | --- | --- | --- |
-| L1 | The research record; the engine shims decompiled for the code index | docs | Record only (9 Nov 2026) | Done |
-| L0 | Visit Settlements' food drops throw every tick when a friendly settlement holds a pawn that does not eat (the storm that killed both logs) | Patches | Fix at the source (9 Nov 2026) | Done: Patches 0.14.1 (not yet tested in game); bug report drafted for the owner to post |
-| L2 | GameLogKeeper: revive the game's log when it caps itself (bounded, a setting, on by default), the storm counter naming the culprit, the probe dev actions T1 to T5 and the benchmark | Framework | Revive, no Harmony (9 Nov 2026) | Done: Framework 0.28.0 (not yet tested in game) |
-| L3 | Create the sibling repository (owner names it; proposed phobos-log), the game-free rules (once, throttle, budget, signature) and the RimWorld category sink; the Framework and D'thorga Patches adopt it, other mods on touch | new repo, Framework, Patches | Sibling repository (9 Nov 2026) | In progress: named phobos-log by the owner (9 Nov 2026); its first version (0.1.0, 11 tests) is built and committed locally; creating the public GitHub repository waits for the owner, then the Framework and Patches adopt it |
+| L1 | The research record; the engine shims decompiled for the code index | docs | Record only (8 Nov 2026) | Done |
+| L0 | Visit Settlements' food drops throw every tick when a friendly settlement holds a pawn that does not eat (the storm that killed both logs) | Patches | Fix at the source (8 Nov 2026) | Done: Patches 0.14.1 (not yet tested in game); bug report drafted for the owner to post |
+| L2 | GameLogKeeper: revive the game's log when it caps itself (bounded, a setting, on by default), the storm counter naming the culprit, the probe dev actions T1 to T5 and the benchmark | Framework | Revive, no Harmony (8 Nov 2026) | Done: Framework 0.28.0 (not yet tested in game) |
+| L3 | Create the sibling repository (owner names it; proposed phobos-log), the game-free rules (once, throttle, budget, signature) and the RimWorld category sink; the Framework and D'thorga Patches adopt it, other mods on touch | new repo, Framework, Patches | Sibling repository (8 Nov 2026) | In progress: named phobos-log by the owner (8 Nov 2026); its first version (0.1.0, 11 tests) is built and committed locally; creating the public GitHub repository waits for the owner, then the Framework and Patches adopt it |
 | L4 | The JSON-lines sink, the schema document and the modkit reader shared by every game | phobos-log, phobos-modkit | | Open: when Ostranauts adopts or a need is named |
 | L5 | The Ostranauts host sink (BepInEx) | phobos-log, phobos-ostranauts | | Open |
 
-## Vehicle health (from 9 Nov 2026)
+## Vehicle health (from 8 Nov 2026)
 
 The owner's primary aim for the vehicles: pawn-like health and injury detail for player vehicles, diffuse for NPCs, performance
 first ([record](vehicle-health-design.md)). Slices in order; each needs the one before.
 
 | # | Item | Mod | Owner's decision | Status |
 | --- | --- | --- | --- | --- |
-| H0 | Measurement (a dev timing readout) and the NPC lite tier, with the setting to run the full model for everyone | Framework | Lite by default, setting (9 Nov 2026) | Done: Framework 0.25.0 |
-| H1 | The Health tab replacing Vehicle Framework's: VF's stats with impactor tooltips, parts grouped pawn-style with the stages and refusals under them, a crew row, hover highlight, on the world map too; a setting keeps VF's tab | Framework | First deliverable (9 Nov 2026) | Done: Framework 0.26.0 |
-| H2 | Conditions proper: per-part severities with stages, from hits, stages and wear; resolved by repair, fading or a service | Framework | Architecture chosen (9 Nov 2026); Def shape after a read of Vehicle Framework's develop branch | Done: Framework 0.29.0 (not yet tested in game), three agent-authored conditions for the owner's review |
-| H3 | Consequences and repair depth: leaks with the danger clock, destroyed parts needing supplies (setting, on), field fixes, permanent conditions; wreck-on-death as a separate question | Framework, Vehicles | Supplies for destroyed parts and serious conditions (9 Nov 2026) | Open |
+| H0 | Measurement (a dev timing readout) and the NPC lite tier, with the setting to run the full model for everyone | Framework | Lite by default, setting (8 Nov 2026) | Done: Framework 0.25.0 |
+| H1 | The Health tab replacing Vehicle Framework's: VF's stats with impactor tooltips, parts grouped pawn-style with the stages and refusals under them, a crew row, hover highlight, on the world map too; a setting keeps VF's tab | Framework | First deliverable (8 Nov 2026) | Done: Framework 0.26.0 |
+| H2 | Conditions proper: per-part severities with stages, from hits, stages and wear; resolved by repair, fading or a service | Framework | Architecture chosen (8 Nov 2026); Def shape after a read of Vehicle Framework's develop branch | Done: Framework 0.29.0 (not yet tested in game), three agent-authored conditions for the owner's review |
+| H3 | Consequences and repair depth: leaks with the danger clock, destroyed parts needing supplies (setting, on), field fixes, permanent conditions; wreck-on-death as a separate question | Framework, Vehicles | Supplies for destroyed parts and serious conditions (8 Nov 2026) | Open |
 | H4 | The performance table in the record, filled from the owner's runs (Dubs Performance Analyzer, the 1.7 Frame Profiler, our readout) | docs | | Open: the owner runs the protocol |
 
-## Caustic gas, the rest (9 Nov 2026)
+## Caustic gas, the rest (8 Nov 2026)
 
 | # | Item | Owner's decision | Status |
 | --- | --- | --- | --- |
@@ -105,7 +105,7 @@ first ([record](vehicle-health-design.md)). Slices in order; each needs the one 
 | C7 | Supplied oxygen and chemical lung injury | Oxygen eases and speeds recovery | Done: Medical 0.8.0 |
 | C8 | Contaminated clothing | The shower is enough by default; extra decontamination with Dubs Bad Hygiene; strip and rinse as a main-menu setting | Done: Medical 0.8.0 |
 
-## Ideas, not decided (9 Nov 2026)
+## Ideas, not decided (8 Nov 2026)
 
 Agent proposals made after the electric vehicles and caustic gas builds, kept here at the owner's request so they are not lost. None is
 decided or started; each needs the owner's go.
@@ -118,12 +118,12 @@ decided or started; each needs the owner's go.
 | I4 | A field decontamination kit for caravans: strip and rinse away from any shower | Medical | Strip and rinse (C8) needs a shower; there is none in the wild | Idea |
 | I5 | A night heater for electric vehicles, drawing a share of the traction battery an hour | Framework | Left out of V5: the night heater's fuel is counted in chemfuel units | Idea |
 
-## Housekeeping (9 Nov 2026)
+## Housekeeping (8 Nov 2026)
 
 | # | Item | Status |
 | --- | --- | --- |
 | K1 | `python scripts/cleanup.py --apply`: 297 old install backups, about 400 test repositories, 220 git watcher daemons | Open: the owner runs it |
-| K2 | Another session's uncommitted edits in the tree since 8 Nov 2026 (`docs/development/README.md`, `project-direction.md`, the new `rimworld-1.7-readiness.md`) | Done: the owner confirmed every session finished (9 Nov 2026); committed as that session's dated records |
+| K2 | Another session's uncommitted edits in the tree since 8 Nov 2026 (`docs/development/README.md`, `project-direction.md`, the new `rimworld-1.7-readiness.md`) | Done: the owner confirmed every session finished (8 Nov 2026); committed as that session's dated records |
 
 ## Analysis tooling (from 7 Nov 2026)
 
@@ -137,17 +137,17 @@ reasons are in [analysis tooling](analysis-tooling.md). Each tool's first change
 | T2 | Save index and query, working slice | Rust | Done: phobos-modkit 0.2.2, `scripts/query-save.py`, AGENTS.md rule |
 | T2b | Save index: map grids (terrain, roofs, gas) and comparing two saves by load ID | Rust | Done: phobos-modkit 0.6.0, `grid` and `diff` in `scripts/query-save.py` |
 | T3 | Mod and Def index (SQLite in the kit's cache) | Python | Done: phobos-modkit 0.4.0, `scripts/query-defs.py`, AGENTS.md rule |
-| T4 | Assembly metadata reader | C# | Done for Harmony patches: phobos-modkit 0.14.0, `scripts/query-patches.py`, AGENTS.md rule (9 Nov 2026). Constants, strings and API checks left to REA once the owner has it |
+| T4 | Assembly metadata reader | C# | Done for Harmony patches: phobos-modkit 0.14.0, `scripts/query-patches.py`, AGENTS.md rule (8 Nov 2026). Constants, strings and API checks left to REA once the owner has it |
 | T5 | Workshop research | Python | Done: phobos-modkit 0.5.0, `scripts/workshop-research.py`, AGENTS.md rule |
 | T6 | StartupImpact sessions | Python | Open |
 | T7 | Version readiness scan | Python | Open |
-| T8 | Release tooling | Python | Done for version bumps and changelog checks: phobos-modkit 0.10.1, `scripts/release.py`, `config/maintained-constants.json` (9 Nov 2026). Workshop publishing waits for the first public beta gate |
+| T8 | Release tooling | Python | Done for version bumps and changelog checks: phobos-modkit 0.10.1, `scripts/release.py`, `config/maintained-constants.json` (8 Nov 2026). Workshop publishing waits for the first public beta gate |
 | T9 | Shared report model and derived-data cache | Python | Done: phobos-modkit 0.3.0 |
 | T10 | Game adapter contract (generic log and save commands) | Python | Waits for a second game adapter |
-| T12 | The check gate: every build, test and check in one command | Python | Done: phobos-modkit 0.11.0, `scripts/check-all.py`, AGENTS.md rule (9 Nov 2026) |
-| T13 | Mod settings snapshot | Python | Done: phobos-modkit 0.12.0, `scripts/mod-settings.py`, AGENTS.md rule (9 Nov 2026) |
-| T14 | Decompiled-code index | Python | Done: phobos-modkit 0.13.1, `scripts/query-code.py`, AGENTS.md rule (9 Nov 2026) |
-| T11 | Resolved-Defs dump: a D'thorga Framework dev action the kit indexes, so Defs show with patches applied | C# and Python | Done, not yet tested in game: Framework 0.27.0 and phobos-modkit 0.15.0, `scripts/query-defs.py patched` (9 Nov 2026) |
+| T12 | The check gate: every build, test and check in one command | Python | Done: phobos-modkit 0.11.0, `scripts/check-all.py`, AGENTS.md rule (8 Nov 2026) |
+| T13 | Mod settings snapshot | Python | Done: phobos-modkit 0.12.0, `scripts/mod-settings.py`, AGENTS.md rule (8 Nov 2026) |
+| T14 | Decompiled-code index | Python | Done: phobos-modkit 0.13.1, `scripts/query-code.py`, AGENTS.md rule (8 Nov 2026) |
+| T11 | Resolved-Defs dump: a D'thorga Framework dev action the kit indexes, so Defs show with patches applied | C# and Python | Done, not yet tested in game: Framework 0.27.0 and phobos-modkit 0.15.0, `scripts/query-defs.py patched` (8 Nov 2026) |
 
 ## Deferred
 

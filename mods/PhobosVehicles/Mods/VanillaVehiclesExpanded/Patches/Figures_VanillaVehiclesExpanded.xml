@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Patch>
   <!--
-    Empty masses for Vanilla Vehicles Expanded's vehicles (owner's choice, 9 Nov 2026: authored masses by the real class each description names;
+    Empty masses for Vanilla Vehicles Expanded's vehicles (owner's choice, 8 Nov 2026: authored masses by the real class each description names;
     docs/development/vehicle-kerb-mass-check.md). Vehicle Framework's Mass figures are not comparable between mods, and on the
     framework's rule of 12 kg per Mass these came out with bikes three times too heavy and tanks a tenth of their weight.
     Every figure is AUTHORED: a round weight for a real vehicle of the class the description names, approximate, general. Three

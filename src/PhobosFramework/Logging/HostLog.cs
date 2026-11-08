@@ -17,7 +17,7 @@ public enum HostLevel
 
 /// <summary>
 /// Writes a line under a log category of our own (shown in Player.log as "[D'thorga Framework]") through the 1.7 engine's logging
-/// library, Brutal.Core.Logging, which the game's own Verse.Log writes through too. Read from the engine (decompiled 9 Nov 2026,
+/// library, Brutal.Core.Logging, which the game's own Verse.Log writes through too. Read from the engine (decompiled 8 Nov 2026,
 /// docs/development/logging-framework-design.md): such a line never passes the gates the game's 10,000-message limit closes, so it
 /// still reaches Player.log after the limit; before it, it shows in the in-game log window like any other. It still counts toward
 /// the limit.

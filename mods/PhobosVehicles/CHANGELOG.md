@@ -8,15 +8,16 @@ tested in game unless an entry says the owner tested it.
 ### Changed
 
 - A note in the M1A2's loadout file now says where its oil's temperature comes from (D'thorga Framework 0.29.1 fixed it). Text only; nothing in game changes here.
-- The mod description and the README's Coming later section now describe what 0.10.0 does (turbines, boilers, real figures, climate control, the electric Lightning) instead of 0.1.0, and name the five utility vehicles planned, each with an upgrade tree, with parts from RimThunder and Vanilla Vehicles Expanded where present (owner's directions, 9 November 2026; design record docs/development/utility-vehicles-design.md). Text only; nothing in game changes.
+- The mod description and the README's Coming later section now describe what 0.10.0 does (turbines, boilers, real figures, climate control, the electric Lightning) instead of 0.1.0, and name the five utility vehicles planned, each with an upgrade tree, with parts from RimThunder and Vanilla Vehicles Expanded where present (owner's directions, 8 November 2026; design record docs/development/utility-vehicles-design.md). Text only; nothing in game changes.
+- Dates in this mod's records that were written a day ahead now read 8 November 2026. Text only; nothing in game changes.
 
 ### Compatibility and limits
 
-- BMP-1 IFV (Vehicle Framework), by Turbo, is no longer on the Steam Workshop (Steam showed no public item on 9 November 2026: removed or made private). Its loadout here loads only while that mod is active, so it stays dormant and costs nothing; a player with their own copy still gets it.
+- BMP-1 IFV (Vehicle Framework), by Turbo, is no longer on the Steam Workshop (Steam showed no public item on 8 November 2026: removed or made private). Its loadout here loads only while that mod is active, so it stays dormant and costs nothing; a player with their own copy still gets it.
 
-## [0.10.0] - 2026-11-09 - Draft
+## [0.10.0] - 2026-11-08 - Draft
 
-Automatic climate control by era, with D'thorga Framework 0.22.0 (owner, 9 November 2026: by technology and age). **Not yet tested in game.**
+Automatic climate control by era, with D'thorga Framework 0.22.0 (owner, 8 November 2026: by technology and age). **Not yet tested in game.**
 
 ### Added
 
@@ -26,7 +27,7 @@ Automatic climate control by era, with D'thorga Framework 0.22.0 (owner, 9 Novem
 
 - Needs D'thorga Framework 0.22.0 or later.
 
-## [0.9.1] - 2026-11-09 - Draft
+## [0.9.1] - 2026-11-08 - Draft
 
 With D'thorga Framework 0.21.2. **Not yet tested in game.**
 
@@ -34,7 +35,7 @@ With D'thorga Framework 0.21.2. **Not yet tested in game.**
 
 - The steam locomotives' cabs never warmed: the firebox now keeps the cab warm below 5 degrees while the locomotive is in steam, with a switch.
 
-## [0.9.0] - 2026-11-09 - Draft
+## [0.9.0] - 2026-11-08 - Draft
 
 The Lightning as an electric van, with D'thorga Framework 0.20.0. **Not yet tested in game.** Design: docs/development/vehicle-electric-design.md.
 
@@ -50,9 +51,9 @@ The Lightning as an electric van, with D'thorga Framework 0.20.0. **Not yet test
 
 - Turning the setting off again returns Lightnings to chemfuel on the next start. What a built Lightning's charge becomes then is Vehicle Framework's to decide and was not checked: empty its battery first if in doubt.
 
-## [0.8.0] - 2026-11-09 - Draft
+## [0.8.0] - 2026-11-08 - Draft
 
-Empty masses for Vanilla Vehicles Expanded, with D'thorga Framework 0.19.0 (owner's choice, 9 November 2026). **Not yet tested in game.** Design: docs/development/vehicle-kerb-mass-check.md.
+Empty masses for Vanilla Vehicles Expanded, with D'thorga Framework 0.19.0 (owner's choice, 8 November 2026). **Not yet tested in game.** Design: docs/development/vehicle-kerb-mass-check.md.
 
 ### Balance
 
@@ -71,7 +72,7 @@ Empty masses for Vanilla Vehicles Expanded, with D'thorga Framework 0.19.0 (owne
 
 - Safe to add and remove; the figures live in the vehicle designs, not in saves.
 
-## [0.7.0] - 2026-11-09 - Draft
+## [0.7.0] - 2026-11-08 - Draft
 
 The cab, with D'thorga Framework 0.16.0. **Not yet tested in game.**
 
@@ -84,9 +85,9 @@ The cab, with D'thorga Framework 0.16.0. **Not yet tested in game.**
 
 - Needs D'thorga Framework 0.16.0 or later.
 
-## [0.6.0] - 2026-11-09 - Draft
+## [0.6.0] - 2026-11-08 - Draft
 
-The owner's answers of 9 November 2026. **Not yet tested in game.**
+The owner's answers of 8 November 2026. **Not yet tested in game.**
 
 ### Balance
 
@@ -101,9 +102,9 @@ The owner's answers of 9 November 2026. **Not yet tested in game.**
 
 - Needs D'thorga Framework 0.14.0 or later.
 
-## [0.5.0] - 2026-11-09 - Draft
+## [0.5.0] - 2026-11-08 - Draft
 
-Steam boilers: part 3 of the owner's approved proposals of 9 November 2026. **Not yet tested in game.**
+Steam boilers: part 3 of the owner's approved proposals of 8 November 2026. **Not yet tested in game.**
 
 ### Added
 
@@ -117,9 +118,9 @@ Steam boilers: part 3 of the owner's approved proposals of 9 November 2026. **No
 
 - Safe to add to and remove from a running colony: the locomotives gain or drop the boiler as their loadout says.
 
-## [0.4.0] - 2026-11-09 - Draft
+## [0.4.0] - 2026-11-08 - Draft
 
-Real figures for named vehicles: part 2 of the owner's approved proposals of 9 November 2026, the L-ATV first. **Not yet tested in game.** Design: docs/development/vehicle-real-figures-design.md.
+Real figures for named vehicles: part 2 of the owner's approved proposals of 8 November 2026, the L-ATV first. **Not yet tested in game.** Design: docs/development/vehicle-real-figures-design.md.
 
 ### Added
 
@@ -139,9 +140,9 @@ Real figures for named vehicles: part 2 of the owner's approved proposals of 9 N
 
 - Safe to add to and remove from a running colony: nothing new is saved.
 
-## [0.3.0] - 2026-11-09 - Draft
+## [0.3.0] - 2026-11-08 - Draft
 
-Power and lift: the owner's approved proposals of 9 November 2026, part 1. **Not yet tested in game.**
+Power and lift: the owner's approved proposals of 8 November 2026, part 1. **Not yet tested in game.**
 
 ### Added
 
@@ -164,7 +165,7 @@ Power and lift: the owner's approved proposals of 9 November 2026, part 1. **Not
 
 - Safe to add to and remove from a running colony: these vehicles gain or drop the new systems and an air compressor part as their loadouts say.
 
-## [0.2.0] - 2026-11-09 - Draft
+## [0.2.0] - 2026-11-08 - Draft
 
 D'thorga Framework 0.11.0's engines, drivetrains and gas turbines, fitted to named vehicles. **Not yet tested in game.**
 

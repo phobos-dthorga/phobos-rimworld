@@ -1,6 +1,6 @@
 # Research: steam boilers, diesel-electric shunters, thrust-lifted engine-out
 
-Compiled 9 November 2026 by a research agent (agent-authored, for the owner's review) for Trains of the Rim's boilers, the Goat DE2 and the drop pods. Used so far for the Goat and the traction motors ([power and lift design](vehicle-power-and-lift-design.md)); the boiler figures feed part 3. **Nothing here is tested in game.**
+Compiled 8 November 2026 by a research agent (agent-authored, for the owner's review) for Trains of the Rim's boilers, the Goat DE2 and the drop pods. Used so far for the Goat and the traction motors ([power and lift design](vehicle-power-and-lift-design.md)); the boiler figures feed part 3. **Nothing here is tested in game.**
 
 **How to read the labels**
 

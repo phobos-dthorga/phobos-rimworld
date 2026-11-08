@@ -3,7 +3,7 @@
   <!--
     Flight profiles (docs/development/vehicle-turbine-design.md): an aircraft's phases and the demand each puts on its engines, as a
     share of maximum continuous output. Demands are authored. The readers name members by their names in each flight framework, read
-    from decompiles on 9 Nov 2026 and never copied: no Phobos assembly references these mods. A member that does not exist simply
+    from decompiles on 8 Nov 2026 and never copied: no Phobos assembly references these mods. A member that does not exist simply
     never matches. Vehicle Framework's own "in flight" flag is set on a map only while leaving it, so on-map phases come from the
     frameworks' FlightState field.
   -->

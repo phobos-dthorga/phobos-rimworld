@@ -9,7 +9,7 @@ namespace Phobos.Framework.Debug;
 
 /// <summary>
 /// Writes every Def as the game holds it once every mod's XML patches have run, for phobos-modkit's Def tool
-/// (docs/development/analysis-tooling.md, "Resolved-Defs dump"; owner's go-ahead, 9 Nov 2026). The game combines all mods' XML
+/// (docs/development/analysis-tooling.md, "Resolved-Defs dump"; owner's go-ahead, 8 Nov 2026). The game combines all mods' XML
 /// into one document, applies every patch to it in load order, then reads Defs from it and lets it go. A patch operation of
 /// ours (<see cref="PatchOperationPhobosKeepPatchedXml"/>, in this mod's Patches folder) keeps a reference to that document when
 /// its turn comes; mods after us in load order go on patching the same document, so by the time the game has finished loading

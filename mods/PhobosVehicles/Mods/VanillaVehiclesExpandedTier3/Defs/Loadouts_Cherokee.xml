@@ -8,7 +8,7 @@
     own launch, so the stock rotorcraft profile reads its phases (rotors turning when drafted, cruising in flight) and checks its
     lift before it launches. Its front and rear transmissions and rotor masts are its rotor drive (power and lift design, Framework
     0.12.0). Its drive limit, 0.9 of both engines' maximum continuous, is authored: no published figure for the CH-47's combining
-    or rotor transmissions was found (9 Nov 2026), though a CH-47A/B Army document says the "transmission torque limit is reached
+    or rotor transmissions was found (8 Nov 2026), though a CH-47A/B Army document says the "transmission torque limit is reached
     before engine power limit" (seen only as a search excerpt). The turboshaft's ratings
     and limits are the Framework's authored helicopter turboshaft (Drivetrains.xml), whose one sourced figure is the CH-47's T55
     (secondary, low quality). Not yet tested in game.

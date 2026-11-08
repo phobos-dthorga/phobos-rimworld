@@ -1,7 +1,7 @@
-# Real figures for named vehicles (9 Nov 2026)
+# Real figures for named vehicles (8 Nov 2026)
 
 A design record, built the same day in D'thorga Vehicles 0.4.0 (Draft). **Not yet tested in game.** Part 2 of the owner's approved
-proposals of 9 Nov 2026 ("real figures for the single-engine military vehicles, the L-ATV first"), after part 1,
+proposals of 8 Nov 2026 ("real figures for the single-engine military vehicles, the L-ATV first"), after part 1,
 [power and lift](vehicle-power-and-lift-design.md). Every figure comes from [the research record](vehicle-figures-research.md) and
 is labelled in the Defs: **[P]** primary, **[S]** secondary, **[I]** our inference, **[A]** authored.
 
@@ -38,7 +38,7 @@ is labelled in the Defs: **[P]** primary, **[S]** secondary, **[I]** our inferen
 
 **The L-ATV's power.** Oshkosh never published it. Secondary sources give 340, 400 or 425 hp. The Allison 2500's published rating is
 254 kW (340 hp) with engine torque limiting **[P: Allison sheet SA5340EN]**, and the 2500 SP the L-ATV uses is "contact your Allison
-representative". The first build used 254 kW, that published ceiling. **The owner chose the middle of 340 and 400 hp (9 Nov 2026):
+representative". The first build used 254 kW, that published ceiling. **The owner chose the middle of 340 and 400 hp (8 Nov 2026):
 370 hp, 276 kW**, which sits above the general 2500's published rating; the SP's own may be higher. In play: on a road at its in-game speed it cruises in fourth to sixth with power in hand; fully laden in
 soft sand, four-wheel drive keeps its grip and the engine sets the pace (a rule test holds both).
 
@@ -57,6 +57,6 @@ soft sand, four-wheel drive keeps its grip and the engine sets the pace (a rule 
 
 ## Who chose what
 
-- **Owner (9 Nov 2026):** real figures for the single-engine military vehicles, the L-ATV first.
-- **Owner (9 Nov 2026, later):** the L-ATV at 370 hp, the middle of the published figures.
+- **Owner (8 Nov 2026):** real figures for the single-engine military vehicles, the L-ATV first.
+- **Owner (8 Nov 2026, later):** the L-ATV at 370 hp, the middle of the published figures.
 - **Agent choices, owner to revise:** the final drives from top speed; every authored figure listed above.

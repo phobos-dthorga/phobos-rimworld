@@ -176,9 +176,9 @@ The proposal above, built as written except for these (agent choices unless mark
   contaminated clothing, and whether chemical lung injury counts as a condition oxygen helps.
 - The lung injury's label is now "chemical lung injury", as the record decided (its defName is unchanged).
 
-## Built 9 Nov 2026 (D'thorga Medical 0.8.0)
+## Built 8 Nov 2026 (D'thorga Medical 0.8.0)
 
-The owner's answers to the open points (9 Nov 2026). **Not yet tested in game.**
+The owner's answers to the open points (8 Nov 2026). **Not yet tested in game.**
 
 - **Lasting eye damage: our own scarred cornea**, partial, by how bad the injury was. A caustic eye injury that reached the burned stage
   (0.6) leaves `PhobosBurns_CornealScarring` on that eye when it heals: from a faint trace at 0.6 to dense at 1 (D'thorga Framework's
@@ -217,8 +217,8 @@ None yet. Built in 0.7.0, not yet tested in game.
 
 ## Open points and upstream
 
-- **Decided 9 Nov 2026 (owner):** our own scarred cornea, built in Medical 0.8.0.
-- **Decided 9 Nov 2026 (owner):** plants wilt, corpses unaffected; built in Medical 0.8.0.
+- **Decided 8 Nov 2026 (owner):** our own scarred cornea, built in Medical 0.8.0.
+- **Decided 8 Nov 2026 (owner):** plants wilt, corpses unaffected; built in Medical 0.8.0.
 - **Stripping contaminated clothing** (agent proposal, phase 2): under the slow-acting model, clothes keep dosing the skin for hours after the
   gas clears unless removed. A cheap, strong hook, held until the core is tested.
 - **Lung rot** as the aftermath instead of irritable airways: recorded as the alternative.

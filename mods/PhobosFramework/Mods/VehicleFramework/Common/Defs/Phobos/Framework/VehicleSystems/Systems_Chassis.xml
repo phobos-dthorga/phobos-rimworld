@@ -4,7 +4,7 @@
     The chassis systems (phase C of the design): running gear (tyres or tracks), brakes and the transmission. Design:
     docs/development/vehicle-systems-design.md. Not yet tested in game. Every rate, threshold and factor here is authored; the
     supplies are gameplay stand-ins, said so in the README: the game has no rubber, so tyres and track pads take chemfuel for it (synthetic
-    rubber is a petrochemical), with steel for the beads and rims and components for the valves (owner, 9 Nov 2026).
+    rubber is a petrochemical), with steel for the beads and rims and components for the valves (owner, 8 Nov 2026).
   -->
   <Phobos.VehicleSystems.PhobosVehicleSystemDef>
     <defName>PhobosVehicleSystem_RunningGear</defName>

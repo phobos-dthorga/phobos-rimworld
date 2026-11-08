@@ -28,7 +28,7 @@ written; the build is the next plan. Code readings behind it are in
   issue 379, 1 Nov 2026). We compile against the installed DLL and expect a rebuild when 1.7 ships.
 - **Combat Extended hits only parts with real cells** (its own damage model replaces Vehicle Framework's). Every part
   the service adds carries cells next to the engine's and a low hit weight under Vehicle Framework, which the service
-  inverts under Combat Extended, where a smaller weight is hit more (corrected 9 Nov 2026; each part may give its own
+  inverts under Combat Extended, where a smaller weight is hit more (corrected 8 Nov 2026; each part may give its own
   `hitWeightCE`). Part hits count the health a part lost, not the shot's damage, so a round the armour stopped drains nothing.
 - **Text stays in the world.** Inspect lines, refusals and messages describe the vehicle, never a mod, a schema or a
   setting. The Framework's display mode decides how much a player sees: Plain shows no figure the player did not ask for.
@@ -459,18 +459,18 @@ service; Celsius, with charge as a percentage; the display name D'thorga Vehicle
 6. Save, reload: the figures are kept and no error mentions `Phobos.VehicleSystems`. In the settings, switch the truck's mod off,
    restart and load: the truck loads without the added parts and without errors.
 
-## Follow-ups (Framework 0.10.0, 9 Nov 2026)
+## Follow-ups (Framework 0.10.0, 8 Nov 2026)
 
 The owner's answers to the morning's questions. **Not yet tested in game.**
 
-| Question | Owner's answer (9 Nov 2026) | Built |
+| Question | Owner's answer (8 Nov 2026) | Built |
 | --- | --- | --- |
 | Placement in the Framework and the stages shape | Kept (the owner was happy with the build) | |
 | Jump-start from another vehicle | Yes | A system's `jumpStart` block; a right-click order on the flat vehicle for a colonist, with a donor within 8 cells; the donor loses the same ampere-hours unless its engine runs; every refusal says why |
 | Tuning in Vehicle Framework's window | Yes | One field per tunable shipped parameter on the comp's properties, filled with each design's figure while Defs load, read back through Vehicle Framework's settings cache. A modder's own parameters stay in loadouts |
 | Drop 1.6 from every mod | Yes | Every project single-target, PolySharp gone, `1.6` load folders and declarations removed (AGENTS.md, building.md) |
 | Supplies for tyres | Steel and components, plus chemfuel for the rubber (owner) | 15 steel, 2 components, 10 chemfuel (counts authored) |
-| Supplies for oil and coolant | Open: the owner is unsure; coolant with Dubs Bad Hygiene could be its water | Still chemfuel for both; the agent's proposal is in the reply of 9 Nov 2026 |
+| Supplies for oil and coolant | Open: the owner is unsure; coolant with Dubs Bad Hygiene could be its water | Still chemfuel for both; the agent's proposal is in the reply of 8 Nov 2026 |
 
 D'thorga Patches' Harrier part no longer carries its own copy of the saved-parts patch: the Framework's covers every vehicle.
 

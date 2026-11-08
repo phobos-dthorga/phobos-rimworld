@@ -10,7 +10,7 @@ using Verse;
 namespace Phobos.Framework.Logging;
 
 /// <summary>
-/// Keeps the game's log going past its 10,000-message limit (owner, 9 Nov 2026: a bounded revive, no Harmony;
+/// Keeps the game's log going past its 10,000-message limit (owner, 8 Nov 2026: a bounded revive, no Harmony;
 /// docs/development/logging-framework-design.md). The game counts every message; at 10,000 it stops every mod's logging, Player.log
 /// included, for the rest of the session, and only loading a save or the dev log window's Clear turns it back on. One other mod's
 /// error storm (Visit Settlements: 6,846 identical errors in six minutes) was enough to blind the owner's sessions.

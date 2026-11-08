@@ -140,9 +140,9 @@ read from the 1.7 assembly), so the framework still needs no Harmony. A new or l
 `RoomRebuildHold` sets `RegionAndRoomUpdater`'s private `working` flag by reflection for a slice and rebuilds once at its end.
 The candidate base class for interval map components is still not built (see 0.6.0 below).
 
-## Shared helpers for the vehicle systems (0.15.0, 9 Nov 2026)
+## Shared helpers for the vehicle systems (0.15.0, 8 Nov 2026)
 
-- **Generic functions go to the core** (owner's rule of 9 Nov 2026, in AGENTS.md): `Rules/CombatExtendedRules.cs` (how Combat
+- **Generic functions go to the core** (owner's rule of 8 Nov 2026, in AGENTS.md): `Rules/CombatExtendedRules.cs` (how Combat
   Extended reads hit weights and blast penetration, with tests) and `Debug/DebugSelection.cs` (the selected things, comps and world
   objects for dev actions) came in with the vehicle systems' CE corrections and serve every Phobos mod. 0.16.0 added
   `Environment/HeldTemperature.cs` (a registry giving things held inside something a fixed temperature, as transport pods have; the

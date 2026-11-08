@@ -167,7 +167,7 @@ public class ServiceSpec
     /// <summary>Conditions the service clears on every part of the vehicle; the service is due while the vehicle has one of them.</summary>
     public List<PhobosVehicleConditionDef> clearsConditions = new();
     /// <summary>Litres of water the service draws when it is done: from Dubs Bad Hygiene's plumbing beside the vehicle when that mod is
-    /// active, otherwise free, as the base game treats water (owner, 9 Nov 2026).</summary>
+    /// active, otherwise free, as the base game treats water (owner, 8 Nov 2026).</summary>
     public float waterLitres;
     /// <summary>A parameter of the system holding the litres instead (so each loadout sets its own: a locomotive's tender).</summary>
     public string? waterLitresParameter;

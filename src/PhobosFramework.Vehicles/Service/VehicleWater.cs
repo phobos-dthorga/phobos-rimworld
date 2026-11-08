@@ -6,7 +6,7 @@ namespace Phobos.VehicleSystems;
 
 /// <summary>
 /// Where vehicles' water comes from: coolant top-ups and the Harrier's injection water. By default water is free, as the base game
-/// treats it (owner, 9 Nov 2026). A tie-in may register a source instead: D'thorga Framework's Dubs Bad Hygiene part does, drawing
+/// treats it (owner, 8 Nov 2026). A tie-in may register a source instead: D'thorga Framework's Dubs Bad Hygiene part does, drawing
 /// from plumbing beside the parked vehicle, so with Dubs Bad Hygiene active a vehicle needs plumbing to take on water.
 /// </summary>
 public static class VehicleWater

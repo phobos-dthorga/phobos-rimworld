@@ -66,7 +66,7 @@ It follows the Phobos Ostranauts and Phobos Kenshi guides, adapted to RimWorld.
 - **Creative text written by Claude** (contact stories, faction voices, letters) is labelled
   agent-written in the changelog, and held for the owner's review.
 
-## Vehicle tabs (9 Nov 2026)
+## Vehicle tabs (8 Nov 2026)
 
 The vehicle systems' two inspector tabs follow the display mode like everything else. **Dashboard** is for every mode: gauges,
 warning lights, the waiting line and the switches, with no figure a Plain-mode player must read (figures appear on the gauges only

@@ -1,10 +1,10 @@
-# Electric vehicles: design (9 Nov 2026)
+# Electric vehicles: design (8 Nov 2026)
 
 A design record, built the same day in D'thorga Framework 0.20.0 and D'thorga Vehicles 0.9.0 (Drafts). **Not yet tested in game.**
 
 ## Read this first
 
-- **None of the owner's 72 vehicles is electric** (read with `query-defs`, 9 Nov 2026). The owner chose **the framework's systems plus
+- **None of the owner's 72 vehicles is electric** (read with `query-defs`, 8 Nov 2026). The owner chose **the framework's systems plus
   a test vehicle**: Vanilla Vehicles Expanded's Lightning becomes an electric van while the setting **"The Lightning runs on
   batteries"** is on (off by default; needs a restart). The owner added that **one or more of our own utility vehicles will be
   diesel-electric**, for mechanics of their own (outstanding-work.md, V3).
@@ -73,6 +73,6 @@ pack's temperature behaviour.
 
 ## Who chose what
 
-- **Owner (9 Nov 2026):** framework systems plus a test vehicle; our own diesel-electric utility vehicles later.
+- **Owner (8 Nov 2026):** framework systems plus a test vehicle; our own diesel-electric utility vehicles later.
 - **Agent choices, owner to revise:** every figure; battery fires as an off-by-default setting; the Lightning as the test vehicle
   and the conversion off by default; no night heater for electric vehicles yet.

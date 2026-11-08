@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
   <!--
-    Electric vehicles (owner, 9 Nov 2026; Framework 0.20.0; docs/development/vehicle-electric-design.md). Vehicle Framework already
+    Electric vehicles (owner, 8 Nov 2026; Framework 0.20.0; docs/development/vehicle-electric-design.md). Vehicle Framework already
     keeps an electric vehicle's charge as its fuel and charges it from a powered grid with stored energy; these systems add what a
     real traction battery and motor do with it. Not yet tested in game.
 

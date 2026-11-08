@@ -34,29 +34,29 @@ public class VehicleSystemsSettings : ModSettings
     public DisplayMode displayMode = DisplayMode.Plain;
     /// <summary>The drivetrain and turbines: off, figures only, or feeding load, heat and the speed cap. Live.</summary>
     public DrivetrainMode drivetrainMode = DrivetrainMode.Full;
-    /// <summary>Fuel follows the engine model's load instead of the vehicle author's flat rates (owner, 9 Nov 2026: off by default). Live.</summary>
+    /// <summary>Fuel follows the engine model's load instead of the vehicle author's flat rates (owner, 8 Nov 2026: off by default). Live.</summary>
     public bool loadDependentFuel;
-    /// <summary>What happens when a jet is too heavy or the day too hot for it to hover onto its pad (owner, 9 Nov 2026: a choice). Live.</summary>
+    /// <summary>What happens when a jet is too heavy or the day too hot for it to hover onto its pad (owner, 8 Nov 2026: a choice). Live.</summary>
     public HoverLimit hoverLimit = HoverLimit.RefusePadUseRunway;
-    /// <summary>A steam boiler without a fusible plug explodes if its crown sheet is uncovered (owner, 9 Nov 2026: off by default, with
+    /// <summary>A steam boiler without a fusible plug explodes if its crown sheet is uncovered (owner, 8 Nov 2026: off by default, with
     /// a warning). Live.</summary>
     public bool boilerExplosions;
-    /// <summary>Water stops draw a steam locomotive's real tender or tank capacity instead of a tenth of it (owner, 9 Nov 2026: scaled by
+    /// <summary>Water stops draw a steam locomotive's real tender or tank capacity instead of a tenth of it (owner, 8 Nov 2026: scaled by
     /// default). Live.</summary>
     public bool realisticFeedWater;
-    /// <summary>A fuel-burning night heater keeps a closed cab warm while a caravan camps (owner, 9 Nov 2026: a setting, off). Live.</summary>
+    /// <summary>A fuel-burning night heater keeps a closed cab warm while a caravan camps (owner, 8 Nov 2026: a setting, off). Live.</summary>
     public bool nightHeater;
-    /// <summary>A jump-start needs a crafted jump-start kit, in stock or aboard (owner, 9 Nov 2026: default on). Live.</summary>
+    /// <summary>A jump-start needs a crafted jump-start kit, in stock or aboard (owner, 8 Nov 2026: default on). Live.</summary>
     public bool jumpStartNeedsKit = true;
-    /// <summary>Every vehicle is assumed to carry a booster pack, so a jump-start needs no other vehicle (owner, 9 Nov 2026: off). Live.</summary>
+    /// <summary>Every vehicle is assumed to carry a booster pack, so a jump-start needs no other vehicle (owner, 8 Nov 2026: off). Live.</summary>
     public bool assumeBoosterPack;
     /// <summary>People aboard a closed cab are glad of it or unhappy in it, by their own comfort range (agent default, owner to revise:
     /// on). Live.</summary>
     public bool cabMoods = true;
-    /// <summary>Every closed cab has automatic climate control, not only the vehicles built with it (owner, 9 Nov 2026: a blanket
+    /// <summary>Every closed cab has automatic climate control, not only the vehicles built with it (owner, 8 Nov 2026: a blanket
     /// option; agent default: off). Live.</summary>
     public bool climateControlAll;
-    /// <summary>Other factions' vehicles on a map run the full model, as the player's do, instead of the lite tier (owner, 9 Nov 2026:
+    /// <summary>Other factions' vehicles on a map run the full model, as the player's do, instead of the lite tier (owner, 8 Nov 2026:
     /// lite by default with this setting). Live.</summary>
     public bool fullModelForEveryone;
     /// <summary>Keep Vehicle Framework's own Health tab instead of ours (agent default: ours). Needs a restart: tabs are set while Defs load.</summary>
@@ -65,7 +65,7 @@ public class VehicleSystemsSettings : ModSettings
     /// off, with a warning). Live.</summary>
     public bool batteryFires;
     /// <summary>D'thorga Vehicles turns Vanilla Vehicles Expanded's Lightning into an electric van, to try the electric systems (owner,
-    /// 9 Nov 2026: a test vehicle; agent default: off). Needs a restart: it changes the vehicle's design while the game loads.</summary>
+    /// 8 Nov 2026: a test vehicle; agent default: off). Needs a restart: it changes the vehicle's design while the game loads.</summary>
     public bool electricLightning;
 
     public enum HoverLimit

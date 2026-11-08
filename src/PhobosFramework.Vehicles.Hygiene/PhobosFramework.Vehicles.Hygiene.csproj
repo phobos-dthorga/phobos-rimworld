@@ -1,5 +1,5 @@
 <Project Sdk="Microsoft.NET.Sdk">
-  <!-- D'thorga Framework's vehicle water from Dubs Bad Hygiene's plumbing (owner, 9 Nov 2026: Dubs plumbing when present, otherwise
+  <!-- D'thorga Framework's vehicle water from Dubs Bad Hygiene's plumbing (owner, 8 Nov 2026: Dubs plumbing when present, otherwise
        free). Its own assembly in Mods/VehiclesHygiene/1.7, which LoadFolders.xml loads only while both Vehicle Framework and Dubs Bad
        Hygiene are active (IfModActiveAll). RimWorld 1.7 only. Other mods' assemblies are referenced from the installed mods, never
        copied. -->

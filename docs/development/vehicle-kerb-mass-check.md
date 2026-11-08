@@ -1,4 +1,4 @@
-# Kerb mass check (9 Nov 2026)
+# Kerb mass check (8 Nov 2026)
 
 A dated record of the check `outstanding-work.md` listed as V8: the vehicle systems figure a vehicle's empty (kerb) mass as 12 kg per
 unit of Vehicle Framework's Mass unless a loadout gives a real figure. Built the same day in D'thorga Framework 0.19.0 and D'thorga
@@ -11,10 +11,10 @@ Vehicles 0.8.0 (Drafts). **Not yet tested in game.**
   rule reached only Vanilla Vehicles Expanded's fictional vehicles and unknown mods.
 - **Vehicle Framework's Mass figures are not comparable between mods**, so no formula fixes them: RimThunder's M48 (Mass 1000) is a
   45 t tank, Frontline Workshop's Land Cruiser (Mass 2000) weighs 2.2 t.
-- **Owner's choice (9 Nov 2026): authored masses for the VVE vehicles** by the real class each description names, and the empty mass
+- **Owner's choice (8 Nov 2026): authored masses for the VVE vehicles** by the real class each description names, and the empty mass
   tunable per design in Vehicle Framework's settings window, so any player can correct a vehicle from another mod.
 
-## What the rule gave (read with `query-defs`, 9 Nov 2026)
+## What the rule gave (read with `query-defs`, 8 Nov 2026)
 
 All 72 active Vehicle Framework Defs were read through `python scripts/query-defs.py` (parents resolved as the game picks them).
 Real-world weights below are general, approximate class figures for comparison, not sources.
@@ -51,5 +51,5 @@ battle tank at about 108 kW).
 
 ## Who chose what
 
-- **Owner (9 Nov 2026):** authored VVE masses; tunable empty mass.
+- **Owner (8 Nov 2026):** authored VVE masses; tunable empty mass.
 - **Agent choices, owner to revise:** every class figure; engine power for the two motorcycles; the pods left alone.

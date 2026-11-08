@@ -169,7 +169,7 @@ public class CompPhobosVehicleSystems : VehicleComp
     public bool Usable => Vehicle != null && Props.systems.Count > 0 && !VehicleSystems.Swept;
 
     /// <summary>
-    /// How closely this vehicle is simulated (the core's DetailTierRule; owner, 9 Nov 2026): the player's own in full; another
+    /// How closely this vehicle is simulated (the core's DetailTierRule; owner, 8 Nov 2026): the player's own in full; another
     /// faction's lightly while on a map (hits are counted, nothing evolves) and not at all off it, unless the setting asks for full
     /// detail for everyone. Re-read on the rare tick, so a captured vehicle wakes up. Derived, never saved.
     /// </summary>
@@ -287,7 +287,7 @@ public class CompPhobosVehicleSystems : VehicleComp
         }
         Scribe_Collections.Look(ref savedValues, "PhobosVehicleSystems_Values", LookMode.Value, LookMode.Value);
         Scribe_Collections.Look(ref loadSwitches, "PhobosVehicleSystems_Loads", LookMode.Value, LookMode.Value);
-        // The graphs' history: the owner's exception to "derived state is never saved" (9 Nov 2026), a few kilobytes per vehicle.
+        // The graphs' history: the owner's exception to "derived state is never saved" (8 Nov 2026), a few kilobytes per vehicle.
         History.ExposeData(Props.systems);
         Scribe_Collections.Look(ref savedPartHealth, "PhobosVehicleSystems_PartHealth", LookMode.Value, LookMode.Value);
         Scribe_Collections.Look(ref servicedSaved, "PhobosVehicleSystems_Serviced", LookMode.Value);

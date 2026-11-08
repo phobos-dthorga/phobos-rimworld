@@ -7,7 +7,7 @@ using Verse;
 namespace Phobos.BurnsAndSmoke.Services;
 
 /// <summary>
-/// Plants in dense caustic gas wilt (owner, 9 Nov 2026; docs/development/caustic-gas.md): once an in-game hour, every plant standing
+/// Plants in dense caustic gas wilt (owner, 8 Nov 2026; docs/development/caustic-gas.md): once an in-game hour, every plant standing
 /// in tox gas at least the rules Def's density loses hit points in proportion to the density, and dies at none. Corpses are left
 /// alone. Only while caustic gas and its plants setting are on, and only with Biotech (no tox gas without it). Nothing is saved.
 /// </summary>

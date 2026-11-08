@@ -1,6 +1,6 @@
 # Building, testing and deploying
 
-**Status (9 Nov 2026): fourteen C# projects, RimWorld 1.7 only** (owner, 8 Nov 2026). Every project builds one assembly,
+**Status (8 Nov 2026): fourteen C# projects, RimWorld 1.7 only** (owner, 8 Nov 2026). Every project builds one assembly,
 `net10.0` against the 1.7.4998 reference (Harmony 3 where a mod patches), into `mods/<Mod>/1.7/Assemblies/`. A tie-in assembly
 builds into `mods/<Mod>/Mods/<Other>/1.7/Assemblies/` instead. Other mods that still ship only a 1.6 build (Vehicle Framework,
 VFE Factory, InterRim Ballistic Missile) are referenced from that folder, which the 1.7 game loads too.
@@ -55,7 +55,7 @@ from the owner's saves.
   Medical Save Bridge. **4 Nov**: Water Tap, D'thorga Framework, Burns and Smoke, and the switch to **1.7 leading** with every
   project built for both versions. **5 Nov**: Emergency Dosing and Medical Equipment. **6 Nov**: Triage. **8 Nov**: the owner
   retired 1.6 support; everything new is 1.7 only. The same night: D'thorga Framework's vehicle systems, the first single-target (1.7)
-  project. **9 Nov**: every project and mod dropped 1.6 (owner): one target each, no PolySharp, no `1.6` load folders.
+  project. **8 Nov**: every project and mod dropped 1.6 (owner): one target each, no PolySharp, no `1.6` load folders.
 - Vehicle Framework targets .NET Framework 4.8 and Vehicle Patches 4.7.2, so that project sets
   `ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch`; the game loads both whatever they declare.
 
@@ -209,9 +209,9 @@ surfaced one unchecked dereference in Vehicle Patches.
 
 ## RimWorld 1.6, retired
 
-From 18 Oct to 9 Nov 2026 every project also built `net472` against the 1.6 reference, with Harmony 2 and PolySharp (Sergio
+From 18 Oct to 8 Nov 2026 every project also built `net472` against the 1.6 reference, with Harmony 2 and PolySharp (Sergio
 Pedri's MIT source generator) for the C# features Unity's .NET Framework 4.7.2 libraries lack (`record`, `init`, `required`,
-`[MemberNotNull]`). The owner retired 1.6 on 8 Nov 2026 and every mod dropped it on 9 Nov 2026. The git history before then has
+`[MemberNotNull]`). The owner retired 1.6 on 8 Nov 2026 and every mod dropped it on 8 Nov 2026. The git history before then has
 the two-target setup, should it ever be wanted again.
 
 ## Building on Linux
@@ -232,7 +232,7 @@ proves it on every push** for the projects that reference no other mod's assembl
   `RimWorldWin.exe` for 1.6, and the Linux and Mac names);
 - with `--apply`, first renames every named mod's installed folder aside and straight back, so a folder something holds open
   stops the whole run before **any** mod changes, and the refusal names any File Explorer window open inside it (otherwise it
-  names the usual holders: a terminal or editor open in it, RimSort). **From 8 Nov 2026 to 9 Nov 2026 an Explorer window open in
+  names the usual holders: a terminal or editor open in it, RimSort). **On 8 Nov 2026 an Explorer window open in
   `PhobosVehicles\Mods\TrainsOfTheRim\Defs` stopped every install at D'thorga Vehicles**, after earlier mods had updated and
   before D'thorga Water Tap; Windows reports an open folder as "Access is denied", not "in use";
 - moves the previous install to `.local/deploy-backups/`, renaming it on the game's own drive first: Windows
@@ -256,4 +256,4 @@ the throwaway test repositories (`archive-test-*`) in the system temporary folde
 global `core.fsmonitor` starts in every repository (a cache: git starts one again when needed). It reports, never deletes, a
 folder a failed deploy left in the game folder. **Tests that make a git repository set `core.fsmonitor false` in it and delete it
 with read-only handling** (`remove_tree` in `tests/test_archive_branch.py`): git's object files are read-only, and
-`shutil.rmtree(..., ignore_errors=True)` left 400 repositories and 220 daemons behind before 9 Nov 2026.
+`shutil.rmtree(..., ignore_errors=True)` left 400 repositories and 220 daemons behind before 8 Nov 2026.

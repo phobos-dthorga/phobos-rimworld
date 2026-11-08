@@ -11,7 +11,7 @@ map no longer closes under your people (0.13.0).
 It replaces two earlier mods, merged into it on 7 November 2026: **D'thorga Vehicle Patches** and **D'thorga Missile Patches**
 ([why](../../docs/development/mod-consolidation.md)).
 
-Version 0.14.1, built 9 November 2026 for House D'thorga. **Not yet tested in game as D'thorga Patches.** The Harrier and turret hull
+Version 0.14.1, built 8 November 2026 for House D'thorga. **Not yet tested in game as D'thorga Patches.** The Harrier and turret hull
 parts are unchanged from Vehicle Patches 0.6.0 (not yet tested in game); the missile part was tried once by the owner, see
 [InterRim Ballistic Missile](#interrim-ballistic-missile).
 
@@ -422,7 +422,7 @@ day in the log. The load line says "friendly settlements' food drops leave out p
 events waits its usual days instead of repeating every tick".
 
 The record is in [Missile patches](../../docs/development/missile-patches.md#visit-settlements-closes-a-rimpacts-battle-map-8-nov-2026),
-and the food-drop fault in its [own section](../../docs/development/missile-patches.md#visit-settlements-food-drops-throw-every-tick-9-nov-2026).
+and the food-drop fault in its [own section](../../docs/development/missile-patches.md#visit-settlements-food-drops-throw-every-tick-8-nov-2026).
 
 ## Where to find things
 

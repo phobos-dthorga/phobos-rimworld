@@ -3,7 +3,7 @@
   <!--
     A value for RimHUD's pawn display (Jaxe's RimHUD), loaded only with both Vehicle Framework and RimHUD (LoadFolders.xml): which
     vehicle a person is aboard and in what role, with fuel, cab and what the vehicle waits for in the tooltip. Players add it to
-    their layout in RimHUD's own layout editor. The Def type and fields follow RimHUD's wiki (api version 1, read 9 Nov 2026); the
+    their layout in RimHUD's own layout editor. The Def type and fields follow RimHUD's wiki (api version 1, read 8 Nov 2026); the
     class is in D'thorga Framework's vehicle systems assembly and references nothing of RimHUD's. Not yet tested in game.
   -->
   <RimHUD.CustomValueDef>

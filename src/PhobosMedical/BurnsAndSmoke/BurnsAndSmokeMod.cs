@@ -23,11 +23,11 @@ public class BurnsAndSmokeSettings : ModSettings
     public bool causticSkin = true;
     public bool causticImmunity = true;
     public bool causticAftermath = true;
-    /// <summary>A badly burned eye leaves a scarred cornea once it heals (owner, 9 Nov 2026).</summary>
+    /// <summary>A badly burned eye leaves a scarred cornea once it heals (owner, 8 Nov 2026).</summary>
     public bool causticScarring = true;
-    /// <summary>Plants in dense caustic gas wilt and can die (owner, 9 Nov 2026).</summary>
+    /// <summary>Plants in dense caustic gas wilt and can die (owner, 8 Nov 2026).</summary>
     public bool causticPlants = true;
-    /// <summary>Clothes worn in the gas carry it and keep burning the skin until stripped and rinsed (owner, 9 Nov 2026: a setting, off;
+    /// <summary>Clothes worn in the gas carry it and keep burning the skin until stripped and rinsed (owner, 8 Nov 2026: a setting, off;
     /// by default the shower is enough).</summary>
     public bool causticStripAndRinse;
     /// <summary>Acid left on the skin keeps burning until it is spent or rinsed off.</summary>

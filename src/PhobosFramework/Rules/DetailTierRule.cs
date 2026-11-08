@@ -12,7 +12,7 @@ public enum DetailTier
 }
 
 /// <summary>
-/// The rule behind "player things in full detail, everyone else's diffuse" (owner, 9 Nov 2026; docs/development/vehicle-health-design.md),
+/// The rule behind "player things in full detail, everyone else's diffuse" (owner, 8 Nov 2026; docs/development/vehicle-health-design.md),
 /// game-free: the player's things are always Full, wherever they are; another faction's are Lite while spawned on a map and Off
 /// otherwise, unless the player asks for full detail for everyone. Re-read on a slow cadence, so a captured thing wakes up.
 /// </summary>

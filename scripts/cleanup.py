@@ -8,7 +8,7 @@ What it clears, and nothing else:
 - Old install backups in .local/deploy-backups/: every backup but the newest of each mod still under mods/ (--keep sets how many),
   and every backup of a mod no longer under mods/ (the merged mods of 7 Nov 2026; their files are in git history).
 - Throwaway test repositories in the system temporary folder: archive-test-* and phobos-artwork-archive-test-*, from
-  tests/test_archive_branch.py (before 9 Nov 2026 its tidy-up could not delete git's read-only files, so each run left some).
+  tests/test_archive_branch.py (before 8 Nov 2026 its tidy-up could not delete git's read-only files, so each run left some).
 - Git's file-watcher daemons (git fsmonitor--daemon), when --apply is given: a global core.fsmonitor starts one per repository, and
   the test repositories left hundreds running. They are only a cache: git starts one again the next time a repository needs it.
 

@@ -5,7 +5,7 @@
     with the helicopter flight profile (docs/development/vehicle-turbine-design.md). With one engine out the other carries the load
     on its contingency rating and runs hot; a hover may then be beyond it. Not yet tested in game. Ratings and limits are the
     Framework's authored helicopter turboshaft (Drivetrains.xml).
-    Its main gearbox (the VR-24) is appended (Framework 0.12.0). No published limit for it was found (9 Nov 2026), so the drive
+    Its main gearbox (the VR-24) is appended (Framework 0.12.0). No published limit for it was found (8 Nov 2026), so the drive
     limit, 0.9 of both engines' maximum continuous, is authored.
   -->
   <Phobos.VehicleSystems.PhobosVehicleLoadoutDef ParentName="PhobosVehicleLoadoutAircraft">
@@ -29,7 +29,7 @@
     <flightProfile>PhobosFlightProfile_Helicopter</flightProfile>
     <partRoles>
       <li>
-        <!-- The main rotor gearbox: neither mod gives the helicopter one, so it is appended among the engines (owner, 9 Nov 2026:
+        <!-- The main rotor gearbox: neither mod gives the helicopter one, so it is appended among the engines (owner, 8 Nov 2026:
              rotor drives for every helicopter). -->
         <role>RotorDrive</role>
         <all>true</all>

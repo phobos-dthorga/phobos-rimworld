@@ -12,7 +12,7 @@ using Verse;
 namespace Phobos.VehicleSystems;
 
 /// <summary>
-/// The Dashboard and Systems tabs on the world map (owner, 9 Nov 2026; docs/development/vehicle-tabs-design.md), for a vehicle caravan
+/// The Dashboard and Systems tabs on the world map (owner, 8 Nov 2026; docs/development/vehicle-tabs-design.md), for a vehicle caravan
 /// and an aircraft in flight: the systems keep running off the map. With several vehicles, a list down the left (a light for each:
 /// green, amber when something is notable, red when it will not move) chooses which one the tab shows; one vehicle needs no list. The
 /// drawing is the map tabs' own (their static Draw), so the two cannot drift apart. Added to Vehicle Framework's world object Defs by

@@ -232,7 +232,7 @@
     used at about 35 imperial gallons a minute (2.65 kg/s) for at most about 90 s; without it the limits drop back to the dry
     ratings (secondary: All-Aero on the Pegasus; Wikipedia on its blade temperature limit). The tank's use is worked out by the turbine
     model while a wet rating is in use. The refill is a service (water from Dubs Bad Hygiene's plumbing when that mod is active,
-    otherwise free, as the base game treats water: owner, 9 Nov 2026).
+    otherwise free, as the base game treats water: owner, 8 Nov 2026).
   -->
   <Phobos.VehicleSystems.PhobosVehicleSystemDef>
     <defName>PhobosVehicleSystem_WaterInjection</defName>

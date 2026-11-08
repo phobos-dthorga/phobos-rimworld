@@ -1,9 +1,9 @@
-# Power and lift: rotor drives, thrust pods, many engines, diesel-electric (9 Nov 2026)
+# Power and lift: rotor drives, thrust pods, many engines, diesel-electric (8 Nov 2026)
 
 A design record, built the same day in D'thorga Framework 0.12.0 and D'thorga Vehicles 0.3.0 (Drafts). **Not yet tested in game.**
 The owner asked which other vehicles could take "the two turboshaft-like thing or related while keeping things semi-realistic and
 somewhat adapted to their real-life counterparts", then approved every proposal and asked for the work in two or three parts
-(9 Nov 2026). This is part 1. Part 2 is real figures for the single-engine military vehicles, the L-ATV first; part 3 is a boiler
+(8 Nov 2026). This is part 1. Part 2 is real figures for the single-engine military vehicles, the L-ATV first; part 3 is a boiler
 system for the steam locomotives. It extends the [drivetrain](vehicle-drivetrain-design.md) and
 [turbine](vehicle-turbine-design.md) designs.
 
@@ -14,7 +14,7 @@ system for the steam locomotives. It extends the [drivetrain](vehicle-drivetrain
   motors that heat.
 - **A lift-off check for Vehicle Framework's own aircraft.** Helicopters and pods that launch through Vehicle Framework (the
   Mosquito, the Louie, the Cherokee, the Frog, the Toad, the Goliath) are checked against their weight, the day's heat and their
-  working engines before they lift. **The owner's hover-limit setting** (9 Nov 2026) now covers this too: refuse with the reason
+  working engines before they lift. **The owner's hover-limit setting** (8 Nov 2026) now covers this too: refuse with the reason
   (the default), allow at a cost to the engines, or warn only.
 - **Nothing new is saved.** Engine counts, drive limits and lift margins are worked out from parts and Defs, as before. The new
   traction motor temperature is a system quantity, saved by system and name like the coolant's.
@@ -53,7 +53,7 @@ working share. Without numbered engines, the one `Engine` counts, as before.
 ### Rotor drive
 
 A helicopter's main transmission and rotor masts are rated for a power that can be below its engines' total, so the gearbox sets
-the limit. The researched cases (9 Nov 2026):
+the limit. The researched cases (8 Nov 2026):
 
 | Helicopter (our vehicle) | Engines | Drive limit | Our `transmissionLimit` |
 | --- | --- | --- | --- |
@@ -95,7 +95,7 @@ on two without vectoring **[I]**, which is one more reason to keep a crippled Fr
 
 A flight profile with `liftCheckAtLaunch` is checked by a postfix on Vehicle Framework's
 `CompVehicleLauncher.CanLaunchWithCargoCapacity(out string disableReason)`. Every launch path and the launch button ask this
-method, which already gives the button its reason (read from Vehicle Framework 1.6, 9 Nov 2026). Under the owner's setting:
+method, which already gives the button its reason (read from Vehicle Framework 1.6, 8 Nov 2026). Under the owner's setting:
 
 | Setting | Lift beyond the engines |
 | --- | --- |
@@ -174,9 +174,9 @@ and marks over-torque; a pod loses lift with each thruster and lifts again once 
 
 ## Who chose what
 
-- **Owner (9 Nov 2026):** every proposal approved; the boats, the Warbird and the Smuggler left out; the no-engine Defs documented;
+- **Owner (8 Nov 2026):** every proposal approved; the boats, the Warbird and the Smuggler left out; the no-engine Defs documented;
   the work split into parts; the L-ATV soon.
-- **Research corrections (9 Nov 2026):** the Harrier's lift ladder (64.3 to 95.9 kN) is the Pegasus 11-21's (F402-RR-406), from
+- **Research corrections (8 Nov 2026):** the Harrier's lift ladder (64.3 to 95.9 kN) is the Pegasus 11-21's (F402-RR-406), from
   the US Navy's 1986 AV-8B data sheet, not the later 11-61's (up to 106 kN); the loadout says so and keeps the 11-21's ladder.
 - **Agent choices, owner to revise:** the lift-to-weight figures for the pods; the appended gearboxes on the Hind and the Mongoose; the Mosquito's turboshaft; the lift-off check as part
   of the hover-limit setting; the strain costs; the traction motors' heating and cooling rates and lines; rail friction; the

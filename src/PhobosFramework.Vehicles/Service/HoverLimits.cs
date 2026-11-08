@@ -6,7 +6,7 @@ namespace Phobos.VehicleSystems;
 
 /// <summary>
 /// Whether an aircraft's engine can hold it in a hover now, for frameworks that land on a pad (the turbine design's hover margin).
-/// The player's setting decides what follows (owner, 9 Nov 2026): refuse the pad and use the runway (D'thorga Patches gates the
+/// The player's setting decides what follows (owner, 8 Nov 2026): refuse the pad and use the runway (D'thorga Patches gates the
 /// Harrier's pad landings through this), allow it with the engine run past its limits, or warn only. A tie-in asks; this decides.
 /// </summary>
 public static class HoverLimits

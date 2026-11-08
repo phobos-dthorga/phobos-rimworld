@@ -5,7 +5,7 @@
     belongs to one Vehicle Framework part, as an injury belongs to a body part, and adds what the part's health cannot say: a holed
     radiator goes on leaking after the shot. Each stage has the same effects a system's stage has. Not yet tested in game.
 
-    Labels, descriptions and stage names are agent-authored (9 Nov 2026), held for the owner's review. Every rate is authored for
+    Labels, descriptions and stage names are agent-authored (8 Nov 2026), held for the owner's review. Every rate is authored for
     play, not measured:
     - A holed radiator loses coolant at a rate that grows with the damage: a seep takes about 20 game hours to bring the coolant to
       its top-up level (60%), a bad leak about 5, and a radiator torn open under an hour and a half. Coolant loss then overheats the engine through

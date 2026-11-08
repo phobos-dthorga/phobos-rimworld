@@ -1,8 +1,8 @@
 # Utility vehicles: design (8 Nov 2026)
 
-**The stand-in is built and has grown: D'thorga Vehicles 0.10.0 (9 Nov 2026) carries 27 named loadouts and 15 drivetrains for other
+**The stand-in is built and has grown: D'thorga Vehicles 0.10.0 (8 Nov 2026) carries 27 named loadouts and 15 drivetrains for other
 authors' vehicles. No vehicle of ours is built. Not yet tested in game.** The vehicles below wait for the owner's go after the
-framework is tested. **Updated 9 Nov 2026 (owner's directions, answered in this record):** a fifth vehicle designed in full, the bulk
+framework is tested. **Updated 8 Nov 2026 (owner's directions, answered in this record):** a fifth vehicle designed in full, the bulk
 tanker, liquid or gas by upgrade; every vehicle of ours upgradeable and extendable from its first Def, with the art following the
 upgrade tree; parts from Vehicle Framework's mechanics by default and from RimThunder's and Vanilla Vehicles Expanded's part items
 where they are present, our own parts only as fallbacks. Every figure read from another mod in this update was read with the patches
@@ -31,12 +31,12 @@ are in [Vehicle Framework mechanics](vehicle-framework-mechanics.md); the art re
 - **No value loops.** A mobile rig drills the same deposits at the same rates as the game's deep drill; it buys
   mobility and self-containment, never more ore per hour than a built drill of the same cost.
 - **Honest physics, labelled.** Every figure below is authored and untuned unless a source is named.
-- **Owner's directions of 9 Nov 2026.** (1) **Every vehicle of ours is fully upgradeable and extendable**, each by its own
+- **Owner's directions of 8 Nov 2026.** (1) **Every vehicle of ours is fully upgradeable and extendable**, each by its own
   character, and its art is planned around its upgrade tree from the first picture (principle 8). (2) **Parts come from providers
   by role**: Vehicle Framework's own mechanics first; RimThunder's and Vanilla Vehicles Expanded's part items as soft dependencies,
   together or as replacements; our own parts only where no provider is present (principle 9 and the table under it). (3) **A fifth
   vehicle in full: the bulk tanker**, a liquid or a gas tanker by the player's upgrade choice, extensible by the fluid mods it finds.
-  (4) **One or more of our vehicles will be diesel-electric** for mechanics of their own (owner, 9 Nov 2026, in the
+  (4) **One or more of our vehicles will be diesel-electric** for mechanics of their own (owner, 8 Nov 2026, in the
   [electric vehicles record](vehicle-electric-design.md)); no vehicle is named yet, and the generator set is the agent's candidate.
 
 ## Why a new mod, and why it starts as a stand-in
@@ -74,7 +74,7 @@ vehicles the owner already drives. Our vehicles, their loadouts and art come aft
    radiator and oil like any other vehicle, through its loadout.
 6. **UI presents, services decide.** Gizmos and inspect text read state; one service call does the work.
 7. **XML first.** Vehicles, parts, stats and loadouts are Defs; C# only for the jobs and comps the Defs cannot express.
-8. **Upgradeable and extendable from the first Def** (owner, 9 Nov 2026). Every vehicle ships with a Vehicle Framework upgrade tree
+8. **Upgradeable and extendable from the first Def** (owner, 8 Nov 2026). Every vehicle ships with a Vehicle Framework upgrade tree
    shaped by what it is: tank type on the tanker, mast and bit on the rig, sensor suite on the survey truck, body on the tipper,
    alternator and drive on the generator. Nodes are VF `UpgradeNode`s other modders can add to with a `PatchOperationAdd` into our
    tree, and every node moves a figure that changes an outcome, never a card figure. **The art follows the tree**: the base body is
@@ -84,8 +84,8 @@ vehicles the owner already drives. Our vehicles, their loadouts and art come aft
    new node later is fine, a removed or renamed node key is not (VF saves the unlocked keys and skips a key it cannot find on load,
    `CompUpgradeTree.ReloadUnlocks`, `:21884`). Parts stay fixed per Def and append-only; a node changes stats, comps, overlays and
    labels, never the parts list.
-9. **Parts by role, from providers** (owner, 9 Nov 2026). Vehicle Framework ships no part items (its ThingDefs are motes and the
-   airdrop container; read 9 Nov 2026), so "VF parts by default" means its mechanics: components, upgrade trees, roles, reactors,
+9. **Parts by role, from providers** (owner, 8 Nov 2026). Vehicle Framework ships no part items (its ThingDefs are motes and the
+   airdrop container; read 8 Nov 2026), so "VF parts by default" means its mechanics: components, upgrade trees, roles, reactors,
    overlays, fuel and caravans, used before anything of ours is written. Part **items** come from the mods that make them, named by
    role in each vehicle's cost and each node's ingredients and resolved in XML (`LoadFolders.xml` `IfModActive` folders and
    `PatchOperationFindMod`), never in C#: RimThunder's item, then Vanilla Vehicles Expanded's, then our own. Our own parts load only
@@ -118,7 +118,7 @@ draw through `graphicOverlays` with a `ComponentRequirement`. Combat Extended ar
 
 ### Parts and where they come from (principle 9; agent defaults, owner to confirm)
 
-What the providers actually ship, read 9 Nov 2026 with every patch of the owner's list applied:
+What the providers actually ship, read 8 Nov 2026 with every patch of the owner's list applied:
 
 | Provider | For us | Part items it ships |
 | --- | --- | --- |
@@ -308,7 +308,7 @@ Prior art: RV with built-in PD (power from vehicle fuel, 1.6).
 | Control panel | 25 | Internal | (0, −1) | Phobos_RigControl | |
 | Wiring | 25 | Internal | (1, −1) | Phobos_RigControl | |
 
-### Bulk tanker (owner's addition, 9 Nov 2026; the design is the agent's, owner to confirm)
+### Bulk tanker (owner's addition, 8 Nov 2026; the design is the agent's, owner to confirm)
 
 A heavy truck whose tank is an upgrade: a **liquid tanker** or a **gas tanker** by the player's choice, carrying whatever the mods
 present give it to carry. One chassis, one `VehicleDef` (`Phobos_Tanker`). Vehicle Framework's upgrade tree does the switching:
@@ -318,7 +318,7 @@ no chance to drain it; corrected 8 Nov 2026), a node carries its own `graphicOve
 node, not the base texture), a `StatUpgrade` sets the capacity, and the unlocked set is saved and re-applied on load
 (`CompUpgradeTree.ReloadUnlocks`, VF 1.6 decompile `Vehicles.decompiled.cs:21875`); our comp asks `CompUpgradeTree.NodeUnlocked`
 (`:21659`) which tank is fitted. Prior art: none carries fluid on Vehicle Framework; Trains of the Rim's tanker car is cargo only
-(`TOTR_Railcars_Tanker`: CargoCapacity 30,000, a Tank part, no fluid comp; patched Def read 9 Nov 2026).
+(`TOTR_Railcars_Tanker`: CargoCapacity 30,000, a Tank part, no fluid comp; patched Def read 8 Nov 2026).
 
 | Item | Value |
 | --- | --- |
@@ -335,7 +335,7 @@ node, not the base texture), a `StatUpgrade` sets the capacity, and the unlocked
 
 | Node | Capacity (`Phobos_TankCapacity`) | Why that figure | Look |
 | --- | --- | --- | --- |
-| `LiquidTank` | 3,000 units | Two thirds of Vanilla Chemfuel Expanded's fixed chemfuel tank (4,500 units for 140 steel, patched Def read 9 Nov 2026), so a tanker never beats a built tank per steel; it buys mobility | A horizontal elliptical tank with a manway and a ladder |
+| `LiquidTank` | 3,000 units | Two thirds of Vanilla Chemfuel Expanded's fixed chemfuel tank (4,500 units for 140 steel, patched Def read 8 Nov 2026), so a tanker never beats a built tank per steel; it buys mobility | A horizontal elliptical tank with a manway and a ladder |
 | `PressureVessel` | 1,200 units | A pressure vessel holds far less per tonne of steel than an open tank; authored ratio | A single cylinder with hemispherical ends, a relief valve and a gauge cabinet |
 
 **Contents are a Def anyone can write.** `PhobosTankContentsDef` (a new Def type in D'thorga Framework's Vehicle-Framework part, XML):
@@ -384,7 +384,7 @@ work once a tank is fitted.
 | Front axle and wheels | 35 | External | (0, 2) (1, 2) | MoveSpeed | |
 | Rear axles and wheels | 50 | External | (0, −1) (1, −1) (0, −2) (1, −2) | MoveSpeed | Tandem axles |
 | Truck fuel tank | 35 | Internal | (0, 1) | | VF's fuel-leak reactor |
-| Tank shell | 90 | External | (0, 0) (1, 0) (0, −1) (1, −1) (0, −2) (1, −2) | Phobos_TankIntegrity | Our reactor: a hit drains liquid as a puddle (chemfuel: filth that burns) or vents gas fast; flammable contents at zero integrity explode through VF's `Reactor_Explosive`, scaled to the load, as VCHE's fixed tank already does (`CompProperties_ExplosiveContent`, flame, radius up to 12 at 4,500 units; patched Def read 9 Nov 2026); the default is the owner's call |
+| Tank shell | 90 | External | (0, 0) (1, 0) (0, −1) (1, −1) (0, −2) (1, −2) | Phobos_TankIntegrity | Our reactor: a hit drains liquid as a puddle (chemfuel: filth that burns) or vents gas fast; flammable contents at zero integrity explode through VF's `Reactor_Explosive`, scaled to the load, as VCHE's fixed tank already does (`CompProperties_ExplosiveContent`, flame, radius up to 12 at 4,500 units; patched Def read 8 Nov 2026); the default is the owner's call |
 | Tank fittings | 40 | External | (0, −2) (1, −2) | Phobos_TankIntegrity | Baffles on the liquid tank; the relief valve and gauge on the pressure vessel (the node sets the label; the part key never changes) |
 | Pump and power take-off | 40 | Internal | (1, 1) | Phobos_PumpRate | Below the floor nothing moves |
 | Hose reel and couplings | 30 | External | (0, −2) | Phobos_PumpRate | Needed to deploy |
@@ -416,7 +416,7 @@ already do it (IDs in the mechanics record); the lean is the agent's.
 | Extraction | Water-well rig | Drills a well head in a dry biome | Dubs Bad Hygiene wells | Phobos_DrillRate | DBH | none | Medium: needs DBH |
 | Extraction | Gas-well rig | Taps helixien gas where the survey finds it | Vanilla Helixien Gas Expanded | Phobos_DrillRate | VHGE | none | Low until VHGE is on the owner's list |
 | Haulage | Flatbed | Carries bulky things and a disabled vehicle | CargoCapacity | Deck, winch | Recovery | Caravan Hauler, Forklift Logistics | Medium |
-| Haulage | Bulk tanker | In the family (9 Nov 2026) | | | | | In the family |
+| Haulage | Bulk tanker | In the family (8 Nov 2026) | | | | | In the family |
 | Haulage | Refrigerated van | Keeps food cold on the road | VVE's refrigerator comp | | | VVE | Skip: exists |
 | Construction | Bulldozer | Smooths and clears terrain, pushes rubble | The game's smoothing and clearing jobs | Phobos_BladeRate: blade, tracks, hydraulics | Rails and Roads of the Rim | none | High |
 | Construction | Road paver | Lays road tiles as it drives | Rails and Roads of the Rim | Phobos_PaveRate | RRotR | none | Medium |
@@ -449,7 +449,7 @@ already do it (IDs in the mechanics record); the lean is the agent's.
 ## Art plan (agent recommendation, owner to confirm; the research is in [art services](vehicle-art-services.md))
 
 - **Per vehicle:** three bare-platform bodies, three masks, one overlay set per visible upgrade node plus the deployed and damage
-  overlays, one icon; 128 px per drawSize unit (principle 8, 9 Nov 2026). The tanker is the cheapest pilot: one body and two tank
+  overlays, one icon; 128 px per drawSize unit (principle 8, 8 Nov 2026). The tanker is the cheapest pilot: one body and two tank
   overlays show the whole upgrade idea.
 - **Pipeline:** the north body from a pay-per-image API with a vanilla-look prompt (thick near-black outline, soft cel
   shading, pale panels, rounded corners, straight top-down) and style references; downscaled by script. East and south
@@ -457,14 +457,14 @@ already do it (IDs in the mechanics record); the lean is the agent's.
   that fixes lighting and end details, so all three facings share one design. Overlays as edits of the body, cut out by
   script. Masks by script posterisation of the panel zones, with a model pass only where the script cannot separate
   them. The icon by script.
-- **Services (owner's pick, 9 Nov 2026: the OpenAI image API for the bodies, the owner's local generation for icons):** the
+- **Services (owner's pick, 8 Nov 2026: the OpenAI image API for the bodies, the owner's local generation for icons):** the
   research put the Gemini image API (Nano Banana 2.1, about US$0.034 an image) first and the OpenAI image API (gpt-image-2
   medium, about US$0.041) second; the owner chose OpenAI, which they know, and which their own sources rate best for RimWorld's
   look; FLUX.2 edits on fal.ai as the backup for the turned-image edits. All
   pay-per-image with no subscription; the whole family costs a few dollars. **PixelLab is not for the bodies**: its
   rotation tools stop at 128 to 256 px and are trained on characters; the 19 Oct 2026 reasoning in
   [artwork direction](artwork-direction.md) stands. It could draw 64 px icons if the owner wants it used.
-- **Who does what:** the agent drives the API through the `openai` engine of `scripts/art-run.py` (built 9 Nov 2026, under the [paid image generation rules](paid-image-generation-rules.md);
+- **Who does what:** the agent drives the API through the `openai` engine of `scripts/art-run.py` (built 8 Nov 2026, under the [paid image generation rules](paid-image-generation-rules.md);
   [how to run it](vehicle-art-services.md#running-the-openai-engine)) with the owner's key in the `OPENAI_API_KEY`
   environment variable, never in a file; the owner buys the credit, sets the account's spending limit and makes every pick. Every image goes through the near-copy check
   and gets a record (tool, model, prompt, date, SHA-256, AI disclosure) with the service's output terms as read on the
@@ -476,7 +476,7 @@ already do it (IDs in the mechanics record); the lean is the agent's.
   mod; the framework before the vehicles, the mod as a stand-in; three to four vehicles in full; 1.7 only; the art
   route open to suggestions.
 - **Owner (8 Nov 2026, later):** the bulk tanker is built first.
-- **Owner (9 Nov 2026):** every vehicle of ours fully upgradeable and extendable by its character, with the art planned around
+- **Owner (8 Nov 2026):** every vehicle of ours fully upgradeable and extendable by its character, with the art planned around
   the tree; parts from Vehicle Framework by default, RimThunder's and Vanilla Vehicles Expanded's part items as soft dependencies,
   together or as replacements, our own replacements where neither is present; a fifth vehicle in full, a tanker that is liquid or
   gas by upgrade and extensible by the mods it plugs into; one or more of ours diesel-electric; the OpenAI image API for bodies.
@@ -501,7 +501,7 @@ already do it (IDs in the mechanics record); the lean is the agent's.
 
 | Question | Agent lean |
 | --- | --- |
-| The family: survey truck, drill rig, tipper hauler, generator set, bulk tanker? | Yes (the tanker joined on 9 Nov 2026) |
+| The family: survey truck, drill rig, tipper hauler, generator set, bulk tanker? | Yes (the tanker joined on 8 Nov 2026) |
 | Which vehicle is built first? | **The bulk tanker** (owner, 8 Nov 2026, taking the agent's lean: cheapest to draw, and it proves the upgrade model; this replaces the earlier request for the drill rig first) |
 | Which vehicle is the diesel-electric one? | The generator set (its engine already turns an alternator) |
 | The tanker's name | "Bulk tanker" as a working name |
@@ -511,7 +511,7 @@ already do it (IDs in the mechanics record); the lean is the agent's.
 | Chemfuel rig, or an electric variant alongside? | Chemfuel first |
 | Drill-bit wear as a consumable? | Later, with the systems service's wear phase |
 | Wheels or tracks on the rig? | Wheels (a truck rig); tracks as a variant |
-| Which art service? | **The OpenAI image API for vehicle bodies; local generation for icons** (owner, 9 Nov 2026); no subscription |
+| Which art service? | **The OpenAI image API for vehicle bodies; local generation for icons** (owner, 8 Nov 2026); no subscription |
 | Any C# before VF 1.7 ships? | Yes, against the installed build the game already loads; expect a rebuild |
 | The mod's display name | D'thorga Vehicles |
 
@@ -523,7 +523,7 @@ already do it (IDs in the mechanics record); the lean is the agent's.
 - Prior-art mods: the community collections of VF mods named in the mechanics record, read 8 Nov 2026.
 - Real rigs as grounding only (no figure is taken from them): truck-mounted reverse-circulation, diamond and water-well
   rigs as built by the mining-equipment makers; unverified, named for orientation.
-- Vehicle Framework's upgrade tree and overlays (9 Nov 2026, the 1.6 decompile in `.local/decompiled/VehicleFramework-1.6`):
+- Vehicle Framework's upgrade tree and overlays (8 Nov 2026, the 1.6 decompile in `.local/decompiled/VehicleFramework-1.6`):
   `UpgradeNode` fields (`replaces`, `prerequisiteNodes`, `graphicOverlays`, `ingredients`, `refundFraction`), `CompUpgrade`
   activating comps, `CompUpgradeTree.ReloadUnlocks` and `NodeUnlocked`, `GraphicDataOverlay`, `CompFueledTravel.Refuel`.
 - Vanilla Expanded Framework's pipe system (PipeSystem 1.7 decompile): `PipeNetManager.RegisterConnector` and `GetPipeNetAt`,

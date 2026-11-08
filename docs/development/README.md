@@ -11,7 +11,7 @@ promise current behaviour. For using the mods, start at the [documentation index
   where things go, the C# toolchain (RimWorld 1.7 leads; 1.6 kept as the minimum) and deploying to the game.
 - [Writing READMEs and in-game text](player-language.md)
 - [The medical mods together](../medical-mods.md): the player's view of which medical mod does what, with a flow diagram.
-- [In-game test pass (9 Nov 2026)](in-game-test-pass.md): the short list of checks for the owner's next session, three that
+- [In-game test pass (8 Nov 2026)](in-game-test-pass.md): the short list of checks for the owner's next session, three that
   matter and four if play brings them up, with what passes for each.
 - [Outstanding work (from 7 Nov 2026)](outstanding-work.md): every open item, the owner's decision on it and its status; kept
   current by every change.
@@ -65,55 +65,55 @@ promise current behaviour. For using the mods, start at the [documentation index
 - [Vehicle drivetrain and engine speed: design (8 Nov 2026)](vehicle-drivetrain-design.md): rpm and a semi-realistic
   drivetrain worked backwards from the speed Vehicle Framework already gives (gear, load, fuel power, heat), a speed cap only
   where power or traction runs out, the two clocks, archetypes chosen by effect, parts and damage, a worked example and the
-  owner's open questions; then what D'thorga Framework 0.11.0 built (9 Nov 2026), the owner's answers and a test list. Not yet
+  owner's open questions; then what D'thorga Framework 0.11.0 built (8 Nov 2026), the owner's answers and a test list. Not yet
   tested in game.
 - [Gas turbines: design (8 Nov 2026)](vehicle-turbine-design.md): turboshaft helicopters, the Harrier's vectored-thrust engine
   with water injection, and the tank turbine; flight phases as the aircraft load signal, the vertical-landing hover margin,
   hot and hung starts from the electrical system, twin engines, and what to confirm in the flight frameworks first; then what was
-  built on 9 Nov 2026 (Framework 0.11.0, Vehicles 0.2.0, Patches 0.14.0), what the decompiles said, the owner's answers and a
+  built on 8 Nov 2026 (Framework 0.11.0, Vehicles 0.2.0, Patches 0.14.0), what the decompiles said, the owner's answers and a
   test list. Not yet tested in game.
 - [Vehicle simulation references (8 Nov 2026)](vehicle-references.md): the study library for the three vehicle designs (books,
   papers, open code and game documentation), each with its terms, what to take from it and whether it was read.
-- [Power and lift: design (9 Nov 2026)](vehicle-power-and-lift-design.md): any number of engines, helicopters' rotor drives
+- [Power and lift: design (8 Nov 2026)](vehicle-power-and-lift-design.md): any number of engines, helicopters' rotor drives
   (the Huey's and the Mangusta's transmission limits), thrust-lifted pods losing lift with each thruster, a lift-off check for
   Vehicle Framework's own aircraft, and a diesel-electric with traction motors fitted to a US Army manual's short-time ratings;
   built in D'thorga Framework 0.12.0 and D'thorga Vehicles 0.3.0. Not yet tested in game.
-- [Real figures for named vehicles: design (9 Nov 2026)](vehicle-real-figures-design.md): the L-ATV first, then the MaxxPro,
+- [Real figures for named vehicles: design (8 Nov 2026)](vehicle-real-figures-design.md): the L-ATV first, then the MaxxPro,
   Humvee, Land Cruiser J70, PLS (Roaring Tiger's "HEMTT"), M113, M48H, M10, Bradley, Abrams, T-54, BMP-1s and Wiesel with
   their engines' published power, weights and gearboxes; D'thorga Vehicles 0.4.0. Not yet tested in game.
-- [Steam boilers: design (9 Nov 2026)](vehicle-steam-design.md): raising steam over hours, safety valves, the water glass and
+- [Steam boilers: design (8 Nov 2026)](vehicle-steam-design.md): raising steam over hours, safety valves, the water glass and
   injector, water stops, and the fusible plug that melts if the crown sheet is uncovered, for Trains of the Rim's Frisco 4-8-4
   and Tommy 0-6-0T; D'thorga Framework 0.13.0 and D'thorga Vehicles 0.5.0. Not yet tested in game.
-- [The world map and the cab: design (9 Nov 2026)](vehicle-world-map-design.md): what the vehicle systems did in caravans
+- [The world map and the cab: design (8 Nov 2026)](vehicle-world-map-design.md): what the vehicle systems did in caravans
   and what was skipped or wrong, a closed cab's own temperature through the game's held-temperature lookup, the night heater,
   caravan speed caps and refusals, the jump-start kit and its two settings; D'thorga Framework 0.16.0 and D'thorga Vehicles
   0.7.0. Not yet tested in game.
-- [A shared logging framework: research and direction (9 Nov 2026)](logging-framework-design.md): why every mod's log dies at
+- [A shared logging framework: research and direction (8 Nov 2026)](logging-framework-design.md): why every mod's log dies at
   10,000 messages a session (one mod's storm killed the owner's), the 1.7 pipeline from Verse.Log through Waylith to Player.log and
   back, what other mods' loggers do, and the direction: a bounded revive without Harmony, our own log categories with budgets, a
   shared logger in a sibling repository, a schema and reader across games, and no Rust inside the game. Nothing built yet.
-- [A pawn-like health model for vehicles: research and direction (9 Nov 2026)](vehicle-health-design.md): what the game does
+- [A pawn-like health model for vehicles: research and direction (8 Nov 2026)](vehicle-health-design.md): what the game does
   for a pawn and Vehicle Framework for a vehicle (it switches the pawn health stack off), why a condition layer on Vehicle
   Framework's parts beats reviving that stack, the performance budget and measurement protocol, the NPC lite tier, and the
   four-slice roadmap from the Health tab to repair depth. Not yet tested in game.
-- [Electric vehicles: design (9 Nov 2026)](vehicle-electric-design.md): traction battery temperature and wear, the electric drive,
+- [Electric vehicles: design (8 Nov 2026)](vehicle-electric-design.md): traction battery temperature and wear, the electric drive,
   charging that follows the battery, and the Lightning as a test van behind a setting; Framework 0.20.0, Vehicles 0.9.0. Not yet
   tested in game.
-- [Kerb mass check (9 Nov 2026)](vehicle-kerb-mass-check.md): the 12 kg per Vehicle Framework Mass rule against every active
+- [Kerb mass check (8 Nov 2026)](vehicle-kerb-mass-check.md): the 12 kg per Vehicle Framework Mass rule against every active
   vehicle; authored masses for Vanilla Vehicles Expanded, tunable empty mass; Framework 0.19.0, Vehicles 0.8.0. Not yet tested in game.
-- [Vehicle follow-ups: design (9 Nov 2026)](vehicle-crew-and-ground-design.md): booster packs with starts, the world map's ground
+- [Vehicle follow-ups: design (8 Nov 2026)](vehicle-crew-and-ground-design.md): booster packs with starts, the world map's ground
   from each biome's Defs, cab moods by comfort range, and the RimHUD value; D'thorga Framework 0.18.0. Not yet tested in game.
-- [The vehicle tabs: design (9 Nov 2026)](vehicle-tabs-design.md): the Dashboard and Systems inspector tabs, how they hook into
+- [The vehicle tabs: design (8 Nov 2026)](vehicle-tabs-design.md): the Dashboard and Systems inspector tabs, how they hook into
   Vehicle Framework's Def resolution, the saved day of history behind the graphs, the widgets that went to the Framework core,
   and what RimHUD does with them; D'thorga Framework 0.17.0. Not yet tested in game.
-- [Vehicle figures: research (9 Nov 2026)](vehicle-figures-research.md): sourced engine, transmission and weight figures for the
+- [Vehicle figures: research (8 Nov 2026)](vehicle-figures-research.md): sourced engine, transmission and weight figures for the
   L-ATV, MaxxPro, Humvee, PLS, M113, Bradley, M48H, M10, T-54, BMP-1, Wiesel, Land Cruiser J70, the Abrams' turbine and five
   helicopters, with what was not found.
-- [Steam and diesel-electric: research (9 Nov 2026)](steam-and-diesel-electric-research.md): the Frisco 4500 class and small
+- [Steam and diesel-electric: research (8 Nov 2026)](steam-and-diesel-electric-research.md): the Frisco 4500 class and small
   tank engines, safety valves, crown sheets and fusible plugs, steam tables, fuels and efficiency, diesel-electric shunters'
   short-time ratings, and engine-out precedents for thrust-lifted craft.
 - [Utility vehicles: design (8 Nov 2026)](utility-vehicles-design.md): the new content mod and why it starts as a stand-in,
-  the parts model and stats, the upgrade-tree and parts-by-provider principles (9 Nov 2026), the extraction-chain family in full
+  the parts model and stats, the upgrade-tree and parts-by-provider principles (8 Nov 2026), the extraction-chain family in full
   (survey truck, drill rig, tipper hauler, generator set, and the bulk tanker that is liquid or gas by upgrade),
   the catalogue of other utility vehicles, the Vehicle Framework 1.7 gate and the art plan; the stand-in mod (0.10.0) is built, no
   vehicle of ours is.
@@ -200,7 +200,7 @@ Five mods until 7 November 2026; each record below keeps its own mod's name and 
   equipment your mods already have, what they lack, and the open questions.
 - [View-angle models: research record (7 Nov 2026)](view-angle-models.md): why generated assets come out at odd angles, which
   published models can lock or move the camera, their licences and memory needs on the owner's card, and the trial order.
-- [Paid image generation: rules and lessons from Phobos Ostranauts (9 Nov 2026)](paid-image-generation-rules.md): the twelve
+- [Paid image generation: rules and lessons from Phobos Ostranauts (8 Nov 2026)](paid-image-generation-rules.md): the twelve
   rules for every picture bought from the OpenAI image API, where each came from in the Ostranauts records (projection
   failures, pilots before families, reference roles, what a provider ignores, records, cost discipline), what differs for
   Vehicle Framework bodies, the prompt skeleton, the pilot flow, the review checklist and what the engine enforces.

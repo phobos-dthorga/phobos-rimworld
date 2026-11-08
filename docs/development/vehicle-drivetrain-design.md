@@ -1,6 +1,6 @@
 # Vehicle drivetrain and engine speed: design (8 Nov 2026)
 
-A design record. **Built in D'thorga Framework 0.11.0 on 9 Nov 2026 (see [As built](#as-built-dthorga-framework-0110-9-nov-2026)); not yet tested in game.** The text above that section keeps its original scope. The owner asked on 8 Nov 2026 to introduce engine
+A design record. **Built in D'thorga Framework 0.11.0 on 8 Nov 2026 (see [As built](#as-built-dthorga-framework-0110-8-nov-2026)); not yet tested in game.** The text above that section keeps its original scope. The owner asked on 8 Nov 2026 to introduce engine
 speed (rpm) and, "if at all possible, a semi-realistic drivetrain provided we can maintain good performance". It was
 written while the [vehicle systems](vehicle-systems-design.md) service was being coded, and checked afterwards against
 what D'thorga Framework 0.9.0 built (8 Nov 2026). It **adds** to that schema (one optional loadout field, one new Def type,
@@ -239,13 +239,13 @@ torque curve ending at zero.
 | Load-dependent fuel use | Off (VF's rates unchanged; heat still follows the model) / On (fuel scales with the model's fuel power, normalised so a nominal cruise matches VF's rate) | Off | No |
 | Stuck in soft ground | Floor (slow crawl, "Wheels spinning") / Stop (the vehicle refuses the path) | Floor | No |
 
-## As built (D'thorga Framework 0.11.0, 9 Nov 2026)
+## As built (D'thorga Framework 0.11.0, 8 Nov 2026)
 
 **Built and checked offline; not yet tested in game.** Code: `src/PhobosFramework.Vehicles/Rules/DrivetrainModel.cs` (game-free,
 with the rule tests), `Systems/Powertrain.cs` (the vehicle's side), `Defs/PowertrainDefs.cs`, and the archetypes in
 `mods/PhobosFramework/Mods/VehicleFramework/Common/Defs/Phobos/Framework/VehicleSystems/Drivetrains.xml`.
 
-**The owner's answers (9 Nov 2026):**
+**The owner's answers (8 Nov 2026):**
 
 | Question | Owner's answer | As built |
 | --- | --- | --- |
@@ -256,7 +256,7 @@ Questions 1, 4, 5 and 6 took the agent's leans (agent choices, owner to revise):
 overridable per loadout (`mass` in the drivetrain Def, or `kilogramsPerVehicleMass` and `emptyKilograms` in a loadout's `set`);
 Plain mode says only "Engine labouring" (load above 90%) or "Wheels spinning"; engine sound later.
 
-**Corrections from reading Vehicle Framework and Vanilla Vehicles Expanded (9 Nov 2026), which the build follows:**
+**Corrections from reading Vehicle Framework and Vanilla Vehicles Expanded (8 Nov 2026), which the build follows:**
 
 - **The speed cap hooks `VehiclePathFollower.CostToPayThisTick()`** (private; a postfix multiplying its result by the cap),
   with Harmony priority First so it runs **before** VVE's postfix on the same method, which reads the result to decide braking.
@@ -304,7 +304,7 @@ the propeller law, the terrain curves, and a 500-sample benchmark under 50 ms (`
 
 - **Owner (8 Nov 2026):** introduce rpm and a semi-realistic drivetrain, provided performance holds; build a body of
   references to study.
-- **Owner (9 Nov 2026):** crawl without traction; keep the authors' fuel figures with the setting off.
+- **Owner (8 Nov 2026):** crawl without traction; keep the authors' fuel figures with the setting off.
 - **Agent proposals, owner to confirm:** the quasi-static method; VF keeps deciding speed and we only cap it; the two
   clocks; nothing saved; ScanShort sampling; the archetypes and every authored figure; the speed-cap floor; the
   settings table.

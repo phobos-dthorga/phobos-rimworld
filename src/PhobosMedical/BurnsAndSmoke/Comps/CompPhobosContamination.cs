@@ -6,7 +6,7 @@ using Verse;
 namespace Phobos.BurnsAndSmoke.Comps;
 
 /// <summary>
-/// Caustic residue in a garment, for the strip-and-rinse setting (owner, 9 Nov 2026: off by default; docs/development/caustic-gas.md).
+/// Caustic residue in a garment, for the strip-and-rinse setting (owner, 8 Nov 2026: off by default; docs/development/caustic-gas.md).
 /// Clothes worn in tox gas take it up; while worn they keep dosing the skin; it fades over a few days as it off-gasses, and a wash
 /// (Dubs Bad Hygiene's washing machine) clears it. Saved with the garment: the level and the tick it was last set, so it fades without
 /// ticking. Put on every apparel Def at startup by <see cref="ContaminationInjector"/>; idle while the setting is off.

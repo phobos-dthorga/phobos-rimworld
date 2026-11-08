@@ -10,7 +10,7 @@ namespace Phobos.VehicleSystems;
 /// A value for RimHUD's pawn display (Jaxe's RimHUD, optional): which vehicle a person is aboard and in what role, with the fuel,
 /// the cab and what the vehicle waits for in the tooltip; a click selects the vehicle on its map. RimHUD finds this class through
 /// the CustomValueDef in Mods/VehiclesRimHUD (loaded only with both Vehicle Framework and RimHUD) and calls GetParameters by
-/// reflection, so nothing here references RimHUD. Its wiki fixes the return type exactly (read 9 Nov 2026). Presentation only.
+/// reflection, so nothing here references RimHUD. Its wiki fixes the return type exactly (read 8 Nov 2026). Presentation only.
 /// </summary>
 public static class RimHudVehicleValue
 {

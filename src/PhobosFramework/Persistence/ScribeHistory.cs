@@ -5,7 +5,7 @@ namespace Phobos.Framework.Persistence;
 
 /// <summary>
 /// Saves and loads a history ring as one compact string (HistoryCodec). History cannot be recomputed, so saving it is the one
-/// exception to "derived state is never saved", granted by the owner for the vehicle graphs (9 Nov 2026); a few hundred bytes per
+/// exception to "derived state is never saved", granted by the owner for the vehicle graphs (8 Nov 2026); a few hundred bytes per
 /// quantity. A missing or malformed entry loads as an empty ring.
 /// </summary>
 public static class ScribeHistory

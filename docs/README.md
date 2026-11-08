@@ -14,7 +14,7 @@
 - [Vehicle systems for modders](vehicle-systems-modding.md): give your Vehicle Framework vehicles their own batteries, coolant,
   air brakes or systems of your own, in XML, with D'thorga Framework.
 
-Each mod's README is its player guide, with the gotchas first. **Every mod is RimWorld 1.7 only from 9 November 2026.** As of 7 November 2026, when seven mods became two ([why](development/mod-consolidation.md)):
+Each mod's README is its player guide, with the gotchas first. **Every mod is RimWorld 1.7 only from 8 November 2026.** As of 7 November 2026, when seven mods became two ([why](development/mod-consolidation.md)):
 
 | Mod | Version | What it does | Guide |
 | --- | --- | --- | --- |

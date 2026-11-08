@@ -20,14 +20,14 @@
       boiler has one (fusiblePlugFitted). Without one, a dry crown sheet tears and the boiler explodes: the water flashes to steam of
       "perhaps 1500 or 2000 times" its volume, and at only 60 psi each cubic foot of boiler water holds the energy of a pound of black
       powder (primary: NTSB, quoting Railway Mechanical Engineer and G. B. Airy). That happens only with the player's boiler
-      explosions setting on (owner, 9 Nov 2026: off by default, with a warning); with it off, every boiler behaves as if plugged.
+      explosions setting on (owner, 8 Nov 2026: off by default, with a warning); with it off, every boiler behaves as if plugged.
       The explosion's size here (5.9 cells, 60 blast damage) is authored, far smaller than a real one.
     - The water glass must read at least 3 inches above the crown sheet (primary: 49 CFR 230.51): here the glass reads 0 to 1 and
       the crown is uncovered at 0.1 (authored). The injector keeps the glass near 0.8 from the feed water while there is any; priming
       from too high a level is therefore not modelled.
     - Feed water: the tender or side tanks, refilled at a water stop as a service (Dubs Bad Hygiene's water towers when that mod is
-      active, otherwise free; owner, 9 Nov 2026), only the shortfall drawn. Each loadout gives its real capacity in litres and a
-      scaled one, a tenth of it, used unless the player turns on realistic feed water (owner, 9 Nov 2026: scaled by default; a
+      active, otherwise free; owner, 8 Nov 2026), only the shortfall drawn. Each loadout gives its real capacity in litres and a
+      scaled one, a tenth of it, used unless the player turns on realistic feed water (owner, 8 Nov 2026: scaled by default; a
       Dubs water tower holds 8,000 and a huge one 50,000, from the mod's own descriptions).
   -->
   <Phobos.VehicleSystems.PhobosVehicleSystemDef>

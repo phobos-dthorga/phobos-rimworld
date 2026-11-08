@@ -9,7 +9,7 @@ for items and icons, and this record replaces that record's paid-route row.
 
 ## Read this first
 
-- **The owner's pick (9 Nov 2026): the OpenAI image API for vehicle bodies**, which they already know and their own sources rate
+- **The owner's pick (8 Nov 2026): the OpenAI image API for vehicle bodies**, which they already know and their own sources rate
   best for RimWorld's look; **icons stay on the owner's local generation**, which already drew on-style icons for free. The owner
   is setting up an API account (ID verification, prepaid credit with automatic top-up off). The comparison below is kept as read.
 - **Rotate, then edit.** A true top-down east facing is the north facing turned a quarter, and south is north turned a
@@ -77,14 +77,14 @@ corners, straight top-down, no perspective. Outputs ship in a free public Worksh
 
 ## Running the OpenAI engine
 
-**The owner's pick (9 Nov 2026): the OpenAI image API for vehicle bodies, local generation for icons.** The engine was built
-on 9 Nov 2026 (`scripts/art/openai_images.py`, used by `scripts/generate-art.py` and `scripts/art-run.py`); offline tests in
+**The owner's pick (8 Nov 2026): the OpenAI image API for vehicle bodies, local generation for icons.** The engine was built
+on 8 Nov 2026 (`scripts/art/openai_images.py`, used by `scripts/generate-art.py` and `scripts/art-run.py`); offline tests in
 `tests/test_openai_images.py`. **No real image has been made with it yet.** The rules for using it, learnt in Phobos
 Ostranauts, are in [paid image generation rules](paid-image-generation-rules.md): read them before writing a request.
 
 - **The key** is read from the `OPENAI_API_KEY` environment variable only (the owner's user variable). It is never written to
   a file, record or report, and key-shaped text in an error is blanked. The owner's key is a restricted key: it may make
-  images but not list models, which the engine never needs. On 9 Nov 2026 a deliberately invalid request (a 7 by 7 size)
+  images but not list models, which the engine never needs. On 8 Nov 2026 a deliberately invalid request (a 7 by 7 size)
   showed the key and `gpt-image-2` are accepted; an invalid request makes no image and costs nothing.
 - **A request** uses `"engine": "openai"`, a prompt, a width and height (each divisible by 16, shape between 1:3 and 3:1,
   at most 3840 by 2160), optional `"quality"` (`low`, `medium` the default, `high`), `"background"`, `"moderation"`, and

@@ -5,7 +5,11 @@ yet. Not yet tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
-## [0.2.3] - 2026-11-09 - Draft
+### Changed
+
+- Dates in this mod's records that were written a day ahead now read 8 November 2026. Text only; nothing in game changes.
+
+## [0.2.3] - 2026-11-08 - Draft
 
 No change in play on 1.7. Not yet tested in game.
 

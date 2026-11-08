@@ -15,7 +15,7 @@ public class FrameworkSettings : ModSettings
     public bool showGasOverlay;
     /// <summary>Dev mode only, one-shot: write every Def with all patches applied at the next start (Debug/PatchedDefsDump).</summary>
     public bool writePatchedDefsOnce;
-    /// <summary>Turn the game's log back on when it stops itself at 10,000 messages (Logging/GameLogKeeper; owner, 9 Nov 2026: on by default).</summary>
+    /// <summary>Turn the game's log back on when it stops itself at 10,000 messages (Logging/GameLogKeeper; owner, 8 Nov 2026: on by default).</summary>
     public bool keepGameLogAlive = true;
 
     public override void ExposeData()

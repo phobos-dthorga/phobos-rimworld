@@ -15,7 +15,7 @@ import archive_branch  # noqa: E402
 
 def remove_tree(path):
     """Deletes a throwaway repository. Git marks its object files read-only, which Windows will not delete, so clear the flag and
-    retry; ignore_errors alone left every test's .git/objects behind (hundreds of folders in TEMP before 9 Nov 2026)."""
+    retry; ignore_errors alone left every test's .git/objects behind (hundreds of folders in TEMP before 8 Nov 2026)."""
     def writable_then_retry(function, failed, *_):
         os.chmod(failed, stat.S_IWRITE)
         function(failed)
@@ -34,7 +34,7 @@ class ArchiveBranchTests(unittest.TestCase):
         self.repo = tempfile.mkdtemp(prefix='archive-test-')
         git(self.repo, 'init', '-q', '-b', 'main')
         # A global core.fsmonitor would start a watcher daemon in every throwaway repository, outliving the test (220 were running on
-        # 9 Nov 2026). This repository's own setting wins.
+        # 8 Nov 2026). This repository's own setting wins.
         git(self.repo, 'config', 'core.fsmonitor', 'false')
         git(self.repo, 'config', 'user.email', 'test@example.invalid')
         git(self.repo, 'config', 'user.name', 'Test')

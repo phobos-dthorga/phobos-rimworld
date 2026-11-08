@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
   <!--
-    Electric land vehicles (owner, 9 Nov 2026; Framework 0.20.0; docs/development/vehicle-electric-design.md): any land vehicle Vehicle
+    Electric land vehicles (owner, 8 Nov 2026; Framework 0.20.0; docs/development/vehicle-electric-design.md): any land vehicle Vehicle
     Framework runs on electricity, matched by that and never by name. The traction battery and electric drive systems, the 12 V
     electrics charged by a DC-DC converter, the electric drivetrain (one fixed reduction), tyres and brakes, and the cab. No coolant,
     oil, gearbox, fuel-in-the-cold or night heater: an electric vehicle has none of them (the night heater's fuel figure is in units

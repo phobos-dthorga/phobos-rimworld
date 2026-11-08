@@ -37,18 +37,18 @@ delivered, record the delivery in the changelog or design record, and add or ame
   `sql`) before searching mod folders by hand. It shows Defs as written, without other mods' patches applied; **`patched
   <defName>` shows a Def with every patch applied and a diff from its written form**, from the file D'thorga Framework writes
   on request (dev mode: its settings or the dev action "write patched Defs at the next start", then a restart).
-- **Answer questions about the game's or another mod's code with `python scripts/query-code.py`** (owner, 9 Nov 2026):
+- **Answer questions about the game's or another mod's code with `python scripts/query-code.py`** (owner, 8 Nov 2026):
   `show Type.Member` for its source, `outline Type` for what a type holds, `refs Name` for every line using a name grouped
   by the member it is in, `find "*Pattern*"`; `--in "VehicleFramework*"` narrows to one decompile, `--in ours` to our
   `src/`. It reads every tree in `.local/decompiled` and indexes them in the kit's cache. Use it before grepping a decompile
   or sending an agent to read one, and cite what it shows as `file:line`. A tree not yet decompiled needs decompiling
   first (into `.local/decompiled/<name>`); a single assembly's metadata, call graph or constants are REA's job once the
   owner has it set up (`docs/development/analysis-tooling.md`).
-- **Answer which mods patch a method with `python scripts/query-patches.py`** (owner, 9 Nov 2026): `who "Type.Method"` for
+- **Answer which mods patch a method with `python scripts/query-patches.py`** (owner, 8 Nov 2026): `who "Type.Method"` for
   every Harmony patch on it in load order (wildcards), `mod <name>` for what a mod patches, `hotspots` for methods several mods
   patch; "may skip the original" marks a bool prefix. It reads every active mod's assemblies through their metadata, never
   running them. Use it before decompiling a mod to look for patches, and before adding a patch of ours, to see who else is there.
-- **Answer what settings the owner plays with using `python scripts/mod-settings.py`** (owner, 9 Nov 2026): our mods' saved
+- **Answer what settings the owner plays with using `python scripts/mod-settings.py`** (owner, 8 Nov 2026): our mods' saved
   values beside their defaults, read from our C# source; `--mod <pattern>` for any other mod (Combat Extended, Vehicle Framework);
   `snapshot FILE`, then `compare FILE`, for what changed between two sessions. Run it with a reported fault before asking the
   owner which options are on, and never read the Config folder by hand. RimWorld writes nothing for a value at its default.
@@ -205,7 +205,7 @@ delivered, record the delivery in the changelog or design record, and add or ame
   the content mod. One provider per Def or service, no circular dependencies. Other authors must be able
   to use a framework without our content mods. Name meaningful constants; derive displayed figures from
   the authoritative rule; extract duplication when you meet it, not later.
-- **Generic functions go to the Framework core** (owner, 9 November 2026). Any function that can reasonably be made
+- **Generic functions go to the Framework core** (owner, 8 November 2026). Any function that can reasonably be made
   generic, or that more than one Phobos mod or part uses, goes into D'thorga Framework's core (`src/PhobosFramework`,
   `mods/PhobosFramework`'s root folders) in the same change as its first consumer, even while only one consumer exists:
   game-free rules in its `Rules/` with tests in `tests/PhobosFramework.Rules.Tests`, UI helpers in `UI/`, persistence
@@ -227,11 +227,11 @@ delivered, record the delivery in the changelog or design record, and add or ame
   gas of our own only where its value is greater than inference could give, where nothing exists to infer
   from, or on the owner's call-out, and say which in the design record. Gases are additive and per room:
   no air, oxygen, pressure or vacuum model. The framework's source-mode setting is the manual override.
-- **Every vehicle of ours is upgradeable and extendable from its first Def** (owner, 9 Nov 2026): a Vehicle Framework upgrade
+- **Every vehicle of ours is upgradeable and extendable from its first Def** (owner, 8 Nov 2026): a Vehicle Framework upgrade
   tree shaped by the vehicle, every node moving a figure that changes an outcome, node keys stable once a save can hold them; the
   base body is drawn bare and every visible node is its own overlay set, planned before the first picture
   (`docs/development/utility-vehicles-design.md`, principle 8).
-- **Vehicle parts come from providers by role** (owner, 9 Nov 2026): Vehicle Framework's own mechanics first (it ships no part
+- **Vehicle parts come from providers by role** (owner, 8 Nov 2026): Vehicle Framework's own mechanics first (it ships no part
   items); RimThunder's and Vanilla Vehicles Expanded's part items through `IfModActive` folders and `PatchOperationFindMod`,
   together or as replacements; our own parts only in fallback folders for players with neither, never a copy of a part a provider
   ships (principle 9 and its table).
@@ -276,7 +276,7 @@ delivered, record the delivery in the changelog or design record, and add or ame
 - **Versions: RimWorld 1.7 only** (owner, 8 November 2026; 1.7 had led since 4 November 2026). 1.6 is a dying
   version and gets no resources: every C# project builds one target, `net10.0` against the 1.7 reference
   (Harmony 3), into `mods/<Mod>/1.7/Assemblies/`; no mod has a `1.6` folder or declares 1.6 in `supportedVersions`
-  (every mod dropped it on 9 November 2026, at the owner's request); never fix a 1.6-only failure. Per-version folders through `LoadFolders.xml` (`1.7`, and `Mods/<Other>/1.7`
+  (every mod dropped it on 8 November 2026, at the owner's request); never fix a 1.6-only failure. Per-version folders through `LoadFolders.xml` (`1.7`, and `Mods/<Other>/1.7`
   for a tie-in assembly), shared XML in `Common/`; `Directory.Build.targets` turns the target into the game
   version, output folder and references (`docs/development/building.md`). Never write a polyfill type by hand.
   Prefer RimWorld's own
@@ -318,7 +318,7 @@ delivered, record the delivery in the changelog or design record, and add or ame
   branch, reference drawings and superseded or comparison picks on `art-references`, each with its sidecar or record. Add to them only
   with `scripts/art/archive_branch.py`, which adds commits on top, never rewrites, and refuses game art, the private style model and
   its dataset, and model files. `assets/*/references/` is ignored on `main`; the scripts that draw references draw them again.
-- **Paid generation follows `docs/development/paid-image-generation-rules.md`** (owner, 9 Nov 2026: the OpenAI image API
+- **Paid generation follows `docs/development/paid-image-generation-rules.md`** (owner, 8 Nov 2026: the OpenAI image API
   for vehicle bodies, with the rules learnt in Phobos Ostranauts). **Only our own art is ever uploaded** to a provider: the
   game's textures, other authors' art and screenshots stay on this PC, and the engine refuses them as references. Every
   paid run has `--dry-run` first and `--max-usd` on the real run; agents never buy credit, raise the owner's account limit
@@ -338,7 +338,7 @@ delivered, record the delivery in the changelog or design record, and add or ame
   `python scripts/check-all.py` and chain the commit on its exit code** (`python scripts/check-all.py && git commit ...`),
   never on reading output: phobos-modkit's gate builds every project, runs every rule-test project and the Python tests,
   and checks links, mod layout, text keys, vehicle schemas, version copies and changelogs, printing only what failed
-  (owner's go-ahead, 9 Nov 2026; the steps are in `config/gate.json`, found by glob, so a new project is never left out).
+  (owner's go-ahead, 8 Nov 2026; the steps are in `config/gate.json`, found by glob, so a new project is never left out).
   `--only` and `--skip` narrow it while iterating; never hand-type a loop of builds and tests (one missed four of seven
   test projects). Read a failed step's full output, whose path the report gives, only when its summary is not enough.
 - **Tests leave nothing behind.** A test that makes a git repository sets `core.fsmonitor false` in it and deletes it with

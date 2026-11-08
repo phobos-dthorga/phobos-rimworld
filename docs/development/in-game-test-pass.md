@@ -1,14 +1,14 @@
-# In-game test pass (9 Nov 2026)
+# In-game test pass (8 Nov 2026)
 
 A short list of the checks that matter most among what is built and not yet tested in game, for the owner to run in their colony
-(owner's request of 9 November 2026: "a short in-game test pass list"). Three checks first, then four that are worth a look only
+(owner's request of 8 November 2026: "a short in-game test pass list"). Three checks first, then four that are worth a look only
 if play brings them up. Nothing here counts as tested until the owner says so; each result goes into that mod's changelog.
 
 ## Read this first
 
 - **Install first, with RimWorld closed:** `python scripts/deploy.py --build --apply --all`, or say "go" and an agent runs it.
   The game holds D'thorga Framework 0.27.0 and D'thorga Patches 0.14.0; checks 1 to 3 need **Framework 0.29.0 and Patches
-  0.14.1**. The other five mods already match the repository (read from the installed About files, 9 Nov 2026). **Close any Explorer
+  0.14.1**. The other five mods already match the repository (read from the installed About files, 8 Nov 2026). **Close any Explorer
   window open in a mod folder**, or the install fails.
 - **Play on a copy of the live save if you prefer**, but the Visit Settlements check needs the colony where the storm happened
   (a friendly settlement there holds a pawn that does not eat).

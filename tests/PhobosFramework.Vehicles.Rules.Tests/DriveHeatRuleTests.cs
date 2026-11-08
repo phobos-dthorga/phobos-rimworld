@@ -24,7 +24,7 @@ public class DriveHeatRuleTests
     [Fact]
     public void ALightCruiseStillWarmsItAndFullLoadWarmsItMost()
     {
-        // The owner's Abrams (9 Nov 2026): a tenth of rated power on the move left the gearbox at the air's temperature.
+        // The owner's Abrams (8 Nov 2026): a tenth of rated power on the move left the gearbox at the air's temperature.
         Assert.True(Gearbox(true, true, true, 0.1) > 0.7);
         Assert.Equal(FlatOut, Gearbox(true, true, true, 1), 6);
         Assert.Equal(FlatOut, Gearbox(true, true, true, 2), 6);

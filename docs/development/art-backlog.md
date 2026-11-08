@@ -137,7 +137,7 @@ Five textures are the owner's picks (7 Nov 2026); the base station and the two f
 | Belt access toggle | D'thorga Factory Additions | Vanilla Expanded's conveyor icon, looked up at run time | Nothing | |
 | Bottle tap's four arrows | D'thorga Water Tap | The game's own plus and minus buttons | Nothing | |
 | Service, load switch, headlights, cab heater | D'thorga Framework (vehicle systems, 0.9.0) | Stand-ins drawn in code by `assets/vehicle-systems/draw_icons.py` (8 Nov 2026), each with a record | Generated icons, on the owner's go | Yes |
-| Air conditioner, night heater, jump-start kit, booster pack | D'thorga Framework (vehicle systems, 0.16.0 and 0.18.0) | Stand-ins drawn by the same script, each with a record; the kit and pack are item textures too | Low priority: the owner rates the stand-ins well and wants them replaced only when little else is left (9 Nov 2026) | Yes |
+| Air conditioner, night heater, jump-start kit, booster pack | D'thorga Framework (vehicle systems, 0.16.0 and 0.18.0) | Stand-ins drawn by the same script, each with a record; the kit and pack are item textures too | Low priority: the owner rates the stand-ins well and wants them replaced only when little else is left (8 Nov 2026) | Yes |
 
 **Any future button gets its icon in the same change**, or reuses a game or required-mod icon that is confirmed to exist; a lookup that
 can fail falls back to a visible stand-in of our own, never silently to the red X (owner, 7 Nov 2026; in AGENTS.md).

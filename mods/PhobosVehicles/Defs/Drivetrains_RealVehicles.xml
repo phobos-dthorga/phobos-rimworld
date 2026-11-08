@@ -2,14 +2,14 @@
 <Defs>
   <!--
     Real figures for the single-engine military and utility vehicles on the owner's list (part 2 of the owner's approved proposals,
-    9 Nov 2026; docs/development/vehicle-real-figures-design.md). Every figure comes from docs/development/vehicle-figures-research.md
+    8 Nov 2026; docs/development/vehicle-real-figures-design.md). Every figure comes from docs/development/vehicle-figures-research.md
     and is labelled primary, secondary, our inference or authored. Masses are the published curb or combat weights; the model adds
     passengers, cargo and ammunition on top, so a combat weight counts its crew and ammunition twice (small, a simplification).
     Fuel mass is left out (no sourced density). These Defs name no other mod, so they load always; the loadouts that use them load
     with their mods. Not yet tested in game.
   -->
   <!--
-    - Engine: the 866T 6.6 L V8 turbo-diesel on GM's Duramax architecture (primary: Banks Power). Its power was never published officially; secondary figures run from 340 to 400 hp (and 425 for the engine's catalogue rating). The owner chose the middle of 340 and 400 (9 Nov 2026): 370 hp, 276 kW. That is above the Allison 2500's published 340 hp rating with engine torque limiting (primary: Allison sheet SA5340EN); the 2500 SP's own rating is "contact your Allison representative", so it may well be higher.
+    - Engine: the 866T 6.6 L V8 turbo-diesel on GM's Duramax architecture (primary: Banks Power). Its power was never published officially; secondary figures run from 340 to 400 hp (and 425 for the engine's catalogue rating). The owner chose the middle of 340 and 400 (8 Nov 2026): 370 hp, 276 kW. That is above the Allison 2500's published 340 hp rating with engine torque limiting (primary: Allison sheet SA5340EN); the 2500 SP's own rating is "contact your Allison representative", so it may well be higher.
     - Rated 3,200 rpm (secondary: army-guide.com's 866T catalogue entry); idle 700 rpm (authored, inside the Allison 2500's 500 to 820 rpm idle-in-drive window, primary).
     - Gears: the Allison 2500's six ratios, 3.51 to 0.64 (primary: Allison sheet SA5340EN; the 2500 SP's own are not listed separately).
     - Wheel radius 0.55 m from 385/80 R20 or 365/80 R20 tyres (secondary, conflicting; our arithmetic). Kerb 6,400 kg (secondary: Wikipedia). Permanent four-wheel drive (primary: AM General's A2 sheet). Top speed 110 km/h (secondary), from which the final drive is worked out (our inference).

@@ -1,8 +1,8 @@
-# A shared logging framework: research and direction (9 Nov 2026)
+# A shared logging framework: research and direction (8 Nov 2026)
 
 A design record. The owner's logs "keep exceeding some set limit" the game has in place; they proposed a logging framework of our
 own, built on generic concepts so every Phobos RimWorld mod takes part, possibly with a Rust core generic enough for other games.
-This round is research and record only (owner, 9 Nov 2026). Two read-only explorations (our own logging and tooling; other mods'
+This round is research and record only (owner, 8 Nov 2026). Two read-only explorations (our own logging and tooling; other mods'
 loggers), one design critique and the game's and engine's decompiles fed it. Nothing here is built.
 
 ## Read this first
@@ -15,7 +15,7 @@ loggers), one design critique and the game's and engine's decompiles fed it. Not
   world tick in six minutes (18:17:47 to 18:24:02); the 17.7 MB `Player-prev.log` ends there, and the session ran on for over an
   hour with nothing written. The game merges only consecutive identical lines in its window (up to 99 repeats); the cap counts
   every one.
-- **Owner's decisions (9 Nov 2026):** (1) **a bounded revive, no Harmony**: a Framework component checks every 250 ticks whether the
+- **Owner's decisions (8 Nov 2026):** (1) **a bounded revive, no Harmony**: a Framework component checks every 250 ticks whether the
   game switched logging off and calls the game's own public `Log.ResetMessageCount()`, up to a limit, writing one line that names the
   loudest message since the last revive; on by default, with an off switch, and the README says it changes Ludeon's anti-spam
   behaviour; (2) **no Rust inside the game**: Rust stays in the reader (phobos-modkit); (3) **the shared C# logger gets a new sibling
@@ -75,7 +75,7 @@ flowchart LR
 - **So, after the cap:** `Verse.Log.*` and `Debug.Log*` are silent everywhere; a mod's own `LogCategory` still reaches
   `Player.log` and the stream, still counts, and no longer reaches the window. Before the cap, a category line reaches the window
   like any other, with the real `[Category]` in `Player.log`.
-- **Who else patches `Verse.Log`** (`scripts/query-patches.py who "Verse.Log.*"`, 9 Nov 2026): `Log.Error` prefixes from Better
+- **Who else patches `Verse.Log`** (`scripts/query-patches.py who "Verse.Log.*"`, 8 Nov 2026): `Log.Error` prefixes from Better
   Stacktraces (priority 800), VEF's Mod Settings Framework (may skip), RimPacts (two: one may skip, one priority 800) and Dubs
   Performance Analyzer (prefix and postfix); `Log.Warning` prefixes from Log After Def Error and RimPacts; Mid-saver Saver prefixes
   `Notify_MessageReceivedThreadedInternal` (may skip, priority 800; not decompiled, purpose unknown); the Harmony mod postfixes
@@ -238,15 +238,15 @@ decompile (a category line reaches `Player.log` after the cap and the window bef
 
 | Slice | What | Status |
 | --- | --- | --- |
-| L1 | This record; the shim decompiles in `.local/decompiled/UnityStubs` and `Waylith.UnityCompat` | Done, 9 Nov 2026 |
-| L2 | `GameLogKeeper` (revive, bound, setting) and the storm counter in D'thorga Framework, with the probe dev actions and the benchmark (a minor version); the owner runs T1 to T5 | Built: Framework 0.28.0, 9 Nov 2026 (`Logging/GameLogKeeper.cs`, `Logging/HostLog.cs`, `Rules/GameLogRules.cs`, `Debug/LogProbeDebugActions.cs`); not yet tested in game |
+| L1 | This record; the shim decompiles in `.local/decompiled/UnityStubs` and `Waylith.UnityCompat` | Done, 8 Nov 2026 |
+| L2 | `GameLogKeeper` (revive, bound, setting) and the storm counter in D'thorga Framework, with the probe dev actions and the benchmark (a minor version); the owner runs T1 to T5 | Built: Framework 0.28.0, 8 Nov 2026 (`Logging/GameLogKeeper.cs`, `Logging/HostLog.cs`, `Rules/GameLogRules.cs`, `Debug/LogProbeDebugActions.cs`); not yet tested in game |
 | L3 | Create `phobos-log` (owner names it; MIT; layers above); the rules and the RimWorld host sink; adopted by the Framework and D'thorga Patches (four prefixes become one category); other mods when next touched; `LoadReport` moves onto it | Open |
 | L4 | The JSON-lines sink, the schema document and modkit's reader, when Ostranauts adopts or a need is named | Open |
 | L5 | The Ostranauts host sink (BepInEx) | Open |
 
 ## Who chose what
 
-- **Owner (9 Nov 2026):** the aim (a shared logging framework, generic across our mods and, where possible, our games); a bounded
+- **Owner (8 Nov 2026):** the aim (a shared logging framework, generic across our mods and, where possible, our games); a bounded
   revive without Harmony as the cap fix; no Rust in the game; a new sibling repository for the shared logger; record only this round.
 - **Agent, with the owner's approval of the plan:** the revive's shape, its bound and default; the storm counter; the category-first
   rule for our own messages; the logger's gates, budgets and templates; the generic-versus-per-host split; the repository's layers

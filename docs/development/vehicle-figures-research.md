@@ -1,6 +1,6 @@
 # Vehicle drivetrain and turbine figures: research record
 
-Researched 9 November 2026 by a research agent for the drivetrain and turbine models (agent-authored, for the owner's review). Used so far for the helicopters' drive limits and the Harrier's engine label ([power and lift design](vehicle-power-and-lift-design.md)); the ground vehicles' figures feed part 2. **Nothing here is tested in game.**
+Researched 8 November 2026 by a research agent for the drivetrain and turbine models (agent-authored, for the owner's review). Used so far for the helicopters' drive limits and the Harrier's engine label ([power and lift design](vehicle-power-and-lift-design.md)); the ground vehicles' figures feed part 2. **Nothing here is tested in game.**
 
 How to read this file:
 

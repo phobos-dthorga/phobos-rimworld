@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Patch>
-  <!-- With Dubs Bad Hygiene, its showers and baths serve as safety showers too (owner, 9 Nov 2026: extra mechanics for Dubs Bad Hygiene
+  <!-- With Dubs Bad Hygiene, its showers and baths serve as safety showers too (owner, 8 Nov 2026: extra mechanics for Dubs Bad Hygiene
        players; docs/development/caustic-gas.md): anyone with acid on the skin (or, with strip and rinse on, contaminated clothes) runs to
        the nearest, and a doctor draws water there for a patient. Each rinse draws its water from the plumbing, as the safety shower's
        does. Patched on Dubs' shower and bath bases, so every shower and bath that inherits them is included. Not yet tested in game. -->

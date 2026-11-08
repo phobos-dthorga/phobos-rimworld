@@ -6,9 +6,13 @@ entry says the owner tested it.
 
 ## [Unreleased]
 
-## [0.8.0] - 2026-11-09 - Draft
+### Changed
 
-The rest of the caustic gas, from the owner's answers of 9 November 2026. **Not yet tested in game.** Design: docs/development/caustic-gas.md.
+- Dates in this mod's records that were written a day ahead now read 8 November 2026. Text only; nothing in game changes.
+
+## [0.8.0] - 2026-11-08 - Draft
+
+The rest of the caustic gas, from the owner's answers of 8 November 2026. **Not yet tested in game.** Design: docs/development/caustic-gas.md.
 
 ### Added
 
@@ -34,7 +38,7 @@ The rest of the caustic gas, from the owner's answers of 9 November 2026. **Not 
 - Apparel policies and stockpiles made before this version allow contaminated clothes until the filter is unticked, so stripped clothes are dropped forbidden.
 - The washing machine clears residue through one Harmony prefix on its unloading, which never skips it.
 
-## [0.7.1] - 2026-11-09 - Draft
+## [0.7.1] - 2026-11-08 - Draft
 
 No change in play on 1.7. Not yet tested in game.
 

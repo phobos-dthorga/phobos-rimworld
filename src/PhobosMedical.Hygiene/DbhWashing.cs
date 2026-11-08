@@ -9,7 +9,7 @@ using Verse;
 namespace Phobos.Medical.Hygiene;
 
 /// <summary>
-/// Dubs Bad Hygiene's washing decontaminates (owner, 9 Nov 2026: the shower is enough by default, with extra mechanics for Dubs Bad
+/// Dubs Bad Hygiene's washing decontaminates (owner, 8 Nov 2026: the shower is enough by default, with extra mechanics for Dubs Bad
 /// Hygiene players; docs/development/caustic-gas.md). A colonist taking a shower or a bath, sitting in a hot tub, swimming, or washing
 /// at a water cell or a wash bucket is rinsed as at a safety shower: acid and caustic residue come off the skin, and with strip and
 /// rinse on, contaminated clothes come off first. The sauna does not wash (Dubs' own sauna job, excluded by its name). Registered once

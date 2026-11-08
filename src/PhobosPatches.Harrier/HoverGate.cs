@@ -9,10 +9,10 @@ using Verse;
 namespace Phobos.VehiclePatches;
 
 /// <summary>
-/// The hover limit on the Harrier's pad landings (owner, 9 Nov 2026: a player setting, default "refuse the pad and use the runway";
+/// The hover limit on the Harrier's pad landings (owner, 8 Nov 2026: a player setting, default "refuse the pad and use the runway";
 /// docs/development/vehicle-turbine-design.md). The Harrier asks its static Harrier.CanHover(vehicle, props) before every pad landing:
 /// the vertical-landing button, the order, each tick of the approach and hover, and the automatic return to a parking spot, which
-/// falls back to the runway when it is false (read in the Harrier's assembly, 9 Nov 2026). D'thorga Framework's turbine model says
+/// falls back to the runway when it is false (read in the Harrier's assembly, 8 Nov 2026). D'thorga Framework's turbine model says
 /// whether the engine can hold the jet in a hover at its weight in the day's heat; when the player chose to refuse, CanHover answers
 /// no. The Harrier's own refusal text speaks of a damaged engine, so the button, the order and the abort carry our reason instead.
 /// "Allow with damage" and "warn only" need nothing here: the Framework's engine model handles them while the jet hovers.

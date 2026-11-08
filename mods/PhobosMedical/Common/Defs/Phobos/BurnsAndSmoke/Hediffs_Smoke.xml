@@ -201,7 +201,7 @@
       <li Class="Phobos.Framework.Breathing.PhobosOxygenResponsiveExtension">
         <minSeverity>0.05</minSeverity>
         <!-- Supplied oxygen is the standard supportive care for chemical lung injury (general); it speeds recovery here by half as much
-             again as tending alone (owner, 9 Nov 2026; authored). -->
+             again as tending alone (owner, 8 Nov 2026; authored). -->
         <healingPerDayOnOxygen>0.06</healingPerDayOnOxygen>
       </li>
     </modExtensions>

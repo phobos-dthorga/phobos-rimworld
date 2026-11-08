@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Patch>
-  <!-- Automatic climate control on Vanilla Vehicles Expanded's Tier 3 vehicles, its most advanced (owner, 9 Nov 2026: climate control by
+  <!-- Automatic climate control on Vanilla Vehicles Expanded's Tier 3 vehicles, its most advanced (owner, 8 Nov 2026: climate control by
        technology and age; D'thorga Vehicles 0.10.0). Left out by their descriptions: the Springbok ("old, robust build") and the Louie
        (an armoured utility helicopter of the Huey's kind). An agent reading, owner to revise. Not yet tested in game. -->
   <Operation Class="PatchOperationAddModExtension">

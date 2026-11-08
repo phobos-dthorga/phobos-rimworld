@@ -1,9 +1,9 @@
-# Vehicle follow-ups: booster packs, ground on the world map, cab moods, RimHUD (9 Nov 2026)
+# Vehicle follow-ups: booster packs, ground on the world map, cab moods, RimHUD (8 Nov 2026)
 
 A design record, built the same day in D'thorga Framework 0.18.0 (Draft). **Not yet tested in game.** These are four of the five
 follow-ups listed after the world map and the tabs ([world map](vehicle-world-map-design.md), [tabs](vehicle-tabs-design.md));
-the owner gave the go on 9 Nov 2026 ("proceed with your 'still to do' items"). The fifth, generated art, waits for the owner:
-OpenAI's image API for vehicle bodies, the owner's local generation for icons (owner, 9 Nov 2026).
+the owner gave the go on 8 Nov 2026 ("proceed with your 'still to do' items"). The fifth, generated art, waits for the owner:
+OpenAI's image API for vehicle bodies, the owner's local generation for icons (owner, 8 Nov 2026).
 
 ## Read this first
 
@@ -39,7 +39,7 @@ special filter (hidden from storage filters).
 The core's `BiomeGround` reads a tile without naming biomes (the owner's rule: match effects, not names):
 
 - **Typical terrain**: the biome's `terrainsByFertility` entry at fertility 0.5 (authored middle of the usual range). Read on
-  9 Nov 2026 with `query-defs` for the owner's biomes: desert and extreme desert give sand (path cost 4); forests, shrubland,
+  8 Nov 2026 with `query-defs` for the owner's biomes: desert and extreme desert give sand (path cost 4); forests, shrubland,
   tundra, bogs, swamps and lava fields give soil (2), grassland and glowforest their own soils (2); ice sheet, sea ice and glacial
   plain give ice (14); the scarlands give ancient megastructure (1, nearly paved). A biome with no list (the Dead Man's Switch's
   impact crater) takes soil's 2 (authored default).
@@ -80,7 +80,7 @@ temperature as before. Open cabs give nothing.
 
 ## RimHUD
 
-RimHUD's wiki (read 9 Nov 2026, api version 1) lets a mod add a `RimHUD.CustomValueDef` naming a static class with
+RimHUD's wiki (read 8 Nov 2026, api version 1) lets a mod add a `RimHUD.CustomValueDef` naming a static class with
 `GetParameters(Pawn)`, which RimHUD calls by reflection, insisting on the exact return type. Read in RimHUD's published source
 (`External/CustomValueDef.cs`, `ExternalWidgetDef.cs`). Ours is `RimHudVehicleValue`: label "Vehicle", value "the Mule (driver)"
 or "none", a tooltip with fuel, cab and the waiting line, a click that selects a vehicle on a map. The Def is in
@@ -101,7 +101,7 @@ layout editor; no preset is shipped. RimHUD declares RimWorld 1.6 and runs on th
 
 ## Who chose what
 
-- **Owner (9 Nov 2026):** do the follow-ups; the booster pack as a real item with charges (named earlier as the follow-up);
+- **Owner (8 Nov 2026):** do the follow-ups; the booster pack as a real item with charges (named earlier as the follow-up);
   OpenAI for vehicle bodies and local generation for icons.
 - **Agent choices, owner to revise:** every figure in the tables; packs need no kit; the route order; cab moods on by default; the
   RimHUD value's text; ice by path cost; the typical fertility of 0.5.

@@ -1,9 +1,9 @@
-# The vehicle tabs: Dashboard and Systems (9 Nov 2026)
+# The vehicle tabs: Dashboard and Systems (8 Nov 2026)
 
 A design record, built the same day in D'thorga Framework 0.17.0 (Draft). **Not yet tested in game.** The owner asked for "our
 own, unique, vehicle statistics" in a tab of their own beside Vehicle Framework's Customize, Cargo, Pawns and Health, "with all
 kinds of statistics, graphs, health-bars, other little displays", named it **Dashboard**, and kept a second tab, **Systems**, "for
-the more in-depth stuff" (9 Nov 2026).
+the more in-depth stuff" (8 Nov 2026).
 
 ## Read this first
 
@@ -11,12 +11,12 @@ the more in-depth stuff" (9 Nov 2026).
   reason for anything is the same in both; only the depth differs (`docs/development/player-language.md`).
 - **Systems is hidden in Plain mode**: it is nothing but figures. Dashboard shows its figures only in Operator and Engineer.
 - **A Dashboard gauge opens Systems at that system.**
-- **The graphs keep a day of history, saved with the vehicle** (owner, 9 Nov 2026): one sample per rare tick of every shown
+- **The graphs keep a day of history, saved with the vehicle** (owner, 8 Nov 2026): one sample per rare tick of every shown
   quantity, 240 samples, as one compact string per quantity (about 480 bytes). History cannot be recomputed, so this is the one
   exception to "derived state is never saved", recorded here, in the changelog and in the code.
 - **RimHUD needs no hook.** Vehicle Framework ships patches that hand the vehicle pane back from RimHUD, and RimHUD draws the
   game's inspector tabs itself (85 px buttons, right to left) and calls each tab's own drawing unchanged (read in RimHUD's source,
-  9 Nov 2026). The tab labels are one short word each, and nothing hard-codes the pane's size.
+  8 Nov 2026). The tab labels are one short word each, and nothing hard-codes the pane's size.
 
 ## How they hook in
 
@@ -36,7 +36,7 @@ by the vehicle's ID and cleared when the tab closes. **To re-check when VF 1.7 s
 
 **No part icons, and no Vehicle Framework colour helper.** Vehicle Framework ships only a 1.6 assembly, whose methods name Unity's
 `UnityEngine.CoreModule`; a 1.7 build compiles against the Waylith engine's stubs, so a call that passes a `Rect` or returns a `Color`
-through Vehicle Framework's assembly does not compile (found at build, 9 Nov 2026). The tab shows each part's name and health
+through Vehicle Framework's assembly does not compile (found at build, 8 Nov 2026). The tab shows each part's name and health
 instead. **To revisit when VF 1.7 ships.**
 
 Presentation only: every click delegates to the comp (`SetSwitch`, `SetServiceRequested`) or opens the other tab. The widgets
@@ -54,12 +54,12 @@ rule asks, with the history ring and its codec in the core's `Rules/History.cs` 
 
 ## Results from play
 
-- **9 Nov 2026, the owner's first look (screenshots, L-ATV):** both tabs draw beside Vehicle Framework's; the Dashboard's gauges,
+- **8 Nov 2026, the owner's first look (screenshots, L-ATV):** both tabs draw beside Vehicle Framework's; the Dashboard's gauges,
   switch colours and "Nothing needs you." line read as designed; the Systems tab's sections and part health read right. The owner
   asked for wear gauges to show what is left, and the agent saw parts repeated after their role and an empty section for a system
   switched off by a setting: all three changed in Framework 0.19.0. The rest of the test list is not yet run.
 
-## On the world map (Framework 0.23.0, 9 Nov 2026)
+## On the world map (Framework 0.23.0, 8 Nov 2026)
 
 The owner asked whether the tabs should show on the world map; the agent recommended it, and the owner agreed. `WITab_PhobosVehicles`
 (`Presentation/WITab_PhobosVehicles.cs`) adds a Dashboard and a Systems world tab to Vehicle Framework's `VehicleCaravan` and
@@ -70,7 +70,7 @@ object and cleared when the tab closes. Off the map nothing is lit up on the veh
 through the core's `PhobosTabs.OpenWorldTab`. A town, outpost or camp the player has entered is a map, so its vehicles have the map
 tabs; a waypoint belongs to its caravan. Not yet tested in game.
 
-## A third tab: Health (9 Nov 2026)
+## A third tab: Health (8 Nov 2026)
 
 The owner's aim of a pawn-like health model for vehicles starts with a Health tab of our own that replaces Vehicle Framework's; its
 research, direction and the tab's design are in [the vehicle health record](vehicle-health-design.md). It shares the widgets and
@@ -81,6 +81,6 @@ per vehicle and rebuilt only when the comp's `HealthViewVersion` moves; a system
 
 ## Who chose what
 
-- **Owner (9 Nov 2026):** the two tabs and their names; a day of saved history.
+- **Owner (8 Nov 2026):** the two tabs and their names; a day of saved history.
 - **Agent choices, owner to revise:** the layouts and sizes; which quantities get gauges; the stage colours; Systems hidden in
   Plain; the per-quantity history as 16-bit samples.

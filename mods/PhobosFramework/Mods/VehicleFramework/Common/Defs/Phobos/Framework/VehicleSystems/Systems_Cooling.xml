@@ -24,7 +24,7 @@
     - The radiator's fan and water pump turn with the engine, so a stopped or idling engine cools less (authored curve on engine
       speed: 60% stopped, 75% at idle, full from 1,500 rpm).
     - A coolant top-up is its own service, due once the coolant is down to 60%: the glycol share is a little chemfuel (a gameplay
-      stand-in) and the water comes from plumbing beside the vehicle where the colony has plumbing, otherwise free (owner, 9 Nov 2026).
+      stand-in) and the water comes from plumbing beside the vehicle where the colony has plumbing, otherwise free (owner, 8 Nov 2026).
     - Room heat: the engine's waste heat goes into the room it stands in, 12 heat units a second at full load (authored; a
       vanilla heater gives about 21), instead of Vehicle Framework's flat ambient heat.
   -->

@@ -1,6 +1,6 @@
 # Gas turbines: design (8 Nov 2026)
 
-A design record. **Built on 9 Nov 2026 (see [As built](#as-built-dthorga-framework-0110-dthorga-vehicles-020-dthorga-patches-0140-9-nov-2026)); not yet tested in game.** The text above that section keeps its original scope. The owner asked on 8 Nov 2026 for turbine engines
+A design record. **Built on 8 Nov 2026 (see [As built](#as-built-dthorga-framework-0110-dthorga-vehicles-020-dthorga-patches-0140-8-nov-2026)); not yet tested in game.** The text above that section keeps its original scope. The owner asked on 8 Nov 2026 for turbine engines
 ("jet turbines such as the Chinook or the mod I'm also using with the Harrier", "there's the M1A1 Abrams too") and said to
 write it up. It extends the [drivetrain and engine speed design](vehicle-drivetrain-design.md) and is written against
 [vehicle systems](vehicle-systems-design.md) **as built in D'thorga Framework 0.9.0** (8 Nov 2026). Studied sources are in
@@ -210,14 +210,14 @@ The 3 Nov reading of the fork's 21,000 lines answered other questions. Before th
 3. **Both**: whether either framework already models engine temperature or limits (none was noted on 3 Nov).
 4. **The Chinook and M1A1 mods**, once named: part keys (one engine part or two), fuel figures and mass.
 
-## As built (D'thorga Framework 0.11.0, D'thorga Vehicles 0.2.0, D'thorga Patches 0.14.0; 9 Nov 2026)
+## As built (D'thorga Framework 0.11.0, D'thorga Vehicles 0.2.0, D'thorga Patches 0.14.0; 8 Nov 2026)
 
 **Built and checked offline; not yet tested in game.** Code: `src/PhobosFramework.Vehicles/Rules/TurbineModel.cs` (game-free),
 `Systems/Powertrain.cs`, `Defs/PowertrainDefs.cs` (the flight profile and its phase reader), `Service/HoverLimits.cs`, the
 `PhobosVehicleSystem_Turbine` and `PhobosVehicleSystem_WaterInjection` systems (`Systems_Turbine.xml`), the profiles
 (`FlightProfiles.xml`), D'thorga Vehicles' Harrier, Hind and Mongoose loadouts, and D'thorga Patches' `HoverGate.cs`.
 
-**The owner's answers (9 Nov 2026):**
+**The owner's answers (8 Nov 2026):**
 
 | Question | Owner's answer | As built |
 | --- | --- | --- |
@@ -227,13 +227,13 @@ The 3 Nov reading of the fork's 21,000 lines answered other questions. Before th
 
 Questions 4, 5 and 7 took the agent's leans (agent choices, owner to revise): a second engine role only in named loadouts (the
 Hind and the Mongoose already have two engine parts, `EngineStarboard` and `EnginePort`, so nothing is appended); % spool speed
-and degrees C in Operator mode, kW in Engineer; a hot start costs hot-section life and a message. **Question 6 (owner, 9 Nov
+and degrees C in Operator mode, kW in Engineer; a hot start costs hot-section life and a message. **Question 6 (owner, 8 Nov
 2026): the "Chinook" is Vanilla Vehicles Expanded - Tier 3's Cherokee and the "M1A1" is the M1A2 Abrams** already fitted.
 The Cherokee's own parts include two turboshafts (`LeftTurboShaft`, `RightTurboShaft`), now bound as its two engines; it flies
 through Vehicle Framework's own launch, so it uses the stock aircraft profile. Its parts were read with `query-defs.py show
 --lines 0`, added to phobos-modkit (0.9.0) for this, because the viewer had cut the Def at 80 lines.
 
-**What the decompiles said (9 Nov 2026), which the build follows:**
+**What the decompiles said (8 Nov 2026), which the build follows:**
 
 - **Phases come from the frameworks' own `FlightState` field** (Grounded, GroundedIdle, SpoolingUp, SpoolingDown, TakingOff,
   Flying, Landing, DepartingMap, Crashing), the same names in the Harrier's fork and in rabiosus's VTOL Vehicle framework. VF's
@@ -269,14 +269,14 @@ and the life curve (`tests/PhobosFramework.Vehicles.Rules.Tests`).
 5. An M1A2 idling: warm turbine, no coolant system; with a weak battery, a hot start message.
 6. Save and reload mid-flight: no errors.
 
-## Bleed air (Framework 0.24.0, 9 Nov 2026)
+## Bleed air (Framework 0.24.0, 8 Nov 2026)
 
 The owner asked for it after the cockpit heating (bleed air heats a real cockpit): "Yes, please! Provided we can still maintain good
 performance". **Not yet tested in game.**
 
 - **Source:** P. F. Borchers, E. Moralez III, V. K. Merrick and M. W. Stortz, *YAV-8B reaction control system bleed and control power
   usage in hover and transition*, NASA TM-104021, April 1994 ([NASA NTRS](https://ntrs.nasa.gov/citations/19940030488)). Read on
-  9 Nov 2026 from the scanned report: total reaction control bleed in hover varied from 9.2 to 4.5 lb/s, above 6 lb/s for 60% of the
+  8 Nov 2026 from the scanned report: total reaction control bleed in hover varied from 9.2 to 4.5 lb/s, above 6 lb/s for 60% of the
   time and 8 lb/s for about 4%; peaks came with transient control (gusts, corrections); the Pegasus could provide twice the most the
   reaction controls used; and Rolls-Royce sized it "to provide constant thrust for bleed levels up to this mean total bleed, with
   turbine entry temperature (TET) limits dictating a thrust reduction for higher bleed rates" (pages 1 and 6 of the report).
@@ -303,7 +303,7 @@ performance". **Not yet tested in game.**
 ## Who chose what
 
 - **Owner (8 Nov 2026):** turbines for the Harrier, a Chinook and an Abrams; write it up.
-- **Owner (9 Nov 2026):** the hover limit as a player setting; water from Dubs Bad Hygiene plumbing, else free; keep the mods'
+- **Owner (8 Nov 2026):** the hover limit as a player setting; water from Dubs Bad Hygiene plumbing, else free; keep the mods'
   fuel figures.
 - **Agent proposals, owner to confirm:** the three kinds; `EngineLoad` as the one hook; phases as the aircraft load signal; the
   hover-margin check on vertical landing; the authored derate, short-lift rating, idle shares, demand table and life curve; the

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
   <!--
-    How people aboard a closed cab feel about it (owner's follow-up, 9 Nov 2026; docs/development/vehicle-crew-and-ground-design.md).
+    How people aboard a closed cab feel about it (owner's follow-up, 8 Nov 2026; docs/development/vehicle-crew-and-ground-design.md).
     Each person compares the cab with their own comfortable range (their apparel, genes and traits count): glad of a warm cab when it
     is colder than that outside, or a cool one when hotter; unhappy below or above the range, and more so 10 degrees beyond it. The
     stages' order is the Framework core's ShelterStage order. Mood figures are authored, small beside the game's own (a good meal +5,

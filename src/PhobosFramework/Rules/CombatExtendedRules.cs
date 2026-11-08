@@ -5,7 +5,7 @@ namespace Phobos.Framework.Rules;
 /// <summary>
 /// How Combat Extended (CE) reads figures the game and Vehicle Framework read differently, so a Phobos mod gives the same
 /// intent under both. Game-free: compiled into the rule tests. Read from CE's vehicle compatibility code and its Defs on
-/// 9 November 2026 (D'thorga Framework's CE notes in docs/development/vehicle-framework-mechanics.md).
+/// 8 November 2026 (D'thorga Framework's CE notes in docs/development/vehicle-framework-mechanics.md).
 /// </summary>
 public static class CombatExtendedRules
 {

@@ -12,7 +12,7 @@ namespace Phobos.VisitSettlementsPatches;
 
 /// <summary>
 /// Stops Visit Settlements' settlement events from throwing on every tick (docs/development/missile-patches.md, "Visit Settlements'
-/// food drops throw every tick", 9 Nov 2026). Its world component counts days and, when the count is reached, drops food for each
+/// food drops throw every tick", 8 Nov 2026). Its world component counts days and, when the count is reached, drops food for each
 /// friendly settlement map it keeps, then resets the count. The food sum reads every friendly pawn's food need, and a pawn that does
 /// not eat (a mechanoid, a robot, an android) has none, so the sum throws; the reset after it never runs, and the component tries
 /// again, and throws again, on the next tick: 6,846 errors in six minutes on the owner's colony, enough to hit the game's

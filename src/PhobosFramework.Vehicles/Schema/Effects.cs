@@ -302,7 +302,7 @@ public class Effect_Breakdown : VehicleSystemEffect
 
 /// <summary>
 /// An explosion at the vehicle, once, through the game's own explosions (a boiler's crown sheet failing), and the parts playing a
-/// role broken. Only ever reached through a player's setting that allows it (boiler explosions are off by default; owner, 9 Nov 2026).
+/// role broken. Only ever reached through a player's setting that allows it (boiler explosions are off by default; owner, 8 Nov 2026).
 /// Away from a map (in a caravan) only the parts break.
 /// </summary>
 public class Effect_Explosion : VehicleSystemEffect

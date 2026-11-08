@@ -108,7 +108,7 @@ public static class PartsOnLoad
 /// The drivetrain's speed cap: a vehicle whose engine cannot deliver the power, or whose wheels cannot get the grip, pays less path
 /// cost each tick and so moves slower, without touching its MoveSpeed stat or path planning (drivetrain design). Vehicle Framework has
 /// no extension point here. It runs first so Vanilla Vehicles Expanded's acceleration postfix, which also scales this cost and adds up
-/// what it pays to decide when to brake, counts the capped figure (read from its 1.7 source, 9 Nov 2026).
+/// what it pays to decide when to brake, counts the capped figure (read from its 1.7 source, 8 Nov 2026).
 /// </summary>
 [HarmonyPatch(typeof(VehiclePathFollower), "CostToPayThisTick")]
 public static class SpeedCapPatch
@@ -144,7 +144,7 @@ public class VehicleStatPart_PhobosSystems : VehicleStatPart
 /// <summary>
 /// On every part bound to a role: tells the vehicle's systems the part was hit. What counts is the health the part lost, not the
 /// shot's damage: Combat Extended gives reactors the full damage before armour, sometimes twice, even when the armour stopped the
-/// round (read 9 Nov 2026), and Vehicle Framework may fire before or after the health is written, so the comp compares the part's
+/// round (read 8 Nov 2026), and Vehicle Framework may fire before or after the health is written, so the comp compares the part's
 /// health with what it last saw, here and on its next update. The kind of damage is passed on, for part-hit rules that name kinds
 /// (a radiator holed by shot, not scratched by an animal or Vehicle Framework's hand brakes).
 /// </summary>
@@ -159,10 +159,10 @@ public class Reactor_PhobosVehicleSystems : Reactor
 }
 
 /// <summary>
-/// The lift-off check (owner's hover-limit setting, 9 Nov 2026): an aircraft that lifts off through Vehicle Framework's own launch
+/// The lift-off check (owner's hover-limit setting, 8 Nov 2026): an aircraft that lifts off through Vehicle Framework's own launch
 /// (its stock helicopters and the drop pods) and whose engines cannot lift it now, too heavy, too hot or with engines out, is refused
 /// with the reason when the player chose to refuse. Every launch path and the launch button ask this method, which already gives
-/// the button its reason (read from Vehicle Framework 1.6, 9 Nov 2026); a postfix adds ours only when it would otherwise allow.
+/// the button its reason (read from Vehicle Framework 1.6, 8 Nov 2026); a postfix adds ours only when it would otherwise allow.
 /// </summary>
 [HarmonyPatch(typeof(CompVehicleLauncher), nameof(CompVehicleLauncher.CanLaunchWithCargoCapacity))]
 public static class LiftOffPatch

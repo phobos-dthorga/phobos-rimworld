@@ -8,7 +8,7 @@ namespace Phobos.VehicleSystems;
 
 /// <summary>
 /// The last day of each shown quantity, one sample per rare tick, for the Systems tab's graphs. Saved as one compact string per
-/// quantity (the owner's exception to "derived state is never saved", 9 Nov 2026: a graph cannot be rebuilt); a few kilobytes per
+/// quantity (the owner's exception to "derived state is never saved", 8 Nov 2026: a graph cannot be rebuilt); a few kilobytes per
 /// vehicle. Quantities a system no longer has are dropped on load.
 /// </summary>
 public sealed class QuantityHistory

@@ -381,7 +381,7 @@ public sealed class Powertrain
         bool beyond = hovering && Full && TurbineNow.OverTop > 0;
         if (beyond && VehicleSystemsMod.Settings.hoverLimit == VehicleSystemsSettings.HoverLimit.WarnOnly)
         {
-            // Warn only (owner's setting, 9 Nov 2026): the engine is held at its top rating, so nothing wears past it.
+            // Warn only (owner's setting, 8 Nov 2026): the engine is held at its top rating, so nothing wears past it.
             demand = TurbineNow.Available * usable.Top.Share;
             TurbineNow = TurbineModel.Evaluate(usable, demand, comp.Ambient, Condition(), working, engines, running);
         }

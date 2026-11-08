@@ -1,6 +1,6 @@
-# Paid image generation: rules and lessons from Phobos Ostranauts (9 Nov 2026)
+# Paid image generation: rules and lessons from Phobos Ostranauts (8 Nov 2026)
 
-The rules for every picture we buy from the OpenAI image API (the owner's choice for vehicle bodies, 9 Nov 2026), and
+The rules for every picture we buy from the OpenAI image API (the owner's choice for vehicle bodies, 8 Nov 2026), and
 where each rule comes from. The lessons are taken from the Phobos Ostranauts repository
 ([phobos-dthorga/phobos-ostranauts](https://github.com/phobos-dthorga/phobos-ostranauts)), whose art was made between
 25 September and 7 October 2026 with ChatGPT's built-in image generation, one gpt-image-2 API call and about a hundred
@@ -184,7 +184,7 @@ not an observation of gpt-image-2 on our vehicles.
 | Camera | Straight overhead for world sprites | The same: Vehicle Framework bodies are straight top-down |
 | Facings | One sprite, the game rotates it | Three bodies (north, east, south; west mirrored), derived from one design |
 | State | Colour, normal and damage maps, loose forms | Colour masks for the pattern shader; overlays for raised gear and damage; no normal maps |
-| Upgrades | None | **The body is the bare platform, and every upgrade node that changes the look is its own overlay set** on the body's canvas (owner, 9 Nov 2026: every vehicle is upgradeable, and the art follows the tree). The request record lists the nodes before the first picture, so a later node never redraws the body |
+| Upgrades | None | **The body is the bare platform, and every upgrade node that changes the look is its own overlay set** on the body's canvas (owner, 8 Nov 2026: every vehicle is upgradeable, and the art follows the tree). The request record lists the nodes before the first picture, so a later node never redraws the body |
 | Background | Mostly opaque full-footprint squares (transparency kept failing) | Transparent bodies with a margin: generate on plain white and cut out by script (Ostranauts' edge flood fill), or use the API's transparent background, which is in preview on gpt-image-2 |
 | Portrait | The world sprite served as the portrait | A 64 px icon, by downscale of the north body |
 | Provider | ChatGPT's built-in tool (no cost or seed disclosed) | The gpt-image-2 API: token usage returned, cost recorded per picture, no seed |
@@ -271,7 +271,7 @@ the body's canvas size, so the cut-out registers over the body without scaling.
 
 ## Sources
 
-- Phobos Ostranauts repository, the files named in the table above, read on 9 Nov 2026 from the owner's local clone
+- Phobos Ostranauts repository, the files named in the table above, read on 8 Nov 2026 from the owner's local clone
   (public at [phobos-dthorga/phobos-ostranauts](https://github.com/phobos-dthorga/phobos-ostranauts)). Owner directions
   quoted there are the owner's; the prompts are agent-written; the rules here are our adaptation and say so.
 - OpenAI Services Agreement, sections 4.1 and 4.4 (ownership and non-uniqueness of Output), as recorded in Ostranauts'
