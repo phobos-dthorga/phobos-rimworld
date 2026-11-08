@@ -33,3 +33,11 @@ Portions of the materials used to create this content are trademarks and/or copy
 reserved by Ludeon. This content is not official and is not endorsed by Ludeon.
 
 Added with `scripts/art/archive_branch.py` on `main`, which only ever adds commits and refuses game art and model files.
+
+## Vehicles
+
+`vehicles/tanker-pilot/`: the other three attempts of the bulk tanker's pilot (8 Nov 2026), exactly as generated, each with its JSON record. Kept under the owner's rule that all generated art is saved unless truly fugly.
+
+- Attempt 1: Not picked: plain tyres with no mudguards, so the rear wheels look bolted on.
+- Attempt 3: Not picked: the agent's first choice for its curved saddle cradles; the owner preferred attempt 2.
+- Attempt 4: Not picked: the bonnet tapers like a trapezoid, which reads as perspective.
