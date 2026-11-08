@@ -15,6 +15,8 @@ public class FrameworkSettings : ModSettings
     public bool showGasOverlay;
     /// <summary>Dev mode only, one-shot: write every Def with all patches applied at the next start (Debug/PatchedDefsDump).</summary>
     public bool writePatchedDefsOnce;
+    /// <summary>Turn the game's log back on when it stops itself at 10,000 messages (Logging/GameLogKeeper; owner, 9 Nov 2026: on by default).</summary>
+    public bool keepGameLogAlive = true;
 
     public override void ExposeData()
     {
@@ -22,6 +24,7 @@ public class FrameworkSettings : ModSettings
         Scribe_Values.Look(ref gasSourceMode, "PhobosFramework_GasSourceMode", GasSourceMode.Automatic);
         Scribe_Values.Look(ref showGasOverlay, "PhobosFramework_ShowGasOverlay", false);
         Scribe_Values.Look(ref writePatchedDefsOnce, "PhobosFramework_WritePatchedDefsOnce", false);
+        Scribe_Values.Look(ref keepGameLogAlive, "PhobosFramework_KeepGameLogAlive", true);
     }
 }
 
@@ -29,12 +32,13 @@ public class FrameworkSettings : ModSettings
 /// D'thorga Framework: the shared library every Phobos RimWorld mod with C# depends on. It holds the gas layer (what a pawn
 /// breathes, the game's and other mods' gases reused first, and the framework's own additive room gases), the health layer the
 /// medical mods share (who the doctors look after, how dangerous a condition is, per-pawn care choices) and the small helpers the
-/// mods used to repeat. It references no other mod's assembly and needs no Harmony.
+/// mods used to repeat, and keeps the game's log going past its message limit. It references no other mod's assembly and needs no
+/// Harmony.
 /// </summary>
 public class FrameworkMod : Mod
 {
     public const string PackageId = "PhobosDthorga.Framework";
-    public const string ModVersion = "0.27.0";
+    public const string ModVersion = "0.28.0";
     public const string LogPrefix = "[D'thorga Framework]";
 
     public static FrameworkSettings Settings { get; private set; } = new();
@@ -42,6 +46,7 @@ public class FrameworkMod : Mod
     public FrameworkMod(ModContentPack content) : base(content)
     {
         Settings = GetSettings<FrameworkSettings>();
+        Logging.GameLogKeeper.Listen();
         LongEventHandler.ExecuteWhenFinished(LogLoaded);
     }
 
@@ -58,6 +63,10 @@ public class FrameworkMod : Mod
         report.On("own room gases: " + ownGases + " Def" + (ownGases == 1 ? "" : "s") + ", source mode " + Settings.gasSourceMode);
         // Mods register their care choices after this line is written, so it names only the comp; each mod's own line names its choice.
         report.On("patient comp on " + PatientCompInjector.Added + " humanlike race" + (PatientCompInjector.Added == 1 ? "" : "s"));
+        string keeper = "the game's log turned back on after its 10,000-message limit (at most " + Rules.GameLogRule.MaxRevivals + " times a session)";
+        if (!Settings.keepGameLogAlive) report.Off(keeper, "setting");
+        else if (Logging.GameLogKeeper.NotListening != null) report.On(keeper + ", without naming the loudest message: " + Logging.GameLogKeeper.NotListening);
+        else report.On(keeper);
         report.Log();
     }
 
@@ -79,6 +88,8 @@ public class FrameworkMod : Mod
         listing.Gap();
         listing.CheckboxLabeled("PhobosFramework_SettingShowGasOverlay".Translate(), ref Settings.showGasOverlay,
             "PhobosFramework_SettingShowGasOverlayDesc".Translate());
+        listing.CheckboxLabeled("PhobosFramework_SettingKeepGameLogAlive".Translate(), ref Settings.keepGameLogAlive,
+            "PhobosFramework_SettingKeepGameLogAliveDesc".Translate(Rules.GameLogRule.MaxRevivals.Named("COUNT")));
         if (Prefs.DevMode)
         {
             listing.CheckboxLabeled("PhobosFramework_SettingWritePatchedDefs".Translate(), ref Settings.writePatchedDefsOnce,

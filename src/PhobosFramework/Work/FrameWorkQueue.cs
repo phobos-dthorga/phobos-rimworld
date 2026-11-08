@@ -118,10 +118,14 @@ public static class FrameWorkQueue
     }
 }
 
-/// <summary>Drives <see cref="FrameWorkQueue"/> once per frame. Saves nothing.</summary>
+/// <summary>Drives <see cref="FrameWorkQueue"/> and <see cref="Logging.GameLogKeeper"/> once per frame, paused or not. Saves nothing.</summary>
 public sealed class GameComponent_PhobosFrameWork : GameComponent
 {
     public GameComponent_PhobosFrameWork(Game game) { }
 
-    public override void GameComponentUpdate() => FrameWorkQueue.Run();
+    public override void GameComponentUpdate()
+    {
+        FrameWorkQueue.Run();
+        Logging.GameLogKeeper.Update();
+    }
 }

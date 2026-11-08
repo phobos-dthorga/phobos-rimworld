@@ -19,6 +19,10 @@ A fix for Visit Settlements' settlement events, found in the owner's log (9 Nove
 
 - Found by name and shape in Visit Settlements' code (version of 22 October 2026); if that code changes, the load line says which part is off and why. Nothing is saved; safe to add and remove.
 
+### Dependencies
+
+- Needs D'thorga Framework 0.28.0 or later (its once-a-day throttle).
+
 ## [0.14.0] - 2026-11-09 - Draft
 
 The owner's choice of 9 November 2026 for a jump jet too heavy or too hot to hover: a setting, defaulting to the runway. **Not yet

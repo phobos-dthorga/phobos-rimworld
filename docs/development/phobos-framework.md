@@ -162,7 +162,9 @@ The candidate base class for interval map components is still not built (see 0.6
   against stock); 0.23.0 `UI/PhobosTabs.cs` (opening a world inspector tab from code); 0.25.0 `Rules/DetailTierRule.cs` (Full, Lite
   or Off by faction and presence, tested) and `Debug/PhobosTiming.cs` (a dev-mode timing accumulator, free outside dev mode);
   0.27.0 `Debug/PatchedDefsDump.cs` (every Def with all patches applied, written once on a developer's request: a patch operation
-  of ours keeps the game's combined XML document, which later mods go on patching, and a startup class writes it).
+  of ours keeps the game's combined XML document, which later mods go on patching, and a startup class writes it); 0.28.0
+  `Logging/GameLogKeeper.cs` and `Logging/HostLog.cs` (the game's log turned back on after its limit; lines under our own engine
+  category), `Rules/GameLogRules.cs` (message signatures, a bounded tally, the revival bound) and `Rules/TickThrottle.cs`, all tested.
 
 ## Open points and upstream
 

@@ -5,7 +5,7 @@ colonist is breathing, makes fires fill roofed rooms with the game's own smoke w
 carries carbon monoxide from fires, holds the per-person care choices the D'thorga medical mods offer, and holds the small
 helpers every D'thorga mod shares.
 
-Version 0.27.0, built 9 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
+Version 0.28.0, built 9 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
 oxygen working through Burns and Smoke and Medical Equipment (5 November 2026). The health layer new in 0.3.0 and the **vehicle
 systems new in 0.9.0, and their engines, drivetrains and gas turbines new in 0.11.0, are not yet tested in game.** The rest is read from the game's and the mods' code.
 
@@ -16,6 +16,9 @@ and wear that a mechanic services. See [Vehicle systems](#vehicle-systems-with-v
 ## Read this first (gotchas)
 
 - **RimWorld 1.7 only** (from 0.10.0; 1.6 is no longer supported, owner's decision of 8 November 2026).
+- **From 0.28.0 the game's log is turned back on when it stops itself** at 10,000 messages a session (the setting **Keep the
+  game's log going after its message limit**, on), at most 25 times a session, with a line naming the message that filled it. This
+  replaces RimWorld's own anti-spam limit with a bounded one; switch it off to keep the game's limit. Not yet tested in game.
 - **Vehicle systems change every Vehicle Framework vehicle you have, from any mod**, unless you choose otherwise in the settings
   (**D'thorga Framework: vehicle systems**). They append parts (battery, radiator, oil pump, brakes and so on) to vehicle designs.
   **Decide before you load a colony**: changing which vehicles get them needs a restart. Switching vehicles off later is safe.
@@ -204,6 +207,7 @@ offline.
 - **Where gases come from**: Automatic, always the framework's own gases, or never (then mods that depend on one fall back
   to a simpler estimate).
 - **Show gases at the mouse (dev mode)**: a small label follows the mouse naming every gas in that cell's room.
+- **Keep the game's log going after its message limit** (0.28.0, on): see the gotcha above.
 - **Write every Def with all patches applied at the next start (dev mode)** (0.27.0): for mod developers; one file at
   the next start, in the RimWorld user folder (`PhobosPatchedDefs/PatchedDefs.xml`), then the setting turns itself off.
   The dev action "Framework: write patched Defs at the next start" does the same. Tested in game: the owner wrote one on

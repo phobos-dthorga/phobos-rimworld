@@ -5,6 +5,22 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.28.0] - 2026-11-09 - Draft
+
+The game's log kept going past its message limit (owner, 9 November 2026). **Not yet tested in game.** Design: docs/development/logging-framework-design.md.
+
+### Added
+
+- A setting, Keep the game's log going after its message limit (on). RimWorld stops all logging, Player.log included, once a session has written 10,000 messages, and only loading a save turns it back on; one other mod's repeating error filled it within minutes in two of the owner's sessions. With the setting on, the log is turned back on through the game's own call when that happens, at most 25 times a session, and one line names the message that filled it and how often it came. It changes nothing until the game has stopped its log; no Harmony.
+- Dev actions for the probes in the design record: game log status (the loudest messages so far), one line through the framework's own log category (T2), a flood past the limit (T1, and T4 with the setting on), a minute's count of the log stream by category (T3), and a timing of 1,000 messages each way (T5).
+- Shared, in the core: the game's log categories through the engine (Logging/HostLog, falling back to the game's own log if a later build moves them), message signatures and a bounded tally (Rules/GameLogRules), and Rules/TickThrottle, "at most once per so many ticks", which D'thorga Patches 0.14.1 uses (tested).
+
+### Compatibility and limits
+
+- Turning the log back on replaces Ludeon's anti-spam limit with a bounded one; the setting turns it off. Player.log can grow larger in a session with a repeating error; phobos-modkit's log triage reads a large log into a short summary.
+- Lines under the framework's own category still reach Player.log after the game's limit (read from the 1.7 engine); they also count toward it.
+- Nothing saved changes; the counting lives in memory only.
+
 ## [0.27.0] - 2026-11-09 - Draft
 
 A file of every Def with all patches applied, for mod developers (owner's go-ahead, 9 November 2026). **Tested in game:** the owner wrote one on 8 November 2026 (72.8 MB, 335 mods) and phobos-modkit's Def tool read it.

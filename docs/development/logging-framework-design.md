@@ -239,7 +239,7 @@ decompile (a category line reaches `Player.log` after the cap and the window bef
 | Slice | What | Status |
 | --- | --- | --- |
 | L1 | This record; the shim decompiles in `.local/decompiled/UnityStubs` and `Waylith.UnityCompat` | Done, 9 Nov 2026 |
-| L2 | `GameLogKeeper` (revive, bound, setting) and the storm counter in D'thorga Framework, with the probe dev actions and the benchmark (a minor version); the owner runs T1 to T5 | Open |
+| L2 | `GameLogKeeper` (revive, bound, setting) and the storm counter in D'thorga Framework, with the probe dev actions and the benchmark (a minor version); the owner runs T1 to T5 | Built: Framework 0.28.0, 9 Nov 2026 (`Logging/GameLogKeeper.cs`, `Logging/HostLog.cs`, `Rules/GameLogRules.cs`, `Debug/LogProbeDebugActions.cs`); not yet tested in game |
 | L3 | Create `phobos-log` (owner names it; MIT; layers above); the rules and the RimWorld host sink; adopted by the Framework and D'thorga Patches (four prefixes become one category); other mods when next touched; `LoadReport` moves onto it | Open |
 | L4 | The JSON-lines sink, the schema document and modkit's reader, when Ostranauts adopts or a need is named | Open |
 | L5 | The Ostranauts host sink (BepInEx) | Open |
