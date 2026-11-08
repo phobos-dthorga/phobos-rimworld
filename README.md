@@ -47,3 +47,4 @@ Added with `scripts/art/archive_branch.py` on `main`, which only ever adds commi
 ## Vehicles
 
 - `vehicles/tanker/`: the bulk tanker's north base body, **attempt 2 of the pilot, the owner's pick (8 Nov 2026)**, exactly as OpenAI gpt-image-2 returned it (768 x 1536, medium quality, US$0.0295), with its JSON record. The prompt is in `assets/phobos-vehicles/requests/tanker-pilot.json` on the working branch.
+- `vehicles/tanker/overlays/`: all twelve overlay attempts for the bulk tanker, **accepted by the owner (8 Nov 2026)** as the defaults and the variants for its upgrades, exactly as OpenAI gpt-image-2 returned them, each with its JSON record.
