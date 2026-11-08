@@ -227,9 +227,11 @@ The 3 Nov reading of the fork's 21,000 lines answered other questions. Before th
 
 Questions 4, 5 and 7 took the agent's leans (agent choices, owner to revise): a second engine role only in named loadouts (the
 Hind and the Mongoose already have two engine parts, `EngineStarboard` and `EnginePort`, so nothing is appended); % spool speed
-and degrees C in Operator mode, kW in Engineer; a hot start costs hot-section life and a message. **Question 6: no Chinook and
-no M1A1 are among the owner's 72 active vehicle Defs** (query-defs, 9 Nov 2026), so no loadouts were written for them; selection
-by effect fits them if they are added, and naming their mods would let a loadout use their real figures.
+and degrees C in Operator mode, kW in Engineer; a hot start costs hot-section life and a message. **Question 6 (owner, 9 Nov
+2026): the "Chinook" is Vanilla Vehicles Expanded - Tier 3's Cherokee and the "M1A1" is the M1A2 Abrams** already fitted.
+The Cherokee's own parts include two turboshafts (`LeftTurboShaft`, `RightTurboShaft`), now bound as its two engines; it flies
+through Vehicle Framework's own launch, so it uses the stock aircraft profile. Its parts were read with `query-defs.py show
+--lines 0`, added to phobos-modkit (0.9.0) for this, because the viewer had cut the Def at 80 lines.
 
 **What the decompiles said (9 Nov 2026), which the build follows:**
 

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    Vanilla Vehicles Expanded - Tier 3's Cherokee (VVE_Cherokee), a tandem-rotor heavy transport helicopter in the CH-47 Chinook's
+    mould: two turboshafts in pods either side of the rear pylon. Its own parts already include both (LeftTurboShaft and
+    RightTurboShaft), so they are bound as the first and second engines and nothing is appended; its FrontEngine and RearEngine
+    parts carry flight speed and control, and stay the engine role the shared systems read. It flies through Vehicle Framework's
+    own launch, so the stock aircraft profile reads its phases (taxiing when drafted, cruising in flight). The turboshaft's ratings
+    and limits are the Framework's authored helicopter turboshaft (Drivetrains.xml), whose one sourced figure is the CH-47's T55
+    (secondary, low quality). Not yet tested in game.
+  -->
+  <Phobos.VehicleSystems.PhobosVehicleLoadoutDef ParentName="PhobosVehicleLoadoutAircraft">
+    <defName>PhobosVehicleLoadout_VVE_Cherokee</defName>
+    <label>tandem-rotor transport helicopter</label>
+    <priority>Vehicle</priority>
+    <selector>
+      <vehicleDefs>
+        <li>VVE_Cherokee</li>
+      </vehicleDefs>
+    </selector>
+    <drivetrain>
+      <def>PhobosDrivetrain_AeroTurboshaft</def>
+    </drivetrain>
+    <flightProfile>PhobosFlightProfile_StockAircraft</flightProfile>
+    <partRoles>
+      <li>
+        <role>Engine1</role>
+        <find>
+          <li>
+            <key>LeftTurboShaft</key>
+          </li>
+        </find>
+      </li>
+      <li>
+        <role>Engine2</role>
+        <find>
+          <li>
+            <key>RightTurboShaft</key>
+          </li>
+        </find>
+      </li>
+    </partRoles>
+  </Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
+</Defs>

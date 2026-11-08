@@ -16,7 +16,7 @@ Version 0.2.0, built 9 November 2026 for House D'thorga. **Not yet tested in gam
   vehicles below.
 - **Safe to add to and remove from a running colony.** The vehicles below switch between their own systems and the general ones;
   a saved vehicle keeps or drops the air compressor as its design does.
-- **The Harrier, the Hind and the Mongoose run gas turbines** from this version. A Harrier too heavy for its engine to hover in
+- **The Harrier, the Hind, the Mongoose and the Cherokee run gas turbines** from this version. A Harrier too heavy for its engine to hover in
   the day's heat **lands on a runway instead of its pad** by default (with D'thorga Patches); D'thorga Framework's settings offer
   "allow it, at a cost to the engine" and "warn only". **Its injection water needs refilling** after a hard hover: a mechanic does
   it, from plumbing beside the jet when Dubs Bad Hygiene is active.
@@ -34,6 +34,7 @@ Version 0.2.0, built 9 November 2026 for House D'thorga. **Not yet tested in gam
 | M1A2 and M1A2 SEP (RimThunder) | No coolant system; a gas turbine on a tracked drivetrain, which burns hard even at idle | A gas-turbine engine has no radiator, and the AGT1500 idles at a high share of its full-power fuel flow |
 | Harrier (Harrier VTOL Attack Aircraft) | A vectored-thrust turbofan with its real lift ratings, water injection, its own flight phases and a hover check at its real empty mass | The Pegasus engine's published ratings and water injection (All-Aero); the jet's empty mass (Pima Air and Space Museum) |
 | Hind (Hind Helicopter Gunship) and Mongoose (Mongoose Attack Helicopter) | Two turboshafts, bound to their own engine parts; one out, the other carries the load and runs hot | Both are twin-engine helicopters with an engine part on each side |
+| Cherokee (Vanilla Vehicles Expanded - Tier 3) | Two turboshafts, bound to its left and right turbo shaft parts; one out, the other carries the load and runs hot | A tandem-rotor heavy lifter in the Chinook's mould, with an engine pod on each side |
 | Steam locomotives (Trains of the Rim) | No vehicle systems | A boiler is not a car engine; a boiler system would be its own design |
 
 Every source and simplification is in the loadout files under `Mods/`.
