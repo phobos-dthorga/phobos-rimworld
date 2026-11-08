@@ -197,8 +197,12 @@ before updating. `ResetOwners` drops an unfinished bill's counted ingredients be
 
 | Item | Steel | Mass | Work | Skill | Stack |
 | --- | --- | --- | --- | --- | --- |
-| `PhobosBombCaseMk82` | 280 | 140 kg | 1,000 | Crafting 6 | 4 |
-| `PhobosBombCaseMk84` | 956 | 478 kg | 3,000 | Crafting 7 | 4 |
+| `PhobosBombMk82Case` | 280 | 140 kg | 1,000 | Crafting 6 | 4 |
+| `PhobosBombMk84Case` | 956 | 478 kg | 3,000 | Crafting 7 | 4 |
+
+Named `PhobosBombCaseMk82` and `PhobosBombCaseMk84` until Patches 0.14.2. Those names ended in a digit, which the game forbids on an
+item: found in the owner's log of 8 November 2026 (IDs such as `PhobosBombCaseMk84848484840`), renamed at the owner's direction
+(an exception to keeping defNames stable, taken before the first publication). `BombCaseRename.cs` carries saves across.
 
 - One case per bomb, two sizes: one body per real bomb, and the fewest hopper slots.
 - Masses are the case weights above (total weight less fill, secondary sources), so the steel balances at 0.5 kg a unit. Work is what

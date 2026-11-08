@@ -30,7 +30,7 @@ public class VehiclePatchesMod : Mod
 
     /// <summary>The Harmony ID is the packageId; never change it once the mod is published.</summary>
     public const string HarmonyId = "PhobosDthorga.Patches";
-    public const string ModVersion = "0.14.1";
+    public const string ModVersion = "0.14.2";
     public const string LogPrefix = "[D'thorga Patches]";
 
     public VehiclePatchesMod(ModContentPack content) : base(content)
@@ -49,6 +49,7 @@ public class VehiclePatchesMod : Mod
     {
         var report = new LoadReport(LogPrefix, ModVersion, "Harrier VTOL");
         report.On("sortie maps kept open under the jet");
+        report.On("older saves' bomb cases carried over to their new names");
         if (OptionalMods.IsActive("wowgag.RimPacts")) report.On("RimPacts' landing rule through a plain postfix" + (Settings.sortieOverUnjoinedBattle ? ", sorties exempt (setting)" : "") + ", with its reason shown");
         else report.Off("RimPacts' landing rule through a plain postfix", "RimPacts is not active");
         report.On("the Harrier's fuller parts list, flight controls grounding it below " + (FlightControlRule.MinimumFlightControl * 100f).ToString("0") + "%");

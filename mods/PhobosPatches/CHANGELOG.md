@@ -10,6 +10,23 @@ says the owner tested it.
 
 - Dates in this mod's records that were written a day ahead now read 8 November 2026. Text only; nothing in game changes.
 
+## [0.14.2] - 2026-11-08 - Draft
+
+The Harrier's bomb cases had names their IDs could not survive, found in the owner's log (8 November 2026). **Not yet tested in game.**
+
+### Fixed
+
+- With the Harrier and Combat Extended, every save and load made a bomb case's ID longer, until it overflowed and two cases could share an ID, with errors at each load. The game reads an item's ID from the digits at the end of its name and number, and the cases' names ended in a digit (Mk. 82, Mk. 84). The cases have new internal names and their IDs now stay as they are. What players see is unchanged.
+
+### Dependencies
+
+- The Harrier part needs D'thorga Framework 0.30.0.
+
+### Save compatibility
+
+- Older saves carry over on load: the cases themselves, their bills, storage filters, factory hoppers, and jobs and haul orders that refer to them. The internal names change at the next save, so a save written after this version loads only with it or later.
+- A case whose ID had already overflowed in an older save gives one last error on loading that save. Two such cases then keep the same ID until one is used up; the newest saves have none.
+
 ## [0.14.1] - 2026-11-08 - Draft
 
 A fix for Visit Settlements' settlement events, found in the owner's log (8 November 2026). **Not yet tested in game.**

@@ -5,6 +5,14 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.30.0] - 2026-11-08 - Draft
+
+For D'thorga Patches 0.14.2. No change in play. **Not yet tested in game.**
+
+### Added
+
+- Shared, in the core: Rules/DefRenameRule, a table of renamed item Defs that gives their current names, their recipes' and the load IDs a save refers to them by (tested).
+
 ### Changed
 
 - Dates in this mod's records that were written a day ahead now read 8 November 2026. Text only; nothing in game changes.

@@ -99,6 +99,17 @@ class LayoutCheckTests(unittest.TestCase):
         self.assertIn('<Version> 9.9.9 differs', errors)
         self.assertIn('ModVersion 9.9.8 differs', errors)
 
+    def test_an_item_def_name_ending_in_a_digit_is_refused(self):
+        def errors_for(xml):
+            return '\n'.join(run(mod('Example', extra={'Common/Defs/Example.xml': xml}))['errors'])
+        self.assertIn('ExampleCaseMk82 ends in a digit', errors_for(b'<Defs><ThingDef><defName>ExampleCaseMk82</defName></ThingDef></Defs>'))
+        # Inside a patch's value, which is where the real ones were, and on a subclass of ThingDef.
+        self.assertIn('ExampleCaseMk84 ends in a digit', errors_for(
+            b'<Patch><Operation><value><ThingDef><defName>ExampleCaseMk84</defName></ThingDef></value></Operation></Patch>'))
+        self.assertIn('ExampleTruck2 ends in a digit', errors_for(b'<Defs><Vehicles.VehicleDef><defName>ExampleTruck2</defName></Vehicles.VehicleDef></Defs>'))
+        # Other kinds of Def are not read that way.
+        self.assertEqual(errors_for(b'<Defs><ThingDef><defName>ExampleCase</defName></ThingDef><RecipeDef><defName>Make2</defName></RecipeDef></Defs>'), '')
+
     def test_every_version_copy_is_in_the_constants_catalogue(self):
         version = re.search(rb'<modVersion>([^<]+)</modVersion>', GOOD_ABOUT).group(1).decode()
         contents = mod('Example')

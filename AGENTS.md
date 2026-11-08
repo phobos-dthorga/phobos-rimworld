@@ -195,6 +195,8 @@ delivered, record the delivery in the changelog or design record, and add or ame
   a mod is published.
 - Prefix new defNames, C# namespaces, translation keys and saved (Scribe) keys with `Phobos`, and keep
   them stable once saves can hold them. Renaming is presentation only: labels change, identities don't.
+- **An item Def's `defName` never ends in a digit** (the game reads a thing's ID from the digits at the end of name + number, so its
+  IDs grow at every load and overflow; `scripts/check-mod-layout.py` enforces it): `PhobosBombMk82Case`, not `PhobosBombCaseMk82`.
 - Mod display names follow the house pattern `Phobos <Name>` unless the owner chooses otherwise; the radio
   framework's public name is an open question in its design.
 

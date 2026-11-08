@@ -162,6 +162,22 @@ def check_versions(files, read, about_versions, errors):
                     errors.append(f'{name}: ModVersion {found.group(1)} differs from mods/{folder.group(1)}/{ABOUT} modVersion {expected}')
 
 
+def check_thing_def_names(files, read, errors):
+    """No item Def's defName ends in a digit, in a Defs file or inside a patch: the game reads a thing's ID from the digits at the end of
+    name + number, so the name's digits join the number, which grows at every load until it overflows (Verse.Thing.IDNumberFromThingID)."""
+    for name in sorted(n for n in files if n.startswith('mods/') and n.endswith('.xml') and '/Languages/' not in n and '/About/' not in n):
+        try:
+            tree = ET.fromstring(read(name))
+        except ET.ParseError:
+            continue
+        for element in tree.iter():
+            if not isinstance(element.tag, str) or not element.tag.endswith(('ThingDef', 'VehicleDef')):
+                continue
+            def_name = (element.findtext('defName') or '').strip()
+            if def_name[-1:].isdigit():
+                errors.append(f'{name}: the {element.tag} {def_name} ends in a digit, which RimWorld does not allow on an item: its IDs would corrupt')
+
+
 ENGLISH_KEYED = re.compile(r'(^|/)Languages/English/Keyed/[^/]+\.xml$')
 TRANSLATE_CALL = re.compile(r'"(Phobos[A-Za-z0-9_]+)"\s*\.\s*(?:Translate|TranslateSimple)\s*\(')
 LABEL_KEY = re.compile(r'\blabelKey\s*=\s*"(Phobos[A-Za-z0-9_]+)"')
@@ -286,6 +302,7 @@ def check(root, files=None, read=None):
     check_catalogue(files, read, about_versions, errors)
     check_translation_keys(files, read, errors)
     check_settings_defaults(files, read, errors)
+    check_thing_def_names(files, read, errors)
     for package_id, mods in sorted(owners.items()):
         if len(mods) > 1:
             errors.append(f'packageId {package_id} is used by {", ".join(mods)}; RimWorld loads only the first')

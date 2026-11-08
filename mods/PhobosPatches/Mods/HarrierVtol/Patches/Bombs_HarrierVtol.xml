@@ -24,6 +24,9 @@
 
     MarketValue is removed from the bombs and never set on the cases, so the game works it out from the ingredients, its
     normal rule for made items (StatWorker_MarketValue). Change a number here to rescale a bomb.
+
+    The cases were PhobosBombCaseMk82 and PhobosBombCaseMk84 until 0.14.2. An item's defName must not end in a digit (the game
+    reads its ID from the digits at the end of name + number), so they were renamed; BombCaseRename.cs carries older saves across.
   -->
   <Operation Class="PatchOperationConditional">
     <xpath>Defs/ThingDef[defName="FWA_Bomb500lb"]/statBases[Mass="227"]</xpath>
@@ -35,7 +38,7 @@
           <xpath>Defs</xpath>
           <value>
             <ThingDef ParentName="ResourceBase">
-              <defName>PhobosBombCaseMk82</defName>
+              <defName>PhobosBombMk82Case</defName>
               <label>Mk. 82 bomb case</label>
               <description>The empty steel body of a 500 lb Mk. 82 bomb: forged and machined, with no filling, fuze or fins yet. Filling and finishing it makes the bomb. Several stack together.</description>
               <graphicData>
@@ -71,7 +74,7 @@
               </recipeMaker>
             </ThingDef>
             <ThingDef ParentName="ResourceBase">
-              <defName>PhobosBombCaseMk84</defName>
+              <defName>PhobosBombMk84Case</defName>
               <label>Mk. 84 bomb case</label>
               <description>The empty steel body of a 2,000 lb Mk. 84 bomb: forged and machined, with no filling, fuze or fins yet. Filling and finishing it makes the bomb. Several stack together.</description>
               <graphicData>
@@ -119,7 +122,7 @@
           <success>Always</success>
           <xpath>Defs/ThingDef[defName="DMSE_TableLathe"]</xpath>
           <match Class="PatchOperationAdd">
-            <xpath>Defs/ThingDef[defName="PhobosBombCaseMk82" or defName="PhobosBombCaseMk84"]/recipeMaker/recipeUsers</xpath>
+            <xpath>Defs/ThingDef[defName="PhobosBombMk82Case" or defName="PhobosBombMk84Case"]/recipeMaker/recipeUsers</xpath>
             <value>
               <li>DMSE_TableLathe</li>
             </value>
@@ -131,7 +134,7 @@
           <xpath>Defs/ThingDef[defName="FWA_Bomb500lb"]/costList</xpath>
           <value>
             <costList>
-              <PhobosBombCaseMk82>1</PhobosBombCaseMk82>
+              <PhobosBombMk82Case>1</PhobosBombMk82Case>
               <FSX>20</FSX>
               <Chemfuel>300</Chemfuel>
               <ComponentIndustrial>2</ComponentIndustrial>
@@ -152,7 +155,7 @@
                 <xpath>Defs/ThingDef[defName="Harrier_Mk84Bomb_Incendiary"]/costList</xpath>
                 <value>
                   <costList>
-                    <PhobosBombCaseMk84>1</PhobosBombCaseMk84>
+                    <PhobosBombMk84Case>1</PhobosBombMk84Case>
                     <Prometheum>100</Prometheum>
                     <Chemfuel>1500</Chemfuel>
                     <ComponentIndustrial>2</ComponentIndustrial>
@@ -176,7 +179,7 @@
                 <xpath>Defs/ThingDef[defName="Harrier_Mk84Bomb_EMP"]/costList</xpath>
                 <value>
                   <costList>
-                    <PhobosBombCaseMk84>1</PhobosBombCaseMk84>
+                    <PhobosBombMk84Case>1</PhobosBombMk84Case>
                     <Steel>840</Steel>
                     <ComponentIndustrial>12</ComponentIndustrial>
                   </costList>
@@ -199,7 +202,7 @@
                 <xpath>Defs/ThingDef[defName="Harrier_Mk84Bomb_Smoke"]/costList</xpath>
                 <value>
                   <costList>
-                    <PhobosBombCaseMk84>1</PhobosBombCaseMk84>
+                    <PhobosBombMk84Case>1</PhobosBombMk84Case>
                     <Steel>760</Steel>
                     <Chemfuel>1000</Chemfuel>
                     <ComponentIndustrial>1</ComponentIndustrial>
@@ -223,7 +226,7 @@
                 <xpath>Defs/ThingDef[defName="Harrier_Mk84Bomb_ToxGas"]/costList</xpath>
                 <value>
                   <costList>
-                    <PhobosBombCaseMk84>1</PhobosBombCaseMk84>
+                    <PhobosBombMk84Case>1</PhobosBombMk84Case>
                     <Wastepack>72</Wastepack>
                     <ComponentIndustrial>1</ComponentIndustrial>
                   </costList>
