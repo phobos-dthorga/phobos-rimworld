@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    GTek's Vehicles - Oshkosh L-ATV (HID_JLTV): the real L-ATV's drivetrain (PhobosDrivetrain_LATV, D'thorga Vehicles' Defs folder),
+    and its 740 A alternator: the existing JLTV alternator is a C.E. Niehoff N1630 giving 740 A at 28 V (secondary: Wikipedia, citing
+    an Army article; the US Marine Corps' 2022 research topic N222-088 says the same, seen only as a search excerpt). Its 24 V lithium
+    battery's capacity is not published, so the heavy default stays (authored). With that alternator the battery charges even at
+    idle with every load on. Not yet tested in game.
+  -->
+  <Phobos.VehicleSystems.PhobosVehicleLoadoutDef ParentName="PhobosVehicleLoadoutLandHeavy">
+    <defName>PhobosVehicleLoadout_GTek_LATV</defName>
+    <label>Oshkosh L-ATV</label>
+    <priority>Vehicle</priority>
+    <selector>
+      <vehicleDefs>
+        <li>HID_JLTV</li>
+      </vehicleDefs>
+      <massMin>-1</massMin>
+    </selector>
+    <systems Inherit="False">
+      <li>
+        <def>PhobosVehicleSystem_Electrical</def>
+        <set>
+          <batteryAmpHours>100</batteryAmpHours>
+          <alternatorAmps>740</alternatorAmps>
+          <starterAmpHours>0.3</starterAmpHours>
+        </set>
+      </li>
+      <li><def>PhobosVehicleSystem_Cooling</def></li>
+      <li><def>PhobosVehicleSystem_Lubrication</def></li>
+      <li><def>PhobosVehicleSystem_Fuel</def></li>
+      <li><def>PhobosVehicleSystem_Service</def></li>
+      <li><def>PhobosVehicleSystem_RunningGear</def></li>
+      <li><def>PhobosVehicleSystem_Brakes</def></li>
+      <li><def>PhobosVehicleSystem_Transmission</def></li>
+    </systems>
+    <drivetrain>
+      <def>PhobosDrivetrain_LATV</def>
+    </drivetrain>
+  </Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
+</Defs>

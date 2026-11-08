@@ -151,8 +151,12 @@ the framework's own plumbing reader and references the installed `BadHygiene.dll
 D'thorga Vehicles (`mods/PhobosVehicles`) names vehicles of Vanilla Vehicles Expanded - Tier 3, HUMVEE, RimThunder - Roaring
 Tiger, RimThunder - Desert Sabre - Continued, Trains of the Rim, Harrier VTOL Attack Aircraft,
 [Hind Helicopter Gunship](https://steamcommunity.com/sharedfiles/filedetails/?id=3822052079) and
-[Mongoose Attack Helicopter](https://steamcommunity.com/sharedfiles/filedetails/?id=3819896964) (both by potemkinvillager) and
-Vanilla Vehicles Expanded by Def and part name only, in folders loaded only while each is active. Nothing from any of them is in this repository or a build.
+[Mongoose Attack Helicopter](https://steamcommunity.com/sharedfiles/filedetails/?id=3819896964) (both by potemkinvillager),
+Vanilla Vehicles Expanded, [GTek's Vehicles - Oshkosh L-ATV](https://steamcommunity.com/sharedfiles/filedetails/?id=3319106730) and
+[GTek's Vehicles - Navistar MaxxPro MRAP](https://steamcommunity.com/sharedfiles/filedetails/?id=3290888503) (both by GTek,
+`killerbot.*`), [Frontline Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=3817025489) (`serinairo.frontlineworkshop`)
+and [BMP-1 IFV (Vehicle Framework)](https://steamcommunity.com/sharedfiles/filedetails/?id=3800287230) (`turbo.rimworld.bmp1ifv`) by Def
+and part name only, in folders loaded only while each is active. Nothing from any of them is in this repository or a build.
 
 ## InterRim Ballistic Missile, patched by D'thorga Missile Patches
 

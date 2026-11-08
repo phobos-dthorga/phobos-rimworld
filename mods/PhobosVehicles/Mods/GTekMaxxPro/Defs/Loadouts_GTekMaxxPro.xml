@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    GTek's Vehicles - Navistar MaxxPro MRAP (HID_Navistar_M2HB): the MaxxPro Dash's drivetrain (PhobosDrivetrain_MaxxPro) and its
+    400 A alternator with four 12 V batteries, a 24 V system (secondary: Trucking Info). Not yet tested in game.
+  -->
+  <Phobos.VehicleSystems.PhobosVehicleLoadoutDef ParentName="PhobosVehicleLoadoutLandHeavy">
+    <defName>PhobosVehicleLoadout_GTek_MaxxPro</defName>
+    <label>Navistar MaxxPro MRAP</label>
+    <priority>Vehicle</priority>
+    <selector>
+      <vehicleDefs>
+        <li>HID_Navistar_M2HB</li>
+      </vehicleDefs>
+      <massMin>-1</massMin>
+    </selector>
+    <systems Inherit="False">
+      <li>
+        <def>PhobosVehicleSystem_Electrical</def>
+        <set>
+          <batteryAmpHours>100</batteryAmpHours>
+          <alternatorAmps>400</alternatorAmps>
+          <starterAmpHours>0.3</starterAmpHours>
+        </set>
+      </li>
+      <li><def>PhobosVehicleSystem_Cooling</def></li>
+      <li><def>PhobosVehicleSystem_Lubrication</def></li>
+      <li><def>PhobosVehicleSystem_Fuel</def></li>
+      <li><def>PhobosVehicleSystem_Service</def></li>
+      <li><def>PhobosVehicleSystem_RunningGear</def></li>
+      <li><def>PhobosVehicleSystem_Brakes</def></li>
+      <li><def>PhobosVehicleSystem_Transmission</def></li>
+    </systems>
+    <drivetrain>
+      <def>PhobosDrivetrain_MaxxPro</def>
+    </drivetrain>
+  </Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
+</Defs>

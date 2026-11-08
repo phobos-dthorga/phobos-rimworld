@@ -3,8 +3,9 @@
   <!--
     The Humvee (HUMVEE by lunartika, HMV_A). The real HMMWV runs a 24 V system from two 12 V batteries in series (US Army ordnance
     training text OD1615, "Introduction to the HMMWV", electrical system: armyordnance.tpub.com/OD1615/Electrical-System-49.htm,
-    read 8 Nov 2026). Its charging output of about 60 A comes from owners' reports on the Steel Soldiers forum (low quality, not
-    checked against the technical manual). Battery capacity stays the heavy default (authored). The mod gives the Humvee an engine,
+    read 8 Nov 2026). Its alternator was fitted in 60, 100, 200 and 400 A sizes at 28 V (primary: TM 9-2320-280-20-1, Table 1-2);
+    we keep the 60 A, the smallest, which owners' reports also give. Its engine, gearbox and weight are the real HMMWV's
+    (PhobosDrivetrain_Humvee, from the same manual, Framework 0.12.0's real-figures part). Battery capacity stays the heavy default (authored). The mod gives the Humvee an engine,
     a gearbox, four wheels and four suspension units; the service binds the engine and gearbox and appends the rest. Its diesel
     makes the cold-fuel setting a fair fit. Not yet tested in game.
   -->
@@ -35,5 +36,8 @@
       <li><def>PhobosVehicleSystem_Brakes</def></li>
       <li><def>PhobosVehicleSystem_Transmission</def></li>
     </systems>
+    <drivetrain>
+      <def>PhobosDrivetrain_Humvee</def>
+    </drivetrain>
   </Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
 </Defs>

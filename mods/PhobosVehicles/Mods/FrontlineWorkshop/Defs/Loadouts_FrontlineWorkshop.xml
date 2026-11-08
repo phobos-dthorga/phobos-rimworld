@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    Frontline Workshop's Land Cruiser J70, T-54 and Wiesel, with their real engines' power and weights (D'thorga Vehicles' Defs
+    folder; docs/development/vehicle-real-figures-design.md). The T-54 and the Wiesel are tracked; they keep the heavy systems, as
+    the tracked default does. The 105 mm howitzer is towed and gets nothing. Not yet tested in game.
+  -->
+  <Phobos.VehicleSystems.PhobosVehicleLoadoutDef ParentName="PhobosVehicleLoadoutLandHeavy">
+    <defName>PhobosVehicleLoadout_FW_LandCruiserJ70</defName>
+    <label>Toyota Land Cruiser J70</label>
+    <priority>Vehicle</priority>
+    <selector>
+      <vehicleDefs>
+        <li>FW_JSeventy</li>
+      </vehicleDefs>
+      <massMin>-1</massMin>
+    </selector>
+    <drivetrain>
+      <def>PhobosDrivetrain_LandCruiserJ70</def>
+    </drivetrain>
+  </Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleLoadoutDef ParentName="PhobosVehicleLoadoutLandHeavy">
+    <defName>PhobosVehicleLoadout_FW_T54</defName>
+    <label>T-54 tank</label>
+    <priority>Vehicle</priority>
+    <selector>
+      <vehicleDefs>
+        <li>FW_TFiftyFive</li>
+      </vehicleDefs>
+      <massMin>-1</massMin>
+    </selector>
+    <drivetrain>
+      <def>PhobosDrivetrain_T54</def>
+    </drivetrain>
+  </Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleLoadoutDef ParentName="PhobosVehicleLoadoutLandHeavy">
+    <defName>PhobosVehicleLoadout_FW_Wiesel</defName>
+    <label>Wiesel tracked carrier</label>
+    <priority>Vehicle</priority>
+    <selector>
+      <vehicleDefs>
+        <li>FW_Wiesel</li>
+      </vehicleDefs>
+      <massMin>-1</massMin>
+    </selector>
+    <drivetrain>
+      <def>PhobosDrivetrain_Wiesel</def>
+    </drivetrain>
+  </Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
+</Defs>

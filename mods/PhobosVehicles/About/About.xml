@@ -4,7 +4,7 @@
   <name>D'thorga Vehicles</name>
   <author>Phobos A. D'thorga</author>
   <url>https://github.com/phobos-dthorga/phobos-rimworld</url>
-  <modVersion>0.3.0</modVersion>
+  <modVersion>0.4.0</modVersion>
   <description>Vehicles that keep running only while they are looked after. This first version adds no vehicles of its own: it fits the vehicles of other mods you already drive with the right systems for what they really are.
 
 What it does now:
@@ -48,5 +48,9 @@ Community-created content. Portions of the materials used to create this content
     <li>potemkinvillager.av8bharrier</li>
     <li>potemkinvillager.mi24hindhelicopter</li>
     <li>potemkinvillager.mongooseattackhelicopter</li>
+    <li>killerbot.jltv</li>
+    <li>killerbot.navistarmaxxpro</li>
+    <li>serinairo.frontlineworkshop</li>
+    <li>turbo.rimworld.bmp1ifv</li>
   </loadAfter>
 </ModMetaData>

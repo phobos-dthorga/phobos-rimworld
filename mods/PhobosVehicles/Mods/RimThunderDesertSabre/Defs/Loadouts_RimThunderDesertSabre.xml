@@ -4,7 +4,8 @@
     RimThunder - Desert Sabre - Continued. Its M1A2 SEP runs the same gas turbine as Roaring Tiger's M1A2 (secondary: Wikipedia,
     "M1 Abrams"), so it gets the same systems: the heavy set without the cooling system, with the gas turbine's
     system and the tracked turbine drivetrain (Framework 0.11.0). Written in full here, not inherited from
-    the Roaring Tiger file, so it works with Desert Sabre alone. Not yet tested in game.
+    the Roaring Tiger file, so it works with Desert Sabre alone. Its AGT1500 drivetrain is the real one's (D'thorga Vehicles' Defs
+    folder), and the M10 Booker and M2A3 Bradley get their real engines' power and weights. Not yet tested in game.
   -->
   <Phobos.VehicleSystems.PhobosVehicleLoadoutDef ParentName="PhobosVehicleLoadoutLandHeavy">
     <defName>PhobosVehicleLoadout_RT_M1A2SEP</defName>
@@ -33,7 +34,37 @@
       <li><def>PhobosVehicleSystem_Turbine</def></li>
     </systems>
     <drivetrain>
-      <def>PhobosDrivetrain_TrackedTurbine</def>
+      <def>PhobosDrivetrain_AGT1500</def>
+    </drivetrain>
+  </Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleLoadoutDef ParentName="PhobosVehicleLoadoutLandHeavy">
+    <defName>PhobosVehicleLoadout_RT_M10Booker</defName>
+    <label>M10 Booker</label>
+    <priority>Vehicle</priority>
+    <selector>
+      <vehicleDefs>
+        <li>RT_M10_MainBattleTank</li>
+      </vehicleDefs>
+      <massMin>-1</massMin>
+    </selector>
+    <drivetrain>
+      <def>PhobosDrivetrain_M10Booker</def>
+    </drivetrain>
+  </Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleLoadoutDef ParentName="PhobosVehicleLoadoutLandHeavy">
+    <defName>PhobosVehicleLoadout_RT_M2A3</defName>
+    <label>M2A3 Bradley</label>
+    <priority>Vehicle</priority>
+    <selector>
+      <vehicleDefs>
+        <li>RT_M2A3_Vehicle</li>
+      </vehicleDefs>
+      <massMin>-1</massMin>
+    </selector>
+    <drivetrain>
+      <def>PhobosDrivetrain_Bradley</def>
     </drivetrain>
   </Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
 </Defs>

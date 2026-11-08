@@ -1,0 +1,499 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    Real figures for the single-engine military and utility vehicles on the owner's list (part 2 of the owner's approved proposals,
+    9 Nov 2026; docs/development/vehicle-real-figures-design.md). Every figure comes from docs/development/vehicle-figures-research.md
+    and is labelled primary, secondary, our inference or authored. Masses are the published curb or combat weights; the model adds
+    passengers, cargo and ammunition on top, so a combat weight counts its crew and ammunition twice (small, a simplification).
+    Fuel mass is left out (no sourced density). These Defs name no other mod, so they load always; the loadouts that use them load
+    with their mods. Not yet tested in game.
+  -->
+  <!--
+    - Engine: the 866T 6.6 L V8 turbo-diesel on GM's Duramax architecture (primary: Banks Power). Its power was never published officially; secondary figures run from 340 to 425 hp. We use 254 kW (340 hp), the Allison 2500's published rating with engine torque limiting (primary: Allison sheet SA5340EN), which caps what reaches the wheels whatever the engine makes (our choice).
+    - Rated 3,200 rpm (secondary: army-guide.com's 866T catalogue entry); idle 700 rpm (authored, inside the Allison 2500's 500 to 820 rpm idle-in-drive window, primary).
+    - Gears: the Allison 2500's six ratios, 3.51 to 0.64 (primary: Allison sheet SA5340EN; the 2500 SP's own are not listed separately).
+    - Wheel radius 0.55 m from 385/80 R20 or 365/80 R20 tyres (secondary, conflicting; our arithmetic). Kerb 6,400 kg (secondary: Wikipedia). Permanent four-wheel drive (primary: AM General's A2 sheet). Top speed 110 km/h (secondary), from which the final drive is worked out (our inference).
+    - Final drive 9.42: the rated rpm in top gear at the top speed (our inference).
+    - Torque curve, efficiency (0.88), shift points and drag area are authored.
+  -->
+  <Phobos.VehicleSystems.PhobosVehicleDrivetrainDef>
+    <defName>PhobosDrivetrain_LATV</defName>
+    <label>Oshkosh L-ATV drivetrain</label>
+    <engine>
+      <kind>Piston</kind>
+      <idleRpm>700</idleRpm>
+      <launchRpm>1325</launchRpm>
+      <ratedRpm>3200</ratedRpm>
+      <ratedKilowatts>254</ratedKilowatts>
+      <torqueCurve><points><li>(0, 0)</li><li>(0.25, 0.6)</li><li>(0.5, 0.95)</li><li>(0.65, 1)</li><li>(0.85, 0.95)</li><li>(1, 0.85)</li><li>(1.1, 0)</li></points></torqueCurve>
+      <indicatedEfficiency>0.40</indicatedEfficiency>
+    </engine>
+    <transmission>
+      <kind>Automatic</kind>
+      <gears><li>3.51</li><li>1.9</li><li>1.44</li><li>1.0</li><li>0.74</li><li>0.64</li></gears>
+      <finalDrive>9.42</finalDrive>
+      <upshiftRpm>2624</upshiftRpm>
+      <downshiftRpm>1440</downshiftRpm>
+      <efficiency>0.88</efficiency>
+    </transmission>
+    <running>
+      <wheelRadius>0.55</wheelRadius>
+      <drivenShare>1</drivenShare>
+      <dragArea>5.0</dragArea>
+    </running>
+    <mass>
+      <emptyKilograms>6400</emptyKilograms>
+    </mass>
+  </Phobos.VehicleSystems.PhobosVehicleDrivetrainDef>
+
+  <!--
+    - Engine: MaxxForce D9.3I6, 375 hp (280 kW) at 2,000 rpm on the MaxxPro Dash (primary, seen only as a search excerpt: Navistar Defense's site is offline). Idle 700 rpm (authored).
+    - Gearbox: an Allison 3000-series five-speed (secondary; Navistar's own sheet says 3200SP, excerpt only). Its ratios are not published in what we read, so the five ratios are authored.
+    - Wheel radius 0.59 m from 395/85 R20 tyres (secondary; our arithmetic). Kerb 15,422 kg, the Dash (secondary: militaryvehiclesdata). Permanent four-wheel drive (secondary). Top speed 105 km/h (secondary).
+    - Final drive 5.30: the rated rpm in top gear at the top speed (our inference).
+    - Torque curve, efficiency (0.88), shift points and drag area are authored.
+  -->
+  <Phobos.VehicleSystems.PhobosVehicleDrivetrainDef>
+    <defName>PhobosDrivetrain_MaxxPro</defName>
+    <label>Navistar MaxxPro drivetrain</label>
+    <engine>
+      <kind>Piston</kind>
+      <idleRpm>700</idleRpm>
+      <launchRpm>1025</launchRpm>
+      <ratedRpm>2000</ratedRpm>
+      <ratedKilowatts>280</ratedKilowatts>
+      <torqueCurve><points><li>(0, 0)</li><li>(0.25, 0.6)</li><li>(0.5, 0.95)</li><li>(0.65, 1)</li><li>(0.85, 0.95)</li><li>(1, 0.85)</li><li>(1.1, 0)</li></points></torqueCurve>
+      <indicatedEfficiency>0.40</indicatedEfficiency>
+    </engine>
+    <transmission>
+      <kind>Automatic</kind>
+      <gears><li>4.0</li><li>2.4</li><li>1.5</li><li>1.0</li><li>0.8</li></gears>
+      <finalDrive>5.3</finalDrive>
+      <upshiftRpm>1640</upshiftRpm>
+      <downshiftRpm>900</downshiftRpm>
+      <efficiency>0.88</efficiency>
+    </transmission>
+    <running>
+      <wheelRadius>0.59</wheelRadius>
+      <drivenShare>1</drivenShare>
+      <dragArea>7.0</dragArea>
+    </running>
+    <mass>
+      <emptyKilograms>15422</emptyKilograms>
+    </mass>
+  </Phobos.VehicleSystems.PhobosVehicleDrivetrainDef>
+
+  <!--
+    - Engine: the 6.5 L V8 diesel, 160 hp (119.4 kW) at 3,400 rpm, idle 650 rpm (primary: TM 9-2320-280-20-1, Table 1-2).
+    - Gears: the GM 4L80-E's 2.48, 1.45, 1.00, 0.75 (primary: the same manual). The hub reduction is not given there, so the final drive is worked out from the top speed (our inference).
+    - Wheel radius 0.47 m from 37 x 12.5 tyres (secondary; our arithmetic). Kerb 2,500 kg, inside the 2,360 to 2,680 kg range (secondary: Wikipedia). Permanent four-wheel drive (primary). Top speed about 70 mph, 113 km/h (secondary).
+    - Final drive 7.11: the rated rpm in top gear at the top speed (our inference).
+    - Torque curve, efficiency (0.88), shift points and drag area are authored.
+  -->
+  <Phobos.VehicleSystems.PhobosVehicleDrivetrainDef>
+    <defName>PhobosDrivetrain_Humvee</defName>
+    <label>HMMWV drivetrain</label>
+    <engine>
+      <kind>Piston</kind>
+      <idleRpm>650</idleRpm>
+      <launchRpm>1338</launchRpm>
+      <ratedRpm>3400</ratedRpm>
+      <ratedKilowatts>119.4</ratedKilowatts>
+      <torqueCurve><points><li>(0, 0)</li><li>(0.25, 0.6)</li><li>(0.5, 0.95)</li><li>(0.65, 1)</li><li>(0.85, 0.95)</li><li>(1, 0.85)</li><li>(1.1, 0)</li></points></torqueCurve>
+      <indicatedEfficiency>0.40</indicatedEfficiency>
+    </engine>
+    <transmission>
+      <kind>Automatic</kind>
+      <gears><li>2.48</li><li>1.45</li><li>1.0</li><li>0.75</li></gears>
+      <finalDrive>7.11</finalDrive>
+      <upshiftRpm>2788</upshiftRpm>
+      <downshiftRpm>1530</downshiftRpm>
+      <efficiency>0.88</efficiency>
+    </transmission>
+    <running>
+      <wheelRadius>0.47</wheelRadius>
+      <drivenShare>1</drivenShare>
+      <dragArea>3.5</dragArea>
+    </running>
+    <mass>
+      <emptyKilograms>2500</emptyKilograms>
+    </mass>
+  </Phobos.VehicleSystems.PhobosVehicleDrivetrainDef>
+
+  <!--
+    - Engine: the 1VD-FTV 4.5 L V8 turbo-diesel, 151 kW at 3,400 rpm (secondary: CarExpert's 2017 LC70 GX listing). The J70 has carried many engines; this is the current one with full figures. Idle 700 rpm (authored).
+    - Gearbox: the H152F five-speed manual (secondary); ratios not found, so they are authored, with the archetype's final drive.
+    - Wheel radius 0.39 m from 265/70 R16 tyres (secondary; our arithmetic). Kerb 2,165 kg (secondary). Part-time four-wheel drive, so half the weight on driven wheels on the road (our reading).
+    - Final drive 4.1, the archetype's (authored).
+    - Torque curve, efficiency (0.88), shift points and drag area are authored.
+  -->
+  <Phobos.VehicleSystems.PhobosVehicleDrivetrainDef>
+    <defName>PhobosDrivetrain_LandCruiserJ70</defName>
+    <label>Land Cruiser J70 drivetrain</label>
+    <engine>
+      <kind>Piston</kind>
+      <idleRpm>700</idleRpm>
+      <launchRpm>1375</launchRpm>
+      <ratedRpm>3400</ratedRpm>
+      <ratedKilowatts>151</ratedKilowatts>
+      <torqueCurve><points><li>(0, 0)</li><li>(0.25, 0.6)</li><li>(0.5, 0.95)</li><li>(0.65, 1)</li><li>(0.85, 0.95)</li><li>(1, 0.85)</li><li>(1.1, 0)</li></points></torqueCurve>
+      <indicatedEfficiency>0.40</indicatedEfficiency>
+    </engine>
+    <transmission>
+      <kind>Automatic</kind>
+      <gears><li>4.0</li><li>2.4</li><li>1.5</li><li>1.0</li><li>0.8</li></gears>
+      <finalDrive>4.1</finalDrive>
+      <upshiftRpm>2788</upshiftRpm>
+      <downshiftRpm>1530</downshiftRpm>
+      <efficiency>0.88</efficiency>
+    </transmission>
+    <running>
+      <wheelRadius>0.39</wheelRadius>
+      <drivenShare>0.5</drivenShare>
+      <dragArea>3.0</dragArea>
+    </running>
+    <mass>
+      <emptyKilograms>2165</emptyKilograms>
+    </mass>
+  </Phobos.VehicleSystems.PhobosVehicleDrivetrainDef>
+
+  <!--
+    - Rimthunder calls it the M1075 HEMTT, but the M1075 is the Palletized Load System (PLS), a 10x10; the HEMTT is the M977 family (our research). Figures are the PLS A1 M1075A1's.
+    - Engine: Caterpillar C15, 600 hp (447 kW) (primary: Oshkosh's PLS A1 sheet); its rated speed is not given, so 2,100 rpm is authored. Idle 700 rpm (authored).
+    - Gearbox: Allison 4500SP, six speeds (primary: the same sheet); ratios not published there, so authored.
+    - Wheel radius 0.62 m for 16.00 R20 tyres (authored: the sheet names the size but not its diameter). Curb 24,040 kg with flatrack; 10x10 drive; top speed 100 km/h (primary: the same sheet).
+    - Final drive 7.55: the rated rpm in top gear at the top speed (our inference).
+    - Torque curve, efficiency (0.88), shift points and drag area are authored.
+  -->
+  <Phobos.VehicleSystems.PhobosVehicleDrivetrainDef>
+    <defName>PhobosDrivetrain_PLS</defName>
+    <label>Oshkosh PLS drivetrain</label>
+    <engine>
+      <kind>Piston</kind>
+      <idleRpm>700</idleRpm>
+      <launchRpm>1050</launchRpm>
+      <ratedRpm>2100</ratedRpm>
+      <ratedKilowatts>447</ratedKilowatts>
+      <torqueCurve><points><li>(0, 0)</li><li>(0.25, 0.6)</li><li>(0.5, 0.95)</li><li>(0.65, 1)</li><li>(0.85, 0.95)</li><li>(1, 0.85)</li><li>(1.1, 0)</li></points></torqueCurve>
+      <indicatedEfficiency>0.40</indicatedEfficiency>
+    </engine>
+    <transmission>
+      <kind>Automatic</kind>
+      <gears><li>3.5</li><li>2.0</li><li>1.45</li><li>1.0</li><li>0.75</li><li>0.65</li></gears>
+      <finalDrive>7.55</finalDrive>
+      <upshiftRpm>1722</upshiftRpm>
+      <downshiftRpm>945</downshiftRpm>
+      <efficiency>0.88</efficiency>
+    </transmission>
+    <running>
+      <wheelRadius>0.62</wheelRadius>
+      <drivenShare>1</drivenShare>
+      <dragArea>8.0</dragArea>
+    </running>
+    <mass>
+      <emptyKilograms>24040</emptyKilograms>
+    </mass>
+  </Phobos.VehicleSystems.PhobosVehicleDrivetrainDef>
+
+  <!--
+    - The M113A2: Detroit Diesel 6V53, 212 hp (158 kW) at 2,800 rpm (secondary: Wikipedia's table, whose column labels could not be read; to verify). Idle 650 rpm (authored).
+    - Gearbox: Allison TX-100, three speeds (secondary); ratios not found, so authored. Combat weight 11,216 kg (secondary: FAS, M113A2). Top speed 37 mph, 60 km/h (secondary: FAS). Sprocket radius 0.33 m (authored).
+    - Final drive 5.81: the rated rpm in top gear at the top speed (our inference).
+    - Torque curve, efficiency (0.8), shift points and drag area are authored.
+  -->
+  <Phobos.VehicleSystems.PhobosVehicleDrivetrainDef>
+    <defName>PhobosDrivetrain_M113</defName>
+    <label>M113 drivetrain</label>
+    <engine>
+      <kind>Piston</kind>
+      <idleRpm>650</idleRpm>
+      <launchRpm>1188</launchRpm>
+      <ratedRpm>2800</ratedRpm>
+      <ratedKilowatts>158</ratedKilowatts>
+      <torqueCurve><points><li>(0, 0)</li><li>(0.25, 0.6)</li><li>(0.5, 0.95)</li><li>(0.65, 1)</li><li>(0.85, 0.95)</li><li>(1, 0.85)</li><li>(1.1, 0)</li></points></torqueCurve>
+      <indicatedEfficiency>0.40</indicatedEfficiency>
+    </engine>
+    <transmission>
+      <kind>Automatic</kind>
+      <gears><li>2.5</li><li>1.5</li><li>1.0</li></gears>
+      <finalDrive>5.81</finalDrive>
+      <upshiftRpm>2296</upshiftRpm>
+      <downshiftRpm>1260</downshiftRpm>
+      <efficiency>0.8</efficiency>
+    </transmission>
+    <running>
+      <wheelRadius>0.33</wheelRadius>
+      <drivenShare>1</drivenShare>
+      <dragArea>5.0</dragArea>
+    </running>
+    <mass>
+      <emptyKilograms>11216</emptyKilograms>
+    </mass>
+  </Phobos.VehicleSystems.PhobosVehicleDrivetrainDef>
+
+  <!--
+    - Engine: Cummins VTA-903T, 600 hp (447 kW) at 2,600 rpm on the M2A2 and M2A3 (secondary: AFV Database). Idle 650 rpm (authored).
+    - Gearbox: the HMPT-500-3 hydromechanical transmission (secondary), whose three ranges are modelled as three gears (authored ratios).
+    - Combat weight 30,000 kg (secondary: Wikipedia's 29,940 kg; AFV Database gives 34,200 kg for the M2A3: a conflict). Top speed 61 km/h (secondary: AFV Database). Sprocket radius 0.33 m (authored).
+    - Final drive 5.30: the rated rpm in top gear at the top speed (our inference).
+    - Torque curve, efficiency (0.8), shift points and drag area are authored.
+  -->
+  <Phobos.VehicleSystems.PhobosVehicleDrivetrainDef>
+    <defName>PhobosDrivetrain_Bradley</defName>
+    <label>M2 Bradley drivetrain</label>
+    <engine>
+      <kind>Piston</kind>
+      <idleRpm>650</idleRpm>
+      <launchRpm>1138</launchRpm>
+      <ratedRpm>2600</ratedRpm>
+      <ratedKilowatts>447</ratedKilowatts>
+      <torqueCurve><points><li>(0, 0)</li><li>(0.25, 0.6)</li><li>(0.5, 0.95)</li><li>(0.65, 1)</li><li>(0.85, 0.95)</li><li>(1, 0.85)</li><li>(1.1, 0)</li></points></torqueCurve>
+      <indicatedEfficiency>0.40</indicatedEfficiency>
+    </engine>
+    <transmission>
+      <kind>Automatic</kind>
+      <gears><li>2.5</li><li>1.5</li><li>1.0</li></gears>
+      <finalDrive>5.3</finalDrive>
+      <upshiftRpm>2132</upshiftRpm>
+      <downshiftRpm>1170</downshiftRpm>
+      <efficiency>0.8</efficiency>
+    </transmission>
+    <running>
+      <wheelRadius>0.33</wheelRadius>
+      <drivenShare>1</drivenShare>
+      <dragArea>7.0</dragArea>
+    </running>
+    <mass>
+      <emptyKilograms>30000</emptyKilograms>
+    </mass>
+  </Phobos.VehicleSystems.PhobosVehicleDrivetrainDef>
+
+  <!--
+    - Taiwan's M48H (CM-11) Brave Tiger: Continental AVDS-1790-2C, 750 hp (560 kW) (secondary: Wikipedia); its rated speed is not given, so 2,400 rpm is authored. Idle 650 rpm (authored).
+    - Gearbox: Allison CD-850-6A cross-drive, two forward ranges (secondary); ratios authored. Mass 50 t; top speed 48 km/h (secondary: Wikipedia). Sprocket radius 0.33 m (authored).
+    - Final drive 6.22: the rated rpm in top gear at the top speed (our inference).
+    - Torque curve, efficiency (0.8), shift points and drag area are authored.
+  -->
+  <Phobos.VehicleSystems.PhobosVehicleDrivetrainDef>
+    <defName>PhobosDrivetrain_M48H</defName>
+    <label>M48H drivetrain</label>
+    <engine>
+      <kind>Piston</kind>
+      <idleRpm>650</idleRpm>
+      <launchRpm>1088</launchRpm>
+      <ratedRpm>2400</ratedRpm>
+      <ratedKilowatts>560</ratedKilowatts>
+      <torqueCurve><points><li>(0, 0)</li><li>(0.25, 0.6)</li><li>(0.5, 0.95)</li><li>(0.65, 1)</li><li>(0.85, 0.95)</li><li>(1, 0.85)</li><li>(1.1, 0)</li></points></torqueCurve>
+      <indicatedEfficiency>0.40</indicatedEfficiency>
+    </engine>
+    <transmission>
+      <kind>Automatic</kind>
+      <gears><li>2.0</li><li>1.0</li></gears>
+      <finalDrive>6.22</finalDrive>
+      <upshiftRpm>1968</upshiftRpm>
+      <downshiftRpm>1080</downshiftRpm>
+      <efficiency>0.8</efficiency>
+    </transmission>
+    <running>
+      <wheelRadius>0.33</wheelRadius>
+      <drivenShare>1</drivenShare>
+      <dragArea>8.0</dragArea>
+    </running>
+    <mass>
+      <emptyKilograms>50000</emptyKilograms>
+    </mass>
+  </Phobos.VehicleSystems.PhobosVehicleDrivetrainDef>
+
+  <!--
+    - Engine: MTU 8V 199, 600 kW (primary: MTU); its rated speed is not given, so 2,400 rpm is authored. Idle 650 rpm (authored).
+    - Gearbox: Allison 3040 MX cross-drive, four forward (primary: Allison), rated for engines up to 800 hp and vehicles up to 40 tons, which the Booker's 38 to 42 t sits at (secondary: Wikipedia): it runs at the top of its transmission's rating. Ratios authored. Mass 40 t; top speed 64 km/h (secondary). Sprocket radius 0.33 m (authored).
+    - Final drive 4.67: the rated rpm in top gear at the top speed (our inference).
+    - Torque curve, efficiency (0.8), shift points and drag area are authored.
+  -->
+  <Phobos.VehicleSystems.PhobosVehicleDrivetrainDef>
+    <defName>PhobosDrivetrain_M10Booker</defName>
+    <label>M10 Booker drivetrain</label>
+    <engine>
+      <kind>Piston</kind>
+      <idleRpm>650</idleRpm>
+      <launchRpm>1088</launchRpm>
+      <ratedRpm>2400</ratedRpm>
+      <ratedKilowatts>600</ratedKilowatts>
+      <torqueCurve><points><li>(0, 0)</li><li>(0.25, 0.6)</li><li>(0.5, 0.95)</li><li>(0.65, 1)</li><li>(0.85, 0.95)</li><li>(1, 0.85)</li><li>(1.1, 0)</li></points></torqueCurve>
+      <indicatedEfficiency>0.40</indicatedEfficiency>
+    </engine>
+    <transmission>
+      <kind>Automatic</kind>
+      <gears><li>3.0</li><li>1.9</li><li>1.3</li><li>1.0</li></gears>
+      <finalDrive>4.67</finalDrive>
+      <upshiftRpm>1968</upshiftRpm>
+      <downshiftRpm>1080</downshiftRpm>
+      <efficiency>0.8</efficiency>
+    </transmission>
+    <running>
+      <wheelRadius>0.33</wheelRadius>
+      <drivenShare>1</drivenShare>
+      <dragArea>8.0</dragArea>
+    </running>
+    <mass>
+      <emptyKilograms>40000</emptyKilograms>
+    </mass>
+  </Phobos.VehicleSystems.PhobosVehicleDrivetrainDef>
+
+  <!--
+    - Engine: the V-54 V12 diesel, 520 hp (388 kW) at 2,000 rpm (secondary: FAS and Wikipedia; the rpm seen only in search excerpts). Idle 600 rpm (authored).
+    - Gearbox: a five-speed manual (secondary); ratios authored. Mass 36 t; top speed 51 km/h (secondary: Wikipedia). Sprocket radius 0.33 m (authored).
+    - Final drive 6.10: the rated rpm in top gear at the top speed (our inference).
+    - Torque curve, efficiency (0.8), shift points and drag area are authored.
+  -->
+  <Phobos.VehicleSystems.PhobosVehicleDrivetrainDef>
+    <defName>PhobosDrivetrain_T54</defName>
+    <label>T-54 drivetrain</label>
+    <engine>
+      <kind>Piston</kind>
+      <idleRpm>600</idleRpm>
+      <launchRpm>950</launchRpm>
+      <ratedRpm>2000</ratedRpm>
+      <ratedKilowatts>388</ratedKilowatts>
+      <torqueCurve><points><li>(0, 0)</li><li>(0.25, 0.6)</li><li>(0.5, 0.95)</li><li>(0.65, 1)</li><li>(0.85, 0.95)</li><li>(1, 0.85)</li><li>(1.1, 0)</li></points></torqueCurve>
+      <indicatedEfficiency>0.40</indicatedEfficiency>
+    </engine>
+    <transmission>
+      <kind>Automatic</kind>
+      <gears><li>4.0</li><li>2.4</li><li>1.5</li><li>1.0</li><li>0.8</li></gears>
+      <finalDrive>6.1</finalDrive>
+      <upshiftRpm>1640</upshiftRpm>
+      <downshiftRpm>900</downshiftRpm>
+      <efficiency>0.8</efficiency>
+    </transmission>
+    <running>
+      <wheelRadius>0.33</wheelRadius>
+      <drivenShare>1</drivenShare>
+      <dragArea>7.0</dragArea>
+    </running>
+    <mass>
+      <emptyKilograms>36000</emptyKilograms>
+    </mass>
+  </Phobos.VehicleSystems.PhobosVehicleDrivetrainDef>
+
+  <!--
+    - Engine: the UTD-20 V6 diesel, 300 hp (220 kW) at 2,600 rpm (secondary: Wikipedia, citing Jane's). Idle 600 rpm (authored).
+    - Gearbox: a five-speed manual (secondary); ratios authored. Mass 13.2 t; top speed 65 km/h on land (secondary). Sprocket radius 0.33 m (authored). It swims, which the drivetrain does not model.
+    - Final drive 6.22: the rated rpm in top gear at the top speed (our inference).
+    - Torque curve, efficiency (0.8), shift points and drag area are authored.
+  -->
+  <Phobos.VehicleSystems.PhobosVehicleDrivetrainDef>
+    <defName>PhobosDrivetrain_BMP1</defName>
+    <label>BMP-1 drivetrain</label>
+    <engine>
+      <kind>Piston</kind>
+      <idleRpm>600</idleRpm>
+      <launchRpm>1100</launchRpm>
+      <ratedRpm>2600</ratedRpm>
+      <ratedKilowatts>220</ratedKilowatts>
+      <torqueCurve><points><li>(0, 0)</li><li>(0.25, 0.6)</li><li>(0.5, 0.95)</li><li>(0.65, 1)</li><li>(0.85, 0.95)</li><li>(1, 0.85)</li><li>(1.1, 0)</li></points></torqueCurve>
+      <indicatedEfficiency>0.40</indicatedEfficiency>
+    </engine>
+    <transmission>
+      <kind>Automatic</kind>
+      <gears><li>4.0</li><li>2.4</li><li>1.5</li><li>1.0</li><li>0.8</li></gears>
+      <finalDrive>6.22</finalDrive>
+      <upshiftRpm>2132</upshiftRpm>
+      <downshiftRpm>1170</downshiftRpm>
+      <efficiency>0.8</efficiency>
+    </transmission>
+    <running>
+      <wheelRadius>0.33</wheelRadius>
+      <drivenShare>1</drivenShare>
+      <dragArea>5.0</dragArea>
+    </running>
+    <mass>
+      <emptyKilograms>13200</emptyKilograms>
+    </mass>
+  </Phobos.VehicleSystems.PhobosVehicleDrivetrainDef>
+
+  <!--
+    - The Wiesel 1: an Audi five-cylinder turbo-diesel, 64 kW (86 hp) (secondary: Wikipedia); its rated speed is not given, so 4,000 rpm is authored. Idle 800 rpm (authored).
+    - Gearbox not found; three authored ratios. Mass 2.75 t; top speed 70 km/h (secondary). Sprocket radius 0.25 m (authored).
+    - Final drive 5.39: the rated rpm in top gear at the top speed (our inference).
+    - Torque curve, efficiency (0.8), shift points and drag area are authored.
+  -->
+  <Phobos.VehicleSystems.PhobosVehicleDrivetrainDef>
+    <defName>PhobosDrivetrain_Wiesel</defName>
+    <label>Wiesel drivetrain</label>
+    <engine>
+      <kind>Piston</kind>
+      <idleRpm>800</idleRpm>
+      <launchRpm>1600</launchRpm>
+      <ratedRpm>4000</ratedRpm>
+      <ratedKilowatts>64</ratedKilowatts>
+      <torqueCurve><points><li>(0, 0)</li><li>(0.25, 0.6)</li><li>(0.5, 0.95)</li><li>(0.65, 1)</li><li>(0.85, 0.95)</li><li>(1, 0.85)</li><li>(1.1, 0)</li></points></torqueCurve>
+      <indicatedEfficiency>0.40</indicatedEfficiency>
+    </engine>
+    <transmission>
+      <kind>Automatic</kind>
+      <gears><li>2.5</li><li>1.5</li><li>1.0</li></gears>
+      <finalDrive>5.39</finalDrive>
+      <upshiftRpm>3280</upshiftRpm>
+      <downshiftRpm>1800</downshiftRpm>
+      <efficiency>0.8</efficiency>
+    </transmission>
+    <running>
+      <wheelRadius>0.25</wheelRadius>
+      <drivenShare>1</drivenShare>
+      <dragArea>2.5</dragArea>
+    </running>
+    <mass>
+      <emptyKilograms>2750</emptyKilograms>
+    </mass>
+  </Phobos.VehicleSystems.PhobosVehicleDrivetrainDef>
+
+  <!--
+    The M1A2's AGT1500 gas turbine and Allison X1100-3B cross-drive.
+    - 1,500 shp (1,118 kW) at 3,000 rpm output speed; turbine inlet about 1,193 degrees C (secondary: an AlliedSignal data sheet
+      archived by Chalmers University, 1997). Its fuel use at idle is high (the earlier archetype's 0.6 idle share, authored: no
+      absolute idle figure was found; Honeywell's digital control gives 20% less at idle).
+    - Gearbox: Allison X1100-3B, four forward and two reverse, for engines up to 1,500 hp and vehicles up to 75 tons (primary:
+      Allison); ratios authored. Mass 63,080 kg, the M1A2's 69.54 short tons (secondary: FAS). Top speed 42 mph (67.6 km/h),
+      governed (secondary: FAS); final drive 5.52 from it (our inference). Sprocket radius 0.33 m (authored).
+    - The turbine's temperature limits stay the Framework's placeholders: the 1,193 degrees C is at the turbine inlet, not where the
+      limits are read.
+  -->
+  <Phobos.VehicleSystems.PhobosVehicleDrivetrainDef>
+    <defName>PhobosDrivetrain_AGT1500</defName>
+    <label>AGT1500 turbine drivetrain</label>
+    <engine>
+      <kind>Turboshaft</kind>
+      <idleRpm>1000</idleRpm>
+      <launchRpm>1500</launchRpm>
+      <ratedRpm>3000</ratedRpm>
+      <ratedKilowatts>1118</ratedKilowatts>
+      <torqueCurve><points><li>(0, 0)</li><li>(0.33, 0.9)</li><li>(0.6, 1)</li><li>(1, 0.9)</li><li>(1.1, 0)</li></points></torqueCurve>
+      <indicatedEfficiency>0.28</indicatedEfficiency>
+      <idleFuelShare>0.6</idleFuelShare>
+      <turbine>
+        <idleSpeedPercent>60</idleSpeedPercent>
+        <ratings>
+          <li><name>maxContinuous</name><share>1</share><speedPercent>100</speedPercent><temperatureLimit>800</temperatureLimit></li>
+          <li><name>maxPower</name><share>1.1</share><speedPercent>103</speedPercent><temperatureLimit>840</temperatureLimit><minutes>10</minutes></li>
+        </ratings>
+      </turbine>
+    </engine>
+    <transmission>
+      <kind>Automatic</kind>
+      <gears><li>3.0</li><li>1.9</li><li>1.3</li><li>1.0</li></gears>
+      <finalDrive>5.52</finalDrive>
+      <upshiftRpm>2600</upshiftRpm>
+      <downshiftRpm>1500</downshiftRpm>
+      <efficiency>0.80</efficiency>
+    </transmission>
+    <running>
+      <wheelRadius>0.33</wheelRadius>
+      <drivenShare>1</drivenShare>
+      <dragArea>9.0</dragArea>
+    </running>
+    <mass>
+      <emptyKilograms>63080</emptyKilograms>
+    </mass>
+  </Phobos.VehicleSystems.PhobosVehicleDrivetrainDef>
+</Defs>

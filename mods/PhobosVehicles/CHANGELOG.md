@@ -5,6 +5,28 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.4.0] - 2026-11-09 - Draft
+
+Real figures for named vehicles: part 2 of the owner's approved proposals of 9 November 2026, the L-ATV first. **Not yet tested in game.** Design: docs/development/vehicle-real-figures-design.md.
+
+### Added
+
+- GTek's L-ATV gets the real vehicle's engine power, the Allison 2500's six ratios, its weight, tyres and four-wheel drive, and its 740 A alternator. Its power was never published, so it uses the transmission's published ceiling, and says so.
+- Real engine power, weights and gearboxes, where published, for the MaxxPro, the Humvee, the Land Cruiser J70, the T-54, the Wiesel, the M113 and M113(M), the M48H, the M10 Booker, the M2A3 Bradley, the four BMP-1s and both M1A2s.
+
+### Changed
+
+- RimThunder's "M1075 HEMTT" is the PLS truck, so it now has the PLS's engine, gearbox, weight and 260 A electrics.
+- The Humvee's alternator now cites the Army manual (60 to 400 A at 28 V); it keeps 60 A.
+
+### Compatibility and limits
+
+- Unpublished figures (several gear ratios, some rated speeds, every torque curve) are authored and labelled. Combat weights include crew and ammunition the model adds again (small).
+
+### Save compatibility
+
+- Safe to add to and remove from a running colony: nothing new is saved.
+
 ## [0.3.0] - 2026-11-09 - Draft
 
 Power and lift: the owner's approved proposals of 9 November 2026, part 1. **Not yet tested in game.**

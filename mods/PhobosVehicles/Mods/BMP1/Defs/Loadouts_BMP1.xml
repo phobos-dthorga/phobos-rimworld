@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    BMP-1 IFV (Vehicle Framework): all four variants share the BMP-1's UTD-20 engine and weight (PhobosDrivetrain_BMP1). Their
+    engines and gearboxes are in the mod's parent Def (BMP1_RuntimeBase), which is why they showed no engine part as written. Not
+    yet tested in game.
+  -->
+  <Phobos.VehicleSystems.PhobosVehicleLoadoutDef ParentName="PhobosVehicleLoadoutLandHeavy">
+    <defName>PhobosVehicleLoadout_BMP1</defName>
+    <label>BMP-1 infantry fighting vehicle</label>
+    <priority>Vehicle</priority>
+    <selector>
+      <vehicleDefs>
+        <li>BMP1_Vehicle</li>
+        <li>BMP1P_Vehicle</li>
+        <li>BMP1PG_Vehicle</li>
+        <li>BMP1AM_Vehicle</li>
+      </vehicleDefs>
+      <massMin>-1</massMin>
+    </selector>
+    <drivetrain>
+      <def>PhobosDrivetrain_BMP1</def>
+    </drivetrain>
+  </Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
+</Defs>
