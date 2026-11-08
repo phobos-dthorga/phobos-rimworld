@@ -44,6 +44,31 @@ testing is the owner's and is not listed here; each mod's changelog says what is
 | R5 | After a nuke, an ally's RimPacts assault "never eventuated" and the battle was lost; about twelve towns were lost later | RimPacts trims the assault to the defenders left standing, about two after the strike ([record](missile-patches.md)) | Done: Patches 0.11.1 (0.11.0's version did not work: RimPacts capped the squad before our trim). The towns: RimPacts' world war quest deadline (3 days from accepting) passed before the battle; its daily check failed the war and moved control of 11 towns. RimPacts' rule, recorded in the README; Patches 0.12.0 gives the quest the game's own countdown (owner's request); Patches 0.13.0 stops Visit Settlements closing a battle map under the owner's force (bug report drafted in the missile record) |
 | R4 | (Found in the log) 7,662 errors from the IRBM strike job after loading another game | The job named a closed map in a log line, and the Framework's queue could not empty itself | Done: Framework 0.8.1 and Patches 0.11.0 |
 
+## Vehicles (from 8 Nov 2026)
+
+Added 9 Nov 2026: the vehicle work of 8 and 9 November did not update this file as it went. Records:
+[vehicle systems](vehicle-systems-design.md), [utility vehicles](utility-vehicles-design.md), and the dated records they link.
+
+| # | Item | Mod | Owner's decision | Status |
+| --- | --- | --- | --- | --- |
+| V1 | Vehicle systems: battery, coolant, oil, wear and services, tyres, brakes, drivetrains, gas turbines, power and lift, steam, Combat Extended corrections, the world map and the cab, the Dashboard and Systems tabs, booster packs, world-map ground, cab moods, RimHUD | Framework 0.9.0 to 0.18.0, Vehicles 0.1.0 to 0.7.0 | Approved in parts | Done; not yet tested in game |
+| V2 | What a service uses for oil and coolant (chemfuel stands in; with Dubs Bad Hygiene coolant could be its water) | Framework | Unsure (9 Nov 2026) | Open |
+| V3 | The utility vehicles: a tanker first, then survey truck, drill rig, tipper hauler, generator set | Vehicles | Yes, after the framework | Open: waits for vehicle body art (V4) |
+| V4 | Vehicle body art through OpenAI's image API (an engine in `scripts/art-run.py`); icons on the owner's local model | art | OpenAI for bodies, local for icons (9 Nov 2026) | Open: waits for the owner's API key, and the GPU go for icons |
+| V5 | Systems for electric vehicles | Framework | Not asked | Open |
+| V6 | The M1A2's APU upgrade node; "drop the stores" for a jet too heavy to land vertically | Vehicles, Patches | Proposed | Deferred: the APU needs a patch to RimThunder's upgrade trees |
+| V7 | Engine sound pitched by engine speed | Framework | Later | Deferred: only if Vehicle Framework exposes the sustainer |
+| V8 | Kerb mass of 12 kg per Vehicle Framework mass unit for retrofitted vehicles, checked for outliers (dirt bikes, tanks) | Framework | Starting figure | Open (named vehicles in D'thorga Vehicles carry real masses) |
+| V9 | When Vehicle Framework ships for 1.7: rebuild, and re-check the tab hook's order, the caravan patches' method names, and the part icons and colours the Systems tab leaves out | Framework | Expected | Waiting on Vehicle Framework |
+| V10 | The boats, the Warbird and the Smuggler keep one engine | Vehicles | Agreed to leave out | Deferred |
+
+## Housekeeping (9 Nov 2026)
+
+| # | Item | Status |
+| --- | --- | --- |
+| K1 | `python scripts/cleanup.py --apply`: 297 old install backups, about 400 test repositories, 220 git watcher daemons | Open: the owner runs it |
+| K2 | Another session's uncommitted edits in the tree since 8 Nov 2026 (`docs/development/README.md`, `project-direction.md`, the new `rimworld-1.7-readiness.md`); this stream's lines in the first two are committed | Open: the owner to say whether that session is still at work |
+
 ## Analysis tooling (from 7 Nov 2026)
 
 Built in the shared [phobos-modkit](https://github.com/phobos-dthorga/phobos-modkit) repository and consumed here; the order and
