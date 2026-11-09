@@ -5,6 +5,17 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.20.0] - 2026-11-09 - Draft
+
+### Added
+
+- An oil well kit for the drill rig, with Rimefeller: it sinks a well from steel in its cargo, as a derrick would, and leaves the well head for a derrick to pump. A set-up survey truck also counts as the scanner a deep well needs. Not yet tested in game.
+- A groundwater sensor for the survey truck, with Dubs Bad Hygiene: while set up and selected it shows the water and marks the richest spot nearby. It never makes water. Not yet tested in game.
+
+### Dependencies
+
+- Needs D'thorga Framework 0.48.0.
+
 ## [0.19.0] - 2026-11-09 - Draft
 
 ### Added

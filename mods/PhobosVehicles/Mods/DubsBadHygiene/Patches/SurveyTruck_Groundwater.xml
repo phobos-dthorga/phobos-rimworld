@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <!-- The survey truck's groundwater sensor (docs/development/vehicle-survey-truck.md), only with Dubs Bad Hygiene. Costs authored. Node keys are saved in the game: never rename or remove one. Not yet tested in game. -->
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/Vehicles.UpgradeTreeDef[defName="Phobos_SurveyTruck_UpgradeTree"]/nodes</xpath>
+    <value>
+      <li>
+        <key>Hydrogeology</key>
+        <label>groundwater sensor</label>
+        <displayLabel>true</displayLabel>
+        <description>A resistivity reel on the boom. While the truck is set up and selected, the ground water shows, and the richest spot within 15 cells is marked. It is a little heavier on the boom, so the survey runs slightly slower.</description>
+        <icon>Phobos/Vehicles/SurveyTruck/Upgrades/Hydrogeology</icon>
+        <work>2000</work>
+        <gridCoordinate>(2, 14)</gridCoordinate>
+        <drawSize>(80, 80)</drawSize>
+        <researchPrerequisites>
+          <li>GroundPenetratingScanner</li>
+        </researchPrerequisites>
+        <upgrades>
+          <li Class="Vehicles.StatUpgrade">
+            <vehicleStats>
+              <li>
+                <def>Phobos_Hydrogeology</def>
+                <value>1</value>
+              </li>
+              <li>
+                <def>Phobos_ScanRate</def>
+                <value>-0.05</value>
+              </li>
+            </vehicleStats>
+          </li>
+        </upgrades>
+        <ingredients>
+          <Steel>80</Steel>
+          <ComponentIndustrial>4</ComponentIndustrial>
+        </ingredients>
+      </li>
+    </value>
+  </Operation>
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/Vehicles.VehicleDef[defName="Phobos_SurveyTruck"]/comps/li[@Class="Phobos.VehicleSystems.CompProperties_PhobosSurveyTruck"]</xpath>
+    <value>
+      <extras>
+        <li Class="Phobos.VehicleSystems.Hygiene.SurveyExtra_Groundwater" />
+      </extras>
+    </value>
+  </Operation>
+</Patch>

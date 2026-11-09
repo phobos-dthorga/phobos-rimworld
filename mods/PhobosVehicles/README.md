@@ -4,7 +4,7 @@ Vehicles that keep running only while they are looked after. It adds one vehicle
 vehicles of other mods you already drive the systems that match what they really are, on top of the general systems D'thorga
 Framework gives every vehicle.
 
-Version 0.19.0, built 9 November 2026 for House D'thorga. **Not yet tested in game.**
+Version 0.20.0, built 9 November 2026 for House D'thorga. **Not yet tested in game.**
 
 ## Read this first (gotchas)
 
@@ -115,6 +115,7 @@ Every source and simplification is in the loadout files under `Mods/`.
 - **Finds are the game's own deposits,** with the game's ore odds and sizes. Select the set-up truck to see them on the ground.
 - **Each find on a map takes longer than the last:** one and a half times, up to eight times.
 - **Plugged in costs no fuel:** with a powered conduit or generator within 6 cells of its small power point, it runs off the grid at 700 W.
+- **With Rimefeller, a set-up survey truck counts as the scanner a deep well needs. With Dubs Bad Hygiene, a groundwater sensor** shows the water while the truck is set up and selected, and marks the richest spot within 15 cells.
 - **Upgrades:** a geophone array (more steel) or a radiometric probe (more uranium, costs 40), not both; a long-range array that searches other lands for one ore, off the map's slowing; a powered array (three times as fast, 1,000 W, needs a grid or the battery); a large battery (runs with the engine off, and the engine starts itself to recharge it at 30%, **burning fuel with nobody at the wheel**); work lights.
 
 ## The drill rig
@@ -127,6 +128,7 @@ Every source and simplification is in the loadout files under `Mods/`.
 - **It burns 40 chemfuel a day while drilling,** unless you fit the electric power pack and have a powered grid within 6 cells.
 - **Active drilling can bring insects,** by the game's own rule and your storyteller's odds. Keep guards near it.
 - **At night, with no work lights, it drills at 80%** of its rate.
+- **With Rimefeller, the oil well kit** sinks a well at the hole when no ore is in reach, using steel from the rig's cargo and needing what a derrick needs (a working console, or a scanner or set-up survey truck for deep oil). It leaves a well head: **build a derrick over it to pump.**
 - **With Vanilla Chemfuel Expanded, the deepchem head** raises deepchem into a 300-unit buffer, at a pumpjack's rate at best. **Without the head, the rig leaves deepchem in the ground.** To empty the buffer, park a tanker with a deepchem tank within reach of its hose, set up and loading, or lay a deepchem pipe up to the rig. It never comes up as items.
 
 ## Coming later

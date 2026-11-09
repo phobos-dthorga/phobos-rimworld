@@ -98,6 +98,7 @@ def main():
     for key, colour, mark, what in (
         ('GeophoneArray', OLIVE, dots, 'three geophone dots'),
         ('RadiometricProbe', DARK, hazard, 'a hazard triangle'),
+        ('Hydrogeology', BLUE, drop, 'a drop of water'),
         ('LongRangeArray', BLUE, dish_icon, 'a dish'),
         ('PoweredArray', ORANGE, bars, 'three bars'),
         ('SurveyBattery', BLUE, plus, 'a plus sign'),
@@ -112,6 +113,7 @@ def main():
         ('ElectricPowerPack', BLUE, bolt, 'a lightning bolt'),
         ('WorkLights', DARK, lamp, 'a lamp'),
         ('DeepchemHead', OLIVE, drop, 'a drop of liquid'),
+        ('WellDrillingKit', DARK, drop, 'a drop of oil'),
     ):
         icon(upgrades / f'{key}.png', badge(colour, mark), what)
     icon(STATIONS / 'SurveyLongRange.png', badge(BLUE, dish_icon), 'a dish')

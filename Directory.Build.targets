@@ -11,6 +11,7 @@
     <!-- Vanilla Expanded Framework and Dubs Bad Hygiene ship a folder per game version. -->
     <VefAssemblies Condition="'$(VefAssemblies)' == ''">$(WorkshopRoot)\2023507013\$(GameVersion)\Assemblies</VefAssemblies>
     <DbhAssemblies Condition="'$(DbhAssemblies)' == ''">$(WorkshopRoot)\836308268\$(GameVersion)\Assemblies</DbhAssemblies>
+    <RimefellerAssemblies Condition="'$(RimefellerAssemblies)' == ''">$(WorkshopRoot)\1321849735\$(GameVersion)\Assemblies</RimefellerAssemblies>
     <!-- VFE Factory and Vehicle Framework ship only 1.6 (checked 4 November 2026); the game loads that on 1.7 and so do we. -->
     <VfeFactoryAssemblies Condition="'$(VfeFactoryAssemblies)' == ''">$(WorkshopRoot)\3686924415\1.6\Assemblies</VfeFactoryAssemblies>
     <VehicleFrameworkAssemblies Condition="'$(VehicleFrameworkAssemblies)' == ''">$(WorkshopRoot)\3014915404\1.6\Assemblies</VehicleFrameworkAssemblies>

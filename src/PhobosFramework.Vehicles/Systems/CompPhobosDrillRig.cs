@@ -20,6 +20,8 @@ public class CompProperties_PhobosDrillRig : CompProperties_PhobosRigWork
     public float pipedWorkPerUnit = 60f;
     /// <summary>Where the buffer can empty itself, besides a tanker drawing from it.</summary>
     public List<RigBufferOutlet> bufferOutlets = new();
+    /// <summary>Other work the rig can do at the hole, offered by other mods' tie-ins, tried when no ore is in reach.</summary>
+    public List<RigSideJob> sideJobs = new();
 
     public CompProperties_PhobosDrillRig() => compClass = typeof(CompPhobosDrillRig);
 }
@@ -29,6 +31,20 @@ public abstract class RigBufferOutlet
 {
     /// <summary>Takes up to this much from the rig's buffer and returns what really went.</summary>
     public abstract float Give(CompPhobosDrillRig rig, float most);
+}
+
+/// <summary>Work a rig does at its hole in place of drilling, such as sinking an oil well. Subclass it in any mod and name it in XML with Class="Namespace.ClassName". It holds no state: its progress is kept on the rig.</summary>
+public abstract class RigSideJob
+{
+    /// <summary>Whether this job is what the ground at the hole calls for.</summary>
+    public abstract bool Wanted(CompPhobosDrillRig rig);
+
+    /// <summary>Why it cannot go on now, or null.</summary>
+    public abstract string? WhyNot(CompPhobosDrillRig rig);
+
+    public abstract void Worked(CompPhobosDrillRig rig, Pawn worker, int delta);
+
+    public abstract string? InspectLine(CompPhobosDrillRig rig);
 }
 
 /// <summary>
@@ -52,6 +68,11 @@ public sealed class CompPhobosDrillRig : CompPhobosRigWork
     bool orePresent;
     bool nextIsPiped;
     float pipedProgress;
+    RigSideJob? sideJob;
+
+    /// <summary>A side job's progress and steps, kept here so a save holds them.</summary>
+    public float SideProgress;
+    public int SideSteps;
 
     public CompProperties_PhobosDrillRig Props => (CompProperties_PhobosDrillRig)props;
     protected override string DeployedSaveKey => "PhobosDrillDeployed";
@@ -116,6 +137,8 @@ public sealed class CompPhobosDrillRig : CompPhobosRigWork
         Scribe_Values.Look(ref lastInsectsTick, "PhobosDrillInsectsTick", -999999);
         Scribe_Values.Look(ref buffer, "PhobosDrillBuffer");
         Scribe_Defs.Look(ref bufferKind, "PhobosDrillBufferKind");
+        Scribe_Values.Look(ref SideProgress, "PhobosDrillSideProgress");
+        Scribe_Values.Look(ref SideSteps, "PhobosDrillSideSteps");
     }
 
     public override string? CannotDeploy()
@@ -129,6 +152,8 @@ public sealed class CompPhobosDrillRig : CompPhobosRigWork
     {
         string? why = base.WhyNoWork();
         if (why != null) return why;
+        ReadNext();
+        if (sideJob != null) return sideJob.WhyNot(this) ?? (!ElectricNow && !HasFuel ? "PhobosVehicleSystems_RigNoFuel".Translate().Resolve() : null);
         bool found = NextOre(out ThingDef? ore, out _, out _);
         if (!found && DeepDrillUtility.GetBaseResource(Vehicle.Map, Hole) == null) return "PhobosVehicleSystems_RigNothingToDrill".Translate().Resolve();
         if (found && ore != null && Piped(ore) && (BufferFull || (bufferKind != null && bufferKind != ore))) return "PhobosVehicleSystems_RigBufferFull".Translate().Resolve();
@@ -160,17 +185,23 @@ public sealed class CompPhobosDrillRig : CompPhobosRigWork
         return false;
     }
 
+    /// <summary>After a side job changes what is at the hole.</summary>
+    public void Reread() => ReadNext();
+
+    public new void Tell(string text, MessageTypeDef type) => base.Tell(text, type);
+
     protected override void RareWork()
     {
         ReadNext();
         RunOutlets();
-        if (Working) MaybeInsects();
+        if (Working && sideJob == null) MaybeInsects();
     }
 
     void ReadNext()
     {
         orePresent = NextOre(out ThingDef? ore, out _, out _);
         nextIsPiped = orePresent && ore != null && Piped(ore);
+        sideJob = orePresent ? null : Props.sideJobs.FirstOrDefault(job => job.Wanted(this));
     }
 
     void RunOutlets()
@@ -185,6 +216,11 @@ public sealed class CompPhobosDrillRig : CompPhobosRigWork
     public override void Worked(Pawn worker, int delta)
     {
         MarkWorked();
+        if (sideJob != null)
+        {
+            sideJob.Worked(this, worker, delta);
+            return;
+        }
         float factor = Vehicle.GetStatValue(RigDefOf.Phobos_DrillRate);
         if (!orePresent) factor *= Vehicle.GetStatValue(RigDefOf.Phobos_BedrockFactor);
         if (Vehicle.GetStatValue(RigDefOf.Phobos_WorkLights) <= 0f && When_Night.IsNight(Vehicle)) factor *= Props.unlitFactor;
@@ -290,7 +326,9 @@ public sealed class CompPhobosDrillRig : CompPhobosRigWork
     public override string? CompInspectStringExtra()
     {
         var lines = new List<string>();
-        if (deployed && !nextIsPiped)
+        string? side = deployed ? sideJob?.InspectLine(this) : null;
+        if (side != null) lines.Add(side);
+        else if (deployed && !nextIsPiped)
         {
             lines.Add((orePresent
                 ? "PhobosVehicleSystems_RigProgressOre".Translate((portionProgress / WorkPerPortion).ToStringPercent().Named("PROGRESS"))

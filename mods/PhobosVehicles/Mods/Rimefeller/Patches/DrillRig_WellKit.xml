@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <!-- The drill rig's oil well kit (docs/development/vehicle-drill-rig.md), only with Rimefeller. Costs authored; the steel and work of a well are read from Rimefeller's own derricks. Node keys are saved in the game: never rename or remove one. Not yet tested in game. -->
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/Vehicles.UpgradeTreeDef[defName="Phobos_DrillRig_UpgradeTree"]/nodes</xpath>
+    <value>
+      <li>
+        <key>WellDrillingKit</key>
+        <label>oil well kit</label>
+        <displayLabel>true</displayLabel>
+        <description>A casing rack and a cellar frame. Set up over oil with steel in its cargo, the rig sinks a well as a derrick would, and leaves the well head behind for a derrick to pump.</description>
+        <icon>Phobos/Vehicles/DrillRig/Upgrades/WellDrillingKit</icon>
+        <work>2500</work>
+        <gridCoordinate>(2, 14)</gridCoordinate>
+        <drawSize>(80, 80)</drawSize>
+        <researchPrerequisites>
+          <li>OilDrilling</li>
+        </researchPrerequisites>
+        <upgrades>
+          <li Class="Vehicles.StatUpgrade">
+            <vehicleStats>
+              <li>
+                <def>Phobos_WellKit</def>
+                <value>1</value>
+              </li>
+            </vehicleStats>
+          </li>
+        </upgrades>
+        <ingredients>
+          <Steel>100</Steel>
+          <ComponentIndustrial>4</ComponentIndustrial>
+        </ingredients>
+      </li>
+    </value>
+  </Operation>
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/Vehicles.VehicleDef[defName="Phobos_DrillRig"]/comps/li[@Class="Phobos.VehicleSystems.CompProperties_PhobosDrillRig"]</xpath>
+    <value>
+      <sideJobs>
+        <li Class="Phobos.VehicleSystems.Oil.RigJob_OilWell">
+          <shallowDerrick>OilWell</shallowDerrick>
+          <deepDerrick>DeepOilWell</deepDerrick>
+        </li>
+      </sideJobs>
+    </value>
+  </Operation>
+</Patch>

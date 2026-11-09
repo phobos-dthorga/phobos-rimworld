@@ -5,6 +5,12 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.48.0] - 2026-11-09 - Draft
+
+### Added
+
+- Ways for other mods' tie-ins to add work to a drill rig and readouts to a survey truck, and the first two of them: Rimefeller oil wells and Dubs Bad Hygiene groundwater. Not yet tested in game.
+
 ## [0.47.0] - 2026-11-09 - Draft
 
 ### Added

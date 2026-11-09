@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- D'thorga Framework's tie-in between its working vehicles and Rimefeller. It lives in its own load folder (Mods/VehiclesRimefeller/<version>), loaded only with both Vehicle Framework and Rimefeller active. Rimefeller's assembly is referenced
+       from the installed mod and never copied. Built for RimWorld 1.7 only. -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <RootNamespace>Phobos.VehicleSystems.Oil</RootNamespace>
+    <AssemblyName>PhobosFramework.Vehicles.Rimefeller</AssemblyName>
+    <ModFolder>PhobosFramework</ModFolder>
+    <TieInFolder>Mods/VehiclesRimefeller/</TieInFolder>
+    <UsesHarmony>true</UsesHarmony>
+    <Version>0.48.0</Version>
+    <ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>true</ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../PhobosFramework/PhobosFramework.csproj" Private="false" />
+    <ProjectReference Include="../PhobosFramework.Vehicles/PhobosFramework.Vehicles.csproj" Private="false" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Vehicles">
+      <HintPath>$(VehicleFrameworkAssemblies)\Vehicles.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="SmashTools">
+      <HintPath>$(VehicleFrameworkAssemblies)\SmashTools.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="Rimefeller">
+      <HintPath>$(RimefellerAssemblies)\Rimefeller.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+</Project>

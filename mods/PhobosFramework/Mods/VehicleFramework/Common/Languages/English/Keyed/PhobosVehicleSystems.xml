@@ -432,4 +432,12 @@
 
   <PhobosVehicleSystems_RigBufferFull>The liquid buffer is full. Park a tanker beside the rig set to load, or lay a pipe to it.</PhobosVehicleSystems_RigBufferFull>
   <PhobosVehicleSystems_RigBufferLine>Liquid buffer: {AMOUNT} of {CAPACITY}.</PhobosVehicleSystems_RigBufferLine>
+
+  <PhobosVehicleSystems_WellNoConsole>Oil is here, but a working resource console is needed to site a well.</PhobosVehicleSystems_WellNoConsole>
+  <PhobosVehicleSystems_WellNoScanner>Deep oil is here, but it takes a powered ground-penetrating scanner or a set-up survey truck to site a well.</PhobosVehicleSystems_WellNoScanner>
+  <PhobosVehicleSystems_WellNoSteel>Sinking a well needs steel in the rig's cargo.</PhobosVehicleSystems_WellNoSteel>
+  <PhobosVehicleSystems_WellProgress>Sinking a well: {STEPS} of {TOTAL} lengths of casing.</PhobosVehicleSystems_WellProgress>
+  <PhobosVehicleSystems_WellDone>{VEHICLE} has finished the well. Build a derrick over the well head to pump it.</PhobosVehicleSystems_WellDone>
+  <PhobosVehicleSystems_GroundwaterLine>Best water nearby is marked: {VALUE} in the shallow and deep layers together.</PhobosVehicleSystems_GroundwaterLine>
+  <PhobosVehicleSystems_GroundwaterNone>No water under the ground within reach.</PhobosVehicleSystems_GroundwaterNone>
 </LanguageData>

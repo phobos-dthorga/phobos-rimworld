@@ -17,6 +17,14 @@ public class SurveySensorWeight
     public float factor = 1f;
 }
 
+/// <summary>Something more a set-up truck can show. Subclass it in any mod and name it in XML with Class="Namespace.ClassName".</summary>
+public abstract class SurveyExtra
+{
+    public virtual void DrawSelected(CompPhobosSurveyTruck truck) { }
+
+    public virtual string? InspectLine(CompPhobosSurveyTruck truck) => null;
+}
+
 public class CompProperties_PhobosSurveyTruck : CompProperties_PhobosRigWork
 {
     /// <summary>The game's ground-penetrating and long-range scanners' own figures, from their Defs.</summary>
@@ -34,6 +42,8 @@ public class CompProperties_PhobosSurveyTruck : CompProperties_PhobosRigWork
     /// <summary>The engine's speed while recharging, as a share of the way from idle to rated: about 1,200 rpm.</summary>
     public float highIdleShare = 0.33f;
     public List<SurveySensorWeight> sensorWeights = new();
+    /// <summary>What other mods' tie-ins show while the truck is set up.</summary>
+    public List<SurveyExtra> extras = new();
 
     public CompProperties_PhobosSurveyTruck() => compClass = typeof(CompPhobosSurveyTruck);
 }
@@ -212,7 +222,19 @@ public sealed class CompPhobosSurveyTruck : CompPhobosRigWork
     public override void PostDrawExtraSelectionOverlays()
     {
         base.PostDrawExtraSelectionOverlays();
-        if (deployed) Vehicle.Map.deepResourceGrid.MarkForDraw();
+        if (!deployed) return;
+        Vehicle.Map.deepResourceGrid.MarkForDraw();
+        foreach (SurveyExtra extra in Props.extras) extra.DrawSelected(this);
+    }
+
+    /// <summary>Whether a survey truck is set up on this map, for whatever asks after a powered deep scanner.</summary>
+    public static bool AnySetUp(Map map)
+    {
+        foreach (Pawn pawn in map.mapPawns.SpawnedPawnsInFaction(Faction.OfPlayer))
+        {
+            if (pawn is VehiclePawn vehicle && vehicle.GetComp<CompPhobosSurveyTruck>() is { Deployed: true }) return true;
+        }
+        return false;
     }
 
     public void SetLongRange(bool on)
@@ -251,6 +273,11 @@ public sealed class CompPhobosSurveyTruck : CompPhobosRigWork
         if (note != null) lines.Add(note);
         else if (power.Recharging) lines.Add("PhobosVehicleSystems_SurveyRecharging".Translate().Resolve());
         lines.Add("PhobosVehicleSystems_SurveyProgress".Translate((daysWorking / GuaranteedDays).ToStringPercent().Named("PROGRESS")).Resolve());
+        foreach (SurveyExtra extra in Props.extras)
+        {
+            string? line = extra.InspectLine(this);
+            if (line != null) lines.Add(line);
+        }
         return string.Join("\n", lines);
     }
 }

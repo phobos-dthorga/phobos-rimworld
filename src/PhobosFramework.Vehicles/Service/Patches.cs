@@ -26,13 +26,7 @@ public static class SurveyTruckCountsAsScanner
 {
     public static void Postfix(ref bool __result, Map ___map)
     {
-        if (__result) return;
-        foreach (Pawn pawn in ___map.mapPawns.SpawnedPawnsInFaction(Faction.OfPlayer))
-        {
-            if (pawn is not VehiclePawn vehicle || vehicle.GetComp<CompPhobosSurveyTruck>() is not { Deployed: true }) continue;
-            __result = true;
-            return;
-        }
+        if (!__result) __result = CompPhobosSurveyTruck.AnySetUp(___map);
     }
 }
 

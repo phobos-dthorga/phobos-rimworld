@@ -11,6 +11,7 @@
     <li IfModActive="SmashPhil.VehicleFramework">Mods/VehicleFramework/Common</li>
     <li IfModActive="SmashPhil.VehicleFramework">Mods/VehicleFramework/1.7</li>
     <li IfModActiveAll="SmashPhil.VehicleFramework,Dubwise.DubsBadHygiene">Mods/VehiclesHygiene/1.7</li>
+    <li IfModActiveAll="SmashPhil.VehicleFramework,dubwise.rimefeller">Mods/VehiclesRimefeller/1.7</li>
     <li IfModActiveAll="SmashPhil.VehicleFramework,OskarPotocki.VanillaFactionsExpanded.Core">Mods/VehiclesPipes/1.7</li>
     <li IfModActiveAll="SmashPhil.VehicleFramework,Jaxe.RimHUD">Mods/VehiclesRimHUD/Common</li>
     <li IfModActiveAll="SmashPhil.VehicleFramework,OskarPotocki.VanillaFactionsExpanded.Core">Mods/VehiclesOutposts/Common</li>
