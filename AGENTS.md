@@ -215,8 +215,13 @@ delivered, record the delivery in the changelog or design record, and add or ame
   IDs grow at every load and overflow; `scripts/check-mod-layout.py` enforces it): `PhobosBombMk82Case`, not `PhobosBombCaseMk82`.
 - **Names players see are plain and unassuming**, so people can look them up and remember them (owner, 9 Nov 2026: "It's all
   about brand awareness"): `D'thorga <Plain Word>`, as in D'thorga Framework and D'thorga Medical, however lovely a fancier name
-  is. Check a name is not already taken in that game's mods before using it. The radio framework's public name is an open
-  question in its design.
+  is. The word after D'thorga says what the thing does. Check a name is not already taken in that game's mods before using it.
+  The radio framework's public name is an open question in its design.
+- **D'thorga is the one brand for everything new, in every game** (owner, 9 Nov 2026). Older mods named Phobos take the new display
+  name when the owner next returns to that game, never in a sweep, and display names only: `packageId`, defNames, repository names
+  and anything a save can hold stay as they are.
+- **Every public page also carries the spelling "dthorga"** (owner, 9 Nov 2026), without the apostrophe, in the Workshop description
+  and the README's opening, so a search spelled either way finds us. Searching GitHub or the web for "dthorga" found none of our work.
 
 ## RimWorld engineering
 
