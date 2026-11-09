@@ -1,0 +1,82 @@
+"""Draw the submersible's Dive and Surface button icons with Pillow, in the game's look. No image generator and no game or other author's art is
+involved; each has a record beside it, as the vehicle systems icons do.
+
+    python assets/phobos-vehicles/draw_dive_icons.py
+"""
+import hashlib
+from pathlib import Path
+
+from PIL import Image, ImageDraw
+
+ROOT = Path(__file__).resolve().parents[2]
+TEXTURES = ROOT / 'mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems'
+WORK = 512
+FINAL = 128
+OUTLINE = (24, 24, 26, 255)
+HULL = (92, 100, 110, 255)
+WATER = (84, 140, 190, 255)
+ORANGE = (214, 124, 44, 255)
+LINE = 18
+
+
+def water_line(draw, y):
+    """Three humps of a wave across the picture."""
+    points = []
+    for x in range(30, 483, 6):
+        phase = (x - 30) / 151 * 2 * 3.14159
+        from math import sin
+        points.append((x, y + 14 * sin(phase)))
+    draw.line(points, fill=OUTLINE, width=LINE + 14, joint='curve')
+    draw.line(points, fill=WATER, width=LINE - 2, joint='curve')
+
+
+def hull(draw, y):
+    """A submarine from the side: a long rounded body with a small tower."""
+    draw.rounded_rectangle((200, y - 62, 300, y + 10), radius=14, fill=HULL, outline=OUTLINE, width=LINE)
+    draw.rounded_rectangle((60, y, 452, y + 96), radius=48, fill=HULL, outline=OUTLINE, width=LINE)
+
+
+def arrow(draw, x, top, bottom, down):
+    """A short thick arrow, pointing down or up."""
+    head = 58
+    if down:
+        points = [(x - 22, top), (x + 22, top), (x + 22, bottom - head), (x + 54, bottom - head), (x, bottom), (x - 54, bottom - head), (x - 22, bottom - head)]
+    else:
+        points = [(x - 22, bottom), (x + 22, bottom), (x + 22, top + head), (x + 54, top + head), (x, top), (x - 54, top + head), (x - 22, top + head)]
+    draw.polygon(points, fill=ORANGE, outline=OUTLINE)
+    draw.line(points + [points[0]], fill=OUTLINE, width=LINE, joint='curve')
+
+
+def dive(draw):
+    water_line(draw, 120)
+    hull(draw, 300)
+    arrow(draw, 404, 150, 300, True)
+
+
+def surface(draw):
+    hull(draw, 170)
+    water_line(draw, 340)
+    arrow(draw, 256, 330, 490, False)
+
+
+ICONS = [
+    ('Dive', dive, 'a submarine below a wave line with an orange arrow pointing down'),
+    ('Surface', surface, 'a submarine above a wave line with an orange arrow pointing up'),
+]
+
+
+def main():
+    for name, drawing, what in ICONS:
+        image = Image.new('RGBA', (WORK, WORK), (0, 0, 0, 0))
+        drawing(ImageDraw.Draw(image))
+        path = TEXTURES / f'{name}.png'
+        image.resize((FINAL, FINAL), Image.LANCZOS).save(path)
+        digest = hashlib.sha256(path.read_bytes()).hexdigest()
+        path.with_suffix('.record.md').write_text(
+            f'# {path.stem}\n\n**Drawn in code** by `assets/phobos-vehicles/draw_dive_icons.py` (Pillow): {what}. No image generator, no reference '
+            f'images and no game or other author\'s art.\n\n- `{path.name}`: SHA-256 `{digest}`\n', encoding='utf-8', newline='\n')
+        print(path.name)
+
+
+if __name__ == '__main__':
+    main()

@@ -30,6 +30,27 @@ public static class VehicleSystemsDebugActions
         }
     }
 
+    /// <summary>A submersible with a crew at the clicked cell, for trying one out: a dive needs deep water, and a design may not be buildable.</summary>
+    [DebugAction(DebugCategory.Name, "Vehicle systems: spawn a submersible", allowedGameStates = AllowedGameStates.PlayingOnMap)]
+    static List<DebugActionNode> SpawnSubmersible()
+    {
+        var nodes = new List<DebugActionNode>();
+        foreach (VehicleDef def in DefDatabase<VehicleDef>.AllDefs.Where(d => d.GetCompProperties<CompProperties_PhobosSubmersible>() != null))
+        {
+            VehicleDef chosen = def;
+            nodes.Add(new DebugActionNode(def.defName, DebugActionType.ToolMap, () => VehicleSpawner.SpawnVehicleRandomized(chosen, UI.MouseCell(), Find.CurrentMap, Faction.OfPlayer, Rot4.North, autoFill: true)));
+        }
+        return nodes;
+    }
+
+    /// <summary>Leaves the selected submersibles a few minutes of reserve, so a forced return to the surface can be seen without waiting hours.</summary>
+    [DebugAction(DebugCategory.Name, "Vehicle systems: nearly empty a submersible", allowedGameStates = AllowedGameStates.PlayingOnMap)]
+    static void NearlyEmptySubmersible()
+    {
+        const float AFewGameMinutes = 0.1f;
+        foreach (VehiclePawn vehicle in Find.Selector.SelectedObjects.OfType<VehiclePawn>()) Submersibles.CompOf(vehicle)?.SetReserveForTesting(AFewGameMinutes);
+    }
+
     [DebugAction(DebugCategory.Name, "Vehicle systems: set a quantity", allowedGameStates = AllowedGameStates.PlayingOnMap)]
     static List<DebugActionNode> SetQuantity()
     {

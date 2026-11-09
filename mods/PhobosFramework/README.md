@@ -5,7 +5,7 @@ colonist is breathing, makes fires fill roofed rooms with the game's own smoke w
 carries carbon monoxide from fires, holds the per-person care choices the D'thorga medical mods offer, and holds the small
 helpers every D'thorga mod shares.
 
-Version 0.57.1, built 9 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
+Version 0.58.0, built 9 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
 oxygen working through Burns and Smoke and Medical Equipment (5 November 2026). The health layer new in 0.3.0 and the **vehicle
 systems new in 0.9.0, and their engines, drivetrains and gas turbines new in 0.11.0, are not yet tested in game.** The rest is read from the game's and the mods' code.
 
@@ -231,6 +231,14 @@ The new button on a vehicle's **Dashboard** opens **Fittings and tunes**, for an
 - **Part grades** (new in 0.41.0; not yet tested in game): salvaged parts are cheap, frail and fault-prone and cannot hold a fitting; heavy-duty parts cost more, take more punishment and shrug off faults. Choose one on the **Grade** button when a part is destroyed, or to refit a working part, which uses up the old one.
 - Every figure is authored, to be tuned in play.
 
+### Submersibles (new in 0.58.0; not yet tested in game)
+
+- **A boat built to dive gets Dive and Surface buttons.** It needs deep water under its whole hull, enough crew, sound ballast tanks and pressure hull, and some air and charge in reserve. A refusal says which.
+- **Under the water** it shows as a dark shape. Nothing picks it as a target, only explosions reach it, most guns hold fire and nobody can get out.
+- **The reserve** runs down while under, faster on the move, and refills on the surface. The boat comes up by itself if the reserve runs out, the water gets shallow or a vital part is badly damaged.
+- **A caravan of nothing but submersibles** can dive together over water tiles, and is then safe from ambushes, demands and meetings.
+- **No finished submarine exists yet.** Only a dev-mode test hull in D'thorga Vehicles does.
+
 ### Checking it yourself (dev mode)
 
 - **"Vehicle systems: run the self-test"** reads every vehicle you have, then exercises fittings, tunes, part replacement and grades on a throwaway vehicle, and opens a pass or fail report. Nothing in your colony is touched. Every load in dev mode also checks your vehicles by itself.
@@ -248,6 +256,8 @@ The new button on a vehicle's **Dashboard** opens **Fittings and tunes**, for an
   8 November 2026 and the Def tool read it.
 
 ## For modders
+
+**Submersibles (Vehicle Framework).** Give a Sea vehicle a `Phobos.VehicleSystems.CompProperties_PhobosSubmersible` and the stats `Phobos_DiveEndurance` (hours) and `Phobos_DiveControl`, and list those stats in the categories of the parts that feed them. Every figure is optional in XML; [the design](../../docs/development/submarine-framework.md) lists the fields.
 
 Read what a pawn breathes:
 

@@ -5,6 +5,18 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.25.0] - 2026-11-09 - Draft
+
+From the owner's request for a framework for submarines (9 November 2026). **Not yet tested in game.**
+
+### Added
+
+- A submarine test hull, for trying out the framework's diving. It cannot be built: it appears only through a dev action, borrows the bulk tanker's picture and has no upgrades. It is not a finished design.
+
+### Save compatibility
+
+- Safe to add. Delete any test hull before removing this mod.
+
 ## [0.23.2] - 2026-11-09 - Draft
 
 ### Changed

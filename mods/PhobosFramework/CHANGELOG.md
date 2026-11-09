@@ -5,6 +5,26 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.58.0] - 2026-11-09 - Draft
+
+From the owner's request for a framework for submarines (9 November 2026). **Not yet tested in game.**
+
+### Added
+
+- Submersibles: any boat can be made to dive with one comp and two stats in its XML. A boat over deep water can dive and surface with a short delay, and says why when it will not.
+- Under the water a boat is drawn as a dark shape, nothing picks it as a target, only explosions reach it and at half strength by default, most of its guns hold fire, and nobody can get out.
+- A reserve of air and charge runs down while under, three times as fast on the move by default, and refills on the surface. A boat that runs out, reaches shallow water or has its ballast or pressure hull badly damaged comes up and says why.
+- A caravan made up wholly of submersibles can dive as one over water tiles, and is then no target for ambushes, demands or meetings.
+- For testing, in dev mode: an action that places a crewed submersible on the map and one that nearly empties its reserve.
+
+### Save compatibility
+
+- Safe to add to an existing save. Nothing changes for a vehicle without the new comp, and no existing vehicle has it.
+
+### Compatibility and limits
+
+- A boat under the water still claims its cells and leaves a wake, fuel burns as usual, and a submerged caravan is not stopped from visiting a settlement. Combat Extended's targeting of a hidden boat is untested.
+
 ## [0.57.1] - 2026-11-09 - Draft
 
 From the owner's Harrier, which came down on fire short of home. **Not yet tested in game.**

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <!-- D'thorga Framework's submersibles. Text a player reads in play describes the boat and what to do, never a mod or a setting (AGENTS.md). -->
+
+  <!-- Buttons -->
+  <PhobosSubmersible_GizmoDive>Dive</PhobosSubmersible_GizmoDive>
+  <PhobosSubmersible_GizmoDiveDesc>Flood the ballast tanks and go under, which takes {SECONDS} seconds. Under the water nothing can see the boat or shoot at it, and only an explosion can reach it. It cannot fire most of its guns or land anyone, and it runs down its air and charge, faster on the move.</PhobosSubmersible_GizmoDiveDesc>
+  <PhobosSubmersible_GizmoSurface>Surface</PhobosSubmersible_GizmoSurface>
+  <PhobosSubmersible_GizmoSurfaceDesc>Blow the tanks and come up, which takes {SECONDS} seconds. The boat can be seen from the moment it starts to rise. On the surface it takes on air and charges up again.</PhobosSubmersible_GizmoSurfaceDesc>
+
+  <!-- What the boat is doing -->
+  <PhobosSubmersible_Line>{STATE}. Air and charge: {LEFT} of {FULL} hours.</PhobosSubmersible_Line>
+  <PhobosSubmersible_CaravanLine>{VEHICLE}: {STATE}</PhobosSubmersible_CaravanLine>
+  <PhobosSubmersible_PhaseSurfaced>On the surface</PhobosSubmersible_PhaseSurfaced>
+  <PhobosSubmersible_PhaseDiving>Flooding the tanks</PhobosSubmersible_PhaseDiving>
+  <PhobosSubmersible_PhaseUnder>Under the water</PhobosSubmersible_PhaseUnder>
+  <PhobosSubmersible_PhaseSurfacing>Blowing the tanks</PhobosSubmersible_PhaseSurfacing>
+
+  <!-- What an order did -->
+  <PhobosSubmersible_ToldDiving>{VEHICLE} is flooding its tanks.</PhobosSubmersible_ToldDiving>
+  <PhobosSubmersible_ToldUnder>{VEHICLE} is under the water.</PhobosSubmersible_ToldUnder>
+  <PhobosSubmersible_ToldSurfacing>{VEHICLE} is coming up.</PhobosSubmersible_ToldSurfacing>
+
+  <!-- Why it will not dive -->
+  <PhobosSubmersible_RefuseNotSurfaced>{VEHICLE} has to be fully on the surface first.</PhobosSubmersible_RefuseNotSurfaced>
+  <PhobosSubmersible_RefuseCrew>{VEHICLE} does not have enough crew aboard to dive.</PhobosSubmersible_RefuseCrew>
+  <PhobosSubmersible_RefusePart>The {PART} is too badly damaged to dive with. Mend it first.</PhobosSubmersible_RefusePart>
+  <PhobosSubmersible_RefuseReserve>{VEHICLE} needs more air and charge first. Wait on the surface.</PhobosSubmersible_RefuseReserve>
+  <PhobosSubmersible_RefuseShallow>The water here is too shallow for {VEHICLE} to dive. Every part of the hull has to be over deep water.</PhobosSubmersible_RefuseShallow>
+  <PhobosSubmersible_RefuseLanding>{VEHICLE} has to surface before anyone can get out.</PhobosSubmersible_RefuseLanding>
+
+  <!-- Why it had to come up -->
+  <PhobosSubmersible_UpEmpty>{VEHICLE} ran out of air and charge and had to surface.</PhobosSubmersible_UpEmpty>
+  <PhobosSubmersible_UpPart>{VEHICLE} had to surface: its {PART} is too badly damaged to stay under.</PhobosSubmersible_UpPart>
+  <PhobosSubmersible_UpShallow>{VEHICLE} ran into shallow water and had to surface.</PhobosSubmersible_UpShallow>
+</LanguageData>

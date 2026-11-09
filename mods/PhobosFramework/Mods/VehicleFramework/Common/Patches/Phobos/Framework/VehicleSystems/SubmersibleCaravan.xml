@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <!-- Every vehicle caravan carries the submersibles' caravan comp: the reserve of any boats in it, and the order to go under as one
+       (docs/development/submarine-framework.md). It does nothing for a caravan with no submersible in it. Vehicle Framework's VehicleCaravan Def already has a comps list. -->
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/WorldObjectDef[defName="VehicleCaravan"]/comps</xpath>
+    <value>
+      <li>
+        <compClass>Phobos.VehicleSystems.WorldObjectComp_PhobosSubmersibleCaravan</compClass>
+      </li>
+    </value>
+  </Operation>
+</Patch>

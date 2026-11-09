@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- The two figures a submersible's parts feed (docs/development/submarine-framework.md). Put them in a Sea vehicle's vehicleStats and in its parts'
+       categories, beside a Phobos.VehicleSystems.CompProperties_PhobosSubmersible in its comps. Not yet tested in game. -->
+  <Vehicles.VehicleStatDef>
+    <defName>Phobos_DiveEndurance</defName>
+    <label>time under</label>
+    <description>How many hours of air and charge the boat can hold, sitting still. It goes three times as fast on the move, by default, and the surface refills it.</description>
+    <category>VehicleBasics</category>
+    <defaultBaseValue>0</defaultBaseValue>
+    <minValue>0</minValue>
+    <toStringStyle>FloatOne</toStringStyle>
+    <formatString>{0} h</formatString>
+    <operationType>Average</operationType>
+    <upgradeEffectType>Positive</upgradeEffectType>
+    <showOnVehicleTypes>
+      <li>Sea</li>
+      <li>Universal</li>
+    </showOnVehicleTypes>
+  </Vehicles.VehicleStatDef>
+  <Vehicles.VehicleStatDef>
+    <defName>Phobos_DiveControl</defName>
+    <label>diving trim</label>
+    <description>How well the ballast tanks and the hull hold the boat under control. Below a certain point it will not dive, and a boat already under comes up.</description>
+    <category>VehicleBasics</category>
+    <defaultBaseValue>1</defaultBaseValue>
+    <minValue>0</minValue>
+    <toStringStyle>PercentZero</toStringStyle>
+    <formatString>{0}</formatString>
+    <operationType>MinValue</operationType>
+    <upgradeEffectType>Positive</upgradeEffectType>
+    <showOnVehicleTypes>
+      <li>Sea</li>
+      <li>Universal</li>
+    </showOnVehicleTypes>
+  </Vehicles.VehicleStatDef>
+</Defs>
