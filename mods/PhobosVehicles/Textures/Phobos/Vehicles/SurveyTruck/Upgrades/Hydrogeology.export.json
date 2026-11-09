@@ -1,0 +1,15 @@
+{
+  "target": "mods/PhobosVehicles/Textures/Phobos/Vehicles/SurveyTruck/Upgrades/Hydrogeology.png",
+  "source": "assets/phobos-vehicles/generated/upgrade-survey-Hydrogeology/upgrade-survey-Hydrogeology-1.png",
+  "source_sha256": "50ba8a0b9ea6c6b7759397c46bc83728848efdbefeb954efb2ebb94a697bf24f",
+  "target_sha256": "0f10bf27bbf6c59b5b34edd64f9073c1adf3326713e76fe4fa60eb8518f9884c",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": true,
+  "date": "2026-11-09T20:20:33",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

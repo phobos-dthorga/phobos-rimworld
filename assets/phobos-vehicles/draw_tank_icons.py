@@ -176,6 +176,3 @@ if __name__ == '__main__':
     write(BUTTONS, 'TwoCompartments', two_compartments, 'a tank divided in two')
     write(BUTTONS, 'ThreeCompartments', three_compartments, 'a tank divided in three')
     write(BUTTONS, 'BulkOrder', bulk_order, 'a tank with a silver coin')
-    write(PARTS, 'EngineAssembly', engine, 'an olive engine block with three cylinder heads')
-    write(PARTS, 'DrivetrainKit', drivetrain, 'an axle with two tyres and a gearbox')
-    write(PARTS, 'ElectricalKit', electrical, 'an olive box with an orange lightning bolt')

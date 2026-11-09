@@ -1,0 +1,594 @@
+[
+  {
+    "name": "part-drivetrain-kit",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 816,
+    "height": 816,
+    "seeds": [
+      1,
+      2
+    ],
+    "references": [
+      {
+        "image": "assets/phobos-vehicles/generated/part-engine-assembly/part-engine-assembly-2.png",
+        "role": "approved component of the same family: match its outline weight, shading, palette, camera angle and finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "item": "shown at the game's 64 px item size"
+    },
+    "prompt": "GAME ITEM ICON. Camera above the object looking down at about sixty degrees, the way the game RimWorld draws loose items on the floor. One single object, centred.\n\nCreate an ORIGINAL game item sprite: the D'thorga drivetrain kit: a heavy truck axle with its differential, ready to fit. Image 1 is our approved component from the same family: match its outline weight, shading, palette, camera angle and finish only. Do NOT copy its shape.\n\nDraw ONLY this object, alone on a plain pure white background, filling about 75 percent of the canvas. Square canvas.\n\nA long dark steel axle running across the canvas, a round olive differential housing at its middle, one plain wheel hub at each end, strapped to a small steel skid, one muted orange lifting strap.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Dusty olive, dark grey, pale steel, one muted orange accent. Not a photograph, not a 3D render, not pixel art. It must read clearly when shrunk to 64 pixels: three big shapes, few small ones.\n\nNo people, animals, vehicle, text, letters, numbers, logos, dust, floor, ground or cast shadow."
+  },
+  {
+    "name": "part-electrical-kit",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 816,
+    "height": 816,
+    "seeds": [
+      1,
+      2
+    ],
+    "references": [
+      {
+        "image": "assets/phobos-vehicles/generated/part-engine-assembly/part-engine-assembly-2.png",
+        "role": "approved component of the same family: match its outline weight, shading, palette, camera angle and finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "item": "shown at the game's 64 px item size"
+    },
+    "prompt": "GAME ITEM ICON. Camera above the object looking down at about sixty degrees, the way the game RimWorld draws loose items on the floor. One single object, centred.\n\nCreate an ORIGINAL game item sprite: the D'thorga electrical kit: a box of vehicle electrics. Image 1 is our approved component from the same family: match its outline weight, shading, palette, camera angle and finish only. Do NOT copy its shape.\n\nDraw ONLY this object, alone on a plain pure white background, filling about 75 percent of the canvas. Square canvas.\n\nAn open olive steel crate holding a fat coil of black wiring loom, a plain alternator with a pulley, and a small dark battery with one muted orange terminal cover.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Dusty olive, dark grey, pale steel, one muted orange accent. Not a photograph, not a 3D render, not pixel art. It must read clearly when shrunk to 64 pixels: three big shapes, few small ones.\n\nNo people, animals, vehicle, text, letters, numbers, logos, dust, floor, ground or cast shadow."
+  },
+  {
+    "name": "part-transmission",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 816,
+    "height": 816,
+    "seeds": [
+      1,
+      2
+    ],
+    "references": [
+      {
+        "image": "assets/phobos-vehicles/generated/part-engine-assembly/part-engine-assembly-2.png",
+        "role": "approved component of the same family: match its outline weight, shading, palette, camera angle and finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "item": "shown at the game's 64 px item size"
+    },
+    "prompt": "GAME ITEM ICON. Camera above the object looking down at about sixty degrees, the way the game RimWorld draws loose items on the floor. One single object, centred.\n\nCreate an ORIGINAL game item sprite: a heavy truck gearbox, ready to fit. Image 1 is our approved component from the same family: match its outline weight, shading, palette, camera angle and finish only. Do NOT copy its shape.\n\nDraw ONLY this object, alone on a plain pure white background, filling about 75 percent of the canvas. Square canvas.\n\nA ribbed dark grey cast casing, longer than it is wide, with a round bell housing at one end, an output shaft at the other, an olive top cover with plain bolts, one muted orange drain plug, on a small steel skid.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Dusty olive, dark grey, pale steel, one muted orange accent. Not a photograph, not a 3D render, not pixel art. It must read clearly when shrunk to 64 pixels: three big shapes, few small ones.\n\nNo people, animals, vehicle, text, letters, numbers, logos, dust, floor, ground or cast shadow."
+  },
+  {
+    "name": "part-turbine-assembly",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 816,
+    "height": 816,
+    "seeds": [
+      1,
+      2
+    ],
+    "references": [
+      {
+        "image": "assets/phobos-vehicles/generated/part-engine-assembly/part-engine-assembly-2.png",
+        "role": "approved component of the same family: match its outline weight, shading, palette, camera angle and finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "item": "shown at the game's 64 px item size"
+    },
+    "prompt": "GAME ITEM ICON. Camera above the object looking down at about sixty degrees, the way the game RimWorld draws loose items on the floor. One single object, centred.\n\nCreate an ORIGINAL game item sprite: a gas turbine engine unit for a heavy vehicle. Image 1 is our approved component from the same family: match its outline weight, shading, palette, camera angle and finish only. Do NOT copy its shape.\n\nDraw ONLY this object, alone on a plain pure white background, filling about 75 percent of the canvas. Square canvas.\n\nA long pale steel cylinder with a wide round air intake with visible fan blades at one end, a narrower exhaust at the other, olive support collars, one muted orange band, on a small two-rail steel skid.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Dusty olive, dark grey, pale steel, one muted orange accent. Not a photograph, not a 3D render, not pixel art. It must read clearly when shrunk to 64 pixels: three big shapes, few small ones.\n\nNo people, animals, vehicle, text, letters, numbers, logos, dust, floor, ground or cast shadow."
+  },
+  {
+    "name": "part-jump-start-kit",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 816,
+    "height": 816,
+    "seeds": [
+      1,
+      2
+    ],
+    "references": [
+      {
+        "image": "assets/phobos-vehicles/generated/part-engine-assembly/part-engine-assembly-2.png",
+        "role": "approved component of the same family: match its outline weight, shading, palette, camera angle and finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "item": "shown at the game's 64 px item size"
+    },
+    "prompt": "GAME ITEM ICON. Camera above the object looking down at about sixty degrees, the way the game RimWorld draws loose items on the floor. One single object, centred.\n\nCreate an ORIGINAL game item sprite: a set of heavy jump leads for starting vehicles. Image 1 is our approved component from the same family: match its outline weight, shading, palette, camera angle and finish only. Do NOT copy its shape.\n\nDraw ONLY this object, alone on a plain pure white background, filling about 75 percent of the canvas. Square canvas.\n\nTwo thick cables, one muted orange and one black, loosely coiled together, each ending in a pair of large steel clamps, lying on top of a small olive steel case.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Dusty olive, dark grey, pale steel, one muted orange accent. Not a photograph, not a 3D render, not pixel art. It must read clearly when shrunk to 64 pixels: three big shapes, few small ones.\n\nNo people, animals, vehicle, text, letters, numbers, logos, dust, floor, ground or cast shadow."
+  },
+  {
+    "name": "part-booster-pack",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 816,
+    "height": 816,
+    "seeds": [
+      1,
+      2
+    ],
+    "references": [
+      {
+        "image": "assets/phobos-vehicles/generated/part-engine-assembly/part-engine-assembly-2.png",
+        "role": "approved component of the same family: match its outline weight, shading, palette, camera angle and finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "item": "shown at the game's 64 px item size"
+    },
+    "prompt": "GAME ITEM ICON. Camera above the object looking down at about sixty degrees, the way the game RimWorld draws loose items on the floor. One single object, centred.\n\nCreate an ORIGINAL game item sprite: a portable battery booster pack for starting vehicles. Image 1 is our approved component from the same family: match its outline weight, shading, palette, camera angle and finish only. Do NOT copy its shape.\n\nDraw ONLY this object, alone on a plain pure white background, filling about 75 percent of the canvas. Square canvas.\n\nA chunky olive carrying case with a thick pale steel handle on top, two short heavy cable stubs with clamps at the front, and one muted orange charge strip across the front face.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Dusty olive, dark grey, pale steel, one muted orange accent. Not a photograph, not a 3D render, not pixel art. It must read clearly when shrunk to 64 pixels: three big shapes, few small ones.\n\nNo people, animals, vehicle, text, letters, numbers, logos, dust, floor, ground or cast shadow."
+  },
+  {
+    "name": "upgrade-survey-GeophoneArray",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 816,
+    "height": 816,
+    "seeds": [
+      1
+    ],
+    "references": [
+      {
+        "image": "assets/phobos-vehicles/generated/upgrade-diamond-bit/upgrade-diamond-bit-3.png",
+        "role": "approved upgrade icon of the same family: match its outline weight, shading, palette, camera angle and finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "icon": "survey upgrade node GeophoneArray, shown at 80 px in the upgrade tree"
+    },
+    "prompt": "GAME ITEM ICON. Camera above the object looking down at about sixty degrees, the way the game RimWorld draws loose items on the floor. One single object, centred.\n\nCreate an ORIGINAL game upgrade icon: a geophone array, a set of ground-listening spikes. Image 1 is our approved upgrade icon from the same family: match its outline weight, shading, palette, camera angle and finish only. Do NOT copy its shape.\n\nDraw ONLY this object, alone on a plain pure white background, filling about 75 percent of the canvas. Square canvas.\n\nFive plain steel spikes with small round dark olive caps, standing in a straight line on a thin pale steel bar, with one muted orange cable along the bar.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Dusty olive, dark grey, pale steel, one muted orange accent. Not a photograph, not a 3D render, not pixel art. It must read clearly when shrunk to 80 pixels: one big shape, few small ones.\n\nNo people, animals, vehicle, text, letters, numbers, logos, dust, floor, ground or cast shadow."
+  },
+  {
+    "name": "upgrade-survey-RadiometricProbe",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 816,
+    "height": 816,
+    "seeds": [
+      1
+    ],
+    "references": [
+      {
+        "image": "assets/phobos-vehicles/generated/upgrade-diamond-bit/upgrade-diamond-bit-3.png",
+        "role": "approved upgrade icon of the same family: match its outline weight, shading, palette, camera angle and finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "icon": "survey upgrade node RadiometricProbe, shown at 80 px in the upgrade tree"
+    },
+    "prompt": "GAME ITEM ICON. Camera above the object looking down at about sixty degrees, the way the game RimWorld draws loose items on the floor. One single object, centred.\n\nCreate an ORIGINAL game upgrade icon: a shielded radiometric probe. Image 1 is our approved upgrade icon from the same family: match its outline weight, shading, palette, camera angle and finish only. Do NOT copy its shape.\n\nDraw ONLY this object, alone on a plain pure white background, filling about 75 percent of the canvas. Square canvas.\n\nA thick dark olive cylinder with a heavy pale steel shield collar and one muted orange hazard band around it, standing upright. No symbols on it.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Dusty olive, dark grey, pale steel, one muted orange accent. Not a photograph, not a 3D render, not pixel art. It must read clearly when shrunk to 80 pixels: one big shape, few small ones.\n\nNo people, animals, vehicle, text, letters, numbers, logos, dust, floor, ground or cast shadow."
+  },
+  {
+    "name": "upgrade-survey-LongRangeArray",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 816,
+    "height": 816,
+    "seeds": [
+      1
+    ],
+    "references": [
+      {
+        "image": "assets/phobos-vehicles/generated/upgrade-diamond-bit/upgrade-diamond-bit-3.png",
+        "role": "approved upgrade icon of the same family: match its outline weight, shading, palette, camera angle and finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "icon": "survey upgrade node LongRangeArray, shown at 80 px in the upgrade tree"
+    },
+    "prompt": "GAME ITEM ICON. Camera above the object looking down at about sixty degrees, the way the game RimWorld draws loose items on the floor. One single object, centred.\n\nCreate an ORIGINAL game upgrade icon: a long-range survey dish. Image 1 is our approved upgrade icon from the same family: match its outline weight, shading, palette, camera angle and finish only. Do NOT copy its shape.\n\nDraw ONLY this object, alone on a plain pure white background, filling about 75 percent of the canvas. Square canvas.\n\nA round pale steel dish on a short olive mast, tilted upward, with a small feed horn at its centre and one muted orange base collar.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Dusty olive, dark grey, pale steel, one muted orange accent. Not a photograph, not a 3D render, not pixel art. It must read clearly when shrunk to 80 pixels: one big shape, few small ones.\n\nNo people, animals, vehicle, text, letters, numbers, logos, dust, floor, ground or cast shadow."
+  },
+  {
+    "name": "upgrade-survey-PoweredArray",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 816,
+    "height": 816,
+    "seeds": [
+      1
+    ],
+    "references": [
+      {
+        "image": "assets/phobos-vehicles/generated/upgrade-diamond-bit/upgrade-diamond-bit-3.png",
+        "role": "approved upgrade icon of the same family: match its outline weight, shading, palette, camera angle and finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "icon": "survey upgrade node PoweredArray, shown at 80 px in the upgrade tree"
+    },
+    "prompt": "GAME ITEM ICON. Camera above the object looking down at about sixty degrees, the way the game RimWorld draws loose items on the floor. One single object, centred.\n\nCreate an ORIGINAL game upgrade icon: a powered transducer array. Image 1 is our approved upgrade icon from the same family: match its outline weight, shading, palette, camera angle and finish only. Do NOT copy its shape.\n\nDraw ONLY this object, alone on a plain pure white background, filling about 75 percent of the canvas. Square canvas.\n\nA thick rectangular dark olive slab covered with a neat grid of round pale steel transducer discs, with one muted orange power cable at one edge.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Dusty olive, dark grey, pale steel, one muted orange accent. Not a photograph, not a 3D render, not pixel art. It must read clearly when shrunk to 80 pixels: one big shape, few small ones.\n\nNo people, animals, vehicle, text, letters, numbers, logos, dust, floor, ground or cast shadow."
+  },
+  {
+    "name": "upgrade-survey-SurveyBattery",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 816,
+    "height": 816,
+    "seeds": [
+      1
+    ],
+    "references": [
+      {
+        "image": "assets/phobos-vehicles/generated/upgrade-diamond-bit/upgrade-diamond-bit-3.png",
+        "role": "approved upgrade icon of the same family: match its outline weight, shading, palette, camera angle and finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "icon": "survey upgrade node SurveyBattery, shown at 80 px in the upgrade tree"
+    },
+    "prompt": "GAME ITEM ICON. Camera above the object looking down at about sixty degrees, the way the game RimWorld draws loose items on the floor. One single object, centred.\n\nCreate an ORIGINAL game upgrade icon: a large vehicle battery. Image 1 is our approved upgrade icon from the same family: match its outline weight, shading, palette, camera angle and finish only. Do NOT copy its shape.\n\nDraw ONLY this object, alone on a plain pure white background, filling about 75 percent of the canvas. Square canvas.\n\nA big rectangular olive battery box with two chunky pale steel terminals on top, a vent louvre on the front and one muted orange carrying strap.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Dusty olive, dark grey, pale steel, one muted orange accent. Not a photograph, not a 3D render, not pixel art. It must read clearly when shrunk to 80 pixels: one big shape, few small ones.\n\nNo people, animals, vehicle, text, letters, numbers, logos, dust, floor, ground or cast shadow."
+  },
+  {
+    "name": "upgrade-survey-WorkLights",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 816,
+    "height": 816,
+    "seeds": [
+      1
+    ],
+    "references": [
+      {
+        "image": "assets/phobos-vehicles/generated/upgrade-diamond-bit/upgrade-diamond-bit-3.png",
+        "role": "approved upgrade icon of the same family: match its outline weight, shading, palette, camera angle and finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "icon": "survey upgrade node WorkLights, shown at 80 px in the upgrade tree"
+    },
+    "prompt": "GAME ITEM ICON. Camera above the object looking down at about sixty degrees, the way the game RimWorld draws loose items on the floor. One single object, centred.\n\nCreate an ORIGINAL game upgrade icon: a pair of roof work lamps. Image 1 is our approved upgrade icon from the same family: match its outline weight, shading, palette, camera angle and finish only. Do NOT copy its shape.\n\nDraw ONLY this object, alone on a plain pure white background, filling about 75 percent of the canvas. Square canvas.\n\nTwo square steel-bodied lamps with pale glass faces, side by side on a short olive bar, with one muted orange switch box at the centre of the bar.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Dusty olive, dark grey, pale steel, one muted orange accent. Not a photograph, not a 3D render, not pixel art. It must read clearly when shrunk to 80 pixels: one big shape, few small ones.\n\nNo people, animals, vehicle, text, letters, numbers, logos, dust, floor, ground or cast shadow."
+  },
+  {
+    "name": "upgrade-survey-Hydrogeology",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 816,
+    "height": 816,
+    "seeds": [
+      1
+    ],
+    "references": [
+      {
+        "image": "assets/phobos-vehicles/generated/upgrade-diamond-bit/upgrade-diamond-bit-3.png",
+        "role": "approved upgrade icon of the same family: match its outline weight, shading, palette, camera angle and finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "icon": "survey upgrade node Hydrogeology, shown at 80 px in the upgrade tree"
+    },
+    "prompt": "GAME ITEM ICON. Camera above the object looking down at about sixty degrees, the way the game RimWorld draws loose items on the floor. One single object, centred.\n\nCreate an ORIGINAL game upgrade icon: a groundwater resistivity reel. Image 1 is our approved upgrade icon from the same family: match its outline weight, shading, palette, camera angle and finish only. Do NOT copy its shape.\n\nDraw ONLY this object, alone on a plain pure white background, filling about 75 percent of the canvas. Square canvas.\n\nA round olive cable reel on a small steel frame with thin wire wound on it, and one muted orange electrode spike lying across the frame.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Dusty olive, dark grey, pale steel, one muted orange accent. Not a photograph, not a 3D render, not pixel art. It must read clearly when shrunk to 80 pixels: one big shape, few small ones.\n\nNo people, animals, vehicle, text, letters, numbers, logos, dust, floor, ground or cast shadow."
+  },
+  {
+    "name": "upgrade-rig-RcHammer",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 816,
+    "height": 816,
+    "seeds": [
+      1
+    ],
+    "references": [
+      {
+        "image": "assets/phobos-vehicles/generated/upgrade-diamond-bit/upgrade-diamond-bit-3.png",
+        "role": "approved upgrade icon of the same family: match its outline weight, shading, palette, camera angle and finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "icon": "rig upgrade node RcHammer, shown at 80 px in the upgrade tree"
+    },
+    "prompt": "GAME ITEM ICON. Camera above the object looking down at about sixty degrees, the way the game RimWorld draws loose items on the floor. One single object, centred.\n\nCreate an ORIGINAL game upgrade icon: a reverse-circulation hammer drill bit. Image 1 is our approved upgrade icon from the same family: match its outline weight, shading, palette, camera angle and finish only. Do NOT copy its shape.\n\nDraw ONLY this object, alone on a plain pure white background, filling about 75 percent of the canvas. Square canvas.\n\nA short fat dark steel cylinder with a threaded olive collar at the bottom; its domed face at the top is studded with round pale carbide buttons; one muted orange band.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Dusty olive, dark grey, pale steel, one muted orange accent. Not a photograph, not a 3D render, not pixel art. It must read clearly when shrunk to 80 pixels: one big shape, few small ones.\n\nNo people, animals, vehicle, text, letters, numbers, logos, dust, floor, ground or cast shadow."
+  },
+  {
+    "name": "upgrade-rig-TallMast",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 816,
+    "height": 816,
+    "seeds": [
+      1
+    ],
+    "references": [
+      {
+        "image": "assets/phobos-vehicles/generated/upgrade-diamond-bit/upgrade-diamond-bit-3.png",
+        "role": "approved upgrade icon of the same family: match its outline weight, shading, palette, camera angle and finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "icon": "rig upgrade node TallMast, shown at 80 px in the upgrade tree"
+    },
+    "prompt": "GAME ITEM ICON. Camera above the object looking down at about sixty degrees, the way the game RimWorld draws loose items on the floor. One single object, centred.\n\nCreate an ORIGINAL game upgrade icon: a tall drilling mast section. Image 1 is our approved upgrade icon from the same family: match its outline weight, shading, palette, camera angle and finish only. Do NOT copy its shape.\n\nDraw ONLY this object, alone on a plain pure white background, filling about 75 percent of the canvas. Square canvas.\n\nA tall narrow open steel lattice tower section standing upright, in dusty olive with pale steel braces, with one muted orange band near the top.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Dusty olive, dark grey, pale steel, one muted orange accent. Not a photograph, not a 3D render, not pixel art. It must read clearly when shrunk to 80 pixels: one big shape, few small ones.\n\nNo people, animals, vehicle, text, letters, numbers, logos, dust, floor, ground or cast shadow."
+  },
+  {
+    "name": "upgrade-rig-ElectricPowerPack",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 816,
+    "height": 816,
+    "seeds": [
+      1
+    ],
+    "references": [
+      {
+        "image": "assets/phobos-vehicles/generated/upgrade-diamond-bit/upgrade-diamond-bit-3.png",
+        "role": "approved upgrade icon of the same family: match its outline weight, shading, palette, camera angle and finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "icon": "rig upgrade node ElectricPowerPack, shown at 80 px in the upgrade tree"
+    },
+    "prompt": "GAME ITEM ICON. Camera above the object looking down at about sixty degrees, the way the game RimWorld draws loose items on the floor. One single object, centred.\n\nCreate an ORIGINAL game upgrade icon: an electric power pack. Image 1 is our approved upgrade icon from the same family: match its outline weight, shading, palette, camera angle and finish only. Do NOT copy its shape.\n\nDraw ONLY this object, alone on a plain pure white background, filling about 75 percent of the canvas. Square canvas.\n\nA squat olive steel switchbox with a heavy pale steel lid, beside a small round drum of thick black cable, with one muted orange isolator handle.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Dusty olive, dark grey, pale steel, one muted orange accent. Not a photograph, not a 3D render, not pixel art. It must read clearly when shrunk to 80 pixels: one big shape, few small ones.\n\nNo people, animals, vehicle, text, letters, numbers, logos, dust, floor, ground or cast shadow."
+  },
+  {
+    "name": "upgrade-rig-WorkLights",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 816,
+    "height": 816,
+    "seeds": [
+      1
+    ],
+    "references": [
+      {
+        "image": "assets/phobos-vehicles/generated/upgrade-diamond-bit/upgrade-diamond-bit-3.png",
+        "role": "approved upgrade icon of the same family: match its outline weight, shading, palette, camera angle and finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "icon": "rig upgrade node WorkLights, shown at 80 px in the upgrade tree"
+    },
+    "prompt": "GAME ITEM ICON. Camera above the object looking down at about sixty degrees, the way the game RimWorld draws loose items on the floor. One single object, centred.\n\nCreate an ORIGINAL game upgrade icon: a lamp mast. Image 1 is our approved upgrade icon from the same family: match its outline weight, shading, palette, camera angle and finish only. Do NOT copy its shape.\n\nDraw ONLY this object, alone on a plain pure white background, filling about 75 percent of the canvas. Square canvas.\n\nA slim steel pole with two square pale-glass lamps at its top on a short crossbar, standing on a small olive base with one muted orange collar.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Dusty olive, dark grey, pale steel, one muted orange accent. Not a photograph, not a 3D render, not pixel art. It must read clearly when shrunk to 80 pixels: one big shape, few small ones.\n\nNo people, animals, vehicle, text, letters, numbers, logos, dust, floor, ground or cast shadow."
+  },
+  {
+    "name": "upgrade-rig-WellDrillingKit",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 816,
+    "height": 816,
+    "seeds": [
+      1
+    ],
+    "references": [
+      {
+        "image": "assets/phobos-vehicles/generated/upgrade-diamond-bit/upgrade-diamond-bit-3.png",
+        "role": "approved upgrade icon of the same family: match its outline weight, shading, palette, camera angle and finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "icon": "rig upgrade node WellDrillingKit, shown at 80 px in the upgrade tree"
+    },
+    "prompt": "GAME ITEM ICON. Camera above the object looking down at about sixty degrees, the way the game RimWorld draws loose items on the floor. One single object, centred.\n\nCreate an ORIGINAL game upgrade icon: an oil well casing kit. Image 1 is our approved upgrade icon from the same family: match its outline weight, shading, palette, camera angle and finish only. Do NOT copy its shape.\n\nDraw ONLY this object, alone on a plain pure white background, filling about 75 percent of the canvas. Square canvas.\n\nA short stack of three thick pale steel pipes strapped together on a small olive cradle, with one muted orange ratchet strap around them.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Dusty olive, dark grey, pale steel, one muted orange accent. Not a photograph, not a 3D render, not pixel art. It must read clearly when shrunk to 80 pixels: one big shape, few small ones.\n\nNo people, animals, vehicle, text, letters, numbers, logos, dust, floor, ground or cast shadow."
+  },
+  {
+    "name": "upgrade-rig-DeepchemHead",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 816,
+    "height": 816,
+    "seeds": [
+      1
+    ],
+    "references": [
+      {
+        "image": "assets/phobos-vehicles/generated/upgrade-diamond-bit/upgrade-diamond-bit-3.png",
+        "role": "approved upgrade icon of the same family: match its outline weight, shading, palette, camera angle and finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "icon": "rig upgrade node DeepchemHead, shown at 80 px in the upgrade tree"
+    },
+    "prompt": "GAME ITEM ICON. Camera above the object looking down at about sixty degrees, the way the game RimWorld draws loose items on the floor. One single object, centred.\n\nCreate an ORIGINAL game upgrade icon: a sealed drilling head for raising a liquid. Image 1 is our approved upgrade icon from the same family: match its outline weight, shading, palette, camera angle and finish only. Do NOT copy its shape.\n\nDraw ONLY this object, alone on a plain pure white background, filling about 75 percent of the canvas. Square canvas.\n\nA squat round dark steel wellhead with a heavy bolted flange, a small olive side tank and one muted orange valve wheel on top.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Dusty olive, dark grey, pale steel, one muted orange accent. Not a photograph, not a 3D render, not pixel art. It must read clearly when shrunk to 80 pixels: one big shape, few small ones.\n\nNo people, animals, vehicle, text, letters, numbers, logos, dust, floor, ground or cast shadow."
+  },
+  {
+    "name": "upgrade-generator-BiggerAlternator",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 816,
+    "height": 816,
+    "seeds": [
+      1
+    ],
+    "references": [
+      {
+        "image": "assets/phobos-vehicles/generated/upgrade-diamond-bit/upgrade-diamond-bit-3.png",
+        "role": "approved upgrade icon of the same family: match its outline weight, shading, palette, camera angle and finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "icon": "generator upgrade node BiggerAlternator, shown at 80 px in the upgrade tree"
+    },
+    "prompt": "GAME ITEM ICON. Camera above the object looking down at about sixty degrees, the way the game RimWorld draws loose items on the floor. One single object, centred.\n\nCreate an ORIGINAL game upgrade icon: a large generator unit. Image 1 is our approved upgrade icon from the same family: match its outline weight, shading, palette, camera angle and finish only. Do NOT copy its shape.\n\nDraw ONLY this object, alone on a plain pure white background, filling about 75 percent of the canvas. Square canvas.\n\nA big ribbed dark grey cylindrical alternator on two olive feet, with a heavy pale steel end bell and one muted orange terminal box on top.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Dusty olive, dark grey, pale steel, one muted orange accent. Not a photograph, not a 3D render, not pixel art. It must read clearly when shrunk to 80 pixels: one big shape, few small ones.\n\nNo people, animals, vehicle, text, letters, numbers, logos, dust, floor, ground or cast shadow."
+  },
+  {
+    "name": "upgrade-generator-CableReel",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 816,
+    "height": 816,
+    "seeds": [
+      1
+    ],
+    "references": [
+      {
+        "image": "assets/phobos-vehicles/generated/upgrade-diamond-bit/upgrade-diamond-bit-3.png",
+        "role": "approved upgrade icon of the same family: match its outline weight, shading, palette, camera angle and finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "icon": "generator upgrade node CableReel, shown at 80 px in the upgrade tree"
+    },
+    "prompt": "GAME ITEM ICON. Camera above the object looking down at about sixty degrees, the way the game RimWorld draws loose items on the floor. One single object, centred.\n\nCreate an ORIGINAL game upgrade icon: a heavy cable reel. Image 1 is our approved upgrade icon from the same family: match its outline weight, shading, palette, camera angle and finish only. Do NOT copy its shape.\n\nDraw ONLY this object, alone on a plain pure white background, filling about 75 percent of the canvas. Square canvas.\n\nA large round olive drum wound with thick black cable, in a small pale steel frame, with one muted orange crank handle.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Dusty olive, dark grey, pale steel, one muted orange accent. Not a photograph, not a 3D render, not pixel art. It must read clearly when shrunk to 80 pixels: one big shape, few small ones.\n\nNo people, animals, vehicle, text, letters, numbers, logos, dust, floor, ground or cast shadow."
+  },
+  {
+    "name": "upgrade-generator-BatteryBuffer",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 816,
+    "height": 816,
+    "seeds": [
+      1
+    ],
+    "references": [
+      {
+        "image": "assets/phobos-vehicles/generated/upgrade-diamond-bit/upgrade-diamond-bit-3.png",
+        "role": "approved upgrade icon of the same family: match its outline weight, shading, palette, camera angle and finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "icon": "generator upgrade node BatteryBuffer, shown at 80 px in the upgrade tree"
+    },
+    "prompt": "GAME ITEM ICON. Camera above the object looking down at about sixty degrees, the way the game RimWorld draws loose items on the floor. One single object, centred.\n\nCreate an ORIGINAL game upgrade icon: a bank of batteries. Image 1 is our approved upgrade icon from the same family: match its outline weight, shading, palette, camera angle and finish only. Do NOT copy its shape.\n\nDraw ONLY this object, alone on a plain pure white background, filling about 75 percent of the canvas. Square canvas.\n\nThree chunky olive battery blocks side by side, joined by short pale steel links across their tops, with one muted orange cover at one end.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Dusty olive, dark grey, pale steel, one muted orange accent. Not a photograph, not a 3D render, not pixel art. It must read clearly when shrunk to 80 pixels: one big shape, few small ones.\n\nNo people, animals, vehicle, text, letters, numbers, logos, dust, floor, ground or cast shadow."
+  },
+  {
+    "name": "upgrade-tipper-HighSides",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 816,
+    "height": 816,
+    "seeds": [
+      1
+    ],
+    "references": [
+      {
+        "image": "assets/phobos-vehicles/generated/upgrade-diamond-bit/upgrade-diamond-bit-3.png",
+        "role": "approved upgrade icon of the same family: match its outline weight, shading, palette, camera angle and finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "icon": "tipper upgrade node HighSides, shown at 80 px in the upgrade tree"
+    },
+    "prompt": "GAME ITEM ICON. Camera above the object looking down at about sixty degrees, the way the game RimWorld draws loose items on the floor. One single object, centred.\n\nCreate an ORIGINAL game upgrade icon: tall truck side boards. Image 1 is our approved upgrade icon from the same family: match its outline weight, shading, palette, camera angle and finish only. Do NOT copy its shape.\n\nDraw ONLY this object, alone on a plain pure white background, filling about 75 percent of the canvas. Square canvas.\n\nA single tall rectangular dark steel side board panel with heavy pale steel ribs and olive corner posts, with one muted orange latch.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Dusty olive, dark grey, pale steel, one muted orange accent. Not a photograph, not a 3D render, not pixel art. It must read clearly when shrunk to 80 pixels: one big shape, few small ones.\n\nNo people, animals, vehicle, text, letters, numbers, logos, dust, floor, ground or cast shadow."
+  },
+  {
+    "name": "upgrade-tipper-RockBody",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 816,
+    "height": 816,
+    "seeds": [
+      1
+    ],
+    "references": [
+      {
+        "image": "assets/phobos-vehicles/generated/upgrade-diamond-bit/upgrade-diamond-bit-3.png",
+        "role": "approved upgrade icon of the same family: match its outline weight, shading, palette, camera angle and finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "icon": "tipper upgrade node RockBody, shown at 80 px in the upgrade tree"
+    },
+    "prompt": "GAME ITEM ICON. Camera above the object looking down at about sixty degrees, the way the game RimWorld draws loose items on the floor. One single object, centred.\n\nCreate an ORIGINAL game upgrade icon: a heavy rock tipper body. Image 1 is our approved upgrade icon from the same family: match its outline weight, shading, palette, camera angle and finish only. Do NOT copy its shape.\n\nDraw ONLY this object, alone on a plain pure white background, filling about 75 percent of the canvas. Square canvas.\n\nA short deep steel tub, thick-walled and dark grey, with a sloped back end, heavy pale steel rims and one muted orange stripe on its side. Empty.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Dusty olive, dark grey, pale steel, one muted orange accent. Not a photograph, not a 3D render, not pixel art. It must read clearly when shrunk to 80 pixels: one big shape, few small ones.\n\nNo people, animals, vehicle, text, letters, numbers, logos, dust, floor, ground or cast shadow."
+  },
+  {
+    "name": "upgrade-tipper-BulkBody",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 816,
+    "height": 816,
+    "seeds": [
+      1
+    ],
+    "references": [
+      {
+        "image": "assets/phobos-vehicles/generated/upgrade-diamond-bit/upgrade-diamond-bit-3.png",
+        "role": "approved upgrade icon of the same family: match its outline weight, shading, palette, camera angle and finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "icon": "tipper upgrade node BulkBody, shown at 80 px in the upgrade tree"
+    },
+    "prompt": "GAME ITEM ICON. Camera above the object looking down at about sixty degrees, the way the game RimWorld draws loose items on the floor. One single object, centred.\n\nCreate an ORIGINAL game upgrade icon: a long bulk tipper body. Image 1 is our approved upgrade icon from the same family: match its outline weight, shading, palette, camera angle and finish only. Do NOT copy its shape.\n\nDraw ONLY this object, alone on a plain pure white background, filling about 75 percent of the canvas. Square canvas.\n\nA long shallow open steel tub in dusty olive with pale steel rims and one muted orange stripe along its side. Empty.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Dusty olive, dark grey, pale steel, one muted orange accent. Not a photograph, not a 3D render, not pixel art. It must read clearly when shrunk to 80 pixels: one big shape, few small ones.\n\nNo people, animals, vehicle, text, letters, numbers, logos, dust, floor, ground or cast shadow."
+  },
+  {
+    "name": "station-tuning-rig",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 816,
+    "height": 816,
+    "seeds": [
+      1,
+      2,
+      3
+    ],
+    "references": [
+      {
+        "image": "assets/phobos-vehicles/generated/survey-truck-body-north/survey-truck-body-north-1.png",
+        "role": "approved truck of the same family: match its outline weight, shading, palette and finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "building": "PhobosVehicles_TuningRig, footprint (2, 2), drawSize (2, 2), 256 px in game"
+    },
+    "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL game building sprite: a square steel workshop test stand for a vehicle garage. Image 1 is our approved truck from the same family: match its outline weight, shading, palette and finish only. Do NOT copy its shape.\n\nThe object fills about 85 percent of the canvas, centred, on a plain pure white background.\n\nIts top plan: a heavy square dark-steel frame; in the upper half a long olive instrument cabinet with a row of plain round covers; in the lower left a round dark steel roller drum set into the deck; in the lower right a small pale steel hoist base with one muted orange handle.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Dusty olive, dark grey, pale steel, one muted orange accent. Not a photograph, not a 3D render, not pixel art.\n\nNo people, animals, text, letters, numbers, logos, dials, screens, lamps or dust. No floor, ground, shadow outside the object, perspective, tilt or visible side faces. Top surfaces only."
+  },
+  {
+    "name": "station-depot-bay",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1280,
+    "height": 640,
+    "seeds": [
+      1,
+      2,
+      3
+    ],
+    "references": [
+      {
+        "image": "assets/phobos-vehicles/generated/survey-truck-body-north/survey-truck-body-north-1.png",
+        "role": "approved truck of the same family: match its outline weight, shading, palette and finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "building": "PhobosVehicles_DepotBay, footprint (2, 1), drawSize (2, 1), 256 x 128 in game"
+    },
+    "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL game building sprite: a low steel service unit for a vehicle garage, with a storage tank and a parts shelf. Image 1 is our approved truck from the same family: match its outline weight, shading, palette and finish only. Do NOT copy its shape.\n\nThe object fills about 85 percent of the canvas, centred, on a plain pure white background.\n\nWide canvas, twice as wide as tall. Its top plan, left to right: a long rounded pale steel storage tank lying flat with one muted orange cap and a coiled dark hose on a small reel beside it; on the right, a low open steel shelf of two bays holding plain olive parts crates seen from above.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Dusty olive, dark grey, pale steel, one muted orange accent. Not a photograph, not a 3D render, not pixel art.\n\nNo people, animals, text, letters, numbers, logos, dials, screens, lamps or dust. No floor, ground, shadow outside the object, perspective, tilt or visible side faces. Top surfaces only."
+  },
+  {
+    "name": "fitting-cable-end",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 816,
+    "height": 816,
+    "seeds": [
+      1,
+      2
+    ],
+    "references": [
+      {
+        "image": "assets/phobos-vehicles/generated/survey-truck-body-north/survey-truck-body-north-1.png",
+        "role": "approved truck of the same family: match its outline weight, shading, palette and finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "building": "Phobos_GeneratorStub, 1 x 1"
+    },
+    "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL small game building sprite: the end of a heavy power cable with a small junction box on the ground. Image 1 is our approved truck from the same family: match its outline weight, shading, palette and finish only.\n\nThe object fills about 70 percent of the canvas, centred, on a plain pure white background. Square canvas.\n\nA squat dark steel junction box with one muted orange cover plate, and a short thick black cable leaving it towards the top edge of the canvas.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Dusty olive, dark grey, pale steel, one muted orange accent. Not a photograph, not a 3D render, not pixel art. It must read clearly when shrunk to 64 pixels: two big shapes at most.\n\nNo people, animals, text, letters, numbers, logos, dials, screens, lamps or dust. No floor, ground, shadow outside the object, perspective, tilt or visible side faces. Top surfaces only."
+  },
+  {
+    "name": "fitting-power-point",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 816,
+    "height": 816,
+    "seeds": [
+      1,
+      2
+    ],
+    "references": [
+      {
+        "image": "assets/phobos-vehicles/generated/survey-truck-body-north/survey-truck-body-north-1.png",
+        "role": "approved truck of the same family: match its outline weight, shading, palette and finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "building": "Phobos_PowerPoint, 1 x 1"
+    },
+    "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL small game building sprite: a small weatherproof power point on the ground beside a working truck. Image 1 is our approved truck from the same family: match its outline weight, shading, palette and finish only.\n\nThe object fills about 70 percent of the canvas, centred, on a plain pure white background. Square canvas.\n\nA square olive steel box with a pale cover and one plain round socket, with a short thick black cable leaving it towards the left edge of the canvas.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Dusty olive, dark grey, pale steel, one muted orange accent. Not a photograph, not a 3D render, not pixel art. It must read clearly when shrunk to 64 pixels: two big shapes at most.\n\nNo people, animals, text, letters, numbers, logos, dials, screens, lamps or dust. No floor, ground, shadow outside the object, perspective, tilt or visible side faces. Top surfaces only."
+  }
+]

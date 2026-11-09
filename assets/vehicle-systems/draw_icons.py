@@ -244,13 +244,11 @@ DRAWINGS = {
     'CabHeater': (cab_heater, "three red heat waves rising from a steel fan grille"),
     'AirConditioner': (air_conditioner, 'three pale-blue cold waves falling from a slatted steel vent'),
     'NightHeater': (night_heater, 'a squat parking heater on legs with a flame in its window and a crescent moon above'),
-    'JumpStartKit': (jump_start_kit, 'two coiled jump leads, red and black, each ending in a sprung steel clamp'),
     'ClimateControl': (climate_control, 'a pale thermometer with a red bulb between an amber flame and a pale-blue snowflake'),
-    'BoosterPack': (booster_pack, 'a squat pale battery case with a carrying handle, three charge bars (two lit amber) and two short leads with steel clamps'),
 }
 
-# Textures that live in a subfolder (an item's texture under Things/).
-SUBFOLDERS = {'JumpStartKit': 'Things', 'BoosterPack': 'Things'}
+# The jump-start kit and booster pack now have generated pictures (9 Nov 2026), so this script no longer writes them.
+SUBFOLDERS: dict[str, str] = {}
 
 
 def write(name):

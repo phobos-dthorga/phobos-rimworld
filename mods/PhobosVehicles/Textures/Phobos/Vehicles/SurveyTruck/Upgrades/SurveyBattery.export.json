@@ -1,0 +1,15 @@
+{
+  "target": "mods/PhobosVehicles/Textures/Phobos/Vehicles/SurveyTruck/Upgrades/SurveyBattery.png",
+  "source": "assets/phobos-vehicles/generated/upgrade-survey-SurveyBattery/upgrade-survey-SurveyBattery-1.png",
+  "source_sha256": "1ed0bb319bae4409286771fa8277529a91e2fa4bf622b11ab15ea0f321a60df5",
+  "target_sha256": "fa8ff20b00571ab259b531b4725940b49a3df191e05238b40e7388911d3e88ee",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": true,
+  "date": "2026-11-09T20:20:32",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

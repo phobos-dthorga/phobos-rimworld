@@ -1,0 +1,15 @@
+{
+  "target": "mods/PhobosVehicles/Textures/Phobos/Vehicles/DrillRig/Upgrades/ElectricPowerPack.png",
+  "source": "assets/phobos-vehicles/generated/upgrade-rig-ElectricPowerPack/upgrade-rig-ElectricPowerPack-1.png",
+  "source_sha256": "a57adaf1b424f70bbd6263d3f4c877b609090dcfa5cb6eda7270607811993224",
+  "target_sha256": "a0404068352348c4127a2cf5b39f4b3ba37ce7b000cd6c0ad40cb15f39137888",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": true,
+  "date": "2026-11-09T20:20:33",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

@@ -1,5 +1,5 @@
 # CableReel
 
-**A stand-in, drawn in code** by `assets/phobos-vehicles/draw_generator_set.py` (Pillow): a cable drum. No image generator, no reference images and no game or other author's art.
+Made on 9 Nov 2026 with OpenAI gpt-image-2 through the image API, at medium quality: **AI-generated**, picked or accepted by the owner. Exported by `scripts/art/export_sprite.py`. The prompt is in `assets/phobos-vehicles/requests/stations-parts-pilot.json and stations-parts-upgrades.json`; the master and its record are on the `art-masters` branch. The only references uploaded were our own approved art from the same family. No game or other author's art was uploaded or used.
 
-- `CableReel.png`: SHA-256 `63431e6fec1f9deb90856dab972a4249bc17e94a9b13cdefedf5aaec81bbbdfb`
+- Master: `upgrade-generator-CableReel-1`, SHA-256 `ed76b708cb98c14274034a489b17de0965fe1c83e2b1e67a3d824cdaa2b217e8`

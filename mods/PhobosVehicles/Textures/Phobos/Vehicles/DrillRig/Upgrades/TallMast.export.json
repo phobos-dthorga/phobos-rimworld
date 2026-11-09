@@ -1,0 +1,15 @@
+{
+  "target": "mods/PhobosVehicles/Textures/Phobos/Vehicles/DrillRig/Upgrades/TallMast.png",
+  "source": "assets/phobos-vehicles/generated/upgrade-rig-TallMast/upgrade-rig-TallMast-1.png",
+  "source_sha256": "9ea288ed8bd3b378a0f2f9d70643de52b7b2296d92f6b1c788dd573ef2b6a930",
+  "target_sha256": "6ff6d9e303db85f8ddf5b50d9f0346928f46e999da2d0e1482ea620fa9b15e4e",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": true,
+  "date": "2026-11-09T20:20:33",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

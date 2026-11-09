@@ -60,3 +60,10 @@ The review is the agent's, with each attempt fitted onto the exported truck. The
 Damage marks are exported with `--marks`, which keeps only their darkness: as drawn, the soot had pale edges and looked like white smoke. That was fixed by script rather than by paying again.
 
 **Not checked:** whether overlays can be repainted with the truck, so they have no masks yet (to read at build); how any of it looks beside a vehicle already in the game.
+
+## Stations, components and upgrade icons (9 Nov 2026)
+
+**Status: picked by the owner, in the mods from Framework 0.52.0 and Vehicles 0.23.1.** 45 pictures from OpenAI gpt-image-2 at medium quality, about US$2.52 in all, requests in `requests/stations-parts-pilot.json` and `stations-parts-upgrades.json`; the masters are on `art-masters`, the other attempts on `art-references`. Paid and not local because the owner was playing at the time (no GPU work while gaming).
+
+The owner picked bench 3, engine 2 and diamond bit 3 from a pilot of each, and each became the style reference for its group: the family held together well and every upgrade icon was accepted at one attempt. **The moderation filter blocked workshop prompts about a third of the time and 4 of 6 in the second batch** (`moderation_blocked`, a false alarm on ordinary machinery, not charged); the tuning rig and the depot bay therefore have one attempt each. Rewording and swapping the reference made little difference. The drawing scripts in this folder no longer write these files, so re-running one cannot overwrite them.
+

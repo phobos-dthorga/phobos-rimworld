@@ -1,5 +1,5 @@
 # PoweredArray
 
-**Drawn in code** by `assets/phobos-vehicles/draw_survey_and_rig.py` (Pillow): three bars. No image generator, no reference images and no game or other author's art.
+Made on 9 Nov 2026 with OpenAI gpt-image-2 through the image API, at medium quality: **AI-generated**, picked or accepted by the owner. Exported by `scripts/art/export_sprite.py`. The prompt is in `assets/phobos-vehicles/requests/stations-parts-pilot.json and stations-parts-upgrades.json`; the master and its record are on the `art-masters` branch. The only references uploaded were our own approved art from the same family. No game or other author's art was uploaded or used.
 
-- `PoweredArray.png`: SHA-256 `4810a83e21ea76b17951821e4dda535c97d4e887702ff2abf73be2fdb04cd498`
+- Master: `upgrade-survey-PoweredArray-1`, SHA-256 `5fed51b69c689a34acb4367a789c9b1effa54af9dc4dddea05575e30736d4f5d`

@@ -1,0 +1,15 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Stations/CableEnd.png",
+  "source": "assets/phobos-vehicles/generated/fitting-cable-end/fitting-cable-end-2.png",
+  "source_sha256": "5dd5adcf7ec66fef760c0a58a602206c45aebae6da4d1d5c1b4d45d9f60f35b6",
+  "target_sha256": "43ae450822a894d774a1d2c62072a77cc12b70e62778179395973d5d1a79d40c",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": true,
+  "date": "2026-11-09T20:20:28",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

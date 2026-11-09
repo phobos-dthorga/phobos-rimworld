@@ -1,0 +1,15 @@
+{
+  "target": "mods/PhobosVehicles/Textures/Phobos/Vehicles/SurveyTruck/Upgrades/PoweredArray.png",
+  "source": "assets/phobos-vehicles/generated/upgrade-survey-PoweredArray/upgrade-survey-PoweredArray-1.png",
+  "source_sha256": "5fed51b69c689a34acb4367a789c9b1effa54af9dc4dddea05575e30736d4f5d",
+  "target_sha256": "54ea628f2af5495ccc2632341afd13e80bcaa8f23f3b83750856b8f21140dc9e",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": true,
+  "date": "2026-11-09T20:20:32",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

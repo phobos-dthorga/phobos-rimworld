@@ -70,11 +70,8 @@ def assign_bay(draw):
 
 
 STATIONS = [
-    ('DepotBay', depot_bay, (800, 400), (256, 128), 'a dark frame with an orange fuel tank and two parts shelves'),
     ('BayGoTo', go_to_bay, (512, 512), (128, 128), 'a parking bay with an orange arrow pointing out of it'),
     ('BayAssign', assign_bay, (512, 512), (128, 128), 'a bay with an orange tag above a steel bar'),
-    ('PartsBench', parts_bench, (1400, 600), (350, 150), 'a long olive bench with a three-cylinder engine block, a machine in orange and two parts trays'),
-    ('TuningRig', tuning_rig, (800, 800), (256, 256), 'a steel frame with a blue trace display, a dynamometer roller and an orange vented cabinet'),
 ]
 
 

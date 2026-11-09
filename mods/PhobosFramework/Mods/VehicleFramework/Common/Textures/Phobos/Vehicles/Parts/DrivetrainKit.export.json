@@ -1,0 +1,15 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/Vehicles/Parts/DrivetrainKit.png",
+  "source": "assets/phobos-vehicles/generated/part-drivetrain-kit/part-drivetrain-kit-2.png",
+  "source_sha256": "7342e47030c0fe83d3e068f3ff3e0540b8a380ac2117013f98ed6412b0d62ce9",
+  "target_sha256": "608ed6b47c62096ea191cf0d26d9f2c09c06379146b6e38173571234405ec7ba",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": true,
+  "date": "2026-11-09T20:20:29",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

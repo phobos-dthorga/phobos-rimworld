@@ -5,6 +5,16 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.52.0] - 2026-11-09 - Draft
+
+### Added
+
+- A setting for which picture a working truck's power point uses, the smaller socket by default. A matter of looks only. Not yet tested in game.
+
+### Changed
+
+- The vehicle parts bench, tuning rig, depot bay, cable end, power point, vehicle parts, jump-start kit and booster pack have proper pictures, replacing the stand-ins drawn in code. Generated with OpenAI's image API, recorded beside the textures. Not yet tested in game.
+
 ## [0.51.0] - 2026-11-09 - Draft
 
 ### Added

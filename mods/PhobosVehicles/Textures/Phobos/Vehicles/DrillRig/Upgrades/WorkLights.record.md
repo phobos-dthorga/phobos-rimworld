@@ -1,5 +1,5 @@
 # WorkLights
 
-**Drawn in code** by `assets/phobos-vehicles/draw_survey_and_rig.py` (Pillow): a lamp. No image generator, no reference images and no game or other author's art.
+Made on 9 Nov 2026 with OpenAI gpt-image-2 through the image API, at medium quality: **AI-generated**, picked or accepted by the owner. Exported by `scripts/art/export_sprite.py`. The prompt is in `assets/phobos-vehicles/requests/stations-parts-pilot.json and stations-parts-upgrades.json`; the master and its record are on the `art-masters` branch. The only references uploaded were our own approved art from the same family. No game or other author's art was uploaded or used.
 
-- `WorkLights.png`: SHA-256 `d822e78b0a672c5549a5e0075f3aefb325aacdd61033482a10cfdaf811d8804d`
+- Master: `upgrade-rig-WorkLights-1`, SHA-256 `8f59bb0a11f7521c2273e7423b8e15b75422f6687184739da5c0bd57dab5ecf7`

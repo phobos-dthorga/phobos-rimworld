@@ -1,5 +1,5 @@
 # WellDrillingKit
 
-**Drawn in code** by `assets/phobos-vehicles/draw_survey_and_rig.py` (Pillow): a drop of oil. No image generator, no reference images and no game or other author's art.
+Made on 9 Nov 2026 with OpenAI gpt-image-2 through the image API, at medium quality: **AI-generated**, picked or accepted by the owner. Exported by `scripts/art/export_sprite.py`. The prompt is in `assets/phobos-vehicles/requests/stations-parts-pilot.json and stations-parts-upgrades.json`; the master and its record are on the `art-masters` branch. The only references uploaded were our own approved art from the same family. No game or other author's art was uploaded or used.
 
-- `WellDrillingKit.png`: SHA-256 `036efda3c8495af115fcf286b5521eb66ecf9cdca7ba14bd4d68da1940dd12ff`
+- Master: `upgrade-rig-WellDrillingKit-1`, SHA-256 `6928999b4700f459ceef67ec4f77bb29dd6fce1b1c00fa9ed9c63bb4fb481394`

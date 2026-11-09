@@ -118,11 +118,6 @@ def main():
     facings('GeneratorSet_Reel', reel, 'an orange cable drum on the rear deck')
     facings('GeneratorSet_BiggerGenerator', bigger, 'a taller steel housing with an orange band behind the cab')
     facings('GeneratorSet_Battery', battery, 'a blue battery box on the deck')
-    upgrades = VEHICLE / 'Upgrades'
-    icon(upgrades / 'BiggerAlternator.png', alternator_icon, 'a generator casing with a lightning bolt')
-    icon(upgrades / 'CableReel.png', reel_icon, 'a cable drum')
-    icon(upgrades / 'BatteryBuffer.png', battery_icon, 'a blue battery with a plus sign')
-    icon(FRAMEWORK / 'CableEnd.png', cable_end, 'a dark junction box with an orange cable', 64)
 
 
 if __name__ == '__main__':

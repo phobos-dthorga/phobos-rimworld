@@ -1,0 +1,15 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/Vehicles/Parts/Transmission.png",
+  "source": "assets/phobos-vehicles/generated/part-transmission/part-transmission-1.png",
+  "source_sha256": "cbe6660d99dede58928eebc27bfdc87ce5bbe711f595fb980829aec21287f237",
+  "target_sha256": "52a4e032b5c84bf74be84cb281feceb88497711ff34bef4a8fa40a9af23346d0",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": true,
+  "date": "2026-11-09T20:20:30",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

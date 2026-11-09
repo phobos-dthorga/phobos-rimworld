@@ -1,0 +1,15 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Things/BoosterPack.png",
+  "source": "assets/phobos-vehicles/generated/part-booster-pack/part-booster-pack-1.png",
+  "source_sha256": "c23ff4b536a6f956bd098a3bca92b85a01e76dc5cd5f06f3b28914ac90423587",
+  "target_sha256": "95a94d13e21fec1d5572cd01d4117460232921502d06b00c68bb3fbf9d0ce79a",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": true,
+  "date": "2026-11-09T20:20:30",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

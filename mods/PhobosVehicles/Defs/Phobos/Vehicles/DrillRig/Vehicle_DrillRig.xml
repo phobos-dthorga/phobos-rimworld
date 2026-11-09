@@ -421,6 +421,7 @@
       </li>
       <li Class="Phobos.VehicleSystems.CompProperties_PhobosDrillRig">
         <powerPointDef>Phobos_PowerPoint</powerPointDef>
+        <powerPointLargeDef>Phobos_PowerPointLarge</powerPointLargeDef>
         <vitalParts>
           <li>Mast</li>
           <li>RotaryHead</li>

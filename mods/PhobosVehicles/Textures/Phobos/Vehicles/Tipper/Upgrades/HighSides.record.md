@@ -1,5 +1,5 @@
 # HighSides
 
-**Drawn in code** by `assets/phobos-vehicles/draw_survey_and_rig.py` (Pillow): three tall bars. No image generator, no reference images and no game or other author's art.
+Made on 9 Nov 2026 with OpenAI gpt-image-2 through the image API, at medium quality: **AI-generated**, picked or accepted by the owner. Exported by `scripts/art/export_sprite.py`. The prompt is in `assets/phobos-vehicles/requests/stations-parts-pilot.json and stations-parts-upgrades.json`; the master and its record are on the `art-masters` branch. The only references uploaded were our own approved art from the same family. No game or other author's art was uploaded or used.
 
-- `HighSides.png`: SHA-256 `69c1dfecd81e71c2ca75535b70489be2e7b32ca8d05c59caa2e200daae5a0535`
+- Master: `upgrade-tipper-HighSides-1`, SHA-256 `95655f082ff125fe498a9f37ba005db197875c8c9926d54a17fa181a7134cfef`

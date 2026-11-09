@@ -1,0 +1,15 @@
+{
+  "target": "mods/PhobosVehicles/Textures/Phobos/Vehicles/DrillRig/Upgrades/DeepchemHead.png",
+  "source": "assets/phobos-vehicles/generated/upgrade-rig-DeepchemHead/upgrade-rig-DeepchemHead-1.png",
+  "source_sha256": "4a2c70f59b5d957276b746bc0f929494a5b5d709a731d244510253487ba7f43c",
+  "target_sha256": "e030988d7fbecb10327809c0a7859d6557e0ced6818a5e629690510fd4ca66cb",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": true,
+  "date": "2026-11-09T20:20:34",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

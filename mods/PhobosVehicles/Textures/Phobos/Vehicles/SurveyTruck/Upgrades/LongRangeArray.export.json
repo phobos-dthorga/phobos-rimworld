@@ -1,0 +1,15 @@
+{
+  "target": "mods/PhobosVehicles/Textures/Phobos/Vehicles/SurveyTruck/Upgrades/LongRangeArray.png",
+  "source": "assets/phobos-vehicles/generated/upgrade-survey-LongRangeArray/upgrade-survey-LongRangeArray-1.png",
+  "source_sha256": "1fab5e102d635275bc1ee1b51b19fc12e94f6d36933cf828085aacb959810419",
+  "target_sha256": "a282fe6cc1321f7d79bd9bfc4f9433bb8194fb500ff3e73c955e08b867e01ccd",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": true,
+  "date": "2026-11-09T20:20:32",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

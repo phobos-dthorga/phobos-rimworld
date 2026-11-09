@@ -1,0 +1,15 @@
+{
+  "target": "mods/PhobosVehicles/Textures/Phobos/Vehicles/GeneratorSet/Upgrades/BatteryBuffer.png",
+  "source": "assets/phobos-vehicles/generated/upgrade-generator-BatteryBuffer/upgrade-generator-BatteryBuffer-1.png",
+  "source_sha256": "2349ed13ebd47926eca8f371f54fbae8082c21a3f1aa11abfc2a2dfd4a37964e",
+  "target_sha256": "ea51fbf66a2c2843569280cc1fb3445c93056810abebe9796be56295dce9268b",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": true,
+  "date": "2026-11-09T20:20:35",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

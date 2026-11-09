@@ -4,7 +4,7 @@ Vehicles that keep running only while they are looked after. It adds one vehicle
 vehicles of other mods you already drive the systems that match what they really are, on top of the general systems D'thorga
 Framework gives every vehicle.
 
-Version 0.23.0, built 9 November 2026 for House D'thorga. **Not yet tested in game.**
+Version 0.23.1, built 9 November 2026 for House D'thorga. **Not yet tested in game.**
 
 ## Read this first (gotchas)
 
@@ -115,7 +115,7 @@ Every source and simplification is in the loadout files under `Mods/`.
 - **Park it outdoors and press Set up.** A colonist on **Research** work then runs the survey, with their research speed. The engine idles while they work, at 8 chemfuel a day.
 - **Finds are the game's own deposits,** with the game's ore odds and sizes. Select the set-up truck to see them on the ground.
 - **A first find takes about 7 hours on average**, ten times quicker than the game's scanner; **each find on a map then takes longer than the last:** one and a half times, up to eight times.
-- **Plugged in costs no fuel:** with a powered conduit or generator within 6 cells of its small power point, it runs off the grid at 700 W.
+- **Plugged in costs no fuel:** with a powered conduit or generator within 6 cells of its small power point, it runs off the grid at 700 W. The setting **Power points have the larger socket** (off) changes only that point's picture, for the next one a truck sets out.
 - **With Rimefeller, a set-up survey truck counts as the scanner a deep well needs. With Dubs Bad Hygiene, a groundwater sensor** shows the water while the truck is set up and selected, and marks the richest spot within 15 cells.
 - **Upgrades:** a geophone array (more steel) or a radiometric probe (more uranium, costs 40), not both; a long-range array that searches other lands for one ore, off the map's slowing; a powered array (three times as fast, 1,000 W, needs a grid or the battery); a large battery (runs with the engine off, and the engine starts itself to recharge it at 30%, **burning fuel with nobody at the wheel**); work lights.
 

@@ -1,0 +1,15 @@
+{
+  "target": "mods/PhobosVehicles/Textures/Phobos/Vehicles/GeneratorSet/Upgrades/CableReel.png",
+  "source": "assets/phobos-vehicles/generated/upgrade-generator-CableReel/upgrade-generator-CableReel-1.png",
+  "source_sha256": "ed76b708cb98c14274034a489b17de0965fe1c83e2b1e67a3d824cdaa2b217e8",
+  "target_sha256": "cae01adc25e5f5fb386fa63d7a497798b3af86ab2c0245843fa6133e100f13c3",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": true,
+  "date": "2026-11-09T20:20:35",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

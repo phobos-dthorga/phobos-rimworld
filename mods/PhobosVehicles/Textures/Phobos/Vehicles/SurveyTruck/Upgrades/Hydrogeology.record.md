@@ -1,5 +1,5 @@
 # Hydrogeology
 
-**Drawn in code** by `assets/phobos-vehicles/draw_survey_and_rig.py` (Pillow): a drop of water. No image generator, no reference images and no game or other author's art.
+Made on 9 Nov 2026 with OpenAI gpt-image-2 through the image API, at medium quality: **AI-generated**, picked or accepted by the owner. Exported by `scripts/art/export_sprite.py`. The prompt is in `assets/phobos-vehicles/requests/stations-parts-pilot.json and stations-parts-upgrades.json`; the master and its record are on the `art-masters` branch. The only references uploaded were our own approved art from the same family. No game or other author's art was uploaded or used.
 
-- `Hydrogeology.png`: SHA-256 `81a78748f5a094d6f04c8fe5a92711cae53177bf79c581e190993328e55fc356`
+- Master: `upgrade-survey-Hydrogeology-1`, SHA-256 `50ba8a0b9ea6c6b7759397c46bc83728848efdbefeb954efb2ebb94a697bf24f`

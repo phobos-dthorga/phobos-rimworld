@@ -1,5 +1,5 @@
 # DrivetrainKit
 
-**A stand-in, drawn in code** by `assets/phobos-vehicles/draw_tank_icons.py` (Pillow): an axle with two tyres and a gearbox. No image generator, no reference images and no game or other author's art was used. 128 x 128 px, transparent background.
+Made on 9 Nov 2026 with OpenAI gpt-image-2 through the image API, at medium quality: **AI-generated**, picked or accepted by the owner. Exported by `scripts/art/export_sprite.py`. The prompt is in `assets/phobos-vehicles/requests/stations-parts-pilot.json and stations-parts-upgrades.json`; the master and its record are on the `art-masters` branch. The only references uploaded were our own approved art from the same family. No game or other author's art was uploaded or used.
 
-- `DrivetrainKit.png`: SHA-256 `0e7e32f845fc648d5676c9209f2eb923d7000a3cfcb86f4a6761a5b5acc6298a`
+- Master: `part-drivetrain-kit-2`, SHA-256 `7342e47030c0fe83d3e068f3ff3e0540b8a380ac2117013f98ed6412b0d62ce9`

@@ -1,5 +1,5 @@
 # BulkBody
 
-**Drawn in code** by `assets/phobos-vehicles/draw_survey_and_rig.py` (Pillow): a long body. No image generator, no reference images and no game or other author's art.
+Made on 9 Nov 2026 with OpenAI gpt-image-2 through the image API, at medium quality: **AI-generated**, picked or accepted by the owner. Exported by `scripts/art/export_sprite.py`. The prompt is in `assets/phobos-vehicles/requests/stations-parts-pilot.json and stations-parts-upgrades.json`; the master and its record are on the `art-masters` branch. The only references uploaded were our own approved art from the same family. No game or other author's art was uploaded or used.
 
-- `BulkBody.png`: SHA-256 `03bdea3ab7d8f29814e2c2416866c2631185930a50046bcf9b0fbd5f430878d0`
+- Master: `upgrade-tipper-BulkBody-1`, SHA-256 `c42abcdfd2eecafed224bf13d50a00e6a278ccb5625e813dc93c20a4417cfc71`

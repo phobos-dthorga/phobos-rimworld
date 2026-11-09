@@ -36,6 +36,8 @@ public class CompProperties_PhobosRigWork : VehicleCompProperties
 {
     /// <summary>The small building that plugs a set-up vehicle into a grid.</summary>
     public ThingDef? powerPointDef;
+    /// <summary>The same with the larger socket, used when the player's setting asks for it.</summary>
+    public ThingDef? powerPointLargeDef;
     public GraphicDataOverlay? setUpOverlay;
     /// <summary>The parts that swing out when it sets up, each its own picture.</summary>
     public List<SetUpMovingPart> movingParts = new();
@@ -164,7 +166,7 @@ public abstract class CompPhobosRigWork : CompPhobosSetUp, IVehicleEngineDemand
         if (powerPoint is { Spawned: true } || RigProps.powerPointDef == null) return;
         IntVec3 cell = BestAdjacentCell();
         if (!cell.IsValid) return;
-        Thing placed = ThingMaker.MakeThing(RigProps.powerPointDef);
+        Thing placed = ThingMaker.MakeThing(VehicleSystemsMod.Settings.powerPointLargeSocket && RigProps.powerPointLargeDef != null ? RigProps.powerPointLargeDef : RigProps.powerPointDef);
         placed.SetFaction(Faction.OfPlayer);
         powerPoint = (Building)GenSpawn.Spawn(placed, cell, Vehicle.Map);
     }

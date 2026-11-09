@@ -1,0 +1,15 @@
+{
+  "target": "mods/PhobosVehicles/Textures/Phobos/Vehicles/SurveyTruck/Upgrades/GeophoneArray.png",
+  "source": "assets/phobos-vehicles/generated/upgrade-survey-GeophoneArray/upgrade-survey-GeophoneArray-1.png",
+  "source_sha256": "97be74f70e98ddddc091a218ffeecd8a76bd63b09853a506665fcb23d1eff1e3",
+  "target_sha256": "3b326a571e24b8400ea7c2ef5c46c183d7e9138e53db34ecd3326a30328a424e",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": true,
+  "date": "2026-11-09T20:20:31",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

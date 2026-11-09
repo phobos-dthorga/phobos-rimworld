@@ -1,0 +1,15 @@
+{
+  "target": "mods/PhobosVehicles/Textures/Phobos/Vehicles/Tipper/Upgrades/HighSides.png",
+  "source": "assets/phobos-vehicles/generated/upgrade-tipper-HighSides/upgrade-tipper-HighSides-1.png",
+  "source_sha256": "95655f082ff125fe498a9f37ba005db197875c8c9926d54a17fa181a7134cfef",
+  "target_sha256": "2e624aed599a5b510aa048b439a050e3fa62906164742863e2b62f810d42d0b7",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": true,
+  "date": "2026-11-09T20:20:35",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

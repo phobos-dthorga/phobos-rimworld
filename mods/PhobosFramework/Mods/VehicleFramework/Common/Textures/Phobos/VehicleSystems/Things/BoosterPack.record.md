@@ -1,7 +1,5 @@
 # BoosterPack
 
-**A stand-in, drawn in code** by `assets/vehicle-systems/draw_icons.py` (Pillow) on 08 November 2026: a squat pale battery case with a carrying handle, three charge bars (two lit amber) and two short leads with steel clamps. No image generator, no reference images and no game or other author's art was used. 128 x 128 px, transparent background.
+Made on 9 Nov 2026 with OpenAI gpt-image-2 through the image API, at medium quality: **AI-generated**, picked or accepted by the owner. Exported by `scripts/art/export_sprite.py`. The prompt is in `assets/phobos-vehicles/requests/stations-parts-pilot.json and stations-parts-upgrades.json`; the master and its record are on the `art-masters` branch. The only references uploaded were our own approved art from the same family. No game or other author's art was uploaded or used.
 
-**Outstanding:** generated art can replace it on the owner's go (docs/development/art-backlog.md).
-
-- `BoosterPack.png`: SHA-256 `a108f63136fcdfc27b7bfe56fae0adfcd23d6b2cf48df4a63ad2ccccee36b69c`
+- Master: `part-booster-pack-1`, SHA-256 `c23ff4b536a6f956bd098a3bca92b85a01e76dc5cd5f06f3b28914ac90423587`

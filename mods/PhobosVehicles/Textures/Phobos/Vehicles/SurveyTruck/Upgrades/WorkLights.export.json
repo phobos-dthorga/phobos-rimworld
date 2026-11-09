@@ -1,0 +1,15 @@
+{
+  "target": "mods/PhobosVehicles/Textures/Phobos/Vehicles/SurveyTruck/Upgrades/WorkLights.png",
+  "source": "assets/phobos-vehicles/generated/upgrade-survey-WorkLights/upgrade-survey-WorkLights-1.png",
+  "source_sha256": "5584e2f17ec0875de8dae62af95c0459f9b5a881b7dab6dd30b8e9edf078fe84",
+  "target_sha256": "40625c37f601af4bf31c0abf79820468fbc1c8fbdfbe0ee6add47ba26c0699f8",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": true,
+  "date": "2026-11-09T20:20:32",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

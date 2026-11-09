@@ -1,5 +1,5 @@
 # EngineAssembly
 
-**A stand-in, drawn in code** by `assets/phobos-vehicles/draw_tank_icons.py` (Pillow): an olive engine block with three cylinder heads. No image generator, no reference images and no game or other author's art was used. 128 x 128 px, transparent background.
+Made on 9 Nov 2026 with OpenAI gpt-image-2 through the image API, at medium quality: **AI-generated**, picked or accepted by the owner. Exported by `scripts/art/export_sprite.py`. The prompt is in `assets/phobos-vehicles/requests/stations-parts-pilot.json and stations-parts-upgrades.json`; the master and its record are on the `art-masters` branch. The only references uploaded were our own approved art from the same family. No game or other author's art was uploaded or used.
 
-- `EngineAssembly.png`: SHA-256 `78ab45718b3c84aae7d8f5ff39f0818854a4557b89fa63bd6a3dab0cd389893a`
+- Master: `part-engine-assembly-2`, SHA-256 `1a3c739071a7aa3693258c409de31a22a91b0ecebcd960f5912a5fb26d29e793`

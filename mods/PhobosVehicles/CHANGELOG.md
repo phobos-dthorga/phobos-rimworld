@@ -5,6 +5,12 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.23.1] - 2026-11-09 - Draft
+
+### Changed
+
+- The upgrade icons of the survey truck, drill rig, generator set and tipper have proper pictures, replacing the badges drawn in code. Generated with OpenAI's image API, recorded beside the textures. Not yet tested in game.
+
 ## [0.23.0] - 2026-11-09 - Draft
 
 ### Added

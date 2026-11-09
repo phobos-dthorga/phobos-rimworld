@@ -362,6 +362,7 @@
       </li>
       <li Class="Phobos.VehicleSystems.CompProperties_PhobosSurveyTruck">
         <powerPointDef>Phobos_PowerPoint</powerPointDef>
+        <powerPointLargeDef>Phobos_PowerPointLarge</powerPointLargeDef>
         <!-- The boom is its own picture and swings flat about the bracket on the deck: the game cannot lift a picture towards the camera. Pivot and reach measured off the art. -->
         <movingParts>
           <li>

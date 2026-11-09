@@ -1,0 +1,15 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Things/JumpStartKit.png",
+  "source": "assets/phobos-vehicles/generated/part-jump-start-kit/part-jump-start-kit-1.png",
+  "source_sha256": "498756bde4245937ca6be6e8b7a2f40e4c4cfb028010d6d1b56c0b85859e6eaa",
+  "target_sha256": "42f693342680c093d07aed46e4d35d477e58b3f9f3149147a5810b957ef84408",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": true,
+  "date": "2026-11-09T20:20:30",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

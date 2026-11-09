@@ -228,7 +228,7 @@
     </showOnVehicleTypes>
   </Vehicles.VehicleStatDef>
   <!-- Plugs a set-up vehicle into a grid: wires to a conduit or generator within 6 cells, as any building does. A plain power user, because the game only connects those. -->
-  <ThingDef ParentName="BuildingBase">
+  <ThingDef Name="PhobosPowerPointBase" ParentName="BuildingBase">
     <defName>Phobos_PowerPoint</defName>
     <label>power point</label>
     <description>A junction box run out from a working vehicle. Wired to a powered grid, it takes the vehicle's load off the engine.</description>
@@ -258,6 +258,15 @@
         <basePowerConsumption>1</basePowerConsumption>
       </li>
     </comps>
+  </ThingDef>
+
+  <!-- The same power point with the larger socket: which one a truck uses is the player's setting (owner, 9 Nov 2026). -->
+  <ThingDef ParentName="PhobosPowerPointBase">
+    <defName>Phobos_PowerPointLarge</defName>
+    <graphicData>
+      <texPath>Phobos/VehicleSystems/Stations/PowerPointLarge</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
   </ThingDef>
 
   <JobDef>

@@ -1,5 +1,5 @@
 # LongRangeArray
 
-**Drawn in code** by `assets/phobos-vehicles/draw_survey_and_rig.py` (Pillow): a dish. No image generator, no reference images and no game or other author's art.
+Made on 9 Nov 2026 with OpenAI gpt-image-2 through the image API, at medium quality: **AI-generated**, picked or accepted by the owner. Exported by `scripts/art/export_sprite.py`. The prompt is in `assets/phobos-vehicles/requests/stations-parts-pilot.json and stations-parts-upgrades.json`; the master and its record are on the `art-masters` branch. The only references uploaded were our own approved art from the same family. No game or other author's art was uploaded or used.
 
-- `LongRangeArray.png`: SHA-256 `667318e794446b62bc3f4e7ed89f9062bcecafc3733c421059fae943a31e40f6`
+- Master: `upgrade-survey-LongRangeArray-1`, SHA-256 `1fab5e102d635275bc1ee1b51b19fc12e94f6d36933cf828085aacb959810419`

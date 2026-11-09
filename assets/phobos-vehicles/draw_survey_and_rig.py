@@ -1,4 +1,4 @@
-"""Draw the upgrade and button icons for the survey truck and the drill rig, and the power point, with Pillow, in the game's look. No image generator, reference image or other author's art is
+"""Draw the button icons for the working trucks, with Pillow, in the game's look. No image generator, reference image or other author's art is
 involved; each has a record beside it. The vehicles' own pictures are left for real art (owner, 9 Nov 2026).
 
     python assets/phobos-vehicles/draw_survey_and_rig.py
@@ -106,40 +106,10 @@ def drop(draw):
 
 
 def main():
-    upgrades = VEHICLES / 'SurveyTruck/Upgrades'
-    for key, colour, mark, what in (
-        ('GeophoneArray', OLIVE, dots, 'three geophone dots'),
-        ('RadiometricProbe', DARK, hazard, 'a hazard triangle'),
-        ('Hydrogeology', BLUE, drop, 'a drop of water'),
-        ('LongRangeArray', BLUE, dish_icon, 'a dish'),
-        ('PoweredArray', ORANGE, bars, 'three bars'),
-        ('SurveyBattery', BLUE, plus, 'a plus sign'),
-        ('WorkLights', DARK, lamp, 'a lamp'),
-    ):
-        icon(upgrades / f'{key}.png', badge(colour, mark), what)
-    upgrades = VEHICLES / 'DrillRig/Upgrades'
-    for key, colour, mark, what in (
-        ('DiamondBit', DARK, diamond_icon, 'a diamond'),
-        ('RcHammer', DARK, hammer_icon, 'a hammer head'),
-        ('TallMast', OLIVE, mast_icon, 'a mast'),
-        ('ElectricPowerPack', BLUE, bolt, 'a lightning bolt'),
-        ('WorkLights', DARK, lamp, 'a lamp'),
-        ('DeepchemHead', OLIVE, drop, 'a drop of liquid'),
-        ('WellDrillingKit', DARK, drop, 'a drop of oil'),
-    ):
-        icon(upgrades / f'{key}.png', badge(colour, mark), what)
-    upgrades = VEHICLES / 'Tipper/Upgrades'
-    for key, colour, mark, what in (
-        ('HighSides', OLIVE, bars, 'three tall bars'),
-        ('RockBody', DARK, hammer_icon, 'a thick block'),
-        ('BulkBody', BLUE, mast_icon, 'a long body'),
-    ):
-        icon(upgrades / f'{key}.png', badge(colour, mark), what)
     icon(STATIONS / 'Overdrive.png', badge(RED, gauge), 'a gauge with its needle in the red')
     icon(STATIONS / 'Tip.png', badge(ORANGE, tip_icon), 'a tilted body shedding its load')
     icon(STATIONS / 'SurveyLongRange.png', badge(BLUE, dish_icon), 'a dish')
     icon(STATIONS / 'SurveyArray.png', badge(ORANGE, bars), 'three bars')
-    icon(STATIONS / 'PowerPoint.png', badge(DARK, bolt), 'a junction box with a lightning bolt', 64)
 
 
 if __name__ == '__main__':

@@ -467,4 +467,7 @@
   <PhobosVehicleSystems_OverdriveLine>Overdrive: working flat out, parts wearing.</PhobosVehicleSystems_OverdriveLine>
 
   <PhobosVehicleSystems_PartNoRoom>The {PART} has no room to swing out on either side. Move the truck clear of walls, buildings and other vehicles.</PhobosVehicleSystems_PartNoRoom>
+
+  <PhobosVehicleSystems_SettingPowerPointLarge>Power points have the larger socket</PhobosVehicleSystems_SettingPowerPointLarge>
+  <PhobosVehicleSystems_SettingPowerPointLargeDesc>A matter of looks only. Which picture a working truck's power point uses. Applies to the next one a truck sets out.</PhobosVehicleSystems_SettingPowerPointLargeDesc>
 </LanguageData>

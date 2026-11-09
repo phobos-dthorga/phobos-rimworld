@@ -1,5 +1,5 @@
 # Transmission
 
-**A stand-in, drawn in code** by `assets/phobos-vehicles/draw_repair_icons.py` (Pillow): a gearbox casing with an input shaft and three gear covers. No image generator, no reference images and no game or other author's art.
+Made on 9 Nov 2026 with OpenAI gpt-image-2 through the image API, at medium quality: **AI-generated**, picked or accepted by the owner. Exported by `scripts/art/export_sprite.py`. The prompt is in `assets/phobos-vehicles/requests/stations-parts-pilot.json and stations-parts-upgrades.json`; the master and its record are on the `art-masters` branch. The only references uploaded were our own approved art from the same family. No game or other author's art was uploaded or used.
 
-- `Transmission.png`: SHA-256 `daa351cb0ea8e5dcefa10af56b03043adaee481c230cf96d5f438e50d268dca8`
+- Master: `part-transmission-1`, SHA-256 `cbe6660d99dede58928eebc27bfdc87ce5bbe711f595fb980829aec21287f237`

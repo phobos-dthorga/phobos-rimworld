@@ -1,0 +1,15 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Stations/DepotBay.png",
+  "source": "assets/phobos-vehicles/generated/station-depot-bay/station-depot-bay-1.png",
+  "source_sha256": "40d47a26455ab245523c516a588aa733d5d6ad0f0fc45f482c2c509fdc594ab4",
+  "target_sha256": "bf99066b4739829d79352ec35b692141cdb037c8285dd6fb5db40b1508b56f9a",
+  "size": [
+    256,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": true,
+  "date": "2026-11-09T20:20:28",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

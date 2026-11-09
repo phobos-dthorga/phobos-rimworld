@@ -1,0 +1,15 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/Vehicles/Parts/ElectricalKit.png",
+  "source": "assets/phobos-vehicles/generated/part-electrical-kit/part-electrical-kit-1.png",
+  "source_sha256": "b5ed1269c065fe3fbde6c2bc2d3aeddcebb53be6ed1044b7fca9c2041e2fed5e",
+  "target_sha256": "3caab00ccee0809dd4f001c48f7f035d977d7f00bb504c023b065ac01b53f90d",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": true,
+  "date": "2026-11-09T20:20:29",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

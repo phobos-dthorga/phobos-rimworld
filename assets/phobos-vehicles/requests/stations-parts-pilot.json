@@ -1,0 +1,72 @@
+[
+  {
+    "name": "station-parts-bench",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1536,
+    "height": 656,
+    "seeds": [
+      1,
+      2,
+      3
+    ],
+    "references": [
+      {
+        "image": "assets/phobos-vehicles/generated/survey-truck-body-north/survey-truck-body-north-1.png",
+        "role": "approved truck of the same family: match its outline weight, shading, palette and finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "building": "PhobosVehicles_PartsBench, footprint (3, 1), drawSize (3.5, 1.5), 128 px per unit so 448 x 192 in game; requested at over 3 times that",
+      "measured_against": "the game's machining table, footprint (3, 1), drawSize (3.5, 1.5)",
+      "this_request": "the family's station pilot"
+    },
+    "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL game building sprite for the D'thorga vehicle parts bench: a long heavy workbench where mechanics assemble engines, gearboxes and electrical kits, in a hard-scrabble frontier colony. Image 1 is our approved truck from the same family: match its outline weight, shading, palette and finish only. Do NOT copy its shape.\n\nWide canvas. The bench fills about 85 percent of the canvas width and 65 percent of its height, centred, on a plain pure white background. It is three times as long as it is deep. The worker stands at the BOTTOM edge.\n\nIts top plan, from left to right: a heavy bench vice bolted at the left end with a dark steel engine block clamped in it; in the middle a clear dusty olive work surface with a few plain spanners laid in a neat row and one small gear; at the right end a low steel tool chest with four shallow lidded trays, one muted orange handle. A thick pale steel edge runs all round the bench.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo people, animals, text, letters, numbers, logos, dials, screens, lamps or dust. No floor, ground, shadow outside the bench, perspective, tilt or visible side faces. Top surfaces only."
+  },
+  {
+    "name": "part-engine-assembly",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      1,
+      2,
+      3
+    ],
+    "references": [
+      {
+        "image": "assets/phobos-vehicles/generated/survey-truck-body-north/survey-truck-body-north-1.png",
+        "role": "approved truck of the same family: match its outline weight, shading, palette and finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "item": "PhobosVehicles_EngineAssembly, drawn at the game's 64 px item size; requested at 16 times that",
+      "this_request": "the family's component pilot"
+    },
+    "prompt": "GAME ITEM ICON. Camera above the object looking down at about sixty degrees, the way the game RimWorld draws loose items on the floor. One single object, centred, with its long axis level.\n\nCreate an ORIGINAL game item sprite for the D'thorga engine assembly: a complete heavy diesel engine on a small steel skid, ready to be lifted into a truck. Image 1 is our approved truck from the same family: match its outline weight, shading, palette and finish only.\n\nDraw ONLY the engine, alone on a plain pure white background, filling about 75 percent of the canvas. Square canvas.\n\nA dark grey engine block with a row of six plain rocker covers along the top in dusty olive, a round flywheel housing at one end, a cooling fan with a pale steel guard at the other, a few thick pipes, one muted orange oil cap, sitting on a simple two-rail steel skid.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art. It must read clearly when shrunk to 64 pixels: three big shapes, few small ones.\n\nNo people, animals, truck, text, letters, numbers, logos, dials, dust, floor, ground or cast shadow."
+  },
+  {
+    "name": "upgrade-diamond-bit",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      1,
+      2,
+      3
+    ],
+    "references": [
+      {
+        "image": "assets/phobos-vehicles/generated/survey-truck-body-north/survey-truck-body-north-1.png",
+        "role": "approved truck of the same family: match its outline weight, shading, palette and finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "icon": "DrillRig upgrade node DiamondBit, shown at 80 px in the upgrade tree; requested at about 13 times that",
+      "this_request": "the family's upgrade icon pilot"
+    },
+    "prompt": "GAME ITEM ICON. Camera above the object looking down at about sixty degrees, the way the game RimWorld draws loose items on the floor. One single object, centred, with its long axis level.\n\nCreate an ORIGINAL game upgrade icon for the D'thorga drill rig: a diamond coring drill bit. Image 1 is our approved truck from the same family: match its outline weight, shading, palette and finish only.\n\nDraw ONLY the drill bit, alone on a plain pure white background, standing upright with its cutting crown at the top, filling about 75 percent of the canvas. Square canvas.\n\nA short thick steel cylinder with a threaded collar at the bottom in dusty olive; the crown at the top is a ring of pale blue-white diamond segments separated by small dark waterways; one muted orange band around the middle.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art. It must read clearly when shrunk to 80 pixels: one big shape, few small ones.\n\nNo people, animals, truck, text, letters, numbers, logos, dials, dust, floor, ground or cast shadow."
+  }
+]

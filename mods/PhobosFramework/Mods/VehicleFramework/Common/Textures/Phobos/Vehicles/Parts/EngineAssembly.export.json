@@ -1,0 +1,15 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/Vehicles/Parts/EngineAssembly.png",
+  "source": "assets/phobos-vehicles/generated/part-engine-assembly/part-engine-assembly-2.png",
+  "source_sha256": "1a3c739071a7aa3693258c409de31a22a91b0ecebcd960f5912a5fb26d29e793",
+  "target_sha256": "5a2114fe0a29c257f67d27a05b080242be7412c1b095b406941dbbed35359cde",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": true,
+  "date": "2026-11-09T20:20:29",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

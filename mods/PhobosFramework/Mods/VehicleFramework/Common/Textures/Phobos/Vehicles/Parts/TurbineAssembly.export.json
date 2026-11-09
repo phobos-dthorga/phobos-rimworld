@@ -1,0 +1,15 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/Vehicles/Parts/TurbineAssembly.png",
+  "source": "assets/phobos-vehicles/generated/part-turbine-assembly/part-turbine-assembly-1.png",
+  "source_sha256": "e38a30e7c4b2cc3057fcbb8dbcdb81d303cf74dc76c446ccf6a36d883078e2c9",
+  "target_sha256": "99b5132db472085d44e6c36738a34f8abd4c23272462cb8e0fb2916d94583476",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": true,
+  "date": "2026-11-09T20:20:30",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

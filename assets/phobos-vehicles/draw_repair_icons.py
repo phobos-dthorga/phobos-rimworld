@@ -81,8 +81,6 @@ def fittings(draw):
 
 
 ICONS = [
-    ('Vehicles/Parts/Transmission', transmission, 'a gearbox casing with an input shaft and three gear covers'),
-    ('Vehicles/Parts/TurbineAssembly', turbine, 'a gas turbine with an intake and an orange band'),
     ('VehicleSystems/FieldFix', field_fix, 'a pipe wrapped with an orange repair bandage'),
     ('VehicleSystems/CaravanRepair', caravan_repair, 'a spanner with a blue handle end'),
     ('VehicleSystems/Fittings', fittings, 'a gear wheel with an orange turbine snail bolted to it'),

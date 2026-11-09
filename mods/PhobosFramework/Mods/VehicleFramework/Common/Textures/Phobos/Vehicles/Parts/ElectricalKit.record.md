@@ -1,5 +1,5 @@
 # ElectricalKit
 
-**A stand-in, drawn in code** by `assets/phobos-vehicles/draw_tank_icons.py` (Pillow): an olive box with an orange lightning bolt. No image generator, no reference images and no game or other author's art was used. 128 x 128 px, transparent background.
+Made on 9 Nov 2026 with OpenAI gpt-image-2 through the image API, at medium quality: **AI-generated**, picked or accepted by the owner. Exported by `scripts/art/export_sprite.py`. The prompt is in `assets/phobos-vehicles/requests/stations-parts-pilot.json and stations-parts-upgrades.json`; the master and its record are on the `art-masters` branch. The only references uploaded were our own approved art from the same family. No game or other author's art was uploaded or used.
 
-- `ElectricalKit.png`: SHA-256 `7e3a6a5be57ca2b9fd2db371c331f634d9e29387a2035c0af00f0a2dde848212`
+- Master: `part-electrical-kit-1`, SHA-256 `b5ed1269c065fe3fbde6c2bc2d3aeddcebb53be6ed1044b7fca9c2041e2fed5e`

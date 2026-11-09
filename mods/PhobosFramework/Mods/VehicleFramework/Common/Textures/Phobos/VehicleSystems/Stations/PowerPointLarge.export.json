@@ -1,0 +1,15 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Stations/PowerPointLarge.png",
+  "source": "assets/phobos-vehicles/generated/fitting-power-point/fitting-power-point-1.png",
+  "source_sha256": "f1c3946bc2177cf4b11b0be226af526c396912baba3915837591dea448fab72a",
+  "target_sha256": "82486a2eb0842c8c6692db83309605175ee3f6f332cfeeeee44385e1896b487e",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": true,
+  "date": "2026-11-09T20:20:36",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

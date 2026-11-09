@@ -1,0 +1,15 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Stations/PartsBench.png",
+  "source": "assets/phobos-vehicles/generated/station-parts-bench/station-parts-bench-3.png",
+  "source_sha256": "2baa81e280977502aad9659875bb6a78913191a776e4d42c5d70d4a1e4584839",
+  "target_sha256": "67ac7e90566d266295400f8684a770a990aed414645bf3c1335efe2251f28785",
+  "size": [
+    448,
+    192
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": true,
+  "date": "2026-11-09T20:20:27",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

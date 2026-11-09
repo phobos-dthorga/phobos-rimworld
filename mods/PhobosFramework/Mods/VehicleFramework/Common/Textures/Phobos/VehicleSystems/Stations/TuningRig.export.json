@@ -1,0 +1,15 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Stations/TuningRig.png",
+  "source": "assets/phobos-vehicles/generated/station-tuning-rig/station-tuning-rig-3.png",
+  "source_sha256": "cd2c2bee012ad524421bc1993eebfb2a9eb320d6b73dbb3f35ead1fd351b45f6",
+  "target_sha256": "58b1473059c968d0776978f9951f41afcc4bbd924659d48a2bb19ac324afd740",
+  "size": [
+    256,
+    256
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": true,
+  "date": "2026-11-09T20:20:28",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

@@ -1,5 +1,5 @@
 # DepotBay
 
-**A stand-in, drawn in code** by `assets/phobos-vehicles/draw_station_stand_ins.py` (Pillow): a dark frame with an orange fuel tank and two parts shelves. No image generator, no reference images and no game or other author's art.
+Made on 9 Nov 2026 with OpenAI gpt-image-2 through the image API, at medium quality: **AI-generated**, picked or accepted by the owner. Exported by `scripts/art/export_sprite.py`. The prompt is in `assets/phobos-vehicles/requests/stations-parts-pilot.json and stations-parts-upgrades.json`; the master and its record are on the `art-masters` branch. The only references uploaded were our own approved art from the same family. No game or other author's art was uploaded or used.
 
-- `DepotBay.png`: SHA-256 `03ed1e450b001a07a5f2d78b168d5bae8534157e5330abbad93436f8a407c1f8`
+- Master: `station-depot-bay-1`, SHA-256 `40d47a26455ab245523c516a588aa733d5d6ad0f0fc45f482c2c509fdc594ab4`
