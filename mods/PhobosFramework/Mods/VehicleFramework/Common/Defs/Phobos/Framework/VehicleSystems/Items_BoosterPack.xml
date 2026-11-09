@@ -39,8 +39,7 @@
       <workSkill>Crafting</workSkill>
       <researchPrerequisite>Batteries</researchPrerequisite>
       <recipeUsers>
-        <li>TableMachining</li>
-        <li>FabricationBench</li>
+        <li>PhobosVehicles_PartsBench</li>
       </recipeUsers>
       <skillRequirements>
         <Crafting>4</Crafting>
@@ -89,8 +88,7 @@
       <PhobosVehicleSystems_BoosterPack>1</PhobosVehicleSystems_BoosterPack>
     </products>
     <recipeUsers>
-      <li>TableMachining</li>
-      <li>FabricationBench</li>
+      <li>PhobosVehicles_PartsBench</li>
     </recipeUsers>
   </RecipeDef>
 </Defs>

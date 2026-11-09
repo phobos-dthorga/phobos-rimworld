@@ -8,6 +8,7 @@ tested in game unless an entry says the owner tested it.
 ### Changed
 
 - The README now describes the bulk order window. Text only.
+- The bulk tanker is now built from the motor pool tab of the Architect menu, not the Vehicles tab, so it is easy to find on a long mod list. Needs D'thorga Framework 0.43.0. Not yet tested in game.
 
 ### Fixed
 

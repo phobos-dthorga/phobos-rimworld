@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+  <!-- Our own Architect tab (owner, 9 Nov 2026), beside Vehicle Framework's: a large mod list buries anything in the shared tabs. The order sits
+       just below its 24, so the two are neighbours. The label is an agent's choice. -->
+  <DesignationCategoryDef>
+    <defName>PhobosVehicles_MotorPool</defName>
+    <label>motor pool</label>
+    <description>Workshops for vehicle parts and tuning, and the vehicles themselves.</description>
+    <order>23</order>
+    <specialDesignatorClasses>
+      <li>Designator_Cancel</li>
+      <li>Designator_Deconstruct</li>
+    </specialDesignatorClasses>
+  </DesignationCategoryDef>
+
+  <!-- Vehicle parts are made here and nowhere else (owner, 9 Nov 2026), so they stop adding to the machining table's list. Layout, cost and power are
+       authored, a little under the machining table's (150 steel, 5 components, 350 W) because it makes only these. -->
+  <ThingDef ParentName="BenchBase">
+    <defName>PhobosVehicles_PartsBench</defName>
+    <label>vehicle parts bench</label>
+    <description>A bench laid out for one trade: engines, gearboxes, turbines, jump-start kits and booster packs. Everything it makes is for keeping vehicles running.</description>
+    <thingClass>Building_WorkTable</thingClass>
+    <graphicData>
+      <texPath>Phobos/VehicleSystems/Stations/PartsBench</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>(3.5,1.5)</drawSize>
+      <damageData>
+        <cornerTL>Damage/Corner</cornerTL>
+        <cornerTR>Damage/Corner</cornerTR>
+        <cornerBL>Damage/Corner</cornerBL>
+        <cornerBR>Damage/Corner</cornerBR>
+      </damageData>
+    </graphicData>
+    <castEdgeShadows>true</castEdgeShadows>
+    <staticSunShadowHeight>0.20</staticSunShadowHeight>
+    <costList>
+      <Steel>120</Steel>
+      <ComponentIndustrial>4</ComponentIndustrial>
+    </costList>
+    <altitudeLayer>Building</altitudeLayer>
+    <fillPercent>0.5</fillPercent>
+    <useHitPoints>true</useHitPoints>
+    <statBases>
+      <WorkToBuild>2500</WorkToBuild>
+      <MaxHitPoints>180</MaxHitPoints>
+      <Flammability>1.0</Flammability>
+      <Cleanliness>-2</Cleanliness>
+    </statBases>
+    <size>(3,1)</size>
+    <designationCategory>PhobosVehicles_MotorPool</designationCategory>
+    <uiOrder>100</uiOrder>
+    <passability>PassThroughOnly</passability>
+    <pathCost>50</pathCost>
+    <hasInteractionCell>true</hasInteractionCell>
+    <interactionCellOffset>(0,0,-1)</interactionCellOffset>
+    <surfaceType>Item</surfaceType>
+    <constructionSkillPrerequisite>4</constructionSkillPrerequisite>
+    <researchPrerequisites>
+      <li>Machining</li>
+    </researchPrerequisites>
+    <inspectorTabs>
+      <li>ITab_Bills</li>
+    </inspectorTabs>
+    <comps>
+      <li Class="CompProperties_Power">
+        <compClass>CompPowerTrader</compClass>
+        <shortCircuitInRain>true</shortCircuitInRain>
+        <basePowerConsumption>250</basePowerConsumption>
+      </li>
+      <li Class="CompProperties_Flickable" />
+      <li Class="CompProperties_AffectedByFacilities">
+        <linkableFacilities>
+          <li>ToolCabinet</li>
+        </linkableFacilities>
+      </li>
+      <li Class="CompProperties_Breakdownable" />
+    </comps>
+  </ThingDef>
+
+  <!-- Tunes and changes of grade are done within reach of one of these (owner, 9 Nov 2026). Its size, reach, cost and power are authored. -->
+  <ThingDef ParentName="BuildingBase">
+    <defName>PhobosVehicles_TuningRig</defName>
+    <label>tuning rig</label>
+    <description>Test instruments and a hoist on a heavy frame. An engine can only be tuned, and a working part only changed for one of another grade, with a vehicle parked close by and the rig powered.</description>
+    <thingClass>Building</thingClass>
+    <graphicData>
+      <texPath>Phobos/VehicleSystems/Stations/TuningRig</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>(2,2)</drawSize>
+      <damageData>
+        <cornerTL>Damage/Corner</cornerTL>
+        <cornerTR>Damage/Corner</cornerTR>
+        <cornerBL>Damage/Corner</cornerBL>
+        <cornerBR>Damage/Corner</cornerBR>
+      </damageData>
+    </graphicData>
+    <minifiedDef>MinifiedThing</minifiedDef>
+    <thingCategories>
+      <li>BuildingsProduction</li>
+    </thingCategories>
+    <canOverlapZones>false</canOverlapZones>
+    <terrainAffordanceNeeded>Medium</terrainAffordanceNeeded>
+    <costList>
+      <Steel>100</Steel>
+      <ComponentIndustrial>4</ComponentIndustrial>
+    </costList>
+    <fillPercent>0.4</fillPercent>
+    <statBases>
+      <WorkToBuild>2000</WorkToBuild>
+      <MaxHitPoints>120</MaxHitPoints>
+      <Flammability>0.5</Flammability>
+      <Mass>30</Mass>
+    </statBases>
+    <size>(2,2)</size>
+    <rotatable>false</rotatable>
+    <designationCategory>PhobosVehicles_MotorPool</designationCategory>
+    <uiOrder>110</uiOrder>
+    <passability>PassThroughOnly</passability>
+    <pathCost>50</pathCost>
+    <constructionSkillPrerequisite>4</constructionSkillPrerequisite>
+    <researchPrerequisites>
+      <li>Machining</li>
+    </researchPrerequisites>
+    <drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
+    <placeWorkers>
+      <li>Phobos.VehicleSystems.PlaceWorker_PhobosTuningRigReach</li>
+    </placeWorkers>
+    <comps>
+      <li Class="CompProperties_Power">
+        <compClass>CompPowerTrader</compClass>
+        <shortCircuitInRain>true</shortCircuitInRain>
+        <basePowerConsumption>150</basePowerConsumption>
+      </li>
+      <li Class="CompProperties_Flickable" />
+      <li Class="CompProperties_Breakdownable" />
+      <li Class="Phobos.VehicleSystems.CompProperties_PhobosTuningRig">
+        <reach>3</reach>
+      </li>
+    </comps>
+  </ThingDef>
+
+</Defs>

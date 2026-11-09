@@ -7,6 +7,8 @@ summarised in our own words.
 
 ## Read this first
 
+- **From Framework 0.43.0 a tune or a change of grade on a working part waits for a tuning rig** (owner, 9 Nov 2026; a setting, on by default;
+  [the stations record](vehicle-stations.md)). What is below predates that.
 - **It works on every vehicle from any mod** (owner), through the roles a loadout already binds, so your RimThunder and other vehicles take fittings
   without anyone writing an upgrade tree for them.
 - **Three layers, each doing a different job** (owner): a **fitting** changes how one part performs, a **tune** changes how the whole engine is set

@@ -44,6 +44,7 @@ public class Dialog_PhobosVehicleFittings : Window
         }
         y += 36f;
         string intro = "PhobosVehicleSystems_FitWindowIntro".Translate();
+        if (Fittings.RigMissing) intro += " " + "PhobosVehicleSystems_FitNoRigNote".Translate(VehicleFittings.RigReach.Named("CELLS")).Resolve();
         using (new TextBlock(GameFont.Tiny))
         {
             float height = Text.CalcHeight(intro, inRect.width);

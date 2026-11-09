@@ -31,6 +31,8 @@ public sealed class RepairWork
     public FitOrder? Order;
     /// <summary>The Construction skill the work needs.</summary>
     public int MinSkill;
+    /// <summary>True for a tune or a change of grade, which are worked only within reach of a tuning rig.</summary>
+    public bool NeedsRig;
 }
 
 /// <summary>
@@ -230,6 +232,7 @@ public sealed class VehicleRepairs
             {
                 Key = "fit/" + (order.tune != null ? order.tune.axis.ToString() : order.partKey) + "/" + (order.tune?.defName ?? order.fitting?.defName ?? order.grade?.defName ?? "off"),
                 Kind = RepairKind.Fitting, Order = order, Work = fittings.WorkOf(order), MinSkill = skill,
+                NeedsRig = order.tune != null || order.grade != null,
                 Part = orderedPart,
                 Label = skill > 0 ? "PhobosVehicleSystems_FitWorkSkilled".Translate(label.Named("WORK"), skill.Named("SKILL")).Resolve() : label,
             };
@@ -266,19 +269,22 @@ public sealed class VehicleRepairs
 
     List<(ThingDef def, int count)>? AffordableOption(RepairWork repair) => repair.Options.FirstOrDefault(Affordable);
 
-    /// <summary>The first repair whose supplies are aboard, or null.</summary>
-    public RepairWork? Ready => Pending.FirstOrDefault(r => AffordableOption(r) != null);
+    /// <summary>Whether this work could start now: paid for, and within reach of a tuning rig if it needs one.</summary>
+    bool Workable(RepairWork repair) => AffordableOption(repair) != null && (!repair.NeedsRig || comp.Fittings.AtRig());
 
-    /// <summary>The first repair whose supplies are aboard and this mechanic has the skill for, or null.</summary>
+    /// <summary>The first repair that could start now, or null.</summary>
+    public RepairWork? Ready => Pending.FirstOrDefault(Workable);
+
+    /// <summary>The first repair that could start now and this mechanic has the skill for, or null.</summary>
     public RepairWork? ReadyFor(Pawn mechanic)
     {
         // A mechanoid has no skills to read: the game gives it a fixed level instead.
         int skill = mechanic.skills?.GetSkill(SkillDefOf.Construction)?.Level ?? (mechanic.RaceProps.IsMechanoid ? mechanic.RaceProps.mechFixedSkillLevel : 0);
-        return Pending.FirstOrDefault(r => FittingRule.SkilledEnough(skill, r.MinSkill) && AffordableOption(r) != null);
+        return Pending.FirstOrDefault(r => FittingRule.SkilledEnough(skill, r.MinSkill) && Workable(r));
     }
 
-    /// <summary>The repair of this key, if it is still wanted and its supplies are still aboard.</summary>
-    public RepairWork? Find(string key) => Pending.FirstOrDefault(r => r.Key == key && AffordableOption(r) != null);
+    /// <summary>The repair of this key, if it is still wanted and could still start.</summary>
+    public RepairWork? Find(string key) => Pending.FirstOrDefault(r => r.Key == key && Workable(r));
 
     /// <summary>What still has to be brought: our own payment for each repair that nothing aboard can pay for.</summary>
     public IEnumerable<IEnumerable<(ThingDef thingDef, int count)>> UnmetPayments()
@@ -309,13 +315,14 @@ public sealed class VehicleRepairs
         // A patch nobody asked for is on offer in a caravan, but the vehicle is not waiting for it.
         List<RepairWork> waiting = Pending.Where(r => r.Kind != RepairKind.FieldFix || fieldFixRequested).ToList();
         if (waiting.Count == 0) return null;
-        RepairWork? ready = waiting.FirstOrDefault(r => AffordableOption(r) != null);
+        RepairWork? ready = waiting.FirstOrDefault(Workable);
         if (ready != null) return "PhobosVehicleSystems_RepairWaitingMechanic".Translate(ready.Label.CapitalizeFirst().Named("WORK")).Resolve();
         return NeedsLine(waiting[0]);
     }
 
     public string NeedsLine(RepairWork repair)
     {
+        if (repair.NeedsRig && !comp.Fittings.AtRig()) return "PhobosVehicleSystems_RepairNeedsRig".Translate(repair.Label.CapitalizeFirst().Named("WORK"), VehicleFittings.RigReach.Named("CELLS")).Resolve();
         string own = repair.Options[0].Select(line => line.def.label + " x" + line.count).ToCommaList(useAnd: true);
         if (repair.Options.Count == 1) return "PhobosVehicleSystems_RepairNeeds".Translate(repair.Label.CapitalizeFirst().Named("WORK"), own.Named("SUPPLIES")).Resolve();
         string others = repair.Options.Skip(1).Select(o => o[0].def.label).ToCommaList(useAnd: false);

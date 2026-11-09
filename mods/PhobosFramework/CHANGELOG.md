@@ -5,6 +5,22 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.43.0] - 2026-11-09 - Draft
+
+### Added
+
+- A new Architect tab, motor pool, beside the Vehicles tab, holding our stations and our vehicles. Not yet tested in game.
+- A vehicle parts bench (research Machining). Every vehicle part, jump-start kit and booster pack is now made there and only there, so they no longer lengthen the machining table's list. A bill already on a machining table goes on working until you remove it. Not yet tested in game.
+- A tuning rig (research Machining). A tune, or a change of grade on a working part, now waits until the vehicle is parked within 3 cells of a powered rig, and says so. The reach is outlined while you place or select it. Fittings and replacing a destroyed part need no rig. A setting, on by default, turns the rule off. The self-test checks that a tune waits. Not yet tested in game.
+
+### Save compatibility
+
+- Safe to add to a running colony. A tune or refit already ordered waits for a rig until you build one or turn the setting off.
+
+### Compatibility and limits
+
+- The bench and rig pictures are stand-ins drawn in code.
+
 ## [0.42.1] - 2026-11-09 - Draft
 
 ### Changed

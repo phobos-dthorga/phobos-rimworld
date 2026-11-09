@@ -43,6 +43,7 @@ public class VehicleSystemsSettings : ModSettings
     public float otherPartShare = 0.5f;
     /// <summary>Colonists can patch leaks and shorts in the field. Live.</summary>
     public bool fieldFixes = true;
+    public bool tuningNeedsRig = true;
     /// <summary>Another faction's vehicle may be found with fittings and a tune.</summary>
     public bool enemyFitSets = true;
     public DisplayMode displayMode = DisplayMode.Plain;
@@ -127,6 +128,7 @@ public class VehicleSystemsSettings : ModSettings
         Scribe_Values.Look(ref wholePartShare, "PhobosVehicleSystems_WholePartShare", 1f);
         Scribe_Values.Look(ref otherPartShare, "PhobosVehicleSystems_OtherPartShare", 0.5f);
         Scribe_Values.Look(ref fieldFixes, "PhobosVehicleSystems_FieldFixes", true);
+        Scribe_Values.Look(ref tuningNeedsRig, "PhobosVehicleSystems_TuningNeedsRig", true);
         Scribe_Values.Look(ref enemyFitSets, "PhobosVehicleSystems_EnemyFitSets", true);
         Scribe_Values.Look(ref displayMode, "PhobosVehicleSystems_DisplayMode", DisplayMode.Plain);
         Scribe_Values.Look(ref drivetrainMode, "PhobosVehicleSystems_DrivetrainMode", DrivetrainMode.Full);
@@ -307,6 +309,7 @@ public class VehicleSystemsMod : Mod
             s.otherPartShare = listing.Slider(s.otherPartShare, 0f, 1f);
         }
         listing.CheckboxLabeled("PhobosVehicleSystems_SettingFieldFixes".Translate(), ref s.fieldFixes, "PhobosVehicleSystems_SettingFieldFixesDesc".Translate());
+        listing.CheckboxLabeled("PhobosVehicleSystems_SettingTuningNeedsRig".Translate(), ref s.tuningNeedsRig, "PhobosVehicleSystems_SettingTuningNeedsRigDesc".Translate());
         listing.CheckboxLabeled("PhobosVehicleSystems_SettingEnemyFitSets".Translate(), ref s.enemyFitSets, "PhobosVehicleSystems_SettingEnemyFitSetsDesc".Translate());
 
         SettingsUi.Section(listing, "PhobosVehicleSystems_SectionJumpStarts".Translate());

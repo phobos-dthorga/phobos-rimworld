@@ -305,6 +305,37 @@ public sealed class VehicleFittings
 
     public FitOrder? OrderFor(VehicleTuneAxis axis) => orders.FirstOrDefault(o => o.tune != null && o.tune.axis == axis);
 
+    /// <summary>Lets the self-test work a tune on its throwaway vehicle, which stands on no map and so is near no rig.</summary>
+    internal static bool AssumeRigForTest;
+
+    static List<ThingDef>? rigDefs;
+
+    static List<ThingDef> RigDefs => rigDefs ??= DefDatabase<ThingDef>.AllDefsListForReading.Where(d => d.GetCompProperties<CompProperties_PhobosTuningRig>() != null).ToList();
+
+    /// <summary>The furthest any tuning rig reaches, for what the player reads.</summary>
+    public static int RigReach => RigDefs.Count == 0 ? 0 : RigDefs.Max(d => d.GetCompProperties<CompProperties_PhobosTuningRig>().reach);
+
+    /// <summary>Whether a tune or a change of grade could be worked here and now: within reach of a working rig of the player's, or the setting is off.</summary>
+    public bool AtRig()
+    {
+        if (!Settings.tuningNeedsRig || AssumeRigForTest) return true;
+        VehiclePawn vehicle = comp.Vehicle;
+        if (!vehicle.Spawned) return false;
+        CellRect area = vehicle.OccupiedRect();
+        foreach (ThingDef def in RigDefs)
+        {
+            foreach (Building rig in vehicle.Map.listerBuildings.AllBuildingsColonistOfDef(def))
+            {
+                CompPhobosTuningRig? station = rig.GetComp<CompPhobosTuningRig>();
+                if (station != null && station.Working && station.Reaches(area)) return true;
+            }
+        }
+        return false;
+    }
+
+    /// <summary>Whether this vehicle's window should say that tunes and grades will wait.</summary>
+    public bool RigMissing => Settings.tuningNeedsRig && !AtRig();
+
     /// <summary>Whether this axis can be tuned here: an engine whose power reaches the road, and gears the model actually reads.</summary>
     public bool CanTune(VehicleTuneAxis axis)
     {

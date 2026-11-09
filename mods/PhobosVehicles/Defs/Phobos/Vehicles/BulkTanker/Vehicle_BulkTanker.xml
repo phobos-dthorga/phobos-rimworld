@@ -469,6 +469,7 @@
       <Steel>280</Steel>
       <ComponentIndustrial>8</ComponentIndustrial>
     </costList>
+    <designationCategory>PhobosVehicles_MotorPool</designationCategory>
     <thingToSpawn>Phobos_Tanker</thingToSpawn>
   </Vehicles.VehicleBuildDef>
 

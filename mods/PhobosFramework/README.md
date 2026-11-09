@@ -5,7 +5,7 @@ colonist is breathing, makes fires fill roofed rooms with the game's own smoke w
 carries carbon monoxide from fires, holds the per-person care choices the D'thorga medical mods offer, and holds the small
 helpers every D'thorga mod shares.
 
-Version 0.42.1, built 9 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
+Version 0.43.0, built 9 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
 oxygen working through Burns and Smoke and Medical Equipment (5 November 2026). The health layer new in 0.3.0 and the **vehicle
 systems new in 0.9.0, and their engines, drivetrains and gas turbines new in 0.11.0, are not yet tested in game.** The rest is read from the game's and the mods' code.
 
@@ -39,10 +39,9 @@ and wear that a mechanic services. See [Vehicle systems](#vehicle-systems-with-v
 - **From 0.12.0, helicopters and pods that launch through Vehicle Framework are checked before they lift off**: too heavy for the
   day's heat, or with engines or thrusters out, **the launch button refuses and says why** (unload, repair, or wait for cooler
   air). The same setting decides, so "warn only" lets them go.
-- **From 0.16.0 a jump-start needs a jump-start kit** (a setting, on by default): craft one at a machining table or a fabrication
-  bench before you need one, and carry one in every caravan. **From 0.18.0 a booster pack** (research: batteries) jump-starts a
+- **From 0.16.0 a jump-start needs a jump-start kit** (a setting, on by default): craft one at a vehicle parts bench before you need one, and carry one in every caravan. **From 0.18.0 a booster pack** (research: batteries) jump-starts a
   vehicle with no second vehicle and no kit: it holds 4 starts, charges again in the cargo of a running vehicle, and is recharged
-  fully at a machining table. The setting **Every vehicle carries a booster pack** (off) makes packs unnecessary.
+  fully at a vehicle parts bench. The setting **Every vehicle carries a booster pack** (off) makes packs unnecessary.
 - **From 0.16.0 a closed cab shelters its passengers**: they feel the cab's temperature, not the weather, as long as the heater or
   the air conditioner has the engine to run on. **From 0.18.0 they also have moods about it** (a warm cab in the cold, a cold cab
   that is too cold for them); the setting **Passengers feel the cab** (on) turns them off. At a caravan's night camp the engine is off and the cab cools, unless the **night
@@ -117,6 +116,10 @@ mods share the work is in [the medical mods together](../../docs/medical-mods.md
 
 ## Vehicle systems (with Vehicle Framework)
 
+**Build a vehicle parts bench first (Architect, motor pool tab; research Machining): since 0.43.0 our parts, kits and booster packs are made only there.
+A tune or a change of grade on a working part also needs a tuning rig** within 3 cells of the vehicle, powered (a setting, on by default); fittings and
+replacing a destroyed part do not. A bill already on a machining table goes on working until you remove it. **Not yet tested in game.**
+
 Every vehicle gets systems that fit what it is, found by what it runs on and whether it drives, floats or flies, not by its name.
 Other mods (D'thorga Vehicles first) can give a named vehicle its own figures. Nothing here is tested in game yet.
 
@@ -154,7 +157,7 @@ Other mods (D'thorga Vehicles first) can give a named vehicle its own figures. N
   bad, slower. **Repair the part to full health to clear them** (a colonist's repair job, or a caravan's). Not yet tested in game.
 - **A destroyed part needs replacing** (0.36.0): at 0% it waits for supplies in the vehicle's cargo and a mechanic, then ordinary free repair
   carries on. **An engine or transmission costs the whole part by default, anything else half its materials; both are in the settings, and
-  the setting Destroyed parts need replacing turns it off.** Make our engine, turbine and transmission at the machining table. A vehicle
+  the setting Destroyed parts need replacing turns it off.** Make our engine, turbine and transmission at the **vehicle parts bench** (Architect, **motor pool** tab). A vehicle
   whose engine is destroyed cannot move until it has a new one. Not yet tested in game.
 - **Other factions' vehicles run a simpler model** (0.25.0): raiders' and visitors' vehicles on your map take hits but nothing in
   them heats, wears or runs down by itself, which keeps a raid cheap; capture one and it wakes to the full model. The setting
@@ -173,9 +176,9 @@ Other mods (D'thorga Vehicles first) can give a named vehicle its own figures. N
   sand, swamps are mud, jungle is undergrowth, and winter adds snow; a road is firm whatever the land around it. A laden or
   underpowered vehicle slows on heavy ground and the caravan's explanation names it. Vehicle Framework's own travel times for each
   biome still apply as well.
-- **Booster packs** (0.18.0): craft at a machining table or fabrication bench after researching batteries. A colonist carries one
+- **Booster packs** (0.18.0): craft at a vehicle parts bench after researching batteries. A colonist carries one
   to a flat vehicle; no kit and no second vehicle needed. Each holds 4 starts (the inspect pane shows how many are left), gains a
-  start back every 2 hours in the cargo of a vehicle whose engine runs, and is recharged fully by a bill at a machining table.
+  start back every 2 hours in the cargo of a vehicle whose engine runs, and is recharged fully by a bill at a vehicle parts bench.
 - **Cab moods** (0.18.0): people aboard a closed cab are glad of a warm cab when it is colder outside than they like, or a cool one
   in the heat, and unhappy in a cab too cold or too hot for them, judged by their own comfortable range (clothes, genes and traits
   count). Open vehicles give no such moods.

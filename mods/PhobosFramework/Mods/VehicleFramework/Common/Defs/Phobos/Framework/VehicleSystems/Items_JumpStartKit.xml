@@ -33,8 +33,7 @@
       <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
       <workSkill>Crafting</workSkill>
       <recipeUsers>
-        <li>TableMachining</li>
-        <li>FabricationBench</li>
+        <li>PhobosVehicles_PartsBench</li>
       </recipeUsers>
       <skillRequirements>
         <Crafting>3</Crafting>

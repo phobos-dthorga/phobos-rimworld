@@ -98,6 +98,7 @@ public static class VehicleSelfTest
             return;
         }
         VehicleNotices.Quiet = true;
+        VehicleFittings.AssumeRigForTest = true;
         VehiclePawn? vehicle = null;
         try
         {
@@ -112,6 +113,7 @@ public static class VehicleSelfTest
         finally
         {
             VehicleNotices.Quiet = false;
+            VehicleFittings.AssumeRigForTest = false;
             if (vehicle != null) test.Step("Throwing the test vehicle away", () => vehicle.Discard(silentlyRemoveReferences: true));
         }
     }
@@ -246,6 +248,13 @@ public static class VehicleSelfTest
         test.Near("The tune raises the engine's power", comp.Powertrain!.Spec.RatedPowerKw, before * tune.powerFactor, 0.1);
         PhobosVehicleTuneDef asBuilt = VehicleFittings.TunesOf(VehicleTuneAxis.Engine).First(t => t.isDefault);
         fittings.OrderTune(asBuilt);
+        if (VehicleSystemsMod.Settings.tuningNeedsRig)
+        {
+            RepairWork? back = comp.Repairs.Pending.FirstOrDefault(w => w.Order?.tune == asBuilt);
+            VehicleFittings.AssumeRigForTest = false;
+            test.Expect("A tune waits for a tuning rig", back != null && comp.Repairs.Find(back.Key) == null);
+            VehicleFittings.AssumeRigForTest = true;
+        }
         Work(test, comp, "Tuning it back", w => w.Order?.tune == asBuilt, mechanic);
         test.Near("Back to the power it was built with", comp.Powertrain!.Spec.RatedPowerKw, before, 0.1);
     }

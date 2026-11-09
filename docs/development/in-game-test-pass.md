@@ -39,6 +39,7 @@ result goes into that mod's changelog.
 
 | 8 | Fittings and tunes (Framework 0.40.0) | Open **Fittings and tunes** from a vehicle's Dashboard. Order a turbocharger and a power tune, with the materials to hand and a mechanic of Construction 8 | The materials are hauled, the work is done, the Health tab says Fitted; a lower-skilled mechanic is refused and told why |
 | 9 | Part grades (Framework 0.41.0) | **After check 1.** On a working part, press **Grade** and choose heavy-duty; on a part destroyed with the dev action, choose salvaged before it is replaced. Save and load | The part's health on the Health tab rises by about 30% or falls by about 30%, and is the same after the load |
+| 10 | Stations (Framework 0.43.0) | Open the **motor pool** tab and build a **vehicle parts bench** and a **tuning rig**. Order a tune on a vehicle parked away from the rig, then drive it within the outline | The bench lists only vehicle parts; the machining table lists none of ours; the tune waits and says why, then a mechanic does it once the vehicle is within reach |
 
 ## Not on this list, on purpose
 
