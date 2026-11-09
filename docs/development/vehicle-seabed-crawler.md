@@ -31,9 +31,9 @@ Every row is one Vehicle Framework `UpgradeNode`: `researchPrerequisites` holds 
 | `WetLab` | Wet laboratory | Marine science | Laboratory fittings | None | Research seats, research speed |
 | `DeepLab` | Advanced laboratory | Advanced marine science | Analyser bench | Wet laboratory | Which projects it can work on |
 | `SeabedDrill` | Seabed drill | Subsea drilling | Drill string | Wheels and arm | Drilling rate |
-| `Reactor` | Compact reactor | Compact reactors | Reactor core | None | Hours under, heat, what happens if it is hit |
+| `Reactor` | Compact reactor: **ours by default**, Rimatomics' when it is active (owner, 10 Nov 2026) | Compact reactors | Reactor core | None | Hours under, heat, what happens if it is hit |
 
-**New to us:** none of our mods defines a research project yet; the existing trees all point at the game's. These would be our first `ResearchProjectDef`s. The owner's rule against huge scarce-ingredient costs applies to every part, and the research gates stay proportional to what they unlock.
+**New to our vehicles:** the vehicle trees so far all point at the game's research, and only the radio framework has a project of ours. The owner's rule against huge scarce-ingredient costs applies to every part, and the research gates stay proportional to what they unlock.
 
 ## What each behaviour does to the player
 
@@ -52,11 +52,24 @@ Every row is one Vehicle Framework `UpgradeNode`: `researchPrerequisites` holds 
 
 ## The research vessel
 
-- **Who can contribute** (owner's "intelligence criteria"; agent's reading): **a person seated in a scientist's seat, who is able to do research and has an Intellectual skill of at least 6** (authored). The rate is the game's own `ResearchSpeed` for that person, which already follows skill and health, times the vessel's factor. They gain Intellectual experience at the rate a bench gives.
+- **Who can contribute** (owner, 10 Nov 2026): **a person seated in a scientist's seat, who is able to do research and has an Intellectual skill of at least 7**, which the owner notes is where the game calls someone a weak professional. The rate is the game's own `ResearchSpeed` for that person, which already follows skill and health, times the vessel's factor. They gain Intellectual experience at the rate a bench gives.
 - **How it reaches the game:** the same call a research bench makes, `ResearchManager.ResearchPerformed(amount, researcher)` (`JobDriver_Research`, decompile `all.cs:288371`). **It logs an error if no project is chosen** (`:379075`), so the service checks that first.
-- **When it counts** (agent default): only while the boat is at rest, settled or surfaced. Moving stops the work, so a research trip is a place you go and stay.
+- **When it counts** (owner, 10 Nov 2026): at the full rate at rest, and more slowly under way, because the crew is busy with more urgent tasks. **They still learn:** under way the research runs at half the rate **[authored]**, and the Intellectual experience stays at the full rate **[agent reading of "still valuable for learning"]**.
 - **What it can work on:** the game limits projects by bench (`requiredResearchBuilding`, `requiredResearchFacilities`; `CanBeResearchedAt`, `all.cs:42924`). A vessel is not a bench, so the wet laboratory takes projects that need no special bench, and the advanced laboratory takes those that need a hi-tech bench and its analyser.
+- **Some projects can be done only aboard** (owner, 10 Nov 2026), such as oceanography that opens the later upgrades. See [below](#aboard-only-research).
 - **Generic:** the comp goes in D'thorga Framework, so a survey truck or a land laboratory could use it.
+
+## Aboard-only research
+
+**The owner remembered a gravship mod doing this: it is Vanilla Gravship Expanded, Chapter 1** (Oskar Potocki, Sarg Bjornson and others; decompile in `.local/decompiled/VGE1`, read 10 Nov 2026 and summarised in our own words). What it does:
+
+- **It marks research with an empty `DefModExtension`**, on a tab or a single project (`GravshipResearchUtility.IsGravshipResearch`).
+- **A marked project is kept out of the normal queue.** Prefixes on `ResearchManager.SetCurrentProject` and `MainTabWindow_Research.DoBeginResearch` send it to a current-project slot of its own, saved with the world, and one on `IsCurrentProject` answers for that slot. Benches go on working on the ordinary project at the same time.
+- **Only its own activity makes progress**, through the game's `ResearchManager.AddProgress`.
+
+**Ours would follow the same shape, written fresh** and never copied: a `DefModExtension` marking a project as field research, a saved slot in a `GameComponent` of ours, three small patches, and the vessel's research service calling `AddProgress`. This has its costs: the patches sit on the research window, where Vanilla Gravship Expanded already patches, so **the two must be checked together**. Ordinary research keeps going at home while a vessel works on its own project, which suits a boat away at sea.
+
+**The tab** (owner, 10 Nov 2026): our projects get their own, titled to match the one that already exists for vehicles. **Taken to be Vanilla Vehicles Expanded's "Vehicles" tab**, so ours would be **"Vehicles: Submarines"** **[agent's wording; a label, so easy to change]**.
 
 ## Sonar and radar
 
@@ -80,7 +93,7 @@ Each loads only when the other mod is active. **Read each mod's code before buil
 
 | Mod | The tie-in | What was read |
 | --- | --- | --- |
-| Rimatomics | The reactor node takes its fuel and rules, if it can be done without a building | Decompile on hand, not read for this |
+| Rimatomics | **Overrides our default reactor** (owner, 10 Nov 2026: "maybe even overrides"; the agent's pick) with its richer fuel and rules, under the same node key so a save is unaffected | Decompile on hand, not read for this. It has its own research tab |
 | Rimefeller | Subsea oil, as the survey truck already finds oil on land | Decompile on hand, not read for this |
 | IRBM | The radar mast counts as an anti-missile radar | `Building_AntiMissileRadar` is a `Building` with a `RadarExtension` (`detectionRange`, `detectionLevel`), so a vehicle would need a bridge of ours |
 | Atmosphere Overhaul | The radar mast counts as a weather radar | `WeatherRadarAccess.Working` takes a `Building` too, and the mod is off in the owner's game |
@@ -113,13 +126,11 @@ Each loads only when the other mod is active. **Read each mod's code before buil
 
 ## Who chose what
 
-- **Owner (10 Nov 2026):** this is the first real boat; it is also a research vessel whose crew contribute according to intelligence; sonar and perhaps radar; tie-ins as soft dependencies; many of its mechanics are unique upgrades, each needing its own research and crafted parts.
-- **Agent choices, owner to revise:** the eleven nodes and their order; which need which; an Intellectual floor of 6; research only at rest; pings spotting the boat; radar on the surface only; the build order.
+- **Owner (10 Nov 2026):** this is the first real boat; it is also a research vessel whose crew contribute according to intelligence; sonar and perhaps radar; tie-ins as soft dependencies; many of its mechanics are unique upgrades, each needing its own research and crafted parts; Intellectual 7 to contribute; research at rest and more slowly under way; some projects only aboard; their own tab, titled like the existing vehicle one; a default reactor of ours, with Rimatomics providing a richer one.
+- **Agent choices, owner to revise:** the eleven nodes and their order; which need which; half rate under way, with full learning; pings spotting the boat; radar on the surface only; the build order; the tab's wording; Rimatomics replacing ours, not sitting beside it.
 
 ## Open questions for the owner
 
-1. **Is an Intellectual skill of 6 the right test**, or should it be a higher floor, a trait, or simply better results from cleverer people with no floor?
-2. **Should research be possible only at rest**, or also under way at a lower rate?
-3. **Should some projects be possible only aboard**, such as oceanography that opens the later upgrades?
-4. **Do the projects go on their own research tab**, or among the game's?
-5. **Reactor:** build ours, or leave it to the Rimatomics tie-in alone?
+The five questions of 10 November are answered, under [Who chose what](#who-chose-what). One thing to confirm:
+
+1. **Is "the main one for our vehicle mods" Vanilla Vehicles Expanded's "Vehicles" tab?** If so, the new tab is "Vehicles: Submarines".

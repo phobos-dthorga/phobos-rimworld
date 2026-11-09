@@ -80,6 +80,7 @@ public class CompPhobosSubmersible : VehicleComp
     int trackedUntilTick;
     bool spottedTold;
     bool stayDown;
+    bool lostTold;
 
     public CompProperties_PhobosSubmersible Props => (CompProperties_PhobosSubmersible)props;
     public DivePhase Phase => phase;
@@ -88,6 +89,8 @@ public class CompPhobosSubmersible : VehicleComp
     public bool Tracked => Hidden && DiveRule.Tracked(Find.TickManager.TicksGame, trackedUntilTick);
     /// <summary>Whether the crew has been told to stay under after the air and charge run out.</summary>
     public bool StayDown => stayDown;
+    /// <summary>Whether it has been ordered to stay and nobody aboard can change that. A later piece of equipment could raise it; nothing aboard can.</summary>
+    public bool Lost => DiveRule.Lost(phase, Vehicle.HasEnoughOperators, stayDown);
     public float Capacity => Vehicle.GetStatValue(SubmersibleDefOf.Phobos_DiveEndurance);
     public float Reserve => reserve < 0f ? Capacity : reserve;
     float Control => Vehicle.GetStatValue(SubmersibleDefOf.Phobos_DiveControl);
@@ -135,12 +138,15 @@ public class CompPhobosSubmersible : VehicleComp
         return Caravan is { } caravan && TileDeepEnough(caravan) ? null : Shallow;
     }
 
+    /// <summary>Why it cannot be brought up or have its orders changed, or null.</summary>
+    public string? SurfaceRefusal() => Lost ? "PhobosSubmersible_RefuseLost".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve() : null;
+
     /// <summary>Why a boat that is going or gone must come up now, or null.</summary>
     string? MustComeUp()
     {
         if (DiveRule.EmptyForcesUp(Reserve, stayDown)) return "PhobosSubmersible_UpEmpty".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve();
-        // Nobody left to work the boat: the tanks blow by themselves, or a boat full of unconscious people would sit out of sight for ever.
-        if (!Vehicle.HasEnoughOperators) return "PhobosSubmersible_UpCrew".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve();
+        // Nobody left to work the boat: the tanks blow by themselves, unless its orders were to stay down. Then it is lost with all hands, which is the player's decision to make.
+        if (DiveRule.CrewLossForcesUp(Vehicle.HasEnoughOperators, stayDown)) return "PhobosSubmersible_UpCrew".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve();
         if (Control < Props.controlFloor) return "PhobosSubmersible_UpPart".Translate(Vehicle.LabelShort.Named("VEHICLE"), WeakestPartLabel.Named("PART")).Resolve();
         bool deep = Vehicle.Spawned ? DeepEnoughHere : Caravan is not { } caravan || TileDeepEnough(caravan);
         return deep ? null : "PhobosSubmersible_UpShallow".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve();
@@ -219,6 +225,11 @@ public class CompPhobosSubmersible : VehicleComp
     /// <summary>Sets the standing order to stay under after the air and charge run out, and says so.</summary>
     public void SetStayDown(bool on)
     {
+        if (SurfaceRefusal() is { } refused)
+        {
+            Tell(refused, MessageTypeDefOf.RejectInput);
+            return;
+        }
         stayDown = on;
         Tell((on ? "PhobosSubmersible_ToldStayDown" : "PhobosSubmersible_ToldComeUpWhenEmpty").Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve(), MessageTypeDefOf.SilentInput);
     }
@@ -253,6 +264,34 @@ public class CompPhobosSubmersible : VehicleComp
         SetPhase(DivePhase.Diving);
         Tell("PhobosSubmersible_ToldDiving".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve(), MessageTypeDefOf.SilentInput);
         return true;
+    }
+
+    /// <summary>Starts it up on an order, or says why not. The one way an order to surface reaches the vehicle.</summary>
+    public bool TrySurface()
+    {
+        string? refused = SurfaceRefusal();
+        if (refused != null)
+        {
+            Tell(refused, MessageTypeDefOf.RejectInput);
+            return false;
+        }
+        Surface();
+        return true;
+    }
+
+    /// <summary>The once-only news that a boat is lost: a letter, because this is the end of a story and should not scroll away.</summary>
+    void AnnounceIfLost()
+    {
+        if (!Lost)
+        {
+            lostTold = false;
+            return;
+        }
+        if (lostTold) return;
+        lostTold = true;
+        if (Vehicle.Faction != Faction.OfPlayer) return;
+        LookTargets where = Caravan is { } caravan ? new LookTargets(caravan) : new LookTargets(Vehicle);
+        Find.LetterStack.ReceiveLetter("PhobosSubmersible_LostLabel".Translate(Vehicle.LabelShort.Named("VEHICLE")), "PhobosSubmersible_LostText".Translate(Vehicle.LabelShort.Named("VEHICLE")), LetterDefOf.NegativeEvent, where);
     }
 
     /// <summary>Brings it up. It is in sight from the moment the tanks start to blow.</summary>
@@ -293,6 +332,7 @@ public class CompPhobosSubmersible : VehicleComp
             }
         }
         if (DiveRule.GoingOrGone(phase) && MustComeUp() is { } because) Surface(because);
+        AnnounceIfLost();
     }
 
     /// <summary>A dev tool's way to leave only this many hours in reserve.</summary>
@@ -344,6 +384,7 @@ public class CompPhobosSubmersible : VehicleComp
         Scribe_Values.Look(ref trackedUntilTick, "PhobosDiveTrackedUntil");
         Scribe_Values.Look(ref spottedTold, "PhobosDiveSpottedTold");
         Scribe_Values.Look(ref stayDown, "PhobosDiveStayDown");
+        Scribe_Values.Look(ref lostTold, "PhobosDiveLostTold");
     }
 
     string PhaseLabel => phase switch
@@ -363,11 +404,12 @@ public class CompPhobosSubmersible : VehicleComp
     {
         foreach (Gizmo gizmo in base.CompGetGizmosExtra()) yield return gizmo;
         if (Vehicle.Faction != Faction.OfPlayer) yield break;
-        yield return Submersibles.ToggleGizmo(DiveRule.GoingOrGone(phase), DiveRefusal(), Props, () =>
+        bool down = DiveRule.GoingOrGone(phase);
+        yield return Submersibles.ToggleGizmo(down, down ? SurfaceRefusal() : DiveRefusal(), Props, () =>
         {
-            if (DiveRule.GoingOrGone(phase)) Surface();
+            if (DiveRule.GoingOrGone(phase)) TrySurface();
             else TryDive();
         });
-        yield return Submersibles.StayDownGizmo(stayDown, Props, () => SetStayDown(!stayDown));
+        yield return Submersibles.StayDownGizmo(stayDown, SurfaceRefusal(), () => SetStayDown(!stayDown));
     }
 }

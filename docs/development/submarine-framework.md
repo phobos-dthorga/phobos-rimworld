@@ -1,6 +1,6 @@
 # The submersibles framework: design (9 Nov 2026, updated 10 Nov 2026)
 
-**Status: built in D'thorga Framework 0.58.0 and 0.59.0 (spotting, staying down, chest-deep water), with a dev-only test hull in D'thorga Vehicles 0.26.0. Not yet tested in game.** The owner asked on 9 November 2026 to begin a framework
+**Status: built in D'thorga Framework 0.58.0, 0.59.0 (spotting, staying down, chest-deep water) and 0.60.0 (a boat can be lost), with a dev-only test hull in D'thorga Vehicles 0.26.0. Not yet tested in game.** The owner asked on 9 November 2026 to begin a framework
 for submarines inside the existing framework. The ideas it serves are in [unique military vehicles and submarines](military-vehicles-research.md). Agent-authored design, for the owner's review.
 
 ## Read this first
@@ -22,7 +22,7 @@ for submarines inside the existing framework. The ideas it serves are in [unique
 | Only explosions reach it, at half strength (owner, 10 Nov 2026) | Shrug off gunfire | Ignoring bombs and shells once spotted; only someone with an explosive weapon will aim at it | Spotting plus heavy weapons is the answer to a submarine |
 | Guns held, nobody lands | Nothing | Firing most guns and landing anyone from below; a design can name turrets, such as torpedo tubes, that do fire | The player chooses between being safe and being useful |
 | The reserve | Stay down for hours, longer when still | Staying down for ever; it goes three times as fast on the move by default and forces the boat up when empty | Each dive is a budget, and surfacing to recharge is a risk to plan |
-| Stay down (owner, 10 Nov 2026) | Keep hiding after the reserve is gone, when coming up would be worse | Staying for ever: the crew breathes stale air, gets worse and passes out, and then the boat comes up | Air becomes a price the player can choose to pay |
+| Stay down (owner, 10 Nov 2026) | Keep hiding after the reserve is gone, when coming up would be worse | Changing their mind too late: once nobody aboard can work the boat the order stands, the crew dies and the boat is lost | An extreme decision with a real price, and a story either way |
 | Chest-deep water, per design (owner, 10 Nov 2026) | Take a small boat up a river out of sight | Nothing for a boat that does not ask for it | A midget boat opens routes a big one cannot use |
 | A caravan goes under as one | Cross hostile sea with no ambushes, demands or meetings | Going under with anyone on foot or any vehicle that cannot dive; on land or shallow tiles it comes up | The sea is a safe road when the land is not |
 
@@ -41,7 +41,8 @@ for submarines inside the existing framework. The ideas it serves are in [unique
 - **Spotting (owner's idea, 10 Nov 2026; the rules are the agent's).** About every four seconds, everyone hostile on the map gets a look: `chance = 2% x closeness x 3 if moving x visibility x the design's noise`, where closeness falls from 1 on top of the hull to 0 at 25 cells, and visibility is the game's own weather accuracy times a darkness factor that bottoms out at half. Line of sight is needed. A hit means watchers follow it for 30 seconds, renewed by each new sighting. Anyone in range with a clear line as it finishes going down spots it for certain. A blast that hurts it spots it too. **All figures authored.**
 - **What the player sees (owner's idea, 10 Nov 2026).** The dark shape shows only once a hull is spotted. A hull of the player's own, unspotted, shows a small faint mark at its middle, because the player still has to find and click it **[agent default]**.
 - **Who may aim at a spotted hull:** only someone whose current weapon deals damage that reaches it. Without this, a spotted boat would soak up gunfire that could never hurt it.
-- **Staying down (owner, 10 Nov 2026).** Off by default, and the boat surfaces when it runs out. On, it stays, and everyone aboard who breathes gains stale air: 0.3 an hour against 0.1 cleared by the body, so a net 0.2. Headaches from 0.1, gasping from 0.3, confusion from 0.55, unconscious from 0.8, fatal at 1, so about four hours past empty to pass out. **Stages and rates authored.** Stale air stands for carbon dioxide building up in a sealed hull and is not a dose-response model. An unconscious crew cannot work the boat, and a boat with nobody able to work it comes up **[agent default]**: otherwise it would sit hidden for ever.
+- **Staying down (owner, 10 Nov 2026).** Off by default, and the boat surfaces when it runs out. On, it stays, and everyone aboard who breathes gains stale air: 0.3 an hour against 0.1 cleared by the body, so a net 0.2. Headaches from 0.1, gasping from 0.3, confusion from 0.55, unconscious from 0.8, fatal at 1, so about four hours past empty to pass out and five to die. **Stages and rates authored.** Stale air stands for carbon dioxide building up in a sealed hull and is not a dose-response model; it may become part of our own health mechanics later (owner, 10 Nov 2026).
+- **A boat can be lost (owner, 10 Nov 2026: RimWorld is about extreme decisions and the story they make).** Without the order, a boat that loses everyone who can work it comes up by itself. With the order, it does not: the order can no longer be changed, Surface is refused with the reason, and a letter says so. It stays where it is, its own faint mark still showing. Damage that wrecks its ballast or hull can still force it up.
 - **Time is charged by elapsed ticks**, from whichever of the comp's rare tick or the caravan comp's tick runs first, so nothing is charged twice and a boat is charged correctly on either map.
 - **Cost:** one rare-tick update per boat. Patches that run for every pawn start with one check of an empty set while no boat is under. The set of hidden hulls is derived and never saved.
 
@@ -82,6 +83,7 @@ Two things needed no patch. Caravan buttons and text come from a `WorldObjectCom
 - **A hidden hull still claims its cells**, so another boat cannot pass through it, and it still leaves a wake.
 - **A rare tick is about four seconds**, so a boat can run a little way into shallows before it comes up. A move order into the shallows is not refused.
 - **A stray shot can stop at a hidden hull** and do nothing. Only explosive weapons aim at one, so this should be rare.
+- **Nothing can raise a lost boat yet.** A lost caravan is likewise stuck where it is.
 - **Spotting happens on a map only.** A caravan that is under the water is simply out of reach.
 - **A hostile boat that nobody has spotted is drawn as nothing but could still be clicked.** No hostile boats exist yet.
 - **Firing from below does not give a boat away yet**, because no boat has a gun that fires from below. Torpedo tubes must call `Spot()`.
@@ -102,11 +104,13 @@ Short list, highest consequence first. Enable dev mode and use a map with a lake
 
 1. Debug actions, "Vehicle systems: spawn a submersible", click deep water. It arrives crewed. Press **Dive**: after 15 seconds it should vanish, leaving a faint mark at its middle.
 2. Select it and use "Vehicle systems: spot a submersible". It should show as a dark shape and say it has been spotted, and about 30 seconds later say the enemy has lost it. With enemies near, check that riflemen ignore it while a mortar or grenadier goes for it once it is spotted.
-3. Drive it into shallows and see it surface and say why. Use "Vehicle systems: nearly empty a submersible" and see it come up. Do that again with **Stay down** on: it should stay, and the crew should gain stale air (use the game's dev speed), then pass out and come up.
+3. Drive it into shallows and see it surface and say why. Use "Vehicle systems: nearly empty a submersible" and see it come up. Do that again with **Stay down** on: it should stay, and the crew should gain stale air (use the game's dev speed), pass out, and die. When they pass out a letter should say the boat is lost, and **Surface** and **Stay down** should go grey and say why.
 4. Save and load while under: it should still be hidden, with the same reserve.
 5. Form a caravan on the sea and try the caravan's **Dive** button.
 
 ## Next slices (agent proposal)
+
+- **Equipment for recovering lost boats** (owner's idea, 10 Nov 2026). The research record's recovery vehicle and the Crawler's manipulator are natural starting points.
 
 1. The first real boat, [the Seabed Crawler](vehicle-seabed-crawler.md), with its own picture, overlays and upgrade tree (owner, 10 Nov 2026).
 2. The reserve drawn from the electrical system's batteries, and diesel only on the surface.
@@ -118,15 +122,13 @@ Short list, highest consequence first. Enable dev mode and use a map with a lake
 
 - **Owner (9 Nov 2026):** build a framework for submarines; it joins the existing framework. No stand-in body art, so the test hull borrows a picture.
 - **Owner (10 Nov 2026):** explosions at half strength are right; a detection mechanic, with the shape in the water seen only once detected; a boat surfaces when empty, with a button to override; chest-deep water is an option for each submarine, thinking of midget boats; the first real boat is the Seabed Crawler.
+- **Owner, later on 10 Nov 2026:** forced to stay down kills everyone, possibly through our own health mechanics later; lost boats may have recovery equipment later; keep the faint mark on our own boat.
 - **The owner's "an option for each submarine" was read as a choice in each design's XML**, not a button in play. Say if a button was meant.
-- **Agent choices, owner to revise:** a dive as a state; one reserve number; all the spotting rules and figures; the faint mark on the player's own boat; only weapons that can reach it aim at a spotted hull; stale air as the price of staying down, and its figures; a boat with nobody able to work it comes up; the figures (15 and 10 seconds, three times the burn on the move, four hours regained per hour on the surface, a floor of half for the trim, a tenth of the reserve to dive); rivers not deep enough; a caravan goes under whole or not at all; a dev-only hull as the first consumer.
+- **Agent choices, owner to revise:** a dive as a state; one reserve number; all the spotting rules and figures; the faint mark on the player's own boat; only weapons that can reach it aim at a spotted hull; stale air as the price of staying down, and its figures; a boat without the order comes up when nobody can work it; the figures (15 and 10 seconds, three times the burn on the move, four hours regained per hour on the surface, a floor of half for the trim, a tenth of the reserve to dive); rivers not deep enough; a caravan goes under whole or not at all; a dev-only hull as the first consumer.
 
 ## Open questions for the owner
 
-The four questions of 9 November are answered, under [Who chose what](#who-chose-what). Two remain from the answers:
-
-1. Should a crew that passes out bring the boat up by itself, as it does now, or should staying down be able to kill everyone aboard?
-2. Should the player's own unspotted boat show the faint mark, or nothing at all until it is selected?
+All are answered, under [Who chose what](#who-chose-what).
 
 ## Sources
 

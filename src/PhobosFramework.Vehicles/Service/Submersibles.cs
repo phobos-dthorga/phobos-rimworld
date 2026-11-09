@@ -83,7 +83,9 @@ public static class Submersibles
         if (boats.Count == 0) return;
         if (boats.Any(b => DiveRule.GoingOrGone(b.Phase)))
         {
-            foreach (CompPhobosSubmersible boat in boats) boat.Surface();
+            string? stuck = boats.Select(b => b.SurfaceRefusal()).FirstOrDefault(r => r != null);
+            if (stuck != null) Messages.Message(stuck, caravan, MessageTypeDefOf.RejectInput, historical: false);
+            else foreach (CompPhobosSubmersible boat in boats) boat.Surface();
             return;
         }
         string? refused = boats.Select(b => b.DiveRefusal()).FirstOrDefault(r => r != null);
@@ -102,14 +104,19 @@ public static class Submersibles
     }
 
     /// <summary>The standing order to stay under once the air and charge run out. Presentation only: the action is what the caller says it is.</summary>
-    public static Command_Toggle StayDownGizmo(bool on, CompProperties_PhobosSubmersible props, Action toggle) => new()
+    public static Command_Toggle StayDownGizmo(bool on, string? refused, Action toggle)
     {
-        defaultLabel = "PhobosSubmersible_GizmoStayDown".Translate().Resolve(),
-        defaultDesc = "PhobosSubmersible_GizmoStayDownDesc".Translate().Resolve(),
-        icon = SystemIcons.For(StayDownIcon),
-        isActive = () => on,
-        toggleAction = toggle,
-    };
+        var command = new Command_Toggle
+        {
+            defaultLabel = "PhobosSubmersible_GizmoStayDown".Translate().Resolve(),
+            defaultDesc = "PhobosSubmersible_GizmoStayDownDesc".Translate().Resolve(),
+            icon = SystemIcons.For(StayDownIcon),
+            isActive = () => on,
+            toggleAction = toggle,
+        };
+        if (refused != null) command.Disable(refused);
+        return command;
+    }
 
     /// <summary>The dive or surface button: one look for a boat and for a caravan. Presentation only: the action is what the caller says it is.</summary>
     public static Command_Action ToggleGizmo(bool down, string? refused, CompProperties_PhobosSubmersible props, Action action)
@@ -123,7 +130,7 @@ public static class Submersibles
             icon = SystemIcons.For(down ? SurfaceIcon : DiveIcon),
             action = action,
         };
-        if (!down && refused != null) command.Disable(refused);
+        if (refused != null) command.Disable(refused);
         return command;
     }
 }
@@ -185,8 +192,8 @@ public class WorldObjectComp_PhobosSubmersibleCaravan : WorldObjectComp
         List<CompPhobosSubmersible> boats = Submersibles.DivingBoats(caravan);
         if (boats.Count == 0) yield break;
         bool down = boats.Any(b => DiveRule.GoingOrGone(b.Phase));
-        yield return Submersibles.ToggleGizmo(down, boats.Select(b => b.DiveRefusal()).FirstOrDefault(r => r != null), boats[0].Props, () => Submersibles.ToggleCaravan(caravan));
+        yield return Submersibles.ToggleGizmo(down, boats.Select(b => down ? b.SurfaceRefusal() : b.DiveRefusal()).FirstOrDefault(r => r != null), boats[0].Props, () => Submersibles.ToggleCaravan(caravan));
         bool stayDown = boats.All(b => b.StayDown);
-        yield return Submersibles.StayDownGizmo(stayDown, boats[0].Props, () => Submersibles.SetCaravanStayDown(caravan, !stayDown));
+        yield return Submersibles.StayDownGizmo(stayDown, boats.Select(b => b.SurfaceRefusal()).FirstOrDefault(r => r != null), () => Submersibles.SetCaravanStayDown(caravan, !stayDown));
     }
 }

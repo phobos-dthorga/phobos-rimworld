@@ -5,6 +5,26 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.60.0] - 2026-11-10 - Draft
+
+From the owner's decision on staying down (10 November 2026). **Not yet tested in game.**
+
+### Added
+
+- A boat ordered to stay down can now be lost with all hands. Once nobody aboard can work it, the order cannot be changed, the boat will not come up by itself, and a letter says so.
+
+### Changed
+
+- Stay down no longer lets a crew that passes out bring the boat up: they die there. A boat without the order still comes up by itself when it loses everyone who can work it.
+
+### Save compatibility
+
+- Safe to add. The new saved value has a default.
+
+### Compatibility and limits
+
+- Nothing can raise a lost boat yet. Equipment for recovering one is planned.
+
 ## [0.59.0] - 2026-11-10 - Draft
 
 From the owner's answers on submarines (10 November 2026). **Not yet tested in game.**

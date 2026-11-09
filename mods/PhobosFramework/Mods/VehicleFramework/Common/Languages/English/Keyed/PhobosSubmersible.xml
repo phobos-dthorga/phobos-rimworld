@@ -9,7 +9,7 @@
   <PhobosSubmersible_GizmoSurfaceDesc>Blow the tanks and come up, which takes {SECONDS} seconds. The boat can be seen from the moment it starts to rise. On the surface it takes on air and charges up again.</PhobosSubmersible_GizmoSurfaceDesc>
 
   <PhobosSubmersible_GizmoStayDown>Stay down</PhobosSubmersible_GizmoStayDown>
-  <PhobosSubmersible_GizmoStayDownDesc>When this is on, the boat stays under after its air and charge run out, instead of coming up. The crew then breathes stale air and gets steadily worse, and it can kill. If nobody aboard can work the boat, it comes up by itself.</PhobosSubmersible_GizmoStayDownDesc>
+  <PhobosSubmersible_GizmoStayDownDesc>When this is on, the boat stays under after its air and charge run out, instead of coming up. The crew then breathes stale air and gets steadily worse until they die. Once nobody aboard can work the boat, the order can no longer be changed and nothing aboard can bring it up.</PhobosSubmersible_GizmoStayDownDesc>
 
   <!-- What the boat is doing -->
   <PhobosSubmersible_Line>{STATE}. Air and charge: {LEFT} of {FULL} hours.</PhobosSubmersible_Line>
@@ -38,7 +38,12 @@
   <PhobosSubmersible_RefusePart>The {PART} is too badly damaged to dive with. Mend it first.</PhobosSubmersible_RefusePart>
   <PhobosSubmersible_RefuseReserve>{VEHICLE} needs more air and charge first. Wait on the surface.</PhobosSubmersible_RefuseReserve>
   <PhobosSubmersible_RefuseShallow>The water here is too shallow for {VEHICLE} to dive. Every part of the hull has to be over deep water.</PhobosSubmersible_RefuseShallow>
+  <PhobosSubmersible_RefuseLost>Nobody aboard {VEHICLE} can work it, so its orders cannot be changed and it cannot come up.</PhobosSubmersible_RefuseLost>
   <PhobosSubmersible_RefuseLanding>{VEHICLE} has to surface before anyone can get out.</PhobosSubmersible_RefuseLanding>
+
+  <!-- Lost with all hands -->
+  <PhobosSubmersible_LostLabel>Boat lost: {VEHICLE}</PhobosSubmersible_LostLabel>
+  <PhobosSubmersible_LostText>Nobody aboard {VEHICLE} can work it any more, and its orders were to stay down. It will not come up by itself.</PhobosSubmersible_LostText>
 
   <!-- Why it had to come up -->
   <PhobosSubmersible_UpEmpty>{VEHICLE} ran out of air and charge and had to surface.</PhobosSubmersible_UpEmpty>

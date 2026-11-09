@@ -125,4 +125,20 @@ public class DiveRuleTests
     [InlineData(DivePhase.Submerged, 0f, false, false)]
     [InlineData(DivePhase.Surfacing, 0f, true, false)]
     public void BreathingStaleAir(DivePhase phase, float reserve, bool stayDown, bool expected) => Assert.Equal(expected, DiveRule.BreathingStaleAir(phase, reserve, stayDown));
+
+    [Theory]
+    [InlineData(false, false, true)]
+    [InlineData(false, true, false)]
+    [InlineData(true, false, false)]
+    [InlineData(true, true, false)]
+    public void CrewLossForcesUp(bool canBeWorked, bool stayDown, bool expected) => Assert.Equal(expected, DiveRule.CrewLossForcesUp(canBeWorked, stayDown));
+
+    [Theory]
+    [InlineData(DivePhase.Submerged, false, true, true)]
+    [InlineData(DivePhase.Diving, false, true, true)]
+    [InlineData(DivePhase.Submerged, true, true, false)]
+    [InlineData(DivePhase.Submerged, false, false, false)]
+    [InlineData(DivePhase.Surfacing, false, true, false)]
+    [InlineData(DivePhase.Surfaced, false, true, false)]
+    public void Lost(DivePhase phase, bool canBeWorked, bool stayDown, bool expected) => Assert.Equal(expected, DiveRule.Lost(phase, canBeWorked, stayDown));
 }

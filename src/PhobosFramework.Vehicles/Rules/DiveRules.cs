@@ -84,6 +84,12 @@ public static class DiveRule
     /// <summary>Whether an empty reserve brings the boat up, as it does unless the crew has been told to stay down.</summary>
     public static bool EmptyForcesUp(float reserve, bool stayDown) => reserve <= 0f && !stayDown;
 
+    /// <summary>Whether losing everyone who can work the boat brings it up. The tanks blow by themselves, unless its orders were to stay down.</summary>
+    public static bool CrewLossForcesUp(bool canBeWorked, bool stayDown) => !canBeWorked && !stayDown;
+
+    /// <summary>Whether a boat is lost: going or gone, ordered to stay, and nobody left aboard who could change that order. Nothing aboard can bring it up now.</summary>
+    public static bool Lost(DivePhase phase, bool canBeWorked, bool stayDown) => GoingOrGone(phase) && !canBeWorked && stayDown;
+
     /// <summary>Whether the crew is breathing what is left: fully under, nothing in reserve, and told to stay.</summary>
     public static bool BreathingStaleAir(DivePhase phase, float reserve, bool stayDown) => phase == DivePhase.Submerged && reserve <= 0f && stayDown;
 }
