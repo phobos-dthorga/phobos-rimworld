@@ -5,6 +5,17 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.40.1] - 2026-11-09 - Draft
+
+### Fixed
+
+- A garage could lose up to its whole founding cost from its repair stock when a lone caravan joined it: it is paid for once now, garages already built included. **Not yet tested in game.**
+- A tanker pumping into a pipe network lost its load when the only tanks with room were marked for transfer, and could gain a little when pumping from a net others were drawing on: it now counts what really moved. **Not yet tested in game.**
+- Taking the tank off a tanker that was set up left it unable to move, with no way to pack up. **Not yet tested in game.**
+- With two or more tankers in a caravan, only the first could be given a bulk order: each tanker now has its own buttons, named. **Not yet tested in game.**
+- A bulk order could fill a holed or burst tank and lose the load the moment it was paid for: it is refused now, as the pump refuses. **Not yet tested in game.**
+- A tank holding a fluid whose mod has been removed no longer breaks its menus, and a pump set going on an empty compartment says why it is not running. **Not yet tested in game.**
+
 ## [0.40.0] - 2026-11-09 - Draft
 
 ### Added

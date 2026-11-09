@@ -62,6 +62,7 @@ public static class GarageService
         StashedVehicle stash = StashedVehicle.Create(convoy, out Caravan crew);
         if (stash == null) return null;
         var garage = (Outpost_PhobosGarage)WorldObjectMaker.MakeWorldObject(def);
+        garage.MarkFoundingPaid();
         garage.Name = NameGenerator.GenerateName(faction.def.settlementNameMaker,
             Find.WorldObjects.AllWorldObjects.OfType<Outpost>().Select(o => o.Name), false);
         garage.Tile = tile;

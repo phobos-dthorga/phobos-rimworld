@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
   <!-- Water in the tanker. It freezes at 0 C and spills as nothing worth drawing. -->
-  <Phobos.VehicleSystems.PhobosTankContentsDef>
+  <Phobos.VehicleSystems.PhobosTankContentsDef DBHLite="true">
     <defName>PhobosTank_Water</defName>
     <label>water</label>
     <description>Water for the plumbing.</description>

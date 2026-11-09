@@ -26,8 +26,19 @@ public static class TankGizmos
     {
         Settlement? settlement = BulkOrders.VisitedSettlement(tank.Vehicle);
         if (settlement == null) yield break;
-        if (tank.Compartments.Count > 1) yield return CompartmentButton(tank);
-        yield return BulkOrderButton(tank, settlement);
+        if (tank.Compartments.Count > 1) yield return OneTanker(CompartmentButton(tank), tank);
+        yield return OneTanker(BulkOrderButton(tank, settlement), tank);
+    }
+
+    /// <summary>A caravan shows every tanker's buttons at once. Grouped, one click would act on them all, and a bulk order's menu would only ever be the first tanker's.</summary>
+    static Gizmo OneTanker(Gizmo gizmo, CompPhobosTank tank)
+    {
+        if (gizmo is Command command)
+        {
+            command.groupable = false;
+            command.defaultLabel += ": " + tank.Vehicle.LabelShort;
+        }
+        return gizmo;
     }
 
     static Gizmo BulkOrderButton(CompPhobosTank tank, Settlement settlement)

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using Outposts;
 using RimWorld;
 using RimWorld.Planet;
@@ -49,7 +50,16 @@ public class Outpost_PhobosGarage : Outpost, IPhobosVehicleHolder
         base.ExposeData();
         Scribe_Deep.Look(ref parked, "PhobosGarage_Parked", this);
         parked ??= new ThingOwner<Thing>(this);
+        if (Scribe.mode == LoadSaveMode.PostLoadInit) MarkFoundingPaid();
     }
+
+    /// <summary>
+    /// A garage is paid for once, by <see cref="GarageService.Found"/>. The outposts code keeps its own private flag and, while that is
+    /// unset, takes the founding cost out of the outpost's stores when a lone caravan joins: here, the repair stock. Read from Vanilla
+    /// Expanded Outposts (Outpost.AddPawn), 9 Nov 2026; the field has no other way in, so a reflected write. Also set on load, for
+    /// garages founded before this.
+    /// </summary>
+    internal void MarkFoundingPaid() => typeof(Outpost).GetField("costPaid", BindingFlags.Instance | BindingFlags.NonPublic)?.SetValue(this, true);
 
     public override void PostRemove()
     {

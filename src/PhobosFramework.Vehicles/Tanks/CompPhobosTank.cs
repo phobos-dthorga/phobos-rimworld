@@ -51,6 +51,8 @@ public class TankCompartment : IExposable
         Scribe_Values.Look(ref amount, "PhobosTankAmount");
         Scribe_Values.Look(ref spoilHours, "PhobosTankSpoilHours");
         Scribe_Values.Look(ref quality, "PhobosTankQuality");
+        // A fluid whose mod has gone: a load of nothing would break the tank's menus.
+        if (Scribe.mode == LoadSaveMode.PostLoadInit && contents == null) amount = 0f;
     }
 }
 
@@ -261,6 +263,10 @@ public class CompPhobosTank : VehicleComp
         }
         compartments.Clear();
         selected = 0;
+        // With no tank the gizmos go, Pack up among them: a tanker left set up could never move again.
+        deployed = false;
+        mode = TankPumpMode.Hold;
+        ShowHoses(false);
         AfterLoadChange();
     }
 
@@ -448,7 +454,12 @@ public class CompPhobosTank : VehicleComp
         pumpStatus = null;
         TankCompartment compartment = Selected;
         PhobosTankContentsDef? fluid = compartment.contents;
-        if (mode == TankPumpMode.Hold || fluid == null) return;
+        if (mode == TankPumpMode.Hold) return;
+        if (fluid == null)
+        {
+            pumpStatus = "PhobosVehicleSystems_TankNoContents".Translate().Resolve();
+            return;
+        }
         pumpStatus = PumpBlocked();
         if (pumpStatus != null) return;
         float rate = Vehicle.GetStatValue(TankDefOf.Phobos_PumpRate);

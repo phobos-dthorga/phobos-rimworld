@@ -88,6 +88,8 @@ public static class BulkOrders
     {
         int days = BulkOrderRule.DaysUntilRestock(Ledger?.NextSale(LedgerKey(settlement, offer.Fluid)) ?? 0, Find.TickManager.TicksGame, GenDate.TicksPerDay);
         if (days > 0) return "PhobosVehicleSystems_TankBulkSoldOut".Translate(days.Named("DAYS")).Resolve();
+        // As the pump refuses to load it: a burst tank would lose the load the moment it was paid for.
+        if (tank.Vehicle.GetStatValue(TankDefOf.Phobos_TankIntegrity) < tank.Props.integrityFloor) return "PhobosVehicleSystems_TankHoled".Translate().Resolve();
         // Fluid the compartment already holds can be topped up; anything else goes through the tank's own rules.
         if (tank.Contents != offer.Fluid || !tank.CanTopUp)
         {

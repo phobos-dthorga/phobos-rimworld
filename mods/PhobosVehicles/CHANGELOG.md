@@ -11,6 +11,7 @@ tested in game unless an entry says the owner tested it.
 
 ### Fixed
 
+- Water cannot be chosen for the bulk tanker when Dubs Bad Hygiene is in its lite mode, where it could never be pumped. **Not yet tested in game.**
 - The bulk tanker no longer looks damaged when it is new: its damage marks now appear only while the part is really damaged. Found in the owner's first look. **Not yet tested in game.**
 
 ### Balance

@@ -28,8 +28,10 @@ public class Port_PipeNet : TankPort
             reason = "PhobosVehicleSystems_TankPipeEmpty".Translate().Resolve();
             return 0f;
         }
-        found.DrawAmongStorage(taken);
-        return taken;
+        // The net's stored figure is refreshed only now and then, so what came out, not what was asked for.
+        found.DrawAmongStorage(taken, out float drawn, null);
+        if (drawn <= 0f) reason = "PhobosVehicleSystems_TankPipeEmpty".Translate().Resolve();
+        return drawn;
     }
 
     public override float Give(CompPhobosTank tank, float most, out string? reason)
@@ -47,8 +49,10 @@ public class Port_PipeNet : TankPort
             reason = "PhobosVehicleSystems_TankPipeFull".Translate().Resolve();
             return 0f;
         }
-        found.DistributeAmongStorage(given);
-        return given;
+        // Its capacity counts tanks marked for transfer, which take nothing: only what was really stored leaves the tanker.
+        found.DistributeAmongStorage(given, out float stored);
+        if (stored <= 0f) reason = "PhobosVehicleSystems_TankPipeFull".Translate().Resolve();
+        return stored;
     }
 
     PipeNet? Find(CompPhobosTank tank)
