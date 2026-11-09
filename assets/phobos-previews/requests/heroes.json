@@ -1,0 +1,146 @@
+[
+  {
+    "name": "hero-vehicles",
+    "engine": "schnell",
+    "width": 1280,
+    "height": 720,
+    "seeds": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "prompt": "Illustration for a RimWorld mod preview: A small convoy of rugged working trucks on a windswept frontier ridge at dusk: a drill rig with its mast raised, a bulk tanker with hoses out, and a survey truck, while a lone colonist in a worn parka checks a clipboard beside them, a small settlement glowing in the valley below. Painterly but clean, muted earth tones with amber light, dark teal dusk sky, wide composition, the lower third darker and uncluttered. No text, no logos, no watermark."
+  },
+  {
+    "name": "hero-vehicles-zimage",
+    "engine": "zimage",
+    "width": 1280,
+    "height": 720,
+    "seeds": [
+      301,
+      302
+    ],
+    "prompt": "Illustration for a RimWorld mod preview: A small convoy of rugged working trucks on a windswept frontier ridge at dusk: a drill rig with its mast raised, a bulk tanker with hoses out, and a survey truck, while a lone colonist in a worn parka checks a clipboard beside them, a small settlement glowing in the valley below. Painterly but clean, muted earth tones with amber light, dark teal dusk sky, wide composition, the lower third darker and uncluttered. No text, no logos, no watermark."
+  },
+  {
+    "name": "hero-framework",
+    "engine": "schnell",
+    "width": 1280,
+    "height": 720,
+    "seeds": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "prompt": "Illustration for a RimWorld mod preview: A lone mechanic in a worn parka working by lamplight on the open engine bay of a battered truck at dusk, tools laid out on a crate, steam rising from the radiator, a small frontier settlement behind. Painterly but clean, muted earth tones with amber light, dark teal dusk sky, wide composition, the lower third darker and uncluttered. No text, no logos, no watermark."
+  },
+  {
+    "name": "hero-framework-zimage",
+    "engine": "zimage",
+    "width": 1280,
+    "height": 720,
+    "seeds": [
+      301,
+      302
+    ],
+    "prompt": "Illustration for a RimWorld mod preview: A lone mechanic in a worn parka working by lamplight on the open engine bay of a battered truck at dusk, tools laid out on a crate, steam rising from the radiator, a small frontier settlement behind. Painterly but clean, muted earth tones with amber light, dark teal dusk sky, wide composition, the lower third darker and uncluttered. No text, no logos, no watermark."
+  },
+  {
+    "name": "hero-medical",
+    "engine": "schnell",
+    "width": 1280,
+    "height": 720,
+    "seeds": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "prompt": "Illustration for a RimWorld mod preview: A frontier field hospital at dusk seen through its open tent flaps: a lone doctor in a worn coat beside a bed with an oxygen concentrator and a loop of clear tubing, warm lamplight spilling out onto the snow. Painterly but clean, muted earth tones with amber light, dark teal dusk sky, wide composition, the lower third darker and uncluttered. No text, no logos, no watermark."
+  },
+  {
+    "name": "hero-medical-zimage",
+    "engine": "zimage",
+    "width": 1280,
+    "height": 720,
+    "seeds": [
+      301,
+      302
+    ],
+    "prompt": "Illustration for a RimWorld mod preview: A frontier field hospital at dusk seen through its open tent flaps: a lone doctor in a worn coat beside a bed with an oxygen concentrator and a loop of clear tubing, warm lamplight spilling out onto the snow. Painterly but clean, muted earth tones with amber light, dark teal dusk sky, wide composition, the lower third darker and uncluttered. No text, no logos, no watermark."
+  },
+  {
+    "name": "hero-factory",
+    "engine": "schnell",
+    "width": 1280,
+    "height": 720,
+    "seeds": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "prompt": "Illustration for a RimWorld mod preview: A small frontier factory at dusk on a windswept plain: a conveyor belt running from a hopper into a brick workshop, amber light from its windows, a lone colonist in a worn parka watching crates roll by. Painterly but clean, muted earth tones with amber light, dark teal dusk sky, wide composition, the lower third darker and uncluttered. No text, no logos, no watermark."
+  },
+  {
+    "name": "hero-factory-zimage",
+    "engine": "zimage",
+    "width": 1280,
+    "height": 720,
+    "seeds": [
+      301,
+      302
+    ],
+    "prompt": "Illustration for a RimWorld mod preview: A small frontier factory at dusk on a windswept plain: a conveyor belt running from a hopper into a brick workshop, amber light from its windows, a lone colonist in a worn parka watching crates roll by. Painterly but clean, muted earth tones with amber light, dark teal dusk sky, wide composition, the lower third darker and uncluttered. No text, no logos, no watermark."
+  },
+  {
+    "name": "hero-patches",
+    "engine": "schnell",
+    "width": 1280,
+    "height": 720,
+    "seeds": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "prompt": "Illustration for a RimWorld mod preview: A lone mechanic in a worn parka loading a bomb onto a parked jump jet on a rough frontier airstrip at dusk, a lit hangar and a small settlement behind. Painterly but clean, muted earth tones with amber light, dark teal dusk sky, wide composition, the lower third darker and uncluttered. No text, no logos, no watermark."
+  },
+  {
+    "name": "hero-patches-zimage",
+    "engine": "zimage",
+    "width": 1280,
+    "height": 720,
+    "seeds": [
+      301,
+      302
+    ],
+    "prompt": "Illustration for a RimWorld mod preview: A lone mechanic in a worn parka loading a bomb onto a parked jump jet on a rough frontier airstrip at dusk, a lit hangar and a small settlement behind. Painterly but clean, muted earth tones with amber light, dark teal dusk sky, wide composition, the lower third darker and uncluttered. No text, no logos, no watermark."
+  },
+  {
+    "name": "hero-watertap",
+    "engine": "schnell",
+    "width": 1280,
+    "height": 720,
+    "seeds": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "prompt": "Illustration for a RimWorld mod preview: A lone colonist in a worn parka filling a glass bottle from a brass tap on a water tower in a dusty frontier camp at dusk, lit cabin windows behind. Painterly but clean, muted earth tones with amber light, dark teal dusk sky, wide composition, the lower third darker and uncluttered. No text, no logos, no watermark."
+  },
+  {
+    "name": "hero-watertap-zimage",
+    "engine": "zimage",
+    "width": 1280,
+    "height": 720,
+    "seeds": [
+      301,
+      302
+    ],
+    "prompt": "Illustration for a RimWorld mod preview: A lone colonist in a worn parka filling a glass bottle from a brass tap on a water tower in a dusty frontier camp at dusk, lit cabin windows behind. Painterly but clean, muted earth tones with amber light, dark teal dusk sky, wide composition, the lower third darker and uncluttered. No text, no logos, no watermark."
+  }
+]

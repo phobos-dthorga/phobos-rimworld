@@ -1,0 +1,542 @@
+[
+  {
+    "name": "gizmo-aircon",
+    "engine": "klein-base",
+    "lora_comparison": false,
+    "prompt": "phobosvanilla, A slatted steel air-conditioning vent with three pale blue waves of cold air falling from it. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands.",
+    "references": [
+      ".local/references/vanilla-medical/MedicineIndustrial_a.png",
+      ".local/references/vanilla-medical/MedicineUltratech_a.png"
+    ],
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      13,
+      14
+    ],
+    "lora": "phobos-private-vanilla.safetensors",
+    "subject": "A slatted steel air-conditioning vent with three pale blue waves of cold air falling from it"
+  },
+  {
+    "name": "gizmo-cabheater",
+    "engine": "klein-base",
+    "lora_comparison": false,
+    "prompt": "phobosvanilla, A round steel fan grille with three red heat waves rising from it. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands.",
+    "references": [
+      ".local/references/vanilla-medical/MedicineIndustrial_a.png",
+      ".local/references/vanilla-medical/MedicineUltratech_a.png"
+    ],
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      13,
+      14
+    ],
+    "lora": "phobos-private-vanilla.safetensors",
+    "subject": "A round steel fan grille with three red heat waves rising from it"
+  },
+  {
+    "name": "gizmo-caravanrepair",
+    "engine": "klein-base",
+    "lora_comparison": false,
+    "prompt": "phobosvanilla, A steel spanner with a blue handle laid across a small wooden toolbox. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands.",
+    "references": [
+      ".local/references/vanilla-medical/MedicineIndustrial_a.png",
+      ".local/references/vanilla-medical/MedicineUltratech_a.png"
+    ],
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      13,
+      14
+    ],
+    "lora": "phobos-private-vanilla.safetensors",
+    "subject": "A steel spanner with a blue handle laid across a small wooden toolbox"
+  },
+  {
+    "name": "gizmo-climatecontrol",
+    "engine": "klein-base",
+    "lora_comparison": false,
+    "prompt": "phobosvanilla, A pale thermometer with a red bulb, between a small amber flame and a pale blue snowflake. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands.",
+    "references": [
+      ".local/references/vanilla-medical/MedicineIndustrial_a.png",
+      ".local/references/vanilla-medical/MedicineUltratech_a.png"
+    ],
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      13,
+      14
+    ],
+    "lora": "phobos-private-vanilla.safetensors",
+    "subject": "A pale thermometer with a red bulb, between a small amber flame and a pale blue snowflake"
+  },
+  {
+    "name": "gizmo-dive",
+    "engine": "klein-base",
+    "lora_comparison": false,
+    "prompt": "phobosvanilla, A small grey submarine below a blue wave line, with a bold orange arrow pointing down. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands.",
+    "references": [
+      ".local/references/vanilla-medical/MedicineIndustrial_a.png",
+      ".local/references/vanilla-medical/MedicineUltratech_a.png"
+    ],
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      13,
+      14
+    ],
+    "lora": "phobos-private-vanilla.safetensors",
+    "subject": "A small grey submarine below a blue wave line, with a bold orange arrow pointing down"
+  },
+  {
+    "name": "gizmo-fieldfix",
+    "engine": "klein-base",
+    "lora_comparison": false,
+    "prompt": "phobosvanilla, A steel pipe wrapped with a bright orange repair bandage. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands.",
+    "references": [
+      ".local/references/vanilla-medical/MedicineIndustrial_a.png",
+      ".local/references/vanilla-medical/MedicineUltratech_a.png"
+    ],
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      13,
+      14
+    ],
+    "lora": "phobos-private-vanilla.safetensors",
+    "subject": "A steel pipe wrapped with a bright orange repair bandage"
+  },
+  {
+    "name": "gizmo-fittings",
+    "engine": "klein-base",
+    "lora_comparison": false,
+    "prompt": "phobosvanilla, A steel gear wheel with an orange turbocharger bolted to it. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands.",
+    "references": [
+      ".local/references/vanilla-medical/MedicineIndustrial_a.png",
+      ".local/references/vanilla-medical/MedicineUltratech_a.png"
+    ],
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      13,
+      14
+    ],
+    "lora": "phobos-private-vanilla.safetensors",
+    "subject": "A steel gear wheel with an orange turbocharger bolted to it"
+  },
+  {
+    "name": "gizmo-headlights",
+    "engine": "klein-base",
+    "lora_comparison": false,
+    "prompt": "phobosvanilla, A round vehicle headlamp with a chrome rim and three amber beams of light. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands.",
+    "references": [
+      ".local/references/vanilla-medical/MedicineIndustrial_a.png",
+      ".local/references/vanilla-medical/MedicineUltratech_a.png"
+    ],
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      13,
+      14
+    ],
+    "lora": "phobos-private-vanilla.safetensors",
+    "subject": "A round vehicle headlamp with a chrome rim and three amber beams of light"
+  },
+  {
+    "name": "gizmo-nightheater",
+    "engine": "klein-base",
+    "lora_comparison": false,
+    "prompt": "phobosvanilla, A squat parking heater on short legs, with a flame in its small window and a crescent moon above it. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands.",
+    "references": [
+      ".local/references/vanilla-medical/MedicineIndustrial_a.png",
+      ".local/references/vanilla-medical/MedicineUltratech_a.png"
+    ],
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      13,
+      14
+    ],
+    "lora": "phobos-private-vanilla.safetensors",
+    "subject": "A squat parking heater on short legs, with a flame in its small window and a crescent moon above it"
+  },
+  {
+    "name": "gizmo-service",
+    "engine": "klein-base",
+    "lora_comparison": false,
+    "prompt": "phobosvanilla, A steel spanner laid diagonally, with an open jaw at one end and a ring at the other. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands.",
+    "references": [
+      ".local/references/vanilla-medical/MedicineIndustrial_a.png",
+      ".local/references/vanilla-medical/MedicineUltratech_a.png"
+    ],
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      13,
+      14
+    ],
+    "lora": "phobos-private-vanilla.safetensors",
+    "subject": "A steel spanner laid diagonally, with an open jaw at one end and a ring at the other"
+  },
+  {
+    "name": "gizmo-settle",
+    "engine": "klein-base",
+    "lora_comparison": false,
+    "prompt": "phobosvanilla, A small grey submarine on two wheels resting on a sandy sea bottom, below a blue wave line. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands.",
+    "references": [
+      ".local/references/vanilla-medical/MedicineIndustrial_a.png",
+      ".local/references/vanilla-medical/MedicineUltratech_a.png"
+    ],
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      13,
+      14
+    ],
+    "lora": "phobos-private-vanilla.safetensors",
+    "subject": "A small grey submarine on two wheels resting on a sandy sea bottom, below a blue wave line"
+  },
+  {
+    "name": "gizmo-bayassign",
+    "engine": "klein-base",
+    "lora_comparison": false,
+    "prompt": "phobosvanilla, A vehicle parking bay marked on the ground, with an orange tag hanging above a steel bar. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands.",
+    "references": [
+      ".local/references/vanilla-medical/MedicineIndustrial_a.png",
+      ".local/references/vanilla-medical/MedicineUltratech_a.png"
+    ],
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      13,
+      14
+    ],
+    "lora": "phobos-private-vanilla.safetensors",
+    "subject": "A vehicle parking bay marked on the ground, with an orange tag hanging above a steel bar"
+  },
+  {
+    "name": "gizmo-baygoto",
+    "engine": "klein-base",
+    "lora_comparison": false,
+    "prompt": "phobosvanilla, A vehicle parking bay marked on the ground, with a bold orange arrow pointing out of it. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands.",
+    "references": [
+      ".local/references/vanilla-medical/MedicineIndustrial_a.png",
+      ".local/references/vanilla-medical/MedicineUltratech_a.png"
+    ],
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      13,
+      14
+    ],
+    "lora": "phobos-private-vanilla.safetensors",
+    "subject": "A vehicle parking bay marked on the ground, with a bold orange arrow pointing out of it"
+  },
+  {
+    "name": "gizmo-overdrive",
+    "engine": "klein-base",
+    "lora_comparison": false,
+    "prompt": "phobosvanilla, A round pressure gauge with its needle deep in the red zone. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands.",
+    "references": [
+      ".local/references/vanilla-medical/MedicineIndustrial_a.png",
+      ".local/references/vanilla-medical/MedicineUltratech_a.png"
+    ],
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      13,
+      14
+    ],
+    "lora": "phobos-private-vanilla.safetensors",
+    "subject": "A round pressure gauge with its needle deep in the red zone"
+  },
+  {
+    "name": "gizmo-surveyarray",
+    "engine": "klein-base",
+    "lora_comparison": false,
+    "prompt": "phobosvanilla, A flat square transducer panel covered in small round sensors, glowing faintly amber. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands.",
+    "references": [
+      ".local/references/vanilla-medical/MedicineIndustrial_a.png",
+      ".local/references/vanilla-medical/MedicineUltratech_a.png"
+    ],
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      13,
+      14
+    ],
+    "lora": "phobos-private-vanilla.safetensors",
+    "subject": "A flat square transducer panel covered in small round sensors, glowing faintly amber"
+  },
+  {
+    "name": "gizmo-surveylongrange",
+    "engine": "klein-base",
+    "lora_comparison": false,
+    "prompt": "phobosvanilla, A white radar dish on a short steel mast, tilted towards the sky. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands.",
+    "references": [
+      ".local/references/vanilla-medical/MedicineIndustrial_a.png",
+      ".local/references/vanilla-medical/MedicineUltratech_a.png"
+    ],
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      13,
+      14
+    ],
+    "lora": "phobos-private-vanilla.safetensors",
+    "subject": "A white radar dish on a short steel mast, tilted towards the sky"
+  },
+  {
+    "name": "gizmo-tip",
+    "engine": "klein-base",
+    "lora_comparison": false,
+    "prompt": "phobosvanilla, A truck's steel tipper body tilted up at an angle, a load of rocks sliding out of it. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands.",
+    "references": [
+      ".local/references/vanilla-medical/MedicineIndustrial_a.png",
+      ".local/references/vanilla-medical/MedicineUltratech_a.png"
+    ],
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      13,
+      14
+    ],
+    "lora": "phobos-private-vanilla.safetensors",
+    "subject": "A truck's steel tipper body tilted up at an angle, a load of rocks sliding out of it"
+  },
+  {
+    "name": "gizmo-staydown",
+    "engine": "klein-base",
+    "lora_comparison": false,
+    "prompt": "phobosvanilla, A small grey submarine below a blue wave line, with a thick orange bar between the submarine and the wave. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands.",
+    "references": [
+      ".local/references/vanilla-medical/MedicineIndustrial_a.png",
+      ".local/references/vanilla-medical/MedicineUltratech_a.png"
+    ],
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      13,
+      14
+    ],
+    "lora": "phobos-private-vanilla.safetensors",
+    "subject": "A small grey submarine below a blue wave line, with a thick orange bar between the submarine and the wave"
+  },
+  {
+    "name": "gizmo-surface",
+    "engine": "klein-base",
+    "lora_comparison": false,
+    "prompt": "phobosvanilla, A small grey submarine below a blue wave line, with a bold orange arrow pointing up towards the wave. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands.",
+    "references": [
+      ".local/references/vanilla-medical/MedicineIndustrial_a.png",
+      ".local/references/vanilla-medical/MedicineUltratech_a.png"
+    ],
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      13,
+      14
+    ],
+    "lora": "phobos-private-vanilla.safetensors",
+    "subject": "A small grey submarine below a blue wave line, with a bold orange arrow pointing up towards the wave"
+  },
+  {
+    "name": "gizmo-switch",
+    "engine": "klein-base",
+    "lora_comparison": false,
+    "prompt": "phobosvanilla, A chunky rocker switch set in a pale square plate. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands.",
+    "references": [
+      ".local/references/vanilla-medical/MedicineIndustrial_a.png",
+      ".local/references/vanilla-medical/MedicineUltratech_a.png"
+    ],
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      13,
+      14
+    ],
+    "lora": "phobos-private-vanilla.safetensors",
+    "subject": "A chunky rocker switch set in a pale square plate"
+  },
+  {
+    "name": "gizmo-bulkorder",
+    "engine": "klein-base",
+    "lora_comparison": false,
+    "prompt": "phobosvanilla, A steel cylindrical storage tank beside one large silver coin. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands.",
+    "references": [
+      ".local/references/vanilla-medical/MedicineIndustrial_a.png",
+      ".local/references/vanilla-medical/MedicineUltratech_a.png"
+    ],
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      13,
+      14
+    ],
+    "lora": "phobos-private-vanilla.safetensors",
+    "subject": "A steel cylindrical storage tank beside one large silver coin"
+  },
+  {
+    "name": "gizmo-compartment",
+    "engine": "klein-base",
+    "lora_comparison": false,
+    "prompt": "phobosvanilla, A long steel tank divided into three sections, the middle section glowing amber. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands.",
+    "references": [
+      ".local/references/vanilla-medical/MedicineIndustrial_a.png",
+      ".local/references/vanilla-medical/MedicineUltratech_a.png"
+    ],
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      13,
+      14
+    ],
+    "lora": "phobos-private-vanilla.safetensors",
+    "subject": "A long steel tank divided into three sections, the middle section glowing amber"
+  },
+  {
+    "name": "gizmo-contents",
+    "engine": "klein-base",
+    "lora_comparison": false,
+    "prompt": "phobosvanilla, A steel cylindrical tank under a large blue droplet. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands.",
+    "references": [
+      ".local/references/vanilla-medical/MedicineIndustrial_a.png",
+      ".local/references/vanilla-medical/MedicineUltratech_a.png"
+    ],
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      13,
+      14
+    ],
+    "lora": "phobos-private-vanilla.safetensors",
+    "subject": "A steel cylindrical tank under a large blue droplet"
+  },
+  {
+    "name": "gizmo-hold",
+    "engine": "klein-base",
+    "lora_comparison": false,
+    "prompt": "phobosvanilla, Two thick upright red bars side by side, like a pause symbol. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands.",
+    "references": [
+      ".local/references/vanilla-medical/MedicineIndustrial_a.png",
+      ".local/references/vanilla-medical/MedicineUltratech_a.png"
+    ],
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      13,
+      14
+    ],
+    "lora": "phobos-private-vanilla.safetensors",
+    "subject": "Two thick upright red bars side by side, like a pause symbol"
+  },
+  {
+    "name": "gizmo-load",
+    "engine": "klein-base",
+    "lora_comparison": false,
+    "prompt": "phobosvanilla, A bold green arrow pointing down into the open top of a steel tank. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands.",
+    "references": [
+      ".local/references/vanilla-medical/MedicineIndustrial_a.png",
+      ".local/references/vanilla-medical/MedicineUltratech_a.png"
+    ],
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      13,
+      14
+    ],
+    "lora": "phobos-private-vanilla.safetensors",
+    "subject": "A bold green arrow pointing down into the open top of a steel tank"
+  },
+  {
+    "name": "gizmo-packup",
+    "engine": "klein-base",
+    "lora_comparison": false,
+    "prompt": "phobosvanilla, A steel tank above a neatly coiled black hose. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands.",
+    "references": [
+      ".local/references/vanilla-medical/MedicineIndustrial_a.png",
+      ".local/references/vanilla-medical/MedicineUltratech_a.png"
+    ],
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      13,
+      14
+    ],
+    "lora": "phobos-private-vanilla.safetensors",
+    "subject": "A steel tank above a neatly coiled black hose"
+  },
+  {
+    "name": "gizmo-setup",
+    "engine": "klein-base",
+    "lora_comparison": false,
+    "prompt": "phobosvanilla, A steel tank with a black hose laid out from it, ending in a brass coupling. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands.",
+    "references": [
+      ".local/references/vanilla-medical/MedicineIndustrial_a.png",
+      ".local/references/vanilla-medical/MedicineUltratech_a.png"
+    ],
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      13,
+      14
+    ],
+    "lora": "phobos-private-vanilla.safetensors",
+    "subject": "A steel tank with a black hose laid out from it, ending in a brass coupling"
+  },
+  {
+    "name": "gizmo-threecompartments",
+    "engine": "klein-base",
+    "lora_comparison": false,
+    "prompt": "phobosvanilla, A long steel tank seen from the side, with two dividing walls making three equal sections. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands.",
+    "references": [
+      ".local/references/vanilla-medical/MedicineIndustrial_a.png",
+      ".local/references/vanilla-medical/MedicineUltratech_a.png"
+    ],
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      13,
+      14
+    ],
+    "lora": "phobos-private-vanilla.safetensors",
+    "subject": "A long steel tank seen from the side, with two dividing walls making three equal sections"
+  },
+  {
+    "name": "gizmo-twocompartments",
+    "engine": "klein-base",
+    "lora_comparison": false,
+    "prompt": "phobosvanilla, A long steel tank seen from the side, with one dividing wall making two equal sections. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands.",
+    "references": [
+      ".local/references/vanilla-medical/MedicineIndustrial_a.png",
+      ".local/references/vanilla-medical/MedicineUltratech_a.png"
+    ],
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      13,
+      14
+    ],
+    "lora": "phobos-private-vanilla.safetensors",
+    "subject": "A long steel tank seen from the side, with one dividing wall making two equal sections"
+  },
+  {
+    "name": "gizmo-unload",
+    "engine": "klein-base",
+    "lora_comparison": false,
+    "prompt": "phobosvanilla, A bold orange arrow pointing up out of the open top of a steel tank. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands.",
+    "references": [
+      ".local/references/vanilla-medical/MedicineIndustrial_a.png",
+      ".local/references/vanilla-medical/MedicineUltratech_a.png"
+    ],
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      13,
+      14
+    ],
+    "lora": "phobos-private-vanilla.safetensors",
+    "subject": "A bold orange arrow pointing up out of the open top of a steel tank"
+  }
+]
