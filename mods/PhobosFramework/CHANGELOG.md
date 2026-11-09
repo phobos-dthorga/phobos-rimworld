@@ -19,7 +19,7 @@ tested in game unless an entry says the owner tested it.
 
 ### Added
 
-- A vehicle's parts can now swing out flat about a hinge when it sets up, each as its own picture, in step with the facing. Before it sets up it checks both sides for walls, buildings and other vehicles, uses the clearer one, and refuses with a reason if neither is clear, so a part does not draw through them. D'thorga Vehicles' survey truck is the first to use it. Not yet tested in game.
+- A vehicle's parts can now swing out flat about a hinge when it sets up, each as its own picture, in step with the facing. Before it sets up it checks both sides for walls, buildings and other vehicles, uses the clearer one, and refuses with a reason if neither is clear, so a part does not draw through them. D'thorga Vehicles' survey truck is the first to use it. **Tested in game by the owner, 9 November 2026, on this version: the survey truck's boom works well.**
 
 ## [0.50.0] - 2026-11-09 - Draft
 

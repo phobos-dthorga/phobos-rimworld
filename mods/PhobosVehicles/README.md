@@ -108,7 +108,7 @@ Every source and simplification is in the loadout files under `Mods/`.
 
 ## The survey truck
 
-**Not yet tested in game.** A light four-wheel-drive truck that does a ground-penetrating scanner's job, wherever you can drive it.
+**Tested in game by the owner on 9 November 2026 (Vehicles 0.23.0): the truck and its boom work well. Its upgrades are not yet tested in game.** A light four-wheel-drive truck that does a ground-penetrating scanner's job, wherever you can drive it.
 
 - **Build it** from the **motor pool** tab. It needs Ground-penetrating scanner research, our four vehicle parts from the **vehicle parts bench**, and 10 uranium.
 - **It needs room beside it.** When it sets up, its boom swings out to whichever side is clear, about three cells from the middle of the truck. If walls, buildings or other vehicles block both sides, it says so and will not set up.

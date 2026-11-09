@@ -15,7 +15,7 @@ tested in game unless an entry says the owner tested it.
 
 ### Added
 
-- The survey truck has its own picture, and its sensor boom swings out to the clearer side when it sets up, over two seconds. It needs room beside it, and says so if there is none. Generated with OpenAI's image API, recorded beside the textures. Not yet tested in game.
+- The survey truck has its own picture, and its sensor boom swings out to the clearer side when it sets up, over two seconds. It needs room beside it, and says so if there is none. Generated with OpenAI's image API, recorded beside the textures. **Tested in game by the owner, 9 November 2026, on this version: the survey truck and its boom work well.** Its upgrades were not reported on separately.
 
 ### Dependencies
 
