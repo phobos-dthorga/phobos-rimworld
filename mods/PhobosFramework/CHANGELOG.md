@@ -5,6 +5,19 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.55.0] - 2026-11-09 - Draft
+
+From the owner's request to refresh every vehicle's parts (9 November 2026). The figures are authored. **Not yet tested in game.**
+
+### Added
+
+- Every combustion land vehicle gets a water pump, whose damage leaves the radiator less coolant to cool and spills some.
+- Every combustion vehicle gets a fuel pump. A damaged one costs a quarter of its speed, and a ruined one will not let the engine start until it is repaired.
+
+### Save compatibility
+
+- Safe on an existing save: vehicles gain the two parts undamaged at the next load.
+
 ## [0.54.0] - 2026-11-09 - Draft
 
 From the owner's question about the survey truck (9 November 2026). **Not yet tested in game.**

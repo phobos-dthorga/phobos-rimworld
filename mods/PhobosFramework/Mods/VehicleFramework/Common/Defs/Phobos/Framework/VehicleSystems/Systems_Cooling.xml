@@ -36,6 +36,7 @@
     <roles>
       <li>Engine</li>
       <li>Radiator</li>
+      <li>WaterPump</li>
     </roles>
     <parameters>
       <heatAtFullLoad>420</heatAtFullLoad>
@@ -217,6 +218,10 @@
           <li Class="Phobos.VehicleSystems.Input_PartEfficiency">
             <role>Radiator</role>
           </li>
+          <li Class="Phobos.VehicleSystems.Input_PartEfficiency">
+            <!-- A radiator cools only the coolant brought to it. A vehicle with no water pump of its own reads as sound. -->
+            <role>WaterPump</role>
+          </li>
           <li Class="Phobos.VehicleSystems.Input_Moving">
             <stopped>0.7</stopped>
             <moving>1</moving>
@@ -282,6 +287,11 @@
       <work>300</work>
     </service>
     <onPartHit>
+      <li>
+        <role>WaterPump</role>
+        <quantity>coolantLevel</quantity>
+        <perShareLost>-0.25</perShareLost>
+      </li>
       <li>
         <!-- Shares of the part's health, so a small radiator and a big one agree (authored, 9 Nov 2026, after the owner's test: a wrecked radiator used to
              cost at most 45% of the coolant). -->

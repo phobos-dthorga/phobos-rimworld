@@ -123,6 +123,21 @@
         </add>
       </li>
       <li>
+        <!-- Framework 0.55.0: fuel system, feed to the engine (the owner's parts refresh, 9 Nov 2026). -->
+        <role>FuelPump</role>
+        <find>
+          <li>
+            <keyContains>fuelpump</keyContains>
+          </li>
+        </find>
+        <add>
+          <key>PhobosFuelPump</key>
+          <label>fuel pump</label>
+          <health>20</health>
+          <cellsOf>Engine</cellsOf>
+        </add>
+      </li>
+      <li>
         <role>Transmission</role>
         <find>
           <li>
@@ -174,6 +189,21 @@
           <depth>External</depth>
           <hitWeight>0.5</hitWeight>
           <hitWeightCE>2</hitWeightCE>
+          <cellsOf>Engine</cellsOf>
+        </add>
+      </li>
+      <li>
+        <!-- Framework 0.55.0: it moves the coolant, so a dead one leaves the radiator nothing to cool (the owner's parts refresh, 9 Nov 2026). -->
+        <role>WaterPump</role>
+        <find>
+          <li>
+            <keyContains>waterpump</keyContains>
+          </li>
+        </find>
+        <add>
+          <key>PhobosWaterPump</key>
+          <label>water pump</label>
+          <health>20</health>
           <cellsOf>Engine</cellsOf>
         </add>
       </li>

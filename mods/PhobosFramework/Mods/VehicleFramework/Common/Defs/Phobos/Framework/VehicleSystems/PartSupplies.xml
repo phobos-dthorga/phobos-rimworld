@@ -135,6 +135,8 @@
     <roles>
       <li>Starter</li>
       <li>OilPump</li>
+      <li>FuelPump</li>
+      <li>WaterPump</li>
       <li>Brakes</li>
       <li>Clutch</li>
       <li>Compressor</li>

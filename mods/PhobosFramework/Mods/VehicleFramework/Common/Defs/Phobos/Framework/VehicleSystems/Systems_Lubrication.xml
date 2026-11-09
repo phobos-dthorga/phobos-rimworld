@@ -202,9 +202,48 @@
   -->
   <Phobos.VehicleSystems.PhobosVehicleSystemDef>
     <defName>PhobosVehicleSystem_Fuel</defName>
-    <label>fuel in the cold</label>
-    <description>When the setting is on, fuel thickens below about -8 °C and the engine will not start until the vehicle is warmer.</description>
+    <label>fuel system</label>
+    <description>The fuel pump feeds the engine: a damaged one starves it of power, and a ruined one will not let it start. When the setting is on, fuel also thickens below about -8 °C and the engine will not start until the vehicle is warmer.</description>
+    <roles>
+      <li>FuelPump</li>
+    </roles>
     <quantities>
+      <li>
+        <!-- Framework 0.55.0. The stages are authored: half a pump feeds a working engine poorly, and under a tenth it cannot feed one at all. -->
+        <name>fuelFeed</name>
+        <label>fuel feed</label>
+        <unit>Fraction</unit>
+        <hidden>true</hidden>
+        <derivedFrom>
+          <li Class="Phobos.VehicleSystems.Input_PartEfficiency">
+            <role>FuelPump</role>
+          </li>
+        </derivedFrom>
+        <stages>
+          <li>
+            <to>0.1</to>
+            <label>none</label>
+            <notable>true</notable>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_RefuseDraft">
+                <reason>PhobosVehicleSystems_RefuseFuelPump</reason>
+              </li>
+            </effects>
+          </li>
+          <li>
+            <from>0.1</from>
+            <to>0.5</to>
+            <label>weak</label>
+            <notable>true</notable>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_StatFactor">
+                <stat>MoveSpeed</stat>
+                <factor>0.75</factor>
+              </li>
+            </effects>
+          </li>
+        </stages>
+      </li>
       <li>
         <name>fuelGel</name>
         <label>fuel</label>

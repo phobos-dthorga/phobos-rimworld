@@ -119,6 +119,24 @@ coolant and lubricant systems as harshly as it could be". The owner agreed every
 **Lets the player:** read a shot-up vehicle's state from its gauges, and race a leak home. **Stops them:** driving a holed engine for a day. **Changes play:** after a fight, a patch kit and oil decide
 whether a vehicle gets home. **Left as it was:** other factions' vehicles still do not evolve after a hit, so a raider's "pouring out" never pours (cost); the setting for the full model on every faction changes that.
 
+### Parts audit (9 Nov 2026, Framework 0.55.0)
+
+The owner: "update all the different components of each vehicle too as we introduce new functionality". Checked against the owner's patched Defs of 8 November (68 vehicle designs) and our Defs. **No design has its own
+radiator, oil pump, battery, starter, clutch, fuel pump or water pump, so we append them; gearboxes, alternators and a few brakes and turbos are the authors' own.** Agent's table, for the owner to revise.
+
+| System | What it simulates | The part behind it | Result |
+| --- | --- | --- | --- |
+| Cooling | Coolant carried to the radiator by a pump | Radiator, engine; no pump | **Water pump added**: its health scales the radiator, and a hit costs a quarter of the coolant at most |
+| Fuel | Only fuel gelling in the cold | None | **Fuel pump added**: under half health 75% speed, under a tenth the engine will not start |
+| Lubrication | Level, pressure, heat | Engine, oil pump | Sound; cracked sump added in 0.53.0 |
+| Electrical | Charge, starting | Battery, alternator, starter | Sound |
+| Running gear, brakes, transmission | Wear and heat | Wheels, brakes, gearbox, clutch | Sound |
+| Boiler, turbine, rotor, traction, hydraulics, air brakes | Their own models | Their own parts | Sound |
+| Cabin | Cab temperature, heaters | None | **Left for now:** a broken heater only matters in a cab, and the cab already follows the air |
+| Fan, thermostat | Curves on engine speed and temperature | None | **Left for now:** a part each would add a hit target without a choice for the player that the water pump does not already give |
+
+**Lets the player:** lose and fix a specific, nameable fault. **Stops them:** starting an engine whose pump is gone. **Changes play:** two more small parts to carry spares for, with both priced as small mechanical parts.
+
 ### As built
 
 | Piece | Where | Note |
