@@ -328,3 +328,17 @@ public static class ChargeRatePatch
         if (comp != null && comp.Usable) __result *= comp.ChargeFactor;
     }
 }
+
+/// <summary>
+/// Keeps the player's aircraft awake while they fly. The game stops ticking an idle world pawn at its next six-hourly sweep unless it is in a caravan, and an aircraft on the
+/// world map counts as idle, so a holed tank stopped leaking and every system stopped running partway through a flight (owner, 9 Nov 2026). Vehicle Framework's own leak then
+/// goes on at its usual rate; its fuel burn in flight is separate and needs the vehicle on a map, so nothing is charged twice.
+/// </summary>
+[HarmonyPatch(typeof(RimWorld.Planet.WorldPawns), "ShouldMothball")]
+public static class FlyingAircraftStayAwakePatch
+{
+    public static void Postfix(ref bool __result, Pawn p)
+    {
+        if (__result && p is VehiclePawn { CompVehicleLauncher.inFlight: true } vehicle && vehicle.Faction == Faction.OfPlayer) __result = false;
+    }
+}

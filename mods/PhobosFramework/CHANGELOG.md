@@ -5,6 +5,18 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.57.1] - 2026-11-09 - Draft
+
+From the owner's Harrier, which came down on fire short of home. **Not yet tested in game.**
+
+### Fixed
+
+- A holed fuel tank goes on leaking for the whole of a flight, at the rate its damage sets, so it can run an aircraft dry before it gets home. Before, the leak and the vehicle's systems stopped partway through a flight, up to six in-game hours after take-off.
+
+### Save compatibility
+
+- Safe on an existing save. An aircraft already asleep in flight when you load stays that way until it lands.
+
 ## [0.57.0] - 2026-11-09 - Draft
 
 From the owner's rule of 9 November 2026: anything that takes water or piping has its own pipes beneath it. **Not yet tested in game.**

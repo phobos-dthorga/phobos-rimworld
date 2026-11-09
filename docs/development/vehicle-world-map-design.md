@@ -12,6 +12,9 @@ inference, **[A]** authored.
   cap, the "will not move" refusals, services, jump-starts and shore charging. What was wrong: the load-dependent fuel correction
   (it ignored Vehicle Framework's world-map multiplier), and a resting caravan read as "engine off" so the heater never ran at
   night (which turned out to be right, see below).
+- **An aircraft in flight is a world pawn that used to go to sleep** (read from the game and Vehicle Framework, 9 Nov 2026): the game's six-hourly sweep stops ticking a world pawn unless it is in a caravan,
+  so a holed tank stopped leaking and the systems stopped running partway through a flight. Since Framework 0.57.1 the player's aircraft stay awake while they fly (`FlyingAircraftStayAwakePatch`). Vehicle Framework's fuel burn in flight
+  is separate and needs the vehicle on a map to double up, so nothing is charged twice. **Lets the player:** nothing new. **Stops them:** outrunning a leak on a long flight. **Changes play:** a holed tank is a deadline in the air too.
 - **Nothing sheltered a passenger.** Neither the game nor Vehicle Framework gives a vehicle an interior temperature; a pawn aboard
   felt the tile's weather. The cab heater was a 12 A electrical load and nothing more.
 - **Owner's decisions (8 Nov 2026):** a closed cab with its own temperature; engine off at rest with an optional fuel-burning
