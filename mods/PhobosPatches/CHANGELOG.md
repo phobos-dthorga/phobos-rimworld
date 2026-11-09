@@ -8,7 +8,7 @@ says the owner tested it.
 
 ## [0.16.6] - 2026-11-10 - Draft
 
-From the owner's Harrier, listed as burning 37 times over for three days after a sortie (10 November 2026). Vehicle Framework's own bug, patched at the owner's request until its author handles it. **Not yet tested in game.**
+From the owner's Harrier, listed as burning 37 times over for three days after a sortie (10 November 2026). Vehicle Framework's own bug, patched at the owner's request until its author handles it. **Tested in game by the owner, 10 November 2026: the stuck fires went out.**
 
 ### Fixed
 

@@ -18,7 +18,7 @@ parts are unchanged from Vehicle Patches 0.6.0 (not yet tested in game); the mis
 
 ## Read this first (gotchas)
 
-- **With Vehicle Framework, fires a vehicle could never put out are put out** (0.16.6): a second fire on one vehicle, or a fire left behind on a map the vehicle has left. A vehicle leaving a map now takes no fire with it. One real fire burns as before. Not yet tested in game.
+- **With Vehicle Framework, fires a vehicle could never put out are put out** (0.16.6): a second fire on one vehicle, or a fire left behind on a map the vehicle has left. A vehicle leaving a map now takes no fire with it. One real fire burns as before. **Tested in game by the owner, 10 November 2026: the stuck fires went out.**
 - **With Prison Labor, a temporary guard stops a crash** (0.16.5). Its first 1.7 build can close the game when a warden considers feeding a motivated prisoner. The guard changes nothing else, switches itself off when Prison Labor is fixed, and comes out of this mod after that. **Tested in game by the owner, 10 November 2026: PG5 ran past the point where it had crashed every time.**
 
 - **New in 0.15.0, with Vanilla Expanded Framework and Vehicle Framework (not yet tested in game): a caravan with vehicles can no

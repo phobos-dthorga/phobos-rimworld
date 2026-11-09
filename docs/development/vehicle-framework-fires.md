@@ -48,7 +48,7 @@ when Vehicle Framework puts fires out on despawn and keeps one per vehicle (watc
 delete `src/PhobosPatches.VehicleFramework/` and `mods/PhobosPatches/Mods/VehicleFramework/`, its two `LoadFolders.xml` lines, its two constants entries, the tests file and its
 `Compile Include`, the README's lines, and take a patch-number version.
 
-Cost: `GetComp<CompAttachBase>()` once per vehicle rare tick, from the game's comp cache; the list is empty on nearly every vehicle. Not yet tested in game.
+Cost: `GetComp<CompAttachBase>()` once per vehicle rare tick, from the game's comp cache; the list is empty on nearly every vehicle. **Tested in game by the owner, 10 Nov 2026: the fix works.**
 
 ## Draft report for Vehicle Framework's author (the owner posts; agents never post)
 
