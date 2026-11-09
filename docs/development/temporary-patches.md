@@ -7,7 +7,7 @@ Every Phobos patch that exists because of a fault in someone else's mod: whose f
 - **Twelve entries are marked temporary, four permanent.** Every marking is the agent's, for the owner to overrule. Only the first two were called temporary by the owner.
 - **"Temporary" means it should come out when the author fixes the fault.** "Permanent" means our own design needs it, whatever the author does.
 - **Before removing one, check the fault is really gone** in the mod's new build (`python scripts/query-code.py compare OLD.dll NEW.dll`, or read the method named below). A new update date alone proves nothing.
-- **"Drafted" does not mean the author has it.** The records hold drafts for the owner to post, and agents never post. Only the Prison Labor report is known to be posted. **Owner: please say which others you have sent.**
+- **"Drafted" means the author does not have it.** The owner confirmed on 10 Nov 2026 that only the Prison Labor report has been posted, and that they post reports only for dire faults. So these patches may be needed for a long time unless an author finds the fault on their own.
 - **Author activity**, from `python scripts/workshop-research.py report` on 10 Nov 2026, with Vehicle Framework from its GitHub. Re-run it before relying on these.
 
 | Mod | Last updated | Declares 1.7 | Uploader's last reply seen |
