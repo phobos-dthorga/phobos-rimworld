@@ -188,7 +188,8 @@ hand-written script over eight copies.
 - **Performance in play** (milliseconds per tick) has no file we can read; the owner uses Dubs Performance
   Analyzer. The long-term answer is a RimWorld adapter for
   [Phobos Scope](https://github.com/phobos-dthorga/phobos-scope)'s recorder, which belongs to that repository.
-- **The world-grid rebuild** in `.local/tools/planet.py` stays there until a second use appears.
+- **The world-grid rebuild** moved from `.local/tools/planet.py` into phobos-modkit 0.19.0 (9 Nov 2026) when a second use
+  appeared: `python scripts/query-save.py planet` reports pollution on the world map from it.
 
 ## Shared frameworks (7 Nov 2026)
 
