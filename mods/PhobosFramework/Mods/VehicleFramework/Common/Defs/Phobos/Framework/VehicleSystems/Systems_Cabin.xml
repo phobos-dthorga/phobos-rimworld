@@ -32,6 +32,7 @@
     <quantities>
       <li>
         <name>cabTemperature</name>
+        <telltale>Phobos/VehicleSystems/Dash/Cab</telltale>
         <showOnDashboard>true</showOnDashboard>
         <label>cab</label>
         <unit>Celsius</unit>

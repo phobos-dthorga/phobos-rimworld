@@ -19,6 +19,7 @@
     <quantities>
       <li>
         <name>treadWear</name>
+        <telltale>Phobos/VehicleSystems/Dash/Tyre</telltale>
         <showOnDashboard>true</showOnDashboard>
         <remainingLabel>tread</remainingLabel>
         <label>tread wear</label>
@@ -110,6 +111,7 @@
     <quantities>
       <li>
         <name>brakeWear</name>
+        <telltale>Phobos/VehicleSystems/Dash/Brake</telltale>
         <showOnDashboard>true</showOnDashboard>
         <remainingLabel>brakes</remainingLabel>
         <label>brake wear</label>
@@ -148,6 +150,7 @@
       </li>
       <li>
         <name>brakeParts</name>
+        <telltale>Phobos/VehicleSystems/Dash/Brake</telltale>
         <label>brakes</label>
         <unit>Fraction</unit>
         <hidden>true</hidden>
@@ -238,6 +241,7 @@
     <quantities>
       <li>
         <name>transmissionTemperature</name>
+        <telltale>Phobos/VehicleSystems/Dash/Gearbox</telltale>
         <label>gearbox</label>
         <unit>Celsius</unit>
         <min>-60</min>

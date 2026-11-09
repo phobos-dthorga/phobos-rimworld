@@ -101,6 +101,11 @@
   <!-- Refusals: each names the cause and the fix -->
   <PhobosVehicleSystems_RefuseFlatBattery>The {VEHICLE}'s battery is too weak to start the engine. Have a colonist jump-start it from another vehicle parked near it, park it beside a powered conduit or battery to charge, or warm it: a cold battery gives less.</PhobosVehicleSystems_RefuseFlatBattery>
   <PhobosVehicleSystems_RefuseStarter>The {VEHICLE}'s starter motor is broken. Repair the vehicle to start it.</PhobosVehicleSystems_RefuseStarter>
+  <PhobosVehicleSystems_DashEngine>Engine</PhobosVehicleSystems_DashEngine>
+  <PhobosVehicleSystems_DashEngineDesc>Starts or stops the engine. A vehicle that is set up can run its engine but cannot be driven.</PhobosVehicleSystems_DashEngineDesc>
+  <PhobosVehicleSystems_DashEngineStarted>The {VEHICLE}'s engine is running.</PhobosVehicleSystems_DashEngineStarted>
+  <PhobosVehicleSystems_DashEngineStopped>The {VEHICLE}'s engine is off.</PhobosVehicleSystems_DashEngineStopped>
+  <PhobosVehicleSystems_DashCheckEngine>Check engine: it is at {HEALTH} health.</PhobosVehicleSystems_DashCheckEngine>
   <PhobosVehicleSystems_RefuseFuelPump>The {VEHICLE}'s fuel pump is ruined. Repair it before starting the engine.</PhobosVehicleSystems_RefuseFuelPump>
   <PhobosVehicleSystems_RefuseFuelGelled>The {VEHICLE}'s fuel has thickened in the cold. Warm the vehicle in a heated room, or wait for a warmer day.</PhobosVehicleSystems_RefuseFuelGelled>
   <PhobosVehicleSystems_RefuseBrakesWorn>The {VEHICLE}'s brakes are worn through. A mechanic must fit new pads before it drives.</PhobosVehicleSystems_RefuseBrakesWorn>

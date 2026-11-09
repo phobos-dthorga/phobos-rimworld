@@ -47,6 +47,7 @@
     <quantities>
       <li>
         <name>coolantTemperature</name>
+        <telltale>Phobos/VehicleSystems/Dash/CoolantHot</telltale>
         <showOnDashboard>true</showOnDashboard>
         <label>coolant</label>
         <unit>Celsius</unit>
@@ -142,6 +143,7 @@
       </li>
       <li>
         <name>coolantLevel</name>
+        <telltale>Phobos/VehicleSystems/Dash/CoolantLevel</telltale>
         <label>coolant level</label>
         <unit>Fraction</unit>
         <min>0</min>

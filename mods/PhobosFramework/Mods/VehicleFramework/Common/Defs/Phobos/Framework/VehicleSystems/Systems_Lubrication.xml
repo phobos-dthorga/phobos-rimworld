@@ -32,6 +32,7 @@
     <quantities>
       <li>
         <name>oilLevel</name>
+        <telltale>Phobos/VehicleSystems/Dash/OilLevel</telltale>
         <showOnDashboard>true</showOnDashboard>
         <label>oil level</label>
         <unit>Fraction</unit>
@@ -54,6 +55,7 @@
       </li>
       <li>
         <name>oilTemperature</name>
+        <telltale>Phobos/VehicleSystems/Dash/OilHot</telltale>
         <label>oil</label>
         <unit>Celsius</unit>
         <min>-60</min>
@@ -76,6 +78,7 @@
       </li>
       <li>
         <name>oilPressure</name>
+        <telltale>Phobos/VehicleSystems/Dash/OilPressure</telltale>
         <label>oil pressure</label>
         <unit>Fraction</unit>
         <hidden>true</hidden>
@@ -211,6 +214,7 @@
       <li>
         <!-- Framework 0.55.0. The stages are authored: half a pump feeds a working engine poorly, and under a tenth it cannot feed one at all. -->
         <name>fuelFeed</name>
+        <telltale>Phobos/VehicleSystems/Dash/Fuel</telltale>
         <label>fuel feed</label>
         <unit>Fraction</unit>
         <hidden>true</hidden>
@@ -246,6 +250,7 @@
       </li>
       <li>
         <name>fuelGel</name>
+        <telltale>Phobos/VehicleSystems/Dash/Fuel</telltale>
         <label>fuel</label>
         <unit>Fraction</unit>
         <hidden>true</hidden>

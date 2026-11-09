@@ -38,6 +38,7 @@
     <quantities>
       <li>
         <name>charge</name>
+        <telltale>Phobos/VehicleSystems/Dash/Battery</telltale>
         <showOnDashboard>true</showOnDashboard>
         <label>battery</label>
         <unit>Fraction</unit>
@@ -64,6 +65,7 @@
       <li>
         <!-- What the battery can give a starter now: its charge times its capacity at this temperature. -->
         <name>startingPower</name>
+        <telltale>Phobos/VehicleSystems/Dash/Battery</telltale>
         <label>starting power</label>
         <unit>Fraction</unit>
         <hidden>true</hidden>
@@ -102,6 +104,7 @@
       </li>
       <li>
         <name>starter</name>
+        <telltale>Phobos/VehicleSystems/Dash/Starter</telltale>
         <label>starter motor</label>
         <unit>Fraction</unit>
         <hidden>true</hidden>
@@ -126,6 +129,7 @@
       <li>
         <!-- A discharged battery in deep cold: 1 when it is empty below -40 degrees C, 0 above -10 degrees C or above 40 % charge. -->
         <name>frost</name>
+        <telltale>Phobos/VehicleSystems/Dash/Frost</telltale>
         <label>battery frost</label>
         <unit>Fraction</unit>
         <hidden>true</hidden>

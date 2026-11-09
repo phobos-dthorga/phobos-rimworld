@@ -365,6 +365,9 @@ public static class SystemIcons
 
     static Texture2D Load(string path) => ContentFinder<Texture2D>.Get(path, reportFailure: false) ?? BaseContent.WhiteTex;
 
+    /// <summary>A picture if it exists, else null, for what falls back to words instead of an icon.</summary>
+    public static Texture2D? IfExists(string? path) => path.NullOrEmpty() ? null : ContentFinder<Texture2D>.Get(path, reportFailure: false);
+
     public static Texture2D For(string? path)
     {
         if (path.NullOrEmpty()) return Switch;

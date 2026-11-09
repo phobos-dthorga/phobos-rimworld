@@ -65,6 +65,8 @@ public class StageSpec
 public class QuantitySpec
 {
     public string name = "";
+    /// <summary>The dashboard picture for this quantity's warnings: one white shape the dashboard tints. Without a picture the warning shows in words.</summary>
+    public string? telltale;
     [MustTranslate] public string label = "";
     public QuantityUnit unit = QuantityUnit.Plain;
     public float min;

@@ -22,10 +22,15 @@ public class ITab_VehicleDashboard : ITab
     const float GaugeHeight = 36f;
     const float LightHeight = 18f;
     const float SwitchSize = 32f;
+    const float TellTaleSize = 24f;
+    const float CheckEngineBelow = 0.5f;
+    const float CheckEngineBadBelow = 0.25f;
+    const string CheckEngineIcon = "Phobos/VehicleSystems/Dash/CheckEngine";
+    const string EngineKeyIcon = "Phobos/VehicleSystems/Dash/EngineKey";
 
     public ITab_VehicleDashboard()
     {
-        size = new Vector2(460f, 300f);
+        size = new Vector2(460f, 350f);
         labelKey = "PhobosVehicleSystems_TabDashboard";
     }
 
@@ -76,15 +81,7 @@ public class ITab_VehicleDashboard : ITab
                 GaugeReading reading = GaugeReading.For(state, q);
                 PhobosWidgets.Gauge(rect, reading.Fill, StageColour(stage), reading.Label, figures ? reading.Figure : null,
                     stage != null ? reading.Label + ": " + stage.label + (figures ? " (" + reading.Figure + ")" : "") : reading.Label);
-                if (Widgets.ButtonInvisible(rect))
-                {
-                    ITab_VehicleSystems.ScrollTo(comp.Vehicle.thingIDNumber, state.Def.defName);
-                    if (mode != DisplayMode.Plain)
-                    {
-                        if (onWorld) PhobosTabs.OpenWorldTab(typeof(WITab_PhobosVehicleSystems));
-                        else InspectPaneUtility.OpenTab(typeof(ITab_VehicleSystems));
-                    }
-                }
+                if (Widgets.ButtonInvisible(rect)) OpenSystem(comp, state, mode, onWorld);
                 x += width + 6f;
             }
             y += GaugeHeight + 6f;
@@ -92,7 +89,51 @@ public class ITab_VehicleDashboard : ITab
 
         // The warning lights: every notable stage, red when it refuses or damages.
         float lightX = outer.x;
+        float rowHeight = LightHeight;
         bool anyLight = false;
+
+        // A picture and its tint where the quantity has one; the warning in words where it does not.
+        void Light(Color colour, string label, Texture2D? icon, System.Action? clicked)
+        {
+            float needed;
+            if (icon != null)
+            {
+                needed = TellTaleSize + 6f;
+            }
+            else
+            {
+                using (new TextBlock(GameFont.Tiny)) needed = Text.CalcSize(label).x + 24f;
+            }
+            if (lightX + needed > outer.xMax && lightX > outer.x)
+            {
+                lightX = outer.x;
+                y += rowHeight;
+                rowHeight = LightHeight;
+            }
+            if (icon != null)
+            {
+                var rect = new Rect(lightX, y, TellTaleSize, TellTaleSize);
+                GUI.color = colour;
+                GUI.DrawTexture(rect, icon);
+                GUI.color = Color.white;
+                TooltipHandler.TipRegion(rect, label);
+                if (clicked != null && Widgets.ButtonInvisible(rect)) clicked();
+                lightX += needed;
+                rowHeight = TellTaleSize;
+            }
+            else
+            {
+                lightX += PhobosWidgets.WarningLight(new Rect(lightX, y, outer.xMax - lightX, LightHeight), colour, label) + 10f;
+            }
+            anyLight = true;
+        }
+
+        float engineHealth = comp.Tier == DetailTier.Full ? comp.EngineHealthShare() : 1f;
+        if (engineHealth < CheckEngineBelow)
+        {
+            Light(engineHealth < CheckEngineBadBelow ? PhobosWidgets.Bad : PhobosWidgets.Caution,
+                "PhobosVehicleSystems_DashCheckEngine".Translate(engineHealth.ToStringPercent().Named("HEALTH")).Resolve(), SystemIcons.IfExists(CheckEngineIcon), null);
+        }
         foreach (SystemState state in comp.States)
         {
             if (!comp.IsEnabled(state)) continue;
@@ -101,18 +142,11 @@ public class ITab_VehicleDashboard : ITab
                 StageSpec? stage = state.CurrentStage(q);
                 if (stage == null || !stage.notable) continue;
                 string label = state.Def.quantities[q].label.CapitalizeFirst() + ": " + stage.label;
-                float needed;
-                using (new TextBlock(GameFont.Tiny)) needed = Text.CalcSize(label).x + 24f;
-                if (lightX + needed > outer.xMax && lightX > outer.x)
-                {
-                    lightX = outer.x;
-                    y += LightHeight;
-                }
-                lightX += PhobosWidgets.WarningLight(new Rect(lightX, y, outer.xMax - lightX, LightHeight), StageColour(stage), label) + 10f;
-                anyLight = true;
+                SystemState lit = state;
+                Light(StageColour(stage), label, SystemIcons.IfExists(state.Def.quantities[q].telltale), () => OpenSystem(comp, lit, mode, onWorld));
             }
         }
-        if (anyLight) y += LightHeight + 6f;
+        if (anyLight) y += rowHeight + 6f;
 
         // The engine, for those who read figures.
         Powertrain? train = comp.Powertrain;
@@ -140,33 +174,85 @@ public class ITab_VehicleDashboard : ITab
 
         // The switches and the service button.
         float switchX = outer.x;
+
+        Rect NextSwitch()
+        {
+            if (switchX + SwitchSize > outer.xMax)
+            {
+                switchX = outer.x;
+                y += SwitchSize + 6f;
+            }
+            var rect = new Rect(switchX, y, SwitchSize, SwitchSize);
+            switchX += SwitchSize + 6f;
+            return rect;
+        }
+
+        bool yours = !onWorld && comp.Tier == DetailTier.Full && comp.Vehicle.Faction == Faction.OfPlayer && comp.Vehicle.Spawned;
+        if (yours)
+        {
+            // The engine key: Vehicle Framework's draft, which is its ignition.
+            Rect key = NextSwitch();
+            bool running = comp.Vehicle.Drafted;
+            Widgets.DrawBoxSolid(key, running ? PhobosWidgets.Good : PhobosWidgets.Off);
+            if (Widgets.ButtonImage(key.ContractedBy(3f), SystemIcons.For(EngineKeyIcon))) comp.SetIgnition(!running);
+            Widgets.DrawBox(key);
+            TooltipHandler.TipRegion(key, "PhobosVehicleSystems_DashEngine".Translate() + ": " + (running ? "PhobosVehicleSystems_DashSwitchOn" : "PhobosVehicleSystems_DashSwitchOff").Translate()
+                + "\n" + "PhobosVehicleSystems_DashEngineDesc".Translate());
+
+            // The vehicle's own working buttons: set up, pack up, overdrive and the rest, the same commands the bottom bar shows.
+            foreach (CompPhobosSetUp setUp in comp.Vehicle.AllComps.OfType<CompPhobosSetUp>())
+            {
+                foreach (Gizmo gizmo in setUp.CompGetGizmosExtra())
+                {
+                    if (gizmo is not Command command || command.icon is not Texture2D picture || command.defaultLabel.NullOrEmpty() || command.defaultLabel.StartsWith("DEV")) continue;
+                    Rect rect = NextSwitch();
+                    bool active = command is Command_Toggle { isActive: not null } toggle && toggle.isActive();
+                    Widgets.DrawBoxSolid(rect, active ? PhobosWidgets.Good : PhobosWidgets.Off);
+                    if (Widgets.ButtonImage(rect.ContractedBy(3f), picture))
+                    {
+                        if (command.Disabled) Messages.Message(command.disabledReason, comp.Vehicle, MessageTypeDefOf.RejectInput, historical: false);
+                        else command.ProcessInput(Event.current);
+                    }
+                    Widgets.DrawBox(rect);
+                    TooltipHandler.TipRegion(rect, command.defaultLabel.CapitalizeFirst() + "\n" + command.defaultDesc + (command.Disabled ? "\n" + command.disabledReason : ""));
+                }
+            }
+        }
         PhobosVehicleLoadoutDef? loadout = comp.Props.loadout;
         if (loadout != null)
         {
             foreach (ElectricalLoadSpec load in loadout.loads.Where(l => l.toggle && comp.LoadAvailable(l)))
             {
-                var rect = new Rect(switchX, y, SwitchSize, SwitchSize);
+                Rect rect = NextSwitch();
                 bool on = comp.IsOn(load);
                 Widgets.DrawBoxSolid(rect, on ? (comp.LoadActive(load.name) ? PhobosWidgets.Good : PhobosWidgets.Caution) : PhobosWidgets.Off);
                 if (Widgets.ButtonImage(rect.ContractedBy(3f), SystemIcons.For(load.iconPath))) comp.SetSwitch(load, !on);
                 Widgets.DrawBox(rect);
                 TooltipHandler.TipRegion(rect, load.label.CapitalizeFirst() + ": " + (on ? "PhobosVehicleSystems_DashSwitchOn" : "PhobosVehicleSystems_DashSwitchOff").Translate()
                     + (load.description.NullOrEmpty() ? "" : "\n" + load.description));
-                switchX += SwitchSize + 6f;
             }
         }
-        var service = new Rect(switchX, y, SwitchSize, SwitchSize);
+        Rect service = NextSwitch();
         Widgets.DrawBoxSolid(service, comp.ServiceRequested ? PhobosWidgets.Caution : PhobosWidgets.Off);
         if (Widgets.ButtonImage(service.ContractedBy(3f), SystemIcons.Service)) comp.SetServiceRequested(!comp.ServiceRequested);
         Widgets.DrawBox(service);
         TooltipHandler.TipRegion(service, "PhobosVehicleSystems_RequestService".Translate() + "\n" + "PhobosVehicleSystems_RequestServiceDesc".Translate());
         if (comp.Tier == DetailTier.Full && comp.Vehicle.Faction == Faction.OfPlayer)
         {
-            var fittings = new Rect(service.xMax + 6f, y, SwitchSize, SwitchSize);
+            Rect fittings = NextSwitch();
             if (Widgets.ButtonImage(fittings.ContractedBy(3f), SystemIcons.Fittings)) Find.WindowStack.Add(new Dialog_PhobosVehicleFittings(comp));
             Widgets.DrawBox(fittings);
             TooltipHandler.TipRegion(fittings, "PhobosVehicleSystems_ButtonFittings".Translate() + "\n" + "PhobosVehicleSystems_ButtonFittingsDesc".Translate());
         }
+    }
+
+    /// <summary>A gauge or a warning clicked: the Systems tab opens at that system (in Plain mode there is no Systems tab to open).</summary>
+    static void OpenSystem(CompPhobosVehicleSystems comp, SystemState state, DisplayMode mode, bool onWorld)
+    {
+        ITab_VehicleSystems.ScrollTo(comp.Vehicle.thingIDNumber, state.Def.defName);
+        if (mode == DisplayMode.Plain) return;
+        if (onWorld) PhobosTabs.OpenWorldTab(typeof(WITab_PhobosVehicleSystems));
+        else InspectPaneUtility.OpenTab(typeof(ITab_VehicleSystems));
     }
 
     /// <summary>A stage's colour: green when nothing is notable, amber when it is, red when the stage refuses or damages.</summary>

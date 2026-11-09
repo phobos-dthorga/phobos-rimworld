@@ -1085,6 +1085,26 @@ public class CompPhobosVehicleSystems : VehicleComp
         return false;
     }
 
+    /// <summary>Starts or stops the engine, saying which, or why it would not start. The one switch Vehicle Framework has for this is the draft.</summary>
+    public void SetIgnition(bool on)
+    {
+        if (on)
+        {
+            AcceptanceReport report = Vehicle.CanDraft();
+            if (!report.Accepted)
+            {
+                Messages.Message(report.Reason, Vehicle, MessageTypeDefOf.RejectInput, historical: false);
+                return;
+            }
+        }
+        Vehicle.ignition.Drafted = on;
+        Messages.Message((on ? "PhobosVehicleSystems_DashEngineStarted" : "PhobosVehicleSystems_DashEngineStopped").Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve(),
+            Vehicle, MessageTypeDefOf.SilentInput, historical: false);
+    }
+
+    /// <summary>The health of the engine's worst part as a share, or 1 if it has none.</summary>
+    public float EngineHealthShare() => PartsOf("Engine").Select(p => p.HealthPercent).DefaultIfEmpty(1f).Min();
+
     public override AcceptanceReport CanDraft()
     {
         if (!Usable) return true;

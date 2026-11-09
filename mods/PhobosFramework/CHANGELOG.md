@@ -5,6 +5,20 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.56.0] - 2026-11-09 - Draft
+
+From the owner's idea of a dashboard to interact with (9 November 2026). **Not yet tested in game.**
+
+### Added
+
+- The Dashboard has an engine key that starts and stops the engine, and carries the vehicle's own working buttons (set up, pack up, overdrive and the like).
+- A check-engine warning under half engine health, red under a quarter.
+- Any warning can show as a tinted picture and open the Systems tab when clicked. The pictures are not made yet, so warnings still show in words and the key uses the plain switch picture.
+
+### Save compatibility
+
+- Safe on an existing save.
+
 ## [0.55.0] - 2026-11-09 - Draft
 
 From the owner's request to refresh every vehicle's parts (9 November 2026). The figures are authored. **Not yet tested in game.**
