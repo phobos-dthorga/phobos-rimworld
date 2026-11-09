@@ -14,6 +14,7 @@ public enum RepairKind
     ReplacePart,
     ConditionService,
     FieldFix,
+    Fitting,
 }
 
 /// <summary>A repair waiting to be done: what it is, the work it takes and the ways of paying for it, ours first.</summary>
@@ -25,6 +26,9 @@ public sealed class RepairWork
     public readonly List<List<(ThingDef def, int count)>> Options = new();
     public VehicleComponent? Part;
     public VehicleCondition? Condition;
+    public FitOrder? Order;
+    /// <summary>The Construction skill the work needs.</summary>
+    public int MinSkill;
 }
 
 /// <summary>
@@ -54,7 +58,7 @@ public sealed class VehicleRepairs
 
     bool HasTurbine => comp.Powertrain?.Turbine != null;
 
-    double Kilograms => comp.Powertrain?.KerbKg ?? Powertrain.KerbFor(comp.Vehicle.VehicleDef, null, null);
+    internal double Kilograms => comp.Powertrain?.KerbKg ?? Powertrain.KerbFor(comp.Vehicle.VehicleDef, null, null);
 
     string? RoleOf(string key)
     {
@@ -193,6 +197,20 @@ public sealed class VehicleRepairs
                 pending.Add(repair);
             }
         }
+        foreach (FitOrder order in comp.Fittings.Orders)
+        {
+            VehicleFittings fittings = comp.Fittings;
+            int skill = fittings.SkillOf(order);
+            string label = fittings.LabelOf(order);
+            var repair = new RepairWork
+            {
+                Kind = RepairKind.Fitting, Order = order, Work = fittings.WorkOf(order), MinSkill = skill,
+                Part = string.IsNullOrEmpty(order.partKey) ? null : comp.Vehicle.statHandler.GetComponent(order.partKey),
+                Label = skill > 0 ? "PhobosVehicleSystems_FitWorkSkilled".Translate(label.Named("WORK"), skill.Named("SKILL")).Resolve() : label,
+            };
+            repair.Options.Add(fittings.MaterialsOf(order).Select(m => (m.thingDef, m.count)).ToList());
+            pending.Add(repair);
+        }
         return pending;
     }
 
@@ -215,6 +233,13 @@ public sealed class VehicleRepairs
 
     /// <summary>The first repair whose supplies are aboard, or null.</summary>
     public RepairWork? Ready => Pending.FirstOrDefault(r => AffordableOption(r) != null);
+
+    /// <summary>The first repair whose supplies are aboard and this mechanic has the skill for, or null.</summary>
+    public RepairWork? ReadyFor(Pawn mechanic)
+    {
+        int skill = mechanic.skills?.GetSkill(SkillDefOf.Construction)?.Level ?? 0;
+        return Pending.FirstOrDefault(r => FittingRule.SkilledEnough(skill, r.MinSkill) && AffordableOption(r) != null);
+    }
 
     /// <summary>What still has to be brought: our own payment for each repair that nothing aboard can pay for.</summary>
     public IEnumerable<IEnumerable<(ThingDef thingDef, int count)>> UnmetPayments()
@@ -261,7 +286,7 @@ public sealed class VehicleRepairs
     /// <summary>Does the first ready repair, using its supplies from the cargo, and says so. False when none is ready.</summary>
     public bool CompleteReady(Pawn mechanic)
     {
-        RepairWork? repair = Ready;
+        RepairWork? repair = ReadyFor(mechanic);
         List<(ThingDef def, int count)>? payment = repair == null ? null : AffordableOption(repair);
         if (repair == null || payment == null) return false;
         foreach ((ThingDef def, int count) in payment) comp.TakeFromCargo(def, count);
@@ -271,6 +296,7 @@ public sealed class VehicleRepairs
         switch (repair.Kind)
         {
             case RepairKind.ReplacePart:
+                comp.Fittings.Sweep();    // the old part's fitting is lost with it, even if nothing has looked since it was destroyed
                 comp.Conditions.RemoveOn(repair.Part!.props.key);    // a new part has none of the old one's troubles
                 comp.RestorePart(repair.Part!, Rules.replacedPartHealth);
                 NotifyRepairable();
@@ -279,6 +305,9 @@ public sealed class VehicleRepairs
             case RepairKind.ConditionService:
                 comp.Conditions.Remove(repair.Condition!);
                 text = "PhobosVehicleSystems_Serviced".Translate(who, vehicle, repair.Label.Named("SERVICE")).Resolve();
+                break;
+            case RepairKind.Fitting:
+                text = comp.Fittings.Complete(repair.Order!, mechanic);
                 break;
             default:
                 comp.Conditions.FieldFix(repair.Condition!);

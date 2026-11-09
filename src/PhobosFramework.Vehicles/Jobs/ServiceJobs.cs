@@ -200,13 +200,24 @@ public class WorkGiver_PhobosRepairWithSupplies : VehicleWorkGiver
 
     public override bool CanBeWorkedOn(VehiclePawn vehicle) =>
         !vehicle.Drafted && vehicle.GetComp<CompPhobosVehicleSystems>() is { RepairsPaused: false } comp && comp.Repairs.Ready != null;
+
+    /// <summary>A job may name a minimum skill: a mechanic below it is refused and told why (owner: no random failure).</summary>
+    public override Job? JobOnThing(Pawn pawn, Thing t, bool forced = false)
+    {
+        if (t is VehiclePawn vehicle && vehicle.GetComp<CompPhobosVehicleSystems>() is { } comp && comp.Repairs.Ready is { } ready && comp.Repairs.ReadyFor(pawn) == null)
+        {
+            JobFailReason.Is("PhobosVehicleSystems_FitNeedsSkill".Translate(ready.MinSkill.Named("SKILL")));
+            return null;
+        }
+        return base.JobOnThing(pawn, t, forced);
+    }
 }
 
 public class JobDriver_PhobosRepairWithSupplies : PhobosVehicleWorkDriver
 {
     protected override JobDef JobDef => VehicleSystemsJobDefOf.PhobosVehicleSystems_RepairWithSupplies;
 
-    protected override float TotalWork => Vehicle.GetComp<CompPhobosVehicleSystems>()?.Repairs.Ready?.Work ?? 1f;
+    protected override float TotalWork => Vehicle.GetComp<CompPhobosVehicleSystems>()?.Repairs.ReadyFor(pawn)?.Work ?? 1f;
 
     protected override StatDef Stat => StatDefOf.ConstructionSpeed;
 

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Phobos.Framework.Rules;
 using Phobos.Framework.Vehicles.Rules;
 using Phobos.Framework.WorldMap;
 using RimWorld;
@@ -76,6 +77,8 @@ public sealed class Powertrain
         KerbKg = Tuning.Value(vehicleDef, Tuning.Drivetrain, Tuning.EmptyKilograms, KerbFor(vehicleDef, def, overrides));
         fuelKgFull = Get("fuelKilogramsFull", mass.fuelKilogramsFull);
         EngineXml engine = def?.engine ?? new EngineXml();
+        // Fittings and tunes move only piston engines' figures (their Defs say so); a change builds the powertrain again.
+        VehicleFittings fittings = comp.Fittings;
         Spec = new DrivetrainSpec
         {
             Engine = engine.kind,
@@ -83,17 +86,17 @@ public sealed class Powertrain
             IdleRpm = engine.idleRpm,
             LaunchRpm = engine.launchRpm,
             RatedRpm = engine.ratedRpm,
-            RatedPowerKw = vehicleDef.GetModExtension<PhobosVehicleFiguresExtension>() is { } own && PhobosVehicleFiguresExtension.Given(own.ratedKilowatts)
+            RatedPowerKw = fittings.PowerFactor * (vehicleDef.GetModExtension<PhobosVehicleFiguresExtension>() is { } own && PhobosVehicleFiguresExtension.Given(own.ratedKilowatts)
                 ? own.ratedKilowatts
                 : Get("ratedKilowatts", engine.ratedKilowatts) is float rated && !float.IsNaN(rated) && rated > 0 ? rated
-                : Get("kilowattsPerTonne", engine.kilowattsPerTonne) * KerbKg / 1000,
+                : Get("kilowattsPerTonne", engine.kilowattsPerTonne) * KerbKg / 1000),
             FrictionConstant = engine.frictionConstant,
             FrictionLinear = engine.frictionLinear,
             FrictionQuadratic = engine.frictionQuadratic,
             IndicatedEfficiency = engine.indicatedEfficiency,
             CoolantHeatShare = engine.coolantHeatShare,
             IdleFuelShare = Get("idleFuelShare", engine.idleFuelShare),
-            FinalDrive = def?.transmission.finalDrive ?? 1,
+            FinalDrive = (def?.transmission.finalDrive ?? 1) * fittings.FinalDriveFactor,
             UpshiftRpm = def?.transmission.upshiftRpm ?? 2400,
             DownshiftRpm = def?.transmission.downshiftRpm ?? 1300,
             Efficiency = Get("efficiency", def?.transmission.efficiency ?? 0.9f),
@@ -552,11 +555,14 @@ public sealed class Powertrain
     /// <summary>The caravan tile's ground as last read (null off the world map or before the first read), for the dev log.</summary>
     public TileGround? WorldGroundRead { get; private set; }
 
-    /// <summary>When the player lets fuel follow the model: the difference between the model's fuel use and Vehicle Framework's own
-    /// (full rate moving, half idling), burned or given back over the hours that passed. Normalised so a nominal cruise matches.</summary>
+    /// <summary>When the player lets fuel follow the model, or a fitting or tune changes what the engine burns: the difference between
+    /// that and Vehicle Framework's own use (full rate moving, half idling), burned or given back over the hours that passed. Normalised
+    /// so a nominal cruise matches.</summary>
     public void ApplyFuel(double hours)
     {
-        if (!VehicleSystemsMod.Settings.loadDependentFuel || !Full || !Ground || hours <= 0) return;
+        bool followsModel = VehicleSystemsMod.Settings.loadDependentFuel;
+        double tuned = comp.Fittings.FuelFactor;
+        if ((!followsModel && tuned == 1) || !Full || !Ground || hours <= 0) return;
         CompFueledTravel? fuel = comp.Vehicle.CompFueledTravel;
         if (fuel == null || fuel.Props.electricPowered || !comp.EngineRunningRaw) return;
         // On a map Vehicle Framework burns its daily rate while moving and half of it idling; on the world map its own per-tick world
@@ -564,7 +570,7 @@ public sealed class Powertrain
         bool onMap = comp.Vehicle.Spawned;
         double vfPerHour = onMap ? fuel.FuelEfficiency / 24.0 : FuelRules.WorldPerHour(fuel.ConsumptionRateWorldPerTick, ElapsedRule.TicksPerHour);
         double vfShare = comp.Moving ? 1 : onMap ? 0.5 : 0;
-        double modelShare = Result.FuelPowerKw / Math.Max(0.1, nominalCruiseFuelKw);
+        double modelShare = FittingRule.TunedFuelShare(followsModel ? Result.FuelPowerKw / Math.Max(0.1, nominalCruiseFuelKw) : vfShare, tuned);
         double perHour = FuelRules.ExtraPerHour(vfPerHour, vfShare, modelShare);
         if (perHour > 0 && !fuel.EmptyTank) fuel.ConsumeFuel((float)(perHour * hours));
         else if (perHour < 0) fuel.Refuel((float)(-perHour * hours));

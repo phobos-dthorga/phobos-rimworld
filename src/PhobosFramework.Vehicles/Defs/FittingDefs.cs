@@ -1,0 +1,115 @@
+using System.Collections.Generic;
+using RimWorld;
+using Vehicles;
+using Verse;
+
+namespace Phobos.VehicleSystems;
+
+public class StatFactorSpec
+{
+    public VehicleStatDef? stat;
+    public float factor = 1f;
+}
+
+/// <summary>A factor on a system's parameter, by the parameter's name (radiatorRate, alternatorAmps).</summary>
+public class ParameterFactorSpec
+{
+    public string parameter = "";
+    public float factor = 1f;
+}
+
+/// <summary>
+/// An improvement bolted onto one part of one vehicle (docs/development/vehicle-tuning-and-upgrades.md): which roles it goes on, what it
+/// costs, and which figures it moves. One to a part, lost with the part. Another mod adds its own in XML.
+/// </summary>
+public class PhobosVehicleFittingDef : Def
+{
+    public List<string> roles = new();
+    public List<ThingDefCountClass> materials = new();
+    /// <summary>Work in ticks for a mechanic of construction speed 1.</summary>
+    public float work = 1200f;
+    /// <summary>The Construction skill the job needs; a mechanic below it is refused and told why.</summary>
+    public int minSkill;
+    public ResearchProjectDef? researchPrerequisite;
+    public List<StatFactorSpec> statFactors = new();
+    public List<ParameterFactorSpec> parameterFactors = new();
+    public float powerFactor = 1f;
+    public float fuelFactor = 1f;
+    /// <summary>Only piston engines, or everything but.</summary>
+    public Match piston = Match.Any;
+    /// <summary>Only tracked vehicles, or only those with wheels.</summary>
+    public Match tracked = Match.Any;
+    public float minKilograms = float.NaN;
+    public float maxKilograms = float.NaN;
+
+    public bool Suits(double kilograms, bool hasPiston, bool isTracked) =>
+        (piston == Match.Any || (piston == Match.Yes) == hasPiston)
+        && (tracked == Match.Any || (tracked == Match.Yes) == isTracked)
+        && (float.IsNaN(minKilograms) || kilograms >= minKilograms)
+        && (float.IsNaN(maxKilograms) || kilograms < maxKilograms);
+
+    public override IEnumerable<string> ConfigErrors()
+    {
+        foreach (string error in base.ConfigErrors()) yield return error;
+        if (roles.Count == 0) yield return "names no roles";
+        if (work <= 0f) yield return "work must be above 0";
+        if (statFactors.Count == 0 && parameterFactors.Count == 0 && powerFactor == 1f && fuelFactor == 1f) yield return "moves no figure";
+        foreach (StatFactorSpec spec in statFactors)
+        {
+            if (spec.stat == null) yield return "a stat factor names no stat";
+        }
+        foreach (ParameterFactorSpec spec in parameterFactors)
+        {
+            if (spec.parameter.NullOrEmpty()) yield return "a parameter factor names no parameter";
+        }
+    }
+}
+
+public enum VehicleTuneAxis
+{
+    Engine,
+    Gearing,
+}
+
+/// <summary>One named setting of an engine or a gearbox, saved per vehicle: three to an axis (owner), the one marked default as built.</summary>
+public class PhobosVehicleTuneDef : Def
+{
+    public VehicleTuneAxis axis;
+    /// <summary>The engine as it was built: no figure moves, and choosing it again puts the vehicle back.</summary>
+    public bool isDefault;
+    /// <summary>Left to right in the window.</summary>
+    public int order;
+    public List<ThingDefCountClass> materials = new();
+    public float work = 1000f;
+    public int minSkill;
+    public float powerFactor = 1f;
+    public float fuelFactor = 1f;
+    public float finalDriveFactor = 1f;
+    public List<ParameterFactorSpec> parameterFactors = new();
+
+    public override IEnumerable<string> ConfigErrors()
+    {
+        foreach (string error in base.ConfigErrors()) yield return error;
+        if (work <= 0f) yield return "work must be above 0";
+        if (!isDefault && powerFactor == 1f && fuelFactor == 1f && finalDriveFactor == 1f && parameterFactors.Count == 0) yield return "moves no figure";
+    }
+}
+
+/// <summary>A set of fittings and tunes another faction's vehicle may be found with, by its faction's tech level (owner, 9 Nov 2026).</summary>
+public class PhobosVehicleFitSetDef : Def
+{
+    public TechLevel minTech = TechLevel.Undefined;
+    public TechLevel maxTech = TechLevel.Archotech;
+    public float weight = 1f;
+    public List<PhobosVehicleFittingDef> fittings = new();
+    public List<PhobosVehicleTuneDef> tunes = new();
+
+    public bool Suits(TechLevel tech) => tech >= minTech && tech <= maxTech;
+
+    public override IEnumerable<string> ConfigErrors()
+    {
+        foreach (string error in base.ConfigErrors()) yield return error;
+        if (fittings.Count == 0 && tunes.Count == 0) yield return "holds nothing";
+        if (weight <= 0f) yield return "weight must be above 0";
+    }
+}

@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    Fittings, tunes and enemy sets (docs/development/vehicle-tuning-and-upgrades.md). Every figure here is authored, a gameplay choice to be
+    tuned in play. Materials are built into the vehicle: a fitting is not an item. A parameter factor names a system's parameter; a role is a
+    loadout's role. Another mod adds its own with the same Def types.
+  -->
+
+  <Phobos.VehicleSystems.PhobosVehicleFittingDef>
+    <defName>PhobosFitting_UpratedRadiator</defName>
+    <label>uprated radiator</label>
+    <description>A larger core with more fins. The engine sheds heat faster, so it is slower to boil on a long pull.</description>
+    <roles><li>Radiator</li></roles>
+    <materials><Steel>30</Steel><ComponentIndustrial>2</ComponentIndustrial></materials>
+    <work>1500</work>
+    <minSkill>4</minSkill>
+    <researchPrerequisite>Machining</researchPrerequisite>
+    <parameterFactors><li><parameter>radiatorRate</parameter><factor>1.3</factor></li></parameterFactors>
+  </Phobos.VehicleSystems.PhobosVehicleFittingDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleFittingDef>
+    <defName>PhobosFitting_OilCooler</defName>
+    <label>oil cooler</label>
+    <description>A small radiator for the engine oil. Cooler oil burns away more slowly, so the engine goes further between services.</description>
+    <roles><li>Engine</li><li>Engine1</li><li>Engine2</li><li>Engine3</li><li>Engine4</li><li>Engine5</li><li>Engine6</li><li>Engine7</li><li>Engine8</li></roles>
+    <materials><Steel>20</Steel><ComponentIndustrial>2</ComponentIndustrial></materials>
+    <work>1200</work>
+    <minSkill>4</minSkill>
+    <researchPrerequisite>Machining</researchPrerequisite>
+    <parameterFactors><li><parameter>oilBurnPerHour</parameter><factor>0.6</factor></li></parameterFactors>
+    <piston>Yes</piston>
+  </Phobos.VehicleSystems.PhobosVehicleFittingDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleFittingDef>
+    <defName>PhobosFitting_Turbocharger</defName>
+    <label>turbocharger</label>
+    <description>Exhaust gas spins a compressor that forces more air into the engine. More power, more heat and a thirstier engine.</description>
+    <roles><li>Engine</li><li>Engine1</li><li>Engine2</li><li>Engine3</li><li>Engine4</li><li>Engine5</li><li>Engine6</li><li>Engine7</li><li>Engine8</li></roles>
+    <materials><Steel>40</Steel><ComponentIndustrial>4</ComponentIndustrial></materials>
+    <work>3000</work>
+    <minSkill>8</minSkill>
+    <researchPrerequisite>Fabrication</researchPrerequisite>
+    <powerFactor>1.2</powerFactor>
+    <fuelFactor>1.1</fuelFactor>
+    <parameterFactors><li><parameter>heatAtFullLoad</parameter><factor>1.25</factor></li></parameterFactors>
+    <piston>Yes</piston>
+  </Phobos.VehicleSystems.PhobosVehicleFittingDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleFittingDef>
+    <defName>PhobosFitting_HeavyAlternator</defName>
+    <label>heavy-duty alternator</label>
+    <description>Wound for a higher output. The battery charges faster and heavy electrical loads are easier to carry.</description>
+    <roles><li>Alternator</li></roles>
+    <materials><Steel>20</Steel><ComponentIndustrial>3</ComponentIndustrial></materials>
+    <work>1200</work>
+    <minSkill>5</minSkill>
+    <researchPrerequisite>Electricity</researchPrerequisite>
+    <parameterFactors><li><parameter>alternatorAmps</parameter><factor>1.5</factor></li></parameterFactors>
+  </Phobos.VehicleSystems.PhobosVehicleFittingDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleFittingDef>
+    <defName>PhobosFitting_DeepCycleBattery</defName>
+    <label>deep-cycle battery</label>
+    <description>Thicker plates and more of them. It holds more charge, so the vehicle runs its loads longer with the engine off.</description>
+    <roles><li>Battery</li></roles>
+    <materials><Steel>25</Steel><ComponentIndustrial>3</ComponentIndustrial></materials>
+    <work>800</work>
+    <minSkill>4</minSkill>
+    <researchPrerequisite>Electricity</researchPrerequisite>
+    <parameterFactors><li><parameter>batteryAmpHours</parameter><factor>1.5</factor></li></parameterFactors>
+  </Phobos.VehicleSystems.PhobosVehicleFittingDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleFittingDef>
+    <defName>PhobosFitting_HeavySprings</defName>
+    <label>heavy-duty springs</label>
+    <description>Stiffer springs carry a bigger load, at the cost of a harder, slightly slower ride. Fit every axle for the full effect.</description>
+    <roles><li>Wheels</li></roles>
+    <materials><Steel>25</Steel></materials>
+    <work>1000</work>
+    <minSkill>3</minSkill>
+    <researchPrerequisite>Machining</researchPrerequisite>
+    <statFactors>
+      <li><stat>CargoCapacity</stat><factor>1.15</factor></li>
+      <li><stat>MoveSpeed</stat><factor>0.96</factor></li>
+    </statFactors>
+  </Phobos.VehicleSystems.PhobosVehicleFittingDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleFittingDef>
+    <defName>PhobosFitting_RoadTyres</defName>
+    <label>road tyres</label>
+    <description>A softer, faster compound. Quicker on the move, and it wears out sooner. Fit every axle for the full effect.</description>
+    <roles><li>Wheels</li></roles>
+    <materials><Steel>15</Steel><ComponentIndustrial>1</ComponentIndustrial></materials>
+    <work>800</work>
+    <minSkill>3</minSkill>
+    <researchPrerequisite>Machining</researchPrerequisite>
+    <statFactors><li><stat>MoveSpeed</stat><factor>1.05</factor></li></statFactors>
+    <parameterFactors><li><parameter>wearPerHour</parameter><factor>1.4</factor></li></parameterFactors>
+    <tracked>No</tracked>
+  </Phobos.VehicleSystems.PhobosVehicleFittingDef>
+
+  <!-- Tunes: three named settings to an axis (owner), the default being the engine as built. -->
+
+  <Phobos.VehicleSystems.PhobosVehicleTuneDef>
+    <defName>PhobosTune_EngineEconomy</defName>
+    <label>economy tune</label>
+    <description>Leaner and gentler. A little less power, less heat and less fuel.</description>
+    <axis>Engine</axis>
+    <order>0</order>
+    <materials><ComponentIndustrial>1</ComponentIndustrial></materials>
+    <work>1500</work>
+    <minSkill>5</minSkill>
+    <powerFactor>0.9</powerFactor>
+    <fuelFactor>0.92</fuelFactor>
+    <parameterFactors><li><parameter>heatAtFullLoad</parameter><factor>0.9</factor></li></parameterFactors>
+  </Phobos.VehicleSystems.PhobosVehicleTuneDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleTuneDef>
+    <defName>PhobosTune_EngineBalanced</defName>
+    <label>balanced tune</label>
+    <description>The engine as it was built.</description>
+    <axis>Engine</axis>
+    <isDefault>true</isDefault>
+    <order>1</order>
+    <work>800</work>
+    <minSkill>3</minSkill>
+  </Phobos.VehicleSystems.PhobosVehicleTuneDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleTuneDef>
+    <defName>PhobosTune_EnginePower</defName>
+    <label>power tune</label>
+    <description>Richer and harder. More power, paid for in heat and fuel.</description>
+    <axis>Engine</axis>
+    <order>2</order>
+    <materials><ComponentIndustrial>2</ComponentIndustrial></materials>
+    <work>2000</work>
+    <minSkill>8</minSkill>
+    <powerFactor>1.15</powerFactor>
+    <fuelFactor>1.15</fuelFactor>
+    <parameterFactors><li><parameter>heatAtFullLoad</parameter><factor>1.2</factor></li></parameterFactors>
+  </Phobos.VehicleSystems.PhobosVehicleTuneDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleTuneDef>
+    <defName>PhobosTune_GearingLong</defName>
+    <label>long gearing</label>
+    <description>Taller ratios. Lower revs and less strain at a cruise, weaker on a heavy pull. It cannot make the vehicle faster than it was built to go.</description>
+    <axis>Gearing</axis>
+    <order>0</order>
+    <materials><Steel>10</Steel></materials>
+    <work>2000</work>
+    <minSkill>5</minSkill>
+    <finalDriveFactor>0.85</finalDriveFactor>
+  </Phobos.VehicleSystems.PhobosVehicleTuneDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleTuneDef>
+    <defName>PhobosTune_GearingStandard</defName>
+    <label>standard gearing</label>
+    <description>The gearing as it was built.</description>
+    <axis>Gearing</axis>
+    <isDefault>true</isDefault>
+    <order>1</order>
+    <work>1000</work>
+    <minSkill>3</minSkill>
+  </Phobos.VehicleSystems.PhobosVehicleTuneDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleTuneDef>
+    <defName>PhobosTune_GearingShort</defName>
+    <label>short gearing</label>
+    <description>Lower ratios. It pulls harder with a heavy load and tops out sooner.</description>
+    <axis>Gearing</axis>
+    <order>2</order>
+    <materials><Steel>10</Steel></materials>
+    <work>2000</work>
+    <minSkill>5</minSkill>
+    <finalDriveFactor>1.2</finalDriveFactor>
+  </Phobos.VehicleSystems.PhobosVehicleTuneDef>
+
+  <!-- Enemy sets, by faction tech level (owner, 9 Nov 2026). Stat fittings act at once; power and tunes matter once the vehicle is captured. -->
+
+  <Phobos.VehicleSystems.PhobosVehicleFitSetDef>
+    <defName>PhobosFitSet_IndustrialHauler</defName>
+    <minTech>Medieval</minTech>
+    <maxTech>Industrial</maxTech>
+    <weight>2</weight>
+    <fittings>
+      <li>PhobosFitting_HeavySprings</li>
+      <li>PhobosFitting_UpratedRadiator</li>
+    </fittings>
+  </Phobos.VehicleSystems.PhobosVehicleFitSetDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleFitSetDef>
+    <defName>PhobosFitSet_IndustrialRunner</defName>
+    <minTech>Medieval</minTech>
+    <maxTech>Industrial</maxTech>
+    <fittings>
+      <li>PhobosFitting_RoadTyres</li>
+    </fittings>
+    <tunes>
+      <li>PhobosTune_EnginePower</li>
+    </tunes>
+  </Phobos.VehicleSystems.PhobosVehicleFitSetDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleFitSetDef>
+    <defName>PhobosFitSet_SpacerAssault</defName>
+    <minTech>Spacer</minTech>
+    <maxTech>Archotech</maxTech>
+    <fittings>
+      <li>PhobosFitting_Turbocharger</li>
+      <li>PhobosFitting_RoadTyres</li>
+      <li>PhobosFitting_HeavyAlternator</li>
+    </fittings>
+    <tunes>
+      <li>PhobosTune_EnginePower</li>
+      <li>PhobosTune_GearingShort</li>
+    </tunes>
+  </Phobos.VehicleSystems.PhobosVehicleFitSetDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleFitSetDef>
+    <defName>PhobosFitSet_SpacerLogistics</defName>
+    <minTech>Spacer</minTech>
+    <maxTech>Archotech</maxTech>
+    <weight>2</weight>
+    <fittings>
+      <li>PhobosFitting_HeavySprings</li>
+      <li>PhobosFitting_OilCooler</li>
+      <li>PhobosFitting_DeepCycleBattery</li>
+    </fittings>
+  </Phobos.VehicleSystems.PhobosVehicleFitSetDef>
+</Defs>

@@ -360,6 +360,7 @@ public class ITab_PhobosVehicleHealth : ITab
             {
                 if (repair.Kind == RepairKind.ReplacePart && repair.Part == part) row.Conditions.Add(new ConditionRow { Label = comp.Repairs.NeedsLine(repair), Colour = PhobosWidgets.Caution });
             }
+            if (comp.Fittings.FittedOn(part.props.key) is { } fitting) row.Conditions.Add(new ConditionRow { Label = "PhobosVehicleSystems_FitFittedLine".Translate(fitting.label.Named("FITTING")), Colour = PhobosWidgets.Good });
             if (leaking && HasReactor<Reactor_FuelLeak>(part)) row.Conditions.Add(new ConditionRow { Label = "PhobosVehicleSystems_HealthLeaking".Translate(), Colour = PhobosWidgets.Bad });
             if (role != null) AddStages(comp, role, row);
             AddConditions(comp, part, figures, row);

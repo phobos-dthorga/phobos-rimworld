@@ -132,6 +132,11 @@ public class CompPhobosVehicleSystems : VehicleComp
     /// <summary>Repairs that need supplies: destroyed parts, serious conditions, field fixes (slice 3 of the vehicle health design).</summary>
     public VehicleRepairs Repairs => repairs ??= new VehicleRepairs(this);
 
+    VehicleFittings? fittings;
+
+    /// <summary>This vehicle's fittings and tunes (docs/development/vehicle-tuning-and-upgrades.md).</summary>
+    public VehicleFittings Fittings => fittings ??= new VehicleFittings(this);
+
     /// <summary>The conditions on this vehicle's parts (slice 2 of the vehicle health design).</summary>
     public VehicleConditions Conditions => conditions ??= new VehicleConditions(this);
 
@@ -300,6 +305,7 @@ public class CompPhobosVehicleSystems : VehicleComp
         Scribe_Values.Look(ref serviceRequested, "PhobosVehicleSystems_ServiceRequested", false);
         Conditions.ExposeData();
         Repairs.ExposeData();
+        Fittings.ExposeData();
         if (Scribe.mode == LoadSaveMode.PostLoadInit)
         {
             savedValues ??= new Dictionary<string, float>();
@@ -322,6 +328,7 @@ public class CompPhobosVehicleSystems : VehicleComp
         base.PostSpawnSetup(respawningAfterLoad);
         if (Usable) spawned[Vehicle] = this;
         RestorePartHealths();
+        if (Usable && !respawningAfterLoad) Fittings.RollEnemySet();
         powertrain?.ForgetGround();
     }
 
@@ -669,6 +676,17 @@ public class CompPhobosVehicleSystems : VehicleComp
         {
             foreach (VehicleComponent part in PartsOf(pair.Key)) Notify_PartSeen(pair.Key, part);
         }
+        fittings?.Sweep();
+    }
+
+    /// <summary>A fitting or a tune came or went: the drivetrain is built again with them, and the stats and tabs follow.</summary>
+    internal void Notify_FittingsChanged()
+    {
+        powertrain = null;
+        powertrainBuilt = false;
+        Vehicle.statHandler?.MarkAllDirty();
+        Repairs.Invalidate();
+        HealthViewVersion++;
     }
 
     /// <summary>The part-health memory beside each part's health now, for the dev action.</summary>
@@ -717,7 +735,7 @@ public class CompPhobosVehicleSystems : VehicleComp
         if (conditionGiven) AfterConditionsChanged();
     }
 
-    bool PartPlays(VehicleComponent part, string role) => Props.roleKeys.TryGetValue(role, out List<string>? keys) && keys.Contains(part.props.key);
+    internal bool PartPlays(VehicleComponent part, string role) => Props.roleKeys.TryGetValue(role, out List<string>? keys) && keys.Contains(part.props.key);
 
     readonly ProgressWatch freeRepairWatch = new();
     int repairsPausedUntil = -1;
@@ -1036,7 +1054,7 @@ public class CompPhobosVehicleSystems : VehicleComp
     }
 
     /// <summary>The factor the current stages put on a stat; read by the stat part on every Vehicle Framework stat.</summary>
-    public float StatFactor(VehicleStatDef stat) => statFactors.TryGetValue(stat, out float factor) ? factor : 1f;
+    public float StatFactor(VehicleStatDef stat) => (statFactors.TryGetValue(stat, out float factor) ? factor : 1f) * Fittings.StatFactor(stat);
 
     /// <summary>How fast an electric vehicle charges from the grid now, against Vehicle Framework's own rate (derived, never saved).</summary>
     public float ChargeFactor { get; private set; } = 1f;
@@ -1054,6 +1072,7 @@ public class CompPhobosVehicleSystems : VehicleComp
                 }
             }
         }
+        foreach (string reason in Fittings.StatFactorReasons(stat)) yield return reason;
     }
 
     void RecacheStatFactors()
@@ -1335,6 +1354,7 @@ public class CompPhobosVehicleSystems : VehicleComp
         servicedThisRequest.Clear();
         conditions?.Clear();
         recentDamage.Clear();
+        fittings?.Clear();
         repairs?.Invalidate();
     }
 

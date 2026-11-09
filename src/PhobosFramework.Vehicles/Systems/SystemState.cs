@@ -70,10 +70,10 @@ public sealed class SystemContext
 
     public VehiclePawn Vehicle => Comp.Vehicle;
 
-    /// <summary>A parameter after the loadout's overrides and the player's tuning in Vehicle Framework's window.</summary>
+    /// <summary>A parameter after the loadout's overrides, the player's tuning in Vehicle Framework's window, and the vehicle's fittings and tunes.</summary>
     public float Parameter(string name)
     {
         if (!State.system.parameters.TryGetValue(name, out double value)) return 0f;
-        return (float)Tuning.Value(Vehicle?.VehicleDef, State.Def.defName, name, value);
+        return (float)Tuning.Value(Vehicle?.VehicleDef, State.Def.defName, name, value) * Comp.Fittings.ParameterFactor(name);
     }
 }

@@ -5,9 +5,36 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.40.0] - 2026-11-09 - Draft
+
+### Added
+
+- Fittings and tunes for vehicles, from any mod, through a new button on the Dashboard. A fitting goes on one part, one to a part, and is lost if that part is destroyed. The first set: uprated radiator, oil cooler, turbocharger, heavy-duty alternator, deep-cycle battery, heavy-duty springs and road tyres. **Not yet tested in game.**
+- Engine tunes (economy, balanced, power) and gearing (long, standard, short), set by a mechanic. Tunes apply to piston engines; gearing needs a gearbox. **Not yet tested in game.**
+- Demanding work names a minimum Construction skill: a mechanic below it is refused and told why, and one at or above it always succeeds. **Not yet tested in game.**
+- Vehicles of other factions may be found with a set of fittings and tunes suited to their tech level, and keep them if captured. A setting turns this off. **Not yet tested in game.**
+
+### Changed
+
+- A caravan's repair button uses the best mechanic aboard.
+
 ### Fixed
 
 - A tank's damage marks follow the health of their part. Vehicle Framework never reads a part requirement written on an overlay, so the tank now draws them itself. **Not yet tested in game.**
+
+### Balance
+
+- Every figure for fittings and tunes is authored and is to be tuned in play. A 25 percent chance of a set on another faction's vehicle.
+
+### Save compatibility
+
+- Safe to add to a running game. Fittings and tunes are saved by part, and the uninstall sweep clears them.
+
+### Compatibility and limits
+
+- Part grades are designed and not built: they wait for a destroyed part to be seen being replaced correctly in game.
+- Other factions' vehicles run the light model, so fittings that change stats act at once, and engine power and tunes only matter once a vehicle is captured.
+- Long gearing cannot make a vehicle faster than it was built to go.
 
 ## [0.39.1] - 2026-11-09 - Draft
 

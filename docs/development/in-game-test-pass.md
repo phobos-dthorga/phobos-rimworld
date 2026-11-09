@@ -35,6 +35,8 @@ result goes into that mod's changelog.
 | 6 | Machining bays reading every stack in a deep factory hopper (Factory Additions 0.11.4) | A bay waits for an ingredient that a deep input hopper holds | The bay takes it from any stack in the hopper, not only the first |
 | 7 | Vehicle systems on the world map: climate control by era and bleed air (Framework 0.22.0 and 0.24.0, Vehicles 0.10.0) | A caravan travels with a vehicle in heat or cold | The cab's temperature stays comfortable, and the Systems tab shows what is running |
 
+| 8 | Fittings and tunes (Framework 0.40.0) | Open **Fittings and tunes** from a vehicle's Dashboard. Order a turbocharger and a power tune, with the materials to hand and a mechanic of Construction 8 | The materials are hauled, the work is done, the Health tab says Fitted; a lower-skilled mechanic is refused and told why |
+
 ## Not on this list, on purpose
 
 - The IRBM strike model (Patches 0.8.0 and 0.9.0) needs a strategic warhead to land: run it when you choose to; its bug report

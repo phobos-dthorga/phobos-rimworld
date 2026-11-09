@@ -9,6 +9,7 @@
     <replacedPartHealth>0.25</replacedPartHealth>
     <fieldFixWork>600</fieldFixWork>
     <dangerClockHours>72</dangerClockHours>
+    <enemyFitSetChance>0.25</enemyFitSetChance>
     <repairStallTicks>2500</repairStallTicks>
     <repairStepGapTicks>600</repairStepGapTicks>
     <repairPauseTicks>60000</repairPauseTicks>

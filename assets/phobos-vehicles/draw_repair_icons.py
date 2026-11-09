@@ -4,6 +4,8 @@ other author's art is involved; each is a stand-in with a record beside it, as t
     python assets/phobos-vehicles/draw_repair_icons.py
 """
 import hashlib
+import math
+import sys
 from pathlib import Path
 
 from PIL import Image, ImageDraw
@@ -62,16 +64,35 @@ def caravan_repair(draw):
     draw.ellipse((60, 350, 180, 470), fill=BLUE, outline=OUTLINE, width=LINE)
 
 
+def fittings(draw):
+    centre = (216, 280)
+    teeth = 10
+    outer, inner = 186, 146
+    points = []
+    for tooth in range(teeth * 4):
+        radius = outer if tooth % 4 in (0, 1) else inner
+        angle = math.pi * 2 * tooth / (teeth * 4)
+        points.append((centre[0] + radius * math.cos(angle), centre[1] + radius * math.sin(angle)))
+    draw.polygon(points, fill=STEEL, outline=OUTLINE, width=LINE)
+    draw.ellipse((centre[0] - 62, centre[1] - 62, centre[0] + 62, centre[1] + 62), fill=DARK, outline=OUTLINE, width=LINE)
+    draw.ellipse((270, 54, 470, 254), fill=ORANGE, outline=OUTLINE, width=LINE)
+    draw.ellipse((328, 112, 412, 196), fill=DARK, outline=OUTLINE, width=LINE)
+    draw.rounded_rectangle((420, 136, 492, 214), radius=14, fill=ORANGE, outline=OUTLINE, width=LINE)
+
+
 ICONS = [
     ('Vehicles/Parts/Transmission', transmission, 'a gearbox casing with an input shaft and three gear covers'),
     ('Vehicles/Parts/TurbineAssembly', turbine, 'a gas turbine with an intake and an orange band'),
     ('VehicleSystems/FieldFix', field_fix, 'a pipe wrapped with an orange repair bandage'),
     ('VehicleSystems/CaravanRepair', caravan_repair, 'a spanner with a blue handle end'),
+    ('VehicleSystems/Fittings', fittings, 'a gear wheel with an orange turbine snail bolted to it'),
 ]
 
 
-def main():
+def main(only=None):
     for relative, drawing, what in ICONS:
+        if only and only not in relative:
+            continue
         image, draw = canvas()
         drawing(draw)
         path = TEXTURES / f'{relative}.png'
@@ -85,4 +106,4 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    main(sys.argv[1] if len(sys.argv) > 1 else None)

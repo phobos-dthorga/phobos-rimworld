@@ -160,6 +160,13 @@ public class ITab_VehicleDashboard : ITab
         if (Widgets.ButtonImage(service.ContractedBy(3f), SystemIcons.Service)) comp.SetServiceRequested(!comp.ServiceRequested);
         Widgets.DrawBox(service);
         TooltipHandler.TipRegion(service, "PhobosVehicleSystems_RequestService".Translate() + "\n" + "PhobosVehicleSystems_RequestServiceDesc".Translate());
+        if (comp.Tier == DetailTier.Full && comp.Vehicle.Faction == Faction.OfPlayer)
+        {
+            var fittings = new Rect(service.xMax + 6f, y, SwitchSize, SwitchSize);
+            if (Widgets.ButtonImage(fittings.ContractedBy(3f), SystemIcons.Fittings)) Find.WindowStack.Add(new Dialog_PhobosVehicleFittings(comp));
+            Widgets.DrawBox(fittings);
+            TooltipHandler.TipRegion(fittings, "PhobosVehicleSystems_ButtonFittings".Translate() + "\n" + "PhobosVehicleSystems_ButtonFittingsDesc".Translate());
+        }
     }
 
     /// <summary>A stage's colour: green when nothing is notable, amber when it is, red when the stage refuses or damages.</summary>

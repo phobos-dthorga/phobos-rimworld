@@ -5,7 +5,7 @@ colonist is breathing, makes fires fill roofed rooms with the game's own smoke w
 carries carbon monoxide from fires, holds the per-person care choices the D'thorga medical mods offer, and holds the small
 helpers every D'thorga mod shares.
 
-Version 0.39.1, built 9 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
+Version 0.40.0, built 9 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
 oxygen working through Burns and Smoke and Medical Equipment (5 November 2026). The health layer new in 0.3.0 and the **vehicle
 systems new in 0.9.0, and their engines, drivetrains and gas turbines new in 0.11.0, are not yet tested in game.** The rest is read from the game's and the mods' code.
 
@@ -214,6 +214,16 @@ and leak. Each starts at the vehicle's own figure; Vehicle Framework keeps your 
 **For modders:** every system and loadout is XML you can add to or change. The guide is
 [vehicle systems for modders](../../docs/vehicle-systems-modding.md); `python scripts/check-vehicle-schemas.py` checks your files
 offline.
+
+### Fittings and tunes (new in 0.40.0; not yet tested in game)
+
+The new button on a vehicle's **Dashboard** opens **Fittings and tunes**, for any vehicle from any mod that has a loadout.
+
+- **Fittings** go on one part, one to a part: uprated radiator, oil cooler, turbocharger, heavy-duty alternator, deep-cycle battery, heavy-duty springs, road tyres. **A fitting is lost if its part is destroyed.** Where a vehicle has several of a part, such as axles, each fitted part gives a share and fitting them all gives the full effect.
+- **Tunes** set up the whole engine (economy, balanced, power) and the gearing (long, standard, short). Piston engines only; gearing needs a gearbox. **Long gearing cannot make a vehicle faster than it was built to go.**
+- Materials are brought to the vehicle, then a mechanic does the work. **Demanding work needs a minimum Construction skill**: a mechanic below it is refused and told why; one at or above it always succeeds.
+- **Other factions' vehicles may be found with a set** suited to their tech level, and keep it if captured. Turn this off in the settings under Repairs. Fittings that change speed or capacity act at once on them; engine power and tunes only matter once captured.
+- Every figure is authored, to be tuned in play. Part grades are designed and not built yet.
 
 ## Settings
 

@@ -586,6 +586,8 @@ public class PhobosVehicleRulesDef : PhobosRulesDef
     public float replacedPartHealth = 0.25f;
     /// <summary>Work in ticks to patch a leak or a short in the field.</summary>
     public float fieldFixWork = 600f;
+    /// <summary>The chance another faction's vehicle is found with a set of fittings and a tune (authored).</summary>
+    public float enemyFitSetChance = 0.25f;
     /// <summary>What a field fix uses up.</summary>
     public List<ThingDefCountClass> fieldFixSupplies = new();
     /// <summary>Work at a vehicle that gets nowhere for this many ticks is stopped (the repair watchdog).</summary>

@@ -43,6 +43,8 @@ public class VehicleSystemsSettings : ModSettings
     public float otherPartShare = 0.5f;
     /// <summary>Colonists can patch leaks and shorts in the field. Live.</summary>
     public bool fieldFixes = true;
+    /// <summary>Another faction's vehicle may be found with fittings and a tune.</summary>
+    public bool enemyFitSets = true;
     public DisplayMode displayMode = DisplayMode.Plain;
     /// <summary>The drivetrain and turbines: off, figures only, or feeding load, heat and the speed cap. Live.</summary>
     public DrivetrainMode drivetrainMode = DrivetrainMode.Full;
@@ -125,6 +127,7 @@ public class VehicleSystemsSettings : ModSettings
         Scribe_Values.Look(ref wholePartShare, "PhobosVehicleSystems_WholePartShare", 1f);
         Scribe_Values.Look(ref otherPartShare, "PhobosVehicleSystems_OtherPartShare", 0.5f);
         Scribe_Values.Look(ref fieldFixes, "PhobosVehicleSystems_FieldFixes", true);
+        Scribe_Values.Look(ref enemyFitSets, "PhobosVehicleSystems_EnemyFitSets", true);
         Scribe_Values.Look(ref displayMode, "PhobosVehicleSystems_DisplayMode", DisplayMode.Plain);
         Scribe_Values.Look(ref drivetrainMode, "PhobosVehicleSystems_DrivetrainMode", DrivetrainMode.Full);
         Scribe_Values.Look(ref loadDependentFuel, "PhobosVehicleSystems_LoadDependentFuel", false);
@@ -303,6 +306,7 @@ public class VehicleSystemsMod : Mod
             s.otherPartShare = listing.Slider(s.otherPartShare, 0f, 1f);
         }
         listing.CheckboxLabeled("PhobosVehicleSystems_SettingFieldFixes".Translate(), ref s.fieldFixes, "PhobosVehicleSystems_SettingFieldFixesDesc".Translate());
+        listing.CheckboxLabeled("PhobosVehicleSystems_SettingEnemyFitSets".Translate(), ref s.enemyFitSets, "PhobosVehicleSystems_SettingEnemyFitSetsDesc".Translate());
 
         SettingsUi.Section(listing, "PhobosVehicleSystems_SectionJumpStarts".Translate());
         listing.CheckboxLabeled("PhobosVehicleSystems_SettingJumpStartNeedsKit".Translate(), ref s.jumpStartNeedsKit, "PhobosVehicleSystems_SettingJumpStartNeedsKitDesc".Translate());
@@ -349,6 +353,7 @@ public static class SystemIcons
 {
     public static readonly Texture2D Service = Load("Phobos/VehicleSystems/Service");
     public static readonly Texture2D Switch = Load("Phobos/VehicleSystems/Switch");
+    public static readonly Texture2D Fittings = Load("Phobos/VehicleSystems/Fittings");
     static readonly Dictionary<string, Texture2D> byPath = new();
 
     static Texture2D Load(string path) => ContentFinder<Texture2D>.Get(path, reportFailure: false) ?? BaseContent.WhiteTex;

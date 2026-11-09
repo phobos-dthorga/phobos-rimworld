@@ -48,10 +48,13 @@ public class WorldObjectComp_PhobosVehicleCaravan : WorldObjectComp
             defaultDesc = shown.Label.CapitalizeFirst(),
             icon = SystemIcons.For("Phobos/VehicleSystems/CaravanRepair"),
         };
-        Pawn? mechanic = caravan.PawnsListForReading.FirstOrDefault(p => p is not VehiclePawn && p.IsColonist && !p.Downed && !p.WorkTagIsDisabled(WorkTags.Constructing));
+        // The best mechanic aboard: some work needs a minimum skill.
+        Pawn? mechanic = caravan.PawnsListForReading.Where(p => p is not VehiclePawn && p.IsColonist && !p.Downed && !p.WorkTagIsDisabled(WorkTags.Constructing))
+            .OrderByDescending(p => p.skills?.GetSkill(SkillDefOf.Construction)?.Level ?? 0).FirstOrDefault();
         if (caravan.vehiclePather != null && caravan.vehiclePather.MovingNow) command.Disable("PhobosVehicleSystems_CaravanRepairMoving".Translate().Resolve());
         else if (mechanic == null) command.Disable("PhobosVehicleSystems_CaravanRepairNoMechanic".Translate().Resolve());
-        else if (ready == null) command.Disable(comp.Repairs.NeedsLine(shown));
+        else if (comp.Repairs.ReadyFor(mechanic) == null) command.Disable(ready == null ? comp.Repairs.NeedsLine(shown)
+            : "PhobosVehicleSystems_FitNeedsSkill".Translate(ready.MinSkill.Named("SKILL")).CapitalizeFirst().Resolve());
         command.action = () =>
         {
             if (mechanic != null) comp.Repairs.CompleteReady(mechanic);
