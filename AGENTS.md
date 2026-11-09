@@ -101,6 +101,8 @@ delivered, record the delivery in the changelog or design record, and add or ame
   design's roadmap lists it. Each later phase waits for its gate and an explicit owner go-ahead; the
   design's "refined during play" still applies to everything beyond the open phase. Research,
   verification and design records are welcome at any time.
+- **The radio framework is on the back burner** (owner, 9 Nov 2026): no new radio features or phases, and no reviews of it, until the
+  owner picks it up again. The mod stays as it is, and a fix to something broken in it is still fine when the owner reports it.
 - The living design doc on claude.ai is the master copy; `docs/development/radio-framework-design.md` is
   a dated snapshot of it. Refresh the snapshot when the owner asks, keeping its text as written and its
   diagrams as Mermaid. Notes from play go in the living doc's "Notes from play" table. Decisions that

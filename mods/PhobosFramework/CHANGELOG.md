@@ -9,8 +9,8 @@ tested in game unless an entry says the owner tested it.
 
 ### Added
 
-- A vehicle self-test for dev mode: reads every vehicle you have, then exercises fittings, tunes, part replacement and grades on a throwaway vehicle, and opens a pass or fail report. Every load in dev mode also checks your vehicles by itself. **Not yet tested in game.**
-- A measurement for dev mode of what the vehicle model costs over an in-game hour or day, with a verdict against its budget. **Not yet tested in game.**
+- A vehicle self-test for dev mode: reads every vehicle you have, then exercises fittings, tunes, part replacement and grades on a throwaway vehicle, and opens a pass or fail report. Every load in dev mode also checks your vehicles by itself. **Tested in game by the owner, 9 November 2026: 76 passed, 0 failed, 0 skipped.** That covers the service calls on a throwaway vehicle; the haulers, the mechanic's job and the window are not yet tested in game.
+- A measurement for dev mode of what the vehicle model costs over an in-game hour or day, with a verdict against its budget. **Tested in game by the owner, 9 November 2026: within budget.**
 
 ## [0.41.1] - 2026-11-09 - Draft
 

@@ -235,6 +235,17 @@ and treated as a best case for players (AGENTS.md).
 | The Health tab, open | at most 0.25 ms per OnGUI pass | IMGUI draws a tab at least twice a frame (layout and repaint), so about 0.5 ms a frame; per-frame cost runs while paused and scales with frame rate, not tick rate, and is paid only while a vehicle is selected with the tab open |
 | Allocations | none in the rare-tick and per-hit paths | Garbage collection spikes are what players feel |
 
+**Measured in the owner's game, 9 Nov 2026** (Framework 0.42.0, 2,518 ticks, 12 vehicles in full detail and 3 in light; a best case, on a high-end PC):
+
+| Where | Measured | Budget | |
+| --- | --- | --- | --- |
+| The whole model, average per tick | 0.0076 ms | 0.05 ms | Within, about 15% of it |
+| Worst single call | 0.358 ms | 0.5 ms | Within |
+| One full-tier vehicle, rare tick | 0.131 ms on average, 0.358 ms at worst | 0.1 ms | **Over**, by about a third |
+| One hit | 0.0003 ms | 0.02 ms | Within |
+| One lite-tier vehicle, rare tick | 0.014 ms | nothing | **Over**: the part-health sweep, kept so Combat Extended's hits are counted |
+| The drivetrain sample | 0.029 ms a call | | No budget set |
+
 **When exceeding it is acceptable:** once, bounded under 2 ms, for something the player caused or sees: a burst of hits, opening
 a tab, a save conversion, Def load. **Never** on a cadence, never per frame with no tab open, never anything per tick that scales
 with parts times conditions. The 12 ms frame work queue is for one-off long jobs, never the steady state.

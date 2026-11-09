@@ -106,6 +106,7 @@ load folder or patch.
 | 8 Nov 2026 | **Generic functions go to the Framework core**, in the same change as their first consumer (AGENTS.md) | owner |
 | 8 Nov 2026 | **Two vehicle inspector tabs**: "Dashboard" (glanceable) and "Systems" (in depth, hidden in Plain mode); **a day of graph history, saved** (an exception to "nothing derived is saved"); RimHUD needs no hook ([tabs](vehicle-tabs-design.md)) | owner (the layouts are the agent's) |
 | 9 Nov 2026 | **UHF's easier path is through openings, not through rock**: the band's obstruction factor applies to walls and built roofs, and rock and natural roofs count in full (owner, who is a licensed amateur; built in Radio Framework 0.1.6) |  |
+| 9 Nov 2026 | **The radio framework goes on the back burner** (owner): no new features or phases until the owner picks it up again. It stands at Radio Framework 0.1.6 |  |
 
 ## Open checks
 
