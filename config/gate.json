@@ -10,6 +10,7 @@
         {"name": "doc links", "run": ["{python}", "scripts/check-doc-links.py"]},
         {"name": "mod layout and text keys", "run": ["{python}", "scripts/check-mod-layout.py"]},
         {"name": "vehicle schemas", "run": ["{python}", "scripts/check-vehicle-schemas.py"]},
+        {"name": "research tree", "run": ["{python}", "scripts/check-research.py"]},
         {"name": "version copies", "run": ["{python}", "scripts/release.py", "constants", "--check"]},
         {"name": "changelog {dir}", "each": "mods/*/CHANGELOG.md", "lane": "changelogs",
          "run": ["{python}", "scripts/release.py", "changelog", "{path}"]},
