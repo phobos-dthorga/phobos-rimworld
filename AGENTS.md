@@ -51,7 +51,11 @@ delivered, record the delivery in the changelog or design record, and add or ame
   by the member it is in, `find "*Pattern*"`; `--in "VehicleFramework*"` narrows to one decompile, `--in ours` to our
   `src/`. It reads every tree in `.local/decompiled` and indexes them in the kit's cache. Use it before grepping a decompile
   or sending an agent to read one, and cite what it shows as `file:line`. A tree not yet decompiled needs decompiling
-  first (into `.local/decompiled/<name>`); a single assembly's metadata, call graph or constants are REA's job once the
+  first (into `.local/decompiled/<name>`). **`compare OLD.dll NEW.dll` says what changed between two builds** (owner, 9 Nov 2026),
+  member by member: added, removed, new signatures, new bodies, and "values only" for a changed number or string; `--show Type.Member`
+  for one diff, `--only "*Pattern*"` to narrow it. Its decompiles stay in the kit's cache, outside every repository. Compare two `.dll`s or
+  two trees decompiled the same way. A single assembly's metadata, call graph or constants are REA's job only where it can read them (evaluated
+  9 Nov 2026: not the game's assembly, and whole-file only for small mods; an unread file exits as a success with zeros); the
   owner has it set up (`docs/development/analysis-tooling.md`).
 - **Answer which mods patch a method with `python scripts/query-patches.py`** (owner, 8 Nov 2026): `who "Type.Method"` for
   every Harmony patch on it in load order (wildcards), `mod <name>` for what a mod patches, `hotspots` for methods several mods
