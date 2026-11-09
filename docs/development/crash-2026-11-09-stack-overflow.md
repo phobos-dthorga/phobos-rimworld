@@ -2,6 +2,25 @@
 
 The owner's game closed suddenly at 23:33 on 9 November 2026, about five minutes after loading PG5. This records what the evidence shows, what it cannot show, and how to find the cause.
 
+## Answer (10 Nov 2026): it is Prison Labor, and not our code
+
+**Named by the launch option's error output, the fourth time it crashed.** The trace repeats one pair of frames 6,845 times:
+
+```text
+PrisonLabor.HarmonyPatches.Patches_Food.GetFoodRestrictionPatch.Postfix
+RimWorld.Pawn_FoodRestrictionTracker.GetCurrentRespectedRestriction (patched)
+```
+
+**The bug, read from Prison Labor's 1.7 build and the game's code:** the postfix runs on `GetCurrentRespectedRestriction`. When the result is null, the pawn is a prisoner of the colony who is not in a mental state, and their motivation is above 0.7 or they are being watched, it returns `__instance.GetCurrentRespectedRestriction(null)`, which is the method it is patching. For a prisoner the game answers a null asker with null, because the pawn is not the player's, so the postfix runs again with the same arguments, for ever.
+
+**What sets it off:** a warden looking for a job. The bottom of the trace is `WorkGiver_Warden_DeliverFood`, then Prison Labor's `FoodAvailableForPrisoner`, then `FoodUtility.WillEat`. That is why it came a couple of minutes after each load: it needs a warden to consider feeding a motivated prisoner.
+
+**Prisoner Realism is not at fault.** Its postfix is at the very top of the trace only because it was running when the stack ran out. Everything earlier in this record is kept as the path that led here: Synthriada, the save bridge, REA, our own code and the pipes are all cleared.
+
+### Draft report for the owner to post (agents never post)
+
+> **Prison Labor 1.7: stack overflow crash from GetFoodRestrictionPatch.** `GetFoodRestrictionPatch.Postfix` calls `__instance.GetCurrentRespectedRestriction(null)`, the method it patches. For a prisoner the game returns null to a null getter, so the postfix runs again with the same arguments until the stack overflows and the game closes with no log entry. It happens when a warden checks food for a prisoner with motivation above 0.7, or one being watched. `Patch_EnableRespectingFoodPolicies` beside it returns `__instance.CurrentFoodPolicy`, which may be what this one meant to do. Captured with `RimWorld.exe 2> errors.txt`: 6,845 repeats of that postfix and the patched method.
+
 ## Second crash, 23:51 the same night
 
 The game crashed again about two minutes after loading the same save, with **the same fault: a 224-byte level repeating 6,841 times, every level holding the same objects** (`crash-dump` on `RimWorld.exe.63208.dmp`). The first was 6,843 times, about five minutes after loading. So it is one repeatable bug, not chance. The owner suspects The Dead Man's Switch - Synthriada, which remains the leading suspect but is not proven.
