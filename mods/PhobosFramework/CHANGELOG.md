@@ -5,6 +5,12 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.49.1] - 2026-11-09 - Draft
+
+### Balance
+
+- A drill rig that drills faster than a deep drill now meets insects sooner in the same measure, so the risk for each portion of ore is the game's own (owner's decision). The deepchem head raises deepchem at ten times a pumpjack's pace. Not yet tested in game.
+
 ## [0.49.0] - 2026-11-09 - Draft
 
 ### Added

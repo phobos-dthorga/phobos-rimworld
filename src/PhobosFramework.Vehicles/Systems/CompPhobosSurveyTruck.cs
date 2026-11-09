@@ -27,11 +27,11 @@ public abstract class SurveyExtra
 
 public class CompProperties_PhobosSurveyTruck : CompProperties_PhobosRigWork
 {
-    /// <summary>The game's ground-penetrating and long-range scanners' own figures, from their Defs.</summary>
-    public float mtbDays = 3f;
-    public float guaranteedDays = 6f;
-    public float longRangeMtbDays = 4f;
-    public float longRangeGuaranteedDays = 8f;
+    /// <summary>A tenth of the game's ground-penetrating and long-range scanners' own figures (3 and 6 days, 4 and 8, from their Defs): the owner's order of magnitude, 9 Nov 2026.</summary>
+    public float mtbDays = 0.3f;
+    public float guaranteedDays = 0.6f;
+    public float longRangeMtbDays = 0.4f;
+    public float longRangeGuaranteedDays = 0.8f;
     /// <summary>The owner's curve.</summary>
     public float curveStep = 1.5f;
     public float curveCap = 8f;

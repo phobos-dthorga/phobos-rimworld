@@ -3,6 +3,15 @@
 **Built in D'thorga Framework 0.46.0 and D'thorga Vehicles 0.18.0. It borrows the bulk tanker's picture until it has its own (owner, 9 Nov 2026: no stand-in vehicle pictures), so no upgrade or set-up look shows yet. Not yet tested in game.** What was built differs from what follows: the Rimefeller well kit came in Framework 0.48.0 and takes its steel from the rig's cargo; it needs a console or a scanner as a derrick does (the deepchem head came in Framework 0.47.0: deepchem rises at the pumpjack's 60 ticks a unit at best, not by the drill's portions, so the rig stays at most the game's own machine for each resource, and without the head the rig skips deepchem rather than bring it up as items); cuttings pile beside the hole (the agent's lean); insects use the game's own rule and storyteller figures but the rig rolls them itself; on a grid a rig either has power or falls back to
 its engine, instead of the 0.6 rate; and the engine is 300 kW against 20 tonnes, the real road figure, not the model's 600.
 
+**As rebalanced, 9 Nov 2026 (Framework 0.49.1, owner's rule: an order of magnitude over what a vehicle copies unless it feels like cheating):** the bare rig
+drills at 10x a deep drill (`Phobos_DrillRate` 10), the diamond bit 20x, the hammer 18x on ore and 30x on stone (owner's choice of 10 and 20); the deepchem head at a
+tenth of the pumpjack's 60 ticks a unit; **the insect odds scale with the rate**, so the risk per portion of ore is the game's and a faster rig only meets the hives
+sooner (owner's choice; `DrillRule.InsectMtbDays`). The oil well kit is the exception, unchanged: Rimefeller's 150 steel at 2,000 ticks (about 5 days) and 300 at 3,000
+(about 15) are what the owner finds right. **Against the automated drill platform** on the owner's list (VFE Factory with Kim's processes: 45 steel every 19,120 ticks,
+about 142 a day, from nothing, forever, unattended): the rig at 10x gives about 2,700 steel a day from a found lump of 6,000 to 9,000 with a colonist, so the lump is
+gone in about three days; the rig is the burst and the platform the trickle, and neither invalidates the other. **Also fixed in this pass:** the hammer node as built
+set `Phobos_BedrockFactor` to 0.667, slower on stone than on ore, the opposite of the design; it is 1.667. **The tables below keep the original figures as the design history.**
+
 **The design as written, agent-authored on the owner's directions of 9 Nov 2026, for the owner to
 confirm.** It replaces the rig section of [the utility vehicles record](utility-vehicles-design.md) and follows the shape of that record's
 bulk tanker. Code facts were read on 9 Nov 2026 from our decompiles (`all.cs` is `.local/decompiled/full/all.cs`) and from `query-defs`;

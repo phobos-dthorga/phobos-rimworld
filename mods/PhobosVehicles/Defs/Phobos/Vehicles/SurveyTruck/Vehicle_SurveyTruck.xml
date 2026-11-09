@@ -361,6 +361,11 @@
       </li>
       <li Class="Phobos.VehicleSystems.CompProperties_PhobosSurveyTruck">
         <powerPointDef>Phobos_PowerPoint</powerPointDef>
+        <!-- A tenth of the game's scanners' 3 and 6 days and 4 and 8 (owner's order of magnitude, 9 Nov 2026); the slowing per find is unchanged. -->
+        <mtbDays>0.3</mtbDays>
+        <guaranteedDays>0.6</guaranteedDays>
+        <longRangeMtbDays>0.4</longRangeMtbDays>
+        <longRangeGuaranteedDays>0.8</longRangeGuaranteedDays>
         <sensorWeights>
           <li><stat>Phobos_SensorGeophone</stat><ore>Steel</ore><factor>1.5</factor></li>
           <li MayRequire="vanillaexpanded.vchemfuele"><stat>Phobos_SensorGeophone</stat><ore>VCHE_Deepchem</ore><factor>1.5</factor></li>

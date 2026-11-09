@@ -5,6 +5,12 @@ the Dubs Bad Hygiene `Hydrogeology` node and the Rimefeller deep-well postfix ca
 in the game's watts so that one generator set can run it, where the table below says 3,600 W; and while the array is recharging the battery the survey stops, which is what gives the record's 1.5 times. The agent took its
 leans on the open questions below: a new medium drivetrain, 3 times and 150 A, a 600 Ah battery, 30% and 80% marks, Fabrication plus long-range research for the array.
 
+**As rebalanced, 9 Nov 2026 (Framework 0.49.1, owner's rule: an order of magnitude over what a vehicle copies unless it feels like cheating):** the deep
+find is MTB 0.3 day (about 7 hours) and certain at 0.6, the long-range find 0.4 and 0.8; the curve and the powered array's 3x are unchanged (owner's choices).
+The minting arithmetic below at the new pace: finds 1 to 6 on one map total about 3.4 days instead of 34 (0.3 + 0.45 + 0.68 + 1.0 + 1.5 + 2.4), with the array a
+third of that, and the sixth find still takes 2.4 days alone, so a home map is worked out in a week and the real speed stays in the long-range mode. The game's
+own scanner is left as it is (owner): it is the slow option, and the reason to build the truck. **The tables below keep the original figures as the design history.**
+
 **The design as written, agent-authored for the owner to confirm;** the owner's decisions of 9 Nov
 2026 are binding and listed under [Who chose what](#who-chose-what). It replaces the "Survey truck" sketch in
 [utility vehicles](utility-vehicles-design.md) and follows the shape of that record's bulk tanker. Every figure is **authored** unless

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Phobos.Framework.Rules;
 using RimWorld;
 using UnityEngine;
 using Vehicles;
@@ -16,8 +17,8 @@ public class CompProperties_PhobosDrillRig : CompProperties_PhobosRigWork
     public float unlitFactor = 0.8f;
     /// <summary>Deep resources that are piped and never come up as items (owner, 9 Nov 2026): skipped until a head is fitted, then raised into the buffer.</summary>
     public List<ThingDef> pipedResources = new();
-    /// <summary>The work to raise one unit of a piped resource: the deepchem pumpjack's 60 ticks a unit, so at most the rate of the game's own machine for it, as with ore.</summary>
-    public float pipedWorkPerUnit = 60f;
+    /// <summary>The work to raise one unit of a piped resource: a tenth of the deepchem pumpjack's 60 ticks a unit (the owner's order of magnitude, 9 Nov 2026).</summary>
+    public float pipedWorkPerUnit = 6f;
     /// <summary>Where the buffer can empty itself, besides a tanker drawing from it.</summary>
     public List<RigBufferOutlet> bufferOutlets = new();
     /// <summary>Other work the rig can do at the hole, offered by other mods' tie-ins, tried when no ore is in reach.</summary>
@@ -212,7 +213,7 @@ public sealed class CompPhobosDrillRig : CompPhobosRigWork
             return;
         }
         float factor = Vehicle.GetStatValue(RigDefOf.Phobos_DrillRate);
-        if (!orePresent) factor *= Vehicle.GetStatValue(RigDefOf.Phobos_BedrockFactor);
+        if (!orePresent) factor = DrillRule.StoneRate(factor, Vehicle.GetStatValue(RigDefOf.Phobos_BedrockFactor));
         if (Vehicle.GetStatValue(RigDefOf.Phobos_WorkLights) <= 0f && When_Night.IsNight(Vehicle)) factor *= Props.unlitFactor;
         float work = worker.GetStatValue(StatDefOf.DeepDrillingSpeed) * factor * delta;
         if (nextIsPiped)
@@ -274,7 +275,9 @@ public sealed class CompPhobosDrillRig : CompPhobosRigWork
         if (InsectsRecently || SomethingElseHadInsects() || Faction.OfInsects == null) return;
         float chance = Find.Storyteller.difficulty.deepDrillInfestationChanceFactor;
         float baseMtb = Find.Storyteller.def.comps.OfType<StorytellerCompProperties_DeepDrillInfestation>().FirstOrDefault()?.baseMtbDaysPerDrill ?? -1f;
-        if (chance <= 0f || baseMtb <= 0f || !Rand.MTBEventOccurs(baseMtb / chance, GenDate.TicksPerDay, GenTicks.TickRareInterval)) return;
+        // The odds scale with the rig's rate (owner, 9 Nov 2026): a rig ten times faster meets the hives ten times sooner, the same risk per portion of ore.
+        float mtb = DrillRule.InsectMtbDays(baseMtb / chance, Vehicle.GetStatValue(RigDefOf.Phobos_DrillRate));
+        if (chance <= 0f || baseMtb <= 0f || !Rand.MTBEventOccurs(mtb, GenDate.TicksPerDay, GenTicks.TickRareInterval)) return;
         BringInsects();
     }
 

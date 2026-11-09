@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
   <!--
-    The drill rig: a heavy truck carrying a deep drill (docs/development/vehicle-drill-rig.md). It runs the game deep drill's own figures, 10,000 work a portion and the game's portion sizes; the bare rig is at 80% (owner, 9 Nov 2026). Every other figure
+    The drill rig: a heavy truck carrying a deep drill (docs/development/vehicle-drill-rig.md). It runs the game deep drill's own figures, 10,000 work a portion and the game's portion sizes; the bare rig is at ten times a deep drill and the bits take it to twenty (owner, 9 Nov 2026). Every other figure
     is authored and untuned. Part keys are saved by position: append only, never reorder. Cells run x -1 to 1, z -4 to 5. It borrows the bulk tanker's picture until it has its own. Not yet tested in game.
   -->
   <Vehicles.VehicleDef ParentName="BaseVehiclePawn">
@@ -35,7 +35,7 @@
       <CargoCapacity>40</CargoCapacity>
       <RepairRate>0.5</RepairRate>
       <AccelerationRate>0.02</AccelerationRate>
-      <Phobos_DrillRate>0.8</Phobos_DrillRate>
+      <Phobos_DrillRate>10</Phobos_DrillRate>
       <Phobos_DrillReach>2.6</Phobos_DrillReach>
       <Phobos_RigControl>1</Phobos_RigControl>
       <Phobos_RigStability>1</Phobos_RigStability>

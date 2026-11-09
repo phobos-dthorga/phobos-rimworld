@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
-  <!-- The drill rig's upgrades (docs/development/vehicle-drill-rig.md). Figures and costs authored. A bare rig drills at 80% of a deep drill, the diamond bit brings it to the deep drill's own rate and no further. Node keys are saved in the game: never rename or remove one. Not yet tested in game. -->
+  <!-- The drill rig's upgrades (docs/development/vehicle-drill-rig.md). Figures and costs authored. A bare rig drills at ten times a deep drill, the diamond bit at twenty (owner, 9 Nov 2026). Node keys are saved in the game: never rename or remove one. Not yet tested in game. -->
   <Vehicles.UpgradeTreeDef>
     <defName>Phobos_DrillRig_UpgradeTree</defName>
     <nodes>
@@ -8,7 +8,7 @@
       <key>DiamondBit</key>
       <label>diamond bit</label>
       <displayLabel>true</displayLabel>
-      <description>A slim coring bit. The rig drills at the full rate of a deep drill, on ore and on stone.</description>
+      <description>A slim coring bit. The rig drills at twenty times a deep drill, on ore and on stone.</description>
       <icon>Phobos/Vehicles/DrillRig/Upgrades/DiamondBit</icon>
       <work>2500</work>
       <gridCoordinate>(2, 4)</gridCoordinate>
@@ -24,7 +24,7 @@
           <vehicleStats>
             <li>
               <def>Phobos_DrillRate</def>
-              <value>0.2</value>
+              <value>10</value>
             </li>
           </vehicleStats>
         </li>
@@ -38,7 +38,7 @@
       <key>RcHammer</key>
       <label>hammer bit</label>
       <displayLabel>true</displayLabel>
-      <description>A fat hammer bit on a bigger air line: 90% of a deep drill on ore, but one and a half times its rate once only stone is left.</description>
+      <description>A fat hammer bit on a bigger air line: eighteen times a deep drill on ore, and thirty once only stone is left.</description>
       <icon>Phobos/Vehicles/DrillRig/Upgrades/RcHammer</icon>
       <work>2500</work>
       <gridCoordinate>(7, 4)</gridCoordinate>
@@ -54,11 +54,11 @@
           <vehicleStats>
             <li>
               <def>Phobos_DrillRate</def>
-              <value>0.1</value>
+              <value>8</value>
             </li>
             <li>
               <def>Phobos_BedrockFactor</def>
-              <value>0.667</value>
+              <value>1.667</value>
             </li>
           </vehicleStats>
         </li>

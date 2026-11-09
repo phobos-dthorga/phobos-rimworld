@@ -5,6 +5,21 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.21.1] - 2026-11-09 - Draft
+
+### Balance
+
+- The survey truck finds deep ore ten times as fast as the game's scanner: about 7 hours on average for a first find, certain within about 14; the long-range search likewise. Each find on a map still slows the next (owner's decision: an order of magnitude over what a vehicle copies). Not yet tested in game.
+- The drill rig drills at ten times a deep drill, the diamond bit at twenty, the hammer bit at eighteen on ore and thirty on stone (owner's decision). The oil well kit is unchanged: it keeps the derrick's own time and steel. Not yet tested in game.
+
+### Fixed
+
+- The hammer bit made the rig slower on stone than on ore, the opposite of its description. Not yet tested in game.
+
+### Dependencies
+
+- Needs D'thorga Framework 0.49.1.
+
 ## [0.21.0] - 2026-11-09 - Draft
 
 ### Added
