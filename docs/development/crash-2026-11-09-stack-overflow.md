@@ -2,6 +2,15 @@
 
 The owner's game closed suddenly at 23:33 on 9 November 2026, about five minutes after loading PG5. This records what the evidence shows, what it cannot show, and how to find the cause.
 
+## Second crash, 23:51 the same night
+
+The game crashed again about two minutes after loading the same save, with **the same fault: a 224-byte level repeating 6,841 times, every level holding the same objects** (`crash-dump` on `RimWorld.exe.63208.dmp`). The first was 6,843 times, about five minutes after loading. So it is one repeatable bug, not chance. The owner suspects The Dead Man's Switch - Synthriada, which remains the leading suspect but is not proven.
+
+- **The save bridge's Convert did nothing to the colony** in the session logged: "Body parts re-numbered: none. Hediff classes upgraded: none", and it found no hediffs on wrongly numbered parts. It asks because Synthriada changes the numbering of some bodies, and PG5 was saved without it. **No save has been written since 22:13**, so PG4 and PG5 are intact.
+- **The ghost bills also throw while drawing:** 679 `Exception drawing` errors on the same press in the second session, from Vanilla Expanded's bar drawing. Not the crash, but real noise.
+- Synthriada's two assemblies were decompiled and scanned for members calling themselves. The matches are overloads passing on to one another; no loop was found. A scan of this kind cannot rule one out, and Synthriada adds no Harmony patches.
+- **The decisive test:** switch Synthriada off and load PG5 for ten minutes. If the crash stops, it is the cause or part of it. Its author is active and asks for a log and mod list in the bug reports section.
+
 ## Read this first
 
 - **It was a stack overflow** (Windows exception `0xC00000FD`) on the game's main thread: code called itself until the thread ran out of stack. Windows' Application log and a crash dump both say so.
@@ -73,4 +82,4 @@ Not yet tried on this game: the game's own build may change where that output go
 
 ## Sources
 
-Windows Application log; `RimWorld.exe.3964.dmp` and `Player.log`, kept with this date in `.local/owner-test-logs/2026-11-09-stack-overflow/`; `python scripts/triage-log.py`; `python scripts/query-save.py` on PG5 for the pipe cells; `python scripts/query-patches.py`, `python scripts/workshop-research.py report` and `python scripts/query-defs.py` for the mods; our own source for the review of new code paths. Microsoft's published minidump structures for the format.
+Windows Application log; both dumps and the second crash's log, kept in `.local/owner-test-logs/2026-11-09-stack-overflow/` (the first crash's `Player.log` was lost when the game rotated its logs: only the triage quoted here remains); `python scripts/triage-log.py`; `python scripts/query-save.py` on PG5 for the pipe cells; `python scripts/query-patches.py`, `python scripts/workshop-research.py report` and `python scripts/query-defs.py` for the mods; our own source for the review of new code paths. Microsoft's published minidump structures for the format.
