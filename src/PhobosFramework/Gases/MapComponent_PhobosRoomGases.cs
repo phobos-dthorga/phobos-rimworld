@@ -148,6 +148,7 @@ public sealed class MapComponent_PhobosRoomGases : MapComponent
             if (!openingsDone.Add(vent.thingIDNumber)) continue;
             Room? a = (vent.Position + vent.Rotation.FacingCell).GetRoom(map);
             Room? b = (vent.Position - vent.Rotation.FacingCell).GetRoom(map);
+            if (a != room && b != room) continue;    // beside this room, not venting it
             Room? other = a == room ? b : b == room ? a : null;
             if (other == null && (a == null || b == null)) other = a ?? b;
             if (other == room) continue;
@@ -198,12 +199,10 @@ public sealed class MapComponent_PhobosRoomGases : MapComponent
 
     RoomGasState StateFor(Room room)
     {
-        if (states.TryGetValue(room.ID, out RoomGasState? state) && state.cellCount == room.CellCount) return state;
-        if (state == null)
-        {
-            state = new RoomGasState { roomId = room.ID, concentration = new float[GasCount] };
-            states[room.ID] = state;
-        }
+        // A room that has changed size keeps its ID: its state is left as it is for the next pass to rebuild, or the gas would never be shared out.
+        if (states.TryGetValue(room.ID, out RoomGasState? state)) return state;
+        state = new RoomGasState { roomId = room.ID, concentration = new float[GasCount] };
+        states[room.ID] = state;
         Cover(state, room);
         return state;
     }

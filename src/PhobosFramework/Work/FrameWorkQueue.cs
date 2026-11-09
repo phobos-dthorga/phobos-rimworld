@@ -63,7 +63,12 @@ public static class FrameWorkQueue
     /// <summary>One slice of the job at the head of the queue.</summary>
     internal static void Run()
     {
-        if (queue.Count == 0 || !SameGame()) return;
+        if (queue.Count == 0)
+        {
+            game = null;    // nothing queued: hold nothing of the game that queued it
+            return;
+        }
+        if (!SameGame()) return;
         FrameWork work = queue[0];
         try
         {

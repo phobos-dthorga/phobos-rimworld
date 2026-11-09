@@ -5,6 +5,14 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.41.1] - 2026-11-09 - Draft
+
+### Fixed
+
+- A room that merged with another or was split while gas was being added could keep its gas undiluted, or leave the cut-off half with none. **Not yet tested in game.**
+- A vent standing beside a room, but not opening into it, no longer drains that room as if open to the outdoors. **Not yet tested in game.**
+- After a large job finishes, the shared work queue no longer holds on to the game that queued it. **Not yet tested in game.**
+
 ## [0.41.0] - 2026-11-09 - Draft
 
 ### Added

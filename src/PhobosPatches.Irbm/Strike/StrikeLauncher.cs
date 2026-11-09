@@ -34,7 +34,8 @@ public static class StrikeLauncher
         Thing? launcher = missile?.launcher;
         string? label = missile?.FullDisplayName;
 
-        foreach (Map map in maps)
+        // The target first: only its job lifts the white screen, and jobs run one at a time.
+        foreach (Map map in maps.OrderByDescending(map => map == target))
         {
             bool isTarget = map == target;
             FrameWorkQueue.Enqueue(new StrikeWork(map, props, zones, isTarget || settings.fullStrikeEverywhere, isTarget, launcher, label));

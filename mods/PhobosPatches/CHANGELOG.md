@@ -6,6 +6,17 @@ says the owner tested it.
 
 ## [Unreleased]
 
+## [0.16.1] - 2026-11-09 - Draft
+
+### Fixed
+
+- A strike reaching several maps could hold the white screen for as long as the other maps took: the target's own work now runs first, and it is what lifts the screen. **Not yet tested in game.**
+- The RimPacts assault note no longer keeps a town from the previous game in memory after a load. **Not yet tested in game.**
+
+### Compatibility and limits
+
+- With rubble on, someone asleep in a casket at ground zero survives the strike, downed beside the crater. Left as it is until the owner decides.
+
 ### Changed
 
 - Dates in this mod's records that were written a day ahead now read 8 November 2026. Text only; nothing in game changes.

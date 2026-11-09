@@ -5,6 +5,12 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.11.6] - 2026-11-09 - Draft
+
+### Fixed
+
+- A saved bill whose recipe has since lost an ingredient could not be repaired: the repair threw, the bill never ran, and every batch end on a running bill threw again. It now rebuilds, and the ingredients it held are set down by the machine. **Not yet tested in game.**
+
 ### Changed
 
 - Dates in this mod's records that were written a day ahead now read 8 November 2026. Text only; nothing in game changes.

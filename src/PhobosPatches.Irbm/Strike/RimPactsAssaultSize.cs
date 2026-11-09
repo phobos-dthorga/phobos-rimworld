@@ -32,7 +32,7 @@ public static class RimPactsAssaultSize
     static PropertyInfo? instance;
     static PropertyInfo? spectate;
     static FieldInfo? battleMap, battleAttacker, battleTarget, battleSpawned, battleSpawnDone;
-    static Settlement? lastLoggedTown;
+    static int lastLoggedTown = -1;    // its ID: a Settlement here would be kept across a load
     static int lastLoggedTick = -1;
 
     public static bool Applied { get; private set; }
@@ -95,9 +95,9 @@ public static class RimPactsAssaultSize
         if (battleTarget!.GetValue(battle) is not Settlement town) return standing;
         int adjusted = AssaultSizeRule.Headcount(standing, memory.DefendersBefore(town));
         int now = Find.TickManager.TicksGame;
-        if (adjusted != standing && (town != lastLoggedTown || now != lastLoggedTick))
+        if (adjusted != standing && (town.ID != lastLoggedTown || now != lastLoggedTick))
         {
-            lastLoggedTown = town;
+            lastLoggedTown = town.ID;
             lastLoggedTick = now;
             MissilePatchesMod.Logger.Info((attacker?.Name ?? "An ally") + "'s assault on " + town.Label + " is sized against "
                 + adjusted + " defenders, the garrison before the strike (RimPacts counted " + standing + " still standing).");
