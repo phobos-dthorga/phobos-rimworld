@@ -11,8 +11,8 @@ marked **from the code** (with its file and line) or **secondary** (a published 
   with the long-range scanner's job added by an upgrade. A colonist works the survey with Intellectual skill (the game's `ResearchSpeed`).
 - **Owner must decide (1):** the drivetrain. The agent leans to a new `PhobosDrivetrain_MediumDiesel` (Unimog class); the existing
   `PhobosDrivetrain_HeavyDiesel` matches the power-to-weight but has a highway truck's wheels and drag.
-- **Owner must decide (2):** the diminishing-returns curve. The agent proposes each find on a map multiplies the time to the next by 1.5,
-  capped at 8x. A gentler curve mints ore faster; a harsher one makes the base mode pointless after three finds.
+- **Decided (2): the diminishing-returns curve (owner, 9 Nov 2026).** Each find on a map multiplies the time to the next by 1.5, capped at 8x,
+  to be tuned in play. A gentler curve mints ore faster; a harsher one makes the base mode pointless after three finds.
 - **Owner must decide (3):** the fast mode's figures: a 150 A array and a 600 Ah battery give about 1.5x the standard speed in the field
   and 3x on shore power. Raising the battery raises the field speed toward the shore figure.
 - **The one real risk is minting deep ore.** From the code, deep ore does not exist until a scanner finds it (all.cs:567040); a mobile,
@@ -257,10 +257,10 @@ Icon: the truck from the north with the boom raised, on the house palette. Body 
 | Question | Agent lean |
 | --- | --- |
 | Drivetrain: a new `PhobosDrivetrain_MediumDiesel`, or reuse `PhobosDrivetrain_HeavyDiesel`? | New Def; the heavy one's wheels and drag are a highway truck's |
-| The curve: 1.5x per find capped at 8x, or 2x, or a 4x cap? | 1.5x, cap 8x; tune in play |
+| The curve: 1.5x per find capped at 8x, or 2x, or a 4x cap? | **Decided by the owner, 9 Nov 2026: 1.5x, cap 8x;** tune in play |
 | Fast mode 3x and 150 A, battery 600 Ah: accept, or a bigger battery for more field speed? | Accept; the field is meant to be slower than the camp |
 | Should the curve count the game's scanner buildings' finds too (a patch on their find)? | No: the truck is the only thing slowed; the game's own economy stays untouched |
-| Uranium: 10 in the base and 40 in the probe, or uranium only in the probe? | Both: the recorder's source is the grounding; 50 against a 1,200 minimum find is 4% |
+| Uranium: 10 in the base and 40 in the probe, or uranium only in the probe? | **Decided by the owner, 9 Nov 2026: both.** The recorder's source is the grounding; 50 against a 1,200 minimum find is 4% |
 | Accept VVE's car parts as repair substitutes for this truck? | No: car wheels and a car transmission do not fit a portal-axle 4x4; RimThunder's medium engine yes |
 | The hydrogeology report: 15 cells and a day's overlay, or something else? | 15 cells, one day; it reveals, never makes water |
 | Auto-idle thresholds: start at 30%, stop at 80%? | Yes: they are the electrical system's existing low stage and charging taper |
@@ -276,8 +276,8 @@ Icon: the truck from the north with the boom raised, on the house palette. Body 
 | Both scanner jobs by upgrade | Yes | Base deep find; `LongRangeArray` node starts the quest |
 | Two ways of running through the existing electrical system | Yes | 30 A console; 150 A array; shore power or `SurveyBattery` |
 | Recharge alone in the field: auto-idle only | Yes; solar and unattended operation offered and not chosen | 30% to 80% at high idle, 8 chemfuel a day |
-| Diminishing returns per map | Yes | 1.5x per find, cap 8x; long-range off the curve |
-| Uranium in the cost | Yes | 10 base, 40 in `RadiometricProbe`; arithmetic above |
+| Diminishing returns per map | Yes, and the 1.5x per find with its 8x cap | Long-range off the curve |
+| Uranium in the cost | Yes, and the amounts: 10 base, 40 in `RadiometricProbe` | The arithmetic above |
 | Camp power is the family rule | Yes, in the generator set record | One row here, the link above |
 | Our part items always exist; substitutes where they make sense | Yes (principle 9 reversed) | RimThunder medium engine accepted; VVE car parts not |
 | Footprint, mass, drivetrain, curve figures, node costs, part table, art list | Open | All agent-authored above |

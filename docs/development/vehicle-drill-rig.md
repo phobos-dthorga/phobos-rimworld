@@ -9,9 +9,9 @@ everything else is a proposal. The family's power rule is in [the generator set]
 
 - **What it is:** a truck that carries a deep drill. Driven to a survey find and set up on its outriggers, it drills the same deposits at the
   same rates as the game's deep drill, then packs up and drives to the next lump. `Phobos_DrillRig`, one `VehicleDef`, 3 x 10.
-- **Three decisions for the owner:** (1) whether the bare rig drills at 80% of a deep drill's rate until a bit node is fitted, or at 100%
-  (agent lean: 80%, so a node buys something); (2) whether cuttings pile at the chute or load straight into a tipper parked alongside (agent
-  lean: pile first, the tipper port later); (3) build order against the generator set and the tanker's testing.
+- **One decision for the owner:** whether cuttings pile at the chute or load straight into a tipper parked alongside (agent lean: pile
+  first, the tipper port later). **Decided by the owner, 9 Nov 2026:** the bare rig drills at 80% of a deep drill's rate until a bit node is
+  fitted, so a node buys something; the generator set is built before the rig.
 - **Risks:** insects, which the game ties to active deep drilling; the rig must copy that rule, not escape it. A value loop if a portion were
   cheaper or faster than the deep drill's: **this record keeps the game's 10,000 work per portion and its portion sizes** and prices the rig
   above a deep drill. Nothing here changes what a deep drill does.
@@ -229,13 +229,13 @@ Icon: the rig side-on, mast raised. Generation under `paid-image-generation-rule
 
 | Question | Agent lean |
 | --- | --- |
-| Should the bare rig drill at 0.8 of a deep drill's rate until a bit is fitted, or at 1.0 from the start? | 0.8: a node must buy something, and the rig's mobility is already its advantage |
+| Should the bare rig drill at 0.8 of a deep drill's rate until a bit is fitted, or at 1.0 from the start? | **Decided by the owner, 9 Nov 2026: 0.8.** A node must buy something, and the rig's mobility is already its advantage |
 | A Dubs Bad Hygiene well kit? | No: nothing is drilled in DBH; it would be a construction shortcut |
 | Drill-bit wear now, or in the systems' wear phase? | The wear phase, as a consumable quantity beside oil and coolant |
 | A setting for insects (off, or a longer cooldown)? | None unless asked: the game's rule, honestly copied, is the design |
 | Reach figures: 2.6 bare and 3.6 with the tall mast? | Yes; widen only if play shows lumps need more than three positions |
 | Do cuttings pile at the chute, or load straight into a tipper alongside? | Pile first; a tipper port is a later node once the tipper exists |
-| Build order: before or after the generator set? | After the tanker is tested in game, then the rig before the generator set: the rig proves the deploy base and the drilling job the family shares |
+| Build order: before or after the generator set? | **Decided by the owner, 9 Nov 2026: after the generator set.** This record's own lean was the rig first, to prove the deploy base and the drilling job the family shares; the generator set will have to prove the deploy base instead |
 
 ## Who chose what
 
@@ -243,7 +243,8 @@ Icon: the rig side-on, mast raised. Generation under `paid-image-generation-rule
   pipe, never an item, no new item; the Rimefeller well kit; DBH wells not drilled; the pump off `Phobos_TipRate`; the tracks node dropped;
   "depth" becomes reach; fuel capacity added; bit wear deferred; camp power through `ElectricPowerPack`; our part items always exist and set
   repair costs, RimThunder's heavy parts as substitutes; the insect rule kept honest.
-- **Agent defaults (owner to confirm):** the 3 x 10 footprint and every figure marked authored (the bare rate 0.8, the bit figures, the reach
+- **Owner (9 Nov 2026, on reading this record):** the bare rate of 0.8; the generator set before the rig.
+- **Agent defaults (owner to confirm):** the 3 x 10 footprint and every figure marked authored (the bit figures, the reach
   radii, the shore-power rule, the 300-unit buffer, the part cells and healths); `Port_VehicleTank` as the tanker-to-rig route; the deploy
   comp generalised into the Framework core; the Rimefeller kit honouring the derrick's gates; the open-question leans. **Correction to the
   brief:** the deep drill costs 100 steel and 2 components, not 150, in its Def as written and patched.

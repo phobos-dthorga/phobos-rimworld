@@ -194,10 +194,10 @@ flowchart LR
     G -->|power| R
 ```
 
-**Build order after the tanker (open; two records disagree, both leans recorded):** the generator record leans to **the generator set
-first** (the smallest, it proves the diesel-electric drive and the power stub, and every other vehicle plugs into it); the rig record
-leans to **the rig first** (it proves the shared deploy base and the drilling job). The family record's lean is the generator set,
-then the rig and survey truck together, then the tipper. The owner decides, after the tanker has been seen working in game.
+**Build order after the tanker (owner, 9 Nov 2026):** **the generator set first** (the smallest, it proves the diesel-electric drive
+and the power stub, and every other vehicle plugs into it), then the rig and survey truck together, then the tipper. The rig record had
+leaned to the rig first, to prove the shared deploy base; the generator set now proves it. None of them starts until the tanker has been
+seen working in game and the owner gives the go.
 
 **What the records corrected in this one:** the deep drill costs **100 steel and 2 components** (its Def, as written and as patched),
 not 150; a generator set is a self-propelled truck, not a trailer; the rig's pump feeds only `Phobos_RigStability`; a tracks node and
@@ -469,6 +469,9 @@ already do it (IDs in the mechanics record); the lean is the agent's.
   **idling itself** when the battery is low; **diminishing returns per map** on finds; **uranium in the survey truck's cost** (sealed
   radioisotope sources, as real logging tools use); the generator set is **self-propelled and diesel-electric**, the family's
   diesel-electric vehicle; **the generator set is the camp's power for every vehicle of ours** with electric loads.
+- **Owner (9 Nov 2026, on reading the four records):** the build order above; the survey truck's curve (1.5x per find, cap 8x) and uranium
+  (10 in the truck, 40 in the probe); the bare rig at 0.8 of a deep drill's rate; the generator set's sound enclosure cut; the tipper's
+  base load 2,400 kg; a test of a stone load at a Rails and Roads site before any tipper code.
 - **Owner (9 Nov 2026):** vehicle parts are ours, other mods' accepted as substitutes only where it makes sense (the reversal of
   principle 9, [vehicle health, slice 3](vehicle-health-consequences.md)).
 - **Owner (8 Nov 2026):** every vehicle of ours fully upgradeable and extendable by its character, with the art planned around
@@ -509,7 +512,7 @@ already do it (IDs in the mechanics record); the lean is the agent's.
 | Which art service? | **The OpenAI image API for vehicle bodies; local generation for icons** (owner, 8 Nov 2026); no subscription |
 | Any C# before VF 1.7 ships? | Yes, against the installed build the game already loads; expect a rebuild |
 | The mod's display name | D'thorga Vehicles |
-| Which vehicle is built next, after the tanker? | The family record and the generator record lean to the generator set first; the rig record leans to the rig first. Owner to decide, after the tanker is seen working in game |
+| Which vehicle is built next, after the tanker? | **Decided by the owner, 9 Nov 2026:** the generator set, then the rig and survey truck together, then the tipper; after the tanker is seen working in game |
 | Each vehicle's own open questions | In its record: [survey truck](vehicle-survey-truck.md), [drill rig](vehicle-drill-rig.md), [tipper hauler](vehicle-tipper-hauler.md), [generator set](vehicle-generator-set.md) |
 
 ## Sources

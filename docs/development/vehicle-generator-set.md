@@ -11,8 +11,9 @@ generator-set sketch in [utility vehicles](utility-vehicles-design.md) and follo
   (outriggers down, cable out), the generator feeds the power grid. A driver takes it there; nobody tends it while it runs.
 - **It is the family's diesel-electric vehicle** (owner, 9 Nov 2026): the first vehicle of ours on `TransmissionKind.DieselElectric`,
   with a new road drivetrain Def, `PhobosDrivetrain_RoadDieselElectric`. The old sketch's "towed-size" is dropped: it has a cab.
-- **Three decisions the owner must make:** (1) the stub-building route to the power net, the honest mechanics below; (2) whether the
-  battery buffer node (idea I2) goes in the first tree; (3) whether the sound enclosure node stays, as the weakest node.
+- **Two decisions the owner must make:** (1) the stub-building route to the power net, the honest mechanics below; (2) whether the
+  battery buffer node (idea I2) goes in the first tree. **Decided by the owner, 9 Nov 2026:** the sound enclosure is cut, and the generator
+  set is built first after the tanker.
 - **The risk:** the stub building is new and touches the game's power net, which other mods patch heavily; and a parked set is a
   generator anyone can shoot, standing in the open beside the camp it powers.
 - **The camp's power rule lives here**, under its own heading: every vehicle of ours with electric loads draws from the set's net when
@@ -40,7 +41,6 @@ done. It is also the smallest vehicle of the family and the one every other vehi
 | **Running out of fuel** | Nothing new | Keep a camp running on an empty tank: the net browns out, consumers drop off at random as the game does | Fuel runs become part of a camp's routine; the tanker beside the set refuels it |
 | **The cable reel** | Park the set under cover or behind a wall and still reach the camp's conduit | Nothing | The set stands where it is safe, not where the power is wanted |
 | **The bigger alternator** | Run a heavier camp (a rig drilling and a survey array charging at once) | Have it for nothing: more fuel a day at full output | A choice between fuel and reach |
-| **The sound enclosure** (the weakest node) | Park it in a garage without turning the room into an oven | Run the engine as cool as an open set: it runs hotter under load | Indoor sets are quieter and cooler for the crew, hotter for the engine |
 | **The battery buffer** | Creep a short way with the engine off, and keep the net alive through a refuelling stop | Drive far on it: a few hundred cells, then the engine must run | A set out of fuel can limp to the tanker instead of waiting for it |
 | **Diesel-electric driving** | Pull hard from a standstill without a gear to miss | Hold a heavy pull for long: the traction motors heat and the Dashboard says so | Towing or climbing is a matter of patience, not gears |
 | **Powering the family's vehicles** | Charge and run every vehicle of ours parked beside the set's net | Run them all at once beyond what the set offers: the net browns out | The set is the camp's heart; its output is the camp's budget |
@@ -148,14 +148,15 @@ straight line from idle to rated with load, and `TractionMotorLoad` above 1 heat
 
 **Sources and simplifications.** The diesel-electric model and its motor-heating fit are in [power and lift](vehicle-power-and-lift-design.md)
 (the Class 08 and the EffiShunter 300; the Baldwin switcher manual's short-time ratings). The genset truck's mass and power are general
-knowledge of the class, unverified. "Quiet" is not modelled: the game has no noise, so the enclosure and the buffer move heat and
-range, never sound. Fuel burning in step with the net's draw is a simplification of a governor; the game's own generators burn fuel at a
+knowledge of the class, unverified. "Quiet" is not modelled: the game has no noise, so the buffer moves range, never sound. Fuel burning in step with the net's draw is a simplification of a governor; the game's own generators burn fuel at a
 flat rate whatever the load, so this is kinder than vanilla and is labelled as such.
 
 **Argued against or later.** A towed set (the owner's call: self-propelled, with a cab). Helixien gas as a fuel (owner, 9 Nov 2026: no). A
 second VehicleDef for a bigger set (an upgrade node moves the figure instead). Making the stub a battery as well (open question below).
 Feeding VEF pipe nets or a gravship's grid (nothing asked for it). A trailer version for Vehicle Framework's towing when 1.7 ships
-(catalogue).
+(catalogue). **A sound enclosure (cut by the owner, 9 Nov 2026):** the game has no noise, so its only figure was heat pushed into a room,
+which matters only for a set run indoors, and the owner knows of no other mod or feature that models noise. A mood penalty for colonists
+sleeping near a running set was offered as a job for it and not taken.
 
 ## The set
 
@@ -180,7 +181,6 @@ Every node moves a figure; none changes the parts list (principle 8). Node keys 
 | --- | --- | --- | --- | --- | --- |
 | `BiggerAlternator` (label "larger generator") | Full output 1,200 to 1,600 W (`StatUpgrade` on `Phobos_GeneratorOutput`'s base); full-output fuel 9 to 12 a day, the same watts per chemfuel | 60 steel, 4 components | Electricity | None | A taller generator housing behind the cab |
 | `CableReel` | The stub's cell from adjacent to up to 12 cells away | 40 steel, 1 component | Electricity | None | A drum and a cable on the rear corner |
-| `SoundEnclosure` (keep or cut: the owner's call) | Heat pushed into the room halved; the engine runs 10 degrees C hotter under load | 80 steel | None | None | Panelled sides over the engine and generator |
 | `BatteryBuffer` (idea I2) | 150 units of charge at 1 Wd each: creep up to 200 cells with the engine off at half speed; the stub keeps its output through a refuelling stop | 20 steel, 10 components (the electric record's module price) | The game's battery research | None | A battery box under the deck |
 | `WorkLights` | A light over the set, radius 6, and a 10 A load (`CompUpgrade` adds the glower, `VF.cs:33709-33716`) | 20 steel, 1 component | Electricity | None | A mast with two lamps |
 
@@ -221,7 +221,7 @@ reactor, and its destruction only ends the deployment. `Phobos_RigControl` alrea
 The pilot is the **bare body, north**: a 2 x 6 light truck, cab forward, an open deck with a low generator housing and a switchboard,
 drawn empty (no cable, lights, outriggers or damage), one tone for the body and one for the cab, repaintable through `color` and
 `colorTwo` as the tanker is. Overlays, each its own north, east and south on the body's canvas: outriggers down; the cable out (a short
-run off the rear corner; the stub's own texture is a 1x1 cable end with a junction box); the sound enclosure's panels; the cable reel's
+run off the rear corner; the stub's own texture is a 1x1 cable end with a junction box); the cable reel's
 drum; the work-light mast, lit and unlit; the battery box; damage states for the engine and the generator housing. Icon: the truck
 from the north with a lightning bolt over the deck. Paid generation follows [the paid image rules](paid-image-generation-rules.md): a
 dry run first, the camera instruction first, one pilot at native size before the facing set.
@@ -235,10 +235,9 @@ dry run first, the camera instruction first, one pilot at native size before the
 | The stub as a transmitter with `allowWireConnection` true (buildings within 6 cells wire to it, no conduit needed), or false as VOE's outlet (conduits only)? | True. A camp should need nothing built but the cable end |
 | The battery buffer in the first tree, or later? | In the first tree, as the hybrid of idea I2: it is the one node that changes what a set out of fuel can do |
 | Should the buffer also make the stub a battery on the net, so Vehicle Framework's electric vehicles can charge from the set alone? | Not in the first build: it means a battery comp whose stored energy must be saved on the vehicle and restored on the stub; record it and decide after the first test |
-| Keep the sound enclosure? | Keep it as the weakest node and cut it if the first test shows the room heat does not matter; it is cheap to leave out of the first tree |
 | Fuel in step with the camp's draw (a governor), or a flat burn as the game's generators? | In step with the draw. It is what a diesel-electric does, and the engine model already has the load |
 | A VOE Power Grid tie-in now? | No folder in the first build; the precedent matters, the tie-in does not |
-| Build order after the tanker? | **The generator set first**: it is the smallest, it proves the diesel-electric drive and the power stub, and every other vehicle plugs into it |
+| Build order after the tanker? | **Decided by the owner, 9 Nov 2026: the generator set first**: it is the smallest, it proves the diesel-electric drive and the power stub, and every other vehicle plugs into it |
 | 1,200 W and 9 chemfuel a day at full output, 60% of the fixed generator's fuel economy? | Keep the 1,200 W; tune the fuel in play, never below the fixed generator's watts per chemfuel |
 | The 2 x 6 footprint, after the owner found 2 x 6 small for the tanker? | 2 x 6: a light truck should look light beside the 3 x 10 tanker; the drawSize overhang gives it presence |
 
@@ -250,8 +249,9 @@ dry run first, the camera instruction first, one pilot at native size before the
   figure and none changes the parts list.
 - **Agent choices, owner to revise:** the stub building and its transmitting power comp; the correction that the stub must transmit (the
   first sketch's connector would join nothing); fuel in step with the net's draw; every figure (1,200 W, 1.5 to 9 and 14 chemfuel a day,
-  150 capacity, 6,000 kg, 100 kW, 30 and 10 kN, 2,200 rpm, the node figures and costs, the part healths); the 2 x 6 footprint; the five
-  nodes and the enclosure's place as the weakest; no VOE tie-in; the build order.
+  150 capacity, 6,000 kg, 100 kW, 30 and 10 kN, 2,200 rpm, the node figures and costs, the part healths); the 2 x 6 footprint; the four
+  nodes; no VOE tie-in.
+- **Owner (9 Nov 2026, on reading this record):** the sound enclosure is cut; the generator set is built first after the tanker.
 - **Agent corrections to the brief (9 Nov 2026):** the game's chemfuel generator is a transmitter, not a connector; Vehicle Framework's
   charging needs stored energy on the net, so the set alone cannot charge its electric vehicles.
 

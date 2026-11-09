@@ -8,9 +8,9 @@ and follows the shape of that record's bulk tanker. `VF.cs` below is our decompi
 
 - **What it is:** a dump truck. A heavy body with a high `CargoCapacity`, loaded by Vehicle Framework's own cargo dialog and the game's hauling jobs,
   whose one new trick is a **tip job** that puts the whole load on the ground behind the truck in one go. Driver only. It never deploys.
-- **Decide (1): the capacity.** The agent leans to 2,400 kg for the base body, 4,200 kg at the top of the tree. Vanilla Vehicles Expanded's Big Rig
-  carries 2,200 and RimThunder's HEMTT 15,000 (patched Defs, read 9 Nov 2026), so a huge body is already on the owner's list; the question is
-  what our truck should carry against caravan balance.
+- **Decided (1): the capacity (owner, 9 Nov 2026).** 2,400 kg for the base body, 4,200 kg at the top of the tree. The owner considered 3,250 kg
+  and stayed at 2,400 once it was clear a full load of chunks must fit the tip area: 3,250 kg is 130 granite chunks, against about 100 cells. Vanilla Vehicles Expanded's Big Rig
+  carries 2,200 and RimThunder's HEMTT 15,000 (patched Defs, read 9 Nov 2026), so a huge body is already on the owner's list.
 - **Decide (2): the two bodies.** Rock body (tips fast, same capacity) against bulk body (carries more, tips slower), exclusive. Or one body only.
 - **Decide (3): the spreader.** Rails and Roads of the Rim builds roads **on the world map, from a caravan**; nothing on a map receives stone. The
   tailgate spreader as sketched moves no figure that any code reads, so the agent cuts it from the first tree (below, "The spreader").
@@ -188,13 +188,13 @@ The spreader is not drawn until it has a figure. A 64 px icon from the north. Re
 
 | Question | Agent lean |
 | --- | --- |
-| How much should the base body carry: 2,400 kg, or more against the HEMTT's 15,000 already on the list? | 2,400: a truckload that still needs a yard, and the tree takes it to 4,200 |
+| How much should the base body carry: 2,400 kg, or more against the HEMTT's 15,000 already on the list? | **Decided by the owner, 9 Nov 2026: 2,400 kg.** A truckload that still needs a yard, and the tree takes it to 4,200. A larger base load would need a larger tip area |
 | Two bodies or one? | Two, exclusive: the choice is what makes the tree a tree. If one, the rock body and `HighSides` only |
 | When a holed body's `CargoCapacity` falls below the load aboard, does anything fall off? | Nothing falls; the truck refuses more and the Health tab names the body. A spill reactor is a later option |
 | Does the tip stop at the fan's edge or search further (the game reaches 12.9 cells)? | The fan, radius 8, so the yard is predictable and the refusal honest |
 | Keep the `TailgateSpreader` key reserved, or drop the idea? | Reserve the key and a folder; build nothing until Rails and Roads' code is read |
 | Should the build cost list `PhobosVehicles_Transmission` beside the drivetrain kit, which already includes a transmission? | No: the kit builds it, the transmission item repairs it. If the owner wants provider parts to matter more, list both |
-| A test the owner can run before any code: a stone load in a Vehicle Framework truck at a Rails and Roads site, does the site draw on it? | Worth one evening; it decides whether the tipper is a road builder's wagon at all |
+| A test the owner can run before any code: a stone load in a Vehicle Framework truck at a Rails and Roads site, does the site draw on it? | **The owner agreed to run it (9 Nov 2026); not yet run.** It decides whether the tipper is a road builder's wagon at all |
 | The footprint, 3 x 8 against the tanker's 3 x 10? | 3 x 8: a rigid tipper is shorter than a tanker; the owner judged size by eye once already and should see the pilot |
 
 ## Who chose what
@@ -203,7 +203,9 @@ The spreader is not drawn until it has a figure. A 64 px icon from the north. Re
   the generator set's and the tipper's loads are lights only; our part items always exist and set repair costs, RimThunder's medium or heavy engine by
   empty mass and transmission as substitutes, VVE's car parts under 6 t only; every node moves a figure and none changes the parts list; heavy trucks
   sized against the 3 x 10 PLS.
-- **Agent:** every figure in "Figures" and "The truck"; the half-disc fan, radius 8; things a second as the tip unit; the all-or-nothing tip and its
+- **Owner (9 Nov 2026, on reading this record):** the base load is 2,400 kg; the owner will test a stone load at a Rails and Roads site before any
+  tipper code.
+- **Agent:** every figure in "Figures" and "The truck" but the base load; the half-disc fan, radius 8; things a second as the tip unit; the all-or-nothing tip and its
   refusal wording; the two exclusive bodies; cutting the heated body and the spreader; the work lights node; 3 x 8; the parts table; the leans above.
 
 ## Sources
