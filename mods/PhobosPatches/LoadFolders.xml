@@ -7,6 +7,7 @@
     <li>/</li>
     <li IfModActive="potemkinvillager.av8bharrier">Mods/HarrierVtol</li>
     <li IfModActive="potemkinvillager.av8bharrier">Mods/HarrierVtol/1.7</li>
+    <li IfModActive="potemkinvillager.av8bharrier,potemkinvillager.mi24hindhelicopter,potemkinvillager.mongooseattackhelicopter">Mods/AircraftRearm/1.7</li>
     <li IfModActive="RimThunder.Core">Mods/RimThunder</li>
     <li IfModActiveAll="MK.SpaceshipTurretHull,CETeam.CombatExtended">Mods/SpaceshipTurretHull</li>
     <li IfModActive="kazepsi.irbm">Mods/IRBM</li>

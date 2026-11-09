@@ -12,7 +12,7 @@ with vehicles is refused at the "create outpost" window, because founding one th
 It replaces two earlier mods, merged into it on 7 November 2026: **D'thorga Vehicle Patches** and **D'thorga Missile Patches**
 ([why](../../docs/development/mod-consolidation.md)).
 
-Version 0.16.3, built 9 November 2026 for House D'thorga. **Not yet tested in game as D'thorga Patches.** The Harrier and turret hull
+Version 0.16.4, built 9 November 2026 for House D'thorga. **Not yet tested in game as D'thorga Patches.** The Harrier and turret hull
 parts are unchanged from Vehicle Patches 0.6.0 (not yet tested in game); the missile part was tried once by the owner, see
 [InterRim Ballistic Missile](#interrim-ballistic-missile).
 
@@ -38,7 +38,7 @@ parts are unchanged from Vehicle Patches 0.6.0 (not yet tested in game); the mis
 - **RimWorld 1.7 only** (from 0.13.1; 1.6 is no longer supported). Vehicle Framework still ships only a 1.6 build, which the
   game runs on 1.7. **The Harrier part needs D'thorga Framework 0.33.0 or later**, whose vehicle systems now give a saved
   Harrier its new parts.
-- **New in 0.16.3: rearming the Harrier keeps to one kind of ammunition** (not yet tested in game). It tops up with what is already loaded. **To change kind, choose it on the weapon:** that still swaps the magazine. If the loaded kind runs out of stock, a part-full magazine waits rather than being swapped by itself.
+- **New in 0.16.3, and for the Hind and the Mongoose from 0.16.4: rearming keeps to one kind of ammunition** (not yet tested in game). It tops up with what is already loaded. **To change kind, choose it on the weapon:** that still swaps the magazine. If the loaded kind runs out of stock, a part-full magazine waits rather than being swapped by itself.
 - **New in 0.14.0: a Harrier too heavy for its engine to hover in the day's heat will not hover onto its pad** (not yet tested in
   game). The vertical-landing button and order say why, an automatic return home uses a runway instead, and a landing that runs out
   of injection water part-way is called off with the reason. **This follows D'thorga Framework's setting "When an aircraft is too

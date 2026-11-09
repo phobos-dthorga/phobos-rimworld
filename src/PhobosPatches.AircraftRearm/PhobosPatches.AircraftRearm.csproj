@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- D'thorga Patches' aircraft rearming assembly. It lives in its own load folder (Mods/AircraftRearm/<version>), loaded while the Harrier, the Hind or the Mongoose is active. It finds their methods by name and references
+       none of their assemblies. Built for RimWorld 1.7 only (net10.0, Harmony 3); Directory.Build.targets turns the target into the game version, the output folder and the references. -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <RootNamespace>Phobos.AircraftRearmPatches</RootNamespace>
+    <AssemblyName>PhobosPatches.AircraftRearm</AssemblyName>
+    <ModFolder>PhobosPatches</ModFolder>
+    <TieInFolder>Mods/AircraftRearm/</TieInFolder>
+    <UsesHarmony>true</UsesHarmony>
+    <Version>0.16.4</Version>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../PhobosFramework/PhobosFramework.csproj" Private="false" />
+  </ItemGroup>
+  <ItemGroup>
+    <!-- Vehicle Framework's assemblies (MIT), referenced from the installed mod and never copied. -->
+    <Reference Include="Vehicles">
+      <HintPath>$(VehicleFrameworkAssemblies)\Vehicles.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="SmashTools">
+      <HintPath>$(VehicleFrameworkAssemblies)\SmashTools.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UpdateLogTool">
+      <HintPath>$(VehicleFrameworkAssemblies)\UpdateLogTool.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+</Project>

@@ -10,9 +10,9 @@ is the mod's README; this holds the code readings, the sources and who chose wha
 **Observed by the owner, and read in the Harrier's framework:** on landing "absolutely everybody comes out" and the counter goes up and down. The save (PG4) held HE and HEAT 57 mm rockets in store, with a pod on HEAT at 4 of 32 and no kind chosen.
 
 - **The cause, from the code:** with no kind chosen, `WorkGiver_RearmVehicle.FindFallback` takes the loaded kind, or any kind if that one is reserved or out; `GroundRearm.LoadDirect` drops the whole magazine when a different kind arrives; `RoundsNeeded` then asks for a full magazine; and `AlreadyBeingCarried` counts only the same kind. Each swap called out more colonists for a new full load.
-- **The fix** (`src/PhobosPatches.Harrier/RearmOneKind.cs`, rule in `RearmRule`): the postfix on `FindFallback` fetches only the loaded kind, or with an empty magazine the first kind on its way; the prefix on `LoadDirect` refuses a different kind unless the player chose it.
+- **The fix** (`src/PhobosPatches.AircraftRearm/RearmOneKind.cs`, rule in `RearmRule`; the Hind and the Mongoose from Patches 0.16.4, whose copies of this code read the same): the postfix on `FindFallback` fetches only the loaded kind, or with an empty magazine the first kind on its way; the prefix on `LoadDirect` refuses a different kind unless the player chose it.
 - **What it stops:** an automatic change of kind while rounds remain, so a part-full magazine whose kind has run out waits for the player. That is the agent's choice; the player can choose another kind on the weapon.
-- **The author is active** (`workshop-research.py`, updated 1 Nov 2026), so by the standing rule this would be theirs to fix; the owner asked for it as a priority. **Remove the patch if their mod fixes it.** The Hind's framework has the same code and is not patched here; the Mongoose's was not read. **Not yet tested in game.**
+- **The author is active** (`workshop-research.py`, updated 1 Nov 2026), so by the standing rule this would be theirs to fix; the owner asked for it as a priority. **Remove the patch if their mod fixes it.** The patches find each aircraft's copy by name, and the load line says if one has changed. **Not yet tested in game.**
 
 ## The startup failure: RimPacts and the Harrier's framework
 

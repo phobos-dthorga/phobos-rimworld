@@ -6,6 +6,12 @@ says the owner tested it.
 
 ## [Unreleased]
 
+## [0.16.4] - 2026-11-09 - Draft
+
+### Fixed
+
+- Rearming the Hind and the Mongoose now keeps to one kind of ammunition, as the Harrier does since 0.16.3: they have the same fault, where different kinds brought by different colonists threw out one another's magazines. The fix now loads whenever any of the three is active. Not yet tested in game.
+
 ## [0.16.3] - 2026-11-09 - Draft
 
 ### Fixed
