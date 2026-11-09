@@ -37,6 +37,8 @@ public class CompProperties_PhobosRigWork : VehicleCompProperties
     /// <summary>The small building that plugs a set-up vehicle into a grid.</summary>
     public ThingDef? powerPointDef;
     public GraphicDataOverlay? setUpOverlay;
+    /// <summary>The parts that swing out when it sets up, each its own picture.</summary>
+    public List<SetUpMovingPart> movingParts = new();
     /// <summary>Authored, as the tanker's: below these it will not set up, and below the last it will not work.</summary>
     public float stabilityFloor = 0.5f;
     public float controlFloor = 0.5f;
@@ -69,6 +71,7 @@ public abstract class CompPhobosRigWork : CompPhobosSetUp, IVehicleEngineDemand
 
     public CompProperties_PhobosRigWork RigProps => (CompProperties_PhobosRigWork)props;
     protected override GraphicDataOverlay? SetUpLook => RigProps.setUpOverlay;
+    protected override List<SetUpMovingPart>? MovingParts => RigProps.movingParts;
 
     public abstract JobDef WorkJob { get; }
     public abstract SkillDef WorkSkill { get; }
@@ -234,7 +237,7 @@ public abstract class CompPhobosRigWork : CompPhobosSetUp, IVehicleEngineDemand
         if (Vehicle.Drafted) return "PhobosVehicleSystems_RigStopFirst".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve();
         if (Vehicle.GetStatValue(GeneratorDefOf.Phobos_RigStability) < RigProps.stabilityFloor) return "PhobosVehicleSystems_RigOutriggers".Translate().Resolve();
         if (Vehicle.GetStatValue(GeneratorDefOf.Phobos_RigControl) < RigProps.controlFloor) return "PhobosVehicleSystems_RigControls".Translate().Resolve();
-        return null;
+        return MovingPartsRefusal();
     }
 
     /// <summary>Why nobody can work it now, or null.</summary>
@@ -268,6 +271,7 @@ public abstract class CompPhobosRigWork : CompPhobosSetUp, IVehicleEngineDemand
             return;
         }
         deployed = true;
+        StartMotion(true);
         ShowSetUp(true);
         RunRare();
         Tell("PhobosVehicleSystems_RigSetUp".Translate(Vehicle.LabelShort.Named("VEHICLE")), MessageTypeDefOf.SilentInput);
@@ -276,6 +280,7 @@ public abstract class CompPhobosRigWork : CompPhobosSetUp, IVehicleEngineDemand
     public void PackUp()
     {
         ClearSetUp();
+        StartMotion(false);
         Tell("PhobosVehicleSystems_RigPackedUp".Translate(Vehicle.LabelShort.Named("VEHICLE")), MessageTypeDefOf.SilentInput);
     }
 

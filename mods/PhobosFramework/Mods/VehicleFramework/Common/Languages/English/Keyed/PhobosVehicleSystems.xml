@@ -465,4 +465,6 @@
   <PhobosVehicleSystems_OverdriveStoppedWorn>{VEHICLE} has dropped out of overdrive: a working part is down to half health.</PhobosVehicleSystems_OverdriveStoppedWorn>
   <PhobosVehicleSystems_OverdriveStoppedHot>{VEHICLE} has dropped out of overdrive: the engine is overheating.</PhobosVehicleSystems_OverdriveStoppedHot>
   <PhobosVehicleSystems_OverdriveLine>Overdrive: working flat out, parts wearing.</PhobosVehicleSystems_OverdriveLine>
+
+  <PhobosVehicleSystems_PartNoRoom>The {PART} has no room to swing out on either side. Move the truck clear of walls, buildings and other vehicles.</PhobosVehicleSystems_PartNoRoom>
 </LanguageData>

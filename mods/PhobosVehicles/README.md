@@ -4,7 +4,7 @@ Vehicles that keep running only while they are looked after. It adds one vehicle
 vehicles of other mods you already drive the systems that match what they really are, on top of the general systems D'thorga
 Framework gives every vehicle.
 
-Version 0.22.1, built 9 November 2026 for House D'thorga. **Not yet tested in game.**
+Version 0.23.0, built 9 November 2026 for House D'thorga. **Not yet tested in game.**
 
 ## Read this first (gotchas)
 
@@ -108,9 +108,10 @@ Every source and simplification is in the loadout files under `Mods/`.
 
 ## The survey truck
 
-**Not yet tested in game. It looks like the bulk tanker until it has its own picture.** A light four-wheel-drive truck that does a ground-penetrating scanner's job, wherever you can drive it.
+**Not yet tested in game.** A light four-wheel-drive truck that does a ground-penetrating scanner's job, wherever you can drive it.
 
 - **Build it** from the **motor pool** tab. It needs Ground-penetrating scanner research, our four vehicle parts from the **vehicle parts bench**, and 10 uranium.
+- **It needs room beside it.** When it sets up, its boom swings out to whichever side is clear, about three cells from the middle of the truck. If walls, buildings or other vehicles block both sides, it says so and will not set up.
 - **Park it outdoors and press Set up.** A colonist on **Research** work then runs the survey, with their research speed. The engine idles while they work, at 8 chemfuel a day.
 - **Finds are the game's own deposits,** with the game's ore odds and sizes. Select the set-up truck to see them on the ground.
 - **A first find takes about 7 hours on average**, ten times quicker than the game's scanner; **each find on a map then takes longer than the last:** one and a half times, up to eight times.

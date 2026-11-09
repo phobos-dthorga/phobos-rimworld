@@ -265,7 +265,7 @@ is drawn empty: a cab-over 4x4 light truck, a boxy recorder cabin behind the cab
 rear, no cargo, crew, damage or text. Canvas 3 x 8 cells. Overlay sets, each with north, east and south on the body's canvas:
 
 **Motion (9 Nov 2026; [the animation research](vehicle-animation-research.md)):** the boom is its own sprite, drawn stowed on the body's
-canvas with the body drawn without it, hinged at its root (the cell behind the cabin), so a comp can raise it over about two seconds when the truck sets up;
+canvas with the body drawn without it, hinged at its root (the bracket behind the cabin), and **swings out flat to the clearer side** over two seconds when the truck sets up (owner's choice; built in Framework 0.51.0; a rotation from straight above cannot lift it);
 the long-range dish is its own sprite, turned slowly by code while long range is on; the powered array's look is a plain glow sprite for a pulsing shader;
 outriggers down and the lamps lit stay two-state overlays. Geophones and the probe are static. No frame sheets.
 

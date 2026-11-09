@@ -187,7 +187,7 @@ The spreader is not drawn until it has a figure. A 64 px icon from the north. Re
 - **Size it first** (owner's rule, 9 Nov 2026): before the first picture, measure the planned footprint against RimThunder's 3 x 10 PLS and HEMTT, and generate at 1.5 times the drawn size ([the rules](paid-image-generation-rules.md)); the tanker had to grow from 2 x 6 to 3 x 10 after its first look.
 
 **Motion (9 Nov 2026; [the animation research](vehicle-animation-research.md)):** the tipper body is its own sprite, separate from
-the chassis, so a comp can slide it rearward a little and grow it over two seconds with its shadow lengthening while the load lands; the tailgate is its own
+the chassis, so a comp can slide it rearward a little and, if a part can be drawn scaled ([the correction](vehicle-animation-research.md)), grow it over two seconds with its shadow lengthening while the load lands; the tailgate is its own
 small sprite on a hinge; dust in the fan is a fleck. The rock and bulk bodies are each such a sprite. No frame sheets.
 
 ## Open questions for the owner

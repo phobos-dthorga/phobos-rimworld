@@ -5,6 +5,16 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.23.0] - 2026-11-09 - Draft
+
+### Added
+
+- The survey truck has its own picture, and its sensor boom swings out to the clearer side when it sets up, over two seconds. It needs room beside it, and says so if there is none. Generated with OpenAI's image API, recorded beside the textures. Not yet tested in game.
+
+### Dependencies
+
+- Needs D'thorga Framework 0.51.0.
+
 ## [0.22.1] - 2026-11-09 - Draft
 
 ### Balance

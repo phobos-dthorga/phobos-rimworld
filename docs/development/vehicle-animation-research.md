@@ -10,6 +10,17 @@ loads this build), **GAME** is RimWorld 1.7 (`.local/decompiled/full/all.cs`), *
 (`.local/decompiled/FixedWingAircraftFramework/`, `.local/decompiled/AV8BHarrier-dll/`). Workshop XML was read from the installed items. Two
 things are **inferred, not read**: SmashTools (where VF's animator lives) and Vanilla Chemfuel Expanded's DLL are not decompiled.
 
+## Correction, 9 Nov 2026: what a rotation can do from straight above
+
+The first version of this record said a boom or mast could "raise on a hinge" from one picture. **It cannot.** The game is seen from straight above, and an overlay's `Transform.rotation` turns it flat
+across the ground, like a clock hand: it can swing a part out to the side, but it can never lift it towards the camera. Sliding works the same way, flat. **A true raise would need drawing the part shorter as it rises, which an overlay's rotation
+and position cannot do**: it means drawing the part ourselves in `PostDraw` with a scaled matrix, as the Harrier draws its body (FWAF:13796-13809). Whether SmashTools' `Transform` has a scale of its own is unread. **The owner's choice for the survey truck's
+boom (9 Nov 2026): it swings out to the side.** Built in Framework 0.51.0: `SetUpMovingPart`, a hinge about a pivot measured off the art, with `HingeRule` and its tests. The rig's mast and the tipper's body in the table below still need this choice.
+
+**Not clipping (owner, 9 Nov 2026: "try and ensure that the extendable bits don't clip with other textures").** Before setting up, the sweep of each part is checked on both sides against walls, rock, buildings and other vehicles, and the clearer side is used; with neither clear it
+refuses and says so. Trees count only if both sides have them, because refusing in a forest would be worse than a boom over a tree. The power point keeps off the swept cells. **What it cannot stop:** something built or driven under the boom after it is out, and the game has no depth
+sorting for a vehicle's overlays, so a part always draws at the truck's height.
+
 ## Read this first
 
 1. **Vehicle Framework animates nothing on a ground vehicle by itself.** Everything that moves in it is tied to an aircraft taking off or landing

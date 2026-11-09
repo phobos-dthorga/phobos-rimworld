@@ -2,14 +2,14 @@
 <Defs>
   <!--
     The survey truck: a light 4x4 that finds deep ore, and with an upgrade searches other lands (docs/development/vehicle-survey-truck.md). Every figure is authored and untuned; the uranium in its cost stands in for
-    the sealed sources real logging tools carry (owner, 9 Nov 2026). Part keys are saved by position: append only, never reorder. Cells run x -1 to 1, z -3 to 3. It borrows the bulk tanker's picture until it has its own. Not yet tested in game.
+    the sealed sources real logging tools carry (owner, 9 Nov 2026). Part keys are saved by position: append only, never reorder. Cells run x -1 to 1, z -3 to 3. Its body and boom were generated for it (assets/phobos-vehicles/requests/survey-truck-*.json). Not yet tested in game.
   -->
   <Vehicles.VehicleDef ParentName="BaseVehiclePawn">
     <defName>Phobos_SurveyTruck</defName>
     <label>survey truck</label>
     <description>A light four-wheel-drive truck with a folding sensor boom and a recorder. Park it, set it up, and a colonist can survey for deep ore under the map, as a ground-penetrating scanner does. Each find on a map makes the next take longer. Upgrades add long-range searching and a fast, power-hungry mode. It cannot move while set up.</description>
     <graphicData>
-      <texPath>Phobos/Vehicles/BulkTanker/BulkTanker</texPath>
+      <texPath>Phobos/Vehicles/SurveyTruck/SurveyTruck</texPath>
       <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
       <shaderType>CutoutComplexPattern</shaderType>
       <drawSize>(4, 8)</drawSize>
@@ -362,6 +362,27 @@
       </li>
       <li Class="Phobos.VehicleSystems.CompProperties_PhobosSurveyTruck">
         <powerPointDef>Phobos_PowerPoint</powerPointDef>
+        <!-- The boom is its own picture and swings flat about the bracket on the deck: the game cannot lift a picture towards the camera. Pivot and reach measured off the art. -->
+        <movingParts>
+          <li>
+            <key>boom</key>
+            <label>sensor boom</label>
+            <pivotX>0</pivotX>
+            <pivotZ>-0.5</pivotZ>
+            <reach>2.8</reach>
+            <angle>90</angle>
+            <seconds>2</seconds>
+            <look>
+              <graphicData>
+                <texPath>Phobos/Vehicles/SurveyTruck/SurveyTruck_Boom</texPath>
+                <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+                <drawSize>(4, 8)</drawSize>
+                <shaderType>Cutout</shaderType>
+                <layer>1</layer>
+              </graphicData>
+            </look>
+          </li>
+        </movingParts>
         <!-- A tenth of the game's scanners' 3 and 6 days and 4 and 8 (owner's order of magnitude, 9 Nov 2026); the slowing per find is unchanged. -->
         <mtbDays>0.3</mtbDays>
         <guaranteedDays>0.6</guaranteedDays>
@@ -381,7 +402,7 @@
     <label>survey truck</label>
     <description>A light truck that finds deep ore wherever you can drive it.</description>
     <graphicData>
-      <texPath>Phobos/Vehicles/BulkTanker/BulkTanker</texPath>
+      <texPath>Phobos/Vehicles/SurveyTruck/SurveyTruck</texPath>
       <graphicClass>Graphic_Multi</graphicClass>
       <drawSize>(4, 8)</drawSize>
     </graphicData>

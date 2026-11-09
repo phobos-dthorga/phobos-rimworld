@@ -1,0 +1,25 @@
+[
+  {
+    "name": "survey-truck-boom",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 768,
+    "height": 2048,
+    "seeds": [
+      1,
+      2,
+      3
+    ],
+    "references": [
+      {
+        "image": "assets/phobos-vehicles/generated/survey-truck-body-north/survey-truck-body-north-1.png",
+        "role": "approved truck body: match its outline weight, shading, palette and finish only, and see the empty channel on its deck; do not redraw it"
+      }
+    ],
+    "art_plan": {
+      "vehicle": "Phobos_SurveyTruck, the moving boom, drawn on its own and fitted by script to the channel on the approved body",
+      "this_request": "the first moving part of the family, per docs/development/vehicle-animation-research.md"
+    },
+    "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL game sprite part for the D'thorga survey truck: its folding sensor boom, lying flat. Image 1 is our approved truck: match its outline weight, shading, palette and finish only, and use it only to see the empty channel on its deck where this boom rests. Do NOT redraw the truck.\n\nDraw ONLY the boom, alone on a plain pure white background: no cab, no wheels, no deck, nothing else on the canvas. Tall narrow canvas, with the boom's long axis perfectly straight from top to bottom on the centre line, filling about 85 percent of the canvas height. The boom is long and slim, about eight times as long as it is wide.\n\nIts top plan is: at the very top one round pivot eye with a plain steel pin in it; below that a long straight box-section arm of pale grey steel with a darker centre strip and evenly spaced small bolted plates; one muted orange band across the arm about a third of the way down; at the very bottom a plain rounded rectangular sensor housing, a little wider than the arm, in dusty olive.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo truck, deck, cargo, people, animals, cables, hoses, dishes, antennas, dust, mud, damage, text, letters, numbers, logos, dials, screens or lamps. No floor, ground, shadow outside the part, perspective, tilt or visible side faces. Top surfaces only."
+  }
+]
