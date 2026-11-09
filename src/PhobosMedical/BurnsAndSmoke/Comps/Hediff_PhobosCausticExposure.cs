@@ -23,12 +23,27 @@ public class Hediff_PhobosCausticExposure : HediffWithComps
     public int ticksSinceFirst;
     public int ticksSinceExposed;
     public float lungGiven;
+    /// <summary>The lung dose already paid for by an earlier exposure, so a fresh one harms only for what it adds.</summary>
+    public float lungAlready;
     public float skinPending;
     public bool throatRolled;
     public bool immunityRolled;
     public bool aftermathRolled;
 
     public float MaxDose => eyeDose > lungDose ? (eyeDose > skinDose ? eyeDose : skinDose) : (lungDose > skinDose ? lungDose : skinDose);
+
+    /// <summary>Fresh exposure (owner, 9 Nov 2026): the delayed harm starts over, counting from what is still in the body.</summary>
+    public void StartFresh()
+    {
+        ticksSinceFirst = 0;
+        eyePeak = eyeDose;
+        lungPeak = lungDose;
+        lungAlready = lungDose;
+        lungGiven = 0f;
+        throatRolled = false;
+        immunityRolled = false;
+        aftermathRolled = false;
+    }
 
     public override void ExposeData()
     {
@@ -41,6 +56,7 @@ public class Hediff_PhobosCausticExposure : HediffWithComps
         Scribe_Values.Look(ref ticksSinceFirst, "PhobosBurns_TicksSinceFirst");
         Scribe_Values.Look(ref ticksSinceExposed, "PhobosBurns_TicksSinceExposed");
         Scribe_Values.Look(ref lungGiven, "PhobosBurns_LungGiven");
+        Scribe_Values.Look(ref lungAlready, "PhobosBurns_LungAlready");
         Scribe_Values.Look(ref skinPending, "PhobosBurns_SkinPending");
         Scribe_Values.Look(ref throatRolled, "PhobosBurns_ThroatRolled");
         Scribe_Values.Look(ref immunityRolled, "PhobosBurns_ImmunityRolled");

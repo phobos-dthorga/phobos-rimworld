@@ -49,7 +49,7 @@ public class HediffGiver_PhobosBurns : HediffGiver
         if (set.HasHediff(BurnsDefOf.PhobosBurns_BurnLoad) || set.HasHediff(BurnsDefOf.PhobosBurns_BurnShock)
             || set.HasHediff(BurnsDefOf.PhobosBurns_AirwayBurn) || set.HasHediff(BurnsDefOf.PhobosBurns_CarbonMonoxide)
             || set.HasHediff(BurnsDefOf.PhobosBurns_LungInjury) || set.HasHediff(BurnsDefOf.PhobosBurns_SmokeInhalation)
-            || set.HasHediff(BurnsDefOf.PhobosBurns_Eschar) || set.HasHediff(BurnsDefOf.PhobosBurns_CausticExposure))
+            || set.HasHediff(BurnsDefOf.PhobosBurns_Eschar) || set.HasHediff(BurnsDefOf.PhobosBurns_EscharReleased) || set.HasHediff(BurnsDefOf.PhobosBurns_CausticExposure))
         {
             return true;
         }

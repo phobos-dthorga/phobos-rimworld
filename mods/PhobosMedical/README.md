@@ -8,7 +8,7 @@ It replaces five earlier mods, merged into it on 7 November 2026 ([why](../../do
 Burns and Smoke**, **D'thorga Emergency Dosing**, **D'thorga Triage**, **D'thorga Medical Equipment** and **D'thorga Medical Save
 Bridge**. Each is now a part of this mod, with its own section below.
 
-Version 0.8.1, built 9 November 2026 for House D'thorga. **Not yet tested in game as D'thorga Medical.** What the owner tested of
+Version 0.8.2, built 9 November 2026 for House D'thorga. **Not yet tested in game as D'thorga Medical.** What the owner tested of
 the five parts before the merge is in each part's section; the parts' behaviour is unchanged, except that the save bridge now asks
 first.
 
@@ -81,7 +81,7 @@ the mods' code.
 - **New in 0.7.0: deeply burned limbs tighten** (owner's go, not yet tested in game). An arm or leg whose burns reach **60% of its
   health** grows a hard crust, a **constricting eschar**, that tightens over about half a day as the limb swells until blood can't
   reach it. **A doctor's escharotomy** (a quick operation on that limb, Medicine 4, any medicine) cuts it open; the incisions heal in
-  about four days. With Triage the doctors queue it themselves once blood is being cut off. **Left alone, the limb is lost**: with More
+  about four days, and the eschar does not come back on that limb while its burns stay deep. With Triage the doctors queue it themselves once blood is being cut off. **Left alone, the limb is lost**: with More
   Injuries it can turn gangrenous, about a day after blood flow fails; without it, the limb takes ischaemic damage until it is lost,
   in about three days for a human leg. The crust softens and goes once the burns on that limb heal. It has its own setting.
 - **New in 0.7.0, with More Injuries: give fluids for burn shock.** An operation-list bill that uses one of More Injuries' **saline

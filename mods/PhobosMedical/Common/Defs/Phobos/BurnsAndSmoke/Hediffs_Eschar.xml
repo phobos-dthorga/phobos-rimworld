@@ -45,6 +45,25 @@
     </stages>
   </HediffDef>
 
+  <!-- Unseen: this limb's eschar has been cut through, and does not close again while its burns stay deep (owner, 9 Nov 2026). It goes when they heal below the mark. -->
+  <HediffDef>
+    <defName>PhobosBurns_EscharReleased</defName>
+    <label>released eschar</label>
+    <description>The crust on this limb has been cut through, and will not close up again while the burns stay deep.</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <initialSeverity>1</initialSeverity>
+    <maxSeverity>1</maxSeverity>
+    <isBad>false</isBad>
+    <tendable>false</tendable>
+    <everCurableByItem>false</everCurableByItem>
+    <scenarioCanAdd>false</scenarioCanAdd>
+    <stages>
+      <li>
+        <becomeVisible>false</becomeVisible>
+      </li>
+    </stages>
+  </HediffDef>
+
   <!-- What the escharotomy leaves: long cuts through the crust, healing over about four days (authored). -->
   <HediffDef>
     <defName>PhobosBurns_EscharotomyWound</defName>

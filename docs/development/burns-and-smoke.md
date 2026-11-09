@@ -289,6 +289,8 @@ Our inference: the game has burn depth per injury but nothing for "all round the
 2. Order the escharotomy on that leg: the eschar goes and escharotomy incisions stay.
 3. With More Injuries and a saline bag in stock, a patient in burn shock shows the fluids bill; after it, the shock's tooltip shows top care.
 
+**Decided 9 Nov 2026 (owner):** once an escharotomy has released a limb, the eschar does not re-form while that limb's burns stay deep; built in Medical 0.8.2. An unseen condition remembers it, and goes when the burns heal below the mark, so a later deep burn can form one again.
+
 ## Open points and upstream
 
 - **Done in D'thorga Medical 0.7.0:** fire heat indoors and moving away from heat (Decisions above), and More Injuries' own

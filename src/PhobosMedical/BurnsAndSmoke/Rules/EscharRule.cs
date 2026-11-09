@@ -13,7 +13,7 @@ public static class EscharRule
     public static bool Forms(float burnDamageOnPart, float partMaxHealth, float fractionOfHealth) =>
         partMaxHealth > 0f && fractionOfHealth > 0f && burnDamageOnPart >= fractionOfHealth * partMaxHealth;
 
-    /// <summary>Whether a limb with no eschar grows one: not while the cuts of an escharotomy are still open, or the operation would be undone at once.</summary>
+    /// <summary>Whether a limb with no eschar grows one: not once an escharotomy has released it and the burns are still deep (owner, 9 Nov 2026), or the operation would be undone.</summary>
     public static bool NewEscharForms(float burnDamageOnPart, float partMaxHealth, float fractionOfHealth, bool released) =>
         !released && Forms(burnDamageOnPart, partMaxHealth, fractionOfHealth);
 

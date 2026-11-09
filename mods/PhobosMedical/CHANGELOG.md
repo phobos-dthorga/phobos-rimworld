@@ -6,6 +6,13 @@ entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.8.2] - 2026-11-09 - Draft
+
+### Changed
+
+- A second gassing is as serious as the first (owner's decision): gas met after 4 hours or more in clear air starts the delayed harm over. The lungs are harmed only for what the new exposure adds. Replaces the limit noted in 0.8.1. **Not yet tested in game.**
+- Once an escharotomy has released a limb, the eschar does not come back while that limb's burns stay deep (owner's decision). Replaces the limit noted in 0.8.1. **Not yet tested in game.**
+
 ## [0.8.1] - 2026-11-09 - Draft
 
 ### Fixed

@@ -44,6 +44,7 @@ public static class CausticService
             if (!exposed && clothes <= 0f) return;
             dose = (Hediff_PhobosCausticExposure)pawn.health.AddHediff(BurnsDefOf.PhobosBurns_CausticExposure);
         }
+        if (exposed && CausticRule.FreshExposure(dose.ticksSinceExposed / TicksPerHour, rules.causticFreshExposureGapHours)) dose.StartFresh();
         if (exposed) Expose(pawn, dose, density, rules, fast, hours);
         if (exposed && settings.causticStripAndRinse) ContaminateWorn(pawn, density, rules, hours);
         if (clothes > 0f) dose.skinDose = CausticRule.AddDose(dose.skinDose, clothes, rules.causticDosePerHourAtFull, hours);
@@ -116,7 +117,7 @@ public static class CausticService
     {
         float onset = fast ? CausticRule.FastLungOnsetHours(dose.lungPeak, rules.causticFastLungLatestHours, rules.causticFastLungSoonestHours) : rules.causticSlowOnsetHours;
         float peak = fast ? onset + rules.causticFastLungRiseHours : rules.causticSlowLungPeakHours;
-        float target = dose.lungPeak * rules.causticLungInjuryPerDose * CausticRule.Ramp(elapsed, onset, peak);
+        float target = (dose.lungPeak - dose.lungAlready) * rules.causticLungInjuryPerDose * CausticRule.Ramp(elapsed, onset, peak);
         float add = target - dose.lungGiven;
         if (add <= 0f) return;
         dose.lungGiven = target;

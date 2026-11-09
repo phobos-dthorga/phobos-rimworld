@@ -219,6 +219,7 @@ None yet. Built in 0.7.0, not yet tested in game.
 
 - **Decided 8 Nov 2026 (owner):** our own scarred cornea, built in Medical 0.8.0.
 - **Decided 8 Nov 2026 (owner):** plants wilt, corpses unaffected; built in Medical 0.8.0.
+- **Decided 9 Nov 2026 (owner):** a fresh exposure restarts the dose's clock, so a second gassing is as serious as the first; built in Medical 0.8.2. Agent's reading of "fresh", for the owner to revise: gas met after 4 hours or more in clear air (authored, a rules figure). What is still in the body counts towards the new peak, and the lungs are harmed only for what the new exposure adds.
 - **Stripping contaminated clothing** (agent proposal, phase 2): under the slow-acting model, clothes keep dosing the skin for hours after the
   gas clears unless removed. A cheap, strong hook, held until the core is tested.
 - **Lung rot** as the aftermath instead of irritable airways: recorded as the alternative.

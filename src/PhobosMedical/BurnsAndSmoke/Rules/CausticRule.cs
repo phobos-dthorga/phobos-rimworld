@@ -7,6 +7,9 @@ namespace Phobos.BurnsAndSmoke.Rules;
 /// </summary>
 public static class CausticRule
 {
+    /// <summary>Whether gas met after this many hours in clear air is a fresh exposure, which starts the delayed harm over. A step out of the cloud and back is not.</summary>
+    public static bool FreshExposure(float hoursClear, float gapHours) => gapHours > 0f && hoursClear >= gapHours;
+
     /// <summary>Dose gained in <paramref name="hours"/> at an exposure of 0 to 1; the dose never passes 1.</summary>
     public static float AddDose(float dose, float exposure, float ratePerHourAtFull, float hours)
     {

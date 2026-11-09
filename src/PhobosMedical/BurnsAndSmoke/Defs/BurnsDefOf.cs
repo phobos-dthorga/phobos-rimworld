@@ -16,6 +16,7 @@ public static class BurnsDefOf
     public static JobDef PhobosBurns_MoveAwayFromHeat = null!;
     public static HediffDef PhobosBurns_Eschar = null!;
     public static HediffDef PhobosBurns_EscharotomyWound = null!;
+    public static HediffDef PhobosBurns_EscharReleased = null!;
     public static DamageDef PhobosBurns_Ischaemia = null!;
     public static HediffDef PhobosBurns_ChemicalOnSkin = null!;
     public static HediffDef PhobosBurns_Rinsed = null!;

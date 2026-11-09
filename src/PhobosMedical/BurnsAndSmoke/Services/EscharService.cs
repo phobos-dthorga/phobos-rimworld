@@ -24,7 +24,7 @@ public static class EscharService
             // Switched off: what is already on a limb goes too, or it would go on tightening with nothing to release it.
             for (int i = hediffs.Count - 1; i >= 0; i--)
             {
-                if (hediffs[i].def == BurnsDefOf.PhobosBurns_Eschar) pawn.health.RemoveHediff(hediffs[i]);
+                if (hediffs[i].def == BurnsDefOf.PhobosBurns_Eschar || hediffs[i].def == BurnsDefOf.PhobosBurns_EscharReleased) pawn.health.RemoveHediff(hediffs[i]);
             }
             return;
         }
@@ -40,28 +40,32 @@ public static class EscharService
         for (int i = 0; i < hediffs.Count; i++)
         {
             Hediff hediff = hediffs[i];
-            if (hediff.def != BurnsDefOf.PhobosBurns_Eschar || hediff.Part == null) continue;
+            if (hediff.Part == null || (hediff.def != BurnsDefOf.PhobosBurns_Eschar && hediff.def != BurnsDefOf.PhobosBurns_EscharReleased)) continue;
             burnOnLimb.TryGetValue(hediff.Part, out float damage);
             if (!EscharRule.Forms(damage, hediff.Part.def.GetMaxHealth(pawn), rules.escharPartHealthFraction)) toRemove.Add(hediff);
-            burnOnLimb.Remove(hediff.Part);
+            if (hediff.def == BurnsDefOf.PhobosBurns_Eschar) burnOnLimb.Remove(hediff.Part);
         }
         foreach (Hediff softened in toRemove) pawn.health.RemoveHediff(softened);
         toRemove.Clear();
         foreach (KeyValuePair<BodyPartRecord, float> limb in burnOnLimb)
         {
-            if (EscharRule.NewEscharForms(limb.Value, limb.Key.def.GetMaxHealth(pawn), rules.escharPartHealthFraction, Released(pawn, limb.Key)))
+            float limbHealth = limb.Key.def.GetMaxHealth(pawn);
+            bool cut = Has(pawn, BurnsDefOf.PhobosBurns_EscharotomyWound, limb.Key);
+            bool remembered = Has(pawn, BurnsDefOf.PhobosBurns_EscharReleased, limb.Key);
+            // The cuts heal in days and the burns take longer: the limb remembers it was released until the burns are below the mark.
+            if (cut && !remembered && EscharRule.Forms(limb.Value, limbHealth, rules.escharPartHealthFraction)) pawn.health.AddHediff(BurnsDefOf.PhobosBurns_EscharReleased, limb.Key);
+            if (EscharRule.NewEscharForms(limb.Value, limbHealth, rules.escharPartHealthFraction, cut || remembered))
                 pawn.health.AddHediff(BurnsDefOf.PhobosBurns_Eschar, limb.Key);
         }
         burnOnLimb.Clear();
     }
 
-    /// <summary>Whether this limb still carries the cuts of an escharotomy.</summary>
-    static bool Released(Pawn pawn, BodyPartRecord limb)
+    static bool Has(Pawn pawn, HediffDef def, BodyPartRecord limb)
     {
         List<Hediff> hediffs = pawn.health.hediffSet.hediffs;
         for (int i = 0; i < hediffs.Count; i++)
         {
-            if (hediffs[i].def == BurnsDefOf.PhobosBurns_EscharotomyWound && hediffs[i].Part == limb) return true;
+            if (hediffs[i].def == def && hediffs[i].Part == limb) return true;
         }
         return false;
     }

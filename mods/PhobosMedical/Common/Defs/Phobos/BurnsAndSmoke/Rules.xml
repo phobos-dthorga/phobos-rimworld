@@ -79,6 +79,7 @@
     <causticLightDose>0.2</causticLightDose>
     <causticHeavyDose>0.5</causticHeavyDose>
     <causticMassiveDose>0.8</causticMassiveDose>
+    <causticFreshExposureGapHours>4</causticFreshExposureGapHours>
     <causticSlowOnsetHours>4</causticSlowOnsetHours>
     <causticEyePeakHours>12</causticEyePeakHours>
     <causticSlowLungPeakHours>60</causticSlowLungPeakHours>

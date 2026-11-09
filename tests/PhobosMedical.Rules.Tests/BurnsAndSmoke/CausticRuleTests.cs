@@ -5,6 +5,15 @@ namespace Phobos.BurnsAndSmoke.Tests;
 
 public class CausticRuleTests
 {
+    [Theory]
+    [InlineData(4f, 4f, true)]
+    [InlineData(30f, 4f, true)]
+    [InlineData(3.9f, 4f, false)]
+    [InlineData(0f, 4f, false)]
+    [InlineData(30f, 0f, false)]
+    public void OnlyGasMetAfterTimeInClearAirIsFresh(float hoursClear, float gapHours, bool fresh) =>
+        Assert.Equal(fresh, CausticRule.FreshExposure(hoursClear, gapHours));
+
     [Fact]
     public void DoseGrowsWithExposureAndTimeAndStopsAtOne()
     {

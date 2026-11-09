@@ -13,7 +13,7 @@
     <AssemblyName>PhobosMedical</AssemblyName>
     <ModFolder>PhobosMedical</ModFolder>
     <UsesHarmony>true</UsesHarmony>
-    <Version>0.8.1</Version>
+    <Version>0.8.2</Version>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="../PhobosFramework/PhobosFramework.csproj" Private="false" />

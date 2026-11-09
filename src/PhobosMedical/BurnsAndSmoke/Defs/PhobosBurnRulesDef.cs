@@ -97,6 +97,8 @@ public class PhobosBurnRulesDef : PhobosRulesDef
     public float causticLightDose = 0.2f;
     public float causticHeavyDose = 0.5f;
     public float causticMassiveDose = 0.8f;
+    /// <summary>Hours in clear air after which meeting the gas again is a fresh exposure and starts the delayed harm over (owner's decision; the figure is authored).</summary>
+    public float causticFreshExposureGapHours = 4f;
     /// <summary>Slow-acting: the hour the delayed harm begins, and the hour the eyes are worst.</summary>
     public float causticSlowOnsetHours = 4f;
     public float causticEyePeakHours = 12f;
