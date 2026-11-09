@@ -38,6 +38,19 @@ The owner posted a bug report on the mod's Workshop page on 10 Nov 2026. The age
 
 > **Prison Labor 1.7: stack overflow crash from GetFoodRestrictionPatch.** `GetFoodRestrictionPatch.Postfix` calls `__instance.GetCurrentRespectedRestriction(null)`, the method it patches. For a prisoner the game returns null to a null getter, so the postfix runs again with the same arguments until the stack overflows and the game closes with no log entry. It happens when a warden checks food for a prisoner with motivation above 0.7, or one being watched. `Patch_EnableRespectingFoodPolicies` beside it returns `__instance.CurrentFoodPolicy`, which may be what this one meant to do. Captured with `RimWorld.exe 2> errors.txt`: 6,845 repeats of that postfix and the patched method.
 
+## Correction (10 Nov 2026): the "ghost bills" were not ghosts
+
+Below, this record says Munitions Industries no longer defines nine recipes. **That is wrong.** Munitions Industries builds those recipes at startup, inside a postfix on Combat Extended's `AmmoInjector.Inject`, and the postfix never ran because `Inject` threw. With The Dead Man's Switch - Synthriada on, its `1.7/CE/Patches/AmmoSets.xml` adds ammo links to `Ammo_556x45mmNATO_Embryte` and `Bullet_556x45mmNATO_Embryte`, which nothing defines. Those links load as null, Combat Extended's vehicle compatibility passes one to `ThingFilter.SetAllow`, and the whole ammo injection dies.
+
+| Session | Synthriada | `SetAllow` exception | Factory recipes added |
+| --- | --- | --- | --- |
+| 9 Nov 19:41 | Off | 0 | 495 |
+| 9 Nov 23:46 | On | 1 | 0 |
+| 9 Nov 23:52 | Off | 0 | 495 |
+| 10 Nov 01:41 | On | 1 | 0 |
+
+So Factory Additions 0.12.1 removed nine bills that were valid but for this fault. PG4 and PG5 still hold them.
+
 ## Second crash, 23:51 the same night
 
 The game crashed again about two minutes after loading the same save, with **the same fault: a 224-byte level repeating 6,841 times, every level holding the same objects** (`crash-dump` on `RimWorld.exe.63208.dmp`). The first was 6,843 times, about five minutes after loading. So it is one repeatable bug, not chance. The owner suspects The Dead Man's Switch - Synthriada, which remains the leading suspect but is not proven.

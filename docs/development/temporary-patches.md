@@ -37,7 +37,7 @@ More Injuries and Medical Surgery Expanded 2 were not re-checked for this regist
 | 8 | Factory Additions, `BillRepair` and its tick and reset patches | Pipe System: a bill's ingredient owners are built once and never compared with the recipe again | A saved bill is rebuilt when its recipe changes | No | Drafted, [factory additions](vfe-factory-additions.md) |
 | 9 | Factory Additions, `AddIngredientGuardPatch` | Pipe System: an item no owner can take throws and ends the hopper scan | `AddIngredient` skips such an item | No | Drafted, same record |
 | 10 | Factory Additions, `BeingFilledClearPatch` | Pipe System: the hopper scan leaves an owner marked as being filled for good | The scan unmarks the owner it marked | No | Drafted, same record |
-| 11 | Factory Additions 0.12.1, `GhostBillsPatch` | Pipe System: a bill whose recipe no longer exists loads with no recipe, and everything reading it throws | Such a bill is dropped on load | No | None yet |
+| 11 | Factory Additions 0.12.1, `GhostBillsPatch` | Pipe System: a bill whose recipe no longer exists loads with no recipe, and everything reading it throws. **Takes such bills off the machine, even when the recipe is only missing for one session** (it removed nine valid bills on 10 Nov 2026, see [the crash record](crash-2026-11-09-stack-overflow.md)) | Such a bill is dropped or held safely on load | No | None yet |
 | 12 | Factory Additions, `ConveyorTickPatch` | Vanilla Furniture Expanded - Factory: a belt that is empty and Waiting returns at once and never moves again | A belt's tick wakes itself from that state | No | None found |
 
 ## Permanent: our own design needs it
