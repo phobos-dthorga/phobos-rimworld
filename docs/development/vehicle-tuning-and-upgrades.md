@@ -82,11 +82,11 @@ A `PhobosVehicleTuneDef` belongs to an axis, **Engine** or **Gearing**, with thr
 | Engine | Economy | x0.9 | x0.92 | x0.9 | | 5 |
 | Engine | Balanced (as built) | | | | | 3 |
 | Engine | Power | x1.15 | x1.15 | x1.2 | | 8 |
-| Gearing | Long | | | | x0.85 | 5 |
+| Gearing | Long | | x0.95 | | x0.85 | 5 |
 | Gearing | Standard (as built) | | | | | 3 |
-| Gearing | Short | | | | x1.2 | 5 |
+| Gearing | Short | | x1.05 | | x1.2 | 5 |
 
-They change figures the drivetrain model already reads. Fuel follows them whether or not the player has fuel following the load: a tune's factor is applied to what Vehicle Framework already burned. **Limits:** tunes apply to piston engines; a gas turbine's power comes from its ratings and an electric motor has nothing to tune, so those vehicles show why not. Gearing needs a gearbox. Because a vehicle's speed cap only ever lowers its top speed, **long gearing does not make a vehicle faster than its design speed**: it lowers the revs and the fuel at cruise. Short gearing pulls harder and tops out sooner.
+They change figures the drivetrain model already reads. Fuel follows them whether or not the player has fuel following the load: a tune's factor is applied to what Vehicle Framework already burned. Gearing's fuel figure applies only when fuel does not follow the load; when it does, the model works gearing out itself. **Limits:** tunes apply to piston engines; a gas turbine's power comes from its ratings and an electric motor has nothing to tune, so those vehicles show why not. Gearing needs a gearbox. Boats and aircraft are left out of tunes and the turbocharger: a propeller's speed and an aircraft's flight phase do not follow engine power, so they would only cost heat and fuel. Tunes also need the drivetrain model to be running in full. Because a vehicle's speed cap only ever lowers its top speed, **long gearing does not make a vehicle faster than its design speed**: it lowers the revs and the fuel at cruise. Short gearing pulls harder and tops out sooner.
 
 **Skill (owner):** a job names the minimum Construction skill; a mechanic below it is refused, with the reason. No random failure.
 

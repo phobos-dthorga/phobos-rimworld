@@ -217,7 +217,36 @@ public class JobDriver_PhobosRepairWithSupplies : PhobosVehicleWorkDriver
 {
     protected override JobDef JobDef => VehicleSystemsJobDefOf.PhobosVehicleSystems_RepairWithSupplies;
 
-    protected override float TotalWork => Vehicle.GetComp<CompPhobosVehicleSystems>()?.Repairs.ReadyFor(pawn)?.Work ?? 1f;
+    string? workKey;
+
+    RepairWork? Current => workKey == null ? null : Systems?.Repairs.Find(workKey);
+
+    protected override float TotalWork => Current?.Work ?? 1f;
+
+    /// <summary>The job is tied to one piece of work, so what was cancelled is not finished, and another job is not done on its time.</summary>
+    protected override void ResetWork()
+    {
+        workKey = Systems?.Repairs.ReadyFor(pawn)?.Key;
+        if (workKey == null)
+        {
+            EndJobWith(JobCondition.Incompletable);
+            return;
+        }
+        base.ResetWork();
+    }
+
+    protected override IEnumerable<Toil> MakeNewToils()
+    {
+        // Cancelled, or its part is gone: stop. Nothing is wrong with the vehicle, so repairs do not stand down.
+        this.FailOn(() => workKey != null && Current == null);
+        foreach (Toil toil in base.MakeNewToils()) yield return toil;
+    }
+
+    public override void ExposeData()
+    {
+        base.ExposeData();
+        Scribe_Values.Look(ref workKey, "PhobosVehicleSystems_WorkKey");
+    }
 
     protected override StatDef Stat => StatDefOf.ConstructionSpeed;
 
@@ -225,6 +254,12 @@ public class JobDriver_PhobosRepairWithSupplies : PhobosVehicleWorkDriver
 
     protected override void WorkComplete(Pawn actor)
     {
-        Finished(actor, Systems?.Repairs.CompleteReady(actor) == true);
+        // A job saved before work was tied to a key has none: it does what is ready, as it did.
+        if (workKey == null) Finished(actor, Systems?.Repairs.CompleteReady(actor) == true);
+        else
+        {
+            Systems?.Repairs.Complete(workKey, actor);
+            ReadyForNextToil();
+        }
     }
 }

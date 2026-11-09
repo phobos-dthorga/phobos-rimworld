@@ -74,6 +74,6 @@ public sealed class SystemContext
     public float Parameter(string name)
     {
         if (!State.system.parameters.TryGetValue(name, out double value)) return 0f;
-        return (float)Tuning.Value(Vehicle?.VehicleDef, State.Def.defName, name, value) * Comp.Fittings.ParameterFactor(name);
+        return (float)Tuning.Value(Vehicle?.VehicleDef, State.Def.defName, name, value) * Comp.Fittings.ParameterFactor(State.Def.defName, name);
     }
 }

@@ -54,9 +54,10 @@ public sealed class VehicleFittings
     bool setRolled;
 
     Dictionary<VehicleStatDef, float>? statFactors;
-    Dictionary<string, float>? parameterFactors;
+    Dictionary<(string system, string name), float>? parameterFactors;
     float power = 1f;
     float fuel = 1f;
+    float flatFuel = 1f;
     float finalDrive = 1f;
 
     public VehicleFittings(CompPhobosVehicleSystems comp)
@@ -82,8 +83,9 @@ public sealed class VehicleFittings
         fitted ??= new List<FittedPart>();
         tunes ??= new List<PhobosVehicleTuneDef>();
         orders ??= new List<FitOrder>();
-        if (Scribe.mode != LoadSaveMode.PostLoadInit) return;
-        // A Def another mod took away: the fitting goes with it, and the rest of the vehicle is untouched.
+        if (Scribe.mode == LoadSaveMode.Saving) return;
+        // A Def another mod took away: the fitting goes with it, and the rest of the vehicle is untouched. Not left to the end of
+        // loading: Vehicle Framework runs PostLoad, and with it our powertrain, before a comp's own last pass.
         fitted.RemoveAll(f => f == null || f.def == null || f.partKey.NullOrEmpty());
         tunes.RemoveAll(t => t == null);
         orders.RemoveAll(o => o == null || !o.Valid);
@@ -106,8 +108,8 @@ public sealed class VehicleFittings
     {
         if (statFactors != null) return;
         var stats = new Dictionary<VehicleStatDef, float>();
-        var parameters = new Dictionary<string, float>();
-        double p = 1, f = 1, drive = 1;
+        var parameters = new Dictionary<(string system, string name), float>();
+        double p = 1, f = 1, drive = 1, flat = 1;
         foreach (FittedPart part in fitted)
         {
             PhobosVehicleFittingDef def = part.def!;
@@ -116,26 +118,31 @@ public sealed class VehicleFittings
             {
                 if (spec.stat != null) stats[spec.stat] = (stats.TryGetValue(spec.stat, out float before) ? before : 1f) * (float)FittingRule.PartShare(spec.factor, parts);
             }
-            foreach (ParameterFactorSpec spec in def.parameterFactors) Multiply(parameters, spec.parameter, FittingRule.PartShare(spec.factor, parts));
+            foreach (ParameterFactorSpec spec in def.parameterFactors) Multiply(parameters, spec, FittingRule.PartShare(spec.factor, parts));
             p *= FittingRule.PartShare(def.powerFactor, parts);
             f *= FittingRule.PartShare(def.fuelFactor, parts);
         }
         foreach (PhobosVehicleTuneDef tune in tunes)
         {
-            foreach (ParameterFactorSpec spec in tune.parameterFactors) Multiply(parameters, spec.parameter, spec.factor);
+            foreach (ParameterFactorSpec spec in tune.parameterFactors) Multiply(parameters, spec, spec.factor);
             p *= tune.powerFactor;
             f *= tune.fuelFactor;
+            flat *= tune.flatFuelFactor;
             drive *= tune.finalDriveFactor;
         }
         statFactors = stats;
         parameterFactors = parameters;
         power = (float)p;
         fuel = (float)f;
+        flatFuel = (float)flat;
         finalDrive = (float)drive;
     }
 
-    static void Multiply(Dictionary<string, float> parameters, string name, double factor) =>
-        parameters[name] = (parameters.TryGetValue(name, out float before) ? before : 1f) * (float)factor;
+    static void Multiply(Dictionary<(string system, string name), float> parameters, ParameterFactorSpec spec, double factor)
+    {
+        var key = (spec.system, spec.parameter);
+        parameters[key] = (parameters.TryGetValue(key, out float before) ? before : 1f) * (float)factor;
+    }
 
     public float StatFactor(VehicleStatDef stat)
     {
@@ -144,11 +151,13 @@ public sealed class VehicleFittings
         return statFactors!.TryGetValue(stat, out float factor) ? factor : 1f;
     }
 
-    public float ParameterFactor(string name)
+    /// <summary>The factor on a system's parameter: what names that system, and what names no system at all.</summary>
+    public float ParameterFactor(string system, string name)
     {
         if (Nothing) return 1f;
         Recache();
-        return parameterFactors!.TryGetValue(name, out float factor) ? factor : 1f;
+        float everywhere = parameterFactors!.TryGetValue(("", name), out float any) ? any : 1f;
+        return parameterFactors.TryGetValue((system, name), out float own) ? everywhere * own : everywhere;
     }
 
     public float PowerFactor
@@ -168,6 +177,17 @@ public sealed class VehicleFittings
             if (Nothing) return 1f;
             Recache();
             return fuel;
+        }
+    }
+
+    /// <summary>What the tunes do to the fuel burned when fuel does not follow the engine model, which otherwise works it out itself.</summary>
+    public float FlatFuelFactor
+    {
+        get
+        {
+            if (Nothing) return 1f;
+            Recache();
+            return flatFuel;
         }
     }
 
@@ -207,8 +227,25 @@ public sealed class VehicleFittings
 
     bool HasPiston => comp.Powertrain?.Spec.Engine == EngineKind.Piston;
 
+    bool? tracked;
+
     /// <summary>A hint by name, because nothing else marks a tracked vehicle (the loadout selector reads it the same way).</summary>
-    bool IsTracked => comp.Vehicle.VehicleDef.components.Any(part => part.key != null && part.key.IndexOf("track", System.StringComparison.OrdinalIgnoreCase) >= 0);
+    bool IsTracked => tracked ??= comp.Vehicle.VehicleDef.components.Any(part => part.key != null && part.key.IndexOf("track", System.StringComparison.OrdinalIgnoreCase) >= 0);
+
+    /// <summary>Whether more engine power reaches the road: a piston engine driving the ground through the full model. A propeller's speed
+    /// and an aircraft's flight phase do not follow it, so more power there would only cost heat and fuel.</summary>
+    bool PowerCounts => Settings.drivetrainMode == DrivetrainMode.Full && comp.Powertrain is { } train && train.Spec.Engine == EngineKind.Piston
+        && train.Spec.Transmission is TransmissionKind.Automatic or TransmissionKind.Direct or TransmissionKind.DieselElectric;
+
+    /// <summary>Whether this fitting would change anything on this vehicle: a loadout can drop a system (a turbine tank has no coolant) and keep its part.</summary>
+    bool MovesSomethingHere(PhobosVehicleFittingDef def)
+    {
+        if (def.statFactors.Count > 0 || def.powerFactor != 1f || def.fuelFactor != 1f) return true;
+        return def.parameterFactors.Any(spec => comp.Props.systems.Any(system =>
+            (spec.system.Length == 0 || system.def.defName == spec.system) && system.parameters.ContainsKey(spec.parameter)));
+    }
+
+    bool Suits(PhobosVehicleFittingDef def) => def.Suits(comp.Repairs.Kilograms, HasPiston, IsTracked, PowerCounts) && MovesSomethingHere(def);
 
     /// <summary>The parts that can take a fitting, each once.</summary>
     public IEnumerable<VehicleComponent> FittableParts()
@@ -228,12 +265,9 @@ public sealed class VehicleFittings
     /// <summary>The fittings that suit this part on this vehicle, whether or not they can be done yet.</summary>
     public IEnumerable<PhobosVehicleFittingDef> OptionsFor(VehicleComponent part)
     {
-        double kilograms = comp.Repairs.Kilograms;
-        bool piston = HasPiston;
-        bool tracked = IsTracked;
         foreach (PhobosVehicleFittingDef def in DefDatabase<PhobosVehicleFittingDef>.AllDefsListForReading)
         {
-            if (def.roles.Any(role => comp.PartPlays(part, role)) && def.Suits(kilograms, piston, tracked)) yield return def;
+            if (def.roles.Any(role => comp.PartPlays(part, role)) && Suits(def)) yield return def;
         }
     }
 
@@ -253,12 +287,11 @@ public sealed class VehicleFittings
 
     public FitOrder? OrderFor(VehicleTuneAxis axis) => orders.FirstOrDefault(o => o.tune != null && o.tune.axis == axis);
 
-    /// <summary>Whether this axis can be tuned here: a piston engine for the engine, and a gearbox for the gearing, while the model runs.</summary>
+    /// <summary>Whether this axis can be tuned here: an engine whose power reaches the road, and gears the model actually reads.</summary>
     public bool CanTune(VehicleTuneAxis axis)
     {
-        Powertrain? train = comp.Powertrain;
-        if (train == null || train.Spec.Engine != EngineKind.Piston || Settings.drivetrainMode == DrivetrainMode.Off) return false;
-        return axis == VehicleTuneAxis.Engine || train.Spec.Transmission != TransmissionKind.None;
+        if (!PowerCounts) return false;
+        return axis == VehicleTuneAxis.Engine || comp.Powertrain!.Spec.Transmission is TransmissionKind.Automatic or TransmissionKind.Direct;
     }
 
     public static IEnumerable<PhobosVehicleTuneDef> TunesOf(VehicleTuneAxis axis) =>
@@ -375,7 +408,7 @@ public sealed class VehicleFittings
             if (part != null && part.Health > 0f) continue;
             if (player && part != null)
             {
-                Messages.Message("PhobosVehicleSystems_FitLost".Translate(comp.Vehicle.LabelShort.Named("VEHICLE"), fitted[i].def!.label.Named("FITTING"), part.props.label.Named("PART")), comp.Vehicle, MessageTypeDefOf.NegativeEvent);
+                TellLost(fitted[i].def!, part);
             }
             fitted.RemoveAt(i);
             changed = true;
@@ -389,13 +422,29 @@ public sealed class VehicleFittings
             if (part != null && part.Health > 0f) continue;
             if (player)
             {
-                Messages.Message("PhobosVehicleSystems_FitOrderLost".Translate(LabelOf(order).CapitalizeFirst().Named("WORK"), comp.Vehicle.LabelShort.Named("VEHICLE")), comp.Vehicle, MessageTypeDefOf.NegativeEvent);
+                Messages.Message("PhobosVehicleSystems_FitOrderLost".Translate(LabelOf(order).CapitalizeFirst().Named("WORK"), comp.Vehicle.LabelShort.Named("VEHICLE")), Where, MessageTypeDefOf.NegativeEvent);
             }
             orders.RemoveAt(i);
             orderLost = true;
         }
         if (changed) Changed();
         else if (orderLost) comp.Repairs.Invalidate();
+    }
+
+    /// <summary>Where a message about this vehicle points: nowhere, while it is in a caravan or a garage.</summary>
+    LookTargets Where => comp.Vehicle.Spawned ? comp.Vehicle : LookTargets.Invalid;
+
+    void TellLost(PhobosVehicleFittingDef def, VehicleComponent part) =>
+        Messages.Message("PhobosVehicleSystems_FitLost".Translate(comp.Vehicle.LabelShort.Named("VEHICLE"), def.label.Named("FITTING"), part.props.label.Named("PART")), Where, MessageTypeDefOf.NegativeEvent);
+
+    /// <summary>A destroyed part mended somewhere no sweep saw it destroyed (a garage): the fitting went with the old one.</summary>
+    public void LoseWith(VehicleComponent part)
+    {
+        PhobosVehicleFittingDef? lost = FittedOn(part.props.key);
+        if (lost == null) return;
+        fitted.RemoveAll(f => f.partKey == part.props.key);
+        if (comp.Vehicle.Faction == Faction.OfPlayer) TellLost(lost, part);
+        Changed();
     }
 
     /// <summary>The first time another faction's vehicle appears: by chance, a set suited to its faction's tech level (owner, 9 Nov 2026).</summary>
@@ -414,12 +463,9 @@ public sealed class VehicleFittings
     /// <summary>Puts a set on the vehicle: each fitting on every free part it suits (one axle of four would be a sliver of the effect), and each tune the vehicle can take.</summary>
     public void Apply(PhobosVehicleFitSetDef set)
     {
-        double kilograms = comp.Repairs.Kilograms;
-        bool piston = HasPiston;
-        bool tracked = IsTracked;
         foreach (PhobosVehicleFittingDef def in set.fittings)
         {
-            if (!def.Suits(kilograms, piston, tracked)) continue;
+            if (!Suits(def)) continue;
             foreach (string key in def.roles.Where(comp.Props.roleKeys.ContainsKey).SelectMany(role => comp.Props.roleKeys[role]).Distinct().ToList())
             {
                 if (FittedOn(key) == null) fitted.Add(new FittedPart { partKey = key, def = def });

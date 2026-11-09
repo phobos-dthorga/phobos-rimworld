@@ -5,6 +5,19 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.40.4] - 2026-11-09 - Draft
+
+### Fixed
+
+- A fitting or tune whose mod was removed could stop that vehicle loading, the same way the black map did: it is now dropped early enough. **Not yet tested in game.**
+- Cancelling an order, or losing its part, while a mechanic was working stood down every repair on that vehicle for a day, or finished another job on the first one's time. A job now does the work it set out to do, and stops quietly if that work has gone. **Not yet tested in game.**
+- Mechanoids were refused every fitting and tune: they now count at their fixed skill, as the game counts them. **Not yet tested in game.**
+- Engine heat from a turbocharger or a tune also heated the gearbox. **Not yet tested in game.**
+- Tunes and the turbocharger are no longer offered where they could do nothing or only cost: boats, aircraft, and gearing with no gears for it to change. **Not yet tested in game.**
+- Fittings are not offered for a system the vehicle does not have, such as a radiator fitting on a tank with no coolant. **Not yet tested in game.**
+- Long gearing now saves fuel and short gearing costs a little, where it had no effect on fuel by default. **Not yet tested in game.**
+- A fitting is lost with a part destroyed in a garage, and work on a part destroyed moments before it finished no longer uses up the materials. **Not yet tested in game.**
+
 ## [0.40.3] - 2026-11-09 - Draft
 
 ### Fixed

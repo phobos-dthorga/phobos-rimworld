@@ -42,8 +42,9 @@
     <researchPrerequisite>Fabrication</researchPrerequisite>
     <powerFactor>1.2</powerFactor>
     <fuelFactor>1.1</fuelFactor>
-    <parameterFactors><li><parameter>heatAtFullLoad</parameter><factor>1.25</factor></li></parameterFactors>
+    <parameterFactors><li><system>PhobosVehicleSystem_Cooling</system><parameter>heatAtFullLoad</parameter><factor>1.25</factor></li></parameterFactors>
     <piston>Yes</piston>
+    <powerCounts>Yes</powerCounts>
   </Phobos.VehicleSystems.PhobosVehicleFittingDef>
 
   <Phobos.VehicleSystems.PhobosVehicleFittingDef>
@@ -112,7 +113,7 @@
     <minSkill>5</minSkill>
     <powerFactor>0.9</powerFactor>
     <fuelFactor>0.92</fuelFactor>
-    <parameterFactors><li><parameter>heatAtFullLoad</parameter><factor>0.9</factor></li></parameterFactors>
+    <parameterFactors><li><system>PhobosVehicleSystem_Cooling</system><parameter>heatAtFullLoad</parameter><factor>0.9</factor></li></parameterFactors>
   </Phobos.VehicleSystems.PhobosVehicleTuneDef>
 
   <Phobos.VehicleSystems.PhobosVehicleTuneDef>
@@ -137,7 +138,7 @@
     <minSkill>8</minSkill>
     <powerFactor>1.15</powerFactor>
     <fuelFactor>1.15</fuelFactor>
-    <parameterFactors><li><parameter>heatAtFullLoad</parameter><factor>1.2</factor></li></parameterFactors>
+    <parameterFactors><li><system>PhobosVehicleSystem_Cooling</system><parameter>heatAtFullLoad</parameter><factor>1.2</factor></li></parameterFactors>
   </Phobos.VehicleSystems.PhobosVehicleTuneDef>
 
   <Phobos.VehicleSystems.PhobosVehicleTuneDef>
@@ -150,6 +151,7 @@
     <work>2000</work>
     <minSkill>5</minSkill>
     <finalDriveFactor>0.85</finalDriveFactor>
+    <flatFuelFactor>0.95</flatFuelFactor>
   </Phobos.VehicleSystems.PhobosVehicleTuneDef>
 
   <Phobos.VehicleSystems.PhobosVehicleTuneDef>
@@ -173,6 +175,7 @@
     <work>2000</work>
     <minSkill>5</minSkill>
     <finalDriveFactor>1.2</finalDriveFactor>
+    <flatFuelFactor>1.05</flatFuelFactor>
   </Phobos.VehicleSystems.PhobosVehicleTuneDef>
 
   <!-- Enemy sets, by faction tech level (owner, 9 Nov 2026). Stat fittings act at once; power and tunes matter once the vehicle is captured. -->

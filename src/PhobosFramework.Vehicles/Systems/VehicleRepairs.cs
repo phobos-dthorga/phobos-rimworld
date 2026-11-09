@@ -20,6 +20,8 @@ public enum RepairKind
 /// <summary>A repair waiting to be done: what it is, the work it takes and the ways of paying for it, ours first.</summary>
 public sealed class RepairWork
 {
+    /// <summary>Stays the same across rebuilds of the list, so a mechanic's job can tell whether its work is still wanted.</summary>
+    public string Key = "";
     public RepairKind Kind;
     public string Label = "";
     public float Work;
@@ -169,7 +171,7 @@ public sealed class VehicleRepairs
                 if (options.Count == 0) continue;
                 var repair = new RepairWork
                 {
-                    Kind = RepairKind.ReplacePart, Part = part, Work = work,
+                    Key = "replace/" + part.props.key, Kind = RepairKind.ReplacePart, Part = part, Work = work,
                     Label = "PhobosVehicleSystems_RepairReplace".Translate(part.props.label.Named("PART")).Resolve(),
                 };
                 repair.Options.AddRange(options);
@@ -182,7 +184,7 @@ public sealed class VehicleRepairs
             VehicleComponent? part = comp.Vehicle.statHandler.GetComponent(condition.partKey);
             if (def.service != null && def.NeedsService(condition.severity))
             {
-                var repair = new RepairWork { Kind = RepairKind.ConditionService, Condition = condition, Part = part, Work = def.service.work, Label = def.service.label };
+                var repair = new RepairWork { Key = "service/" + def.defName + "/" + condition.partKey, Kind = RepairKind.ConditionService, Condition = condition, Part = part, Work = def.service.work, Label = def.service.label };
                 repair.Options.Add(def.service.SuppliesNow.Select(s => (s.thingDef, s.count)).ToList());
                 pending.Add(repair);
             }
@@ -190,7 +192,7 @@ public sealed class VehicleRepairs
             {
                 var repair = new RepairWork
                 {
-                    Kind = RepairKind.FieldFix, Condition = condition, Part = part, Work = Rules.fieldFixWork,
+                    Key = "fix/" + def.defName + "/" + condition.partKey, Kind = RepairKind.FieldFix, Condition = condition, Part = part, Work = Rules.fieldFixWork,
                     Label = "PhobosVehicleSystems_RepairFieldFix".Translate((part?.props.label ?? condition.partKey).Named("PART")).Resolve(),
                 };
                 repair.Options.Add(Rules.fieldFixSupplies.Select(s => (s.thingDef, s.count)).ToList());
@@ -204,6 +206,7 @@ public sealed class VehicleRepairs
             string label = fittings.LabelOf(order);
             var repair = new RepairWork
             {
+                Key = "fit/" + (order.tune != null ? order.tune.axis.ToString() : order.partKey) + "/" + (order.tune?.defName ?? order.fitting?.defName ?? "off"),
                 Kind = RepairKind.Fitting, Order = order, Work = fittings.WorkOf(order), MinSkill = skill,
                 Part = string.IsNullOrEmpty(order.partKey) ? null : comp.Vehicle.statHandler.GetComponent(order.partKey),
                 Label = skill > 0 ? "PhobosVehicleSystems_FitWorkSkilled".Translate(label.Named("WORK"), skill.Named("SKILL")).Resolve() : label,
@@ -237,9 +240,13 @@ public sealed class VehicleRepairs
     /// <summary>The first repair whose supplies are aboard and this mechanic has the skill for, or null.</summary>
     public RepairWork? ReadyFor(Pawn mechanic)
     {
-        int skill = mechanic.skills?.GetSkill(SkillDefOf.Construction)?.Level ?? 0;
+        // A mechanoid has no skills to read: the game gives it a fixed level instead.
+        int skill = mechanic.skills?.GetSkill(SkillDefOf.Construction)?.Level ?? (mechanic.RaceProps.IsMechanoid ? mechanic.RaceProps.mechFixedSkillLevel : 0);
         return Pending.FirstOrDefault(r => FittingRule.SkilledEnough(skill, r.MinSkill) && AffordableOption(r) != null);
     }
+
+    /// <summary>The repair of this key, if it is still wanted and its supplies are still aboard.</summary>
+    public RepairWork? Find(string key) => Pending.FirstOrDefault(r => r.Key == key && AffordableOption(r) != null);
 
     /// <summary>What still has to be brought: our own payment for each repair that nothing aboard can pay for.</summary>
     public IEnumerable<IEnumerable<(ThingDef thingDef, int count)>> UnmetPayments()
@@ -286,9 +293,23 @@ public sealed class VehicleRepairs
     /// <summary>Does the first ready repair, using its supplies from the cargo, and says so. False when none is ready.</summary>
     public bool CompleteReady(Pawn mechanic)
     {
+        comp.Fittings.Sweep();
         RepairWork? repair = ReadyFor(mechanic);
-        List<(ThingDef def, int count)>? payment = repair == null ? null : AffordableOption(repair);
-        if (repair == null || payment == null) return false;
+        return repair != null && Do(repair, mechanic);
+    }
+
+    /// <summary>Finishes the repair a job set out to do. False when it is no longer wanted: cancelled, or its part has gone.</summary>
+    public bool Complete(string key, Pawn mechanic)
+    {
+        comp.Fittings.Sweep();
+        RepairWork? repair = Find(key);
+        return repair != null && Do(repair, mechanic);
+    }
+
+    bool Do(RepairWork repair, Pawn mechanic)
+    {
+        List<(ThingDef def, int count)>? payment = AffordableOption(repair);
+        if (payment == null) return false;
         foreach ((ThingDef def, int count) in payment) comp.TakeFromCargo(def, count);
         NamedArgument who = mechanic.LabelShort.Named("MECHANIC");
         NamedArgument vehicle = comp.Vehicle.LabelShort.Named("VEHICLE");
@@ -296,7 +317,6 @@ public sealed class VehicleRepairs
         switch (repair.Kind)
         {
             case RepairKind.ReplacePart:
-                comp.Fittings.Sweep();    // the old part's fitting is lost with it, even if nothing has looked since it was destroyed
                 comp.Conditions.RemoveOn(repair.Part!.props.key);    // a new part has none of the old one's troubles
                 comp.RestorePart(repair.Part!, Rules.replacedPartHealth);
                 NotifyRepairable();

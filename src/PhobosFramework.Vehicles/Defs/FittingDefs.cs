@@ -11,9 +11,12 @@ public class StatFactorSpec
     public float factor = 1f;
 }
 
-/// <summary>A factor on a system's parameter, by the parameter's name (radiatorRate, alternatorAmps).</summary>
+/// <summary>A factor on a system's parameter, by the parameter's name (radiatorRate, alternatorAmps). Name the system where several
+/// have a parameter of that name: heatAtFullLoad is the engine's, and the gearbox's too.</summary>
 public class ParameterFactorSpec
 {
+    /// <summary>The system's defName; empty for every system with this parameter.</summary>
+    public string system = "";
     public string parameter = "";
     public float factor = 1f;
 }
@@ -39,11 +42,14 @@ public class PhobosVehicleFittingDef : Def
     public Match piston = Match.Any;
     /// <summary>Only tracked vehicles, or only those with wheels.</summary>
     public Match tracked = Match.Any;
+    /// <summary>Only where more engine power reaches the road, or only where it does not.</summary>
+    public Match powerCounts = Match.Any;
     public float minKilograms = float.NaN;
     public float maxKilograms = float.NaN;
 
-    public bool Suits(double kilograms, bool hasPiston, bool isTracked) =>
+    public bool Suits(double kilograms, bool hasPiston, bool isTracked, bool powerReachesRoad) =>
         (piston == Match.Any || (piston == Match.Yes) == hasPiston)
+        && (powerCounts == Match.Any || (powerCounts == Match.Yes) == powerReachesRoad)
         && (tracked == Match.Any || (tracked == Match.Yes) == isTracked)
         && (float.IsNaN(minKilograms) || kilograms >= minKilograms)
         && (float.IsNaN(maxKilograms) || kilograms < maxKilograms);
@@ -84,6 +90,8 @@ public class PhobosVehicleTuneDef : Def
     public int minSkill;
     public float powerFactor = 1f;
     public float fuelFactor = 1f;
+    /// <summary>The fuel it saves or costs when fuel does not follow the engine model; the model works this out for itself when it does.</summary>
+    public float flatFuelFactor = 1f;
     public float finalDriveFactor = 1f;
     public List<ParameterFactorSpec> parameterFactors = new();
 

@@ -125,7 +125,13 @@ public sealed class Powertrain
                 Speed = Spec.DesignSpeed, MassKg = KerbKg * 1.15, RollingResistance = 0.012, Grip = 0.8, EngineRunning = true,
                 ClutchCapacity = 1, DrivenWheelsWorking = 1,
             };
+            // Measured on the engine as built, or a tune's saving at a cruise would cancel itself out.
+            double tunedPower = Spec.RatedPowerKw, tunedDrive = Spec.FinalDrive;
+            Spec.RatedPowerKw = tunedPower / fittings.PowerFactor;
+            Spec.FinalDrive = tunedDrive / fittings.FinalDriveFactor;
             nominalCruiseFuelKw = Math.Max(0.1, DrivetrainModel.Evaluate(Spec, cruise).FuelPowerKw);
+            Spec.RatedPowerKw = tunedPower;
+            Spec.FinalDrive = tunedDrive;
         }
         transmissionLimit = double.PositiveInfinity;
         if (engine.turbine is { } t)
@@ -561,7 +567,7 @@ public sealed class Powertrain
     public void ApplyFuel(double hours)
     {
         bool followsModel = VehicleSystemsMod.Settings.loadDependentFuel;
-        double tuned = comp.Fittings.FuelFactor;
+        double tuned = comp.Fittings.FuelFactor * (followsModel ? 1f : comp.Fittings.FlatFuelFactor);
         if ((!followsModel && tuned == 1) || !Full || !Ground || hours <= 0) return;
         CompFueledTravel? fuel = comp.Vehicle.CompFueledTravel;
         if (fuel == null || fuel.Props.electricPowered || !comp.EngineRunningRaw) return;

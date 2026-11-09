@@ -776,6 +776,7 @@ public class CompPhobosVehicleSystems : VehicleComp
     /// <summary>A part mended away from a map (a garage), where no update will see its health rise: what a repair clears, clears now.</summary>
     public void Notify_RepairedAway(VehicleComponent part, float healthBefore)
     {
+        if (healthBefore <= 0f) fittings?.LoseWith(part);
         RememberPartHealth(part);
         if (conditions == null || conditions.Count == 0) return;
         conditions.OnHealthRose(part, healthBefore, part.Health);
