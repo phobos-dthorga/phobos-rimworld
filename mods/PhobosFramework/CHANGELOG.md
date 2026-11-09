@@ -5,6 +5,12 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.40.2] - 2026-11-09 - Draft
+
+### Fixed
+
+- Loading a save made before 0.40.0 left every vehicle unable to spawn, and the map black behind the interface: the fittings lists were null on an older save at the moment Vehicle Framework first asked for the vehicle's stats. Found by the owner in play, 9 November 2026. Do not save a game loaded on 0.40.0 or 0.40.1; load it again on 0.40.2 and it is whole.
+
 ## [0.40.1] - 2026-11-09 - Draft
 
 ### Fixed

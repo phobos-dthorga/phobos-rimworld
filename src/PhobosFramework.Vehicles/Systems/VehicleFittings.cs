@@ -66,9 +66,9 @@ public sealed class VehicleFittings
 
     static VehicleSystemsSettings Settings => VehicleSystemsMod.Settings;
 
-    public IReadOnlyList<FitOrder> Orders => orders;
+    public IReadOnlyList<FitOrder> Orders => orders ??= new List<FitOrder>();
 
-    bool Nothing => fitted.Count == 0 && tunes.Count == 0;
+    bool Nothing => (fitted == null || fitted.Count == 0) && (tunes == null || tunes.Count == 0);
 
     public void ExposeData()
     {
@@ -76,10 +76,13 @@ public sealed class VehicleFittings
         Scribe_Collections.Look(ref tunes, "PhobosVehicleSystems_Tunes", LookMode.Def);
         Scribe_Collections.Look(ref orders, "PhobosVehicleSystems_FitOrders", LookMode.Deep);
         Scribe_Values.Look(ref setRolled, "PhobosVehicleSystems_FitSetRolled", false);
-        if (Scribe.mode != LoadSaveMode.PostLoadInit) return;
+        // A save from before fittings existed has no entry for them, and the loader then leaves the lists null, not empty. The
+        // stats are read before loading ends (Vehicle Framework spawns the vehicle first), so they are made whole in every mode,
+        // never only at the end (0.40.0 left every vehicle unspawnable on an older save; 0.40.2).
         fitted ??= new List<FittedPart>();
         tunes ??= new List<PhobosVehicleTuneDef>();
         orders ??= new List<FitOrder>();
+        if (Scribe.mode != LoadSaveMode.PostLoadInit) return;
         // A Def another mod took away: the fitting goes with it, and the rest of the vehicle is untouched.
         fitted.RemoveAll(f => f == null || f.def == null || f.partKey.NullOrEmpty());
         tunes.RemoveAll(t => t == null);
