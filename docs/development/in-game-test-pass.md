@@ -54,6 +54,16 @@ result goes into that mod's changelog.
 | 23 | The Prison Labor guard (Patches 0.16.5) | Load PG5 and play for ten minutes, with wardens working | The game no longer closes by itself, and the load line lists the guard as on. **Passed: the owner, 10 Nov 2026: the guard was on, and PG5 ran for 15 minutes on a session where it had crashed within five every time** |
 | 21 | **Pipes beneath a parked vehicle** (Framework 0.57.0, needs Dubs Bad Hygiene). The newest and riskiest piece: **use a copy of the save** | Park a vehicle with a plumbing pipe ending at one side and another run starting at the far side. Wait about half a minute. Open the plumbing overlay. Then drive it away | The overlay shows pipe under the vehicle and the two runs join; a coolant top-up can draw water; driving off removes them and the runs part. **Watch for the vehicle refusing to move, or any red error** |
 
+## Trying Vehicle Framework's development build (planned 10 Nov 2026)
+
+**Do this only after checks 19 to 22, so a fault can be told apart from the pipes.** The development build is Workshop item 3522907382; its source is the `develop` branch of [SmashPhil/Vehicle-Framework](https://github.com/SmashPhil/Vehicle-Framework), at 1.7.2503 when read. It shares a package ID with the stable version, so only one can be on.
+
+1. **Make a copy of your save** and play only on the copy.
+2. Subscribe to the development build, switch the stable Vehicle Framework off, and put the new one in its place in the load order.
+3. Load the copy. Look at a parked vehicle, a caravan with vehicles, and an aircraft. **Watch for vehicles missing, a black map, or errors mentioning `DetachedMapComponentCache`** (an open bug with RimExodus, which is on this list).
+4. **Do not save over anything you want to keep.** Whether vehicles' saved data carries over and back is not known.
+5. Tell the agent how it went: it then builds our mods against the new assemblies and runs `python scripts/check-targets.py`. Its names were checked against our code on 10 Nov 2026 (all 493 present), but not signatures or behaviour.
+
 ## Not on this list, on purpose
 
 - The IRBM strike model (Patches 0.8.0 and 0.9.0) needs a strategic warhead to land: run it when you choose to; its bug report
