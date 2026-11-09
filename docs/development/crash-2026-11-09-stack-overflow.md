@@ -34,6 +34,19 @@ The session of 19:41 to 22:15 ran for over two hours without this crash.
 
 Other Workshop items changed the same evening (Turbo's Vehicle Features Library, RimArrow: Mechanized Vol.1) are subscribed but switched off, so they are ruled out.
 
+## Checked and set aside: REA running alongside
+
+The owner's theory: the newly installed REA, run by another session at about the same time, took a huge share of the machine's resources. Checked on 9 Nov 2026, and it does not fit, with one small doubt left.
+
+| Test | Result |
+| --- | --- |
+| Was REA loaded in the game? | No. The dump lists 203 modules, all from the game, Windows, Steam, Defender and OBS's capture hook |
+| Did the machine run short? | No sign of it: no resource-exhaustion or paging events in Windows' System log from 22:30 to 23:50, on a machine with 63 GB of RAM. The page file's peak use is 252 MB |
+| Did the stack run out for lack of memory? | No. `RimWorld.exe` reserves 1,572,864 bytes for its main thread and 1,548,320 were in use, so the thread used essentially its whole allowance and hit its real limit |
+| Can a shortage make code call itself? | Not by itself: 6,843 levels with identical objects is program logic. A shortage produces failed allocations, stutter or an out-of-memory error |
+
+**The doubt (inference):** another program's load could change timing, and timing could steer a mod's logic into a loop that already exists. REA would then be the trigger at most, with the loop still in a mod or the game. Nothing here shows that happened. How much memory REA used at that moment was not recorded; another session measured 300 to 400 MB and about 3 seconds for each of seven .NET runs.
+
 ## Other errors in this log, none of which is the crash
 
 | Error | Count | Whose | What it means |
