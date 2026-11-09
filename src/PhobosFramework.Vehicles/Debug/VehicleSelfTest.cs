@@ -29,21 +29,18 @@ public static class VehicleSelfTest
         ReadEveryVehicle(test);
         ExerciseTestVehicle(test);
         string report = "Vehicle self-test: " + test.Report();
-        Log.Message(VehicleSystemsMod.LogPrefix + " " + report);
+        // The window is the answer. The game's log puts a stack trace under every line, which reads like a fault to a player, so a pass stays out of it.
+        if (test.Failed > 0) Log.Warning(VehicleSystemsMod.LogPrefix + " " + report);
         Find.WindowStack.Add(new Dialog_MessageBox(report));
     }
 
-    /// <summary>After a load, in dev mode: one line if every vehicle reads cleanly, an error and a message if one does not.</summary>
+    /// <summary>After a load, in dev mode: silent if every vehicle reads cleanly, an error and a message if one does not.</summary>
     public static void AfterLoad()
     {
         if (!Prefs.DevMode) return;
         var test = new SelfTest();
         ReadEveryVehicle(test);
-        if (test.Failed == 0)
-        {
-            VehicleSystemsMod.Logger.Info("Self-test after load: " + test.Report());
-            return;
-        }
+        if (test.Failed == 0) return;
         VehicleSystemsMod.Logger.Error("Self-test after load: " + test.Report());
         Messages.Message("Vehicle self-test after load: " + test.Failed + " failed. See the log.", MessageTypeDefOf.NegativeEvent, historical: false);
     }
@@ -366,7 +363,7 @@ public static class VehicleCostMeasure
         string report = verdict + "\n\nAverage: " + perTick.ToString("0.0000") + " ms a tick (budget " + rules.budgetMsPerTick.ToString("0.00")
             + ")\nWorst single call: " + worst.ToString("0.000") + " ms (budget " + rules.budgetMsSingleCall.ToString("0.00") + ")\nOver " + ticks + " ticks, with " + full
             + " vehicles in full detail and " + lite + " in light detail.\n\nNot counted: single stat and speed-cap lookups, and tabs left open.\n\n" + PhobosTiming.Report();
-        Log.Message(VehicleSystemsMod.LogPrefix + " Vehicle cost: " + report);
+        if (perTick > 0 && !within) Log.Warning(VehicleSystemsMod.LogPrefix + " Vehicle cost: " + report);
         Find.WindowStack.Add(new Dialog_MessageBox(report));
     }
 }

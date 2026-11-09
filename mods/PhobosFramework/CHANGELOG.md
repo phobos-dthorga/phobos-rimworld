@@ -5,6 +5,12 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.42.1] - 2026-11-09 - Draft
+
+### Changed
+
+- The vehicle self-test, the cost measurement and the check after a load write to the log only when something is wrong. A passing result stays in its window, because the game's log puts a stack trace under every line and a routine result looked like a fault. **Not yet tested in game.**
+
 ## [0.42.0] - 2026-11-09 - Draft
 
 ### Added
