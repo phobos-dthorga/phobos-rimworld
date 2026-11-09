@@ -1,0 +1,51 @@
+{
+  "file": "survey-truck-boom-1.png",
+  "sha256": "76ca858b0e69d5e0d09e72b7fa08aa3708c18fadf748e8c5b225ebfbb64be689",
+  "date": "2026-11-09T18:43:52",
+  "generator": "OpenAI gpt-image-2 through the OpenAI image API (paid per image)",
+  "engine": "openai",
+  "model": "gpt-image-2",
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL game sprite part for the D'thorga survey truck: its folding sensor boom, lying flat. Image 1 is our approved truck: match its outline weight, shading, palette and finish only, and use it only to see the empty channel on its deck where this boom rests. Do NOT redraw the truck.\n\nDraw ONLY the boom, alone on a plain pure white background: no cab, no wheels, no deck, nothing else on the canvas. Tall narrow canvas, with the boom's long axis perfectly straight from top to bottom on the centre line, filling about 85 percent of the canvas height. The boom is long and slim, about eight times as long as it is wide.\n\nIts top plan is: at the very top one round pivot eye with a plain steel pin in it; below that a long straight box-section arm of pale grey steel with a darker centre strip and evenly spaced small bolted plates; one muted orange band across the arm about a third of the way down; at the very bottom a plain rounded rectangular sensor housing, a little wider than the arm, in dusty olive.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo truck, deck, cargo, people, animals, cables, hoses, dishes, antennas, dust, mud, damage, text, letters, numbers, logos, dials, screens or lamps. No floor, ground, shadow outside the part, perspective, tilt or visible side faces. Top surfaces only.",
+  "seed": 1,
+  "seed_note": "an attempt number naming the file; the API takes no seed, so a rerun gives a different image",
+  "quality": "medium",
+  "size": [
+    768,
+    2048
+  ],
+  "request_file": "assets/phobos-vehicles/requests/survey-truck-boom.json",
+  "ai_disclosure": "Made with generative AI: OpenAI gpt-image-2, prompted by the Phobos art scripts.",
+  "terms": "OpenAI Services Agreement, sections 4.1 and 4.4, as recorded in the Phobos Ostranauts repository on 2026-10-07 and summarised again on 2026-11-08: API customers own Output, OpenAI assigns any rights it has, and Output may not be unique; no use of Output to build competing models. Dated secondary records: the openai.com page refuses automated reads, so the owner confirms the current text.",
+  "endpoint": "/images/edits",
+  "usage": {
+    "input_tokens": 1859,
+    "input_tokens_details": {
+      "image_tokens": 1458,
+      "text_tokens": 401
+    },
+    "output_tokens": 772,
+    "output_tokens_details": {
+      "image_tokens": 772,
+      "text_tokens": 0
+    },
+    "total_tokens": 2631
+  },
+  "cost_usd": 0.0368,
+  "cost_is_estimate": false,
+  "reported_quality": "medium",
+  "reported_size": "768x2048",
+  "reported_background": "opaque",
+  "reported_output_format": "png",
+  "returned_size": [
+    768,
+    2048
+  ],
+  "seconds": 17.2,
+  "references": [
+    {
+      "image": "assets/phobos-vehicles/generated/survey-truck-body-north/survey-truck-body-north-1.png",
+      "sha256": "1785df1c0645f4fd345cc1dccfabb2d53f3a011932bd45e13fa42630f057da01",
+      "role": "approved truck body: match its outline weight, shading, palette and finish only, and see the empty channel on its deck; do not redraw it"
+    }
+  ]
+}
