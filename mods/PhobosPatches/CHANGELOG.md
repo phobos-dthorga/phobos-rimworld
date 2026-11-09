@@ -6,6 +6,18 @@ says the owner tested it.
 
 ## [Unreleased]
 
+## [0.16.6] - 2026-11-10 - Draft
+
+From the owner's Harrier, listed as burning 37 times over for three days after a sortie (10 November 2026). Vehicle Framework's own bug, patched at the owner's request until its author handles it. **Not yet tested in game.**
+
+### Fixed
+
+- With Vehicle Framework, a vehicle no longer keeps fires it could never put out: a vehicle leaving a map takes no fire with it, and a fire on another map than its vehicle, or any fire after the first, is put out within a few seconds, with a message. A burning vehicle could never be auto-refuelled before.
+
+### Save compatibility
+
+- Safe on an existing save: the stuck fires go at the first check after loading.
+
 ## [0.16.5] - 2026-11-10 - Draft
 
 Temporary, at the owner's request, until the author of Prison Labor ships a fix. **Tested in game by the owner, 10 November 2026: PG5 ran past the point where it had crashed every time.**

@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- D'thorga Patches' Vehicle Framework assembly (from 0.16.6): fires on a vehicle that could never go out are put out. It lives in
+       Mods/VehicleFramework/<version>, which LoadFolders.xml loads only while Vehicle Framework is active. Vehicle Framework's assemblies are
+       referenced from the installed mod and never copied. RimWorld 1.7 only. To be removed when the framework handles this itself
+       (docs/development/vehicle-framework-fires.md). -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <RootNamespace>Phobos.VehicleFrameworkPatches</RootNamespace>
+    <AssemblyName>PhobosPatches.VehicleFramework</AssemblyName>
+    <ModFolder>PhobosPatches</ModFolder>
+    <TieInFolder>Mods/VehicleFramework/</TieInFolder>
+    <UsesHarmony>true</UsesHarmony>
+    <Version>0.16.6</Version>
+    <ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>true</ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../PhobosFramework/PhobosFramework.csproj" Private="false" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Vehicles">
+      <HintPath>$(VehicleFrameworkAssemblies)\Vehicles.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="SmashTools">
+      <HintPath>$(VehicleFrameworkAssemblies)\SmashTools.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+</Project>

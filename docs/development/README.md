@@ -117,6 +117,8 @@ promise current behaviour. For using the mods, start at the [documentation index
   coolant, a worn engine burning oil, fire cooking the systems, and more), each answered for itself, with an order and open questions. Nothing built.
 - [Crash record: stack overflow on 9 Nov 2026](crash-2026-11-09-stack-overflow.md): a runaway call loop the log never mentioned, what the dump proved and could not,
   three suspects, the other errors in that log, and how to name the culprit.
+- [Fires on vehicles that never go out (10 Nov 2026)](vehicle-framework-fires.md): 37 fires on one jet, left on the wrong map and never changing; what the saves and
+  the code show, what is still unknown, the two-patch fix in D'thorga Patches 0.16.6, and a draft report for Vehicle Framework's author.
 - [The mobile generator set: design (9 Nov 2026, built 9 Nov 2026)](vehicle-generator-set.md): see the entry under the vehicle family; built with stand-in pictures. Not yet tested in game.
 - [Home depot bays: design (9 Nov 2026)](vehicle-depot-bays.md): a vehicle's home bay, its Go to bay button, self-refuelling and faster service; crews and convoys left to Crew Presets. Not yet tested in game.
 - [Animating our vehicles: research (9 Nov 2026)](vehicle-animation-research.md): what Vehicle Framework and the game can move, why one still image a

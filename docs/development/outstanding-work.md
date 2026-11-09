@@ -35,6 +35,7 @@ testing is the owner's and is not listed here; each mod's changelog says what is
 | I3 | Harrier: upgrade costs and CE armour against the Hind, and what a shot-down Harrier leaves; proposals | Patches | Check both | Done: findings and proposals in [vehicle patches](vehicle-patches.md); one change proposed (a cheaper CE armour upgrade), for the owner |
 | J | Bug reports finished for the owner to post: RimPacts, Harrier (two), More Injuries and MSE2 (two), IRBM (after the owner's test confirms the cause) | docs | Finish all | Done except IRBM: RimPacts and Harrier (two) in [vehicle patches](vehicle-patches.md), More Injuries and MSE2 in [the save bridge](medical-save-bridge.md); IRBM held for the owner's test |
 | J2 | **Remove the temporary Prison Labor guard** once its author ships a fix | Patches | Yes: owner, 10 Nov 2026, "strictly temporary" | Waiting on the author: Patches 0.16.5 stands down by itself and the load line says when. Steps in [the crash record](crash-2026-11-09-stack-overflow.md) |
+| J3 | **Remove the Vehicle Framework fires part** once the framework puts attached fires out on despawn and keeps one per vehicle; post the draft report first | Patches | Owner, 10 Nov 2026 | Waiting on the author: Patches 0.16.6; removal steps and the draft report in [the record](vehicle-framework-fires.md) |
 
 ## The owner's reports of 7 November 2026 (evening)
 

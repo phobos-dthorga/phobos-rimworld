@@ -9,6 +9,9 @@
     <li IfModActive="potemkinvillager.av8bharrier">Mods/HarrierVtol/1.7</li>
     <li IfModActive="potemkinvillager.av8bharrier,potemkinvillager.mi24hindhelicopter,potemkinvillager.mongooseattackhelicopter">Mods/AircraftRearm/1.7</li>
     <li IfModActive="RimThunder.Core">Mods/RimThunder</li>
+    <!-- Fires a vehicle cannot put out; remove when the framework handles them (docs/development/vehicle-framework-fires.md). -->
+    <li IfModActive="SmashPhil.VehicleFramework">Mods/VehicleFramework</li>
+    <li IfModActive="SmashPhil.VehicleFramework">Mods/VehicleFramework/1.7</li>
     <li IfModActiveAll="MK.SpaceshipTurretHull,CETeam.CombatExtended">Mods/SpaceshipTurretHull</li>
     <li IfModActive="kazepsi.irbm">Mods/IRBM</li>
     <li IfModActive="kazepsi.irbm">Mods/IRBM/1.7</li>

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <PhobosVehicleFrameworkPatches_FiresPutOut>{COUNT} fires on the {VEHICLE} could never have gone out, and were put out.</PhobosVehicleFrameworkPatches_FiresPutOut>
+</LanguageData>

@@ -12,12 +12,13 @@ with vehicles is refused at the "create outpost" window, because founding one th
 It replaces two earlier mods, merged into it on 7 November 2026: **D'thorga Vehicle Patches** and **D'thorga Missile Patches**
 ([why](../../docs/development/mod-consolidation.md)).
 
-Version 0.16.5, built 10 November 2026 for House D'thorga. **Not yet tested in game as D'thorga Patches.** The Harrier and turret hull
+Version 0.16.6, built 10 November 2026 for House D'thorga. **Not yet tested in game as D'thorga Patches.** The Harrier and turret hull
 parts are unchanged from Vehicle Patches 0.6.0 (not yet tested in game); the missile part was tried once by the owner, see
 [InterRim Ballistic Missile](#interrim-ballistic-missile).
 
 ## Read this first (gotchas)
 
+- **With Vehicle Framework, fires a vehicle could never put out are put out** (0.16.6): a second fire on one vehicle, or a fire left behind on a map the vehicle has left. A vehicle leaving a map now takes no fire with it. One real fire burns as before. Not yet tested in game.
 - **With Prison Labor, a temporary guard stops a crash** (0.16.5). Its first 1.7 build can close the game when a warden considers feeding a motivated prisoner. The guard changes nothing else, switches itself off when Prison Labor is fixed, and comes out of this mod after that. **Tested in game by the owner, 10 November 2026: PG5 ran past the point where it had crashed every time.**
 
 - **New in 0.15.0, with Vanilla Expanded Framework and Vehicle Framework (not yet tested in game): a caravan with vehicles can no
@@ -109,6 +110,11 @@ parts are unchanged from Vehicle Patches 0.6.0 (not yet tested in game); the mis
 - **Not yet tested in game,** except one missile run on 0.7.0. Everything else here is read from the mods' code and files.
 
 ## What it does
+
+### Vehicle Framework: fires that never go out
+
+A vehicle set on fire in a fight can come away with many fires attached, and if it leaves the map they stay behind, still counted as its fires. The game only ever puts out a thing's first fire, so the vehicle reads as burning for ever and is never refuelled. With Vehicle Framework active, this part puts out every fire when a vehicle leaves a map, and now and then puts out any fire of a vehicle that is on another map or is not its first, with a message saying how many. It is meant to come out when Vehicle Framework handles this itself ([the record](../../docs/development/vehicle-framework-fires.md)).
+
 
 ### Outposts and caravans with vehicles
 

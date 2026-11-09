@@ -137,7 +137,7 @@
     "PhobosPatches.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.16.5",
+      "value": "0.16.6",
       "description": "D'thorga Patches's version: About.xml, every project of the mod, its ModVersion constants and both READMEs",
       "targets": [
         {
@@ -190,6 +190,14 @@
         },
         {
           "path": "src/PhobosPatches.PrisonLabor/PrisonLaborPatchesMod.cs",
+          "pattern": "\\bModVersion\\s*=\\s*\"(?P<value>[0-9.]+)\""
+        },
+        {
+          "path": "src/PhobosPatches.VehicleFramework/PhobosPatches.VehicleFramework.csproj",
+          "pattern": "<Version>(?P<value>[0-9.]+)</Version>"
+        },
+        {
+          "path": "src/PhobosPatches.VehicleFramework/VehicleFrameworkPatchesMod.cs",
           "pattern": "\\bModVersion\\s*=\\s*\"(?P<value>[0-9.]+)\""
         },
         {
