@@ -5,6 +5,16 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.44.0] - 2026-11-09 - Draft
+
+### Added
+
+- What a generator vehicle needs: a cable end that puts its power on your grid, figures for output, reach and a battery buffer, and a road diesel-electric drivetrain. D'thorga Vehicles' generator set is the first to use them. Not yet tested in game.
+
+### Changed
+
+- The bulk tanker's set-up code is now shared with other vehicles that set up. It should behave exactly as before, and its saved state is unchanged. Not yet tested in game.
+
 ## [0.43.0] - 2026-11-09 - Draft
 
 ### Added

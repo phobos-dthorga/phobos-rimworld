@@ -349,4 +349,24 @@
   <PhobosVehicleSystems_FitNoRigNote>This vehicle is not within {CELLS} cells of a working tuning rig, so tunes and changes of grade will wait until it is.</PhobosVehicleSystems_FitNoRigNote>
   <PhobosVehicleSystems_RigInspectReady>Reaches vehicles parked within {CELLS} cells.</PhobosVehicleSystems_RigInspectReady>
   <PhobosVehicleSystems_RigInspectOff>Without power it can tune nothing.</PhobosVehicleSystems_RigInspectOff>
+
+  <PhobosVehicleSystems_GenSetUpRefusal>{VEHICLE} is set up, with its cable out. Pack it up first.</PhobosVehicleSystems_GenSetUpRefusal>
+  <PhobosVehicleSystems_GenNotOnMap>It must be on a map to set up.</PhobosVehicleSystems_GenNotOnMap>
+  <PhobosVehicleSystems_GenStopFirst>{VEHICLE} has a driver at the wheel. Undraft it first.</PhobosVehicleSystems_GenStopFirst>
+  <PhobosVehicleSystems_GenOutriggers>The outriggers will not hold.</PhobosVehicleSystems_GenOutriggers>
+  <PhobosVehicleSystems_GenControls>The control panel is damaged.</PhobosVehicleSystems_GenControls>
+  <PhobosVehicleSystems_GenReelGone>The cable reel is wrecked.</PhobosVehicleSystems_GenReelGone>
+  <PhobosVehicleSystems_GenNoCell>The cable end cannot go there. It needs clear, open ground beside the truck, or within the cable's reach, and no conduit on the same spot.</PhobosVehicleSystems_GenNoCell>
+  <PhobosVehicleSystems_GenSetUp>{VEHICLE} is set up and feeding the grid.</PhobosVehicleSystems_GenSetUp>
+  <PhobosVehicleSystems_GenPackedUp>{VEHICLE} has packed up its cable.</PhobosVehicleSystems_GenPackedUp>
+  <PhobosVehicleSystems_GenCableLost>{VEHICLE} has lost its cable end, and has stopped feeding the grid.</PhobosVehicleSystems_GenCableLost>
+  <PhobosVehicleSystems_GenPartDead>Making no power: the {PART} is destroyed.</PhobosVehicleSystems_GenPartDead>
+  <PhobosVehicleSystems_GenNoFuel>Making no power: the tank is empty.</PhobosVehicleSystems_GenNoFuel>
+  <PhobosVehicleSystems_GenTooDamaged>Making no power: the generator is too badly damaged.</PhobosVehicleSystems_GenTooDamaged>
+  <PhobosVehicleSystems_GenOutputLine>Feeding the grid: {WATTS} W on offer, working at {LOAD}.</PhobosVehicleSystems_GenOutputLine>
+  <PhobosVehicleSystems_GenBufferLine>Battery buffer: {CHARGE} of {CAPACITY} Wd.</PhobosVehicleSystems_GenBufferLine>
+  <PhobosVehicleSystems_GenGizmoSetUp>Set up</PhobosVehicleSystems_GenGizmoSetUp>
+  <PhobosVehicleSystems_GenGizmoSetUpDesc>Lower the outriggers and run out the cable. The engine then feeds the grid, using fuel in step with what the grid draws. It cannot move while set up.</PhobosVehicleSystems_GenGizmoSetUpDesc>
+  <PhobosVehicleSystems_GenGizmoPackUp>Pack up</PhobosVehicleSystems_GenGizmoPackUp>
+  <PhobosVehicleSystems_GenGizmoPackUpDesc>Take in the cable and raise the outriggers. Anything running on this truck loses its power.</PhobosVehicleSystems_GenGizmoPackUpDesc>
 </LanguageData>

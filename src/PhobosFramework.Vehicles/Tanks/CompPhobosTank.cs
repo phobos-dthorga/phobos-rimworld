@@ -62,7 +62,7 @@ public class TankCompartment : IExposable
 /// temperature; the pump serves one compartment at a time, the selected one. Everything runs on the rare tick. Gizmos in TankGizmos read
 /// this and call its service methods; nothing else changes it.
 /// </summary>
-public class CompPhobosTank : VehicleComp
+public class CompPhobosTank : CompPhobosSetUp
 {
     const string HoseOverlayKey = "PhobosTankHoses";
     const string DamageOverlayKey = "PhobosTankDamage";
@@ -75,7 +75,6 @@ public class CompPhobosTank : VehicleComp
     List<TankCompartment> compartments = new();
     int selected;
     float temperature = 21f;
-    bool deployed;
     TankPumpMode mode = TankPumpMode.Hold;
     bool ventWarned;
     bool registered;
@@ -87,7 +86,6 @@ public class CompPhobosTank : VehicleComp
 
     public CompProperties_PhobosTank Props => (CompProperties_PhobosTank)props;
     public float Temperature => temperature;
-    public bool Deployed => deployed;
     public TankPumpMode Mode => mode;
     public float Capacity => Vehicle.GetStatValue(TankDefOf.Phobos_TankCapacity);
 
@@ -211,7 +209,6 @@ public class CompPhobosTank : VehicleComp
         Scribe_Collections.Look(ref compartments, "PhobosTankCompartments", LookMode.Deep);
         Scribe_Values.Look(ref selected, "PhobosTankSelected");
         Scribe_Values.Look(ref temperature, "PhobosTankTemperature", 21f);
-        Scribe_Values.Look(ref deployed, "PhobosTankDeployed");
         Scribe_Values.Look(ref mode, "PhobosTankMode", TankPumpMode.Hold);
         compartments ??= new List<TankCompartment>();
     }
@@ -308,16 +305,14 @@ public class CompPhobosTank : VehicleComp
         AfterLoadChange();
     }
 
-    bool HeldBySetUp => TankRule.HoldsVehicle(deployed, Fitted != null);
+    protected override string DeployedSaveKey => "PhobosTankDeployed";
+
+    protected override string SetUpRefusal => "PhobosVehicleSystems_TankSetUpRefusal".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve();
+
+    protected override bool HeldBySetUp => TankRule.HoldsVehicle(deployed, Fitted != null);
 
     /// <summary>Whether the shell is sound enough to be filled, by the pump or by a bulk order.</summary>
     public bool ShellTakesLoad => TankRule.TakesLoad(Vehicle.GetStatValue(TankDefOf.Phobos_TankIntegrity), Props.integrityFloor);
-
-    public override AcceptanceReport CanMove(FloatMenuContext context) =>
-        HeldBySetUp ? "PhobosVehicleSystems_TankSetUpRefusal".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve() : base.CanMove(context);
-
-    public override AcceptanceReport CanDraft() =>
-        HeldBySetUp ? "PhobosVehicleSystems_TankSetUpRefusal".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve() : base.CanDraft();
 
     public override void CompTickRare()
     {

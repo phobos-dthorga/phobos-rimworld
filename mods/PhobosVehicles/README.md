@@ -4,7 +4,7 @@ Vehicles that keep running only while they are looked after. It adds one vehicle
 vehicles of other mods you already drive the systems that match what they really are, on top of the general systems D'thorga
 Framework gives every vehicle.
 
-Version 0.16.0, built 9 November 2026 for House D'thorga. **Not yet tested in game.**
+Version 0.17.0, built 9 November 2026 for House D'thorga. **Not yet tested in game.**
 
 ## Read this first (gotchas)
 
@@ -94,10 +94,22 @@ Every source and simplification is in the loadout files under `Mods/`.
 
 **Parts:** it is built from RimThunder's engine and running gear and Vanilla Vehicles Expanded's electrics when you have them, and from three parts of ours, made at a machining table, if you have neither.
 
+## The generator set
+
+**Not yet tested in game. The pictures are stand-ins.** A small diesel-electric truck: its engine turns a generator, electric motors drive the back axle, and when it is parked it can feed your grid.
+
+- **Build it** from the **motor pool** tab of the Architect menu. It needs Machining and Electricity, and one engine assembly, drivetrain kit and electrical kit from the **vehicle parts bench** (D'thorga Framework).
+- **Press Set up.** A cable end appears beside the truck; wire things to it, or touch a conduit to it. The truck cannot move until you press **Pack up**.
+- **It gives 1,200 W at full health.** Fuel follows what the grid draws, from 1.5 chemfuel a day doing nothing to 9 a day flat out, or 9 a day whenever batteries on the grid have room. That is 60% of the game's chemfuel generator's economy: you are paying for being able to drive it away.
+- **It stops if** the tank runs dry, the engine or the traction generator is destroyed, or damage takes it under 240 W. Its inspect pane says which.
+- **Upgrades:** a larger generator (1,600 W), a cable reel (you pick where the cable end goes, up to 12 cells away), and a battery buffer that keeps the grid alive for a time when the engine cannot.
+- **A vehicle of ours parked beside the cable end or a conduit on its grid counts as plugged in**, as with any grid. Vehicle Framework's own electric vehicles need a battery on the grid to charge.
+- **If you remove the mod with one set up,** pack it up first, or a cable end is left behind that does nothing.
+
 ## Coming later
 
-More utility vehicles of our own, each with a part for every job and an upgrade tree of its own: a survey truck, a mobile drill rig, a
-tipper hauler and a generator set ([the design](../../docs/development/utility-vehicles-design.md)).
+More utility vehicles of our own, each with a part for every job and an upgrade tree of its own: a survey truck, a mobile drill rig and a
+tipper hauler ([the design](../../docs/development/utility-vehicles-design.md)).
 
 ## For modders
 

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- A generator vehicle's figures (docs/development/vehicle-generator-set.md). All authored. Not yet tested in game. -->
+  <Vehicles.VehicleStatDef>
+    <defName>Phobos_GeneratorOutput</defName>
+    <label>generator output</label>
+    <description>The power the generator offers the grid while set up, in the game's watts.</description>
+    <category>VehicleBasics</category>
+    <defaultBaseValue>0</defaultBaseValue>
+    <minValue>0</minValue>
+    <toStringStyle>Integer</toStringStyle>
+    <formatString>{0} W</formatString>
+    <operationType>Average</operationType>
+    <upgradeEffectType>Positive</upgradeEffectType>
+    <showOnVehicleTypes>
+      <li>Land</li>
+    </showOnVehicleTypes>
+  </Vehicles.VehicleStatDef>
+  <Vehicles.VehicleStatDef>
+    <defName>Phobos_GeneratorBuffer</defName>
+    <label>battery buffer</label>
+    <description>Stored power, in watt-days as the game's batteries count it, that carries the grid when the engine cannot.</description>
+    <category>VehicleBasics</category>
+    <defaultBaseValue>0</defaultBaseValue>
+    <minValue>0</minValue>
+    <toStringStyle>Integer</toStringStyle>
+    <formatString>{0} Wd</formatString>
+    <operationType>None</operationType>
+    <upgradeEffectType>Positive</upgradeEffectType>
+    <showOnVehicleTypes>
+      <li>Land</li>
+    </showOnVehicleTypes>
+  </Vehicles.VehicleStatDef>
+  <Vehicles.VehicleStatDef>
+    <defName>Phobos_CableReach</defName>
+    <label>cable reach</label>
+    <description>How many cells from the truck the cable end can be put down.</description>
+    <category>VehicleBasics</category>
+    <defaultBaseValue>0</defaultBaseValue>
+    <minValue>0</minValue>
+    <toStringStyle>Integer</toStringStyle>
+    <formatString>{0} cells</formatString>
+    <operationType>None</operationType>
+    <upgradeEffectType>Positive</upgradeEffectType>
+    <showOnVehicleTypes>
+      <li>Land</li>
+    </showOnVehicleTypes>
+  </Vehicles.VehicleStatDef>
+  <Vehicles.VehicleStatDef>
+    <defName>Phobos_RigStability</defName>
+    <label>stability</label>
+    <description>How well the outriggers hold. Below a certain point the vehicle will not set up.</description>
+    <category>VehicleBasics</category>
+    <defaultBaseValue>1</defaultBaseValue>
+    <minValue>0</minValue>
+    <toStringStyle>PercentZero</toStringStyle>
+    <formatString>{0}</formatString>
+    <operationType>MinValue</operationType>
+    <upgradeEffectType>Positive</upgradeEffectType>
+    <showOnVehicleTypes>
+      <li>Land</li>
+    </showOnVehicleTypes>
+  </Vehicles.VehicleStatDef>
+
+  <!-- The cable end: what a generator vehicle plugs into the grid with. A conduit-like building that only ever exists while one is set up: never built by hand and never ticking.
+       The power figure here only switches it on; the truck sets the real output. -->
+  <ThingDef ParentName="BuildingBase">
+    <defName>Phobos_GeneratorStub</defName>
+    <label>cable end</label>
+    <description>The end of a generator truck's cable, with a junction box. Anything wired to it, or a conduit touching it, is on the truck's power.</description>
+    <thingClass>Building</thingClass>
+    <category>Building</category>
+    <graphicData>
+      <texPath>Phobos/VehicleSystems/Stations/CableEnd</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <altitudeLayer>Conduits</altitudeLayer>
+    <passability>Standable</passability>
+    <leaveResourcesWhenKilled>false</leaveResourcesWhenKilled>
+    <clearBuildingArea>false</clearBuildingArea>
+    <tickerType>Never</tickerType>
+    <useHitPoints>true</useHitPoints>
+    <statBases>
+      <MaxHitPoints>50</MaxHitPoints>
+      <Flammability>0.5</Flammability>
+    </statBases>
+    <building>
+      <isInert>true</isInert>
+      <isEdifice>false</isEdifice>
+      <deconstructible>false</deconstructible>
+    </building>
+    <comps>
+      <li Class="CompProperties_Power">
+        <compClass>Phobos.VehicleSystems.CompPhobosGeneratorStub</compClass>
+        <transmitsPower>true</transmitsPower>
+        <basePowerConsumption>-1</basePowerConsumption>
+      </li>
+    </comps>
+  </ThingDef>
+
+  <!-- A road diesel-electric for the generator truck: the rail Def's model on road rolling and grip. Authored, grounded on the light-medium genset-truck class (general and unverified); the
+       continuous pull is about a third of the starting pull, the Class 08's ratio as used for the Goat. -->
+  <Phobos.VehicleSystems.PhobosVehicleDrivetrainDef>
+    <defName>PhobosDrivetrain_RoadDieselElectric</defName>
+    <label>road diesel-electric</label>
+    <engine>
+      <kind>Piston</kind>
+      <idleRpm>700</idleRpm>
+      <launchRpm>700</launchRpm>
+      <ratedRpm>2200</ratedRpm>
+      <ratedKilowatts>100</ratedKilowatts>
+    </engine>
+    <transmission>
+      <kind>DieselElectric</kind>
+      <efficiency>0.8</efficiency>
+      <maxTractiveEffortKilonewtons>30</maxTractiveEffortKilonewtons>
+      <continuousTractiveEffortKilonewtons>10</continuousTractiveEffortKilonewtons>
+    </transmission>
+    <running>
+      <drivenShare>0.6</drivenShare>
+      <dragArea>6</dragArea>
+    </running>
+  </Phobos.VehicleSystems.PhobosVehicleDrivetrainDef>
+</Defs>

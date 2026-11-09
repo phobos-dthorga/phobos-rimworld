@@ -1,0 +1,487 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    The generator set: a light self-propelled diesel-electric truck that parks, runs out a cable and feeds the grid (docs/development/vehicle-generator-set.md). Every figure is
+    authored and untuned. Part keys are saved by position: append only, never reorder. Cells run x from 0 to 1 and z from -2 to 3. The pictures are stand-ins. Not yet tested in game.
+  -->
+  <Vehicles.VehicleDef ParentName="BaseVehiclePawn">
+    <defName>Phobos_GeneratorSet</defName>
+    <label>generator set</label>
+    <description>A small truck whose engine turns a generator rather than the wheels: electric motors drive the back axle, and when it is parked and set up, the generator feeds your grid instead. Drive it to wherever you need power, set it up, and it burns fuel in step with what the grid draws. It cannot move while set up.</description>
+    <graphicData>
+      <texPath>Phobos/Vehicles/GeneratorSet/GeneratorSet</texPath>
+      <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+      <shaderType>Cutout</shaderType>
+      <drawSize>(3, 7)</drawSize>
+    </graphicData>
+    <fillPercent>1</fillPercent>
+    <buildDef>Phobos_GeneratorSet_Blueprint</buildDef>
+    <size>(2, 6)</size>
+    <vehicleCategory>Transport</vehicleCategory>
+    <techLevel>Industrial</techLevel>
+    <vehicleType>Land</vehicleType>
+    <statBases>
+      <ArmorRating_Blunt>0.2</ArmorRating_Blunt>
+      <ArmorRating_Sharp>0.3</ArmorRating_Sharp>
+      <ArmorRating_Heat>1.0</ArmorRating_Heat>
+      <Flammability>0.5</Flammability>
+      <MarketValue>2200</MarketValue>
+    </statBases>
+    <vehicleStats>
+      <Mass>260</Mass>
+      <MoveSpeed>12</MoveSpeed>
+      <CargoCapacity>30</CargoCapacity>
+      <RepairRate>0.5</RepairRate>
+      <AccelerationRate>0.03</AccelerationRate>
+      <Phobos_GeneratorOutput>1200</Phobos_GeneratorOutput>
+      <Phobos_RigControl>1</Phobos_RigControl>
+      <Phobos_RigStability>1</Phobos_RigStability>
+    </vehicleStats>
+    <race>
+      <baseBodySize>5</baseBodySize>
+    </race>
+    <properties>
+      <worldSpeedMultiplier>1</worldSpeedMultiplier>
+      <winterSpeedMultiplier>1.5</winterSpeedMultiplier>
+      <visibilityWeight>5</visibilityWeight>
+      <customRoadCosts AssignDefaults="0.3" />
+      <customTerrainCosts DisallowTerrainWithTag="Water" />
+      <roles>
+        <li>
+          <key>driver</key>
+          <label>driver</label>
+          <slots>1</slots>
+          <slotsToOperate>1</slotsToOperate>
+          <handlingTypes>
+            <li>Movement</li>
+          </handlingTypes>
+          <hitbox>
+            <cells>
+              <li>(0, 2)</li>
+            </cells>
+          </hitbox>
+        </li>
+      </roles>
+    </properties>
+    <components>
+    <li>
+      <key>Chassis</key>
+      <label>chassis</label>
+      <health>110</health>
+      <depth>External</depth>
+      <hitWeight>3</hitWeight>
+      <hitbox>
+        <from>(0, -2)</from>
+        <to>(1, 3)</to>
+      </hitbox>
+      <categories>
+        <li>BodyIntegrity</li>
+      </categories>
+    </li>
+    <li>
+      <key>Cab</key>
+      <label>cab</label>
+      <health>40</health>
+      <depth>External</depth>
+      <hitbox>
+        <cells>
+          <li>(0, 2)</li>
+          <li>(1, 2)</li>
+        </cells>
+      </hitbox>
+    </li>
+    <li>
+      <key>Engine</key>
+      <label>engine</label>
+      <health>55</health>
+      <depth>Internal</depth>
+      <priorityStatEfficiency>true</priorityStatEfficiency>
+      <reactors>
+        <li Class="Vehicles.Reactor_Explosive" />
+      </reactors>
+      <hitbox>
+        <cells>
+          <li>(0, 3)</li>
+          <li>(1, 3)</li>
+        </cells>
+      </hitbox>
+      <categories>
+        <li>MoveSpeed</li>
+        <li>Phobos_GeneratorOutput</li>
+      </categories>
+    </li>
+    <li>
+      <key>Radiator</key>
+      <label>radiator</label>
+      <health>30</health>
+      <depth>External</depth>
+      <hitbox>
+        <cells>
+          <li>(0, 3)</li>
+          <li>(1, 3)</li>
+        </cells>
+      </hitbox>
+    </li>
+    <li>
+      <key>FrontWheels</key>
+      <label>front axle and wheels</label>
+      <health>35</health>
+      <depth>External</depth>
+      <tags>
+        <li>Wheel</li>
+      </tags>
+      <hitbox>
+        <cells>
+          <li>(0, 3)</li>
+          <li>(1, 3)</li>
+        </cells>
+      </hitbox>
+      <categories>
+        <li>MoveSpeed</li>
+      </categories>
+    </li>
+    <li>
+      <key>TractionGenerator</key>
+      <label>traction generator</label>
+      <health>45</health>
+      <depth>Internal</depth>
+      <hitbox>
+        <cells>
+          <li>(0, 1)</li>
+          <li>(1, 1)</li>
+        </cells>
+      </hitbox>
+      <categories>
+        <li>Phobos_GeneratorOutput</li>
+        <li>MoveSpeed</li>
+      </categories>
+    </li>
+    <li>
+      <key>Switchgear</key>
+      <label>voltage regulator and switchgear</label>
+      <health>25</health>
+      <depth>Internal</depth>
+      <hitbox>
+        <cells>
+          <li>(1, 0)</li>
+        </cells>
+      </hitbox>
+      <categories>
+        <li>Phobos_GeneratorOutput</li>
+      </categories>
+    </li>
+    <li>
+      <key>TractionMotors</key>
+      <label>traction motors</label>
+      <health>40</health>
+      <depth>Internal</depth>
+      <hitbox>
+        <cells>
+          <li>(0, -1)</li>
+          <li>(1, -1)</li>
+        </cells>
+      </hitbox>
+      <categories>
+        <li>MoveSpeed</li>
+      </categories>
+    </li>
+    <li>
+      <key>RearWheels</key>
+      <label>rear axle and wheels</label>
+      <health>40</health>
+      <depth>External</depth>
+      <tags>
+        <li>Wheel</li>
+      </tags>
+      <hitbox>
+        <cells>
+          <li>(0, -1)</li>
+          <li>(1, -1)</li>
+        </cells>
+      </hitbox>
+      <categories>
+        <li>MoveSpeed</li>
+      </categories>
+    </li>
+    <li>
+      <key>FuelTank</key>
+      <label>fuel tank</label>
+      <health>35</health>
+      <depth>Internal</depth>
+      <reactors>
+        <li Class="Vehicles.Reactor_FuelLeak" />
+      </reactors>
+      <hitbox>
+        <cells>
+          <li>(0, 0)</li>
+        </cells>
+      </hitbox>
+    </li>
+    <li>
+      <key>ControlPanel</key>
+      <label>control panel</label>
+      <health>25</health>
+      <depth>Internal</depth>
+      <hitbox>
+        <cells>
+          <li>(0, -2)</li>
+        </cells>
+      </hitbox>
+      <categories>
+        <li>Phobos_RigControl</li>
+      </categories>
+    </li>
+    <li>
+      <key>Wiring</key>
+      <label>wiring</label>
+      <health>25</health>
+      <depth>Internal</depth>
+      <hitbox>
+        <cells>
+          <li>(1, 0)</li>
+          <li>(1, -2)</li>
+        </cells>
+      </hitbox>
+      <categories>
+        <li>Phobos_RigControl</li>
+      </categories>
+    </li>
+    <li>
+      <key>Outriggers</key>
+      <label>outriggers</label>
+      <health>30</health>
+      <depth>External</depth>
+      <hitbox>
+        <cells>
+          <li>(0, -2)</li>
+          <li>(1, -2)</li>
+        </cells>
+      </hitbox>
+      <categories>
+        <li>Phobos_RigStability</li>
+      </categories>
+    </li>
+    <li>
+      <key>CableReel</key>
+      <label>cable reel</label>
+      <health>30</health>
+      <depth>External</depth>
+      <hitbox>
+        <cells>
+          <li>(1, -2)</li>
+        </cells>
+      </hitbox>
+    </li>
+    <li>
+      <key>Lights</key>
+      <label>lights</label>
+      <health>15</health>
+      <depth>External</depth>
+      <hitbox>
+        <cells>
+          <li>(0, 3)</li>
+          <li>(1, 3)</li>
+          <li>(0, -2)</li>
+          <li>(1, -2)</li>
+        </cells>
+      </hitbox>
+    </li>
+    </components>
+    <modExtensions>
+      <li Class="Phobos.VehicleSystems.PhobosVehicleFiguresExtension">
+        <emptyKilograms>6000</emptyKilograms>
+        <ratedKilowatts>100</ratedKilowatts>
+      </li>
+    </modExtensions>
+    <comps>
+      <li Class="Vehicles.CompProperties_FueledTravel">
+        <fuelType>Chemfuel</fuelType>
+        <leakDef>Filth_Fuel</leakDef>
+        <fuelConsumptionRate>14</fuelConsumptionRate>
+        <fuelConsumptionWorldMultiplier>0.5</fuelConsumptionWorldMultiplier>
+        <fuelCapacity>150</fuelCapacity>
+      </li>
+      <li Class="Vehicles.CompProperties_UpgradeTree">
+        <def>Phobos_GeneratorSet_UpgradeTree</def>
+      </li>
+      <li Class="Phobos.VehicleSystems.CompProperties_PhobosGeneratorSet">
+        <cableEndDef>Phobos_GeneratorStub</cableEndDef>
+        <vitalParts>
+          <li>Engine</li>
+          <li>TractionGenerator</li>
+        </vitalParts>
+        <setUpOverlay>
+          <graphicData>
+            <texPath>Phobos/Vehicles/GeneratorSet/GeneratorSet_SetUp</texPath>
+            <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+            <drawSize>(3, 7)</drawSize>
+            <shaderType>Cutout</shaderType>
+            <layer>1</layer>
+          </graphicData>
+        </setUpOverlay>
+      </li>
+    </comps>
+  </Vehicles.VehicleDef>
+
+  <Vehicles.VehicleBuildDef ParentName="VehicleBaseBuildable">
+    <defName>Phobos_GeneratorSet_Blueprint</defName>
+    <label>generator set</label>
+    <description>A small diesel-electric truck that can park and feed your grid.</description>
+    <graphicData>
+      <texPath>Phobos/Vehicles/GeneratorSet/GeneratorSet</texPath>
+      <graphicClass>Graphic_Multi</graphicClass>
+      <drawSize>(3, 7)</drawSize>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>180</MaxHitPoints>
+      <WorkToBuild>12000</WorkToBuild>
+      <Flammability>0.5</Flammability>
+    </statBases>
+    <researchPrerequisites>
+      <li>Machining</li>
+      <li>Electricity</li>
+    </researchPrerequisites>
+    <size>(2, 6)</size>
+    <costList>
+      <PhobosVehicles_EngineAssembly>1</PhobosVehicles_EngineAssembly>
+      <PhobosVehicles_DrivetrainKit>1</PhobosVehicles_DrivetrainKit>
+      <PhobosVehicles_ElectricalKit>1</PhobosVehicles_ElectricalKit>
+      <Steel>320</Steel>
+      <ComponentIndustrial>9</ComponentIndustrial>
+      <Plasteel>10</Plasteel>
+    </costList>
+    <designationCategory>PhobosVehicles_MotorPool</designationCategory>
+    <thingToSpawn>Phobos_GeneratorSet</thingToSpawn>
+  </Vehicles.VehicleBuildDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleLoadoutDef ParentName="PhobosVehicleLoadoutLandHeavy">
+    <defName>PhobosVehicleLoadout_GeneratorSet</defName>
+    <label>generator set</label>
+    <priority>Vehicle</priority>
+    <selector>
+      <vehicleDefs>
+        <li>Phobos_GeneratorSet</li>
+      </vehicleDefs>
+      <massMin>-1</massMin>
+    </selector>
+    <systems Inherit="False">
+      <li><def>PhobosVehicleSystem_Electrical</def></li>
+      <li><def>PhobosVehicleSystem_Cooling</def></li>
+      <li><def>PhobosVehicleSystem_Lubrication</def></li>
+      <li><def>PhobosVehicleSystem_Fuel</def></li>
+      <li><def>PhobosVehicleSystem_Service</def></li>
+      <li><def>PhobosVehicleSystem_RunningGear</def></li>
+      <li><def>PhobosVehicleSystem_Brakes</def></li>
+      <li><def>PhobosVehicleSystem_TractionMotors</def></li>
+      <li><def>PhobosVehicleSystem_Cabin</def></li>
+    </systems>
+    <drivetrain>
+      <def>PhobosDrivetrain_RoadDieselElectric</def>
+    </drivetrain>
+    <partRoles Inherit="False">
+      <li>
+        <role>Engine</role>
+        <find>
+          <li>
+            <key>Engine</key>
+          </li>
+        </find>
+      </li>
+      <li>
+        <role>Alternator</role>
+        <find>
+          <li>
+            <keyContains>alternator</keyContains>
+          </li>
+        </find>
+        <add>
+          <key>PhobosAlternator</key>
+          <label>auxiliary generator</label>
+          <health>25</health>
+          <cellsOf>Engine</cellsOf>
+        </add>
+      </li>
+      <li>
+        <role>Battery</role>
+        <find>
+          <li>
+            <keyContains>battery</keyContains>
+          </li>
+        </find>
+        <add>
+          <key>PhobosBattery</key>
+          <label>battery</label>
+          <health>20</health>
+          <cellsOf>Engine</cellsOf>
+        </add>
+      </li>
+      <li>
+        <role>Starter</role>
+        <find>
+          <li>
+            <keyContains>starter</keyContains>
+          </li>
+        </find>
+        <add>
+          <key>PhobosStarter</key>
+          <label>starter motor</label>
+          <health>20</health>
+          <cellsOf>Engine</cellsOf>
+        </add>
+      </li>
+      <li>
+        <role>OilPump</role>
+        <find>
+          <li>
+            <keyContains>oilpump</keyContains>
+          </li>
+        </find>
+        <add>
+          <key>PhobosOilPump</key>
+          <label>oil pump</label>
+          <health>20</health>
+          <cellsOf>Engine</cellsOf>
+        </add>
+      </li>
+      <li>
+        <role>Radiator</role>
+        <find>
+          <li>
+            <key>Radiator</key>
+          </li>
+        </find>
+      </li>
+      <li>
+        <role>Wheels</role>
+        <all>true</all>
+        <find>
+          <li>
+            <tag>Wheel</tag>
+          </li>
+        </find>
+      </li>
+      <li>
+        <role>Brakes</role>
+        <find>
+          <li>
+            <keyContains>brake</keyContains>
+          </li>
+        </find>
+        <add>
+          <key>PhobosBrakes</key>
+          <label>brakes</label>
+          <health>25</health>
+          <cellsOf>Wheels</cellsOf>
+        </add>
+      </li>
+      <li>
+        <role>TractionMotor</role>
+        <find>
+          <li>
+            <key>TractionMotors</key>
+          </li>
+        </find>
+      </li>
+    </partRoles>
+  </Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
+</Defs>

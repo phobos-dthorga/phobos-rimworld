@@ -1,6 +1,10 @@
 # The mobile generator set: design (9 Nov 2026)
 
-**A design record. Nothing is built, and nothing in it is tested in game. Agent-authored for the owner to confirm.** It replaces the
+**Built in D'thorga Framework 0.44.0 and D'thorga Vehicles 0.17.0, with stand-in pictures. Not yet tested in game. Agent-authored for the owner to confirm.**
+**What was built differs from what follows in three places:** the battery buffer holds the grid up when the engine cannot, but the "creep with the engine off" is not built; the
+`WorkLights` node is not built, because no moving vehicle light exists to reuse and a light at the cable end would be in the wrong place; and the pictures are stand-ins drawn in
+code, so no paid image has been generated. With the owner away from the question, the agent took its own lean on the open questions below: the cable end transmits and takes
+wires, fuel follows the grid's draw, no VOE tie-in, and the buffer is in the first tree. It replaces the
 generator-set sketch in [utility vehicles](utility-vehicles-design.md) and follows the shape of that record's bulk tanker. Facts marked
 "from the code" were read on 9 Nov 2026 from our decompiles (`all.cs` is the game's, `VF.cs` is Vehicle Framework 1.6's, the build the
 1.7 game loads) and are summarised in our own words; everything the record says will happen in play is a proposal.

@@ -166,6 +166,8 @@ public class CompPhobosVehicleSystems : VehicleComp
 
     /// <summary>Engine running by Vehicle Framework's own signs (drafted, caravan moving, in flight), before any flight phase.</summary>
     public bool EngineRunningRaw { get; private set; }
+    /// <summary>Comps that may turn the engine while parked. Found once, never saved.</summary>
+    List<IVehicleEngineDemand>? engineDemands;
 
     // Read once per update and by the inputs during it.
     public bool EngineRunning { get; private set; }
@@ -538,6 +540,14 @@ public class CompPhobosVehicleSystems : VehicleComp
                 Moving = train.AircraftMoving || flying;
             }
             if (train.Full) EngineLoad = EngineRunning ? (float)train.Result.Load : 0f;
+        }
+        // A set-up vehicle's work turns the engine with nobody driving. EngineRunningRaw stays as it was, so the drivetrain's fuel sum adds nothing: the work burns its own.
+        engineDemands ??= vehicle.AllComps.OfType<IVehicleEngineDemand>().ToList();
+        foreach (IVehicleEngineDemand demand in engineDemands)
+        {
+            if (!demand.WantsEngine || !hasFuel) continue;
+            EngineRunning = true;
+            EngineLoad = Mathf.Max(EngineLoad, demand.EngineDemand);
         }
         shorePowered = null;
         loadAmps = 0f;

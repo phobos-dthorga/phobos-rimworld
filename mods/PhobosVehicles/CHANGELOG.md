@@ -5,6 +5,20 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.17.0] - 2026-11-09 - Draft
+
+### Added
+
+- The generator set: a small diesel-electric truck that drives to where power is wanted, sets up and feeds your grid, with fuel use that follows the load. Upgrades for a larger generator, a cable reel and a battery buffer. Pictures are stand-ins drawn in code. Not yet tested in game.
+
+### Dependencies
+
+- Needs D'thorga Framework 0.44.0.
+
+### Compatibility and limits
+
+- A working vehicle light and running on battery alone with the engine off are not built yet.
+
 ### Changed
 
 - The README now describes the bulk order window. Text only.
