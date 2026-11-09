@@ -8,6 +8,7 @@ result goes into that mod's changelog.
 
 - **Framework 0.36.0 or later and Patches 0.16.0 are enough for checks 1 to 6.** Install only through `python scripts/deploy.py --build
   --apply --all`, with RimWorld closed, and close any Explorer window open in a mod folder.
+- **After any update, first load an existing save and look at the map and a vehicle** (added 9 Nov 2026). Framework 0.40.0 and 0.40.1 left every vehicle unable to spawn on a save made before them, and the map black behind the interface; unit tests cannot see that. **If the map is black or vehicles are missing, quit without saving.**
 - **Use a copy of the save for check 1:** it destroys parts on purpose.
 - **Dev mode is needed for checks 1, 2 and 5** (Options, then Development mode). The dev actions are in the D'thorga group.
 - **After the session, say "done"**, or tell whichever session you are in: the log and save can be read with `python scripts/triage-log.py`
