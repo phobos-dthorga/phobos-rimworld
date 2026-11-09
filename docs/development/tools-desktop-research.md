@@ -1,5 +1,8 @@
 # Desktop front end for the Phobos tools: research and direction (9 Nov 2026)
 
+**Followed the same day by the program itself, D'thorga Companion 0.1.0, in the sibling repository `phobos-companion`; its design
+record is `docs/design-record.md` there. What follows is the research as it stood.**
+
 **This round is research and record only (owner, 9 Nov 2026). Nothing here is built, and nothing has been tested on a
 screen or in a game.** The record says what the owner decided, what the agent recommends and why, what two earlier
 desktop programs of the owner's teach us, what the shared tool kit already has, and what would have to change in it.

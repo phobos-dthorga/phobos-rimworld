@@ -164,7 +164,7 @@ reasons are in [analysis tooling](analysis-tooling.md). Each tool's first change
 | T13 | Mod settings snapshot | Python | Done: phobos-modkit 0.12.0, `scripts/mod-settings.py`, AGENTS.md rule (8 Nov 2026) |
 | T14 | Decompiled-code index | Python | Done: phobos-modkit 0.13.1, `scripts/query-code.py`, AGENTS.md rule (8 Nov 2026) |
 | T11 | Resolved-Defs dump: a D'thorga Framework dev action the kit indexes, so Defs show with patches applied | C# and Python | Done, not yet tested in game: Framework 0.27.0 and phobos-modkit 0.15.0, `scripts/query-defs.py patched` (8 Nov 2026) |
-| T15 | Desktop front end over the tools, for the person at the screen: a new sibling repository on Tauri 2 and Svelte over a Rust host, calling the kit through `--json` | Rust and TypeScript | Research recorded 9 Nov 2026 ([record](tools-desktop-research.md)); nothing built. One program for every game, named D'thorga Companion (owner). Waits for the owner's go to start; the kit changes it needs (one JSON envelope, a tool manifest, typed cells, progress) are listed there |
+| T15 | Desktop front end over the tools, for the person at the screen: a new sibling repository on Tauri 2 and Svelte over a Rust host, calling the kit through `--json` | Rust and TypeScript | Steps 1 to 3 done 9 Nov 2026, not yet judged on screen by the owner: D'thorga Companion 0.1.0 (the window, theme and checks) in the sibling folder `phobos-companion`, committed locally and waiting for the owner to publish it; phobos-modkit 1.0.0 (one JSON envelope, a tool manifest). Next: the "where was I?" home page. Typed cells and progress arrive when something needs them ([research](tools-desktop-research.md)) |
 
 ## Deferred
 
