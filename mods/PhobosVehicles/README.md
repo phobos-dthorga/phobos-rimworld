@@ -4,7 +4,7 @@ Vehicles that keep running only while they are looked after. It adds one vehicle
 vehicles of other mods you already drive the systems that match what they really are, on top of the general systems D'thorga
 Framework gives every vehicle.
 
-Version 0.17.0, built 9 November 2026 for House D'thorga. **Not yet tested in game.**
+Version 0.18.0, built 9 November 2026 for House D'thorga. **Not yet tested in game.**
 
 ## Read this first (gotchas)
 
@@ -106,9 +106,32 @@ Every source and simplification is in the loadout files under `Mods/`.
 - **A vehicle of ours parked beside the cable end or a conduit on its grid counts as plugged in**, as with any grid. Vehicle Framework's own electric vehicles need a battery on the grid to charge.
 - **If you remove the mod with one set up,** pack it up first, or a cable end is left behind that does nothing.
 
+## The survey truck
+
+**Not yet tested in game. It looks like the bulk tanker until it has its own picture.** A light four-wheel-drive truck that does a ground-penetrating scanner's job, wherever you can drive it.
+
+- **Build it** from the **motor pool** tab. It needs Ground-penetrating scanner research, our four vehicle parts from the **vehicle parts bench**, and 10 uranium.
+- **Park it outdoors and press Set up.** A colonist on **Research** work then runs the survey, with their research speed. The engine idles while they work, at 8 chemfuel a day.
+- **Finds are the game's own deposits,** with the game's ore odds and sizes. Select the set-up truck to see them on the ground.
+- **Each find on a map takes longer than the last:** one and a half times, up to eight times.
+- **Plugged in costs no fuel:** with a powered conduit or generator within 6 cells of its small power point, it runs off the grid at 700 W.
+- **Upgrades:** a geophone array (more steel) or a radiometric probe (more uranium, costs 40), not both; a long-range array that searches other lands for one ore, off the map's slowing; a powered array (three times as fast, 1,000 W, needs a grid or the battery); a large battery (runs with the engine off, and the engine starts itself to recharge it at 30%, **burning fuel with nobody at the wheel**); work lights.
+
+## The drill rig
+
+**Not yet tested in game. It looks like the bulk tanker until it has its own picture.** A heavy truck carrying a deep drill.
+
+- **Build it** from the **motor pool** tab, after Deep drilling research.
+- **It drills the cell behind its rear.** Reverse it up to a deposit a scanner has found and press **Set up**; a ring shows its reach. A colonist on **Mining** work then drills, with the game's portions and their Mining skill, and what comes up lands beside the hole.
+- **A bare rig is at 80% of a deep drill.** A diamond bit brings it to 100%, and it never goes higher on ore. A hammer bit is 90% on ore and 150% once only stone is left. It needs both, not one: pick by the job.
+- **It burns 40 chemfuel a day while drilling,** unless you fit the electric power pack and have a powered grid within 6 cells.
+- **Active drilling can bring insects,** by the game's own rule and your storyteller's odds. Keep guards near it.
+- **At night, with no work lights, it drills at 80%** of its rate.
+- **Deepchem is left in the ground for now.**
+
 ## Coming later
 
-More utility vehicles of our own, each with a part for every job and an upgrade tree of its own: a survey truck, a mobile drill rig and a
+More utility vehicles of our own, each with a part for every job and an upgrade tree of its own: a
 tipper hauler ([the design](../../docs/development/utility-vehicles-design.md)).
 
 ## For modders

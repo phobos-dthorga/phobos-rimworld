@@ -52,7 +52,6 @@ public sealed class CompPhobosGeneratorStub : CompPowerPlant
 /// </summary>
 public class CompPhobosGeneratorSet : CompPhobosSetUp, IVehicleEngineDemand
 {
-    const string OverlayKey = "PhobosGeneratorSetUp";
     const float DaysPerRareTick = GenTicks.TickRareInterval / (float)GenDate.TicksPerDay;
 
     Building? cableEnd;
@@ -66,6 +65,7 @@ public class CompPhobosGeneratorSet : CompPhobosSetUp, IVehicleEngineDemand
 
     public CompProperties_PhobosGeneratorSet Props => (CompProperties_PhobosGeneratorSet)props;
     protected override string DeployedSaveKey => "PhobosGeneratorDeployed";
+    protected override GraphicDataOverlay? SetUpLook => Props.setUpOverlay;
     protected override string SetUpRefusal => "PhobosVehicleSystems_GenSetUpRefusal".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve();
 
     public bool WantsEngine => deployed && running;
@@ -117,14 +117,7 @@ public class CompPhobosGeneratorSet : CompPhobosSetUp, IVehicleEngineDemand
     }
 
     /// <summary>Whether the cable end can be put down on this cell.</summary>
-    public bool CanPlaceCableAt(IntVec3 cell)
-    {
-        Map? map = Vehicle.MapHeld;
-        if (map == null || !cell.InBounds(map) || !cell.Standable(map) || cell.GetTransmitter(map) != null) return false;
-        CellRect footprint = Vehicle.OccupiedRect();
-        if (footprint.Contains(cell) || !footprint.ExpandedBy(System.Math.Max(1, CableReach)).Contains(cell)) return false;
-        return !map.mapPawns.AllPawnsSpawned.Any(p => p is VehiclePawn other && other != Vehicle && other.OccupiedRect().Contains(cell));
-    }
+    public bool CanPlaceCableAt(IntVec3 cell) => CellClearFor(cell, CableReach);
 
     /// <summary>Every cell the cable can reach, for the outline while choosing.</summary>
     public List<IntVec3> CableCells()
@@ -134,12 +127,7 @@ public class CompPhobosGeneratorSet : CompPhobosSetUp, IVehicleEngineDemand
     }
 
     /// <summary>The best adjacent cell for a short cable: beside a conduit if one is there, or else invalid if none is clear.</summary>
-    public IntVec3 BestCableCell()
-    {
-        List<IntVec3> cells = Vehicle.OccupiedRect().ExpandedBy(1).ClipInsideMap(Vehicle.Map).EdgeCells.Where(CanPlaceCableAt).ToList();
-        if (cells.Count == 0) return IntVec3.Invalid;
-        return cells.FirstOrDefault(c => GenAdj.CardinalDirections.Any(d => (c + d).InBounds(Vehicle.Map) && (c + d).GetTransmitter(Vehicle.Map) != null), cells[0]);
-    }
+    public IntVec3 BestCableCell() => BestAdjacentCell();
 
     public void SetUp(IntVec3 cell)
     {
@@ -246,14 +234,6 @@ public class CompPhobosGeneratorSet : CompPhobosSetUp, IVehicleEngineDemand
             batteriesHaveRoom = true;
             break;
         }
-    }
-
-    void ShowSetUp(bool on)
-    {
-        GraphicOverlayRenderer? renderer = Vehicle.DrawTracker?.overlayRenderer;
-        if (renderer == null || Props.setUpOverlay == null) return;
-        renderer.RemoveOverlays(OverlayKey);
-        if (on && Vehicle.Spawned) renderer.AddOverlay(OverlayKey, GraphicOverlay.Create(Props.setUpOverlay, Vehicle));
     }
 
     void Tell(string text, MessageTypeDef type) => Messages.Message(text, Vehicle, type, historical: false);

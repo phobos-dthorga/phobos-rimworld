@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using RimWorld;
 using Vehicles;
 using Verse;
@@ -63,14 +64,39 @@ public class When_Moving : VehicleSystemCondition
 /// <summary>Night by the clock where the vehicle is (the hours are in the rules Def).</summary>
 public class When_Night : VehicleSystemCondition
 {
-    protected override bool HoldsRaw(SystemContext context)
+    protected override bool HoldsRaw(SystemContext context) => IsNight(context.Vehicle);
+
+    public static bool IsNight(Thing thing)
     {
         PhobosVehicleRulesDef rules = PhobosVehicleRulesDef.Current<PhobosVehicleRulesDef>();
-        int hour = GenLocalDate.HourOfDay(context.Vehicle);
+        int hour = GenLocalDate.HourOfDay(thing);
         return rules.nightStartsHour > rules.nightEndsHour
             ? hour >= rules.nightStartsHour || hour < rules.nightEndsHour
             : hour >= rules.nightStartsHour && hour < rules.nightEndsHour;
     }
+}
+
+/// <summary>While the vehicle is set up to work.</summary>
+public class When_SetUp : VehicleSystemCondition
+{
+    protected override bool HoldsRaw(SystemContext context) => context.Vehicle.AllComps.OfType<CompPhobosSetUp>().Any(c => c.Deployed);
+}
+
+/// <summary>While one of the vehicle's stats is above a value: what an upgrade has fitted.</summary>
+public class When_StatAbove : VehicleSystemCondition
+{
+    public VehicleStatDef? stat;
+    public float value;
+
+    protected override bool HoldsRaw(SystemContext context) => stat != null && context.Vehicle.GetStatValue(stat) > value;
+}
+
+/// <summary>While the survey is drawing on the truck's own electrics for this: "Console" or "Array".</summary>
+public class When_SurveyDrawing : VehicleSystemCondition
+{
+    public string what = "";
+
+    protected override bool HoldsRaw(SystemContext context) => context.Vehicle.GetComp<CompPhobosSurveyTruck>()?.Drawing(what) == true;
 }
 
 public class When_AmbientBelow : VehicleSystemCondition

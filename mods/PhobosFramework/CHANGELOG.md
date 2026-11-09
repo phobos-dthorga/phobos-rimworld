@@ -5,6 +5,18 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.46.0] - 2026-11-09 - Draft
+
+### Added
+
+- What working vehicles need: a shared job for a colonist to work a set-up vehicle, a power point that makes one a real load on a grid, and a medium diesel drivetrain. D'thorga Vehicles' survey truck and drill rig are the first to use them. Not yet tested in game.
+- While a survey truck is set up, placing a deep drill shows the ore it found, as with a ground-penetrating scanner. Not yet tested in game.
+
+### Changed
+
+- A vehicle turning its engine for work with nobody driving now runs its alternator at the right speed. The generator set benefits too. Not yet tested in game.
+- The set-up code shared by the tanker and the generator set now also draws their set-up look and finds their fittings a clear cell. They should behave as before. Not yet tested in game.
+
 ## [0.45.0] - 2026-11-09 - Draft
 
 ### Added

@@ -255,6 +255,18 @@ public class CompPhobosVehicleSystems : VehicleComp
     public string? MoveRefusal { get; private set; }
 
     /// <summary>Whether a load of the loadout is on: switched on by the player when it has a switch, and its own condition holds.</summary>
+    public bool SwitchOn(string name)
+    {
+        PhobosVehicleLoadoutDef? loadout = Props.loadout;
+        ElectricalLoadSpec? load = loadout?.loads.FirstOrDefault(l => l.name == name);
+        return load != null && IsOn(load);
+    }
+
+    /// <summary>The least a system's parameter may be, set by what is fitted (a large battery). Derived, never saved.</summary>
+    public void SetParameterFloor(string name, float floor) => (ParameterFloors ??= new Dictionary<string, float>())[name] = floor;
+
+    internal Dictionary<string, float>? ParameterFloors { get; private set; }
+
     public bool LoadActive(string name)
     {
         PhobosVehicleLoadoutDef? loadout = Props.loadout;
@@ -1009,7 +1021,12 @@ public class CompPhobosVehicleSystems : VehicleComp
     public float EngineRpm(float idle, float cruise)
     {
         Powertrain? train = Powertrain;
-        if (train != null && VehicleSystemsMod.Settings.drivetrainMode != DrivetrainMode.Off && EngineRunning) return (float)train.Result.Rpm;
+        if (train != null && VehicleSystemsMod.Settings.drivetrainMode != DrivetrainMode.Off && EngineRunning)
+        {
+            // Turning for work with nobody driving: the drivetrain has not sampled it, so the speed follows the work, from idle to rated.
+            if (!EngineRunningRaw) return Mathf.Lerp((float)train.Spec.IdleRpm, (float)train.Spec.RatedRpm, EngineLoad);
+            return (float)train.Result.Rpm;
+        }
         return EngineRunning ? (Moving ? cruise : idle) : 0f;
     }
 

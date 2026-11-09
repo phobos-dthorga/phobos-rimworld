@@ -5,6 +5,25 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.18.0] - 2026-11-09 - Draft
+
+### Added
+
+- The survey truck: finds deep ore under any map with a colonist's research work, slowing with each find on a map, with upgrades for favouring ores, long-range searching, a fast powered mode, a large battery that recharges itself and work lights. It looks like the bulk tanker until it has its own picture. Not yet tested in game.
+- The drill rig: drills deposits with the game's own portions at 80% of a deep drill, with upgrades for a diamond bit, a hammer bit, a tall mast, an electric power pack and work lights. Active drilling can bring insects, as with any deep drill. It looks like the bulk tanker until it has its own picture. Not yet tested in game.
+
+### Fixed
+
+- The generator set's engine would have caught fire at every hit. It now has a one in four chance, and only when the engine is nearly gone (about a fifth of its health), the figures Vanilla Vehicles Expanded's engines use. Not yet tested in game.
+
+### Dependencies
+
+- Needs D'thorga Framework 0.46.0.
+
+### Compatibility and limits
+
+- Not built yet: deepchem drilling and the oil well kit on the rig, and the groundwater report and oil prospecting on the survey truck. The rig leaves deepchem in the ground until then.
+
 ## [0.17.0] - 2026-11-09 - Draft
 
 ### Added

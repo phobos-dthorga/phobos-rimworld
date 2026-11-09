@@ -64,7 +64,6 @@ public class TankCompartment : IExposable
 /// </summary>
 public class CompPhobosTank : CompPhobosSetUp
 {
-    const string HoseOverlayKey = "PhobosTankHoses";
     const string DamageOverlayKey = "PhobosTankDamage";
     const float HoursPerRareTick = GenTicks.TickRareInterval / (float)GenDate.TicksPerHour;
     /// <summary>Degrees above its freezing point that a fresh load arrives at (authored).</summary>
@@ -306,6 +305,8 @@ public class CompPhobosTank : CompPhobosSetUp
     }
 
     protected override string DeployedSaveKey => "PhobosTankDeployed";
+
+    protected override GraphicDataOverlay? SetUpLook => Props.hosesOut;
 
     protected override string SetUpRefusal => "PhobosVehicleSystems_TankSetUpRefusal".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve();
 
@@ -714,13 +715,7 @@ public class CompPhobosTank : CompPhobosSetUp
         }
     }
 
-    void ShowHoses(bool on)
-    {
-        GraphicOverlayRenderer? renderer = Vehicle.DrawTracker?.overlayRenderer;
-        if (renderer == null || Props.hosesOut == null) return;
-        renderer.RemoveOverlays(HoseOverlayKey);
-        if (on && Vehicle.Spawned) renderer.AddOverlay(HoseOverlayKey, GraphicOverlay.Create(Props.hosesOut, Vehicle));
-    }
+    void ShowHoses(bool on) => ShowSetUp(on);
 
     string InspectLine(TankCompartment compartment, int index, float room)
     {

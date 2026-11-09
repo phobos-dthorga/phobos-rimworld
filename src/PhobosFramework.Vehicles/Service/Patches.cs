@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using HarmonyLib;
+using RimWorld;
 using Vehicles;
 using System.Text;
 using Phobos.Framework.Environment;
@@ -17,6 +18,24 @@ namespace Phobos.VehicleSystems;
 /// resolves our parts with its own (hitboxes, efficiency curves) and the base ThingDef resolves our comp. Vehicle Framework has
 /// no hook between Def loading and this method, so a patch it is. Cross-references are resolved by now, so loadouts read fully.
 /// </summary>
+/// <summary>
+/// Counts a set-up survey truck as an active deep scanner, so placing a deep drill shows the ore it found. The game asks only about colony buildings, and has no other way in. A postfix; only ever turns false to true.
+/// </summary>
+[HarmonyPatch(typeof(DeepResourceGrid), nameof(DeepResourceGrid.AnyActiveDeepScannersOnMap))]
+public static class SurveyTruckCountsAsScanner
+{
+    public static void Postfix(ref bool __result, Map ___map)
+    {
+        if (__result) return;
+        foreach (Pawn pawn in ___map.mapPawns.SpawnedPawnsInFaction(Faction.OfPlayer))
+        {
+            if (pawn is not VehiclePawn vehicle || vehicle.GetComp<CompPhobosSurveyTruck>() is not { Deployed: true }) continue;
+            __result = true;
+            return;
+        }
+    }
+}
+
 [HarmonyPatch(typeof(VehicleDef), nameof(VehicleDef.ResolveReferences))]
 public static class VehicleDefResolvePatch
 {

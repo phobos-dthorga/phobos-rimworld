@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- What the survey truck and drill rig share (docs/development/vehicle-survey-truck.md, vehicle-drill-rig.md). Figures authored. Not yet tested in game. -->
+  <Vehicles.VehicleStatDef>
+    <defName>Phobos_ScanRate</defName>
+    <label>scan rate</label>
+    <description>How well the sensors and recorder work, as a share of the game ground-penetrating scanner.</description>
+    <category>VehicleBasics</category>
+    <defaultBaseValue>1</defaultBaseValue>
+    <minValue>0</minValue>
+    <toStringStyle>PercentZero</toStringStyle>
+    <formatString>{0}</formatString>
+    <operationType>Average</operationType>
+    <upgradeEffectType>Positive</upgradeEffectType>
+    <showOnVehicleTypes>
+      <li>Land</li>
+    </showOnVehicleTypes>
+  </Vehicles.VehicleStatDef>
+  <Vehicles.VehicleStatDef>
+    <defName>Phobos_SurveyLongRange</defName>
+    <label>long-range survey</label>
+    <description>Whether the long-range array is fitted.</description>
+    <category>VehicleBasics</category>
+    <defaultBaseValue>0</defaultBaseValue>
+    <minValue>0</minValue>
+    <toStringStyle>Integer</toStringStyle>
+    <formatString>{0}</formatString>
+    <operationType>None</operationType>
+    <upgradeEffectType>Positive</upgradeEffectType>
+    <showOnVehicleTypes>
+      <li>Land</li>
+    </showOnVehicleTypes>
+  </Vehicles.VehicleStatDef>
+  <Vehicles.VehicleStatDef>
+    <defName>Phobos_SurveyFastFactor</defName>
+    <label>powered array speed</label>
+    <description>How many times faster the survey runs with the powered array switched on and supplied.</description>
+    <category>VehicleBasics</category>
+    <defaultBaseValue>1</defaultBaseValue>
+    <minValue>0</minValue>
+    <toStringStyle>FloatOne</toStringStyle>
+    <formatString>x{0}</formatString>
+    <operationType>None</operationType>
+    <upgradeEffectType>Positive</upgradeEffectType>
+    <showOnVehicleTypes>
+      <li>Land</li>
+    </showOnVehicleTypes>
+  </Vehicles.VehicleStatDef>
+  <Vehicles.VehicleStatDef>
+    <defName>Phobos_BatteryCapacity</defName>
+    <label>large battery</label>
+    <description>The capacity of the large battery, where one is fitted.</description>
+    <category>VehicleBasics</category>
+    <defaultBaseValue>0</defaultBaseValue>
+    <minValue>0</minValue>
+    <toStringStyle>Integer</toStringStyle>
+    <formatString>{0} Ah</formatString>
+    <operationType>None</operationType>
+    <upgradeEffectType>Positive</upgradeEffectType>
+    <showOnVehicleTypes>
+      <li>Land</li>
+    </showOnVehicleTypes>
+  </Vehicles.VehicleStatDef>
+  <Vehicles.VehicleStatDef>
+    <defName>Phobos_WorkLights</defName>
+    <label>work lights</label>
+    <description>Whether work lights are fitted, so night work goes at the full rate.</description>
+    <category>VehicleBasics</category>
+    <defaultBaseValue>0</defaultBaseValue>
+    <minValue>0</minValue>
+    <toStringStyle>Integer</toStringStyle>
+    <formatString>{0}</formatString>
+    <operationType>None</operationType>
+    <upgradeEffectType>Positive</upgradeEffectType>
+    <showOnVehicleTypes>
+      <li>Land</li>
+    </showOnVehicleTypes>
+  </Vehicles.VehicleStatDef>
+  <Vehicles.VehicleStatDef>
+    <defName>Phobos_DrillRate</defName>
+    <label>drilling rate</label>
+    <description>How fast the rig drills, as a share of the game deep drill.</description>
+    <category>VehicleBasics</category>
+    <defaultBaseValue>0</defaultBaseValue>
+    <minValue>0</minValue>
+    <toStringStyle>PercentZero</toStringStyle>
+    <formatString>{0}</formatString>
+    <operationType>Average</operationType>
+    <upgradeEffectType>Positive</upgradeEffectType>
+    <showOnVehicleTypes>
+      <li>Land</li>
+    </showOnVehicleTypes>
+  </Vehicles.VehicleStatDef>
+  <Vehicles.VehicleStatDef>
+    <defName>Phobos_DrillReach</defName>
+    <label>drilling reach</label>
+    <description>How many cells from the hole the string can be walked to.</description>
+    <category>VehicleBasics</category>
+    <defaultBaseValue>0</defaultBaseValue>
+    <minValue>0</minValue>
+    <toStringStyle>FloatOne</toStringStyle>
+    <formatString>{0} cells</formatString>
+    <operationType>None</operationType>
+    <upgradeEffectType>Positive</upgradeEffectType>
+    <showOnVehicleTypes>
+      <li>Land</li>
+    </showOnVehicleTypes>
+  </Vehicles.VehicleStatDef>
+  <Vehicles.VehicleStatDef>
+    <defName>Phobos_BedrockFactor</defName>
+    <label>bedrock rate</label>
+    <description>What the drilling rate is multiplied by once only stone is left.</description>
+    <category>VehicleBasics</category>
+    <defaultBaseValue>1</defaultBaseValue>
+    <minValue>0</minValue>
+    <toStringStyle>FloatTwo</toStringStyle>
+    <formatString>x{0}</formatString>
+    <operationType>None</operationType>
+    <upgradeEffectType>Positive</upgradeEffectType>
+    <showOnVehicleTypes>
+      <li>Land</li>
+    </showOnVehicleTypes>
+  </Vehicles.VehicleStatDef>
+  <Vehicles.VehicleStatDef>
+    <defName>Phobos_ElectricDrill</defName>
+    <label>electric power pack</label>
+    <description>Whether the rig can drill from a grid instead of its engine.</description>
+    <category>VehicleBasics</category>
+    <defaultBaseValue>0</defaultBaseValue>
+    <minValue>0</minValue>
+    <toStringStyle>Integer</toStringStyle>
+    <formatString>{0}</formatString>
+    <operationType>None</operationType>
+    <upgradeEffectType>Positive</upgradeEffectType>
+    <showOnVehicleTypes>
+      <li>Land</li>
+    </showOnVehicleTypes>
+  </Vehicles.VehicleStatDef>
+
+  <Vehicles.VehicleStatDef>
+    <defName>Phobos_SensorGeophone</defName>
+    <label>geophone array</label>
+    <description>Whether the geophone array is fitted.</description>
+    <category>VehicleBasics</category>
+    <defaultBaseValue>0</defaultBaseValue>
+    <minValue>0</minValue>
+    <toStringStyle>Integer</toStringStyle>
+    <formatString>{0}</formatString>
+    <operationType>None</operationType>
+    <upgradeEffectType>Positive</upgradeEffectType>
+    <showOnVehicleTypes>
+      <li>Land</li>
+    </showOnVehicleTypes>
+  </Vehicles.VehicleStatDef>
+  <Vehicles.VehicleStatDef>
+    <defName>Phobos_SensorRadiometric</defName>
+    <label>radiometric probe</label>
+    <description>Whether the radiometric probe is fitted.</description>
+    <category>VehicleBasics</category>
+    <defaultBaseValue>0</defaultBaseValue>
+    <minValue>0</minValue>
+    <toStringStyle>Integer</toStringStyle>
+    <formatString>{0}</formatString>
+    <operationType>None</operationType>
+    <upgradeEffectType>Positive</upgradeEffectType>
+    <showOnVehicleTypes>
+      <li>Land</li>
+    </showOnVehicleTypes>
+  </Vehicles.VehicleStatDef>
+  <!-- Plugs a set-up vehicle into a grid: wires to a conduit or generator within 6 cells, as any building does. A plain power user, because the game only connects those. -->
+  <ThingDef ParentName="BuildingBase">
+    <defName>Phobos_PowerPoint</defName>
+    <label>power point</label>
+    <description>A junction box run out from a working vehicle. Wired to a powered grid, it takes the vehicle's load off the engine.</description>
+    <thingClass>Building</thingClass>
+    <graphicData>
+      <texPath>Phobos/VehicleSystems/Stations/PowerPoint</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <altitudeLayer>Conduits</altitudeLayer>
+    <passability>Standable</passability>
+    <leaveResourcesWhenKilled>false</leaveResourcesWhenKilled>
+    <clearBuildingArea>false</clearBuildingArea>
+    <tickerType>Never</tickerType>
+    <useHitPoints>true</useHitPoints>
+    <statBases>
+      <MaxHitPoints>50</MaxHitPoints>
+      <Flammability>0.5</Flammability>
+    </statBases>
+    <building>
+      <isInert>true</isInert>
+      <isEdifice>false</isEdifice>
+      <deconstructible>false</deconstructible>
+    </building>
+    <comps>
+      <li Class="CompProperties_Power">
+        <compClass>CompPowerTrader</compClass>
+        <basePowerConsumption>1</basePowerConsumption>
+      </li>
+    </comps>
+  </ThingDef>
+
+  <JobDef>
+    <defName>PhobosVehicleSystems_Survey</defName>
+    <driverClass>Phobos.VehicleSystems.JobDriver_PhobosRigWork</driverClass>
+    <reportString>surveying with TargetA.</reportString>
+    <allowOpportunisticPrefix>true</allowOpportunisticPrefix>
+  </JobDef>
+  <JobDef>
+    <defName>PhobosVehicleSystems_Drill</defName>
+    <driverClass>Phobos.VehicleSystems.JobDriver_PhobosRigWork</driverClass>
+    <reportString>drilling with TargetA.</reportString>
+    <allowOpportunisticPrefix>true</allowOpportunisticPrefix>
+  </JobDef>
+
+  <WorkGiverDef>
+    <defName>PhobosVehicleSystems_SurveyWork</defName>
+    <label>work a survey truck</label>
+    <giverClass>Phobos.VehicleSystems.WorkGiver_PhobosSurvey</giverClass>
+    <workType>Research</workType>
+    <verb>survey with</verb>
+    <gerund>surveying with</gerund>
+    <priorityInType>50</priorityInType>
+    <requiredCapacities>
+      <li>Manipulation</li>
+    </requiredCapacities>
+  </WorkGiverDef>
+  <WorkGiverDef>
+    <defName>PhobosVehicleSystems_DrillWork</defName>
+    <label>work a drill rig</label>
+    <giverClass>Phobos.VehicleSystems.WorkGiver_PhobosDrill</giverClass>
+    <workType>Mining</workType>
+    <verb>drill with</verb>
+    <gerund>drilling with</gerund>
+    <priorityInType>50</priorityInType>
+    <requiredCapacities>
+      <li>Manipulation</li>
+    </requiredCapacities>
+  </WorkGiverDef>
+
+  <!-- A Unimog-class 4x4 (agent's choice; secondary and approximate): 130 kW at 2,200 rpm on portal axles, every wheel driven. Gears and drag authored; the torque curve is the heavy diesel's. -->
+  <Phobos.VehicleSystems.PhobosVehicleDrivetrainDef>
+    <defName>PhobosDrivetrain_MediumDiesel</defName>
+    <label>medium diesel drivetrain</label>
+    <engine>
+      <kind>Piston</kind>
+      <idleRpm>700</idleRpm>
+      <launchRpm>1100</launchRpm>
+      <ratedRpm>2200</ratedRpm>
+      <ratedKilowatts>130</ratedKilowatts>
+      <torqueCurve><points><li>(0, 0)</li><li>(0.25, 0.6)</li><li>(0.5, 0.95)</li><li>(0.65, 1)</li><li>(0.85, 0.95)</li><li>(1, 0.85)</li><li>(1.1, 0)</li></points></torqueCurve>
+      <indicatedEfficiency>0.40</indicatedEfficiency>
+    </engine>
+    <transmission>
+      <kind>Automatic</kind>
+      <gears><li>6.0</li><li>3.4</li><li>2.0</li><li>1.3</li><li>1.0</li></gears>
+      <finalDrive>6.0</finalDrive>
+      <upshiftRpm>1900</upshiftRpm>
+      <downshiftRpm>1100</downshiftRpm>
+      <efficiency>0.88</efficiency>
+    </transmission>
+    <running>
+      <wheelRadius>0.55</wheelRadius>
+      <drivenShare>1</drivenShare>
+      <dragArea>3.5</dragArea>
+    </running>
+  </Phobos.VehicleSystems.PhobosVehicleDrivetrainDef>
+</Defs>

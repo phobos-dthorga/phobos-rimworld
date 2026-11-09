@@ -385,4 +385,48 @@
   <PhobosVehicleSystems_BayHomeOf>Home to {VEHICLE}.</PhobosVehicleSystems_BayHomeOf>
   <PhobosVehicleSystems_BayRefuelling>Refuelling {VEHICLE}.</PhobosVehicleSystems_BayRefuelling>
   <PhobosVehicleSystems_BayWrongFuel>{VEHICLE} runs on a fuel this tank does not hold.</PhobosVehicleSystems_BayWrongFuel>
+
+  <PhobosVehicleSystems_RigGizmoSetUp>Set up</PhobosVehicleSystems_RigGizmoSetUp>
+  <PhobosVehicleSystems_RigGizmoPackUp>Pack up</PhobosVehicleSystems_RigGizmoPackUp>
+  <PhobosVehicleSystems_RigNotOnMap>It must be on a map to set up.</PhobosVehicleSystems_RigNotOnMap>
+  <PhobosVehicleSystems_RigStopFirst>{VEHICLE} has a driver at the wheel. Undraft it first.</PhobosVehicleSystems_RigStopFirst>
+  <PhobosVehicleSystems_RigOutriggers>The outriggers will not hold.</PhobosVehicleSystems_RigOutriggers>
+  <PhobosVehicleSystems_RigControls>The controls are too damaged to set up.</PhobosVehicleSystems_RigControls>
+  <PhobosVehicleSystems_RigNotSetUp>{VEHICLE} is not set up.</PhobosVehicleSystems_RigNotSetUp>
+  <PhobosVehicleSystems_RigWorkControls>The controls are too damaged to work it.</PhobosVehicleSystems_RigWorkControls>
+  <PhobosVehicleSystems_RigPartGone>It cannot work: the {PART} is destroyed.</PhobosVehicleSystems_RigPartGone>
+  <PhobosVehicleSystems_RigSetUp>{VEHICLE} is set up and ready for a colonist to work it.</PhobosVehicleSystems_RigSetUp>
+  <PhobosVehicleSystems_RigPackedUp>{VEHICLE} has packed up.</PhobosVehicleSystems_RigPackedUp>
+  <PhobosVehicleSystems_RigSetUpRefusal>{VEHICLE} is set up. Pack it up first.</PhobosVehicleSystems_RigSetUpRefusal>
+
+  <PhobosVehicleSystems_SurveyGizmoSetUpDesc>Lower the outriggers and raise the sensor boom. A colonist with Intellectual work then runs the survey and looks for deep ore under this map. It cannot move while set up.</PhobosVehicleSystems_SurveyGizmoSetUpDesc>
+  <PhobosVehicleSystems_SurveyGizmoPackUpDesc>Stow the boom and raise the outriggers, ready to drive.</PhobosVehicleSystems_SurveyGizmoPackUpDesc>
+  <PhobosVehicleSystems_SurveyRoofed>The boom cannot be raised under a roof.</PhobosVehicleSystems_SurveyRoofed>
+  <PhobosVehicleSystems_SurveyNoBedrock>There is no bedrock here to survey.</PhobosVehicleSystems_SurveyNoBedrock>
+  <PhobosVehicleSystems_SurveyNoPower>The survey has stopped: there is no fuel and the battery is low.</PhobosVehicleSystems_SurveyNoPower>
+  <PhobosVehicleSystems_SurveyArrayRecharging>Battery low: the array has stopped while the engine recharges it.</PhobosVehicleSystems_SurveyArrayRecharging>
+  <PhobosVehicleSystems_SurveyArrayNoPower>Nothing to power the array: plug in, or fit the large battery. Surveying at the standard rate.</PhobosVehicleSystems_SurveyArrayNoPower>
+  <PhobosVehicleSystems_SurveyRecharging>Engine idling to recharge the battery.</PhobosVehicleSystems_SurveyRecharging>
+  <PhobosVehicleSystems_SurveyDeepLine>Surveying for deep ore under this map.</PhobosVehicleSystems_SurveyDeepLine>
+  <PhobosVehicleSystems_SurveyLongRangeLine>Searching nearby lands for {ORE}.</PhobosVehicleSystems_SurveyLongRangeLine>
+  <PhobosVehicleSystems_SurveyProgress>Progress to a certain find: {PROGRESS}.</PhobosVehicleSystems_SurveyProgress>
+  <PhobosVehicleSystems_SurveyNoGround>The survey found nowhere on this map that could hold a deposit.</PhobosVehicleSystems_SurveyNoGround>
+  <PhobosVehicleSystems_SurveyFoundLabel>Deep ore found: {ORE}</PhobosVehicleSystems_SurveyFoundLabel>
+  <PhobosVehicleSystems_SurveyFoundText>{FINDER_labelShort} has found a deposit of {ORE} deep under this map. A drill can bring it up. Select the set-up survey truck to see it on the ground.</PhobosVehicleSystems_SurveyFoundText>
+  <PhobosVehicleSystems_SurveyGizmoLongRange>Long range</PhobosVehicleSystems_SurveyGizmoLongRange>
+  <PhobosVehicleSystems_SurveyGizmoLongRangeDesc>Search nearby lands for one ore instead of the ground under this map. A find becomes a place to travel to.</PhobosVehicleSystems_SurveyGizmoLongRangeDesc>
+  <PhobosVehicleSystems_SurveyGizmoTarget>Search for: {ORE}</PhobosVehicleSystems_SurveyGizmoTarget>
+  <PhobosVehicleSystems_SurveyGizmoTargetDesc>Choose which ore the long-range search looks for.</PhobosVehicleSystems_SurveyGizmoTargetDesc>
+
+  <PhobosVehicleSystems_RigGizmoSetUpDesc>Lower the outriggers and raise the mast. A colonist with Mining work then drills at the hole behind the truck, and what comes up lands beside it. It cannot move while set up.</PhobosVehicleSystems_RigGizmoSetUpDesc>
+  <PhobosVehicleSystems_RigGizmoPackUpDesc>Lower the mast and raise the outriggers, ready to drive. Work on the current portion is lost.</PhobosVehicleSystems_RigGizmoPackUpDesc>
+  <PhobosVehicleSystems_RigNoHole>There is no room behind the truck for the hole.</PhobosVehicleSystems_RigNoHole>
+  <PhobosVehicleSystems_RigNothingToDrill>There is nothing to drill here: no ore in reach and no bedrock.</PhobosVehicleSystems_RigNothingToDrill>
+  <PhobosVehicleSystems_RigNoFuel>The engine has no fuel.</PhobosVehicleSystems_RigNoFuel>
+  <PhobosVehicleSystems_RigSpent>The ground here is spent: only stone comes up.</PhobosVehicleSystems_RigSpent>
+  <PhobosVehicleSystems_RigSpentNothing>The ground here is spent, and there is no bedrock to work.</PhobosVehicleSystems_RigSpentNothing>
+  <PhobosVehicleSystems_RigProgressOre>Drilling: {PROGRESS} of the way to the next portion.</PhobosVehicleSystems_RigProgressOre>
+  <PhobosVehicleSystems_RigProgressStone>Drilling stone only: {PROGRESS} of the way to the next portion.</PhobosVehicleSystems_RigProgressStone>
+  <PhobosVehicleSystems_RigInsectsLabel>Insects from the drill hole</PhobosVehicleSystems_RigInsectsLabel>
+  <PhobosVehicleSystems_RigInsectsText>The drilling at {VEHICLE} has broken into a tunnel, and insects are coming up.</PhobosVehicleSystems_RigInsectsText>
 </LanguageData>

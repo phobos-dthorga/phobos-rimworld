@@ -1,6 +1,11 @@
 # The survey truck: design (9 Nov 2026)
 
-**A design record. Nothing is built. Not yet tested in game. Agent-authored for the owner to confirm;** the owner's decisions of 9 Nov
+**Built in D'thorga Framework 0.46.0 and D'thorga Vehicles 0.18.0. It borrows the bulk tanker's picture until it has its own (owner, 9 Nov 2026: no stand-in vehicle pictures), so no upgrade or set-up look shows yet. Not yet tested in game.** What was built differs from what follows:
+the Dubs Bad Hygiene `Hydrogeology` node and the Rimefeller deep-well postfix are not built yet; a plugged-in truck is a real load on the grid through a small power point of ours (700 W, or 1,000 W with the array on), priced
+in the game's watts so that one generator set can run it, where the table below says 3,600 W; and while the array is recharging the battery the survey stops, which is what gives the record's 1.5 times. The agent took its
+leans on the open questions below: a new medium drivetrain, 3 times and 150 A, a 600 Ah battery, 30% and 80% marks, Fabrication plus long-range research for the array.
+
+**The design as written, agent-authored for the owner to confirm;** the owner's decisions of 9 Nov
 2026 are binding and listed under [Who chose what](#who-chose-what). It replaces the "Survey truck" sketch in
 [utility vehicles](utility-vehicles-design.md) and follows the shape of that record's bulk tanker. Every figure is **authored** unless
 marked **from the code** (with its file and line) or **secondary** (a published source, not verified here).

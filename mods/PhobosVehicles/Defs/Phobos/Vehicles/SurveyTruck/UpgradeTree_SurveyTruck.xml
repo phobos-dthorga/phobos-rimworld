@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- The survey truck's upgrades (docs/development/vehicle-survey-truck.md). Figures and costs authored, except the uranium (owner, 9 Nov 2026). Node keys are saved in the game: never rename or remove one. Not yet tested in game. -->
+  <Vehicles.UpgradeTreeDef>
+    <defName>Phobos_SurveyTruck_UpgradeTree</defName>
+    <nodes>
+    <li>
+      <key>GeophoneArray</key>
+      <label>geophone array</label>
+      <displayLabel>true</displayLabel>
+      <description>Spikes along the boom that listen to the ground. Heavy deposits, steel above all, are found more often, and the survey runs a little faster.</description>
+      <icon>Phobos/Vehicles/SurveyTruck/Upgrades/GeophoneArray</icon>
+      <work>2500</work>
+      <gridCoordinate>(2, 4)</gridCoordinate>
+      <drawSize>(80, 80)</drawSize>
+      <researchPrerequisites>
+        <li>GroundPenetratingScanner</li>
+      </researchPrerequisites>
+      <disableIfUpgradeNodesEnabled>
+        <li>RadiometricProbe</li>
+      </disableIfUpgradeNodesEnabled>
+      <upgrades>
+        <li Class="Vehicles.StatUpgrade">
+          <vehicleStats>
+            <li>
+              <def>Phobos_SensorGeophone</def>
+              <value>1</value>
+            </li>
+            <li>
+              <def>Phobos_ScanRate</def>
+              <value>0.1</value>
+            </li>
+          </vehicleStats>
+        </li>
+      </upgrades>
+      <ingredients>
+        <Steel>60</Steel>
+        <ComponentIndustrial>3</ComponentIndustrial>
+      </ingredients>
+    </li>
+    <li>
+      <key>RadiometricProbe</key>
+      <label>radiometric probe</label>
+      <displayLabel>true</displayLabel>
+      <description>A shielded gamma and neutron source on the boom. Uranium is found far more often, and the survey runs a little faster.</description>
+      <icon>Phobos/Vehicles/SurveyTruck/Upgrades/RadiometricProbe</icon>
+      <work>3000</work>
+      <gridCoordinate>(7, 4)</gridCoordinate>
+      <drawSize>(80, 80)</drawSize>
+      <researchPrerequisites>
+        <li>GroundPenetratingScanner</li>
+      </researchPrerequisites>
+      <disableIfUpgradeNodesEnabled>
+        <li>GeophoneArray</li>
+      </disableIfUpgradeNodesEnabled>
+      <upgrades>
+        <li Class="Vehicles.StatUpgrade">
+          <vehicleStats>
+            <li>
+              <def>Phobos_SensorRadiometric</def>
+              <value>1</value>
+            </li>
+            <li>
+              <def>Phobos_ScanRate</def>
+              <value>0.1</value>
+            </li>
+          </vehicleStats>
+        </li>
+      </upgrades>
+      <ingredients>
+        <Steel>40</Steel>
+        <Plasteel>30</Plasteel>
+        <ComponentIndustrial>3</ComponentIndustrial>
+        <Uranium>40</Uranium>
+      </ingredients>
+    </li>
+    <li>
+      <key>LongRangeArray</key>
+      <label>long-range array</label>
+      <displayLabel>true</displayLabel>
+      <description>A dish on a mast. The survey can search nearby lands for one chosen ore, and a find becomes a place to travel to.</description>
+      <icon>Phobos/Vehicles/SurveyTruck/Upgrades/LongRangeArray</icon>
+      <work>4000</work>
+      <gridCoordinate>(12, 4)</gridCoordinate>
+      <drawSize>(80, 80)</drawSize>
+      <researchPrerequisites>
+        <li>LongRangeMineralScanner</li>
+      </researchPrerequisites>
+      <upgrades>
+        <li Class="Vehicles.StatUpgrade">
+          <vehicleStats>
+            <li>
+              <def>Phobos_SurveyLongRange</def>
+              <value>1</value>
+            </li>
+          </vehicleStats>
+        </li>
+      </upgrades>
+      <ingredients>
+        <Steel>120</Steel>
+        <ComponentIndustrial>6</ComponentIndustrial>
+        <Plasteel>20</Plasteel>
+      </ingredients>
+    </li>
+    <li>
+      <key>PoweredArray</key>
+      <label>powered array</label>
+      <displayLabel>true</displayLabel>
+      <description>A big transducer array. Switched on and supplied, the survey runs three times as fast. It needs a powered grid or the large battery.</description>
+      <icon>Phobos/Vehicles/SurveyTruck/Upgrades/PoweredArray</icon>
+      <work>6000</work>
+      <gridCoordinate>(2, 9)</gridCoordinate>
+      <drawSize>(80, 80)</drawSize>
+      <researchPrerequisites>
+        <li>Fabrication</li>
+        <li>LongRangeMineralScanner</li>
+      </researchPrerequisites>
+      <upgrades>
+        <li Class="Vehicles.StatUpgrade">
+          <vehicleStats>
+            <li>
+              <def>Phobos_SurveyFastFactor</def>
+              <value>2</value>
+            </li>
+          </vehicleStats>
+        </li>
+      </upgrades>
+      <ingredients>
+        <Steel>200</Steel>
+        <Plasteel>40</Plasteel>
+        <ComponentIndustrial>10</ComponentIndustrial>
+      </ingredients>
+    </li>
+    <li>
+      <key>SurveyBattery</key>
+      <label>large battery</label>
+      <displayLabel>true</displayLabel>
+      <description>A 600 ampere-hour battery. It runs the survey with the engine off, and the engine starts itself to recharge it when it runs low, burning fuel with nobody at the wheel.</description>
+      <icon>Phobos/Vehicles/SurveyTruck/Upgrades/SurveyBattery</icon>
+      <work>3000</work>
+      <gridCoordinate>(7, 9)</gridCoordinate>
+      <drawSize>(80, 80)</drawSize>
+      <researchPrerequisites>
+        <li>Batteries</li>
+      </researchPrerequisites>
+      <upgrades>
+        <li Class="Vehicles.StatUpgrade">
+          <vehicleStats>
+            <li>
+              <def>Phobos_BatteryCapacity</def>
+              <value>600</value>
+            </li>
+          </vehicleStats>
+        </li>
+      </upgrades>
+      <ingredients>
+        <Steel>120</Steel>
+        <ComponentIndustrial>8</ComponentIndustrial>
+      </ingredients>
+    </li>
+    <li>
+      <key>WorkLights</key>
+      <label>work lights</label>
+      <displayLabel>true</displayLabel>
+      <description>Lamps on the cabin roof for working through the night.</description>
+      <icon>Phobos/Vehicles/SurveyTruck/Upgrades/WorkLights</icon>
+      <work>1000</work>
+      <gridCoordinate>(12, 9)</gridCoordinate>
+      <drawSize>(80, 80)</drawSize>
+      <upgrades>
+        <li Class="Vehicles.StatUpgrade">
+          <vehicleStats>
+            <li>
+              <def>Phobos_WorkLights</def>
+              <value>1</value>
+            </li>
+          </vehicleStats>
+        </li>
+      </upgrades>
+      <ingredients>
+        <Steel>30</Steel>
+        <ComponentIndustrial>2</ComponentIndustrial>
+      </ingredients>
+    </li>
+    </nodes>
+  </Vehicles.UpgradeTreeDef>
+</Defs>

@@ -1,6 +1,10 @@
 # The mobile drill rig: design (9 Nov 2026)
 
-**A design record. Nothing is built. Not yet tested in game. Agent-authored on the owner's directions of 9 Nov 2026, for the owner to
+**Built in D'thorga Framework 0.46.0 and D'thorga Vehicles 0.18.0. It borrows the bulk tanker's picture until it has its own (owner, 9 Nov 2026: no stand-in vehicle pictures), so no upgrade or set-up look shows yet. Not yet tested in game.** What was built differs from what follows: the deepchem head and tanker port, and the Rimefeller well kit, are not built
+yet, and until they are the rig skips deepchem rather than bring it up as items; cuttings pile beside the hole (the agent's lean); insects use the game's own rule and storyteller figures but the rig rolls them itself; on a grid a rig either has power or falls back to
+its engine, instead of the 0.6 rate; and the engine is 300 kW against 20 tonnes, the real road figure, not the model's 600.
+
+**The design as written, agent-authored on the owner's directions of 9 Nov 2026, for the owner to
 confirm.** It replaces the rig section of [the utility vehicles record](utility-vehicles-design.md) and follows the shape of that record's
 bulk tanker. Code facts were read on 9 Nov 2026 from our decompiles (`all.cs` is `.local/decompiled/full/all.cs`) and from `query-defs`;
 everything else is a proposal. The family's power rule is in [the generator set](vehicle-generator-set.md), written in parallel.
