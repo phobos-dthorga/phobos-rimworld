@@ -1,0 +1,227 @@
+[
+  {
+    "name": "dash-checkengine",
+    "engine": "klein-base",
+    "lora_comparison": false,
+    "prompt": "A single bold dashboard warning pictogram: the outline of a car engine block seen from the side, with a small exhaust stub. Solid pure black flat shape on a plain pure white background, centred, filling about three quarters of a square canvas, thick simple rounded forms with clean edges, like a car instrument cluster symbol. One flat colour only. No shading, no gradient, no outline box, no background, no text, no letters, no numbers.",
+    "subject": "the outline of a car engine block seen from the side, with a small exhaust stub",
+    "width": 512,
+    "height": 512,
+    "seeds": [
+      11,
+      12,
+      13,
+      14
+    ]
+  },
+  {
+    "name": "dash-enginekey",
+    "engine": "klein-base",
+    "lora_comparison": false,
+    "prompt": "A single bold dashboard warning pictogram: a single ignition key with a round bow and a short notched blade. Solid pure black flat shape on a plain pure white background, centred, filling about three quarters of a square canvas, thick simple rounded forms with clean edges, like a car instrument cluster symbol. One flat colour only. No shading, no gradient, no outline box, no background, no text, no letters, no numbers.",
+    "subject": "a single ignition key with a round bow and a short notched blade",
+    "width": 512,
+    "height": 512,
+    "seeds": [
+      11,
+      12,
+      13,
+      14
+    ]
+  },
+  {
+    "name": "dash-coolanthot",
+    "engine": "klein-base",
+    "lora_comparison": false,
+    "prompt": "A single bold dashboard warning pictogram: a thermometer standing in two wavy lines of liquid. Solid pure black flat shape on a plain pure white background, centred, filling about three quarters of a square canvas, thick simple rounded forms with clean edges, like a car instrument cluster symbol. One flat colour only. No shading, no gradient, no outline box, no background, no text, no letters, no numbers.",
+    "subject": "a thermometer standing in two wavy lines of liquid",
+    "width": 512,
+    "height": 512,
+    "seeds": [
+      11,
+      12,
+      13,
+      14
+    ]
+  },
+  {
+    "name": "dash-coolantlevel",
+    "engine": "klein-base",
+    "lora_comparison": false,
+    "prompt": "A single bold dashboard warning pictogram: a radiator filler neck above a single wavy liquid line with a low-level notch. Solid pure black flat shape on a plain pure white background, centred, filling about three quarters of a square canvas, thick simple rounded forms with clean edges, like a car instrument cluster symbol. One flat colour only. No shading, no gradient, no outline box, no background, no text, no letters, no numbers.",
+    "subject": "a radiator filler neck above a single wavy liquid line with a low-level notch",
+    "width": 512,
+    "height": 512,
+    "seeds": [
+      11,
+      12,
+      13,
+      14
+    ]
+  },
+  {
+    "name": "dash-oillevel",
+    "engine": "klein-base",
+    "lora_comparison": false,
+    "prompt": "A single bold dashboard warning pictogram: a classic oil can with a long spout, one drop falling from it. Solid pure black flat shape on a plain pure white background, centred, filling about three quarters of a square canvas, thick simple rounded forms with clean edges, like a car instrument cluster symbol. One flat colour only. No shading, no gradient, no outline box, no background, no text, no letters, no numbers.",
+    "subject": "a classic oil can with a long spout, one drop falling from it",
+    "width": 512,
+    "height": 512,
+    "seeds": [
+      11,
+      12,
+      13,
+      14
+    ]
+  },
+  {
+    "name": "dash-oilhot",
+    "engine": "klein-base",
+    "lora_comparison": false,
+    "prompt": "A single bold dashboard warning pictogram: a classic oil can with a long spout, with three short rising heat lines above it. Solid pure black flat shape on a plain pure white background, centred, filling about three quarters of a square canvas, thick simple rounded forms with clean edges, like a car instrument cluster symbol. One flat colour only. No shading, no gradient, no outline box, no background, no text, no letters, no numbers.",
+    "subject": "a classic oil can with a long spout, with three short rising heat lines above it",
+    "width": 512,
+    "height": 512,
+    "seeds": [
+      11,
+      12,
+      13,
+      14
+    ]
+  },
+  {
+    "name": "dash-oilpressure",
+    "engine": "klein-base",
+    "lora_comparison": false,
+    "prompt": "A single bold dashboard warning pictogram: a pressure gauge dial with a needle, above one oil drop. Solid pure black flat shape on a plain pure white background, centred, filling about three quarters of a square canvas, thick simple rounded forms with clean edges, like a car instrument cluster symbol. One flat colour only. No shading, no gradient, no outline box, no background, no text, no letters, no numbers.",
+    "subject": "a pressure gauge dial with a needle, above one oil drop",
+    "width": 512,
+    "height": 512,
+    "seeds": [
+      11,
+      12,
+      13,
+      14
+    ]
+  },
+  {
+    "name": "dash-battery",
+    "engine": "klein-base",
+    "lora_comparison": false,
+    "prompt": "A single bold dashboard warning pictogram: a car battery seen from the front with two terminals, a plus and a minus sign. Solid pure black flat shape on a plain pure white background, centred, filling about three quarters of a square canvas, thick simple rounded forms with clean edges, like a car instrument cluster symbol. One flat colour only. No shading, no gradient, no outline box, no background, no text, no letters, no numbers.",
+    "subject": "a car battery seen from the front with two terminals, a plus and a minus sign",
+    "width": 512,
+    "height": 512,
+    "seeds": [
+      11,
+      12,
+      13,
+      14
+    ]
+  },
+  {
+    "name": "dash-starter",
+    "engine": "klein-base",
+    "lora_comparison": false,
+    "prompt": "A single bold dashboard warning pictogram: a small cylindrical starter motor with a pinion gear at one end. Solid pure black flat shape on a plain pure white background, centred, filling about three quarters of a square canvas, thick simple rounded forms with clean edges, like a car instrument cluster symbol. One flat colour only. No shading, no gradient, no outline box, no background, no text, no letters, no numbers.",
+    "subject": "a small cylindrical starter motor with a pinion gear at one end",
+    "width": 512,
+    "height": 512,
+    "seeds": [
+      11,
+      12,
+      13,
+      14
+    ]
+  },
+  {
+    "name": "dash-frost",
+    "engine": "klein-base",
+    "lora_comparison": false,
+    "prompt": "A single bold dashboard warning pictogram: a single six-armed snowflake. Solid pure black flat shape on a plain pure white background, centred, filling about three quarters of a square canvas, thick simple rounded forms with clean edges, like a car instrument cluster symbol. One flat colour only. No shading, no gradient, no outline box, no background, no text, no letters, no numbers.",
+    "subject": "a single six-armed snowflake",
+    "width": 512,
+    "height": 512,
+    "seeds": [
+      11,
+      12,
+      13,
+      14
+    ]
+  },
+  {
+    "name": "dash-tyre",
+    "engine": "klein-base",
+    "lora_comparison": false,
+    "prompt": "A single bold dashboard warning pictogram: a tyre seen from the front with a bold tread pattern. Solid pure black flat shape on a plain pure white background, centred, filling about three quarters of a square canvas, thick simple rounded forms with clean edges, like a car instrument cluster symbol. One flat colour only. No shading, no gradient, no outline box, no background, no text, no letters, no numbers.",
+    "subject": "a tyre seen from the front with a bold tread pattern",
+    "width": 512,
+    "height": 512,
+    "seeds": [
+      11,
+      12,
+      13,
+      14
+    ]
+  },
+  {
+    "name": "dash-brake",
+    "engine": "klein-base",
+    "lora_comparison": false,
+    "prompt": "A single bold dashboard warning pictogram: a circle inside two curved brackets, like a brake disc between pads. Solid pure black flat shape on a plain pure white background, centred, filling about three quarters of a square canvas, thick simple rounded forms with clean edges, like a car instrument cluster symbol. One flat colour only. No shading, no gradient, no outline box, no background, no text, no letters, no numbers.",
+    "subject": "a circle inside two curved brackets, like a brake disc between pads",
+    "width": 512,
+    "height": 512,
+    "seeds": [
+      11,
+      12,
+      13,
+      14
+    ]
+  },
+  {
+    "name": "dash-gearbox",
+    "engine": "klein-base",
+    "lora_comparison": false,
+    "prompt": "A single bold dashboard warning pictogram: a five-speed gear lever pattern: an H with an extra leg, with a round knob. Solid pure black flat shape on a plain pure white background, centred, filling about three quarters of a square canvas, thick simple rounded forms with clean edges, like a car instrument cluster symbol. One flat colour only. No shading, no gradient, no outline box, no background, no text, no letters, no numbers.",
+    "subject": "a five-speed gear lever pattern: an H with an extra leg, with a round knob",
+    "width": 512,
+    "height": 512,
+    "seeds": [
+      11,
+      12,
+      13,
+      14
+    ]
+  },
+  {
+    "name": "dash-fuel",
+    "engine": "klein-base",
+    "lora_comparison": false,
+    "prompt": "A single bold dashboard warning pictogram: a fuel pump with a hose hanging at its side. Solid pure black flat shape on a plain pure white background, centred, filling about three quarters of a square canvas, thick simple rounded forms with clean edges, like a car instrument cluster symbol. One flat colour only. No shading, no gradient, no outline box, no background, no text, no letters, no numbers.",
+    "subject": "a fuel pump with a hose hanging at its side",
+    "width": 512,
+    "height": 512,
+    "seeds": [
+      11,
+      12,
+      13,
+      14
+    ]
+  },
+  {
+    "name": "dash-cab",
+    "engine": "klein-base",
+    "lora_comparison": false,
+    "prompt": "A single bold dashboard warning pictogram: a car seat seen from the side with a small thermometer beside it. Solid pure black flat shape on a plain pure white background, centred, filling about three quarters of a square canvas, thick simple rounded forms with clean edges, like a car instrument cluster symbol. One flat colour only. No shading, no gradient, no outline box, no background, no text, no letters, no numbers.",
+    "subject": "a car seat seen from the side with a small thermometer beside it",
+    "width": 512,
+    "height": 512,
+    "seeds": [
+      11,
+      12,
+      13,
+      14
+    ]
+  }
+]
