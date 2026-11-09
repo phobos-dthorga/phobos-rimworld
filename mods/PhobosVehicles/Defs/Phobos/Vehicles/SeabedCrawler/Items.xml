@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- The parts the Seabed Crawler's upgrades are made from, one for each upgrade (owner, 10 Nov 2026; docs/development/vehicle-seabed-crawler.md). Every figure is authored. Not yet tested in game. -->
+  <ThingDef ParentName="ResourceBase">
+    <defName>PhobosVehicles_BottomingWheelSet</defName>
+    <label>bottoming wheel set</label>
+    <description>A pair of retractable rubber-tyred wheels and their struts, for resting a submersible on the bottom.</description>
+    <graphicData>
+      <texPath>Phobos/Vehicles/SeabedCrawler/Upgrades/BottomingWheels</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <soundInteract>Metal_Drop</soundInteract>
+    <soundDrop>Standard_Drop</soundDrop>
+    <stackLimit>5</stackLimit>
+    <statBases>
+      <MaxHitPoints>100</MaxHitPoints>
+      <MarketValue>260</MarketValue>
+      <Mass>30</Mass>
+      <Flammability>0.4</Flammability>
+      <WorkToMake>3500</WorkToMake>
+    </statBases>
+    <thingCategories>
+      <li>Manufactured</li>
+    </thingCategories>
+    <costList>
+      <Steel>60</Steel>
+      <ComponentIndustrial>3</ComponentIndustrial>
+    </costList>
+    <recipeMaker>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <effectWorking>Smith</effectWorking>
+      <soundWorking>Recipe_Machining</soundWorking>
+      <workSkill>Crafting</workSkill>
+      <unfinishedThingDef>UnfinishedComponent</unfinishedThingDef>
+      <researchPrerequisite>PhobosResearch_SeabedRunningGear</researchPrerequisite>
+      <recipeUsers>
+        <li>PhobosVehicles_PartsBench</li>
+      </recipeUsers>
+      <skillRequirements>
+        <Crafting>6</Crafting>
+      </skillRequirements>
+    </recipeMaker>
+    <smeltProducts>
+      <Steel>30</Steel>
+    </smeltProducts>
+  </ThingDef>
+
+  <ThingDef ParentName="ResourceBase">
+    <defName>PhobosVehicles_ScrubberRack</defName>
+    <label>scrubber canister rack</label>
+    <description>A rack of canisters and fans that takes the carbon dioxide out of the air in a sealed hull.</description>
+    <graphicData>
+      <texPath>Phobos/Vehicles/SeabedCrawler/Upgrades/Scrubber</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <soundInteract>Metal_Drop</soundInteract>
+    <soundDrop>Standard_Drop</soundDrop>
+    <stackLimit>5</stackLimit>
+    <statBases>
+      <MaxHitPoints>80</MaxHitPoints>
+      <MarketValue>240</MarketValue>
+      <Mass>15</Mass>
+      <Flammability>0.2</Flammability>
+      <WorkToMake>3000</WorkToMake>
+    </statBases>
+    <thingCategories>
+      <li>Manufactured</li>
+    </thingCategories>
+    <costList>
+      <Steel>30</Steel>
+      <ComponentIndustrial>4</ComponentIndustrial>
+    </costList>
+    <recipeMaker>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <effectWorking>Smith</effectWorking>
+      <soundWorking>Recipe_Machining</soundWorking>
+      <workSkill>Crafting</workSkill>
+      <unfinishedThingDef>UnfinishedComponent</unfinishedThingDef>
+      <researchPrerequisite>PhobosResearch_AirPurification</researchPrerequisite>
+      <recipeUsers>
+        <li>PhobosVehicles_PartsBench</li>
+      </recipeUsers>
+      <skillRequirements>
+        <Crafting>6</Crafting>
+      </skillRequirements>
+    </recipeMaker>
+    <smeltProducts>
+      <Steel>15</Steel>
+    </smeltProducts>
+  </ThingDef>
+</Defs>

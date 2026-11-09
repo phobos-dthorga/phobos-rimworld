@@ -5,7 +5,7 @@ colonist is breathing, makes fires fill roofed rooms with the game's own smoke w
 carries carbon monoxide from fires, holds the per-person care choices the D'thorga medical mods offer, and holds the small
 helpers every D'thorga mod shares.
 
-Version 0.61.0, built 10 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
+Version 0.62.0, built 10 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
 oxygen working through Burns and Smoke and Medical Equipment (5 November 2026). The health layer new in 0.3.0 and the **vehicle
 systems new in 0.9.0, and their engines, drivetrains and gas turbines new in 0.11.0, are not yet tested in game.** The rest is read from the game's and the mods' code.
 
@@ -238,6 +238,7 @@ The new button on a vehicle's **Dashboard** opens **Fittings and tunes**, for an
 - **Under the water** nobody can aim at it until it is spotted. Only explosions reach it, most guns hold fire and nobody can get out.
 - **Being spotted:** anyone hostile, near and with a clear line can spot it, more easily on the move and less easily in fog, rain or dark. **Dive out of sight**: a boat seen going down is followed. A spotted boat shows as a dark shape and can be shelled. Unspotted, your own boat shows only a faint mark at its middle.
 - **The reserve** runs down while under, faster on the move, and refills on the surface. The boat comes up by itself if the reserve runs out, the water gets shallow, a vital part is badly damaged or, unless it was ordered to stay down, nobody aboard can work it.
+- **Boats with bottoming gear can settle on the bottom**, using half the air and charge and becoming far harder to find. They must lift off before moving.
 - **Stay down** (off by default) keeps it under after the reserve runs out. **The crew then breathes stale air, and it kills them.** You can call it off while anyone aboard can still work the boat. After that the order stands and **the boat is lost**: nothing can raise it yet.
 - **A caravan of nothing but submersibles** can dive together over water tiles, and is then safe from ambushes, demands and meetings.
 - **No finished submarine exists yet.** Only a dev-mode test hull in D'thorga Vehicles does.

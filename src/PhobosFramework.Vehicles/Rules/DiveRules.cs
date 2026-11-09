@@ -17,13 +17,13 @@ public enum DivePhase
 /// </summary>
 public static class DiveRule
 {
-    /// <summary>The reserve after this many hours. It burns only while fully under, faster on the move, and refills only on the surface. A reserve never exceeds what the parts can hold now.</summary>
-    public static float ReserveAfter(float reserve, float capacity, float hours, DivePhase phase, bool moving, float moveBurnFactor, float rechargeFactor)
+    /// <summary>The reserve after this many hours. It burns only while fully under, faster on the move, slower when told so at rest (a boat settled on the bottom), and refills only on the surface. A reserve never exceeds what the parts can hold now.</summary>
+    public static float ReserveAfter(float reserve, float capacity, float hours, DivePhase phase, bool moving, float moveBurnFactor, float rechargeFactor, float restFactor = 1f)
     {
         float top = Math.Max(0f, capacity);
         float change = phase switch
         {
-            DivePhase.Submerged => -hours * (moving ? Math.Max(1f, moveBurnFactor) : 1f),
+            DivePhase.Submerged => -hours * (moving ? Math.Max(1f, moveBurnFactor) : Math.Max(0f, restFactor)),
             DivePhase.Surfaced => hours * Math.Max(0f, rechargeFactor),
             _ => 0f,
         };
@@ -77,6 +77,12 @@ public static class DiveRule
         float closeness = 1f - Math.Max(0f, distance) / range;
         return Math.Clamp(chanceAtContact * closeness * (moving ? Math.Max(1f, movingFactor) : 1f) * Math.Clamp(visibility, 0f, 1f) * Math.Max(0f, noise), 0f, 1f);
     }
+
+    /// <summary>How noisy a hull is now: a boat settled on the bottom is much harder to find.</summary>
+    public static float Noise(float noise, bool settled, float settledFactor) => Math.Max(0f, noise) * (settled ? Math.Max(0f, settledFactor) : 1f);
+
+    /// <summary>Whether a hull can settle on the bottom now: fully under, still, and with gear sound enough to take it.</summary>
+    public static bool CanSettle(DivePhase phase, bool moving, float gearHealth, float floor) => phase == DivePhase.Submerged && !moving && gearHealth >= floor;
 
     /// <summary>Whether a watcher is still following a hull at this moment.</summary>
     public static bool Tracked(int now, int trackedUntil) => now < trackedUntil;

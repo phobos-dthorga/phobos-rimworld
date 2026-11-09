@@ -16,6 +16,8 @@ public static class SubmersibleDefOf
     public static VehicleStatDef Phobos_DiveEndurance = null!;
     public static VehicleStatDef Phobos_DiveControl = null!;
     public static HediffDef Phobos_StaleAir = null!;
+    public static VehicleStatDef Phobos_DiveBottoming = null!;
+    public static VehicleStatDef Phobos_DiveStaleAirRate = null!;
 
     static SubmersibleDefOf() => DefOfHelper.EnsureInitializedInCtor(typeof(SubmersibleDefOf));
 }
@@ -59,6 +61,12 @@ public class CompProperties_PhobosSubmersible : VehicleCompProperties
     public float trackedSeconds = 30f;
     /// <summary>How fast the crew's stale air builds, per hour, once they stay down with nothing left. The body clears a tenth an hour, so the default gains a fifth an hour.</summary>
     public float staleAirPerHour = 0.3f;
+    /// <summary>The share of its health the bottoming gear needs before the boat can settle on it.</summary>
+    public float settleFloor = 0.5f;
+    /// <summary>How much of the usual reserve a boat burns while settled on the bottom.</summary>
+    public float settledBurnFactor = 0.5f;
+    /// <summary>How much of its usual noise a boat makes while settled on the bottom.</summary>
+    public float settledNoiseFactor = 0.25f;
 
     public CompProperties_PhobosSubmersible() => compClass = typeof(CompPhobosSubmersible);
 }
@@ -81,6 +89,7 @@ public class CompPhobosSubmersible : VehicleComp
     bool spottedTold;
     bool stayDown;
     bool lostTold;
+    bool settled;
 
     public CompProperties_PhobosSubmersible Props => (CompProperties_PhobosSubmersible)props;
     public DivePhase Phase => phase;
@@ -89,6 +98,10 @@ public class CompPhobosSubmersible : VehicleComp
     public bool Tracked => Hidden && DiveRule.Tracked(Find.TickManager.TicksGame, trackedUntilTick);
     /// <summary>Whether the crew has been told to stay under after the air and charge run out.</summary>
     public bool StayDown => stayDown;
+    /// <summary>Whether it is resting on the bottom, using less and harder to find, but unable to move until it lifts off.</summary>
+    public bool Settled => settled;
+    /// <summary>Whether it has gear to settle on at all. An upgrade fits it; a design may be built with it.</summary>
+    public bool HasBottomingGear => Vehicle.GetStatValue(SubmersibleDefOf.Phobos_DiveBottoming) > 0f;
     /// <summary>Whether it has been ordered to stay and nobody aboard can change that. A later piece of equipment could raise it; nothing aboard can.</summary>
     public bool Lost => DiveRule.Lost(phase, Vehicle.HasEnoughOperators, stayDown);
     public float Capacity => Vehicle.GetStatValue(SubmersibleDefOf.Phobos_DiveEndurance);
@@ -138,6 +151,39 @@ public class CompPhobosSubmersible : VehicleComp
         return Caravan is { } caravan && TileDeepEnough(caravan) ? null : Shallow;
     }
 
+    IEnumerable<VehicleComponent> BottomingParts => Vehicle.statHandler.components.Where(c => c.props.categories?.Contains(SubmersibleDefOf.Phobos_DiveBottoming) ?? false);
+
+    /// <summary>Why it will not settle now, or null. Part damage is read directly, so a design need not route it through the stat.</summary>
+    public string? SettleRefusal()
+    {
+        if (phase != DivePhase.Submerged) return "PhobosSubmersible_RefuseSettleNotUnder".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve();
+        if (Moving) return "PhobosSubmersible_RefuseSettleMoving".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve();
+        VehicleComponent? worst = BottomingParts.OrderBy(c => c.HealthPercent).FirstOrDefault();
+        return DiveRule.CanSettle(phase, Moving, worst?.HealthPercent ?? 1f, Props.settleFloor) ? null : "PhobosSubmersible_RefusePart".Translate((worst?.props.label ?? Vehicle.LabelShort).Named("PART")).Resolve();
+    }
+
+    /// <summary>Settles it on the bottom or lifts it off, or says why not. The one way an order to settle reaches the vehicle.</summary>
+    public void ToggleSettled()
+    {
+        if (settled)
+        {
+            settled = false;
+            Tell("PhobosSubmersible_ToldLiftOff".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve(), MessageTypeDefOf.SilentInput);
+            return;
+        }
+        string? refused = SettleRefusal();
+        if (refused != null)
+        {
+            Tell(refused, MessageTypeDefOf.RejectInput);
+            return;
+        }
+        settled = true;
+        Tell("PhobosSubmersible_ToldSettled".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve(), MessageTypeDefOf.SilentInput);
+    }
+
+    /// <summary>A boat on the bottom has to lift off before it can be sent anywhere. The game's own way to refuse an order to move.</summary>
+    public override AcceptanceReport CanMove(FloatMenuContext context) => settled ? "PhobosSubmersible_RefuseMoveSettled".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve() : base.CanMove(context);
+
     /// <summary>Why it cannot be brought up or have its orders changed, or null.</summary>
     public string? SurfaceRefusal() => Lost ? "PhobosSubmersible_RefuseLost".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve() : null;
 
@@ -156,7 +202,11 @@ public class CompPhobosSubmersible : VehicleComp
     {
         phase = next;
         phaseStartTick = Find.TickManager.TicksGame;
-        if (next != DivePhase.Submerged) LoseWatchers();
+        if (next != DivePhase.Submerged)
+        {
+            LoseWatchers();
+            settled = false;
+        }
         SyncHidden();
     }
 
@@ -203,7 +253,7 @@ public class CompPhobosSubmersible : VehicleComp
         IntVec3 at = Vehicle.Position;
         foreach (IAttackTarget watcher in Vehicle.Map.attackTargetsCache.GetPotentialTargetsFor(Vehicle))
         {
-            float chance = DiveRule.SpotChance(Props.spotChance, watcher.Thing.Position.DistanceTo(at), Props.spotRange, moving, Props.movingSpotFactor, visibility, Props.noise);
+            float chance = DiveRule.SpotChance(Props.spotChance, watcher.Thing.Position.DistanceTo(at), Props.spotRange, moving, Props.movingSpotFactor, visibility, DiveRule.Noise(Props.noise, settled, Props.settledNoiseFactor));
             if (chance <= 0f || !Rand.Chance(chance) || !CanWatch(watcher)) continue;
             Spot();
             return;
@@ -236,7 +286,7 @@ public class CompPhobosSubmersible : VehicleComp
 
     void BreatheStaleAir(float hours)
     {
-        float amount = hours * Props.staleAirPerHour;
+        float amount = hours * Props.staleAirPerHour * Vehicle.GetStatValue(SubmersibleDefOf.Phobos_DiveStaleAirRate);
         foreach (Pawn pawn in Vehicle.AllPawnsAboard.ToList())
         {
             if (!pawn.Dead && pawn.RaceProps.IsFlesh) HealthUtility.AdjustSeverity(pawn, SubmersibleDefOf.Phobos_StaleAir, amount);
@@ -318,14 +368,14 @@ public class CompPhobosSubmersible : VehicleComp
         lastAdvanceTick = now;
         float hours = elapsed / (float)GenDate.TicksPerHour;
         float before = Reserve;
-        reserve = DiveRule.ReserveAfter(before, Capacity, hours, phase, Moving, Props.moveBurnFactor, Props.rechargeFactor);
+        reserve = DiveRule.ReserveAfter(before, Capacity, hours, phase, Moving, Props.moveBurnFactor, Props.rechargeFactor, settled ? Props.settledBurnFactor : 1f);
         if (DiveRule.BreathingStaleAir(phase, before, stayDown)) BreatheStaleAir(hours);
         else if (before > 0f && DiveRule.BreathingStaleAir(phase, reserve, stayDown)) Tell("PhobosSubmersible_EmptyStayingDown".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve(), MessageTypeDefOf.ThreatSmall);
-        DivePhase settled = DiveRule.Settled(phase, now - phaseStartTick, TicksToSettle);
-        if (settled != phase)
+        DivePhase reached = DiveRule.Settled(phase, now - phaseStartTick, TicksToSettle);
+        if (reached != phase)
         {
-            SetPhase(settled);
-            if (settled == DivePhase.Submerged)
+            SetPhase(reached);
+            if (reached == DivePhase.Submerged)
             {
                 Tell("PhobosSubmersible_ToldUnder".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve(), MessageTypeDefOf.SilentInput);
                 CheckSeenGoingDown();
@@ -364,6 +414,7 @@ public class CompPhobosSubmersible : VehicleComp
     {
         Submersibles.SetHidden(Vehicle, false);
         LoseWatchers();
+        settled = false;
         base.PostDeSpawn(map, mode);
     }
 
@@ -385,12 +436,13 @@ public class CompPhobosSubmersible : VehicleComp
         Scribe_Values.Look(ref spottedTold, "PhobosDiveSpottedTold");
         Scribe_Values.Look(ref stayDown, "PhobosDiveStayDown");
         Scribe_Values.Look(ref lostTold, "PhobosDiveLostTold");
+        Scribe_Values.Look(ref settled, "PhobosDiveSettled");
     }
 
     string PhaseLabel => phase switch
     {
         DivePhase.Diving => "PhobosSubmersible_PhaseDiving".Translate().Resolve(),
-        DivePhase.Submerged => (Tracked ? "PhobosSubmersible_PhaseUnderSpotted" : "PhobosSubmersible_PhaseUnder").Translate().Resolve(),
+        DivePhase.Submerged => (Tracked ? "PhobosSubmersible_PhaseUnderSpotted" : settled ? "PhobosSubmersible_PhaseSettled" : "PhobosSubmersible_PhaseUnder").Translate().Resolve(),
         DivePhase.Surfacing => "PhobosSubmersible_PhaseSurfacing".Translate().Resolve(),
         _ => "PhobosSubmersible_PhaseSurfaced".Translate().Resolve(),
     };
@@ -411,5 +463,6 @@ public class CompPhobosSubmersible : VehicleComp
             else TryDive();
         });
         yield return Submersibles.StayDownGizmo(stayDown, SurfaceRefusal(), () => SetStayDown(!stayDown));
+        if (HasBottomingGear && Vehicle.Spawned) yield return Submersibles.SettleGizmo(settled, settled ? null : SettleRefusal(), ToggleSettled);
     }
 }

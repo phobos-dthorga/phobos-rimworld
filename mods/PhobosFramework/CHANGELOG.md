@@ -5,6 +5,23 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.62.0] - 2026-11-10 - Draft
+
+For the Seabed Crawler, from the owner's go of 10 November 2026. **Not yet tested in game.**
+
+### Added
+
+- Boats with bottoming gear can settle on the bottom: half the air and charge, far harder to find, and no moving until they lift off. Damaged gear refuses and says which part.
+- A new figure for how quickly a crew's air turns stale, which an upgrade can lower.
+
+### Save compatibility
+
+- Safe to add. Nothing changes for a vehicle without the gear.
+
+### Compatibility and limits
+
+- Settling works on a map only, not for a caravan on the world map.
+
 ## [0.61.0] - 2026-11-10 - Draft
 
 The research tree, at the owner's request (docs/development/research-tree.md). **Not yet tested in game.** Every cost is authored, a gameplay choice to tune in play.

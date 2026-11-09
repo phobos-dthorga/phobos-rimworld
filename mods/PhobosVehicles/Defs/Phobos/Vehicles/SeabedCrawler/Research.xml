@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- The Seabed Crawler's research (docs/development/vehicle-seabed-crawler.md). Each upgrade has its own project (owner, 10 Nov 2026). Costs and positions are authored, gameplay choices to tune in play. Names are stable once a save can hold them. -->
+
+  <ResearchTabDef>
+    <defName>PhobosDthorgaSubmarines</defName>
+    <label>D'thorga: Submarines</label>
+    <generalTitle>D'thorga submarine research</generalTitle>
+    <generalDescription>Boats that go under the water, and the gear that lets their crews work and survive there.</generalDescription>
+  </ResearchTabDef>
+
+  <ResearchProjectDef Abstract="True" Name="PhobosResearchSubmarineBase">
+    <tab>PhobosDthorgaSubmarines</tab>
+    <techLevel>Industrial</techLevel>
+  </ResearchProjectDef>
+
+  <ResearchProjectDef ParentName="PhobosResearchSubmarineBase">
+    <defName>PhobosResearch_SubmersibleHull</defName>
+    <label>submersible hull</label>
+    <description>A sealed hull with ballast tanks and a battery bank: a boat that can go under the water and come back.</description>
+    <baseCost>3000</baseCost>
+    <researchViewX>1</researchViewX>
+    <researchViewY>2</researchViewY>
+    <prerequisites>
+      <li>PhobosResearch_VehicleParts</li>
+      <li>Batteries</li>
+    </prerequisites>
+    <modExtensions>
+      <li Class="Phobos.Framework.Research.ResearchReplacesExtension">
+        <replaces />
+      </li>
+    </modExtensions>
+  </ResearchProjectDef>
+
+  <ResearchProjectDef ParentName="PhobosResearchSubmarineBase">
+    <defName>PhobosResearch_SeabedRunningGear</defName>
+    <label>seabed running gear</label>
+    <description>Retractable wheels that let a submersible rest on the bottom and wait there, using less air and charge and making less noise.</description>
+    <baseCost>1500</baseCost>
+    <researchViewX>2</researchViewX>
+    <researchViewY>1.5</researchViewY>
+    <prerequisites>
+      <li>PhobosResearch_SubmersibleHull</li>
+    </prerequisites>
+    <modExtensions>
+      <li Class="Phobos.Framework.Research.ResearchReplacesExtension">
+        <replaces />
+      </li>
+    </modExtensions>
+  </ResearchProjectDef>
+
+  <ResearchProjectDef ParentName="PhobosResearchSubmarineBase">
+    <defName>PhobosResearch_AirPurification</defName>
+    <label>air purification</label>
+    <description>Canisters that take the carbon dioxide out of a sealed hull, so that a crew can stay under for longer and suffers more slowly when the air runs out.</description>
+    <baseCost>1500</baseCost>
+    <researchViewX>2</researchViewX>
+    <researchViewY>2.5</researchViewY>
+    <prerequisites>
+      <li>PhobosResearch_SubmersibleHull</li>
+    </prerequisites>
+    <modExtensions>
+      <li Class="Phobos.Framework.Research.ResearchReplacesExtension">
+        <replaces />
+      </li>
+    </modExtensions>
+  </ResearchProjectDef>
+</Defs>

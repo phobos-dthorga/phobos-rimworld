@@ -4,7 +4,7 @@ Vehicles that keep running only while they are looked after. It adds one vehicle
 vehicles of other mods you already drive the systems that match what they really are, on top of the general systems D'thorga
 Framework gives every vehicle.
 
-Version 0.27.0, built 10 November 2026 for House D'thorga. **Not yet tested in game.**
+Version 0.28.0, built 10 November 2026 for House D'thorga. **Not yet tested in game.**
 
 ## Read this first (gotchas)
 
@@ -142,6 +142,15 @@ Every source and simplification is in the loadout files under `Mods/`.
 - **Load it** through its ordinary cargo window: 96 granite chunks, or 4,800 steel.
 - **With a driver aboard and stopped, press Tip.** Everything in its cargo lands inside the outlined half-circle behind it, and **that includes any spare parts you loaded**. Whatever will not fit stays aboard, and it tells you how many.
 - **Upgrades:** high sides (+600 kg), and either a rock body (tips half as fast again) or a bulk body (3,600 kg, tips slower).
+
+## The Seabed Crawler (not yet tested in game)
+
+**A small submarine, built in shallow water. Research Submersible hull on the D'thorga: Submarines tab first.** It borrows the bulk tanker's picture until it has its own, so it looks like a truck on the water. Bare, it can only dive, hide and come home. Each upgrade takes its own research and its own part from the parts bench:
+
+- **Bottoming wheels** let it rest on the bottom, where it uses half the air and charge and is far harder to find. It must lift off before it can move.
+- **Air scrubber** gives six more hours under, and a crew told to stay down past empty suffers more slowly.
+
+More upgrades are designed, including a research laboratory, sonar and radar, and are not built yet.
 
 ## The submarine test hull
 

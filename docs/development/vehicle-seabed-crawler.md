@@ -1,13 +1,13 @@
 # The Seabed Crawler: design (10 Nov 2026)
 
-**Design only. Nothing here is built, and no picture exists.** The owner chose this as the first real submarine on 10 November 2026, for its unique mechanics, and asked that it also be a research vessel, carry sonar and perhaps radar, and take tie-ins to other mods as soft dependencies. Agent-authored for the owner's review: every figure is **authored** unless it says otherwise. It builds on [the submersibles framework](submarine-framework.md), and the real boat behind it is in [the research record](military-vehicles-research.md).
+**First slice built in D'thorga Vehicles 0.28.0 and D'thorga Framework 0.62.0: the research tab and three projects, the bare hull, and the bottoming wheels and air scrubber, each with its part. Everything else here is still design, and no picture exists. Not yet tested in game.** The owner chose this as the first real submarine on 10 November 2026, for its unique mechanics, and asked that it also be a research vessel, carry sonar and perhaps radar, and take tie-ins to other mods as soft dependencies. Agent-authored for the owner's review: every figure is **authored** unless it says otherwise. It builds on [the submersibles framework](submarine-framework.md), and the real boat behind it is in [the research record](military-vehicles-research.md).
 
 ## Read this first
 
 - **The bare boat does very little (owner, 10 Nov 2026).** It can dive, hide and come home. **Each special ability is its own upgrade, with its own research and its own crafted part.** Nothing below the base hull comes free.
 - **Public name:** D'thorga Seabed Crawler. Defs use `Phobos_SeabedCrawler`.
 - **Goes in D'thorga Vehicles**, as a part of the existing mod and not a mod of its own. Anything another boat could use goes in D'thorga Framework, per the rule on generic functions.
-- **Parts cannot be added by an upgrade.** Vehicle Framework saves parts by position, so every part any upgrade needs exists on the Def from the first day, and an upgrade switches on what it does.
+- **Parts cannot be added by an upgrade.** Vehicle Framework saves parts by position, so a part any upgrade needs is on the Def before that upgrade ships, appended at the end, and the upgrade switches on what it does.
 - **Radar and sonar here are not the radio framework**, which stays on the back burner (owner, 9 Nov 2026). This design touches none of it.
 - **Paid art waits for the owner's go.** See [the art plan](#the-art-plan).
 
@@ -39,7 +39,7 @@ Every row is one Vehicle Framework `UpgradeNode`, with `ingredients` holding its
 
 | Behaviour | What it lets them do | What it stops them doing | How it changes the way they play |
 | --- | --- | --- | --- |
-| Bottoming wheels | Settle on the bottom and wait, using less reserve and making less noise | Moving while settled; only a short crawl | Patience becomes a tactic: sit out a raid under the shelling |
+| Bottoming wheels | Settle on the bottom and wait, using less reserve and making less noise | Moving while settled: it must lift off first | Patience becomes a tactic: sit out a raid under the shelling |
 | Manipulator and salvage | Bring up finds located by sonar | Salvaging from the surface, or from a boat that is not settled | Water becomes somewhere worth going, with a place to work |
 | Air scrubber | Stay down longer, and suffer more slowly past empty | Nothing | Staying down past empty becomes a planned risk |
 | Oxygen candles | A one-off extra stretch when caught short | Using it twice without restocking | Something to carry and spend, and a reason to come home |
@@ -109,11 +109,20 @@ Each loads only when the other mod is active. **Read each mod's code before buil
 
 ## The art plan
 
-**Not started.** The bare hull and one overlay set for each visible node (wheels, arm, mast, sonar dome, drill) are planned together before the first picture, under the rule that every visible node is an overlay.
+**No picture yet.** Size measured 10 Nov 2026: the biggest boat on the owner's list is Vanilla Vehicles Expanded's Trawler, 2 x 5 cells and drawn 3 x 6, and the Crawler is 3 x 8 drawn 4 x 9, so it is the largest and sets the mark. The bare hull and one overlay set for each visible node (wheels, arm, mast, sonar dome, drill) are planned together before the first picture, under the rule that every visible node is an overlay.
 
 1. **Measure the planned size against the biggest comparable boat on the owner's list**, then generate at 1.5 times the in-game drawn size or more.
 2. `--dry-run` first, `--max-usd` on the real run, and one pilot picture inspected at native size, under the paid generation rules.
 3. **Until then it borrows an existing picture**, as the test hull does.
+
+## How to test it (the owner's)
+
+Short list, highest consequence first. On a map with deep water and dev mode on.
+
+1. Debug actions, "Vehicle systems: spawn a submersible", pick the Seabed Crawler and click deep water. Check the **D'thorga: Submarines** research tab shows three projects.
+2. Try the Upgrades tab without research: the wheels should refuse and name the project. With the research finished and two wheel sets on hand, fit the wheels.
+3. Dive, stop, and press **Settle on bottom**. The inspect line should say it is resting, an order to move should be refused, and **Lift off** should free it.
+4. Place a blueprint in shallow water and check it can be built there.
 
 ## Proposed order of building
 

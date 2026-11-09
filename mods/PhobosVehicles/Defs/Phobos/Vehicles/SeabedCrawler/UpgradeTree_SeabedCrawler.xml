@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- The Seabed Crawler's upgrades (docs/development/vehicle-seabed-crawler.md): each needs its own research and its own crafted part (owner, 10 Nov 2026). Only upgrades whose abilities exist are listed; the rest join as they are built. Figures authored. Node keys are saved in the game: never rename or remove one. Not yet tested in game. -->
+  <Vehicles.UpgradeTreeDef>
+    <defName>Phobos_SeabedCrawler_UpgradeTree</defName>
+    <modExtensions>
+      <li Class="Phobos.VehicleSystems.PhobosEnforceUpgradeResearch" />
+    </modExtensions>
+    <nodes>
+      <li>
+        <key>BottomingWheels</key>
+        <label>bottoming wheels</label>
+        <displayLabel>true</displayLabel>
+        <description>Retractable wheels that let the boat rest on the bottom. Settled there, it uses half the air and charge and is a quarter as easy to find, but it cannot move until it lifts off.</description>
+        <icon>Phobos/Vehicles/SeabedCrawler/Upgrades/BottomingWheels</icon>
+        <work>2500</work>
+        <gridCoordinate>(2, 3)</gridCoordinate>
+        <drawSize>(80, 80)</drawSize>
+        <researchPrerequisites>
+          <li>PhobosResearch_SeabedRunningGear</li>
+        </researchPrerequisites>
+        <upgrades>
+          <li Class="Vehicles.StatUpgrade">
+            <vehicleStats>
+              <li>
+                <def>Phobos_DiveBottoming</def>
+                <value>1</value>
+              </li>
+            </vehicleStats>
+          </li>
+        </upgrades>
+        <ingredients>
+          <PhobosVehicles_BottomingWheelSet>2</PhobosVehicles_BottomingWheelSet>
+        </ingredients>
+      </li>
+      <li>
+        <key>Scrubber</key>
+        <label>air scrubber</label>
+        <displayLabel>true</displayLabel>
+        <description>Canisters that clean the air. The boat can stay under for six hours longer, and a crew that stays down past empty breathes stale air more slowly.</description>
+        <icon>Phobos/Vehicles/SeabedCrawler/Upgrades/Scrubber</icon>
+        <work>2000</work>
+        <gridCoordinate>(6, 3)</gridCoordinate>
+        <drawSize>(80, 80)</drawSize>
+        <researchPrerequisites>
+          <li>PhobosResearch_AirPurification</li>
+        </researchPrerequisites>
+        <upgrades>
+          <li Class="Vehicles.StatUpgrade">
+            <vehicleStats>
+              <li>
+                <def>Phobos_DiveEndurance</def>
+                <value>6</value>
+              </li>
+              <li>
+                <def>Phobos_DiveStaleAirRate</def>
+                <value>-0.4</value>
+              </li>
+            </vehicleStats>
+          </li>
+        </upgrades>
+        <ingredients>
+          <PhobosVehicles_ScrubberRack>2</PhobosVehicles_ScrubberRack>
+        </ingredients>
+      </li>
+    </nodes>
+  </Vehicles.UpgradeTreeDef>
+</Defs>

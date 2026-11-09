@@ -5,6 +5,28 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.28.0] - 2026-11-10 - Draft
+
+The owner's go on the first real submarine (10 November 2026). **Not yet tested in game.**
+
+### Added
+
+- The Seabed Crawler: a 3 by 8 submarine built in shallow water. As built it can only dive, hide and come home. It borrows the bulk tanker's picture until it has its own.
+- Two upgrades, each with its own research and crafted part: bottoming wheels, to rest on the bottom, and an air scrubber, for six more hours under and slower stale air.
+- A research tab, D'thorga: Submarines, with three projects.
+
+### Balance
+
+- All costs and figures are authored and untuned.
+
+### Save compatibility
+
+- Safe to add. Destroy any Seabed Crawler before removing this mod.
+
+### Compatibility and limits
+
+- The research laboratory, sonar, radar, arm, drill, reactor and oxygen candles are designed, not built.
+
 ## [0.27.0] - 2026-11-10 - Draft
 
 The research tree, at the owner's request (docs/development/research-tree.md). **Not yet tested in game.** Every cost is authored, a gameplay choice to tune in play.

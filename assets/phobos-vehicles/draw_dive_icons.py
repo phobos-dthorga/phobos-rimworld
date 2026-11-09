@@ -10,6 +10,9 @@ from PIL import Image, ImageDraw
 
 ROOT = Path(__file__).resolve().parents[2]
 TEXTURES = ROOT / 'mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems'
+CRAWLER = ROOT / 'mods/PhobosVehicles/Textures/Phobos/Vehicles/SeabedCrawler/Upgrades'
+SAND = (176, 150, 104, 255)
+RUBBER = (56, 58, 62, 255)
 WORK = 512
 FINAL = 128
 OUTLINE = (24, 24, 26, 255)
@@ -65,18 +68,49 @@ def stay_down(draw):
     draw.rounded_rectangle((110, 188, 402, 244), radius=14, fill=ORANGE, outline=OUTLINE, width=LINE)
 
 
+def wheel(draw, x, y, radius):
+    draw.ellipse((x - radius, y - radius, x + radius, y + radius), fill=RUBBER, outline=OUTLINE, width=LINE)
+    draw.ellipse((x - radius // 3, y - radius // 3, x + radius // 3, y + radius // 3), fill=ORANGE, outline=OUTLINE, width=LINE // 2)
+
+
+def settle(draw):
+    water_line(draw, 80)
+    hull(draw, 210)
+    wheel(draw, 150, 345, 42)
+    wheel(draw, 362, 345, 42)
+    draw.rounded_rectangle((30, 388, 482, 480), radius=20, fill=SAND, outline=OUTLINE, width=LINE)
+
+
+def bottoming_wheels(draw):
+    draw.rounded_rectangle((90, 110, 422, 170), radius=16, fill=HULL, outline=OUTLINE, width=LINE)
+    for x in (150, 362):
+        draw.rectangle((x - 22, 160, x + 22, 300), fill=HULL, outline=OUTLINE, width=LINE)
+        wheel(draw, x, 350, 92)
+
+
+def scrubber(draw):
+    draw.rounded_rectangle((60, 70, 452, 442), radius=26, fill=HULL, outline=OUTLINE, width=LINE)
+    for x in (146, 256, 366):
+        draw.rounded_rectangle((x - 40, 120, x + 40, 392), radius=26, fill=(214, 216, 212, 255), outline=OUTLINE, width=LINE)
+        draw.rectangle((x - 31, 220, x + 31, 276), fill=WATER)
+
+
 ICONS = [
-    ('Dive', dive, 'a submarine below a wave line with an orange arrow pointing down'),
-    ('Surface', surface, 'a submarine above a wave line with an orange arrow pointing up'),
-    ('StayDown', stay_down, 'a submarine below a wave line with an orange bar between them'),
+    ('Dive', dive, 'a submarine below a wave line with an orange arrow pointing down', TEXTURES),
+    ('Surface', surface, 'a submarine above a wave line with an orange arrow pointing up', TEXTURES),
+    ('StayDown', stay_down, 'a submarine below a wave line with an orange bar between them', TEXTURES),
+    ('Settle', settle, 'a submarine on two wheels resting on a sandy bottom below a wave line', TEXTURES),
+    ('BottomingWheels', bottoming_wheels, 'two rubber-tyred wheels on struts from a bar', CRAWLER),
+    ('Scrubber', scrubber, 'three pale canisters with blue bands in a grey rack', CRAWLER),
 ]
 
 
 def main():
-    for name, drawing, what in ICONS:
+    CRAWLER.mkdir(parents=True, exist_ok=True)
+    for name, drawing, what, folder in ICONS:
         image = Image.new('RGBA', (WORK, WORK), (0, 0, 0, 0))
         drawing(ImageDraw.Draw(image))
-        path = TEXTURES / f'{name}.png'
+        path = folder / f'{name}.png'
         image.resize((FINAL, FINAL), Image.LANCZOS).save(path)
         digest = hashlib.sha256(path.read_bytes()).hexdigest()
         path.with_suffix('.record.md').write_text(

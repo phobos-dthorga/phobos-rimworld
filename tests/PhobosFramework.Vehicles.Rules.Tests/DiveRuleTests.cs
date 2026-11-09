@@ -25,6 +25,26 @@ public class DiveRuleTests
     public void NothingChangesWhileTheTanksFloodOrBlow(DivePhase phase) => Assert.Equal(5f, DiveRule.ReserveAfter(5f, 12f, 1f, phase, true, Move, Recharge), 3);
 
     [Fact]
+    public void SettledOnTheBottomBurnsLess() => Assert.Equal(11.5f, DiveRule.ReserveAfter(12f, 12f, 1f, DivePhase.Submerged, false, Move, Recharge, 0.5f), 3);
+
+    [Fact]
+    public void TheRestFactorDoesNotTouchABoatOnTheMove() => Assert.Equal(9f, DiveRule.ReserveAfter(12f, 12f, 1f, DivePhase.Submerged, true, Move, Recharge, 0.5f), 3);
+
+    [Theory]
+    [InlineData(1f, true, 0.25f, 0.25f)]
+    [InlineData(1f, false, 0.25f, 1f)]
+    [InlineData(0.8f, true, 0.5f, 0.4f)]
+    public void Noise(float noise, bool settled, float factor, float expected) => Assert.Equal(expected, DiveRule.Noise(noise, settled, factor), 3);
+
+    [Theory]
+    [InlineData(DivePhase.Submerged, false, 1f, true)]
+    [InlineData(DivePhase.Submerged, true, 1f, false)]
+    [InlineData(DivePhase.Submerged, false, 0.4f, false)]
+    [InlineData(DivePhase.Diving, false, 1f, false)]
+    [InlineData(DivePhase.Surfaced, false, 1f, false)]
+    public void CanSettle(DivePhase phase, bool moving, float health, bool expected) => Assert.Equal(expected, DiveRule.CanSettle(phase, moving, health, 0.5f));
+
+    [Fact]
     public void TheReserveStopsAtEmpty() => Assert.Equal(0f, DiveRule.ReserveAfter(1f, 12f, 5f, DivePhase.Submerged, true, Move, Recharge), 3);
 
     [Fact]

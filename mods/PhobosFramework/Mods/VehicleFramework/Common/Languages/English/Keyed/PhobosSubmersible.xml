@@ -11,6 +11,10 @@
   <PhobosSubmersible_GizmoStayDown>Stay down</PhobosSubmersible_GizmoStayDown>
   <PhobosSubmersible_GizmoStayDownDesc>When this is on, the boat stays under after its air and charge run out, instead of coming up. The crew then breathes stale air and gets steadily worse until they die. Once nobody aboard can work the boat, the order can no longer be changed and nothing aboard can bring it up.</PhobosSubmersible_GizmoStayDownDesc>
 
+  <PhobosSubmersible_GizmoSettle>Settle on bottom</PhobosSubmersible_GizmoSettle>
+  <PhobosSubmersible_GizmoLiftOff>Lift off</PhobosSubmersible_GizmoLiftOff>
+  <PhobosSubmersible_GizmoSettleDesc>Rest the boat on the bottom. It uses half the air and charge and is far harder to find, but it cannot be sent anywhere until it lifts off.</PhobosSubmersible_GizmoSettleDesc>
+
   <!-- What the boat is doing -->
   <PhobosSubmersible_Line>{STATE}. Air and charge: {LEFT} of {FULL} hours.</PhobosSubmersible_Line>
   <PhobosSubmersible_CaravanLine>{VEHICLE}: {STATE}</PhobosSubmersible_CaravanLine>
@@ -18,6 +22,7 @@
   <PhobosSubmersible_PhaseDiving>Flooding the tanks</PhobosSubmersible_PhaseDiving>
   <PhobosSubmersible_PhaseUnder>Under the water</PhobosSubmersible_PhaseUnder>
   <PhobosSubmersible_PhaseUnderSpotted>Under the water, and being followed</PhobosSubmersible_PhaseUnderSpotted>
+  <PhobosSubmersible_PhaseSettled>Resting on the bottom</PhobosSubmersible_PhaseSettled>
   <PhobosSubmersible_PhaseSurfacing>Blowing the tanks</PhobosSubmersible_PhaseSurfacing>
 
   <!-- What an order did -->
@@ -26,6 +31,8 @@
   <PhobosSubmersible_ToldSurfacing>{VEHICLE} is coming up.</PhobosSubmersible_ToldSurfacing>
   <PhobosSubmersible_ToldStayDown>{VEHICLE} will stay under even when its air and charge run out.</PhobosSubmersible_ToldStayDown>
   <PhobosSubmersible_ToldComeUpWhenEmpty>{VEHICLE} will come up when its air and charge run out.</PhobosSubmersible_ToldComeUpWhenEmpty>
+  <PhobosSubmersible_ToldSettled>{VEHICLE} has settled on the bottom.</PhobosSubmersible_ToldSettled>
+  <PhobosSubmersible_ToldLiftOff>{VEHICLE} has lifted off the bottom.</PhobosSubmersible_ToldLiftOff>
 
   <!-- Being found -->
   <PhobosSubmersible_Spotted>{VEHICLE} has been spotted under the water.</PhobosSubmersible_Spotted>
@@ -38,6 +45,9 @@
   <PhobosSubmersible_RefusePart>The {PART} is too badly damaged to dive with. Mend it first.</PhobosSubmersible_RefusePart>
   <PhobosSubmersible_RefuseReserve>{VEHICLE} needs more air and charge first. Wait on the surface.</PhobosSubmersible_RefuseReserve>
   <PhobosSubmersible_RefuseShallow>The water here is too shallow for {VEHICLE} to dive. Every part of the hull has to be over deep water.</PhobosSubmersible_RefuseShallow>
+  <PhobosSubmersible_RefuseSettleNotUnder>{VEHICLE} has to be fully under the water to settle on the bottom.</PhobosSubmersible_RefuseSettleNotUnder>
+  <PhobosSubmersible_RefuseSettleMoving>{VEHICLE} has to stop before it can settle on the bottom.</PhobosSubmersible_RefuseSettleMoving>
+  <PhobosSubmersible_RefuseMoveSettled>{VEHICLE} is resting on the bottom and has to lift off first.</PhobosSubmersible_RefuseMoveSettled>
   <PhobosSubmersible_RefuseLost>Nobody aboard {VEHICLE} can work it, so its orders cannot be changed and it cannot come up.</PhobosSubmersible_RefuseLost>
   <PhobosSubmersible_RefuseLanding>{VEHICLE} has to surface before anyone can get out.</PhobosSubmersible_RefuseLanding>
 

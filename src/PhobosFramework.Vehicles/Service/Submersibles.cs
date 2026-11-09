@@ -21,6 +21,7 @@ public static class Submersibles
     const string DiveIcon = "Phobos/VehicleSystems/Dive";
     const string SurfaceIcon = "Phobos/VehicleSystems/Surface";
     const string StayDownIcon = "Phobos/VehicleSystems/StayDown";
+    const string SettleIcon = "Phobos/VehicleSystems/Settle";
 
     static readonly HashSet<VehiclePawn> hidden = new();
     static Game? owner;
@@ -101,6 +102,21 @@ public static class Submersibles
     public static void SetCaravanStayDown(VehicleCaravan caravan, bool on)
     {
         foreach (CompPhobosSubmersible boat in DivingBoats(caravan)) boat.SetStayDown(on);
+    }
+
+    /// <summary>Rest on the bottom or lift off. Presentation only: the action is what the caller says it is.</summary>
+    public static Command_Toggle SettleGizmo(bool settled, string? refused, Action toggle)
+    {
+        var command = new Command_Toggle
+        {
+            defaultLabel = (settled ? "PhobosSubmersible_GizmoLiftOff" : "PhobosSubmersible_GizmoSettle").Translate().Resolve(),
+            defaultDesc = "PhobosSubmersible_GizmoSettleDesc".Translate().Resolve(),
+            icon = SystemIcons.For(SettleIcon),
+            isActive = () => settled,
+            toggleAction = toggle,
+        };
+        if (refused != null) command.Disable(refused);
+        return command;
     }
 
     /// <summary>The standing order to stay under once the air and charge run out. Presentation only: the action is what the caller says it is.</summary>
