@@ -49,7 +49,21 @@ Below, this record says Munitions Industries no longer defines nine recipes. **T
 | 9 Nov 23:52 | Off | 0 | 495 |
 | 10 Nov 01:41 | On | 1 | 0 |
 
-So Factory Additions 0.12.1 removed nine bills that were valid but for this fault. PG4 and PG5 still hold them.
+So Factory Additions 0.12.1 removed nine bills that were valid but for this fault. **The owner's saves of 10 Nov 02:02 (PG3, PG4 and PG5) no longer hold them.** `Autosave-16` (9 Nov 21:40) still does, which is where this list comes from. They were all on the automated ammunition press, and must be added again by hand once the recipes return:
+
+| Makes | Repeat | Target |
+| --- | --- | --- |
+| 105mm howitzer shell, HE (H fuzed) | Do X times | 1 |
+| High-explosive shell | Do until X | 96 |
+| 7.62x51mm NATO, HE | Do until X | 2,500 |
+| 30x165mm, HE | Do until X | 2,500 |
+| 57mm rocket, HEAT | Do until X | 250 |
+| 20x102mm NATO, HE | Do until X | 2,500 |
+| 12.7x108mm, HE | Do until X | 2,500 |
+| 30x165mm, AP | Do until X | 2,500 |
+| .50 BMG, HE | Do until X | 2,500 |
+
+**Fixed the same day:** Patches 0.16.7 drops the empty entries so the ammo setup finishes with Synthriada on, and Factory Additions 0.12.2 sets such bills aside instead of removing them.
 
 ## Second crash, 23:51 the same night
 

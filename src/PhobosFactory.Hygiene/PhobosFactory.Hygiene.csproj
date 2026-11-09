@@ -9,7 +9,7 @@
     <ModFolder>PhobosFactoryAdditions</ModFolder>
     <TieInFolder>Mods/DubsBadHygiene/</TieInFolder>
     <UsesHarmony>true</UsesHarmony>
-    <Version>0.12.1</Version>
+    <Version>0.12.2</Version>
   </PropertyGroup>
   <ItemGroup>
     <!-- Referenced from the installed mods (one folder per game version) and never copied, as in PhobosFactory.csproj. -->

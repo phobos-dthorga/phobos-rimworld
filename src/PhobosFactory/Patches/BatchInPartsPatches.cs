@@ -10,7 +10,11 @@ namespace Phobos.Factory;
 [HarmonyPatch(typeof(Process), nameof(Process.ExposeData))]
 public static class ProcessExposeDataPatch
 {
-    public static void Postfix(Process __instance) => BatchInParts.Expose(__instance);
+    public static void Postfix(Process __instance)
+    {
+        BillRepair.NoteMissingRecipe(__instance);
+        BatchInParts.Expose(__instance);
+    }
 }
 
 /// <summary>Forgets what is left of a batch once it ends or the player cancels it, so the next batch starts clean.</summary>

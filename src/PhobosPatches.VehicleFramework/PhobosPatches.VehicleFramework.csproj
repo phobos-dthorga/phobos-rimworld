@@ -10,7 +10,7 @@
     <ModFolder>PhobosPatches</ModFolder>
     <TieInFolder>Mods/VehicleFramework/</TieInFolder>
     <UsesHarmony>true</UsesHarmony>
-    <Version>0.16.6</Version>
+    <Version>0.16.7</Version>
     <ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>true</ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>
   </PropertyGroup>
   <ItemGroup>

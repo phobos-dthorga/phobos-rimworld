@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- D'thorga Patches' Combat Extended assembly (0.16.7): one temporary guard against ammo set entries naming ammo that does not exist. It lives in
+       Mods/CombatExtended/<version>, loaded only while Combat Extended is active, and finds Combat Extended by name, referencing no assembly of it.
+       RimWorld 1.7 only. To be removed when the fault is fixed (docs/development/temporary-patches.md). -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <RootNamespace>Phobos.CombatExtendedPatches</RootNamespace>
+    <AssemblyName>PhobosPatches.CombatExtended</AssemblyName>
+    <ModFolder>PhobosPatches</ModFolder>
+    <TieInFolder>Mods/CombatExtended/</TieInFolder>
+    <UsesHarmony>true</UsesHarmony>
+    <Version>0.16.7</Version>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../PhobosFramework/PhobosFramework.csproj" Private="false" />
+  </ItemGroup>
+</Project>

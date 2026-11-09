@@ -12,12 +12,13 @@ with vehicles is refused at the "create outpost" window, because founding one th
 It replaces two earlier mods, merged into it on 7 November 2026: **D'thorga Vehicle Patches** and **D'thorga Missile Patches**
 ([why](../../docs/development/mod-consolidation.md)).
 
-Version 0.16.6, built 10 November 2026 for House D'thorga. **Not yet tested in game as D'thorga Patches.** The Harrier and turret hull
+Version 0.16.7, built 10 November 2026 for House D'thorga. **Not yet tested in game as D'thorga Patches.** The Harrier and turret hull
 parts are unchanged from Vehicle Patches 0.6.0 (not yet tested in game); the missile part was tried once by the owner, see
 [InterRim Ballistic Missile](#interrim-ballistic-missile).
 
 ## Read this first (gotchas)
 
+- **With Combat Extended, a temporary guard keeps its ammo setup from failing** (0.16.7). One bad entry in an ammo set stops the whole setup at startup, and so far The Dead Man's Switch - Synthriada is known to add such entries. The guard drops those entries and changes nothing else. Not yet tested in game.
 - **With Vehicle Framework, fires a vehicle could never put out are put out** (0.16.6): a second fire on one vehicle, or a fire left behind on a map the vehicle has left. A vehicle leaving a map now takes no fire with it. One real fire burns as before. **Tested in game by the owner, 10 November 2026: the stuck fires went out.**
 - **With Prison Labor, a temporary guard stops a crash** (0.16.5). Its first 1.7 build can close the game when a warden considers feeding a motivated prisoner. The guard changes nothing else, switches itself off when Prison Labor is fixed, and comes out of this mod after that. **Tested in game by the owner, 10 November 2026: PG5 ran past the point where it had crashed every time.**
 

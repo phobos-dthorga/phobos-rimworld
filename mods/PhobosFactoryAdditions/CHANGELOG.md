@@ -5,6 +5,18 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.12.2] - 2026-11-10 - Draft
+
+From the owner's ammunition press, which lost nine bills whose recipes were only missing for that session. **Not yet tested in game.**
+
+### Fixed
+
+- A bill whose recipe does not exist now is set aside instead of removed. Its settings are saved with the machine, and it comes back with a message at the next load where the recipe exists again.
+
+### Save compatibility
+
+- Safe on an existing save. Bills already removed by 0.12.1 and then saved cannot be brought back, because the save no longer holds them. If this mod is removed, set-aside bills are lost and nothing else changes.
+
 ## [0.12.1] - 2026-11-10 - Draft
 
 From the owner's ammunition press, whose bills could not be cancelled (10 November 2026). **Tested in game by the owner, 10 November 2026: 9 bills removed, and the press is back to normal.**

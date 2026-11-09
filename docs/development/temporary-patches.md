@@ -4,7 +4,7 @@ Every Phobos patch that exists because of a fault in someone else's mod: whose f
 
 ## Read this first
 
-- **Twelve entries are marked temporary, four permanent.** Every marking is the agent's, for the owner to overrule. Only the first two were called temporary by the owner.
+- **Thirteen entries are marked temporary, four permanent.** Every marking is the agent's, for the owner to overrule. Only the first two were called temporary by the owner.
 - **"Temporary" means it should come out when the author fixes the fault.** "Permanent" means our own design needs it, whatever the author does.
 - **Before removing one, check the fault is really gone** in the mod's new build (`python scripts/query-code.py compare OLD.dll NEW.dll`, or read the method named below). A new update date alone proves nothing.
 - **"Drafted" means the author does not have it.** The owner confirmed on 10 Nov 2026 that only the Prison Labor report has been posted, and that they post reports only for dire faults. So these patches may be needed for a long time unless an author finds the fault on their own.
@@ -37,8 +37,9 @@ More Injuries and Medical Surgery Expanded 2 were not re-checked for this regist
 | 8 | Factory Additions, `BillRepair` and its tick and reset patches | Pipe System: a bill's ingredient owners are built once and never compared with the recipe again | A saved bill is rebuilt when its recipe changes | No | Drafted, [factory additions](vfe-factory-additions.md) |
 | 9 | Factory Additions, `AddIngredientGuardPatch` | Pipe System: an item no owner can take throws and ends the hopper scan | `AddIngredient` skips such an item | No | Drafted, same record |
 | 10 | Factory Additions, `BeingFilledClearPatch` | Pipe System: the hopper scan leaves an owner marked as being filled for good | The scan unmarks the owner it marked | No | Drafted, same record |
-| 11 | Factory Additions 0.12.1, `GhostBillsPatch` | Pipe System: a bill whose recipe no longer exists loads with no recipe, and everything reading it throws. **Takes such bills off the machine, even when the recipe is only missing for one session** (it removed nine valid bills on 10 Nov 2026, see [the crash record](crash-2026-11-09-stack-overflow.md)) | Such a bill is dropped or held safely on load | No | None yet |
+| 11 | Factory Additions 0.12.2, `GhostBillsPatch`, `SetAsideBill` | Pipe System: a bill whose recipe does not exist now loads with no recipe, and everything reading it throws. Such bills are set aside and restored if the recipe returns (0.12.1 removed nine valid ones on 10 Nov 2026, see [the crash record](crash-2026-11-09-stack-overflow.md)) | Such a bill is held safely on load by Pipe System | No | None yet |
 | 12 | Factory Additions, `ConveyorTickPatch` | Vanilla Furniture Expanded - Factory: a belt that is empty and Waiting returns at once and never moves again | A belt's tick wakes itself from that state | No | None found |
+| 13 | Patches 0.16.7, `EmptyAmmoLinksGuard` | The Dead Man's Switch - Synthriada: its Combat Extended `AmmoSets.xml` adds entries for ammo nothing defines, and Combat Extended's vehicle compatibility then throws and ends the ammo setup | Synthriada defines that ammo or drops the entries. Combat Extended tolerating empty entries would also do | **Yes**: with none to drop it does nothing, and the log says when it acts | Offered to the owner, not known to be posted |
 
 ## Permanent: our own design needs it
 

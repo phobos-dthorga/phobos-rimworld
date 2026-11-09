@@ -13,6 +13,8 @@
     <li IfModActive="SmashPhil.VehicleFramework">Mods/VehicleFramework</li>
     <li IfModActive="SmashPhil.VehicleFramework">Mods/VehicleFramework/1.7</li>
     <li IfModActiveAll="MK.SpaceshipTurretHull,CETeam.CombatExtended">Mods/SpaceshipTurretHull</li>
+    <!-- Temporary: the guard against empty ammo set entries (docs/development/temporary-patches.md). -->
+    <li IfModActive="CETeam.CombatExtended">Mods/CombatExtended/1.7</li>
     <li IfModActive="kazepsi.irbm">Mods/IRBM</li>
     <li IfModActive="kazepsi.irbm">Mods/IRBM/1.7</li>
     <li IfModActive="wowgag.RimPacts">Mods/RimPacts/1.7</li>

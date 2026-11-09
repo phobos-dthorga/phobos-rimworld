@@ -28,11 +28,22 @@ public static class BillRepairTickPatch
     }
 }
 
-/// <summary>Before a machine sets up its bills, any whose recipe no longer exists comes off it: nothing can read such a bill, including the window that would cancel it.</summary>
+/// <summary>Before a machine sets up its bills, any whose recipe does not exist now is set aside (nothing can read such a bill, including the window that would cancel it), and any set aside earlier whose recipe has returned comes back.</summary>
 [HarmonyPatch(typeof(CompAdvancedResourceProcessor), nameof(CompAdvancedResourceProcessor.PostSpawnSetup))]
 public static class GhostBillsPatch
 {
-    public static void Prefix(CompAdvancedResourceProcessor __instance) => BillRepair.ClearGhostBills(__instance);
+    public static void Prefix(CompAdvancedResourceProcessor __instance)
+    {
+        BillRepair.ClearGhostBills(__instance);
+        BillRepair.RestoreSetAside(__instance);
+    }
+}
+
+/// <summary>Saves a machine's set-aside bills with its bills, and remembers the name of a recipe that did not load.</summary>
+[HarmonyPatch(typeof(ProcessStack), nameof(ProcessStack.ExposeData))]
+public static class SetAsideBillsSavePatch
+{
+    public static void Postfix(ProcessStack __instance) => BillRepair.ExposeSetAside(__instance);
 }
 
 /// <summary>A running bill with a changed recipe is rebuilt the moment it finishes and resets, when it holds nothing.</summary>
@@ -85,10 +96,16 @@ public static class BeingFilledClearPatch
 /// <summary>Tells the player, in the game's words, that a bill was brought up to its recipe; the log keeps the detail.</summary>
 public static class BillRepairReport
 {
-    /// <summary>Sets down what the removed bills held, and says so. Runs after the map has loaded, when things can be placed.</summary>
+    public static void Restored(ThingWithComps machine, int count)
+    {
+        Log.Message("[D'thorga Factory Additions] Restored " + count + " set-aside bill(s) on " + machine.LabelShort + ": their recipes are back.");
+        Messages.Message("PhobosFactory_BillsRestored".Translate(count.Named("COUNT"), machine.LabelShort.Named("MACHINE")), machine, MessageTypeDefOf.PositiveEvent, historical: false);
+    }
+
+    /// <summary>Sets down what the set-aside bills held, and says so. Runs after the map has loaded, when things can be placed.</summary>
     public static void GhostsCleared(ThingWithComps machine, int count, List<(ThingDef def, int count)> held)
     {
-        Log.Message("[D'thorga Factory Additions] Removed " + count + " bill(s) with no recipe from " + machine.LabelShort + ", holding " + held.Count + " kind(s) of ingredient.");
+        Log.Message("[D'thorga Factory Additions] Set aside " + count + " bill(s) with no recipe on " + machine.LabelShort + ", holding " + held.Count + " kind(s) of ingredient.");
         if (!machine.Spawned) return;
         foreach ((ThingDef def, int amount) in held)
         {

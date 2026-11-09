@@ -9,7 +9,7 @@
     "PhobosFactoryAdditions.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.12.1",
+      "value": "0.12.2",
       "description": "D'thorga Factory Additions's version: About.xml, every project of the mod, its ModVersion constants and both READMEs",
       "targets": [
         {
@@ -137,7 +137,7 @@
     "PhobosPatches.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.16.6",
+      "value": "0.16.7",
       "description": "D'thorga Patches's version: About.xml, every project of the mod, its ModVersion constants and both READMEs",
       "targets": [
         {
@@ -198,6 +198,14 @@
         },
         {
           "path": "src/PhobosPatches.VehicleFramework/VehicleFrameworkPatchesMod.cs",
+          "pattern": "\\bModVersion\\s*=\\s*\"(?P<value>[0-9.]+)\""
+        },
+        {
+          "path": "src/PhobosPatches.CombatExtended/PhobosPatches.CombatExtended.csproj",
+          "pattern": "<Version>(?P<value>[0-9.]+)</Version>"
+        },
+        {
+          "path": "src/PhobosPatches.CombatExtended/CombatExtendedPatchesMod.cs",
           "pattern": "\\bModVersion\\s*=\\s*\"(?P<value>[0-9.]+)\""
         },
         {

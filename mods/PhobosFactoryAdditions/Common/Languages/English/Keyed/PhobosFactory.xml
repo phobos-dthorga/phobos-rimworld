@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
   <!-- A machine's Add process menu when every bill on it still waits for research or an unlock. -->
-  <PhobosFactory_GhostBillsCleared>{COUNT} bills on the {MACHINE} no longer had a recipe and were removed. Anything they held was set down beside it.</PhobosFactory_GhostBillsCleared>
+  <PhobosFactory_GhostBillsCleared>{COUNT} bills on the {MACHINE} have no recipe at the moment and were set aside. They come back if the recipe does. Anything they held was set down beside it.</PhobosFactory_GhostBillsCleared>
+  <PhobosFactory_BillsRestored>{COUNT} bills set aside on the {MACHINE} have their recipe back and were restored.</PhobosFactory_BillsRestored>
   <PhobosFactory_NoBillsAvailable>No bills yet: each one appears once its bench recipe is unlocked (research, or a mod's own unlock such as Rimatomics research).</PhobosFactory_NoBillsAvailable>
 
   <!-- The switch on every storage building (shelves, pallets, Rimefeller bays and the like). -->

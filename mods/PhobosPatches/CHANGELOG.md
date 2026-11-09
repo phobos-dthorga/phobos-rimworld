@@ -6,6 +6,18 @@ says the owner tested it.
 
 ## [Unreleased]
 
+## [0.16.7] - 2026-11-10 - Draft
+
+Temporary, at the owner's request. **Not yet tested in game.**
+
+### Fixed
+
+- With Combat Extended, an ammo set entry naming ammo that does not exist no longer stops the game's whole ammo setup at startup, which left ammo recipes missing from machines. Such entries are dropped first, and the log says how many and from where. The Dead Man's Switch - Synthriada's Combat Extended patch adds some.
+
+### Compatibility and limits
+
+- With no such entries the guard does nothing, so it stands down by itself. Synthriada's Embryte ammo stays unavailable until that mod defines it.
+
 ## [0.16.6] - 2026-11-10 - Draft
 
 From the owner's Harrier, listed as burning 37 times over for three days after a sortie (10 November 2026). Vehicle Framework's own bug, patched at the owner's request until its author handles it. **Tested in game by the owner, 10 November 2026: the stuck fires went out.**
