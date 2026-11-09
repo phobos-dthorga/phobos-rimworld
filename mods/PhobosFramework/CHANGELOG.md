@@ -5,6 +5,25 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.61.0] - 2026-11-10 - Draft
+
+The research tree, at the owner's request (docs/development/research-tree.md). **Not yet tested in game.** Every cost is authored, a gameplay choice to tune in play.
+
+### Added
+
+- A D'thorga research tab, with seven projects for vehicle parts, workshops and fittings. Vehicle parts, the parts bench, tuning rig, depot bay, booster packs, turbines and the fittings that had research now use them.
+- With other mods active, some projects also ask for those mods' research.
+- Research for our own vehicles' upgrades now counts. An upgrade still waiting for its research says which project it needs. Other authors' vehicles are unchanged.
+
+### Save compatibility
+
+- Safe on an existing save. The first time a colony loads this version, each new project is finished for free if the research it replaces was already done, so you keep everything you could build. This happens once per project. Upgrades already fitted or under way stay.
+- If this mod is removed, the first load logs a one-time error for each of its research projects, and the next save is clean.
+
+### Compatibility and limits
+
+- Another mod that rearranges the research screen may move these projects.
+
 ## [0.60.0] - 2026-11-10 - Draft
 
 From the owner's decision on staying down (10 November 2026). **Not yet tested in game.**

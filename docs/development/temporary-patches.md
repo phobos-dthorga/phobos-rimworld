@@ -4,7 +4,7 @@ Every Phobos patch that exists because of a fault in someone else's mod: whose f
 
 ## Read this first
 
-- **Thirteen entries are marked temporary, four permanent.** Every marking is the agent's, for the owner to overrule. Only the first two were called temporary by the owner.
+- **Thirteen entries are marked temporary, five permanent.** Every marking is the agent's, for the owner to overrule. Only the first two were called temporary by the owner.
 - **"Temporary" means it should come out when the author fixes the fault.** "Permanent" means our own design needs it, whatever the author does.
 - **Before removing one, check the fault is really gone** in the mod's new build (`python scripts/query-code.py compare OLD.dll NEW.dll`, or read the method named below). A new update date alone proves nothing.
 - **"Drafted" means the author does not have it.** The owner confirmed on 10 Nov 2026 that only the Prison Labor report has been posted, and that they post reports only for dire faults. So these patches may be needed for a long time unless an author finds the fault on their own.
@@ -46,6 +46,7 @@ More Injuries and Medical Surgery Expanded 2 were not re-checked for this regist
 | Patch | Why it stays |
 | --- | --- |
 | Framework, `PartsOnLoad` | Vehicle Framework saves parts by position, and we append parts to its vehicles. We need this for as long as we append |
+| Framework, `UpgradeNeedsResearchPatch`, `UpgradeResearchButtonPatch` | Vehicle Framework declares research on upgrades and never checks it, and our design needs it checked on our own vehicles. **Could become temporary** if Vehicle Framework starts reading `UpgradeNode.researchPrerequisites` |
 | Framework, `FlyingAircraftStayAwakePatch` | The game's six-hourly sweep is working as designed; our simulation needs aircraft kept awake in flight |
 | Patches, `AirborneCrewKeepsMap` | Sorties need a map kept open around crew inside a vehicle. **Could become temporary** if Vehicle Framework's own check starts covering crew in the air |
 | Patches, `ConvoyOutpostRefusal` | Has a player setting, and refuses founding that can lose vehicles (read from the code, not reproduced). **Could become temporary** if Vehicle Expanded's outposts learn to handle vehicles |

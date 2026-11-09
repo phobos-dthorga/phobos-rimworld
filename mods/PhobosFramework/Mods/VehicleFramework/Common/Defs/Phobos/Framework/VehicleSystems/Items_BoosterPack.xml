@@ -37,7 +37,7 @@
     <recipeMaker>
       <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
       <workSkill>Crafting</workSkill>
-      <researchPrerequisite>Batteries</researchPrerequisite>
+      <researchPrerequisite>PhobosResearch_BoosterPacks</researchPrerequisite>
       <recipeUsers>
         <li>PhobosVehicles_PartsBench</li>
       </recipeUsers>
@@ -65,7 +65,7 @@
     <workAmount>600</workAmount>
     <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
     <soundWorking>Recipe_Machining</soundWorking>
-    <researchPrerequisite>Batteries</researchPrerequisite>
+    <researchPrerequisite>PhobosResearch_BoosterPacks</researchPrerequisite>
     <ingredients>
       <li>
         <filter>

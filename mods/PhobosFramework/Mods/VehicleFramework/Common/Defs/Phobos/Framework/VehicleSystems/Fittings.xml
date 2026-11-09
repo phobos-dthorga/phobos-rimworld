@@ -14,7 +14,7 @@
     <materials><Steel>30</Steel><ComponentIndustrial>2</ComponentIndustrial></materials>
     <work>1500</work>
     <minSkill>4</minSkill>
-    <researchPrerequisite>Machining</researchPrerequisite>
+    <researchPrerequisite>PhobosResearch_VehicleTuning</researchPrerequisite>
     <parameterFactors><li><parameter>radiatorRate</parameter><factor>1.3</factor></li></parameterFactors>
   </Phobos.VehicleSystems.PhobosVehicleFittingDef>
 
@@ -26,7 +26,7 @@
     <materials><Steel>20</Steel><ComponentIndustrial>2</ComponentIndustrial></materials>
     <work>1200</work>
     <minSkill>4</minSkill>
-    <researchPrerequisite>Machining</researchPrerequisite>
+    <researchPrerequisite>PhobosResearch_VehicleTuning</researchPrerequisite>
     <parameterFactors><li><parameter>oilBurnPerHour</parameter><factor>0.6</factor></li></parameterFactors>
     <piston>Yes</piston>
   </Phobos.VehicleSystems.PhobosVehicleFittingDef>
@@ -39,7 +39,7 @@
     <materials><Steel>40</Steel><ComponentIndustrial>4</ComponentIndustrial></materials>
     <work>3000</work>
     <minSkill>8</minSkill>
-    <researchPrerequisite>Fabrication</researchPrerequisite>
+    <researchPrerequisite>PhobosResearch_Turbines</researchPrerequisite>
     <powerFactor>1.2</powerFactor>
     <fuelFactor>1.1</fuelFactor>
     <parameterFactors><li><system>PhobosVehicleSystem_Cooling</system><parameter>heatAtFullLoad</parameter><factor>1.25</factor></li></parameterFactors>
@@ -55,7 +55,7 @@
     <materials><Steel>20</Steel><ComponentIndustrial>3</ComponentIndustrial></materials>
     <work>1200</work>
     <minSkill>5</minSkill>
-    <researchPrerequisite>Electricity</researchPrerequisite>
+    <researchPrerequisite>PhobosResearch_VehicleElectrics</researchPrerequisite>
     <parameterFactors><li><parameter>alternatorAmps</parameter><factor>1.5</factor></li></parameterFactors>
   </Phobos.VehicleSystems.PhobosVehicleFittingDef>
 
@@ -67,7 +67,7 @@
     <materials><Steel>25</Steel><ComponentIndustrial>3</ComponentIndustrial></materials>
     <work>800</work>
     <minSkill>4</minSkill>
-    <researchPrerequisite>Electricity</researchPrerequisite>
+    <researchPrerequisite>PhobosResearch_VehicleElectrics</researchPrerequisite>
     <parameterFactors><li><parameter>batteryAmpHours</parameter><factor>1.5</factor></li></parameterFactors>
   </Phobos.VehicleSystems.PhobosVehicleFittingDef>
 
@@ -79,7 +79,7 @@
     <materials><Steel>25</Steel></materials>
     <work>1000</work>
     <minSkill>3</minSkill>
-    <researchPrerequisite>Machining</researchPrerequisite>
+    <researchPrerequisite>PhobosResearch_VehicleTuning</researchPrerequisite>
     <statFactors>
       <li><stat>CargoCapacity</stat><factor>1.15</factor></li>
       <li><stat>MoveSpeed</stat><factor>0.96</factor></li>
@@ -94,7 +94,7 @@
     <materials><Steel>15</Steel><ComponentIndustrial>1</ComponentIndustrial></materials>
     <work>800</work>
     <minSkill>3</minSkill>
-    <researchPrerequisite>Machining</researchPrerequisite>
+    <researchPrerequisite>PhobosResearch_VehicleTuning</researchPrerequisite>
     <statFactors><li><stat>MoveSpeed</stat><factor>1.05</factor></li></statFactors>
     <parameterFactors><li><parameter>wearPerHour</parameter><factor>1.4</factor></li></parameterFactors>
     <tracked>No</tracked>

@@ -57,7 +57,7 @@
     <surfaceType>Item</surfaceType>
     <constructionSkillPrerequisite>4</constructionSkillPrerequisite>
     <researchPrerequisites>
-      <li>Machining</li>
+      <li>PhobosResearch_VehicleParts</li>
     </researchPrerequisites>
     <inspectorTabs>
       <li>ITab_Bills</li>
@@ -120,7 +120,7 @@
     <pathCost>50</pathCost>
     <constructionSkillPrerequisite>4</constructionSkillPrerequisite>
     <researchPrerequisites>
-      <li>Machining</li>
+      <li>PhobosResearch_VehicleTuning</li>
     </researchPrerequisites>
     <drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
     <placeWorkers>
@@ -176,8 +176,7 @@
     <uiOrder>120</uiOrder>
     <constructionSkillPrerequisite>4</constructionSkillPrerequisite>
     <researchPrerequisites>
-      <li>Machining</li>
-      <li>Electricity</li>
+      <li>PhobosResearch_VehicleDepot</li>
     </researchPrerequisites>
     <inspectorTabs>
       <li>ITab_Storage</li>

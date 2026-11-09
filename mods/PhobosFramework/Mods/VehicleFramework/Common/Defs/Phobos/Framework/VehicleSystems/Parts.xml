@@ -34,7 +34,7 @@
       <soundWorking>Recipe_Machining</soundWorking>
       <workSkill>Crafting</workSkill>
       <unfinishedThingDef>UnfinishedComponent</unfinishedThingDef>
-      <researchPrerequisite>Machining</researchPrerequisite>
+      <researchPrerequisite>PhobosResearch_VehicleParts</researchPrerequisite>
       <recipeUsers>
         <li>PhobosVehicles_PartsBench</li>
       </recipeUsers>
@@ -77,7 +77,7 @@
       <soundWorking>Recipe_Machining</soundWorking>
       <workSkill>Crafting</workSkill>
       <unfinishedThingDef>UnfinishedComponent</unfinishedThingDef>
-      <researchPrerequisite>Machining</researchPrerequisite>
+      <researchPrerequisite>PhobosResearch_VehicleParts</researchPrerequisite>
       <recipeUsers>
         <li>PhobosVehicles_PartsBench</li>
       </recipeUsers>
@@ -120,7 +120,7 @@
       <soundWorking>Recipe_Machining</soundWorking>
       <workSkill>Crafting</workSkill>
       <unfinishedThingDef>UnfinishedComponent</unfinishedThingDef>
-      <researchPrerequisite>Machining</researchPrerequisite>
+      <researchPrerequisite>PhobosResearch_VehicleParts</researchPrerequisite>
       <recipeUsers>
         <li>PhobosVehicles_PartsBench</li>
       </recipeUsers>
@@ -162,7 +162,7 @@
       <soundWorking>Recipe_Machining</soundWorking>
       <workSkill>Crafting</workSkill>
       <unfinishedThingDef>UnfinishedComponent</unfinishedThingDef>
-      <researchPrerequisite>Machining</researchPrerequisite>
+      <researchPrerequisite>PhobosResearch_VehicleParts</researchPrerequisite>
       <recipeUsers>
         <li>PhobosVehicles_PartsBench</li>
       </recipeUsers>
@@ -205,7 +205,7 @@
       <soundWorking>Recipe_Machining</soundWorking>
       <workSkill>Crafting</workSkill>
       <unfinishedThingDef>UnfinishedComponent</unfinishedThingDef>
-      <researchPrerequisite>Fabrication</researchPrerequisite>
+      <researchPrerequisite>PhobosResearch_Turbines</researchPrerequisite>
       <recipeUsers>
         <li>PhobosVehicles_PartsBench</li>
       </recipeUsers>

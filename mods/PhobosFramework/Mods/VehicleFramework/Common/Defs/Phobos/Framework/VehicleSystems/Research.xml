@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- Vehicle parts and workshop research (docs/development/research-tree.md). Costs, positions and soft requirements are authored, gameplay choices to tune in play. Names are stable once a save can hold them. -->
+
+  <ResearchProjectDef Abstract="True" Name="PhobosResearchVehicleBase">
+    <tab>PhobosDthorga</tab>
+    <techLevel>Industrial</techLevel>
+  </ResearchProjectDef>
+
+  <ResearchProjectDef ParentName="PhobosResearchVehicleBase">
+    <defName>PhobosResearch_VehicleParts</defName>
+    <label>vehicle parts</label>
+    <description>Build the engines, drivetrains, transmissions and wiring that vehicles are made of and mended with, at a dedicated parts bench.</description>
+    <baseCost>1200</baseCost>
+    <researchViewX>0</researchViewX>
+    <researchViewY>1.2</researchViewY>
+    <prerequisites>
+      <li>Machining</li>
+      <li MayRequire="rimthunder.core">EngineBasis</li>
+    </prerequisites>
+    <modExtensions>
+      <li Class="Phobos.Framework.Research.ResearchReplacesExtension">
+        <replaces><li>Machining</li></replaces>
+      </li>
+    </modExtensions>
+  </ResearchProjectDef>
+
+  <ResearchProjectDef ParentName="PhobosResearchVehicleBase">
+    <defName>PhobosResearch_VehicleElectrics</defName>
+    <label>vehicle electrics</label>
+    <description>Bigger alternators and deep-cycle batteries, for vehicles that run lights, pumps and tools while parked.</description>
+    <baseCost>800</baseCost>
+    <researchViewX>0</researchViewX>
+    <researchViewY>2.0</researchViewY>
+    <prerequisites>
+      <li>Electricity</li>
+    </prerequisites>
+    <customUnlockTexts>
+      <li>Fitting: heavy-duty alternator</li>
+      <li>Fitting: deep-cycle battery</li>
+    </customUnlockTexts>
+    <modExtensions>
+      <li Class="Phobos.Framework.Research.ResearchReplacesExtension">
+        <replaces><li>Electricity</li></replaces>
+      </li>
+    </modExtensions>
+  </ResearchProjectDef>
+
+  <ResearchProjectDef ParentName="PhobosResearchVehicleBase">
+    <defName>PhobosResearch_VehicleTuning</defName>
+    <label>vehicle tuning</label>
+    <description>Set an engine up for the work it does, and fit better cooling, springs and tyres. Needs a tuning rig.</description>
+    <baseCost>1500</baseCost>
+    <researchViewX>1</researchViewX>
+    <researchViewY>0</researchViewY>
+    <prerequisites>
+      <li>PhobosResearch_VehicleParts</li>
+    </prerequisites>
+    <customUnlockTexts>
+      <li>Fitting: uprated radiator</li>
+      <li>Fitting: oil cooler</li>
+      <li>Fitting: heavy-duty springs</li>
+      <li>Fitting: road tyres</li>
+    </customUnlockTexts>
+    <modExtensions>
+      <li Class="Phobos.Framework.Research.ResearchReplacesExtension">
+        <replaces><li>Machining</li></replaces>
+      </li>
+    </modExtensions>
+  </ResearchProjectDef>
+
+  <ResearchProjectDef ParentName="PhobosResearchVehicleBase">
+    <defName>PhobosResearch_HeavyDutyParts</defName>
+    <label>heavy-duty parts</label>
+    <description>Better steels and closer tolerances, for vehicle parts that last longer between repairs.</description>
+    <baseCost>1200</baseCost>
+    <researchViewX>1</researchViewX>
+    <researchViewY>0.6</researchViewY>
+    <prerequisites>
+      <li>PhobosResearch_VehicleParts</li>
+    </prerequisites>
+    <customUnlockTexts>
+      <li>Part grade: heavy-duty</li>
+    </customUnlockTexts>
+    <modExtensions>
+      <li Class="Phobos.Framework.Research.ResearchReplacesExtension">
+        <replaces><li>Machining</li></replaces>
+      </li>
+    </modExtensions>
+  </ResearchProjectDef>
+
+  <ResearchProjectDef ParentName="PhobosResearchVehicleBase">
+    <defName>PhobosResearch_VehicleDepot</defName>
+    <label>vehicle depots</label>
+    <description>A powered bay where a vehicle can be parked, charged and supplied with what it needs.</description>
+    <baseCost>1800</baseCost>
+    <researchViewX>1</researchViewX>
+    <researchViewY>1.2</researchViewY>
+    <prerequisites>
+      <li>PhobosResearch_VehicleParts</li>
+      <li>Electricity</li>
+    </prerequisites>
+    <modExtensions>
+      <li Class="Phobos.Framework.Research.ResearchReplacesExtension">
+        <replaces><li>Machining</li><li>Electricity</li></replaces>
+      </li>
+    </modExtensions>
+  </ResearchProjectDef>
+
+  <ResearchProjectDef ParentName="PhobosResearchVehicleBase">
+    <defName>PhobosResearch_BoosterPacks</defName>
+    <label>booster packs</label>
+    <description>A portable battery that starts a vehicle with a flat one, and can be charged again.</description>
+    <baseCost>600</baseCost>
+    <researchViewX>1</researchViewX>
+    <researchViewY>2.0</researchViewY>
+    <prerequisites>
+      <li>Batteries</li>
+    </prerequisites>
+    <modExtensions>
+      <li Class="Phobos.Framework.Research.ResearchReplacesExtension">
+        <replaces><li>Batteries</li></replaces>
+      </li>
+    </modExtensions>
+  </ResearchProjectDef>
+
+  <ResearchProjectDef ParentName="PhobosResearchVehicleBase">
+    <defName>PhobosResearch_Turbines</defName>
+    <label>turbine engines</label>
+    <description>Precision-made turbines and turbochargers. Far more power from the same fuel, and far less forgiving of poor care.</description>
+    <baseCost>4500</baseCost>
+    <researchViewX>2</researchViewX>
+    <researchViewY>0</researchViewY>
+    <prerequisites>
+      <li>Fabrication</li>
+      <li>PhobosResearch_VehicleParts</li>
+      <li MayRequire="rimthunder.core">EngineAdvanced</li>
+    </prerequisites>
+    <customUnlockTexts>
+      <li>Fitting: turbocharger</li>
+    </customUnlockTexts>
+    <modExtensions>
+      <li Class="Phobos.Framework.Research.ResearchReplacesExtension">
+        <replaces><li>Fabrication</li></replaces>
+      </li>
+    </modExtensions>
+  </ResearchProjectDef>
+</Defs>

@@ -5,7 +5,7 @@ colonist is breathing, makes fires fill roofed rooms with the game's own smoke w
 carries carbon monoxide from fires, holds the per-person care choices the D'thorga medical mods offer, and holds the small
 helpers every D'thorga mod shares.
 
-Version 0.60.0, built 10 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
+Version 0.61.0, built 10 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
 oxygen working through Burns and Smoke and Medical Equipment (5 November 2026). The health layer new in 0.3.0 and the **vehicle
 systems new in 0.9.0, and their engines, drivetrains and gas turbines new in 0.11.0, are not yet tested in game.** The rest is read from the game's and the mods' code.
 
@@ -15,6 +15,7 @@ and wear that a mechanic services. See [Vehicle systems](#vehicle-systems-with-v
 
 ## Read this first (gotchas)
 
+- **New in 0.61.0 (not yet tested in game): a D'thorga research tab.** Vehicle parts and workshops now have their own research. **An existing colony gets a project free, once, if it had already done the research that project replaces**, so you keep everything you could build. New colonies research them normally. With Vehicle Framework, our own vehicles' upgrades now need the research they name.
 - **New in 0.32.0, with Vehicle Framework (not yet tested in game): a fleet button on the bottom bar** lists every vehicle you own, wherever it
   is, and **a letter warns you before a vehicle left parked in the wild is lost** (three days ahead by default). Both are in this mod's vehicle
   settings, under **Your fleet**.

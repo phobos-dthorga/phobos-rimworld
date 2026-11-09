@@ -258,6 +258,7 @@
   <PhobosVehicleSystems_FitRemove>Take off the {FITTING}</PhobosVehicleSystems_FitRemove>
   <PhobosVehicleSystems_FitOrdered>Waiting: {WORK}</PhobosVehicleSystems_FitOrdered>
   <PhobosVehicleSystems_FitNoResearch>needs {RESEARCH}</PhobosVehicleSystems_FitNoResearch>
+  <PhobosVehicleSystems_UpgradeNeedsResearch>This upgrade needs {RESEARCH} to be researched first.</PhobosVehicleSystems_UpgradeNeedsResearch>
   <PhobosVehicleSystems_FitPartDestroyed>the part must be replaced first</PhobosVehicleSystems_FitPartDestroyed>
   <PhobosVehicleSystems_FitNeedsSkill>needs a mechanic of Construction {SKILL}</PhobosVehicleSystems_FitNeedsSkill>
   <PhobosVehicleSystems_FitWork>fitting the {FITTING} to the {PART}</PhobosVehicleSystems_FitWork>

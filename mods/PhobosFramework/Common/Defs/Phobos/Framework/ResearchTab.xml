@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- The D'thorga research tab (owner, 10 Nov 2026; docs/development/research-tree.md). It loads only alongside a mod with projects to show, because the game lists even an empty tab. -->
+  <ResearchTabDef MayRequireAnyOf="SmashPhil.VehicleFramework,PhobosDthorga.Medical">
+    <defName>PhobosDthorga</defName>
+    <label>D'thorga</label>
+    <generalTitle>D'thorga research</generalTitle>
+    <generalDescription>Working vehicles and the parts that keep them running, and clinical care beyond a hospital bed.</generalDescription>
+  </ResearchTabDef>
+</Defs>

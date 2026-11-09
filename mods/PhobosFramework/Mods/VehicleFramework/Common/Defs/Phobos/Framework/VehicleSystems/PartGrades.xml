@@ -33,6 +33,6 @@
     <healthFactor>1.3</healthFactor>
     <faultFactor>0.6</faultFactor>
     <minSkill>6</minSkill>
-    <researchPrerequisite>Machining</researchPrerequisite>
+    <researchPrerequisite>PhobosResearch_HeavyDutyParts</researchPrerequisite>
   </Phobos.VehicleSystems.PhobosVehiclePartGradeDef>
 </Defs>
