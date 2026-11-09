@@ -14,7 +14,7 @@
         <description>Retractable wheels that let the boat rest on the bottom. Settled there, it uses half the air and charge and is a quarter as easy to find, but it cannot move until it lifts off.</description>
         <icon>Phobos/Vehicles/SeabedCrawler/Upgrades/BottomingWheels</icon>
         <work>2500</work>
-        <gridCoordinate>(2, 3)</gridCoordinate>
+        <gridCoordinate>(3, 3)</gridCoordinate>
         <drawSize>(80, 80)</drawSize>
         <researchPrerequisites>
           <li>PhobosResearch_SeabedRunningGear</li>
@@ -40,7 +40,7 @@
         <description>Canisters that clean the air. The boat can stay under for six hours longer, and a crew that stays down past empty breathes stale air more slowly.</description>
         <icon>Phobos/Vehicles/SeabedCrawler/Upgrades/Scrubber</icon>
         <work>2000</work>
-        <gridCoordinate>(6, 3)</gridCoordinate>
+        <gridCoordinate>(10, 3)</gridCoordinate>
         <drawSize>(80, 80)</drawSize>
         <researchPrerequisites>
           <li>PhobosResearch_AirPurification</li>
