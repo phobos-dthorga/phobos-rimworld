@@ -17,7 +17,7 @@ NR-1 (US Navy, launched 25 January 1969): a research submarine with two retracta
 
 ## The upgrades
 
-Every row is one Vehicle Framework `UpgradeNode`: `researchPrerequisites` holds its own project and `ingredients` holds its own crafted part. Both fields exist for this (`UpgradeNode`, VF decompile `Vehicles.decompiled.cs:34855` and `:34859`). Node keys are saved in the game: never rename or remove one. Each node moves a figure that changes an outcome.
+Every row is one Vehicle Framework `UpgradeNode`, with `ingredients` holding its own crafted part (`Vehicles.decompiled.cs:34859`). **Its own research has to be enforced by us.** The node has a `researchPrerequisites` field (`:34855`), but Vehicle Framework never reads it: `CompUpgradeTree.PrerequisitesMet` (`:21674`) checks only `prerequisiteNodes`, so listing a project there would gate nothing. Another session plans an opt-in marker for this, `PhobosEnforceUpgradeResearch` on the `UpgradeTreeDef` with a postfix on `PrerequisitesMet` (not built). Node keys are saved in the game: never rename or remove one. Each node moves a figure that changes an outcome.
 
 | Node key | Upgrade | Own research | Own crafted part | Needs first | Figure it moves |
 | --- | --- | --- | --- | --- | --- |
@@ -69,7 +69,7 @@ Every row is one Vehicle Framework `UpgradeNode`: `researchPrerequisites` holds 
 
 **Ours would follow the same shape, written fresh** and never copied: a `DefModExtension` marking a project as field research, a saved slot in a `GameComponent` of ours, three small patches, and the vessel's research service calling `AddProgress`. This has its costs: the patches sit on the research window, where Vanilla Gravship Expanded already patches, so **the two must be checked together**. Ordinary research keeps going at home while a vessel works on its own project, which suits a boat away at sea.
 
-**The tab** (owner, 10 Nov 2026): our projects get their own, titled to match the one that already exists for vehicles. **Taken to be Vanilla Vehicles Expanded's "Vehicles" tab**, so ours would be **"Vehicles: Submarines"** **[agent's wording; a label, so easy to change]**.
+**The tab** (owner, 10 Nov 2026): our projects get their own, titled to match the main one for our vehicle mods. **That main tab is planned, not built:** `PhobosDthorga`, labelled "D'thorga", in the Framework's always-loaded folder, awaiting the owner's approval. Ours would sit beside it as `PhobosDthorgaSubmarines`, labelled **"D'thorga: Submarines"** **[proposed; the exact title is the owner's]**. Project defNames take the prefix `PhobosResearch_`. **Every project keeps one prerequisite that always exists**: a project whose prerequisites all drop out through `MayRequire` opens at once, and `ResearchManager.FinishProject` finishes unfinished prerequisites too (`all.cs:379167`).
 
 ## Sonar and radar
 
@@ -117,7 +117,7 @@ Each loads only when the other mod is active. **Read each mod's code before buil
 
 ## Proposed order of building
 
-1. The research projects, the craft recipes and the bare hull.
+1. The enforcing check for upgrade research and the main D'thorga tab, in step with the session planning them; then the research projects, the craft recipes and the bare hull.
 2. Bottoming wheels and the scrubber, which use what the framework already has.
 3. The research vessel comp and the wet laboratory.
 4. Listening array, then the sonar set.
@@ -133,4 +133,4 @@ Each loads only when the other mod is active. **Read each mod's code before buil
 
 The five questions of 10 November are answered, under [Who chose what](#who-chose-what). One thing to confirm:
 
-1. **Is "the main one for our vehicle mods" Vanilla Vehicles Expanded's "Vehicles" tab?** If so, the new tab is "Vehicles: Submarines".
+1. **The exact title of the new tab.** With the main tab planned as "D'thorga", the proposal is "D'thorga: Submarines".
