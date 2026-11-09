@@ -14,10 +14,21 @@ public class CompProperties_PhobosDrillRig : CompProperties_PhobosRigWork
     public float electricWatts = 300f;
     /// <summary>The rate at night with no work lights fitted.</summary>
     public float unlitFactor = 0.8f;
-    /// <summary>Deep resources that are piped and never come up as items (owner, 9 Nov 2026): skipped here.</summary>
+    /// <summary>Deep resources that are piped and never come up as items (owner, 9 Nov 2026): skipped until a head is fitted, then raised into the buffer.</summary>
     public List<ThingDef> pipedResources = new();
+    /// <summary>The work to raise one unit of a piped resource: the deepchem pumpjack's 60 ticks a unit, so at most the rate of the game's own machine for it, as with ore.</summary>
+    public float pipedWorkPerUnit = 60f;
+    /// <summary>Where the buffer can empty itself, besides a tanker drawing from it.</summary>
+    public List<RigBufferOutlet> bufferOutlets = new();
 
     public CompProperties_PhobosDrillRig() => compClass = typeof(CompPhobosDrillRig);
+}
+
+/// <summary>Somewhere a rig's buffer can run to. Subclass it in any mod and name it in XML with Class="Namespace.ClassName".</summary>
+public abstract class RigBufferOutlet
+{
+    /// <summary>Takes up to this much from the rig's buffer and returns what really went.</summary>
+    public abstract float Give(CompPhobosDrillRig rig, float most);
 }
 
 /// <summary>
@@ -35,8 +46,12 @@ public sealed class CompPhobosDrillRig : CompPhobosRigWork
     float portionProgress;
     float portionYield;
     int lastInsectsTick = -999999;
+    float buffer;
+    ThingDef? bufferKind;
 
     bool orePresent;
+    bool nextIsPiped;
+    float pipedProgress;
 
     public CompProperties_PhobosDrillRig Props => (CompProperties_PhobosDrillRig)props;
     protected override string DeployedSaveKey => "PhobosDrillDeployed";
@@ -55,6 +70,28 @@ public sealed class CompPhobosDrillRig : CompPhobosRigWork
     protected override float FuelPerDay => Props.drillFuelPerDay;
     protected override float DrawWatts => ElectricFitted ? Props.electricWatts : 0f;
     float Reach => Vehicle.GetStatValue(RigDefOf.Phobos_DrillReach);
+    /// <summary>The head's buffer: above zero only with the head fitted.</summary>
+    float BufferCapacity => Vehicle.GetStatValue(RigDefOf.Phobos_RigBuffer);
+    public float Buffer => buffer;
+    public ThingDef? BufferKind => bufferKind;
+    bool BufferFull => buffer > BufferCapacity - 1f;
+
+    /// <summary>Where a rig touches pipes: its own cells and those around it.</summary>
+    public IEnumerable<IntVec3> ContactCells()
+    {
+        foreach (IntVec3 cell in Vehicle.OccupiedRect()) yield return cell;
+        foreach (IntVec3 cell in Vehicle.SurroundingCells) yield return cell;
+    }
+
+    /// <summary>Takes up to this much of this resource out of the buffer, for a tanker or a pipe. Returns what came.</summary>
+    public float TakeFromBuffer(ThingDef kind, float most)
+    {
+        if (kind != bufferKind || buffer <= 0f) return 0f;
+        float taken = Mathf.Min(most, buffer);
+        buffer -= taken;
+        if (buffer <= 0f) bufferKind = null;
+        return taken;
+    }
 
     /// <summary>The cell behind the middle of the truck that the string goes down.</summary>
     public IntVec3 Hole
@@ -77,6 +114,8 @@ public sealed class CompPhobosDrillRig : CompPhobosRigWork
         Scribe_Values.Look(ref portionProgress, "PhobosDrillProgress");
         Scribe_Values.Look(ref portionYield, "PhobosDrillYield");
         Scribe_Values.Look(ref lastInsectsTick, "PhobosDrillInsectsTick", -999999);
+        Scribe_Values.Look(ref buffer, "PhobosDrillBuffer");
+        Scribe_Defs.Look(ref bufferKind, "PhobosDrillBufferKind");
     }
 
     public override string? CannotDeploy()
@@ -90,11 +129,15 @@ public sealed class CompPhobosDrillRig : CompPhobosRigWork
     {
         string? why = base.WhyNoWork();
         if (why != null) return why;
-        if (!NextOre(out _, out _, out _) && DeepDrillUtility.GetBaseResource(Vehicle.Map, Hole) == null) return "PhobosVehicleSystems_RigNothingToDrill".Translate().Resolve();
+        bool found = NextOre(out ThingDef? ore, out _, out _);
+        if (!found && DeepDrillUtility.GetBaseResource(Vehicle.Map, Hole) == null) return "PhobosVehicleSystems_RigNothingToDrill".Translate().Resolve();
+        if (found && ore != null && Piped(ore) && (BufferFull || (bufferKind != null && bufferKind != ore))) return "PhobosVehicleSystems_RigBufferFull".Translate().Resolve();
         return !ElectricNow && !HasFuel ? "PhobosVehicleSystems_RigNoFuel".Translate().Resolve() : null;
     }
 
-    /// <summary>The first ore within reach of the hole that can come up as items, as the game's drill looks for it, out to the mast's own reach.</summary>
+    bool Piped(ThingDef ore) => Props.pipedResources.Contains(ore);
+
+    /// <summary>The first ore within reach of the hole, as the game's drill looks for it, out to the mast's own reach. Piped ones count only with somewhere to put them.</summary>
     bool NextOre(out ThingDef? ore, out int count, out IntVec3 cell)
     {
         Map map = Vehicle.Map;
@@ -105,7 +148,7 @@ public sealed class CompPhobosDrillRig : CompPhobosRigWork
             IntVec3 candidate = hole + GenRadial.RadialPattern[i];
             if (!candidate.InBounds(map)) continue;
             ThingDef? found = map.deepResourceGrid.ThingDefAt(candidate);
-            if (found == null || Props.pipedResources.Contains(found)) continue;
+            if (found == null || (Piped(found) && BufferCapacity <= 0f)) continue;
             ore = found;
             count = map.deepResourceGrid.CountAt(candidate);
             cell = candidate;
@@ -119,8 +162,24 @@ public sealed class CompPhobosDrillRig : CompPhobosRigWork
 
     protected override void RareWork()
     {
-        orePresent = NextOre(out _, out _, out _);
+        ReadNext();
+        RunOutlets();
         if (Working) MaybeInsects();
+    }
+
+    void ReadNext()
+    {
+        orePresent = NextOre(out ThingDef? ore, out _, out _);
+        nextIsPiped = orePresent && ore != null && Piped(ore);
+    }
+
+    void RunOutlets()
+    {
+        foreach (RigBufferOutlet outlet in Props.bufferOutlets)
+        {
+            if (buffer < 1f) return;
+            outlet.Give(this, buffer);
+        }
     }
 
     public override void Worked(Pawn worker, int delta)
@@ -130,12 +189,35 @@ public sealed class CompPhobosDrillRig : CompPhobosRigWork
         if (!orePresent) factor *= Vehicle.GetStatValue(RigDefOf.Phobos_BedrockFactor);
         if (Vehicle.GetStatValue(RigDefOf.Phobos_WorkLights) <= 0f && When_Night.IsNight(Vehicle)) factor *= Props.unlitFactor;
         float work = worker.GetStatValue(StatDefOf.DeepDrillingSpeed) * factor * delta;
+        if (nextIsPiped)
+        {
+            RaisePiped(work);
+            return;
+        }
         portionProgress += work;
         portionYield += work * worker.GetStatValue(StatDefOf.MiningYield) / WorkPerPortion;
         if (portionProgress <= WorkPerPortion) return;
         ProducePortion(worker);
         portionProgress = 0f;
         portionYield = 0f;
+    }
+
+    /// <summary>Raises a piped resource a unit at a time into the buffer: never an item (owner, 9 Nov 2026).</summary>
+    void RaisePiped(float work)
+    {
+        pipedProgress += work;
+        while (pipedProgress >= Props.pipedWorkPerUnit)
+        {
+            pipedProgress -= Props.pipedWorkPerUnit;
+            if (!NextOre(out ThingDef? ore, out int count, out IntVec3 cell) || ore == null || !Piped(ore) || BufferFull || (bufferKind != null && bufferKind != ore))
+            {
+                ReadNext();
+                return;
+            }
+            Vehicle.Map.deepResourceGrid.SetAt(cell, ore, count - 1);
+            buffer += 1f;
+            bufferKind = ore;
+        }
     }
 
     void ProducePortion(Pawn worker)
@@ -151,7 +233,7 @@ public sealed class CompPhobosDrillRig : CompPhobosRigWork
         CellRect footprint = Vehicle.OccupiedRect();
         GenPlace.TryPlaceThing(thing, hole, map, ThingPlaceMode.Near, null, p => p != hole && !footprint.Contains(p));
         Find.HistoryEventsManager.RecordEvent(new HistoryEvent(HistoryEventDefOf.Mined, worker.Named(HistoryEventArgsNames.Doer)));
-        orePresent = NextOre(out _, out _, out _);
+        ReadNext();
         if (!isOre || orePresent) return;
         ThingDef? bedrock = DeepDrillUtility.GetBaseResource(map, hole);
         Tell(bedrock != null ? "PhobosVehicleSystems_RigSpent".Translate().Resolve() : "PhobosVehicleSystems_RigSpentNothing".Translate().Resolve(), MessageTypeDefOf.TaskCompletion);
@@ -207,9 +289,17 @@ public sealed class CompPhobosDrillRig : CompPhobosRigWork
 
     public override string? CompInspectStringExtra()
     {
-        if (!deployed) return null;
-        return (orePresent
-            ? "PhobosVehicleSystems_RigProgressOre".Translate((portionProgress / WorkPerPortion).ToStringPercent().Named("PROGRESS"))
-            : "PhobosVehicleSystems_RigProgressStone".Translate((portionProgress / WorkPerPortion).ToStringPercent().Named("PROGRESS"))).Resolve();
+        var lines = new List<string>();
+        if (deployed && !nextIsPiped)
+        {
+            lines.Add((orePresent
+                ? "PhobosVehicleSystems_RigProgressOre".Translate((portionProgress / WorkPerPortion).ToStringPercent().Named("PROGRESS"))
+                : "PhobosVehicleSystems_RigProgressStone".Translate((portionProgress / WorkPerPortion).ToStringPercent().Named("PROGRESS"))).Resolve());
+        }
+        if (BufferCapacity > 0f && (deployed || buffer >= 1f))
+        {
+            lines.Add("PhobosVehicleSystems_RigBufferLine".Translate(buffer.ToString("N0").Named("AMOUNT"), BufferCapacity.ToString("N0").Named("CAPACITY")).Resolve());
+        }
+        return lines.Count == 0 ? null : string.Join("\n", lines);
     }
 }

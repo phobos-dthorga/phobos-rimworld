@@ -5,6 +5,12 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.47.0] - 2026-11-09 - Draft
+
+### Added
+
+- What a drill rig needs to raise a liquid: a buffer on the rig, a way for a tanker to load from it and a way for a pipe to take from it. D'thorga Vehicles' deepchem head is the first to use them. Not yet tested in game.
+
 ## [0.46.1] - 2026-11-09 - Draft
 
 ### Added

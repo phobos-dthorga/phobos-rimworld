@@ -5,6 +5,16 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.19.0] - 2026-11-09 - Draft
+
+### Added
+
+- A deepchem head for the drill rig, with Vanilla Chemfuel Expanded: it raises deepchem into a 300-unit buffer at a pumpjack's rate at best, for a tanker parked beside it or a pipe laid to it. Deepchem never comes up as items. Not yet tested in game.
+
+### Dependencies
+
+- Needs D'thorga Framework 0.47.0.
+
 ## [0.18.0] - 2026-11-09 - Draft
 
 ### Added

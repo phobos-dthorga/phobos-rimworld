@@ -14,6 +14,9 @@
     <thickestAt>-20</thickestAt>
     <thickensOnlyWithSetting>fuelGelling</thickensOnlyWithSetting>
     <ports>
+      <li Class="Phobos.VehicleSystems.Port_RigBuffer">
+        <thing>VCHE_Deepchem</thing>
+      </li>
       <li Class="Phobos.VehicleSystems.Pipes.Port_PipeNet">
         <net>VCHE_DeepchemNet</net>
       </li>

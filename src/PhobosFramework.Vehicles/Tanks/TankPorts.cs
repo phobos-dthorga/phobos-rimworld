@@ -100,6 +100,27 @@ public class Port_VehicleFuel : TankPort
     }
 }
 
+/// <summary>A drill rig within reach of the hose with this in its buffer. Pumps in only: the tanker carries what the rig raises.</summary>
+public class Port_RigBuffer : TankPort
+{
+    public ThingDef? thing;
+
+    public override float Draw(CompPhobosTank tank, float most, out string? reason)
+    {
+        reason = null;
+        if (thing == null) return 0f;
+        VehiclePawn self = tank.Vehicle;
+        foreach (Pawn pawn in self.Map.mapPawns.SpawnedPawnsInFaction(self.Faction))
+        {
+            if (pawn == self || pawn is not VehiclePawn other || other.Position.DistanceTo(self.Position) > tank.Props.hoseReach) continue;
+            float taken = other.GetComp<CompPhobosDrillRig>()?.TakeFromBuffer(thing, most) ?? 0f;
+            if (taken > 0f) return taken;
+        }
+        reason = "PhobosVehicleSystems_TankNoRigBeside".Translate(thing.label.Named("ITEM")).Resolve();
+        return 0f;
+    }
+}
+
 /// <summary>A hit on the shell throws out some of the load at once. The leak afterwards and the burst come from the tank's own rare tick,
 /// which reads the part's health, because Combat Extended writes part health without calling reactors.</summary>
 public class Reactor_PhobosTankShell : Reactor

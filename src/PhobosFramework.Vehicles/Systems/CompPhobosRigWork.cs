@@ -21,6 +21,7 @@ public static class RigDefOf
     public static VehicleStatDef Phobos_DrillReach = null!;
     public static VehicleStatDef Phobos_BedrockFactor = null!;
     public static VehicleStatDef Phobos_ElectricDrill = null!;
+    public static VehicleStatDef Phobos_RigBuffer = null!;
     public static JobDef PhobosVehicleSystems_Survey = null!;
     public static JobDef PhobosVehicleSystems_Drill = null!;
 

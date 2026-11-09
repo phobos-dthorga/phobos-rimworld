@@ -429,4 +429,7 @@
   <PhobosVehicleSystems_RigProgressStone>Drilling stone only: {PROGRESS} of the way to the next portion.</PhobosVehicleSystems_RigProgressStone>
   <PhobosVehicleSystems_RigInsectsLabel>Insects from the drill hole</PhobosVehicleSystems_RigInsectsLabel>
   <PhobosVehicleSystems_RigInsectsText>The drilling at {VEHICLE} has broken into a tunnel, and insects are coming up.</PhobosVehicleSystems_RigInsectsText>
+
+  <PhobosVehicleSystems_RigBufferFull>The liquid buffer is full. Park a tanker beside the rig set to load, or lay a pipe to it.</PhobosVehicleSystems_RigBufferFull>
+  <PhobosVehicleSystems_RigBufferLine>Liquid buffer: {AMOUNT} of {CAPACITY}.</PhobosVehicleSystems_RigBufferLine>
 </LanguageData>

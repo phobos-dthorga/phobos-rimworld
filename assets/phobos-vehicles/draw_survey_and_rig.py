@@ -88,6 +88,11 @@ def bolt(draw):
     draw.polygon([(290, 110), (180, 280), (250, 280), (216, 402), (340, 230), (268, 230)], fill=YELLOW, outline=OUTLINE)
 
 
+def drop(draw):
+    draw.polygon([(256, 110), (350, 270), (162, 270)], fill=RED, outline=OUTLINE)
+    draw.ellipse((162, 190, 350, 390), fill=RED, outline=OUTLINE, width=12)
+
+
 def main():
     upgrades = VEHICLES / 'SurveyTruck/Upgrades'
     for key, colour, mark, what in (
@@ -106,6 +111,7 @@ def main():
         ('TallMast', OLIVE, mast_icon, 'a mast'),
         ('ElectricPowerPack', BLUE, bolt, 'a lightning bolt'),
         ('WorkLights', DARK, lamp, 'a lamp'),
+        ('DeepchemHead', OLIVE, drop, 'a drop of liquid'),
     ):
         icon(upgrades / f'{key}.png', badge(colour, mark), what)
     icon(STATIONS / 'SurveyLongRange.png', badge(BLUE, dish_icon), 'a dish')

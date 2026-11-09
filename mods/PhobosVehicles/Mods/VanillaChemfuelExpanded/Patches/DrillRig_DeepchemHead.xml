@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <!-- The drill rig's deepchem head (docs/development/vehicle-drill-rig.md), only with Vanilla Chemfuel Expanded. Costs authored; research is the pumpjack's. Node keys are saved in the game: never rename or remove one. Not yet tested in game. -->
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/Vehicles.UpgradeTreeDef[defName="Phobos_DrillRig_UpgradeTree"]/nodes</xpath>
+    <value>
+      <li>
+        <key>DeepchemHead</key>
+        <label>deepchem head</label>
+        <displayLabel>true</displayLabel>
+        <description>A sealed head and a small tank. The rig can raise deepchem, at the rate of a pumpjack at best, into a 300-unit buffer that a tanker parked beside it can load from, or that runs into a pipe laid to it.</description>
+        <icon>Phobos/Vehicles/DrillRig/Upgrades/DeepchemHead</icon>
+        <work>2500</work>
+        <gridCoordinate>(12, 9)</gridCoordinate>
+        <drawSize>(80, 80)</drawSize>
+        <researchPrerequisites>
+          <li>BiofuelRefining</li>
+        </researchPrerequisites>
+        <upgrades>
+          <li Class="Vehicles.StatUpgrade">
+            <vehicleStats>
+              <li>
+                <def>Phobos_RigBuffer</def>
+                <value>300</value>
+              </li>
+            </vehicleStats>
+          </li>
+        </upgrades>
+        <ingredients>
+          <Steel>90</Steel>
+          <ComponentIndustrial>4</ComponentIndustrial>
+        </ingredients>
+      </li>
+    </value>
+  </Operation>
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/Vehicles.VehicleDef[defName="Phobos_DrillRig"]/comps/li[@Class="Phobos.VehicleSystems.CompProperties_PhobosDrillRig"]</xpath>
+    <value>
+      <bufferOutlets>
+        <li Class="Phobos.VehicleSystems.Pipes.Outlet_PipeNet">
+          <net>VCHE_DeepchemNet</net>
+          <thing>VCHE_Deepchem</thing>
+        </li>
+      </bufferOutlets>
+    </value>
+  </Operation>
+</Patch>
