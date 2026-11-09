@@ -6,6 +6,37 @@ namespace Phobos.Framework.Rules.Tests;
 public class TankRuleTests
 {
     [Fact]
+    public void AShellAtTheFloorStillTakesALoad()
+    {
+        Assert.True(TankRule.TakesLoad(0.25f, 0.25f));
+        Assert.False(TankRule.TakesLoad(0.24f, 0.25f));
+    }
+
+    [Fact]
+    public void BeingSetUpHoldsTheVehicleOnlyWhileThereIsATank()
+    {
+        Assert.True(TankRule.HoldsVehicle(setUp: true, tankFitted: true));
+        Assert.False(TankRule.HoldsVehicle(setUp: true, tankFitted: false));
+        Assert.False(TankRule.HoldsVehicle(setUp: false, tankFitted: true));
+    }
+
+    [Fact]
+    public void WholeItemsAreCountedDown() => Assert.Equal(2, TankRule.WholeItems(70f, 30f, 500f));
+
+    [Fact]
+    public void ASmallStepStillMovesOneItemWhenOneFits() => Assert.Equal(1, TankRule.WholeItems(12f, 30f, 30f));
+
+    [Fact]
+    public void ASmallStepMovesNothingWhenNoItemFits() => Assert.Equal(0, TankRule.WholeItems(12f, 30f, 29f));
+
+    [Theory]
+    [InlineData(0f, 30f, 500f)]
+    [InlineData(-5f, 30f, 500f)]
+    [InlineData(12f, 0f, 500f)]
+    public void NothingToMoveMovesNothing(float most, float unitsPerItem, float limit) =>
+        Assert.Equal(0, TankRule.WholeItems(most, unitsPerItem, limit));
+
+    [Fact]
     public void ContentsAreAlmostThereAfterTheStatedTime() =>
         Assert.InRange(TankRule.NextTemperature(20f, 0f, 6f, 6f), 0f, 1.1f);
 

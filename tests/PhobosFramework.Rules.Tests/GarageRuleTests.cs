@@ -6,6 +6,14 @@ namespace Phobos.Framework.Rules.Tests;
 public class GarageRuleTests
 {
     [Theory]
+    [InlineData(2, 2, true)]
+    [InlineData(2, 3, true)]
+    [InlineData(3, 2, false)]
+    [InlineData(0, 0, true)]
+    public void EverySeatNeedsSomeoneFree(int seats, int people, bool enough) =>
+        Assert.Equal(enough, GarageRule.EnoughDrivers(seats, people));
+
+    [Theory]
     [InlineData(0, 3, 12, 0)]
     [InlineData(2, 3, 12, 6)]
     [InlineData(9, 3, 12, 12)]

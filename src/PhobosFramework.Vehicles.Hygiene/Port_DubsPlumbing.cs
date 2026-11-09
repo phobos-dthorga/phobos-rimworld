@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using DubsBadHygiene;
 using Phobos.Framework.Hygiene;
 using Verse;
@@ -44,7 +45,9 @@ public class Port_DubsPlumbing : TankPort
             reason = "PhobosVehicleSystems_WaterNoPlumbing".Translate().Resolve();
             return 0f;
         }
-        float given = most - net.PushWater(most);
+        // The plumbing refuses outright a push larger than the towers' free space, so offer only what fits: the last of the room fills too.
+        float push = Math.Min(most, net.WaterTowers.Where(tower => tower.WorkingNow).Sum(tower => tower.space));
+        float given = push - net.PushWater(push);
         if (given <= 0f)
         {
             reason = "PhobosVehicleSystems_TankTowersFull".Translate().Resolve();

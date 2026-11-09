@@ -47,6 +47,23 @@ public static class TankRule
     public static float Leaked(float capacity, float integrity, float fractionPerHourAtZero, float hours, float held) =>
         MathF.Min(held, MathF.Max(0f, 1f - integrity) * capacity * fractionPerHourAtZero * hours);
 
+    /// <summary>Whether a shell at this integrity may be filled. The pump and a bulk order ask the same question.</summary>
+    public static bool TakesLoad(float integrity, float floor) => integrity >= floor;
+
+    /// <summary>Whether being set up pins the vehicle down. With no tank fitted there is nothing to pack up, and no button to do it with.</summary>
+    public static bool HoldsVehicle(bool setUp, bool tankFitted) => setUp && tankFitted;
+
+    /// <summary>
+    /// The whole items a pump step moves. A step smaller than one item still moves one, while one fits or one is there: a slowed pump
+    /// could otherwise never handle a large container. An authored simplification: such a pump runs a little ahead of its rate.
+    /// </summary>
+    public static int WholeItems(float most, float unitsPerItem, float limit)
+    {
+        if (unitsPerItem <= 0f || most <= 0f) return 0;
+        int whole = (int)(most / unitsPerItem);
+        return whole > 0 || limit < unitsPerItem ? whole : 1;
+    }
+
     /// <summary>How much one of a tank's equal compartments holds. Filled alike, they still add up to the whole tank.</summary>
     public static float CompartmentCapacity(float capacity, int compartments) => capacity / MathF.Max(1, compartments);
 

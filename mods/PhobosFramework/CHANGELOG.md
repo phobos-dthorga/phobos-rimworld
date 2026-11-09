@@ -5,6 +5,20 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.40.3] - 2026-11-09 - Draft
+
+### Fixed
+
+- Taking more vehicles out of a garage than the caravan has free people to drive is refused and says why. Before, the whole convoy could not move until they were parked again. **Not yet tested in game.**
+- A tanker left set up with no tank by an earlier version is freed when the game loads. **Not yet tested in game.**
+- A damaged pump can move large containers again: a step smaller than one item moves one, where it used to report a full tank or nothing at all. **Not yet tested in game.**
+- The last of the room in a water tower now fills, where it used to read as full. **Not yet tested in game.**
+- Founding a garage checks that the convoy paying for it carries the cost. Another caravan on the tile could satisfy the check, and the convoy then paid only what it had. **Not yet tested in game.**
+
+### Balance
+
+- A pump too slow to move one whole item in a step runs a little ahead of its rate: an authored simplification.
+
 ## [0.40.2] - 2026-11-09 - Draft
 
 ### Fixed

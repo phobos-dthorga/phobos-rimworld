@@ -23,6 +23,9 @@ public static class GarageRule
     public static int Bays(int staff, int baysPerPerson, int maxBays) =>
         Math.Clamp(Math.Max(staff, 0) * Math.Max(baysPerPerson, 0), 0, Math.Max(maxBays, 0));
 
+    /// <summary>Whether the free people can fill every seat the vehicles need to move: one seat short and the whole convoy cannot leave.</summary>
+    public static bool EnoughDrivers(int seatsToOperate, int freePeople) => freePeople >= seatsToOperate;
+
     /// <summary>The repair points one cycle has to spend, from the stationed people's total skill.</summary>
     public static float PointsPerCycle(int totalSkill, float pointsPerSkillLevel) =>
         Math.Max(totalSkill, 0) * Math.Max(pointsPerSkillLevel, 0f);

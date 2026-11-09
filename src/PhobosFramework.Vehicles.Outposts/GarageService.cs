@@ -47,6 +47,12 @@ public static class GarageService
         if (figures == null) return "PhobosGarage_RefusedNoVehicles".Translate();
         refusal = figures.CanSpawnOnWithExt(convoy.Tile, staying);
         if (refusal != null) return refusal;
+        // The outposts code's own check reads the first caravan on the tile, which need not be this one; this convoy is the one that pays.
+        foreach (ThingDefCountClass cost in figures.CostToMake ?? new List<ThingDefCountClass>())
+        {
+            int carried = CaravanInventoryUtility.AllInventoryItems(convoy).Where(t => t.def == cost.thingDef).Sum(t => t.stackCount);
+            if (carried < cost.count) return "PhobosGarage_RefusedCost".Translate(cost.count.Named("COUNT"), cost.thingDef.label.Named("THING"));
+        }
         int bays = GarageRule.Bays(staying.Count, figures.baysPerPerson, figures.maxBays);
         int vehicles = convoy.VehiclesListForReading.Count;
         if (vehicles > bays) return "PhobosGarage_RefusedTooManyVehicles".Translate(vehicles.Named("COUNT"), bays.Named("BAYS"));
@@ -98,7 +104,11 @@ public static class GarageService
         if (chosen.Count == 0) return "PhobosGarage_RefusedNoneChosen".Translate();
         if (caravan is VehicleCaravan { AerialVehicle: true }) return "PhobosGarage_RefusedAircraft".Translate();
         IEnumerable<Pawn> people = caravan is VehicleCaravan convoy ? convoy.AllPawnsAndVehiclePassengers : caravan.PawnsListForReading;
-        return people.Any(p => p.IsFreeColonist) ? null : "PhobosGarage_RefusedNoDriver".Translate();
+        if (!people.Any(p => p.IsFreeColonist)) return "PhobosGarage_RefusedNoDriver".Translate();
+        // Those already seated stay where they are (RoleHelper.Distribute takes only the people not in a vehicle); one seat short and the convoy cannot leave.
+        int seats = chosen.OfType<VehiclePawn>().Where(v => (v.MovementPermissions & VehiclePermissions.Autonomous) == 0).Sum(v => v.PawnCountToOperate);
+        int free = caravan.pawns.InnerListForReading.Count(p => p is not VehiclePawn && !p.Downed && !p.ShouldAlwaysTransferToVehiclesCargo());
+        return GarageRule.EnoughDrivers(seats, free) ? null : "PhobosGarage_RefusedTooFewDrivers".Translate(seats.Named("SEATS"), free.Named("PEOPLE"));
     }
 
     /// <summary>Hands the chosen vehicles to a caravan at the garage, in the order of steps Vehicle Framework uses to collect a stash.</summary>

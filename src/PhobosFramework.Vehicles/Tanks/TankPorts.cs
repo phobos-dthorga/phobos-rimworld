@@ -36,7 +36,7 @@ public class Port_Items : TankPort
     {
         reason = null;
         if (thing == null) return 0f;
-        int wanted = (int)(most / unitsPerItem);
+        int wanted = Phobos.Framework.Rules.TankRule.WholeItems(most, unitsPerItem, tank.Space);
         if (wanted <= 0)
         {
             reason = "PhobosVehicleSystems_TankFull".Translate().Resolve();
@@ -62,7 +62,7 @@ public class Port_Items : TankPort
     {
         reason = null;
         if (thing == null) return 0f;
-        int count = Math.Min((int)(most / unitsPerItem), thing.stackLimit);
+        int count = Math.Min(Phobos.Framework.Rules.TankRule.WholeItems(most, unitsPerItem, tank.Amount), thing.stackLimit);
         if (count <= 0)
         {
             // Dregs too small to make one item are lost, or a leaked tank could never be emptied.

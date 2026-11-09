@@ -221,6 +221,12 @@ public class CompPhobosTank : VehicleComp
         base.PostSpawnSetup(respawningAfterLoad);
         LongEventHandler.ExecuteWhenFinished(() =>
         {
+            // A tanker left set up with no tank by an earlier version: there is nothing to pack up, and no button to do it with.
+            if (deployed && Fitted == null)
+            {
+                deployed = false;
+                mode = TankPumpMode.Hold;
+            }
             if (deployed) ShowHoses(true);
             RedrawDamage();
         });
@@ -302,11 +308,16 @@ public class CompPhobosTank : VehicleComp
         AfterLoadChange();
     }
 
+    bool HeldBySetUp => TankRule.HoldsVehicle(deployed, Fitted != null);
+
+    /// <summary>Whether the shell is sound enough to be filled, by the pump or by a bulk order.</summary>
+    public bool ShellTakesLoad => TankRule.TakesLoad(Vehicle.GetStatValue(TankDefOf.Phobos_TankIntegrity), Props.integrityFloor);
+
     public override AcceptanceReport CanMove(FloatMenuContext context) =>
-        deployed ? "PhobosVehicleSystems_TankSetUpRefusal".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve() : base.CanMove(context);
+        HeldBySetUp ? "PhobosVehicleSystems_TankSetUpRefusal".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve() : base.CanMove(context);
 
     public override AcceptanceReport CanDraft() =>
-        deployed ? "PhobosVehicleSystems_TankSetUpRefusal".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve() : base.CanDraft();
+        HeldBySetUp ? "PhobosVehicleSystems_TankSetUpRefusal".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve() : base.CanDraft();
 
     public override void CompTickRare()
     {
@@ -465,7 +476,7 @@ public class CompPhobosTank : VehicleComp
         float rate = Vehicle.GetStatValue(TankDefOf.Phobos_PumpRate);
         if (mode == TankPumpMode.Load)
         {
-            if (Vehicle.GetStatValue(TankDefOf.Phobos_TankIntegrity) < Props.integrityFloor)
+            if (!ShellTakesLoad)
             {
                 pumpStatus = "PhobosVehicleSystems_TankHoled".Translate().Resolve();
                 return;

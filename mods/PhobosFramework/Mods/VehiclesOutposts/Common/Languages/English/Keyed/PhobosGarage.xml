@@ -25,6 +25,8 @@
   <PhobosGarage_RefusedTooManyVehicles>That would be {COUNT} vehicles, and there are only {BAYS} bays. More people stationed here means more bays.</PhobosGarage_RefusedTooManyVehicles>
   <PhobosGarage_RefusedNoneChosen>Choose at least one vehicle.</PhobosGarage_RefusedNoneChosen>
   <PhobosGarage_RefusedNoDriver>This caravan has nobody to drive them.</PhobosGarage_RefusedNoDriver>
+  <PhobosGarage_RefusedTooFewDrivers>Those vehicles need {SEATS} people to drive them, and this caravan has {PEOPLE} not already in a seat.</PhobosGarage_RefusedTooFewDrivers>
+  <PhobosGarage_RefusedCost>This convoy must carry {COUNT} {THING} to found a garage.</PhobosGarage_RefusedCost>
   <PhobosGarage_PackRefused>Vehicles are still parked here. Take them out first.</PhobosGarage_PackRefused>
 
   <PhobosGarage_InspectBays>Vehicles parked: {USED} of {BAYS} bays</PhobosGarage_InspectBays>
