@@ -88,6 +88,12 @@ def bolt(draw):
     draw.polygon([(290, 110), (180, 280), (250, 280), (216, 402), (340, 230), (268, 230)], fill=YELLOW, outline=OUTLINE)
 
 
+def tip_icon(draw):
+    draw.polygon([(120, 300), (360, 140), (400, 200), (160, 360)], fill=STEEL, outline=OUTLINE)
+    for x, y in ((120, 380), (190, 400), (90, 410)):
+        draw.ellipse((x - 24, y - 24, x + 24, y + 24), fill=DARK, outline=OUTLINE, width=8)
+
+
 def drop(draw):
     draw.polygon([(256, 110), (350, 270), (162, 270)], fill=RED, outline=OUTLINE)
     draw.ellipse((162, 190, 350, 390), fill=RED, outline=OUTLINE, width=12)
@@ -116,6 +122,14 @@ def main():
         ('WellDrillingKit', DARK, drop, 'a drop of oil'),
     ):
         icon(upgrades / f'{key}.png', badge(colour, mark), what)
+    upgrades = VEHICLES / 'Tipper/Upgrades'
+    for key, colour, mark, what in (
+        ('HighSides', OLIVE, bars, 'three tall bars'),
+        ('RockBody', DARK, hammer_icon, 'a thick block'),
+        ('BulkBody', BLUE, mast_icon, 'a long body'),
+    ):
+        icon(upgrades / f'{key}.png', badge(colour, mark), what)
+    icon(STATIONS / 'Tip.png', badge(ORANGE, tip_icon), 'a tilted body shedding its load')
     icon(STATIONS / 'SurveyLongRange.png', badge(BLUE, dish_icon), 'a dish')
     icon(STATIONS / 'SurveyArray.png', badge(ORANGE, bars), 'three bars')
     icon(STATIONS / 'PowerPoint.png', badge(DARK, bolt), 'a junction box with a lightning bolt', 64)

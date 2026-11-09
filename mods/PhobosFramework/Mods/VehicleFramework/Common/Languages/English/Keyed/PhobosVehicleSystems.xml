@@ -440,4 +440,20 @@
   <PhobosVehicleSystems_WellDone>{VEHICLE} has finished the well. Build a derrick over the well head to pump it.</PhobosVehicleSystems_WellDone>
   <PhobosVehicleSystems_GroundwaterLine>Best water nearby is marked: {VALUE} in the shallow and deep layers together.</PhobosVehicleSystems_GroundwaterLine>
   <PhobosVehicleSystems_GroundwaterNone>No water under the ground within reach.</PhobosVehicleSystems_GroundwaterNone>
+
+  <PhobosVehicleSystems_TipGizmo>Tip</PhobosVehicleSystems_TipGizmo>
+  <PhobosVehicleSystems_TipGizmoStop>Stop tipping</PhobosVehicleSystems_TipGizmoStop>
+  <PhobosVehicleSystems_TipGizmoDesc>Raise the body and tip everything in the cargo onto the ground behind the truck, inside the outlined area. It cannot move while it tips. Whatever will not fit stays aboard.</PhobosVehicleSystems_TipGizmoDesc>
+  <PhobosVehicleSystems_TipHeld>{VEHICLE} is tipping. Stop it first.</PhobosVehicleSystems_TipHeld>
+  <PhobosVehicleSystems_TipNotOnMap>It can only tip on a map.</PhobosVehicleSystems_TipNotOnMap>
+  <PhobosVehicleSystems_TipEmpty>There is nothing aboard to tip.</PhobosVehicleSystems_TipEmpty>
+  <PhobosVehicleSystems_TipStopFirst>{VEHICLE} has a driver at the wheel. Undraft it first.</PhobosVehicleSystems_TipStopFirst>
+  <PhobosVehicleSystems_TipNoDriver>{VEHICLE} needs a driver aboard to work the body.</PhobosVehicleSystems_TipNoDriver>
+  <PhobosVehicleSystems_TipNoFuel>The engine has no fuel to lift the body.</PhobosVehicleSystems_TipNoFuel>
+  <PhobosVehicleSystems_TipControls>The body will not lift: the tip controls are wrecked.</PhobosVehicleSystems_TipControls>
+  <PhobosVehicleSystems_TipFull>The ground behind it is full. {COUNT} stacks stay aboard.</PhobosVehicleSystems_TipFull>
+  <PhobosVehicleSystems_TipStopped>The body has come down: the engine or the controls have failed.</PhobosVehicleSystems_TipStopped>
+  <PhobosVehicleSystems_TipStarted>{VEHICLE} is raising its body.</PhobosVehicleSystems_TipStarted>
+  <PhobosVehicleSystems_TipDone>{VEHICLE} put down {COUNT} stacks.</PhobosVehicleSystems_TipDone>
+  <PhobosVehicleSystems_TipLine>Tipping: {COUNT} stacks still aboard.</PhobosVehicleSystems_TipLine>
 </LanguageData>

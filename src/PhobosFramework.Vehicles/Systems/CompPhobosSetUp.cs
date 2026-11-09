@@ -47,6 +47,19 @@ public abstract class CompPhobosSetUp : VehicleComp
         return !map.mapPawns.AllPawnsSpawned.Any(p => p is VehiclePawn other && other != Vehicle && other.OccupiedRect().Contains(cell));
     }
 
+    /// <summary>The cell just behind the middle of the vehicle.</summary>
+    public IntVec3 RearCell
+    {
+        get
+        {
+            CellRect footprint = Vehicle.OccupiedRect();
+            IntVec3 rear = -Vehicle.Rotation.FacingCell;
+            IntVec3 cell = Vehicle.Position;
+            while (footprint.Contains(cell)) cell += rear;
+            return cell;
+        }
+    }
+
     /// <summary>The best cell beside the vehicle for a small fitting: touching a conduit if one is there, or else invalid if none is clear.</summary>
     public IntVec3 BestAdjacentCell()
     {

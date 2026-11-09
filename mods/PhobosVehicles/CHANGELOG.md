@@ -5,6 +5,16 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.21.0] - 2026-11-09 - Draft
+
+### Added
+
+- The tipper truck: carries 2,400 kg and tips its whole cargo onto the ground behind it with one button, with upgrades for high sides, a rock body or a bulk body. It looks like the bulk tanker until it has its own picture. Not yet tested in game.
+
+### Dependencies
+
+- Needs D'thorga Framework 0.49.0.
+
 ## [0.20.0] - 2026-11-09 - Draft
 
 ### Added

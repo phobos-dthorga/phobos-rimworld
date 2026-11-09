@@ -1,6 +1,8 @@
 # The tipper hauler: design (9 Nov 2026)
 
-**A design record. Nothing is built. Not yet tested in game. Agent-authored for the owner to confirm;** every figure is authored unless a line
+**Built in D'thorga Framework 0.49.0 and D'thorga Vehicles 0.21.0. It borrows the bulk tanker's picture until it has its own (owner, 9 Nov 2026), so no raised-body or body-upgrade look shows yet. Not yet tested in game.** The owner chose to build it on 9 Nov 2026 without the Rails and Roads stone test, which still decides only whether it can serve as a road builder's wagon. What was built differs from what follows: there is no `WorkLights` node, because nothing yet lights a moving vehicle's surroundings and the node would move no figure; the load comes off a few things every rare tick rather than one at a time; and the tip picks its own cells, leaving out buildings entirely.
+
+**The design as written, agent-authored for the owner to confirm;** every figure is authored unless a line
 says "from the code" (with its file and line) or "secondary". It replaces the tipper sketch in [the utility vehicles design](utility-vehicles-design.md)
 and follows the shape of that record's bulk tanker. `VF.cs` below is our decompile of Vehicle Framework's 1.6 build (`Vehicles.decompiled.cs`).
 

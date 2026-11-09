@@ -5,6 +5,12 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.49.0] - 2026-11-09 - Draft
+
+### Added
+
+- What a tipping truck needs: a button that tips a vehicle's whole cargo into a half-circle behind it. D'thorga Vehicles' tipper truck is the first to use it. Not yet tested in game.
+
 ## [0.48.0] - 2026-11-09 - Draft
 
 ### Added

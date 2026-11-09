@@ -4,7 +4,7 @@ Vehicles that keep running only while they are looked after. It adds one vehicle
 vehicles of other mods you already drive the systems that match what they really are, on top of the general systems D'thorga
 Framework gives every vehicle.
 
-Version 0.20.0, built 9 November 2026 for House D'thorga. **Not yet tested in game.**
+Version 0.21.0, built 9 November 2026 for House D'thorga. **Not yet tested in game.**
 
 ## Read this first (gotchas)
 
@@ -131,10 +131,18 @@ Every source and simplification is in the loadout files under `Mods/`.
 - **With Rimefeller, the oil well kit** sinks a well at the hole when no ore is in reach, using steel from the rig's cargo and needing what a derrick needs (a working console, or a scanner or set-up survey truck for deep oil). It leaves a well head: **build a derrick over it to pump.**
 - **With Vanilla Chemfuel Expanded, the deepchem head** raises deepchem into a 300-unit buffer, at a pumpjack's rate at best. **Without the head, the rig leaves deepchem in the ground.** To empty the buffer, park a tanker with a deepchem tank within reach of its hose, set up and loading, or lay a deepchem pipe up to the rig. It never comes up as items.
 
-## Coming later
+## The tipper truck
 
-More utility vehicles of our own, each with a part for every job and an upgrade tree of its own: a
-tipper hauler ([the design](../../docs/development/utility-vehicles-design.md)).
+**Not yet tested in game. It looks like the bulk tanker until it has its own picture.** A heavy truck that carries 2,400 kg and puts it all down in one go.
+
+- **Build it** from the **motor pool** tab, after Machining and Electricity.
+- **Load it** through its ordinary cargo window: 96 granite chunks, or 4,800 steel.
+- **With a driver aboard and undrafted, press Tip.** Everything in its cargo lands inside the outlined half-circle behind it, and **that includes any spare parts you loaded**. Whatever will not fit stays aboard, and it tells you how many.
+- **Upgrades:** high sides (+600 kg), and either a rock body (tips half as fast again) or a bulk body (3,600 kg, tips slower).
+
+## How the trucks work together
+
+The survey truck finds it, the drill rig brings it up, the tipper hauls the ore, the tanker carries the fluids and the generator set powers the camp ([the design](../../docs/development/utility-vehicles-design.md)).
 
 ## For modders
 

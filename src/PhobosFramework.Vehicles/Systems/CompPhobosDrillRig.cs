@@ -115,17 +115,7 @@ public sealed class CompPhobosDrillRig : CompPhobosRigWork
     }
 
     /// <summary>The cell behind the middle of the truck that the string goes down.</summary>
-    public IntVec3 Hole
-    {
-        get
-        {
-            CellRect footprint = Vehicle.OccupiedRect();
-            IntVec3 rear = -Vehicle.Rotation.FacingCell;
-            IntVec3 cell = Vehicle.Position;
-            while (footprint.Contains(cell)) cell += rear;
-            return cell;
-        }
-    }
+    public IntVec3 Hole => RearCell;
 
     protected override IntVec3 WorkSpot => Hole;
 

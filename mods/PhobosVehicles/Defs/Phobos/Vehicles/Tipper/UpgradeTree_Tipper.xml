@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- The tipper's upgrades (docs/development/vehicle-tipper-hauler.md). Figures and costs authored. Node keys are saved in the game: never rename or remove one. Not yet tested in game. -->
+  <Vehicles.UpgradeTreeDef>
+    <defName>Phobos_Tipper_UpgradeTree</defName>
+    <nodes>
+    <li>
+      <key>HighSides</key>
+      <label>high sides</label>
+      <displayLabel>true</displayLabel>
+      <description>Taller side boards: 600 kg more of anything.</description>
+      <icon>Phobos/Vehicles/Tipper/Upgrades/HighSides</icon>
+      <work>1500</work>
+      <gridCoordinate>(2, 6)</gridCoordinate>
+      <drawSize>(80, 80)</drawSize>
+      <upgrades>
+        <li Class="Vehicles.StatUpgrade">
+          <vehicleStats>
+            <li>
+              <def>CargoCapacity</def>
+              <value>600</value>
+            </li>
+          </vehicleStats>
+        </li>
+      </upgrades>
+      <ingredients>
+        <Steel>60</Steel>
+      </ingredients>
+    </li>
+    <li>
+      <key>RockBody</key>
+      <label>rock body</label>
+      <displayLabel>true</displayLabel>
+      <description>A short, steep body with a thick floor. It carries the same, but sheds its load half as fast again.</description>
+      <icon>Phobos/Vehicles/Tipper/Upgrades/RockBody</icon>
+      <work>3000</work>
+      <gridCoordinate>(7, 6)</gridCoordinate>
+      <drawSize>(80, 80)</drawSize>
+      <researchPrerequisites>
+        <li>Machining</li>
+      </researchPrerequisites>
+      <disableIfUpgradeNodesEnabled>
+        <li>BulkBody</li>
+      </disableIfUpgradeNodesEnabled>
+      <upgrades>
+        <li Class="Vehicles.StatUpgrade">
+          <vehicleStats>
+            <li>
+              <def>Phobos_TipRate</def>
+              <value>1</value>
+            </li>
+          </vehicleStats>
+        </li>
+      </upgrades>
+      <ingredients>
+        <Steel>120</Steel>
+        <ComponentIndustrial>4</ComponentIndustrial>
+      </ingredients>
+    </li>
+    <li>
+      <key>BulkBody</key>
+      <label>bulk body</label>
+      <displayLabel>true</displayLabel>
+      <description>A long, shallow body: 3,600 kg before any high sides, for ore and steel, but it tips slower.</description>
+      <icon>Phobos/Vehicles/Tipper/Upgrades/BulkBody</icon>
+      <work>3000</work>
+      <gridCoordinate>(12, 6)</gridCoordinate>
+      <drawSize>(80, 80)</drawSize>
+      <researchPrerequisites>
+        <li>Machining</li>
+      </researchPrerequisites>
+      <disableIfUpgradeNodesEnabled>
+        <li>RockBody</li>
+      </disableIfUpgradeNodesEnabled>
+      <upgrades>
+        <li Class="Vehicles.StatUpgrade">
+          <vehicleStats>
+            <li>
+              <def>CargoCapacity</def>
+              <value>1200</value>
+            </li>
+            <li>
+              <def>Phobos_TipRate</def>
+              <value>-0.5</value>
+            </li>
+          </vehicleStats>
+        </li>
+      </upgrades>
+      <ingredients>
+        <Steel>150</Steel>
+        <ComponentIndustrial>4</ComponentIndustrial>
+      </ingredients>
+    </li>
+    </nodes>
+  </Vehicles.UpgradeTreeDef>
+</Defs>

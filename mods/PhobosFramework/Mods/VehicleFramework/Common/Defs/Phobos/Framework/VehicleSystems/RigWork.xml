@@ -212,6 +212,21 @@
       <li>Land</li>
     </showOnVehicleTypes>
   </Vehicles.VehicleStatDef>
+  <Vehicles.VehicleStatDef>
+    <defName>Phobos_TipRate</defName>
+    <label>tip rate</label>
+    <description>How many things come off the back each second while it tips.</description>
+    <category>VehicleBasics</category>
+    <defaultBaseValue>0</defaultBaseValue>
+    <minValue>0</minValue>
+    <toStringStyle>FloatOne</toStringStyle>
+    <formatString>{0} a second</formatString>
+    <operationType>Average</operationType>
+    <upgradeEffectType>Positive</upgradeEffectType>
+    <showOnVehicleTypes>
+      <li>Land</li>
+    </showOnVehicleTypes>
+  </Vehicles.VehicleStatDef>
   <!-- Plugs a set-up vehicle into a grid: wires to a conduit or generator within 6 cells, as any building does. A plain power user, because the game only connects those. -->
   <ThingDef ParentName="BuildingBase">
     <defName>Phobos_PowerPoint</defName>
