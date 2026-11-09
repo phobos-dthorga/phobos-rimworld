@@ -59,9 +59,16 @@ def surface(draw):
     arrow(draw, 256, 330, 490, False)
 
 
+def stay_down(draw):
+    water_line(draw, 120)
+    hull(draw, 340)
+    draw.rounded_rectangle((110, 188, 402, 244), radius=14, fill=ORANGE, outline=OUTLINE, width=LINE)
+
+
 ICONS = [
     ('Dive', dive, 'a submarine below a wave line with an orange arrow pointing down'),
     ('Surface', surface, 'a submarine above a wave line with an orange arrow pointing up'),
+    ('StayDown', stay_down, 'a submarine below a wave line with an orange bar between them'),
 ]
 
 

@@ -6,6 +6,7 @@ using RimWorld.Planet;
 using Vehicles;
 using Vehicles.World;
 using Verse;
+using Verse.AI;
 
 namespace Phobos.VehicleSystems;
 
@@ -14,6 +15,7 @@ public static class SubmersibleDefOf
 {
     public static VehicleStatDef Phobos_DiveEndurance = null!;
     public static VehicleStatDef Phobos_DiveControl = null!;
+    public static HediffDef Phobos_StaleAir = null!;
 
     static SubmersibleDefOf() => DefOfHelper.EnsureInitializedInCtor(typeof(SubmersibleDefOf));
 }
@@ -39,8 +41,24 @@ public class CompProperties_PhobosSubmersible : VehicleCompProperties
     public float damageFactor = 0.5f;
     /// <summary>Water deep enough to dive in, besides the water nobody can wade.</summary>
     public List<TerrainDef>? alsoDeepEnough;
+    /// <summary>Whether this design is small enough to hide in chest-deep water and, on the world map, in rivers. A midget boat would say yes.</summary>
+    public bool divesInChestDeepWater;
     /// <summary>Turrets, by key, that may fire from below, such as torpedo tubes. Every other turret is held while under.</summary>
     public List<string>? turretsThatFireBelow;
+    /// <summary>How far away, in cells, anyone can spot a hull that is under.</summary>
+    public float spotRange = 25f;
+    /// <summary>The chance per look, about every four seconds, that one watcher right above the hull spots it.</summary>
+    public float spotChance = 0.02f;
+    /// <summary>How many times easier it is to spot on the move.</summary>
+    public float movingSpotFactor = 3f;
+    /// <summary>What is left of a watcher's sight on the darkest night, as a share of daylight.</summary>
+    public float darkSpotFloor = 0.5f;
+    /// <summary>How noisy and easy to see this design is: below 1 is quieter. An upgrade or a small hull would lower it.</summary>
+    public float noise = 1f;
+    /// <summary>How long watchers follow a hull after last spotting it.</summary>
+    public float trackedSeconds = 30f;
+    /// <summary>How fast the crew's stale air builds, per hour, once they stay down with nothing left. The body clears a tenth an hour, so the default gains a fifth an hour.</summary>
+    public float staleAirPerHour = 0.3f;
 
     public CompProperties_PhobosSubmersible() => compClass = typeof(CompPhobosSubmersible);
 }
@@ -59,10 +77,17 @@ public class CompPhobosSubmersible : VehicleComp
     int phaseStartTick;
     float reserve = Unset;
     int lastAdvanceTick = NeverRun;
+    int trackedUntilTick;
+    bool spottedTold;
+    bool stayDown;
 
     public CompProperties_PhobosSubmersible Props => (CompProperties_PhobosSubmersible)props;
     public DivePhase Phase => phase;
     public bool Hidden => DiveRule.Hidden(phase);
+    /// <summary>Whether watchers know where this hull is: only then can it be seen or aimed at.</summary>
+    public bool Tracked => Hidden && DiveRule.Tracked(Find.TickManager.TicksGame, trackedUntilTick);
+    /// <summary>Whether the crew has been told to stay under after the air and charge run out.</summary>
+    public bool StayDown => stayDown;
     public float Capacity => Vehicle.GetStatValue(SubmersibleDefOf.Phobos_DiveEndurance);
     public float Reserve => reserve < 0f ? Capacity : reserve;
     float Control => Vehicle.GetStatValue(SubmersibleDefOf.Phobos_DiveControl);
@@ -74,7 +99,7 @@ public class CompPhobosSubmersible : VehicleComp
     bool Reaches(DamageDef def) => Props.damageThatReaches.NullOrEmpty() ? def == DamageDefOf.Bomb : Props.damageThatReaches!.Contains(def);
 
     /// <summary>Water deep enough to hide a hull: what nobody can wade, or what the design adds.</summary>
-    bool DeepEnough(TerrainDef terrain) => (terrain.IsWater && terrain.passability == Traversability.Impassable) || (Props.alsoDeepEnough?.Contains(terrain) ?? false);
+    bool DeepEnough(TerrainDef terrain) => DiveRule.DeepEnough(terrain.IsWater, terrain.passability == Traversability.Impassable, terrain.pathCost, Props.divesInChestDeepWater) || (Props.alsoDeepEnough?.Contains(terrain) ?? false);
 
     bool DeepEnoughHere
     {
@@ -85,7 +110,12 @@ public class CompPhobosSubmersible : VehicleComp
         }
     }
 
-    static bool TileDeepEnough(VehicleCaravan caravan) => Find.WorldGrid[caravan.Tile].WaterCovered;
+    /// <summary>Open water hides a caravan, and so does a river for a design small enough to use one.</summary>
+    bool TileDeepEnough(VehicleCaravan caravan)
+    {
+        var tile = Find.WorldGrid[caravan.Tile];
+        return tile.WaterCovered || (Props.divesInChestDeepWater && tile is SurfaceTile { Rivers.Count: > 0 });
+    }
 
     /// <summary>The worst of the parts that keep it trimmed, for telling the player which one to mend.</summary>
     string WeakestPartLabel => Vehicle.statHandler.components
@@ -108,7 +138,9 @@ public class CompPhobosSubmersible : VehicleComp
     /// <summary>Why a boat that is going or gone must come up now, or null.</summary>
     string? MustComeUp()
     {
-        if (Reserve <= 0f) return "PhobosSubmersible_UpEmpty".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve();
+        if (DiveRule.EmptyForcesUp(Reserve, stayDown)) return "PhobosSubmersible_UpEmpty".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve();
+        // Nobody left to work the boat: the tanks blow by themselves, or a boat full of unconscious people would sit out of sight for ever.
+        if (!Vehicle.HasEnoughOperators) return "PhobosSubmersible_UpCrew".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve();
         if (Control < Props.controlFloor) return "PhobosSubmersible_UpPart".Translate(Vehicle.LabelShort.Named("VEHICLE"), WeakestPartLabel.Named("PART")).Resolve();
         bool deep = Vehicle.Spawned ? DeepEnoughHere : Caravan is not { } caravan || TileDeepEnough(caravan);
         return deep ? null : "PhobosSubmersible_UpShallow".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve();
@@ -118,7 +150,86 @@ public class CompPhobosSubmersible : VehicleComp
     {
         phase = next;
         phaseStartTick = Find.TickManager.TicksGame;
+        if (next != DivePhase.Submerged) LoseWatchers();
         SyncHidden();
+    }
+
+    /// <summary>Nobody is following it any more, because it is in plain sight or has left the map. Nothing to tell the player.</summary>
+    void LoseWatchers()
+    {
+        trackedUntilTick = 0;
+        spottedTold = false;
+    }
+
+    /// <summary>Watchers know where this hull is, for a while. The one way a hull becomes spotted, so sonar and the like can call it too.</summary>
+    public void Spot()
+    {
+        if (!Hidden) return;
+        trackedUntilTick = Find.TickManager.TicksGame + (int)(Props.trackedSeconds * TicksPerSecond);
+        if (spottedTold) return;
+        spottedTold = true;
+        Tell("PhobosSubmersible_Spotted".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve(), MessageTypeDefOf.NegativeEvent);
+    }
+
+    float WatcherVisibility
+    {
+        get
+        {
+            Map map = Vehicle.Map;
+            return DiveRule.Visibility(map.weatherManager.CurWeatherAccuracyMultiplier, map.skyManager.CurSkyGlow, Props.darkSpotFloor);
+        }
+    }
+
+    /// <summary>Whether this watcher, awake and with a clear line, can see the hull at all. A hull that is itself under, or anyone downed, asleep or switched off, counts as no threat and so as no watcher.</summary>
+    bool CanWatch(IAttackTarget watcher) => !watcher.ThreatDisabled(null) && watcher.Thing.Position.DistanceTo(Vehicle.Position) < Props.spotRange && GenSight.LineOfSightToThing(watcher.Thing.Position, Vehicle, Vehicle.Map);
+
+    /// <summary>A hull seen going down is followed under: the way to get away is to dive out of sight.</summary>
+    void CheckSeenGoingDown()
+    {
+        if (Vehicle.Spawned && Vehicle.Map.attackTargetsCache.GetPotentialTargetsFor(Vehicle).Any(CanWatch)) Spot();
+    }
+
+    /// <summary>One look by everyone hostile on the map. More eyes give more chances. The line of sight, the costly part, is checked only for a watcher who would have spotted it.</summary>
+    void Watch()
+    {
+        bool moving = Moving;
+        float visibility = WatcherVisibility;
+        IntVec3 at = Vehicle.Position;
+        foreach (IAttackTarget watcher in Vehicle.Map.attackTargetsCache.GetPotentialTargetsFor(Vehicle))
+        {
+            float chance = DiveRule.SpotChance(Props.spotChance, watcher.Thing.Position.DistanceTo(at), Props.spotRange, moving, Props.movingSpotFactor, visibility, Props.noise);
+            if (chance <= 0f || !Rand.Chance(chance) || !CanWatch(watcher)) continue;
+            Spot();
+            return;
+        }
+        if (!spottedTold || Tracked) return;
+        spottedTold = false;
+        Tell("PhobosSubmersible_Lost".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve(), MessageTypeDefOf.NeutralEvent);
+    }
+
+    /// <summary>Whether this searcher must leave the hull alone: anyone must until it is spotted, and after that anyone whose weapon cannot reach it, so a spotted boat does not soak up gunfire that could never hurt it.</summary>
+    public bool OutOfReachOf(IAttackTargetSearcher? searcher)
+    {
+        if (!Tracked || searcher?.CurrentEffectiveVerb is not { } verb) return true;
+        // Combat Extended's guns are not the game's projectile verbs, so its default shell stands in.
+        ThingDef? shot = verb.GetProjectile() ?? verb.verbProps.defaultProjectile;
+        return shot?.projectile == null || !Reaches(shot.projectile.damageDef);
+    }
+
+    /// <summary>Sets the standing order to stay under after the air and charge run out, and says so.</summary>
+    public void SetStayDown(bool on)
+    {
+        stayDown = on;
+        Tell((on ? "PhobosSubmersible_ToldStayDown" : "PhobosSubmersible_ToldComeUpWhenEmpty").Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve(), MessageTypeDefOf.SilentInput);
+    }
+
+    void BreatheStaleAir(float hours)
+    {
+        float amount = hours * Props.staleAirPerHour;
+        foreach (Pawn pawn in Vehicle.AllPawnsAboard.ToList())
+        {
+            if (!pawn.Dead && pawn.RaceProps.IsFlesh) HealthUtility.AdjustSeverity(pawn, SubmersibleDefOf.Phobos_StaleAir, amount);
+        }
     }
 
     void SyncHidden() => Submersibles.SetHidden(Vehicle, Vehicle.Spawned && Hidden);
@@ -166,12 +277,20 @@ public class CompPhobosSubmersible : VehicleComp
         int elapsed = now - lastAdvanceTick;
         if (elapsed <= 0) return;
         lastAdvanceTick = now;
-        reserve = DiveRule.ReserveAfter(Reserve, Capacity, elapsed / (float)GenDate.TicksPerHour, phase, Moving, Props.moveBurnFactor, Props.rechargeFactor);
+        float hours = elapsed / (float)GenDate.TicksPerHour;
+        float before = Reserve;
+        reserve = DiveRule.ReserveAfter(before, Capacity, hours, phase, Moving, Props.moveBurnFactor, Props.rechargeFactor);
+        if (DiveRule.BreathingStaleAir(phase, before, stayDown)) BreatheStaleAir(hours);
+        else if (before > 0f && DiveRule.BreathingStaleAir(phase, reserve, stayDown)) Tell("PhobosSubmersible_EmptyStayingDown".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve(), MessageTypeDefOf.ThreatSmall);
         DivePhase settled = DiveRule.Settled(phase, now - phaseStartTick, TicksToSettle);
         if (settled != phase)
         {
             SetPhase(settled);
-            if (settled == DivePhase.Submerged) Tell("PhobosSubmersible_ToldUnder".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve(), MessageTypeDefOf.SilentInput);
+            if (settled == DivePhase.Submerged)
+            {
+                Tell("PhobosSubmersible_ToldUnder".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve(), MessageTypeDefOf.SilentInput);
+                CheckSeenGoingDown();
+            }
         }
         if (DiveRule.GoingOrGone(phase) && MustComeUp() is { } because) Surface(because);
     }
@@ -184,6 +303,8 @@ public class CompPhobosSubmersible : VehicleComp
     {
         float left = DiveRule.DamageBelow(dinfo.Amount, Reaches(dinfo.Def), Props.damageFactor);
         if (left <= 0f) return true;
+        // A blast close enough to hurt shows where the hull is: oil, air and wreckage come up.
+        Spot();
         dinfo.SetAmount(left);
         return false;
     }
@@ -202,6 +323,7 @@ public class CompPhobosSubmersible : VehicleComp
     public override void PostDeSpawn(Map map, DestroyMode mode = DestroyMode.Vanish)
     {
         Submersibles.SetHidden(Vehicle, false);
+        LoseWatchers();
         base.PostDeSpawn(map, mode);
     }
 
@@ -209,6 +331,7 @@ public class CompPhobosSubmersible : VehicleComp
     {
         base.CompTickRare();
         Advance();
+        if (Hidden && Vehicle.Spawned) Watch();
     }
 
     public override void PostExposeData()
@@ -218,12 +341,15 @@ public class CompPhobosSubmersible : VehicleComp
         Scribe_Values.Look(ref phaseStartTick, "PhobosDivePhaseStart");
         Scribe_Values.Look(ref reserve, "PhobosDiveReserve", Unset);
         Scribe_Values.Look(ref lastAdvanceTick, "PhobosDiveLastAdvance", NeverRun);
+        Scribe_Values.Look(ref trackedUntilTick, "PhobosDiveTrackedUntil");
+        Scribe_Values.Look(ref spottedTold, "PhobosDiveSpottedTold");
+        Scribe_Values.Look(ref stayDown, "PhobosDiveStayDown");
     }
 
     string PhaseLabel => phase switch
     {
         DivePhase.Diving => "PhobosSubmersible_PhaseDiving".Translate().Resolve(),
-        DivePhase.Submerged => "PhobosSubmersible_PhaseUnder".Translate().Resolve(),
+        DivePhase.Submerged => (Tracked ? "PhobosSubmersible_PhaseUnderSpotted" : "PhobosSubmersible_PhaseUnder").Translate().Resolve(),
         DivePhase.Surfacing => "PhobosSubmersible_PhaseSurfacing".Translate().Resolve(),
         _ => "PhobosSubmersible_PhaseSurfaced".Translate().Resolve(),
     };
@@ -242,5 +368,6 @@ public class CompPhobosSubmersible : VehicleComp
             if (DiveRule.GoingOrGone(phase)) Surface();
             else TryDive();
         });
+        yield return Submersibles.StayDownGizmo(stayDown, Props, () => SetStayDown(!stayDown));
     }
 }

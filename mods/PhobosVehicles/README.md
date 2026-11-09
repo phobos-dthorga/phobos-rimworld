@@ -4,7 +4,7 @@ Vehicles that keep running only while they are looked after. It adds one vehicle
 vehicles of other mods you already drive the systems that match what they really are, on top of the general systems D'thorga
 Framework gives every vehicle.
 
-Version 0.25.0, built 9 November 2026 for House D'thorga. **Not yet tested in game.**
+Version 0.26.0, built 10 November 2026 for House D'thorga. **Not yet tested in game.**
 
 ## Read this first (gotchas)
 
@@ -144,7 +144,7 @@ Every source and simplification is in the loadout files under `Mods/`.
 
 ## The submarine test hull
 
-**Not a finished vehicle, and it cannot be built.** In dev mode, the debug action "Vehicle systems: spawn a submersible" places one, crewed, for trying out D'thorga Framework's diving. It borrows the bulk tanker's picture, so it looks like a truck on the water. Not yet tested in game.
+**Not a finished vehicle, and it cannot be built.** In dev mode, the debug action "Vehicle systems: spawn a submersible" places one, crewed, for trying out D'thorga Framework's diving, in deep or chest-deep water. It borrows the bulk tanker's picture, so it looks like a truck on the water. Not yet tested in game.
 
 ## How the trucks work together
 

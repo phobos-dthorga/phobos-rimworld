@@ -6,19 +6,20 @@ using RimWorld.Planet;
 using Vehicles;
 using Vehicles.World;
 using Verse;
+using Verse.AI;
 
 namespace Phobos.VehicleSystems;
 
 // Vehicle Framework has no depth and no hook for any of these (docs/development/submarine-framework.md lists what was read). Each patch asks one
 // question of Submersibles, and each costs one empty check while no boat is under.
 
-/// <summary>Nobody picks a hull that is under as a target. Vehicle Framework's own postfix counts any crewed vehicle as a threat, and its comp hook can only add to that, so this has to be a patch. A postfix.</summary>
+/// <summary>Nobody picks a hull that is under as a target until it is spotted, and then only someone whose weapon can reach it. Vehicle Framework's own postfix counts any crewed vehicle as a threat, and its comp hook can only add to that, so this has to be a patch. A postfix.</summary>
 [HarmonyPatch(typeof(Pawn), nameof(Pawn.ThreatDisabled))]
 public static class SubmersibleNotAThreat
 {
-    public static void Postfix(Pawn __instance, ref bool __result)
+    public static void Postfix(Pawn __instance, IAttackTargetSearcher disabledFor, ref bool __result)
     {
-        if (!__result && Submersibles.AnyHidden && __instance is VehiclePawn vehicle && Submersibles.IsHidden(vehicle)) __result = true;
+        if (!__result && Submersibles.AnyHidden && __instance is VehiclePawn vehicle && Submersibles.IsHidden(vehicle) && Submersibles.OutOfReach(vehicle, disabledFor)) __result = true;
     }
 }
 

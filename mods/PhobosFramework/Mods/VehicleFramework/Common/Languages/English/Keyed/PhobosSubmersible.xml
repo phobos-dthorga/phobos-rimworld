@@ -4,9 +4,12 @@
 
   <!-- Buttons -->
   <PhobosSubmersible_GizmoDive>Dive</PhobosSubmersible_GizmoDive>
-  <PhobosSubmersible_GizmoDiveDesc>Flood the ballast tanks and go under, which takes {SECONDS} seconds. Under the water nothing can see the boat or shoot at it, and only an explosion can reach it. It cannot fire most of its guns or land anyone, and it runs down its air and charge, faster on the move.</PhobosSubmersible_GizmoDiveDesc>
+  <PhobosSubmersible_GizmoDiveDesc>Flood the ballast tanks and go under, which takes {SECONDS} seconds. Anyone watching as it goes down will follow it. Once out of sight it can be spotted only by someone near and looking, more easily on the move, and even then only an explosion can reach it. It cannot fire most of its guns or land anyone, and it runs down its air and charge, faster on the move.</PhobosSubmersible_GizmoDiveDesc>
   <PhobosSubmersible_GizmoSurface>Surface</PhobosSubmersible_GizmoSurface>
   <PhobosSubmersible_GizmoSurfaceDesc>Blow the tanks and come up, which takes {SECONDS} seconds. The boat can be seen from the moment it starts to rise. On the surface it takes on air and charges up again.</PhobosSubmersible_GizmoSurfaceDesc>
+
+  <PhobosSubmersible_GizmoStayDown>Stay down</PhobosSubmersible_GizmoStayDown>
+  <PhobosSubmersible_GizmoStayDownDesc>When this is on, the boat stays under after its air and charge run out, instead of coming up. The crew then breathes stale air and gets steadily worse, and it can kill. If nobody aboard can work the boat, it comes up by itself.</PhobosSubmersible_GizmoStayDownDesc>
 
   <!-- What the boat is doing -->
   <PhobosSubmersible_Line>{STATE}. Air and charge: {LEFT} of {FULL} hours.</PhobosSubmersible_Line>
@@ -14,12 +17,20 @@
   <PhobosSubmersible_PhaseSurfaced>On the surface</PhobosSubmersible_PhaseSurfaced>
   <PhobosSubmersible_PhaseDiving>Flooding the tanks</PhobosSubmersible_PhaseDiving>
   <PhobosSubmersible_PhaseUnder>Under the water</PhobosSubmersible_PhaseUnder>
+  <PhobosSubmersible_PhaseUnderSpotted>Under the water, and being followed</PhobosSubmersible_PhaseUnderSpotted>
   <PhobosSubmersible_PhaseSurfacing>Blowing the tanks</PhobosSubmersible_PhaseSurfacing>
 
   <!-- What an order did -->
   <PhobosSubmersible_ToldDiving>{VEHICLE} is flooding its tanks.</PhobosSubmersible_ToldDiving>
   <PhobosSubmersible_ToldUnder>{VEHICLE} is under the water.</PhobosSubmersible_ToldUnder>
   <PhobosSubmersible_ToldSurfacing>{VEHICLE} is coming up.</PhobosSubmersible_ToldSurfacing>
+  <PhobosSubmersible_ToldStayDown>{VEHICLE} will stay under even when its air and charge run out.</PhobosSubmersible_ToldStayDown>
+  <PhobosSubmersible_ToldComeUpWhenEmpty>{VEHICLE} will come up when its air and charge run out.</PhobosSubmersible_ToldComeUpWhenEmpty>
+
+  <!-- Being found -->
+  <PhobosSubmersible_Spotted>{VEHICLE} has been spotted under the water.</PhobosSubmersible_Spotted>
+  <PhobosSubmersible_Lost>The enemy has lost track of {VEHICLE}.</PhobosSubmersible_Lost>
+  <PhobosSubmersible_EmptyStayingDown>{VEHICLE} is out of air and charge and staying down as ordered. The crew has started to breathe stale air.</PhobosSubmersible_EmptyStayingDown>
 
   <!-- Why it will not dive -->
   <PhobosSubmersible_RefuseNotSurfaced>{VEHICLE} has to be fully on the surface first.</PhobosSubmersible_RefuseNotSurfaced>
@@ -31,6 +42,7 @@
 
   <!-- Why it had to come up -->
   <PhobosSubmersible_UpEmpty>{VEHICLE} ran out of air and charge and had to surface.</PhobosSubmersible_UpEmpty>
+  <PhobosSubmersible_UpCrew>{VEHICLE} came up because nobody aboard can work it.</PhobosSubmersible_UpCrew>
   <PhobosSubmersible_UpPart>{VEHICLE} had to surface: its {PART} is too badly damaged to stay under.</PhobosSubmersible_UpPart>
   <PhobosSubmersible_UpShallow>{VEHICLE} ran into shallow water and had to surface.</PhobosSubmersible_UpShallow>
 </LanguageData>

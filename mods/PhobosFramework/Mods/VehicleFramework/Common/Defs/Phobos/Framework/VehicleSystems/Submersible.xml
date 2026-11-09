@@ -34,4 +34,79 @@
       <li>Universal</li>
     </showOnVehicleTypes>
   </Vehicles.VehicleStatDef>
+  <!-- What a crew breathes if ordered to stay under with nothing left: carbon dioxide building up in a sealed hull. The stages and rates are authored for play and are not a dose-response model. -->
+  <HediffDef>
+    <defName>Phobos_StaleAir</defName>
+    <label>stale air</label>
+    <description>Too long breathing air that has been used up. It causes headaches, gasping and confusion, then unconsciousness, and it can kill. Fresh air clears it within hours.</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <defaultLabelColor>(0.7, 0.7, 0.9)</defaultLabelColor>
+    <initialSeverity>0.01</initialSeverity>
+    <lethalSeverity>1</lethalSeverity>
+    <makesSickThought>true</makesSickThought>
+    <comps>
+      <li Class="HediffCompProperties_SeverityPerDay">
+        <severityPerDay>-2.4</severityPerDay>
+      </li>
+    </comps>
+    <stages>
+      <li>
+        <label>stuffy</label>
+        <minSeverity>0</minSeverity>
+      </li>
+      <li>
+        <label>headache</label>
+        <minSeverity>0.1</minSeverity>
+        <capMods>
+          <li>
+            <capacity>Consciousness</capacity>
+            <offset>-0.05</offset>
+          </li>
+        </capMods>
+      </li>
+      <li>
+        <label>gasping</label>
+        <minSeverity>0.3</minSeverity>
+        <capMods>
+          <li>
+            <capacity>Consciousness</capacity>
+            <offset>-0.15</offset>
+          </li>
+          <li>
+            <capacity>Moving</capacity>
+            <offset>-0.1</offset>
+          </li>
+        </capMods>
+      </li>
+      <li>
+        <label>confused</label>
+        <minSeverity>0.55</minSeverity>
+        <capMods>
+          <li>
+            <capacity>Consciousness</capacity>
+            <offset>-0.35</offset>
+          </li>
+          <li>
+            <capacity>Moving</capacity>
+            <offset>-0.2</offset>
+          </li>
+          <li>
+            <capacity>Manipulation</capacity>
+            <offset>-0.1</offset>
+          </li>
+        </capMods>
+      </li>
+      <li>
+        <label>passing out</label>
+        <minSeverity>0.8</minSeverity>
+        <lifeThreatening>true</lifeThreatening>
+        <capMods>
+          <li>
+            <capacity>Consciousness</capacity>
+            <setMax>0.01</setMax>
+          </li>
+        </capMods>
+      </li>
+    </stages>
+  </HediffDef>
 </Defs>

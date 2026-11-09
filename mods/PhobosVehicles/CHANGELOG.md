@@ -5,6 +5,14 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.26.0] - 2026-11-10 - Draft
+
+From the owner's answers on submarines (10 November 2026). **Not yet tested in game.**
+
+### Changed
+
+- The submarine test hull can now also dive in chest-deep water, so one hull can try both depths. It is still dev-only and not a finished design.
+
 ## [0.25.0] - 2026-11-09 - Draft
 
 From the owner's request for a framework for submarines (9 November 2026). **Not yet tested in game.**

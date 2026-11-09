@@ -4,7 +4,7 @@
   <name>D'thorga Vehicles</name>
   <author>Phobos A. D'thorga</author>
   <url>https://github.com/phobos-dthorga/phobos-rimworld</url>
-  <modVersion>0.25.0</modVersion>
+  <modVersion>0.26.0</modVersion>
   <description>Vehicles that keep running only while they are looked after. It adds the bulk tanker, a heavy truck that carries liquids or gases depending on the tank you fit, and it gives the vehicles of other mods you already drive the right systems for what they really are.
 
 What it does now:

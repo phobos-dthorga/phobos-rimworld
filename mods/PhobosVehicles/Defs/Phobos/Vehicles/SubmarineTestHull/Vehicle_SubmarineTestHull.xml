@@ -195,7 +195,9 @@
         <fuelConsumptionWorldMultiplier>0.5</fuelConsumptionWorldMultiplier>
         <fuelCapacity>200</fuelCapacity>
       </li>
-      <li Class="Phobos.VehicleSystems.CompProperties_PhobosSubmersible" />
+      <li Class="Phobos.VehicleSystems.CompProperties_PhobosSubmersible">
+        <divesInChestDeepWater>true</divesInChestDeepWater> <!-- So one hull can try both depths: it dives in rivers as a midget boat would, and shallow water still brings it up. -->
+      </li>
     </comps>
   </Vehicles.VehicleDef>
 

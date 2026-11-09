@@ -158,7 +158,7 @@ is a possible later vehicle if VF can be taught "fast in marsh, slow on roads" t
 
 ## Submarines: their own category, five in full
 
-**The owner began the framework for these on 9 November 2026**, inside D'thorga Framework: see [the submersibles framework](submarine-framework.md). It takes the dive-as-a-state model below. Which boat comes first is still open.
+**The owner began the framework for these on 9 November 2026**, inside D'thorga Framework: see [the submersibles framework](submarine-framework.md). It takes the dive-as-a-state model below. **The owner chose the Seabed Crawler as the first boat on 10 November 2026**: see [its design](vehicle-seabed-crawler.md).
 
 **What bounds every submarine idea [I] and [A].** Vehicle Framework has no depth. A Sea vehicle already crosses ocean
 tiles on the world map and deep water on a map. A dive is therefore a state of ours: on the world map it hides the

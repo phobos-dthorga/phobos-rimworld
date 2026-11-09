@@ -51,6 +51,13 @@ public static class VehicleSystemsDebugActions
         foreach (VehiclePawn vehicle in Find.Selector.SelectedObjects.OfType<VehiclePawn>()) Submersibles.CompOf(vehicle)?.SetReserveForTesting(AFewGameMinutes);
     }
 
+    /// <summary>Has watchers spot the selected submersibles at once, so the shape in the water and the shelling can be seen without waiting for a raid to notice.</summary>
+    [DebugAction(DebugCategory.Name, "Vehicle systems: spot a submersible", allowedGameStates = AllowedGameStates.PlayingOnMap)]
+    static void SpotSubmersible()
+    {
+        foreach (VehiclePawn vehicle in Find.Selector.SelectedObjects.OfType<VehiclePawn>()) Submersibles.CompOf(vehicle)?.Spot();
+    }
+
     [DebugAction(DebugCategory.Name, "Vehicle systems: set a quantity", allowedGameStates = AllowedGameStates.PlayingOnMap)]
     static List<DebugActionNode> SetQuantity()
     {

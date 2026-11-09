@@ -5,6 +5,30 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.59.0] - 2026-11-10 - Draft
+
+From the owner's answers on submarines (10 November 2026). **Not yet tested in game.**
+
+### Added
+
+- Being found: a boat under the water can now be spotted by anyone hostile who is near, awake and has a clear line to it. Moving makes that easier; fog, rain and darkness make it harder. A boat seen going down is followed under, and a blast that hurts it gives it away.
+- A spotted boat shows as a dark shape and can be aimed at by anyone whose weapon can reach it. Unspotted, it shows nothing, except a faint mark at the middle of a boat of yours so that you can find it. Watchers lose it about 30 seconds after they last spotted it, and you are told both ways.
+- Stay down: a button that keeps a boat under after its air and charge run out, off by default. The crew then breathes stale air, a new condition that gets steadily worse and clears in fresh air. If nobody aboard can work the boat, it comes up by itself.
+- A design can now choose to dive in chest-deep water and, on the world map, in rivers, as a midget boat would.
+- For testing, in dev mode: an action that has a selected submersible spotted at once.
+
+### Changed
+
+- A boat now comes up by itself if it loses everyone who can work it, whatever else is happening.
+
+### Save compatibility
+
+- Safe to add. The new saved values have defaults, and no existing vehicle has the comp except the test hull.
+
+### Compatibility and limits
+
+- Watching applies only on a map; a caravan under the water is still simply out of reach. Combat Extended's guns are judged by their default shell, not the one loaded. A hostile boat, when there is one, could still be clicked while unseen.
+
 ## [0.58.0] - 2026-11-09 - Draft
 
 From the owner's request for a framework for submarines (9 November 2026). **Not yet tested in game.**

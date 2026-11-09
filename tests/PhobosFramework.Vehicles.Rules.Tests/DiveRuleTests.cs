@@ -70,4 +70,59 @@ public class DiveRuleTests
         Assert.Equal(0f, DiveRule.DamageBelow(40f, false, 0.5f), 3);
         Assert.Equal(20f, DiveRule.DamageBelow(40f, true, 0.5f), 3);
     }
+
+    [Theory]
+    [InlineData(true, true, 300, false, true)]
+    [InlineData(true, false, 42, false, false)]
+    [InlineData(true, false, 42, true, true)]
+    [InlineData(true, false, 30, true, false)]
+    [InlineData(false, false, 42, true, false)]
+    [InlineData(false, true, 300, true, false)]
+    public void DeepEnough(bool isWater, bool impassable, int pathCost, bool chestDeep, bool expected) => Assert.Equal(expected, DiveRule.DeepEnough(isWater, impassable, pathCost, chestDeep));
+
+    [Theory]
+    [InlineData(1f, 1f, 0.5f, 1f)]
+    [InlineData(1f, 0f, 0.5f, 0.5f)]
+    [InlineData(0.5f, 1f, 0.5f, 0.5f)]
+    [InlineData(0.5f, 0f, 0.5f, 0.25f)]
+    public void Visibility(float weather, float glow, float floor, float expected) => Assert.Equal(expected, DiveRule.Visibility(weather, glow, floor), 3);
+
+    [Fact]
+    public void AWatcherOnTopOfTheHullHasTheFullChance() => Assert.Equal(0.02f, DiveRule.SpotChance(0.02f, 0f, 25f, false, 3f, 1f, 1f), 4);
+
+    [Fact]
+    public void TheChanceFallsWithDistance() => Assert.Equal(0.01f, DiveRule.SpotChance(0.02f, 12.5f, 25f, false, 3f, 1f, 1f), 4);
+
+    [Theory]
+    [InlineData(25f)]
+    [InlineData(40f)]
+    public void NothingIsSpottedAtOrBeyondRange(float distance) => Assert.Equal(0f, DiveRule.SpotChance(0.02f, distance, 25f, false, 3f, 1f, 1f), 4);
+
+    [Fact]
+    public void MovingIsEasierToSpot() => Assert.Equal(0.06f, DiveRule.SpotChance(0.02f, 0f, 25f, true, 3f, 1f, 1f), 4);
+
+    [Fact]
+    public void AQuietHullAndPoorVisibilityAreHarderToSpot() => Assert.Equal(0.005f, DiveRule.SpotChance(0.02f, 0f, 25f, false, 3f, 0.5f, 0.5f), 4);
+
+    [Fact]
+    public void TheChanceNeverExceedsCertainty() => Assert.Equal(1f, DiveRule.SpotChance(0.9f, 0f, 25f, true, 3f, 1f, 2f), 4);
+
+    [Theory]
+    [InlineData(99, 100, true)]
+    [InlineData(100, 100, false)]
+    [InlineData(101, 100, false)]
+    public void Tracked(int now, int until, bool expected) => Assert.Equal(expected, DiveRule.Tracked(now, until));
+
+    [Theory]
+    [InlineData(0f, false, true)]
+    [InlineData(0f, true, false)]
+    [InlineData(1f, false, false)]
+    public void EmptyForcesUp(float reserve, bool stayDown, bool expected) => Assert.Equal(expected, DiveRule.EmptyForcesUp(reserve, stayDown));
+
+    [Theory]
+    [InlineData(DivePhase.Submerged, 0f, true, true)]
+    [InlineData(DivePhase.Submerged, 1f, true, false)]
+    [InlineData(DivePhase.Submerged, 0f, false, false)]
+    [InlineData(DivePhase.Surfacing, 0f, true, false)]
+    public void BreathingStaleAir(DivePhase phase, float reserve, bool stayDown, bool expected) => Assert.Equal(expected, DiveRule.BreathingStaleAir(phase, reserve, stayDown));
 }

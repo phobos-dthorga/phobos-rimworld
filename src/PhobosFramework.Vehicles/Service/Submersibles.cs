@@ -8,6 +8,7 @@ using UnityEngine;
 using Vehicles;
 using Vehicles.World;
 using Verse;
+using Verse.AI;
 
 namespace Phobos.VehicleSystems;
 
@@ -19,6 +20,7 @@ public static class Submersibles
 {
     const string DiveIcon = "Phobos/VehicleSystems/Dive";
     const string SurfaceIcon = "Phobos/VehicleSystems/Surface";
+    const string StayDownIcon = "Phobos/VehicleSystems/StayDown";
 
     static readonly HashSet<VehiclePawn> hidden = new();
     static Game? owner;
@@ -44,6 +46,9 @@ public static class Submersibles
 
     /// <summary>A hull that is under keeps what cannot reach it from reaching it; true if the hit is wholly stopped.</summary>
     public static bool AbsorbHit(VehiclePawn vehicle, ref DamageInfo dinfo) => CompOf(vehicle)?.AbsorbBelow(ref dinfo) ?? false;
+
+    /// <summary>Whether this searcher must leave a hull that is under alone. A hull with no comp is left alone, as it was when it went into the set.</summary>
+    public static bool OutOfReach(VehiclePawn vehicle, IAttackTargetSearcher? searcher) => CompOf(vehicle)?.OutOfReachOf(searcher) ?? true;
 
     public static bool TurretHeld(VehicleTurret turret) => turret.vehicle != null && IsHidden(turret.vehicle) && (CompOf(turret.vehicle)?.HoldsBelow(turret) ?? false);
 
@@ -90,6 +95,22 @@ public static class Submersibles
         foreach (CompPhobosSubmersible boat in boats) boat.TryDive();
     }
 
+    /// <summary>One standing order for the whole caravan, so no boat of it comes up alone.</summary>
+    public static void SetCaravanStayDown(VehicleCaravan caravan, bool on)
+    {
+        foreach (CompPhobosSubmersible boat in DivingBoats(caravan)) boat.SetStayDown(on);
+    }
+
+    /// <summary>The standing order to stay under once the air and charge run out. Presentation only: the action is what the caller says it is.</summary>
+    public static Command_Toggle StayDownGizmo(bool on, CompProperties_PhobosSubmersible props, Action toggle) => new()
+    {
+        defaultLabel = "PhobosSubmersible_GizmoStayDown".Translate().Resolve(),
+        defaultDesc = "PhobosSubmersible_GizmoStayDownDesc".Translate().Resolve(),
+        icon = SystemIcons.For(StayDownIcon),
+        isActive = () => on,
+        toggleAction = toggle,
+    };
+
     /// <summary>The dive or surface button: one look for a boat and for a caravan. Presentation only: the action is what the caller says it is.</summary>
     public static Command_Action ToggleGizmo(bool down, string? refused, CompProperties_PhobosSubmersible props, Action action)
     {
@@ -107,21 +128,31 @@ public static class Submersibles
     }
 }
 
-/// <summary>A hull that is under, drawn as a dark shape in the water. The picture is the game's own shadow for a falling crate.</summary>
+/// <summary>
+/// A hull that is under. Once spotted it shows as a dark shape in the water; until then a boat of ours shows only a faint mark at its middle, so the player can find it and click it, and anyone else's
+/// shows nothing. The picture is the game's own shadow for a falling crate.
+/// </summary>
 [StaticConstructorOnStartup]
 public static class SubmersibleDraw
 {
     /// <summary>A shadow reads as a hull when it is a little wider than the footprint.</summary>
     const float Overhang = 1.15f;
-    static readonly Material Shadow = MaterialPool.MatFrom("Things/Skyfaller/SkyfallerShadowRectangle", ShaderDatabase.Transparent);
+    /// <summary>The own boat's mark: small and faint, so it reads as a periscope's ripple and never as the hull.</summary>
+    const float MarkSize = 1.5f;
+    const float MarkOpacity = 0.35f;
+    const string ShadowTexture = "Things/Skyfaller/SkyfallerShadowRectangle";
+    static readonly Material Shadow = MaterialPool.MatFrom(ShadowTexture, ShaderDatabase.Transparent);
+    static readonly Material Mark = MaterialPool.MatFrom(ShadowTexture, ShaderDatabase.Transparent, new Color(1f, 1f, 1f, MarkOpacity));
 
     public static void Draw(VehiclePawn vehicle)
     {
+        bool spotted = Submersibles.CompOf(vehicle)?.Tracked ?? false;
+        if (!spotted && vehicle.Faction != Faction.OfPlayer) return;
         Vector3 at = ((Thing)vehicle).DrawPos;
         at.y = AltitudeLayer.Shadows.AltitudeFor();
         IntVec2 size = vehicle.def.size;
-        var scale = new Vector3(size.x * Overhang, 1f, size.z * Overhang);
-        Graphics.DrawMesh(MeshPool.plane10, Matrix4x4.TRS(at, Quaternion.AngleAxis(vehicle.FullRotation.AsAngle, Vector3.up), scale), Shadow, 0);
+        Vector3 scale = spotted ? new Vector3(size.x * Overhang, 1f, size.z * Overhang) : new Vector3(MarkSize, 1f, MarkSize);
+        Graphics.DrawMesh(MeshPool.plane10, Matrix4x4.TRS(at, Quaternion.AngleAxis(vehicle.FullRotation.AsAngle, Vector3.up), scale), spotted ? Shadow : Mark, 0);
     }
 }
 
@@ -155,5 +186,7 @@ public class WorldObjectComp_PhobosSubmersibleCaravan : WorldObjectComp
         if (boats.Count == 0) yield break;
         bool down = boats.Any(b => DiveRule.GoingOrGone(b.Phase));
         yield return Submersibles.ToggleGizmo(down, boats.Select(b => b.DiveRefusal()).FirstOrDefault(r => r != null), boats[0].Props, () => Submersibles.ToggleCaravan(caravan));
+        bool stayDown = boats.All(b => b.StayDown);
+        yield return Submersibles.StayDownGizmo(stayDown, boats[0].Props, () => Submersibles.SetCaravanStayDown(caravan, !stayDown));
     }
 }
