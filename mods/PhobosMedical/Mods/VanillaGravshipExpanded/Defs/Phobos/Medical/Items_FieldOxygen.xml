@@ -33,8 +33,7 @@
         <li>TableMachining</li>
       </recipeUsers>
       <researchPrerequisites>
-        <li>MedicineProduction</li>
-        <li>VGE_OxygenNetwork</li>
+        <li>PhobosResearch_PipedOxygen</li>
       </researchPrerequisites>
       <skillRequirements>
         <Crafting>3</Crafting>

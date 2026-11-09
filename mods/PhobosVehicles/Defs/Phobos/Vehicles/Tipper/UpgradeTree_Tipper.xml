@@ -3,6 +3,9 @@
   <!-- The tipper's upgrades (docs/development/vehicle-tipper-hauler.md). Figures and costs authored. Node keys are saved in the game: never rename or remove one. Not yet tested in game. -->
   <Vehicles.UpgradeTreeDef>
     <defName>Phobos_Tipper_UpgradeTree</defName>
+    <modExtensions>
+      <li Class="Phobos.VehicleSystems.PhobosEnforceUpgradeResearch" />
+    </modExtensions>
     <nodes>
     <li>
       <key>HighSides</key>

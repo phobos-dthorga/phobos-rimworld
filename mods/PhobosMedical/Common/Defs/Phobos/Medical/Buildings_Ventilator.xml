@@ -34,7 +34,7 @@ It holds weak breathing up to a safe level, not to normal, and it cannot help so
       <ComponentIndustrial>4</ComponentIndustrial>
     </costList>
     <researchPrerequisites>
-      <li>MedicineProduction</li>
+      <li>PhobosResearch_Respiratory</li>
     </researchPrerequisites>
     <building>
       <destroySound>BuildingDestroyed_Metal_Small</destroySound>

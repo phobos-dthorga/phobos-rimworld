@@ -35,7 +35,7 @@ It does not repair damaged lungs or clear carbon monoxide.</description>
       <ComponentIndustrial>1</ComponentIndustrial>
     </costList>
     <researchPrerequisites>
-      <li>MedicineProduction</li>
+      <li>PhobosResearch_Respiratory</li>
     </researchPrerequisites>
     <building>
       <destroySound>BuildingDestroyed_Metal_Small</destroySound>
@@ -115,7 +115,7 @@ It does not repair damaged lungs or clear carbon monoxide.</description>
       <ComponentIndustrial>4</ComponentIndustrial>
     </costList>
     <researchPrerequisites>
-      <li>VitalsMonitor</li>
+      <li>PhobosResearch_Anaesthesia</li>
     </researchPrerequisites>
     <building>
       <destroySound>BuildingDestroyed_Metal_Small</destroySound>
@@ -179,7 +179,7 @@ It does not repair damaged lungs or clear carbon monoxide.</description>
       <ComponentIndustrial>2</ComponentIndustrial>
     </costList>
     <researchPrerequisites>
-      <li>MedicineProduction</li>
+      <li>PhobosResearch_BasicClinicalKit</li>
     </researchPrerequisites>
     <building>
       <destroySound>BuildingDestroyed_Metal_Small</destroySound>

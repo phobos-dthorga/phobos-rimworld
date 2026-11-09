@@ -6,6 +6,19 @@ entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.10.0] - 2026-11-10 - Draft
+
+The research tree, at the owner's request (docs/development/research-tree.md). **Not yet tested in game.** Every cost is authored, a gameplay choice to tune in play.
+
+### Added
+
+- Clinical equipment, respiratory care, bronchodilators, anaesthesia and burn care each have research on the D'thorga research tab, and piped oxygen does too with Vanilla Gravship Expanded. With More Injuries active, two of them also ask for its research.
+
+### Save compatibility
+
+- Safe on an existing save. The first time a colony loads this version, each project is finished for free if the research it replaces was already done, so you keep everything you could build. Things already built stay.
+- Needs D'thorga Framework 0.61.0 or later. If this mod is removed, the first load logs a one-time error for each of its research projects, and the next save is clean.
+
 ## [0.9.0] - 2026-11-09 - Draft
 
 From the owner's rule of 9 November 2026: anything that takes water or piping has its own pipes beneath it. **Not yet tested in game.**

@@ -5,6 +5,23 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.27.0] - 2026-11-10 - Draft
+
+The research tree, at the owner's request (docs/development/research-tree.md). **Not yet tested in game.** Every cost is authored, a gameplay choice to tune in play.
+
+### Added
+
+- Each of the five trucks has its own research project on the D'thorga research tab. With other mods active, some also ask for those mods' research.
+
+### Changed
+
+- Truck upgrades now need the research they name, and an upgrade still waiting for it says which project. Pressure vessels now need Fabrication.
+
+### Save compatibility
+
+- Safe on an existing save. The first time a colony loads this version, each truck's project is finished for free if the research it replaces was already done. Trucks already built and upgrades already fitted or under way stay.
+- Needs D'thorga Framework 0.61.0 or later. If this mod is removed, the first load logs a one-time error for each of its research projects, and the next save is clean.
+
 ## [0.26.0] - 2026-11-10 - Draft
 
 From the owner's answers on submarines (10 November 2026). **Not yet tested in game.**

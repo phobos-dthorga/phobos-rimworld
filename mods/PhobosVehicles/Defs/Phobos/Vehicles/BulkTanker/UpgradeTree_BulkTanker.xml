@@ -8,6 +8,9 @@
   -->
   <Vehicles.UpgradeTreeDef>
     <defName>Phobos_Tanker_UpgradeTree</defName>
+    <modExtensions>
+      <li Class="Phobos.VehicleSystems.PhobosEnforceUpgradeResearch" />
+    </modExtensions>
     <nodes>
     <li>
       <key>LiquidTank</key>

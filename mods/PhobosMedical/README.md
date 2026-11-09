@@ -8,12 +8,13 @@ It replaces five earlier mods, merged into it on 7 November 2026 ([why](../../do
 Burns and Smoke**, **D'thorga Emergency Dosing**, **D'thorga Triage**, **D'thorga Medical Equipment** and **D'thorga Medical Save
 Bridge**. Each is now a part of this mod, with its own section below.
 
-Version 0.9.0, built 9 November 2026 for House D'thorga. **Not yet tested in game as D'thorga Medical.** What the owner tested of
+Version 0.10.0, built 9 November 2026 for House D'thorga. **Not yet tested in game as D'thorga Medical.** What the owner tested of
 the five parts before the merge is in each part's section; the parts' behaviour is unchanged, except that the save bridge now asks
 first.
 
 ## Read this first (gotchas)
 
+- **New in 0.10.0 (not yet tested in game): clinical equipment has its own research, on the D'thorga tab.** **An existing colony gets a project free, once, if it had already done the research that project replaces.** New colonies research them normally.
 - **Switching from the five old mods: switch all five off in RimSort and this one on, in the same change, then load your colony.**
   The About file lists the five as incompatible, so RimSort warns if one is left on, and the load line logs an error naming any that
   is still active. Running one beside this would load the same part twice.

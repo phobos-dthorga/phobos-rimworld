@@ -334,8 +334,7 @@
       <Flammability>0.5</Flammability>
     </statBases>
     <researchPrerequisites>
-      <li>Machining</li>
-      <li>Electricity</li>
+      <li>PhobosResearch_Tipper</li>
     </researchPrerequisites>
     <size>(3, 8)</size>
     <costList>

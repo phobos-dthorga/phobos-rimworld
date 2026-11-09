@@ -35,8 +35,7 @@ It helps with low breathing and clears carbon monoxide faster. It does not repai
       <ComponentIndustrial>1</ComponentIndustrial>
     </costList>
     <researchPrerequisites>
-      <li>MedicineProduction</li>
-      <li>VGE_OxygenNetwork</li>
+      <li>PhobosResearch_PipedOxygen</li>
     </researchPrerequisites>
     <building>
       <destroySound>BuildingDestroyed_Metal_Small</destroySound>

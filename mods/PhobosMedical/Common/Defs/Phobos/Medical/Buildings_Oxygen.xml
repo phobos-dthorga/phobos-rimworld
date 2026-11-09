@@ -31,7 +31,7 @@
       <ComponentIndustrial>2</ComponentIndustrial>
     </costList>
     <researchPrerequisites>
-      <li>MedicineProduction</li>
+      <li>PhobosResearch_Respiratory</li>
     </researchPrerequisites>
     <building>
       <destroySound>BuildingDestroyed_Metal_Small</destroySound>

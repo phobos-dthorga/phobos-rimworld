@@ -31,7 +31,7 @@
       <recipeUsers>
         <li>TableMachining</li>
       </recipeUsers>
-      <researchPrerequisite>MedicineProduction</researchPrerequisite>
+      <researchPrerequisite>PhobosResearch_BasicClinicalKit</researchPrerequisite>
       <skillRequirements>
         <Crafting>4</Crafting>
       </skillRequirements>
@@ -82,7 +82,7 @@
       <recipeUsers>
         <li>TableMachining</li>
       </recipeUsers>
-      <researchPrerequisite>MedicineProduction</researchPrerequisite>
+      <researchPrerequisite>PhobosResearch_BasicClinicalKit</researchPrerequisite>
       <skillRequirements>
         <Crafting>3</Crafting>
       </skillRequirements>
@@ -131,7 +131,7 @@
       <recipeUsers>
         <li>DrugLab</li>
       </recipeUsers>
-      <researchPrerequisite>DrugProduction</researchPrerequisite>
+      <researchPrerequisite>PhobosResearch_Bronchodilators</researchPrerequisite>
       <skillRequirements>
         <Intellectual>4</Intellectual>
       </skillRequirements>
@@ -173,7 +173,7 @@
       <recipeUsers>
         <li>DrugLab</li>
       </recipeUsers>
-      <researchPrerequisite>MedicineProduction</researchPrerequisite>
+      <researchPrerequisite>PhobosResearch_BasicClinicalKit</researchPrerequisite>
       <skillRequirements>
         <Intellectual>3</Intellectual>
       </skillRequirements>
@@ -226,7 +226,7 @@
       <recipeUsers>
         <li>DrugLab</li>
       </recipeUsers>
-      <researchPrerequisite>MedicineProduction</researchPrerequisite>
+      <researchPrerequisite>PhobosResearch_BasicClinicalKit</researchPrerequisite>
       <skillRequirements>
         <Crafting>3</Crafting>
         <Intellectual>3</Intellectual>

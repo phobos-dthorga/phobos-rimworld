@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- The working trucks' research (docs/development/research-tree.md). Costs, positions and soft requirements are authored, gameplay choices to tune in play. Names are stable once a save can hold them. -->
+
+  <ResearchProjectDef Abstract="True" Name="PhobosResearchTruckBase">
+    <tab>PhobosDthorga</tab>
+    <techLevel>Industrial</techLevel>
+  </ResearchProjectDef>
+
+  <ResearchProjectDef ParentName="PhobosResearchTruckBase">
+    <defName>PhobosResearch_Tipper</defName>
+    <label>tipper hauler</label>
+    <description>A truck with a body that lifts, to carry stone, ore and bulk loads and drop them where they are wanted.</description>
+    <baseCost>1500</baseCost>
+    <researchViewX>2</researchViewX>
+    <researchViewY>1.2</researchViewY>
+    <prerequisites>
+      <li>PhobosResearch_VehicleParts</li>
+      <li>Electricity</li>
+      <li MayRequire="oskarpotocki.vanillavehiclesexpanded">VVE_BasicVehicles</li>
+    </prerequisites>
+    <modExtensions>
+      <li Class="Phobos.Framework.Research.ResearchReplacesExtension">
+        <replaces><li>Machining</li><li>Electricity</li></replaces>
+      </li>
+    </modExtensions>
+  </ResearchProjectDef>
+
+  <ResearchProjectDef ParentName="PhobosResearchTruckBase">
+    <defName>PhobosResearch_Tanker</defName>
+    <label>bulk tanker</label>
+    <description>A truck that carries liquids in bulk, with hoses and a pump to load and unload them.</description>
+    <baseCost>2400</baseCost>
+    <researchViewX>3</researchViewX>
+    <researchViewY>1.2</researchViewY>
+    <prerequisites>
+      <li>PhobosResearch_VehicleParts</li>
+      <li>Electricity</li>
+      <li MayRequire="oskarpotocki.vanillavehiclesexpanded">VVE_BasicVehicles</li>
+    </prerequisites>
+    <modExtensions>
+      <li Class="Phobos.Framework.Research.ResearchReplacesExtension">
+        <replaces><li>Machining</li><li>Electricity</li></replaces>
+      </li>
+    </modExtensions>
+  </ResearchProjectDef>
+
+  <ResearchProjectDef ParentName="PhobosResearchTruckBase">
+    <defName>PhobosResearch_GeneratorSet</defName>
+    <label>generator truck</label>
+    <description>A diesel generator on a truck bed, to bring power to a camp or a job far from the grid.</description>
+    <baseCost>2100</baseCost>
+    <researchViewX>3</researchViewX>
+    <researchViewY>2.0</researchViewY>
+    <prerequisites>
+      <li>PhobosResearch_VehicleParts</li>
+      <li>PhobosResearch_VehicleElectrics</li>
+      <li MayRequire="oskarpotocki.vanillavehiclesexpanded">VVE_BasicVehicles</li>
+      <li MayRequire="vanillaexpanded.vfepower">VFE_IndustrialGenerators</li>
+    </prerequisites>
+    <modExtensions>
+      <li Class="Phobos.Framework.Research.ResearchReplacesExtension">
+        <replaces><li>Machining</li><li>Electricity</li></replaces>
+      </li>
+    </modExtensions>
+  </ResearchProjectDef>
+
+  <ResearchProjectDef ParentName="PhobosResearchTruckBase">
+    <defName>PhobosResearch_DrillRig</defName>
+    <label>drill rig</label>
+    <description>A mast and drill string on a truck. It goes to a deposit, sets up, and brings ore up far faster than a fixed deep drill.</description>
+    <baseCost>3600</baseCost>
+    <researchViewX>3</researchViewX>
+    <researchViewY>0</researchViewY>
+    <prerequisites>
+      <li>PhobosResearch_VehicleParts</li>
+      <li>DeepDrilling</li>
+    </prerequisites>
+    <modExtensions>
+      <li Class="Phobos.Framework.Research.ResearchReplacesExtension">
+        <replaces><li>DeepDrilling</li></replaces>
+      </li>
+    </modExtensions>
+  </ResearchProjectDef>
+
+  <ResearchProjectDef ParentName="PhobosResearchTruckBase">
+    <defName>PhobosResearch_SurveyTruck</defName>
+    <label>survey truck</label>
+    <description>Instruments on a truck bed that find what lies under the ground, far faster than a fixed scanner.</description>
+    <baseCost>2800</baseCost>
+    <researchViewX>3</researchViewX>
+    <researchViewY>0.6</researchViewY>
+    <prerequisites>
+      <li>PhobosResearch_VehicleParts</li>
+      <li>GroundPenetratingScanner</li>
+    </prerequisites>
+    <modExtensions>
+      <li Class="Phobos.Framework.Research.ResearchReplacesExtension">
+        <replaces><li>GroundPenetratingScanner</li></replaces>
+      </li>
+    </modExtensions>
+  </ResearchProjectDef>
+</Defs>

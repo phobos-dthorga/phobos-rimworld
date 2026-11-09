@@ -3,6 +3,9 @@
   <!-- The survey truck's upgrades (docs/development/vehicle-survey-truck.md). Figures and costs authored, except the uranium (owner, 9 Nov 2026). Node keys are saved in the game: never rename or remove one. Not yet tested in game. -->
   <Vehicles.UpgradeTreeDef>
     <defName>Phobos_SurveyTruck_UpgradeTree</defName>
+    <modExtensions>
+      <li Class="Phobos.VehicleSystems.PhobosEnforceUpgradeResearch" />
+    </modExtensions>
     <nodes>
     <li>
       <key>GeophoneArray</key>

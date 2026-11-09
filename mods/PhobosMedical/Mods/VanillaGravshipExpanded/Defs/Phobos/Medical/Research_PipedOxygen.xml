@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- Only with Vanilla Gravship Expanded, whose oxygen network this equipment draws on (docs/development/research-tree.md). The cost and position are authored. -->
+  <ResearchProjectDef>
+    <defName>PhobosResearch_PipedOxygen</defName>
+    <label>piped oxygen</label>
+    <description>Bedside stands, trolleys and field kits that bring oxygen from the supply to the patient.</description>
+    <tab>PhobosDthorga</tab>
+    <techLevel>Industrial</techLevel>
+    <baseCost>1500</baseCost>
+    <researchViewX>2</researchViewX>
+    <researchViewY>4.0</researchViewY>
+    <prerequisites>
+      <li>PhobosResearch_Respiratory</li>
+      <li>VGE_OxygenNetwork</li>
+    </prerequisites>
+    <modExtensions>
+      <li Class="Phobos.Framework.Research.ResearchReplacesExtension">
+        <replaces><li>MedicineProduction</li><li>VGE_OxygenNetwork</li></replaces>
+      </li>
+    </modExtensions>
+  </ResearchProjectDef>
+</Defs>

@@ -449,7 +449,7 @@
       <Flammability>0.5</Flammability>
     </statBases>
     <researchPrerequisites>
-      <li>DeepDrilling</li>
+      <li>PhobosResearch_DrillRig</li>
     </researchPrerequisites>
     <size>(3, 10)</size>
     <costList>

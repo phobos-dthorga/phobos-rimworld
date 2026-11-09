@@ -3,6 +3,9 @@
   <!-- The generator set's upgrades (docs/development/vehicle-generator-set.md). Figures and costs authored. Node keys are saved in the game: never rename or remove one. Not yet tested in game. -->
   <Vehicles.UpgradeTreeDef>
     <defName>Phobos_GeneratorSet_UpgradeTree</defName>
+    <modExtensions>
+      <li Class="Phobos.VehicleSystems.PhobosEnforceUpgradeResearch" />
+    </modExtensions>
     <nodes>
     <li>
       <key>BiggerAlternator</key>

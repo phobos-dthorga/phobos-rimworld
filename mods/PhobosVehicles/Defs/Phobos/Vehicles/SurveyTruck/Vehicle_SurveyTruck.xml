@@ -413,7 +413,7 @@
       <Flammability>0.5</Flammability>
     </statBases>
     <researchPrerequisites>
-      <li>GroundPenetratingScanner</li>
+      <li>PhobosResearch_SurveyTruck</li>
     </researchPrerequisites>
     <size>(3, 7)</size>
     <costList>

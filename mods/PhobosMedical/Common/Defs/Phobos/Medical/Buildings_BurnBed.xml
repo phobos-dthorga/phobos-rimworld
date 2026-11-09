@@ -60,7 +60,7 @@
     <leaveResourcesWhenKilled>True</leaveResourcesWhenKilled>
     <staticSunShadowHeight>0.17</staticSunShadowHeight>
     <researchPrerequisites>
-      <li>HospitalBed</li>
+      <li>PhobosResearch_BurnCare</li>
     </researchPrerequisites>
     <constructionSkillPrerequisite>8</constructionSkillPrerequisite>
     <techLevel>Industrial</techLevel>

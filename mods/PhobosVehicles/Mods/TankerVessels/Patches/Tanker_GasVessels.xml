@@ -6,6 +6,9 @@
     <value>
     <li>
       <key>PressureVessel</key>
+      <researchPrerequisites>
+        <li>Fabrication</li>
+      </researchPrerequisites>
       <label>pressure vessel</label>
       <displayLabel>true</displayLabel>
       <description>A cylinder with domed ends and a relief valve, for gases: 1,200 units.</description>
@@ -51,6 +54,9 @@
     </li>
     <li>
       <key>LightPressureVessel</key>
+      <researchPrerequisites>
+        <li>Fabrication</li>
+      </researchPrerequisites>
       <label>light vessel</label>
       <displayLabel>true</displayLabel>
       <description>A slim, cheaper vessel: 800 units, and much less weight on the truck.</description>
@@ -96,6 +102,9 @@
     </li>
     <li>
       <key>HeavyWallVessel</key>
+      <researchPrerequisites>
+        <li>Fabrication</li>
+      </researchPrerequisites>
       <label>heavy-wall vessel</label>
       <displayLabel>true</displayLabel>
       <description>A thick-walled vessel: 1,000 units, with a tougher shell.</description>

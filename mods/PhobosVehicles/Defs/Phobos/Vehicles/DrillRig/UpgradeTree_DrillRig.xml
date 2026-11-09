@@ -3,6 +3,9 @@
   <!-- The drill rig's upgrades (docs/development/vehicle-drill-rig.md). Figures and costs authored. A bare rig drills at ten times a deep drill, the diamond bit at twenty (owner, 9 Nov 2026). Node keys are saved in the game: never rename or remove one. Not yet tested in game. -->
   <Vehicles.UpgradeTreeDef>
     <defName>Phobos_DrillRig_UpgradeTree</defName>
+    <modExtensions>
+      <li Class="Phobos.VehicleSystems.PhobosEnforceUpgradeResearch" />
+    </modExtensions>
     <nodes>
     <li>
       <key>DiamondBit</key>
