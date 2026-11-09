@@ -16,6 +16,7 @@ import argparse
 import datetime as _dt
 import json
 import os
+import re
 from pathlib import Path
 import shutil
 import subprocess
@@ -32,6 +33,8 @@ GAME_PROCESSES = ('RimWorld.exe', 'RimWorldWin64.exe', 'RimWorldWin.exe', 'RimWo
                   'RimWorldMac')
 SKIPPED_DIRS = ('__pycache__', 'obj', 'bin')
 SKIPPED_SUFFIXES = ('.pyc', '.pdb')
+# A file sync's copy of something it could not merge. Beside a mod's real DLL it can load instead of it: the game keeps the first of two assemblies with one name (10 Nov 2026).
+SYNC_CONFLICT = re.compile('_(Download|Upload|Case)Conflict', re.IGNORECASE)
 
 
 def local_path(key, env_var, default, explicit=None, environ=None, settings_file=SETTINGS_FILE):
@@ -55,7 +58,7 @@ def game_path(explicit=None, environ=None, settings_file=SETTINGS_FILE):
     return local_path('rimworldPath', 'RIMWORLD_PATH', DEFAULT_GAME_PATH, explicit, environ, settings_file)
 
 
-def package(mod, root=ROOT):
+def package(mod, root=ROOT, log=None):
     """Relative path -> absolute source path for every file of mods/<mod> that ships."""
     source = Path(root) / 'mods' / mod
     if not source.is_dir():
@@ -65,6 +68,10 @@ def package(mod, root=ROOT):
         dirnames[:] = sorted(d for d in dirnames if d not in SKIPPED_DIRS)
         for name in sorted(filenames):
             if name.endswith(SKIPPED_SUFFIXES):
+                continue
+            if SYNC_CONFLICT.search(name):
+                if log:
+                    log(f'Left out a file sync conflict copy: {mod}/{name}')
                 continue
             path = Path(folder) / name
             files[path.relative_to(source).as_posix()] = path
@@ -153,7 +160,7 @@ def check_movable(mods, game, windows=explorer_windows, log=print):
 
 def deploy(mod, game, apply, root=ROOT, backups=BACKUPS, running=game_running, log=print):
     """Preview or copy one mod. Returns the number of files that would be, or were, copied."""
-    files = package(mod, root)
+    files = package(mod, root, log=log)
     target = Path(game) / 'Mods' / mod
     assemblies = [rel for rel in files if '/Assemblies/' in rel and rel.endswith('.dll')]
     log(f'{mod}: {len(files)} files -> {target}' + ('' if assemblies else ' (no assembly built: XML only)'))

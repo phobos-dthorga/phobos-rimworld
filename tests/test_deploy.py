@@ -44,6 +44,16 @@ class PackageTests(unittest.TestCase):
             files = deploy.package('Example', root)
         self.assertEqual(sorted(files), ['1.6/Assemblies/Example.dll', 'About/About.xml', 'Common/Defs/Things.xml', 'README.md'])
 
+    def test_a_sync_conflict_copy_never_ships(self):
+        with tempfile.TemporaryDirectory() as root:
+            fake_repo(root)
+            folder = Path(root) / 'mods' / 'Example' / '1.6' / 'Assemblies'
+            (folder / 'Example_DiskStation_Nov-09-2352-2026_DownloadConflict_1.dll').write_bytes(b'old')
+            said = []
+            files = deploy.package('Example', root, log=said.append)
+            self.assertFalse(any('Conflict' in name for name in files))
+            self.assertEqual(1, len(said))
+
     def test_unknown_mod_is_an_error(self):
         with tempfile.TemporaryDirectory() as root:
             with self.assertRaises(FileNotFoundError):
