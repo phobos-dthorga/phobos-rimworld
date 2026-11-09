@@ -118,7 +118,8 @@ for what sits inside. Every part has real cells (Combat Extended hits only those
 engine carries `MoveSpeed` with `priorityStatEfficiency` so a dead engine stops the vehicle whatever the wheels say.
 Reactors: `Reactor_FuelLeak` on fuel tanks, `Reactor_Explosive` on engines as VVE does, and one of ours to write
 later, a hydraulic leak that drains the hydraulic quantity of the systems service. Damage states and raised equipment
-draw through `graphicOverlays` with a `ComponentRequirement`. Combat Extended armour follows the Harrier part's scale
+draw through `graphicOverlays` that our comps add and remove (Vehicle Framework's `ComponentRequirement` on an overlay is never applied, read 9 Nov 2026;
+[the animation research](vehicle-animation-research.md)). Combat Extended armour follows the Harrier part's scale
 (millimetres and megapascals, light vehicle). Repair order is list order, so the engine and controls come early.
 
 ### Parts and where they come from (principle 9; agent defaults, owner to confirm)

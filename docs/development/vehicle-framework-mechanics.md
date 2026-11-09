@@ -277,7 +277,9 @@ mining rig, bulldozer or mobile workbench was found.**
   a missing south is the north rotated, a missing west is the east mirrored, diagonals reuse the cardinals.
 - Colour masks carry the suffix `m` (`_northm`) for the three-colour pattern shader `CutoutComplexPattern`;
   `GraphicDataRGB` adds `colorThree`, `pattern`, `tiles`, `displacement`. Turrets use `Graphic_Turret` with `_m`.
-- Animated classes: `Graphic_Animate`, `Graphic_Rotator`, `Graphic_Propeller`, `Graphic_ReversePropeller`.
+- Animated classes: `Graphic_Animate`, `Graphic_Rotator`, `Graphic_Propeller`, `Graphic_ReversePropeller`. **They move only during an aircraft's
+  take-off and landing, or in launch protocols and muzzle motes** (read 9 Nov 2026); on a ground vehicle they are still unless a comp of ours drives them
+  ([the animation research](vehicle-animation-research.md)).
 - `drawProperties.graphicOverlays` (identifier, graphic data, rotation, `component`): an overlay's
   `ComponentRequirement` was read here as showing or hiding it by a part's health fraction. **It does not** (found 9 Nov 2026 when the
   bulk tanker looked damaged from new): only turrets ever call `RecacheComponent` and `RegisterEvents`, so on a graphic overlay

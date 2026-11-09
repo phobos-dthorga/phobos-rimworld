@@ -250,6 +250,11 @@ tank and coupling behind the cab), the lamp masts lit, and damage states (a bent
 Icon: the rig side-on, mast raised. Generation under `paid-image-generation-rules.md`, dry run first.
 - **Size it first** (owner's rule, 9 Nov 2026): before the first picture, measure the planned footprint against RimThunder's 3 x 10 PLS, the biggest truck on the owner's list, and generate at 1.5 times the drawn size ([the rules](paid-image-generation-rules.md)); the tanker had to grow from 2 x 6 to 3 x 10 after its first look.
 
+**Motion (9 Nov 2026; [the animation research](vehicle-animation-research.md)):** the mast is its own sprite, drawn folded along the deck
+with the body drawn without it, hinged at the rear (the cell over the hole), so a comp can raise it when the rig sets up; the rotary head is its own round
+sprite, spun by code while drilling; outriggers down and the lamps lit stay two-state overlays; the bits, the casing rack and the deepchem head are static. Dust
+at the hole is a fleck, no art. No frame sheets.
+
 ## Open questions for the owner
 
 | Question | Agent lean |

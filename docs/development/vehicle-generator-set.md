@@ -231,6 +231,10 @@ from the north with a lightning bolt over the deck. Paid generation follows [the
 dry run first, the camera instruction first, one pilot at native size before the facing set.
 - **Size it first** (owner's rule, 9 Nov 2026): before the first picture, measure the planned footprint against the biggest comparable light truck on the owner's list (the HUMVEE mod's trucks at 2 wide), and generate at 1.5 times the drawn size ([the rules](paid-image-generation-rules.md)); the tanker had to grow from 2 x 6 to 3 x 10 after its first look.
 
+**Motion (9 Nov 2026; [the animation research](vehicle-animation-research.md)):** the cooling fan on the housing is its own round sprite,
+spun by code in step with the load; exhaust from the stack is a fleck scaled by load, no art, so the record names the stack's cell; the cable end carries real
+light at night through the game's `CompGlower`. The cable out and the outriggers stay two-state overlays. No frame sheets.
+
 ## Open questions for the owner
 
 | Question | Agent lean |

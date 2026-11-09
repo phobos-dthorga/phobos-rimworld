@@ -64,7 +64,8 @@ corners, straight top-down, no perspective. Outputs ship in a free public Worksh
 2. **East and south:** turn the finished north by script, then send the turned image back as a reference edit ("same
    vehicle, light from the top, keep the outline and colours"); where the ends differ, edit from the north plus the
    turned draft as two references.
-3. **Overlays:** reference edits of the body, cut out by script against the base.
+3. **Overlays:** reference edits of the body, cut out by script against the base. **A part that moves (a mast, a boom, a dish, a rotary head, a tipper
+   body) is its own picture at rest on the body's canvas, with the body drawn without it; never a frame sheet** ([the animation research](vehicle-animation-research.md)).
 4. **Masks:** by script, posterising the panel zones into flat colour regions, or hand-painted over a faded copy; a
    model pass at the same price where the script cannot separate them.
 5. **Icon:** downscale the north or east body and sharpen the outline, by script.
