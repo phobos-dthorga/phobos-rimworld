@@ -9,7 +9,7 @@ For each project on one of our tabs:
 - its hard requirements reach research that is not ours, with no loops;
 - each requirement is ours, or the game's, or is conditional (MayRequire, or in a Mods/ folder loaded only with that mod);
 - it names a tab we define, sits within the screen, and is not so close to another project that the game moves it;
-- it lists what it replaces, for the one-time grant to existing colonies.
+- it lists what it replaces, for the one-time grant to existing colonies, or says it is brand new with an empty <replaces />.
 
 Across mods/: every PhobosResearch_ name used anywhere is a project we define, every upgrade's research is ours, the game's or
 conditional, and every upgrade tree of ours carries the marker that makes that research count.
@@ -90,8 +90,8 @@ class Project:
     def replaces(self):
         for li in self.element.findall('modExtensions/li'):
             if li.get('Class') == REPLACES_CLASS:
-                return li.findall('replaces/li')
-        return []
+                return li.find('replaces')
+        return None
 
 
 def game_research(game):
@@ -226,8 +226,8 @@ def check(mods_dir, known):
             error = reference_error(name, text_of(li), project.conditional_file or has_condition(li), defined, known)
             if error:
                 errors.append(error)
-        if not project.replaces():
-            errors.append(f'{name}: lists nothing it replaces, so an existing colony can never be granted it')
+        if project.replaces() is None:
+            errors.append(f'{name}: lists nothing it replaces, so an existing colony can never be granted it; a brand new project says so with an empty <replaces />')
     errors.extend(position_errors(ours.values()))
     errors.extend(upgrade_errors(files, mods_dir, defined, known))
     for path in sorted(mods_dir.glob('*/**/*.xml')):

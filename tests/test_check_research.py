@@ -84,6 +84,10 @@ class CheckResearchTests(unittest.TestCase):
     def test_a_project_must_list_what_it_replaces(self):
         self.assert_caught(TAB + project(replaces=''), 'lists nothing it replaces')
 
+    def test_a_brand_new_project_says_so_with_an_empty_list(self):
+        brand_new = '<modExtensions><li Class="Phobos.Framework.Research.ResearchReplacesExtension"><replaces /></li></modExtensions>'
+        self.assertEqual([], self.errors(TAB + project(replaces=brand_new)))
+
     def test_an_upgrade_with_unknown_research_is_refused(self):
         self.assert_caught(TAB + project() + tree(research='Nonsense'), 'upgrade Node')
 
