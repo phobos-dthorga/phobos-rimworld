@@ -18,7 +18,7 @@ parts are unchanged from Vehicle Patches 0.6.0 (not yet tested in game); the mis
 
 ## Read this first (gotchas)
 
-- **With Prison Labor, a temporary guard stops a crash** (0.16.5). Its first 1.7 build can close the game when a warden considers feeding a motivated prisoner. The guard changes nothing else, switches itself off when Prison Labor is fixed, and comes out of this mod after that. Not yet tested in game.
+- **With Prison Labor, a temporary guard stops a crash** (0.16.5). Its first 1.7 build can close the game when a warden considers feeding a motivated prisoner. The guard changes nothing else, switches itself off when Prison Labor is fixed, and comes out of this mod after that. **Tested in game by the owner, 10 November 2026: PG5 ran past the point where it had crashed every time.**
 
 - **New in 0.15.0, with Vanilla Expanded Framework and Vehicle Framework (not yet tested in game): a caravan with vehicles can no
   longer found an outpost through the "create outpost" window.** Leave the vehicles somewhere first and come on foot. The window says

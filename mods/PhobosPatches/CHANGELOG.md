@@ -8,7 +8,7 @@ says the owner tested it.
 
 ## [0.16.5] - 2026-11-10 - Draft
 
-Temporary, at the owner's request, until the author of Prison Labor ships a fix. **Not yet tested in game.**
+Temporary, at the owner's request, until the author of Prison Labor ships a fix. **Tested in game by the owner, 10 November 2026: PG5 ran past the point where it had crashed every time.**
 
 ### Fixed
 

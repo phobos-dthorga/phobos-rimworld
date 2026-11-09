@@ -21,6 +21,8 @@ RimWorld.Pawn_FoodRestrictionTracker.GetCurrentRespectedRestriction (patched)
 
 `src/PhobosPatches.PrisonLabor`, a separate assembly loaded only with Prison Labor. A prefix on Prison Labor's postfix lets it run once and hands back the game's answer from any nested call, so a prisoner in that case ends up with no food policy, which is the game's own answer. The rule that another author's bug is theirs applies, and this is its exception for extreme errors: Prison Labor's project is active (updated 9 Nov 2026), and a crash to desktop with no log entry is extreme. The owner has reported it.
 
+**Holding, 10 Nov 2026:** the owner reports it holds. The load line shows the guard on with Framework 0.58.0, no dump has been written since, and PG5 ran for 15 minutes after loading where it had crashed within five every time.
+
 **Lets the player:** keep Prison Labor and keep playing. **Stops:** only the endless call. **Changes:** nothing else.
 
 **How it comes out.** At each start the guard reads Prison Labor's code. When the load line says `temporary guard against Prison Labor's food policy loop` is off because Prison Labor no longer calls itself or has that patch, the fix has shipped. Check with `python scripts/workshop-research.py report avius.prisonlabor` for a newer update, then:
