@@ -1,0 +1,51 @@
+{
+  "file": "station-tuning-rig-3.png",
+  "sha256": "cd2c2bee012ad524421bc1993eebfb2a9eb320d6b73dbb3f35ead1fd351b45f6",
+  "date": "2026-11-09T19:47:53",
+  "generator": "OpenAI gpt-image-2 through the OpenAI image API (paid per image)",
+  "engine": "openai",
+  "model": "gpt-image-2",
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL game building sprite: the D'thorga tuning rig, a square steel test stand parked beside a vehicle to tune its engine, in a hard-scrabble frontier colony. Image 1 is our approved workbench from the same family: match its outline weight, shading, palette and finish only. Do NOT copy its shape.\n\nThe object fills about 85 percent of the canvas, centred, on a plain pure white background.\n\nIts top plan: a heavy square dark-steel frame; in the upper half a long olive instrument cabinet with a row of plain round covers; in the lower left a round dark steel roller drum set into the deck; in the lower right a small pale steel hoist base with one muted orange lifting hook lying flat.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Dusty olive, dark grey, pale steel, one muted orange accent. Not a photograph, not a 3D render, not pixel art.\n\nNo people, animals, text, letters, numbers, logos, dials, screens, lamps or dust. No floor, ground, shadow outside the object, perspective, tilt or visible side faces. Top surfaces only.",
+  "seed": 3,
+  "seed_note": "an attempt number naming the file; the API takes no seed, so a rerun gives a different image",
+  "quality": "medium",
+  "size": [
+    816,
+    816
+  ],
+  "request_file": "assets/phobos-vehicles/requests/stations-parts-upgrades.json",
+  "ai_disclosure": "Made with generative AI: OpenAI gpt-image-2, prompted by the Phobos art scripts.",
+  "terms": "OpenAI Services Agreement, sections 4.1 and 4.4, as recorded in the Phobos Ostranauts repository on 2026-10-07 and summarised again on 2026-11-08: API customers own Output, OpenAI assigns any rights it has, and Output may not be unique; no use of Output to build competing models. Dated secondary records: the openai.com page refuses automated reads, so the owner confirms the current text.",
+  "endpoint": "/images/edits",
+  "usage": {
+    "input_tokens": 1332,
+    "input_tokens_details": {
+      "image_tokens": 1008,
+      "text_tokens": 324
+    },
+    "output_tokens": 1536,
+    "output_tokens_details": {
+      "image_tokens": 1536,
+      "text_tokens": 0
+    },
+    "total_tokens": 2868
+  },
+  "cost_usd": 0.0558,
+  "cost_is_estimate": false,
+  "reported_quality": "medium",
+  "reported_size": "816x816",
+  "reported_background": "opaque",
+  "reported_output_format": "png",
+  "returned_size": [
+    816,
+    816
+  ],
+  "seconds": 33.4,
+  "references": [
+    {
+      "image": "assets/phobos-vehicles/generated/station-parts-bench/station-parts-bench-3.png",
+      "sha256": "2baa81e280977502aad9659875bb6a78913191a776e4d42c5d70d4a1e4584839",
+      "role": "approved workbench of the same family: match its outline weight, shading, palette and finish only; do not copy its shape"
+    }
+  ]
+}

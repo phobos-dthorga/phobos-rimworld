@@ -1,0 +1,51 @@
+{
+  "file": "part-transmission-1.png",
+  "sha256": "cbe6660d99dede58928eebc27bfdc87ce5bbe711f595fb980829aec21287f237",
+  "date": "2026-11-09T19:52:23",
+  "generator": "OpenAI gpt-image-2 through the OpenAI image API (paid per image)",
+  "engine": "openai",
+  "model": "gpt-image-2",
+  "prompt": "GAME ITEM ICON. Camera above the object looking down at about sixty degrees, the way the game RimWorld draws loose items on the floor. One single object, centred.\n\nCreate an ORIGINAL game item sprite: a heavy truck gearbox, ready to fit. Image 1 is our approved component from the same family: match its outline weight, shading, palette, camera angle and finish only. Do NOT copy its shape.\n\nDraw ONLY this object, alone on a plain pure white background, filling about 75 percent of the canvas. Square canvas.\n\nA ribbed dark grey cast casing, longer than it is wide, with a round bell housing at one end, an output shaft at the other, an olive top cover with plain bolts, one muted orange drain plug, on a small steel skid.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Dusty olive, dark grey, pale steel, one muted orange accent. Not a photograph, not a 3D render, not pixel art. It must read clearly when shrunk to 64 pixels: three big shapes, few small ones.\n\nNo people, animals, vehicle, text, letters, numbers, logos, dust, floor, ground or cast shadow.",
+  "seed": 1,
+  "seed_note": "an attempt number naming the file; the API takes no seed, so a rerun gives a different image",
+  "quality": "medium",
+  "size": [
+    816,
+    816
+  ],
+  "request_file": "assets/phobos-vehicles/requests/stations-parts-upgrades.json",
+  "ai_disclosure": "Made with generative AI: OpenAI gpt-image-2, prompted by the Phobos art scripts.",
+  "terms": "OpenAI Services Agreement, sections 4.1 and 4.4, as recorded in the Phobos Ostranauts repository on 2026-10-07 and summarised again on 2026-11-08: API customers own Output, OpenAI assigns any rights it has, and Output may not be unique; no use of Output to build competing models. Dated secondary records: the openai.com page refuses automated reads, so the owner confirms the current text.",
+  "endpoint": "/images/edits",
+  "usage": {
+    "input_tokens": 1309,
+    "input_tokens_details": {
+      "image_tokens": 1024,
+      "text_tokens": 285
+    },
+    "output_tokens": 1536,
+    "output_tokens_details": {
+      "image_tokens": 1536,
+      "text_tokens": 0
+    },
+    "total_tokens": 2845
+  },
+  "cost_usd": 0.0557,
+  "cost_is_estimate": false,
+  "reported_quality": "medium",
+  "reported_size": "816x816",
+  "reported_background": "opaque",
+  "reported_output_format": "png",
+  "returned_size": [
+    816,
+    816
+  ],
+  "seconds": 32.6,
+  "references": [
+    {
+      "image": "assets/phobos-vehicles/generated/part-engine-assembly/part-engine-assembly-2.png",
+      "sha256": "1a3c739071a7aa3693258c409de31a22a91b0ecebcd960f5912a5fb26d29e793",
+      "role": "approved component of the same family: match its outline weight, shading, palette, camera angle and finish only; do not copy its shape"
+    }
+  ]
+}

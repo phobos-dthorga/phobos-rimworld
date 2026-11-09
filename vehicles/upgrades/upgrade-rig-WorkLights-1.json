@@ -1,0 +1,51 @@
+{
+  "file": "upgrade-rig-WorkLights-1.png",
+  "sha256": "8f59bb0a11f7521c2273e7423b8e15b75422f6687184739da5c0bd57dab5ecf7",
+  "date": "2026-11-09T20:02:08",
+  "generator": "OpenAI gpt-image-2 through the OpenAI image API (paid per image)",
+  "engine": "openai",
+  "model": "gpt-image-2",
+  "prompt": "GAME ITEM ICON. Camera above the object looking down at about sixty degrees, the way the game RimWorld draws loose items on the floor. One single object, centred.\n\nCreate an ORIGINAL game upgrade icon: a lamp mast. Image 1 is our approved upgrade icon from the same family: match its outline weight, shading, palette, camera angle and finish only. Do NOT copy its shape.\n\nDraw ONLY this object, alone on a plain pure white background, filling about 75 percent of the canvas. Square canvas.\n\nA slim steel pole with two square pale-glass lamps at its top on a short crossbar, standing on a small olive base with one muted orange collar.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Dusty olive, dark grey, pale steel, one muted orange accent. Not a photograph, not a 3D render, not pixel art. It must read clearly when shrunk to 80 pixels: one big shape, few small ones.\n\nNo people, animals, vehicle, text, letters, numbers, logos, dust, floor, ground or cast shadow.",
+  "seed": 1,
+  "seed_note": "an attempt number naming the file; the API takes no seed, so a rerun gives a different image",
+  "quality": "medium",
+  "size": [
+    816,
+    816
+  ],
+  "request_file": "assets/phobos-vehicles/requests/stations-parts-upgrades.json",
+  "ai_disclosure": "Made with generative AI: OpenAI gpt-image-2, prompted by the Phobos art scripts.",
+  "terms": "OpenAI Services Agreement, sections 4.1 and 4.4, as recorded in the Phobos Ostranauts repository on 2026-10-07 and summarised again on 2026-11-08: API customers own Output, OpenAI assigns any rights it has, and Output may not be unique; no use of Output to build competing models. Dated secondary records: the openai.com page refuses automated reads, so the owner confirms the current text.",
+  "endpoint": "/images/edits",
+  "usage": {
+    "input_tokens": 1287,
+    "input_tokens_details": {
+      "image_tokens": 1024,
+      "text_tokens": 263
+    },
+    "output_tokens": 1536,
+    "output_tokens_details": {
+      "image_tokens": 1536,
+      "text_tokens": 0
+    },
+    "total_tokens": 2823
+  },
+  "cost_usd": 0.0556,
+  "cost_is_estimate": false,
+  "reported_quality": "medium",
+  "reported_size": "816x816",
+  "reported_background": "opaque",
+  "reported_output_format": "png",
+  "returned_size": [
+    816,
+    816
+  ],
+  "seconds": 26.7,
+  "references": [
+    {
+      "image": "assets/phobos-vehicles/generated/upgrade-diamond-bit/upgrade-diamond-bit-3.png",
+      "sha256": "6e4f1beb8b7a3506139d786e303410d926d353b681cc5497be2b2fb4d68cb45c",
+      "role": "approved upgrade icon of the same family: match its outline weight, shading, palette, camera angle and finish only; do not copy its shape"
+    }
+  ]
+}

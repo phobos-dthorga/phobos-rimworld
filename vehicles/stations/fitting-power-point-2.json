@@ -1,0 +1,51 @@
+{
+  "file": "fitting-power-point-2.png",
+  "sha256": "1ba025a5e21697d5deaffcc5bb612abb7391f94feb5e9a1e2e7efa1d48fc0199",
+  "date": "2026-11-09T20:11:07",
+  "generator": "OpenAI gpt-image-2 through the OpenAI image API (paid per image)",
+  "engine": "openai",
+  "model": "gpt-image-2",
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL small game building sprite: a small weatherproof power point on the ground beside a working truck. Image 1 is our approved truck from the same family: match its outline weight, shading, palette and finish only.\n\nThe object fills about 70 percent of the canvas, centred, on a plain pure white background. Square canvas.\n\nA square olive steel box with a pale cover and one plain round socket, with a short thick black cable leaving it towards the left edge of the canvas.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Dusty olive, dark grey, pale steel, one muted orange accent. Not a photograph, not a 3D render, not pixel art. It must read clearly when shrunk to 64 pixels: two big shapes at most.\n\nNo people, animals, text, letters, numbers, logos, dials, screens, lamps or dust. No floor, ground, shadow outside the object, perspective, tilt or visible side faces. Top surfaces only.",
+  "seed": 2,
+  "seed_note": "an attempt number naming the file; the API takes no seed, so a rerun gives a different image",
+  "quality": "medium",
+  "size": [
+    816,
+    816
+  ],
+  "request_file": "assets/phobos-vehicles/requests/stations-parts-upgrades.json",
+  "ai_disclosure": "Made with generative AI: OpenAI gpt-image-2, prompted by the Phobos art scripts.",
+  "terms": "OpenAI Services Agreement, sections 4.1 and 4.4, as recorded in the Phobos Ostranauts repository on 2026-10-07 and summarised again on 2026-11-08: API customers own Output, OpenAI assigns any rights it has, and Output may not be unique; no use of Output to build competing models. Dated secondary records: the openai.com page refuses automated reads, so the owner confirms the current text.",
+  "endpoint": "/images/edits",
+  "usage": {
+    "input_tokens": 1747,
+    "input_tokens_details": {
+      "image_tokens": 1458,
+      "text_tokens": 289
+    },
+    "output_tokens": 1536,
+    "output_tokens_details": {
+      "image_tokens": 1536,
+      "text_tokens": 0
+    },
+    "total_tokens": 3283
+  },
+  "cost_usd": 0.0592,
+  "cost_is_estimate": false,
+  "reported_quality": "medium",
+  "reported_size": "816x816",
+  "reported_background": "opaque",
+  "reported_output_format": "png",
+  "returned_size": [
+    816,
+    816
+  ],
+  "seconds": 30.4,
+  "references": [
+    {
+      "image": "assets/phobos-vehicles/generated/survey-truck-body-north/survey-truck-body-north-1.png",
+      "sha256": "1785df1c0645f4fd345cc1dccfabb2d53f3a011932bd45e13fa42630f057da01",
+      "role": "approved truck of the same family: match its outline weight, shading, palette and finish only; do not copy its shape"
+    }
+  ]
+}
