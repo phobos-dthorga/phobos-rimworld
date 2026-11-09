@@ -29,6 +29,13 @@ public static class Propagation
     }
 
     /// <summary>
+    /// What obstructions cost on a band. The band's factor applies to walls and built roofs, which a shorter wavelength gets through by way
+    /// of openings wide enough for it; rock and natural roofs have no openings and absorb, so they count in full (owner, 9 Nov 2026). A
+    /// labelled simplification: real rock absorbs somewhat more at higher frequencies, and this leaves the two bands equal there.
+    /// </summary>
+    public static double ObstructionDb(double builtDb, double naturalDb, double bandFactor) => builtDb * bandFactor + naturalDb;
+
+    /// <summary>
     /// Ray clearance: the straight line between two antennas, at the given fraction of the way from the
     /// first, is below the wall height, so a wall there blocks it. A mast sees over walls; only the walls
     /// near a low hand-held bite. Heights in metres.

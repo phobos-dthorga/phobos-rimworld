@@ -10,7 +10,7 @@ public class BandDef : Def
     public float highMHz;
     /// <summary>The frequency every loss is computed at. Defaults to the middle of the band.</summary>
     public float centreMHz;
-    /// <summary>Scales wall and stuff losses: below 1 copes better indoors (UHF), above 1 worse.</summary>
+    /// <summary>Scales the loss through walls and built roofs: below 1 copes better indoors (UHF), above 1 worse. Rock and natural roofs are not scaled.</summary>
     public float obstructionFactor = 1f;
 
     public override void PostLoad()

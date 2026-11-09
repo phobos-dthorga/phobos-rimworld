@@ -6,6 +6,14 @@ namespace Phobos.Radio.Physics.Tests;
 public class DecibelsTests
 {
     [Fact]
+    public void AShorterWavelengthGetsDiscountThroughWallsNotRock()
+    {
+        Assert.Equal(15, Propagation.ObstructionDb(20, 0, 0.75), 6);
+        Assert.Equal(60, Propagation.ObstructionDb(0, 60, 0.75), 6);
+        Assert.Equal(75, Propagation.ObstructionDb(20, 60, 0.75), 6);
+    }
+
+    [Fact]
     public void FiveWattsIsThirtySevenDbm() => Assert.Equal(36.99, Decibels.FromWatts(5), 2);
 
     [Fact]

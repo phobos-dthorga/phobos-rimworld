@@ -12,7 +12,9 @@ public static class ObstructionService
 {
     public static float LossDb(Map map, RadioEndpoint a, RadioEndpoint b, BandDef band, RadioRulesDef rules)
     {
-        var total = RoofLossDb(map, a.Cell, rules) + RoofLossDb(map, b.Cell, rules);
+        float built = 0f, natural = 0f;
+        AddRoof(map, a.Cell, rules, ref built, ref natural);
+        AddRoof(map, b.Cell, rules, ref built, ref natural);
         var cells = GenSight.BresenhamCellsBetween(a.Cell, b.Cell);
         var last = cells.Count - 1;
         for (var i = 1; i < last; i++)
@@ -24,14 +26,22 @@ public static class ObstructionService
             if (edifice is Building_Door door && door.Open) continue;
             if (IsRock(edifice))
             {
-                total += edifice.def.GetModExtension<RadioObstructionExtension>()?.lossDb ?? rules.rockLossDb;
+                natural += edifice.def.GetModExtension<RadioObstructionExtension>()?.lossDb ?? rules.rockLossDb;
                 continue;
             }
             var fraction = (float)i / last;
             if (!Propagation.RayBlockedByWall(fraction, a.AntennaHeightMetres, b.AntennaHeightMetres, rules.wallHeightMetres)) continue;
-            total += CrossingLossDb(edifice, rules);
+            built += CrossingLossDb(edifice, rules);
         }
-        return total * band.obstructionFactor;
+        return (float)Propagation.ObstructionDb(built, natural, band.obstructionFactor);
+    }
+
+    private static void AddRoof(Map map, IntVec3 cell, RadioRulesDef rules, ref float built, ref float natural)
+    {
+        var roof = cell.InBounds(map) ? cell.GetRoof(map) : null;
+        if (roof == null) return;
+        if (roof.isNatural || roof.isThickRoof) natural += RoofLossDb(map, cell, rules);
+        else built += RoofLossDb(map, cell, rules);
     }
 
     public static float RoofLossDb(Map map, IntVec3 cell, RadioRulesDef rules)

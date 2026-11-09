@@ -5,6 +5,12 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.1.6] - 2026-11-09 - Draft
+
+### Balance
+
+- UHF's easier time now applies only to walls and built roofs, which it gets through by way of openings. Rock and natural roofs cost UHF the same as VHF, which also makes the siting preview's figure for them right on either band (owner's decision). **Not yet tested in game.**
+
 ## [0.1.5] - 2026-11-09 - Draft
 
 ### Fixed
