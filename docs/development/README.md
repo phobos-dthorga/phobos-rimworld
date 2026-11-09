@@ -226,6 +226,11 @@ Five mods until 7 November 2026; each record below keeps its own mod's name and 
 - [Analysis tooling: proposals (7 Nov 2026)](analysis-tooling.md): eight deterministic tools for logs, saves, mod Defs,
   assemblies and the Workshop, so sessions read summaries instead of 300 MB saves; the language of each, and why they live in
   the shared phobos-modkit repository.
+- [Desktop front end for the Phobos tools: research and direction (9 Nov 2026)](tools-desktop-research.md): a program for
+  the person at the screen over every tool, built for humans (or dragons) while agents keep the command line; the owner's
+  decisions (Rust and SQLite, Republic Observatory's layout and feel under House D'thorga, a new sibling repository), what
+  Observatory and OnAir WyrmGrid teach, every question the tools answer today, the kit changes it needs, and the planet
+  globe as the first slice. Research and record only; nothing built.
 
 ## RimWorld
 
