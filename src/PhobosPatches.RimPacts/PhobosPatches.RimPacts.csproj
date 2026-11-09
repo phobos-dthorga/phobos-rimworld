@@ -9,7 +9,7 @@
     <AssemblyName>PhobosPatches.RimPacts</AssemblyName>
     <ModFolder>PhobosPatches</ModFolder>
     <TieInFolder>Mods/RimPacts/</TieInFolder>
-    <Version>0.16.1</Version>
+    <Version>0.16.2</Version>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="../PhobosFramework/PhobosFramework.csproj" Private="false" />

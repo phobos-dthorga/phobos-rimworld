@@ -41,6 +41,28 @@ public static class PhobosTiming
 
     public static void Reset() => entries.Clear();
 
+    /// <summary>Total milliseconds across the labels counted.</summary>
+    public static double TotalMs(Func<string, bool> counted)
+    {
+        long ticks = 0;
+        foreach (KeyValuePair<string, Entry> pair in entries)
+        {
+            if (counted(pair.Key)) ticks += pair.Value.Ticks;
+        }
+        return ticks * millisecondsPerTick;
+    }
+
+    /// <summary>The longest single call among the labels counted, in milliseconds.</summary>
+    public static double WorstMs(Func<string, bool> counted)
+    {
+        long worst = 0;
+        foreach (KeyValuePair<string, Entry> pair in entries)
+        {
+            if (counted(pair.Key) && pair.Value.Worst > worst) worst = pair.Value.Worst;
+        }
+        return worst * millisecondsPerTick;
+    }
+
     /// <summary>One line per label: total milliseconds, calls, the average and the worst call in microseconds.</summary>
     public static string Report()
     {

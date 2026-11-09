@@ -298,6 +298,7 @@ public sealed class StrikeWork : FrameWork
                 Vaporised++;
                 break;
             case ThingHit.KillFinalize:
+                IrbmSweep.KillHeldPawns(thing);
                 thing.Destroy(DestroyMode.KillFinalize);
                 Wrecked++;
                 break;

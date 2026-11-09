@@ -12,7 +12,7 @@ with vehicles is refused at the "create outpost" window, because founding one th
 It replaces two earlier mods, merged into it on 7 November 2026: **D'thorga Vehicle Patches** and **D'thorga Missile Patches**
 ([why](../../docs/development/mod-consolidation.md)).
 
-Version 0.16.1, built 9 November 2026 for House D'thorga. **Not yet tested in game as D'thorga Patches.** The Harrier and turret hull
+Version 0.16.2, built 9 November 2026 for House D'thorga. **Not yet tested in game as D'thorga Patches.** The Harrier and turret hull
 parts are unchanged from Vehicle Patches 0.6.0 (not yet tested in game); the missile part was tried once by the owner, see
 [InterRim Ballistic Missile](#interrim-ballistic-missile).
 

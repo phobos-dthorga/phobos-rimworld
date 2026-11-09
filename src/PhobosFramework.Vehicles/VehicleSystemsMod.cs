@@ -177,6 +177,7 @@ public class VehicleSystemsMod : Mod
         PatchFlags.Register("PhobosVehicleSystems.electricLightning", () => Settings.electricLightning);
         HarmonyPatchApplier.ApplyEach(new Harmony(HarmonyId), typeof(VehicleSystemsMod).Assembly, LogPrefix);
         LongEventHandler.ExecuteWhenFinished(LogLoaded);
+        Phobos.Framework.Work.PhobosGameEvents.GameLoaded += VehicleSelfTest.AfterLoad;
     }
 
     static void LogLoaded()

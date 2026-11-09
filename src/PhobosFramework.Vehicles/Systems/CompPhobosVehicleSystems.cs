@@ -391,12 +391,13 @@ public class CompPhobosVehicleSystems : VehicleComp
         if (train == null || !Usable || Tier != DetailTier.Full) return;
         bool active = train.IsAircraft ? Vehicle.Drafted || train.AircraftRunning : Vehicle.Spawned && Vehicle.vehiclePather != null && Vehicle.vehiclePather.Moving;
         if (!active && train.Cap >= 1f && train.Result.Rpm <= 0) return;
-        train.Sample();
+        using (PhobosTiming.Measure("vehicle sample")) train.Sample();
     }
 
     public override void CompTickRare()
     {
         base.CompTickRare();
+        VehicleCostMeasure.CheckDone();
         Tier = ReadTier();
         switch (Tier)
         {

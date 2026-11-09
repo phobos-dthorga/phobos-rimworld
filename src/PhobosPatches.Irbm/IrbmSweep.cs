@@ -212,6 +212,7 @@ public sealed class IrbmSweep : FrameWork
                 Vaporised++;
                 break;
             case ThingHit.KillFinalize:
+                KillHeldPawns(thing);
                 thing.Destroy(DestroyMode.KillFinalize);
                 Wrecked++;
                 break;
@@ -227,6 +228,16 @@ public sealed class IrbmSweep : FrameWork
     /// first, so it dies rather than being sent off the map alive.
     /// </summary>
     internal static void EmptyHeldThings(Thing thing)
+    {
+        KillHeldPawns(thing);
+        if (thing is IThingHolder holder) holder.GetDirectlyHeldThings()?.ClearAndDestroyContents();
+    }
+
+    /// <summary>
+    /// Whoever is alive inside dies with the building (owner, 9 Nov 2026: a casket is no blast shelter). Without this a wrecked casket would
+    /// throw its sleeper out alive beside the crater, past the point the blast has already looked. What else the building held is left to it.
+    /// </summary>
+    internal static void KillHeldPawns(Thing thing)
     {
         if (thing is not IThingHolder holder) return;
         ThingOwner? owner = holder.GetDirectlyHeldThings();
@@ -245,7 +256,6 @@ public sealed class IrbmSweep : FrameWork
                 }
             }
         }
-        owner.ClearAndDestroyContents();
     }
 
     protected override void Finish()

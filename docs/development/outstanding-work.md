@@ -109,7 +109,7 @@ first ([record](vehicle-health-design.md)). Slices in order; each needs the one 
 | H2 | Conditions proper: per-part severities with stages, from hits, stages and wear; resolved by repair, fading or a service | Framework | Architecture chosen (8 Nov 2026); Def shape after a read of Vehicle Framework's develop branch | Done: Framework 0.29.0 (not yet tested in game), three agent-authored conditions for the owner's review |
 | H3 | Consequences and repair depth: leaks with the danger clock, destroyed parts needing supplies (setting, on), field fixes, permanent conditions; wreck-on-death as a separate question | Framework, Vehicles | Supplies for destroyed parts and serious conditions (8 Nov 2026) | Done except permanent damage and wrecks, left out on the agent's recommendation: Framework 0.36.0, Vehicles 0.14.0 ([record](vehicle-health-consequences.md)); not yet tested in game |
 | H5 | Our parts framework grown into tuning and upgrades | Framework, Vehicles | Direction (owner, 9 Nov 2026); wants its own record of what each behaviour does before it is built | Built: fittings, tunes and enemy sets (Framework 0.40.0), part grades (0.41.0); not yet tested in game ([record](vehicle-tuning-and-upgrades.md)) |
-| H4 | The performance table in the record, filled from the owner's runs (Dubs Performance Analyzer, the 1.7 Frame Profiler, our readout) | docs | | Open: the owner runs the protocol |
+| H4 | The performance table in the record, filled from the owner's runs (Dubs Performance Analyzer, the 1.7 Frame Profiler, our readout) | docs | Open: the owner runs it. The dev actions "Vehicle systems: measure the cost for an in-game hour" and "day" (Framework 0.42.0) report it against the budget |
 
 ## Caustic gas, the rest (8 Nov 2026)
 

@@ -124,10 +124,34 @@ public static class FrameWorkQueue
 }
 
 /// <summary>Drives <see cref="FrameWorkQueue"/> and <see cref="Logging.GameLogKeeper"/> once per frame, paused or not. Saves nothing.</summary>
+public static class PhobosGameEvents
+{
+    /// <summary>A saved game has finished loading. For checks that want the whole game in place; each handler is run on its own, so one that throws stops no other.</summary>
+    public static event Action? GameLoaded;
+
+    internal static void RaiseGameLoaded()
+    {
+        if (GameLoaded == null) return;
+        foreach (Action handler in GameLoaded.GetInvocationList())
+        {
+            try
+            {
+                handler();
+            }
+            catch (Exception error)
+            {
+                FrameworkMod.Logger.Error("A check after loading stopped with an error: " + error);
+            }
+        }
+    }
+}
+
 public sealed class GameComponent_PhobosFrameWork : GameComponent
 {
     /// <summary>Each game, new or loaded, makes one of these: the shared logger's once-only lines open again for it.</summary>
     public GameComponent_PhobosFrameWork(Game game) => Phobos.Logging.PhobosLog.NewSession();
+
+    public override void LoadedGame() => PhobosGameEvents.RaiseGameLoaded();
 
     public override void GameComponentUpdate()
     {

@@ -370,7 +370,7 @@ public sealed class VehicleRepairs
         comp.AfterRepair();
         Invalidate();
         if (fieldFixRequested && !comp.Conditions.All.Any(CanFieldFix)) fieldFixRequested = false;
-        Messages.Message(text, comp.Vehicle.Spawned ? comp.Vehicle : LookTargets.Invalid, MessageTypeDefOf.TaskCompletion);
+        VehicleNotices.Send(text, comp.Vehicle.Spawned ? comp.Vehicle : LookTargets.Invalid, MessageTypeDefOf.TaskCompletion);
         return true;
     }
 

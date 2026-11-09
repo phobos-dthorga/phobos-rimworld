@@ -596,6 +596,10 @@ public class PhobosVehicleRulesDef : PhobosRulesDef
     public int repairStepGapTicks = 600;
     /// <summary>How long repairs to that vehicle then wait before they are tried again.</summary>
     public int repairPauseTicks = 60000;
+    /// <summary>What the whole vehicle model may cost, simulation side, all maps, on average per tick (docs/development/vehicle-health-design.md).</summary>
+    public float budgetMsPerTick = 0.05f;
+    /// <summary>The most one call of the vehicle model may cost.</summary>
+    public float budgetMsSingleCall = 0.5f;
     /// <summary>A danger clock is shown only within this many hours.</summary>
     public float dangerClockHours = 72f;
 }

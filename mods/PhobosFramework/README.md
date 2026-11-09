@@ -5,7 +5,7 @@ colonist is breathing, makes fires fill roofed rooms with the game's own smoke w
 carries carbon monoxide from fires, holds the per-person care choices the D'thorga medical mods offer, and holds the small
 helpers every D'thorga mod shares.
 
-Version 0.41.1, built 9 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
+Version 0.42.0, built 9 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
 oxygen working through Burns and Smoke and Medical Equipment (5 November 2026). The health layer new in 0.3.0 and the **vehicle
 systems new in 0.9.0, and their engines, drivetrains and gas turbines new in 0.11.0, are not yet tested in game.** The rest is read from the game's and the mods' code.
 
@@ -225,6 +225,11 @@ The new button on a vehicle's **Dashboard** opens **Fittings and tunes**, for an
 - **Other factions' vehicles may be found with a set** suited to their tech level, and keep it if captured. Turn this off in the settings under Repairs. Fittings that change speed or capacity act at once on them; engine power and tunes only matter once captured.
 - **Part grades** (new in 0.41.0; not yet tested in game): salvaged parts are cheap, frail and fault-prone and cannot hold a fitting; heavy-duty parts cost more, take more punishment and shrug off faults. Choose one on the **Grade** button when a part is destroyed, or to refit a working part, which uses up the old one.
 - Every figure is authored, to be tuned in play.
+
+### Checking it yourself (dev mode)
+
+- **"Vehicle systems: run the self-test"** reads every vehicle you have, then exercises fittings, tunes, part replacement and grades on a throwaway vehicle, and opens a pass or fail report. Nothing in your colony is touched. Every load in dev mode also checks your vehicles by itself.
+- **"Vehicle systems: measure the cost for an in-game hour"** or **"day"** times the vehicle model and opens a verdict against its budget of 0.05 ms a tick on average. Leave the game running unpaused.
 
 ## Settings
 

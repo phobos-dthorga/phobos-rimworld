@@ -6,6 +6,12 @@ says the owner tested it.
 
 ## [Unreleased]
 
+## [0.16.2] - 2026-11-09 - Draft
+
+### Changed
+
+- Someone asleep in a casket at ground zero now dies with the casket when rubble is on, as they already did without it, and as everyone else at ground zero does (owner's decision). What else the building held is treated as before. **Not yet tested in game.**
+
 ## [0.16.1] - 2026-11-09 - Draft
 
 ### Fixed

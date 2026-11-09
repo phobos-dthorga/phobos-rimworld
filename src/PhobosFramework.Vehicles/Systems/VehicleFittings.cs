@@ -348,14 +348,14 @@ public sealed class VehicleFittings
     {
         orders.Add(order);
         comp.Repairs.Invalidate();
-        Messages.Message("PhobosVehicleSystems_FitOrderedMessage".Translate(LabelOf(order).CapitalizeFirst().Named("WORK"), comp.Vehicle.LabelShort.Named("VEHICLE")), MessageTypeDefOf.SilentInput, historical: false);
+        VehicleNotices.Send("PhobosVehicleSystems_FitOrderedMessage".Translate(LabelOf(order).CapitalizeFirst().Named("WORK"), comp.Vehicle.LabelShort.Named("VEHICLE")), MessageTypeDefOf.SilentInput, historical: false);
     }
 
     public void Cancel(FitOrder order)
     {
         if (!orders.Remove(order)) return;
         comp.Repairs.Invalidate();
-        Messages.Message("PhobosVehicleSystems_FitCancelledMessage".Translate(LabelOf(order).CapitalizeFirst().Named("WORK"), comp.Vehicle.LabelShort.Named("VEHICLE")), MessageTypeDefOf.SilentInput, historical: false);
+        VehicleNotices.Send("PhobosVehicleSystems_FitCancelledMessage".Translate(LabelOf(order).CapitalizeFirst().Named("WORK"), comp.Vehicle.LabelShort.Named("VEHICLE")), MessageTypeDefOf.SilentInput, historical: false);
     }
 
     string PartLabel(string partKey) => comp.Vehicle.statHandler?.GetComponent(partKey)?.props.label ?? partKey;
@@ -435,7 +435,7 @@ public sealed class VehicleFittings
     // ---- Grades ----
 
     /// <summary>The key of a grade's entry in the part's health modifiers. They are not saved, so they are put back after every load.</summary>
-    const string GradeHealthKey = "PhobosVehicleSystems_Grade";
+    internal const string GradeHealthKey = "PhobosVehicleSystems_Grade";
 
     static PhobosVehiclePartGradeDef? defaultGrade;
 
@@ -533,7 +533,7 @@ public sealed class VehicleFittings
             if (order.grade != null && part != null && comp.Repairs.PartBlocked(part)) continue;    // the replacement's own choice: it waits for that job
             if (player)
             {
-                Messages.Message("PhobosVehicleSystems_FitOrderLost".Translate(LabelOf(order).CapitalizeFirst().Named("WORK"), comp.Vehicle.LabelShort.Named("VEHICLE")), Where, MessageTypeDefOf.NegativeEvent);
+                VehicleNotices.Send("PhobosVehicleSystems_FitOrderLost".Translate(LabelOf(order).CapitalizeFirst().Named("WORK"), comp.Vehicle.LabelShort.Named("VEHICLE")), Where, MessageTypeDefOf.NegativeEvent);
             }
             orders.RemoveAt(i);
             orderLost = true;
@@ -546,7 +546,7 @@ public sealed class VehicleFittings
     LookTargets Where => comp.Vehicle.Spawned ? comp.Vehicle : LookTargets.Invalid;
 
     void TellLost(PhobosVehicleFittingDef def, VehicleComponent part) =>
-        Messages.Message("PhobosVehicleSystems_FitLost".Translate(comp.Vehicle.LabelShort.Named("VEHICLE"), def.label.Named("FITTING"), part.props.label.Named("PART")), Where, MessageTypeDefOf.NegativeEvent);
+        VehicleNotices.Send("PhobosVehicleSystems_FitLost".Translate(comp.Vehicle.LabelShort.Named("VEHICLE"), def.label.Named("FITTING"), part.props.label.Named("PART")), Where, MessageTypeDefOf.NegativeEvent);
 
     /// <summary>A destroyed part mended somewhere no sweep saw it destroyed (a garage): the fitting went with the old one.</summary>
     public void LoseWith(VehicleComponent part)
