@@ -117,6 +117,17 @@ public static class ParameterRule
     }
 }
 
+/// <summary>What a hit on a part does to a quantity or a condition. Game-free.</summary>
+public static class PartHitMath
+{
+    /// <summary>The amount for this much health lost: so much per point, plus so much per share of the part's whole health.</summary>
+    public static double Amount(double perPoint, double perShare, double healthLost, double maxHealth)
+    {
+        if (healthLost <= 0) return 0;
+        return perPoint * healthLost + (maxHealth > 0 ? perShare * healthLost / maxHealth : 0);
+    }
+}
+
 /// <summary>How many game hours have passed since a system last ran, capped. Game-free.</summary>
 public static class ElapsedRule
 {

@@ -42,6 +42,8 @@ public class Effect_DamagePart : VehicleSystemEffect
 {
     public string role = "";
     public float perHour;
+    /// <summary>A share of the part's whole health each hour, so a small engine and a big one last the same time.</summary>
+    public float sharePerHour;
     public float amount;
 
     public override void OnEnter(SystemContext context)
@@ -51,7 +53,7 @@ public class Effect_DamagePart : VehicleSystemEffect
 
     public override void Apply(SystemContext context, float hours)
     {
-        if (perHour > 0f) context.Comp.WearRole(role, perHour * hours);
+        if (perHour > 0f || sharePerHour > 0f) context.Comp.WearRole(role, perHour * hours, sharePerHour * hours);
     }
 }
 

@@ -119,7 +119,8 @@
               </li>
               <li Class="Phobos.VehicleSystems.Effect_DamagePart">
                 <role>Engine</role>
-                <perHour>6</perHour>
+                <!-- A share of the engine's health, so every engine dies in about the same time (authored, 9 Nov 2026: about 7 hours). -->
+                <sharePerHour>0.15</sharePerHour>
               </li>
               <li Class="Phobos.VehicleSystems.Effect_RateQuantity">
                 <quantity>coolantLevel</quantity>
@@ -282,20 +283,22 @@
     </service>
     <onPartHit>
       <li>
+        <!-- Shares of the part's health, so a small radiator and a big one agree (authored, 9 Nov 2026, after the owner's test: a wrecked radiator used to
+             cost at most 45% of the coolant). -->
         <role>Radiator</role>
         <quantity>coolantLevel</quantity>
-        <perHealthLost>-0.015</perHealthLost>
+        <perShareLost>-0.9</perShareLost>
       </li>
       <li>
         <role>Engine</role>
         <quantity>coolantLevel</quantity>
-        <perHealthLost>-0.005</perHealthLost>
+        <perShareLost>-0.3</perShareLost>
       </li>
       <li>
-        <!-- Framework 0.29.0: the hole goes on leaking (Conditions.xml). A 30-point radiator hit for 10 is leaking (0.3). Authored. -->
+        <!-- Framework 0.29.0: the hole goes on leaking (Conditions.xml). A third of a radiator's health shot away is leaking (0.3). Authored. -->
         <role>Radiator</role>
         <condition>PhobosVehicleCondition_HoledRadiator</condition>
-        <perHealthLost>0.03</perHealthLost>
+        <perShareLost>0.9</perShareLost>
         <armorCategories>
           <li>Sharp</li>
           <li>Blunt</li>

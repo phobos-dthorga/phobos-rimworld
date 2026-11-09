@@ -5,6 +5,33 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.53.0] - 2026-11-09 - Draft
+
+From the owner's screenshots of two shot-up raider vehicles (9 November 2026). The figures are authored, the owner agreed them. **Not yet tested in game.**
+
+### Added
+
+- A cracked sump: a hit on an engine can leave it leaking oil, even parked, at one of three rates. A field patch slows it and a repair stops it.
+- A new oil pressure stage: with nothing reaching the bearings a running engine seizes in about five hours, and says so.
+
+### Fixed
+
+- Six Vanilla Vehicles Expanded designs (Traveller, Bang Bus, Highwayman, Bunsen, Roadkill, Scytheman) treated a suspension or a gearbox as their engine, so hits on the real engine went unnoticed and overheating wore the wrong part. Parts we add around the engine now sit where the engine is.
+- Another faction's vehicle no longer tells you to park it beside water for a top-up.
+
+### Balance
+
+- Hits on a radiator, an oil pump or an engine now cost coolant and oil by the share of the part's health lost, not by points, so big and small vehicles agree. A wrecked radiator empties the system; a wrecked engine and pump leave under a third of the oil.
+- Boiling over now kills any engine in about seven hours, where a big one used to last days.
+
+### Save compatibility
+
+- Safe on an existing save. The six vehicles above find their real engine at the next load, and damage already taken stays as it is.
+
+### Compatibility and limits
+
+- Other factions' vehicles still do not evolve after a hit, to save time each tick: a raider's holed radiator shows the hit but does not go on draining, unless the full model is set for every faction.
+
 ## [0.52.0] - 2026-11-09 - Draft
 
 ### Added

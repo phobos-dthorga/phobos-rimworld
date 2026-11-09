@@ -303,7 +303,7 @@ def check(root):
                 errors.append(f'{where}: a part-hit rule names a quantity no system has ({quantity})')
             if condition is not None:
                 check_condition_name(condition, conditions, where, 'a part-hit rule', errors)
-                if not (number(rule, 'perHealthLost', 0) or 0) > 0:
+                if not ((number(rule, 'perHealthLost', 0) or 0) > 0 or (number(rule, 'perShareLost', 0) or 0) > 0):
                     errors.append(f'{where}: the part-hit rule giving {condition} adds no severity')
             if text(rule, 'role') not in system['roles']:
                 warnings.append(f'{where}: a part-hit rule reads the role {text(rule, "role")}, which <roles> does not list')

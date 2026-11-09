@@ -160,7 +160,7 @@ pump empties, with a stage that stops the vehicle starting when it runs dry.
 | `stages` | Ranges `from` (inclusive) and `to` (exclusive), either open-ended, in rising order: `label`, `notable` (Plain mode names it), `effects`. A value in a gap is in no stage. |
 | `flows` | Rate rules on one quantity: `kind` `Into` and `From` (units per hour) or `Toward` a `target` input (the share of the gap closed per hour, done exactly, so it never overshoots). The rate is `factor`, times `factorParameter`, over `divideByParameter`, times every input. `openAbove` or `openAboveParameter` (and `openBelow`) with a `band` gate it like a thermostat. `when` limits it to a condition. |
 | `onEvents` | Effects run once on one of Vehicle Framework's events (`IgnitionOn`, `IgnitionOff`, `MoveStart`, `MoveStop`, `Refueled`, `OutOfFuel` and the rest). |
-| `onPartHit` | When a part playing `role` is hit, `quantity` changes by `perHealthLost` for each hit point lost, or the part gets `condition` with `perHealthLost` severity per hit point ([Part conditions](#part-conditions)). `armorCategories` (Sharp, Blunt, Heat) and `damageDefs` limit a rule to kinds of damage, `exceptDamageDefs` rules kinds out; with no filter any hit counts. |
+| `onPartHit` | When a part playing `role` is hit, `quantity` changes by `perHealthLost` for each hit point lost and `perShareLost` for each share of the part's whole health lost (prefer it: a small part and a big one then agree), or the part gets `condition` with that much severity ([Part conditions](#part-conditions)). `armorCategories` (Sharp, Blunt, Heat) and `damageDefs` limit a rule to kinds of damage, `exceptDamageDefs` rules kinds out; with no filter any hit counts. |
 | `service` | What a mechanic does: `label`, due when `dueQuantity` passes `dueAbove` or `dueBelow` (or while the vehicle has a condition in `clearsConditions`, which the service then clears), `supplies` loaded into the cargo first, `waterLitres` (or `waterLitresParameter`, a system parameter each loadout can set; `scaledWaterLitresParameter`, a scaled figure used unless the player's `realisticWaterSetting` is on, `realisticFeedWater` by default; and `waterForShortfall`, to draw only what the due quantity is short of) drawn from the registered water source when the work ends (free when none is registered; see [Water](#water-for-services)), `work` (ticks at construction speed 1), then `restores` (any system's quantities). |
 | `jumpStart` | How a colonist jump-starts the vehicle from another: `quantity` (raised to `raiseTo` when below it), `capacityParameter` (the unit the charge moves in), `donorMinimum` (or a running engine), `reach` in cells, `work` in ticks. The player orders it from the flat vehicle's right-click menu. |
 | `workerClass` | A `VehicleSystemWorker` subclass for maths XML cannot say. |
@@ -424,7 +424,7 @@ cooling system's `coolantLevel`; a fault is an `Effect_StatFactor` or an `Effect
 
 | Where a condition comes from | How |
 | --- | --- |
-| A hit | An `onPartHit` rule with `condition`: `perHealthLost` severity for each hit point the part lost, filtered by kind of damage |
+| A hit | An `onPartHit` rule with `condition`: `perHealthLost` severity for each hit point the part lost, or `perShareLost` for each share of its whole health, filtered by kind of damage |
 | A cause | `Effect_AddCondition` in a system's stage: boiling over warps the cylinder head |
 | Wear | The same effect in a wear quantity's stage |
 

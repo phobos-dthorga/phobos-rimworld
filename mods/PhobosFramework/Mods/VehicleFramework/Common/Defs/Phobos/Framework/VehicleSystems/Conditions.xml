@@ -63,6 +63,51 @@
   </Phobos.VehicleSystems.PhobosVehicleConditionDef>
 
   <Phobos.VehicleSystems.PhobosVehicleConditionDef>
+    <!-- Framework 0.53.0, agent-authored and held for the owner's review. A little slower than the radiator's ladder: a sump is not under pressure. The rates are
+         authored; the oil then starves the engine through the lubrication system's own stages. -->
+    <defName>PhobosVehicleCondition_CrackedSump</defName>
+    <label>cracked sump</label>
+    <description>A hit has cracked the engine's sump, and the oil leaks away even with the engine stopped. Repair the engine to stop it, and top the oil up.</description>
+    <fieldFixable>true</fieldFixable>
+    <stages>
+      <li>
+        <to>0.3</to>
+        <label>seeping</label>
+        <notable>true</notable>
+        <effects>
+          <li Class="Phobos.VehicleSystems.Effect_RateQuantity">
+            <quantity>oilLevel</quantity>
+            <perHour>-0.01</perHour>
+          </li>
+        </effects>
+      </li>
+      <li>
+        <from>0.3</from>
+        <to>0.7</to>
+        <label>leaking</label>
+        <notable>true</notable>
+        <effects>
+          <li Class="Phobos.VehicleSystems.Effect_RateQuantity">
+            <quantity>oilLevel</quantity>
+            <perHour>-0.05</perHour>
+          </li>
+        </effects>
+      </li>
+      <li>
+        <from>0.7</from>
+        <label>pouring out</label>
+        <notable>true</notable>
+        <effects>
+          <li Class="Phobos.VehicleSystems.Effect_RateQuantity">
+            <quantity>oilLevel</quantity>
+            <perHour>-0.2</perHour>
+          </li>
+        </effects>
+      </li>
+    </stages>
+  </Phobos.VehicleSystems.PhobosVehicleConditionDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleConditionDef>
     <defName>PhobosVehicleCondition_ShortedBattery</defName>
     <label>shorted</label>
     <description>A hit has damaged the battery's cells, and it drains itself even when nothing draws on it. Repair the battery to stop it.</description>

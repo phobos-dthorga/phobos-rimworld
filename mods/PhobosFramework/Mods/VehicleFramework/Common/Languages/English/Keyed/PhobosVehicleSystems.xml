@@ -117,6 +117,7 @@
   <PhobosVehicleSystems_MsgOverheating>The {VEHICLE}'s engine is overheating and taking damage. Stop it and let it cool.</PhobosVehicleSystems_MsgOverheating>
   <PhobosVehicleSystems_MsgCoolantLow>The {VEHICLE} is low on coolant. A service will top it up.</PhobosVehicleSystems_MsgCoolantLow>
   <PhobosVehicleSystems_MsgOilLow>The {VEHICLE} is low on oil. A service will top it up.</PhobosVehicleSystems_MsgOilLow>
+  <PhobosVehicleSystems_MsgOilPressureGone>The {VEHICLE} has no oil pressure. Stop the engine now: it will seize.</PhobosVehicleSystems_MsgOilPressureGone>
   <PhobosVehicleSystems_MsgOilPressureLow>The {VEHICLE}'s oil pressure is low; the engine wears while it runs.</PhobosVehicleSystems_MsgOilPressureLow>
   <PhobosVehicleSystems_MsgServiceDue>The {VEHICLE} is due for a service.</PhobosVehicleSystems_MsgServiceDue>
   <PhobosVehicleSystems_MsgServiceOverdue>The {VEHICLE} is overdue for a service; its parts are failing more often.</PhobosVehicleSystems_MsgServiceOverdue>

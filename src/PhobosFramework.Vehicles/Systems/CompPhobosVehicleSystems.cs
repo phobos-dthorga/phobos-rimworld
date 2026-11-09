@@ -774,10 +774,11 @@ public class CompPhobosVehicleSystems : VehicleComp
             {
                 // Every role the part plays: the health lost is counted once, whichever role's reactor saw it first.
                 if (!PartPlays(part, rule.role) || !rule.Matches(damage)) continue;
-                if (!string.IsNullOrEmpty(rule.quantity)) AddToQuantity(rule.quantity, rule.perHealthLost * healthLost);
+                float amount = rule.Amount(healthLost, part.MaxHealth);
+                if (!string.IsNullOrEmpty(rule.quantity)) AddToQuantity(rule.quantity, amount);
                 if (rule.condition != null)
                 {
-                    Conditions.Add(rule.condition, part, rule.role, state.Def.defName, (float)FittingRule.FaultSeverity(SeverityRule.FromHit(rule.perHealthLost, healthLost), Fittings.FaultFactor(part.props.key)));
+                    Conditions.Add(rule.condition, part, rule.role, state.Def.defName, (float)FittingRule.FaultSeverity(System.Math.Max(0f, amount), Fittings.FaultFactor(part.props.key)));
                     conditionGiven = true;
                 }
             }
@@ -990,12 +991,12 @@ public class CompPhobosVehicleSystems : VehicleComp
     }
 
     /// <summary>Slow damage to one living part of the role, without armour or reactions (wear, heat).</summary>
-    public void WearRole(string role, float amount)
+    public void WearRole(string role, float amount, float shareOfHealth = 0f)
     {
-        if (amount <= 0f) return;
+        if (amount <= 0f && shareOfHealth <= 0f) return;
         VehicleComponent? part = PartsOf(role).Where(p => p.Health > 0f).RandomElementWithFallback();
         if (part == null) return;
-        part.SetHealth(part.Health - amount);
+        part.SetHealth(part.Health - amount - shareOfHealth * part.MaxHealth);
         RememberPartHealth(part);
         Vehicle.statHandler.MarkAllDirty();
         Repairs.NotifyRepairable();    // Vehicle Framework's list of vehicles to repair is fed only by real hits

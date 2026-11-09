@@ -5,8 +5,8 @@
     its mass), never by its name. A named loadout in another mod (priority Mod or Vehicle) beats these. Design:
     docs/development/vehicle-systems-design.md; how to write one: docs/vehicle-systems-modding.md. Not yet tested in game.
 
-    Part roles are found on the vehicle's own parts first: the engine by its effect (an internal part that carries move speed,
-    the priority one first); the alternator, gearbox and the rest by tag, then by a hint in the part's key, because nothing else
+    Part roles are found on the vehicle's own parts first: the engine by its effect (an internal part that decides move speed; then a part that carries it
+    and is named engine, wherever it sits; then any internal part that carries it); the alternator, gearbox and the rest by tag, then by a hint in the part's key, because nothing else
     marks them (Vanilla Vehicles Expanded's alternator carries no stat). A role nothing plays gets an appended part that takes the
     engine's cells and armour, so Combat Extended can reach it. Parts are only ever appended, never reordered. Hit weights: Vehicle
     Framework hits a bigger weight more often, Combat Extended a smaller one, so each added part's hitWeight is inverted under CE
@@ -40,6 +40,14 @@
             </categories>
             <depth>Internal</depth>
             <priority>Yes</priority>
+          </li>
+          <li>
+            <!-- Before the next one: some designs mark their engine External (Vanilla Vehicles Expanded's Traveller, Bang Bus, Highwayman,
+                 Bunsen, Roadkill and Scytheman), and an internal part that carries move speed would then be a suspension or a gearbox. -->
+            <categories>
+              <li>MoveSpeed</li>
+            </categories>
+            <keyContains>engine</keyContains>
           </li>
           <li>
             <categories>

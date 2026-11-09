@@ -202,6 +202,21 @@ public class SmallRuleTests
     }
 
     [Fact]
+    public void AHitCountsBySharesSoBigAndSmallPartsAgree()
+    {
+        Assert.Equal(-0.45, PartHitMath.Amount(0, -0.9, 15, 30), 9);
+        Assert.Equal(-0.45, PartHitMath.Amount(0, -0.9, 95, 190), 9);
+    }
+
+    [Fact]
+    public void AHitCanStillCountByPointsAndNothingLostIsNothing()
+    {
+        Assert.Equal(-0.15, PartHitMath.Amount(-0.015, 0, 10, 30), 9);
+        Assert.Equal(0, PartHitMath.Amount(-0.015, -0.9, 0, 30));
+        Assert.Equal(-0.15, PartHitMath.Amount(-0.015, -0.9, 10, 0), 9);
+    }
+
+    [Fact]
     public void ElapsedHoursAreCapped()
     {
         Assert.Equal(0, ElapsedRule.Hours(1000, 1000, 24));

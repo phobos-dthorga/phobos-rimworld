@@ -109,6 +109,24 @@
         </derivedFrom>
         <stages>
           <li>
+            <!-- Nothing reaching the bearings: an engine seizes in about five hours, whatever its size (authored, 9 Nov 2026, after the owner's test; it used
+                 to wear at the same 2 points an hour as low pressure, 25 hours for a 50-point engine with an empty sump). -->
+            <to>0.15</to>
+            <label>gone</label>
+            <notable>true</notable>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_DamagePart">
+                <role>Engine</role>
+                <sharePerHour>0.2</sharePerHour>
+                <when Class="Phobos.VehicleSystems.When_EngineRunning" />
+              </li>
+              <li Class="Phobos.VehicleSystems.Effect_Message">
+                <message>PhobosVehicleSystems_MsgOilPressureGone</message>
+              </li>
+            </effects>
+          </li>
+          <li>
+            <from>0.15</from>
             <to>0.45</to>
             <label>low</label>
             <notable>true</notable>
@@ -149,14 +167,30 @@
     </flows>
     <onPartHit>
       <li>
+        <!-- Shares of the part's health (authored, 9 Nov 2026, after the owner's test: a wrecked pump and engine used to leave 60% of the oil, above the warning).
+             A pump is mostly a pressure problem; an engine carries the sump. -->
         <role>OilPump</role>
         <quantity>oilLevel</quantity>
-        <perHealthLost>-0.01</perHealthLost>
+        <perShareLost>-0.25</perShareLost>
       </li>
       <li>
         <role>Engine</role>
         <quantity>oilLevel</quantity>
-        <perHealthLost>-0.004</perHealthLost>
+        <perShareLost>-0.6</perShareLost>
+      </li>
+      <li>
+        <!-- The crack goes on leaking (Conditions.xml), as a holed radiator does. Authored. -->
+        <role>Engine</role>
+        <condition>PhobosVehicleCondition_CrackedSump</condition>
+        <perShareLost>0.9</perShareLost>
+        <armorCategories>
+          <li>Sharp</li>
+          <li>Blunt</li>
+        </armorCategories>
+        <exceptDamageDefs>
+          <li>Scratch</li>
+          <li>Bite</li>
+        </exceptDamageDefs>
       </li>
     </onPartHit>
   </Phobos.VehicleSystems.PhobosVehicleSystemDef>

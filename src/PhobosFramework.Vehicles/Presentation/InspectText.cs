@@ -51,6 +51,8 @@ public static class InspectText
     /// <summary>The one thing the vehicle waits for: a mechanic, a supply, water, or the reason it will not move; null when nothing.</summary>
     public static string? WaitingLine(CompPhobosVehicleSystems comp)
     {
+        // Another faction's vehicle waits for nothing the player can give it.
+        if (comp.Tier != Phobos.Framework.Rules.DetailTier.Full) return null;
         if (comp.MoveRefusal != null) return comp.MoveRefusal;
         string? repair = comp.Repairs.WaitingLine();
         if (repair != null) return repair;

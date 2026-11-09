@@ -100,6 +100,25 @@ The owner: "proceed with your H3 proposal in full", so the agent's recommendatio
 - **The framework should grow into tuning and upgrades** (owner: "one of possible tuning and full of upgrades as well"). **Not built
   yet:** it needs its own record of what each lets the player do, stops and changes, before any of it is written.
 
+### Calibration after the owner's test (9 Nov 2026, Framework 0.53.0)
+
+The owner's screenshots of two wrecked raider vehicles matched the model to the percent, and showed the rules were too gentle: "the damage is not being interpreted by the
+coolant and lubricant systems as harshly as it could be". The owner agreed every figure below. All are authored; not yet tested in game.
+
+| Rule | Was | Now |
+| --- | --- | --- |
+| Engine role | an internal part carrying move speed, so six Vanilla Vehicles Expanded designs whose engine is marked External bound a suspension or a gearbox | a part carrying move speed and named engine comes first |
+| Radiator hit, coolant lost | 1.5% per point (at most 45% on 30 points) | 90% of the share of health lost |
+| Engine hit, coolant lost | 0.5% per point | 30% of the share lost |
+| Oil pump hit, oil lost | 1% per point (at most 20%) | 25% of the share lost |
+| Engine hit, oil lost | 0.4% per point | 60% of the share lost |
+| Cracked sump | nothing went on leaking | a condition on the engine: 1%, 5% or 20% of the oil an hour; field-fixable |
+| No oil pressure, under 15% | 2 points an hour, as low pressure | 20% of the engine's health an hour |
+| Boiling over | 6 points an hour | 15% of the engine's health an hour |
+
+**Lets the player:** read a shot-up vehicle's state from its gauges, and race a leak home. **Stops them:** driving a holed engine for a day. **Changes play:** after a fight, a patch kit and oil decide
+whether a vehicle gets home. **Left as it was:** other factions' vehicles still do not evolve after a hit, so a raider's "pouring out" never pours (cost); the setting for the full model on every faction changes that.
+
 ### As built
 
 | Piece | Where | Note |

@@ -125,6 +125,8 @@ public class PartHitRule
     public string quantity = "";
     /// <summary>The change per hit point the part loses (negative to drain); for a condition, the severity per hit point.</summary>
     public float perHealthLost;
+    /// <summary>The change per share of the part's whole health lost (1 is all of it), so a small part and a big one agree. Adds to <see cref="perHealthLost"/>.</summary>
+    public float perShareLost;
     public PhobosVehicleConditionDef? condition;
     /// <summary>Only damage of these armour categories (Sharp, Blunt, Heat).</summary>
     public List<DamageArmorCategoryDef>? armorCategories;
@@ -134,6 +136,9 @@ public class PartHitRule
     public List<DamageDef>? exceptDamageDefs;
 
     bool Filtered => armorCategories != null || damageDefs != null;
+
+    /// <summary>What losing this much of the part's health moves the quantity or adds to the condition.</summary>
+    public float Amount(float healthLost, float maxHealth) => (float)Phobos.Framework.Vehicles.Rules.PartHitMath.Amount(perHealthLost, perShareLost, healthLost, maxHealth);
 
     public bool Matches(DamageDef? damage)
     {
@@ -283,7 +288,7 @@ public class PhobosVehicleSystemDef : Def
         {
             if (string.IsNullOrEmpty(rule.role)) yield return "a part-hit rule names no role";
             if (string.IsNullOrEmpty(rule.quantity) && rule.condition == null) yield return "the part-hit rule on " + rule.role + " moves no quantity and gives no condition";
-            if (rule.condition != null && rule.perHealthLost <= 0f) yield return "the part-hit rule giving " + rule.condition.defName + " adds no severity";
+            if (rule.condition != null && rule.perHealthLost <= 0f && rule.perShareLost <= 0f) yield return "the part-hit rule giving " + rule.condition.defName + " adds no severity";
         }
         if (service != null)
         {
