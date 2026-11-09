@@ -6,6 +6,15 @@ namespace Phobos.BurnsAndSmoke.Tests;
 public class EscharRuleTests
 {
     [Fact]
+    public void AReleasedLimbDoesNotGrowItBack() => Assert.False(EscharRule.NewEscharForms(25f, 30f, 0.6f, released: true));
+
+    [Fact]
+    public void AnUnreleasedLimbStillForms() => Assert.True(EscharRule.NewEscharForms(25f, 30f, 0.6f, released: false));
+
+    [Fact]
+    public void ReleaseDoesNotMakeALightBurnForm() => Assert.False(EscharRule.NewEscharForms(10f, 30f, 0.6f, released: false));
+
+    [Fact]
     public void ALimbBurnedPastSixtyPercentOfItsHealthFormsOne()
     {
         Assert.True(EscharRule.Forms(18f, 30f, 0.6f));

@@ -27,9 +27,14 @@ public class WorkGiver_PhobosTakeToChamber : WorkGiver_Scanner
     {
         if (t is not Pawn patient || patient == pawn) return false;
         if (!pawn.CanReserve(patient, 1, -1, null, forced)) return false;
-        return ChamberService.MakeJob(pawn, patient) != null;
+        return JobOnThing(pawn, t, forced) != null;
     }
 
-    public override Job? JobOnThing(Pawn pawn, Thing t, bool forced = false) =>
-        t is Pawn patient ? ChamberService.MakeJob(pawn, patient) : null;
+    public override Job? JobOnThing(Pawn pawn, Thing t, bool forced = false)
+    {
+        if (t is not Pawn patient) return null;
+        Job? job = ChamberService.MakeJob(pawn, patient);
+        if (job == null && forced && ChamberService.WantsChamber(patient)) JobFailReason.Is("PhobosMedical_NoFreeChamber".Translate());
+        return job;
+    }
 }

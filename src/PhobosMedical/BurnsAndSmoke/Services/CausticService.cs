@@ -26,7 +26,13 @@ public static class CausticService
 
     public static void Apply(Pawn pawn, PhobosBurnRulesDef rules, BurnsAndSmokeSettings settings, int intervalTicks)
     {
-        if (!settings.causticGas || pawn.Dead) return;
+        if (pawn.Dead) return;
+        if (!settings.causticGas)
+        {
+            // Switched off: the dose goes with it, or it would sit on the pawn for good.
+            if (pawn.health.hediffSet.GetFirstHediffOfDef(BurnsDefOf.PhobosBurns_CausticExposure) is { } stale) pawn.health.RemoveHediff(stale);
+            return;
+        }
         float hours = intervalTicks / TicksPerHour;
         bool fast = settings.causticFastActing;
         var dose = pawn.health.hediffSet.GetFirstHediffOfDef(BurnsDefOf.PhobosBurns_CausticExposure) as Hediff_PhobosCausticExposure;
@@ -88,6 +94,7 @@ public static class CausticService
         foreach (BodyPartRecord eye in pawn.health.hediffSet.GetNotMissingParts())
         {
             if (!eye.def.tags.Contains(BodyPartTagDefOf.SightSource)) continue;
+            if (pawn.health.hediffSet.PartOrAnyAncestorHasDirectlyAddedParts(eye)) continue;    // a replacement eye has no cornea to scar
             Hediff? injury = FirstOn(pawn, BurnsDefOf.PhobosBurns_CausticEye, eye);
             if (injury == null) pawn.health.AddHediff(Make(pawn, BurnsDefOf.PhobosBurns_CausticEye, eye, target), eye);
             else if (injury.Severity < target) injury.Severity = target;

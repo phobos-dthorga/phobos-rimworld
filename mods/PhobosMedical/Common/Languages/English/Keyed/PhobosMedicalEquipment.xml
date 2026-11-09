@@ -76,4 +76,6 @@ This letter is shown once.</PhobosMedical_GravshipLetterText>
   <PhobosMedical_DeviceRefusalNeedsSkill>{PATIENT} needs something only a doctor with Medicine {SKILL} or better can do.</PhobosMedical_DeviceRefusalNeedsSkill>
   <PhobosMedical_DeviceRefusalAlreadyHasTube>{PATIENT} already has a breathing tube.</PhobosMedical_DeviceRefusalAlreadyHasTube>
   <PhobosMedical_DeviceRefusalAlreadyOnOxygen>{PATIENT} is already breathing supplied oxygen.</PhobosMedical_DeviceRefusalAlreadyOnOxygen>
+  <PhobosMedical_NoRinseStation>No shower or rinse station with water is within reach.</PhobosMedical_NoRinseStation>
+  <PhobosMedical_NoFreeChamber>No free pressure chamber is within reach.</PhobosMedical_NoFreeChamber>
 </LanguageData>

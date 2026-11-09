@@ -6,6 +6,19 @@ entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.8.1] - 2026-11-09 - Draft
+
+### Fixed
+
+- An escharotomy was undone within seconds: the eschar grew straight back on a limb that was still burned. It now stays gone while the cuts are open, about four days. **Not yet tested in game.**
+- Plants in dense tox gas now wilt: the setting did nothing, because the scorch was marked as doing no harm. **Not yet tested in game.**
+- Oxygen machines no longer stop serving a patient they are helping: they judged the need with the oxygen already counted. **Not yet tested in game.**
+- A fluids kit is no longer hung a second time straight after the first: the game's own scatter on a tend's quality read as a poor kit. **Not yet tested in game.**
+- Switching off caustic gas or eschars removes what is already on a pawn, where it stayed for good or kept tightening. **Not yet tested in game.**
+- A bionic or other replaced eye no longer takes caustic eye injuries. **Not yet tested in game.**
+- A doctor told to rinse a patient or take one to a pressure chamber says why they cannot, when there is no station or free chamber. **Not yet tested in game.**
+- Loading a game within a session no longer keeps the previous game's maps and pawns in memory. **Not yet tested in game.**
+
 ### Changed
 
 - Dates in this mod's records that were written a day ahead now read 8 November 2026. Text only; nothing in game changes.

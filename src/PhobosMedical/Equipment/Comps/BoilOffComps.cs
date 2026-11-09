@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using PipeSystem;
 using Phobos.Medical.Rules;
 using RimWorld;
@@ -25,10 +26,11 @@ public class CompPhobosBoilOff : ThingComp
 
     /// <summary>Stores whose cooler has no power, so they take in nothing. Read by the storage patch on every pipe-network pass, so a
     /// set lookup rather than a comp search. Derived, never saved: rebuilt as each store spawns and ticks.</summary>
-    static readonly HashSet<CompResourceStorage> refusing = new();
+    static readonly ConditionalWeakTable<CompResourceStorage, object> refusing = new();
+    static readonly object Refuses = new();
 
     /// <summary>Whether this storage should take in nothing now.</summary>
-    public static bool RefusesFilling(CompResourceStorage storage) => refusing.Contains(storage);
+    public static bool RefusesFilling(CompResourceStorage storage) => refusing.TryGetValue(storage, out _);
 
     CompResourceStorage? storage;
     CompPowerTrader? power;
@@ -54,7 +56,7 @@ public class CompPhobosBoilOff : ThingComp
     void UpdateRefusing()
     {
         if (storage == null) return;
-        if (Powered) refusing.Remove(storage); else refusing.Add(storage);
+        if (Powered) refusing.Remove(storage); else refusing.AddOrUpdate(storage, Refuses);
     }
 
     public override void CompTick()

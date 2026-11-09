@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using Phobos.BurnsAndSmoke.Comps;
 using Phobos.BurnsAndSmoke.Defs;
 using Phobos.BurnsAndSmoke.Rules;
@@ -14,7 +15,13 @@ namespace Phobos.BurnsAndSmoke.Services;
 /// </summary>
 public static class AirwayService
 {
-    static readonly Dictionary<Pawn, float> freshHeadNeckDamage = new();
+    sealed class FreshDamage
+    {
+        public float amount;
+    }
+
+    // Weak, so a load does not keep the last game's pawns.
+    static readonly ConditionalWeakTable<Pawn, FreshDamage> freshHeadNeckDamage = new();
     static BodyPartDef? neck;
 
     /// <summary>Called for every hediff the game adds to a pawn; notes burn damage on the head group or the neck.</summary>
@@ -22,8 +29,7 @@ public static class AirwayService
     {
         if (hediff is not Hediff_Injury || hediff.Part == null || !BurnLoadService.IsBurnLike(hediff.def)) return;
         if (!IsHeadOrNeck(hediff.Part)) return;
-        freshHeadNeckDamage.TryGetValue(pawn, out float damage);
-        freshHeadNeckDamage[pawn] = damage + hediff.Severity;
+        freshHeadNeckDamage.GetOrCreateValue(pawn).amount += hediff.Severity;
     }
 
     static bool IsHeadOrNeck(BodyPartRecord part)
@@ -36,9 +42,9 @@ public static class AirwayService
     public static void Apply(Pawn pawn, PhobosBurnRulesDef rules, BurnsAndSmokeSettings settings)
     {
         float fresh = 0f;
-        if (freshHeadNeckDamage.TryGetValue(pawn, out float damage))
+        if (freshHeadNeckDamage.TryGetValue(pawn, out FreshDamage? damage))
         {
-            fresh = damage;
+            fresh = damage.amount;
             freshHeadNeckDamage.Remove(pawn);
         }
         if (!settings.airway || pawn.health.hediffSet.HasHediff(BurnsDefOf.PhobosBurns_AirwayBurn)) return;
@@ -74,7 +80,4 @@ public static class AirwayService
         }
         return null;
     }
-
-    /// <summary>Drops notes for pawns that no longer exist, so the dictionary cannot grow without bound.</summary>
-    public static void Forget(Pawn pawn) => freshHeadNeckDamage.Remove(pawn);
 }

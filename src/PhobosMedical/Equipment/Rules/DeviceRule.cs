@@ -63,9 +63,12 @@ public static class DeviceRule
         return airwayClosing || ventilatorWaiting ? DeviceRefusal.None : DeviceRefusal.NotNeeded;
     }
 
-    /// <summary>A fluids kit helps burn shock whose fluids so far (its tend quality, 0 when untended) are poorer than the kit's.</summary>
+    /// <summary>How far the game moves a tend's quality either way when it stores it (CompTended): a kit well hung can read this much below its own quality.</summary>
+    public const float TendQualityNoise = 0.25f;
+
+    /// <summary>A fluids kit helps burn shock whose fluids so far (its tend quality, 0 when untended) are poorer than a kit could account for.</summary>
     public static DeviceRefusal Fluids(bool inBurnShock, float currentFluidsQuality, float kitQuality) =>
-        inBurnShock && currentFluidsQuality < kitQuality ? DeviceRefusal.None : DeviceRefusal.NotNeeded;
+        inBurnShock && currentFluidsQuality < kitQuality - TendQualityNoise ? DeviceRefusal.None : DeviceRefusal.NotNeeded;
 
     /// <summary>A needle helps pressure in the chest worth relieving; nothing else.</summary>
     public static DeviceRefusal Decompression(bool pressureToRelieve) => pressureToRelieve ? DeviceRefusal.None : DeviceRefusal.NotNeeded;

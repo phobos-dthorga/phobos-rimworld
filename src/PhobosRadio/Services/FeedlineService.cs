@@ -18,6 +18,7 @@ public static class FeedlineService
 {
     private static readonly RadioCoaxExtension DefaultCoax = new();
     private static readonly Dictionary<(PipeNet net, Thing from, Thing to), List<FeedSegment>?> cache = new();
+    private static Game? cacheGame;
     private static readonly Queue<IntVec3> queue = new();
     private static readonly Dictionary<IntVec3, int> seen = new();
 
@@ -50,6 +51,12 @@ public static class FeedlineService
     /// </summary>
     public static List<FeedSegment>? Segments(PipeNet net, Thing from, Thing to, float metresPerCell)
     {
+        // A load leaves the old game's nets behind, and each one holds its whole map.
+        if (cacheGame != Current.Game)
+        {
+            cache.Clear();
+            cacheGame = Current.Game;
+        }
         var key = (net, from, to);
         if (cache.TryGetValue(key, out var cached)) return cached;
         var segments = Trace(net, from, to, metresPerCell);

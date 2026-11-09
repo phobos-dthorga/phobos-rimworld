@@ -18,8 +18,16 @@ public static class EscharService
 
     public static void Apply(Pawn pawn, PhobosBurnRulesDef rules, BurnsAndSmokeSettings settings)
     {
-        if (!settings.eschar) return;
         List<Hediff> hediffs = pawn.health.hediffSet.hediffs;
+        if (!settings.eschar)
+        {
+            // Switched off: what is already on a limb goes too, or it would go on tightening with nothing to release it.
+            for (int i = hediffs.Count - 1; i >= 0; i--)
+            {
+                if (hediffs[i].def == BurnsDefOf.PhobosBurns_Eschar) pawn.health.RemoveHediff(hediffs[i]);
+            }
+            return;
+        }
         burnOnLimb.Clear();
         for (int i = 0; i < hediffs.Count; i++)
         {
@@ -41,10 +49,21 @@ public static class EscharService
         toRemove.Clear();
         foreach (KeyValuePair<BodyPartRecord, float> limb in burnOnLimb)
         {
-            if (EscharRule.Forms(limb.Value, limb.Key.def.GetMaxHealth(pawn), rules.escharPartHealthFraction))
+            if (EscharRule.NewEscharForms(limb.Value, limb.Key.def.GetMaxHealth(pawn), rules.escharPartHealthFraction, Released(pawn, limb.Key)))
                 pawn.health.AddHediff(BurnsDefOf.PhobosBurns_Eschar, limb.Key);
         }
         burnOnLimb.Clear();
+    }
+
+    /// <summary>Whether this limb still carries the cuts of an escharotomy.</summary>
+    static bool Released(Pawn pawn, BodyPartRecord limb)
+    {
+        List<Hediff> hediffs = pawn.health.hediffSet.hediffs;
+        for (int i = 0; i < hediffs.Count; i++)
+        {
+            if (hediffs[i].def == BurnsDefOf.PhobosBurns_EscharotomyWound && hediffs[i].Part == limb) return true;
+        }
+        return false;
     }
 
     public static bool IsLimb(BodyPartRecord part)

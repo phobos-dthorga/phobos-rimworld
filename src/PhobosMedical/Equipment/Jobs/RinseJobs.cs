@@ -47,11 +47,18 @@ public class WorkGiver_PhobosRinsePatient : WorkGiver_Scanner
 
     public override IEnumerable<Thing> PotentialWorkThingsGlobal(Pawn pawn) => RinseService.PatientsNeedingRinse(pawn.Map);
 
-    public override bool HasJobOnThing(Pawn pawn, Thing t, bool forced = false) => t is Pawn patient && RinseService.RinsePatientJob(pawn, patient) != null;
+    public override bool HasJobOnThing(Pawn pawn, Thing t, bool forced = false) => JobOnThing(pawn, t, forced) != null;
 
-    public override Job? JobOnThing(Pawn pawn, Thing t, bool forced = false) => t is Pawn patient ? RinsePatientJob(pawn, patient) : null;
-
-    static Job? RinsePatientJob(Pawn doctor, Pawn patient) => RinseService.RinsePatientJob(doctor, patient);
+    public override Job? JobOnThing(Pawn pawn, Thing t, bool forced = false)
+    {
+        if (t is not Pawn patient) return null;
+        Job? job = RinseService.RinsePatientJob(pawn, patient);
+        if (job == null && forced && patient != pawn && RinseService.IsPatientNeedingRinse(patient) && pawn.CanReserve(patient))
+        {
+            JobFailReason.Is("PhobosMedical_NoRinseStation".Translate());
+        }
+        return job;
+    }
 }
 
 /// <summary>Target A is the station, B the patient: draw water at the station, carry it over and rinse.</summary>

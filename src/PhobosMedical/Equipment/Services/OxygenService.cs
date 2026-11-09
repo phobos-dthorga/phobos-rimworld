@@ -45,7 +45,8 @@ public static class OxygenService
 
     public static bool NeedsOxygen(Pawn pawn, PhobosMedicalRulesDef rules) =>
         pawn.RaceProps.IsFlesh && !pawn.Dead
-        && OxygenRule.NeedsOxygen(Breathing(pawn), PhobosBreathing.HasOxygenResponsiveCondition(pawn), rules.breathingNeedThreshold);
+        // Measured without the treatment: read with it, a patient it is helping looks well enough to be taken off it.
+        && OxygenRule.NeedsOxygen(Hediff_PhobosOnOxygen.BreathingWithoutTreatments(pawn), PhobosBreathing.HasOxygenResponsiveCondition(pawn), rules.breathingNeedThreshold);
 
     static bool CanSupply(CompPhobosOxygenSupply machine) =>
         machine.parent.Spawned && (machine.parent is Building_Bed || machine.Facility != null || machine.Props.servesAdjacent)

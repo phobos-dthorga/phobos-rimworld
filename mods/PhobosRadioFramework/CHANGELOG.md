@@ -9,6 +9,12 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 - Dates in this mod's records that were written a day ahead now read 8 November 2026. Text only; nothing in game changes.
 
+## [0.1.4] - 2026-11-09 - Draft
+
+### Fixed
+
+- Loading a game within a session no longer keeps the previous game's pipe networks, and through them its maps, in memory. **Not yet tested in game.**
+
 ## [0.1.3] - 2026-11-08 - Draft
 
 No change in play on 1.7. Not yet tested in game.

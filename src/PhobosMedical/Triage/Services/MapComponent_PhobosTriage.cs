@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using Phobos.Triage.Defs;
 using Phobos.Triage.Rules;
 using Verse;
@@ -11,14 +12,15 @@ namespace Phobos.Triage.Services;
 /// </summary>
 public sealed class MapComponent_PhobosTriage : MapComponent
 {
-    static readonly Dictionary<Map, MapComponent_PhobosTriage> byMap = new();
+    // Weak: loading a game never calls MapRemoved, and a plain dictionary would keep the whole of every map loaded this session.
+    static readonly ConditionalWeakTable<Map, MapComponent_PhobosTriage> byMap = new();
     readonly List<TriageEntry> entries = new();
     readonly Dictionary<Pawn, TriageEntry> byPawn = new();
     readonly List<Thing> patientsWithBills = new();
 
     public MapComponent_PhobosTriage(Map map) : base(map)
     {
-        byMap[map] = this;
+        byMap.AddOrUpdate(map, this);
     }
 
     public override void MapRemoved()

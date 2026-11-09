@@ -5,6 +5,12 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.40.5] - 2026-11-09 - Draft
+
+### Fixed
+
+- Loading a game within a session no longer keeps the previous game's vehicles in memory. **Not yet tested in game.**
+
 ## [0.40.4] - 2026-11-09 - Draft
 
 ### Fixed

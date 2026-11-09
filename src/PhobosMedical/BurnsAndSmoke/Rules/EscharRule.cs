@@ -13,6 +13,10 @@ public static class EscharRule
     public static bool Forms(float burnDamageOnPart, float partMaxHealth, float fractionOfHealth) =>
         partMaxHealth > 0f && fractionOfHealth > 0f && burnDamageOnPart >= fractionOfHealth * partMaxHealth;
 
+    /// <summary>Whether a limb with no eschar grows one: not while the cuts of an escharotomy are still open, or the operation would be undone at once.</summary>
+    public static bool NewEscharForms(float burnDamageOnPart, float partMaxHealth, float fractionOfHealth, bool released) =>
+        !released && Forms(burnDamageOnPart, partMaxHealth, fractionOfHealth);
+
     /// <summary>
     /// Ischaemic damage in <paramref name="hours"/> from an eschar of <paramref name="severity"/>: none below the severity where blood
     /// flow fails, rising to the full rate at the tightest. Authored.

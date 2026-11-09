@@ -15,6 +15,7 @@ public class DecompressionRuleTests
     [Fact]
     public void AFluidsKitHelpsShockWithPoorerFluidsThanItsOwn()
     {
+        Assert.Equal(DeviceRefusal.NotNeeded, DeviceRule.Fluids(true, 0.7f, 0.9f));
         Assert.Equal(DeviceRefusal.None, DeviceRule.Fluids(true, 0f, 0.9f));
         Assert.Equal(DeviceRefusal.None, DeviceRule.Fluids(true, 0.5f, 0.9f));
         Assert.Equal(DeviceRefusal.NotNeeded, DeviceRule.Fluids(true, 0.9f, 0.9f));

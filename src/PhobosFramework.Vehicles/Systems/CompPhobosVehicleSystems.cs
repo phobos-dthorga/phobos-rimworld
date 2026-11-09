@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using Phobos.Framework;
 using Phobos.Framework.Debug;
@@ -141,7 +142,8 @@ public class CompPhobosVehicleSystems : VehicleComp
     public VehicleConditions Conditions => conditions ??= new VehicleConditions(this);
 
     /// <summary>Spawned vehicles with this comp, for the per-tick speed cap (one dictionary read instead of a comp search).</summary>
-    static readonly Dictionary<VehiclePawn, CompPhobosVehicleSystems> spawned = new();
+    // Weak: loading a game despawns nothing, and a plain dictionary would keep the last game's vehicles.
+    static readonly ConditionalWeakTable<VehiclePawn, CompPhobosVehicleSystems> spawned = new();
 
     public static CompPhobosVehicleSystems? Of(VehiclePawn vehicle) => spawned.TryGetValue(vehicle, out CompPhobosVehicleSystems? comp) ? comp : null;
 
@@ -326,7 +328,7 @@ public class CompPhobosVehicleSystems : VehicleComp
     public override void PostSpawnSetup(bool respawningAfterLoad)
     {
         base.PostSpawnSetup(respawningAfterLoad);
-        if (Usable) spawned[Vehicle] = this;
+        if (Usable) spawned.AddOrUpdate(Vehicle, this);
         RestorePartHealths();
         if (Usable && !respawningAfterLoad) Fittings.RollEnemySet();
         powertrain?.ForgetGround();

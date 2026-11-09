@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using Phobos.BurnsAndSmoke.Defs;
 using Phobos.BurnsAndSmoke.Rules;
 using RimWorld;
@@ -15,7 +16,8 @@ namespace Phobos.BurnsAndSmoke.Heat;
 /// </summary>
 public sealed class MapComponent_PhobosFireHeat : MapComponent
 {
-    static readonly Dictionary<Map, MapComponent_PhobosFireHeat> byMap = new();
+    // Weak: loading a game never calls MapRemoved, and a plain dictionary would keep the whole of every map loaded this session.
+    static readonly ConditionalWeakTable<Map, MapComponent_PhobosFireHeat> byMap = new();
     /// <summary>Cell index to degrees above the outdoor air, uncapped; the cap is applied on read.</summary>
     readonly Dictionary<int, float> rise = new();
     /// <summary>Each room's share during one rebuild; cleared after, so no room is held between rebuilds.</summary>
@@ -23,7 +25,7 @@ public sealed class MapComponent_PhobosFireHeat : MapComponent
 
     public MapComponent_PhobosFireHeat(Map map) : base(map)
     {
-        byMap[map] = this;
+        byMap.AddOrUpdate(map, this);
     }
 
     public override void MapRemoved()

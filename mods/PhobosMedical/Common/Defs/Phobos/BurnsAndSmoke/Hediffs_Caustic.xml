@@ -252,7 +252,7 @@
     <hasForcefulImpact>false</hasForcefulImpact>
     <makesBlood>false</makesBlood>
     <canInterruptJobs>false</canInterruptJobs>
-    <harmsHealth>false</harmsHealth>
+    <harmsHealth>true</harmsHealth>
     <deathMessage>{0} has been scorched by caustic gas.</deathMessage>
   </DamageDef>
 </Defs>
