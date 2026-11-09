@@ -69,7 +69,7 @@ Every row is one Vehicle Framework `UpgradeNode`, with `ingredients` holding its
 
 **Ours would follow the same shape, written fresh** and never copied: a `DefModExtension` marking a project as field research, a saved slot in a `GameComponent` of ours, three small patches, and the vessel's research service calling `AddProgress`. This has its costs: the patches sit on the research window, where Vanilla Gravship Expanded already patches, so **the two must be checked together**. Ordinary research keeps going at home while a vessel works on its own project, which suits a boat away at sea.
 
-**The tab** (owner, 10 Nov 2026): our projects get their own, titled to match the main one for our vehicle mods. **That main tab is planned, not built:** `PhobosDthorga`, labelled "D'thorga", in the Framework's always-loaded folder, awaiting the owner's approval. Ours would sit beside it as `PhobosDthorgaSubmarines`, labelled **"D'thorga: Submarines"** **[proposed; the exact title is the owner's]**. Project defNames take the prefix `PhobosResearch_`. **Every project keeps one prerequisite that always exists**: a project whose prerequisites all drop out through `MayRequire` opens at once, and `ResearchManager.FinishProject` finishes unfinished prerequisites too (`all.cs:379167`).
+**The tab** (owner, 10 Nov 2026): our projects get their own, titled to match the main one for our vehicle mods. **That main tab is approved by the owner and being built by another session:** `PhobosDthorga`, labelled "D'thorga", in the Framework's always-loaded folder. Ours sits beside it as `PhobosDthorgaSubmarines`, labelled **"D'thorga: Submarines"** (owner, 10 Nov 2026). Project defNames take the prefix `PhobosResearch_`. **Every project keeps one prerequisite that always exists**: a project whose prerequisites all drop out through `MayRequire` opens at once, and `ResearchManager.FinishProject` finishes unfinished prerequisites too (`all.cs:379167`).
 
 ## Sonar and radar
 
@@ -126,11 +126,9 @@ Each loads only when the other mod is active. **Read each mod's code before buil
 
 ## Who chose what
 
-- **Owner (10 Nov 2026):** this is the first real boat; it is also a research vessel whose crew contribute according to intelligence; sonar and perhaps radar; tie-ins as soft dependencies; many of its mechanics are unique upgrades, each needing its own research and crafted parts; Intellectual 7 to contribute; research at rest and more slowly under way; some projects only aboard; their own tab, titled like the existing vehicle one; a default reactor of ours, with Rimatomics providing a richer one.
-- **Agent choices, owner to revise:** the eleven nodes and their order; which need which; half rate under way, with full learning; pings spotting the boat; radar on the surface only; the build order; the tab's wording; Rimatomics replacing ours, not sitting beside it.
+- **Owner (10 Nov 2026):** this is the first real boat; it is also a research vessel whose crew contribute according to intelligence; sonar and perhaps radar; tie-ins as soft dependencies; many of its mechanics are unique upgrades, each needing its own research and crafted parts; Intellectual 7 to contribute; research at rest and more slowly under way; some projects only aboard; their own tab, "D'thorga: Submarines"; a default reactor of ours, with Rimatomics providing a richer one.
+- **Agent choices, owner to revise:** the eleven nodes and their order; which need which; half rate under way, with full learning; pings spotting the boat; radar on the surface only; the build order; Rimatomics replacing ours, not sitting beside it.
 
 ## Open questions for the owner
 
-The five questions of 10 November are answered, under [Who chose what](#who-chose-what). One thing to confirm:
-
-1. **The exact title of the new tab.** With the main tab planned as "D'thorga", the proposal is "D'thorga: Submarines".
+All are answered, under [Who chose what](#who-chose-what). **Building waits for the owner's word that the research tree work is finished** (10 Nov 2026), so that upgrade research is enforced from the first node.

@@ -129,6 +129,7 @@ promise current behaviour. For using the mods, start at the [documentation index
   and our own Architect tab, so parts stop getting lost in long lists. Not yet tested in game.
 - [The vehicle garage and fleet tools: design (8 Nov 2026)](vehicle-garage-design.md): a staffed outpost that holds and slowly
   repairs vehicles, what the outposts code allows and where it fails for vehicles, and the owner's four fleet tools. Not yet tested in game.
+- [The D'thorga research tree (10 Nov 2026)](research-tree.md): the D'thorga research tab, its projects, costs and soft tie-ins, the one-time grant for existing colonies, and enforcing research on our vehicles' upgrades. Not yet tested in game.
 - [The Seabed Crawler: design (10 Nov 2026)](vehicle-seabed-crawler.md): the owner's first real submarine and research vessel, its eleven upgrades with their own research and crafted parts,
   sonar, radar, the research rules, soft tie-ins and the chemistry. Design only: nothing built.
 - [The submersibles framework: design (9 Nov 2026)](submarine-framework.md): a dive as a state of ours, the reserve, what is hidden and what still reaches a hull,
