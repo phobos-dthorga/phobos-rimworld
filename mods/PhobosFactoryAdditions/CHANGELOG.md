@@ -7,7 +7,7 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 ## [0.12.1] - 2026-11-10 - Draft
 
-From the owner's ammunition press, whose bills could not be cancelled (10 November 2026). **Not yet tested in game.**
+From the owner's ammunition press, whose bills could not be cancelled (10 November 2026). **Tested in game by the owner, 10 November 2026: 9 bills removed, and the press is back to normal.**
 
 ### Fixed
 
