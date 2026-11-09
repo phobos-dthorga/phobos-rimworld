@@ -1,0 +1,21 @@
+{
+  "file": "dash-checkengine-13.png",
+  "sha256": "4cf9bcbede21d28aefdd0f15c7896dc03d1802c4eb5abae263ec2d15eba5dc6f",
+  "date": "2026-11-10T07:54:39",
+  "generator": "ComfyUI 0.41.0, local, FLUX.2 Klein 4B base fp8 (Black Forest Labs, Apache 2.0)",
+  "engine": "klein-base",
+  "model": "flux-2-klein-base-4b-fp8.safetensors",
+  "model_sha256": "44bab3a86fe98b85d21dd2a4729ebdc3ae51fb8a39f76e457e18c724219e6840",
+  "prompt": "A single bold dashboard warning pictogram: the outline of a car engine block seen from the side, with a small exhaust stub. Solid pure black flat shape on a plain pure white background, centred, filling about three quarters of a square canvas, thick simple rounded forms with clean edges, like a car instrument cluster symbol. One flat colour only. No shading, no gradient, no outline box, no background, no text, no letters, no numbers.",
+  "negative_prompt": "",
+  "seed": 13,
+  "steps": 50,
+  "cfg": 4.0,
+  "sampler": "euler/flux2",
+  "size": [
+    512,
+    512
+  ],
+  "request_file": "assets/phobos-vehicles/requests/dash-telltales.json",
+  "seconds": 10.7
+}

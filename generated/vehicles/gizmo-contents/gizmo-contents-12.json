@@ -1,0 +1,33 @@
+{
+  "file": "gizmo-contents-12.png",
+  "sha256": "75496b3d5833d880e48a8b9d8e5de362de309ff6a09901515e00dea6a50d598a",
+  "date": "2026-11-10T07:09:05",
+  "generator": "ComfyUI 0.41.0, local, FLUX.2 Klein 4B base fp8 (Black Forest Labs, Apache 2.0)",
+  "engine": "klein-base",
+  "model": "flux-2-klein-base-4b-fp8.safetensors",
+  "model_sha256": "44bab3a86fe98b85d21dd2a4729ebdc3ae51fb8a39f76e457e18c724219e6840",
+  "prompt": "phobosvanilla, A steel cylindrical tank under a large blue droplet. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands.",
+  "negative_prompt": "",
+  "seed": 12,
+  "steps": 50,
+  "cfg": 4.0,
+  "sampler": "euler/flux2",
+  "size": [
+    1024,
+    1024
+  ],
+  "request_file": "assets/phobos-vehicles/requests/gizmos.json",
+  "seconds": 152.8,
+  "references": [
+    {
+      "image": ".local/references/vanilla-medical/MedicineIndustrial_a.png",
+      "sha256": "1257cf2d03aa58dea41ce09e7b2a4e96a9d8f5ed57d8f6744fd176bec7c72c00"
+    },
+    {
+      "image": ".local/references/vanilla-medical/MedicineUltratech_a.png",
+      "sha256": "7638c951ca4a3cf2676254252aa5b7a3cfc646f0bb9e507bb792d46ecc9a1612"
+    }
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "lora_strength": 1.0
+}

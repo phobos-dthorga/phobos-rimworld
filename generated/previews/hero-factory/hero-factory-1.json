@@ -1,0 +1,21 @@
+{
+  "file": "hero-factory-1.png",
+  "sha256": "951448a4af1e4a9fae8129df3506099edb84b35bfb08ac45c4cea128136c6c98",
+  "date": "2026-11-10T08:20:36",
+  "generator": "ComfyUI 0.41.0, local, Flux.1-schnell fp8 (Comfy-Org packaging, Apache 2.0)",
+  "engine": "schnell",
+  "model": "flux1-schnell-fp8.safetensors",
+  "model_sha256": "ead426278b49030e9da5df862994f25ce94ab2ee4df38b556ddddb3db093bf72",
+  "prompt": "Illustration for a RimWorld mod preview: A small frontier factory at dusk on a windswept plain: a conveyor belt running from a hopper into a brick workshop, amber light from its windows, a lone colonist in a worn parka watching crates roll by. Painterly but clean, muted earth tones with amber light, dark teal dusk sky, wide composition, the lower third darker and uncluttered. No text, no logos, no watermark.",
+  "negative_prompt": "",
+  "seed": 1,
+  "steps": 4,
+  "cfg": 1.0,
+  "sampler": "euler/simple",
+  "size": [
+    1280,
+    720
+  ],
+  "request_file": "assets/phobos-previews/requests/heroes.json",
+  "seconds": 8.5
+}

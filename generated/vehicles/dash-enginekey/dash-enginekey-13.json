@@ -1,0 +1,21 @@
+{
+  "file": "dash-enginekey-13.png",
+  "sha256": "24a1fc29320f6e799a13a571b716236173626cb0d6fbe085c6f9ab2ea3177164",
+  "date": "2026-11-10T07:55:25",
+  "generator": "ComfyUI 0.41.0, local, FLUX.2 Klein 4B base fp8 (Black Forest Labs, Apache 2.0)",
+  "engine": "klein-base",
+  "model": "flux-2-klein-base-4b-fp8.safetensors",
+  "model_sha256": "44bab3a86fe98b85d21dd2a4729ebdc3ae51fb8a39f76e457e18c724219e6840",
+  "prompt": "A single bold dashboard warning pictogram: a single ignition key with a round bow and a short notched blade. Solid pure black flat shape on a plain pure white background, centred, filling about three quarters of a square canvas, thick simple rounded forms with clean edges, like a car instrument cluster symbol. One flat colour only. No shading, no gradient, no outline box, no background, no text, no letters, no numbers.",
+  "negative_prompt": "",
+  "seed": 13,
+  "steps": 50,
+  "cfg": 4.0,
+  "sampler": "euler/flux2",
+  "size": [
+    512,
+    512
+  ],
+  "request_file": "assets/phobos-vehicles/requests/dash-telltales.json",
+  "seconds": 10.7
+}

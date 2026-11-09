@@ -1,0 +1,21 @@
+{
+  "file": "hero-watertap-zimage-301.png",
+  "sha256": "17e2a9bde851b8873ba1ee87078ec153b39abda78e5e72cd1f96cc0ae8d56842",
+  "date": "2026-11-10T08:23:43",
+  "generator": "ComfyUI 0.41.0, local, Z-Image base int8 (Alibaba Tongyi lab, Apache 2.0; Comfy-Org packaging)",
+  "engine": "zimage",
+  "model": "z_image_int8_convrot.safetensors",
+  "model_sha256": "eb2b470694fbd9778f15efd309000ea0091312c018c10a352c120b1da9bf4279",
+  "prompt": "Illustration for a RimWorld mod preview: A lone colonist in a worn parka filling a glass bottle from a brass tap on a water tower in a dusty frontier camp at dusk, lit cabin windows behind. Painterly but clean, muted earth tones with amber light, dark teal dusk sky, wide composition, the lower third darker and uncluttered. No text, no logos, no watermark.",
+  "negative_prompt": "",
+  "seed": 301,
+  "steps": 25,
+  "cfg": 4.0,
+  "sampler": "res_multistep/simple",
+  "size": [
+    1280,
+    720
+  ],
+  "request_file": "assets/phobos-previews/requests/heroes.json",
+  "seconds": 26.1
+}
