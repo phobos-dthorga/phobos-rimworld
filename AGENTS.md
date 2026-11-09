@@ -260,6 +260,8 @@ delivered, record the delivery in the changelog or design record, and add or ame
   nature (a storm that kills the log, lost colony data); otherwise leave it to the author and, where possible, draft a report for the
   owner to post (agents never post). **If the project is abandoned, this reverses**: patch it. Judge that with
   `python scripts/workshop-research.py report <mod>` (update date, the uploader's last reply) and say what it showed.
+- **Every patch for another author's fault has a row in `docs/development/temporary-patches.md`** (owner, 10 Nov 2026), added in the same change: whose fault it is, what would make the patch unnecessary, how
+  to check, whether the author has been told, and whether it is temporary or permanent. Temporary patches say so in their code comment and, where the fault can be detected, stand down by themselves.
 - **Existing effects first, own gases when they earn it** (owner, 4 November 2026). Infer an effect from
   gases and functionality that already exist (the game's, another mod's) where they are present; add a
   gas of our own only where its value is greater than inference could give, where nothing exists to infer
