@@ -6,6 +6,16 @@ namespace Phobos.Framework.Rules.Tests;
 public class OverdriveRuleTests
 {
     [Fact]
+    public void WorkBurnsItsOwnFuelWithNobodyAtTheWheel() => Assert.Equal(8f, OverdriveRule.WorkFuel(8f, 3f, engineHeldOn: false));
+
+    [Fact]
+    public void WithADriverOnlyWhatTheWorkBurnsAboveIdlingIsCharged()
+    {
+        Assert.Equal(5f, OverdriveRule.WorkFuel(8f, 3f, engineHeldOn: true));
+        Assert.Equal(0f, OverdriveRule.WorkFuel(2f, 3f, engineHeldOn: true));
+    }
+
+    [Fact]
     public void OffChangesNothing()
     {
         Assert.Equal(10f, OverdriveRule.Rate(10f, false, 2f));

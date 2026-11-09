@@ -29,4 +29,11 @@ public static class OverdriveRule
         if (!float.IsNaN(coolant) && coolant >= hotAbove) return OverdriveStop.EngineHot;
         return OverdriveStop.None;
     }
+
+    /// <summary>
+    /// The fuel a set-up vehicle's work takes. With a driver holding the engine on, the fuel of idling is already being charged, so only what the work
+    /// burns above it; never less than nothing.
+    /// </summary>
+    public static float WorkFuel(float workAmount, float idleAmount, bool engineHeldOn) =>
+        engineHeldOn ? System.Math.Max(0f, workAmount - idleAmount) : workAmount;
 }

@@ -5,6 +5,26 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.54.0] - 2026-11-09 - Draft
+
+From the owner's question about the survey truck (9 November 2026). **Not yet tested in game.**
+
+### Changed
+
+- A vehicle that is set up can have its engine started. It still cannot be driven until it packs up, and Go to bay says so. A vehicle no longer has to be switched off to set up or tip, only stopped.
+
+### Fixed
+
+- Working a vehicle hard while it stands now heats its engine as it should when the drivetrain model is on. Overdrive made no heat there, so its overheating cut-out could not trip.
+
+### Balance
+
+- With a driver holding the engine on, set-up work is charged only the fuel it burns above idling, so nothing pays twice.
+
+### Save compatibility
+
+- Safe on an existing save.
+
 ## [0.53.0] - 2026-11-09 - Draft
 
 From the owner's screenshots of two shot-up raider vehicles (9 November 2026). The figures are authored, the owner agreed them. **Not yet tested in game.**

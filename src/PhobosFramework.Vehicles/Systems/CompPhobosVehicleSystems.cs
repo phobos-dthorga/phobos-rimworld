@@ -166,6 +166,9 @@ public class CompPhobosVehicleSystems : VehicleComp
 
     /// <summary>Engine running by Vehicle Framework's own signs (drafted, caravan moving, in flight), before any flight phase.</summary>
     public bool EngineRunningRaw { get; private set; }
+
+    /// <summary>A set-up vehicle's work is driving the engine now, whether or not someone also holds it on: its load is the work's, not the drivetrain's.</summary>
+    public bool WorkTurningEngine { get; private set; }
     /// <summary>This vehicle's home bay, on its map. Read on the rare tick, never saved: the bay holds the assignment.</summary>
     CompPhobosDepotBay? homeBay;
     /// <summary>True from a "go to bay" order until it arrives. Not saved: at worst a load leaves the vehicle drafted on its pad.</summary>
@@ -579,10 +582,12 @@ public class CompPhobosVehicleSystems : VehicleComp
         }
         // A set-up vehicle's work turns the engine with nobody driving. EngineRunningRaw stays as it was, so the drivetrain's fuel sum adds nothing: the work burns its own.
         engineDemands ??= vehicle.AllComps.OfType<IVehicleEngineDemand>().ToList();
+        WorkTurningEngine = false;
         foreach (IVehicleEngineDemand demand in engineDemands)
         {
             if (!demand.WantsEngine || !hasFuel) continue;
             EngineRunning = true;
+            WorkTurningEngine = true;
             EngineLoad = Mathf.Max(EngineLoad, demand.EngineDemand);
         }
         shorePowered = null;
@@ -1025,7 +1030,7 @@ public class CompPhobosVehicleSystems : VehicleComp
         if (train != null && VehicleSystemsMod.Settings.drivetrainMode != DrivetrainMode.Off && EngineRunning)
         {
             // Turning for work with nobody driving: the drivetrain has not sampled it, so the speed follows the work, from idle to rated.
-            if (!EngineRunningRaw) return Mathf.Lerp((float)train.Spec.IdleRpm, (float)train.Spec.RatedRpm, EngineLoad);
+            if (!EngineRunningRaw || WorkTurningEngine) return Mathf.Lerp((float)train.Spec.IdleRpm, (float)train.Spec.RatedRpm, EngineLoad);
             return (float)train.Result.Rpm;
         }
         return EngineRunning ? (Moving ? cruise : idle) : 0f;
@@ -1034,6 +1039,8 @@ public class CompPhobosVehicleSystems : VehicleComp
     /// <summary>Engine heat as a share of full-load heat: the model's when the player chose Full, else the old load figure.</summary>
     public float EngineHeatShare()
     {
+        // The drivetrain has sampled nothing for work done standing still: without this, overdrive made no heat.
+        if (WorkTurningEngine) return EngineLoad;
         Powertrain? train = Powertrain;
         if (train != null && train.Full && train.Ground) return EngineRunning ? (float)train.HeatShare : 0f;
         return EngineLoad;

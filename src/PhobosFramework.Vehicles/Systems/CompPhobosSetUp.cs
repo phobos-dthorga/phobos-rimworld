@@ -58,6 +58,8 @@ public abstract class CompPhobosSetUp : VehicleComp
     const string LookKey = "PhobosSetUpLook";
     const string PartKey = "PhobosSetUpPart";
     const float TicksPerSecond = 60f;
+    /// <summary>Vehicle Framework burns half its daily rate while a vehicle idles (read from its source).</summary>
+    const float IdlingFuelShare = 0.5f;
     /// <summary>Trees are not walls: a part may swing over them, but only if neither side is free of them.</summary>
     const int HardBlocked = -1;
 
@@ -271,9 +273,22 @@ public abstract class CompPhobosSetUp : VehicleComp
         Scribe_Values.Look(ref swingSide, DeployedSaveKey + "Side", 1);
     }
 
+    // Only moving is refused. Drafting is also how a vehicle's engine starts (Vehicle Framework has one switch for both), and a vehicle set up to work may
+    // want its engine on: real rigs run their hydraulics from it (owner, 9 Nov 2026).
     public override AcceptanceReport CanMove(FloatMenuContext context) => HeldBySetUp ? SetUpRefusal : base.CanMove(context);
 
-    public override AcceptanceReport CanDraft() => HeldBySetUp ? SetUpRefusal : base.CanDraft();
+    /// <summary>What it tells a driver who tries to take it away now, or null if it may go. For orders that do not come through the right-click menu.</summary>
+    public string? HoldRefusal => HeldBySetUp ? SetUpRefusal : null;
+
+    /// <summary>It is still rolling, so it cannot set up.</summary>
+    protected bool StillMoving => Vehicle.vehiclePather is { Moving: true };
+
+    /// <summary>The fuel to take for this much work over these days: with a driver holding the engine on, the idling Vehicle Framework already charges counts towards it.</summary>
+    protected float WorkFuel(float amount, float days)
+    {
+        CompFueledTravel? fuel = Vehicle.CompFueledTravel;
+        return fuel == null ? amount : OverdriveRule.WorkFuel(amount, fuel.FuelEfficiency * IdlingFuelShare * days, Vehicle.Drafted);
+    }
 }
 
 /// <summary>A comp that needs the vehicle's engine turning while it works, though nobody is driving.</summary>

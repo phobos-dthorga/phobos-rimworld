@@ -4,7 +4,7 @@ Vehicles that keep running only while they are looked after. It adds one vehicle
 vehicles of other mods you already drive the systems that match what they really are, on top of the general systems D'thorga
 Framework gives every vehicle.
 
-Version 0.23.1, built 9 November 2026 for House D'thorga. **Not yet tested in game.**
+Version 0.23.2, built 9 November 2026 for House D'thorga. **Not yet tested in game.**
 
 ## Read this first (gotchas)
 
@@ -62,7 +62,7 @@ Every source and simplification is in the loadout files under `Mods/`.
 
 ## The bulk tanker
 
-**Not yet tested in game.** A heavy truck, 3 by 10 cells, built with a bare deck.
+**Not yet tested in game.** A heavy truck, 3 by 10 cells, built with a bare deck. **Anything of ours that sets up can have its engine started while it stands, but cannot be driven until it packs up** (D'thorga Framework 0.54.0).
 
 1. **Fit a tank** in its Upgrades tab: a general, insulated or high-volume liquid tank, or a pressure vessel if Vanilla Gravship Expanded is active. Only one tank at a time.
 2. **Choose what it carries** with its Choose contents button.
@@ -139,7 +139,7 @@ Every source and simplification is in the loadout files under `Mods/`.
 
 - **Build it** from the **motor pool** tab, after Machining and Electricity.
 - **Load it** through its ordinary cargo window: 96 granite chunks, or 4,800 steel.
-- **With a driver aboard and undrafted, press Tip.** Everything in its cargo lands inside the outlined half-circle behind it, and **that includes any spare parts you loaded**. Whatever will not fit stays aboard, and it tells you how many.
+- **With a driver aboard and stopped, press Tip.** Everything in its cargo lands inside the outlined half-circle behind it, and **that includes any spare parts you loaded**. Whatever will not fit stays aboard, and it tells you how many.
 - **Upgrades:** high sides (+600 kg), and either a rock body (tips half as fast again) or a bulk body (3,600 kg, tips slower).
 
 ## How the trucks work together

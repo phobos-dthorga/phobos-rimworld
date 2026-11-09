@@ -137,6 +137,10 @@ public static class DepotBays
     {
         if (bay.Holds(vehicle)) return "PhobosVehicleSystems_BayAlreadyThere".Translate(vehicle.LabelShort.Named("VEHICLE")).Resolve();
         if (!vehicle.CanMoveFinal) return "PhobosVehicleSystems_BayNoDriver".Translate(vehicle.LabelShort.Named("VEHICLE")).Resolve();
+        foreach (CompPhobosSetUp setUp in vehicle.AllComps.OfType<CompPhobosSetUp>())
+        {
+            if (setUp.HoldRefusal is { } held) return held;
+        }
         AcceptanceReport draft = vehicle.CanDraft();
         if (!draft.Accepted) return draft.Reason;
         if (!vehicle.CanReachVehicle(bay.Pad.CenterCell, PathEndMode.OnCell, Danger.Deadly)) return "PhobosVehicleSystems_BayCannotReach".Translate(vehicle.LabelShort.Named("VEHICLE")).Resolve();

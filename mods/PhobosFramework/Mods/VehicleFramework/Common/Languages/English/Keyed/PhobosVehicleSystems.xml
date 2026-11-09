@@ -353,7 +353,7 @@
 
   <PhobosVehicleSystems_GenSetUpRefusal>{VEHICLE} is set up, with its cable out. Pack it up first.</PhobosVehicleSystems_GenSetUpRefusal>
   <PhobosVehicleSystems_GenNotOnMap>It must be on a map to set up.</PhobosVehicleSystems_GenNotOnMap>
-  <PhobosVehicleSystems_GenStopFirst>{VEHICLE} has a driver at the wheel. Undraft it first.</PhobosVehicleSystems_GenStopFirst>
+  <PhobosVehicleSystems_GenStopFirst>{VEHICLE} is still moving. Stop it first.</PhobosVehicleSystems_GenStopFirst>
   <PhobosVehicleSystems_GenOutriggers>The outriggers will not hold.</PhobosVehicleSystems_GenOutriggers>
   <PhobosVehicleSystems_GenControls>The control panel is damaged.</PhobosVehicleSystems_GenControls>
   <PhobosVehicleSystems_GenReelGone>The cable reel is wrecked.</PhobosVehicleSystems_GenReelGone>
@@ -390,7 +390,7 @@
   <PhobosVehicleSystems_RigGizmoSetUp>Set up</PhobosVehicleSystems_RigGizmoSetUp>
   <PhobosVehicleSystems_RigGizmoPackUp>Pack up</PhobosVehicleSystems_RigGizmoPackUp>
   <PhobosVehicleSystems_RigNotOnMap>It must be on a map to set up.</PhobosVehicleSystems_RigNotOnMap>
-  <PhobosVehicleSystems_RigStopFirst>{VEHICLE} has a driver at the wheel. Undraft it first.</PhobosVehicleSystems_RigStopFirst>
+  <PhobosVehicleSystems_RigStopFirst>{VEHICLE} is still moving. Stop it first.</PhobosVehicleSystems_RigStopFirst>
   <PhobosVehicleSystems_RigOutriggers>The outriggers will not hold.</PhobosVehicleSystems_RigOutriggers>
   <PhobosVehicleSystems_RigControls>The controls are too damaged to set up.</PhobosVehicleSystems_RigControls>
   <PhobosVehicleSystems_RigNotSetUp>{VEHICLE} is not set up.</PhobosVehicleSystems_RigNotSetUp>
@@ -448,7 +448,7 @@
   <PhobosVehicleSystems_TipHeld>{VEHICLE} is tipping. Stop it first.</PhobosVehicleSystems_TipHeld>
   <PhobosVehicleSystems_TipNotOnMap>It can only tip on a map.</PhobosVehicleSystems_TipNotOnMap>
   <PhobosVehicleSystems_TipEmpty>There is nothing aboard to tip.</PhobosVehicleSystems_TipEmpty>
-  <PhobosVehicleSystems_TipStopFirst>{VEHICLE} has a driver at the wheel. Undraft it first.</PhobosVehicleSystems_TipStopFirst>
+  <PhobosVehicleSystems_TipStopFirst>{VEHICLE} is still moving. Stop it first.</PhobosVehicleSystems_TipStopFirst>
   <PhobosVehicleSystems_TipNoDriver>{VEHICLE} needs a driver aboard to work the body.</PhobosVehicleSystems_TipNoDriver>
   <PhobosVehicleSystems_TipNoFuel>The engine has no fuel to lift the body.</PhobosVehicleSystems_TipNoFuel>
   <PhobosVehicleSystems_TipControls>The body will not lift: the tip controls are wrecked.</PhobosVehicleSystems_TipControls>

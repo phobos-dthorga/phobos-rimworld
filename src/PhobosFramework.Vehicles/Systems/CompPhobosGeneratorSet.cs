@@ -108,7 +108,7 @@ public class CompPhobosGeneratorSet : CompPhobosSetUp, IVehicleEngineDemand
     public string? CannotDeploy()
     {
         if (!Vehicle.Spawned) return "PhobosVehicleSystems_GenNotOnMap".Translate().Resolve();
-        if (Vehicle.Drafted) return "PhobosVehicleSystems_GenStopFirst".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve();
+        if (StillMoving) return "PhobosVehicleSystems_GenStopFirst".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve();
         if (Vehicle.GetStatValue(GeneratorDefOf.Phobos_RigStability) < Props.stabilityFloor) return "PhobosVehicleSystems_GenOutriggers".Translate().Resolve();
         if (Vehicle.GetStatValue(GeneratorDefOf.Phobos_RigControl) < Props.controlFloor) return "PhobosVehicleSystems_GenControls".Translate().Resolve();
         VehicleComponent? reel = Vehicle.statHandler.GetComponent(Props.reelPart);
@@ -211,7 +211,8 @@ public class CompPhobosGeneratorSet : CompPhobosSetUp, IVehicleEngineDemand
             load = step.Load;
             outputWatts = step.OutputWatts;
             running = offered > 0f;
-            if (step.FuelUsed > 0f) Vehicle.CompFueledTravel?.ConsumeFuel(step.FuelUsed);
+            float used = WorkFuel(step.FuelUsed, DaysPerRareTick);
+            if (used > 0f) Vehicle.CompFueledTravel?.ConsumeFuel(used);
         }
     }
 

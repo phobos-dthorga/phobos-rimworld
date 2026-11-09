@@ -51,8 +51,8 @@ cuts itself out at half health on any working part or a coolant temperature of 1
 
 ## What it is and what it does in play
 
-The truck drives to a site, puts its outriggers down and raises its boom, and a colonist takes the console. It cannot move or be drafted
-while set up: the same deploy comp on Vehicle Framework's move and draft hooks that the bulk tanker uses. While the colonist works, the
+The truck drives to a site, puts its outriggers down and raises its boom, and a colonist takes the console. It cannot be driven
+while set up, though since Framework 0.54.0 its engine can be started (owner, 9 Nov 2026: Vehicle Framework's draft is also its ignition, and a rig runs its hydraulics off the engine): the same deploy comp on Vehicle Framework's move hook that the bulk tanker uses. While the colonist works, the
 truck is doing what the game's ground-penetrating scanner does: after some days, a lump of deep ore appears under the map it stands on,
 and the deep-ore overlay shows it. With the long-range node fitted, the console can instead be tuned to one ore and search the world
 around it; a find there starts the game's own mineral-lump quest on a nearby tile, which is where the drill rig and the tipper then go.
@@ -70,7 +70,7 @@ the two sensor nodes are flavour that moves figures, not a model of seismic or n
 
 | Behaviour | What it lets them do | What it stops them doing | How it changes the way they play |
 | --- | --- | --- | --- |
-| **Deploy** (outriggers down, boom up) | Survey anywhere the truck can drive, including a camp with no buildings | Move or draft the truck while set up; set up with broken outriggers ("Cannot set up: the outriggers are too damaged") | A survey is a stop on a journey, not a building at home |
+| **Deploy** (outriggers down, boom up) | Survey anywhere the truck can drive, including a camp with no buildings | Drive the truck while set up; set up with broken outriggers ("Cannot set up: the outriggers are too damaged") | A survey is a stop on a journey, not a building at home |
 | **The survey job** (base) | Have one colonist find deep ore under any map, at the game's own speed | Survey without a colonist; survey with the engine off and no power (the console stops at a low battery so the truck can still start) | Intellectual colonists get field work; the survey needs fuel, power or a camp |
 | **The find** (a lump appears, the overlay) | See the lump on the deep-ore overlay while the truck stands deployed | See it after driving off, unless a scanner building is on the map (the game's rule) | Mark the site, then bring the drill rig: the truck is the first vehicle of the chain |
 | **Diminishing returns** | Keep surveying the same map, more slowly each time | Mint a map's worth of ore by parking the truck at home | After two or three finds a map is "worked out"; the player moves on |
@@ -119,7 +119,7 @@ the two sensor nodes are flavour that moves figures, not a model of seismic or n
 | The deep-ore overlay | **Add: one Harmony postfix** on the overlay check (all.cs:70496-70507) that also returns true while one of our survey trucks is deployed on the map | Without it the player cannot see what the truck found; a postfix, never a prefix |
 | The long-range find | Reuse: start the `LongRangeMineralScannerLump` quest as the game does (all.cs:567100-567161), tunable from the same list | The quest already picks the site and makes the letter |
 | Rimefeller's deep well | **Add: one Harmony postfix** on `PlaceWorker_DeepWellHead.HasScanner` (`.local/decompiled/Rimefeller/Rimefeller/PlaceWorker_DeepWellHead.cs`), true while a truck is deployed; in Rimefeller's `IfModActive` folder and assembly | Oil lives in pre-seeded `OilGrid`s (`MapComponent_Rimefeller.cs:52-58, 373-395`); the truck only unlocks placing the well in the field |
-| Deploy | Reuse: the tanker's deploy comp on Vehicle Framework's move and draft hooks | One comp for the family |
+| Deploy | Reuse: the tanker's deploy comp on Vehicle Framework's move hook | One comp for the family |
 | Power | Reuse: the electrical system's loads, battery charge, alternator and shore-power check; **nothing new** | Owner, 9 Nov 2026 |
 
 The per-map find count is saved in a `MapComponent` under a stable Scribe key; it counts only our truck's finds. The game's own scanner

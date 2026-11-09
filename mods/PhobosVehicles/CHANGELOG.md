@@ -5,6 +5,16 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.23.2] - 2026-11-09 - Draft
+
+### Changed
+
+- The README says a working vehicle can have its engine started while set up. Not yet tested in game.
+
+### Dependencies
+
+- Needs D'thorga Framework 0.54.0.
+
 ## [0.23.1] - 2026-11-09 - Draft
 
 ### Changed

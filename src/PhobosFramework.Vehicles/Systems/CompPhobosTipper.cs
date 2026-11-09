@@ -92,7 +92,7 @@ public class CompPhobosTipper : CompPhobosSetUp, IVehicleEngineDemand
     {
         if (!Vehicle.Spawned) return "PhobosVehicleSystems_TipNotOnMap".Translate().Resolve();
         if (Cargo.Count == 0) return "PhobosVehicleSystems_TipEmpty".Translate().Resolve();
-        if (Vehicle.Drafted) return "PhobosVehicleSystems_TipStopFirst".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve();
+        if (StillMoving) return "PhobosVehicleSystems_TipStopFirst".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve();
         if (!Vehicle.CanMoveFinal) return "PhobosVehicleSystems_TipNoDriver".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve();
         if (Vehicle.CompFueledTravel is { EmptyTank: true }) return "PhobosVehicleSystems_TipNoFuel".Translate().Resolve();
         if (Vehicle.GetStatValue(GeneratorDefOf.Phobos_RigControl) < Props.controlFloor) return "PhobosVehicleSystems_TipControls".Translate().Resolve();
