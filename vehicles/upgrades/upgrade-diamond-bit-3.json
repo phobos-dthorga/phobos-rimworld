@@ -1,0 +1,51 @@
+{
+  "file": "upgrade-diamond-bit-3.png",
+  "sha256": "6e4f1beb8b7a3506139d786e303410d926d353b681cc5497be2b2fb4d68cb45c",
+  "date": "2026-11-09T19:41:43",
+  "generator": "OpenAI gpt-image-2 through the OpenAI image API (paid per image)",
+  "engine": "openai",
+  "model": "gpt-image-2",
+  "prompt": "GAME ITEM ICON. Camera above the object looking down at about sixty degrees, the way the game RimWorld draws loose items on the floor. One single object, centred, with its long axis level.\n\nCreate an ORIGINAL game upgrade icon for the D'thorga drill rig: a diamond coring drill bit. Image 1 is our approved truck from the same family: match its outline weight, shading, palette and finish only.\n\nDraw ONLY the drill bit, alone on a plain pure white background, standing upright with its cutting crown at the top, filling about 75 percent of the canvas. Square canvas.\n\nA short thick steel cylinder with a threaded collar at the bottom in dusty olive; the crown at the top is a ring of pale blue-white diamond segments separated by small dark waterways; one muted orange band around the middle.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art. It must read clearly when shrunk to 80 pixels: one big shape, few small ones.\n\nNo people, animals, truck, text, letters, numbers, logos, dials, dust, floor, ground or cast shadow.",
+  "seed": 3,
+  "seed_note": "an attempt number naming the file; the API takes no seed, so a rerun gives a different image",
+  "quality": "medium",
+  "size": [
+    1024,
+    1024
+  ],
+  "request_file": "assets/phobos-vehicles/requests/stations-parts-pilot.json",
+  "ai_disclosure": "Made with generative AI: OpenAI gpt-image-2, prompted by the Phobos art scripts.",
+  "terms": "OpenAI Services Agreement, sections 4.1 and 4.4, as recorded in the Phobos Ostranauts repository on 2026-10-07 and summarised again on 2026-11-08: API customers own Output, OpenAI assigns any rights it has, and Output may not be unique; no use of Output to build competing models. Dated secondary records: the openai.com page refuses automated reads, so the owner confirms the current text.",
+  "endpoint": "/images/edits",
+  "usage": {
+    "input_tokens": 1739,
+    "input_tokens_details": {
+      "image_tokens": 1458,
+      "text_tokens": 281
+    },
+    "output_tokens": 1756,
+    "output_tokens_details": {
+      "image_tokens": 1756,
+      "text_tokens": 0
+    },
+    "total_tokens": 3495
+  },
+  "cost_usd": 0.0657,
+  "cost_is_estimate": false,
+  "reported_quality": "medium",
+  "reported_size": "1024x1024",
+  "reported_background": "opaque",
+  "reported_output_format": "png",
+  "returned_size": [
+    1024,
+    1024
+  ],
+  "seconds": 33.6,
+  "references": [
+    {
+      "image": "assets/phobos-vehicles/generated/survey-truck-body-north/survey-truck-body-north-1.png",
+      "sha256": "1785df1c0645f4fd345cc1dccfabb2d53f3a011932bd45e13fa42630f057da01",
+      "role": "approved truck of the same family: match its outline weight, shading, palette and finish only; do not copy its shape"
+    }
+  ]
+}
