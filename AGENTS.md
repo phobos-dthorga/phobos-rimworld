@@ -34,6 +34,8 @@ delivered, record the delivery in the changelog or design record, and add or ame
   reported fault is the owner's error, and **start with `python scripts/triage-log.py`**: it summarises the log
   against `Player-prev.log` and names the mods involved, and `--show <ID>` prints one message in full. Open the
   raw log only for what the summary cannot answer.
+- **When the game closes by itself with little in its log, run `python scripts/crash-dump.py`** (owner, 9 Nov 2026): it reads the newest RimWorld dump in Windows' CrashDumps folder without a debugger, and names
+  the exception and any call loop that ran away. A small dump cannot name .NET methods; for a stack overflow the game's error output can (`docs/development/crash-2026-11-09-stack-overflow.md`).
 - **Answer which mod defines or patches a Def with `python scripts/query-defs.py`** (`who <defName>` for every
   definition, the one the game keeps and every patch naming it; `show` for its XML and parents, `--lines 0` for a long Def in
   full; `list`, `patches`,

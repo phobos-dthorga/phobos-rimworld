@@ -193,6 +193,10 @@ constants updater from Ostranauts; 0.10.1 fixed its refusal of "C#" in a changel
 D'thorga Patches), and `scripts/check-mod-layout.py` refuses a copy it does not list. Before this, each bump was a
 hand-written script over eight copies.
 
+### 9. Crash dumps
+
+**Built, 9 Nov 2026 (phobos-modkit 1.4.0), at the owner's suggestion after a stack overflow left nothing in the log.** `python scripts/crash-dump.py` reads the newest RimWorld minidump, with no debugger or symbols: the exception, the thread, a call loop that ran away (how big one level is, how many times it repeats, whether every level held the same objects) and which modules the stack points at. A small dump cannot name .NET methods, so the report says how to get them. The first case is [the crash of 9 Nov](crash-2026-11-09-stack-overflow.md).
+
 ### Not proposed
 
 - **Performance in play** (milliseconds per tick) has no file we can read; the owner uses Dubs Performance
