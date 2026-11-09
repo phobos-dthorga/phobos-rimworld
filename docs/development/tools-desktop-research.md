@@ -18,6 +18,10 @@ best case for other players.
 4. **A new sibling repository**, like Republic Observatory and Phobos Scope. phobos-modkit stays the engine.
 5. **Research first.** This record, then a design, then code.
 6. **OnAir WyrmGrid is the reference for the map**, instead of a throwaway drawing experiment this round.
+7. **One program for every game the owner works on**, so moving between games does not lose the thread: "It'd stop me
+   from losing focus as I change games over time."
+8. **A plain, unassuming name**, so players can look it up and remember it. The owner loved "D'thorga Eyrie" and set it
+   aside for that reason: "It's all about brand awareness."
 
 **Agent recommendations, for the owner to revise:**
 
@@ -94,6 +98,23 @@ and how it changes the way they do things, before it is built.
 | The planet view (first slice) | See the world map's pollution and every settlement on a globe, click a place, and step through their saves with buttons | Nothing; it only reads | A question like "why is Red Brook polluted?" becomes a glance instead of a day's investigation |
 | The fallback report viewer (first slice) | Read any tool's report, including tools not yet given their own page, in the same window and text size | Nothing | New tools appear in the program the day they exist, with no screen work |
 | Copy as command | Paste what they are looking at into a session | Nothing | Sessions and the program stay in step |
+| A home page per game, "where was I?" (agent proposal) | Come back to a game after months and see its newest save and log, recent commits and open work | Nothing | Changing games stops costing the thread; the owner picks up where they left off |
+
+## One program, every game
+
+**Owner's decision 7.** Today the kit knows RimWorld in depth and Steam in general. The owner's other projects sit in
+sibling repositories: Project Zomboid, Phobos Ostranauts, Farming Simulator 25, Workers & Resources and Kenshi.
+
+What it means for the design (agent's reading, owner to revise):
+
+- **Each game is a module, and the program's core never names a game**, the same rule phobos-modkit keeps for its own
+  core. The tool manifest says which game each command belongs to, so a new game appears when its adapter does.
+- **A game with no adapter still gets a home page** from what needs no game knowledge: its repository, recent commits, open
+  work, changelogs and any Steam Workshop items. Saves and logs arrive with the adapter.
+- **The kit's game adapter contract now has a reason to exist** (row T10 in [outstanding work](outstanding-work.md), waiting
+  for a second adapter). Its shape is still decided when the second game is added, not guessed from one.
+- **Republic Observatory and OnAir WyrmGrid stay separate programs** (agent lean, below). Each is large, finished in its
+  own right and has its own identity; the home page for that game can open them.
 
 ## What we have
 
@@ -257,7 +278,8 @@ only if the test shows the cost is bearable; the orientation check above.
 ## Who chose what
 
 **Owner (9 Nov 2026):** the program; Rust and SQLite as the lean; humans and dragons first; Observatory's layout and feel
-with a House D'thorga identity; a new sibling repository; research before design; WyrmGrid as the map reference.
+with a House D'thorga identity; a new sibling repository; research before design; WyrmGrid as the map reference; one
+program for every game; a plain name people can look up.
 
 **Agent, with the owner's agreement to proceed on the recommendations:** Tauri 2 with Svelte 5 over a Rust host; the
 Python tools unchanged and run as processes; MapLibre for the globe; SQLite only; read-only first; Steam out.
@@ -269,8 +291,9 @@ slice (planet view plus fallback viewer); the planet drawing options and the rec
 
 | Question | Agent lean |
 | --- | --- |
-| The program's name, under House D'thorga | Something a dragon perches on to survey its land. "D'thorga Eyrie" fits, though WyrmGrid already uses "Aerie" for its plugin catalogue; "D'thorga Lookout" avoids the clash |
-| One program for every game the kit knows, or RimWorld first? | One program with a game chooser, built RimWorld-first; the kit's adapter layer already shapes it that way |
+| The program's name: plain, unassuming, easy to look up (owner, 9 Nov 2026) | **"D'thorga Companion"**, repository `phobos-companion` (free on the owner's account). It matches D'thorga Framework, Medical and Patches, and "companion" is the word people already use for this kind of program. Ruled out: "Toolbox", which RimWorld already has twice (Nif's ToolBox and O21 Toolbox, and players confused them); "Workbench", which means a crafting bench in most of the owner's games. Checked by web and GitHub search only; the Workshop's own search is not in our tools |
+| Do Republic Observatory and OnAir WyrmGrid fold into it one day? | No. They stay separate programs, and the game's home page opens them |
+| In what order do other games join? | The game the owner is working on when the first slice is done; Project Zomboid and Ostranauts have the most existing work |
 | Dark as the only built-in theme? | Dark default, with Observatory's inert theme files so a light or high-contrast theme costs no code |
 | When may the first slice start? | After the owner reads this record and answers the name; the design record for the slice comes first |
 
@@ -299,4 +322,7 @@ Read this round, 9 Nov 2026. [P] primary (the file itself); [S] secondary; unver
   with `python scripts/query-code.py find "*LongLatOf*"`.
 - [S] MapLibre GL JS licence and globe support: web search of 9 Nov 2026 (maplibre.org newsletter of September 2024;
   the npm page for `maplibre-gl`). Unverified against the package's LICENSE file.
+- [S] Name check, 9 Nov 2026: [Nif's ToolBox on the Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/comments/2016186459),
+  whose author notes the clash with another mod called Toolbox; GitHub search for the candidate repository names. Neither
+  proves a name is free everywhere.
 - Measured here: process and query timings, and the toolchain present (Node 22, npm 10, cargo 1.97).

@@ -213,8 +213,10 @@ delivered, record the delivery in the changelog or design record, and add or ame
   them stable once saves can hold them. Renaming is presentation only: labels change, identities don't.
 - **An item Def's `defName` never ends in a digit** (the game reads a thing's ID from the digits at the end of name + number, so its
   IDs grow at every load and overflow; `scripts/check-mod-layout.py` enforces it): `PhobosBombMk82Case`, not `PhobosBombCaseMk82`.
-- Mod display names follow the house pattern `Phobos <Name>` unless the owner chooses otherwise; the radio
-  framework's public name is an open question in its design.
+- **Names players see are plain and unassuming**, so people can look them up and remember them (owner, 9 Nov 2026: "It's all
+  about brand awareness"): `D'thorga <Plain Word>`, as in D'thorga Framework and D'thorga Medical, however lovely a fancier name
+  is. Check a name is not already taken in that game's mods before using it. The radio framework's public name is an open
+  question in its design.
 
 ## RimWorld engineering
 
