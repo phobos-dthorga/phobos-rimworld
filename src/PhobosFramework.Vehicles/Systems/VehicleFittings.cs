@@ -21,21 +21,36 @@ public sealed class FittedPart : IExposable
     }
 }
 
-/// <summary>Work the player has asked for: fit or take off a fitting, or set a tune.</summary>
+/// <summary>A part's grade, by the part's key. A part of the default grade has no entry.</summary>
+public sealed class GradedPart : IExposable
+{
+    public string partKey = "";
+    public PhobosVehiclePartGradeDef? def;
+
+    public void ExposeData()
+    {
+        Scribe_Values.Look(ref partKey, "part", "");
+        Scribe_Defs.Look(ref def, "def");
+    }
+}
+
+/// <summary>Work the player has asked for: fit or take off a fitting, set a tune, or change a part's grade.</summary>
 public sealed class FitOrder : IExposable
 {
     public string partKey = "";
     public PhobosVehicleFittingDef? fitting;
     public PhobosVehicleTuneDef? tune;
+    public PhobosVehiclePartGradeDef? grade;
     public bool remove;
 
-    public bool Valid => remove ? !partKey.NullOrEmpty() : fitting != null || tune != null;
+    public bool Valid => remove ? !partKey.NullOrEmpty() : fitting != null || tune != null || grade != null;
 
     public void ExposeData()
     {
         Scribe_Values.Look(ref partKey, "part", "");
         Scribe_Defs.Look(ref fitting, "fitting");
         Scribe_Defs.Look(ref tune, "tune");
+        Scribe_Defs.Look(ref grade, "grade");
         Scribe_Values.Look(ref remove, "remove", false);
     }
 }
@@ -51,6 +66,7 @@ public sealed class VehicleFittings
     List<FittedPart> fitted = new();
     List<PhobosVehicleTuneDef> tunes = new();
     List<FitOrder> orders = new();
+    List<GradedPart> graded = new();
     bool setRolled;
 
     Dictionary<VehicleStatDef, float>? statFactors;
@@ -76,6 +92,7 @@ public sealed class VehicleFittings
         Scribe_Collections.Look(ref fitted, "PhobosVehicleSystems_Fitted", LookMode.Deep);
         Scribe_Collections.Look(ref tunes, "PhobosVehicleSystems_Tunes", LookMode.Def);
         Scribe_Collections.Look(ref orders, "PhobosVehicleSystems_FitOrders", LookMode.Deep);
+        Scribe_Collections.Look(ref graded, "PhobosVehicleSystems_Grades", LookMode.Deep);
         Scribe_Values.Look(ref setRolled, "PhobosVehicleSystems_FitSetRolled", false);
         // A save from before fittings existed has no entry for them, and the loader then leaves the lists null, not empty. The
         // stats are read before loading ends (Vehicle Framework spawns the vehicle first), so they are made whole in every mode,
@@ -83,7 +100,9 @@ public sealed class VehicleFittings
         fitted ??= new List<FittedPart>();
         tunes ??= new List<PhobosVehicleTuneDef>();
         orders ??= new List<FitOrder>();
+        graded ??= new List<GradedPart>();
         if (Scribe.mode == LoadSaveMode.Saving) return;
+        graded.RemoveAll(g => g == null || g.def == null || g.partKey.NullOrEmpty());
         // A Def another mod took away: the fitting goes with it, and the rest of the vehicle is untouched. Not left to the end of
         // loading: Vehicle Framework runs PostLoad, and with it our powertrain, before a comp's own last pass.
         fitted.RemoveAll(f => f == null || f.def == null || f.partKey.NullOrEmpty());
@@ -95,6 +114,8 @@ public sealed class VehicleFittings
 
     public void Clear()
     {
+        foreach (GradedPart part in graded) comp.Vehicle.statHandler?.GetComponent(part.partKey)?.AddHealthModifiers.Remove(GradeHealthKey);
+        graded.Clear();
         fitted.Clear();
         tunes.Clear();
         orders.Clear();
@@ -247,18 +268,13 @@ public sealed class VehicleFittings
 
     bool Suits(PhobosVehicleFittingDef def) => def.Suits(comp.Repairs.Kilograms, HasPiston, IsTracked, PowerCounts) && MovesSomethingHere(def);
 
-    /// <summary>The parts that can take a fitting, each once.</summary>
-    public IEnumerable<VehicleComponent> FittableParts()
+    /// <summary>The parts that can take a fitting or be given a grade.</summary>
+    public IEnumerable<VehicleComponent> ListedParts()
     {
-        var seen = new HashSet<string>();
-        foreach (KeyValuePair<string, List<string>> pair in comp.Props.roleKeys)
+        if (comp.Vehicle.statHandler == null) yield break;
+        foreach (VehicleComponent part in comp.Vehicle.statHandler.components)
         {
-            foreach (string key in pair.Value)
-            {
-                if (!seen.Add(key)) continue;
-                VehicleComponent? part = comp.Vehicle.statHandler?.GetComponent(key);
-                if (part != null && OptionsFor(part).Any()) yield return part;
-            }
+            if (comp.Repairs.CanBeGraded(part) || OptionsFor(part).Any()) yield return part;
         }
     }
 
@@ -278,7 +294,9 @@ public sealed class VehicleFittings
         {
             return "PhobosVehicleSystems_FitNoResearch".Translate(def.researchPrerequisite.LabelCap.Named("RESEARCH")).Resolve();
         }
-        return part.Health <= 0f ? "PhobosVehicleSystems_FitPartDestroyed".Translate().Resolve() : null;
+        if (part.Health <= 0f) return "PhobosVehicleSystems_FitPartDestroyed".Translate().Resolve();
+        PhobosVehiclePartGradeDef grade = GradeOf(part.props.key);
+        return grade.holdsFitting ? null : "PhobosVehicleSystems_FitGradeHoldsNone".Translate(grade.label.Named("GRADE")).Resolve();
     }
 
     public PhobosVehicleFittingDef? FittedOn(string partKey) => fitted.FirstOrDefault(f => f.partKey == partKey)?.def;
@@ -319,6 +337,13 @@ public sealed class VehicleFittings
         Add(new FitOrder { tune = tune });
     }
 
+    /// <summary>Asks for a part of this grade: a refit of a working part, or what a destroyed part is replaced with.</summary>
+    public void OrderGrade(VehicleComponent part, PhobosVehiclePartGradeDef grade)
+    {
+        orders.RemoveAll(o => o.partKey == part.props.key);
+        Add(new FitOrder { partKey = part.props.key, grade = grade });
+    }
+
     void Add(FitOrder order)
     {
         orders.Add(order);
@@ -342,16 +367,22 @@ public sealed class VehicleFittings
             return "PhobosVehicleSystems_TuneWork".Translate(order.tune.label.Named("SETTING")).Resolve();
         }
         NamedArgument part = PartLabel(order.partKey).Named("PART");
+        if (order.grade != null)
+        {
+            bool destroyed = comp.Vehicle.statHandler?.GetComponent(order.partKey)?.Health <= 0f;
+            if (destroyed) return "PhobosVehicleSystems_RepairReplaceGraded".Translate(part, order.grade.label.Named("GRADE")).Resolve();
+            return "PhobosVehicleSystems_GradeWork".Translate(part, order.grade.label.Named("GRADE")).Resolve();
+        }
         if (order.remove) return "PhobosVehicleSystems_FitRemoveWork".Translate((FittedOn(order.partKey)?.label ?? "").Named("FITTING"), part).Resolve();
         return "PhobosVehicleSystems_FitWork".Translate(order.fitting!.label.Named("FITTING"), part).Resolve();
     }
 
-    public float WorkOf(FitOrder order) => order.tune?.work ?? (order.remove ? (FittedOn(order.partKey)?.work ?? 600f) * RemovalWorkShare : order.fitting!.work);
+    public float WorkOf(FitOrder order) => order.tune?.work ?? (order.remove ? (FittedOn(order.partKey)?.work ?? 600f) * RemovalWorkShare : order.fitting?.work ?? 1500f);
 
     /// <summary>Taking a fitting off is half the work of putting it on (authored).</summary>
     const float RemovalWorkShare = 0.5f;
 
-    public int SkillOf(FitOrder order) => order.tune?.minSkill ?? order.fitting?.minSkill ?? 0;
+    public int SkillOf(FitOrder order) => order.tune?.minSkill ?? order.fitting?.minSkill ?? order.grade?.minSkill ?? 0;
 
     public IEnumerable<ThingDefCountClass> MaterialsOf(FitOrder order) =>
         order.tune?.materials ?? order.fitting?.materials ?? Enumerable.Empty<ThingDefCountClass>();
@@ -362,7 +393,16 @@ public sealed class VehicleFittings
         NamedArgument who = mechanic.LabelShort.Named("MECHANIC");
         NamedArgument vehicle = comp.Vehicle.LabelShort.Named("VEHICLE");
         string text;
-        if (order.tune != null)
+        if (order.grade != null)
+        {
+            VehicleComponent part = comp.Vehicle.statHandler.GetComponent(order.partKey);
+            SetGrade(part, order.grade);
+            if (!order.grade.holdsFitting) fitted.RemoveAll(f => f.partKey == order.partKey);
+            comp.Conditions.RemoveOn(order.partKey);    // a new part has none of the old one's troubles
+            comp.RestorePart(part, 1f);
+            text = "PhobosVehicleSystems_GradeDone".Translate(who, vehicle, part.props.label.Named("PART"), order.grade.label.Named("GRADE")).Resolve();
+        }
+        else if (order.tune != null)
         {
             tunes.RemoveAll(t => t.axis == order.tune.axis);
             if (!order.tune.isDefault) tunes.Add(order.tune);
@@ -392,6 +432,76 @@ public sealed class VehicleFittings
         comp.Notify_FittingsChanged();
     }
 
+    // ---- Grades ----
+
+    /// <summary>The key of a grade's entry in the part's health modifiers. They are not saved, so they are put back after every load.</summary>
+    const string GradeHealthKey = "PhobosVehicleSystems_Grade";
+
+    static PhobosVehiclePartGradeDef? defaultGrade;
+
+    public static PhobosVehiclePartGradeDef DefaultGrade => defaultGrade ??= DefDatabase<PhobosVehiclePartGradeDef>.AllDefsListForReading.First(g => g.isDefault);
+
+    public static IEnumerable<PhobosVehiclePartGradeDef> Grades => DefDatabase<PhobosVehiclePartGradeDef>.AllDefsListForReading.OrderBy(g => g.order);
+
+    public PhobosVehiclePartGradeDef GradeOf(string partKey) => graded.FirstOrDefault(g => g.partKey == partKey)?.def ?? DefaultGrade;
+
+    /// <summary>What a destroyed part will be replaced with: what was asked for, else what it was.</summary>
+    public PhobosVehiclePartGradeDef GradeForReplacement(string partKey) => OrderOn(partKey)?.grade ?? GradeOf(partKey);
+
+    /// <summary>How hard a fault hits this part; nothing is read when the vehicle has no graded parts.</summary>
+    public float FaultFactor(string partKey) => graded.Count == 0 ? 1f : GradeOf(partKey).faultFactor;
+
+    /// <summary>Why this grade cannot be asked for now; null when it can.</summary>
+    public string? Refusal(PhobosVehiclePartGradeDef grade, VehicleComponent part)
+    {
+        if (grade.researchPrerequisite != null && !grade.researchPrerequisite.IsFinished)
+        {
+            return "PhobosVehicleSystems_FitNoResearch".Translate(grade.researchPrerequisite.LabelCap.Named("RESEARCH")).Resolve();
+        }
+        if (part.Health <= 0f) return comp.Repairs.PartBlocked(part) ? null : "PhobosVehicleSystems_FitPartDestroyed".Translate().Resolve();
+        return !grade.holdsFitting && FittedOn(part.props.key) != null ? "PhobosVehicleSystems_GradeTakeFittingOff".Translate().Resolve() : null;
+    }
+
+    void SetGrade(VehicleComponent part, PhobosVehiclePartGradeDef grade)
+    {
+        graded.RemoveAll(g => g.partKey == part.props.key);
+        if (!grade.isDefault) graded.Add(new GradedPart { partKey = part.props.key, def = grade });
+        ApplyHealth(part, grade);
+        Changed();
+    }
+
+    /// <summary>A destroyed part has been replaced: it is now of the grade asked for.</summary>
+    public void FinishReplacement(VehicleComponent part)
+    {
+        PhobosVehiclePartGradeDef grade = GradeForReplacement(part.props.key);
+        orders.RemoveAll(o => o.partKey == part.props.key && o.grade != null);
+        SetGrade(part, grade);
+    }
+
+    static void ApplyHealth(VehicleComponent part, PhobosVehiclePartGradeDef grade)
+    {
+        double modifier = FittingRule.GradeHealthModifier(part.props.health, grade.healthFactor);
+        if (modifier == 0) part.AddHealthModifiers.Remove(GradeHealthKey);
+        else part.AddHealthModifiers[GradeHealthKey] = (float)modifier;
+    }
+
+    /// <summary>Puts the grades' health back: Vehicle Framework does not save these modifiers. Safe to call more than once, and asks nothing of
+    /// what has or has not finished loading beyond the parts themselves.</summary>
+    public void ReapplyGrades()
+    {
+        VehicleStatHandler? handler = comp.Vehicle?.statHandler;
+        if (handler == null) return;
+        foreach (GradedPart entry in graded)
+        {
+            VehicleComponent? part = handler.GetComponent(entry.partKey);
+            if (part != null) ApplyHealth(part, entry.def!);
+        }
+    }
+
+    /// <summary>The part's maximum health as a standard part, for what its replacement costs.</summary>
+    public static float UngradedHealth(VehicleComponent part) =>
+        part.MaxHealth - (part.AddHealthModifiers.TryGetValue(GradeHealthKey, out float modifier) ? modifier : 0f);
+
     // ---- What happens to them ----
 
     /// <summary>A fitting is lost with its part (owner), and work ordered on that part goes with it. Both say so on a player's vehicle.</summary>
@@ -420,6 +530,7 @@ public sealed class VehicleFittings
             if (order.partKey.NullOrEmpty()) continue;
             VehicleComponent? part = handler.GetComponent(order.partKey);
             if (part != null && part.Health > 0f) continue;
+            if (order.grade != null && part != null && comp.Repairs.PartBlocked(part)) continue;    // the replacement's own choice: it waits for that job
             if (player)
             {
                 Messages.Message("PhobosVehicleSystems_FitOrderLost".Translate(LabelOf(order).CapitalizeFirst().Named("WORK"), comp.Vehicle.LabelShort.Named("VEHICLE")), Where, MessageTypeDefOf.NegativeEvent);

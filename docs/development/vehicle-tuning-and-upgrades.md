@@ -1,7 +1,7 @@
 # Vehicle tuning and upgrades: design (9 Nov 2026)
 
-**Status: fittings, tunes and enemy sets are being built in D'thorga Framework 0.40.0; part grades are designed and wait for a check in
-game. Nothing here is tested in game.** The owner's direction (9 Nov 2026): our framework of parts and supplies should become "one of
+**Status: fittings, tunes and enemy sets are built (D'thorga Framework 0.40.0), and part grades (0.41.0). Nothing here is tested in game
+beyond a save loading with it installed.** The owner's direction (9 Nov 2026): our framework of parts and supplies should become "one of
 possible tuning and full of upgrades as well". Findings marked "from the code" are read from our decompile of Vehicle Framework 1.6 and
 summarised in our own words.
 
@@ -11,8 +11,8 @@ summarised in our own words.
   without anyone writing an upgrade tree for them.
 - **Three layers, each doing a different job** (owner): a **fitting** changes how one part performs, a **tune** changes how the whole engine is set
   up, a **grade** changes how tough and how reliable a part is.
-- **Part grades wait** (owner): they are built once a destroyed part has been seen being replaced correctly in game (check 1 of the
-  [test pass](in-game-test-pass.md)), because they hang entirely on that job.
+- **Part grades hang on the job that replaces destroyed parts**, so check 1 of the [test pass](in-game-test-pass.md) comes first when testing
+  them. The owner gave the go for them on 9 Nov 2026.
 - **Every figure below is authored**, a gameplay choice to be tuned in play. Nothing is measured from a real machine.
 
 ## What exists today
@@ -37,8 +37,8 @@ Part lists stay fixed: from the code, Vehicle Framework saves parts by position,
 | **Gearing** (a kind of tune) | Trade top speed for pulling power | Have both | A heavy hauler and a fast scout can be the same truck set up differently |
 | **A minimum skill, no failure** (owner) | Rely on the result: a good enough mechanic always succeeds | Have a novice do the demanding jobs; they are refused and told why | A skilled mechanic is worth keeping, and worth bringing along |
 | **Enemy sets** (owner) | Meet an enemy vehicle that is better than the standard one, and capture it with what it came with | Assume every enemy truck of a type is the same | Capturing a fitted vehicle is a real prize; high-tech factions feel different |
-| **Part grades** (owner; waits for check 1) | Fit a cheap salvaged part when short, or a heavy-duty one where it counts | Have the cheap part hold a fitting, or be as tough or as reliable as a standard one | A choice at every replacement: what can you afford to have fail? |
-| **Refit to another grade** (owner; waits for check 1) | Upgrade a working part without waiting for it to be destroyed | Do it for free: the old part is used up | Heavy-duty parts become a planned upgrade |
+| **Part grades** (owner) | Fit a cheap salvaged part when short, or a heavy-duty one where it counts | Have the cheap part hold a fitting, or be as tough or as reliable as a standard one | A choice at every replacement: what can you afford to have fail? |
+| **Refit to another grade** (owner) | Upgrade a working part without waiting for it to be destroyed | Do it for free: the old part is used up | Heavy-duty parts become a planned upgrade |
 
 ## How it works
 
@@ -100,7 +100,7 @@ A `PhobosVehicleFitSetDef` names a span of faction tech levels, a weight, some f
 
 **An honest limit, from our own code:** other factions' vehicles run the light model, in which the drivetrain does not run. So fittings that change **stats** (springs, tyres) act on an enemy vehicle at once; **engine power and tunes only matter once it is captured** and running the full model.
 
-### Part grades (designed; built after check 1)
+### Part grades (built in 0.41.0)
 
 Three grades: **salvaged, standard, heavy-duty**. Saved by part key; a grade is chosen when a destroyed part is replaced, or by a refit of a working part (owner), which uses up the old one.
 
@@ -109,6 +109,8 @@ Three grades: **salvaged, standard, heavy-duty**. Saved by part key; a grade is 
 | Salvaged | x0.7 | x0.7 | x1.5 | No |
 | Standard | | | | Yes |
 | Heavy-duty | x1.75 | x1.3 | x0.6 | Yes |
+
+**Agent choices, for the owner to revise:** a replacement keeps the grade the part had unless another is asked for; a refit keeps the part's fitting if the new grade can hold one; a refit costs what replacing the part with that grade costs, and leaves it at full health; a grade other than standard is costed in what the part is made of, and another mod's substitute part only ever stands in for a standard one; heavy-duty needs Machining and Construction 6.
 
 The health goes through Vehicle Framework's own per-part health modifier (from the code: `VehicleComponent.AddHealthModifiers`), applied again on load. The fault figure multiplies the severity a hit gives a part's condition. Figures are authored.
 

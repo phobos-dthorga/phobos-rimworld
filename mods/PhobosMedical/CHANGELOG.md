@@ -19,6 +19,11 @@ entry says the owner tested it.
 - A doctor told to rinse a patient or take one to a pressure chamber says why they cannot, when there is no station or free chamber. **Not yet tested in game.**
 - Loading a game within a session no longer keeps the previous game's maps and pawns in memory. **Not yet tested in game.**
 
+### Compatibility and limits
+
+- A second gassing within 72 hours of the first does less than the first did: one dose runs on one clock. Left as it is until the owner decides how repeat exposure should work.
+- An eschar can form again on a limb still deeply burned once the escharotomy cuts have healed, about four days on.
+
 ### Changed
 
 - Dates in this mod's records that were written a day ahead now read 8 November 2026. Text only; nothing in game changes.

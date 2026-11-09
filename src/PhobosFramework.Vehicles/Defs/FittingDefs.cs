@@ -103,6 +103,31 @@ public class PhobosVehicleTuneDef : Def
     }
 }
 
+/// <summary>
+/// How well a part is made (owner, 9 Nov 2026): a salvaged part is cheap, frail and fault-prone and holds no fitting, a heavy-duty one the
+/// reverse. Chosen when a destroyed part is replaced, or by a refit of a working one. The one marked default is a part as built.
+/// </summary>
+public class PhobosVehiclePartGradeDef : Def
+{
+    public bool isDefault;
+    /// <summary>Top to bottom in the menu.</summary>
+    public int order;
+    public float costFactor = 1f;
+    public float healthFactor = 1f;
+    public float faultFactor = 1f;
+    public bool holdsFitting = true;
+    public int minSkill;
+    public ResearchProjectDef? researchPrerequisite;
+
+    public override IEnumerable<string> ConfigErrors()
+    {
+        foreach (string error in base.ConfigErrors()) yield return error;
+        if (costFactor <= 0f) yield return "costFactor must be above 0";
+        if (healthFactor <= 0f) yield return "healthFactor must be above 0";
+        if (faultFactor < 0f) yield return "faultFactor is below 0";
+    }
+}
+
 /// <summary>A set of fittings and tunes another faction's vehicle may be found with, by its faction's tech level (owner, 9 Nov 2026).</summary>
 public class PhobosVehicleFitSetDef : Def
 {

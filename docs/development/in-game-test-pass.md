@@ -37,6 +37,7 @@ result goes into that mod's changelog.
 | 7 | Vehicle systems on the world map: climate control by era and bleed air (Framework 0.22.0 and 0.24.0, Vehicles 0.10.0) | A caravan travels with a vehicle in heat or cold | The cab's temperature stays comfortable, and the Systems tab shows what is running |
 
 | 8 | Fittings and tunes (Framework 0.40.0) | Open **Fittings and tunes** from a vehicle's Dashboard. Order a turbocharger and a power tune, with the materials to hand and a mechanic of Construction 8 | The materials are hauled, the work is done, the Health tab says Fitted; a lower-skilled mechanic is refused and told why |
+| 9 | Part grades (Framework 0.41.0) | **After check 1.** On a working part, press **Grade** and choose heavy-duty; on a part destroyed with the dev action, choose salvaged before it is replaced. Save and load | The part's health on the Health tab rises by about 30% or falls by about 30%, and is the same after the load |
 
 ## Not on this list, on purpose
 

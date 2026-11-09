@@ -5,6 +5,24 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.41.0] - 2026-11-09 - Draft
+
+### Added
+
+- Part grades. Salvaged parts are cheap, frail and fault-prone and cannot hold a fitting; heavy-duty parts cost more, take more punishment and shrug off faults. Choose one from the new Grade button in the Fittings and tunes window, for a destroyed part before it is replaced or as a refit of a working part, which uses up the old one. **Not yet tested in game.**
+
+### Balance
+
+- Salvaged: 70 percent of the cost and health, faults from hits 1.5 times as bad. Heavy-duty: 175 percent of the cost, 130 percent of the health, faults from hits 0.6 times as bad, needs Machining and Construction 6. All authored, to be tuned in play.
+
+### Save compatibility
+
+- Safe to add to a running game. A part's grade is saved by part, and its health is put back after every load.
+
+### Compatibility and limits
+
+- A substitute part from another mod only ever stands in for a standard part.
+
 ## [0.40.5] - 2026-11-09 - Draft
 
 ### Fixed

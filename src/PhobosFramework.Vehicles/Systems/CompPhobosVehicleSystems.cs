@@ -329,6 +329,7 @@ public class CompPhobosVehicleSystems : VehicleComp
     {
         base.PostSpawnSetup(respawningAfterLoad);
         if (Usable) spawned.AddOrUpdate(Vehicle, this);
+        fittings?.ReapplyGrades();    // before anything clamps a part to its maximum
         RestorePartHealths();
         if (Usable && !respawningAfterLoad) Fittings.RollEnemySet();
         powertrain?.ForgetGround();
@@ -729,7 +730,7 @@ public class CompPhobosVehicleSystems : VehicleComp
                 if (!string.IsNullOrEmpty(rule.quantity)) AddToQuantity(rule.quantity, rule.perHealthLost * healthLost);
                 if (rule.condition != null)
                 {
-                    Conditions.Add(rule.condition, part, rule.role, state.Def.defName, (float)SeverityRule.FromHit(rule.perHealthLost, healthLost));
+                    Conditions.Add(rule.condition, part, rule.role, state.Def.defName, (float)FittingRule.FaultSeverity(SeverityRule.FromHit(rule.perHealthLost, healthLost), Fittings.FaultFactor(part.props.key)));
                     conditionGiven = true;
                 }
             }

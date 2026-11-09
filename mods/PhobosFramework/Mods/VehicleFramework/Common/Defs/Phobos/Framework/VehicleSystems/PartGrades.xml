@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    How well a part is made (docs/development/vehicle-tuning-and-upgrades.md). Every figure is authored, a gameplay choice to be tuned in play.
+    The one marked default is a part as built; exactly one must be.
+  -->
+
+  <Phobos.VehicleSystems.PhobosVehiclePartGradeDef>
+    <defName>PhobosPartGrade_Salvaged</defName>
+    <label>salvaged</label>
+    <description>Scavenged and patched together. Cheap, but it takes less punishment, picks up faults more easily and has nothing sound enough to bolt a fitting to.</description>
+    <order>0</order>
+    <costFactor>0.7</costFactor>
+    <healthFactor>0.7</healthFactor>
+    <faultFactor>1.5</faultFactor>
+    <holdsFitting>false</holdsFitting>
+  </Phobos.VehicleSystems.PhobosVehiclePartGradeDef>
+
+  <Phobos.VehicleSystems.PhobosVehiclePartGradeDef>
+    <defName>PhobosPartGrade_Standard</defName>
+    <label>standard</label>
+    <description>A part as the vehicle was built with.</description>
+    <isDefault>true</isDefault>
+    <order>1</order>
+  </Phobos.VehicleSystems.PhobosVehiclePartGradeDef>
+
+  <Phobos.VehicleSystems.PhobosVehiclePartGradeDef>
+    <defName>PhobosPartGrade_HeavyDuty</defName>
+    <label>heavy-duty</label>
+    <description>Built thicker from better stock. It costs a good deal more, takes more punishment and shrugs off faults that would stop a standard part.</description>
+    <order>2</order>
+    <costFactor>1.75</costFactor>
+    <healthFactor>1.3</healthFactor>
+    <faultFactor>0.6</faultFactor>
+    <minSkill>6</minSkill>
+    <researchPrerequisite>Machining</researchPrerequisite>
+  </Phobos.VehicleSystems.PhobosVehiclePartGradeDef>
+</Defs>

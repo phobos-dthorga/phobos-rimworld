@@ -238,9 +238,9 @@
   <PhobosVehicleSystems_ButtonFittings>Fittings and tunes</PhobosVehicleSystems_ButtonFittings>
   <PhobosVehicleSystems_ButtonFittingsDesc>Choose what is bolted onto this vehicle's parts and how its engine is set up. A mechanic does the work.</PhobosVehicleSystems_ButtonFittingsDesc>
   <PhobosVehicleSystems_FitWindowTitle>Fittings and tunes: {VEHICLE}</PhobosVehicleSystems_FitWindowTitle>
-  <PhobosVehicleSystems_FitWindowIntro>A fitting goes on one part, one to a part, and is lost if that part is destroyed. A tune sets up the whole engine. Materials are brought to the vehicle, then a mechanic does the work.</PhobosVehicleSystems_FitWindowIntro>
+  <PhobosVehicleSystems_FitWindowIntro>A fitting goes on one part, one to a part, and is lost if that part is destroyed. A tune sets up the whole engine. A part's grade sets how tough and how reliable it is, and changing it on a working part uses up the old one. Materials are brought to the vehicle, then a mechanic does the work.</PhobosVehicleSystems_FitWindowIntro>
   <PhobosVehicleSystems_FitSectionTunes>Tunes</PhobosVehicleSystems_FitSectionTunes>
-  <PhobosVehicleSystems_FitSectionParts>Fittings</PhobosVehicleSystems_FitSectionParts>
+  <PhobosVehicleSystems_FitSectionParts>Parts</PhobosVehicleSystems_FitSectionParts>
   <PhobosVehicleSystems_FitNoTunes>This vehicle's engine has nothing to tune.</PhobosVehicleSystems_FitNoTunes>
   <PhobosVehicleSystems_FitNoParts>Nothing on this vehicle can take a fitting.</PhobosVehicleSystems_FitNoParts>
   <PhobosVehicleSystems_TuneAxisEngine>Engine</PhobosVehicleSystems_TuneAxisEngine>
@@ -265,6 +265,16 @@
   <PhobosVehicleSystems_FitLost>The {VEHICLE} lost its {FITTING} with its {PART}.</PhobosVehicleSystems_FitLost>
   <PhobosVehicleSystems_FitOrderLost>{WORK} on the {VEHICLE} was abandoned: the part is gone.</PhobosVehicleSystems_FitOrderLost>
   <PhobosVehicleSystems_FitFittedLine>Fitted: {FITTING}</PhobosVehicleSystems_FitFittedLine>
+  <PhobosVehicleSystems_FitButton>Fitting</PhobosVehicleSystems_FitButton>
+  <PhobosVehicleSystems_FitPartStatus>{GRADE}, {FITTING}</PhobosVehicleSystems_FitPartStatus>
+  <PhobosVehicleSystems_FitGradeHoldsNone>a {GRADE} part cannot hold a fitting</PhobosVehicleSystems_FitGradeHoldsNone>
+  <PhobosVehicleSystems_GradeButton>Grade</PhobosVehicleSystems_GradeButton>
+  <PhobosVehicleSystems_GradeLine>Grade: {GRADE}</PhobosVehicleSystems_GradeLine>
+  <PhobosVehicleSystems_GradeFree>no materials</PhobosVehicleSystems_GradeFree>
+  <PhobosVehicleSystems_GradeTakeFittingOff>take its fitting off first</PhobosVehicleSystems_GradeTakeFittingOff>
+  <PhobosVehicleSystems_GradeWork>refitting the {PART} with a {GRADE} part</PhobosVehicleSystems_GradeWork>
+  <PhobosVehicleSystems_GradeDone>{MECHANIC} refitted the {VEHICLE}'s {PART} with a {GRADE} part.</PhobosVehicleSystems_GradeDone>
+  <PhobosVehicleSystems_RepairReplaceGraded>replacing the {PART} with a {GRADE} part</PhobosVehicleSystems_RepairReplaceGraded>
   <PhobosVehicleSystems_SettingFieldFixes>Field fixes</PhobosVehicleSystems_SettingFieldFixes>
   <PhobosVehicleSystems_SettingFieldFixesDesc>Colonists can patch leaks and shorts away from a base, using a component.</PhobosVehicleSystems_SettingFieldFixesDesc>
   <PhobosVehicleSystems_HealthCondition>{CONDITION}: {STAGE}</PhobosVehicleSystems_HealthCondition>

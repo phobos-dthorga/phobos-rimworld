@@ -18,6 +18,12 @@ public static class FittingRule
     /// <summary>A mechanic at or above the job's minimum skill always succeeds; one below it may not try (owner: no random failure).</summary>
     public static bool SkilledEnough(int skill, int minimum) => skill >= minimum;
 
+    /// <summary>What a grade adds to a part's maximum health (negative for a poorer part): health is additive, so this is the difference.</summary>
+    public static double GradeHealthModifier(double baseHealth, double healthFactor) => baseHealth * (healthFactor - 1);
+
+    /// <summary>How severe a fault a hit gives a part of this grade.</summary>
+    public static double FaultSeverity(double severity, double faultFactor) => severity * faultFactor;
+
     /// <summary>The fuel a tuned engine burns per hour beyond what Vehicle Framework already burned at this share of its rate.</summary>
     public static double TunedFuelShare(double modelShare, double factor) => modelShare * factor;
 }

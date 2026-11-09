@@ -47,6 +47,20 @@ public class FittingRuleTests
         Assert.False(FittingRule.SkilledEnough(7, 8));
     }
 
+    [Theory]
+    [InlineData(100, 0.7, -30)]
+    [InlineData(100, 1.3, 30)]
+    [InlineData(100, 1, 0)]
+    public void AGradeChangesMaximumHealthByTheDifference(double baseHealth, double factor, double expected) =>
+        Assert.Equal(expected, FittingRule.GradeHealthModifier(baseHealth, factor), 6);
+
+    [Fact]
+    public void APoorerPartTakesWorseFaults()
+    {
+        Assert.Equal(0.3, FittingRule.FaultSeverity(0.2, 1.5), 6);
+        Assert.Equal(0.12, FittingRule.FaultSeverity(0.2, 0.6), 6);
+    }
+
     [Fact]
     public void ATuneScalesTheFuelShare() => Assert.Equal(1.15, FittingRule.TunedFuelShare(1, 1.15), 6);
 }

@@ -52,7 +52,7 @@ public class Dialog_PhobosVehicleFittings : Window
         }
 
         List<VehicleTuneAxis> axes = new[] { VehicleTuneAxis.Engine, VehicleTuneAxis.Gearing }.Where(Fittings.CanTune).ToList();
-        List<VehicleComponent> parts = Fittings.FittableParts().ToList();
+        List<VehicleComponent> parts = Fittings.ListedParts().ToList();
         var outer = new Rect(inRect.x, y, inRect.width, inRect.yMax - y);
         float content = SectionHeight * 2f + RowHeight * (Mathf.Max(axes.Count, 1) + Mathf.Max(parts.Count, 1));
         var view = new Rect(0f, 0f, outer.width - 18f, content);
@@ -111,15 +111,22 @@ public class Dialog_PhobosVehicleFittings : Window
     void DrawPart(Rect view, ref float y, VehicleComponent part)
     {
         PhobosVehicleFittingDef? on = Fittings.FittedOn(part.props.key);
+        PhobosVehiclePartGradeDef grade = Fittings.GradeOf(part.props.key);
         FitOrder? order = Fittings.OrderOn(part.props.key);
-        using (new TextBlock(GameFont.Small, TextAnchor.UpperLeft)) Widgets.Label(new Rect(0f, y + 2f, 240f, 24f), part.props.label.CapitalizeFirst());
-        string status = on != null ? on.LabelCap.Resolve() : "PhobosVehicleSystems_FitPartNone".Translate().Resolve();
-        var statusRect = new Rect(244f, y + 2f, view.width - 244f - ButtonWidth - Gap, 24f);
-        using (new TextBlock(GameFont.Small, TextAnchor.UpperLeft)) Widgets.Label(statusRect, status);
-        if (on != null) TooltipHandler.TipRegion(statusRect, on.description);
-        if (Widgets.ButtonText(new Rect(view.width - ButtonWidth, y, ButtonWidth, ButtonHeight), "PhobosVehicleSystems_FitChange".Translate()))
+        const float LabelWidth = 190f;
+        float buttonsX = view.width - 2f * ButtonWidth - Gap;
+        using (new TextBlock(GameFont.Small, TextAnchor.UpperLeft)) Widgets.Label(new Rect(0f, y + 2f, LabelWidth, 24f), part.props.label.CapitalizeFirst());
+        string fitting = on != null ? on.label : "PhobosVehicleSystems_FitPartNone".Translate().Resolve();
+        var statusRect = new Rect(LabelWidth + 4f, y + 2f, buttonsX - LabelWidth - 8f, 24f);
+        using (new TextBlock(GameFont.Tiny, TextAnchor.UpperLeft)) Widgets.Label(statusRect, "PhobosVehicleSystems_FitPartStatus".Translate(grade.LabelCap.Named("GRADE"), fitting.Named("FITTING")));
+        TooltipHandler.TipRegion(statusRect, grade.description + (on != null ? "\n\n" + on.description : ""));
+        if ((on != null || Fittings.OptionsFor(part).Any()) && Widgets.ButtonText(new Rect(buttonsX, y, ButtonWidth, ButtonHeight), "PhobosVehicleSystems_FitButton".Translate()))
         {
             Find.WindowStack.Add(new FloatMenu(Options(part, on)));
+        }
+        if (comp.Repairs.CanBeGraded(part) && Widgets.ButtonText(new Rect(buttonsX + ButtonWidth + Gap, y, ButtonWidth, ButtonHeight), "PhobosVehicleSystems_GradeButton".Translate()))
+        {
+            Find.WindowStack.Add(new FloatMenu(GradeOptions(part, grade)));
         }
         DrawOrderLine(view, y, order);
         y += RowHeight;
@@ -139,6 +146,22 @@ public class Dialog_PhobosVehicleFittings : Window
                 mouseoverGuiAction: rect => TooltipHandler.TipRegion(rect, tip)));
         }
         if (on != null) options.Add(new FloatMenuOption("PhobosVehicleSystems_FitRemove".Translate(on.label.Named("FITTING")), () => Fittings.OrderRemoval(part)));
+        return options;
+    }
+
+    List<FloatMenuOption> GradeOptions(VehicleComponent part, PhobosVehiclePartGradeDef current)
+    {
+        var options = new List<FloatMenuOption>();
+        foreach (PhobosVehiclePartGradeDef grade in VehicleFittings.Grades)
+        {
+            if (grade == current && part.Health > 0f) continue;
+            string label = grade.LabelCap + " (" + comp.Repairs.CostLine(part, grade) + ")";
+            string tip = grade.description + (grade.minSkill > 0 ? "\n\n" + "PhobosVehicleSystems_FitNeedsSkill".Translate(grade.minSkill.Named("SKILL")).CapitalizeFirst() : "");
+            string? refusal = Fittings.Refusal(grade, part);
+            PhobosVehiclePartGradeDef captured = grade;
+            options.Add(new FloatMenuOption(refusal == null ? label : label + ": " + refusal, refusal == null ? () => Fittings.OrderGrade(part, captured) : null,
+                mouseoverGuiAction: rect => TooltipHandler.TipRegion(rect, tip)));
+        }
         return options;
     }
 

@@ -55,6 +55,8 @@ public static class PartsOnLoad
     {
         if (Scribe.mode != LoadSaveMode.PostLoadInit || __instance.components == null) return;
         if (VehicleField?.GetValue(__instance) is not VehiclePawn vehicle) return;
+        // The first moment both the parts and the saved grades exist; a part's grade changes its maximum health, which is not saved.
+        vehicle.GetComp<CompPhobosVehicleSystems>()?.Fittings.ReapplyGrades();
         List<VehicleComponentProperties>? defined = vehicle.VehicleDef?.components;
         if (defined == null || __instance.components.Count >= defined.Count) return;
         var byKeys = ByKeys?.GetValue(__instance) as Dictionary<string, VehicleComponent>;

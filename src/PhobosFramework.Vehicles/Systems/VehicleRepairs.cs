@@ -91,10 +91,11 @@ public sealed class VehicleRepairs
         return fallback;
     }
 
-    static List<(ThingDef def, int count)> OwnPayment(PhobosVehiclePartSupplyDef def, VehicleComponent part, float share)
+    static List<(ThingDef def, int count)> OwnPayment(PhobosVehiclePartSupplyDef def, VehicleComponent part, float share, float costFactor)
     {
         var payment = new List<(ThingDef def, int count)>();
-        if (def.item != null && def.wholePart && CostShareRule.WantsWhole(share))
+        // A whole part is one item; a salvaged or heavy-duty one is costed in what it is made of.
+        if (def.item != null && def.wholePart && CostShareRule.WantsWhole(share) && costFactor == 1f)
         {
             payment.Add((def.item, def.itemCount));
             return payment;
@@ -103,34 +104,49 @@ public sealed class VehicleRepairs
             : def.item?.CostList ?? Enumerable.Empty<ThingDefCountClass>();
         foreach (ThingDefCountClass material in full)
         {
-            int count = CostShareRule.Count(material.count * def.itemCount, share);
+            int count = CostShareRule.Count(material.count * def.itemCount, share * costFactor);
             if (count > 0) payment.Add((material.thingDef, count));
         }
-        int steel = CostShareRule.PerHealth(def.steelPerHealth, part.MaxHealth, share);
+        float health = VehicleFittings.UngradedHealth(part);
+        int steel = CostShareRule.PerHealth(def.steelPerHealth, health, share * costFactor);
         if (steel > 0) payment.Add((ThingDefOf.Steel, steel));
-        int components = CostShareRule.PerHealth(def.componentsPerHealth, part.MaxHealth, share);
+        int components = CostShareRule.PerHealth(def.componentsPerHealth, health, share * costFactor);
         if (components > 0) payment.Add((ThingDefOf.ComponentIndustrial, components));
+        // An item with no recorded cost still costs itself, rounded up.
+        if (payment.Count == 0 && def.item != null && share > 0f) payment.Add((def.item, CostShareRule.Count(def.itemCount, share * costFactor)));
         return payment;
     }
 
     /// <summary>The ways of paying for a destroyed part, ours first; none when the player's share makes it free.</summary>
-    List<List<(ThingDef def, int count)>> ReplacementOptions(VehicleComponent part, out float work)
+    List<List<(ThingDef def, int count)>> ReplacementOptions(VehicleComponent part, out float work, PhobosVehiclePartGradeDef? grade = null)
     {
+        grade ??= comp.Fittings.GradeForReplacement(part.props.key);
         var options = new List<List<(ThingDef def, int count)>>();
         PhobosVehiclePartSupplyDef? def = SupplyFor(part);
         work = def?.work ?? 1500f;
         if (def == null) return options;
         float share = def.wholePart ? Settings.wholePartShare : Settings.otherPartShare;
         if (share <= 0f) return options;
-        List<(ThingDef def, int count)> own = OwnPayment(def, part, share);
+        List<(ThingDef def, int count)> own = OwnPayment(def, part, share, grade.costFactor);
         if (own.Count == 0) return options;
         options.Add(own);
+        if (!grade.isDefault) return options;    // another mod's part is a standard part
         double kilograms = Kilograms;
         foreach (PartSupplySubstitute substitute in def.substitutes)
         {
             if (substitute.Suits(kilograms)) options.Add(new List<(ThingDef def, int count)> { (substitute.thing!, substitute.count) });
         }
         return options;
+    }
+
+    /// <summary>Whether this part has a replacement cost at all, and so can be made in another grade.</summary>
+    public bool CanBeGraded(VehicleComponent part) => SupplyFor(part) != null;
+
+    /// <summary>What a part of this grade costs, in words, for the menu.</summary>
+    public string CostLine(VehicleComponent part, PhobosVehiclePartGradeDef grade)
+    {
+        List<List<(ThingDef def, int count)>> options = ReplacementOptions(part, out _, grade);
+        return options.Count == 0 ? "PhobosVehicleSystems_GradeFree".Translate().Resolve() : options[0].Select(line => line.def.label + " x" + line.count).ToCommaList(useAnd: true);
     }
 
     /// <summary>Whether a destroyed part waits for supplies, so Vehicle Framework's free repair must leave it alone.</summary>
@@ -169,10 +185,13 @@ public sealed class VehicleRepairs
                 if (part.Health > 0f) continue;
                 List<List<(ThingDef def, int count)>> options = ReplacementOptions(part, out float work);
                 if (options.Count == 0) continue;
+                PhobosVehiclePartGradeDef grade = comp.Fittings.GradeForReplacement(part.props.key);
                 var repair = new RepairWork
                 {
-                    Key = "replace/" + part.props.key, Kind = RepairKind.ReplacePart, Part = part, Work = work,
-                    Label = "PhobosVehicleSystems_RepairReplace".Translate(part.props.label.Named("PART")).Resolve(),
+                    Key = "replace/" + part.props.key, Kind = RepairKind.ReplacePart, Part = part, Work = work, MinSkill = grade.isDefault ? 0 : grade.minSkill,
+                    Label = grade.isDefault
+                        ? "PhobosVehicleSystems_RepairReplace".Translate(part.props.label.Named("PART")).Resolve()
+                        : "PhobosVehicleSystems_RepairReplaceGraded".Translate(part.props.label.Named("PART"), grade.label.Named("GRADE")).Resolve(),
                 };
                 repair.Options.AddRange(options);
                 pending.Add(repair);
@@ -202,16 +221,29 @@ public sealed class VehicleRepairs
         foreach (FitOrder order in comp.Fittings.Orders)
         {
             VehicleFittings fittings = comp.Fittings;
+            VehicleComponent? orderedPart = string.IsNullOrEmpty(order.partKey) ? null : comp.Vehicle.statHandler.GetComponent(order.partKey);
+            // A grade asked for on a destroyed part is the replacement's own choice, above, and no work of its own.
+            if (order.grade != null && (orderedPart == null || orderedPart.Health <= 0f)) continue;
             int skill = fittings.SkillOf(order);
             string label = fittings.LabelOf(order);
             var repair = new RepairWork
             {
-                Key = "fit/" + (order.tune != null ? order.tune.axis.ToString() : order.partKey) + "/" + (order.tune?.defName ?? order.fitting?.defName ?? "off"),
+                Key = "fit/" + (order.tune != null ? order.tune.axis.ToString() : order.partKey) + "/" + (order.tune?.defName ?? order.fitting?.defName ?? order.grade?.defName ?? "off"),
                 Kind = RepairKind.Fitting, Order = order, Work = fittings.WorkOf(order), MinSkill = skill,
-                Part = string.IsNullOrEmpty(order.partKey) ? null : comp.Vehicle.statHandler.GetComponent(order.partKey),
+                Part = orderedPart,
                 Label = skill > 0 ? "PhobosVehicleSystems_FitWorkSkilled".Translate(label.Named("WORK"), skill.Named("SKILL")).Resolve() : label,
             };
-            repair.Options.Add(fittings.MaterialsOf(order).Select(m => (m.thingDef, m.count)).ToList());
+            if (order.grade != null)
+            {
+                // A refit costs what replacing the part with one of that grade costs; the old part is used up.
+                repair.Options.AddRange(ReplacementOptions(orderedPart!, out float refitWork, order.grade));
+                repair.Work = refitWork;
+                if (repair.Options.Count == 0) repair.Options.Add(new List<(ThingDef def, int count)>());
+            }
+            else
+            {
+                repair.Options.Add(fittings.MaterialsOf(order).Select(m => (m.thingDef, m.count)).ToList());
+            }
             pending.Add(repair);
         }
         return pending;
@@ -317,6 +349,7 @@ public sealed class VehicleRepairs
         switch (repair.Kind)
         {
             case RepairKind.ReplacePart:
+                comp.Fittings.FinishReplacement(repair.Part!);
                 comp.Conditions.RemoveOn(repair.Part!.props.key);    // a new part has none of the old one's troubles
                 comp.RestorePart(repair.Part!, Rules.replacedPartHealth);
                 NotifyRepairable();
