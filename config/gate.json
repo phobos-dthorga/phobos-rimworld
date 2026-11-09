@@ -19,6 +19,7 @@
     {
       "name": "Rule tests",
       "steps": [
+        {"name": "member targets", "requires": "dotnet", "run": ["{python}", "scripts/check-targets.py"]},
         {"name": "test {stem}", "each": "tests/*/*.csproj", "lane": "dotnet", "parser": "dotnet-test", "requires": "dotnet",
          "run": ["dotnet", "test", "{path}", "--nologo"]}
       ]

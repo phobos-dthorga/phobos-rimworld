@@ -363,6 +363,9 @@ delivered, record the delivery in the changelog or design record, and add or ame
   (owner's go-ahead, 8 Nov 2026; the steps are in `config/gate.json`, found by glob, so a new project is never left out).
   `--only` and `--skip` narrow it while iterating; never hand-type a loop of builds and tests (one missed four of seven
   test projects). Read a failed step's full output, whose path the report gives, only when its summary is not enough.
+- **`python scripts/check-targets.py` checks what the compiler cannot** (owner, 9 Nov 2026; part of the gate): every Harmony patch and reflected
+  lookup named in a string, the overload it asks for, and the parameters Harmony fills at run time, against the game's and the active mods' assemblies
+  as metadata. It says the names still exist, never that the code still behaves.
 - **Tests leave nothing behind.** A test that makes a git repository sets `core.fsmonitor false` in it and deletes it with
   read-only handling (git's object files are read-only; `ignore_errors=True` hides the failure). `python scripts/cleanup.py`
   lists what the tools and tests left (old install backups, test repositories, git watcher daemons); the owner runs `--apply`.
