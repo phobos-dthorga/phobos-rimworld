@@ -20,8 +20,8 @@ best case for other players.
 6. **OnAir WyrmGrid is the reference for the map**, instead of a throwaway drawing experiment this round.
 7. **One program for every game the owner works on**, so moving between games does not lose the thread: "It'd stop me
    from losing focus as I change games over time."
-8. **A plain, unassuming name**, so players can look it up and remember it. The owner loved "D'thorga Eyrie" and set it
-   aside for that reason: "It's all about brand awareness."
+8. **A plain, unassuming name: D'thorga Companion**, so players can look it up and remember it. The owner loved "D'thorga
+   Eyrie" and set it aside for that reason: "It's all about brand awareness."
 
 **Agent recommendations, for the owner to revise:**
 
@@ -291,7 +291,7 @@ slice (planet view plus fallback viewer); the planet drawing options and the rec
 
 | Question | Agent lean |
 | --- | --- |
-| The program's name: plain, unassuming, easy to look up (owner, 9 Nov 2026) | **"D'thorga Companion"**, repository `phobos-companion` (free on the owner's account). It matches D'thorga Framework, Medical and Patches, and "companion" is the word people already use for this kind of program. Ruled out: "Toolbox", which RimWorld already has twice (Nif's ToolBox and O21 Toolbox, and players confused them); "Workbench", which means a crafting bench in most of the owner's games. Checked by web and GitHub search only; the Workshop's own search is not in our tools |
+| The program's name: plain, unassuming, easy to look up (owner, 9 Nov 2026) | **Decided by the owner, 9 Nov 2026: "D'thorga Companion"**, repository `phobos-companion` (free on the owner's account). It matches D'thorga Framework, Medical and Patches, and "companion" is the word people already use for this kind of program. Ruled out: "Toolbox", which RimWorld already has twice (Nif's ToolBox and O21 Toolbox, and players confused them); "Workbench", which means a crafting bench in most of the owner's games. Checked by web and GitHub search only; the Workshop's own search is not in our tools |
 | Do Republic Observatory and OnAir WyrmGrid fold into it one day? | No. They stay separate programs, and the game's home page opens them |
 | In what order do other games join? | The game the owner is working on when the first slice is done; Project Zomboid and Ostranauts have the most existing work |
 | Dark as the only built-in theme? | Dark default, with Observatory's inert theme files so a light or high-contrast theme costs no code |
