@@ -1,6 +1,6 @@
 # The D'thorga research tree (design record, 10 Nov 2026)
 
-The owner asked on 10 Nov 2026 for "a research tree for our designs along with any possible tie-ins with other mods as a soft-dependency". This records what was built, why, and who chose what. **Not yet tested in game.**
+The owner asked on 10 Nov 2026 for "a research tree for our designs along with any possible tie-ins with other mods as a soft-dependency". This records what was built, why, and who chose what. **Partly tested in game by the owner (10 Nov 2026):** an upgrade waiting for its research refuses and names the project, and PG5 finished the 17 projects it was due. How a new colony starts is not yet tested.
 
 ## Read this first
 

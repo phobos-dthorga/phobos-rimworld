@@ -14,7 +14,7 @@
       <description>Spikes along the boom that listen to the ground. Heavy deposits, steel above all, are found more often, and the survey runs a little faster.</description>
       <icon>Phobos/Vehicles/SurveyTruck/Upgrades/GeophoneArray</icon>
       <work>2500</work>
-      <gridCoordinate>(2, 4)</gridCoordinate>
+      <gridCoordinate>(3, 4)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
       <researchPrerequisites>
         <li>GroundPenetratingScanner</li>
@@ -48,7 +48,7 @@
       <description>A shielded gamma and neutron source on the boom. Uranium is found far more often, and the survey runs a little faster.</description>
       <icon>Phobos/Vehicles/SurveyTruck/Upgrades/RadiometricProbe</icon>
       <work>3000</work>
-      <gridCoordinate>(7, 4)</gridCoordinate>
+      <gridCoordinate>(10, 4)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
       <researchPrerequisites>
         <li>GroundPenetratingScanner</li>
@@ -84,7 +84,7 @@
       <description>A dish on a mast. The survey can search nearby lands for one chosen ore, and a find becomes a place to travel to.</description>
       <icon>Phobos/Vehicles/SurveyTruck/Upgrades/LongRangeArray</icon>
       <work>4000</work>
-      <gridCoordinate>(12, 4)</gridCoordinate>
+      <gridCoordinate>(17, 4)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
       <researchPrerequisites>
         <li>LongRangeMineralScanner</li>
@@ -112,7 +112,7 @@
       <description>A big transducer array. Switched on and supplied, the survey runs three times as fast. It needs a powered grid or the large battery.</description>
       <icon>Phobos/Vehicles/SurveyTruck/Upgrades/PoweredArray</icon>
       <work>6000</work>
-      <gridCoordinate>(2, 9)</gridCoordinate>
+      <gridCoordinate>(3, 9)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
       <researchPrerequisites>
         <li>Fabrication</li>
@@ -141,7 +141,7 @@
       <description>A 600 ampere-hour battery. It runs the survey with the engine off, and the engine starts itself to recharge it when it runs low, burning fuel with nobody at the wheel.</description>
       <icon>Phobos/Vehicles/SurveyTruck/Upgrades/SurveyBattery</icon>
       <work>3000</work>
-      <gridCoordinate>(7, 9)</gridCoordinate>
+      <gridCoordinate>(10, 9)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
       <researchPrerequisites>
         <li>Batteries</li>
@@ -168,7 +168,7 @@
       <description>Lamps on the cabin roof for working through the night.</description>
       <icon>Phobos/Vehicles/SurveyTruck/Upgrades/WorkLights</icon>
       <work>1000</work>
-      <gridCoordinate>(12, 9)</gridCoordinate>
+      <gridCoordinate>(17, 9)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
       <upgrades>
         <li Class="Vehicles.StatUpgrade">

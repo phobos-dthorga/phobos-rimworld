@@ -5,6 +5,22 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+### Fixed
+
+- The Seabed Crawler's upgrades are spaced so that their labels do not collide or clip at the window's edge. Not yet tested in game.
+
+## [0.28.1] - 2026-11-10 - Draft
+
+From the owner's test of the research tree. **Not yet tested in game.**
+
+### Fixed
+
+- The survey truck's and drill rig's upgrade names no longer run into each other or off the edge of the window.
+
+### Save compatibility
+
+- Safe on an existing save: only where the upgrades are drawn has changed.
+
 ## [0.28.0] - 2026-11-10 - Draft
 
 The owner's go on the first real submarine (10 November 2026). **Not yet tested in game.**

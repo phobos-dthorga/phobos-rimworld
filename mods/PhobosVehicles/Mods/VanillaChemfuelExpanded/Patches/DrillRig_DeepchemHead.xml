@@ -11,7 +11,7 @@
         <description>A sealed head and a small tank. The rig can raise deepchem, at the rate of a pumpjack at best, into a 300-unit buffer that a tanker parked beside it can load from, or that runs into a pipe laid to it.</description>
         <icon>Phobos/Vehicles/DrillRig/Upgrades/DeepchemHead</icon>
         <work>2500</work>
-        <gridCoordinate>(12, 9)</gridCoordinate>
+        <gridCoordinate>(17, 9)</gridCoordinate>
         <drawSize>(80, 80)</drawSize>
         <researchPrerequisites>
           <li>BiofuelRefining</li>

@@ -5,6 +5,18 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.62.1] - 2026-11-10 - Draft
+
+From the owner's test of the research tree.
+
+### Fixed
+
+- The message when an upgrade is waiting for research no longer capitalises the project's name in the middle of a sentence. **Not yet tested in game.**
+
+### Compatibility and limits
+
+- **Tested in game by the owner, 10 November 2026:** an upgrade waiting for its research refuses and names the project (0.61.0).
+
 ## [0.62.0] - 2026-11-10 - Draft
 
 For the Seabed Crawler, from the owner's go of 10 November 2026. **Not yet tested in game.**

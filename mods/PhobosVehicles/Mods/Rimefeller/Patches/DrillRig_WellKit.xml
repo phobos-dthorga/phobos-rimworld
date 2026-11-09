@@ -11,7 +11,7 @@
         <description>A casing rack and a cellar frame. Set up over oil with steel in its cargo, the rig sinks a well as a derrick would, and leaves the well head behind for a derrick to pump.</description>
         <icon>Phobos/Vehicles/DrillRig/Upgrades/WellDrillingKit</icon>
         <work>2500</work>
-        <gridCoordinate>(2, 14)</gridCoordinate>
+        <gridCoordinate>(3, 14)</gridCoordinate>
         <drawSize>(80, 80)</drawSize>
         <researchPrerequisites>
           <li>OilDrilling</li>

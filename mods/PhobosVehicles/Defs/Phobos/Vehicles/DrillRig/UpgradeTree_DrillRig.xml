@@ -14,7 +14,7 @@
       <description>A slim coring bit. The rig drills at twenty times a deep drill, on ore and on stone.</description>
       <icon>Phobos/Vehicles/DrillRig/Upgrades/DiamondBit</icon>
       <work>2500</work>
-      <gridCoordinate>(2, 4)</gridCoordinate>
+      <gridCoordinate>(3, 4)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
       <researchPrerequisites>
         <li>DeepDrilling</li>
@@ -44,7 +44,7 @@
       <description>A fat hammer bit on a bigger air line: eighteen times a deep drill on ore, and thirty once only stone is left.</description>
       <icon>Phobos/Vehicles/DrillRig/Upgrades/RcHammer</icon>
       <work>2500</work>
-      <gridCoordinate>(7, 4)</gridCoordinate>
+      <gridCoordinate>(10, 4)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
       <researchPrerequisites>
         <li>DeepDrilling</li>
@@ -78,7 +78,7 @@
       <description>A longer mast section. The string can be walked further from the hole, from about 2.6 cells to about 3.6, at some cost in stability.</description>
       <icon>Phobos/Vehicles/DrillRig/Upgrades/TallMast</icon>
       <work>3000</work>
-      <gridCoordinate>(12, 4)</gridCoordinate>
+      <gridCoordinate>(17, 4)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
       <researchPrerequisites>
         <li>DeepDrilling</li>
@@ -109,7 +109,7 @@
       <description>A cable and a switchbox. Beside a powered grid the rig drills on the grid with its engine off, burning no fuel.</description>
       <icon>Phobos/Vehicles/DrillRig/Upgrades/ElectricPowerPack</icon>
       <work>2000</work>
-      <gridCoordinate>(2, 9)</gridCoordinate>
+      <gridCoordinate>(3, 9)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
       <researchPrerequisites>
         <li>Electricity</li>
@@ -136,7 +136,7 @@
       <description>Lamp masts on the cab and rear. Without them, drilling at night goes at 80% of the rate.</description>
       <icon>Phobos/Vehicles/DrillRig/Upgrades/WorkLights</icon>
       <work>1000</work>
-      <gridCoordinate>(7, 9)</gridCoordinate>
+      <gridCoordinate>(10, 9)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
       <researchPrerequisites>
         <li>Electricity</li>

@@ -11,7 +11,7 @@
         <description>A resistivity reel on the boom. While the truck is set up and selected, the ground water shows, and the richest spot within 15 cells is marked. It is a little heavier on the boom, so the survey runs slightly slower.</description>
         <icon>Phobos/Vehicles/SurveyTruck/Upgrades/Hydrogeology</icon>
         <work>2000</work>
-        <gridCoordinate>(2, 14)</gridCoordinate>
+        <gridCoordinate>(3, 14)</gridCoordinate>
         <drawSize>(80, 80)</drawSize>
         <researchPrerequisites>
           <li>GroundPenetratingScanner</li>

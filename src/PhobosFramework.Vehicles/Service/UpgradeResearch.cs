@@ -24,7 +24,7 @@ public static class UpgradeResearchGate
     }
 
     public static string Refusal(ResearchProjectDef project) =>
-        "PhobosVehicleSystems_UpgradeNeedsResearch".Translate(project.LabelCap.Named("RESEARCH"));
+        "PhobosVehicleSystems_UpgradeNeedsResearch".Translate(project.label.Named("RESEARCH"));
 }
 
 /// <summary>Makes an opted-in upgrade count as locked until its research is done. One patch covers the click, the greyed node and the highlight, which all ask this method. Saved upgrades load by key, so nothing already fitted is affected.</summary>
