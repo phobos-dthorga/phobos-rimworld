@@ -1,0 +1,41 @@
+[
+  {
+    "name": "survey-truck-body-north",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 2048,
+    "seeds": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "references": [
+      {
+        "image": "assets/phobos-vehicles/generated/bulk-tanker-body-north/bulk-tanker-body-north-2.png",
+        "role": "approved truck of the same family: match its outline weight, shading, palette and finish only; do not copy its shape or layout"
+      }
+    ],
+    "art_plan": {
+      "vehicle": "Phobos_SurveyTruck, footprint (3, 7), drawSize (4, 8), 128 px per unit, so 512 x 1024 in game; requested at twice that, above the owner's 1.5 times minimum",
+      "measured_against": "owner's list, patched Defs, 9 Nov 2026: Mule and L-ATV 2 x 4, MaxxPro 2 x 6, Humvee and Big Rig 3 x 6, tipper 3 x 8, tanker and HEMTT 3 x 10",
+      "this_request": "north base body only, the bare platform; the pilot for the family's body-and-moving-parts approach",
+      "moving_parts_planned_as_their_own_pictures": [
+        "boom, hinged at the pivot bracket",
+        "long-range dish, turning"
+      ],
+      "overlays_planned_on_this_canvas": [
+        "outriggers down",
+        "geophones",
+        "radiometric probe",
+        "powered array glow",
+        "battery box",
+        "work lamps",
+        "groundwater reel"
+      ],
+      "design": "docs/development/vehicle-survey-truck.md, docs/development/vehicle-animation-research.md"
+    },
+    "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL game vehicle sprite for the D'thorga survey truck: a sturdy four-wheel-drive field truck that carries a geophysical recorder for a hard-scrabble frontier colony. Image 1 is our approved truck from the same family: match its outline weight, shading, palette and finish only. Do NOT copy its shape or layout.\n\nDraw the BARE TRUCK only. The sensor boom, dish, outriggers and all other equipment are drawn separately as overlays.\n\nTall canvas, twice as tall as wide. The truck is SHORT AND WIDE for a truck: its width is about 43 percent of its length, including the wheels. It fills three quarters of the canvas width and seven eighths of the canvas height, centred, on a plain pure white background. North facing: the cab at the TOP edge, the deck at the BOTTOM edge. Dusty olive cab and panels, dark rubber tyres, a pale grey cab roof, dark weathered steel deck, one muted orange accent stripe across the cab.\n\nIts roof plan, from top to bottom: a wide flat-fronted cab roof with a windscreen strip at its top edge; directly behind the cab a boxy pale recorder cabin roof, as wide as the cab, with two small plain roof vents; behind that a flat open steel deck with one straight, empty, shallow channel running down its centre line from the recorder cabin to the rear edge; the tops of one pair of wheels beside the front of the truck and one pair beside the rear of the deck, two axles only. At the head of the empty channel, right behind the recorder cabin, one small plain pivot bracket.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo boom, mast, dish, antenna, spikes, probe, outriggers, cargo, people, animals, turrets, hoses, dust, mud, damage, text, letters, numbers, logos, dials, screens or lamps. No floor, ground, road, shadow outside the vehicle, perspective, tilt or visible side faces. Top surfaces only."
+  }
+]

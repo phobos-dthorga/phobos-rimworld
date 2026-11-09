@@ -5,6 +5,9 @@ the Dubs Bad Hygiene `Hydrogeology` node and the Rimefeller deep-well postfix ca
 in the game's watts so that one generator set can run it, where the table below says 3,600 W; and while the array is recharging the battery the survey stops, which is what gives the record's 1.5 times. The agent took its
 leans on the open questions below: a new medium drivetrain, 3 times and 150 A, a 600 Ah battery, 30% and 80% marks, Fabrication plus long-range research for the array.
 
+**Size, 9 Nov 2026 (owner, before the art):** 3 x 7 cells, drawn 4 x 8, instead of the (2, 7) and (3, 8) below. At 2 wide it was 3.5 times as long as wide, nearly the proportions the owner found
+tiny on the tanker, and narrower than the Humvee (3 x 6) on the owner's list. The part cells now run x -1 to 1; the keys and their order are unchanged. Vehicles 0.22.1.
+
 **As rebalanced, 9 Nov 2026 (Framework 0.49.1, owner's rule: an order of magnitude over what a vehicle copies unless it feels like cheating):** the deep
 find is MTB 0.3 day (about 7 hours) and certain at 0.6, the long-range find 0.4 and 0.8; the curve and the powered array's 3x are unchanged (owner's choices).
 The minting arithmetic below at the new pace: finds 1 to 6 on one map total about 3.4 days instead of 34 (0.3 + 0.45 + 0.68 + 1.0 + 1.5 + 2.4), with the array a

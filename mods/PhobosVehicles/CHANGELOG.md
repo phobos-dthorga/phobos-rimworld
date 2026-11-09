@@ -5,6 +5,12 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.22.1] - 2026-11-09 - Draft
+
+### Balance
+
+- The survey truck is now 3 by 7 cells instead of 2 by 7, as wide as the Humvee and the Big Rig (owner's decision, before its art is made). If you have already built one, its parts keep their health. Not yet tested in game.
+
 ## [0.22.0] - 2026-11-09 - Draft
 
 ### Added
