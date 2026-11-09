@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- D'thorga Patches' Prison Labor assembly (0.16.5): one temporary guard against a crash in Prison Labor's first 1.7 build, to be removed
+       when the author's fix ships (docs/development/crash-2026-11-09-stack-overflow.md). It lives in Mods/PrisonLabor/<version>, loaded only
+       while Prison Labor is active, and finds Prison Labor's patch by name, referencing no assembly of it. RimWorld 1.7 only. -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <RootNamespace>Phobos.PrisonLaborPatches</RootNamespace>
+    <AssemblyName>PhobosPatches.PrisonLabor</AssemblyName>
+    <ModFolder>PhobosPatches</ModFolder>
+    <TieInFolder>Mods/PrisonLabor/</TieInFolder>
+    <UsesHarmony>true</UsesHarmony>
+    <Version>0.16.5</Version>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../PhobosFramework/PhobosFramework.csproj" Private="false" />
+  </ItemGroup>
+</Project>

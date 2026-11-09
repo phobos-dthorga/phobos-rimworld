@@ -14,6 +14,8 @@
     <li IfModActive="kazepsi.irbm">Mods/IRBM/1.7</li>
     <li IfModActive="wowgag.RimPacts">Mods/RimPacts/1.7</li>
     <li IfModActive="ninagoblin.visitsettlements">Mods/VisitSettlements/1.7</li>
+    <!-- Temporary: comes out when Prison Labor ships its fix (docs/development/crash-2026-11-09-stack-overflow.md). -->
+    <li IfModActive="avius.prisonlabor">Mods/PrisonLabor/1.7</li>
     <li IfModActiveAll="OskarPotocki.VanillaFactionsExpanded.Core,SmashPhil.VehicleFramework">Mods/Outposts</li>
     <li IfModActiveAll="OskarPotocki.VanillaFactionsExpanded.Core,SmashPhil.VehicleFramework">Mods/Outposts/1.7</li>
   </v1.7>

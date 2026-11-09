@@ -12,11 +12,13 @@ with vehicles is refused at the "create outpost" window, because founding one th
 It replaces two earlier mods, merged into it on 7 November 2026: **D'thorga Vehicle Patches** and **D'thorga Missile Patches**
 ([why](../../docs/development/mod-consolidation.md)).
 
-Version 0.16.4, built 9 November 2026 for House D'thorga. **Not yet tested in game as D'thorga Patches.** The Harrier and turret hull
+Version 0.16.5, built 9 November 2026 for House D'thorga. **Not yet tested in game as D'thorga Patches.** The Harrier and turret hull
 parts are unchanged from Vehicle Patches 0.6.0 (not yet tested in game); the missile part was tried once by the owner, see
 [InterRim Ballistic Missile](#interrim-ballistic-missile).
 
 ## Read this first (gotchas)
+
+- **With Prison Labor, a temporary guard stops a crash** (0.16.5). Its first 1.7 build can close the game when a warden considers feeding a motivated prisoner. The guard changes nothing else, switches itself off when Prison Labor is fixed, and comes out of this mod after that. Not yet tested in game.
 
 - **New in 0.15.0, with Vanilla Expanded Framework and Vehicle Framework (not yet tested in game): a caravan with vehicles can no
   longer found an outpost through the "create outpost" window.** Leave the vehicles somewhere first and come on foot. The window says

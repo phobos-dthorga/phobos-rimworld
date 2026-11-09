@@ -17,6 +17,19 @@ RimWorld.Pawn_FoodRestrictionTracker.GetCurrentRespectedRestriction (patched)
 
 **Prisoner Realism is not at fault.** Its postfix is at the very top of the trace only because it was running when the stack ran out. Everything earlier in this record is kept as the path that led here: Synthriada, the save bridge, REA, our own code and the pipes are all cleared.
 
+### The temporary guard (Patches 0.16.5, owner, 10 Nov 2026: "strictly temporary")
+
+`src/PhobosPatches.PrisonLabor`, a separate assembly loaded only with Prison Labor. A prefix on Prison Labor's postfix lets it run once and hands back the game's answer from any nested call, so a prisoner in that case ends up with no food policy, which is the game's own answer. The rule that another author's bug is theirs applies, and this is its exception for extreme errors: Prison Labor's project is active (updated 9 Nov 2026), and a crash to desktop with no log entry is extreme. The owner has reported it.
+
+**Lets the player:** keep Prison Labor and keep playing. **Stops:** only the endless call. **Changes:** nothing else.
+
+**How it comes out.** At each start the guard reads Prison Labor's code. When the load line says `temporary guard against Prison Labor's food policy loop` is off because Prison Labor no longer calls itself or has that patch, the fix has shipped. Check with `python scripts/workshop-research.py report avius.prisonlabor` for a newer update, then:
+
+1. Delete `src/PhobosPatches.PrisonLabor/` and `mods/PhobosPatches/Mods/PrisonLabor/`.
+2. Remove its line and comment from `mods/PhobosPatches/LoadFolders.xml`.
+3. Remove its two entries from `config/maintained-constants.json` and its row from `docs/development/building.md`.
+4. Remove the README's gotcha line, add a changelog entry, close item J2 in `outstanding-work.md`, and take a patch-number version.
+
 ### Report for the author
 
 The owner posted a bug report on the mod's Workshop page on 10 Nov 2026. The agent's draft, which may differ from what was posted:

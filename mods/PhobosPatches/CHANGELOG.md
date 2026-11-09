@@ -6,6 +6,18 @@ says the owner tested it.
 
 ## [Unreleased]
 
+## [0.16.5] - 2026-11-10 - Draft
+
+Temporary, at the owner's request, until the author of Prison Labor ships a fix. **Not yet tested in game.**
+
+### Fixed
+
+- With Prison Labor's first 1.7 build, the game could close without warning when a warden considered feeding a motivated prisoner, because one of its food patches called itself for ever. A guard now stops that patch after one pass and changes nothing else.
+
+### Compatibility and limits
+
+- The guard reads Prison Labor's code at each start and stands down by itself once the fault is gone, saying so on the load line. It holds no settings and nothing in a save, so it is safe to remove with the mod or on its own.
+
 ## [0.16.4] - 2026-11-09 - Draft
 
 ### Fixed
