@@ -9,7 +9,7 @@
     "PhobosFactoryAdditions.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.11.6",
+      "value": "0.12.0",
       "description": "D'thorga Factory Additions's version: About.xml, every project of the mod, its ModVersion constants and both READMEs",
       "targets": [
         {
@@ -41,7 +41,7 @@
     "PhobosFramework.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.56.0",
+      "value": "0.57.0",
       "description": "D'thorga Framework's version: About.xml, every project of the mod, its ModVersion constants and both READMEs",
       "targets": [
         {
@@ -97,7 +97,7 @@
     "PhobosMedical.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.8.2",
+      "value": "0.9.0",
       "description": "D'thorga Medical's version: About.xml, every project of the mod, its ModVersion constants and both READMEs",
       "targets": [
         {

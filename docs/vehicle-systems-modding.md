@@ -399,6 +399,10 @@ first role** (`roles[0]`): put the role the condition belongs to first. A stage 
 hidden quantity's stage shows only when it carries effects (a refusal, say). The tab rebuilds its rows when the comp's
 `HealthViewVersion` changes (a hit, a repair, an update) and never otherwise.
 
+## Pipes beneath a vehicle
+
+A parked player vehicle that takes water, or carries or pumps a piped fluid, joins any run it stands on or against, by laying that network's own pipe on each empty cell of its footprint, and takes them up when it moves. A tie-in for another piping mod implements `VehiclePipes.ILink` and registers it. Buildings get the same from `Phobos.Framework.Hygiene.CompProperties_PhobosPipeUnderlay`.
+
 ## Part conditions
 
 A condition belongs to one Vehicle Framework part, as an injury belongs to a body part, and says what the part's health cannot: a

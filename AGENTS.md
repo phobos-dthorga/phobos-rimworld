@@ -259,6 +259,9 @@ delivered, record the delivery in the changelog or design record, and add or ame
   gas of our own only where its value is greater than inference could give, where nothing exists to infer
   from, or on the owner's call-out, and say which in the design record. Gases are additive and per room:
   no air, oxygen, pressure or vacuum model. The framework's source-mode setting is the manual override.
+- **Anything that takes water or piping has its own pipes beneath it** (owner, 9 Nov 2026: "like how the vanilla game and pretty much most other mods do"). Every cell of its footprint joins the
+  network, so a pipe touching any side connects and a run passes through: a building through `CompPhobosPipeUnderlay` or the piping mod's own comp; a vehicle, like a gravship, while it is parked, taking them
+  with it when it moves (`VehiclePipes`). `PipeUnderlay` lays the piping mod's own hidden pipe only where none is, never touches another pipe, and is applied at the next look, so saves convert by themselves.
 - **Every vehicle of ours is upgradeable and extendable from its first Def** (owner, 8 Nov 2026): a Vehicle Framework upgrade
   tree shaped by the vehicle, every node moving a figure that changes an outcome, node keys stable once a save can hold them; the
   base body is drawn bare and every visible node is its own overlay set, planned before the first picture

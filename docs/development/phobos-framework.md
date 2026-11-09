@@ -178,3 +178,20 @@ The candidate base class for interval map components is still not built (see 0.6
 - **A Vehicle-Framework-optional part for vehicle systems** (owner, 8 Nov 2026): the schema-driven electrical, cooling and
   lubrication service, loaded only with Vehicle Framework the way the Dubs Bad Hygiene tie-in is; designed in
   [vehicle systems](vehicle-systems-design.md), to be built after the owner's review. 1.7 only.
+
+## Pipes beneath things (9 Nov 2026, Framework 0.57.0)
+
+The owner's rule, choosing "joined, vehicles too": anything that takes water or piping has its own pipes beneath it, as Dubs' fixtures and Vanilla Expanded's connected buildings do, and a gravship does while it travels.
+
+**Lets the player:** run a pipe to any side of a machine or a parked vehicle, and carry a run on through it. **Stops them:** nothing; the old way of touching a pipe still works. **Changes play:** a vehicle parked across a run bridges it, and driving off breaks that run again.
+
+How it is built (agent's design): `PipeUnderlay` lays the piping mod's own hidden pipe on each cell of a footprint that has none. This replaced the first idea, giving buildings Dubs' own pipe comp, because that comp deletes the plumbing under a building, and on a load can meet a pipe that spawns after it and log an overlap. So nothing the player laid is ever touched, a save converts at its next look, and removing the mod leaves ordinary hidden pipe.
+
+| Thing | When it joins | Limits |
+| --- | --- | --- |
+| Oxygen electrolyser, safety shower, conveyor oven | Always, with Dubs Bad Hygiene | Dubs' lite mode has no plumbing: nothing is laid |
+| A player vehicle that takes water, or a tanker with Dubs water or septic ports | Parked, with plumbing under or against it | Looks about once every 33 game seconds (8 rare ticks), and when it stops; leaves as soon as it starts moving |
+| A tanker or rig with a Vanilla Expanded Framework fluid | The same, for that fluid's net | A net with no hidden pipe lays its ordinary one, under the vehicle |
+
+Not yet tested in game. In particular unproven: that spawning hidden pipes under a parked vehicle leaves Vehicle Framework's pathing alone, and that a gravship carries a building's or a vehicle's laid pipes as expected.
+

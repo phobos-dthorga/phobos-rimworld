@@ -11,6 +11,7 @@
         <li Class="Phobos.Medical.Hygiene.CompProperties_PhobosWaterFeed">
           <litresPerHour>0.5</litresPerHour>
         </li>
+        <li Class="Phobos.Framework.Hygiene.CompProperties_PhobosPipeUnderlay" />
       </value>
     </match>
   </Operation>

@@ -18,7 +18,8 @@ public enum WaterDraw
 /// A building's water supply from Dubs Bad Hygiene's plumbing, from any pipe under it or against its side. It only reads the plumbing:
 /// it is deliberately not one of Dubs' own pipe comps, which would delete the plumbing under the building (on load too) and leave gaps
 /// in the player's pipe runs if a Phobos mod were removed. One per building, held by the building's comp; derived, so never saved.
-/// Moved here from D'thorga Factory Additions (7 Nov 2026) so the factory machines and the oxygen electrolyser share one copy.
+/// Moved here from D'thorga Factory Additions (7 Nov 2026) so the factory machines and the oxygen electrolyser share one copy. The building's own pipes beneath it
+/// are a separate comp (CompPhobosPipeUnderlay), which lays hidden pipes only where none are, so this reader finds them like any others.
 /// </summary>
 public sealed class PlumbingFeed
 {

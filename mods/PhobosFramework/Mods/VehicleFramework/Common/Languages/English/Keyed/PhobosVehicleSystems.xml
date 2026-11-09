@@ -90,7 +90,7 @@
   <PhobosVehicleSystems_InspectPhase>({PHASE})</PhobosVehicleSystems_InspectPhase>
   <PhobosVehicleSystems_InspectPower>Load {LOAD}: engine {ENGINE} kW, fuel {FUEL} kW, heat {HEAT} kW.</PhobosVehicleSystems_InspectPower>
   <PhobosVehicleSystems_InspectCap>Held to {CAP} of its speed.</PhobosVehicleSystems_InspectCap>
-  <PhobosVehicleSystems_WaterNoPlumbing>park it beside a plumbing pipe with a water tower on it.</PhobosVehicleSystems_WaterNoPlumbing>
+  <PhobosVehicleSystems_WaterNoPlumbing>park it over or against a plumbing pipe with a water tower on it.</PhobosVehicleSystems_WaterNoPlumbing>
   <PhobosVehicleSystems_WaterTowersEmpty>the water towers on the pipe beside it are nearly empty.</PhobosVehicleSystems_WaterTowersEmpty>
   <PhobosVehicleSystems_HoursValue>{HOURS} h</PhobosVehicleSystems_HoursValue>
 

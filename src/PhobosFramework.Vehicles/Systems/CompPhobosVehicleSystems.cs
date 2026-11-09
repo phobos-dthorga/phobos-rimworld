@@ -343,6 +343,8 @@ public class CompPhobosVehicleSystems : VehicleComp
         History.ExposeData(Props.systems);
         Scribe_Collections.Look(ref savedPartHealth, "PhobosVehicleSystems_PartHealth", LookMode.Value, LookMode.Value);
         Scribe_Collections.Look(ref servicedSaved, "PhobosVehicleSystems_Serviced", LookMode.Value);
+        Scribe_Collections.Look(ref pipeUnderlays, "PhobosVehicleSystems_PipeUnderlays", LookMode.Value, LookMode.Deep);
+        pipeUnderlays ??= new Dictionary<string, Phobos.Framework.Persistence.PipeUnderlay>();
         Scribe_Values.Look(ref lastUpdateTick, "PhobosVehicleSystems_LastUpdate", -1);
         Scribe_Values.Look(ref serviceRequested, "PhobosVehicleSystems_ServiceRequested", false);
         Conditions.ExposeData();
@@ -377,6 +379,8 @@ public class CompPhobosVehicleSystems : VehicleComp
 
     public override void PostDeSpawn(Map map, DestroyMode mode = DestroyMode.Vanish)
     {
+        // A gravship lifts its pipes along with it.
+        if (mode != DestroyMode.WillReplace) VehiclePipes.Leave(this);
         base.PostDeSpawn(map, mode);
         if (Vehicle != null) spawned.Remove(Vehicle);
     }
@@ -444,6 +448,11 @@ public class CompPhobosVehicleSystems : VehicleComp
         {
             case DetailTier.Full:
                 using (PhobosTiming.Measure("vehicle rare tick / full")) UpdateNow();
+                if (++pipeLooks >= RareTicksPerPipeLook)
+                {
+                    pipeLooks = 0;
+                    using (PhobosTiming.Measure("vehicle pipes")) VehiclePipes.Update(this);
+                }
                 break;
             case DetailTier.Lite:
                 // Hits are counted (Combat Extended writes part health without an event), nothing evolves.
@@ -662,6 +671,8 @@ public class CompPhobosVehicleSystems : VehicleComp
     {
         if (Tier != DetailTier.Full) return;
         if (!Usable) return;
+        if (eventDef == VehicleEventDefOf.MoveStart) VehiclePipes.Leave(this);
+        else if (eventDef == VehicleEventDefOf.MoveStop) VehiclePipes.Update(this);
         UpdateNow();
         if (states == null) return;
         foreach (SystemState state in states)
@@ -1101,6 +1112,28 @@ public class CompPhobosVehicleSystems : VehicleComp
         Messages.Message((on ? "PhobosVehicleSystems_DashEngineStarted" : "PhobosVehicleSystems_DashEngineStopped").Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve(),
             Vehicle, MessageTypeDefOf.SilentInput, historical: false);
     }
+
+    const int RareTicksPerPipeLook = 8;
+    int pipeLooks;
+    Dictionary<string, Phobos.Framework.Persistence.PipeUnderlay> pipeUnderlays = new();
+
+    /// <summary>The pipes this vehicle has laid beneath it for one network, made the first time they are asked for.</summary>
+    public Phobos.Framework.Persistence.PipeUnderlay Underlay(string key)
+    {
+        if (!pipeUnderlays.TryGetValue(key, out Phobos.Framework.Persistence.PipeUnderlay? underlay))
+        {
+            underlay = new Phobos.Framework.Persistence.PipeUnderlay();
+            pipeUnderlays[key] = underlay;
+        }
+        return underlay;
+    }
+
+    /// <summary>The networks it holds pipes for whose keys start like this, for a link to take up what it no longer needs.</summary>
+    public List<KeyValuePair<string, Phobos.Framework.Persistence.PipeUnderlay>> UnderlaysStartingWith(string prefix) =>
+        pipeUnderlays.Where(pair => pair.Key.StartsWith(prefix, System.StringComparison.Ordinal)).ToList();
+
+    /// <summary>The player's, standing on a map and not moving.</summary>
+    public bool ParkedForPipes => Vehicle.Spawned && Vehicle.Faction == Faction.OfPlayer && Vehicle.vehiclePather is not { Moving: true };
 
     /// <summary>The health of the engine's worst part as a share, or 1 if it has none.</summary>
     public float EngineHealthShare() => PartsOf("Engine").Select(p => p.HealthPercent).DefaultIfEmpty(1f).Min();

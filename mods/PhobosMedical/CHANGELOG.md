@@ -6,6 +6,18 @@ entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.9.0] - 2026-11-09 - Draft
+
+From the owner's rule of 9 November 2026: anything that takes water or piping has its own pipes beneath it. **Not yet tested in game.**
+
+### Added
+
+- With Dubs Bad Hygiene, the oxygen electrolyser and the safety shower have their own plumbing beneath them, so a pipe touching any side connects and a run passes through. Needs D'thorga Framework 0.57.0.
+
+### Save compatibility
+
+- Safe on an existing save, which converts by itself at the next load. Pipes already there are left alone. If this mod is removed later, what it laid stays as ordinary hidden pipe.
+
 ## [0.8.2] - 2026-11-09 - Draft
 
 ### Changed

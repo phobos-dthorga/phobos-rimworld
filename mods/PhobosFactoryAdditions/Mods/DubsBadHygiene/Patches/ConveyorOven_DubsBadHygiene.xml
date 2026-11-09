@@ -8,6 +8,7 @@
       <li>
         <compClass>Phobos.Factory.Hygiene.CompFactoryWater</compClass>
       </li>
+      <li Class="Phobos.Framework.Hygiene.CompProperties_PhobosPipeUnderlay" />
     </value>
   </Operation>
 

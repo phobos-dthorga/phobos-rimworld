@@ -5,6 +5,19 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.57.0] - 2026-11-09 - Draft
+
+From the owner's rule of 9 November 2026: anything that takes water or piping has its own pipes beneath it. **Not yet tested in game.**
+
+### Added
+
+- A parked vehicle that takes on water joins any plumbing it stands on or against, across its whole footprint, so a pipe touching any side connects and a run passes under it. It takes those pipes with it when it drives off, as a gravship does. A tanker or a rig does the same with the pipes of a fluid it carries or pumps.
+- For modders: a comp that gives any building its own plumbing beneath it, and a shared piece that keeps track of what a thing has laid.
+
+### Save compatibility
+
+- Safe on an existing save, which converts by itself at the next load. Pipes already there are left alone. If this mod is removed later, what it laid stays as ordinary hidden pipe.
+
 ## [0.56.0] - 2026-11-09 - Draft
 
 From the owner's idea of a dashboard to interact with (9 November 2026). **Not yet tested in game.**

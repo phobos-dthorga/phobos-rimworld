@@ -8,8 +8,11 @@
     <AssemblyName>PhobosFramework.Hygiene</AssemblyName>
     <ModFolder>PhobosFramework</ModFolder>
     <TieInFolder>Mods/DubsBadHygiene/</TieInFolder>
-    <Version>0.56.0</Version>
+    <Version>0.57.0</Version>
   </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../PhobosFramework/PhobosFramework.csproj" Private="false" />
+  </ItemGroup>
   <ItemGroup>
     <Reference Include="BadHygiene">
       <HintPath>$(DbhAssemblies)\BadHygiene.dll</HintPath>

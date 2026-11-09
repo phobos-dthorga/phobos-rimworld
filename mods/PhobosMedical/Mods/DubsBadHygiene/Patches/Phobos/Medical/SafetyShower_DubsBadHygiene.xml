@@ -5,6 +5,7 @@
     <xpath>Defs/ThingDef[defName="PhobosMedical_SafetyShower"]/comps</xpath>
     <value>
       <li Class="Phobos.Medical.Hygiene.CompProperties_PhobosRinseWater" />
+      <li Class="Phobos.Framework.Hygiene.CompProperties_PhobosPipeUnderlay" />
     </value>
   </Operation>
 </Patch>
