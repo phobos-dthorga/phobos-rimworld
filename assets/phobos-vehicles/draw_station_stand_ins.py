@@ -48,7 +48,31 @@ def tuning_rig(draw):
         draw.line([(480, y), (620, y)], fill=OUTLINE, width=14)
 
 
+def depot_bay(draw):
+    """800 by 400, drawn at 2 by 1 cells."""
+    box(draw, (40, 40, 760, 360), DARK)
+    box(draw, (70, 70, 380, 330), ORANGE)
+    draw.ellipse((170, 140, 280, 250), fill=STEEL, outline=OUTLINE, width=LINE)
+    box(draw, (420, 70, 730, 190), STEEL)
+    box(draw, (420, 210, 730, 330), OLIVE)
+
+
+def go_to_bay(draw):
+    box(draw, (90, 110, 422, 300), STEEL, 24)
+    draw.rectangle((135, 150, 377, 262), fill=DARK, outline=OUTLINE, width=LINE)
+    draw.polygon([(256, 470), (150, 340), (215, 340), (215, 300), (297, 300), (297, 340), (362, 340)], fill=ORANGE, outline=OUTLINE)
+
+
+def assign_bay(draw):
+    box(draw, (90, 90, 422, 300), DARK, 24)
+    draw.ellipse((205, 135, 307, 237), fill=ORANGE, outline=OUTLINE, width=LINE)
+    box(draw, (70, 330, 442, 430), STEEL, 14)
+
+
 STATIONS = [
+    ('DepotBay', depot_bay, (800, 400), (256, 128), 'a dark frame with an orange fuel tank and two parts shelves'),
+    ('BayGoTo', go_to_bay, (512, 512), (128, 128), 'a parking bay with an orange arrow pointing out of it'),
+    ('BayAssign', assign_bay, (512, 512), (128, 128), 'a bay with an orange tag above a steel bar'),
     ('PartsBench', parts_bench, (1400, 600), (350, 150), 'a long olive bench with a three-cylinder engine block, a machine in orange and two parts trays'),
     ('TuningRig', tuning_rig, (800, 800), (256, 256), 'a steel frame with a blue trace display, a dynamometer roller and an orange vented cabinet'),
 ]

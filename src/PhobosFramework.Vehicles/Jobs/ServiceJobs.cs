@@ -179,7 +179,7 @@ public class JobDriver_PhobosServiceVehicle : PhobosVehicleWorkDriver
 {
     protected override JobDef JobDef => VehicleSystemsJobDefOf.PhobosVehicleSystems_ServiceVehicle;
 
-    protected override float TotalWork => Vehicle.GetComp<CompPhobosVehicleSystems>()?.ReadyService()?.Def.service?.work ?? 1f;
+    protected override float TotalWork => (Vehicle.GetComp<CompPhobosVehicleSystems>()?.ReadyService()?.Def.service?.work ?? 1f) * (Systems?.BayWorkFactor ?? 1f);
 
     protected override StatDef Stat => StatDefOf.ConstructionSpeed;
 
@@ -221,7 +221,7 @@ public class JobDriver_PhobosRepairWithSupplies : PhobosVehicleWorkDriver
 
     RepairWork? Current => workKey == null ? null : Systems?.Repairs.Find(workKey);
 
-    protected override float TotalWork => Current?.Work ?? 1f;
+    protected override float TotalWork => (Current?.Work ?? 1f) * (Systems?.BayWorkFactor ?? 1f);
 
     /// <summary>The job is tied to one piece of work, so what was cancelled is not finished, and another job is not done on its time.</summary>
     protected override void ResetWork()

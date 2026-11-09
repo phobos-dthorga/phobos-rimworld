@@ -113,6 +113,7 @@ promise current behaviour. For using the mods, start at the [documentation index
 - [Vehicle health, slice 3: what it does to the player (8 Nov 2026, built 9 Nov 2026)](vehicle-health-consequences.md): the danger clock,
   destroyed parts needing supplies, serious conditions, field fixes, and our own parts framework.
 - [The mobile generator set: design (9 Nov 2026, built 9 Nov 2026)](vehicle-generator-set.md): see the entry under the vehicle family; built with stand-in pictures. Not yet tested in game.
+- [Home depot bays: design (9 Nov 2026)](vehicle-depot-bays.md): a vehicle's home bay, its Go to bay button, self-refuelling and faster service; crews and convoys left to Crew Presets. Not yet tested in game.
 - [Vehicle stations and the motor pool tab: design (9 Nov 2026)](vehicle-stations.md): the parts bench, the tuning rig that tunes and refits need,
   and our own Architect tab, so parts stop getting lost in long lists. Not yet tested in game.
 - [The vehicle garage and fleet tools: design (8 Nov 2026)](vehicle-garage-design.md): a staffed outpost that holds and slowly

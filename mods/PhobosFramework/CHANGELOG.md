@@ -5,6 +5,16 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.45.0] - 2026-11-09 - Draft
+
+### Added
+
+- A depot bay, on the motor pool tab: a home for one vehicle with a fuel tank and pump, a shelf for its parts and an outlined parking pad. A button on the vehicle sends it home, and it switches off when it arrives. On the pad it refuels with nobody attending, on chemfuel and while the bay has power, and mechanics need 70 percent of the usual work. It only moves when you tell it to. Not yet tested in game.
+
+### Save compatibility
+
+- Safe to add to a running colony.
+
 ## [0.44.0] - 2026-11-09 - Draft
 
 ### Added

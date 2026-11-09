@@ -41,6 +41,7 @@ result goes into that mod's changelog.
 | 9 | Part grades (Framework 0.41.0) | **After check 1.** On a working part, press **Grade** and choose heavy-duty; on a part destroyed with the dev action, choose salvaged before it is replaced. Save and load | The part's health on the Health tab rises by about 30% or falls by about 30%, and is the same after the load |
 | 10 | Stations (Framework 0.43.0) | Open the **motor pool** tab and build a **vehicle parts bench** and a **tuning rig**. Order a tune on a vehicle parked away from the rig, then drive it within the outline | The bench lists only vehicle parts; the machining table lists none of ours; the tune waits and says why, then a mechanic does it once the vehicle is within reach |
 | 11 | Generator set (Framework 0.44.0, Vehicles 0.17.0) | Build one from the **motor pool** tab (dev mode's instant build is fine). Park it, fuel it, press **Set up**, and wire a lamp to the cable end. Then press **Pack up** | The cable end appears and shows on the power overlay; the lamp lights; the truck cannot be driven or drafted; the fuel falls slowly; packing up removes the cable end and the lamp goes out |
+| 12 | Depot bay (Framework 0.45.0) | Build a **depot bay** from the **motor pool** tab, power it and fill its tank. Press **Assign vehicle** and pick one. With a driver aboard, select the vehicle and press **Go to bay** | It drives to the outlined pad and switches off; its fuel rises with nobody attending; a repair done there is quicker |
 
 ## Not on this list, on purpose
 

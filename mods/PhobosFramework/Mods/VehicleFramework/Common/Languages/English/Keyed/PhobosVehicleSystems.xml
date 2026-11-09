@@ -369,4 +369,20 @@
   <PhobosVehicleSystems_GenGizmoSetUpDesc>Lower the outriggers and run out the cable. The engine then feeds the grid, using fuel in step with what the grid draws. It cannot move while set up.</PhobosVehicleSystems_GenGizmoSetUpDesc>
   <PhobosVehicleSystems_GenGizmoPackUp>Pack up</PhobosVehicleSystems_GenGizmoPackUp>
   <PhobosVehicleSystems_GenGizmoPackUpDesc>Take in the cable and raise the outriggers. Anything running on this truck loses its power.</PhobosVehicleSystems_GenGizmoPackUpDesc>
+
+  <PhobosVehicleSystems_BayGizmoAssign>Assign vehicle</PhobosVehicleSystems_BayGizmoAssign>
+  <PhobosVehicleSystems_BayGizmoAssignDesc>Choose the one vehicle this bay is home to.</PhobosVehicleSystems_BayGizmoAssignDesc>
+  <PhobosVehicleSystems_BayAssignNone>Nothing: leave it empty</PhobosVehicleSystems_BayAssignNone>
+  <PhobosVehicleSystems_BayAssigned>This bay is now home to {VEHICLE}.</PhobosVehicleSystems_BayAssigned>
+  <PhobosVehicleSystems_BayCleared>This bay is now empty.</PhobosVehicleSystems_BayCleared>
+  <PhobosVehicleSystems_BayGizmoGo>Go to bay</PhobosVehicleSystems_BayGizmoGo>
+  <PhobosVehicleSystems_BayGizmoGoDesc>Drive to this vehicle's home bay. It stops and switches off when it arrives.</PhobosVehicleSystems_BayGizmoGoDesc>
+  <PhobosVehicleSystems_BayGoing>{VEHICLE} is driving to its bay.</PhobosVehicleSystems_BayGoing>
+  <PhobosVehicleSystems_BayAlreadyThere>{VEHICLE} is already in its bay.</PhobosVehicleSystems_BayAlreadyThere>
+  <PhobosVehicleSystems_BayNoDriver>{VEHICLE} has nobody aboard who can drive it.</PhobosVehicleSystems_BayNoDriver>
+  <PhobosVehicleSystems_BayCannotReach>{VEHICLE} cannot find a way to its bay.</PhobosVehicleSystems_BayCannotReach>
+  <PhobosVehicleSystems_BayEmpty>No vehicle assigned.</PhobosVehicleSystems_BayEmpty>
+  <PhobosVehicleSystems_BayHomeOf>Home to {VEHICLE}.</PhobosVehicleSystems_BayHomeOf>
+  <PhobosVehicleSystems_BayRefuelling>Refuelling {VEHICLE}.</PhobosVehicleSystems_BayRefuelling>
+  <PhobosVehicleSystems_BayWrongFuel>{VEHICLE} runs on a fuel this tank does not hold.</PhobosVehicleSystems_BayWrongFuel>
 </LanguageData>

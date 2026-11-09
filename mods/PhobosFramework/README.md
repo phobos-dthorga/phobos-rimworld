@@ -5,7 +5,7 @@ colonist is breathing, makes fires fill roofed rooms with the game's own smoke w
 carries carbon monoxide from fires, holds the per-person care choices the D'thorga medical mods offer, and holds the small
 helpers every D'thorga mod shares.
 
-Version 0.44.0, built 9 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
+Version 0.45.0, built 9 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
 oxygen working through Burns and Smoke and Medical Equipment (5 November 2026). The health layer new in 0.3.0 and the **vehicle
 systems new in 0.9.0, and their engines, drivetrains and gas turbines new in 0.11.0, are not yet tested in game.** The rest is read from the game's and the mods' code.
 
@@ -115,6 +115,8 @@ button per registered care choice on each of those people: D'thorga Triage's "Do
 mods share the work is in [the medical mods together](../../docs/medical-mods.md).
 
 ## Vehicle systems (with Vehicle Framework)
+
+**Depot bays (0.45.0, motor pool tab; not yet tested in game):** a home for one vehicle, with a fuel tank and pump, a shelf for its parts and an outlined pad. Press **Assign vehicle** on the bay, then **Go to bay** on the vehicle, which needs a driver aboard. On the pad it refuels with nobody attending (chemfuel only, while the bay has power) and mechanics need 70% of the usual work. It only ever moves when you tell it to.
 
 **Build a vehicle parts bench first (Architect, motor pool tab; research Machining): since 0.43.0 our parts, kits and booster packs are made only there.
 A tune or a change of grade on a working part also needs a tuning rig** within 3 cells of the vehicle, powered (a setting, on by default); fittings and

@@ -166,6 +166,29 @@ public class CompPhobosVehicleSystems : VehicleComp
 
     /// <summary>Engine running by Vehicle Framework's own signs (drafted, caravan moving, in flight), before any flight phase.</summary>
     public bool EngineRunningRaw { get; private set; }
+    /// <summary>This vehicle's home bay, on its map. Read on the rare tick, never saved: the bay holds the assignment.</summary>
+    CompPhobosDepotBay? homeBay;
+    /// <summary>True from a "go to bay" order until it arrives. Not saved: at worst a load leaves the vehicle drafted on its pad.</summary>
+    public bool GoingToBay;
+
+    /// <summary>What a job's work is multiplied by: less on a vehicle standing in its own bay.</summary>
+    public float BayWorkFactor => homeBay != null && homeBay.Holds(Vehicle) ? homeBay.Props.workFactor : 1f;
+
+    void RefreshBay()
+    {
+        if (!Vehicle.Spawned || Vehicle.Faction != Faction.OfPlayer)
+        {
+            homeBay = null;
+            return;
+        }
+        homeBay = DepotBays.Of(Vehicle);
+        if (GoingToBay && !Vehicle.vehiclePather.Moving)
+        {
+            GoingToBay = false;
+            if (homeBay != null && homeBay.Holds(Vehicle) && Vehicle.Drafted) Vehicle.ignition.Drafted = false;
+        }
+    }
+
     /// <summary>Comps that may turn the engine while parked. Found once, never saved.</summary>
     List<IVehicleEngineDemand>? engineDemands;
 
@@ -400,6 +423,7 @@ public class CompPhobosVehicleSystems : VehicleComp
     {
         base.CompTickRare();
         VehicleCostMeasure.CheckDone();
+        RefreshBay();
         Tier = ReadTier();
         switch (Tier)
         {
@@ -1386,6 +1410,7 @@ public class CompPhobosVehicleSystems : VehicleComp
     {
         foreach (Gizmo gizmo in base.CompGetGizmosExtra()) yield return gizmo;
         if (!Usable || Vehicle.Faction != Faction.OfPlayer) yield break;
+        if (homeBay is { parent.Destroyed: false }) yield return BayGizmos.GoButton(this, homeBay);
         PhobosVehicleLoadoutDef? loadout = Props.loadout;
         if (loadout != null)
         {

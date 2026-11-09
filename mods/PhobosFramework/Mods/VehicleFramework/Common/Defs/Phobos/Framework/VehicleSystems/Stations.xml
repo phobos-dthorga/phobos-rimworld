@@ -140,4 +140,98 @@
     </comps>
   </ThingDef>
 
+  <!-- A vehicle's home (owner, 9 Nov 2026; docs/development/vehicle-depot-bays.md). The bay itself is a fuel tank, a pump and a parts shelf; the pad in front of it is an outline, not a building, so it blocks nothing.
+       Authored: its size, pad, pump, work speed, cost and power. -->
+  <ThingDef ParentName="BuildingBase">
+    <defName>PhobosVehicles_DepotBay</defName>
+    <label>depot bay</label>
+    <description>A vehicle's home: a fuel tank with a pump, and a shelf for its spare parts, beside a marked parking pad. Give it one vehicle. Parked on the pad, that vehicle is refuelled with no one attending, and mechanics work on it faster.</description>
+    <thingClass>Building_Storage</thingClass>
+    <graphicData>
+      <texPath>Phobos/VehicleSystems/Stations/DepotBay</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>(2,1)</drawSize>
+    </graphicData>
+    <altitudeLayer>Building</altitudeLayer>
+    <passability>PassThroughOnly</passability>
+    <pathCost>50</pathCost>
+    <fillPercent>0.5</fillPercent>
+    <surfaceType>Item</surfaceType>
+    <canOverlapZones>false</canOverlapZones>
+    <terrainAffordanceNeeded>Medium</terrainAffordanceNeeded>
+    <tickerType>Rare</tickerType>
+    <size>(2,1)</size>
+    <rotatable>true</rotatable>
+    <defaultPlacingRot>North</defaultPlacingRot>
+    <costList>
+      <Steel>80</Steel>
+      <ComponentIndustrial>3</ComponentIndustrial>
+    </costList>
+    <statBases>
+      <WorkToBuild>2000</WorkToBuild>
+      <MaxHitPoints>150</MaxHitPoints>
+      <Flammability>0.5</Flammability>
+    </statBases>
+    <designationCategory>PhobosVehicles_MotorPool</designationCategory>
+    <uiOrder>120</uiOrder>
+    <constructionSkillPrerequisite>4</constructionSkillPrerequisite>
+    <researchPrerequisites>
+      <li>Machining</li>
+      <li>Electricity</li>
+    </researchPrerequisites>
+    <inspectorTabs>
+      <li>ITab_Storage</li>
+    </inspectorTabs>
+    <building>
+      <preventDeteriorationOnTop>true</preventDeteriorationOnTop>
+      <ignoreStoredThingsBeauty>true</ignoreStoredThingsBeauty>
+      <maxItemsInCell>3</maxItemsInCell>
+      <blueprintClass>Blueprint_Storage</blueprintClass>
+      <fixedStorageSettings>
+        <filter>
+          <categories>
+            <li>Manufactured</li>
+            <li>ResourcesRaw</li>
+          </categories>
+        </filter>
+      </fixedStorageSettings>
+      <defaultStorageSettings>
+        <priority>Important</priority>
+        <filter>
+          <thingDefs>
+            <li>PhobosVehicles_EngineAssembly</li>
+            <li>PhobosVehicles_DrivetrainKit</li>
+            <li>PhobosVehicles_ElectricalKit</li>
+            <li>PhobosVehicles_Transmission</li>
+            <li>PhobosVehicles_TurbineAssembly</li>
+            <li>ComponentIndustrial</li>
+          </thingDefs>
+        </filter>
+      </defaultStorageSettings>
+    </building>
+    <drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
+    <placeWorkers>
+      <li>Phobos.VehicleSystems.PlaceWorker_PhobosDepotBayPad</li>
+    </placeWorkers>
+    <comps>
+      <li Class="CompProperties_Power">
+        <compClass>CompPowerTrader</compClass>
+        <basePowerConsumption>100</basePowerConsumption>
+      </li>
+      <li Class="CompProperties_Flickable" />
+      <li Class="CompProperties_Refuelable">
+        <fuelConsumptionRate>0</fuelConsumptionRate>
+        <fuelCapacity>200</fuelCapacity>
+        <fuelFilter>
+          <thingDefs>
+            <li>Chemfuel</li>
+          </thingDefs>
+        </fuelFilter>
+        <fuelLabel>chemfuel in the tank</fuelLabel>
+        <showAllowAutoRefuelToggle>true</showAllowAutoRefuelToggle>
+      </li>
+      <li Class="Phobos.VehicleSystems.CompProperties_PhobosDepotBay" />
+    </comps>
+  </ThingDef>
+
 </Defs>
