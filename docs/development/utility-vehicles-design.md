@@ -415,6 +415,7 @@ already do it (IDs in the mechanics record); the lean is the agent's.
 | Communications | Radio van | A vehicle-mounted station and relay on vehicle power | The radio framework's listed tie-in | A load on the electrical system; mast, set | Radio | none | High, once the radio framework reaches Phase 2 |
 | Survey | Survey truck | In the family | | | | none | In the family |
 | Maintenance | Repair bay | A parked workshop that raises RepairRate for vehicles alongside | VF's RepairRate stat | Phobos_ServiceRate: hoist, tools | The systems service's service job | none | Medium: VF has no workbench, so this is the honest form |
+| Military and naval | Recovery vehicle, decontamination truck, shower truck, landing craft, snow carrier, and five submarines | Researched 9 Nov 2026 with a Workshop gap check; see [unique military vehicles and submarines](military-vehicles-research.md) | | | | none for any of them | Record only; the owner picks |
 
 ## Vehicle Framework 1.7 gate and the build plan
 

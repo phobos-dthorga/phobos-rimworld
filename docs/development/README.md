@@ -120,6 +120,10 @@ promise current behaviour. For using the mods, start at the [documentation index
   and our own Architect tab, so parts stop getting lost in long lists. Not yet tested in game.
 - [The vehicle garage and fleet tools: design (8 Nov 2026)](vehicle-garage-design.md): a staffed outpost that holds and slowly
   repairs vehicles, what the outposts code allows and where it fails for vehicles, and the owner's four fleet tools. Not yet tested in game.
+- [Unique military vehicles and submarines: research (9 Nov 2026)](military-vehicles-research.md): twenty-odd real vehicles no
+  Vehicle Framework mod covers, checked against the 277 items of the three Workshop collections; five shortlisted (recovery,
+  decontamination, shower, landing craft, snow carrier) and five submarines (cargo, chemical, seabed crawler, carrier, polar),
+  with sources and open questions. Research and record only.
 - [Vehicle figures: research (8 Nov 2026)](vehicle-figures-research.md): sourced engine, transmission and weight figures for the
   L-ATV, MaxxPro, Humvee, PLS, M113, Bradley, M48H, M10, T-54, BMP-1, Wiesel, Land Cruiser J70, the Abrams' turbine and five
   helicopters, with what was not found.

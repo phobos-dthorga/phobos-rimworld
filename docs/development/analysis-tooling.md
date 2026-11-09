@@ -159,6 +159,15 @@ REA once the owner has it, and to the code index for decompiled C#; `apicheck` i
   Items whose uploader's profile is private give no comments to signed-out visitors (Vehicle Framework's do not);
   the report names them. After a 429, 90 s of waiting was not enough and 150 s was, so the tool waits 150 s once.
   Its `versions` report found 209 of the owner's 323 active Workshop mods declaring 1.7 in their Steam tags.
+- **Collections and descriptions, 9 Nov 2026** (phobos-modkit 1.2.0, `collection <ID or URL>`, `--grep`): a Steam
+  collection's members in its order, each with its versions and the opening of its description, from the keyless
+  `GetCollectionDetails` and `GetPublishedFileDetails` APIs; the cache now keeps descriptions (`item.description`) and
+  members (table `collection`), so `sql` can ask across them. Found while building: the item pages at
+  `steamcommunity.com/sharedfiles/filedetails` answer curl and the web-fetch agent with an error page or HTTP 429
+  whatever the headers, while both APIs answer freely, so the gap check for the military vehicles record
+  (`military-vehicles-research.md`) read the three Vehicle Framework collections (277 items) through the APIs. Still
+  missing: Workshop text search, which has no keyless API (the search page returns HTTP 500 with the results in its body;
+  not built).
 
 ### 6. StartupImpact sessions
 
