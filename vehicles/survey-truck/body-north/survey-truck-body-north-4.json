@@ -1,0 +1,51 @@
+{
+  "file": "survey-truck-body-north-4.png",
+  "sha256": "d1745ea44b9b9a3414fd02928b89b43670a72878b5451a30f2a4423b824496e6",
+  "date": "2026-11-09T18:34:41",
+  "generator": "OpenAI gpt-image-2 through the OpenAI image API (paid per image)",
+  "engine": "openai",
+  "model": "gpt-image-2",
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL game vehicle sprite for the D'thorga survey truck: a sturdy four-wheel-drive field truck that carries a geophysical recorder for a hard-scrabble frontier colony. Image 1 is our approved truck from the same family: match its outline weight, shading, palette and finish only. Do NOT copy its shape or layout.\n\nDraw the BARE TRUCK only. The sensor boom, dish, outriggers and all other equipment are drawn separately as overlays.\n\nTall canvas, twice as tall as wide. The truck is SHORT AND WIDE for a truck: its width is about 43 percent of its length, including the wheels. It fills three quarters of the canvas width and seven eighths of the canvas height, centred, on a plain pure white background. North facing: the cab at the TOP edge, the deck at the BOTTOM edge. Dusty olive cab and panels, dark rubber tyres, a pale grey cab roof, dark weathered steel deck, one muted orange accent stripe across the cab.\n\nIts roof plan, from top to bottom: a wide flat-fronted cab roof with a windscreen strip at its top edge; directly behind the cab a boxy pale recorder cabin roof, as wide as the cab, with two small plain roof vents; behind that a flat open steel deck with one straight, empty, shallow channel running down its centre line from the recorder cabin to the rear edge; the tops of one pair of wheels beside the front of the truck and one pair beside the rear of the deck, two axles only. At the head of the empty channel, right behind the recorder cabin, one small plain pivot bracket.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo boom, mast, dish, antenna, spikes, probe, outriggers, cargo, people, animals, turrets, hoses, dust, mud, damage, text, letters, numbers, logos, dials, screens or lamps. No floor, ground, road, shadow outside the vehicle, perspective, tilt or visible side faces. Top surfaces only.",
+  "seed": 4,
+  "seed_note": "an attempt number naming the file; the API takes no seed, so a rerun gives a different image",
+  "quality": "medium",
+  "size": [
+    1024,
+    2048
+  ],
+  "request_file": "assets/phobos-vehicles/requests/survey-truck-pilot.json",
+  "ai_disclosure": "Made with generative AI: OpenAI gpt-image-2, prompted by the Phobos art scripts.",
+  "terms": "OpenAI Services Agreement, sections 4.1 and 4.4, as recorded in the Phobos Ostranauts repository on 2026-10-07 and summarised again on 2026-11-08: API customers own Output, OpenAI assigns any rights it has, and Output may not be unique; no use of Output to build competing models. Dated secondary records: the openai.com page refuses automated reads, so the owner confirms the current text.",
+  "endpoint": "/images/edits",
+  "usage": {
+    "input_tokens": 1672,
+    "input_tokens_details": {
+      "image_tokens": 1152,
+      "text_tokens": 520
+    },
+    "output_tokens": 1180,
+    "output_tokens_details": {
+      "image_tokens": 1180,
+      "text_tokens": 0
+    },
+    "total_tokens": 2852
+  },
+  "cost_usd": 0.0472,
+  "cost_is_estimate": false,
+  "reported_quality": "medium",
+  "reported_size": "1024x2048",
+  "reported_background": "opaque",
+  "reported_output_format": "png",
+  "returned_size": [
+    1024,
+    2048
+  ],
+  "seconds": 24.2,
+  "references": [
+    {
+      "image": "assets/phobos-vehicles/generated/bulk-tanker-body-north/bulk-tanker-body-north-2.png",
+      "sha256": "3c7b752f08adb7eeb84a1f161cdec1d8686765dd289322165fe54fa72c7c07ce",
+      "role": "approved truck of the same family: match its outline weight, shading, palette and finish only; do not copy its shape or layout"
+    }
+  ]
+}
