@@ -17,7 +17,9 @@ RimWorld.Pawn_FoodRestrictionTracker.GetCurrentRespectedRestriction (patched)
 
 **Prisoner Realism is not at fault.** Its postfix is at the very top of the trace only because it was running when the stack ran out. Everything earlier in this record is kept as the path that led here: Synthriada, the save bridge, REA, our own code and the pipes are all cleared.
 
-### Draft report for the owner to post (agents never post)
+### Report for the author
+
+The owner posted a bug report on the mod's Workshop page on 10 Nov 2026. The agent's draft, which may differ from what was posted:
 
 > **Prison Labor 1.7: stack overflow crash from GetFoodRestrictionPatch.** `GetFoodRestrictionPatch.Postfix` calls `__instance.GetCurrentRespectedRestriction(null)`, the method it patches. For a prisoner the game returns null to a null getter, so the postfix runs again with the same arguments until the stack overflows and the game closes with no log entry. It happens when a warden checks food for a prisoner with motivation above 0.7, or one being watched. `Patch_EnableRespectingFoodPolicies` beside it returns `__instance.CurrentFoodPolicy`, which may be what this one meant to do. Captured with `RimWorld.exe 2> errors.txt`: 6,845 repeats of that postfix and the patched method.
 
