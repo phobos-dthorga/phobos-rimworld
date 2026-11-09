@@ -1,7 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using Phobos.Framework.Debug;
+using Phobos.Framework.Rules;
 using RimWorld;
+using UnityEngine;
 using SmashTools;
 using Vehicles;
 using Verse;
@@ -41,6 +43,13 @@ public class CompProperties_PhobosRigWork : VehicleCompProperties
     public float workControlFloor = 0.35f;
     /// <summary>Parts without which the work stops, whatever the averages say.</summary>
     public List<string> vitalParts = new();
+    /// <summary>Overdrive (owner, 9 Nov 2026: the vehicle's overclock). Authored: the rate, what the fuel is multiplied by, the health the working parts lose an hour, the share of
+    /// health at which it cuts out, and the coolant temperature that stops it (the cooling system's "overheating" stage starts at 120).</summary>
+    public float overdriveFactor = 2f;
+    public float overdriveFuelFactor = 2.5f;
+    public float overdrivePartDamagePerHour = 2f;
+    public float overdriveOffBelow = 0.5f;
+    public float overdriveHotAbove = 120f;
 }
 
 /// <summary>
@@ -51,9 +60,12 @@ public abstract class CompPhobosRigWork : CompPhobosSetUp, IVehicleEngineDemand
 {
     const int WorkedWindowTicks = 300;
     const float DaysPerRareTick = GenTicks.TickRareInterval / (float)GenDate.TicksPerDay;
+    const float HoursPerRareTick = GenTicks.TickRareInterval / (float)GenDate.TicksPerHour;
+    const string CoolantQuantity = "coolantTemperature";
 
     Building? powerPoint;
     int lastWorkedTick = -99999;
+    bool overdrive;
 
     public CompProperties_PhobosRigWork RigProps => (CompProperties_PhobosRigWork)props;
     protected override GraphicDataOverlay? SetUpLook => RigProps.setUpOverlay;
@@ -67,6 +79,14 @@ public abstract class CompPhobosRigWork : CompPhobosSetUp, IVehicleEngineDemand
 
     public abstract bool WantsEngine { get; }
     public abstract float EngineDemand { get; }
+    /// <summary>The stat the working parts feed: what overdrive wears.</summary>
+    protected abstract VehicleStatDef WorkStat { get; }
+
+    public bool Overdrive => overdrive;
+    /// <summary>What the work rate is multiplied by now.</summary>
+    public float OverdriveFactor => OverdriveRule.Rate(1f, overdrive, RigProps.overdriveFactor);
+    /// <summary>What a subclass's engine demand becomes under overdrive: flat out.</summary>
+    protected float Demand(float usual) => overdrive ? 1f : usual;
     protected abstract float FuelPerDay { get; }
     protected abstract float DrawWatts { get; }
     protected virtual bool WantsPowerPoint => true;
@@ -93,6 +113,7 @@ public abstract class CompPhobosRigWork : CompPhobosSetUp, IVehicleEngineDemand
     {
         base.PostExposeData();
         Scribe_References.Look(ref powerPoint, "PhobosRigPowerPoint");
+        Scribe_Values.Look(ref overdrive, "PhobosRigOverdrive");
     }
 
     public override void PostSpawnSetup(bool respawningAfterLoad)
@@ -123,9 +144,10 @@ public abstract class CompPhobosRigWork : CompPhobosSetUp, IVehicleEngineDemand
         {
             EnsurePowerPoint();
             RareWork();
+            RunOverdrive();
             CompPowerTrader? trader = powerPoint?.GetComp<CompPowerTrader>();
-            if (trader != null) trader.PowerOutput = -DrawWatts;
-            if (WantsEngine && HasFuel) Vehicle.CompFueledTravel?.ConsumeFuel(FuelPerDay * DaysPerRareTick);
+            if (trader != null) trader.PowerOutput = -DrawWatts * OverdriveFactor;
+            if (WantsEngine && HasFuel) Vehicle.CompFueledTravel?.ConsumeFuel(OverdriveRule.FuelPerDay(FuelPerDay, overdrive, RigProps.overdriveFuelFactor) * DaysPerRareTick);
         }
     }
 
@@ -148,6 +170,51 @@ public abstract class CompPhobosRigWork : CompPhobosSetUp, IVehicleEngineDemand
     {
         if (powerPoint is { Destroyed: false }) powerPoint.Destroy(DestroyMode.Vanish);
         powerPoint = null;
+    }
+
+    /// <summary>The parts that feed the work stat: what overdrive wears, and what stops it when worn.</summary>
+    IEnumerable<VehicleComponent> WorkingParts() => Vehicle.statHandler.components.Where(p => p.props.categories != null && p.props.categories.Contains(WorkStat));
+
+    void RunOverdrive()
+    {
+        if (!overdrive) return;
+        if (Working)
+        {
+            float wear = OverdriveRule.Wear(RigProps.overdrivePartDamagePerHour, HoursPerRareTick);
+            foreach (VehicleComponent part in WorkingParts())
+            {
+                if (part.Health > 0f) part.SetHealth(Mathf.Max(0f, part.Health - wear));
+            }
+        }
+        float lowest = WorkingParts().Select(p => p.HealthPercent).DefaultIfEmpty(1f).Min();
+        float coolant = Systems != null && Systems.TryGetQuantity(CoolantQuantity, out float value) ? value : float.NaN;
+        OverdriveStop stop = OverdriveRule.MustStop(lowest, RigProps.overdriveOffBelow, coolant, RigProps.overdriveHotAbove);
+        if (stop == OverdriveStop.None) return;
+        overdrive = false;
+        Tell((stop == OverdriveStop.PartWorn ? "PhobosVehicleSystems_OverdriveStoppedWorn" : "PhobosVehicleSystems_OverdriveStoppedHot").Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve(), MessageTypeDefOf.CautionInput);
+    }
+
+    /// <summary>Why overdrive cannot be switched on now, or null.</summary>
+    public string? CannotOverdrive()
+    {
+        float lowest = WorkingParts().Select(p => p.HealthPercent).DefaultIfEmpty(1f).Min();
+        if (lowest < RigProps.overdriveOffBelow) return "PhobosVehicleSystems_OverdriveWorn".Translate().Resolve();
+        return null;
+    }
+
+    public void SetOverdrive(bool on)
+    {
+        if (on)
+        {
+            string? refused = CannotOverdrive();
+            if (refused != null)
+            {
+                Tell(refused, MessageTypeDefOf.RejectInput);
+                return;
+            }
+        }
+        overdrive = on;
+        Tell((on ? "PhobosVehicleSystems_OverdriveOn" : "PhobosVehicleSystems_OverdriveOff").Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve(), MessageTypeDefOf.SilentInput);
     }
 
     void ClearSetUp()
@@ -221,6 +288,7 @@ public abstract class CompPhobosRigWork : CompPhobosSetUp, IVehicleEngineDemand
         foreach (Gizmo gizmo in base.CompGetGizmosExtra()) yield return gizmo;
         if (Vehicle.Faction != Faction.OfPlayer) yield break;
         yield return RigGizmos.SetUpButton(this);
+        yield return RigGizmos.OverdriveToggle(this);
         foreach (Gizmo gizmo in ExtraGizmos()) yield return gizmo;
     }
 

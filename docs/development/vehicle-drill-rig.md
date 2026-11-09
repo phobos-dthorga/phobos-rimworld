@@ -33,6 +33,19 @@ everything else is a proposal. The family's power rule is in [the generator set]
   (a node never changes the parts list, principle 8); "depth reached" is now **reach**, because the game has no depth; no gas well (Helixien
   gas is off the owner's list); fuel capacity is added. **Open:** drill-bit wear (the systems' wear phase); a Dubs Bad Hygiene well (low lean).
 
+
+### Overdrive (owner, 9 Nov 2026; built in Framework 0.50.0)
+
+The vehicle's answer to Vanilla Expanded's overclock, whose price is a tripled breakdown chance (`VEF_BuildingBreakdownFactor` 3 on the automated drill
+platform; its slider runs 0.1 to 2 times, scaled by `VEF_BuildingMaxOverclockFactor`; its power draw rises with the square of the multiplier; from the
+PipeSystem 1.7 and VEF 1.7 decompiles, read 9 Nov 2026). Ours is a toggle with its own icon. **Authored:** 2x the work rate, the engine flat out (full-load
+heat and oil), fuel 2.5x, the working parts (those feeding the work stat) losing 2 health an hour while it works, the power point drawing 2x on a grid, and it
+cuts itself out at half health on any working part or a coolant temperature of 120 (the cooling system's overheating stage), saying which.
+
+| Behaviour | What it lets them do | What it stops them doing | How it changes the way they play |
+| --- | --- | --- | --- |
+| Overdrive | Finish a lump or a survey twice as fast when the camp is exposed | Run it as the default: the working parts wear and their repair costs our part items; a worn or overheating vehicle refuses it | Overdrive is a decision about spares and fuel, not a free setting |
+
 ## What it is and what it does in play
 
 The rig is a heavy wheeled truck with a mast folded along the deck and a rod rack beside it. Driven to a spot the scanner has marked, the

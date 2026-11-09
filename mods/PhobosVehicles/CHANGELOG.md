@@ -5,6 +5,16 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.22.0] - 2026-11-09 - Draft
+
+### Added
+
+- Overdrive on the survey truck and the drill rig: a toggle that doubles the pace while the engine runs flat out, fuel goes 2.5 times as fast and the working parts wear, cutting out by itself at half health or an overheating engine. Not yet tested in game.
+
+### Dependencies
+
+- Needs D'thorga Framework 0.50.0.
+
 ## [0.21.1] - 2026-11-09 - Draft
 
 ### Balance

@@ -29,6 +29,21 @@ public static class RigGizmos
         return command;
     }
 
+    public static Gizmo OverdriveToggle(CompPhobosRigWork work)
+    {
+        var command = new Command_Toggle
+        {
+            defaultLabel = "PhobosVehicleSystems_OverdriveGizmo".Translate().Resolve(),
+            defaultDesc = "PhobosVehicleSystems_OverdriveGizmoDesc".Translate(work.RigProps.overdriveFactor.ToString("0.#").Named("FACTOR"), work.RigProps.overdriveFuelFactor.ToString("0.#").Named("FUEL")).Resolve(),
+            icon = SystemIcons.For(Icons + "Overdrive"),
+            isActive = () => work.Overdrive,
+            toggleAction = () => work.SetOverdrive(!work.Overdrive),
+        };
+        string? refused = work.Overdrive ? null : work.CannotOverdrive();
+        if (refused != null) command.Disable(refused);
+        return command;
+    }
+
     public static Gizmo LongRangeToggle(CompPhobosSurveyTruck survey) => new Command_Toggle
     {
         defaultLabel = "PhobosVehicleSystems_SurveyGizmoLongRange".Translate().Resolve(),

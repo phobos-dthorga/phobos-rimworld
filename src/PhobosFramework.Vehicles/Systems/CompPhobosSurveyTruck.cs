@@ -87,7 +87,8 @@ public sealed class CompPhobosSurveyTruck : CompPhobosRigWork
     public override string PackUpDescription => "PhobosVehicleSystems_SurveyGizmoPackUpDesc".Translate().Resolve();
 
     public override bool WantsEngine => deployed && power.EngineWanted;
-    public override float EngineDemand => power.Recharging || power.Fast ? Props.highIdleShare : 0f;
+    public override float EngineDemand => Demand(power.Recharging || power.Fast ? Props.highIdleShare : 0f);
+    protected override VehicleStatDef WorkStat => RigDefOf.Phobos_ScanRate;
     protected override float FuelPerDay => Props.idleFuelPerDay;
     /// <summary>Drawn whenever it is set up, as the game's scanner draws whenever it is on: a net that cannot carry it then shows as not plugged in, rather than flickering.</summary>
     protected override float DrawWatts => FastFactor > 1f && Systems?.SwitchOn(ArrayLoad) == true ? Props.arrayWatts : Props.consoleWatts;
@@ -149,7 +150,7 @@ public sealed class CompPhobosSurveyTruck : CompPhobosRigWork
     public override void Worked(Pawn worker, int delta)
     {
         MarkWorked();
-        float speed = worker.GetStatValue(StatDefOf.ResearchSpeed) * Vehicle.GetStatValue(RigDefOf.Phobos_ScanRate) * (power.Fast ? FastFactor : 1f);
+        float speed = worker.GetStatValue(StatDefOf.ResearchSpeed) * Vehicle.GetStatValue(RigDefOf.Phobos_ScanRate) * (power.Fast ? FastFactor : 1f) * OverdriveFactor;
         daysWorking += speed * delta / TicksPerDay;
         rollTicks += delta;
         if (rollTicks < RollIntervalTicks) return;
@@ -269,6 +270,7 @@ public sealed class CompPhobosSurveyTruck : CompPhobosRigWork
         {
             (LongRange ? "PhobosVehicleSystems_SurveyLongRangeLine".Translate(Target.building.mineableThing.label.Named("ORE")) : "PhobosVehicleSystems_SurveyDeepLine".Translate()).Resolve(),
         };
+        if (Overdrive) lines.Add("PhobosVehicleSystems_OverdriveLine".Translate().Resolve());
         string? note = NoteLine();
         if (note != null) lines.Add(note);
         else if (power.Recharging) lines.Add("PhobosVehicleSystems_SurveyRecharging".Translate().Resolve());

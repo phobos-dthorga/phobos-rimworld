@@ -5,6 +5,12 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.50.0] - 2026-11-09 - Draft
+
+### Added
+
+- Overdrive for working vehicles: a toggle, with its own icon, that runs the work faster for more fuel, full engine load and wear on the working parts, and stops itself before it wrecks one. D'thorga Vehicles' survey truck and drill rig are the first to use it. Not yet tested in game.
+
 ## [0.49.1] - 2026-11-09 - Draft
 
 ### Balance

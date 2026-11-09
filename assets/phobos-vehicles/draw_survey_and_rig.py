@@ -88,6 +88,12 @@ def bolt(draw):
     draw.polygon([(290, 110), (180, 280), (250, 280), (216, 402), (340, 230), (268, 230)], fill=YELLOW, outline=OUTLINE)
 
 
+def gauge(draw):
+    draw.pieslice((120, 150, 392, 422), 180, 360, fill=STEEL, outline=OUTLINE, width=10)
+    draw.line([(256, 286), (360, 190)], fill=OUTLINE, width=18)
+    draw.ellipse((236, 266, 276, 306), fill=DARK, outline=OUTLINE, width=8)
+
+
 def tip_icon(draw):
     draw.polygon([(120, 300), (360, 140), (400, 200), (160, 360)], fill=STEEL, outline=OUTLINE)
     for x, y in ((120, 380), (190, 400), (90, 410)):
@@ -129,6 +135,7 @@ def main():
         ('BulkBody', BLUE, mast_icon, 'a long body'),
     ):
         icon(upgrades / f'{key}.png', badge(colour, mark), what)
+    icon(STATIONS / 'Overdrive.png', badge(RED, gauge), 'a gauge with its needle in the red')
     icon(STATIONS / 'Tip.png', badge(ORANGE, tip_icon), 'a tilted body shedding its load')
     icon(STATIONS / 'SurveyLongRange.png', badge(BLUE, dish_icon), 'a dish')
     icon(STATIONS / 'SurveyArray.png', badge(ORANGE, bars), 'three bars')

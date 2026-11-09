@@ -4,7 +4,7 @@ Vehicles that keep running only while they are looked after. It adds one vehicle
 vehicles of other mods you already drive the systems that match what they really are, on top of the general systems D'thorga
 Framework gives every vehicle.
 
-Version 0.21.1, built 9 November 2026 for House D'thorga. **Not yet tested in game.**
+Version 0.22.0, built 9 November 2026 for House D'thorga. **Not yet tested in game.**
 
 ## Read this first (gotchas)
 
@@ -128,6 +128,7 @@ Every source and simplification is in the loadout files under `Mods/`.
 - **It burns 40 chemfuel a day while drilling,** unless you fit the electric power pack and have a powered grid within 6 cells.
 - **Active drilling can bring insects,** by the game's own rule and your storyteller's odds, **and a faster rig meets them sooner:** the risk per lump is the same as a deep drill's, so speed is no way round them. Keep guards near it.
 - **At night, with no work lights, it drills at 80%** of its rate.
+- **Overdrive** (also on the survey truck): a toggle that doubles the pace while the engine runs flat out, fuel goes 2.5 times as fast and the working parts wear. It switches itself off at half health on any working part or an overheating engine.
 - **With Rimefeller, the oil well kit** sinks a well at the hole when no ore is in reach, using steel from the rig's cargo and needing what a derrick needs (a working console, or a scanner or set-up survey truck for deep oil). It leaves a well head: **build a derrick over it to pump.**
 - **With Vanilla Chemfuel Expanded, the deepchem head** raises deepchem into a 300-unit buffer at ten times a pumpjack's rate, though the buffer and the tanker's pump set the real pace. **Without the head, the rig leaves deepchem in the ground.** To empty the buffer, park a tanker with a deepchem tank within reach of its hose, set up and loading, or lay a deepchem pipe up to the rig. It never comes up as items.
 

@@ -88,7 +88,8 @@ public sealed class CompPhobosDrillRig : CompPhobosRigWork
     bool ElectricNow => ElectricFitted && PluggedIn;
     protected override bool WantsPowerPoint => ElectricFitted;
     public override bool WantsEngine => deployed && Working && !ElectricNow;
-    public override float EngineDemand => 0.5f;
+    public override float EngineDemand => Demand(0.5f);
+    protected override VehicleStatDef WorkStat => RigDefOf.Phobos_DrillRate;
     protected override float FuelPerDay => Props.drillFuelPerDay;
     protected override float DrawWatts => ElectricFitted ? Props.electricWatts : 0f;
     float Reach => Vehicle.GetStatValue(RigDefOf.Phobos_DrillReach);
@@ -212,7 +213,7 @@ public sealed class CompPhobosDrillRig : CompPhobosRigWork
             sideJob.Worked(this, worker, delta);
             return;
         }
-        float factor = Vehicle.GetStatValue(RigDefOf.Phobos_DrillRate);
+        float factor = Vehicle.GetStatValue(RigDefOf.Phobos_DrillRate) * OverdriveFactor;
         if (!orePresent) factor = DrillRule.StoneRate(factor, Vehicle.GetStatValue(RigDefOf.Phobos_BedrockFactor));
         if (Vehicle.GetStatValue(RigDefOf.Phobos_WorkLights) <= 0f && When_Night.IsNight(Vehicle)) factor *= Props.unlitFactor;
         float work = worker.GetStatValue(StatDefOf.DeepDrillingSpeed) * factor * delta;
@@ -276,7 +277,7 @@ public sealed class CompPhobosDrillRig : CompPhobosRigWork
         float chance = Find.Storyteller.difficulty.deepDrillInfestationChanceFactor;
         float baseMtb = Find.Storyteller.def.comps.OfType<StorytellerCompProperties_DeepDrillInfestation>().FirstOrDefault()?.baseMtbDaysPerDrill ?? -1f;
         // The odds scale with the rig's rate (owner, 9 Nov 2026): a rig ten times faster meets the hives ten times sooner, the same risk per portion of ore.
-        float mtb = DrillRule.InsectMtbDays(baseMtb / chance, Vehicle.GetStatValue(RigDefOf.Phobos_DrillRate));
+        float mtb = DrillRule.InsectMtbDays(baseMtb / chance, Vehicle.GetStatValue(RigDefOf.Phobos_DrillRate) * OverdriveFactor);
         if (chance <= 0f || baseMtb <= 0f || !Rand.MTBEventOccurs(mtb, GenDate.TicksPerDay, GenTicks.TickRareInterval)) return;
         BringInsects();
     }
@@ -319,6 +320,7 @@ public sealed class CompPhobosDrillRig : CompPhobosRigWork
     public override string? CompInspectStringExtra()
     {
         var lines = new List<string>();
+        if (deployed && Overdrive) lines.Add("PhobosVehicleSystems_OverdriveLine".Translate().Resolve());
         string? side = deployed ? sideJob?.InspectLine(this) : null;
         if (side != null) lines.Add(side);
         else if (deployed && !nextIsPiped)

@@ -456,4 +456,13 @@
   <PhobosVehicleSystems_TipStarted>{VEHICLE} is raising its body.</PhobosVehicleSystems_TipStarted>
   <PhobosVehicleSystems_TipDone>{VEHICLE} put down {COUNT} stacks.</PhobosVehicleSystems_TipDone>
   <PhobosVehicleSystems_TipLine>Tipping: {COUNT} stacks still aboard.</PhobosVehicleSystems_TipLine>
+
+  <PhobosVehicleSystems_OverdriveGizmo>Overdrive</PhobosVehicleSystems_OverdriveGizmo>
+  <PhobosVehicleSystems_OverdriveGizmoDesc>Run the work at {FACTOR} times the pace. The engine runs flat out, fuel goes {FUEL} times as fast, and the working parts wear while it works. It switches itself off when a working part falls to half health or the engine overheats.</PhobosVehicleSystems_OverdriveGizmoDesc>
+  <PhobosVehicleSystems_OverdriveOn>{VEHICLE} is in overdrive.</PhobosVehicleSystems_OverdriveOn>
+  <PhobosVehicleSystems_OverdriveOff>{VEHICLE} is back to its normal pace.</PhobosVehicleSystems_OverdriveOff>
+  <PhobosVehicleSystems_OverdriveWorn>A working part is too worn for overdrive. Repair it first.</PhobosVehicleSystems_OverdriveWorn>
+  <PhobosVehicleSystems_OverdriveStoppedWorn>{VEHICLE} has dropped out of overdrive: a working part is down to half health.</PhobosVehicleSystems_OverdriveStoppedWorn>
+  <PhobosVehicleSystems_OverdriveStoppedHot>{VEHICLE} has dropped out of overdrive: the engine is overheating.</PhobosVehicleSystems_OverdriveStoppedHot>
+  <PhobosVehicleSystems_OverdriveLine>Overdrive: working flat out, parts wearing.</PhobosVehicleSystems_OverdriveLine>
 </LanguageData>
