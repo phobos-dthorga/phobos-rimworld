@@ -112,6 +112,9 @@ promise current behaviour. For using the mods, start at the [documentation index
   when to raise it and what to settle first.
 - [Vehicle health, slice 3: what it does to the player (8 Nov 2026, built 9 Nov 2026)](vehicle-health-consequences.md): the danger clock,
   destroyed parts needing supplies, serious conditions, field fixes, and our own parts framework.
+- [Vehicle system crosslinks: research and record (9 Nov 2026)](vehicle-system-crosslinks.md): the 22 systems form a star round
+  the engine state, with five quantity links between them; eight proposed crosslinks (night heater warming the engine, the cab heater off the
+  coolant, a worn engine burning oil, fire cooking the systems, and more), each answered for itself, with an order and open questions. Nothing built.
 - [The mobile generator set: design (9 Nov 2026, built 9 Nov 2026)](vehicle-generator-set.md): see the entry under the vehicle family; built with stand-in pictures. Not yet tested in game.
 - [Home depot bays: design (9 Nov 2026)](vehicle-depot-bays.md): a vehicle's home bay, its Go to bay button, self-refuelling and faster service; crews and convoys left to Crew Presets. Not yet tested in game.
 - [Animating our vehicles: research (9 Nov 2026)](vehicle-animation-research.md): what Vehicle Framework and the game can move, why one still image a

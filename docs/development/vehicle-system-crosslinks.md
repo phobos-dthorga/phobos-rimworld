@@ -1,0 +1,117 @@
+# Vehicle system crosslinks: research and record (9 Nov 2026)
+
+The owner, 9 Nov 2026: "I just want to enrich the simulation layer under everything. Create crosslinks and so forth." This is the research
+and record part of that, with nothing built. It reads what the 22 vehicle systems already feed each other, from the Defs and the code, and
+proposes the links that would earn their place. Every proposal answers for itself (what it lets the player do, stops them doing, and changes),
+as the standing rule asks. Figures here are agent proposals for the owner to revise; sources are labelled, and nothing is tested in game.
+
+## Read this first
+
+- **The systems form a star, not a web.** Almost every system reads the same hub, the comp's shared engine state (running, load, speed,
+  heat share, moving, ambient air, part efficiencies, `CompPhobosVehicleSystems.cs:564-587`). Only **five links run from one system's quantity
+  to another's**, out of 22 systems and about 60 quantities:
+
+  | Reader | Reads | How | Where |
+  | --- | --- | --- | --- |
+  | Lubrication | Cooling's `coolantTemperature` | oil temperature follows the coolant | `Systems_Lubrication.xml:130-139` |
+  | Turbine | Electrical's `startingPower` | a turbine too weak to light | `Systems_Turbine.xml:138-151` |
+  | Auxiliary electrical | Electrical's `charge` | the loads' supply | `Systems_Electrical.xml` |
+  | Boiler | Fusible plug's `fusiblePlug` (twice) | a melted plug drops the fire | `Systems_Boiler.xml` |
+
+- **The one real chain we have is the best thing in the model**: a hit radiator leaks coolant, the engine runs hot, the oil follows it and
+  cooks, and the engine wears (Cooling, Lubrication, Conditions). The owner's Harrier story and the Wagon screenshots both came from it. Every
+  proposal below is another chain of that kind, where one system's state changes what another one does, and the player can read it from the
+  gauges.
+- **The schema can already express most of them in XML**: `Input_Quantity` reads any quantity of any system, with a `fallback` when a vehicle has
+  no such system (`Inputs.cs`), and `Input_PartEfficiency` reads any role. Four of the eight proposals need no C# at all. Two need a small new
+  input each, and two need a code change in the hub.
+- **My recommended first four**, in order: the engine block warmed by the night heater (**1**), the cab heater running off the coolant (**2**), a
+  worn engine burning oil and running hot (**3**), and a burning vehicle cooking its own systems (**4**). Together they turn the cold start, the
+  winter camp, the tired engine and the fire into things the gauges show and the player can act on.
+
+## The graph today
+
+```mermaid
+flowchart LR
+    HUB[("Engine state hub\nrunning, load, rpm, heat share\nmoving, ambient, part health")]
+    HUB --> Cooling
+    HUB --> Lubrication
+    HUB --> Electrical
+    HUB --> Transmission
+    HUB --> Brakes
+    HUB --> RunningGear[Running gear]
+    HUB --> Turbine
+    HUB --> Hydraulics
+    HUB --> AirBrakes[Air brakes]
+    HUB --> Boiler
+    HUB --> Cabin
+    HUB --> Fuel
+    Cooling -- coolant temperature --> Lubrication
+    Electrical -- starting power --> Turbine
+    Electrical -- charge --> Aux[Auxiliary electrical]
+    FusiblePlug[Fusible plug] -- plug state --> Boiler
+    Lubrication -. oil pressure, oil level .-> Engine((engine wear))
+    Cooling -. boiling over .-> Engine
+```
+
+Solid arrows are quantities read by another system. Dotted arrows are wear applied to the engine part. Everything else a system knows, it gets
+from the hub. Conditions (a holed radiator, a cracked sump, a shorted battery, a warped head) hang off single systems and are not drawn.
+
+## What is missing, and what each link would do
+
+Each row is one proposed crosslink. "Lets / stops / changes" is the standing test. Cost: **XML** means Defs only; **input** means one small new
+`Input_` or `When_` class; **hub** means a change in the comp's shared state.
+
+| # | Link | The real basis (labelled) | Reads and changes | Lets the player | Stops them | Changes how they play | Cost |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| 1 | **Night heater warms the engine, not only the cab** | A block heater keeps coolant and oil warm overnight so the engine starts easily and wears less (secondary: Wikipedia, "Block heater"). Today the night heater holds the cab (`Systems_Cabin.xml:149`) and the engine starts from the air's temperature, paying the cold-start wear (`Systems_Cooling.xml:251-265`) | Cabin's `nightHeaterRunning` becomes a flow toward about 15 °C [A] on `coolantTemperature` and `oilTemperature` while the vehicle stands | Start a frozen camp's vehicles without the wear and the weak-battery refusals | Nothing | A winter camp runs the heater for the engines' sake as well as the crew's; fuel against repairs | XML |
+| 2 | **Cab heater from the coolant** | A car's heater is a small radiator fed by engine coolant: no heat until the engine is warm, and none when the coolant is gone (secondary: Wikipedia, "Heater core") | Cabin's `heater` flow scaled by a curve on `coolantTemperature` (0 below 30 °C, full from 60 °C [A]), `fallback` 1 for vehicles without cooling (electric, steam) | Warm the cab for free once the engine is warm | Instant warmth on a cold start, and any heat with the coolant gone | Idle the engine before a winter trip; a holed radiator now also freezes the crew | XML |
+| 3 | **A worn engine burns oil and runs hot** | Worn rings and guides let oil past; a tired engine also sheds more heat to its coolant (secondary, approximate: engine makers' service literature as commonly cited; unverified figures) | Lubrication's `burn` flow and Cooling's `combustion` flow each gain an `Input_PartEfficiency` on `Engine` through an inverted curve (1 at full health, 2 at 40 % [A]) | Read a tired engine from its oil consumption before it fails | Ignoring a 40 % engine for a season | Services come sooner on a worn engine; a repair pays back in oil | XML |
+| 4 | **A burning vehicle cooks its systems** | Fire on the body heats everything under the skin. Today a fire only takes hit points from parts; the owner's Harrier flew home on fire with its coolant and oil none the wiser | New `Input_Fire`: the size of the fires attached to the vehicle. A flow into `coolantTemperature`, `oilTemperature`, `packTemperature` and `cabTemperature` while it burns | See the fire on the gauges and know how long the engine has | Shrugging off a fire that the crew puts out in time | Fire-fighting a vehicle becomes urgent for the engine, not only the hull; a jet on fire lands hot | input |
+| 5 | **Accessories load the engine** | An alternator takes shaft power for what it supplies: about 1.5 W at the crank per watt delivered (secondary, approximate: alternator efficiency 55 to 70 %, Wikipedia, "Alternator (automotive)") | The hub adds the active electrical load's watts to `EngineLoad` (12 or 24 V times the amperes, over the engine's rated power) | Nothing new to do | Nothing | Lights, heaters and climate control cost fuel and heat; a camp that runs them off the engine all night feels it | hub |
+| 6 | **Rough ground wears tyres and suspension** | Off-road running wears tyres and running gear far faster than roads (common knowledge; no figure claimed). Today tread wears by distance only (`Systems_Chassis.xml`, `Input_Moving`) | New `Input_TerrainCost`: Vehicle Framework's path cost under the vehicle, normalised so a road reads 1 and the worst passable ground about 3 [A]; scales `treadWear` and a small `Effect_DamagePart` on `Wheels` and suspensions | Choose roads to save tyres and parts | Nothing | Caravans and convoys prefer roads for a reason the player can see on the Health tab | input |
+| 7 | **Cold oil makes a hard start** | Cold oil is thick: cranking takes more battery and the first minutes wear more (the same sources as the cold-start wear we have) | Electrical's `startingPower` gains a curve on `oilTemperature` (0.6 at -20 °C, 1 at 10 °C [A]); the cold-start wear condition moves from coolant to oil temperature | Warm the engine (link 1) to make a start certain | Starting a soaked-cold diesel on a tired battery | The night heater, the battery and the start become one decision | XML |
+| 8 | **Water pump drives the heater too** | The heater core is on the same coolant circuit as the radiator | Link 2's curve also multiplied by `Input_PartEfficiency` on `WaterPump` | Nothing new | A hit water pump leaving the cab warm | A small, honest extra from a part we already added in Framework 0.55.0 | XML, with link 2 |
+
+Not proposed, and why:
+
+- **A shared engine-bay temperature as a second hub.** It would be a parallel model of heat beside the coolant, the oil and the pack, each
+  of which is already a temperature. Link 4 gives fire a way in without it.
+- **Hydraulic pressure following engine speed.** Real, but set-up and tipping are one-shot actions; the player would never see the difference.
+- **Oil pressure feeding other systems.** Separate circuits on every vehicle we model; nothing honest to link.
+- **Era-specific electrics** (an electric fuel pump that needs the battery): true of modern vehicles only, and the loadouts do not know an era.
+
+## Order to build, when the owner says so
+
+1. Links **1, 2 and 8** together: one Cabin and one Cooling Def change, no code, and a new design line in the world-map record (the night heater
+   gains a reason).
+2. Link **3**: two flows, no code; the Lubrication and Cooling Def comments carry the label.
+3. Link **4**: `Input_Fire` (one class, one attachment read on the rare tick), then flows on the four temperatures. The owner's Harrier is the test.
+4. Link **7**: a curve on starting power, and moving the cold-start condition to oil temperature.
+5. Links **5 and 6** last: each touches the hub or reads the map, so each needs a cost measurement against the 0.05 ms budget before it ships.
+
+Each step takes the middle version number (new behaviour), carries its own test-pass row, and says "not yet tested in game" until the owner says
+otherwise.
+
+## Open questions for the owner
+
+| Question | Agent lean |
+| --- | --- |
+| Should the night heater warm the engine on every vehicle, or only ones with a cab heater fitted? | Every vehicle with cooling: a block heater is cheap kit |
+| Does a worn engine's extra oil burn count as a reason to service, or only as a cost? | A cost only; the service clock stays on engine hours |
+| How hard should fire cook? | Authored so a fire the crew puts out inside an in-game hour leaves the engine hot but not damaged; one left to burn boils it over |
+| Link 5 on or off by default? | On, with a setting, since it only moves fuel and heat a little |
+
+## Who chose what
+
+- **Owner (9 Nov 2026):** enrich the simulation layer under everything with crosslinks; research and record first.
+- **Agent:** the graph reading, the eight proposals and their figures (all authored, marked [A]), the order, and what was left out.
+
+## Sources
+
+Read for this record, in our own words: `src/PhobosFramework.Vehicles/Systems/CompPhobosVehicleSystems.cs:564-587` (the hub) and `:1034-1040`
+(heat share); `src/PhobosFramework.Vehicles/Schema/Inputs.cs` (`Input_Quantity`'s fallback, `Input_PartEfficiency`, `Input_ElectricalBalance`);
+every `Systems_*.xml` under `mods/PhobosFramework/Mods/VehicleFramework/Common/Defs/Phobos/Framework/VehicleSystems/`, parsed for cross-system
+quantity reads (five found); `Systems_Cabin.xml:149` (night heater), `Systems_Cooling.xml:251-265` (cold-start wear), `Systems_Lubrication.xml:130-139`
+(oil follows coolant), `Systems_Turbine.xml:138-151` (turbine start). Secondary sources for the real basis are named per row and are not primary
+engineering references; the figures in the proposals are authored for play, not measured.
