@@ -11,6 +11,17 @@ The game crashed again about two minutes after loading the same save, with **the
 - Synthriada's two assemblies were decompiled and scanned for members calling themselves. The matches are overloads passing on to one another; no loop was found. A scan of this kind cannot rule one out, and Synthriada adds no Harmony patches.
 - **The decisive test:** switch Synthriada off and load PG5 for ten minutes. If the crash stops, it is the cause or part of it. Its author is active and asks for a log and mod list in the bug reports section.
 
+## Third crash, 23:56, with Synthriada switched off
+
+The owner switched The Dead Man's Switch - Synthriada off, and the game crashed again about two minutes after loading PG5: **the same 224-byte level, 6,845 times, the same objects at every level** (`RimWorld.exe.48584.dmp`). **Synthriada is cleared.** The save bridge was inert in this session, so it is cleared too.
+
+What is left is **Prison Labor's new 1.7 build** and **our Framework 0.52.0 to 0.57.1**, both first run in the session of the first crash. The owner believes it is ours.
+
+- Our changed C# was reviewed for call loops by reasoning, and Dubs Bad Hygiene's plumbing net was read for a loop through our hidden pipes: none found. That is not proof.
+- **Inference:** each level is only 224 bytes with three or four calls, so these are very small methods, such as properties calling each other. Our new pipe code goes through the game's spawn and destroy paths, whose frames are far larger, which counts against it but does not exclude it.
+- **Inference:** the crash comes a short, similar time after each load of the same save, so something scheduled at a fixed moment of game time is a likely trigger.
+- **Next:** the launch option below names the methods in one two-minute reproduction, without guessing or switching anything off.
+
 ## Read this first
 
 - **It was a stack overflow** (Windows exception `0xC00000FD`) on the game's main thread: code called itself until the thread ran out of stack. Windows' Application log and a crash dump both say so.
