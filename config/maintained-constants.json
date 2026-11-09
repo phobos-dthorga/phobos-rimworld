@@ -9,7 +9,7 @@
     "PhobosFactoryAdditions.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.12.0",
+      "value": "0.12.1",
       "description": "D'thorga Factory Additions's version: About.xml, every project of the mod, its ModVersion constants and both READMEs",
       "targets": [
         {

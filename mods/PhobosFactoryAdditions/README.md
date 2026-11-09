@@ -14,7 +14,7 @@ on only while its mod is active (Medicines+, Deep Pills, Ushankas Biological War
 Rimatomics, Hemofungus, Complementary Odyssey, Glitterworld Medicine Production, Farmable Neutroamine,
 Passive Exoskeletons, Simple Washing Machine).
 
-Version 0.12.0, built 9 November 2026 for House D'thorga. **Tested in game:** the human-meat bill (owner,
+Version 0.12.1, built 10 November 2026 for House D'thorga. **Tested in game:** the human-meat bill (owner,
 28 October 2026, RimWorld 1.7), the drug-lab bills appearing on their machines (owner, 29 October 2026), and
 belts taking from switched-on storage, only when they point away from it (owner, 29 and 30 October 2026). The
 corpse fridge change, running the 0.3.0 bills to the end, the 0.3.2 chemfuel repair, the 0.4.0 deep factory

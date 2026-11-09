@@ -5,6 +5,18 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.12.1] - 2026-11-10 - Draft
+
+From the owner's ammunition press, whose bills could not be cancelled (10 November 2026). **Not yet tested in game.**
+
+### Fixed
+
+- A factory machine holding a bill whose recipe no longer exists, such as one another mod has stopped defining, threw errors every frame and could not have the bill cancelled. Such bills now come off the machine when the colony loads, anything they held is set down beside it, and a message says so.
+
+### Save compatibility
+
+- Safe on an existing save. Bills with no recipe are removed at the next load, and stay gone once you save.
+
 ## [0.12.0] - 2026-11-09 - Draft
 
 From the owner's rule of 9 November 2026: anything that takes water or piping has its own pipes beneath it. **Not yet tested in game.**

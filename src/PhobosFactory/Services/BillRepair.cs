@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using HarmonyLib;
 using PipeSystem;
@@ -18,6 +19,34 @@ public static class BillRepair
 {
     static readonly FieldInfo? TargetCount = AccessTools.Field(typeof(Process), "targetCount");
     static readonly FieldInfo? IngredientResources = AccessTools.Field(typeof(Process), "ingredientsCompResources");
+    static readonly FieldInfo? CurrentProcess = AccessTools.Field(typeof(ProcessStack), "currentProcess");
+
+    /// <summary>
+    /// Takes off a machine any bill whose recipe no longer exists, such as one another mod stopped defining. Such a bill loads with no recipe at all, and everything that reads it
+    /// throws: the machine's tick, its drawing every frame and the bills window, so the player cannot even cancel it. What it held is set down beside the machine once the map has loaded,
+    /// and the player is told.
+    /// </summary>
+    public static void ClearGhostBills(CompAdvancedResourceProcessor comp)
+    {
+        ProcessStack stack = comp.ProcessStack;
+        List<Process>? ghosts = stack?.Processes?.Where(process => process?.Def == null).ToList();
+        if (ghosts == null || ghosts.Count == 0) return;
+        if (CurrentProcess?.GetValue(stack) is Process { Def: null }) stack!.Notify_ProcessEnded();
+        var held = new List<(ThingDef def, int count)>();
+        foreach (Process ghost in ghosts)
+        {
+            stack!.Processes.Remove(ghost);
+            if (ghost?.IngredientsOwners == null) continue;
+            foreach (ThingAndResourceOwner owner in ghost.IngredientsOwners)
+            {
+                ThingDef? def = owner.ThingDef ?? owner.lastThingStored;
+                if (def != null && owner.Count > 0) held.Add((def, owner.Count));
+            }
+        }
+        ThingWithComps machine = comp.parent;
+        int count = ghosts.Count;
+        LongEventHandler.ExecuteWhenFinished(() => BillRepairReport.GhostsCleared(machine, count, held));
+    }
 
     /// <summary>Whether the bill's saved owners no longer match its recipe, by ingredient, category, pipe and count.</summary>
     public static bool IsStale(Process process)

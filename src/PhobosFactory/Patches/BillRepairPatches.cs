@@ -28,6 +28,13 @@ public static class BillRepairTickPatch
     }
 }
 
+/// <summary>Before a machine sets up its bills, any whose recipe no longer exists comes off it: nothing can read such a bill, including the window that would cancel it.</summary>
+[HarmonyPatch(typeof(CompAdvancedResourceProcessor), nameof(CompAdvancedResourceProcessor.PostSpawnSetup))]
+public static class GhostBillsPatch
+{
+    public static void Prefix(CompAdvancedResourceProcessor __instance) => BillRepair.ClearGhostBills(__instance);
+}
+
 /// <summary>A running bill with a changed recipe is rebuilt the moment it finishes and resets, when it holds nothing.</summary>
 [HarmonyPatch(typeof(Process), nameof(Process.ResetProcess))]
 public static class BillRepairResetPatch
@@ -78,6 +85,20 @@ public static class BeingFilledClearPatch
 /// <summary>Tells the player, in the game's words, that a bill was brought up to its recipe; the log keeps the detail.</summary>
 public static class BillRepairReport
 {
+    /// <summary>Sets down what the removed bills held, and says so. Runs after the map has loaded, when things can be placed.</summary>
+    public static void GhostsCleared(ThingWithComps machine, int count, List<(ThingDef def, int count)> held)
+    {
+        Log.Message("[D'thorga Factory Additions] Removed " + count + " bill(s) with no recipe from " + machine.LabelShort + ", holding " + held.Count + " kind(s) of ingredient.");
+        if (!machine.Spawned) return;
+        foreach ((ThingDef def, int amount) in held)
+        {
+            Thing item = ThingMaker.MakeThing(def, def.MadeFromStuff ? GenStuff.DefaultStuffFor(def) : null);
+            item.stackCount = amount;
+            GenPlace.TryPlaceThing(item, machine.Position, machine.Map, ThingPlaceMode.Near);
+        }
+        Messages.Message("PhobosFactory_GhostBillsCleared".Translate(count.Named("COUNT"), machine.LabelShort.Named("MACHINE")), machine, MessageTypeDefOf.CautionInput, historical: false);
+    }
+
     public static void Rebuilt(Process process)
     {
         Thing? machine = process.advancedProcessor?.parent;
