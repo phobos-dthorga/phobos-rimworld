@@ -5,6 +5,12 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.46.1] - 2026-11-09 - Draft
+
+### Added
+
+- A shared rule for which kind of ammunition a magazine may take, used by D'thorga Patches for the Harrier. Nothing changes in play from this alone.
+
 ## [0.46.0] - 2026-11-09 - Draft
 
 ### Added

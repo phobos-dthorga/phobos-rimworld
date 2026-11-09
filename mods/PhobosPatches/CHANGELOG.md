@@ -6,6 +6,16 @@ says the owner tested it.
 
 ## [Unreleased]
 
+## [0.16.3] - 2026-11-09 - Draft
+
+### Fixed
+
+- Rearming the Harrier no longer calls out every colonist with the ammunition counter going up and down. With more than one kind of rocket in store, colonists brought different kinds and each kind threw out the one before. A magazine is now topped up only with what is already in it, or with the first kind on its way when it is empty. Choosing a kind on the weapon still swaps it. Not yet tested in game.
+
+### Dependencies
+
+- Needs D'thorga Framework 0.46.1.
+
 ## [0.16.2] - 2026-11-09 - Draft
 
 ### Changed
