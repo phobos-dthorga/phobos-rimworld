@@ -70,7 +70,10 @@ public sealed class NoiseService
             case NoiseWhen.Connected:
                 return building.TryGetComp<CompPower>()?.PowerNet != null;
             default:
-                return building.TryGetComp<CompPowerTrader>()?.PowerOn == true;
+                var trader = building.TryGetComp<CompPowerTrader>();
+                if (trader == null || !trader.PowerOn) return false;
+                // A generator out of fuel stays "on" and simply produces nothing.
+                return trader is not CompPowerPlant plant || plant.PowerOutput > 0f;
         }
     }
 

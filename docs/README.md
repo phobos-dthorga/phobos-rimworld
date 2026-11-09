@@ -23,8 +23,8 @@ Each mod's README is its player guide, with the gotchas first. **Every mod is Ri
 | **D'thorga Medical** | 0.8.2 | Burns and smoke, emergency dosing, triage, hospital and field equipment, and a safe way to add More Injuries to a running colony: five mods in one | [README](../mods/PhobosMedical/README.md) |
 | **D'thorga Factory Additions** | 0.11.6 | Additions to Vanilla Furniture Expanded - Factory: belts from any storage, an automated fabrication bay, a deep hopper, other mods' drug labs as factory bills, and fixes | [README](../mods/PhobosFactoryAdditions/README.md) |
 | **D'thorga Patches** | 0.16.2 | The Harrier VTOL, RimThunder's heavy casting, Spaceship Turret Hull under Combat Extended, and InterRim Ballistic Missile's strategic blast | [README](../mods/PhobosPatches/README.md) |
-| **D'thorga Water Tap** | 0.2.3 | A Dubs Bad Hygiene fixture that keeps bottled water ready and refills itself | [README](../mods/PhobosWaterTap/README.md) |
-| **D'thorga Radio Framework** | 0.1.4 | Hand-held VHF and UHF radios, a base station, coax and antennas; a real link budget decides every contact | [README](../mods/PhobosRadioFramework/README.md) |
+| **D'thorga Water Tap** | 0.2.4 | A Dubs Bad Hygiene fixture that keeps bottled water ready and refills itself | [README](../mods/PhobosWaterTap/README.md) |
+| **D'thorga Radio Framework** | 0.1.5 | Hand-held VHF and UHF radios, a base station, coax and antennas; a real link budget decides every contact | [README](../mods/PhobosRadioFramework/README.md) |
 
 ## For contributors
 

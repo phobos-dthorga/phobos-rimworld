@@ -71,7 +71,7 @@ public class CompRadio : ThingComp
     public override IEnumerable<Gizmo> CompGetWornGizmosExtra()
     {
         var wearer = Wearer;
-        if (wearer == null || !wearer.Spawned || wearer.Faction != Faction.OfPlayer) yield break;
+        if (wearer == null || !RadioNet.Counts(wearer)) yield break;    // the same test the net uses, or the gizmo would say there is no station
         var net = RadioNet.For(wearer.Map);
         net.TryGetBest(wearer, out var link);
         yield return SignalGizmo.ForHandheld(this, link);

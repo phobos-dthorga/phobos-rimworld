@@ -85,6 +85,7 @@ public class CompBottleTap : ThingComp
     {
         base.PostExposeData();
         Scribe_Values.Look(ref target, TargetSaveKey, TapRule.ClampTarget(Props.startingTarget, StackLimit));
+        if (Scribe.mode == LoadSaveMode.PostLoadInit) target = TapRule.ClampTarget(target, StackLimit);    // a stack-size mod may have been removed
     }
 
     public override void CompTickRare()
@@ -95,6 +96,7 @@ public class CompBottleTap : ThingComp
 
     public override string CompInspectStringExtra()
     {
+        if (!parent.Spawned) return string.Empty;    // packed in its crate: there is no map to read
         string keeps = "PhobosWaterTap_Keeps".Translate(target.Named("COUNT"), Props.waterPerBottle.Named("WATER"));
         TapReading reading = TapService.Read(this);
         string stock = "PhobosWaterTap_MapStock".Translate(reading.MapStock.Named("COUNT"), reading.StockLimit.Named("LIMIT"));

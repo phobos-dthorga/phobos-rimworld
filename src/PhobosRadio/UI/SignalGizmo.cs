@@ -16,11 +16,14 @@ public static class SignalGizmo
     public static Gizmo ForHandheld(CompRadio radio, LinkEvaluation? link)
     {
         var mode = RadioMod.Settings.displayMode;
-        var label = link == null
-            ? "PhobosRadio_GizmoNoStation".Translate()
-            : "PhobosRadio_GizmoLabel".Translate(LinkText.Bars(link.Outcome).ToString().Named("BARS"));
-        var description = LinkText.Describe(link, mode);
         var wearer = radio.Wearer;
+        var unpowered = link == null && wearer?.Map != null && RadioNet.For(wearer.Map).HasUnpoweredStation;
+        var label = unpowered
+            ? "PhobosRadio_GizmoNoPower".Translate()
+            : link == null
+                ? "PhobosRadio_GizmoNoStation".Translate()
+                : "PhobosRadio_GizmoLabel".Translate(LinkText.Bars(link!.Outcome).ToString().Named("BARS"));
+        var description = unpowered ? "PhobosRadio_StationNoPower".Translate().Resolve() : LinkText.Describe(link, mode);
         return new Command_Action
         {
             defaultLabel = label,
@@ -54,7 +57,7 @@ public static class SignalGizmo
             defaultLabel = "PhobosRadio_GizmoStation".Translate(inTouch.Named("INTOUCH"), pairs.Count.Named("TOTAL")),
             defaultDesc = lines.ToString().TrimEnd(),
             icon = RadioTextures.Signal,
-            action = () => Find.Selector.ClearSelection(),
+            action = () => RimWorld.InspectPaneUtility.OpenTab(typeof(ITab_RadioNet)),
         };
     }
 }

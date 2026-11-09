@@ -7,7 +7,7 @@
     <RootNamespace>Phobos.WaterTap</RootNamespace>
     <AssemblyName>PhobosWaterTap</AssemblyName>
     <ModFolder>PhobosWaterTap</ModFolder>
-    <Version>0.2.3</Version>
+    <Version>0.2.4</Version>
   </PropertyGroup>
   <ItemGroup>
     <!-- Dubs Bad Hygiene's assembly, referenced from the installed mod and never copied. -->

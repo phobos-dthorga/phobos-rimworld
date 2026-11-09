@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using PipeSystem;
 using Verse;
 
@@ -11,14 +12,14 @@ public readonly record struct FeedSegment(float Metres, RadioCoaxExtension Coax)
 }
 
 /// <summary>
-/// Walks a Vanilla Expanded Framework pipe net as a cable run. The net is rebuilt by VEF whenever a
-/// connector spawns or despawns, so a cache keyed on the net instance is fresh by construction.
+/// Walks a Vanilla Expanded Framework pipe net as a cable run. VEF keeps a net when a connector joins it and rebuilds it when
+/// one leaves, so a cached route is keyed on the net, its size and the metres a cell stands for.
 /// </summary>
 public static class FeedlineService
 {
     private static readonly RadioCoaxExtension DefaultCoax = new();
-    private static readonly Dictionary<(PipeNet net, Thing from, Thing to), List<FeedSegment>?> cache = new();
-    private static Game? cacheGame;
+    // Weak on the net: a net holds its whole map, and neither a load nor a rebuilt net may keep one alive here.
+    private static readonly ConditionalWeakTable<PipeNet, Dictionary<(Thing from, Thing to, float metresPerCell, int connectors), List<FeedSegment>?>> cache = new();
     private static readonly Queue<IntVec3> queue = new();
     private static readonly Dictionary<IntVec3, int> seen = new();
 
@@ -51,17 +52,12 @@ public static class FeedlineService
     /// </summary>
     public static List<FeedSegment>? Segments(PipeNet net, Thing from, Thing to, float metresPerCell)
     {
-        // A load leaves the old game's nets behind, and each one holds its whole map.
-        if (cacheGame != Current.Game)
-        {
-            cache.Clear();
-            cacheGame = Current.Game;
-        }
-        var key = (net, from, to);
-        if (cache.TryGetValue(key, out var cached)) return cached;
+        var routes = cache.GetOrCreateValue(net);
+        var key = (from, to, metresPerCell, net.connectors.Count);
+        if (routes.TryGetValue(key, out var cached)) return cached;
         var segments = Trace(net, from, to, metresPerCell);
-        cache[key] = segments;
-        if (cache.Count > 256) cache.Clear();
+        routes[key] = segments;
+        if (routes.Count > 256) routes.Clear();
         return segments;
     }
 

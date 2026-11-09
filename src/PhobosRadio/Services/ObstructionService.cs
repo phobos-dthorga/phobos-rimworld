@@ -24,7 +24,7 @@ public static class ObstructionService
             if (edifice is Building_Door door && door.Open) continue;
             if (IsRock(edifice))
             {
-                total += rules.rockLossDb;
+                total += edifice.def.GetModExtension<RadioObstructionExtension>()?.lossDb ?? rules.rockLossDb;
                 continue;
             }
             var fraction = (float)i / last;

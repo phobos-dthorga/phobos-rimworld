@@ -3,7 +3,7 @@
 A water bottle tap for **Dubs Bad Hygiene**: a small plumbing fixture that keeps a stack of bottled water ready and refills it by
 itself from your water towers. Nobody has to stand at a basin filling bottles.
 
-Version 0.2.3, built 8 November 2026 for House D'thorga. **Not yet tested in game.**
+Version 0.2.4, built 9 November 2026 for House D'thorga. **Not yet tested in game.**
 
 ## Read this first (gotchas)
 

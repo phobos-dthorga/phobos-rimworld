@@ -17,6 +17,8 @@
   <!-- Gizmos. -->
   <PhobosRadio_GizmoLabel>Radio {BARS}</PhobosRadio_GizmoLabel>
   <PhobosRadio_GizmoNoStation>Radio: no station</PhobosRadio_GizmoNoStation>
+  <PhobosRadio_GizmoNoPower>Radio: station has no power</PhobosRadio_GizmoNoPower>
+  <PhobosRadio_StationNoPower>The base station has no power, so there is nothing to reach.</PhobosRadio_StationNoPower>
   <PhobosRadio_GizmoStation>Net: {INTOUCH} of {TOTAL} in touch</PhobosRadio_GizmoStation>
   <PhobosRadio_NoStation>No base station on this map, so there is nothing to reach.</PhobosRadio_NoStation>
   <PhobosRadio_PlainReason>Why: {REASON}.</PhobosRadio_PlainReason>

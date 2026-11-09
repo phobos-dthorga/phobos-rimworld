@@ -197,7 +197,7 @@
     "PhobosRadioFramework.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.1.4",
+      "value": "0.1.5",
       "description": "D'thorga Radio Framework's version: About.xml, every project of the mod, its ModVersion constants and both READMEs",
       "targets": [
         {
@@ -249,7 +249,7 @@
     "PhobosWaterTap.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.2.3",
+      "value": "0.2.4",
       "description": "D'thorga Water Tap's version: About.xml, every project of the mod, its ModVersion constants and both READMEs",
       "targets": [
         {

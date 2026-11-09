@@ -18,7 +18,8 @@ public class CompFeedlinePort : CompResource
     public override string CompInspectStringExtra()
     {
         if (!parent.Spawned) return string.Empty;
-        if (PipeNet == null) return "PhobosRadio_PortNoCable".Translate();
+        // A port alone is a net of one (the framework makes one for every connector), so that is what no cable looks like.
+        if (PipeNet == null || PipeNet.connectors.Count <= 1) return "PhobosRadio_PortNoCable".Translate();
         var isStation = parent.TryGetComp<CompRadio>()?.Props.isStation == true;
         if (isStation)
         {

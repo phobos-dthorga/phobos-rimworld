@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using RimWorld;
 using Verse;
 
@@ -11,8 +12,8 @@ namespace Phobos.Radio.Services;
 /// </summary>
 public sealed class RadioNet : MapComponent
 {
-    private static Map? lastMap;
-    private static RadioNet? lastNet;
+    // Weak: loading a game never calls MapRemoved, and a plain reference would keep the last game's map.
+    private static readonly ConditionalWeakTable<Map, RadioNet> byMap = new();
 
     private readonly NoiseService noise = new();
     private readonly List<LinkEvaluation> pairs = new();
@@ -23,18 +24,27 @@ public sealed class RadioNet : MapComponent
     private readonly List<CompRadio> wornRadios = new();
     private int nextRecomputeTick = -1;
     private bool dirty = true;
+    private bool unpoweredStation;
 
     public RadioNet(Map map) : base(map) { }
 
-    /// <summary>The net for a map, with a one-entry cache so callers never scan the component list each time.</summary>
+    /// <summary>The net for a map, kept so callers never scan the component list each time.</summary>
     public static RadioNet For(Map map)
     {
-        if (map != lastMap || lastNet == null)
+        if (byMap.TryGetValue(map, out var net)) return net;
+        net = map.GetComponent<RadioNet>();
+        if (net != null) byMap.AddOrUpdate(map, net);
+        return net!;
+    }
+
+    /// <summary>Whether a base station stands on this map with no power, and so reaches nobody.</summary>
+    public bool HasUnpoweredStation
+    {
+        get
         {
-            lastNet = map.GetComponent<RadioNet>();
-            lastMap = map;
+            EnsureFresh();
+            return unpoweredStation;
         }
-        return lastNet;
     }
 
     public override void MapComponentTick()
@@ -45,7 +55,7 @@ public sealed class RadioNet : MapComponent
     public override void MapRemoved()
     {
         Clear();
-        if (lastMap == map) { lastMap = null; lastNet = null; }
+        byMap.Remove(map);
     }
 
     /// <summary>Whether a pawn is spawned, free and of the colony: the only pawns whose radios count.</summary>
@@ -99,6 +109,7 @@ public sealed class RadioNet : MapComponent
         antennaLabelByStation.Clear();
         stations.Clear();
         wornRadios.Clear();
+        unpoweredStation = false;
     }
 
     private void Recompute()
@@ -111,13 +122,12 @@ public sealed class RadioNet : MapComponent
         CollectStations();
         if (stations.Count == 0) return;
         CollectWornRadios();
-        if (wornRadios.Count == 0) return;
 
         var metresPerCell = RadioMod.Settings.metresPerCell;
         foreach (var station in stations)
         {
             var stationEnds = StationEndpoints(station, metresPerCell);
-            string? antennaUsed = null;
+            LinkEvaluation? strongest = null;
             foreach (var handheld in wornRadios)
             {
                 var wearer = handheld.Wearer!;
@@ -130,11 +140,12 @@ public sealed class RadioNet : MapComponent
                 }
                 if (link == null) continue;
                 pairs.Add(link);
-                antennaUsed ??= link.B.AntennaLabel;
+                if (strongest == null || link.MarginDb > strongest.MarginDb) strongest = link;
                 if (link.InTouch) inTouchByStation[station.parent] = InTouchCount(station.parent) + 1;
                 if (!bestByPawn.TryGetValue(wearer, out var best) || link.MarginDb > best.MarginDb) bestByPawn[wearer] = link;
             }
-            antennaLabelByStation[station.parent] = antennaUsed ?? stationEnds[0].AntennaLabel;
+            // With nobody to reach yet, a mast on the coax is what the station would use, before its built-in whip.
+            antennaLabelByStation[station.parent] = strongest?.B.AntennaLabel ?? stationEnds[stationEnds.Count > 1 ? 1 : 0].AntennaLabel;
         }
     }
 
@@ -143,7 +154,14 @@ public sealed class RadioNet : MapComponent
         foreach (var building in map.listerBuildings.allBuildingsColonist)
         {
             var radio = building.TryGetComp<CompRadio>();
-            if (radio != null && radio.Props.isStation) stations.Add(radio);
+            if (radio == null || !radio.Props.isStation) continue;
+            // Flicked off, broken down, unwired or caught by a solar flare: it reaches nobody.
+            if (building.TryGetComp<CompPowerTrader>() is { PowerOn: false })
+            {
+                unpoweredStation = true;
+                continue;
+            }
+            stations.Add(radio);
         }
     }
 

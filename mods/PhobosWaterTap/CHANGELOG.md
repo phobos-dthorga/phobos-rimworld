@@ -5,6 +5,13 @@ yet. Not yet tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.2.4] - 2026-11-09 - Draft
+
+### Fixed
+
+- Selecting a packed tap in its crate no longer throws an error. **Not yet tested in game.**
+- A tap saved with a target above the bottle's stack limit no longer burns water for nothing. **Not yet tested in game.**
+
 ### Changed
 
 - Dates in this mod's records that were written a day ahead now read 8 November 2026. Text only; nothing in game changes.

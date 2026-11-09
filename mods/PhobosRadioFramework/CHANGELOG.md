@@ -5,6 +5,17 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.1.5] - 2026-11-09 - Draft
+
+### Fixed
+
+- A base station with no power no longer makes contacts: hand-helds said in touch, and colonists kept the mood, with the station off. A hand-held now says the station has no power. **Not yet tested in game.**
+- The false No storage connected alert on every feedline is gone, and coax no longer reads as storing zero decibels. **Not yet tested in game.**
+- A generator out of fuel no longer raises the radio noise floor. **Not yet tested in game.**
+- A new coax route, or a change to the scale of a cell, now takes effect at once instead of at the next reload. **Not yet tested in game.**
+- A port with no cable says so. Clicking a station's gizmo opens its Net tab instead of deselecting it. A slave's radio no longer claims there is no station. The rock obstruction patch now takes effect. The antenna line names the strongest antenna, and a mast on the coax before anyone carries a radio. **Not yet tested in game.**
+- Loading a game no longer keeps the previous game's map or pipe networks in memory. **Not yet tested in game.**
+
 ### Changed
 
 - Dates in this mod's records that were written a day ahead now read 8 November 2026. Text only; nothing in game changes.

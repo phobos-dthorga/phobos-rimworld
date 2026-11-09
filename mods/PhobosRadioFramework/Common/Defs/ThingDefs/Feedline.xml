@@ -17,7 +17,7 @@
     <overlayOptions>
       <overlayColor>(214, 178, 94)</overlayColor>
     </overlayOptions>
-    <noStorageAlert>true</noStorageAlert>
+    <noStorageAlert>false</noStorageAlert>
     <foggedNetAlert>false</foggedNetAlert>
     <enableOverflow>false</enableOverflow>
   </PipeSystem.PipeNetDef>
@@ -70,7 +70,7 @@
       <Steel>2</Steel>
     </costList>
     <comps>
-      <li Class="PipeSystem.CompProperties_Resource">
+      <li Class="Phobos.Radio.CompProperties_FeedlinePort">
         <pipeNet>PhobosRadio_FeedlineNet</pipeNet>
       </li>
     </comps>
