@@ -75,7 +75,10 @@ public sealed class VehicleDiagnostics
             {
                 QuantitySpec quantity = state.Def.quantities[q];
                 string? stage = state.CurrentStage(q)?.label;
-                if (!figures && stage == null) continue;
+                // Plain mode says only what has a stage. A hidden reading is the systems' own working (a heater flag, the fuel-gel switch,
+                // the ground under the wheels) and is shown only when it has something to say: the owner's first report showed "Fuel: 0%"
+                // for the gel switch and two "Night heater: 0" (0.77.1).
+                if (stage == null && (!figures || quantity.hidden)) continue;
                 text.Append("\n  ").Append(quantity.label.CapitalizeFirst()).Append(": ");
                 text.Append(figures ? InspectText.Format(quantity, state.values[q]) + (stage != null ? " (" + stage + ")" : "") : stage);
             }

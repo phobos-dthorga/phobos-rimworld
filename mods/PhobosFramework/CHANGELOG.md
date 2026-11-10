@@ -5,6 +5,18 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.77.1] - 2026-11-11 - Draft
+
+A tidier diagnosis. **Diagnose tested in game by the owner, 11 November 2026, on 0.73.0 to 0.77.0: the letter arrives and lists every part and reading; this change is not yet tested.**
+
+### Fixed
+
+- **A diagnosis no longer lists the systems' inner workings as readings.** Its letter showed "Fuel: 0%" (the switch for fuel thickening in the cold, not the tank), "Night heater: 0" twice, "Fire: 0%" and "Ground: 0". Hidden readings now appear only when they have something to say, such as "enough to start".
+
+### Save compatibility
+
+- Safe on an existing save.
+
 ## [0.76.0] - 2026-11-11 - Draft
 
 Engine sounds that follow the engine (owner, 10 and 11 November 2026). **Not yet tested in game.**
