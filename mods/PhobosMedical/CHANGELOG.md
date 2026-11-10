@@ -84,7 +84,7 @@ The owner's picks for the radiation control pictures. **Not yet tested in game.*
 
 ## [0.11.0] - 2026-11-10 - Draft
 
-Radiation control for Rimatomics, from the owner's idea of 10 November 2026. **Not yet tested in game.**
+Radiation control for Rimatomics, from the owner's idea of 10 November 2026. **Tested in game by the owner, 11 November 2026, on Medical 0.12.1 and later: the radiation zone "is working VERY well".** The turn-back of a colonist with no gear in reach, and the alert for the unprotected (D'thorga Framework 0.70.0), were not reported on separately.
 
 ### Added
 
