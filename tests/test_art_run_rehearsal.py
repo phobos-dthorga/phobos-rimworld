@@ -377,17 +377,30 @@ class NearCopyTests(RehearsalCase):
                                     '.local/references/game.png']}]
         self.assertEqual(art_run.near_copy_sources(requests), [str(art_run.ROOT / '.local' / 'references')])
 
-    def post_process(self, flagged, writes=True):
+    def post_process(self, flagged, writes=True, steps=None):
         generated = self.work / 'gen'
-        (generated / 'tank').mkdir(parents=True)
-        (generated / 'tank' / 'tank-1.png').write_bytes(tiny_png())
+        for batch in ('tank', 'older-batch'):
+            (generated / batch).mkdir(parents=True)
+            (generated / batch / f'{batch}-1.png').write_bytes(tiny_png())
 
         def fake_run(step, **_kwargs):
-            if Path(step[2]).name == 'near_copy.py' and writes:
-                (generated / 'near-copy.json').write_text(json.dumps({'flagged': flagged}), encoding='utf-8')
+            if Path(step[2]).name == 'near_copy.py':
+                if steps is not None:
+                    steps.append(step)
+                if writes:
+                    (generated / 'near-copy.json').write_text(json.dumps({'flagged': flagged}), encoding='utf-8')
             return mock.Mock(returncode=0 if not flagged else 1, stderr='a traceback')
         with mock.patch.object(art_run.subprocess, 'run', fake_run):
             return art_run.post_process('comfy', generated, ['tank'], ['refs'])
+
+    def test_the_check_reads_only_this_batchs_folders(self):
+        # 11 Nov 2026: given the whole generated folder, a run of four flagged 38 pictures from earlier batches.
+        steps = []
+        self.post_process([], steps=steps)
+        self.assertEqual(len(steps), 1)
+        step = steps[0]
+        self.assertEqual(step[3:5], ['--only', 'tank'])
+        self.assertNotIn('older-batch', step)
 
     def test_a_flag_is_a_finding_and_not_a_broken_tool(self):
         entry = {'output': 'tank-1.png', 'source': 'vitals.png', 'ssim': 0.9, 'hash_distance': 3}

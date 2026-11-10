@@ -3,8 +3,12 @@ game art passes through this before the owner sees it as a pick; a flagged image
 output folder and exits 1 if anything is flagged. Needs Pillow and NumPy: run it with ComfyUI's bundled Python.
 
     <ComfyUI python> -I scripts/art/near_copy.py assets/phobos-medical/generated .local/references/vanilla-medical [more source folders]
+    <ComfyUI python> -I scripts/art/near_copy.py --only bulk-tanker-body-north assets/phobos-vehicles/generated <source folders>
 
-scripts/art-run.py runs this by itself after every batch, against the folders holding that batch's references.
+scripts/art-run.py runs this by itself after every batch, against the folders holding that batch's references, with --only for each
+request folder the batch wrote to: without it every earlier batch in the generated folder is compared again (11 Nov 2026: a run of
+four flagged 38 pictures from other batches). --only reads a folder's own images, not its subfolders, so review sheets kept beside
+the attempts are left out.
 """
 import argparse
 import json
@@ -52,10 +56,17 @@ def pngs(folder):
     return sorted(p for p in Path(folder).rglob('*.png') if not p.name.endswith('-sheet.png'))
 
 
-def compare(outputs, *sources):
+def candidates(outputs, only=()):
+    """The images to check: every one under outputs, or only those directly inside the named request folders."""
+    if not only:
+        return pngs(outputs)
+    return [p for name in only for p in sorted((Path(outputs) / name).glob('*.png')) if not p.name.endswith('-sheet.png')]
+
+
+def compare(outputs, *sources, only=()):
     source_data = [(p, *_prepared(p)) for folder in sources for p in pngs(folder)]
     flagged, closest = [], []
-    for output in pngs(outputs):
+    for output in candidates(outputs, only):
         image, value = _prepared(output)
         best = None
         for source, source_image, source_hash in source_data:
@@ -78,10 +89,12 @@ def _prepared(path):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
+    parser.add_argument('--only', action='append', default=[], metavar='FOLDER',
+                        help='check only the images directly inside this request folder of outputs; repeat for more')
     parser.add_argument('outputs')
     parser.add_argument('sources', nargs='+')
     args = parser.parse_args()
-    flagged_entries, closest_entries = compare(args.outputs, *args.sources)
+    flagged_entries, closest_entries = compare(args.outputs, *args.sources, only=args.only)
     report = {'flagged': flagged_entries, 'closest_per_output': closest_entries,
               'thresholds': {'hash_distance_at_most': sort_rules.NEAR_COPY_DISTANCE, 'ssim_at_least': sort_rules.NEAR_COPY_SSIM}}
     (Path(args.outputs) / 'near-copy.json').write_text(json.dumps(report, indent=2), encoding='utf-8')

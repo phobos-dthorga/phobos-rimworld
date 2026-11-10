@@ -174,13 +174,15 @@ def near_copy_sources(requests, extra=()):
     return list(dict.fromkeys([*(str(path.parent) for path in folders), *(str(Path(path)) for path in extra)]))
 
 
-def check_near_copies(python, generated, sources):
-    """Returns (whether the check ran, the flags, a problem). A flagged image is a finding, not a failure of the check, and the
-    tool exits 1 for both, so what tells them apart is whether it wrote its results."""
+def check_near_copies(python, generated, sources, folders):
+    """Returns (whether the check ran, the flags, a problem). Only this batch's request folders are checked: the generated folder
+    holds every earlier batch too. A flagged image is a finding, not a failure of the check, and the tool exits 1 for both, so
+    what tells them apart is whether it wrote its results."""
     results = generated / 'near-copy.json'
     results.unlink(missing_ok=True)
+    only = [argument for name in folders for argument in ('--only', name)]
     try:
-        done = subprocess.run([python, '-I', str(ROOT / 'scripts' / 'art' / 'near_copy.py'), str(generated), *sources],
+        done = subprocess.run([python, '-I', str(ROOT / 'scripts' / 'art' / 'near_copy.py'), *only, str(generated), *sources],
                               capture_output=True, text=True, check=False)
     except OSError as error:
         return False, [], f'near_copy.py: {error}'
@@ -228,7 +230,7 @@ def post_process(comfy, generated, folders, sources=()):
         problems += _run_tool(step)
     ran, flags = False, []
     if existing and sources:
-        ran, flags, problem = check_near_copies(python, generated, sources)
+        ran, flags, problem = check_near_copies(python, generated, sources, existing)
         if problem:
             problems.append(problem)
     problems += _run_tool([sys.executable, '-I', str(tools / 'review_page.py'), str(generated)])

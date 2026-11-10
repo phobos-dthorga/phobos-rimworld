@@ -26,7 +26,7 @@ NR-1 (US Navy, launched 25 January 1969) as the sources describe it:
 
 ## The canvas and the overlay plan
 
-The north body on the 1024 x 2048 canvas: bow at the TOP edge (the Def puts the hydrophones at z 4 and the propeller at z -4, so +z is the bow), the hull about seven eighths of the canvas height and centred, on plain white for the cut-out. The export scales it to 10 cells long and centres it on the 5 x 10 drawn canvas, 640 x 1280 px north; east and south are turned by script, west is mirrored by Vehicle Framework.
+The north body on the 1024 x 2048 canvas: bow at the TOP edge (the Def puts the hydrophones at z 4 and the propeller at z -4, so +z is the bow), the hull about seven eighths of the canvas height and centred, on plain white for the cut-out. The export scales it to 9 cells long, the footprint (`--cells-long 9`, as the tanker's 2 x 6 took 6), and centres it on the 5 x 10 drawn canvas, 640 x 1280 px north; east and south are turned by script, west is mirrored by Vehicle Framework.
 
 The game gives a 4-wide hull the columns x -1 to 2 and a 9-long one z -4 to 4 (`GenAdj.OccupiedRect`, the game's `all.cs:14627-14631`), so the centreline runs between columns 0 and 1. Each visible node, its place in Def cells, and what its overlay draws **[A, owner to revise]**:
 
@@ -74,7 +74,35 @@ The overlay requests (`seabed-crawler-overlays.json`, written after the pick) us
 
 ## The review
 
-Attempts not yet made. Each attempt's review (camera, silhouette, cut-out, what reads at half size beside the tanker, nothing painted that the framework draws, near-copy result, returned size), the pick, any deviation from the plan and the archive commits are written here the day they are made.
+### The pilot, 11 November 2026 (owner's go at 01:45; agent's review, the owner picks)
+
+**Run:** `art-run.py generate assets/phobos-vehicles/requests/seabed-crawler-pilot.json --stop-at 04:30 --max-usd 0.50 --near-copy-against C:/AI/lora-experiments/vanilla/dataset`. Four attempts, each returned at the requested 1024 x 2048, **US$0.0472 each, US$0.19 in all** (from the returned token counts; the dry run's ceiling was US$0.47). The originals and their per-image records are in `assets/phobos-vehicles/generated/seabed-crawler-body-north/` (ignored on `main`; they go to the art branches with the pick). Run report: `generated/run-20261111-0146.md`.
+
+**Near-copy check, against the game-art set in `C:/AI/lora-experiments/vanilla/dataset`: attempt 2 is flagged** as too close to the game's Hemogen amplifier (`HemogenAmplifier_south.png`), on the outline hash alone (distance 11, the limit is 12; the structure score is 0.28, far under the 0.60 limit). Judged by eye it is a tall rounded silhouette that happens to hash alike, not a copy, **but the rule holds regardless: attempt 2 cannot be picked and stays local, off the public art branches.** Attempts 1, 3 and 4 are clear with room to spare: re-run on this batch alone with the fixed runner below, their nearest game pictures score 0.37 to 0.40 on structure and 25 to 33 on hash distance (limits 0.60 and 12).
+
+**A fault in the runner found by this run, and fixed the same night:** `art-run.py` gave the checker the whole `generated` folder, so it compared every earlier batch again and flagged 38 pictures from other work (hoses, gizmo icons) alongside this one. Those 38 are old findings at the same thresholds, not new ones, and are out of this record's scope. The runner now passes `--only` for each request folder the batch wrote to (`scripts/art/near_copy.py`, `scripts/art-run.py`, with a test), and the checker read through `--only` takes a folder's own images, not its subfolders, so review sheets beside the attempts are left out.
+
+**What all four got right:** straight overhead with no tilt or side faces; the bow at the top; a clean outline on pure white, so the cut-out is easy; the pale casing strip, a sail forward of midships with one orange band and a plane each side, four round thrusters at the flanks, a cross of stern planes around a shrouded propeller; nothing the overlays will draw (no wheels, arm, dome, mast or periscope); the outline weight and cel shading sit well beside the approved tanker. All four read as a submarine at half size.
+
+**The one defect, in all four: the hull is slimmer than asked.** The prompt asked for a hull two fifths as wide as it is long; they came back at 0.24 to 0.28 (measured on the non-white pixels over the after half of the hull). Exported at the footprint length, 9 cells (the export scales to the footprint, as the tanker's 2 x 6 took `--cells-long 6`; the plan's "10" was a mistake, corrected here), that is **2.2 to 2.5 cells of hull and 2.9 to 3.3 cells across the planes, on a footprint 4 cells wide.** The trucks fill their footprints (the tanker's export was 1.96 cells wide on 2), and the owner chose 4 x 9 so the boat feels big, so this matters.
+
+| Attempt | Across the planes, at 9 cells long | Hull alone | Notes |
+| --- | --- | --- | --- |
+| 1 | 2.86 cells | 0.24 of its length | the longest panelled casing; olive planes; the sail sits about a third back as asked; the slimmest |
+| 2 | 3.27 cells | 0.25 | **flagged by the near-copy check, cannot be picked.** The widest silhouette; a big square blue-grey sail with three panels; small stern; a rounded, blunt bow; plainest finish |
+| 3 | 2.91 cells | 0.28 | the fullest hull, egg-shaped; olive-bronze sail and planes; the strongest stern cross; **a few tiny glyph-like marks at the front of the sail** (would be painted out by script) |
+| 4 | 3.12 cells | 0.26 | the neatest sail, chamfered with the orange band set into it; long casing; a propeller with visible blades; the sort step called it a near-duplicate of 1 by silhouette hash, though it looks distinct |
+
+**Two ways to fix the width, for the owner to choose:**
+
+1. **Free: widen the pick by script** to fill the footprint. At 1.35 times across, attempt 3 reaches 3.94 cells and attempt 1 3.87; attempt 4 overshoots to 4.20 and would want about 1.28. A sideways stretch turns round things oval (the thrusters, the propeller): small at 1.25 to 1.35, most visible on attempt 4's bladed propeller. The review sheet shows each attempt as made and widened, on its 5 x 10 canvas with the 4 x 9 footprint outlined and the tanker beside them.
+2. **One paid correction** (rule 7: one targeted correction, then a change of approach): the pick as Image 1 with the role *this hull: keep its layout and finish exactly; make it wider*, and the sentence changed to give a measured width ("the hull's width is 40 percent of its length; at the sail, with the planes, it spans 45 percent of the canvas width"). About US$0.05 an attempt; the result can drift from the pick, as reference edits do.
+
+**Agent's recommendation:** attempt 3 widened 1.35 times by script. It has the fullest hull, so it needs the least stretch for its circles; its stern reads best at half size; and it costs nothing more. Attempt 4 is the runner-up for its neater sail. The owner picks.
+
+**Review sheets** (made by script, not shipped): `crawler-review-native.png` and `crawler-review-half.png`, written to the session's scratch folder and copied beside the originals in `generated/seabed-crawler-body-north/review/`.
+
+The pick, the export, the overlay batch and the archive commits follow here once the owner has chosen.
 
 ## Sources
 
