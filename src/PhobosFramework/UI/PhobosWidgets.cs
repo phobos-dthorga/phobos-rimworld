@@ -115,6 +115,69 @@ public static class PhobosWidgets
         SimpleCurveDrawer.DrawCurves(rect, curves, style);
     }
 
+    /// <summary>One line on a graph: samples oldest first, spread evenly over the graph's hours, with a label and a colour.</summary>
+    public readonly struct GraphSeries
+    {
+        public readonly IReadOnlyList<float> Samples;
+        public readonly string Label;
+        public readonly Color Colour;
+
+        public GraphSeries(IReadOnlyList<float> samples, string label, Color colour)
+        {
+            Samples = samples;
+            Label = label;
+            Colour = colour;
+        }
+    }
+
+    /// <summary>
+    /// Several lines over the same last hours on one graph, on the game's curve drawer, with a small legend above it in each line's colour
+    /// (Framework 0.78.0: the diagnosis report's last day). Each series is spread over the hours by its own count, so a series with fewer
+    /// samples (a vehicle that was away) still ends at now. Draws only what it is given, on the frame; it records nothing.
+    /// </summary>
+    public static void HistoryGraphs(Rect rect, IReadOnlyList<GraphSeries> series, float min, float max, int hours, int capacity, string valueFormat = "0.#")
+    {
+        const float LegendHeight = 18f;
+        var curves = new List<SimpleCurveDrawInfo>();
+        float x = rect.x;
+        using (new TextBlock(GameFont.Tiny, TextAnchor.MiddleLeft))
+        {
+            foreach (GraphSeries line in series)
+            {
+                if (line.Samples.Count < 2) continue;
+                var curve = new SimpleCurve();
+                float hoursPerSample = (float)hours / capacity;
+                for (int i = 0; i < line.Samples.Count; i++)
+                {
+                    curve.Add(new CurvePoint(-(line.Samples.Count - 1 - i) * hoursPerSample, line.Samples[i]), sort: false);
+                }
+                curves.Add(new SimpleCurveDrawInfo { curve = curve, color = line.Colour, label = line.Label, valueFormat = valueFormat });
+                float width = Text.CalcSize(line.Label).x + 18f;
+                Widgets.DrawBoxSolid(new Rect(x, rect.y + 6f, 10f, 6f), line.Colour);
+                Widgets.Label(new Rect(x + 13f, rect.y, width, LegendHeight), line.Label);
+                x += width + 6f;
+            }
+        }
+        if (curves.Count == 0) return;
+        var style = new SimpleCurveDrawerStyle
+        {
+            DrawBackground = true,
+            DrawBackgroundLines = true,
+            DrawMeasures = true,
+            DrawLegend = false,
+            DrawCurveMousePoint = true,
+            UseFixedScale = true,
+            FixedScale = new Vector2(min, max),
+            UseFixedSection = true,
+            FixedSection = new FloatRange(-hours, 0f),
+            UseAntiAliasedLines = true,
+            MeasureLabelsXCount = 4,
+            MeasureLabelsYCount = 3,
+            XIntegersOnly = true,
+        };
+        SimpleCurveDrawer.DrawCurves(new Rect(rect.x, rect.y + LegendHeight, rect.width, rect.height - LegendHeight), curves, style);
+    }
+
     /// <summary>A tachometer as a bar: fill against the redline, green to the rated speed and red past it.</summary>
     public static void Tachometer(Rect rect, float rpm, float rated, float redlineShare = 1.1f, string? label = null, string? figure = null)
     {

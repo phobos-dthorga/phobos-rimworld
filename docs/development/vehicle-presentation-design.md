@@ -7,6 +7,13 @@ anything "strikingly visual and playful" would be of high benefit. This is the r
 proposal answers for itself (what it lets the player do, stops them doing, and changes), figures and costs are the agent's and labelled,
 and the owner's call is asked at the end.
 
+**Status, 11 Nov 2026:** the owner agreed with every lean below. **Built in Framework 0.78.0** (not yet tested in game): P1 steps one and
+two together (the coloured letter and the report window), G1 (the last-day graphs, temperatures and levels as two graphs rather than one,
+so each keeps its own scale) and P7a in the report window only (the Health tab and the fleet board's tooltip are still to come). Batch A
+is generated (18 pictures, about US$0.98 spent, under the US$2.50 estimate) and waits for the owner's picks; the letter keeps the game's
+letter picture until then. The damage sheet draws Vehicle Framework's picture through reflection: a 1.7 build cannot call its methods
+that take Unity types directly.
+
 ## Read this first
 
 - **Recommendation, in five lines.** Turn the diagnosis into a proper report window with the vehicle's picture, coloured gauges and one
@@ -257,7 +264,10 @@ Each step says "not yet tested in game" until the owner says otherwise.
 
 - **Owner (11 Nov 2026):** the purview (visual improvement of the diagnosis and other areas at the agent's suggestion); art through the
   API is acceptable; the two questions on graphs and on strikingly visual, high-benefit pieces.
+- **Owner (11 Nov 2026, later):** "Agreed with all your leans", and the go for P1 steps one and two.
 - **Agent:** everything proposed, the ranking, every cost figure and lean, and the arguments against. All for the owner to revise.
+  While building 0.78.0 (agent choices): two graphs instead of one; the graphs follow the gauges marked for the Dashboard rather than a
+  named list, so any system's Def adds its own; a cell on the damage sheet shows the worst part covering it; line colours authored.
 
 ## Sources
 

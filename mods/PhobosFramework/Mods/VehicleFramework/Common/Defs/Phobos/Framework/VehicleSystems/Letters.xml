@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- A diagnosis report (Framework 0.78.0): a neutral letter, coloured and sounding as the game's own NeutralEvent, that opens as a report
+       window. Its icon is the game's default letter picture until a picture of our own is picked. -->
+  <LetterDef>
+    <defName>PhobosVehicleSystems_DiagnosisReport</defName>
+    <letterClass>Phobos.VehicleSystems.Letter_PhobosReport</letterClass>
+    <color>(175, 176, 185)</color>
+    <flashColor>(160, 170, 180)</flashColor>
+    <flashInterval>90</flashInterval>
+    <arriveSound>LetterArrive</arriveSound>
+  </LetterDef>
+</Defs>

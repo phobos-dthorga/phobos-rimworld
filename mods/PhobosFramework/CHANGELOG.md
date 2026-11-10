@@ -5,7 +5,30 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
-## [0.77.1] - 2026-11-11 - Draft
+## [0.78.0] - 2026-11-11 - Draft
+
+A diagnosis becomes a report you can look at (owner, 11 November 2026: steps one and two of the presentation record, with its first graph and the damage sheet). **Not yet tested in game.**
+
+### Added
+
+- **The diagnosis letter opens as a report window.** On the left, the vehicle's own picture seen from above with every hurt part's cells tinted by its health, green to amber to red, like a hire car's damage diagram; who looked it over and when, its rated power and its tunes; Jump to and Close. On the right, the parts worst first with a health bar each, the readings grouped under their system with the dashboard's warning pictures and colours, and the faults. Hover a part's row and its cells are outlined on the picture; hover the picture and the part's row lights.
+- **The last day of the gauges** in the report, for those who read figures (Operator and Engineer display modes): one graph of the temperatures, in your temperature unit, and one of the levels as their gauges read them, each line in its own colour with a small legend. It shows how the vehicle was treated, not only where it stands now.
+- The report is taken once, when the mechanic finishes, and saved with the letter, so opening it again later (from the letter stack or the archive) shows what was found on the day.
+- For modders: PhobosWidgets.HistoryGraphs draws several lines over the same hours on one graph; Letter_PhobosReport and the LetterDef PhobosVehicleSystems_DiagnosisReport carry a saved report to a window of its own.
+
+### Changed
+
+- **The letter's text is coloured as the tabs are**: section titles in the game's heading colour, each part's health by its share, a reading's stage and a fault amber or red by how bad it is, and readings listed under their system's name. In the Plain display mode it stays words only, as before.
+
+### Compatibility and limits
+
+- The picture is Vehicle Framework's own, drawn through its interface for pictures; if that ever fails, the report shows the tinted cells without the picture and writes one warning to the log. Where a part's cells sit on the picture is worked out from the vehicle's size and drawn size, so a vehicle drawn much larger than its footprint, or off-centre, may show its cells slightly off. Not yet seen in game.
+- Graphs need a day's recording to fill: a vehicle diagnosed soon after loading an older save shows a short line, or none.
+- No new pictures yet: the letter keeps the game's own letter picture. The batch of new button and item pictures waits for the owner's picks.
+
+### Save compatibility
+
+- Safe on an existing save. Diagnosis letters received before this version open as before, as text. Going back to an older version with a report letter in the save is untested: the game would most likely drop that letter with an error. - 2026-11-11 - Draft
 
 A tidier diagnosis. **Diagnose tested in game by the owner, 11 November 2026, on 0.73.0 to 0.77.0: the letter arrives and lists every part and reading; this change is not yet tested.**
 

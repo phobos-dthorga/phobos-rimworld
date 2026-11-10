@@ -1,0 +1,209 @@
+[
+  {
+    "name": "button-diagnose",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      1,
+      2
+    ],
+    "references": [
+      {
+        "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Service.png",
+        "role": "our approved command button icon from the same family (the service spanner): match its outline weight, shading, palette and finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "button": "the Diagnose command on every vehicle (Framework 0.75.0 on); it borrows the tuning rig's picture today",
+      "size": "drawn by the game at 64 to 75 px in the command bar; requested at 1024",
+      "this_request": "presentation batch A (docs/development/vehicle-presentation-design.md), two attempts at the owner's word (11 Nov 2026); the pilot"
+    },
+    "prompt": "GAME BUTTON ICON. One single object seen from the front, centred, flat on the canvas, like a button picture in a strategy game's command bar.\n\nCreate an ORIGINAL game button icon for the D'thorga diagnose button: a mechanic's check of a whole vehicle. Image 1 is our approved button icon from the same family: match its outline weight, shading, palette and finish only. Do NOT copy its shape.\n\nDraw ONLY the object, alone on a plain pure white background, filling about 80 percent of the canvas. Square canvas.\n\nA steel clipboard holding one sheet with three short grey lines, each with a bold green tick mark beside it, and a round magnifying glass with a dark handle laid diagonally over the lower corner of the sheet.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art. It must read clearly when shrunk to 64 pixels: one or two big shapes, very few small ones.\n\nNo people, hands, animals, vehicles, text, letters, numbers, logos, screens, dust, floor, ground or cast shadow."
+  },
+  {
+    "name": "button-jumpstart",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      1,
+      2
+    ],
+    "references": [
+      {
+        "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Service.png",
+        "role": "our approved command button icon from the same family (the service spanner): match its outline weight, shading, palette and finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "button": "the jump-start command (JumpStart.cs); it borrows the jump-start kit's or booster pack's item picture today",
+      "size": "drawn by the game at 64 to 75 px in the command bar; requested at 1024",
+      "this_request": "presentation batch A (docs/development/vehicle-presentation-design.md), two attempts at the owner's word (11 Nov 2026)"
+    },
+    "prompt": "GAME BUTTON ICON. One single object seen from the front, centred, flat on the canvas, like a button picture in a strategy game's command bar.\n\nCreate an ORIGINAL game button icon for the D'thorga jump-start button. Image 1 is our approved button icon from the same family: match its outline weight, shading, palette and finish only. Do NOT copy its shape.\n\nDraw ONLY the object, alone on a plain pure white background, filling about 80 percent of the canvas. Square canvas.\n\nA pair of heavy jumper cable clamps, one red and one black, their jaws facing each other, with a short bright yellow spark leaping between the jaws.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art. It must read clearly when shrunk to 64 pixels: one or two big shapes, very few small ones.\n\nNo people, hands, animals, vehicles, text, letters, numbers, logos, screens, dust, floor, ground or cast shadow."
+  },
+  {
+    "name": "item-tyre-set",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      1,
+      2
+    ],
+    "references": [
+      {
+        "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/Vehicles/Parts/DrivetrainKit.png",
+        "role": "our approved vehicle part icon from the same family (a drivetrain kit): match its outline weight, shading, palette and finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "item": "PhobosVehicles_TyreSet (ServiceKits.xml); borrows the drivetrain kit's picture today",
+      "size": "drawn at the game's 64 px item size; requested at 16 times that",
+      "this_request": "presentation batch A (docs/development/vehicle-presentation-design.md), two attempts at the owner's word (11 Nov 2026)"
+    },
+    "prompt": "GAME ITEM ICON. Camera above the object looking down at about sixty degrees, the way the game RimWorld draws loose items on the floor. One single object or one tidy bundle, centred, with its long axis level.\n\nCreate an ORIGINAL game item sprite for the D'thorga tyre set: a set of vehicle tyres. Image 1 is our approved vehicle part from the same family: match its outline weight, shading, palette and finish only. Do NOT copy its shape.\n\nDraw ONLY the tyres, alone on a plain pure white background, filling about 75 percent of the canvas. Square canvas.\n\nTwo thick black off-road truck tyres lying flat, one stacked on the other, chunky tread blocks, pale steel wheel rims, held together by one muted orange ratchet strap.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art. It must read clearly when shrunk to 64 pixels: three big shapes, few small ones.\n\nNo people, hands, animals, vehicles, text, letters, numbers, logos, dials, dust, floor, ground or cast shadow."
+  },
+  {
+    "name": "item-brake-pad-set",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      1,
+      2
+    ],
+    "references": [
+      {
+        "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/Vehicles/Parts/DrivetrainKit.png",
+        "role": "our approved vehicle part icon from the same family (a drivetrain kit): match its outline weight, shading, palette and finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "item": "PhobosVehicles_BrakePadSet (ServiceKits.xml); borrows the transmission's picture today",
+      "size": "drawn at the game's 64 px item size; requested at 16 times that",
+      "this_request": "presentation batch A (docs/development/vehicle-presentation-design.md), two attempts at the owner's word (11 Nov 2026)"
+    },
+    "prompt": "GAME ITEM ICON. Camera above the object looking down at about sixty degrees, the way the game RimWorld draws loose items on the floor. One single object or one tidy bundle, centred, with its long axis level.\n\nCreate an ORIGINAL game item sprite for the D'thorga brake pad set: replacement brakes for a truck. Image 1 is our approved vehicle part from the same family: match its outline weight, shading, palette and finish only. Do NOT copy its shape.\n\nDraw ONLY the brake disc and pads, alone on a plain pure white background, filling about 75 percent of the canvas. Square canvas.\n\nA pale drilled steel brake disc lying flat, with two curved dark grey brake pads with steel backing plates leaning against its edge, and one small muted orange brake caliper beside them.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art. It must read clearly when shrunk to 64 pixels: three big shapes, few small ones.\n\nNo people, hands, animals, vehicles, text, letters, numbers, logos, dials, dust, floor, ground or cast shadow."
+  },
+  {
+    "name": "item-engine-service-kit",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      1,
+      2
+    ],
+    "references": [
+      {
+        "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/Vehicles/Parts/DrivetrainKit.png",
+        "role": "our approved vehicle part icon from the same family (a drivetrain kit): match its outline weight, shading, palette and finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "item": "PhobosVehicles_ServiceKit (ServiceKits.xml); borrows the electrical kit's picture today",
+      "size": "drawn at the game's 64 px item size; requested at 16 times that",
+      "this_request": "presentation batch A (docs/development/vehicle-presentation-design.md), two attempts at the owner's word (11 Nov 2026)"
+    },
+    "prompt": "GAME ITEM ICON. Camera above the object looking down at about sixty degrees, the way the game RimWorld draws loose items on the floor. One single object or one tidy bundle, centred, with its long axis level.\n\nCreate an ORIGINAL game item sprite for the D'thorga engine service kit: oil and filters for a routine service. Image 1 is our approved vehicle part from the same family: match its outline weight, shading, palette and finish only. Do NOT copy its shape.\n\nDraw ONLY the tray of service parts, alone on a plain pure white background, filling about 75 percent of the canvas. Square canvas.\n\nA squat dusty olive oil jerrycan with a short spout, a cylindrical muted orange oil filter standing beside it, and a folded pale grey rag in front, all on a small shallow steel tray.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art. It must read clearly when shrunk to 64 pixels: three big shapes, few small ones.\n\nNo people, hands, animals, vehicles, text, letters, numbers, logos, dials, dust, floor, ground or cast shadow."
+  },
+  {
+    "name": "item-drive-belt",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      1,
+      2
+    ],
+    "references": [
+      {
+        "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/Vehicles/Parts/DrivetrainKit.png",
+        "role": "our approved vehicle part icon from the same family (a drivetrain kit): match its outline weight, shading, palette and finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "item": "PhobosVehicles_DriveBelt (ServiceKits.xml); borrows the engine assembly's picture today",
+      "size": "drawn at the game's 64 px item size; requested at 16 times that",
+      "this_request": "presentation batch A (docs/development/vehicle-presentation-design.md), two attempts at the owner's word (11 Nov 2026)"
+    },
+    "prompt": "GAME ITEM ICON. Camera above the object looking down at about sixty degrees, the way the game RimWorld draws loose items on the floor. One single object or one tidy bundle, centred, with its long axis level.\n\nCreate an ORIGINAL game item sprite for the D'thorga drive belt: a spare engine belt. Image 1 is our approved vehicle part from the same family: match its outline weight, shading, palette and finish only. Do NOT copy its shape.\n\nDraw ONLY the belt, alone on a plain pure white background, filling about 75 percent of the canvas. Square canvas.\n\nOne long black ribbed rubber engine belt coiled into a loose figure-eight loop, with a small pale steel pulley wheel lying inside one loop.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art. It must read clearly when shrunk to 64 pixels: three big shapes, few small ones.\n\nNo people, hands, animals, vehicles, text, letters, numbers, logos, dials, dust, floor, ground or cast shadow."
+  },
+  {
+    "name": "category-vehicle-parts",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      1,
+      2
+    ],
+    "references": [
+      {
+        "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/Vehicles/Parts/DrivetrainKit.png",
+        "role": "our approved vehicle part icon from the same family (a drivetrain kit): match its outline weight, shading, palette and finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "item": "the storage category PhobosCategory_VehicleParts (ThingCategories.xml); borrows the engine assembly today; shown at about 24 px in storage lists",
+      "size": "drawn at the game's 64 px item size; requested at 16 times that",
+      "this_request": "presentation batch A (docs/development/vehicle-presentation-design.md), two attempts at the owner's word (11 Nov 2026)"
+    },
+    "prompt": "GAME ITEM ICON. Camera above the object looking down at about sixty degrees, the way the game RimWorld draws loose items on the floor. One single object or one tidy bundle, centred, with its long axis level.\n\nCreate an ORIGINAL game item sprite for the D'thorga vehicle parts category icon. Image 1 is our approved vehicle part from the same family: match its outline weight, shading, palette and finish only. Do NOT copy its shape.\n\nDraw ONLY the gear and spanner, alone on a plain pure white background, filling about 75 percent of the canvas. Square canvas.\n\nA single chunky steel gear wheel with a dark spanner crossed over it.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art. It must read clearly when shrunk to 64 pixels: three big shapes, few small ones.\n\nNo people, hands, animals, vehicles, text, letters, numbers, logos, dials, dust, floor, ground or cast shadow."
+  },
+  {
+    "name": "category-clinical-supplies",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      1,
+      2
+    ],
+    "references": [
+      {
+        "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/Vehicles/Parts/DrivetrainKit.png",
+        "role": "our approved vehicle part icon from the same family (a drivetrain kit): match its outline weight, shading, palette and finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "item": "D'thorga Medical's storage category PhobosCategory_ClinicalSupplies; borrows the fluids kit picture today; shown at about 24 px in storage lists",
+      "size": "drawn at the game's 64 px item size; requested at 16 times that",
+      "this_request": "presentation batch A (docs/development/vehicle-presentation-design.md), two attempts at the owner's word (11 Nov 2026)"
+    },
+    "prompt": "GAME ITEM ICON. Camera above the object looking down at about sixty degrees, the way the game RimWorld draws loose items on the floor. One single object or one tidy bundle, centred, with its long axis level.\n\nCreate an ORIGINAL game item sprite for the D'thorga clinical supplies category icon. Image 1 is our approved vehicle part from the same family: match its outline weight, shading, palette and finish only. Do NOT copy its shape.\n\nDraw ONLY the box and bandage, alone on a plain pure white background, filling about 75 percent of the canvas. Square canvas.\n\nA small pale first-aid box with a plain green cross on the lid, its lid half open, one rolled white bandage beside it.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art. It must read clearly when shrunk to 64 pixels: three big shapes, few small ones.\n\nNo people, hands, animals, vehicles, text, letters, numbers, logos, dials, dust, floor, ground or cast shadow."
+  },
+  {
+    "name": "category-medical-equipment",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      1,
+      2
+    ],
+    "references": [
+      {
+        "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/Vehicles/Parts/DrivetrainKit.png",
+        "role": "our approved vehicle part icon from the same family (a drivetrain kit): match its outline weight, shading, palette and finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "item": "D'thorga Medical's storage category PhobosCategory_MedicalEquipment; borrows the oxygen concentrator today; shown at about 24 px in storage lists",
+      "size": "drawn at the game's 64 px item size; requested at 16 times that",
+      "this_request": "presentation batch A (docs/development/vehicle-presentation-design.md), two attempts at the owner's word (11 Nov 2026)"
+    },
+    "prompt": "GAME ITEM ICON. Camera above the object looking down at about sixty degrees, the way the game RimWorld draws loose items on the floor. One single object or one tidy bundle, centred, with its long axis level.\n\nCreate an ORIGINAL game item sprite for the D'thorga medical equipment category icon. Image 1 is our approved vehicle part from the same family: match its outline weight, shading, palette and finish only. Do NOT copy its shape.\n\nDraw ONLY the monitor, alone on a plain pure white background, filling about 75 percent of the canvas. Square canvas.\n\nA compact pale grey bedside medical monitor on a short stand, with a plain dark screen showing one bright green heartbeat line, and one coiled cable.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art. It must read clearly when shrunk to 64 pixels: three big shapes, few small ones.\n\nNo people, hands, animals, vehicles, text, letters, numbers, logos, dials, dust, floor, ground or cast shadow."
+  }
+]
