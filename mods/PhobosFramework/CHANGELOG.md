@@ -5,6 +5,14 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.66.1] - 2026-11-10 - Draft
+
+A fix from the owner's test. **Not yet tested in game.**
+
+### Fixed
+
+- **The dev menu no longer throws an error on "Vehicle systems: hit a part"**, nor on setting a quantity, giving a part condition, toggling a load or spawning a submersible. The game builds such a menu once, the first time it is opened, so opened with nothing selected it had nothing in it and failed, and opened with one vehicle selected it kept that vehicle's parts for every later one. Each now offers its choices for whatever is selected at the moment of the click, and says to select a vehicle when nothing suitable is. Dev mode only.
+
 ## [0.66.0] - 2026-11-10 - Draft
 
 Research that can only be done aboard (owner, 10 November 2026). **Not yet tested in game.**

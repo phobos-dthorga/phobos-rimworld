@@ -32,16 +32,13 @@ public static class VehicleSystemsDebugActions
 
     /// <summary>A submersible with a crew at the clicked cell, for trying one out: a dive needs deep water, and a design may not be buildable.</summary>
     [DebugAction(DebugCategory.Name, "Vehicle systems: spawn a submersible", allowedGameStates = AllowedGameStates.PlayingOnMap)]
-    static List<DebugActionNode> SpawnSubmersible()
-    {
-        var nodes = new List<DebugActionNode>();
-        foreach (VehicleDef def in DefDatabase<VehicleDef>.AllDefs.Where(d => d.GetCompProperties<CompProperties_PhobosSubmersible>() != null))
-        {
-            VehicleDef chosen = def;
-            nodes.Add(new DebugActionNode(def.defName, DebugActionType.ToolMap, () => VehicleSpawner.SpawnVehicleRandomized(chosen, UI.MouseCell(), Find.CurrentMap, Faction.OfPlayer, Rot4.North, autoFill: true)));
-        }
-        return nodes;
-    }
+    static void SpawnSubmersible() =>
+        DebugChoices.Open(DefDatabase<VehicleDef>.AllDefs.Where(d => d.GetCompProperties<CompProperties_PhobosSubmersible>() != null)
+            .Select(def => DebugChoices.Choice(def.defName, () => DebugTools.curTool = new DebugTool("Spawn " + def.defName,
+                () => VehicleSpawner.SpawnVehicleRandomized(def, UI.MouseCell(), Find.CurrentMap, Faction.OfPlayer, Rot4.North, autoFill: true)))),
+            "No submersible design is loaded.");
+
+    const string SelectAVehicle = "Select a vehicle with vehicle systems first.";
 
     /// <summary>Leaves the selected submersibles a few minutes of reserve, so a forced return to the surface can be seen without waiting hours.</summary>
     [DebugAction(DebugCategory.Name, "Vehicle systems: nearly empty a submersible", allowedGameStates = AllowedGameStates.PlayingOnMap)]
@@ -59,66 +56,59 @@ public static class VehicleSystemsDebugActions
     }
 
     [DebugAction(DebugCategory.Name, "Vehicle systems: set a quantity", allowedGameStates = AllowedGameStates.PlayingOnMap)]
-    static List<DebugActionNode> SetQuantity()
+    static void SetQuantity()
     {
-        var nodes = new List<DebugActionNode>();
         CompPhobosVehicleSystems? first = Selected().FirstOrDefault();
-        if (first == null) return nodes;
-        foreach (SystemState state in first.States)
+        var choices = new List<FloatMenuOption>();
+        if (first != null)
         {
-            foreach (QuantitySpec quantity in state.Def.quantities.Where(q => !q.Derived))
+            foreach (SystemState state in first.States)
             {
-                var node = new DebugActionNode(state.Def.defName + " / " + quantity.name);
-                foreach (float share in new[] { 0f, 0.25f, 0.5f, 0.75f, 1f })
+                foreach (QuantitySpec quantity in state.Def.quantities.Where(q => !q.Derived))
                 {
-                    float value = quantity.min + (quantity.max - quantity.min) * share;
-                    string name = quantity.name;
-                    node.AddChild(new DebugActionNode(value.ToString("0.##"), DebugActionType.Action, () =>
+                    QuantitySpec captured = quantity;
+                    choices.Add(DebugChoices.Submenu(state.Def.defName + " / " + quantity.name, () => new[] { 0f, 0.25f, 0.5f, 0.75f, 1f }.Select(share =>
                     {
-                        foreach (CompPhobosVehicleSystems comp in Selected())
+                        float value = captured.min + (captured.max - captured.min) * share;
+                        return DebugChoices.Choice(value.ToString("0.##"), () =>
                         {
-                            comp.SetQuantity(name, value);
-                            comp.UpdateNow();
-                        }
-                    }));
+                            foreach (CompPhobosVehicleSystems comp in Selected())
+                            {
+                                comp.SetQuantity(captured.name, value);
+                                comp.UpdateNow();
+                            }
+                        });
+                    }), SelectAVehicle));
                 }
-                nodes.Add(node);
             }
         }
-        return nodes;
+        DebugChoices.Open(choices, SelectAVehicle);
     }
 
     /// <summary>Gives the selected vehicles' part of a role a condition at a severity, so each stage can be seen without arranging a
     /// hit or a cause; a severity of 0 removes it.</summary>
     [DebugAction(DebugCategory.Name, "Vehicle systems: give a part condition", allowedGameStates = AllowedGameStates.PlayingOnMap)]
-    static List<DebugActionNode> GiveCondition()
+    static void GiveCondition()
     {
-        var nodes = new List<DebugActionNode>();
         CompPhobosVehicleSystems? first = Selected().FirstOrDefault();
-        if (first == null) return nodes;
-        foreach (PhobosVehicleConditionDef def in DefDatabase<PhobosVehicleConditionDef>.AllDefsListForReading)
+        var choices = new List<FloatMenuOption>();
+        if (first != null)
         {
-            var conditionNode = new DebugActionNode(def.defName);
-            foreach (string role in first.Props.roleKeys.Keys)
+            List<string> roles = first.Props.roleKeys.Keys.ToList();
+            foreach (PhobosVehicleConditionDef def in DefDatabase<PhobosVehicleConditionDef>.AllDefsListForReading)
             {
-                var roleNode = new DebugActionNode(role);
-                foreach (float severity in new[] { 0f, 0.2f, 0.5f, 0.8f, 1f })
-                {
-                    PhobosVehicleConditionDef capturedDef = def;
-                    string capturedRole = role;
-                    roleNode.AddChild(new DebugActionNode(severity.ToString("0.#"), DebugActionType.Action, () =>
+                PhobosVehicleConditionDef capturedDef = def;
+                choices.Add(DebugChoices.Submenu(def.defName, () => roles.Select(role => DebugChoices.Submenu(role, () =>
+                    new[] { 0f, 0.2f, 0.5f, 0.8f, 1f }.Select(severity => DebugChoices.Choice(severity.ToString("0.#"), () =>
                     {
                         foreach (CompPhobosVehicleSystems comp in Selected())
                         {
-                            Log.Message(VehicleSystemsMod.LogPrefix + " " + comp.DebugSetCondition(capturedRole, capturedDef, severity));
+                            Log.Message(VehicleSystemsMod.LogPrefix + " " + comp.DebugSetCondition(role, capturedDef, severity));
                         }
-                    }));
-                }
-                conditionNode.AddChild(roleNode);
+                    })), SelectAVehicle)), "The selected vehicle has no parts with roles."));
             }
-            nodes.Add(conditionNode);
         }
-        return nodes;
+        DebugChoices.Open(choices, SelectAVehicle);
     }
 
     [DebugAction(DebugCategory.Name, "Vehicle systems: request a service", allowedGameStates = AllowedGameStates.PlayingOnMap)]
@@ -137,15 +127,14 @@ public static class VehicleSystemsDebugActions
     /// <summary>A 20-point hit on a role's first part through Vehicle Framework's own damage path (which Combat Extended prefixes),
     /// so the part-hit rules can be checked with and without CE.</summary>
     [DebugAction(DebugCategory.Name, "Vehicle systems: hit a part", allowedGameStates = AllowedGameStates.PlayingOnMap)]
-    static List<DebugActionNode> HitPart()
+    static void HitPart()
     {
-        var nodes = new List<DebugActionNode>();
         CompPhobosVehicleSystems? first = Selected().FirstOrDefault();
-        if (first == null) return nodes;
-        foreach (string role in first.Props.roleKeys.Keys)
+        var choices = new List<FloatMenuOption>();
+        foreach (string role in first?.Props.roleKeys.Keys ?? Enumerable.Empty<string>())
         {
             string captured = role;
-            nodes.Add(new DebugActionNode(role, DebugActionType.Action, () =>
+            choices.Add(DebugChoices.Choice(role, () =>
             {
                 foreach (CompPhobosVehicleSystems comp in Selected())
                 {
@@ -159,7 +148,7 @@ public static class VehicleSystemsDebugActions
                 }
             }));
         }
-        return nodes;
+        DebugChoices.Open(choices, SelectAVehicle);
     }
 
     [DebugAction(DebugCategory.Name, "Vehicle systems: log part health memory", allowedGameStates = AllowedGameStates.PlayingOnMap)]
@@ -203,15 +192,14 @@ public static class VehicleSystemsDebugActions
     }
 
     [DebugAction(DebugCategory.Name, "Vehicle systems: toggle a load", allowedGameStates = AllowedGameStates.PlayingOnMap)]
-    static List<DebugActionNode> ToggleLoad()
+    static void ToggleLoad()
     {
-        var nodes = new List<DebugActionNode>();
         CompPhobosVehicleSystems? first = Selected().FirstOrDefault();
-        if (first?.Props.loadout == null) return nodes;
-        foreach (ElectricalLoadSpec load in first.Props.loadout.loads.Where(l => l.toggle))
+        var choices = new List<FloatMenuOption>();
+        foreach (ElectricalLoadSpec load in first?.Props.loadout?.loads.Where(l => l.toggle) ?? Enumerable.Empty<ElectricalLoadSpec>())
         {
             ElectricalLoadSpec captured = load;
-            nodes.Add(new DebugActionNode(load.name, DebugActionType.Action, () =>
+            choices.Add(DebugChoices.Choice(load.name, () =>
             {
                 foreach (CompPhobosVehicleSystems comp in Selected())
                 {
@@ -222,7 +210,7 @@ public static class VehicleSystemsDebugActions
                 }
             }));
         }
-        return nodes;
+        DebugChoices.Open(choices, first == null ? SelectAVehicle : "The selected vehicle has no switchable loads.");
     }
 
     [DebugAction(DebugCategory.Name, "Vehicle systems: give a jump-start kit", allowedGameStates = AllowedGameStates.PlayingOnMap)]
