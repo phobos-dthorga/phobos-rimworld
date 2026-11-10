@@ -8,6 +8,9 @@ namespace Phobos.Medical.Comps;
 /// <summary>A carbon monoxide and smoke alarm. Other mods can add alarms with this in XML.</summary>
 public class CompProperties_PhobosGasAlarm : CompProperties
 {
+    /// <summary>Plays once when it starts to warn (owner, 11 Nov 2026: a soft tone); null for silence.</summary>
+    public SoundDef? sound;
+
     public CompProperties_PhobosGasAlarm() => compClass = typeof(CompPhobosGasAlarm);
 }
 
@@ -15,6 +18,8 @@ public class CompPhobosGasAlarm : ThingComp
 {
     /// <summary>What it sounds for. Derived from the air, so never saved: after a load it warns again if the air is still bad.</summary>
     AlarmGases sounding;
+
+    public CompProperties_PhobosGasAlarm Props => (CompProperties_PhobosGasAlarm)props;
 
     public override void CompTickRare()
     {

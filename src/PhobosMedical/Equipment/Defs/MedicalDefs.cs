@@ -95,6 +95,8 @@ public class PhobosPatientDeviceExtension : DefModExtension
     public int refreshTicks = 250;
     /// <summary>The doctor's Medicine skill this device needs; 0 for any doctor.</summary>
     public int minMedicineSkill;
+    /// <summary>The sound of using it: once as a kit is fitted, or looping while a sustained device is worked; null for silence.</summary>
+    public SoundDef? useSound;
 
     public override System.Collections.Generic.IEnumerable<string> ConfigErrors()
     {

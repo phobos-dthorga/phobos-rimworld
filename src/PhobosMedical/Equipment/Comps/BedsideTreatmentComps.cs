@@ -3,6 +3,7 @@ using Phobos.Medical.Rules;
 using Phobos.Medical.Services;
 using RimWorld;
 using Verse;
+using Phobos.Framework.Sounds;
 
 namespace Phobos.Medical.Comps;
 
@@ -19,6 +20,8 @@ public class CompProperties_PhobosBedsideTreatment : CompProperties
     public float fuelPerPatientHour;
     /// <summary>The start of its inspect text keys: the status's name is added (SwitchedOff, NoFuel, Waiting, Treating, NotNeeded).</summary>
     public string statusKeyPrefix = "";
+    /// <summary>Loops while it treats anyone (the nebuliser's compressor); null for silence.</summary>
+    public SoundDef? workingSound;
 
     public CompProperties_PhobosBedsideTreatment() => compClass = typeof(CompPhobosBedsideTreatment);
 
@@ -36,6 +39,7 @@ public class CompPhobosBedsideTreatment : ThingComp
 
     /// <summary>Its last pass, for the inspect text. Derived, so never saved.</summary>
     TreatmentPass pass = TreatmentPass.None;
+    readonly SustainedSound working = new();
 
     public CompProperties_PhobosBedsideTreatment Props => (CompProperties_PhobosBedsideTreatment)props;
     public CompFacility? Facility => parent.TryGetComp<CompFacility>();
@@ -45,6 +49,13 @@ public class CompPhobosBedsideTreatment : ThingComp
     {
         base.CompTickRare();
         pass = BedsideTreatmentService.Supply(this, RareTickInterval);
+        working.Set(Props.workingSound, pass.Treated.Count > 0, parent);
+    }
+
+    public override void PostDeSpawn(Map map, DestroyMode mode = DestroyMode.Vanish)
+    {
+        working.End();
+        base.PostDeSpawn(map, mode);
     }
 
     public override string CompInspectStringExtra()

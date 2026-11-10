@@ -124,5 +124,12 @@
       <li>acutus.AtmosphereOverhaul.release</li>
       <li>Garwel.Celsius</li>
     </perCellTemperatureMods>
+    <!-- Another mod's cough: a SoundDef whose name holds one of these words, or one of these mods active, stands our coughs down (owner,
+         11 Nov 2026: never double up with another audio mod). None of the owner's mods had one when checked (11 Nov 2026). Add others here. -->
+    <coughSoundWords>
+      <li>Cough</li>
+      <li>Wheez</li>
+    </coughSoundWords>
+    <coughSoundMods />
   </Phobos.BurnsAndSmoke.Defs.PhobosBurnRulesDef>
 </Defs>

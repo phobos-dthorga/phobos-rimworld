@@ -307,6 +307,16 @@
         <idleSound>PhobosVehicles_TipperEngineIdle</idleSound>
         <loadSound>PhobosVehicles_TipperEngineLoad</loadSound>
       </li>
+      <!-- Its work: the rams while tipping, the load sliding out by body (the first that applies plays), the tailgate. -->
+      <li Class="Phobos.VehicleSystems.PhobosVehicleSoundsExtension">
+        <sounds>
+          <li><key>Rams</key><sound>PhobosVehicles_TipperRams</sound></li>
+          <li><key>Slide</key><sound>PhobosVehicles_TipperSlideRock</sound><node>RockBody</node></li>
+          <li><key>Slide</key><sound>PhobosVehicles_TipperSlideBulk</sound><node>BulkBody</node></li>
+          <li><key>Slide</key><sound>PhobosVehicles_TipperSlide</sound></li>
+          <li><key>Tailgate</key><sound>PhobosVehicles_TipperTailgate</sound></li>
+        </sounds>
+      </li>
     </modExtensions>
     <comps>
       <li Class="Vehicles.CompProperties_FueledTravel">

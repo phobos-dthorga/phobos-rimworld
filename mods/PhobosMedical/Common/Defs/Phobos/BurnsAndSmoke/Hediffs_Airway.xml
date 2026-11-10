@@ -21,6 +21,10 @@
         <plateauEndHours>24</plateauEndHours>
         <resolveHours>48</resolveHours>
       </li>
+      <li Class="Phobos.BurnsAndSmoke.Comps.HediffCompProperties_PhobosCough">
+        <sound>PhobosMedical_CoughWheeze</sound>
+        <mtbHoursAtFull>2</mtbHoursAtFull>
+      </li>
     </comps>
     <stages>
       <li>

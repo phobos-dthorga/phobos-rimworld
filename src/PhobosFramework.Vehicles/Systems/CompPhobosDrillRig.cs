@@ -80,7 +80,10 @@ public sealed class CompPhobosDrillRig : CompPhobosRigWork
     public override JobDef WorkJob => RigDefOf.PhobosVehicleSystems_Drill;
     public override SkillDef WorkSkill => SkillDefOf.Mining;
     public override float LearnPerTick => 0.065f;
-    public override EffecterDef? WorkEffect => EffecterDefOf.Drill;
+    /// <summary>The game's drill, or only its dust when the rig has its own drilling sound.</summary>
+    public override EffecterDef? WorkEffect => VehicleWorkSounds.Find(Vehicle, "Work") != null ? VehicleWorkEffecterDefOf.PhobosVehicleSystems_DrillDust : EffecterDefOf.Drill;
+    static readonly string[] ElectricKeys = { "WorkElectric", "Work" };
+    protected override string[] WorkSoundKeys => ElectricNow ? ElectricKeys : base.WorkSoundKeys;
     public override string SetUpDescription => "PhobosVehicleSystems_RigGizmoSetUpDesc".Translate().Resolve();
     public override string PackUpDescription => "PhobosVehicleSystems_RigGizmoPackUpDesc".Translate().Resolve();
 
@@ -260,10 +263,12 @@ public sealed class CompPhobosDrillRig : CompPhobosRigWork
         IntVec3 hole = Hole;
         CellRect footprint = Vehicle.OccupiedRect();
         GenPlace.TryPlaceThing(thing, hole, map, ThingPlaceMode.Near, null, p => p != hole && !footprint.Contains(p));
+        VehicleWorkSounds.Play(Vehicle, "Portion");
         Find.HistoryEventsManager.RecordEvent(new HistoryEvent(HistoryEventDefOf.Mined, worker.Named(HistoryEventArgsNames.Doer)));
         ReadNext();
         if (!isOre || orePresent) return;
         ThingDef? bedrock = DeepDrillUtility.GetBaseResource(map, hole);
+        VehicleWorkSounds.Play(Vehicle, "Spent");
         Tell(bedrock != null ? "PhobosVehicleSystems_RigSpent".Translate().Resolve() : "PhobosVehicleSystems_RigSpentNothing".Translate().Resolve(), MessageTypeDefOf.TaskCompletion);
     }
 

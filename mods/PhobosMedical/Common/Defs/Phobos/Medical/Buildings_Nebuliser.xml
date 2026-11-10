@@ -81,6 +81,7 @@ It does not repair damaged lungs or clear carbon monoxide.</description>
         <!-- A vial lasts about four in-game hours of treatment (authored). -->
         <fuelPerPatientHour>0.25</fuelPerPatientHour>
         <statusKeyPrefix>PhobosMedical_Nebuliser</statusKeyPrefix>
+        <workingSound>PhobosMedical_Nebuliser</workingSound>
       </li>
     </comps>
   </ThingDef>
@@ -142,6 +143,10 @@ It does not repair damaged lungs or clear carbon monoxide.</description>
         </statOffsets>
         <maxSimultaneous>1</maxSimultaneous>
         <mustBePlacedAdjacent>true</mustBePlacedAdjacent>
+      </li>
+      <!-- Its bellows while a doctor operates on a patient in the bed it stands beside. -->
+      <li Class="Phobos.Medical.Comps.CompProperties_PhobosSurgerySound">
+        <sound>PhobosMedical_Anaesthesia</sound>
       </li>
     </comps>
   </ThingDef>

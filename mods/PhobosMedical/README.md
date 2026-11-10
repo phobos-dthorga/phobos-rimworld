@@ -8,7 +8,7 @@ It replaces five earlier mods, merged into it on 7 November 2026 ([why](../../do
 Burns and Smoke**, **D'thorga Emergency Dosing**, **D'thorga Triage**, **D'thorga Medical Equipment** and **D'thorga Medical Save
 Bridge**. Each is now a part of this mod, with its own section below.
 
-Version 0.13.1, built 11 November 2026 for House D'thorga. **Not yet tested in game as D'thorga Medical.** What the owner tested of
+Version 0.14.0, built 11 November 2026 for House D'thorga. **Not yet tested in game as D'thorga Medical.** What the owner tested of
 the five parts before the merge is in each part's section; the parts' behaviour is unchanged, except that the save bridge now asks
 first.
 
@@ -172,7 +172,9 @@ Figures assume a doctor whose tend quality stat is 1; a poorer doctor gets less 
 ### Settings
 
 Toggles for each of the five conditions; **Fires heat the air around them in the open** (on); **Also apply this mod's smoke
-inhalation with Combat Extended** (off); the display mode; and the uninstall button.
+inhalation with Combat Extended** (off); **Coughing** (on, new in 0.14.0; not yet tested in game: someone with smoke inhalation, an
+airway burn or irritable airways coughs now and then, more often when worse; **it stands down by itself while another active mod
+already gives pawns cough sounds**, and this window names that mod); the display mode; and the uninstall button.
 
 ### For modders
 
@@ -573,6 +575,12 @@ hemopump, as it sits beside sleeping patients; it stops when switched off or whe
 **D'thorga sounds volume** setting turns it down or off. The hum was made with generative AI on the owner's PC and picked by the
 owner ([how](../../docs/development/sound-generation.md)). **The bedside oxygen stand and the cylinder trolley hiss softly while
 they give someone oxygen** (new in 0.13.0; not yet tested in game), the same regulator in both.
+
+**Every machine and device has its own sound** (new in 0.14.0; not yet tested in game): the ventilator and nebuliser while they
+treat someone, the anaesthesia machine during surgery, the burn unit bed's blower, the pressure chamber sealing and humming, the
+electrolyser and the liquid oxygen store's cooler while powered (and its boil-off without power), the safety shower and a poured
+rinse, the resuscitator, intubation, the fluids kit, needle decompression and the field oxygen kit's valve. **The gas alarm sounds
+one soft tone** as it starts to warn. The burn bed, electrolyser and cooler sound whenever they are powered, even when idle.
 
 #### Oxygen: who gets it
 

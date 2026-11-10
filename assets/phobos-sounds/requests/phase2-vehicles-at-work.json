@@ -1,0 +1,334 @@
+[
+ {
+  "name": "p2-tanker-hoses",
+  "engine": "sa3-sfx",
+  "seconds": 6,
+  "seeds": [
+   41,
+   42,
+   43
+  ],
+  "prompt": "Heavy rubber hoses with brass couplings being connected to a bulk tanker truck's valve manifold: metal clunks, a coupling lever snapping shut and a short hiss. Close, outdoors. Length: 4 seconds"
+ },
+ {
+  "name": "p2-tanker-pump",
+  "engine": "sa3-sfx",
+  "seconds": 8,
+  "seeds": [
+   41,
+   42,
+   43
+  ],
+  "prompt": "A bulk tanker truck's transfer pump running off its power take-off: a steady mechanical whine with liquid rushing through pipes and a big diesel idling underneath, continuous and unchanging. Outdoors. Length: 8 seconds",
+  "loop": true
+ },
+ {
+  "name": "p2-tanker-relief",
+  "engine": "sa3-sfx",
+  "seconds": 6,
+  "seeds": [
+   41,
+   42,
+   43
+  ],
+  "prompt": "A pressure relief valve on a steel tank lifting and venting gas with a sharp hiss for a few seconds, then snapping shut. Outdoors. Length: 4 seconds"
+ },
+ {
+  "name": "p2-tanker-leak",
+  "engine": "sa3-sfx",
+  "seconds": 8,
+  "seeds": [
+   41,
+   42,
+   43
+  ],
+  "prompt": "Liquid leaking steadily from a punctured steel tank onto gravel, a continuous gentle trickle and drip, unchanging. Outdoors. Length: 8 seconds",
+  "loop": true
+ },
+ {
+  "name": "p2-tanker-purge",
+  "engine": "sa3-sfx",
+  "seconds": 8,
+  "seeds": [
+   41,
+   42,
+   43
+  ],
+  "prompt": "Compressed air blowing steadily through an empty steel tank, a hollow continuous rushing roar echoing inside it, unchanging. Length: 8 seconds",
+  "loop": true
+ },
+ {
+  "name": "p2-tipper-rams",
+  "engine": "sa3-sfx",
+  "seconds": 8,
+  "seeds": [
+   41,
+   42,
+   43
+  ],
+  "prompt": "A heavy tipper dump truck's hydraulic rams lifting its steel body: a power take-off engaging with a clunk, then a steady straining hydraulic pump whine and creaking steel, continuous. Outdoors. Length: 8 seconds",
+  "loop": true
+ },
+ {
+  "name": "p2-tipper-slide-rock",
+  "engine": "sa3-sfx",
+  "seconds": 6,
+  "seeds": [
+   41,
+   42,
+   43
+  ],
+  "prompt": "Large rocks and boulders sliding out of a tipped dump truck body and tumbling onto the ground, heavy clattering and crashing. Outdoors. Length: 5 seconds"
+ },
+ {
+  "name": "p2-tipper-slide-bulk",
+  "engine": "sa3-sfx",
+  "seconds": 6,
+  "seeds": [
+   41,
+   42,
+   43
+  ],
+  "prompt": "Loose gravel and sand pouring out of a tipped dump truck body in one long rushing slide. Outdoors. Length: 5 seconds"
+ },
+ {
+  "name": "p2-tipper-slide-standard",
+  "engine": "sa3-sfx",
+  "seconds": 5,
+  "seeds": [
+   41,
+   42,
+   43
+  ],
+  "prompt": "Heavy sacks and crates thudding one after another as they slide off a tipped truck bed onto the ground. Outdoors. Length: 4 seconds"
+ },
+ {
+  "name": "p2-tipper-tailgate",
+  "engine": "sa3-sfx",
+  "seconds": 4,
+  "seeds": [
+   41,
+   42,
+   43
+  ],
+  "prompt": "A dump truck's heavy steel tailgate swinging shut with a metal bang as the empty body settles back onto the chassis with a thud. Outdoors. Length: 3 seconds"
+ },
+ {
+  "name": "p2-drillrig-setup",
+  "engine": "sa3-sfx",
+  "seconds": 10,
+  "seeds": [
+   41,
+   42,
+   43
+  ],
+  "prompt": "A heavy drill rig truck setting up: hydraulic outriggers stomping down onto the ground one by one, then a tall steel mast raised slowly by whining hydraulic rams, creaking into place. Outdoors. Length: 8 seconds"
+ },
+ {
+  "name": "p2-drillrig-drill",
+  "engine": "sa3-sfx",
+  "seconds": 8,
+  "seeds": [
+   41,
+   42,
+   43
+  ],
+  "prompt": "A rotary drilling rig drilling into rock: a steady grinding rotary head, an air compressor roaring and flushing water gushing, continuous and unchanging. Outdoors. Length: 8 seconds",
+  "loop": true
+ },
+ {
+  "name": "p2-drillrig-hammer",
+  "engine": "sa3-sfx",
+  "seconds": 8,
+  "seeds": [
+   41,
+   42,
+   43
+  ],
+  "prompt": "A down-the-hole hammer drill pounding into rock: fast rhythmic percussive hammering with compressed air blasting, continuous and unchanging. Outdoors. Length: 8 seconds",
+  "loop": true
+ },
+ {
+  "name": "p2-drillrig-electric",
+  "engine": "sa3-sfx",
+  "seconds": 8,
+  "seeds": [
+   41,
+   42,
+   43
+  ],
+  "prompt": "An electric drilling rig drilling into rock: a smooth electric motor hum and a steady grinding rotary head, quieter, no engine, continuous and unchanging. Outdoors. Length: 8 seconds",
+  "loop": true
+ },
+ {
+  "name": "p2-drillrig-chute",
+  "engine": "sa3-sfx",
+  "seconds": 4,
+  "seeds": [
+   41,
+   42,
+   43
+  ],
+  "prompt": "A load of rock cuttings and ore pouring down a steel chute and landing in a pile with a rattling rush. Outdoors. Length: 3 seconds"
+ },
+ {
+  "name": "p2-drillrig-winddown",
+  "engine": "sa3-sfx",
+  "seconds": 6,
+  "seeds": [
+   41,
+   42,
+   43
+  ],
+  "prompt": "A drilling rig winding down: the rotary head and compressor slowing to a stop, a last hiss of air, then quiet. Outdoors. Length: 5 seconds"
+ },
+ {
+  "name": "p2-survey-boom",
+  "engine": "sa3-sfx",
+  "seconds": 5,
+  "seeds": [
+   41,
+   42,
+   43
+  ],
+  "prompt": "A survey truck's hydraulic sensor boom swinging out: a soft hydraulic whine, creaking joints and a firm clunk as it locks into place. Outdoors, close. Length: 4 seconds"
+ },
+ {
+  "name": "p2-survey-console",
+  "engine": "sa3-sfx",
+  "seconds": 8,
+  "seeds": [
+   41,
+   42,
+   43
+  ],
+  "prompt": "Field survey electronics running inside a truck: soft instrument beeps, a chart recorder's pen scratching and gentle data clicks, calm and continuous. Length: 8 seconds",
+  "loop": true
+ },
+ {
+  "name": "p2-survey-array",
+  "engine": "sa3-sfx",
+  "seconds": 8,
+  "seeds": [
+   41,
+   42,
+   43
+  ],
+  "prompt": "A powered geophysical sensor array humming steadily, a low electrical hum with a faint slow pulsing, calm, continuous and unchanging. Outdoors. Length: 8 seconds",
+  "loop": true
+ },
+ {
+  "name": "p2-survey-dish",
+  "engine": "sa3-sfx",
+  "seconds": 8,
+  "seeds": [
+   41,
+   42,
+   43
+  ],
+  "prompt": "A small motorised dish antenna turning slowly back and forth on its mount, a smooth gear motor whirr with gentle gear ticks, continuous. Outdoors. Length: 8 seconds",
+  "loop": true
+ },
+ {
+  "name": "p2-survey-find",
+  "engine": "sa3-sfx",
+  "seconds": 3,
+  "seeds": [
+   41,
+   42,
+   43
+  ],
+  "prompt": "One soft, warm two-note electronic chime announcing a discovery, gentle and calm, not alarming. Length: 2 seconds"
+ },
+ {
+  "name": "p2-genset-setup",
+  "engine": "sa3-sfx",
+  "seconds": 8,
+  "seeds": [
+   41,
+   42,
+   43
+  ],
+  "prompt": "A small diesel-electric truck setting up as a generator: hydraulic outriggers settling with a thud, then a heavy power cable paying out from a spring-loaded reel with a rattling clatter. Outdoors. Length: 6 seconds"
+ },
+ {
+  "name": "p2-crawler-dive",
+  "engine": "sa3-sfx",
+  "seconds": 10,
+  "seeds": [
+   41,
+   42,
+   43
+  ],
+  "prompt": "A small research submarine diving: vents opening with a rush of escaping air and seawater flooding into the ballast tanks with deep gurgling, heard from inside its steel hull. Length: 8 seconds"
+ },
+ {
+  "name": "p2-crawler-surface",
+  "engine": "sa3-sfx",
+  "seconds": 10,
+  "seeds": [
+   41,
+   42,
+   43
+  ],
+  "prompt": "A small research submarine surfacing: high-pressure air blasting into the ballast tanks with a roaring rush as water is forced out, heard from inside its steel hull. Length: 8 seconds"
+ },
+ {
+  "name": "p2-crawler-settle",
+  "engine": "sa3-sfx",
+  "seconds": 6,
+  "seeds": [
+   41,
+   42,
+   43
+  ],
+  "prompt": "A small submarine settling gently onto the seabed: a soft muffled bump and a few long metallic creaks of the hull. Length: 5 seconds"
+ },
+ {
+  "name": "p2-crawler-creak",
+  "engine": "sa3-sfx",
+  "seconds": 8,
+  "seeds": [
+   41,
+   42,
+   43
+  ],
+  "prompt": "Inside a small steel submarine deep under water: very quiet distant hull creaks and soft groans of metal under pressure, calm, sparse and continuous. Length: 8 seconds",
+  "loop": true
+ },
+ {
+  "name": "p2-crawler-scrubber",
+  "engine": "sa3-sfx",
+  "seconds": 8,
+  "seeds": [
+   41,
+   42,
+   43
+  ],
+  "prompt": "A small air scrubber fan running inside a submarine, a soft steady whirr with a gentle airflow hiss, calm and continuous. Length: 8 seconds",
+  "loop": true
+ },
+ {
+  "name": "p2-crawler-lab",
+  "engine": "sa3-sfx",
+  "seconds": 8,
+  "seeds": [
+   41,
+   42,
+   43
+  ],
+  "prompt": "A small laboratory at work inside a submarine: the soft whirr of a centrifuge, quiet clinks of glassware and gentle electronic beeps, calm and continuous. Length: 8 seconds",
+  "loop": true
+ },
+ {
+  "name": "p2-crawler-contact",
+  "engine": "sa3-sfx",
+  "seconds": 4,
+  "seeds": [
+   41,
+   42,
+   43
+  ],
+  "prompt": "One soft, faint, low hydrophone tone with a distant muffled echo, calm and subtle, not a sonar ping. Length: 3 seconds"
+ }
+]

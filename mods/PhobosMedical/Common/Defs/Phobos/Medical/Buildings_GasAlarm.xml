@@ -46,7 +46,9 @@
         <basePowerConsumption>5</basePowerConsumption>
       </li>
       <li Class="CompProperties_Flickable"/>
-      <li Class="Phobos.Medical.Comps.CompProperties_PhobosGasAlarm" />
+      <li Class="Phobos.Medical.Comps.CompProperties_PhobosGasAlarm">
+        <sound>PhobosMedical_GasAlarm</sound>
+      </li>
     </comps>
   </ThingDef>
 </Defs>

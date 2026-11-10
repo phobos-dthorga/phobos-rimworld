@@ -334,4 +334,20 @@
       <dragArea>3.5</dragArea>
     </running>
   </Phobos.VehicleSystems.PhobosVehicleDrivetrainDef>
+  <!-- The game's drill dust without its sound, for a rig whose Def names its own drilling sound (sound-catalogue.md, phase 2). The sprayer's
+       figures are the game's own Drill effecter's. -->
+  <EffecterDef>
+    <defName>PhobosVehicleSystems_DrillDust</defName>
+    <children>
+      <li>
+        <subEffecterClass>SubEffecter_SprayerChance</subEffecterClass>
+        <fleckDef>DustSlow</fleckDef>
+        <ticksBetweenMotes>60</ticksBetweenMotes>
+        <scale>1.6~2.0</scale>
+        <rotationRate>-5~5</rotationRate>
+        <angle>30~60</angle>
+        <speed>0.4~0.9</speed>
+      </li>
+    </children>
+  </EffecterDef>
 </Defs>

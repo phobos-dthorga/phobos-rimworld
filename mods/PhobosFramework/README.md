@@ -5,7 +5,7 @@ colonist is breathing, makes fires fill roofed rooms with the game's own smoke w
 carries carbon monoxide from fires, holds the per-person care choices the D'thorga medical mods offer, and holds the small
 helpers every D'thorga mod shares.
 
-Version 0.81.0, built 11 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
+Version 0.82.0, built 11 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
 oxygen working through Burns and Smoke and Medical Equipment (5 November 2026). The health layer new in 0.3.0 and the **vehicle
 systems new in 0.9.0, and their engines, drivetrains and gas turbines new in 0.11.0, are not yet tested in game.** The rest is read from the game's and the mods' code.
 
@@ -303,6 +303,9 @@ The new button on a vehicle's **Dashboard** opens **Fittings and tunes**, for an
 - **Engines that follow the drive** (0.76.0; not yet tested in game): a vehicle whose Def names an engine sound (D'thorga Vehicles'
   seven do) plays an idling and a labouring loop blended by load and pitched by rpm, played by our systems rather than Vehicle
   Framework. There is no setting of its own: D'thorga sounds volume covers it.
+- **Vehicles' work sounds** (0.82.0; not yet tested in game): a vehicle whose Def names them (D'thorga Vehicles' seven do) sounds its
+  work as it happens: setting up, pumping, tipping, drilling, surveying, diving. Under the water only the player's own boats are heard.
+  No setting of its own: D'thorga sounds volume covers it.
 - **Vehicle system sounds on other mods' vehicles too** (0.75.0, on; not yet tested in game): the vehicle systems' own sounds (a tyre
   bursting, coolant boiling, an engine knocking, worn brakes, the air compressor, a key turned on a flat battery, the fuel nozzle, cargo,
   and a soft chime when a red warning lamp lights) play on any vehicle running our systems. Off: only D'thorga's own vehicles play them.

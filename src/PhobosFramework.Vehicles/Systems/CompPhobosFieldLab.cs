@@ -42,6 +42,8 @@ public class CompPhobosFieldLab : VehicleComp
 
     int lastTick = NeverRun;
     string? summary;
+    /// <summary>Whether anyone researched at the last look, for the laboratory's sound. Derived, never saved.</summary>
+    bool researching;
 
     public CompProperties_PhobosFieldLab Props => (CompProperties_PhobosFieldLab)props;
 
@@ -68,12 +70,15 @@ public class CompPhobosFieldLab : VehicleComp
         int now = Find.TickManager.TicksGame;
         int elapsed = lastTick == NeverRun ? 0 : now - lastTick;
         lastTick = now;
+        researching = false;
         if (Vehicle.Faction != Faction.OfPlayer || Seats is not { } seats)
         {
             summary = null;
+            VehicleWorkSounds.Loop(Vehicle, "Lab", false);
             return;
         }
         summary = Work(seats, elapsed);
+        VehicleWorkSounds.Loop(Vehicle, "Lab", researching);
     }
 
     /// <summary>One stretch of research by everyone seated, and the line that says how it went.</summary>
@@ -107,6 +112,7 @@ public class CompPhobosFieldLab : VehicleComp
             else Find.ResearchManager.ResearchPerformed(rate * ticks, pawn);
             pawn.skills.Learn(SkillDefOf.Intellectual, FieldResearchRule.Experience(ticks));
         }
+        researching = working > 0;
         if (working == 0) return firstReason ?? "PhobosFieldLab_NobodySeated".Translate().Resolve();
         return underWay
             ? "PhobosFieldLab_WorkingUnderWay".Translate(working.Named("COUNT"), project.LabelCap.Named("PROJECT"), Props.underWayFactor.ToStringPercent().Named("SHARE")).Resolve()
@@ -152,6 +158,12 @@ public class CompPhobosFieldLab : VehicleComp
     {
         base.CompTickRare();
         Advance();
+    }
+
+    public override void PostDeSpawn(Map map, DestroyMode mode = DestroyMode.Vanish)
+    {
+        VehicleWorkSounds.Loop(Vehicle, "Lab", false);
+        base.PostDeSpawn(map, mode);
     }
 
     public override string? CompInspectStringExtra() => summary;

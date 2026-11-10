@@ -8,6 +8,10 @@
       <li Class="Phobos.BurnsAndSmoke.Comps.HediffCompProperties_PhobosBurnTooltip">
         <kind>SmokeAftermath</kind>
       </li>
+      <li Class="Phobos.BurnsAndSmoke.Comps.HediffCompProperties_PhobosCough">
+        <sound>PhobosMedical_CoughSmoke</sound>
+        <mtbHoursAtFull>1</mtbHoursAtFull>
+      </li>
     </value>
   </Operation>
 </Patch>

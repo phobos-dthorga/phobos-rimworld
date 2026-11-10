@@ -110,6 +110,18 @@ public sealed class CompPhobosSurveyTruck : CompPhobosRigWork
         _ => false,
     };
 
+    static readonly string[] ConsoleKey = { "Console" };
+    protected override string[] WorkSoundKeys => ConsoleKey;
+
+    /// <summary>The console while someone surveys, the array while it is powered for a fast survey, the dish while it reaches far.</summary>
+    protected override void SyncWorkSound()
+    {
+        base.SyncWorkSound();
+        bool on = deployed && Working;
+        VehicleWorkSounds.Loop(Vehicle, "Array", on && power.Fast);
+        VehicleWorkSounds.Loop(Vehicle, "Dish", on && LongRange);
+    }
+
     public override void PostExposeData()
     {
         base.PostExposeData();
@@ -164,6 +176,7 @@ public sealed class CompPhobosSurveyTruck : CompPhobosRigWork
 
     void DoFind(Pawn worker)
     {
+        VehicleWorkSounds.Play(Vehicle, "Find");
         if (LongRange) FindOnTheWorld(worker);
         else FindHere(worker);
     }

@@ -1,0 +1,627 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- Our vehicles at work, phase 2 (docs/development/sound-catalogue.md). Agent-made with Stable Audio 3 Small SFX, every one of the agent's shortlist
+       leans taken by the owner (11 Nov 2026), levelled by scripts/art/export_sound.py against the game sound each comment names;
+       the records beside the sound files say how. The volume extension lets D'thorga Framework's sound volume setting scale them.
+       Each VehicleDef names its own by key in PhobosVehicleSoundsExtension. -->
+
+  <!-- Tanker: hoses coupled or uncoupled (S26): beside the game's Metal_Drop, -3 dB. -->
+  <SoundDef>
+    <defName>PhobosVehicles_TankerHoses</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Vehicles/Tanker/Hoses</clipPath>
+          </li>
+        </grains>
+        <volumeRange>25</volumeRange>
+        <distRange>10~30</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+  <!-- Tanker: pump running off the power take-off (S27): beside the game's ChemfuelFiredGenerator_Ambience, -6 dB. -->
+  <SoundDef>
+    <defName>PhobosVehicles_TankerPump</defName>
+    <sustain>True</sustain>
+    <context>MapOnly</context>
+    <priorityMode>PrioritizeNearest</priorityMode>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <muteWhenPaused>True</muteWhenPaused>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Vehicles/Tanker/Pump</clipPath>
+          </li>
+        </grains>
+        <volumeRange>13</volumeRange>
+        <distRange>10~30</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+  <!-- Tanker: relief valve venting (S28): beside the game's HissJet, -6 dB. -->
+  <SoundDef>
+    <defName>PhobosVehicles_TankerRelief</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Vehicles/Tanker/Relief</clipPath>
+          </li>
+        </grains>
+        <volumeRange>40</volumeRange>
+        <distRange>10~30</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+  <!-- Tanker: tank leaking (S29): beside the game's HissSmall, -3 dB. -->
+  <SoundDef>
+    <defName>PhobosVehicles_TankerLeak</defName>
+    <sustain>True</sustain>
+    <context>MapOnly</context>
+    <priorityMode>PrioritizeNearest</priorityMode>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <muteWhenPaused>True</muteWhenPaused>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Vehicles/Tanker/Leak</clipPath>
+          </li>
+        </grains>
+        <volumeRange>15</volumeRange>
+        <distRange>10~30</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+  <!-- Tanker: air blowing through the tank in a purge (S30): beside the game's HissJet, -6 dB. -->
+  <SoundDef>
+    <defName>PhobosVehicles_TankerPurge</defName>
+    <sustain>True</sustain>
+    <context>MapOnly</context>
+    <priorityMode>PrioritizeNearest</priorityMode>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <muteWhenPaused>True</muteWhenPaused>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Vehicles/Tanker/Purge</clipPath>
+          </li>
+        </grains>
+        <volumeRange>40</volumeRange>
+        <distRange>10~30</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+  <!-- Tipper: power take-off and hydraulic rams lifting (S37): beside the game's ChemfuelFiredGenerator_Ambience, -3 dB. -->
+  <SoundDef>
+    <defName>PhobosVehicles_TipperRams</defName>
+    <sustain>True</sustain>
+    <context>MapOnly</context>
+    <priorityMode>PrioritizeNearest</priorityMode>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <muteWhenPaused>True</muteWhenPaused>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Vehicles/Tipper/Rams</clipPath>
+          </li>
+        </grains>
+        <volumeRange>13</volumeRange>
+        <distRange>10~30</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+  <!-- Tipper: load sliding out of the rock body (S38): beside the game's Metal_Drop, +0 dB. -->
+  <SoundDef>
+    <defName>PhobosVehicles_TipperSlideRock</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Vehicles/Tipper/SlideRock</clipPath>
+          </li>
+        </grains>
+        <volumeRange>25</volumeRange>
+        <distRange>10~30</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+  <!-- Tipper: load pouring out of the bulk body (S39): beside the game's Metal_Drop, +0 dB. -->
+  <SoundDef>
+    <defName>PhobosVehicles_TipperSlideBulk</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Vehicles/Tipper/SlideBulk</clipPath>
+          </li>
+        </grains>
+        <volumeRange>25</volumeRange>
+        <distRange>10~30</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+  <!-- Tipper: load sliding off the standard body (S39): beside the game's Metal_Drop, +0 dB. -->
+  <SoundDef>
+    <defName>PhobosVehicles_TipperSlide</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Vehicles/Tipper/Slide</clipPath>
+          </li>
+        </grains>
+        <volumeRange>25</volumeRange>
+        <distRange>10~30</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+  <!-- Tipper: tailgate banging shut (S40): beside the game's Metal_Drop, +0 dB. -->
+  <SoundDef>
+    <defName>PhobosVehicles_TipperTailgate</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Vehicles/Tipper/Tailgate</clipPath>
+          </li>
+        </grains>
+        <volumeRange>25</volumeRange>
+        <distRange>10~30</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+  <!-- Drill rig: outriggers down, mast raising (S47): beside the game's ChemfuelFiredGenerator_Ambience, -3 dB. -->
+  <SoundDef>
+    <defName>PhobosVehicles_DrillRigSetUp</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Vehicles/DrillRig/SetUp</clipPath>
+          </li>
+        </grains>
+        <volumeRange>13</volumeRange>
+        <distRange>10~30</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+  <!-- Drill rig: drilling (S48): beside the game's ChemfuelFiredGenerator_Ambience, +0 dB. -->
+  <SoundDef>
+    <defName>PhobosVehicles_DrillRigDrill</defName>
+    <sustain>True</sustain>
+    <context>MapOnly</context>
+    <priorityMode>PrioritizeNearest</priorityMode>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <muteWhenPaused>True</muteWhenPaused>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Vehicles/DrillRig/Drill</clipPath>
+          </li>
+        </grains>
+        <volumeRange>13</volumeRange>
+        <distRange>10~30</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+  <!-- Drill rig: drilling with the hammer bit (S49): beside the game's ChemfuelFiredGenerator_Ambience, +0 dB. -->
+  <SoundDef>
+    <defName>PhobosVehicles_DrillRigHammer</defName>
+    <sustain>True</sustain>
+    <context>MapOnly</context>
+    <priorityMode>PrioritizeNearest</priorityMode>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <muteWhenPaused>True</muteWhenPaused>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Vehicles/DrillRig/Hammer</clipPath>
+          </li>
+        </grains>
+        <volumeRange>13</volumeRange>
+        <distRange>10~30</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+  <!-- Drill rig: drilling on shore power (S50): beside the game's ChemfuelFiredGenerator_Ambience, -3 dB. -->
+  <SoundDef>
+    <defName>PhobosVehicles_DrillRigElectric</defName>
+    <sustain>True</sustain>
+    <context>MapOnly</context>
+    <priorityMode>PrioritizeNearest</priorityMode>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <muteWhenPaused>True</muteWhenPaused>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Vehicles/DrillRig/Electric</clipPath>
+          </li>
+        </grains>
+        <volumeRange>13</volumeRange>
+        <distRange>10~30</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+  <!-- Drill rig: a portion down the cuttings chute (S51): beside the game's Metal_Drop, -3 dB. -->
+  <SoundDef>
+    <defName>PhobosVehicles_DrillRigChute</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Vehicles/DrillRig/Chute</clipPath>
+          </li>
+        </grains>
+        <volumeRange>25</volumeRange>
+        <distRange>10~30</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+  <!-- Drill rig: winding down, ground spent (S52): beside the game's ChemfuelFiredGenerator_Ambience, -3 dB. -->
+  <SoundDef>
+    <defName>PhobosVehicles_DrillRigWindDown</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Vehicles/DrillRig/WindDown</clipPath>
+          </li>
+        </grains>
+        <volumeRange>13</volumeRange>
+        <distRange>10~30</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+  <!-- Survey truck: sensor boom swinging out and back (S58): beside the game's ChemfuelFiredGenerator_Ambience, -6 dB. -->
+  <SoundDef>
+    <defName>PhobosVehicles_SurveyTruckBoom</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Vehicles/SurveyTruck/Boom</clipPath>
+          </li>
+        </grains>
+        <volumeRange>13</volumeRange>
+        <distRange>10~30</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+  <!-- Survey truck: console and recorder while surveying (S59): beside the game's Hemopump_Ambience, -3 dB. -->
+  <SoundDef>
+    <defName>PhobosVehicles_SurveyTruckConsole</defName>
+    <sustain>True</sustain>
+    <context>MapOnly</context>
+    <priorityMode>PrioritizeNearest</priorityMode>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <muteWhenPaused>True</muteWhenPaused>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Vehicles/SurveyTruck/Console</clipPath>
+          </li>
+        </grains>
+        <volumeRange>50</volumeRange>
+        <distRange>5~20</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+  <!-- Survey truck: powered array humming (S60): beside the game's Hemopump_Ambience, -3 dB. -->
+  <SoundDef>
+    <defName>PhobosVehicles_SurveyTruckArray</defName>
+    <sustain>True</sustain>
+    <context>MapOnly</context>
+    <priorityMode>PrioritizeNearest</priorityMode>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <muteWhenPaused>True</muteWhenPaused>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Vehicles/SurveyTruck/Array</clipPath>
+          </li>
+        </grains>
+        <volumeRange>50</volumeRange>
+        <distRange>5~20</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+  <!-- Survey truck: long-range dish turning (S61): beside the game's Hemopump_Ambience, -3 dB. -->
+  <SoundDef>
+    <defName>PhobosVehicles_SurveyTruckDish</defName>
+    <sustain>True</sustain>
+    <context>MapOnly</context>
+    <priorityMode>PrioritizeNearest</priorityMode>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <muteWhenPaused>True</muteWhenPaused>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Vehicles/SurveyTruck/Dish</clipPath>
+          </li>
+        </grains>
+        <volumeRange>50</volumeRange>
+        <distRange>5~20</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+  <!-- Survey truck: a find, one soft tone (S62): beside the game's TinyBell, +0 dB. -->
+  <SoundDef>
+    <defName>PhobosVehicles_SurveyTruckFind</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Vehicles/SurveyTruck/Find</clipPath>
+          </li>
+        </grains>
+        <volumeRange>9</volumeRange>
+        <distRange>10~30</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+  <!-- Generator truck: outriggers down, cable reel paying out (S68); mild clipping accepted by the owner: beside the game's ChemfuelFiredGenerator_Ambience, -3 dB. -->
+  <SoundDef>
+    <defName>PhobosVehicles_GeneratorSetSetUp</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Vehicles/GeneratorSet/SetUp</clipPath>
+          </li>
+        </grains>
+        <volumeRange>13</volumeRange>
+        <distRange>10~30</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+  <!-- Seabed Crawler: diving (S73): beside the game's HissJet, -6 dB. -->
+  <SoundDef>
+    <defName>PhobosVehicles_SeabedCrawlerDive</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Vehicles/SeabedCrawler/Dive</clipPath>
+          </li>
+        </grains>
+        <volumeRange>40</volumeRange>
+        <distRange>10~30</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+  <!-- Seabed Crawler: surfacing (S74); mild clipping accepted by the owner: beside the game's HissJet, -6 dB. -->
+  <SoundDef>
+    <defName>PhobosVehicles_SeabedCrawlerSurface</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Vehicles/SeabedCrawler/Surface</clipPath>
+          </li>
+        </grains>
+        <volumeRange>40</volumeRange>
+        <distRange>10~30</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+  <!-- Seabed Crawler: settling on the bottom or lifting off (S75): beside the game's Metal_Drop, -3 dB. -->
+  <SoundDef>
+    <defName>PhobosVehicles_SeabedCrawlerSettle</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Vehicles/SeabedCrawler/Settle</clipPath>
+          </li>
+        </grains>
+        <volumeRange>25</volumeRange>
+        <distRange>10~30</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+  <!-- Seabed Crawler: hull creaking while submerged (S76): beside the game's Hemopump_Ambience, -6 dB. -->
+  <SoundDef>
+    <defName>PhobosVehicles_SeabedCrawlerCreak</defName>
+    <sustain>True</sustain>
+    <context>MapOnly</context>
+    <priorityMode>PrioritizeNearest</priorityMode>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <muteWhenPaused>True</muteWhenPaused>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Vehicles/SeabedCrawler/Creak</clipPath>
+          </li>
+        </grains>
+        <volumeRange>50</volumeRange>
+        <distRange>5~20</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+  <!-- Seabed Crawler: air scrubber fan (S77): beside the game's Hemopump_Ambience, -3 dB. -->
+  <SoundDef>
+    <defName>PhobosVehicles_SeabedCrawlerScrubber</defName>
+    <sustain>True</sustain>
+    <context>MapOnly</context>
+    <priorityMode>PrioritizeNearest</priorityMode>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <muteWhenPaused>True</muteWhenPaused>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Vehicles/SeabedCrawler/Scrubber</clipPath>
+          </li>
+        </grains>
+        <volumeRange>50</volumeRange>
+        <distRange>5~20</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+  <!-- Seabed Crawler: laboratory at work (S78): beside the game's Hemopump_Ambience, -6 dB. -->
+  <SoundDef>
+    <defName>PhobosVehicles_SeabedCrawlerLab</defName>
+    <sustain>True</sustain>
+    <context>MapOnly</context>
+    <priorityMode>PrioritizeNearest</priorityMode>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <muteWhenPaused>True</muteWhenPaused>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Vehicles/SeabedCrawler/Lab</clipPath>
+          </li>
+        </grains>
+        <volumeRange>50</volumeRange>
+        <distRange>5~20</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+  <!-- Seabed Crawler: listening array hears a contact (S79): beside the game's TinyBell, -3 dB. -->
+  <SoundDef>
+    <defName>PhobosVehicles_SeabedCrawlerContact</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Vehicles/SeabedCrawler/Contact</clipPath>
+          </li>
+        </grains>
+        <volumeRange>9</volumeRange>
+        <distRange>10~30</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+</Defs>

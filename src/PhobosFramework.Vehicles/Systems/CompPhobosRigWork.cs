@@ -107,7 +107,19 @@ public abstract class CompPhobosRigWork : CompPhobosSetUp, IVehicleEngineDemand
     /// <summary>Someone has been working here in the last few seconds.</summary>
     public bool Working => Find.TickManager.TicksGame - lastWorkedTick <= WorkedWindowTicks;
 
-    protected void MarkWorked() => lastWorkedTick = Find.TickManager.TicksGame;
+    protected void MarkWorked()
+    {
+        bool was = Working;
+        lastWorkedTick = Find.TickManager.TicksGame;
+        if (!was) SyncWorkSound();
+    }
+
+    /// <summary>The sound keys of the work's loop, first choice first (docs/development/sound-catalogue.md).</summary>
+    protected virtual string[] WorkSoundKeys => WorkKey;
+    static readonly string[] WorkKey = { "Work" };
+
+    /// <summary>Starts, changes or ends the work's loop, from whether anyone is working it now.</summary>
+    protected virtual void SyncWorkSound() => VehicleWorkSounds.Loop(Vehicle, "Work", deployed && Working, WorkSoundKeys);
 
     /// <summary>On a grid that has power to give.</summary>
     public bool PluggedIn => powerPoint is { Spawned: true } && powerPoint.GetComp<CompPowerTrader>() is { PowerOn: true };
@@ -151,6 +163,7 @@ public abstract class CompPhobosRigWork : CompPhobosSetUp, IVehicleEngineDemand
         {
             EnsurePowerPoint();
             RareWork();
+            SyncWorkSound();
             RunOverdrive();
             CompPowerTrader? trader = powerPoint?.GetComp<CompPowerTrader>();
             if (trader != null) trader.PowerOutput = -DrawWatts * OverdriveFactor;
@@ -228,6 +241,7 @@ public abstract class CompPhobosRigWork : CompPhobosSetUp, IVehicleEngineDemand
     {
         deployed = false;
         lastWorkedTick = -99999;
+        SyncWorkSound();
         ShowSetUp(false);
         RemovePowerPoint();
     }
@@ -278,6 +292,7 @@ public abstract class CompPhobosRigWork : CompPhobosSetUp, IVehicleEngineDemand
         deployed = true;
         StartMotion(true);
         ShowSetUp(true);
+        VehicleWorkSounds.Play(Vehicle, "SetUp");
         RunRare();
         Tell("PhobosVehicleSystems_RigSetUp".Translate(Vehicle.LabelShort.Named("VEHICLE")), MessageTypeDefOf.SilentInput);
     }
@@ -286,6 +301,7 @@ public abstract class CompPhobosRigWork : CompPhobosSetUp, IVehicleEngineDemand
     {
         ClearSetUp();
         StartMotion(false);
+        VehicleWorkSounds.Play(Vehicle, "PackUp", "SetUp");
         Tell("PhobosVehicleSystems_RigPackedUp".Translate(Vehicle.LabelShort.Named("VEHICLE")), MessageTypeDefOf.SilentInput);
     }
 

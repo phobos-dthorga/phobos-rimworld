@@ -60,6 +60,7 @@
         <treatment>PhobosMedical_OnFieldOxygen</treatment>
         <workTicks>300</workTicks>
         <consumed>true</consumed>
+        <useSound>PhobosMedical_FieldOxygenValve</useSound>
       </li>
     </modExtensions>
   </ThingDef>

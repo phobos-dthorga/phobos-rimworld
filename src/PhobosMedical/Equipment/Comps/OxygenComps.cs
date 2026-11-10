@@ -10,6 +10,7 @@ using Phobos.Medical.Services;
 using Phobos.Framework.Sounds;
 using RimWorld;
 using Verse;
+using Verse.Sound;
 
 namespace Phobos.Medical.Comps;
 
@@ -27,6 +28,8 @@ public class CompProperties_PhobosOxygenSupply : CompProperties
     public bool servesAdjacent;
     /// <summary>Loops while it gives oxygen to anyone (a regulator's hiss); null for silence, as the concentrator's own hum is its power sound.</summary>
     public SoundDef? flowingSound;
+    /// <summary>Plays once when it starts treating someone after treating nobody (a pressure chamber's door sealing); null for none.</summary>
+    public SoundDef? startSound;
 
     public CompProperties_PhobosOxygenSupply() => compClass = typeof(CompPhobosOxygenSupply);
 }
@@ -38,6 +41,8 @@ public class CompPhobosOxygenSupply : ThingComp
     /// <summary>Who it served and who it left alone on its last pass, for the inspect text. Derived, so never saved.</summary>
     TreatmentPass pass = TreatmentPass.None;
     readonly SustainedSound flowing = new();
+    /// <summary>Whether it treated anyone at its last pass; null until its first pass after spawning, so a load replays no start sound.</summary>
+    bool? treatingBefore;
 
     public CompProperties_PhobosOxygenSupply Props => (CompProperties_PhobosOxygenSupply)props;
     public CompFacility? Facility => parent.TryGetComp<CompFacility>();
@@ -47,12 +52,16 @@ public class CompPhobosOxygenSupply : ThingComp
     {
         base.CompTickRare();
         pass = OxygenService.Supply(this, RareTickInterval);
-        flowing.Set(Props.flowingSound, pass.Treated.Count > 0, parent);
+        bool treating = pass.Treated.Count > 0;
+        if (treating && treatingBefore == false) Props.startSound?.PlayOneShot(new TargetInfo(parent.Position, parent.Map));
+        treatingBefore = treating;
+        flowing.Set(Props.flowingSound, treating, parent);
     }
 
     public override void PostDeSpawn(Map map, DestroyMode mode = DestroyMode.Vanish)
     {
         flowing.End();
+        treatingBefore = null;
         base.PostDeSpawn(map, mode);
     }
 

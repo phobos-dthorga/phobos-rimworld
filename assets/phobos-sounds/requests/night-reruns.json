@@ -1,0 +1,47 @@
+[
+ {
+  "name": "m-hyperbaric-seal",
+  "engine": "sa3-sfx",
+  "seconds": 8,
+  "seeds": [44, 45, 46],
+  "prompt": "A hyperbaric chamber's door sealing with a heavy clunk, then oxygen pressurising with a rising hiss that settles into a low hum. Length: 6 seconds"
+ },
+ {
+  "name": "p2-crawler-surface",
+  "engine": "sa3-sfx",
+  "seconds": 10,
+  "seeds": [44, 45, 46],
+  "prompt": "A small research submarine surfacing: high-pressure air blasting into the ballast tanks with a roaring rush as water is forced out, heard from inside its steel hull. Length: 8 seconds"
+ },
+ {
+  "name": "p2-genset-setup",
+  "engine": "sa3-sfx",
+  "seconds": 8,
+  "seeds": [44, 45, 46],
+  "prompt": "A small diesel-electric truck setting up as a generator: hydraulic outriggers settling with a thud, then a heavy power cable paying out from a spring-loaded reel with a rattling clatter. Outdoors. Length: 6 seconds"
+ },
+ {
+  "name": "m-ventilator-steady",
+  "engine": "sa3-sfx",
+  "seconds": 8,
+  "seeds": [41, 42, 43],
+  "loop": true,
+  "prompt": "A hospital mechanical ventilator running beside a bed: a constant soft electric hum with a gentle rhythmic bellows push and sigh over it, calm and steady, never silent, continuous. Length: 8 seconds"
+ },
+ {
+  "name": "p2-crawler-creak-steady",
+  "engine": "sa3-sfx",
+  "seconds": 8,
+  "seeds": [41, 42, 43],
+  "loop": true,
+  "prompt": "Inside a small steel submarine deep under water: a constant faint low rumble of the sea against the hull, with quiet distant creaks and soft groans of metal under pressure over it, calm, never silent, continuous. Length: 8 seconds"
+ },
+ {
+  "name": "p2-crawler-lab-steady",
+  "engine": "sa3-sfx",
+  "seconds": 8,
+  "seeds": [41, 42, 43],
+  "loop": true,
+  "prompt": "A small laboratory at work inside a submarine: a constant soft ventilation hum with the gentle whirr of a centrifuge and occasional quiet glassware clinks, calm, never silent, continuous. Length: 8 seconds"
+ }
+]

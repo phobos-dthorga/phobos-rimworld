@@ -229,6 +229,18 @@
         <idleSound>PhobosVehicles_SeabedCrawlerEngineIdle</idleSound>
         <loadSound>PhobosVehicles_SeabedCrawlerEngineLoad</loadSound>
       </li>
+      <!-- The Crawler's sounds, shared as a hull of the same technology (owner, 10 Nov 2026). -->
+      <li Class="Phobos.VehicleSystems.PhobosVehicleSoundsExtension">
+        <sounds>
+          <li><key>Dive</key><sound>PhobosVehicles_SeabedCrawlerDive</sound></li>
+          <li><key>Surface</key><sound>PhobosVehicles_SeabedCrawlerSurface</sound></li>
+          <li><key>Settle</key><sound>PhobosVehicles_SeabedCrawlerSettle</sound></li>
+          <li><key>Creak</key><sound>PhobosVehicles_SeabedCrawlerCreak</sound></li>
+          <li><key>Scrubber</key><sound>PhobosVehicles_SeabedCrawlerScrubber</sound><node>Scrubber</node></li>
+          <li><key>Lab</key><sound>PhobosVehicles_SeabedCrawlerLab</sound></li>
+          <li><key>Contact</key><sound>PhobosVehicles_SeabedCrawlerContact</sound></li>
+        </sounds>
+      </li>
     </modExtensions>
   </Vehicles.VehicleDef>
 

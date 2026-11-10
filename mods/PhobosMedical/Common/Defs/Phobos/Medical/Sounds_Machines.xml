@@ -1,0 +1,420 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- D'thorga Medical's machines, devices and coughs (docs/development/sound-catalogue.md). Agent-made with Stable Audio 3 Small SFX, every one of the agent's shortlist
+       leans taken by the owner (11 Nov 2026), levelled by scripts/art/export_sound.py against the game sound each comment names;
+       the records beside the sound files say how. The volume extension lets D'thorga Framework's sound volume setting scale them.
+       Coughs vary their pitch a little, so one patient never repeats the same cough. -->
+
+  <!-- Ventilator breathing for a patient (S83): beside the game's Hemopump_Ambience, -3 dB. -->
+  <SoundDef>
+    <defName>PhobosMedical_Ventilator</defName>
+    <sustain>True</sustain>
+    <context>MapOnly</context>
+    <priorityMode>PrioritizeNearest</priorityMode>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <muteWhenPaused>True</muteWhenPaused>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Medical/Ventilator</clipPath>
+          </li>
+        </grains>
+        <volumeRange>50</volumeRange>
+        <distRange>5~20</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+  <!-- Nebuliser treating a patient (S84): beside the game's Hemopump_Ambience, -3 dB. -->
+  <SoundDef>
+    <defName>PhobosMedical_Nebuliser</defName>
+    <sustain>True</sustain>
+    <context>MapOnly</context>
+    <priorityMode>PrioritizeNearest</priorityMode>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <muteWhenPaused>True</muteWhenPaused>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Medical/Nebuliser</clipPath>
+          </li>
+        </grains>
+        <volumeRange>50</volumeRange>
+        <distRange>5~20</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+  <!-- Anaesthesia machine during surgery (S85): beside the game's Hemopump_Ambience, -6 dB. -->
+  <SoundDef>
+    <defName>PhobosMedical_Anaesthesia</defName>
+    <sustain>True</sustain>
+    <context>MapOnly</context>
+    <priorityMode>PrioritizeNearest</priorityMode>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <muteWhenPaused>True</muteWhenPaused>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Medical/Anaesthesia</clipPath>
+          </li>
+        </grains>
+        <volumeRange>50</volumeRange>
+        <distRange>5~20</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+  <!-- Burn unit bed: air-cell blower (S86): beside the game's Hemopump_Ambience, -6 dB. -->
+  <SoundDef>
+    <defName>PhobosMedical_BurnBed</defName>
+    <sustain>True</sustain>
+    <context>MapOnly</context>
+    <priorityMode>PrioritizeNearest</priorityMode>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <muteWhenPaused>True</muteWhenPaused>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Medical/BurnBed</clipPath>
+          </li>
+        </grains>
+        <volumeRange>50</volumeRange>
+        <distRange>5~20</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+  <!-- Hyperbaric chamber: door sealing, pressurising (S87): beside the game's Metal_Drop, -3 dB. -->
+  <SoundDef>
+    <defName>PhobosMedical_HyperbaricSeal</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Medical/HyperbaricSeal</clipPath>
+          </li>
+        </grains>
+        <volumeRange>25</volumeRange>
+        <distRange>5~20</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+  <!-- Hyperbaric chamber: running (S87): beside the game's Hemopump_Ambience, -3 dB. -->
+  <SoundDef>
+    <defName>PhobosMedical_HyperbaricHum</defName>
+    <sustain>True</sustain>
+    <context>MapOnly</context>
+    <priorityMode>PrioritizeNearest</priorityMode>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <muteWhenPaused>True</muteWhenPaused>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Medical/HyperbaricHum</clipPath>
+          </li>
+        </grains>
+        <volumeRange>50</volumeRange>
+        <distRange>5~20</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+  <!-- Oxygen electrolyser at work (S88): beside the game's Hemopump_Ambience, -3 dB. -->
+  <SoundDef>
+    <defName>PhobosMedical_Electrolyser</defName>
+    <sustain>True</sustain>
+    <context>MapOnly</context>
+    <priorityMode>PrioritizeNearest</priorityMode>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <muteWhenPaused>True</muteWhenPaused>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Medical/Electrolyser</clipPath>
+          </li>
+        </grains>
+        <volumeRange>50</volumeRange>
+        <distRange>5~20</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+  <!-- Liquid oxygen store: cooler cycling (S89): beside the game's Hemopump_Ambience, -3 dB. -->
+  <SoundDef>
+    <defName>PhobosMedical_LiquidOxygenCooler</defName>
+    <sustain>True</sustain>
+    <context>MapOnly</context>
+    <priorityMode>PrioritizeNearest</priorityMode>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <muteWhenPaused>True</muteWhenPaused>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Medical/LiquidOxygenCooler</clipPath>
+          </li>
+        </grains>
+        <volumeRange>50</volumeRange>
+        <distRange>5~20</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+  <!-- Liquid oxygen boiling off, venting (S90): beside the game's HissSmall, -3 dB. -->
+  <SoundDef>
+    <defName>PhobosMedical_LiquidOxygenBoilOff</defName>
+    <sustain>True</sustain>
+    <context>MapOnly</context>
+    <priorityMode>PrioritizeNearest</priorityMode>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <muteWhenPaused>True</muteWhenPaused>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Medical/LiquidOxygenBoilOff</clipPath>
+          </li>
+        </grains>
+        <volumeRange>15</volumeRange>
+        <distRange>5~15</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+  <!-- Safety shower drenching someone (S91): beside the game's HissSmall, +0 dB. -->
+  <SoundDef>
+    <defName>PhobosMedical_SafetyShower</defName>
+    <sustain>True</sustain>
+    <context>MapOnly</context>
+    <priorityMode>PrioritizeNearest</priorityMode>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <muteWhenPaused>True</muteWhenPaused>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Medical/SafetyShower</clipPath>
+          </li>
+        </grains>
+        <volumeRange>15</volumeRange>
+        <distRange>5~15</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+  <!-- Rinsing a patient: a bucket poured (S92): beside the game's Metal_Drop, -3 dB. -->
+  <SoundDef>
+    <defName>PhobosMedical_RinsePour</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Medical/RinsePour</clipPath>
+          </li>
+        </grains>
+        <volumeRange>25</volumeRange>
+        <distRange>5~20</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+  <!-- Manual resuscitator squeezed (S94): beside the game's HissSmall, -3 dB. -->
+  <SoundDef>
+    <defName>PhobosMedical_Resuscitator</defName>
+    <sustain>True</sustain>
+    <context>MapOnly</context>
+    <priorityMode>PrioritizeNearest</priorityMode>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <muteWhenPaused>True</muteWhenPaused>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Medical/Resuscitator</clipPath>
+          </li>
+        </grains>
+        <volumeRange>15</volumeRange>
+        <distRange>5~15</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+  <!-- Intubation (S95): beside the game's Metal_Drop, -6 dB. -->
+  <SoundDef>
+    <defName>PhobosMedical_Intubation</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Medical/Intubation</clipPath>
+          </li>
+        </grains>
+        <volumeRange>25</volumeRange>
+        <distRange>5~20</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+  <!-- Fluids kit: bag hung, line primed (S96): beside the game's Metal_Drop, -6 dB. -->
+  <SoundDef>
+    <defName>PhobosMedical_FluidsKit</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Medical/FluidsKit</clipPath>
+          </li>
+        </grains>
+        <volumeRange>25</volumeRange>
+        <distRange>5~20</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+  <!-- Needle decompression: a short hiss (S97): beside the game's HissSmall, +0 dB. -->
+  <SoundDef>
+    <defName>PhobosMedical_NeedleDecompression</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Medical/NeedleDecompression</clipPath>
+          </li>
+        </grains>
+        <volumeRange>15</volumeRange>
+        <distRange>5~15</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+  <!-- Field oxygen kit: cylinder valve cracked (S98): beside the game's HissSmall, +0 dB. -->
+  <SoundDef>
+    <defName>PhobosMedical_FieldOxygenValve</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Medical/FieldOxygenValve</clipPath>
+          </li>
+        </grains>
+        <volumeRange>15</volumeRange>
+        <distRange>5~15</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+  <!-- Gas alarm: a soft tone as a warning starts (S99): beside the game's TinyBell, +0 dB. -->
+  <SoundDef>
+    <defName>PhobosMedical_GasAlarm</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Medical/GasAlarm</clipPath>
+          </li>
+        </grains>
+        <volumeRange>9</volumeRange>
+        <distRange>5~25</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+  <!-- Coughing after smoke (S100): beside the game's Meal_Eat, +0 dB. -->
+  <SoundDef>
+    <defName>PhobosMedical_CoughSmoke</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>3</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Medical/CoughSmoke</clipPath>
+          </li>
+        </grains>
+        <volumeRange>10</volumeRange>
+        <distRange>5~20</distRange>
+        <pitchRange>0.92~1.08</pitchRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+  <!-- Coughing and wheezing, burned or stung airways (S100): beside the game's Meal_Eat, +0 dB. -->
+  <SoundDef>
+    <defName>PhobosMedical_CoughWheeze</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>3</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Medical/CoughWheeze</clipPath>
+          </li>
+        </grains>
+        <volumeRange>10</volumeRange>
+        <distRange>5~20</distRange>
+        <pitchRange>0.92~1.08</pitchRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+</Defs>

@@ -188,14 +188,14 @@ clip for getting in and out, with two or three takes so a crew boarding does not
 | S90 | Liquid oxygen boiling off, venting | Code (unpowered) | |
 | S91 | Safety shower drenching (loop) | Code (rinse) | |
 | S92 | Rinsing a patient: a bucket poured | Code | |
-| S93 | Steriliser: burner and steam | **Owner to decide** | It never ticks, so it has no working moment yet |
+| S93 | Steriliser: burner and steam | Skipped for now (owner, 11 Nov 2026) | It never ticks, so it has no working moment yet |
 | S94 | Manual resuscitator: bag squeezed, steady rhythm (loop) | Code (device job) | |
 | S95 | Intubation: laryngoscope click, tube | Code (device job) | |
 | S96 | Fluids kit: bag hung, line primed | Code (device job) | |
 | S97 | Needle decompression: a short hiss of air | Code (device job) | |
 | S98 | Field oxygen kit: cylinder valve cracked | Code (device job) | Then S14 |
-| S99 | Gas alarm | **Owner to decide** | Silent today by the earlier sound rule; its description says it "sounds" |
-| S100 | Coughing and wheezing (smoke, airway burns) | **Owner to decide** | Pawn sounds; may wear thin |
+| S99 | Gas alarm | Code (once as a warning starts) | **A soft tone** (owner, 11 Nov 2026) |
+| S100 | Coughing and wheezing (smoke, airway burns, airways stung by caustic gas) | Code (a condition's comp) | **Wanted, never doubled with another mod's** (owner, 11 Nov 2026): a setting, and it stands down by itself |
 
 The device sounds share one small hook: a sound field on the device's Def that `JobDriver_PhobosUseDevice` plays, so each device
 stays its own sound with no new code per device.
@@ -286,14 +286,55 @@ engine (the tipper) joined cleanly at one length and dipped at others.
   disable"). It goes in D'thorga Framework's settings beside "D'thorga sounds volume".
 - **The test hull (S80) shares the Crawler's sounds**, and gets the spotted ping.
 
+## Owner's answers (11 Nov 2026, going to bed: "You may proceed with Phase #2 ... feel free to proceed with medical after Phase #2")
+
+- **Gas alarm (S99): a soft tone**, once as it starts to warn. The hydrogen detector (S125) is still deferred with ventilation.
+- **Coughing (S100): yes**, but it must never double up with another audio mod, the owner's or any other player's. So it has a setting
+  (Coughing, on, under D'thorga Medical's burns and smoke settings), and it **stands down by itself** while another active mod has a
+  SoundDef whose name holds "cough" or "wheez", or while a mod named in the burns rules Def's `coughSoundMods` is active; the load line
+  and the settings window say which mod. None of the owner's mods had a cough when checked (11 Nov 2026: the game, its DLCs and every
+  indexed mod's SoundDefs; Realistic Human Sounds (Continued) has only wounded and death cries).
+- **Steriliser (S93): skipped** for now.
+- Doors were answered on 10 Nov 2026 (one clip, a few takes), and the generic list was taken as proposed.
+
+## Phase 2 and medical shipped (11 Nov 2026; Framework 0.82.0, Vehicles 0.39.0, Medical 0.14.0; not yet tested in game)
+
+**The owner took every one of the agent's shortlist leans** (11 Nov 2026, by question card) and accepted the mild clipping in the
+Crawler surfacing (seed 45) and the generator truck setting up (seed 44). S26 to S30, S37 to S40, S47 to S52, S58 to S62, S68, S73
+to S79 and S83 to S100 (S93 skipped) are in. Choices the agent made at export, for the owner's ears: the survey console ships take 42
+in place of 43 (no steady stretch to loop), the hull creaks and the liquid oxygen boil-off are evened with `dynaudnorm` before
+looping, and the rig setting up has a faint 11 kHz whine filtered out (`docs/development/sound-generation.md`). The test hull shares
+the Crawler's set. Dubs Bad Hygiene's showers used for rinsing take the safety shower's sounds. The sonar ping (Framework 0.81.0)
+reuses S2, and the game never plays it twice in the same moment. Coughs go on our smoke inhalation, airway burn and irritable
+airways, and on Combat Extended's smoke inhalation.
+
+### How it was built (night of 10 to 11 Nov 2026)
+
+The hooks went in first, silent until a Def named a sound, so the morning's picks needed only exporting and wiring.
+
+- **One hook for every vehicle at work** (D'thorga Framework): `PhobosVehicleSoundsExtension` on a VehicleDef names sounds by key, with
+  an optional upgrade `node` for a take that plays only while that upgrade is fitted (listed first: the first that applies plays). The
+  comps ask `VehicleWorkSounds` for a key at the moment: SetUp and PackUp (packing up falls back to the set-up sound), Work and
+  WorkElectric on the rig (the hammer bit is a Work take with node RcHammer), Portion and Spent; Console, Array, Dish and Find on the
+  survey truck; Hoses, Pump, Relief, Leak and Purge on the tanker; Rams, Slide (rock and bulk bodies by node) and Tailgate on the tipper;
+  SetUp on the generator truck; Dive, Surface, Settle, LiftOff, Creak, Scrubber (node Scrubber), Lab and Contact on the Crawler. A rig
+  with its own drilling sound keeps the game's drill dust without the game's drill sound. **Under the water, sounds play only for the
+  player's own boat**: settling, lifting off, the creaks, the scrubber and the lab would give a hidden enemy boat away (submarine
+  framework rule). Diving and surfacing are seen anyway, so they play for any boat.
+- **Medical** (D'thorga Medical): a sound field on each machine's comp: `workingSound` on the ventilator and the nebuliser (while they
+  treat someone), `startSound` on an oxygen supply (the pressure chamber's door sealing when treatment starts; its hum is its
+  `flowingSound`), `boilingSound` on the liquid oxygen store (while it boils off), `sound` on the gas alarm, `showerSound` and `pourSound`
+  on the rinse station, `useSound` on a patient device (once for a kit, looping while a hand pump is worked), and a new
+  `CompPhobosSurgerySound` for the anaesthesia machine (while a doctor works a bill on a patient in a linked bed). The burn bed, the
+  electrolyser and the liquid oxygen store's cooler will take the game's own powered ambient sound in XML. Coughs are
+  `HediffCompProperties_PhobosCough`, to go on the smoke inhalation, airway burn and irritable airways conditions, and on Combat Extended's
+  smoke inhalation through a patch, once their sounds are picked (mean time between coughs 2 game hours at full severity, less often when milder, one pawn at most every
+  ten seconds; authored).
+- **Candidates:** 3 seeds each of 29 phase 2 sounds and 19 medical sounds (`assets/phobos-sounds/requests/phase2-vehicles-at-work.json`,
+  `medical.json`), on the GPU while the owner slept, with re-runs where every seed failed (`night-reruns.json`: fresh seeds for three
+  one-shots that clipped on every seed, and steadier rewordings of three loops that had gaps on every seed: the ventilator, the hull's
+  creaks and the lab).
+
 ## Open questions for the owner
 
-Still open (questions 2 and 3 are answered above):
-
-1. **The gas alarm (S99), and the hydrogen detector later:** keep them silent (the earlier rule: never alarming), or give them a
-   soft, plain tone now that a sound belongs in the game? An alarm that cannot be heard is an odd alarm.
-2. **The test hull (S80):** share the Crawler's sounds (agent's recommendation), or a set of its own?
-3. **Cargo sounds (S17):** worth having, given they fire for every stack loaded?
-4. **Coughing (S100):** wanted, or too much over a long fire?
-5. **Doors:** one clip for getting in and out, as the L-ATV does, or separate opening and closing sounds?
-6. **The generic list:** anything there you would rather have unique, or anything unique you would share?
+1. ~~**Sparse loops:**~~ answered 11 Nov 2026: the owner took the steady rewordings for the ventilator, the hull's creaks and the lab.

@@ -3,6 +3,7 @@ using Phobos.Medical.Services;
 using RimWorld;
 using Verse;
 using Verse.AI;
+using Phobos.Medical.Comps;
 
 namespace Phobos.Medical.Jobs;
 
@@ -30,7 +31,8 @@ public class JobDriver_PhobosRinse : JobDriver
         {
             if (!RinseService.TryDrawWater(Station, pawn)) EndJobWith(JobCondition.Incompletable);
         });
-        yield return Toils_General.Wait(RinseService.RinseTicks(Station)).WithProgressBarToilDelay(TargetIndex.A);
+        yield return Toils_General.Wait(RinseService.RinseTicks(Station)).WithProgressBarToilDelay(TargetIndex.A)
+            .PlaySustainerOrSound(() => Station.TryGetComp<CompPhobosRinseStation>()?.Props.showerSound);
         yield return Toils_General.Do(() => RinseService.Finish(pawn));
     }
 }
@@ -84,6 +86,7 @@ public class JobDriver_PhobosRinsePatient : JobDriver
         yield return Toils_Goto.GotoThing(TargetIndex.B, PathEndMode.Touch);
         Toil rinse = Toils_General.Wait(RinseService.RinseTicks(Station), TargetIndex.B).WithProgressBarToilDelay(TargetIndex.B);
         rinse.activeSkill = () => SkillDefOf.Medicine;
+        rinse.PlaySustainerOrSound(() => Station.TryGetComp<CompPhobosRinseStation>()?.Props.pourSound);
         yield return rinse;
         yield return Toils_General.Do(() => RinseService.Finish(Patient));
     }

@@ -3001,5 +3001,2248 @@
       "cfg": 1.0,
       "prompt": "A heavy tipper dump truck with a rough, gravelly straight-six diesel engine and a rattling exhaust working hard under a heavy load at steady moderate revs, labouring and growling, even and unchanging, no gear changes, continuous. Outdoors, a few metres away. Length: 8 seconds"
     }
+  },
+  "TankerHoses": {
+    "name": "TankerHoses",
+    "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/Tanker/Hoses.ogg",
+    "sha256": "65e12d9a0a0629f450e191f3167fd549057733a69dea2860c70b812f832d6a47",
+    "master_sha256": "f85f56daf841960f97f139de82094b1dcd191a6b36af346252d571ac595334d8",
+    "fingerprint": "9f314d480eafd88933faf1062ed4594e808ccfb8b7c5b2069f76a771163dbcba",
+    "date": "2026-11-11",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "true peak, to -13.66 dBTP",
+      "gain_db": -12.06
+    },
+    "reference": {
+      "defName": "Metal_Drop",
+      "effective": "peak -22.7 dB",
+      "volume": [
+        25.0,
+        25.0
+      ],
+      "distance": null,
+      "channels": 1
+    },
+    "result": {
+      "lufs": -36.3,
+      "true_peak": -13.4,
+      "seconds": 6.1,
+      "flags": [
+        "spiky"
+      ],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 43,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "Heavy rubber hoses with brass couplings being connected to a bulk tanker truck's valve manifold: metal clunks, a coupling lever snapping shut and a short hiss. Close, outdoors. Length: 4 seconds"
+    }
+  },
+  "TankerPump": {
+    "name": "TankerPump",
+    "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/Tanker/Pump.ogg",
+    "sha256": "3e8bd83dc33cf7eeae73efae70fd178461589222fa313a0819523399ef7a2d8c",
+    "master_sha256": "7890eb2b59c33cd6594f6771ba8eab6bb6d43765cbb97f5db071c82a837d60e5",
+    "fingerprint": "38662344cfb9712a020222f8e606ca271dc5e2f77f09860a07f8255e88431a85",
+    "date": "2026-11-11",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "loop_span_s": [
+        0.2,
+        5.9053
+      ],
+      "loop_match": 0.199,
+      "loop_crossfade_s": 1.0,
+      "loop_curve": "equal gain",
+      "loop_seam_dip_db": 0.0,
+      "levelled_by": "loudness, to -24.78 LUFS",
+      "gain_db": -0.18
+    },
+    "reference": {
+      "defName": "ChemfuelFiredGenerator_Ambience",
+      "effective": "-36.5 LUFS",
+      "volume": [
+        13.0,
+        13.0
+      ],
+      "distance": [
+        10.0,
+        20.0
+      ],
+      "channels": 1
+    },
+    "result": {
+      "lufs": -24.9,
+      "true_peak": -10.5,
+      "seconds": 4.71,
+      "flags": [],
+      "seam_dip_db": 0.0,
+      "loop_gap_s": 0.0
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 41,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A bulk tanker truck's transfer pump running off its power take-off: a steady mechanical whine with liquid rushing through pipes and a big diesel idling underneath, continuous and unchanging. Outdoors. Length: 8 seconds"
+    }
+  },
+  "TankerRelief": {
+    "name": "TankerRelief",
+    "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/Tanker/Relief.ogg",
+    "sha256": "430467b14123a75191599c7a3498e36ce488e5f1a3b28d3e8db869758f3d5a6c",
+    "master_sha256": "c831b718a28421bc8b1f5e239b3f0dd9e3c06e706fc393a05862e75478e5b585",
+    "fingerprint": "c9f3409393de3528ad75801c7d48fb07da941586e7b18c22e7f938c93d3e10f0",
+    "date": "2026-11-11",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "loudness, to -15.14 LUFS",
+      "gain_db": 2.76
+    },
+    "reference": {
+      "defName": "HissJet",
+      "effective": "-17.1 LUFS",
+      "volume": [
+        40.0,
+        40.0
+      ],
+      "distance": null,
+      "channels": 1
+    },
+    "result": {
+      "lufs": -15.3,
+      "true_peak": -2.5,
+      "seconds": 6.11,
+      "flags": [
+        "highs"
+      ],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 43,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A pressure relief valve on a steel tank lifting and venting gas with a sharp hiss for a few seconds, then snapping shut. Outdoors. Length: 4 seconds"
+    }
+  },
+  "TankerLeak": {
+    "name": "TankerLeak",
+    "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/Tanker/Leak.ogg",
+    "sha256": "08cc8ec6b46a581e308b2072528a2c7d54921a27772f81b3b007b63ba3b6962b",
+    "master_sha256": "ac702a5bf516d267b8cf46ecedde80d6ceb8ba03869e7b7af8d174b78eafe9e7",
+    "fingerprint": "522fb720852dfb1efe553dcbda6ccc93809a6666c8b49a7cd0f02315ee1fecdf",
+    "date": "2026-11-11",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "loop_span_s": [
+        0.2,
+        6.9612
+      ],
+      "loop_match": 0.278,
+      "loop_crossfade_s": 0.25,
+      "loop_curve": "equal power",
+      "loop_seam_dip_db": 0.0,
+      "levelled_by": "true peak, to -4.72 dBTP",
+      "gain_db": 7.78
+    },
+    "reference": {
+      "defName": "HissSmall",
+      "effective": "peak -18.2 dB",
+      "volume": [
+        15.0,
+        15.0
+      ],
+      "distance": null,
+      "channels": 1
+    },
+    "result": {
+      "lufs": -28.5,
+      "true_peak": -4.9,
+      "seconds": 6.51,
+      "flags": [
+        "highs",
+        "spiky"
+      ],
+      "seam_dip_db": 0.0,
+      "loop_gap_s": 0.0
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 41,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "Liquid leaking steadily from a punctured steel tank onto gravel, a continuous gentle trickle and drip, unchanging. Outdoors. Length: 8 seconds"
+    }
+  },
+  "TankerPurge": {
+    "name": "TankerPurge",
+    "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/Tanker/Purge.ogg",
+    "sha256": "b648065f759e12ade80d5b9207d89afe2dc1316b14fb2ad2a73d4acc783d5c0a",
+    "master_sha256": "ffc5368dbcac0b6f3c488bac3d6c1823f919dde2104d77918a01186cb118436f",
+    "fingerprint": "41464a71d20def7ec5ef5356e7d0229f40851db153a0ecd4f7a6f69024d2331d",
+    "date": "2026-11-11",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "loop_span_s": [
+        0.2,
+        6.4508
+      ],
+      "loop_match": 0.288,
+      "loop_crossfade_s": 0.25,
+      "loop_curve": "equal power",
+      "loop_seam_dip_db": 0.0,
+      "levelled_by": "loudness, to -15.14 LUFS",
+      "gain_db": 2.06
+    },
+    "reference": {
+      "defName": "HissJet",
+      "effective": "-17.1 LUFS",
+      "volume": [
+        40.0,
+        40.0
+      ],
+      "distance": null,
+      "channels": 1
+    },
+    "result": {
+      "lufs": -15.2,
+      "true_peak": -0.9,
+      "seconds": 6.0,
+      "flags": [],
+      "seam_dip_db": 0.0,
+      "loop_gap_s": 0.0
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 41,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "Compressed air blowing steadily through an empty steel tank, a hollow continuous rushing roar echoing inside it, unchanging. Length: 8 seconds"
+    }
+  },
+  "TipperRams": {
+    "name": "TipperRams",
+    "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/Tipper/Rams.ogg",
+    "sha256": "0cd351211a2fe7e5f44ae68a780dc0c2940f81d44c2b45b40217e0d8eaa6c068",
+    "master_sha256": "49c83de9b7d0996bafc5f5e86b012b1be22bbce473a5892d69fbff9b37b9556c",
+    "fingerprint": "5c50da99e0aefba365b9c3a385a84ec79f57e576477b226d4a14afdbfee87a6c",
+    "date": "2026-11-11",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "loop_span_s": [
+        0.2,
+        5.7707
+      ],
+      "loop_match": 0.152,
+      "loop_crossfade_s": 0.25,
+      "loop_curve": "equal power",
+      "loop_seam_dip_db": 0.0,
+      "levelled_by": "loudness, to -21.78 LUFS",
+      "gain_db": 0.02
+    },
+    "reference": {
+      "defName": "ChemfuelFiredGenerator_Ambience",
+      "effective": "-36.5 LUFS",
+      "volume": [
+        13.0,
+        13.0
+      ],
+      "distance": [
+        10.0,
+        20.0
+      ],
+      "channels": 1
+    },
+    "result": {
+      "lufs": -21.8,
+      "true_peak": -2.8,
+      "seconds": 5.32,
+      "flags": [],
+      "seam_dip_db": 0.0,
+      "loop_gap_s": 0.0
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 41,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A heavy tipper dump truck's hydraulic rams lifting its steel body: a power take-off engaging with a clunk, then a steady straining hydraulic pump whine and creaking steel, continuous. Outdoors. Length: 8 seconds"
+    }
+  },
+  "TipperSlideRock": {
+    "name": "TipperSlideRock",
+    "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/Tipper/SlideRock.ogg",
+    "sha256": "593d9488477d7f65472ee66dabc8ab64c4f265bbedacc41ca6f43a13f96b652c",
+    "master_sha256": "253c3113ff5e490f5b548601443b866360d4a62f95a2c016a0b0a551428b288d",
+    "fingerprint": "e393f1cbcfa619d62fca468d11ec1dab82b57f30257c46defd0b9610a986f6ad",
+    "date": "2026-11-11",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "true peak, to -10.66 dBTP",
+      "gain_db": -10.16
+    },
+    "reference": {
+      "defName": "Metal_Drop",
+      "effective": "peak -22.7 dB",
+      "volume": [
+        25.0,
+        25.0
+      ],
+      "distance": null,
+      "channels": 1
+    },
+    "result": {
+      "lufs": -32.3,
+      "true_peak": -11.3,
+      "seconds": 6.07,
+      "flags": [
+        "spiky"
+      ],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 41,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "Large rocks and boulders sliding out of a tipped dump truck body and tumbling onto the ground, heavy clattering and crashing. Outdoors. Length: 5 seconds"
+    }
+  },
+  "TipperSlideBulk": {
+    "name": "TipperSlideBulk",
+    "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/Tipper/SlideBulk.ogg",
+    "sha256": "efd2b8d77d25048ea1dea3509dcfd7a082f57c5ac766d2551e8b2463bac2b3b6",
+    "master_sha256": "c5b5dc757dbd661f56e27040d29e2f743ae595b0e08d871873d4b2a9739a64cf",
+    "fingerprint": "b83b841e1e159adcb8fad1fa11d75d52ac0b45e451fe807ca5d4fd4f287d531a",
+    "date": "2026-11-11",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "true peak, to -10.66 dBTP",
+      "gain_db": -7.36
+    },
+    "reference": {
+      "defName": "Metal_Drop",
+      "effective": "peak -22.7 dB",
+      "volume": [
+        25.0,
+        25.0
+      ],
+      "distance": null,
+      "channels": 1
+    },
+    "result": {
+      "lufs": -27.5,
+      "true_peak": -10.5,
+      "seconds": 6.1,
+      "flags": [],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 43,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "Loose gravel and sand pouring out of a tipped dump truck body in one long rushing slide. Outdoors. Length: 5 seconds"
+    }
+  },
+  "TipperSlide": {
+    "name": "TipperSlide",
+    "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/Tipper/Slide.ogg",
+    "sha256": "2c467852e97eb5533c29d3d9d97205d4ed125918fb2c9a4e715913a6e5bec48a",
+    "master_sha256": "4ce2599e7b4d31b9903cbd27c4f293f5c8a8cd2546a582e622b9b8745872b327",
+    "fingerprint": "8f9725c451c8d87560cdc0eac74e00fc20c828c71058cfac3d23866b1b40d4a9",
+    "date": "2026-11-11",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "true peak, to -10.66 dBTP",
+      "gain_db": -9.66
+    },
+    "reference": {
+      "defName": "Metal_Drop",
+      "effective": "peak -22.7 dB",
+      "volume": [
+        25.0,
+        25.0
+      ],
+      "distance": null,
+      "channels": 1
+    },
+    "result": {
+      "lufs": -32.1,
+      "true_peak": -10.6,
+      "seconds": 4.39,
+      "flags": [
+        "spiky"
+      ],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 43,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "Heavy sacks and crates thudding one after another as they slide off a tipped truck bed onto the ground. Outdoors. Length: 4 seconds"
+    }
+  },
+  "TipperTailgate": {
+    "name": "TipperTailgate",
+    "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/Tipper/Tailgate.ogg",
+    "sha256": "55645a7b4da09392110eb8e38a886e001dc7c22eece86e801a66010c8ae84dd6",
+    "master_sha256": "a3884010e9dff28a3f2a71dbd50a9ded5a57f5400c93fe9c154b88b2630bc66a",
+    "fingerprint": "02fc3d4c1df90d5e958a13a9c056b5b2bc4cada12fe81a4a03b7782fdd95222f",
+    "date": "2026-11-11",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "true peak, to -10.66 dBTP",
+      "gain_db": -9.66
+    },
+    "reference": {
+      "defName": "Metal_Drop",
+      "effective": "peak -22.7 dB",
+      "volume": [
+        25.0,
+        25.0
+      ],
+      "distance": null,
+      "channels": 1
+    },
+    "result": {
+      "lufs": -30.3,
+      "true_peak": -10.8,
+      "seconds": 4.02,
+      "flags": [],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 43,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A dump truck's heavy steel tailgate swinging shut with a metal bang as the empty body settles back onto the chassis with a thud. Outdoors. Length: 3 seconds"
+    }
+  },
+  "DrillRigDrill": {
+    "name": "DrillRigDrill",
+    "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/DrillRig/Drill.ogg",
+    "sha256": "d0c6affe4b209db4fbadce2cdb1f350f6a645b100ea7275c058ae4d8cb7d13cf",
+    "master_sha256": "8011facc03f050afd92013d33c3a1473907edeac90f1a038d984a6d98177f921",
+    "fingerprint": "f040af0ca052a419c7fba2504335392c79888791ef0758bd00348af1625185f5",
+    "date": "2026-11-11",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "loop_span_s": [
+        0.2,
+        6.0592
+      ],
+      "loop_match": 0.057,
+      "loop_crossfade_s": 1.0,
+      "loop_curve": "equal gain",
+      "loop_seam_dip_db": 0.0,
+      "levelled_by": "loudness, to -18.78 LUFS",
+      "gain_db": 7.32
+    },
+    "reference": {
+      "defName": "ChemfuelFiredGenerator_Ambience",
+      "effective": "-36.5 LUFS",
+      "volume": [
+        13.0,
+        13.0
+      ],
+      "distance": [
+        10.0,
+        20.0
+      ],
+      "channels": 1
+    },
+    "result": {
+      "lufs": -19.0,
+      "true_peak": -5.1,
+      "seconds": 4.86,
+      "flags": [
+        "highs"
+      ],
+      "seam_dip_db": 0.0,
+      "loop_gap_s": 0.0
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 41,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A rotary drilling rig drilling into rock: a steady grinding rotary head, an air compressor roaring and flushing water gushing, continuous and unchanging. Outdoors. Length: 8 seconds"
+    }
+  },
+  "DrillRigHammer": {
+    "name": "DrillRigHammer",
+    "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/DrillRig/Hammer.ogg",
+    "sha256": "0a773c47aeba082da8d79be3a333fbb7dac82535592127a0c1b0df235fad9d9c",
+    "master_sha256": "d47321c636f043d4e8fae269c6f2da6ed2493d3c9394333909a269ab831b3cf3",
+    "fingerprint": "1886872090e27a5a7723e3099c80248d910b32a86e5f9f095f5eca17cffb0416",
+    "date": "2026-11-11",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "loop_span_s": [
+        0.5,
+        5.358
+      ],
+      "loop_match": 0.164,
+      "loop_crossfade_s": 1.0,
+      "loop_curve": "equal gain",
+      "loop_seam_dip_db": 1.23,
+      "levelled_by": "loudness, to -18.78 LUFS",
+      "gain_db": 2.5
+    },
+    "reference": {
+      "defName": "ChemfuelFiredGenerator_Ambience",
+      "effective": "-36.5 LUFS",
+      "volume": [
+        13.0,
+        13.0
+      ],
+      "distance": [
+        10.0,
+        20.0
+      ],
+      "channels": 1
+    },
+    "result": {
+      "lufs": -25.9,
+      "true_peak": -0.9,
+      "seconds": 3.86,
+      "flags": [
+        "spiky"
+      ],
+      "seam_dip_db": 1.1,
+      "loop_gap_s": 0.0
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 42,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A down-the-hole hammer drill pounding into rock: fast rhythmic percussive hammering with compressed air blasting, continuous and unchanging. Outdoors. Length: 8 seconds"
+    }
+  },
+  "DrillRigElectric": {
+    "name": "DrillRigElectric",
+    "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/DrillRig/Electric.ogg",
+    "sha256": "4df055cec2dc6b7c6a541962dc2d0d1c89db21628fc8efcccc15978ce691928e",
+    "master_sha256": "c21520fb5c9d57e068368ba6164f784805b70e6599456467bd1fafd43c5b1236",
+    "fingerprint": "c797971c8484ee2a8bc37d186af43242458d58541f12cd7c4a0a62ad61186f27",
+    "date": "2026-11-11",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "loop_span_s": [
+        0.2,
+        6.3149
+      ],
+      "loop_match": 0.094,
+      "loop_crossfade_s": 0.5,
+      "loop_curve": "equal power",
+      "loop_seam_dip_db": 0.09,
+      "levelled_by": "loudness, to -21.78 LUFS",
+      "gain_db": 5.52
+    },
+    "reference": {
+      "defName": "ChemfuelFiredGenerator_Ambience",
+      "effective": "-36.5 LUFS",
+      "volume": [
+        13.0,
+        13.0
+      ],
+      "distance": [
+        10.0,
+        20.0
+      ],
+      "channels": 1
+    },
+    "result": {
+      "lufs": -21.9,
+      "true_peak": -9.3,
+      "seconds": 5.61,
+      "flags": [
+        "highs"
+      ],
+      "seam_dip_db": 0.05,
+      "loop_gap_s": 0.0
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 41,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "An electric drilling rig drilling into rock: a smooth electric motor hum and a steady grinding rotary head, quieter, no engine, continuous and unchanging. Outdoors. Length: 8 seconds"
+    }
+  },
+  "DrillRigChute": {
+    "name": "DrillRigChute",
+    "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/DrillRig/Chute.ogg",
+    "sha256": "fd241c876a624e575a54e6c4f2b5736fef37002c99c567f096b6e85611c5166f",
+    "master_sha256": "70a3e1ba006d4a74326d8bcc0fa5530deeeb4b8508477bb2d29c1cd8378c3d25",
+    "fingerprint": "425bcc83446f1601bcfafa19596bf0dcd2d31f50b25126b2817e09eb4f9ad833",
+    "date": "2026-11-11",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "true peak, to -13.66 dBTP",
+      "gain_db": -6.26
+    },
+    "reference": {
+      "defName": "Metal_Drop",
+      "effective": "peak -22.7 dB",
+      "volume": [
+        25.0,
+        25.0
+      ],
+      "distance": null,
+      "channels": 1
+    },
+    "result": {
+      "lufs": -35.5,
+      "true_peak": -14.1,
+      "seconds": 4.07,
+      "flags": [
+        "highs",
+        "spiky"
+      ],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 41,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A load of rock cuttings and ore pouring down a steel chute and landing in a pile with a rattling rush. Outdoors. Length: 3 seconds"
+    }
+  },
+  "DrillRigWindDown": {
+    "name": "DrillRigWindDown",
+    "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/DrillRig/WindDown.ogg",
+    "sha256": "37997bf508f3e27f3ae3a1b05cc16aee4339fa311b9dcc70540be91c1c30a90b",
+    "master_sha256": "46926a622c10e853fe3942db8b796b2f31b82b55d01d13152a4eec9f60b1ac4a",
+    "fingerprint": "7c88d6f75789003872a258694e9c48bbfd86abb44734d8623330edee9346163a",
+    "date": "2026-11-11",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "loudness, to -21.78 LUFS",
+      "gain_db": -2.08
+    },
+    "reference": {
+      "defName": "ChemfuelFiredGenerator_Ambience",
+      "effective": "-36.5 LUFS",
+      "volume": [
+        13.0,
+        13.0
+      ],
+      "distance": [
+        10.0,
+        20.0
+      ],
+      "channels": 1
+    },
+    "result": {
+      "lufs": -21.9,
+      "true_peak": -5.5,
+      "seconds": 6.1,
+      "flags": [
+        "highs"
+      ],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 42,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A drilling rig winding down: the rotary head and compressor slowing to a stop, a last hiss of air, then quiet. Outdoors. Length: 5 seconds"
+    }
+  },
+  "SurveyTruckBoom": {
+    "name": "SurveyTruckBoom",
+    "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/SurveyTruck/Boom.ogg",
+    "sha256": "93711ea639cbf6c51f5e6ccfdec96a44c78da528402e515f07b7aafd54da673f",
+    "master_sha256": "898f6528a3075d8bfebc9f70ddd1f4e710dfe42d495424e915f7a42c175d91e5",
+    "fingerprint": "51fa213738128ee405a915ffeb26b7bdc4806f6f4a37ba1cdc93d1a4370dd101",
+    "date": "2026-11-11",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "loudness, to -24.78 LUFS",
+      "gain_db": -3.18
+    },
+    "reference": {
+      "defName": "ChemfuelFiredGenerator_Ambience",
+      "effective": "-36.5 LUFS",
+      "volume": [
+        13.0,
+        13.0
+      ],
+      "distance": [
+        10.0,
+        20.0
+      ],
+      "channels": 1
+    },
+    "result": {
+      "lufs": -24.8,
+      "true_peak": -4.2,
+      "seconds": 4.31,
+      "flags": [
+        "spiky"
+      ],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 41,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A survey truck's hydraulic sensor boom swinging out: a soft hydraulic whine, creaking joints and a firm clunk as it locks into place. Outdoors, close. Length: 4 seconds"
+    }
+  },
+  "SurveyTruckConsole": {
+    "name": "SurveyTruckConsole",
+    "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/SurveyTruck/Console.ogg",
+    "sha256": "e193db5bc12ae69a703672a5c8dea11721604871a92e2e3ddbbc11634ff4a77a",
+    "master_sha256": "df4087870863d478b98a2c707a0406924df4daf83dfd4beab7778bf2cf154ac0",
+    "fingerprint": "96e44a2366aceedddb394acca9097b7d52195c8bc72a0b8e08fea4de2589eedc",
+    "date": "2026-11-11",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "loop_span_s": [
+        1.5,
+        6.0286
+      ],
+      "loop_match": 0.765,
+      "loop_crossfade_s": 0.25,
+      "loop_curve": "equal power",
+      "loop_seam_dip_db": 0.0,
+      "levelled_by": "loudness, to -34.08 LUFS",
+      "gain_db": 18.12
+    },
+    "reference": {
+      "defName": "Hemopump_Ambience",
+      "effective": "-37.1 LUFS",
+      "volume": [
+        50.0,
+        50.0
+      ],
+      "distance": [
+        5.0,
+        20.0
+      ],
+      "channels": 1
+    },
+    "result": {
+      "lufs": -34.3,
+      "true_peak": -7.0,
+      "seconds": 4.28,
+      "flags": [
+        "highs",
+        "spiky"
+      ],
+      "seam_dip_db": 0.0,
+      "loop_gap_s": 0.0
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 42,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "Field survey electronics running inside a truck: soft instrument beeps, a chart recorder's pen scratching and gentle data clicks, calm and continuous. Length: 8 seconds"
+    }
+  },
+  "SurveyTruckArray": {
+    "name": "SurveyTruckArray",
+    "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/SurveyTruck/Array.ogg",
+    "sha256": "fa592f8a03579fed3260594caa89f5c572883c50cf4bc027f724307fa438703b",
+    "master_sha256": "b047e96bbb2897126ad53d34b2dba9903e6b3f07ebdc24120bf6a97c83b44945",
+    "fingerprint": "a556d819999c291f5317f66b9fa427b61d464f0b5d1bf9d3b560efa3e71eb239",
+    "date": "2026-11-11",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "loop_span_s": [
+        0.2,
+        6.0869
+      ],
+      "loop_match": 0.989,
+      "loop_crossfade_s": 0.25,
+      "loop_curve": "equal power",
+      "loop_seam_dip_db": 0.0,
+      "levelled_by": "loudness, to -34.08 LUFS",
+      "gain_db": -3.68
+    },
+    "reference": {
+      "defName": "Hemopump_Ambience",
+      "effective": "-37.1 LUFS",
+      "volume": [
+        50.0,
+        50.0
+      ],
+      "distance": [
+        5.0,
+        20.0
+      ],
+      "channels": 1
+    },
+    "result": {
+      "lufs": -34.1,
+      "true_peak": -23.5,
+      "seconds": 5.64,
+      "flags": [],
+      "seam_dip_db": 0.0,
+      "loop_gap_s": 0.0
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 42,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A powered geophysical sensor array humming steadily, a low electrical hum with a faint slow pulsing, calm, continuous and unchanging. Outdoors. Length: 8 seconds"
+    }
+  },
+  "SurveyTruckDish": {
+    "name": "SurveyTruckDish",
+    "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/SurveyTruck/Dish.ogg",
+    "sha256": "52f63648c6208ac0b270f2ade573ef0070e18cd8692e3f5053d062fa5da98ae5",
+    "master_sha256": "eace4e23c3df17bd3141152d01456b81c2b2f7cc418c48c57ffb9d90e5777fe0",
+    "fingerprint": "f4cf820a74d539e011994662c9d5165c750d36555c8d71e2cae9a4406e33dc88",
+    "date": "2026-11-11",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "loop_span_s": [
+        0.2,
+        6.8403
+      ],
+      "loop_match": 0.132,
+      "loop_crossfade_s": 0.25,
+      "loop_curve": "equal power",
+      "loop_seam_dip_db": 0.0,
+      "levelled_by": "loudness, to -34.08 LUFS",
+      "gain_db": 1.42
+    },
+    "reference": {
+      "defName": "Hemopump_Ambience",
+      "effective": "-37.1 LUFS",
+      "volume": [
+        50.0,
+        50.0
+      ],
+      "distance": [
+        5.0,
+        20.0
+      ],
+      "channels": 1
+    },
+    "result": {
+      "lufs": -34.4,
+      "true_peak": -15.1,
+      "seconds": 6.39,
+      "flags": [
+        "highs"
+      ],
+      "seam_dip_db": 0.0,
+      "loop_gap_s": 0.0
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 43,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A small motorised dish antenna turning slowly back and forth on its mount, a smooth gear motor whirr with gentle gear ticks, continuous. Outdoors. Length: 8 seconds"
+    }
+  },
+  "SurveyTruckFind": {
+    "name": "SurveyTruckFind",
+    "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/SurveyTruck/Find.ogg",
+    "sha256": "58046dbd138824194b5493dbc1ca0f51e35764804488de11e68dddef58548e69",
+    "master_sha256": "9c4a9e7b17ce741e185257b7cfc326fe91c2600310068bc40093f73b619d698a",
+    "fingerprint": "992377b5d8e9971ca569520b166c9f5ba8bce0ad85b23fd64e57339e942cb928",
+    "date": "2026-11-11",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "loudness, to -26.58 LUFS",
+      "gain_db": -10.48
+    },
+    "reference": {
+      "defName": "TinyBell",
+      "effective": "-47.5 LUFS",
+      "volume": [
+        9.0,
+        9.0
+      ],
+      "distance": null,
+      "channels": 2
+    },
+    "result": {
+      "lufs": -26.5,
+      "true_peak": -14.0,
+      "seconds": 1.75,
+      "flags": [],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 42,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "One soft, warm two-note electronic chime announcing a discovery, gentle and calm, not alarming. Length: 2 seconds"
+    }
+  },
+  "GeneratorSetSetUp": {
+    "name": "GeneratorSetSetUp",
+    "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/GeneratorSet/SetUp.ogg",
+    "sha256": "7a54434726527fcce0e5bf5498bf1b2fb6cf08d482a3cfc8b55ec02f8eaa4f59",
+    "master_sha256": "74f1f6a329f05eca213838fb1c97fdb4b1eb4f45b9ed4ec6b58d7b9aa0fb1b31",
+    "fingerprint": "9f6728106ed0d2198916c69e1073d2a32774289786d36dc37ef8040542d3ce05",
+    "date": "2026-11-11",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "loudness, to -21.78 LUFS",
+      "gain_db": 0.3
+    },
+    "reference": {
+      "defName": "ChemfuelFiredGenerator_Ambience",
+      "effective": "-36.5 LUFS",
+      "volume": [
+        13.0,
+        13.0
+      ],
+      "distance": [
+        10.0,
+        20.0
+      ],
+      "channels": 1
+    },
+    "result": {
+      "lufs": -26.2,
+      "true_peak": -0.7,
+      "seconds": 6.15,
+      "flags": [
+        "spiky"
+      ],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 44,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A small diesel-electric truck setting up as a generator: hydraulic outriggers settling with a thud, then a heavy power cable paying out from a spring-loaded reel with a rattling clatter. Outdoors. Length: 6 seconds"
+    }
+  },
+  "SeabedCrawlerDive": {
+    "name": "SeabedCrawlerDive",
+    "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/SeabedCrawler/Dive.ogg",
+    "sha256": "38bcdb43853c32a3a521cf2b607356391890bcf031b21ef7419dd2a86d65df83",
+    "master_sha256": "40abeb2f979d8af1364270f41617fdccbc5b471458c53daad299675f33ec3f5a",
+    "fingerprint": "3d8ed6791aeb1c53fbb2b145555d2ee6c500d53f2a09f0218923e4c08d3a408e",
+    "date": "2026-11-11",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "loudness, to -15.14 LUFS",
+      "gain_db": -0.1
+    },
+    "reference": {
+      "defName": "HissJet",
+      "effective": "-17.1 LUFS",
+      "volume": [
+        40.0,
+        40.0
+      ],
+      "distance": null,
+      "channels": 1
+    },
+    "result": {
+      "lufs": -21.6,
+      "true_peak": -0.9,
+      "seconds": 9.49,
+      "flags": [
+        "spiky"
+      ],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 42,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A small research submarine diving: vents opening with a rush of escaping air and seawater flooding into the ballast tanks with deep gurgling, heard from inside its steel hull. Length: 8 seconds"
+    }
+  },
+  "SeabedCrawlerSurface": {
+    "name": "SeabedCrawlerSurface",
+    "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/SeabedCrawler/Surface.ogg",
+    "sha256": "8678d4bb7ed123dd5761cd50e216c405cec6da6c8f6b38ed157da01bcd39f56a",
+    "master_sha256": "d92943ee3baf9a9c338c78cf27319caec0b9dcabd10f636092617f1a8b041d71",
+    "fingerprint": "7c4c5a3558c21dfdbdea77204c2eae2bfe6dc39e51fb88edbe8ffb5d9f8565f3",
+    "date": "2026-11-11",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "loudness, to -15.14 LUFS",
+      "gain_db": -1.0
+    },
+    "reference": {
+      "defName": "HissJet",
+      "effective": "-17.1 LUFS",
+      "volume": [
+        40.0,
+        40.0
+      ],
+      "distance": null,
+      "channels": 1
+    },
+    "result": {
+      "lufs": -18.9,
+      "true_peak": -0.9,
+      "seconds": 9.16,
+      "flags": [],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 45,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A small research submarine surfacing: high-pressure air blasting into the ballast tanks with a roaring rush as water is forced out, heard from inside its steel hull. Length: 8 seconds"
+    }
+  },
+  "SeabedCrawlerSettle": {
+    "name": "SeabedCrawlerSettle",
+    "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/SeabedCrawler/Settle.ogg",
+    "sha256": "e89d04a37b7ecc753b4cff2962408c85ad72a8de899566618621cf3382d97cec",
+    "master_sha256": "b904356531b041b7c6abceeebef5705d8fc1625d8cf004b367c49cf17745016d",
+    "fingerprint": "d1d5c0e6863606e15f5592d41c893d103addb479e3a6988074b9f4508ed5d73a",
+    "date": "2026-11-11",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "true peak, to -13.66 dBTP",
+      "gain_db": -10.46
+    },
+    "reference": {
+      "defName": "Metal_Drop",
+      "effective": "peak -22.7 dB",
+      "volume": [
+        25.0,
+        25.0
+      ],
+      "distance": null,
+      "channels": 1
+    },
+    "result": {
+      "lufs": -32.4,
+      "true_peak": -13.8,
+      "seconds": 5.97,
+      "flags": [],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 42,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A small submarine settling gently onto the seabed: a soft muffled bump and a few long metallic creaks of the hull. Length: 5 seconds"
+    }
+  },
+  "SeabedCrawlerCreak": {
+    "name": "SeabedCrawlerCreak",
+    "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/SeabedCrawler/Creak.ogg",
+    "sha256": "5f426e2fabd6e88218b74bd2a046203009984d76adb5a7649bcd7c748cd6dd39",
+    "master_sha256": "0f18341e11cb309cfd7667e1b0ebb73e6879cd3873d860d7708c766d0db529c5",
+    "fingerprint": "501fbf61ff0282d7c5335bf85b823b25ec338ae29713e17ab6a534fc24ec640b",
+    "date": "2026-11-11",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "loop_span_s": [
+        0.5,
+        5.5614
+      ],
+      "loop_match": 0.689,
+      "loop_crossfade_s": 0.25,
+      "loop_curve": "equal power",
+      "loop_seam_dip_db": 0.0,
+      "filter": "dynaudnorm=f=200:g=11:p=0.9:m=60",
+      "levelled_by": "loudness, to -37.08 LUFS",
+      "gain_db": -16.08
+    },
+    "reference": {
+      "defName": "Hemopump_Ambience",
+      "effective": "-37.1 LUFS",
+      "volume": [
+        50.0,
+        50.0
+      ],
+      "distance": [
+        5.0,
+        20.0
+      ],
+      "channels": 1
+    },
+    "result": {
+      "lufs": -37.0,
+      "true_peak": -22.7,
+      "seconds": 4.81,
+      "flags": [],
+      "seam_dip_db": 0.0,
+      "loop_gap_s": 0.0
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 41,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "Inside a small steel submarine deep under water: a constant faint low rumble of the sea against the hull, with quiet distant creaks and soft groans of metal under pressure over it, calm, never silent, continuous. Length: 8 seconds"
+    }
+  },
+  "SeabedCrawlerScrubber": {
+    "name": "SeabedCrawlerScrubber",
+    "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/SeabedCrawler/Scrubber.ogg",
+    "sha256": "b0b93fc14a72384b7657783d3fa781b33da90f8dc50c27576a7f3e4e49a219b6",
+    "master_sha256": "a060a8512d3a1dd4d94506b58ac52305e15f91d97d83ffcb276be45ee20290d0",
+    "fingerprint": "d50744c040e918079053eede6f291113676f4b59862a8c5e5386af78564c4e62",
+    "date": "2026-11-11",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "loop_span_s": [
+        0.2,
+        6.5243
+      ],
+      "loop_match": 0.267,
+      "loop_crossfade_s": 1.0,
+      "loop_curve": "equal power",
+      "loop_seam_dip_db": 0.0,
+      "levelled_by": "loudness, to -34.08 LUFS",
+      "gain_db": 2.22
+    },
+    "reference": {
+      "defName": "Hemopump_Ambience",
+      "effective": "-37.1 LUFS",
+      "volume": [
+        50.0,
+        50.0
+      ],
+      "distance": [
+        5.0,
+        20.0
+      ],
+      "channels": 1
+    },
+    "result": {
+      "lufs": -34.2,
+      "true_peak": -21.5,
+      "seconds": 5.32,
+      "flags": [],
+      "seam_dip_db": 0.0,
+      "loop_gap_s": 0.0
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 41,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A small air scrubber fan running inside a submarine, a soft steady whirr with a gentle airflow hiss, calm and continuous. Length: 8 seconds"
+    }
+  },
+  "SeabedCrawlerLab": {
+    "name": "SeabedCrawlerLab",
+    "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/SeabedCrawler/Lab.ogg",
+    "sha256": "24922353b72846d8c0cf1c97586a3edef4b0d4569f2b8a5ca861c1b272da3924",
+    "master_sha256": "fbc0ff7d319da35859cdce70263b8758b03ae55eb0c91896a41c70f7cdb3f4cf",
+    "fingerprint": "3a48917977c94ab433fcaa2363827c0894976c9474f17ac863cc1ff10a33da9c",
+    "date": "2026-11-11",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "loop_span_s": [
+        0.2,
+        6.9657
+      ],
+      "loop_match": 0.346,
+      "loop_crossfade_s": 0.5,
+      "loop_curve": "equal power",
+      "loop_seam_dip_db": 0.0,
+      "levelled_by": "loudness, to -37.08 LUFS",
+      "gain_db": -5.38
+    },
+    "reference": {
+      "defName": "Hemopump_Ambience",
+      "effective": "-37.1 LUFS",
+      "volume": [
+        50.0,
+        50.0
+      ],
+      "distance": [
+        5.0,
+        20.0
+      ],
+      "channels": 1
+    },
+    "result": {
+      "lufs": -37.1,
+      "true_peak": -24.6,
+      "seconds": 6.27,
+      "flags": [],
+      "seam_dip_db": 0.0,
+      "loop_gap_s": 0.0
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 43,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A small laboratory at work inside a submarine: a constant soft ventilation hum with the gentle whirr of a centrifuge and occasional quiet glassware clinks, calm, never silent, continuous. Length: 8 seconds"
+    }
+  },
+  "SeabedCrawlerContact": {
+    "name": "SeabedCrawlerContact",
+    "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/SeabedCrawler/Contact.ogg",
+    "sha256": "3fa218e0b55569f732e61ac14aed1c853f0c66efd37bf8678cc93a68dd7f8637",
+    "master_sha256": "148dd23f6695a798d986ce4a51fe5c1ae2bc193ca0fbd7e0857767d42a3e0d3e",
+    "fingerprint": "f2c5687ca47442a90bf4da1acc213748031684b94ebcb66f8babca4a0bfb554e",
+    "date": "2026-11-11",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "loudness, to -29.58 LUFS",
+      "gain_db": 4.42
+    },
+    "reference": {
+      "defName": "TinyBell",
+      "effective": "-47.5 LUFS",
+      "volume": [
+        9.0,
+        9.0
+      ],
+      "distance": null,
+      "channels": 2
+    },
+    "result": {
+      "lufs": -29.6,
+      "true_peak": -13.0,
+      "seconds": 4.06,
+      "flags": [],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 41,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "One soft, faint, low hydrophone tone with a distant muffled echo, calm and subtle, not a sonar ping. Length: 3 seconds"
+    }
+  },
+  "Ventilator": {
+    "name": "Ventilator",
+    "target": "mods/PhobosMedical/Common/Sounds/Phobos/Medical/Ventilator.ogg",
+    "sha256": "9b59420ef8e314abb5f900a96698a50d88fbbd3f72e94ecde84e5d1af7e067cf",
+    "master_sha256": "3c821318530685eabfa0534e54632a85f5be855c95d45f25e10393697876e65c",
+    "fingerprint": "1af018f25b89a1d56869622deb3b1adaf17648ce5a36b3fb4a9dee996fac7ae8",
+    "date": "2026-11-11",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "loop_span_s": [
+        0.2,
+        6.5628
+      ],
+      "loop_match": 0.844,
+      "loop_crossfade_s": 0.25,
+      "loop_curve": "equal power",
+      "loop_seam_dip_db": 0.14,
+      "levelled_by": "loudness, to -34.08 LUFS",
+      "gain_db": 0.42
+    },
+    "reference": {
+      "defName": "Hemopump_Ambience",
+      "effective": "-37.1 LUFS",
+      "volume": [
+        50.0,
+        50.0
+      ],
+      "distance": [
+        5.0,
+        20.0
+      ],
+      "channels": 1
+    },
+    "result": {
+      "lufs": -34.0,
+      "true_peak": -20.3,
+      "seconds": 6.11,
+      "flags": [],
+      "seam_dip_db": 0.39,
+      "loop_gap_s": 0.0
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 41,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A hospital mechanical ventilator running beside a bed: a constant soft electric hum with a gentle rhythmic bellows push and sigh over it, calm and steady, never silent, continuous. Length: 8 seconds"
+    }
+  },
+  "Nebuliser": {
+    "name": "Nebuliser",
+    "target": "mods/PhobosMedical/Common/Sounds/Phobos/Medical/Nebuliser.ogg",
+    "sha256": "feb92270497c685300f7bb1af2e9aabee5959ad49c31696aa7befbaafed15b23",
+    "master_sha256": "a9158c6bbe80339ed342fa8bd3947ee41c8687ed470a1da766f9e6529d3a8dbc",
+    "fingerprint": "97d80eed5798737eb81d623335f08015cec9a40b9cc7a6f1ea6ebfafce1f50bc",
+    "date": "2026-11-11",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "loop_span_s": [
+        0.2,
+        6.0412
+      ],
+      "loop_match": 0.224,
+      "loop_crossfade_s": 0.25,
+      "loop_curve": "equal power",
+      "loop_seam_dip_db": 0.0,
+      "levelled_by": "loudness, to -34.08 LUFS",
+      "gain_db": 12.02
+    },
+    "reference": {
+      "defName": "Hemopump_Ambience",
+      "effective": "-37.1 LUFS",
+      "volume": [
+        50.0,
+        50.0
+      ],
+      "distance": [
+        5.0,
+        20.0
+      ],
+      "channels": 1
+    },
+    "result": {
+      "lufs": -34.3,
+      "true_peak": -23.6,
+      "seconds": 5.59,
+      "flags": [
+        "highs"
+      ],
+      "seam_dip_db": 0.0,
+      "loop_gap_s": 0.0
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 43,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A small medical nebuliser compressor running with a soft buzz and a fine mist hiss, calm and continuous. Length: 8 seconds"
+    }
+  },
+  "Anaesthesia": {
+    "name": "Anaesthesia",
+    "target": "mods/PhobosMedical/Common/Sounds/Phobos/Medical/Anaesthesia.ogg",
+    "sha256": "ebd53e0f5c3e572f0b815a160e3b6cb9c297abb04bf843ca83d707bf2ef3c337",
+    "master_sha256": "f8f4c9b05d1f9269e0784adc393f6f89cf3422f5c93566a367b3223478ad8b2d",
+    "fingerprint": "14413f395bbf9eb6996b187e3ed4674ea3ae6edf133b435e48d376dbd9b7f95b",
+    "date": "2026-11-11",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "loop_span_s": [
+        0.2,
+        6.2155
+      ],
+      "loop_match": 0.159,
+      "loop_crossfade_s": 1.0,
+      "loop_curve": "equal gain",
+      "loop_seam_dip_db": 0.86,
+      "levelled_by": "loudness, to -37.08 LUFS",
+      "gain_db": -9.38
+    },
+    "reference": {
+      "defName": "Hemopump_Ambience",
+      "effective": "-37.1 LUFS",
+      "volume": [
+        50.0,
+        50.0
+      ],
+      "distance": [
+        5.0,
+        20.0
+      ],
+      "channels": 1
+    },
+    "result": {
+      "lufs": -37.3,
+      "true_peak": -25.6,
+      "seconds": 5.02,
+      "flags": [
+        "highs"
+      ],
+      "seam_dip_db": 0.98,
+      "loop_gap_s": 0.0
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 42,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "An anaesthesia machine during surgery: a slow soft bellows rising and falling with quiet gas flow, calm and continuous. Length: 8 seconds"
+    }
+  },
+  "BurnBed": {
+    "name": "BurnBed",
+    "target": "mods/PhobosMedical/Common/Sounds/Phobos/Medical/BurnBed.ogg",
+    "sha256": "9420a7480f47460dcb9a6adb1eab2d9036ac1fea083e64f4fb8ff0c792d7838f",
+    "master_sha256": "63b6ae0f87084599654dbb9e506757f4624377ff5fda5178d6704a1e7c52b83c",
+    "fingerprint": "8d01d3c8429dd6c4541e50ab8f0e363a31f451aa66d5004d5fef22c444fd23fe",
+    "date": "2026-11-11",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "loop_span_s": [
+        0.2,
+        6.4517
+      ],
+      "loop_match": 0.39,
+      "loop_crossfade_s": 1.0,
+      "loop_curve": "equal power",
+      "loop_seam_dip_db": 0.95,
+      "levelled_by": "loudness, to -37.08 LUFS",
+      "gain_db": -2.78
+    },
+    "reference": {
+      "defName": "Hemopump_Ambience",
+      "effective": "-37.1 LUFS",
+      "volume": [
+        50.0,
+        50.0
+      ],
+      "distance": [
+        5.0,
+        20.0
+      ],
+      "channels": 1
+    },
+    "result": {
+      "lufs": -37.1,
+      "true_peak": -24.7,
+      "seconds": 5.25,
+      "flags": [],
+      "seam_dip_db": 0.84,
+      "loop_gap_s": 0.0
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 41,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A medical air-cell bed's blower running quietly, a soft steady fan hum with a gentle rush of air, calm and continuous. Length: 8 seconds"
+    }
+  },
+  "HyperbaricSeal": {
+    "name": "HyperbaricSeal",
+    "target": "mods/PhobosMedical/Common/Sounds/Phobos/Medical/HyperbaricSeal.ogg",
+    "sha256": "9257dcc72d07a385a6ffd50e2f9886065ba9e4890e5d04bef8a533e38f5b7e6a",
+    "master_sha256": "409cacf685ab3c931f1f4f366ced4b0ca6a40cf7e92eb044393da4926ff90fb7",
+    "fingerprint": "353989456fcd4fbd81ffc8d0c761b2465a71013685c3812be0183d808f32de05",
+    "date": "2026-11-11",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "true peak, to -13.66 dBTP",
+      "gain_db": -12.76
+    },
+    "reference": {
+      "defName": "Metal_Drop",
+      "effective": "peak -22.7 dB",
+      "volume": [
+        25.0,
+        25.0
+      ],
+      "distance": null,
+      "channels": 1
+    },
+    "result": {
+      "lufs": -37.8,
+      "true_peak": -14.0,
+      "seconds": 6.05,
+      "flags": [
+        "spiky"
+      ],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 44,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A hyperbaric chamber's door sealing with a heavy clunk, then oxygen pressurising with a rising hiss that settles into a low hum. Length: 6 seconds"
+    }
+  },
+  "HyperbaricHum": {
+    "name": "HyperbaricHum",
+    "target": "mods/PhobosMedical/Common/Sounds/Phobos/Medical/HyperbaricHum.ogg",
+    "sha256": "925c995924bccf81ee2a79e2622ba697c7fd596d4f53edd4b46374b22671a0c2",
+    "master_sha256": "7986d2d68919dd3c544a0174c22902c4364f086f3e5e9a172355c8d62ea212ea",
+    "fingerprint": "66c1bf7a710107821b1523a94202d7cbb4174d26986a0e6de6432b0e81d4ffae",
+    "date": "2026-11-11",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "loop_span_s": [
+        0.2,
+        6.3488
+      ],
+      "loop_match": 0.233,
+      "loop_crossfade_s": 1.0,
+      "loop_curve": "equal power",
+      "loop_seam_dip_db": 0.0,
+      "levelled_by": "loudness, to -34.08 LUFS",
+      "gain_db": -5.08
+    },
+    "reference": {
+      "defName": "Hemopump_Ambience",
+      "effective": "-37.1 LUFS",
+      "volume": [
+        50.0,
+        50.0
+      ],
+      "distance": [
+        5.0,
+        20.0
+      ],
+      "channels": 1
+    },
+    "result": {
+      "lufs": -34.1,
+      "true_peak": -22.2,
+      "seconds": 5.15,
+      "flags": [],
+      "seam_dip_db": 0.0,
+      "loop_gap_s": 0.0
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 41,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A hyperbaric oxygen chamber running: a low steady hum with faint airflow, calm and continuous. Length: 8 seconds"
+    }
+  },
+  "Electrolyser": {
+    "name": "Electrolyser",
+    "target": "mods/PhobosMedical/Common/Sounds/Phobos/Medical/Electrolyser.ogg",
+    "sha256": "56269994404edd9d5d7a4fb6e884c8b884a2521fa0e2a00b3515081c4be7217f",
+    "master_sha256": "114e21c8955821a9e6621d47c7c6879589283b922e9a52ef7b4541585c6f5fe8",
+    "fingerprint": "d87cf902d5d16dcd7bab8179059546868f8a8a599bee041cf435bcbf263b163e",
+    "date": "2026-11-11",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "loop_span_s": [
+        0.2,
+        6.545
+      ],
+      "loop_match": 0.346,
+      "loop_crossfade_s": 0.75,
+      "loop_curve": "equal power",
+      "loop_seam_dip_db": 0.0,
+      "levelled_by": "loudness, to -34.08 LUFS",
+      "gain_db": -3.78
+    },
+    "reference": {
+      "defName": "Hemopump_Ambience",
+      "effective": "-37.1 LUFS",
+      "volume": [
+        50.0,
+        50.0
+      ],
+      "distance": [
+        5.0,
+        20.0
+      ],
+      "channels": 1
+    },
+    "result": {
+      "lufs": -34.1,
+      "true_peak": -14.9,
+      "seconds": 5.6,
+      "flags": [],
+      "seam_dip_db": 0.0,
+      "loop_gap_s": 0.0
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 42,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "An industrial electrolyser at work: water bubbling steadily in its cells with a low electrical transformer hum, continuous and unchanging. Length: 8 seconds"
+    }
+  },
+  "LiquidOxygenCooler": {
+    "name": "LiquidOxygenCooler",
+    "target": "mods/PhobosMedical/Common/Sounds/Phobos/Medical/LiquidOxygenCooler.ogg",
+    "sha256": "6c8145a8a67720f2c3f0a813118e8c9709928ce6845a3471eacdc8c0e9c0e669",
+    "master_sha256": "4011c0b24cde8143e7f39436a4ece9c9a753cc6d286d8f41400b605e8e394b6f",
+    "fingerprint": "058a71706072b09dd9b0c51ea0e279a45e425e045c0b7554e24fe88fda230a5b",
+    "date": "2026-11-11",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "loop_span_s": [
+        0.2,
+        6.5107
+      ],
+      "loop_match": 0.367,
+      "loop_crossfade_s": 0.25,
+      "loop_curve": "equal power",
+      "loop_seam_dip_db": 0.0,
+      "levelled_by": "loudness, to -34.08 LUFS",
+      "gain_db": -8.68
+    },
+    "reference": {
+      "defName": "Hemopump_Ambience",
+      "effective": "-37.1 LUFS",
+      "volume": [
+        50.0,
+        50.0
+      ],
+      "distance": [
+        5.0,
+        20.0
+      ],
+      "channels": 1
+    },
+    "result": {
+      "lufs": -34.2,
+      "true_peak": -18.9,
+      "seconds": 6.06,
+      "flags": [],
+      "seam_dip_db": 0.0,
+      "loop_gap_s": 0.0
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 42,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A cryogenic storage tank's cooling compressor cycling quietly: a soft compressor hum with gentle refrigerant flow, continuous. Length: 8 seconds"
+    }
+  },
+  "LiquidOxygenBoilOff": {
+    "name": "LiquidOxygenBoilOff",
+    "target": "mods/PhobosMedical/Common/Sounds/Phobos/Medical/LiquidOxygenBoilOff.ogg",
+    "sha256": "965a957466927d75b1eb901f1636ad1a2e2e8f465f6e9e827c3baaf55a8108a0",
+    "master_sha256": "00077153ed80a987f3f080d896a0e5b68279397a29425734bb10b0ef8bdb87f3",
+    "fingerprint": "bce25a2e30d1991c0d0cac7f4aeffd23eadf1b3ab00477ff5dec3789570cace2",
+    "date": "2026-11-11",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "loop_span_s": [
+        0.3,
+        4.4045
+      ],
+      "loop_match": 0.104,
+      "loop_crossfade_s": 0.25,
+      "loop_curve": "equal power",
+      "loop_seam_dip_db": 0.0,
+      "filter": "dynaudnorm=f=500:g=31:p=0.9:m=40",
+      "levelled_by": "true peak, to -4.72 dBTP",
+      "gain_db": 6.78
+    },
+    "reference": {
+      "defName": "HissSmall",
+      "effective": "peak -18.2 dB",
+      "volume": [
+        15.0,
+        15.0
+      ],
+      "distance": null,
+      "channels": 1
+    },
+    "result": {
+      "lufs": -16.0,
+      "true_peak": -4.5,
+      "seconds": 3.85,
+      "flags": [
+        "highs"
+      ],
+      "seam_dip_db": 0.0,
+      "loop_gap_s": 0.1
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 41,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "Liquid oxygen boiling off and venting from a cryogenic tank's relief valve, a steady cold hiss with frosty crackling, continuous. Length: 8 seconds"
+    }
+  },
+  "SafetyShower": {
+    "name": "SafetyShower",
+    "target": "mods/PhobosMedical/Common/Sounds/Phobos/Medical/SafetyShower.ogg",
+    "sha256": "ebd0e760329d876e0f08d2f8ec9e7d62805b800f28aff9f57a3f843a33adbaf4",
+    "master_sha256": "66ecd278752bab95177d2c3d09d042e4ca5b6399a0cf4816e72f5a56028faade",
+    "fingerprint": "5f9aff1a078a83dd319134eb1c002e246de73e9f90d6b4a37456b56da2ebd7bf",
+    "date": "2026-11-11",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "loop_span_s": [
+        0.3,
+        5.1255
+      ],
+      "loop_match": 0.048,
+      "loop_crossfade_s": 1.0,
+      "loop_curve": "equal gain",
+      "loop_seam_dip_db": 0.0,
+      "levelled_by": "true peak, to -1.72 dBTP",
+      "gain_db": 12.38
+    },
+    "reference": {
+      "defName": "HissSmall",
+      "effective": "peak -18.2 dB",
+      "volume": [
+        15.0,
+        15.0
+      ],
+      "distance": null,
+      "channels": 1
+    },
+    "result": {
+      "lufs": -12.2,
+      "true_peak": -1.6,
+      "seconds": 3.83,
+      "flags": [
+        "highs"
+      ],
+      "seam_dip_db": 0.07,
+      "loop_gap_s": 0.0
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 43,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "An emergency safety shower drenching someone: a heavy steady downpour of water splashing on a tiled floor, continuous. Length: 8 seconds"
+    }
+  },
+  "RinsePour": {
+    "name": "RinsePour",
+    "target": "mods/PhobosMedical/Common/Sounds/Phobos/Medical/RinsePour.ogg",
+    "sha256": "ee9184bac67cf3609bfba64501f02871579e1e7e2bb13e4c80323fd8b4f2bad0",
+    "master_sha256": "5a0745f885ce856a63d349e9d746fdf97ed418a9c2b07c79266b92dbc5be458c",
+    "fingerprint": "9ada2986136f42e784b7781890f471367316ebcfaf8279396602976682f6e416",
+    "date": "2026-11-11",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "true peak, to -13.66 dBTP",
+      "gain_db": -6.46
+    },
+    "reference": {
+      "defName": "Metal_Drop",
+      "effective": "peak -22.7 dB",
+      "volume": [
+        25.0,
+        25.0
+      ],
+      "distance": null,
+      "channels": 1
+    },
+    "result": {
+      "lufs": -35.1,
+      "true_peak": -14.4,
+      "seconds": 4.06,
+      "flags": [
+        "highs",
+        "spiky"
+      ],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 41,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A bucket of water poured over a person onto a floor, a splashing rush and drips. Length: 3 seconds"
+    }
+  },
+  "Resuscitator": {
+    "name": "Resuscitator",
+    "target": "mods/PhobosMedical/Common/Sounds/Phobos/Medical/Resuscitator.ogg",
+    "sha256": "084fea6c08cdbb6487df94f44f8dcb683fe2e2c32931524b18673e68ce01496f",
+    "master_sha256": "52c056a450004b51b068af0a5a416952d549a73d7b7a0e141fc7fe9e72d22a02",
+    "fingerprint": "9315f9f5dac8f765fe862ee445042509c7ebe489718805b504653f9f03546a2b",
+    "date": "2026-11-11",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "loop_span_s": [
+        0.2,
+        6.0687
+      ],
+      "loop_match": 0.081,
+      "loop_crossfade_s": 0.25,
+      "loop_curve": "equal power",
+      "loop_seam_dip_db": 0.0,
+      "levelled_by": "true peak, to -4.72 dBTP",
+      "gain_db": 1.58
+    },
+    "reference": {
+      "defName": "HissSmall",
+      "effective": "peak -18.2 dB",
+      "volume": [
+        15.0,
+        15.0
+      ],
+      "distance": null,
+      "channels": 1
+    },
+    "result": {
+      "lufs": -32.2,
+      "true_peak": -4.8,
+      "seconds": 5.62,
+      "flags": [
+        "spiky"
+      ],
+      "seam_dip_db": 0.0,
+      "loop_gap_s": 0.0
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 41,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A manual resuscitator bag squeezed steadily by hand: rhythmic soft rubber compressions with air puffing through a valve, continuous. Length: 8 seconds"
+    }
+  },
+  "Intubation": {
+    "name": "Intubation",
+    "target": "mods/PhobosMedical/Common/Sounds/Phobos/Medical/Intubation.ogg",
+    "sha256": "1a5a7fd85ba34a7a25c89fb68019722cd065d615b63e6a5eeadabaea818671ab",
+    "master_sha256": "5b084ca859f53ba5e00cc88cdc4770a14d1a1603608a08cee7a0a9a572a52273",
+    "fingerprint": "5049e2e08f818183c7578332ba5eec6f13fa352c4318e87ffe2059a6666f9eb9",
+    "date": "2026-11-11",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "true peak, to -16.66 dBTP",
+      "gain_db": -8.36
+    },
+    "reference": {
+      "defName": "Metal_Drop",
+      "effective": "peak -22.7 dB",
+      "volume": [
+        25.0,
+        25.0
+      ],
+      "distance": null,
+      "channels": 1
+    },
+    "result": {
+      "lufs": -45.2,
+      "true_peak": -17.2,
+      "seconds": 2.35,
+      "flags": [
+        "highs",
+        "spiky"
+      ],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 42,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A doctor intubating a patient: a metal laryngoscope blade clicking open, a soft plastic tube sliding in and a syringe puff inflating the cuff. Close. Length: 4 seconds"
+    }
+  },
+  "FluidsKit": {
+    "name": "FluidsKit",
+    "target": "mods/PhobosMedical/Common/Sounds/Phobos/Medical/FluidsKit.ogg",
+    "sha256": "5e9ddc7e609fe42c8d63b6ba4566ce235a5f378aa07fe9916520e5efac489ae8",
+    "master_sha256": "8d3d938da359ede029cb01f825d66c55008fa2820d4449c0a2b794f0374ad044",
+    "fingerprint": "3ca4424f4569ec8f692ecd0a057f62688422220f0951fbe1c511e39fe68419d6",
+    "date": "2026-11-11",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "true peak, to -16.66 dBTP",
+      "gain_db": -10.26
+    },
+    "reference": {
+      "defName": "Metal_Drop",
+      "effective": "peak -22.7 dB",
+      "volume": [
+        25.0,
+        25.0
+      ],
+      "distance": null,
+      "channels": 1
+    },
+    "result": {
+      "lufs": -46.1,
+      "true_peak": -18.0,
+      "seconds": 4.04,
+      "flags": [
+        "highs",
+        "spiky"
+      ],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 42,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "Hanging an intravenous fluid bag: soft plastic crinkling, a tube clamp clicking and a quiet drip starting. Close. Length: 4 seconds"
+    }
+  },
+  "NeedleDecompression": {
+    "name": "NeedleDecompression",
+    "target": "mods/PhobosMedical/Common/Sounds/Phobos/Medical/NeedleDecompression.ogg",
+    "sha256": "30ef03672ffa9e36ef051522ce68f811ad79a24fbf1620d40936395ea3120d68",
+    "master_sha256": "f55160af370bd508942cf67e7ea3a5b1a6e0a7c4014ea5df044072a6740432de",
+    "fingerprint": "ce818dbb83b49e28c259b5e1e4239dbb36d74dfeb0326a30858a5eb5bd835f4a",
+    "date": "2026-11-11",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "true peak, to -1.72 dBTP",
+      "gain_db": 21.78
+    },
+    "reference": {
+      "defName": "HissSmall",
+      "effective": "peak -18.2 dB",
+      "volume": [
+        15.0,
+        15.0
+      ],
+      "distance": null,
+      "channels": 1
+    },
+    "result": {
+      "lufs": -13.3,
+      "true_peak": -1.8,
+      "seconds": 1.07,
+      "flags": [
+        "highs"
+      ],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 41,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A needle chest decompression: one short sharp hiss of trapped air escaping through a needle, then quiet. Close. Length: 2 seconds"
+    }
+  },
+  "FieldOxygenValve": {
+    "name": "FieldOxygenValve",
+    "target": "mods/PhobosMedical/Common/Sounds/Phobos/Medical/FieldOxygenValve.ogg",
+    "sha256": "735938ab026e4e3a9abdf7ce3b2680fb5543f0f8a5936027d4231560a1c2e892",
+    "master_sha256": "72ca8aa9a942f347fab9f855e1eb488c8a00907ab145154c21bb879a6ca195fa",
+    "fingerprint": "fcaed004f0038964eee3ce9fcfd2832e9bf8d940a06f8d8a729081340acf0960",
+    "date": "2026-11-11",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "true peak, to -1.72 dBTP",
+      "gain_db": 3.68
+    },
+    "reference": {
+      "defName": "HissSmall",
+      "effective": "peak -18.2 dB",
+      "volume": [
+        15.0,
+        15.0
+      ],
+      "distance": null,
+      "channels": 1
+    },
+    "result": {
+      "lufs": -18.9,
+      "true_peak": -1.6,
+      "seconds": 3.78,
+      "flags": [
+        "highs"
+      ],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 42,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A small oxygen cylinder's valve cracked open with a metallic twist and a sharp burst of gas hissing into a mask. Close. Length: 3 seconds"
+    }
+  },
+  "GasAlarm": {
+    "name": "GasAlarm",
+    "target": "mods/PhobosMedical/Common/Sounds/Phobos/Medical/GasAlarm.ogg",
+    "sha256": "bbafcd15ca3aec6614cb97aee47c72312ad15de1302db4dcbc1d4a2e57aeebbb",
+    "master_sha256": "ec82578436eeab12070153465c2f3d24f22975c42d73c8895a934aa9c35c6ca9",
+    "fingerprint": "32502bfd4699f1e5d32569351a75c3a5c7bf6e88f8faffa2f24451a35b427ef5",
+    "date": "2026-11-11",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "loudness, to -26.58 LUFS",
+      "gain_db": -7.08
+    },
+    "reference": {
+      "defName": "TinyBell",
+      "effective": "-47.5 LUFS",
+      "volume": [
+        9.0,
+        9.0
+      ],
+      "distance": null,
+      "channels": 2
+    },
+    "result": {
+      "lufs": -26.5,
+      "true_peak": -11.6,
+      "seconds": 4.06,
+      "flags": [],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 43,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A soft, plain electronic alarm tone, two gentle low notes repeated twice, calm and clear, not shrill. Length: 3 seconds"
+    }
+  },
+  "CoughSmoke": {
+    "name": "CoughSmoke",
+    "target": "mods/PhobosMedical/Common/Sounds/Phobos/Medical/CoughSmoke.ogg",
+    "sha256": "1d361035861c44f001f143bff198414de5a41659f353e288c79852b118843243",
+    "master_sha256": "7f65abd766d05a71bf77ec313d6655f8bc4ae8869875f61e632cea694216730a",
+    "fingerprint": "d06cf16b900993634c00de205c7607a424a1d7b107dfde04d4d0baeea39fe5a1",
+    "date": "2026-11-11",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "loudness, to -23.4 LUFS",
+      "gain_db": 0.4
+    },
+    "reference": {
+      "defName": "Meal_Eat",
+      "effective": "-43.4 LUFS",
+      "volume": [
+        10.0,
+        10.0
+      ],
+      "distance": [
+        10.0,
+        50.0
+      ],
+      "channels": 1
+    },
+    "result": {
+      "lufs": -23.4,
+      "true_peak": -2.8,
+      "seconds": 3.91,
+      "flags": [
+        "spiky"
+      ],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 43,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A person coughing a few times after breathing smoke, a dry rough cough, close, indoors. Length: 3 seconds"
+    }
+  },
+  "CoughWheeze": {
+    "name": "CoughWheeze",
+    "target": "mods/PhobosMedical/Common/Sounds/Phobos/Medical/CoughWheeze.ogg",
+    "sha256": "386a23a6928436b747cc7fa1dbf6121f83161efeff78d5d736d830a3affe486b",
+    "master_sha256": "3ddfb6b44cda7c23cac9629ad5241d21edbb1dfec785da8f672108cae3ff3319",
+    "fingerprint": "f77f7a96a8a4c40c44deddcea656a423e0c5a0612c8bf095b0c1e77bb7afa169",
+    "date": "2026-11-11",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "loudness, to -23.4 LUFS",
+      "gain_db": 3.4
+    },
+    "reference": {
+      "defName": "Meal_Eat",
+      "effective": "-43.4 LUFS",
+      "volume": [
+        10.0,
+        10.0
+      ],
+      "distance": [
+        10.0,
+        50.0
+      ],
+      "channels": 1
+    },
+    "result": {
+      "lufs": -23.6,
+      "true_peak": -3.2,
+      "seconds": 4.06,
+      "flags": [
+        "spiky"
+      ],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 43,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A person with burned airways coughing weakly with a wheezing, rasping breath, close, indoors. Length: 3 seconds"
+    }
+  },
+  "DrillRigSetUp": {
+    "name": "DrillRigSetUp",
+    "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/DrillRig/SetUp.ogg",
+    "sha256": "25e5f6d52707fc9021a34bb21b76d24ad66f6a98644dea3e377c8152e5896d0f",
+    "master_sha256": "63e66a1f93738831997353e12051efadf0b01c924b286a696d328838acb8ca63",
+    "fingerprint": "8bf2b36908e077a63e95dcfc91ba9207170f34a6c1c6a0b51ac02f9ee307465e",
+    "date": "2026-11-11",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "filter": "lowpass=f=9000,lowpass=f=9000,lowpass=f=9000,lowpass=f=9000",
+      "levelled_by": "loudness, to -21.78 LUFS",
+      "gain_db": 3.5
+    },
+    "reference": {
+      "defName": "ChemfuelFiredGenerator_Ambience",
+      "effective": "-36.5 LUFS",
+      "volume": [
+        13.0,
+        13.0
+      ],
+      "distance": [
+        10.0,
+        20.0
+      ],
+      "channels": 1
+    },
+    "result": {
+      "lufs": -22.7,
+      "true_peak": -0.9,
+      "seconds": 8.68,
+      "flags": [
+        "spiky"
+      ],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 42,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A heavy drill rig truck setting up: hydraulic outriggers stomping down onto the ground one by one, then a tall steel mast raised slowly by whining hydraulic rams, creaking into place. Outdoors. Length: 8 seconds"
+    }
   }
 }

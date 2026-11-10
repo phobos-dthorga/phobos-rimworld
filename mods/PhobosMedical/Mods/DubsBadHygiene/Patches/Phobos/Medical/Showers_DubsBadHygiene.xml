@@ -9,7 +9,10 @@
     <match Class="PatchOperationAdd">
       <xpath>Defs/ThingDef[@Name="DubsDirtyShowerBase"]/comps</xpath>
       <value>
-        <li Class="Phobos.Medical.Comps.CompProperties_PhobosRinseStation" />
+        <li Class="Phobos.Medical.Comps.CompProperties_PhobosRinseStation">
+          <showerSound>PhobosMedical_SafetyShower</showerSound>
+          <pourSound>PhobosMedical_RinsePour</pourSound>
+        </li>
         <li Class="Phobos.Medical.Hygiene.CompProperties_PhobosRinseWater" />
       </value>
     </match>
@@ -17,7 +20,10 @@
       <xpath>Defs/ThingDef[@Name="DubsDirtyShowerBase"]</xpath>
       <value>
         <comps>
-          <li Class="Phobos.Medical.Comps.CompProperties_PhobosRinseStation" />
+          <li Class="Phobos.Medical.Comps.CompProperties_PhobosRinseStation">
+            <showerSound>PhobosMedical_SafetyShower</showerSound>
+            <pourSound>PhobosMedical_RinsePour</pourSound>
+          </li>
           <li Class="Phobos.Medical.Hygiene.CompProperties_PhobosRinseWater" />
         </comps>
       </value>
@@ -28,7 +34,10 @@
     <match Class="PatchOperationAdd">
       <xpath>Defs/ThingDef[@Name="DubsDirtyBathtubBase"]/comps</xpath>
       <value>
-        <li Class="Phobos.Medical.Comps.CompProperties_PhobosRinseStation" />
+        <li Class="Phobos.Medical.Comps.CompProperties_PhobosRinseStation">
+          <showerSound>PhobosMedical_SafetyShower</showerSound>
+          <pourSound>PhobosMedical_RinsePour</pourSound>
+        </li>
         <li Class="Phobos.Medical.Hygiene.CompProperties_PhobosRinseWater" />
       </value>
     </match>
@@ -36,7 +45,10 @@
       <xpath>Defs/ThingDef[@Name="DubsDirtyBathtubBase"]</xpath>
       <value>
         <comps>
-          <li Class="Phobos.Medical.Comps.CompProperties_PhobosRinseStation" />
+          <li Class="Phobos.Medical.Comps.CompProperties_PhobosRinseStation">
+            <showerSound>PhobosMedical_SafetyShower</showerSound>
+            <pourSound>PhobosMedical_RinsePour</pourSound>
+          </li>
           <li Class="Phobos.Medical.Hygiene.CompProperties_PhobosRinseWater" />
         </comps>
       </value>

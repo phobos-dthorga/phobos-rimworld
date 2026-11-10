@@ -1,0 +1,221 @@
+[
+ {
+  "name": "m-ventilator",
+  "engine": "sa3-sfx",
+  "seconds": 8,
+  "seeds": [
+   41,
+   42,
+   43
+  ],
+  "prompt": "A hospital mechanical ventilator breathing for a patient: a soft rhythmic bellows push and sigh with a gentle valve click, calm and steady, continuous. Length: 8 seconds",
+  "loop": true
+ },
+ {
+  "name": "m-nebuliser",
+  "engine": "sa3-sfx",
+  "seconds": 8,
+  "seeds": [
+   41,
+   42,
+   43
+  ],
+  "prompt": "A small medical nebuliser compressor running with a soft buzz and a fine mist hiss, calm and continuous. Length: 8 seconds",
+  "loop": true
+ },
+ {
+  "name": "m-anaesthesia",
+  "engine": "sa3-sfx",
+  "seconds": 8,
+  "seeds": [
+   41,
+   42,
+   43
+  ],
+  "prompt": "An anaesthesia machine during surgery: a slow soft bellows rising and falling with quiet gas flow, calm and continuous. Length: 8 seconds",
+  "loop": true
+ },
+ {
+  "name": "m-burnbed",
+  "engine": "sa3-sfx",
+  "seconds": 8,
+  "seeds": [
+   41,
+   42,
+   43
+  ],
+  "prompt": "A medical air-cell bed's blower running quietly, a soft steady fan hum with a gentle rush of air, calm and continuous. Length: 8 seconds",
+  "loop": true
+ },
+ {
+  "name": "m-hyperbaric-seal",
+  "engine": "sa3-sfx",
+  "seconds": 8,
+  "seeds": [
+   41,
+   42,
+   43
+  ],
+  "prompt": "A hyperbaric chamber's door sealing with a heavy clunk, then oxygen pressurising with a rising hiss that settles into a low hum. Length: 6 seconds"
+ },
+ {
+  "name": "m-hyperbaric-hum",
+  "engine": "sa3-sfx",
+  "seconds": 8,
+  "seeds": [
+   41,
+   42,
+   43
+  ],
+  "prompt": "A hyperbaric oxygen chamber running: a low steady hum with faint airflow, calm and continuous. Length: 8 seconds",
+  "loop": true
+ },
+ {
+  "name": "m-electrolyser",
+  "engine": "sa3-sfx",
+  "seconds": 8,
+  "seeds": [
+   41,
+   42,
+   43
+  ],
+  "prompt": "An industrial electrolyser at work: water bubbling steadily in its cells with a low electrical transformer hum, continuous and unchanging. Length: 8 seconds",
+  "loop": true
+ },
+ {
+  "name": "m-lox-cooler",
+  "engine": "sa3-sfx",
+  "seconds": 8,
+  "seeds": [
+   41,
+   42,
+   43
+  ],
+  "prompt": "A cryogenic storage tank's cooling compressor cycling quietly: a soft compressor hum with gentle refrigerant flow, continuous. Length: 8 seconds",
+  "loop": true
+ },
+ {
+  "name": "m-lox-boiloff",
+  "engine": "sa3-sfx",
+  "seconds": 8,
+  "seeds": [
+   41,
+   42,
+   43
+  ],
+  "prompt": "Liquid oxygen boiling off and venting from a cryogenic tank's relief valve, a steady cold hiss with frosty crackling, continuous. Length: 8 seconds",
+  "loop": true
+ },
+ {
+  "name": "m-shower",
+  "engine": "sa3-sfx",
+  "seconds": 8,
+  "seeds": [
+   41,
+   42,
+   43
+  ],
+  "prompt": "An emergency safety shower drenching someone: a heavy steady downpour of water splashing on a tiled floor, continuous. Length: 8 seconds",
+  "loop": true
+ },
+ {
+  "name": "m-rinse",
+  "engine": "sa3-sfx",
+  "seconds": 4,
+  "seeds": [
+   41,
+   42,
+   43
+  ],
+  "prompt": "A bucket of water poured over a person onto a floor, a splashing rush and drips. Length: 3 seconds"
+ },
+ {
+  "name": "m-resuscitator",
+  "engine": "sa3-sfx",
+  "seconds": 8,
+  "seeds": [
+   41,
+   42,
+   43
+  ],
+  "prompt": "A manual resuscitator bag squeezed steadily by hand: rhythmic soft rubber compressions with air puffing through a valve, continuous. Length: 8 seconds",
+  "loop": true
+ },
+ {
+  "name": "m-intubation",
+  "engine": "sa3-sfx",
+  "seconds": 5,
+  "seeds": [
+   41,
+   42,
+   43
+  ],
+  "prompt": "A doctor intubating a patient: a metal laryngoscope blade clicking open, a soft plastic tube sliding in and a syringe puff inflating the cuff. Close. Length: 4 seconds"
+ },
+ {
+  "name": "m-fluids",
+  "engine": "sa3-sfx",
+  "seconds": 5,
+  "seeds": [
+   41,
+   42,
+   43
+  ],
+  "prompt": "Hanging an intravenous fluid bag: soft plastic crinkling, a tube clamp clicking and a quiet drip starting. Close. Length: 4 seconds"
+ },
+ {
+  "name": "m-decompression",
+  "engine": "sa3-sfx",
+  "seconds": 3,
+  "seeds": [
+   41,
+   42,
+   43
+  ],
+  "prompt": "A needle chest decompression: one short sharp hiss of trapped air escaping through a needle, then quiet. Close. Length: 2 seconds"
+ },
+ {
+  "name": "m-fieldoxygen",
+  "engine": "sa3-sfx",
+  "seconds": 4,
+  "seeds": [
+   41,
+   42,
+   43
+  ],
+  "prompt": "A small oxygen cylinder's valve cracked open with a metallic twist and a sharp burst of gas hissing into a mask. Close. Length: 3 seconds"
+ },
+ {
+  "name": "m-gasalarm",
+  "engine": "sa3-sfx",
+  "seconds": 4,
+  "seeds": [
+   41,
+   42,
+   43
+  ],
+  "prompt": "A soft, plain electronic alarm tone, two gentle low notes repeated twice, calm and clear, not shrill. Length: 3 seconds"
+ },
+ {
+  "name": "m-cough-smoke",
+  "engine": "sa3-sfx",
+  "seconds": 4,
+  "seeds": [
+   41,
+   42,
+   43
+  ],
+  "prompt": "A person coughing a few times after breathing smoke, a dry rough cough, close, indoors. Length: 3 seconds"
+ },
+ {
+  "name": "m-cough-wheeze",
+  "engine": "sa3-sfx",
+  "seconds": 4,
+  "seeds": [
+   41,
+   42,
+   43
+  ],
+  "prompt": "A person with burned airways coughing weakly with a wheezing, rasping breath, close, indoors. Length: 3 seconds"
+ }
+]

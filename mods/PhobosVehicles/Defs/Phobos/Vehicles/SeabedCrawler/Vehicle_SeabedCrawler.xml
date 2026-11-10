@@ -305,6 +305,18 @@
         <idleSound>PhobosVehicles_SeabedCrawlerEngineIdle</idleSound>
         <loadSound>PhobosVehicles_SeabedCrawlerEngineLoad</loadSound>
       </li>
+      <!-- Diving and surfacing (heard for any boat); settling and lifting off, creaks, scrubber, lab and contacts only aboard the player's own. -->
+      <li Class="Phobos.VehicleSystems.PhobosVehicleSoundsExtension">
+        <sounds>
+          <li><key>Dive</key><sound>PhobosVehicles_SeabedCrawlerDive</sound></li>
+          <li><key>Surface</key><sound>PhobosVehicles_SeabedCrawlerSurface</sound></li>
+          <li><key>Settle</key><sound>PhobosVehicles_SeabedCrawlerSettle</sound></li>
+          <li><key>Creak</key><sound>PhobosVehicles_SeabedCrawlerCreak</sound></li>
+          <li><key>Scrubber</key><sound>PhobosVehicles_SeabedCrawlerScrubber</sound><node>Scrubber</node></li>
+          <li><key>Lab</key><sound>PhobosVehicles_SeabedCrawlerLab</sound></li>
+          <li><key>Contact</key><sound>PhobosVehicles_SeabedCrawlerContact</sound></li>
+        </sounds>
+      </li>
     </modExtensions>
   </Vehicles.VehicleDef>
 

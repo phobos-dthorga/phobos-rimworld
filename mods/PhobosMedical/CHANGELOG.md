@@ -6,6 +6,34 @@ entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.14.0] - 2026-11-11 - Draft
+
+The medical machines, devices and coughs make their own sounds (owner, 11 November 2026: the gas alarm a soft tone, coughing yes but never doubled with another mod's, the steriliser left for now; every one of the agent's shortlist picks taken). **Not yet tested in game.**
+
+### Added
+
+- **Machines**: the ventilator breathes and the nebuliser hums while they treat someone; the anaesthesia machine's bellows sound while a doctor operates on the patient beside it; the burn unit bed's blower runs while powered; the pressure chamber seals its door as treatment starts, then hums.
+- **The oxygen chain** (with Vanilla Gravship Expanded): the electrolyser bubbles and the liquid oxygen store's cooler cycles while powered; without power, the store hisses as its oxygen boils off.
+- **Rinsing**: the safety shower, and a shower from Dubs Bad Hygiene used for rinsing, drench with running water; rinsing a patient sounds as a bucket poured.
+- **Devices**: the manual resuscitator squeezed in rhythm while it is worked; intubation, the fluids kit, needle decompression (with More Injuries) and the field oxygen kit's valve (with Vanilla Gravship Expanded) each their own.
+- **The gas alarm sounds one soft tone** as it starts to warn.
+- **Coughing**: someone with acute smoke inhalation (ours or Combat Extended's) coughs now and then, and someone with an airway burn or irritable airways coughs and wheezes; the worse the condition, the more often, and never one cough on top of another. Each cough varies a little in pitch.
+- A setting, **Coughing** (on), under Burns and smoke. It stands down by itself while another active mod already gives pawns cough sounds, and the settings window and the load line say which mod.
+
+### Compatibility and limits
+
+- Made with generative AI (Stable Audio 3 Small SFX, run on the owner's PC), picked by the owner from the agent's shortlist, and levelled against a comparable sound of the game's own; the record beside each sound file says how. The liquid oxygen boil-off is evened out at export so its loop holds a steady level (agent choice).
+- The burn unit bed, the electrolyser and the liquid oxygen store's cooler sound whenever they are powered, as the oxygen concentrator does, even with nobody in the bed or nothing to make.
+- None of the owner's mods had a cough sound when checked (11 November 2026), so on that list coughs play. Not yet heard in game.
+
+### Save compatibility
+
+- Safe on an existing save: nothing new is saved.
+
+### Dependencies
+
+- Needs D'thorga Framework 0.82.0 or later.
+
 ## [0.13.1] - 2026-11-11 - Draft
 
 Storage category icons of their own (owner, 11 November 2026: picked with the vehicle pictures). **Not yet tested in game.**

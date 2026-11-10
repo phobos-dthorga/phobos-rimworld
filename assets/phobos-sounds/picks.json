@@ -343,6 +343,247 @@
       "candidate": "p1-crawler-door/p1-crawler-door-33.flac",
       "picked": "2026-11-11",
       "use": "SeabedCrawler: hatch, take C"
+    },
+    {
+      "candidate": "p2-tanker-hoses/p2-tanker-hoses-43.flac",
+      "picked": "2026-11-11",
+      "use": "Tanker: hoses coupled or uncoupled (S26)"
+    },
+    {
+      "candidate": "p2-tanker-pump/p2-tanker-pump-41.flac",
+      "picked": "2026-11-11",
+      "use": "Tanker: pump running off the power take-off (S27)"
+    },
+    {
+      "candidate": "p2-tanker-relief/p2-tanker-relief-43.flac",
+      "picked": "2026-11-11",
+      "use": "Tanker: relief valve venting (S28)"
+    },
+    {
+      "candidate": "p2-tanker-leak/p2-tanker-leak-41.flac",
+      "picked": "2026-11-11",
+      "use": "Tanker: tank leaking (S29)"
+    },
+    {
+      "candidate": "p2-tanker-purge/p2-tanker-purge-41.flac",
+      "picked": "2026-11-11",
+      "use": "Tanker: air blowing through the tank in a purge (S30)"
+    },
+    {
+      "candidate": "p2-tipper-rams/p2-tipper-rams-41.flac",
+      "picked": "2026-11-11",
+      "use": "Tipper: power take-off and hydraulic rams lifting (S37)"
+    },
+    {
+      "candidate": "p2-tipper-slide-rock/p2-tipper-slide-rock-41.flac",
+      "picked": "2026-11-11",
+      "use": "Tipper: load sliding out of the rock body (S38)"
+    },
+    {
+      "candidate": "p2-tipper-slide-bulk/p2-tipper-slide-bulk-43.flac",
+      "picked": "2026-11-11",
+      "use": "Tipper: load pouring out of the bulk body (S39)"
+    },
+    {
+      "candidate": "p2-tipper-slide-standard/p2-tipper-slide-standard-43.flac",
+      "picked": "2026-11-11",
+      "use": "Tipper: load sliding off the standard body (S39)"
+    },
+    {
+      "candidate": "p2-tipper-tailgate/p2-tipper-tailgate-43.flac",
+      "picked": "2026-11-11",
+      "use": "Tipper: tailgate banging shut (S40)"
+    },
+    {
+      "candidate": "p2-drillrig-setup/p2-drillrig-setup-42.flac",
+      "picked": "2026-11-11",
+      "use": "Drill rig: outriggers down, mast raising (S47)"
+    },
+    {
+      "candidate": "p2-drillrig-drill/p2-drillrig-drill-41.flac",
+      "picked": "2026-11-11",
+      "use": "Drill rig: drilling (S48)"
+    },
+    {
+      "candidate": "p2-drillrig-hammer/p2-drillrig-hammer-42.flac",
+      "picked": "2026-11-11",
+      "use": "Drill rig: drilling with the hammer bit (S49)"
+    },
+    {
+      "candidate": "p2-drillrig-electric/p2-drillrig-electric-41.flac",
+      "picked": "2026-11-11",
+      "use": "Drill rig: drilling on shore power (S50)"
+    },
+    {
+      "candidate": "p2-drillrig-chute/p2-drillrig-chute-41.flac",
+      "picked": "2026-11-11",
+      "use": "Drill rig: a portion down the cuttings chute (S51)"
+    },
+    {
+      "candidate": "p2-drillrig-winddown/p2-drillrig-winddown-42.flac",
+      "picked": "2026-11-11",
+      "use": "Drill rig: winding down, ground spent (S52)"
+    },
+    {
+      "candidate": "p2-survey-boom/p2-survey-boom-41.flac",
+      "picked": "2026-11-11",
+      "use": "Survey truck: sensor boom swinging out and back (S58)"
+    },
+    {
+      "candidate": "p2-survey-console/p2-survey-console-42.flac",
+      "picked": "2026-11-11",
+      "use": "Survey truck: console and recorder while surveying (S59)",
+      "notes": "Seed 42 in place of the lean 43 (agent, 11 Nov 2026): 43 holds no loopable stretch; 42 was the other clean take."
+    },
+    {
+      "candidate": "p2-survey-array/p2-survey-array-42.flac",
+      "picked": "2026-11-11",
+      "use": "Survey truck: powered array humming (S60)"
+    },
+    {
+      "candidate": "p2-survey-dish/p2-survey-dish-43.flac",
+      "picked": "2026-11-11",
+      "use": "Survey truck: long-range dish turning (S61)"
+    },
+    {
+      "candidate": "p2-survey-find/p2-survey-find-42.flac",
+      "picked": "2026-11-11",
+      "use": "Survey truck: a find, one soft tone (S62)"
+    },
+    {
+      "candidate": "p2-genset-setup/p2-genset-setup-44.flac",
+      "picked": "2026-11-11",
+      "use": "Generator truck: outriggers down, cable reel paying out (S68); mild clipping accepted by the owner"
+    },
+    {
+      "candidate": "p2-crawler-dive/p2-crawler-dive-42.flac",
+      "picked": "2026-11-11",
+      "use": "Seabed Crawler: diving (S73)"
+    },
+    {
+      "candidate": "p2-crawler-surface/p2-crawler-surface-45.flac",
+      "picked": "2026-11-11",
+      "use": "Seabed Crawler: surfacing (S74); mild clipping accepted by the owner"
+    },
+    {
+      "candidate": "p2-crawler-settle/p2-crawler-settle-42.flac",
+      "picked": "2026-11-11",
+      "use": "Seabed Crawler: settling on the bottom or lifting off (S75)"
+    },
+    {
+      "candidate": "p2-crawler-creak-steady/p2-crawler-creak-steady-41.flac",
+      "picked": "2026-11-11",
+      "use": "Seabed Crawler: hull creaking while submerged (S76)"
+    },
+    {
+      "candidate": "p2-crawler-scrubber/p2-crawler-scrubber-41.flac",
+      "picked": "2026-11-11",
+      "use": "Seabed Crawler: air scrubber fan (S77)"
+    },
+    {
+      "candidate": "p2-crawler-lab-steady/p2-crawler-lab-steady-43.flac",
+      "picked": "2026-11-11",
+      "use": "Seabed Crawler: laboratory at work (S78)"
+    },
+    {
+      "candidate": "p2-crawler-contact/p2-crawler-contact-41.flac",
+      "picked": "2026-11-11",
+      "use": "Seabed Crawler: listening array hears a contact (S79)"
+    },
+    {
+      "candidate": "m-ventilator-steady/m-ventilator-steady-41.flac",
+      "picked": "2026-11-11",
+      "use": "Ventilator breathing for a patient (S83)"
+    },
+    {
+      "candidate": "m-nebuliser/m-nebuliser-43.flac",
+      "picked": "2026-11-11",
+      "use": "Nebuliser treating a patient (S84)"
+    },
+    {
+      "candidate": "m-anaesthesia/m-anaesthesia-42.flac",
+      "picked": "2026-11-11",
+      "use": "Anaesthesia machine during surgery (S85)"
+    },
+    {
+      "candidate": "m-burnbed/m-burnbed-41.flac",
+      "picked": "2026-11-11",
+      "use": "Burn unit bed: air-cell blower (S86)"
+    },
+    {
+      "candidate": "m-hyperbaric-seal/m-hyperbaric-seal-44.flac",
+      "picked": "2026-11-11",
+      "use": "Hyperbaric chamber: door sealing, pressurising (S87)"
+    },
+    {
+      "candidate": "m-hyperbaric-hum/m-hyperbaric-hum-41.flac",
+      "picked": "2026-11-11",
+      "use": "Hyperbaric chamber: running (S87)"
+    },
+    {
+      "candidate": "m-electrolyser/m-electrolyser-42.flac",
+      "picked": "2026-11-11",
+      "use": "Oxygen electrolyser at work (S88)"
+    },
+    {
+      "candidate": "m-lox-cooler/m-lox-cooler-42.flac",
+      "picked": "2026-11-11",
+      "use": "Liquid oxygen store: cooler cycling (S89)"
+    },
+    {
+      "candidate": "m-lox-boiloff/m-lox-boiloff-41.flac",
+      "picked": "2026-11-11",
+      "use": "Liquid oxygen boiling off, venting (S90)"
+    },
+    {
+      "candidate": "m-shower/m-shower-43.flac",
+      "picked": "2026-11-11",
+      "use": "Safety shower drenching someone (S91)"
+    },
+    {
+      "candidate": "m-rinse/m-rinse-41.flac",
+      "picked": "2026-11-11",
+      "use": "Rinsing a patient: a bucket poured (S92)"
+    },
+    {
+      "candidate": "m-resuscitator/m-resuscitator-41.flac",
+      "picked": "2026-11-11",
+      "use": "Manual resuscitator squeezed (S94)"
+    },
+    {
+      "candidate": "m-intubation/m-intubation-42.flac",
+      "picked": "2026-11-11",
+      "use": "Intubation (S95)"
+    },
+    {
+      "candidate": "m-fluids/m-fluids-42.flac",
+      "picked": "2026-11-11",
+      "use": "Fluids kit: bag hung, line primed (S96)"
+    },
+    {
+      "candidate": "m-decompression/m-decompression-41.flac",
+      "picked": "2026-11-11",
+      "use": "Needle decompression: a short hiss (S97)"
+    },
+    {
+      "candidate": "m-fieldoxygen/m-fieldoxygen-42.flac",
+      "picked": "2026-11-11",
+      "use": "Field oxygen kit: cylinder valve cracked (S98)"
+    },
+    {
+      "candidate": "m-gasalarm/m-gasalarm-43.flac",
+      "picked": "2026-11-11",
+      "use": "Gas alarm: a soft tone as a warning starts (S99)"
+    },
+    {
+      "candidate": "m-cough-smoke/m-cough-smoke-43.flac",
+      "picked": "2026-11-11",
+      "use": "Coughing after smoke (S100)"
+    },
+    {
+      "candidate": "m-cough-wheeze/m-cough-wheeze-43.flac",
+      "picked": "2026-11-11",
+      "use": "Coughing and wheezing, burned or stung airways (S100)"
     }
   ],
   "runners_up": [

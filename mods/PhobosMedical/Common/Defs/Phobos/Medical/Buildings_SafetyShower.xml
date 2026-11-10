@@ -38,7 +38,10 @@ A shower uses a lot of water: about 1,100 litres a rinse, or about 23 litres whe
     </thingCategories>
     <constructionSkillPrerequisite>3</constructionSkillPrerequisite>
     <comps>
-      <li Class="Phobos.Medical.Comps.CompProperties_PhobosRinseStation" />
+      <li Class="Phobos.Medical.Comps.CompProperties_PhobosRinseStation">
+        <showerSound>PhobosMedical_SafetyShower</showerSound>
+        <pourSound>PhobosMedical_RinsePour</pourSound>
+      </li>
     </comps>
   </ThingDef>
 </Defs>

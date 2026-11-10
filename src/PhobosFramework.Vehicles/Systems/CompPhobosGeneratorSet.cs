@@ -147,6 +147,7 @@ public class CompPhobosGeneratorSet : CompPhobosSetUp, IVehicleEngineDemand
         cableEnd = (Building)GenSpawn.Spawn(placed, cell, Vehicle.Map);
         deployed = true;
         ShowSetUp(true);
+        VehicleWorkSounds.Play(Vehicle, "SetUp");
         UpdatePower();
         Tell("PhobosVehicleSystems_GenSetUp".Translate(Vehicle.LabelShort.Named("VEHICLE")), MessageTypeDefOf.SilentInput);
     }
@@ -154,6 +155,7 @@ public class CompPhobosGeneratorSet : CompPhobosSetUp, IVehicleEngineDemand
     public void PackUp()
     {
         ClearSetUp();
+        VehicleWorkSounds.Play(Vehicle, "PackUp", "SetUp");
         Tell("PhobosVehicleSystems_GenPackedUp".Translate(Vehicle.LabelShort.Named("VEHICLE")), MessageTypeDefOf.SilentInput);
     }
 

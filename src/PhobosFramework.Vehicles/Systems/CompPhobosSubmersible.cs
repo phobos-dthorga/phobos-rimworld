@@ -172,6 +172,7 @@ public class CompPhobosSubmersible : VehicleComp
         if (settled)
         {
             settled = false;
+            if (HeardAboard) VehicleWorkSounds.Play(Vehicle, "LiftOff", "Settle");
             Tell("PhobosSubmersible_ToldLiftOff".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve(), MessageTypeDefOf.SilentInput);
             return;
         }
@@ -182,6 +183,7 @@ public class CompPhobosSubmersible : VehicleComp
             return;
         }
         settled = true;
+        if (HeardAboard) VehicleWorkSounds.Play(Vehicle, "Settle");
         Tell("PhobosSubmersible_ToldSettled".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve(), MessageTypeDefOf.SilentInput);
     }
 
@@ -204,6 +206,9 @@ public class CompPhobosSubmersible : VehicleComp
 
     void SetPhase(DivePhase next)
     {
+        // Diving and surfacing are seen from outside anyway; what happens under the water is heard only aboard the player's own boats.
+        if (next == DivePhase.Diving && phase != DivePhase.Diving) VehicleWorkSounds.Play(Vehicle, "Dive");
+        if (next == DivePhase.Surfacing && phase != DivePhase.Surfacing) VehicleWorkSounds.Play(Vehicle, "Surface");
         phase = next;
         phaseStartTick = Find.TickManager.TicksGame;
         if (next != DivePhase.Submerged)
@@ -420,6 +425,7 @@ public class CompPhobosSubmersible : VehicleComp
     public override void PostDeSpawn(Map map, DestroyMode mode = DestroyMode.Vanish)
     {
         Submersibles.SetHidden(Vehicle, false);
+        VehicleWorkSounds.EndAll(Vehicle);
         LoseWatchers();
         settled = false;
         base.PostDeSpawn(map, mode);
@@ -430,6 +436,18 @@ public class CompPhobosSubmersible : VehicleComp
         base.CompTickRare();
         Advance();
         if (Hidden && Vehicle.Spawned) Watch();
+        SyncSounds();
+    }
+
+    /// <summary>A hidden boat's sounds would give it away, so the sounds of being under play only for the player's own (submarine-framework.md).</summary>
+    bool HeardAboard => Vehicle.Faction == Faction.OfPlayer;
+
+    /// <summary>The hull's creaks and the air scrubber while under (the scrubber's sound names its upgrade). Presentation only.</summary>
+    void SyncSounds()
+    {
+        bool under = HeardAboard && phase == DivePhase.Submerged;
+        VehicleWorkSounds.Loop(Vehicle, "Creak", under);
+        VehicleWorkSounds.Loop(Vehicle, "Scrubber", under);
     }
 
     public override void PostExposeData()

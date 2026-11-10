@@ -58,6 +58,8 @@
         <maxPatients>1</maxPatients>
         <fuelPerPatientHour>6</fuelPerPatientHour>
         <treatment>PhobosMedical_Hyperbaric</treatment>
+        <startSound>PhobosMedical_HyperbaricSeal</startSound>
+        <flowingSound>PhobosMedical_HyperbaricHum</flowingSound>
       </li>
     </comps>
     <size>(1,3)</size>

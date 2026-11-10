@@ -5,6 +5,7 @@ using Phobos.Medical.Rules;
 using Phobos.Medical.Services;
 using RimWorld;
 using Verse;
+using Phobos.Framework.Sounds;
 
 namespace Phobos.Medical.Comps;
 
@@ -14,6 +15,8 @@ public class CompProperties_PhobosVentilator : CompProperties
     public int maxPatients = 1;
     /// <summary>The condition it gives; empty for the ordinary ventilation condition.</summary>
     public HediffDef? treatment;
+    /// <summary>Loops while it breathes for anyone (its bellows); null for silence.</summary>
+    public SoundDef? workingSound;
 
     public CompProperties_PhobosVentilator() => compClass = typeof(CompPhobosVentilator);
 }
@@ -22,6 +25,7 @@ public class CompPhobosVentilator : ThingComp
 {
     /// <summary>Its last pass, for the inspect text. Derived, so never saved.</summary>
     VentilatorPass pass = VentilatorPass.None;
+    readonly SustainedSound working = new();
 
     public CompProperties_PhobosVentilator Props => (CompProperties_PhobosVentilator)props;
     public CompFacility? Facility => parent.TryGetComp<CompFacility>();
@@ -30,6 +34,13 @@ public class CompPhobosVentilator : ThingComp
     {
         base.CompTickRare();
         pass = VentilatorService.Supply(this);
+        working.Set(Props.workingSound, pass.Treated.Count > 0, parent);
+    }
+
+    public override void PostDeSpawn(Map map, DestroyMode mode = DestroyMode.Vanish)
+    {
+        working.End();
+        base.PostDeSpawn(map, mode);
     }
 
     public override string CompInspectStringExtra() => (VentilatorService.StatusOf(this, pass) switch

@@ -26,6 +26,10 @@ public class CompProperties_PhobosRinseStation : CompProperties
     public int rinseTicks = 625;
     /// <summary>How long a doctor takes to draw water here for a patient who can't walk (authored).</summary>
     public int fillTicks = 120;
+    /// <summary>Loops while someone rinses under it; null for silence.</summary>
+    public SoundDef? showerSound;
+    /// <summary>Plays when a doctor rinses a patient with water drawn here; null for silence.</summary>
+    public SoundDef? pourSound;
 
     public CompProperties_PhobosRinseStation() => compClass = typeof(CompPhobosRinseStation);
 }

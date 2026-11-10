@@ -4,6 +4,7 @@ using PipeSystem;
 using Phobos.Medical.Rules;
 using RimWorld;
 using Verse;
+using Phobos.Framework.Sounds;
 
 namespace Phobos.Medical.Comps;
 
@@ -16,6 +17,8 @@ public class CompProperties_PhobosBoilOff : CompProperties
 {
     /// <summary>The share of what is stored that boils away per day without power. Authored.</summary>
     public float fractionPerDayUnpowered = 0.02f;
+    /// <summary>Loops while it boils off (gas venting from its relief valve); null for silence.</summary>
+    public SoundDef? boilingSound;
 
     public CompProperties_PhobosBoilOff() => compClass = typeof(CompPhobosBoilOff);
 }
@@ -34,6 +37,7 @@ public class CompPhobosBoilOff : ThingComp
 
     CompResourceStorage? storage;
     CompPowerTrader? power;
+    readonly SustainedSound boiling = new();
 
     public CompProperties_PhobosBoilOff Props => (CompProperties_PhobosBoilOff)props;
 
@@ -49,6 +53,7 @@ public class CompPhobosBoilOff : ThingComp
 
     public override void PostDeSpawn(Map map, DestroyMode mode = DestroyMode.Vanish)
     {
+        boiling.End();
         base.PostDeSpawn(map, mode);
         if (storage != null) refusing.Remove(storage);
     }
@@ -66,6 +71,7 @@ public class CompPhobosBoilOff : ThingComp
         UpdateRefusing();
         float loss = BoilOffRule.LossForInterval(storage.AmountStored, Props.fractionPerDayUnpowered, IntervalTicks, Powered);
         if (loss > 0f) storage.DrawResource(loss);
+        boiling.Set(Props.boilingSound, loss > 0f, parent);
     }
 
     public override string? CompInspectStringExtra()

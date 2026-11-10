@@ -411,6 +411,17 @@
         <idleSound>PhobosVehicles_DrillRigEngineIdle</idleSound>
         <loadSound>PhobosVehicles_DrillRigEngineLoad</loadSound>
       </li>
+      <!-- Its work: setting up (packing up plays it too), drilling (the hammer bit by upgrade, on shore power its own), a portion, spent ground. -->
+      <li Class="Phobos.VehicleSystems.PhobosVehicleSoundsExtension">
+        <sounds>
+          <li><key>SetUp</key><sound>PhobosVehicles_DrillRigSetUp</sound></li>
+          <li><key>Work</key><sound>PhobosVehicles_DrillRigHammer</sound><node>RcHammer</node></li>
+          <li><key>Work</key><sound>PhobosVehicles_DrillRigDrill</sound></li>
+          <li><key>WorkElectric</key><sound>PhobosVehicles_DrillRigElectric</sound></li>
+          <li><key>Portion</key><sound>PhobosVehicles_DrillRigChute</sound></li>
+          <li><key>Spent</key><sound>PhobosVehicles_DrillRigWindDown</sound></li>
+        </sounds>
+      </li>
     </modExtensions>
     <comps>
       <li Class="Vehicles.CompProperties_FueledTravel">

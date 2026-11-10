@@ -53,6 +53,7 @@
       <li Class="CompProperties_Power">
         <compClass>CompPowerTrader</compClass>
         <basePowerConsumption>3000</basePowerConsumption>
+        <soundAmbientPowered>PhobosMedical_Electrolyser</soundAmbientPowered>
         <idlePowerDraw>50</idlePowerDraw>
       </li>
       <li Class="PipeSystem.CompProperties_ResourceTrader">
@@ -125,6 +126,7 @@
       <li Class="CompProperties_Power">
         <compClass>CompPowerTrader</compClass>
         <basePowerConsumption>300</basePowerConsumption>
+        <soundAmbientPowered>PhobosMedical_LiquidOxygenCooler</soundAmbientPowered>
       </li>
       <li Class="PipeSystem.CompProperties_ResourceStorage">
         <pipeNet>VGE_OxygenNet</pipeNet>
@@ -163,6 +165,7 @@
       </li>
       <li Class="Phobos.Medical.Comps.CompProperties_PhobosBoilOff">
         <fractionPerDayUnpowered>0.02</fractionPerDayUnpowered>
+        <boilingSound>PhobosMedical_LiquidOxygenBoilOff</boilingSound>
       </li>
       <li Class="CompProperties_Breakdownable"/>
     </comps>

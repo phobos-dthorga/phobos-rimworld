@@ -37,6 +37,7 @@
       <li Class="CompProperties_Power">
         <compClass>CompPowerTrader</compClass>
         <basePowerConsumption>200</basePowerConsumption>
+        <soundAmbientPowered>PhobosMedical_BurnBed</soundAmbientPowered>
       </li>
       <li Class="CompProperties_Flickable"/>
       <li Class="Phobos.Medical.Comps.CompProperties_PhobosBurnCare">

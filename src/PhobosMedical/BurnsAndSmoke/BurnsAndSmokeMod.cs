@@ -44,6 +44,8 @@ public class BurnsAndSmokeSettings : ModSettings
     public bool fleeHotCells = true;
     /// <summary>Apply our acute smoke condition even while Combat Extended's runs.</summary>
     public bool acuteSmokeWithCombatExtended;
+    /// <summary>People with smoke in their lungs or burned airways cough now and then (owner, 11 Nov 2026).</summary>
+    public bool coughSounds = true;
 
     public override void ExposeData()
     {
@@ -70,6 +72,7 @@ public class BurnsAndSmokeSettings : ModSettings
         Scribe_Values.Look(ref fireHeatIndoors, "PhobosBurns_FireHeatIndoors", true);
         Scribe_Values.Look(ref fleeHotCells, "PhobosBurns_FleeHotCells", true);
         Scribe_Values.Look(ref acuteSmokeWithCombatExtended, "PhobosBurns_AcuteSmokeWithCombatExtended", false);
+        Scribe_Values.Look(ref coughSounds, "PhobosBurns_CoughSounds", true);
     }
 }
 
@@ -126,6 +129,10 @@ public static class BurnsAndSmokeMod
         else if (perCellMod != null) report.Off("fire heat in rooms", perCellMod + " models the air cell by cell");
         else report.On("fire heat in rooms");
         if (Settings.fleeHotCells) report.On("moving away from heat"); else report.Off("moving away from heat", "setting");
+        Comps.CoughSounds.Decide();
+        if (!Settings.coughSounds) report.Off("coughing", "setting");
+        else if (Comps.CoughSounds.StoodDownFor is { } other) report.Off("coughing", other + " already sounds coughs");
+        else report.On("coughing");
         if (OptionalMods.IsActive(OptionalMods.MoreInjuries))
             report.On("More Injuries tie-in, its fire inhalation " + (MoreInjuriesInhalation.On ? "on" : "off") + " in its settings");
         else report.On("More Injuries not active");
@@ -159,6 +166,8 @@ public static class BurnsAndSmokeMod
         listing.CheckboxLabeled("PhobosBurns_SettingFireHeatIndoors".Translate(), ref Settings.fireHeatIndoors, "PhobosBurns_SettingFireHeatIndoorsDesc".Translate());
         listing.CheckboxLabeled("PhobosBurns_SettingFleeHotCells".Translate(), ref Settings.fleeHotCells, "PhobosBurns_SettingFleeHotCellsDesc".Translate());
         listing.CheckboxLabeled("PhobosBurns_SettingAcuteSmokeWithCombatExtended".Translate(), ref Settings.acuteSmokeWithCombatExtended, "PhobosBurns_SettingAcuteSmokeWithCombatExtendedDesc".Translate());
+        listing.CheckboxLabeled("PhobosBurns_SettingCoughSounds".Translate(), ref Settings.coughSounds, "PhobosBurns_SettingCoughSoundsDesc".Translate());
+        if (Comps.CoughSounds.StoodDownFor is { } coughs) listing.Label("PhobosBurns_CoughSoundsStoodDown".Translate(coughs.Named("MOD")));
         if (OptionalMods.IsActive(OptionalMods.MoreInjuries))
             listing.Label((MoreInjuriesInhalation.On ? "PhobosBurns_MoreInjuriesInhalationOn" : "PhobosBurns_MoreInjuriesInhalationOff").Translate());
     }

@@ -367,6 +367,15 @@ class ExportLevelTests(unittest.TestCase):
         self.assertIn('silenceremove', chain)
         self.assertTrue(chain.endswith(f'aresample={export_sound.RATE}'))
 
+    def test_a_short_loop_is_refused_but_a_short_oneshot_is_not(self):
+        self.assertIn('give its spec a span', export_sound.too_short({'kind': 'loop'}, 0.91))
+        self.assertIsNone(export_sound.too_short({'kind': 'loop'}, export_sound.MIN_LOOP_S))
+        self.assertIsNone(export_sound.too_short({'kind': 'oneshot'}, 0.3))
+
+    def test_a_spec_span_replaces_the_steady_span(self):
+        # No ffmpeg is needed: a span in the spec is used as it stands, without measuring the master.
+        self.assertEqual(export_sound.loop_span(None, None, {'span': [1.5, 6.2]}), (1.5, 6.2))
+
     def test_a_rerun_leaves_unchanged_sounds_alone(self):
         exports = Path(ROOT, 'assets', 'phobos-sounds', 'exports.json')
         spec = json.loads(exports.read_text(encoding='utf-8'))['exports'][0]

@@ -208,6 +208,7 @@ public abstract class CompPhobosSetUp : VehicleComp
     public override void PostDeSpawn(Map map, DestroyMode mode = DestroyMode.Vanish)
     {
         if (MovingParts != null) RemoveMovingParts();
+        VehicleWorkSounds.EndAll(Vehicle);
         motionStartTick = -1;
         sweptCells = null;
         base.PostDeSpawn(map, mode);

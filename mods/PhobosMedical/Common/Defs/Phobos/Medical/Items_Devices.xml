@@ -47,6 +47,7 @@
         <consumed>false</consumed>
         <sustained>true</sustained>
         <refreshTicks>250</refreshTicks>
+        <useSound>PhobosMedical_Resuscitator</useSound>
       </li>
     </modExtensions>
   </ThingDef>
@@ -97,6 +98,7 @@
         <workTicks>400</workTicks>
         <consumed>true</consumed>
         <minMedicineSkill>4</minMedicineSkill>
+        <useSound>PhobosMedical_Intubation</useSound>
       </li>
     </modExtensions>
   </ThingDef>
@@ -187,6 +189,7 @@
         <treatment>PhobosMedical_OnDrip</treatment>
         <workTicks>300</workTicks>
         <consumed>true</consumed>
+        <useSound>PhobosMedical_FluidsKit</useSound>
       </li>
     </modExtensions>
   </ThingDef>

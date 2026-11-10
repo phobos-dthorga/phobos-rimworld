@@ -151,6 +151,15 @@ decode by ffmpeg). Ends that match at 0.5 or better are crossfaded at equal gain
 match at 0.96 to 0.985 and that seam measures 0.1 dB; the new seam-dip flag (20 ms slices) catches the old join and a real
 5.3 dB dip in the full-steps generator loop, seed 12.
 
+**A sparse sound fools the steady span, and most takes fade across their whole length** (11 Nov 2026, phase 2). A survey console of
+quiet hum with one burst of beeps came out of the export as a 0.9 s loop, and a submarine's hull creaks as 2.2 s: the loudest moments
+set the overall loudness, so the quieter bed between them fell outside the span. The export now **refuses a loop under 3 s**
+(`MIN_LOOP_S`), and a spec may name its own **`span`**, [start, end] in seconds, to keep. Many takes also fade steadily from start to
+end (the creaks fell 35 dB over 7 s), and no join can hide that. For those, the spec's filter evens the level first with ffmpeg's
+`dynaudnorm` (a short window, 200 to 500 ms frames, so it follows the fade), and the flags then judge the loop as usual. The console
+needed neither: its take 43 had no steady stretch at all, so take 42, the other clean one, ships instead (an agent swap, flagged
+for the owner's ears). Look at a loop's loudness over time (`ffmpeg -af ebur128`) before choosing its span.
+
 ## Running beside the game
 
 `python scripts/art-run.py generate <requests> --cpu --stop-at HH:MM` (owner's request, 10 Nov 2026). RimWorld fills the
@@ -225,7 +234,8 @@ Synthesis from code is not offered as the main route again. A physical engine mo
 - **`python scripts/art/export_sound.py assets/phobos-sounds/exports.json`** writes each pick into its mod: clean-up filter, mono
   mix, the matched loop or the one-shot cut, levelled so that through our SoundDef's volume it sits at the chosen game sound's
   effective loudness plus an offset (by true peak for a sound under 0.4 s, which loudness meters ignore), Ogg Vorbis, the review
-  flags run on the result (a clip, a whine, a seam dip or a gap refuses it), and a `.record.md` beside the file as for textures.
+  flags run on the result (a clip, a whine, a seam dip, a gap or a loop under 3 s refuses it; a loop's spec may name its `span`),
+  and a `.record.md` beside the file as for textures.
   `--check` verifies the files against `assets/phobos-sounds/exported.json`.
 - **The volume setting is one, in D'thorga Framework** ("D'thorga sounds volume", 100%, 0 to 150%): every SoundDef of ours carries
   `Phobos.Framework.Sounds.PhobosSoundVolumeExtension`, and the setting scales its sub-sounds from their authored volume.

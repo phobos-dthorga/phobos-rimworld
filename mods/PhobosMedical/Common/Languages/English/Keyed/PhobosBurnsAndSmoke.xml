@@ -7,6 +7,9 @@
   <PhobosBurns_SettingBurnShockDesc>Large burns can kill within days unless the burns are tended, the patient rests in bed and the shock itself is tended, with the best medicine you have. Older patients and inhalation injuries do worse.</PhobosBurns_SettingBurnShockDesc>
   <PhobosBurns_SettingAirway>Airway burns</PhobosBurns_SettingAirway>
   <PhobosBurns_SettingAirwayDesc>A pawn that burns, or is burned about the head and neck, may get an airway burn whose swelling builds over hours. A tracheotomy relieves it.</PhobosBurns_SettingAirwayDesc>
+  <PhobosBurns_SettingCoughSounds>Coughing</PhobosBurns_SettingCoughSounds>
+  <PhobosBurns_SettingCoughSoundsDesc>People with smoke in their lungs, burned airways or airways stung by caustic gas cough now and then, more often the worse they are. Only a sound: it changes nothing about them. It stays quiet by itself while another mod already gives people coughs.</PhobosBurns_SettingCoughSoundsDesc>
+  <PhobosBurns_CoughSoundsStoodDown>Coughing is quiet: {MOD} already gives people coughs.</PhobosBurns_CoughSoundsStoodDown>
   <PhobosBurns_SettingSmoke>Smoke inhalation</PhobosBurns_SettingSmoke>
   <PhobosBurns_SettingSmokeDesc>Breathing smoke damages the lungs for days and can lead to pneumonia. The smoke itself comes from Combat Extended when that mod's smoke runs, otherwise from the game's own smoke, which fires now make under a roof.</PhobosBurns_SettingSmokeDesc>
   <PhobosBurns_SettingCarbonMonoxide>Carbon monoxide</PhobosBurns_SettingCarbonMonoxide>

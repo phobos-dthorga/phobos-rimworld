@@ -298,6 +298,10 @@
       <li Class="HediffCompProperties_SeverityPerDay">
         <severityPerDay>-0.5</severityPerDay>
       </li>
+      <li Class="Phobos.BurnsAndSmoke.Comps.HediffCompProperties_PhobosCough">
+        <sound>PhobosMedical_CoughSmoke</sound>
+        <mtbHoursAtFull>1</mtbHoursAtFull>
+      </li>
     </comps>
     <stages>
       <li>

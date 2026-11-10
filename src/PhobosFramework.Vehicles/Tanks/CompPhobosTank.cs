@@ -76,6 +76,8 @@ public class CompPhobosTank : CompPhobosSetUp
     float temperature = 21f;
     TankPumpMode mode = TankPumpMode.Hold;
     bool ventWarned;
+    /// <summary>Whether a compartment leaked at the last look. Derived, never saved.</summary>
+    bool leaking;
     bool registered;
     /// <summary>Which damage overlays are drawn now. Derived from part health, never saved.</summary>
     bool[]? damageShown;
@@ -150,11 +152,7 @@ public class CompPhobosTank : CompPhobosSetUp
         }
     }
 
-    static bool Unlocked(CompUpgradeTree tree, string key)
-    {
-        UpgradeNode? node = tree.Props.def.GetNode(key);
-        return node != null && tree.NodeUnlocked(node);
-    }
+    static bool Unlocked(CompUpgradeTree tree, string key) => VehicleUpgrades.Unlocked(tree, key);
 
     /// <summary>How many compartments the fitted tank has: by its upgrades, or its most if the player's setting makes them free.</summary>
     int WantedCompartments
@@ -318,6 +316,20 @@ public class CompPhobosTank : CompPhobosSetUp
     public override void CompTickRare()
     {
         base.CompTickRare();
+        leaking = false;
+        RareTank();
+        SyncSounds();
+    }
+
+    /// <summary>The pump while it moves a load, and a leak while one runs (docs/development/sound-catalogue.md). Presentation only.</summary>
+    void SyncSounds()
+    {
+        VehicleWorkSounds.Loop(Vehicle, "Pump", deployed && mode != TankPumpMode.Hold && pumpStatus == null);
+        VehicleWorkSounds.Loop(Vehicle, "Leak", leaking);
+    }
+
+    void RareTank()
+    {
         SyncDamage();
         SyncCompartments();
         TankFitting? fitting = Fitted;
@@ -384,6 +396,7 @@ public class CompPhobosTank : CompPhobosSetUp
             if (!compartment.HasLoad) continue;
             float lost = TankRule.Leaked(room, integrity, Props.leakFractionPerHour, HoursPerRareTick, compartment.amount);
             if (lost <= 0f) continue;
+            leaking = true;
             compartment.amount -= lost;
             SpillOnGround(compartment.contents, lost);
             if (!compartment.HasLoad) compartment.Clear();
@@ -415,6 +428,7 @@ public class CompPhobosTank : CompPhobosSetUp
             if (!ventWarned)
             {
                 ventWarned = true;
+                VehicleWorkSounds.Play(Vehicle, "Relief");
                 Tell("PhobosVehicleSystems_TankVenting".Translate(Vehicle.LabelShort.Named("VEHICLE"), fluid.label.Named("CONTENTS")), MessageTypeDefOf.NegativeEvent);
             }
         }
@@ -645,10 +659,12 @@ public class CompPhobosTank : CompPhobosSetUp
                 return;
             }
         }
+        if (deployed != on) VehicleWorkSounds.Play(Vehicle, "Hoses");
         deployed = on;
         if (!on) mode = TankPumpMode.Hold;
         pumpStatus = null;
         ShowHoses(on);
+        SyncSounds();
         Tell(on ? "PhobosVehicleSystems_TankSetUp".Translate(Vehicle.LabelShort.Named("VEHICLE")) : "PhobosVehicleSystems_TankPackedUp".Translate(Vehicle.LabelShort.Named("VEHICLE")), MessageTypeDefOf.SilentInput);
     }
 
@@ -656,6 +672,7 @@ public class CompPhobosTank : CompPhobosSetUp
     {
         mode = wanted;
         pumpStatus = null;
+        SyncSounds();
         NamedArgument name = Vehicle.LabelShort.Named("VEHICLE");
         Tell(wanted switch
         {

@@ -352,6 +352,16 @@
         <idleSound>PhobosVehicles_SurveyTruckEngineIdle</idleSound>
         <loadSound>PhobosVehicles_SurveyTruckEngineLoad</loadSound>
       </li>
+      <!-- Its work: the boom setting up and packing up, the console while surveying, the powered array, the long-range dish, a find. -->
+      <li Class="Phobos.VehicleSystems.PhobosVehicleSoundsExtension">
+        <sounds>
+          <li><key>SetUp</key><sound>PhobosVehicles_SurveyTruckBoom</sound></li>
+          <li><key>Console</key><sound>PhobosVehicles_SurveyTruckConsole</sound></li>
+          <li><key>Array</key><sound>PhobosVehicles_SurveyTruckArray</sound></li>
+          <li><key>Dish</key><sound>PhobosVehicles_SurveyTruckDish</sound></li>
+          <li><key>Find</key><sound>PhobosVehicles_SurveyTruckFind</sound></li>
+        </sounds>
+      </li>
     </modExtensions>
     <comps>
       <li Class="Vehicles.CompProperties_FueledTravel">

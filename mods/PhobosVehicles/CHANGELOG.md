@@ -5,6 +5,34 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.39.0] - 2026-11-11 - Draft
+
+Our vehicles at work, heard (owner, 11 November 2026: phase 2 of the sound catalogue; the owner took every one of the agent's shortlist picks and accepted mild clipping in two). **Not yet tested in game.**
+
+### Added
+
+- **Tanker**: hoses coupled and uncoupled, the pump running while it loads or unloads, the relief valve venting, a steady hiss while the tank leaks, air rushing through it in a purge.
+- **Tipper**: the rams lifting the body, the load sliding out (a clatter of rock from the rock body, a pour from the bulk body, thuds from the standard body) and the tailgate banging shut.
+- **Drill rig**: outriggers and mast on setting up and packing up; drilling, with its own sound on the hammer bit and on shore power; a portion down the cuttings chute; winding down when the ground is spent.
+- **Survey truck**: the boom swinging out and back, the console while it surveys, the powered array humming, the long-range dish turning, and one soft tone for a find.
+- **Generator truck**: outriggers and the cable reel on setting up and packing up.
+- **Seabed Crawler and the submarine test hull**: diving, surfacing, settling on the bottom and lifting off; while under, faint hull creaks, the air scrubber (once fitted) and the laboratory at work; a soft tone when the listening array hears a contact.
+- D'thorga Framework's D'thorga sounds volume setting turns them all down or off.
+
+### Compatibility and limits
+
+- Made with generative AI (Stable Audio 3 Small SFX, run on the owner's PC), picked by the owner from the agent's shortlist, and levelled against a comparable sound of the game's own; the record beside each sound file says how. Agent choices made at export, for the owner to hear: the survey console uses take 42 in place of 43, which had no steady stretch to loop; the hull's creaks are evened out so their loop holds a steady level; a faint whine near 11 kHz is filtered out of the rig setting up.
+- The Crawler surfacing and the generator truck setting up keep a little clipping that every take had; the owner accepted it.
+- Not yet heard in game.
+
+### Save compatibility
+
+- Safe on an existing save: only sounds are added.
+
+### Dependencies
+
+- Needs D'thorga Framework 0.82.0 or later, for the work sounds.
+
 ## [0.38.0] - 2026-11-11 - Draft
 
 The Seabed Crawler gets its own picture, a sonar set and two hull refits (owner, 11 November 2026). **Not yet tested in game.**

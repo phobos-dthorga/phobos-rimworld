@@ -4,7 +4,7 @@ Vehicles that keep running only while they are looked after. It adds one vehicle
 vehicles of other mods you already drive the systems that match what they really are, on top of the general systems D'thorga
 Framework gives every vehicle.
 
-Version 0.38.0, built 11 November 2026 for House D'thorga. **Not yet tested in game.**
+Version 0.39.0, built 11 November 2026 for House D'thorga. **Not yet tested in game.**
 
 ## Read this first (gotchas)
 
@@ -69,6 +69,12 @@ The tanker, tipper and drill rig hiss their air brakes as they stop; the trucks 
 engine falls quiet while it is set up, where its own running sound plays. D'thorga Framework's **D'thorga sounds volume** setting
 turns them all down or off. All were made with generative AI on the owner's PC and picked by the owner
 ([how](../../docs/development/sound-generation.md)).
+
+**Their work sounds too** (new in 0.39.0; not yet tested in game): the tanker's hoses, pump, relief valve, leaks and purges; the
+tipper's rams, load and tailgate (rock, bulk and standard bodies each their own); the drill rig setting up, drilling (the hammer bit
+and shore power each their own), a portion down the chute and winding down; the survey truck's boom, console, array, dish and a soft
+tone for a find; the generator truck setting up; and the Crawler diving, surfacing, settling and lifting off. **Under the water,
+only your own crew hears their boat**: the creaks, the air scrubber, the laboratory and a contact never give a hidden enemy boat away.
 
 ## The bulk tanker
 

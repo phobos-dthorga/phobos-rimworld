@@ -142,6 +142,7 @@ public class CompPhobosListening : VehicleComp
         if (reported) return;
         reported = true;
         if (Vehicle.Faction != Faction.OfPlayer) return;
+        VehicleWorkSounds.Play(Vehicle, "Contact");
         string text = "PhobosListening_Report".Translate(Vehicle.LabelShort.Named("VEHICLE"), heardAt.Count.Named("COUNT"), nearest.ToString("0").Named("DISTANCE"), BearingText(nearestCell).Named("BEARING")).Resolve();
         Messages.Message(text, Vehicle, MessageTypeDefOf.ThreatSmall, historical: false);
     }

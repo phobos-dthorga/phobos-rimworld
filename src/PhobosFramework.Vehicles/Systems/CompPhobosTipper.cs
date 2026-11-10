@@ -115,6 +115,7 @@ public class CompPhobosTipper : CompPhobosSetUp, IVehicleEngineDemand
         deployed = true;
         allowance = 0f;
         tipped = 0;
+        VehicleWorkSounds.Loop(Vehicle, "Rams", true);
         Tell("PhobosVehicleSystems_TipStarted".Translate(Vehicle.LabelShort.Named("VEHICLE")), MessageTypeDefOf.SilentInput);
     }
 
@@ -123,6 +124,8 @@ public class CompPhobosTipper : CompPhobosSetUp, IVehicleEngineDemand
     void Finish(string? reason)
     {
         deployed = false;
+        VehicleWorkSounds.Loop(Vehicle, "Rams", false);
+        VehicleWorkSounds.Play(Vehicle, "Tailgate");
         string report = "PhobosVehicleSystems_TipDone".Translate(Vehicle.LabelShort.Named("VEHICLE"), tipped.Named("COUNT")).Resolve();
         Tell(reason == null ? report : report + " " + reason, reason == null ? MessageTypeDefOf.TaskCompletion : MessageTypeDefOf.CautionInput);
     }
@@ -131,6 +134,8 @@ public class CompPhobosTipper : CompPhobosSetUp, IVehicleEngineDemand
     {
         base.CompTickRare();
         if (!deployed || !Vehicle.Spawned) return;
+        // Set again each look, so a tip under way when a save loads is heard again.
+        VehicleWorkSounds.Loop(Vehicle, "Rams", true);
         if (Vehicle.CompFueledTravel is { EmptyTank: true } || Vehicle.GetStatValue(GeneratorDefOf.Phobos_RigControl) < Props.controlFloor)
         {
             Finish("PhobosVehicleSystems_TipStopped".Translate().Resolve());
@@ -143,6 +148,7 @@ public class CompPhobosTipper : CompPhobosSetUp, IVehicleEngineDemand
             return;
         }
         int things = TipRule.WholeThings(ref allowance, Vehicle.GetStatValue(TipperDefOf.Phobos_TipRate) * (Systems?.HydraulicSupply ?? 1f), SecondsPerRareTick);
+        if (things > 0) VehicleWorkSounds.Play(Vehicle, "Slide");
         for (int i = 0; i < things; i++)
         {
             if (Cargo.Count == 0)

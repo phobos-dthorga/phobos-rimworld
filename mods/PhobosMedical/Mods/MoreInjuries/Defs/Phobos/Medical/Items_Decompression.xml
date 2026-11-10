@@ -47,6 +47,7 @@
         <workTicks>300</workTicks>
         <consumed>true</consumed>
         <minMedicineSkill>5</minMedicineSkill>
+        <useSound>PhobosMedical_NeedleDecompression</useSound>
       </li>
     </modExtensions>
   </ThingDef>

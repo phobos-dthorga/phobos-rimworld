@@ -61,6 +61,7 @@ It holds weak breathing up to a safe level, not to normal, and it cannot help so
       </li>
       <li Class="Phobos.Medical.Comps.CompProperties_PhobosVentilator">
         <maxPatients>1</maxPatients>
+        <workingSound>PhobosMedical_Ventilator</workingSound>
       </li>
     </comps>
   </ThingDef>

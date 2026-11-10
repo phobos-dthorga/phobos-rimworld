@@ -166,6 +166,11 @@ public class PhobosBurnRulesDef : PhobosRulesDef
     /// </summary>
     public List<string> perCellTemperatureMods = new();
 
+    /// <summary>Words that mark another mod's cough sound in a SoundDef's name, and mods known to give pawns coughs by other means: while
+    /// any is found, our coughs stand down (owner, 11 Nov 2026). Others can be added here in XML.</summary>
+    public List<string> coughSoundWords = new();
+    public List<string> coughSoundMods = new();
+
     public static PhobosBurnRulesDef Current => Current<PhobosBurnRulesDef>();
 }
 

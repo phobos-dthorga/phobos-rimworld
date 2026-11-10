@@ -173,6 +173,13 @@
     <tendable>false</tendable>
     <everCurableByItem>false</everCurableByItem>
     <scenarioCanAdd>false</scenarioCanAdd>
+    <!-- Now and then a cough, less often than fresh smoke or burns (authored). -->
+    <comps>
+      <li Class="Phobos.BurnsAndSmoke.Comps.HediffCompProperties_PhobosCough">
+        <sound>PhobosMedical_CoughWheeze</sound>
+        <mtbHoursAtFull>8</mtbHoursAtFull>
+      </li>
+    </comps>
     <stages>
       <li>
         <label>mild</label>

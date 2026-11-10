@@ -326,6 +326,16 @@
         <idleSound>PhobosVehicles_TankerEngineIdle</idleSound>
         <loadSound>PhobosVehicles_TankerEngineLoad</loadSound>
       </li>
+      <!-- Its work: hoses on deploying and stowing, the pump while loading or unloading, the relief valve, a leak, a purge. -->
+      <li Class="Phobos.VehicleSystems.PhobosVehicleSoundsExtension">
+        <sounds>
+          <li><key>Hoses</key><sound>PhobosVehicles_TankerHoses</sound></li>
+          <li><key>Pump</key><sound>PhobosVehicles_TankerPump</sound></li>
+          <li><key>Relief</key><sound>PhobosVehicles_TankerRelief</sound></li>
+          <li><key>Leak</key><sound>PhobosVehicles_TankerLeak</sound></li>
+          <li><key>Purge</key><sound>PhobosVehicles_TankerPurge</sound></li>
+        </sounds>
+      </li>
     </modExtensions>
     <comps>
       <li Class="Vehicles.CompProperties_FueledTravel">

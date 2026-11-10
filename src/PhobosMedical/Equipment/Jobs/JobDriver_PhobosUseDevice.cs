@@ -80,6 +80,7 @@ public class JobDriver_PhobosUseDevice : JobDriver
             };
         }
         use.activeSkill = () => SkillDefOf.Medicine;
+        use.PlaySustainerOrSound(() => Extension.useSound);
         yield return use;
 
         yield return Toils_General.Do(() =>

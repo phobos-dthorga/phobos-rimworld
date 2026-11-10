@@ -7,6 +7,7 @@ using Phobos.Medical.Defs;
 using Phobos.Medical.Rules;
 using RimWorld;
 using Verse;
+using Verse.Sound;
 
 namespace Phobos.Medical.Services;
 
@@ -24,7 +25,11 @@ public static class GasAlarmService
         float carbonMonoxide = SmokeExposureService.CarbonMonoxideAt(building.Position, building.Map);
         float smoke = PhobosGases.Density(building.Position, building.Map, GasKind.Smoke);
         AlarmGases next = GasAlarmRule.Next(previous, carbonMonoxide, smoke, rules.alarmCarbonMonoxideLevel, rules.alarmSmokeLevel, rules.alarmQuietShare);
-        if (GasAlarmRule.NewWarning(previous, next)) Warn(building, next);
+        if (GasAlarmRule.NewWarning(previous, next))
+        {
+            alarm.Props.sound?.PlayOneShot(new TargetInfo(building.Position, building.Map));
+            Warn(building, next);
+        }
         return next;
     }
 

@@ -304,6 +304,12 @@
         <!-- Set up, its engine is the generator, which has its own running sound. -->
         <silentWhileWorking>true</silentWhileWorking>
       </li>
+      <!-- Setting up and packing up: outriggers and the cable reel. Its running sound is its own comp's. -->
+      <li Class="Phobos.VehicleSystems.PhobosVehicleSoundsExtension">
+        <sounds>
+          <li><key>SetUp</key><sound>PhobosVehicles_GeneratorSetSetUp</sound></li>
+        </sounds>
+      </li>
     </modExtensions>
     <comps>
       <li Class="Vehicles.CompProperties_FueledTravel">

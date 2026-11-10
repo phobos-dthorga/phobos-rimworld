@@ -59,6 +59,7 @@ public class JobDriver_PhobosPurgeTank : JobDriver
         yield return Toils_Goto.GotoCell(CellIndex, PathEndMode.OnCell);
         Toil work = Toils_General.Wait(Tank?.Props.purgeTicks ?? 10000, VehicleIndex);
         work.WithProgressBarToilDelay(VehicleIndex);
+        work.PlaySustainerOrSound(() => VehicleWorkSounds.Find(Vehicle, "Purge"));
         yield return work;
         yield return new Toil { initAction = () => Tank?.FinishPurge(), defaultCompleteMode = ToilCompleteMode.Instant };
     }

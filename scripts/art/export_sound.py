@@ -5,8 +5,9 @@ folder, the mod file to write, whether it loops or plays once, any clean-up filt
 For each it:
 
 1. runs the clean-up filter and mixes to mono at 44,100 Hz, as every game sound measured is (scripts/art/game_sounds.py);
-2. for a loop, keeps the steady span and joins it where its ends match (scripts/art/sound_review.py); for a one-shot, cuts the
-   part asked for, trims silence at the ends and fades them;
+2. for a loop, keeps the steady span (or the spec's own `span`, for a sparse sound) and joins it where its ends match
+   (scripts/art/sound_review.py), refusing a loop under MIN_LOOP_S; for a one-shot, cuts the part asked for, trims silence at
+   the ends and fades them;
 3. levels it so that, played through our SoundDef's volume, it sits at the reference's effective loudness plus offset_db
    (by integrated loudness, or by true peak for a sound under 0.4 s, which loudness meters ignore), with the true peak kept
    under -1 dBTP;
@@ -112,14 +113,32 @@ def render(exe, master, spec, out):
 
 LOOP_CROSSFADES_S = (0.25, 0.5, 0.75, 1.0)  # Tried in turn; a rough, pulsing engine (the tipper, 11 Nov 2026) joined cleanly at one
                                           # length and dipped at the others, so the export measures each and keeps the best.
+MIN_LOOP_S = 3.0  # A loop shorter than this repeats audibly. The steady span cut a console of sparse beeps to 0.9 s and a hull's
+                  # sparse creaks to 2.2 s (11 Nov 2026): its loudest moments set the level, so the quieter bed between them fell
+                  # outside it. Such a loop is refused until its spec names the span to keep.
+
+
+def loop_span(exe, master, spec):
+    """The part of the master a loop is made from: the spec's own `span` [start, end] in seconds when it gives one (for a sparse
+    sound, whose quiet bed the steady span leaves out), else the steady span."""
+    if spec.get('span'):
+        return tuple(spec['span'])
+    frames, integrated = sound_review.loudness_frames(exe, [master])
+    return sound_review.steady_span(frames, integrated)
+
+
+def too_short(spec, seconds):
+    """Why a finished loop is refused for its length, or None. Pure, so it can be tested."""
+    if spec['kind'] == 'loop' and seconds is not None and seconds < MIN_LOOP_S:
+        return f'loop only {seconds} s (under {MIN_LOOP_S:g} s): give its spec a span, [start, end] in seconds, to keep'
+    return None
 
 
 def best_loop(exe, master, spec, out):
     """The loop with the smallest dip at its join, of every crossfade length in LOOP_CROSSFADES_S with both curves: each joined
     where its ends best match for that length (sound_review.best_loop_end), rendered, played twice and measured. Writes the best
     to out and returns what it chose."""
-    frames, integrated = sound_review.loudness_frames(exe, [master])
-    span = sound_review.steady_span(frames, integrated)
+    span = loop_span(exe, master, spec)
     mono = sound_review.decode_mono(exe, master)
     pre = (spec['filter'] + ',' if spec.get('filter') else '') + MONO
     best = None
@@ -265,6 +284,9 @@ def main(argv=None):
             continue
         entry = export_one(exe, spec, generated, game)
         bad = [flag for flag in entry['result']['flags'] if flag in EXPORT_FLAGS_TO_REFUSE]
+        short = too_short(spec, entry['result'].get('seconds'))
+        if short:
+            bad.append(short)
         if bad and not args.force:
             (ROOT / spec['target']).unlink()
             (ROOT / spec['target']).with_name(Path(spec['target']).name + '.record.md').unlink()

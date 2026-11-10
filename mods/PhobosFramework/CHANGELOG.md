@@ -5,6 +5,25 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.82.0] - 2026-11-11 - Draft
+
+Vehicles at work make their own sounds (owner, 11 November 2026: phase 2 of the sound catalogue; the owner took every one of the agent's shortlist picks). **Not yet tested in game.**
+
+### Added
+
+- **Our vehicles' work sounds as it happens**, with D'thorga Vehicles 0.39.0: a rig or a truck setting up and packing up, drilling, the survey console, its array and dish, a find, the tanker's hoses, pump, relief valve, leaks and purges, the tipper's rams, load and tailgate, and a submarine diving, surfacing, settling and lifting off. Loops start and stop with the work; a rig that has a drilling sound of its own keeps the game's drill dust but not the game's drill sound.
+- **Under the water, only your own crew hears their boat**: settling, lifting off, the hull's creaks, the air scrubber, the laboratory and a contact play only for the player's boats, so they never give a hidden enemy boat away. Diving and surfacing are seen anyway and play for any boat.
+- For modders: PhobosVehicleSoundsExtension on a VehicleDef names a vehicle's work sounds by key, each with an optional upgrade node for a take that plays only while that upgrade is fitted (the first that applies plays). The keys the comps use are listed on the class. VehicleWorkSounds plays them, and SoundsElsewhere tells whether another active mod already sounds something, so a sound of ours can stand down rather than double it.
+
+### Compatibility and limits
+
+- A sound only plays when a VehicleDef names one, so other mods' vehicles running our systems stay as quiet in their work as before.
+- The sonar ping and the spotted ping never sound twice at once: both are the same sound, and the game plays one copy of a sound started in the same moment (this corrects a note in 0.81.0).
+
+### Save compatibility
+
+- Safe on an existing save: nothing new is saved. Loops pick up again from the vehicle's state after a load.
+
 ## [0.81.0] - 2026-11-11 - Draft
 
 Sonar for any boat in the water (owner, 11 November 2026: your own ping finds everything in range but gives your boat away; an enemy's ping is heard, with its bearing, even without sonar of your own). **Not yet tested in game.**

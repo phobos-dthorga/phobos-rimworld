@@ -44,14 +44,19 @@ public static class PhobosSoundVolume
 public sealed class SustainedSound
 {
     Sustainer? sustainer;
+    SoundDef? playing;
 
     public bool Playing => sustainer is { Ended: false };
 
+    /// <summary>Starts or ends the loop. A different sound while one plays ends the old one and starts the new in its place.</summary>
     public void Set(SoundDef? def, bool on, Thing where)
     {
         if (on && def != null && where.Spawned)
         {
-            if (!Playing) sustainer = def.TrySpawnSustainer(SoundInfo.InMap(where, MaintenanceType.None));
+            if (Playing && playing == def) return;
+            End();
+            sustainer = def.TrySpawnSustainer(SoundInfo.InMap(where, MaintenanceType.None));
+            playing = def;
             return;
         }
         End();
@@ -61,6 +66,7 @@ public sealed class SustainedSound
     {
         if (Playing) sustainer!.End();
         sustainer = null;
+        playing = null;
     }
 
     /// <summary>Sets an external parameter the playing sound's SoundDef maps (its paramMappings, from SoundParamSource_External), such as
@@ -68,6 +74,31 @@ public sealed class SustainedSound
     public void SetParam(string name, float value)
     {
         if (Playing) sustainer!.externalParams[name] = value;
+    }
+}
+
+/// <summary>What other mods already sound, so a sound of ours can stand down rather than double one (owner, 11 Nov 2026, for coughs: never
+/// double up with another audio mod, the owner's or any player's).</summary>
+public static class SoundsElsewhere
+{
+    /// <summary>The name of the first active mod, other than <paramref name="ours"/>, with a SoundDef whose defName holds one of these
+    /// words (any case), or with one of these package IDs active; null if none. Read once Defs are loaded.</summary>
+    public static string? FirstMod(IEnumerable<string> words, IEnumerable<string> packageIds, ModContentPack? ours)
+    {
+        foreach (string packageId in packageIds)
+        {
+            if (OptionalMods.IsActive(packageId)) return ModLister.GetActiveModWithIdentifier(packageId, ignorePostfix: true)?.Name ?? packageId;
+        }
+        var wanted = new List<string>(words);
+        foreach (SoundDef def in DefDatabase<SoundDef>.AllDefsListForReading)
+        {
+            if (def.modContentPack == null || def.modContentPack == ours || def.modContentPack.IsOfficialMod) continue;
+            foreach (string word in wanted)
+            {
+                if (def.defName.IndexOf(word, System.StringComparison.OrdinalIgnoreCase) >= 0) return def.modContentPack.Name;
+            }
+        }
+        return null;
     }
 }
 
