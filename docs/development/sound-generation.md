@@ -192,7 +192,8 @@ Lessons, from 16 sounds and so tentative:
   gave a steady hum. Rewording, more seeds, or Medium are the next things to try for the ping.
 - **The whine flag earned its place on day one:** the 15 kHz line was invisible to every broad measure.
 
-**The owner's picks (10 Nov 2026):** concentrator hum seed 12 (full steps), generator loop distilled 11, sonar ping distilled
+**The owner's picks (10 Nov 2026):** concentrator hum distilled 12 (chosen over the first pick, full-steps seed 12, which
+stays the runner-up with its filter), generator loop distilled 11, sonar ping distilled
 11, switch click distilled (seed open), recorded in `assets/phobos-sounds/picks.json`. The concentrator hum whines near 15 kHz
 and, in other stretches, near 19.5 kHz (which the whine search then missed, so it now reaches 20 kHz). A narrow notch at 15 kHz
 left a shoulder and the 19.5 kHz band; **a steep low-pass at 11 kHz removed both** and left its loudness unchanged, so the

@@ -2,11 +2,10 @@
   "note": "The owner's picks from generated candidates, for the export step (not built yet). Each names its master under generated/, any clean-up ffmpeg filter the export must apply, and why. Masters stay byte for byte; a fix is applied to the exported copy only.",
   "picks": [
     {
-      "candidate": "concentrator-hum/concentrator-hum-12.flac",
+      "candidate": "concentrator-hum-fast/concentrator-hum-fast-12.flac",
       "picked": "2026-11-10",
       "use": "Oxygen concentrator running (loop)",
-      "filter": "lowpass=f=11000,lowpass=f=11000,lowpass=f=11000,lowpass=f=11000",
-      "why_filter": "It whines near 15 kHz and 19.5 kHz in turns (whine flag, 17 to 19 dB). A steep low-pass at 11 kHz removes both and leaves the hum's loudness unchanged (-17.2 against -17.1 LUFS); measured 10 Nov 2026."
+      "notes": "Replaced concentrator-hum-12 the same day: no flags and no filter needed. Its loop seam, which the owner heard, was fixed by choosing the join where the ends match (seam dip 0.1 dB). Made quiet (-37.6 LUFS); the export levels it."
     },
     {
       "candidate": "generator-loop-fast/generator-loop-fast-11.flac",
@@ -24,6 +23,14 @@
       "picked": "2026-11-10",
       "use": "A switch or toggle click",
       "notes": "The owner picked switch-click-fast without a seed: which one is open. Each holds three clicks; the export cuts one out."
+    }
+  ],
+  "runners_up": [
+    {
+      "candidate": "concentrator-hum/concentrator-hum-12.flac",
+      "instead_of": "concentrator-hum-fast/concentrator-hum-fast-12.flac",
+      "filter": "lowpass=f=11000,lowpass=f=11000,lowpass=f=11000,lowpass=f=11000",
+      "why_filter": "It whines near 15 kHz and 19.5 kHz in turns (whine flag, 17 to 19 dB). A steep low-pass at 11 kHz removes both and leaves the hum's loudness unchanged (-17.2 against -17.1 LUFS); measured 10 Nov 2026."
     }
   ]
 }
