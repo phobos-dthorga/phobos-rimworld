@@ -148,6 +148,9 @@ heavy vehicles' voltage; not yet tested in game.** The owner asked for one batch
 Each step takes the middle version number (new behaviour), carries its own test-pass row, and says "not yet tested in game" until the owner says
 otherwise.
 
+**All eight links are built (Framework 0.67.0 to 0.70.0). The next round, deeper chains, fittings and the stations, is researched in
+[vehicle-crosslinks-round-two.md](vehicle-crosslinks-round-two.md).**
+
 ## The owner's answers (10 Nov 2026)
 
 | Question | Agent lean | Owner's answer |
