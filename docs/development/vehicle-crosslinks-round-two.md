@@ -250,7 +250,8 @@ stays optional as S2 has it; the gearbox-to-coolant link is dropped.
   window while a game is running (a per-colony choice, not a global setting). The motor service of electric vehicles has no kit.
 - The depot bay's shelf takes the four kits by default.
 - **The inspection pit's picture** was made on the OpenAI image API the same day, two attempts at the owner's word (US$0.041 in all,
-  our parts bench as a style-only reference); it ships once the owner picks one.
+  our parts bench as a style-only reference). **The owner picked attempt 1** ("more flat and top-down"); it ships in 0.74.1, master on
+  `art-masters`, attempt 2 on `art-references`.
 
 **Still to come, in the record's order:** the fittings batch (F1 to F8, F10) with T6 and T8; T4 and T5 (brake and clutch wear, engine
 braking); S3 if wanted; T7 last. Traders do not stock the kits yet (no trade tags); they can be sold.

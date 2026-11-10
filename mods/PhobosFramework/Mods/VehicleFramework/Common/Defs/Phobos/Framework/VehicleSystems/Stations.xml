@@ -82,14 +82,14 @@
   <!-- An inspection pit beside the parts bench speeds its work (owner, 10 Nov 2026: a production bonus, as Dead Man's Switch does with its
        workshop buildings): a part is offered up to a vehicle from below to check its fit before it leaves the bench. A facility the way
        the game's tool cabinet is: one counts, a 15% bonus (the tool cabinet gives 6% and two may count). Cost, size and bonus authored.
-       The picture is the depot bay's, a placeholder until the owner asks for one of its own. -->
+       Its picture is the owner's pick of two made on the OpenAI image API (10 Nov 2026; InspectionPit.record.md). -->
   <ThingDef ParentName="BuildingBase">
     <defName>PhobosVehicles_InspectionPit</defName>
     <label>inspection pit</label>
     <description>A concrete-lined pit with a work light and a parts lift. Beside a vehicle parts bench, it lets each part be offered up from below and checked before it is finished, so the bench works faster.</description>
     <thingClass>Building</thingClass>
     <graphicData>
-      <texPath>Phobos/VehicleSystems/Stations/DepotBay</texPath>
+      <texPath>Phobos/VehicleSystems/Stations/InspectionPit</texPath>
       <graphicClass>Graphic_Single</graphicClass>
       <drawSize>(3,1)</drawSize>
     </graphicData>

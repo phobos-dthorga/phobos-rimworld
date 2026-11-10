@@ -1,0 +1,16 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Stations/InspectionPit.png",
+  "source": "assets/phobos-vehicles/generated/station-inspection-pit/station-inspection-pit-1.png",
+  "source_sha256": "4e0edbf632cbf4c2b7d10fbc72409a4afec92e8935d566ccdfc786030a594bd4",
+  "target_sha256": "92d990867dafaad35d11c0fac1480bf08bd8b008b9337e2d32589521a958879c",
+  "size": [
+    384,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": true,
+  "silhouette": false,
+  "date": "2026-11-10T23:00:06",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

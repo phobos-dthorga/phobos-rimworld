@@ -5,6 +5,18 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.74.1] - 2026-11-10 - Draft
+
+The inspection pit's own picture. **Not yet tested in game.**
+
+### Changed
+
+- The inspection pit has its own picture, the owner's pick of two (a concrete pit with steps, a drain, a work lamp and a parts lift), in place of the depot bay's borrowed one.
+
+### Save compatibility
+
+- Safe on an existing save.
+
 ## [0.74.0] - 2026-11-10 - Draft
 
 Service kits (owner, 10 November 2026). **Not yet tested in game.**
