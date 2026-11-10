@@ -5,6 +5,36 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.38.0] - 2026-11-11 - Draft
+
+The Seabed Crawler gets its own picture, a sonar set and two hull refits (owner, 11 November 2026). **Not yet tested in game.**
+
+### Added
+
+- **The Seabed Crawler has its own picture** in house colours, a grey-blue hull with a muted orange band on the sail, in all four facings; the repaint tool recolours the hull and the band separately. The submarine test hull wears it too. AI-generated with the OpenAI image API (the owner's pick of four), widened by script to fill the boat's 4 by 9 cells; see the texture record beside it. Agent-authored, held for the owner's review.
+- **Sonar set**, after the listening array: its own research (active sonar) and part (sonar transducer). A ping reaches 60 cells. See D'thorga Framework 0.81.0 for what a ping does.
+- **Two hull refits, the owner's idea**, each with its own research and part, and each changing the boat's picture. They exclude each other: a Crawler is a hunter or a laboratory.
+  - **Sensor refit** (faired sensor sail, after the sonar set): a smooth faired sail; hears 20 cells further and pings 30 further, carries 200 less.
+  - **Laboratory refit** (laboratory hull section, after the advanced laboratory): a longer hull with a long panelled deck; a third scientist's seat and 15 per cent of a bench faster research, a little slower.
+- New icons for the three upgrades and their parts, drawn in code.
+
+### Balance
+
+- Agent-authored figures, to tune in play: sonar 60 cells; sensor refit +20 listening, +30 sonar, -200 cargo; laboratory refit +0.15 laboratory speed, -0.5 move speed; research 1,500, 2,000 and 2,500; the refit parts at Crafting 8.
+
+### Compatibility and limits
+
+- With Vehicle Framework's custom shaders turned off in its settings, a refitted Crawler shows the base hull after a load; its refit still works.
+- The upgrades' pictures on the hull (wheels, listening strips, sonar dome and the rest) are still to come, and wait for the owner's go on the cost.
+
+### Save compatibility
+
+- Safe on an existing save. The sonar transducer is a new part added at the end of the Crawler's list, so a Crawler placed by an earlier version may lack it; place a fresh one in dev mode to try the sonar.
+
+### Dependencies
+
+- Needs D'thorga Framework 0.81.0 or later, for the sonar.
+
 ## [0.36.0] - 2026-11-11 - Draft
 
 The Seabed Crawler grows to 4 by 9 cells, and its picture is planned (owner, 11 November 2026). **Not yet tested in game.**

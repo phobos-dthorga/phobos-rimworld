@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- The Seabed Crawler's refit hulls (owner, 11 Nov 2026), swapped in by the refit upgrades through Vehicle Framework's own RetextureDef and saved with the vehicle; refunding a refit puts the
+       base hull back. Same canvas, footprint and colours as the base hull, so the repaint tool and the overlays keep working. defNames are saved: never rename them. Not yet tested in game. -->
+  <Vehicles.RetextureDef>
+    <defName>Phobos_SeabedCrawler_LaboratoryRefit</defName>
+    <label>seabed crawler, laboratory refit</label>
+    <graphicData>
+      <texPath>Phobos/Vehicles/SeabedCrawler/SeabedCrawler_Research</texPath>
+      <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+      <shaderType>CutoutComplexPattern</shaderType>
+      <drawSize>(5, 10)</drawSize>
+      <color>(70, 78, 86)</color>
+      <colorTwo>(214, 124, 44)</colorTwo>
+    </graphicData>
+  </Vehicles.RetextureDef>
+
+  <Vehicles.RetextureDef>
+    <defName>Phobos_SeabedCrawler_SensorRefit</defName>
+    <label>seabed crawler, sensor refit</label>
+    <graphicData>
+      <texPath>Phobos/Vehicles/SeabedCrawler/SeabedCrawler_Sensor</texPath>
+      <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+      <shaderType>CutoutComplexPattern</shaderType>
+      <drawSize>(5, 10)</drawSize>
+      <color>(70, 78, 86)</color>
+      <colorTwo>(214, 124, 44)</colorTwo>
+    </graphicData>
+  </Vehicles.RetextureDef>
+</Defs>

@@ -5,7 +5,7 @@ colonist is breathing, makes fires fill roofed rooms with the game's own smoke w
 carries carbon monoxide from fires, holds the per-person care choices the D'thorga medical mods offer, and holds the small
 helpers every D'thorga mod shares.
 
-Version 0.79.1, built 11 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
+Version 0.81.0, built 11 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
 oxygen working through Burns and Smoke and Medical Equipment (5 November 2026). The health layer new in 0.3.0 and the **vehicle
 systems new in 0.9.0, and their engines, drivetrains and gas turbines new in 0.11.0, are not yet tested in game.** The rest is read from the game's and the mods' code.
 
@@ -271,6 +271,13 @@ The new button on a vehicle's **Dashboard** opens **Fittings and tunes**, for an
 - **One message comes when movement is first heard**, and again only after a quiet spell. Select the vehicle to see its range as a ring, with a red line to each place it heard something, fog or not.
 - **Another boat under the water that it hears is spotted**, so it shows as a dark shape and can be fired on.
 - It hears nothing on the world map. The Seabed Crawler's listening array is the first to use it.
+
+### Sonar (new in 0.81.0; not yet tested in game)
+
+- **A vehicle in the water with a sonar set gets a Sonar ping button.** A ping finds everything hostile in the water within its reach, moving or still, and every boat under the water however quiet; a boat resting on the bottom only from half as far. Boats it finds are followed, as when spotted.
+- **Every ping gives its boat away:** a boat under the water is followed for a minute afterwards, and anyone in the water hears the ping from twice its reach. **Your boats are told the direction of any ping they hear, with or without a set.**
+- **Other factions' boats ping too**, now and then, while they hunt under the water.
+- A message says what was found and where; select the vehicle to see the ring and a line to each find for a few seconds. It needs someone awake aboard and 30 seconds between pings. It does not lift the fog of war. The Seabed Crawler's sonar set is the first to use it.
 
 ### Laboratories aboard vehicles (new in 0.65.0; not yet tested in game)
 

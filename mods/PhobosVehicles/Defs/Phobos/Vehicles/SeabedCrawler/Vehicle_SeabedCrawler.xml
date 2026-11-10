@@ -2,7 +2,7 @@
 <Defs>
   <!--
     The Seabed Crawler, the first real submarine (owner, 10 Nov 2026; docs/development/vehicle-seabed-crawler.md). The bare boat dives, hides and comes home; every other ability is an upgrade with its own research and part.
-    It borrows the bulk tanker's picture until it has its own (owner's rule of 9 Nov 2026: no stand-in bodies). Biggest boat on the owner's list: Vanilla Vehicles Expanded's Trawler, 2 x 5 drawn 3 x 6, so this is the largest. All figures authored.
+    Its own picture since Vehicles 0.38.0 (owner's pick, 11 Nov 2026), in house colours: grey-blue hull, muted orange band; the two hull refits swap it through Vehicle Framework's RetextureDef. Biggest boat on the owner's list: Vanilla Vehicles Expanded's Trawler, 2 x 5 drawn 3 x 6, so this is the largest. All figures authored.
     4 x 9 cells, drawn 5 x 10 (owner, 11 Nov 2026: "I want the players to feel the weight and size of it"; it was 3 x 8). The game gives a 4-wide hull the columns x -1 to 2 and a 9-long one z -4 to 4,
     so the centreline runs between columns 0 and 1: internal parts sit on those two, flank parts on -1 and 2. The art plan is docs/development/vehicle-seabed-crawler-art.md.
     Parts are saved by position: append only. Not yet tested in game.
@@ -12,12 +12,12 @@
     <label>seabed crawler</label>
     <description>A small research submarine. As built it can only dive, hide and come home; its abilities are fitted one by one as upgrades.</description>
     <graphicData>
-      <texPath>Phobos/Vehicles/BulkTanker/BulkTanker</texPath>
+      <texPath>Phobos/Vehicles/SeabedCrawler/SeabedCrawler</texPath>
       <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
       <shaderType>CutoutComplexPattern</shaderType>
       <drawSize>(5, 10)</drawSize>
       <color>(70, 78, 86)</color>
-      <colorTwo>(40, 44, 50)</colorTwo>
+      <colorTwo>(214, 124, 44)</colorTwo>
     </graphicData>
     <fillPercent>1</fillPercent>
     <nameable>true</nameable>
@@ -46,6 +46,7 @@
       <Phobos_FieldLabFactor>0</Phobos_FieldLabFactor>
       <Phobos_FieldLabGrade>0</Phobos_FieldLabGrade>
       <Phobos_ListeningRange>0</Phobos_ListeningRange>
+      <Phobos_SonarRange>0</Phobos_SonarRange>
     </vehicleStats>
     <race>
       <baseBodySize>7</baseBodySize>
@@ -242,6 +243,22 @@
           <li>Phobos_ListeningRange</li>
         </categories>
       </li>
+      <li>
+        <!-- The sonar set's transducer under the bow, appended last (parts are saved by position): silent until the upgrade is fitted, and damage to it shortens what a ping finds. -->
+        <key>SonarTransducer</key>
+        <label>sonar transducer</label>
+        <health>30</health>
+        <depth>External</depth>
+        <hitbox>
+          <cells>
+            <li>(0, 3)</li>
+            <li>(1, 3)</li>
+          </cells>
+        </hitbox>
+        <categories>
+          <li>Phobos_SonarRange</li>
+        </categories>
+      </li>
     </components>
     <comps>
       <li Class="Vehicles.CompProperties_FueledTravel">
@@ -259,6 +276,9 @@
       </li>
       <li Class="Phobos.VehicleSystems.CompProperties_PhobosFieldLab" />
       <li Class="Phobos.VehicleSystems.CompProperties_PhobosListening" />
+      <li Class="Phobos.VehicleSystems.CompProperties_PhobosSonar">
+        <pingSound>PhobosVehicles_SonarPing</pingSound>
+      </li>
     </comps>
     <!-- Its own voice in place of the inherited draft blips; the engine loops are played by D'thorga Framework from the
          extension below, so they follow rpm and load (docs/development/sound-catalogue.md). -->
@@ -293,7 +313,7 @@
     <label>seabed crawler</label>
     <description>A small research submarine. As built it can only dive, hide and come home; its abilities are fitted one by one as upgrades. It is built in shallow water.</description>
     <graphicData>
-      <texPath>Phobos/Vehicles/BulkTanker/BulkTanker</texPath>
+      <texPath>Phobos/Vehicles/SeabedCrawler/SeabedCrawler</texPath>
       <graphicClass>Graphic_Multi</graphicClass>
       <drawSize>(5, 10)</drawSize>
     </graphicData>

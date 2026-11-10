@@ -1,6 +1,6 @@
 # The Seabed Crawler's picture: research and art record (11 Nov 2026)
 
-**Record and plan. The pictures follow under [the paid generation rules](paid-image-generation-rules.md), and nothing is bought before the owner sees the dry run's cost ceiling and says go. Nothing here is tested in game.** The owner asked on 11 November 2026 for the Crawler's art, as a research-and-record piece first. Agent-authored for the owner's review; every proportion and placement below is **[A]** authored unless it says otherwise. The boat's design is in [the Crawler record](vehicle-seabed-crawler.md); the real boat behind it is in [the military vehicles research](military-vehicles-research.md).
+**The pilot is picked and exported (Vehicles 0.38.0): the base hull and two refit hulls. The overlays follow under [the paid generation rules](paid-image-generation-rules.md), and nothing is bought before the owner sees the dry run's cost ceiling and says go. Nothing here is tested in game.** The owner asked on 11 November 2026 for the Crawler's art, as a research-and-record piece first. Agent-authored for the owner's review; every proportion and placement below is **[A]** authored unless it says otherwise. The boat's design is in [the Crawler record](vehicle-seabed-crawler.md); the real boat behind it is in [the military vehicles research](military-vehicles-research.md).
 
 ## Read this first
 
@@ -102,7 +102,26 @@ The overlay requests (`seabed-crawler-overlays.json`, written after the pick) us
 
 **Review sheets** (made by script, not shipped): `crawler-review-native.png` and `crawler-review-half.png`, written to the session's scratch folder and copied beside the originals in `generated/seabed-crawler-body-north/review/`.
 
-The pick, the export, the overlay batch and the archive commits follow here once the owner has chosen.
+### The pick and the export, 11 November 2026 (Vehicles 0.38.0)
+
+**Owner's pick (11 Nov 2026, "your suggestions are fine", answering four proposals at once):** attempt 3 as the base hull, widened by script; **and attempts 1 and 4 as refit hulls**, the owner's own idea from the night before ("They're close enough in design that we could use them as variants when certain upgrade pathways are reached"). Attempt 1, with its long panelled casing, is the **laboratory refit**; attempt 4, with its neat faired sail, is the **sensor refit**. What each refit does is in [the Crawler record](vehicle-seabed-crawler.md#the-hull-refits-as-built).
+
+**Widened by script, free,** with `assets/phobos-vehicles/widen_master.py`, new in this change: a sideways stretch about the hull's own centre line on a canvas of the same size, so length, bow and stern stay put. 1.35 times for attempts 1 and 3, 1.28 for attempt 4. On attempt 3 it also painted out the glyph-like marks on the sail (one box, 470,582 to 570,612 in the widened picture, filled with the median colour of a ring around it). The masters are untouched; each widened file has a `.widen.json` beside it with both hashes.
+
+**Exported** with `scripts/art/export_vehicle.py body ... --cells-long 9 --draw 5 10 --main-hue 185 240 --accent-hue 8 32 --min-saturation 0.05`:
+
+| Texture | From | Across, at 9 cells long |
+| --- | --- | --- |
+| `SeabedCrawler` | attempt 3 | 3.94 cells |
+| `SeabedCrawler_Research` | attempt 1 | 3.86 cells |
+| `SeabedCrawler_Sensor` | attempt 4 | 3.98 cells |
+
+- **A change to the export tool:** the hull's grey-blue measured a saturation of only 0.06 to 0.12, under the tool's 0.16 floor for paint, so the hull would have had no mask and the repaint tool could not have touched it. `export_vehicle.py` takes `--min-saturation` now (default unchanged, with a test); 0.05 picks up the hull and still leaves the outline, the pale casing and the olive sail unpainted.
+- **The masks, checked by script:** a red and green test paint recolours exactly the hull and the band. The Defs keep the house grey-blue (70, 78, 86) and give the band a muted orange (214, 124, 44); the exporter's own suggestion, which reproduces the master exactly, was a lighter (100, 104, 112) and (236, 128, 41).
+- **The texture record** is `mods/PhobosVehicles/Textures/Phobos/Vehicles/SeabedCrawler/SeabedCrawler.record.md`, with every master's and widened file's hash. The export's transform files stay in `assets/phobos-vehicles/generated/export/`, ignored on `main`, as the tanker's do; the overlay batch needs `SeabedCrawler.transform.json` from there.
+- **The refit hulls and the overlays:** the overlays are placed on the base hull's canvas. The refit hulls share its length, its centre and its stern and bow, but attempt 4's sail sits further forward than the other two and is narrower, so **an overlay on the sail top (the radar mast) will need a version per hull**; the bow dome, the flank strips, the wheels and the after-deck drill sit where all three agree. To be settled with the overlay batch, which still waits for its own dry run and the owner's go (ceiling about US$2.15).
+
+**Archived:** the three picks' masters with their records, the widened files and the export transforms to `art-masters` (`vehicles/seabed-crawler/`, commit c258504); nothing went to `art-references`, since every clear attempt was picked. Attempt 2 stays on the owner's PC only, as the near-copy rule requires.
 
 ## Sources
 
@@ -115,5 +134,5 @@ The pick, the export, the overlay batch and the archive commits follow here once
 
 ## Who chose what
 
-- **Owner (11 Nov 2026):** the art now, as research and record first; 4 x 9 cells for weight and size; house colours; pilot then every visible node.
+- **Owner (11 Nov 2026):** the art now, as research and record first; 4 x 9 cells for weight and size; house colours; pilot then every visible node; attempt 3 as the base hull widened by script; attempts 1 and 4 as refit hulls on upgrade pathways (the owner's idea), mapped as the agent proposed.
 - **Agent, owner to revise:** the 5 x 10 drawn size (a cell of margin each way, as every vehicle of ours); the canvas; the node places and what each overlay shows; the prompt; the hull as the main paint and the orange band as the accent for the pattern shader; leaving the Crawler's mass (400) and body size (7) as they are, which the owner may want to revisit now the boat is bigger.

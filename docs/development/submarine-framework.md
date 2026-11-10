@@ -107,6 +107,7 @@ Two things needed no patch. Caravan buttons and text come from a `WorldObjectCom
 | Hits below, turrets held, nobody landing | Yes, for any vehicle | Nothing |
 | Settling on the bottom | Yes, once ordered | Nothing to order it |
 | Hearing a hidden hull (Framework 0.72.0) | Yes, both ways: an enemy boat with an array spots ours | Nothing |
+| Active sonar (Framework 0.81.0) | Yes, both ways: an enemy boat's ping finds and spots ours, and gives it away; it pings by itself now and then while it hunts, and the player's boats hear the bearing with or without a set | Its pings come from a simple chance, not from a boat's own AI |
 | Its own behaviour: when to dive, hunt, settle, surface, fire | **No** | A boat's own AI, through the raid's lord. Not designed |
 | Arriving: from the map's sea edge, or as a world-map threat | **No** | Not designed; how Vehicle Framework brings hostile boats at all is not yet read |
 | Torpedoes | **No** | Planned below as torpedo tubes through `turretsThatFireBelow` |

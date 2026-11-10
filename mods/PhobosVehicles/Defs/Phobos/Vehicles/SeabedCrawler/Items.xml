@@ -222,4 +222,137 @@
       <Plasteel>5</Plasteel>
     </smeltProducts>
   </ThingDef>
+  <ThingDef ParentName="ResourceBase">
+    <defName>PhobosVehicles_SonarTransducer</defName>
+    <label>sonar transducer</label>
+    <description>A ceramic transducer in a faired dome that sends a pulse of sound into the water and hears its echoes, with the screen that shows them, for fitting under a submersible's bow.</description>
+    <graphicData>
+      <texPath>Phobos/Vehicles/SeabedCrawler/Upgrades/Sonar</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <soundInteract>Metal_Drop</soundInteract>
+    <soundDrop>Standard_Drop</soundDrop>
+    <stackLimit>5</stackLimit>
+    <statBases>
+      <MaxHitPoints>70</MaxHitPoints>
+      <MarketValue>340</MarketValue>
+      <Mass>15</Mass>
+      <Flammability>0.3</Flammability>
+      <WorkToMake>4000</WorkToMake>
+    </statBases>
+    <thingCategories>
+      <li>PhobosCategory_VehicleParts</li>
+    </thingCategories>
+    <costList>
+      <Steel>30</Steel>
+      <ComponentIndustrial>5</ComponentIndustrial>
+    </costList>
+    <recipeMaker>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <effectWorking>Smith</effectWorking>
+      <soundWorking>Recipe_Machining</soundWorking>
+      <workSkill>Crafting</workSkill>
+      <unfinishedThingDef>UnfinishedComponent</unfinishedThingDef>
+      <researchPrerequisite>PhobosResearch_ActiveSonar</researchPrerequisite>
+      <recipeUsers>
+        <li>PhobosVehicles_PartsBench</li>
+      </recipeUsers>
+      <skillRequirements>
+        <Crafting>7</Crafting>
+      </skillRequirements>
+    </recipeMaker>
+    <smeltProducts>
+      <Steel>15</Steel>
+    </smeltProducts>
+  </ThingDef>
+
+  <ThingDef ParentName="ResourceBase">
+    <defName>PhobosVehicles_SensorSail</defName>
+    <label>faired sensor sail</label>
+    <description>A smooth sail fairing in sections, with mounts and cabling for the listening array and the sonar set, to rebuild a submersible's sail around its sensors.</description>
+    <graphicData>
+      <texPath>Phobos/Vehicles/SeabedCrawler/Upgrades/SensorRefit</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <soundInteract>Metal_Drop</soundInteract>
+    <soundDrop>Standard_Drop</soundDrop>
+    <stackLimit>1</stackLimit>
+    <statBases>
+      <MaxHitPoints>150</MaxHitPoints>
+      <MarketValue>520</MarketValue>
+      <Mass>70</Mass>
+      <Flammability>0.2</Flammability>
+      <WorkToMake>7000</WorkToMake>
+    </statBases>
+    <thingCategories>
+      <li>PhobosCategory_VehicleParts</li>
+    </thingCategories>
+    <costList>
+      <Steel>100</Steel>
+      <ComponentIndustrial>6</ComponentIndustrial>
+    </costList>
+    <recipeMaker>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <effectWorking>Smith</effectWorking>
+      <soundWorking>Recipe_Machining</soundWorking>
+      <workSkill>Crafting</workSkill>
+      <unfinishedThingDef>UnfinishedComponent</unfinishedThingDef>
+      <researchPrerequisite>PhobosResearch_SensorRefit</researchPrerequisite>
+      <recipeUsers>
+        <li>PhobosVehicles_PartsBench</li>
+      </recipeUsers>
+      <skillRequirements>
+        <Crafting>8</Crafting>
+      </skillRequirements>
+    </recipeMaker>
+    <smeltProducts>
+      <Steel>50</Steel>
+    </smeltProducts>
+  </ThingDef>
+
+  <ThingDef ParentName="ResourceBase">
+    <defName>PhobosVehicles_LaboratoryHullSection</defName>
+    <label>laboratory hull section</label>
+    <description>A ring of pressure hull with its frames, fittings and a third scientist's station, to be let into a submersible amidships.</description>
+    <graphicData>
+      <texPath>Phobos/Vehicles/SeabedCrawler/Upgrades/LaboratoryRefit</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <soundInteract>Metal_Drop</soundInteract>
+    <soundDrop>Standard_Drop</soundDrop>
+    <stackLimit>1</stackLimit>
+    <statBases>
+      <MaxHitPoints>200</MaxHitPoints>
+      <MarketValue>640</MarketValue>
+      <Mass>110</Mass>
+      <Flammability>0.2</Flammability>
+      <WorkToMake>8000</WorkToMake>
+    </statBases>
+    <thingCategories>
+      <li>PhobosCategory_VehicleParts</li>
+    </thingCategories>
+    <costList>
+      <Steel>150</Steel>
+      <Plasteel>10</Plasteel>
+      <ComponentIndustrial>4</ComponentIndustrial>
+    </costList>
+    <recipeMaker>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <effectWorking>Smith</effectWorking>
+      <soundWorking>Recipe_Machining</soundWorking>
+      <workSkill>Crafting</workSkill>
+      <unfinishedThingDef>UnfinishedComponent</unfinishedThingDef>
+      <researchPrerequisite>PhobosResearch_LaboratoryRefit</researchPrerequisite>
+      <recipeUsers>
+        <li>PhobosVehicles_PartsBench</li>
+      </recipeUsers>
+      <skillRequirements>
+        <Crafting>8</Crafting>
+      </skillRequirements>
+    </recipeMaker>
+    <smeltProducts>
+      <Steel>75</Steel>
+      <Plasteel>5</Plasteel>
+    </smeltProducts>
+  </ThingDef>
 </Defs>

@@ -42,10 +42,11 @@ def sha(path):
     return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 
 
-def classify(red, green, blue, main_hue, accent_hue):
-    """'main', 'accent' or None for one opaque pixel; hues are in degrees."""
+def classify(red, green, blue, main_hue, accent_hue, min_saturation=MIN_SATURATION):
+    """'main', 'accent' or None for one opaque pixel; hues are in degrees. A greyish paint, such as a grey-blue hull, needs a lower
+    min_saturation than the default, which keeps bare metal unpainted."""
     hue, saturation, value = colorsys.rgb_to_hsv(red / 255, green / 255, blue / 255)
-    if value < OUTLINE_VALUE or saturation < MIN_SATURATION:
+    if value < OUTLINE_VALUE or saturation < min_saturation:
         return None
     degrees = hue * 360
     if main_hue[0] <= degrees <= main_hue[1]:
@@ -59,7 +60,7 @@ def luminance(red, green, blue):
     return 0.299 * red + 0.587 * green + 0.114 * blue
 
 
-def separate_paint(image, main_hue, accent_hue):
+def separate_paint(image, main_hue, accent_hue, min_saturation=MIN_SATURATION):
     """(grey-painted texture, mask, default colours). Each paint is scaled on its own, so its grey fills the shader's range and its
     default colour gives the master's tone back."""
     source = image.load()
@@ -69,7 +70,7 @@ def separate_paint(image, main_hue, accent_hue):
         for x in range(width):
             red, green, blue, alpha = source[x, y]
             if alpha >= 128:
-                kind = classify(red, green, blue, main_hue, accent_hue)
+                kind = classify(red, green, blue, main_hue, accent_hue, min_saturation)
                 if kind:
                     groups[kind].append((red, green, blue))
     gains, defaults = {}, {}
@@ -92,7 +93,7 @@ def separate_paint(image, main_hue, accent_hue):
             red, green, blue, alpha = source[x, y]
             if alpha < 128:
                 continue
-            kind = classify(red, green, blue, main_hue, accent_hue)
+            kind = classify(red, green, blue, main_hue, accent_hue, min_saturation)
             if kind:
                 grey = min(255, round(luminance(red, green, blue) * gains[kind]))
                 written[x, y] = (grey, grey, grey, alpha)
@@ -146,14 +147,14 @@ def record(out, name, master, written, details):
     (out / f'{name}.export.json').write_text(json.dumps(data, indent=2), encoding='utf-8')
 
 
-def export_body(master, out, name, cells_long, draw, main_hue, accent_hue):
+def export_body(master, out, name, cells_long, draw, main_hue, accent_hue, min_saturation=MIN_SATURATION):
     out.mkdir(parents=True, exist_ok=True)
     cut = white_to_alpha(Image.open(master))
     left, top, right, bottom = cut.getchannel('A').point(lambda alpha: 255 if alpha >= 128 else 0).getbbox()
     scale = cells_long * PIXELS_PER_CELL / (bottom - top)
     canvas = (draw[0] * PIXELS_PER_CELL, draw[1] * PIXELS_PER_CELL)
     offset = (round(canvas[0] / 2 - (left + right) / 2 * scale), round(canvas[1] / 2 - (top + bottom) / 2 * scale))
-    texture, mask, colours = separate_paint(cut, main_hue, accent_hue)
+    texture, mask, colours = separate_paint(cut, main_hue, accent_hue, min_saturation)
     written = write_facings(place(texture, scale, offset, canvas), out, name)
     written += write_facings(place_mask(mask, scale, offset, canvas), out, name, 'm')
     natural = place(cut, scale, offset, canvas)
@@ -168,7 +169,8 @@ def export_body(master, out, name, cells_long, draw, main_hue, accent_hue):
     transform = {'scale': scale, 'offset': list(offset), 'canvas': list(canvas), 'master_size': list(cut.size), 'colours': colours}
     (out / f'{name}.transform.json').write_text(json.dumps(transform, indent=2), encoding='utf-8')
     width_cells = (right - left) * scale / PIXELS_PER_CELL
-    record(out, name, master, written, {'kind': 'body', 'cells_long': cells_long, 'draw_size': list(draw), 'width_cells': round(width_cells, 2), 'colours': colours})
+    record(out, name, master, written, {'kind': 'body', 'cells_long': cells_long, 'draw_size': list(draw), 'width_cells': round(width_cells, 2), 'colours': colours,
+                                        'min_saturation': min_saturation})
     return {'width_cells': width_cells, 'colours': colours, 'files': written}
 
 
@@ -202,6 +204,7 @@ def main():
     body.add_argument('--draw', type=int, nargs=2, required=True, metavar=('X', 'Z'))
     body.add_argument('--main-hue', type=float, nargs=2, default=(38, 95), help='hue range of the main paint, in degrees')
     body.add_argument('--accent-hue', type=float, nargs=2, default=(8, 34), help='hue range of the accent paint, in degrees')
+    body.add_argument('--min-saturation', type=float, default=MIN_SATURATION, help='greyer than this is never paint; lower it for a greyish paint')
     overlay = commands.add_parser('overlay')
     overlay.add_argument('master', type=Path)
     overlay.add_argument('--like', type=Path, required=True)
@@ -211,7 +214,8 @@ def main():
     overlay.add_argument('--marks', action='store_true', help='damage marks: keep only their darkness, as near-black with alpha')
     arguments = parser.parse_args()
     if arguments.command == 'body':
-        result = export_body(arguments.master, arguments.out, arguments.name, arguments.cells_long, arguments.draw, arguments.main_hue, arguments.accent_hue)
+        result = export_body(arguments.master, arguments.out, arguments.name, arguments.cells_long, arguments.draw, arguments.main_hue, arguments.accent_hue,
+                             arguments.min_saturation)
         print(f'{arguments.name}: {result["width_cells"]:.2f} cells wide; Def colours {result["colours"]}')
     else:
         result = export_overlay(arguments.master, arguments.like, arguments.out, arguments.name, arguments.fit, arguments.marks)

@@ -169,6 +169,125 @@
           <PhobosVehicles_HydrophoneArray>1</PhobosVehicles_HydrophoneArray>
         </ingredients>
       </li>
+      <li>
+        <!-- The sonar set, beside the listening array. Active: every ping finds and gives away (docs/development/vehicle-seabed-crawler.md, "The sonar set as built"). Range authored. -->
+        <key>ActiveSonar</key>
+        <label>sonar set</label>
+        <displayLabel>true</displayLabel>
+        <description>A sonar transducer under the bow, worked from a screen inside. A ping finds everything hostile in the water within 60 cells, moving or still, and every boat under the water, though one resting on the bottom only from half as far. The ping is heard twice as far away, and a boat under the water is followed for a minute after it pings.</description>
+        <icon>Phobos/Vehicles/SeabedCrawler/Upgrades/Sonar</icon>
+        <work>2000</work>
+        <gridCoordinate>(10, 10)</gridCoordinate>
+        <drawSize>(80, 80)</drawSize>
+        <prerequisiteNodes>
+          <li>Hydrophones</li>
+        </prerequisiteNodes>
+        <researchPrerequisites>
+          <li>PhobosResearch_ActiveSonar</li>
+        </researchPrerequisites>
+        <upgrades>
+          <li Class="Vehicles.StatUpgrade">
+            <vehicleStats>
+              <li>
+                <def>Phobos_SonarRange</def>
+                <value>60</value>
+              </li>
+            </vehicleStats>
+          </li>
+        </upgrades>
+        <ingredients>
+          <PhobosVehicles_SonarTransducer>1</PhobosVehicles_SonarTransducer>
+        </ingredients>
+      </li>
+      <li>
+        <!-- Hull refits (owner, 11 Nov 2026: hulls 1, 3 and 4 of the pilot as variants on upgrade pathways). Vehicle Framework holds one body picture at a time, so the two refits exclude each other.
+             Each swaps the picture through its RetextureDef (RetextureDefs_SeabedCrawler.xml) and changes figures that matter. -->
+        <key>SensorRefit</key>
+        <label>sensor refit</label>
+        <displayLabel>true</displayLabel>
+        <description>A smooth, faired sail rebuilt around the sensors. The listening array hears 20 cells further and a sonar ping reaches 30 cells further, but the narrower deck carries 200 less. Cannot be fitted with the laboratory refit.</description>
+        <icon>Phobos/Vehicles/SeabedCrawler/Upgrades/SensorRefit</icon>
+        <work>4000</work>
+        <gridCoordinate>(17, 10)</gridCoordinate>
+        <drawSize>(80, 80)</drawSize>
+        <prerequisiteNodes>
+          <li>ActiveSonar</li>
+        </prerequisiteNodes>
+        <disableIfUpgradeNodeEnabled>LaboratoryRefit</disableIfUpgradeNodeEnabled>
+        <researchPrerequisites>
+          <li>PhobosResearch_SensorRefit</li>
+        </researchPrerequisites>
+        <upgrades>
+          <li Class="Vehicles.StatUpgrade">
+            <vehicleStats>
+              <li>
+                <def>Phobos_ListeningRange</def>
+                <value>20</value>
+              </li>
+              <li>
+                <def>Phobos_SonarRange</def>
+                <value>30</value>
+              </li>
+              <li>
+                <def>CargoCapacity</def>
+                <value>-200</value>
+              </li>
+            </vehicleStats>
+          </li>
+          <li Class="Vehicles.VehicleUpgrade">
+            <retextureDef>Phobos_SeabedCrawler_SensorRefit</retextureDef>
+          </li>
+        </upgrades>
+        <ingredients>
+          <PhobosVehicles_SensorSail>1</PhobosVehicles_SensorSail>
+        </ingredients>
+      </li>
+      <li>
+        <!-- The laboratory refit: a hull section let in for the laboratory, so it follows the advanced laboratory. It edits the scientist role the wet laboratory added (editKey), which Vehicle
+             Framework keeps on the role and drops again on refund; the advanced laboratory cannot be refunded while this is fitted, so the role is always there. -->
+        <key>LaboratoryRefit</key>
+        <label>laboratory refit</label>
+        <displayLabel>true</displayLabel>
+        <description>A hull section let in amidships for a longer laboratory. It seats a third scientist and its scientists work 15 per cent of a research bench faster, but the longer hull is slower. Cannot be fitted with the sensor refit.</description>
+        <icon>Phobos/Vehicles/SeabedCrawler/Upgrades/LaboratoryRefit</icon>
+        <work>5000</work>
+        <gridCoordinate>(31, 3)</gridCoordinate>
+        <drawSize>(80, 80)</drawSize>
+        <prerequisiteNodes>
+          <li>DeepLab</li>
+        </prerequisiteNodes>
+        <disableIfUpgradeNodeEnabled>SensorRefit</disableIfUpgradeNodeEnabled>
+        <researchPrerequisites>
+          <li>PhobosResearch_LaboratoryRefit</li>
+        </researchPrerequisites>
+        <upgrades>
+          <li Class="Vehicles.StatUpgrade">
+            <vehicleStats>
+              <li>
+                <def>Phobos_FieldLabFactor</def>
+                <value>0.15</value>
+              </li>
+              <li>
+                <def>MoveSpeed</def>
+                <value>-0.5</value>
+              </li>
+            </vehicleStats>
+          </li>
+          <li Class="Vehicles.VehicleUpgrade">
+            <retextureDef>Phobos_SeabedCrawler_LaboratoryRefit</retextureDef>
+            <roles>
+              <li>
+                <key>scientist</key>
+                <editKey>scientist</editKey>
+                <slots>3</slots>
+              </li>
+            </roles>
+          </li>
+        </upgrades>
+        <ingredients>
+          <PhobosVehicles_LaboratoryHullSection>1</PhobosVehicles_LaboratoryHullSection>
+        </ingredients>
+      </li>
     </nodes>
   </Vehicles.UpgradeTreeDef>
 </Defs>

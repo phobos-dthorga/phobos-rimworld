@@ -1,4 +1,4 @@
-"""Draw the Seabed Crawler's upgrade icons with Pillow, in the game's look. No image generator and no game or other author's art is
+"""Draw the Seabed Crawler's upgrade icons, and the sonar ping button, with Pillow, in the game's look. No image generator and no game or other author's art is
 involved; each has a record beside it, as the vehicle systems icons do.
 
     python assets/phobos-vehicles/draw_dive_icons.py
@@ -12,6 +12,7 @@ from PIL import Image, ImageDraw
 
 ROOT = Path(__file__).resolve().parents[2]
 CRAWLER = ROOT / 'mods/PhobosVehicles/Textures/Phobos/Vehicles/SeabedCrawler/Upgrades'
+SYSTEMS = ROOT / 'mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems'
 RUBBER = (56, 58, 62, 255)
 WORK = 512
 FINAL = 128
@@ -76,18 +77,58 @@ def hydrophones(draw):
         draw.rounded_rectangle((x - 24, 330, x + 24, 420), radius=16, fill=ORANGE)
 
 
+def sonar(draw):
+    # A sonar transducer: a pale dome on a grey base, sending out three orange rings.
+    for radius in (90, 150, 210):
+        draw.arc((256 - radius, 330 - radius, 256 + radius, 330 + radius), start=215, end=325, fill=ORANGE, width=LINE)
+    draw.chord((136, 250, 376, 470), start=180, end=360, fill=GLASS, outline=OUTLINE, width=LINE)
+    draw.rounded_rectangle((110, 350, 402, 420), radius=14, fill=HULL, outline=OUTLINE, width=LINE)
+
+
+def sonar_ping(draw):
+    # The ping button: a dark hull seen from above at the centre of three widening blue rings, the outermost broken.
+    for radius, start, end in ((110, 0, 360), (170, 0, 360), (230, 20, 340)):
+        draw.arc((256 - radius, 256 - radius, 256 + radius, 256 + radius), start=start, end=end, fill=WATER, width=LINE)
+    draw.ellipse((206, 150, 306, 362), fill=HULL, outline=OUTLINE, width=LINE)
+    draw.rounded_rectangle((232, 220, 280, 268), radius=8, fill=ORANGE, outline=OUTLINE, width=LINE // 2)
+
+
+def hull_section(draw):
+    # The laboratory refit: a ring of hull plating seen at an angle, its open end showing a conical flask inside.
+    draw.rounded_rectangle((70, 130, 360, 400), radius=40, fill=HULL, outline=OUTLINE, width=LINE)
+    for x in (150, 230, 300):
+        draw.line([(x, 140), (x, 390)], fill=OUTLINE, width=LINE // 2)
+    draw.ellipse((290, 120, 450, 410), fill=(40, 44, 50, 255), outline=OUTLINE, width=LINE)
+    draw.polygon([(352, 200), (388, 200), (388, 250), (420, 350), (320, 350), (352, 250)], fill=GLASS, outline=OUTLINE, width=LINE // 2)
+    draw.polygon([(334, 310), (406, 310), (418, 344), (322, 344)], fill=WATER)
+
+
+def sensor_sail(draw):
+    # The sensor refit: a smooth faired sail seen from the side, a short mast on top sending out orange rings.
+    for radius in (60, 110):
+        draw.arc((300 - radius, 120 - radius, 300 + radius, 120 + radius), start=200, end=340, fill=ORANGE, width=LINE)
+    draw.rectangle((288, 120, 312, 230), fill=HULL, outline=OUTLINE, width=LINE // 2)
+    draw.polygon([(120, 440), (170, 230), (380, 230), (430, 440)], fill=HULL, outline=OUTLINE, width=LINE)
+    draw.rectangle((150, 330, 400, 360), fill=ORANGE)
+    draw.rounded_rectangle((40, 430, 472, 470), radius=14, fill=(40, 44, 50, 255), outline=OUTLINE, width=LINE)
+
+
 ICONS = [
     ('BottomingWheels', bottoming_wheels, 'two rubber-tyred wheels on struts from a bar', CRAWLER),
     ('Scrubber', scrubber, 'three pale canisters with blue bands in a grey rack', CRAWLER),
     ('Laboratory', laboratory, 'a conical flask of blue water and an orange test tube on a grey bench', CRAWLER),
     ('AdvancedLaboratory', advanced_laboratory, 'a grey analyser cabinet with a blue trace on a dark screen and a tray of orange sample tubes', CRAWLER),
     ('Hydrophones', hydrophones, 'grey headphones with orange ear pads under three blue rings of sound', CRAWLER),
+    ('Sonar', sonar, 'a pale sonar dome on a grey base sending out three orange rings', CRAWLER),
+    ('LaboratoryRefit', hull_section, 'a ring of grey hull plating with a conical flask of blue water inside its open end', CRAWLER),
+    ('SensorRefit', sensor_sail, 'a smooth grey sail with an orange band and a short mast sending out orange rings', CRAWLER),
+    ('SonarPing', sonar_ping, 'a grey hull seen from above with an orange hatch, at the centre of three widening blue rings', SYSTEMS),
 ]
 
 
 def main():
-    CRAWLER.mkdir(parents=True, exist_ok=True)
     for name, drawing, what, folder in ICONS:
+        folder.mkdir(parents=True, exist_ok=True)
         image = Image.new('RGBA', (WORK, WORK), (0, 0, 0, 0))
         drawing(ImageDraw.Draw(image))
         path = folder / f'{name}.png'

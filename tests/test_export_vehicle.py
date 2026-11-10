@@ -80,6 +80,16 @@ class BodyTests(ExportCase):
         self.assertEqual((0, 255, 0), mask.getpixel((128, 128))[:3])  # the orange stripe
         self.assertEqual((0, 0, 0), mask.getpixel((128, 400))[:3])  # the grey deck
 
+    def test_a_greyish_paint_is_painted_only_when_asked(self):
+        faint = (80, 84, 88)  # a grey-blue of saturation 0.09, as the Seabed Crawler's hull measured (0.06 to 0.12)
+        image = Image.new('RGB', (200, 400), (255, 255, 255))
+        image.paste(faint, (50, 50, 150, 350))
+        image.save(self.master)
+        ev.export_body(self.master, self.out, 'Truck', 3, (2, 4), (185, 240), (8, 34))
+        self.assertEqual((0, 0, 0), self.opened('Truck_northm.png').getpixel((128, 256))[:3])
+        ev.export_body(self.master, self.out, 'Truck', 3, (2, 4), (185, 240), (8, 34), min_saturation=0.05)
+        self.assertEqual((255, 0, 0), self.opened('Truck_northm.png').getpixel((128, 256))[:3])
+
     def test_an_icon_is_written_at_64_pixels(self):
         self.body()
         self.assertEqual((64, 64), self.opened('Truck_icon.png').size)

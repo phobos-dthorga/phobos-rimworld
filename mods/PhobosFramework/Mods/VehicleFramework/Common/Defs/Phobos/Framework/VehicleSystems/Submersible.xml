@@ -110,6 +110,24 @@
       <li>Universal</li>
     </showOnVehicleTypes>
   </Vehicles.VehicleStatDef>
+  <!-- An active sonar set (Phobos.VehicleSystems.CompProperties_PhobosSonar; docs/development/vehicle-seabed-crawler.md). Any vehicle in the water may use it. Feed it from the set's part, so damage
+       there shortens it. -->
+  <Vehicles.VehicleStatDef>
+    <defName>Phobos_SonarRange</defName>
+    <label>sonar range</label>
+    <description>How far a sonar ping finds things in the water, moving or still. The ping itself is heard twice as far away, and gives the boat away for a while.</description>
+    <category>VehicleBasics</category>
+    <defaultBaseValue>0</defaultBaseValue>
+    <minValue>0</minValue>
+    <toStringStyle>Integer</toStringStyle>
+    <formatString>{0} cells</formatString>
+    <operationType>Average</operationType>
+    <upgradeEffectType>Positive</upgradeEffectType>
+    <showOnVehicleTypes>
+      <li>Sea</li>
+      <li>Universal</li>
+    </showOnVehicleTypes>
+  </Vehicles.VehicleStatDef>
   <!-- What a crew breathes if ordered to stay under with nothing left: carbon dioxide building up in a sealed hull. The stages and rates are authored for play and are not a dose-response model. -->
   <HediffDef>
     <defName>Phobos_StaleAir</defName>

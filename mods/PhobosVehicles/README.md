@@ -4,7 +4,7 @@ Vehicles that keep running only while they are looked after. It adds one vehicle
 vehicles of other mods you already drive the systems that match what they really are, on top of the general systems D'thorga
 Framework gives every vehicle.
 
-Version 0.36.0, built 11 November 2026 for House D'thorga. **Not yet tested in game.**
+Version 0.38.0, built 11 November 2026 for House D'thorga. **Not yet tested in game.**
 
 ## Read this first (gotchas)
 
@@ -155,7 +155,7 @@ turns them all down or off. All were made with generative AI on the owner's PC a
 
 ## The Seabed Crawler (not yet tested in game)
 
-**A submarine of 4 by 9 cells, built in shallow water. Research Submersible hull on the D'thorga: Submarines tab first.** It borrows the bulk tanker's picture until it has its own, so it looks like a truck on the water. Bare, it can only dive, hide and come home. **It grew from 3 by 8 to 4 by 9 in 0.36.0**, so a Crawler placed by an earlier version keeps its old shape in the save: destroy it in dev mode and place a fresh one. Each upgrade takes its own research and its own part from the parts bench:
+**A submarine of 4 by 9 cells, built in shallow water. Research Submersible hull on the D'thorga: Submarines tab first.** It has its own picture since 0.38.0, a grey-blue hull with an orange band on the sail; repaint it as any vehicle. Bare, it can only dive, hide and come home. **It grew from 3 by 8 to 4 by 9 in 0.36.0**, so a Crawler placed by an earlier version keeps its old shape in the save: destroy it in dev mode and place a fresh one. Each upgrade takes its own research and its own part from the parts bench:
 
 - **Bottoming wheels** let it rest on the bottom, where it uses half the air and charge and is far harder to find. It must lift off before it can move.
 - **Air scrubber** gives six more hours under, and a crew told to stay down past empty suffers more slowly.
@@ -171,11 +171,19 @@ turns them all down or off. All were made with generative AI on the owner's PC a
 
 **A fire on the Crawler goes out once it is fully under** (new in 0.32.0), so diving is also the way to put out a burning boat.
 
-More upgrades are designed, including the sonar set and radar, and are not built yet.
+- **Sonar set** (new in 0.38.0; research Active sonar, after Hydrophones; one sonar transducer) adds a **Sonar ping** button. **A ping finds everything hostile in the water within 60 cells, moving or still, and every boat under the water**, though one resting on the bottom only from half as far. **But every ping gives you away:** under the water the boat is followed for a minute afterwards, as if spotted, and anyone in the water hears the ping from twice as far. It needs 30 seconds between pings and someone awake aboard. Damage to the transducer under the bow shortens it.
+- **Enemy pings are heard without a set of your own:** any of your boats in the water is told which direction a ping came from.
+
+**Two hull refits, new in 0.38.0. Choose one: they exclude each other**, and each gives the Crawler a different hull picture. To change your mind, remove one in the Upgrades tab and fit the other.
+
+- **Sensor refit** (research Faired sensor sail, after Active sonar; one faired sensor sail): a smooth faired sail. The listening array hears 20 cells further and the sonar reaches 30 further, but it carries 200 less.
+- **Laboratory refit** (research Laboratory hull section, after Advanced marine science; one laboratory hull section; needs the advanced laboratory fitted): a longer hull. A third scientist's seat and faster research, but a little slower in the water.
+
+More upgrades are designed, including radar, and are not built yet. Pictures for the upgrades on the hull (wheels, listening strips, sonar dome) are still to come.
 
 ## The submarine test hull
 
-**Not a finished vehicle, and it cannot be built.** In dev mode, the debug action "Vehicle systems: spawn a submersible" places one, crewed, for trying out D'thorga Framework's diving, in deep or chest-deep water. It borrows the bulk tanker's picture, so it looks like a truck on the water, and is the Crawler's size, 4 by 9 cells since 0.36.0. Not yet tested in game.
+**Not a finished vehicle, and it cannot be built.** In dev mode, the debug action "Vehicle systems: spawn a submersible" places one, crewed, for trying out D'thorga Framework's diving, in deep or chest-deep water. It wears the Crawler's base hull since 0.38.0 and is the Crawler's size, 4 by 9 cells since 0.36.0. Not yet tested in game.
 
 ## How the trucks work together
 

@@ -116,17 +116,7 @@ public class CompPhobosListening : VehicleComp
         Report(nearest, nearestCell);
     }
 
-    string BearingText(IntVec3 cell) => ListeningRule.BearingOf(cell.x - Vehicle.Position.x, cell.z - Vehicle.Position.z) switch
-    {
-        Bearing.North => "PhobosListening_North".Translate().Resolve(),
-        Bearing.NorthEast => "PhobosListening_NorthEast".Translate().Resolve(),
-        Bearing.East => "PhobosListening_East".Translate().Resolve(),
-        Bearing.SouthEast => "PhobosListening_SouthEast".Translate().Resolve(),
-        Bearing.South => "PhobosListening_South".Translate().Resolve(),
-        Bearing.SouthWest => "PhobosListening_SouthWest".Translate().Resolve(),
-        Bearing.West => "PhobosListening_West".Translate().Resolve(),
-        _ => "PhobosListening_NorthWest".Translate().Resolve(),
-    };
+    string BearingText(IntVec3 cell) => CompassText.From(Vehicle.Position, cell);
 
     string Line(float nearest, IntVec3 nearestCell, int boats)
     {

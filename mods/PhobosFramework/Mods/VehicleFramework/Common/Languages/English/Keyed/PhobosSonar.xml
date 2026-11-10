@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <!-- An active sonar set on a vehicle in the water (CompPhobosSonar). -->
+  <PhobosSonar_GizmoPing>Sonar ping</PhobosSonar_GizmoPing>
+  <PhobosSonar_GizmoPingDesc>Send out a sonar ping. It finds everything hostile in the water within {RANGE} cells, moving or still, and every boat under the water, though one resting on the bottom only from half as far.\n\nThe ping is no secret: anyone in the water hears it from {HEARD} cells away, and a boat under the water is followed for {SECONDS} seconds as if it had been spotted. The set needs {COOLDOWN} seconds between pings.</PhobosSonar_GizmoPingDesc>
+  <PhobosSonar_RefuseOutOfWater>{VEHICLE}'s sonar only works in the water.</PhobosSonar_RefuseOutOfWater>
+  <PhobosSonar_RefuseNobody>Nobody aboard {VEHICLE} is awake and able to work the sonar.</PhobosSonar_RefuseNobody>
+  <PhobosSonar_RefuseCooling>The sonar set is ready again in {SECONDS} seconds.</PhobosSonar_RefuseCooling>
+  <PhobosSonar_InspectReady>Sonar: ready, reaches {RANGE} cells.</PhobosSonar_InspectReady>
+  <PhobosSonar_InspectCooling>Sonar: ready again in {SECONDS} seconds.</PhobosSonar_InspectCooling>
+  <PhobosSonar_FoundNothing>{VEHICLE}'s ping finds nothing hostile within {RANGE} cells, and has been heard.</PhobosSonar_FoundNothing>
+  <PhobosSonar_Found>{VEHICLE}'s ping finds {COUNT} hostile, the nearest {DISTANCE} cells to the {BEARING}. The ping has been heard.</PhobosSonar_Found>
+  <PhobosSonar_FoundBoats>Boats under the water among them: {COUNT}, now followed.</PhobosSonar_FoundBoats>
+  <PhobosSonar_PingHeard>{VEHICLE}'s crew hears a sonar ping from the {BEARING}.</PhobosSonar_PingHeard>
+</LanguageData>

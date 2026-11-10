@@ -2,8 +2,7 @@
 <Defs>
   <!--
     A hull for trying out D'thorga Framework's submersibles, and the framework's first consumer (docs/development/submarine-framework.md). NOT a vehicle players build: it has no place in
-    the Architect and appears only through the dev action "Vehicle systems: spawn a submersible". It borrows the bulk tanker's picture (owner's rule of 9 Nov 2026: no stand-in bodies), so it
-    looks like a truck on the water, and has no upgrade tree because it is not a design. All figures authored. Parts are saved by position: append only. Not yet tested in game.
+    the Architect and appears only through the dev action "Vehicle systems: spawn a submersible". It wears the Seabed Crawler's base hull (Vehicles 0.38.0), being the same size, and has no upgrade tree because it is not a design. All figures authored. Parts are saved by position: append only. Not yet tested in game.
     4 x 9 cells, drawn 5 x 10, in step with the Seabed Crawler (owner, 11 Nov 2026); the columns run x -1 to 2, z -4 to 4, as the game lays an even width out.
   -->
   <Vehicles.VehicleDef ParentName="BaseSeaVehicle">
@@ -11,12 +10,12 @@
     <label>submarine test hull</label>
     <description>A bare hull for trying out diving. It is not a finished design.</description>
     <graphicData>
-      <texPath>Phobos/Vehicles/BulkTanker/BulkTanker</texPath>
+      <texPath>Phobos/Vehicles/SeabedCrawler/SeabedCrawler</texPath>
       <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
       <shaderType>CutoutComplexPattern</shaderType>
       <drawSize>(5, 10)</drawSize>
       <color>(70, 78, 86)</color>
-      <colorTwo>(40, 44, 50)</colorTwo>
+      <colorTwo>(214, 124, 44)</colorTwo>
     </graphicData>
     <fillPercent>1</fillPercent>
     <nameable>false</nameable>
@@ -238,7 +237,7 @@
     <label>submarine test hull</label>
     <description>A bare hull for trying out diving. It is not a finished design.</description>
     <graphicData>
-      <texPath>Phobos/Vehicles/BulkTanker/BulkTanker</texPath>
+      <texPath>Phobos/Vehicles/SeabedCrawler/SeabedCrawler</texPath>
       <graphicClass>Graphic_Multi</graphicClass>
       <drawSize>(5, 10)</drawSize>
     </graphicData>

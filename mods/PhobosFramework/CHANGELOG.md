@@ -5,6 +5,31 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.81.0] - 2026-11-11 - Draft
+
+Sonar for any boat in the water (owner, 11 November 2026: your own ping finds everything in range but gives your boat away; an enemy's ping is heard, with its bearing, even without sonar of your own). **Not yet tested in game.**
+
+### Added
+
+- **An active sonar set** for any vehicle in the water, fitted through its upgrades: a Sonar ping button. A ping finds everything hostile in the water within reach, moving or keeping still, and every boat under the water however quiet, though one resting on the bottom only from half as far. Boats it finds are followed, as when spotted. A message says how many were found and where; for a few seconds the ring it reached and a line to each find show while the boat is selected.
+- **Every ping gives its boat away**: a boat under the water is followed for a minute after it pings, and anyone in the water hears the ping from twice its reach. The player's boats are told the direction it came from, with or without a set of their own.
+- **Boats of other factions use their sets too**: one under the water pings now and then while something hostile to it is within reach, so a hunting boat can be heard coming.
+- A new stat, sonar range, fed by the set's own part, so damage there shortens it. The set needs someone awake aboard, and 30 seconds between pings.
+- For modders: CompProperties_PhobosSonar (cooldown, reach for a boat on the bottom, how far the ping is heard, how long it gives a boat away, the chance another crew pings, its sound and button picture), the stat Phobos_SonarRange, the game-free SonarRule, and CompassText for any sensor that names a direction.
+
+### Changed
+
+- The listening array names directions through the same shared helper as the sonar; what it says is unchanged.
+
+### Compatibility and limits
+
+- Sonar does not lift the fog of war: a line into the fog gives a direction only. It finds only what is hostile to the boat, and nothing on the world map.
+- Its sound is the same ping as being spotted, and both can play together when a boat that was not yet followed pings while under.
+
+### Save compatibility
+
+- Safe on an existing save: nothing new is saved. After a load the set is ready again and a boat is no longer given away.
+
 ## [0.79.1] - 2026-11-11 - Draft
 
 Pictures of their own for things that borrowed another's (owner, 11 November 2026: picked from the presentation record's batch A). **Not yet tested in game.**
