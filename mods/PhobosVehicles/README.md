@@ -4,7 +4,7 @@ Vehicles that keep running only while they are looked after. It adds one vehicle
 vehicles of other mods you already drive the systems that match what they really are, on top of the general systems D'thorga
 Framework gives every vehicle.
 
-Version 0.35.0, built 11 November 2026 for House D'thorga. **Not yet tested in game.**
+Version 0.36.0, built 11 November 2026 for House D'thorga. **Not yet tested in game.**
 
 ## Read this first (gotchas)
 
@@ -155,7 +155,7 @@ turns them all down or off. All were made with generative AI on the owner's PC a
 
 ## The Seabed Crawler (not yet tested in game)
 
-**A small submarine, built in shallow water. Research Submersible hull on the D'thorga: Submarines tab first.** It borrows the bulk tanker's picture until it has its own, so it looks like a truck on the water. Bare, it can only dive, hide and come home. Each upgrade takes its own research and its own part from the parts bench:
+**A submarine of 4 by 9 cells, built in shallow water. Research Submersible hull on the D'thorga: Submarines tab first.** It borrows the bulk tanker's picture until it has its own, so it looks like a truck on the water. Bare, it can only dive, hide and come home. **It grew from 3 by 8 to 4 by 9 in 0.36.0**, so a Crawler placed by an earlier version keeps its old shape in the save: destroy it in dev mode and place a fresh one. Each upgrade takes its own research and its own part from the parts bench:
 
 - **Bottoming wheels** let it rest on the bottom, where it uses half the air and charge and is far harder to find. It must lift off before it can move.
 - **Air scrubber** gives six more hours under, and a crew told to stay down past empty suffers more slowly.
@@ -175,7 +175,7 @@ More upgrades are designed, including the sonar set and radar, and are not built
 
 ## The submarine test hull
 
-**Not a finished vehicle, and it cannot be built.** In dev mode, the debug action "Vehicle systems: spawn a submersible" places one, crewed, for trying out D'thorga Framework's diving, in deep or chest-deep water. It borrows the bulk tanker's picture, so it looks like a truck on the water. Not yet tested in game.
+**Not a finished vehicle, and it cannot be built.** In dev mode, the debug action "Vehicle systems: spawn a submersible" places one, crewed, for trying out D'thorga Framework's diving, in deep or chest-deep water. It borrows the bulk tanker's picture, so it looks like a truck on the water, and is the Crawler's size, 4 by 9 cells since 0.36.0. Not yet tested in game.
 
 ## How the trucks work together
 

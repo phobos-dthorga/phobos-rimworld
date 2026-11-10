@@ -5,6 +5,26 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.36.0] - 2026-11-11 - Draft
+
+The Seabed Crawler grows to 4 by 9 cells, and its picture is planned (owner, 11 November 2026). **Not yet tested in game.**
+
+### Changed
+
+- **The Seabed Crawler and the submarine test hull are 4 by 9 cells, drawn 5 by 10** (owner: "I want the players to feel the weight and size of it"); they were 3 by 8. Every part keeps its place in the list and takes new cells across the wider hull; the crew role has a second cell. Mass and body size are unchanged.
+
+### Added
+
+- The Crawler's art record and the request for its first picture, docs/development/vehicle-seabed-crawler-art.md: the real boat from above, the six visible upgrades placed on the canvas before the first picture, the prompt and the costs. No picture is bought until the owner says so, and the Crawler still borrows the bulk tanker's picture.
+
+### Save compatibility
+
+- A Crawler or test hull placed by an earlier version keeps its old 3 by 8 shape in the save; destroy it in dev mode and place a fresh one. Nothing else changes.
+
+### Dependencies
+
+- Needs D'thorga Framework 0.76.0 or later, as before.
+
 ## [0.35.0] - 2026-11-11 - Draft
 
 Our vehicles' own voices (owner, 10 and 11 November 2026). **Not yet tested in game.**

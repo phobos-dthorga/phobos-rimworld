@@ -10,8 +10,10 @@ of its mistakes were made once and written down. This record carries them over s
 **Scope.** Paid generation only: the `openai` engine of `scripts/generate-art.py` and `scripts/art-run.py`
 ([how to run it](vehicle-art-services.md#running-the-openai-engine)). The local ComfyUI routes keep their own records
 ([artwork direction](artwork-direction.md), [art backlog](art-backlog.md)). Where a lesson is PixelLab-specific it is
-marked and left behind. **No paid picture has been made for this project yet**; everything here is a rule or a plan,
-not an observation of gpt-image-2 on our vehicles.
+marked and left behind. When this record was written no paid picture had been made for this project; since then the bulk
+tanker's body and overlays, the survey truck's body, the inspection pit and a set of icons have been bought under these rules
+(their records sit beside the textures and in `assets/phobos-vehicles/`), and the Seabed Crawler's is planned in
+[its art record](vehicle-seabed-crawler-art.md). The rules stand as written.
 
 ## Read this first (the rules)
 

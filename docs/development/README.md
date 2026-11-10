@@ -143,7 +143,10 @@ promise current behaviour. For using the mods, start at the [documentation index
 - [Radiation control line (10 Nov 2026)](radiation-control-line.md): a sign or painted area behind which colonists suit up for Rimatomics' radiation, built on D'thorga Framework's generic protective-gear lines, with the owner's choices. Not yet tested in game.
 - [The D'thorga research tree (10 Nov 2026)](research-tree.md): the D'thorga research tab, its projects, costs and soft tie-ins, the one-time grant for existing colonies, and enforcing research on our vehicles' upgrades. Not yet tested in game.
 - [The Seabed Crawler: design (10 Nov 2026)](vehicle-seabed-crawler.md): the owner's first real submarine and research vessel, its eleven upgrades with their own research and crafted parts,
-  sonar, radar, the research rules, soft tie-ins and the chemistry. Design only: nothing built.
+  sonar, radar, the research rules, soft tie-ins and the chemistry. The first slices are built; not yet tested in game.
+- [The Seabed Crawler's picture: research and art record (11 Nov 2026)](vehicle-seabed-crawler-art.md): NR-1 from above and what we keep of it,
+  the 4 x 9 boat on a 1024 x 2048 canvas, the six visible upgrade nodes placed before the first picture, the prompt, the costs and the review.
+  Nothing bought before the owner's go.
 - [The submersibles framework: design (9 Nov 2026)](submarine-framework.md): a dive as a state of ours, the reserve, what is hidden and what still reaches a hull,
   why each patch exists, the limits of the first slice and how to test it. Built in Framework 0.58.0 with a dev-only test hull. Not yet tested in game.
 - [Unique military vehicles and submarines: research (9 Nov 2026)](military-vehicles-research.md): twenty-odd real vehicles no
