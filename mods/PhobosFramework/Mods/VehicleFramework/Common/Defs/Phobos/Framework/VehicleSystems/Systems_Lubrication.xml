@@ -32,6 +32,11 @@
     <parameters>
       <oilBurnPerHour>0.0015</oilBurnPerHour>
       <oilFollowRate>3</oilFollowRate>
+      <!-- Crosslink 4 (Framework 0.69.0): fire on the body heats the oil of an engine with no coolant (a gas turbine, an air-cooled
+           engine), 60 degrees an hour at full size (authored): against the oil's own pull toward its running heat that settles about
+           20 degrees above it, so a jet that flew on fire lands with hot oil, a sign rather than a death. With coolant, the oil
+           follows the coolant, which the fire heats (Systems_Cooling.xml). -->
+      <fireHeat>60</fireHeat>
     </parameters>
     <quantities>
       <li>
@@ -161,6 +166,19 @@
           <fallback Class="Phobos.VehicleSystems.Input_OilWithoutCoolant" />
         </target>
         <factorParameter>oilFollowRate</factorParameter>
+      </li>
+      <li>
+        <name>fire</name>
+        <quantity>oilTemperature</quantity>
+        <kind>Into</kind>
+        <factorParameter>fireHeat</factorParameter>
+        <inputs>
+          <li Class="Phobos.VehicleSystems.Input_Fire" />
+        </inputs>
+        <when Class="Phobos.VehicleSystems.When_HasQuantity">
+          <quantity>coolantTemperature</quantity>
+          <invert>true</invert>
+        </when>
       </li>
       <li>
         <name>burn</name>

@@ -105,6 +105,19 @@ Not proposed, and why:
      new data rule on services (`alsoDue`), behind the setting **Low oil calls for a service** (on). Off, the burned oil only lowers the
      level until the next service. This also brings a cracked sump's leak to a mechanic's attention.
 3. Link **4**: `Input_Fire` (one class, one attachment read on the rare tick), then flows on the four temperatures. The owner's Harrier is the test.
+   **Built in Framework 0.69.0 (10 Nov 2026), not yet tested in game.** As built:
+   - `Input_Fire` reads the biggest attached fire on the vehicle's own map, as a share of a full-grown fire (the game's 1.75), at most
+     once a tick. The biggest, not the sum: a vehicle can carry duplicate fires the game never puts out (temporary-patches.md, J3). A
+     hull under water (a submersible's hidden phase) and a vehicle off the map read 0, at session 4b's prompting.
+   - **The owner's rule could not be met by heat alone.** A fire grows to full size within minutes, and the radiator settles any steady
+     heat within the hour, so a steady flow either boils every burning engine or none. So the fire also **cooks the radiator and its
+     hoses**, half its health an hour [A] (they fail first in a real vehicle fire), and heats the coolant at 180 an hour [A]: put out
+     after an hour, the coolant peaks near 102 °C and the radiator needs repair; after two, it boils over. `FireFigureTests` hold this.
+   - The oil follows the coolant, so it needs no flow of its own, except on an engine with no coolant (a turbine, an air-cooled
+     engine): 60 an hour [A], about 20 °C above its running heat, so a jet that flew on fire lands with hot oil. That needed a new
+     condition, `When_HasQuantity`.
+   - The cab: 80 an hour [A], about 40 °C above the air within the hour, stifling, so the crew want out. The electric pack: 30 an hour
+     [A]; heavy and slow, it is warm but unharmed after an hour, and in thermal runaway after about three and a third.
 4. Link **7**: a curve on starting power, and moving the cold-start condition to oil temperature.
 5. Links **5 and 6** last: each touches the hub or reads the map, so each needs a cost measurement against the 0.05 ms budget before it ships.
 
@@ -140,7 +153,7 @@ power, which is how real vehicles in cold places are kept warm overnight at home
 - **Agent:** the graph reading, the eight proposals and their figures (all authored, marked [A]), the order, and what was left out; in
   0.67.0, the engine heater's 40 °C target and rate, the heater core's 30 to 60 °C curve, and applying links 2 and 8 to climate control;
   in 0.68.0, reading health rather than efficiency, the heat cut to a fifth, the 60 % oil line and the setting's default (on, matching
-  the owner's answer).
+  the owner's answer); in 0.69.0, the cooked radiator as the way to meet the owner's fire rule, and every fire figure.
 
 ## Sources
 

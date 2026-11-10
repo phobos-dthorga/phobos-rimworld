@@ -192,6 +192,13 @@ public class Input_PartEfficiency : VehicleSystemInput
     protected override float Raw(SystemContext context) => context.Comp.PartEfficiency(role, missing);
 }
 
+/// <summary>How fiercely the vehicle is burning: its biggest attached fire as a share of a full-grown fire, 0 when it is not burning,
+/// under water or off the map (crosslink 4).</summary>
+public class Input_Fire : VehicleSystemInput
+{
+    protected override float Raw(SystemContext context) => context.Comp.FireShare;
+}
+
 /// <summary>How worn a role's parts are: their average share of full health (1 sound), or <c>missing</c> when the vehicle has none.
 /// Unlike <see cref="Input_PartEfficiency"/>, which follows the part's efficiency curve, this is the health itself.</summary>
 public class Input_PartHealth : VehicleSystemInput

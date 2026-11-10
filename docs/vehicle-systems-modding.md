@@ -194,13 +194,14 @@ Every input takes an optional `curve` (points `(x, y)` mapping the raw reading) 
 | `Input_LoadAmps` | the amperes the switched-on loads draw now |
 | `Input_ElectricalBalance` | `Surplus` or `Deficit`: the alternator (`supplyParameter` amperes times `supplyRole`'s efficiency times the optional `supplyFactor` input, while running) against the loads |
 | `Input_ShorePower` | 1 when the parked vehicle stands beside a powered grid |
+| `Input_Fire` | how fiercely the vehicle burns: its biggest attached fire on its own map as a share of a full-grown fire (0 to 1); 0 under water or off the map |
 | `Input_Condition` | 1 when `condition` holds |
 | `Input_Setting` | 1 when the player's setting of that name is on (`fuelGelling`) |
 
 ### Conditions
 
 `When_Always`, `When_EngineRunning`, `When_Moving`, `When_Night` (hours in the rules Def), `When_AmbientBelow` and
-`When_AmbientAbove` (`celsius`), `When_QuantityBelow` and `When_QuantityAbove` (`quantity`, `value`), `When_ParameterBelow` (`parameter`, `value`), `When_Setting`
+`When_AmbientAbove` (`celsius`), `When_QuantityBelow` and `When_QuantityAbove` (`quantity`, `value`), `When_HasQuantity` (`quantity`: some running system has it; inverted, an engine with no coolant), `When_ParameterBelow` (`parameter`, `value`), `When_Setting`
 (`setting`: `fuelGelling`, `boilerExplosions`, `realisticFeedWater`, `nightHeater`, `lowOilCallsService`, `jumpStartNeedsKit`, `assumeBoosterPack`),
 `When_CaravanResting` (the vehicle's caravan rests for the night), `When_LoadActive` (`load`: one of the loadout's loads is switched
 on and its condition holds),
@@ -564,8 +565,8 @@ A fluid is a `Phobos.VehicleSystems.PhobosTankContentsDef`: `phase`, `foodStatus
 | System | Quantities | Roles | Notes |
 | --- | --- | --- | --- |
 | `PhobosVehicleSystem_Electrical` | charge, starting power, starter, battery frost | Battery, Alternator, Starter | Parameters `batteryAmpHours`, `alternatorAmps`, `starterAmpHours`, `shoreChargeAmps`; jump-starts |
-| `PhobosVehicleSystem_Cooling` | coolant temperature and level, engine load, night heater burning (open vehicles) | Engine, Radiator, WaterPump | `heatAtFullLoad`, `radiatorRate`, `soakRate`, `thermostatOpens`, `engineHeaterTarget`, `engineHeaterRate`, `nightHeaterFuelPerHour`; the load `nightHeater` warms the coolant at camp, and burns its fuel here only when the cab system does not; coolant top-up service: 10 litres of water from the registered source, or 3 chemfuel when there is none |
-| `PhobosVehicleSystem_Lubrication` | oil level, temperature, pressure | Engine, OilPump | Oil follows the coolant; with no cooling system, it runs warm while the engine does (`Input_OilWithoutCoolant`); a worn engine burns up to twice the oil (`Input_PartHealth` on Engine) |
+| `PhobosVehicleSystem_Cooling` | coolant temperature and level, engine load, night heater burning (open vehicles) | Engine, Radiator, WaterPump | `heatAtFullLoad`, `radiatorRate`, `soakRate`, `thermostatOpens`, `engineHeaterTarget`, `engineHeaterRate`, `nightHeaterFuelPerHour`, `fireHeat`; fire on the body heats the coolant and cooks the Radiator; the load `nightHeater` warms the coolant at camp, and burns its fuel here only when the cab system does not; coolant top-up service: 10 litres of water from the registered source, or 3 chemfuel when there is none |
+| `PhobosVehicleSystem_Lubrication` | oil level, temperature, pressure | Engine, OilPump | Oil follows the coolant; with no cooling system, it runs warm while the engine does (`Input_OilWithoutCoolant`); a worn engine burns up to twice the oil (`Input_PartHealth` on Engine); with no coolant, fire heats the oil (`fireHeat`) |
 | `PhobosVehicleSystem_Fuel` | fuel gel | | Only with the player's cold-fuel setting |
 | `PhobosVehicleSystem_Service` | hours since service | Engine, Alternator, Starter, Radiator | Service: 9 chemfuel, 1 component (the oil); due at 120 hours, or once `oilLevel` is below 0.6 while `lowOilCallsService` is on |
 | `PhobosVehicleSystem_RunningGear` | tread wear | Wheels | Service: 15 steel, 2 components, 10 chemfuel (the rubber) |
@@ -577,7 +578,7 @@ A fluid is a `Phobos.VehicleSystems.PhobosTankContentsDef`: `phase`, `foodStatus
 | `PhobosVehicleSystem_WaterInjection` | injection water | | Refill: 227 litres of water |
 | `PhobosVehicleSystem_RotorDrive` | over-torque | RotorDrive | Wear while over-torqued |
 | `PhobosVehicleSystem_TractionMotors` | traction motor temperature | TractionMotor | `heatAtContinuous`, `coolingRate` |
-| `PhobosVehicleSystem_Cabin` | cab temperature, night heater running | | `heaterTarget`, `coolerTarget`, `insulationRate`, `heaterRate`, `coolerRate`, `nightHeaterRate`, `nightHeaterFuelPerHour`; `needsClosedCab`, so it stands down on open vehicles; reads the loads `cabHeater`, `airConditioner` and `nightHeater`; the heater and climate control's heating read `coolantTemperature` (nothing below 30 °C, full from 60; a vehicle with no such quantity reads as warm) and the WaterPump role's efficiency |
+| `PhobosVehicleSystem_Cabin` | cab temperature, night heater running | | `heaterTarget`, `coolerTarget`, `insulationRate`, `heaterRate`, `coolerRate`, `nightHeaterRate`, `nightHeaterFuelPerHour`; `needsClosedCab`, so it stands down on open vehicles; reads the loads `cabHeater`, `airConditioner` and `nightHeater`; `fireHeat` (fire on the body heats the cab); the heater and climate control's heating read `coolantTemperature` (nothing below 30 °C, full from 60; a vehicle with no such quantity reads as warm) and the WaterPump role's efficiency |
 | `PhobosVehicleSystem_Boiler` | steam pressure, water in the glass, feed water | Boiler | `firingRate`, `steamUse`, `coolingRate`, `waterUse`, `injectorRate`, `feedShare`, `feedWaterLitres`, `feedWaterLitresScaled`, `fusiblePlugFitted` (0: with the boiler explosions setting on, a dry crown sheet explodes); a water stop service |
 | `PhobosVehicleSystem_FusiblePlug` | fusible plug | Boiler | Melts if the crown is uncovered with the fire lit; a new plug: 2 steel |
 

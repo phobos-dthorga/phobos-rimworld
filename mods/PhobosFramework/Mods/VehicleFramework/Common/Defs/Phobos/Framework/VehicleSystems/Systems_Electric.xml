@@ -39,6 +39,10 @@
       <agePerHour>0.00008</agePerHour>
       <hotAgePerHour>0.0003</hotAgePerHour>
       <coldChargeAgePerHour>0.001</coldChargeAgePerHour>
+      <!-- Crosslink 4 (Framework 0.69.0): fire on the body heats the pack, 30 degrees an hour at full size (authored). The pack is
+           heavy and slow (insulation 0.3), so an hour's fire takes a parked pack at 25 degrees to about 50, warm but unharmed, and a
+           fire left for about three hours drives it past 85 into thermal runaway. -->
+      <fireHeat>30</fireHeat>
     </parameters>
     <quantities>
       <li>
@@ -372,6 +376,15 @@
         <kind>Toward</kind>
         <target Class="Phobos.VehicleSystems.Input_Ambient" />
         <factorParameter>insulationRate</factorParameter>
+      </li>
+      <li>
+        <name>fire</name>
+        <quantity>packTemperature</quantity>
+        <kind>Into</kind>
+        <factorParameter>fireHeat</factorParameter>
+        <inputs>
+          <li Class="Phobos.VehicleSystems.Input_Fire" />
+        </inputs>
       </li>
       <li>
         <name>ageing</name>

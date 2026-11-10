@@ -125,6 +125,14 @@ public class When_QuantityAbove : VehicleSystemCondition
     protected override bool HoldsRaw(SystemContext context) => context.Comp.TryGetQuantity(quantity, out float current) && current > value;
 }
 
+/// <summary>Some running system on the vehicle has this quantity (an engine with coolant: <c>coolantTemperature</c>); <c>invert</c>
+/// for one without.</summary>
+public class When_HasQuantity : VehicleSystemCondition
+{
+    public string quantity = "";
+    protected override bool HoldsRaw(SystemContext context) => context.Comp.TryGetQuantity(quantity, out _);
+}
+
 /// <summary>A player's setting of this name (settings: fuelGelling).</summary>
 /// <summary>Whether one of this system's parameters, after the loadout's overrides, is below a value (a boiler without a fusible
 /// plug: fusiblePlugFitted 0).</summary>

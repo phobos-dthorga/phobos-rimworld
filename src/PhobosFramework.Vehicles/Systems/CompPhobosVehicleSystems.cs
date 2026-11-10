@@ -1026,6 +1026,44 @@ public class CompPhobosVehicleSystems : VehicleComp
         return count == 0 ? missing : sum / count;
     }
 
+    int fireShareTick = -1;
+    float fireShare;
+
+    /// <summary>
+    /// How fiercely the vehicle burns now: its biggest attached fire as a share of the largest a fire grows (0 to 1). Only a fire on
+    /// the vehicle's own map counts (Vehicle Framework can leave one behind when the vehicle leaves), and only the biggest, since a
+    /// vehicle can carry duplicate fires the game never puts out (docs/development/temporary-patches.md, J3). A hull under water, or a
+    /// vehicle off the map, does not burn. Read at most once a tick; derived, never saved.
+    /// </summary>
+    public float FireShare
+    {
+        get
+        {
+            int now = Find.TickManager.TicksGame;
+            if (now != fireShareTick)
+            {
+                fireShareTick = now;
+                fireShare = ReadFireShare();
+            }
+            return fireShare;
+        }
+    }
+
+    float ReadFireShare()
+    {
+        VehiclePawn vehicle = Vehicle;
+        if (vehicle == null || !vehicle.Spawned) return 0f;
+        if (Submersibles.CompOf(vehicle)?.Hidden == true) return 0f;
+        List<AttachableThing>? attachments = vehicle.GetComp<CompAttachBase>()?.attachments;
+        if (attachments == null) return 0f;
+        float biggest = 0f;
+        foreach (AttachableThing attachment in attachments)
+        {
+            if (attachment is Fire fire && fire.Spawned && fire.Map == vehicle.Map && fire.fireSize > biggest) biggest = fire.fireSize;
+        }
+        return Mathf.Clamp01(biggest / Fire.MaxFireSize);
+    }
+
     /// <summary>Slow damage to one living part of the role, without armour or reactions (wear, heat).</summary>
     public void WearRole(string role, float amount, float shareOfHealth = 0f)
     {

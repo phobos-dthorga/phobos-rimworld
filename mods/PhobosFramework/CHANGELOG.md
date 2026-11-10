@@ -5,6 +5,31 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.69.0] - 2026-11-10 - Draft
+
+A burning vehicle cooks its systems (owner, 10 November 2026: crosslink 4). **Not yet tested in game.**
+
+### Added
+
+- **Fire on a vehicle heats the engine's coolant and cooks its radiator.** A fire put out within an in-game hour leaves the engine hot but undamaged, with a radiator to repair; one left to burn for about two hours boils the engine over.
+- **Fire heats the cab**: within the hour it is stifling, and the crew suffer as they would.
+- **Fire heats an electric vehicle's battery pack**: warm after an hour, and in thermal runaway after about three.
+- **Fire heats the oil of an engine with no coolant**, such as a jet's turbine, so an aircraft that flew on fire lands with hot oil.
+- A hull under water does not burn.
+- For modders: a new input reads how fiercely the vehicle burns, and a new condition asks whether the vehicle has a quantity at all.
+
+### Balance
+
+- All new figures are authored for play: fire heat of 180 degrees an hour into coolant, 80 into the cab, 60 into a turbine's oil and 30 into a battery pack at full size, and half the radiator's health an hour while it burns. Heat alone could not tell a short fire from a long one, so the cooking radiator is what makes a long fire worse.
+
+### Save compatibility
+
+- Safe on an existing save: nothing new is saved.
+
+### Compatibility and limits
+
+- Only fires attached to the vehicle count; a vehicle parked beside a fire warms only through the air around it, as before.
+
 ## [0.68.0] - 2026-11-10 - Draft
 
 A worn engine shows its wear (owner, 10 November 2026: crosslink 3). **Not yet tested in game.**

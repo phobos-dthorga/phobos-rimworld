@@ -40,6 +40,12 @@
       any worn engine over in the first warm day and wear it further, a spiral rather than a sign; a fifth more takes a hard-worked
       worn engine into "running hot" on a 35 degree day, which the player can see and act on (a quarter reached "overheating").
       CoolingFigureTests hold these figures.
+    - A burning vehicle cooks its cooling (crosslink 4, Framework 0.69.0; owner, 10 Nov 2026: a fire put out within an in-game hour
+      leaves the engine hot but undamaged, one left to burn boils it over). Fire on the body heats the coolant, 180 degrees an hour
+      at full size (authored), and cooks the radiator and its hoses, half the radiator's health an hour (authored): the radiator is
+      what fails first in a vehicle fire. A steady heat alone could not meet the owner's rule, since the radiator settles any heat
+      within the hour; the failing radiator is what makes a long fire worse than a short one. Put out after an hour, the coolant
+      peaks near 102 degrees C with the radiator at half health; after two it has boiled over (FireFigureTests).
   -->
   <Phobos.VehicleSystems.PhobosVehicleSystemDef>
     <defName>PhobosVehicleSystem_Cooling</defName>
@@ -59,6 +65,7 @@
       <engineHeaterRate>2</engineHeaterRate>
       <!-- The same heater as the cab's (Systems_Cabin.xml, nightHeaterFuelPerHour): change both together. -->
       <nightHeaterFuelPerHour>0.4</nightHeaterFuelPerHour>
+      <fireHeat>180</fireHeat>
     </parameters>
     <quantities>
       <li>
@@ -202,6 +209,31 @@
         </stages>
       </li>
       <li>
+        <!-- Crosslink 4: whether the vehicle is on fire, and how fiercely; while it burns, the radiator and its hoses cook. -->
+        <name>bodyFire</name>
+        <label>fire</label>
+        <unit>Fraction</unit>
+        <min>0</min>
+        <max>1</max>
+        <hidden>true</hidden>
+        <derivedFrom>
+          <li Class="Phobos.VehicleSystems.Input_Fire" />
+        </derivedFrom>
+        <stages>
+          <li>
+            <from>0.01</from>
+            <label>burning</label>
+            <notable>true</notable>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_DamagePart">
+                <role>Radiator</role>
+                <sharePerHour>0.5</sharePerHour>
+              </li>
+            </effects>
+          </li>
+        </stages>
+      </li>
+      <li>
         <!-- The night heater's fuel on a vehicle whose cab system does not burn it (an open vehicle, or the cab system switched off):
              running, and the cab's own "night heater running" not above a half. -->
         <name>engineHeaterBurning</name>
@@ -325,6 +357,16 @@
         <target Class="Phobos.VehicleSystems.Input_Parameter"><parameter>engineHeaterTarget</parameter></target>
         <factorParameter>engineHeaterRate</factorParameter>
         <when Class="Phobos.VehicleSystems.When_LoadActive"><load>nightHeater</load></when>
+      </li>
+      <li>
+        <!-- Crosslink 4: fire on the body heats the coolant (see the comment at the top). -->
+        <name>fire</name>
+        <quantity>coolantTemperature</quantity>
+        <kind>Into</kind>
+        <factorParameter>fireHeat</factorParameter>
+        <inputs>
+          <li Class="Phobos.VehicleSystems.Input_Fire" />
+        </inputs>
       </li>
     </flows>
     <onEvents>

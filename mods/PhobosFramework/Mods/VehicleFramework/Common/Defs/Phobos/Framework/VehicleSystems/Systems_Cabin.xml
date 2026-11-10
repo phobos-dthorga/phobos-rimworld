@@ -35,6 +35,10 @@
       <!-- Automatic climate control (Framework 0.22.0): holds the cab near 21 degrees C, heating below 20 and cooling above 22, with
            the same heater and air conditioner rates (authored set point; a common car default). -->
       <climateTarget>21</climateTarget>
+      <!-- Crosslink 4 (Framework 0.69.0): fire on the body heats the cab, 80 degrees an hour at full size (authored): against the
+           insulation's pull toward the outside, the cab settles about 40 degrees above the air within the hour, stifling, so the
+           crew suffer and want out, as they would. -->
+      <fireHeat>80</fireHeat>
     </parameters>
     <quantities>
       <li>
@@ -192,6 +196,15 @@
         <target Class="Phobos.VehicleSystems.Input_Parameter"><parameter>heaterTarget</parameter></target>
         <factorParameter>nightHeaterRate</factorParameter>
         <when Class="Phobos.VehicleSystems.When_LoadActive"><load>nightHeater</load></when>
+      </li>
+      <li>
+        <name>fire</name>
+        <quantity>cabTemperature</quantity>
+        <kind>Into</kind>
+        <factorParameter>fireHeat</factorParameter>
+        <inputs>
+          <li Class="Phobos.VehicleSystems.Input_Fire" />
+        </inputs>
       </li>
     </flows>
   </Phobos.VehicleSystems.PhobosVehicleSystemDef>

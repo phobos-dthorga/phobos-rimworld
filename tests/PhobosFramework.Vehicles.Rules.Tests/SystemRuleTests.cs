@@ -130,6 +130,68 @@ public class CoolingFigureTests
     public void TwiceTheHeatWouldBoilAWornEngineOverWhichIsWhyItIsAFifth() => Assert.True(RunAt(35, 2, 1, 3) > 130);
 }
 
+/// <summary>
+/// Crosslink 4 (Systems_Cooling.xml, Framework 0.69.0), the owner's rule of 10 Nov 2026: a fire put out within an in-game hour leaves
+/// the engine hot but undamaged, one left to burn boils it over. Fire heats the coolant at 180 an hour and cooks the radiator at half
+/// its health an hour; the radiator cools by Vehicle Framework's default efficiency curve on its health. A parked engine, stopped
+/// (radiator at 0.7 for no airflow and 0.6 for no fan), in 20 degrees C air. Change these with the Defs.
+/// </summary>
+public class FireFigureTests
+{
+    const double Air = 20, FireHeat = 180, RadiatorCookedPerHour = 0.5, ParkedRadiator = 6 * 0.7 * 0.6, SoakRate = 0.6;
+    const double ThermostatOpens = 88, ThermostatBand = 8, OverheatingFrom = 120, BoilingFrom = 130;
+
+    // Vehicle Framework's default efficiency curve for a part with none of its own (read from its 1.6 source).
+    static readonly (double health, double efficiency)[] DefaultEfficiency = { (0, 0), (0.25, 0), (0.4, 0.4), (0.7, 0.7), (0.85, 1), (1, 1) };
+
+    static double Efficiency(double health)
+    {
+        for (int i = 1; i < DefaultEfficiency.Length; i++)
+        {
+            (double x1, double y1) = DefaultEfficiency[i];
+            if (health > x1) continue;
+            (double x0, double y0) = DefaultEfficiency[i - 1];
+            return y0 + (y1 - y0) * (health - x0) / (x1 - x0);
+        }
+        return 1;
+    }
+
+    /// <summary>The hottest the coolant gets, burning for <paramref name="burnHours"/> and then cooling, over three hours.</summary>
+    static double Hottest(double start, double burnHours)
+    {
+        const double Step = 0.02;
+        var values = new[] { start };
+        double radiatorHealth = 1, hottest = start;
+        for (double t = 0; t < 3; t += Step)
+        {
+            bool burning = t < burnHours;
+            if (burning) radiatorHealth = System.Math.Max(0, radiatorHealth - RadiatorCookedPerHour * Step);
+            var flows = new List<FlowSample>
+            {
+                new() { Quantity = 0, Kind = FlowKind.Toward, Rate = ParkedRadiator * Efficiency(radiatorHealth), Target = Air, OpenAbove = ThermostatOpens, Band = ThermostatBand },
+                new() { Quantity = 0, Kind = FlowKind.Toward, Rate = SoakRate, Target = Air },
+            };
+            if (burning) flows.Add(new FlowSample { Quantity = 0, Kind = FlowKind.Into, Rate = FireHeat });
+            SystemIntegrator.Advance(values, new[] { -60.0 }, new[] { 200.0 }, flows, Step);
+            hottest = System.Math.Max(hottest, values[0]);
+        }
+        return hottest;
+    }
+
+    [Theory]
+    [InlineData(20)]   // a cold, parked vehicle
+    [InlineData(90)]   // one just driven
+    public void AFirePutOutWithinTheHourLeavesTheEngineHotButUndamaged(double start)
+    {
+        double hottest = Hottest(start, 1);
+        Assert.True(hottest > ThermostatOpens, "the engine is hot: " + hottest);
+        Assert.True(hottest < OverheatingFrom, "but nothing is damaged: " + hottest);
+    }
+
+    [Fact]
+    public void AFireLeftToBurnBoilsTheEngineOver() => Assert.True(Hottest(90, 2) > BoilingFrom);
+}
+
 public class StageRuleTests
 {
     static readonly double[] From = { double.NaN, 40, 110, 120 };

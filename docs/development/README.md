@@ -115,7 +115,7 @@ promise current behaviour. For using the mods, start at the [documentation index
 - [Vehicle system crosslinks: research and record (9 Nov 2026)](vehicle-system-crosslinks.md): the 22 systems form a star round
   the engine state, with five quantity links between them; eight proposed crosslinks (night heater warming the engine, the cab heater off the
   coolant, a worn engine burning oil, fire cooking the systems, and more), each answered for itself, with an order and the owner's answers
-  (10 Nov 2026). Links 1, 2 and 8 built in Framework 0.67.0, link 3 in 0.68.0, not yet tested in game; a block heater upgrade proposed.
+  (10 Nov 2026). Links 1, 2 and 8 built in Framework 0.67.0, link 3 in 0.68.0, link 4 in 0.69.0, not yet tested in game; a block heater upgrade proposed.
 - [Crash record: stack overflow on 9 Nov 2026](crash-2026-11-09-stack-overflow.md): a runaway call loop the log never mentioned, what the dump proved and could not,
   three suspects, the other errors in that log, and how to name the culprit.
 - [Fires on vehicles that never go out (10 Nov 2026)](vehicle-framework-fires.md): 37 fires on one jet, left on the wrong map and never changing; what the saves and
