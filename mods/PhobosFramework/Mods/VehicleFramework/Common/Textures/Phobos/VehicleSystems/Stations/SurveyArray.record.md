@@ -1,5 +1,6 @@
 # SurveyArray
 
-**Drawn in code** by `assets/phobos-vehicles/draw_survey_and_rig.py` (Pillow): three bars. No image generator, no reference images and no game or other author's art.
+**AI-generated, picked by the owner on 10 November 2026.** Made on 2026-11-10 with ComfyUI 0.41.0, local, FLUX.2 Klein 4B base fp8 (Black Forest Labs, Apache 2.0): 50 steps, seed 12, with the owner's private style model (a LoRA trained on this PC, never published). Style references: two of the game's own medicine pictures, used on this PC only, never uploaded or shipped; the near-copy check found this picture clear of the game's art. Exported by `scripts/art/export_sprite.py` (white background to transparency, 128 x 128 px). The prompt is in `assets/phobos-vehicles/requests/gizmos.json`; the master and its record are on the `art-masters` branch. No game or other author's art is in this file.
 
-- `SurveyArray.png`: SHA-256 `4810a83e21ea76b17951821e4dda535c97d4e887702ff2abf73be2fdb04cd498`
+- Master: `gizmo-surveyarray-12`, SHA-256 `4f4406697dd8a3641eb51311d2a2ff263a667e0c306d9e5d000feefd78a67258`
+- `SurveyArray.png`: SHA-256 `20ac2e70ba15bc97c5f25f23698f00dc5a40d33a4092edbc9bbc1e41702e186f`

@@ -5,6 +5,10 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+### Changed
+
+- The Workshop preview is a new picture, a small factory and conveyor at dusk, with the name added by script, from the owner's picks of 10 November 2026. No change in play.
+
 ## [0.12.2] - 2026-11-10 - Draft
 
 From the owner's ammunition press, which lost nine bills whose recipes were only missing for that session. **Not yet tested in game.**

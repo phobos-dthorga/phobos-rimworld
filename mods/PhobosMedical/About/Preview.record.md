@@ -1,11 +1,11 @@
 # Preview
 
-**AI-generated, then picked by the owner on 7 November 2026.** Made on 2026-11-05 with ComfyUI 0.41.0, local, Z-Image base int8 (Alibaba Tongyi lab, Apache 2.0; Comfy-Org packaging): 25 steps, guidance 4, seed 204. No reference images and no LoRA. No game art is in this file.
+**AI-generated, then picked by the owner on 10 November 2026.** Made on 2026-11-10 with ComfyUI 0.41.0, local, Flux.1-schnell fp8 (Comfy-Org packaging, Apache 2.0): 4 steps, guidance 1.0, seed 2. No reference images and no LoRA. No game art is in this file.
 
-Re-titled on 7 November 2026, when five medical mods became D'thorga Medical; the background is the one the owner picked for Medical Equipment, unchanged. The text ("D'thorga", "Medical", "Burns, dosing, triage and hospital kit") was added by `scripts/art/make_preview.py` in Arial, never generated. The background is cropped to 16:9 and scaled to 640 x 360.
+The text ("D'thorga", "Medical", "Burns, dosing, triage and hospital kit") was added by `scripts/art/make_preview.py` in Arial, never generated. The background is cropped to 16:9 and scaled to 640 x 360.
 
-**Prompt:** A clean digital painting of a small frontier hospital ward at night seen from above at a slight angle. Two steel-framed beds, a tall frosted liquid oxygen vessel with white rime on its pipes outside a window, a bedside oxygen stand, warm lamp light on pale grey walls, muted colours, thick dark outlines, simple flat shading, no text, no people.
+**Prompt:** Illustration for a RimWorld mod preview: A frontier field hospital at dusk seen through its open tent flaps: a lone doctor in a worn coat beside a bed with an oxygen concentrator and a loop of clear tubing, warm lamplight spilling out onto the snow. Painterly but clean, muted earth tones with amber light, dark teal dusk sky, wide composition, the lower third darker and uncluttered. No text, no logos, no watermark.
 
-- Model SHA-256: `eb2b470694fbd9778f15efd309000ea0091312c018c10a352c120b1da9bf4279`
-- Background SHA-256: `114b1561961bc6f57bf9cabcbf7d496665e67ed372adfd1d08884d16d1de03dc`
-- This file SHA-256: `d4cdda1d6159aa7db6699a9decb14ac5cebc1f5a7b9e5796b3ebcc895aa35e70`
+- Model SHA-256: `ead426278b49030e9da5df862994f25ce94ab2ee4df38b556ddddb3db093bf72`
+- Background SHA-256: `75b789a595fc0668f6dc9cdc996650c9be08bbbe241efab219baa8c3b8b7e98b`
+- This file SHA-256: `6aac442b7626006b1ef20cdddcc510d9d3bca569543bda3427f60f9602fd246f`

@@ -6,6 +6,10 @@ says the owner tested it.
 
 ## [Unreleased]
 
+### Changed
+
+- The Workshop preview is a new picture, a jump jet on a frontier airstrip at dusk, with the name added by script, from the owner's picks of 10 November 2026. No change in play.
+
 ## [0.16.7] - 2026-11-10 - Draft
 
 Temporary, at the owner's request. **Not yet tested in game.**

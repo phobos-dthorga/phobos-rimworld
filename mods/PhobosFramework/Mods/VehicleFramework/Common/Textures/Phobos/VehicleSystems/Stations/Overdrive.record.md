@@ -1,5 +1,6 @@
 # Overdrive
 
-**Drawn in code** by `assets/phobos-vehicles/draw_survey_and_rig.py` (Pillow): a gauge with its needle in the red. No image generator, no reference images and no game or other author's art.
+**AI-generated, picked by the owner on 10 November 2026.** Made on 2026-11-10 with ComfyUI 0.41.0, local, FLUX.2 Klein 4B base fp8 (Black Forest Labs, Apache 2.0): 50 steps, seed 13, with the owner's private style model (a LoRA trained on this PC, never published). Style references: two of the game's own medicine pictures, used on this PC only, never uploaded or shipped; the near-copy check found this picture clear of the game's art. Exported by `scripts/art/export_sprite.py` (white background to transparency, 128 x 128 px). The prompt is in `assets/phobos-vehicles/requests/gizmos-more.json`; the master and its record are on the `art-masters` branch. No game or other author's art is in this file.
 
-- `Overdrive.png`: SHA-256 `e4e200dc3cf20d2d9a5857a1824e11a317428648c10f0171f3dc5a8d8bb75546`
+- Master: `gizmo-overdrive-13`, SHA-256 `e6ddce5b0674ac791c7c38f71836f9954b9ea071dc6121565ce72247234ae30e`
+- `Overdrive.png`: SHA-256 `fa2360be214e63d22c4e8deef47d1e19a6b42199450647d7e880d7fda2d07950`

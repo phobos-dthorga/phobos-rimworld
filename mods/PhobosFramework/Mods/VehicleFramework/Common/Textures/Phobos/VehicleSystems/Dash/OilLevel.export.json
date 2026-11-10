@@ -1,0 +1,16 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Dash/OilLevel.png",
+  "source": "assets/phobos-vehicles/generated/dash-oillevel/dash-oillevel-12.png",
+  "source_sha256": "98210267c62b49315b94845ea46543daf40f234f96d976f2836e52ec21e99eeb",
+  "target_sha256": "7a06e02f66ad231a5075158ece80ab65bb5502b91e07caa359aadfadafabe1c3",
+  "size": [
+    64,
+    64
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": true,
+  "date": "2026-11-10T14:26:12",
+  "tool": "export_sprite.py: dark shape to a white silhouette, crop, pad, Lanczos downscale"
+}

@@ -1,0 +1,16 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Dash/Battery.png",
+  "source": "assets/phobos-vehicles/generated/dash-battery/dash-battery-12.png",
+  "source_sha256": "ee9e8ef684a98e9d7a559b2fddf1672acbf4fada5d293755febf6e11154e892e",
+  "target_sha256": "4340d067095f03bf3e885402a4ec68c3f666ad53dc9c51dd15cfc58243dfbce6",
+  "size": [
+    64,
+    64
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": true,
+  "date": "2026-11-10T14:26:12",
+  "tool": "export_sprite.py: dark shape to a white silhouette, crop, pad, Lanczos downscale"
+}

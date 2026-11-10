@@ -1,0 +1,16 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Service.png",
+  "source": "assets/phobos-vehicles/generated/gizmo-service/gizmo-service-13.png",
+  "source_sha256": "4e572236ff9b1cdaa287f0d2500f3b22f53f8c441d37ca505812c0f366365472",
+  "target_sha256": "0bcb22bdfd6222b07a691b1d1652ac60473757130f6af7dc199bac257f0bc37d",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "date": "2026-11-10T14:26:04",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

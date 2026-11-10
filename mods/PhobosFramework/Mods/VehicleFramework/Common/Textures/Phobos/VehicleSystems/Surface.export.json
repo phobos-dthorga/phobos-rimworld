@@ -1,0 +1,16 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Surface.png",
+  "source": "assets/phobos-vehicles/generated/gizmo-surface/gizmo-surface-13.png",
+  "source_sha256": "f74bcdaa59fc5b79949e89190623482693b7d4432d2bf97d7db35f14f83f18ae",
+  "target_sha256": "b161d7eb7851f726d974656e206f0a7d5e63677409b2f245ea43b3f1f5cbfd51",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "date": "2026-11-10T14:26:07",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

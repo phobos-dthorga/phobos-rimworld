@@ -1,5 +1,6 @@
 # PackUp
 
-**A stand-in, drawn in code** by `assets/phobos-vehicles/draw_tank_icons.py` (Pillow): a tank above a coiled hose. No image generator, no reference images and no game or other author's art was used. 128 x 128 px, transparent background.
+**AI-generated, picked by the owner on 10 November 2026.** Made on 2026-11-10 with ComfyUI 0.41.0, local, FLUX.2 Klein 4B base fp8 (Black Forest Labs, Apache 2.0): 50 steps, seed 12, with the owner's private style model (a LoRA trained on this PC, never published). Style references: two of the game's own medicine pictures, used on this PC only, never uploaded or shipped; the near-copy check found this picture clear of the game's art. Exported by `scripts/art/export_sprite.py` (white background to transparency, 128 x 128 px). The prompt is in `assets/phobos-vehicles/requests/gizmos.json`; the master and its record are on the `art-masters` branch. No game or other author's art is in this file.
 
-- `PackUp.png`: SHA-256 `6523848feefc2be6d1d59fd62d03d7b8277291a52c161e1137f59e6bbad9d4a6`
+- Master: `gizmo-packup-12`, SHA-256 `6145b98f5c20352a68ad37bbf3aff74ceb804bf43177a97da9d13401f98706ef`
+- `PackUp.png`: SHA-256 `1c4f94cff05e6a1799c9eaeaf86523e04550cf1fa8510b04fc369701917b032b`

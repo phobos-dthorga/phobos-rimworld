@@ -1,0 +1,16 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Stations/BayAssign.png",
+  "source": "assets/phobos-vehicles/generated/gizmo-bayassign/gizmo-bayassign-11.png",
+  "source_sha256": "3ca865a7499514f600d41e490013bba754445dbe80d908c37bb76cec82d94d11",
+  "target_sha256": "073a95248078335292f4f8fe56f3bcd6d13a2d6a3f983237b33b25a835c546cb",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "date": "2026-11-10T14:25:51",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

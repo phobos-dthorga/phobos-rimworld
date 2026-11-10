@@ -175,6 +175,15 @@ class ExportBackgroundTests(unittest.TestCase):
         self.assertEqual(result.getpixel((4, 4))[3], 0)
         self.assertEqual(result.getpixel((3, 3))[3], 255)
 
+    def test_a_silhouette_is_white_with_opacity_from_darkness(self):
+        import export_sprite
+        self.image.putpixel((2, 2), (135, 135, 135))  # A grey edge pixel, half way between solid and clear.
+        result = export_sprite.silhouette(self.image)
+        self.assertEqual(result.getpixel((3, 3)), (255, 255, 255, 255))
+        self.assertEqual(result.getpixel((0, 0))[3], 0)
+        self.assertEqual(result.getpixel((4, 4))[3], 0, 'white inside the shape becomes a hole')
+        self.assertTrue(0 < result.getpixel((2, 2))[3] < 255, 'an edge stays soft')
+
 
 class RequestFileTests(unittest.TestCase):
     def test_every_baseline_image_exists(self):

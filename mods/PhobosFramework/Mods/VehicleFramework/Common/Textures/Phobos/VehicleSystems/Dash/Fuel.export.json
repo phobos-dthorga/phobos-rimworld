@@ -1,0 +1,16 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Dash/Fuel.png",
+  "source": "assets/phobos-vehicles/generated/dash-fuel/dash-fuel-14.png",
+  "source_sha256": "0c7b881267d5d88372a509ff29fc5ff621cfa6e45b9b06e043feead9f0109319",
+  "target_sha256": "68314efe2cf9eabdc213aae9955121b37e6b8ccd7656603e0d0bf8e443645db4",
+  "size": [
+    64,
+    64
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": true,
+  "date": "2026-11-10T14:26:12",
+  "tool": "export_sprite.py: dark shape to a white silhouette, crop, pad, Lanczos downscale"
+}

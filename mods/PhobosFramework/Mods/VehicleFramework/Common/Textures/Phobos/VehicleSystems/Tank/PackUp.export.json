@@ -1,0 +1,16 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Tank/PackUp.png",
+  "source": "assets/phobos-vehicles/generated/gizmo-packup/gizmo-packup-12.png",
+  "source_sha256": "6145b98f5c20352a68ad37bbf3aff74ceb804bf43177a97da9d13401f98706ef",
+  "target_sha256": "1c4f94cff05e6a1799c9eaeaf86523e04550cf1fa8510b04fc369701917b032b",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "date": "2026-11-10T14:26:03",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

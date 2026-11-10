@@ -1,11 +1,11 @@
 # Preview
 
-**AI-generated, then picked by the owner on 7 November 2026.** Made on 2026-11-06 with ComfyUI 0.41.0, local, Z-Image base int8 (Alibaba Tongyi lab, Apache 2.0; Comfy-Org packaging): 25 steps, guidance 4, seed 202. No reference images and no LoRA. No game art is in this file.
+**AI-generated, then picked by the owner on 10 November 2026.** Made on 2026-11-10 with ComfyUI 0.41.0, local, Flux.1-schnell fp8 (Comfy-Org packaging, Apache 2.0): 4 steps, guidance 1.0, seed 2. No reference images and no LoRA. No game art is in this file.
 
 The text ("D'thorga", "Factory Additions", "More for Vanilla Furniture Expanded - Factory") was added by `scripts/art/make_preview.py` in Arial, never generated. The background is cropped to 16:9 and scaled to 640 x 360.
 
-**Prompt:** A factory floor seen from above: conveyor belts, a large hopper, an automated machining bay with sparks. A clean digital painting seen from above at a slight angle, muted colours, thick dark outlines, simple flat shading, the lower third kept dark and plain for a title. No text, no letters, no logos, no people.
+**Prompt:** Illustration for a RimWorld mod preview: A small frontier factory at dusk on a windswept plain: a conveyor belt running from a hopper into a brick workshop, amber light from its windows, a lone colonist in a worn parka watching crates roll by. Painterly but clean, muted earth tones with amber light, dark teal dusk sky, wide composition, the lower third darker and uncluttered. No text, no logos, no watermark.
 
-- Model SHA-256: `eb2b470694fbd9778f15efd309000ea0091312c018c10a352c120b1da9bf4279`
-- Background SHA-256: `b5fe7165f4f1ef73a0f88e074e14590bbd813f72622c5c3ebc85ddb93cad6c83`
-- This file SHA-256: `81a2f91802e23f44af7a8f0acc1be1961c847135748f7c53d4447fc8e9f3844a`
+- Model SHA-256: `ead426278b49030e9da5df862994f25ce94ab2ee4df38b556ddddb3db093bf72`
+- Background SHA-256: `bf0c61ff6c416a7cea94627ed04af188657eeb895a1af1c5124d740e9ba2506e`
+- This file SHA-256: `360f4240827afb616e453807ef4503ba898a903347a6d9421a3ef6c9a2a74924`

@@ -1,0 +1,16 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/AirConditioner.png",
+  "source": "assets/phobos-vehicles/generated/gizmo-aircon/gizmo-aircon-12.png",
+  "source_sha256": "e17cdc987af7447b82279ef696fe32280ba8627f28900390de9e76459845a015",
+  "target_sha256": "52aedac3c2b99cd4dd1d617feda84ed78b6256d5e89398d2261738ddc7a7973b",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "date": "2026-11-10T14:25:50",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

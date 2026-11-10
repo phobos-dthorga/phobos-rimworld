@@ -1,0 +1,16 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/ClimateControl.png",
+  "source": "assets/phobos-vehicles/generated/gizmo-climatecontrol/gizmo-climatecontrol-13.png",
+  "source_sha256": "b105c4f0634652b6829406d00a96c33500242f1653f1d4f5fa679b18f6b73ff9",
+  "target_sha256": "f6f3b5143d71acaf1dd6de1733d6bf2302a157971d6e4c44b806c4f44630c676",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "date": "2026-11-10T14:25:54",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

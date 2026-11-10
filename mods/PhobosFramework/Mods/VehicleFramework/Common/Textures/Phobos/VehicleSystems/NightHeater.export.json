@@ -1,0 +1,16 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/NightHeater.png",
+  "source": "assets/phobos-vehicles/generated/gizmo-nightheater/gizmo-nightheater-14.png",
+  "source_sha256": "1c135a4fd22fb0c76f45970a13d2cecbd6e1d12db0ccddbbb789ac3fdb9ec890",
+  "target_sha256": "7838276523c4fe9efe00a244627d9bf40c3967f15e5b434f2efa42d7bbd5cec4",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "date": "2026-11-10T14:26:01",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

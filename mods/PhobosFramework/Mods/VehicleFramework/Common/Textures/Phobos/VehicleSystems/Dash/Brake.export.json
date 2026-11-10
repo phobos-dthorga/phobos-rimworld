@@ -1,0 +1,16 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Dash/Brake.png",
+  "source": "assets/phobos-vehicles/generated/dash-brake/dash-brake-12.png",
+  "source_sha256": "dba736b9d54f7435d33eb722ebe35332db98b53d405fb4eccd248297baf103ed",
+  "target_sha256": "6bd6f28bf813e4dcf3acf4804baa1353db31a674cb91e3ef8701d1bf264107b2",
+  "size": [
+    64,
+    64
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": true,
+  "date": "2026-11-10T14:26:12",
+  "tool": "export_sprite.py: dark shape to a white silhouette, crop, pad, Lanczos downscale"
+}

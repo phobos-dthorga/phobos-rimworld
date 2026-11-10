@@ -50,6 +50,17 @@ def white_to_alpha(image, threshold=235, soft=30, all_white=False):
     return rgba
 
 
+def silhouette(image, threshold=235, soft=30):
+    """A white shape on transparency from a dark shape on white, for pictures the game tints, such as the dashboard's warning lights: opacity
+    comes from darkness, so anti-aliased edges stay soft and white details inside the shape become holes."""
+    grey = image.convert('L')
+    floor = threshold - soft * 6  # Dark enough to count as solid; generated black is rarely pure black.
+    alpha = grey.point(lambda v: 255 if v <= floor else 0 if v >= threshold else int(255 * (threshold - v) / (threshold - floor)))
+    shape = Image.new('RGBA', image.size, (255, 255, 255, 0))
+    shape.putalpha(alpha)
+    return shape
+
+
 def crop_to_content(image, margin_fraction=0.06):
     box = image.getchannel('A').getbbox()
     if box is None:
@@ -71,11 +82,12 @@ def pad_to_aspect(image, aspect_w, aspect_h):
     return canvas
 
 
-def export(source, target, size, aspect, threshold, soft, all_white=False):
+def export(source, target, size, aspect, threshold, soft, all_white=False, as_silhouette=False):
     source = Path(source); target = Path(target)
     aspect_w, aspect_h = (int(part) for part in aspect.split(':'))
     master = Image.open(source)
-    sprite = pad_to_aspect(crop_to_content(white_to_alpha(master, threshold, soft, all_white)), aspect_w, aspect_h)
+    cut = silhouette(master, threshold, soft) if as_silhouette else white_to_alpha(master, threshold, soft, all_white)
+    sprite = pad_to_aspect(crop_to_content(cut), aspect_w, aspect_h)
     sprite = sprite.resize((size * aspect_w // min(aspect_w, aspect_h), size * aspect_h // min(aspect_w, aspect_h)), Image.LANCZOS)
     target.parent.mkdir(parents=True, exist_ok=True)
     sprite.save(target, optimize=True)
@@ -88,8 +100,9 @@ def export(source, target, size, aspect, threshold, soft, all_white=False):
         'white_threshold': threshold,
         'soft_edge': soft,
         'all_white': all_white,
+        'silhouette': as_silhouette,
         'date': _dt.datetime.now().isoformat(timespec='seconds'),
-        'tool': 'export_sprite.py: background white to alpha, crop, pad, Lanczos downscale',
+        'tool': 'export_sprite.py: ' + ('dark shape to a white silhouette' if as_silhouette else 'background white to alpha') + ', crop, pad, Lanczos downscale',
     }
     target.with_suffix('.export.json').write_text(json.dumps(record, indent=2), encoding='utf-8')
     print(f'wrote {target} {sprite.size}')
@@ -104,5 +117,6 @@ if __name__ == '__main__':
     parser.add_argument('--threshold', type=int, default=235)
     parser.add_argument('--soft', type=int, default=30)
     parser.add_argument('--all-white', action='store_true', help='clear white inside the object too')
+    parser.add_argument('--silhouette', action='store_true', help='a white shape from a dark one, for a picture the game tints')
     args = parser.parse_args()
-    export(args.source, args.target, args.size, args.aspect, args.threshold, args.soft, args.all_white)
+    export(args.source, args.target, args.size, args.aspect, args.threshold, args.soft, args.all_white, args.silhouette)

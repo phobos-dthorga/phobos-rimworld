@@ -1,0 +1,16 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Dash/EngineKey.png",
+  "source": "assets/phobos-vehicles/generated/dash-enginekey/dash-enginekey-14.png",
+  "source_sha256": "ef01111b1c2b05ab7db5117e5ef0083f0545861722ecc8f5c1b773fb59e83094",
+  "target_sha256": "4e142221dc592da484e7c3a6869b098871f05e9947c93d871fb307c39ebaa6f3",
+  "size": [
+    64,
+    64
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": true,
+  "date": "2026-11-10T14:26:12",
+  "tool": "export_sprite.py: dark shape to a white silhouette, crop, pad, Lanczos downscale"
+}

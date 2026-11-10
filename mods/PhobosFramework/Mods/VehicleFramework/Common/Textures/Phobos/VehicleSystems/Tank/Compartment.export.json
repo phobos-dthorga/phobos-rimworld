@@ -1,0 +1,16 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Tank/Compartment.png",
+  "source": "assets/phobos-vehicles/generated/gizmo-compartment/gizmo-compartment-11.png",
+  "source_sha256": "79ccee1aedee9de8f216efb996f91023351fdd3f8a9dde41607271278375571e",
+  "target_sha256": "57d2c2051cc5660abc616bf59de2c49190fc0c254afd11d1bef538332ced270e",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "date": "2026-11-10T14:25:55",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

@@ -1,0 +1,16 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Dash/CoolantLevel.png",
+  "source": "assets/phobos-vehicles/generated/dash-coolantlevel/dash-coolantlevel-12.png",
+  "source_sha256": "2ebd02a1629e7ca5cf2471f3233bdaef30f6e4a7879268c0bff146cb51977a0b",
+  "target_sha256": "5edf701fb7cd7517b227fedf5b28217344bf0daf77b651f774dc9286626ea051",
+  "size": [
+    64,
+    64
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": true,
+  "date": "2026-11-10T14:26:12",
+  "tool": "export_sprite.py: dark shape to a white silhouette, crop, pad, Lanczos downscale"
+}

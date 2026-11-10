@@ -1,0 +1,16 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/CaravanRepair.png",
+  "source": "assets/phobos-vehicles/generated/gizmo-caravanrepair/gizmo-caravanrepair-13.png",
+  "source_sha256": "e1353d0e7d20249dfebf17eab5bd00ea53c7c1c55d4d023ffd487ee20a67289c",
+  "target_sha256": "317e403659159a0a6dca658ee14eee676115b41111025fd17b066eb5854f4d7a",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "date": "2026-11-10T14:25:53",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

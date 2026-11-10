@@ -67,7 +67,7 @@ Equipment's picked background, re-titled by script.
 | Steriliser (1x1) | Scripted placeholder in 0.7.0 | Generated art: a square autoclave with a round pressure door and locking wheel, from above | Yes | Go |
 | Carbon monoxide and smoke alarm (ceiling) | Scripted placeholder in 0.7.0 | Generated art: a small white ceiling disc with a grille and a red light, seen from below | Yes | Go |
 | Intubation kit (item) | Scripted placeholder in 0.7.0 | Generated art: a laryngoscope and a clear breathing tube with its cuff | Yes | Go |
-| Workshop preview (640x360) | Shipped pick, 0.2.3 | Nothing | | |
+| Workshop preview (640x360) | Shipped pick: hero-medical-2, a field hospital tent at dusk (10 Nov 2026, replacing the 7 Nov ward) | Nothing | | |
 
 ### Proposed medical equipment (agent ideas, 6 Nov 2026, for the owner)
 
@@ -111,21 +111,21 @@ Five textures are the owner's picks (7 Nov 2026); the base station and the two f
 | Asset | Now | Local model? | Note |
 | --- | --- | --- | --- |
 | Bottle tap (1x1) | Shipped pick: bottle-tap-redraw-12 (7 Nov), the hand-drawn layout redrawn | | |
-| Workshop preview | Shipped pick: preview-water-tap-201 (7 Nov) | | |
+| Workshop preview | Shipped pick: hero-watertap-2 (10 Nov, replacing preview-water-tap-201) | | |
 
 ### D'thorga Factory Additions
 
 | Asset | Now | Local model? | Note |
 | --- | --- | --- | --- |
 | Deep factory hopper and automated fabrication bay | Inherit Vanilla Expanded's art through their parent Defs (none of it copied) | Yes | Optional: own art would set them apart from the buildings they extend. Recommendation (agent): low priority |
-| Workshop preview | Shipped pick: preview-factory-additions-202 (7 Nov) | | |
+| Workshop preview | Shipped pick: hero-factory-2 (10 Nov, replacing preview-factory-additions-202) | | |
 
 ### D'thorga Vehicle Patches
 
 | Asset | Now | Local model? | Note |
 | --- | --- | --- | --- |
 | Mk. 82 and Mk. 84 bomb cases (items, 0.6.0) | Scripted stand-ins, drawn by `assets/vehicle-patches/draw_standins.py` (owner's direction, 7 Nov) | Yes | Two empty olive-drab bomb bodies from above, the Mk. 84 fatter: open nose ring, open tail, two lugs, no fins and no yellow band (the band marks a filling). The stand-ins can serve as layout references. Waiting on a go |
-| Workshop preview | Shipped pick (7 Nov) | | |
+| Workshop preview | Shipped pick: hero-patches-1 (10 Nov, replacing the 7 Nov garage) | | |
 
 ### Button icons (owner, 6 Nov 2026)
 
@@ -136,15 +136,16 @@ Five textures are the owner's picks (7 Nov 2026); the base station and the two f
 | Coax build icon | Phobos Radio Framework | Shipped pick: coax-icon-12 (7 Nov) | Nothing | Yes |
 | Belt access toggle | D'thorga Factory Additions | Vanilla Expanded's conveyor icon, looked up at run time | Nothing | |
 | Bottle tap's four arrows | D'thorga Water Tap | The game's own plus and minus buttons | Nothing | |
-| Service, load switch, headlights, cab heater | D'thorga Framework (vehicle systems, 0.9.0) | Stand-ins drawn in code by `assets/vehicle-systems/draw_icons.py` (8 Nov 2026), each with a record | Generated icons, on the owner's go | Yes |
-| Air conditioner, night heater (the jump-start kit and booster pack have generated pictures since 0.52.0) | D'thorga Framework (vehicle systems, 0.16.0 and 0.18.0) | Stand-ins drawn by the same script, each with a record | Low priority: the owner rates the stand-ins well and wants them replaced only when little else is left (8 Nov 2026) | Yes |
+| Vehicle buttons: service, headlights, heaters, air conditioner, climate control, field fix, caravan repair, fittings, dive, surface, stay down, settle, the depot bay and station buttons, and the tanker's ten | D'thorga Framework | Shipped picks from the night of 10 Nov 2026, chosen by the owner, each with a record; the masters are on `art-masters` | The tanker's bulk order waits on a redraw with a clear stack of coins | Yes: the model did well on simple objects |
+| Load switch | D'thorga Framework | Stand-in drawn by `assets/vehicle-systems/draw_icons.py`, kept by the owner (10 Nov 2026) | Every generated version drew a medical cross or a blank plate, likely from the medicine references; try neutral references if it is redrawn | Yes |
+| Dashboard warning lights (15) | D'thorga Framework | Shipped picks from the night of 10 Nov 2026: white shapes the dashboard tints, exported with `export_sprite.py --silhouette` | Nothing | Yes |
 
 **Any future button gets its icon in the same change**, or reuses a game or required-mod icon that is confirmed to exist; a lookup that
 can fail falls back to a visible stand-in of our own, never silently to the red X (owner, 7 Nov 2026; in AGENTS.md).
 
 ### Mods with no preview yet
 
-None since 7 Nov 2026. The merge into D'thorga Medical and D'thorga Patches retired the Burns and Smoke, Medical Save Bridge, Emergency
+None since 10 Nov 2026, when D'thorga Vehicles got hero-vehicles-2 and Framework hero-framework-1 (owner's picks). Since 7 Nov 2026 the merge into D'thorga Medical and D'thorga Patches retired the Burns and Smoke, Medical Save Bridge, Emergency
 Dosing, Triage and Missile Patches previews: D'thorga Medical uses Medical Equipment's picked background and D'thorga Patches Vehicle
 Patches', both re-titled by script. The earlier backgrounds stay on the `art-masters` branch.
 

@@ -5,6 +5,10 @@ yet. Not yet tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+### Changed
+
+- The Workshop preview is a new picture, a colonist filling a bottle from a water tower at dusk, with the name added by script, from the owner's picks of 10 November 2026. No change in play.
+
 ## [0.2.4] - 2026-11-09 - Draft
 
 ### Fixed

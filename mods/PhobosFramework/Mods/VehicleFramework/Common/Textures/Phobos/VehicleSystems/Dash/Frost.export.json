@@ -1,0 +1,16 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Dash/Frost.png",
+  "source": "assets/phobos-vehicles/generated/dash-frost/dash-frost-14.png",
+  "source_sha256": "4ad00b2c289c985f4c8ebd41a820334fb0255a6cdc964e9eba05500fe5a22e51",
+  "target_sha256": "2204e31e315fb3ee2455800bee853c9956a42a635f1fdc7563490c69924e92ba",
+  "size": [
+    64,
+    64
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": true,
+  "date": "2026-11-10T14:26:12",
+  "tool": "export_sprite.py: dark shape to a white silhouette, crop, pad, Lanczos downscale"
+}

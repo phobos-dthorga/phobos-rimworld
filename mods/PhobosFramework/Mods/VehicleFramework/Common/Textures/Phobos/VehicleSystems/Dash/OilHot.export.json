@@ -1,0 +1,16 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Dash/OilHot.png",
+  "source": "assets/phobos-vehicles/generated/dash-oilhot/dash-oilhot-12.png",
+  "source_sha256": "afc6cd46f9d240036a056d6edc71143d9aff6eed4a5ebf902d2dea091715436a",
+  "target_sha256": "0cb7251d01972f245af174c3acc0ae744befb375ac403d9af4b8a3a103f6ac29",
+  "size": [
+    64,
+    64
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": true,
+  "date": "2026-11-10T14:26:12",
+  "tool": "export_sprite.py: dark shape to a white silhouette, crop, pad, Lanczos downscale"
+}

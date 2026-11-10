@@ -1,0 +1,16 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Settle.png",
+  "source": "assets/phobos-vehicles/generated/gizmo-settle/gizmo-settle-11.png",
+  "source_sha256": "a06ec4ed45a6cfe3615d0f9bad1f9eb8c81af685af03cb42b5c2e3d59dda0463",
+  "target_sha256": "d27aaa9774ce3309595d237220cd064f1ce86aa88805e9b6686082c2d63b4b18",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "date": "2026-11-10T14:26:05",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

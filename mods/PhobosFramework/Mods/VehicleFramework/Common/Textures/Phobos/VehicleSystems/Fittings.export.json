@@ -1,0 +1,16 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings.png",
+  "source": "assets/phobos-vehicles/generated/gizmo-fittings/gizmo-fittings-11.png",
+  "source_sha256": "299e34381b836fc7df18d4196a5108134d85cd8e2f6bb846fb15a489bb172a9b",
+  "target_sha256": "bc67873620e057260f170d3c266253633e0dee5d2d998b0cd82a1ba88aadd104",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "date": "2026-11-10T14:25:58",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

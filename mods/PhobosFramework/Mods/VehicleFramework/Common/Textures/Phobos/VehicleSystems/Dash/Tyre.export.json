@@ -1,0 +1,16 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Dash/Tyre.png",
+  "source": "assets/phobos-vehicles/generated/dash-tyre/dash-tyre-14.png",
+  "source_sha256": "93e71654daef3dbbbed9486b5ae0295da951fb93744b3068c219b99188562e0c",
+  "target_sha256": "77d6ef3aa91aee85380bbb8acc006b03f3f2fc8f69e88dfbfdbb83c1c69f5b4a",
+  "size": [
+    64,
+    64
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": true,
+  "date": "2026-11-10T14:26:12",
+  "tool": "export_sprite.py: dark shape to a white silhouette, crop, pad, Lanczos downscale"
+}

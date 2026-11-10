@@ -6,6 +6,10 @@ entry says the owner tested it.
 
 ## [Unreleased]
 
+### Changed
+
+- The Workshop preview is a new picture, a field hospital tent at dusk, with the name added by script, from the owner's picks of 10 November 2026. No change in play.
+
 ## [0.10.0] - 2026-11-10 - Draft
 
 The research tree, at the owner's request (docs/development/research-tree.md). **Not yet tested in game.** Every cost is authored, a gameplay choice to tune in play.

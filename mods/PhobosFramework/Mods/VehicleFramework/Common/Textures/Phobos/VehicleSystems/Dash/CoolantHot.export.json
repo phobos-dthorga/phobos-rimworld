@@ -1,0 +1,16 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Dash/CoolantHot.png",
+  "source": "assets/phobos-vehicles/generated/dash-coolanthot/dash-coolanthot-13.png",
+  "source_sha256": "79c0467f13cbbc84d57fe304f4902d6d60aa195ca84f96822157c71472d5458c",
+  "target_sha256": "ee337167f8f4aa6c3341c04f1cbe78f786028dd6b64f62c67297411df6e79e43",
+  "size": [
+    64,
+    64
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": true,
+  "date": "2026-11-10T14:26:12",
+  "tool": "export_sprite.py: dark shape to a white silhouette, crop, pad, Lanczos downscale"
+}

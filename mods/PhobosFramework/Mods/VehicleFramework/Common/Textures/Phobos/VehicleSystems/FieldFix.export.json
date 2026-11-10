@@ -1,0 +1,16 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/FieldFix.png",
+  "source": "assets/phobos-vehicles/generated/gizmo-fieldfix/gizmo-fieldfix-12.png",
+  "source_sha256": "1b7351d2bfbb18b322ec48e0bafb298d5bd42a46a9bf697e441742625f172165",
+  "target_sha256": "db255d3db9e60f26fab45faf5040eddd50509115b2019ee99afd6ae4699a18c3",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "date": "2026-11-10T14:25:57",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

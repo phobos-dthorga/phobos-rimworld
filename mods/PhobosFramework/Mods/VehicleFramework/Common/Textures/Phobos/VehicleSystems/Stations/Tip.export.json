@@ -1,0 +1,16 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Stations/Tip.png",
+  "source": "assets/phobos-vehicles/generated/gizmo-tip/gizmo-tip-14.png",
+  "source_sha256": "35d357cdbeff3aa12c757130570badf49399e336fe37bdf0537bd67148a5caa6",
+  "target_sha256": "89955f39e691050c50cfc3dead62a4c726ad111d8c7c5d974b6a1104d6d34cde",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "date": "2026-11-10T14:26:10",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

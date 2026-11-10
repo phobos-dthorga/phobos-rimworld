@@ -1,0 +1,16 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Tank/Load.png",
+  "source": "assets/phobos-vehicles/generated/gizmo-load/gizmo-load-12.png",
+  "source_sha256": "6b647ce7129d6735604bcb881fcfa4fc9191bc849ad0f8f251b12f5f53f1a3ff",
+  "target_sha256": "fa0315bb8e5ca647b2f7b52b27bc2d7b58f85be9de1e2fbd06f6d697e72bbec6",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "date": "2026-11-10T14:26:00",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

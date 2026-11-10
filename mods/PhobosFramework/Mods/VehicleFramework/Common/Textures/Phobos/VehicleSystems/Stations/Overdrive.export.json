@@ -1,0 +1,16 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Stations/Overdrive.png",
+  "source": "assets/phobos-vehicles/generated/gizmo-overdrive/gizmo-overdrive-13.png",
+  "source_sha256": "e6ddce5b0674ac791c7c38f71836f9954b9ea071dc6121565ce72247234ae30e",
+  "target_sha256": "fa2360be214e63d22c4e8deef47d1e19a6b42199450647d7e880d7fda2d07950",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "date": "2026-11-10T14:26:02",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

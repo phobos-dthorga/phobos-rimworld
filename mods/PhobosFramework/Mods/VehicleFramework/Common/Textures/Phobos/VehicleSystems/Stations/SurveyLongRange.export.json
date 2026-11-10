@@ -1,0 +1,16 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Stations/SurveyLongRange.png",
+  "source": "assets/phobos-vehicles/generated/gizmo-surveylongrange/gizmo-surveylongrange-14.png",
+  "source_sha256": "5e03f42b73494d057407ee5178e7376a320249566cb4222fa6bc146b13adf147",
+  "target_sha256": "a0536d18104df6307ed2eae666c9c0b22f9492f7b50c375e99fa74331ed5eade",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "date": "2026-11-10T14:26:09",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

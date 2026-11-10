@@ -5,6 +5,15 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+### Added
+
+- The dashboard's warning lights show pictures (a tyre, a battery, an oil can, a thermometer and the rest), lit in the warning's colour, where they showed a word before; the word is in the light's tooltip. The ignition button shows a key. Not yet tested in game.
+
+### Changed
+
+- Vehicle buttons have painted icons in the game's look, picked by the owner, in place of the drawings made in code: service, headlights, the heaters and air conditioner, climate control, field fix, caravan repair, fittings, dive, surface, stay down, settle, the depot bay and station buttons, and the tanker's buttons. The load switch keeps its drawing. Not yet tested in game.
+- The Workshop preview is a new picture, a mechanic at an open engine at dusk, with the name added by script, from the owner's picks of 10 November 2026. No change in play.
+
 ## [0.62.1] - 2026-11-10 - Draft
 
 From the owner's test of the research tree.

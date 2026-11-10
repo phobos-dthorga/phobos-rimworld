@@ -1,0 +1,16 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Tank/Hold.png",
+  "source": "assets/phobos-vehicles/generated/gizmo-hold/gizmo-hold-11.png",
+  "source_sha256": "19fecb0d056f2f5c86dc5fdd2c1b5e6e7b9a8152a022b73f61059559572e8615",
+  "target_sha256": "162a68953be7d324af942ea93839db65ce99950a88d7ffc0dfef825d85a5fd03",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "date": "2026-11-10T14:26:00",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

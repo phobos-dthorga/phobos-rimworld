@@ -1,0 +1,16 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Dash/CheckEngine.png",
+  "source": "assets/phobos-vehicles/generated/dash-checkengine/dash-checkengine-11.png",
+  "source_sha256": "487087311e228cbe8b3c02ad5aa088991221f47730157b6a21c817a62f930426",
+  "target_sha256": "eaa731604542828fa83bacf09a59e67236f1ce514abc89b9536b83b40a1c95fd",
+  "size": [
+    64,
+    64
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": true,
+  "date": "2026-11-10T14:26:12",
+  "tool": "export_sprite.py: dark shape to a white silhouette, crop, pad, Lanczos downscale"
+}

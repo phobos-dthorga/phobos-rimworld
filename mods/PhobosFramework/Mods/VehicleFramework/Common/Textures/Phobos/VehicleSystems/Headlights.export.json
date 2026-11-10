@@ -1,0 +1,16 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Headlights.png",
+  "source": "assets/phobos-vehicles/generated/gizmo-headlights/gizmo-headlights-11.png",
+  "source_sha256": "71268a09aeaf3b87ff5382b496735beba124d4f156ef50895d81796b27aae580",
+  "target_sha256": "3584ec9b5a0c242ac16212e74e7c92fe8f281f5bb3f19573db6a2a4fc57cb76c",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "date": "2026-11-10T14:25:59",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

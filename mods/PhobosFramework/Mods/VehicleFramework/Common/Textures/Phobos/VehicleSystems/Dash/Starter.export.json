@@ -1,0 +1,16 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Dash/Starter.png",
+  "source": "assets/phobos-vehicles/generated/dash-starter/dash-starter-14.png",
+  "source_sha256": "6b1881926e1da3db9a7f3213976ba79e287d3f108246345ca95858c51a7caa04",
+  "target_sha256": "b0cd067a417ac114627041e857883b5d35cabe6ee01f387ce84c8222e830faf2",
+  "size": [
+    64,
+    64
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": true,
+  "date": "2026-11-10T14:26:12",
+  "tool": "export_sprite.py: dark shape to a white silhouette, crop, pad, Lanczos downscale"
+}

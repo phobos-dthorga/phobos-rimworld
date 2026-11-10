@@ -5,6 +5,10 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+### Added
+
+- A Workshop preview: working trucks on a ridge at dusk, with the name added by script, from the owner's picks of 10 November 2026. No change in play. Its line, "Working trucks that need looking after", is agent-written, for the owner to change.
+
 ### Fixed
 
 - The Seabed Crawler's upgrades are spaced so that their labels do not collide or clip at the window's edge. Not yet tested in game.

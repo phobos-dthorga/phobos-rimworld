@@ -1,0 +1,16 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/CabHeater.png",
+  "source": "assets/phobos-vehicles/generated/gizmo-cabheater/gizmo-cabheater-11.png",
+  "source_sha256": "c44d1d8142ed13f249f036b0969fe41be46f1fb1e06009ac347dc0609160d1dd",
+  "target_sha256": "100b7ea1050582a2db087a74a7645b3cf16bd8244ebd4c38c6e1aeea14601a56",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "date": "2026-11-10T14:25:53",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

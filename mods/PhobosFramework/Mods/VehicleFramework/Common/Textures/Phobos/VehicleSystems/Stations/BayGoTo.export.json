@@ -1,0 +1,16 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Stations/BayGoTo.png",
+  "source": "assets/phobos-vehicles/generated/gizmo-baygoto/gizmo-baygoto-13.png",
+  "source_sha256": "6ea7049a4a23a13d6beba4872df8829fc884299c39e6082ab8a7c358a098eec3",
+  "target_sha256": "3a93cbab9e6379ddc245c75449b611e3b26b79545f79c2d7fd29fa7df731d34a",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "date": "2026-11-10T14:25:52",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}
