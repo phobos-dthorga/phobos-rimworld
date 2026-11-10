@@ -380,7 +380,15 @@ delivered, record the delivery in the changelog or design record, and add or ame
 - **Sounds are made locally and judged by more than the ear** (owner, 10 Nov 2026; `docs/development/sound-generation.md`): Stable Audio 3
   through `scripts/art-run.py`, under the same safeguards as images, and **ffmpeg for every audio job** (owner: "a much finer tool"), never
   Python audio libraries. A pick is made from the listening page `scripts/art/sound_review.py` writes, with its spectrograms, measured flags
-  and lowered copy; masters stay byte for byte.
+  and lowered copy; masters stay byte for byte. `art-run.py --cpu` runs small sound models on the processor beside the game (owner's request).
+  **A listening report from the owner is evidence**: their ears caught a loop seam every flag missed, so turn each such report into a check.
+- **Answer how loud or how made a game sound is with `python scripts/art/game_sounds.py`** (owner's request for toolkits, 10 Nov 2026): `find`,
+  `measure` and `sounddef` read RimWorld's own sounds inside its `Assets.zip` archives and its SoundDefs, keeping no game file. A SoundDef
+  plays at `volumeRange / 100`, so compare sounds by effective loudness, never by the file alone.
+- **Ship a sound only through `python scripts/art/export_sound.py assets/phobos-sounds/exports.json`**: it levels the pick against a named game
+  sound, mixes to mono at 44.1 kHz as the game's are, refuses a clip, whine, seam dip or gap, and writes the record beside the file; `--check`
+  verifies them, and a test runs it. Never copy a sound into a mod by hand. Every SoundDef of ours carries
+  `Phobos.Framework.Sounds.PhobosSoundVolumeExtension`, so D'thorga Framework's one volume setting scales it.
 
 ## Builds, installation and checks
 
