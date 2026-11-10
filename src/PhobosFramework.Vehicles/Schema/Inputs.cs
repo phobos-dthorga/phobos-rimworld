@@ -192,6 +192,16 @@ public class Input_PartEfficiency : VehicleSystemInput
     protected override float Raw(SystemContext context) => context.Comp.PartEfficiency(role, missing);
 }
 
+/// <summary>The path cost of the ground under the vehicle: 0 on a road or floor, 2 on soil, 14 in mud or soft sand, more with snow
+/// (crosslink 6). With <c>setting</c> named and switched off by the player, it reads as a road.</summary>
+public class Input_GroundPathCost : VehicleSystemInput
+{
+    public string? setting;
+
+    protected override float Raw(SystemContext context) =>
+        setting != null && !VehicleSystemsMod.Settings.FlagOn(setting) ? 0f : context.Comp.GroundPathCost;
+}
+
 /// <summary>How fiercely the vehicle is burning: its biggest attached fire as a share of a full-grown fire, 0 when it is not burning,
 /// under water or off the map (crosslink 4).</summary>
 public class Input_Fire : VehicleSystemInput

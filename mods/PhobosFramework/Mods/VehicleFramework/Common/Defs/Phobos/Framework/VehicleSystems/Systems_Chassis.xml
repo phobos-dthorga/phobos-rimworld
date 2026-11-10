@@ -64,6 +64,34 @@
           </li>
         </stages>
       </li>
+      <li>
+        <!-- Crosslink 6: driving over mud, marsh, soft sand or deep snow (path cost 8 and up) knocks the running gear about, 1% of its
+             health an hour on the move (authored), so a long drive off the roads shows on the Health tab and a repair follows. -->
+        <name>groundRoughness</name>
+        <label>ground</label>
+        <unit>Plain</unit>
+        <min>0</min>
+        <max>100</max>
+        <hidden>true</hidden>
+        <derivedFrom>
+          <li Class="Phobos.VehicleSystems.Input_GroundPathCost">
+            <setting>roughGroundWear</setting>
+          </li>
+        </derivedFrom>
+        <stages>
+          <li>
+            <from>8</from>
+            <label>rough</label>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_DamagePart">
+                <role>Wheels</role>
+                <sharePerHour>0.01</sharePerHour>
+                <when Class="Phobos.VehicleSystems.When_Moving" />
+              </li>
+            </effects>
+          </li>
+        </stages>
+      </li>
     </quantities>
     <flows>
       <li>
@@ -73,6 +101,20 @@
         <factorParameter>wearPerHour</factorParameter>
         <inputs>
           <li Class="Phobos.VehicleSystems.Input_Moving" />
+          <li Class="Phobos.VehicleSystems.Input_GroundPathCost">
+            <!-- Crosslink 6 (Framework 0.70.0): rough ground wears tread faster than a road (common knowledge; no figure claimed).
+                 By the ground's path cost (authored): a road or floor 1, soil 1.2, mud, marsh or soft sand 2.5, the worst 3. The
+                 player's "rough ground wears tyres and suspension" setting (on) makes all ground a road. -->
+            <setting>roughGroundWear</setting>
+            <curve>
+              <points>
+                <li>(0, 1)</li>
+                <li>(2, 1.2)</li>
+                <li>(14, 2.5)</li>
+                <li>(30, 3)</li>
+              </points>
+            </curve>
+          </li>
         </inputs>
       </li>
     </flows>

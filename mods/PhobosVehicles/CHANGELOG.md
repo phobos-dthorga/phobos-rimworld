@@ -5,6 +5,22 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.30.2] - 2026-11-10 - Draft
+
+A figure for D'thorga Framework 0.70.0. **Not yet tested in game.**
+
+### Fixed
+
+- The military trucks, the tanks and the diesel locomotive now say their electrics run at 24 volts, as their loads were written for, so lights and heaters cost their engines the right amount when accessories load the engine.
+
+### Dependencies
+
+- Needs D'thorga Framework 0.70.0 or later for the figure to count; older Framework versions ignore it.
+
+### Save compatibility
+
+- Safe on an existing save: nothing new is saved.
+
 ## [0.30.1] - 2026-11-10 - Draft
 
 Storage categories (owner, 10 November 2026). **Not yet tested in game.**

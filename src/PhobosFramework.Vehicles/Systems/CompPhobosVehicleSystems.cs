@@ -604,6 +604,34 @@ public class CompPhobosVehicleSystems : VehicleComp
         shorePowered = null;
         loadAmps = 0f;
         if (states != null && states.Count > 0) loadAmps = SumLoads(new SystemContext(this, states[0]));
+        // Crosslink 5: the alternator takes shaft power for what the loads draw, so the engine works a little harder for them.
+        AccessoryShare = AccessoryLoad();
+        if (AccessoryShare > 0f) EngineLoad = Mathf.Min(1f, EngineLoad + AccessoryShare);
+    }
+
+    /// <summary>The share of the engine's rated power the switched-on loads take through the alternator now (crosslink 5): 0 with the
+    /// player's setting off, the engine stopped, no rated power known, or an electric vehicle (its loads draw on the traction battery).
+    /// Derived on each update, never saved.</summary>
+    public float AccessoryShare { get; private set; }
+
+    float AccessoryLoad()
+    {
+        if (!VehicleSystemsMod.Settings.accessoriesLoadEngine || !EngineRunning || loadAmps <= 0f) return 0f;
+        if (Vehicle.CompFueledTravel?.Props.electricPowered == true) return 0f;
+        double rated = Powertrain?.Spec.RatedPowerKw ?? 0;
+        return (float)AccessoryRules.EngineShare(loadAmps, ElectricalVolts(), rated);
+    }
+
+    /// <summary>The electrical system's voltage: its <c>systemVolts</c> figure (12, or 24 on heavy vehicles), 12 when no system has one.</summary>
+    float ElectricalVolts()
+    {
+        const float DefaultVolts = 12f;
+        if (states == null) return DefaultVolts;
+        foreach (SystemState state in states)
+        {
+            if (Enabled(state) && state.system.parameters.ContainsKey("systemVolts")) return new SystemContext(this, state).Parameter("systemVolts");
+        }
+        return DefaultVolts;
     }
 
     float SumLoads(SystemContext context)
@@ -1026,6 +1054,39 @@ public class CompPhobosVehicleSystems : VehicleComp
         return count == 0 ? missing : sum / count;
     }
 
+    IntVec3 groundReadCell = IntVec3.Invalid;
+    Map? groundReadMap;
+    float groundReadCost;
+
+    /// <summary>The world map's ordinary ground (open soil) when the caravan's own ground has not been read.</summary>
+    const float OpenSoilPathCost = 2f;
+
+    /// <summary>
+    /// The path cost of the ground under the vehicle (crosslink 6): on a map, the cell's terrain plus its snow, read again only when the
+    /// vehicle has moved to another cell; on the world map, the caravan's tile as the drivetrain reads it (open soil without one). A road
+    /// or a floor is 0. 0 for running gear with its own surface (rails) and for an aircraft in flight. Derived, never saved.
+    /// </summary>
+    public float GroundPathCost
+    {
+        get
+        {
+            VehiclePawn vehicle = Vehicle;
+            Powertrain? train = Powertrain;
+            if (train != null && train.OwnSurface) return 0f;
+            if (vehicle.CompVehicleLauncher?.inFlight ?? false) return 0f;
+            if (!vehicle.Spawned) return train != null ? (float)train.WorldPathCost : OpenSoilPathCost;
+            if (vehicle.Position != groundReadCell || vehicle.Map != groundReadMap)
+            {
+                groundReadCell = vehicle.Position;
+                groundReadMap = vehicle.Map;
+                Map map = vehicle.Map;
+                groundReadCost = (map.terrainGrid.TerrainAt(groundReadCell)?.pathCost ?? 0)
+                                 + WeatherBuildupUtility.MovementTicksAddOn(map.snowGrid.GetCategory(groundReadCell));
+            }
+            return groundReadCost;
+        }
+    }
+
     int fireShareTick = -1;
     float fireShare;
 
@@ -1111,7 +1172,8 @@ public class CompPhobosVehicleSystems : VehicleComp
         // The drivetrain has sampled nothing for work done standing still: without this, overdrive made no heat.
         if (WorkTurningEngine) return EngineLoad;
         Powertrain? train = Powertrain;
-        if (train != null && train.Full && train.Ground) return EngineRunning ? (float)train.HeatShare : 0f;
+        // The model's heat is for the drive alone; the loads' share is added, as the alternator's power is burned like any other.
+        if (train != null && train.Full && train.Ground) return EngineRunning ? (float)train.HeatShare + AccessoryShare : 0f;
         return EngineLoad;
     }
 

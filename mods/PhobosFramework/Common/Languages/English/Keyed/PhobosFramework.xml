@@ -34,6 +34,8 @@
   <PhobosProtection_PointFacesWall>Faces a wall, so it closes off nothing. Turn it to face into a room, or into a doorway.</PhobosProtection_PointFacesWall>
   <PhobosProtection_PointFacesOpenGround>Faces open ground, which a sign can't close off. Paint a controlled area there instead.</PhobosProtection_PointFacesOpenGround>
   <PhobosProtection_SuitingUp>Suiting up</PhobosProtection_SuitingUp>
+  <PhobosProtection_AlertUnprotected>Unprotected behind the line</PhobosProtection_AlertUnprotected>
+  <PhobosProtection_AlertUnprotectedDesc>These are inside a controlled area without the protective gear it calls for:\n\n{PAWNS}\n\nColonists put the gear on at the line by themselves, but animals, prisoners, slaves, guests and drafted colonists cross it as they are. Move them out, or equip them.</PhobosProtection_AlertUnprotectedDesc>
   <PhobosProtection_TurnedBack>{PAWN_labelShort} won't go into the {ZONE}: there is no gear in reach that gives enough {STAT}. {PAWN_labelShort} will keep clear of it for an hour.</PhobosProtection_TurnedBack>
   <PhobosProtection_AreaExpand>Expand {ZONE}</PhobosProtection_AreaExpand>
   <PhobosProtection_AreaExpandDesc>Paint where protective gear is needed. Colonists stop at its edge to put gear on, and take it off again just outside when they leave.</PhobosProtection_AreaExpandDesc>

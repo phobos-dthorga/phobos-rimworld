@@ -121,6 +121,30 @@ Not proposed, and why:
 4. Link **7**: a curve on starting power, and moving the cold-start condition to oil temperature.
 5. Links **5 and 6** last: each touches the hub or reads the map, so each needs a cost measurement against the 0.05 ms budget before it ships.
 
+**Links 7, 5 and 6 and the block heater built together in Framework 0.70.0 (10 Nov 2026), with D'thorga Vehicles 0.30.2 for the
+heavy vehicles' voltage; not yet tested in game.** The owner asked for one batch and one version, to spend fewer tokens. As built:
+
+- **Link 7:** starting power gains a curve on `oilTemperature` (0.6 at -20 °C, 1 from 10 [A]); a start's battery draw follows the oil
+  rather than the air (the air's curve kept for a vehicle without oil); the cold-start wear moved from Cooling to Lubrication, reading
+  the oil below 20 °C, so air-cooled and turbine engines count it too.
+- **Block heater:** a fitting on an engine (15 steel, 2 components, vehicle electrics research, Construction 3; the owner's agreed
+  defaults). It keeps the coolant at the night heater's 40 °C on shore power, parked with the engine off, free from the grid as shore
+  charging is. Built on a `blockHeaterAbsent` figure the fitting multiplies to 0, the fusible plug's pattern, so no new code. **Both
+  heaters gained a thermostat** (full below 35 °C, off at 40): without it the 0.67.0 night heater pulled a hot engine just parked
+  *down* toward 40 faster than it would cool by itself, a fault found while adding this.
+- **Link 5:** `AccessoryRules.EngineShare`: the switched-on loads' amperes times the system voltage, over an alternator efficiency of
+  0.6 [A, inside the cited 55 to 70 %], as a share of the engine's rated power. It adds to the engine load, to the heat share, and to
+  the fuel burned when fuel follows the model. It is honestly small (lights and a heater on a light truck: about 1 %); its point is a
+  long night camp or an idle with every load on. Electric vehicles and engines with no known rated power are not charged. A new
+  `systemVolts` figure (12, heavy vehicles 24, the voltage their loads were authored for) turns amperes into watts. Setting **Accessories
+  load the engine** (on; owner).
+- **Link 6:** `Input_GroundPathCost` reads the terrain and snow under the vehicle once per cell moved to (the caravan's tile on the
+  world map). Tread wears by a curve on it (road 1, soil 1.2, mud or soft sand 2.5, the worst 3 [A]), and over path cost 8 and up the
+  Wheels part loses 1 % of its health an hour on the move [A]. No suspension part exists to wear, so the wheels carry it. Rails and
+  aircraft in flight read as a road. Setting **Rough ground wears tyres and suspension** (on; owner).
+- **Cost:** link 5 is a sum the update already makes plus one multiplication; link 6 is one array read when the vehicle has moved
+  cell. Both run in the rare update, never per tick. **Not measured in game**: the 0.05 ms budget check needs the owner's colony.
+
 Each step takes the middle version number (new behaviour), carries its own test-pass row, and says "not yet tested in game" until the owner says
 otherwise.
 
@@ -153,7 +177,10 @@ power, which is how real vehicles in cold places are kept warm overnight at home
 - **Agent:** the graph reading, the eight proposals and their figures (all authored, marked [A]), the order, and what was left out; in
   0.67.0, the engine heater's 40 °C target and rate, the heater core's 30 to 60 °C curve, and applying links 2 and 8 to climate control;
   in 0.68.0, reading health rather than efficiency, the heat cut to a fifth, the 60 % oil line and the setting's default (on, matching
-  the owner's answer); in 0.69.0, the cooked radiator as the way to meet the owner's fire rule, and every fire figure.
+  the owner's answer); in 0.69.0, the cooked radiator as the way to meet the owner's fire rule, and every fire figure; in 0.70.0, every
+  figure in links 7, 5 and 6, the heaters' thermostat, the wheels standing in for suspension, and 24 V for the heavy loadouts.
+- **Owner (10 Nov 2026):** batch links 7, 5, 6 and the block heater into one version; a setting for link 6, on; the block heater's
+  defaults agreed.
 
 ## Sources
 

@@ -5,7 +5,7 @@ colonist is breathing, makes fires fill roofed rooms with the game's own smoke w
 carries carbon monoxide from fires, holds the per-person care choices the D'thorga medical mods offer, and holds the small
 helpers every D'thorga mod shares.
 
-Version 0.69.0, built 10 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
+Version 0.70.0, built 10 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
 oxygen working through Burns and Smoke and Medical Equipment (5 November 2026). The health layer new in 0.3.0 and the **vehicle
 systems new in 0.9.0, and their engines, drivetrains and gas turbines new in 0.11.0, are not yet tested in game.** The rest is read from the game's and the mods' code.
 
@@ -50,7 +50,8 @@ and wear that a mechanic services. See [Vehicle systems](#vehicle-systems-with-v
   heat**, so a cab warms only once the engine has warmed up, and the night heater keeps the engine warm as well, so a camp's morning start
   no longer wears it. **From 0.69.0 a fire on a vehicle cooks it from the inside**: the cab grows stifling, the coolant heats and the
   radiator cooks, so a fire put out within an in-game hour leaves the engine hot and a radiator to repair, and one left to burn for
-  about two hours boils the engine over. Not yet tested in game.
+  about two hours boils the engine over. **From 0.70.0** cold oil makes a start harder on the battery, and a **block heater** fitting
+  keeps a vehicle parked beside power warm. Not yet tested in game.
 - **Steam locomotives (0.14.0): two settings to decide before you run one.** **Boiler explosions** are off by default: on, a
   boiler without a fusible plug (the American 4-8-4) whose water runs below the firebox crown explodes, and the settings window
   warns you. **Realistic feed water** is off by default: a water stop draws a tenth of the real tender (6,800 litres for the 4-8-4,
@@ -216,7 +217,10 @@ vehicles burn what their authors set); and **when an aircraft is too heavy or to
 (default), allow it at a cost to the engine, or warn only; from 0.12.0 it covers lift-off too. **Steam locomotives:** realistic
 feed water (off: a tenth of the real figure) and boiler explosions (off, with a warning). **Night heater at camp** (off). **Low oil
 calls for a service** (on, from 0.68.0): an engine's service falls due as soon as its oil is below 60%, so a worn engine, which burns
-oil faster, is serviced sooner; off, burned oil only lowers the level until the next service. **Jump-starts:**
+oil faster, is serviced sooner; off, burned oil only lowers the level until the next service. **Accessories load the engine** (on,
+from 0.70.0): lights, heaters and climate control cost the engine a little heat, and fuel when fuel follows engine load. **Rough ground
+wears tyres and suspension** (on, from 0.70.0): tyres and tracks wear up to three times as fast off the roads, and mud or deep snow
+slowly knocks the running gear about. **Jump-starts:**
 leads must be crafted (on), every vehicle carries a booster pack (off). These take effect at once.
 
 **Per vehicle, in Vehicle Framework's own settings** (each vehicle's page in its mod settings): battery capacity, alternator
@@ -279,7 +283,7 @@ The new button on a vehicle's **Dashboard** opens **Fittings and tunes**, for an
 
 ## For modders
 
-**Protective-gear lines (new in 0.63.0, not yet tested in game).** A `Phobos.Framework.Protection.ProtectionZoneDef` names a stat worn gear raises and how much of it a pawn needs to cross; give a rotatable building `CompProperties_PhobosControlPoint` (with `PlaceWorker_PhobosControlPoint`) to close off the room it faces, or subclass `Designator_PhobosProtectionArea` to paint an area. Colonists stop at the line to fetch and put on gear, judged by its effect, and take it off on the way out. The core has no Harmony: D'thorga Medical's patches call `ProtectionLine.BeforeStep`, `AfterStep` and `AllowsCell` for every kind of line. A mod that adds a line without D'thorga Medical patches the same two methods itself; a step answered twice is acted on once ([the design](../../docs/development/radiation-control-line.md)).
+**Protective-gear lines (new in 0.63.0, not yet tested in game).** A `Phobos.Framework.Protection.ProtectionZoneDef` names a stat worn gear raises and how much of it a pawn needs to cross; give a rotatable building `CompProperties_PhobosControlPoint` (with `PlaceWorker_PhobosControlPoint`) to close off the room it faces, or subclass `Designator_PhobosProtectionArea` to paint an area. Colonists stop at the line to fetch and put on gear, judged by its effect, and take it off on the way out. The core has no Harmony: D'thorga Medical's patches call `ProtectionLine.BeforeStep`, `AfterStep` and `AllowsCell` for every kind of line. A mod that adds a line without D'thorga Medical patches the same two methods itself; a step answered twice is acted on once ([the design](../../docs/development/radiation-control-line.md)). From 0.70.0 an alert, **Unprotected behind the line**, names everyone of the colony's standing behind any line without enough protection (animals, prisoners, guests and drafted colonists cross it as they are).
 
 **Submersibles (Vehicle Framework).** Give a Sea vehicle a `Phobos.VehicleSystems.CompProperties_PhobosSubmersible` and the stats `Phobos_DiveEndurance` (hours) and `Phobos_DiveControl`, and list those stats in the categories of the parts that feed them. To let a small boat dive in chest-deep water and rivers, set `divesInChestDeepWater`. To have sonar or the like find a boat, call `Spot()` on its comp. Every figure is optional in XML; [the design](../../docs/development/submarine-framework.md) lists the fields.
 

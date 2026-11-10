@@ -28,6 +28,7 @@
         <def>PhobosVehicleSystem_Electrical</def>
         <set>
           <batteryAmpHours>100</batteryAmpHours>
+          <systemVolts>24</systemVolts>
           <alternatorAmps>260</alternatorAmps>
           <starterAmpHours>0.3</starterAmpHours>
         </set>
@@ -77,6 +78,7 @@
         <def>PhobosVehicleSystem_Electrical</def>
         <set>
           <batteryAmpHours>100</batteryAmpHours>
+          <systemVolts>24</systemVolts>
           <alternatorAmps>100</alternatorAmps>
           <starterAmpHours>0.3</starterAmpHours>
         </set>

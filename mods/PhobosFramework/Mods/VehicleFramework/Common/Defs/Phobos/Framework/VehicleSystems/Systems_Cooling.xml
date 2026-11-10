@@ -46,6 +46,11 @@
       what fails first in a vehicle fire. A steady heat alone could not meet the owner's rule, since the radiator settles any heat
       within the hour; the failing radiator is what makes a long fire worse than a short one. Put out after an hour, the coolant
       peaks near 102 degrees C with the radiator at half health; after two it has boiled over (FireFigureTests).
+    - A block heater (Framework 0.70.0; the owner's idea, 10 Nov 2026): an electric element in the engine, fitted by a mechanic, that
+      keeps the coolant at the night heater's 40 degrees C whenever the vehicle is parked, engine off, beside a powered grid (the same
+      shore power that trickle-charges the battery, and free from the grid, the same labelled simplification). Real ones plug into
+      mains power where winters are cold (secondary: Wikipedia, "Block heater"). Both heaters have a thermostat: full below 35, off at
+      40, so neither cools a hot engine just parked.
   -->
   <Phobos.VehicleSystems.PhobosVehicleSystemDef>
     <defName>PhobosVehicleSystem_Cooling</defName>
@@ -66,6 +71,8 @@
       <!-- The same heater as the cab's (Systems_Cabin.xml, nightHeaterFuelPerHour): change both together. -->
       <nightHeaterFuelPerHour>0.4</nightHeaterFuelPerHour>
       <fireHeat>180</fireHeat>
+      <!-- 1 until a block heater is fitted, whose fitting multiplies it to 0 (Fittings.xml), as a fusible plug's figure does. -->
+      <blockHeaterAbsent>1</blockHeaterAbsent>
     </parameters>
     <quantities>
       <li>
@@ -356,7 +363,29 @@
         <kind>Toward</kind>
         <target Class="Phobos.VehicleSystems.Input_Parameter"><parameter>engineHeaterTarget</parameter></target>
         <factorParameter>engineHeaterRate</factorParameter>
+        <!-- Its thermostat (Framework 0.70.0): full below 35 degrees C, off at 40, so it never cools a hot engine just parked. -->
+        <openBelowParameter>engineHeaterTarget</openBelowParameter>
+        <band>5</band>
         <when Class="Phobos.VehicleSystems.When_LoadActive"><load>nightHeater</load></when>
+      </li>
+      <li>
+        <!-- The block heater fitting (Framework 0.70.0, see the comment at the top): from the colony's power while parked, engine off. -->
+        <name>blockHeater</name>
+        <quantity>coolantTemperature</quantity>
+        <kind>Toward</kind>
+        <target Class="Phobos.VehicleSystems.Input_Parameter"><parameter>engineHeaterTarget</parameter></target>
+        <factorParameter>engineHeaterRate</factorParameter>
+        <openBelowParameter>engineHeaterTarget</openBelowParameter>
+        <band>5</band>
+        <inputs>
+          <li Class="Phobos.VehicleSystems.Input_ShorePower" />
+        </inputs>
+        <when Class="Phobos.VehicleSystems.When_All">
+          <conditions>
+            <li Class="Phobos.VehicleSystems.When_ParameterBelow"><parameter>blockHeaterAbsent</parameter><value>0.5</value></li>
+            <li Class="Phobos.VehicleSystems.When_EngineRunning"><invert>true</invert></li>
+          </conditions>
+        </when>
       </li>
       <li>
         <!-- Crosslink 4: fire on the body heats the coolant (see the comment at the top). -->
@@ -369,22 +398,7 @@
         </inputs>
       </li>
     </flows>
-    <onEvents>
-      <li>
-        <!-- A cold start wears the engine a little (authored; small, because every draft is a start). -->
-        <eventDef>IgnitionOn</eventDef>
-        <effects>
-          <li Class="Phobos.VehicleSystems.Effect_DamagePart">
-            <role>Engine</role>
-            <amount>0.05</amount>
-            <when Class="Phobos.VehicleSystems.When_QuantityBelow">
-              <quantity>coolantTemperature</quantity>
-              <value>20</value>
-            </when>
-          </li>
-        </effects>
-      </li>
-    </onEvents>
+    <!-- The cold start's wear moved to the oil's temperature in Framework 0.70.0 (crosslink 7; Systems_Lubrication.xml). -->
     <service>
       <label>a coolant top-up</label>
       <dueQuantity>coolantLevel</dueQuantity>

@@ -72,6 +72,20 @@
   </Phobos.VehicleSystems.PhobosVehicleFittingDef>
 
   <Phobos.VehicleSystems.PhobosVehicleFittingDef>
+    <!-- Framework 0.70.0 (the owner's idea and agreed defaults, 10 Nov 2026): materials, skill and research authored. Systems_Cooling.xml
+         holds the heating. Only engines with liquid cooling have the figure it moves, so it is offered to no other. -->
+    <defName>PhobosFitting_BlockHeater</defName>
+    <label>block heater</label>
+    <description>An electric heater in the engine block. Parked beside a powered building with the engine off, the engine stays warm, so it starts easily on a cold morning, wears less, and the cab heater works at once.</description>
+    <roles><li>Engine</li><li>Engine1</li><li>Engine2</li><li>Engine3</li><li>Engine4</li><li>Engine5</li><li>Engine6</li><li>Engine7</li><li>Engine8</li></roles>
+    <materials><Steel>15</Steel><ComponentIndustrial>2</ComponentIndustrial></materials>
+    <work>800</work>
+    <minSkill>3</minSkill>
+    <researchPrerequisite>PhobosResearch_VehicleElectrics</researchPrerequisite>
+    <parameterFactors><li><system>PhobosVehicleSystem_Cooling</system><parameter>blockHeaterAbsent</parameter><factor>0</factor></li></parameterFactors>
+  </Phobos.VehicleSystems.PhobosVehicleFittingDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleFittingDef>
     <defName>PhobosFitting_HeavySprings</defName>
     <label>heavy-duty springs</label>
     <description>Stiffer springs carry a bigger load, at the cost of a harder, slightly slower ride. Fit every axle for the full effect.</description>

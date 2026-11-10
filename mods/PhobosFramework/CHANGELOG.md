@@ -5,6 +5,39 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.70.0] - 2026-11-10 - Draft
+
+The last vehicle crosslinks and a protection alert, in one batch (owner, 10 November 2026). **Not yet tested in game.**
+
+### Added
+
+- **Cold oil makes a hard start**: a cold engine's thick oil takes more of the battery to turn, so starting power falls with the oil's temperature and a cold start drains more. The wear of a cold start now follows the oil too, so it counts on air-cooled and jet engines as well.
+- **Block heater** (Fittings and tunes, vehicle electrics research): parked beside a powered building with the engine off, it keeps the engine warm, so cold mornings start easily and the cab heater works at once. 15 steel and 2 components.
+- **Accessories load the engine**: lights, heaters and climate control take power from the engine through the alternator, so the engine runs a little warmer for them, and burns a little more when fuel follows engine load. A light truck's lights and heater cost about 1% of its engine.
+- **Rough ground wears tyres and tracks**: up to three times as fast in mud, marsh, soft sand or deep snow as on a road, and the running gear slowly loses health there. Roads save repairs.
+- **Settings: Accessories load the engine** (on) **and Rough ground wears tyres and suspension** (on), in D'thorga Framework's settings, vehicle systems, below Low oil calls for a service.
+- **Alert: Unprotected behind the line.** Lists the colony's people, animals, prisoners, slaves and guests standing behind a protective-gear line, such as a radiation controlled area, without enough protection; clicking it jumps to them. Animals, prisoners, guests and drafted colonists cross the line as they are, so this is how you find them.
+- For modders: an input reading the ground's path cost under a vehicle, and a voltage figure on the electrical system.
+
+### Fixed
+
+- The night heater pulled a hot engine just parked toward 40 degrees C faster than it would cool by itself. Both heaters now have a thermostat, full below 35 degrees C and off at 40.
+
+### Balance
+
+- All new figures are authored for play: 60% starting power from oil at -20 degrees C, an alternator efficiency of 0.6, tread wear 1.2 times on soil, 2.5 in mud and 3 at worst, 1% of the running gear's health an hour on the roughest ground, and the block heater's cost.
+
+### Save compatibility
+
+- Safe on an existing save: nothing new is saved.
+
+### Compatibility and limits
+
+- Accessories change fuel only with the setting fuel use that follows engine load on; otherwise they cost heat alone. Vehicles whose engine power is unknown to the drivetrain are not charged.
+- Shore power for the block heater is free from the grid, as battery charging there already is: a gameplay simplification.
+- No vehicle has a separate suspension part, so rough ground wears the wheels or tracks part.
+- The cost of links 5 and 6 per vehicle has not been measured in game; both run in the occasional update, never every tick.
+
 ## [0.69.0] - 2026-11-10 - Draft
 
 A burning vehicle cooks its systems (owner, 10 November 2026: crosslink 4). **Not yet tested in game.**

@@ -65,6 +65,11 @@ public class VehicleSystemsSettings : ModSettings
     /// <summary>An engine's service falls due as soon as its oil is low, so a worn engine burning oil calls a mechanic early (owner, 10 Nov
     /// 2026: oil use is a reason to service, with a setting to make it only a cost: on). Live.</summary>
     public bool lowOilCallsService = true;
+    /// <summary>Lights, heaters and climate control take power from the engine through the alternator, so they cost a little heat, and
+    /// fuel when fuel follows the engine model (crosslink 5; owner, 10 Nov 2026: on, with this setting to turn it off). Live.</summary>
+    public bool accessoriesLoadEngine = true;
+    /// <summary>Rough ground wears tyres, tracks and suspension faster than a road (crosslink 6; owner, 10 Nov 2026: a setting, on). Live.</summary>
+    public bool roughGroundWear = true;
     /// <summary>A jump-start needs a crafted jump-start kit, in stock or aboard (owner, 8 Nov 2026: default on). Live.</summary>
     public bool jumpStartNeedsKit = true;
     /// <summary>Every vehicle is assumed to carry a booster pack, so a jump-start needs no other vehicle (owner, 8 Nov 2026: off). Live.</summary>
@@ -107,6 +112,8 @@ public class VehicleSystemsSettings : ModSettings
         "realisticFeedWater" => realisticFeedWater,
         "nightHeater" => nightHeater,
         "lowOilCallsService" => lowOilCallsService,
+        "accessoriesLoadEngine" => accessoriesLoadEngine,
+        "roughGroundWear" => roughGroundWear,
         "jumpStartNeedsKit" => jumpStartNeedsKit,
         "assumeBoosterPack" => assumeBoosterPack,
         "cabMoods" => cabMoods,
@@ -144,6 +151,8 @@ public class VehicleSystemsSettings : ModSettings
         Scribe_Values.Look(ref realisticFeedWater, "PhobosVehicleSystems_RealisticFeedWater", false);
         Scribe_Values.Look(ref nightHeater, "PhobosVehicleSystems_NightHeater", false);
         Scribe_Values.Look(ref lowOilCallsService, "PhobosVehicleSystems_LowOilCallsService", true);
+        Scribe_Values.Look(ref accessoriesLoadEngine, "PhobosVehicleSystems_AccessoriesLoadEngine", true);
+        Scribe_Values.Look(ref roughGroundWear, "PhobosVehicleSystems_RoughGroundWear", true);
         Scribe_Values.Look(ref jumpStartNeedsKit, "PhobosVehicleSystems_JumpStartNeedsKit", true);
         Scribe_Values.Look(ref assumeBoosterPack, "PhobosVehicleSystems_AssumeBoosterPack", false);
         Scribe_Values.Look(ref cabMoods, "PhobosVehicleSystems_CabMoods", true);
@@ -202,6 +211,8 @@ public class VehicleSystemsMod : Mod
         if (Settings.realisticFeedWater) report.On("realistic feed water (setting)");
         if (Settings.nightHeater) report.On("night heater at camp (setting)");
         if (!Settings.lowOilCallsService) report.Off("low oil calling a service", "off (setting)");
+        if (!Settings.accessoriesLoadEngine) report.Off("accessories loading the engine", "off (setting)");
+        if (!Settings.roughGroundWear) report.Off("rough-ground wear", "off (setting)");
         if (Settings.jumpStartNeedsKit) report.On("jump-start leads must be crafted (setting)");
         else report.Off("jump-start leads", "free (setting)");
         if (Settings.assumeBoosterPack) report.On("booster pack assumed on every vehicle (setting)");
@@ -286,6 +297,8 @@ public class VehicleSystemsMod : Mod
         listing.CheckboxLabeled("PhobosVehicleSystems_SettingLoadFuel".Translate(), ref s.loadDependentFuel, "PhobosVehicleSystems_SettingLoadFuelDesc".Translate());
         listing.CheckboxLabeled("PhobosVehicleSystems_SettingNightHeater".Translate(), ref s.nightHeater, "PhobosVehicleSystems_SettingNightHeaterDesc".Translate());
         listing.CheckboxLabeled("PhobosVehicleSystems_SettingLowOilService".Translate(), ref s.lowOilCallsService, "PhobosVehicleSystems_SettingLowOilServiceDesc".Translate());
+        listing.CheckboxLabeled("PhobosVehicleSystems_SettingAccessoryLoad".Translate(), ref s.accessoriesLoadEngine, "PhobosVehicleSystems_SettingAccessoryLoadDesc".Translate());
+        listing.CheckboxLabeled("PhobosVehicleSystems_SettingRoughGround".Translate(), ref s.roughGroundWear, "PhobosVehicleSystems_SettingRoughGroundDesc".Translate());
         listing.CheckboxLabeled("PhobosVehicleSystems_SettingCabMoods".Translate(), ref s.cabMoods, "PhobosVehicleSystems_SettingCabMoodsDesc".Translate());
         listing.CheckboxLabeled("PhobosVehicleSystems_SettingClimateAll".Translate(), ref s.climateControlAll, "PhobosVehicleSystems_SettingClimateAllDesc".Translate());
         listing.Gap(6f);

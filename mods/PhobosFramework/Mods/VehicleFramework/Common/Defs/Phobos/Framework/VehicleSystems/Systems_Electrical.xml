@@ -34,6 +34,10 @@
       <alternatorAmps>65</alternatorAmps>
       <starterAmpHours>0.25</starterAmpHours>
       <shoreChargeAmps>10</shoreChargeAmps>
+      <!-- The system's voltage, so a load's amperes become watts (crosslink 5, Framework 0.70.0: the alternator takes about 1.6 shaft
+           watts for each watt the loads draw; AccessoryRules). 12 here; heavy vehicles set 24, the voltage their loads' amperes were
+           authored for (Loadouts_Default.xml). -->
+      <systemVolts>12</systemVolts>
     </parameters>
     <quantities>
       <li>
@@ -81,6 +85,19 @@
                 <li>(0, 0.8)</li>
                 <li>(27, 1)</li>
                 <li>(60, 1)</li>
+              </points>
+            </curve>
+          </li>
+          <li Class="Phobos.VehicleSystems.Input_Quantity">
+            <!-- Crosslink 7 (Framework 0.70.0): cold oil is thick, so the starter needs more of the battery to turn the engine; to the
+                 player that is less starting power (0.6 at -20 degrees C oil, full from 10; authored, the same sources as the cold
+                 start's draw). A night or block heater keeps the oil warm. A vehicle without oil reads as warm. -->
+            <quantity>oilTemperature</quantity>
+            <fallback Class="Phobos.VehicleSystems.Input_Constant"><value>100</value></fallback>
+            <curve>
+              <points>
+                <li>(-20, 0.6)</li>
+                <li>(10, 1)</li>
               </points>
             </curve>
           </li>
@@ -263,7 +280,8 @@
     </flows>
     <onEvents>
       <li>
-        <!-- Each start draws on the battery, more in the cold. -->
+        <!-- Each start draws on the battery, more in the cold: from the oil's temperature since crosslink 7 (Framework 0.70.0), as it is
+             the thick oil the starter fights, so a warmed engine starts cheaply on a cold day; the air's for a vehicle without oil. -->
         <eventDef>IgnitionOn</eventDef>
         <effects>
           <li Class="Phobos.VehicleSystems.Effect_AddQuantity">
@@ -271,7 +289,9 @@
             <amount>-1</amount>
             <scaleByParameter>starterAmpHours</scaleByParameter>
             <divideByParameter>batteryAmpHours</divideByParameter>
-            <scaleBy Class="Phobos.VehicleSystems.Input_Ambient">
+            <scaleBy Class="Phobos.VehicleSystems.Input_Quantity">
+              <quantity>oilTemperature</quantity>
+              <fallback Class="Phobos.VehicleSystems.Input_Ambient" />
               <curve>
                 <points>
                   <li>(-30, 3)</li>

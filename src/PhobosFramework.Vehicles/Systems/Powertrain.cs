@@ -493,6 +493,9 @@ public sealed class Powertrain
         return here + (pather.nextCell.ToVector3Shifted() - here) * progress;
     }
 
+    /// <summary>Running gear with its own surface (steel wheels on rails): the ground beneath does not touch it.</summary>
+    public bool OwnSurface => !double.IsNaN(fixedRolling) && !double.IsNaN(fixedGrip);
+
     void ReadGround(VehiclePawn vehicle, out double rolling, out double grip)
     {
         if (!double.IsNaN(fixedRolling) && !double.IsNaN(fixedGrip))
@@ -576,7 +579,9 @@ public sealed class Powertrain
         bool onMap = comp.Vehicle.Spawned;
         double vfPerHour = onMap ? fuel.FuelEfficiency / 24.0 : FuelRules.WorldPerHour(fuel.ConsumptionRateWorldPerTick, ElapsedRule.TicksPerHour);
         double vfShare = comp.Moving ? 1 : onMap ? 0.5 : 0;
-        double modelShare = FittingRule.TunedFuelShare(followsModel ? Result.FuelPowerKw / Math.Max(0.1, nominalCruiseFuelKw) : vfShare, tuned);
+        // Crosslink 5: the loads' share of rated power is burned at the engine's rated-power efficiency, added to the drive's fuel.
+        double accessoryFuelKw = comp.AccessoryShare * DrivetrainModel.FuelPowerKw(Spec, Spec.RatedPowerKw, Spec.RatedRpm);
+        double modelShare = FittingRule.TunedFuelShare(followsModel ? (Result.FuelPowerKw + accessoryFuelKw) / Math.Max(0.1, nominalCruiseFuelKw) : vfShare, tuned);
         double perHour = FuelRules.ExtraPerHour(vfPerHour, vfShare, modelShare);
         if (perHour > 0 && !fuel.EmptyTank) fuel.ConsumeFuel((float)(perHour * hours));
         else if (perHour < 0) fuel.Refuel((float)(-perHour * hours));

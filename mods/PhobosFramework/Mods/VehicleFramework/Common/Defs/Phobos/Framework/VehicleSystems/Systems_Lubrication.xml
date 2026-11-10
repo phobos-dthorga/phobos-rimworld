@@ -200,6 +200,24 @@
         </inputs>
       </li>
     </flows>
+    <onEvents>
+      <li>
+        <!-- A cold start wears the engine a little (authored; small, because every draft is a start): until the oil is thin enough to
+             reach the bearings at once. Read from the oil since crosslink 7 (Framework 0.70.0; before, the coolant), so it counts on
+             air-cooled and turbine engines too, and a night or block heater spares it. -->
+        <eventDef>IgnitionOn</eventDef>
+        <effects>
+          <li Class="Phobos.VehicleSystems.Effect_DamagePart">
+            <role>Engine</role>
+            <amount>0.05</amount>
+            <when Class="Phobos.VehicleSystems.When_QuantityBelow">
+              <quantity>oilTemperature</quantity>
+              <value>20</value>
+            </when>
+          </li>
+        </effects>
+      </li>
+    </onEvents>
     <onPartHit>
       <li>
         <!-- Shares of the part's health (authored, 9 Nov 2026, after the owner's test: a wrecked pump and engine used to leave 60% of the oil, above the warning).

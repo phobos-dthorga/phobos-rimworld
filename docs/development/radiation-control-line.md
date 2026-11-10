@@ -56,9 +56,23 @@ graph TD
   same way); the prefix skips the original only on the step it refuses. A postfix on `ForbidUtility.InAllowedArea` keeps a turned-back
   colonist from taking work inside for the hour. On a map without a line, each costs a field read.
 
+## The alert (Framework 0.70.0)
+
+**Unprotected behind the line** (owner, 10 Nov 2026, from the agent's offer): a game alert lists every one of the colony's own living
+flesh standing behind any line without enough protection, with the kind of area each is in, and clicking it jumps to them. It covers
+what the line does not stop: animals, prisoners, slaves, guests and drafted colonists, and anyone caught inside when an area is painted
+round them. It lives in the core (`Alert_PhobosUnprotectedBehindLine`), so every kind of line gets it; it rebuilds its list at most
+every 250 ticks, and a map without a line costs a field read. Machines are left out: what a line keeps out is not assumed to harm them.
+It changes nothing in the world.
+
+- **Lets the player:** see at once who is exposed, instead of finding out from a sickness later.
+- **Stops them:** nothing.
+- **Changes how they play:** pets, prisoners and soldiers sent near a reactor become something to manage, not to forget.
+
 ## Limits, known now
 
 - **A colonist already inside unprotected stays unprotected** (painted around them, or undrafted inside): only a crossing is checked.
+  Since 0.70.0 the alert names them.
 - **A turned-back colonist can still be stopped by a route that only passes through a zone** on the way somewhere else.
 - **Gear taken off lands outside the line, not in a locker;** haulers put it away. Whatever the suit replaced (a duster, say) lies where
   the suit was picked up, and the colonist's apparel policy dresses them again later.
