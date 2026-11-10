@@ -107,7 +107,7 @@ A sound request, beside the image requests in an asset folder (`assets/phobos-so
 | **As made** | The untouched master |
 | **Review level** | Ends trimmed of silence, faded, levelled to −20 LUFS (true peak kept under −1 dBTP), so loudness never decides a pick |
 | **Lowered** | The review copy with everything above 3 kHz moved down an octave by rubberband, mixed back over the untouched lows: the frequency lowering hearing aids do. A listening aid only, never shipped; it shows *that* something is up there, not how it sounds to others. `--octaves 2` moves the highs down two octaves |
-| **Whine alone** | Only for a sound with the whine flag: a band around the whine, moved down to 1 kHz and set to −26 LUFS, so it can be heard plainly. Added 10 Nov 2026 because the pilot's hum whine sat 31 dB under the hum, and the owner could not pick it out of the lowered copy. A listening aid only, never shipped |
+| **Whine alone** | Only for a sound with the whine flag: a band around the whine, moved down to 1 kHz and set to the review copies' −20 LUFS, so it can be heard plainly (at −26 LUFS the owner could only just hear it). Added 10 Nov 2026 because the pilot's hum whine sat 31 dB under the hum, and the owner could not pick it out of the lowered copy. A listening aid only, never shipped |
 | **Loop** | For a looping request: a circular crossfade of 0.25 s, so the end runs into the start; plays on repeat |
 | **Spectrogram** | Time left to right, pitch upwards, brightness for loudness. A bright band near the top is hiss or whine; a thin upright line is a click |
 | **Seam picture** | The loop played twice: a line down the middle is its seam |

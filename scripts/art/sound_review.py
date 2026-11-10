@@ -58,8 +58,9 @@ WHINE_PROMINENCE_DB = 12.0  # A band this far above the median band is a whine: 
                             # concentrator hum (seed 11, 10 Nov 2026) had one near 14.5 kHz that no other flag caught.
 WHINE_SOLO_HZ = 1000        # A flagged whine is also given alone, moved down to here, where nearly every ear hears well...
 WHINE_SOLO_WIDTH_HZ = 1000  # ...taken from this wide a band around it...
-WHINE_SOLO_LUFS = -26.0     # ...and set to this level: quiet but plain. In the pilot's hum it sat 31 dB under the hum, so the
-                            # lowered copy alone could not show it to the owner (10 Nov 2026).
+WHINE_SOLO_LUFS = REVIEW_LUFS  # ...and set to the review copies' level, so it sounds as loud as they do. In the pilot's hum it
+                            # sat 31 dB under the hum, so the lowered copy could not show it to the owner; at -26 LUFS alone the
+                            # owner could "just barely" hear it (10 Nov 2026).
 MOMENTARY_WINDOW_S = 0.4   # EBU R128's momentary loudness window; ffmpeg reports one reading every 100 ms.
 STEADY_BELOW_DB = 8.0      # A loop keeps only the span within this of its overall loudness, cutting a late start and early fade.
 DIP_BELOW_DB = 10.0        # Played twice, a loop that falls this far under its overall loudness...
