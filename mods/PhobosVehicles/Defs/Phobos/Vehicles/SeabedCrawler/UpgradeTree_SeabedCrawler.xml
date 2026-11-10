@@ -108,6 +108,40 @@
           <PhobosVehicles_LaboratoryFittings>2</PhobosVehicles_LaboratoryFittings>
         </ingredients>
       </li>
+      <li>
+        <!-- The advanced laboratory: grade 2 stands in for a hi-tech research bench and its equipment; the factor rises to that bench's 1.0. Its research is aboard-only. -->
+        <key>DeepLab</key>
+        <label>advanced laboratory</label>
+        <displayLabel>true</displayLabel>
+        <description>An analyser bench for the wet laboratory. It can take on any project a hi-tech research bench can, and its scientists work at a hi-tech bench's speed.</description>
+        <icon>Phobos/Vehicles/SeabedCrawler/Upgrades/AdvancedLaboratory</icon>
+        <work>3000</work>
+        <gridCoordinate>(24, 3)</gridCoordinate>
+        <drawSize>(80, 80)</drawSize>
+        <prerequisiteNodes>
+          <li>WetLab</li>
+        </prerequisiteNodes>
+        <researchPrerequisites>
+          <li>PhobosResearch_AdvancedMarineScience</li>
+        </researchPrerequisites>
+        <upgrades>
+          <li Class="Vehicles.StatUpgrade">
+            <vehicleStats>
+              <li>
+                <def>Phobos_FieldLabFactor</def>
+                <value>0.25</value>
+              </li>
+              <li>
+                <def>Phobos_FieldLabGrade</def>
+                <value>1</value>
+              </li>
+            </vehicleStats>
+          </li>
+        </upgrades>
+        <ingredients>
+          <PhobosVehicles_AnalyserBench>1</PhobosVehicles_AnalyserBench>
+        </ingredients>
+      </li>
     </nodes>
   </Vehicles.UpgradeTreeDef>
 </Defs>

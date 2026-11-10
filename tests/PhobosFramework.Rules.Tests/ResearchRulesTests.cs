@@ -74,6 +74,22 @@ public class ResearchRulesTests
     public void AnUnderWayFactorAboveOneNeverSpeedsItUp() => Assert.Equal(1.2f, FieldResearchRule.Rate(1.5f, 0.8f, underWay: true, underWayFactor: 3f), 4);
 
     [Fact]
+    public void PointsFollowTheGamesOwnFigure() => Assert.Equal(0.00825f * 250f, FieldResearchRule.Points(250f, 1f, 1f, false), 5);
+
+    [Fact]
+    public void PointsFollowTheStorytellerAndTheCostFactor() => Assert.Equal(0.00825f * 100f * 0.5f / 2f, FieldResearchRule.Points(100f, 0.5f, 2f, false), 6);
+
+    [Fact]
+    public void FastResearchIsFiveHundredTimes() => Assert.Equal(0.00825f * 10f * 500f, FieldResearchRule.Points(10f, 1f, 1f, true), 3);
+
+    [Fact]
+    public void NoSpeedOrABrokenCostFactorGivesNothing()
+    {
+        Assert.Equal(0f, FieldResearchRule.Points(0f, 1f, 1f, false));
+        Assert.Equal(0f, FieldResearchRule.Points(100f, 1f, 0f, false));
+    }
+
+    [Fact]
     public void LearningIsTheBenchRate() => Assert.Equal(25f, FieldResearchRule.Experience(250), 4);
 
     [Fact]

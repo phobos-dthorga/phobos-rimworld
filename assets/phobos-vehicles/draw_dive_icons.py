@@ -55,10 +55,21 @@ def laboratory(draw):
     draw.rounded_rectangle((407, 300, 437, 383), radius=14, fill=ORANGE)
 
 
+def advanced_laboratory(draw):
+    # An analyser: a grey cabinet with a dark screen showing a blue trace, and a sample tray of orange tubes.
+    draw.rounded_rectangle((70, 90, 442, 420), radius=24, fill=HULL, outline=OUTLINE, width=LINE)
+    draw.rectangle((112, 128, 400, 268), fill=(30, 36, 44, 255), outline=OUTLINE, width=LINE // 2)
+    draw.line([(130, 230), (180, 230), (210, 160), (250, 250), (290, 190), (330, 230), (384, 230)], fill=WATER, width=LINE)
+    draw.rectangle((112, 304, 400, 386), fill=GLASS, outline=OUTLINE, width=LINE // 2)
+    for x in (152, 210, 268, 326):
+        draw.rounded_rectangle((x - 16, 290, x + 16, 372), radius=14, fill=ORANGE, outline=OUTLINE, width=LINE // 2)
+
+
 ICONS = [
     ('BottomingWheels', bottoming_wheels, 'two rubber-tyred wheels on struts from a bar', CRAWLER),
     ('Scrubber', scrubber, 'three pale canisters with blue bands in a grey rack', CRAWLER),
     ('Laboratory', laboratory, 'a conical flask of blue water and an orange test tube on a grey bench', CRAWLER),
+    ('AdvancedLaboratory', advanced_laboratory, 'a grey analyser cabinet with a blue trace on a dark screen and a tray of orange sample tubes', CRAWLER),
 ]
 
 

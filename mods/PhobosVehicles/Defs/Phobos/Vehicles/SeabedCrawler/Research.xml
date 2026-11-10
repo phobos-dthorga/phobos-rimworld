@@ -82,4 +82,24 @@
       </li>
     </modExtensions>
   </ResearchProjectDef>
+
+  <!-- The first aboard-only project (owner, 10 Nov 2026: some projects can be done only aboard). Choosing it never stops the benches' project. -->
+  <ResearchProjectDef ParentName="PhobosResearchSubmarineBase">
+    <defName>PhobosResearch_AdvancedMarineScience</defName>
+    <label>advanced marine science</label>
+    <description>Samples from the deep, studied before they spoil: an analyser bench for a submersible's laboratory, so it can take on the work of a hi-tech research bench. Only scientists seated in a laboratory aboard can research this, on samples they gather themselves.</description>
+    <baseCost>2500</baseCost>
+    <researchViewX>3</researchViewX>
+    <researchViewY>3.5</researchViewY>
+    <prerequisites>
+      <li>PhobosResearch_MarineScience</li>
+      <li>MultiAnalyzer</li>
+    </prerequisites>
+    <modExtensions>
+      <li Class="Phobos.Framework.Research.ResearchReplacesExtension">
+        <replaces />
+      </li>
+      <li Class="Phobos.VehicleSystems.FieldResearchExtension" />
+    </modExtensions>
+  </ResearchProjectDef>
 </Defs>

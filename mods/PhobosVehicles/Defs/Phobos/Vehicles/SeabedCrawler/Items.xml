@@ -132,4 +132,50 @@
       <Steel>20</Steel>
     </smeltProducts>
   </ThingDef>
+
+  <ThingDef ParentName="ResourceBase">
+    <defName>PhobosVehicles_AnalyserBench</defName>
+    <label>analyser bench</label>
+    <description>A compact analyser, sample freezer and clean bench, built to stand in for a hi-tech research bench inside a submersible's laboratory.</description>
+    <graphicData>
+      <texPath>Phobos/Vehicles/SeabedCrawler/Upgrades/AdvancedLaboratory</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <soundInteract>Metal_Drop</soundInteract>
+    <soundDrop>Standard_Drop</soundDrop>
+    <stackLimit>5</stackLimit>
+    <statBases>
+      <MaxHitPoints>80</MaxHitPoints>
+      <MarketValue>620</MarketValue>
+      <Mass>25</Mass>
+      <Flammability>0.4</Flammability>
+      <WorkToMake>6000</WorkToMake>
+    </statBases>
+    <thingCategories>
+      <li>Manufactured</li>
+    </thingCategories>
+    <costList>
+      <Steel>40</Steel>
+      <Plasteel>10</Plasteel>
+      <ComponentIndustrial>6</ComponentIndustrial>
+    </costList>
+    <recipeMaker>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <effectWorking>Smith</effectWorking>
+      <soundWorking>Recipe_Machining</soundWorking>
+      <workSkill>Crafting</workSkill>
+      <unfinishedThingDef>UnfinishedComponent</unfinishedThingDef>
+      <researchPrerequisite>PhobosResearch_AdvancedMarineScience</researchPrerequisite>
+      <recipeUsers>
+        <li>PhobosVehicles_PartsBench</li>
+      </recipeUsers>
+      <skillRequirements>
+        <Crafting>8</Crafting>
+      </skillRequirements>
+    </recipeMaker>
+    <smeltProducts>
+      <Steel>20</Steel>
+      <Plasteel>5</Plasteel>
+    </smeltProducts>
+  </ThingDef>
 </Defs>

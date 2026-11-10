@@ -1,6 +1,6 @@
 # The Seabed Crawler: design (10 Nov 2026)
 
-**First slice built in D'thorga Vehicles 0.28.0 and D'thorga Framework 0.62.0: the research tab and three projects, the bare hull, and the bottoming wheels and air scrubber, each with its part. The wet laboratory followed in Vehicles 0.29.0 and Framework 0.65.0 (see [what was built](#the-wet-laboratory-as-built)). Everything else here is still design, and no picture exists. Not yet tested in game.** The owner chose this as the first real submarine on 10 November 2026, for its unique mechanics, and asked that it also be a research vessel, carry sonar and perhaps radar, and take tie-ins to other mods as soft dependencies. Agent-authored for the owner's review: every figure is **authored** unless it says otherwise. It builds on [the submersibles framework](submarine-framework.md), and the real boat behind it is in [the research record](military-vehicles-research.md).
+**First slice built in D'thorga Vehicles 0.28.0 and D'thorga Framework 0.62.0: the research tab and three projects, the bare hull, and the bottoming wheels and air scrubber, each with its part. The wet laboratory followed in Vehicles 0.29.0 and Framework 0.65.0 (see [what was built](#the-wet-laboratory-as-built)), then aboard-only research and the advanced laboratory in Vehicles 0.30.0 and Framework 0.66.0 (see [aboard-only research as built](#aboard-only-research-as-built)). Everything else here is still design, and no picture exists. Not yet tested in game.** The owner chose this as the first real submarine on 10 November 2026, for its unique mechanics, and asked that it also be a research vessel, carry sonar and perhaps radar, and take tie-ins to other mods as soft dependencies. Agent-authored for the owner's review: every figure is **authored** unless it says otherwise. It builds on [the submersibles framework](submarine-framework.md), and the real boat behind it is in [the research record](military-vehicles-research.md).
 
 ## Read this first
 
@@ -82,6 +82,18 @@ Built 10 Nov 2026 (Framework 0.65.0, Vehicles 0.29.0). Not yet tested in game.
 
 **The tab** (owner, 10 Nov 2026): our projects get their own, titled to match the main one for our vehicle mods. **That main tab is approved by the owner and being built by another session:** `PhobosDthorga`, labelled "D'thorga", in the Framework's always-loaded folder. Ours sits beside it as `PhobosDthorgaSubmarines`, labelled **"D'thorga: Submarines"** (owner, 10 Nov 2026). Project defNames take the prefix `PhobosResearch_`. **Every project keeps one prerequisite that always exists**: a project whose prerequisites all drop out through `MayRequire` opens at once, and `ResearchManager.FinishProject` finishes unfinished prerequisites too (`all.cs:379167`).
 
+### Aboard-only research as built
+
+Built 10 Nov 2026 (Framework 0.66.0, Vehicles 0.30.0). Not yet tested in game. Written fresh after reading Vanilla Gravship Expanded's approach; nothing copied.
+
+- **The marker** is `Phobos.VehicleSystems.FieldResearchExtension`, an empty `DefModExtension` on a project or a whole tab. **The slot** is `GameComponent_PhobosFieldResearch`, saved as `PhobosFieldResearchProject`, which empties itself once its project is finished. `FieldResearch` is the one service that starts, stops and advances it.
+- **Three patches** on `ResearchManager`: a prefix on `SetCurrentProject` that sends a marked project to the slot and skips the original only for it (whatever chooses a project ends there, and a bench must never be handed one); postfixes on `IsCurrentProject` (the window shows it in progress and offers Stop) and `StopProject` (empties the slot). No patch on the research window itself.
+- **Points:** `AddProgress` takes points, not research speed, so `FieldResearchRule.Points` repeats `ResearchPerformed`'s arithmetic (0.00825 points per speed-tick, the storyteller's research speed, the project's cost factor, the dev fast-research setting), and the scientist's research record is kept.
+- **The laboratory's choice:** the aboard-only project when this laboratory can take it on; otherwise the colony's project, so a laboratory too basic for it helps at home.
+- **Checked against the owner's list** (`query-patches.py`, 10 Nov 2026): Vanilla Gravship Expanded Chapter 1 patches the same three methods with prefixes that act only on its own marked projects; Research Commission and Nice Research Tab add postfixes. **Nice Research Tab** (decompiled into `.local/decompiled/NiceResearchTab-1.7` for this) touches `SetCurrentProject`'s result only for zero-cost projects, so ours pass through it; but its queue assigns its head with `SetCurrentProject` and waits while `IsCurrentProject` is true, so **an aboard-only project at the head of its main queue holds that queue** until it is finished. Recorded as a limit; the README tells players to choose such projects directly.
+- **The first project** is `PhobosResearch_AdvancedMarineScience` (2,500, at (3, 3.5), after marine science and the game's multi-analyzer). It opens the `DeepLab` node (after `WetLab`; +0.25 factor to the hi-tech bench's 1.0, +1 grade; one analyser bench, Crafting 8).
+- **Limits:** a colony with no research bench at all cannot choose any project, since the window's `CanStartNow` asks for one; one aboard-only project at a time for the whole colony.
+
 ## Sonar and radar
 
 - **Both feed the framework's detection.** `CompPhobosSubmersible.Spot()` is the one way a hull becomes spotted, and it is public so that sonar can call it (Framework 0.59.0).
@@ -135,12 +147,13 @@ Short list, highest consequence first. On a map with deep water and dev mode on.
 3. Dive, stop, and press **Settle on bottom**. The inspect line should say it is resting, an order to move should be refused, and **Lift off** should free it.
 4. Place a blueprint in shallow water and check it can be built there.
 5. **Wet laboratory:** with marine science researched and two laboratory fittings on hand, fit it, then board a colonist with Intellectual 7 or more into a scientist's seat during a work shift, with a project chosen that needs no particular bench. The inspect panel should say they are at work and the project's progress should rise; it should rise more slowly while the boat moves. Try someone with Intellectual 6, and a project that needs the hi-tech bench, to see the refusal lines.
+6. **Aboard-only research:** with a colony project running at a bench, choose **advanced marine science**. Both should show as in progress; the bench project should keep rising at the bench, and advanced marine science only while a scientist sits in the Crawler's laboratory. Stop it from the research window. Save and load with it chosen, to check the choice is kept.
 
 ## Proposed order of building
 
 1. The enforcing check for upgrade research and the main D'thorga tab, in step with the session planning them; then the research projects, the craft recipes and the bare hull.
 2. Bottoming wheels and the scrubber, which use what the framework already has.
-3. The research vessel comp and the wet laboratory.
+3. The research vessel comp and the wet laboratory; then aboard-only research and the advanced laboratory (both built).
 4. Listening array, then the sonar set.
 5. Radar mast, then the salvage and the drill, once the ore question is answered.
 6. Reactor and the tie-ins.

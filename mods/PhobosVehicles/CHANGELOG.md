@@ -5,6 +5,23 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.30.0] - 2026-11-10 - Draft
+
+Research only a laboratory at sea can do, and the advanced laboratory it leads to (owner, 10 November 2026). **Not yet tested in game.**
+
+### Added
+
+- Advanced marine science, the first research that can only be done aboard: scientists seated in the Seabed Crawler's wet laboratory work on it, while the benches at home carry on with the colony's project. It needs marine science and the multi-analyzer. Not yet tested in game.
+- The advanced laboratory, an upgrade after the wet laboratory, made from one analyser bench (a new part from the vehicle parts bench, Crafting 8). It takes on any project a hi-tech research bench can, and its scientists work at a hi-tech bench's speed. Not yet tested in game.
+
+### Balance
+
+- The advanced laboratory's speed matches the game's hi-tech research bench (1.0, without a multi-analyzer's bonus). The research cost (2,500) and the part's cost are authored and untuned.
+
+### Save compatibility
+
+- Safe on an existing save: a new project, a new part and a new upgrade.
+
 ## [0.29.0] - 2026-11-10 - Draft
 
 The Seabed Crawler becomes a research vessel (owner, 10 November 2026). **Not yet tested in game.**

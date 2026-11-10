@@ -47,6 +47,21 @@ public class CompPhobosFieldLab : VehicleComp
 
     VehicleRoleHandler? Seats => Vehicle.GetHandler(Props.roleKey);
 
+    /// <summary>
+    /// What this laboratory works on: the aboard-only project when it can take it on, since nothing else can; otherwise the colony's current project. A laboratory too basic
+    /// for the aboard-only project helps at home instead of sitting idle.
+    /// </summary>
+    ResearchProjectDef? CurrentProject
+    {
+        get
+        {
+            ResearchProjectDef? aboardOnly = FieldResearch.Current;
+            ResearchProjectDef? colony = Find.ResearchManager.GetProject();
+            if (aboardOnly == null) return colony;
+            return colony == null || Refusal(aboardOnly) == null ? aboardOnly : colony;
+        }
+    }
+
     /// <summary>Brings the research up to date. Safe to call from more than one place: it counts only the time since it last ran.</summary>
     public void Advance()
     {
@@ -66,7 +81,8 @@ public class CompPhobosFieldLab : VehicleComp
     {
         List<Pawn> seated = seats.thingOwner.InnerListForReading.ToList();
         if (seated.Count == 0) return "PhobosFieldLab_NobodySeated".Translate().Resolve();
-        ResearchProjectDef? project = Find.ResearchManager.GetProject();
+        // An aboard-only project comes first: nothing else can work on it. Otherwise the laboratory helps with the colony's current project.
+        ResearchProjectDef? project = CurrentProject;
         if (project == null) return "PhobosFieldLab_NoProject".Translate().Resolve();
         if (Refusal(project) is { } refused) return refused;
 
@@ -85,9 +101,10 @@ public class CompPhobosFieldLab : VehicleComp
             working++;
             if (ticks <= 0) continue;
             // A finished project leaves none current until the player picks the next; the game logs an error for research done with none.
-            if (Find.ResearchManager.GetProject() != project) break;
+            if (CurrentProject != project) break;
             float rate = FieldResearchRule.Rate(pawn.GetStatValue(StatDefOf.ResearchSpeed), labFactor, underWay, Props.underWayFactor);
-            Find.ResearchManager.ResearchPerformed(rate * ticks, pawn);
+            if (FieldResearch.IsFieldOnly(project)) FieldResearch.Perform(project, rate * ticks, pawn);
+            else Find.ResearchManager.ResearchPerformed(rate * ticks, pawn);
             pawn.skills.Learn(SkillDefOf.Intellectual, FieldResearchRule.Experience(ticks));
         }
         if (working == 0) return firstReason ?? "PhobosFieldLab_NobodySeated".Translate().Resolve();

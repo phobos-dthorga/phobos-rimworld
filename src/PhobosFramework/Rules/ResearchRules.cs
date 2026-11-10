@@ -84,6 +84,21 @@ public static class FieldResearchRule
         return researchSpeed * labFactor * (underWay ? Math.Clamp(underWayFactor, 0f, 1f) : 1f);
     }
 
+    /// <summary>The research points one unit of research speed for one tick gives (ResearchManager.ResearchPerformed).</summary>
+    public const float PointsPerSpeedTick = 0.00825f;
+    /// <summary>How many times faster the game's dev setting for fast research makes it (ResearchManager.ResearchPerformed).</summary>
+    public const float FastResearchFactor = 500f;
+
+    /// <summary>
+    /// The points that research speed over ticks adds to a project, worked out as the game's own ResearchPerformed does: the game's figure, the storyteller's research speed,
+    /// the project's cost factor for the researcher's tech level, and the dev setting. Needed where research reaches a project other than the colony's current one.
+    /// </summary>
+    public static float Points(float speedTicks, float difficultyFactor, float costFactor, bool fastResearch)
+    {
+        if (speedTicks <= 0f || costFactor <= 0f) return 0f;
+        return speedTicks * PointsPerSpeedTick * difficultyFactor / costFactor * (fastResearch ? FastResearchFactor : 1f);
+    }
+
     /// <summary>The Intellectual experience over this many ticks of research. Learning keeps its full rate under way: the crew is busy, but still learning.</summary>
     public static float Experience(int ticks) => ticks <= 0 ? 0f : ExperiencePerTick * ticks;
 

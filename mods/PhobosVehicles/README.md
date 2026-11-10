@@ -4,7 +4,7 @@ Vehicles that keep running only while they are looked after. It adds one vehicle
 vehicles of other mods you already drive the systems that match what they really are, on top of the general systems D'thorga
 Framework gives every vehicle.
 
-Version 0.29.0, built 10 November 2026 for House D'thorga. **Not yet tested in game.**
+Version 0.30.0, built 10 November 2026 for House D'thorga. **Not yet tested in game.**
 
 ## Read this first (gotchas)
 
@@ -151,7 +151,11 @@ Every source and simplification is in the loadout files under `Mods/`.
 - **Air scrubber** gives six more hours under, and a crew told to stay down past empty suffers more slowly.
 - **Wet laboratory** adds two scientist's seats. **Put colonists with an Intellectual skill of 7 or more in them** and they carry on the colony's current research project, at three quarters of a simple research bench's speed while the boat is still and half that while it moves. They need to be awake and on a work shift. It takes any project that needs no particular bench. The boat's inspect panel says who is at work, or why nobody is.
 
-More upgrades are designed, including an advanced laboratory, research done only at sea, sonar and radar, and are not built yet.
+- **Advanced laboratory** comes after the wet laboratory and is made from one analyser bench. It takes on anything a hi-tech research bench can, at a hi-tech bench's speed.
+
+**Research done only at sea.** Its research, **advanced marine science**, can only be done by scientists seated in a laboratory aboard. **Choose it in the research tab as usual: the benches at home keep working on the colony's own project**, and both show as in progress. If you use Nice Research Tab, choose it directly instead of queueing it ahead of other projects, or the queue waits for it.
+
+More upgrades are designed, including sonar and radar, and are not built yet.
 
 ## The submarine test hull
 

@@ -14,4 +14,5 @@
   <PhobosFieldLab_Unfit>Laboratory idle: {PAWN} is in no state to work.</PhobosFieldLab_Unfit>
   <PhobosFieldLab_OffShift>Laboratory idle: {PAWN} is not on a work shift.</PhobosFieldLab_OffShift>
   <PhobosFieldLab_CaravanLine>{VEHICLE}: {STATE}</PhobosFieldLab_CaravanLine>
+  <PhobosFieldResearch_Started>{PROJECT} can only be researched aboard. Scientists seated in a laboratory aboard will work on it, and research at the benches carries on as before.</PhobosFieldResearch_Started>
 </LanguageData>

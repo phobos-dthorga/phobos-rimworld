@@ -5,6 +5,24 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.66.0] - 2026-11-10 - Draft
+
+Research that can only be done aboard (owner, 10 November 2026). **Not yet tested in game.**
+
+### Added
+
+- Research projects can be marked as aboard-only. Choosing one in the research window gives it a slot of its own: the benches carry on with the colony's project, and scientists seated in a laboratory aboard a vehicle work on the aboard-only one. The research window shows both in progress, and either can be stopped there. A laboratory too basic for the aboard-only project helps with the colony's project instead. Research done this way counts exactly as the game counts research at a bench: the storyteller's research speed, the project's cost for the colony's tech level, and each scientist's record. Not yet tested in game.
+
+### Save compatibility
+
+- Safe to add mid-game. The save gains the chosen aboard-only project, if any. If the framework is removed, that choice is forgotten; progress already made stays with the project.
+
+### Compatibility and limits
+
+- Vanilla Gravship Expanded patches the same three research methods for its own gravship projects; each acts only on projects it has marked, so they should leave each other alone. Not yet tested together.
+- With Nice Research Tab, an aboard-only project at the head of its queue holds that queue until it is finished, because the queue waits on whatever counts as current. Choose aboard-only projects directly rather than queueing them ahead of others. Read from its code, not yet tested in game.
+- A colony with no research bench at all cannot choose any project in the research window, aboard-only ones included.
+
 ## [0.65.0] - 2026-11-10 - Draft
 
 Laboratories carried by vehicles, for the Seabed Crawler's research vessel (owner, 10 November 2026). **Not yet tested in game.**

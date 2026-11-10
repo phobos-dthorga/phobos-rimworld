@@ -5,7 +5,7 @@ colonist is breathing, makes fires fill roofed rooms with the game's own smoke w
 carries carbon monoxide from fires, holds the per-person care choices the D'thorga medical mods offer, and holds the small
 helpers every D'thorga mod shares.
 
-Version 0.65.0, built 10 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
+Version 0.66.0, built 10 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
 oxygen working through Burns and Smoke and Medical Equipment (5 November 2026). The health layer new in 0.3.0 and the **vehicle
 systems new in 0.9.0, and their engines, drivetrains and gas turbines new in 0.11.0, are not yet tested in game.** The rest is read from the game's and the mods' code.
 
@@ -249,6 +249,7 @@ The new button on a vehicle's **Dashboard** opens **Fittings and tunes**, for an
 - **Moving halves the research**, but not the learning. It goes on in a caravan on the world map as well as on a map.
 - **A basic laboratory takes any project that needs no particular bench.** The vehicle's inspect panel says who is at work, or why nobody is.
 - The Seabed Crawler's wet laboratory upgrade is the first to use it.
+- **Research done only aboard** (new in 0.66.0): some projects can only be worked on in a laboratory aboard. Choosing one leaves the benches on the colony's own project; both show as in progress, and either can be stopped. With Nice Research Tab, choose such a project directly rather than queueing it ahead of others, or the queue waits for it.
 
 ### Checking it yourself (dev mode)
 
