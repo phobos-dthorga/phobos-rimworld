@@ -51,6 +51,11 @@ CLIPPED_TRUE_PEAK_DBTP = 0.0  # So does a true peak above full scale: the peak b
 TRIM_THRESHOLD_DB = -60     # Silence at either end, quieter than this, is trimmed from the review copy.
 FADE_IN_S, FADE_OUT_S = 0.005, 0.02
 LOOP_CROSSFADE_S = 0.25     # Ostranauts' washer and pump loops used 250 ms and were accepted (6 Oct 2026).
+MOMENTARY_WINDOW_S = 0.4   # EBU R128's momentary loudness window; ffmpeg reports one reading every 100 ms.
+STEADY_BELOW_DB = 8.0      # A loop keeps only the span within this of its overall loudness, cutting a late start and early fade.
+DIP_BELOW_DB = 10.0        # Played twice, a loop that falls this far under its overall loudness...
+GAP_MIN_S = 0.3            # ...for this long has a gap or dip. The pilot's first loop (10 Nov 2026) faded out 1.5 s early
+                           # while a low rumble went on, which a silence test missed and the momentary loudness catches.
 SEAM_WINDOW_S = 0.05
 SEAM_JUMP_DB = 3.0          # Flag a loop whose level differs by more than this either side of its seam.
 SPECTROGRAM_SIZE = '960x320'
@@ -63,6 +68,8 @@ FLAG_WORDS = {
              'Listen to the lowered copy and look at the top of the picture.',
     'spiky': 'Sharp attack: its peaks stand {spike} dB above its loudness, which can startle.',
     'seam': 'Loop seam: the level changes by {jump} dB where it repeats.',
+    'gap': 'Gap or dip: each time round, the loop falls more than {below} dB below its usual loudness for {gap} s, '
+           'so it will not repeat smoothly.',
 }
 
 STYLE = BASE_STYLE + """
@@ -140,6 +147,9 @@ def flags_for(measure):
     loudness = measure.get('lufs')
     if loudness is not None and true_peak is not None and math.isfinite(loudness) and true_peak - loudness > SPIKY_DB:
         found.append(('spiky', FLAG_WORDS['spiky'].format(spike=f'{true_peak - loudness:.0f}')))
+    gap = measure.get('loop_gap_s')
+    if gap is not None and gap >= GAP_MIN_S:
+        found.append(('gap', FLAG_WORDS['gap'].format(gap=f'{gap:.1f}', below=f'{DIP_BELOW_DB:g}')))
     jump = measure.get('seam_jump_db')
     if jump is not None and jump > SEAM_JUMP_DB:
         found.append(('seam', FLAG_WORDS['seam'].format(jump=f'{jump:.1f}')))
@@ -174,11 +184,52 @@ def lowered_graph(octaves=LOWERED_OCTAVES):
             '[lo][down]amix=inputs=2:normalize=0[out]')
 
 
-def loop_graph(gain, crossfade=LOOP_CROSSFADE_S):
+def loop_graph(gain, crossfade=LOOP_CROSSFADE_S, span=None):
     """A circular crossfade: the sound from crossfade onwards, with its last crossfade seconds faded into its first. The end
-    then runs straight into the start, so it repeats without a gap. Equal-power curves, because the two ends are unrelated."""
-    return (f'[0:a]volume={gain or 0}dB,asplit=2[a][b];[a]atrim=start={crossfade},asetpts=N/SR/TB[body];'
+    then runs straight into the start, so it repeats without a gap. Equal-power curves, because the two ends are unrelated.
+    With span (start, end in seconds), only that steady part is used, since a model often fades in late and out early."""
+    trim = f'atrim=start={span[0]:.2f}:end={span[1]:.2f},asetpts=N/SR/TB,' if span else ''
+    return (f'[0:a]{trim}volume={gain or 0}dB,asplit=2[a][b];[a]atrim=start={crossfade},asetpts=N/SR/TB[body];'
             f'[b]atrim=end={crossfade},asetpts=N/SR/TB[head];[body][head]acrossfade=d={crossfade}:c1=qsin:c2=qsin[out]')
+
+
+def parse_momentary(text):
+    """(time, momentary loudness in LUFS) for every 100 ms frame ebur128 reports. Each covers the 400 ms ending at that time."""
+    return [(float(t), _number(m)) for t, m in re.findall(r't:\s*([\d.]+)\s+TARGET:.*?M:\s*(-?inf|-?[\d.]+)', text)]
+
+
+def steady_span(frames, integrated, below=STEADY_BELOW_DB, window=MOMENTARY_WINDOW_S):
+    """Where a sound is steady: from the first to the last frame within `below` dB of its integrated loudness, each moved back
+    half a window, since a frame's reading covers the window before it. None if it never gets there or the span is too short."""
+    if integrated is None or not math.isfinite(integrated):
+        return None
+    loud = [t for t, m in frames if math.isfinite(m) and m >= integrated - below]
+    if not loud:
+        return None
+    start, end = max(0.0, loud[0] - window / 2), loud[-1] - window / 2
+    return (round(start, 2), round(end, 2)) if end - start > 2 * LOOP_CROSSFADE_S else None
+
+
+def longest_dip(frames, integrated, below=DIP_BELOW_DB, skip=MOMENTARY_WINDOW_S, step=0.1):
+    """The longest run of frames more than `below` dB under the integrated loudness, in seconds, after the first `skip`
+    seconds (whose window is not yet full). Measured on a loop played twice, it catches a gap at the seam as well as inside."""
+    if integrated is None or not math.isfinite(integrated):
+        return None
+    longest = run = 0
+    for t, m in frames:
+        if t < skip + step / 2:  # ffmpeg stamps frames a hair early (0.39998 for 0.4), so allow half a step.
+            continue
+        run = run + 1 if not math.isfinite(m) or m < integrated - below else 0
+        longest = max(longest, run)
+    return round(longest * step, 2)
+
+
+def loudness_frames(exe, inputs):
+    """Momentary loudness frames and the integrated loudness of one file, or of several played one after another."""
+    args = [arg for path in inputs for arg in ('-i', str(path))]
+    chain = (''.join(f'[{i}:a]' for i in range(len(inputs))) + f'concat=n={len(inputs)}:v=0:a=1,ebur128') if len(inputs) > 1 else 'ebur128'
+    text = run_ffmpeg(exe, [*args, '-filter_complex' if len(inputs) > 1 else '-af', chain, '-f', 'null', '-'])
+    return parse_momentary(text), parse_ebur128(text)[0]
 
 
 def spectrogram_filter():
@@ -237,10 +288,15 @@ def prepare(exe, master, record, force=False, octaves=LOWERED_OCTAVES):
     run_ffmpeg(exe, ['-i', str(paths['review']), '-filter_complex', lowered_graph(octaves), '-map', '[out]', *encode, str(paths['lowered'])])
     run_ffmpeg(exe, ['-i', str(master), '-lavfi', spectrogram_filter(), '-update', '1', str(paths['spectrogram'])])
     if loop:
-        run_ffmpeg(exe, ['-i', str(master), '-filter_complex', loop_graph(gain), '-map', '[out]', *encode, str(paths['loop'])])
+        frames, integrated = loudness_frames(exe, [master])
+        span = steady_span(frames, integrated)
+        measure['loop_span_s'] = list(span) if span else None
+        run_ffmpeg(exe, ['-i', str(master), '-filter_complex', loop_graph(gain, span=span), '-map', '[out]', *encode, str(paths['loop'])])
         run_ffmpeg(exe, ['-i', str(paths['loop']), '-i', str(paths['loop']), '-filter_complex',
                          f'[0:a][1:a]concat=n=2:v=0:a=1,{spectrogram_filter()}', '-update', '1', str(paths['seam'])])
         measure['seam_jump_db'] = seam_jump(exe, paths['loop'])
+        twice, twice_integrated = loudness_frames(exe, [paths['loop'], paths['loop']])
+        measure['loop_gap_s'] = longest_dip(twice, twice_integrated)
     measure['review_gain_db'] = gain
     measure['lowered_octaves'] = octaves
     measure['flags'] = [{'code': code, 'words': words} for code, words in flags_for(measure)]
@@ -284,7 +340,8 @@ def card(generated, master, record, measure, error=None):
                      f'Length {_fmt(measure.get("seconds"), "s", 2)} · loudness {_fmt(measure.get("lufs"), "LUFS")} · '
                      f'true peak {_fmt(measure.get("true_peak"), "dBTP")} · highs above {HIGH_HZ // 1000} kHz '
                      f'{_fmt(high_gap, "dB below the whole", 0)}'
-                     + (f' · seam {_fmt(measure.get("seam_jump_db"), "dB")}' if 'seam_jump_db' in measure else '') + '</div>')
+                     + (f' · seam {_fmt(measure.get("seam_jump_db"), "dB")}' if 'seam_jump_db' in measure else '')
+                     + (f' · longest dip in the loop {_fmt(measure.get("loop_gap_s"), "s", 1)}' if 'loop_gap_s' in measure else '') + '</div>')
     parts.append(f'<details><summary>prompt</summary><div class="rec">{html.escape(record.get("prompt", ""))}</div></details></div>')
     return ''.join(parts)
 

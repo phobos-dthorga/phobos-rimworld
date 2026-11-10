@@ -154,10 +154,111 @@ class ReviewFilterTests(unittest.TestCase):
         self.assertIn('rubberband=pitch=0.25', sound_review.lowered_graph(2))
         self.assertIn('[lo][down]amix', graph)
 
-    def test_a_loop_trims_nothing_and_crossfades_its_ends(self):
+    def test_a_loop_keeps_its_steady_span_and_crossfades_its_ends(self):
         self.assertNotIn('silenceremove', sound_review.review_filter(2.0, trim=False))
         self.assertIn('silenceremove', sound_review.review_filter(2.0))
         self.assertIn(f'acrossfade=d={sound_review.LOOP_CROSSFADE_S}', sound_review.loop_graph(1.5))
+        self.assertNotIn('atrim=start=0.50:end', sound_review.loop_graph(1.5))
+        self.assertIn('atrim=start=0.50:end=6.30', sound_review.loop_graph(1.5, span=(0.5, 6.3)))
+
+
+def frames(levels, step=0.1):
+    """Momentary loudness frames at 100 ms, from a list of levels."""
+    return [(round((i + 1) * step, 2), level) for i, level in enumerate(levels)]
+
+
+class LoopLoudnessTests(unittest.TestCase):
+    """The pilot's first loop (10 Nov 2026) faded out early under a steady rumble: a silence test missed it."""
+
+    def test_momentary_readings_are_read_from_ffmpeg(self):
+        text = ('[Parsed_ebur128_0 @ 1] t: 0.0999773  TARGET:-23 LUFS    M:-120.7 S:-120.7     I: -70.0 LUFS\n'
+                '[Parsed_ebur128_0 @ 1] t: 0.899977   TARGET:-23 LUFS    M: -12.7 S:-120.7     I: -15.5 LUFS\n')
+        self.assertEqual(sound_review.parse_momentary(text), [(0.0999773, -120.7), (0.899977, -12.7)])
+
+    def test_the_steady_span_leaves_out_a_late_start_and_an_early_fade(self):
+        levels = [-60] * 5 + [-10] * 50 + [-30] * 15  # Quiet for 0.5 s, steady for 5 s, faded for 1.5 s.
+        start, end = sound_review.steady_span(frames(levels), -11.0)
+        self.assertAlmostEqual(start, 0.4, places=2)
+        self.assertAlmostEqual(end, 5.3, places=2)
+        self.assertIsNone(sound_review.steady_span(frames([-60] * 10), -11.0))
+        self.assertIsNone(sound_review.steady_span(frames([-10] * 3), -11.0))
+
+    def test_a_dip_inside_or_at_the_seam_is_measured(self):
+        steady = [-10] * 40
+        self.assertEqual(sound_review.longest_dip(frames(steady), -10.0), 0.0)
+        self.assertEqual(sound_review.longest_dip(frames(steady[:20] + [-25] * 6 + steady[:20]), -10.0), 0.6)
+        self.assertEqual(sound_review.longest_dip(frames([-120] * 4 + steady), -10.0), 0.0)  # The first window is skipped.
+
+    def test_a_long_dip_earns_the_gap_flag(self):
+        self.assertIn(('gap'), [code for code, _ in sound_review.flags_for(calm(loop_gap_s=0.6))])
+        self.assertNotIn('gap', [code for code, _ in sound_review.flags_for(calm(loop_gap_s=0.1))])
+
+
+import datetime as _dt  # noqa: E402
+import contextlib  # noqa: E402
+import io  # noqa: E402
+import safeguards  # noqa: E402
+
+art_run = load('scripts/art-run.py', 'art_run_for_sound')
+
+
+class ProcessorRunTests(unittest.TestCase):
+    """art-run.py --cpu: small models on the processor beside the game (owner's request, 10 Nov 2026)."""
+
+    def test_processor_lists_read_and_print_as_ranges(self):
+        self.assertEqual(safeguards.parse_cpu_list('16-31'), 0xFFFF0000)
+        self.assertEqual(safeguards.parse_cpu_list('0, 2-3'), 0b1101)
+        self.assertEqual(safeguards.describe_mask(0xFFFF0000), '16-31')
+        self.assertEqual(safeguards.describe_mask(0b1101), '0,2-3')
+        with self.assertRaises(ValueError):
+            safeguards.parse_cpu_list('')
+
+    def test_an_x3d_keeps_the_run_off_the_v_cache(self):
+        groups = [(96 << 20, 0xFFFF), (32 << 20, 0xFFFF0000)]  # A Ryzen 9 7950X3D, as Windows reported it on 10 Nov 2026.
+        self.assertEqual(safeguards.pick_cpu_mask(groups, 32), 0xFFFF0000)
+
+    def test_equal_caches_take_the_upper_half(self):
+        self.assertEqual(safeguards.pick_cpu_mask([(32 << 20, 0xFFFF), (32 << 20, 0xFFFF0000)], 32), 0xFFFF0000)
+        self.assertEqual(safeguards.pick_cpu_mask([], 8), 0xF0)
+        self.assertEqual(safeguards.pick_cpu_mask([], 1), 1)
+
+    def test_one_thread_per_core(self):
+        self.assertEqual(art_run.cpu_plan('16-31'), (0xFFFF0000, 8))
+        self.assertEqual(art_run.cpu_plan('5'), (0b100000, 1))
+
+    def test_the_memory_floor_stops_a_processor_run_but_not_the_game(self):
+        now = _dt.datetime(2026, 11, 10, 20, 0)
+        later = now + _dt.timedelta(hours=1)
+        game = {'rimworld.exe'}
+        self.assertIsNone(safeguards.stop_reason(now, later, game, {'C:\\': 100}, names=(), free_ram_gb=10.0))
+        self.assertIn('memory', safeguards.stop_reason(now, later, game, {'C:\\': 100}, names=(), free_ram_gb=4.0))
+        self.assertIn('rimworld', safeguards.stop_reason(now, later, game, {'C:\\': 100}))
+
+    def test_a_night_step_may_run_on_the_processor_only_when_it_generates(self):
+        self.assertEqual(art_run.night_problems([{'generate': 'a.json', 'cpu': True}]), [])
+        self.assertTrue(art_run.night_problems([{'train': 'c.yaml', 'cpu': True}]))
+        args = art_run.argparse.Namespace(comfy='C:/AI', min_free_gb=5.0, dry_run=True, also_stop_on=[], cpu=False,
+                                          cpu_cores=None, min_free_ram_gb=6.0)
+        command = art_run.step_command({'generate': 'a.json', 'cpu': True}, _dt.datetime(2026, 11, 10, 23, 0), args)
+        self.assertIn('--cpu', command)
+        self.assertNotIn('--cpu', art_run.step_command({'generate': 'a.json'}, _dt.datetime(2026, 11, 10, 23, 0), args))
+
+    def test_a_dry_run_says_where_it_would_run(self):
+        out = io.StringIO()
+        with contextlib.redirect_stdout(out):
+            code = art_run.main(['generate', os.path.join(ROOT, 'assets', 'phobos-sounds', 'requests', 'pilot.json'), '--dry-run',
+                                 '--cpu', '--cpu-cores', '16-31'])
+        art.use_port(8188)
+        art_run.art.use_port(8188)
+        self.assertEqual(code, 0)
+        self.assertIn('the processor only: logical processors 16-31, below-normal priority, 8 threads', out.getvalue())
+
+    @unittest.skipUnless(os.name == 'nt', 'Windows only')
+    def test_windows_reports_caches_and_memory(self):
+        groups = art_run.read_l3_groups()
+        self.assertTrue(groups)
+        self.assertTrue(all(size > 0 and mask > 0 for size, mask in groups))
+        self.assertGreater(art_run.free_ram_gb(), 0)
 
 
 @unittest.skipUnless(sound_review.find_ffmpeg(), 'ffmpeg is not installed')

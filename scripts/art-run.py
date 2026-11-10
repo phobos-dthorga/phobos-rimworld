@@ -7,6 +7,11 @@ frees the graphics memory, stops any server it started, and writes a report. Kee
 dies or hangs it starts a fresh one and tries that image again. Candidates are checked against their references for near-copies.
 Sound requests (a Stable Audio 3 engine) run the same way, and scripts/art/sound_review.py then writes their listening page.
 
+--cpu runs local engines on the processor instead (owner's request, 10 Nov 2026, so small models can run while the game is
+played): its own ComfyUI on port 8189 with no graphics card visible, at below-normal priority, held to the processors away
+from the game (on a Ryzen X3D, those without the 3D V-cache; --cpu-cores to choose) and one thread per core there. It does not
+stop for the game, but it does stop before free memory falls under --min-free-ram-gb. Slow: meant for small sound models.
+
     python scripts/art-run.py generate assets/phobos-medical/requests/first-batch.json --stop-at 07:00
     python scripts/art-run.py generate assets/phobos-medical/requests/first-batch.json --dry-run
     python scripts/art-run.py train C:/AI/lora-experiments/vanilla/config.yaml --stop-at 07:00
@@ -24,6 +29,7 @@ import ctypes
 import datetime as _dt
 import importlib.util
 import json
+import os
 from pathlib import Path
 import shutil
 import subprocess
@@ -67,16 +73,92 @@ def free_gb(paths):
     return {drive: shutil.disk_usage(drive).free / 1e9 for drive in drives}
 
 
-def make_checker(stop_at, min_free_gb, watch_paths, game_names):
-    """The should_stop callback. It reads the process list and the disks at most once per POLL_SECONDS."""
+def make_checker(stop_at, min_free_gb, watch_paths, game_names, min_free_ram_gb=None):
+    """The should_stop callback. It reads the process list and the disks (and, for a processor run, free memory) at most once
+    per POLL_SECONDS."""
     state = {'next': 0.0, 'reason': None}
 
     def should_stop():
         if time.monotonic() >= state['next'] and not state['reason']:
             state['next'] = time.monotonic() + POLL_SECONDS
-            state['reason'] = safeguards.stop_reason(_dt.datetime.now(), stop_at, read_processes(), free_gb(watch_paths), min_free_gb, game_names)
+            ram = {} if min_free_ram_gb is None else {'free_ram_gb': free_ram_gb(), 'min_free_ram_gb': min_free_ram_gb}
+            state['reason'] = safeguards.stop_reason(_dt.datetime.now(), stop_at, read_processes(), free_gb(watch_paths), min_free_gb,
+                                                     game_names, **ram)
         return state['reason']
     return should_stop
+
+
+CPU_PORT = 8189
+BELOW_NORMAL_PRIORITY_CLASS = 0x00004000
+PROCESS_SET_INFORMATION, PROCESS_QUERY_LIMITED_INFORMATION = 0x0200, 0x1000
+
+
+class _MemoryStatus(ctypes.Structure):
+    _fields_ = [('dwLength', ctypes.c_ulong), ('dwMemoryLoad', ctypes.c_ulong), ('ullTotalPhys', ctypes.c_ulonglong),
+                ('ullAvailPhys', ctypes.c_ulonglong), ('ullTotalPageFile', ctypes.c_ulonglong), ('ullAvailPageFile', ctypes.c_ulonglong),
+                ('ullTotalVirtual', ctypes.c_ulonglong), ('ullAvailVirtual', ctypes.c_ulonglong), ('ullAvailExtendedVirtual', ctypes.c_ulonglong)]
+
+
+def free_ram_gb():
+    """Free physical memory in GB, from Windows; None where it cannot be read, which the floor then ignores."""
+    if not hasattr(ctypes, 'windll'):
+        return None
+    status = _MemoryStatus()
+    status.dwLength = ctypes.sizeof(status)
+    return status.ullAvailPhys / 1e9 if ctypes.windll.kernel32.GlobalMemoryStatusEx(ctypes.byref(status)) else None
+
+
+def read_l3_groups():
+    """(size in bytes, affinity mask) for each L3 cache, from Windows' processor information; [] where it cannot be read.
+    The layout is CACHE_RELATIONSHIP after the 8-byte entry header: level at byte 0, size at 4, type at 8, 18 reserved
+    bytes, the group count at 30 and the first group's mask at 32."""
+    if not hasattr(ctypes, 'windll'):
+        return []
+    kernel32, relation_cache = ctypes.windll.kernel32, 2
+    size = ctypes.c_ulong(0)
+    kernel32.GetLogicalProcessorInformationEx(relation_cache, None, ctypes.byref(size))
+    buffer = ctypes.create_string_buffer(size.value)
+    if not size.value or not kernel32.GetLogicalProcessorInformationEx(relation_cache, buffer, ctypes.byref(size)):
+        return []
+    raw, offset, groups = buffer.raw, 0, []
+    while offset + 8 <= size.value:
+        entry_size = int.from_bytes(raw[offset + 4:offset + 8], 'little')
+        body = offset + 8
+        if entry_size <= 0:
+            break
+        if raw[body] == 3:
+            groups.append((int.from_bytes(raw[body + 4:body + 8], 'little'), int.from_bytes(raw[body + 32:body + 40], 'little')))
+        offset += entry_size
+    return groups
+
+
+def set_affinity(process, mask):
+    """Hold a started process to the processors in mask. Every thread it has or makes keeps within the mask."""
+    if not hasattr(ctypes, 'windll'):
+        return
+    kernel32 = ctypes.windll.kernel32
+    handle = kernel32.OpenProcess(PROCESS_SET_INFORMATION | PROCESS_QUERY_LIMITED_INFORMATION, False, process.pid)
+    if not handle:
+        raise OSError(f'could not open process {process.pid} to set its processors')
+    try:
+        if not kernel32.SetProcessAffinityMask(handle, ctypes.c_size_t(mask)):
+            raise OSError(f'Windows refused processors {safeguards.describe_mask(mask)} for process {process.pid}')
+    finally:
+        kernel32.CloseHandle(handle)
+
+
+def cpu_plan(spec=None):
+    """The processors (mask) and thread count of a processor run: --cpu-cores if given, else safeguards.pick_cpu_mask.
+    One thread per physical core, taking each core's two logical processors as a pair."""
+    mask = safeguards.parse_cpu_list(spec) if spec else safeguards.pick_cpu_mask(read_l3_groups(), os.cpu_count() or 1)
+    return mask, max(1, bin(mask).count('1') // 2)
+
+
+def cpu_launcher(comfy, mask, threads):
+    """A function that starts a processor-only ComfyUI: no graphics card visible, below-normal priority, held to mask."""
+    env = {**os.environ, 'CUDA_VISIBLE_DEVICES': '', 'OMP_NUM_THREADS': str(threads), 'MKL_NUM_THREADS': str(threads)}
+    flags = BELOW_NORMAL_PRIORITY_CLASS if os.name == 'nt' else 0
+    return lambda: art.start_server(comfy, ['--cpu'], env=env, creationflags=flags, on_start=lambda process: set_affinity(process, mask))
 
 
 OWN_ART = ('mods', 'assets', '.local/art')
@@ -196,6 +278,8 @@ def write_report(folder, kind, source, started, stop_at, result, notes, problems
              f'- **Kind:** {kind}, from {art.display_path(source)}',
              f'- **Started:** {started:%Y-%m-%d %H:%M}; **finished:** {finished:%Y-%m-%d %H:%M}; **stop time:** {stop_at:%Y-%m-%d %H:%M}',
              f'- **Ended because:** {result.get("stopped") or "the work finished"}']
+    if result.get('ran_on'):
+        lines.append(f'- **Ran on:** {result["ran_on"]}')
     for key, label in (('made', 'Images made'), ('skipped', 'Already there, skipped'), ('exit_code', 'Exit code')):
         if key in result:
             lines.append(f'- **{label}:** {result[key]}')
@@ -235,7 +319,18 @@ def generate(args, stop_at, game_names):
     paid_problems = art.paid_problems(requests)
     estimate = art.paid_estimate(images)
     graphs = art.preview_graphs(request_file, args.only)
+    comfy = Path(args.comfy)
+    launch, ran_on = (lambda: art.start_server(comfy)), 'the graphics card'
+    if args.cpu:
+        art.use_port(CPU_PORT)
+        mask, threads = cpu_plan(args.cpu_cores)
+        launch = cpu_launcher(comfy, mask, threads)
+        ran_on = (f'the processor only: logical processors {safeguards.describe_mask(mask)}, below-normal priority, '
+                  f'{threads} threads, ComfyUI on port {CPU_PORT}')
+        game_names = ()  # The graphics card is left alone, so the game may run; the memory floor guards it instead.
     if args.dry_run:
+        if any_local:
+            print(f'local engines would run on {ran_on}')
         for req in requests:
             engine = art.ENGINES[req.get('engine', 'schnell')]
             how = (f'{art.paid.settings(req)["quality"]} quality, up to US${art.paid.estimate_usd(req):.3f} an image'
@@ -261,9 +356,8 @@ def generate(args, stop_at, game_names):
     if not any_local:
         game_names = ()  # Every image is made on OpenAI's servers: the game can have the graphics card meanwhile.
 
-    comfy = Path(args.comfy)
     watch = [comfy, generated.parent]
-    should_stop = make_checker(stop_at, args.min_free_gb, watch, game_names)
+    should_stop = make_checker(stop_at, args.min_free_gb, watch, game_names, args.min_free_ram_gb if args.cpu else None)
     reason = should_stop()
     if reason:
         print(f'not starting: {reason}')
@@ -282,7 +376,7 @@ def generate(args, stop_at, game_names):
             if server['process'] is not None:
                 stop_process(server['process'])
             server['process'] = None
-            server['process'] = art.start_server(comfy)
+            server['process'] = launch()
         except (RuntimeError, OSError) as error:
             print(f'could not restart ComfyUI: {error}', flush=True)
             return False
@@ -293,7 +387,7 @@ def generate(args, stop_at, game_names):
         invalid = []
         if any_local:
             if not art.server_up():
-                server['process'] = art.start_server(comfy)
+                server['process'] = launch()
             info = art.get_json('/object_info')
             invalid = [f'{name}: {problem}' for name, graph in graphs.items() for problem in art.validate_graph(graph, info)]
         if invalid:
@@ -307,7 +401,11 @@ def generate(args, stop_at, game_names):
     finally:
         if budget is not None:
             result['spent_usd'], result['max_usd'] = round(budget.spent_usd, 4), budget.max_usd
+        if any_local:
+            result['ran_on'] = ran_on
         notes = free_gpu(server['process']) if any_local else ['none used: every image was made on OpenAI\'s servers']
+        if args.cpu and any_local:
+            notes.insert(0, 'none used: this run had the processor only, with no graphics card visible to ComfyUI')
         problems, near_copy = post_process(comfy, generated, result['folders'] or [item[0]['name'] for item in images], sources)
         stay_awake(False)
         report = write_report(generated, 'generate', request_file, started, stop_at, result, notes, problems, near_copy)
@@ -365,8 +463,8 @@ def night_problems(steps):
         if len(kinds) != 1:
             problems.append(f'step {index} needs exactly one of {", ".join(NIGHT_STEPS)}')
             continue
-        unknown = set(step) - {kinds[0], 'near_copy_against', 'max_usd'}
-        generate_only = [key for key in ('near_copy_against', 'max_usd') if key in step and kinds[0] != 'generate']
+        unknown = set(step) - {kinds[0], 'near_copy_against', 'max_usd', 'cpu'}
+        generate_only = [key for key in ('near_copy_against', 'max_usd', 'cpu') if key in step and kinds[0] != 'generate']
         if unknown or generate_only:
             problems.append(f'step {index} has settings it cannot use: {sorted(unknown) or generate_only}')
         if kinds[0] == 'run':
@@ -389,6 +487,10 @@ def step_command(step, stop_at, args):
         command += ['--near-copy-against', folder]
     if 'max_usd' in step:
         command += ['--max-usd', str(step['max_usd'])]
+    if kind == 'generate' and (step.get('cpu') or getattr(args, 'cpu', False)):
+        command += ['--cpu', '--min-free-ram-gb', str(getattr(args, 'min_free_ram_gb', safeguards.DEFAULT_MIN_FREE_RAM_GB))]
+        if getattr(args, 'cpu_cores', None):
+            command += ['--cpu-cores', args.cpu_cores]
     return command
 
 
@@ -460,7 +562,13 @@ def main(argv=None):
     parser.add_argument('--near-copy-against', action='append', default=[], metavar='FOLDER', help='check candidates against this folder too')
     parser.add_argument('--max-usd', type=float, help='spending cap in US dollars for paid engines (openai); required when any request is paid')
     parser.add_argument('--dry-run', action='store_true', help='print the work, and what paid images could cost, without touching ComfyUI, the GPU or any paid service')
+    parser.add_argument('--cpu', action='store_true', help='run local engines on the processor, beside the game: slow, for small sound models')
+    parser.add_argument('--cpu-cores', metavar='LIST', help='with --cpu, the logical processors to use, such as 16-31 (default: those away from the game)')
+    parser.add_argument('--min-free-ram-gb', type=float, default=safeguards.DEFAULT_MIN_FREE_RAM_GB,
+                        help='with --cpu, end the run before free memory falls under this')
     args = parser.parse_args(argv)
+    if args.cpu and args.kind == 'train':
+        parser.error('--cpu is for generate and night; training needs the graphics card')
     if not args.stop_at and not args.dry_run:
         parser.error('--stop-at is required: an unattended run must have an end')
     now = _dt.datetime.now()

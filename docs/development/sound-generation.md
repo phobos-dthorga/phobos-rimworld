@@ -6,8 +6,9 @@
 ## Read this first (gotchas)
 
 - **Local, like the icon pipeline.** Stable Audio 3 Small SFX runs in the owner's ComfyUI (0.41.0 already supports it), driven
-  by `scripts/art-run.py` with the same stop time, game check and records as images. **It uses the graphics card**, so it never
-  runs while RimWorld is open, and a run needs the owner's go.
+  by `scripts/art-run.py` with the same stop time, game check and records as images. On the graphics card it never runs while
+  RimWorld is open. **With `--cpu` it runs beside the game** on the processor (see [Running beside the game](#running-beside-the-game)).
+  A run needs the owner's go either way.
 - **ffmpeg does every audio job** (owner, 10 Nov 2026: "a much finer tool"): the gyan.dev full build, installed with
   `winget install Gyan.FFmpeg --scope user`. It needs the full build for `rubberband`. Python only drives it.
 - **Masters are never changed.** Each candidate is a lossless FLAC kept byte for byte; every copy anyone hears is made from it.
@@ -30,6 +31,8 @@
 | ffmpeg for all processing, not Python audio libraries | Owner, 10 Nov 2026 |
 | A lowered listening copy with the high frequencies moved down | Owner, 10 Nov 2026 ("just for the moment") |
 | Go for the tools and the pilot | Owner, 10 Nov 2026 |
+| Running small models on the processor beside the game | Owner, 10 Nov 2026 (asked whether it could share the PC with RimWorld) |
+| Which processors, the priority, the thread count and the free-memory floor | Agent choices |
 | Stable Audio 3 Small SFX as the model; its distilled twin as the comparison; Medium optional | Agent choice |
 | Every threshold, the review loudness, the loop crossfade, the split frequency | Agent choices, named constants in `scripts/art/sound_review.py` |
 | The pilot's four sounds and their wording | Agent choice, for the owner's review |
@@ -118,6 +121,7 @@ Flags are reasons to look again, not verdicts. All thresholds are authored excep
 | Strong high frequencies | The band above 4 kHz within 12 dB of the whole sound's mean level |
 | Sharp attack | The true peak more than 20 dB above the integrated loudness: may startle |
 | Loop seam | The level either side of the seam differs by more than 3 dB |
+| Gap or dip | Played twice, the loop's momentary loudness falls more than 10 dB under its overall loudness for 0.3 s or more |
 
 Checked offline on 10 Nov 2026 with made-up sounds: a 9 kHz whine over a hum was flagged and showed as a bright line, the lowered
 copy moved it to about 4.5 kHz, and the seam picture showed the loop's join. A synthetic white-noise click earned the
@@ -128,6 +132,37 @@ high-frequency and clipping flags. These are signal checks on test tones, not a 
 The crossfade follows what worked in Phobos Ostranauts (washer and pump loops, 6 Oct 2026): a 250 ms circular crossfade, and in
 the game, volume fades only when a machine starts or stops, never at each repeat. Equal-power curves are used because the two
 ends of a generated sound are unrelated.
+
+**A model fades a sound in late and out early, even when the prompt says "continuous".** The pilot's first loop (generator,
+seed 11) had sound from about 0.5 s to 6.4 s of the 8 asked, with a low rumble carrying on through the fade, so a silence test
+saw nothing wrong while the chugging stopped for half a second each time round. So a loop keeps only its **steady span**: from
+the first to the last EBU R128 momentary reading (400 ms) within 8 dB of its overall loudness. The "gap or dip" flag checks
+the finished loop played twice, seam included. For that sound, the span was 0.5 to 6.3 s, and the loop had no dip.
+
+## Running beside the game
+
+`python scripts/art-run.py generate <requests> --cpu --stop-at HH:MM` (owner's request, 10 Nov 2026). RimWorld fills the
+graphics card's memory (11.6 of 12.3 GB in use while playing, measured 10 Nov 2026), and pushing it further would make the
+game stutter, so a run beside the game leaves the card alone and uses the processor:
+
+- **Its own ComfyUI on port 8189**, started with `--cpu` and no graphics card visible (`CUDA_VISIBLE_DEVICES` empty), so it never
+  meets a graphics-card run on 8188.
+- **Below-normal priority**, so Windows serves the game first.
+- **Held to the processors away from the game.** Where the L3 caches differ, as on the owner's Ryzen 9 7950X3D (96 MB of 3D
+  V-cache on logical processors 0 to 15, where AMD's driver puts games; 32 MB on 16 to 31), it takes the smaller cache's group;
+  otherwise the upper half. `--cpu-cores 16-31` chooses by hand. **One thread per core** there (8 on the owner's PC).
+- **No game check, but a memory floor:** it ends before free memory falls under 6 GB (`--min-free-ram-gb`), since the game
+  used 12.5 GB and grows with a colony. The stop time and disk floor still apply.
+- In a night plan, a generate step takes `"cpu": true`.
+
+Measured on 10 Nov 2026 with RimWorld running: the server ran at BelowNormal priority on processors 16 to 31 and did not appear on
+the graphics card. **One 8-second sound at full steps (Small SFX base, 50 steps) took 60 s, model loading included**; the model
+used about 0.5 GB, and its text encoder 1.75 GB. Whether the game hitched is the owner's to say. Medium would be far slower
+on the processor and is not meant for this.
+
+**First sound, first lessons (generator loop, seed 11):** stereo at 44,100 Hz; loud as made (−10.7 LUFS, true peak +0.9 dBTP,
+so it earned the clipped flag), which the review copy levels and a future export must level and limit; strong highs (the band above
+4 kHz only 11 dB under the whole), with broadband clicks in the chugging that reach the top of the picture.
 
 ## History: what did not work
 
@@ -148,7 +183,8 @@ Synthesis from code is not offered as the main route again. A physical engine mo
 
 1. **Archive branches for sounds?** Images go to `art-masters` and `art-references`; whether sounds should too is the owner's call.
 2. **Which sounds first** after the pilot, and for which mod.
-3. **The sample rate** of Small SFX's output, and whether the template settings suit it: the pilot answers both.
+3. **Whether the template settings suit Small SFX.** Its output is stereo at 44,100 Hz (first sound, 10 Nov 2026); the full
+   pilot answers the rest.
 4. **Medium:** worth its 9.2 GB only if Small SFX falls short.
 
 ## Sources

@@ -433,17 +433,34 @@ def server_up():
         return False
 
 
-def start_server(comfy_path, extra_args=()):
-    """Start ComfyUI and wait for it; returns the process, so a run that started it can also stop it."""
+def use_port(port):
+    """Talk to a ComfyUI on another local port from now on, such as the processor-only server art-run.py --cpu starts beside
+    any graphics-card one."""
+    global SERVER
+    SERVER = f'http://127.0.0.1:{port}'
+
+
+def server_port():
+    return urllib.parse.urlsplit(SERVER).port or 8188
+
+
+def start_server(comfy_path, extra_args=(), env=None, creationflags=0, on_start=None):
+    """Start ComfyUI on SERVER's port and wait for it; returns the process, so a run that started it can also stop it.
+    env, creationflags (a Windows priority class) and on_start (called with the process at once, before any model loads)
+    are for art-run.py's processor-only runs."""
     exe = Path(comfy_path) / 'python_embeded' / 'python.exe'
     main_py = Path(comfy_path) / 'ComfyUI' / 'main.py'
     if not exe.is_file() or not main_py.is_file():
         raise FileNotFoundError(f'ComfyUI portable not found under {comfy_path}')
-    log = Path(comfy_path) / 'comfyui-server.log'
-    print(f'starting ComfyUI; log in {log}')
+    port = server_port()
+    log = Path(comfy_path) / ('comfyui-server.log' if port == 8188 else f'comfyui-server-{port}.log')
+    print(f'starting ComfyUI on port {port}; log in {log}')
     with open(log, 'ab') as fh:
-        process = subprocess.Popen([str(exe), '-s', str(main_py), '--windows-standalone-build', '--listen', '127.0.0.1', '--port', '8188', *extra_args],
-                                   cwd=str(Path(comfy_path) / 'ComfyUI'), stdout=fh, stderr=subprocess.STDOUT)
+        process = subprocess.Popen([str(exe), '-s', str(main_py), '--windows-standalone-build', '--listen', '127.0.0.1', '--port', str(port), *extra_args],
+                                   cwd=str(Path(comfy_path) / 'ComfyUI'), stdout=fh, stderr=subprocess.STDOUT, env=env,
+                                   creationflags=creationflags)
+    if on_start:
+        on_start(process)
     for _ in range(120):
         if server_up():
             return process
