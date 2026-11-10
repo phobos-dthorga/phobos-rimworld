@@ -124,31 +124,64 @@ public static class VehicleSystemsDebugActions
         Log.Message(VehicleSystemsMod.LogPrefix + " Swept the systems' parts from " + changed + " vehicles; save now before removing the mod.");
     }
 
-    /// <summary>A 20-point hit on a role's first part through Vehicle Framework's own damage path (which Combat Extended prefixes),
-    /// so the part-hit rules can be checked with and without CE.</summary>
+    const float DebugHitDamage = 20f;
+    const float DebugHitArmourPenetration = 1f;
+
+    /// <summary>
+    /// A 20-point hit on a role's first part, two ways. Straight onto the part (its armour skipped) always takes health off, so the
+    /// part-hit rules can be seen every time. As a shot, it goes through Vehicle Framework's damage path at one of the part's cells, the
+    /// path Combat Extended and the helicopter mods patch, where outer parts and armour may take it first. Each hit says what it did,
+    /// including when the part was untouched. The cells are the part's built hit box (<c>Hitbox</c>), not the Def's <c>cells</c> list,
+    /// which is empty for a part placed by side or by corners: reading that list made every hit skip silently (owner, 10 Nov 2026).
+    /// </summary>
     [DebugAction(DebugCategory.Name, "Vehicle systems: hit a part", allowedGameStates = AllowedGameStates.PlayingOnMap)]
     static void HitPart()
     {
         CompPhobosVehicleSystems? first = Selected().FirstOrDefault();
-        var choices = new List<FloatMenuOption>();
-        foreach (string role in first?.Props.roleKeys.Keys ?? Enumerable.Empty<string>())
+        if (first == null)
         {
-            string captured = role;
-            choices.Add(DebugChoices.Choice(role, () =>
-            {
-                foreach (CompPhobosVehicleSystems comp in Selected())
-                {
-                    if (!comp.Props.roleKeys.TryGetValue(captured, out List<string>? keys) || keys.Count == 0) continue;
-                    VehicleComponent? part = comp.Vehicle.statHandler.GetComponent(keys[0]);
-                    List<IntVec2>? cells = part?.props.hitbox?.cells;
-                    if (part == null || cells == null || cells.Count == 0) continue;
-                    comp.Vehicle.statHandler.TakeDamage(new DamageInfo(DamageDefOf.Bullet, 20f, 1f, instigator: comp.Vehicle), cells[0]);
-                    comp.UpdateNow();
-                    Log.Message(VehicleSystemsMod.LogPrefix + " Hit " + captured + " (" + keys[0] + ") on the " + comp.Vehicle.LabelShort + ": health now " + part.Health.ToString("0.#"));
-                }
-            }));
+            DebugChoices.Open(Enumerable.Empty<FloatMenuOption>(), SelectAVehicle);
+            return;
         }
-        DebugChoices.Open(choices, SelectAVehicle);
+        DebugChoices.Open(first.Props.roleKeys.Keys.ToList().Select(role => DebugChoices.Submenu(role, () => new[]
+        {
+            DebugChoices.Choice("straight onto the part", () => HitRole(role, asShot: false)),
+            DebugChoices.Choice("as a shot at its cells (armour may stop it)", () => HitRole(role, asShot: true)),
+        }, SelectAVehicle)), "The selected vehicle has no parts with roles.");
+    }
+
+    static void HitRole(string role, bool asShot)
+    {
+        List<string> lines = Selected().Select(comp => HitOne(comp, role, asShot)).ToList();
+        string text = lines.Count > 0 ? string.Join("\n", lines) : SelectAVehicle;
+        Messages.Message(text, MessageTypeDefOf.NeutralEvent, historical: false);
+        Log.Message(VehicleSystemsMod.LogPrefix + " " + text);
+    }
+
+    static string HitOne(CompPhobosVehicleSystems comp, string role, bool asShot)
+    {
+        VehiclePawn vehicle = comp.Vehicle;
+        if (!comp.Props.roleKeys.TryGetValue(role, out List<string>? keys) || keys.Count == 0) return "The " + vehicle.LabelShort + " has no part for " + role + ".";
+        VehicleComponent? part = vehicle.statHandler.GetComponent(keys[0]);
+        if (part == null) return "The " + vehicle.LabelShort + " has no part " + keys[0] + ".";
+        float before = part.Health;
+        if (before <= 0f) return role + " (" + keys[0] + ") on the " + vehicle.LabelShort + " is already destroyed.";
+        var dinfo = new DamageInfo(DamageDefOf.Bullet, DebugHitDamage, DebugHitArmourPenetration, instigator: vehicle);
+        if (asShot)
+        {
+            List<IntVec2>? cells = part.props.hitbox?.Hitbox;
+            if (cells == null || cells.Count == 0) return role + " (" + keys[0] + ") on the " + vehicle.LabelShort + " has no hit cells to aim at.";
+            vehicle.statHandler.TakeDamage(dinfo, cells.RandomElement());
+        }
+        else
+        {
+            part.TakeDamage(vehicle, dinfo, ignoreArmor: true);
+        }
+        comp.UpdateNow();
+        string result = role + " (" + keys[0] + ") on the " + vehicle.LabelShort + ": health " + before.ToString("0.#") + " to "
+                        + part.Health.ToString("0.#") + " of " + part.MaxHealth.ToString("0.#");
+        if (part.Health >= before) result += asShot ? ", untouched: outer parts or armour took the shot" : ", untouched";
+        return result;
     }
 
     [DebugAction(DebugCategory.Name, "Vehicle systems: log part health memory", allowedGameStates = AllowedGameStates.PlayingOnMap)]

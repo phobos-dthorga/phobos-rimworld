@@ -5,6 +5,14 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.66.3] - 2026-11-10 - Draft
+
+A fix from the owner's test. **Not yet tested in game.**
+
+### Fixed
+
+- **The dev action "Vehicle systems: hit a part" now hits.** It looked for the part's cells in a list that is empty for most parts, so it skipped every vehicle without a word. Each part now offers two hits: straight onto the part, which always takes health off, and as a shot at the part's cells, which goes the way gunfire does and may be stopped by armour or an outer part. Each hit says on screen and in the log what it did, including when the part was untouched. Dev mode only.
+
 ## [0.66.2] - 2026-11-10 - Draft
 
 Storage categories (owner, 10 November 2026). **Not yet tested in game.**

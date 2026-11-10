@@ -41,7 +41,7 @@ public class FrameworkSettings : ModSettings
 public class FrameworkMod : Mod
 {
     public const string PackageId = "PhobosDthorga.Framework";
-    public const string ModVersion = "0.66.2";
+    public const string ModVersion = "0.66.3";
     public const string LogPrefix = "[D'thorga Framework]";
     public static readonly Phobos.Logging.PhobosLog Logger = Logging.Logs.For("D'thorga Framework");
 
