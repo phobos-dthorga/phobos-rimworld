@@ -5,13 +5,26 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.29.0] - 2026-11-10 - Draft
+
+The Seabed Crawler becomes a research vessel (owner, 10 November 2026). **Not yet tested in game.**
+
 ### Added
 
+- The wet laboratory, an upgrade for the Seabed Crawler with its own research (marine science) and its own crafted part (laboratory fittings, made at the vehicle parts bench). It adds two scientist's seats. Scientists with an Intellectual skill of 7 or more carry on the colony's research from them, at three quarters of a simple research bench's speed at rest and half that under way, on any project that needs no particular bench. Not yet tested in game.
 - A Workshop preview: working trucks on a ridge at dusk, with the name added by script, from the owner's picks of 10 November 2026. No change in play. Its line, "Working trucks that need looking after", is agent-written, for the owner to change.
 
 ### Fixed
 
 - The Seabed Crawler's upgrades are spaced so that their labels do not collide or clip at the window's edge. Not yet tested in game.
+
+### Balance
+
+- The laboratory's speed matches the game's simple research bench (0.75); the research cost, the part's cost and the half rate under way are authored and untuned.
+
+### Save compatibility
+
+- Safe on an existing save. A Crawler built before this gains an empty laboratory space, which does nothing until the upgrade is fitted. Removing the upgrade puts anyone aboard ashore first, as Vehicle Framework does whenever a role is removed.
 
 ## [0.28.1] - 2026-11-10 - Draft
 

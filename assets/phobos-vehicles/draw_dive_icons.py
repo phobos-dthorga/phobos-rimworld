@@ -41,9 +41,24 @@ def scrubber(draw):
         draw.rectangle((x - 31, 220, x + 31, 276), fill=WATER)
 
 
+GLASS = (214, 216, 212, 255)
+
+
+def laboratory(draw):
+    # A conical flask of sea water on a grey bench, with a test tube beside it.
+    draw.rounded_rectangle((50, 392, 462, 446), radius=12, fill=HULL, outline=OUTLINE, width=LINE)
+    flask = [(206, 92), (290, 92), (290, 196), (392, 392), (104, 392), (206, 196)]
+    draw.polygon(flask, fill=GLASS, outline=OUTLINE, width=LINE)
+    draw.polygon([(160, 290), (336, 290), (380, 380), (116, 380)], fill=WATER)
+    draw.rectangle((190, 74, 306, 104), fill=GLASS, outline=OUTLINE, width=LINE)
+    draw.rounded_rectangle((398, 170, 446, 392), radius=22, fill=GLASS, outline=OUTLINE, width=LINE)
+    draw.rounded_rectangle((407, 300, 437, 383), radius=14, fill=ORANGE)
+
+
 ICONS = [
     ('BottomingWheels', bottoming_wheels, 'two rubber-tyred wheels on struts from a bar', CRAWLER),
     ('Scrubber', scrubber, 'three pale canisters with blue bands in a grey rack', CRAWLER),
+    ('Laboratory', laboratory, 'a conical flask of blue water and an orange test tube on a grey bench', CRAWLER),
 ]
 
 

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <!-- D'thorga Framework's laboratories carried by vehicles. Text a player reads in play describes the laboratory and what to do, never a mod or a setting (AGENTS.md). -->
+
+  <PhobosFieldLab_Working>Laboratory: {COUNT} at work on {PROJECT}.</PhobosFieldLab_Working>
+  <PhobosFieldLab_WorkingUnderWay>Laboratory: {COUNT} at work on {PROJECT}, at {SHARE} of their speed while under way.</PhobosFieldLab_WorkingUnderWay>
+  <PhobosFieldLab_NobodySeated>Laboratory idle: nobody is in a scientist's seat.</PhobosFieldLab_NobodySeated>
+  <PhobosFieldLab_NoProject>Laboratory idle: no research project has been chosen.</PhobosFieldLab_NoProject>
+  <PhobosFieldLab_NotFitted>Laboratory idle: the laboratory has not been fitted.</PhobosFieldLab_NotFitted>
+  <PhobosFieldLab_NeedsBetterLab>Laboratory idle: {PROJECT} needs a hi-tech research bench and its equipment.</PhobosFieldLab_NeedsBetterLab>
+  <PhobosFieldLab_NeedsOtherBench>Laboratory idle: {PROJECT} can only be worked on at a {BENCH}.</PhobosFieldLab_NeedsOtherBench>
+  <PhobosFieldLab_Incapable>Laboratory idle: {PAWN} cannot do research.</PhobosFieldLab_Incapable>
+  <PhobosFieldLab_Unskilled>Laboratory idle: {PAWN} needs an Intellectual skill of {SKILL} to work here.</PhobosFieldLab_Unskilled>
+  <PhobosFieldLab_Unfit>Laboratory idle: {PAWN} is in no state to work.</PhobosFieldLab_Unfit>
+  <PhobosFieldLab_OffShift>Laboratory idle: {PAWN} is not on a work shift.</PhobosFieldLab_OffShift>
+  <PhobosFieldLab_CaravanLine>{VEHICLE}: {STATE}</PhobosFieldLab_CaravanLine>
+</LanguageData>

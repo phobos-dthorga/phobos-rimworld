@@ -108,7 +108,7 @@ public class CompPhobosSubmersible : VehicleComp
     public float Reserve => reserve < 0f ? Capacity : reserve;
     float Control => Vehicle.GetStatValue(SubmersibleDefOf.Phobos_DiveControl);
     VehicleCaravan? Caravan => Vehicle.GetVehicleCaravan();
-    bool Moving => Caravan is { } caravan ? caravan.vehiclePather is { MovingNow: true } : Vehicle.vehiclePather is { Moving: true };
+    bool Moving => VehicleMotion.Moving(Vehicle);
     int TicksToSettle => (int)((phase == DivePhase.Diving ? Props.diveSeconds : Props.surfaceSeconds) * TicksPerSecond);
 
     /// <summary>Whether damage of this kind carries through water to the hull.</summary>

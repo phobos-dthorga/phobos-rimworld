@@ -5,7 +5,7 @@ colonist is breathing, makes fires fill roofed rooms with the game's own smoke w
 carries carbon monoxide from fires, holds the per-person care choices the D'thorga medical mods offer, and holds the small
 helpers every D'thorga mod shares.
 
-Version 0.64.0, built 10 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
+Version 0.65.0, built 10 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
 oxygen working through Burns and Smoke and Medical Equipment (5 November 2026). The health layer new in 0.3.0 and the **vehicle
 systems new in 0.9.0, and their engines, drivetrains and gas turbines new in 0.11.0, are not yet tested in game.** The rest is read from the game's and the mods' code.
 
@@ -241,7 +241,14 @@ The new button on a vehicle's **Dashboard** opens **Fittings and tunes**, for an
 - **Boats with bottoming gear can settle on the bottom**, using half the air and charge and becoming far harder to find. They must lift off before moving.
 - **Stay down** (off by default) keeps it under after the reserve runs out. **The crew then breathes stale air, and it kills them.** You can call it off while anyone aboard can still work the boat. After that the order stands and **the boat is lost**: nothing can raise it yet.
 - **A caravan of nothing but submersibles** can dive together over water tiles, and is then safe from ambushes, demands and meetings.
-- **No finished submarine exists yet.** Only a dev-mode test hull in D'thorga Vehicles does.
+- **The finished submarine is D'thorga Vehicles' Seabed Crawler.** A dev-mode test hull is there too.
+
+### Laboratories aboard vehicles (new in 0.65.0; not yet tested in game)
+
+- **A vehicle with a laboratory has scientist's seats.** Colonists in them who can do research, have an Intellectual skill of 7 or more and are awake and on a work shift carry on the colony's current project, as at a research bench, and learn as they would there.
+- **Moving halves the research**, but not the learning. It goes on in a caravan on the world map as well as on a map.
+- **A basic laboratory takes any project that needs no particular bench.** The vehicle's inspect panel says who is at work, or why nobody is.
+- The Seabed Crawler's wet laboratory upgrade is the first to use it.
 
 ### Checking it yourself (dev mode)
 

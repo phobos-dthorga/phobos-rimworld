@@ -63,6 +63,51 @@
           <PhobosVehicles_ScrubberRack>2</PhobosVehicles_ScrubberRack>
         </ingredients>
       </li>
+      <li>
+        <!-- The research vessel (owner, 10 Nov 2026): two scientist's seats, a new role that the upgrade adds and Vehicle Framework saves. Its factor matches the game's simple research bench (0.75); its grade takes any project that needs no particular bench. Removing it puts everyone aboard ashore first, as Vehicle Framework does for any role. -->
+        <key>WetLab</key>
+        <label>wet laboratory</label>
+        <displayLabel>true</displayLabel>
+        <description>A small laboratory with two scientist's seats. Seated scientists with an Intellectual skill of 7 or more carry on the colony's research: at three quarters of a simple research bench's speed while at rest, and half that under way. It takes on any project that needs no particular bench.</description>
+        <icon>Phobos/Vehicles/SeabedCrawler/Upgrades/Laboratory</icon>
+        <work>2500</work>
+        <gridCoordinate>(17, 3)</gridCoordinate>
+        <drawSize>(80, 80)</drawSize>
+        <researchPrerequisites>
+          <li>PhobosResearch_MarineScience</li>
+        </researchPrerequisites>
+        <upgrades>
+          <li Class="Vehicles.StatUpgrade">
+            <vehicleStats>
+              <li>
+                <def>Phobos_FieldLabFactor</def>
+                <value>0.75</value>
+              </li>
+              <li>
+                <def>Phobos_FieldLabGrade</def>
+                <value>1</value>
+              </li>
+            </vehicleStats>
+          </li>
+          <li Class="Vehicles.VehicleUpgrade">
+            <roles>
+              <li>
+                <key>scientist</key>
+                <label>scientist</label>
+                <slots>2</slots>
+                <hitbox>
+                  <cells>
+                    <li>(0, 1)</li>
+                  </cells>
+                </hitbox>
+              </li>
+            </roles>
+          </li>
+        </upgrades>
+        <ingredients>
+          <PhobosVehicles_LaboratoryFittings>2</PhobosVehicles_LaboratoryFittings>
+        </ingredients>
+      </li>
     </nodes>
   </Vehicles.UpgradeTreeDef>
 </Defs>

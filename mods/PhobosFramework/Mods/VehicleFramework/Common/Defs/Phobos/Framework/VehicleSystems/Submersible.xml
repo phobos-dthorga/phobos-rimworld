@@ -66,6 +66,32 @@
       <li>Universal</li>
     </showOnVehicleTypes>
   </Vehicles.VehicleStatDef>
+  <!-- A laboratory carried by a vehicle (Phobos.VehicleSystems.CompProperties_PhobosFieldLab; docs/development/vehicle-seabed-crawler.md). Any vehicle may use them,
+       not only boats. The factor multiplies each seated scientist's research speed, as a bench's research speed factor does; the grade says which projects it takes. -->
+  <Vehicles.VehicleStatDef>
+    <defName>Phobos_FieldLabFactor</defName>
+    <label>laboratory speed</label>
+    <description>How fast the scientists aboard can carry on research, compared with their speed at a bench. Damage to the laboratory slows it.</description>
+    <category>VehicleBasics</category>
+    <defaultBaseValue>0</defaultBaseValue>
+    <minValue>0</minValue>
+    <toStringStyle>PercentZero</toStringStyle>
+    <formatString>{0}</formatString>
+    <operationType>Average</operationType>
+    <upgradeEffectType>Positive</upgradeEffectType>
+  </Vehicles.VehicleStatDef>
+  <Vehicles.VehicleStatDef>
+    <defName>Phobos_FieldLabGrade</defName>
+    <label>laboratory grade</label>
+    <description>Which research the laboratory aboard can take on. At 1 it takes any project that needs no particular bench; at 2 it also stands in for a hi-tech research bench and its equipment.</description>
+    <category>VehicleBasics</category>
+    <defaultBaseValue>0</defaultBaseValue>
+    <minValue>0</minValue>
+    <toStringStyle>Integer</toStringStyle>
+    <formatString>{0}</formatString>
+    <operationType>MinValue</operationType>
+    <upgradeEffectType>Positive</upgradeEffectType>
+  </Vehicles.VehicleStatDef>
   <!-- What a crew breathes if ordered to stay under with nothing left: carbon dioxide building up in a sealed hull. The stages and rates are authored for play and are not a dose-response model. -->
   <HediffDef>
     <defName>Phobos_StaleAir</defName>

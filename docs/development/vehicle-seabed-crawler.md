@@ -1,6 +1,6 @@
 # The Seabed Crawler: design (10 Nov 2026)
 
-**First slice built in D'thorga Vehicles 0.28.0 and D'thorga Framework 0.62.0: the research tab and three projects, the bare hull, and the bottoming wheels and air scrubber, each with its part. Everything else here is still design, and no picture exists. Not yet tested in game.** The owner chose this as the first real submarine on 10 November 2026, for its unique mechanics, and asked that it also be a research vessel, carry sonar and perhaps radar, and take tie-ins to other mods as soft dependencies. Agent-authored for the owner's review: every figure is **authored** unless it says otherwise. It builds on [the submersibles framework](submarine-framework.md), and the real boat behind it is in [the research record](military-vehicles-research.md).
+**First slice built in D'thorga Vehicles 0.28.0 and D'thorga Framework 0.62.0: the research tab and three projects, the bare hull, and the bottoming wheels and air scrubber, each with its part. The wet laboratory followed in Vehicles 0.29.0 and Framework 0.65.0 (see [what was built](#the-wet-laboratory-as-built)). Everything else here is still design, and no picture exists. Not yet tested in game.** The owner chose this as the first real submarine on 10 November 2026, for its unique mechanics, and asked that it also be a research vessel, carry sonar and perhaps radar, and take tie-ins to other mods as soft dependencies. Agent-authored for the owner's review: every figure is **authored** unless it says otherwise. It builds on [the submersibles framework](submarine-framework.md), and the real boat behind it is in [the research record](military-vehicles-research.md).
 
 ## Read this first
 
@@ -58,6 +58,17 @@ Every row is one Vehicle Framework `UpgradeNode`, with `ingredients` holding its
 - **What it can work on:** the game limits projects by bench (`requiredResearchBuilding`, `requiredResearchFacilities`; `CanBeResearchedAt`, `all.cs:42924`). A vessel is not a bench, so the wet laboratory takes projects that need no special bench, and the advanced laboratory takes those that need a hi-tech bench and its analyser.
 - **Some projects can be done only aboard** (owner, 10 Nov 2026), such as oceanography that opens the later upgrades. See [below](#aboard-only-research).
 - **Generic:** the comp goes in D'thorga Framework, so a survey truck or a land laboratory could use it.
+
+### The wet laboratory as built
+
+Built 10 Nov 2026 (Framework 0.65.0, Vehicles 0.29.0). Not yet tested in game.
+
+- **Seats through Vehicle Framework's own role upgrade.** The `WetLab` node's `Vehicles.VehicleUpgrade` adds a `scientist` role with two slots (`UpgradeRole`, `Vehicles.decompiled.cs:34596`). Vehicle Framework saves the role's key with its handler and rebuilds the role from the upgrade tree on load (`VehicleDef.CreateRole`, `:12027`), so the seats survive a save and nothing of ours is saved. **Refunding the node puts everyone aboard ashore** (`RemoveRole` calls `DisembarkAll`, `:15030`).
+- **Two stats in the Framework:** `Phobos_FieldLabFactor` (the node adds 0.75, the game's simple research bench's `ResearchSpeedFactor`, read as patched in the owner's game) and `Phobos_FieldLabGrade` (the node adds 1). A `Laboratory` part, appended to the hull's parts, feeds the factor, so damage there slows research. A stat with no part in its category counts at full (`StatEfficiency`, `:9903`).
+- **The comp** is `CompPhobosFieldLab` in D'thorga Framework, usable by any vehicle, with game-free rules in `FieldResearchRule` (core `Rules/ResearchRules.cs`, tested). Each rare tick, on a map or through a caravan comp on the world map, every seated person who can research, has Intellectual 7 or more, is awake, sane, not downed and on a Work or Anything shift adds research speed × laboratory factor × ticks (× 0.5 under way) through `ResearchPerformed`, and learns 0.1 Intellectual per tick, as at a bench. The project is checked again before each person's share, because a finished project leaves none current.
+- **Projects:** grade 1 takes projects with no `requiredResearchBuilding` and no `requiredResearchFacilities`; grade 2, for the advanced laboratory, would also take those needing the hi-tech bench and its facilities. A project needing any other bench is never taken.
+- **The inspect line** names how many are at work and on what, or the first reason nobody is (no project, wrong bench, nobody seated, a named person unskilled, unfit or off shift). It is worked out at the rare tick and read by the panel.
+- **Agent choices, owner to revise:** the shift check (the game's own rule for benches); scientists' seats are not needed to work the boat; the part's cost; the research's cost and place on the tab (2, 3.5).
 
 ## Aboard-only research
 
@@ -123,6 +134,7 @@ Short list, highest consequence first. On a map with deep water and dev mode on.
 2. Try the Upgrades tab without research: the wheels should refuse and name the project. With the research finished and two wheel sets on hand, fit the wheels.
 3. Dive, stop, and press **Settle on bottom**. The inspect line should say it is resting, an order to move should be refused, and **Lift off** should free it.
 4. Place a blueprint in shallow water and check it can be built there.
+5. **Wet laboratory:** with marine science researched and two laboratory fittings on hand, fit it, then board a colonist with Intellectual 7 or more into a scientist's seat during a work shift, with a project chosen that needs no particular bench. The inspect panel should say they are at work and the project's progress should rise; it should rise more slowly while the boat moves. Try someone with Intellectual 6, and a project that needs the hi-tech bench, to see the refusal lines.
 
 ## Proposed order of building
 

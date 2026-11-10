@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <!-- Every vehicle caravan carries the field laboratory's caravan comp, so research aboard goes on at sea or on the road
+       (docs/development/vehicle-seabed-crawler.md). It does nothing for a caravan with no laboratory in it. Vehicle Framework's VehicleCaravan Def already has a comps list. -->
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/WorldObjectDef[defName="VehicleCaravan"]/comps</xpath>
+    <value>
+      <li>
+        <compClass>Phobos.VehicleSystems.WorldObjectComp_PhobosFieldLabCaravan</compClass>
+      </li>
+    </value>
+  </Operation>
+</Patch>

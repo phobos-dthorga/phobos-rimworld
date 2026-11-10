@@ -4,7 +4,7 @@ Vehicles that keep running only while they are looked after. It adds one vehicle
 vehicles of other mods you already drive the systems that match what they really are, on top of the general systems D'thorga
 Framework gives every vehicle.
 
-Version 0.28.1, built 10 November 2026 for House D'thorga. **Not yet tested in game.**
+Version 0.29.0, built 10 November 2026 for House D'thorga. **Not yet tested in game.**
 
 ## Read this first (gotchas)
 
@@ -149,8 +149,9 @@ Every source and simplification is in the loadout files under `Mods/`.
 
 - **Bottoming wheels** let it rest on the bottom, where it uses half the air and charge and is far harder to find. It must lift off before it can move.
 - **Air scrubber** gives six more hours under, and a crew told to stay down past empty suffers more slowly.
+- **Wet laboratory** adds two scientist's seats. **Put colonists with an Intellectual skill of 7 or more in them** and they carry on the colony's current research project, at three quarters of a simple research bench's speed while the boat is still and half that while it moves. They need to be awake and on a work shift. It takes any project that needs no particular bench. The boat's inspect panel says who is at work, or why nobody is.
 
-More upgrades are designed, including a research laboratory, sonar and radar, and are not built yet.
+More upgrades are designed, including an advanced laboratory, research done only at sea, sonar and radar, and are not built yet.
 
 ## The submarine test hull
 

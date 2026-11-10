@@ -5,6 +5,23 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.65.0] - 2026-11-10 - Draft
+
+Laboratories carried by vehicles, for the Seabed Crawler's research vessel (owner, 10 November 2026). **Not yet tested in game.**
+
+### Added
+
+- A laboratory any vehicle can carry. Colonists in its scientist's seats who can do research, have an Intellectual skill of 7 or more and are on a work shift carry on the colony's current project, as at a bench: their research speed times the laboratory's, and half that while the vehicle moves. They learn at a bench's rate either way. It works on a map and in a caravan on the world map. A basic laboratory takes any project that needs no particular bench; an advanced one would also stand in for a hi-tech bench. The vehicle's inspect panel says who is at work and on what, or why nobody is. Not yet tested in game.
+- Two vehicle stats for it, laboratory speed and laboratory grade, shown only on vehicles that have them.
+
+### Save compatibility
+
+- Safe to add mid-game. The laboratory saves nothing of its own; the seats are saved by Vehicle Framework with the upgrade that adds them.
+
+### Compatibility and limits
+
+- Research only aboard, and projects that only a laboratory at sea can do, are not built yet. Research done aboard counts for the player's own vehicles only.
+
 ## [0.64.0] - 2026-11-10 - Draft
 
 A colony mood file for the mood report, at the owner's yes of 10 November 2026. **Not yet tested in game.**

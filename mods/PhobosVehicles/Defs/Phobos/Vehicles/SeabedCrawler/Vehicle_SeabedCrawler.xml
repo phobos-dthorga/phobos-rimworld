@@ -41,6 +41,8 @@
       <Phobos_DiveControl>1</Phobos_DiveControl>
       <Phobos_DiveBottoming>0</Phobos_DiveBottoming>
       <Phobos_DiveStaleAirRate>1</Phobos_DiveStaleAirRate>
+      <Phobos_FieldLabFactor>0</Phobos_FieldLabFactor>
+      <Phobos_FieldLabGrade>0</Phobos_FieldLabGrade>
     </vehicleStats>
     <race>
       <baseBodySize>7</baseBodySize>
@@ -203,6 +205,21 @@
           <li>Phobos_DiveBottoming</li>
         </categories>
       </li>
+      <li>
+        <!-- The wet laboratory's space: empty until the upgrade is fitted, and damage to it slows the research done aboard. -->
+        <key>Laboratory</key>
+        <label>laboratory</label>
+        <health>40</health>
+        <depth>Internal</depth>
+        <hitbox>
+          <cells>
+            <li>(0, 1)</li>
+          </cells>
+        </hitbox>
+        <categories>
+          <li>Phobos_FieldLabFactor</li>
+        </categories>
+      </li>
     </components>
     <comps>
       <li Class="Vehicles.CompProperties_FueledTravel">
@@ -216,6 +233,7 @@
         <def>Phobos_SeabedCrawler_UpgradeTree</def>
       </li>
       <li Class="Phobos.VehicleSystems.CompProperties_PhobosSubmersible" />
+      <li Class="Phobos.VehicleSystems.CompProperties_PhobosFieldLab" />
     </comps>
   </Vehicles.VehicleDef>
 

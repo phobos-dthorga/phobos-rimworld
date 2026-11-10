@@ -65,4 +65,21 @@
       </li>
     </modExtensions>
   </ResearchProjectDef>
+
+  <ResearchProjectDef ParentName="PhobosResearchSubmarineBase">
+    <defName>PhobosResearch_MarineScience</defName>
+    <label>marine science</label>
+    <description>A small laboratory fitted inside a submersible, with seats for two scientists who can carry on the colony's research at sea.</description>
+    <baseCost>1500</baseCost>
+    <researchViewX>2</researchViewX>
+    <researchViewY>3.5</researchViewY>
+    <prerequisites>
+      <li>PhobosResearch_SubmersibleHull</li>
+    </prerequisites>
+    <modExtensions>
+      <li Class="Phobos.Framework.Research.ResearchReplacesExtension">
+        <replaces />
+      </li>
+    </modExtensions>
+  </ResearchProjectDef>
 </Defs>
