@@ -9,6 +9,6 @@ and the review aids: [sound generation](../../docs/development/sound-generation.
 
 | Request file | What | Status |
 | --- | --- | --- |
-| [pilot.json](requests/pilot.json) | Generator loop, oxygen concentrator hum, sonar ping, switch click; full-steps and distilled engines, seeds 11 and 12 | Run 10 Nov 2026 on the processor (16 sounds, 8 minutes); the owner's picks pending. Findings in the [design record](../../docs/development/sound-generation.md#the-pilot-10-nov-2026) |
+| [pilot.json](requests/pilot.json) | Generator loop, oxygen concentrator hum, sonar ping, switch click; full-steps and distilled engines, seeds 11 and 12 | Run 10 Nov 2026 on the processor (16 sounds, 8 minutes). **The owner picked** the concentrator hum (seed 12, full steps, with an 11 kHz low-pass against its whine), the distilled generator loop (11), sonar ping (11) and switch click (seed open): [picks.json](picks.json). Findings in the [design record](../../docs/development/sound-generation.md#the-pilot-10-nov-2026) |
 
 Every sound shipped from here keeps its record (engine, model hash, prompt, seed, date) and says it was made with generative AI.

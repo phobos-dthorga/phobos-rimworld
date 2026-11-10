@@ -122,7 +122,7 @@ Flags are reasons to look again, not verdicts. All thresholds are authored excep
 | Sharp attack | The true peak more than 20 dB above the integrated loudness: may startle |
 | Loop seam | The level either side of the seam differs by more than 3 dB |
 | Gap or dip | Played twice, the loop's momentary loudness falls more than 10 dB under its overall loudness for 0.3 s or more |
-| Whine | In 200 Hz bands every 500 Hz from 4 to 18 kHz, one band rises 12 dB or more above a straight line fitted through them all (level against log-frequency), less the median rise. The line takes out a sound's natural fall towards the top, which made every sound's lowest band look like a whine against a plain median |
+| Whine | In 200 Hz bands every 500 Hz from 4 to 20 kHz, one band rises 12 dB or more above a straight line fitted through them all (level against log-frequency), less the median rise. The line takes out a sound's natural fall towards the top, which made every sound's lowest band look like a whine against a plain median |
 
 Checked offline on 10 Nov 2026 with made-up sounds: a 9 kHz whine over a hum was flagged and showed as a bright line, the lowered
 copy moved it to about 4.5 kHz, and the seam picture showed the loop's join. A synthetic white-noise click earned the
@@ -181,6 +181,12 @@ Lessons, from 16 sounds and so tentative:
 - **Prompt adherence is loose:** "one click" gave three, "ping with a long echo" gave held tones, "puff of air every few seconds"
   gave a steady hum. Rewording, more seeds, or Medium are the next things to try for the ping.
 - **The whine flag earned its place on day one:** the 15 kHz line was invisible to every broad measure.
+
+**The owner's picks (10 Nov 2026):** concentrator hum seed 12 (full steps), generator loop distilled 11, sonar ping distilled
+11, switch click distilled (seed open), recorded in `assets/phobos-sounds/picks.json`. The concentrator hum whines near 15 kHz
+and, in other stretches, near 19.5 kHz (which the whine search then missed, so it now reaches 20 kHz). A narrow notch at 15 kHz
+left a shoulder and the 19.5 kHz band; **a steep low-pass at 11 kHz removed both** and left its loudness unchanged, so the
+export applies it to that pick. A muffled hum has nothing worth keeping up there.
 
 **First sound, first lessons (generator loop, seed 11):** stereo at 44,100 Hz; loud as made (−10.7 LUFS, true peak +0.9 dBTP,
 so it earned the clipped flag), which the review copy levels and a future export must level and limit; strong highs (the band above

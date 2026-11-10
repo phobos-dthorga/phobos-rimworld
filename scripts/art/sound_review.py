@@ -51,7 +51,8 @@ CLIPPED_TRUE_PEAK_DBTP = 0.0  # So does a true peak above full scale: the peak b
 TRIM_THRESHOLD_DB = -60     # Silence at either end, quieter than this, is trimmed from the review copy.
 FADE_IN_S, FADE_OUT_S = 0.005, 0.02
 LOOP_CROSSFADE_S = 0.25     # Ostranauts' washer and pump loops used 250 ms and were accepted (6 Oct 2026).
-WHINE_BANDS_HZ = range(4000, 18001, 500)  # Narrow bands searched for a steady tone, from where hearing loss starts upwards.
+WHINE_BANDS_HZ = range(4000, 20001, 500)  # Narrow bands searched for a steady tone, from where hearing loss starts to 20 kHz,
+                                          # which young ears still hear: the pilot's concentrator hum also whined near 19.5 kHz.
 WHINE_BAND_WIDTH_HZ = 200
 WHINE_PROMINENCE_DB = 12.0  # A band this far above the median band is a whine: a narrow tone that broad measures miss. The pilot's
                             # concentrator hum (seed 11, 10 Nov 2026) had one near 14.5 kHz that no other flag caught.
