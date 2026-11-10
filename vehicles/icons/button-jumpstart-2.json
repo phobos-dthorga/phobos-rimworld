@@ -1,0 +1,51 @@
+{
+  "file": "button-jumpstart-2.png",
+  "sha256": "28f51844d9c16f0cf0203802d25dae588e15ea3e1239fb3fd791583cf380ddc2",
+  "date": "2026-11-11T01:34:09",
+  "generator": "OpenAI gpt-image-2 through the OpenAI image API (paid per image)",
+  "engine": "openai",
+  "model": "gpt-image-2",
+  "prompt": "GAME BUTTON ICON. One single object seen from the front, centred, flat on the canvas, like a button picture in a strategy game's command bar.\n\nCreate an ORIGINAL game button icon for the D'thorga jump-start button. Image 1 is our approved button icon from the same family: match its outline weight, shading, palette and finish only. Do NOT copy its shape.\n\nDraw ONLY the object, alone on a plain pure white background, filling about 80 percent of the canvas. Square canvas.\n\nA pair of heavy jumper cable clamps, one red and one black, their jaws facing each other, with a short bright yellow spark leaping between the jaws.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art. It must read clearly when shrunk to 64 pixels: one or two big shapes, very few small ones.\n\nNo people, hands, animals, vehicles, text, letters, numbers, logos, screens, dust, floor, ground or cast shadow.",
+  "seed": 2,
+  "seed_note": "an attempt number naming the file; the API takes no seed, so a rerun gives a different image",
+  "quality": "medium",
+  "size": [
+    1024,
+    1024
+  ],
+  "request_file": "assets/phobos-vehicles/requests/presentation-batch-a.json",
+  "ai_disclosure": "Made with generative AI: OpenAI gpt-image-2, prompted by the Phobos art scripts.",
+  "terms": "OpenAI Services Agreement, sections 4.1 and 4.4, as recorded in the Phobos Ostranauts repository on 2026-10-07 and summarised again on 2026-11-08: API customers own Output, OpenAI assigns any rights it has, and Output may not be unique; no use of Output to build competing models. Dated secondary records: the openai.com page refuses automated reads, so the owner confirms the current text.",
+  "endpoint": "/images/edits",
+  "usage": {
+    "input_tokens": 317,
+    "input_tokens_details": {
+      "image_tokens": 64,
+      "text_tokens": 253
+    },
+    "output_tokens": 1756,
+    "output_tokens_details": {
+      "image_tokens": 1756,
+      "text_tokens": 0
+    },
+    "total_tokens": 2073
+  },
+  "cost_usd": 0.0545,
+  "cost_is_estimate": false,
+  "reported_quality": "medium",
+  "reported_size": "1024x1024",
+  "reported_background": "opaque",
+  "reported_output_format": "png",
+  "returned_size": [
+    1024,
+    1024
+  ],
+  "seconds": 28.3,
+  "references": [
+    {
+      "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Service.png",
+      "sha256": "0bcb22bdfd6222b07a691b1d1652ac60473757130f6af7dc199bac257f0bc37d",
+      "role": "our approved command button icon from the same family (the service spanner): match its outline weight, shading, palette and finish only; do not copy its shape"
+    }
+  ]
+}
