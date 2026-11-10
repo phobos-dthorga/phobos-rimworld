@@ -122,6 +122,7 @@ Flags are reasons to look again, not verdicts. All thresholds are authored excep
 | Strong high frequencies | The band above 4 kHz within 12 dB of the whole sound's mean level |
 | Sharp attack | The true peak more than 20 dB above the integrated loudness: may startle |
 | Loop seam | The level either side of the seam differs by more than 3 dB |
+| Seam dip | In 20 ms slices of the loop played twice, the quietest slice within 0.15 s of the join falls more than 3 dB under the 10th percentile of the other slices: a short gap or thud each time round that longer measures average away |
 | Gap or dip | Played twice, the loop's momentary loudness falls more than 10 dB under its overall loudness for 0.3 s or more |
 | Whine | In 200 Hz bands every 500 Hz from 4 to 20 kHz, one band rises 12 dB or more above a straight line fitted through them all (level against log-frequency), less the median rise. The line takes out a sound's natural fall towards the top, which made every sound's lowest band look like a whine against a plain median |
 
@@ -140,6 +141,14 @@ seed 11) had sound from about 0.5 s to 6.4 s of the 8 asked, with a low rumble c
 saw nothing wrong while the chugging stopped for half a second each time round. So a loop keeps only its **steady span**: from
 the first to the last EBU R128 momentary reading (400 ms) within 8 dB of its overall loudness. The "gap or dip" flag checks
 the finished loop played twice, seam included. For that sound, the span was 0.5 to 6.3 s, and the loop had no dip.
+
+**A hum's two ends are in step, so the join has to be found, not just made** (10 Nov 2026). The owner heard a seam in the
+distilled concentrator hum (seed 12) that every flag missed: joined at an arbitrary point, the two ends of a steady hum can sit
+out of phase and cancel for a moment, a dip of 5.2 dB lasting a few hundredths of a second. Each loop's end is now chosen within
+the last 0.5 s of its steady span, where its final 0.25 s best matches its first (normalised correlation, on a 16 kHz mono
+decode by ffmpeg). Ends that match at 0.5 or better are crossfaded at equal gain, others at equal power. The pilot's hums now
+match at 0.96 to 0.985 and that seam measures 0.1 dB; the new seam-dip flag (20 ms slices) catches the old join and a real
+5.3 dB dip in the full-steps generator loop, seed 12.
 
 ## Running beside the game
 
@@ -204,6 +213,8 @@ Synthesis from code is not offered as the main route again. A physical engine mo
 
 - RimWorld loads `.wav`, `.mp3` and `.ogg` from a mod (`Verse.ModContentLoader.AcceptableExtensionsAudio`, read with
   `scripts/query-code.py`). A picked sound would ship as `.ogg` under the mod's `Sounds/` folder with a `SoundDef`.
+- **RimWorld's own mix is quiet** (owner, 10 Nov 2026), and the owner judges candidates at the volume they play at, where the
+  review copies at −20 LUFS sound fine. The export levels against the game's sounds, not against the review level.
 - An export step (cut, level against comparable vanilla sounds, mono for sounds from one spot if the game's spatial sound
   wants it, encode) is still to build. Whether mono suits RimWorld's positioned sounds is unverified.
 - The volume setting AGENTS.md requires lives in the owning mod's settings.

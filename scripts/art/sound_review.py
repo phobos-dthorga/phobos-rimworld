@@ -21,10 +21,12 @@ install folder. Uses no graphics card, so it is safe while a game runs.
     python scripts/art/sound_review.py assets/phobos-sounds/generated --force      remake every review file
 """
 import argparse
+from array import array
 import glob
 import html
 import json
 import math
+import operator
 import os
 from pathlib import Path
 import re
@@ -68,6 +70,15 @@ GAP_MIN_S = 0.3            # ...for this long has a gap or dip. The pilot's firs
                            # while a low rumble went on, which a silence test missed and the momentary loudness catches.
 SEAM_WINDOW_S = 0.05
 SEAM_JUMP_DB = 3.0          # Flag a loop whose level differs by more than this either side of its seam.
+ANALYSIS_RATE = 16000       # Mono rate the loop-point search and the seam check decode to (ffmpeg decodes; Python only adds up).
+LOOP_SEARCH_S = 0.5         # The loop's end is chosen within this much before its steady span ends, where its last
+                            # LOOP_CROSSFADE_S best matches its first (normalised correlation). A hum's two ends are in step
+                            # with each other, so joined at an arbitrary point they can cancel: the owner heard such a seam in
+                            # the pilot's distilled concentrator hum, seed 12 (10 Nov 2026), that no flag caught.
+COHERENT_MATCH = 0.5        # Ends at least this alike are crossfaded at equal gain (alike signals add); others at equal power.
+SEAM_FRAME_S = 0.02         # The join is checked in 20 ms slices...
+SEAM_SPAN_S = 0.15          # ...within this of it...
+SEAM_DIP_DB = 3.0           # ...and flagged when its quietest slice falls this far under the loop's usual quiet slices.
 SPECTROGRAM_SIZE = '960x320'
 OGG_QUALITY = '6'           # Vorbis quality for the review copies; the masters stay lossless.
 
@@ -80,6 +91,7 @@ FLAG_WORDS = {
     'seam': 'Loop seam: the level changes by {jump} dB where it repeats.',
     'whine': 'Whine: a steady narrow tone near {khz} kHz, {prominence} dB above the sound around it. You may not hear it at all; '
              'other players will. Look for a thin bright line across the picture at that height.',
+    'seamdip': 'Seam dip: where the loop repeats, the sound drops {dip} dB for a moment, a soft gap or thud each time round.',
     'gap': 'Gap or dip: each time round, the loop falls more than {below} dB below its usual loudness for {gap} s, '
            'so it will not repeat smoothly.',
 }
@@ -165,6 +177,9 @@ def flags_for(measure):
     gap = measure.get('loop_gap_s')
     if gap is not None and gap >= GAP_MIN_S:
         found.append(('gap', FLAG_WORDS['gap'].format(gap=f'{gap:.1f}', below=f'{DIP_BELOW_DB:g}')))
+    dip = measure.get('seam_dip_db')
+    if dip is not None and dip > SEAM_DIP_DB:
+        found.append(('seamdip', FLAG_WORDS['seamdip'].format(dip=f'{dip:.1f}')))
     jump = measure.get('seam_jump_db')
     if jump is not None and jump > SEAM_JUMP_DB:
         found.append(('seam', FLAG_WORDS['seam'].format(jump=f'{jump:.1f}')))
@@ -199,13 +214,69 @@ def lowered_graph(octaves=LOWERED_OCTAVES):
             '[lo][down]amix=inputs=2:normalize=0[out]')
 
 
-def loop_graph(gain, crossfade=LOOP_CROSSFADE_S, span=None):
+def loop_graph(gain, crossfade=LOOP_CROSSFADE_S, span=None, coherent=False):
     """A circular crossfade: the sound from crossfade onwards, with its last crossfade seconds faded into its first. The end
-    then runs straight into the start, so it repeats without a gap. Equal-power curves, because the two ends are unrelated.
-    With span (start, end in seconds), only that steady part is used, since a model often fades in late and out early."""
-    trim = f'atrim=start={span[0]:.2f}:end={span[1]:.2f},asetpts=N/SR/TB,' if span else ''
+    then runs straight into the start, so it repeats without a gap. With span (start, end in seconds), only that part is used,
+    since a model often fades in late and out early. Ends that match (coherent) are faded at equal gain, as alike signals add;
+    unrelated ends at equal power, as unrelated ones add by energy."""
+    trim = f'atrim=start={span[0]:.4f}:end={span[1]:.4f},asetpts=N/SR/TB,' if span else ''
+    curve = 'tri' if coherent else 'qsin'
     return (f'[0:a]{trim}volume={gain or 0}dB,asplit=2[a][b];[a]atrim=start={crossfade},asetpts=N/SR/TB[body];'
-            f'[b]atrim=end={crossfade},asetpts=N/SR/TB[head];[body][head]acrossfade=d={crossfade}:c1=qsin:c2=qsin[out]')
+            f'[b]atrim=end={crossfade},asetpts=N/SR/TB[head];[body][head]acrossfade=d={crossfade}:c1={curve}:c2={curve}[out]')
+
+
+def decode_mono(exe, path, rate=ANALYSIS_RATE, twice=False):
+    """The sound as mono floats at rate, decoded by ffmpeg; played twice in a row with twice=True."""
+    inputs = ['-i', str(path)] * (2 if twice else 1)
+    graph = ['-filter_complex', '[0:a][1:a]concat=n=2:v=0:a=1'] if twice else []
+    done = subprocess.run([exe, '-hide_banner', '-nostdin', '-loglevel', 'error', *inputs, *graph, '-ac', '1', '-ar', str(rate),
+                           '-f', 'f32le', '-'], capture_output=True)
+    if done.returncode:
+        raise RuntimeError(f'ffmpeg could not decode {path}: {done.stderr.decode(errors="replace")[-300:]}')
+    samples = array('f')
+    samples.frombytes(done.stdout[:len(done.stdout) // 4 * 4])
+    if sys.byteorder != 'little':
+        samples.byteswap()
+    return samples
+
+
+def _match(a, b):
+    """Normalised correlation of two equal-length runs of samples: 1 alike, 0 unrelated, -1 opposite."""
+    energy = math.sqrt(sum(map(operator.mul, a, a)) * sum(map(operator.mul, b, b)))
+    return sum(map(operator.mul, a, b)) / energy if energy else 0.0
+
+
+def best_loop_end(samples, rate, start_s, end_s, crossfade=LOOP_CROSSFADE_S, search=LOOP_SEARCH_S, stride=4):
+    """The end, within `search` seconds before end_s, whose last `crossfade` seconds best match the crossfade seconds after
+    start_s, and how well they match. A coarse pass every `stride` samples, then every sample around the best."""
+    width, first = round(crossfade * rate), round(start_s * rate)
+    last = min(round(end_s * rate), len(samples))
+    lowest = max(first + 2 * width, last - round(search * rate))
+    if last <= lowest:
+        return end_s, None
+    head = samples[first:first + width]
+
+    def score(end):
+        return _match(samples[end - width:end], head)
+    coarse = max(range(lowest, last + 1, stride), key=score)
+    best = max(range(max(lowest, coarse - stride), min(last, coarse + stride) + 1), key=score)
+    return round(best / rate, 4), round(score(best), 3)
+
+
+def seam_dip_db(samples, rate, join_s, frame=SEAM_FRAME_S, span=SEAM_SPAN_S):
+    """How far the quietest short slice near the join falls under the loop's usual quiet slices (the 10th percentile of the
+    rest), in dB; 0 if it does not. Run on the loop played twice, so the join is inside the sound."""
+    size = max(1, round(frame * rate))
+    levels = []
+    for index in range(0, len(samples) - size + 1, size):
+        chunk = samples[index:index + size]
+        power = sum(map(operator.mul, chunk, chunk)) / size
+        levels.append(((index + size / 2) / rate, 10 * math.log10(power) if power > 0 else -200.0))
+    near = [level for t, level in levels if abs(t - join_s) <= span]
+    rest = sorted(level for t, level in levels if abs(t - join_s) > span and frame < t < levels[-1][0] - frame)
+    if not near or len(rest) < 10:
+        return None
+    return round(max(0.0, rest[len(rest) // 10] - min(near)), 2)
 
 
 def parse_momentary(text):
@@ -353,11 +424,20 @@ def prepare(exe, master, record, force=False, octaves=LOWERED_OCTAVES):
     if loop:
         frames, integrated = loudness_frames(exe, [master])
         span = steady_span(frames, integrated)
+        match = None
+        if span:
+            end, match = best_loop_end(decode_mono(exe, master), ANALYSIS_RATE, *span)
+            span = (span[0], end)
         measure['loop_span_s'] = list(span) if span else None
-        run_ffmpeg(exe, ['-i', str(master), '-filter_complex', loop_graph(gain, span=span), '-map', '[out]', *encode, str(paths['loop'])])
+        measure['loop_match'] = match
+        coherent = match is not None and match >= COHERENT_MATCH
+        run_ffmpeg(exe, ['-i', str(master), '-filter_complex', loop_graph(gain, span=span, coherent=coherent), '-map', '[out]',
+                         *encode, str(paths['loop'])])
         run_ffmpeg(exe, ['-i', str(paths['loop']), '-i', str(paths['loop']), '-filter_complex',
                          f'[0:a][1:a]concat=n=2:v=0:a=1,{spectrogram_filter()}', '-update', '1', str(paths['seam'])])
         measure['seam_jump_db'] = seam_jump(exe, paths['loop'])
+        twice_samples = decode_mono(exe, paths['loop'], twice=True)
+        measure['seam_dip_db'] = seam_dip_db(twice_samples, ANALYSIS_RATE, len(twice_samples) / 2 / ANALYSIS_RATE)
         twice, twice_integrated = loudness_frames(exe, [paths['loop'], paths['loop']])
         measure['loop_gap_s'] = longest_dip(twice, twice_integrated)
     measure['review_gain_db'] = gain

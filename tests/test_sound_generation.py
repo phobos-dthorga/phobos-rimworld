@@ -158,8 +158,8 @@ class ReviewFilterTests(unittest.TestCase):
         self.assertNotIn('silenceremove', sound_review.review_filter(2.0, trim=False))
         self.assertIn('silenceremove', sound_review.review_filter(2.0))
         self.assertIn(f'acrossfade=d={sound_review.LOOP_CROSSFADE_S}', sound_review.loop_graph(1.5))
-        self.assertNotIn('atrim=start=0.50:end', sound_review.loop_graph(1.5))
-        self.assertIn('atrim=start=0.50:end=6.30', sound_review.loop_graph(1.5, span=(0.5, 6.3)))
+        self.assertNotIn('atrim=start=0.5', sound_review.loop_graph(1.5))
+        self.assertIn('atrim=start=0.5000:end=6.3000', sound_review.loop_graph(1.5, span=(0.5, 6.3)))
 
 
 def frames(levels, step=0.1):
@@ -215,6 +215,29 @@ class LoopLoudnessTests(unittest.TestCase):
         self.assertEqual(levels[4000], -50.0)
         self.assertEqual(levels[4500], -51.0)
         self.assertEqual(sound_review.parse_band_levels('nothing'), {})
+
+    def test_a_hum_is_joined_where_its_ends_are_in_step(self):
+        from array import array
+        rate, hz = 8000, 100.0  # A pure 100 Hz hum: in step every 10 ms.
+        samples = array('f', [math.sin(2 * math.pi * hz * i / rate) for i in range(rate * 3)])
+        end, match = sound_review.best_loop_end(samples, rate, 0.0, 2.995, crossfade=0.05, search=0.02)
+        self.assertGreater(match, 0.99)
+        self.assertAlmostEqual((end * hz) % 1.0, 0.0, places=2)  # A whole number of cycles, so the join is seamless.
+
+    def test_a_short_dip_at_the_join_is_measured(self):
+        from array import array
+        rate = 8000
+        steady = [0.5 * (1 if i % 2 else -1) for i in range(rate * 2)]
+        dipped = list(steady)
+        for i in range(rate - 160, rate + 160):  # 40 ms at a fifth of the level, across the join at 1 s.
+            dipped[i] *= 0.2
+        self.assertEqual(sound_review.seam_dip_db(array('f', steady), rate, 1.0), 0.0)
+        self.assertGreater(sound_review.seam_dip_db(array('f', dipped), rate, 1.0), sound_review.SEAM_DIP_DB)
+        self.assertIn('seamdip', [code for code, _ in sound_review.flags_for(calm(seam_dip_db=5.2))])
+
+    def test_matching_ends_fade_at_equal_gain(self):
+        self.assertIn('c1=tri', sound_review.loop_graph(0, span=(0.2, 6.5), coherent=True))
+        self.assertIn('c1=qsin', sound_review.loop_graph(0, span=(0.2, 6.5)))
 
     def test_a_long_dip_earns_the_gap_flag(self):
         self.assertIn(('gap'), [code for code, _ in sound_review.flags_for(calm(loop_gap_s=0.6))])
