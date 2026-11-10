@@ -68,6 +68,10 @@ delivered, record the delivery in the changelog or design record, and add or ame
   between identical launches, so trust only a difference that repeats. **Answer which active mods are ready for a game version
   with `python scripts/version-readiness.py`** (`--game-version 1.8` for another; `python scripts/workshop-research.py versions` first
   for the Steam tags): what each declares and how closely it depends on the game, never whether it works.
+- **Tell the owner whenever a setting of ours is added, removed or given a new default** (owner, 10 Nov 2026: "so I can take a look at
+  them or modify them as needed"), in the reply that delivers the change: the mod, the setting's label as the settings window shows it,
+  what it does, its default and where to find it. `python scripts/mod-settings.py changes --since REV` lists every such change since a
+  commit; run it against the commit a piece of work started from before reporting it done.
 - **Answer what settings the owner plays with using `python scripts/mod-settings.py`** (owner, 8 Nov 2026): our mods' saved
   values beside their defaults, read from our C# source; `--mod <pattern>` for any other mod (Combat Extended, Vehicle Framework);
   `snapshot FILE`, then `compare FILE`, for what changed between two sessions. Run it with a reported fault before asking the
