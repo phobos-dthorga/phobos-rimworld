@@ -1,0 +1,51 @@
+{
+  "file": "station-inspection-pit-2.png",
+  "sha256": "4416a7742664407e0c0f6af98e463ebd45a99c622589c49da32c588a99bd47af",
+  "date": "2026-11-10T22:50:13",
+  "generator": "OpenAI gpt-image-2 through the OpenAI image API (paid per image)",
+  "engine": "openai",
+  "model": "gpt-image-2",
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down into the object from above. Rectangular edges run horizontally and vertically on the canvas. Show no vertical outside faces.\n\nCreate an ORIGINAL game building sprite for the D'thorga inspection pit: a long narrow mechanic's pit sunk into a workshop floor, where parts are checked from below before they leave the workbench, in a hard-scrabble frontier colony. Image 1 is our approved vehicle parts bench from the same family: match its outline weight, shading, palette and finish only. Do NOT copy its shape or contents.\n\nWide canvas. The pit fills about 90 percent of the canvas width and 70 percent of its height, centred, on a plain pure white background. It is three times as long as it is wide.\n\nIts plan, from left to right: at the left end, three shallow concrete steps going down into the pit; along the middle, the dark recessed floor of the pit seen from above, with a plain steel drain grate and one small caged work lamp fixed to the inside wall; at the right end, a small square steel parts lift platform on a short scissor jack, with one muted orange handle. A thick pale concrete rim runs all round the opening, with a narrow band of worn yellow and dark diagonal hazard paint along its inner edge.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo people, animals, vehicles, tools lying about, text, letters, numbers, logos, dials, screens or dust. No floor beyond the rim, no shadow outside the pit, no perspective, no tilt.",
+  "seed": 2,
+  "seed_note": "an attempt number naming the file; the API takes no seed, so a rerun gives a different image",
+  "quality": "medium",
+  "size": [
+    1536,
+    512
+  ],
+  "request_file": "assets/phobos-vehicles/requests/station-inspection-pit.json",
+  "ai_disclosure": "Made with generative AI: OpenAI gpt-image-2, prompted by the Phobos art scripts.",
+  "terms": "OpenAI Services Agreement, sections 4.1 and 4.4, as recorded in the Phobos Ostranauts repository on 2026-10-07 and summarised again on 2026-11-08: API customers own Output, OpenAI assigns any rights it has, and Output may not be unique; no use of Output to build competing models. Dated secondary records: the openai.com page refuses automated reads, so the owner confirms the current text.",
+  "endpoint": "/images/edits",
+  "usage": {
+    "input_tokens": 723,
+    "input_tokens_details": {
+      "image_tokens": 336,
+      "text_tokens": 387
+    },
+    "output_tokens": 535,
+    "output_tokens_details": {
+      "image_tokens": 535,
+      "text_tokens": 0
+    },
+    "total_tokens": 1258
+  },
+  "cost_usd": 0.0207,
+  "cost_is_estimate": false,
+  "reported_quality": "medium",
+  "reported_size": "1536x512",
+  "reported_background": "opaque",
+  "reported_output_format": "png",
+  "returned_size": [
+    1536,
+    512
+  ],
+  "seconds": 18.1,
+  "references": [
+    {
+      "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Stations/PartsBench.png",
+      "sha256": "67ac7e90566d266295400f8684a770a990aed414645bf3c1335efe2251f28785",
+      "role": "our approved vehicle parts bench from the same family of stations: match its outline weight, shading, palette and finish only; do not copy its shape or contents"
+    }
+  ]
+}
