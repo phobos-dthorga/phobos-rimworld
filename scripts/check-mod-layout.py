@@ -178,6 +178,33 @@ def check_thing_def_names(files, read, errors):
                 errors.append(f'{name}: the {element.tag} {def_name} ends in a digit, which RimWorld does not allow on an item: its IDs would corrupt')
 
 
+def check_bill_givers(files, read, errors):
+    """Every bench of ours that a recipe names in recipeUsers is named by a WorkGiverDef's fixedBillGiverDefs, ours or added by a patch:
+    the game sends colonists to bills only at benches a work giver lists (WorkGiver_DoBill.PotentialWorkThingRequest), so a bench without
+    one has bills that nobody ever does (the vehicle parts bench, 9 to 10 Nov 2026). Benches of the game or other mods have their own."""
+    ours, users, givers = set(), {}, set()
+    for name in sorted(n for n in files if n.startswith('mods/') and n.endswith('.xml') and '/Languages/' not in n and '/About/' not in n):
+        try:
+            tree = ET.fromstring(read(name))
+        except ET.ParseError:
+            continue
+        for element in tree.iter():
+            if not isinstance(element.tag, str):
+                continue
+            if element.tag.endswith('ThingDef') and (element.findtext('defName') or '').strip():
+                ours.add(element.findtext('defName').strip())
+            elif element.tag == 'recipeUsers':
+                for li in element.findall('li'):
+                    users.setdefault((li.text or '').strip(), name)
+            elif element.tag == 'fixedBillGiverDefs':
+                givers.update((li.text or '').strip() for li in element.findall('li'))
+            elif 'fixedBillGiverDefs' in (element.findtext('xpath') or '') and element.find('value') is not None:
+                givers.update((li.text or '').strip() for li in element.find('value').iter('li'))
+    for bench, name in sorted(users.items()):
+        if bench in ours and bench not in givers:
+            errors.append(f'{name}: recipes are made at {bench}, but no WorkGiverDef lists it in fixedBillGiverDefs; nobody would ever work its bills')
+
+
 ENGLISH_KEYED = re.compile(r'(^|/)Languages/English/Keyed/[^/]+\.xml$')
 TRANSLATE_CALL = re.compile(r'"(Phobos[A-Za-z0-9_]+)"\s*\.\s*(?:Translate|TranslateSimple)\s*\(')
 LABEL_KEY = re.compile(r'\blabelKey\s*=\s*"(Phobos[A-Za-z0-9_]+)"')
@@ -303,6 +330,7 @@ def check(root, files=None, read=None):
     check_translation_keys(files, read, errors)
     check_settings_defaults(files, read, errors)
     check_thing_def_names(files, read, errors)
+    check_bill_givers(files, read, errors)
     for package_id, mods in sorted(owners.items()):
         if len(mods) > 1:
             errors.append(f'packageId {package_id} is used by {", ".join(mods)}; RimWorld loads only the first')

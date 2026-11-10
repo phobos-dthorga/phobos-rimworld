@@ -78,6 +78,25 @@
     </comps>
   </ThingDef>
 
+  <!-- Sends colonists to the parts bench's bills. A bench without one of these is never worked, whatever its bills (fixed 10 Nov 2026: the bench
+       had shipped without it). Smithing, the work type of the machining table the parts were once made at, with the same priority (agent's choice). -->
+  <WorkGiverDef>
+    <defName>PhobosVehicles_DoBillsPartsBench</defName>
+    <label>make vehicle parts</label>
+    <giverClass>WorkGiver_DoBill</giverClass>
+    <workType>Smithing</workType>
+    <priorityInType>75</priorityInType>
+    <fixedBillGiverDefs>
+      <li>PhobosVehicles_PartsBench</li>
+    </fixedBillGiverDefs>
+    <verb>work at</verb>
+    <gerund>working at</gerund>
+    <requiredCapacities>
+      <li>Manipulation</li>
+    </requiredCapacities>
+    <prioritizeSustains>true</prioritizeSustains>
+  </WorkGiverDef>
+
   <!-- Tunes and changes of grade are done within reach of one of these (owner, 9 Nov 2026). Its size, reach, cost and power are authored. -->
   <ThingDef ParentName="BuildingBase">
     <defName>PhobosVehicles_TuningRig</defName>

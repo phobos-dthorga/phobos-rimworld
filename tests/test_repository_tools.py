@@ -110,6 +110,22 @@ class LayoutCheckTests(unittest.TestCase):
         # Other kinds of Def are not read that way.
         self.assertEqual(errors_for(b'<Defs><ThingDef><defName>ExampleCase</defName></ThingDef><RecipeDef><defName>Make2</defName></RecipeDef></Defs>'), '')
 
+    def test_a_bench_of_ours_needs_a_work_giver(self):
+        def errors_for(xml):
+            return '\n'.join(run(mod('Example', extra={'Common/Defs/Example.xml': xml}))['errors'])
+        bench = b'<ThingDef><defName>ExampleBench</defName></ThingDef>'
+        recipe = b'<RecipeDef><defName>MakeThing</defName><recipeUsers><li>ExampleBench</li></recipeUsers></RecipeDef>'
+        self.assertIn('no WorkGiverDef lists it', errors_for(b'<Defs>' + bench + recipe + b'</Defs>'))
+        giver = b'<WorkGiverDef><defName>DoExample</defName><fixedBillGiverDefs><li>ExampleBench</li></fixedBillGiverDefs></WorkGiverDef>'
+        self.assertEqual(errors_for(b'<Defs>' + bench + recipe + giver + b'</Defs>'), '')
+        # Added to another work giver by a patch counts too.
+        patch = (b'<Patch><Operation Class="PatchOperationAdd"><xpath>Defs/WorkGiverDef[defName="DoBillsMachiningTable"]/fixedBillGiverDefs'
+                 b'</xpath><value><li>ExampleBench</li></value></Operation></Patch>')
+        contents = mod('Example', extra={'Common/Defs/Example.xml': b'<Defs>' + bench + recipe + b'</Defs>', 'Common/Patches/Givers.xml': patch})
+        self.assertEqual(run(contents)['errors'], [])
+        # A bench of the game's or another mod's is theirs to list.
+        self.assertEqual(errors_for(b'<Defs><RecipeDef><defName>MakeThing</defName><recipeUsers><li>TableMachining</li></recipeUsers></RecipeDef></Defs>'), '')
+
     def test_every_version_copy_is_in_the_constants_catalogue(self):
         version = re.search(rb'<modVersion>([^<]+)</modVersion>', GOOD_ABOUT).group(1).decode()
         contents = mod('Example')
