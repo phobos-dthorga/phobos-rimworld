@@ -1,0 +1,62 @@
+[
+  {
+    "name": "generator-loop",
+    "engine": "sa3-sfx-base",
+    "prompt": "Small diesel generator running steadily at moderate load outdoors, heard from a few metres away, low even chugging engine rumble with a soft exhaust thrum and a faint cooling fan whir, continuous and unchanging, no starting or stopping, calm. Length: 8 seconds",
+    "seconds": 8,
+    "loop": true,
+    "seeds": [11, 12]
+  },
+  {
+    "name": "generator-loop-fast",
+    "engine": "sa3-sfx",
+    "prompt": "Small diesel generator running steadily at moderate load outdoors, heard from a few metres away, low even chugging engine rumble with a soft exhaust thrum and a faint cooling fan whir, continuous and unchanging, no starting or stopping, calm. Length: 8 seconds",
+    "seconds": 8,
+    "loop": true,
+    "seeds": [11, 12]
+  },
+  {
+    "name": "concentrator-hum",
+    "engine": "sa3-sfx-base",
+    "prompt": "Medical oxygen concentrator running quietly in a small room, soft steady electric motor hum with a gentle rhythmic puff of air every few seconds, muffled and subdued, close perspective, calm and continuous. Length: 8 seconds",
+    "seconds": 8,
+    "loop": true,
+    "seeds": [11, 12]
+  },
+  {
+    "name": "concentrator-hum-fast",
+    "engine": "sa3-sfx",
+    "prompt": "Medical oxygen concentrator running quietly in a small room, soft steady electric motor hum with a gentle rhythmic puff of air every few seconds, muffled and subdued, close perspective, calm and continuous. Length: 8 seconds",
+    "seconds": 8,
+    "loop": true,
+    "seeds": [11, 12]
+  },
+  {
+    "name": "sonar-ping",
+    "engine": "sa3-sfx-base",
+    "prompt": "Single soft sonar ping heard from inside a small submarine hull, a gentle rounded tone with a long fading underwater echo, quiet and calm, no alarm. Length: 4 seconds",
+    "seconds": 4,
+    "seeds": [11, 12]
+  },
+  {
+    "name": "sonar-ping-fast",
+    "engine": "sa3-sfx",
+    "prompt": "Single soft sonar ping heard from inside a small submarine hull, a gentle rounded tone with a long fading underwater echo, quiet and calm, no alarm. Length: 4 seconds",
+    "seconds": 4,
+    "seeds": [11, 12]
+  },
+  {
+    "name": "switch-click",
+    "engine": "sa3-sfx-base",
+    "prompt": "One soft toggle switch click on a metal control panel, a short dry close-up click with a small muffled thunk, quiet, dead room with no echo. Length: 2 seconds",
+    "seconds": 2,
+    "seeds": [11, 12]
+  },
+  {
+    "name": "switch-click-fast",
+    "engine": "sa3-sfx",
+    "prompt": "One soft toggle switch click on a metal control panel, a short dry close-up click with a small muffled thunk, quiet, dead room with no echo. Length: 2 seconds",
+    "seconds": 2,
+    "seeds": [11, 12]
+  }
+]

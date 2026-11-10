@@ -377,6 +377,10 @@ delivered, record the delivery in the changelog or design record, and add or ame
   damage or text: those are overlays or nothing); one correction per defect, then a change of approach; rejects archived
   with their reason; approved picks stay unless the owner reopens them.
 - Sounds only where usefulness is high: quiet, never alarming, with a volume setting.
+- **Sounds are made locally and judged by more than the ear** (owner, 10 Nov 2026; `docs/development/sound-generation.md`): Stable Audio 3
+  through `scripts/art-run.py`, under the same safeguards as images, and **ffmpeg for every audio job** (owner: "a much finer tool"), never
+  Python audio libraries. A pick is made from the listening page `scripts/art/sound_review.py` writes, with its spectrograms, measured flags
+  and lowered copy; masters stay byte for byte.
 
 ## Builds, installation and checks
 

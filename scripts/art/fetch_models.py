@@ -3,10 +3,12 @@
 Reads scripts/art/models.json. For a Hugging Face file it asks the Hub for the repository's declared licence and its
 gated flag, refuses a licence that differs from the manifest, and verifies the SHA-256 the Hub lists for the file. A gated
 repository is never fetched: this script handles no credentials, so it prints what the owner must do instead. Resumes a
-partial download. Uses the GPU not at all, so it is safe while a game runs.
+partial download. Uses the GPU not at all, so it is safe while a game runs. A model marked "optional" (a large comparison model,
+or one under other terms) is fetched only when --optional or --only asks for it.
 
-    python scripts/art/fetch_models.py            download everything missing
-    python scripts/art/fetch_models.py --check    report only
+    python scripts/art/fetch_models.py                       download everything missing that is not optional
+    python scripts/art/fetch_models.py --check               report only
+    python scripts/art/fetch_models.py --only stable_audio   only files whose name contains this text, optional or not
 """
 import argparse
 import hashlib
@@ -79,6 +81,13 @@ def source_of(item):
     return item['url']
 
 
+def wanted(item, only=None, optional=False):
+    """Whether this run looks at an entry: --only picks by name, optional or not; otherwise optional entries wait for --optional."""
+    if only:
+        return only.lower() in item['file'].lower()
+    return optional or not item.get('optional', False)
+
+
 def process(item, check_only):
     target = COMFY / 'ComfyUI' / 'models' / item['folder'] / item['file']
     expected = item.get('sha256')
@@ -114,9 +123,13 @@ def process(item, check_only):
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument('--check', action='store_true', help='report what is present without downloading')
+    parser.add_argument('--only', help='only the files whose name contains this text, optional ones included')
+    parser.add_argument('--optional', action='store_true', help='include the models marked optional')
     args = parser.parse_args(argv)
     results = {}
     for item in json.loads(MANIFEST.read_text(encoding='utf-8'))['models']:
+        if not wanted(item, args.only, args.optional):
+            continue
         try:
             results[item['file']] = process(item, args.check)
         except (urllib.error.URLError, OSError) as error:

@@ -1,4 +1,7 @@
-"""Generate artwork candidates through a local ComfyUI server, or the paid OpenAI image API, and record how each was made.
+"""Generate artwork and sound candidates through a local ComfyUI server, or the paid OpenAI image API, and record how each was made.
+
+Sound requests use a Stable Audio 3 engine ("sa3-sfx-base" and others in ENGINES), give "seconds" instead of a width and
+height, may say "loop": true, and save a FLAC file per seed; scripts/art/sound_review.py prepares them for listening.
 
 Reads a request file (JSON: a list of requests with a name, a prompt, sizes and seeds), submits one graph for every seed
 through the request's engine (see ENGINES), waits for the images and saves them with a record beside each one: prompt, seed,
@@ -48,6 +51,10 @@ ZIMAGE_SHIFT = 3  # ModelSamplingAuraFlow value in ComfyUI's Z-Image template.
 FLUX3_UNET = 'flux3_image_klein_int8_convrot.safetensors'
 FLUX3_CLIP = 'qwen3vl_4b_int8_convrot.safetensors'
 UPSCALE_MODEL = 'RealESRGAN_x4plus.pth'
+SA3_CLIP = 't5gemma_b_b_ul2.safetensors'
+SA3_LICENCE = 'Stability AI Community License; Comfy-Org packaging'
+AUDIO_SUFFIX = '.flac'  # Lossless: the master is kept byte for byte, and every copy a player hears is made from it.
+MAX_AUDIO_SECONDS = 120  # Small SFX's limit, from ComfyUI's Stable Audio 3 page ("up to 2:00"); Medium reaches about 6:20.
 
 # Steps and guidance are each publisher's or template's own, and a request may override them. Every timeout is generous:
 # the owner prefers slow, full models over fast ones that need rerunning (5 Nov 2026).
@@ -74,6 +81,26 @@ ENGINES = {
     'upscale': {
         'label': 'Real-ESRGAN x4plus (Xintao Wang and colleagues, BSD 3-Clause)',
         'model': UPSCALE_MODEL, 'folder': 'upscale_models', 'steps': 0, 'cfg': 0.0, 'sampler': 'none', 'timeout': 600},
+    # Sounds (owner's go, 10 Nov 2026; docs/development/sound-generation.md). A request gives "seconds" instead of a size, and
+    # each candidate is a FLAC file. The base models' 50 steps at guidance 7 and the distilled models' 8 steps at guidance 1,
+    # both with the lcm sampler, are ComfyUI's Stable Audio 3 Medium Base and Medium templates. ComfyUI ships no Small SFX
+    # template, so the same settings are used for Small SFX: an assumption until the pilot shows them right.
+    'sa3-sfx-base': {
+        'label': f'Stable Audio 3 Small SFX base (Stability AI, {SA3_LICENCE})', 'kind': 'audio',
+        'model': 'stable_audio_3_small_sfx_base.safetensors', 'folder': 'checkpoints', 'steps': 50, 'cfg': 7.0,
+        'sampler': 'lcm/simple', 'timeout': 1800},
+    'sa3-sfx': {
+        'label': f'Stable Audio 3 Small SFX, distilled (Stability AI, {SA3_LICENCE})', 'kind': 'audio',
+        'model': 'stable_audio_3_small_sfx.safetensors', 'folder': 'checkpoints', 'steps': 8, 'cfg': 1.0,
+        'sampler': 'lcm/simple', 'timeout': 1800},
+    'sa3-medium-base': {
+        'label': f'Stable Audio 3 Medium base (Stability AI, {SA3_LICENCE})', 'kind': 'audio',
+        'model': 'stable_audio_3_medium_base.safetensors', 'folder': 'checkpoints', 'steps': 50, 'cfg': 7.0,
+        'sampler': 'lcm/simple', 'timeout': 3600},
+    'sa3-medium': {
+        'label': f'Stable Audio 3 Medium, distilled (Stability AI, {SA3_LICENCE})', 'kind': 'audio',
+        'model': 'stable_audio_3_medium.safetensors', 'folder': 'checkpoints', 'steps': 8, 'cfg': 1.0,
+        'sampler': 'lcm/simple', 'timeout': 3600},
     # Paid per image, on OpenAI's servers: no graph, no graphics card, no seed. Owner's choice of service, 8 Nov 2026.
     'openai': {
         'label': f'OpenAI {paid.MODEL} through the OpenAI image API (paid per image)', 'remote': True,
@@ -95,6 +122,21 @@ def reference_paths(req):
 def is_paid(req):
     """Whether a request is made by a paid remote engine rather than the local ComfyUI."""
     return ENGINES.get(req.get('engine', 'schnell'), {}).get('remote', False)
+
+
+def is_audio(req):
+    """Whether a request makes sounds rather than images."""
+    return ENGINES.get(req.get('engine', 'schnell'), {}).get('kind') == 'audio'
+
+
+def target_for(folder, req, seed):
+    """Where one candidate is saved: <name>-<seed>.png for an image, .flac for a sound."""
+    return Path(folder) / f'{req["name"]}-{seed}{AUDIO_SUFFIX if is_audio(req) else ".png"}'
+
+
+def describe_size(req):
+    """A request's size in words, for dry runs: seconds for a sound, pixels for an image."""
+    return f'{req["seconds"]} s' if is_audio(req) else f'{req["width"]}x{req["height"]}'
 
 
 def paid_problems(requests):
@@ -252,6 +294,25 @@ def upscale_workflow(init_name, width, height, prefix):
     }
 
 
+def audio_workflow(prompt, seconds, seed, steps, cfg, model, prefix, negative=''):
+    """ComfyUI API-format graph for Stable Audio 3, after the core of ComfyUI's Stable Audio 3 templates with their Qwen
+    prompt rewriter left out: the requests carry full prompts, written the way the template's SFX guide asks (source,
+    material, space, how it changes over time, and a closing "Length: N seconds"). The checkpoint holds the model and its
+    decoder; the text encoder is loaded apart, as in the template. Saved as FLAC."""
+    return {
+        '1': {'class_type': 'CheckpointLoaderSimple', 'inputs': {'ckpt_name': model}},
+        '2': {'class_type': 'CLIPLoader', 'inputs': {'clip_name': SA3_CLIP, 'type': 'stable_audio', 'device': 'default'}},
+        '3': {'class_type': 'CLIPTextEncode', 'inputs': {'text': prompt, 'clip': ['2', 0]}},
+        '4': {'class_type': 'CLIPTextEncode', 'inputs': {'text': negative, 'clip': ['2', 0]}},
+        '5': {'class_type': 'EmptyLatentAudio', 'inputs': {'seconds': float(seconds), 'batch_size': 1}},
+        '6': {'class_type': 'KSampler', 'inputs': {
+            'seed': seed, 'steps': steps, 'cfg': cfg, 'sampler_name': 'lcm', 'scheduler': 'simple', 'denoise': 1.0,
+            'model': ['1', 0], 'positive': ['3', 0], 'negative': ['4', 0], 'latent_image': ['5', 0]}},
+        '7': {'class_type': 'VAEDecodeAudio', 'inputs': {'samples': ['6', 0], 'vae': ['1', 2]}},
+        '8': {'class_type': 'SaveAudioAdvanced', 'inputs': {'audio': ['7', 0], 'filename_prefix': prefix, 'format': 'flac'}},
+    }
+
+
 def build_graph(req, seed, reference_names=(), init_name=None, denoise=1.0):
     """The one place a request becomes a graph. Reference and LoRA support is by engine; asking the wrong one is an error."""
     engine_name = req.get('engine', 'schnell')
@@ -264,6 +325,12 @@ def build_graph(req, seed, reference_names=(), init_name=None, denoise=1.0):
     steps = req.get('steps', engine['steps'])
     cfg = float(req.get('cfg', engine['cfg']))
     lora, strength = req.get('lora'), float(req.get('lora_strength', 1.0))
+    if engine.get('kind') == 'audio':
+        if reference_names or init_name or lora:
+            raise ValueError(f'{req["name"]}: the sound engines take no reference images, sketch or LoRA')
+        if not 0 < float(req.get('seconds', 0)) <= MAX_AUDIO_SECONDS:
+            raise ValueError(f'{req["name"]}: a sound request needs "seconds" between 0 and {MAX_AUDIO_SECONDS}')
+        return audio_workflow(req['prompt'], req['seconds'], seed, steps, cfg, engine['model'], prefix, req.get('negative_prompt', ''))
     if engine_name == 'klein':
         return klein_workflow(req['prompt'], req['width'], req['height'], seed, steps, prefix, reference_names, lora, strength)
     if engine_name == 'klein-base':
@@ -430,6 +497,12 @@ def wait_for(prompt_id, timeout=600, should_stop=None):
     raise TimeoutError('image did not finish in time')
 
 
+def saved_files(outputs):
+    """The files a finished graph saved, from its history outputs: SaveImage lists them under "images", the audio savers
+    under "audio". Both are fetched the same way."""
+    return [entry for node in outputs.values() for key in ('images', 'audio') for entry in node.get(key, [])]
+
+
 def fetch_image(info):
     query = urllib.parse.urlencode({'filename': info['filename'], 'subfolder': info.get('subfolder', ''), 'type': info.get('type', 'output')})
     with urllib.request.urlopen(f'{SERVER}/view?{query}', timeout=60) as response:
@@ -460,7 +533,7 @@ def plan(request_file, only=None):
     """Every image a request file asks for, as (request, seed, target path); touches neither the server nor the GPU."""
     requests = json.loads(Path(request_file).read_text(encoding='utf-8'))
     out_root = output_root(request_file)
-    return [(req, seed, out_root / req['name'] / f'{req["name"]}-{seed}.png')
+    return [(req, seed, target_for(out_root / req['name'], req, seed))
             for req in requests if not only or req['name'] == only for seed in req['seeds']]
 
 
@@ -499,9 +572,15 @@ def make_record(req, engine_name, target, data, version, model, model_hash, seed
         'steps': req.get('steps', engine['steps']),
         'cfg': float(req.get('cfg', engine['cfg'])),
         'sampler': engine['sampler'],
-        'size': [req['width'], req['height']],
         'request_file': display_path(request_file),
     }
+    if engine.get('kind') == 'audio':
+        record['text_encoder'] = SA3_CLIP
+        record['seconds_asked'] = float(req['seconds'])
+        record['loop'] = bool(req.get('loop', False))
+        record['ai_disclosure'] = f'Made with generative AI: {engine["label"]}, run locally, prompted by the Phobos art scripts.'
+    else:
+        record['size'] = [req['width'], req['height']]
     if seconds is not None:
         record['seconds'] = seconds
     if init_source is not None:
@@ -617,7 +696,7 @@ def run(request_file, only=None, comfy_path=DEFAULT_COMFY, start=False, should_s
                     reference_names.append(name)
                     reference_sources.append(source)
             for seed in req['seeds']:
-                target = folder / f'{req["name"]}-{seed}.png'
+                target = target_for(folder, req, seed)
                 if target.exists():
                     print(f'  {target.name} exists, skipped')
                     result['skipped'] += 1
@@ -644,10 +723,10 @@ def run(request_file, only=None, comfy_path=DEFAULT_COMFY, start=False, should_s
                         queued = post_json('/prompt', {'prompt': graph, 'client_id': str(uuid.uuid4())})
                         print(f'  {req["name"]} seed {seed}: queued {queued["prompt_id"]}', flush=True)
                         outputs = wait_for(queued['prompt_id'], req.get('timeout', engine['timeout']), should_stop)
-                        images = [img for node in outputs.values() for img in node.get('images', [])]
-                        if not images:
-                            raise RuntimeError('no image came back')
-                        data = fetch_image(images[0])
+                        files = saved_files(outputs)
+                        if not files:
+                            raise RuntimeError('no image or sound came back')
+                        data = fetch_image(files[0])
                     except (RuntimeError, TimeoutError, ValueError, urllib.error.URLError, OSError) as error:
                         if isinstance(error, paid.ApiError) and error.fatal:
                             result['failures'].append({'image': target.name, 'error': str(error)[:500]})

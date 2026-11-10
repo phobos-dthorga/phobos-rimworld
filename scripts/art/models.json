@@ -59,6 +59,53 @@
       "licence": "apache-2.0",
       "sha256": "65ec4c71fa7538b2201481928609a5836773f0dc06a4041b2d28abd05826c401",
       "why": "RefControl depth LoRA for FLUX.2 Klein 4B Base (thedeoxen): a depth map as the first reference, the design as the second, trigger word refcontrol; the camera-angle trial (docs/development/view-angle-models.md)"
+    },
+    {
+      "file": "stable_audio_3_small_sfx_base.safetensors",
+      "folder": "checkpoints",
+      "repo": "Comfy-Org/stable-audio-3",
+      "path": "checkpoints/stable_audio_3_small_sfx_base.safetensors",
+      "licence": "other",
+      "sha256": "0c7cddb22cd7bf5e8169c6731a9eb7690c27ef5b53e8a4f9b4b2aaf8afcdaea2",
+      "why": "Stable Audio 3 Small SFX base (Stability AI; Stability AI Community License, which the Hub calls stable-audio-community): sound effects at full steps, the first sound engine, sa3-sfx-base. Outputs are ours and need no notice in a mod (docs/development/sound-generation.md)"
+    },
+    {
+      "file": "stable_audio_3_small_sfx.safetensors",
+      "folder": "checkpoints",
+      "repo": "Comfy-Org/stable-audio-3",
+      "path": "checkpoints/stable_audio_3_small_sfx.safetensors",
+      "licence": "other",
+      "sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "why": "Stable Audio 3 Small SFX distilled (same licence): the fast comparison, sa3-sfx"
+    },
+    {
+      "file": "t5gemma_b_b_ul2.safetensors",
+      "folder": "text_encoders",
+      "repo": "Comfy-Org/stable-audio-3",
+      "path": "text_encoders/t5gemma_b_b_ul2.safetensors",
+      "licence": "other",
+      "sha256": "1e1eba25be8872edb0d3c6335c6658fd6388e7b14b60da6e454e404cfcd8150e",
+      "why": "The text encoder every Stable Audio 3 model uses (same repository and licence)"
+    },
+    {
+      "file": "stable_audio_3_medium_base.safetensors",
+      "folder": "checkpoints",
+      "repo": "Comfy-Org/stable-audio-3",
+      "path": "checkpoints/stable_audio_3_medium_base.safetensors",
+      "licence": "other",
+      "optional": true,
+      "sha256": "c443fcc4d491475064cd0ff3eb92459b1e5f5060e86d96d016f048e528e24195",
+      "why": "Stable Audio 3 Medium base (9.2 GB, same licence): longer sounds and music; a comparison only, sa3-medium-base"
+    },
+    {
+      "file": "stable_audio_3_medium.safetensors",
+      "folder": "checkpoints",
+      "repo": "Comfy-Org/stable-audio-3",
+      "path": "checkpoints/stable_audio_3_medium.safetensors",
+      "licence": "other",
+      "optional": true,
+      "sha256": "48d9c65e290e7bcd5194e0633bfc2424a59ee9683f5c2d58762d997b7d8ce0b5",
+      "why": "Stable Audio 3 Medium distilled (9.2 GB, same licence): a comparison only, sa3-medium"
     }
   ]
 }

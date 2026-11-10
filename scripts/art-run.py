@@ -5,6 +5,7 @@ Ends at the stop time, the moment RimWorld starts, or before a drive falls under
 they use none of the graphics card; the run ends before any image that could pass the cap. However it ends, it
 frees the graphics memory, stops any server it started, and writes a report. Keeps Windows awake only while it runs. If ComfyUI
 dies or hangs it starts a fresh one and tries that image again. Candidates are checked against their references for near-copies.
+Sound requests (a Stable Audio 3 engine) run the same way, and scripts/art/sound_review.py then writes their listening page.
 
     python scripts/art-run.py generate assets/phobos-medical/requests/first-batch.json --stop-at 07:00
     python scripts/art-run.py generate assets/phobos-medical/requests/first-batch.json --dry-run
@@ -149,6 +150,8 @@ def post_process(comfy, generated, folders, sources=()):
         if problem:
             problems.append(problem)
     problems += _run_tool([sys.executable, '-I', str(tools / 'review_page.py'), str(generated)])
+    if any((generated / name).is_dir() and any((generated / name).glob('*' + art.AUDIO_SUFFIX)) for name in dict.fromkeys(folders)):
+        problems += _run_tool([sys.executable, '-I', str(tools / 'sound_review.py'), str(generated)])
     return problems, near_copy_lines(sources if existing else (), ran, flags)
 
 
@@ -212,6 +215,8 @@ def write_report(folder, kind, source, started, stop_at, result, notes, problems
         lines += ['', '## Review tools that failed', ''] + [f'- {problem}' for problem in problems]
     if (folder / 'review.html').is_file():
         lines += ['', f'Review page: {art.display_path(folder / "review.html")}']
+    if (folder / 'sound-review.html').is_file():
+        lines += ['', f'Listening page: {art.display_path(folder / "sound-review.html")}']
     path = folder / f'run-{stamp}.md'
     path.write_text('\n'.join(lines) + '\n', encoding='utf-8')
     print(f'report: {path}')
@@ -236,7 +241,7 @@ def generate(args, stop_at, game_names):
             how = (f'{art.paid.settings(req)["quality"]} quality, up to US${art.paid.estimate_usd(req):.3f} an image'
                    if art.is_paid(req) else f'{req.get("steps", engine["steps"])} steps')
             print(f'  {req["name"]}: {req.get("engine", "schnell")}, {how}, '
-                  f'{len(req["seeds"])} seeds, {len(art.reference_paths(req))} references, {req["width"]}x{req["height"]}')
+                  f'{len(req["seeds"])} seeds, {len(art.reference_paths(req))} references, {art.describe_size(req)}')
         if any_paid:
             print(f'paid images still to make should cost at most about US${estimate:.2f}')
         for problem in paid_problems:

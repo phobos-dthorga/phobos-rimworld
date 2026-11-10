@@ -248,6 +248,9 @@ Five mods until 7 November 2026; each record below keeps its own mod's name and 
   rules for every picture bought from the OpenAI image API, where each came from in the Ostranauts records (projection
   failures, pilots before families, reference roles, what a provider ignores, records, cost discipline), what differs for
   Vehicle Framework bodies, the prompt skeleton, the pilot flow, the review checklist and what the engine enforces.
+- [Sound generation: research and pipeline (10 Nov 2026)](sound-generation.md): local sound effects with Stable Audio 3 Small
+  SFX through ComfyUI, the models compared and their licences, ffmpeg clean-up, and a listening page with spectrograms,
+  measured flags and a lowered copy for ears that lose the high frequencies. No sound is in a mod yet.
 
 ## Analysis tooling
 
