@@ -194,7 +194,7 @@ Lessons, from 16 sounds and so tentative:
 
 **The owner's picks (10 Nov 2026):** concentrator hum distilled 12 (chosen over the first pick, full-steps seed 12, which
 stays the runner-up with its filter), generator loop distilled 11, sonar ping distilled
-11, switch click distilled (seed open), recorded in `assets/phobos-sounds/picks.json`. The concentrator hum whines near 15 kHz
+11, switch click distilled 11, recorded in `assets/phobos-sounds/picks.json`. The concentrator hum whines near 15 kHz
 and, in other stretches, near 19.5 kHz (which the whine search then missed, so it now reaches 20 kHz). A narrow notch at 15 kHz
 left a shoulder and the 19.5 kHz band; **a steep low-pass at 11 kHz removed both** and left its loudness unchanged, so the
 export applies it to that pick. A muffled hum has nothing worth keeping up there.

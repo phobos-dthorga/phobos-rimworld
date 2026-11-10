@@ -19,10 +19,10 @@
       "notes": "A soft held two-note tone rather than a ping with an echo; the owner's pick as it stands."
     },
     {
-      "candidate": "switch-click-fast/switch-click-fast-11.flac or -12.flac",
+      "candidate": "switch-click-fast/switch-click-fast-11.flac",
       "picked": "2026-11-10",
       "use": "A switch or toggle click",
-      "notes": "The owner picked switch-click-fast without a seed: which one is open. Each holds three clicks; the export cuts one out."
+      "notes": "It holds three clicks (near 0.17, 0.36 and 1.05 s); the export cuts one out."
     }
   ],
   "runners_up": [
