@@ -11,6 +11,9 @@
   <PhobosFleet_ColumnWorstPart>Worst part</PhobosFleet_ColumnWorstPart>
   <PhobosFleet_ColumnStatus>Status</PhobosFleet_ColumnStatus>
   <PhobosFleet_ColumnCrew>Crew</PhobosFleet_ColumnCrew>
+  <PhobosFleet_StatusGood>Nothing needs attention.</PhobosFleet_StatusGood>
+  <PhobosFleet_StatusNotable>Something wants a look: open its Dashboard.</PhobosFleet_StatusNotable>
+  <PhobosFleet_StatusStopped>It will not move, or something is harming it: open its Dashboard.</PhobosFleet_StatusStopped>
   <PhobosFleet_TipWorstPart>Worst part: {PART}, at {HEALTH}</PhobosFleet_TipWorstPart>
   <PhobosFleet_WhereInFlight>In flight</PhobosFleet_WhereInFlight>
   <PhobosFleet_WhereParked>Left parked</PhobosFleet_WhereParked>

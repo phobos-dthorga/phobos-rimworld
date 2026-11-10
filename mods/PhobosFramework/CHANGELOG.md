@@ -5,6 +5,27 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.79.0] - 2026-11-11 - Draft
+
+The vehicle screens show more at a glance (owner, 11 November 2026: two or three slices from the presentation record while they slept). **Not yet tested in game.**
+
+### Added
+
+- **The Health tab shows the damage sheet**: the vehicle's picture seen from above, with every hurt part's cells tinted green, amber or red, in its own column on the left. Hover the picture and the part's row lights, and the part lights on the vehicle on the map, as hovering its row already did; hover a row and its cells are outlined on the picture. The tab is wider to make room (910 pixels on a map, 1080 on the world map's tab); a narrower tab leaves the picture out.
+- **The fleet board shows each vehicle's picture** beside its name, its fuel and its worst part as small gauges (fuel amber below a quarter of a tank), and its state as the dashboard's check-engine lamp, green, amber or red. The row's tooltip says what the lamp means.
+- **A small line of the last day under each Dashboard gauge**, for those who read figures (Operator and Engineer): a climbing coolant or a falling battery is seen before its gauge turns red. It shows the trend only; its tooltip points to the Systems tab's full graph. A gauge that shows what is left (tread) has its line the same way up.
+- For modders: PhobosWidgets.Sparkline draws a bare line of a history ring, thinned to 48 averaged segments; VehiclePicture draws a vehicle Def's picture in any rect, facing north or as the Def likes to be shown.
+
+### Compatibility and limits
+
+- The pictures are Vehicle Framework's own, drawn through its interface for pictures; if that fails, the screens carry on without them and the log says so once. Thumbnails use each design's default paint, not a vehicle's own pattern.
+- The fleet board's rows are taller (40 pixels instead of 28), so fewer fit without scrolling.
+- The Dashboard tab is 18 pixels taller to fit the lines.
+
+### Save compatibility
+
+- Safe on an existing save: nothing new is saved.
+
 ## [0.78.0] - 2026-11-11 - Draft
 
 A diagnosis becomes a report you can look at (owner, 11 November 2026: steps one and two of the presentation record, with its first graph and the damage sheet). **Not yet tested in game.**

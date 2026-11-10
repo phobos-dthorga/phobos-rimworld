@@ -178,6 +178,40 @@ public static class PhobosWidgets
         SimpleCurveDrawer.DrawCurves(new Rect(rect.x, rect.y + LegendHeight, rect.width, rect.height - LegendHeight), curves, style);
     }
 
+    /// <summary>The most segments a sparkline draws, however many samples it holds (authored: enough for a trend, cheap every frame).</summary>
+    public const int SparklineSegments = 48;
+
+    /// <summary>
+    /// A bare line of a ring's samples over its whole span, scaled to min..max, with no axes, figures or legend (Framework 0.79.0, the
+    /// Dashboard's last day under each gauge): a trend seen at a glance. Long rings are thinned to <see cref="SparklineSegments"/> segments,
+    /// each the average of its samples, so a spike shows as a bump rather than vanishing. Draws on repaint only; records nothing.
+    /// </summary>
+    public static void Sparkline(Rect rect, HistoryRing ring, float min, float max, Color colour)
+    {
+        if (ring.Count < 2 || Event.current.type != EventType.Repaint) return;
+        Widgets.DrawBoxSolid(rect, GaugeBackground);
+        int segments = Mathf.Min(SparklineSegments, ring.Count - 1);
+        // min above max turns the line over, for a gauge that shows what is left.
+        float span = Mathf.Abs(max - min) < 1e-6f ? 1e-6f : max - min;
+        float perSegment = (float)ring.Count / (segments + 1);
+        // Where the newest sample ends: a ring not yet full draws only its share of the strip, ending at the right edge (now).
+        float filled = (float)ring.Count / ring.Capacity;
+        float left = rect.xMax - rect.width * filled;
+        Vector2 previous = default;
+        for (int s = 0; s <= segments; s++)
+        {
+            int from = Mathf.FloorToInt(s * perSegment), to = Mathf.Max(from + 1, Mathf.FloorToInt((s + 1) * perSegment));
+            float sum = 0f;
+            for (int i = from; i < to && i < ring.Count; i++) sum += ring[i];
+            float value = sum / Mathf.Max(1, Mathf.Min(to, ring.Count) - from);
+            float x = left + (rect.xMax - left) * s / segments;
+            float y = rect.yMax - 1f - (rect.height - 2f) * Mathf.Clamp01((value - min) / span);
+            var point = new Vector2(x, y);
+            if (s > 0) Widgets.DrawLine(previous, point, colour, 1f);
+            previous = point;
+        }
+    }
+
     /// <summary>A tachometer as a bar: fill against the redline, green to the rated speed and red past it.</summary>
     public static void Tachometer(Rect rect, float rpm, float rated, float redlineShare = 1.1f, string? label = null, string? figure = null)
     {

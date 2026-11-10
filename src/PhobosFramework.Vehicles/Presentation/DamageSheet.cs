@@ -1,10 +1,7 @@
 using System.Collections.Generic;
-using System.Reflection;
-using HarmonyLib;
 using Phobos.Framework.Interface;
 using UnityEngine;
 using Vehicles;
-using Vehicles.Rendering;
 using Verse;
 
 namespace Phobos.VehicleSystems;
@@ -21,7 +18,6 @@ public static class DamageSheet
     /// <summary>A part at or above this share is whole and left clear.</summary>
     const float WholeShare = 0.999f;
     static readonly Color Background = new(0.09f, 0.09f, 0.1f);
-    static bool pictureFailed;
 
     /// <summary>One part's place on the sheet: its key, label and health share.</summary>
     public readonly struct SheetPart
@@ -47,19 +43,7 @@ public static class DamageSheet
         Widgets.DrawBoxSolid(rect, Background);
         Widgets.DrawBox(rect);
         Rect area = rect.ContractedBy(6f);
-        if (!pictureFailed && Event.current.type == EventType.Repaint)
-        {
-            try
-            {
-                DrawPicture(area, def);
-            }
-            catch (System.Exception ex)
-            {
-                // Vehicle Framework's picture drawing is its own; if it fails here once, the sheet draws its cells without the picture.
-                pictureFailed = true;
-                VehicleSystemsMod.Logger.Warn("The damage sheet could not draw " + def.defName + "'s picture, and shows the parts without it: " + (ex.InnerException ?? ex).Message);
-            }
-        }
+        VehiclePicture.Draw(area, def, facingNorth: true);
 
         Rect picture = PictureRect(area, def);
         Vector2 drawSize = ((GraphicData?)def.graphicData)?.drawSize ?? Vector2.one;
@@ -123,32 +107,6 @@ public static class DamageSheet
         return hovered;
     }
 
-    // Vehicle Framework is built for 1.6, and a 1.7 build cannot call its methods that take or return a Unity type (the compiler refuses
-    // 1.6's Unity module); at run time the game's shim makes the types one, so these go through reflection. check-targets.py checks the
-    // names. Rot8 is SmashTools' type, read off the method's own parameter.
-    static readonly MethodInfo? DrawDefOnGui = AccessTools.Method(typeof(VehicleGui), "DrawVehicleDefOnGUI");
-    static readonly MethodInfo? DisplayOffsetForRot = AccessTools.Method(typeof(VehicleDrawProperties), "DisplayOffsetForRot", new[] { typeof(Rot4) });
-    static object?[]? drawArguments;
-
-    static void DrawPicture(Rect rect, VehicleDef def)
-    {
-        if (DrawDefOnGui == null) throw new System.MissingMethodException("VehicleGui", "DrawVehicleDefOnGUI");
-        if (drawArguments == null)
-        {
-            ParameterInfo[] parameters = DrawDefOnGui.GetParameters();
-            object? north = null;
-            if (parameters.Length == 4 && System.Nullable.GetUnderlyingType(parameters[3].ParameterType) is { } rot8)
-            {
-                north = AccessTools.Field(rot8, "North")?.GetValue(null) ?? AccessTools.Property(rot8, "North")?.GetValue(null);
-            }
-            drawArguments = new object?[parameters.Length];
-            if (parameters.Length == 4) drawArguments[3] = north;
-        }
-        drawArguments[0] = rect;
-        drawArguments[1] = def;
-        DrawDefOnGui.Invoke(null, drawArguments);
-    }
-
     /// <summary>Where Vehicle Framework puts the picture in a rect (facing north): fitted to the drawn size and the Def's icon scale,
     /// centred, then moved by the Def's display offset, as its own picture drawing does (VehicleDef.ScaleDrawRatio, VehicleGui.GetBlitData).</summary>
     static Rect PictureRect(Rect rect, VehicleDef def)
@@ -157,8 +115,7 @@ public static class DamageSheet
         float width = rect.width * def.uiIconScale, height = rect.height * def.uiIconScale;
         if (width < height) height = width * (drawSize.y / Mathf.Max(0.01f, drawSize.x));
         else width = height * (drawSize.x / Mathf.Max(0.01f, drawSize.y));
-        Vector3 offset = Vector3.zero;
-        if (def.drawProperties != null && DisplayOffsetForRot?.Invoke(def.drawProperties, new object[] { Rot4.North }) is Vector3 found) offset = found;
+        Vector3 offset = VehiclePicture.DisplayOffsetNorth(def);
         return new Rect(rect.x + (rect.width - width) / 2f + offset.x * rect.width, rect.y + (rect.height - height) / 2f + offset.y * rect.height, width, height);
     }
 }

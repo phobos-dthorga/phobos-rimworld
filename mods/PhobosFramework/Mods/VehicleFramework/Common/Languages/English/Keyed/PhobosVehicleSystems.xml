@@ -377,6 +377,7 @@
   <PhobosVehicleSystems_DiagnoseParts>Parts, worst first:</PhobosVehicleSystems_DiagnoseParts>
   <PhobosVehicleSystems_DiagnoseReadings>Readings:</PhobosVehicleSystems_DiagnoseReadings>
   <PhobosVehicleSystems_DiagnoseConditions>Faults:</PhobosVehicleSystems_DiagnoseConditions>
+  <PhobosVehicleSystems_DashSparklineTip>{QUANTITY} over the last {HOURS} hours. Open the Systems tab for the full graph.</PhobosVehicleSystems_DashSparklineTip>
   <PhobosVehicleSystems_ReportLookedOver>Looked over by {MECHANIC} on {DATE}.</PhobosVehicleSystems_ReportLookedOver>
   <PhobosVehicleSystems_ReportJumpTo>Jump to</PhobosVehicleSystems_ReportJumpTo>
   <PhobosVehicleSystems_ReportCannotJump>{VEHICLE} cannot be found on any map you can see now.</PhobosVehicleSystems_ReportCannotJump>

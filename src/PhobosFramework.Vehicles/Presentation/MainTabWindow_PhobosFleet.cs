@@ -17,6 +17,8 @@ public class MainButtonWorker_PhobosFleet : MainButtonWorker_ToggleTab
 /// <summary>
 /// The fleet board: every vehicle the player owns, wherever it is, in one sortable list (docs/development/vehicle-garage-design.md).
 /// Presentation only. The list is a snapshot from <see cref="FleetService"/>, rebuilt on opening, on a refresh and a few times a game hour.
+/// From 0.79.0 (docs/development/vehicle-presentation-design.md, P2) each row shows the vehicle's picture, its fuel and worst part as gauges,
+/// and its state as the dashboard's check-engine lamp, so the fleet can be read without reading.
 /// </summary>
 public class MainTabWindow_PhobosFleet : MainTabWindow
 {
@@ -30,11 +32,20 @@ public class MainTabWindow_PhobosFleet : MainTabWindow
         Crew,
     }
 
-    const float Row = 28f;
+    const float Row = 40f;
+    const float Thumbnail = 52f;
+    const float StatusLamp = 22f;
+    const string StatusIcon = "Phobos/VehicleSystems/Dash/CheckEngine";
     const float HeaderHeight = 30f;
     const float SearchHeight = 32f;
     const int RefreshTicks = 250;
     const float LightSize = 12f;
+
+    /// <summary>Fuel below this share shows amber (authored: a quarter of a tank).</summary>
+    const float LowFuel = 0.25f;
+
+    static string StatusWord(int status) => (status == FleetEntry.Stopped ? "PhobosFleet_StatusStopped"
+        : status == FleetEntry.Notable ? "PhobosFleet_StatusNotable" : "PhobosFleet_StatusGood").Translate();
 
     static readonly (Column column, string key, float share)[] Columns =
     {
@@ -157,6 +168,7 @@ public class MainTabWindow_PhobosFleet : MainTabWindow
             x = cell.xMax;
         }
         string tip = entry.Vehicle.LabelCap;
+        if (entry.Status != FleetEntry.NoStatus) tip += "\n" + StatusWord(entry.Status);
         if (entry.WorstPart != null) tip += "\n" + "PhobosFleet_TipWorstPart".Translate(entry.WorstPart.Named("PART"), entry.Health.ToStringPercent().Named("HEALTH"));
         if (entry.Waiting != null) tip += "\n" + entry.Waiting;
         TooltipHandler.TipRegion(row, tip);
@@ -166,21 +178,52 @@ public class MainTabWindow_PhobosFleet : MainTabWindow
     static void DrawCell(Rect cell, Column column, FleetEntry entry)
     {
         Rect text = cell.ContractedBy(4f, 0f);
-        if (column == Column.Status)
+        switch (column)
         {
-            if (entry.Status == FleetEntry.NoStatus) return;
-            var light = new Rect(text.x, cell.y + (cell.height - LightSize) / 2f, LightSize, LightSize);
-            Widgets.DrawBoxSolid(light, entry.Status == FleetEntry.Stopped ? PhobosWidgets.Bad
-                : entry.Status == FleetEntry.Notable ? PhobosWidgets.Caution : PhobosWidgets.Good);
-            Widgets.DrawBox(light);
-            return;
+            case Column.Status:
+            {
+                if (entry.Status == FleetEntry.NoStatus) return;
+                Color colour = entry.Status == FleetEntry.Stopped ? PhobosWidgets.Bad : entry.Status == FleetEntry.Notable ? PhobosWidgets.Caution : PhobosWidgets.Good;
+                if (SystemIcons.IfExists(StatusIcon) is { } icon)
+                {
+                    // The dashboard's check-engine lamp, tinted green, amber or red by the vehicle's state.
+                    GUI.color = colour;
+                    GUI.DrawTexture(new Rect(text.x, cell.y + (cell.height - StatusLamp) / 2f, StatusLamp, StatusLamp), icon);
+                    GUI.color = Color.white;
+                }
+                else
+                {
+                    var light = new Rect(text.x, cell.y + (cell.height - LightSize) / 2f, LightSize, LightSize);
+                    Widgets.DrawBoxSolid(light, colour);
+                    Widgets.DrawBox(light);
+                }
+                return;
+            }
+            case Column.Name:
+            {
+                var picture = new Rect(text.x, cell.y + 2f, Thumbnail, cell.height - 4f);
+                if (entry.Vehicle.VehicleDef is { } def) VehiclePicture.Draw(picture, def, facingNorth: false);
+                using (new TextBlock(TextAnchor.MiddleLeft))
+                {
+                    var label = new Rect(picture.xMax + 6f, cell.y, text.xMax - picture.xMax - 6f, cell.height);
+                    Widgets.Label(label, entry.Vehicle.LabelShort.Truncate(label.width));
+                }
+                return;
+            }
+            case Column.Fuel when entry.Fuel >= 0f:
+                PhobosWidgets.Gauge(new Rect(text.x, cell.y + 10f, text.width, cell.height - 20f), entry.Fuel,
+                    entry.Fuel < LowFuel ? PhobosWidgets.Caution : PhobosWidgets.Good, figure: entry.Fuel.ToStringPercent());
+                return;
+            case Column.Health:
+                PhobosWidgets.Gauge(new Rect(text.x, cell.y + 10f, text.width, cell.height - 20f), entry.Health,
+                    PhobosWidgets.HealthColour(entry.Health), figure: entry.Health.ToStringPercent());
+                return;
         }
         string value = column switch
         {
             Column.Name => entry.Vehicle.LabelShort,
             Column.Where => entry.Where,
-            Column.Fuel => entry.Fuel < 0f ? "-" : entry.Fuel.ToStringPercent(),
-            Column.Health => entry.Health.ToStringPercent(),
+            Column.Fuel => "-",
             Column.Crew => entry.Crew + "/" + entry.Seats,
             _ => "",
         };

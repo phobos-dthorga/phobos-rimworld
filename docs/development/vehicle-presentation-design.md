@@ -14,6 +14,12 @@ is generated (18 pictures, about US$0.98 spent, under the US$2.50 estimate) and 
 letter picture until then. The damage sheet draws Vehicle Framework's picture through reflection: a 1.7 build cannot call its methods
 that take Unity types directly.
 
+**Built in Framework 0.79.0** (11 Nov 2026, the owner's go for "two or three slices" overnight; not yet tested in game): P7a in the
+Health tab too (its own column; hovering the picture also lights the part on the map), P2 (the fleet board's thumbnails, fuel and
+worst-part gauges, and the check-engine lamp for the status) and G2 (a 16-pixel line of the last day under each Dashboard gauge, in
+Operator and Engineer). Still to come from P7a: the damage sheet in the fleet board's tooltip, which needs a drawn tooltip rather than
+the game's text one. Next in order: P7b, the range on the world map.
+
 ## Read this first
 
 - **Recommendation, in five lines.** Turn the diagnosis into a proper report window with the vehicle's picture, coloured gauges and one

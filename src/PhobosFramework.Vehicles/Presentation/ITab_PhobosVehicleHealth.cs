@@ -28,10 +28,13 @@ public class ITab_PhobosVehicleHealth : ITab
     const float ConditionHeight = 20f;
     const float Header = 26f;
     const float LeftShare = 0.37f;
+    /// <summary>The damage sheet's column (Framework 0.79.0, P7a), drawn when the tab is at least <see cref="SheetNeedsWidth"/> wide.</summary>
+    const float SheetWidth = 210f;
+    const float SheetNeedsWidth = 820f;
 
     public ITab_PhobosVehicleHealth()
     {
-        size = new Vector2(690f, 430f);
+        size = new Vector2(910f, 430f);
         labelKey = "PhobosVehicleSystems_TabHealth";
     }
 
@@ -74,6 +77,13 @@ public class ITab_PhobosVehicleHealth : ITab
         DisplayMode mode = VehicleSystemsMod.Settings.displayMode;
         HealthView view = views.Get(comp.Vehicle.thingIDNumber);
         if (view.Version != comp.HealthViewVersion || view.Mode != mode || view.Parts == null) view.Build(comp, mode);
+        if (outer.width >= SheetNeedsWidth)
+        {
+            // The vehicle seen from above with its hurt parts tinted; hovering it lights the part's row, and the part on the map.
+            view.SheetHover = DamageSheet.Draw(new Rect(outer.x, outer.y, SheetWidth, SheetWidth), comp.Vehicle.VehicleDef, view.Sheet, view.LitKey);
+            outer.xMin += SheetWidth + 8f;
+        }
+        else view.SheetHover = null;
         var left = new Rect(outer.x, outer.y, outer.width * LeftShare, outer.height);
         var right = new Rect(left.xMax + 8f, outer.y, outer.width - left.width - 8f, outer.height);
         DrawLeft(comp, view, left, onWorld);
@@ -133,7 +143,7 @@ public class ITab_PhobosVehicleHealth : ITab
         var inner = new Rect(0f, 0f, viewWidth, view.Height);
         Widgets.BeginScrollView(rect, ref view.Scroll, inner);
         float y = 0f;
-        VehicleComponent? hovered = null;
+        VehicleComponent? hovered = null, sheetHovered = null;
         foreach (PartGroup group in view.Parts!)
         {
             PhobosWidgets.Section(ref y, 0f, viewWidth, group.Header);
@@ -144,6 +154,11 @@ public class ITab_PhobosVehicleHealth : ITab
                 {
                     Widgets.DrawHighlight(row);
                     hovered = part.Part;
+                }
+                else if (view.SheetHover == part.Part.props.key)
+                {
+                    Widgets.DrawHighlight(row);
+                    sheetHovered = part.Part;
                 }
                 Widgets.Label(new Rect(4f, y, viewWidth * 0.42f, Row), part.Label);
                 PhobosWidgets.Gauge(new Rect(viewWidth * 0.44f, y + 4f, viewWidth * 0.22f, Row - 8f), part.HealthShare, part.HealthColour);
@@ -174,7 +189,8 @@ public class ITab_PhobosVehicleHealth : ITab
             y += 6f;
         }
         Widgets.EndScrollView();
-        if (!onWorld) VehicleHighlight.Set(comp.Vehicle, hovered);
+        view.LitKey = hovered?.props.key;
+        if (!onWorld) VehicleHighlight.Set(comp.Vehicle, hovered ?? sheetHovered);
     }
 
     // ---- The row model: built when the comp says something changed, drawn every frame without allocation. ----
@@ -190,6 +206,10 @@ public class ITab_PhobosVehicleHealth : ITab
         public readonly List<CrewRow> Crew = new();
         public List<PartGroup>? Parts;
         public float Height;
+        public readonly List<DamageSheet.SheetPart> Sheet = new();
+        /// <summary>The part whose row the mouse was over on the last frame, outlined on the sheet; and the part under the mouse on the sheet.</summary>
+        public string? LitKey;
+        public string? SheetHover;
 
         public void Build(CompPhobosVehicleSystems comp, DisplayMode mode)
         {
@@ -204,6 +224,11 @@ public class ITab_PhobosVehicleHealth : ITab
             BuildStats(comp, figures);
             BuildCrew(vehicle);
             BuildParts(comp, figures);
+            Sheet.Clear();
+            foreach (VehicleComponent part in vehicle.statHandler.components)
+            {
+                Sheet.Add(new DamageSheet.SheetPart(part.props.key, (part.props.label ?? part.props.key).CapitalizeFirst(), part.MaxHealth > 0f ? part.Health / part.MaxHealth : 0f));
+            }
         }
 
         void BuildStats(CompPhobosVehicleSystems comp, bool figures)

@@ -25,6 +25,7 @@ public class ITab_VehicleDashboard : ITab
     const float LightHeight = 18f;
     const float SwitchSize = 32f;
     const float TellTaleSize = 24f;
+    const float SparklineHeight = 16f;
     const float CheckEngineBelow = 0.5f;
     const float CheckEngineBadBelow = 0.25f;
     const string CheckEngineIcon = "Phobos/VehicleSystems/Dash/CheckEngine";
@@ -32,7 +33,7 @@ public class ITab_VehicleDashboard : ITab
 
     public ITab_VehicleDashboard()
     {
-        size = new Vector2(460f, 350f);
+        size = new Vector2(460f, 368f);
         labelKey = "PhobosVehicleSystems_TabDashboard";
     }
 
@@ -75,6 +76,7 @@ public class ITab_VehicleDashboard : ITab
         {
             float width = (outer.width - 6f * (gauges.Count - 1)) / gauges.Count;
             float x = outer.x;
+            bool sparklines = false;
             foreach ((SystemState state, int q) in gauges)
             {
                 QuantitySpec quantity = state.Def.quantities[q];
@@ -84,9 +86,19 @@ public class ITab_VehicleDashboard : ITab
                 PhobosWidgets.Gauge(rect, reading.Fill, StageColour(stage), reading.Label, figures ? reading.Figure : null,
                     stage != null ? reading.Label + ": " + stage.label + (figures ? " (" + reading.Figure + ")" : "") : reading.Label);
                 if (Widgets.ButtonInvisible(rect)) OpenSystem(comp, state, mode, onWorld);
+                // The last day under the gauge, for those who read figures (0.79.0, G2): a climbing coolant is seen before it is red.
+                if (figures && comp.History.For(state, q) is { Count: >= 2 } ring)
+                {
+                    sparklines = true;
+                    // Upside down for a gauge that shows what is left (tread), so the line falls as the gauge does.
+                    bool remaining = !quantity.remainingLabel.NullOrEmpty();
+                    float low = (float)state.min[q], high = (float)state.max[q];
+                    PhobosWidgets.Sparkline(new Rect(x, y + GaugeHeight + 2f, width, SparklineHeight), ring, remaining ? high : low, remaining ? low : high, StageColour(stage));
+                    TooltipHandler.TipRegion(new Rect(x, y + GaugeHeight + 2f, width, SparklineHeight), "PhobosVehicleSystems_DashSparklineTip".Translate(reading.Label.Named("QUANTITY"), QuantityHistory.Hours.Named("HOURS")));
+                }
                 x += width + 6f;
             }
-            y += GaugeHeight + 6f;
+            y += GaugeHeight + 6f + (sparklines ? SparklineHeight + 2f : 0f);
         }
 
         // The warning lights: every notable stage, red when it refuses or damages.

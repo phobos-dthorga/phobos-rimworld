@@ -126,7 +126,7 @@ public class WITab_PhobosVehicleDashboard : WITab_PhobosVehicles
 {
     public WITab_PhobosVehicleDashboard()
     {
-        size = new Vector2(630f, 300f);
+        size = new Vector2(630f, 318f);
         labelKey = "PhobosVehicleSystems_TabDashboard";
     }
 
@@ -156,7 +156,7 @@ public class WITab_PhobosVehicleHealth : WITab_PhobosVehicles
 {
     public WITab_PhobosVehicleHealth()
     {
-        size = new Vector2(860f, 430f);
+        size = new Vector2(1080f, 430f);
         labelKey = "PhobosVehicleSystems_TabHealth";
     }
 
