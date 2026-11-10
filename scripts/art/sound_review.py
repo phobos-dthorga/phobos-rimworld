@@ -51,6 +51,10 @@ CLIPPED_TRUE_PEAK_DBTP = 0.0  # So does a true peak above full scale: the peak b
 TRIM_THRESHOLD_DB = -60     # Silence at either end, quieter than this, is trimmed from the review copy.
 FADE_IN_S, FADE_OUT_S = 0.005, 0.02
 LOOP_CROSSFADE_S = 0.25     # Ostranauts' washer and pump loops used 250 ms and were accepted (6 Oct 2026).
+WHINE_BANDS_HZ = range(4000, 18001, 500)  # Narrow bands searched for a steady tone, from where hearing loss starts upwards.
+WHINE_BAND_WIDTH_HZ = 200
+WHINE_PROMINENCE_DB = 12.0  # A band this far above the median band is a whine: a narrow tone that broad measures miss. The pilot's
+                            # concentrator hum (seed 11, 10 Nov 2026) had one near 14.5 kHz that no other flag caught.
 MOMENTARY_WINDOW_S = 0.4   # EBU R128's momentary loudness window; ffmpeg reports one reading every 100 ms.
 STEADY_BELOW_DB = 8.0      # A loop keeps only the span within this of its overall loudness, cutting a late start and early fade.
 DIP_BELOW_DB = 10.0        # Played twice, a loop that falls this far under its overall loudness...
@@ -68,6 +72,8 @@ FLAG_WORDS = {
              'Listen to the lowered copy and look at the top of the picture.',
     'spiky': 'Sharp attack: its peaks stand {spike} dB above its loudness, which can startle.',
     'seam': 'Loop seam: the level changes by {jump} dB where it repeats.',
+    'whine': 'Whine: a steady narrow tone near {khz} kHz, {prominence} dB above the sound around it. You may not hear it at all; '
+             'other players will. Look for a thin bright line across the picture at that height.',
     'gap': 'Gap or dip: each time round, the loop falls more than {below} dB below its usual loudness for {gap} s, '
            'so it will not repeat smoothly.',
 }
@@ -147,6 +153,9 @@ def flags_for(measure):
     loudness = measure.get('lufs')
     if loudness is not None and true_peak is not None and math.isfinite(loudness) and true_peak - loudness > SPIKY_DB:
         found.append(('spiky', FLAG_WORDS['spiky'].format(spike=f'{true_peak - loudness:.0f}')))
+    whine = measure.get('whine')
+    if whine and whine['prominence_db'] >= WHINE_PROMINENCE_DB:
+        found.append(('whine', FLAG_WORDS['whine'].format(khz=f'{whine["hz"] / 1000:g}', prominence=f'{whine["prominence_db"]:.0f}')))
     gap = measure.get('loop_gap_s')
     if gap is not None and gap >= GAP_MIN_S:
         found.append(('gap', FLAG_WORDS['gap'].format(gap=f'{gap:.1f}', below=f'{DIP_BELOW_DB:g}')))
@@ -224,6 +233,45 @@ def longest_dip(frames, integrated, below=DIP_BELOW_DB, skip=MOMENTARY_WINDOW_S,
     return round(longest * step, 2)
 
 
+def whine_graph(bands=WHINE_BANDS_HZ, width=WHINE_BAND_WIDTH_HZ):
+    """One pass that splits the sound into narrow bands, each measured by its own volumedetect, in band order."""
+    bands = list(bands)
+    branches = ''.join(f'[b{i}]bandpass=f={hz}:width_type=h:w={width},volumedetect[v{i}];' for i, hz in enumerate(bands))
+    return (f'[0:a]asplit={len(bands)}' + ''.join(f'[b{i}]' for i in range(len(bands))) + ';' + branches
+            + ''.join(f'[v{i}]' for i in range(len(bands))) + f'amix=inputs={len(bands)}[out]')
+
+
+def parse_band_levels(text, bands=WHINE_BANDS_HZ):
+    """{band: mean level} from whine_graph's volumedetect reports, matched by the instance number ffmpeg gives each one."""
+    levels = {}
+    for instance, value in re.findall(r'Parsed_volumedetect_(\d+) @ [^\]]*\] mean_volume: (-?inf|-?[\d.]+) dB', text):
+        levels[int(instance)] = _number(value)
+    ordered = [levels[key] for key in sorted(levels)]
+    return dict(zip(list(bands), ordered)) if len(ordered) == len(list(bands)) else {}
+
+
+def strongest_whine(levels):
+    """The band standing furthest above the sound's own slope, as {"hz", "prominence_db"}; None with nothing to compare.
+    Most sounds get quieter towards the top, so a straight line (level against the logarithm of frequency) is fitted
+    through the bands first, and each band is judged by how far it rises above that line, less the median rise. Against a
+    plain median instead, every sound's lowest band looked like a whine (the pilot's sonar pings measured 21 dB at 4 kHz)."""
+    points = [(math.log(hz), value) for hz, value in levels.items() if math.isfinite(value)]
+    if len(points) < 3:
+        return None
+    mean_x, mean_y = sum(x for x, _ in points) / len(points), sum(y for _, y in points) / len(points)
+    spread = sum((x - mean_x) ** 2 for x, _ in points)
+    slope = sum((x - mean_x) * (y - mean_y) for x, y in points) / spread if spread else 0.0
+    rises = {hz: value - (mean_y + slope * (math.log(hz) - mean_x)) for hz, value in levels.items() if math.isfinite(value)}
+    median = sorted(rises.values())[len(rises) // 2]
+    hz = max(rises, key=rises.get)
+    return {'hz': hz, 'prominence_db': round(rises[hz] - median, 1)}
+
+
+def find_whine(exe, path):
+    text = run_ffmpeg(exe, ['-i', str(path), '-filter_complex', whine_graph(), '-map', '[out]', '-f', 'null', '-'])
+    return strongest_whine(parse_band_levels(text))
+
+
 def loudness_frames(exe, inputs):
     """Momentary loudness frames and the integrated loudness of one file, or of several played one after another."""
     args = [arg for path in inputs for arg in ('-i', str(path))]
@@ -282,6 +330,7 @@ def prepare(exe, master, record, force=False, octaves=LOWERED_OCTAVES):
         return json.loads(paths['measure'].read_text(encoding='utf-8'))
     paths['review'].parent.mkdir(exist_ok=True)
     measure = measure_file(exe, master)
+    measure['whine'] = find_whine(exe, master)
     gain = gain_db(measure)
     encode = ['-c:a', 'libvorbis', '-q:a', OGG_QUALITY]
     run_ffmpeg(exe, ['-i', str(master), '-af', review_filter(gain, trim=not loop), *encode, str(paths['review'])])

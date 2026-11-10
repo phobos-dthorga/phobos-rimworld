@@ -189,6 +189,27 @@ class LoopLoudnessTests(unittest.TestCase):
         self.assertEqual(sound_review.longest_dip(frames(steady[:20] + [-25] * 6 + steady[:20]), -10.0), 0.6)
         self.assertEqual(sound_review.longest_dip(frames([-120] * 4 + steady), -10.0), 0.0)  # The first window is skipped.
 
+    def test_a_narrow_tone_is_a_whine_but_a_falling_slope_is_not(self):
+        bands = list(sound_review.WHINE_BANDS_HZ)
+        # Band levels measured from the pilot (10 Nov 2026): the concentrator hum's 15 kHz whine, and a sonar ping's plain slope.
+        hum = [-73, -74, -70, -74, -73, -75, -74, -69, -73, -73, -73, -71, -68, -70, -69, -68, -69, -67, -67, -59, -59, -51, -44,
+               -52, -53, -69, -72, -75, -76]
+        ping = [-66, -68, -70, -72, -74, -75, -77, -78, -80, -81, -82, -83, -84, -86, -87, -87, -90, -90, -90, -90, -91, -91, -91,
+                -91, -91, -91, -91, -91, -91]
+        whine = sound_review.strongest_whine(dict(zip(bands, hum)))
+        self.assertEqual(whine['hz'], 15000)
+        self.assertGreater(whine['prominence_db'], sound_review.WHINE_PROMINENCE_DB)
+        self.assertLess(sound_review.strongest_whine(dict(zip(bands, ping)))['prominence_db'], sound_review.WHINE_PROMINENCE_DB)
+        self.assertIn('whine', [code for code, _ in sound_review.flags_for(calm(whine=whine))])
+        self.assertIsNone(sound_review.strongest_whine({4000: -60.0}))
+
+    def test_band_reports_are_matched_in_order(self):
+        text = ''.join(f'[Parsed_volumedetect_{2 * i + 2} @ 0x1] mean_volume: -{50 + i}.0 dB\n' for i in range(len(sound_review.WHINE_BANDS_HZ)))
+        levels = sound_review.parse_band_levels(text)
+        self.assertEqual(levels[4000], -50.0)
+        self.assertEqual(levels[4500], -51.0)
+        self.assertEqual(sound_review.parse_band_levels('nothing'), {})
+
     def test_a_long_dip_earns_the_gap_flag(self):
         self.assertIn(('gap'), [code for code, _ in sound_review.flags_for(calm(loop_gap_s=0.6))])
         self.assertNotIn('gap', [code for code, _ in sound_review.flags_for(calm(loop_gap_s=0.1))])

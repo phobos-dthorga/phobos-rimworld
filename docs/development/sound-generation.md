@@ -122,6 +122,7 @@ Flags are reasons to look again, not verdicts. All thresholds are authored excep
 | Sharp attack | The true peak more than 20 dB above the integrated loudness: may startle |
 | Loop seam | The level either side of the seam differs by more than 3 dB |
 | Gap or dip | Played twice, the loop's momentary loudness falls more than 10 dB under its overall loudness for 0.3 s or more |
+| Whine | In 200 Hz bands every 500 Hz from 4 to 18 kHz, one band rises 12 dB or more above a straight line fitted through them all (level against log-frequency), less the median rise. The line takes out a sound's natural fall towards the top, which made every sound's lowest band look like a whine against a plain median |
 
 Checked offline on 10 Nov 2026 with made-up sounds: a 9 kHz whine over a hum was flagged and showed as a bright line, the lowered
 copy moved it to about 4.5 kHz, and the seam picture showed the loop's join. A synthetic white-noise click earned the
@@ -157,8 +158,29 @@ game stutter, so a run beside the game leaves the card alone and uses the proces
 
 Measured on 10 Nov 2026 with RimWorld running: the server ran at BelowNormal priority on processors 16 to 31 and did not appear on
 the graphics card. **One 8-second sound at full steps (Small SFX base, 50 steps) took 60 s, model loading included**; the model
-used about 0.5 GB, and its text encoder 1.75 GB. Whether the game hitched is the owner's to say. Medium would be far slower
-on the processor and is not meant for this.
+used about 0.5 GB, and its text encoder 1.75 GB. **The owner noticed no stutter in the game** (10 Nov 2026). Medium would be
+far slower on the processor and is not meant for this.
+
+## The pilot (10 Nov 2026)
+
+All 16 sounds on the processor beside the game, in 8 minutes: 41 to 55 s each at full steps, **4 to 9 s each distilled**.
+Agent's reading of the measurements and spectrograms, before the owner has listened:
+
+| Sound | Full steps (seeds 11, 12) | Distilled (seeds 11, 12) |
+| --- | --- | --- |
+| Generator loop | 11 loud, clipped, harsh clicks; **12 clean and steady** | **Both clean and steady**, no flags |
+| Concentrator hum | **Both have a steady whine at 15 kHz** (whine flag, 17 to 21 dB) | **Both quiet and clean**; no puff of air was heard in the pictures |
+| Sonar ping | 11 is two loud noise bursts (clipped); 12 a clean held tone, more beep than ping | Both a soft held two-note tone; **none is a ping with an echo** |
+| Switch click | Both a rattle with a loud burst in the middle (clipped) | **Three clean clicks each**; one could be cut out |
+
+Lessons, from 16 sounds and so tentative:
+
+- **The distilled model did better here**, not just faster: none of its 8 sounds clipped, against 4 of 8 at full steps, which also
+  came out loud (up to −5.3 LUFS) and harsh. Its sounds came out quiet (−22 to −38 LUFS), which the export will level.
+- **Sounds end at about 75 to 85% of the length asked** (6.3 to 6.9 s of 8, 2.9 of 4, 1.9 of 2). Ask for more than needed.
+- **Prompt adherence is loose:** "one click" gave three, "ping with a long echo" gave held tones, "puff of air every few seconds"
+  gave a steady hum. Rewording, more seeds, or Medium are the next things to try for the ping.
+- **The whine flag earned its place on day one:** the 15 kHz line was invisible to every broad measure.
 
 **First sound, first lessons (generator loop, seed 11):** stereo at 44,100 Hz; loud as made (−10.7 LUFS, true peak +0.9 dBTP,
 so it earned the clipped flag), which the review copy levels and a future export must level and limit; strong highs (the band above
