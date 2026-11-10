@@ -1,0 +1,51 @@
+{
+  "file": "seabed-crawler-body-north-1.png",
+  "sha256": "da5ac0115db40401a631f3d01098bfb8d6fc4085e1f9a51329359e8360ab044e",
+  "date": "2026-11-11T01:47:02",
+  "generator": "OpenAI gpt-image-2 through the OpenAI image API (paid per image)",
+  "engine": "openai",
+  "model": "gpt-image-2",
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL game vehicle sprite for the D'thorga seabed crawler: a research submarine that drives along the bottom of lakes and coasts for a hard-scrabble frontier colony, seen surfaced. Image 1 is our approved truck from the same maker: match its outline weight, shading, palette and finish only. Do NOT copy its shape or layout.\n\nDraw the BARE HULL only. Wheels, the manipulator arm, sonar domes, the radar mast, sensor strips and the drill are drawn separately as overlays.\n\nTall canvas, twice as tall as wide. The hull is about two fifths as wide as it is long, with the stern planes a little wider than the hull. It fills seven eighths of the canvas height, centred, on a plain pure white background. North facing: the rounded bow at the TOP edge, the propeller at the BOTTOM edge. Cool dark grey-blue steel hull plating, a pale grey flat deck casing strip along the centre line, a dark steel sail with one muted orange band around it, a dark bronze propeller shroud, dark rubber-lipped thruster ducts.\n\nIts deck plan, from top to bottom: a smoothly rounded bow; the pale casing strip running from just behind the bow to the stern; a rounded-rectangle sail a third of the way back from the bow, wider than the casing, with one short diving plane out each side; one small round ducted thruster let into each flank near the bow and one near the stern, four in all; a gently tapering stern ending in a cross of four small planes around a round shrouded propeller.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo periscope, mast, antenna, arm, wheels, dome, open hatch, wake, water, waves, foam, cargo, people, animals, turrets, dust, damage, text, letters, numbers, logos, dials, screens or lamps. No floor, ground, sea, shadow outside the vehicle, perspective, tilt or visible side faces. Top surfaces only.",
+  "seed": 1,
+  "seed_note": "an attempt number naming the file; the API takes no seed, so a rerun gives a different image",
+  "quality": "medium",
+  "size": [
+    1024,
+    2048
+  ],
+  "request_file": "assets/phobos-vehicles/requests/seabed-crawler-pilot.json",
+  "ai_disclosure": "Made with generative AI: OpenAI gpt-image-2, prompted by the Phobos art scripts.",
+  "terms": "OpenAI Services Agreement, sections 4.1 and 4.4, as recorded in the Phobos Ostranauts repository on 2026-10-07 and summarised again on 2026-11-08: API customers own Output, OpenAI assigns any rights it has, and Output may not be unique; no use of Output to build competing models. Dated secondary records: the openai.com page refuses automated reads, so the owner confirms the current text.",
+  "endpoint": "/images/edits",
+  "usage": {
+    "input_tokens": 1675,
+    "input_tokens_details": {
+      "image_tokens": 1152,
+      "text_tokens": 523
+    },
+    "output_tokens": 1180,
+    "output_tokens_details": {
+      "image_tokens": 1180,
+      "text_tokens": 0
+    },
+    "total_tokens": 2855
+  },
+  "cost_usd": 0.0472,
+  "cost_is_estimate": false,
+  "reported_quality": "medium",
+  "reported_size": "1024x2048",
+  "reported_background": "opaque",
+  "reported_output_format": "png",
+  "returned_size": [
+    1024,
+    2048
+  ],
+  "seconds": 26.6,
+  "references": [
+    {
+      "image": "assets/phobos-vehicles/generated/bulk-tanker-body-north/bulk-tanker-body-north-2.png",
+      "sha256": "3c7b752f08adb7eeb84a1f161cdec1d8686765dd289322165fe54fa72c7c07ce",
+      "role": "approved vehicle of the same maker: match its outline weight, shading, palette and finish only; do not copy its shape or layout"
+    }
+  ]
+}

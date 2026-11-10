@@ -1,0 +1,16 @@
+{
+  "master": "seabed-crawler-body-north-4.png",
+  "master_sha256": "ffe01b7259c0cdf33f7ce8106a20d89399996155716b0a51bf72befbb5c89dcb",
+  "factor": 1.28,
+  "content_columns_before": [
+    171,
+    841
+  ],
+  "content_columns_after": [
+    78,
+    935
+  ],
+  "painted_out": [],
+  "output": "seabed-crawler-4-wide.png",
+  "output_sha256": "7d11b875e5a6b7ae89b5b5121db27188caccda46f5a8a9b668314efce6cb592b"
+}

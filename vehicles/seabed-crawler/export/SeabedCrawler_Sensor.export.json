@@ -1,0 +1,35 @@
+{
+  "master": "assets/phobos-vehicles/generated/seabed-crawler-body-north/widened/seabed-crawler-4-wide.png",
+  "master_sha256": "7d11b875e5a6b7ae89b5b5121db27188caccda46f5a8a9b668314efce6cb592b",
+  "files": {
+    "SeabedCrawler_Sensor_north.png": "16a1224bbe94d059918b0f11dcc36c645fde5b3887f729e7d72bbba3eca5e61f",
+    "SeabedCrawler_Sensor_east.png": "9ae165e1a1232f47e1733289a3147c7edd455be77cffdf6c12172df585de9a2e",
+    "SeabedCrawler_Sensor_south.png": "05521a18926db4e536ff89b2ce1ff247882c0b093af41e2986d20b7393c73a67",
+    "SeabedCrawler_Sensor_northm.png": "7024a0968f7680c6d08243ff09de9b375dfcf2e080ad1604647458a42516c1e3",
+    "SeabedCrawler_Sensor_eastm.png": "97dbe1c7747f601d00ddf47a0acccefb752d45df46e9d71b07a9906df2e90cf8",
+    "SeabedCrawler_Sensor_southm.png": "327b3245fda94f966e72f9e90b69e6574e1056ed3db36742ce11b138b47f2357",
+    "SeabedCrawler_Sensor_icon.png": "94b1a54bcf0702950cefc6dc20efb8b3c3333303ba9ab43df9ae9af7e7b214fc"
+  },
+  "date": "2026-11-11",
+  "tool": "scripts/art/export_vehicle.py",
+  "kind": "body",
+  "cells_long": 9,
+  "draw_size": [
+    5,
+    10
+  ],
+  "width_cells": 3.98,
+  "colours": {
+    "color": [
+      95,
+      101,
+      107
+    ],
+    "colorTwo": [
+      206,
+      112,
+      35
+    ]
+  },
+  "min_saturation": 0.05
+}
