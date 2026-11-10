@@ -32,6 +32,7 @@ Medical 0.12.0 and Vehicles 0.31.0 (see [Into the game](#into-the-game-built-10-
 | A lowered listening copy with the high frequencies moved down | Owner, 10 Nov 2026 ("just for the moment") |
 | Go for the tools and the pilot | Owner, 10 Nov 2026 |
 | Running small models on the processor beside the game | Owner, 10 Nov 2026 (asked whether it could share the PC with RimWorld) |
+| **The distilled model (`sa3-sfx`) by default, 3 seeds per sound** | Owner, 10 Nov 2026, after the pilot: all four picks were distilled, none of its 8 sounds clipped against 4 of 8 at full steps, and it is 7 times faster. Full steps (perhaps at a lower guidance than the template's 7, untested) and Medium stay fallbacks for a sound that will not come right |
 | Which processors, the priority, the thread count and the free-memory floor | Agent choices |
 | Stable Audio 3 Small SFX as the model; its distilled twin as the comparison; Medium optional | Agent choice |
 | Every threshold, the review loudness, the loop crossfade, the split frequency | Agent choices, named constants in `scripts/art/sound_review.py` |
