@@ -279,6 +279,10 @@ delivered, record the delivery in the changelog or design record, and add or ame
   tree shaped by the vehicle, every node moving a figure that changes an outcome, node keys stable once a save can hold them; the
   base body is drawn bare and every visible node is its own overlay set, planned before the first picture
   (`docs/development/utility-vehicles-design.md`, principle 8).
+- **Design every submarine mechanic for enemy submarines** (owner, 10 Nov 2026: coming "not later, but very soon"). Each mechanic works for any
+  faction's boat, costs little per hull with several hostile ones on a map, and never shows the player what their own crew could not know.
+  Submarines get no walkable gravship-style interior, because of its performance cost; our own interfaces and mechanics stand in for it.
+  `docs/development/submarine-framework.md` lists what already works for a hostile boat and what is missing.
 - **Vehicle parts are ours, and other mods' are substitutes** (owner, 9 Nov 2026, reversing "providers first"): our part items always
   exist in D'thorga Framework and set what a repair costs, whichever mods are installed; RimThunder's and Vanilla Vehicles Expanded's
   are accepted only where they make sense, named per role in `PhobosVehiclePartSupplyDef` with `MayRequire`, never in C#. The framework

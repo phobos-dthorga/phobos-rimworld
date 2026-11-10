@@ -94,6 +94,25 @@ Two things needed no patch. Caravan buttons and text come from a `WorldObjectCom
 - **Combat Extended's targeting and Vehicle Framework's enemy turrets are unverified.** Both should go through `ThreatDisabled` and the damage route, but that is inferred and not seen in play. **The damage that reaches a hull is matched to the game's `Bomb`**, and whether Combat Extended's shells use it is unverified.
 - **A player can still order a shot at their own hidden boat by hand.** Only choosing a target automatically is stopped.
 
+## Ready for enemy submarines?
+
+**Owner, 10 Nov 2026: enemy submarines are coming "not later, but very soon", and everything from now on is designed with them in mind.** Every mechanic must work for any faction's boat, cost little per hull with several hostile ones on a map, and never show the player what their own crew could not know. Read from our code on 10 Nov 2026; nothing here is tested in game.
+
+| Piece | Works for a hostile boat? | What is missing |
+| --- | --- | --- |
+| Dive state, reserve, coming up when empty or damaged | Yes: it lives on the vehicle, for any faction | Nothing |
+| Being spotted by watchers | Yes: the player's people and turrets are the watchers | **The player is not told** when they spot an enemy boat; messages go only to a boat's own side |
+| Not aimed at until spotted; only weapons that reach it once spotted | Yes (`Pawn.ThreatDisabled` postfix) | Nothing |
+| Drawn as nothing until spotted, then a dark shape | Yes | **Its name label, selection and inspect panel may still show**: a hostile hull nobody has found must not be clickable or labelled. Not checked |
+| Hits below, turrets held, nobody landing | Yes, for any vehicle | Nothing |
+| Settling on the bottom | Yes, once ordered | Nothing to order it |
+| Hearing a hidden hull (Framework 0.72.0) | Yes, both ways: an enemy boat with an array spots ours | Nothing |
+| Its own behaviour: when to dive, hunt, settle, surface, fire | **No** | A boat's own AI, through the raid's lord. Not designed |
+| Arriving: from the map's sea edge, or as a world-map threat | **No** | Not designed; how Vehicle Framework brings hostile boats at all is not yet read |
+| Torpedoes | **No** | Planned below as torpedo tubes through `turretsThatFireBelow` |
+| Wreck and salvage when one is sunk | **No** | Ties to recovery equipment and the Crawler's manipulator |
+| Cost with several hulls | Expected small: each hull's work runs every rare tick; the per-pawn patches cost one empty check while none is under | **Not measured.** Profile a map with several hostile hulls before they ship |
+
 ## Safe on a save
 
 - **Safe to add.** Nothing changes for a vehicle without the comp, and no existing vehicle has it.
@@ -111,7 +130,8 @@ Short list, highest consequence first. Enable dev mode and use a map with a lake
 
 ## Next slices (agent proposal)
 
-- **Enemy submarines** (owner, 10 Nov 2026: wanted "at one point"). Spotting, hearing a hidden hull (Framework 0.72.0), settling and the dark shape already work for any faction's boat. What is missing is a hostile boat's behaviour, and a way for one to arrive. Not designed yet.
+- **Enemy submarines, very soon** (owner, 10 Nov 2026). See [Ready for enemy submarines?](#ready-for-enemy-submarines) for what already works and what is missing.
+- **Our own interfaces and mechanics in place of a walkable interior** (owner, 10 Nov 2026). These could mimic or replace some of what an interior gives, and could also bring mechanics of our own beside the gravship way. One idea, not designed: a control-room window with compartments, stations and who is in them, the air, and a sonar screen plotting what the array has heard.
 - **Equipment for recovering lost boats** (owner's idea, 10 Nov 2026). The research record's recovery vehicle and the Crawler's manipulator are natural starting points.
 
 1. The first real boat, [the Seabed Crawler](vehicle-seabed-crawler.md), with its own picture, overlays and upgrade tree (owner, 10 Nov 2026).
@@ -125,7 +145,7 @@ Short list, highest consequence first. Enable dev mode and use a map with a lake
 - **Owner (9 Nov 2026):** build a framework for submarines; it joins the existing framework. No stand-in body art, so the test hull borrows a picture.
 - **Owner (10 Nov 2026):** explosions at half strength are right; a detection mechanic, with the shape in the water seen only once detected; a boat surfaces when empty, with a button to override; chest-deep water is an option for each submarine, thinking of midget boats; the first real boat is the Seabed Crawler.
 - **Owner, later on 10 Nov 2026:** forced to stay down kills everyone, possibly through our own health mechanics later; lost boats may have recovery equipment later; keep the faint mark on our own boat.
-- **Owner, after the listening array (10 Nov 2026):** no gravship-style interiors, for performance; research and many upgrades, with our vehicle systems, are the halfway point instead; enemy submarines wanted in time. Submarines may be "one of the best features" of D'thorga Vehicles.
+- **Owner, after the listening array (10 Nov 2026):** no gravship-style interiors, for performance; research and many upgrades, with our vehicle systems, are the halfway point instead; enemy submarines wanted in time. Submarines may be "one of the best features" of D'thorga Vehicles. Then: unique interfaces and mechanics of our own may mimic or replace what an interior gives; **design everything with enemy submarines in mind, as coming "not later, but very soon"**.
 - **The owner's "an option for each submarine" was read as a choice in each design's XML**, not a button in play. Say if a button was meant.
 - **Agent choices, owner to revise:** a dive as a state; one reserve number; all the spotting rules and figures; the faint mark on the player's own boat; only weapons that can reach it aim at a spotted hull; stale air as the price of staying down, and its figures; a boat without the order comes up when nobody can work it; the figures (15 and 10 seconds, three times the burn on the move, four hours regained per hour on the surface, a floor of half for the trim, a tenth of the reserve to dive); rivers not deep enough; a caravan goes under whole or not at all; a dev-only hull as the first consumer.
 
