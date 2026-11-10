@@ -182,7 +182,8 @@ measures and does heavy work, the bay keeps and refuels.
 ### Stations argued against
 
 - **An inspection pit** (cheap, unpowered, halves the work of underside jobs): it would duplicate the depot bay's work bonus with a
-  second building and a second rule for which jobs count. If underside work should be cheaper somewhere, make it the bay.
+  second building and a second rule for which jobs count. If underside work should be cheaper somewhere, make it the bay. **The owner
+  wanted one as a production bonus for the bench instead (10 Nov 2026), which duplicates nothing; built that way in 0.73.0.**
 - **Requiring the hoist for engine replacement:** strands vehicles; see S2.
 - **A wash or decontamination bay:** a vehicle that drove through fallout or a painted radiation area carrying contamination is a
   good idea for D'thorga Medical, not for the vehicle systems; noted for the owner, not proposed here.
@@ -191,7 +192,7 @@ measures and does heavy work, the bay keeps and refuels.
 ## Argued against among the links
 
 - **Gearbox heat into the coolant** (a shared cooler): a second heat path beside three temperatures that already exist, for a stage
-  almost no one reaches. Nothing the player would do differently.
+  almost no one reaches. Nothing the player would do differently. **Dropped by the owner, "somewhat sadly" (10 Nov 2026).**
 - **The air brakes' compressor loading the engine:** real, but the compressor runs for minutes after a long stand on a handful of named
   trucks; a hub change for an effect under 1 %.
 - **A cold cab slowing the driver:** the game's own hypothermia and moods already do it; vanilla precedence.
@@ -210,11 +211,41 @@ measures and does heavy work, the bay keeps and refuels.
 
 Each step says "not yet tested in game" until the owner says otherwise, and every new setting is reported when it lands.
 
+## The owner's answers, and what was built (10 Nov 2026)
+
+**Owner:** "Please implement what you'd build first, #1 through #4" (T1, T2, T3, and the rig's S1 and S2); **S4 agreed**; an
+inspection pit **is wanted after all, as a production bonus for the crafting table, as Dead Man's Switch does with its own**; the hoist
+stays optional as S2 has it; the gearbox-to-coolant link is dropped.
+
+**Built in D'thorga Framework 0.73.0 and D'thorga Vehicles 0.33.0, not yet tested in game:**
+
+- **T1:** a new `hydraulicSupply` reading on the hydraulics system follows the **fluid only** (the pump's health is left out: a damaged
+  pump already slows the work through the vehicle's own work stat, and counting it twice would be wrong). The drill rig, the survey truck
+  and the tipper carry the system, bound to their own pump and lines (the tipper's rams stand for lines; the survey truck gets a small set
+  added). Drilling and surveying run at the supply's pace; tipping too; below 0.2 (the rules Def) setting up, working and tipping stop,
+  and say why.
+- **T2:** a drive belt on every land vehicle with liquid cooling (found by name, else added beside the engine, 10 health). Its efficiency
+  multiplies the radiator's flow, the cab heater and climate control, and the alternator's output (a new optional `drivenByRole` on
+  `Input_ElectricalBalance`). It snaps on the service system's breakdown roll (MTB 4,000 hours fresh, 1,500 due, 400 overdue [A]), all
+  its health at once; a new one is 4 chemfuel and 300 ticks [A]. **Boats are left out for now:** their loadout has no water pump role.
+- **T3:** `TreadRules.GripFactor` (1 new, 0.85 worn at 60 %, 0.7 at 90 %, 0.5 bald [A]) multiplies the ground's grip on a map and on
+  the world map; rails keep theirs.
+- **S1:** a **Diagnose** toggle on every vehicle once tuning rigs exist; a Construction job of 1,500 ticks within reach of a working rig;
+  a letter listing every part (worst first) with its grade and fitting, the tunes, the rated power (not in Plain), every system's
+  readings, and every fault. Plain mode gives words, the others figures. The health words are now one shared helper (`HealthWords`).
+- **S2:** a destroyed part fitted within reach of a working rig returns at **60 %** instead of 25 %, for **0.7** of the work [A]. A new
+  `NearRig()` answers "physically at a rig" whatever the setting that makes tunes wait for one.
+- **Inspection pit:** a facility for the vehicle parts bench, **+15 % work speed, one counts** (the tool cabinet's +6 %, two counting,
+  for scale) [A]; 60 steel and a component. Its picture is the depot bay's, a placeholder until the owner asks for art.
+
+**Still to come, in the record's order:** the fittings batch (F1 to F8, F10) with T6 and T8; T4 and T5 (brake and clutch wear, engine
+braking); **S4 consumables as items, agreed**, on its own with its migration; S3 if wanted; T7 last.
+
 ## Open questions for the owner
 
 | Question | Agent lean |
 | --- | --- |
-| S4, consumables as items: yes, no, or yes with an "accept raw materials" setting for old saves? | Yes, with the setting, on for saves that have vehicles and off for new colonies |
+| S4, consumables as items: yes, no, or yes with an "accept raw materials" setting for old saves? | **Answered: yes** (owner, 10 Nov 2026). The setting for old saves is still the agent's lean |
 | T1: hydraulics on the drill rig, tipper and survey truck only, or the tanker's transfer pump too? | The three; a tanker's pump is a different pump |
 | T2: a belt on every liquid-cooled piston vehicle, including other mods' (another appended part on each)? | Yes; it is where the belt is |
 | S1 to S3: all three rig changes, or S1 and S2 only? | All three; S3 strands no one |

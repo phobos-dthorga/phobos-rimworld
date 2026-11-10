@@ -5,6 +5,33 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.73.0] - 2026-11-10 - Draft
+
+Deeper vehicle chains and a tuning rig that does a job (owner, 10 November 2026). **Not yet tested in game.**
+
+### Added
+
+- **Hydraulic work runs on its fluid.** The drill rig, the survey truck and the tipper now carry hydraulics: a hit on their lines bleeds the fluid, and drilling, surveying and tipping slow with it, then stop with a message saying why. A mechanic's hydraulic top-up brings them back.
+- **A drive belt** on every land vehicle with liquid cooling. It turns the water pump and the alternator, so a worn or snapped belt makes the engine run hot and the battery stop charging together. It can snap on its own now and then, more often when the service is overdue. A new one is 4 chemfuel.
+- **Worn tyres lose grip**: worn tread holds less in mud and soft sand, so a worn truck bogs or spins sooner. On a road it hardly shows.
+- **Diagnose** (a button on any vehicle once you have a tuning rig): a mechanic looks the vehicle over at a working rig and a letter reports every part, its grade and fitting, the tunes, every reading and every fault. Worth doing to a captured or bought vehicle.
+- **Parts fitted at the tuning rig are fitted properly**: a destroyed part replaced within reach of a working rig comes back at 60% health instead of 25%, for less work. Replacing parts in the field works as before.
+- **Inspection pit** (motor pool tab): placed beside the vehicle parts bench, it makes the bench work 15% faster. Its picture is a placeholder.
+
+### Balance
+
+- All new figures are authored for play: the hydraulics stop below a fifth of their supply; the belt snaps on average every 4,000 running hours when fresh, 1,500 when a service is due and 400 when it is overdue; grip falls to 0.85 at worn tread, 0.7 worn through and 0.5 bald; a diagnosis is 1,500 ticks of work; a part at the rig comes back at 60% for 0.7 of the work; the pit gives 15%.
+
+### Save compatibility
+
+- Safe on an existing save. Existing drill rigs, survey trucks and tippers gain hydraulics with full fluid; land vehicles gain a drive belt in good order; the survey truck gains a set of hydraulic lines. A diagnosis asked for is saved with the vehicle.
+
+### Compatibility and limits
+
+- Boats have no drive belt yet.
+- The hydraulic pace follows the fluid only; a damaged pump already slows the work through the vehicle's own work rate.
+- The shared helper for health words moved; the Health tab reads the same.
+
 ## [0.72.1] - 2026-11-10 - Draft
 
 A protective-gear line no longer stalls the game (owner's report, 10 November 2026, with the profiler). **The owner's profiler shows the stall gone; the turn-back itself is not yet tested in game.**

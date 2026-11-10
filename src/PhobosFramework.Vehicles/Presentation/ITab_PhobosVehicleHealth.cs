@@ -267,9 +267,7 @@ public class ITab_PhobosVehicleHealth : ITab
         }).Translate();
 
         /// <summary>A share as a word, for Plain mode: the game's own part-condition words by the game's thresholds.</summary>
-        static string ShareWord(float share) =>
-            (share >= 0.999f ? "PhobosVehicleSystems_HealthWordGood" : share >= 0.7f ? "PhobosVehicleSystems_HealthWordWorn"
-                : share >= 0.4f ? "PhobosVehicleSystems_HealthWordPoor" : share > 0f ? "PhobosVehicleSystems_HealthWordBad" : "PhobosVehicleSystems_HealthDestroyed").Translate();
+        static string ShareWord(float share) => HealthWords.Of(share);
 
         void BuildCrew(VehiclePawn vehicle)
         {

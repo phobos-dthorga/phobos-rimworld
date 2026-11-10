@@ -139,6 +139,17 @@ public class CompPhobosVehicleSystems : VehicleComp
     /// <summary>This vehicle's fittings and tunes (docs/development/vehicle-tuning-and-upgrades.md).</summary>
     public VehicleFittings Fittings => fittings ??= new VehicleFittings(this);
 
+    /// <summary>What the hydraulic fluid can give a vehicle's hydraulic work, 0 to 1; 1 for a vehicle with no hydraulics (T1, Framework 0.73.0).</summary>
+    public float HydraulicSupply => TryGetQuantity("hydraulicSupply", out float supply) ? supply : 1f;
+
+    /// <summary>Why hydraulic work cannot go on now, or null: too little fluid left to work it.</summary>
+    public string? HydraulicRefusal() => HydraulicSupply < Rules.hydraulicWorkFloor ? "PhobosVehicleSystems_HydraulicsDry".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve() : null;
+
+    VehicleDiagnostics? diagnostics;
+
+    /// <summary>A diagnosis at a tuning rig: asked for, worked by a mechanic, reported in a letter (Framework 0.73.0).</summary>
+    public VehicleDiagnostics Diagnostics => diagnostics ??= new VehicleDiagnostics(this);
+
     /// <summary>The conditions on this vehicle's parts (slice 2 of the vehicle health design).</summary>
     public VehicleConditions Conditions => conditions ??= new VehicleConditions(this);
 
@@ -351,6 +362,7 @@ public class CompPhobosVehicleSystems : VehicleComp
         Conditions.ExposeData();
         Repairs.ExposeData();
         Fittings.ExposeData();
+        Diagnostics.ExposeData();
         if (Scribe.mode == LoadSaveMode.PostLoadInit)
         {
             savedValues ??= new Dictionary<string, float>();
@@ -1640,6 +1652,19 @@ public class CompPhobosVehicleSystems : VehicleComp
                 icon = SystemIcons.For("Phobos/VehicleSystems/FieldFix"),
                 isActive = () => Repairs.FieldFixRequested,
                 toggleAction = () => Repairs.SetFieldFixRequested(!Repairs.FieldFixRequested),
+            };
+        }
+        if (VehicleFittings.RigReach > 0)
+        {
+            // Any vehicle can be diagnosed once the player has a tuning rig to do it at; the button says what it waits for.
+            string? waiting = Diagnostics.Requested ? Diagnostics.WaitingFor() : null;
+            yield return new Command_Toggle
+            {
+                defaultLabel = "PhobosVehicleSystems_Diagnose".Translate(),
+                defaultDesc = "PhobosVehicleSystems_DiagnoseDesc".Translate() + (waiting != null ? "\n\n" + waiting : ""),
+                icon = SystemIcons.For("Phobos/VehicleSystems/Stations/TuningRig"),
+                isActive = () => Diagnostics.Requested,
+                toggleAction = () => Diagnostics.SetRequested(!Diagnostics.Requested),
             };
         }
         if (AllServices().Any())

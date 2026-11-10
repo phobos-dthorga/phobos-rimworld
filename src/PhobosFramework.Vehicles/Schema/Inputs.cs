@@ -254,10 +254,13 @@ public class Input_ElectricalBalance : VehicleSystemInput
     public string supplyRole = "Alternator";
     /// <summary>Scales the supply: the alternator's output against its rotor speed (nothing below cut-in, full at speed).</summary>
     public VehicleSystemInput? supplyFactor;
+    /// <summary>The role that turns the supplier, if any (the drive belt, Framework 0.73.0): its efficiency scales the supply; none reads as sound.</summary>
+    public string? drivenByRole;
 
     protected override float Raw(SystemContext context)
     {
         double supply = context.Comp.EngineRunning ? context.Parameter(supplyParameter) * context.Comp.PartEfficiency(supplyRole, 1f) : 0;
+        if (supply > 0 && drivenByRole != null) supply *= context.Comp.PartEfficiency(drivenByRole, 1f);
         if (supply > 0 && supplyFactor != null) supply *= supplyFactor.Evaluate(context);
         double demand = context.Comp.ActiveLoadAmps();
         return (float)(side == Side.Surplus ? ElectricalBalance.Surplus(supply, demand) : ElectricalBalance.Deficit(supply, demand));

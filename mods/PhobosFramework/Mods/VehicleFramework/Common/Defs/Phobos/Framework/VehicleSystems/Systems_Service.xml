@@ -22,6 +22,7 @@
       <li>Alternator</li>
       <li>Starter</li>
       <li>Radiator</li>
+      <li>Belt</li>
     </roles>
     <quantities>
       <li>
@@ -36,6 +37,14 @@
             <to>120</to>
             <label>fresh</label>
             <effects>
+              <li Class="Phobos.VehicleSystems.Effect_Breakdown">
+                <!-- The drive belt snaps (Framework 0.73.0): all its health at once, more often as the service is put off. MTB authored. -->
+                <role>Belt</role>
+                <mtbHours>4000</mtbHours>
+                <healthFraction>1</healthFraction>
+                <message>PhobosVehicleSystems_MsgBreakdown</message>
+                <when Class="Phobos.VehicleSystems.When_EngineRunning" />
+              </li>
               <li Class="Phobos.VehicleSystems.Effect_Breakdown">
                 <role>Engine</role>
                 <mtbHours>3000</mtbHours>
@@ -54,6 +63,14 @@
               <li Class="Phobos.VehicleSystems.Effect_Message">
                 <message>PhobosVehicleSystems_MsgServiceDue</message>
                 <type>CautionInput</type>
+              </li>
+              <li Class="Phobos.VehicleSystems.Effect_Breakdown">
+                <!-- The drive belt snaps (Framework 0.73.0): all its health at once, more often as the service is put off. MTB authored. -->
+                <role>Belt</role>
+                <mtbHours>1500</mtbHours>
+                <healthFraction>1</healthFraction>
+                <message>PhobosVehicleSystems_MsgBreakdown</message>
+                <when Class="Phobos.VehicleSystems.When_EngineRunning" />
               </li>
               <li Class="Phobos.VehicleSystems.Effect_Breakdown">
                 <role>Engine</role>
@@ -78,6 +95,14 @@
             <effects>
               <li Class="Phobos.VehicleSystems.Effect_Message">
                 <message>PhobosVehicleSystems_MsgServiceOverdue</message>
+              </li>
+              <li Class="Phobos.VehicleSystems.Effect_Breakdown">
+                <!-- The drive belt snaps (Framework 0.73.0): all its health at once, more often as the service is put off. MTB authored. -->
+                <role>Belt</role>
+                <mtbHours>400</mtbHours>
+                <healthFraction>1</healthFraction>
+                <message>PhobosVehicleSystems_MsgBreakdown</message>
+                <when Class="Phobos.VehicleSystems.When_EngineRunning" />
               </li>
               <li Class="Phobos.VehicleSystems.Effect_Breakdown">
                 <role>Engine</role>

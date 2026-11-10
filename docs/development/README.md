@@ -119,7 +119,8 @@ promise current behaviour. For using the mods, start at the [documentation index
 - [Vehicle crosslinks, round two: deeper chains, more fittings, and what the stations should do (10 Nov 2026)](vehicle-crosslinks-round-two.md):
   the graph after 0.70.0 and its holes (hydraulics nobody reads, no drive belt, flat brake wear, tread that never loses grip, a rig that only
   gates); eight deeper links, ten fittings and a boost axis, the rig doing diagnostics and better fits, consumables as items, four things argued
-  against, an order and the owner's questions. Nothing built.
+  against, an order and the owner's questions. T1 to T3, S1, S2 and an inspection pit built in Framework 0.73.0 and Vehicles 0.33.0 (not yet
+  tested in game); S4 agreed, not built.
 - [Crash record: stack overflow on 9 Nov 2026](crash-2026-11-09-stack-overflow.md): a runaway call loop the log never mentioned, what the dump proved and could not,
   three suspects, the other errors in that log, and how to name the culprit.
 - [Fires on vehicles that never go out (10 Nov 2026)](vehicle-framework-fires.md): 37 fires on one jet, left on the wrong map and never changing; what the saves and

@@ -351,11 +351,13 @@ public sealed class Powertrain
             lastSpeed = intended;
             ReadGround(vehicle, out conditions.RollingResistance, out conditions.Grip);
             conditions.RollingResistance *= 1 + 2 * comp.RoleShareBelow("Wheels", 0.2f);
+            conditions.Grip *= TreadGrip();
         }
         else if (caravan != null && caravan.vehiclePather != null && caravan.vehiclePather.MovingNow)
         {
             conditions.Speed = Spec.DesignSpeed;
             WorldGround(caravan.Tile, out conditions.RollingResistance, out conditions.Grade, out conditions.Grip);
+            conditions.Grip *= TreadGrip();
         }
         else
         {
@@ -492,6 +494,10 @@ public sealed class Powertrain
         float progress = 1f - Mathf.Clamp01(pather.nextCellCostLeft / pather.nextCellCostTotal);
         return here + (pather.nextCell.ToVector3Shifted() - here) * progress;
     }
+
+    /// <summary>What worn tread leaves of the ground's grip (T3, Framework 0.73.0): from the running gear's tread wear; rails, and a vehicle
+    /// with no tyres or tracks system, keep it all.</summary>
+    double TreadGrip() => OwnSurface || !comp.TryGetQuantity("treadWear", out float wear) ? 1 : TreadRules.GripFactor(wear);
 
     /// <summary>Running gear with its own surface (steel wheels on rails): the ground beneath does not touch it.</summary>
     public bool OwnSurface => !double.IsNaN(fixedRolling) && !double.IsNaN(fixedGrip);

@@ -443,6 +443,33 @@
     <drivetrain>
       <def>PhobosDrivetrain_MediumDiesel</def>
     </drivetrain>
+    <!-- The boom and the outriggers are hydraulic (D'thorga Vehicles 0.33.0, Framework 0.73.0). The truck's own pump is bound; it has no
+         lines of its own, so a small set is added beside the pump. -->
+    <systems>
+      <li><def>PhobosVehicleSystem_Hydraulics</def></li>
+    </systems>
+    <partRoles>
+      <li>
+        <role>HydraulicPump</role>
+        <find>
+          <li><keyContains>hydraulicpump</keyContains></li>
+        </find>
+      </li>
+      <li>
+        <role>HydraulicLines</role>
+        <find>
+          <li><keyContains>hydrauliclines</keyContains></li>
+        </find>
+        <add>
+          <key>PhobosHydraulicLines</key>
+          <label>hydraulic lines</label>
+          <health>15</health>
+          <hitWeight>0.4</hitWeight>
+          <hitWeightCE>3</hitWeightCE>
+          <cellsOf>HydraulicPump</cellsOf>
+        </add>
+      </li>
+    </partRoles>
     <loads>
       <li>
         <name>surveyConsole</name>

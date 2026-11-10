@@ -14,6 +14,7 @@ public static class VehicleSystemsJobDefOf
     public static JobDef PhobosVehicleSystems_ServiceVehicle = null!;
     public static JobDef PhobosVehicleSystems_JumpStart = null!;
     public static JobDef PhobosVehicleSystems_RepairWithSupplies = null!;
+    public static JobDef PhobosVehicleSystems_Diagnose = null!;
 
     static VehicleSystemsJobDefOf() => DefOfHelper.EnsureInitializedInCtor(typeof(VehicleSystemsJobDefOf));
 }
@@ -191,6 +192,37 @@ public class JobDriver_PhobosServiceVehicle : PhobosVehicleWorkDriver
     }
 }
 
+/// <summary>Diagnoses a vehicle the player asked about, standing within reach of a working tuning rig (Framework 0.73.0).</summary>
+public class WorkGiver_PhobosDiagnose : VehicleWorkGiver
+{
+    public override JobDef JobDef => VehicleSystemsJobDefOf.PhobosVehicleSystems_Diagnose;
+
+    public override IEnumerable<Thing> PotentialWorkThingsGlobal(Pawn pawn) => ServiceTargets.Vehicles(pawn);
+
+    public override bool CanBeWorkedOn(VehiclePawn vehicle) =>
+        !vehicle.Drafted && vehicle.GetComp<CompPhobosVehicleSystems>() is { RepairsPaused: false } comp && comp.Diagnostics.Ready;
+}
+
+public class JobDriver_PhobosDiagnose : PhobosVehicleWorkDriver
+{
+    protected override JobDef JobDef => VehicleSystemsJobDefOf.PhobosVehicleSystems_Diagnose;
+
+    protected override float TotalWork => PhobosVehicleRulesDef.Current<PhobosVehicleRulesDef>().diagnoseWork * (Systems?.BayWorkFactor ?? 1f);
+
+    protected override StatDef Stat => StatDefOf.ConstructionSpeed;
+
+    protected override SkillDef Skill => SkillDefOf.Construction;
+
+    protected override IEnumerable<Toil> MakeNewToils()
+    {
+        // Driven off from the rig, or the request withdrawn: stop without a report.
+        this.FailOn(() => Systems?.Diagnostics.Ready != true);
+        foreach (Toil toil in base.MakeNewToils()) yield return toil;
+    }
+
+    protected override void WorkComplete(Pawn actor) => Finished(actor, Systems?.Diagnostics.Complete(actor) == true);
+}
+
 /// <summary>Does a repair whose supplies are aboard: fits a new part, puts a serious condition right, or patches a leak.</summary>
 public class WorkGiver_PhobosRepairWithSupplies : VehicleWorkGiver
 {
@@ -221,7 +253,7 @@ public class JobDriver_PhobosRepairWithSupplies : PhobosVehicleWorkDriver
 
     RepairWork? Current => workKey == null ? null : Systems?.Repairs.Find(workKey);
 
-    protected override float TotalWork => (Current?.Work ?? 1f) * (Systems?.BayWorkFactor ?? 1f);
+    protected override float TotalWork => (Current is { } work && Systems is { } systems ? systems.Repairs.WorkFor(work) : 1f) * (Systems?.BayWorkFactor ?? 1f);
 
     /// <summary>The job is tied to one piece of work, so what was cancelled is not finished, and another job is not done on its time.</summary>
     protected override void ResetWork()

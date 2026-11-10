@@ -173,6 +173,11 @@ public sealed class VehicleRepairs
 
     public void Invalidate() => cached = null;
 
+    /// <summary>The work a repair takes now: fitting a new part within reach of a working tuning rig is quicker (S2, Framework 0.73.0).
+    /// Read when the work starts, since the vehicle may have moved since the list was built.</summary>
+    public float WorkFor(RepairWork repair) =>
+        repair.Kind == RepairKind.ReplacePart && comp.Fittings.NearRig() ? repair.Work * Rules.rigReplaceWorkFactor : repair.Work;
+
     List<RepairWork> Build()
     {
         var pending = new List<RepairWork>();
@@ -358,7 +363,8 @@ public sealed class VehicleRepairs
             case RepairKind.ReplacePart:
                 comp.Fittings.FinishReplacement(repair.Part!);
                 comp.Conditions.RemoveOn(repair.Part!.props.key);    // a new part has none of the old one's troubles
-                comp.RestorePart(repair.Part!, Rules.replacedPartHealth);
+                // At a tuning rig, its hoist and instruments fit the part properly (S2, Framework 0.73.0); in the field it is a rough fit.
+                comp.RestorePart(repair.Part!, comp.Fittings.NearRig() ? Rules.replacedPartHealthAtRig : Rules.replacedPartHealth);
                 NotifyRepairable();
                 text = "PhobosVehicleSystems_RepairReplaced".Translate(who, vehicle, repair.Part!.props.label.Named("PART")).Resolve();
                 break;

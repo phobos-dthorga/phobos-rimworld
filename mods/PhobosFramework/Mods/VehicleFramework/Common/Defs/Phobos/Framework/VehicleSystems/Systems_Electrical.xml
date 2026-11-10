@@ -197,6 +197,8 @@
         <inputs>
           <li Class="Phobos.VehicleSystems.Input_ElectricalBalance">
             <side>Surplus</side>
+            <!-- Framework 0.73.0: the drive belt turns the alternator; a slipping or snapped one charges little or nothing. -->
+            <drivenByRole>Belt</drivenByRole>
             <supplyFactor Class="Phobos.VehicleSystems.Input_EngineRpm">
               <multiplier>2.5</multiplier>
               <curve>
@@ -231,6 +233,8 @@
         <inputs>
           <li Class="Phobos.VehicleSystems.Input_ElectricalBalance">
             <side>Deficit</side>
+            <!-- Framework 0.73.0: the drive belt turns the alternator; a slipping or snapped one charges little or nothing. -->
+            <drivenByRole>Belt</drivenByRole>
             <supplyFactor Class="Phobos.VehicleSystems.Input_EngineRpm">
               <multiplier>2.5</multiplier>
               <curve>

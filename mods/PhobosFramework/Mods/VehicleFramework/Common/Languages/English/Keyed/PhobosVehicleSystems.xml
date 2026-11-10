@@ -364,6 +364,19 @@
   <PhobosVehicleSystems_RigInspectReady>Reaches vehicles parked within {CELLS} cells.</PhobosVehicleSystems_RigInspectReady>
   <PhobosVehicleSystems_RigInspectOff>Without power it can tune nothing.</PhobosVehicleSystems_RigInspectOff>
 
+  <!-- Framework 0.73.0: a diagnosis at the rig, and hydraulic work. -->
+  <PhobosVehicleSystems_Diagnose>Diagnose</PhobosVehicleSystems_Diagnose>
+  <PhobosVehicleSystems_DiagnoseDesc>Have a mechanic look this vehicle over at a tuning rig: every part, its grade and fitting, the tunes, every reading and every fault, in one report. Worth doing to a vehicle you have just captured or bought. The vehicle must stand within reach of a working tuning rig.</PhobosVehicleSystems_DiagnoseDesc>
+  <PhobosVehicleSystems_DiagnoseNeedsRig>{VEHICLE} waits to stand within reach of a working tuning rig.</PhobosVehicleSystems_DiagnoseNeedsRig>
+  <PhobosVehicleSystems_DiagnoseLetterLabel>Diagnosis: {VEHICLE}</PhobosVehicleSystems_DiagnoseLetterLabel>
+  <PhobosVehicleSystems_DiagnoseIntro>{MECHANIC} has looked {VEHICLE} over at the rig.</PhobosVehicleSystems_DiagnoseIntro>
+  <PhobosVehicleSystems_DiagnosePower>Its engine is built to give {KW} kW.</PhobosVehicleSystems_DiagnosePower>
+  <PhobosVehicleSystems_DiagnoseTune>Tuned: {TUNE}.</PhobosVehicleSystems_DiagnoseTune>
+  <PhobosVehicleSystems_DiagnoseParts>Parts, worst first:</PhobosVehicleSystems_DiagnoseParts>
+  <PhobosVehicleSystems_DiagnoseReadings>Readings:</PhobosVehicleSystems_DiagnoseReadings>
+  <PhobosVehicleSystems_DiagnoseConditions>Faults:</PhobosVehicleSystems_DiagnoseConditions>
+  <PhobosVehicleSystems_HydraulicsDry>{VEHICLE} has too little hydraulic fluid left to work. A mechanic's hydraulic top-up refills it; mend the leaking lines first, or it drains again.</PhobosVehicleSystems_HydraulicsDry>
+
   <PhobosVehicleSystems_GenSetUpRefusal>{VEHICLE} is set up, with its cable out. Pack it up first.</PhobosVehicleSystems_GenSetUpRefusal>
   <PhobosVehicleSystems_GenNotOnMap>It must be on a map to set up.</PhobosVehicleSystems_GenNotOnMap>
   <PhobosVehicleSystems_GenStopFirst>{VEHICLE} is still moving. Stop it first.</PhobosVehicleSystems_GenStopFirst>

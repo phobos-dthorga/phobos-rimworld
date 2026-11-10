@@ -5,6 +5,22 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.33.0] - 2026-11-10 - Draft
+
+Working trucks run on their hydraulics (owner, 10 November 2026). **Not yet tested in game.**
+
+### Added
+
+- The drill rig, the survey truck and the tipper carry hydraulics, bound to their own pumps, lines and tipping rams: a hit on a line bleeds the fluid, and the work slows, then stops, until a mechanic tops it up. The survey truck gains a set of hydraulic lines beside its pump.
+
+### Dependencies
+
+- Needs D'thorga Framework 0.73.0 or later.
+
+### Save compatibility
+
+- Safe on an existing save: these trucks gain hydraulics with full fluid.
+
 ## [0.32.0] - 2026-11-10 - Draft
 
 The Seabed Crawler's listening array (owner, 10 November 2026). **Not yet tested in game.**

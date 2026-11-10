@@ -137,6 +137,10 @@
             <!-- The water pump drives coolant through the core as well as the radiator. A vehicle without one reads as sound. -->
             <role>WaterPump</role>
           </li>
+          <li Class="Phobos.VehicleSystems.Input_PartEfficiency">
+            <!-- Framework 0.73.0: the drive belt turns the water pump. -->
+            <role>Belt</role>
+          </li>
         </inputs>
       </li>
       <li>
@@ -173,6 +177,10 @@
           </li>
           <li Class="Phobos.VehicleSystems.Input_PartEfficiency">
             <role>WaterPump</role>
+          </li>
+          <li Class="Phobos.VehicleSystems.Input_PartEfficiency">
+            <!-- Framework 0.73.0: the drive belt turns the water pump. -->
+            <role>Belt</role>
           </li>
         </inputs>
       </li>

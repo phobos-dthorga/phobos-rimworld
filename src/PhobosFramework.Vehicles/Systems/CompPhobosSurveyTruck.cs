@@ -150,7 +150,7 @@ public sealed class CompPhobosSurveyTruck : CompPhobosRigWork
     public override void Worked(Pawn worker, int delta)
     {
         MarkWorked();
-        float speed = worker.GetStatValue(StatDefOf.ResearchSpeed) * Vehicle.GetStatValue(RigDefOf.Phobos_ScanRate) * (power.Fast ? FastFactor : 1f) * OverdriveFactor;
+        float speed = worker.GetStatValue(StatDefOf.ResearchSpeed) * Vehicle.GetStatValue(RigDefOf.Phobos_ScanRate) * (power.Fast ? FastFactor : 1f) * WorkPace;
         daysWorking += speed * delta / TicksPerDay;
         rollTicks += delta;
         if (rollTicks < RollIntervalTicks) return;

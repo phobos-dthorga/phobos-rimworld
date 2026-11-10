@@ -96,8 +96,11 @@ public class CompPhobosTipper : CompPhobosSetUp, IVehicleEngineDemand
         if (!Vehicle.CanMoveFinal) return "PhobosVehicleSystems_TipNoDriver".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve();
         if (Vehicle.CompFueledTravel is { EmptyTank: true }) return "PhobosVehicleSystems_TipNoFuel".Translate().Resolve();
         if (Vehicle.GetStatValue(GeneratorDefOf.Phobos_RigControl) < Props.controlFloor) return "PhobosVehicleSystems_TipControls".Translate().Resolve();
+        if (Systems?.HydraulicRefusal() is { } dry) return dry;
         return CellFor(Cargo[0]).IsValid ? null : FullLine();
     }
+
+    CompPhobosVehicleSystems? Systems => Vehicle.GetComp<CompPhobosVehicleSystems>();
 
     string FullLine() => "PhobosVehicleSystems_TipFull".Translate(Cargo.Count.Named("COUNT")).Resolve();
 
@@ -133,7 +136,13 @@ public class CompPhobosTipper : CompPhobosSetUp, IVehicleEngineDemand
             Finish("PhobosVehicleSystems_TipStopped".Translate().Resolve());
             return;
         }
-        int things = TipRule.WholeThings(ref allowance, Vehicle.GetStatValue(TipperDefOf.Phobos_TipRate), SecondsPerRareTick);
+        // The body is raised by hydraulic rams: the fluid paces it, and too little stops it (T1, Framework 0.73.0).
+        if (Systems?.HydraulicRefusal() is { } dry)
+        {
+            Finish(dry);
+            return;
+        }
+        int things = TipRule.WholeThings(ref allowance, Vehicle.GetStatValue(TipperDefOf.Phobos_TipRate) * (Systems?.HydraulicSupply ?? 1f), SecondsPerRareTick);
         for (int i = 0; i < things; i++)
         {
             if (Cargo.Count == 0)

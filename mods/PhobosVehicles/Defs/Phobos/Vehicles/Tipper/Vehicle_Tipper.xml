@@ -358,5 +358,24 @@
       </vehicleDefs>
       <massMin>-1</massMin>
     </selector>
+    <!-- The body is raised by hydraulic rams (D'thorga Vehicles 0.33.0, Framework 0.73.0): the pump is bound, and the rams stand for the
+         lines, since a hit on a ram is what bleeds the system. -->
+    <systems>
+      <li><def>PhobosVehicleSystem_Hydraulics</def></li>
+    </systems>
+    <partRoles>
+      <li>
+        <role>HydraulicPump</role>
+        <find>
+          <li><keyContains>hydraulicpump</keyContains></li>
+        </find>
+      </li>
+      <li>
+        <role>HydraulicLines</role>
+        <find>
+          <li><keyContains>tippingrams</keyContains></li>
+        </find>
+      </li>
+    </partRoles>
   </Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
 </Defs>

@@ -5,7 +5,7 @@ colonist is breathing, makes fires fill roofed rooms with the game's own smoke w
 carries carbon monoxide from fires, holds the per-person care choices the D'thorga medical mods offer, and holds the small
 helpers every D'thorga mod shares.
 
-Version 0.72.1, built 10 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
+Version 0.73.0, built 10 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
 oxygen working through Burns and Smoke and Medical Equipment (5 November 2026). The health layer new in 0.3.0 and the **vehicle
 systems new in 0.9.0, and their engines, drivetrains and gas turbines new in 0.11.0, are not yet tested in game.** The rest is read from the game's and the mods' code.
 
@@ -51,7 +51,10 @@ and wear that a mechanic services. See [Vehicle systems](#vehicle-systems-with-v
   no longer wears it. **From 0.69.0 a fire on a vehicle cooks it from the inside**: the cab grows stifling, the coolant heats and the
   radiator cooks, so a fire put out within an in-game hour leaves the engine hot and a radiator to repair, and one left to burn for
   about two hours boils the engine over. **From 0.70.0** cold oil makes a start harder on the battery, and a **block heater** fitting
-  keeps a vehicle parked beside power warm. Not yet tested in game.
+  keeps a vehicle parked beside power warm. **From 0.73.0** a drive belt turns the water pump and alternator (a snapped one overheats the
+  engine and flattens the battery together), worn tyres lose grip in mud, working trucks' hydraulics run on their fluid, the tuning rig
+  can **Diagnose** a vehicle and fits replacement parts properly (60% health instead of 25%), and an **inspection pit** speeds the parts
+  bench. Not yet tested in game.
 - **Steam locomotives (0.14.0): two settings to decide before you run one.** **Boiler explosions** are off by default: on, a
   boiler without a fusible plug (the American 4-8-4) whose water runs below the firebox crown explodes, and the settings window
   warns you. **Realistic feed water** is off by default: a water stop draws a tenth of the real tender (6,800 litres for the 4-8-4,

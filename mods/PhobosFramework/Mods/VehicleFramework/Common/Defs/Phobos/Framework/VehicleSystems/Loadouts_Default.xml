@@ -208,6 +208,25 @@
         </add>
       </li>
       <li>
+        <!-- Framework 0.73.0 (T2 of docs/development/vehicle-crosslinks-round-two.md): one belt turns the water pump and the alternator on
+             most engines (secondary: Wikipedia, "Serpentine belt"). A worn or snapped one starves both: the coolant climbs and the battery
+             drains together. Health and hit weights authored. -->
+        <role>Belt</role>
+        <find>
+          <li>
+            <keyContains>belt</keyContains>
+          </li>
+        </find>
+        <add>
+          <key>PhobosDriveBelt</key>
+          <label>drive belt</label>
+          <health>10</health>
+          <hitWeight>0.3</hitWeight>
+          <hitWeightCE>4</hitWeightCE>
+          <cellsOf>Engine</cellsOf>
+        </add>
+      </li>
+      <li>
         <role>Wheels</role>
         <all>true</all>
         <find>

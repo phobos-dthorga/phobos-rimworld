@@ -150,6 +150,20 @@
     <work>800</work>
   </Phobos.VehicleSystems.PhobosVehiclePartSupplyDef>
 
+  <!-- Framework 0.73.0: a drive belt is rubber, and the game has none, so chemfuel stands for it as it does for tyres (owner, 8 Nov 2026).
+       Cheap and quick to fit, so a snapped belt strands a vehicle only when nobody carries the makings. Authored. -->
+  <Phobos.VehicleSystems.PhobosVehiclePartSupplyDef>
+    <defName>PhobosPartSupply_DriveBelt</defName>
+    <label>drive belt</label>
+    <roles>
+      <li>Belt</li>
+    </roles>
+    <materials>
+      <Chemfuel>4</Chemfuel>
+    </materials>
+    <work>300</work>
+  </Phobos.VehicleSystems.PhobosVehiclePartSupplyDef>
+
   <Phobos.VehicleSystems.PhobosVehiclePartSupplyDef>
     <defName>PhobosPartSupply_RotorDrive</defName>
     <label>rotor drive</label>

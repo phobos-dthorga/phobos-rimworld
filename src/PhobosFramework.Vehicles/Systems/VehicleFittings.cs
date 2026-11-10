@@ -316,9 +316,13 @@ public sealed class VehicleFittings
     public static int RigReach => RigDefs.Count == 0 ? 0 : RigDefs.Max(d => d.GetCompProperties<CompProperties_PhobosTuningRig>().reach);
 
     /// <summary>Whether a tune or a change of grade could be worked here and now: within reach of a working rig of the player's, or the setting is off.</summary>
-    public bool AtRig()
+    public bool AtRig() => !Settings.tuningNeedsRig || AssumeRigForTest || NearRig();
+
+    /// <summary>Whether the vehicle stands within reach of a working rig of the player's, whatever the setting: what a diagnosis needs, and
+    /// what makes a new part's fitting better (Framework 0.73.0).</summary>
+    public bool NearRig()
     {
-        if (!Settings.tuningNeedsRig || AssumeRigForTest) return true;
+        if (AssumeRigForTest) return true;
         VehiclePawn vehicle = comp.Vehicle;
         if (!vehicle.Spawned) return false;
         CellRect area = vehicle.OccupiedRect();

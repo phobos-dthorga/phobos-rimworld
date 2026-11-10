@@ -474,6 +474,25 @@
       </vehicleDefs>
       <massMin>-1</massMin>
     </selector>
+    <!-- The mast, the rotary head and the outriggers are hydraulic (D'thorga Vehicles 0.33.0, Framework 0.73.0): the rig's own power pack
+         and lines are bound to the hydraulics system, so a cut line bleeds the fluid and the drilling slows, then stops. -->
+    <systems>
+      <li><def>PhobosVehicleSystem_Hydraulics</def></li>
+    </systems>
+    <partRoles>
+      <li>
+        <role>HydraulicPump</role>
+        <find>
+          <li><keyContains>hydraulicpack</keyContains></li>
+        </find>
+      </li>
+      <li>
+        <role>HydraulicLines</role>
+        <find>
+          <li><keyContains>hydrauliclines</keyContains></li>
+        </find>
+      </li>
+    </partRoles>
     <loads>
       <li>
         <name>workLights</name>

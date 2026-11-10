@@ -90,6 +90,8 @@ public abstract class CompPhobosRigWork : CompPhobosSetUp, IVehicleEngineDemand
     public bool Overdrive => overdrive;
     /// <summary>What the work rate is multiplied by now.</summary>
     public float OverdriveFactor => OverdriveRule.Rate(1f, overdrive, RigProps.overdriveFactor);
+    /// <summary>What the work rate is multiplied by now: overdrive, and what the hydraulic fluid can give a mast or a boom (T1, Framework 0.73.0).</summary>
+    public float WorkPace => OverdriveFactor * (Systems?.HydraulicSupply ?? 1f);
     /// <summary>What a subclass's engine demand becomes under overdrive: flat out.</summary>
     protected float Demand(float usual) => overdrive ? 1f : usual;
     protected abstract float FuelPerDay { get; }
@@ -239,6 +241,7 @@ public abstract class CompPhobosRigWork : CompPhobosSetUp, IVehicleEngineDemand
         if (StillMoving) return "PhobosVehicleSystems_RigStopFirst".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve();
         if (Vehicle.GetStatValue(GeneratorDefOf.Phobos_RigStability) < RigProps.stabilityFloor) return "PhobosVehicleSystems_RigOutriggers".Translate().Resolve();
         if (Vehicle.GetStatValue(GeneratorDefOf.Phobos_RigControl) < RigProps.controlFloor) return "PhobosVehicleSystems_RigControls".Translate().Resolve();
+        if (Systems?.HydraulicRefusal() is { } dry) return dry;
         return MovingPartsRefusal();
     }
 
@@ -252,7 +255,7 @@ public abstract class CompPhobosRigWork : CompPhobosSetUp, IVehicleEngineDemand
             VehicleComponent? part = Vehicle.statHandler.GetComponent(key);
             if (part != null && part.Health <= 0f) return "PhobosVehicleSystems_RigPartGone".Translate(part.props.label.Named("PART")).Resolve();
         }
-        return null;
+        return Systems?.HydraulicRefusal();
     }
 
     /// <summary>A free cell beside the vehicle for the operator, as near the work as can be; invalid if there is none.</summary>

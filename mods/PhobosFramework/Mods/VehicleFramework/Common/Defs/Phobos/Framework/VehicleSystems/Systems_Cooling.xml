@@ -325,6 +325,10 @@
             <!-- A radiator cools only the coolant brought to it. A vehicle with no water pump of its own reads as sound. -->
             <role>WaterPump</role>
           </li>
+          <li Class="Phobos.VehicleSystems.Input_PartEfficiency">
+            <!-- Framework 0.73.0: the drive belt turns the water pump, and on most engines the radiator's fan with it. None reads as sound. -->
+            <role>Belt</role>
+          </li>
           <li Class="Phobos.VehicleSystems.Input_Moving">
             <stopped>0.7</stopped>
             <moving>1</moving>

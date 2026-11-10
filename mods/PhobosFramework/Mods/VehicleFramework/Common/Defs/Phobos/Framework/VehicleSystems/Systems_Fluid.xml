@@ -10,9 +10,10 @@
     compressor's rate, the leak and the 55 % release threshold are authored. Used by named loadouts for real air-braked trucks
     (D'thorga Vehicles), never by default.
 
-    Hydraulics. A pump driven by the engine, fluid that leaks when its lines are hit, and the pressure that results. Nothing in the
-    shipped loadouts uses it yet: it is ready for working vehicles (drill rigs, cranes, tippers) whose jobs read the pressure. All
-    figures authored.
+    Hydraulics. A pump driven by the engine, fluid that leaks when its lines are hit, and the pressure that results. Since Framework
+    0.73.0 the drill rig, the survey truck and the tipper carry it (D'thorga Vehicles 0.33.0) and pace their work by its supply: a mast,
+    a boom and a tipping body are hydraulic, pumped off the engine, and a cut line bleeds them (general; Wikipedia, "Hydraulic
+    machinery", secondary). All figures authored.
   -->
   <Phobos.VehicleSystems.PhobosVehicleSystemDef>
     <defName>PhobosVehicleSystem_AirBrakes</defName>
@@ -149,6 +150,36 @@
             </curve>
           </li>
         </derivedFrom>
+      </li>
+      <li>
+        <!-- What the fluid can give the work (Framework 0.73.0, T1 of docs/development/vehicle-crosslinks-round-two.md): the same curve on the
+             fluid alone. The drill rig, the survey truck and the tipper read it to pace their hydraulic work, and stop below a fifth (the rules
+             Def). The pump's health is left out on purpose: a damaged pump already slows the work through the vehicle's own work stat, and
+             counting it here as well would count it twice. -->
+        <name>hydraulicSupply</name>
+        <label>hydraulic supply</label>
+        <unit>Fraction</unit>
+        <hidden>true</hidden>
+        <derivedFrom>
+          <li Class="Phobos.VehicleSystems.Input_Quantity">
+            <quantity>hydraulicFluid</quantity>
+            <curve>
+              <points>
+                <li>(0, 0)</li>
+                <li>(0.4, 0.5)</li>
+                <li>(0.7, 1)</li>
+                <li>(1, 1)</li>
+              </points>
+            </curve>
+          </li>
+        </derivedFrom>
+        <stages>
+          <li>
+            <to>0.2</to>
+            <label>too low to work</label>
+            <notable>true</notable>
+          </li>
+        </stages>
       </li>
     </quantities>
     <onPartHit>

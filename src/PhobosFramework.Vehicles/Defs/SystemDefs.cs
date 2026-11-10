@@ -611,6 +611,14 @@ public class PhobosVehicleRulesDef : PhobosRulesDef
     public int shorePowerReach = 1;
     /// <summary>The share of full health a replaced part comes back with; ordinary repair does the rest.</summary>
     public float replacedPartHealth = 0.25f;
+    /// <summary>The same, for a part fitted within reach of a working tuning rig, whose hoist and instruments do the job properly.</summary>
+    public float replacedPartHealthAtRig = 0.6f;
+    /// <summary>What the work of fitting a new part is multiplied by within reach of a working tuning rig.</summary>
+    public float rigReplaceWorkFactor = 0.7f;
+    /// <summary>Work in ticks for a mechanic to diagnose a vehicle at a tuning rig.</summary>
+    public float diagnoseWork = 1500f;
+    /// <summary>Below this share of their hydraulic supply, a working vehicle's hydraulic work stops (a drill mast, a tipper body).</summary>
+    public float hydraulicWorkFloor = 0.2f;
     /// <summary>Work in ticks to patch a leak or a short in the field.</summary>
     public float fieldFixWork = 600f;
     /// <summary>The chance another faction's vehicle is found with a set of fittings and a tune (authored).</summary>

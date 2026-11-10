@@ -7,6 +7,11 @@
     <maxCatchUpHours>24</maxCatchUpHours>
     <stepHours>0.025</stepHours>
     <replacedPartHealth>0.25</replacedPartHealth>
+    <!-- Framework 0.73.0 (docs/development/vehicle-crosslinks-round-two.md, S1, S2 and T1; owner, 10 Nov 2026). All authored. -->
+    <replacedPartHealthAtRig>0.6</replacedPartHealthAtRig>
+    <rigReplaceWorkFactor>0.7</rigReplaceWorkFactor>
+    <diagnoseWork>1500</diagnoseWork>
+    <hydraulicWorkFloor>0.2</hydraulicWorkFloor>
     <fieldFixWork>600</fieldFixWork>
     <dangerClockHours>72</dangerClockHours>
     <budgetMsPerTick>0.05</budgetMsPerTick>
@@ -77,6 +82,27 @@
     <verb>repair</verb>
     <gerund>repairing</gerund>
     <priorityInType>61</priorityInType>
+    <requiredCapacities>
+      <li>Manipulation</li>
+    </requiredCapacities>
+  </WorkGiverDef>
+
+  <!-- A diagnosis at a tuning rig (Framework 0.73.0, S1): a mechanic's work at the vehicle, then a report. -->
+  <JobDef>
+    <defName>PhobosVehicleSystems_Diagnose</defName>
+    <driverClass>Phobos.VehicleSystems.JobDriver_PhobosDiagnose</driverClass>
+    <reportString>diagnosing TargetA.</reportString>
+    <casualInterruptible>true</casualInterruptible>
+  </JobDef>
+
+  <WorkGiverDef>
+    <defName>PhobosVehicleSystems_Diagnose</defName>
+    <label>diagnose vehicles</label>
+    <giverClass>Phobos.VehicleSystems.WorkGiver_PhobosDiagnose</giverClass>
+    <workType>Construction</workType>
+    <verb>diagnose</verb>
+    <gerund>diagnosing</gerund>
+    <priorityInType>59</priorityInType>
     <requiredCapacities>
       <li>Manipulation</li>
     </requiredCapacities>
