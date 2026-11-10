@@ -284,7 +284,7 @@
       <li>
         <name>cabHeater</name>
         <label>cab heater</label>
-        <description>The cab heater's fan runs below 5 °C while the engine runs.</description>
+        <description>The cab heater runs below 5 °C while the engine runs, on the engine's own heat: it warms the cab only once the engine has warmed up, and not at all with the coolant gone.</description>
         <amps>12</amps>
         <toggle>true</toggle>
         <iconPath>Phobos/VehicleSystems/CabHeater</iconPath>
@@ -343,7 +343,7 @@
       <li>
         <name>nightHeater</name>
         <label>night heater</label>
-        <description>A fuel-burning heater that keeps the cab warm while the caravan camps for the night with the engine off. Switch it on before you leave; it needs the night heater setting.</description>
+        <description>A fuel-burning heater that keeps the cab and the engine warm while the caravan camps for the night with the engine off, so it starts easily in the morning. Switch it on before you leave; it needs the night heater setting.</description>
         <amps>2</amps>
         <toggle>true</toggle>
         <defaultOn>false</defaultOn>
@@ -419,7 +419,7 @@
       <li>
         <name>cabHeater</name>
         <label>cab heater</label>
-        <description>The cab heater's fan runs below 5 °C while the engine runs.</description>
+        <description>The cab heater runs below 5 °C while the engine runs, on the engine's own heat: it warms the cab only once the engine has warmed up, and not at all with the coolant gone.</description>
         <amps>8</amps>
         <toggle>true</toggle>
         <iconPath>Phobos/VehicleSystems/CabHeater</iconPath>
@@ -478,7 +478,7 @@
       <li>
         <name>nightHeater</name>
         <label>night heater</label>
-        <description>A fuel-burning heater that keeps the cab warm while the caravan camps for the night with the engine off. Switch it on before you leave; it needs the night heater setting.</description>
+        <description>A fuel-burning heater that keeps the cab and the engine warm while the caravan camps for the night with the engine off, so it starts easily in the morning. Switch it on before you leave; it needs the night heater setting.</description>
         <amps>2</amps>
         <toggle>true</toggle>
         <defaultOn>false</defaultOn>
@@ -567,7 +567,7 @@
         <!-- Added in Framework 0.21.2: boats had no cab heater, so a closed cabin could only cool. Amps authored, as a land vehicle's fan. -->
         <name>cabHeater</name>
         <label>cab heater</label>
-        <description>The cabin heater runs below 5 °C while the engine runs, on the engine's heat.</description>
+        <description>The cabin heater runs below 5 °C while the engine runs, on the engine's heat: it warms the cabin only once the engine has warmed up, and not at all with the coolant gone.</description>
         <amps>12</amps>
         <toggle>true</toggle>
         <iconPath>Phobos/VehicleSystems/CabHeater</iconPath>
@@ -620,7 +620,7 @@
       <li>
         <name>nightHeater</name>
         <label>night heater</label>
-        <description>A fuel-burning heater that keeps the cab warm while the caravan camps for the night with the engine off. Switch it on before you leave; it needs the night heater setting.</description>
+        <description>A fuel-burning heater that keeps the cab and the engine warm while the caravan camps for the night with the engine off, so it starts easily in the morning. Switch it on before you leave; it needs the night heater setting.</description>
         <amps>2</amps>
         <toggle>true</toggle>
         <defaultOn>false</defaultOn>
@@ -811,7 +811,7 @@
       <li>
         <name>nightHeater</name>
         <label>night heater</label>
-        <description>A fuel-burning heater that keeps the cab warm while the caravan camps for the night with the engine off. Switch it on before you leave; it needs the night heater setting.</description>
+        <description>A fuel-burning heater that keeps the cab and the engine warm while the caravan camps for the night with the engine off, so it starts easily in the morning. Switch it on before you leave; it needs the night heater setting.</description>
         <amps>2</amps>
         <toggle>true</toggle>
         <defaultOn>false</defaultOn>

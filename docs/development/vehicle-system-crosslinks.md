@@ -84,7 +84,15 @@ Not proposed, and why:
 ## Order to build, when the owner says so
 
 1. Links **1, 2 and 8** together: one Cabin and one Cooling Def change, no code, and a new design line in the world-map record (the night heater
-   gains a reason).
+   gains a reason). **Built in Framework 0.67.0 (10 Nov 2026), not yet tested in game.** As built:
+   - Link 1 pulls the coolant toward 40 °C at 2 an hour [A], not toward 15: the cold-start wear begins below 20 °C, so 15 would have
+     saved nothing. That holds the coolant near 26 °C at -20 outside and near 21 °C at -40 through a night's camp (rule tests). The oil
+     follows the coolant already, so no second flow. It runs on every vehicle with liquid cooling, open or closed (owner); the heater's
+     fuel is burned by the cab system when there is one and by the cooling system otherwise, once either way.
+   - Links 2 and 8 also apply to climate control's heating, which uses the same heater core. Vehicles with no coolant (electric, steam,
+     turbine bleed air) read as warm and keep their full heater.
+   - Found on the way: a system switched off in the settings went on lending its frozen readings to the others, and went on applying its
+     frozen stage (a cab switched off mid-burn kept burning fuel). Both now stand down with it.
 2. Link **3**: two flows, no code; the Lubrication and Cooling Def comments carry the label.
 3. Link **4**: `Input_Fire` (one class, one attachment read on the rare tick), then flows on the four temperatures. The owner's Harrier is the test.
 4. Link **7**: a curve on starting power, and moving the cold-start condition to oil temperature.
@@ -93,19 +101,34 @@ Not proposed, and why:
 Each step takes the middle version number (new behaviour), carries its own test-pass row, and says "not yet tested in game" until the owner says
 otherwise.
 
-## Open questions for the owner
+## The owner's answers (10 Nov 2026)
 
-| Question | Agent lean |
-| --- | --- |
-| Should the night heater warm the engine on every vehicle, or only ones with a cab heater fitted? | Every vehicle with cooling: a block heater is cheap kit |
-| Does a worn engine's extra oil burn count as a reason to service, or only as a cost? | A cost only; the service clock stays on engine hours |
-| How hard should fire cook? | Authored so a fire the crew puts out inside an in-game hour leaves the engine hot but not damaged; one left to burn boils it over |
-| Link 5 on or off by default? | On, with a setting, since it only moves fuel and heat a little |
+| Question | Agent lean | Owner's answer |
+| --- | --- | --- |
+| Should the night heater warm the engine on every vehicle, or only ones with a cab heater fitted? | Every vehicle with cooling | **Every vehicle with cooling, and a block heater can be a good upgrade** (below) |
+| Does a worn engine's extra oil burn count as a reason to service, or only as a cost? | A cost only | **A reason to service it, with a setting to make it a cost only** (link 3) |
+| How hard should fire cook? | Put out within an in-game hour: hot but undamaged; left to burn: boils over | **The agent's lean** (link 4) |
+| Link 5 on or off by default? | On, with a setting | **On, with a setting to turn it off** |
+
+## Proposed: a block heater upgrade (agent's proposal from the owner's answer, not built)
+
+The night heater works only at a caravan's night camp. A **block heater** is an electric element in the engine that plugs into mains
+power, which is how real vehicles in cold places are kept warm overnight at home (secondary: Wikipedia, "Block heater").
+
+- **Lets the player:** keep vehicles parked in a cold base warm from the colony's power, so a winter morning's start costs no wear and
+  the cab heater works at once.
+- **Stops them:** nothing.
+- **Changes how they play:** winter parking is laid out beside power, and a fitting is worth buying for a cold map.
+- **How:** a fitting in the existing fittings set, with a Toward flow on `coolantTemperature` while the vehicle is on shore power
+  (`Input_ShorePower`, which the depot bays and electric vehicles already use) and parked, and a small power draw. It would come with
+  link 7 (cold oil makes a hard start), when the start itself depends on the warmth. Figures to author then.
 
 ## Who chose what
 
 - **Owner (9 Nov 2026):** enrich the simulation layer under everything with crosslinks; research and record first.
-- **Agent:** the graph reading, the eight proposals and their figures (all authored, marked [A]), the order, and what was left out.
+- **Owner (10 Nov 2026):** the four answers above, after testing the damage chain in game; go-ahead for the cross-linking.
+- **Agent:** the graph reading, the eight proposals and their figures (all authored, marked [A]), the order, and what was left out; in
+  0.67.0, the engine heater's 40 °C target and rate, the heater core's 30 to 60 °C curve, and applying links 2 and 8 to climate control.
 
 ## Sources
 

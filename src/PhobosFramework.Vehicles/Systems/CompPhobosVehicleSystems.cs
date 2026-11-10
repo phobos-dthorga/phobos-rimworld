@@ -531,7 +531,9 @@ public class CompPhobosVehicleSystems : VehicleComp
             }
             foreach (SystemState state in states)
             {
-                EvaluateStages(state, (float)hours);
+                // A switched-off system's values are frozen, so its stage is too: applying it would go on burning fuel or wearing a
+                // part for as long as it stays off. Its stat factors are already left out (StagesInForce).
+                if (Enabled(state)) EvaluateStages(state, (float)hours);
             }
             Conditions.Advance((float)hours);
             RecacheStatFactors();
@@ -945,12 +947,16 @@ public class CompPhobosVehicleSystems : VehicleComp
 
     // ---- Quantities ----
 
+    /// <summary>A quantity of any system running on this vehicle. A system switched off in the settings, or a cab system on an open
+    /// vehicle, reads as absent: its last value is frozen, and other systems must not go on reading it (the crew kept feeling a
+    /// switched-off cab's last temperature, and a cab heater would have read a switched-off cooling system's frozen coolant).</summary>
     public bool TryGetQuantity(string name, out float value)
     {
         if (states != null)
         {
             foreach (SystemState state in states)
             {
+                if (!Enabled(state)) continue;
                 int index = state.Def.QuantityIndex(name);
                 if (index >= 0)
                 {

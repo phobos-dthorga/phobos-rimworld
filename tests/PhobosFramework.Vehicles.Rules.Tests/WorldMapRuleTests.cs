@@ -71,6 +71,30 @@ public class WorldMapRuleTests
     {
         Assert.True(Run(-10, -10, false, false, true, 2) > 5, "3 x (18 - T) balances 2 x (T + 10): about 6.8 °C");
     }
+
+    // Crosslink 1 (Systems_Cooling.xml, Framework 0.67.0): the night heater also pulls the coolant toward 40 °C at 2 an hour, against
+    // the soak toward the air at 0.6. A start below 20 °C coolant wears the engine. Change these with the Def.
+    const double SoakRate = 0.6, EngineHeaterRate = 2, EngineHeaterTarget = 40, ColdStartBelow = 20;
+
+    static double Engine(double outside, bool nightHeater, double hours)
+    {
+        var values = new[] { outside };
+        var flows = new List<FlowSample> { new() { Quantity = 0, Kind = FlowKind.Toward, Rate = SoakRate, Target = outside } };
+        if (nightHeater) flows.Add(new FlowSample { Quantity = 0, Kind = FlowKind.Toward, Rate = EngineHeaterRate, Target = EngineHeaterTarget });
+        SystemIntegrator.Advance(values, new[] { -60.0 }, new[] { 200.0 }, flows, hours);
+        return values[0];
+    }
+
+    [Theory]
+    [InlineData(-20, 25, 27)]   // 2 x (40 - T) balances 0.6 x (T + 20): about 26.2 °C
+    [InlineData(-40, 20, 22)]   // about 21.5 °C: still above the cold-start line in deep cold
+    public void TheNightHeaterKeepsACampedEngineAboveTheColdStartLine(double outside, double low, double high)
+    {
+        double morning = Engine(outside, true, 8);
+        Assert.InRange(morning, low, high);
+        Assert.True(morning > ColdStartBelow);
+        Assert.True(Engine(outside, false, 8) < ColdStartBelow, "without it the engine sits at the air's temperature");
+    }
 }
 
 /// <summary>The caravan's ground by biome, road and winter (docs/development/vehicle-crew-and-ground-design.md).</summary>

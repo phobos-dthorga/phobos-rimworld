@@ -11,11 +11,18 @@
     the outside at 2 an hour (a parked cab meets the air in about an hour and a half); the heater pulls at 6 an hour (in -20 outside
     the cab settles near 8), the cooler at 4 (in 40 outside, near 29), the night heater at 3 (in -10, near 7). A real diesel parking
     heater burns about 0.2 to 0.5 L an hour (approximate, general); 0.4 chemfuel an hour here. The rule tests hold these figures.
+
+    The heater runs off the engine's coolant (crosslinks 2 and 8, Framework 0.67.0; docs/development/vehicle-system-crosslinks.md): a car's
+    heater is a small radiator on the coolant circuit, so it gives nothing until the engine is warm and nothing once the coolant is gone
+    (secondary: Wikipedia, "Heater core"). Its pull scales from 0 at 30 degrees C coolant to full at 60 (authored), and with the water
+    pump's health, which moves the coolant through it. Climate control heats through the same core. A vehicle with no liquid cooling
+    (electric, steam, turbine bleed air) reads as warm and keeps its full heater. The night heater is a separate fuel-burning heater and
+    needs no engine; it also warms the engine now (Systems_Cooling.xml).
   -->
   <Phobos.VehicleSystems.PhobosVehicleSystemDef>
     <defName>PhobosVehicleSystem_Cabin</defName>
     <label>cab</label>
-    <description>The cab's own warmth and cool: the heater and the air conditioner work while the engine runs, and a night heater can keep it warm at camp. Everyone aboard feels the cab, not the weather.</description>
+    <description>The cab's own warmth and cool: the heater warms it once the engine has warmed up, the air conditioner cools it while the engine runs, and a night heater can keep it warm at camp. Everyone aboard feels the cab, not the weather.</description>
     <needsClosedCab>true</needsClosedCab>
     <parameters>
       <heaterTarget>18</heaterTarget>
@@ -110,6 +117,23 @@
         <target Class="Phobos.VehicleSystems.Input_Parameter"><parameter>heaterTarget</parameter></target>
         <factorParameter>heaterRate</factorParameter>
         <when Class="Phobos.VehicleSystems.When_LoadActive"><load>cabHeater</load></when>
+        <inputs>
+          <li Class="Phobos.VehicleSystems.Input_Quantity">
+            <!-- The heater core: no warmth from cold coolant, full from warm (authored curve). No coolant at all reads as warm. -->
+            <quantity>coolantTemperature</quantity>
+            <fallback Class="Phobos.VehicleSystems.Input_Constant"><value>100</value></fallback>
+            <curve>
+              <points>
+                <li>(30, 0)</li>
+                <li>(60, 1)</li>
+              </points>
+            </curve>
+          </li>
+          <li Class="Phobos.VehicleSystems.Input_PartEfficiency">
+            <!-- The water pump drives coolant through the core as well as the radiator. A vehicle without one reads as sound. -->
+            <role>WaterPump</role>
+          </li>
+        </inputs>
       </li>
       <li>
         <name>cooler</name>
@@ -131,6 +155,22 @@
             <li Class="Phobos.VehicleSystems.When_QuantityBelow"><quantity>cabTemperature</quantity><value>20</value></li>
           </conditions>
         </when>
+        <inputs>
+          <!-- Climate control heats through the same heater core as the cab heater above. -->
+          <li Class="Phobos.VehicleSystems.Input_Quantity">
+            <quantity>coolantTemperature</quantity>
+            <fallback Class="Phobos.VehicleSystems.Input_Constant"><value>100</value></fallback>
+            <curve>
+              <points>
+                <li>(30, 0)</li>
+                <li>(60, 1)</li>
+              </points>
+            </curve>
+          </li>
+          <li Class="Phobos.VehicleSystems.Input_PartEfficiency">
+            <role>WaterPump</role>
+          </li>
+        </inputs>
       </li>
       <li>
         <name>climateCooling</name>

@@ -28,11 +28,17 @@
       are authored).
     - Room heat: the engine's waste heat goes into the room it stands in, 12 heat units a second at full load (authored; a
       vanilla heater gives about 21), instead of Vehicle Framework's flat ambient heat.
+    - The night heater warms the engine as well as the cab (crosslink 1, Framework 0.67.0; owner, 10 Nov 2026: every vehicle with
+      cooling). A block or coolant heater keeps coolant and oil warm overnight, so the engine starts easily and wears less (secondary:
+      Wikipedia, "Block heater"). It pulls the coolant toward 40 degrees C at 2 an hour against the soak's 0.6 (authored), holding it
+      near 26 at -20 outside and near 21 at -40: above the 20 degrees below which a start wears the engine. The oil follows the coolant
+      (Systems_Lubrication.xml), so it warms too. With a closed cab the cab system burns the heater's fuel; on an open vehicle this
+      system does, so the heater burns once either way. An air-cooled engine has no coolant here and is not warmed.
   -->
   <Phobos.VehicleSystems.PhobosVehicleSystemDef>
     <defName>PhobosVehicleSystem_Cooling</defName>
     <label>cooling system</label>
-    <description>The coolant, the thermostat and the radiator. An engine runs warm and steady while they work; with a holed radiator, low coolant or hard work in the heat it runs hot, overheats and boils over, and the engine takes damage.</description>
+    <description>The coolant, the thermostat and the radiator. An engine runs warm and steady while they work; with a holed radiator, low coolant or hard work in the heat it runs hot, overheats and boils over, and the engine takes damage. A night heater at camp keeps the coolant warm, so the engine starts easily in the morning.</description>
     <roles>
       <li>Engine</li>
       <li>Radiator</li>
@@ -43,6 +49,10 @@
       <radiatorRate>6</radiatorRate>
       <soakRate>0.6</soakRate>
       <thermostatOpens>88</thermostatOpens>
+      <engineHeaterTarget>40</engineHeaterTarget>
+      <engineHeaterRate>2</engineHeaterRate>
+      <!-- The same heater as the cab's (Systems_Cabin.xml, nightHeaterFuelPerHour): change both together. -->
+      <nightHeaterFuelPerHour>0.4</nightHeaterFuelPerHour>
     </parameters>
     <quantities>
       <li>
@@ -185,6 +195,41 @@
           </li>
         </stages>
       </li>
+      <li>
+        <!-- The night heater's fuel on a vehicle whose cab system does not burn it (an open vehicle, or the cab system switched off):
+             running, and the cab's own "night heater running" not above a half. -->
+        <name>engineHeaterBurning</name>
+        <label>night heater</label>
+        <unit>Plain</unit>
+        <min>0</min>
+        <max>1</max>
+        <hidden>true</hidden>
+        <derivedFrom>
+          <li Class="Phobos.VehicleSystems.Input_Condition">
+            <condition Class="Phobos.VehicleSystems.When_All">
+              <conditions>
+                <li Class="Phobos.VehicleSystems.When_LoadActive"><load>nightHeater</load></li>
+                <li Class="Phobos.VehicleSystems.When_QuantityAbove">
+                  <quantity>nightHeaterRunning</quantity>
+                  <value>0.5</value>
+                  <invert>true</invert>
+                </li>
+              </conditions>
+            </condition>
+          </li>
+        </derivedFrom>
+        <stages>
+          <li>
+            <from>0.5</from>
+            <label>burning</label>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_ConsumeFuel">
+                <perHourParameter>nightHeaterFuelPerHour</perHourParameter>
+              </li>
+            </effects>
+          </li>
+        </stages>
+      </li>
     </quantities>
     <flows>
       <li>
@@ -254,6 +299,15 @@
         <kind>Toward</kind>
         <target Class="Phobos.VehicleSystems.Input_Ambient" />
         <factorParameter>soakRate</factorParameter>
+      </li>
+      <li>
+        <!-- Crosslink 1: the night heater at camp keeps the coolant warm (see the comment at the top). -->
+        <name>nightHeater</name>
+        <quantity>coolantTemperature</quantity>
+        <kind>Toward</kind>
+        <target Class="Phobos.VehicleSystems.Input_Parameter"><parameter>engineHeaterTarget</parameter></target>
+        <factorParameter>engineHeaterRate</factorParameter>
+        <when Class="Phobos.VehicleSystems.When_LoadActive"><load>nightHeater</load></when>
       </li>
     </flows>
     <onEvents>

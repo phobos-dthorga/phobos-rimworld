@@ -5,6 +5,32 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.67.0] - 2026-11-10 - Draft
+
+Vehicle systems talk to each other more (owner, 10 November 2026: crosslinks 1, 2 and 8). **Not yet tested in game.**
+
+### Added
+
+- **The night heater keeps the engine warm too**, on every vehicle with liquid cooling, open or closed. Through a night's camp the coolant stays above 20 degrees C down to about -40 outside, so the morning start no longer wears the engine. The oil warms with it. Its fuel is burned once, as before.
+- **The cab heater runs off the engine's heat.** It gives no warmth until the engine has warmed up (from 30 degrees C coolant, full at 60), none once the coolant is gone, and less with a damaged water pump. Climate control heats the same way. Electric vehicles, steam locomotives and jet aircraft keep their heaters as before.
+
+### Fixed
+
+- A vehicle system switched off in the mod settings went on lending its last readings to the others, and went on applying its last stage: a cab system switched off while its night heater burned kept burning fuel. Both now stop with it.
+
+### Balance
+
+- All new figures are authored for play: the engine heater pulls the coolant toward 40 degrees C at 2 an hour, and the heater core works from 30 to 60 degrees C coolant.
+
+### Save compatibility
+
+- Safe on an existing save: nothing new is saved.
+
+### Compatibility and limits
+
+- An air-cooled engine has no coolant in the systems and is not warmed by the night heater.
+- The night heater still runs only at a caravan's night camp, with its setting on. A block heater for vehicles parked at home is proposed, not built.
+
 ## [0.66.3] - 2026-11-10 - Draft
 
 A fix from the owner's test. **Not yet tested in game.**
