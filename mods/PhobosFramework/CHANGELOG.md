@@ -5,13 +5,14 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
-## [0.62.2] - 2026-11-10 - Draft
+## [0.63.0] - 2026-11-10 - Draft
 
-The owner's art picks and a fix from play. **Not yet tested in game.**
+Protective-gear lines, for the owner's radiation control in D'thorga Medical. **Not yet tested in game.**
 
 ### Added
 
 - The dashboard's warning lights show pictures (a tyre, a battery, an oil can, a thermometer and the rest), lit in the warning's colour, where they showed a word before; the word is in the light's tooltip. The ignition button shows a key. Not yet tested in game.
+- Protective-gear lines for other mods to use: a kind of line names what protects (a stat worn gear raises) and how much is enough; a sign can close off the room it faces, and an area can be painted. Colonists about to cross without enough protection stop, fetch the fewest, nearest items that bring them up to it, put them on and carry on with what they were doing; on the way out they take that gear off just outside. With no gear in reach they turn back, say so once and keep clear for an hour. Drafted colonists cross as they are. Gear is judged by what it does, never by its name. Not yet tested in game.
 
 ### Changed
 
@@ -21,6 +22,14 @@ The owner's art picks and a fix from play. **Not yet tested in game.**
 ### Fixed
 
 - **Nobody ever worked the vehicle parts bench**, whatever their skills: it had shipped without the work entry that sends colonists to a bench's bills. Its bills are now done under Smithing, like the machining table's. Reported by the owner. Not yet tested in game.
+
+### Save compatibility
+
+- Safe to add to an existing save. Painted lines and the gear put on at a line are saved with the map; a kind of line whose mod is removed is forgotten at the next load.
+
+### Compatibility and limits
+
+- The core still needs no Harmony: D'thorga Medical's patches call it. Only a crossing is checked, so a colonist already inside unprotected stays so.
 
 ## [0.62.1] - 2026-11-10 - Draft
 

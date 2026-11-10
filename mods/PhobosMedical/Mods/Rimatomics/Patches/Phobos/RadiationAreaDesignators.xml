@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The radiation controlled area's paint and clear tools join the zone tab beside the game's own areas, as other mods' areas do. -->
+<Patch>
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/DesignationCategoryDef[defName="Zone"]/specialDesignatorClasses</xpath>
+    <value>
+      <li>Phobos.Medical.Protection.Designator_PhobosRadiationAreaExpand</li>
+      <li>Phobos.Medical.Protection.Designator_PhobosRadiationAreaClear</li>
+    </value>
+  </Operation>
+</Patch>

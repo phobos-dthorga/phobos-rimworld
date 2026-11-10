@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- A radiation control line for Rimatomics (owner, 10 Nov 2026; docs/development/radiation-control-line.md). Loaded only while Rimatomics
+     is active. Rimatomics cuts a pawn's radiation dose by the game's toxic environment resistance (read from its 1.7 code, DubUtils.applyRads),
+     so that is the stat the line asks for: its radiation suit and mask give 0.40 each, 0.80 together. The 0.75 required is authored, a
+     gameplay choice: it takes the suit and the mask, or gear as good. -->
+<Defs>
+
+  <Phobos.Framework.Protection.ProtectionZoneDef>
+    <defName>PhobosZone_RadiationControlled</defName>
+    <label>radiation controlled area</label>
+    <description>Where radiation is expected. Colonists stop at its edge to put on protective gear, and take it off again just outside.</description>
+    <stat>ToxicEnvironmentResistance</stat>
+    <required>0.75</required>
+    <!-- Magenta, the radiation trefoil's colour on its yellow ground. -->
+    <color>(0.80, 0.20, 0.70)</color>
+  </Phobos.Framework.Protection.ProtectionZoneDef>
+
+  <ThingDef ParentName="BuildingBase">
+    <defName>PhobosMedical_RadiationControlPoint</defName>
+    <label>radiation control point</label>
+    <description>A sign that closes off the room it faces as a radiation controlled area. Colonists stop at its door and put on protective gear before going in: a radiation suit and mask, or anything that protects as well. They take it off again just outside on the way out, ready for the next person. Someone sent past it on your direct orders goes as they are.\n\nFace it into the room, or into the room's doorway. For open ground around a reactor, paint a radiation controlled area from the zone menu instead.</description>
+    <thingClass>Building</thingClass>
+    <graphicData>
+      <texPath>Phobos/Medical/Protection/RadiationControlPoint</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>(1,1)</drawSize>
+    </graphicData>
+    <uiIconPath>Phobos/Medical/Protection/RadiationControlPoint</uiIconPath>
+    <altitudeLayer>Building</altitudeLayer>
+    <passability>PassThroughOnly</passability>
+    <pathCost>30</pathCost>
+    <fillPercent>0.15</fillPercent>
+    <rotatable>true</rotatable>
+    <size>(1,1)</size>
+    <tickerType>Never</tickerType>
+    <drawerType>MapMeshOnly</drawerType>
+    <statBases>
+      <MaxHitPoints>60</MaxHitPoints>
+      <WorkToBuild>300</WorkToBuild>
+      <Flammability>0.5</Flammability>
+      <Mass>3</Mass>
+    </statBases>
+    <costList>
+      <Steel>10</Steel>
+    </costList>
+    <designationCategory>Misc</designationCategory>
+    <placeWorkers>
+      <li>Phobos.Framework.Protection.PlaceWorker_PhobosControlPoint</li>
+    </placeWorkers>
+    <comps>
+      <li Class="Phobos.Framework.Protection.CompProperties_PhobosControlPoint">
+        <zone>PhobosZone_RadiationControlled</zone>
+      </li>
+    </comps>
+  </ThingDef>
+
+</Defs>

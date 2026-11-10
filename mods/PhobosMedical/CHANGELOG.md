@@ -6,9 +6,30 @@ entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.11.0] - 2026-11-10 - Draft
+
+Radiation control for Rimatomics, from the owner's idea of 10 November 2026. **Not yet tested in game.**
+
+### Added
+
+- With Rimatomics: a radiation control point, a sign from the Misc tab that closes off the room it faces, and a radiation controlled area to paint from the zone tab. Colonists stop at the line and put on radiation gear before going in, and take it off just outside on the way out. It takes 75 percent toxic environment resistance, which is how Rimatomics cuts radiation: its suit and mask give 40 percent each, so both, or gear as good. Without gear in reach a colonist won't go in, and says so. Drafted colonists go as they are. Not yet tested in game.
+- The sign and the area's two tools have pictures drawn in code, with the international radiation symbol.
+
 ### Changed
 
 - The Workshop preview is a new picture, a field hospital tent at dusk, with the name added by script, from the owner's picks of 10 November 2026. No change in play.
+
+### Dependencies
+
+- Needs D'thorga Framework 0.63.0 or later. Rimatomics stays optional: without it, nothing of this part loads.
+
+### Save compatibility
+
+- Safe to add to an existing save, and to remove: the signs go with the game's one-time warning, and a painted area is forgotten.
+
+### Compatibility and limits
+
+- Patches the game's step into the next cell (as Field Tents and others do) and its allowed-area check; on a map with no line each costs a field read. Rimatomics++ was not checked for other radiation gear; any that raises toxic environment resistance counts.
 
 ## [0.10.0] - 2026-11-10 - Draft
 

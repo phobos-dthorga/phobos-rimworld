@@ -27,5 +27,16 @@
   <PhobosFramework_DisplayModeEngineerDesc>The full working, line by line.</PhobosFramework_DisplayModeEngineerDesc>
 
   <PhobosFramework_ChargesLeft>{COUNT} of {MAX} uses left.</PhobosFramework_ChargesLeft>
+  <!-- Protective-gear lines: a control point or a painted area behind which colonists wear gear. -->
+  <PhobosProtection_PointCloses>Closes off the {ROOM} as a {ZONE}. Colonists need {STAT} of {REQUIRED} or more to go in, and stop at the door to put on gear first.</PhobosProtection_PointCloses>
+  <PhobosProtection_PointFacesWall>Faces a wall, so it closes off nothing. Turn it to face into a room, or into a doorway.</PhobosProtection_PointFacesWall>
+  <PhobosProtection_PointFacesOpenGround>Faces open ground, which a sign can't close off. Paint a controlled area there instead.</PhobosProtection_PointFacesOpenGround>
+  <PhobosProtection_SuitingUp>Suiting up</PhobosProtection_SuitingUp>
+  <PhobosProtection_TurnedBack>{PAWN_labelShort} won't go into the {ZONE}: there is no gear in reach that gives enough {STAT}. {PAWN_labelShort} will keep clear of it for an hour.</PhobosProtection_TurnedBack>
+  <PhobosProtection_AreaExpand>Expand {ZONE}</PhobosProtection_AreaExpand>
+  <PhobosProtection_AreaExpandDesc>Paint where protective gear is needed. Colonists stop at its edge to put gear on, and take it off again just outside when they leave.</PhobosProtection_AreaExpandDesc>
+  <PhobosProtection_AreaClear>Clear {ZONE}</PhobosProtection_AreaClear>
+  <PhobosProtection_AreaClearDesc>Take cells out of the {ZONE}.</PhobosProtection_AreaClearDesc>
+
   <PhobosFramework_ResearchGranted>Your engineers and doctors wrote up what the colony already knows: {COUNT} research projects are complete.</PhobosFramework_ResearchGranted>
 </LanguageData>

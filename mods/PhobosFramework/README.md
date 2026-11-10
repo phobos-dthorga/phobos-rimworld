@@ -5,7 +5,7 @@ colonist is breathing, makes fires fill roofed rooms with the game's own smoke w
 carries carbon monoxide from fires, holds the per-person care choices the D'thorga medical mods offer, and holds the small
 helpers every D'thorga mod shares.
 
-Version 0.62.2, built 10 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
+Version 0.63.0, built 10 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
 oxygen working through Burns and Smoke and Medical Equipment (5 November 2026). The health layer new in 0.3.0 and the **vehicle
 systems new in 0.9.0, and their engines, drivetrains and gas turbines new in 0.11.0, are not yet tested in game.** The rest is read from the game's and the mods' code.
 
@@ -260,6 +260,8 @@ The new button on a vehicle's **Dashboard** opens **Fittings and tunes**, for an
   8 November 2026 and the Def tool read it.
 
 ## For modders
+
+**Protective-gear lines (new in 0.63.0, not yet tested in game).** A `Phobos.Framework.Protection.ProtectionZoneDef` names a stat worn gear raises and how much of it a pawn needs to cross; give a rotatable building `CompProperties_PhobosControlPoint` (with `PlaceWorker_PhobosControlPoint`) to close off the room it faces, or subclass `Designator_PhobosProtectionArea` to paint an area. Colonists stop at the line to fetch and put on gear, judged by its effect, and take it off on the way out. The core has no Harmony: D'thorga Medical's patches call `ProtectionLine.BeforeStep`, `AfterStep` and `AllowsCell` for every kind of line. A mod that adds a line without D'thorga Medical patches the same two methods itself; a step answered twice is acted on once ([the design](../../docs/development/radiation-control-line.md)).
 
 **Submersibles (Vehicle Framework).** Give a Sea vehicle a `Phobos.VehicleSystems.CompProperties_PhobosSubmersible` and the stats `Phobos_DiveEndurance` (hours) and `Phobos_DiveControl`, and list those stats in the categories of the parts that feed them. To let a small boat dive in chest-deep water and rivers, set `divesInChestDeepWater`. To have sonar or the like find a boat, call `Spot()` on its comp. Every figure is optional in XML; [the design](../../docs/development/submarine-framework.md) lists the fields.
 

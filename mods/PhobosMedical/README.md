@@ -8,12 +8,13 @@ It replaces five earlier mods, merged into it on 7 November 2026 ([why](../../do
 Burns and Smoke**, **D'thorga Emergency Dosing**, **D'thorga Triage**, **D'thorga Medical Equipment** and **D'thorga Medical Save
 Bridge**. Each is now a part of this mod, with its own section below.
 
-Version 0.10.0, built 9 November 2026 for House D'thorga. **Not yet tested in game as D'thorga Medical.** What the owner tested of
+Version 0.11.0, built 10 November 2026 for House D'thorga. **Not yet tested in game as D'thorga Medical.** What the owner tested of
 the five parts before the merge is in each part's section; the parts' behaviour is unchanged, except that the save bridge now asks
 first.
 
 ## Read this first (gotchas)
 
+- **New in 0.11.0, with Rimatomics only (not yet tested in game): radiation control.** A sign or a painted area marks where radiation gear is needed; colonists stop at the line to suit up and take the gear off on the way out. See [Radiation control](#radiation-control-with-rimatomics).
 - **New in 0.10.0 (not yet tested in game): clinical equipment has its own research, on the D'thorga tab.** **An existing colony gets a project free, once, if it had already done the research that project replaces.** New colonies research them normally.
 - **Switching from the five old mods: switch all five off in RimSort and this one on, in the same change, then load your colony.**
   The About file lists the five as incompatible, so RimSort warns if one is left on, and the load line logs an error naming any that
@@ -23,7 +24,7 @@ first.
   game.**
 - **Your settings carry over, once,** from the five old mods' settings files, the first time the game starts with this mod. There is
   now one display mode for every part (Plain, Operator or Engineer), taken from Medical Equipment's.
-- **Needs Harmony, D'thorga Framework 0.21.0 or later and Vanilla Expanded Framework. Vanilla Gravship Expanded is strongly recommended**: the
+- **Needs Harmony, D'thorga Framework 0.63.0 or later and Vanilla Expanded Framework. Vanilla Gravship Expanded is strongly recommended**: the
   bedside stand, field oxygen kit, hyperbaric chamber, electrolyser and liquid oxygen store use its oxygen, and a letter says so
   once if it is missing. **More Injuries and Combat Extended are optional** and used when present.
 - **RimWorld 1.7 only** (from 0.7.1; 1.6 is no longer supported).
@@ -646,6 +647,40 @@ The display mode, and the uninstall button. Plain mode shows no figures.
 - **Not checked in game:** everything new in 0.3.0 (the chamber, the field kit, the hand pump, the dressings, the electrolyser and the store, and their pipe links), the bedside oxygen stand and its pipe link, the inspect text from 0.2.1, the feel of the numbers, the uninstall button, and the 0.2.3 art.
 
 Community-created content. Portions of the materials used to create this content/mod are trademarks and/or copyrighted works of Ludeon Studios Inc. All rights reserved by Ludeon. This content/mod is not official and is not endorsed by Ludeon.
+
+## Radiation control (with Rimatomics)
+
+A radiation controlled area, the way a real plant runs one: suits on inside, off at the door. **Only with Rimatomics active. Not yet
+tested in game.**
+
+### Gotchas for this part
+
+- **Colonists need 75% toxic environment resistance to go in.** Rimatomics' radiation suit and mask give 40% each, so it takes both, or
+  gear as good. Any worn item that raises it counts, from any mod: it is judged by what the gear does, not what it is called.
+- **Keep suits and masks outside the line**, on a shelf or stockpile by the door, and not forbidden. Gear inside a controlled area is
+  never fetched.
+- **Drafted colonists cross as they are.** If you order someone in, they go in, protected or not.
+- **With no gear in reach, a colonist won't go in**: a message says so once, and they keep clear of the area for an hour and take up
+  other work.
+- **Safe to add to a running colony. Safe to remove**: the signs disappear with the game's one-time warning, and a painted area is
+  forgotten.
+
+### What it does
+
+- **Radiation control point** (Misc tab, 10 steel): a sign that closes off the room it faces. Face it into the room, or into the room's
+  doorway; while you place it, the room is outlined. Its inspect text names the room, or says it faces a wall or open ground.
+- **Radiation controlled area** (zone tab, beside the home area): paint it over open ground around a reactor, or over several rooms.
+- **Crossing in:** a colonist without enough protection stops at the line, fetches the fewest, nearest items that bring them up to 75%,
+  puts them on, then carries on with what they were doing. "Suiting up" floats above them.
+- **Crossing out:** gear put on at the line comes off just outside it, ready for the next person; haulers put it away. Gear the colonist
+  was already wearing stays on.
+- Prisoners, guests and animals are not stopped.
+
+### For modders
+
+The machinery is D'thorga Framework's (`Phobos.Framework.Protection`): a `ProtectionZoneDef` names a stat and how much of it is needed,
+`CompProperties_PhobosControlPoint` makes a building a control point, and `Designator_PhobosProtectionArea` paints an area. Any mod can
+add a kind of line in XML; the two Harmony hooks live here. Design: `docs/development/radiation-control-line.md`.
 
 ## Colonies saved before More Injuries (the save bridge)
 
