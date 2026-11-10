@@ -34,6 +34,12 @@ public sealed class ProtectionZones : MapComponent
 
     List<Painted> painted = new();
     List<Apparel> lineGear = new();
+    /// <summary>Gear a pawn is taking off on the way out, to be left free for haulers once it is down (Framework 0.77.0). Saved, so a reload
+    /// mid-way still frees it.</summary>
+    List<Apparel> takingOff = new();
+    /// <summary>How often, in ticks, gear being taken off is looked at: the game's rare tick (about four seconds), and only while there is
+    /// any; a map with none costs one field read a tick.</summary>
+    const int TakingOffCheckTicks = GenTicks.TickRareInterval;
     readonly List<CompPhobosControlPoint> points = new();
     readonly Dictionary<int, int> turnedBackUntil = new();
     readonly Dictionary<int, (int count, int untilTick)> suitUps = new();
@@ -129,6 +135,30 @@ public sealed class ProtectionZones : MapComponent
 
     public void RemoveLineGear(Apparel apparel) => lineGear.Remove(apparel);
 
+    /// <summary>Gear being taken off on the way out of a zone. The game's own job drops what it takes off forbidden unless it hauls it
+    /// itself, and hauling it could carry the pawn back across the line unprotected, so it drops it and this frees it once it is down.</summary>
+    public void MarkTakingOff(Apparel apparel)
+    {
+        if (!takingOff.Contains(apparel)) takingOff.Add(apparel);
+    }
+
+    public override void MapComponentTick()
+    {
+        if (takingOff.Count == 0 || Verse.Find.TickManager.TicksGame % TakingOffCheckTicks != 0) return;
+        for (int i = takingOff.Count - 1; i >= 0; i--)
+        {
+            Apparel apparel = takingOff[i];
+            if (apparel == null || apparel.Destroyed)
+            {
+                takingOff.RemoveAt(i);
+                continue;
+            }
+            if (apparel.Wearer != null) continue;    // still coming off
+            if (apparel.Spawned) apparel.SetForbidden(false, warnOnFail: false);
+            takingOff.RemoveAt(i);
+        }
+    }
+
     /// <summary>Forgets gear that is gone or that nobody is wearing or on the way to put on.</summary>
     public void PruneLineGear()
     {
@@ -173,10 +203,13 @@ public sealed class ProtectionZones : MapComponent
     {
         Scribe_Collections.Look(ref painted, "PhobosProtectionPainted", LookMode.Deep);
         Scribe_Collections.Look(ref lineGear, "PhobosProtectionLineGear", LookMode.Reference);
+        Scribe_Collections.Look(ref takingOff, "PhobosProtectionTakingOff", LookMode.Reference);
         if (Scribe.mode == LoadSaveMode.PostLoadInit)
         {
             painted ??= new List<Painted>();
             lineGear ??= new List<Apparel>();
+            takingOff ??= new List<Apparel>();
+            takingOff.RemoveAll(a => a == null);
             // A kind of line whose mod was removed loads with no Def: its cells are dropped rather than guessed at.
             painted.RemoveAll(p => p == null || p.def == null || p.grid == null);
             lineGear.RemoveAll(a => a == null);

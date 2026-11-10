@@ -131,6 +131,7 @@ public static class ProtectionLine
         foreach (Apparel apparel in lineGear)
         {
             zones.RemoveLineGear(apparel);
+            zones.MarkTakingOff(apparel);    // left free for haulers once it is down, not forbidden (owner, 11 Nov 2026)
             pawn.outfits?.forcedHandler?.SetForced(apparel, false);
             jobs.Add(JobMaker.MakeJob(JobDefOf.RemoveApparel, apparel));
         }

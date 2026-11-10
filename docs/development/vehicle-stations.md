@@ -26,7 +26,9 @@
 - **Orders can be placed anywhere and wait.** The inspect line says what they wait for, and so does the fittings window. Haulers still bring the materials ahead of the
   vehicle reaching a rig.
 - **Reach:** any cell of the vehicle within 3 cells of the rig's edge (authored), read from the vehicle's real footprint, which Vehicle Framework patches `OccupiedRect` to
-  give (from the code: `Patch_VehiclePathing.OccupiedRectVehicles`). The rig must have power: flicked off, unpowered or broken down all count as not working.
+  give (from the code: `Patch_VehiclePathing.OccupiedRectVehicles`). **Changed in Framework 0.77.0** (owner, 11 Nov 2026: aircraft were out of
+  reach): **5 cells, measured to the vehicle's drawn size** (`ReachRule`): the Hind is 3 cells wide but drawn 12, so its rotor alone kept a rig
+  placed clear of it more than 3 cells from the footprint. The rig must have power: flicked off, unpowered or broken down all count as not working.
 - **Moving the recipes:** only the recipe's list of tables changes. From the code, the game reads a table's recipe list for the Add Bill menu and for pasting a bill
   (`ITab_Bills.FillTab`), and not when a colonist does a bill, so **a bill already on a machining table goes on working** until it is removed.
 - **The tab** is a new `DesignationCategoryDef`, order 23, just under Vehicle Framework's 24. Only the bulk tanker's blueprint moves, by naming the category in its own Def.

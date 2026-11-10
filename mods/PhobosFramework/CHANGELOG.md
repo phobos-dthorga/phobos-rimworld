@@ -22,6 +22,26 @@ Engine sounds that follow the engine (owner, 10 and 11 November 2026). **Not yet
 
 - Safe on an existing save: nothing new is saved.
 
+## [0.77.0] - 2026-11-11 - Draft
+
+The tuning rig reaches aircraft, and gear taken off at a protective-gear line is no longer forbidden (owner's reports, 11 November 2026). **Not yet tested in game.**
+
+### Fixed
+
+- **Gear a colonist takes off on the way out of a radiation controlled area (or any protective-gear line) is no longer forbidden.** The game's own job for taking clothes off drops them forbidden unless it hauls them itself, so every suit lay forbidden where it was dropped and no hauler would touch it. It is now freed as soon as it is down, and haulers put it away as with anything else. It is not hauled by the colonist who wore it, who could otherwise carry it back across the line to a store inside.
+
+### Changed
+
+- **A tuning rig reaches further, and reaches aircraft.** It counts a vehicle within 5 cells of its edge (it was 3), measured to the vehicle as it is drawn, wings and rotor included, not only the cells it stands on. A helicopter is drawn far wider than its body, so a rig placed clear of the rotor was always out of reach. This applies to tunes, grade changes, diagnoses and the better fit of new parts.
+
+### Balance
+
+- The 5 cells are authored.
+
+### Save compatibility
+
+- Safe on an existing save.
+
 ## [0.75.0] - 2026-11-10 - Draft
 
 The vehicle systems' sounds: the generic library (owner, 10 November 2026). **Not yet tested in game.**

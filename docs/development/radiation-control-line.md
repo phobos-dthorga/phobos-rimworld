@@ -94,7 +94,10 @@ It changes nothing in the world.
 - **A turned-back colonist's route can still lead through a zone** on the way somewhere else, since pathing ignores allowed areas; since
   Framework 0.72.1 they stop short and wait as for a failed path, rather than being re-planned every tick. Routing them around the zone
   would need the game's pathing to know about lines, which it does not.
-- **Gear taken off lands outside the line, not in a locker;** haulers put it away. Whatever the suit replaced (a duster, say) lies where
+- **Gear taken off lands outside the line, not in a locker;** haulers put it away. **Before Framework 0.77.0 it lay forbidden** (owner's
+  report, 11 Nov 2026): the game's `JobDriver_RemoveApparel` drops forbidden unless `haulDroppedApparel` is set, and that flag was not used
+  because its haul runs as RemoveApparel, which the line lets through, so the wearer could carry the suit back across to a store inside
+  unprotected. Since 0.77.0 the map remembers the gear being taken off (saved) and frees it once it is down, checked on the rare tick. Whatever the suit replaced (a duster, say) lies where
   the suit was picked up, and the colonist's apparel policy dresses them again later.
 - **A pawn whose stat ends up short after suiting up** (another mod's multiplier, say) carries on in: the choice adds offsets only.
 - **Rimatomics++** is on the owner's list; its Defs were not checked for other radiation gear. Effect-based choice covers it if its gear

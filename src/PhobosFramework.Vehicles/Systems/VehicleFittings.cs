@@ -3,6 +3,7 @@ using System.Linq;
 using Phobos.Framework.Rules;
 using Phobos.Framework.Vehicles.Rules;
 using RimWorld;
+using UnityEngine;
 using Vehicles;
 using Verse;
 
@@ -325,7 +326,7 @@ public sealed class VehicleFittings
         if (AssumeRigForTest) return true;
         VehiclePawn vehicle = comp.Vehicle;
         if (!vehicle.Spawned) return false;
-        CellRect area = vehicle.OccupiedRect();
+        CellRect area = DrawnArea(vehicle);
         foreach (ThingDef def in RigDefs)
         {
             foreach (Building rig in vehicle.Map.listerBuildings.AllBuildingsColonistOfDef(def))
@@ -335,6 +336,19 @@ public sealed class VehicleFittings
             }
         }
         return false;
+    }
+
+    /// <summary>The cells the vehicle's picture covers, not only those it occupies (Framework 0.77.0): an aircraft's wings and rotor spread
+    /// far past its footprint, and a rig placed clear of them was out of reach. Turned east or west, the picture turns with it.</summary>
+    static CellRect DrawnArea(VehiclePawn vehicle)
+    {
+        CellRect rect = vehicle.OccupiedRect();
+        Vector2 drawn = vehicle.VehicleDef.graphicData?.drawSize ?? Vector2.zero;
+        IntVec2 size = vehicle.VehicleDef.Size;
+        bool turned = vehicle.Rotation.IsHorizontal;
+        int marginX = ReachRule.Margin(turned ? drawn.y : drawn.x, turned ? size.z : size.x);
+        int marginZ = ReachRule.Margin(turned ? drawn.x : drawn.y, turned ? size.x : size.z);
+        return new CellRect(rect.minX - marginX, rect.minZ - marginZ, rect.Width + 2 * marginX, rect.Height + 2 * marginZ);
     }
 
     /// <summary>Whether this vehicle's window should say that tunes and grades will wait.</summary>

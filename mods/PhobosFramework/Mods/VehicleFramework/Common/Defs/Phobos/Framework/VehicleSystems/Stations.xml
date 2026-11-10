@@ -205,7 +205,9 @@
       <li Class="CompProperties_Flickable" />
       <li Class="CompProperties_Breakdownable" />
       <li Class="Phobos.VehicleSystems.CompProperties_PhobosTuningRig">
-        <reach>3</reach>
+        <!-- Framework 0.77.0 (owner, 11 Nov 2026: aircraft were out of reach): 5 cells from the rig's edge, authored, measured to the
+             vehicle's drawn size, wings and rotor included, not only the cells it stands on. It was 3, from the footprint. -->
+        <reach>5</reach>
       </li>
     </comps>
   </ThingDef>
