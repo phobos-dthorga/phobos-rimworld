@@ -246,7 +246,10 @@ weapons stay their authors' own: we never replace another mod's vehicle sounds.
    sounds, no new code. The biggest change a player hears.
 2. **Our vehicles at work:** set-up, pumping, tipping, drilling, surveying, diving (S26 to S30, S37 to S40, S47 to S52, S58 to S62,
    S68, S73 to S79). One shared hook design (a set-up sound and a work loop on our comps), coordinated with the session working on
-   the rig, tipper and survey truck.
+   the rig, tipper and survey truck. Since Framework 0.73.0 their work runs at a hydraulic pace (`CompPhobosRigWork.WorkPace`; the
+   tipper's rate times `CompPhobosVehicleSystems.HydraulicSupply`) and stops on `HydraulicRefusal()`: a work loop starts and ends with
+   that, and a stalled lift is where S110's strain belongs. The tuning rig's S81 goes on the new Diagnose job
+   (`JobDriver_PhobosDiagnose`), and S115 on the inspection pit, both also new in 0.73.0.
 3. **Medical machines and devices** (S83 to S98), with the one device hook.
 4. **Generic vehicle systems** (S4 to S16), and the stations (S81, S82).
 5. **Planned features** take their sounds as they are built (S110 onwards).
