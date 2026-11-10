@@ -1,0 +1,19 @@
+[
+  {
+    "file": "button-diagnose-1.png",
+    "sharpness": 1234.3,
+    "border_white": 1.0,
+    "content": 0.611,
+    "hash": 8208026670411865190,
+    "score": 1.0
+  },
+  {
+    "file": "button-diagnose-2.png",
+    "sharpness": 1269.8,
+    "border_white": 1.0,
+    "content": 0.62,
+    "hash": 8131465511106305126,
+    "score": 1.0,
+    "duplicate_of": "button-diagnose-1.png"
+  }
+]

@@ -1,0 +1,51 @@
+{
+  "file": "category-vehicle-parts-2.png",
+  "sha256": "090b4687175094aeea9d67701ad169898703295c2da3284fd18bff7533f5b7de",
+  "date": "2026-11-11T01:39:06",
+  "generator": "OpenAI gpt-image-2 through the OpenAI image API (paid per image)",
+  "engine": "openai",
+  "model": "gpt-image-2",
+  "prompt": "GAME ITEM ICON. Camera above the object looking down at about sixty degrees, the way the game RimWorld draws loose items on the floor. One single object or one tidy bundle, centred, with its long axis level.\n\nCreate an ORIGINAL game item sprite for the D'thorga vehicle parts category icon. Image 1 is our approved vehicle part from the same family: match its outline weight, shading, palette and finish only. Do NOT copy its shape.\n\nDraw ONLY the gear and spanner, alone on a plain pure white background, filling about 75 percent of the canvas. Square canvas.\n\nA single chunky steel gear wheel with a dark spanner crossed over it.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art. It must read clearly when shrunk to 64 pixels: three big shapes, few small ones.\n\nNo people, hands, animals, vehicles, text, letters, numbers, logos, dials, dust, floor, ground or cast shadow.",
+  "seed": 2,
+  "seed_note": "an attempt number naming the file; the API takes no seed, so a rerun gives a different image",
+  "quality": "medium",
+  "size": [
+    1024,
+    1024
+  ],
+  "request_file": "assets/phobos-vehicles/requests/presentation-batch-a.json",
+  "ai_disclosure": "Made with generative AI: OpenAI gpt-image-2, prompted by the Phobos art scripts.",
+  "terms": "OpenAI Services Agreement, sections 4.1 and 4.4, as recorded in the Phobos Ostranauts repository on 2026-10-07 and summarised again on 2026-11-08: API customers own Output, OpenAI assigns any rights it has, and Output may not be unique; no use of Output to build competing models. Dated secondary records: the openai.com page refuses automated reads, so the owner confirms the current text.",
+  "endpoint": "/images/edits",
+  "usage": {
+    "input_tokens": 316,
+    "input_tokens_details": {
+      "image_tokens": 64,
+      "text_tokens": 252
+    },
+    "output_tokens": 1756,
+    "output_tokens_details": {
+      "image_tokens": 1756,
+      "text_tokens": 0
+    },
+    "total_tokens": 2072
+  },
+  "cost_usd": 0.0545,
+  "cost_is_estimate": false,
+  "reported_quality": "medium",
+  "reported_size": "1024x1024",
+  "reported_background": "opaque",
+  "reported_output_format": "png",
+  "returned_size": [
+    1024,
+    1024
+  ],
+  "seconds": 29.9,
+  "references": [
+    {
+      "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/Vehicles/Parts/DrivetrainKit.png",
+      "sha256": "608ed6b47c62096ea191cf0d26d9f2c09c06379146b6e38173571234405ec7ba",
+      "role": "our approved vehicle part icon from the same family (a drivetrain kit): match its outline weight, shading, palette and finish only; do not copy its shape"
+    }
+  ]
+}
