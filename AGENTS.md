@@ -29,7 +29,8 @@ delivered, record the delivery in the changelog or design record, and add or ame
   copies for diagnosis are fine; delete them afterwards). **Answer questions about a save with
   `python scripts/query-save.py`** (pawns, hediffs, things, what holds a thing, map grids such as gas, roofs and
   terrain with `grid`, pollution on the world map with `planet` (`--near` a place, `--compare` a save, `--history` for when it arrived), settlements by faction with `world`, mods' saved state such as RimPacts' wars with `components`,
-  what changed since another save with `diff`, any read-only SQL; it indexes a frozen copy and
+  where the colony's mood suffers and who may break with `mood` (`--pawn` for one; a save holds remembered thoughts only, never
+  situational ones), what changed since another save with `diff`, any read-only SQL; it indexes a frozen copy and
   deletes it) and read the raw save only for what the index does not hold. Read the owner's `Player.log` before assuming a
   reported fault is the owner's error, and **start with `python scripts/triage-log.py`**: it summarises the log
   against `Player-prev.log` and names the mods involved, and `--show <ID>` prints one message in full. Open the
