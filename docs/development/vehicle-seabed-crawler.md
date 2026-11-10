@@ -93,7 +93,7 @@ Each loads only when the other mod is active. **Read each mod's code before buil
 
 | Mod | The tie-in | What was read |
 | --- | --- | --- |
-| Rimatomics | **Overrides our default reactor** (owner, 10 Nov 2026: "maybe even overrides"; the agent's pick) with its richer fuel and rules, under the same node key so a save is unaffected | Decompile on hand, not read for this. It has its own research tab |
+| Rimatomics | **Overrides our default reactor** (owner, 10 Nov 2026: "maybe even overrides"; the agent's pick) with its richer fuel and rules, under the same node key so a save is unaffected | Decompile on hand, not read for this by this record. It has its own research tab. Read by the radiation control work (Framework 0.63.0, Medical 0.11.0), not yet checked here: Rimatomics measures protection as the game's `ToxicEnvironmentResistance`, and `DubUtils.applyRads` scales a dose down to nothing at 1.0; Medical's radiation-controlled zone asks for 0.75. The crew's exposure can be judged with the game-free `Phobos.Framework.Rules.ProtectionRule` (`IsProtected(value, required)`, `Choose(...)`), which knows nothing of cells, without the cell-based `Phobos.Framework.Protection` parts |
 | Rimefeller | Subsea oil, as the survey truck already finds oil on land | Decompile on hand, not read for this |
 | IRBM | The radar mast counts as an anti-missile radar | `Building_AntiMissileRadar` is a `Building` with a `RadarExtension` (`detectionRange`, `detectionLevel`), so a vehicle would need a bridge of ours |
 | Atmosphere Overhaul | The radar mast counts as a weather radar | `WeatherRadarAccess.Working` takes a `Building` too, and the mod is off in the owner's game |
