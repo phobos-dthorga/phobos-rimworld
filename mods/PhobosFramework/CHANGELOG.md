@@ -5,6 +5,32 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.75.0] - 2026-11-10 - Draft
+
+The vehicle systems' sounds: the generic library (owner, 10 November 2026). **Not yet tested in game.**
+
+### Added
+
+- **Vehicles now sound like what is happening to them**, on any vehicle running our systems: a **tyre bursting** when one fails, **coolant boiling** while it boils, an **engine knocking** while the oil pressure is gone and it runs (a diesel or a petrol knock), **worn brakes squealing** as they stop, the **air compressor** charging after each stop on air brakes, a boiler's **safety valve** blowing off, a traction battery **venting** in a runaway, the **fuel nozzle** when refuelled (by a pawn or a depot bay), and a soft sound for **cargo** put aboard or taken off.
+- **Turning the key on the dashboard when it will not start** sounds like why: solenoid clicks for a flat battery or a dead starter, a crank that dies for a fuel fault (diesel or petrol).
+- **A soft warning chime** when a red lamp lights on one of your vehicles, once, at most one every ten seconds a vehicle. Amber lamps stay silent.
+- **The jump-start kit and the booster pack** clamp on audibly.
+- **The dashboard's switches click**, as their buttons already did.
+- **Setting: Vehicle system sounds on other mods' vehicles too** (on), in D'thorga Framework's settings, below D'thorga sounds volume. Off: only D'thorga's own vehicles play these. Other mods' engines, doors and weapons always keep their authors' sounds.
+- For modders: Effect_Sound and Effect_SoundLoop name a sound in any stage or event, with a petrol take and an engine-running condition; Effect_RefuseDraft and Effect_Breakdown take an optional sound; an engine's fuel (diesel or petrol) in its drivetrain; a stage's Severe rule, shared by the red lamp and the chime.
+
+### Changed
+
+- The light petrol drivetrain now says it burns petrol; nothing but its sounds reads it yet.
+
+### Compatibility and limits
+
+- All the sounds were made with generative AI (Stable Audio 3 Small SFX, run on the owner's PC), taken from the agent's measured shortlist by the owner, and levelled against comparable game sounds; the records beside the sound files say how. A failed start sounds only from the dashboard's key: Vehicle Framework greys its own button out instead. A one-shot sound waits ten seconds after a vehicle spawns or a save loads, so a save with a burst tyre does not replay the burst. Not yet heard in game.
+
+### Save compatibility
+
+- Safe on an existing save: nothing new is saved.
+
 ## [0.74.1] - 2026-11-10 - Draft
 
 The inspection pit's own picture. **Not yet tested in game.**

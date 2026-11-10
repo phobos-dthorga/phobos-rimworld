@@ -5,7 +5,7 @@ colonist is breathing, makes fires fill roofed rooms with the game's own smoke w
 carries carbon monoxide from fires, holds the per-person care choices the D'thorga medical mods offer, and holds the small
 helpers every D'thorga mod shares.
 
-Version 0.74.1, built 10 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
+Version 0.75.0, built 10 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
 oxygen working through Burns and Smoke and Medical Equipment (5 November 2026). The health layer new in 0.3.0 and the **vehicle
 systems new in 0.9.0, and their engines, drivetrains and gas turbines new in 0.11.0, are not yet tested in game.** The rest is read from the game's and the mods' code.
 
@@ -290,6 +290,10 @@ The new button on a vehicle's **Dashboard** opens **Fittings and tunes**, for an
   truck's long range; orders keep the game's tick), and in D'thorga Medical and D'thorga Vehicles a running concentrator, a running
   generator truck and a ping when a submarine is spotted. All were made with generative AI on the owner's PC and picked by the owner;
   `docs/development/sound-generation.md` says how.
+- **Vehicle system sounds on other mods' vehicles too** (0.75.0, on; not yet tested in game): the vehicle systems' own sounds (a tyre
+  bursting, coolant boiling, an engine knocking, worn brakes, the air compressor, a key turned on a flat battery, the fuel nozzle, cargo,
+  and a soft chime when a red warning lamp lights) play on any vehicle running our systems. Off: only D'thorga's own vehicles play them.
+  Other mods' engines, doors and weapons always keep their authors' sounds. A failed start sounds only from the dashboard's key.
 - **Where gases come from**: Automatic, always the framework's own gases, or never (then mods that depend on one fall back
   to a simpler estimate).
 - **Show gases at the mouse (dev mode)**: a small label follows the mouse naming every gas in that cell's room.

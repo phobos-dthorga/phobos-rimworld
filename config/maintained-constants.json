@@ -41,7 +41,7 @@
     "PhobosFramework.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.74.1",
+      "value": "0.75.0",
       "description": "D'thorga Framework's version: About.xml, every project of the mod, its ModVersion constants and both READMEs",
       "targets": [
         {
@@ -97,7 +97,7 @@
     "PhobosMedical.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.12.1",
+      "value": "0.13.0",
       "description": "D'thorga Medical's version: About.xml, every project of the mod, its ModVersion constants and both READMEs",
       "targets": [
         {
@@ -261,7 +261,7 @@
     "PhobosVehicles.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.33.0",
+      "value": "0.34.0",
       "description": "D'thorga Vehicles's version: About.xml, every project of the mod, its ModVersion constants and both READMEs",
       "targets": [
         {

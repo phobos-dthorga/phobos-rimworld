@@ -7,6 +7,7 @@ using Phobos.Framework.Health;
 using Phobos.Medical.Defs;
 using Phobos.Medical.Rules;
 using Phobos.Medical.Services;
+using Phobos.Framework.Sounds;
 using RimWorld;
 using Verse;
 
@@ -24,6 +25,8 @@ public class CompProperties_PhobosOxygenSupply : CompProperties
     public HediffDef? treatment;
     /// <summary>Serves anyone lying in the eight cells around it, in a bed or on the floor, with no bed link: a trolley wheeled to a casualty.</summary>
     public bool servesAdjacent;
+    /// <summary>Loops while it gives oxygen to anyone (a regulator's hiss); null for silence, as the concentrator's own hum is its power sound.</summary>
+    public SoundDef? flowingSound;
 
     public CompProperties_PhobosOxygenSupply() => compClass = typeof(CompPhobosOxygenSupply);
 }
@@ -34,6 +37,7 @@ public class CompPhobosOxygenSupply : ThingComp
 
     /// <summary>Who it served and who it left alone on its last pass, for the inspect text. Derived, so never saved.</summary>
     TreatmentPass pass = TreatmentPass.None;
+    readonly SustainedSound flowing = new();
 
     public CompProperties_PhobosOxygenSupply Props => (CompProperties_PhobosOxygenSupply)props;
     public CompFacility? Facility => parent.TryGetComp<CompFacility>();
@@ -43,6 +47,13 @@ public class CompPhobosOxygenSupply : ThingComp
     {
         base.CompTickRare();
         pass = OxygenService.Supply(this, RareTickInterval);
+        flowing.Set(Props.flowingSound, pass.Treated.Count > 0, parent);
+    }
+
+    public override void PostDeSpawn(Map map, DestroyMode mode = DestroyMode.Vanish)
+    {
+        flowing.End();
+        base.PostDeSpawn(map, mode);
     }
 
     public override string CompInspectStringExtra()

@@ -37,6 +37,7 @@ _spec.loader.exec_module(_deploy)
 
 SOUND_ROOTS = ('Resources/Sounds/', 'Sounds/')  # The base game's archive uses the first, the DLCs' the second (read 10 Nov 2026).
 AUDIO_EXTENSIONS = ('.ogg', '.mp3', '.wav')
+SHORT_CLIP_S = 0.4  # Shorter than EBU R128's 400 ms block, a clip has no integrated loudness.
 
 
 def archives(game):
@@ -149,14 +150,22 @@ def reference_level(exe, name, game=None):
     described = describe_sounddef(exe, name, read_sounddefs(game), sound_entries(game))
     if 'error' in described:
         raise ValueError(f'{name}: {described["error"]}')
-    levels = sorted(clip['effective_lufs'] for sub in described['sub_sounds'] for clip in sub['clips'] if clip['effective_lufs'] is not None)
-    if not levels:
+    clips = [clip for sub in described['sub_sounds'] for clip in sub['clips']]
+    if not clips:
         raise ValueError(f'{name}: none of its clips could be measured')
     first = described['sub_sounds'][0]
-    channels = sorted(clip['channels'] for sub in described['sub_sounds'] for clip in sub['clips'] if clip['channels'])
-    return {'defName': name, 'effective_lufs': levels[len(levels) // 2], 'volume': first['volume'], 'distance': first['distance'],
+    gain = 20 * math.log10(sum(first['volume']) / 200.0)
+    # A clip under 0.4 s reads as silence to a loudness meter (EBU R128 gates in 400 ms blocks), so such a reference is matched by
+    # its true peak instead: the game's tiny hiss and drop clips (10 Nov 2026) would otherwise have levelled our sounds to nothing.
+    measurable = sorted(clip['effective_lufs'] for clip in clips
+                        if clip['effective_lufs'] is not None and (clip['seconds'] or 0) >= SHORT_CLIP_S)
+    peaks = sorted(clip['true_peak'] for clip in clips if clip['true_peak'] is not None and math.isfinite(clip['true_peak']))
+    channels = sorted(clip['channels'] for clip in clips if clip['channels'])
+    return {'defName': name, 'effective_lufs': measurable[len(measurable) // 2] if measurable else None,
+            'effective_peak': round(peaks[-1] + gain, 1) if peaks else None, 'by_peak': not measurable,
+            'volume': first['volume'], 'distance': first['distance'],
             'channels': channels[len(channels) // 2] if channels else None, 'sustain': described['sustain'],
-            'clip_lufs': sorted(clip['lufs'] for sub in described['sub_sounds'] for clip in sub['clips'])}
+            'clip_lufs': sorted(clip['lufs'] for clip in clips)}
 
 
 def main(argv=None):

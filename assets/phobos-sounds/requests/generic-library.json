@@ -19,7 +19,7 @@
    "prompt": "A petrol car engine failing to start: the starter motor cranks with a weak, slowing whirr, the engine sputters but never catches, then silence. Outdoors, close. Length: 5 seconds"},
   {"name": "s11-knock-diesel", "engine": "sa3-sfx", "seconds": 8, "loop": true, "seeds": [21, 22, 23],
    "prompt": "A worn diesel engine idling with a heavy rhythmic metallic knocking from the bottom end, a steady deep mechanical clatter, rough, continuous and unchanging. Length: 8 seconds"},
-  {"name": "s11-knock-petrol", "engine": "sa3-sfx", "seconds": 8, "loop": true, "seeds": [21, 22, 23],
+  {"name": "s11-knock-petrol", "engine": "sa3-sfx", "seconds": 8, "loop": true, "seeds": [21, 22, 23, 24, 25, 26],
    "prompt": "A worn petrol engine idling with a light rapid tapping and knocking from loose valves, steady rough running, continuous and unchanging. Length: 8 seconds"},
   {"name": "s12-brake-squeal", "engine": "sa3-sfx", "seconds": 4, "seeds": [21, 22, 23],
    "prompt": "Worn truck brakes squealing as a heavy vehicle slows to a stop, a short metallic grinding squeal that fades as it stops. Outdoors, mid distance. Length: 3 seconds"},

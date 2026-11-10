@@ -80,9 +80,12 @@
     </flows>
     <onEvents>
       <li>
-        <!-- Each stop spends air on the brakes. -->
+        <!-- Each stop spends air on the brakes, and the compressor charges it again. -->
         <eventDef>MoveStop</eventDef>
         <effects>
+          <li Class="Phobos.VehicleSystems.Effect_Sound">
+            <sound>PhobosVehicleSystems_AirCompressor</sound>
+          </li>
           <li Class="Phobos.VehicleSystems.Effect_AddQuantity">
             <quantity>airPressure</quantity>
             <amount>-0.03</amount>

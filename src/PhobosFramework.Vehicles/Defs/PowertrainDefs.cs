@@ -43,9 +43,13 @@ public class TurbineXml
     public float liftToWeightAtMaxGross = float.NaN;
 }
 
+/// <summary>What a piston engine burns, for what it sounds like (a failed start, a knock). Nothing else reads it yet.</summary>
+public enum EngineFuel { Diesel, Petrol }
+
 public class EngineXml
 {
     public EngineKind kind = EngineKind.Piston;
+    public EngineFuel fuel = EngineFuel.Diesel;
     public float idleRpm = 700f;
     public float launchRpm = 1100f;
     public float ratedRpm = 3000f;

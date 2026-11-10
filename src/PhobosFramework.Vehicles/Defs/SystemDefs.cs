@@ -59,6 +59,20 @@ public class StageSpec
     /// <summary>Whether Plain mode names this stage on the inspect line (a normal stage stays quiet there).</summary>
     public bool notable;
     public List<VehicleSystemEffect> effects = new();
+
+    /// <summary>Whether the stage stops the vehicle or harms it (a refusal, damage, an explosion, a forced stop): a red lamp on the dashboard, and
+    /// the warning chime when a lamp lights. One rule for both, read by the presentation and the sounds alike.</summary>
+    public bool Severe
+    {
+        get
+        {
+            foreach (VehicleSystemEffect effect in effects)
+            {
+                if (effect is Effect_RefuseDraft or Effect_RefuseMove or Effect_DamagePart or Effect_Explosion or Effect_ForceUndraft) return true;
+            }
+            return false;
+        }
+    }
 }
 
 /// <summary>One state variable of a system: a temperature, a charge, a level, a count of hours.</summary>

@@ -61,6 +61,10 @@ public class Effect_DamagePart : VehicleSystemEffect
 public class Effect_RefuseDraft : VehicleSystemEffect
 {
     public string reason = "";
+    /// <summary>What turning the key sounds like while this refuses (clicks for a flat battery, a crank that dies when cold); a petrol
+    /// engine plays <c>soundPetrol</c> when given. Played from the dashboard's key, the one place a start is tried.</summary>
+    public SoundDef? sound;
+    public SoundDef? soundPetrol;
     public override string? DraftRefusal(SystemContext context) => reason.Translate(context.Vehicle.LabelShort.Named("VEHICLE")).Resolve();
 }
 
@@ -291,11 +295,14 @@ public class Effect_Breakdown : VehicleSystemEffect
     public float mtbHours = 1000f;
     public float healthFraction = 0.3f;
     public string message = "";
+    /// <summary>What the part sounds like breaking (a tyre bursting); played at the vehicle when it breaks.</summary>
+    public SoundDef? sound;
 
     public override void Apply(SystemContext context, float hours)
     {
         if (!Rand.Chance((float)FailureRule.ChanceIn(hours, mtbHours))) return;
         VehicleComponent? part = context.Comp.BreakRole(role, healthFraction);
+        if (part != null) VehicleSystemSounds.PlayOnce(context.Comp, sound);
         if (part == null || message.NullOrEmpty() || context.Vehicle.Faction != Faction.OfPlayer) return;
         Messages.Message(message.Translate(context.Vehicle.LabelShort.Named("VEHICLE"), (part.props.label ?? part.props.key).Named("PART")),
             context.Vehicle, MessageTypeDefOf.NegativeEvent);

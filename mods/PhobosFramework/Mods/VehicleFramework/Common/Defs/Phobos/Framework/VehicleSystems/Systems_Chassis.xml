@@ -58,6 +58,7 @@
                 <mtbHours>30</mtbHours>
                 <healthFraction>0.5</healthFraction>
                 <message>PhobosVehicleSystems_MsgTyreFailed</message>
+                <sound>PhobosVehicleSystems_TyreBurst</sound>
                 <when Class="Phobos.VehicleSystems.When_Moving" />
               </li>
             </effects>
@@ -139,6 +140,26 @@
       </rawSupplies>
       <work>2000</work>
     </service>
+    <onEvents>
+      <li>
+        <!-- A stack put aboard (owner, 10 Nov 2026: soft, one at a time). -->
+        <eventDef>CargoAdded</eventDef>
+        <effects>
+          <li Class="Phobos.VehicleSystems.Effect_Sound">
+            <sound>PhobosVehicleSystems_CargoSetDown</sound>
+          </li>
+        </effects>
+      </li>
+      <li>
+        <!-- A stack taken off. -->
+        <eventDef>CargoRemoved</eventDef>
+        <effects>
+          <li Class="Phobos.VehicleSystems.Effect_Sound">
+            <sound>PhobosVehicleSystems_CargoTakenOff</sound>
+          </li>
+        </effects>
+      </li>
+    </onEvents>
   </Phobos.VehicleSystems.PhobosVehicleSystemDef>
 
   <Phobos.VehicleSystems.PhobosVehicleSystemDef>
@@ -234,6 +255,11 @@
       <li>
         <eventDef>MoveStop</eventDef>
         <effects>
+          <!-- Worn brakes squeal as it stops (the worn stage starts at 0.7). -->
+          <li Class="Phobos.VehicleSystems.Effect_Sound">
+            <sound>PhobosVehicleSystems_BrakeSqueal</sound>
+            <when Class="Phobos.VehicleSystems.When_QuantityAbove"><quantity>brakeWear</quantity><value>0.7</value></when>
+          </li>
           <li Class="Phobos.VehicleSystems.Effect_AddQuantity">
             <quantity>brakeWear</quantity>
             <amount>1</amount>

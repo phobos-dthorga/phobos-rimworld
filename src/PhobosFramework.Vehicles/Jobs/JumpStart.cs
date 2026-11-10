@@ -244,6 +244,12 @@ public class JobDriver_PhobosJumpStart : JobDriver
         int work = Flat.GetComp<CompPhobosVehicleSystems>()?.JumpStartNeed()?.Def.jumpStart?.work ?? 300;
         Toil connect = Toils_General.Wait(work, FlatIndex);
         connect.WithProgressBarToilDelay(FlatIndex);
+        // The clamps going on: the booster pack's own, or the kit's leads (from a donor, or the pack every vehicle is assumed to carry).
+        connect.AddPreInitAction(() =>
+        {
+            if (Flat.GetComp<CompPhobosVehicleSystems>() is { } flat)
+                VehicleSystemSounds.PlayOnce(flat, Pack != null ? VehicleSystemSoundDefOf.PhobosVehicleSystems_BoosterPack : VehicleSystemSoundDefOf.PhobosVehicleSystems_JumpStartKit);
+        });
         connect.FailOn(() => Donor != null && Donor.Position.DistanceTo(Flat.Position) > (Flat.GetComp<CompPhobosVehicleSystems>()?.JumpStartNeed()?.Def.jumpStart?.reach ?? 8f));
         yield return connect;
         yield return new Toil

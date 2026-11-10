@@ -19,6 +19,7 @@
     <label>petrol car drivetrain</label>
     <engine>
       <kind>Piston</kind>
+      <fuel>Petrol</fuel>
       <idleRpm>800</idleRpm>
       <launchRpm>1300</launchRpm>
       <ratedRpm>5500</ratedRpm>

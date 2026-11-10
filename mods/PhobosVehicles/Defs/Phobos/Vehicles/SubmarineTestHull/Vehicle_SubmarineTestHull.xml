@@ -196,6 +196,8 @@
         <fuelCapacity>200</fuelCapacity>
       </li>
       <li Class="Phobos.VehicleSystems.CompProperties_PhobosSubmersible">
+        <!-- The Crawler's ping: the test hull shares the Crawler's sounds (owner, 10 Nov 2026). -->
+        <spottedSound>PhobosVehicles_SonarPing</spottedSound>
         <divesInChestDeepWater>true</divesInChestDeepWater> <!-- So one hull can try both depths: it dives in rivers as a midget boat would, and shallow water still brings it up. -->
       </li>
     </comps>

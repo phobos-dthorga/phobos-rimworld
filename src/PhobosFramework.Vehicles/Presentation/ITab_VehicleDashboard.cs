@@ -4,10 +4,12 @@ using Phobos.Framework;
 using Phobos.Framework.Interface;
 using Phobos.Framework.Rules;
 using Phobos.Framework.Vehicles.Rules;
+using Phobos.Framework.Sounds;
 using RimWorld;
 using UnityEngine;
 using Vehicles;
 using Verse;
+using Verse.Sound;
 
 namespace Phobos.VehicleSystems;
 
@@ -226,7 +228,12 @@ public class ITab_VehicleDashboard : ITab
                 Rect rect = NextSwitch();
                 bool on = comp.IsOn(load);
                 Widgets.DrawBoxSolid(rect, on ? (comp.LoadActive(load.name) ? PhobosWidgets.Good : PhobosWidgets.Caution) : PhobosWidgets.Off);
-                if (Widgets.ButtonImage(rect.ContractedBy(3f), SystemIcons.For(load.iconPath))) comp.SetSwitch(load, !on);
+                if (Widgets.ButtonImage(rect.ContractedBy(3f), SystemIcons.For(load.iconPath)))
+                {
+                    // The same click as the switch's button: the dashboard's switches are the same switches.
+                    (on ? PhobosSoundDefOf.PhobosFramework_SwitchOff : PhobosSoundDefOf.PhobosFramework_SwitchOn).PlayOneShotOnCamera();
+                    comp.SetSwitch(load, !on);
+                }
                 Widgets.DrawBox(rect);
                 TooltipHandler.TipRegion(rect, load.label.CapitalizeFirst() + ": " + (on ? "PhobosVehicleSystems_DashSwitchOn" : "PhobosVehicleSystems_DashSwitchOff").Translate()
                     + (load.description.NullOrEmpty() ? "" : "\n" + load.description));
@@ -259,10 +266,6 @@ public class ITab_VehicleDashboard : ITab
     public static Color StageColour(StageSpec? stage)
     {
         if (stage == null || !stage.notable) return PhobosWidgets.Good;
-        foreach (VehicleSystemEffect effect in stage.effects)
-        {
-            if (effect is Effect_RefuseDraft or Effect_RefuseMove or Effect_DamagePart or Effect_Explosion or Effect_ForceUndraft) return PhobosWidgets.Bad;
-        }
-        return PhobosWidgets.Caution;
+        return stage.Severe ? PhobosWidgets.Bad : PhobosWidgets.Caution;
     }
 }

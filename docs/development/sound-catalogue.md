@@ -45,8 +45,8 @@ repaired, upgrade completed, and the aircraft events. **Every one of these is XM
 
 | ID | Sound | Used by | Hook | Status |
 | --- | --- | --- | --- | --- |
-| S1 | Switch click, on and a lower off | Every physical switch on our vehicles | Code | **Shipped** (Framework 0.71.0). **Gap:** the dashboard tab's load switches skip it; one line to fix |
-| S2 | Sonar ping | A submerged hull spotted (Crawler; **the test hull lacks it**); later the active sonar set (the listening-array session plans to reuse it) | Code | **Shipped** (Vehicles 0.31.0) |
+| S1 | Switch click, on and a lower off | Every physical switch on our vehicles | Code | **Shipped** (Framework 0.71.0; the dashboard's switches click too since 0.75.0) |
+| S2 | Sonar ping | A submerged hull spotted (Crawler, and the test hull since Vehicles 0.34.0); later the active sonar set (the listening-array session plans to reuse it) | Code | **Shipped** (Vehicles 0.31.0) |
 | S3 | Fuel nozzle and glug | Refuelled, on all seven vehicles; the depot bay filling a vehicle | XML (Refueled) | Proposed. One chemfuel nozzle, so one sound |
 | S4 | Jump-start kit: clamps on, a short crank | The jump-start job, wherever it is used | Code (job) | Proposed |
 | S5 | Booster pack: clamps on, a soft relay click, a crank | The booster pack | Code (job) | Proposed |
@@ -253,6 +253,17 @@ weapons stay their authors' own: we never replace another mod's vehicle sounds.
 3. **Medical machines and devices** (S83 to S98), with the one device hook.
 4. **Generic vehicle systems** (S4 to S16), and the stations (S81, S82).
 5. **Planned features** take their sounds as they are built (S110 onwards).
+
+## Shipped from the generic library (10 Nov 2026; Framework 0.75.0, Medical 0.13.0, Vehicles 0.34.0; not yet tested in game)
+
+S3 to S17 are in, except the field oxygen kit's part of S14, which waits for the device hook (S98). How each is hooked: stage sounds
+through `Effect_Sound` and `Effect_SoundLoop` in the system XML (tyre burst on the tyre breakdown, boiling, the knock while oil pressure
+is gone and the engine runs, the squeal on a stop with brake wear above 0.7, the compressor on each stop with air brakes, the safety
+valve on blowing off, battery venting in a runaway); the nozzle and cargo on the fuel and running-gear systems' events; failed starts
+on `Effect_RefuseDraft` (played from the dashboard's key only, as Vehicle Framework greys its own button); the chime from the stage
+rule `StageSpec.Severe`; the jump-start sounds in its job. One-shots and the chime wait ten seconds after a vehicle spawns or loads.
+The setting "Vehicle system sounds on other mods' vehicles too" (on) sits under "D'thorga sounds volume". The game's own references
+for very short clips are matched by true peak (`scripts/art/game_sounds.py`), since a loudness meter reads them as silence.
 
 ## Owner's answers (10 Nov 2026)
 

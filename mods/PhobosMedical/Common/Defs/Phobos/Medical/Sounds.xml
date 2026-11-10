@@ -27,4 +27,30 @@
       <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
     </modExtensions>
   </SoundDef>
+
+  <!-- Oxygen flowing from a cylinder's regulator to a patient: the bedside oxygen stand and the cylinder trolley while they treat someone.
+       Agent-made with Stable Audio 3 Small SFX, taken from the agent's shortlist by the owner (10 Nov 2026), levelled 6 dB under the game's
+       HissSmall, whose volume this copies. One regulator, so one sound (docs/development/sound-catalogue.md, S14). -->
+  <SoundDef>
+    <defName>PhobosMedical_OxygenRegulator</defName>
+    <sustain>True</sustain>
+    <context>MapOnly</context>
+    <priorityMode>PrioritizeNearest</priorityMode>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <muteWhenPaused>True</muteWhenPaused>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Medical/OxygenRegulator</clipPath>
+          </li>
+        </grains>
+        <volumeRange>15</volumeRange>
+        <distRange>5~15</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
 </Defs>

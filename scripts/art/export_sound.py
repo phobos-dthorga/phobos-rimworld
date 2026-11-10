@@ -46,6 +46,19 @@ def sha256(path):
     return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 
 
+def fingerprint(spec, master):
+    """What an export was made from: its spec and its master. Ogg Vorbis gives every encode a new stream serial number, so a file
+    made again differs in its bytes though not in its sound; a rerun leaves alone what has not changed (owner's repository stays quiet)."""
+    return hashlib.sha256((json.dumps(spec, sort_keys=True) + sha256(master)).encode('utf-8')).hexdigest()
+
+
+def unchanged(spec, entry, master):
+    """Whether a sound's export still matches its spec and master, and its file its record."""
+    target = ROOT / spec['target']
+    return (entry is not None and entry.get('fingerprint') == fingerprint(spec, master) and target.is_file()
+            and sha256(target) == entry['sha256'])
+
+
 def gain_for(measure, target_lufs=None, target_peak=None):
     """The gain that brings a sound to its target loudness, or to its target true peak for a short one, never lifting the
     true peak past PEAK_CEILING_DBTP. Pure, so it can be tested."""
@@ -155,13 +168,12 @@ def export_one(exe, spec, generated, game):
         processing = render(exe, master, spec, work)
         measure = sound_review.measure_file(exe, work)
         short = (measure.get('seconds') or 0) < SHORT_S
-        if short:
-            # The reference's true peak through its own volume, our file's peak through ours.
-            ref_peak = max(peak for peak in [game_sounds.measure_clip(exe, game_sounds.sound_entries(game), clip)['true_peak']
-                                             for clip in _reference_clips(spec['reference'], game)])
-            target_peak = file_level_for(ref_peak + 20 * math.log10(sum(reference['volume']) / 200.0), spec.get('offset_db', 0), spec['volume'])
+        if short or reference['by_peak']:
+            # Either ours or the game's clip is too short for a loudness reading: the reference's true peak through its own
+            # volume, our file's peak through ours.
+            target_peak = file_level_for(reference['effective_peak'], spec.get('offset_db', 0), spec['volume'])
             gain = gain_for(measure, target_peak=target_peak)
-            reference['effective'] = f'peak {round(ref_peak + 20 * math.log10(sum(reference["volume"]) / 200.0), 1)} dB'
+            reference['effective'] = f'peak {reference["effective_peak"]} dB'
             processing['levelled_by'] = f'true peak, to {target_peak} dBTP'
         else:
             target_lufs = file_level_for(reference['effective_lufs'], spec.get('offset_db', 0), spec['volume'])
@@ -173,18 +185,13 @@ def export_one(exe, spec, generated, game):
         sound_review.run_ffmpeg(exe, ['-i', str(work), '-af', f'volume={gain}dB', '-c:a', 'libvorbis', '-q:a', OGG_QUALITY, str(target)])
     result = review(exe, target, spec['kind'] == 'loop')
     entry = {'name': spec['name'], 'target': spec['target'], 'sha256': sha256(target), 'master_sha256': sha256(master),
+             'fingerprint': fingerprint(spec, master),
              'date': _dt.date.today().isoformat(), 'ffmpeg': sound_review.ffmpeg_version(exe), 'processing': processing,
              'reference': {key: reference[key] for key in ('defName', 'effective', 'volume', 'distance', 'channels')},
              'result': {key: result.get(key) for key in ('lufs', 'true_peak', 'seconds', 'flags', 'seam_dip_db', 'loop_gap_s')},
              'source': {key: source.get(key) for key in ('generator', 'model', 'model_sha256', 'seed', 'steps', 'cfg', 'prompt')}}
     target.with_name(target.name + '.record.md').write_text(record_text(spec, entry), encoding='utf-8')
     return entry
-
-
-def _reference_clips(name, game):
-    defs = game_sounds.read_sounddefs(game)
-    entries = game_sounds.sound_entries(game)
-    return [clip for sub in defs[name]['sub_sounds'] for grain in sub['grains'] for clip in game_sounds.clips_for(grain, entries)]
 
 
 def check(specs, records):
@@ -209,7 +216,7 @@ def main(argv=None):
     parser.add_argument('exports', help='the exports file, such as assets/phobos-sounds/exports.json')
     parser.add_argument('--only', help='export only the sound with this name')
     parser.add_argument('--check', action='store_true', help='verify the exported files against their records')
-    parser.add_argument('--force', action='store_true', help='write a file even when its flags would refuse it')
+    parser.add_argument('--force', action='store_true', help='remake every file, and write one even when its flags would refuse it')
     args = parser.parse_args(argv)
     exports_path = Path(args.exports).resolve()
     specs = json.loads(exports_path.read_text(encoding='utf-8'))['exports']
@@ -228,6 +235,9 @@ def main(argv=None):
     refused = []
     for spec in specs:
         if args.only and spec['name'] != args.only:
+            continue
+        if not args.force and unchanged(spec, records.get(spec['name']), generated / spec['candidate']):
+            print(f'{spec["name"]}: unchanged, left as it is')
             continue
         entry = export_one(exe, spec, generated, game)
         bad = [flag for flag in entry['result']['flags'] if flag in EXPORT_FLAGS_TO_REFUSE]

@@ -132,6 +132,11 @@
                 <sharePerHour>0.2</sharePerHour>
                 <when Class="Phobos.VehicleSystems.When_EngineRunning" />
               </li>
+              <li Class="Phobos.VehicleSystems.Effect_SoundLoop">
+                <sound>PhobosVehicleSystems_KnockDiesel</sound>
+                <soundPetrol>PhobosVehicleSystems_KnockPetrol</soundPetrol>
+                <whileEngineRunning>true</whileEngineRunning>
+              </li>
               <li Class="Phobos.VehicleSystems.Effect_Message">
                 <message>PhobosVehicleSystems_MsgOilPressureGone</message>
               </li>
@@ -281,6 +286,8 @@
             <effects>
               <li Class="Phobos.VehicleSystems.Effect_RefuseDraft">
                 <reason>PhobosVehicleSystems_RefuseFuelPump</reason>
+                <sound>PhobosVehicleSystems_FailedStartDiesel</sound>
+                <soundPetrol>PhobosVehicleSystems_FailedStartPetrol</soundPetrol>
               </li>
             </effects>
           </li>
@@ -325,11 +332,24 @@
             <effects>
               <li Class="Phobos.VehicleSystems.Effect_RefuseDraft">
                 <reason>PhobosVehicleSystems_RefuseFuelGelled</reason>
+                <sound>PhobosVehicleSystems_FailedStartDiesel</sound>
+                <soundPetrol>PhobosVehicleSystems_FailedStartPetrol</soundPetrol>
               </li>
             </effects>
           </li>
         </stages>
       </li>
     </quantities>
+    <onEvents>
+      <li>
+        <!-- The nozzle and the fuel going in, whoever refuels it (a pawn or a depot bay). -->
+        <eventDef>Refueled</eventDef>
+        <effects>
+          <li Class="Phobos.VehicleSystems.Effect_Sound">
+            <sound>PhobosVehicleSystems_FuelNozzle</sound>
+          </li>
+        </effects>
+      </li>
+    </onEvents>
   </Phobos.VehicleSystems.PhobosVehicleSystemDef>
 </Defs>

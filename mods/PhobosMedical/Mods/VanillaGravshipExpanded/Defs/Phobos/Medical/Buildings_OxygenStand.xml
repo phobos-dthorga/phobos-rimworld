@@ -68,6 +68,7 @@
       <li Class="Phobos.Medical.Comps.CompProperties_PhobosOxygenSupply">
         <maxPatients>2</maxPatients>
         <fuelPerPatientHour>1</fuelPerPatientHour>
+        <flowingSound>PhobosMedical_OxygenRegulator</flowingSound>
       </li>
     </comps>
   </ThingDef>

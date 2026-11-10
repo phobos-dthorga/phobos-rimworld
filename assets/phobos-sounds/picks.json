@@ -23,6 +23,96 @@
       "picked": "2026-11-10",
       "use": "A switch or toggle click",
       "notes": "It holds three clicks (near 0.17, 0.36 and 1.05 s); the export cuts one out."
+    },
+    {
+      "candidate": "s03-fuel-nozzle/s03-fuel-nozzle-23.flac",
+      "picked": "2026-11-10",
+      "use": "S3: a vehicle refuelled"
+    },
+    {
+      "candidate": "s04-jump-start-kit/s04-jump-start-kit-21.flac",
+      "picked": "2026-11-10",
+      "use": "S4: the jump-start kit clamped on"
+    },
+    {
+      "candidate": "s05-booster-pack/s05-booster-pack-23.flac",
+      "picked": "2026-11-10",
+      "use": "S5: the booster pack clamped on"
+    },
+    {
+      "candidate": "s06-warning-chime/s06-warning-chime-21.flac",
+      "picked": "2026-11-10",
+      "use": "S6: a red warning lamp lights"
+    },
+    {
+      "candidate": "s07-tyre-burst/s07-tyre-burst-21.flac",
+      "picked": "2026-11-10",
+      "use": "S7: a tyre bursts"
+    },
+    {
+      "candidate": "s08-coolant-boiling/s08-coolant-boiling-21.flac",
+      "picked": "2026-11-10",
+      "use": "S8: coolant boiling"
+    },
+    {
+      "candidate": "s09-flat-battery/s09-flat-battery-21.flac",
+      "picked": "2026-11-10",
+      "use": "S9: a start refused, flat battery or dead starter"
+    },
+    {
+      "candidate": "s10-failed-start-diesel/s10-failed-start-diesel-22.flac",
+      "picked": "2026-11-10",
+      "use": "S10: a diesel that will not start"
+    },
+    {
+      "candidate": "s10-failed-start-petrol/s10-failed-start-petrol-21.flac",
+      "picked": "2026-11-10",
+      "use": "S10: a petrol engine that will not start"
+    },
+    {
+      "candidate": "s11-knock-diesel/s11-knock-diesel-21.flac",
+      "picked": "2026-11-10",
+      "use": "S11: a diesel knocking, oil pressure gone"
+    },
+    {
+      "candidate": "s11-knock-petrol/s11-knock-petrol-24.flac",
+      "picked": "2026-11-10",
+      "use": "S11: a petrol engine knocking, oil pressure gone"
+    },
+    {
+      "candidate": "s12-brake-squeal/s12-brake-squeal-21.flac",
+      "picked": "2026-11-10",
+      "use": "S12: worn brakes stopping"
+    },
+    {
+      "candidate": "s13-air-compressor/s13-air-compressor-21.flac",
+      "picked": "2026-11-10",
+      "use": "S13: air brakes recharging after a stop"
+    },
+    {
+      "candidate": "s15-safety-valve/s15-safety-valve-22.flac",
+      "picked": "2026-11-10",
+      "use": "S15: a boiler blowing off"
+    },
+    {
+      "candidate": "s16-battery-venting/s16-battery-venting-22.flac",
+      "picked": "2026-11-10",
+      "use": "S16: a traction battery in thermal runaway"
+    },
+    {
+      "candidate": "s17-cargo-set-down/s17-cargo-set-down-21.flac",
+      "picked": "2026-11-10",
+      "use": "S17: cargo put into a vehicle"
+    },
+    {
+      "candidate": "s17-cargo-taken-off/s17-cargo-taken-off-21.flac",
+      "picked": "2026-11-10",
+      "use": "S17: cargo taken out of a vehicle"
+    },
+    {
+      "candidate": "s14-oxygen-regulator/s14-oxygen-regulator-22.flac",
+      "picked": "2026-11-10",
+      "use": "S14: oxygen flowing from a regulator to a patient"
     }
   ],
   "runners_up": [

@@ -4,7 +4,7 @@ Vehicles that keep running only while they are looked after. It adds one vehicle
 vehicles of other mods you already drive the systems that match what they really are, on top of the general systems D'thorga
 Framework gives every vehicle.
 
-Version 0.33.0, built 10 November 2026 for House D'thorga. **Not yet tested in game.**
+Version 0.34.0, built 10 November 2026 for House D'thorga. **Not yet tested in game.**
 
 ## Read this first (gotchas)
 
@@ -156,7 +156,7 @@ Every source and simplification is in the loadout files under `Mods/`.
 
 **Research done only at sea.** Its research, **advanced marine science**, can only be done by scientists seated in a laboratory aboard. **Choose it in the research tab as usual: the benches at home keep working on the colony's own project**, and both show as in progress. If you use Nice Research Tab, choose it directly instead of queueing it ahead of other projects, or the queue waits for it.
 
-**When watchers spot it under water, a soft ping sounds at the hull** (new in 0.31.0), with the message saying it has been seen. D'thorga Framework's **D'thorga sounds volume** setting turns it down or off.
+**When watchers spot it under water, a soft ping sounds at the hull** (new in 0.31.0; the test hull too since 0.34.0), with the message saying it has been seen. D'thorga Framework's **D'thorga sounds volume** setting turns it down or off.
 
 - **Listening array** (new in 0.32.0; research Hydrophones, one hydrophone array) hears hostile movement within 40 cells while the boat is still and 20 while it moves. Things on land are heard at half those distances. It finds other boats under the water by their noise. The inspect panel says how many are moving and where the nearest is, and **warns when the nearest is close enough to spot the boat**. Select the boat to see its range and a line to each contact. It never gives the boat away. Damage to the hydrophones at the bow shortens what it hears.
 

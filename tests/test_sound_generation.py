@@ -367,6 +367,17 @@ class ExportLevelTests(unittest.TestCase):
         self.assertIn('silenceremove', chain)
         self.assertTrue(chain.endswith(f'aresample={export_sound.RATE}'))
 
+    def test_a_rerun_leaves_unchanged_sounds_alone(self):
+        exports = Path(ROOT, 'assets', 'phobos-sounds', 'exports.json')
+        spec = json.loads(exports.read_text(encoding='utf-8'))['exports'][0]
+        records = json.loads(exports.with_name('exported.json').read_text(encoding='utf-8'))
+        master = exports.parent / 'generated' / spec['candidate']
+        if not master.is_file():
+            self.skipTest('the generated masters are local, not in the repository')
+        self.assertTrue(export_sound.unchanged(spec, records[spec['name']], master))
+        self.assertFalse(export_sound.unchanged({**spec, 'offset_db': spec.get('offset_db', 0) - 1}, records[spec['name']], master))
+        self.assertFalse(export_sound.unchanged(spec, None, master))
+
     def test_the_shipped_sounds_match_their_records(self):
         exports = Path(ROOT, 'assets', 'phobos-sounds', 'exports.json')
         specs = json.loads(exports.read_text(encoding='utf-8'))['exports']

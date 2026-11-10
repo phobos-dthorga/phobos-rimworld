@@ -175,6 +175,8 @@ public class CompPhobosVehicleSystems : VehicleComp
 
     /// <summary>The share of its speed the vehicle may use this tick (the path follower's patch reads it).</summary>
     public float SpeedCap => Usable ? Powertrain?.SpeedCap ?? 1f : 1f;
+    /// <summary>What the engine burns, for its sounds (diesel unless its drivetrain says petrol).</summary>
+    public EngineFuel EngineFuel => Powertrain?.Def?.engine.fuel ?? EngineFuel.Diesel;
 
     /// <summary>Engine running by Vehicle Framework's own signs (drafted, caravan moving, in flight), before any flight phase.</summary>
     public bool EngineRunningRaw { get; private set; }
@@ -384,6 +386,7 @@ public class CompPhobosVehicleSystems : VehicleComp
     {
         base.PostSpawnSetup(respawningAfterLoad);
         if (Usable) spawned.AddOrUpdate(Vehicle, this);
+        VehicleSystemSounds.Settle(this);
         fittings?.ReapplyGrades();    // before anything clamps a part to its maximum
         RestorePartHealths();
         if (Usable && !respawningAfterLoad) Fittings.RollEnemySet();
@@ -394,6 +397,7 @@ public class CompPhobosVehicleSystems : VehicleComp
     {
         // A gravship lifts its pipes along with it.
         if (mode != DestroyMode.WillReplace) VehiclePipes.Leave(this);
+        VehicleSystemSounds.EndAll(this);
         base.PostDeSpawn(map, mode);
         if (Vehicle != null) spawned.Remove(Vehicle);
     }
@@ -696,6 +700,8 @@ public class CompPhobosVehicleSystems : VehicleComp
                     {
                         if (effect.Active(context)) effect.OnEnter(context);
                     }
+                    // A red lamp lighting: one soft chime (the dashboard shows the same rule).
+                    if (entered.notable && entered.Severe && state.Def.quantities[q].telltale != null) VehicleSystemSounds.Chime(this);
                 }
             }
             StageSpec? current = state.CurrentStage(q);
@@ -1237,6 +1243,7 @@ public class CompPhobosVehicleSystems : VehicleComp
             AcceptanceReport report = Vehicle.CanDraft();
             if (!report.Accepted)
             {
+                VehicleSystemSounds.PlayOnce(this, RefusedStartSound());
                 Messages.Message(report.Reason, Vehicle, MessageTypeDefOf.RejectInput, historical: false);
                 return;
             }
@@ -1285,6 +1292,22 @@ public class CompPhobosVehicleSystems : VehicleComp
         UpdateNow();
         string? reason = FirstRefusal(draft: false);
         return reason == null ? true : new AcceptanceReport(reason);
+    }
+
+    /// <summary>What turning the key sounds like now: the first refusing stage's sound, for this engine's fuel; null if none says.</summary>
+    SoundDef? RefusedStartSound()
+    {
+        if (states == null || Vehicle.Faction != Faction.OfPlayer) return null;
+        foreach ((SystemContext context, StageSpec stage, string _) in StagesInForce())
+        {
+            foreach (VehicleSystemEffect effect in stage.effects)
+            {
+                if (effect is not Effect_RefuseDraft refusal || !refusal.Active(context) || refusal.DraftRefusal(context) == null) continue;
+                SoundDef? sound = VehicleSystemSounds.ForEngine(this, refusal.sound, refusal.soundPetrol);
+                if (sound != null) return sound;
+            }
+        }
+        return null;
     }
 
     string? FirstRefusal(bool draft)

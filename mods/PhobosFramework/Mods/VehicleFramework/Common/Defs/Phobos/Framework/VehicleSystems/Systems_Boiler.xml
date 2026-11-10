@@ -73,6 +73,9 @@
             <label>blowing off</label>
             <notable>true</notable>
             <effects>
+              <li Class="Phobos.VehicleSystems.Effect_Sound">
+                <sound>PhobosVehicleSystems_SafetyValve</sound>
+              </li>
               <li Class="Phobos.VehicleSystems.Effect_RateQuantity">
                 <quantity>boilerWater</quantity>
                 <perHour>-0.3</perHour>

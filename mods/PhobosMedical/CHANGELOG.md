@@ -6,6 +6,26 @@ entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.13.0] - 2026-11-10 - Draft
+
+The oxygen regulator's sound (owner, 10 November 2026). **Not yet tested in game.**
+
+### Added
+
+- **The bedside oxygen stand and the cylinder trolley hiss softly while they give someone oxygen**, and fall quiet when nobody needs it. D'thorga Framework's sounds volume setting scales it.
+
+### Compatibility and limits
+
+- Made with generative AI (Stable Audio 3 Small SFX, run on the owner's PC), taken from the agent's shortlist by the owner, levelled under the game's small hiss; the record beside the sound file says how. The field oxygen kit's sound waits for the device sounds. Not yet heard in game.
+
+### Dependencies
+
+- Needs D'thorga Framework 0.75.0 or later.
+
+### Save compatibility
+
+- Safe on an existing save: nothing new is saved.
+
 ## [0.12.1] - 2026-11-10 - Draft
 
 The radiation control line no longer stalls the game (owner's report, 10 November 2026, with the profiler). **The owner's profiler shows the stall gone; the turn-back itself is not yet tested in game.**

@@ -110,6 +110,7 @@
             <effects>
               <li Class="Phobos.VehicleSystems.Effect_RefuseDraft">
                 <reason>PhobosVehicleSystems_RefuseFlatBattery</reason>
+                <sound>PhobosVehicleSystems_FlatBattery</sound>
               </li>
             </effects>
           </li>
@@ -138,6 +139,7 @@
             <effects>
               <li Class="Phobos.VehicleSystems.Effect_RefuseDraft">
                 <reason>PhobosVehicleSystems_RefuseStarter</reason>
+                <sound>PhobosVehicleSystems_FlatBattery</sound>
               </li>
             </effects>
           </li>

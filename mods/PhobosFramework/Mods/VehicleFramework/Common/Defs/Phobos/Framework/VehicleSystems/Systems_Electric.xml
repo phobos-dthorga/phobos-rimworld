@@ -166,6 +166,9 @@
                 <breakRole>TractionBattery</breakRole>
                 <when Class="Phobos.VehicleSystems.When_Setting"><setting>batteryFires</setting></when>
               </li>
+              <li Class="Phobos.VehicleSystems.Effect_Sound">
+                <sound>PhobosVehicleSystems_BatteryVenting</sound>
+              </li>
               <li Class="Phobos.VehicleSystems.Effect_Message">
                 <message>PhobosVehicleSystems_MsgTractionBatteryRunaway</message>
                 <type>ThreatBig</type>

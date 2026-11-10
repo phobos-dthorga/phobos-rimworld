@@ -5,6 +5,23 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.34.0] - 2026-11-10 - Draft
+
+Sounds from D'thorga Framework 0.75.0 (owner, 10 November 2026). **Not yet tested in game.**
+
+### Added
+
+- **The submarine test hull pings when it is spotted**, as the Seabed Crawler does: it shares the Crawler's sounds (owner, 10 November 2026).
+- Every vehicle here gets D'thorga Framework 0.75.0's system sounds: refuelling, cargo, brakes, a failed start, the warning chime and the rest.
+
+### Dependencies
+
+- Needs D'thorga Framework 0.75.0 or later.
+
+### Save compatibility
+
+- Safe on an existing save: nothing new is saved.
+
 ## [0.33.0] - 2026-11-10 - Draft
 
 Working trucks run on their hydraulics (owner, 10 November 2026). **Not yet tested in game.**

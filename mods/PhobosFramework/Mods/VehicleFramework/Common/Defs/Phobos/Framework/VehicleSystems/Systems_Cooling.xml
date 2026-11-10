@@ -163,6 +163,9 @@
                 <perHour>140</perHour>
                 <scale>1.4</scale>
               </li>
+              <li Class="Phobos.VehicleSystems.Effect_SoundLoop">
+                <sound>PhobosVehicleSystems_CoolantBoiling</sound>
+              </li>
               <li Class="Phobos.VehicleSystems.Effect_Letter">
                 <label>PhobosVehicleSystems_LetterBoilingLabel</label>
                 <text>PhobosVehicleSystems_LetterBoilingText</text>

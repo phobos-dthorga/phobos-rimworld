@@ -44,7 +44,8 @@
       "steps": 8,
       "cfg": 1.0,
       "prompt": "Medical oxygen concentrator running quietly in a small room, soft steady electric motor hum with a gentle rhythmic puff of air every few seconds, muffled and subdued, close perspective, calm and continuous. Length: 8 seconds"
-    }
+    },
+    "fingerprint": "739934cef44f35d92652ffab2ebc092013544a1cee18ee1e55ea6934d6771d4e"
   },
   "GeneratorSetRunning": {
     "name": "GeneratorSetRunning",
@@ -91,7 +92,8 @@
       "steps": 8,
       "cfg": 1.0,
       "prompt": "Small diesel generator running steadily at moderate load outdoors, heard from a few metres away, low even chugging engine rumble with a soft exhaust thrum and a faint cooling fan whir, continuous and unchanging, no starting or stopping, calm. Length: 8 seconds"
-    }
+    },
+    "fingerprint": "b535be587636f9ef69cf21d6e6c37c96140d04e9e0e75d0d41869deb528e5e44"
   },
   "SonarPing": {
     "name": "SonarPing",
@@ -133,7 +135,8 @@
       "steps": 8,
       "cfg": 1.0,
       "prompt": "Single soft sonar ping heard from inside a small submarine hull, a gentle rounded tone with a long fading underwater echo, quiet and calm, no alarm. Length: 4 seconds"
-    }
+    },
+    "fingerprint": "1641b72ff2f473b6ff9ce49de02a847f48e89870751a8a1594827f1afb35b0bd"
   },
   "SwitchClick": {
     "name": "SwitchClick",
@@ -179,6 +182,789 @@
       "steps": 8,
       "cfg": 1.0,
       "prompt": "One soft toggle switch click on a metal control panel, a short dry close-up click with a small muffled thunk, quiet, dead room with no echo. Length: 2 seconds"
-    }
+    },
+    "fingerprint": "a5f8e202e2cec5de03f2260a3fa835e419a1de4eac94d695c4d0924b0525a43f"
+  },
+  "FuelNozzle": {
+    "name": "FuelNozzle",
+    "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Sounds/Phobos/VehicleSystems/FuelNozzle.ogg",
+    "sha256": "bfe4cd56e7944a2d2e156d25165848115168968efabe91fc4de3e876a06be531",
+    "master_sha256": "ca28563922e85f023bdb971312eb184e1652356870cdbe884e7f153074d64211",
+    "date": "2026-11-10",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "loudness, to -26.01 LUFS",
+      "gain_db": -0.71
+    },
+    "reference": {
+      "defName": "Interact_Repair",
+      "effective": "-38.4 LUFS",
+      "volume": [
+        17.17392,
+        17.17392
+      ],
+      "distance": null,
+      "channels": 1
+    },
+    "result": {
+      "lufs": -26.0,
+      "true_peak": -4.1,
+      "seconds": 7.03,
+      "flags": [
+        "spiky"
+      ],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 23,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "Refuelling a truck from a fuel pump nozzle: the nozzle clunks into the filler neck, then liquid fuel glugs and flows into a metal tank for a few seconds, ending with the nozzle clicking off and being pulled out. Close, outdoors, dry. Length: 6 seconds"
+    },
+    "fingerprint": "e587e94d5aca435d93f12bed05a63bfb2d7f65f58627bb18fa84694b45329b09"
+  },
+  "JumpStartKit": {
+    "name": "JumpStartKit",
+    "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Sounds/Phobos/VehicleSystems/JumpStartKit.ogg",
+    "sha256": "16c2f0c7071027697007c9346dc0b95f045b5e77adedfcc4540eeb47b2df013c",
+    "master_sha256": "282ff99bb224c3c2df04ef2b9632eb2f0676af1df474a228230ec9db2ce53026",
+    "date": "2026-11-10",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "loudness, to -23.73 LUFS",
+      "gain_db": 4.1
+    },
+    "reference": {
+      "defName": "Interact_Repair_Start",
+      "effective": "-42.9 LUFS",
+      "volume": [
+        9.304348,
+        12.56522
+      ],
+      "distance": null,
+      "channels": 1
+    },
+    "result": {
+      "lufs": -24.6,
+      "true_peak": -1.1,
+      "seconds": 3.95,
+      "flags": [
+        "highs",
+        "spiky"
+      ],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 21,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "Jump-starting a truck: two heavy metal battery clamps clipped onto battery terminals with sharp spring snaps, a small spark crackle, then a starter motor cranking briefly. Close, outdoors. Length: 4 seconds"
+    },
+    "fingerprint": "fe0c6accf68b4b7caa2acdb52e173c8893925d0cc4bbb277baad7866141811f8"
+  },
+  "BoosterPack": {
+    "name": "BoosterPack",
+    "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Sounds/Phobos/VehicleSystems/BoosterPack.ogg",
+    "sha256": "82d951ac7f92557f405ba2b9080c2d652dfb8f117b0742805c98c8db4e6e0499",
+    "master_sha256": "053cc6a9fc599ee561df4ee246246bdc20c1df2e4495831a8324ddf58a9b84ee",
+    "date": "2026-11-10",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "loudness, to -23.73 LUFS",
+      "gain_db": 8.17
+    },
+    "reference": {
+      "defName": "Interact_Repair_Start",
+      "effective": "-42.9 LUFS",
+      "volume": [
+        9.304348,
+        12.56522
+      ],
+      "distance": null,
+      "channels": 1
+    },
+    "result": {
+      "lufs": -23.7,
+      "true_peak": -4.6,
+      "seconds": 4.19,
+      "flags": [
+        "highs"
+      ],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 23,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A portable jump starter booster pack: plastic clamps snapped onto a battery, a soft electronic relay click and one short quiet beep, then a starter motor cranking briefly. Close perspective. Length: 4 seconds"
+    },
+    "fingerprint": "9aebdb67f9b533302451f83c6149b600df1f61086e3155d759004fccd47d9394"
+  },
+  "WarningChime": {
+    "name": "WarningChime",
+    "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Sounds/Phobos/VehicleSystems/WarningChime.ogg",
+    "sha256": "3860851ced5f39b4534343504ccead8ca9678446d294ae46f49e1820467fc586",
+    "master_sha256": "7733bb1b86ed0965eb24fa70b7470269339fd110a4de5babf975ec44b0a072cb",
+    "date": "2026-11-10",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "loudness, to -26.58 LUFS",
+      "gain_db": 2.72
+    },
+    "reference": {
+      "defName": "TinyBell",
+      "effective": "-47.5 LUFS",
+      "volume": [
+        9.0,
+        9.0
+      ],
+      "distance": null,
+      "channels": 2
+    },
+    "result": {
+      "lufs": -26.5,
+      "true_peak": -16.2,
+      "seconds": 1.03,
+      "flags": [],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 21,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A single soft dashboard warning chime from a vehicle instrument panel, one gentle two-tone electronic bong with a short decay, calm and quiet, not alarming. Length: 1 second"
+    },
+    "fingerprint": "803efb853b0e9f7fdc38b06bbcb476f0253f450d569a17d35674a53a0009c4b8"
+  },
+  "TyreBurst": {
+    "name": "TyreBurst",
+    "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Sounds/Phobos/VehicleSystems/TyreBurst.ogg",
+    "sha256": "8651197f00559d7675f2d23022c9f43d3b468079a2af0f4193a1b593f9f8a98f",
+    "master_sha256": "33c0d2dbc07f218bba4b3272fbcae2b2402e7e5c87f49d34e7ca03dd833a7c03",
+    "date": "2026-11-10",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "loudness, to -18.54 LUFS",
+      "gain_db": -0.5
+    },
+    "reference": {
+      "defName": "Explosion_FirefoamPopper",
+      "effective": "-20.0 LUFS",
+      "volume": [
+        70.0,
+        70.0
+      ],
+      "distance": null,
+      "channels": 1
+    },
+    "result": {
+      "lufs": -22.2,
+      "true_peak": -0.8,
+      "seconds": 4.49,
+      "flags": [
+        "spiky"
+      ],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 21,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A large truck tyre bursting with a sharp pop and a rush of escaping air, then the flat tyre flapping and thumping against the road as the truck slows. Outdoors, mid distance. Length: 4 seconds"
+    },
+    "fingerprint": "ab96e140c9bd168ed3815f0f5c543e220495185d0a96a663428ccd2fc9ab60fe"
+  },
+  "FlatBattery": {
+    "name": "FlatBattery",
+    "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Sounds/Phobos/VehicleSystems/FlatBattery.ogg",
+    "sha256": "a597cb74c49dc34a0abc65c9f354459d9b3ff17465830293dc8362501f8a1cd6",
+    "master_sha256": "544d252fe7322fb7ba2fb161064d89f3721439a870b53145c206b73a992f2d37",
+    "date": "2026-11-10",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "loudness, to -26.73 LUFS",
+      "gain_db": 0.17
+    },
+    "reference": {
+      "defName": "Interact_Repair_Start",
+      "effective": "-42.9 LUFS",
+      "volume": [
+        9.304348,
+        12.56522
+      ],
+      "distance": null,
+      "channels": 1
+    },
+    "result": {
+      "lufs": -27.0,
+      "true_peak": -8.9,
+      "seconds": 4.47,
+      "flags": [
+        "highs"
+      ],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 21,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "Trying to start a truck with a flat battery: the key turned three times, each turn giving only a rapid dry clicking of the starter solenoid and no cranking. Close, inside the cab. Length: 4 seconds"
+    },
+    "fingerprint": "d2ff384969e48f8b62a3cb96410276a2e3ae53e8fb5786cd9fc9935f3c4070f3"
+  },
+  "FailedStartDiesel": {
+    "name": "FailedStartDiesel",
+    "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Sounds/Phobos/VehicleSystems/FailedStartDiesel.ogg",
+    "sha256": "a84145cf49599d19f5dc2f898800060f29dba968a93d667334ca40f9793579e8",
+    "master_sha256": "e23df16544135425793e49dd11467c60d7478f7d44e961c16e6e3061e29c533a",
+    "date": "2026-11-10",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "loudness, to -18.78 LUFS",
+      "gain_db": 2.1
+    },
+    "reference": {
+      "defName": "ChemfuelFiredGenerator_Ambience",
+      "effective": "-36.5 LUFS",
+      "volume": [
+        13.0,
+        13.0
+      ],
+      "distance": [
+        10.0,
+        20.0
+      ],
+      "channels": 1
+    },
+    "result": {
+      "lufs": -19.5,
+      "true_peak": -1.5,
+      "seconds": 6.1,
+      "flags": [],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 22,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A cold diesel truck engine failing to start: the starter motor cranks slowly and laboriously, the engine coughs once but does not catch, and the cranking stops. Outdoors, close. Length: 5 seconds"
+    },
+    "fingerprint": "8a275bcc4b857c3cc4e5b9833afa5cf29734b6d1ad305d192772c8ac60d2faee"
+  },
+  "FailedStartPetrol": {
+    "name": "FailedStartPetrol",
+    "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Sounds/Phobos/VehicleSystems/FailedStartPetrol.ogg",
+    "sha256": "cafb2b87c4ccf8a965f485f1fa46894687d5c16befddbdeec93d9b06bc07253f",
+    "master_sha256": "7dbdb6a3e6e1beefc11392b59313dc1e85e1ed3510a034e6ec16049c644348b4",
+    "date": "2026-11-10",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "loudness, to -18.78 LUFS",
+      "gain_db": 7.8
+    },
+    "reference": {
+      "defName": "ChemfuelFiredGenerator_Ambience",
+      "effective": "-36.5 LUFS",
+      "volume": [
+        13.0,
+        13.0
+      ],
+      "distance": [
+        10.0,
+        20.0
+      ],
+      "channels": 1
+    },
+    "result": {
+      "lufs": -21.9,
+      "true_peak": -0.7,
+      "seconds": 6.1,
+      "flags": [
+        "spiky"
+      ],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 21,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A petrol car engine failing to start: the starter motor cranks with a weak, slowing whirr, the engine sputters but never catches, then silence. Outdoors, close. Length: 5 seconds"
+    },
+    "fingerprint": "9b46c6252445d9cfaf2722b810387a1ed201c756fb84ad3a30f3f63b806a7bf8"
+  },
+  "KnockDiesel": {
+    "name": "KnockDiesel",
+    "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Sounds/Phobos/VehicleSystems/KnockDiesel.ogg",
+    "sha256": "a6cd755a8d54b9d7dcd6208341c6875a6a1e4b607f53368eee873b630c97a814",
+    "master_sha256": "5438851ff22af03692c8b878a7c92a8c952491a2994671bdc69e617b042ac24d",
+    "date": "2026-11-10",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "loop_span_s": [
+        0.2,
+        6.1675
+      ],
+      "loop_match": 0.251,
+      "levelled_by": "loudness, to -24.78 LUFS",
+      "gain_db": -4.58
+    },
+    "reference": {
+      "defName": "ChemfuelFiredGenerator_Ambience",
+      "effective": "-36.5 LUFS",
+      "volume": [
+        13.0,
+        13.0
+      ],
+      "distance": [
+        10.0,
+        20.0
+      ],
+      "channels": 1
+    },
+    "result": {
+      "lufs": -24.9,
+      "true_peak": -11.2,
+      "seconds": 5.72,
+      "flags": [],
+      "seam_dip_db": 0.0,
+      "loop_gap_s": 0.0
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 21,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A worn diesel engine idling with a heavy rhythmic metallic knocking from the bottom end, a steady deep mechanical clatter, rough, continuous and unchanging. Length: 8 seconds"
+    },
+    "fingerprint": "b83d24cc7d1405e7f50b3503405e56b48249bb136b93d37bf2e1443d9d6ab4c7"
+  },
+  "KnockPetrol": {
+    "name": "KnockPetrol",
+    "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Sounds/Phobos/VehicleSystems/KnockPetrol.ogg",
+    "sha256": "09481d363a67732585c027bf32262edbff8e2cc4a9ffe4e8861f2031a25940a4",
+    "master_sha256": "2f92b25f253ec73a36039984476e0cb5e2b95364b56f0f5bf05eea011668743b",
+    "date": "2026-11-10",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "loop_span_s": [
+        0.2,
+        6.5526
+      ],
+      "loop_match": 0.235,
+      "levelled_by": "loudness, to -24.78 LUFS",
+      "gain_db": -1.78
+    },
+    "reference": {
+      "defName": "ChemfuelFiredGenerator_Ambience",
+      "effective": "-36.5 LUFS",
+      "volume": [
+        13.0,
+        13.0
+      ],
+      "distance": [
+        10.0,
+        20.0
+      ],
+      "channels": 1
+    },
+    "result": {
+      "lufs": -24.9,
+      "true_peak": -10.2,
+      "seconds": 6.1,
+      "flags": [],
+      "seam_dip_db": 1.28,
+      "loop_gap_s": 0.0
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 24,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A worn petrol engine idling with a light rapid tapping and knocking from loose valves, steady rough running, continuous and unchanging. Length: 8 seconds"
+    },
+    "fingerprint": "3b72206df710ddd7027c9f5b87b541e3ae2208233b4beda5820cedf5cfa12392"
+  },
+  "BrakeSqueal": {
+    "name": "BrakeSqueal",
+    "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Sounds/Phobos/VehicleSystems/BrakeSqueal.ogg",
+    "sha256": "3ac715ee22b61694ae7e257489662ca15c0bff1455d953e2b99d7b0bc574082b",
+    "master_sha256": "ea159525b0f37f611fc5d32318f3b5db24b8e12db83a8c3f29d4777d77886b7d",
+    "date": "2026-11-10",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "loudness, to -26.73 LUFS",
+      "gain_db": -0.73
+    },
+    "reference": {
+      "defName": "Interact_Repair_Start",
+      "effective": "-42.9 LUFS",
+      "volume": [
+        9.304348,
+        12.56522
+      ],
+      "distance": null,
+      "channels": 1
+    },
+    "result": {
+      "lufs": -26.7,
+      "true_peak": -12.7,
+      "seconds": 4.06,
+      "flags": [],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 21,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "Worn truck brakes squealing as a heavy vehicle slows to a stop, a short metallic grinding squeal that fades as it stops. Outdoors, mid distance. Length: 3 seconds"
+    },
+    "fingerprint": "64c019a9fea1d3dab506e6f15f4871d8715fec2dbf8bdfc5a2f99784fa37e4f3"
+  },
+  "AirCompressor": {
+    "name": "AirCompressor",
+    "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Sounds/Phobos/VehicleSystems/AirCompressor.ogg",
+    "sha256": "b28873f4feb492527b6f90b874b07592235c23d1ea5f0bb1b26a1479b4be89f3",
+    "master_sha256": "71e093aeb85d589eef41f8c1e1b0965086065e030412e003330760911c499afd",
+    "date": "2026-11-10",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "loudness, to -24.78 LUFS",
+      "gain_db": -4.78
+    },
+    "reference": {
+      "defName": "ChemfuelFiredGenerator_Ambience",
+      "effective": "-36.5 LUFS",
+      "volume": [
+        13.0,
+        13.0
+      ],
+      "distance": [
+        10.0,
+        20.0
+      ],
+      "channels": 1
+    },
+    "result": {
+      "lufs": -25.0,
+      "true_peak": -11.6,
+      "seconds": 7.03,
+      "flags": [
+        "highs"
+      ],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 21,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A truck's air brake compressor charging after stopping: a steady mechanical chugging pump for a few seconds, then the air dryer purging with one short sharp hiss. Outdoors, beside the truck. Length: 6 seconds"
+    },
+    "fingerprint": "d2af2592d01d5bf89d3cde57ef1de821b3791947f480adf4ae96e5375fb0fb75"
+  },
+  "SafetyValve": {
+    "name": "SafetyValve",
+    "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Sounds/Phobos/VehicleSystems/SafetyValve.ogg",
+    "sha256": "d67d317223ed95f376d3421b485b523b6fea04f68f6df90061a68e59f4b1af5b",
+    "master_sha256": "5213a76672ca4f55fd1f77f3aaefb2b59132f054b5b1d506f16d9705d0e99b11",
+    "date": "2026-11-10",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "loudness, to -15.14 LUFS",
+      "gain_db": -1.24
+    },
+    "reference": {
+      "defName": "HissJet",
+      "effective": "-17.1 LUFS",
+      "volume": [
+        40.0,
+        40.0
+      ],
+      "distance": null,
+      "channels": 1
+    },
+    "result": {
+      "lufs": -15.4,
+      "true_peak": -4.2,
+      "seconds": 6.1,
+      "flags": [
+        "highs"
+      ],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 22,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A steam locomotive boiler safety valve lifting and blowing off: a powerful roaring rush of steam venting into the open air for a few seconds, then reseating. Outdoors, mid distance. Length: 5 seconds"
+    },
+    "fingerprint": "8d43cac2494bfcaaf4de17179cf0150101d9aa1bf03871384afabd740a7e331a"
+  },
+  "BatteryVenting": {
+    "name": "BatteryVenting",
+    "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Sounds/Phobos/VehicleSystems/BatteryVenting.ogg",
+    "sha256": "b3f6df341ef77340403d48b56fe3033f5ac572dccbf9dc8bb71772205df086cb",
+    "master_sha256": "46bd84566baa25bf935cdf85bd47e8c5cba893e2d3589acfe1d9b812c8e2708d",
+    "date": "2026-11-10",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "filter": "lowpass=f=12000,lowpass=f=12000,lowpass=f=12000,lowpass=f=12000",
+      "levelled_by": "loudness, to -9.14 LUFS",
+      "gain_db": 1.0
+    },
+    "reference": {
+      "defName": "HissJet",
+      "effective": "-17.1 LUFS",
+      "volume": [
+        40.0,
+        40.0
+      ],
+      "distance": null,
+      "channels": 1
+    },
+    "result": {
+      "lufs": -29.3,
+      "true_peak": -1.1,
+      "seconds": 5.35,
+      "flags": [
+        "highs",
+        "spiky"
+      ],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 22,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A large lithium battery pack failing: a sharp pop, then a fierce pressurised hiss of gas venting from the cells with crackling, growing stronger. Outdoors. Length: 5 seconds"
+    },
+    "fingerprint": "34f659f385403f14e88fb3eda2efe49c4199cb2d8e95c0911e2d7d0e5b5fa7d5"
+  },
+  "CoolantBoiling": {
+    "name": "CoolantBoiling",
+    "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Sounds/Phobos/VehicleSystems/CoolantBoiling.ogg",
+    "sha256": "f4c36dbf9d102e8abc573240b10856c1c9cf6c8c9ad99abd5af2b5734e717a81",
+    "master_sha256": "56cdc128fd1f47f271a5302738d6415f2bdf65b4f949d7b1790cf2f4d573fc02",
+    "date": "2026-11-10",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "loop_span_s": [
+        0.2,
+        5.6513
+      ],
+      "loop_match": 0.07,
+      "levelled_by": "true peak, to -7.72 dBTP",
+      "gain_db": 3.98
+    },
+    "reference": {
+      "defName": "HissSmall",
+      "effective": "peak -18.2 dB",
+      "volume": [
+        15.0,
+        15.0
+      ],
+      "distance": null,
+      "channels": 1
+    },
+    "result": {
+      "lufs": -20.7,
+      "true_peak": -8.4,
+      "seconds": 5.2,
+      "flags": [
+        "highs"
+      ],
+      "seam_dip_db": 0.0,
+      "loop_gap_s": 0.0
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 21,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "Steam hissing continuously from an overheated engine radiator under a truck bonnet, a steady pressurised hiss with occasional gurgles of boiling coolant, continuous and unchanging. Length: 8 seconds"
+    },
+    "fingerprint": "6b1eb22f3b9c7a80fc3eecf940fdc966066b3f88f0831383f580892c4ed813c4"
+  },
+  "CargoSetDown": {
+    "name": "CargoSetDown",
+    "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Sounds/Phobos/VehicleSystems/CargoSetDown.ogg",
+    "sha256": "d37ff9ff768e09536a0c7f8b60cf81592218a0bc8e94ba332bc6f2f310b4ed14",
+    "master_sha256": "34ed458b65e3007819f4d17534066babf14872a6c5649f4215e187d6d3ecab41",
+    "date": "2026-11-10",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "true peak, to -13.66 dBTP",
+      "gain_db": -11.36
+    },
+    "reference": {
+      "defName": "Metal_Drop",
+      "effective": "peak -22.7 dB",
+      "volume": [
+        25.0,
+        25.0
+      ],
+      "distance": null,
+      "channels": 1
+    },
+    "result": {
+      "lufs": -32.5,
+      "true_peak": -13.8,
+      "seconds": 1.42,
+      "flags": [],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 21,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A heavy wooden crate set down onto the metal floor of a truck's cargo bed, one solid muffled thud with a short hollow metal resonance. Close. Length: 1 second"
+    },
+    "fingerprint": "4c3ea50d5a184eb9acff94e209e59b01b002768c5a16bb69f15baeb8acfcf2c2"
+  },
+  "CargoTakenOff": {
+    "name": "CargoTakenOff",
+    "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Sounds/Phobos/VehicleSystems/CargoTakenOff.ogg",
+    "sha256": "5cca2c3ea674e1217513f0a2338b53c2ea766d9133ad817dd6f6c7cb7d25463d",
+    "master_sha256": "d63f48813ba2c7abd268389555a3f2e9067d6dce43724174a436131905d2809c",
+    "date": "2026-11-10",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "true peak, to -13.66 dBTP",
+      "gain_db": -9.76
+    },
+    "reference": {
+      "defName": "Metal_Drop",
+      "effective": "peak -22.7 dB",
+      "volume": [
+        25.0,
+        25.0
+      ],
+      "distance": null,
+      "channels": 1
+    },
+    "result": {
+      "lufs": -34.6,
+      "true_peak": -13.6,
+      "seconds": 1.48,
+      "flags": [
+        "spiky"
+      ],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 21,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A heavy wooden crate slid and lifted off the metal floor of a truck's cargo bed, one short scrape and a soft knock. Close. Length: 1 second"
+    },
+    "fingerprint": "b35f97b4338f607124b0509496fef6d11f5f3f7922b536a2da8210a536b5a937"
+  },
+  "OxygenRegulator": {
+    "name": "OxygenRegulator",
+    "target": "mods/PhobosMedical/Common/Sounds/Phobos/Medical/OxygenRegulator.ogg",
+    "sha256": "916be411005003209ddf936f1e5f90f552dcdf3c9e251152b0b64b6dbc3b114b",
+    "master_sha256": "0c59c4a2886739b0bcb605a302ef80376f06b4d663db1110460fd7cd6532ddd2",
+    "date": "2026-11-10",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "loop_span_s": [
+        0.7,
+        5.2225
+      ],
+      "loop_match": 0.143,
+      "levelled_by": "true peak, to -7.72 dBTP",
+      "gain_db": 21.28
+    },
+    "reference": {
+      "defName": "HissSmall",
+      "effective": "peak -18.2 dB",
+      "volume": [
+        15.0,
+        15.0
+      ],
+      "distance": null,
+      "channels": 1
+    },
+    "result": {
+      "lufs": -21.5,
+      "true_peak": -7.8,
+      "seconds": 4.27,
+      "flags": [
+        "highs"
+      ],
+      "seam_dip_db": 0.0,
+      "loop_gap_s": 0.0
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 22,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "Medical oxygen flowing steadily from a cylinder regulator through a face mask, a soft gentle hiss of gas, quiet and calm, close, continuous and unchanging. Length: 8 seconds"
+    },
+    "fingerprint": "ee4a75447fb43d9850ce3c28cc4da354a3bb0566b483b634e4cc541f69f8683c"
   }
 }

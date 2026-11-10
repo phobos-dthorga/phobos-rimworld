@@ -21,11 +21,15 @@ public class FrameworkSettings : ModSettings
     public bool writeColonyMoodFile = true;
     /// <summary>Every D'thorga sound's volume, from none to half as loud again (Sounds/PhobosSoundVolume; AGENTS.md's volume setting; agent default 1).</summary>
     public float soundVolume = 1f;
+    /// <summary>Whether the vehicle systems' sounds (a tyre bursting, a knock, the warning chime) also play on other mods' vehicles running them
+    /// (owner, 10 Nov 2026: yes, with a setting to turn it off). Their engines and doors are always their authors' own.</summary>
+    public bool systemSoundsOnOtherVehicles = true;
 
     public override void ExposeData()
     {
         base.ExposeData();
         Scribe_Values.Look(ref soundVolume, "PhobosFramework_SoundVolume", 1f);
+        Scribe_Values.Look(ref systemSoundsOnOtherVehicles, "PhobosFramework_SystemSoundsOnOtherVehicles", true);
         Scribe_Values.Look(ref writeColonyMoodFile, "PhobosFramework_WriteColonyMoodFile", true);
         Scribe_Values.Look(ref gasSourceMode, "PhobosFramework_GasSourceMode", GasSourceMode.Automatic);
         Scribe_Values.Look(ref showGasOverlay, "PhobosFramework_ShowGasOverlay", false);
@@ -44,7 +48,7 @@ public class FrameworkSettings : ModSettings
 public class FrameworkMod : Mod
 {
     public const string PackageId = "PhobosDthorga.Framework";
-    public const string ModVersion = "0.74.1";
+    public const string ModVersion = "0.75.0";
     public const string LogPrefix = "[D'thorga Framework]";
     public static readonly Phobos.Logging.PhobosLog Logger = Logging.Logs.For("D'thorga Framework");
 
@@ -107,6 +111,8 @@ public class FrameworkMod : Mod
             Settings.soundVolume = volume;
             Sounds.PhobosSoundVolume.Apply(volume);
         }
+        listing.CheckboxLabeled("PhobosFramework_SettingSystemSoundsOnOtherVehicles".Translate(), ref Settings.systemSoundsOnOtherVehicles,
+            "PhobosFramework_SettingSystemSoundsOnOtherVehiclesDesc".Translate());
         listing.Gap();
         listing.CheckboxLabeled("PhobosFramework_SettingShowGasOverlay".Translate(), ref Settings.showGasOverlay,
             "PhobosFramework_SettingShowGasOverlayDesc".Translate());

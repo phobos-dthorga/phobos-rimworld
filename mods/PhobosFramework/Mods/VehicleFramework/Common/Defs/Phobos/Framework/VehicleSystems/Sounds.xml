@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- The vehicle systems' generic sounds (docs/development/sound-catalogue.md, S3 to S17). Agent-made with Stable Audio 3 Small SFX,
+       taken from the agent's measured shortlist by the owner (10 Nov 2026), and levelled by scripts/art/export_sound.py against the game
+       sound each comment names, whose volume each copies; the records beside the sound files say how. The volume extension puts them
+       under D'thorga Framework's sounds volume setting. -->
+
+  <!-- S3: a vehicle refuelled. Beside the game's Interact_Repair -3 dB. -->
+  <SoundDef>
+    <defName>PhobosVehicleSystems_FuelNozzle</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/VehicleSystems/FuelNozzle</clipPath>
+          </li>
+        </grains>
+        <volumeRange>17</volumeRange>
+        <distRange>5~25</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+
+  <!-- S4: the jump-start kit clamped on. Beside the game's Interact_Repair_Start. -->
+  <SoundDef>
+    <defName>PhobosVehicleSystems_JumpStartKit</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/VehicleSystems/JumpStartKit</clipPath>
+          </li>
+        </grains>
+        <volumeRange>11</volumeRange>
+        <distRange>5~25</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+
+  <!-- S5: the booster pack clamped on. Beside the game's Interact_Repair_Start. -->
+  <SoundDef>
+    <defName>PhobosVehicleSystems_BoosterPack</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/VehicleSystems/BoosterPack</clipPath>
+          </li>
+        </grains>
+        <volumeRange>11</volumeRange>
+        <distRange>5~25</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+
+  <!-- S6: a red warning lamp lights. Beside the game's TinyBell. -->
+  <SoundDef>
+    <defName>PhobosVehicleSystems_WarningChime</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>1</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/VehicleSystems/WarningChime</clipPath>
+          </li>
+        </grains>
+        <volumeRange>9</volumeRange>
+        <distRange>5~20</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+
+  <!-- S7: a tyre bursts. Beside the game's Explosion_FirefoamPopper -9 dB. -->
+  <SoundDef>
+    <defName>PhobosVehicleSystems_TyreBurst</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/VehicleSystems/TyreBurst</clipPath>
+          </li>
+        </grains>
+        <volumeRange>30</volumeRange>
+        <distRange>10~40</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+
+  <!-- S8: coolant boiling. Beside the game's HissSmall -6 dB. -->
+  <SoundDef>
+    <defName>PhobosVehicleSystems_CoolantBoiling</defName>
+    <sustain>True</sustain>
+    <context>MapOnly</context>
+    <maxSimultaneous>3</maxSimultaneous>
+    <subSounds>
+      <li>
+        <muteWhenPaused>True</muteWhenPaused>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/VehicleSystems/CoolantBoiling</clipPath>
+          </li>
+        </grains>
+        <volumeRange>15</volumeRange>
+        <distRange>5~25</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+
+  <!-- S9: a start refused, flat battery or dead starter. Beside the game's Interact_Repair_Start -3 dB. -->
+  <SoundDef>
+    <defName>PhobosVehicleSystems_FlatBattery</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>1</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/VehicleSystems/FlatBattery</clipPath>
+          </li>
+        </grains>
+        <volumeRange>11</volumeRange>
+        <distRange>5~20</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+
+  <!-- S10: a diesel that will not start. Beside the game's ChemfuelFiredGenerator_Ambience. -->
+  <SoundDef>
+    <defName>PhobosVehicleSystems_FailedStartDiesel</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/VehicleSystems/FailedStartDiesel</clipPath>
+          </li>
+        </grains>
+        <volumeRange>13</volumeRange>
+        <distRange>10~30</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+
+  <!-- S10: a petrol engine that will not start. Beside the game's ChemfuelFiredGenerator_Ambience. -->
+  <SoundDef>
+    <defName>PhobosVehicleSystems_FailedStartPetrol</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/VehicleSystems/FailedStartPetrol</clipPath>
+          </li>
+        </grains>
+        <volumeRange>13</volumeRange>
+        <distRange>10~30</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+
+  <!-- S11: a diesel knocking, oil pressure gone. Beside the game's ChemfuelFiredGenerator_Ambience -6 dB. -->
+  <SoundDef>
+    <defName>PhobosVehicleSystems_KnockDiesel</defName>
+    <sustain>True</sustain>
+    <context>MapOnly</context>
+    <maxSimultaneous>3</maxSimultaneous>
+    <subSounds>
+      <li>
+        <muteWhenPaused>True</muteWhenPaused>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/VehicleSystems/KnockDiesel</clipPath>
+          </li>
+        </grains>
+        <volumeRange>13</volumeRange>
+        <distRange>10~30</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+
+  <!-- S11: a petrol engine knocking, oil pressure gone. Beside the game's ChemfuelFiredGenerator_Ambience -6 dB. -->
+  <SoundDef>
+    <defName>PhobosVehicleSystems_KnockPetrol</defName>
+    <sustain>True</sustain>
+    <context>MapOnly</context>
+    <maxSimultaneous>3</maxSimultaneous>
+    <subSounds>
+      <li>
+        <muteWhenPaused>True</muteWhenPaused>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/VehicleSystems/KnockPetrol</clipPath>
+          </li>
+        </grains>
+        <volumeRange>13</volumeRange>
+        <distRange>10~30</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+
+  <!-- S12: worn brakes stopping. Beside the game's Interact_Repair_Start -3 dB. -->
+  <SoundDef>
+    <defName>PhobosVehicleSystems_BrakeSqueal</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/VehicleSystems/BrakeSqueal</clipPath>
+          </li>
+        </grains>
+        <volumeRange>11</volumeRange>
+        <distRange>10~30</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+
+  <!-- S13: air brakes recharging after a stop. Beside the game's ChemfuelFiredGenerator_Ambience -6 dB. -->
+  <SoundDef>
+    <defName>PhobosVehicleSystems_AirCompressor</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/VehicleSystems/AirCompressor</clipPath>
+          </li>
+        </grains>
+        <volumeRange>13</volumeRange>
+        <distRange>10~30</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+
+  <!-- S15: a boiler blowing off. Beside the game's HissJet -6 dB. -->
+  <SoundDef>
+    <defName>PhobosVehicleSystems_SafetyValve</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/VehicleSystems/SafetyValve</clipPath>
+          </li>
+        </grains>
+        <volumeRange>40</volumeRange>
+        <distRange>10~40</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+
+  <!-- S16: a traction battery in thermal runaway. Beside the game's HissJet. -->
+  <SoundDef>
+    <defName>PhobosVehicleSystems_BatteryVenting</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/VehicleSystems/BatteryVenting</clipPath>
+          </li>
+        </grains>
+        <volumeRange>40</volumeRange>
+        <distRange>10~40</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+
+  <!-- S17: cargo put into a vehicle. Beside the game's Metal_Drop -3 dB. -->
+  <SoundDef>
+    <defName>PhobosVehicleSystems_CargoSetDown</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>1</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/VehicleSystems/CargoSetDown</clipPath>
+          </li>
+        </grains>
+        <volumeRange>25</volumeRange>
+        <distRange>5~20</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+
+  <!-- S17: cargo taken out of a vehicle. Beside the game's Metal_Drop -3 dB. -->
+  <SoundDef>
+    <defName>PhobosVehicleSystems_CargoTakenOff</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>1</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/VehicleSystems/CargoTakenOff</clipPath>
+          </li>
+        </grains>
+        <volumeRange>25</volumeRange>
+        <distRange>5~20</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+</Defs>
