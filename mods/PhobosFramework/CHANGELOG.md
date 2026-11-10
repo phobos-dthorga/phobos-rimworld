@@ -5,6 +5,27 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.72.0] - 2026-11-10 - Draft
+
+A listening array for vehicles in the water, and diving puts out a fire (owner, 10 November 2026). **Not yet tested in game.**
+
+### Added
+
+- **Listening array** for any vehicle in the water that has one fitted. It quietly hears hostile movement: in the water across its whole range, on land across half of it, and other boats under the water by their noise. It hears half as far on the move, and only as well as the best ears aboard among those awake.
+- Its inspect line gives how many are moving, and the nearest one's distance and compass bearing. On a boat that is under, it warns when the nearest is close enough to spot it.
+- One message comes when movement is first heard, and again only after a quiet spell. While the vehicle is selected, a ring shows the range, with a line to each place it heard something. A line into the fog gives a bearing and lifts no fog.
+- **A boat under the water that is heard is spotted**, as if seen, so it shows as a dark shape and can be fired on. It makes no sound itself and never gives its own boat away.
+- **Diving puts out a fire**: once a burning submersible is fully under, the fire on it goes out, and the player is told.
+- For modders: a listening range stat to put in a vehicle's stats and its array part's categories, the listening comp, and a helper that puts out the fires burning on any thing.
+
+### Compatibility and limits
+
+- Every figure is authored for play: a hydrophone's real range depends on the sea and the sound, and real hydrophones hear little from land. It hears nothing on the world map, works on the surface too, and does not hear neutral or friendly movement. Crews with no hearing, such as mechanoids, cannot listen.
+
+### Save compatibility
+
+- Safe on an existing save: nothing new is saved.
+
 ## [0.71.0] - 2026-11-10 - Draft
 
 The first D'thorga sounds, and one volume setting for them all (owner, 10 November 2026). **Not yet tested in game.**

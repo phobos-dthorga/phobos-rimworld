@@ -28,6 +28,7 @@
   <!-- What an order did -->
   <PhobosSubmersible_ToldDiving>{VEHICLE} is flooding its tanks.</PhobosSubmersible_ToldDiving>
   <PhobosSubmersible_ToldUnder>{VEHICLE} is under the water.</PhobosSubmersible_ToldUnder>
+  <PhobosSubmersible_FireOut>The water has put out the fire on {VEHICLE}.</PhobosSubmersible_FireOut>
   <PhobosSubmersible_ToldSurfacing>{VEHICLE} is coming up.</PhobosSubmersible_ToldSurfacing>
   <PhobosSubmersible_ToldStayDown>{VEHICLE} will stay under even when its air and charge run out.</PhobosSubmersible_ToldStayDown>
   <PhobosSubmersible_ToldComeUpWhenEmpty>{VEHICLE} will come up when its air and charge run out.</PhobosSubmersible_ToldComeUpWhenEmpty>

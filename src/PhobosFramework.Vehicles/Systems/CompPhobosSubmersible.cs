@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Phobos.Framework.Environment;
 using Phobos.Framework.Vehicles.Rules;
 using RimWorld;
 using RimWorld.Planet;
@@ -382,6 +383,8 @@ public class CompPhobosSubmersible : VehicleComp
             if (reached == DivePhase.Submerged)
             {
                 Tell("PhobosSubmersible_ToldUnder".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve(), MessageTypeDefOf.SilentInput);
+                // The water closes over the hull: any fire burning on it goes out (owner, 10 Nov 2026).
+                if (AttachedFires.PutOut(Vehicle) > 0) Tell("PhobosSubmersible_FireOut".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve(), MessageTypeDefOf.PositiveEvent);
                 CheckSeenGoingDown();
             }
         }

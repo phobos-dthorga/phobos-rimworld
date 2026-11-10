@@ -5,6 +5,30 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.32.0] - 2026-11-10 - Draft
+
+The Seabed Crawler's listening array (owner, 10 November 2026). **Not yet tested in game.**
+
+### Added
+
+- **Hydrophones research** on the D'thorga: Submarines tab (1,500), after submersible hull.
+- **Hydrophone array**, made at the parts bench from 30 steel and 4 components (Crafting 6), filed under vehicle parts.
+- **Listening array upgrade** for the Seabed Crawler, the first of a second row of upgrades for its sensors. It needs the research and one hydrophone array. It hears hostile movement within 40 cells at rest, 20 on the move, and things on land at half those distances. It finds other boats under the water by their noise.
+- The array sits at the bow, outside the pressure hull. Damage there shortens what it hears.
+- With D'thorga Framework 0.72.0, a fire on the Crawler goes out once it is fully under.
+
+### Compatibility and limits
+
+- The upgrade's icon is drawn in code; the Crawler still borrows the bulk tanker's picture. The array and its range are authored for play.
+
+### Dependencies
+
+- Needs D'thorga Framework 0.72.0 or later.
+
+### Save compatibility
+
+- Safe on an existing save. The new hull part is added at the end of the Crawler's parts, so a Crawler already built takes it on at full health.
+
 ## [0.31.0] - 2026-11-10 - Draft
 
 The first vehicle sounds (owner, 10 November 2026). **Not yet tested in game.**

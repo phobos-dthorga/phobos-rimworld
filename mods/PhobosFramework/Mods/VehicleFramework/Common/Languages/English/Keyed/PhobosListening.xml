@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <!-- A listening array on a vehicle in the water (CompPhobosListening). -->
+  <PhobosListening_Quiet>Listening: all quiet within {RANGE} cells.</PhobosListening_Quiet>
+  <PhobosListening_Heard>Listening: {COUNT} moving within {RANGE} cells, the nearest {DISTANCE} cells to the {BEARING}.</PhobosListening_Heard>
+  <PhobosListening_BoatsHeard>Boats under the water among them: {COUNT}.</PhobosListening_BoatsHeard>
+  <PhobosListening_CloseEnoughToSpot>The nearest is close enough to spot the boat.</PhobosListening_CloseEnoughToSpot>
+  <PhobosListening_OutOfWater>Listening: the array is out of the water.</PhobosListening_OutOfWater>
+  <PhobosListening_NobodyListening>Listening: nobody aboard is awake and able to hear.</PhobosListening_NobodyListening>
+  <PhobosListening_Report>{VEHICLE}'s listening array hears movement: {COUNT} hostile, the nearest {DISTANCE} cells to the {BEARING}.</PhobosListening_Report>
+  <PhobosListening_North>north</PhobosListening_North>
+  <PhobosListening_NorthEast>north-east</PhobosListening_NorthEast>
+  <PhobosListening_East>east</PhobosListening_East>
+  <PhobosListening_SouthEast>south-east</PhobosListening_SouthEast>
+  <PhobosListening_South>south</PhobosListening_South>
+  <PhobosListening_SouthWest>south-west</PhobosListening_SouthWest>
+  <PhobosListening_West>west</PhobosListening_West>
+  <PhobosListening_NorthWest>north-west</PhobosListening_NorthWest>
+</LanguageData>

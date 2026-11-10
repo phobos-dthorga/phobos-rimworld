@@ -5,7 +5,7 @@ colonist is breathing, makes fires fill roofed rooms with the game's own smoke w
 carries carbon monoxide from fires, holds the per-person care choices the D'thorga medical mods offer, and holds the small
 helpers every D'thorga mod shares.
 
-Version 0.71.0, built 10 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
+Version 0.72.0, built 10 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
 oxygen working through Burns and Smoke and Medical Equipment (5 November 2026). The health layer new in 0.3.0 and the **vehicle
 systems new in 0.9.0, and their engines, drivetrains and gas turbines new in 0.11.0, are not yet tested in game.** The rest is read from the game's and the mods' code.
 
@@ -251,7 +251,17 @@ The new button on a vehicle's **Dashboard** opens **Fittings and tunes**, for an
 - **Boats with bottoming gear can settle on the bottom**, using half the air and charge and becoming far harder to find. They must lift off before moving.
 - **Stay down** (off by default) keeps it under after the reserve runs out. **The crew then breathes stale air, and it kills them.** You can call it off while anyone aboard can still work the boat. After that the order stands and **the boat is lost**: nothing can raise it yet.
 - **A caravan of nothing but submersibles** can dive together over water tiles, and is then safe from ambushes, demands and meetings.
+- **Diving puts out a fire** (new in 0.72.0): once a burning boat is fully under, the fire on it goes out.
 - **The finished submarine is D'thorga Vehicles' Seabed Crawler.** A dev-mode test hull is there too.
+
+### Listening arrays (new in 0.72.0; not yet tested in game)
+
+- **A vehicle in the water with a listening array hears hostile movement around it** and makes no sound itself. Things moving in the water are heard across its whole range, things moving on land across half of it, and something standing still not at all.
+- **It hears half as far on the move**, and only as well as the best ears aboard among those awake. Deafness and ear injuries count.
+- **Its inspect line** says how many are moving, and how far away and in which direction the nearest one is. On a boat under the water it warns when the nearest is close enough to spot it.
+- **One message comes when movement is first heard**, and again only after a quiet spell. Select the vehicle to see its range as a ring, with a red line to each place it heard something, fog or not.
+- **Another boat under the water that it hears is spotted**, so it shows as a dark shape and can be fired on.
+- It hears nothing on the world map. The Seabed Crawler's listening array is the first to use it.
 
 ### Laboratories aboard vehicles (new in 0.65.0; not yet tested in game)
 

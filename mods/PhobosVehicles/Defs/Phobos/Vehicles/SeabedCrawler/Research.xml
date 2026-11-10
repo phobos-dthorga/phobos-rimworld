@@ -50,6 +50,23 @@
   </ResearchProjectDef>
 
   <ResearchProjectDef ParentName="PhobosResearchSubmarineBase">
+    <defName>PhobosResearch_Hydrophones</defName>
+    <label>hydrophones</label>
+    <description>Underwater microphones along the hull, so that a submersible's crew can hear what moves around them, find other boats under the water and know when danger is close, without making a sound.</description>
+    <baseCost>1500</baseCost>
+    <researchViewX>2</researchViewX>
+    <researchViewY>0.5</researchViewY>
+    <prerequisites>
+      <li>PhobosResearch_SubmersibleHull</li>
+    </prerequisites>
+    <modExtensions>
+      <li Class="Phobos.Framework.Research.ResearchReplacesExtension">
+        <replaces />
+      </li>
+    </modExtensions>
+  </ResearchProjectDef>
+
+  <ResearchProjectDef ParentName="PhobosResearchSubmarineBase">
     <defName>PhobosResearch_AirPurification</defName>
     <label>air purification</label>
     <description>Canisters that take the carbon dioxide out of a sealed hull, so that a crew can stay under for longer and suffers more slowly when the air runs out.</description>

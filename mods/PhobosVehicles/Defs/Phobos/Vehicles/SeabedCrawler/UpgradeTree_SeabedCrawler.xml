@@ -142,6 +142,33 @@
           <PhobosVehicles_AnalyserBench>1</PhobosVehicles_AnalyserBench>
         </ingredients>
       </li>
+      <li>
+        <!-- The listening array, first of the second row (sensors; the active sonar set goes beside it). Passive: it only hears, so it gives nothing away. Range authored. -->
+        <key>Hydrophones</key>
+        <label>listening array</label>
+        <displayLabel>true</displayLabel>
+        <description>Hydrophones along the hull. Anyone aboard who is awake can listen for hostile movement within 40 cells: things in the water across all of it, things on land within half of it, and other boats under the water by their noise. It hears half as far on the move, and makes no sound itself.</description>
+        <icon>Phobos/Vehicles/SeabedCrawler/Upgrades/Hydrophones</icon>
+        <work>2000</work>
+        <gridCoordinate>(3, 10)</gridCoordinate>
+        <drawSize>(80, 80)</drawSize>
+        <researchPrerequisites>
+          <li>PhobosResearch_Hydrophones</li>
+        </researchPrerequisites>
+        <upgrades>
+          <li Class="Vehicles.StatUpgrade">
+            <vehicleStats>
+              <li>
+                <def>Phobos_ListeningRange</def>
+                <value>40</value>
+              </li>
+            </vehicleStats>
+          </li>
+        </upgrades>
+        <ingredients>
+          <PhobosVehicles_HydrophoneArray>1</PhobosVehicles_HydrophoneArray>
+        </ingredients>
+      </li>
     </nodes>
   </Vehicles.UpgradeTreeDef>
 </Defs>

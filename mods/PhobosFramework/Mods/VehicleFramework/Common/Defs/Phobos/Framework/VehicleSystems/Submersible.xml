@@ -92,6 +92,24 @@
     <operationType>MinValue</operationType>
     <upgradeEffectType>Positive</upgradeEffectType>
   </Vehicles.VehicleStatDef>
+  <!-- A listening array (Phobos.VehicleSystems.CompProperties_PhobosListening; docs/development/vehicle-seabed-crawler.md). Any vehicle in the water may use it. Feed it from the array's part, so damage
+       there shortens it; the best hearing aboard and the vehicle's own motion shorten it further. -->
+  <Vehicles.VehicleStatDef>
+    <defName>Phobos_ListeningRange</defName>
+    <label>listening range</label>
+    <description>How far the listening array hears things moving, at rest and with good ears aboard. It hears half as far on the move, and things on land at half the distance.</description>
+    <category>VehicleBasics</category>
+    <defaultBaseValue>0</defaultBaseValue>
+    <minValue>0</minValue>
+    <toStringStyle>Integer</toStringStyle>
+    <formatString>{0} cells</formatString>
+    <operationType>Average</operationType>
+    <upgradeEffectType>Positive</upgradeEffectType>
+    <showOnVehicleTypes>
+      <li>Sea</li>
+      <li>Universal</li>
+    </showOnVehicleTypes>
+  </Vehicles.VehicleStatDef>
   <!-- What a crew breathes if ordered to stay under with nothing left: carbon dioxide building up in a sealed hull. The stages and rates are authored for play and are not a dose-response model. -->
   <HediffDef>
     <defName>Phobos_StaleAir</defName>

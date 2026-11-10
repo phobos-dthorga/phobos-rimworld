@@ -90,6 +90,50 @@
   </ThingDef>
 
   <ThingDef ParentName="ResourceBase">
+    <defName>PhobosVehicles_HydrophoneArray</defName>
+    <label>hydrophone array</label>
+    <description>A string of underwater microphones in a faired housing, with the amplifier and headphones that go with them, for listening from inside a submersible's hull.</description>
+    <graphicData>
+      <texPath>Phobos/Vehicles/SeabedCrawler/Upgrades/Hydrophones</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <soundInteract>Metal_Drop</soundInteract>
+    <soundDrop>Standard_Drop</soundDrop>
+    <stackLimit>5</stackLimit>
+    <statBases>
+      <MaxHitPoints>70</MaxHitPoints>
+      <MarketValue>280</MarketValue>
+      <Mass>12</Mass>
+      <Flammability>0.4</Flammability>
+      <WorkToMake>3500</WorkToMake>
+    </statBases>
+    <thingCategories>
+      <li>PhobosCategory_VehicleParts</li>
+    </thingCategories>
+    <costList>
+      <Steel>30</Steel>
+      <ComponentIndustrial>4</ComponentIndustrial>
+    </costList>
+    <recipeMaker>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <effectWorking>Smith</effectWorking>
+      <soundWorking>Recipe_Machining</soundWorking>
+      <workSkill>Crafting</workSkill>
+      <unfinishedThingDef>UnfinishedComponent</unfinishedThingDef>
+      <researchPrerequisite>PhobosResearch_Hydrophones</researchPrerequisite>
+      <recipeUsers>
+        <li>PhobosVehicles_PartsBench</li>
+      </recipeUsers>
+      <skillRequirements>
+        <Crafting>6</Crafting>
+      </skillRequirements>
+    </recipeMaker>
+    <smeltProducts>
+      <Steel>15</Steel>
+    </smeltProducts>
+  </ThingDef>
+
+  <ThingDef ParentName="ResourceBase">
     <defName>PhobosVehicles_LaboratoryFittings</defName>
     <label>laboratory fittings</label>
     <description>A fold-down bench, sample racks, glassware and a sealed fume cupboard, sized to fit a submersible's hull.</description>

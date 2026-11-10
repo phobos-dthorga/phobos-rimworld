@@ -4,7 +4,7 @@ Vehicles that keep running only while they are looked after. It adds one vehicle
 vehicles of other mods you already drive the systems that match what they really are, on top of the general systems D'thorga
 Framework gives every vehicle.
 
-Version 0.31.0, built 10 November 2026 for House D'thorga. **Not yet tested in game.**
+Version 0.32.0, built 10 November 2026 for House D'thorga. **Not yet tested in game.**
 
 ## Read this first (gotchas)
 
@@ -158,7 +158,11 @@ Every source and simplification is in the loadout files under `Mods/`.
 
 **When watchers spot it under water, a soft ping sounds at the hull** (new in 0.31.0), with the message saying it has been seen. D'thorga Framework's **D'thorga sounds volume** setting turns it down or off.
 
-More upgrades are designed, including sonar and radar, and are not built yet.
+- **Listening array** (new in 0.32.0; research Hydrophones, one hydrophone array) hears hostile movement within 40 cells while the boat is still and 20 while it moves. Things on land are heard at half those distances. It finds other boats under the water by their noise. The inspect panel says how many are moving and where the nearest is, and **warns when the nearest is close enough to spot the boat**. Select the boat to see its range and a line to each contact. It never gives the boat away. Damage to the hydrophones at the bow shortens what it hears.
+
+**A fire on the Crawler goes out once it is fully under** (new in 0.32.0), so diving is also the way to put out a burning boat.
+
+More upgrades are designed, including the sonar set and radar, and are not built yet.
 
 ## The submarine test hull
 

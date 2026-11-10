@@ -1,6 +1,6 @@
 # The Seabed Crawler: design (10 Nov 2026)
 
-**First slice built in D'thorga Vehicles 0.28.0 and D'thorga Framework 0.62.0: the research tab and three projects, the bare hull, and the bottoming wheels and air scrubber, each with its part. The wet laboratory followed in Vehicles 0.29.0 and Framework 0.65.0 (see [what was built](#the-wet-laboratory-as-built)), then aboard-only research and the advanced laboratory in Vehicles 0.30.0 and Framework 0.66.0 (see [aboard-only research as built](#aboard-only-research-as-built)). Everything else here is still design, and no picture exists. Not yet tested in game.** The owner chose this as the first real submarine on 10 November 2026, for its unique mechanics, and asked that it also be a research vessel, carry sonar and perhaps radar, and take tie-ins to other mods as soft dependencies. Agent-authored for the owner's review: every figure is **authored** unless it says otherwise. It builds on [the submersibles framework](submarine-framework.md), and the real boat behind it is in [the research record](military-vehicles-research.md).
+**First slice built in D'thorga Vehicles 0.28.0 and D'thorga Framework 0.62.0: the research tab and three projects, the bare hull, and the bottoming wheels and air scrubber, each with its part. The wet laboratory followed in Vehicles 0.29.0 and Framework 0.65.0 (see [what was built](#the-wet-laboratory-as-built)), then aboard-only research and the advanced laboratory in Vehicles 0.30.0 and Framework 0.66.0 (see [aboard-only research as built](#aboard-only-research-as-built)), then the listening array in Vehicles 0.32.0 and Framework 0.72.0 (see [the listening array as built](#the-listening-array-as-built)). Everything else here is still design, and no picture exists. Not yet tested in game.** The owner chose this as the first real submarine on 10 November 2026, for its unique mechanics, and asked that it also be a research vessel, carry sonar and perhaps radar, and take tie-ins to other mods as soft dependencies. Agent-authored for the owner's review: every figure is **authored** unless it says otherwise. It builds on [the submersibles framework](submarine-framework.md), and the real boat behind it is in [the research record](military-vehicles-research.md).
 
 ## Read this first
 
@@ -101,6 +101,34 @@ Built 10 Nov 2026 (Framework 0.66.0, Vehicles 0.30.0). Not yet tested in game. W
 - **Radar works only with the mast above the water.** Radio waves die within a short distance in sea water **[not yet sourced; the owner will know this better than the record does]**.
 - **Sonar sees through fog of war only on water cells.** Radar sees what is above the water and in the open **[agent default]**.
 
+### The listening array as built
+
+Built 10 Nov 2026 (Framework 0.72.0, Vehicles 0.32.0). Not yet tested in game. The owner's go-ahead was "You may proceed" (10 Nov 2026), after the record's row: hear what is moving nearby and find enemy boats; stop nothing; the player stops diving blind.
+
+**What it gives the player in a game where they already see the whole map:** news when they are looking elsewhere (a boat sitting out a raid on another map), a bearing into the fog, a warning that the nearest hostile is close enough to spot a boat that is under, and the only way to find another boat that is under. That last has no use yet, since nobody else has submarines; it is there for the first hostile boat, ours or another author's.
+
+- **The comp** is `CompPhobosListening` in D'thorga Framework, usable by any vehicle in the water. Game-free rules are in `ListeningRule` (`src/PhobosFramework.Vehicles/Rules/ListeningRules.cs`, tested). It saves nothing.
+- **Range:** a new stat, `Phobos_ListeningRange`. The node adds 40 cells. A `Hydrophones` part at the bow, appended last to the hull's parts, feeds it, so damage there shortens it. The range is then multiplied by the best **hearing** among those aboard who are awake and up. That is the game's own hearing capacity, so deafness, ear injuries and bionic ears all count. **On the move the range halves**, because a boat's own machinery and the water rushing past mask what it listens for. That is the general principle **[not yet sourced]**; the half is **[authored]**.
+- **What it hears, every rare tick (about four seconds):**
+  - Any hostile pawn or vehicle **moving in the water**, across the whole range.
+  - Anything **moving on land**, within half the range, because sound carries poorly from land into water. This is a **gameplay simplification**: real hydrophones hear little from land.
+  - **Something standing still makes no sound to hear.**
+  - **A boat that is under** is heard by its noise figure, so a quiet or settled boat is harder to hear, and only half as far when it keeps still. **Hearing it spots it**, through the same `Spot()` the watchers use, so it shows as a dark shape and can be fired on.
+- **What the player sees:**
+  - An inspect line, either "all quiet within 40 cells" or how many are moving, the nearest one's distance and compass bearing, and how many of them are boats under the water.
+  - On a boat that is under, the line adds "close enough to spot the boat" once the nearest contact is within its spotting distance.
+  - **One message when movement is first heard**, and again only after three quiet looks in a row, so one contact stopping and starting does not repeat the news.
+  - While the boat is selected, a ring shows the hearing range, and a red line runs to each place movement was heard. A line into the fog gives a bearing and lifts no fog.
+- **It makes no sound and gives nothing away.** That is the difference from the sonar set, still to come, whose ping will spot the boat that sends it.
+- **Limits:**
+  - It hears nothing on the world map.
+  - It works on the surface as well as under, so the array is no reason to dive.
+  - Mechanoid crews, who have no hearing, cannot listen.
+  - It does not hear neutral or friendly movement.
+- **Agent choices, owner to revise:** 40 cells; half on the move; land at half the range; a still boat at half; hearing from anyone aboard rather than a seat of its own; three quiet looks before the news repeats; the research's cost (1,500) and place (2, 0.5); the part's cost.
+
+**Diving puts out fires** (owner's go-ahead, 10 Nov 2026, offered as: lets the player dive a burning boat to put the fire out; stops a fire burning on a hull under the water; diving becomes an emergency drill as well as a way to hide). When the tanks finish flooding and the boat is fully under, every fire attached to it goes out and the player is told. Before that it can still burn. The helper, `AttachedFires.PutOut`, is in the Framework core for any mod's use. Fire already does no harm to a boat that is under (Framework 0.69.0).
+
 ## Chemistry the owner can judge
 
 Arithmetic from atomic masses, assuming the reactions run to completion. **Real use and yields are not yet sourced.** Every in-game figure built on these is authored.
@@ -148,13 +176,14 @@ Short list, highest consequence first. On a map with deep water and dev mode on.
 4. Place a blueprint in shallow water and check it can be built there.
 5. **Wet laboratory:** with marine science researched and two laboratory fittings on hand, fit it, then board a colonist with Intellectual 7 or more into a scientist's seat during a work shift, with a project chosen that needs no particular bench. The inspect panel should say they are at work and the project's progress should rise; it should rise more slowly while the boat moves. Try someone with Intellectual 6, and a project that needs the hi-tech bench, to see the refusal lines.
 6. **Aboard-only research:** with a colony project running at a bench, choose **advanced marine science**. Both should show as in progress; the bench project should keep rising at the bench, and advanced marine science only while a scientist sits in the Crawler's laboratory. Stop it from the research window. Save and load with it chosen, to check the choice is kept.
+7. **Listening array:** with hydrophones researched and one hydrophone array on hand, fit it. Select the Crawler: a ring should show the range and the inspect line should say all is quiet. Spawn a hostile raid in dev mode and dive. A message should come when they start moving within range. Red lines should point at them, and the line should say "close enough to spot the boat" as they come near. Set the surfaced Crawler alight with the dev tools' incendiary explosion, then dive: the fire should go out once it is fully under.
 
 ## Proposed order of building
 
 1. The enforcing check for upgrade research and the main D'thorga tab, in step with the session planning them; then the research projects, the craft recipes and the bare hull.
 2. Bottoming wheels and the scrubber, which use what the framework already has.
 3. The research vessel comp and the wet laboratory; then aboard-only research and the advanced laboratory (both built).
-4. Listening array, then the sonar set.
+4. Listening array (built), then the sonar set.
 5. Radar mast, then the salvage and the drill, once the ore question is answered.
 6. Reactor and the tie-ins.
 

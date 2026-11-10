@@ -65,11 +65,23 @@ def advanced_laboratory(draw):
         draw.rounded_rectangle((x - 16, 290, x + 16, 372), radius=14, fill=ORANGE, outline=OUTLINE, width=LINE // 2)
 
 
+def hydrophones(draw):
+    # A listener's headphones under the blue rings of a sound heard through the water.
+    for radius in (60, 115, 170):
+        draw.arc((256 - radius, 200 - radius, 256 + radius, 200 + radius), start=210, end=330, fill=WATER, width=LINE)
+    draw.arc((96, 196, 416, 516), start=180, end=360, fill=OUTLINE, width=LINE * 2)
+    draw.arc((106, 206, 406, 506), start=180, end=360, fill=HULL, width=LINE)
+    for x in (110, 402):
+        draw.rounded_rectangle((x - 50, 300, x + 50, 450), radius=30, fill=HULL, outline=OUTLINE, width=LINE)
+        draw.rounded_rectangle((x - 24, 330, x + 24, 420), radius=16, fill=ORANGE)
+
+
 ICONS = [
     ('BottomingWheels', bottoming_wheels, 'two rubber-tyred wheels on struts from a bar', CRAWLER),
     ('Scrubber', scrubber, 'three pale canisters with blue bands in a grey rack', CRAWLER),
     ('Laboratory', laboratory, 'a conical flask of blue water and an orange test tube on a grey bench', CRAWLER),
     ('AdvancedLaboratory', advanced_laboratory, 'a grey analyser cabinet with a blue trace on a dark screen and a tray of orange sample tubes', CRAWLER),
+    ('Hydrophones', hydrophones, 'grey headphones with orange ear pads under three blue rings of sound', CRAWLER),
 ]
 
 

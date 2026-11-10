@@ -43,6 +43,7 @@
       <Phobos_DiveStaleAirRate>1</Phobos_DiveStaleAirRate>
       <Phobos_FieldLabFactor>0</Phobos_FieldLabFactor>
       <Phobos_FieldLabGrade>0</Phobos_FieldLabGrade>
+      <Phobos_ListeningRange>0</Phobos_ListeningRange>
     </vehicleStats>
     <race>
       <baseBodySize>7</baseBodySize>
@@ -220,6 +221,21 @@
           <li>Phobos_FieldLabFactor</li>
         </categories>
       </li>
+      <li>
+        <!-- The listening array's place at the bow, outside the pressure hull: silent until the upgrade is fitted, and damage to it shortens what the boat hears. -->
+        <key>Hydrophones</key>
+        <label>hydrophones</label>
+        <health>30</health>
+        <depth>External</depth>
+        <hitbox>
+          <cells>
+            <li>(0, 4)</li>
+          </cells>
+        </hitbox>
+        <categories>
+          <li>Phobos_ListeningRange</li>
+        </categories>
+      </li>
     </components>
     <comps>
       <li Class="Vehicles.CompProperties_FueledTravel">
@@ -236,6 +252,7 @@
         <spottedSound>PhobosVehicles_SonarPing</spottedSound>
       </li>
       <li Class="Phobos.VehicleSystems.CompProperties_PhobosFieldLab" />
+      <li Class="Phobos.VehicleSystems.CompProperties_PhobosListening" />
     </comps>
   </Vehicles.VehicleDef>
 
