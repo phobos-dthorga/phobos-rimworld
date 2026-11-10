@@ -11,6 +11,8 @@
   <PhobosFramework_GasSourceModeExistingOnly>Never the framework's own gases</PhobosFramework_GasSourceModeExistingOnly>
   <PhobosFramework_GasSourceModeExistingOnlyDesc>The framework carries no gas of its own. Mods that depend on one fall back to a simpler estimate, or do nothing.</PhobosFramework_GasSourceModeExistingOnlyDesc>
 
+  <PhobosFramework_SettingSoundVolume>D'thorga sounds volume: {PERCENT}%</PhobosFramework_SettingSoundVolume>
+  <PhobosFramework_SettingSoundVolumeDesc>How loud the sounds of every D'thorga mod play: machines running, a switch clicking, a hull being found. At 100% each sits at the level of a comparable sound of the game's own, and the game's own volume sliders still apply on top. Turn it down to quieten them, to 0% to silence them, or up to {MAX}% to hear them more plainly. It changes at once; a sound already playing follows when its next loop begins.</PhobosFramework_SettingSoundVolumeDesc>
   <PhobosFramework_SettingShowGasOverlay>Show gases at the mouse (dev mode)</PhobosFramework_SettingShowGasOverlay>
   <PhobosFramework_SettingKeepGameLogAlive>Keep the game's log going after its message limit</PhobosFramework_SettingKeepGameLogAlive>
   <PhobosFramework_SettingKeepGameLogAliveDesc>RimWorld stops all logging, its Player.log file included, once a session has written 10,000 messages, and only loading a save turns it back on; one mod's repeating error can reach that in minutes, and then nothing that goes wrong afterwards is written down. With this on, the log is turned back on when that happens, at most {COUNT} times a session, and one line names the message that filled it. It changes nothing until the game has stopped its log. Off: the game's own limit stands.</PhobosFramework_SettingKeepGameLogAliveDesc>

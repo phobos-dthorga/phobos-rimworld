@@ -6,6 +6,7 @@ using Phobos.Framework;
 using Phobos.Framework.Debug;
 using Phobos.Framework.Items;
 using Phobos.Framework.Rules;
+using Phobos.Framework.Sounds;
 using Phobos.Framework.Vehicles.Rules;
 using RimWorld;
 using SmashTools;
@@ -1627,7 +1628,7 @@ public class CompPhobosVehicleSystems : VehicleComp
                     icon = SystemIcons.For(captured.iconPath),
                     isActive = () => IsOn(captured),
                     toggleAction = () => SetSwitch(captured, !IsOn(captured)),
-                };
+                }.AsPhysicalSwitch();
             }
         }
         if (Repairs.AnyFieldFixable)

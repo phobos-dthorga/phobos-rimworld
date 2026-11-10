@@ -5,6 +5,28 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.31.0] - 2026-11-10 - Draft
+
+The first vehicle sounds (owner, 10 November 2026). **Not yet tested in game.**
+
+### Added
+
+- **The generator truck runs audibly**: set up with its engine running, it sounds like the game's own chemfuel generator, from the truck. It falls quiet when packed up, out of fuel or too damaged to run.
+- **A soft ping when watchers spot the Seabed Crawler** under water, at the hull, alongside the message saying it has been seen.
+- D'thorga Framework's sounds volume setting scales both.
+
+### Compatibility and limits
+
+- Both sounds were made with generative AI (Stable Audio 3 Small SFX, run on the owner's PC) and picked by the owner, then levelled against the game's chemfuel generator and its long-range mineral scanner; the records beside the sound files say how. Not yet heard in game.
+
+### Dependencies
+
+- Needs D'thorga Framework 0.71.0 or later, for the sound fields and the volume setting.
+
+### Save compatibility
+
+- Safe on an existing save: nothing new is saved. A generator truck already set up starts its sound at its next power check, within a few seconds.
+
 ## [0.30.2] - 2026-11-10 - Draft
 
 A figure for D'thorga Framework 0.70.0. **Not yet tested in game.**

@@ -4,7 +4,7 @@ Vehicles that keep running only while they are looked after. It adds one vehicle
 vehicles of other mods you already drive the systems that match what they really are, on top of the general systems D'thorga
 Framework gives every vehicle.
 
-Version 0.30.2, built 10 November 2026 for House D'thorga. **Not yet tested in game.**
+Version 0.31.0, built 10 November 2026 for House D'thorga. **Not yet tested in game.**
 
 ## Read this first (gotchas)
 
@@ -105,6 +105,7 @@ Every source and simplification is in the loadout files under `Mods/`.
 - **It stops if** the tank runs dry, the engine or the traction generator is destroyed, or damage takes it under 240 W. Its inspect pane says which.
 - **Upgrades:** a larger generator (1,600 W), a cable reel (you pick where the cable end goes, up to 12 cells away), and a battery buffer that keeps the grid alive for a time when the engine cannot.
 - **A vehicle of ours parked beside the cable end or a conduit on its grid counts as plugged in**, as with any grid. Vehicle Framework's own electric vehicles need a battery on the grid to charge.
+- **You can hear it running** (new in 0.31.0): while it is set up and its engine runs, it sounds like the game's chemfuel generator, from the truck, and falls quiet when it stops. D'thorga Framework's **D'thorga sounds volume** setting turns it down or off.
 - **If you remove the mod with one set up,** pack it up first, or a cable end is left behind that does nothing.
 
 ## The survey truck
@@ -154,6 +155,8 @@ Every source and simplification is in the loadout files under `Mods/`.
 - **Advanced laboratory** comes after the wet laboratory and is made from one analyser bench. It takes on anything a hi-tech research bench can, at a hi-tech bench's speed.
 
 **Research done only at sea.** Its research, **advanced marine science**, can only be done by scientists seated in a laboratory aboard. **Choose it in the research tab as usual: the benches at home keep working on the colony's own project**, and both show as in progress. If you use Nice Research Tab, choose it directly instead of queueing it ahead of other projects, or the queue waits for it.
+
+**When watchers spot it under water, a soft ping sounds at the hull** (new in 0.31.0), with the message saying it has been seen. D'thorga Framework's **D'thorga sounds volume** setting turns it down or off.
 
 More upgrades are designed, including sonar and radar, and are not built yet.
 

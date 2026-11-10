@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- A physical switch on a vehicle or rig (Sounds/SwitchSounds). Agent-made with Stable Audio 3 Small SFX and picked by the owner
+       (10 Nov 2026); levelled by scripts/art/export_sound.py against the game's Checkbox_TurnedOn, whose volume and camera
+       placement these copy. The record beside the sound file says how it was made. Off plays the same click a little lower. -->
+  <SoundDef>
+    <defName>PhobosFramework_SwitchOn</defName>
+    <maxSimultaneous>1</maxSimultaneous>
+    <subSounds>
+      <li>
+        <onCamera>True</onCamera>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Framework/SwitchClick</clipPath>
+          </li>
+        </grains>
+        <volumeRange>14~14</volumeRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+
+  <SoundDef>
+    <defName>PhobosFramework_SwitchOff</defName>
+    <maxSimultaneous>1</maxSimultaneous>
+    <subSounds>
+      <li>
+        <onCamera>True</onCamera>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Framework/SwitchClick</clipPath>
+          </li>
+        </grains>
+        <volumeRange>14~14</volumeRange>
+        <pitchRange>0.9~0.9</pitchRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+</Defs>

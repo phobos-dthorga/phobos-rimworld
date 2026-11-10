@@ -232,7 +232,9 @@
       <li Class="Vehicles.CompProperties_UpgradeTree">
         <def>Phobos_SeabedCrawler_UpgradeTree</def>
       </li>
-      <li Class="Phobos.VehicleSystems.CompProperties_PhobosSubmersible" />
+      <li Class="Phobos.VehicleSystems.CompProperties_PhobosSubmersible">
+        <spottedSound>PhobosVehicles_SonarPing</spottedSound>
+      </li>
       <li Class="Phobos.VehicleSystems.CompProperties_PhobosFieldLab" />
     </comps>
   </Vehicles.VehicleDef>

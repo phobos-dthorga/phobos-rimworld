@@ -230,6 +230,12 @@ Declined, with reasons: outside Python frameworks (click, pandas, rich), because
 library alone; clap for the Rust program, which has one command; and sharing code with Phobos Scope, whose HTML
 reports for people differ from the kit's Markdown for agents.
 
+**Sound tools (10 Nov 2026, this repository's `scripts/art/`, ffmpeg underneath; [sound generation](sound-generation.md)):**
+`game_sounds.py` finds and measures RimWorld's own sounds where they lie in its `Assets.zip` archives and reads its SoundDefs, so a
+question such as "how loud is the game's generator?" is one command, not an extraction (no game file is kept). `sound_review.py`
+measures and flags generated candidates for a listening page; `export_sound.py` levels the owner's picks against the game's sounds
+and writes them into the mods with records. They are RimWorld-specific, so they live here rather than in phobos-modkit.
+
 ## Where the code lives
 
 The full rules are in phobos-modkit's own documents (`docs/project-direction.md` and `docs/migration.md`

@@ -311,6 +311,61 @@ class ProcessorRunTests(unittest.TestCase):
         self.assertGreater(art_run.free_ram_gb(), 0)
 
 
+import export_sound  # noqa: E402
+import game_sounds  # noqa: E402
+
+
+class GameSoundTests(unittest.TestCase):
+    """scripts/art/game_sounds.py: reading the game's SoundDefs and working out how loud they play."""
+
+    def test_ranges_read_as_the_game_writes_them(self):
+        self.assertEqual(game_sounds.parse_range('13'), (13.0, 13.0))
+        self.assertEqual(game_sounds.parse_range('10~20'), (10.0, 20.0))
+        self.assertEqual(game_sounds.parse_range('', (50.0, 50.0)), (50.0, 50.0))
+        self.assertIsNone(game_sounds.parse_range(None))
+
+    def test_effective_loudness_adds_the_sounddef_gain(self):
+        # The game's chemfuel generator, measured 10 Nov 2026: -18.8 LUFS through volume 13.
+        self.assertEqual(game_sounds.effective_lufs(-18.8, 13), -36.5)
+        self.assertIsNone(game_sounds.effective_lufs(-math.inf, 13))
+
+    def test_a_folder_grain_plays_every_clip_in_it(self):
+        entries = {'Misc/MoisturePump/a': 1, 'Misc/MoisturePump/b': 1, 'Misc/Other': 1}
+        self.assertEqual(game_sounds.clips_for({'class': 'AudioGrain_Folder', 'path': 'Misc/MoisturePump'}, entries),
+                         ['Misc/MoisturePump/a', 'Misc/MoisturePump/b'])
+        self.assertEqual(game_sounds.clips_for({'class': 'AudioGrain_Clip', 'path': 'Misc/Other'}, entries), ['Misc/Other'])
+        self.assertEqual(game_sounds.clips_for({'class': 'AudioGrain_Clip', 'path': 'Missing'}, entries), [])
+
+
+class ExportLevelTests(unittest.TestCase):
+    """scripts/art/export_sound.py: levelling a picked sound to sit beside a game sound."""
+
+    def test_the_file_level_undoes_our_sounddef_gain(self):
+        # Beside the hemopump (-37.1), 3 dB quieter, through volume 50: the file itself sits at about -34.1.
+        self.assertAlmostEqual(export_sound.file_level_for(-37.1, -3, 50), -34.08, places=2)
+        self.assertAlmostEqual(export_sound.file_level_for(-36.5, 0, 13), -18.78, places=2)
+
+    def test_the_gain_never_pushes_the_peak_past_the_ceiling(self):
+        self.assertEqual(export_sound.gain_for({'lufs': -30.0, 'true_peak': -20.0}, target_lufs=-20.0), 10.0)
+        self.assertEqual(export_sound.gain_for({'lufs': -30.0, 'true_peak': -5.0}, target_lufs=-20.0), 4.0)
+        self.assertEqual(export_sound.gain_for({'lufs': -70.0, 'true_peak': -10.0}, target_peak=-4.0), 6.0)
+        with self.assertRaises(ValueError):
+            export_sound.gain_for({'lufs': -math.inf, 'true_peak': -math.inf}, target_lufs=-20.0)
+
+    def test_a_oneshot_is_cut_mixed_to_mono_and_trimmed(self):
+        chain = export_sound.oneshot_filter(cut=[0.98, 1.3], filter_chain='lowpass=f=11000')
+        self.assertTrue(chain.startswith('lowpass=f=11000,pan=mono'))
+        self.assertIn('atrim=start=0.98:end=1.3', chain)
+        self.assertIn('silenceremove', chain)
+        self.assertTrue(chain.endswith(f'aresample={export_sound.RATE}'))
+
+    def test_the_shipped_sounds_match_their_records(self):
+        exports = Path(ROOT, 'assets', 'phobos-sounds', 'exports.json')
+        specs = json.loads(exports.read_text(encoding='utf-8'))['exports']
+        records = json.loads(exports.with_name('exported.json').read_text(encoding='utf-8'))
+        self.assertEqual(export_sound.check(specs, records), [])
+
+
 @unittest.skipUnless(sound_review.find_ffmpeg(), 'ffmpeg is not installed')
 class ReviewEndToEndTests(unittest.TestCase):
     def test_a_made_up_hum_gets_every_review_file_and_a_page(self):

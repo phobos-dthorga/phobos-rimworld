@@ -5,6 +5,24 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.71.0] - 2026-11-10 - Draft
+
+The first D'thorga sounds, and one volume setting for them all (owner, 10 November 2026). **Not yet tested in game.**
+
+### Added
+
+- **A switch click** on vehicles' physical switches: lights, heaters and other electrical loads, the rig's overdrive and the survey truck's long-range mode. A switch turned off clicks a little lower. Orders and requests, such as asking for a service, keep the game's own tick.
+- **Setting: D'thorga sounds volume** (100%), in D'thorga Framework's settings, after the gas source choices. It scales every D'thorga sound, in every D'thorga mod, from silent (0%) to half as loud again (150%), at once. At 100% each sound sits at the level of a comparable sound of the game's own, and the game's volume sliders still apply on top.
+- For modders: a mod extension that puts a SoundDef under the volume setting, a helper that plays a loop while a condition holds, a call that gives a toggle the switch click, and two new fields: a running sound for the generator truck and a spotted sound for submersibles.
+
+### Compatibility and limits
+
+- The click was made with generative AI (Stable Audio 3 Small SFX, run on the owner's PC) and picked by the owner, then levelled against the game's own toggle tick; the record beside the sound file says how. Not yet heard in game.
+
+### Save compatibility
+
+- Safe on an existing save: nothing new is saved, and the setting lives with the mod's other settings.
+
 ## [0.70.0] - 2026-11-10 - Draft
 
 The last vehicle crosslinks and a protection alert, in one batch (owner, 10 November 2026). **Not yet tested in game.**

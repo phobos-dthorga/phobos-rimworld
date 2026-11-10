@@ -312,6 +312,7 @@
       </li>
       <li Class="Phobos.VehicleSystems.CompProperties_PhobosGeneratorSet">
         <cableEndDef>Phobos_GeneratorStub</cableEndDef>
+        <runningSound>PhobosVehicles_GeneratorSetRunning</runningSound>
         <vitalParts>
           <li>Engine</li>
           <li>TractionGenerator</li>

@@ -19,10 +19,13 @@ public class FrameworkSettings : ModSettings
     public bool keepGameLogAlive = true;
     /// <summary>Write every colonist's thoughts beside each save, for the mood report (Mood/ColonyMoodFile; owner, 10 Nov 2026; on by default, agent default).</summary>
     public bool writeColonyMoodFile = true;
+    /// <summary>Every D'thorga sound's volume, from none to half as loud again (Sounds/PhobosSoundVolume; AGENTS.md's volume setting; agent default 1).</summary>
+    public float soundVolume = 1f;
 
     public override void ExposeData()
     {
         base.ExposeData();
+        Scribe_Values.Look(ref soundVolume, "PhobosFramework_SoundVolume", 1f);
         Scribe_Values.Look(ref writeColonyMoodFile, "PhobosFramework_WriteColonyMoodFile", true);
         Scribe_Values.Look(ref gasSourceMode, "PhobosFramework_GasSourceMode", GasSourceMode.Automatic);
         Scribe_Values.Look(ref showGasOverlay, "PhobosFramework_ShowGasOverlay", false);
@@ -41,7 +44,7 @@ public class FrameworkSettings : ModSettings
 public class FrameworkMod : Mod
 {
     public const string PackageId = "PhobosDthorga.Framework";
-    public const string ModVersion = "0.70.0";
+    public const string ModVersion = "0.71.0";
     public const string LogPrefix = "[D'thorga Framework]";
     public static readonly Phobos.Logging.PhobosLog Logger = Logging.Logs.For("D'thorga Framework");
 
@@ -74,6 +77,9 @@ public class FrameworkMod : Mod
         const string moodFile = "colony mood file at each save, for the mood report";
         if (Settings.writeColonyMoodFile) report.On(moodFile);
         else report.Off(moodFile, "setting");
+        Sounds.PhobosSoundVolume.Apply(Settings.soundVolume);
+        report.On("sound volume " + SoundVolumeRule.Percent(Settings.soundVolume) + "% on " + Sounds.PhobosSoundVolume.Marked + " sound" +
+                  (Sounds.PhobosSoundVolume.Marked == 1 ? "" : "s"));
         report.Log();
     }
 
@@ -91,6 +97,15 @@ public class FrameworkMod : Mod
             {
                 Settings.gasSourceMode = mode;
             }
+        }
+        listing.Gap();
+        listing.Label("PhobosFramework_SettingSoundVolume".Translate(SoundVolumeRule.Percent(Settings.soundVolume).Named("PERCENT")),
+            tooltip: "PhobosFramework_SettingSoundVolumeDesc".Translate(SoundVolumeRule.Percent(SoundVolumeRule.MaxFactor).Named("MAX")));
+        float volume = SoundVolumeRule.Clamp(listing.Slider(Settings.soundVolume, 0f, SoundVolumeRule.MaxFactor));
+        if (volume != Settings.soundVolume)
+        {
+            Settings.soundVolume = volume;
+            Sounds.PhobosSoundVolume.Apply(volume);
         }
         listing.Gap();
         listing.CheckboxLabeled("PhobosFramework_SettingShowGasOverlay".Translate(), ref Settings.showGasOverlay,

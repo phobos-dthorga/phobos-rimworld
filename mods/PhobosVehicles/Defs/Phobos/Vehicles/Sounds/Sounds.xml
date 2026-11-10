@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- Agent-made with Stable Audio 3 Small SFX and picked by the owner (10 Nov 2026); levelled by scripts/art/export_sound.py against
+       the game sound each names, whose volume, distance and voice limits these copy. The records beside the sound files say how
+       each was made. The volume extension lets D'thorga Framework's sound volume setting scale them. -->
+
+  <!-- The generator truck while it is set up and its engine runs, beside the game's ChemfuelFiredGenerator_Ambience. -->
+  <SoundDef>
+    <defName>PhobosVehicles_GeneratorSetRunning</defName>
+    <sustain>True</sustain>
+    <context>MapOnly</context>
+    <priorityMode>PrioritizeNearest</priorityMode>
+    <maxSimultaneous>1</maxSimultaneous>
+    <maxVoices>1</maxVoices>
+    <subSounds>
+      <li>
+        <muteWhenPaused>True</muteWhenPaused>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Vehicles/GeneratorSetRunning</clipPath>
+          </li>
+        </grains>
+        <volumeRange>13</volumeRange>
+        <distRange>10~20</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+
+  <!-- A submerged hull is spotted: one soft ping at the hull, beside the game's ScannerLongRangeMineral_Start. -->
+  <SoundDef>
+    <defName>PhobosVehicles_SonarPing</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>1</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Vehicles/SonarPing</clipPath>
+          </li>
+        </grains>
+        <volumeRange>20</volumeRange>
+        <distRange>10~30</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+</Defs>

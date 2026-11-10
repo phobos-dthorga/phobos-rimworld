@@ -6,6 +6,26 @@ entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.12.0] - 2026-11-10 - Draft
+
+The oxygen concentrator's sound (owner, 10 November 2026). **Not yet tested in game.**
+
+### Added
+
+- **The oxygen concentrator hums while it is powered**, quietly: a little under the game's hemopump, as it sits beside sleeping patients. It stops when switched off or when the power fails. D'thorga Framework's sounds volume setting scales it.
+
+### Compatibility and limits
+
+- The hum was made with generative AI (Stable Audio 3 Small SFX, run on the owner's PC) and picked by the owner, then levelled against the game's hemopump; the record beside the sound file says how. Not yet heard in game.
+
+### Dependencies
+
+- Needs D'thorga Framework 0.71.0 or later, for its volume setting.
+
+### Save compatibility
+
+- Safe on an existing save: nothing new is saved. Concentrators already built start humming when powered.
+
 ## [0.11.2] - 2026-11-10 - Draft
 
 Storage categories (owner, 10 November 2026). **Not yet tested in game.**

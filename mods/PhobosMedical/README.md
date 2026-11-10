@@ -8,7 +8,7 @@ It replaces five earlier mods, merged into it on 7 November 2026 ([why](../../do
 Burns and Smoke**, **D'thorga Emergency Dosing**, **D'thorga Triage**, **D'thorga Medical Equipment** and **D'thorga Medical Save
 Bridge**. Each is now a part of this mod, with its own section below.
 
-Version 0.11.2, built 10 November 2026 for House D'thorga. **Not yet tested in game as D'thorga Medical.** What the owner tested of
+Version 0.12.0, built 10 November 2026 for House D'thorga. **Not yet tested in game as D'thorga Medical.** What the owner tested of
 the five parts before the merge is in each part's section; the parts' behaviour is unchanged, except that the save bridge now asks
 first.
 
@@ -567,6 +567,11 @@ burn dressings for burns; and an electrolyser and a liquid oxygen store to make 
 
 One unit of oxygen is one canister, about one patient-hour on a mask. Costs, power and work are authored; the sources behind the
 rest are in the [design record](../../docs/development/medical-equipment.md).
+
+**The oxygen concentrator hums quietly while it is powered** (new in 0.12.0; not yet tested in game), a little under the game's
+hemopump, as it sits beside sleeping patients; it stops when switched off or when the power fails. D'thorga Framework's
+**D'thorga sounds volume** setting turns it down or off. The hum was made with generative AI on the owner's PC and picked by the
+owner ([how](../../docs/development/sound-generation.md)).
 
 #### Oxygen: who gets it
 

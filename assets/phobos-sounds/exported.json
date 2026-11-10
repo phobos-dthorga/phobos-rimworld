@@ -1,0 +1,184 @@
+{
+  "ConcentratorHum": {
+    "name": "ConcentratorHum",
+    "target": "mods/PhobosMedical/Common/Sounds/Phobos/Medical/ConcentratorHum.ogg",
+    "sha256": "60af0af6f62fa1f3016000a56a5f0ab617d968d27fe92cd14e03dcc036c92468",
+    "master_sha256": "d1989dcbf06d1ef91131a7bf31eb0203eeb09b350dcf6e4397ab2d2b49f8f651",
+    "date": "2026-11-10",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "loop_span_s": [
+        0.2,
+        6.5917
+      ],
+      "loop_match": 0.962,
+      "levelled_by": "loudness, to -34.08 LUFS",
+      "gain_db": 6.32
+    },
+    "reference": {
+      "defName": "Hemopump_Ambience",
+      "effective": "-37.1 LUFS",
+      "volume": [
+        50.0,
+        50.0
+      ],
+      "distance": [
+        5.0,
+        20.0
+      ],
+      "channels": 1
+    },
+    "result": {
+      "lufs": -34.1,
+      "true_peak": -22.4,
+      "seconds": 6.14,
+      "flags": [],
+      "seam_dip_db": 0.2,
+      "loop_gap_s": 0.0
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 12,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "Medical oxygen concentrator running quietly in a small room, soft steady electric motor hum with a gentle rhythmic puff of air every few seconds, muffled and subdued, close perspective, calm and continuous. Length: 8 seconds"
+    }
+  },
+  "GeneratorSetRunning": {
+    "name": "GeneratorSetRunning",
+    "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/GeneratorSetRunning.ogg",
+    "sha256": "226b52b88906d3aa129a890601316841fa03b1274337d4dc3a2d913ffb19706e",
+    "master_sha256": "09f18288398aec190e781354040524f49ba03bec21e9fcf3f6acd2986dc6946f",
+    "date": "2026-11-10",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "loop_span_s": [
+        0.2,
+        6.6685
+      ],
+      "loop_match": 0.423,
+      "levelled_by": "loudness, to -18.78 LUFS",
+      "gain_db": 6.42
+    },
+    "reference": {
+      "defName": "ChemfuelFiredGenerator_Ambience",
+      "effective": "-36.5 LUFS",
+      "volume": [
+        13.0,
+        13.0
+      ],
+      "distance": [
+        10.0,
+        20.0
+      ],
+      "channels": 1
+    },
+    "result": {
+      "lufs": -18.9,
+      "true_peak": -2.9,
+      "seconds": 6.22,
+      "flags": [],
+      "seam_dip_db": 0.94,
+      "loop_gap_s": 0.0
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 11,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "Small diesel generator running steadily at moderate load outdoors, heard from a few metres away, low even chugging engine rumble with a soft exhaust thrum and a faint cooling fan whir, continuous and unchanging, no starting or stopping, calm. Length: 8 seconds"
+    }
+  },
+  "SonarPing": {
+    "name": "SonarPing",
+    "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/SonarPing.ogg",
+    "sha256": "36126f211fd89d095d36187280d7c91f89d3b8e94cd3b4339654c3780029dfb0",
+    "master_sha256": "655b427b8abd54a7305508dbc03b0f5696e30d4fe9e8034babba233f9058f91f",
+    "date": "2026-11-10",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "loudness, to -21.92 LUFS",
+      "gain_db": 2.68
+    },
+    "reference": {
+      "defName": "ScannerLongRangeMineral_Start",
+      "effective": "-35.9 LUFS",
+      "volume": [
+        20.0,
+        20.0
+      ],
+      "distance": [
+        10.0,
+        30.0
+      ],
+      "channels": 1
+    },
+    "result": {
+      "lufs": -21.9,
+      "true_peak": -5.4,
+      "seconds": 4.06,
+      "flags": [],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 11,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "Single soft sonar ping heard from inside a small submarine hull, a gentle rounded tone with a long fading underwater echo, quiet and calm, no alarm. Length: 4 seconds"
+    }
+  },
+  "SwitchClick": {
+    "name": "SwitchClick",
+    "target": "mods/PhobosFramework/Common/Sounds/Phobos/Framework/SwitchClick.ogg",
+    "sha256": "7da16829eb6eab746c879370bcb6af363b109a30002610570cc526c09a00c8d4",
+    "master_sha256": "60ebfe1d7c3f7df2efffe7da21cebbe18d2640325d88eee376a1a99953a440c4",
+    "date": "2026-11-10",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "cut_s": [
+        0.98,
+        1.3
+      ],
+      "levelled_by": "true peak, to -3.7 dBTP",
+      "gain_db": 9.1
+    },
+    "reference": {
+      "defName": "Checkbox_TurnedOn",
+      "effective": "peak -18.8 dB",
+      "volume": [
+        14.0,
+        14.0
+      ],
+      "distance": null,
+      "channels": 1
+    },
+    "result": {
+      "lufs": -70.0,
+      "true_peak": -4.0,
+      "seconds": 0.13,
+      "flags": [
+        "highs",
+        "spiky"
+      ],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 11,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "One soft toggle switch click on a metal control panel, a short dry close-up click with a small muffled thunk, quiet, dead room with no echo. Length: 2 seconds"
+    }
+  }
+}

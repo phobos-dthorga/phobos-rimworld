@@ -214,14 +214,14 @@ def lowered_graph(octaves=LOWERED_OCTAVES):
             '[lo][down]amix=inputs=2:normalize=0[out]')
 
 
-def loop_graph(gain, crossfade=LOOP_CROSSFADE_S, span=None, coherent=False):
+def loop_graph(gain, crossfade=LOOP_CROSSFADE_S, span=None, coherent=False, pre=''):
     """A circular crossfade: the sound from crossfade onwards, with its last crossfade seconds faded into its first. The end
     then runs straight into the start, so it repeats without a gap. With span (start, end in seconds), only that part is used,
     since a model often fades in late and out early. Ends that match (coherent) are faded at equal gain, as alike signals add;
-    unrelated ends at equal power, as unrelated ones add by energy."""
+    unrelated ends at equal power, as unrelated ones add by energy. pre is any filter chain to run first, ending in a comma."""
     trim = f'atrim=start={span[0]:.4f}:end={span[1]:.4f},asetpts=N/SR/TB,' if span else ''
     curve = 'tri' if coherent else 'qsin'
-    return (f'[0:a]{trim}volume={gain or 0}dB,asplit=2[a][b];[a]atrim=start={crossfade},asetpts=N/SR/TB[body];'
+    return (f'[0:a]{pre}{trim}volume={gain or 0}dB,asplit=2[a][b];[a]atrim=start={crossfade},asetpts=N/SR/TB[body];'
             f'[b]atrim=end={crossfade},asetpts=N/SR/TB[head];[body][head]acrossfade=d={crossfade}:c1={curve}:c2={curve}[out]')
 
 

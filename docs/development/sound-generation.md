@@ -210,15 +210,35 @@ then picked ElevenLabs Sound Effects v2 loops (paid). Stable Audio 3 is the loca
 Synthesis from code is not offered as the main route again. A physical engine model such as Ange Yaghi's
 [Engine Simulator](https://github.com/ange-yaghi/engine-sim) (MIT) is a different thing and stays an idea for engines only.
 
-## Into the game (not built)
+## Into the game (built 10 Nov 2026; not yet tested in game)
 
 - RimWorld loads `.wav`, `.mp3` and `.ogg` from a mod (`Verse.ModContentLoader.AcceptableExtensionsAudio`, read with
   `scripts/query-code.py`). A picked sound would ship as `.ogg` under the mod's `Sounds/` folder with a `SoundDef`.
 - **RimWorld's own mix is quiet** (owner, 10 Nov 2026), and the owner judges candidates at the volume they play at, where the
   review copies at −20 LUFS sound fine. The export levels against the game's sounds, not against the review level.
-- An export step (cut, level against comparable vanilla sounds, mono for sounds from one spot if the game's spatial sound
-  wants it, encode) is still to build. Whether mono suits RimWorld's positioned sounds is unverified.
-- The volume setting AGENTS.md requires lives in the owning mod's settings.
+- **The game's own sounds are measurable.** RimWorld 1.7 keeps them as plain Ogg Vorbis in `Assets.zip` (`Resources/Sounds/`)
+  and each DLC's `Assets.zip` (`Sounds/`), and its SoundDefs as XML. **`python scripts/art/game_sounds.py`** finds and measures them
+  (`find`, `measure`, `sounddef`), copying a clip to a temporary file only for ffmpeg and deleting it at once, so no game file reaches
+  the repository. A SoundDef plays at its `volumeRange / 100` (`Verse.Sound.SubSoundDef.RandomizedVolume`), so a sound's
+  **effective loudness** is its clip's plus 20 log10 of that. Every game sound measured was **mono at 44,100 Hz**.
+- **`python scripts/art/export_sound.py assets/phobos-sounds/exports.json`** writes each pick into its mod: clean-up filter, mono
+  mix, the matched loop or the one-shot cut, levelled so that through our SoundDef's volume it sits at the chosen game sound's
+  effective loudness plus an offset (by true peak for a sound under 0.4 s, which loudness meters ignore), Ogg Vorbis, the review
+  flags run on the result (a clip, a whine, a seam dip or a gap refuses it), and a `.record.md` beside the file as for textures.
+  `--check` verifies the files against `assets/phobos-sounds/exported.json`.
+- **The volume setting is one, in D'thorga Framework** ("D'thorga sounds volume", 100%, 0 to 150%): every SoundDef of ours carries
+  `Phobos.Framework.Sounds.PhobosSoundVolumeExtension`, and the setting scales its sub-sounds from their authored volume.
+
+| Sound | Mod | Hook | Beside the game's | Offset | Volume |
+| --- | --- | --- | --- | --- | --- |
+| Concentrator hum (loop) | Medical 0.12.0 | the power comp's `soundAmbientPowered`: plays while powered, no code | Hemopump_Ambience, −37.1 LUFS | −3 dB | 50 |
+| Generator truck running (loop) | Vehicles 0.31.0 | `runningSound` on the generator set: plays at the truck while set up and running | ChemfuelFiredGenerator_Ambience, −36.5 LUFS | 0 | 13 |
+| Sonar ping (one-shot) | Vehicles 0.31.0 | `spottedSound` on submersibles: once at the hull when it is spotted | ScannerLongRangeMineral_Start, −35.9 LUFS | 0 | 20 |
+| Switch click (one-shot, on camera) | Framework 0.71.0 | `Command_Toggle`'s own sounds, through `AsPhysicalSwitch()`: vehicle electrical loads, rig overdrive, survey long range; off plays at 0.9 pitch | Checkbox_TurnedOn, by peak | −2 dB | 14 |
+
+The generator truck's cable end never ticks, so the game's own power-plant sound (`soundAmbientProducingPower`) would never start
+there; a running generator should sound from the truck anyway. The ping's moment (a hull spotted) is an agent choice, since no
+sonar is built yet; the owner may move it to a sonar or listening upgrade when one exists.
 
 ## Open questions
 

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Phobos.Framework.Sounds;
 using RimWorld;
 using Verse;
 
@@ -38,7 +39,7 @@ public static class RigGizmos
             icon = SystemIcons.For(Icons + "Overdrive"),
             isActive = () => work.Overdrive,
             toggleAction = () => work.SetOverdrive(!work.Overdrive),
-        };
+        }.AsPhysicalSwitch();
         string? refused = work.Overdrive ? null : work.CannotOverdrive();
         if (refused != null) command.Disable(refused);
         return command;
@@ -51,7 +52,7 @@ public static class RigGizmos
         icon = SystemIcons.For(Icons + "SurveyLongRange"),
         isActive = () => survey.LongRange,
         toggleAction = () => survey.SetLongRange(!survey.LongRange),
-    };
+    }.AsPhysicalSwitch();
 
     public static Gizmo TargetButton(CompPhobosSurveyTruck survey)
     {

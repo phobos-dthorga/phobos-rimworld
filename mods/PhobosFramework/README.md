@@ -5,7 +5,7 @@ colonist is breathing, makes fires fill roofed rooms with the game's own smoke w
 carries carbon monoxide from fires, holds the per-person care choices the D'thorga medical mods offer, and holds the small
 helpers every D'thorga mod shares.
 
-Version 0.70.0, built 10 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
+Version 0.71.0, built 10 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
 oxygen working through Burns and Smoke and Medical Equipment (5 November 2026). The health layer new in 0.3.0 and the **vehicle
 systems new in 0.9.0, and their engines, drivetrains and gas turbines new in 0.11.0, are not yet tested in game.** The rest is read from the game's and the mods' code.
 
@@ -268,6 +268,12 @@ The new button on a vehicle's **Dashboard** opens **Fittings and tunes**, for an
 
 ## Settings
 
+- **D'thorga sounds volume** (0.71.0, 100%; not yet tested in game): how loud every D'thorga mod's sounds play, from silent (0%)
+  to half as loud again (150%), changed at once. At 100% each sits at the level of a comparable sound of the game's own, under the game's
+  own volume sliders. The sounds so far: a switch click on vehicles' physical switches (lights, heaters, the rig's overdrive, the survey
+  truck's long range; orders keep the game's tick), and in D'thorga Medical and D'thorga Vehicles a running concentrator, a running
+  generator truck and a ping when a submarine is spotted. All were made with generative AI on the owner's PC and picked by the owner;
+  `docs/development/sound-generation.md` says how.
 - **Where gases come from**: Automatic, always the framework's own gases, or never (then mods that depend on one fall back
   to a simpler estimate).
 - **Show gases at the mouse (dev mode)**: a small label follows the mouse naming every gas in that cell's room.

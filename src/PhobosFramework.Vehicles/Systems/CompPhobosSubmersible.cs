@@ -7,6 +7,7 @@ using Vehicles;
 using Vehicles.World;
 using Verse;
 using Verse.AI;
+using Verse.Sound;
 
 namespace Phobos.VehicleSystems;
 
@@ -25,6 +26,8 @@ public static class SubmersibleDefOf
 /// <summary>Makes a Sea vehicle a submersible. Every figure is authored for play; the design record says why each is what it is (docs/development/submarine-framework.md).</summary>
 public class CompProperties_PhobosSubmersible : VehicleCompProperties
 {
+    /// <summary>Plays once at the hull when watchers spot it; null for silence.</summary>
+    public SoundDef? spottedSound;
     /// <summary>How long the tanks take to flood.</summary>
     public float diveSeconds = 15f;
     /// <summary>How long the tanks take to blow.</summary>
@@ -225,6 +228,7 @@ public class CompPhobosSubmersible : VehicleComp
         if (spottedTold) return;
         spottedTold = true;
         Tell("PhobosSubmersible_Spotted".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve(), MessageTypeDefOf.NegativeEvent);
+        if (Vehicle.Spawned) Props.spottedSound?.PlayOneShot(new TargetInfo(Vehicle.Position, Vehicle.Map));
     }
 
     float WatcherVisibility

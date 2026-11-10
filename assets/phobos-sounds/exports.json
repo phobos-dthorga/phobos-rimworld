@@ -1,0 +1,54 @@
+{
+  "note": "What scripts/art/export_sound.py writes into the mods, from the owner's picks (picks.json). reference is the game's SoundDef each sits beside, offset_db how far from its effective loudness (agent choices, explained in why), volume our SoundDef's volume (as the game reads it, out of 100). Levels measured with scripts/art/game_sounds.py on 10 Nov 2026.",
+  "exports": [
+    {
+      "name": "ConcentratorHum",
+      "use": "Oxygen concentrator, running",
+      "picked": "2026-11-10",
+      "candidate": "concentrator-hum-fast/concentrator-hum-fast-12.flac",
+      "kind": "loop",
+      "target": "mods/PhobosMedical/Common/Sounds/Phobos/Medical/ConcentratorHum.ogg",
+      "reference": "Hemopump_Ambience",
+      "offset_db": -3,
+      "volume": 50,
+      "why": "Biotech's hemopump is the nearest machine the game has: a medical pump that hums while it works. 3 dB quieter, because a concentrator sits beside sleeping patients."
+    },
+    {
+      "name": "GeneratorSetRunning",
+      "use": "Generator truck, set up and making power",
+      "picked": "2026-11-10",
+      "candidate": "generator-loop-fast/generator-loop-fast-11.flac",
+      "kind": "loop",
+      "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/GeneratorSetRunning.ogg",
+      "reference": "ChemfuelFiredGenerator_Ambience",
+      "offset_db": 0,
+      "volume": 13,
+      "why": "The game's own chemfuel generator, a diesel of about the same size."
+    },
+    {
+      "name": "SonarPing",
+      "use": "A submerged hull is spotted",
+      "picked": "2026-11-10",
+      "candidate": "sonar-ping-fast/sonar-ping-fast-11.flac",
+      "kind": "oneshot",
+      "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/SonarPing.ogg",
+      "reference": "ScannerLongRangeMineral_Start",
+      "offset_db": 0,
+      "volume": 20,
+      "why": "The long-range mineral scanner's start, the game's nearest detection sound."
+    },
+    {
+      "name": "SwitchClick",
+      "use": "A physical switch on a vehicle or rig turned on or off",
+      "picked": "2026-11-10",
+      "candidate": "switch-click-fast/switch-click-fast-11.flac",
+      "kind": "oneshot",
+      "cut": [0.98, 1.30],
+      "target": "mods/PhobosFramework/Common/Sounds/Phobos/Framework/SwitchClick.ogg",
+      "reference": "Checkbox_TurnedOn",
+      "offset_db": -2,
+      "volume": 14,
+      "why": "The game's own toggle tick, matched by peak. The third of the three clicks (1.02 s) stands alone and decays cleanly; 2 dB under the tick, as a click has more body."
+    }
+  ]
+}

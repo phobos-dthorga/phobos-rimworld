@@ -11,4 +11,8 @@ and the review aids: [sound generation](../../docs/development/sound-generation.
 | --- | --- | --- |
 | [pilot.json](requests/pilot.json) | Generator loop, oxygen concentrator hum, sonar ping, switch click; full-steps and distilled engines, seeds 11 and 12 | Run 10 Nov 2026 on the processor (16 sounds, 8 minutes). **The owner picked** the distilled concentrator hum (12; the full-steps seed 12 with an 11 kHz low-pass is the runner-up), the distilled generator loop (11), sonar ping (11) and switch click (11), all on 10 Nov 2026: [picks.json](picks.json). Findings in the [design record](../../docs/development/sound-generation.md#the-pilot-10-nov-2026) |
 
+**Shipped (10 Nov 2026, not yet tested in game):** the four picks, written into D'thorga Framework, Medical and Vehicles by
+`python scripts/art/export_sound.py exports.json` ([exports.json](exports.json) says where each goes and which game sound it sits
+beside; [exported.json](exported.json) holds every figure). Measure the game's own sounds with `python scripts/art/game_sounds.py`.
+
 Every sound shipped from here keeps its record (engine, model hash, prompt, seed, date) and says it was made with generative AI.

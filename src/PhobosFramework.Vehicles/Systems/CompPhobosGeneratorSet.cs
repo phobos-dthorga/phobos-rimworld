@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Phobos.Framework.Debug;
 using Phobos.Framework.Rules;
+using Phobos.Framework.Sounds;
 using RimWorld;
 using SmashTools;
 using Vehicles;
@@ -36,6 +37,8 @@ public class CompProperties_PhobosGeneratorSet : VehicleCompProperties
     /// <summary>Part without which the cable cannot be run out.</summary>
     public string reelPart = "CableReel";
     public GraphicDataOverlay? setUpOverlay;
+    /// <summary>Loops at the truck while it is set up and its engine runs; null for silence.</summary>
+    public SoundDef? runningSound;
 
     public CompProperties_PhobosGeneratorSet() => compClass = typeof(CompPhobosGeneratorSet);
 }
@@ -62,6 +65,7 @@ public class CompPhobosGeneratorSet : CompPhobosSetUp, IVehicleEngineDemand
     float load;
     float outputWatts;
     string? fault;
+    readonly SustainedSound runningLoop = new();
 
     public CompProperties_PhobosGeneratorSet Props => (CompProperties_PhobosGeneratorSet)props;
     protected override string DeployedSaveKey => "PhobosGeneratorDeployed";
@@ -162,6 +166,7 @@ public class CompPhobosGeneratorSet : CompPhobosSetUp, IVehicleEngineDemand
         load = 0f;
         outputWatts = 0f;
         fault = null;
+        runningLoop.End();
         ShowSetUp(false);
         if (cableEnd is { Destroyed: false }) cableEnd.Destroy(DestroyMode.Vanish);
         cableEnd = null;
@@ -211,6 +216,7 @@ public class CompPhobosGeneratorSet : CompPhobosSetUp, IVehicleEngineDemand
             load = step.Load;
             outputWatts = step.OutputWatts;
             running = offered > 0f;
+            runningLoop.Set(Props.runningSound, running, Vehicle);
             float used = WorkFuel(step.FuelUsed, DaysPerRareTick);
             if (used > 0f) Vehicle.CompFueledTravel?.ConsumeFuel(used);
         }

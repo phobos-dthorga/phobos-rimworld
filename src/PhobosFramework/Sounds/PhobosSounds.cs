@@ -1,0 +1,86 @@
+using System.Collections.Generic;
+using Phobos.Framework.Rules;
+using RimWorld;
+using Verse;
+using Verse.Sound;
+
+namespace Phobos.Framework.Sounds;
+
+/// <summary>Marks a SoundDef as one of ours, so the framework's sound volume setting scales it. Every D'thorga SoundDef carries it, in
+/// whichever mod defines it; the sound's authored volume is set against a comparable game sound (docs/development/sound-generation.md).</summary>
+public class PhobosSoundVolumeExtension : DefModExtension
+{
+}
+
+/// <summary>The one volume setting for every D'thorga sound (AGENTS.md: quiet, never alarming, with a volume setting). It scales each
+/// marked SoundDef's sub-sounds from their authored volume, which it remembers, so applying it again never compounds. A sound already
+/// playing takes the new volume when its next sample starts.</summary>
+public static class PhobosSoundVolume
+{
+    static readonly Dictionary<SubSoundDef, FloatRange> Authored = new();
+
+    /// <summary>How many SoundDefs the setting reached the last time it was applied, for the load line.</summary>
+    public static int Marked { get; private set; }
+
+    public static void Apply(float factor)
+    {
+        int marked = 0;
+        foreach (SoundDef def in DefDatabase<SoundDef>.AllDefsListForReading)
+        {
+            if (!def.HasModExtension<PhobosSoundVolumeExtension>()) continue;
+            marked++;
+            foreach (SubSoundDef sub in def.subSounds)
+            {
+                if (!Authored.TryGetValue(sub, out FloatRange authored)) Authored[sub] = authored = sub.volumeRange;
+                sub.volumeRange = new FloatRange(SoundVolumeRule.Scale(authored.min, factor), SoundVolumeRule.Scale(authored.max, factor));
+            }
+        }
+        Marked = marked;
+    }
+}
+
+/// <summary>A looping sound that plays while a condition holds: started when it becomes true, ended when it becomes false or its thing
+/// leaves. Nothing about it is saved; the owner calls <see cref="Set"/> when its state is worked out again after a load.</summary>
+public sealed class SustainedSound
+{
+    Sustainer? sustainer;
+
+    public bool Playing => sustainer is { Ended: false };
+
+    public void Set(SoundDef? def, bool on, Thing where)
+    {
+        if (on && def != null && where.Spawned)
+        {
+            if (!Playing) sustainer = def.TrySpawnSustainer(SoundInfo.InMap(where, MaintenanceType.None));
+            return;
+        }
+        End();
+    }
+
+    public void End()
+    {
+        if (Playing) sustainer!.End();
+        sustainer = null;
+    }
+}
+
+[DefOf]
+public static class PhobosSoundDefOf
+{
+    public static SoundDef PhobosFramework_SwitchOn = null!;
+    public static SoundDef PhobosFramework_SwitchOff = null!;
+
+    static PhobosSoundDefOf() => DefOfHelper.EnsureInitializedInCtor(typeof(PhobosSoundDefOf));
+}
+
+/// <summary>The click of a physical switch, for toggles that stand for one on a machine (a vehicle's lights, a rig's mode). Orders and
+/// requests keep the game's own tick, as they are not switches.</summary>
+public static class SwitchSounds
+{
+    public static Command_Toggle AsPhysicalSwitch(this Command_Toggle toggle)
+    {
+        toggle.turnOnSound = PhobosSoundDefOf.PhobosFramework_SwitchOn;
+        toggle.turnOffSound = PhobosSoundDefOf.PhobosFramework_SwitchOff;
+        return toggle;
+    }
+}
