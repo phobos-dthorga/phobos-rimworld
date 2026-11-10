@@ -254,6 +254,32 @@
       <li Class="Phobos.VehicleSystems.CompProperties_PhobosFieldLab" />
       <li Class="Phobos.VehicleSystems.CompProperties_PhobosListening" />
     </comps>
+    <!-- Its own voice in place of the inherited draft blips; the engine loops are played by D'thorga Framework from the
+         extension below, so they follow rpm and load (docs/development/sound-catalogue.md). -->
+    <soundOneShotsOnEvent Inherit="False">
+      <li>
+        <key>IgnitionOn</key>
+        <value>PhobosVehicles_SeabedCrawlerEngineStart</value>
+      </li>
+      <li>
+        <key>IgnitionOff</key>
+        <value>PhobosVehicles_SeabedCrawlerEngineStop</value>
+      </li>
+      <li>
+        <key>PawnEntered</key>
+        <value>PhobosVehicles_SeabedCrawlerDoor</value>
+      </li>
+      <li>
+        <key>PawnExited</key>
+        <value>PhobosVehicles_SeabedCrawlerDoor</value>
+      </li>
+    </soundOneShotsOnEvent>
+    <modExtensions>
+      <li Class="Phobos.VehicleSystems.PhobosEngineSoundExtension">
+        <idleSound>PhobosVehicles_SeabedCrawlerEngineIdle</idleSound>
+        <loadSound>PhobosVehicles_SeabedCrawlerEngineLoad</loadSound>
+      </li>
+    </modExtensions>
   </Vehicles.VehicleDef>
 
   <Vehicles.VehicleBuildDef ParentName="VehicleBoatBaseBuildable">

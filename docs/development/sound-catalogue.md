@@ -17,8 +17,8 @@ owner's picks can name it.
   game), generating candidates is the cheap part; the owner's listening and picking is the real work, so batches stay small.
 - **Three kinds of hook,** marked in every table: **XML** needs only Defs (Vehicle Framework's events, the game's own sound fields);
   **Code** needs a small C# hook (a sound field on one of our comps or jobs); **Feature** waits for the thing itself to be built.
-- **Vehicle Framework cannot change an engine's pitch with speed** (outstanding work V7, still deferred), so engine sounds are
-  steady loops for now.
+- **Engines follow rpm and load** (Framework 0.76.0): our systems play our vehicles' engine loops and steer their pitch and blend, so
+  Vehicle Framework's own event loops (which nothing can change while they play) are not used for them.
 
 ## What the L-ATV does, and what we can do
 
@@ -264,6 +264,17 @@ on `Effect_RefuseDraft` (played from the dashboard's key only, as Vehicle Framew
 rule `StageSpec.Severe`; the jump-start sounds in its job. One-shots and the chime wait ten seconds after a vehicle spawns or loads.
 The setting "Vehicle system sounds on other mods' vehicles too" (on) sits under "D'thorga sounds volume". The game's own references
 for very short clips are matched by true peak (`scripts/art/game_sounds.py`), since a loudness meter reads them as silence.
+
+## Phase 1 shipped (11 Nov 2026; Framework 0.76.0, Vehicles 0.35.0; not yet tested in game)
+
+Engines, doors, air brakes and sputter for all seven vehicles (S20 to S25, S31 to S36, S41 to S46, S53 to S57, S63 to S67, S69 to S72;
+the test hull shares the Crawler's). **Engines follow the drive** (owner's choice: two loops blended): `PhobosEngineSoundExtension` on a
+vehicle's Def names an idling and a labouring loop, D'thorga Framework plays them in place of a Vehicle Framework event loop and sets
+`PhobosEnginePitch` (0.9 at idle to 1.35 at rated, from `CompPhobosVehicleSystems.EngineRpm`) and `PhobosEngineLoad` (from `EngineLoad`,
+which covers rigs working while parked and accessories), and each loop's SoundDef maps them onto pitch and volume every frame, as the
+game's wind turbine does. Doors are one clip with two or three takes (owner's choice). The borrowed Vanilla Vehicles Expanded tanker
+engine is gone. The export now tries four crossfade lengths and both curves and keeps the join with the least dip: a rough, pulsing
+engine (the tipper) joined cleanly at one length and dipped at others.
 
 ## Owner's answers (10 Nov 2026)
 

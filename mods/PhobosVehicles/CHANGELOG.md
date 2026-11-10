@@ -5,6 +5,31 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.35.0] - 2026-11-11 - Draft
+
+Our vehicles' own voices (owner, 10 and 11 November 2026). **Not yet tested in game.**
+
+### Added
+
+- **Every vehicle sounds like itself**: its own engine start and stop, its own door (two or three takes, so a crew boarding does not repeat one sound), and an engine that follows the drive, an idling loop and a labouring one blended by load and pitched by rpm. The bulk tanker, tipper and drill rig hiss their air brakes as they stop; the trucks splutter when they run out of fuel. The Seabed Crawler powers up and down, hums and churns, and has its own hatch; the submarine test hull shares the Crawler's (owner's choice).
+- The generator truck's engine falls quiet while it is set up, where its own running sound plays.
+
+### Changed
+
+- **The bulk tanker no longer borrows an engine sound from Vanilla Vehicles Expanded**; it has its own.
+
+### Compatibility and limits
+
+- All made with generative AI (Stable Audio 3 Small SFX, run on the owner's PC), picked by the owner from the agent's shortlist, levelled against the game's chemfuel generator, metal being set down and its small hiss; the records beside the sound files say how. Four engine loops (the tanker's and generator truck's labouring, the tipper's idling and labouring) carry a little clipping from the model, accepted by the owner for now. Not yet heard in game.
+
+### Dependencies
+
+- Needs D'thorga Framework 0.76.0 or later.
+
+### Save compatibility
+
+- Safe on an existing save: nothing new is saved.
+
 ## [0.34.0] - 2026-11-10 - Draft
 
 Sounds from D'thorga Framework 0.75.0 (owner, 10 November 2026). **Not yet tested in game.**

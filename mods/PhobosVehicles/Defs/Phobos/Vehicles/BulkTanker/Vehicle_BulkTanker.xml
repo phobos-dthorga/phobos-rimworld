@@ -322,6 +322,10 @@
         <emptyKilograms>9000</emptyKilograms>
         <ratedKilowatts>224</ratedKilowatts>
       </li>
+      <li Class="Phobos.VehicleSystems.PhobosEngineSoundExtension">
+        <idleSound>PhobosVehicles_TankerEngineIdle</idleSound>
+        <loadSound>PhobosVehicles_TankerEngineLoad</loadSound>
+      </li>
     </modExtensions>
     <comps>
       <li Class="Vehicles.CompProperties_FueledTravel">
@@ -444,6 +448,34 @@
         </hosesOut>
       </li>
     </comps>
+    <!-- Its own voice in place of the inherited draft blips; the engine loops are played by D'thorga Framework from the
+         extension below, so they follow rpm and load (docs/development/sound-catalogue.md). -->
+    <soundOneShotsOnEvent Inherit="False">
+      <li>
+        <key>IgnitionOn</key>
+        <value>PhobosVehicles_TankerEngineStart</value>
+      </li>
+      <li>
+        <key>IgnitionOff</key>
+        <value>PhobosVehicles_TankerEngineStop</value>
+      </li>
+      <li>
+        <key>PawnEntered</key>
+        <value>PhobosVehicles_TankerDoor</value>
+      </li>
+      <li>
+        <key>PawnExited</key>
+        <value>PhobosVehicles_TankerDoor</value>
+      </li>
+      <li>
+        <key>Braking</key>
+        <value>PhobosVehicles_TankerAirBrake</value>
+      </li>
+      <li>
+        <key>OutOfFuel</key>
+        <value>PhobosVehicles_TankerSputter</value>
+      </li>
+    </soundOneShotsOnEvent>
   </Vehicles.VehicleDef>
 
   <Vehicles.VehicleBuildDef ParentName="VehicleBaseBuildable">

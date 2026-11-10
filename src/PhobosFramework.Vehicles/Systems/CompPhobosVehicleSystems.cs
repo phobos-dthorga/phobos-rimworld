@@ -387,6 +387,7 @@ public class CompPhobosVehicleSystems : VehicleComp
         base.PostSpawnSetup(respawningAfterLoad);
         if (Usable) spawned.AddOrUpdate(Vehicle, this);
         VehicleSystemSounds.Settle(this);
+        engineSound ??= EngineSound.For(Vehicle);
         fittings?.ReapplyGrades();    // before anything clamps a part to its maximum
         RestorePartHealths();
         if (Usable && !respawningAfterLoad) Fittings.RollEnemySet();
@@ -398,6 +399,7 @@ public class CompPhobosVehicleSystems : VehicleComp
         // A gravship lifts its pipes along with it.
         if (mode != DestroyMode.WillReplace) VehiclePipes.Leave(this);
         VehicleSystemSounds.EndAll(this);
+        engineSound?.End();
         base.PostDeSpawn(map, mode);
         if (Vehicle != null) spawned.Remove(Vehicle);
     }
@@ -453,6 +455,16 @@ public class CompPhobosVehicleSystems : VehicleComp
         bool active = train.IsAircraft ? Vehicle.Drafted || train.AircraftRunning : Vehicle.Spawned && Vehicle.vehiclePather != null && Vehicle.vehiclePather.Moving;
         if (!active && train.Cap >= 1f && train.Result.Rpm <= 0) return;
         using (PhobosTiming.Measure("vehicle sample")) train.Sample();
+    }
+
+    /// <summary>The engine sound that follows rpm and load, for a vehicle whose Def names one (derived, never saved).</summary>
+    EngineSound? engineSound;
+
+    /// <summary>Every tick, only for a vehicle with an engine sound of ours: a few assignments that keep its pitch and blend gliding.</summary>
+    public override void CompTick()
+    {
+        base.CompTick();
+        engineSound?.Tick(this);
     }
 
     public override void CompTickRare()

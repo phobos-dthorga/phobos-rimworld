@@ -298,6 +298,12 @@
         <emptyKilograms>6000</emptyKilograms>
         <ratedKilowatts>100</ratedKilowatts>
       </li>
+      <li Class="Phobos.VehicleSystems.PhobosEngineSoundExtension">
+        <idleSound>PhobosVehicles_GeneratorSetEngineIdle</idleSound>
+        <loadSound>PhobosVehicles_GeneratorSetEngineLoad</loadSound>
+        <!-- Set up, its engine is the generator, which has its own running sound. -->
+        <silentWhileWorking>true</silentWhileWorking>
+      </li>
     </modExtensions>
     <comps>
       <li Class="Vehicles.CompProperties_FueledTravel">
@@ -328,6 +334,30 @@
         </setUpOverlay>
       </li>
     </comps>
+    <!-- Its own voice in place of the inherited draft blips; the engine loops are played by D'thorga Framework from the
+         extension below, so they follow rpm and load (docs/development/sound-catalogue.md). -->
+    <soundOneShotsOnEvent Inherit="False">
+      <li>
+        <key>IgnitionOn</key>
+        <value>PhobosVehicles_GeneratorSetEngineStart</value>
+      </li>
+      <li>
+        <key>IgnitionOff</key>
+        <value>PhobosVehicles_GeneratorSetEngineStop</value>
+      </li>
+      <li>
+        <key>PawnEntered</key>
+        <value>PhobosVehicles_GeneratorSetDoor</value>
+      </li>
+      <li>
+        <key>PawnExited</key>
+        <value>PhobosVehicles_GeneratorSetDoor</value>
+      </li>
+      <li>
+        <key>OutOfFuel</key>
+        <value>PhobosVehicles_GeneratorSetSputter</value>
+      </li>
+    </soundOneShotsOnEvent>
   </Vehicles.VehicleDef>
 
   <Vehicles.VehicleBuildDef ParentName="VehicleBaseBuildable">

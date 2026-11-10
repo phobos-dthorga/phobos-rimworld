@@ -1,0 +1,1201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- Our vehicles' own voices (docs/development/sound-catalogue.md, phase 1). Agent-made with Stable Audio 3 Small SFX, taken from
+       the agent's shortlist by the owner (10 and 11 Nov 2026), levelled by scripts/art/export_sound.py against the game sound each
+       comment names; the records beside the sound files say how. The engine loops follow the engine: D'thorga Framework sets
+       PhobosEnginePitch (a pitch multiplier from rpm) and PhobosEngineLoad (0 to 1), and these mappings fade the idling loop out and
+       the labouring one in, as the game's own wind turbine maps its output. Doors list their takes; the game picks one at random. -->
+
+  <!-- Tanker: against the game's ChemfuelFiredGenerator_Ambience (engine), Metal_Drop (door), HissSmall (air brakes). -->
+  <SoundDef>
+    <defName>PhobosVehicles_TankerEngineStart</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Vehicles/Tanker/EngineStart</clipPath>
+          </li>
+        </grains>
+        <volumeRange>13</volumeRange>
+        <distRange>10~30</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+
+  <SoundDef>
+    <defName>PhobosVehicles_TankerEngineIdle</defName>
+    <sustain>True</sustain>
+    <context>MapOnly</context>
+    <priorityMode>PrioritizeNearest</priorityMode>
+    <maxSimultaneous>4</maxSimultaneous>
+    <subSounds>
+      <li>
+        <muteWhenPaused>True</muteWhenPaused>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Vehicles/Tanker/EngineIdle</clipPath>
+          </li>
+        </grains>
+        <volumeRange>13</volumeRange>
+        <distRange>10~30</distRange>
+        <paramMappings>
+          <li>
+            <inParam Class="SoundParamSource_External">
+              <inParamName>PhobosEnginePitch</inParamName>
+              <defaultValue>1</defaultValue>
+            </inParam>
+            <outParam Class="SoundParamTarget_Pitch" />
+            <paramUpdateMode>Constant</paramUpdateMode>
+            <curve>
+              <points>
+                  <li>(0,0)</li>
+                  <li>(3,3)</li>
+              </points>
+            </curve>
+          </li>
+          <li>
+            <inParam Class="SoundParamSource_External">
+              <inParamName>PhobosEngineLoad</inParamName>
+              <defaultValue>0</defaultValue>
+            </inParam>
+            <outParam Class="SoundParamTarget_Volume" />
+            <paramUpdateMode>Constant</paramUpdateMode>
+            <curve>
+              <points>
+                  <li>(0,1)</li>
+                  <li>(1,0.35)</li>
+              </points>
+            </curve>
+          </li>
+        </paramMappings>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+
+  <SoundDef>
+    <defName>PhobosVehicles_TankerEngineLoad</defName>
+    <sustain>True</sustain>
+    <context>MapOnly</context>
+    <priorityMode>PrioritizeNearest</priorityMode>
+    <maxSimultaneous>4</maxSimultaneous>
+    <subSounds>
+      <li>
+        <muteWhenPaused>True</muteWhenPaused>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Vehicles/Tanker/EngineLoad</clipPath>
+          </li>
+        </grains>
+        <volumeRange>13</volumeRange>
+        <distRange>10~30</distRange>
+        <paramMappings>
+          <li>
+            <inParam Class="SoundParamSource_External">
+              <inParamName>PhobosEnginePitch</inParamName>
+              <defaultValue>1</defaultValue>
+            </inParam>
+            <outParam Class="SoundParamTarget_Pitch" />
+            <paramUpdateMode>Constant</paramUpdateMode>
+            <curve>
+              <points>
+                  <li>(0,0)</li>
+                  <li>(3,3)</li>
+              </points>
+            </curve>
+          </li>
+          <li>
+            <inParam Class="SoundParamSource_External">
+              <inParamName>PhobosEngineLoad</inParamName>
+              <defaultValue>0</defaultValue>
+            </inParam>
+            <outParam Class="SoundParamTarget_Volume" />
+            <paramUpdateMode>Constant</paramUpdateMode>
+            <curve>
+              <points>
+                  <li>(0,0)</li>
+                  <li>(0.2,0.15)</li>
+                  <li>(1,1)</li>
+              </points>
+            </curve>
+          </li>
+        </paramMappings>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+
+  <SoundDef>
+    <defName>PhobosVehicles_TankerEngineStop</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Vehicles/Tanker/EngineStop</clipPath>
+          </li>
+        </grains>
+        <volumeRange>13</volumeRange>
+        <distRange>10~30</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+
+  <SoundDef>
+    <defName>PhobosVehicles_TankerDoor</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Vehicles/Tanker/DoorA</clipPath>
+          </li>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Vehicles/Tanker/DoorB</clipPath>
+          </li>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Vehicles/Tanker/DoorC</clipPath>
+          </li>
+        </grains>
+        <volumeRange>25</volumeRange>
+        <distRange>5~20</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+
+  <SoundDef>
+    <defName>PhobosVehicles_TankerAirBrake</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Vehicles/Tanker/AirBrake</clipPath>
+          </li>
+        </grains>
+        <volumeRange>15</volumeRange>
+        <distRange>10~30</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+
+  <SoundDef>
+    <defName>PhobosVehicles_TankerSputter</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Vehicles/Tanker/Sputter</clipPath>
+          </li>
+        </grains>
+        <volumeRange>13</volumeRange>
+        <distRange>10~30</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+
+  <!-- Tipper: against the game's ChemfuelFiredGenerator_Ambience (engine), Metal_Drop (door), HissSmall (air brakes). -->
+  <SoundDef>
+    <defName>PhobosVehicles_TipperEngineStart</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Vehicles/Tipper/EngineStart</clipPath>
+          </li>
+        </grains>
+        <volumeRange>13</volumeRange>
+        <distRange>10~30</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+
+  <SoundDef>
+    <defName>PhobosVehicles_TipperEngineIdle</defName>
+    <sustain>True</sustain>
+    <context>MapOnly</context>
+    <priorityMode>PrioritizeNearest</priorityMode>
+    <maxSimultaneous>4</maxSimultaneous>
+    <subSounds>
+      <li>
+        <muteWhenPaused>True</muteWhenPaused>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Vehicles/Tipper/EngineIdle</clipPath>
+          </li>
+        </grains>
+        <volumeRange>13</volumeRange>
+        <distRange>10~30</distRange>
+        <paramMappings>
+          <li>
+            <inParam Class="SoundParamSource_External">
+              <inParamName>PhobosEnginePitch</inParamName>
+              <defaultValue>1</defaultValue>
+            </inParam>
+            <outParam Class="SoundParamTarget_Pitch" />
+            <paramUpdateMode>Constant</paramUpdateMode>
+            <curve>
+              <points>
+                  <li>(0,0)</li>
+                  <li>(3,3)</li>
+              </points>
+            </curve>
+          </li>
+          <li>
+            <inParam Class="SoundParamSource_External">
+              <inParamName>PhobosEngineLoad</inParamName>
+              <defaultValue>0</defaultValue>
+            </inParam>
+            <outParam Class="SoundParamTarget_Volume" />
+            <paramUpdateMode>Constant</paramUpdateMode>
+            <curve>
+              <points>
+                  <li>(0,1)</li>
+                  <li>(1,0.35)</li>
+              </points>
+            </curve>
+          </li>
+        </paramMappings>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+
+  <SoundDef>
+    <defName>PhobosVehicles_TipperEngineLoad</defName>
+    <sustain>True</sustain>
+    <context>MapOnly</context>
+    <priorityMode>PrioritizeNearest</priorityMode>
+    <maxSimultaneous>4</maxSimultaneous>
+    <subSounds>
+      <li>
+        <muteWhenPaused>True</muteWhenPaused>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Vehicles/Tipper/EngineLoad</clipPath>
+          </li>
+        </grains>
+        <volumeRange>13</volumeRange>
+        <distRange>10~30</distRange>
+        <paramMappings>
+          <li>
+            <inParam Class="SoundParamSource_External">
+              <inParamName>PhobosEnginePitch</inParamName>
+              <defaultValue>1</defaultValue>
+            </inParam>
+            <outParam Class="SoundParamTarget_Pitch" />
+            <paramUpdateMode>Constant</paramUpdateMode>
+            <curve>
+              <points>
+                  <li>(0,0)</li>
+                  <li>(3,3)</li>
+              </points>
+            </curve>
+          </li>
+          <li>
+            <inParam Class="SoundParamSource_External">
+              <inParamName>PhobosEngineLoad</inParamName>
+              <defaultValue>0</defaultValue>
+            </inParam>
+            <outParam Class="SoundParamTarget_Volume" />
+            <paramUpdateMode>Constant</paramUpdateMode>
+            <curve>
+              <points>
+                  <li>(0,0)</li>
+                  <li>(0.2,0.15)</li>
+                  <li>(1,1)</li>
+              </points>
+            </curve>
+          </li>
+        </paramMappings>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+
+  <SoundDef>
+    <defName>PhobosVehicles_TipperEngineStop</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Vehicles/Tipper/EngineStop</clipPath>
+          </li>
+        </grains>
+        <volumeRange>13</volumeRange>
+        <distRange>10~30</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+
+  <SoundDef>
+    <defName>PhobosVehicles_TipperDoor</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Vehicles/Tipper/DoorA</clipPath>
+          </li>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Vehicles/Tipper/DoorB</clipPath>
+          </li>
+        </grains>
+        <volumeRange>25</volumeRange>
+        <distRange>5~20</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+
+  <SoundDef>
+    <defName>PhobosVehicles_TipperAirBrake</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Vehicles/Tipper/AirBrake</clipPath>
+          </li>
+        </grains>
+        <volumeRange>15</volumeRange>
+        <distRange>10~30</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+
+  <SoundDef>
+    <defName>PhobosVehicles_TipperSputter</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Vehicles/Tipper/Sputter</clipPath>
+          </li>
+        </grains>
+        <volumeRange>13</volumeRange>
+        <distRange>10~30</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+
+  <!-- DrillRig: against the game's ChemfuelFiredGenerator_Ambience (engine), Metal_Drop (door), HissSmall (air brakes). -->
+  <SoundDef>
+    <defName>PhobosVehicles_DrillRigEngineStart</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Vehicles/DrillRig/EngineStart</clipPath>
+          </li>
+        </grains>
+        <volumeRange>13</volumeRange>
+        <distRange>10~30</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+
+  <SoundDef>
+    <defName>PhobosVehicles_DrillRigEngineIdle</defName>
+    <sustain>True</sustain>
+    <context>MapOnly</context>
+    <priorityMode>PrioritizeNearest</priorityMode>
+    <maxSimultaneous>4</maxSimultaneous>
+    <subSounds>
+      <li>
+        <muteWhenPaused>True</muteWhenPaused>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Vehicles/DrillRig/EngineIdle</clipPath>
+          </li>
+        </grains>
+        <volumeRange>13</volumeRange>
+        <distRange>10~30</distRange>
+        <paramMappings>
+          <li>
+            <inParam Class="SoundParamSource_External">
+              <inParamName>PhobosEnginePitch</inParamName>
+              <defaultValue>1</defaultValue>
+            </inParam>
+            <outParam Class="SoundParamTarget_Pitch" />
+            <paramUpdateMode>Constant</paramUpdateMode>
+            <curve>
+              <points>
+                  <li>(0,0)</li>
+                  <li>(3,3)</li>
+              </points>
+            </curve>
+          </li>
+          <li>
+            <inParam Class="SoundParamSource_External">
+              <inParamName>PhobosEngineLoad</inParamName>
+              <defaultValue>0</defaultValue>
+            </inParam>
+            <outParam Class="SoundParamTarget_Volume" />
+            <paramUpdateMode>Constant</paramUpdateMode>
+            <curve>
+              <points>
+                  <li>(0,1)</li>
+                  <li>(1,0.35)</li>
+              </points>
+            </curve>
+          </li>
+        </paramMappings>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+
+  <SoundDef>
+    <defName>PhobosVehicles_DrillRigEngineLoad</defName>
+    <sustain>True</sustain>
+    <context>MapOnly</context>
+    <priorityMode>PrioritizeNearest</priorityMode>
+    <maxSimultaneous>4</maxSimultaneous>
+    <subSounds>
+      <li>
+        <muteWhenPaused>True</muteWhenPaused>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Vehicles/DrillRig/EngineLoad</clipPath>
+          </li>
+        </grains>
+        <volumeRange>13</volumeRange>
+        <distRange>10~30</distRange>
+        <paramMappings>
+          <li>
+            <inParam Class="SoundParamSource_External">
+              <inParamName>PhobosEnginePitch</inParamName>
+              <defaultValue>1</defaultValue>
+            </inParam>
+            <outParam Class="SoundParamTarget_Pitch" />
+            <paramUpdateMode>Constant</paramUpdateMode>
+            <curve>
+              <points>
+                  <li>(0,0)</li>
+                  <li>(3,3)</li>
+              </points>
+            </curve>
+          </li>
+          <li>
+            <inParam Class="SoundParamSource_External">
+              <inParamName>PhobosEngineLoad</inParamName>
+              <defaultValue>0</defaultValue>
+            </inParam>
+            <outParam Class="SoundParamTarget_Volume" />
+            <paramUpdateMode>Constant</paramUpdateMode>
+            <curve>
+              <points>
+                  <li>(0,0)</li>
+                  <li>(0.2,0.15)</li>
+                  <li>(1,1)</li>
+              </points>
+            </curve>
+          </li>
+        </paramMappings>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+
+  <SoundDef>
+    <defName>PhobosVehicles_DrillRigEngineStop</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Vehicles/DrillRig/EngineStop</clipPath>
+          </li>
+        </grains>
+        <volumeRange>13</volumeRange>
+        <distRange>10~30</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+
+  <SoundDef>
+    <defName>PhobosVehicles_DrillRigDoor</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Vehicles/DrillRig/DoorA</clipPath>
+          </li>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Vehicles/DrillRig/DoorB</clipPath>
+          </li>
+        </grains>
+        <volumeRange>25</volumeRange>
+        <distRange>5~20</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+
+  <SoundDef>
+    <defName>PhobosVehicles_DrillRigAirBrake</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Vehicles/DrillRig/AirBrake</clipPath>
+          </li>
+        </grains>
+        <volumeRange>15</volumeRange>
+        <distRange>10~30</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+
+  <SoundDef>
+    <defName>PhobosVehicles_DrillRigSputter</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Vehicles/DrillRig/Sputter</clipPath>
+          </li>
+        </grains>
+        <volumeRange>13</volumeRange>
+        <distRange>10~30</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+
+  <!-- SurveyTruck: against the game's ChemfuelFiredGenerator_Ambience (engine), Metal_Drop (door), HissSmall (air brakes). -->
+  <SoundDef>
+    <defName>PhobosVehicles_SurveyTruckEngineStart</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Vehicles/SurveyTruck/EngineStart</clipPath>
+          </li>
+        </grains>
+        <volumeRange>13</volumeRange>
+        <distRange>10~30</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+
+  <SoundDef>
+    <defName>PhobosVehicles_SurveyTruckEngineIdle</defName>
+    <sustain>True</sustain>
+    <context>MapOnly</context>
+    <priorityMode>PrioritizeNearest</priorityMode>
+    <maxSimultaneous>4</maxSimultaneous>
+    <subSounds>
+      <li>
+        <muteWhenPaused>True</muteWhenPaused>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Vehicles/SurveyTruck/EngineIdle</clipPath>
+          </li>
+        </grains>
+        <volumeRange>13</volumeRange>
+        <distRange>10~30</distRange>
+        <paramMappings>
+          <li>
+            <inParam Class="SoundParamSource_External">
+              <inParamName>PhobosEnginePitch</inParamName>
+              <defaultValue>1</defaultValue>
+            </inParam>
+            <outParam Class="SoundParamTarget_Pitch" />
+            <paramUpdateMode>Constant</paramUpdateMode>
+            <curve>
+              <points>
+                  <li>(0,0)</li>
+                  <li>(3,3)</li>
+              </points>
+            </curve>
+          </li>
+          <li>
+            <inParam Class="SoundParamSource_External">
+              <inParamName>PhobosEngineLoad</inParamName>
+              <defaultValue>0</defaultValue>
+            </inParam>
+            <outParam Class="SoundParamTarget_Volume" />
+            <paramUpdateMode>Constant</paramUpdateMode>
+            <curve>
+              <points>
+                  <li>(0,1)</li>
+                  <li>(1,0.35)</li>
+              </points>
+            </curve>
+          </li>
+        </paramMappings>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+
+  <SoundDef>
+    <defName>PhobosVehicles_SurveyTruckEngineLoad</defName>
+    <sustain>True</sustain>
+    <context>MapOnly</context>
+    <priorityMode>PrioritizeNearest</priorityMode>
+    <maxSimultaneous>4</maxSimultaneous>
+    <subSounds>
+      <li>
+        <muteWhenPaused>True</muteWhenPaused>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Vehicles/SurveyTruck/EngineLoad</clipPath>
+          </li>
+        </grains>
+        <volumeRange>13</volumeRange>
+        <distRange>10~30</distRange>
+        <paramMappings>
+          <li>
+            <inParam Class="SoundParamSource_External">
+              <inParamName>PhobosEnginePitch</inParamName>
+              <defaultValue>1</defaultValue>
+            </inParam>
+            <outParam Class="SoundParamTarget_Pitch" />
+            <paramUpdateMode>Constant</paramUpdateMode>
+            <curve>
+              <points>
+                  <li>(0,0)</li>
+                  <li>(3,3)</li>
+              </points>
+            </curve>
+          </li>
+          <li>
+            <inParam Class="SoundParamSource_External">
+              <inParamName>PhobosEngineLoad</inParamName>
+              <defaultValue>0</defaultValue>
+            </inParam>
+            <outParam Class="SoundParamTarget_Volume" />
+            <paramUpdateMode>Constant</paramUpdateMode>
+            <curve>
+              <points>
+                  <li>(0,0)</li>
+                  <li>(0.2,0.15)</li>
+                  <li>(1,1)</li>
+              </points>
+            </curve>
+          </li>
+        </paramMappings>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+
+  <SoundDef>
+    <defName>PhobosVehicles_SurveyTruckEngineStop</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Vehicles/SurveyTruck/EngineStop</clipPath>
+          </li>
+        </grains>
+        <volumeRange>13</volumeRange>
+        <distRange>10~30</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+
+  <SoundDef>
+    <defName>PhobosVehicles_SurveyTruckDoor</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Vehicles/SurveyTruck/DoorA</clipPath>
+          </li>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Vehicles/SurveyTruck/DoorB</clipPath>
+          </li>
+        </grains>
+        <volumeRange>25</volumeRange>
+        <distRange>5~20</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+
+  <SoundDef>
+    <defName>PhobosVehicles_SurveyTruckSputter</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Vehicles/SurveyTruck/Sputter</clipPath>
+          </li>
+        </grains>
+        <volumeRange>13</volumeRange>
+        <distRange>10~30</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+
+  <!-- GeneratorSet: against the game's ChemfuelFiredGenerator_Ambience (engine), Metal_Drop (door), HissSmall (air brakes). -->
+  <SoundDef>
+    <defName>PhobosVehicles_GeneratorSetEngineStart</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Vehicles/GeneratorSet/EngineStart</clipPath>
+          </li>
+        </grains>
+        <volumeRange>13</volumeRange>
+        <distRange>10~30</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+
+  <SoundDef>
+    <defName>PhobosVehicles_GeneratorSetEngineIdle</defName>
+    <sustain>True</sustain>
+    <context>MapOnly</context>
+    <priorityMode>PrioritizeNearest</priorityMode>
+    <maxSimultaneous>4</maxSimultaneous>
+    <subSounds>
+      <li>
+        <muteWhenPaused>True</muteWhenPaused>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Vehicles/GeneratorSet/EngineIdle</clipPath>
+          </li>
+        </grains>
+        <volumeRange>13</volumeRange>
+        <distRange>10~30</distRange>
+        <paramMappings>
+          <li>
+            <inParam Class="SoundParamSource_External">
+              <inParamName>PhobosEnginePitch</inParamName>
+              <defaultValue>1</defaultValue>
+            </inParam>
+            <outParam Class="SoundParamTarget_Pitch" />
+            <paramUpdateMode>Constant</paramUpdateMode>
+            <curve>
+              <points>
+                  <li>(0,0)</li>
+                  <li>(3,3)</li>
+              </points>
+            </curve>
+          </li>
+          <li>
+            <inParam Class="SoundParamSource_External">
+              <inParamName>PhobosEngineLoad</inParamName>
+              <defaultValue>0</defaultValue>
+            </inParam>
+            <outParam Class="SoundParamTarget_Volume" />
+            <paramUpdateMode>Constant</paramUpdateMode>
+            <curve>
+              <points>
+                  <li>(0,1)</li>
+                  <li>(1,0.35)</li>
+              </points>
+            </curve>
+          </li>
+        </paramMappings>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+
+  <SoundDef>
+    <defName>PhobosVehicles_GeneratorSetEngineLoad</defName>
+    <sustain>True</sustain>
+    <context>MapOnly</context>
+    <priorityMode>PrioritizeNearest</priorityMode>
+    <maxSimultaneous>4</maxSimultaneous>
+    <subSounds>
+      <li>
+        <muteWhenPaused>True</muteWhenPaused>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Vehicles/GeneratorSet/EngineLoad</clipPath>
+          </li>
+        </grains>
+        <volumeRange>13</volumeRange>
+        <distRange>10~30</distRange>
+        <paramMappings>
+          <li>
+            <inParam Class="SoundParamSource_External">
+              <inParamName>PhobosEnginePitch</inParamName>
+              <defaultValue>1</defaultValue>
+            </inParam>
+            <outParam Class="SoundParamTarget_Pitch" />
+            <paramUpdateMode>Constant</paramUpdateMode>
+            <curve>
+              <points>
+                  <li>(0,0)</li>
+                  <li>(3,3)</li>
+              </points>
+            </curve>
+          </li>
+          <li>
+            <inParam Class="SoundParamSource_External">
+              <inParamName>PhobosEngineLoad</inParamName>
+              <defaultValue>0</defaultValue>
+            </inParam>
+            <outParam Class="SoundParamTarget_Volume" />
+            <paramUpdateMode>Constant</paramUpdateMode>
+            <curve>
+              <points>
+                  <li>(0,0)</li>
+                  <li>(0.2,0.15)</li>
+                  <li>(1,1)</li>
+              </points>
+            </curve>
+          </li>
+        </paramMappings>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+
+  <SoundDef>
+    <defName>PhobosVehicles_GeneratorSetEngineStop</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Vehicles/GeneratorSet/EngineStop</clipPath>
+          </li>
+        </grains>
+        <volumeRange>13</volumeRange>
+        <distRange>10~30</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+
+  <SoundDef>
+    <defName>PhobosVehicles_GeneratorSetDoor</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Vehicles/GeneratorSet/DoorA</clipPath>
+          </li>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Vehicles/GeneratorSet/DoorB</clipPath>
+          </li>
+        </grains>
+        <volumeRange>25</volumeRange>
+        <distRange>5~20</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+
+  <SoundDef>
+    <defName>PhobosVehicles_GeneratorSetSputter</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Vehicles/GeneratorSet/Sputter</clipPath>
+          </li>
+        </grains>
+        <volumeRange>13</volumeRange>
+        <distRange>10~30</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+
+  <!-- SeabedCrawler: against the game's ChemfuelFiredGenerator_Ambience (engine), Metal_Drop (door), HissSmall (air brakes). -->
+  <SoundDef>
+    <defName>PhobosVehicles_SeabedCrawlerEngineStart</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Vehicles/SeabedCrawler/EngineStart</clipPath>
+          </li>
+        </grains>
+        <volumeRange>13</volumeRange>
+        <distRange>8~25</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+
+  <SoundDef>
+    <defName>PhobosVehicles_SeabedCrawlerEngineIdle</defName>
+    <sustain>True</sustain>
+    <context>MapOnly</context>
+    <priorityMode>PrioritizeNearest</priorityMode>
+    <maxSimultaneous>4</maxSimultaneous>
+    <subSounds>
+      <li>
+        <muteWhenPaused>True</muteWhenPaused>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Vehicles/SeabedCrawler/EngineIdle</clipPath>
+          </li>
+        </grains>
+        <volumeRange>13</volumeRange>
+        <distRange>8~25</distRange>
+        <paramMappings>
+          <li>
+            <inParam Class="SoundParamSource_External">
+              <inParamName>PhobosEnginePitch</inParamName>
+              <defaultValue>1</defaultValue>
+            </inParam>
+            <outParam Class="SoundParamTarget_Pitch" />
+            <paramUpdateMode>Constant</paramUpdateMode>
+            <curve>
+              <points>
+                  <li>(0,0)</li>
+                  <li>(3,3)</li>
+              </points>
+            </curve>
+          </li>
+          <li>
+            <inParam Class="SoundParamSource_External">
+              <inParamName>PhobosEngineLoad</inParamName>
+              <defaultValue>0</defaultValue>
+            </inParam>
+            <outParam Class="SoundParamTarget_Volume" />
+            <paramUpdateMode>Constant</paramUpdateMode>
+            <curve>
+              <points>
+                  <li>(0,1)</li>
+                  <li>(1,0.35)</li>
+              </points>
+            </curve>
+          </li>
+        </paramMappings>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+
+  <SoundDef>
+    <defName>PhobosVehicles_SeabedCrawlerEngineLoad</defName>
+    <sustain>True</sustain>
+    <context>MapOnly</context>
+    <priorityMode>PrioritizeNearest</priorityMode>
+    <maxSimultaneous>4</maxSimultaneous>
+    <subSounds>
+      <li>
+        <muteWhenPaused>True</muteWhenPaused>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Vehicles/SeabedCrawler/EngineLoad</clipPath>
+          </li>
+        </grains>
+        <volumeRange>13</volumeRange>
+        <distRange>8~25</distRange>
+        <paramMappings>
+          <li>
+            <inParam Class="SoundParamSource_External">
+              <inParamName>PhobosEnginePitch</inParamName>
+              <defaultValue>1</defaultValue>
+            </inParam>
+            <outParam Class="SoundParamTarget_Pitch" />
+            <paramUpdateMode>Constant</paramUpdateMode>
+            <curve>
+              <points>
+                  <li>(0,0)</li>
+                  <li>(3,3)</li>
+              </points>
+            </curve>
+          </li>
+          <li>
+            <inParam Class="SoundParamSource_External">
+              <inParamName>PhobosEngineLoad</inParamName>
+              <defaultValue>0</defaultValue>
+            </inParam>
+            <outParam Class="SoundParamTarget_Volume" />
+            <paramUpdateMode>Constant</paramUpdateMode>
+            <curve>
+              <points>
+                  <li>(0,0)</li>
+                  <li>(0.2,0.15)</li>
+                  <li>(1,1)</li>
+              </points>
+            </curve>
+          </li>
+        </paramMappings>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+
+  <SoundDef>
+    <defName>PhobosVehicles_SeabedCrawlerEngineStop</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Vehicles/SeabedCrawler/EngineStop</clipPath>
+          </li>
+        </grains>
+        <volumeRange>13</volumeRange>
+        <distRange>8~25</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+
+  <SoundDef>
+    <defName>PhobosVehicles_SeabedCrawlerDoor</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Vehicles/SeabedCrawler/DoorA</clipPath>
+          </li>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Vehicles/SeabedCrawler/DoorB</clipPath>
+          </li>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Vehicles/SeabedCrawler/DoorC</clipPath>
+          </li>
+        </grains>
+        <volumeRange>25</volumeRange>
+        <distRange>5~20</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+
+</Defs>

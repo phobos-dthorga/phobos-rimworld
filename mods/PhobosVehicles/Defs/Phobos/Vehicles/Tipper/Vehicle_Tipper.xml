@@ -303,6 +303,10 @@
         <emptyKilograms>10000</emptyKilograms>
         <ratedKilowatts>220</ratedKilowatts>
       </li>
+      <li Class="Phobos.VehicleSystems.PhobosEngineSoundExtension">
+        <idleSound>PhobosVehicles_TipperEngineIdle</idleSound>
+        <loadSound>PhobosVehicles_TipperEngineLoad</loadSound>
+      </li>
     </modExtensions>
     <comps>
       <li Class="Vehicles.CompProperties_FueledTravel">
@@ -317,6 +321,34 @@
       </li>
       <li Class="Phobos.VehicleSystems.CompProperties_PhobosTipper" />
     </comps>
+    <!-- Its own voice in place of the inherited draft blips; the engine loops are played by D'thorga Framework from the
+         extension below, so they follow rpm and load (docs/development/sound-catalogue.md). -->
+    <soundOneShotsOnEvent Inherit="False">
+      <li>
+        <key>IgnitionOn</key>
+        <value>PhobosVehicles_TipperEngineStart</value>
+      </li>
+      <li>
+        <key>IgnitionOff</key>
+        <value>PhobosVehicles_TipperEngineStop</value>
+      </li>
+      <li>
+        <key>PawnEntered</key>
+        <value>PhobosVehicles_TipperDoor</value>
+      </li>
+      <li>
+        <key>PawnExited</key>
+        <value>PhobosVehicles_TipperDoor</value>
+      </li>
+      <li>
+        <key>Braking</key>
+        <value>PhobosVehicles_TipperAirBrake</value>
+      </li>
+      <li>
+        <key>OutOfFuel</key>
+        <value>PhobosVehicles_TipperSputter</value>
+      </li>
+    </soundOneShotsOnEvent>
   </Vehicles.VehicleDef>
 
   <Vehicles.VehicleBuildDef ParentName="VehicleBaseBuildable">

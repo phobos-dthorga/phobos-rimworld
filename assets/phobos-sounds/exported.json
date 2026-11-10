@@ -966,5 +966,2040 @@
       "prompt": "Medical oxygen flowing steadily from a cylinder regulator through a face mask, a soft gentle hiss of gas, quiet and calm, close, continuous and unchanging. Length: 8 seconds"
     },
     "fingerprint": "ee4a75447fb43d9850ce3c28cc4da354a3bb0566b483b634e4cc541f69f8683c"
+  },
+  "TankerEngineStart": {
+    "name": "TankerEngineStart",
+    "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/Tanker/EngineStart.ogg",
+    "sha256": "5c0cc02d31a64377b9c62ae7046d8f68526d04d4d8da60c44ed47aeabbed4c7f",
+    "master_sha256": "75eb38982e36d547fbe044e3544def20c1fd6c7ccfd106863ced609dcb4f54d2",
+    "fingerprint": "82f1bcda92fa03023b95a823bf4487ab4eb0b73c2a2dbb4ad89bfa50efc8adc2",
+    "date": "2026-11-11",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "loudness, to -18.78 LUFS",
+      "gain_db": 2.0
+    },
+    "reference": {
+      "defName": "ChemfuelFiredGenerator_Ambience",
+      "effective": "-36.5 LUFS",
+      "volume": [
+        13.0,
+        13.0
+      ],
+      "distance": [
+        10.0,
+        20.0
+      ],
+      "channels": 1
+    },
+    "result": {
+      "lufs": -19.1,
+      "true_peak": -1.3,
+      "seconds": 6.1,
+      "flags": [],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 31,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "Starting a large bulk tanker truck with a big turbocharged six-cylinder diesel engine, deep and heavy: a starter motor cranks briefly, the engine catches and settles into a steady idle. Outdoors, close. Length: 5 seconds"
+    }
+  },
+  "TankerEngineIdle": {
+    "name": "TankerEngineIdle",
+    "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/Tanker/EngineIdle.ogg",
+    "sha256": "abcea3d7448f945bd2e660b2c8aa0a23befbe9c6ad5358c1e9541af5b1cb942b",
+    "master_sha256": "d9129bc3d4c72f268fd4188e63d730a84a7753736d9b3e2eddd2ef4f42f85581",
+    "fingerprint": "c2e334cca149652e6ba5600a51fa8cde69534714b5a96450a007e392b54cb9ee",
+    "date": "2026-11-11",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "loop_span_s": [
+        0.8,
+        5.1761
+      ],
+      "loop_match": 0.19,
+      "levelled_by": "loudness, to -18.78 LUFS",
+      "gain_db": -2.88
+    },
+    "reference": {
+      "defName": "ChemfuelFiredGenerator_Ambience",
+      "effective": "-36.5 LUFS",
+      "volume": [
+        13.0,
+        13.0
+      ],
+      "distance": [
+        10.0,
+        20.0
+      ],
+      "channels": 1
+    },
+    "result": {
+      "lufs": -18.8,
+      "true_peak": -4.6,
+      "seconds": 4.13,
+      "flags": [],
+      "seam_dip_db": 0.0,
+      "loop_gap_s": 0.0
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 33,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A large bulk tanker truck with a big turbocharged six-cylinder diesel engine, deep and heavy idling steadily, even and unchanging, no revving, continuous. Outdoors, a few metres away. Length: 8 seconds"
+    }
+  },
+  "TankerEngineLoad": {
+    "name": "TankerEngineLoad",
+    "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/Tanker/EngineLoad.ogg",
+    "sha256": "a3c5afb03e6937e65571b7087d15c3e595c5d5b9e0b8c25ae7a259a8757bd525",
+    "master_sha256": "3eb52b55aa62985622a0c01d4e0fd348fe3618ac8a2aa60878fd3f5d54813992",
+    "fingerprint": "47be8e7f882ee087bc9da7ba510ac56eac3e35b86a5239662173cfb17cdec997",
+    "date": "2026-11-11",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "loop_span_s": [
+        0.2,
+        6.2731
+      ],
+      "loop_match": 0.313,
+      "levelled_by": "loudness, to -15.78 LUFS",
+      "gain_db": -0.1
+    },
+    "reference": {
+      "defName": "ChemfuelFiredGenerator_Ambience",
+      "effective": "-36.5 LUFS",
+      "volume": [
+        13.0,
+        13.0
+      ],
+      "distance": [
+        10.0,
+        20.0
+      ],
+      "channels": 1
+    },
+    "result": {
+      "lufs": -15.9,
+      "true_peak": -1.1,
+      "seconds": 5.82,
+      "flags": [],
+      "seam_dip_db": 1.48,
+      "loop_gap_s": 0.0
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 33,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A large bulk tanker truck with a big turbocharged six-cylinder diesel engine, deep and heavy working hard under a heavy load at steady moderate revs, labouring and growling, even and unchanging, no gear changes, continuous. Outdoors, a few metres away. Length: 8 seconds"
+    }
+  },
+  "TankerEngineStop": {
+    "name": "TankerEngineStop",
+    "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/Tanker/EngineStop.ogg",
+    "sha256": "ecb7f96f1f08cc7570311349e9cfe0ada01ece7fe0cb770254a159a39b4177b4",
+    "master_sha256": "ee4e61546500b9f8c63de9758276f8f9fad5f451593217759eb7b2c945f03310",
+    "fingerprint": "d707f9e4782bdedc90898fcb28b4c74f5e5cd3cb2a1792e30b155e903ca9d027",
+    "date": "2026-11-11",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "loudness, to -18.78 LUFS",
+      "gain_db": 0.02
+    },
+    "reference": {
+      "defName": "ChemfuelFiredGenerator_Ambience",
+      "effective": "-36.5 LUFS",
+      "volume": [
+        13.0,
+        13.0
+      ],
+      "distance": [
+        10.0,
+        20.0
+      ],
+      "channels": 1
+    },
+    "result": {
+      "lufs": -18.8,
+      "true_peak": -2.4,
+      "seconds": 4.71,
+      "flags": [],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 31,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "Shutting off a large bulk tanker truck with a big turbocharged six-cylinder diesel engine, deep and heavy: the steady idle stops, the engine shudders to a halt with a last knock and the exhaust ticks as it cools. Outdoors, close. Length: 4 seconds"
+    }
+  },
+  "TankerDoorA": {
+    "name": "TankerDoorA",
+    "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/Tanker/DoorA.ogg",
+    "sha256": "9fa727251fe1688e2e720efe647e69d5fbfb52cd80e3a45b9c81d571cd56cf64",
+    "master_sha256": "48ce22da343d159458dcd44b73b16c8406fba5331dc979cebb1558fd872d0ca5",
+    "fingerprint": "cd3115feab99a5fdf9eebcfd2de78f03277274c3c2881f5dca68a713c4c54d2d",
+    "date": "2026-11-11",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "true peak, to -10.66 dBTP",
+      "gain_db": -9.46
+    },
+    "reference": {
+      "defName": "Metal_Drop",
+      "effective": "peak -22.7 dB",
+      "volume": [
+        25.0,
+        25.0
+      ],
+      "distance": null,
+      "channels": 1
+    },
+    "result": {
+      "lufs": -35.0,
+      "true_peak": -10.9,
+      "seconds": 1.61,
+      "flags": [
+        "highs",
+        "spiky"
+      ],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 31,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A heavy steel cab door opened and shut firmly once, a metal latch click and a solid thunk. Close, outdoors. Length: 2 seconds"
+    }
+  },
+  "TankerDoorB": {
+    "name": "TankerDoorB",
+    "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/Tanker/DoorB.ogg",
+    "sha256": "d88078d2c6495804157f35231996e594c2875fb299aad605036c0a3560a398a2",
+    "master_sha256": "915763cf4adc4a2d7926d9dfd785843fd2afb263dd4db4a7cea9973afc2c63e1",
+    "fingerprint": "b4e718fe31ce0093803b7e72a02d0be4ca722dcddfb8331ba8c07db82d4ea699",
+    "date": "2026-11-11",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "true peak, to -10.66 dBTP",
+      "gain_db": -6.56
+    },
+    "reference": {
+      "defName": "Metal_Drop",
+      "effective": "peak -22.7 dB",
+      "volume": [
+        25.0,
+        25.0
+      ],
+      "distance": null,
+      "channels": 1
+    },
+    "result": {
+      "lufs": -33.2,
+      "true_peak": -10.9,
+      "seconds": 0.96,
+      "flags": [
+        "highs",
+        "spiky"
+      ],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 32,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A heavy steel cab door opened and shut firmly once, a metal latch click and a solid thunk. Close, outdoors. Length: 2 seconds"
+    }
+  },
+  "TankerDoorC": {
+    "name": "TankerDoorC",
+    "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/Tanker/DoorC.ogg",
+    "sha256": "750d0440fb7c2a8966e8174b74202389564b157db9dec66fb31cf0dc012d5184",
+    "master_sha256": "302cbb0ac508cbd57e6e1fb57f7c12c2dc6bd6529eedcf324046df2abb2679c7",
+    "fingerprint": "49127bed7b36a6c53e117458b92ca09fb98eb6ecd71a146df5f840cc2f3d5028",
+    "date": "2026-11-11",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "true peak, to -10.66 dBTP",
+      "gain_db": -8.26
+    },
+    "reference": {
+      "defName": "Metal_Drop",
+      "effective": "peak -22.7 dB",
+      "volume": [
+        25.0,
+        25.0
+      ],
+      "distance": null,
+      "channels": 1
+    },
+    "result": {
+      "lufs": -34.8,
+      "true_peak": -10.7,
+      "seconds": 1.63,
+      "flags": [
+        "highs",
+        "spiky"
+      ],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 33,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A heavy steel cab door opened and shut firmly once, a metal latch click and a solid thunk. Close, outdoors. Length: 2 seconds"
+    }
+  },
+  "TankerAirBrake": {
+    "name": "TankerAirBrake",
+    "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/Tanker/AirBrake.ogg",
+    "sha256": "03c0a2a6dfc72ee505590ddba62563c4a9cbee1f3c32a6bebc4d8bfc3cbab994",
+    "master_sha256": "e9a1428c450218e5e6cd7a38d0d3fd56ea4578b062a5975b1a9a1ca9202e2328",
+    "fingerprint": "de38af3f4a39123b868a6313af933221a42c9f0e93d71bdc72ede21b0a0af2fa",
+    "date": "2026-11-11",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "true peak, to -4.72 dBTP",
+      "gain_db": 2.38
+    },
+    "reference": {
+      "defName": "HissSmall",
+      "effective": "peak -18.2 dB",
+      "volume": [
+        15.0,
+        15.0
+      ],
+      "distance": null,
+      "channels": 1
+    },
+    "result": {
+      "lufs": -19.4,
+      "true_peak": -5.0,
+      "seconds": 1.0,
+      "flags": [
+        "highs"
+      ],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 31,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "The air brakes of a large bulk tanker truck releasing a short sharp pneumatic hiss as it stops. Outdoors, close. Length: 2 seconds"
+    }
+  },
+  "TankerSputter": {
+    "name": "TankerSputter",
+    "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/Tanker/Sputter.ogg",
+    "sha256": "cd70a5570fbb6f536e148d2d1116e92acdb9c0f9cb22708b42a1f281df59b517",
+    "master_sha256": "d922f96418bdf2c8caf0d232fab070ebac26e9deccfd0e440cae3b27985fb53f",
+    "fingerprint": "40ae98fa6576d3143e68ee1fa48110e6d9631c3cec2ce6d86d90c63405bad30e",
+    "date": "2026-11-11",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "loudness, to -18.78 LUFS",
+      "gain_db": -1.38
+    },
+    "reference": {
+      "defName": "ChemfuelFiredGenerator_Ambience",
+      "effective": "-36.5 LUFS",
+      "volume": [
+        13.0,
+        13.0
+      ],
+      "distance": [
+        10.0,
+        20.0
+      ],
+      "channels": 1
+    },
+    "result": {
+      "lufs": -18.9,
+      "true_peak": -3.8,
+      "seconds": 4.8,
+      "flags": [],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 31,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A large bulk tanker truck with a big turbocharged six-cylinder diesel engine, deep and heavy running out of fuel: it stumbles, coughs and sputters, then dies. Outdoors, close. Length: 4 seconds"
+    }
+  },
+  "TipperEngineStart": {
+    "name": "TipperEngineStart",
+    "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/Tipper/EngineStart.ogg",
+    "sha256": "bf7f4693cde06e0bc3651a0dff6429b6f3872645d38a448870d2277255a7fb4b",
+    "master_sha256": "a00823087f3d8c4b6d9d71267cfd7cf948264e9ce7b62c6fd8c056c60abb3260",
+    "fingerprint": "adf105970cb7d8c986dd1d3c28f83867d5c98bb694c2e673c17c9bbd63111911",
+    "date": "2026-11-11",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "loudness, to -18.78 LUFS",
+      "gain_db": 3.3
+    },
+    "reference": {
+      "defName": "ChemfuelFiredGenerator_Ambience",
+      "effective": "-36.5 LUFS",
+      "volume": [
+        13.0,
+        13.0
+      ],
+      "distance": [
+        10.0,
+        20.0
+      ],
+      "channels": 1
+    },
+    "result": {
+      "lufs": -21.5,
+      "true_peak": -1.0,
+      "seconds": 6.1,
+      "flags": [
+        "spiky"
+      ],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 31,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "Starting a heavy tipper dump truck with a rough, gravelly straight-six diesel engine and a rattling exhaust: a starter motor cranks briefly, the engine catches and settles into a steady idle. Outdoors, close. Length: 5 seconds"
+    }
+  },
+  "TipperEngineIdle": {
+    "name": "TipperEngineIdle",
+    "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/Tipper/EngineIdle.ogg",
+    "sha256": "5ca3235be87e3743eedee05c84cb4fb3527b7fb30bb6371c45bb7a94bb36a22f",
+    "master_sha256": "7913b00b6b3dbf2c5a1bd68eb20ec0d7cdf0ef680294b9b86d614ee49185d095",
+    "fingerprint": "d6a4952861fb8a34caea5547eef7eb3ee6018b95e74df14e88e878fd99e9f8d2",
+    "date": "2026-11-11",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "loop_span_s": [
+        0.2,
+        5.8056
+      ],
+      "loop_match": 0.205,
+      "levelled_by": "loudness, to -18.78 LUFS",
+      "gain_db": -0.98
+    },
+    "reference": {
+      "defName": "ChemfuelFiredGenerator_Ambience",
+      "effective": "-36.5 LUFS",
+      "volume": [
+        13.0,
+        13.0
+      ],
+      "distance": [
+        10.0,
+        20.0
+      ],
+      "channels": 1
+    },
+    "result": {
+      "lufs": -18.8,
+      "true_peak": -1.5,
+      "seconds": 5.36,
+      "flags": [],
+      "seam_dip_db": 1.44,
+      "loop_gap_s": 0.0
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 32,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A heavy tipper dump truck with a rough, gravelly straight-six diesel engine and a rattling exhaust idling steadily, even and unchanging, no revving, continuous. Outdoors, a few metres away. Length: 8 seconds"
+    }
+  },
+  "TipperEngineStop": {
+    "name": "TipperEngineStop",
+    "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/Tipper/EngineStop.ogg",
+    "sha256": "273d07a5fd5d2a9b0ca8a3846f4e5f1f628742426725d9fe6dc982230c71ad96",
+    "master_sha256": "07b4a2082089dc404bab9a48beaea3a7e668a50f5b6d0c069b88e207cf36ee9d",
+    "fingerprint": "069ce8c5f179b26ef1a1b045d88bb9188e77e42076321106b976513f8aafe234",
+    "date": "2026-11-11",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "loudness, to -18.78 LUFS",
+      "gain_db": 2.92
+    },
+    "reference": {
+      "defName": "ChemfuelFiredGenerator_Ambience",
+      "effective": "-36.5 LUFS",
+      "volume": [
+        13.0,
+        13.0
+      ],
+      "distance": [
+        10.0,
+        20.0
+      ],
+      "channels": 1
+    },
+    "result": {
+      "lufs": -18.8,
+      "true_peak": -2.5,
+      "seconds": 4.27,
+      "flags": [],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 31,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "Shutting off a heavy tipper dump truck with a rough, gravelly straight-six diesel engine and a rattling exhaust: the steady idle stops, the engine shudders to a halt with a last knock and the exhaust ticks as it cools. Outdoors, close. Length: 4 seconds"
+    }
+  },
+  "TipperDoorA": {
+    "name": "TipperDoorA",
+    "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/Tipper/DoorA.ogg",
+    "sha256": "ae02d0bdbbca59de3bfc39d98f06289c933a70d44e59bc50aee25538bb63982f",
+    "master_sha256": "074e412ea6516afcf8431a86bda28eeef04485c16e69b3ba48c423aa4bf4e739",
+    "fingerprint": "0ea5a499ad351645f89bbbc9fc2919bfc4ec16d2483314e289a0d81dbafbd704",
+    "date": "2026-11-11",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "true peak, to -10.66 dBTP",
+      "gain_db": -6.06
+    },
+    "reference": {
+      "defName": "Metal_Drop",
+      "effective": "peak -22.7 dB",
+      "volume": [
+        25.0,
+        25.0
+      ],
+      "distance": null,
+      "channels": 1
+    },
+    "result": {
+      "lufs": -31.9,
+      "true_peak": -10.9,
+      "seconds": 1.59,
+      "flags": [
+        "spiky"
+      ],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 32,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A tipper truck cab door, slightly rattly opened and shut firmly once, a metal latch click and a solid thunk. Close, outdoors. Length: 2 seconds"
+    }
+  },
+  "TipperDoorB": {
+    "name": "TipperDoorB",
+    "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/Tipper/DoorB.ogg",
+    "sha256": "d6cefbb06a373848fd972c8a20dd689622f884ed9b653c166b656b5e6cc4be1f",
+    "master_sha256": "c8008a146b2b3e537776b37562c11d15e4970b384cb3af580ea66cbf369e48d0",
+    "fingerprint": "a0a9ad6bf6490030238e3421df35e773d94d99056f1b694b66438f56e40fbe6c",
+    "date": "2026-11-11",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "true peak, to -10.66 dBTP",
+      "gain_db": -5.56
+    },
+    "reference": {
+      "defName": "Metal_Drop",
+      "effective": "peak -22.7 dB",
+      "volume": [
+        25.0,
+        25.0
+      ],
+      "distance": null,
+      "channels": 1
+    },
+    "result": {
+      "lufs": -30.4,
+      "true_peak": -10.8,
+      "seconds": 1.56,
+      "flags": [],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 33,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A tipper truck cab door, slightly rattly opened and shut firmly once, a metal latch click and a solid thunk. Close, outdoors. Length: 2 seconds"
+    }
+  },
+  "TipperAirBrake": {
+    "name": "TipperAirBrake",
+    "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/Tipper/AirBrake.ogg",
+    "sha256": "78ef8707233653ecb7c045ea2f0eb978f785fff145e37d2662a1ed6f7d98d21e",
+    "master_sha256": "0e14c1721c4bfb19d197105d8bcc5cbd3ea8ddf04f2e77da74a5ed797bacfb5f",
+    "fingerprint": "64d14fec0daafe572165e84275457f1a7e7d77098fdd9462c732c809332655f5",
+    "date": "2026-11-11",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "true peak, to -4.72 dBTP",
+      "gain_db": 2.48
+    },
+    "reference": {
+      "defName": "HissSmall",
+      "effective": "peak -18.2 dB",
+      "volume": [
+        15.0,
+        15.0
+      ],
+      "distance": null,
+      "channels": 1
+    },
+    "result": {
+      "lufs": -17.9,
+      "true_peak": -4.9,
+      "seconds": 0.94,
+      "flags": [
+        "highs"
+      ],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 31,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "The air brakes of a heavy tipper dump truck releasing a short sharp pneumatic hiss as it stops. Outdoors, close. Length: 2 seconds"
+    }
+  },
+  "TipperSputter": {
+    "name": "TipperSputter",
+    "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/Tipper/Sputter.ogg",
+    "sha256": "dcaa9cec92e0e33d2adb1ea6feca9d8e593ddbd826bc9b45d868dfb549711d17",
+    "master_sha256": "033c042b87d8f693302df52f0a3f2cd6002253a34a5b3f395c6cdaaa590aea92",
+    "fingerprint": "fd9b2c79e269304a1d84498ee8e17f851ab8f74db90cb3212d19479e9fd0f14f",
+    "date": "2026-11-11",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "loudness, to -18.78 LUFS",
+      "gain_db": -1.18
+    },
+    "reference": {
+      "defName": "ChemfuelFiredGenerator_Ambience",
+      "effective": "-36.5 LUFS",
+      "volume": [
+        13.0,
+        13.0
+      ],
+      "distance": [
+        10.0,
+        20.0
+      ],
+      "channels": 1
+    },
+    "result": {
+      "lufs": -18.9,
+      "true_peak": -2.9,
+      "seconds": 4.66,
+      "flags": [],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 31,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A heavy tipper dump truck with a rough, gravelly straight-six diesel engine and a rattling exhaust running out of fuel: it stumbles, coughs and sputters, then dies. Outdoors, close. Length: 4 seconds"
+    }
+  },
+  "DrillRigEngineStart": {
+    "name": "DrillRigEngineStart",
+    "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/DrillRig/EngineStart.ogg",
+    "sha256": "619f51c9b3e848330eb148e684f8b977e0a990e90ec71a9d74ce22a905b3a229",
+    "master_sha256": "810a97c2663c561480276bbb4217ead070b09f150cbe0d0ba50044f0dc1a0ba7",
+    "fingerprint": "40da33d2ec0d5c21fdf7eedeee496f5245b68a5dab7bd9c6ec3fdc58ff8c7b46",
+    "date": "2026-11-11",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "loudness, to -18.78 LUFS",
+      "gain_db": 3.8
+    },
+    "reference": {
+      "defName": "ChemfuelFiredGenerator_Ambience",
+      "effective": "-36.5 LUFS",
+      "volume": [
+        13.0,
+        13.0
+      ],
+      "distance": [
+        10.0,
+        20.0
+      ],
+      "channels": 1
+    },
+    "result": {
+      "lufs": -21.5,
+      "true_peak": -0.9,
+      "seconds": 6.1,
+      "flags": [
+        "spiky"
+      ],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 31,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "Starting a heavy drill rig truck with a big low-revving diesel engine and a whining hydraulic pump on its power take-off: a starter motor cranks briefly, the engine catches and settles into a steady idle. Outdoors, close. Length: 5 seconds"
+    }
+  },
+  "DrillRigEngineIdle": {
+    "name": "DrillRigEngineIdle",
+    "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/DrillRig/EngineIdle.ogg",
+    "sha256": "7f668dcb99951bce6a8bc7fa2d9531630a7d6d5ee657bd0a8230a5ec26c7d490",
+    "master_sha256": "1f5245dc85b1c7364dddab96c721e13bd262a8178de143d8ff539d36922e171b",
+    "fingerprint": "3d464b34bba6c53b2dca12897070a563fdcb2b6fa027523a23d5729c989b4475",
+    "date": "2026-11-11",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "loop_span_s": [
+        0.2,
+        6.1852
+      ],
+      "loop_match": 0.26,
+      "levelled_by": "loudness, to -18.78 LUFS",
+      "gain_db": 2.62
+    },
+    "reference": {
+      "defName": "ChemfuelFiredGenerator_Ambience",
+      "effective": "-36.5 LUFS",
+      "volume": [
+        13.0,
+        13.0
+      ],
+      "distance": [
+        10.0,
+        20.0
+      ],
+      "channels": 1
+    },
+    "result": {
+      "lufs": -18.8,
+      "true_peak": -2.6,
+      "seconds": 5.74,
+      "flags": [],
+      "seam_dip_db": 0.0,
+      "loop_gap_s": 0.0
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 31,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A heavy drill rig truck with a big low-revving diesel engine and a whining hydraulic pump on its power take-off idling steadily, even and unchanging, no revving, continuous. Outdoors, a few metres away. Length: 8 seconds"
+    }
+  },
+  "DrillRigEngineLoad": {
+    "name": "DrillRigEngineLoad",
+    "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/DrillRig/EngineLoad.ogg",
+    "sha256": "16915d3d6d8a53dde03a41cea9a4aef9b6c11950b45ed3ac942bc481c84d2c53",
+    "master_sha256": "1d24bd580a4e2f968ac2a5ed6462ccbdc366079a3ab7665e6964a04f7ef00a21",
+    "fingerprint": "ad7735ea819f0958810ae27f83394c8855802d84f7bba3cc74ea49a7a4d6428c",
+    "date": "2026-11-11",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "loop_span_s": [
+        0.2,
+        5.6874
+      ],
+      "loop_match": 0.257,
+      "levelled_by": "loudness, to -15.78 LUFS",
+      "gain_db": 0.6
+    },
+    "reference": {
+      "defName": "ChemfuelFiredGenerator_Ambience",
+      "effective": "-36.5 LUFS",
+      "volume": [
+        13.0,
+        13.0
+      ],
+      "distance": [
+        10.0,
+        20.0
+      ],
+      "channels": 1
+    },
+    "result": {
+      "lufs": -18.7,
+      "true_peak": -0.8,
+      "seconds": 5.24,
+      "flags": [],
+      "seam_dip_db": 1.17,
+      "loop_gap_s": 0.0
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 31,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A heavy drill rig truck with a big low-revving diesel engine and a whining hydraulic pump on its power take-off working hard under a heavy load at steady moderate revs, labouring and growling, even and unchanging, no gear changes, continuous. Outdoors, a few metres away. Length: 8 seconds"
+    }
+  },
+  "DrillRigEngineStop": {
+    "name": "DrillRigEngineStop",
+    "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/DrillRig/EngineStop.ogg",
+    "sha256": "54b1d1dbd3d3bfba646f4bc3adb3166ab84c03f9692595d75c87d69a98eb2977",
+    "master_sha256": "e7276771eeb62d021f5f8d26bfa651c006c8d11086a9f82b600c8d057ef7ea53",
+    "fingerprint": "2335d4692c3b1a4da7e3ac71303626339021a306c5097bd88f6dcaadca0f5e1a",
+    "date": "2026-11-11",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "loudness, to -18.78 LUFS",
+      "gain_db": -0.78
+    },
+    "reference": {
+      "defName": "ChemfuelFiredGenerator_Ambience",
+      "effective": "-36.5 LUFS",
+      "volume": [
+        13.0,
+        13.0
+      ],
+      "distance": [
+        10.0,
+        20.0
+      ],
+      "channels": 1
+    },
+    "result": {
+      "lufs": -18.8,
+      "true_peak": -4.2,
+      "seconds": 4.82,
+      "flags": [],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 31,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "Shutting off a heavy drill rig truck with a big low-revving diesel engine and a whining hydraulic pump on its power take-off: the steady idle stops, the engine shudders to a halt with a last knock and the exhaust ticks as it cools. Outdoors, close. Length: 4 seconds"
+    }
+  },
+  "DrillRigDoorA": {
+    "name": "DrillRigDoorA",
+    "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/DrillRig/DoorA.ogg",
+    "sha256": "22232685ffb9b412a84bc546c74495fdef886f7d0f554c8f2935960c7ffb2e61",
+    "master_sha256": "b086ca7097c6d00352ec199b609508aefb5604a04346acaebb56e52dde9c54ff",
+    "fingerprint": "12ccb742c94691bf155681b87380832865a9d012785684c881244e436bdc82fe",
+    "date": "2026-11-11",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "true peak, to -10.66 dBTP",
+      "gain_db": -6.96
+    },
+    "reference": {
+      "defName": "Metal_Drop",
+      "effective": "peak -22.7 dB",
+      "volume": [
+        25.0,
+        25.0
+      ],
+      "distance": null,
+      "channels": 1
+    },
+    "result": {
+      "lufs": -34.4,
+      "true_peak": -10.9,
+      "seconds": 0.89,
+      "flags": [
+        "highs",
+        "spiky"
+      ],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 32,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A heavy steel cab door with a firm latch opened and shut firmly once, a metal latch click and a solid thunk. Close, outdoors. Length: 2 seconds"
+    }
+  },
+  "DrillRigDoorB": {
+    "name": "DrillRigDoorB",
+    "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/DrillRig/DoorB.ogg",
+    "sha256": "4ad1be3525eaecaa8b0ad352e072bfd0cf507f935f2dca569e4447c3bb9de51f",
+    "master_sha256": "e3f112ffe9fbc87f41e0b41c565cfc2a3172ad28b088a5c68221beb4b07e1269",
+    "fingerprint": "7378a4712ae51cd9aa4f9399affe3592c406c0d25399bd637e8920c81fea0155",
+    "date": "2026-11-11",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "true peak, to -10.66 dBTP",
+      "gain_db": -7.46
+    },
+    "reference": {
+      "defName": "Metal_Drop",
+      "effective": "peak -22.7 dB",
+      "volume": [
+        25.0,
+        25.0
+      ],
+      "distance": null,
+      "channels": 1
+    },
+    "result": {
+      "lufs": -32.9,
+      "true_peak": -11.2,
+      "seconds": 1.3,
+      "flags": [
+        "highs",
+        "spiky"
+      ],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 33,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A heavy steel cab door with a firm latch opened and shut firmly once, a metal latch click and a solid thunk. Close, outdoors. Length: 2 seconds"
+    }
+  },
+  "DrillRigAirBrake": {
+    "name": "DrillRigAirBrake",
+    "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/DrillRig/AirBrake.ogg",
+    "sha256": "c12899e0161cb3a08bde37bfd1dfcd4a6ba33c921dd091cbf66fb3135bbcd59f",
+    "master_sha256": "e344bd36cbae0e7c341d4743379defd2a577d104821a88e01e798382c3fcd96b",
+    "fingerprint": "cf040c5d26521d2ead0d0866f1b974548ce2bbe587f48943ef03d017bbec76ee",
+    "date": "2026-11-11",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "true peak, to -4.72 dBTP",
+      "gain_db": 4.08
+    },
+    "reference": {
+      "defName": "HissSmall",
+      "effective": "peak -18.2 dB",
+      "volume": [
+        15.0,
+        15.0
+      ],
+      "distance": null,
+      "channels": 1
+    },
+    "result": {
+      "lufs": -18.4,
+      "true_peak": -5.6,
+      "seconds": 1.05,
+      "flags": [
+        "highs"
+      ],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 31,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "The air brakes of a heavy drill rig truck releasing a short sharp pneumatic hiss as it stops. Outdoors, close. Length: 2 seconds"
+    }
+  },
+  "DrillRigSputter": {
+    "name": "DrillRigSputter",
+    "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/DrillRig/Sputter.ogg",
+    "sha256": "cc00eb2ca1590a87ed9bf97aafa1aa458b0c129ca5b9dd3253a928d57de2fe4f",
+    "master_sha256": "e62efba3f4e14286dcd0725a492948a43c544e931b8842a7669d4bdc23a9a992",
+    "fingerprint": "fb1d96d48b60446898f7d4218a13763ee37b2e755199ffb0d4ab8e1944b7ce9e",
+    "date": "2026-11-11",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "loudness, to -18.78 LUFS",
+      "gain_db": -0.68
+    },
+    "reference": {
+      "defName": "ChemfuelFiredGenerator_Ambience",
+      "effective": "-36.5 LUFS",
+      "volume": [
+        13.0,
+        13.0
+      ],
+      "distance": [
+        10.0,
+        20.0
+      ],
+      "channels": 1
+    },
+    "result": {
+      "lufs": -19.0,
+      "true_peak": -2.7,
+      "seconds": 4.18,
+      "flags": [],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 31,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A heavy drill rig truck with a big low-revving diesel engine and a whining hydraulic pump on its power take-off running out of fuel: it stumbles, coughs and sputters, then dies. Outdoors, close. Length: 4 seconds"
+    }
+  },
+  "SurveyTruckEngineStart": {
+    "name": "SurveyTruckEngineStart",
+    "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/SurveyTruck/EngineStart.ogg",
+    "sha256": "9fc7abfc15c85153ee1357f795845372d199a6ce15a307f01888754f37134614",
+    "master_sha256": "7ae4555ed685c5b7ffb97ebe846dce4b472f69a03038ec32a2f8b73334c955ce",
+    "fingerprint": "e153ef57ea8fa0e7d991bf87c4adedc1fbd644e35e6b6bec4f9f044bef3e4258",
+    "date": "2026-11-11",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "loudness, to -18.78 LUFS",
+      "gain_db": 2.6
+    },
+    "reference": {
+      "defName": "ChemfuelFiredGenerator_Ambience",
+      "effective": "-36.5 LUFS",
+      "volume": [
+        13.0,
+        13.0
+      ],
+      "distance": [
+        10.0,
+        20.0
+      ],
+      "channels": 1
+    },
+    "result": {
+      "lufs": -24.8,
+      "true_peak": -0.8,
+      "seconds": 6.1,
+      "flags": [
+        "spiky"
+      ],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 32,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "Starting a light four-wheel-drive survey truck with a small four-cylinder diesel engine, tappety and lively: a starter motor cranks briefly, the engine catches and settles into a steady idle. Outdoors, close. Length: 5 seconds"
+    }
+  },
+  "SurveyTruckEngineIdle": {
+    "name": "SurveyTruckEngineIdle",
+    "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/SurveyTruck/EngineIdle.ogg",
+    "sha256": "af46a100e3f93f14589a9650a5fdf0e8f9732adea5fdba554062a0eac7054e93",
+    "master_sha256": "b11ffa064401a351ddba7a19e81d982550f68d7a678fbbd8872cbe3e9577b54c",
+    "fingerprint": "4323264c8ee03c754835e8ca5a56fd59a51dbcb6acdf9550cbc3076b4fdb0385",
+    "date": "2026-11-11",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "loop_span_s": [
+        0.2,
+        5.9241
+      ],
+      "loop_match": 0.611,
+      "levelled_by": "loudness, to -18.78 LUFS",
+      "gain_db": 2.02
+    },
+    "reference": {
+      "defName": "ChemfuelFiredGenerator_Ambience",
+      "effective": "-36.5 LUFS",
+      "volume": [
+        13.0,
+        13.0
+      ],
+      "distance": [
+        10.0,
+        20.0
+      ],
+      "channels": 1
+    },
+    "result": {
+      "lufs": -18.8,
+      "true_peak": -2.2,
+      "seconds": 5.47,
+      "flags": [],
+      "seam_dip_db": 0.09,
+      "loop_gap_s": 0.0
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 31,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A light four-wheel-drive survey truck with a small four-cylinder diesel engine, tappety and lively idling steadily, even and unchanging, no revving, continuous. Outdoors, a few metres away. Length: 8 seconds"
+    }
+  },
+  "SurveyTruckEngineLoad": {
+    "name": "SurveyTruckEngineLoad",
+    "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/SurveyTruck/EngineLoad.ogg",
+    "sha256": "675b49ecd55bd05ac613e5a57c667e15a7cf7f6e7f997e5fac2afce442b93938",
+    "master_sha256": "cd461f25dff6942380a761e5401094decb4af1ff0c3ceb78a7b52321d98e598b",
+    "fingerprint": "717ac7173af467abc1c9319d26ed9bd6da132713e1fc157d7d691d57ab289434",
+    "date": "2026-11-11",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "loop_span_s": [
+        0.2,
+        6.0025
+      ],
+      "loop_match": 0.226,
+      "levelled_by": "loudness, to -15.78 LUFS",
+      "gain_db": 3.1
+    },
+    "reference": {
+      "defName": "ChemfuelFiredGenerator_Ambience",
+      "effective": "-36.5 LUFS",
+      "volume": [
+        13.0,
+        13.0
+      ],
+      "distance": [
+        10.0,
+        20.0
+      ],
+      "channels": 1
+    },
+    "result": {
+      "lufs": -16.2,
+      "true_peak": -1.5,
+      "seconds": 5.55,
+      "flags": [],
+      "seam_dip_db": 0.97,
+      "loop_gap_s": 0.0
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 32,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A light four-wheel-drive survey truck with a small four-cylinder diesel engine, tappety and lively working hard under a heavy load at steady moderate revs, labouring and growling, even and unchanging, no gear changes, continuous. Outdoors, a few metres away. Length: 8 seconds"
+    }
+  },
+  "SurveyTruckEngineStop": {
+    "name": "SurveyTruckEngineStop",
+    "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/SurveyTruck/EngineStop.ogg",
+    "sha256": "d59a31f1ff9e512a59b6e15159022ccef27788662c3d24e368feae85e7ecf359",
+    "master_sha256": "1c4c29db4bcfe599c5ca575b06d3a856d2918bd5acc7ca10d2158776deec3526",
+    "fingerprint": "c5e058b80cf19aace402371628823990f93a89dc37fae8aaf9d6cb84b23cef1f",
+    "date": "2026-11-11",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "loudness, to -18.78 LUFS",
+      "gain_db": 1.3
+    },
+    "reference": {
+      "defName": "ChemfuelFiredGenerator_Ambience",
+      "effective": "-36.5 LUFS",
+      "volume": [
+        13.0,
+        13.0
+      ],
+      "distance": [
+        10.0,
+        20.0
+      ],
+      "channels": 1
+    },
+    "result": {
+      "lufs": -21.6,
+      "true_peak": -1.1,
+      "seconds": 4.8,
+      "flags": [
+        "spiky"
+      ],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 31,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "Shutting off a light four-wheel-drive survey truck with a small four-cylinder diesel engine, tappety and lively: the steady idle stops, the engine shudders to a halt with a last knock and the exhaust ticks as it cools. Outdoors, close. Length: 4 seconds"
+    }
+  },
+  "SurveyTruckDoorA": {
+    "name": "SurveyTruckDoorA",
+    "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/SurveyTruck/DoorA.ogg",
+    "sha256": "43fb2db8081c6e1d870f89ff1d01089c0022a10b8a541ef6c0f2581151bbdd81",
+    "master_sha256": "e2bc67c0e66c288b75dd6d43b15f5adf840aa60346433a01e68db9a9790d6488",
+    "fingerprint": "f82e73be162de28c3c5af9b288ba15e2cf46163519ec4823ae44ae127ae642ac",
+    "date": "2026-11-11",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "true peak, to -10.66 dBTP",
+      "gain_db": -6.86
+    },
+    "reference": {
+      "defName": "Metal_Drop",
+      "effective": "peak -22.7 dB",
+      "volume": [
+        25.0,
+        25.0
+      ],
+      "distance": null,
+      "channels": 1
+    },
+    "result": {
+      "lufs": -35.8,
+      "true_peak": -10.9,
+      "seconds": 0.98,
+      "flags": [
+        "spiky"
+      ],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 32,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A light utility truck door opened and shut firmly once, a metal latch click and a solid thunk. Close, outdoors. Length: 2 seconds"
+    }
+  },
+  "SurveyTruckDoorB": {
+    "name": "SurveyTruckDoorB",
+    "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/SurveyTruck/DoorB.ogg",
+    "sha256": "d579c86377b37e3b275d5f34b4689f295c2c354c7ca21cfced667b7a1b954fb5",
+    "master_sha256": "8d7815ff6d3769d0bd2bdc1062834beaee7fbb0349705755e5d9ee9e4a346354",
+    "fingerprint": "cf0c2aafd8a5508ec31bdcd520a17280027678c8389b099c43e069cbcfe90849",
+    "date": "2026-11-11",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "true peak, to -10.66 dBTP",
+      "gain_db": -5.96
+    },
+    "reference": {
+      "defName": "Metal_Drop",
+      "effective": "peak -22.7 dB",
+      "volume": [
+        25.0,
+        25.0
+      ],
+      "distance": null,
+      "channels": 1
+    },
+    "result": {
+      "lufs": -31.3,
+      "true_peak": -10.3,
+      "seconds": 1.14,
+      "flags": [
+        "spiky"
+      ],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 33,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A light utility truck door opened and shut firmly once, a metal latch click and a solid thunk. Close, outdoors. Length: 2 seconds"
+    }
+  },
+  "SurveyTruckSputter": {
+    "name": "SurveyTruckSputter",
+    "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/SurveyTruck/Sputter.ogg",
+    "sha256": "af9d7683e8f3d153172a3a13d44225c4fda09213f6b1eaee5409d5baab54c0de",
+    "master_sha256": "3151273afe97928865f9cc3cb2b774e1fb744399d5336bbad66e4d8793e00c6b",
+    "fingerprint": "febce51d7d30ca5231d6deb9d4f57c8fa7781fee38403763b37a83c97b309465",
+    "date": "2026-11-11",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "loudness, to -18.78 LUFS",
+      "gain_db": 1.9
+    },
+    "reference": {
+      "defName": "ChemfuelFiredGenerator_Ambience",
+      "effective": "-36.5 LUFS",
+      "volume": [
+        13.0,
+        13.0
+      ],
+      "distance": [
+        10.0,
+        20.0
+      ],
+      "channels": 1
+    },
+    "result": {
+      "lufs": -21.8,
+      "true_peak": -1.4,
+      "seconds": 4.66,
+      "flags": [
+        "spiky"
+      ],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 31,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A light four-wheel-drive survey truck with a small four-cylinder diesel engine, tappety and lively running out of fuel: it stumbles, coughs and sputters, then dies. Outdoors, close. Length: 4 seconds"
+    }
+  },
+  "GeneratorSetEngineStart": {
+    "name": "GeneratorSetEngineStart",
+    "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/GeneratorSet/EngineStart.ogg",
+    "sha256": "1f73ddd519f6d5bb7fad02eabd6105f7961165cd5074db01dd3d6a82cd7ac3c7",
+    "master_sha256": "49e086b29b0775842fe6dd8fcab16bf285e4d434b3c6ffe9addb9ba33c84a095",
+    "fingerprint": "4cdedd222bea33b7d911da4fc94b16ee3705a5e3c43f7e4eb6c45a61ce9a05f6",
+    "date": "2026-11-11",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "loudness, to -18.78 LUFS",
+      "gain_db": 2.02
+    },
+    "reference": {
+      "defName": "ChemfuelFiredGenerator_Ambience",
+      "effective": "-36.5 LUFS",
+      "volume": [
+        13.0,
+        13.0
+      ],
+      "distance": [
+        10.0,
+        20.0
+      ],
+      "channels": 1
+    },
+    "result": {
+      "lufs": -18.9,
+      "true_peak": -1.4,
+      "seconds": 6.1,
+      "flags": [],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 31,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "Starting a small diesel-electric truck: a modest diesel engine turning a generator, with a faint electric traction motor whine: a starter motor cranks briefly, the engine catches and settles into a steady idle. Outdoors, close. Length: 5 seconds"
+    }
+  },
+  "GeneratorSetEngineIdle": {
+    "name": "GeneratorSetEngineIdle",
+    "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/GeneratorSet/EngineIdle.ogg",
+    "sha256": "af94b583711308ec49c4c64f8bf225c77b512878494b664cf906c27caa13dea2",
+    "master_sha256": "c0550adc5f88eb541dec868dcc3c9c1a8792f92ee55935018e92dc7648a0a0fa",
+    "fingerprint": "8519a644e324e37de2814034568917b4d6e7b0f9fe84ec189ffd461022962b1d",
+    "date": "2026-11-11",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "loop_span_s": [
+        0.2,
+        5.5956
+      ],
+      "loop_match": 0.275,
+      "levelled_by": "loudness, to -18.78 LUFS",
+      "gain_db": -1.58
+    },
+    "reference": {
+      "defName": "ChemfuelFiredGenerator_Ambience",
+      "effective": "-36.5 LUFS",
+      "volume": [
+        13.0,
+        13.0
+      ],
+      "distance": [
+        10.0,
+        20.0
+      ],
+      "channels": 1
+    },
+    "result": {
+      "lufs": -18.9,
+      "true_peak": -4.3,
+      "seconds": 5.15,
+      "flags": [],
+      "seam_dip_db": 1.23,
+      "loop_gap_s": 0.0
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 32,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A small diesel-electric truck: a modest diesel engine turning a generator, with a faint electric traction motor whine idling steadily, even and unchanging, no revving, continuous. Outdoors, a few metres away. Length: 8 seconds"
+    }
+  },
+  "GeneratorSetEngineLoad": {
+    "name": "GeneratorSetEngineLoad",
+    "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/GeneratorSet/EngineLoad.ogg",
+    "sha256": "1ccdbccca0bced86b53f7035818535891c70e9704d499c3505971221785a8d0f",
+    "master_sha256": "9e8fc621e9ccc3b87252f3edb2d3142e23c7d37857215a3377446fbf08f618eb",
+    "fingerprint": "3ba6aab721ca1b6c893ded27d9fe875078b5786e95cc4bdf2cc6cb4ebec44040",
+    "date": "2026-11-11",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "loop_span_s": [
+        0.9,
+        4.8036
+      ],
+      "loop_match": 0.256,
+      "levelled_by": "loudness, to -15.78 LUFS",
+      "gain_db": -1.48
+    },
+    "reference": {
+      "defName": "ChemfuelFiredGenerator_Ambience",
+      "effective": "-36.5 LUFS",
+      "volume": [
+        13.0,
+        13.0
+      ],
+      "distance": [
+        10.0,
+        20.0
+      ],
+      "channels": 1
+    },
+    "result": {
+      "lufs": -15.9,
+      "true_peak": -2.2,
+      "seconds": 3.65,
+      "flags": [],
+      "seam_dip_db": 1.95,
+      "loop_gap_s": 0.0
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 31,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A small diesel-electric truck: a modest diesel engine turning a generator, with a faint electric traction motor whine working hard under a heavy load at steady moderate revs, labouring and growling, even and unchanging, no gear changes, continuous. Outdoors, a few metres away. Length: 8 seconds"
+    }
+  },
+  "GeneratorSetEngineStop": {
+    "name": "GeneratorSetEngineStop",
+    "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/GeneratorSet/EngineStop.ogg",
+    "sha256": "4ead20176f03764cbd3cf8baa48f01c353833aa70028341fa78dfdc89552e3ed",
+    "master_sha256": "d03702fb3bc271889972f7819db9abc5680556b6be40e7ef4983c9abf6a05f8d",
+    "fingerprint": "bc65f568cceb85c315d3af6bd5ab1c19953bb396de158d25be64967643b18342",
+    "date": "2026-11-11",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "loudness, to -18.78 LUFS",
+      "gain_db": -0.18
+    },
+    "reference": {
+      "defName": "ChemfuelFiredGenerator_Ambience",
+      "effective": "-36.5 LUFS",
+      "volume": [
+        13.0,
+        13.0
+      ],
+      "distance": [
+        10.0,
+        20.0
+      ],
+      "channels": 1
+    },
+    "result": {
+      "lufs": -19.0,
+      "true_peak": -5.7,
+      "seconds": 4.67,
+      "flags": [],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 31,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "Shutting off a small diesel-electric truck: a modest diesel engine turning a generator, with a faint electric traction motor whine: the steady idle stops, the engine shudders to a halt with a last knock and the exhaust ticks as it cools. Outdoors, close. Length: 4 seconds"
+    }
+  },
+  "GeneratorSetDoorA": {
+    "name": "GeneratorSetDoorA",
+    "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/GeneratorSet/DoorA.ogg",
+    "sha256": "9dc1b648c0251cec2095c6c9468b26a5d40df0796b707c9ab4bc728418d463ea",
+    "master_sha256": "633b48b42229eb9b40a5a79ffef2513e8b49068e6be6e6560d9ead92e32e405c",
+    "fingerprint": "e3d626bd2a649e1ea1427f0505c5fbc0d8242208575ccef63f55319cd3ff6244",
+    "date": "2026-11-11",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "true peak, to -10.66 dBTP",
+      "gain_db": -8.76
+    },
+    "reference": {
+      "defName": "Metal_Drop",
+      "effective": "peak -22.7 dB",
+      "volume": [
+        25.0,
+        25.0
+      ],
+      "distance": null,
+      "channels": 1
+    },
+    "result": {
+      "lufs": -33.3,
+      "true_peak": -11.0,
+      "seconds": 1.56,
+      "flags": [
+        "spiky"
+      ],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 31,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A small truck cab door opened and shut firmly once, a metal latch click and a solid thunk. Close, outdoors. Length: 2 seconds"
+    }
+  },
+  "GeneratorSetDoorB": {
+    "name": "GeneratorSetDoorB",
+    "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/GeneratorSet/DoorB.ogg",
+    "sha256": "408b9486bcb0a3bfd5c2f69540362b28dd6a4518d0f26373ce336cb96e3dd087",
+    "master_sha256": "77a1700a40df647e5b7c973c8bb9dd8055fadcace04a7b2e2c66e8d1fecd987d",
+    "fingerprint": "3122b9a15949f485e721ce98445e9e9684ec85cc5f231114b413b8e87c122917",
+    "date": "2026-11-11",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "true peak, to -10.66 dBTP",
+      "gain_db": -6.76
+    },
+    "reference": {
+      "defName": "Metal_Drop",
+      "effective": "peak -22.7 dB",
+      "volume": [
+        25.0,
+        25.0
+      ],
+      "distance": null,
+      "channels": 1
+    },
+    "result": {
+      "lufs": -29.7,
+      "true_peak": -10.8,
+      "seconds": 1.13,
+      "flags": [],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 33,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A small truck cab door opened and shut firmly once, a metal latch click and a solid thunk. Close, outdoors. Length: 2 seconds"
+    }
+  },
+  "GeneratorSetSputter": {
+    "name": "GeneratorSetSputter",
+    "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/GeneratorSet/Sputter.ogg",
+    "sha256": "5c12a47476567db12b2cf99c96f9ee21ff56d2b18b5ae9553433990a9b57c7fd",
+    "master_sha256": "90282b97720807957506495cacf27eba2b14a74fa555f229cb998a2666116529",
+    "fingerprint": "ec25a1a411bbce400ff6d62dec146476ba3aa409abc9f33287cdae1f6863648d",
+    "date": "2026-11-11",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "loudness, to -18.78 LUFS",
+      "gain_db": 0.62
+    },
+    "reference": {
+      "defName": "ChemfuelFiredGenerator_Ambience",
+      "effective": "-36.5 LUFS",
+      "volume": [
+        13.0,
+        13.0
+      ],
+      "distance": [
+        10.0,
+        20.0
+      ],
+      "channels": 1
+    },
+    "result": {
+      "lufs": -18.9,
+      "true_peak": -5.4,
+      "seconds": 4.31,
+      "flags": [],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 33,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A small diesel-electric truck: a modest diesel engine turning a generator, with a faint electric traction motor whine running out of fuel: it stumbles, coughs and sputters, then dies. Outdoors, close. Length: 4 seconds"
+    }
+  },
+  "SeabedCrawlerEngineStart": {
+    "name": "SeabedCrawlerEngineStart",
+    "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/SeabedCrawler/EngineStart.ogg",
+    "sha256": "325f89974fe128324f8e177d8bf55e4b87b70bdf27c38d43fc425ea50b7491b5",
+    "master_sha256": "366a4d2f33faafb106d9787e6706c7e1cedb950a27708fa972bbffef744124f3",
+    "fingerprint": "72cff61877fd60a4a770d1efdd8422bedefc66ef6f6b1df918f92588d1c10ac4",
+    "date": "2026-11-11",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "loudness, to -21.78 LUFS",
+      "gain_db": 7.8
+    },
+    "reference": {
+      "defName": "ChemfuelFiredGenerator_Ambience",
+      "effective": "-36.5 LUFS",
+      "volume": [
+        13.0,
+        13.0
+      ],
+      "distance": [
+        10.0,
+        20.0
+      ],
+      "channels": 1
+    },
+    "result": {
+      "lufs": -22.2,
+      "true_peak": -0.8,
+      "seconds": 5.82,
+      "flags": [
+        "spiky"
+      ],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 33,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "Powering up a small research submarine driven by electric motors turning a propeller, heard from inside its steel hull: heavy electrical contactors clunk shut, then the motors spin up with a rising hum. Length: 5 seconds"
+    }
+  },
+  "SeabedCrawlerEngineIdle": {
+    "name": "SeabedCrawlerEngineIdle",
+    "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/SeabedCrawler/EngineIdle.ogg",
+    "sha256": "629ce106b5a0c10c68a652ece279f0c226e450d5f41cd942ea05be53380705e9",
+    "master_sha256": "2bdc7f20f3cbeb76d4b2e46e0b4e538f45888acbb6fdcdb6b3534b2006b21716",
+    "fingerprint": "14f1ddc0368fa535d59b8c21e1fbaa86db30a78babda7d1014525c77d06bb092",
+    "date": "2026-11-11",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "loop_span_s": [
+        0.4,
+        6.7677
+      ],
+      "loop_match": 0.454,
+      "levelled_by": "loudness, to -21.78 LUFS",
+      "gain_db": 9.12
+    },
+    "reference": {
+      "defName": "ChemfuelFiredGenerator_Ambience",
+      "effective": "-36.5 LUFS",
+      "volume": [
+        13.0,
+        13.0
+      ],
+      "distance": [
+        10.0,
+        20.0
+      ],
+      "channels": 1
+    },
+    "result": {
+      "lufs": -21.8,
+      "true_peak": -7.7,
+      "seconds": 6.12,
+      "flags": [],
+      "seam_dip_db": 1.56,
+      "loop_gap_s": 0.0
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 31,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A small research submarine driven by electric motors turning a propeller, heard from inside its steel hull, motors humming softly at slow speed with a gentle propeller swish, calm, continuous and unchanging. Length: 8 seconds"
+    }
+  },
+  "SeabedCrawlerEngineLoad": {
+    "name": "SeabedCrawlerEngineLoad",
+    "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/SeabedCrawler/EngineLoad.ogg",
+    "sha256": "6428838ac250bbbf7cd1c432a32228949bd0c4bff2143d28eaa58a726a002e73",
+    "master_sha256": "0aee2e043a2602ecf0ad54ac7ba404718bae707400ab814ee6a5ac1c0e18f533",
+    "fingerprint": "22cfd1978db90aa8a961060355bc9243795868bdb4c4dce6dcb8d1bbf2eac52d",
+    "date": "2026-11-11",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "loop_span_s": [
+        0.2,
+        6.5613
+      ],
+      "loop_match": 0.145,
+      "levelled_by": "loudness, to -18.78 LUFS",
+      "gain_db": 3.12
+    },
+    "reference": {
+      "defName": "ChemfuelFiredGenerator_Ambience",
+      "effective": "-36.5 LUFS",
+      "volume": [
+        13.0,
+        13.0
+      ],
+      "distance": [
+        10.0,
+        20.0
+      ],
+      "channels": 1
+    },
+    "result": {
+      "lufs": -18.9,
+      "true_peak": -5.5,
+      "seconds": 6.11,
+      "flags": [],
+      "seam_dip_db": 0.72,
+      "loop_gap_s": 0.0
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 33,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A small research submarine driven by electric motors turning a propeller, heard from inside its steel hull, motors driving hard at full speed with a strong propeller churn and a deeper hum, continuous and unchanging. Length: 8 seconds"
+    }
+  },
+  "SeabedCrawlerEngineStop": {
+    "name": "SeabedCrawlerEngineStop",
+    "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/SeabedCrawler/EngineStop.ogg",
+    "sha256": "d780530d22a9feec40a3a8ae8f9a92ae4ee47df38e33826bbe73776eedf1ad91",
+    "master_sha256": "669d73018ed765d8e806fa350af706722c9825179736cef3542bd4bead7720d5",
+    "fingerprint": "d26d27d162bbd4da8991340c73f2a6f7f39d7d787118dbe7f2d35b044e23b71c",
+    "date": "2026-11-11",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "loudness, to -21.78 LUFS",
+      "gain_db": 2.72
+    },
+    "reference": {
+      "defName": "ChemfuelFiredGenerator_Ambience",
+      "effective": "-36.5 LUFS",
+      "volume": [
+        13.0,
+        13.0
+      ],
+      "distance": [
+        10.0,
+        20.0
+      ],
+      "channels": 1
+    },
+    "result": {
+      "lufs": -21.8,
+      "true_peak": -4.3,
+      "seconds": 4.91,
+      "flags": [],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 31,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "Powering down a small research submarine driven by electric motors turning a propeller, heard from inside its steel hull: the motor hum winds down and the contactors clunk open. Length: 4 seconds"
+    }
+  },
+  "SeabedCrawlerDoorA": {
+    "name": "SeabedCrawlerDoorA",
+    "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/SeabedCrawler/DoorA.ogg",
+    "sha256": "f6915a9257cd7378a8ecd540a1804b3277082fa1bbfe8df2ab7940fe45071d98",
+    "master_sha256": "ffd8e29960edb52ca3227c60ea74c76aa9f5e097dfe3d05c9986817a57c1151f",
+    "fingerprint": "2f37c619f356081694bd1c66ac30ca7df1b18e1b2094fbc372cc3726eb7b2107",
+    "date": "2026-11-11",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "true peak, to -10.66 dBTP",
+      "gain_db": -6.76
+    },
+    "reference": {
+      "defName": "Metal_Drop",
+      "effective": "peak -22.7 dB",
+      "volume": [
+        25.0,
+        25.0
+      ],
+      "distance": null,
+      "channels": 1
+    },
+    "result": {
+      "lufs": -30.6,
+      "true_peak": -11.0,
+      "seconds": 4.01,
+      "flags": [],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 31,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A small submarine hatch: a steel hand wheel spun to undog it, the hatch swung open on its hinge and shut with a heavy metallic clang. Close. Length: 3 seconds"
+    }
+  },
+  "SeabedCrawlerDoorB": {
+    "name": "SeabedCrawlerDoorB",
+    "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/SeabedCrawler/DoorB.ogg",
+    "sha256": "1de72baf79c3820c66346ae456d629d9654429ac97a32466acd7bfc03cde7710",
+    "master_sha256": "2e7f7ca85f1b7277f4222116c70a67d7bdd070cc0da444d151d30ab0ab1d1470",
+    "fingerprint": "64e3b3175324e6f2b08c9bc537c808174c89752b2b8da5a15ebdca59e1130935",
+    "date": "2026-11-11",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "true peak, to -10.66 dBTP",
+      "gain_db": -7.36
+    },
+    "reference": {
+      "defName": "Metal_Drop",
+      "effective": "peak -22.7 dB",
+      "volume": [
+        25.0,
+        25.0
+      ],
+      "distance": null,
+      "channels": 1
+    },
+    "result": {
+      "lufs": -31.9,
+      "true_peak": -10.4,
+      "seconds": 4.03,
+      "flags": [
+        "spiky"
+      ],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 32,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A small submarine hatch: a steel hand wheel spun to undog it, the hatch swung open on its hinge and shut with a heavy metallic clang. Close. Length: 3 seconds"
+    }
+  },
+  "SeabedCrawlerDoorC": {
+    "name": "SeabedCrawlerDoorC",
+    "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/SeabedCrawler/DoorC.ogg",
+    "sha256": "3208341107e8e857188124fb589fa9363d5244c8848150a08ffba2408bb72c64",
+    "master_sha256": "904c9c700f309209e092dc3f58fb42d5ad36817d321ffe29d759d207d6dae689",
+    "fingerprint": "6c777a3af466eea8a210ff0214382c19cf38f1deead7d232db9adf774212ba2b",
+    "date": "2026-11-11",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "true peak, to -10.66 dBTP",
+      "gain_db": -6.96
+    },
+    "reference": {
+      "defName": "Metal_Drop",
+      "effective": "peak -22.7 dB",
+      "volume": [
+        25.0,
+        25.0
+      ],
+      "distance": null,
+      "channels": 1
+    },
+    "result": {
+      "lufs": -32.0,
+      "true_peak": -10.7,
+      "seconds": 3.97,
+      "flags": [
+        "spiky"
+      ],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 33,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A small submarine hatch: a steel hand wheel spun to undog it, the hatch swung open on its hinge and shut with a heavy metallic clang. Close. Length: 3 seconds"
+    }
+  },
+  "TipperEngineLoad": {
+    "name": "TipperEngineLoad",
+    "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/Tipper/EngineLoad.ogg",
+    "sha256": "fa64122744e4c967b013080ac4d60d83778d02ee6107a8c66bf2ae4ac30e8eca",
+    "master_sha256": "4fb08879a0ded092e89e835b32e566496c69c30d44f024c6180dfea2db0da06f",
+    "fingerprint": "bda7401ed619cc94e2914db92f029c4da15f6c280d6738722eca8d9c32e72e68",
+    "date": "2026-11-11",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "loop_span_s": [
+        0.6,
+        5.2316
+      ],
+      "loop_match": 0.164,
+      "loop_crossfade_s": 1.0,
+      "loop_curve": "equal gain",
+      "loop_seam_dip_db": 1.51,
+      "levelled_by": "loudness, to -15.78 LUFS",
+      "gain_db": -0.6
+    },
+    "reference": {
+      "defName": "ChemfuelFiredGenerator_Ambience",
+      "effective": "-36.5 LUFS",
+      "volume": [
+        13.0,
+        13.0
+      ],
+      "distance": [
+        10.0,
+        20.0
+      ],
+      "channels": 1
+    },
+    "result": {
+      "lufs": -16.3,
+      "true_peak": -1.1,
+      "seconds": 3.63,
+      "flags": [],
+      "seam_dip_db": 1.7,
+      "loop_gap_s": 0.0
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 31,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A heavy tipper dump truck with a rough, gravelly straight-six diesel engine and a rattling exhaust working hard under a heavy load at steady moderate revs, labouring and growling, even and unchanging, no gear changes, continuous. Outdoors, a few metres away. Length: 8 seconds"
+    }
   }
 }

@@ -407,6 +407,10 @@
         <emptyKilograms>20000</emptyKilograms>
         <ratedKilowatts>300</ratedKilowatts>
       </li>
+      <li Class="Phobos.VehicleSystems.PhobosEngineSoundExtension">
+        <idleSound>PhobosVehicles_DrillRigEngineIdle</idleSound>
+        <loadSound>PhobosVehicles_DrillRigEngineLoad</loadSound>
+      </li>
     </modExtensions>
     <comps>
       <li Class="Vehicles.CompProperties_FueledTravel">
@@ -432,6 +436,34 @@
         </pipedResources>
       </li>
     </comps>
+    <!-- Its own voice in place of the inherited draft blips; the engine loops are played by D'thorga Framework from the
+         extension below, so they follow rpm and load (docs/development/sound-catalogue.md). -->
+    <soundOneShotsOnEvent Inherit="False">
+      <li>
+        <key>IgnitionOn</key>
+        <value>PhobosVehicles_DrillRigEngineStart</value>
+      </li>
+      <li>
+        <key>IgnitionOff</key>
+        <value>PhobosVehicles_DrillRigEngineStop</value>
+      </li>
+      <li>
+        <key>PawnEntered</key>
+        <value>PhobosVehicles_DrillRigDoor</value>
+      </li>
+      <li>
+        <key>PawnExited</key>
+        <value>PhobosVehicles_DrillRigDoor</value>
+      </li>
+      <li>
+        <key>Braking</key>
+        <value>PhobosVehicles_DrillRigAirBrake</value>
+      </li>
+      <li>
+        <key>OutOfFuel</key>
+        <value>PhobosVehicles_DrillRigSputter</value>
+      </li>
+    </soundOneShotsOnEvent>
   </Vehicles.VehicleDef>
 
   <Vehicles.VehicleBuildDef ParentName="VehicleBaseBuildable">

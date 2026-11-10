@@ -99,16 +99,7 @@ def render(exe, master, spec, out):
     """The cleaned, mono, unlevelled sound at RATE into out (a WAV). Returns what was done, for the record."""
     done = {}
     if spec['kind'] == 'loop':
-        frames, integrated = sound_review.loudness_frames(exe, [master])
-        span = sound_review.steady_span(frames, integrated)
-        match = None
-        if span:
-            end, match = sound_review.best_loop_end(sound_review.decode_mono(exe, master), sound_review.ANALYSIS_RATE, *span)
-            span = (span[0], end)
-        pre = (spec['filter'] + ',' if spec.get('filter') else '') + MONO
-        graph = sound_review.loop_graph(0, span=span, coherent=match is not None and match >= sound_review.COHERENT_MATCH, pre=pre)
-        sound_review.run_ffmpeg(exe, ['-i', str(master), '-filter_complex', graph, '-map', '[out]', '-ar', str(RATE), '-c:a', 'pcm_s24le', str(out)])
-        done.update(loop_span_s=list(span) if span else None, loop_match=match)
+        done.update(best_loop(exe, master, spec, out))
     else:
         sound_review.run_ffmpeg(exe, ['-i', str(master), '-af', oneshot_filter(spec.get('cut'), spec.get('filter')), '-ar', str(RATE),
                                      '-c:a', 'pcm_s24le', str(out)])
@@ -117,6 +108,39 @@ def render(exe, master, spec, out):
     if spec.get('filter'):
         done['filter'] = spec['filter']
     return done
+
+
+LOOP_CROSSFADES_S = (0.25, 0.5, 0.75, 1.0)  # Tried in turn; a rough, pulsing engine (the tipper, 11 Nov 2026) joined cleanly at one
+                                          # length and dipped at the others, so the export measures each and keeps the best.
+
+
+def best_loop(exe, master, spec, out):
+    """The loop with the smallest dip at its join, of every crossfade length in LOOP_CROSSFADES_S with both curves: each joined
+    where its ends best match for that length (sound_review.best_loop_end), rendered, played twice and measured. Writes the best
+    to out and returns what it chose."""
+    frames, integrated = sound_review.loudness_frames(exe, [master])
+    span = sound_review.steady_span(frames, integrated)
+    mono = sound_review.decode_mono(exe, master)
+    pre = (spec['filter'] + ',' if spec.get('filter') else '') + MONO
+    best = None
+    with tempfile.TemporaryDirectory() as folder:
+        for crossfade in LOOP_CROSSFADES_S:
+            joined, match = span, None
+            if span:
+                end, match = sound_review.best_loop_end(mono, sound_review.ANALYSIS_RATE, *span, crossfade=crossfade)
+                joined = (span[0], end)
+            for coherent in (False, True):
+                trial = Path(folder) / f'{crossfade}-{coherent}.wav'
+                graph = sound_review.loop_graph(0, crossfade=crossfade, span=joined, coherent=coherent, pre=pre)
+                sound_review.run_ffmpeg(exe, ['-i', str(master), '-filter_complex', graph, '-map', '[out]', '-ar', str(RATE), '-c:a', 'pcm_s24le', str(trial)])
+                twice = sound_review.decode_mono(exe, trial, twice=True)
+                dip = sound_review.seam_dip_db(twice, sound_review.ANALYSIS_RATE, len(twice) / 2 / sound_review.ANALYSIS_RATE) or 0.0
+                if best is None or dip < best[0]:
+                    best = (dip, trial.read_bytes(), {'loop_span_s': list(joined) if joined else None, 'loop_match': match,
+                                                      'loop_crossfade_s': crossfade, 'loop_curve': 'equal gain' if coherent else 'equal power',
+                                                      'loop_seam_dip_db': round(dip, 2)})
+    out.write_bytes(best[1])
+    return best[2]
 
 
 def review(exe, path, loop):

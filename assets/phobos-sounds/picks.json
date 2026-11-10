@@ -113,6 +113,236 @@
       "candidate": "s14-oxygen-regulator/s14-oxygen-regulator-22.flac",
       "picked": "2026-11-10",
       "use": "S14: oxygen flowing from a regulator to a patient"
+    },
+    {
+      "candidate": "p1-tanker-start/p1-tanker-start-31.flac",
+      "picked": "2026-11-11",
+      "use": "Tanker: engine start"
+    },
+    {
+      "candidate": "p1-tanker-idle/p1-tanker-idle-33.flac",
+      "picked": "2026-11-11",
+      "use": "Tanker: engine idling (blended by load, pitched by rpm)"
+    },
+    {
+      "candidate": "p1-tanker-load/p1-tanker-load-33.flac",
+      "picked": "2026-11-11",
+      "use": "Tanker: engine labouring (blended by load, pitched by rpm)"
+    },
+    {
+      "candidate": "p1-tanker-stop/p1-tanker-stop-31.flac",
+      "picked": "2026-11-11",
+      "use": "Tanker: engine stop"
+    },
+    {
+      "candidate": "p1-tanker-door/p1-tanker-door-31.flac",
+      "picked": "2026-11-11",
+      "use": "Tanker: door, take A"
+    },
+    {
+      "candidate": "p1-tanker-door/p1-tanker-door-32.flac",
+      "picked": "2026-11-11",
+      "use": "Tanker: door, take B"
+    },
+    {
+      "candidate": "p1-tanker-door/p1-tanker-door-33.flac",
+      "picked": "2026-11-11",
+      "use": "Tanker: door, take C"
+    },
+    {
+      "candidate": "p1-tanker-airbrake/p1-tanker-airbrake-31.flac",
+      "picked": "2026-11-11",
+      "use": "Tanker: air brakes"
+    },
+    {
+      "candidate": "p1-tanker-sputter/p1-tanker-sputter-31.flac",
+      "picked": "2026-11-11",
+      "use": "Tanker: out of fuel"
+    },
+    {
+      "candidate": "p1-tipper-start/p1-tipper-start-31.flac",
+      "picked": "2026-11-11",
+      "use": "Tipper: engine start"
+    },
+    {
+      "candidate": "p1-tipper-idle/p1-tipper-idle-32.flac",
+      "picked": "2026-11-11",
+      "use": "Tipper: engine idling (blended by load, pitched by rpm)"
+    },
+    {
+      "candidate": "p1-tipper-load/p1-tipper-load-31.flac",
+      "picked": "2026-11-11",
+      "use": "Tipper: engine labouring (blended by load, pitched by rpm)"
+    },
+    {
+      "candidate": "p1-tipper-stop/p1-tipper-stop-31.flac",
+      "picked": "2026-11-11",
+      "use": "Tipper: engine stop"
+    },
+    {
+      "candidate": "p1-tipper-door/p1-tipper-door-32.flac",
+      "picked": "2026-11-11",
+      "use": "Tipper: door, take A"
+    },
+    {
+      "candidate": "p1-tipper-door/p1-tipper-door-33.flac",
+      "picked": "2026-11-11",
+      "use": "Tipper: door, take B"
+    },
+    {
+      "candidate": "p1-tipper-airbrake/p1-tipper-airbrake-31.flac",
+      "picked": "2026-11-11",
+      "use": "Tipper: air brakes"
+    },
+    {
+      "candidate": "p1-tipper-sputter/p1-tipper-sputter-31.flac",
+      "picked": "2026-11-11",
+      "use": "Tipper: out of fuel"
+    },
+    {
+      "candidate": "p1-drillrig-start/p1-drillrig-start-31.flac",
+      "picked": "2026-11-11",
+      "use": "DrillRig: engine start"
+    },
+    {
+      "candidate": "p1-drillrig-idle/p1-drillrig-idle-31.flac",
+      "picked": "2026-11-11",
+      "use": "DrillRig: engine idling (blended by load, pitched by rpm)"
+    },
+    {
+      "candidate": "p1-drillrig-load/p1-drillrig-load-31.flac",
+      "picked": "2026-11-11",
+      "use": "DrillRig: engine labouring (blended by load, pitched by rpm)"
+    },
+    {
+      "candidate": "p1-drillrig-stop/p1-drillrig-stop-31.flac",
+      "picked": "2026-11-11",
+      "use": "DrillRig: engine stop"
+    },
+    {
+      "candidate": "p1-drillrig-door/p1-drillrig-door-32.flac",
+      "picked": "2026-11-11",
+      "use": "DrillRig: door, take A"
+    },
+    {
+      "candidate": "p1-drillrig-door/p1-drillrig-door-33.flac",
+      "picked": "2026-11-11",
+      "use": "DrillRig: door, take B"
+    },
+    {
+      "candidate": "p1-drillrig-airbrake/p1-drillrig-airbrake-31.flac",
+      "picked": "2026-11-11",
+      "use": "DrillRig: air brakes"
+    },
+    {
+      "candidate": "p1-drillrig-sputter/p1-drillrig-sputter-31.flac",
+      "picked": "2026-11-11",
+      "use": "DrillRig: out of fuel"
+    },
+    {
+      "candidate": "p1-survey-start/p1-survey-start-32.flac",
+      "picked": "2026-11-11",
+      "use": "SurveyTruck: engine start"
+    },
+    {
+      "candidate": "p1-survey-idle/p1-survey-idle-31.flac",
+      "picked": "2026-11-11",
+      "use": "SurveyTruck: engine idling (blended by load, pitched by rpm)"
+    },
+    {
+      "candidate": "p1-survey-load/p1-survey-load-32.flac",
+      "picked": "2026-11-11",
+      "use": "SurveyTruck: engine labouring (blended by load, pitched by rpm)"
+    },
+    {
+      "candidate": "p1-survey-stop/p1-survey-stop-31.flac",
+      "picked": "2026-11-11",
+      "use": "SurveyTruck: engine stop"
+    },
+    {
+      "candidate": "p1-survey-door/p1-survey-door-32.flac",
+      "picked": "2026-11-11",
+      "use": "SurveyTruck: door, take A"
+    },
+    {
+      "candidate": "p1-survey-door/p1-survey-door-33.flac",
+      "picked": "2026-11-11",
+      "use": "SurveyTruck: door, take B"
+    },
+    {
+      "candidate": "p1-survey-sputter/p1-survey-sputter-31.flac",
+      "picked": "2026-11-11",
+      "use": "SurveyTruck: out of fuel"
+    },
+    {
+      "candidate": "p1-genset-start/p1-genset-start-31.flac",
+      "picked": "2026-11-11",
+      "use": "GeneratorSet: engine start"
+    },
+    {
+      "candidate": "p1-genset-idle/p1-genset-idle-32.flac",
+      "picked": "2026-11-11",
+      "use": "GeneratorSet: engine idling (blended by load, pitched by rpm)"
+    },
+    {
+      "candidate": "p1-genset-load/p1-genset-load-31.flac",
+      "picked": "2026-11-11",
+      "use": "GeneratorSet: engine labouring (blended by load, pitched by rpm)"
+    },
+    {
+      "candidate": "p1-genset-stop/p1-genset-stop-31.flac",
+      "picked": "2026-11-11",
+      "use": "GeneratorSet: engine stop"
+    },
+    {
+      "candidate": "p1-genset-door/p1-genset-door-31.flac",
+      "picked": "2026-11-11",
+      "use": "GeneratorSet: door, take A"
+    },
+    {
+      "candidate": "p1-genset-door/p1-genset-door-33.flac",
+      "picked": "2026-11-11",
+      "use": "GeneratorSet: door, take B"
+    },
+    {
+      "candidate": "p1-genset-sputter/p1-genset-sputter-33.flac",
+      "picked": "2026-11-11",
+      "use": "GeneratorSet: out of fuel"
+    },
+    {
+      "candidate": "p1-crawler-start/p1-crawler-start-33.flac",
+      "picked": "2026-11-11",
+      "use": "SeabedCrawler: engine start"
+    },
+    {
+      "candidate": "p1-crawler-idle/p1-crawler-idle-31.flac",
+      "picked": "2026-11-11",
+      "use": "SeabedCrawler: engine idling (blended by load, pitched by rpm)"
+    },
+    {
+      "candidate": "p1-crawler-load/p1-crawler-load-33.flac",
+      "picked": "2026-11-11",
+      "use": "SeabedCrawler: engine labouring (blended by load, pitched by rpm)"
+    },
+    {
+      "candidate": "p1-crawler-stop/p1-crawler-stop-31.flac",
+      "picked": "2026-11-11",
+      "use": "SeabedCrawler: engine stop"
+    },
+    {
+      "candidate": "p1-crawler-door/p1-crawler-door-31.flac",
+      "picked": "2026-11-11",
+      "use": "SeabedCrawler: hatch, take A"
+    },
+    {
+      "candidate": "p1-crawler-door/p1-crawler-door-32.flac",
+      "picked": "2026-11-11",
+      "use": "SeabedCrawler: hatch, take B"
+    },
+    {
+      "candidate": "p1-crawler-door/p1-crawler-door-33.flac",
+      "picked": "2026-11-11",
+      "use": "SeabedCrawler: hatch, take C"
     }
   ],
   "runners_up": [

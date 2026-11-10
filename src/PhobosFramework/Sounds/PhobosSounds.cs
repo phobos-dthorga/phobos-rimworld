@@ -62,6 +62,13 @@ public sealed class SustainedSound
         if (Playing) sustainer!.End();
         sustainer = null;
     }
+
+    /// <summary>Sets an external parameter the playing sound's SoundDef maps (its paramMappings, from SoundParamSource_External), such as
+    /// an engine's pitch; nothing when it is not playing. The game reads it every frame for a Constant mapping.</summary>
+    public void SetParam(string name, float value)
+    {
+        if (Playing) sustainer!.externalParams[name] = value;
+    }
 }
 
 [DefOf]

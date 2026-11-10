@@ -5,6 +5,23 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.76.0] - 2026-11-11 - Draft
+
+Engine sounds that follow the engine (owner, 10 and 11 November 2026). **Not yet tested in game.**
+
+### Added
+
+- **An engine sound that follows rpm and load**, for any vehicle whose Def names one: an idling loop and a labouring loop, blended by the engine's load (accessories included, and a rig working while parked), and pitched by its rpm, so it rises as it revs and drops at each gear change. Readings glide rather than jump. Played by our systems instead of a Vehicle Framework event loop, which nothing can change while it plays; the game maps the values onto pitch and volume every frame, as its own wind turbine maps its output. D'thorga Vehicles' seven vehicles use it.
+- For modders: PhobosEngineSoundExtension on a vehicle's Def (idleSound, loadSound, the pitch range, fallback engine speeds, and silentWhileWorking for a vehicle whose work has its own running sound); each loop's SoundDef maps PhobosEnginePitch and PhobosEngineLoad; SustainedSound.SetParam sets any mapped value.
+
+### Compatibility and limits
+
+- Only vehicles whose Def names an engine sound use it: other mods' vehicles keep their authors' engine sounds. Pitch runs from 0.9 at idle to 1.35 at rated speed (authored), as a loop pitched further starts to sound like tape played fast. Not yet heard in game.
+
+### Save compatibility
+
+- Safe on an existing save: nothing new is saved.
+
 ## [0.75.0] - 2026-11-10 - Draft
 
 The vehicle systems' sounds: the generic library (owner, 10 November 2026). **Not yet tested in game.**

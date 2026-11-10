@@ -4,7 +4,7 @@ Vehicles that keep running only while they are looked after. It adds one vehicle
 vehicles of other mods you already drive the systems that match what they really are, on top of the general systems D'thorga
 Framework gives every vehicle.
 
-Version 0.34.0, built 10 November 2026 for House D'thorga. **Not yet tested in game.**
+Version 0.35.0, built 11 November 2026 for House D'thorga. **Not yet tested in game.**
 
 ## Read this first (gotchas)
 
@@ -60,6 +60,15 @@ Version 0.34.0, built 10 November 2026 for House D'thorga. **Not yet tested in g
 | Steam locomotives (Trains of the Rim) | A boiler: hours to raise steam, a water glass, a tender or tanks to refill at a water stop, a fusible plug that melts if the water runs low | The Frisco follows the real 4500 class (a 68,000 L tender) and the tank engine the LB&SCR E2, the class Thomas was drawn from |
 
 Every source and simplification is in the loadout files under `Mods/`.
+
+## How they sound (new in 0.35.0; not yet tested in game)
+
+**Every vehicle here has its own voice**: its own engine start and stop, its own door or hatch, and an engine that follows the
+drive, rising as it revs, dropping at each gear change and growling harder under load (an idling and a labouring loop, blended).
+The tanker, tipper and drill rig hiss their air brakes as they stop; the trucks splutter when the tank runs dry. The generator truck's
+engine falls quiet while it is set up, where its own running sound plays. D'thorga Framework's **D'thorga sounds volume** setting
+turns them all down or off. All were made with generative AI on the owner's PC and picked by the owner
+([how](../../docs/development/sound-generation.md)).
 
 ## The bulk tanker
 

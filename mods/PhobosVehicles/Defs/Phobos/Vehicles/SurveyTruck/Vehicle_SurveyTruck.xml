@@ -348,6 +348,10 @@
         <emptyKilograms>4500</emptyKilograms>
         <ratedKilowatts>130</ratedKilowatts>
       </li>
+      <li Class="Phobos.VehicleSystems.PhobosEngineSoundExtension">
+        <idleSound>PhobosVehicles_SurveyTruckEngineIdle</idleSound>
+        <loadSound>PhobosVehicles_SurveyTruckEngineLoad</loadSound>
+      </li>
     </modExtensions>
     <comps>
       <li Class="Vehicles.CompProperties_FueledTravel">
@@ -396,6 +400,30 @@
         </sensorWeights>
       </li>
     </comps>
+    <!-- Its own voice in place of the inherited draft blips; the engine loops are played by D'thorga Framework from the
+         extension below, so they follow rpm and load (docs/development/sound-catalogue.md). -->
+    <soundOneShotsOnEvent Inherit="False">
+      <li>
+        <key>IgnitionOn</key>
+        <value>PhobosVehicles_SurveyTruckEngineStart</value>
+      </li>
+      <li>
+        <key>IgnitionOff</key>
+        <value>PhobosVehicles_SurveyTruckEngineStop</value>
+      </li>
+      <li>
+        <key>PawnEntered</key>
+        <value>PhobosVehicles_SurveyTruckDoor</value>
+      </li>
+      <li>
+        <key>PawnExited</key>
+        <value>PhobosVehicles_SurveyTruckDoor</value>
+      </li>
+      <li>
+        <key>OutOfFuel</key>
+        <value>PhobosVehicles_SurveyTruckSputter</value>
+      </li>
+    </soundOneShotsOnEvent>
   </Vehicles.VehicleDef>
 
   <Vehicles.VehicleBuildDef ParentName="VehicleBaseBuildable">

@@ -1,0 +1,435 @@
+[
+ {
+  "name": "p1-tanker-start",
+  "engine": "sa3-sfx",
+  "seconds": 6,
+  "seeds": [
+   31,
+   32,
+   33
+  ],
+  "prompt": "Starting a large bulk tanker truck with a big turbocharged six-cylinder diesel engine, deep and heavy: a starter motor cranks briefly, the engine catches and settles into a steady idle. Outdoors, close. Length: 5 seconds"
+ },
+ {
+  "name": "p1-tanker-idle",
+  "engine": "sa3-sfx",
+  "seconds": 8,
+  "seeds": [
+   31,
+   32,
+   33
+  ],
+  "prompt": "A large bulk tanker truck with a big turbocharged six-cylinder diesel engine, deep and heavy idling steadily, even and unchanging, no revving, continuous. Outdoors, a few metres away. Length: 8 seconds",
+  "loop": true
+ },
+ {
+  "name": "p1-tanker-load",
+  "engine": "sa3-sfx",
+  "seconds": 8,
+  "seeds": [
+   31,
+   32,
+   33
+  ],
+  "prompt": "A large bulk tanker truck with a big turbocharged six-cylinder diesel engine, deep and heavy working hard under a heavy load at steady moderate revs, labouring and growling, even and unchanging, no gear changes, continuous. Outdoors, a few metres away. Length: 8 seconds",
+  "loop": true
+ },
+ {
+  "name": "p1-tanker-stop",
+  "engine": "sa3-sfx",
+  "seconds": 5,
+  "seeds": [
+   31,
+   32,
+   33
+  ],
+  "prompt": "Shutting off a large bulk tanker truck with a big turbocharged six-cylinder diesel engine, deep and heavy: the steady idle stops, the engine shudders to a halt with a last knock and the exhaust ticks as it cools. Outdoors, close. Length: 4 seconds"
+ },
+ {
+  "name": "p1-tanker-door",
+  "engine": "sa3-sfx",
+  "seconds": 3,
+  "seeds": [
+   31,
+   32,
+   33
+  ],
+  "prompt": "A heavy steel cab door opened and shut firmly once, a metal latch click and a solid thunk. Close, outdoors. Length: 2 seconds"
+ },
+ {
+  "name": "p1-tanker-sputter",
+  "engine": "sa3-sfx",
+  "seconds": 5,
+  "seeds": [
+   31,
+   32,
+   33
+  ],
+  "prompt": "A large bulk tanker truck with a big turbocharged six-cylinder diesel engine, deep and heavy running out of fuel: it stumbles, coughs and sputters, then dies. Outdoors, close. Length: 4 seconds"
+ },
+ {
+  "name": "p1-tanker-airbrake",
+  "engine": "sa3-sfx",
+  "seconds": 3,
+  "seeds": [
+   31,
+   32,
+   33
+  ],
+  "prompt": "The air brakes of a large bulk tanker truck releasing a short sharp pneumatic hiss as it stops. Outdoors, close. Length: 2 seconds"
+ },
+ {
+  "name": "p1-tipper-start",
+  "engine": "sa3-sfx",
+  "seconds": 6,
+  "seeds": [
+   31,
+   32,
+   33
+  ],
+  "prompt": "Starting a heavy tipper dump truck with a rough, gravelly straight-six diesel engine and a rattling exhaust: a starter motor cranks briefly, the engine catches and settles into a steady idle. Outdoors, close. Length: 5 seconds"
+ },
+ {
+  "name": "p1-tipper-idle",
+  "engine": "sa3-sfx",
+  "seconds": 8,
+  "seeds": [
+   31,
+   32,
+   33
+  ],
+  "prompt": "A heavy tipper dump truck with a rough, gravelly straight-six diesel engine and a rattling exhaust idling steadily, even and unchanging, no revving, continuous. Outdoors, a few metres away. Length: 8 seconds",
+  "loop": true
+ },
+ {
+  "name": "p1-tipper-load",
+  "engine": "sa3-sfx",
+  "seconds": 8,
+  "seeds": [
+   31,
+   32,
+   33,
+   34,
+   35,
+   36
+  ],
+  "prompt": "A heavy tipper dump truck with a rough, gravelly straight-six diesel engine and a rattling exhaust working hard under a heavy load at steady moderate revs, labouring and growling, even and unchanging, no gear changes, continuous. Outdoors, a few metres away. Length: 8 seconds",
+  "loop": true
+ },
+ {
+  "name": "p1-tipper-stop",
+  "engine": "sa3-sfx",
+  "seconds": 5,
+  "seeds": [
+   31,
+   32,
+   33
+  ],
+  "prompt": "Shutting off a heavy tipper dump truck with a rough, gravelly straight-six diesel engine and a rattling exhaust: the steady idle stops, the engine shudders to a halt with a last knock and the exhaust ticks as it cools. Outdoors, close. Length: 4 seconds"
+ },
+ {
+  "name": "p1-tipper-door",
+  "engine": "sa3-sfx",
+  "seconds": 3,
+  "seeds": [
+   31,
+   32,
+   33
+  ],
+  "prompt": "A tipper truck cab door, slightly rattly opened and shut firmly once, a metal latch click and a solid thunk. Close, outdoors. Length: 2 seconds"
+ },
+ {
+  "name": "p1-tipper-sputter",
+  "engine": "sa3-sfx",
+  "seconds": 5,
+  "seeds": [
+   31,
+   32,
+   33
+  ],
+  "prompt": "A heavy tipper dump truck with a rough, gravelly straight-six diesel engine and a rattling exhaust running out of fuel: it stumbles, coughs and sputters, then dies. Outdoors, close. Length: 4 seconds"
+ },
+ {
+  "name": "p1-tipper-airbrake",
+  "engine": "sa3-sfx",
+  "seconds": 3,
+  "seeds": [
+   31,
+   32,
+   33
+  ],
+  "prompt": "The air brakes of a heavy tipper dump truck releasing a short sharp pneumatic hiss as it stops. Outdoors, close. Length: 2 seconds"
+ },
+ {
+  "name": "p1-drillrig-start",
+  "engine": "sa3-sfx",
+  "seconds": 6,
+  "seeds": [
+   31,
+   32,
+   33
+  ],
+  "prompt": "Starting a heavy drill rig truck with a big low-revving diesel engine and a whining hydraulic pump on its power take-off: a starter motor cranks briefly, the engine catches and settles into a steady idle. Outdoors, close. Length: 5 seconds"
+ },
+ {
+  "name": "p1-drillrig-idle",
+  "engine": "sa3-sfx",
+  "seconds": 8,
+  "seeds": [
+   31,
+   32,
+   33
+  ],
+  "prompt": "A heavy drill rig truck with a big low-revving diesel engine and a whining hydraulic pump on its power take-off idling steadily, even and unchanging, no revving, continuous. Outdoors, a few metres away. Length: 8 seconds",
+  "loop": true
+ },
+ {
+  "name": "p1-drillrig-load",
+  "engine": "sa3-sfx",
+  "seconds": 8,
+  "seeds": [
+   31,
+   32,
+   33
+  ],
+  "prompt": "A heavy drill rig truck with a big low-revving diesel engine and a whining hydraulic pump on its power take-off working hard under a heavy load at steady moderate revs, labouring and growling, even and unchanging, no gear changes, continuous. Outdoors, a few metres away. Length: 8 seconds",
+  "loop": true
+ },
+ {
+  "name": "p1-drillrig-stop",
+  "engine": "sa3-sfx",
+  "seconds": 5,
+  "seeds": [
+   31,
+   32,
+   33
+  ],
+  "prompt": "Shutting off a heavy drill rig truck with a big low-revving diesel engine and a whining hydraulic pump on its power take-off: the steady idle stops, the engine shudders to a halt with a last knock and the exhaust ticks as it cools. Outdoors, close. Length: 4 seconds"
+ },
+ {
+  "name": "p1-drillrig-door",
+  "engine": "sa3-sfx",
+  "seconds": 3,
+  "seeds": [
+   31,
+   32,
+   33
+  ],
+  "prompt": "A heavy steel cab door with a firm latch opened and shut firmly once, a metal latch click and a solid thunk. Close, outdoors. Length: 2 seconds"
+ },
+ {
+  "name": "p1-drillrig-sputter",
+  "engine": "sa3-sfx",
+  "seconds": 5,
+  "seeds": [
+   31,
+   32,
+   33
+  ],
+  "prompt": "A heavy drill rig truck with a big low-revving diesel engine and a whining hydraulic pump on its power take-off running out of fuel: it stumbles, coughs and sputters, then dies. Outdoors, close. Length: 4 seconds"
+ },
+ {
+  "name": "p1-drillrig-airbrake",
+  "engine": "sa3-sfx",
+  "seconds": 3,
+  "seeds": [
+   31,
+   32,
+   33
+  ],
+  "prompt": "The air brakes of a heavy drill rig truck releasing a short sharp pneumatic hiss as it stops. Outdoors, close. Length: 2 seconds"
+ },
+ {
+  "name": "p1-survey-start",
+  "engine": "sa3-sfx",
+  "seconds": 6,
+  "seeds": [
+   31,
+   32,
+   33
+  ],
+  "prompt": "Starting a light four-wheel-drive survey truck with a small four-cylinder diesel engine, tappety and lively: a starter motor cranks briefly, the engine catches and settles into a steady idle. Outdoors, close. Length: 5 seconds"
+ },
+ {
+  "name": "p1-survey-idle",
+  "engine": "sa3-sfx",
+  "seconds": 8,
+  "seeds": [
+   31,
+   32,
+   33
+  ],
+  "prompt": "A light four-wheel-drive survey truck with a small four-cylinder diesel engine, tappety and lively idling steadily, even and unchanging, no revving, continuous. Outdoors, a few metres away. Length: 8 seconds",
+  "loop": true
+ },
+ {
+  "name": "p1-survey-load",
+  "engine": "sa3-sfx",
+  "seconds": 8,
+  "seeds": [
+   31,
+   32,
+   33
+  ],
+  "prompt": "A light four-wheel-drive survey truck with a small four-cylinder diesel engine, tappety and lively working hard under a heavy load at steady moderate revs, labouring and growling, even and unchanging, no gear changes, continuous. Outdoors, a few metres away. Length: 8 seconds",
+  "loop": true
+ },
+ {
+  "name": "p1-survey-stop",
+  "engine": "sa3-sfx",
+  "seconds": 5,
+  "seeds": [
+   31,
+   32,
+   33
+  ],
+  "prompt": "Shutting off a light four-wheel-drive survey truck with a small four-cylinder diesel engine, tappety and lively: the steady idle stops, the engine shudders to a halt with a last knock and the exhaust ticks as it cools. Outdoors, close. Length: 4 seconds"
+ },
+ {
+  "name": "p1-survey-door",
+  "engine": "sa3-sfx",
+  "seconds": 3,
+  "seeds": [
+   31,
+   32,
+   33
+  ],
+  "prompt": "A light utility truck door opened and shut firmly once, a metal latch click and a solid thunk. Close, outdoors. Length: 2 seconds"
+ },
+ {
+  "name": "p1-survey-sputter",
+  "engine": "sa3-sfx",
+  "seconds": 5,
+  "seeds": [
+   31,
+   32,
+   33
+  ],
+  "prompt": "A light four-wheel-drive survey truck with a small four-cylinder diesel engine, tappety and lively running out of fuel: it stumbles, coughs and sputters, then dies. Outdoors, close. Length: 4 seconds"
+ },
+ {
+  "name": "p1-genset-start",
+  "engine": "sa3-sfx",
+  "seconds": 6,
+  "seeds": [
+   31,
+   32,
+   33
+  ],
+  "prompt": "Starting a small diesel-electric truck: a modest diesel engine turning a generator, with a faint electric traction motor whine: a starter motor cranks briefly, the engine catches and settles into a steady idle. Outdoors, close. Length: 5 seconds"
+ },
+ {
+  "name": "p1-genset-idle",
+  "engine": "sa3-sfx",
+  "seconds": 8,
+  "seeds": [
+   31,
+   32,
+   33
+  ],
+  "prompt": "A small diesel-electric truck: a modest diesel engine turning a generator, with a faint electric traction motor whine idling steadily, even and unchanging, no revving, continuous. Outdoors, a few metres away. Length: 8 seconds",
+  "loop": true
+ },
+ {
+  "name": "p1-genset-load",
+  "engine": "sa3-sfx",
+  "seconds": 8,
+  "seeds": [
+   31,
+   32,
+   33
+  ],
+  "prompt": "A small diesel-electric truck: a modest diesel engine turning a generator, with a faint electric traction motor whine working hard under a heavy load at steady moderate revs, labouring and growling, even and unchanging, no gear changes, continuous. Outdoors, a few metres away. Length: 8 seconds",
+  "loop": true
+ },
+ {
+  "name": "p1-genset-stop",
+  "engine": "sa3-sfx",
+  "seconds": 5,
+  "seeds": [
+   31,
+   32,
+   33
+  ],
+  "prompt": "Shutting off a small diesel-electric truck: a modest diesel engine turning a generator, with a faint electric traction motor whine: the steady idle stops, the engine shudders to a halt with a last knock and the exhaust ticks as it cools. Outdoors, close. Length: 4 seconds"
+ },
+ {
+  "name": "p1-genset-door",
+  "engine": "sa3-sfx",
+  "seconds": 3,
+  "seeds": [
+   31,
+   32,
+   33
+  ],
+  "prompt": "A small truck cab door opened and shut firmly once, a metal latch click and a solid thunk. Close, outdoors. Length: 2 seconds"
+ },
+ {
+  "name": "p1-genset-sputter",
+  "engine": "sa3-sfx",
+  "seconds": 5,
+  "seeds": [
+   31,
+   32,
+   33
+  ],
+  "prompt": "A small diesel-electric truck: a modest diesel engine turning a generator, with a faint electric traction motor whine running out of fuel: it stumbles, coughs and sputters, then dies. Outdoors, close. Length: 4 seconds"
+ },
+ {
+  "name": "p1-crawler-start",
+  "engine": "sa3-sfx",
+  "seconds": 6,
+  "seeds": [
+   31,
+   32,
+   33
+  ],
+  "prompt": "Powering up a small research submarine driven by electric motors turning a propeller, heard from inside its steel hull: heavy electrical contactors clunk shut, then the motors spin up with a rising hum. Length: 5 seconds"
+ },
+ {
+  "name": "p1-crawler-idle",
+  "engine": "sa3-sfx",
+  "seconds": 8,
+  "seeds": [
+   31,
+   32,
+   33
+  ],
+  "prompt": "A small research submarine driven by electric motors turning a propeller, heard from inside its steel hull, motors humming softly at slow speed with a gentle propeller swish, calm, continuous and unchanging. Length: 8 seconds",
+  "loop": true
+ },
+ {
+  "name": "p1-crawler-load",
+  "engine": "sa3-sfx",
+  "seconds": 8,
+  "seeds": [
+   31,
+   32,
+   33
+  ],
+  "prompt": "A small research submarine driven by electric motors turning a propeller, heard from inside its steel hull, motors driving hard at full speed with a strong propeller churn and a deeper hum, continuous and unchanging. Length: 8 seconds",
+  "loop": true
+ },
+ {
+  "name": "p1-crawler-stop",
+  "engine": "sa3-sfx",
+  "seconds": 5,
+  "seeds": [
+   31,
+   32,
+   33
+  ],
+  "prompt": "Powering down a small research submarine driven by electric motors turning a propeller, heard from inside its steel hull: the motor hum winds down and the contactors clunk open. Length: 4 seconds"
+ },
+ {
+  "name": "p1-crawler-door",
+  "engine": "sa3-sfx",
+  "seconds": 4,
+  "seeds": [
+   31,
+   32,
+   33
+  ],
+  "prompt": "A small submarine hatch: a steel hand wheel spun to undog it, the hatch swung open on its hinge and shut with a heavy metallic clang. Close. Length: 3 seconds"
+ }
+]
