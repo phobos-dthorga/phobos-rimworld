@@ -186,18 +186,27 @@ public class ServiceSpec
     public List<ServiceDueRule> alsoDue = new();
     public List<QuantityRestore> restores = new();
     public List<ThingDefCountClass> supplies = new();
+    /// <summary>What the service took before its kit existed (S4, Framework 0.74.0): taken instead of <c>supplies</c> while the colony
+    /// still accepts raw materials (<see cref="GameComponent_PhobosServiceKits"/>, on for saves from before kits). Empty for a service
+    /// that has no kit.</summary>
+    public List<ThingDefCountClass> rawSupplies = new();
     /// <summary>Supplies used as well only when nothing provides water (without Dubs Bad Hygiene): chemfuel in place of a coolant's
     /// water (owner, 8 Nov 2026). With a water source, the service draws its water and needs none of these.</summary>
     public List<ThingDefCountClass> suppliesWithoutWaterSource = new();
     List<ThingDefCountClass>? suppliesWithFallback;
+    List<ThingDefCountClass>? rawWithFallback;
 
     /// <summary>What the service takes from the cargo as things stand now.</summary>
     public List<ThingDefCountClass> SuppliesNow
     {
         get
         {
-            if (VehicleWater.HasSource || suppliesWithoutWaterSource.Count == 0) return supplies;
-            return suppliesWithFallback ??= supplies.Concat(suppliesWithoutWaterSource).ToList();
+            bool raw = rawSupplies.Count > 0 && GameComponent_PhobosServiceKits.RawAccepted;
+            List<ThingDefCountClass> basis = raw ? rawSupplies : supplies;
+            if (VehicleWater.HasSource || suppliesWithoutWaterSource.Count == 0) return basis;
+            return raw
+                ? rawWithFallback ??= rawSupplies.Concat(suppliesWithoutWaterSource).ToList()
+                : suppliesWithFallback ??= supplies.Concat(suppliesWithoutWaterSource).ToList();
         }
     }
 

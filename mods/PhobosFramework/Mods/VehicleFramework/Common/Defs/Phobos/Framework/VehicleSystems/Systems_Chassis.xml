@@ -128,11 +128,15 @@
           <value>0</value>
         </li>
       </restores>
+      <!-- Framework 0.74.0 (S4): a tyre set made at the parts bench; a colony that still accepts raw materials pays what it is made of. -->
       <supplies>
+        <PhobosVehicles_TyreSet>1</PhobosVehicles_TyreSet>
+      </supplies>
+      <rawSupplies>
         <Steel>15</Steel>
         <ComponentIndustrial>2</ComponentIndustrial>
         <Chemfuel>10</Chemfuel>
-      </supplies>
+      </rawSupplies>
       <work>2000</work>
     </service>
   </Phobos.VehicleSystems.PhobosVehicleSystemDef>
@@ -255,9 +259,13 @@
           <value>0</value>
         </li>
       </restores>
+      <!-- Framework 0.74.0 (S4): a brake pad set; raw, the component it is made of. -->
       <supplies>
-        <ComponentIndustrial>1</ComponentIndustrial>
+        <PhobosVehicles_BrakePadSet>1</PhobosVehicles_BrakePadSet>
       </supplies>
+      <rawSupplies>
+        <ComponentIndustrial>1</ComponentIndustrial>
+      </rawSupplies>
       <work>800</work>
     </service>
   </Phobos.VehicleSystems.PhobosVehicleSystemDef>

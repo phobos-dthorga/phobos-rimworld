@@ -238,8 +238,22 @@ stays optional as S2 has it; the gearbox-to-coolant link is dropped.
 - **Inspection pit:** a facility for the vehicle parts bench, **+15 % work speed, one counts** (the tool cabinet's +6 %, two counting,
   for scale) [A]; 60 steel and a component. Its picture is the depot bay's, a placeholder until the owner asks for art.
 
+**S4 built in D'thorga Framework 0.74.0 (10 Nov 2026), not yet tested in game:**
+
+- Four items made at the parts bench from exactly what each service took before (Crafting 3, vehicle parts research): a **tyre set**
+  (15 steel, 2 components, 10 chemfuel), a **brake pad set** (1 component), an **engine service kit** (9 chemfuel, 1 component) and a
+  **drive belt** (4 chemfuel). Their pictures are our other parts', placeholders.
+- The tyre, brake and engine services take the kit; a destroyed belt takes the belt item, whole. Each keeps its old materials as
+  `rawSupplies` (a new field on a service), and a part supply can be marked `kit`.
+- **Migration, per colony** (`GameComponent_PhobosServiceKits`, saved): a save from before kits loads with "services take raw
+  materials" on, so nothing due is held up; a new colony starts with it off. The player switches it in the vehicle systems settings
+  window while a game is running (a per-colony choice, not a global setting). The motor service of electric vehicles has no kit.
+- The depot bay's shelf takes the four kits by default.
+- **The inspection pit's picture** was made on the OpenAI image API the same day, two attempts at the owner's word (US$0.041 in all,
+  our parts bench as a style-only reference); it ships once the owner picks one.
+
 **Still to come, in the record's order:** the fittings batch (F1 to F8, F10) with T6 and T8; T4 and T5 (brake and clutch wear, engine
-braking); **S4 consumables as items, agreed**, on its own with its migration; S3 if wanted; T7 last.
+braking); S3 if wanted; T7 last. Traders do not stock the kits yet (no trade tags); they can be sold.
 
 ## Open questions for the owner
 

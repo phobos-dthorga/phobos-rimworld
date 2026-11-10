@@ -254,7 +254,19 @@ weapons stay their authors' own: we never replace another mod's vehicle sounds.
 4. **Generic vehicle systems** (S4 to S16), and the stations (S81, S82).
 5. **Planned features** take their sounds as they are built (S110 onwards).
 
+## Owner's answers (10 Nov 2026)
+
+- **The generic library comes first**, generated with the distilled model, 3 seeds a sound
+  (`assets/phobos-sounds/requests/generic-library.json`).
+- **Cargo sounds (S17): included**, soft, one at a time.
+- **Dashboard chime (S6): red lamps only**, once, never repeating.
+- **Our system sounds on other mods' vehicles: yes, with a setting to turn them off** there (the owner: "a main menu setting to
+  disable"). It goes in D'thorga Framework's settings beside "D'thorga sounds volume".
+- **The test hull (S80) shares the Crawler's sounds**, and gets the spotted ping.
+
 ## Open questions for the owner
+
+Still open (questions 2 and 3 are answered above):
 
 1. **The gas alarm (S99), and the hydrogen detector later:** keep them silent (the earlier rule: never alarming), or give them a
    soft, plain tone now that a sound belongs in the game? An alarm that cannot be heard is an odd alarm.

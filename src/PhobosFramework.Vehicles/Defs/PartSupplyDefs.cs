@@ -32,6 +32,8 @@ public class PhobosVehiclePartSupplyDef : Def
     /// <summary>Our part, asked for whole at a whole-part share of 100%.</summary>
     public ThingDef? item;
     public int itemCount = 1;
+    /// <summary>The item is a service kit (S4, Framework 0.74.0): while the colony still accepts raw materials, its own cost is paid instead.</summary>
+    public bool kit;
     /// <summary>The full cost in materials, of which the player's share is charged. Empty: the item's own cost.</summary>
     public List<ThingDefCountClass> materials = new();
     public float steelPerHealth;

@@ -151,16 +151,18 @@
   </Phobos.VehicleSystems.PhobosVehiclePartSupplyDef>
 
   <!-- Framework 0.73.0: a drive belt is rubber, and the game has none, so chemfuel stands for it as it does for tyres (owner, 8 Nov 2026).
-       Cheap and quick to fit, so a snapped belt strands a vehicle only when nobody carries the makings. Authored. -->
+       Cheap and quick to fit, so a snapped belt strands a vehicle only when nobody carries a spare. Authored. Since 0.74.0 (S4) it is a
+       drive belt item made at the parts bench, whole, at the whole-part share; a colony that still accepts raw materials pays its
+       4 chemfuel instead. -->
   <Phobos.VehicleSystems.PhobosVehiclePartSupplyDef>
     <defName>PhobosPartSupply_DriveBelt</defName>
     <label>drive belt</label>
     <roles>
       <li>Belt</li>
     </roles>
-    <materials>
-      <Chemfuel>4</Chemfuel>
-    </materials>
+    <wholePart>true</wholePart>
+    <item>PhobosVehicles_DriveBelt</item>
+    <kit>true</kit>
     <work>300</work>
   </Phobos.VehicleSystems.PhobosVehiclePartSupplyDef>
 

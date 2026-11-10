@@ -299,6 +299,13 @@ public class VehicleSystemsMod : Mod
         listing.CheckboxLabeled("PhobosVehicleSystems_SettingLowOilService".Translate(), ref s.lowOilCallsService, "PhobosVehicleSystems_SettingLowOilServiceDesc".Translate());
         listing.CheckboxLabeled("PhobosVehicleSystems_SettingAccessoryLoad".Translate(), ref s.accessoriesLoadEngine, "PhobosVehicleSystems_SettingAccessoryLoadDesc".Translate());
         listing.CheckboxLabeled("PhobosVehicleSystems_SettingRoughGround".Translate(), ref s.roughGroundWear, "PhobosVehicleSystems_SettingRoughGroundDesc".Translate());
+        if (GameComponent_PhobosServiceKits.InGame)
+        {
+            // This colony's own choice, saved with it (S4): shown here for convenience, changed only through its service.
+            bool raw = GameComponent_PhobosServiceKits.RawAccepted;
+            listing.CheckboxLabeled("PhobosVehicleSystems_SettingRawServices".Translate(), ref raw, "PhobosVehicleSystems_SettingRawServicesDesc".Translate());
+            if (raw != GameComponent_PhobosServiceKits.RawAccepted) GameComponent_PhobosServiceKits.SetRawAccepted(raw);
+        }
         listing.CheckboxLabeled("PhobosVehicleSystems_SettingCabMoods".Translate(), ref s.cabMoods, "PhobosVehicleSystems_SettingCabMoodsDesc".Translate());
         listing.CheckboxLabeled("PhobosVehicleSystems_SettingClimateAll".Translate(), ref s.climateControlAll, "PhobosVehicleSystems_SettingClimateAllDesc".Translate());
         listing.Gap(6f);

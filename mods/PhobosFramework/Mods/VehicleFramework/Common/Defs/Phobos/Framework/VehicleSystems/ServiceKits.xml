@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- Consumables as items (S4 of docs/development/vehicle-crosslinks-round-two.md; owner, 10 Nov 2026: agreed). The parts bench makes them
+       from exactly what each service took before, so nothing costs more; what changes is that a service needs the kit aboard, so a caravan
+       carries kits and the colony keeps a stock. A save from before them keeps paying in raw materials until the player switches it off
+       (GameComponent_PhobosServiceKits). Work, skill, mass and value are authored; value is near the materials' own. The pictures are our
+       other parts', placeholders until the owner asks for art of their own. -->
+
+  <ThingDef Name="PhobosServiceKitBase" ParentName="ResourceBase" Abstract="True">
+    <soundInteract>Metal_Drop</soundInteract>
+    <soundDrop>Standard_Drop</soundDrop>
+    <thingCategories>
+      <li>PhobosCategory_VehicleParts</li>
+    </thingCategories>
+    <recipeMaker>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <effectWorking>Smith</effectWorking>
+      <soundWorking>Recipe_Machining</soundWorking>
+      <workSkill>Crafting</workSkill>
+      <researchPrerequisite>PhobosResearch_VehicleParts</researchPrerequisite>
+      <recipeUsers>
+        <li>PhobosVehicles_PartsBench</li>
+      </recipeUsers>
+      <skillRequirements>
+        <Crafting>3</Crafting>
+      </skillRequirements>
+    </recipeMaker>
+  </ThingDef>
+
+  <ThingDef ParentName="PhobosServiceKitBase">
+    <defName>PhobosVehicles_TyreSet</defName>
+    <label>tyre set</label>
+    <description>A vehicle's worth of tyres or track pads, with their beads, valves and fixings, ready to fit. A mechanic renews a vehicle's worn tyres or tracks with one loaded aboard.</description>
+    <graphicData>
+      <texPath>Phobos/Vehicles/Parts/DrivetrainKit</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <stackLimit>10</stackLimit>
+    <statBases>
+      <MaxHitPoints>100</MaxHitPoints>
+      <MarketValue>120</MarketValue>
+      <Mass>20</Mass>
+      <Flammability>1</Flammability>
+      <WorkToMake>1500</WorkToMake>
+    </statBases>
+    <costList>
+      <Steel>15</Steel>
+      <ComponentIndustrial>2</ComponentIndustrial>
+      <Chemfuel>10</Chemfuel>
+    </costList>
+  </ThingDef>
+
+  <ThingDef ParentName="PhobosServiceKitBase">
+    <defName>PhobosVehicles_BrakePadSet</defName>
+    <label>brake pad set</label>
+    <description>Brake pads and shoes for every wheel of a vehicle. A mechanic fits new brakes with one loaded aboard.</description>
+    <graphicData>
+      <texPath>Phobos/Vehicles/Parts/Transmission</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <stackLimit>20</stackLimit>
+    <statBases>
+      <MaxHitPoints>80</MaxHitPoints>
+      <MarketValue>40</MarketValue>
+      <Mass>4</Mass>
+      <Flammability>0.2</Flammability>
+      <WorkToMake>600</WorkToMake>
+    </statBases>
+    <costList>
+      <ComponentIndustrial>1</ComponentIndustrial>
+    </costList>
+  </ThingDef>
+
+  <ThingDef ParentName="PhobosServiceKitBase">
+    <defName>PhobosVehicles_ServiceKit</defName>
+    <label>engine service kit</label>
+    <description>Oil, filters and seals for one engine service. A mechanic services an engine with one loaded aboard.</description>
+    <graphicData>
+      <texPath>Phobos/Vehicles/Parts/ElectricalKit</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <stackLimit>20</stackLimit>
+    <statBases>
+      <MaxHitPoints>80</MaxHitPoints>
+      <MarketValue>60</MarketValue>
+      <Mass>6</Mass>
+      <Flammability>1</Flammability>
+      <WorkToMake>800</WorkToMake>
+    </statBases>
+    <costList>
+      <Chemfuel>9</Chemfuel>
+      <ComponentIndustrial>1</ComponentIndustrial>
+    </costList>
+  </ThingDef>
+
+  <ThingDef ParentName="PhobosServiceKitBase">
+    <defName>PhobosVehicles_DriveBelt</defName>
+    <label>drive belt</label>
+    <description>A rubber drive belt that turns an engine's water pump and alternator. A spare one in the cargo puts a vehicle back on the road when its belt snaps far from home.</description>
+    <graphicData>
+      <texPath>Phobos/Vehicles/Parts/EngineAssembly</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <stackLimit>25</stackLimit>
+    <statBases>
+      <MaxHitPoints>50</MaxHitPoints>
+      <MarketValue>15</MarketValue>
+      <Mass>1</Mass>
+      <Flammability>1</Flammability>
+      <WorkToMake>400</WorkToMake>
+    </statBases>
+    <costList>
+      <Chemfuel>4</Chemfuel>
+    </costList>
+  </ThingDef>
+</Defs>

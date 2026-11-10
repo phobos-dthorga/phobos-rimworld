@@ -176,10 +176,14 @@
           <value>1</value>
         </li>
       </restores>
+      <!-- Framework 0.74.0 (S4): an engine service kit; raw, what it is made of. -->
       <supplies>
+        <PhobosVehicles_ServiceKit>1</PhobosVehicles_ServiceKit>
+      </supplies>
+      <rawSupplies>
         <Chemfuel>9</Chemfuel>
         <ComponentIndustrial>1</ComponentIndustrial>
-      </supplies>
+      </rawSupplies>
       <work>1500</work>
     </service>
   </Phobos.VehicleSystems.PhobosVehicleSystemDef>
@@ -194,6 +198,8 @@
       <supplies Inherit="False">
         <ComponentIndustrial>1</ComponentIndustrial>
       </supplies>
+      <!-- No kit for a motor service: it must not inherit the engine service's raw materials (chemfuel for oil it has none of). -->
+      <rawSupplies Inherit="False" />
       <work>1000</work>
     </service>
   </Phobos.VehicleSystems.PhobosVehicleSystemDef>

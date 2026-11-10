@@ -97,7 +97,7 @@ public sealed class VehicleRepairs
     {
         var payment = new List<(ThingDef def, int count)>();
         // A whole part is one item; a salvaged or heavy-duty one is costed in what it is made of.
-        if (def.item != null && def.wholePart && CostShareRule.WantsWhole(share) && costFactor == 1f)
+        if (def.item != null && def.wholePart && CostShareRule.WantsWhole(share) && costFactor == 1f && !(def.kit && GameComponent_PhobosServiceKits.RawAccepted))
         {
             payment.Add((def.item, def.itemCount));
             return payment;

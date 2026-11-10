@@ -504,6 +504,17 @@ the top is hiss or whine; a thin upright line is a click. <b>Red lines</b> are m
 verdicts. Nothing here is in a mod until it is picked.</div>"""
 
 
+SERIOUS_FLAGS = ('clipped', 'silent', 'whine', 'seamdip', 'gap')  # What would stop a sound shipping (export_sound.py refuses them).
+
+
+def review_order(measure):
+    """Where a candidate sits on the page: clean first, then those with only advisory flags (strong highs, a sharp attack), then
+    those with a flag that would stop it shipping; fewer flags before more. The owner hears the likeliest picks first."""
+    codes = [flag['code'] for flag in measure.get('flags', [])]
+    serious = sum(code in SERIOUS_FLAGS for code in codes)
+    return (2 if serious else 1 if codes else 0, serious * 10 + len(codes))
+
+
 def build(generated, force=False, octaves=LOWERED_OCTAVES):
     """Prepare every candidate under the generated folder and write the page. Returns the number that failed."""
     generated = Path(generated).resolve()
@@ -519,14 +530,15 @@ def build(generated, force=False, octaves=LOWERED_OCTAVES):
             record = json.loads(record_path.read_text(encoding='utf-8')) if record_path.is_file() else {}
             try:
                 measure = prepare(exe, master, record, force or measure_octaves(master) not in (None, octaves), octaves)
-                cards.append(card(generated, master, record, measure))
+                cards.append((review_order(measure), card(generated, master, record, measure)))
                 summary['candidates'][f'{folder.name}/{master.name}'] = measure
             except (RuntimeError, OSError, ValueError) as error:
                 failures += 1
-                cards.append(card(generated, master, record, {}, str(error)[:400]))
+                cards.append(((3, 0), card(generated, master, record, {}, str(error)[:400])))
                 summary['candidates'][f'{folder.name}/{master.name}'] = {'error': str(error)[:400]}
+        cards.sort(key=lambda pair: pair[0])  # Stable, so equal candidates stay in name order.
         sections.append(f'<h2 id="{html.escape(folder.name)}">{html.escape(folder.name)} <span class="meta">({len(cards)})</span></h2>'
-                        f'<div class="grid">{"".join(cards)}</div>')
+                        f'<div class="grid">{"".join(html_card for _, html_card in cards)}</div>')
     nav = ' '.join(f'<a href="#{html.escape(folder.name)}">{html.escape(folder.name)}</a>' for folder in folders)
     title = generated.parent.name
     page = (f'<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">'

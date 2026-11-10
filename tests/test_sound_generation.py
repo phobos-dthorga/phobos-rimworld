@@ -239,6 +239,14 @@ class LoopLoudnessTests(unittest.TestCase):
         self.assertIn('c1=tri', sound_review.loop_graph(0, span=(0.2, 6.5), coherent=True))
         self.assertIn('c1=qsin', sound_review.loop_graph(0, span=(0.2, 6.5)))
 
+    def test_clean_candidates_come_first_on_the_page(self):
+        clean = sound_review.review_order({'flags': []})
+        advisory = sound_review.review_order({'flags': [{'code': 'highs'}, {'code': 'spiky'}]})
+        serious = sound_review.review_order({'flags': [{'code': 'whine'}]})
+        self.assertLess(clean, advisory)
+        self.assertLess(advisory, serious)
+        self.assertEqual(set(sound_review.SERIOUS_FLAGS), set(export_sound.EXPORT_FLAGS_TO_REFUSE))
+
     def test_a_long_dip_earns_the_gap_flag(self):
         self.assertIn(('gap'), [code for code, _ in sound_review.flags_for(calm(loop_gap_s=0.6))])
         self.assertNotIn('gap', [code for code, _ in sound_review.flags_for(calm(loop_gap_s=0.1))])

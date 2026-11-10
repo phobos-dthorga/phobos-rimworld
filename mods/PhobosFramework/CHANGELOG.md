@@ -5,6 +5,30 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.74.0] - 2026-11-10 - Draft
+
+Service kits (owner, 10 November 2026). **Not yet tested in game.**
+
+### Added
+
+- **Four service kits made at the vehicle parts bench**: a tyre set, a brake pad set, an engine service kit and a drive belt, each from exactly what its service took before. A vehicle's new tyres or tracks, new brakes and engine service now need the kit loaded aboard, and a snapped drive belt needs a new belt. Caravans carry kits; the colony keeps a stock.
+- **This colony: services take raw materials instead of kits** (vehicle systems settings, shown while a game is running, saved with the colony). On, services take the steel, components and chemfuel the kits are made of, as before. A colony begun before kits existed starts with it on, so nothing already due is held up; a new colony starts with it off.
+- The depot bay's shelf takes the four kits by default.
+
+### Balance
+
+- The kits cost exactly the materials their services took before; making them takes a crafter's work (Crafting 3) at the parts bench. Work, mass and value are authored.
+
+### Save compatibility
+
+- Safe on an existing save: it loads with raw materials still accepted. Switch it off in the settings once you have kits.
+
+### Compatibility and limits
+
+- The kits' pictures are our other parts', placeholders.
+- Traders do not stock kits yet; they can be sold to them.
+- An electric vehicle's motor service has no kit and takes its component as before.
+
 ## [0.73.0] - 2026-11-10 - Draft
 
 Deeper vehicle chains and a tuning rig that does a job (owner, 10 November 2026). **Not yet tested in game.**

@@ -39,7 +39,7 @@ MONO = 'pan=mono|c0=0.5*c0+0.5*c1,'
 PEAK_CEILING_DBTP = sound_review.PEAK_CEILING_DBTP
 SHORT_S = 0.4  # Under this, integrated loudness reads as silence (EBU R128 gates in 400 ms blocks), so the true peak levels it.
 OGG_QUALITY = '5'
-EXPORT_FLAGS_TO_REFUSE = ('clipped', 'silent', 'whine', 'seamdip', 'gap')
+EXPORT_FLAGS_TO_REFUSE = sound_review.SERIOUS_FLAGS  # One list, so the review page and the export agree on what stops a sound.
 
 
 def sha256(path):
