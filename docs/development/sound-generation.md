@@ -1,7 +1,7 @@
 # Sound generation: research and pipeline (10 Nov 2026)
 
-**Status:** the tools are built and their offline tests pass; the first real sounds (the pilot) are the next step.
-**No sound is in any mod**, and nothing here is tested in game.
+**Status:** the tools are built and tested offline; the pilot ran on 10 Nov 2026, and the owner's four picks shipped in Framework 0.71.0,
+Medical 0.12.0 and Vehicles 0.31.0 (see [Into the game](#into-the-game-built-10-nov-2026-not-yet-tested-in-game)). **Not yet tested in game.**
 
 ## Read this first (gotchas)
 

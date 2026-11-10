@@ -255,7 +255,11 @@ Five mods until 7 November 2026; each record below keeps its own mod's name and 
   Vehicle Framework bodies, the prompt skeleton, the pilot flow, the review checklist and what the engine enforces.
 - [Sound generation: research and pipeline (10 Nov 2026)](sound-generation.md): local sound effects with Stable Audio 3 Small
   SFX through ComfyUI, the models compared and their licences, ffmpeg clean-up, and a listening page with spectrograms,
-  measured flags and a lowered copy for ears that lose the high frequencies. No sound is in a mod yet.
+  measured flags and a lowered copy for ears that lose the high frequencies; the toolkits that measure the game's own sounds and ship
+  ours; the first four sounds, shipped 10 Nov 2026 (not yet tested in game).
+- [Sound catalogue: every sound we need, now and planned (10 Nov 2026)](sound-catalogue.md): an audit of all our vehicles, machines,
+  devices and systems against what GTek's L-ATV does with Vehicle Framework's events; about 130 sounds with IDs, which are shared and
+  why, which need only XML, an order of work and six questions for the owner. Nothing built beyond the first four.
 
 ## Analysis tooling
 

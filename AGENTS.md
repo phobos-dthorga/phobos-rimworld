@@ -380,7 +380,10 @@ delivered, record the delivery in the changelog or design record, and add or ame
   camera instruction first in every prompt; each reference with a named role; bodies drawn empty (no cargo, crew, gear,
   damage or text: those are overlays or nothing); one correction per defect, then a change of approach; rejects archived
   with their reason; approved picks stay unless the owner reopens them.
-- Sounds only where usefulness is high: quiet, never alarming, with a volume setting.
+- Sounds are quiet, never alarming, and under the one volume setting. **Our vehicles get a full set** (owner, 10 Nov 2026: as rich as
+  GTek's Oshkosh L-ATV, doors and all), and **every vehicle and machine of ours sounds like itself**: a sample is shared only where the same
+  physical thing makes it (a switch, a fuel nozzle, a kit, a regulator, the dashboard). Engines, doors, brakes and working machinery are never
+  shared, and other mods' vehicles keep their authors' sounds. The plan and every sound's ID are in `docs/development/sound-catalogue.md`.
 - **Sounds are made locally and judged by more than the ear** (owner, 10 Nov 2026; `docs/development/sound-generation.md`): Stable Audio 3
   through `scripts/art-run.py`, under the same safeguards as images, and **ffmpeg for every audio job** (owner: "a much finer tool"), never
   Python audio libraries. A pick is made from the listening page `scripts/art/sound_review.py` writes, with its spectrograms, measured flags
