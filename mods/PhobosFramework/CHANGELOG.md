@@ -5,6 +5,18 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.66.2] - 2026-11-10 - Draft
+
+Storage categories (owner, 10 November 2026). **Not yet tested in game.**
+
+### Changed
+
+- Vehicle parts, kits, booster packs and jump-start kits have a storage category of their own, **vehicle parts**, inside Manufactured, so a shelf can be set for them in one click. Its icon borrows the engine assembly's picture for now.
+
+### Save compatibility
+
+- Safe on an existing save: shelves and stockpiles keep accepting exactly what they did, because a storage filter remembers items, not categories. A new shelf set to the parent category takes these too.
+
 ## [0.66.1] - 2026-11-10 - Draft
 
 A fix from the owner's test. **Not yet tested in game.**

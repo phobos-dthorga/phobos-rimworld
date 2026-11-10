@@ -5,6 +5,18 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.30.1] - 2026-11-10 - Draft
+
+Storage categories (owner, 10 November 2026). **Not yet tested in game.**
+
+### Changed
+
+- The Seabed Crawler's fittings (the bottoming wheel set, scrubber rack, laboratory fittings and analyser bench) are filed under **vehicle parts** with the rest of the parts.
+
+### Save compatibility
+
+- Safe on an existing save: shelves and stockpiles keep accepting exactly what they did, because a storage filter remembers items, not categories. A new shelf set to the parent category takes these too.
+
 ## [0.30.0] - 2026-11-10 - Draft
 
 Research only a laboratory at sea can do, and the advanced laboratory it leads to (owner, 10 November 2026). **Not yet tested in game.**

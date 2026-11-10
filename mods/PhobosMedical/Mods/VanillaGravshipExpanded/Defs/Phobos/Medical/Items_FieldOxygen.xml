@@ -40,7 +40,7 @@
       </skillRequirements>
     </recipeMaker>
     <thingCategories>
-      <li>Manufactured</li>
+      <li>PhobosCategory_ClinicalSupplies</li>
     </thingCategories>
     <comps>
       <li Class="CompProperties_Explosive">

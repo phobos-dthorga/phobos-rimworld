@@ -42,7 +42,7 @@ It holds weak breathing up to a safe level, not to normal, and it cannot help so
     <designationCategory>Misc</designationCategory>
     <minifiedDef>MinifiedThing</minifiedDef>
     <thingCategories>
-      <li>BuildingsMisc</li>
+      <li>PhobosCategory_MedicalEquipment</li>
     </thingCategories>
     <constructionSkillPrerequisite>5</constructionSkillPrerequisite>
     <placeWorkers>

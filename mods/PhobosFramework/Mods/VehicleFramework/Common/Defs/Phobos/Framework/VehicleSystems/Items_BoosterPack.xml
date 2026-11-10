@@ -46,7 +46,7 @@
       </skillRequirements>
     </recipeMaker>
     <thingCategories>
-      <li>Manufactured</li>
+      <li>PhobosCategory_VehicleParts</li>
     </thingCategories>
     <comps>
       <li Class="Phobos.Framework.Items.CompProperties_PhobosCharges">

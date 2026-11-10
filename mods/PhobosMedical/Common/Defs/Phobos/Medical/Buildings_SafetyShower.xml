@@ -34,7 +34,7 @@ A shower uses a lot of water: about 1,100 litres a rinse, or about 23 litres whe
     <designationCategory>Misc</designationCategory>
     <minifiedDef>MinifiedThing</minifiedDef>
     <thingCategories>
-      <li>BuildingsMisc</li>
+      <li>PhobosCategory_MedicalEquipment</li>
     </thingCategories>
     <constructionSkillPrerequisite>3</constructionSkillPrerequisite>
     <comps>

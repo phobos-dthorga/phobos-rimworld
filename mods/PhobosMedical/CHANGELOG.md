@@ -6,6 +6,18 @@ entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.11.2] - 2026-11-10 - Draft
+
+Storage categories (owner, 10 November 2026). **Not yet tested in game.**
+
+### Changed
+
+- Clinical kits, the bronchodilator vial and the field oxygen kit are filed under **clinical supplies** inside Manufactured, and packed-up hospital and safety equipment under **medical equipment** inside Buildings, so each can be stored in one click. Their icons borrow the fluids kit's and the oxygen concentrator's pictures for now.
+
+### Save compatibility
+
+- Safe on an existing save: shelves and stockpiles keep accepting exactly what they did, because a storage filter remembers items, not categories. A new shelf set to the parent category takes these too.
+
 ## [0.11.1] - 2026-11-10 - Draft
 
 The owner's picks for the radiation control pictures. **Not yet tested in game.**

@@ -37,7 +37,7 @@
       </skillRequirements>
     </recipeMaker>
     <thingCategories>
-      <li>Manufactured</li>
+      <li>PhobosCategory_ClinicalSupplies</li>
     </thingCategories>
     <modExtensions>
       <li Class="Phobos.Medical.Defs.PhobosPatientDeviceExtension">
@@ -88,7 +88,7 @@
       </skillRequirements>
     </recipeMaker>
     <thingCategories>
-      <li>Manufactured</li>
+      <li>PhobosCategory_ClinicalSupplies</li>
     </thingCategories>
     <modExtensions>
       <li Class="Phobos.Medical.Defs.PhobosPatientDeviceExtension">
@@ -137,7 +137,7 @@
       </skillRequirements>
     </recipeMaker>
     <thingCategories>
-      <li>Manufactured</li>
+      <li>PhobosCategory_ClinicalSupplies</li>
     </thingCategories>
   </ThingDef>
 
@@ -179,7 +179,7 @@
       </skillRequirements>
     </recipeMaker>
     <thingCategories>
-      <li>Manufactured</li>
+      <li>PhobosCategory_ClinicalSupplies</li>
     </thingCategories>
     <modExtensions>
       <li Class="Phobos.Medical.Defs.PhobosPatientDeviceExtension">

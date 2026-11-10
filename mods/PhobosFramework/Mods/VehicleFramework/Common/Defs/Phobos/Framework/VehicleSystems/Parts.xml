@@ -22,7 +22,7 @@
       <WorkToMake>5000</WorkToMake>
     </statBases>
     <thingCategories>
-      <li>Manufactured</li>
+      <li>PhobosCategory_VehicleParts</li>
     </thingCategories>
     <costList>
       <Steel>60</Steel>
@@ -65,7 +65,7 @@
       <WorkToMake>5000</WorkToMake>
     </statBases>
     <thingCategories>
-      <li>Manufactured</li>
+      <li>PhobosCategory_VehicleParts</li>
     </thingCategories>
     <costList>
       <Steel>90</Steel>
@@ -108,7 +108,7 @@
       <WorkToMake>5000</WorkToMake>
     </statBases>
     <thingCategories>
-      <li>Manufactured</li>
+      <li>PhobosCategory_VehicleParts</li>
     </thingCategories>
     <costList>
       <Steel>25</Steel>
@@ -150,7 +150,7 @@
       <WorkToMake>3500</WorkToMake>
     </statBases>
     <thingCategories>
-      <li>Manufactured</li>
+      <li>PhobosCategory_VehicleParts</li>
     </thingCategories>
     <costList>
       <Steel>40</Steel>
@@ -192,7 +192,7 @@
       <WorkToMake>8000</WorkToMake>
     </statBases>
     <thingCategories>
-      <li>Manufactured</li>
+      <li>PhobosCategory_VehicleParts</li>
     </thingCategories>
     <costList>
       <Steel>60</Steel>

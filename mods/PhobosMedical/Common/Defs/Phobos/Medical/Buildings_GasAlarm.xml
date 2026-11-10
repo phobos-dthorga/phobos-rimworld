@@ -38,7 +38,7 @@
     <designationCategory>Misc</designationCategory>
     <minifiedDef>MinifiedThing</minifiedDef>
     <thingCategories>
-      <li>BuildingsMisc</li>
+      <li>PhobosCategory_MedicalEquipment</li>
     </thingCategories>
     <comps>
       <li Class="CompProperties_Power">

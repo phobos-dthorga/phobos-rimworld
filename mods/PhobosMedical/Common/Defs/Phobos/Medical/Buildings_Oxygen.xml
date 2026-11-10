@@ -39,7 +39,7 @@
     <designationCategory>Misc</designationCategory>
     <minifiedDef>MinifiedThing</minifiedDef>
     <thingCategories>
-      <li>BuildingsMisc</li>
+      <li>PhobosCategory_MedicalEquipment</li>
     </thingCategories>
     <constructionSkillPrerequisite>4</constructionSkillPrerequisite>
     <placeWorkers>

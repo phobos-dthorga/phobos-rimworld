@@ -43,7 +43,7 @@ It helps with low breathing and clears carbon monoxide faster. It does not repai
     <designationCategory>Misc</designationCategory>
     <minifiedDef>MinifiedThing</minifiedDef>
     <thingCategories>
-      <li>BuildingsMisc</li>
+      <li>PhobosCategory_MedicalEquipment</li>
     </thingCategories>
     <comps>
       <li Class="CompProperties_Flickable"/>
