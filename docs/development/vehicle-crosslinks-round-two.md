@@ -120,6 +120,8 @@ until the owner has played with the two axes we have: three axes in one window i
 
 ### S1. The tuning rig does a job: diagnostics
 
+**Built in 0.73.0 as a text letter; how it should look is researched in [vehicle-presentation-design.md](vehicle-presentation-design.md).**
+
 Today the rig is a gate: a tune or a refit waits for a vehicle within three cells of a powered rig. A player sees it only as "why is
 my tune waiting". Proposal: a **Diagnose** order on a vehicle at the rig, a mechanic's job of about 1,500 ticks, that produces a
 report letter: the engine's real power at the wheels against its rated power, fuel at a cruise, every part's health and grade, the

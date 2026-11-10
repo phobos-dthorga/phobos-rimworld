@@ -121,6 +121,11 @@ promise current behaviour. For using the mods, start at the [documentation index
   gates); eight deeper links, ten fittings and a boost axis, the rig doing diagnostics and better fits, consumables as items, four things argued
   against, an order and the owner's questions. T1 to T3, S1, S2 and an inspection pit built in Framework 0.73.0 and Vehicles 0.33.0 (not yet
   tested in game); S4, service kits as items, in Framework 0.74.0.
+- [How our vehicle features look: research and record (11 Nov 2026)](vehicle-presentation-design.md): everything we show is text and
+  flat bars; what the game gives free (letters that open windows, the health card's row shape, the curve drawer, a vehicle's picture in a
+  rect); the diagnosis as a report window, the fleet board, fittings icons, one dial, graphs (already recorded, free while closed), the
+  damage sheet and the world-map range as the strikingly visual high-benefit pieces, three art batches with costs, what is argued
+  against, and the owner's questions. Nothing built.
 - [Crash record: stack overflow on 9 Nov 2026](crash-2026-11-09-stack-overflow.md): a runaway call loop the log never mentioned, what the dump proved and could not,
   three suspects, the other errors in that log, and how to name the culprit.
 - [Fires on vehicles that never go out (10 Nov 2026)](vehicle-framework-fires.md): 37 fires on one jet, left on the wrong map and never changing; what the saves and
