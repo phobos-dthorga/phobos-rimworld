@@ -6,6 +6,7 @@ for submarines inside the existing framework. The ideas it serves are in [unique
 ## Read this first
 
 - **It is part of D'thorga Framework's vehicle systems**, not a mod (owner, 9 Nov 2026). It loads only with Vehicle Framework. Any author's Sea vehicle becomes a submersible with one comp and two stats, in XML.
+- **No boat interiors, by the owner's choice** (10 Nov 2026). The owner first wanted submarines built like gravships, with a walkable interior, but has seen recent mods take that approach with terrible performance. Depth comes from research, upgrades and our vehicle systems instead. That approach is also what makes **enemy submarines** affordable, and the owner wants them in time.
 - **Vehicle Framework has no depth, so a dive is a state of ours.** The hull stays on its cells. It cannot be aimed at until it is spotted, takes no hits but explosions, cannot fire or land anyone, and runs down a reserve. This is a gameplay simplification **[authored]**, not a model of water.
 - **The reserve is one number**, hours of air and charge at rest. Tying it to the batteries, and giving a boat a chemical engine, are later slices.
 - **The first real boat is [the Seabed Crawler](vehicle-seabed-crawler.md)** (owner, 10 Nov 2026), which is designed and not built.
@@ -110,6 +111,7 @@ Short list, highest consequence first. Enable dev mode and use a map with a lake
 
 ## Next slices (agent proposal)
 
+- **Enemy submarines** (owner, 10 Nov 2026: wanted "at one point"). Spotting, hearing a hidden hull (Framework 0.72.0), settling and the dark shape already work for any faction's boat. What is missing is a hostile boat's behaviour, and a way for one to arrive. Not designed yet.
 - **Equipment for recovering lost boats** (owner's idea, 10 Nov 2026). The research record's recovery vehicle and the Crawler's manipulator are natural starting points.
 
 1. The first real boat, [the Seabed Crawler](vehicle-seabed-crawler.md), with its own picture, overlays and upgrade tree (owner, 10 Nov 2026).
@@ -123,6 +125,7 @@ Short list, highest consequence first. Enable dev mode and use a map with a lake
 - **Owner (9 Nov 2026):** build a framework for submarines; it joins the existing framework. No stand-in body art, so the test hull borrows a picture.
 - **Owner (10 Nov 2026):** explosions at half strength are right; a detection mechanic, with the shape in the water seen only once detected; a boat surfaces when empty, with a button to override; chest-deep water is an option for each submarine, thinking of midget boats; the first real boat is the Seabed Crawler.
 - **Owner, later on 10 Nov 2026:** forced to stay down kills everyone, possibly through our own health mechanics later; lost boats may have recovery equipment later; keep the faint mark on our own boat.
+- **Owner, after the listening array (10 Nov 2026):** no gravship-style interiors, for performance; research and many upgrades, with our vehicle systems, are the halfway point instead; enemy submarines wanted in time. Submarines may be "one of the best features" of D'thorga Vehicles.
 - **The owner's "an option for each submarine" was read as a choice in each design's XML**, not a button in play. Say if a button was meant.
 - **Agent choices, owner to revise:** a dive as a state; one reserve number; all the spotting rules and figures; the faint mark on the player's own boat; only weapons that can reach it aim at a spotted hull; stale air as the price of staying down, and its figures; a boat without the order comes up when nobody can work it; the figures (15 and 10 seconds, three times the burn on the move, four hours regained per hour on the surface, a floor of half for the trim, a tenth of the reserve to dive); rivers not deep enough; a caravan goes under whole or not at all; a dev-only hull as the first consumer.
 
