@@ -203,6 +203,12 @@ class LoopLoudnessTests(unittest.TestCase):
         self.assertIn('whine', [code for code, _ in sound_review.flags_for(calm(whine=whine))])
         self.assertIsNone(sound_review.strongest_whine({4000: -60.0}))
 
+    def test_a_whine_alone_is_moved_to_the_midrange_and_levelled(self):
+        solo = sound_review.whine_solo_filter(15000)
+        self.assertIn('bandpass=f=15000', solo)
+        self.assertIn(f'rubberband=pitch={1000 / 15000:.4f}', solo)
+        self.assertIn(f'loudnorm=I={sound_review.WHINE_SOLO_LUFS:g}', solo)
+
     def test_band_reports_are_matched_in_order(self):
         text = ''.join(f'[Parsed_volumedetect_{2 * i + 2} @ 0x1] mean_volume: -{50 + i}.0 dB\n' for i in range(len(sound_review.WHINE_BANDS_HZ)))
         levels = sound_review.parse_band_levels(text)

@@ -56,6 +56,10 @@ WHINE_BANDS_HZ = range(4000, 20001, 500)  # Narrow bands searched for a steady t
 WHINE_BAND_WIDTH_HZ = 200
 WHINE_PROMINENCE_DB = 12.0  # A band this far above the median band is a whine: a narrow tone that broad measures miss. The pilot's
                             # concentrator hum (seed 11, 10 Nov 2026) had one near 14.5 kHz that no other flag caught.
+WHINE_SOLO_HZ = 1000        # A flagged whine is also given alone, moved down to here, where nearly every ear hears well...
+WHINE_SOLO_WIDTH_HZ = 1000  # ...taken from this wide a band around it...
+WHINE_SOLO_LUFS = -26.0     # ...and set to this level: quiet but plain. In the pilot's hum it sat 31 dB under the hum, so the
+                            # lowered copy alone could not show it to the owner (10 Nov 2026).
 MOMENTARY_WINDOW_S = 0.4   # EBU R128's momentary loudness window; ffmpeg reports one reading every 100 ms.
 STEADY_BELOW_DB = 8.0      # A loop keeps only the span within this of its overall loudness, cutting a late start and early fade.
 DIP_BELOW_DB = 10.0        # Played twice, a loop that falls this far under its overall loudness...
@@ -268,6 +272,14 @@ def strongest_whine(levels):
     return {'hz': hz, 'prominence_db': round(rises[hz] - median, 1)}
 
 
+def whine_solo_filter(hz):
+    """The whine alone: a band around it, moved down to WHINE_SOLO_HZ with rubberband, then set to WHINE_SOLO_LUFS. Mono, since
+    it is for hearing the tone, not its place."""
+    return (f'pan=mono|c0=0.5*c0+0.5*c1,bandpass=f={hz}:width_type=h:w={WHINE_SOLO_WIDTH_HZ},'
+            f'bandpass=f={hz}:width_type=h:w={WHINE_SOLO_WIDTH_HZ},rubberband=pitch={WHINE_SOLO_HZ / hz:.4f}:pitchq=quality,'
+            f'loudnorm=I={WHINE_SOLO_LUFS:g}:TP=-6:LRA=7,aresample=44100')
+
+
 def find_whine(exe, path):
     text = run_ffmpeg(exe, ['-i', str(path), '-filter_complex', whine_graph(), '-map', '[out]', '-f', 'null', '-'])
     return strongest_whine(parse_band_levels(text))
@@ -313,7 +325,7 @@ def measure_octaves(master):
 def outputs_for(master):
     review = master.parent / REVIEW_FOLDER
     names = {'review': '.review.ogg', 'lowered': '.lowered.ogg', 'loop': '.loop.ogg', 'spectrogram': '.spectrogram.png',
-             'seam': '.seam.png', 'measure': '.measure.json'}
+             'seam': '.seam.png', 'measure': '.measure.json', 'whine': '.whine.ogg'}
     return {key: review / f'{master.stem}{suffix}' for key, suffix in names.items()}
 
 
@@ -350,6 +362,9 @@ def prepare(exe, master, record, force=False, octaves=LOWERED_OCTAVES):
     measure['review_gain_db'] = gain
     measure['lowered_octaves'] = octaves
     measure['flags'] = [{'code': code, 'words': words} for code, words in flags_for(measure)]
+    paths['whine'].unlink(missing_ok=True)
+    if any(flag['code'] == 'whine' for flag in measure['flags']):
+        run_ffmpeg(exe, ['-i', str(master), '-af', whine_solo_filter(measure['whine']['hz']), *encode, str(paths['whine'])])
     paths['measure'].write_text(json.dumps(measure, indent=2), encoding='utf-8')
     return measure
 
@@ -378,6 +393,9 @@ def card(generated, master, record, measure, error=None):
         octaves = measure.get('lowered_octaves', LOWERED_OCTAVES)
         parts.append(_player(f'Lowered (listening aid only): highs above {SPLIT_HZ} Hz moved down '
                              f'{"an octave" if octaves == 1 else f"{octaves} octaves"}', rel(paths['lowered'])))
+        if paths['whine'].is_file() and measure.get('whine'):
+            parts.append(_player(f'Whine alone (listening aid only): the tone near {measure["whine"]["hz"] / 1000:g} kHz, moved down to '
+                                 f'{WHINE_SOLO_HZ} Hz and made plain. In the sound itself it is much quieter', rel(paths['whine'])))
         if record.get('loop') and paths['loop'].is_file():
             parts.append(_player('Loop: repeats until stopped; listen for a bump each time round', rel(paths['loop']), loop=True))
         parts.append(f'<img loading="lazy" src="{html.escape(rel(paths["spectrogram"]))}" alt="spectrogram of {html.escape(master.stem)}">')
