@@ -5,6 +5,22 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.64.0] - 2026-11-10 - Draft
+
+A colony mood file for the mood report, at the owner's yes of 10 November 2026. **Not yet tested in game.**
+
+### Added
+
+- A new setting, Write a colony mood file at each save, on by default. At every save it writes every colonist's, slave's and prisoner's thoughts, as the game adds them up, with each one's mood and break thresholds, to PhobosSnapshots/ColonyMood.xml in the RimWorld user folder. A save holds only remembered thoughts; this lets the mood report name bedrooms, pain, cold and beliefs as well. Not yet tested in game.
+
+### Save compatibility
+
+- Safe to add mid-game. The save gains one empty entry for the writer, as it holds the framework's other parts; removing the framework is as before. The file itself sits outside the save.
+
+### Compatibility and limits
+
+- Pawns away from a map (in caravans) are left out. If writing the file fails, one warning says so and the save goes ahead.
+
 ## [0.63.0] - 2026-11-10 - Draft
 
 Protective-gear lines, for the owner's radiation control in D'thorga Medical. **Not yet tested in game.**

@@ -5,7 +5,7 @@ colonist is breathing, makes fires fill roofed rooms with the game's own smoke w
 carries carbon monoxide from fires, holds the per-person care choices the D'thorga medical mods offer, and holds the small
 helpers every D'thorga mod shares.
 
-Version 0.63.0, built 10 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
+Version 0.64.0, built 10 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
 oxygen working through Burns and Smoke and Medical Equipment (5 November 2026). The health layer new in 0.3.0 and the **vehicle
 systems new in 0.9.0, and their engines, drivetrains and gas turbines new in 0.11.0, are not yet tested in game.** The rest is read from the game's and the mods' code.
 
@@ -254,6 +254,10 @@ The new button on a vehicle's **Dashboard** opens **Fittings and tunes**, for an
   to a simpler estimate).
 - **Show gases at the mouse (dev mode)**: a small label follows the mouse naming every gas in that cell's room.
 - **Keep the game's log going after its message limit** (0.28.0, on): see the gotcha above.
+- **Write a colony mood file at each save** (0.64.0, on; not yet tested in game): at every save, every colonist's, slave's and
+  prisoner's thoughts as the game adds them up go to `PhobosSnapshots/ColonyMood.xml` in the RimWorld user folder, replaced each
+  time. A save holds only remembered thoughts; with this file, the mood report in D'thorga Companion (and phobos-modkit's
+  `rimworld-save mood`) names bedrooms, pain, cold and beliefs too. It changes nothing in the game.
 - **Write every Def with all patches applied at the next start (dev mode)** (0.27.0): for mod developers; one file at
   the next start, in the RimWorld user folder (`PhobosPatchedDefs/PatchedDefs.xml`), then the setting turns itself off.
   The dev action "Framework: write patched Defs at the next start" does the same. Tested in game: the owner wrote one on

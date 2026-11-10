@@ -8,7 +8,7 @@
     <AssemblyName>PhobosFramework.Hygiene</AssemblyName>
     <ModFolder>PhobosFramework</ModFolder>
     <TieInFolder>Mods/DubsBadHygiene/</TieInFolder>
-    <Version>0.63.0</Version>
+    <Version>0.64.0</Version>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="../PhobosFramework/PhobosFramework.csproj" Private="false" />

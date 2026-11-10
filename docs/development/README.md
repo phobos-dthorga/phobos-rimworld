@@ -173,6 +173,9 @@ promise current behaviour. For using the mods, start at the [documentation index
   Extended, the room-gas engine copied from the game's temperature design, carbon monoxide as the first own gas, the shared
   helpers, supplied oxygen (0.2.0), the health layer and per-person care choices the medical mods share (0.3.0), and the owner's
   test protocol.
+- [Colony mood file: design record (10 Nov 2026)](mood-snapshot.md): at each save, D'thorga Framework writes every colonist's,
+  slave's and prisoner's thoughts as the game works them out, so phobos-modkit's mood report can name what a save leaves out
+  (rooms, pain, beliefs); the file's shape and how the report matches it to its save. Built in Framework 0.64.0, not yet tested in game.
 
 ## D'thorga Medical
 

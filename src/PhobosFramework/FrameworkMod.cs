@@ -17,10 +17,13 @@ public class FrameworkSettings : ModSettings
     public bool writePatchedDefsOnce;
     /// <summary>Turn the game's log back on when it stops itself at 10,000 messages (Logging/GameLogKeeper; owner, 8 Nov 2026: on by default).</summary>
     public bool keepGameLogAlive = true;
+    /// <summary>Write every colonist's thoughts beside each save, for the mood report (Mood/ColonyMoodFile; owner, 10 Nov 2026; on by default, agent default).</summary>
+    public bool writeColonyMoodFile = true;
 
     public override void ExposeData()
     {
         base.ExposeData();
+        Scribe_Values.Look(ref writeColonyMoodFile, "PhobosFramework_WriteColonyMoodFile", true);
         Scribe_Values.Look(ref gasSourceMode, "PhobosFramework_GasSourceMode", GasSourceMode.Automatic);
         Scribe_Values.Look(ref showGasOverlay, "PhobosFramework_ShowGasOverlay", false);
         Scribe_Values.Look(ref writePatchedDefsOnce, "PhobosFramework_WritePatchedDefsOnce", false);
@@ -38,7 +41,7 @@ public class FrameworkSettings : ModSettings
 public class FrameworkMod : Mod
 {
     public const string PackageId = "PhobosDthorga.Framework";
-    public const string ModVersion = "0.63.0";
+    public const string ModVersion = "0.64.0";
     public const string LogPrefix = "[D'thorga Framework]";
     public static readonly Phobos.Logging.PhobosLog Logger = Logging.Logs.For("D'thorga Framework");
 
@@ -68,6 +71,9 @@ public class FrameworkMod : Mod
         if (!Settings.keepGameLogAlive) report.Off(keeper, "setting");
         else if (Logging.GameLogKeeper.NotListening != null) report.On(keeper + ", without naming the loudest message: " + Logging.GameLogKeeper.NotListening);
         else report.On(keeper);
+        const string moodFile = "colony mood file at each save, for the mood report";
+        if (Settings.writeColonyMoodFile) report.On(moodFile);
+        else report.Off(moodFile, "setting");
         report.Log();
     }
 
@@ -91,6 +97,8 @@ public class FrameworkMod : Mod
             "PhobosFramework_SettingShowGasOverlayDesc".Translate());
         listing.CheckboxLabeled("PhobosFramework_SettingKeepGameLogAlive".Translate(), ref Settings.keepGameLogAlive,
             "PhobosFramework_SettingKeepGameLogAliveDesc".Translate(Rules.GameLogRule.MaxRevivals.Named("COUNT")));
+        listing.CheckboxLabeled("PhobosFramework_SettingWriteColonyMoodFile".Translate(), ref Settings.writeColonyMoodFile,
+            "PhobosFramework_SettingWriteColonyMoodFileDesc".Translate(Mood.ColonyMoodFile.OutputPath.Named("PATH")));
         if (Prefs.DevMode)
         {
             listing.CheckboxLabeled("PhobosFramework_SettingWritePatchedDefs".Translate(), ref Settings.writePatchedDefsOnce,
