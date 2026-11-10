@@ -1,0 +1,16 @@
+{
+  "target": "mods/PhobosMedical/Mods/Rimatomics/Textures/Phobos/Medical/Protection/RadiationAreaExpand.png",
+  "source": "assets/phobos-medical/generated/radiation-area-expand/radiation-area-expand-12.png",
+  "source_sha256": "56303b5584403d225d4b87dbae6934c96ee605469b42dfabf2b011e5fa77a8da",
+  "target_sha256": "3ee3ebe860e214d9e74ce245a7be6659d7f625fe31308db09d7e239a734478c8",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "date": "2026-11-10T17:15:04",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

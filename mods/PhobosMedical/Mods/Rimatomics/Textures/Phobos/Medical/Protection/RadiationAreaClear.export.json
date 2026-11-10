@@ -1,0 +1,16 @@
+{
+  "target": "mods/PhobosMedical/Mods/Rimatomics/Textures/Phobos/Medical/Protection/RadiationAreaClear.png",
+  "source": "assets/phobos-medical/generated/radiation-area-clear/radiation-area-clear-12.png",
+  "source_sha256": "03109284b9cd7490bdf7efa3df9326646ffa9bd3a5b71eb4e6e02048fe9f8f96",
+  "target_sha256": "0aae76ddb629fd46f1db264039f8b821630aae6d295831c3883ae298e94214c9",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "date": "2026-11-10T17:15:04",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

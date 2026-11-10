@@ -6,6 +6,14 @@ entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.11.1] - 2026-11-10 - Draft
+
+The owner's picks for the radiation control pictures. **Not yet tested in game.**
+
+### Changed
+
+- The radiation control point, and the zone tab's tools to paint and clear a radiation controlled area, have painted pictures in the game's look, picked by the owner, in place of the ones drawn in code. No change in play.
+
 ## [0.11.0] - 2026-11-10 - Draft
 
 Radiation control for Rimatomics, from the owner's idea of 10 November 2026. **Not yet tested in game.**

@@ -97,7 +97,7 @@
     "PhobosMedical.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.11.0",
+      "value": "0.11.1",
       "description": "D'thorga Medical's version: About.xml, every project of the mod, its ModVersion constants and both READMEs",
       "targets": [
         {

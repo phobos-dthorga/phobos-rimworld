@@ -1,0 +1,16 @@
+{
+  "target": "mods/PhobosMedical/Mods/Rimatomics/Textures/Phobos/Medical/Protection/RadiationControlPoint.png",
+  "source": "assets/phobos-medical/generated/radiation-control-point/radiation-control-point-11.png",
+  "source_sha256": "cc786d51ad5ffd37e145791bb2c4d08b3d14a75c6f33560228df62a35f4a7f6d",
+  "target_sha256": "e8cd743f1cb1b89c1e63cd88794f3b67eba75265710b12cc9cd41008a1d42bac",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "date": "2026-11-10T17:15:03",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}
