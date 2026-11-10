@@ -1,0 +1,16 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Tank/BulkOrder.png",
+  "source": "assets/phobos-vehicles/generated/gizmo-bulkorder-coins/gizmo-bulkorder-coins-13.png",
+  "source_sha256": "8a3d9da03350e6ed2c46846ec2667a004dc74550c2552cf3f4b898b636390bd5",
+  "target_sha256": "493f6120a77947a83dbf193b98c607523c54fbfbe424b4dba7d6f5eb83278d36",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "date": "2026-11-10T14:49:48",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

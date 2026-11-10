@@ -11,7 +11,7 @@ tested in game unless an entry says the owner tested it.
 
 ### Changed
 
-- Vehicle buttons have painted icons in the game's look, picked by the owner, in place of the drawings made in code: service, headlights, the heaters and air conditioner, climate control, field fix, caravan repair, fittings, dive, surface, stay down, settle, the depot bay and station buttons, and the tanker's buttons. The load switch keeps its drawing. Not yet tested in game.
+- Vehicle buttons have painted icons in the game's look, picked by the owner, in place of the drawings made in code: service, headlights, the heaters and air conditioner, climate control, field fix, caravan repair, fittings, dive, surface, stay down, settle, the depot bay and station buttons, and the tanker's buttons, where the bulk order now shows a stack of silver coins beside the tank. The load switch keeps its drawing. Not yet tested in game.
 - The Workshop preview is a new picture, a mechanic at an open engine at dusk, with the name added by script, from the owner's picks of 10 November 2026. No change in play.
 
 ## [0.62.1] - 2026-11-10 - Draft

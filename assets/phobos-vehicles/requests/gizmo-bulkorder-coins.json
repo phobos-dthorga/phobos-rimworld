@@ -1,0 +1,42 @@
+[
+  {
+    "name": "gizmo-bulkorder-coins",
+    "engine": "klein-base",
+    "lora_comparison": false,
+    "prompt": "phobosvanilla, A steel cylindrical storage tank beside a short stack of five shiny silver coins with ridged edges. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands.",
+    "references": [
+      ".local/references/vanilla-medical/MedicineIndustrial_a.png",
+      ".local/references/vanilla-medical/MedicineUltratech_a.png"
+    ],
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      11,
+      12,
+      13,
+      14
+    ],
+    "lora": "phobos-private-vanilla.safetensors",
+    "subject": "A steel cylindrical storage tank beside a short stack of five shiny silver coins with ridged edges"
+  },
+  {
+    "name": "gizmo-bulkorder-coinstack",
+    "engine": "klein-base",
+    "lora_comparison": false,
+    "prompt": "phobosvanilla, A tall neat stack of shiny silver coins with ridged edges in front of a steel cylindrical storage tank, the coins large and clearly money. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands.",
+    "references": [
+      ".local/references/vanilla-medical/MedicineIndustrial_a.png",
+      ".local/references/vanilla-medical/MedicineUltratech_a.png"
+    ],
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      11,
+      12,
+      13,
+      14
+    ],
+    "lora": "phobos-private-vanilla.safetensors",
+    "subject": "A tall neat stack of shiny silver coins with ridged edges in front of a steel cylindrical storage tank, the coins large and clearly money"
+  }
+]
