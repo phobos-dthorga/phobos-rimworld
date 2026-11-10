@@ -1,0 +1,16 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/JumpStart.png",
+  "source": "assets/phobos-vehicles/generated/button-jumpstart/button-jumpstart-2.png",
+  "source_sha256": "28f51844d9c16f0cf0203802d25dae588e15ea3e1239fb3fd791583cf380ddc2",
+  "target_sha256": "6254da349ea385c4c1ef0c45a21257252f6432eb3bb0b990bf07e4ed5a2cb74f",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "date": "2026-11-11T08:04:58",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

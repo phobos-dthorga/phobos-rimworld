@@ -1,0 +1,16 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/Vehicles/Parts/TyreSet.png",
+  "source": "assets/phobos-vehicles/generated/item-tyre-set/item-tyre-set-1.png",
+  "source_sha256": "7e33fa85ef8d90d5939acedb1acc68530a888c91bef5f77853896a2229cf571d",
+  "target_sha256": "a825c50cbfd2b830a01ef29327013fc8bdd56ff7febe389319594b7a1852e6d8",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "date": "2026-11-11T08:04:59",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

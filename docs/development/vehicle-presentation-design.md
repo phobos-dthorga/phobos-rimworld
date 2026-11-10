@@ -20,6 +20,13 @@ worst-part gauges, and the check-engine lamp for the status) and G2 (a 16-pixel 
 Operator and Engineer). Still to come from P7a: the damage sheet in the fleet board's tooltip, which needs a drawn tooltip rather than
 the game's text one. Next in order: P7b, the range on the world map.
 
+**Batch A picked and wired in Framework 0.79.1 and Medical 0.13.1** (11 Nov 2026; not yet tested in game). The owner picked diagnose #2,
+jump-start #2, tyre set #1, brake pad set #2, engine service kit #1, drive belt #1 and #1 of the three category icons. Masters are on
+`art-masters`, the attempts not picked on `art-references`; each sprite's record sits beside it. Every borrowed picture in the table
+below is now replaced except the vehicle bodies (batch B) and the Medical placeholders (batch C). The diagnosis letter keeps the game's
+letter picture (agent's choice): the game tints a letter's icon one colour and draws it in a small oblong, so a full-colour clipboard
+would read worse than the envelope players know.
+
 ## Read this first
 
 - **Recommendation, in five lines.** Turn the diagnosis into a proper report window with the vehicle's picture, coloured gauges and one

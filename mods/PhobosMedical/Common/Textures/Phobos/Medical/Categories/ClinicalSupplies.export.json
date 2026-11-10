@@ -1,0 +1,16 @@
+{
+  "target": "mods/PhobosMedical/Common/Textures/Phobos/Medical/Categories/ClinicalSupplies.png",
+  "source": "assets/phobos-vehicles/generated/category-clinical-supplies/category-clinical-supplies-1.png",
+  "source_sha256": "775c27b5388ebbf053e17b7b417a628095c95b39ca060f9b8c341a1f2b285056",
+  "target_sha256": "5611d05b4d3c432c08050702eff2d6fffd93ad3877768221c3ab385e0c4105f4",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "date": "2026-11-11T08:05:03",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

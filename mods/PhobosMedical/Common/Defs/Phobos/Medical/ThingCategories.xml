@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Storage categories of our own inside the game's, named for what is in them (owner, 10 Nov 2026), as Dubs Bad Hygiene files its buildings
      under "hygiene". A shelf set to Manufactured or Buildings still takes them; existing storage keeps what it allowed, because a filter
-     remembers items, not categories. The icons are two of our own item pictures, placeholders until the owner asks for ones of their own. -->
+     remembers items, not categories. The icons are their own, picked by the owner on 11 Nov 2026 (batch A of the vehicle presentation record). -->
 <Defs>
   <ThingCategoryDef>
     <defName>PhobosCategory_ClinicalSupplies</defName>
     <label>clinical supplies</label>
     <description>Kits and medicines a doctor carries to a patient: resuscitators, intubation and fluids kits, bronchodilators and field oxygen.</description>
     <parent>Manufactured</parent>
-    <iconPath>Phobos/Medical/Things/FluidsKit</iconPath>
+    <iconPath>Phobos/Medical/Categories/ClinicalSupplies</iconPath>
   </ThingCategoryDef>
 
   <ThingCategoryDef>
@@ -16,6 +16,6 @@
     <label>medical equipment</label>
     <description>Hospital and safety equipment, packed up to be carried or stored.</description>
     <parent>Buildings</parent>
-    <iconPath>Phobos/Medical/Things/OxygenConcentrator</iconPath>
+    <iconPath>Phobos/Medical/Categories/MedicalEquipment</iconPath>
   </ThingCategoryDef>
 </Defs>

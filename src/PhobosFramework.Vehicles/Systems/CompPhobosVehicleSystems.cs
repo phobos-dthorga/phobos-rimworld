@@ -1697,7 +1697,7 @@ public class CompPhobosVehicleSystems : VehicleComp
             {
                 defaultLabel = "PhobosVehicleSystems_Diagnose".Translate(),
                 defaultDesc = "PhobosVehicleSystems_DiagnoseDesc".Translate() + (waiting != null ? "\n\n" + waiting : ""),
-                icon = SystemIcons.For("Phobos/VehicleSystems/Stations/TuningRig"),
+                icon = SystemIcons.For("Phobos/VehicleSystems/Diagnose"),
                 isActive = () => Diagnostics.Requested,
                 toggleAction = () => Diagnostics.SetRequested(!Diagnostics.Requested),
             };

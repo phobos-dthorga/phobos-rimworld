@@ -3,8 +3,8 @@
   <!-- Consumables as items (S4 of docs/development/vehicle-crosslinks-round-two.md; owner, 10 Nov 2026: agreed). The parts bench makes them
        from exactly what each service took before, so nothing costs more; what changes is that a service needs the kit aboard, so a caravan
        carries kits and the colony keeps a stock. A save from before them keeps paying in raw materials until the player switches it off
-       (GameComponent_PhobosServiceKits). Work, skill, mass and value are authored; value is near the materials' own. The pictures are our
-       other parts', placeholders until the owner asks for art of their own. -->
+       (GameComponent_PhobosServiceKits). Work, skill, mass and value are authored; value is near the materials' own. Each kit has a picture
+       of its own, picked by the owner on 11 Nov 2026 (batch A; the records sit beside the textures in Textures/Phobos/Vehicles/Parts). -->
 
   <ThingDef Name="PhobosServiceKitBase" ParentName="ResourceBase" Abstract="True">
     <soundInteract>Metal_Drop</soundInteract>
@@ -32,7 +32,7 @@
     <label>tyre set</label>
     <description>A vehicle's worth of tyres or track pads, with their beads, valves and fixings, ready to fit. A mechanic renews a vehicle's worn tyres or tracks with one loaded aboard.</description>
     <graphicData>
-      <texPath>Phobos/Vehicles/Parts/DrivetrainKit</texPath>
+      <texPath>Phobos/Vehicles/Parts/TyreSet</texPath>
       <graphicClass>Graphic_Single</graphicClass>
     </graphicData>
     <stackLimit>10</stackLimit>
@@ -55,7 +55,7 @@
     <label>brake pad set</label>
     <description>Brake pads and shoes for every wheel of a vehicle. A mechanic fits new brakes with one loaded aboard.</description>
     <graphicData>
-      <texPath>Phobos/Vehicles/Parts/Transmission</texPath>
+      <texPath>Phobos/Vehicles/Parts/BrakePadSet</texPath>
       <graphicClass>Graphic_Single</graphicClass>
     </graphicData>
     <stackLimit>20</stackLimit>
@@ -76,7 +76,7 @@
     <label>engine service kit</label>
     <description>Oil, filters and seals for one engine service. A mechanic services an engine with one loaded aboard.</description>
     <graphicData>
-      <texPath>Phobos/Vehicles/Parts/ElectricalKit</texPath>
+      <texPath>Phobos/Vehicles/Parts/EngineServiceKit</texPath>
       <graphicClass>Graphic_Single</graphicClass>
     </graphicData>
     <stackLimit>20</stackLimit>
@@ -98,7 +98,7 @@
     <label>drive belt</label>
     <description>A rubber drive belt that turns an engine's water pump and alternator. A spare one in the cargo puts a vehicle back on the road when its belt snaps far from home.</description>
     <graphicData>
-      <texPath>Phobos/Vehicles/Parts/EngineAssembly</texPath>
+      <texPath>Phobos/Vehicles/Parts/DriveBelt</texPath>
       <graphicClass>Graphic_Single</graphicClass>
     </graphicData>
     <stackLimit>25</stackLimit>

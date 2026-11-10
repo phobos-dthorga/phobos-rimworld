@@ -6,6 +6,22 @@ entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.13.1] - 2026-11-11 - Draft
+
+Storage category icons of their own (owner, 11 November 2026: picked with the vehicle pictures). **Not yet tested in game.**
+
+### Changed
+
+- The clinical supplies category shows an open first-aid box with a bandage roll, and the medical equipment category a heart monitor, instead of two items' pictures.
+
+### Compatibility and limits
+
+- The icons were made with OpenAI's image model and picked by the owner; each one's record sits beside it.
+
+### Save compatibility
+
+- Safe on an existing save: only pictures change.
+
 ## [0.13.0] - 2026-11-10 - Draft
 
 The oxygen regulator's sound (owner, 10 November 2026). **Not yet tested in game.**

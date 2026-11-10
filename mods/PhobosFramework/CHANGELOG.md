@@ -5,6 +5,25 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.79.1] - 2026-11-11 - Draft
+
+Pictures of their own for things that borrowed another's (owner, 11 November 2026: picked from the presentation record's batch A). **Not yet tested in game.**
+
+### Changed
+
+- The Diagnose button shows a clipboard and magnifying glass instead of the tuning rig.
+- The jump-start button from a caravan shows a pair of jump leads instead of the kit or booster pack; its label still says which is used.
+- The tyre set, brake pad set, engine service kit and drive belt each have a picture of their own instead of another part's.
+- The vehicle parts storage category has an icon of its own, a gear and spanner.
+
+### Compatibility and limits
+
+- The pictures were made with OpenAI's image model and picked by the owner; each one's record sits beside it. The diagnosis letter keeps the game's own letter picture.
+
+### Save compatibility
+
+- Safe on an existing save: only pictures change.
+
 ## [0.79.0] - 2026-11-11 - Draft
 
 The vehicle screens show more at a glance (owner, 11 November 2026: two or three slices from the presentation record while they slept). **Not yet tested in game.**

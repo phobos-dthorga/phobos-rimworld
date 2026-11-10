@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Our vehicle parts in a storage category of their own, inside the game's Manufactured, named for what is in it (owner, 10 Nov 2026), as
      Dubs Bad Hygiene files its buildings under "hygiene". A shelf set to Manufactured still takes them; existing storage keeps what it
-     allowed, because a filter remembers items, not categories. The icon is the engine assembly's picture, a placeholder until the owner
-     asks for one of its own. -->
+     allowed, because a filter remembers items, not categories. The icon is its own, picked by the owner on 11 Nov 2026 (batch A). -->
 <Defs>
   <ThingCategoryDef>
     <defName>PhobosCategory_VehicleParts</defName>
     <label>vehicle parts</label>
     <description>Parts, kits and fittings for keeping vehicles running.</description>
     <parent>Manufactured</parent>
-    <iconPath>Phobos/Vehicles/Parts/EngineAssembly</iconPath>
+    <iconPath>Phobos/VehicleSystems/Categories/VehicleParts</iconPath>
   </ThingCategoryDef>
 </Defs>

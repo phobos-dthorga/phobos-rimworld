@@ -1,0 +1,16 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/Vehicles/Parts/EngineServiceKit.png",
+  "source": "assets/phobos-vehicles/generated/item-engine-service-kit/item-engine-service-kit-1.png",
+  "source_sha256": "efb28f43ba3328313cb0ca8539c5f6666b4279cdebd2f2037374682854b9993f",
+  "target_sha256": "2640076d0f91c0893d1ad7956c8aa34cfa046e4327445f76877ba35e83343958",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "date": "2026-11-11T08:05:00",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

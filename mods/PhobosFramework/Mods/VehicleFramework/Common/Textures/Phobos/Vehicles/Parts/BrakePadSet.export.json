@@ -1,0 +1,16 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/Vehicles/Parts/BrakePadSet.png",
+  "source": "assets/phobos-vehicles/generated/item-brake-pad-set/item-brake-pad-set-2.png",
+  "source_sha256": "4fba9c8054f62d9be04bfecdc0c0c609bb3f048d07793249faba5402ae9f892d",
+  "target_sha256": "87d5ef34a7353500c148711b5122a856c0ad4c6d6c07486300bfdf491462ccc1",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": true,
+  "silhouette": false,
+  "date": "2026-11-11T08:05:18",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

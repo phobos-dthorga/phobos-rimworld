@@ -1,0 +1,16 @@
+{
+  "target": "mods/PhobosMedical/Common/Textures/Phobos/Medical/Categories/MedicalEquipment.png",
+  "source": "assets/phobos-vehicles/generated/category-medical-equipment/category-medical-equipment-1.png",
+  "source_sha256": "83481037099daf882d3358568f73bb76201c294f37b9441f3f43b019fb9c3e43",
+  "target_sha256": "382ed1e3de469e373188945f58c56b8847148badb28f54d35a9af5648ea30719",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "date": "2026-11-11T08:05:04",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

@@ -6,7 +6,7 @@
     approximate), recharges a start every 2 hours carried in the cargo of a vehicle whose engine runs (authored; a 12 V socket charges
     a pack in roughly 4 to 8 hours, approximate), and is recharged fully from the mains at a machining table or fabrication bench.
     Needs no jump-start kit: it carries its own clamps. Research: batteries. Cost, mass and work are authored stand-ins (a lead-acid
-    pack weighs about 7 to 9 kg; 6 here). Placeholder art, drawn in code (BoosterPack.record.md). Not yet tested in game.
+    pack weighs about 7 to 9 kg; 6 here). Its picture was made with gpt-image-2 (BoosterPack.record.md). Not yet tested in game.
 
     The recharge recipe makes a fresh pack from a part-used one, so the new pack is at full hit points: a small repair, judged not
     worth code (docs/development/vehicle-crew-and-ground-design.md).

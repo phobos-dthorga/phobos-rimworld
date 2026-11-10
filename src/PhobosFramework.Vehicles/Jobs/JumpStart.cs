@@ -116,7 +116,7 @@ public static class JumpStarts
         {
             defaultLabel = label,
             defaultDesc = "PhobosVehicleSystems_CaravanJumpStartDesc".Translate(vehicle).Resolve(),
-            icon = SystemIcons.For(route.Pack != null ? "Phobos/VehicleSystems/Things/BoosterPack" : "Phobos/VehicleSystems/Things/JumpStartKit"),
+            icon = SystemIcons.For("Phobos/VehicleSystems/JumpStart"),
         };
         Pawn? helper = caravan.PawnsListForReading.FirstOrDefault(p => p is not VehiclePawn && p.IsColonist && !p.Downed);
         if (route.Missing == JumpStartMissing.Kit)

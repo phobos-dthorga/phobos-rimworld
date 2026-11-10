@@ -1,0 +1,16 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/Vehicles/Parts/DriveBelt.png",
+  "source": "assets/phobos-vehicles/generated/item-drive-belt/item-drive-belt-1.png",
+  "source_sha256": "1895b52f33123fd2f9543afeb870397f8ad0532ac3a42cc3bc6a9e8e6c8d826d",
+  "target_sha256": "d9062b080a3afa93757075d89c805b19ed841f82509240ae5f3380dd9b756251",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": true,
+  "silhouette": false,
+  "date": "2026-11-11T08:05:17",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

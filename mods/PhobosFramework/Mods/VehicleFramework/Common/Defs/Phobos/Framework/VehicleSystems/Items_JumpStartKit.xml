@@ -3,8 +3,8 @@
   <!--
     The jump-start kit (owner, 8 Nov 2026): a pair of heavy leads with clamps, the thing a jump-start needs when the player's setting
     says the leads must be crafted (its default). Never used up. Cost, work and skill are authored stand-ins (steel for copper leads
-    and clamps, a component for the insulation and fuses); no research gate (agent default: cruder than any vehicle). Placeholder
-    art, drawn in code (JumpStartKit.record.md). Not yet tested in game.
+    and clamps, a component for the insulation and fuses); no research gate (agent default: cruder than any vehicle). Its picture
+    was made with gpt-image-2 (JumpStartKit.record.md). Not yet tested in game.
   -->
   <ThingDef ParentName="ResourceBase">
     <defName>PhobosVehicleSystems_JumpStartKit</defName>
