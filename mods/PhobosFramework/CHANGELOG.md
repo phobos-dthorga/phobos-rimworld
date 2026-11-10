@@ -5,6 +5,24 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.72.1] - 2026-11-10 - Draft
+
+A protective-gear line no longer stalls the game (owner's report, 10 November 2026, with the profiler). **Not yet tested in game.**
+
+### Fixed
+
+- **A colonist stopped at a protective-gear line stalled the whole game.** When a colonist with no gear in reach was turned back, their job ended and the game searched for their next one at once, inside the step itself; the colonist was left mid-step, so the same step was tried, refused and re-planned every tick, at tens of milliseconds a tick, for as long as their route led through the area. The owner's profiler charged 38% of every frame to it. Now a turned-back colonist whose route only crosses the area stops short and waits a few seconds before looking for other work, as a colonist does when a path fails, and the pawn is stopped properly whenever a line ends or interrupts their job.
+- **A colonist sent for gear three times in an hour who is still unprotected at the line is turned back**, so gear that will not go on cannot keep them fetching it.
+
+### Compatibility and limits
+
+- Only pawns the player controls are ever checked at a line; pawns of other factions, and every pawn on a map without a line, cost a field read, as before.
+- Not yet tested in game.
+
+### Save compatibility
+
+- Safe on an existing save: nothing new is saved.
+
 ## [0.72.0] - 2026-11-10 - Draft
 
 A listening array for vehicles in the water, and diving puts out a fire (owner, 10 November 2026). **Not yet tested in game.**

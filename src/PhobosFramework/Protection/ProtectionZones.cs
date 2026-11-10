@@ -36,6 +36,7 @@ public sealed class ProtectionZones : MapComponent
     List<Apparel> lineGear = new();
     readonly List<CompPhobosControlPoint> points = new();
     readonly Dictionary<int, int> turnedBackUntil = new();
+    readonly Dictionary<int, (int count, int untilTick)> suitUps = new();
     bool anyPainted;
 
     public ProtectionZones(Map map) : base(map)
@@ -138,6 +139,17 @@ public sealed class ProtectionZones : MapComponent
 
     public bool TurnedBack(Pawn pawn) =>
         turnedBackUntil.TryGetValue(pawn.thingIDNumber, out int until) && Verse.Find.TickManager.TicksGame < until;
+
+    /// <summary>How many times a pawn has been sent to suit up lately; the tally lapses at its tick. Not saved.</summary>
+    public int SuitUps(Pawn pawn) =>
+        suitUps.TryGetValue(pawn.thingIDNumber, out (int count, int untilTick) tally) && Verse.Find.TickManager.TicksGame < tally.untilTick
+            ? tally.count
+            : 0;
+
+    /// <summary>Counts one more sending to suit up; a lapsed tally starts again at one.</summary>
+    public void NoteSuitUp(Pawn pawn, int lapsesAtTick) => suitUps[pawn.thingIDNumber] = (SuitUps(pawn) + 1, lapsesAtTick);
+
+    public void ForgetSuitUps(Pawn pawn) => suitUps.Remove(pawn.thingIDNumber);
 
     Painted? Find(ProtectionZoneDef def)
     {

@@ -8,7 +8,7 @@ It replaces five earlier mods, merged into it on 7 November 2026 ([why](../../do
 Burns and Smoke**, **D'thorga Emergency Dosing**, **D'thorga Triage**, **D'thorga Medical Equipment** and **D'thorga Medical Save
 Bridge**. Each is now a part of this mod, with its own section below.
 
-Version 0.12.0, built 10 November 2026 for House D'thorga. **Not yet tested in game as D'thorga Medical.** What the owner tested of
+Version 0.12.1, built 10 November 2026 for House D'thorga. **Not yet tested in game as D'thorga Medical.** What the owner tested of
 the five parts before the merge is in each part's section; the parts' behaviour is unchanged, except that the save bridge now asks
 first.
 
@@ -666,7 +666,9 @@ tested in game.**
   never fetched.
 - **Drafted colonists cross as they are.** If you order someone in, they go in, protected or not.
 - **With no gear in reach, a colonist won't go in**: a message says so once, and they keep clear of the area for an hour and take up
-  other work.
+  other work. If a route they take in that hour only passes through the area, they stop short of it and wait a few seconds before
+  looking for other work, as a colonist does when a path fails. One sent for gear three times in an hour who is still unprotected at
+  the line is turned back the same way.
 - **Safe to add to a running colony. Safe to remove**: the signs disappear with the game's one-time warning, and a painted area is
   forgotten.
 

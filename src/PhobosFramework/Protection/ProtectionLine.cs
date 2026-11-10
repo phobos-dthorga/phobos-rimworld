@@ -20,6 +20,10 @@ public static class ProtectionLine
     /// <summary>How long a pawn turned back for want of gear keeps clear of the line before trying again (agent's choice).</summary>
     public const int TurnBackTicks = GenDate.TicksPerHour;
 
+    /// <summary>A pawn sent to suit up this many times within the turn-back time, and back at the line still unprotected, is turned back:
+    /// the gear it was sent for is not getting onto it, and each sending costs a scan of the map's apparel (agent's choice).</summary>
+    public const int MaxSuitUpAttempts = 3;
+
     /// <summary>
     /// The room a control point at a cell, facing a direction, closes off: the room in front of it, or past the door in front of it;
     /// null for a wall, the map's edge or open ground, which a sign can't close off.
@@ -98,6 +102,14 @@ public static class ProtectionLine
         ProtectionZoneDef? from = zones.ZoneAt(pawn.Position);
         CrossingAction action = ProtectionRule.Decide(from != null && from == to, true, Protected(pawn, to), false);
         if (action != CrossingAction.SuitUp) return true;
+        // Already kept clear of the line, and here again because the route only crosses the zone (pathing ignores allowed areas): no
+        // gear search and no message. The step fails as a path fails, so the game waits its 250 ticks before the next job search.
+        // Before 0.72.1 every such step searched the gear and the pawn's work again, every tick, at tens of milliseconds a tick.
+        if (zones.TurnedBack(pawn))
+        {
+            Refuse(pawn, JobCondition.ErroredPather);
+            return false;
+        }
         SuitUp(pawn, to, zones);
         return false;
     }
@@ -136,6 +148,12 @@ public static class ProtectionLine
 
     static void SuitUp(Pawn pawn, ProtectionZoneDef zone, ProtectionZones zones)
     {
+        // Sent for gear again and again and still unprotected: whatever stops the gear going on, it is not going on. Turn back.
+        if (zones.SuitUps(pawn) >= MaxSuitUpAttempts)
+        {
+            TurnBack(pawn, zone, zones);
+            return;
+        }
         zones.PruneLineGear();
         List<Apparel> gear = GearFor(pawn, zone, zones, out List<float> gains, out List<float> costs);
         BodyDef body = pawn.RaceProps.body;
@@ -146,6 +164,7 @@ public static class ProtectionLine
             TurnBack(pawn, zone, zones);
             return;
         }
+        zones.NoteSuitUp(pawn, Find.TickManager.TicksGame + TurnBackTicks);
         var jobs = new List<Job>();
         foreach (int index in chosen)
         {
@@ -193,7 +212,9 @@ public static class ProtectionLine
     {
         bool first = !zones.TurnedBack(pawn);
         zones.TurnBack(pawn, Find.TickManager.TicksGame + TurnBackTicks);
-        pawn.jobs.EndCurrentJob(JobCondition.Incompletable);
+        zones.ForgetSuitUps(pawn);
+        // Incompletable: the pawn looks for other work at once, with the zone out of bounds to it for the hour.
+        Refuse(pawn, JobCondition.Incompletable);
         if (first)
         {
             Messages.Message("PhobosProtection_TurnedBack".Translate(pawn.Named("PAWN"), zone.label.Named("ZONE"), zone.stat.label.Named("STAT")),
@@ -201,10 +222,23 @@ public static class ProtectionLine
         }
     }
 
-    /// <summary>Starts the jobs in order, then the job the pawn was doing, which the game resumes when it can be paused.</summary>
+    /// <summary>
+    /// Ends the pawn's job where it stands. The pather is stopped first: the refused step is skipped, so left alone the pawn stays
+    /// mid-step, a new job to the same place keeps the old path (the game's StartPath returns early for an unchanged destination), and
+    /// the same step is tried, refused and re-planned every tick.
+    /// </summary>
+    static void Refuse(Pawn pawn, JobCondition condition)
+    {
+        pawn.pather.StopDead();
+        pawn.jobs.EndCurrentJob(condition);
+    }
+
+    /// <summary>Starts the jobs in order, then the job the pawn was doing, which the game resumes when it can be paused. The pather is
+    /// stopped first, so the first job paths afresh rather than finishing the step toward the line while its path is still being found.</summary>
     static void Start(Pawn pawn, List<Job> jobs)
     {
         if (jobs.Count == 0) return;
+        pawn.pather.StopDead();
         pawn.jobs.StartJob(jobs[0], JobCondition.InterruptForced, resumeCurJobAfterwards: true);
         for (int i = jobs.Count - 1; i >= 1; i--) pawn.jobs.jobQueue.EnqueueFirst(jobs[i]);
     }

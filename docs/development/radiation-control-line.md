@@ -55,6 +55,24 @@ graph TD
   `Pawn_PathFollower.TryEnterNextPathCell`, the one method every route into a room goes through (Field Tents and others patch it the
   same way); the prefix skips the original only on the step it refuses. A postfix on `ForbidUtility.InAllowedArea` keeps a turned-back
   colonist from taking work inside for the hour. On a map without a line, each costs a field read.
+- **Turned back and at the line again** (Framework 0.72.1): a colonist kept clear of a zone whose route only crosses it, since the game's
+  pathing ignores allowed areas, is stopped short with no gear search and no message, and their job ends as a job ends when its path
+  fails (`JobCondition.ErroredPather`): the game has them wait 250 ticks, then look for work again with the zone still out of bounds.
+  Whenever a line ends or interrupts a job, the pawn's pather is stopped first (`StopDead`), so the next job paths afresh.
+- **Three sendings for gear in an hour** without becoming protected turn the colonist back (`MaxSuitUpAttempts`): whatever keeps the
+  gear from going on, they stop being sent for it.
+
+## Performance fault, 10 Nov 2026
+
+The owner's profiler (Harmony patches tab, PG5, two maps open) charged 38% of every frame, about 40 ms, to the step prefix. The cause,
+read from the code and the game's decompile: a colonist with no gear in reach was turned back by ending their job with `Incompletable`,
+and the game's `EndCurrentJob` ran its full job search at once, inside our prefix. The refused step was skipped but the pather was never
+stopped, so the pawn stayed mid-step; a new job to the same place kept the old path (`StartPath` returns early for an unchanged
+destination), and the next tick's `PatherTick` tried the same step again. The gear scan and the job search repeated every tick for as
+long as the colonist's route led through the area. `Step` never consulted `TurnedBack`, which only the allowed-area postfix read; the
+route-through case was this record's known limit. Only player-controlled colonists ever reach the check, so NPCs and the second map
+were not the cost, whatever the owner's first guess. The save could not name the pawn: nobody stood within six cells of the area when
+it was written, minutes before the profile. Fixed in Framework 0.72.1 as the two points above say.
 
 ## The alert (Framework 0.70.0)
 
@@ -73,7 +91,9 @@ It changes nothing in the world.
 
 - **A colonist already inside unprotected stays unprotected** (painted around them, or undrafted inside): only a crossing is checked.
   Since 0.70.0 the alert names them.
-- **A turned-back colonist can still be stopped by a route that only passes through a zone** on the way somewhere else.
+- **A turned-back colonist's route can still lead through a zone** on the way somewhere else, since pathing ignores allowed areas; since
+  Framework 0.72.1 they stop short and wait as for a failed path, rather than being re-planned every tick. Routing them around the zone
+  would need the game's pathing to know about lines, which it does not.
 - **Gear taken off lands outside the line, not in a locker;** haulers put it away. Whatever the suit replaced (a duster, say) lies where
   the suit was picked up, and the colonist's apparel policy dresses them again later.
 - **A pawn whose stat ends up short after suiting up** (another mod's multiplier, say) carries on in: the choice adds offsets only.
@@ -86,3 +106,5 @@ It changes nothing in the world.
   used wherever possible.
 - **Agent:** the toxic environment resistance stat (from Rimatomics' code), 0.75 required, the hour's turn-back, drafted pawns crossing
   freely, taking gear off outside the line, the sign's look, cost and text, and the two Harmony targets. All are the owner's to revise.
+- **Agent (10 Nov 2026, the performance fix):** the game's failed-path wait (250 ticks) for a turned-back colonist whose route crosses
+  the zone, and three sendings for gear before turning back. Both are the owner's to revise.

@@ -6,6 +6,22 @@ entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.12.1] - 2026-11-10 - Draft
+
+The radiation control line no longer stalls the game (owner's report, 10 November 2026, with the profiler). **Not yet tested in game.**
+
+### Fixed
+
+- **A colonist stopped at the radiation control line stalled the whole game**, re-planning the same refused step every tick; the fix is in D'thorga Framework 0.72.1, and this mod's two line patches are unchanged. A turned-back colonist whose route only crosses the area now stops short and waits a few seconds before taking other work, as when a path fails, and one sent for gear three times in an hour who is still unprotected is turned back. The README says so.
+
+### Dependencies
+
+- Needs D'thorga Framework 0.72.1 or later, for the fix.
+
+### Compatibility and limits
+
+- Not yet tested in game.
+
 ## [0.12.0] - 2026-11-10 - Draft
 
 The oxygen concentrator's sound (owner, 10 November 2026). **Not yet tested in game.**
