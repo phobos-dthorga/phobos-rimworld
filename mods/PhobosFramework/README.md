@@ -5,7 +5,7 @@ colonist is breathing, makes fires fill roofed rooms with the game's own smoke w
 carries carbon monoxide from fires, holds the per-person care choices the D'thorga medical mods offer, and holds the small
 helpers every D'thorga mod shares.
 
-Version 0.67.0, built 10 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
+Version 0.68.0, built 10 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
 oxygen working through Burns and Smoke and Medical Equipment (5 November 2026). The health layer new in 0.3.0 and the **vehicle
 systems new in 0.9.0, and their engines, drivetrains and gas turbines new in 0.11.0, are not yet tested in game.** The rest is read from the game's and the mods' code.
 
@@ -212,7 +212,9 @@ cold fuel, how much the vehicle shows (Plain, Operator, Engineer), and the remov
 **Engines and drivetrains:** the drivetrain off, shown only, or full (default full); **fuel use that follows engine load** (off:
 vehicles burn what their authors set); and **when an aircraft is too heavy or too hot to hover onto its pad**: use the runway
 (default), allow it at a cost to the engine, or warn only; from 0.12.0 it covers lift-off too. **Steam locomotives:** realistic
-feed water (off: a tenth of the real figure) and boiler explosions (off, with a warning). **Night heater at camp** (off). **Jump-starts:**
+feed water (off: a tenth of the real figure) and boiler explosions (off, with a warning). **Night heater at camp** (off). **Low oil
+calls for a service** (on, from 0.68.0): an engine's service falls due as soon as its oil is below 60%, so a worn engine, which burns
+oil faster, is serviced sooner; off, burned oil only lowers the level until the next service. **Jump-starts:**
 leads must be crafted (on), every vehicle carries a booster pack (off). These take effect at once.
 
 **Per vehicle, in Vehicle Framework's own settings** (each vehicle's page in its mod settings): battery capacity, alternator

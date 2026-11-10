@@ -62,6 +62,9 @@ public class VehicleSystemsSettings : ModSettings
     public bool realisticFeedWater;
     /// <summary>A fuel-burning night heater keeps a closed cab warm while a caravan camps (owner, 8 Nov 2026: a setting, off). Live.</summary>
     public bool nightHeater;
+    /// <summary>An engine's service falls due as soon as its oil is low, so a worn engine burning oil calls a mechanic early (owner, 10 Nov
+    /// 2026: oil use is a reason to service, with a setting to make it only a cost: on). Live.</summary>
+    public bool lowOilCallsService = true;
     /// <summary>A jump-start needs a crafted jump-start kit, in stock or aboard (owner, 8 Nov 2026: default on). Live.</summary>
     public bool jumpStartNeedsKit = true;
     /// <summary>Every vehicle is assumed to carry a booster pack, so a jump-start needs no other vehicle (owner, 8 Nov 2026: off). Live.</summary>
@@ -103,6 +106,7 @@ public class VehicleSystemsSettings : ModSettings
         "boilerExplosions" => boilerExplosions,
         "realisticFeedWater" => realisticFeedWater,
         "nightHeater" => nightHeater,
+        "lowOilCallsService" => lowOilCallsService,
         "jumpStartNeedsKit" => jumpStartNeedsKit,
         "assumeBoosterPack" => assumeBoosterPack,
         "cabMoods" => cabMoods,
@@ -139,6 +143,7 @@ public class VehicleSystemsSettings : ModSettings
         Scribe_Values.Look(ref boilerExplosions, "PhobosVehicleSystems_BoilerExplosions", false);
         Scribe_Values.Look(ref realisticFeedWater, "PhobosVehicleSystems_RealisticFeedWater", false);
         Scribe_Values.Look(ref nightHeater, "PhobosVehicleSystems_NightHeater", false);
+        Scribe_Values.Look(ref lowOilCallsService, "PhobosVehicleSystems_LowOilCallsService", true);
         Scribe_Values.Look(ref jumpStartNeedsKit, "PhobosVehicleSystems_JumpStartNeedsKit", true);
         Scribe_Values.Look(ref assumeBoosterPack, "PhobosVehicleSystems_AssumeBoosterPack", false);
         Scribe_Values.Look(ref cabMoods, "PhobosVehicleSystems_CabMoods", true);
@@ -196,6 +201,7 @@ public class VehicleSystemsMod : Mod
         if (Settings.boilerExplosions) report.On("boiler explosions (setting)");
         if (Settings.realisticFeedWater) report.On("realistic feed water (setting)");
         if (Settings.nightHeater) report.On("night heater at camp (setting)");
+        if (!Settings.lowOilCallsService) report.Off("low oil calling a service", "off (setting)");
         if (Settings.jumpStartNeedsKit) report.On("jump-start leads must be crafted (setting)");
         else report.Off("jump-start leads", "free (setting)");
         if (Settings.assumeBoosterPack) report.On("booster pack assumed on every vehicle (setting)");
@@ -279,6 +285,7 @@ public class VehicleSystemsMod : Mod
         listing.Gap(6f);
         listing.CheckboxLabeled("PhobosVehicleSystems_SettingLoadFuel".Translate(), ref s.loadDependentFuel, "PhobosVehicleSystems_SettingLoadFuelDesc".Translate());
         listing.CheckboxLabeled("PhobosVehicleSystems_SettingNightHeater".Translate(), ref s.nightHeater, "PhobosVehicleSystems_SettingNightHeaterDesc".Translate());
+        listing.CheckboxLabeled("PhobosVehicleSystems_SettingLowOilService".Translate(), ref s.lowOilCallsService, "PhobosVehicleSystems_SettingLowOilServiceDesc".Translate());
         listing.CheckboxLabeled("PhobosVehicleSystems_SettingCabMoods".Translate(), ref s.cabMoods, "PhobosVehicleSystems_SettingCabMoodsDesc".Translate());
         listing.CheckboxLabeled("PhobosVehicleSystems_SettingClimateAll".Translate(), ref s.climateControlAll, "PhobosVehicleSystems_SettingClimateAllDesc".Translate());
         listing.Gap(6f);

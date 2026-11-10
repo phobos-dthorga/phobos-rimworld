@@ -161,7 +161,7 @@ pump empties, with a stage that stops the vehicle starting when it runs dry.
 | `flows` | Rate rules on one quantity: `kind` `Into` and `From` (units per hour) or `Toward` a `target` input (the share of the gap closed per hour, done exactly, so it never overshoots). The rate is `factor`, times `factorParameter`, over `divideByParameter`, times every input. `openAbove` or `openAboveParameter` (and `openBelow`) with a `band` gate it like a thermostat. `when` limits it to a condition. |
 | `onEvents` | Effects run once on one of Vehicle Framework's events (`IgnitionOn`, `IgnitionOff`, `MoveStart`, `MoveStop`, `Refueled`, `OutOfFuel` and the rest). |
 | `onPartHit` | When a part playing `role` is hit, `quantity` changes by `perHealthLost` for each hit point lost and `perShareLost` for each share of the part's whole health lost (prefer it: a small part and a big one then agree), or the part gets `condition` with that much severity ([Part conditions](#part-conditions)). `armorCategories` (Sharp, Blunt, Heat) and `damageDefs` limit a rule to kinds of damage, `exceptDamageDefs` rules kinds out; with no filter any hit counts. |
-| `service` | What a mechanic does: `label`, due when `dueQuantity` passes `dueAbove` or `dueBelow` (or while the vehicle has a condition in `clearsConditions`, which the service then clears), `supplies` loaded into the cargo first, `waterLitres` (or `waterLitresParameter`, a system parameter each loadout can set; `scaledWaterLitresParameter`, a scaled figure used unless the player's `realisticWaterSetting` is on, `realisticFeedWater` by default; and `waterForShortfall`, to draw only what the due quantity is short of) drawn from the registered water source when the work ends (free when none is registered; see [Water](#water-for-services)), `work` (ticks at construction speed 1), then `restores` (any system's quantities). |
+| `service` | What a mechanic does: `label`, due when `dueQuantity` passes `dueAbove` or `dueBelow`, or when one of `alsoDue` holds (each a `quantity` of any running system on the vehicle with `above` or `below`, and an optional player `setting` that must be on; a quantity the vehicle lacks never trips it) (or while the vehicle has a condition in `clearsConditions`, which the service then clears), `supplies` loaded into the cargo first, `waterLitres` (or `waterLitresParameter`, a system parameter each loadout can set; `scaledWaterLitresParameter`, a scaled figure used unless the player's `realisticWaterSetting` is on, `realisticFeedWater` by default; and `waterForShortfall`, to draw only what the due quantity is short of) drawn from the registered water source when the work ends (free when none is registered; see [Water](#water-for-services)), `work` (ticks at construction speed 1), then `restores` (any system's quantities). |
 | `jumpStart` | How a colonist jump-starts the vehicle from another: `quantity` (raised to `raiseTo` when below it), `capacityParameter` (the unit the charge moves in), `donorMinimum` (or a running engine), `reach` in cells, `work` in ticks. The player orders it from the flat vehicle's right-click menu. |
 | `workerClass` | A `VehicleSystemWorker` subclass for maths XML cannot say. |
 
@@ -189,6 +189,7 @@ Every input takes an optional `curve` (points `(x, y)` mapping the raw reading) 
 | `Input_OilWithoutCoolant` | where oil settles with no coolant to follow: the air while off; running, `idleCelsius` (55) to `fullCelsius` (95) with load |
 | `Input_Moving` | `moving` (1) or `stopped` (0) |
 | `Input_PartEfficiency` | the average efficiency of the parts bound to `role`, or `missing` (1) |
+| `Input_PartHealth` | the average share of full health of the parts bound to `role` (how worn they are), or `missing` (1) |
 | `Input_Quantity` | another `quantity` of the vehicle, in any running system, or the `fallback` input (the `curve` maps the fallback too). A system switched off in the settings, or the cab system on an open vehicle, reads as absent; `When_QuantityAbove` and `When_QuantityBelow` are then false |
 | `Input_LoadAmps` | the amperes the switched-on loads draw now |
 | `Input_ElectricalBalance` | `Surplus` or `Deficit`: the alternator (`supplyParameter` amperes times `supplyRole`'s efficiency times the optional `supplyFactor` input, while running) against the loads |
@@ -200,7 +201,7 @@ Every input takes an optional `curve` (points `(x, y)` mapping the raw reading) 
 
 `When_Always`, `When_EngineRunning`, `When_Moving`, `When_Night` (hours in the rules Def), `When_AmbientBelow` and
 `When_AmbientAbove` (`celsius`), `When_QuantityBelow` and `When_QuantityAbove` (`quantity`, `value`), `When_ParameterBelow` (`parameter`, `value`), `When_Setting`
-(`setting`: `fuelGelling`, `boilerExplosions`, `realisticFeedWater`, `nightHeater`, `jumpStartNeedsKit`, `assumeBoosterPack`),
+(`setting`: `fuelGelling`, `boilerExplosions`, `realisticFeedWater`, `nightHeater`, `lowOilCallsService`, `jumpStartNeedsKit`, `assumeBoosterPack`),
 `When_CaravanResting` (the vehicle's caravan rests for the night), `When_LoadActive` (`load`: one of the loadout's loads is switched
 on and its condition holds),
 `When_All` and `When_Any` (`conditions`). Every condition takes `invert`.
@@ -564,9 +565,9 @@ A fluid is a `Phobos.VehicleSystems.PhobosTankContentsDef`: `phase`, `foodStatus
 | --- | --- | --- | --- |
 | `PhobosVehicleSystem_Electrical` | charge, starting power, starter, battery frost | Battery, Alternator, Starter | Parameters `batteryAmpHours`, `alternatorAmps`, `starterAmpHours`, `shoreChargeAmps`; jump-starts |
 | `PhobosVehicleSystem_Cooling` | coolant temperature and level, engine load, night heater burning (open vehicles) | Engine, Radiator, WaterPump | `heatAtFullLoad`, `radiatorRate`, `soakRate`, `thermostatOpens`, `engineHeaterTarget`, `engineHeaterRate`, `nightHeaterFuelPerHour`; the load `nightHeater` warms the coolant at camp, and burns its fuel here only when the cab system does not; coolant top-up service: 10 litres of water from the registered source, or 3 chemfuel when there is none |
-| `PhobosVehicleSystem_Lubrication` | oil level, temperature, pressure | Engine, OilPump | Oil follows the coolant; with no cooling system, it runs warm while the engine does (`Input_OilWithoutCoolant`) |
+| `PhobosVehicleSystem_Lubrication` | oil level, temperature, pressure | Engine, OilPump | Oil follows the coolant; with no cooling system, it runs warm while the engine does (`Input_OilWithoutCoolant`); a worn engine burns up to twice the oil (`Input_PartHealth` on Engine) |
 | `PhobosVehicleSystem_Fuel` | fuel gel | | Only with the player's cold-fuel setting |
-| `PhobosVehicleSystem_Service` | hours since service | Engine, Alternator, Starter, Radiator | Service: 9 chemfuel, 1 component (the oil) |
+| `PhobosVehicleSystem_Service` | hours since service | Engine, Alternator, Starter, Radiator | Service: 9 chemfuel, 1 component (the oil); due at 120 hours, or once `oilLevel` is below 0.6 while `lowOilCallsService` is on |
 | `PhobosVehicleSystem_RunningGear` | tread wear | Wheels | Service: 15 steel, 2 components, 10 chemfuel (the rubber) |
 | `PhobosVehicleSystem_Brakes` | brake wear, brake parts | Brakes | Service: 1 component |
 | `PhobosVehicleSystem_Transmission` | gearbox temperature | Transmission | |

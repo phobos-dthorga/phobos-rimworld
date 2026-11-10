@@ -15,7 +15,11 @@
       few in-game weeks is the point).
     - Oil pressure here is the pump's ability, from the oil pump part's health and the oil level (authored curve); it does harm
       only while the engine runs.
-    The oil is topped up by the service (PhobosVehicleSystem_Service).
+    - A worn engine burns more oil (crosslink 3, Framework 0.68.0; docs/development/vehicle-system-crosslinks.md): worn rings and
+      valve guides let oil past into the cylinders (secondary, approximate: engine makers' service literature as commonly cited; no
+      figure checked). Twice the burn at 40% engine health and below, scaling back to the normal burn at full health (authored).
+    The oil is topped up by the service (PhobosVehicleSystem_Service), which falls due as soon as the oil is below 60% while the
+    player's "low oil calls for a service" setting is on (the owner's answer, 10 Nov 2026), so a worn engine is serviced sooner.
   -->
   <Phobos.VehicleSystems.PhobosVehicleSystemDef>
     <defName>PhobosVehicleSystem_Lubrication</defName>
@@ -165,6 +169,16 @@
         <factorParameter>oilBurnPerHour</factorParameter>
         <inputs>
           <li Class="Phobos.VehicleSystems.Input_EngineLoad" />
+          <li Class="Phobos.VehicleSystems.Input_PartHealth">
+            <!-- Crosslink 3: a worn engine burns more oil, twice as much at 40% health (see the comment at the top). -->
+            <role>Engine</role>
+            <curve>
+              <points>
+                <li>(0.4, 2)</li>
+                <li>(1, 1)</li>
+              </points>
+            </curve>
+          </li>
         </inputs>
       </li>
     </flows>

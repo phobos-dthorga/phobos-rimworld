@@ -34,6 +34,12 @@
       near 26 at -20 outside and near 21 at -40: above the 20 degrees below which a start wears the engine. The oil follows the coolant
       (Systems_Lubrication.xml), so it warms too. With a closed cab the cab system burns the heater's fuel; on an open vehicle this
       system does, so the heater burns once either way. An air-cooled engine has no coolant here and is not warmed.
+    - A worn engine runs hot (crosslink 3, Framework 0.68.0): blow-by and poor combustion in a tired engine put more of the fuel's heat
+      into the coolant (secondary, approximate; no figure checked). A fifth more heat at 40% health and below (authored). The record
+      proposed twice as much, but at full load the radiator holds the coolant near 70 degrees above the air, so double heat would boil
+      any worn engine over in the first warm day and wear it further, a spiral rather than a sign; a fifth more takes a hard-worked
+      worn engine into "running hot" on a 35 degree day, which the player can see and act on (a quarter reached "overheating").
+      CoolingFigureTests hold these figures.
   -->
   <Phobos.VehicleSystems.PhobosVehicleSystemDef>
     <defName>PhobosVehicleSystem_Cooling</defName>
@@ -240,6 +246,17 @@
         <factorParameter>heatAtFullLoad</factorParameter>
         <inputs>
           <li Class="Phobos.VehicleSystems.Input_EngineHeat" />
+          <li Class="Phobos.VehicleSystems.Input_PartHealth">
+            <!-- Crosslink 3: a worn engine sheds more heat into its coolant, a fifth more at 40% health and below (authored; see the
+                 comment at the top for why not more). -->
+            <role>Engine</role>
+            <curve>
+              <points>
+                <li>(0.4, 1.2)</li>
+                <li>(1, 1)</li>
+              </points>
+            </curve>
+          </li>
           <li Class="Phobos.VehicleSystems.Input_Quantity">
             <quantity>coolantLevel</quantity>
             <curve>

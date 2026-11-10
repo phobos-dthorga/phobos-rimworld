@@ -131,6 +131,16 @@
       <label>an engine service</label>
       <dueQuantity>engineHours</dueQuantity>
       <dueAbove>120</dueAbove>
+      <alsoDue>
+        <li>
+          <!-- Low oil calls a mechanic, so a worn engine burning oil is serviced sooner (crosslink 3; owner, 10 Nov 2026; a setting,
+               on by default). 60% is authored: above the 50% low-oil warning, and where the oil pressure begins to fall. An electric
+               vehicle has no oil, so this never trips for it. -->
+          <quantity>oilLevel</quantity>
+          <below>0.6</below>
+          <setting>lowOilCallsService</setting>
+        </li>
+      </alsoDue>
       <restores>
         <li>
           <quantity>engineHours</quantity>

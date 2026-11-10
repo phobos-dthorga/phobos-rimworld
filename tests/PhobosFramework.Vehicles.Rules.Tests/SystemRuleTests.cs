@@ -113,6 +113,21 @@ public class CoolingFigureTests
 
     [Fact]
     public void SwitchedOffItCoolsTowardTheAir() => Assert.InRange(Run(95, 0, 1, 4), 20, 30);
+
+    // Crosslink 3 (Systems_Cooling.xml, Framework 0.68.0): a worn engine puts a fifth more heat into its coolant at 40% health. A
+    // quarter more reached 120.1 degrees C here, just into "overheating", which wears the engine.
+    const double WornEngineHeat = 1.2;
+
+    [Fact]
+    public void AWornEngineWorkedHardOnAHotDayRunsHotButDoesNotBoil()
+    {
+        Assert.True(RunAt(35, 1, 1, 3) < 110, "a sound engine at full load in 35 °C stays in the warm band");
+        double worn = RunAt(35, WornEngineHeat, 1, 3);
+        Assert.InRange(worn, 110, 120);   // "running hot": seen on the gauge, no damage yet
+    }
+
+    [Fact]
+    public void TwiceTheHeatWouldBoilAWornEngineOverWhichIsWhyItIsAFifth() => Assert.True(RunAt(35, 2, 1, 3) > 130);
 }
 
 public class StageRuleTests

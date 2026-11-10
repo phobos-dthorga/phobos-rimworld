@@ -5,6 +5,33 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.68.0] - 2026-11-10 - Draft
+
+A worn engine shows its wear (owner, 10 November 2026: crosslink 3). **Not yet tested in game.**
+
+### Added
+
+- **A worn engine burns more oil**: up to twice as much at 40% health and below, so you can read a tired engine from its oil before it fails.
+- **A worn engine runs warmer**: up to a fifth more heat into its coolant, enough to show "running hot" when worked hard on a hot day.
+- **Setting: Low oil calls for a service** (on by default; D'thorga Framework's settings, vehicle systems, beside the night heater). An engine's service falls due as soon as its oil is below 60%, so a mechanic tops it up, and a worn engine is serviced sooner. Off: burned oil only lowers the level until the next service.
+- For modders: a service can name further reasons it falls due (a list on the service, each a quantity of any system with an optional setting), and a new input reads a part's health rather than its efficiency.
+
+### Changed
+
+- The night heater setting's description now says it warms the engine too (the change came in 0.67.0).
+
+### Balance
+
+- All new figures are authored for play: twice the oil burn and a fifth more heat at 40% engine health, and the 60% oil line. A quarter more heat was tried first and reached "overheating" on a 35 degree day in the rule tests, so it was cut.
+
+### Save compatibility
+
+- Safe on an existing save: nothing new is saved. A vehicle already below 60% oil asks for a service at the first look.
+
+### Compatibility and limits
+
+- A leaking cracked sump also brings its vehicle back for a service whenever the oil falls below 60%, which costs a service's supplies each time until the sump is repaired.
+
 ## [0.67.0] - 2026-11-10 - Draft
 
 Vehicle systems talk to each other more (owner, 10 November 2026: crosslinks 1, 2 and 8). **Not yet tested in game.**

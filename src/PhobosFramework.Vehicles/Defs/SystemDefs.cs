@@ -160,8 +160,22 @@ public class QuantityRestore
 }
 
 /// <summary>
+/// A further reason a service falls due: a quantity of any system on the vehicle past a threshold (the engine service when the oil is
+/// low), optionally only while a player's setting is on. A quantity the vehicle does not have never makes it due.
+/// </summary>
+public class ServiceDueRule
+{
+    public string quantity = "";
+    public float above = float.NaN;
+    public float below = float.NaN;
+    /// <summary>A player's setting (VehicleSystemsSettings.FlagOn) that must be on for this rule to count; none means always.</summary>
+    public string? setting;
+}
+
+/// <summary>
 /// What a mechanic does to service the system: the supplies loaded into the vehicle's cargo first, then work at the vehicle with
-/// the Construction skill, then the restores. Due when the named quantity passes its threshold, or whenever the player asks.
+/// the Construction skill, then the restores. Due when the named quantity passes its threshold, when one of <c>alsoDue</c> holds, or
+/// whenever the player asks.
 /// </summary>
 public class ServiceSpec
 {
@@ -169,6 +183,7 @@ public class ServiceSpec
     public string dueQuantity = "";
     public float dueAbove = float.NaN;
     public float dueBelow = float.NaN;
+    public List<ServiceDueRule> alsoDue = new();
     public List<QuantityRestore> restores = new();
     public List<ThingDefCountClass> supplies = new();
     /// <summary>Supplies used as well only when nothing provides water (without Dubs Bad Hygiene): chemfuel in place of a coolant's
@@ -296,6 +311,11 @@ public class PhobosVehicleSystemDef : Def
         {
             if (QuantityIndex(service.dueQuantity) < 0) yield return "the service is due on an unknown quantity " + service.dueQuantity;
             if (float.IsNaN(service.dueAbove) && float.IsNaN(service.dueBelow)) yield return "the service never falls due";
+            foreach (ServiceDueRule rule in service.alsoDue)
+            {
+                if (rule.quantity.NullOrEmpty()) yield return "a service due rule names no quantity";
+                if (float.IsNaN(rule.above) && float.IsNaN(rule.below)) yield return "the service due rule on " + rule.quantity + " never trips";
+            }
         }
         if (jumpStart != null)
         {

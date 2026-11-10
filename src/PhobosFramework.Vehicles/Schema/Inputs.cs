@@ -192,6 +192,15 @@ public class Input_PartEfficiency : VehicleSystemInput
     protected override float Raw(SystemContext context) => context.Comp.PartEfficiency(role, missing);
 }
 
+/// <summary>How worn a role's parts are: their average share of full health (1 sound), or <c>missing</c> when the vehicle has none.
+/// Unlike <see cref="Input_PartEfficiency"/>, which follows the part's efficiency curve, this is the health itself.</summary>
+public class Input_PartHealth : VehicleSystemInput
+{
+    public string role = "";
+    public float missing = 1f;
+    protected override float Raw(SystemContext context) => context.Comp.PartHealthShare(role, missing);
+}
+
 /// <summary>Another quantity of this vehicle, from this system or any other; <c>fallback</c> when no system has it.</summary>
 public class Input_Quantity : VehicleSystemInput
 {

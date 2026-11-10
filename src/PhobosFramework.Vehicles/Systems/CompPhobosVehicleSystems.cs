@@ -1012,6 +1012,20 @@ public class CompPhobosVehicleSystems : VehicleComp
         return count == 0 ? missing : sum / count;
     }
 
+    /// <summary>The average share of full health of the role's parts (how worn they are, where efficiency is what they still do),
+    /// or <paramref name="missing"/> when the vehicle has none.</summary>
+    public float PartHealthShare(string role, float missing)
+    {
+        float sum = 0f;
+        int count = 0;
+        foreach (VehicleComponent part in PartsOf(role))
+        {
+            sum += part.HealthPercent;
+            count++;
+        }
+        return count == 0 ? missing : sum / count;
+    }
+
     /// <summary>Slow damage to one living part of the role, without armour or reactions (wear, heat).</summary>
     public void WearRole(string role, float amount, float shareOfHealth = 0f)
     {
@@ -1264,9 +1278,13 @@ public class CompPhobosVehicleSystems : VehicleComp
         if (serviceRequested && !servicedThisRequest.Contains(state.Def.defName)) return true;
         if (conditions != null && conditions.AnyClearedBy(service)) return true;
         int index = state.Def.QuantityIndex(service.dueQuantity);
-        if (index < 0) return false;
-        double value = state.values[index];
-        return (!float.IsNaN(service.dueAbove) && value >= service.dueAbove) || (!float.IsNaN(service.dueBelow) && value <= service.dueBelow);
+        if (index >= 0 && ThresholdRule.Passes(state.values[index], service.dueAbove, service.dueBelow)) return true;
+        foreach (ServiceDueRule rule in service.alsoDue)
+        {
+            if (rule.setting != null && !VehicleSystemsMod.Settings.FlagOn(rule.setting)) continue;
+            if (TryGetQuantity(rule.quantity, out float value) && ThresholdRule.Passes(value, rule.above, rule.below)) return true;
+        }
+        return false;
     }
 
     /// <summary>The first system whose service is due, or null.</summary>

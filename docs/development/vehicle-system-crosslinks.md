@@ -93,7 +93,17 @@ Not proposed, and why:
      turbine bleed air) read as warm and keep their full heater.
    - Found on the way: a system switched off in the settings went on lending its frozen readings to the others, and went on applying its
      frozen stage (a cab switched off mid-burn kept burning fuel). Both now stand down with it.
-2. Link **3**: two flows, no code; the Lubrication and Cooling Def comments carry the label.
+2. Link **3**: two flows, no code; the Lubrication and Cooling Def comments carry the label. **Built in Framework 0.68.0 (10 Nov 2026),
+   not yet tested in game.** As built:
+   - The flows read a new `Input_PartHealth` (the part's share of health), not `Input_PartEfficiency`: a part's efficiency follows its
+     author's curve and can stay at 1 while it is badly worn.
+   - Oil burn: twice the normal at 40 % engine health and below [A], as proposed.
+   - Heat: **a fifth more**, not twice [A]. At full load the radiator holds the coolant about 70 degrees above the air, so double heat
+     boils any worn engine over on a warm day and wears it further, a spiral rather than a sign; a quarter more already reached
+     "overheating" on a 35 °C day in the rule tests. A fifth more reaches "running hot", which the player sees and can act on.
+   - The owner's answer (oil use is a reason to service): the engine service also falls due once the oil is below 60 % [A], through a
+     new data rule on services (`alsoDue`), behind the setting **Low oil calls for a service** (on). Off, the burned oil only lowers the
+     level until the next service. This also brings a cracked sump's leak to a mechanic's attention.
 3. Link **4**: `Input_Fire` (one class, one attachment read on the rare tick), then flows on the four temperatures. The owner's Harrier is the test.
 4. Link **7**: a curve on starting power, and moving the cold-start condition to oil temperature.
 5. Links **5 and 6** last: each touches the hub or reads the map, so each needs a cost measurement against the 0.05 ms budget before it ships.
@@ -128,7 +138,9 @@ power, which is how real vehicles in cold places are kept warm overnight at home
 - **Owner (9 Nov 2026):** enrich the simulation layer under everything with crosslinks; research and record first.
 - **Owner (10 Nov 2026):** the four answers above, after testing the damage chain in game; go-ahead for the cross-linking.
 - **Agent:** the graph reading, the eight proposals and their figures (all authored, marked [A]), the order, and what was left out; in
-  0.67.0, the engine heater's 40 °C target and rate, the heater core's 30 to 60 °C curve, and applying links 2 and 8 to climate control.
+  0.67.0, the engine heater's 40 °C target and rate, the heater core's 30 to 60 °C curve, and applying links 2 and 8 to climate control;
+  in 0.68.0, reading health rather than efficiency, the heat cut to a fifth, the 60 % oil line and the setting's default (on, matching
+  the owner's answer).
 
 ## Sources
 
