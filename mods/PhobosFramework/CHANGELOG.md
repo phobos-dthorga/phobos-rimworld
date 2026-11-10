@@ -7,7 +7,7 @@ tested in game unless an entry says the owner tested it.
 
 ## [0.72.1] - 2026-11-10 - Draft
 
-A protective-gear line no longer stalls the game (owner's report, 10 November 2026, with the profiler). **Not yet tested in game.**
+A protective-gear line no longer stalls the game (owner's report, 10 November 2026, with the profiler). **The owner's profiler shows the stall gone; the turn-back itself is not yet tested in game.**
 
 ### Fixed
 
@@ -17,7 +17,7 @@ A protective-gear line no longer stalls the game (owner's report, 10 November 20
 ### Compatibility and limits
 
 - Only pawns the player controls are ever checked at a line; pawns of other factions, and every pawn on a map without a line, cost a field read, as before.
-- Not yet tested in game.
+- Checked by the owner in game with the profiler on the same colony: D'thorga Medical's patches fell from 38% of every frame to 0.14%, and the step patch no longer shows among the costly ones. The turn-back behaviour itself (stopping short, the wait, three sendings for gear) is not yet tested in game.
 
 ### Save compatibility
 

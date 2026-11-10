@@ -8,7 +8,7 @@ entry says the owner tested it.
 
 ## [0.12.1] - 2026-11-10 - Draft
 
-The radiation control line no longer stalls the game (owner's report, 10 November 2026, with the profiler). **Not yet tested in game.**
+The radiation control line no longer stalls the game (owner's report, 10 November 2026, with the profiler). **The owner's profiler shows the stall gone; the turn-back itself is not yet tested in game.**
 
 ### Fixed
 
@@ -20,7 +20,7 @@ The radiation control line no longer stalls the game (owner's report, 10 Novembe
 
 ### Compatibility and limits
 
-- Not yet tested in game.
+- Checked by the owner in game with the profiler: this mod's patches fell from 38% of every frame to 0.14%. The turn-back behaviour itself is not yet tested in game.
 
 ## [0.12.0] - 2026-11-10 - Draft
 
