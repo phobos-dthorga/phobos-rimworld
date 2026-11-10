@@ -1,0 +1,33 @@
+{
+  "file": "radiation-control-point-13.png",
+  "sha256": "129e64c610cb8d8d51c7644fce6716ce4dcc059b8c33f7508aa39fa2bbbcfe17",
+  "date": "2026-11-10T16:51:41",
+  "generator": "ComfyUI 0.41.0, local, FLUX.2 Klein 4B base fp8 (Black Forest Labs, Apache 2.0)",
+  "engine": "klein-base",
+  "model": "flux-2-klein-base-4b-fp8.safetensors",
+  "model_sha256": "44bab3a86fe98b85d21dd2a4729ebdc3ae51fb8a39f76e457e18c724219e6840",
+  "prompt": "phobosvanilla, A yellow rectangular warning sign plate on a short steel post with a flat base, bearing the international radiation trefoil symbol in magenta: a small central disc and three fan-shaped blades, one pointing straight down. Draw it in exactly the art style of the second reference image: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. Keep the layout of the first reference image. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands.",
+  "negative_prompt": "",
+  "seed": 13,
+  "steps": 50,
+  "cfg": 4.0,
+  "sampler": "euler/flux2",
+  "size": [
+    1024,
+    1024
+  ],
+  "request_file": "assets/phobos-medical/requests/radiation-icons.json",
+  "seconds": 168.3,
+  "references": [
+    {
+      "image": "assets/phobos-medical/references/RadiationControlPoint-layout.png",
+      "sha256": "0cd28de456a1bba67655682e942a8994070ad9942c60a87053e91da7de43b3a4"
+    },
+    {
+      "image": "assets/phobos-vehicles/generated/gizmo-load/gizmo-load-12.png",
+      "sha256": "6b647ce7129d6735604bcb881fcfa4fc9191bc849ad0f8f251b12f5f53f1a3ff"
+    }
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "lora_strength": 1.0
+}

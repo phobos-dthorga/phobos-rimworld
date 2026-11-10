@@ -1,0 +1,33 @@
+{
+  "file": "radiation-area-expand-13.png",
+  "sha256": "f6ff7b84114bfebd8c8cc2752ec8769ead14e1319ccf5b68728be70bfc2cb138",
+  "date": "2026-11-10T17:00:08",
+  "generator": "ComfyUI 0.41.0, local, FLUX.2 Klein 4B base fp8 (Black Forest Labs, Apache 2.0)",
+  "engine": "klein-base",
+  "model": "flux-2-klein-base-4b-fp8.safetensors",
+  "model_sha256": "44bab3a86fe98b85d21dd2a4729ebdc3ae51fb8a39f76e457e18c724219e6840",
+  "prompt": "phobosvanilla, A round yellow badge bearing the international radiation trefoil symbol in magenta: a small central disc and three fan-shaped blades, one pointing straight down, with a small green circle holding a white plus sign at its lower right. Draw it in exactly the art style of the second reference image: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. Keep the layout of the first reference image. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands.",
+  "negative_prompt": "",
+  "seed": 13,
+  "steps": 50,
+  "cfg": 4.0,
+  "sampler": "euler/flux2",
+  "size": [
+    1024,
+    1024
+  ],
+  "request_file": "assets/phobos-medical/requests/radiation-icons.json",
+  "seconds": 188.1,
+  "references": [
+    {
+      "image": "assets/phobos-medical/references/RadiationAreaExpand-layout.png",
+      "sha256": "d4ce5dff0b8c3d3d18687b564b0ea9e42d05f8de73900f4bfec41f4518134444"
+    },
+    {
+      "image": "assets/phobos-vehicles/generated/gizmo-load/gizmo-load-12.png",
+      "sha256": "6b647ce7129d6735604bcb881fcfa4fc9191bc849ad0f8f251b12f5f53f1a3ff"
+    }
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "lora_strength": 1.0
+}
