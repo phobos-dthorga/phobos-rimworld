@@ -1,0 +1,21 @@
+{
+  "file": "hero-medical-2.png",
+  "sha256": "75b789a595fc0668f6dc9cdc996650c9be08bbbe241efab219baa8c3b8b7e98b",
+  "date": "2026-11-10T08:19:29",
+  "generator": "ComfyUI 0.41.0, local, Flux.1-schnell fp8 (Comfy-Org packaging, Apache 2.0)",
+  "engine": "schnell",
+  "model": "flux1-schnell-fp8.safetensors",
+  "model_sha256": "ead426278b49030e9da5df862994f25ce94ab2ee4df38b556ddddb3db093bf72",
+  "prompt": "Illustration for a RimWorld mod preview: A frontier field hospital at dusk seen through its open tent flaps: a lone doctor in a worn coat beside a bed with an oxygen concentrator and a loop of clear tubing, warm lamplight spilling out onto the snow. Painterly but clean, muted earth tones with amber light, dark teal dusk sky, wide composition, the lower third darker and uncluttered. No text, no logos, no watermark.",
+  "negative_prompt": "",
+  "seed": 2,
+  "steps": 4,
+  "cfg": 1.0,
+  "sampler": "euler/simple",
+  "size": [
+    1280,
+    720
+  ],
+  "request_file": "assets/phobos-previews/requests/heroes.json",
+  "seconds": 6.5
+}

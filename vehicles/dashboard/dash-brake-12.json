@@ -1,0 +1,21 @@
+{
+  "file": "dash-brake-12.png",
+  "sha256": "dba736b9d54f7435d33eb722ebe35332db98b53d405fb4eccd248297baf103ed",
+  "date": "2026-11-10T08:03:08",
+  "generator": "ComfyUI 0.41.0, local, FLUX.2 Klein 4B base fp8 (Black Forest Labs, Apache 2.0)",
+  "engine": "klein-base",
+  "model": "flux-2-klein-base-4b-fp8.safetensors",
+  "model_sha256": "44bab3a86fe98b85d21dd2a4729ebdc3ae51fb8a39f76e457e18c724219e6840",
+  "prompt": "A single bold dashboard warning pictogram: a circle inside two curved brackets, like a brake disc between pads. Solid pure black flat shape on a plain pure white background, centred, filling about three quarters of a square canvas, thick simple rounded forms with clean edges, like a car instrument cluster symbol. One flat colour only. No shading, no gradient, no outline box, no background, no text, no letters, no numbers.",
+  "negative_prompt": "",
+  "seed": 12,
+  "steps": 50,
+  "cfg": 4.0,
+  "sampler": "euler/flux2",
+  "size": [
+    512,
+    512
+  ],
+  "request_file": "assets/phobos-vehicles/requests/dash-telltales.json",
+  "seconds": 10.8
+}

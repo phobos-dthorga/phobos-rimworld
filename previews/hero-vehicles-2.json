@@ -1,0 +1,21 @@
+{
+  "file": "hero-vehicles-2.png",
+  "sha256": "d8cd6d7e98a5de98711ed8fa2d882c1785147d1d587cef4a279d55928a8d57c4",
+  "date": "2026-11-10T08:16:53",
+  "generator": "ComfyUI 0.41.0, local, Flux.1-schnell fp8 (Comfy-Org packaging, Apache 2.0)",
+  "engine": "schnell",
+  "model": "flux1-schnell-fp8.safetensors",
+  "model_sha256": "ead426278b49030e9da5df862994f25ce94ab2ee4df38b556ddddb3db093bf72",
+  "prompt": "Illustration for a RimWorld mod preview: A small convoy of rugged working trucks on a windswept frontier ridge at dusk: a drill rig with its mast raised, a bulk tanker with hoses out, and a survey truck, while a lone colonist in a worn parka checks a clipboard beside them, a small settlement glowing in the valley below. Painterly but clean, muted earth tones with amber light, dark teal dusk sky, wide composition, the lower third darker and uncluttered. No text, no logos, no watermark.",
+  "negative_prompt": "",
+  "seed": 2,
+  "steps": 4,
+  "cfg": 1.0,
+  "sampler": "euler/simple",
+  "size": [
+    1280,
+    720
+  ],
+  "request_file": "assets/phobos-previews/requests/heroes.json",
+  "seconds": 8.5
+}
