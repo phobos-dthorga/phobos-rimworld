@@ -405,6 +405,9 @@
   <PhobosVehicleSystems_MarkService>{SERVICE} done</PhobosVehicleSystems_MarkService>
   <PhobosVehicleSystems_MarkFault>New fault: {FAULT}</PhobosVehicleSystems_MarkFault>
   <PhobosVehicleSystems_MarkJumpStart>Jump-started</PhobosVehicleSystems_MarkJumpStart>
+
+  <!-- The range on the world map (Framework 0.85.0). -->
+  <PhobosVehicleSystems_CaravanRange>Fuel aboard for about {TIME} of driving. Its reach is outlined on the globe while the caravan is selected.</PhobosVehicleSystems_CaravanRange>
   <PhobosVehicleSystems_MarkWhen>{EVENT}\n{AGO} ago</PhobosVehicleSystems_MarkWhen>
   <PhobosVehicleSystems_HydraulicsDry>{VEHICLE} has too little hydraulic fluid left to work. A mechanic's hydraulic top-up refills it; mend the leaking lines first, or it drains again.</PhobosVehicleSystems_HydraulicsDry>
 

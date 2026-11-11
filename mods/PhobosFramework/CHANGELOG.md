@@ -5,6 +5,24 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.85.0] - 2026-11-11 - Draft
+
+The range on the world map (owner, 11 November 2026: slice 2 of the next four). **Not yet tested in game.**
+
+### Added
+
+- **A vehicle caravan's reach on the fuel aboard**, outlined in amber on the globe while the caravan is selected. It follows the ground: the same costs Vehicle Framework uses to move the caravan (terrain, hills, winter, roads and the slowest vehicle's speed), so it reaches further along a road and less far into the mountains. The fuel burns only while the caravan moves, so rest stops do not shorten it. The vehicle that would run dry first sets the reach, and fittings and tunes that change what an engine burns change it too.
+- The caravan's inspect text says how long the fuel aboard lasts on the move.
+
+### Compatibility and limits
+
+- The reach is worked out when the caravan is selected, and again only when its tile, its fuel (to a hundredth of the tank) or its speed changes. A very large reach may take a moment the first time, and a search stops at 12,000 tiles, short of the true edge.
+- It is an estimate: it does not count refuelling on the way, and assumes the caravan drives the cheapest way to each tile. Only caravans on the world map show it, not a vehicle parked on a map.
+
+### Save compatibility
+
+- Safe on an existing save: nothing new is saved.
+
 ## [0.84.0] - 2026-11-11 - Draft
 
 Marks on the graphs, and more from the damage picture (owner, 11 November 2026: slice 1 of the next four). **Not yet tested in game.**

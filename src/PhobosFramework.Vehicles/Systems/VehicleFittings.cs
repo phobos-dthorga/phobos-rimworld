@@ -202,6 +202,10 @@ public sealed class VehicleFittings
         }
     }
 
+    /// <summary>What fittings and tunes do to the fuel burned against Vehicle Framework's own rate, as the drive applies it: the flat
+    /// factor too unless fuel follows the engine model (one rule for the burn and for the range on the world map).</summary>
+    public float TunedFuelFactor => FuelFactor * (FuelFollowsModel ? 1f : FlatFuelFactor);
+
     /// <summary>What the tunes do to the fuel burned when fuel does not follow the engine model, which otherwise works it out itself.</summary>
     public float FlatFuelFactor
     {

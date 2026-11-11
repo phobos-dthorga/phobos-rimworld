@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using RimWorld;
 using RimWorld.Planet;
+using UnityEngine;
 using Vehicles;
 using Vehicles.World;
 using Verse;
@@ -25,6 +26,11 @@ public class WorldObjectComp_PhobosVehicleCaravan : WorldObjectComp
         VehicleCaravan? caravan = Caravan;
         if (caravan == null) return null;
         var lines = new List<string>();
+        // How long the fuel aboard lasts on the move (Framework 0.85.0); its reach is drawn on the globe while the caravan is selected.
+        if (caravan.Faction == Faction.OfPlayer && VehicleRange.BudgetTicks(caravan, out _) is float budget)
+        {
+            lines.Add("PhobosVehicleSystems_CaravanRange".Translate(((int)budget).ToStringTicksToPeriod().Named("TIME")).Resolve());
+        }
         foreach (CompPhobosVehicleSystems comp in Comps(caravan))
         {
             if (comp.MoveRefusal != null)
@@ -60,6 +66,21 @@ public class WorldObjectComp_PhobosVehicleCaravan : WorldObjectComp
             if (mechanic != null) comp.Repairs.CompleteReady(mechanic);
         };
         return command;
+    }
+
+    /// <summary>The colour of the reach's edge on the globe (authored: the dashboard's amber, so it reads as "fuel").</summary>
+    static Material? rangeMaterial;
+    static Material RangeMaterial => rangeMaterial ??= MaterialPool.MatFrom(GenDraw.LineTexPath, ShaderDatabase.WorldOverlayTransparent, new Color(0.95f, 0.70f, 0.25f, 0.9f), 3590);
+
+    /// <summary>While the player's vehicle caravan is selected, the edge of where the fuel aboard takes it, drawn on the globe as the game
+    /// draws a caravan's path (Framework 0.85.0; VehicleRange works it out).</summary>
+    public override void PostDrawExtraSelectionOverlays()
+    {
+        VehicleCaravan? caravan = Caravan;
+        if (caravan == null || caravan.Faction != Faction.OfPlayer) return;
+        VehicleRange.Reach? reach = VehicleRange.For(caravan);
+        if (reach == null) return;
+        foreach ((Vector3 a, Vector3 b) in reach.Edge) GenDraw.DrawWorldLineBetween(a, b, RangeMaterial, 0.6f);
     }
 
     public override IEnumerable<Gizmo> GetGizmos()

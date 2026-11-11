@@ -576,7 +576,7 @@ public sealed class Powertrain
     public void ApplyFuel(double hours)
     {
         bool followsModel = VehicleFittings.FuelFollowsModel;
-        double tuned = comp.Fittings.FuelFactor * (followsModel ? 1f : comp.Fittings.FlatFuelFactor);
+        double tuned = comp.Fittings.TunedFuelFactor;
         if ((!followsModel && tuned == 1) || !Full || !Ground || hours <= 0) return;
         CompFueledTravel? fuel = comp.Vehicle.CompFueledTravel;
         if (fuel == null || fuel.Props.electricPowered || !comp.EngineRunningRaw) return;
