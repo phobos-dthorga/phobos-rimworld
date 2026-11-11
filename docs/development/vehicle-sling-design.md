@@ -139,8 +139,9 @@ selectable in the Pawns tab."
 
 **Read from the save and the log (not a test in game):** the newest save was made before the lift, with the vehicle parked and chosen as
 the Cherokee's load, and the log holds no error between that save and the reload two minutes later. Slice 1's code takes the vehicle off
-the map into the sling at lift-off and sets it down when the helicopter next appears on a map. Whether it came back at a landing in the
-owner's game is **not known**: the report does not say the Cherokee landed. What slice 1 certainly did was show the load nowhere and say
+the map into the sling at lift-off and sets it down when the helicopter next appears on a map. The owner confirmed the same day that the
+flight was never allowed to reach a landing, so nothing shows the vehicle was lost: it was aboard and unseen. Whether it is set down at a
+landing in game is still **untested**. What slice 1 certainly did was show the load nowhere and say
 nothing: no message at lift-off (a silent success, against our own rule), no picture, and no line or list on the world map.
 
 **Changed in Framework 0.99.0:**
