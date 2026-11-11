@@ -97,6 +97,18 @@ arrival action of the aircraft's places it again. We will read Vehicle Framework
 `scripts/query-code.py` before building and record the members we use; any reflected name goes through `scripts/check-targets.py`. Our comps on
 the carried vehicle already catch up the hours they were away when it is spawned again (the engine has cooled, the battery has rested).
 
+**Read so far (11 Nov 2026):**
+
+- **Holding the load needs one Harmony patch.** The slung vehicle (and anyone riding in it) is held in a container of the helicopter's sling
+  comp. The game finds held things through `Pawn.GetChildHolders`, which lists a pawn's inventory, carried thing, equipment and apparel
+  but never its comps (`RimWorld-1.7:Verse.Pawn.cs:4736`), and Vehicle Framework adds no way in. Without it the game would not know the
+  passengers in a slung vehicle are aboard. So a **postfix on `Pawn.GetChildHolders`** adds the sling's container, only for a pawn with a
+  sling comp; it never skips the original. Cherokee Sling makes the same kind of postfix; each adds only its own comp, so both can be active.
+  The patch gets its row in no temporary-patch list: it is how our feature works, not a fix for another author.
+- **Where Vehicle Framework holds flying things:** its own stand-in on a map (`VehicleSkyfaller`, `Vehicles.decompiled.cs:24417`) and its
+  world object in flight (`AerialVehicleInFlight`, `:90772`) both pass their holders on, so a helicopter's sling container rides along
+  through the whole flight once the postfix lists it.
+
 ## Slices
 
 1. **Lift and carry**: the hook fitting, the sling set, the weight rule with the hot-day derating, the Lift button with its reasons, the
@@ -118,3 +130,5 @@ the carried vehicle already catch up the hours they were away when it is spawned
   weather limits, slower and thirstier slung flight, emergency release; all of them as settings; pictures from the OpenAI API.
 - **Agent defaults (for the owner to revise):** the sling set as an item kept aboard; the authored figures in the table; standing down on
   the Cherokee when Cherokee Sling is active; the order of the slices; a wreck site for a load dropped in flight (open).
+- **Owner's picks (11 Nov 2026):** lift #1, set down #2, emergency release #1, cargo hook #2, sling set #2 (US$0.54 for ten attempts; masters
+  on `art-masters` under `vehicles/sling/`, the rest on `art-references`).
