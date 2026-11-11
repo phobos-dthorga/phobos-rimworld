@@ -35,6 +35,11 @@ P3 and P5 (16 icons: the 8 fittings, 6 tunes and 2 grades, the owner's picks, US
 changes" from the Def's figures; the Health tab's coloured names and icon stack). The record's guess of 10 fittings was 8, so 16 icons
 covered the grades too. Left in the order: P4, P7c, P7d and P7e, each waiting on the owner.
 
+**Framework 0.88.0 (owner's idea, 11 Nov 2026, agreed with the agent's push-back):** the fittings window's part rows borrow the tune row's
+picture buttons; the engine and gearbox rows show their fitting and the running tune combined, and a hover on any choice previews it.
+Only those two rows carry a tune (agent's push-back, agreed); a part with more choices than fit across keeps the menus. The window and
+the vehicle share one rule for the figures (FitFigures). Grouping the four wheel rows as axles is a possible later tidy, not built.
+
 ## Read this first
 
 - **Recommendation, in five lines.** Turn the diagnosis into a proper report window with the vehicle's picture, coloured gauges and one

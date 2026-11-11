@@ -273,6 +273,9 @@
   <PhobosVehicleSystems_EffectDown>{LABEL} down</PhobosVehicleSystems_EffectDown>
   <PhobosVehicleSystems_EffectFinalDrive>final drive ratio</PhobosVehicleSystems_EffectFinalDrive>
   <PhobosVehicleSystems_EffectAsBuilt>As built: nothing changes</PhobosVehicleSystems_EffectAsBuilt>
+  <PhobosVehicleSystems_EffectSources>{SOURCES}: {EFFECTS}</PhobosVehicleSystems_EffectSources>
+  <PhobosVehicleSystems_EffectPreview>If chosen: {LINE}</PhobosVehicleSystems_EffectPreview>
+  <PhobosVehicleSystems_FitNoneShort>none</PhobosVehicleSystems_FitNoneShort>
   <PhobosVehicleSystems_TuneFigureFuelModel>fuel burned: worked out by the engine model from the revs</PhobosVehicleSystems_TuneFigureFuelModel>
   <PhobosVehicleSystems_FitPartNone>nothing fitted</PhobosVehicleSystems_FitPartNone>
   <PhobosVehicleSystems_FitChange>Change</PhobosVehicleSystems_FitChange>

@@ -22,6 +22,16 @@ public class Dialog_PhobosVehicleFittings : Window
     const float TuneRowHeight = 70f;
     const float TuneButtonHeight = 40f;
     const float IconSize = 24f;
+    /// <summary>A part's choice as a square picture button (Framework 0.88.0), borrowed from the tune row.</summary>
+    const float PictureButton = 36f;
+    const float PartNameWidth = 170f;
+    /// <summary>The space between a part's fittings and its grades.</summary>
+    const float GroupGap = 14f;
+    /// <summary>A preview's colour: the line says what would be, not what is.</summary>
+    static readonly Color PreviewColour = new(0.62f, 0.78f, 0.95f);
+
+    /// <summary>The tune the mouse rests on this frame, previewed on the rows it lands on below.</summary>
+    PhobosVehicleTuneDef? previewTune;
     const float SectionHeight = 30f;
     const float ButtonWidth = 118f;
     const float ButtonHeight = 28f;
@@ -44,6 +54,7 @@ public class Dialog_PhobosVehicleFittings : Window
 
     public override void DoWindowContents(Rect inRect)
     {
+        previewTune = null;
         float y = inRect.y;
         using (new TextBlock(GameFont.Medium))
         {
@@ -110,13 +121,17 @@ public class Dialog_PhobosVehicleFittings : Window
                 textX += 36f;
             }
             using (new TextBlock(GameFont.Tiny, TextAnchor.MiddleLeft)) Widgets.Label(new Rect(textX, button.y, button.xMax - textX - 2f, button.height), tune.LabelCap);
+            if (!isCurrent && Mouse.IsOver(button)) previewTune = tune;
             if (!isCurrent && Widgets.ButtonInvisible(button)) Fittings.OrderTune(tune);
             TooltipHandler.TipRegion(button, TuneTip(tune));
             x += ButtonWidth + Gap;
         }
-        // What the setting it runs on now changes, unless work on it is ordered.
-        if (order == null && current != null && FittingText.Effects(current, plain) is { } effects)
+        // What the setting it runs on now changes, or the one the mouse rests on would, unless work on it is ordered.
+        bool preview = previewTune != null && previewTune.axis == axis;
+        PhobosVehicleTuneDef? shown = preview ? previewTune : current;
+        if (order == null && shown != null && FittingText.Effects(shown, plain) is { } effects)
         {
+            if (preview) effects = "PhobosVehicleSystems_EffectPreview".Translate(effects.Named("LINE")).Resolve().Colorize(PreviewColour);
             using (new TextBlock(GameFont.Tiny, TextAnchor.MiddleLeft)) Widgets.Label(new Rect(112f, y + TuneButtonHeight + 2f, view.width - 112f, 20f), effects);
         }
         DrawOrderLine(view, y + TuneButtonHeight - ButtonHeight, order);
@@ -165,7 +180,119 @@ public class Dialog_PhobosVehicleFittings : Window
     /// <summary>A factor as the Def gives it, unrounded beyond what the Def holds.</summary>
     static string Factor(float factor) => factor.ToString("0.###");
 
+    /// <summary>
+    /// A part's row (Framework 0.88.0; owner, 11 Nov 2026): its fittings and grades as picture buttons borrowed from the tune row, the one
+    /// it has lit, and under them what its fitting and the tune landing on it give together. Resting the mouse on any choice, here or a
+    /// tune above, shows what the row would give instead. A part with more choices than fit across falls back to the menus.
+    /// </summary>
     void DrawPart(Rect view, ref float y, VehicleComponent part)
+    {
+        PhobosVehicleFittingDef? on = Fittings.FittedOn(part.props.key);
+        PhobosVehiclePartGradeDef current = Fittings.GradeOf(part.props.key);
+        FitOrder? order = Fittings.OrderOn(part.props.key);
+        List<PhobosVehicleFittingDef> options = Fittings.OptionsFor(part).ToList();
+        List<PhobosVehiclePartGradeDef> grades = comp.Repairs.CanBeGraded(part) ? VehicleFittings.Grades.ToList() : new List<PhobosVehiclePartGradeDef>();
+        int fitButtons = options.Count > 0 || on != null ? options.Count + 1 : 0;
+        if (PartNameWidth + (fitButtons + grades.Count) * (PictureButton + 2f) + GroupGap > view.width)
+        {
+            DrawPartMenus(view, ref y, part);
+            return;
+        }
+        bool plain = VehicleSystemsMod.Settings.displayMode == DisplayMode.Plain;
+        using (new TextBlock(GameFont.Small, TextAnchor.MiddleLeft)) Widgets.Label(new Rect(0f, y, PartNameWidth - 4f, PictureButton), part.props.label.CapitalizeFirst());
+        float x = PartNameWidth;
+        bool hoverFitting = false;
+        PhobosVehicleFittingDef? hovered = null;
+        if (fitButtons > 0)
+        {
+            var none = new Rect(x, y, PictureButton, PictureButton);
+            string noneTip = on != null ? "PhobosVehicleSystems_FitRemove".Translate(on.label.Named("FITTING")).Resolve() : "PhobosVehicleSystems_FitPartNone".Translate().CapitalizeFirst().Resolve();
+            if (Choice(none, null, "PhobosVehicleSystems_FitNoneShort".Translate(), on == null, null, order is { remove: true }, noneTip)) Fittings.OrderRemoval(part);
+            if (on != null && Mouse.IsOver(none)) hoverFitting = true;
+            x += PictureButton + 2f;
+            foreach (PhobosVehicleFittingDef def in options)
+            {
+                var button = new Rect(x, y, PictureButton, PictureButton);
+                string? refusal = Fittings.Refusal(def, part);
+                if (Choice(button, def.Icon, def.LabelCap, def == on, refusal, order?.fitting == def, FittingTip(def, refusal))) Fittings.OrderFitting(part, def);
+                if (def != on && Mouse.IsOver(button))
+                {
+                    hoverFitting = true;
+                    hovered = def;
+                }
+                x += PictureButton + 2f;
+            }
+            x += GroupGap;
+        }
+        foreach (PhobosVehiclePartGradeDef grade in grades)
+        {
+            var button = new Rect(x, y, PictureButton, PictureButton);
+            bool lit = grade == current && part.Health > 0f;
+            string? refusal = Fittings.Refusal(grade, part);
+            if (Choice(button, grade.Icon, grade.LabelCap, lit, refusal, order?.grade == grade, GradeTip(part, grade, refusal))) Fittings.OrderGrade(part, grade);
+            x += PictureButton + 2f;
+        }
+
+        // Under the buttons: the work ordered, or what the row gives (or would give, while the mouse rests on a choice).
+        if (order != null)
+        {
+            DrawOrderLine(view, y + PictureButton - ButtonHeight, order);
+        }
+        else
+        {
+            VehicleTuneAxis? axis = Fittings.AxisOf(part);
+            PhobosVehicleTuneDef? running = axis == null ? null : Fittings.Current(axis.Value);
+            bool tunePreview = axis != null && previewTune != null && previewTune.axis == axis;
+            PhobosVehicleTuneDef? tune = tunePreview ? previewTune : running;
+            PhobosVehicleFittingDef? fitting = hoverFitting ? hovered : on;
+            string? line = FittingText.RowLine(fitting, tune, Fittings.RowFigures(fitting, tune), plain);
+            if (line != null)
+            {
+                bool preview = hoverFitting || tunePreview;
+                if (preview) line = "PhobosVehicleSystems_EffectPreview".Translate(line.Named("LINE")).Resolve().Colorize(PreviewColour);
+                using (new TextBlock(GameFont.Tiny, TextAnchor.MiddleLeft)) Widgets.Label(new Rect(PartNameWidth, y + PictureButton + 1f, view.width - PartNameWidth, 18f), line);
+            }
+        }
+        y += RowHeight;
+    }
+
+    /// <summary>
+    /// One choice as a square picture button, the tune row's look: lit green when it is what the part has, an amber bar when it is the work
+    /// ordered, dimmed with its reason in the tooltip when it cannot be chosen yet. Returns whether it was clicked to choose it.
+    /// </summary>
+    static bool Choice(Rect rect, UnityEngine.Texture2D? icon, string label, bool lit, string? refusal, bool ordered, string tip)
+    {
+        Widgets.DrawOptionBackground(rect, lit);
+        if (lit) Widgets.DrawBoxSolid(new Rect(rect.x + 2f, rect.yMax - 4f, rect.width - 4f, 3f), PhobosWidgets.Good);
+        else if (ordered) Widgets.DrawBoxSolid(new Rect(rect.x + 2f, rect.yMax - 4f, rect.width - 4f, 3f), PhobosWidgets.Caution);
+        Color before = GUI.color;
+        if (refusal != null) GUI.color = new Color(1f, 1f, 1f, 0.35f);
+        if (icon != null) GUI.DrawTexture(rect.ContractedBy(4f), icon);
+        else using (new TextBlock(GameFont.Tiny, TextAnchor.MiddleCenter)) Widgets.Label(rect, label);
+        GUI.color = before;
+        TooltipHandler.TipRegion(rect, tip);
+        return !lit && !ordered && refusal == null && Widgets.ButtonInvisible(rect);
+    }
+
+    string FittingTip(PhobosVehicleFittingDef def, string? refusal)
+    {
+        string tip = def.LabelCap + " (" + Materials(def.materials) + ")\n\n" + def.description;
+        if (FittingText.Effects(def, VehicleSystemsMod.Settings.displayMode == DisplayMode.Plain) is { } effects) tip += "\n\n" + effects;
+        if (def.minSkill > 0) tip += "\n\n" + "PhobosVehicleSystems_FitNeedsSkill".Translate(def.minSkill.Named("SKILL")).CapitalizeFirst();
+        if (refusal != null) tip += "\n\n" + refusal.Colorize(PhobosWidgets.Bad);
+        return tip;
+    }
+
+    string GradeTip(VehicleComponent part, PhobosVehiclePartGradeDef grade, string? refusal)
+    {
+        string tip = grade.LabelCap + " (" + comp.Repairs.CostLine(part, grade) + ")\n\n" + grade.description;
+        if (grade.minSkill > 0) tip += "\n\n" + "PhobosVehicleSystems_FitNeedsSkill".Translate(grade.minSkill.Named("SKILL")).CapitalizeFirst();
+        if (refusal != null) tip += "\n\n" + refusal.Colorize(PhobosWidgets.Bad);
+        return tip;
+    }
+
+    /// <summary>The part row as it was before 0.88.0, with menus: for a part with more choices than fit across as pictures.</summary>
+    void DrawPartMenus(Rect view, ref float y, VehicleComponent part)
     {
         PhobosVehicleFittingDef? on = Fittings.FittedOn(part.props.key);
         PhobosVehiclePartGradeDef grade = Fittings.GradeOf(part.props.key);

@@ -5,6 +5,24 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.88.0] - 2026-11-11 - Draft
+
+The fittings window shows how the choices work together (owner, 11 November 2026: "when you select one of the options from the top, it should show its changes in the options below too, and borrow modules from those"). **Not yet tested in game.**
+
+### Added
+
+- **Every part's fittings and grades are picture buttons**, the tune row's look: the one the part has is lit green, work already ordered shows an amber bar, and one that cannot be chosen yet is dimmed with its reason in the tooltip. "None" takes a fitting off. A part with more choices than fit across keeps the menus.
+- **The engine and gearbox rows say what they give together**: their fitting and the tune that lands on them, such as "Power tune + turbocharger: engine power ×1.38, fuel burned ×1.27". Other parts show their own fitting's line; only the engine and gearbox carry a tune's changes, so the window stays quiet.
+- **Resting the mouse on a choice previews it**, in a pale blue line beginning "If chosen": a tune above shows its effect on the tune row and on the engine or gearbox row below, and a fitting or "none" shows what its row would give.
+
+### Changed
+
+- The figures the window shows and the figures the vehicle gets now come from one rule, so the two cannot disagree.
+
+### Save compatibility
+
+- Safe on an existing save: only what the window shows changes.
+
 ## [0.87.0] - 2026-11-11 - Draft
 
 Pictures for fittings, tunes and part grades (owner, 11 November 2026: slice 4 of the next four, with the owner's picks of 16 pictures). **Not yet tested in game.**

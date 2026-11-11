@@ -10,6 +10,54 @@ using Verse;
 namespace Phobos.VehicleSystems;
 
 /// <summary>A fitting on one part, by the part's key: Vehicle Framework saves parts by position, and appended parts move.</summary>
+/// <summary>
+/// What a set of fittings and tunes does to a vehicle's figures, as the drive applies them (Framework 0.88.0): one rule for the vehicle's
+/// own cache and for the fittings window's lines and previews, so what the window says is what the vehicle gets. A fitting on one part of
+/// several gives its share (FittingRule.PartShare); a tune applies whole.
+/// </summary>
+public sealed class FitFigures
+{
+    public double Power = 1, Fuel = 1, FlatFuel = 1, FinalDrive = 1;
+    public readonly Dictionary<VehicleStatDef, float> Stats = new();
+    public readonly Dictionary<(string system, string name), float> Parameters = new();
+    /// <summary>A parameter's player label, where a Def gives one (the first that does).</summary>
+    public readonly Dictionary<(string system, string name), string> ParameterLabels = new();
+
+    /// <summary>The fuel against Vehicle Framework's own rate: the flat factor too unless fuel follows the engine model.</summary>
+    public double TunedFuel => Fuel * (VehicleFittings.FuelFollowsModel ? 1 : FlatFuel);
+
+    public static FitFigures Of(IEnumerable<(PhobosVehicleFittingDef def, int parts)> fittings, IEnumerable<PhobosVehicleTuneDef> tunes)
+    {
+        var figures = new FitFigures();
+        foreach ((PhobosVehicleFittingDef def, int parts) in fittings)
+        {
+            foreach (StatFactorSpec spec in def.statFactors)
+            {
+                if (spec.stat != null) figures.Stats[spec.stat] = (figures.Stats.TryGetValue(spec.stat, out float before) ? before : 1f) * (float)FittingRule.PartShare(spec.factor, parts);
+            }
+            foreach (ParameterFactorSpec spec in def.parameterFactors) figures.Multiply(spec, FittingRule.PartShare(spec.factor, parts));
+            figures.Power *= FittingRule.PartShare(def.powerFactor, parts);
+            figures.Fuel *= FittingRule.PartShare(def.fuelFactor, parts);
+        }
+        foreach (PhobosVehicleTuneDef tune in tunes)
+        {
+            foreach (ParameterFactorSpec spec in tune.parameterFactors) figures.Multiply(spec, spec.factor);
+            figures.Power *= tune.powerFactor;
+            figures.Fuel *= tune.fuelFactor;
+            figures.FlatFuel *= tune.flatFuelFactor;
+            figures.FinalDrive *= tune.finalDriveFactor;
+        }
+        return figures;
+    }
+
+    void Multiply(ParameterFactorSpec spec, double factor)
+    {
+        var key = (spec.system, spec.parameter);
+        Parameters[key] = (Parameters.TryGetValue(key, out float before) ? before : 1f) * (float)factor;
+        if (!spec.label.NullOrEmpty() && !ParameterLabels.ContainsKey(key)) ParameterLabels[key] = spec.label;
+    }
+}
+
 public sealed class FittedPart : IExposable
 {
     public string partKey = "";
@@ -129,41 +177,37 @@ public sealed class VehicleFittings
     void Recache()
     {
         if (statFactors != null) return;
-        var stats = new Dictionary<VehicleStatDef, float>();
-        var parameters = new Dictionary<(string system, string name), float>();
-        double p = 1, f = 1, drive = 1, flat = 1;
-        foreach (FittedPart part in fitted)
-        {
-            PhobosVehicleFittingDef def = part.def!;
-            int parts = PartsOf(def);
-            foreach (StatFactorSpec spec in def.statFactors)
-            {
-                if (spec.stat != null) stats[spec.stat] = (stats.TryGetValue(spec.stat, out float before) ? before : 1f) * (float)FittingRule.PartShare(spec.factor, parts);
-            }
-            foreach (ParameterFactorSpec spec in def.parameterFactors) Multiply(parameters, spec, FittingRule.PartShare(spec.factor, parts));
-            p *= FittingRule.PartShare(def.powerFactor, parts);
-            f *= FittingRule.PartShare(def.fuelFactor, parts);
-        }
-        foreach (PhobosVehicleTuneDef tune in tunes)
-        {
-            foreach (ParameterFactorSpec spec in tune.parameterFactors) Multiply(parameters, spec, spec.factor);
-            p *= tune.powerFactor;
-            f *= tune.fuelFactor;
-            flat *= tune.flatFuelFactor;
-            drive *= tune.finalDriveFactor;
-        }
-        statFactors = stats;
-        parameterFactors = parameters;
-        power = (float)p;
-        fuel = (float)f;
-        flatFuel = (float)flat;
-        finalDrive = (float)drive;
+        FitFigures figures = FitFigures.Of(fitted.Select(part => (part.def!, PartsOf(part.def!))), tunes);
+        statFactors = figures.Stats;
+        parameterFactors = figures.Parameters;
+        power = (float)figures.Power;
+        fuel = (float)figures.Fuel;
+        flatFuel = (float)figures.FlatFuel;
+        finalDrive = (float)figures.FinalDrive;
     }
 
-    static void Multiply(Dictionary<(string system, string name), float> parameters, ParameterFactorSpec spec, double factor)
+    /// <summary>The roles whose part rows carry a tune's changes in the fittings window: an engine tune on the engines, the gearing on the
+    /// transmission (owner, 11 Nov 2026: only those rows, so the window stays quiet).</summary>
+    public VehicleTuneAxis? AxisOf(VehicleComponent part)
     {
-        var key = (spec.system, spec.parameter);
-        parameters[key] = (parameters.TryGetValue(key, out float before) ? before : 1f) * (float)factor;
+        foreach (string role in comp.Props.roleKeys.Keys)
+        {
+            if (!comp.PartPlays(part, role)) continue;
+            if (role.StartsWith("Engine")) return VehicleTuneAxis.Engine;
+            if (role == "Transmission") return VehicleTuneAxis.Gearing;
+        }
+        return null;
+    }
+
+    /// <summary>
+    /// What a part's row says it gives (Framework 0.88.0): the fitting on it, at its share among its role's parts, together with the tune
+    /// whose changes land on that part. The window passes the current fitting and tune, or the one the mouse rests on as a preview.
+    /// </summary>
+    public FitFigures RowFigures(PhobosVehicleFittingDef? fitting, PhobosVehicleTuneDef? tune)
+    {
+        var fittings = new List<(PhobosVehicleFittingDef, int)>();
+        if (fitting != null) fittings.Add((fitting, PartsOf(fitting)));
+        return FitFigures.Of(fittings, tune == null ? Enumerable.Empty<PhobosVehicleTuneDef>() : new[] { tune });
     }
 
     public float StatFactor(VehicleStatDef stat)
