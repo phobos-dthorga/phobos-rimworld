@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "description": "What this repository's scripts, builds and tests leave behind, for phobos-modkit's cleanup command (python scripts/cleanup.py). Only direct children of each folder that match are ever chosen.",
+  "rules": [
+    {
+      "name": "Install backups",
+      "folder": ".local/deploy-backups",
+      "match": ["*-????????-??????"],
+      "kinds": "folders",
+      "group": "^(?P<group>.+)-\\d{8}-\\d{6}$",
+      "order": "name",
+      "keepNewest": 1,
+      "liveGroups": "mods/{group}/About/About.xml",
+      "why": "the install deploy.py replaced; the newest of each mod stays"
+    },
+    {
+      "name": "Test repositories",
+      "folder": "{temp}",
+      "match": ["archive-test-*", "phobos-artwork-archive-test-*"],
+      "kinds": "folders",
+      "why": "throwaway git repositories from tests/test_archive_branch.py"
+    },
+    {
+      "name": ".NET build logs",
+      "folder": "{temp}",
+      "match": ["Microsoft.NET.Workload_*.log"],
+      "kinds": "files",
+      "olderThanDays": 1,
+      "why": "a log the .NET tools write at every build; nothing reads them"
+    },
+    {
+      "name": "RimWorld crash dumps",
+      "folder": "{env:LOCALAPPDATA}/CrashDumps",
+      "match": ["RimWorld.exe.*.dmp"],
+      "kinds": "files",
+      "keepNewest": 1,
+      "olderThanDays": 1,
+      "why": "older dumps of the game's crashes; scripts/crash-dump.py reads the newest, which stays"
+    }
+  ]
+}

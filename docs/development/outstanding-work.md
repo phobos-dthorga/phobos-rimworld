@@ -143,7 +143,7 @@ decided or started; each needs the owner's go.
 
 | # | Item | Status |
 | --- | --- | --- |
-| K1 | `python scripts/cleanup.py --apply`: 297 old install backups, about 400 test repositories, 220 git watcher daemons | Open: the owner runs it |
+| K1 | `python scripts/cleanup.py --apply`: on 11 Nov 2026 the preview listed 15.9 GB (the shared tools' 12.2 GB development build, 724 old install backups, 17 stale save indexes, 3 old crash dumps, 8,357 .NET build logs, 401 test repositories, 6 git watcher daemons) | Open: the owner runs it |
 | K2 | Another session's uncommitted edits in the tree since 8 Nov 2026 (`docs/development/README.md`, `project-direction.md`, the new `rimworld-1.7-readiness.md`) | Done: the owner confirmed every session finished (8 Nov 2026); committed as that session's dated records |
 
 ## Analysis tooling (from 7 Nov 2026)

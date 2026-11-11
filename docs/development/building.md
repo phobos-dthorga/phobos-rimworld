@@ -255,10 +255,21 @@ step and the 1.7 name come from that.
 
 ## Cleaning up
 
-`python scripts/cleanup.py` lists what the tools and tests leave behind; `--apply` deletes it (the owner runs that). It keeps the
-newest install backup of each current mod (`--keep N` for more) and deletes the rest, including backups of merged mods; deletes
-the throwaway test repositories (`archive-test-*`) in the system temporary folder; and stops git's file-watcher daemons, which a
-global `core.fsmonitor` starts in every repository (a cache: git starts one again when needed). It reports, never deletes, a
-folder a failed deploy left in the game folder. **Tests that make a git repository set `core.fsmonitor false` in it and delete it
+`python scripts/cleanup.py` lists what the tools, builds and tests leave behind, with each group's size and why it may go;
+`--apply` deletes it (the owner runs that). It calls phobos-modkit's `cleanup` (since 1.8.0, 11 Nov 2026; its guide is
+`docs/cleanup.md` in the submodule), which clears:
+
+| What | Where | Rule |
+| --- | --- | --- |
+| Save indexes and other derived data | The shared tools' cache, under the temporary folder | An index whose save has been saved again or has gone; anything unchanged for 14 days (`--older-than`); never the Workshop cache |
+| The shared tools' development build | `%LOCALAPPDATA%\phobos-modkit\target\debug` | Only the kit's own tests use it; the release programs stay; skipped while cargo runs (`--keep-build` to keep it) |
+| Old install backups | `.local/deploy-backups` | The newest of each current mod stays; merged mods keep none |
+| Test repositories | The temporary folder, `archive-test-*` | All |
+| .NET build logs | The temporary folder, `Microsoft.NET.Workload_*.log` | Older than a day |
+| RimWorld crash dumps | `%LOCALAPPDATA%\CrashDumps` | All but the newest |
+| Git's file-watcher daemons | Running processes | Stopped; a global `core.fsmonitor` starts one in every repository, and git starts one again when needed |
+
+The repository's own rules are in `config/cleanup.json`: **something new that a script or test leaves behind gets a rule
+there**. It reports, never deletes, a folder a failed deploy left in the game folder. **Tests that make a git repository set `core.fsmonitor false` in it and delete it
 with read-only handling** (`remove_tree` in `tests/test_archive_branch.py`): git's object files are read-only, and
 `shutil.rmtree(..., ignore_errors=True)` left 400 repositories and 220 daemons behind before 8 Nov 2026.

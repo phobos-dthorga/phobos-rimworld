@@ -419,8 +419,11 @@ delivered, record the delivery in the changelog or design record, and add or ame
   lookup named in a string, the overload it asks for, and the parameters Harmony fills at run time, against the game's and the active mods' assemblies
   as metadata. It says the names still exist, never that the code still behaves.
 - **Tests leave nothing behind.** A test that makes a git repository sets `core.fsmonitor false` in it and deletes it with
-  read-only handling (git's object files are read-only; `ignore_errors=True` hides the failure). `python scripts/cleanup.py`
-  lists what the tools and tests left (old install backups, test repositories, git watcher daemons); the owner runs `--apply`.
+  read-only handling (git's object files are read-only; `ignore_errors=True` hides the failure). **`python scripts/cleanup.py`
+  lists what the tools, builds and tests left behind, with sizes and why** (owner, 11 Nov 2026: phobos-modkit's `cleanup`): stale and
+  unused save indexes and other cache entries, the shared tools' development build, old install backups, test repositories, .NET's
+  per-build logs, older RimWorld crash dumps and git watcher daemons; the owner runs `--apply`. **Something new that a script or test
+  of ours leaves behind gets a rule in `config/cleanup.json`** in the same change, never a one-off deletion.
 - **Log through the shared logger** (phobos-log, public, pinned at `external/phobos-log` and compiled into D'thorga Framework; owner, 8
   Nov 2026): `Phobos.Framework.Logging.Logs.For(mod, part)` in a static field named `Logger`, never `Log`, with its gates before a line
   that can repeat. A dev action's own answer still goes through the game's `Log`. Existing mods adopt it when next touched.
