@@ -19,10 +19,12 @@ Four over-arching passes on the vehicle work (owner, 11 November 2026: asked for
 - **A guard on our vehicle screens.** If a tab, a window or an inspect line of ours fails, it is logged once in full, shows one line in its place ("This could not be shown just now...") and tries again every few seconds. Before, the game logged such a fault on every frame, about sixty a second, which uses up its 10,000 log messages in under three minutes and silences the log. Guarded: the Systems, Dashboard and Health tabs on a map and on the world map, the fittings and tunes window, the diagnosis report, the fleet board, the bulk order window, the damage picture beside the mouse, and the inspect lines of a sling, a dyno bay and a vehicle caravan.
 - A dev action, "Vehicle systems: test the screen guard on the Systems tab", shows it at work without a real fault.
 - For modders: Phobos.Framework.Interface.UiGuard (Resting, Report, Fallback), and the game-free FaultLatch.
+- **The dev action "Vehicle systems: run the self-test" checks much more.** On every vehicle: no part holds more than its full health. On its throwaway vehicle: what a fitting costs against the weight rule and the presets, graph marks, the fifteen days of wear and its trend, that every part sits in exactly one row of the fittings window with only wheels sharing one, and that a diagnosis lists every part, reads as text and can be saved. New: **a sling lift**, on a helicopter and a light vehicle stood on clear open ground near a colonist and destroyed afterwards: the hook and sling set refusals, today's capacity, choosing, the hook-up, the lift, that the game can find the held load, and the set-down. It says why it skips anything it cannot run.
 
 ### Compatibility and limits
 
 - The guard covers D'thorga Framework's own screens. Our other mods take it up when each is next touched. Buttons (gizmos) are not guarded: the game builds them one at a time.
+- The self-test covers nothing drawn (tabs, windows, the range on the world map) and does not load a report back from a save. Its sling lift runs the lift and the set-down themselves, not a flight.
 
 ## [0.93.0] - 2026-11-11 - Draft
 

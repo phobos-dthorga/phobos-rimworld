@@ -775,6 +775,15 @@ public sealed class VehicleFittings
     }
 
     /// <summary>Puts a set on the vehicle: each fitting on every free part it suits (one axle of four would be a sliver of the effect), and each tune the vehicle can take.</summary>
+    /// <summary>Puts a fitting straight on a part, with no order, materials or mechanic: for the self-test, which needs a cargo hook on a
+    /// throwaway helicopter.</summary>
+    internal void FitForTest(string partKey, PhobosVehicleFittingDef def)
+    {
+        fitted.RemoveAll(f => f.partKey == partKey);
+        fitted.Add(new FittedPart { partKey = partKey, def = def });
+        Changed();
+    }
+
     public void Apply(PhobosVehicleFitSetDef set)
     {
         foreach (PhobosVehicleFittingDef def in set.fittings)

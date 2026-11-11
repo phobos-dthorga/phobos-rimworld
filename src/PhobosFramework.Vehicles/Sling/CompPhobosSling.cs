@@ -119,13 +119,13 @@ public sealed class CompPhobosSling : VehicleComp, IThingHolder
     {
         if ((Refusal() ?? RefusalFor(load)) is { } refusal)
         {
-            Messages.Message(refusal, MessageTypeDefOf.RejectInput, historical: false);
+            Say(refusal, MessageTypeDefOf.RejectInput, historical: false);
             return;
         }
         hooked = load;
         awaitingCrew = Settings.slingGroundCrew;
         SlingWaits.Note(this, awaitingCrew);
-        Messages.Message(awaitingCrew
+        Say(awaitingCrew
             ? "PhobosSling_ChosenCrew".Translate(Vehicle.LabelShort.Named("HELICOPTER"), load.LabelShort.Named("LOAD")).Resolve()
             : "PhobosSling_ChosenReady".Translate(Vehicle.LabelShort.Named("HELICOPTER"), load.LabelShort.Named("LOAD")).Resolve(),
             new LookTargets(Vehicle, load), MessageTypeDefOf.TaskCompletion, historical: false);
@@ -134,7 +134,7 @@ public sealed class CompPhobosSling : VehicleComp, IThingHolder
     public void Cancel()
     {
         if (hooked == null) return;
-        Messages.Message("PhobosSling_Cancelled".Translate(hooked.LabelShort.Named("LOAD")).Resolve(), Vehicle, MessageTypeDefOf.SilentInput, historical: false);
+        Say("PhobosSling_Cancelled".Translate(hooked.LabelShort.Named("LOAD")).Resolve(), Vehicle, MessageTypeDefOf.SilentInput, historical: false);
         hooked = null;
         awaitingCrew = false;
         SlingWaits.Note(this, false);
@@ -146,7 +146,7 @@ public sealed class CompPhobosSling : VehicleComp, IThingHolder
         if (hooked == null) return;
         awaitingCrew = false;
         SlingWaits.Note(this, false);
-        Messages.Message("PhobosSling_HookedUp".Translate(crew.LabelShort.Named("CREW"), hooked.LabelShort.Named("LOAD"), Vehicle.LabelShort.Named("HELICOPTER")).Resolve(),
+        Say("PhobosSling_HookedUp".Translate(crew.LabelShort.Named("CREW"), hooked.LabelShort.Named("LOAD"), Vehicle.LabelShort.Named("HELICOPTER")).Resolve(),
             new LookTargets(Vehicle, hooked), MessageTypeDefOf.TaskCompletion);
     }
 
@@ -160,8 +160,23 @@ public sealed class CompPhobosSling : VehicleComp, IThingHolder
         Vehicle.AddEvent(VehicleEventDefOf.AerialVehicleLaunch, OnLaunch);
     }
 
+    /// <summary>Messages go through here so the self-test can run a lift without telling the player about it.</summary>
+    static void Say(string text, MessageTypeDef type, bool historical = true)
+    {
+        if (!VehicleNotices.Quiet) Messages.Message(text, type, historical);
+    }
+
+    static void Say(string text, LookTargets where, MessageTypeDef type, bool historical = true)
+    {
+        if (!VehicleNotices.Quiet) Messages.Message(text, where, type, historical);
+    }
+
     /// <summary>The helicopter has lifted off through Vehicle Framework's own launch: the load goes with it.</summary>
-    void OnLaunch()
+    void OnLaunch() => TakeLoad();
+
+    /// <summary>Takes the chosen load off the map and onto the hook, or leaves it behind if it was never hooked up. The launch event calls
+    /// this; so does the self-test, without a launch.</summary>
+    internal void TakeLoad()
     {
         VehiclePawn? load = hooked;
         hooked = null;
@@ -170,7 +185,7 @@ public sealed class CompPhobosSling : VehicleComp, IThingHolder
         if (awaitingCrew || !load.Spawned)
         {
             awaitingCrew = false;
-            Messages.Message("PhobosSling_LeftBehind".Translate(load.LabelShort.Named("LOAD")).Resolve(), load, MessageTypeDefOf.NegativeEvent);
+            Say("PhobosSling_LeftBehind".Translate(load.LabelShort.Named("LOAD")).Resolve(), load, MessageTypeDefOf.NegativeEvent);
             return;
         }
         load.DeSpawn();
@@ -184,19 +199,19 @@ public sealed class CompPhobosSling : VehicleComp, IThingHolder
         if (!respawningAfterLoad && Carried != null) SetDown();
     }
 
-    void SetDown()
+    internal void SetDown()
     {
         VehiclePawn? load = Carried;
         Map map = Vehicle.Map;
         if (load == null || map == null) return;
         if (!SlingPlacement.TryFindSpot(load, Vehicle, map, Rules.slingReachCells, out IntVec3 cell))
         {
-            Messages.Message("PhobosSling_NoSpot".Translate(load.LabelShort.Named("LOAD")).Resolve(), Vehicle, MessageTypeDefOf.NegativeEvent);
+            Say("PhobosSling_NoSpot".Translate(load.LabelShort.Named("LOAD")).Resolve(), Vehicle, MessageTypeDefOf.NegativeEvent);
             return;
         }
         held.Remove(load);
         GenSpawn.Spawn(load, cell, map, Vehicle.Rotation);
-        Messages.Message("PhobosSling_SetDown".Translate(Vehicle.LabelShort.Named("HELICOPTER"), load.LabelShort.Named("LOAD")).Resolve(), load, MessageTypeDefOf.TaskCompletion);
+        Say("PhobosSling_SetDown".Translate(Vehicle.LabelShort.Named("HELICOPTER"), load.LabelShort.Named("LOAD")).Resolve(), load, MessageTypeDefOf.TaskCompletion);
     }
 
     /// <summary>The helicopter is destroyed: on a map, what hung from it falls where it was; elsewhere it is lost with it.</summary>
@@ -304,16 +319,20 @@ public static class VehicleSystemsThingDefOf
 /// <summary>Where a slung load comes down: the nearest open ground beside the helicopter that the whole vehicle fits on, outdoors.</summary>
 public static class SlingPlacement
 {
-    public static bool TryFindSpot(VehiclePawn load, VehiclePawn helicopter, Map map, float radius, out IntVec3 found)
+    public static bool TryFindSpot(VehiclePawn load, VehiclePawn helicopter, Map map, float radius, out IntVec3 found) =>
+        TryFindClear(load.VehicleDef, helicopter.Spawned ? helicopter.Rotation : Rot4.North, map, helicopter.Spawned ? helicopter.Position : load.Position, radius,
+            helicopter.Spawned ? helicopter.OccupiedRect() : CellRect.Empty, out found);
+
+    /// <summary>The nearest cell to <paramref name="centre"/> where a vehicle of this design fits on open, unroofed, standable ground with
+    /// nobody and nothing solid in the way, clear of <paramref name="avoid"/>.</summary>
+    public static bool TryFindClear(VehicleDef design, Rot4 rotation, Map map, IntVec3 centre, float radius, CellRect avoid, out IntVec3 found)
     {
-        CellRect helicopterRect = helicopter.Spawned ? helicopter.OccupiedRect() : CellRect.Empty;
-        IntVec3 centre = helicopter.Spawned ? helicopter.Position : load.Position;
         int count = GenRadial.NumCellsInRadius(radius);
         for (int i = 0; i < count; i++)
         {
             IntVec3 cell = centre + GenRadial.RadialPattern[i];
-            CellRect rect = GenAdj.OccupiedRect(cell, helicopter.Spawned ? helicopter.Rotation : Rot4.North, load.VehicleDef.Size);
-            if (!rect.InBounds(map) || rect.Overlaps(helicopterRect)) continue;
+            CellRect rect = GenAdj.OccupiedRect(cell, rotation, design.Size);
+            if (!rect.InBounds(map) || rect.Overlaps(avoid)) continue;
             bool clear = true;
             foreach (IntVec3 c in rect)
             {

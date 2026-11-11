@@ -15,7 +15,10 @@ namespace Phobos.VehicleSystems;
 /// The riskiest vehicle checks of the in-game test pass, run in one go. Part one reads every vehicle the player has, wherever it is, and
 /// so catches a vehicle that loaded badly; it also runs by itself after a load in dev mode. Part two works on a vehicle made for the test
 /// and thrown away unspawned, so nothing in the colony is touched: fittings, tunes, a destroyed part and its replacement, and grades,
-/// through the same service calls a mechanic's job makes. A pass says these run and move the right figures; it is not a play test.
+/// through the same service calls a mechanic's job makes. From Framework 0.94.0 it also covers what fittings cost, graph marks, wear
+/// trends, axles and the diagnosis report on that vehicle, and part three lifts a light vehicle with a helicopter's sling and sets it down
+/// again, on two vehicles spawned on clear open ground and destroyed afterwards. A pass says these run and move the right figures; it is
+/// not a play test, and nothing drawn is covered: a screen needs the game's own drawing pass.
 /// </summary>
 public static class VehicleSelfTest
 {
@@ -28,7 +31,9 @@ public static class VehicleSelfTest
         var test = new SelfTest();
         ReadEveryVehicle(test);
         ExerciseTestVehicle(test);
-        string report = "Vehicle self-test: " + test.Report();
+        SlingLift(test);
+        string report = "Vehicle self-test: " + test.Report()
+            + "\n\nNot covered: anything drawn (tabs, windows and the range on the world map need to be looked at), and loading a report back from a save.";
         // The window is the answer. The game's log puts a stack trace under every line, which reads like a fault to a player, so a pass stays out of it.
         if (test.Failed > 0) Log.Warning(VehicleSystemsMod.LogPrefix + " " + report);
         Find.WindowStack.Add(new Dialog_MessageBox(report));
@@ -54,7 +59,10 @@ public static class VehicleSelfTest
             CompPhobosVehicleSystems? comp = vehicle.GetComp<CompPhobosVehicleSystems>();
             if (comp == null) continue;
             string name = "Reading the " + vehicle.LabelShort;
-            if (test.Step(name, () => ReadThrough(comp))) test.Expect(name, GradesInForce(comp), "a graded part's health does not match its grade");
+            if (!test.Step(name, () => ReadThrough(comp))) continue;
+            test.Expect(name, GradesInForce(comp), "a graded part's health does not match its grade");
+            string? over = OverfullPart(comp);
+            test.Expect("No part of the " + vehicle.LabelShort + " holds more than its full health", over == null, over ?? "");
         }
     }
 
@@ -75,6 +83,17 @@ public static class VehicleSelfTest
             _ = part.MaxHealth;
         }
         _ = fittings.ListedParts().Count();
+    }
+
+    /// <summary>A part holding more than its maximum health (the L-ATV's drive belt at 300%, fixed in 0.83.1), named; null when none does.</summary>
+    static string? OverfullPart(CompPhobosVehicleSystems comp)
+    {
+        if (comp.Vehicle.statHandler == null) return null;
+        foreach (VehicleComponent part in comp.Vehicle.statHandler.components)
+        {
+            if (part.Health > part.MaxHealth + 0.01f) return part.props.label + " holds " + part.Health.ToString("0.#") + " of " + part.MaxHealth.ToString("0.#");
+        }
+        return null;
     }
 
     static bool GradesInForce(CompPhobosVehicleSystems comp)
@@ -109,6 +128,11 @@ public static class VehicleSelfTest
             test.Step("Tunes", () => Tunes(test, comp, mechanic));
             test.Step("Grades", () => Grades(test, comp, mechanic));
             test.Step("Enemy sets", () => EnemySets(test, comp));
+            test.Step("Costs", () => Costs(test, comp));
+            test.Step("Graph marks", () => Marks(test, comp));
+            test.Step("Wear trends", () => WearTrends(test, comp));
+            test.Step("Axles", () => Axles(test, comp));
+            test.Step("The diagnosis report", () => Report(test, comp, mechanic));
         }
         finally
         {
@@ -301,6 +325,209 @@ public static class VehicleSelfTest
         }
         PhobosVehicleFittingDef? any = fittings.OptionsFor(part).FirstOrDefault();
         if (any != null && !fittings.GradeOf(part.props.key).holdsFitting) test.Expect("A salvaged part refuses a fitting", fittings.Refusal(any, part) != null);
+    }
+
+    // ---- Framework 0.94.0: the day's work, on the same throwaway vehicle ----
+
+    /// <summary>What a fitting costs here is the listed figure times the weight rule and the player's presets, and never nothing.</summary>
+    static void Costs(SelfTest test, CompPhobosVehicleSystems comp)
+    {
+        PhobosVehicleFittingDef? def = DefDatabase<PhobosVehicleFittingDef>.AllDefsListForReading.FirstOrDefault(d => d.materials.Count > 0);
+        if (def == null)
+        {
+            test.Skip("Costs", "no fitting here has materials");
+            return;
+        }
+        PhobosVehicleRulesDef rules = PhobosVehicleRulesDef.Current<PhobosVehicleRulesDef>();
+        VehicleSystemsSettings settings = VehicleSystemsMod.Settings;
+        double kilograms = comp.Repairs.Kilograms;
+        double byWeight(double exponent) => settings.fitCostScalesWithWeight
+            ? FitCostRule.WeightFactor(kilograms, rules.fitCostReferenceKilograms, exponent, rules.fitWeightFactorMin, rules.fitWeightFactorMax) : 1;
+        List<ThingDefCountClass> materials = comp.Fittings.MaterialsFor(def.materials);
+        for (int i = 0; i < def.materials.Count; i++)
+        {
+            int expected = FitCostRule.Count(def.materials[i].count, byWeight(rules.fitMaterialWeightExponent) * settings.fitMaterialFactor);
+            test.Expect("A fitting's " + def.materials[i].thingDef.label + " follows the weight and the preset", materials[i].count == expected,
+                "asked " + materials[i].count + ", the rule gives " + expected);
+            test.Expect("A fitting never costs none of a material it lists", materials[i].count >= 1);
+        }
+        test.Near("A fitting's work follows the weight and the preset", comp.Fittings.WorkFor(def.work), def.work * byWeight(rules.fitWorkWeightExponent) * settings.fitTimeFactor, 1);
+    }
+
+    /// <summary>An event is marked once; the same event again within the hour is not; and it can be read.</summary>
+    static void Marks(SelfTest test, CompPhobosVehicleSystems comp)
+    {
+        string system = comp.States.FirstOrDefault()?.Def.defName ?? "";
+        int before = comp.Events.Events.Count;
+        comp.RecordEvent(VehicleEventKind.Service, system);
+        test.Expect("A service is marked", comp.Events.Events.Count == before + 1, "the player's vehicle recorded nothing");
+        comp.RecordEvent(VehicleEventKind.Service, system);
+        test.Expect("The same event within the hour is one mark", comp.Events.Events.Count == before + 1);
+        if (comp.Events.Events.Count > 0) test.Expect("A mark can be read", !VehicleEventText.Message(comp.Events.Events[comp.Events.Events.Count - 1]).NullOrEmpty());
+    }
+
+    /// <summary>After the test curve, every slow reading has its fifteen days and the trend rule answers.</summary>
+    static void WearTrends(SelfTest test, CompPhobosVehicleSystems comp)
+    {
+        comp.History.DebugFill(comp.States);
+        int readings = 0;
+        foreach (SystemState state in comp.States)
+        {
+            for (int q = 0; q < state.values.Length; q++)
+            {
+                QuantitySpec quantity = state.Def.quantities[q];
+                if (!quantity.wearTrend) continue;
+                readings++;
+                HistoryRing? ring = comp.History.WearFor(state, q);
+                test.Expect(quantity.label + " keeps fifteen days", ring != null && ring.Count == QuantityHistory.WearCapacity,
+                    ring == null ? "no history" : ring.Count + " samples of " + QuantityHistory.WearCapacity);
+                if (ring == null) continue;
+                double? until = TrendRule.SamplesUntil(ring.Count, i => ring[i], quantity.max, 6, 1e-6, 1e-9);
+                test.Expect(quantity.label + " has a trend the rule can read", until == null || (!double.IsNaN(until.Value) && until.Value >= 0));
+            }
+        }
+        if (readings == 0) test.Skip("Wear trends", "this design has no slow reading");
+    }
+
+    /// <summary>Every listed part is in exactly one row of the fittings window, and only wheels share a row.</summary>
+    static void Axles(SelfTest test, CompPhobosVehicleSystems comp)
+    {
+        List<VehicleComponent> listed = comp.Fittings.ListedParts().ToList();
+        List<List<VehicleComponent>> rows = comp.Fittings.PartRows();
+        List<VehicleComponent> inRows = rows.SelectMany(r => r).ToList();
+        test.Expect("Every listed part is in exactly one row", inRows.Count == listed.Count && inRows.Distinct().Count() == listed.Count && listed.All(inRows.Contains),
+            listed.Count + " listed, " + inRows.Count + " in rows");
+        test.Expect("Only wheels share a row", rows.Where(r => r.Count > 1).All(r => r.All(part => comp.PartPlays(part, "Wheels"))));
+    }
+
+    /// <summary>A diagnosis lists every part, reads as text, and can be written to a save.</summary>
+    static void Report(SelfTest test, CompPhobosVehicleSystems comp, Pawn mechanic)
+    {
+        DiagnosisReport report = comp.Diagnostics.Take(mechanic);
+        int parts = comp.Vehicle.statHandler?.components.Count ?? 0;
+        test.Expect("The report lists every part", report.parts.Count == parts, report.parts.Count + " of " + parts);
+        test.Expect("The report reads as text", !DiagnosisText.Body(report, figures: true).NullOrEmpty() && !DiagnosisText.Body(report, figures: false).NullOrEmpty());
+        string saved = Scribe.saver.DebugOutputFor(report);
+        test.Expect("The report can be written to a save", saved.Contains("vehicleLabel") && saved.Contains("parts"));
+    }
+
+    // ---- Part three: a sling lift, on two vehicles made for it ----
+
+    /// <summary>How far from the mechanic clear open ground is looked for (authored).</summary>
+    const float SlingTestRadius = 40f;
+
+    /// <summary>
+    /// A helicopter that takes a cargo hook and a light vehicle, spawned on clear open ground near a colonist: the hook and sling set
+    /// refusals, the weight rule, choose, hook up, the lift (the code the launch event runs, with no launch), and the set-down. Both are
+    /// destroyed afterwards. Skipped, with its reason, where no such helicopter is active or no ground is clear.
+    /// </summary>
+    static void SlingLift(SelfTest test)
+    {
+        Pawn? mechanic = PawnsFinder.AllMaps_FreeColonistsSpawned.FirstOrDefault();
+        VehicleDef? helicopterDef = DefDatabase<VehicleDef>.AllDefsListForReading.FirstOrDefault(d => d.comps != null && d.comps.Any(c => c is CompProperties_PhobosSling));
+        if (mechanic == null || helicopterDef == null)
+        {
+            test.Skip("The sling", mechanic == null ? "no colonist on a map" : "no helicopter here takes a cargo hook");
+            return;
+        }
+        VehicleDef? loadDef = DefDatabase<VehicleDef>.AllDefsListForReading
+            .Where(d => d != helicopterDef && d.GetCompProperties<CompProperties_PhobosVehicleSystems>() != null && d.GetCompProperties<CompProperties_VehicleLauncher>() == null)
+            .OrderBy(d => d.Size.x * d.Size.z).FirstOrDefault();
+        if (loadDef == null)
+        {
+            test.Skip("The sling", "no land vehicle here to lift");
+            return;
+        }
+        Map map = mechanic.Map;
+        VehiclePawn? helicopter = null, load = null;
+        VehicleNotices.Quiet = true;
+        try
+        {
+            if (!test.Step("Making a test " + helicopterDef.defName, () => helicopter = VehicleSpawner.GenerateVehicle(helicopterDef, Faction.OfPlayer)) || helicopter == null) return;
+            if (!test.Step("Making a test " + loadDef.defName, () => load = VehicleSpawner.GenerateVehicle(loadDef, Faction.OfPlayer)) || load == null) return;
+            if (!SlingPlacement.TryFindClear(helicopterDef, Rot4.North, map, mechanic.Position, SlingTestRadius, CellRect.Empty, out IntVec3 pad))
+            {
+                test.Skip("The sling", "no clear open ground within " + SlingTestRadius + " cells of " + mechanic.LabelShort + " for the helicopter");
+                return;
+            }
+            VehiclePawn heli = helicopter, cargo = load;
+            if (!test.Step("Standing the helicopter on clear ground", () => GenSpawn.Spawn(heli, pad, map, Rot4.North))) return;
+            if (!SlingPlacement.TryFindSpot(cargo, heli, map, PhobosVehicleRulesDef.Current<PhobosVehicleRulesDef>().slingReachCells - 2f, out IntVec3 spot))
+            {
+                test.Skip("The sling", "no clear open ground beside the helicopter for the load");
+                return;
+            }
+            if (!test.Step("Standing the load beside it", () => GenSpawn.Spawn(cargo, spot, map, Rot4.North))) return;
+            test.Step("The sling", () => SlingSteps(test, heli, cargo, mechanic));
+        }
+        finally
+        {
+            VehicleNotices.Quiet = false;
+            foreach (VehiclePawn? vehicle in new[] { load, helicopter })
+            {
+                if (vehicle == null || vehicle.Destroyed) continue;
+                VehiclePawn gone = vehicle;
+                test.Step("Throwing the test " + gone.def.defName + " away", () =>
+                {
+                    if (gone.Spawned) gone.Destroy();
+                    else gone.Discard(silentlyRemoveReferences: true);
+                });
+            }
+        }
+    }
+
+    static void SlingSteps(SelfTest test, VehiclePawn helicopter, VehiclePawn load, Pawn mechanic)
+    {
+        CompPhobosSling? sling = helicopter.GetComp<CompPhobosSling>();
+        CompPhobosVehicleSystems? comp = helicopter.GetComp<CompPhobosVehicleSystems>();
+        test.Expect("The helicopter has a sling", sling != null && comp != null);
+        if (sling == null || comp == null) return;
+        test.Expect("With no hook it says so", sling.Refusal() != null);
+        string? mount = comp.Props.roleKeys.TryGetValue(SlingRoles.HookMount, out List<string>? keys) ? keys.FirstOrDefault() : null;
+        PhobosVehicleFittingDef? hook = DefDatabase<PhobosVehicleFittingDef>.AllDefsListForReading.FirstOrDefault(d => d.grants.Contains(CompPhobosSling.HookAbility));
+        test.Expect("The helicopter has a hook mount, and a cargo hook exists", mount != null && hook != null);
+        if (mount == null || hook == null) return;
+        comp.Fittings.FitForTest(mount, hook);
+        test.Expect("With a hook but no sling set it says so", sling.Refusal() != null);
+        helicopter.inventory.innerContainer.TryAdd(ThingMaker.MakeThing(VehicleSystemsThingDefOf.PhobosVehicleSystems_SlingSet));
+        test.Expect("With both it is ready to lift", sling.Refusal() == null, sling.Refusal() ?? "");
+
+        PhobosVehicleRulesDef rules = PhobosVehicleRulesDef.Current<PhobosVehicleRulesDef>();
+        double expected = SlingRule.Capacity(sling.RatedKilograms, helicopter.Map.mapTemperature.OutdoorTemp, VehicleSystemsMod.Settings.slingHeatDerating,
+            rules.slingDerateFromCelsius, rules.slingLossPerDegree, rules.slingMaxLoss);
+        test.Near("Today's capacity follows the hot-day rule", sling.CapacityKilograms(helicopter.Map), expected, 0.5);
+        test.Expect("A load weighs at least its empty weight", CompPhobosSling.LoadKilograms(load) > 0);
+        string? refusal = sling.RefusalFor(load);
+        if (refusal != null)
+        {
+            test.Skip("Lifting the load", "the helicopter refuses the " + load.LabelShort + ": " + refusal);
+            return;
+        }
+        sling.Choose(load);
+        test.Expect("The load is chosen", sling.Hooked == load);
+        test.Expect("It waits for a crew only with that setting on", sling.AwaitingCrew == VehicleSystemsMod.Settings.slingGroundCrew);
+        if (sling.AwaitingCrew)
+        {
+            test.Expect("The launch waits for the hook-up", sling.LaunchRefusal() != null);
+            test.Expect("The hook-up job can find the load", SlingWaits.WaitingOn(load) == sling && SlingWaits.LoadsWaiting(load.Map).Contains(load));
+            sling.HookedUp(mechanic);
+        }
+        test.Expect("Hooked up, nothing stops the launch", sling.LaunchRefusal() == null, sling.LaunchRefusal() ?? "");
+        test.Expect("Nothing still waits for a crew", SlingWaits.WaitingOn(load) == null);
+
+        sling.TakeLoad();
+        test.Expect("The load is on the hook and off the map", sling.Carried == load && !load.Spawned);
+        var holders = new List<IThingHolder>();
+        helicopter.GetChildHolders(holders);
+        test.Expect("The game can find what the sling holds", holders.Contains(sling));
+
+        sling.SetDown();
+        test.Expect("The load is set down on the map", load.Spawned && sling.Carried == null);
+        if (load.Spawned)
+        {
+            test.Expect("It is set down beside the helicopter, not on it", !load.OccupiedRect().Overlaps(helicopter.OccupiedRect())
+                && load.Position.DistanceTo(helicopter.Position) <= rules.slingReachCells + 1f);
+        }
     }
 
     static void EnemySets(SelfTest test, CompPhobosVehicleSystems comp)
