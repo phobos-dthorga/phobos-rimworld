@@ -125,6 +125,22 @@
     <tracked>No</tracked>
   </Phobos.VehicleSystems.PhobosVehicleFittingDef>
 
+  <Phobos.VehicleSystems.PhobosVehicleFittingDef>
+    <!-- Framework 0.92.0, sling loads (owner, 11 Nov 2026: any helicopter, by fitting; docs/development/vehicle-sling-design.md). It goes on the
+         hook mount a helicopter's loadout appends, and lets it lift a vehicle on a sling; what it lifts is the loadout's rated load. Materials,
+         work and skill authored, earned like the turbocharger. -->
+    <defName>PhobosFitting_CargoHook</defName>
+    <iconPath>Phobos/VehicleSystems/Fittings/CargoHook</iconPath>
+    <label>cargo hook</label>
+    <description>A load-rated hook under the belly, with an electric release worked from the cockpit and a manual one beside it. With a sling set aboard, the helicopter can lift a vehicle and carry it hanging below.</description>
+    <roles><li>HookMount</li></roles>
+    <materials><Steel>120</Steel><ComponentIndustrial>8</ComponentIndustrial></materials>
+    <work>20000</work>
+    <minSkill>7</minSkill>
+    <researchPrerequisite>PhobosResearch_Turbines</researchPrerequisite>
+    <grants><li>CargoHook</li></grants>
+  </Phobos.VehicleSystems.PhobosVehicleFittingDef>
+
   <!-- Tunes: three named settings to an axis (owner), the default being the engine as built. -->
 
   <Phobos.VehicleSystems.PhobosVehicleTuneDef>

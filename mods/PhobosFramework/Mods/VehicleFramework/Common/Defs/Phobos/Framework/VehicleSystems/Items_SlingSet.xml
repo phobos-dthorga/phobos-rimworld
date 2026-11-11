@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    The sling set (Framework 0.92.0, sling loads; docs/development/vehicle-sling-design.md): what a helicopter must carry to lift a vehicle,
+    kept aboard and never used up, as the jump-start kit is. Made at the vehicle parts bench like the service kits. Its cost stands for four
+    polyester round slings (cloth), a forged swivel, shackles and a short spreader bar (steel); mass, value and work are authored.
+  -->
+  <ThingDef ParentName="PhobosServiceKitBase">
+    <defName>PhobosVehicleSystems_SlingSet</defName>
+    <label>sling set</label>
+    <description>Four heavy lifting strops on a forged ring and swivel, with shackles and a short spreader bar to keep the strops off a vehicle's sides. Carried aboard a helicopter with a cargo hook, it lets the crew lift a vehicle and fly it hanging below. It is not used up.</description>
+    <graphicData>
+      <texPath>Phobos/VehicleSystems/Things/SlingSet</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <stackLimit>1</stackLimit>
+    <statBases>
+      <MaxHitPoints>120</MaxHitPoints>
+      <MarketValue>180</MarketValue>
+      <Mass>25</Mass>
+      <Flammability>1</Flammability>
+      <WorkToMake>3000</WorkToMake>
+    </statBases>
+    <costList>
+      <Cloth>80</Cloth>
+      <Steel>40</Steel>
+    </costList>
+  </ThingDef>
+</Defs>

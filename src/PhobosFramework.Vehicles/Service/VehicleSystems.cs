@@ -109,8 +109,11 @@ public static class VehicleSystems
         int added = 0;
         // Bind every role to the design's own parts first, so an appended part's "cells of" can name any found role.
         var pending = new List<PartRoleSpec>();
+        bool slingStandsDown = loadout.sling?.StandsDown == true;
         foreach (PartRoleSpec role in loadout.partRoles)
         {
+            // Sling loads stand down for a mod with its own airlift on this aircraft: no hook mount to fit a hook to.
+            if (slingStandsDown && role.role == SlingRoles.HookMount) continue;
             // The first finder that matches anything decides: its first match, or every match for a role marked "all".
             var keys = new List<string>();
             foreach (PartFinder finder in role.find)
@@ -156,6 +159,8 @@ public static class VehicleSystems
         }
         def.comps ??= new List<CompProperties>();
         def.comps.Add(props);
+        // Sling loads (Framework 0.92.0): a loadout that rates a cargo hook gives the helicopter its sling, used once a hook is fitted.
+        if (loadout.sling != null && !slingStandsDown && !def.comps.Any(c => c is CompProperties_PhobosSling)) def.comps.Add(new CompProperties_PhobosSling());
         // The Dashboard and Systems tabs, before ThingDef.ResolveReferences resolves the tab list (this runs in its prefix; re-check the
         // order when Vehicle Framework releases 1.7). Only fitted designs get them.
         def.inspectorTabs ??= new List<System.Type>();

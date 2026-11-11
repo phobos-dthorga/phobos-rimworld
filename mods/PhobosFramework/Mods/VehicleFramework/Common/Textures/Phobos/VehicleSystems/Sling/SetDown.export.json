@@ -1,0 +1,16 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Sling/SetDown.png",
+  "source": "assets/phobos-vehicles/generated/button-sling-setdown/button-sling-setdown-2.png",
+  "source_sha256": "bd433039fff9b45681e5515c89bea6801d0c37a8968fa271bab4c45e88a471ec",
+  "target_sha256": "9796a8953d297346dd1abab5ea44c0493dd8b7ee485342d7f1366ce9852d8fe1",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "date": "2026-11-11T18:25:17",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

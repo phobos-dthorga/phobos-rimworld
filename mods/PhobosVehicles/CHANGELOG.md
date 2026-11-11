@@ -5,10 +5,26 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.40.0] - 2026-11-11 - Draft
+
+The Cherokee can carry a vehicle on a sling (with D'thorga Framework 0.92.0), and the mod names every vehicle of ours. **Not yet tested in game.**
+
+### Added
+
+- **The Cherokee takes a cargo hook**: its loadout adds a hook mount under the belly and rates its hook at 11,800 kg, the CH-47F Chinook's centre hook (US Army fact sheet, republished by the 127th Wing), the Cherokee being Vanilla Vehicles Expanded's tandem-rotor cargo helicopter. With Yaroslav's Cherokee Sling active it stands down, so the Cherokee keeps that mod's airlift alone.
+
 ### Changed
 
 - The mod's description and README now carry the spelling dthorga beside D'thorga, so a search without the apostrophe finds it. The description says it is community-created by House D'thorga.
 - The description and README name every vehicle of ours (Talus, Ullage, Kelly, Datum, Busbar and Fathom), and say it is safe to remove only once none of them is left; both still said so of the bulk tanker alone, and the description that the other trucks were still to come.
+
+### Dependencies
+
+- The Cherokee's hook needs D'thorga Framework 0.92.0; without it the loadout's hook rating does nothing.
+
+### Save compatibility
+
+- Safe on an existing save: a Cherokee gains its hook mount when the save loads.
 
 ## [0.39.1] - 2026-11-11 - Draft
 

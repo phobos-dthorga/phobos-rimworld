@@ -32,6 +32,17 @@
       </set>
     </drivetrain>
     <flightProfile>PhobosFlightProfile_StockRotorcraft</flightProfile>
+    <!-- Sling loads (Vehicles 0.40.0): the CH-47F's centre hook, 26,000 lb (11,800 kg), from the US Army CH-47 fact sheet republished by the
+         127th Wing (www.127wg.ang.af.mil, fact sheet 3694458). The Cherokee being VVE's tandem-rotor cargo helicopter, its hook is taken as the
+         Chinook's. -->
+    <sling>
+      <ratedKilograms>11800</ratedKilograms>
+      <!-- Yaroslav's Cherokee Sling gives the Cherokee its own airlift: while it is active, ours stands down here (agent default from the
+           owner's rule of 11 Nov 2026 about other authors' vision), and every other helicopter keeps ours. -->
+      <standDownIfActive>
+        <li>yaroslav.cherokeesling</li>
+      </standDownIfActive>
+    </sling>
     <partRoles>
       <li>
         <role>RotorDrive</role>
@@ -44,6 +55,17 @@
             </keyContainsAny>
           </li>
         </find>
+      </li>
+      <li>
+        <!-- A hook mount under the belly for the cargo hook fitting (sling loads): appended, so a hook is lost with its mount. Its health and
+             place, between the rotor drives, are authored. -->
+        <role>HookMount</role>
+        <add>
+          <key>PhobosHookMount</key>
+          <label>hook mount</label>
+          <health>40</health>
+          <cellsOf>RotorDrive</cellsOf>
+        </add>
       </li>
       <li>
         <role>Engine1</role>

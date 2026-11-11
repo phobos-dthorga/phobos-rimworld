@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <!-- Sling loads (Framework 0.92.0): a helicopter lifts a vehicle on a sling. docs/development/vehicle-sling-design.md -->
+  <PhobosSling_LiftGizmo>Lift a vehicle</PhobosSling_LiftGizmo>
+  <PhobosSling_LiftGizmoDesc>Choose a vehicle parked outdoors within {CELLS} cells to carry hanging from the cargo hook. Today the hook lifts up to {CAPACITY} kg, the vehicle, its cargo and the people aboard together. When the helicopter takes off, the vehicle goes with it, and it is set down beside the helicopter where it lands.</PhobosSling_LiftGizmoDesc>
+  <PhobosSling_CancelGizmo>Leave the load</PhobosSling_CancelGizmo>
+  <PhobosSling_CancelGizmoDesc>Unhook {LOAD} and take off without it.</PhobosSling_CancelGizmoDesc>
+
+  <PhobosSling_NoHook>It has no cargo hook. A mechanic can fit one in the fittings and tunes.</PhobosSling_NoHook>
+  <PhobosSling_NoSlingSet>It has no sling set aboard. Load one, made at the vehicle parts bench.</PhobosSling_NoSlingSet>
+  <PhobosSling_AlreadyCarrying>It is already carrying {LOAD}.</PhobosSling_AlreadyCarrying>
+  <PhobosSling_NotItself>A helicopter cannot lift itself.</PhobosSling_NotItself>
+  <PhobosSling_NotOurs>{LOAD} is not ours to lift.</PhobosSling_NotOurs>
+  <PhobosSling_NoAircraft>{LOAD} flies on its own.</PhobosSling_NoAircraft>
+  <PhobosSling_NotHere>{LOAD} is not here.</PhobosSling_NotHere>
+  <PhobosSling_TooFar>{LOAD} is more than {CELLS} cells away.</PhobosSling_TooFar>
+  <PhobosSling_Roofed>{LOAD} is under a roof.</PhobosSling_Roofed>
+  <PhobosSling_Moving>{LOAD} is moving.</PhobosSling_Moving>
+  <PhobosSling_TooHeavy>{LOAD} weighs {WEIGHT} kg with what it carries, and the hook lifts {CAPACITY} kg today.</PhobosSling_TooHeavy>
+  <PhobosSling_LaunchWaitsForCrew>{LOAD} still waits for someone to hook it up.</PhobosSling_LaunchWaitsForCrew>
+
+  <PhobosSling_ChosenCrew>{HELICOPTER} will lift {LOAD} once a colonist has hooked it up.</PhobosSling_ChosenCrew>
+  <PhobosSling_ChosenReady>{HELICOPTER} has {LOAD} on its hook and will lift it at take-off.</PhobosSling_ChosenReady>
+  <PhobosSling_Cancelled>{LOAD} is unhooked and stays here.</PhobosSling_Cancelled>
+  <PhobosSling_HookedUp>{CREW} hooked {LOAD} up to {HELICOPTER}.</PhobosSling_HookedUp>
+  <PhobosSling_LeftBehind>{LOAD} was not hooked up and stays behind.</PhobosSling_LeftBehind>
+  <PhobosSling_SetDown>{HELICOPTER} set {LOAD} down.</PhobosSling_SetDown>
+  <PhobosSling_NoSpot>There is no clear open ground near the helicopter to set {LOAD} down on. It stays on the hook until there is.</PhobosSling_NoSpot>
+
+  <PhobosSling_InspectHooked>On the hook: {LOAD}, {WEIGHT} kg of {CAPACITY} kg today ({SHARE})</PhobosSling_InspectHooked>
+  <PhobosSling_InspectAwaitingCrew>Waiting for someone to hook it up.</PhobosSling_InspectAwaitingCrew>
+  <PhobosSling_InspectCarrying>Carrying {LOAD} on the sling.</PhobosSling_InspectCarrying>
+
+  <PhobosSling_Section>Sling loads</PhobosSling_Section>
+  <PhobosSling_SettingHeat>Hot days lift less</PhobosSling_SettingHeat>
+  <PhobosSling_SettingHeatDesc>A helicopter's cargo hook lifts 1% less for each degree above 15 °C, at most 30% less, as thinner hot air gives the rotor and engines less to work with. Off, a hook lifts its rated load in any weather.</PhobosSling_SettingHeatDesc>
+  <PhobosSling_SettingCrew>A ground crew hooks the load up</PhobosSling_SettingCrew>
+  <PhobosSling_SettingCrewDesc>A colonist walks to the chosen vehicle and hooks the strops on before the helicopter can lift it. Off, the helicopter hooks it up by itself.</PhobosSling_SettingCrewDesc>
+</LanguageData>

@@ -1,0 +1,16 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Sling/Release.png",
+  "source": "assets/phobos-vehicles/generated/button-sling-release/button-sling-release-1.png",
+  "source_sha256": "4879f580765ac7b84078fbc4427af11816f4b8615babfdcde7e803fab2299de8",
+  "target_sha256": "51f4eaf708aa7180962f88124713cd81470f4356bdd0a5a7b207fb70cadce8ce",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "date": "2026-11-11T18:25:18",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

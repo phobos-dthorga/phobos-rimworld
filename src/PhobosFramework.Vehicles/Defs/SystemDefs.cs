@@ -567,6 +567,18 @@ public class LoadoutSystem
 /// Binds systems to vehicles: which vehicles (by name, by mod or by what they do), which systems with which figures, how each part
 /// role maps to the vehicle's own parts or to an appended one, and the electrical loads. The highest priority match wins.
 /// </summary>
+/// <summary>What a helicopter's cargo hook takes (sling loads; docs/development/vehicle-sling-design.md).</summary>
+public class SlingSpec
+{
+    /// <summary>The hook's rated load in kilograms, from a named source in the loadout's comment.</summary>
+    public float ratedKilograms;
+    /// <summary>Mods (by package ID) that bring their own airlift for this aircraft: while one is active, ours stands down here, no hook
+    /// mount and no sling, so the player never has two on one aircraft and the other author's design is left alone.</summary>
+    public List<string> standDownIfActive = new();
+
+    public bool StandsDown => standDownIfActive.Any(ModsConfig.IsActive);
+}
+
 public class PhobosVehicleLoadoutDef : Def
 {
     public LoadoutPriority priority = LoadoutPriority.Effect;
@@ -578,6 +590,8 @@ public class PhobosVehicleLoadoutDef : Def
     public CabinSpec cabin = new();
     /// <summary>An aircraft's flight phases and the demand each puts on its engines.</summary>
     public PhobosVehicleFlightProfileDef? flightProfile;
+    /// <summary>A helicopter's cargo hook, once fitted (Framework 0.92.0, sling loads): its rated load, sourced per aircraft.</summary>
+    public SlingSpec? sling;
     /// <summary>Groups loadouts in the settings window: CombustionLand, Aircraft, Boat, Electric, Rail, Heavy.</summary>
     public string kind = "General";
     public LoadoutSelector selector = new();
@@ -648,6 +662,14 @@ public class PhobosVehicleRulesDef : PhobosRulesDef
     public float fitWorkWeightExponent = 0.25f;
     public float fitWeightFactorMin = 0.5f;
     public float fitWeightFactorMax = 3f;
+    /// <summary>Sling loads (Framework 0.92.0, authored): a hot day's derating of a hook (from this temperature, this share of the rated load
+    /// lost per degree, at most this much), and the work of hooking a load up.</summary>
+    public float slingDerateFromCelsius = 15f;
+    public float slingLossPerDegree = 0.01f;
+    public float slingMaxLoss = 0.3f;
+    public float slingHookUpWork = 1500f;
+    /// <summary>How far, in cells, a load may stand from the helicopter that lifts it, and how far around it a load is set down.</summary>
+    public float slingReachCells = 25f;
     /// <summary>Work in ticks for a mechanic to diagnose a vehicle at a tuning rig.</summary>
     public float diagnoseWork = 1500f;
     /// <summary>Below this share of their hydraulic supply, a working vehicle's hydraulic work stops (a drill mast, a tipper body).</summary>

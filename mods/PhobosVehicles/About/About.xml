@@ -4,7 +4,7 @@
   <name>D'thorga Vehicles</name>
   <author>Phobos A. D'thorga</author>
   <url>https://github.com/phobos-dthorga/phobos-rimworld</url>
-  <modVersion>0.39.1</modVersion>
+  <modVersion>0.40.0</modVersion>
   <description>Vehicles that keep running only while they are looked after. It adds working vehicles of its own, each with an upgrade tree: the Talus tipper truck, the Ullage bulk tanker for liquids and gases, the Kelly drill rig, the Datum survey truck, the Busbar generator set and the Fathom seabed crawler, a small research submarine. It also gives the vehicles of other mods you already drive the right systems for what they really are.
 
 What it does now:

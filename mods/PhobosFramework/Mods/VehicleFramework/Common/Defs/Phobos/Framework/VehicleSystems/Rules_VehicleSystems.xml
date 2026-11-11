@@ -17,6 +17,13 @@
     <fitWorkWeightExponent>0.25</fitWorkWeightExponent>
     <fitWeightFactorMin>0.5</fitWeightFactorMin>
     <fitWeightFactorMax>3</fitWeightFactorMax>
+    <!-- Sling loads (Framework 0.92.0, authored): a hook lifts 1% less for each degree above 15 °C, at most 30% less (the direction from the FAA
+         Helicopter Flying Handbook: air density falls with temperature); hooking a load up is about 0.6 hours for a builder of normal speed. -->
+    <slingDerateFromCelsius>15</slingDerateFromCelsius>
+    <slingLossPerDegree>0.01</slingLossPerDegree>
+    <slingMaxLoss>0.3</slingMaxLoss>
+    <slingHookUpWork>1500</slingHookUpWork>
+    <slingReachCells>25</slingReachCells>
     <diagnoseWork>1500</diagnoseWork>
     <hydraulicWorkFloor>0.2</hydraulicWorkFloor>
     <fieldFixWork>600</fieldFixWork>
@@ -89,6 +96,27 @@
     <verb>repair</verb>
     <gerund>repairing</gerund>
     <priorityInType>61</priorityInType>
+    <requiredCapacities>
+      <li>Manipulation</li>
+    </requiredCapacities>
+  </WorkGiverDef>
+
+  <!-- Sling loads (Framework 0.92.0): a colonist hooks a load up for the helicopter waiting on it. Any colonist who hauls; no skill. -->
+  <JobDef>
+    <defName>PhobosVehicleSystems_SlingHookUp</defName>
+    <driverClass>Phobos.VehicleSystems.JobDriver_PhobosSlingHookUp</driverClass>
+    <reportString>hooking up TargetA.</reportString>
+    <casualInterruptible>true</casualInterruptible>
+  </JobDef>
+
+  <WorkGiverDef>
+    <defName>PhobosVehicleSystems_SlingHookUp</defName>
+    <label>hook up sling loads</label>
+    <giverClass>Phobos.VehicleSystems.WorkGiver_PhobosSlingHookUp</giverClass>
+    <workType>Hauling</workType>
+    <verb>hook up</verb>
+    <gerund>hooking up</gerund>
+    <priorityInType>60</priorityInType>
     <requiredCapacities>
       <li>Manipulation</li>
     </requiredCapacities>

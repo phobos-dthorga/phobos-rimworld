@@ -51,6 +51,10 @@ public class VehicleSystemsSettings : ModSettings
     public float fitMaterialFactor = 1f;
     /// <summary>A bigger vehicle costs more to fit and tune, by its weight (Framework 0.91.0). Live.</summary>
     public bool fitCostScalesWithWeight = true;
+    /// <summary>Sling loads (Framework 0.92.0; owner, 11 Nov 2026: each of these a setting): a hot day lifts less. Live.</summary>
+    public bool slingHeatDerating = true;
+    /// <summary>A colonist hooks a sling load up; off, the helicopter does it itself. Live.</summary>
+    public bool slingGroundCrew = true;
     public bool powerPointLargeSocket;
     /// <summary>Another faction's vehicle may be found with fittings and a tune.</summary>
     public bool enemyFitSets = true;
@@ -151,6 +155,8 @@ public class VehicleSystemsSettings : ModSettings
         Scribe_Values.Look(ref fitTimeFactor, "PhobosVehicleSystems_FitTimeFactor", 1f);
         Scribe_Values.Look(ref fitMaterialFactor, "PhobosVehicleSystems_FitMaterialFactor", 1f);
         Scribe_Values.Look(ref fitCostScalesWithWeight, "PhobosVehicleSystems_FitCostScalesWithWeight", true);
+        Scribe_Values.Look(ref slingHeatDerating, "PhobosVehicleSystems_SlingHeatDerating", true);
+        Scribe_Values.Look(ref slingGroundCrew, "PhobosVehicleSystems_SlingGroundCrew", true);
         Scribe_Values.Look(ref powerPointLargeSocket, "PhobosVehicleSystems_PowerPointLargeSocket", false);
         Scribe_Values.Look(ref enemyFitSets, "PhobosVehicleSystems_EnemyFitSets", true);
         Scribe_Values.Look(ref displayMode, "PhobosVehicleSystems_DisplayMode", DisplayMode.Plain);
@@ -359,6 +365,10 @@ public class VehicleSystemsMod : Mod
         if (byWeight != s.fitCostScalesWithWeight) VehicleFittings.CostStamp++;
         listing.CheckboxLabeled("PhobosVehicleSystems_SettingPowerPointLarge".Translate(), ref s.powerPointLargeSocket, "PhobosVehicleSystems_SettingPowerPointLargeDesc".Translate());
         listing.CheckboxLabeled("PhobosVehicleSystems_SettingEnemyFitSets".Translate(), ref s.enemyFitSets, "PhobosVehicleSystems_SettingEnemyFitSetsDesc".Translate());
+
+        SettingsUi.Section(listing, "PhobosSling_Section".Translate());
+        listing.CheckboxLabeled("PhobosSling_SettingHeat".Translate(), ref s.slingHeatDerating, "PhobosSling_SettingHeatDesc".Translate());
+        listing.CheckboxLabeled("PhobosSling_SettingCrew".Translate(), ref s.slingGroundCrew, "PhobosSling_SettingCrewDesc".Translate());
 
         SettingsUi.Section(listing, "PhobosVehicleSystems_SectionJumpStarts".Translate());
         listing.CheckboxLabeled("PhobosVehicleSystems_SettingJumpStartNeedsKit".Translate(), ref s.jumpStartNeedsKit, "PhobosVehicleSystems_SettingJumpStartNeedsKitDesc".Translate());

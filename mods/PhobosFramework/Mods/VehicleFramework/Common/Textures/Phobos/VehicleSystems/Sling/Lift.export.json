@@ -1,0 +1,16 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Sling/Lift.png",
+  "source": "assets/phobos-vehicles/generated/button-sling-lift/button-sling-lift-1.png",
+  "source_sha256": "ce6750581811a3aee21d412cb7e79b26c71865e16ce34884808c21ee8a5a4257",
+  "target_sha256": "3d9bfdf640220f9ead4b22007e76ea1ee8b051d48d122e56b8e1b12f37a3085b",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "date": "2026-11-11T18:25:16",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

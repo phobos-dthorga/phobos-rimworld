@@ -5,6 +5,14 @@ it", after seeing Yaroslav's [Cherokee Sling — Vehicle Airlift](https://steamc
 (Workshop, updated 9 Nov 2026). That mod's published source was read on 11 Nov 2026 only to learn how such a mod meets Vehicle Framework's
 flight; nothing of it is copied or adapted, and ours is designed from the questions below.
 
+**Status (11 Nov 2026): slice 1 is built** in D'thorga Framework 0.92.0 and Vehicles 0.40.0, not yet tested in game: the cargo hook (a
+fitting granting "CargoHook" on an appended hook mount), the sling set, the weight rule with hot-day derating (`SlingRule`), Lift a vehicle
+with its reasons, the hook-up job, the load carried through Vehicle Framework's own flight (held in `CompPhobosSling`, found through a
+`Pawn.GetChildHolders` postfix) and set down beside the helicopter where it lands, the launch refused while the load is not ready, and the
+stand-down on the Cherokee for Cherokee Sling. **Slice 2 is next:** the selectable slung flight drawn on the map, choosing the set-down spot,
+weather limits, the slower and thirstier slung flight, emergency release, and their settings. Agent choices in slice 1: a 25-cell reach,
+about half an hour's hook-up for anyone who hauls, and the hook's cost (120 steel, 8 components, about 8 hours, Construction 7).
+
 ## Read this first
 
 - **What it is:** any helicopter given a **cargo hook** (a fitting, in the fittings window) can lift one vehicle on a sling, fly it on the

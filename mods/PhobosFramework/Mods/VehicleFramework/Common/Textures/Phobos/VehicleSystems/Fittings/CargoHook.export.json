@@ -1,0 +1,16 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/CargoHook.png",
+  "source": "assets/phobos-vehicles/generated/fitting-cargo-hook/fitting-cargo-hook-2.png",
+  "source_sha256": "9f25051759a430286e40fca401c528ffa515dca1bd76fb87e5e0a4d8787a8616",
+  "target_sha256": "845bebe45e69f6d6f4f8f3c2e99482c6e3f091bf9f82691e0c59862352082300",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "date": "2026-11-11T18:25:19",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

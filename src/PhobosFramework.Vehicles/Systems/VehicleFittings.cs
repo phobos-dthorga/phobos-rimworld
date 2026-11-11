@@ -338,7 +338,7 @@ public sealed class VehicleFittings
     /// <summary>Whether this fitting would change anything on this vehicle: a loadout can drop a system (a turbine tank has no coolant) and keep its part.</summary>
     bool MovesSomethingHere(PhobosVehicleFittingDef def)
     {
-        if (def.statFactors.Count > 0 || def.powerFactor != 1f || def.fuelFactor != 1f) return true;
+        if (def.statFactors.Count > 0 || def.powerFactor != 1f || def.fuelFactor != 1f || def.grants.Count > 0) return true;
         return def.parameterFactors.Any(spec => comp.Props.systems.Any(system =>
             (spec.system.Length == 0 || system.def.defName == spec.system) && system.parameters.ContainsKey(spec.parameter)));
     }
@@ -417,6 +417,10 @@ public sealed class VehicleFittings
     }
 
     public PhobosVehicleFittingDef? FittedOn(string partKey) => fitted.FirstOrDefault(f => f.partKey == partKey)?.def;
+
+    /// <summary>Whether a fitting on this vehicle grants this ability (a cargo hook), its part still standing.</summary>
+    public bool Grants(string ability) => fitted.Any(f => f.def != null && f.def.grants.Contains(ability)
+        && comp.Vehicle.statHandler?.GetComponent(f.partKey) is { Health: > 0f });
 
     public FitOrder? OrderOn(string partKey) => orders.FirstOrDefault(o => o.partKey == partKey);
 

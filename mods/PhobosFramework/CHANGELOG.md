@@ -5,6 +5,31 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.92.0] - 2026-11-11 - Draft
+
+Sling loads, slice 1: a helicopter lifts a vehicle and carries it (owner, 11 November 2026: an airlift of our own, with our own flavour). **Not yet tested in game.**
+
+### Added
+
+- **A cargo hook**, a new fitting for a helicopter whose loadout rates one (the Cherokee first): 120 steel, 8 components and about 8 hours of a mechanic's work, Construction 7, after turbines research. It goes on a hook mount the loadout adds under the belly, and is lost with it.
+- **A sling set**, made at the vehicle parts bench (80 cloth, 40 steel): strops, a swivel and a spreader bar. A helicopter must carry one to lift, and keeps it.
+- **Lift a vehicle**: a helicopter with a hook and a sling set picks a vehicle of ours parked outdoors within 25 cells. The button and the choice say why not when they cannot: no hook, no sling set, too far, under a roof, moving, or too heavy today.
+- **Real weights**: a load is the vehicle empty, its cargo, the people aboard and a tank's load, against the hook's rated load (the Cherokee 11,800 kg, a CH-47F's centre hook). A hot day lifts less: 1% for each degree above 15 °C, at most 30% (authored, from the FAA's account of air thinning with heat).
+- **A ground crew hooks it up**: a colonist who hauls walks to the load and fits the strops, about half an hour's work; the launch waits for it, and the launch button says so.
+- **The load flies with the helicopter**: it leaves the map when the helicopter takes off through Vehicle Framework's own launch, with its cargo, fuel and people, and is set down on clear open ground beside the helicopter wherever it lands (or when it leaves a caravan onto a map). The launch is refused while the load has moved away or is too heavy.
+- Two settings under a new "Sling loads" heading: "Hot days lift less" and "A ground crew hooks the load up", both on.
+- For modders: a loadout's sling (its rated load in kilograms, and mods it stands down for), a fitting's grants (here CargoHook), and the game-free SlingRule.
+
+### Compatibility and limits
+
+- Slice 1 rides on Vehicle Framework's own take-off and landing, so the load is not drawn under the helicopter in flight, and it is set down beside the helicopter rather than where the player chooses. A selectable slung flight, choosing the spot, weather limits, the slower and thirstier slung flight and emergency release are slice 2.
+- With Yaroslav's Cherokee Sling active, ours stands down on the Cherokee: no hook mount and no sling there, so the two never offer two airlifts on one aircraft.
+- One Harmony postfix lets the game find a slung vehicle and its people while they are held by the sling, and another adds the sling's reasons to Vehicle Framework's launch check; neither skips the original.
+
+### Save compatibility
+
+- Safe on an existing save: a helicopter gains its hook mount when the save loads. A load in flight is saved with the helicopter.
+
 ## [0.91.0] - 2026-11-11 - Draft
 
 Fittings and tunes are earned (owner, 11 November 2026: "I want these upgrades and tunes to feel earned. That's how I felt upgrading the L-ATV; accomplished."). **Not yet tested in game.**
