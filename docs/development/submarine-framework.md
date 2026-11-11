@@ -133,6 +133,7 @@ Short list, highest consequence first. Enable dev mode and use a map with a lake
 
 - **Enemy submarines, very soon** (owner, 10 Nov 2026). See [Ready for enemy submarines?](#ready-for-enemy-submarines) for what already works and what is missing.
 - **Our own interfaces and mechanics in place of a walkable interior** (owner, 10 Nov 2026). These could mimic or replace some of what an interior gives, and could also bring mechanics of our own beside the gravship way. One idea, not designed: a control-room window with compartments, stations and who is in them, the air, and a sonar screen plotting what the array has heard.
+- **Ballistic submarines and other weapons that strike another map** (owner, 11 Nov 2026). Read [striking another map](cross-map-strikes.md) first: a shell handed to the world map through the game's landing step can vanish without a trace, and it proposes launching straight up instead.
 - **Equipment for recovering lost boats** (owner's idea, 10 Nov 2026). The research record's recovery vehicle and the Crawler's manipulator are natural starting points.
 
 1. The first real boat, [the Seabed Crawler](vehicle-seabed-crawler.md), with its own picture, overlays and upgrade tree (owner, 10 Nov 2026).

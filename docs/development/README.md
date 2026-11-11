@@ -149,6 +149,10 @@ promise current behaviour. For using the mods, start at the [documentation index
   Nothing bought before the owner's go.
 - [The submersibles framework: design (9 Nov 2026)](submarine-framework.md): a dive as a state of ours, the reserve, what is hidden and what still reaches a hull,
   why each patch exists, the limits of the first slice and how to test it. Built in Framework 0.58.0 with a dev-only test hull. Not yet tested in game.
+- [Striking another map: lessons from DMS Expedition's long-range cannon (11 Nov 2026)](cross-map-strikes.md): why the owner's long-range
+  shells vanished at the border under overhead mountain, the other silent ways the game ends a projectile, and proposed rules for our
+  ballistic submarines and other cross-map weapons (launch straight up, never spend a shot that cannot leave, design for enemy launches).
+  Research and proposal; nothing built.
 - [Unique military vehicles and submarines: research (9 Nov 2026)](military-vehicles-research.md): twenty-odd real vehicles no
   Vehicle Framework mod covers, checked against the 277 items of the three Workshop collections; five shortlisted (recovery,
   decontamination, shower, landing craft, snow carrier) and five submarines (cargo, chemical, seabed crawler, carrier, polar),
