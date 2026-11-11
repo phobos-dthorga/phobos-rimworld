@@ -179,6 +179,7 @@
       </li>
       <li>
         <name>packWear</name>
+        <wearTrend>true</wearTrend>
         <showOnDashboard>true</showOnDashboard>
         <remainingLabel>battery health</remainingLabel>
         <label>battery wear</label>

@@ -93,6 +93,9 @@ public class QuantitySpec
     public bool hidden;
     /// <summary>Shown as a gauge on the vehicle's Dashboard tab.</summary>
     public bool showOnDashboard;
+    /// <summary>A slow reading that only rises between services (tread, brakes, hours since service): kept hourly for fifteen days and
+    /// projected to its next stage worth a look on the Health tab (Framework 0.86.0).</summary>
+    public bool wearTrend;
     /// <summary>For a quantity that counts what is used up (tread wear): the label for what is left ("tread"). The tabs' gauges then
     /// show what is left, full when new, as the battery and oil gauges do; the inspect line keeps the quantity's own label.</summary>
     [MustTranslate] public string? remainingLabel;

@@ -19,6 +19,7 @@
     <quantities>
       <li>
         <name>treadWear</name>
+        <wearTrend>true</wearTrend>
         <telltale>Phobos/VehicleSystems/Dash/Tyre</telltale>
         <showOnDashboard>true</showOnDashboard>
         <remainingLabel>tread</remainingLabel>
@@ -178,6 +179,7 @@
     <quantities>
       <li>
         <name>brakeWear</name>
+        <wearTrend>true</wearTrend>
         <telltale>Phobos/VehicleSystems/Dash/Brake</telltale>
         <showOnDashboard>true</showOnDashboard>
         <remainingLabel>brakes</remainingLabel>

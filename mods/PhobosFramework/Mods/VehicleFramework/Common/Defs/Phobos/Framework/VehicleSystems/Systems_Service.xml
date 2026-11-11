@@ -27,6 +27,7 @@
     <quantities>
       <li>
         <name>engineHours</name>
+        <wearTrend>true</wearTrend>
         <label>since service</label>
         <unit>Hours</unit>
         <min>0</min>

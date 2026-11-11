@@ -5,6 +5,21 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.86.0] - 2026-11-11 - Draft
+
+Wear trends (owner, 11 November 2026: slice 3 of the next four). **Not yet tested in game.**
+
+### Added
+
+- **A Wear block on the Health tab.** The slow readings (tread, brakes, battery health on an electric vehicle, hours since the last service, a turbine's hot section) each say when they will reach their next stage worth a look, such as "Tread: worn in about 4 days", amber when it is under two days away; "worn now" once there; "no change lately" when the vehicle has stood. In Operator and Engineer a small line beside each shows its last fifteen days.
+- The estimate follows the rate since the last service or new part, which set wear back, over the calendar with idle days included: drive harder or less and the date moves. It needs six hours of a rise before it guesses.
+- For modders: a quantity's wearTrend flag keeps it hourly for fifteen days and gives it a row; TrendRule is the game-free projection.
+- The dev action that fills the history with a test curve fills the fifteen days too, rising and reset halfway, so the block shows at once.
+
+### Save compatibility
+
+- Safe on an existing save: the fifteen days start empty and fill an hour at a time, saved with the vehicle (about 700 bytes per slow reading). Until a few hours are recorded the rows say "no change lately".
+
 ## [0.85.0] - 2026-11-11 - Draft
 
 The range on the world map (owner, 11 November 2026: slice 2 of the next four). **Not yet tested in game.**

@@ -77,6 +77,7 @@ public class ITab_PhobosVehicleHealth : ITab
         DisplayMode mode = VehicleSystemsMod.Settings.displayMode;
         HealthView view = views.Get(comp.Vehicle.thingIDNumber);
         if (view.Version != comp.HealthViewVersion || view.Mode != mode || view.Parts == null) view.Build(comp, mode);
+        if (view.WearStamp != comp.History.WearStamp || view.WearMode != mode) view.BuildWear(comp, mode);
         if (outer.width >= SheetNeedsWidth)
         {
             // The vehicle seen from above with its hurt parts tinted; hovering it lights the part's row, and the part on the map.
@@ -118,6 +119,29 @@ public class ITab_PhobosVehicleHealth : ITab
             }
             TooltipHandler.TipRegion(row, new TipSignal(stat.Tip, stat.TipId));
             y += Row;
+        }
+        if (view.Wear.Count > 0)
+        {
+            // The slow readings and when each reaches its next stage worth a look (Framework 0.86.0), with fifteen days of it beside them
+            // for those who read figures.
+            y += 4f;
+            PhobosWidgets.Section(ref y, rect.x, rect.width, "PhobosVehicleSystems_HealthWear".Translate());
+            bool figures = view.WearMode != DisplayMode.Plain;
+            foreach (WearRow wear in view.Wear)
+            {
+                var row = new Rect(rect.x, y, rect.width, Row);
+                Widgets.DrawHighlightIfMouseover(row);
+                using (new TextBlock(GameFont.Tiny, TextAnchor.MiddleLeft))
+                {
+                    Widgets.Label(new Rect(rect.x + 4f, y, rect.width * (figures ? 0.62f : 1f) - 4f, Row), wear.Label.Colorize(wear.Colour));
+                }
+                if (figures && wear.Ring != null)
+                {
+                    PhobosWidgets.Sparkline(new Rect(rect.x + rect.width * 0.64f, y + 3f, rect.width * 0.36f, Row - 6f), wear.Ring, wear.Min, wear.Max, wear.Colour);
+                }
+                TooltipHandler.TipRegion(row, wear.Tip);
+                y += Row;
+            }
         }
         y += 6f;
         using (new TextBlock(GameFont.Small, TextAnchor.UpperLeft))
@@ -229,6 +253,76 @@ public class ITab_PhobosVehicleHealth : ITab
         public string? SheetHover;
         public string? Picked;
         public bool ScrollToPicked;
+        public readonly List<WearRow> Wear = new();
+        public int WearStamp = -1;
+        public DisplayMode WearMode;
+
+        /// <summary>The slow readings' rows: when each reaches its next stage worth a look, at the rate of the last rise (TrendRule).
+        /// Built again only when a new hourly sample is taken or the display mode changes.</summary>
+        public void BuildWear(CompPhobosVehicleSystems comp, DisplayMode mode)
+        {
+            WearStamp = comp.History.WearStamp;
+            WearMode = mode;
+            Wear.Clear();
+            foreach (SystemState state in comp.States)
+            {
+                if (!comp.IsEnabled(state)) continue;
+                for (int q = 0; q < state.values.Length; q++)
+                {
+                    QuantitySpec quantity = state.Def.quantities[q];
+                    if (!quantity.wearTrend) continue;
+                    Wear.Add(WearRowFor(comp, state, q, quantity));
+                }
+            }
+        }
+
+        static WearRow WearRowFor(CompPhobosVehicleSystems comp, SystemState state, int q, QuantitySpec quantity)
+        {
+            string reading = (quantity.remainingLabel ?? quantity.label).CapitalizeFirst();
+            HistoryRing? ring = comp.History.WearFor(state, q);
+            bool remaining = !quantity.remainingLabel.NullOrEmpty();
+            var row = new WearRow
+            {
+                Ring = ring,
+                Min = remaining ? quantity.max : quantity.min,
+                Max = remaining ? quantity.min : quantity.max,
+                Tip = "PhobosVehicleSystems_HealthWearTip".Translate((QuantityHistory.WearHours / 24).Named("DAYS")).Resolve(),
+            };
+            double now = state.values[q];
+            StageSpec? current = state.CurrentStage(q);
+            // The next stage worth a look above where the reading is now.
+            StageSpec? next = null;
+            float nextFrom = float.MaxValue;
+            foreach (StageSpec stage in quantity.stages)
+            {
+                float from = float.IsNaN(stage.from) ? quantity.min : stage.from;
+                if (stage.notable && from > now && from < nextFrom)
+                {
+                    next = stage;
+                    nextFrom = from;
+                }
+            }
+            double span = Math.Max(1e-6, quantity.max - quantity.min);
+            double? samples = next == null || ring == null ? null
+                : TrendRule.SamplesUntil(ring.Count, i => ring[i], nextFrom, WearMinSamples, span * 1e-4, span * 1e-7);
+            if (current is { notable: true })
+            {
+                row.Label = "PhobosVehicleSystems_HealthWearNow".Translate(reading.Named("READING"), current.label.Named("STAGE")).Resolve();
+                row.Colour = current.Severe ? PhobosWidgets.Bad : PhobosWidgets.Caution;
+            }
+            else if (next != null && samples is double until)
+            {
+                int ticks = (int)Math.Min(int.MaxValue / 2, until * QuantityHistory.WearStrideTicks);
+                row.Label = "PhobosVehicleSystems_HealthWearDue".Translate(reading.Named("READING"), next.label.Named("STAGE"), ticks.ToStringTicksToPeriod().Named("TIME")).Resolve();
+                row.Colour = ticks < WearSoonTicks ? PhobosWidgets.Caution : PhobosWidgets.Good;
+            }
+            else
+            {
+                row.Label = "PhobosVehicleSystems_HealthWearSteady".Translate(reading.Named("READING")).Resolve();
+                row.Colour = PhobosWidgets.Good;
+            }
+            return row;
+        }
 
         public void Build(CompPhobosVehicleSystems comp, DisplayMode mode)
         {
@@ -486,6 +580,21 @@ public class ITab_PhobosVehicleHealth : ITab
             if (HasReactor<Reactor_Explosive>(part)) text.Append('\n').Append("PhobosVehicleSystems_HealthReactorExplosive".Translate());
             return text.ToString();
         }
+    }
+
+    /// <summary>The hours of a rise the wear trend needs before it estimates (authored: a working day).</summary>
+    const int WearMinSamples = 6;
+    /// <summary>A stage due sooner than this shows amber (authored: two days).</summary>
+    const int WearSoonTicks = 2 * GenDate.TicksPerDay;
+
+    sealed class WearRow
+    {
+        public string Label = "";
+        public Color Colour = Color.white;
+        public string Tip = "";
+        public HistoryRing? Ring;
+        public float Min;
+        public float Max;
     }
 
     sealed class StatRow

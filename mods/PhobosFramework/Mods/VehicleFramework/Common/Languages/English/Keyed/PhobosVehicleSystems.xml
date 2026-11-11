@@ -306,6 +306,11 @@
   <PhobosVehicleSystems_HealthConditionFigure>{CONDITION}: {STAGE} ({SEVERITY})</PhobosVehicleSystems_HealthConditionFigure>
   <PhobosVehicleSystems_HealthReactorExplosive>Can explode when badly damaged.</PhobosVehicleSystems_HealthReactorExplosive>
   <PhobosVehicleSystems_HealthCrew>Crew</PhobosVehicleSystems_HealthCrew>
+  <PhobosVehicleSystems_HealthWear>Wear</PhobosVehicleSystems_HealthWear>
+  <PhobosVehicleSystems_HealthWearDue>{READING}: {STAGE} in about {TIME}</PhobosVehicleSystems_HealthWearDue>
+  <PhobosVehicleSystems_HealthWearNow>{READING}: {STAGE} now</PhobosVehicleSystems_HealthWearNow>
+  <PhobosVehicleSystems_HealthWearSteady>{READING}: no change lately</PhobosVehicleSystems_HealthWearSteady>
+  <PhobosVehicleSystems_HealthWearTip>At the rate it has worn since its last service or new part, over the last {DAYS} days, idle days included. Drive harder or less and the date moves.</PhobosVehicleSystems_HealthWearTip>
   <PhobosVehicleSystems_HealthCrewNone>Nobody aboard.</PhobosVehicleSystems_HealthCrewNone>
   <PhobosVehicleSystems_HealthCrewRow>{ROLE}: {NAME}, {CONDITION}</PhobosVehicleSystems_HealthCrewRow>
   <PhobosVehicleSystems_HealthStatOperation>Made from its parts ({HOW}):</PhobosVehicleSystems_HealthStatOperation>
