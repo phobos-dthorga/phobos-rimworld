@@ -549,6 +549,10 @@ public static class VehicleSelfTest
         var holders = new List<IThingHolder>();
         helicopter.GetChildHolders(holders);
         test.Expect("The game can find what the sling holds", holders.Contains(sling));
+        test.Expect("The load is listed after its helicopter, for the world map and the fleet board",
+            SlingLoads.WithLoads(new[] { helicopter }).SequenceEqual(new[] { helicopter, load }));
+        test.Expect("The picture knows where the load stood", sling.LiftedFrom != null);
+        test.Expect("The fleet board still finds the load", FleetService.Build().Any(entry => entry.Vehicle == load));
 
         sling.SetDown();
         test.Expect("The load is set down on the map", load.Spawned && sling.Carried == null);

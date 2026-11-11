@@ -44,7 +44,8 @@ public abstract class WITab_PhobosVehicles : WITab
             IPhobosVehicleHolder holder => holder.HeldVehicles,
             _ => Enumerable.Empty<VehiclePawn>(),
         };
-        foreach (VehiclePawn vehicle in vehicles)
+        // A slung vehicle is held inside its helicopter, so it is listed after it (Framework 0.99.0).
+        foreach (VehiclePawn vehicle in SlingLoads.WithLoads(vehicles))
         {
             CompPhobosVehicleSystems? comp = vehicle.GetComp<CompPhobosVehicleSystems>();
             if (comp != null && comp.Usable) comps.Add(comp);

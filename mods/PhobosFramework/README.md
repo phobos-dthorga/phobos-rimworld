@@ -7,7 +7,7 @@ helpers every D'thorga mod shares.
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.98.0, built 12 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
+Version 0.99.0, built 12 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
 oxygen working through Burns and Smoke and Medical Equipment (5 November 2026). The health layer new in 0.3.0 and the **vehicle
 systems new in 0.9.0, and their engines, drivetrains and gas turbines new in 0.11.0, are not yet tested in game.** The rest is read from the game's and the mods' code.
 
@@ -83,7 +83,9 @@ and wear that a mechanic services. See [Vehicle systems](#vehicle-systems-with-v
   and *Bigger vehicles cost more to fit and tune*. **From 0.92.0 a helicopter can carry a vehicle on a sling**: fit it a **cargo hook**,
   put a **sling set** aboard, press **Lift a vehicle** and pick one of ours parked outdoors nearby; a colonist hooks it up, and it flies
   with the helicopter and is set down beside it where it lands. It must weigh, with its cargo and people, no more than the hook takes
-  today (less on hot days). Settings under **Sling loads**. **From 0.93.0 the Systems tab is compact**: one row a reading, which opens to
+  today (less on hot days). Settings under **Sling loads**. **From 0.99.0 the load is drawn under the helicopter** as it takes off and
+  lands, a message says it was lifted, the world map's tabs and the fleet board list it, and a landed helicopter with no room to set its
+  load down has a **Set the load down** button. **From 0.93.0 the Systems tab is compact**: one row a reading, which opens to
   its graph on a click, a card a system, parts as a strip of small bars, and an **Only what needs attention** tick box. **From 0.94.0** a
   screen of ours that fails shows one line and tries again in a few seconds, where the game would fill its log; and in dev mode
   **"Vehicle systems: run the self-test"** checks most of this in one go, a sling lift included. Not yet tested in game.

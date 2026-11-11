@@ -41,7 +41,10 @@ public static class FleetService
             string where = map.Parent?.LabelCap ?? "";
             foreach (Pawn pawn in map.mapPawns.AllPawnsSpawned)
             {
-                if (pawn is VehiclePawn vehicle && vehicle.Faction == Faction.OfPlayer) entries.Add(Entry(vehicle, where, new GlobalTargetInfo(vehicle)));
+                if (pawn is not VehiclePawn vehicle || vehicle.Faction != Faction.OfPlayer) continue;
+                entries.Add(Entry(vehicle, where, new GlobalTargetInfo(vehicle)));
+                // A load still on a landed helicopter's sling is on no map of its own: it is found through the helicopter.
+                if (SlingLoads.Of(vehicle) is { } slung) entries.Add(Entry(slung, where, new GlobalTargetInfo(vehicle)));
             }
         }
         foreach (WorldObject place in Find.WorldObjects.AllWorldObjects)
@@ -56,7 +59,7 @@ public static class FleetService
             };
             if (vehicles == null) continue;
             string where = WhereIs(place);
-            foreach (VehiclePawn vehicle in vehicles)
+            foreach (VehiclePawn vehicle in SlingLoads.WithLoads(vehicles))
             {
                 if (vehicle.Faction == Faction.OfPlayer) entries.Add(Entry(vehicle, where, new GlobalTargetInfo(place)));
             }

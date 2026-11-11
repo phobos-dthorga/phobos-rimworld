@@ -5,6 +5,31 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.99.0] - 2026-11-12 - Draft
+
+A slung vehicle can now be seen. The owner lifted a vehicle with the Cherokee and it vanished without a word: it was aboard, but nothing drew it, listed it or said so. **Not yet tested in game.**
+
+### Fixed
+
+- **A lifted vehicle no longer seems to vanish.** While the helicopter takes off and lands, the vehicle is drawn below it on two strops. During the spool-up it stays where it stood; as the helicopter climbs, it is drawn in under it and leaves with it.
+- **Lift-off says what happened**: a message names the helicopter, the load and its weight, and says it will be set down beside the helicopter where it lands. Before, a successful lift said nothing.
+- **The world map shows the load.** The helicopter in flight says what it carries and how heavy it is, and the slung vehicle is listed after the helicopter in the passengers tab, with anyone riding in it, and in our Health, Dashboard and Systems tabs. The fleet board lists it too; before, a slung vehicle was missing from the board until it was set down.
+- A hook that cannot take the vehicle at lift-off puts it back where it stood and says so, where the vehicle could have been lost.
+
+### Added
+
+- **Set the load down**: a button on a landed helicopter whose load is still on the hook because there was no clear ground when it landed. Before, the load stayed on the hook until the next flight.
+
+### Compatibility and limits
+
+- The picture is a first one: the helicopter does not yet hover over its load before lifting, so a load parked some way off is drawn sliding in under it as it climbs, and on landing it is drawn under the helicopter until it is set down beside it. Hovering over the load, and choosing where it comes down, are the next slice of sling loads.
+- The load is drawn each frame only while a helicopter that carries one is taking off or landing on the map in view. Three small additions to Vehicle Framework's own code do this and the passengers tab's list; each does nothing for an aircraft with no load.
+- A convoy that holds a helicopter with a load says what it carries, but Vehicle Framework's own convoy tabs do not list the slung vehicle.
+
+### Save compatibility
+
+- Safe to update mid-game, and with a vehicle on a sling. Nothing new is saved.
+
 ## [0.98.0] - 2026-11-12 - Draft
 
 Pictures that change with a vehicle's upgrades, and a fan that cools a parked engine, for D'thorga Vehicles' new art of 12 November 2026. **Not yet tested in game.**

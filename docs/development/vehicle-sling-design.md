@@ -13,6 +13,10 @@ stand-down on the Cherokee for Cherokee Sling. **Slice 2 is next:** the selectab
 weather limits, the slower and thirstier slung flight, emergency release, and their settings. Agent choices in slice 1: a 25-cell reach,
 about half an hour's hook-up for anyone who hauls, and the hook's cost (120 steel, 8 components, about 8 hours, Construction 7).
 
+**Update (12 Nov 2026): the load can be seen**, in D'thorga Framework 0.99.0, not yet tested in game. The owner lifted a vehicle with the
+Cherokee and reported that it "simply disappears into the aether": not under the Cherokee on the map, not listed on the world map. The
+section "The owner's report of 12 Nov 2026" below says what was found and what changed.
+
 ## Read this first
 
 - **What it is:** any helicopter given a **cargo hook** (a fitting, in the fittings window) can lift one vehicle on a sling, fly it on the
@@ -117,11 +121,68 @@ the carried vehicle already catch up the hours they were away when it is spawned
   world object in flight (`AerialVehicleInFlight`, `:90772`) both pass their holders on, so a helicopter's sling container rides along
   through the whole flight once the postfix lists it.
 
+- **Correction (12 Nov 2026):** the two stand-ins do **not** pass holders on. `VehicleSkyfaller` and `AerialVehicleInFlight` both answer
+  `GetChildHolders` with nothing (`VehicleFramework-1.6:Vehicles.decompiled.cs`, `:24417` and `:90772`), so a search that starts at
+  the stand-in never reaches the helicopter's contents, ours or Vehicle Framework's own. Our postfix serves only a search that starts at the
+  helicopter. Going upward the chain is whole: a person in a slung vehicle is held by its seat, the vehicle by the sling, and the sling
+  answers with the helicopter's own holder. **Unchecked:** whether colonists riding in a slung vehicle are counted while it flies (the
+  colonist bar, the game's count of colonists away). Vehicle Framework counts the people aboard the aircraft itself, not ours. Until the
+  owner has flown one, a lift with people aboard the load is the riskier test.
+- **People and things in a slung vehicle do not tick in flight**: nothing ticks the sling's contents, and Vehicle Framework's world object
+  does not tick its own either. They come back as they left.
+
+## The owner's report of 12 Nov 2026
+
+**Observed by the owner:** with a vehicle chosen and hooked up by a colonist, the Cherokee lifted off and the vehicle "simply disappears
+into the aether. It doesn't appear beneath the Cherokee itself on your colony map nor does it appear on the World map as a vehicle that's
+selectable in the Pawns tab."
+
+**Read from the save and the log (not a test in game):** the newest save was made before the lift, with the vehicle parked and chosen as
+the Cherokee's load, and the log holds no error between that save and the reload two minutes later. Slice 1's code takes the vehicle off
+the map into the sling at lift-off and sets it down when the helicopter next appears on a map. Whether it came back at a landing in the
+owner's game is **not known**: the report does not say the Cherokee landed. What slice 1 certainly did was show the load nowhere and say
+nothing: no message at lift-off (a silent success, against our own rule), no picture, and no line or list on the world map.
+
+**Changed in Framework 0.99.0:**
+
+| What | How | Lets, stops, changes |
+| --- | --- | --- |
+| The load is drawn under the helicopter in take-off and landing | A postfix on each of Vehicle Framework's two stand-ins' `DrawAt` draws the held vehicle one layer below the helicopter, with two strops, placed by the game-free `SlingRule.Hang` | Lets the player see the lift happen. Changes nothing a lift does |
+| Lift-off says so | A message with the helicopter, the load and its weight | Ends the silent success |
+| The world map shows it | A world-object comp adds a line to an aircraft in flight and to a convoy; a postfix on `AerialVehicleInFlight.Vehicles` lists the load after the helicopter, which is the list Vehicle Framework's passengers tab draws; our own world tabs and the fleet board list it through `SlingLoads` | Lets the player find the load and the people in it while it flies |
+| A load is never lost to the hook | If the sling cannot take the vehicle at lift-off, it is put back where it stood, with a message | Stops a silent loss |
+| **Set the load down** | A button on a landed helicopter still holding its load because no clear ground was found | Lets the player set it down when there is room, where it used to wait for the next flight |
+
+**The picture's rule (authored):** the map shows height as distance up the screen, so the load hangs 3 cells below the helicopter's
+picture and is on the ground while the helicopter is nearer its spot than that. On a take-off the load is drawn where it stood during the
+spool-up, and drawn in under the helicopter as it climbs the first 3 cells. **This is a simplification:** a real crew hovers over the load
+to hook up, and ours does not yet, so a load parked 20 cells off slides in. The hover is slice 2's.
+
+**Vehicle Framework's members that name Unity's types** (`VehiclePawn.DrawAt`, `VehiclePawn.TrueCenter`) are called by name, as
+`OverlayPosition` and `VehiclePicture` already do, because Vehicle Framework's build names another Unity version's types and the compiler
+refuses them. `scripts/check-targets.py` checks both names.
+
+**How Cherokee Sling shows its load** (its published source, installed but not active on the owner's list, read again 12 Nov 2026 at the
+owner's suggestion; in our words, nothing copied): it replaces Vehicle Framework's stand-in with one of its own that draws both vehicles
+through every draw phase and flies the helicopter over to the load first. It does not list the load on the world map either. Ours keeps
+Vehicle Framework's stand-in and draws beside it, which is less to maintain but cannot change the helicopter's path; that is why the
+hover waits for slice 2's own stand-in.
+
+## Other factions' vehicles
+
+- **In a raid on us:** no raider orders a lift, so a raider's helicopter never carries a load. The drawing checks for a load first and
+  does nothing more for an aircraft without one.
+- **Parked at a base we attack:** a vehicle that is not ours is refused as a load, with the reason. Claimed first (the claim order,
+  Framework 0.97.0), it lifts as ours.
+- **One we capture:** a captured helicopter with a hook mount lifts as ours does, and a captured vehicle is a load like any other.
+- **Cost with several on a map:** nothing each tick. The picture is drawn each frame only for a flight that carries a load.
+
 ## Slices
 
 1. **Lift and carry**: the hook fitting, the sling set, the weight rule with the hot-day derating, the Lift button with its reasons, the
    hook-up job, the load carried through the flight, and set-down at the destination. Settings for derating and the ground crew.
-2. **Weather, flight and release**: the weather limit, the slower and thirstier slung flight (and the range drawn for it), emergency
+2. **Weather, flight and release**: our own stand-in that hovers over the load to hook up and lets the player choose where it comes
+   down (the first picture of the load is in 0.99.0), the weather limit, the slower and thirstier slung flight (and the range drawn for it), emergency
    release on a map, the drop on engine failure. Their settings.
 3. **Pictures and sounds**: the five icons (OpenAI, the owner's choice), and a hook latch sound through the sound pipeline.
 

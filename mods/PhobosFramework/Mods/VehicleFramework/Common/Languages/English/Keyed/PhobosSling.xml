@@ -24,12 +24,17 @@
   <PhobosSling_Cancelled>{LOAD} is unhooked and stays here.</PhobosSling_Cancelled>
   <PhobosSling_HookedUp>{CREW} hooked {LOAD} up to {HELICOPTER}.</PhobosSling_HookedUp>
   <PhobosSling_LeftBehind>{LOAD} was not hooked up and stays behind.</PhobosSling_LeftBehind>
+  <PhobosSling_Lifted>{HELICOPTER} lifts {LOAD} on its sling: {WEIGHT} kg. It will be set down beside the helicopter where it lands.</PhobosSling_Lifted>
+  <PhobosSling_CouldNotLift>The hook would not take {LOAD}. It stays where it stood.</PhobosSling_CouldNotLift>
   <PhobosSling_SetDown>{HELICOPTER} set {LOAD} down.</PhobosSling_SetDown>
+  <PhobosSling_SetDownGizmo>Set the load down</PhobosSling_SetDownGizmo>
+  <PhobosSling_SetDownGizmoDesc>Set {LOAD} down on the nearest clear open ground beside the helicopter. It is still on the hook because there was no room when the helicopter landed.</PhobosSling_SetDownGizmoDesc>
   <PhobosSling_NoSpot>There is no clear open ground near the helicopter to set {LOAD} down on. It stays on the hook until there is.</PhobosSling_NoSpot>
 
   <PhobosSling_InspectHooked>On the hook: {LOAD}, {WEIGHT} kg of {CAPACITY} kg today ({SHARE})</PhobosSling_InspectHooked>
   <PhobosSling_InspectAwaitingCrew>Waiting for someone to hook it up.</PhobosSling_InspectAwaitingCrew>
   <PhobosSling_InspectCarrying>Carrying {LOAD} on the sling.</PhobosSling_InspectCarrying>
+  <PhobosSling_WorldCarrying>{HELICOPTER} carries {LOAD} on its sling: {WEIGHT} kg.</PhobosSling_WorldCarrying>
 
   <PhobosSling_Section>Sling loads</PhobosSling_Section>
   <PhobosSling_SettingHeat>Hot days lift less</PhobosSling_SettingHeat>

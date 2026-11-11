@@ -10,6 +10,25 @@
       </li>
     </value>
   </Operation>
+  <!-- What a helicopter carries on its sling, said on the world map (Framework 0.99.0): on an aircraft in flight and on a convoy. Vehicle
+       Framework's AerialVehicle Def has no comps list of its own, so one is added first unless another mod already has. -->
+  <Operation Class="PatchOperationConditional">
+    <xpath>Defs/WorldObjectDef[defName="AerialVehicle"]/comps</xpath>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>Defs/WorldObjectDef[defName="AerialVehicle"]</xpath>
+      <value>
+        <comps />
+      </value>
+    </nomatch>
+  </Operation>
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/WorldObjectDef[defName="VehicleCaravan" or defName="AerialVehicle"]/comps</xpath>
+    <value>
+      <li>
+        <compClass>Phobos.VehicleSystems.WorldObjectComp_PhobosSling</compClass>
+      </li>
+    </value>
+  </Operation>
   <!-- The Dashboard and Systems tabs on the world map (owner, 8 Nov 2026; Framework 0.23.0): on a vehicle caravan and an aircraft in
        flight, beside Vehicle Framework's own. Both Defs already have an inspectorTabs list. -->
   <Operation Class="PatchOperationAdd">

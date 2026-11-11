@@ -4,6 +4,7 @@ using System.Linq;
 using Phobos.Framework.Rules;
 using RimWorld;
 using SmashTools;
+using UnityEngine;
 using Vehicles;
 using Verse;
 
@@ -35,6 +36,10 @@ public sealed class CompPhobosSling : VehicleComp, IThingHolder
     VehiclePawn? hooked;
     bool awaitingCrew;
     bool registered;
+    Vector3? liftedFrom;
+    /// <summary>The flight the picture's ground spot was found for, and that spot (SlingDrawing's, kept here so two slung flights never share one).</summary>
+    internal int pictureFlight = -1;
+    internal Vector3 pictureGround;
 
     public CompPhobosSling() => held = new ThingOwner<VehiclePawn>(this, oneStackOnly: true);
 
@@ -49,6 +54,9 @@ public sealed class CompPhobosSling : VehicleComp, IThingHolder
     public VehiclePawn? Hooked => hooked;
     /// <summary>Whether the chosen load waits for a colonist to hook it up.</summary>
     public bool AwaitingCrew => hooked != null && awaitingCrew;
+    /// <summary>Where the load stood when it was lifted, for the picture of the strops taking it up (SlingDrawing). Not saved: a game
+    /// loaded during the climb draws the load already hanging.</summary>
+    public Vector3? LiftedFrom => liftedFrom;
 
     // ---- The rules ----
 
@@ -188,8 +196,22 @@ public sealed class CompPhobosSling : VehicleComp, IThingHolder
             Say("PhobosSling_LeftBehind".Translate(load.LabelShort.Named("LOAD")).Resolve(), load, MessageTypeDefOf.NegativeEvent);
             return;
         }
+        Map map = load.Map;
+        IntVec3 cell = load.Position;
+        Rot4 facing = load.Rotation;
+        Vector3 stood = ((Thing)load).DrawPos;
+        load.vehiclePather?.StopDead();
         load.DeSpawn();
-        held.TryAdd(load);
+        if (!held.TryAdd(load, canMergeWithExistingStacks: false))
+        {
+            // A vehicle is never lost to a hook that would not take it: it goes back where it stood, and the player is told.
+            GenSpawn.Spawn(load, cell, map, facing);
+            Say("PhobosSling_CouldNotLift".Translate(load.LabelShort.Named("LOAD")).Resolve(), load, MessageTypeDefOf.NegativeEvent);
+            return;
+        }
+        liftedFrom = stood;
+        Say("PhobosSling_Lifted".Translate(Vehicle.LabelShort.Named("HELICOPTER"), load.LabelShort.Named("LOAD"),
+            LoadKilograms(load).ToString("N0").Named("WEIGHT")).Resolve(), MessageTypeDefOf.PositiveEvent);
     }
 
     /// <summary>The helicopter has landed (or come out of a caravan) on a map: the load is set down beside it.</summary>
@@ -210,6 +232,7 @@ public sealed class CompPhobosSling : VehicleComp, IThingHolder
             return;
         }
         held.Remove(load);
+        liftedFrom = null;
         GenSpawn.Spawn(load, cell, map, Vehicle.Rotation);
         Say("PhobosSling_SetDown".Translate(Vehicle.LabelShort.Named("HELICOPTER"), load.LabelShort.Named("LOAD")).Resolve(), load, MessageTypeDefOf.TaskCompletion);
     }
@@ -264,6 +287,18 @@ public sealed class CompPhobosSling : VehicleComp, IThingHolder
                 defaultDesc = "PhobosSling_CancelGizmoDesc".Translate(hooked.LabelShort.Named("LOAD")),
                 icon = SystemIcons.For("Phobos/VehicleSystems/Sling/SetDown"),
                 action = Cancel,
+            };
+            yield break;
+        }
+        if (Carried is { } carried)
+        {
+            // Landed with the load still on the hook (no clear ground at the time): the player sets it down when there is room.
+            yield return new Command_Action
+            {
+                defaultLabel = "PhobosSling_SetDownGizmo".Translate(),
+                defaultDesc = "PhobosSling_SetDownGizmoDesc".Translate(carried.LabelShort.Named("LOAD")),
+                icon = SystemIcons.For("Phobos/VehicleSystems/Sling/SetDown"),
+                action = SetDown,
             };
             yield break;
         }

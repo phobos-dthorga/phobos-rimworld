@@ -33,4 +33,51 @@ public class SlingRuleTests
 
     [Fact]
     public void TheShareIsTheLoadOverCapacity() => Assert.Equal(0.5, SlingRule.Share(5900, 11800), 6);
+
+    const double Strops = 3;
+
+    [Fact]
+    public void BeforeTheHelicopterMovesTheLoadIsDrawnWhereItStood()
+    {
+        (double x, double z, double paidOut) = SlingRule.Hang(0, 0, Strops, 8, -5);
+        Assert.Equal(8, x, 6);
+        Assert.Equal(-5, z, 6);
+        Assert.Equal(0, paidOut, 6);
+    }
+
+    [Fact]
+    public void OnceTheStropsArePaidOutTheLoadHangsBelowTheHelicopter()
+    {
+        (double x, double z, double paidOut) = SlingRule.Hang(20, 6, Strops, 8, -5);
+        Assert.Equal(20, x, 6);
+        Assert.Equal(6 - Strops, z, 6);
+        Assert.Equal(1, paidOut, 6);
+    }
+
+    [Fact]
+    public void WhileTheStropsTakeUpTheLoadIsBetweenItsSpotAndTheHelicopter()
+    {
+        (double x, double z, double paidOut) = SlingRule.Hang(0, 1.5, Strops, 8, -5);
+        Assert.Equal(0.5, paidOut, 6);
+        Assert.InRange(x, 0.01, 7.99);
+        Assert.InRange(z, -4.99, -0.01);
+    }
+
+    [Fact]
+    public void OnALandingTheLoadMeetsTheGroundUnderTheHelicopter()
+    {
+        (double x, double z, double paidOut) = SlingRule.Hang(0, 1, Strops, null, null);
+        Assert.Equal(0, x, 6);
+        Assert.Equal(0, z, 6);
+        Assert.InRange(paidOut, 0.3, 0.34);
+    }
+
+    [Fact]
+    public void WithNoStropsTheLoadIsDrawnAtTheHelicopter()
+    {
+        (double x, double z, double paidOut) = SlingRule.Hang(4, 2, 0, 8, -5);
+        Assert.Equal(4, x, 6);
+        Assert.Equal(2, z, 6);
+        Assert.Equal(1, paidOut, 6);
+    }
 }

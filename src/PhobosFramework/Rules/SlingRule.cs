@@ -26,4 +26,24 @@ public static class SlingRule
 
     /// <summary>The share of the hook's capacity a load uses, for the inspect line (above 1 is too heavy).</summary>
     public static double Share(double loadKilograms, double capacityKilograms) => capacityKilograms <= 0 ? double.PositiveInfinity : loadKilograms / capacityKilograms;
+
+    /// <summary>
+    /// Where a slung load is drawn while its helicopter takes off or lands (Framework 0.99.0), in cells from the spot on the ground the
+    /// helicopter left or is coming down to. A picture only: it changes nothing a lift does. The map shows height as distance up the
+    /// screen, so a load on strops of <paramref name="stropCells"/> hangs that far below the helicopter's picture, and stays on the
+    /// ground until the helicopter has moved that far from its spot. On a take-off the load starts where it stood
+    /// (<paramref name="stoodX"/>, <paramref name="stoodZ"/>) and is drawn in under the helicopter as the strops take up (authored: the
+    /// helicopter does not yet hover over its load first). On a landing, or when where it stood is not known, pass null for both.
+    /// </summary>
+    /// <returns>The load's place, and how much of the strops' length is paid out (0 on the ground, 1 hanging free).</returns>
+    public static (double X, double Z, double PaidOut) Hang(double helicopterX, double helicopterZ, double stropCells, double? stoodX, double? stoodZ)
+    {
+        double moved = Math.Sqrt(helicopterX * helicopterX + helicopterZ * helicopterZ);
+        if (stropCells <= 0) return (helicopterX, helicopterZ, 1);
+        double paidOut = Math.Min(1, moved / stropCells);
+        double hangX = helicopterX, hangZ = helicopterZ - paidOut * stropCells;
+        if (stoodX is not { } fromX || stoodZ is not { } fromZ) return (hangX, hangZ, paidOut);
+        double eased = paidOut * paidOut * (3 - 2 * paidOut);
+        return (fromX + (hangX - fromX) * eased, fromZ + (hangZ - fromZ) * eased, paidOut);
+    }
 }
