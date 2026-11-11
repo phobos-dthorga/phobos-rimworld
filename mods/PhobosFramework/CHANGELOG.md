@@ -5,6 +5,16 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.94.2] - 2026-11-11 - Draft
+
+### Changed
+
+- **A depot bay's parking pad is shorter and sits right against the bay**: 3 by 6 cells, where it was 3 by 10 starting a cell out. A vehicle counts as in the bay when its middle stands on the pad, as before, and "Go to bay" now parks it nose to the bay, so a short truck stops close in and a long tanker still counts. Asked for by the owner from a screenshot of the pad outline while placing a bay. Not yet tested in game.
+
+### Save compatibility
+
+- Safe. A vehicle already parked in a bay stays counted if its middle is within six cells of the bay; one parked further out needs "Go to bay" once.
+
 ## [0.94.1] - 2026-11-11 - Draft
 
 ### Fixed

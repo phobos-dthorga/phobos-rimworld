@@ -33,3 +33,4 @@
 | A "Go to bay" button, self-refuelling, faster service; no auto-return; crews and convoys left to Crew Presets | Owner, 9 Nov 2026 |
 | A shelf for the parts, the 2 x 1 building with an outlined pad, one vehicle to a bay | Agent, from the owner's choice of "holds its spare parts" |
 | Pad 3 by 10, pump 30 an hour, tank 200, work at 70%, 100 W, 80 steel and 3 components | Agent, authored |
+| Pad 3 by 6 against the bay, vehicles parked nose to the bay (Framework 0.94.2) | Owner asked for the pad "brought back a little", 11 Nov 2026; the length and parking spot are the agent's |

@@ -9,9 +9,14 @@ namespace Phobos.VehicleSystems;
 
 public sealed class CompProperties_PhobosDepotBay : CompProperties
 {
-    /// <summary>The parking pad in front of the bay, in cells. Sized for the largest truck of ours. Authored.</summary>
+    /// <summary>
+    /// The parking pad in front of the bay, in cells, starting at the bay's front edge: a vehicle whose centre stands on it is in the bay.
+    /// Authored. Framework 0.94.2 (owner, 11 Nov 2026: "needs to be brought back a little"): 6 long and against the bay, where it was 10
+    /// long a cell out, sized for a whole tanker. A vehicle parks nose to the bay (<see cref="CompPhobosDepotBay.ParkingCell"/>), so a
+    /// 10-cell tanker's centre is 6 cells out and still on the pad, while a short truck's is close in.
+    /// </summary>
     public int padWidth = 3;
-    public int padLength = 10;
+    public int padLength = 6;
     /// <summary>How much fuel the pump moves in an hour. Authored.</summary>
     public float pumpPerHour = 30f;
     /// <summary>The share of the usual work a job takes on a vehicle in its bay. Authored.</summary>
@@ -36,8 +41,23 @@ public sealed class CompPhobosDepotBay : ThingComp
     public VehiclePawn? Assigned => assigned is { Destroyed: false } ? assigned : null;
     public CellRect Pad => PadFor(parent.Position, parent.Rotation, Props);
 
-    public static CellRect PadFor(IntVec3 position, Rot4 rotation, CompProperties_PhobosDepotBay props) =>
-        GenAdj.OccupiedRect(position + rotation.FacingCell * (props.padLength / 2 + 1), rotation, new IntVec2(props.padWidth, props.padLength));
+    /// <summary>The pad's cells: from the row in front of the bay out to its length, its width centred on the bay. Built from its two
+    /// corners, so every facing gives the same pad (the game's footprint rule shifts an even length by a cell on two of the four).</summary>
+    public static CellRect PadFor(IntVec3 position, Rot4 rotation, CompProperties_PhobosDepotBay props)
+    {
+        IntVec3 across = rotation.RighthandCell;
+        IntVec3 near = position + rotation.FacingCell - across * ((props.padWidth - 1) / 2);
+        IntVec3 far = position + rotation.FacingCell * props.padLength + across * (props.padWidth / 2);
+        return CellRect.FromLimits(near, far);
+    }
+
+    /// <summary>Where a vehicle is sent to park: its centre half its length out, so its nose stops at the bay, and never off the pad.</summary>
+    public IntVec3 ParkingCell(VehiclePawn vehicle)
+    {
+        int length = UnityEngine.Mathf.Max(vehicle.def.size.x, vehicle.def.size.z);
+        int cellsOut = UnityEngine.Mathf.Clamp(1 + length / 2, 1, Props.padLength);
+        return parent.Position + parent.Rotation.FacingCell * cellsOut;
+    }
 
     public bool Holds(VehiclePawn vehicle) => vehicle.Spawned && vehicle.Map == parent.Map && Pad.Contains(vehicle.Position);
 
@@ -143,7 +163,7 @@ public static class DepotBays
         }
         AcceptanceReport draft = vehicle.CanDraft();
         if (!draft.Accepted) return draft.Reason;
-        if (!vehicle.CanReachVehicle(bay.Pad.CenterCell, PathEndMode.OnCell, Danger.Deadly)) return "PhobosVehicleSystems_BayCannotReach".Translate(vehicle.LabelShort.Named("VEHICLE")).Resolve();
+        if (!vehicle.CanReachVehicle(bay.ParkingCell(vehicle), PathEndMode.OnCell, Danger.Deadly)) return "PhobosVehicleSystems_BayCannotReach".Translate(vehicle.LabelShort.Named("VEHICLE")).Resolve();
         return null;
     }
 
@@ -158,7 +178,7 @@ public static class DepotBays
             return;
         }
         if (!vehicle.Drafted) vehicle.ignition.Drafted = true;
-        vehicle.vehiclePather.StartPath(new LocalTargetInfo(bay.Pad.CenterCell), PathEndMode.OnCell);
+        vehicle.vehiclePather.StartPath(new LocalTargetInfo(bay.ParkingCell(vehicle)), PathEndMode.OnCell);
         comp.GoingToBay = true;
         Messages.Message("PhobosVehicleSystems_BayGoing".Translate(vehicle.LabelShort.Named("VEHICLE")).Resolve(), vehicle, MessageTypeDefOf.SilentInput, historical: false);
     }
