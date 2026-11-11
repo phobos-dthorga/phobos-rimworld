@@ -276,6 +276,21 @@
   <PhobosVehicleSystems_EffectSources>{SOURCES}: {EFFECTS}</PhobosVehicleSystems_EffectSources>
   <PhobosVehicleSystems_EffectPreview>If chosen: {LINE}</PhobosVehicleSystems_EffectPreview>
   <PhobosVehicleSystems_FitNoneShort>none</PhobosVehicleSystems_FitNoneShort>
+  <!-- Finding tuning (Framework 0.90.0). -->
+  <PhobosVehicleSystems_FitGizmo>Fittings and tunes</PhobosVehicleSystems_FitGizmo>
+  <PhobosVehicleSystems_FitGizmoDesc>Fit parts, change a part's grade, and tune the engine and gearing. A dyno bay is in reach, so a mechanic can do the work here.</PhobosVehicleSystems_FitGizmoDesc>
+  <PhobosVehicleSystems_FitMenuOpen>Fittings and tunes for {VEHICLE}...</PhobosVehicleSystems_FitMenuOpen>
+  <PhobosVehicleSystems_FitMenuDoWork>Do the waiting work on {VEHICLE}: {WORK}</PhobosVehicleSystems_FitMenuDoWork>
+  <PhobosVehicleSystems_FitMenuCannot>Cannot do the waiting work on {VEHICLE}: {REASON}</PhobosVehicleSystems_FitMenuCannot>
+  <PhobosVehicleSystems_FitMenuNoWorkType>this colonist does not do {WORK}</PhobosVehicleSystems_FitMenuNoWorkType>
+  <PhobosVehicleSystems_FitMenuNoPath>no way to reach it now</PhobosVehicleSystems_FitMenuNoPath>
+  <PhobosVehicleSystems_RigVehiclesGizmo>Vehicles in reach</PhobosVehicleSystems_RigVehiclesGizmo>
+  <PhobosVehicleSystems_RigVehiclesGizmoDesc>Open the fittings and tunes of a vehicle standing within {CELLS} cells of this bay.</PhobosVehicleSystems_RigVehiclesGizmoDesc>
+  <PhobosVehicleSystems_RigNoVehicles>No vehicle stands within {CELLS} cells of this bay.</PhobosVehicleSystems_RigNoVehicles>
+  <PhobosVehicleSystems_RigVehicleOption>{VEHICLE}</PhobosVehicleSystems_RigVehicleOption>
+  <PhobosVehicleSystems_RigVehicleOptionWaiting>{VEHICLE} ({COUNT} jobs waiting)</PhobosVehicleSystems_RigVehicleOptionWaiting>
+  <PhobosVehicleSystems_RigInspectInReach>In reach: {VEHICLES}</PhobosVehicleSystems_RigInspectInReach>
+  <PhobosVehicleSystems_RigInspectInReachWaiting>In reach: {VEHICLES} ({COUNT} jobs waiting)</PhobosVehicleSystems_RigInspectInReachWaiting>
   <!-- Axles in the fittings window (Framework 0.89.0). -->
   <PhobosVehicleSystems_AxleFront>Front axle</PhobosVehicleSystems_AxleFront>
   <PhobosVehicleSystems_AxleRear>Rear axle</PhobosVehicleSystems_AxleRear>

@@ -318,6 +318,9 @@ public sealed class VehicleFittings
 
     bool Suits(PhobosVehicleFittingDef def) => def.Suits(comp.Repairs.Kilograms, HasPiston, IsTracked, PowerCounts) && MovesSomethingHere(def);
 
+    /// <summary>Whether the fittings window has anything to offer this vehicle: a part to fit or grade, or an engine or gearbox to tune.</summary>
+    public bool AnythingToFit => CanTune(VehicleTuneAxis.Engine) || CanTune(VehicleTuneAxis.Gearing) || ListedParts().Any();
+
     /// <summary>The parts that can take a fitting or be given a grade.</summary>
     public IEnumerable<VehicleComponent> ListedParts()
     {
@@ -426,7 +429,7 @@ public sealed class VehicleFittings
 
     /// <summary>The cells the vehicle's picture covers, not only those it occupies (Framework 0.77.0): an aircraft's wings and rotor spread
     /// far past its footprint, and a rig placed clear of them was out of reach. Turned east or west, the picture turns with it.</summary>
-    static CellRect DrawnArea(VehiclePawn vehicle)
+    internal static CellRect DrawnArea(VehiclePawn vehicle)
     {
         CellRect rect = vehicle.OccupiedRect();
         Vector2 drawn = vehicle.VehicleDef.graphicData?.drawSize ?? Vector2.zero;

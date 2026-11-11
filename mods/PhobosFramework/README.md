@@ -7,7 +7,7 @@ helpers every D'thorga mod shares.
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.89.1, built 11 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
+Version 0.90.0, built 11 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
 oxygen working through Burns and Smoke and Medical Equipment (5 November 2026). The health layer new in 0.3.0 and the **vehicle
 systems new in 0.9.0, and their engines, drivetrains and gas turbines new in 0.11.0, are not yet tested in game.** The rest is read from the game's and the mods' code.
 
@@ -75,7 +75,9 @@ and wear that a mechanic services. See [Vehicle systems](#vehicle-systems-with-v
   pictures beside it. **From 0.88.0** each part's fittings and grades are picture buttons in the fittings window, the one it has lit;
   the engine and gearbox rows say what their fitting and the running tune give together ("Power tune + turbocharger: ..."), and resting
   the mouse on any choice shows what the row would give instead. **From 0.89.0** the wheels are grouped into axles (front axle, rear
-  axle): a choice on an axle is ordered for each of its wheels. Not yet tested in game.
+  axle): a choice on an axle is ordered for each of its wheels. **From 0.90.0** tuning is easier to find: right-click a vehicle with a
+  colonist selected ("Fittings and tunes...", and "Do the waiting work" for a mechanic), select a dyno bay for its **Vehicles in reach**,
+  or use the **Fittings and tunes** button a vehicle shows while a dyno bay is in reach. Not yet tested in game.
 - **Steam locomotives (0.14.0): two settings to decide before you run one.** **Boiler explosions** are off by default: on, a
   boiler without a fusible plug (the American 4-8-4) whose water runs below the firebox crown explodes, and the settings window
   warns you. **Realistic feed water** is off by default: a water stop draws a tenth of the real tender (6,800 litres for the 4-8-4,

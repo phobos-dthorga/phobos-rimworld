@@ -1713,6 +1713,18 @@ public class CompPhobosVehicleSystems : VehicleComp
                 toggleAction = () => Repairs.SetFieldFixRequested(!Repairs.FieldFixRequested),
             };
         }
+        if (Fittings.AnythingToFit && Fittings.AtRig())
+        {
+            // Fittings and tunes on the command bar while a dyno bay is in reach (always, with the bay requirement off), so the window
+            // is found where tuning can happen (owner, 11 Nov 2026: tuning was too hard to find); the Dashboard's button stays too.
+            yield return new Command_Action
+            {
+                defaultLabel = "PhobosVehicleSystems_FitGizmo".Translate(),
+                defaultDesc = "PhobosVehicleSystems_FitGizmoDesc".Translate(),
+                icon = SystemIcons.Fittings,
+                action = () => Find.WindowStack.Add(new Dialog_PhobosVehicleFittings(this)),
+            };
+        }
         if (VehicleFittings.RigReach > 0)
         {
             // Any vehicle can be diagnosed once the player has a tuning rig to do it at; the button says what it waits for.

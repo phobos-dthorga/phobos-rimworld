@@ -5,6 +5,20 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.90.0] - 2026-11-11 - Draft
+
+Tuning is easier to find (owner, 11 November 2026: "make the ability to tune your vehicles so, so, much more obvious"). **Not yet tested in game.**
+
+### Added
+
+- **Right-click a vehicle** with a colonist selected: "Fittings and tunes..." opens its window, and when work waits, "Do the waiting work on the L-ATV" gives that colonist the job at once, as the game prioritises any task. When it cannot be done yet, the menu says why (what it waits for, or that this colonist does not do construction).
+- **A dyno bay lists the vehicles in its reach**: its "Vehicles in reach" button opens any of them, and its inspect text names them and how much work waits.
+- **A "Fittings and tunes" button on a vehicle's command bar** while a dyno bay is in reach, so it appears where tuning can happen; with the dyno bay requirement switched off it is always there. The Dashboard's button stays.
+
+### Save compatibility
+
+- Safe on an existing save: only new ways into the same window.
+
 ## [0.89.1] - 2026-11-11 - Draft
 
 Two faults in the fittings window from the owner's screenshot (11 November 2026). **Not yet tested in game.**
