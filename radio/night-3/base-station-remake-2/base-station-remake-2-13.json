@@ -1,0 +1,33 @@
+{
+  "file": "base-station-remake-2-13.png",
+  "sha256": "21a2fa8d15d18574887deff61f6c16fd9d52cbb5b5554b9a8e8db3a06d5c2677",
+  "date": "2026-11-08T07:42:11",
+  "generator": "ComfyUI 0.41.0, local, FLUX.2 Klein 4B base fp8 (Black Forest Labs, Apache 2.0)",
+  "engine": "klein-base",
+  "model": "flux-2-klein-base-4b-fp8.safetensors",
+  "model_sha256": "44bab3a86fe98b85d21dd2a4729ebdc3ae51fb8a39f76e457e18c724219e6840",
+  "prompt": "phobosvanilla, A radio base station on a square steel desk: a boxy VHF transceiver with a blank blue display, a small power supply box with an amber light, a coiled microphone cable and a desk microphone. Draw it in exactly the art style of the reference images: a game sprite seen from directly above, south face hinted, with a thick near-black outline around every shape, soft flat cel shading, a muted palette, rounded panel corners and a few small clean details. One object, centred, on a plain pure white background. No floor, no cast shadow, no text, no labels, no people.",
+  "negative_prompt": "",
+  "seed": 13,
+  "steps": 50,
+  "cfg": 4.0,
+  "sampler": "euler/flux2",
+  "size": [
+    1024,
+    1024
+  ],
+  "request_file": "assets/phobos-radio/requests/remake-2.json",
+  "seconds": 163.7,
+  "references": [
+    {
+      "image": ".local/references/vanilla-medical/VitalsMonitor_south.png",
+      "sha256": "1912014e71c08cae342dc9db86df0c68eefe7764cce6c1cc97802206f5b15188"
+    },
+    {
+      "image": ".local/references/vanilla-medical/ChemfuelTank_south.png",
+      "sha256": "3a5ffdcd740d6679e942c5254f449174c91ad327673901f0a67f81ead45d62f8"
+    }
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "lora_strength": 1.0
+}

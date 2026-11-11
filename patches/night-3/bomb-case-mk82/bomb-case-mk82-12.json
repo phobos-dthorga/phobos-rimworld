@@ -1,0 +1,33 @@
+{
+  "file": "bomb-case-mk82-12.png",
+  "sha256": "03abaa0525898951225a80b1d878cd151938e6206351f1c77318883825affcb1",
+  "date": "2026-11-08T08:05:31",
+  "generator": "ComfyUI 0.41.0, local, FLUX.2 Klein 4B base fp8 (Black Forest Labs, Apache 2.0)",
+  "engine": "klein-base",
+  "model": "flux-2-klein-base-4b-fp8.safetensors",
+  "model_sha256": "44bab3a86fe98b85d21dd2a4729ebdc3ae51fb8a39f76e457e18c724219e6840",
+  "prompt": "phobosvanilla, The item in the first reference image, an empty olive-drab aircraft bomb case lying flat: a long rounded steel body with an open nose ring and an open tail, two small suspension lugs on top, no fins and no coloured band. Keep its shape, layout and colours. Draw it in exactly the art style of the second reference image: a game sprite seen from directly above, south face hinted, with a thick near-black outline around every shape, soft flat cel shading, a muted palette, rounded panel corners and a few small clean details. One object, centred, on a plain pure white background. No floor, no cast shadow, no text, no labels, no people.",
+  "negative_prompt": "",
+  "seed": 12,
+  "steps": 50,
+  "cfg": 4.0,
+  "sampler": "euler/flux2",
+  "size": [
+    1024,
+    1024
+  ],
+  "request_file": "assets/vehicle-patches/requests/bomb-cases.json",
+  "seconds": 162.7,
+  "references": [
+    {
+      "image": "assets/vehicle-patches/references/BombCaseMk82-large.png",
+      "sha256": "eff683084a450ef7b658317e34594166e1edc001eeace757554fffa123f72c66"
+    },
+    {
+      "image": ".local/references/vanilla-medical/MedicineIndustrial_a.png",
+      "sha256": "1257cf2d03aa58dea41ce09e7b2a4e96a9d8f5ed57d8f6744fd176bec7c72c00"
+    }
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "lora_strength": 1.0
+}
