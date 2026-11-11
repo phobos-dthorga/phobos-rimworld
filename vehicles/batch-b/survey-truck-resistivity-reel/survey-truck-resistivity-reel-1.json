@@ -1,0 +1,51 @@
+{
+  "file": "survey-truck-resistivity-reel-1.png",
+  "sha256": "c9d82befb734f869ff34f10133b6f38c309a73c3bfa1c8842b330b213c38c607",
+  "date": "2026-11-12T02:16:06",
+  "generator": "OpenAI gpt-image-2 through the OpenAI image API (paid per image)",
+  "engine": "openai",
+  "model": "gpt-image-2",
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL game sprite part for the D'thorga survey truck: a small resistivity survey cable reel that bolts onto its folding sensor boom. Image 1 is our approved boom: match its outline weight, shading, palette and finish only. Do NOT redraw the boom.\n\nDraw ONLY this part, alone on a plain pure white background: nothing else on the canvas. Seen straight down: a compact drum lying with its axis running left to right, wound with neat turns of muted orange sheathed cable, held between two pale steel side flanges on a small dusty olive bracket, with a short crank at the right end. It fills about half the canvas, centred.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo boom, truck, deck, people, animals, dust, mud, damage, text, letters, numbers, logos, symbols, dials or screens. No floor, ground, shadow outside the part, perspective, tilt or visible side faces. Top surfaces only.",
+  "seed": 1,
+  "seed_note": "an attempt number naming the file; the API takes no seed, so a rerun gives a different image",
+  "quality": "medium",
+  "size": [
+    1024,
+    1024
+  ],
+  "request_file": "assets/phobos-vehicles/requests/survey-truck-boom-extras.json",
+  "ai_disclosure": "Made with generative AI: OpenAI gpt-image-2, prompted by the Phobos art scripts.",
+  "terms": "OpenAI Services Agreement, sections 4.1 and 4.4, as recorded in the Phobos Ostranauts repository on 2026-10-07 and summarised again on 2026-11-08: API customers own Output, OpenAI assigns any rights it has, and Output may not be unique; no use of Output to build competing models. Dated secondary records: the openai.com page refuses automated reads, so the owner confirms the current text.",
+  "endpoint": "/images/edits",
+  "usage": {
+    "input_tokens": 1839,
+    "input_tokens_details": {
+      "image_tokens": 1536,
+      "text_tokens": 303
+    },
+    "output_tokens": 1756,
+    "output_tokens_details": {
+      "image_tokens": 1756,
+      "text_tokens": 0
+    },
+    "total_tokens": 3595
+  },
+  "cost_usd": 0.0665,
+  "cost_is_estimate": false,
+  "reported_quality": "medium",
+  "reported_size": "1024x1024",
+  "reported_background": "opaque",
+  "reported_output_format": "png",
+  "returned_size": [
+    1024,
+    1024
+  ],
+  "seconds": 62.4,
+  "references": [
+    {
+      "image": "assets/phobos-vehicles/generated/survey-truck-boom/survey-truck-boom-1.png",
+      "sha256": "76ca858b0e69d5e0d09e72b7fa08aa3708c18fadf748e8c5b225ebfbb64be689",
+      "role": "our approved sensor boom, the owner's pick: match its outline weight, shading, palette and finish only; do not redraw the boom"
+    }
+  ]
+}
