@@ -5,6 +5,15 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.89.1] - 2026-11-11 - Draft
+
+Two faults in the fittings window from the owner's screenshot (11 November 2026). **Not yet tested in game.**
+
+### Fixed
+
+- **A choice without a picture is as wide as its word.** The standard grade's name was broken across its square button ("Standa / rd"); "none", and any fitting or grade another mod adds without a picture, now get a button that fits.
+- **A long line under a row wraps, and the row grows to fit it.** Lines such as "If chosen: Power tune: engine power ×1.15, fuel burned ×1.15, engine heat at full load ×1.2" ran off the window and over the next row.
+
 ## [0.89.0] - 2026-11-11 - Draft
 
 Axles in the fittings window (owner, 11 November 2026: "Group the 4-wheels into axles"). **Not yet tested in game.**

@@ -1,0 +1,117 @@
+[
+  {
+    "name": "button-sling-lift",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      1,
+      2
+    ],
+    "references": [
+      {
+        "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Diagnose.png",
+        "role": "our approved command button icon from the same family (the diagnose clipboard): match its outline weight, shading, palette and finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "icon": "game button icon for the D'thorga sling lift button: a helicopter about to lift a load on its cargo hook",
+      "size": "drawn by the game at about 32 to 75 px; requested at 1024",
+      "this_request": "sling loads, slice 3 (docs/development/vehicle-sling-design.md), the owner's choice of the OpenAI API (11 Nov 2026); two attempts each; the pilot"
+    },
+    "prompt": "GAME BUTTON ICON. One single object seen from the front, centred, flat on the canvas, like a button picture in a strategy game's command bar.\n\nCreate an ORIGINAL game button icon for the D'thorga sling lift button: a helicopter about to lift a load on its cargo hook. Image 1 is our approved icon from the same family: match its outline weight, shading, palette and finish only. Do NOT copy its shape.\n\nDraw ONLY the object, alone on a plain pure white background, filling about 80 percent of the canvas. Square canvas.\n\nA heavy steel cargo hook hanging from a short taut cable, with two orange lifting strops looped over it, and a bold green upward arrow beside the cable.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art. It must read clearly when shrunk to 64 pixels: one or two big shapes, very few small ones.\n\nNo people, hands, animals, vehicles, aircraft, text, letters, numbers, logos, screens, dust, floor, ground or cast shadow."
+  },
+  {
+    "name": "button-sling-setdown",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      1,
+      2
+    ],
+    "references": [
+      {
+        "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Diagnose.png",
+        "role": "our approved command button icon from the same family (the diagnose clipboard): match its outline weight, shading, palette and finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "icon": "game button icon for the D'thorga set-down button: lowering a slung load to the ground",
+      "size": "drawn by the game at about 32 to 75 px; requested at 1024",
+      "this_request": "sling loads, slice 3 (docs/development/vehicle-sling-design.md), the owner's choice of the OpenAI API (11 Nov 2026); two attempts each"
+    },
+    "prompt": "GAME BUTTON ICON. One single object seen from the front, centred, flat on the canvas, like a button picture in a strategy game's command bar.\n\nCreate an ORIGINAL game button icon for the D'thorga set-down button: lowering a slung load to the ground. Image 1 is our approved icon from the same family: match its outline weight, shading, palette and finish only. Do NOT copy its shape.\n\nDraw ONLY the object, alone on a plain pure white background, filling about 80 percent of the canvas. Square canvas.\n\nA heavy steel cargo hook on a short cable with two slack orange lifting strops hanging from it, and a bold blue downward arrow beside the cable.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art. It must read clearly when shrunk to 64 pixels: one or two big shapes, very few small ones.\n\nNo people, hands, animals, vehicles, aircraft, text, letters, numbers, logos, screens, dust, floor, ground or cast shadow."
+  },
+  {
+    "name": "button-sling-release",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      1,
+      2
+    ],
+    "references": [
+      {
+        "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Diagnose.png",
+        "role": "our approved command button icon from the same family (the diagnose clipboard): match its outline weight, shading, palette and finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "icon": "game button icon for the D'thorga emergency release button: dropping a slung load at once",
+      "size": "drawn by the game at about 32 to 75 px; requested at 1024",
+      "this_request": "sling loads, slice 3 (docs/development/vehicle-sling-design.md), the owner's choice of the OpenAI API (11 Nov 2026); two attempts each"
+    },
+    "prompt": "GAME BUTTON ICON. One single object seen from the front, centred, flat on the canvas, like a button picture in a strategy game's command bar.\n\nCreate an ORIGINAL game button icon for the D'thorga emergency release button: dropping a slung load at once. Image 1 is our approved icon from the same family: match its outline weight, shading, palette and finish only. Do NOT copy its shape.\n\nDraw ONLY the object, alone on a plain pure white background, filling about 80 percent of the canvas. Square canvas.\n\nA heavy steel cargo hook sprung open, its latch swung wide, with two orange strops falling away below it, and a bold red warning chevron behind it.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art. It must read clearly when shrunk to 64 pixels: one or two big shapes, very few small ones.\n\nNo people, hands, animals, vehicles, aircraft, text, letters, numbers, logos, screens, dust, floor, ground or cast shadow."
+  },
+  {
+    "name": "fitting-cargo-hook",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      1,
+      2
+    ],
+    "references": [
+      {
+        "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/Turbocharger.png",
+        "role": "our approved fitting icon from the same family (the turbocharger): match its outline weight, shading, palette and finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "icon": "small game icon for the D'thorga vehicle fitting: a helicopter's cargo hook",
+      "size": "drawn by the game at about 32 to 75 px; requested at 1024",
+      "this_request": "sling loads, slice 3 (docs/development/vehicle-sling-design.md), the owner's choice of the OpenAI API (11 Nov 2026); two attempts each"
+    },
+    "prompt": "SMALL GAME ICON. One single object seen from the front, centred, flat on the canvas, like a small icon beside a list entry in a strategy game.\n\nCreate an ORIGINAL small game icon for the D'thorga vehicle fitting: a helicopter's cargo hook. Image 1 is our approved icon from the same family: match its outline weight, shading, palette and finish only. Do NOT copy its shape.\n\nDraw ONLY the object, alone on a plain pure white background, filling about 80 percent of the canvas. Square canvas.\n\nA helicopter cargo hook unit: a squat steel body with a release solenoid on its side and a large curved hook with a spring latch hanging below it, on a short mounting bracket.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art. It must read clearly when shrunk to 32 pixels: one or two big shapes, very few small ones.\n\nNo people, hands, animals, vehicles, aircraft, text, letters, numbers, logos, screens, dust, floor, ground or cast shadow."
+  },
+  {
+    "name": "item-sling-set",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      1,
+      2
+    ],
+    "references": [
+      {
+        "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/Vehicles/Parts/TyreSet.png",
+        "role": "our approved vehicle part item icon from the same family (the tyre set): match its outline weight, shading, palette and finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "icon": "game item icon for the D'thorga sling set: the gear for lifting a vehicle under a helicopter",
+      "size": "drawn by the game at about 32 to 75 px; requested at 1024",
+      "this_request": "sling loads, slice 3 (docs/development/vehicle-sling-design.md), the owner's choice of the OpenAI API (11 Nov 2026); two attempts each"
+    },
+    "prompt": "GAME ITEM ICON. One single object seen from the front, centred, flat on the canvas, like an item picture in a strategy game's inventory.\n\nCreate an ORIGINAL game item icon for the D'thorga sling set: the gear for lifting a vehicle under a helicopter. Image 1 is our approved icon from the same family: match its outline weight, shading, palette and finish only. Do NOT copy its shape.\n\nDraw ONLY the object, alone on a plain pure white background, filling about 80 percent of the canvas. Square canvas.\n\nA neat coil of four orange polyester lifting strops gathered on a steel ring with a heavy swivel shackle, lying on top of a short steel spreader bar.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art. It must read clearly when shrunk to 64 pixels: one or two big shapes, very few small ones.\n\nNo people, hands, animals, vehicles, aircraft, text, letters, numbers, logos, screens, dust, floor, ground or cast shadow."
+  }
+]

@@ -73,7 +73,8 @@ public class Dialog_PhobosVehicleFittings : Window
         List<VehicleTuneAxis> axes = new[] { VehicleTuneAxis.Engine, VehicleTuneAxis.Gearing }.Where(Fittings.CanTune).ToList();
         List<List<VehicleComponent>> parts = Fittings.PartRows();
         var outer = new Rect(inRect.x, y, inRect.width, inRect.yMax - y);
-        float content = SectionHeight * 2f + TuneRowHeight * Mathf.Max(axes.Count, 1) + RowHeight * Mathf.Max(parts.Count, 1);
+        // The rows grow to fit their lines, so the height is what was drawn last frame (an estimate on the first).
+        float content = drawnHeight > 0f ? drawnHeight : SectionHeight * 2f + TuneRowHeight * Mathf.Max(axes.Count, 1) + RowHeight * Mathf.Max(parts.Count, 1);
         var view = new Rect(0f, 0f, outer.width - 18f, content);
         Widgets.BeginScrollView(outer, ref scroll, view);
         float row = 0f;
@@ -89,6 +90,30 @@ public class Dialog_PhobosVehicleFittings : Window
             else DrawRow(view, ref row, partRow, AxleName(axle++, axleCount), string.Join("\n", partRow.Select(p => p.props.label.CapitalizeFirst())));
         }
         Widgets.EndScrollView();
+        drawnHeight = row;
+    }
+
+    /// <summary>The height of everything drawn in the scroll view last frame.</summary>
+    float drawnHeight;
+
+    /// <summary>A line under a row, in the tiny font, wrapped to the width given; returns its height (Framework 0.89.1: a long line used to
+    /// run off the window and over the next row).</summary>
+    static float DrawLine(float x, float y, float width, string text)
+    {
+        using (new TextBlock(GameFont.Tiny, TextAnchor.UpperLeft))
+        {
+            float height = Text.CalcHeight(text, width);
+            Widgets.Label(new Rect(x, y, width, height), text);
+            return height;
+        }
+    }
+
+    /// <summary>How wide a choice's button is: square with a picture, as wide as its word without one (a grade or fitting with no picture,
+    /// such as the standard grade or another mod's, used to have its name broken across the square).</summary>
+    static float ChoiceWidth(UnityEngine.Texture2D? icon, string label)
+    {
+        if (icon != null) return PictureButton;
+        using (new TextBlock(GameFont.Tiny)) return Mathf.Max(PictureButton, Text.CalcSize(label).x + 10f);
     }
 
     static void DrawSection(Rect view, ref float y, string label)
@@ -134,13 +159,14 @@ public class Dialog_PhobosVehicleFittings : Window
         // What the setting it runs on now changes, or the one the mouse rests on would, unless work on it is ordered.
         bool preview = previewTune != null && previewTune.axis == axis;
         PhobosVehicleTuneDef? shown = preview ? previewTune : current;
+        float lineHeight = 0f;
         if (order == null && shown != null && FittingText.Effects(shown, plain) is { } effects)
         {
             if (preview) effects = "PhobosVehicleSystems_EffectPreview".Translate(effects.Named("LINE")).Resolve().Colorize(PreviewColour);
-            using (new TextBlock(GameFont.Tiny, TextAnchor.MiddleLeft)) Widgets.Label(new Rect(112f, y + TuneButtonHeight + 2f, view.width - 112f, 20f), effects);
+            lineHeight = DrawLine(112f, y + TuneButtonHeight + 2f, view.width - 112f, effects);
         }
         DrawOrderLine(view, y + TuneButtonHeight - ButtonHeight, order);
-        y += TuneRowHeight;
+        y += Mathf.Max(TuneRowHeight, TuneButtonHeight + 2f + lineHeight + 8f);
     }
 
     string TuneTip(PhobosVehicleTuneDef tune)
@@ -203,7 +229,10 @@ public class Dialog_PhobosVehicleFittings : Window
         List<PhobosVehicleFittingDef> options = Fittings.OptionsFor(first).ToList();
         List<PhobosVehiclePartGradeDef> grades = parts.All(comp.Repairs.CanBeGraded) ? VehicleFittings.Grades.ToList() : new List<PhobosVehiclePartGradeDef>();
         int fitButtons = options.Count > 0 || anyFitted ? options.Count + 1 : 0;
-        if (PartNameWidth + (fitButtons + grades.Count) * (PictureButton + 2f) + GroupGap > view.width)
+        string noneLabel = "PhobosVehicleSystems_FitNoneShort".Translate();
+        float buttonsWidth = (fitButtons > 0 ? ChoiceWidth(null, noneLabel) + 2f + options.Sum(o => ChoiceWidth(o.Icon, o.LabelCap) + 2f) + GroupGap : 0f)
+                             + grades.Sum(g => ChoiceWidth(g.Icon, g.LabelCap) + 2f);
+        if (PartNameWidth + buttonsWidth > view.width)
         {
             foreach (VehicleComponent part in parts) DrawPartMenus(view, ref y, part);
             return;
@@ -217,9 +246,9 @@ public class Dialog_PhobosVehicleFittings : Window
         PhobosVehicleFittingDef? hovered = null;
         if (fitButtons > 0)
         {
-            var none = new Rect(x, y, PictureButton, PictureButton);
+            var none = new Rect(x, y, ChoiceWidth(null, noneLabel), PictureButton);
             string noneTip = common != null ? "PhobosVehicleSystems_FitRemove".Translate(common.label.Named("FITTING")).Resolve() : "PhobosVehicleSystems_FitPartNone".Translate().CapitalizeFirst().Resolve();
-            if (Choice(none, null, "PhobosVehicleSystems_FitNoneShort".Translate(), !anyFitted, null, orders.Any(o => o.remove), noneTip))
+            if (Choice(none, null, noneLabel, !anyFitted, null, orders.Any(o => o.remove), noneTip))
             {
                 for (int i = 0; i < parts.Count; i++)
                 {
@@ -227,10 +256,10 @@ public class Dialog_PhobosVehicleFittings : Window
                 }
             }
             if (anyFitted && Mouse.IsOver(none)) hoverFitting = true;
-            x += PictureButton + 2f;
+            x += none.width + 2f;
             foreach (PhobosVehicleFittingDef def in options)
             {
-                var button = new Rect(x, y, PictureButton, PictureButton);
+                var button = new Rect(x, y, ChoiceWidth(def.Icon, def.LabelCap), PictureButton);
                 string? refusal = parts.Select(part => Fittings.Refusal(def, part)).FirstOrDefault(r => r != null);
                 bool all = fitted.All(f => f == def);
                 if (Choice(button, def.Icon, def.LabelCap, all, refusal, orders.Any(o => o.fitting == def), FittingTip(def, refusal)))
@@ -245,13 +274,13 @@ public class Dialog_PhobosVehicleFittings : Window
                     hoverFitting = true;
                     hovered = def;
                 }
-                x += PictureButton + 2f;
+                x += button.width + 2f;
             }
             x += GroupGap;
         }
         foreach (PhobosVehiclePartGradeDef grade in grades)
         {
-            var button = new Rect(x, y, PictureButton, PictureButton);
+            var button = new Rect(x, y, ChoiceWidth(grade.Icon, grade.LabelCap), PictureButton);
             bool lit = parts.All(part => Fittings.GradeOf(part.props.key) == grade && part.Health > 0f);
             string? refusal = parts.Select(part => Fittings.Refusal(grade, part)).FirstOrDefault(r => r != null);
             if (Choice(button, grade.Icon, grade.LabelCap, lit, refusal, orders.Any(o => o.grade == grade), GradeTip(parts, grade, refusal)))
@@ -261,10 +290,11 @@ public class Dialog_PhobosVehicleFittings : Window
                     if (Fittings.GradeOf(part.props.key) != grade || part.Health <= 0f) Fittings.OrderGrade(part, grade);
                 }
             }
-            x += PictureButton + 2f;
+            x += button.width + 2f;
         }
 
         // Under the buttons: the work ordered, or what the row gives (or would give, while the mouse rests on a choice).
+        float rowLine = 0f;
         if (orders.Count > 0)
         {
             DrawOrderLines(view, y + PictureButton - ButtonHeight, orders);
@@ -285,10 +315,10 @@ public class Dialog_PhobosVehicleFittings : Window
                     line = "PhobosVehicleSystems_AxleMixed".Translate(line.Named("LINE"), commonCount.Named("FITTED"), parts.Count.Named("WHEELS")).Resolve();
                 }
                 if (hoverFitting || tunePreview) line = "PhobosVehicleSystems_EffectPreview".Translate(line.Named("LINE")).Resolve().Colorize(PreviewColour);
-                using (new TextBlock(GameFont.Tiny, TextAnchor.MiddleLeft)) Widgets.Label(new Rect(PartNameWidth, y + PictureButton + 1f, view.width - PartNameWidth, 18f), line);
+                rowLine = DrawLine(PartNameWidth, y + PictureButton + 2f, view.width - PartNameWidth, line);
             }
         }
-        y += RowHeight;
+        y += Mathf.Max(RowHeight, PictureButton + 2f + rowLine + 8f);
     }
 
     /// <summary>A row's name: the part's own, or an axle's by its place, front first (and "rear" for the last of several).</summary>
