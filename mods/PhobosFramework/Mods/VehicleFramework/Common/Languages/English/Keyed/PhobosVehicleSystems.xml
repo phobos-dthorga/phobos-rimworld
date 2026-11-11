@@ -398,6 +398,7 @@
   <PhobosVehicleSystems_UnitCelsius>°C</PhobosVehicleSystems_UnitCelsius>
   <PhobosVehicleSystems_UnitFahrenheit>°F</PhobosVehicleSystems_UnitFahrenheit>
   <PhobosVehicleSystems_UnitKelvin>K</PhobosVehicleSystems_UnitKelvin>
+  <PhobosVehicleSystems_UnitPercent>%</PhobosVehicleSystems_UnitPercent>
   <PhobosVehicleSystems_HydraulicsDry>{VEHICLE} has too little hydraulic fluid left to work. A mechanic's hydraulic top-up refills it; mend the leaking lines first, or it drains again.</PhobosVehicleSystems_HydraulicsDry>
 
   <PhobosVehicleSystems_GenSetUpRefusal>{VEHICLE} is set up, with its cable out. Pack it up first.</PhobosVehicleSystems_GenSetUpRefusal>

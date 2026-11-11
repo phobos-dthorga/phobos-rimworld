@@ -235,14 +235,14 @@ public class Dialog_PhobosDiagnosis : Window
             {
                 using (new TextBlock(GameFont.Tiny)) Widgets.Label(new Rect(0f, y, view.width, 18f), "PhobosVehicleSystems_ReportTemperatures".Translate(TemperatureUnit().Named("UNIT")));
                 y += 18f;
-                PhobosWidgets.HistoryGraphs(new Rect(0f, y, view.width, GraphHeight), temperatures, temperatureMin, temperatureMax, QuantityHistory.Hours, QuantityHistory.Capacity, "0");
+                PhobosWidgets.HistoryGraphs(new Rect(0f, y, view.width, GraphHeight), temperatures, temperatureMin, temperatureMax, QuantityHistory.Hours, QuantityHistory.Capacity, TemperatureUnit());
                 y += GraphHeight + 8f;
             }
             if (levels.Count > 0)
             {
                 using (new TextBlock(GameFont.Tiny)) Widgets.Label(new Rect(0f, y, view.width, 18f), "PhobosVehicleSystems_ReportLevels".Translate());
                 y += 18f;
-                PhobosWidgets.HistoryGraphs(new Rect(0f, y, view.width, GraphHeight), levels, 0f, 100f, QuantityHistory.Hours, QuantityHistory.Capacity, "0");
+                PhobosWidgets.HistoryGraphs(new Rect(0f, y, view.width, GraphHeight), levels, 0f, 100f, QuantityHistory.Hours, QuantityHistory.Capacity, "PhobosVehicleSystems_UnitPercent".Translate());
                 y += GraphHeight + 8f;
             }
         }

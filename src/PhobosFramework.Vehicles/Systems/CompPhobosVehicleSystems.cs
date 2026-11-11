@@ -493,17 +493,23 @@ public class CompPhobosVehicleSystems : VehicleComp
         }
     }
 
-    /// <summary>Gives the appended parts back the healths saved by key, in case their order moved since the save.</summary>
+    /// <summary>
+    /// Gives the appended parts back the healths saved by key, since Vehicle Framework loads them by place in the list: a part new since
+    /// the save starts whole, and none is left above its maximum (PartHealthRule; Framework 0.83.1).
+    /// </summary>
     void RestorePartHealths()
     {
         if (healthsRestored || Vehicle?.statHandler == null) return;
         healthsRestored = true;
-        if (savedPartHealth.Count == 0) return;
-        foreach (KeyValuePair<string, float> pair in savedPartHealth)
+        bool saveHeldParts = savedPartHealth.Count > 0;
+        foreach (string key in Props.addedKeys)
         {
-            VehicleComponent? part = Vehicle.statHandler.GetComponent(pair.Key);
-            if (part != null && Mathf.Abs(part.Health - pair.Value) > 0.01f) part.SetHealth(pair.Value);
-            if (part != null) RememberPartHealth(part);
+            VehicleComponent? part = Vehicle.statHandler.GetComponent(key);
+            if (part == null) continue;
+            double? saved = savedPartHealth.TryGetValue(key, out float value) ? value : null;
+            float health = (float)PartHealthRule.Restored(saved, saveHeldParts, part.Health, part.MaxHealth);
+            if (Mathf.Abs(part.Health - health) > 0.01f) part.SetHealth(health);
+            RememberPartHealth(part);
         }
         Vehicle.statHandler.MarkAllDirty();
     }

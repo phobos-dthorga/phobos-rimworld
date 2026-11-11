@@ -85,8 +85,11 @@ public static class PhobosWidgets
         return rect;
     }
 
-    /// <summary>A graph of a ring's samples over the last hours, on the game's curve drawer, scaled to min..max.</summary>
-    public static void HistoryGraph(Rect rect, HistoryRing ring, float min, float max, Color colour, int hours, string valueFormat = "0.#")
+    /// <summary>
+    /// A graph of a ring's samples over the last hours, on the game's curve drawer, scaled to min..max. <paramref name="unit"/> follows the
+    /// value where the pointer rests (a degree sign, a percent sign; empty for none).
+    /// </summary>
+    public static void HistoryGraph(Rect rect, HistoryRing ring, float min, float max, Color colour, int hours, string unit = "")
     {
         if (ring.Count < 2) return;
         var curve = new SimpleCurve();
@@ -95,25 +98,37 @@ public static class PhobosWidgets
         {
             curve.Add(new CurvePoint(-(ring.Count - 1 - i) * hoursPerSample, ring[i]), sort: false);
         }
-        var style = new SimpleCurveDrawerStyle
-        {
-            DrawBackground = true,
-            DrawBackgroundLines = true,
-            DrawMeasures = true,
-            DrawLegend = false,
-            DrawCurveMousePoint = true,
-            UseFixedScale = true,
-            FixedScale = new Vector2(min, max),
-            UseFixedSection = true,
-            FixedSection = new FloatRange(-hours, 0f),
-            UseAntiAliasedLines = true,
-            MeasureLabelsXCount = 4,
-            MeasureLabelsYCount = 3,
-            XIntegersOnly = true,
-        };
-        var curves = new List<SimpleCurveDrawInfo> { new() { curve = curve, color = colour, valueFormat = valueFormat } };
-        SimpleCurveDrawer.DrawCurves(rect, curves, style);
+        var curves = new List<SimpleCurveDrawInfo> { new() { curve = curve, color = colour, valueFormat = GraphValueFormat(unit) } };
+        SimpleCurveDrawer.DrawCurves(rect, curves, GraphStyle(min, max, hours));
     }
+
+    /// <summary>
+    /// The one look of every history graph of ours: the game's background and measures, a line with no dot per sample (the drawer's
+    /// default puts one on every point, which turned a day of samples into a beaded rope; owner's screenshot, 11 Nov 2026), and the
+    /// value where the pointer rests labelled by the hour.
+    /// </summary>
+    static SimpleCurveDrawerStyle GraphStyle(float min, float max, int hours) => new()
+    {
+        DrawBackground = true,
+        DrawBackgroundLines = true,
+        DrawMeasures = true,
+        DrawPoints = false,
+        DrawLegend = false,
+        DrawCurveMousePoint = true,
+        UseFixedScale = true,
+        FixedScale = new Vector2(min, max),
+        UseFixedSection = true,
+        FixedSection = new FloatRange(-hours, 0f),
+        UseAntiAliasedLines = true,
+        MeasureLabelsXCount = 4,
+        MeasureLabelsYCount = 3,
+        XIntegersOnly = true,
+        LabelX = "PhobosFramework_GraphHour".Translate(),
+    };
+
+    /// <summary>The drawer's value pattern (it fills {0} with the value): the value and its unit, as the language file orders them.</summary>
+    static string GraphValueFormat(string unit) =>
+        unit.NullOrEmpty() ? "{0}" : "PhobosFramework_GraphValue".Translate("{0}".Named("VALUE"), unit.Named("UNIT")).Resolve();
 
     /// <summary>One line on a graph: samples oldest first, spread evenly over the graph's hours, with a label and a colour.</summary>
     public readonly struct GraphSeries
@@ -135,10 +150,11 @@ public static class PhobosWidgets
     /// (Framework 0.78.0: the diagnosis report's last day). Each series is spread over the hours by its own count, so a series with fewer
     /// samples (a vehicle that was away) still ends at now. Draws only what it is given, on the frame; it records nothing.
     /// </summary>
-    public static void HistoryGraphs(Rect rect, IReadOnlyList<GraphSeries> series, float min, float max, int hours, int capacity, string valueFormat = "0.#")
+    public static void HistoryGraphs(Rect rect, IReadOnlyList<GraphSeries> series, float min, float max, int hours, int capacity, string unit = "")
     {
         const float LegendHeight = 18f;
         var curves = new List<SimpleCurveDrawInfo>();
+        string valueFormat = GraphValueFormat(unit);
         float x = rect.x;
         using (new TextBlock(GameFont.Tiny, TextAnchor.MiddleLeft))
         {
@@ -159,23 +175,7 @@ public static class PhobosWidgets
             }
         }
         if (curves.Count == 0) return;
-        var style = new SimpleCurveDrawerStyle
-        {
-            DrawBackground = true,
-            DrawBackgroundLines = true,
-            DrawMeasures = true,
-            DrawLegend = false,
-            DrawCurveMousePoint = true,
-            UseFixedScale = true,
-            FixedScale = new Vector2(min, max),
-            UseFixedSection = true,
-            FixedSection = new FloatRange(-hours, 0f),
-            UseAntiAliasedLines = true,
-            MeasureLabelsXCount = 4,
-            MeasureLabelsYCount = 3,
-            XIntegersOnly = true,
-        };
-        SimpleCurveDrawer.DrawCurves(new Rect(rect.x, rect.y + LegendHeight, rect.width, rect.height - LegendHeight), curves, style);
+        SimpleCurveDrawer.DrawCurves(new Rect(rect.x, rect.y + LegendHeight, rect.width, rect.height - LegendHeight), curves, GraphStyle(min, max, hours));
     }
 
     /// <summary>The most segments a sparkline draws, however many samples it holds (authored: enough for a trend, cheap every frame).</summary>

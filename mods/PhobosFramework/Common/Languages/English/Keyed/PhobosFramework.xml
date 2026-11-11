@@ -47,4 +47,8 @@
   <PhobosProtection_AreaClearDesc>Take cells out of the {ZONE}.</PhobosProtection_AreaClearDesc>
 
   <PhobosFramework_ResearchGranted>Your engineers and doctors wrote up what the colony already knows: {COUNT} research projects are complete.</PhobosFramework_ResearchGranted>
+
+  <!-- History graphs (Framework 0.83.1): what shows where the pointer rests on a graph. -->
+  <PhobosFramework_GraphHour>Hour</PhobosFramework_GraphHour>
+  <PhobosFramework_GraphValue>{VALUE} {UNIT}</PhobosFramework_GraphValue>
 </LanguageData>

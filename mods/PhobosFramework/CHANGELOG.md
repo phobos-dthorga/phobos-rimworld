@@ -5,6 +5,19 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.83.1] - 2026-11-11 - Draft
+
+Two faults the owner's screenshots of the diagnosis report showed (11 November 2026). **Not yet tested in game.**
+
+### Fixed
+
+- **A part we add to a vehicle no longer loads with more than its full health.** Vehicle Framework gives parts back their health by their place in its list, so an added part could take a neighbour's: the owner's L-ATV showed its drive belt at 300% and its fuel pump at 150%. Added parts now take the health saved for them by name; one the save never held is fitted new at full health; none is ever above its maximum. An existing save is corrected when it loads.
+- **The history graphs draw a clean line.** The report's last-day graphs and the Systems tab's graphs no longer put a dot on every sample, which made a day's line look like beaded rope. Where the pointer rests, the label now reads the hour and the value with its unit, instead of an x and a stray 0.
+
+### Save compatibility
+
+- Safe on an existing save. An added part above its maximum is brought down to it at the next load, and nothing else changes.
+
 ## [0.83.0] - 2026-11-11 - Draft
 
 A tune's figures, for those who want them (owner, 11 November 2026). **Not yet tested in game.**
