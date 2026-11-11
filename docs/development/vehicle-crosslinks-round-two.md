@@ -140,7 +140,8 @@ A destroyed engine or transmission is replaced wherever the vehicle stands, by a
 
 - **Lets the player:** limp home and have the job done properly, or do it properly at home.
 - **Stops them:** nothing. (The alternative, requiring the hoist, would strand any vehicle whose engine dies away from home, because
-  nothing in Vehicle Framework or our mods can tow. Argued against below.)
+  nothing in Vehicle Framework or our mods can tow. Argued against below. Added 11 Nov 2026: RimThunder - Core, on the owner's
+  list, can; see [the trailer research](vehicle-trailer-research.md).)
 - **Changes how they play:** home is where engines are swapped; the depot bay's 70 % and the rig's 60 % make the motor pool the
   place for heavy work.
 

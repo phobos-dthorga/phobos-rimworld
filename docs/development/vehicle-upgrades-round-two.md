@@ -105,6 +105,14 @@ costs far less than a new one.
 **Not proposed:** more stat nodes on any vehicle. The owner's list already holds 54 trees of them, and our fittings cover the
 same ground with trade-offs.
 
+### Trailers (added later on 11 Nov 2026)
+
+The owner then asked how another mod's trailers follow their tractor. [The trailer research](vehicle-trailer-research.md)
+found the mechanism in RimThunder - Core, already on the owner's list, and adds five ideas to this round: a drawbar trailer
+for the tipper, a tank trailer for the bulk tanker, the generator set as a trailer, a recovery tow and a camp trailer. A
+trailer is a second way to give a thin vehicle something of its own, beside the signatures above; its three questions are
+in that record.
+
 ### Order (agent default)
 
 1. **Generator set: exhaust heat recovery.** The smallest slice, on the game's own temperature system, on our own vehicle.

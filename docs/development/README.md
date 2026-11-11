@@ -111,6 +111,9 @@ promise current behaviour. For using the mods, start at the [documentation index
 - [Vehicle upgrades, round two (11 Nov 2026)](vehicle-upgrades-round-two.md): which of the owner's 75 vehicles have an upgrade tree
   and whose it is (the Cherokee has one, from VVE - Upgrades Extended; 21 have none), and a signature feature proposed for each
   thin one; a proposal with four questions for the owner, nothing built.
+- [Trailers that follow their tractor (11 Nov 2026)](vehicle-trailer-research.md): how RimThunder - Core hitches, draws and turns
+  a trailer (read from code), what Turbo's library and RimArrow add, the limits, and a hitch of our own with a smoother turn;
+  research with three questions for the owner, nothing built.
 - [A setup wizard on first load: the idea (9 Nov 2026)](first-load-setup-wizard.md): the owner's idea, kept for later; what it would cover,
   when to raise it and what to settle first.
 - [Vehicle health, slice 3: what it does to the player (8 Nov 2026, built 9 Nov 2026)](vehicle-health-consequences.md): the danger clock,

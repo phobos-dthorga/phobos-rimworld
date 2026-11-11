@@ -83,6 +83,8 @@ the Bergepanther **[S]**.
 the catalogue's "recovery truck" line (lean High) in [utility vehicles](utility-vehicles-design.md). **Feasibility [I]:**
 VF has no tow; the honest routes are a "follower" that paths behind the recovery vehicle, or a carried-vehicle mechanic
 (what Partridge claims). Size against RimThunder's 3x10 PLS: a 3x8 tracked hull with a crane overlay.
+**Added 11 Nov 2026:** RimThunder - Core, on the owner's list, has the carried-vehicle mechanic already, for trailers;
+[the trailer research](vehicle-trailer-research.md) describes it.
 
 ### 2. D'thorga Decontamination Truck
 
