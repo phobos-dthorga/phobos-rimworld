@@ -28,7 +28,7 @@ GOOD_ABOUT = b"""<?xml version="1.0" encoding="utf-8"?>
   <packageId>PhobosDthorga.Example</packageId>
   <name>Phobos Example</name>
   <author>Phobos A. D'thorga</author>
-  <description>A synthetic mod for the tests. Portions of the materials used to create this content/mod are trademarks and/or
+  <description>A synthetic mod for the tests, by House D'thorga (also spelt dthorga). Portions of the materials used to create this content/mod are trademarks and/or
   copyrighted works of Ludeon Studios Inc. All rights reserved by Ludeon. This content/mod is not official and is not endorsed by Ludeon.</description>
   <modVersion>0.1.0</modVersion>
   <supportedVersions>
@@ -48,11 +48,14 @@ GOOD_LOAD_FOLDERS = b"""<loadFolders>
 """
 
 
+GOOD_README = b"# Example\n\nA synthetic mod. One of House D'thorga's mods (also spelt dthorga).\n\n## Read this first\n"
+
+
 def mod(name, about=GOOD_ABOUT, extra=None):
     """Files and contents for one synthetic, well-formed mod folder, plus any extra files."""
     contents = {
         f'mods/{name}/About/About.xml': about,
-        f'mods/{name}/README.md': b'# Example\n',
+        f'mods/{name}/README.md': GOOD_README,
         f'mods/{name}/CHANGELOG.md': b'# Example changelog\n',
     }
     for rel, data in (extra or {}).items():
@@ -186,6 +189,26 @@ class LayoutCheckTests(unittest.TestCase):
         for fragment, about in cases.items():
             with self.subTest(fragment=fragment):
                 self.assertIn(fragment, '\n'.join(run(mod('Example', about=about))['errors']))
+
+    def test_search_spelling_is_required_in_the_about_description(self):
+        # A packageId-like word or a URL does not count: people and search engines do not read them as the name.
+        for description in ('A mod by House D\'thorga.', 'See PhobosDthorga.Example.', 'See github.com/phobos-dthorga/x.'):
+            with self.subTest(description=description):
+                about = about_with(description=description + ' ' + ' '.join(layout.EULA_DISCLAIMER))
+                self.assertIn('lacks the spelling "dthorga"', '\n'.join(run(mod('Example', about=about))['errors']))
+
+    def test_search_spelling_is_required_in_the_readme_opening(self):
+        cases = {
+            'none at all': b"# Example\n\nOne of House D'thorga's mods.\n",
+            'only after the first section': b"# Example\n\nA mod.\n\n## More\n\nAlso spelt dthorga.\n",
+            'only in a URL': b"# Example\n\nSee https://github.com/phobos-dthorga/phobos-rimworld.\n",
+        }
+        for case, readme in cases.items():
+            with self.subTest(case=case):
+                errors = run(mod('Example', extra={'README.md': readme}))['errors']
+                self.assertEqual(len(errors), 1)
+                self.assertIn('README.md lacks the spelling "dthorga"', errors[0])
+        self.assertEqual(run(mod('Example', extra={'README.md': b'# Example\n\nAlso spelt Dthorga.\n'}))['errors'], [])
 
     def test_authors_list_satisfies_author(self):
         about = about_with(author=None).replace(b'</ModMetaData>',

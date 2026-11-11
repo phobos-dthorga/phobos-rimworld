@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Phobos.Framework;
 using Phobos.Framework.Vehicles.Rules;
 using RimWorld;
 using UnityEngine;
@@ -101,13 +102,43 @@ public class Dialog_PhobosVehicleFittings : Window
         y += RowHeight;
     }
 
-    static string TuneTip(PhobosVehicleTuneDef tune)
+    string TuneTip(PhobosVehicleTuneDef tune)
     {
         string text = tune.description;
+        if (VehicleSystemsMod.Settings.displayMode == DisplayMode.Engineer && TuneFigures(tune) is { } figures) text += "\n\n" + figures;
         if (tune.minSkill > 0) text += "\n\n" + "PhobosVehicleSystems_FitNeedsSkill".Translate(tune.minSkill.Named("SKILL")).CapitalizeFirst();
         if (tune.materials.Count > 0) text += "\n" + Materials(tune.materials);
         return text;
     }
+
+    /// <summary>The figures a tune moves on this vehicle, for the Engineer display mode: the same factors the fittings service applies.</summary>
+    string? TuneFigures(PhobosVehicleTuneDef tune)
+    {
+        var figures = new List<string>();
+        if (tune.axis == VehicleTuneAxis.Gearing && Fittings.FinalDriveAsBuilt is var built && !float.IsNaN(built))
+        {
+            string ratio = (built * tune.finalDriveFactor).ToString("0.00");
+            figures.Add(tune.finalDriveFactor == 1f
+                ? "PhobosVehicleSystems_TuneFigureFinalDriveAsBuilt".Translate(ratio.Named("RATIO")).Resolve()
+                : "PhobosVehicleSystems_TuneFigureFinalDrive".Translate(ratio.Named("RATIO"), built.ToString("0.00").Named("BUILT"),
+                    Factor(tune.finalDriveFactor).Named("FACTOR")).Resolve());
+        }
+        if (tune.powerFactor != 1f) figures.Add(Figure("PhobosVehicleSystems_TuneFigurePower".Translate(), tune.powerFactor));
+        float fuel = VehicleFittings.TuneFuelFactor(tune);
+        if (fuel != 1f) figures.Add(Figure("PhobosVehicleSystems_TuneFigureFuel".Translate(), fuel));
+        else if (tune.axis == VehicleTuneAxis.Gearing && !tune.isDefault && VehicleFittings.FuelFollowsModel) figures.Add("PhobosVehicleSystems_TuneFigureFuelModel".Translate());
+        foreach (ParameterFactorSpec spec in tune.parameterFactors)
+        {
+            if (!spec.label.NullOrEmpty() && spec.factor != 1f) figures.Add(Figure(spec.label, spec.factor));
+        }
+        return figures.Count == 0 ? null : "PhobosVehicleSystems_TuneFigures".Translate(figures.ToLineList("  - ", capitalizeItems: true).Named("FIGURES")).Resolve();
+    }
+
+    static string Figure(string label, float factor) =>
+        "PhobosVehicleSystems_TuneFigure".Translate(label.Named("LABEL"), Factor(factor).Named("FACTOR")).Resolve();
+
+    /// <summary>A factor as the Def gives it, unrounded beyond what the Def holds.</summary>
+    static string Factor(float factor) => factor.ToString("0.###");
 
     void DrawPart(Rect view, ref float y, VehicleComponent part)
     {

@@ -236,6 +236,7 @@ delivered, record the delivery in the changelog or design record, and add or ame
   and anything a save can hold stay as they are.
 - **Every public page also carries the spelling "dthorga"** (owner, 9 Nov 2026), without the apostrophe, in the Workshop description
   and the README's opening, so a search spelled either way finds us. Searching GitHub or the web for "dthorga" found none of our work.
+  `scripts/check-mod-layout.py` enforces it in every mod's About description and its README before the first section.
 
 ## RimWorld engineering
 

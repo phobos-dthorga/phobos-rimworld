@@ -8,6 +8,7 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 ### Changed
 
 - The Workshop preview is a new picture, a small factory and conveyor at dusk, with the name added by script, from the owner's picks of 10 November 2026. No change in play.
+- The mod's description and README now carry the spelling dthorga beside D'thorga, so a search without the apostrophe finds it. The description says it is community-created by House D'thorga.
 
 ## [0.12.2] - 2026-11-10 - Draft
 

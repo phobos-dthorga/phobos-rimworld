@@ -9,6 +9,8 @@ warhead's blast spread over frames instead of freezing the game). With **Visit S
 map no longer closes under your people (0.13.0). With **Vanilla Expanded Framework**'s outposts and **Vehicle Framework**, a caravan
 with vehicles is refused at the "create outpost" window, because founding one that way can lose them (0.15.0, with a setting).
 
+One of House D'thorga's mods (also spelt dthorga).
+
 It replaces two earlier mods, merged into it on 7 November 2026: **D'thorga Vehicle Patches** and **D'thorga Missile Patches**
 ([why](../../docs/development/mod-consolidation.md)).
 

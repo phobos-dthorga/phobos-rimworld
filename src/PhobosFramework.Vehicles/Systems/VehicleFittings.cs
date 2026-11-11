@@ -366,6 +366,16 @@ public sealed class VehicleFittings
 
     public PhobosVehicleTuneDef? Current(VehicleTuneAxis axis) => tunes.FirstOrDefault(t => t.axis == axis) ?? TunesOf(axis).FirstOrDefault(t => t.isDefault);
 
+    /// <summary>True when the engine model works out fuel itself (the player's setting); otherwise each tune's flat fuel factor applies.</summary>
+    public static bool FuelFollowsModel => VehicleSystemsMod.Settings.loadDependentFuel;
+
+    /// <summary>What one tune does to the fuel burned, as <see cref="Powertrain.ApplyFuel"/> applies it: its own factor, and its flat factor
+    /// only when fuel does not follow the engine model.</summary>
+    public static float TuneFuelFactor(PhobosVehicleTuneDef tune) => tune.fuelFactor * (FuelFollowsModel ? 1f : tune.flatFuelFactor);
+
+    /// <summary>This vehicle's final drive ratio as built, before any gearing tune; NaN without a drivetrain model.</summary>
+    public float FinalDriveAsBuilt => comp.Powertrain is { } train && FinalDriveFactor > 0f ? (float)train.Spec.FinalDrive / FinalDriveFactor : float.NaN;
+
     // ---- Orders ----
 
     public void OrderFitting(VehicleComponent part, PhobosVehicleFittingDef def)

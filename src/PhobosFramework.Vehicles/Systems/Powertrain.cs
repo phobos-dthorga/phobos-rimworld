@@ -575,7 +575,7 @@ public sealed class Powertrain
     /// so a nominal cruise matches.</summary>
     public void ApplyFuel(double hours)
     {
-        bool followsModel = VehicleSystemsMod.Settings.loadDependentFuel;
+        bool followsModel = VehicleFittings.FuelFollowsModel;
         double tuned = comp.Fittings.FuelFactor * (followsModel ? 1f : comp.Fittings.FlatFuelFactor);
         if ((!followsModel && tuned == 1) || !Full || !Ground || hours <= 0) return;
         CompFueledTravel? fuel = comp.Vehicle.CompFueledTravel;

@@ -14,6 +14,8 @@ on only while its mod is active (Medicines+, Deep Pills, Ushankas Biological War
 Rimatomics, Hemofungus, Complementary Odyssey, Glitterworld Medicine Production, Farmable Neutroamine,
 Passive Exoskeletons, Simple Washing Machine).
 
+One of House D'thorga's mods (also spelt dthorga).
+
 Version 0.12.2, built 10 November 2026 for House D'thorga. **Tested in game:** the human-meat bill (owner,
 28 October 2026, RimWorld 1.7), the drug-lab bills appearing on their machines (owner, 29 October 2026), and
 belts taking from switched-on storage, only when they point away from it (owner, 29 and 30 October 2026). The

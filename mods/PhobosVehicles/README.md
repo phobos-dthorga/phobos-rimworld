@@ -1,9 +1,11 @@
 # D'thorga Vehicles
 
-Vehicles that keep running only while they are looked after (D'thorga Vehicles, also spelt dthorga). It adds working vehicles of its
+Vehicles that keep running only while they are looked after. It adds working vehicles of its
 own, the **Talus** tipper truck, **Ullage** bulk tanker, **Kelly** drill rig, **Datum** survey truck, **Busbar** generator set and
 **Fathom** seabed crawler, and gives the vehicles of other mods you already drive the systems that match what they really are, on top
 of the general systems D'thorga Framework gives every vehicle.
+
+One of House D'thorga's mods (also spelt dthorga).
 
 Version 0.39.1, built 11 November 2026 for House D'thorga. **Not yet tested in game.**
 
@@ -22,8 +24,9 @@ Version 0.39.1, built 11 November 2026 for House D'thorga. **Not yet tested in g
   brakes, gearbox, wear and service. Their guide and settings are in
   [D'thorga Framework's README](../PhobosFramework/README.md#vehicle-systems-with-vehicle-framework). This mod only changes the
   vehicles below.
-- **Safe to add to a running colony. Safe to remove only if you have no bulk tanker:** scrap any tanker first, as with any Vehicle
-  Framework vehicle. The other vehicles below switch between their own systems and the general ones; a saved vehicle keeps or drops the
+- **Safe to add to a running colony. Safe to remove only once none of our own vehicles is left:** scrap every tipper, tanker,
+  drill rig, survey truck, generator set and seabed crawler first, as with any Vehicle Framework vehicle, or they go with the mod.
+  Other mods' vehicles switch between their own systems and the general ones; a saved vehicle keeps or drops the
   air compressor as its design does.
 - **From 0.3.0, a laden helicopter or pod may refuse to lift off** on a hot day or with engines out; the launch button says
   why. D'thorga Framework's hover-limit setting can allow it at a cost or just warn.

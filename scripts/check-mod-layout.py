@@ -7,7 +7,9 @@ non-version folder LoadFolders.xml names must exist; version folders such as 1.7
 assemblies, which git ignores. No two folders in one LoadFolders.xml block may hold a Defs or Patches file
 at the same path, since the game would load only one of them (files_the_game_loads). Build products never
 belong in mods/: they are built from src/. A C# project under src/ that names a mod in <ModFolder> carries that mod's
-version in <Version>, and any ModVersion constant in its source matches it too (check_versions).
+version in <Version>, and any ModVersion constant in its source matches it too (check_versions). The About description
+and the README's opening (before its first ## heading) carry the spelling "dthorga" as a word of its own, so a search
+without the apostrophe finds the mod (owner's brand rule, 9 Nov 2026; check_search_spelling).
 """
 import argparse
 import json
@@ -32,6 +34,10 @@ BUILD_SUFFIXES = ('.dll', '.pdb', '.exe', '.deps.json', '.pyc')
 BUILD_FOLDERS = ('bin', 'obj', '__pycache__')
 ABOUT = 'About/About.xml'
 LOAD_FOLDERS = 'LoadFolders.xml'
+# "dthorga" as a word of its own: a packageId (PhobosDthorga.X) or a URL (phobos-dthorga) does not count, since neither
+# is read as the name by a person or a search engine.
+SEARCH_SPELLING = re.compile(r'(?<![\w.\-/])dthorga(?![\w\-/]|\.\w)', re.IGNORECASE)
+README_SECTION = re.compile(r'^## ', re.MULTILINE)
 XML_CONTENT_FOLDERS = ('Defs/', 'Patches/')  # read through Verse.DirectXmlLoader.XmlAssetsInModFolder
 PROJECT_VERSION = re.compile(r'<Version>\s*([^<\s]+)\s*</Version>')
 PROJECT_MOD_FOLDER = re.compile(r'<ModFolder>\s*([^<\s]+)\s*</ModFolder>')
@@ -78,6 +84,8 @@ def check_about(mod, about, errors):
     description = ' '.join((about.findtext('description') or '').split())
     if description and not all(sentence in description for sentence in EULA_DISCLAIMER):
         errors.append(f'{mod}: {ABOUT} description lacks the disclaimer Ludeon\'s EULA requires, word for word')
+    if description and not SEARCH_SPELLING.search(description):
+        errors.append(f'{mod}: {ABOUT} description lacks the spelling "dthorga", so a search without the apostrophe misses it')
     if not (about.findtext('author') or '').strip() and not any(items(about, 'authors')):
         errors.append(f'{mod}: {ABOUT} has no <author> or <authors>')
     versions = items(about, 'supportedVersions')
@@ -95,6 +103,15 @@ def check_about(mod, about, errors):
     elif package_id and not package_id.lower().startswith(PACKAGE_PREFIX.lower()):
         errors.append(f'{mod}: packageId "{package_id}" does not start with {PACKAGE_PREFIX}')
     return package_id or None
+
+
+def check_search_spelling(mod, readme, errors):
+    """The README's opening, before its first ## heading, carries the spelling "dthorga" as a word of its own."""
+    text = readme.decode('utf-8', errors='replace')
+    heading = README_SECTION.search(text)
+    opening = text if heading is None else text[:heading.start()]
+    if not SEARCH_SPELLING.search(opening):
+        errors.append(f'{mod}: README.md lacks the spelling "dthorga" before its first section, so a search without the apostrophe misses it')
 
 
 def files_the_game_loads(folder_files):
@@ -318,6 +335,8 @@ def check(root, files=None, read=None):
                 check_load_folders(mod, load_folders, rels, errors)
         if 'README.md' not in rels:
             errors.append(f'{mod}: no README.md at the top of the mod folder')
+        else:
+            check_search_spelling(mod, read(f'mods/{mod}/README.md'), errors)
         if 'CHANGELOG.md' not in rels:
             errors.append(f'{mod}: no CHANGELOG.md')
         for rel in rels:

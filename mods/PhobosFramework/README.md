@@ -5,7 +5,9 @@ colonist is breathing, makes fires fill roofed rooms with the game's own smoke w
 carries carbon monoxide from fires, holds the per-person care choices the D'thorga medical mods offer, and holds the small
 helpers every D'thorga mod shares.
 
-Version 0.82.1, built 11 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
+One of House D'thorga's mods (also spelt dthorga).
+
+Version 0.83.0, built 11 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
 oxygen working through Burns and Smoke and Medical Equipment (5 November 2026). The health layer new in 0.3.0 and the **vehicle
 systems new in 0.9.0, and their engines, drivetrains and gas turbines new in 0.11.0, are not yet tested in game.** The rest is read from the game's and the mods' code.
 
@@ -245,7 +247,9 @@ offline.
 The new button on a vehicle's **Dashboard** opens **Fittings and tunes**, for any vehicle from any mod that has a loadout.
 
 - **Fittings** go on one part, one to a part: uprated radiator, oil cooler, turbocharger, heavy-duty alternator, deep-cycle battery, heavy-duty springs, road tyres. **A fitting is lost if its part is destroyed.** Where a vehicle has several of a part, such as axles, each fitted part gives a share and fitting them all gives the full effect.
-- **Tunes** set up the whole engine (economy, stock, power) and the final drive (tall, stock, short; long, standard and short gearing before 0.82.1). Piston engines only; the final drive needs a gearbox. **A tall final drive cannot make a vehicle faster than it was built to go.**
+- **Tunes** set up the whole engine (economy, stock, power) and the final drive (tall, stock, short; long, standard and short gearing before 0.82.1). Piston engines only; the final drive needs a gearbox. **A tall final drive cannot make a vehicle faster than it was built to go.** In the Engineer display mode
+  (new in 0.83.0), a tune's tooltip lists what it changes on that vehicle: the final drive ratio as built and with the tune, engine
+  power, fuel and engine heat, each as the factor applied.
 - Materials are brought to the vehicle, then a mechanic does the work. **Demanding work needs a minimum Construction skill**: a mechanic below it is refused and told why; one at or above it always succeeds.
 - **Other factions' vehicles may be found with a set** suited to their tech level, and keep it if captured. Turn this off in the settings under Repairs. Fittings that change speed or capacity act at once on them; engine power and tunes only matter once captured.
 - **Part grades** (new in 0.41.0; not yet tested in game): salvaged parts are cheap, frail and fault-prone and cannot hold a fitting; heavy-duty parts cost more, take more punishment and shrug off faults. Choose one on the **Grade** button when a part is destroyed, or to refit a working part, which uses up the old one.

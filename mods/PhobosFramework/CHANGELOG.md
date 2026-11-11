@@ -5,6 +5,23 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.83.0] - 2026-11-11 - Draft
+
+A tune's figures, for those who want them (owner, 11 November 2026). **Not yet tested in game.**
+
+### Added
+
+- **In the Engineer display mode, a tune's tooltip in the fittings and tunes window lists what it changes on that vehicle**: the final drive ratio as built and with the tune (a tall final drive multiplies it by 0.85, a short one by 1.2), engine power, fuel burned and engine heat at full load, each as the factor the game applies. With fuel following the engine model, a gearing tune's fuel is said to be worked out by the model, since that is what happens. Plain and Operator show the tooltip as before.
+- For modders: a parameter factor on a tune or fitting may carry a label, which the figures use; a factor without one is left out of them.
+
+### Changed
+
+- The description and README carry the spelling dthorga beside D'thorga, so a search without the apostrophe finds the mod, and the description says it is community-created by House D'thorga.
+
+### Save compatibility
+
+- Safe on an existing save: nothing new is saved.
+
 ## [0.82.1] - 2026-11-11 - Draft
 
 Tunes and the tuning rig take the trade's own words (owner, 11 November 2026, with D'thorga Vehicles 0.39.1's vehicle names). **Not yet tested in game.**

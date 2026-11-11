@@ -4,6 +4,8 @@ Burns and smoke that matter, doctors who dose and operate on their own, hospital
 to add More Injuries to a colony you are already playing. Built to sit beside **More Injuries** and **Combat Extended**; neither is
 required.
 
+One of House D'thorga's mods (also spelt dthorga).
+
 It replaces five earlier mods, merged into it on 7 November 2026 ([why](../../docs/development/mod-consolidation.md)): **D'thorga
 Burns and Smoke**, **D'thorga Emergency Dosing**, **D'thorga Triage**, **D'thorga Medical Equipment** and **D'thorga Medical Save
 Bridge**. Each is now a part of this mod, with its own section below.

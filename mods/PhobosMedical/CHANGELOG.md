@@ -6,6 +6,10 @@ entry says the owner tested it.
 
 ## [Unreleased]
 
+### Changed
+
+- The mod's description and README now carry the spelling dthorga beside D'thorga, so a search without the apostrophe finds it. The description says it is community-created by House D'thorga.
+
 ## [0.14.0] - 2026-11-11 - Draft
 
 The medical machines, devices and coughs make their own sounds (owner, 11 November 2026: the gas alarm a soft tone, coughing yes but never doubled with another mod's, the steriliser left for now; every one of the agent's shortlist picks taken). **Not yet tested in game.**

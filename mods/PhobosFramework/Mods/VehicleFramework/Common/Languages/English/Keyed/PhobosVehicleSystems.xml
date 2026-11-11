@@ -260,6 +260,15 @@
   <PhobosVehicleSystems_FitNoParts>Nothing on this vehicle can take a fitting.</PhobosVehicleSystems_FitNoParts>
   <PhobosVehicleSystems_TuneAxisEngine>Engine</PhobosVehicleSystems_TuneAxisEngine>
   <PhobosVehicleSystems_TuneAxisGearing>Gearing</PhobosVehicleSystems_TuneAxisGearing>
+  <!-- Framework 0.83.0: a tune's figures in its tooltip, in the Engineer display mode only. -->
+  <PhobosVehicleSystems_TuneFigures>In figures, on this vehicle:
+{FIGURES}</PhobosVehicleSystems_TuneFigures>
+  <PhobosVehicleSystems_TuneFigure>{LABEL} ×{FACTOR}</PhobosVehicleSystems_TuneFigure>
+  <PhobosVehicleSystems_TuneFigureFinalDrive>final drive {RATIO}:1, from {BUILT}:1 as built (×{FACTOR})</PhobosVehicleSystems_TuneFigureFinalDrive>
+  <PhobosVehicleSystems_TuneFigureFinalDriveAsBuilt>final drive {RATIO}:1, as built</PhobosVehicleSystems_TuneFigureFinalDriveAsBuilt>
+  <PhobosVehicleSystems_TuneFigurePower>engine power</PhobosVehicleSystems_TuneFigurePower>
+  <PhobosVehicleSystems_TuneFigureFuel>fuel burned</PhobosVehicleSystems_TuneFigureFuel>
+  <PhobosVehicleSystems_TuneFigureFuelModel>fuel burned: worked out by the engine model from the revs</PhobosVehicleSystems_TuneFigureFuelModel>
   <PhobosVehicleSystems_FitPartNone>nothing fitted</PhobosVehicleSystems_FitPartNone>
   <PhobosVehicleSystems_FitChange>Change</PhobosVehicleSystems_FitChange>
   <PhobosVehicleSystems_FitCancel>Cancel</PhobosVehicleSystems_FitCancel>

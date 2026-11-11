@@ -42,7 +42,7 @@
     <researchPrerequisite>PhobosResearch_Turbines</researchPrerequisite>
     <powerFactor>1.2</powerFactor>
     <fuelFactor>1.1</fuelFactor>
-    <parameterFactors><li><system>PhobosVehicleSystem_Cooling</system><parameter>heatAtFullLoad</parameter><factor>1.25</factor></li></parameterFactors>
+    <parameterFactors><li><system>PhobosVehicleSystem_Cooling</system><parameter>heatAtFullLoad</parameter><factor>1.25</factor><label>engine heat at full load</label></li></parameterFactors>
     <piston>Yes</piston>
     <powerCounts>Yes</powerCounts>
   </Phobos.VehicleSystems.PhobosVehicleFittingDef>
@@ -127,7 +127,7 @@
     <minSkill>5</minSkill>
     <powerFactor>0.9</powerFactor>
     <fuelFactor>0.92</fuelFactor>
-    <parameterFactors><li><system>PhobosVehicleSystem_Cooling</system><parameter>heatAtFullLoad</parameter><factor>0.9</factor></li></parameterFactors>
+    <parameterFactors><li><system>PhobosVehicleSystem_Cooling</system><parameter>heatAtFullLoad</parameter><factor>0.9</factor><label>engine heat at full load</label></li></parameterFactors>
   </Phobos.VehicleSystems.PhobosVehicleTuneDef>
 
   <Phobos.VehicleSystems.PhobosVehicleTuneDef>
@@ -152,7 +152,7 @@
     <minSkill>8</minSkill>
     <powerFactor>1.15</powerFactor>
     <fuelFactor>1.15</fuelFactor>
-    <parameterFactors><li><system>PhobosVehicleSystem_Cooling</system><parameter>heatAtFullLoad</parameter><factor>1.2</factor></li></parameterFactors>
+    <parameterFactors><li><system>PhobosVehicleSystem_Cooling</system><parameter>heatAtFullLoad</parameter><factor>1.2</factor><label>engine heat at full load</label></li></parameterFactors>
   </Phobos.VehicleSystems.PhobosVehicleTuneDef>
 
   <Phobos.VehicleSystems.PhobosVehicleTuneDef>

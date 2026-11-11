@@ -5,6 +5,10 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+### Changed
+
+- The mod's description and README now carry the spelling dthorga beside D'thorga, so a search without the apostrophe finds it. The description says it is community-created by House D'thorga.
+
 ## [0.1.6] - 2026-11-09 - Draft
 
 ### Balance

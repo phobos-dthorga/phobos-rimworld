@@ -19,6 +19,8 @@ public class ParameterFactorSpec
     public string system = "";
     public string parameter = "";
     public float factor = 1f;
+    /// <summary>What the parameter is, in a player's words, for the Engineer display mode's figures; a factor without one is not listed.</summary>
+    [MustTranslate] public string label = "";
 }
 
 /// <summary>

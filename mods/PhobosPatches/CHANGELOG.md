@@ -9,6 +9,7 @@ says the owner tested it.
 ### Changed
 
 - The Workshop preview is a new picture, a jump jet on a frontier airstrip at dusk, with the name added by script, from the owner's picks of 10 November 2026. No change in play.
+- The mod's description and README now carry the spelling dthorga beside D'thorga, so a search without the apostrophe finds it. The description says it is community-created by House D'thorga.
 
 ## [0.16.7] - 2026-11-10 - Draft
 

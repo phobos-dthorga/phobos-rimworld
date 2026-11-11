@@ -5,6 +5,11 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+### Changed
+
+- The mod's description and README now carry the spelling dthorga beside D'thorga, so a search without the apostrophe finds it. The description says it is community-created by House D'thorga.
+- The description and README name every vehicle of ours (Talus, Ullage, Kelly, Datum, Busbar and Fathom), and say it is safe to remove only once none of them is left; both still said so of the bulk tanker alone, and the description that the other trucks were still to come.
+
 ## [0.39.1] - 2026-11-11 - Draft
 
 Our vehicles get names of their own (owner, 11 November 2026: the agent's proposals, with the owner's X numbers for test hulls). **Not yet tested in game.**

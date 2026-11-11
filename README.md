@@ -1,6 +1,6 @@
 # Phobos RimWorld
 
-Community mods for RimWorld by **House D'thorga**: burns and smoke that matter, doctors who act on their own, hospital
+Community mods for RimWorld by **House D'thorga** (also spelt dthorga): burns and smoke that matter, doctors who act on their own, hospital
 equipment, factory automation, vehicle fixes, plumbing, and a radio framework in which a real link budget decides every contact.
 
 **No mod is published on the Steam Workshop yet.** Ten mods are built and install from source; several are partly tested in
