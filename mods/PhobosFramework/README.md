@@ -87,6 +87,10 @@ and wear that a mechanic services. See [Vehicle systems](#vehicle-systems-with-v
   its graph on a click, a card a system, parts as a strip of small bars, and an **Only what needs attention** tick box. **From 0.94.0** a
   screen of ours that fails shows one line and tries again in a few seconds, where the game would fill its log; and in dev mode
   **"Vehicle systems: run the self-test"** checks most of this in one go, a sling lift included. Not yet tested in game.
+- **From 0.95.0 (not yet tested in game), the depot bay is built from parts**: a fuel tank and a fuel pump beside its steel, and a
+  vehicle of ours takes more of our engine assembly the heavier it is (two on a truck, three on a drill rig), **for repairs too**.
+  **Finish or cancel a depot bay or a vehicle being built before you update.** Whose parts a build asks for is the setting
+  **Parts for building**.
 - **Steam locomotives (0.14.0): two settings to decide before you run one.** **Boiler explosions** are off by default: on, a
   boiler without a fusible plug (the American 4-8-4) whose water runs below the firebox crown explodes, and the settings window
   warns you. **Realistic feed water** is off by default: a water stop draws a tenth of the real tender (6,800 litres for the 4-8-4,

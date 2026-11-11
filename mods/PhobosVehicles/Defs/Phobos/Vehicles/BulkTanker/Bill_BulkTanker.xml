@@ -18,6 +18,8 @@
       <Wiring>1</Wiring>
       <Radiator>1</Radiator>
       <Exhaust>1</Exhaust>
+      <!-- Its hose reel and its manifold's couplings. -->
+      <Hose>2</Hose>
     </parts>
   </Phobos.VehicleSystems.PhobosVehicleBillDef>
 </Defs>

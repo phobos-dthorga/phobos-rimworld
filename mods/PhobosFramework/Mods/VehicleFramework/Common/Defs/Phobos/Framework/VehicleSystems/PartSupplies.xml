@@ -306,6 +306,41 @@
     </substitutes>
   </Phobos.Framework.Bills.PhobosRoleSupplyDef>
 
+  <!-- Materials and job gear from other mods (Framework 0.95.0; owner, 11 Nov 2026: reach to materials mods and job-specific gear).
+       Each was read with the owner's patches applied before use, and is here because the real part is made of it
+       (docs/development/parts-bills.md lists what was read and left out, and why). Figures authored. -->
+  <Phobos.Framework.Bills.PhobosRoleSupplyDef>
+    <defName>PhobosPartSupply_Hose</defName>
+    <label>hose set</label>
+    <roles>
+      <li>Hose</li>
+    </roles>
+    <!-- Rubber: the game has none, so chemfuel stands for it, as it does in our drive belts and in other mods' tyres. -->
+    <materials>
+      <Chemfuel>20</Chemfuel>
+    </materials>
+    <substitutes>
+      <!-- Rimefeller's synthylene is a made polymer: the honest thing for a hose where it exists. -->
+      <li MayRequire="dubwise.rimefeller"><thing>Synthylene</thing><count>20</count></li>
+    </substitutes>
+  </Phobos.Framework.Bills.PhobosRoleSupplyDef>
+
+  <Phobos.Framework.Bills.PhobosRoleSupplyDef>
+    <defName>PhobosPartSupply_OxygenStore</defName>
+    <label>oxygen store</label>
+    <roles>
+      <li>OxygenStore</li>
+    </roles>
+    <!-- Flasks, charged by the boat's own air plant. -->
+    <materials>
+      <Steel>20</Steel>
+    </materials>
+    <substitutes>
+      <!-- Vanilla Gravship Expanded's oxygen comes in small canisters (150 to a stack): a first charge for the flasks. -->
+      <li MayRequire="vanillaexpanded.gravship"><thing>VGE_OxygenCanister</thing><count>30</count></li>
+    </substitutes>
+  </Phobos.Framework.Bills.PhobosRoleSupplyDef>
+
   <!-- Every part with no role of its own, most of a vehicle's armour and hull: by its size. Before the player's share. -->
   <Phobos.VehicleSystems.PhobosVehiclePartSupplyDef>
     <defName>PhobosPartSupply_Default</defName>

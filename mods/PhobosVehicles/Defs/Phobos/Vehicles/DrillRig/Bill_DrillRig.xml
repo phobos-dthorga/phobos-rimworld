@@ -21,6 +21,8 @@
       <HydraulicPump>1</HydraulicPump>
       <Compressor>1</Compressor>
       <Frame>2</Frame>
+      <!-- Its hydraulic lines and flushing hose. -->
+      <Hose>1</Hose>
     </parts>
   </Phobos.VehicleSystems.PhobosVehicleBillDef>
 </Defs>

@@ -12,6 +12,8 @@
       <FuelTank>1</FuelTank>
       <Battery>2</Battery>
       <Wiring>1</Wiring>
+      <!-- The air its crew starts with. -->
+      <OxygenStore>1</OxygenStore>
     </parts>
   </Phobos.VehicleSystems.PhobosVehicleBillDef>
 </Defs>

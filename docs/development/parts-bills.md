@@ -120,6 +120,13 @@ One table, `PartSupplies.xml`, fills both builds and repairs. The order of a rol
 | Frame | 60 steel | Heavy casting | None |
 | Fuel pump and other small mechanical parts | 12 steel, 2 components | None | None |
 
+Two roles are filled from a materials mod or a job's own mod:
+
+| Role | Ours | Another mod's | On |
+| --- | --- | --- | --- |
+| Hose | 20 chemfuel (rubber: the game has none, so chemfuel stands for it, as in our drive belts and other mods' tyres) | Rimefeller: 20 synthylene, a made polymer | Tanker 2, drill rig 1, tipper 1 |
+| Oxygen store | 20 steel (flasks, charged by the boat's own air plant) | Vanilla Gravship Expanded: 30 oxygen canisters | Seabed crawler 1 |
+
 **Changed from 9 Nov 2026:** Vanilla Vehicles Expanded's parts were limited to vehicles under 6 tonnes. Its own heavy vehicles use more
 of the same parts (its Wisent takes three engine blocks), so the table now does the same, and a repair accepts them too. The engine
 classes are why the tanker, at 9 tonnes, now asks for RimThunder's medium engine where its old patch asked for the heavy one.
@@ -139,22 +146,46 @@ on the heavy ones, and the pump or compressor its job needs. All authored.
 | Seabed crawler | 4,800 kg (from its mass figure) | 480 steel, 15 plasteel, 10 components | Engine 1, fuel tank 1, battery 2, wiring 1 |
 | Depot bay (a placed building) | none | 80 steel, 3 components | Fuel tank 1, fuel pump 1 |
 
-**What each comes to** (worked out from the shipped XML; the game's dev action shows the same for the mods actually installed):
+**What each comes to** (worked out from the shipped XML; with neither mod the tanker, tipper and rig also ask for their hoses' chemfuel; the game's dev action shows the same for the mods actually installed):
 
 | Thing | With RimThunder and Vanilla Vehicles Expanded (the owner's list) | With neither |
 | --- | --- | --- |
 | Survey truck | 312 steel, 10 plasteel, 10 uranium, 10 components, a medium engine, a transmission component, a fuel tank component, 4 tyres, 2 car suspensions, a car alternator, battery, wiring, radiator and exhaust | 382 steel, 10 plasteel, 10 uranium, 11 components, 2 engine assemblies, a transmission, a drivetrain kit, an electrical kit |
 | Generator set | 380 steel, 10 plasteel, 17 components, a medium engine, a fuel tank component, 4 tyres, 2 car suspensions, a car battery, wiring, radiator and exhaust | 450 steel, 10 plasteel, 18 components, 2 engine assemblies, a drivetrain kit, an electrical kit |
-| Bulk tanker | 400 steel, 8 components, a medium engine, a transmission component, a fuel tank component, 6 tyres, 3 car suspensions, a car alternator, battery, wiring, radiator and exhaust | 470 steel, 9 components, 2 engine assemblies, a transmission, a drivetrain kit, an electrical kit |
-| Tipper truck | 432 steel, 10 components, the tanker's parts and a heavy casting | 562 steel, 11 components, 2 engine assemblies, a transmission, a drivetrain kit, an electrical kit |
-| Drill rig | 584 steel, 40 plasteel, 16 components, a heavy engine, a transmission component, a fuel tank component, 8 tyres, a drivetrain kit (car suspension stops at 15 t), a car alternator, 2 car batteries, wiring, radiator and exhaust, 2 heavy castings | 774 steel, 40 plasteel, 17 components, 3 engine assemblies, a transmission, a drivetrain kit, an electrical kit |
-| Seabed crawler | 480 steel, 15 plasteel, 10 components, a medium engine, a fuel tank component, 2 car batteries, car wiring | 510 steel, 15 plasteel, 11 components, 2 engine assemblies, an electrical kit |
+| Bulk tanker | 400 steel, 8 components, 40 chemfuel (hoses; 40 synthylene with Rimefeller), a medium engine, a transmission component, a fuel tank component, 6 tyres, 3 car suspensions, a car alternator, battery, wiring, radiator and exhaust | 470 steel, 9 components, 2 engine assemblies, a transmission, a drivetrain kit, an electrical kit |
+| Tipper truck | 432 steel, 10 components, 20 chemfuel, the tanker's parts and a heavy casting | 562 steel, 11 components, 2 engine assemblies, a transmission, a drivetrain kit, an electrical kit |
+| Drill rig | 584 steel, 40 plasteel, 16 components, 20 chemfuel, a heavy engine, a transmission component, a fuel tank component, 8 tyres, a drivetrain kit (car suspension stops at 15 t), a car alternator, 2 car batteries, wiring, radiator and exhaust, 2 heavy castings | 774 steel, 40 plasteel, 17 components, 3 engine assemblies, a transmission, a drivetrain kit, an electrical kit |
+| Seabed crawler | 480 steel, 15 plasteel, 10 components, a medium engine, a fuel tank component, 2 car batteries, car wiring, 30 oxygen canisters (with Vanilla Gravship Expanded; else 20 more steel) | 510 steel, 15 plasteel, 11 components, 2 engine assemblies, an electrical kit |
 | Depot bay | 92 steel, 5 components, a fuel tank component | 122 steel, 6 components |
 
 **Beside similar trucks** (their costs read with the owner's patches applied, 11 Nov 2026): Vanilla Vehicles Expanded's Bulldog is 440
 steel, 16 components and about 36 car parts; GTek's L-ATV 410 steel, 60 plasteel, 12 components and about 26; the HUMVEE 550 steel, 6
 components and about 13. Ours had been 220 to 360 steel and three kits. The shells were raised to sit beside those by weight (survey
 truck 220 to 300, generator set 320 to 340, tanker 280 to 400, tipper 260 to 420, drill rig 360 to 560, crawler 350 to 480).
+
+## Soft dependencies: what was read, taken and left (11 Nov 2026)
+
+The owner asked for the reach to go to more parts from the two part makers, to materials mods and to job-specific gear. Each candidate
+on the owner's list was read with every patch applied (`python scripts/query-defs.py patched`) before use. **A part is taken only where
+the real thing is made of it, and never in an amount that takes real hours to gather** (the owner's rule of 2 Nov 2026).
+
+| Mod | Item | Decision | Why |
+| --- | --- | --- | --- |
+| RimThunder - Core | Light, medium, heavy engine; turbine; transmission; fuel tank; tyre | **Taken** | The parts they are |
+| RimThunder - Core | Heavy casting | **Taken**, as a frame on the tipper and drill rig | A heavy truck's frame is a casting |
+| RimThunder - Core | Road wheel | Left | The crawler's bottoming wheels are our own made item, and an item made at a bench cannot take a bill |
+| Vanilla Vehicles Expanded | Engine block, transmission, fuel tank, wheel, suspension, alternator, battery, wiring, radiator | **Taken** | The parts they are |
+| Vanilla Vehicles Expanded | Exhaust | **Taken**, one on every land vehicle | Every one has one |
+| Rimefeller | Synthylene | **Taken**, as hoses | A made polymer, in place of the chemfuel that stands for rubber |
+| Rimefeller | Synthamide, composite | Left | A fibre and a spacer-tech composite: nothing on these vehicles is made of either yet. A candidate for a faired or insulated upgrade later |
+| Vanilla Gravship Expanded | Oxygen canister | **Taken**, as the crawler's first air | A submersible carries oxygen |
+| The Dead Man's Switch | Cluster control chipsets, T/R component | Left | Worth 2,000 and 1,000 silver each: out of all proportion to a survey truck's console or an array |
+| The Dead Man's Switch | Stamped component | Left | A mass-production pressing: it matches no role |
+| Dubs Bad Hygiene | None | Left | It ships buildings, water and waste, no pump or pipe item |
+| Vanilla Chemfuel Expanded | Deepchem | Left | A fuel, not a part |
+| Combat Extended | FSX, prometheum | Left | Explosive and incendiary fill, not a part |
+| Dubs Rimatomics | Depleted uranium, plutonium | Left | The survey truck's source is the game's own uranium, which Rimatomics also uses |
+| HUMVEE | Its own engine | Left | One vehicle's engine, not a general part |
 
 ## Upgrade-tree nodes
 

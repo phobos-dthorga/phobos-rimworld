@@ -20,6 +20,8 @@
       <Exhaust>1</Exhaust>
       <HydraulicPump>1</HydraulicPump>
       <Frame>1</Frame>
+      <!-- The lines to its tipping rams. -->
+      <Hose>1</Hose>
     </parts>
   </Phobos.VehicleSystems.PhobosVehicleBillDef>
 </Defs>
