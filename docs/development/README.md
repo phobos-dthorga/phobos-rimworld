@@ -126,6 +126,9 @@ promise current behaviour. For using the mods, start at the [documentation index
   rect); the diagnosis as a report window, the fleet board, fittings icons, one dial, graphs (already recorded, free while closed), the
   damage sheet and the world-map range as the strikingly visual high-benefit pieces, three art batches with costs, what is argued
   against, and the owner's questions. Nothing built.
+- [Sling loads: a helicopter carries a vehicle under it (11 Nov 2026)](vehicle-sling-design.md): the owner's own airlift with our
+  flavour; a cargo-hook fitting on any helicopter, real masses against sourced hook ratings with hot-day derating, a ground crew, weather
+  limits, a slower thirstier slung flight and an emergency release, each a setting; three slices; nothing built yet.
 - [Crash record: stack overflow on 9 Nov 2026](crash-2026-11-09-stack-overflow.md): a runaway call loop the log never mentioned, what the dump proved and could not,
   three suspects, the other errors in that log, and how to name the culprit.
 - [Fires on vehicles that never go out (10 Nov 2026)](vehicle-framework-fires.md): 37 fires on one jet, left on the wrong map and never changing; what the saves and
