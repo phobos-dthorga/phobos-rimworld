@@ -6,6 +6,22 @@ says the owner tested it.
 
 ## [Unreleased]
 
+## [0.17.0] - 2026-11-12 - Draft
+
+Progress bars on Vehicle Framework's own vehicle work. **Not yet tested in game.**
+
+### Added
+
+- **Vehicle Framework's repairs and upgrades show the game's progress bar.** Vehicle Framework draws the bar only for work with no sparks, and every vehicle's work has sparks, so it never showed; the sparks stay and the bar now shows beside them (owner, 12 November 2026). A temporary patch: it comes out when Vehicle Framework shows the bar itself.
+
+### Compatibility and limits
+
+- D'thorga Framework's own vehicle work draws its own bar and is left alone, so no job shows two.
+
+### Save compatibility
+
+- Safe to add or remove mid-game. Nothing is saved.
+
 ## [0.16.9] - 2026-11-12 - Draft
 
 The Harrier's empty Mk. 82 and Mk. 84 bomb cases have their own pictures, chosen by the owner on 12 November 2026. **Not yet tested in game.**

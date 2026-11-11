@@ -159,6 +159,9 @@ public sealed class CompPhobosSurveyTruck : CompPhobosRigWork
         _ => null,
     };
 
+    /// <summary>Towards the time by which a find is certain: a find can come sooner, at random, and the bar then starts again.</summary>
+    public override float? StepProgress => GuaranteedDays > 0f ? daysWorking / GuaranteedDays : null;
+
     public override void Worked(Pawn worker, int delta)
     {
         MarkWorked();

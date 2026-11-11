@@ -4,6 +4,7 @@ using PipeSystem;
 using Phobos.Medical.Rules;
 using RimWorld;
 using Verse;
+using Phobos.Framework.Interface;
 using Phobos.Framework.Sounds;
 
 namespace Phobos.Medical.Comps;
@@ -19,6 +20,13 @@ public class CompProperties_PhobosBoilOff : CompProperties
     public float fractionPerDayUnpowered = 0.02f;
     /// <summary>Loops while it boils off (gas venting from its relief valve); null for silence.</summary>
     public SoundDef? boilingSound;
+    /// <summary>Frost over the store while it holds liquid and its cooler runs (owner, 12 Nov 2026, after DMS2's frosting Pressure Chamber):
+    /// a mote Def faded in and out, or null for none. On a real store the ambient-air vaporiser fins and the pipework ice up as cold gas
+    /// warms through them, while the vacuum-insulated tank stays mostly clear, and the picture follows that.</summary>
+    public ThingDef? frostMote;
+    /// <summary>Hours for the frost to gather fully, and to melt away once the store stops (authored: frost is slow to come and slower to go).</summary>
+    public float frostBuildHours = 1f;
+    public float frostMeltHours = 3f;
 
     public CompProperties_PhobosBoilOff() => compClass = typeof(CompPhobosBoilOff);
 }
@@ -38,6 +46,9 @@ public class CompPhobosBoilOff : ThingComp
     CompResourceStorage? storage;
     CompPowerTrader? power;
     readonly SustainedSound boiling = new();
+    FadingOverlay? frost;
+
+    const float TicksPerHour = 2500f;
 
     public CompProperties_PhobosBoilOff Props => (CompProperties_PhobosBoilOff)props;
 
@@ -49,11 +60,21 @@ public class CompPhobosBoilOff : ThingComp
         storage = parent.TryGetComp<CompResourceStorage>();
         power = parent.TryGetComp<CompPowerTrader>();
         UpdateRefusing();
+        if (Props.frostMote != null) frost = new FadingOverlay(Props.frostMote);
+        // Motes are never saved: after a load the frost starts at what the store's state calls for.
+        UpdateFrost(0f, snap: true);
     }
+
+    /// <summary>Frost while the store holds liquid and is kept cold.</summary>
+    bool Frosting => storage != null && Powered && storage.AmountStored >= 1f;
+
+    void UpdateFrost(float ticks, bool snap = false) =>
+        frost?.Update(parent, Frosting, ticks, Props.frostBuildHours * TicksPerHour, Props.frostMeltHours * TicksPerHour, snap);
 
     public override void PostDeSpawn(Map map, DestroyMode mode = DestroyMode.Vanish)
     {
         boiling.End();
+        frost?.End();
         base.PostDeSpawn(map, mode);
         if (storage != null) refusing.Remove(storage);
     }
@@ -72,6 +93,7 @@ public class CompPhobosBoilOff : ThingComp
         float loss = BoilOffRule.LossForInterval(storage.AmountStored, Props.fractionPerDayUnpowered, IntervalTicks, Powered);
         if (loss > 0f) storage.DrawResource(loss);
         boiling.Set(Props.boilingSound, loss > 0f, parent);
+        UpdateFrost(IntervalTicks);
     }
 
     public override string? CompInspectStringExtra()

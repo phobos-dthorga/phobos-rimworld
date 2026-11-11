@@ -235,6 +235,16 @@ public class CompPhobosTank : CompPhobosSetUp
         base.PostDeSpawn(map, mode);
     }
 
+    /// <summary>The game's work bar while the pump runs (owner, 12 Nov 2026): the pumped compartment's fill, rising as it fills and
+    /// falling as it empties. Not shown while the pump holds or waits on something; the inspect pane says what.</summary>
+    public override void PostDraw()
+    {
+        base.PostDraw();
+        if (!deployed || mode == TankPumpMode.Hold || pumpStatus != null || Fitted == null) return;
+        float capacity = CompartmentCapacity;
+        if (capacity > 0f) Phobos.Framework.Interface.MapProgressBar.DrawOver(Vehicle, Amount / capacity);
+    }
+
     public override void EventRegistration()
     {
         base.EventRegistration();

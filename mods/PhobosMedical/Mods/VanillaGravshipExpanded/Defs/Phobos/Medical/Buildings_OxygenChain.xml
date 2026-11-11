@@ -166,6 +166,10 @@
       <li Class="Phobos.Medical.Comps.CompProperties_PhobosBoilOff">
         <fractionPerDayUnpowered>0.02</fractionPerDayUnpowered>
         <boilingSound>PhobosMedical_LiquidOxygenBoilOff</boilingSound>
+        <!-- Frost while it holds liquid and its cooler runs (owner, 12 Nov 2026). Build and melt times authored. -->
+        <frostMote>PhobosMedical_Mote_LiquidOxygenFrost</frostMote>
+        <frostBuildHours>1</frostBuildHours>
+        <frostMeltHours>3</frostMeltHours>
       </li>
       <li Class="CompProperties_Breakdownable"/>
     </comps>
@@ -179,5 +183,23 @@
         <li>VGE_OxygenPipe</li>
       </relatedBuildCommands>
     </building>
+  </ThingDef>
+
+  <!-- The store's frost (owner, 12 Nov 2026, after DMS2's frosting Pressure Chamber): one long-lived picture over the store, made more or less
+       see-through by D'thorga Framework's FadingOverlay, so no fades of its own. Drawn by assets/phobos-medical/draw_frost.py. -->
+  <ThingDef ParentName="MoteBase">
+    <defName>PhobosMedical_Mote_LiquidOxygenFrost</defName>
+    <graphicData>
+      <texPath>Phobos/Medical/Things/LiquidOxygenStore_Frost</texPath>
+      <drawSize>(2,2)</drawSize>
+      <shaderType>Mote</shaderType>
+    </graphicData>
+    <altitudeLayer>BuildingOnTop</altitudeLayer>
+    <mote>
+      <fadeInTime>0</fadeInTime>
+      <solidTime>999999</solidTime>
+      <fadeOutTime>0</fadeOutTime>
+      <collide>false</collide>
+    </mote>
   </ThingDef>
 </Defs>

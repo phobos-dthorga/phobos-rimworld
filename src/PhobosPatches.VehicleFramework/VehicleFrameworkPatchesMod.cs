@@ -19,10 +19,11 @@ public class VehicleFrameworkPatchesMod : Mod
 {
     /// <summary>The Harmony ID is the packageId, shared by every part; never change it once the mod is published.</summary>
     public const string PackageId = "PhobosDthorga.Patches";
-    public const string ModVersion = "0.16.9";
+    public const string ModVersion = "0.17.0";
     public const string LogPrefix = "[D'thorga Patches]";
     public static readonly Phobos.Logging.PhobosLog Logger = Phobos.Framework.Logging.Logs.For("D'thorga Patches", "Vehicle Framework");
     const string Feature = "fires a vehicle cannot put out are put out: a second fire on it, or one left behind when it leaves a map";
+    const string BarFeature = "Vehicle Framework's own vehicle work (repairs, upgrades) shows the game's progress bar";
 
     public VehicleFrameworkPatchesMod(ModContentPack content) : base(content)
     {
@@ -34,6 +35,7 @@ public class VehicleFrameworkPatchesMod : Mod
     {
         var report = new LoadReport(LogPrefix, ModVersion, "Vehicle Framework");
         report.On(Feature);
+        report.On(BarFeature);
         report.Log();
     }
 }
@@ -105,6 +107,39 @@ public static class VehicleSurplusFiresPatch
         {
             Messages.Message("PhobosVehicleFrameworkPatches_FiresPutOut".Translate(count.Named("COUNT"), __instance.LabelShort.Named("VEHICLE")).Resolve(),
                 __instance, MessageTypeDefOf.NeutralEvent, historical: false);
+        }
+    }
+}
+
+/// <summary>
+/// TEMPORARY (docs/development/temporary-patches.md, row 14): Vehicle Framework's own work at a vehicle, its repairs and upgrades, shows the
+/// game's progress bar. Its JobDriver_WorkVehicle.MakeNewToils draws the bar only when the job has no effecter, and the effecter defaults
+/// to the vehicle's repair effect, which every vehicle has, so the bar never shows (read from Vehicle Framework 1.6, 12 Nov 2026). The
+/// owner asked for progress bars wherever they belong (12 Nov 2026). A postfix that adds the bar beside the sparks; it never skips the
+/// original, and leaves alone a job that has no effecter (Vehicle Framework's bar already shows) or one of ours that draws its own.
+/// Remove it when Vehicle Framework shows the bar with an effecter too.
+/// </summary>
+[HarmonyPatch(typeof(JobDriver_WorkVehicle), "MakeNewToils")]
+public static class VehicleWorkBarPatch
+{
+    static readonly System.Func<JobDriver_WorkVehicle, EffecterDef?> Effecter =
+        AccessTools.MethodDelegate<System.Func<JobDriver_WorkVehicle, EffecterDef?>>(AccessTools.PropertyGetter(typeof(JobDriver_WorkVehicle), "EffecterDef"));
+    static readonly System.Func<JobDriver_WorkVehicle, float> Progress =
+        AccessTools.MethodDelegate<System.Func<JobDriver_WorkVehicle, float>>(AccessTools.Method(typeof(JobDriver_WorkVehicle), "GetProgressPct"));
+
+    public static void Postfix(JobDriver_WorkVehicle __instance, ref IEnumerable<Verse.AI.Toil> __result)
+    {
+        if (__instance is Phobos.Framework.Interface.IDrawsOwnWorkBar || Effecter(__instance) == null) return;
+        __result = WithBar(__result, __instance);
+    }
+
+    static IEnumerable<Verse.AI.Toil> WithBar(IEnumerable<Verse.AI.Toil> toils, JobDriver_WorkVehicle driver)
+    {
+        foreach (Verse.AI.Toil toil in toils)
+        {
+            // The work toil is the one that ticks; walking there does not.
+            if (toil.tickAction != null) Verse.AI.ToilEffects.WithProgressBar(toil, Verse.AI.TargetIndex.A, () => Progress(driver), false, -0.5f);
+            yield return toil;
         }
     }
 }

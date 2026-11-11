@@ -6,6 +6,26 @@ entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.15.0] - 2026-11-12 - Draft
+
+The liquid oxygen store frosts over. **Not yet tested in game.**
+
+### Added
+
+- **Frost on the liquid oxygen store** (owner's wish, after Dead Man's Switch's frosting pressure chamber): while the store holds liquid oxygen and its cooler has power, frost gathers over about an hour, thickest on the finned vaporiser and the pipework, as on a real store, with a little rime at the tank's foot. When it stops it melts away over about three hours. The times are authored.
+
+### Compatibility and limits
+
+- The frost is our own picture, drawn in code from the store's outline; nothing of Dead Man's Switch's is used.
+
+### Save compatibility
+
+- Safe to update mid-game. Nothing new is saved: after a load the frost shows as the store's state calls for.
+
+### Dependencies
+
+- Needs D'thorga Framework 0.100.0 or later.
+
 ## [0.14.1] - 2026-11-12 - Draft
 
 Every medical machine and item that still wore a drawing made in code now has its own picture, chosen by the owner on 12 November 2026. **Not yet tested in game.**

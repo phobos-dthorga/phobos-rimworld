@@ -4,7 +4,7 @@ Every Phobos patch that exists because of a fault in someone else's mod: whose f
 
 ## Read this first
 
-- **Thirteen entries are marked temporary, five permanent.** Every marking is the agent's, for the owner to overrule. Only the first two were called temporary by the owner.
+- **Fourteen entries are marked temporary, five permanent.** Every marking is the agent's, for the owner to overrule. Only the first two were called temporary by the owner.
 - **"Temporary" means it should come out when the author fixes the fault.** "Permanent" means our own design needs it, whatever the author does.
 - **Before removing one, check the fault is really gone** in the mod's new build (`python scripts/query-code.py compare OLD.dll NEW.dll`, or read the method named below). A new update date alone proves nothing.
 - **"Drafted" means the author does not have it.** The owner confirmed on 10 Nov 2026 that only the Prison Labor report has been posted, and that they post reports only for dire faults. So these patches may be needed for a long time unless an author finds the fault on their own.
@@ -40,6 +40,7 @@ More Injuries and Medical Surgery Expanded 2 were not re-checked for this regist
 | 11 | Factory Additions 0.12.2, `GhostBillsPatch`, `SetAsideBill` | Pipe System: a bill whose recipe does not exist now loads with no recipe, and everything reading it throws. Such bills are set aside and restored if the recipe returns (0.12.1 removed nine valid ones on 10 Nov 2026, see [the crash record](crash-2026-11-09-stack-overflow.md)) | Such a bill is held safely on load by Pipe System | No | None yet |
 | 12 | Factory Additions, `ConveyorTickPatch` | Vanilla Furniture Expanded - Factory: a belt that is empty and Waiting returns at once and never moves again | A belt's tick wakes itself from that state | No | None found |
 | 13 | Patches 0.16.7, `EmptyAmmoLinksGuard` | The Dead Man's Switch - Synthriada: its Combat Extended `AmmoSets.xml` adds entries for ammo nothing defines, and Combat Extended's vehicle compatibility then throws and ends the ammo setup | Synthriada defines that ammo or drops the entries. Combat Extended tolerating empty entries would also do | **Yes**: with none to drop it does nothing, and the log says when it acts | Offered to the owner, not known to be posted |
+| 14 | Patches 0.17.0, `VehicleWorkBarPatch` | Vehicle Framework: `JobDriver_WorkVehicle.MakeNewToils` draws the game's progress bar only when the job has no effecter, and the effecter defaults to the vehicle's repair effect, which every vehicle has, so its repairs and upgrades never show a bar (owner, 12 Nov 2026: progress bars wherever they belong) | `MakeNewToils` adds the bar whatever the effecter, or no longer sets an effecter by default (`python scripts/query-code.py show JobDriver_WorkVehicle.MakeNewToils --in "VehicleFramework*"`) | No: the patch cannot tell a bar of theirs from none, so check after each Vehicle Framework update; two bars on one job would be the sign. Our own drivers carry `IDrawsOwnWorkBar` and are skipped | None: a UI gap, not dire |
 
 ## Permanent: our own design needs it
 

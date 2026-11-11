@@ -29,3 +29,11 @@ Made on 12 Nov 2026 with OpenAI gpt-image-2 through the image API, at medium qua
 | SeabedCrawler_Manipulator | `seabed-crawler-manipulator-1.png` | 190, 180, 370, 420 | `4676d50be2930718...` |
 | SeabedCrawler_RadarMast | `seabed-crawler-radar-mast-1.png` | 470, 590, 554, 980 | `af3fbedfd0cee771...` |
 | SeabedCrawler_SeabedDrill | `seabed-crawler-seabed-drill-2.png` | 400, 1150, 624, 1374 | `e6199ddfadc1a175...` |
+
+## Damage pictures (12 Nov 2026)
+
+Made free from our own bulk tanker damage masters (`bulk-tanker-damage-body-1`, `bulk-tanker-damage-tank-1`, OpenAI gpt-image-2, 8 Nov 2026): a different crop for each place, fitted with `scripts/art/export_vehicle.py overlay --marks` (darkness only) and clipped to the vehicle's outline, by `assets/phobos-vehicles/export_damage.py`, which lists every crop and box. Shown by D'thorga Framework's damage looks below 60% part health. No game or other author's art was used.
+
+| Texture | North SHA-256 |
+| --- | --- |
+| SeabedCrawler_DamageHull | `37d25707d216dc70dcc055e456ccd2ec3dad6d08ca790706f15d7530489046c5` |

@@ -5,6 +5,27 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.44.0] - 2026-11-12 - Draft
+
+Damage you can see, and the survey truck's boom upgrades on the boom. **Not yet tested in game.**
+
+### Added
+
+- **Damage shows on the generator set, drill rig, tipper, survey truck and Seabed Crawler**: scorches, holes and tears over the cab, the housing, the box, the deck or the hull once that part is below 60% health, as on the bulk tanker. The marks are the tanker's, cropped and fitted to each vehicle.
+- **The survey truck's geophone array and resistivity reel show on its boom** and swing out with it when the truck sets up. The reel comes with Dubs Bad Hygiene's groundwater upgrade.
+
+### Compatibility and limits
+
+- Made with generative AI (OpenAI's image model for the geophones and reel, the owner's picks of 12 November 2026); the damage marks reuse the bulk tanker's. Where each picture sits is the agent's placement, to be adjusted once seen in game.
+
+### Save compatibility
+
+- Safe to update mid-game. Nothing new is saved.
+
+### Dependencies
+
+- Needs D'thorga Framework 0.100.0 or later.
+
 ## [0.43.0] - 2026-11-12 - Draft
 
 Every vehicle has its own pictures now, chosen by the owner on 12 November 2026, and the generator set gains a heavy-duty fan. **Not yet tested in game.**

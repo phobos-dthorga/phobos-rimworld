@@ -102,6 +102,9 @@ public abstract class CompPhobosRigWork : CompPhobosSetUp, IVehicleEngineDemand
     protected virtual IntVec3 WorkSpot => Vehicle.Position;
 
     public abstract void Worked(Pawn worker, int delta);
+
+    /// <summary>How far the work in hand has got, 0 to 1, for the worker's progress bar; null when it has no measurable end.</summary>
+    public virtual float? StepProgress => null;
     protected abstract void RareWork();
 
     /// <summary>Someone has been working here in the last few seconds.</summary>
@@ -388,6 +391,8 @@ public class JobDriver_PhobosRigWork : JobDriver
         };
         work.defaultCompleteMode = ToilCompleteMode.Never;
         if (rig?.WorkEffect != null) work.WithEffect(rig.WorkEffect, TargetIndex.A);
+        // The game's work bar (owner, 12 Nov 2026), over the vehicle, for work with a measurable end.
+        if (rig?.StepProgress != null) work.WithProgressBar(TargetIndex.A, () => rig.StepProgress ?? 0f, false, -0.5f);
         work.activeSkill = () => rig?.WorkSkill;
         yield return work;
     }

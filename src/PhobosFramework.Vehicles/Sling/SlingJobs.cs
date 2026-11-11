@@ -68,7 +68,7 @@ public class WorkGiver_PhobosSlingHookUp : VehicleWorkGiver
     public override bool CanBeWorkedOn(VehiclePawn vehicle) => SlingWaits.WaitingOn(vehicle) != null;
 }
 
-public class JobDriver_PhobosSlingHookUp : JobDriver_WorkVehicle
+public class JobDriver_PhobosSlingHookUp : JobDriver_WorkVehicle, Phobos.Framework.Interface.IDrawsOwnWorkBar
 {
     protected override JobDef JobDef => VehicleSystemsJobDefOf.PhobosVehicleSystems_SlingHookUp;
 
@@ -80,7 +80,7 @@ public class JobDriver_PhobosSlingHookUp : JobDriver_WorkVehicle
     {
         // The helicopter gave up the lift, or flew off: stop.
         this.FailOn(() => SlingWaits.WaitingOn(Vehicle) == null);
-        foreach (Toil toil in base.MakeNewToils()) yield return toil;
+        foreach (Toil toil in WorkBars.WithBar(base.MakeNewToils(), EffecterDef != null, GetProgressPct)) yield return toil;
     }
 
     protected override void WorkComplete(Pawn actor)

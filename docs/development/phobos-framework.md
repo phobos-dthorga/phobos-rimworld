@@ -214,3 +214,27 @@ value and never past its moving value, and the cooling system's radiator names t
 vehicle cools as before). The generator set's heavy-duty fan gives 0.3, taking a parked radiator from 0.7 of its moving rate to the full
 rate ([its record](vehicle-generator-set.md)).
 
+## Progress bars, fading pictures and damage pictures (12 Nov 2026, Framework 0.100.0)
+
+**Progress bars** (owner: "there needs to be progress bars in many areas, where appropriate"). A job uses the game's own
+`WithProgressBar`. Vehicle Framework's `JobDriver_WorkVehicle` draws its bar only when the job has no effecter, and its effecter defaults to
+the vehicle's repair effect, so its bar never showed: `WorkBars.WithBar` adds it to our drivers that extend it (service, diagnose, repair
+with supplies, the sling hook-up), and those carry `IDrawsOwnWorkBar` so D'thorga Patches' `VehicleWorkBarPatch`, which does the same for
+Vehicle Framework's own jobs, leaves them alone. Rig work reads `StepProgress` (the drill rig's portion, deepchem unit or side job, the
+survey's way to a certain find). Work with no job, the tank's pump and the tipper's slide, draws `MapProgressBar` from the comp's PostDraw:
+the game's bar is a mote that must be renewed every tick, which a rare-ticking comp cannot do, so this draws the same bar (0.68 by 0.12
+cells, the game's colours, the closest zoom only) directly.
+
+**Fading pictures** (`FadingOverlay`, `FadeRule` with tests): one long-lived mote over a building, made more or less see-through through the
+colour the game multiplies a mote by, building at one rate and fading at another. Motes are never saved, so the owner snaps it to its
+state after a load. First use: the liquid oxygen store's frost (D'thorga Medical 0.15.0), which DMS2 draws the same way, a frost picture
+under the game's Mote shader; ours is our own picture, drawn in code.
+
+**Damage pictures** (`CompProperties_PhobosDamageLooks`): pictures shown while a part is below a share of its health, checked every rare tick.
+The bulk tanker's tank comp did this for its own tanks first and keeps its own (its scopes by tank kind); every other vehicle uses this.
+
+**Extras on moving parts**: a set-up moving part's `extras` are pictures on its own canvas, shown while their node is fitted and posed with
+the part. First use: the survey truck's geophone array and resistivity reel on its boom.
+
+Not yet tested in game.
+

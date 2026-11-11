@@ -8,7 +8,7 @@
     <AssemblyName>PhobosMedical.UsefulMarks</AssemblyName>
     <ModFolder>PhobosMedical</ModFolder>
     <TieInFolder>Mods/UsefulMarks/</TieInFolder>
-    <Version>0.14.1</Version>
+    <Version>0.15.0</Version>
     <ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>true</ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>
   </PropertyGroup>
   <ItemGroup>

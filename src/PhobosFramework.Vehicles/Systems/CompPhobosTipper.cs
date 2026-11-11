@@ -177,6 +177,15 @@ public class CompPhobosTipper : CompPhobosSetUp, IVehicleEngineDemand
 
     void Tell(string text, MessageTypeDef type) => Messages.Message(text, Vehicle, type, historical: false);
 
+    /// <summary>The game's work bar while it tips (owner, 12 Nov 2026): the share of the load put down so far.</summary>
+    public override void PostDraw()
+    {
+        base.PostDraw();
+        if (!deployed) return;
+        int left = Cargo.Count;
+        if (tipped + left > 0) Phobos.Framework.Interface.MapProgressBar.DrawOver(Vehicle, (float)tipped / (tipped + left));
+    }
+
     public override void PostDrawExtraSelectionOverlays()
     {
         base.PostDrawExtraSelectionOverlays();

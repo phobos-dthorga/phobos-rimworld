@@ -406,6 +406,35 @@
                 <layer>1</layer>
               </graphicData>
             </look>
+            <!-- Pictures that ride on the boom while their upgrade is fitted, swinging with it (12 Nov 2026, the owner's picks). -->
+            <extras>
+              <li>
+                <!-- The geophone array along the boom. -->
+                <node>GeophoneArray</node>
+                <look>
+                  <graphicData>
+                    <texPath>Phobos/Vehicles/SurveyTruck/SurveyTruck_Geophones</texPath>
+                    <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+                    <drawSize>(4, 8)</drawSize>
+                    <shaderType>Cutout</shaderType>
+                    <layer>1</layer>
+                  </graphicData>
+                </look>
+              </li>
+              <li>
+                <!-- The resistivity reel at its root; the node exists only with Dubs Bad Hygiene, and without it nothing shows. -->
+                <node>Hydrogeology</node>
+                <look>
+                  <graphicData>
+                    <texPath>Phobos/Vehicles/SurveyTruck/SurveyTruck_ResistivityReel</texPath>
+                    <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+                    <drawSize>(4, 8)</drawSize>
+                    <shaderType>Cutout</shaderType>
+                    <layer>1</layer>
+                  </graphicData>
+                </look>
+              </li>
+            </extras>
           </li>
         </movingParts>
         <!-- A tenth of the game's scanners' 3 and 6 days and 4 and 8 (owner's order of magnitude, 9 Nov 2026); the slowing per find is unchanged. -->
@@ -418,6 +447,48 @@
           <li MayRequire="vanillaexpanded.vchemfuele"><stat>Phobos_SensorGeophone</stat><ore>VCHE_Deepchem</ore><factor>1.5</factor></li>
           <li><stat>Phobos_SensorRadiometric</stat><ore>Uranium</ore><factor>3</factor></li>
         </sensorWeights>
+      </li>
+      <!-- Damage pictures while a part is below 60% health (12 Nov 2026): the bulk tanker's marks, cropped and fitted here by
+           assets/phobos-vehicles/export_damage.py. Placements are the agent's. -->
+      <li Class="Phobos.VehicleSystems.CompProperties_PhobosDamageLooks">
+        <looks>
+          <li>
+            <part>Cab</part>
+            <overlay>
+              <graphicData>
+                <texPath>Phobos/Vehicles/SurveyTruck/SurveyTruck_DamageCab</texPath>
+                <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+                <drawSize>(4, 8)</drawSize>
+                <shaderType>Cutout</shaderType>
+                <layer>2</layer>
+              </graphicData>
+            </overlay>
+          </li>
+          <li>
+            <part>Console</part>
+            <overlay>
+              <graphicData>
+                <texPath>Phobos/Vehicles/SurveyTruck/SurveyTruck_DamageCabin</texPath>
+                <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+                <drawSize>(4, 8)</drawSize>
+                <shaderType>Cutout</shaderType>
+                <layer>2</layer>
+              </graphicData>
+            </overlay>
+          </li>
+          <li>
+            <part>Chassis</part>
+            <overlay>
+              <graphicData>
+                <texPath>Phobos/Vehicles/SurveyTruck/SurveyTruck_DamageDeck</texPath>
+                <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+                <drawSize>(4, 8)</drawSize>
+                <shaderType>Cutout</shaderType>
+                <layer>2</layer>
+              </graphicData>
+            </overlay>
+          </li>
+        </looks>
       </li>
     </comps>
     <!-- Its own voice in place of the inherited draft blips; the engine loops are played by D'thorga Framework from the

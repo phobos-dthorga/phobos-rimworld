@@ -46,6 +46,9 @@ public abstract class RigSideJob
     public abstract void Worked(CompPhobosDrillRig rig, Pawn worker, int delta);
 
     public abstract string? InspectLine(CompPhobosDrillRig rig);
+
+    /// <summary>How far the job has got, 0 to 1, for the worker's progress bar; null (the default) shows none.</summary>
+    public virtual float? Progress(CompPhobosDrillRig rig) => null;
 }
 
 /// <summary>
@@ -205,6 +208,17 @@ public sealed class CompPhobosDrillRig : CompPhobosRigWork
         {
             if (buffer < 1f) return;
             outlet.Give(this, buffer);
+        }
+    }
+
+    /// <summary>A side job's own progress; the unit of deepchem being raised; or the portion of ore or stone being drilled.</summary>
+    public override float? StepProgress
+    {
+        get
+        {
+            if (sideJob != null) return sideJob.Progress(this);
+            if (nextIsPiped) return Props.pipedWorkPerUnit > 0f ? pipedProgress / Props.pipedWorkPerUnit : null;
+            return portionProgress / WorkPerPortion;
         }
     }
 

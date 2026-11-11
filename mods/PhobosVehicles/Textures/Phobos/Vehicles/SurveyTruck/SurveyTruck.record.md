@@ -26,3 +26,22 @@ Made on 12 Nov 2026 with OpenAI gpt-image-2 through the image API, at medium qua
 | SurveyTruck_PoweredArray | `survey-truck-powered-array-1.png` | 285, 1280, 455, 1820 | `9a80fc4cc46a9adc...` |
 | SurveyTruck_SurveyBattery | `survey-truck-battery-box-1.png` | 270, 1130, 460, 1262 | `788d8adea4dd5450...` |
 | SurveyTruck_WorkLights | `survey-truck-work-lamps-2.png` | 300, 745, 724, 805 | `7431683b8cd15fa8...` |
+
+## Damage pictures (12 Nov 2026)
+
+Made free from our own bulk tanker damage masters (`bulk-tanker-damage-body-1`, `bulk-tanker-damage-tank-1`, OpenAI gpt-image-2, 8 Nov 2026): a different crop for each place, fitted with `scripts/art/export_vehicle.py overlay --marks` (darkness only) and clipped to the vehicle's outline, by `assets/phobos-vehicles/export_damage.py`, which lists every crop and box. Shown by D'thorga Framework's damage looks below 60% part health. No game or other author's art was used.
+
+| Texture | North SHA-256 |
+| --- | --- |
+| SurveyTruck_DamageCab | `c94c8495b0cf592a37d6a828170d216bb98ab536ab1ad76c0ee8dd722cfdd5d7` |
+| SurveyTruck_DamageCabin | `4cb09a688c62c00f592c2c7f0d7c915c87e62c06cf2e391771d9a471faf0270c` |
+| SurveyTruck_DamageDeck | `8be04f15aab27b0aa56a6bbf641684b6de891971f1c9b67cc26482e39359060c` |
+
+## Boom extras (12 Nov 2026)
+
+Made with OpenAI gpt-image-2 (medium): **AI-generated, picked by the owner on 12 November 2026** (geophones 1, reel 1), with the picked boom as the only reference, for style. Drawn alone, placed on the body master's canvas and fitted along the boom (geophones 492 1250 530 1680, reel 474 1150 548 1240, in body master pixels; the agent's placement). Shown as extras of the boom, swinging with it. The prompts are in `assets/phobos-vehicles/requests/survey-truck-boom-extras.json`.
+
+| Texture | Master | Master SHA-256 |
+| --- | --- | --- |
+| SurveyTruck_Geophones | `survey-truck-geophones-1` | `04f119a52a71d8138a0e6047c9320e5c7e1ae237081082383aa9e1fa673077e7` |
+| SurveyTruck_ResistivityReel | `survey-truck-resistivity-reel-1` | `c9d82befb734f869ff34f10133b6f38c309a73c3bfa1c8842b330b213c38c607` |

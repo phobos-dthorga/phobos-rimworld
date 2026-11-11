@@ -133,7 +133,7 @@ public class WorkGiver_PhobosServiceVehicle : VehicleWorkGiver
 /// unless told otherwise, whatever work is left, and the job then repeats for ever without finishing; and it does not save the work
 /// done, so a load would finish the job at once. Read from Vehicle Framework 1.6 (JobDriver_WorkVehicle), 9 Nov 2026.
 /// </summary>
-public abstract class PhobosVehicleWorkDriver : JobDriver_WorkVehicle
+public abstract class PhobosVehicleWorkDriver : JobDriver_WorkVehicle, Phobos.Framework.Interface.IDrawsOwnWorkBar
 {
     readonly Phobos.Framework.Rules.ProgressWatch watch = new();
 
@@ -158,7 +158,7 @@ public abstract class PhobosVehicleWorkDriver : JobDriver_WorkVehicle
     protected override IEnumerable<Toil> MakeNewToils()
     {
         this.FailOn(Stalled);
-        foreach (Toil toil in base.MakeNewToils()) yield return toil;
+        foreach (Toil toil in WorkBars.WithBar(base.MakeNewToils(), EffecterDef != null, GetProgressPct)) yield return toil;
     }
 
     /// <summary>The job ended and did nothing: repairs wait, rather than a mechanic being sent straight back.</summary>

@@ -91,6 +91,16 @@ public class RigJob_OilWell : RigSideJob
         rig.Reread();
     }
 
+    /// <summary>The steel placed, and the piece in hand, against the steel the well needs.</summary>
+    public override float? Progress(CompPhobosDrillRig rig)
+    {
+        OverOil(rig, out bool deep);
+        CompProperties_OilDerrick? derrick = Derrick(deep);
+        if (derrick == null || derrick.SteelCost <= 0) return null;
+        float piece = derrick.TicksPerSteel > 0 ? rig.SideProgress / derrick.TicksPerSteel : 0f;
+        return (rig.SideSteps + piece) / derrick.SteelCost;
+    }
+
     public override string? InspectLine(CompPhobosDrillRig rig)
     {
         OverOil(rig, out bool deep);

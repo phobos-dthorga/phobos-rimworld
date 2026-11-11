@@ -376,6 +376,36 @@
           </li>
         </slots>
       </li>
+      <!-- Damage pictures while a part is below 60% health (12 Nov 2026): the bulk tanker's marks, cropped and fitted here by
+           assets/phobos-vehicles/export_damage.py. Placements are the agent's. -->
+      <li Class="Phobos.VehicleSystems.CompProperties_PhobosDamageLooks">
+        <looks>
+          <li>
+            <part>Cab</part>
+            <overlay>
+              <graphicData>
+                <texPath>Phobos/Vehicles/Tipper/Tipper_DamageCab</texPath>
+                <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+                <drawSize>(4, 9)</drawSize>
+                <shaderType>Cutout</shaderType>
+                <layer>2</layer>
+              </graphicData>
+            </overlay>
+          </li>
+          <li>
+            <part>TipperBody</part>
+            <overlay>
+              <graphicData>
+                <texPath>Phobos/Vehicles/Tipper/Tipper_DamageBody</texPath>
+                <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+                <drawSize>(4, 9)</drawSize>
+                <shaderType>Cutout</shaderType>
+                <layer>2</layer>
+              </graphicData>
+            </overlay>
+          </li>
+        </looks>
+      </li>
     </comps>
     <!-- Its own voice in place of the inherited draft blips; the engine loops are played by D'thorga Framework from the
          extension below, so they follow rpm and load (docs/development/sound-catalogue.md). -->

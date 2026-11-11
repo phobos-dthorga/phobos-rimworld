@@ -129,4 +129,16 @@ an exact paste of a game sprite still scores 0.999, and a copy tilted 4 degrees 
 | Survey truck overlays | 12 | US$0.667 |
 | Batch B family | 29 (3 refused) | US$1.611 |
 | Pipe rack retry | 0 (2 refused) | US$0 |
-| **Night total** | **71** | **US$3.774**, against the audit's estimate of about US$8 for the whole backlog |
+| Survey truck boom extras | 4 | US$0.193 |
+| **Night total** | **75** | **US$3.967**, against the audit's estimate of about US$8 for the whole backlog |
+
+## Later the same day: the rest of the outstanding list (owner: "proceed with what you mentioned as outstanding except for the GPU work")
+
+- **Boom extras** (`survey-truck-boom-extras.json`, dry run US$0.40, cap US$0.45, **4 images, US$0.193**, nothing flagged by the fixed
+  check): the owner picked **geophones 1** and **reel 1**, after asking to see them (a labelled sheet opened on their screen). The owner first
+  took them for game art; they are new pictures from OpenAI's image model, and the record says so. Fitted onto the boom's canvas at the
+  agent's places and wired as extras that swing with the boom.
+- **Damage pictures** for the five vehicles, free: the bulk tanker's two damage masters, cropped (new files in `derived-2026-11-12`), fitted
+  with `--marks` and clipped to each vehicle's outline (`assets/phobos-vehicles/export_damage.py`).
+- **The store's frost**, free: drawn in code by `assets/phobos-medical/draw_frost.py`. DMS2's own frost, read 12 Nov 2026, is a loose frost
+  picture under the game's Mote shader, faded in and out; no custom shader and no asset bundle.

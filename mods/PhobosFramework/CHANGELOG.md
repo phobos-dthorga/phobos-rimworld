@@ -5,6 +5,26 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.100.0] - 2026-11-12 - Draft
+
+Progress bars on vehicle work, damage that shows on vehicles, and pictures that fade with a building's state. The owner's asks of 12 November 2026. **Not yet tested in game.**
+
+### Added
+
+- **Progress bars** (owner: "there needs to be progress bars in many areas, where appropriate"), the game's own bar in its own colours: servicing, diagnosing and repairing a vehicle with supplies; hooking a load to a sling; drilling at the drill rig (each portion, each unit of deepchem, or the whole oil well); surveying (towards the time by which a find is certain, so it can finish early); a tanker's tank while its pump runs (the tank filling or emptying); and a tipper's load while it tips. Like the game's own, the bar shows at the closest zoom.
+- **Damage that shows on vehicles**: a vehicle can show damage pictures while a part is below a share of its health. D'thorga Vehicles' trucks and the Seabed Crawler use it.
+- **Pictures that ride on a moving part**: a part that swings out when a vehicle sets up can carry pictures of its upgrades, swinging with it.
+- For modders: CompProperties_PhobosDamageLooks, extras on a set-up moving part, StepProgress on rig work, Progress on a rig side job, MapProgressBar and FadingOverlay for drawing over things, the rule FadeRule, and the marker IDrawsOwnWorkBar.
+
+### Compatibility and limits
+
+- Vehicle Framework's own repairs and upgrades get their bar from D'thorga Patches 0.17.0, not from this mod.
+- The bars are drawn only where a figure says how far the work has got; jobs that end in moments, and the set-up swing, have none.
+
+### Save compatibility
+
+- Safe to update mid-game. Nothing new is saved.
+
 ## [0.99.0] - 2026-11-12 - Draft
 
 A slung vehicle can now be seen. The owner lifted a vehicle with the Cherokee and it vanished without a word: it was aboard, but nothing drew it, listed it or said so. **Not yet tested in game.**

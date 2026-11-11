@@ -47,6 +47,9 @@ public class SetUpMovingPart
     public float reach = 3f;
     public float angle = 90f;
     public float seconds = 2f;
+    /// <summary>Pictures drawn on the part, on its own canvas, while their node is fitted, swinging with it (12 Nov 2026: the survey truck's
+    /// geophone spikes and resistivity reel ride on its boom). Each with a node; several can show at once.</summary>
+    public List<NodeLook> extras = new();
 }
 
 /// <summary>
@@ -68,6 +71,9 @@ public abstract class CompPhobosSetUp : VehicleComp
 
     // The moving parts' state. Derived, never saved: a load shows them where the set-up state says.
     readonly List<GraphicOverlay> partOverlays = new();
+    // The part each overlay belongs to, in step with partOverlays: a part's extras swing with it.
+    readonly List<SetUpMovingPart> overlayParts = new();
+    bool registeredForUpgrades;
     int motionStartTick = -1;
     bool motionOpening;
     HashSet<IntVec3>? sweptCells;
@@ -166,34 +172,53 @@ public abstract class CompPhobosSetUp : VehicleComp
         foreach (SetUpMovingPart part in parts)
         {
             if (part.look == null) continue;
-            GraphicOverlay overlay = GraphicOverlay.Create(part.look, Vehicle);
-            renderer.AddOverlay(PartKey, overlay);
-            partOverlays.Add(overlay);
+            AddPartOverlay(renderer, part, part.look);
+            foreach (NodeLook extra in part.extras)
+            {
+                if (extra.look != null && extra.node != null && VehicleUpgrades.Unlocked(Vehicle, extra.node)) AddPartOverlay(renderer, part, extra.look);
+            }
         }
         if (deployed) sweptCells = new HashSet<IntVec3>(parts.SelectMany(p => SweepOf(p, swingSide)));
         Pose(deployed ? 1f : 0f);
     }
 
+    void AddPartOverlay(GraphicOverlayRenderer renderer, SetUpMovingPart part, GraphicDataOverlay look)
+    {
+        GraphicOverlay overlay = GraphicOverlay.Create(look, Vehicle);
+        renderer.AddOverlay(PartKey, overlay);
+        partOverlays.Add(overlay);
+        overlayParts.Add(part);
+    }
+
+    public override void EventRegistration()
+    {
+        base.EventRegistration();
+        if (registeredForUpgrades || MovingParts?.Any(p => p.extras.Count > 0) != true) return;
+        registeredForUpgrades = true;
+        // An extra comes and goes with its upgrade: the parts are drawn again, in their current pose.
+        Vehicle.AddEvent(VehicleEventDefOf.UpgradeCompleted, AddMovingParts);
+        Vehicle.AddEvent(VehicleEventDefOf.UpgradeRefundCompleted, AddMovingParts);
+    }
+
     void RemoveMovingParts()
     {
         partOverlays.Clear();
+        overlayParts.Clear();
         Vehicle.DrawTracker?.overlayRenderer?.RemoveOverlays(PartKey);
     }
 
     /// <summary>Puts the parts at this share of their swing. The game turns a picture about its own centre, so each is also moved to keep its hinge in place.</summary>
     void Pose(float share)
     {
-        List<SetUpMovingPart>? parts = MovingParts;
-        if (parts == null || partOverlays.Count != parts.Count(p => p.look != null)) return;
+        if (MovingParts == null || partOverlays.Count != overlayParts.Count) return;
         float facing = Vehicle.FullRotation.AsAngle;
-        int index = 0;
-        foreach (SetUpMovingPart part in parts)
+        for (int index = 0; index < partOverlays.Count; index++)
         {
-            if (part.look == null) continue;
+            SetUpMovingPart part = overlayParts[index];
             float degrees = part.angle * swingSide * HingeRule.Eased(share);
             (float x, float z) pivot = HingeRule.Rotate(part.pivotX, part.pivotZ, facing);
             (float x, float z) offset = HingeRule.PivotOffset(pivot.x, pivot.z, degrees);
-            GraphicOverlay overlay = partOverlays[index++];
+            GraphicOverlay overlay = partOverlays[index];
             overlay.Transform.rotation = degrees;
             OverlayPosition.Set(overlay.Transform, new Vector3(offset.x, 0f, offset.z));
         }

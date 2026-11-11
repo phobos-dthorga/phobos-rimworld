@@ -6,3 +6,12 @@ Made on 12 Nov 2026 with OpenAI gpt-image-2 through the image API, at medium qua
 
 | Texture | Part master | Fit box in the body master | Master SHA-256 |
 | --- | --- | --- | --- |
+
+## Damage pictures (12 Nov 2026)
+
+Made free from our own bulk tanker damage masters (`bulk-tanker-damage-body-1`, `bulk-tanker-damage-tank-1`, OpenAI gpt-image-2, 8 Nov 2026): a different crop for each place, fitted with `scripts/art/export_vehicle.py overlay --marks` (darkness only) and clipped to the vehicle's outline, by `assets/phobos-vehicles/export_damage.py`, which lists every crop and box. Shown by D'thorga Framework's damage looks below 60% part health. No game or other author's art was used.
+
+| Texture | North SHA-256 |
+| --- | --- |
+| GeneratorSet_DamageCab | `849496980bcafe8f913a727e426020299a57ae69ce6b0f4c3f5860c73a0d492e` |
+| GeneratorSet_DamageHousing | `b6063996cbbd7401275e52cad11cd9a954db258350a7e38044c1931d0ec2fc92` |

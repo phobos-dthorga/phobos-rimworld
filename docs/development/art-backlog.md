@@ -6,7 +6,9 @@ paid image API drew the tipper, drill rig and generator set and their parts, and
 0.43.0). The store's frost is a shader, not a picture (owner). **Still outstanding:** the drill rig's well-pipe rack (refused twice by the
 API, so it waits for the owner's GPU), the radio whip (held until the radio resumes), the Crawler's laboratory, scrubber and refit icons,
 the survey truck's geophone spikes and resistivity reel (they ride on the moving boom), the new vehicles' damage pictures, the sonar ping
-and triage tag icons, and the optional Factory Additions buildings. Every pick, flag and cost is in
+and triage tag icons, and the optional Factory Additions buildings. **Later the same day** the store's frost was drawn in code, the geophones and resistivity reel
+were made and picked, and every new vehicle got damage pictures from the tanker's marks (Framework 0.100.0, Vehicles 0.44.0, Medical
+0.15.0). Every pick, flag and cost is in
 [the night's record](../../assets/phobos-vehicles/requests/night-2026-11-12-record.md). The tables below are the record as last written on
 7 Nov 2026.
 
