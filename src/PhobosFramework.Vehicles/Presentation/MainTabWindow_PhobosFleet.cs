@@ -100,6 +100,16 @@ public class MainTabWindow_PhobosFleet : MainTabWindow
 
     public override void DoWindowContents(Rect inRect)
     {
+        // Guarded: a throw is logged once and the window rests, where the game would log it every frame (UiGuard).
+        if (UiGuard.Resting(GuardKey)) { UiGuard.Fallback(inRect); return; }
+        try { Contents(inRect); }
+        catch (System.Exception e) { UiGuard.Report(GuardKey, e); }
+    }
+
+    const string GuardKey = "The fleet board";
+
+    void Contents(Rect inRect)
+    {
         using Phobos.Framework.Debug.PhobosTiming.Scope timing = Phobos.Framework.Debug.PhobosTiming.Measure("fleet board");
         if (Find.TickManager.TicksGame - builtAtTick >= RefreshTicks) Rebuild();
         List<FleetEntry> shown = Shown().ToList();

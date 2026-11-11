@@ -88,6 +88,16 @@ public class ITab_VehicleSystems : ITab
     /// </summary>
     public static void Draw(CompPhobosVehicleSystems comp, Rect outer, bool onWorld)
     {
+        // Guarded: a throw is logged once and the tab rests, where the game would log it every frame (UiGuard).
+        if (UiGuard.Resting(GuardKey)) { UiGuard.Fallback(outer); return; }
+        try { DrawInner(comp, outer, onWorld); }
+        catch (System.Exception e) { UiGuard.Report(GuardKey, e); }
+    }
+
+    internal const string GuardKey = "The vehicle Systems tab";
+
+    static void DrawInner(CompPhobosVehicleSystems comp, Rect outer, bool onWorld)
+    {
         using Phobos.Framework.Debug.PhobosTiming.Scope timing = Phobos.Framework.Debug.PhobosTiming.Measure("systems tab");
         DisplayMode mode = VehicleSystemsMod.Settings.displayMode;
         bool engineer = mode == DisplayMode.Engineer;

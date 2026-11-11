@@ -430,6 +430,17 @@ public static class VehicleSystemsDebugActions
     [DebugAction(DebugCategory.Name, "Vehicle systems: open the Systems tab", allowedGameStates = AllowedGameStates.PlayingOnMap)]
     static void OpenSystems() => InspectPaneUtility.OpenTab(typeof(ITab_VehicleSystems));
 
+    /// <summary>Shows the screen guard at work without a real fault (Framework 0.94.0): the Systems tab rests for a few seconds with its
+    /// fallback line, and the log gains one error, as it would if the tab had thrown.</summary>
+    [DebugAction(DebugCategory.Name, "Vehicle systems: test the screen guard on the Systems tab", allowedGameStates = AllowedGameStates.Playing)]
+    static void TestScreenGuard()
+    {
+        Phobos.Framework.Interface.UiGuard.Report(ITab_VehicleSystems.GuardKey, new System.InvalidOperationException("A test fault, asked for by the dev action. Nothing is wrong."));
+        (int screens, int faults) = Phobos.Framework.Interface.UiGuard.Tally();
+        Log.Message(VehicleSystemsMod.LogPrefix + " Screen guard: " + screens + " screen(s) have failed " + faults + " time(s) this session. Open the Systems tab now: it shows one line for "
+                    + Phobos.Framework.Interface.UiGuard.RestSeconds + " seconds, then draws again.");
+    }
+
     [DebugAction(DebugCategory.Name, "Vehicle systems: log tab state", allowedGameStates = AllowedGameStates.Playing)]
     static void LogTabState() => Log.Message(VehicleSystemsMod.LogPrefix + " Systems tab holds state for " + ITab_VehicleSystems.StateCount
         + " vehicles; Health tab holds views for " + ITab_PhobosVehicleHealth.ViewCount + ".");

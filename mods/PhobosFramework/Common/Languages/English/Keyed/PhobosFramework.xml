@@ -51,4 +51,7 @@
   <!-- History graphs (Framework 0.83.1): what shows where the pointer rests on a graph. -->
   <PhobosFramework_GraphHour>Hour</PhobosFramework_GraphHour>
   <PhobosFramework_GraphValue>{VALUE} {UNIT}</PhobosFramework_GraphValue>
+
+  <!-- The screen guard (Framework 0.94.0): what a tab or window shows in its place for a few seconds after it failed. -->
+  <PhobosFramework_ScreenFault>This could not be shown just now. The details are in the log, and it will try again in a few seconds.</PhobosFramework_ScreenFault>
 </LanguageData>

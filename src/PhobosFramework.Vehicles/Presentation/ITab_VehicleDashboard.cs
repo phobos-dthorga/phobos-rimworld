@@ -54,6 +54,16 @@ public class ITab_VehicleDashboard : ITab
     /// </summary>
     public static void Draw(CompPhobosVehicleSystems comp, Rect outer, bool onWorld)
     {
+        // Guarded: a throw is logged once and the tab rests, where the game would log it every frame (UiGuard).
+        if (UiGuard.Resting(GuardKey)) { UiGuard.Fallback(outer); return; }
+        try { DrawInner(comp, outer, onWorld); }
+        catch (System.Exception e) { UiGuard.Report(GuardKey, e); }
+    }
+
+    const string GuardKey = "The vehicle Dashboard tab";
+
+    static void DrawInner(CompPhobosVehicleSystems comp, Rect outer, bool onWorld)
+    {
         DisplayMode mode = VehicleSystemsMod.Settings.displayMode;
         bool figures = mode != DisplayMode.Plain;
         float y = outer.y;

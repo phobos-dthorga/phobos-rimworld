@@ -1,3 +1,4 @@
+using Phobos.Framework.Interface;
 using System.Collections.Generic;
 using System.Linq;
 using Phobos.Framework.Rules;
@@ -271,6 +272,16 @@ public sealed class CompPhobosSling : VehicleComp, IThingHolder
     }
 
     public override string? CompInspectStringExtra()
+    {
+        // Guarded: the game asks for this every frame while the thing is selected (UiGuard).
+        if (UiGuard.Resting(GuardKey)) return UiGuard.FallbackText;
+        try { return InspectLine(); }
+        catch (System.Exception e) { UiGuard.Report(GuardKey, e); return null; }
+    }
+
+    const string GuardKey = "A helicopter's sling line";
+
+    string? InspectLine()
     {
         if (Carried is { } carried) return "PhobosSling_InspectCarrying".Translate(carried.LabelShort.Named("LOAD")).Resolve();
         if (hooked == null) return null;

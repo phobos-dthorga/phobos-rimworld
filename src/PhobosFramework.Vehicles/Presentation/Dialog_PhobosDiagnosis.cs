@@ -94,6 +94,16 @@ public class Dialog_PhobosDiagnosis : Window
 
     public override void DoWindowContents(Rect inRect)
     {
+        // Guarded: a throw is logged once and the window rests, where the game would log it every frame (UiGuard).
+        if (UiGuard.Resting(GuardKey)) { UiGuard.Fallback(inRect); return; }
+        try { Contents(inRect); }
+        catch (System.Exception e) { UiGuard.Report(GuardKey, e); }
+    }
+
+    const string GuardKey = "The diagnosis report";
+
+    void Contents(Rect inRect)
+    {
         using (new TextBlock(GameFont.Medium))
         {
             Widgets.Label(new Rect(inRect.x, inRect.y, inRect.width - 30f, 34f), letter.Label);

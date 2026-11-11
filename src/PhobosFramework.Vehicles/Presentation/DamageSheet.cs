@@ -49,6 +49,7 @@ public static class DamageSheet
     /// <summary>The size of the sheet that follows the mouse (authored: as wide as the Health tab's column).</summary>
     const float PopupSize = 210f;
     const float PopupGap = 16f;
+    const string PopupGuardKey = "The damage picture beside the mouse";
     static readonly int PopupId = 0x50684453; // "PhDS": one id, so the game keeps one sheet on screen
 
     /// <summary>
@@ -61,7 +62,12 @@ public static class DamageSheet
         var rect = new Rect(mouse.x + PopupGap, mouse.y + PopupGap, PopupSize, PopupSize);
         if (rect.xMax > UI.screenWidth) rect.x = mouse.x - PopupGap - PopupSize;
         if (rect.yMax > UI.screenHeight) rect.y = mouse.y - PopupGap - PopupSize;
-        Find.WindowStack.ImmediateWindow(PopupId, rect, WindowLayer.Super, () => Draw(new Rect(0f, 0f, PopupSize, PopupSize), def, parts, null), doBackground: false);
+        if (UiGuard.Resting(PopupGuardKey)) return;
+        Find.WindowStack.ImmediateWindow(PopupId, rect, WindowLayer.Super, () =>
+        {
+            try { Draw(new Rect(0f, 0f, PopupSize, PopupSize), def, parts, null); }
+            catch (System.Exception e) { UiGuard.Report(PopupGuardKey, e); }
+        }, doBackground: false);
     }
 
     static readonly Dictionary<string, SheetPart> sharesScratch = new();

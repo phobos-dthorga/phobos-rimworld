@@ -14,6 +14,16 @@ Four over-arching passes on the vehicle work (owner, 11 November 2026: asked for
 - **The same screens cost less to draw.** A hauler looking for a sling load to hook up reads a short list of waiting loads, where it walked every pawn on the map for every vehicle on it. A selected vehicle's "Fittings and tunes" button and a selected dyno bay's list are worked out twice a second, not sixty times. The fittings window builds its rows when something changes, and a choice's details only while the mouse rests on it. The Systems tab builds a row's tooltip only under the mouse and measures its names once. The damage picture and the diagnosis report make nothing new each frame. Nothing looks or behaves differently.
 - The fittings window, the Systems tab and the fleet board are timed, so the dev timing report shows what each costs.
 
+### Added
+
+- **A guard on our vehicle screens.** If a tab, a window or an inspect line of ours fails, it is logged once in full, shows one line in its place ("This could not be shown just now...") and tries again every few seconds. Before, the game logged such a fault on every frame, about sixty a second, which uses up its 10,000 log messages in under three minutes and silences the log. Guarded: the Systems, Dashboard and Health tabs on a map and on the world map, the fittings and tunes window, the diagnosis report, the fleet board, the bulk order window, the damage picture beside the mouse, and the inspect lines of a sling, a dyno bay and a vehicle caravan.
+- A dev action, "Vehicle systems: test the screen guard on the Systems tab", shows it at work without a real fault.
+- For modders: Phobos.Framework.Interface.UiGuard (Resting, Report, Fallback), and the game-free FaultLatch.
+
+### Compatibility and limits
+
+- The guard covers D'thorga Framework's own screens. Our other mods take it up when each is next touched. Buttons (gizmos) are not guarded: the game builds them one at a time.
+
 ## [0.93.0] - 2026-11-11 - Draft
 
 The Systems tab is readable (owner, 11 November 2026: with every graph and line of text open at once, nothing could be told apart). **Not yet tested in game.**

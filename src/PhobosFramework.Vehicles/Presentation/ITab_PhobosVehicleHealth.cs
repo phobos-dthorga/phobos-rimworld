@@ -73,6 +73,16 @@ public class ITab_PhobosVehicleHealth : ITab
     /// <summary>Draws one vehicle's health in <paramref name="outer"/>: for this tab on a map, and for the world map's tab.</summary>
     public static void Draw(CompPhobosVehicleSystems comp, Rect outer, bool onWorld)
     {
+        // Guarded: a throw is logged once and the tab rests, where the game would log it every frame (UiGuard).
+        if (UiGuard.Resting(GuardKey)) { UiGuard.Fallback(outer); return; }
+        try { DrawInner(comp, outer, onWorld); }
+        catch (System.Exception e) { UiGuard.Report(GuardKey, e); }
+    }
+
+    const string GuardKey = "The vehicle Health tab";
+
+    static void DrawInner(CompPhobosVehicleSystems comp, Rect outer, bool onWorld)
+    {
         using Phobos.Framework.Debug.PhobosTiming.Scope timing = Phobos.Framework.Debug.PhobosTiming.Measure("health tab");
         DisplayMode mode = VehicleSystemsMod.Settings.displayMode;
         HealthView view = views.Get(comp.Vehicle.thingIDNumber);

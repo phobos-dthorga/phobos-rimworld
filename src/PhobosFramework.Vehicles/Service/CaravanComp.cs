@@ -1,3 +1,4 @@
+using Phobos.Framework.Interface;
 using System.Collections.Generic;
 using System.Linq;
 using RimWorld;
@@ -22,6 +23,16 @@ public class WorldObjectComp_PhobosVehicleCaravan : WorldObjectComp
         caravan.VehiclesListForReading.Select(v => v.GetComp<CompPhobosVehicleSystems>()).Where(c => c != null && c.Usable)!;
 
     public override string? CompInspectStringExtra()
+    {
+        // Guarded: the game asks for this every frame while the thing is selected (UiGuard).
+        if (UiGuard.Resting(GuardKey)) return UiGuard.FallbackText;
+        try { return InspectLine(); }
+        catch (System.Exception e) { UiGuard.Report(GuardKey, e); return null; }
+    }
+
+    const string GuardKey = "A vehicle caravan's line";
+
+    string? InspectLine()
     {
         VehicleCaravan? caravan = Caravan;
         if (caravan == null) return null;

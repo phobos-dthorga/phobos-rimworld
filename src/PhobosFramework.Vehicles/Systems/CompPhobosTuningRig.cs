@@ -1,3 +1,4 @@
+using Phobos.Framework.Interface;
 using System.Collections.Generic;
 using System.Linq;
 using Verse;
@@ -53,7 +54,17 @@ public sealed class CompPhobosTuningRig : ThingComp
         return found;
     }
 
-    public override string CompInspectStringExtra()
+    public override string? CompInspectStringExtra()
+    {
+        // Guarded: the game asks for this every frame while the thing is selected (UiGuard).
+        if (UiGuard.Resting(GuardKey)) return UiGuard.FallbackText;
+        try { return InspectLine(); }
+        catch (System.Exception e) { UiGuard.Report(GuardKey, e); return null; }
+    }
+
+    const string GuardKey = "A dyno bay's line";
+
+    string InspectLine()
     {
         string state = (Working
             ? "PhobosVehicleSystems_RigInspectReady".Translate(Props.reach.Named("CELLS"))
