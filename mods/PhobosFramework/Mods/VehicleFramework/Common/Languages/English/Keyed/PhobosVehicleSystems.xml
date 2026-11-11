@@ -276,6 +276,13 @@
   <PhobosVehicleSystems_EffectSources>{SOURCES}: {EFFECTS}</PhobosVehicleSystems_EffectSources>
   <PhobosVehicleSystems_EffectPreview>If chosen: {LINE}</PhobosVehicleSystems_EffectPreview>
   <PhobosVehicleSystems_FitNoneShort>none</PhobosVehicleSystems_FitNoneShort>
+  <!-- Axles in the fittings window (Framework 0.89.0). -->
+  <PhobosVehicleSystems_AxleFront>Front axle</PhobosVehicleSystems_AxleFront>
+  <PhobosVehicleSystems_AxleRear>Rear axle</PhobosVehicleSystems_AxleRear>
+  <PhobosVehicleSystems_AxleNumbered>Axle {NUMBER}</PhobosVehicleSystems_AxleNumbered>
+  <PhobosVehicleSystems_AxleMixed>{LINE} ({FITTED} of {WHEELS} wheels)</PhobosVehicleSystems_AxleMixed>
+  <PhobosVehicleSystems_AxleEach>{COST}, for each of {COUNT} wheels</PhobosVehicleSystems_AxleEach>
+  <PhobosVehicleSystems_FitOrderedAxle>Waiting: {WORK}, on {COUNT} wheels</PhobosVehicleSystems_FitOrderedAxle>
   <PhobosVehicleSystems_TuneFigureFuelModel>fuel burned: worked out by the engine model from the revs</PhobosVehicleSystems_TuneFigureFuelModel>
   <PhobosVehicleSystems_FitPartNone>nothing fitted</PhobosVehicleSystems_FitPartNone>
   <PhobosVehicleSystems_FitChange>Change</PhobosVehicleSystems_FitChange>

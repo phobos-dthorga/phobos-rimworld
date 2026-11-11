@@ -38,7 +38,8 @@ covered the grades too. Left in the order: P4, P7c, P7d and P7e, each waiting on
 **Framework 0.88.0 (owner's idea, 11 Nov 2026, agreed with the agent's push-back):** the fittings window's part rows borrow the tune row's
 picture buttons; the engine and gearbox rows show their fitting and the running tune combined, and a hover on any choice previews it.
 Only those two rows carry a tune (agent's push-back, agreed); a part with more choices than fit across keeps the menus. The window and
-the vehicle share one rule for the figures (FitFigures). Grouping the four wheel rows as axles is a possible later tidy, not built.
+the vehicle share one rule for the figures (FitFigures). **Framework 0.89.0 (owner, 11 Nov 2026):** the wheel rows are grouped into
+axles (AxleRule, by where each wheel's hit area sits along the vehicle); an axle's choice is ordered per wheel.
 
 ## Read this first
 

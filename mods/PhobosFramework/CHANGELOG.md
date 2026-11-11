@@ -5,6 +5,24 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.89.0] - 2026-11-11 - Draft
+
+Axles in the fittings window (owner, 11 November 2026: "Group the 4-wheels into axles"). **Not yet tested in game.**
+
+### Added
+
+- **The wheels are grouped into axles**: a front axle, a rear axle, and numbered axles between them on a longer vehicle. Rest the mouse on an axle's name to see its wheels.
+- **A choice on an axle is ordered for each of its wheels**, and lit only when every wheel has it. A grade's cost says it is for each wheel; the waiting line says how many wheels the work is on, and Cancel cancels them all.
+- An axle's line counts each wheel's share, so heavy-duty springs on one axle of two show half the full effect, as on the vehicle. An axle with only some wheels fitted says how many.
+
+### Compatibility and limits
+
+- Wheels are grouped by where their hit areas sit along the vehicle. A vehicle whose wheels have no hit areas of their own, or which make no pairs, keeps one row per wheel. A track pair is one group.
+
+### Save compatibility
+
+- Safe on an existing save: only what the window shows changes, and orders are still saved per wheel.
+
 ## [0.88.0] - 2026-11-11 - Draft
 
 The fittings window shows how the choices work together (owner, 11 November 2026: "when you select one of the options from the top, it should show its changes in the options below too, and borrow modules from those"). **Not yet tested in game.**

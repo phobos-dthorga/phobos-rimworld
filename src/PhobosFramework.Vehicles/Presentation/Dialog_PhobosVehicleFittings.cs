@@ -71,7 +71,7 @@ public class Dialog_PhobosVehicleFittings : Window
         }
 
         List<VehicleTuneAxis> axes = new[] { VehicleTuneAxis.Engine, VehicleTuneAxis.Gearing }.Where(Fittings.CanTune).ToList();
-        List<VehicleComponent> parts = Fittings.ListedParts().ToList();
+        List<List<VehicleComponent>> parts = Fittings.PartRows();
         var outer = new Rect(inRect.x, y, inRect.width, inRect.yMax - y);
         float content = SectionHeight * 2f + TuneRowHeight * Mathf.Max(axes.Count, 1) + RowHeight * Mathf.Max(parts.Count, 1);
         var view = new Rect(0f, 0f, outer.width - 18f, content);
@@ -82,7 +82,12 @@ public class Dialog_PhobosVehicleFittings : Window
         foreach (VehicleTuneAxis axis in axes) DrawTune(view, ref row, axis);
         DrawSection(view, ref row, "PhobosVehicleSystems_FitSectionParts".Translate());
         if (parts.Count == 0) DrawNote(view, ref row, "PhobosVehicleSystems_FitNoParts".Translate());
-        foreach (VehicleComponent part in parts) DrawPart(view, ref row, part);
+        int axleCount = parts.Count(r => r.Count > 1), axle = 0;
+        foreach (List<VehicleComponent> partRow in parts)
+        {
+            if (partRow.Count == 1) DrawRow(view, ref row, partRow, partRow[0].props.label.CapitalizeFirst(), null);
+            else DrawRow(view, ref row, partRow, AxleName(axle++, axleCount), string.Join("\n", partRow.Select(p => p.props.label.CapitalizeFirst())));
+        }
         Widgets.EndScrollView();
     }
 
@@ -181,41 +186,61 @@ public class Dialog_PhobosVehicleFittings : Window
     static string Factor(float factor) => factor.ToString("0.###");
 
     /// <summary>
-    /// A part's row (Framework 0.88.0; owner, 11 Nov 2026): its fittings and grades as picture buttons borrowed from the tune row, the one
-    /// it has lit, and under them what its fitting and the tune landing on it give together. Resting the mouse on any choice, here or a
-    /// tune above, shows what the row would give instead. A part with more choices than fit across falls back to the menus.
+    /// A part's row, or an axle's (Framework 0.88.0 and 0.89.0; owner, 11 Nov 2026): its fittings and grades as picture buttons borrowed
+    /// from the tune row, what it has lit, and under them what its fitting and the tune landing on it give together. An axle's choice is
+    /// ordered for each of its wheels, and lit only when every wheel has it. Resting the mouse on any choice, here or a tune above, shows
+    /// what the row would give instead. A row with more choices than fit across falls back to the menus, part by part.
     /// </summary>
-    void DrawPart(Rect view, ref float y, VehicleComponent part)
+    void DrawRow(Rect view, ref float y, List<VehicleComponent> parts, string name, string? nameTip)
     {
-        PhobosVehicleFittingDef? on = Fittings.FittedOn(part.props.key);
-        PhobosVehiclePartGradeDef current = Fittings.GradeOf(part.props.key);
-        FitOrder? order = Fittings.OrderOn(part.props.key);
-        List<PhobosVehicleFittingDef> options = Fittings.OptionsFor(part).ToList();
-        List<PhobosVehiclePartGradeDef> grades = comp.Repairs.CanBeGraded(part) ? VehicleFittings.Grades.ToList() : new List<PhobosVehiclePartGradeDef>();
-        int fitButtons = options.Count > 0 || on != null ? options.Count + 1 : 0;
+        VehicleComponent first = parts[0];
+        List<PhobosVehicleFittingDef?> fitted = parts.Select(part => Fittings.FittedOn(part.props.key)).ToList();
+        List<FitOrder> orders = parts.Select(part => Fittings.OrderOn(part.props.key)).Where(o => o != null).Select(o => o!).ToList();
+        // The fitting most of the row has, and how many have it; null when none has one.
+        PhobosVehicleFittingDef? common = fitted.Where(f => f != null).GroupBy(f => f).OrderByDescending(g => g.Count()).FirstOrDefault()?.Key;
+        int commonCount = fitted.Count(f => f != null && f == common);
+        bool anyFitted = fitted.Any(f => f != null);
+        List<PhobosVehicleFittingDef> options = Fittings.OptionsFor(first).ToList();
+        List<PhobosVehiclePartGradeDef> grades = parts.All(comp.Repairs.CanBeGraded) ? VehicleFittings.Grades.ToList() : new List<PhobosVehiclePartGradeDef>();
+        int fitButtons = options.Count > 0 || anyFitted ? options.Count + 1 : 0;
         if (PartNameWidth + (fitButtons + grades.Count) * (PictureButton + 2f) + GroupGap > view.width)
         {
-            DrawPartMenus(view, ref y, part);
+            foreach (VehicleComponent part in parts) DrawPartMenus(view, ref y, part);
             return;
         }
         bool plain = VehicleSystemsMod.Settings.displayMode == DisplayMode.Plain;
-        using (new TextBlock(GameFont.Small, TextAnchor.MiddleLeft)) Widgets.Label(new Rect(0f, y, PartNameWidth - 4f, PictureButton), part.props.label.CapitalizeFirst());
+        var nameRect = new Rect(0f, y, PartNameWidth - 4f, PictureButton);
+        using (new TextBlock(GameFont.Small, TextAnchor.MiddleLeft)) Widgets.Label(nameRect, name);
+        if (nameTip != null) TooltipHandler.TipRegion(nameRect, nameTip);
         float x = PartNameWidth;
         bool hoverFitting = false;
         PhobosVehicleFittingDef? hovered = null;
         if (fitButtons > 0)
         {
             var none = new Rect(x, y, PictureButton, PictureButton);
-            string noneTip = on != null ? "PhobosVehicleSystems_FitRemove".Translate(on.label.Named("FITTING")).Resolve() : "PhobosVehicleSystems_FitPartNone".Translate().CapitalizeFirst().Resolve();
-            if (Choice(none, null, "PhobosVehicleSystems_FitNoneShort".Translate(), on == null, null, order is { remove: true }, noneTip)) Fittings.OrderRemoval(part);
-            if (on != null && Mouse.IsOver(none)) hoverFitting = true;
+            string noneTip = common != null ? "PhobosVehicleSystems_FitRemove".Translate(common.label.Named("FITTING")).Resolve() : "PhobosVehicleSystems_FitPartNone".Translate().CapitalizeFirst().Resolve();
+            if (Choice(none, null, "PhobosVehicleSystems_FitNoneShort".Translate(), !anyFitted, null, orders.Any(o => o.remove), noneTip))
+            {
+                for (int i = 0; i < parts.Count; i++)
+                {
+                    if (fitted[i] != null) Fittings.OrderRemoval(parts[i]);
+                }
+            }
+            if (anyFitted && Mouse.IsOver(none)) hoverFitting = true;
             x += PictureButton + 2f;
             foreach (PhobosVehicleFittingDef def in options)
             {
                 var button = new Rect(x, y, PictureButton, PictureButton);
-                string? refusal = Fittings.Refusal(def, part);
-                if (Choice(button, def.Icon, def.LabelCap, def == on, refusal, order?.fitting == def, FittingTip(def, refusal))) Fittings.OrderFitting(part, def);
-                if (def != on && Mouse.IsOver(button))
+                string? refusal = parts.Select(part => Fittings.Refusal(def, part)).FirstOrDefault(r => r != null);
+                bool all = fitted.All(f => f == def);
+                if (Choice(button, def.Icon, def.LabelCap, all, refusal, orders.Any(o => o.fitting == def), FittingTip(def, refusal)))
+                {
+                    for (int i = 0; i < parts.Count; i++)
+                    {
+                        if (fitted[i] != def) Fittings.OrderFitting(parts[i], def);
+                    }
+                }
+                if (!all && Mouse.IsOver(button))
                 {
                     hoverFitting = true;
                     hovered = def;
@@ -227,33 +252,66 @@ public class Dialog_PhobosVehicleFittings : Window
         foreach (PhobosVehiclePartGradeDef grade in grades)
         {
             var button = new Rect(x, y, PictureButton, PictureButton);
-            bool lit = grade == current && part.Health > 0f;
-            string? refusal = Fittings.Refusal(grade, part);
-            if (Choice(button, grade.Icon, grade.LabelCap, lit, refusal, order?.grade == grade, GradeTip(part, grade, refusal))) Fittings.OrderGrade(part, grade);
+            bool lit = parts.All(part => Fittings.GradeOf(part.props.key) == grade && part.Health > 0f);
+            string? refusal = parts.Select(part => Fittings.Refusal(grade, part)).FirstOrDefault(r => r != null);
+            if (Choice(button, grade.Icon, grade.LabelCap, lit, refusal, orders.Any(o => o.grade == grade), GradeTip(parts, grade, refusal)))
+            {
+                foreach (VehicleComponent part in parts)
+                {
+                    if (Fittings.GradeOf(part.props.key) != grade || part.Health <= 0f) Fittings.OrderGrade(part, grade);
+                }
+            }
             x += PictureButton + 2f;
         }
 
         // Under the buttons: the work ordered, or what the row gives (or would give, while the mouse rests on a choice).
-        if (order != null)
+        if (orders.Count > 0)
         {
-            DrawOrderLine(view, y + PictureButton - ButtonHeight, order);
+            DrawOrderLines(view, y + PictureButton - ButtonHeight, orders);
         }
         else
         {
-            VehicleTuneAxis? axis = Fittings.AxisOf(part);
+            VehicleTuneAxis? axis = Fittings.AxisOf(first);
             PhobosVehicleTuneDef? running = axis == null ? null : Fittings.Current(axis.Value);
             bool tunePreview = axis != null && previewTune != null && previewTune.axis == axis;
             PhobosVehicleTuneDef? tune = tunePreview ? previewTune : running;
-            PhobosVehicleFittingDef? fitting = hoverFitting ? hovered : on;
-            string? line = FittingText.RowLine(fitting, tune, Fittings.RowFigures(fitting, tune), plain);
+            PhobosVehicleFittingDef? fitting = hoverFitting ? hovered : common;
+            int count = hoverFitting ? (hovered == null ? 0 : parts.Count) : commonCount;
+            string? line = FittingText.RowLine(fitting, tune, Fittings.RowFigures(fitting, tune, count), plain);
             if (line != null)
             {
-                bool preview = hoverFitting || tunePreview;
-                if (preview) line = "PhobosVehicleSystems_EffectPreview".Translate(line.Named("LINE")).Resolve().Colorize(PreviewColour);
+                if (!hoverFitting && parts.Count > 1 && commonCount > 0 && commonCount < parts.Count)
+                {
+                    line = "PhobosVehicleSystems_AxleMixed".Translate(line.Named("LINE"), commonCount.Named("FITTED"), parts.Count.Named("WHEELS")).Resolve();
+                }
+                if (hoverFitting || tunePreview) line = "PhobosVehicleSystems_EffectPreview".Translate(line.Named("LINE")).Resolve().Colorize(PreviewColour);
                 using (new TextBlock(GameFont.Tiny, TextAnchor.MiddleLeft)) Widgets.Label(new Rect(PartNameWidth, y + PictureButton + 1f, view.width - PartNameWidth, 18f), line);
             }
         }
         y += RowHeight;
+    }
+
+    /// <summary>A row's name: the part's own, or an axle's by its place, front first (and "rear" for the last of several).</summary>
+    static string AxleName(int index, int count) =>
+        index == 0 ? "PhobosVehicleSystems_AxleFront".Translate().Resolve()
+        : index == count - 1 ? "PhobosVehicleSystems_AxleRear".Translate().Resolve()
+        : "PhobosVehicleSystems_AxleNumbered".Translate((index + 1).Named("NUMBER")).Resolve();
+
+    /// <summary>The work ordered on a row: one line, naming how many parts it is for, with one button that cancels it all.</summary>
+    void DrawOrderLines(Rect view, float y, List<FitOrder> orders)
+    {
+        var line = new Rect(0f, y + ButtonHeight + 2f, view.width - 80f, 20f);
+        using (new TextBlock(GameFont.Tiny, TextAnchor.MiddleLeft))
+        {
+            string work = Fittings.LabelOf(orders[0]);
+            Widgets.Label(line, orders.Count == 1
+                ? "PhobosVehicleSystems_FitOrdered".Translate(work.Named("WORK")).Resolve()
+                : "PhobosVehicleSystems_FitOrderedAxle".Translate(work.Named("WORK"), orders.Count.Named("COUNT")).Resolve());
+            if (Widgets.ButtonText(new Rect(view.width - 74f, line.y, 74f, 20f), "PhobosVehicleSystems_FitCancel".Translate()))
+            {
+                foreach (FitOrder order in orders.ToList()) Fittings.Cancel(order);
+            }
+        }
     }
 
     /// <summary>
@@ -283,9 +341,11 @@ public class Dialog_PhobosVehicleFittings : Window
         return tip;
     }
 
-    string GradeTip(VehicleComponent part, PhobosVehiclePartGradeDef grade, string? refusal)
+    string GradeTip(List<VehicleComponent> parts, PhobosVehiclePartGradeDef grade, string? refusal)
     {
-        string tip = grade.LabelCap + " (" + comp.Repairs.CostLine(part, grade) + ")\n\n" + grade.description;
+        string cost = comp.Repairs.CostLine(parts[0], grade);
+        if (parts.Count > 1) cost = "PhobosVehicleSystems_AxleEach".Translate(cost.Named("COST"), parts.Count.Named("COUNT")).Resolve();
+        string tip = grade.LabelCap + " (" + cost + ")\n\n" + grade.description;
         if (grade.minSkill > 0) tip += "\n\n" + "PhobosVehicleSystems_FitNeedsSkill".Translate(grade.minSkill.Named("SKILL")).CapitalizeFirst();
         if (refusal != null) tip += "\n\n" + refusal.Colorize(PhobosWidgets.Bad);
         return tip;

@@ -203,10 +203,11 @@ public sealed class VehicleFittings
     /// What a part's row says it gives (Framework 0.88.0): the fitting on it, at its share among its role's parts, together with the tune
     /// whose changes land on that part. The window passes the current fitting and tune, or the one the mouse rests on as a preview.
     /// </summary>
-    public FitFigures RowFigures(PhobosVehicleFittingDef? fitting, PhobosVehicleTuneDef? tune)
+    public FitFigures RowFigures(PhobosVehicleFittingDef? fitting, PhobosVehicleTuneDef? tune, int fittedParts = 1)
     {
         var fittings = new List<(PhobosVehicleFittingDef, int)>();
-        if (fitting != null) fittings.Add((fitting, PartsOf(fitting)));
+        // An axle's row counts every wheel of it that has the fitting: each gives its share, as on the vehicle.
+        for (int i = 0; fitting != null && i < fittedParts; i++) fittings.Add((fitting, PartsOf(fitting)));
         return FitFigures.Of(fittings, tune == null ? Enumerable.Empty<PhobosVehicleTuneDef>() : new[] { tune });
     }
 
@@ -325,6 +326,43 @@ public sealed class VehicleFittings
         {
             if (comp.Repairs.CanBeGraded(part) || OptionsFor(part).Any()) yield return part;
         }
+    }
+
+    /// <summary>How far apart along the vehicle two wheels may sit and still share an axle, in cells (authored).</summary>
+    public const float AxleTolerance = 0.75f;
+
+    /// <summary>
+    /// The listed parts as the fittings window's rows (Framework 0.89.0; owner, 11 Nov 2026): the wheels grouped into axles (AxleRule, by
+    /// where their hit areas sit along the vehicle), every other part on its own, in the list's order with the axles where the first wheel
+    /// was. A wheel with no hit area of its own stays on its own, and wheels that make no pair stay as they were.
+    /// </summary>
+    public List<List<VehicleComponent>> PartRows()
+    {
+        List<VehicleComponent> parts = ListedParts().ToList();
+        var wheels = new List<VehicleComponent>();
+        var along = new List<float>();
+        foreach (VehicleComponent part in parts)
+        {
+            if (!comp.PartPlays(part, "Wheels") || part.props.hitbox?.Hitbox is not { Count: > 0 } cells) continue;
+            wheels.Add(part);
+            along.Add((float)cells.Average(cell => cell.z));
+        }
+        List<List<int>> axles = AxleRule.Group(along, AxleTolerance);
+        bool grouped = axles.Any(axle => axle.Count > 1);
+        var rows = new List<List<VehicleComponent>>();
+        bool axlesPlaced = false;
+        foreach (VehicleComponent part in parts)
+        {
+            if (!grouped || !wheels.Contains(part))
+            {
+                rows.Add(new List<VehicleComponent> { part });
+                continue;
+            }
+            if (axlesPlaced) continue;
+            axlesPlaced = true;
+            foreach (List<int> axle in axles) rows.Add(axle.Select(i => wheels[i]).ToList());
+        }
+        return rows;
     }
 
     /// <summary>The fittings that suit this part on this vehicle, whether or not they can be done yet.</summary>
