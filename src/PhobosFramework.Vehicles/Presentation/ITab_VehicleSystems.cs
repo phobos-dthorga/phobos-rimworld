@@ -32,14 +32,11 @@ public class ITab_VehicleSystems : ITab
     const float Margin = 10f;
     const float Row = 24f;
     const float Graph = 64f;
-    const float HeaderHeight = 24f;
-    const float CardGap = 8f;
     const float FilterHeight = 24f;
     const float IconSize = 18f;
     const float ArrowSize = 12f;
     const float ChipBar = 34f;
     const float ChipHeight = 20f;
-    static readonly Color CardEdge = new(1f, 1f, 1f, 0.14f);
     static readonly Color DetailColour = new(0.72f, 0.72f, 0.72f);
 
     /// <summary>Only what needs attention: kept while the game runs, for every vehicle.</summary>
@@ -145,10 +142,10 @@ public class ITab_VehicleSystems : ITab
                 state.PendingSection = null;
             }
             float top = y;
-            CardHeader(ref y, viewWidth, system.Def.label.CapitalizeFirst(), SystemColour(system));
+            PhobosWidgets.CardHeader(ref y, 0f, viewWidth, system.Def.label.CapitalizeFirst(), SystemColour(system));
             foreach (int q in rowScratch) DrawReading(comp, system, q, state, ref y, viewWidth, engineer);
             if (partScratch.Count > 0) DrawParts(ref y, viewWidth, ref hovered);
-            CardEnd(top, ref y, viewWidth);
+            PhobosWidgets.CardEnd(top, ref y, 0f, viewWidth);
         }
         Powertrain? train = comp.Powertrain;
         if (train != null && VehicleSystemsMod.Settings.drivetrainMode != DrivetrainMode.Off)
@@ -158,7 +155,7 @@ public class ITab_VehicleSystems : ITab
             {
                 anything = true;
                 float top = y;
-                CardHeader(ref y, viewWidth, "PhobosVehicleSystems_SysDrivetrain".Translate(), train.Cap < 0.99 ? PhobosWidgets.Caution : PhobosWidgets.Good);
+                PhobosWidgets.CardHeader(ref y, 0f, viewWidth, "PhobosVehicleSystems_SysDrivetrain".Translate(), train.Cap < 0.99 ? PhobosWidgets.Caution : PhobosWidgets.Good);
                 string gear = r.Gear > 0 ? "PhobosVehicleSystems_SysGear".Translate(r.Gear.Named("GEAR")).Resolve() + ", " : "";
                 Widgets.Label(new Rect(6f, y, viewWidth - 12f, Row), gear + "PhobosVehicleSystems_SysRpm".Translate(r.Rpm.ToString("N0").Named("RPM")).Resolve()
                     + ", " + "PhobosVehicleSystems_SysLoad".Translate(((float)r.Load).ToStringPercent().Named("LOAD")).Resolve());
@@ -177,13 +174,13 @@ public class ITab_VehicleSystems : ITab
                     Widgets.Label(new Rect(6f, y, viewWidth - 12f, Row), "PhobosVehicleSystems_SysCap".Translate(((float)train.Cap).ToStringPercent().Named("CAP"), limit.Named("LIMIT")).Resolve());
                     y += Row;
                 }
-                CardEnd(top, ref y, viewWidth);
+                PhobosWidgets.CardEnd(top, ref y, 0f, viewWidth);
             }
             if (train.Turbine != null && !attentionOnly)
             {
                 anything = true;
                 float top = y;
-                CardHeader(ref y, viewWidth, "PhobosVehicleSystems_SysTurbine".Translate(), null);
+                PhobosWidgets.CardHeader(ref y, 0f, viewWidth, "PhobosVehicleSystems_SysTurbine".Translate(), null);
                 TurbineState t = train.TurbineNow;
                 Widgets.Label(new Rect(6f, y, viewWidth - 12f, Row), "PhobosVehicleSystems_InspectTurbine".Translate(t.SpeedPercent.ToString("0").Named("SPOOL"),
                     train.ShownTurbineTemperature.ToStringTemperature("F0").Named("TEMPERATURE")).Resolve()
@@ -205,7 +202,7 @@ public class ITab_VehicleSystems : ITab
                         (dry ? "PhobosVehicleSystems_HoverDry" : wet ? "PhobosVehicleSystems_HoverWet" : "PhobosVehicleSystems_HoverNone").Translate().Named("HOW")).Resolve());
                     y += Row;
                 }
-                CardEnd(top, ref y, viewWidth);
+                PhobosWidgets.CardEnd(top, ref y, 0f, viewWidth);
             }
         }
         if (!anything)
@@ -229,27 +226,6 @@ public class ITab_VehicleSystems : ITab
 
     /// <summary>A part at or above this share of its health is whole (the filter leaves it out).</summary>
     const float WholeShare = 0.999f;
-
-    /// <summary>A card's heading: its name on a shaded strip, and a dot in the colour of the worst thing in it.</summary>
-    static void CardHeader(ref float y, float width, string label, Color? status)
-    {
-        var header = new Rect(0f, y, width, HeaderHeight);
-        Widgets.DrawLightHighlight(header);
-        using (new TextBlock(GameFont.Small, TextAnchor.MiddleLeft)) Widgets.Label(new Rect(6f, y, width - 30f, HeaderHeight), label);
-        if (status is Color colour) Widgets.DrawBoxSolid(new Rect(width - 18f, y + (HeaderHeight - 10f) / 2f, 10f, 10f), colour);
-        y += HeaderHeight + 2f;
-    }
-
-    /// <summary>Closes a card: a faint outline round everything since <paramref name="top"/>, and the gap to the next.</summary>
-    static void CardEnd(float top, ref float y, float width)
-    {
-        y += 2f;
-        Color before = GUI.color;
-        GUI.color = CardEdge;
-        Widgets.DrawBox(new Rect(0f, top, width, y - top));
-        GUI.color = before;
-        y += CardGap;
-    }
 
     /// <summary>The worst stage among a system's readings, as a colour.</summary>
     static Color SystemColour(SystemState system)

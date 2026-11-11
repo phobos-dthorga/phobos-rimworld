@@ -84,7 +84,9 @@ and wear that a mechanic services. See [Vehicle systems](#vehicle-systems-with-v
   put a **sling set** aboard, press **Lift a vehicle** and pick one of ours parked outdoors nearby; a colonist hooks it up, and it flies
   with the helicopter and is set down beside it where it lands. It must weigh, with its cargo and people, no more than the hook takes
   today (less on hot days). Settings under **Sling loads**. **From 0.93.0 the Systems tab is compact**: one row a reading, which opens to
-  its graph on a click, a card a system, parts as a strip of small bars, and an **Only what needs attention** tick box. Not yet tested in game.
+  its graph on a click, a card a system, parts as a strip of small bars, and an **Only what needs attention** tick box. **From 0.94.0** a
+  screen of ours that fails shows one line and tries again in a few seconds, where the game would fill its log; and in dev mode
+  **"Vehicle systems: run the self-test"** checks most of this in one go, a sling lift included. Not yet tested in game.
 - **Steam locomotives (0.14.0): two settings to decide before you run one.** **Boiler explosions** are off by default: on, a
   boiler without a fusible plug (the American 4-8-4) whose water runs below the firebox crown explodes, and the settings window
   warns you. **Realistic feed water** is off by default: a water stop draws a tenth of the real tender (6,800 litres for the 4-8-4,

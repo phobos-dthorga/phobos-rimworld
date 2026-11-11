@@ -47,6 +47,13 @@ asked whether a "Mechanic" display mode should sit between Operator and Engineer
 and a fourth mode is a standing cost on every screen of every mod), and built it as Operator rows with Engineer figures, for the owner to
 revisit after use.
 
+**Framework 0.94.0 (11 Nov 2026): four over-arching passes**, offered by the agent when the owner asked what should change across the
+board, and all four chosen: a performance pass on the week's screens and the sling's job search (two of its costs were the agent's own, from
+0.90.0 and 0.92.0); a screen guard, so a failing tab or window logs once and rests in place of the game logging it every frame against its
+10,000-message cap; a self-test that covers the week's work and a sling lift; and the cards, choice buttons, wrapped lines and details strip
+moved into the core's shared widgets, with the Health tab and the report given the Systems tab's cards. Argued against for now: splitting
+the 1,800-line vehicle systems comp while so much on it is untested.
+
 ## Read this first
 
 - **Recommendation, in five lines.** Turn the diagnosis into a proper report window with the vehicle's picture, coloured gauges and one

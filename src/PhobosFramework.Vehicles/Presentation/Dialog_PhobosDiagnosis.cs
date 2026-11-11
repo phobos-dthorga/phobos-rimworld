@@ -43,6 +43,10 @@ public class Dialog_PhobosDiagnosis : Window
     readonly string date;
     Vector2 scroll;
     float viewHeight = 400f;
+    /// <summary>The readings by system, with each system's worst tone as its card's colour: put together once, the report does not change.</summary>
+    readonly List<(string system, List<DiagnosisReading> readings, Color colour)> systemCards = new();
+    Color? partsColour;
+    Color? faultsColour;
     List<string>? leftLines;
     bool leftFigures;
     string? litPart;
@@ -80,6 +84,14 @@ public class Dialog_PhobosDiagnosis : Window
                 levels.Add(new PhobosWidgets.GraphSeries(series.Samples, series.label, LineColours[levelLine++ % LineColours.Length]));
             }
         }
+        foreach (IGrouping<string, DiagnosisReading> group in report.readings.GroupBy(r => r.system))
+        {
+            List<DiagnosisReading> readings = group.ToList();
+            Color colour = readings.Any(r => r.tone == ReportTone.Bad) ? PhobosWidgets.Bad : readings.Any(r => r.tone == ReportTone.Caution) ? PhobosWidgets.Caution : PhobosWidgets.Good;
+            systemCards.Add((group.Key, readings, colour));
+        }
+        if (report.parts.Count > 0) partsColour = PhobosWidgets.HealthColour(report.parts.Min(part => part.share));
+        if (report.faults.Count > 0) faultsColour = report.faults.Any(f => f.tone == ReportTone.Bad) ? PhobosWidgets.Bad : PhobosWidgets.Caution;
         foreach (DiagnosisMark mark in report.marks)
         {
             (mark.temperature ? temperatureMarks : levelMarks).Add(new CurveMark(-mark.hoursAgo, mark.message, DiagnosisText.ToneColour(mark.tone)));
@@ -182,7 +194,8 @@ public class Dialog_PhobosDiagnosis : Window
         float y = 0f;
         string? lit = null;
 
-        PhobosWidgets.Section(ref y, 0f, view.width, "PhobosVehicleSystems_DiagnoseParts".Translate());
+        float partsTop = y;
+        PhobosWidgets.CardHeader(ref y, 0f, view.width, "PhobosVehicleSystems_DiagnoseParts".Translate(), partsColour);
         foreach (DiagnosisPart part in report.parts)
         {
             var row = new Rect(0f, y, view.width, Row);
@@ -206,19 +219,14 @@ public class Dialog_PhobosDiagnosis : Window
             }
             y += Row;
         }
-        y += 8f;
+        PhobosWidgets.CardEnd(partsTop, ref y, 0f, view.width);
 
-        PhobosWidgets.Section(ref y, 0f, view.width, "PhobosVehicleSystems_DiagnoseReadings".Translate());
-        foreach (IGrouping<string, DiagnosisReading> system in report.readings.GroupBy(r => r.system))
+        // A card a system, as the Systems tab has (Framework 0.94.0).
+        foreach ((string system, List<DiagnosisReading> readings, Color systemColour) in systemCards)
         {
-            using (new TextBlock(GameFont.Tiny, TextAnchor.LowerLeft))
-            {
-                GUI.color = ColoredText.TipSectionTitleColor;
-                Widgets.Label(new Rect(0f, y, view.width, SystemRow), system.Key);
-                GUI.color = Color.white;
-            }
-            y += SystemRow;
-            foreach (DiagnosisReading reading in system)
+            float systemTop = y;
+            PhobosWidgets.CardHeader(ref y, 0f, view.width, system, systemColour);
+            foreach (DiagnosisReading reading in readings)
             {
                 var row = new Rect(0f, y, view.width, Row);
                 Widgets.DrawHighlightIfMouseover(row);
@@ -243,12 +251,13 @@ public class Dialog_PhobosDiagnosis : Window
                 }
                 y += Row;
             }
+            PhobosWidgets.CardEnd(systemTop, ref y, 0f, view.width);
         }
-        y += 8f;
 
         if (report.faults.Count > 0)
         {
-            PhobosWidgets.Section(ref y, 0f, view.width, "PhobosVehicleSystems_DiagnoseConditions".Translate());
+            float faultsTop = y;
+            PhobosWidgets.CardHeader(ref y, 0f, view.width, "PhobosVehicleSystems_DiagnoseConditions".Translate(), faultsColour);
             foreach (DiagnosisFault fault in report.faults)
             {
                 var row = new Rect(0f, y, view.width, Row);
@@ -262,27 +271,29 @@ public class Dialog_PhobosDiagnosis : Window
                 }
                 y += Row;
             }
-            y += 8f;
+            PhobosWidgets.CardEnd(faultsTop, ref y, 0f, view.width);
         }
 
         // The last day of the gauges, for those who read figures: how the vehicle was treated, not only where it stands.
         if (figures && (temperatures.Count > 0 || levels.Count > 0))
         {
-            PhobosWidgets.Section(ref y, 0f, view.width, "PhobosVehicleSystems_ReportLastDay".Translate(QuantityHistory.Hours.Named("HOURS")));
+            float graphsTop = y;
+            PhobosWidgets.CardHeader(ref y, 0f, view.width, "PhobosVehicleSystems_ReportLastDay".Translate(QuantityHistory.Hours.Named("HOURS")), null);
             if (temperatures.Count > 0)
             {
-                using (new TextBlock(GameFont.Tiny)) Widgets.Label(new Rect(0f, y, view.width, 18f), "PhobosVehicleSystems_ReportTemperatures".Translate(TemperatureUnit().Named("UNIT")));
+                using (new TextBlock(GameFont.Tiny)) Widgets.Label(new Rect(6f, y, view.width - 12f, 18f), "PhobosVehicleSystems_ReportTemperatures".Translate(TemperatureUnit().Named("UNIT")));
                 y += 18f;
-                PhobosWidgets.HistoryGraphs(new Rect(0f, y, view.width, GraphHeight), temperatures, temperatureMin, temperatureMax, QuantityHistory.Hours, QuantityHistory.Capacity, TemperatureUnit(), temperatureMarks);
+                PhobosWidgets.HistoryGraphs(new Rect(4f, y, view.width - 8f, GraphHeight), temperatures, temperatureMin, temperatureMax, QuantityHistory.Hours, QuantityHistory.Capacity, TemperatureUnit(), temperatureMarks);
                 y += GraphHeight + 8f;
             }
             if (levels.Count > 0)
             {
-                using (new TextBlock(GameFont.Tiny)) Widgets.Label(new Rect(0f, y, view.width, 18f), "PhobosVehicleSystems_ReportLevels".Translate());
+                using (new TextBlock(GameFont.Tiny)) Widgets.Label(new Rect(6f, y, view.width - 12f, 18f), "PhobosVehicleSystems_ReportLevels".Translate());
                 y += 18f;
-                PhobosWidgets.HistoryGraphs(new Rect(0f, y, view.width, GraphHeight), levels, 0f, 100f, QuantityHistory.Hours, QuantityHistory.Capacity, "PhobosVehicleSystems_UnitPercent".Translate(), levelMarks);
+                PhobosWidgets.HistoryGraphs(new Rect(4f, y, view.width - 8f, GraphHeight), levels, 0f, 100f, QuantityHistory.Hours, QuantityHistory.Capacity, "PhobosVehicleSystems_UnitPercent".Translate(), levelMarks);
                 y += GraphHeight + 8f;
             }
+            PhobosWidgets.CardEnd(graphsTop, ref y, 0f, view.width);
         }
 
         Widgets.EndScrollView();

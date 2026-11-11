@@ -271,4 +271,89 @@ public static class PhobosWidgets
         float redline = Mathf.Max(1f, rated * redlineShare);
         Gauge(rect, rpm / redline, rpm > rated ? Bad : Good, label, figure);
     }
+
+    // ---- The shared kit (Framework 0.94.0): pieces first built inside one screen, moved here so every screen of ours looks alike ----
+
+    /// <summary>A card's heading strip is this tall.</summary>
+    public const float CardHeaderHeight = 24f;
+    /// <summary>The space left under a card before the next.</summary>
+    public const float CardGap = 8f;
+    static readonly Color CardEdge = new(1f, 1f, 1f, 0.14f);
+
+    /// <summary>
+    /// Opens a card: its name on a shaded strip, and a small square in the colour of the worst thing in it (none when
+    /// <paramref name="status"/> is null). Keep the y it began at for <see cref="CardEnd"/>.
+    /// </summary>
+    public static void CardHeader(ref float y, float x, float width, string label, Color? status)
+    {
+        var header = new Rect(x, y, width, CardHeaderHeight);
+        Widgets.DrawLightHighlight(header);
+        using (new TextBlock(GameFont.Small, TextAnchor.MiddleLeft)) Widgets.Label(new Rect(x + 6f, y, width - 30f, CardHeaderHeight), label);
+        if (status is Color colour) Widgets.DrawBoxSolid(new Rect(x + width - 18f, y + (CardHeaderHeight - 10f) / 2f, 10f, 10f), colour);
+        y += CardHeaderHeight + 2f;
+    }
+
+    /// <summary>Closes a card: a faint outline round everything since <paramref name="top"/>, and the gap to the next.</summary>
+    public static void CardEnd(float top, ref float y, float x, float width)
+    {
+        y += 2f;
+        Color before = GUI.color;
+        GUI.color = CardEdge;
+        Widgets.DrawBox(new Rect(x, top, width, y - top));
+        GUI.color = before;
+        y += CardGap;
+    }
+
+    /// <summary>A line in the tiny font, wrapped to the width given; returns its height, so the row under it can grow to fit.</summary>
+    public static float WrappedLine(float x, float y, float width, string text)
+    {
+        using (new TextBlock(GameFont.Tiny, TextAnchor.UpperLeft))
+        {
+            float height = Text.CalcHeight(text, width);
+            Widgets.Label(new Rect(x, y, width, height), text);
+            return height;
+        }
+    }
+
+    /// <summary>How wide a choice's button is: square (<paramref name="size"/>) with a picture, as wide as its word without one.</summary>
+    public static float ChoiceWidth(Texture2D? icon, string label, float size)
+    {
+        if (icon != null) return size;
+        using (new TextBlock(GameFont.Tiny)) return Mathf.Max(size, Text.CalcSize(label).x + 10f);
+    }
+
+    /// <summary>
+    /// One choice among several as a picture button: lit green along its foot when it is what is in force, amber when it is work already
+    /// ordered, dimmed when it cannot be chosen yet. Returns whether it was clicked to choose it; <paramref name="over"/> says whether the
+    /// mouse rests on it, so the caller can show its details only then.
+    /// </summary>
+    public static bool ChoiceButton(Rect rect, Texture2D? icon, string label, bool lit, bool refused, bool ordered, out bool over)
+    {
+        Widgets.DrawOptionBackground(rect, lit);
+        if (lit) Widgets.DrawBoxSolid(new Rect(rect.x + 2f, rect.yMax - 4f, rect.width - 4f, 3f), Good);
+        else if (ordered) Widgets.DrawBoxSolid(new Rect(rect.x + 2f, rect.yMax - 4f, rect.width - 4f, 3f), Caution);
+        Color before = GUI.color;
+        if (refused) GUI.color = new Color(1f, 1f, 1f, 0.35f);
+        if (icon != null) GUI.DrawTexture(rect.ContractedBy(4f), icon);
+        else using (new TextBlock(GameFont.Tiny, TextAnchor.MiddleCenter)) Widgets.Label(rect, label);
+        GUI.color = before;
+        over = Mouse.IsOver(rect);
+        return !lit && !ordered && !refused && Widgets.ButtonInvisible(rect);
+    }
+
+    /// <summary>
+    /// A details strip along a window's foot: what the mouse rests on, in place of a tooltip that would cover the rows above; a grey hint
+    /// when it rests on nothing.
+    /// </summary>
+    public static void DetailsStrip(Rect rect, string? details, string hint)
+    {
+        Widgets.DrawMenuSection(rect);
+        using (new TextBlock(GameFont.Tiny, TextAnchor.UpperLeft))
+        {
+            Color before = GUI.color;
+            GUI.color = details == null ? Color.gray : Color.white;
+            Widgets.Label(rect.ContractedBy(6f), details ?? hint);
+            GUI.color = before;
+        }
+    }
 }

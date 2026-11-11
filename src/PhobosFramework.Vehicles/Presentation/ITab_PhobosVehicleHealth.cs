@@ -187,7 +187,9 @@ public class ITab_PhobosVehicleHealth : ITab
         VehicleComponent? hovered = null, sheetHovered = null, picked = null;
         foreach (PartGroup group in view.Parts!)
         {
-            PhobosWidgets.Section(ref y, 0f, viewWidth, group.Header);
+            // A card a group, as the Systems tab has (Framework 0.94.0), its dot in the colour of the worst part in it.
+            float top = y;
+            PhobosWidgets.CardHeader(ref y, 0f, viewWidth, group.Header, GroupColour(group));
             foreach (PartRow part in group.Rows)
             {
                 var row = new Rect(0f, y, viewWidth, Row);
@@ -246,9 +248,11 @@ public class ITab_PhobosVehicleHealth : ITab
                     y += ConditionHeight;
                 }
             }
-            y += 6f;
+            PhobosWidgets.CardEnd(top, ref y, 0f, viewWidth);
         }
         Widgets.EndScrollView();
+        // Measured, not worked out twice: cards and their gaps set the height.
+        view.Height = y + 4f;
         view.LitKey = hovered?.props.key;
         if (!onWorld) VehicleHighlight.Set(comp.Vehicle, hovered ?? sheetHovered ?? picked);
     }
@@ -635,6 +639,14 @@ public class ITab_PhobosVehicleHealth : ITab
         public Pawn? Pawn;
         public string Label = "";
         public string Tip = "";
+    }
+
+    /// <summary>The colour of the worst part in a group, for its card's dot.</summary>
+    static Color GroupColour(PartGroup group)
+    {
+        float worst = 1f;
+        foreach (PartRow row in group.Rows) worst = Mathf.Min(worst, row.HealthShare);
+        return PhobosWidgets.HealthColour(worst);
     }
 
     sealed class PartGroup
