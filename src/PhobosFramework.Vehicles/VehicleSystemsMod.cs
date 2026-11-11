@@ -44,6 +44,13 @@ public class VehicleSystemsSettings : ModSettings
     /// <summary>Colonists can patch leaks and shorts in the field. Live.</summary>
     public bool fieldFixes = true;
     public bool tuningNeedsRig = true;
+    /// <summary>What the time to fit and tune is multiplied by (Framework 0.91.0; owner, 11 Nov 2026: a day or more each by default, with
+    /// presets). Live: waiting work takes the new figure.</summary>
+    public float fitTimeFactor = 1f;
+    /// <summary>What the materials to fit and tune are multiplied by (Framework 0.91.0). Live.</summary>
+    public float fitMaterialFactor = 1f;
+    /// <summary>A bigger vehicle costs more to fit and tune, by its weight (Framework 0.91.0). Live.</summary>
+    public bool fitCostScalesWithWeight = true;
     public bool powerPointLargeSocket;
     /// <summary>Another faction's vehicle may be found with fittings and a tune.</summary>
     public bool enemyFitSets = true;
@@ -141,6 +148,9 @@ public class VehicleSystemsSettings : ModSettings
         Scribe_Values.Look(ref otherPartShare, "PhobosVehicleSystems_OtherPartShare", 0.5f);
         Scribe_Values.Look(ref fieldFixes, "PhobosVehicleSystems_FieldFixes", true);
         Scribe_Values.Look(ref tuningNeedsRig, "PhobosVehicleSystems_TuningNeedsRig", true);
+        Scribe_Values.Look(ref fitTimeFactor, "PhobosVehicleSystems_FitTimeFactor", 1f);
+        Scribe_Values.Look(ref fitMaterialFactor, "PhobosVehicleSystems_FitMaterialFactor", 1f);
+        Scribe_Values.Look(ref fitCostScalesWithWeight, "PhobosVehicleSystems_FitCostScalesWithWeight", true);
         Scribe_Values.Look(ref powerPointLargeSocket, "PhobosVehicleSystems_PowerPointLargeSocket", false);
         Scribe_Values.Look(ref enemyFitSets, "PhobosVehicleSystems_EnemyFitSets", true);
         Scribe_Values.Look(ref displayMode, "PhobosVehicleSystems_DisplayMode", DisplayMode.Plain);
@@ -339,6 +349,14 @@ public class VehicleSystemsMod : Mod
         }
         listing.CheckboxLabeled("PhobosVehicleSystems_SettingFieldFixes".Translate(), ref s.fieldFixes, "PhobosVehicleSystems_SettingFieldFixesDesc".Translate());
         listing.CheckboxLabeled("PhobosVehicleSystems_SettingTuningNeedsRig".Translate(), ref s.tuningNeedsRig, "PhobosVehicleSystems_SettingTuningNeedsRigDesc".Translate());
+        // What fitting and tuning cost (Framework 0.91.0): presets, not sliders (owner); a change re-prices work already waiting.
+        SettingsUi.Choice(listing, "PhobosVehicleSystems_SettingFitTime".Translate(), s.fitTimeFactor, new[] { 0.25f, 0.5f, 1f, 2f }, FitTimeLabel,
+            chosen => { s.fitTimeFactor = chosen; VehicleFittings.CostStamp++; }, "PhobosVehicleSystems_SettingFitTimeDesc".Translate());
+        SettingsUi.Choice(listing, "PhobosVehicleSystems_SettingFitMaterials".Translate(), s.fitMaterialFactor, new[] { 0.4f, 1f, 1.5f }, FitMaterialLabel,
+            chosen => { s.fitMaterialFactor = chosen; VehicleFittings.CostStamp++; }, "PhobosVehicleSystems_SettingFitMaterialsDesc".Translate());
+        bool byWeight = s.fitCostScalesWithWeight;
+        listing.CheckboxLabeled("PhobosVehicleSystems_SettingFitByWeight".Translate(), ref s.fitCostScalesWithWeight, "PhobosVehicleSystems_SettingFitByWeightDesc".Translate());
+        if (byWeight != s.fitCostScalesWithWeight) VehicleFittings.CostStamp++;
         listing.CheckboxLabeled("PhobosVehicleSystems_SettingPowerPointLarge".Translate(), ref s.powerPointLargeSocket, "PhobosVehicleSystems_SettingPowerPointLargeDesc".Translate());
         listing.CheckboxLabeled("PhobosVehicleSystems_SettingEnemyFitSets".Translate(), ref s.enemyFitSets, "PhobosVehicleSystems_SettingEnemyFitSetsDesc".Translate());
 
@@ -367,6 +385,21 @@ public class VehicleSystemsMod : Mod
         }
         scroll.End(listing);
     }
+
+    static string FitTimeLabel(float factor) => factor switch
+    {
+        <= 0.25f => "PhobosVehicleSystems_FitTimeQuick".Translate().Resolve(),
+        <= 0.5f => "PhobosVehicleSystems_FitTimeShorter".Translate().Resolve(),
+        <= 1f => "PhobosVehicleSystems_FitTimeStandard".Translate().Resolve(),
+        _ => "PhobosVehicleSystems_FitTimeLong".Translate().Resolve(),
+    };
+
+    static string FitMaterialLabel(float factor) => factor switch
+    {
+        <= 0.4f => "PhobosVehicleSystems_FitMaterialsLight".Translate().Resolve(),
+        <= 1f => "PhobosVehicleSystems_FitMaterialsStandard".Translate().Resolve(),
+        _ => "PhobosVehicleSystems_FitMaterialsHeavy".Translate().Resolve(),
+    };
 
     static void Sweep()
     {

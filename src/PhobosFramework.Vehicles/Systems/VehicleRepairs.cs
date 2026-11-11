@@ -45,6 +45,7 @@ public sealed class VehicleRepairs
     readonly CompPhobosVehicleSystems comp;
     List<RepairWork>? cached;
     int cachedVersion = -1;
+    int cachedCostStamp = -1;
     Dictionary<string, string>? roleOfKey;
     bool fieldFixRequested;
 
@@ -162,10 +163,11 @@ public sealed class VehicleRepairs
     {
         get
         {
-            if (cached == null || cachedVersion != comp.HealthViewVersion)
+            if (cached == null || cachedVersion != comp.HealthViewVersion || cachedCostStamp != VehicleFittings.CostStamp)
             {
                 cached = Build();
                 cachedVersion = comp.HealthViewVersion;
+                cachedCostStamp = VehicleFittings.CostStamp;
             }
             return cached;
         }

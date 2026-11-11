@@ -92,6 +92,41 @@ They change figures the drivetrain model already reads. Fuel follows them whethe
 
 **Skill (owner):** a job names the minimum Construction skill; a mechanic below it is refused, with the reason. No random failure.
 
+### What they cost (Framework 0.91.0)
+
+**The owner's aim (11 Nov 2026): "I want these upgrades and tunes to feel earned."** An audit found every fitting and tune quick and cheap
+(a Power tune 0.8 hours, a turbocharger 1.2), so the costs above are superseded by these. All authored; hours are for a builder of normal
+speed (2,500 work is an hour, a working day about 10 hours), for a 5-tonne vehicle at the Standard presets.
+
+| | Materials | Hours (work) |
+| --- | --- | --- |
+| Uprated radiator | 75 steel, 5 components | 5 (12,500) |
+| Oil cooler | 50 steel, 5 components | 4 (10,000) |
+| Turbocharger | 100 steel, 10 components | 12 (30,000) |
+| Heavy-duty alternator | 50 steel, 7 components | 4 (10,000) |
+| Deep-cycle battery | 60 steel, 7 components | 2 (5,000) |
+| Block heater | 40 steel, 5 components | 3 (7,500) |
+| Heavy-duty springs, per wheel | 60 steel | 3 (7,500) |
+| Road tyres, per wheel | 25 steel, 30 chemfuel | 2 (5,000) |
+| Economy tune | 3 components | 8 (20,000) |
+| Power tune | 5 components | 10 (25,000) |
+| Back to the stock tune | nothing | 4 (10,000) |
+| Tall or short final drive | 50 steel, 2 components | 10 (25,000) |
+| Back to the stock final drive | nothing | 6 (15,000) |
+
+Taking a fitting off is half its fitting time. Skills, research and part grades are unchanged.
+
+- **Presets** (owner: a day or more by default, with presets; materials about 2.5 times, with presets): *Time to fit and tune* (Quick a
+  quarter, Shorter half, Standard, Long double) and *Materials to fit and tune* (Light two fifths, about the old costs; Standard; Heavy half as
+  much again), as menus of choices, not sliders.
+- **By weight** (owner: scale by weight; a setting, on by default): materials grow as the square root of the vehicle's kerb mass against
+  5 tonnes, and time as its fourth root, held between half and three times (`FitCostRule`, game-free and tested; the figures in
+  `PhobosVehicleRulesDef`). A 600 kg buggy pays half the materials and about 0.6 of the time; a 20-tonne truck twice and 1.4 times; a
+  50-tonne tank three times and 1.8 times. The kerb mass does not change with cargo, so a waiting job's cost never moves.
+- **Agent choices, for the owner to revise:** road tyres take chemfuel (rubber, as the tyre set kit is made) instead of a component; a
+  final drive change is a new gear set, so 50 steel and 2 components rather than 25 steel; the exponents and the clamp.
+- A change of preset re-prices work already waiting.
+
 ### Where the player does it
 
 One new button on the Dashboard opens a window listing each part that can take a fitting, and the two tunes; each row says what it does, what it needs and why it cannot be done yet. Orders are queued, can be cancelled, and appear with the vehicle's other repairs in its inspect line.
@@ -127,6 +162,9 @@ The health goes through Vehicle Framework's own per-part health modifier (from t
 
 - **Owner (9 Nov 2026):** that the framework grows into tuning and upgrades; on every vehicle from any mod; fittings, tunes **and part grades**; a fitting lost with its part; three named settings; a minimum skill with no failure; **enemy vehicles get authored sets**, by chance and tech level; grades change toughness and wear, are chosen at replacement or by refit, and wait for check 1 of the test pass.
 - **Agent proposals, for the owner to revise:** every figure; the first set of fittings; materials rather than new items; one window from the Dashboard; the share per part; the 25% chance; gearing as a second tune axis; tracked and turbine limits.
+
+- **Owner (11 Nov 2026):** fittings and tunes should feel earned; a day or more of work each by default, with presets; materials about 2.5
+  times, with presets; bigger vehicles cost more, by weight.
 
 ## Sources
 

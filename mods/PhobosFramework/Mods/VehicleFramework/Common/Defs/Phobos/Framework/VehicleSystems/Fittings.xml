@@ -2,7 +2,10 @@
 <Defs>
   <!--
     Fittings, tunes and enemy sets (docs/development/vehicle-tuning-and-upgrades.md). Every figure here is authored, a gameplay choice to be
-    tuned in play. Materials are built into the vehicle: a fitting is not an item. A parameter factor names a system's parameter; a role is a
+    tuned in play. Costs raised about 2.5 times and times about tenfold in Framework 0.91.0 (owner, 11 Nov 2026: "I want these upgrades and
+    tunes to feel earned"): a big job is a day's work or more for a builder of normal speed (2,500 work is an hour). These are the figures for a
+    5-tonne vehicle at the Standard presets; the settings and the vehicle's weight move them (PhobosVehicleRulesDef). Materials are built into
+    the vehicle: a fitting is not an item. A parameter factor names a system's parameter; a role is a
     loadout's role. Another mod adds its own with the same Def types.
   -->
 
@@ -12,8 +15,8 @@
     <label>uprated radiator</label>
     <description>A larger core with more fins. The engine sheds heat faster, so it is slower to boil on a long pull.</description>
     <roles><li>Radiator</li></roles>
-    <materials><Steel>30</Steel><ComponentIndustrial>2</ComponentIndustrial></materials>
-    <work>1500</work>
+    <materials><Steel>75</Steel><ComponentIndustrial>5</ComponentIndustrial></materials>
+    <work>12500</work>
     <minSkill>4</minSkill>
     <researchPrerequisite>PhobosResearch_VehicleTuning</researchPrerequisite>
     <parameterFactors><li><parameter>radiatorRate</parameter><factor>1.3</factor><label>radiator cooling</label></li></parameterFactors>
@@ -25,8 +28,8 @@
     <label>oil cooler</label>
     <description>A small radiator for the engine oil. Cooler oil burns away more slowly, so the engine goes further between services.</description>
     <roles><li>Engine</li><li>Engine1</li><li>Engine2</li><li>Engine3</li><li>Engine4</li><li>Engine5</li><li>Engine6</li><li>Engine7</li><li>Engine8</li></roles>
-    <materials><Steel>20</Steel><ComponentIndustrial>2</ComponentIndustrial></materials>
-    <work>1200</work>
+    <materials><Steel>50</Steel><ComponentIndustrial>5</ComponentIndustrial></materials>
+    <work>10000</work>
     <minSkill>4</minSkill>
     <researchPrerequisite>PhobosResearch_VehicleTuning</researchPrerequisite>
     <parameterFactors><li><parameter>oilBurnPerHour</parameter><factor>0.6</factor><label>oil burned</label></li></parameterFactors>
@@ -39,8 +42,8 @@
     <label>turbocharger</label>
     <description>Exhaust gas spins a compressor that forces more air into the engine. More power, more heat and a thirstier engine.</description>
     <roles><li>Engine</li><li>Engine1</li><li>Engine2</li><li>Engine3</li><li>Engine4</li><li>Engine5</li><li>Engine6</li><li>Engine7</li><li>Engine8</li></roles>
-    <materials><Steel>40</Steel><ComponentIndustrial>4</ComponentIndustrial></materials>
-    <work>3000</work>
+    <materials><Steel>100</Steel><ComponentIndustrial>10</ComponentIndustrial></materials>
+    <work>30000</work>
     <minSkill>8</minSkill>
     <researchPrerequisite>PhobosResearch_Turbines</researchPrerequisite>
     <powerFactor>1.2</powerFactor>
@@ -56,8 +59,8 @@
     <label>heavy-duty alternator</label>
     <description>Wound for a higher output. The battery charges faster and heavy electrical loads are easier to carry.</description>
     <roles><li>Alternator</li></roles>
-    <materials><Steel>20</Steel><ComponentIndustrial>3</ComponentIndustrial></materials>
-    <work>1200</work>
+    <materials><Steel>50</Steel><ComponentIndustrial>7</ComponentIndustrial></materials>
+    <work>10000</work>
     <minSkill>5</minSkill>
     <researchPrerequisite>PhobosResearch_VehicleElectrics</researchPrerequisite>
     <parameterFactors><li><parameter>alternatorAmps</parameter><factor>1.5</factor><label>charging current</label></li></parameterFactors>
@@ -69,8 +72,8 @@
     <label>deep-cycle battery</label>
     <description>Thicker plates and more of them. It holds more charge, so the vehicle runs its loads longer with the engine off.</description>
     <roles><li>Battery</li></roles>
-    <materials><Steel>25</Steel><ComponentIndustrial>3</ComponentIndustrial></materials>
-    <work>800</work>
+    <materials><Steel>60</Steel><ComponentIndustrial>7</ComponentIndustrial></materials>
+    <work>5000</work>
     <minSkill>4</minSkill>
     <researchPrerequisite>PhobosResearch_VehicleElectrics</researchPrerequisite>
     <parameterFactors><li><parameter>batteryAmpHours</parameter><factor>1.5</factor><label>battery capacity</label></li></parameterFactors>
@@ -84,8 +87,8 @@
     <label>block heater</label>
     <description>An electric heater in the engine block. Parked beside a powered building with the engine off, the engine stays warm, so it starts easily on a cold morning, wears less, and the cab heater works at once.</description>
     <roles><li>Engine</li><li>Engine1</li><li>Engine2</li><li>Engine3</li><li>Engine4</li><li>Engine5</li><li>Engine6</li><li>Engine7</li><li>Engine8</li></roles>
-    <materials><Steel>15</Steel><ComponentIndustrial>2</ComponentIndustrial></materials>
-    <work>800</work>
+    <materials><Steel>40</Steel><ComponentIndustrial>5</ComponentIndustrial></materials>
+    <work>7500</work>
     <minSkill>3</minSkill>
     <researchPrerequisite>PhobosResearch_VehicleElectrics</researchPrerequisite>
     <parameterFactors><li><system>PhobosVehicleSystem_Cooling</system><parameter>blockHeaterAbsent</parameter><factor>0</factor></li></parameterFactors>
@@ -97,8 +100,8 @@
     <label>heavy-duty springs</label>
     <description>Stiffer springs carry a bigger load, at the cost of a harder, slightly slower ride. Fit every axle for the full effect.</description>
     <roles><li>Wheels</li></roles>
-    <materials><Steel>25</Steel></materials>
-    <work>1000</work>
+    <materials><Steel>60</Steel></materials>
+    <work>7500</work>
     <minSkill>3</minSkill>
     <researchPrerequisite>PhobosResearch_VehicleTuning</researchPrerequisite>
     <statFactors>
@@ -113,8 +116,8 @@
     <label>road tyres</label>
     <description>A softer, faster compound. Quicker on the move, and it wears out sooner. Fit every axle for the full effect.</description>
     <roles><li>Wheels</li></roles>
-    <materials><Steel>15</Steel><ComponentIndustrial>1</ComponentIndustrial></materials>
-    <work>800</work>
+    <materials><Steel>25</Steel><Chemfuel>30</Chemfuel></materials>
+    <work>5000</work>
     <minSkill>3</minSkill>
     <researchPrerequisite>PhobosResearch_VehicleTuning</researchPrerequisite>
     <statFactors><li><stat>MoveSpeed</stat><factor>1.05</factor></li></statFactors>
@@ -131,8 +134,8 @@
     <description>Leaner and gentler. A little less power, less heat and less fuel.</description>
     <axis>Engine</axis>
     <order>0</order>
-    <materials><ComponentIndustrial>1</ComponentIndustrial></materials>
-    <work>1500</work>
+    <materials><ComponentIndustrial>3</ComponentIndustrial></materials>
+    <work>20000</work>
     <minSkill>5</minSkill>
     <powerFactor>0.9</powerFactor>
     <fuelFactor>0.92</fuelFactor>
@@ -147,7 +150,7 @@
     <axis>Engine</axis>
     <isDefault>true</isDefault>
     <order>1</order>
-    <work>800</work>
+    <work>10000</work>
     <minSkill>3</minSkill>
   </Phobos.VehicleSystems.PhobosVehicleTuneDef>
 
@@ -158,8 +161,8 @@
     <description>Richer and harder. More power, paid for in heat and fuel.</description>
     <axis>Engine</axis>
     <order>2</order>
-    <materials><ComponentIndustrial>2</ComponentIndustrial></materials>
-    <work>2000</work>
+    <materials><ComponentIndustrial>5</ComponentIndustrial></materials>
+    <work>25000</work>
     <minSkill>8</minSkill>
     <powerFactor>1.15</powerFactor>
     <fuelFactor>1.15</fuelFactor>
@@ -173,8 +176,8 @@
     <description>Taller ratios. Lower revs and less strain at a cruise, weaker on a heavy pull. It cannot make the vehicle faster than it was built to go.</description>
     <axis>Gearing</axis>
     <order>0</order>
-    <materials><Steel>10</Steel></materials>
-    <work>2000</work>
+    <materials><Steel>50</Steel><ComponentIndustrial>2</ComponentIndustrial></materials>
+    <work>25000</work>
     <minSkill>5</minSkill>
     <finalDriveFactor>0.85</finalDriveFactor>
     <flatFuelFactor>0.95</flatFuelFactor>
@@ -188,7 +191,7 @@
     <axis>Gearing</axis>
     <isDefault>true</isDefault>
     <order>1</order>
-    <work>1000</work>
+    <work>15000</work>
     <minSkill>3</minSkill>
   </Phobos.VehicleSystems.PhobosVehicleTuneDef>
 
@@ -199,8 +202,8 @@
     <description>Lower ratios. It pulls harder with a heavy load and tops out sooner.</description>
     <axis>Gearing</axis>
     <order>2</order>
-    <materials><Steel>10</Steel></materials>
-    <work>2000</work>
+    <materials><Steel>50</Steel><ComponentIndustrial>2</ComponentIndustrial></materials>
+    <work>25000</work>
     <minSkill>5</minSkill>
     <finalDriveFactor>1.2</finalDriveFactor>
     <flatFuelFactor>1.05</flatFuelFactor>

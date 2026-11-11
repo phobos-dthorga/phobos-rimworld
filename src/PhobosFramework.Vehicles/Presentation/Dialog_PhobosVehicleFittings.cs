@@ -204,7 +204,8 @@ public class Dialog_PhobosVehicleFittings : Window
         }
         if (VehicleSystemsMod.Settings.displayMode == DisplayMode.Engineer && TuneFigures(tune) is { } figures) text += "\n\n" + figures;
         if (tune.minSkill > 0) text += "\n\n" + "PhobosVehicleSystems_FitNeedsSkill".Translate(tune.minSkill.Named("SKILL")).CapitalizeFirst();
-        if (tune.materials.Count > 0) text += "\n" + Materials(tune.materials);
+        if (tune.materials.Count > 0) text += "\n" + Materials(Fittings.MaterialsFor(tune.materials));
+        text += "\n" + Hours(tune.work);
         return text;
     }
 
@@ -390,7 +391,7 @@ public class Dialog_PhobosVehicleFittings : Window
 
     string FittingTip(PhobosVehicleFittingDef def, string? refusal)
     {
-        string tip = def.LabelCap + " (" + Materials(def.materials) + ")\n\n" + def.description;
+        string tip = def.LabelCap + " (" + Materials(Fittings.MaterialsFor(def.materials)) + ")\n" + Hours(def.work) + "\n\n" + def.description;
         if (FittingText.Effects(def, VehicleSystemsMod.Settings.displayMode == DisplayMode.Plain) is { } effects) tip += "\n\n" + effects;
         if (def.minSkill > 0) tip += "\n\n" + "PhobosVehicleSystems_FitNeedsSkill".Translate(def.minSkill.Named("SKILL")).CapitalizeFirst();
         if (refusal != null) tip += "\n\n" + refusal.Colorize(PhobosWidgets.Bad);
@@ -450,7 +451,7 @@ public class Dialog_PhobosVehicleFittings : Window
         foreach (PhobosVehicleFittingDef def in Fittings.OptionsFor(part))
         {
             if (def == on) continue;
-            string label = def.LabelCap + " (" + Materials(def.materials) + ")";
+            string label = def.LabelCap + " (" + Materials(Fittings.MaterialsFor(def.materials)) + ")";
             string tip = def.description + (FittingText.Effects(def, VehicleSystemsMod.Settings.displayMode == DisplayMode.Plain) is { } effects ? "\n\n" + effects : "")
                 + (def.minSkill > 0 ? "\n\n" + "PhobosVehicleSystems_FitNeedsSkill".Translate(def.minSkill.Named("SKILL")).CapitalizeFirst() : "");
             string? refusal = Fittings.Refusal(def, part);
@@ -494,6 +495,10 @@ public class Dialog_PhobosVehicleFittings : Window
             if (Widgets.ButtonText(new Rect(view.width - 74f, line.y, 74f, 20f), "PhobosVehicleSystems_FitCancel".Translate())) Fittings.Cancel(order);
         }
     }
+
+    /// <summary>How long the work takes on this vehicle, in hours for a builder of normal speed (Framework 0.91.0: time is now a real cost).</summary>
+    string Hours(float listedWork) =>
+        "PhobosVehicleSystems_FitHours".Translate((Fittings.WorkFor(listedWork) / GenDate.TicksPerHour).ToString("0.#").Named("HOURS")).Resolve();
 
     static string Materials(IEnumerable<ThingDefCountClass> materials) => materials.Select(m => m.thingDef.label + " x" + m.count).ToCommaList(useAnd: true);
 }

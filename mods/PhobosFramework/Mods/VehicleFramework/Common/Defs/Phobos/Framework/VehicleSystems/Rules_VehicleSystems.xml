@@ -10,6 +10,13 @@
     <!-- Framework 0.73.0 (docs/development/vehicle-crosslinks-round-two.md, S1, S2 and T1; owner, 10 Nov 2026). All authored. -->
     <replacedPartHealthAtRig>0.6</replacedPartHealthAtRig>
     <rigReplaceWorkFactor>0.7</rigReplaceWorkFactor>
+    <!-- Fitting and tuning by weight (Framework 0.91.0, authored): the listed costs hold at 5 tonnes; materials grow as the square root of the
+         weight and time as its fourth root, held between half and three times. -->
+    <fitCostReferenceKilograms>5000</fitCostReferenceKilograms>
+    <fitMaterialWeightExponent>0.5</fitMaterialWeightExponent>
+    <fitWorkWeightExponent>0.25</fitWorkWeightExponent>
+    <fitWeightFactorMin>0.5</fitWeightFactorMin>
+    <fitWeightFactorMax>3</fitWeightFactorMax>
     <diagnoseWork>1500</diagnoseWork>
     <hydraulicWorkFloor>0.2</hydraulicWorkFloor>
     <fieldFixWork>600</fieldFixWork>

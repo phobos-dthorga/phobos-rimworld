@@ -131,6 +131,33 @@ public sealed class VehicleFittings
     }
 
     static VehicleSystemsSettings Settings => VehicleSystemsMod.Settings;
+    static PhobosVehicleRulesDef Rules => PhobosVehicleRulesDef.Current<PhobosVehicleRulesDef>();
+
+    /// <summary>Counts every change of the cost settings, so work already waiting is priced again.</summary>
+    public static int CostStamp;
+
+    /// <summary>
+    /// What fitting and tuning cost on this vehicle against the listed figures (Framework 0.91.0; owner, 11 Nov 2026: "I want these
+    /// upgrades and tunes to feel earned"): the player's presets, and the vehicle's weight when that setting is on (FitCostRule).
+    /// </summary>
+    double CostFactor(double exponent, float preset)
+    {
+        PhobosVehicleRulesDef rules = Rules;
+        double weight = Settings.fitCostScalesWithWeight
+            ? FitCostRule.WeightFactor(comp.Repairs.Kilograms, rules.fitCostReferenceKilograms, exponent, rules.fitWeightFactorMin, rules.fitWeightFactorMax)
+            : 1;
+        return weight * preset;
+    }
+
+    /// <summary>The materials a fitting or tune takes on this vehicle.</summary>
+    public List<ThingDefCountClass> MaterialsFor(IEnumerable<ThingDefCountClass> listed)
+    {
+        double factor = CostFactor(Rules.fitMaterialWeightExponent, Settings.fitMaterialFactor);
+        return listed.Select(m => new ThingDefCountClass(m.thingDef, FitCostRule.Count(m.count, factor))).ToList();
+    }
+
+    /// <summary>The work in ticks a fitting or tune takes on this vehicle.</summary>
+    public float WorkFor(float listed) => FitCostRule.Work(listed, CostFactor(Rules.fitWorkWeightExponent, Settings.fitTimeFactor));
 
     public IReadOnlyList<FitOrder> Orders => orders ??= new List<FitOrder>();
 
@@ -525,7 +552,7 @@ public sealed class VehicleFittings
         return "PhobosVehicleSystems_FitWork".Translate(order.fitting!.label.Named("FITTING"), part).Resolve();
     }
 
-    public float WorkOf(FitOrder order) => order.tune?.work ?? (order.remove ? (FittedOn(order.partKey)?.work ?? 600f) * RemovalWorkShare : order.fitting?.work ?? 1500f);
+    public float WorkOf(FitOrder order) => WorkFor(order.tune?.work ?? (order.remove ? (FittedOn(order.partKey)?.work ?? 600f) * RemovalWorkShare : order.fitting?.work ?? 1500f));
 
     /// <summary>Taking a fitting off is half the work of putting it on (authored).</summary>
     const float RemovalWorkShare = 0.5f;
@@ -533,7 +560,7 @@ public sealed class VehicleFittings
     public int SkillOf(FitOrder order) => order.tune?.minSkill ?? order.fitting?.minSkill ?? order.grade?.minSkill ?? 0;
 
     public IEnumerable<ThingDefCountClass> MaterialsOf(FitOrder order) =>
-        order.tune?.materials ?? order.fitting?.materials ?? Enumerable.Empty<ThingDefCountClass>();
+        MaterialsFor(order.tune?.materials ?? order.fitting?.materials ?? Enumerable.Empty<ThingDefCountClass>());
 
     /// <summary>Does the order, says what was done, and returns the sentence. Materials are the repair's to take.</summary>
     public string Complete(FitOrder order, Pawn mechanic)

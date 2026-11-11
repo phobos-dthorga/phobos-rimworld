@@ -641,6 +641,13 @@ public class PhobosVehicleRulesDef : PhobosRulesDef
     public float replacedPartHealthAtRig = 0.6f;
     /// <summary>What the work of fitting a new part is multiplied by within reach of a working tuning rig.</summary>
     public float rigReplaceWorkFactor = 0.7f;
+    /// <summary>What fitting and tuning cost by weight (Framework 0.91.0, authored): the weight at which the listed figures hold, the
+    /// powers materials and time grow by, and the least and most they are multiplied by.</summary>
+    public float fitCostReferenceKilograms = 5000f;
+    public float fitMaterialWeightExponent = 0.5f;
+    public float fitWorkWeightExponent = 0.25f;
+    public float fitWeightFactorMin = 0.5f;
+    public float fitWeightFactorMax = 3f;
     /// <summary>Work in ticks for a mechanic to diagnose a vehicle at a tuning rig.</summary>
     public float diagnoseWork = 1500f;
     /// <summary>Below this share of their hydraulic supply, a working vehicle's hydraulic work stops (a drill mast, a tipper body).</summary>

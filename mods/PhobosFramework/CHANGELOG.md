@@ -5,6 +5,25 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.91.0] - 2026-11-11 - Draft
+
+Fittings and tunes are earned (owner, 11 November 2026: "I want these upgrades and tunes to feel earned. That's how I felt upgrading the L-ATV; accomplished."). **Not yet tested in game.**
+
+### Balance
+
+- **Fitting and tuning take a day's work or more.** On a 5-tonne vehicle a turbocharger is about 12 hours for a builder of normal speed (was about 1), a Power tune about 10 (was under 1), a change of final drive about 10, an uprated radiator 5. Going back to stock takes 4 to 6 hours.
+- **They take about two and a half times the materials**: a turbocharger 100 steel and 10 components (was 40 and 4), a Power tune 5 components (was 2). Road tyres take chemfuel for their rubber instead of a component, and a change of final drive is a new gear set, 50 steel and 2 components.
+
+### Added
+
+- **A bigger vehicle costs more to fit and tune.** Materials grow with the vehicle's weight against a 5-tonne one, and time a little more slowly: a light buggy pays half the materials, a 20-tonne truck twice, held between half and three times.
+- **Three settings** in the vehicle systems settings, under the repairs heading: "Time to fit and tune" (Quick, Shorter, Standard, Long), "Materials to fit and tune" (Light, about the old costs; Standard; Heavy), and "Bigger vehicles cost more to fit and tune" (on). A change re-prices work already waiting.
+- The fittings window's details strip says how many hours each job takes on this vehicle, and its materials are this vehicle's.
+
+### Save compatibility
+
+- Safe on an existing save. Work already ordered takes the new cost and time when a mechanic starts it; nothing already fitted changes.
+
 ## [0.90.1] - 2026-11-11 - Draft
 
 The fittings window's tooltips no longer cover its lines (owner, 11 November 2026). **Not yet tested in game.**
