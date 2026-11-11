@@ -43,6 +43,7 @@
     <quantities>
       <li>
         <name>cabTemperature</name>
+        <description>How warm it is inside. The heater warms it from the engine's coolant, the air conditioner cools it, and the weather pulls it back.</description>
         <telltale>Phobos/VehicleSystems/Dash/Cab</telltale>
         <showOnDashboard>true</showOnDashboard>
         <label>cab</label>
@@ -83,6 +84,7 @@
       <li>
         <!-- Whether the night heater runs now: switched on, at a night camp, with the setting on. Its fuel is below. -->
         <name>nightHeaterRunning</name>
+        <description>A small burner that keeps the cab warm with the engine off. It burns a little fuel.</description>
         <label>night heater</label>
         <unit>OnOff</unit>
         <min>0</min>

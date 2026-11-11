@@ -47,6 +47,12 @@ asked whether a "Mechanic" display mode should sit between Operator and Engineer
 and a fourth mode is a standing cost on every screen of every mod), and built it as Operator rows with Engineer figures, for the owner to
 revisit after use.
 
+**Framework 0.96.0 (11 Nov 2026): tooltips that explain** (owner, from a screenshot of the Cherokee: a tooltip that repeated its row,
+and two limit readings that looked like temperatures below zero). A reading carries a description in its Def and a part's supply a note,
+shown on the Systems tab, the Dashboard and the Health tab. The row is repeated in a tooltip only where it was cut short. A margin from
+a limit reads "750C below" or "20C over". Agent-authored text, held for the owner's review. Left for later, said to the owner: the
+damage picture, the fleet board and the fittings window already explain themselves or show a figure the picture cannot.
+
 **Framework 0.94.0 (11 Nov 2026): four over-arching passes**, offered by the agent when the owner asked what should change across the
 board, and all four chosen: a performance pass on the week's screens and the sling's job search (two of its costs were the agent's own, from
 0.90.0 and 0.92.0); a screen guard, so a failing tab or window logs once and rests in place of the game logging it every frame against its

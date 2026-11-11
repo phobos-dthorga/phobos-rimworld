@@ -47,6 +47,7 @@
     <quantities>
       <li>
         <name>packTemperature</name>
+        <description>The drive battery's heat. Cold, it gives less and the vehicle is slower. Too hot is dangerous.</description>
         <showOnDashboard>true</showOnDashboard>
         <label>traction battery</label>
         <unit>Celsius</unit>
@@ -179,6 +180,7 @@
       </li>
       <li>
         <name>packWear</name>
+        <description>How much of the drive battery's life is used. Age, heat and charging in the cold all spend it. A worn pack holds less.</description>
         <wearTrend>true</wearTrend>
         <showOnDashboard>true</showOnDashboard>
         <remainingLabel>battery health</remainingLabel>
@@ -231,6 +233,7 @@
       <li>
         <!-- Whether the pack heater runs: below 15 degrees C while switched on or charging. It draws on the pack (range). -->
         <name>packHeaterRunning</name>
+        <description>Warms the drive battery in the cold, from its own charge.</description>
         <label>battery heater</label>
         <unit>OnOff</unit>
         <min>0</min>
@@ -270,6 +273,7 @@
       <li>
         <!-- The cab's heater and air conditioner draw on the pack, not on an engine's waste heat. -->
         <name>cabHeaterDraw</name>
+        <description>Whether the cab heater is drawing on the drive battery.</description>
         <label>cab heater draw</label>
         <unit>OnOff</unit>
         <min>0</min>
@@ -295,6 +299,7 @@
       </li>
       <li>
         <name>climateControlDraw</name>
+        <description>Whether the climate control is drawing on the drive battery.</description>
         <label>climate control draw</label>
         <unit>OnOff</unit>
         <min>0</min>
@@ -320,6 +325,7 @@
       </li>
       <li>
         <name>airConditionerDraw</name>
+        <description>Whether the air conditioner is drawing on the drive battery.</description>
         <label>air conditioner draw</label>
         <unit>OnOff</unit>
         <min>0</min>
@@ -470,6 +476,7 @@
     <quantities>
       <li>
         <name>motorTemperature</name>
+        <description>The drive motor's heat. Hard pulling warms it; its coolant and the air carry the heat away.</description>
         <label>motor</label>
         <unit>Celsius</unit>
         <min>-60</min>

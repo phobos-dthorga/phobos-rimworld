@@ -19,6 +19,7 @@
   <Phobos.VehicleSystems.PhobosVehiclePartSupplyDef>
     <defName>PhobosPartSupply_PistonEngine</defName>
     <label>piston engine</label>
+    <description>Makes the vehicle's power. Damaged, it runs hotter and burns more oil.</description>
     <roles>
       <li>Engine</li>
       <li>Engine1</li>
@@ -49,6 +50,7 @@
   <Phobos.VehicleSystems.PhobosVehiclePartSupplyDef>
     <defName>PhobosPartSupply_TurbineEngine</defName>
     <label>gas turbine</label>
+    <description>The gas turbine that makes its power. Run over its limits, its hot section wears and it can be damaged.</description>
     <roles>
       <li>Engine</li>
       <li>Engine1</li>
@@ -68,6 +70,7 @@
   <Phobos.VehicleSystems.PhobosVehiclePartSupplyDef>
     <defName>PhobosPartSupply_Transmission</defName>
     <label>transmission</label>
+    <description>Carries the engine's power to the wheels. Damaged, it runs hotter.</description>
     <roles>
       <li>Transmission</li>
     </roles>
@@ -83,6 +86,7 @@
   <Phobos.VehicleSystems.PhobosVehiclePartSupplyDef>
     <defName>PhobosPartSupply_Wheels</defName>
     <label>running gear</label>
+    <description>The tyres or tracks it runs on. Rough ground knocks them about, and worn tread can fail.</description>
     <roles>
       <li>Wheels</li>
     </roles>
@@ -103,6 +107,7 @@
   <Phobos.VehicleSystems.PhobosVehiclePartSupplyDef>
     <defName>PhobosPartSupply_Radiator</defName>
     <label>radiator</label>
+    <description>Sheds the engine's heat to the air. Damaged, the engine runs hotter.</description>
     <roles>
       <li>Radiator</li>
     </roles>
@@ -121,6 +126,7 @@
   <Phobos.VehicleSystems.PhobosVehiclePartSupplyDef>
     <defName>PhobosPartSupply_Battery</defName>
     <label>battery</label>
+    <description>Holds the power to start the engine, and to run the lights and heaters with it off.</description>
     <roles>
       <li>Battery</li>
     </roles>
@@ -140,6 +146,7 @@
   <Phobos.VehicleSystems.PhobosVehiclePartSupplyDef>
     <defName>PhobosPartSupply_Alternator</defName>
     <label>alternator</label>
+    <description>Charges the battery while the engine runs.</description>
     <roles>
       <li>Alternator</li>
     </roles>
@@ -159,6 +166,18 @@
   <Phobos.VehicleSystems.PhobosVehiclePartSupplyDef>
     <defName>PhobosPartSupply_SmallMechanical</defName>
     <label>small mechanical part</label>
+    <!-- What each of these parts does, for its tooltip (Framework 0.96.0). -->
+    <roleNotes>
+      <li><role>Starter</role><text>Turns the engine over to start it. Broken, the engine cannot be started with the key.</text></li>
+      <li><role>OilPump</role><text>Sends oil to the engine's bearings.</text></li>
+      <li><role>FuelPump</role><text>Feeds fuel to the engine. Weak, the vehicle is slower; dead, it will not start.</text></li>
+      <li><role>WaterPump</role><text>Moves coolant between the engine, the radiator and the cab heater. Without it the engine overheats and the heater goes cold.</text></li>
+      <li><role>Brakes</role><text>Stop and hold the vehicle. Wrecked, it cannot be driven.</text></li>
+      <li><role>Clutch</role><text>Joins the engine to the gearbox.</text></li>
+      <li><role>Compressor</role><text>Pumps the air its brakes need. Without it the brakes stay on.</text></li>
+      <li><role>HydraulicPump</role><text>Pressurises the oil that moves its rams and motors.</text></li>
+      <li><role>HydraulicLines</role><text>Carry hydraulic oil to the working gear.</text></li>
+    </roleNotes>
     <roles>
       <li>Starter</li>
       <li>OilPump</li>
@@ -184,6 +203,7 @@
   <Phobos.VehicleSystems.PhobosVehiclePartSupplyDef>
     <defName>PhobosPartSupply_DriveBelt</defName>
     <label>drive belt</label>
+    <description>Turns the water pump and the alternator from the engine. Snapped, the engine overheats and the battery stops charging.</description>
     <roles>
       <li>Belt</li>
     </roles>
@@ -196,6 +216,7 @@
   <Phobos.VehicleSystems.PhobosVehiclePartSupplyDef>
     <defName>PhobosPartSupply_RotorDrive</defName>
     <label>rotor drive</label>
+    <description>Carries the engines' power to the rotors.</description>
     <roles>
       <li>RotorDrive</li>
     </roles>
@@ -209,6 +230,7 @@
   <Phobos.VehicleSystems.PhobosVehiclePartSupplyDef>
     <defName>PhobosPartSupply_ElectricDrive</defName>
     <label>electric drive</label>
+    <description>The battery it drives on, and the motors that turn its wheels.</description>
     <roles>
       <li>TractionBattery</li>
       <li>TractionMotor</li>
@@ -223,6 +245,7 @@
   <Phobos.VehicleSystems.PhobosVehiclePartSupplyDef>
     <defName>PhobosPartSupply_Boiler</defName>
     <label>boiler</label>
+    <description>Raises the steam that drives it. Damaged, it raises less.</description>
     <roles>
       <li>Boiler</li>
     </roles>

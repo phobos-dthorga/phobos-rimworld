@@ -68,6 +68,7 @@
     <quantities>
       <li>
         <name>tankLoad</name>
+        <description>How much the tank's load weighs on the vehicle. Heavy, it is slower.</description>
         <label>tank load</label>
         <unit>Fraction</unit>
         <max>1.5</max>

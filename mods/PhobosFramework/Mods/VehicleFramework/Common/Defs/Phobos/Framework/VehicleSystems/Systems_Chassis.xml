@@ -19,6 +19,7 @@
     <quantities>
       <li>
         <name>treadWear</name>
+        <description>How much tread is gone. It wears as the vehicle moves, faster on rough ground. Worn through, it is slower and a tyre or track can fail.</description>
         <wearTrend>true</wearTrend>
         <telltale>Phobos/VehicleSystems/Dash/Tyre</telltale>
         <showOnDashboard>true</showOnDashboard>
@@ -70,6 +71,7 @@
         <!-- Crosslink 6: driving over mud, marsh, soft sand or deep snow (path cost 8 and up) knocks the running gear about, 1% of its
              health an hour on the move (authored), so a long drive off the roads shows on the Health tab and a repair follows. -->
         <name>groundRoughness</name>
+        <description>How rough the ground under it is. Rough ground wears tread faster and knocks the running gear about.</description>
         <label>ground</label>
         <unit>Plain</unit>
         <min>0</min>
@@ -179,6 +181,7 @@
     <quantities>
       <li>
         <name>brakeWear</name>
+        <description>How much of the pads is gone. They wear as the vehicle moves. Worn through, it cannot be driven until they are renewed.</description>
         <wearTrend>true</wearTrend>
         <telltale>Phobos/VehicleSystems/Dash/Brake</telltale>
         <showOnDashboard>true</showOnDashboard>
@@ -219,6 +222,7 @@
       </li>
       <li>
         <name>brakeParts</name>
+        <description>The state of the brakes themselves. Wrecked, the vehicle cannot be driven.</description>
         <telltale>Phobos/VehicleSystems/Dash/Brake</telltale>
         <label>brakes</label>
         <unit>Fraction</unit>
@@ -319,6 +323,7 @@
     <quantities>
       <li>
         <name>transmissionTemperature</name>
+        <description>The gearbox's heat. Hard pulling warms it and moving air cools it.</description>
         <telltale>Phobos/VehicleSystems/Dash/Gearbox</telltale>
         <label>gearbox</label>
         <unit>Celsius</unit>

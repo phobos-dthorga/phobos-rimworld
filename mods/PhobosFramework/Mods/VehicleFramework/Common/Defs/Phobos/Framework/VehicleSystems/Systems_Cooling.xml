@@ -77,6 +77,7 @@
     <quantities>
       <li>
         <name>coolantTemperature</name>
+        <description>The engine's heat, carried to the radiator. It needs coolant, a water pump, a belt and a sound radiator. Cold, the engine wears a little; boiling over, it is damaged.</description>
         <telltale>Phobos/VehicleSystems/Dash/CoolantHot</telltale>
         <showOnDashboard>true</showOnDashboard>
         <label>coolant</label>
@@ -176,6 +177,7 @@
       </li>
       <li>
         <name>coolantLevel</name>
+        <description>How full the cooling system is. With less coolant the engine runs hotter. Boiling over loses it.</description>
         <telltale>Phobos/VehicleSystems/Dash/CoolantLevel</telltale>
         <label>coolant level</label>
         <unit>Fraction</unit>
@@ -199,6 +201,7 @@
       <li>
         <!-- How hard the engine works, for its room heat. -->
         <name>engineLoad</name>
+        <description>How hard the engine is working, from idling to flat out. More load makes more heat.</description>
         <label>engine load</label>
         <unit>Fraction</unit>
         <hidden>true</hidden>
@@ -221,6 +224,7 @@
       <li>
         <!-- Crosslink 4: whether the vehicle is on fire, and how fiercely; while it burns, the radiator and its hoses cook. -->
         <name>bodyFire</name>
+        <description>How much of the vehicle is burning. Fire heats everything aboard and ruins the radiator.</description>
         <label>fire</label>
         <unit>Fraction</unit>
         <min>0</min>
@@ -247,6 +251,7 @@
         <!-- The night heater's fuel on a vehicle whose cab system does not burn it (an open vehicle, or the cab system switched off):
              running, and the cab's own "night heater running" not above a half. -->
         <name>engineHeaterBurning</name>
+        <description>A small burner that keeps the engine warm with it off, for an easy start in the cold. It burns a little fuel.</description>
         <label>night heater</label>
         <unit>OnOff</unit>
         <min>0</min>

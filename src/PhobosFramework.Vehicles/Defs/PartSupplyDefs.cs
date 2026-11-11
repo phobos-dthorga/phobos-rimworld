@@ -12,6 +12,13 @@ public static class VehicleBillTags
     public const string Turbine = "Turbine";
 }
 
+/// <summary>What a part of one role does, where a supply covers several roles (a starter and a fuel pump are both small mechanical parts).</summary>
+public class RoleNote
+{
+    public string role = "";
+    [MustTranslate] public string text = "";
+}
+
 /// <summary>
 /// What a vehicle's part of a role costs: to replace when destroyed (docs/development/vehicle-health-consequences.md), and, since
 /// Framework 0.95.0, to build (docs/development/parts-bills.md). It is the core's role supply with a repair's own figures added, so
@@ -33,6 +40,19 @@ public class PhobosVehiclePartSupplyDef : PhobosRoleSupplyDef
     public float componentsPerHealth;
     /// <summary>Work in ticks for a mechanic of construction speed 1.</summary>
     public float work = 1500f;
+    /// <summary>What each role's part does and what losing it costs, for a tooltip (Framework 0.96.0). A supply with one kind of part
+    /// says it in its description instead.</summary>
+    public List<RoleNote> roleNotes = new();
+
+    /// <summary>What a part of this role does, in a sentence, or null: the role's own note, else this supply's description.</summary>
+    public string? NoteFor(string? role)
+    {
+        foreach (RoleNote note in roleNotes)
+        {
+            if (note.role == role) return note.text;
+        }
+        return description.NullOrEmpty() ? null : description;
+    }
 
     public bool Fits(string? role, bool hasTurbine)
     {

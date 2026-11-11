@@ -29,6 +29,7 @@
     <quantities>
       <li>
         <name>turbineTemperature</name>
+        <description>How hot the turbine is running. It climbs with power and falls back as it cools.</description>
         <label>turbine</label>
         <unit>Celsius</unit>
         <min>-60</min>
@@ -37,8 +38,9 @@
       </li>
       <li>
         <name>turbineOverLimit</name>
+        <description>The temperature it can hold all day. Below it there is no harm. Over it, the hot section wears faster.</description>
         <label>turbine temperature</label>
-        <detailLabel>turbine against its continuous limit</detailLabel>
+        <detailLabel>continuous limit</detailLabel>
         <unit>CelsiusOffset</unit>
         <min>-2000</min>
         <max>2000</max>
@@ -62,8 +64,9 @@
       </li>
       <li>
         <name>turbineOverTop</name>
+        <description>The temperature it must never pass. Over it, the engine is damaged for as long as it stays there.</description>
         <label>turbine temperature</label>
-        <detailLabel>turbine against its highest limit</detailLabel>
+        <detailLabel>highest limit</detailLabel>
         <unit>CelsiusOffset</unit>
         <min>-2000</min>
         <max>2000</max>
@@ -90,6 +93,7 @@
       </li>
       <li>
         <name>hotSectionLife</name>
+        <description>How much of the turbine's hottest parts is used up. Running over its limits spends it faster.</description>
         <wearTrend>true</wearTrend>
         <showOnDashboard>true</showOnDashboard>
         <label>hot-section life used</label>
@@ -120,6 +124,7 @@
       </li>
       <li>
         <name>enginesOut</name>
+        <description>How many engines have stopped.</description>
         <label>engines</label>
         <detailLabel>engines out</detailLabel>
         <unit>Plain</unit>
@@ -140,6 +145,7 @@
       <li>
         <!-- The battery's starting power, as the electrical system works it out; a turbine needs more than a piston engine. -->
         <name>turbineStart</name>
+        <description>What the battery can give to light the turbine. Too little, and it will not start.</description>
         <label>turbine start</label>
         <unit>Fraction</unit>
         <hidden>true</hidden>
@@ -245,6 +251,7 @@
     <quantities>
       <li>
         <name>injectionWater</name>
+        <description>Water sprayed into the engine for extra thrust. When it runs out, the extra is gone.</description>
         <label>injection water</label>
         <unit>Fraction</unit>
         <min>0</min>

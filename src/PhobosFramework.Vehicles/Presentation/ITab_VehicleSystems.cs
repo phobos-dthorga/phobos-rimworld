@@ -144,7 +144,7 @@ public class ITab_VehicleSystems : ITab
             float top = y;
             PhobosWidgets.CardHeader(ref y, 0f, viewWidth, system.Def.label.CapitalizeFirst(), SystemColour(system));
             foreach (int q in rowScratch) DrawReading(comp, system, q, state, ref y, viewWidth, engineer);
-            if (partScratch.Count > 0) DrawParts(ref y, viewWidth, ref hovered);
+            if (partScratch.Count > 0) DrawParts(comp, ref y, viewWidth, ref hovered);
             PhobosWidgets.CardEnd(top, ref y, 0f, viewWidth);
         }
         Powertrain? train = comp.Powertrain;
@@ -275,9 +275,11 @@ public class ITab_VehicleSystems : ITab
         }
         x += IconSize + 4f;
         float nameEnd = width * 0.38f, barEnd = width * 0.66f, stageEnd = width * 0.86f;
+        string shownName, shownStage = "";
         using (new TextBlock(GameFont.Small, TextAnchor.MiddleLeft))
         {
-            Widgets.Label(new Rect(x, y, nameEnd - x - 4f, Row), reading.Label.Truncate(nameEnd - x - 4f, Truncated(nameCache, width)));
+            shownName = reading.Label.Truncate(nameEnd - x - 4f, Truncated(nameCache, width));
+            Widgets.Label(new Rect(x, y, nameEnd - x - 4f, Row), shownName);
         }
         var bar = new Rect(nameEnd, y + 4f, barEnd - nameEnd - 6f, Row - 8f);
         if (quantity.unit is QuantityUnit.Fraction or QuantityUnit.Celsius) PhobosWidgets.Gauge(bar, reading.Fill, colour, figure: reading.Figure);
@@ -286,7 +288,8 @@ public class ITab_VehicleSystems : ITab
         {
             using (new TextBlock(GameFont.Tiny, TextAnchor.MiddleLeft))
             {
-                Widgets.Label(new Rect(barEnd, y, stageEnd - barEnd - 4f, Row), stage.label.Truncate(stageEnd - barEnd - 4f, Truncated(stageCache, width)).Colorize(colour));
+                shownStage = stage.label.Truncate(stageEnd - barEnd - 4f, Truncated(stageCache, width));
+                Widgets.Label(new Rect(barEnd, y, stageEnd - barEnd - 4f, Row), shownStage.Colorize(colour));
             }
         }
         if (hasGraph && !open)
@@ -297,10 +300,17 @@ public class ITab_VehicleSystems : ITab
         }
         if (Mouse.IsOver(row))
         {
-            // Built only for the row under the mouse, not for every row every frame.
-            string tip = stage != null
-                ? "PhobosVehicleSystems_InspectFigureStage".Translate(reading.Label.Named("QUANTITY"), reading.Figure.Named("VALUE"), stage.label.Named("STAGE")).Resolve()
-                : "PhobosVehicleSystems_InspectFigure".Translate(reading.Label.Named("QUANTITY"), reading.Figure.Named("VALUE")).Resolve();
+            // Built only for the row under the mouse, not for every row every frame. What the reading is and what moves it, not the figure
+            // again (owner, 11 Nov 2026); the row itself is repeated only where its name or stage was cut short, or it has nothing to add.
+            bool cut = shownName != reading.Label || (stage != null && shownStage != stage.label);
+            string tip = "";
+            if (cut || quantity.description.NullOrEmpty())
+            {
+                tip = stage != null
+                    ? "PhobosVehicleSystems_InspectFigureStage".Translate(reading.Label.Named("QUANTITY"), reading.Figure.Named("VALUE"), stage.label.Named("STAGE")).Resolve()
+                    : "PhobosVehicleSystems_InspectFigure".Translate(reading.Label.Named("QUANTITY"), reading.Figure.Named("VALUE")).Resolve();
+            }
+            if (!quantity.description.NullOrEmpty()) tip += (tip.Length > 0 ? "\n\n" : "") + quantity.description;
             if (canOpen) tip += "\n\n" + "PhobosVehicleSystems_SysRowTip".Translate().Resolve();
             TooltipHandler.TipRegion(row, tip);
         }
@@ -403,7 +413,7 @@ public class ITab_VehicleSystems : ITab
     /// A system's parts as a strip of small bars, wrapping as they fill the width (the scratch list holds them): name, then a bar of its
     /// health. Hovering one lights it up on the vehicle.
     /// </summary>
-    static void DrawParts(ref float y, float width, ref VehicleComponent? hovered)
+    static void DrawParts(CompPhobosVehicleSystems comp, ref float y, float width, ref VehicleComponent? hovered)
     {
         float x = 6f;
         y += 2f;
@@ -429,7 +439,13 @@ public class ITab_VehicleSystems : ITab
                 float health = part.HealthPercent;
                 Widgets.Label(new Rect(x + 2f, y, chip - ChipBar - 8f, ChipHeight), label.Truncate(chip - ChipBar - 8f));
                 PhobosWidgets.Gauge(new Rect(rect.xMax - ChipBar - 2f, y + 5f, ChipBar, ChipHeight - 10f), health, PhobosWidgets.HealthColour(health));
-                TooltipHandler.TipRegion(rect, "PhobosVehicleSystems_SysPartTip".Translate(label.Named("PART"), health.ToStringPercent().Named("HEALTH")));
+                if (Mouse.IsOver(rect))
+                {
+                    // The chip shows a bar, so the figure is new here; then what the part does and what losing it costs.
+                    string tip = "PhobosVehicleSystems_SysPartTip".Translate(label.Named("PART"), health.ToStringPercent().Named("HEALTH")).Resolve();
+                    if (comp.Repairs.NoteFor(part) is { } note) tip += "\n\n" + note;
+                    TooltipHandler.TipRegion(rect, tip);
+                }
                 x += chip + 6f;
             }
         }

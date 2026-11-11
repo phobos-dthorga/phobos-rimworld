@@ -5,6 +5,21 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.96.0] - 2026-11-11 - Draft
+
+Tooltips that explain, and a turbine's limits in plain words. Asked for by the owner on 11 November 2026 from a screenshot of the Cherokee's Systems tab. **Not yet tested in game.**
+
+### Fixed
+
+- **A turbine's two limit readings no longer look like temperatures below zero.** A cold turbine read "-750C" and "-825C": they are how far it is from its limits. They now read "750C below" and, past a limit, "20C over". Their names are shorter too, so they are no longer cut off: "Continuous limit" and "Highest limit".
+
+### Added
+
+- **A reading's tooltip says what it is and what moves it**, in a sentence or two, where it used to repeat the name and figure on the row. All 47 readings have one: for the coolant, that it needs coolant, a water pump, a belt and a sound radiator, and what cold and boiling over do. The name, figure and stage are still shown where the row had to cut them short. On the Systems tab, and under each gauge's and warning light's own line on the Dashboard.
+- **A part's tooltip says what the part does and what losing it costs**: a drive belt turns the water pump and the alternator, so a snapped one overheats the engine and stops the battery charging. On the Systems tab's part strip and on the Health tab, for the 20 kinds of part the systems use; hull and armour have none.
+- The texts are agent-authored, each checked against what the reading or part does in its Def, and held for the owner's review.
+- For modders: a quantity of a PhobosVehicleSystemDef takes a description, and a PhobosVehiclePartSupplyDef takes a description (one kind of part) or roleNotes (several).
+
 ## [0.95.0] - 2026-11-11 - Draft
 
 Parts bills: what a built thing is made of, by role. Asked for by the owner on 11 November 2026, to bring every vehicle's build cost in line with the tanker's, and made generic at the owner's question so a later mod's placed buildings use it too. **Not yet tested in game.**

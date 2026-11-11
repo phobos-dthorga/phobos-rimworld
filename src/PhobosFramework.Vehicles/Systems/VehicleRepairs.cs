@@ -81,6 +81,9 @@ public sealed class VehicleRepairs
         return roleOfKey.TryGetValue(key, out string? role) ? role : null;
     }
 
+    /// <summary>What this part does and what losing it costs, in a sentence, or null for a part with no role (hull, armour).</summary>
+    public string? NoteFor(VehicleComponent part) => RoleOf(part.props.key) is { } role ? SupplyFor(part)?.NoteFor(role) : null;
+
     PhobosVehiclePartSupplyDef? SupplyFor(VehicleComponent part)
     {
         string? role = RoleOf(part.props.key);

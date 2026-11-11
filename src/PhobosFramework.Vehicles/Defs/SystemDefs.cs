@@ -89,6 +89,9 @@ public class QuantitySpec
     /// <summary>What the Systems tab and a report call the reading, where its label only reads well in front of a stage ("turbine
     /// temperature: over its continuous limit"); the label when empty (Framework 0.92.1).</summary>
     [MustTranslate] public string? detailLabel;
+    /// <summary>What the reading is and what moves it, in a sentence or two: its tooltip on the Systems tab and the Dashboard (Framework
+    /// 0.96.0; owner, 11 Nov 2026: context, not the figure again). In the game world: no mod, setting or signal is named.</summary>
+    [MustTranslate] public string? description;
     public QuantityUnit unit = QuantityUnit.Plain;
     public float min;
     public float max = 1f;

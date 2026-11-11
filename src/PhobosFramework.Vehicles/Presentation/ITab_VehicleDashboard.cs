@@ -93,8 +93,10 @@ public class ITab_VehicleDashboard : ITab
                 StageSpec? stage = state.CurrentStage(q);
                 var rect = new Rect(x, y, width, GaugeHeight);
                 GaugeReading reading = GaugeReading.For(state, q);
+                // The gauge shows no stage, so its tooltip names it; then what the reading is and what moves it (Framework 0.96.0).
                 PhobosWidgets.Gauge(rect, reading.Fill, StageColour(stage), reading.Label, figures ? reading.Figure : null,
-                    stage != null ? reading.Label + ": " + stage.label + (figures ? " (" + reading.Figure + ")" : "") : reading.Label);
+                    (stage != null ? reading.Label + ": " + stage.label + (figures ? " (" + reading.Figure + ")" : "") : reading.Label)
+                    + (quantity.description.NullOrEmpty() ? "" : "\n\n" + quantity.description));
                 if (Widgets.ButtonInvisible(rect)) OpenSystem(comp, state, mode, onWorld);
                 // The last day under the gauge, for those who read figures (0.79.0, G2): a climbing coolant is seen before it is red.
                 if (figures && comp.History.For(state, q) is { Count: >= 2 } ring)
@@ -117,7 +119,7 @@ public class ITab_VehicleDashboard : ITab
         bool anyLight = false;
 
         // A picture and its tint where the quantity has one; the warning in words where it does not.
-        void Light(Color colour, string label, Texture2D? icon, System.Action? clicked)
+        void Light(Color colour, string label, Texture2D? icon, System.Action? clicked, string? about = null)
         {
             float needed;
             if (icon != null)
@@ -140,7 +142,8 @@ public class ITab_VehicleDashboard : ITab
                 GUI.color = colour;
                 GUI.DrawTexture(rect, icon);
                 GUI.color = Color.white;
-                TooltipHandler.TipRegion(rect, label);
+                // A picture alone needs its name; under it, what the reading is (Framework 0.96.0).
+                TooltipHandler.TipRegion(rect, about.NullOrEmpty() ? label : label + "\n\n" + about);
                 if (clicked != null && Widgets.ButtonInvisible(rect)) clicked();
                 lightX += needed;
                 rowHeight = TellTaleSize;
@@ -167,7 +170,8 @@ public class ITab_VehicleDashboard : ITab
                 if (stage == null || !stage.notable) continue;
                 string label = state.Def.quantities[q].label.CapitalizeFirst() + ": " + stage.label;
                 SystemState lit = state;
-                Light(StageColour(stage), label, SystemIcons.IfExists(state.Def.quantities[q].telltale), () => OpenSystem(comp, lit, mode, onWorld));
+                Light(StageColour(stage), label, SystemIcons.IfExists(state.Def.quantities[q].telltale), () => OpenSystem(comp, lit, mode, onWorld),
+                    state.Def.quantities[q].description);
             }
         }
         if (anyLight) y += rowHeight + 6f;

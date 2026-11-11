@@ -512,7 +512,8 @@ public class ITab_PhobosVehicleHealth : ITab
             if (comp.Fittings.GradeOf(part.props.key).Icon is { } gradeIcon) row.Icons.Add(gradeIcon);
             VehicleComponent captured = part;
             bool capturedFigures = figures;
-            row.Tip = () => PartTip(captured, capturedFigures);
+            CompPhobosVehicleSystems capturedComp = comp;
+            row.Tip = () => PartTip(captured, capturedFigures, capturedComp.Repairs.NoteFor(captured));
             if (part.Health <= 0f) row.Conditions.Add(new ConditionRow { Label = "PhobosVehicleSystems_HealthDestroyed".Translate(), Colour = PhobosWidgets.Bad });
             foreach (RepairWork repair in comp.Repairs.Pending)
             {
@@ -583,9 +584,11 @@ public class ITab_PhobosVehicleHealth : ITab
             return false;
         }
 
-        static string PartTip(VehicleComponent part, bool figures)
+        static string PartTip(VehicleComponent part, bool figures, string? note)
         {
             var text = new StringBuilder(part.props.label.CapitalizeFirst());
+            // What the part does and what losing it costs (Framework 0.96.0).
+            if (!note.NullOrEmpty()) text.Append('\n').Append(note).Append('\n');
             if (figures)
             {
                 text.Append('\n').Append("PhobosVehicleSystems_HealthPartHealth".Translate(part.Health.ToString("0").Named("HEALTH"), part.MaxHealth.ToString("0").Named("MAX")).Resolve());

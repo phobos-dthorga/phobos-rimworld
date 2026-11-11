@@ -7,7 +7,7 @@ helpers every D'thorga mod shares.
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.95.0, built 11 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
+Version 0.96.0, built 11 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
 oxygen working through Burns and Smoke and Medical Equipment (5 November 2026). The health layer new in 0.3.0 and the **vehicle
 systems new in 0.9.0, and their engines, drivetrains and gas turbines new in 0.11.0, are not yet tested in game.** The rest is read from the game's and the mods' code.
 
@@ -87,6 +87,8 @@ and wear that a mechanic services. See [Vehicle systems](#vehicle-systems-with-v
   its graph on a click, a card a system, parts as a strip of small bars, and an **Only what needs attention** tick box. **From 0.94.0** a
   screen of ours that fails shows one line and tries again in a few seconds, where the game would fill its log; and in dev mode
   **"Vehicle systems: run the self-test"** checks most of this in one go, a sling lift included. Not yet tested in game.
+- **From 0.96.0 (not yet tested in game), hover a reading or a part to learn what it is**: the tooltip says in a sentence what the
+  reading means and what moves it, or what the part does and what losing it costs, on the Systems tab, the Dashboard and the Health tab.
 - **From 0.95.0 (not yet tested in game), the depot bay is built from parts**: a fuel tank and a fuel pump beside its steel, and a
   vehicle of ours takes more of our engine assembly the heavier it is (two on a truck, three on a drill rig), **for repairs too**.
   **Finish or cancel a depot bay or a vehicle being built before you update.** Whose parts a build asks for is the setting

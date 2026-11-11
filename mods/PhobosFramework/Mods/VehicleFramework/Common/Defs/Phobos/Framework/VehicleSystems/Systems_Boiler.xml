@@ -51,6 +51,7 @@
     <quantities>
       <li>
         <name>steamPressure</name>
+        <description>What drives the engine. It builds while the fire burns and falls as the engine works. It cannot move until steam is raised; too high, and the safety valve blows it off.</description>
         <showOnDashboard>true</showOnDashboard>
         <label>steam pressure</label>
         <unit>Fraction</unit>
@@ -91,6 +92,7 @@
       </li>
       <li>
         <name>boilerWater</name>
+        <description>Water over the firebox. It boils away as the engine works and is topped up from the feed water. Let it fall too low with a fire lit and the boiler can burst.</description>
         <label>water in the glass</label>
         <unit>Fraction</unit>
         <min>0</min>
@@ -194,6 +196,7 @@
       </li>
       <li>
         <name>feedWater</name>
+        <description>The supply the boiler is topped up from. Refill it before it runs dry.</description>
         <label>feed water</label>
         <unit>Fraction</unit>
         <min>0</min>
@@ -351,6 +354,7 @@
     <quantities>
       <li>
         <name>fusiblePlug</name>
+        <description>A soft plug in the firebox crown. It melts if the water falls too low. Melted, the engine cannot run until it is replaced.</description>
         <label>fusible plug</label>
         <unit>Plain</unit>
         <min>0</min>

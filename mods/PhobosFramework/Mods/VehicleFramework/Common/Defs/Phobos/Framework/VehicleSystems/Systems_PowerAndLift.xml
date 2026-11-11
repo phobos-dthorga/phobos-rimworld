@@ -27,6 +27,7 @@
     <quantities>
       <li>
         <name>rotorOverTorque</name>
+        <description>How far the rotor drive is loaded past what it is built for. Lighten the load to bring it back.</description>
         <label>rotor drive</label>
         <unit>Plain</unit>
         <min>-1</min>
@@ -69,6 +70,7 @@
     <quantities>
       <li>
         <name>tractionMotorTemperature</name>
+        <description>The traction motors' heat. Heavy pulling warms them and their blowers cool them.</description>
         <label>traction motors</label>
         <unit>Celsius</unit>
         <min>-60</min>

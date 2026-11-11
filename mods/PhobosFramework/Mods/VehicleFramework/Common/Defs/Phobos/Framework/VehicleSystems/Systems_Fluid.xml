@@ -29,6 +29,7 @@
     <quantities>
       <li>
         <name>airPressure</name>
+        <description>Air for the brakes, pumped by the compressor while the engine runs. Until it builds, the brakes stay on and the vehicle cannot move.</description>
         <label>air</label>
         <unit>Fraction</unit>
         <min>0</min>
@@ -113,6 +114,7 @@
     <quantities>
       <li>
         <name>hydraulicFluid</name>
+        <description>Oil for the rams and motors. Low fluid weakens everything it drives.</description>
         <label>hydraulic fluid</label>
         <unit>Fraction</unit>
         <min>0</min>
@@ -134,6 +136,7 @@
       </li>
       <li>
         <name>hydraulicPressure</name>
+        <description>What the hydraulic pump is holding for the working gear.</description>
         <label>hydraulic pressure</label>
         <unit>Fraction</unit>
         <derivedFrom>
@@ -160,6 +163,7 @@
              Def). The pump's health is left out on purpose: a damaged pump already slows the work through the vehicle's own work stat, and
              counting it here as well would count it twice. -->
         <name>hydraulicSupply</name>
+        <description>Whether the hydraulics can do their work now: fluid, pump and lines together.</description>
         <label>hydraulic supply</label>
         <unit>Fraction</unit>
         <hidden>true</hidden>

@@ -98,6 +98,9 @@
   <PhobosVehicleSystems_InspectPhase>({PHASE})</PhobosVehicleSystems_InspectPhase>
   <PhobosVehicleSystems_InspectTurbineLoad>Load {LOAD} of maximum continuous, at its {RATING} rating.</PhobosVehicleSystems_InspectTurbineLoad>
   <PhobosVehicleSystems_RatingMaxContinuous>maximum continuous</PhobosVehicleSystems_RatingMaxContinuous>
+  <!-- How far a reading is from a limit (Framework 0.96.0). -->
+  <PhobosVehicleSystems_OffsetBelow>{DEGREES} below</PhobosVehicleSystems_OffsetBelow>
+  <PhobosVehicleSystems_OffsetOver>{DEGREES} over</PhobosVehicleSystems_OffsetOver>
   <PhobosVehicleSystems_ValueOn>on</PhobosVehicleSystems_ValueOn>
   <PhobosVehicleSystems_ValueOff>off</PhobosVehicleSystems_ValueOff>
   <PhobosVehicleSystems_InspectPower>Load {LOAD}: engine {ENGINE} kW, fuel {FUEL} kW, heat {HEAT} kW.</PhobosVehicleSystems_InspectPower>

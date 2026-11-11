@@ -118,12 +118,22 @@ public static class InspectText
         return line;
     }
 
+    /// <summary>How far a reading is from its limit: "750C below" or "20C over", never "-750C", which reads as a temperature under zero
+    /// (owner, 11 Nov 2026).</summary>
+    static string OffsetText(double value)
+    {
+        string degrees = ((float)System.Math.Abs(value)).ToStringTemperatureOffset("F0");
+        return value < 0
+            ? "PhobosVehicleSystems_OffsetBelow".Translate(degrees.Named("DEGREES")).Resolve()
+            : "PhobosVehicleSystems_OffsetOver".Translate(degrees.Named("DEGREES")).Resolve();
+    }
+
     public static string Format(QuantitySpec quantity, double value) => quantity.unit switch
     {
         QuantityUnit.Celsius => ((float)value).ToStringTemperature("F0"),
         QuantityUnit.Fraction => ((float)value).ToStringPercent(),
         QuantityUnit.Hours => "PhobosVehicleSystems_HoursValue".Translate(value.ToString("0").Named("HOURS")).Resolve(),
-        QuantityUnit.CelsiusOffset => ((float)value).ToStringTemperatureOffset("F0"),
+        QuantityUnit.CelsiusOffset => OffsetText(value),
         QuantityUnit.OnOff => value >= 0.5 ? "PhobosVehicleSystems_ValueOn".Translate().Resolve() : "PhobosVehicleSystems_ValueOff".Translate().Resolve(),
         _ => value.ToString("0.##"),
     };
