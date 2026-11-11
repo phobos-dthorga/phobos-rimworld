@@ -125,7 +125,24 @@ weight times the ground's friction (`DrivetrainModel.cs:203`). Both take one mas
 - **The world map and caravans** are not designed here: whether a hitched trailer's mass reaches our world rules needs a
   read first.
 - **No road trains:** one trailer per vehicle.
-- **Enemy vehicles** can use the same comp, since nothing in it is the player's alone, but no raid is given a trailer yet.
+- **No raid is given a trailer yet** (the section below says what works for other factions from the first build).
+
+## Other factions' vehicles
+
+The owner asked on 11 Nov 2026 that vehicle mechanics be designed with enemy raids in mind, or at the very least for the
+vehicles at a base the player attacks. How those vehicles come to exist is in
+[the Vehicle Framework record](vehicle-framework-mechanics.md). Agent-authored:
+
+| Where | What the hitch does there | Lets the player | Stops the player | From which slice |
+| --- | --- | --- | --- | --- |
+| **A base we attack** | A trailer is a vehicle, so whatever puts vehicles at a base can put a parked trailer there, loaded | Hitch it to a vehicle of ours and drive off with the load | Taking it without bringing something that can pull it, and standing still to hitch under fire | 2, once a hostile faction's unattended trailer can be taken (to check: how Vehicle Framework treats claiming a vehicle) |
+| **A raid on us** | A raider's vehicle may arrive towing, held back and heated by the same model as ours | Stop the tractor and keep what it was pulling: a trailer whose tractor is destroyed is set down where it stood, as the sling sets down its load | Nothing | The comp works for any faction from slice 2; a raid that brings a trailer waits for slice 4 and a hook to add one |
+| **A vehicle we capture** | It tows as ours do, by its own drivetrain | Use a captured truck as a tractor at once | Nothing | 2 |
+
+- **Cost with several on a map:** the follow rule runs only for a vehicle that is towing and moving, and a trailer set
+  down runs nothing.
+- **Decision 1 matters more here.** Off the map while towed, a raider's trailer cannot be shot until its tractor falls.
+  That is acceptable for a first build and a reason to make towed trailers hittable soon after.
 
 ## Slices
 
@@ -141,7 +158,8 @@ Slices 1 and 2 are built together: rules nobody uses are not a working slice.
 ## Decisions for the owner
 
 1. **Off the map while towed?** Simple and cheap, as RimThunder does it, with the limits above. Or must a towed trailer
-   be hittable from the first build? (Agent default: off the map first, hits later.)
+   be hittable from the first build? (Agent default: off the map first, hits later. A raider's towed trailer is the case
+   that suffers most; see "Other factions' vehicles".)
 2. **The trailer's picture.** Borrow one of ours for the first build, then a paid picture on your go. (Agent default.)
 3. **A vehicle with no D'thorga drivetrain:** tow with a plain rule (speed falls with the trailer's share of the total
    mass, a gameplay simplification), or not tow at all? (Agent default: the plain rule, so "any vehicle" stays true.)

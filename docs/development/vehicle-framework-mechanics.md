@@ -254,6 +254,26 @@ running gear; thermal mass and alternator size scale with `Mass`; fuel burn stan
 already has engine, alternator or gearbox parts, a loadout binds to them (found by category and depth, with the key as
 a hint) instead of adding duplicates.
 
+## How other factions come to have vehicles (added 11 Nov 2026)
+
+The owner asked where the vehicles at enemy bases come from, having seen them when attacking, and thought Vehicle
+Framework. **From the code, VF is what makes them real vehicles; which mod placed the ones the owner saw was not traced.**
+Read on 11 Nov 2026 from the 1.6 decompile (`Vehicles.decompiled.cs`), the build the owner's game loads (VF 1.6.2144):
+
+| Route | What VF does | Where | Who can cause it |
+| --- | --- | --- | --- |
+| **A pawn kind that is a vehicle** | When the game generates a pawn whose kind's race is a `VehicleDef`, VF generates a vehicle of the requesting faction instead | Patched at `45429`; the method is `45453-45461` | Any faction whose raid or garrison groups list a vehicle kind |
+| **A vehicle's building, spawned** | When a vehicle's buildable Def is spawned at full health, other than on loading a save, VF builds the real vehicle for that thing's faction | Patched at `45441`; the method is `45551-45598` | Any map generator that places such buildings: a base layout, or ruins copied from players' bases |
+| **VF's own raid injection** | Would add vehicles to a hostile faction's generated groups by raid points (none below 1,000, one at 3,000, two at 5,000, five at 20,000) for factions carrying `VehicleRaiderDefModExtension` | `48050-48135` | **Nobody in this build:** the methods exist but nothing applies them (`PatchMethods` is empty, `48063-48065`). It reads as work in progress |
+
+- **VTOL Raids** generates hostile aircraft itself (`VTOLRaids.decompiled.cs:4934`). No other decompiled mod on this PC
+  calls VF's vehicle generator, but most mods on the owner's list are not decompiled.
+- **Our systems are on those vehicles too.** The systems comp is added to the vehicle's Def at start-up, so a faction's
+  vehicle carries it as the player's does; other factions' vehicles run the lite tier by default
+  ([vehicle health](vehicle-health-design.md)).
+- **To trace one in play:** save with the vehicle on the map and ask `python scripts/query-save.py find <its ID>`.
+- `scripts/query-patches.py` cannot list VF's patches: it applies them through its own helper at run time.
+
 ## Prior art
 
 **Vehicle systems:** no mod found (8 Nov 2026) that models engine temperature, batteries, oil, wear or breakdowns on VF

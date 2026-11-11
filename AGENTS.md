@@ -280,6 +280,10 @@ delivered, record the delivery in the changelog or design record, and add or ame
   tree shaped by the vehicle, every node moving a figure that changes an outcome, node keys stable once a save can hold them; the
   base body is drawn bare and every visible node is its own overlay set, planned before the first picture
   (`docs/development/utility-vehicles-design.md`, principle 8).
+- **Design every vehicle mechanic with other factions' vehicles in mind** (owner, 11 Nov 2026): raiders who arrive in vehicles and, at the very
+  least, the vehicles standing at a base the player attacks. Each vehicle design record has a section saying what the mechanic does on a vehicle
+  in a raid on us, on one parked at a base we attack, and on one we capture; it works on any faction's vehicle unless the record says why not,
+  and costs little with several on a map. How other factions come to have vehicles is in `docs/development/vehicle-framework-mechanics.md`.
 - **Design every submarine mechanic for enemy submarines** (owner, 10 Nov 2026: coming "not later, but very soon"). Each mechanic works for any
   faction's boat, costs little per hull with several hostile ones on a map, and never shows the player what their own crew could not know.
   Submarines get no walkable gravship-style interior, because of its performance cost; our own interfaces and mechanics stand in for it.

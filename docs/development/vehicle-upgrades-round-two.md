@@ -138,7 +138,9 @@ Read with `scripts/workshop-research.py report` on 11 Nov 2026; a Workshop page 
   behaviour not yet read. Each has a check before any design.
 - **Performance:** every proposal acts on an order or a parked state, never per tick; heat recovery uses the room's own
   temperature pass.
-- **Enemy vehicles:** none of these is offered to raiders in this round.
+- **Enemy vehicles:** none of these is offered to raiders in this round. **Added later on 11 Nov 2026:** the owner asked that
+  vehicle mechanics be designed with other factions' vehicles in mind (now a rule in AGENTS.md), so each signature gets that
+  section when it is designed: what it does on a raider's vehicle, on one parked at a base we attack, and on one we capture.
 
 ## Questions for the owner
 
