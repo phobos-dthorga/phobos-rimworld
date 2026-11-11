@@ -5,6 +5,10 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+### Added
+
+- For modders: the drivetrain model takes a towed mass (rolled, speeded up and lifted with the vehicle, adding no grip), and a game-free rule for how a towed trailer follows its hitch. Groundwork for the hitch; nothing uses them yet.
+
 ## [0.97.0] - 2026-11-11 - Draft
 
 Claiming other factions' vehicles, warmth from the generator set's exhaust, and a store that keeps optional parts out of the save. The owner's decisions of 11 November 2026. **Not yet tested in game.**

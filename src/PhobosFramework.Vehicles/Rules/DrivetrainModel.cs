@@ -91,6 +91,10 @@ public struct DriveConditions
     public double Speed;
     public double Acceleration;
     public double MassKg;
+    /// <summary>A trailer's mass behind the hitch (docs/development/vehicle-hitch-design.md): it must be rolled, speeded up and lifted
+    /// with the vehicle, but puts no weight on the driven wheels (a full trailer stands on its own axles). Air drag is unchanged, a
+    /// simplification: the trailer runs in the vehicle's wake.</summary>
+    public double TowedMassKg;
     public double RollingResistance;
     /// <summary>Peak tyre-ground friction coefficient.</summary>
     public double Grip;
@@ -144,7 +148,10 @@ public static class DrivetrainModel
 
     /// <summary>The force the road takes at a speed, in newtons.</summary>
     public static double RoadLoad(DrivetrainSpec spec, in DriveConditions c, double speed) =>
-        c.RollingResistance * c.MassKg * Gravity + 0.5 * AirDensity * spec.DragArea * speed * speed + c.MassKg * (c.Acceleration + Gravity * c.Grade);
+        c.RollingResistance * TrainKg(c) * Gravity + 0.5 * AirDensity * spec.DragArea * speed * speed + TrainKg(c) * (c.Acceleration + Gravity * c.Grade);
+
+    /// <summary>The whole train's mass: the vehicle and anything it tows.</summary>
+    public static double TrainKg(in DriveConditions c) => c.MassKg + Math.Max(0, c.TowedMassKg);
 
     public static double WheelRpm(DrivetrainSpec spec, double speed) => speed / (2 * Math.PI * Math.Max(0.05, spec.WheelRadius)) * 60;
 
@@ -204,7 +211,7 @@ public static class DrivetrainModel
         double tractionCap = 1;
         if (force > tractionLimit)
         {
-            double rolling = c.RollingResistance * c.MassKg * Gravity + c.MassKg * (c.Acceleration + Gravity * c.Grade);
+            double rolling = c.RollingResistance * TrainKg(c) * Gravity + TrainKg(c) * (c.Acceleration + Gravity * c.Grade);
             double spare = tractionLimit - rolling;
             tractionCap = spare <= 0 ? 0 : Math.Sqrt(spare / (0.5 * AirDensity * Math.Max(0.01, spec.DragArea))) / speed;
         }

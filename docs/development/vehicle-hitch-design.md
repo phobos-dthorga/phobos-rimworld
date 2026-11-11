@@ -169,6 +169,22 @@ Slices 1 and 2 are built together: rules nobody uses are not a working slice.
    description that their pull is a plain rule (speed falls with the trailer's share of the total mass), not the full model.
 4. **One medium flatbed first.**
 
+### The design pass for an on-map trailer (11 Nov 2026)
+
+From Vehicle Framework's code (our 1.6 decompile, `VF` below), read after the owner's decision 1:
+
+| Question | Finding | Plan |
+| --- | --- | --- |
+| How does Vehicle Framework move a vehicle? | It sets the vehicle's cell (`Position`), works out its angle, and refreshes path costs on the cells it left and entered (`VF:12960-12986`) | The hitch moves the trailer the same way, only when the follow rule puts its axle in a new cell |
+| How is the smooth swing drawn? | Every vehicle has a public `Transform`, whose offset and angle its renderer adds when drawing (`VF:16047`, `VF:38738-38759`); the repair job already resets it (`VF:2339`) | The trailer's cell carries its facing, and the remainder of its heading and the sub-cell offset go in its `Transform`. **No Harmony patch** |
+| What follows the trailer's cells? | Pawns, fire and bullets treat a spawned vehicle as on the map | It blocks, is blocked and can be shot, as decided |
+| What happens at a wall? | Nothing in Vehicle Framework stops a vehicle because of another one's cells | Before the trailer moves, its footprint at the new pose is checked; if any cell is impassable for it, **the tractor is stopped** and told why ("the trailer cannot follow"). The tractor's path does not plan for the trailer in the first build |
+| What does it cost? | | The follow rule runs only while a towing vehicle moves; a cell change touches the trailer's few cells; a parked train costs nothing |
+| What carries the mass? | `Powertrain.MassKg` feeds the model | The hitch adds the trailer's mass as `TowedMassKg` (slice 1, built) |
+
+**Slice 1 is built** (Framework, unreleased): `HitchRule` (`src/PhobosFramework.Vehicles/Rules/HitchRule.cs`) with its tests, and a
+towed mass in the drivetrain model that is rolled, speeded up and lifted with the vehicle but adds no grip. Nothing uses them yet.
+
 The questions as they were put:
 
 1. **Off the map while towed?** Simple and cheap, as RimThunder does it, with the limits above. Or must a towed trailer
