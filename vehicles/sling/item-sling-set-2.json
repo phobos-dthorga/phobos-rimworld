@@ -1,0 +1,51 @@
+{
+  "file": "item-sling-set-2.png",
+  "sha256": "fa565557c4ccd36d94ae5aa62b43f8a1f7ea25aae2c91ca5ad24783b5dfd66a4",
+  "date": "2026-11-11T17:25:02",
+  "generator": "OpenAI gpt-image-2 through the OpenAI image API (paid per image)",
+  "engine": "openai",
+  "model": "gpt-image-2",
+  "prompt": "GAME ITEM ICON. One single object seen from the front, centred, flat on the canvas, like an item picture in a strategy game's inventory.\n\nCreate an ORIGINAL game item icon for the D'thorga sling set: the gear for lifting a vehicle under a helicopter. Image 1 is our approved icon from the same family: match its outline weight, shading, palette and finish only. Do NOT copy its shape.\n\nDraw ONLY the object, alone on a plain pure white background, filling about 80 percent of the canvas. Square canvas.\n\nA neat coil of four orange polyester lifting strops gathered on a steel ring with a heavy swivel shackle, lying on top of a short steel spreader bar.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art. It must read clearly when shrunk to 64 pixels: one or two big shapes, very few small ones.\n\nNo people, hands, animals, vehicles, aircraft, text, letters, numbers, logos, screens, dust, floor, ground or cast shadow.",
+  "seed": 2,
+  "seed_note": "an attempt number naming the file; the API takes no seed, so a rerun gives a different image",
+  "quality": "medium",
+  "size": [
+    1024,
+    1024
+  ],
+  "request_file": "assets/phobos-vehicles/requests/sling-icons.json",
+  "ai_disclosure": "Made with generative AI: OpenAI gpt-image-2, prompted by the Phobos art scripts.",
+  "terms": "OpenAI Services Agreement, sections 4.1 and 4.4, as recorded in the Phobos Ostranauts repository on 2026-10-07 and summarised again on 2026-11-08: API customers own Output, OpenAI assigns any rights it has, and Output may not be unique; no use of Output to build competing models. Dated secondary records: the openai.com page refuses automated reads, so the owner confirms the current text.",
+  "endpoint": "/images/edits",
+  "usage": {
+    "input_tokens": 324,
+    "input_tokens_details": {
+      "image_tokens": 64,
+      "text_tokens": 260
+    },
+    "output_tokens": 1756,
+    "output_tokens_details": {
+      "image_tokens": 1756,
+      "text_tokens": 0
+    },
+    "total_tokens": 2080
+  },
+  "cost_usd": 0.0545,
+  "cost_is_estimate": false,
+  "reported_quality": "medium",
+  "reported_size": "1024x1024",
+  "reported_background": "opaque",
+  "reported_output_format": "png",
+  "returned_size": [
+    1024,
+    1024
+  ],
+  "seconds": 29.7,
+  "references": [
+    {
+      "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/Vehicles/Parts/TyreSet.png",
+      "sha256": "a825c50cbfd2b830a01ef29327013fc8bdd56ff7febe389319594b7a1852e6d8",
+      "role": "our approved vehicle part item icon from the same family (the tyre set): match its outline weight, shading, palette and finish only; do not copy its shape"
+    }
+  ]
+}
