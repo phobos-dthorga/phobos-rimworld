@@ -106,6 +106,15 @@ class SortingTests(unittest.TestCase):
         self.assertTrue(sort_rules.is_near_copy(40, 0.60))
         self.assertFalse(sort_rules.is_near_copy(13, 0.59))
 
+    def test_blank_on_blank_windows_do_not_count_as_shared_structure(self):
+        self.assertFalse(sort_rules.compares_structure(255, 240))
+        self.assertTrue(sort_rules.compares_structure(255, 40))
+        self.assertTrue(sort_rules.compares_structure(30, 30))
+
+    def test_nothing_drawn_in_either_picture_shares_no_structure(self):
+        self.assertEqual(sort_rules.mean_or_zero([]), 0.0)
+        self.assertEqual(sort_rules.mean_or_zero([1.0, 0.5]), 0.75)
+
 
 class LoraExperimentTests(unittest.TestCase):
     def test_a_square_sprite_fits_the_long_side(self):

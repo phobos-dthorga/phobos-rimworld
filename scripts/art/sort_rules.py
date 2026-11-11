@@ -8,6 +8,7 @@ DUPLICATE_DISTANCE = 6  # Hash bits of 64 within which two candidates count as t
 # 17 bits at closest). A copy tilted a few degrees can still pass, so the owner's eye stays the last check.
 NEAR_COPY_DISTANCE = 12  # Within this many bits of a source image, an output is flagged (authored).
 NEAR_COPY_SSIM = 0.60  # At or above this structural similarity to a source image, an output is flagged (authored).
+BLANK_LEVEL = 235  # A window whose darkest pixel is this pale or paler has nothing drawn in it (export_sprite.py's background level).
 
 
 def score(measure):
@@ -33,6 +34,18 @@ def rank(measures, max_distance=DUPLICATE_DISTANCE):
         else:
             kept.append(measure)
     return ordered
+
+
+def compares_structure(darkest_first, darkest_second, blank_level=BLANK_LEVEL):
+    """Whether a window of the structural comparison counts: only where at least one picture has something drawn. Two blank
+    windows are equal by construction, so counting them made any thin subject on white look like any sprite with empty corners
+    (12 Nov 2026: a power cable scored 0.63 against the game's double slab bed, whose outline is nothing like it)."""
+    return min(darkest_first, darkest_second) < blank_level
+
+
+def mean_or_zero(values):
+    """The mean of the windows that counted; nothing drawn in either picture shares no structure."""
+    return sum(values) / len(values) if values else 0.0
 
 
 def is_near_copy(distance, ssim, max_distance=NEAR_COPY_DISTANCE, min_ssim=NEAR_COPY_SSIM):

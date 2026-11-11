@@ -39,17 +39,21 @@ def flattened_gray(path):
 
 
 def ssim(a, b):
-    """Mean structural similarity over non-overlapping windows, at one fixed size."""
+    """Mean structural similarity over non-overlapping windows, at one fixed size, counting only windows where at least one
+    picture has something drawn (sort_rules.compares_structure: blank-on-blank windows matched perfectly and flagged a thin
+    cable against unrelated sprites, 12 Nov 2026)."""
     first = np.asarray(a.resize((COMPARE_SIZE, COMPARE_SIZE), Image.LANCZOS), dtype=np.float64)
     second = np.asarray(b.resize((COMPARE_SIZE, COMPARE_SIZE), Image.LANCZOS), dtype=np.float64)
     values = []
     for y in range(0, COMPARE_SIZE - WINDOW + 1, WINDOW):
         for x in range(0, COMPARE_SIZE - WINDOW + 1, WINDOW):
             p, q = first[y:y + WINDOW, x:x + WINDOW], second[y:y + WINDOW, x:x + WINDOW]
+            if not sort_rules.compares_structure(p.min(), q.min()):
+                continue
             covariance = ((p - p.mean()) * (q - q.mean())).mean()
             values.append(((2 * p.mean() * q.mean() + C1) * (2 * covariance + C2)) /
                           ((p.mean() ** 2 + q.mean() ** 2 + C1) * (p.var() + q.var() + C2)))
-    return float(np.mean(values))
+    return float(sort_rules.mean_or_zero(values))
 
 
 def pngs(folder):
