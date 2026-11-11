@@ -1,0 +1,16 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/RoadTyres.png",
+  "source": "assets/phobos-vehicles/generated/fitting-road-tyres/fitting-road-tyres-2.png",
+  "source_sha256": "8ed93d1fbf75e7cbfb8f16d36af04d571148b4ab91bdba0ec39070c43a24a97e",
+  "target_sha256": "5013383f681e64f79cdba4a653112e162e2837df802a0b7901f8f05f3d9328ab",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "date": "2026-11-11T16:18:28",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

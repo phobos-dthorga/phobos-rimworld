@@ -1,0 +1,16 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/GradeHeavyDuty.png",
+  "source": "assets/phobos-vehicles/generated/grade-heavy-duty/grade-heavy-duty-1.png",
+  "source_sha256": "926cbfed436c1e32f03fcedcfa8d933e5832e2bbd51e2fbf0c5e46879503276b",
+  "target_sha256": "56b17fc38965441e464d65581a35d5fb7792f0942b47e84aa262467c036825aa",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "date": "2026-11-11T16:18:35",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

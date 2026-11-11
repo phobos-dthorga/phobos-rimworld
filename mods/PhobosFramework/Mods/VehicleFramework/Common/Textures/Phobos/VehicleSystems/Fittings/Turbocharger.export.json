@@ -1,0 +1,16 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/Turbocharger.png",
+  "source": "assets/phobos-vehicles/generated/fitting-turbocharger/fitting-turbocharger-1.png",
+  "source_sha256": "de3d509fc29e7d64d07820b630b0c6bd6893d33bd9c412f1f866f5a94b45da35",
+  "target_sha256": "916cd1de2e3f26a2d047d234f81f0fff9dd3be18fc0d18740360113113dd555a",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "date": "2026-11-11T16:18:24",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

@@ -1,0 +1,370 @@
+[
+  {
+    "name": "fitting-uprated-radiator",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      1,
+      2
+    ],
+    "references": [
+      {
+        "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Diagnose.png",
+        "role": "our approved icon from the same family (the diagnose clipboard, picked 11 Nov 2026): match its outline weight, shading, palette and finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "icon": "fitting: an uprated radiator",
+      "size": "drawn by the game at about 24 to 32 px beside a fitting, tune or part in the fittings window and the Health tab; requested at 1024",
+      "this_request": "presentation slice 4 (P3 and P5, docs/development/vehicle-presentation-design.md), the owner's go of 11 Nov 2026; two attempts each"
+    },
+    "prompt": "SMALL GAME ICON. One single object seen from the front, centred, flat on the canvas, like a small icon beside a list entry in a strategy game.\n\nCreate an ORIGINAL small game icon for the D'thorga vehicle fitting: an uprated radiator. Image 1 is our approved icon from the same family: match its outline weight, shading, palette and finish only. Do NOT copy its shape.\n\nDraw ONLY the object, alone on a plain pure white background, filling about 80 percent of the canvas. Square canvas.\n\nA chunky vehicle radiator seen from the front: a deep core packed with many thin vertical fins, a steel frame round it and a round filler cap on top.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art. It must read clearly when shrunk to 32 pixels: one big shape, very few small ones.\n\nNo people, hands, animals, vehicles, text, letters, numbers, logos, screens, dust, floor, ground or cast shadow."
+  },
+  {
+    "name": "fitting-oil-cooler",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      1,
+      2
+    ],
+    "references": [
+      {
+        "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Diagnose.png",
+        "role": "our approved icon from the same family (the diagnose clipboard, picked 11 Nov 2026): match its outline weight, shading, palette and finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "icon": "fitting: an oil cooler",
+      "size": "drawn by the game at about 24 to 32 px beside a fitting, tune or part in the fittings window and the Health tab; requested at 1024",
+      "this_request": "presentation slice 4 (P3 and P5, docs/development/vehicle-presentation-design.md), the owner's go of 11 Nov 2026; two attempts each"
+    },
+    "prompt": "SMALL GAME ICON. One single object seen from the front, centred, flat on the canvas, like a small icon beside a list entry in a strategy game.\n\nCreate an ORIGINAL small game icon for the D'thorga vehicle fitting: an oil cooler. Image 1 is our approved icon from the same family: match its outline weight, shading, palette and finish only. Do NOT copy its shape.\n\nDraw ONLY the object, alone on a plain pure white background, filling about 80 percent of the canvas. Square canvas.\n\nA small finned oil cooler block with two short hose fittings on one side, and one amber drop of oil hanging below it.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art. It must read clearly when shrunk to 32 pixels: one big shape, very few small ones.\n\nNo people, hands, animals, vehicles, text, letters, numbers, logos, screens, dust, floor, ground or cast shadow."
+  },
+  {
+    "name": "fitting-turbocharger",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      1,
+      2
+    ],
+    "references": [
+      {
+        "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Diagnose.png",
+        "role": "our approved icon from the same family (the diagnose clipboard, picked 11 Nov 2026): match its outline weight, shading, palette and finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "icon": "fitting: a turbocharger",
+      "size": "drawn by the game at about 24 to 32 px beside a fitting, tune or part in the fittings window and the Health tab; requested at 1024",
+      "this_request": "presentation slice 4 (P3 and P5, docs/development/vehicle-presentation-design.md), the owner's go of 11 Nov 2026; two attempts each; the pilot"
+    },
+    "prompt": "SMALL GAME ICON. One single object seen from the front, centred, flat on the canvas, like a small icon beside a list entry in a strategy game.\n\nCreate an ORIGINAL small game icon for the D'thorga vehicle fitting: a turbocharger. Image 1 is our approved icon from the same family: match its outline weight, shading, palette and finish only. Do NOT copy its shape.\n\nDraw ONLY the object, alone on a plain pure white background, filling about 80 percent of the canvas. Square canvas.\n\nA turbocharger: a snail-shaped steel housing with the curved vanes of its compressor wheel showing in the round inlet, and a short exhaust flange.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art. It must read clearly when shrunk to 32 pixels: one big shape, very few small ones.\n\nNo people, hands, animals, vehicles, text, letters, numbers, logos, screens, dust, floor, ground or cast shadow."
+  },
+  {
+    "name": "fitting-heavy-alternator",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      1,
+      2
+    ],
+    "references": [
+      {
+        "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Diagnose.png",
+        "role": "our approved icon from the same family (the diagnose clipboard, picked 11 Nov 2026): match its outline weight, shading, palette and finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "icon": "fitting: a heavy-duty alternator",
+      "size": "drawn by the game at about 24 to 32 px beside a fitting, tune or part in the fittings window and the Health tab; requested at 1024",
+      "this_request": "presentation slice 4 (P3 and P5, docs/development/vehicle-presentation-design.md), the owner's go of 11 Nov 2026; two attempts each"
+    },
+    "prompt": "SMALL GAME ICON. One single object seen from the front, centred, flat on the canvas, like a small icon beside a list entry in a strategy game.\n\nCreate an ORIGINAL small game icon for the D'thorga vehicle fitting: a heavy-duty alternator. Image 1 is our approved icon from the same family: match its outline weight, shading, palette and finish only. Do NOT copy its shape.\n\nDraw ONLY the object, alone on a plain pure white background, filling about 80 percent of the canvas. Square canvas.\n\nA heavy alternator: a round finned body with a grooved pulley on the front, copper windings showing through the vents, and a small yellow lightning bolt beside it.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art. It must read clearly when shrunk to 32 pixels: one big shape, very few small ones.\n\nNo people, hands, animals, vehicles, text, letters, numbers, logos, screens, dust, floor, ground or cast shadow."
+  },
+  {
+    "name": "fitting-deep-cycle-battery",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      1,
+      2
+    ],
+    "references": [
+      {
+        "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Diagnose.png",
+        "role": "our approved icon from the same family (the diagnose clipboard, picked 11 Nov 2026): match its outline weight, shading, palette and finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "icon": "fitting: a deep-cycle battery",
+      "size": "drawn by the game at about 24 to 32 px beside a fitting, tune or part in the fittings window and the Health tab; requested at 1024",
+      "this_request": "presentation slice 4 (P3 and P5, docs/development/vehicle-presentation-design.md), the owner's go of 11 Nov 2026; two attempts each"
+    },
+    "prompt": "SMALL GAME ICON. One single object seen from the front, centred, flat on the canvas, like a small icon beside a list entry in a strategy game.\n\nCreate an ORIGINAL small game icon for the D'thorga vehicle fitting: a deep-cycle battery. Image 1 is our approved icon from the same family: match its outline weight, shading, palette and finish only. Do NOT copy its shape.\n\nDraw ONLY the object, alone on a plain pure white background, filling about 80 percent of the canvas. Square canvas.\n\nA tall, heavy vehicle battery box with a carrying handle, one red and one black terminal cap on top, and thick ribs down its sides.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art. It must read clearly when shrunk to 32 pixels: one big shape, very few small ones.\n\nNo people, hands, animals, vehicles, text, letters, numbers, logos, screens, dust, floor, ground or cast shadow."
+  },
+  {
+    "name": "fitting-block-heater",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      1,
+      2
+    ],
+    "references": [
+      {
+        "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Diagnose.png",
+        "role": "our approved icon from the same family (the diagnose clipboard, picked 11 Nov 2026): match its outline weight, shading, palette and finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "icon": "fitting: an engine block heater",
+      "size": "drawn by the game at about 24 to 32 px beside a fitting, tune or part in the fittings window and the Health tab; requested at 1024",
+      "this_request": "presentation slice 4 (P3 and P5, docs/development/vehicle-presentation-design.md), the owner's go of 11 Nov 2026; two attempts each"
+    },
+    "prompt": "SMALL GAME ICON. One single object seen from the front, centred, flat on the canvas, like a small icon beside a list entry in a strategy game.\n\nCreate an ORIGINAL small game icon for the D'thorga vehicle fitting: an engine block heater. Image 1 is our approved icon from the same family: match its outline weight, shading, palette and finish only. Do NOT copy its shape.\n\nDraw ONLY the object, alone on a plain pure white background, filling about 80 percent of the canvas. Square canvas.\n\nA small engine block seen from the side with a glowing orange heating element inside it and a coiled black power cord with a plug leading away.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art. It must read clearly when shrunk to 32 pixels: one big shape, very few small ones.\n\nNo people, hands, animals, vehicles, text, letters, numbers, logos, screens, dust, floor, ground or cast shadow."
+  },
+  {
+    "name": "fitting-heavy-springs",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      1,
+      2
+    ],
+    "references": [
+      {
+        "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Diagnose.png",
+        "role": "our approved icon from the same family (the diagnose clipboard, picked 11 Nov 2026): match its outline weight, shading, palette and finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "icon": "fitting: heavy-duty springs",
+      "size": "drawn by the game at about 24 to 32 px beside a fitting, tune or part in the fittings window and the Health tab; requested at 1024",
+      "this_request": "presentation slice 4 (P3 and P5, docs/development/vehicle-presentation-design.md), the owner's go of 11 Nov 2026; two attempts each"
+    },
+    "prompt": "SMALL GAME ICON. One single object seen from the front, centred, flat on the canvas, like a small icon beside a list entry in a strategy game.\n\nCreate an ORIGINAL small game icon for the D'thorga vehicle fitting: heavy-duty springs. Image 1 is our approved icon from the same family: match its outline weight, shading, palette and finish only. Do NOT copy its shape.\n\nDraw ONLY the object, alone on a plain pure white background, filling about 80 percent of the canvas. Square canvas.\n\nA thick stacked leaf spring: several curved steel leaves bound together by two heavy U-bolts with nuts.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art. It must read clearly when shrunk to 32 pixels: one big shape, very few small ones.\n\nNo people, hands, animals, vehicles, text, letters, numbers, logos, screens, dust, floor, ground or cast shadow."
+  },
+  {
+    "name": "fitting-road-tyres",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      1,
+      2
+    ],
+    "references": [
+      {
+        "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Diagnose.png",
+        "role": "our approved icon from the same family (the diagnose clipboard, picked 11 Nov 2026): match its outline weight, shading, palette and finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "icon": "fitting: road tyres",
+      "size": "drawn by the game at about 24 to 32 px beside a fitting, tune or part in the fittings window and the Health tab; requested at 1024",
+      "this_request": "presentation slice 4 (P3 and P5, docs/development/vehicle-presentation-design.md), the owner's go of 11 Nov 2026; two attempts each"
+    },
+    "prompt": "SMALL GAME ICON. One single object seen from the front, centred, flat on the canvas, like a small icon beside a list entry in a strategy game.\n\nCreate an ORIGINAL small game icon for the D'thorga vehicle fitting: road tyres. Image 1 is our approved icon from the same family: match its outline weight, shading, palette and finish only. Do NOT copy its shape.\n\nDraw ONLY the object, alone on a plain pure white background, filling about 80 percent of the canvas. Square canvas.\n\nOne road tyre seen at a slight angle, with a smooth, shallow road tread and a plain steel wheel.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art. It must read clearly when shrunk to 32 pixels: one big shape, very few small ones.\n\nNo people, hands, animals, vehicles, text, letters, numbers, logos, screens, dust, floor, ground or cast shadow."
+  },
+  {
+    "name": "tune-engine-economy",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      1,
+      2
+    ],
+    "references": [
+      {
+        "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Diagnose.png",
+        "role": "our approved icon from the same family (the diagnose clipboard, picked 11 Nov 2026): match its outline weight, shading, palette and finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "icon": "engine tune: economy",
+      "size": "drawn by the game at about 24 to 32 px beside a fitting, tune or part in the fittings window and the Health tab; requested at 1024",
+      "this_request": "presentation slice 4 (P3 and P5, docs/development/vehicle-presentation-design.md), the owner's go of 11 Nov 2026; two attempts each"
+    },
+    "prompt": "SMALL GAME ICON. One single object seen from the front, centred, flat on the canvas, like a small icon beside a list entry in a strategy game.\n\nCreate an ORIGINAL small game icon for the D'thorga vehicle engine tune: economy. Image 1 is our approved icon from the same family: match its outline weight, shading, palette and finish only. Do NOT copy its shape.\n\nDraw ONLY the object, alone on a plain pure white background, filling about 80 percent of the canvas. Square canvas.\n\nA round engine speed dial with no numbers: its needle points low, into a green band on the left of the arc.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art. It must read clearly when shrunk to 32 pixels: one big shape, very few small ones.\n\nNo people, hands, animals, vehicles, text, letters, numbers, logos, screens, dust, floor, ground or cast shadow."
+  },
+  {
+    "name": "tune-engine-stock",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      1,
+      2
+    ],
+    "references": [
+      {
+        "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Diagnose.png",
+        "role": "our approved icon from the same family (the diagnose clipboard, picked 11 Nov 2026): match its outline weight, shading, palette and finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "icon": "engine tune: stock, the engine as built",
+      "size": "drawn by the game at about 24 to 32 px beside a fitting, tune or part in the fittings window and the Health tab; requested at 1024",
+      "this_request": "presentation slice 4 (P3 and P5, docs/development/vehicle-presentation-design.md), the owner's go of 11 Nov 2026; two attempts each"
+    },
+    "prompt": "SMALL GAME ICON. One single object seen from the front, centred, flat on the canvas, like a small icon beside a list entry in a strategy game.\n\nCreate an ORIGINAL small game icon for the D'thorga vehicle engine tune: stock, the engine as built. Image 1 is our approved icon from the same family: match its outline weight, shading, palette and finish only. Do NOT copy its shape.\n\nDraw ONLY the object, alone on a plain pure white background, filling about 80 percent of the canvas. Square canvas.\n\nA round engine speed dial with no numbers: its needle points straight up to the middle of a plain grey arc.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art. It must read clearly when shrunk to 32 pixels: one big shape, very few small ones.\n\nNo people, hands, animals, vehicles, text, letters, numbers, logos, screens, dust, floor, ground or cast shadow."
+  },
+  {
+    "name": "tune-engine-power",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      1,
+      2
+    ],
+    "references": [
+      {
+        "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Diagnose.png",
+        "role": "our approved icon from the same family (the diagnose clipboard, picked 11 Nov 2026): match its outline weight, shading, palette and finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "icon": "engine tune: power",
+      "size": "drawn by the game at about 24 to 32 px beside a fitting, tune or part in the fittings window and the Health tab; requested at 1024",
+      "this_request": "presentation slice 4 (P3 and P5, docs/development/vehicle-presentation-design.md), the owner's go of 11 Nov 2026; two attempts each"
+    },
+    "prompt": "SMALL GAME ICON. One single object seen from the front, centred, flat on the canvas, like a small icon beside a list entry in a strategy game.\n\nCreate an ORIGINAL small game icon for the D'thorga vehicle engine tune: power. Image 1 is our approved icon from the same family: match its outline weight, shading, palette and finish only. Do NOT copy its shape.\n\nDraw ONLY the object, alone on a plain pure white background, filling about 80 percent of the canvas. Square canvas.\n\nA round engine speed dial with no numbers: its needle points high, into a red band on the right of the arc.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art. It must read clearly when shrunk to 32 pixels: one big shape, very few small ones.\n\nNo people, hands, animals, vehicles, text, letters, numbers, logos, screens, dust, floor, ground or cast shadow."
+  },
+  {
+    "name": "tune-gearing-long",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      1,
+      2
+    ],
+    "references": [
+      {
+        "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Diagnose.png",
+        "role": "our approved icon from the same family (the diagnose clipboard, picked 11 Nov 2026): match its outline weight, shading, palette and finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "icon": "gearing tune: a tall final drive",
+      "size": "drawn by the game at about 24 to 32 px beside a fitting, tune or part in the fittings window and the Health tab; requested at 1024",
+      "this_request": "presentation slice 4 (P3 and P5, docs/development/vehicle-presentation-design.md), the owner's go of 11 Nov 2026; two attempts each"
+    },
+    "prompt": "SMALL GAME ICON. One single object seen from the front, centred, flat on the canvas, like a small icon beside a list entry in a strategy game.\n\nCreate an ORIGINAL small game icon for the D'thorga vehicle gearing tune: a tall final drive. Image 1 is our approved icon from the same family: match its outline weight, shading, palette and finish only. Do NOT copy its shape.\n\nDraw ONLY the object, alone on a plain pure white background, filling about 80 percent of the canvas. Square canvas.\n\nTwo meshed gears side by side: a big gear on the left driving a small gear on the right.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art. It must read clearly when shrunk to 32 pixels: one big shape, very few small ones.\n\nNo people, hands, animals, vehicles, text, letters, numbers, logos, screens, dust, floor, ground or cast shadow."
+  },
+  {
+    "name": "tune-gearing-stock",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      1,
+      2
+    ],
+    "references": [
+      {
+        "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Diagnose.png",
+        "role": "our approved icon from the same family (the diagnose clipboard, picked 11 Nov 2026): match its outline weight, shading, palette and finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "icon": "gearing tune: stock gearing, as built",
+      "size": "drawn by the game at about 24 to 32 px beside a fitting, tune or part in the fittings window and the Health tab; requested at 1024",
+      "this_request": "presentation slice 4 (P3 and P5, docs/development/vehicle-presentation-design.md), the owner's go of 11 Nov 2026; two attempts each"
+    },
+    "prompt": "SMALL GAME ICON. One single object seen from the front, centred, flat on the canvas, like a small icon beside a list entry in a strategy game.\n\nCreate an ORIGINAL small game icon for the D'thorga vehicle gearing tune: stock gearing, as built. Image 1 is our approved icon from the same family: match its outline weight, shading, palette and finish only. Do NOT copy its shape.\n\nDraw ONLY the object, alone on a plain pure white background, filling about 80 percent of the canvas. Square canvas.\n\nTwo meshed gears side by side of exactly the same size.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art. It must read clearly when shrunk to 32 pixels: one big shape, very few small ones.\n\nNo people, hands, animals, vehicles, text, letters, numbers, logos, screens, dust, floor, ground or cast shadow."
+  },
+  {
+    "name": "tune-gearing-short",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      1,
+      2
+    ],
+    "references": [
+      {
+        "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Diagnose.png",
+        "role": "our approved icon from the same family (the diagnose clipboard, picked 11 Nov 2026): match its outline weight, shading, palette and finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "icon": "gearing tune: a short final drive",
+      "size": "drawn by the game at about 24 to 32 px beside a fitting, tune or part in the fittings window and the Health tab; requested at 1024",
+      "this_request": "presentation slice 4 (P3 and P5, docs/development/vehicle-presentation-design.md), the owner's go of 11 Nov 2026; two attempts each"
+    },
+    "prompt": "SMALL GAME ICON. One single object seen from the front, centred, flat on the canvas, like a small icon beside a list entry in a strategy game.\n\nCreate an ORIGINAL small game icon for the D'thorga vehicle gearing tune: a short final drive. Image 1 is our approved icon from the same family: match its outline weight, shading, palette and finish only. Do NOT copy its shape.\n\nDraw ONLY the object, alone on a plain pure white background, filling about 80 percent of the canvas. Square canvas.\n\nTwo meshed gears side by side: a small gear on the left driving a big gear on the right.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art. It must read clearly when shrunk to 32 pixels: one big shape, very few small ones.\n\nNo people, hands, animals, vehicles, text, letters, numbers, logos, screens, dust, floor, ground or cast shadow."
+  },
+  {
+    "name": "grade-salvaged",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      1,
+      2
+    ],
+    "references": [
+      {
+        "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Diagnose.png",
+        "role": "our approved icon from the same family (the diagnose clipboard, picked 11 Nov 2026): match its outline weight, shading, palette and finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "icon": "part grade: salvaged",
+      "size": "drawn by the game at about 24 to 32 px beside a fitting, tune or part in the fittings window and the Health tab; requested at 1024",
+      "this_request": "presentation slice 4 (P3 and P5, docs/development/vehicle-presentation-design.md), the owner's go of 11 Nov 2026; two attempts each"
+    },
+    "prompt": "SMALL GAME ICON. One single object seen from the front, centred, flat on the canvas, like a small icon beside a list entry in a strategy game.\n\nCreate an ORIGINAL small game icon for the D'thorga vehicle part grade: salvaged. Image 1 is our approved icon from the same family: match its outline weight, shading, palette and finish only. Do NOT copy its shape.\n\nDraw ONLY the object, alone on a plain pure white background, filling about 80 percent of the canvas. Square canvas.\n\nA dented, rusty steel bracket with a rough welded patch across it and one bent bolt.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art. It must read clearly when shrunk to 32 pixels: one big shape, very few small ones.\n\nNo people, hands, animals, vehicles, text, letters, numbers, logos, screens, dust, floor, ground or cast shadow."
+  },
+  {
+    "name": "grade-heavy-duty",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      1,
+      2
+    ],
+    "references": [
+      {
+        "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Diagnose.png",
+        "role": "our approved icon from the same family (the diagnose clipboard, picked 11 Nov 2026): match its outline weight, shading, palette and finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "icon": "part grade: heavy-duty",
+      "size": "drawn by the game at about 24 to 32 px beside a fitting, tune or part in the fittings window and the Health tab; requested at 1024",
+      "this_request": "presentation slice 4 (P3 and P5, docs/development/vehicle-presentation-design.md), the owner's go of 11 Nov 2026; two attempts each"
+    },
+    "prompt": "SMALL GAME ICON. One single object seen from the front, centred, flat on the canvas, like a small icon beside a list entry in a strategy game.\n\nCreate an ORIGINAL small game icon for the D'thorga vehicle part grade: heavy-duty. Image 1 is our approved icon from the same family: match its outline weight, shading, palette and finish only. Do NOT copy its shape.\n\nDraw ONLY the object, alone on a plain pure white background, filling about 80 percent of the canvas. Square canvas.\n\nA thick, clean steel bracket reinforced with a raised rib and four large hex bolts.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art. It must read clearly when shrunk to 32 pixels: one big shape, very few small ones.\n\nNo people, hands, animals, vehicles, text, letters, numbers, logos, screens, dust, floor, ground or cast shadow."
+  }
+]

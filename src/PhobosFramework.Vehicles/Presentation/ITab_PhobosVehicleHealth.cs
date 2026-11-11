@@ -201,7 +201,16 @@ public class ITab_PhobosVehicleHealth : ITab
                     Widgets.DrawHighlight(row);
                     sheetHovered = part.Part;
                 }
-                Widgets.Label(new Rect(4f, y, viewWidth * 0.42f, Row), part.Label);
+                // As the game's health card: the part's name in its health colour, and a stack of small pictures at the right of the
+                // name column for what is fitted to it and how well it is made (Framework 0.87.0).
+                float nameWidth = viewWidth * 0.42f;
+                float iconsX = nameWidth;
+                foreach (UnityEngine.Texture2D icon in part.Icons)
+                {
+                    iconsX -= RowIcon + 2f;
+                    GUI.DrawTexture(new Rect(iconsX, y + (Row - RowIcon) / 2f, RowIcon, RowIcon), icon);
+                }
+                Widgets.Label(new Rect(4f, y, iconsX - 6f, Row), part.HealthShare >= 0.999f ? part.Label : part.Label.Colorize(part.HealthColour));
                 PhobosWidgets.Gauge(new Rect(viewWidth * 0.44f, y + 4f, viewWidth * 0.22f, Row - 8f), part.HealthShare, part.HealthColour);
                 using (new TextBlock(TextAnchor.MiddleRight))
                 {
@@ -485,6 +494,8 @@ public class ITab_PhobosVehicleHealth : ITab
                 EfficiencyText = !feedsStat ? "-" : figures ? part.Efficiency.ToStringPercent() : "",
                 TipId = comp.Vehicle.thingIDNumber ^ part.props.key.GetHashCode(),
             };
+            if (comp.Fittings.FittedOn(part.props.key)?.Icon is { } fittingIcon) row.Icons.Add(fittingIcon);
+            if (comp.Fittings.GradeOf(part.props.key).Icon is { } gradeIcon) row.Icons.Add(gradeIcon);
             VehicleComponent captured = part;
             bool capturedFigures = figures;
             row.Tip = () => PartTip(captured, capturedFigures);
@@ -582,6 +593,9 @@ public class ITab_PhobosVehicleHealth : ITab
         }
     }
 
+    /// <summary>The size of a part row's small pictures (the game's health card uses about this).</summary>
+    const float RowIcon = 18f;
+
     /// <summary>The hours of a rise the wear trend needs before it estimates (authored: a working day).</summary>
     const int WearMinSamples = 6;
     /// <summary>A stage due sooner than this shows amber (authored: two days).</summary>
@@ -630,6 +644,8 @@ public class ITab_PhobosVehicleHealth : ITab
         public int TipId;
         public Func<string> Tip = () => "";
         public readonly List<ConditionRow> Conditions = new();
+        /// <summary>The small pictures at the right of its name: its fitting and its grade, where they have one.</summary>
+        public readonly List<UnityEngine.Texture2D> Icons = new();
     }
 
     sealed class ConditionRow

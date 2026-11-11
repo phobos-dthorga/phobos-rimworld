@@ -8,6 +8,7 @@
 
   <Phobos.VehicleSystems.PhobosVehicleFittingDef>
     <defName>PhobosFitting_UpratedRadiator</defName>
+    <iconPath>Phobos/VehicleSystems/Fittings/UpratedRadiator</iconPath>
     <label>uprated radiator</label>
     <description>A larger core with more fins. The engine sheds heat faster, so it is slower to boil on a long pull.</description>
     <roles><li>Radiator</li></roles>
@@ -15,11 +16,12 @@
     <work>1500</work>
     <minSkill>4</minSkill>
     <researchPrerequisite>PhobosResearch_VehicleTuning</researchPrerequisite>
-    <parameterFactors><li><parameter>radiatorRate</parameter><factor>1.3</factor></li></parameterFactors>
+    <parameterFactors><li><parameter>radiatorRate</parameter><factor>1.3</factor><label>radiator cooling</label></li></parameterFactors>
   </Phobos.VehicleSystems.PhobosVehicleFittingDef>
 
   <Phobos.VehicleSystems.PhobosVehicleFittingDef>
     <defName>PhobosFitting_OilCooler</defName>
+    <iconPath>Phobos/VehicleSystems/Fittings/OilCooler</iconPath>
     <label>oil cooler</label>
     <description>A small radiator for the engine oil. Cooler oil burns away more slowly, so the engine goes further between services.</description>
     <roles><li>Engine</li><li>Engine1</li><li>Engine2</li><li>Engine3</li><li>Engine4</li><li>Engine5</li><li>Engine6</li><li>Engine7</li><li>Engine8</li></roles>
@@ -27,12 +29,13 @@
     <work>1200</work>
     <minSkill>4</minSkill>
     <researchPrerequisite>PhobosResearch_VehicleTuning</researchPrerequisite>
-    <parameterFactors><li><parameter>oilBurnPerHour</parameter><factor>0.6</factor></li></parameterFactors>
+    <parameterFactors><li><parameter>oilBurnPerHour</parameter><factor>0.6</factor><label>oil burned</label></li></parameterFactors>
     <piston>Yes</piston>
   </Phobos.VehicleSystems.PhobosVehicleFittingDef>
 
   <Phobos.VehicleSystems.PhobosVehicleFittingDef>
     <defName>PhobosFitting_Turbocharger</defName>
+    <iconPath>Phobos/VehicleSystems/Fittings/Turbocharger</iconPath>
     <label>turbocharger</label>
     <description>Exhaust gas spins a compressor that forces more air into the engine. More power, more heat and a thirstier engine.</description>
     <roles><li>Engine</li><li>Engine1</li><li>Engine2</li><li>Engine3</li><li>Engine4</li><li>Engine5</li><li>Engine6</li><li>Engine7</li><li>Engine8</li></roles>
@@ -49,6 +52,7 @@
 
   <Phobos.VehicleSystems.PhobosVehicleFittingDef>
     <defName>PhobosFitting_HeavyAlternator</defName>
+    <iconPath>Phobos/VehicleSystems/Fittings/HeavyAlternator</iconPath>
     <label>heavy-duty alternator</label>
     <description>Wound for a higher output. The battery charges faster and heavy electrical loads are easier to carry.</description>
     <roles><li>Alternator</li></roles>
@@ -56,11 +60,12 @@
     <work>1200</work>
     <minSkill>5</minSkill>
     <researchPrerequisite>PhobosResearch_VehicleElectrics</researchPrerequisite>
-    <parameterFactors><li><parameter>alternatorAmps</parameter><factor>1.5</factor></li></parameterFactors>
+    <parameterFactors><li><parameter>alternatorAmps</parameter><factor>1.5</factor><label>charging current</label></li></parameterFactors>
   </Phobos.VehicleSystems.PhobosVehicleFittingDef>
 
   <Phobos.VehicleSystems.PhobosVehicleFittingDef>
     <defName>PhobosFitting_DeepCycleBattery</defName>
+    <iconPath>Phobos/VehicleSystems/Fittings/DeepCycleBattery</iconPath>
     <label>deep-cycle battery</label>
     <description>Thicker plates and more of them. It holds more charge, so the vehicle runs its loads longer with the engine off.</description>
     <roles><li>Battery</li></roles>
@@ -68,13 +73,14 @@
     <work>800</work>
     <minSkill>4</minSkill>
     <researchPrerequisite>PhobosResearch_VehicleElectrics</researchPrerequisite>
-    <parameterFactors><li><parameter>batteryAmpHours</parameter><factor>1.5</factor></li></parameterFactors>
+    <parameterFactors><li><parameter>batteryAmpHours</parameter><factor>1.5</factor><label>battery capacity</label></li></parameterFactors>
   </Phobos.VehicleSystems.PhobosVehicleFittingDef>
 
   <Phobos.VehicleSystems.PhobosVehicleFittingDef>
     <!-- Framework 0.70.0 (the owner's idea and agreed defaults, 10 Nov 2026): materials, skill and research authored. Systems_Cooling.xml
          holds the heating. Only engines with liquid cooling have the figure it moves, so it is offered to no other. -->
     <defName>PhobosFitting_BlockHeater</defName>
+    <iconPath>Phobos/VehicleSystems/Fittings/BlockHeater</iconPath>
     <label>block heater</label>
     <description>An electric heater in the engine block. Parked beside a powered building with the engine off, the engine stays warm, so it starts easily on a cold morning, wears less, and the cab heater works at once.</description>
     <roles><li>Engine</li><li>Engine1</li><li>Engine2</li><li>Engine3</li><li>Engine4</li><li>Engine5</li><li>Engine6</li><li>Engine7</li><li>Engine8</li></roles>
@@ -87,6 +93,7 @@
 
   <Phobos.VehicleSystems.PhobosVehicleFittingDef>
     <defName>PhobosFitting_HeavySprings</defName>
+    <iconPath>Phobos/VehicleSystems/Fittings/HeavySprings</iconPath>
     <label>heavy-duty springs</label>
     <description>Stiffer springs carry a bigger load, at the cost of a harder, slightly slower ride. Fit every axle for the full effect.</description>
     <roles><li>Wheels</li></roles>
@@ -102,6 +109,7 @@
 
   <Phobos.VehicleSystems.PhobosVehicleFittingDef>
     <defName>PhobosFitting_RoadTyres</defName>
+    <iconPath>Phobos/VehicleSystems/Fittings/RoadTyres</iconPath>
     <label>road tyres</label>
     <description>A softer, faster compound. Quicker on the move, and it wears out sooner. Fit every axle for the full effect.</description>
     <roles><li>Wheels</li></roles>
@@ -110,7 +118,7 @@
     <minSkill>3</minSkill>
     <researchPrerequisite>PhobosResearch_VehicleTuning</researchPrerequisite>
     <statFactors><li><stat>MoveSpeed</stat><factor>1.05</factor></li></statFactors>
-    <parameterFactors><li><parameter>wearPerHour</parameter><factor>1.4</factor></li></parameterFactors>
+    <parameterFactors><li><parameter>wearPerHour</parameter><factor>1.4</factor><label>tyre wear</label></li></parameterFactors>
     <tracked>No</tracked>
   </Phobos.VehicleSystems.PhobosVehicleFittingDef>
 
@@ -118,6 +126,7 @@
 
   <Phobos.VehicleSystems.PhobosVehicleTuneDef>
     <defName>PhobosTune_EngineEconomy</defName>
+    <iconPath>Phobos/VehicleSystems/Fittings/TuneEngineEconomy</iconPath>
     <label>economy tune</label>
     <description>Leaner and gentler. A little less power, less heat and less fuel.</description>
     <axis>Engine</axis>
@@ -132,6 +141,7 @@
 
   <Phobos.VehicleSystems.PhobosVehicleTuneDef>
     <defName>PhobosTune_EngineBalanced</defName>
+    <iconPath>Phobos/VehicleSystems/Fittings/TuneEngineStock</iconPath>
     <label>stock tune</label>
     <description>The engine as it was built.</description>
     <axis>Engine</axis>
@@ -143,6 +153,7 @@
 
   <Phobos.VehicleSystems.PhobosVehicleTuneDef>
     <defName>PhobosTune_EnginePower</defName>
+    <iconPath>Phobos/VehicleSystems/Fittings/TuneEnginePower</iconPath>
     <label>power tune</label>
     <description>Richer and harder. More power, paid for in heat and fuel.</description>
     <axis>Engine</axis>
@@ -157,6 +168,7 @@
 
   <Phobos.VehicleSystems.PhobosVehicleTuneDef>
     <defName>PhobosTune_GearingLong</defName>
+    <iconPath>Phobos/VehicleSystems/Fittings/TuneGearingLong</iconPath>
     <label>tall final drive</label>
     <description>Taller ratios. Lower revs and less strain at a cruise, weaker on a heavy pull. It cannot make the vehicle faster than it was built to go.</description>
     <axis>Gearing</axis>
@@ -170,6 +182,7 @@
 
   <Phobos.VehicleSystems.PhobosVehicleTuneDef>
     <defName>PhobosTune_GearingStandard</defName>
+    <iconPath>Phobos/VehicleSystems/Fittings/TuneGearingStock</iconPath>
     <label>stock final drive</label>
     <description>The gearing as it was built.</description>
     <axis>Gearing</axis>
@@ -181,6 +194,7 @@
 
   <Phobos.VehicleSystems.PhobosVehicleTuneDef>
     <defName>PhobosTune_GearingShort</defName>
+    <iconPath>Phobos/VehicleSystems/Fittings/TuneGearingShort</iconPath>
     <label>short final drive</label>
     <description>Lower ratios. It pulls harder with a heavy load and tops out sooner.</description>
     <axis>Gearing</axis>

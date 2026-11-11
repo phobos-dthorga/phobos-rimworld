@@ -5,6 +5,29 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.87.0] - 2026-11-11 - Draft
+
+Pictures for fittings, tunes and part grades (owner, 11 November 2026: slice 4 of the next four, with the owner's picks of 16 pictures). **Not yet tested in game.**
+
+### Added
+
+- **Every fitting, tune and part grade has a picture**: the eight fittings, the engine tunes as a dial whose needle moves, the gearing as a pair of gears, and salvaged and heavy-duty parts.
+- **The fittings window shows tunes as picture buttons**, the one the vehicle runs on lit with a green bar, as the Dashboard lights a switch. Each part shows its fitting's and grade's pictures, and the fitting and grade menus show them too.
+- **A line says what a fitting or tune changes**, under the tune row and under a fitted part, taken from its own figures: "engine power ×1.2, fuel burned ×1.1", or in Plain mode "engine power up, fuel burned up". The tooltips say it too.
+- **The Health tab looks more like the game's health card**: a hurt part's name in its health colour, and its fitting's and grade's pictures at the end of the name.
+
+### Changed
+
+- Five fittings' figures gained a player's name (radiator cooling, oil burned, charging current, battery capacity, tyre wear), so the new line can name them.
+
+### Compatibility and limits
+
+- The pictures were made with OpenAI's image model (US$1.74 for 32 attempts) and picked by the owner; each one's record sits beside it. A fitting, tune or grade from another mod without a picture shows as words, as before.
+
+### Save compatibility
+
+- Safe on an existing save: only what is shown changes.
+
 ## [0.86.0] - 2026-11-11 - Draft
 
 Wear trends (owner, 11 November 2026: slice 3 of the next four). **Not yet tested in game.**

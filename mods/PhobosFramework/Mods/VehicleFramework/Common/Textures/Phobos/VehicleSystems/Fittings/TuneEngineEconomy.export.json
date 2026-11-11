@@ -1,0 +1,16 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/TuneEngineEconomy.png",
+  "source": "assets/phobos-vehicles/generated/tune-engine-economy/tune-engine-economy-2.png",
+  "source_sha256": "230d5a6ddd2d0b0911cea81aefa6c71cf6ccc68d46544aed88f78bfa60074e5a",
+  "target_sha256": "eaafb8dd1f1551709caa5159b82444f35980d5b3cc15a96e5d76d1d92f606485",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "date": "2026-11-11T16:18:29",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

@@ -7,6 +7,7 @@
 
   <Phobos.VehicleSystems.PhobosVehiclePartGradeDef>
     <defName>PhobosPartGrade_Salvaged</defName>
+    <iconPath>Phobos/VehicleSystems/Fittings/GradeSalvaged</iconPath>
     <label>salvaged</label>
     <description>Scavenged and patched together. Cheap, but it takes less punishment, picks up faults more easily and has nothing sound enough to bolt a fitting to.</description>
     <order>0</order>
@@ -26,6 +27,7 @@
 
   <Phobos.VehicleSystems.PhobosVehiclePartGradeDef>
     <defName>PhobosPartGrade_HeavyDuty</defName>
+    <iconPath>Phobos/VehicleSystems/Fittings/GradeHeavyDuty</iconPath>
     <label>heavy-duty</label>
     <description>Built thicker from better stock. It costs a good deal more, takes more punishment and shrugs off faults that would stop a standard part.</description>
     <order>2</order>

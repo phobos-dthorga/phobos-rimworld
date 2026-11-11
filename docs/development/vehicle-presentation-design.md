@@ -27,6 +27,14 @@ below is now replaced except the vehicle bodies (batch B) and the Medical placeh
 letter picture (agent's choice): the game tints a letter's icon one colour and draws it in a small oblong, so a full-colour clipboard
 would read worse than the envelope players know.
 
+**The owner's next four slices, built 11 Nov 2026** (owner: "Slices #1 through #4, step-wise if necessary"; not yet tested in game):
+Framework 0.84.0, G3 (event marks on every graph, from a small saved event log) with the rest of P7a (click a part on the picture; the
+picture beside the mouse on the fleet board); 0.85.0, P7b (the caravan's reach on the fuel aboard, over Vehicle Framework's own world
+costs; caravans only, not a vehicle parked on a map); 0.86.0, G4 (the fifteen-day wear rings and the Health tab's Wear block); 0.87.0,
+P3 and P5 (16 icons: the 8 fittings, 6 tunes and 2 grades, the owner's picks, US$1.74; tunes as lit icon buttons; a one-line "what it
+changes" from the Def's figures; the Health tab's coloured names and icon stack). The record's guess of 10 fittings was 8, so 16 icons
+covered the grades too. Left in the order: P4, P7c, P7d and P7e, each waiting on the owner.
+
 ## Read this first
 
 - **Recommendation, in five lines.** Turn the diagnosis into a proper report window with the vehicle's picture, coloured gauges and one

@@ -1,0 +1,16 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/OilCooler.png",
+  "source": "assets/phobos-vehicles/generated/fitting-oil-cooler/fitting-oil-cooler-2.png",
+  "source_sha256": "e0491a55e1a4b5a2b052995ae1f990b764dcf87a6ced1efc7d0a98b733511fdb",
+  "target_sha256": "2d163931777e13a1ffc44d05bb5f789d7954f6b88b432354ade127f726e9ac12",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "date": "2026-11-11T16:18:23",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

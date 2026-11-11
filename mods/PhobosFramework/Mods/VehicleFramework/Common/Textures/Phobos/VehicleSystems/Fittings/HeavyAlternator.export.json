@@ -1,0 +1,16 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/HeavyAlternator.png",
+  "source": "assets/phobos-vehicles/generated/fitting-heavy-alternator/fitting-heavy-alternator-1.png",
+  "source_sha256": "746cf49ac7346f01e4c0b6628c3f23d89cd1bf31eb062a5ef787af57b9a4401d",
+  "target_sha256": "578ae3b4497cfed07473e84da704004c192c9ff62c72493da33ee40fb56de60a",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "date": "2026-11-11T16:18:25",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

@@ -268,6 +268,11 @@
   <PhobosVehicleSystems_TuneFigureFinalDriveAsBuilt>final drive {RATIO}:1, as built</PhobosVehicleSystems_TuneFigureFinalDriveAsBuilt>
   <PhobosVehicleSystems_TuneFigurePower>engine power</PhobosVehicleSystems_TuneFigurePower>
   <PhobosVehicleSystems_TuneFigureFuel>fuel burned</PhobosVehicleSystems_TuneFigureFuel>
+  <!-- What a fitting or tune changes, in one line (Framework 0.87.0). -->
+  <PhobosVehicleSystems_EffectUp>{LABEL} up</PhobosVehicleSystems_EffectUp>
+  <PhobosVehicleSystems_EffectDown>{LABEL} down</PhobosVehicleSystems_EffectDown>
+  <PhobosVehicleSystems_EffectFinalDrive>final drive ratio</PhobosVehicleSystems_EffectFinalDrive>
+  <PhobosVehicleSystems_EffectAsBuilt>As built: nothing changes</PhobosVehicleSystems_EffectAsBuilt>
   <PhobosVehicleSystems_TuneFigureFuelModel>fuel burned: worked out by the engine model from the revs</PhobosVehicleSystems_TuneFigureFuelModel>
   <PhobosVehicleSystems_FitPartNone>nothing fitted</PhobosVehicleSystems_FitPartNone>
   <PhobosVehicleSystems_FitChange>Change</PhobosVehicleSystems_FitChange>

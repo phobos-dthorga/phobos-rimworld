@@ -1,0 +1,16 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/GradeSalvaged.png",
+  "source": "assets/phobos-vehicles/generated/grade-salvaged/grade-salvaged-1.png",
+  "source_sha256": "eaf8b7dca79b8d8b617e71d1d01cc334073e4e30e6c85b3281bd8eb872a335a0",
+  "target_sha256": "27ee4954e16555fc874603ebc6130927bd1b2c368b87ad7f6cd1fd76ff0be3f6",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "date": "2026-11-11T16:18:34",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

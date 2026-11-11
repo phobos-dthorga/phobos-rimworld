@@ -395,6 +395,16 @@ public static class SystemIcons
     /// <summary>A picture if it exists, else null, for what falls back to words instead of an icon.</summary>
     public static Texture2D? IfExists(string? path) => path.NullOrEmpty() ? null : ContentFinder<Texture2D>.Get(path, reportFailure: false);
 
+    static readonly Dictionary<string, Texture2D?> ifExists = new();
+
+    /// <summary><see cref="IfExists"/>, looked up once per path: for pictures drawn every frame.</summary>
+    public static Texture2D? IfExistsCached(string? path)
+    {
+        if (path.NullOrEmpty()) return null;
+        if (!ifExists.TryGetValue(path!, out Texture2D? texture)) ifExists[path!] = texture = IfExists(path);
+        return texture;
+    }
+
     public static Texture2D For(string? path)
     {
         if (path.NullOrEmpty()) return Switch;

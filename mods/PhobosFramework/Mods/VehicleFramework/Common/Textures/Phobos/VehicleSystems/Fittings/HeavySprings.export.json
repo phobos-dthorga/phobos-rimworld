@@ -1,0 +1,16 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/HeavySprings.png",
+  "source": "assets/phobos-vehicles/generated/fitting-heavy-springs/fitting-heavy-springs-1.png",
+  "source_sha256": "744a39a613f202934f96ea8441dd73b3d3cd8077b525040305136d484e28349f",
+  "target_sha256": "da8835adfaf9697d39cc414deeb7101059b1d444989a2e4a18aa5514cc58e0fa",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "date": "2026-11-11T16:18:28",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

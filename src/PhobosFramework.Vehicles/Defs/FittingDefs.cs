@@ -29,6 +29,11 @@ public class ParameterFactorSpec
 /// </summary>
 public class PhobosVehicleFittingDef : Def
 {
+    /// <summary>Its picture, beside its name in the fittings window and the Health tab (Framework 0.87.0); words alone without one.</summary>
+    public string? iconPath;
+
+    public UnityEngine.Texture2D? Icon => SystemIcons.IfExistsCached(iconPath);
+
     public List<string> roles = new();
     public List<ThingDefCountClass> materials = new();
     /// <summary>Work in ticks for a mechanic of construction speed 1.</summary>
@@ -82,6 +87,11 @@ public enum VehicleTuneAxis
 /// <summary>One named setting of an engine or a gearbox, saved per vehicle: three to an axis (owner), the one marked default as built.</summary>
 public class PhobosVehicleTuneDef : Def
 {
+    /// <summary>Its picture, beside its name in the fittings window and the Health tab (Framework 0.87.0); words alone without one.</summary>
+    public string? iconPath;
+
+    public UnityEngine.Texture2D? Icon => SystemIcons.IfExistsCached(iconPath);
+
     public VehicleTuneAxis axis;
     /// <summary>The engine as it was built: no figure moves, and choosing it again puts the vehicle back.</summary>
     public bool isDefault;
@@ -111,6 +121,11 @@ public class PhobosVehicleTuneDef : Def
 /// </summary>
 public class PhobosVehiclePartGradeDef : Def
 {
+    /// <summary>Its picture, beside its name in the fittings window and the Health tab (Framework 0.87.0); words alone without one.</summary>
+    public string? iconPath;
+
+    public UnityEngine.Texture2D? Icon => SystemIcons.IfExistsCached(iconPath);
+
     public bool isDefault;
     /// <summary>Top to bottom in the menu.</summary>
     public int order;

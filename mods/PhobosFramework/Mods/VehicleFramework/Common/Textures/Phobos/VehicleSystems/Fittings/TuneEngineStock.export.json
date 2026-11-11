@@ -1,0 +1,16 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/TuneEngineStock.png",
+  "source": "assets/phobos-vehicles/generated/tune-engine-stock/tune-engine-stock-1.png",
+  "source_sha256": "d1f6db848682bcd1e2f55ef1c5c8cefaadb44a5d8aa268dcfe20e245c4e1ec3c",
+  "target_sha256": "2fc79169285fc206f6537b8b6032c31e3ff0e7390c42b04f27c0aecc2d134e10",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "date": "2026-11-11T16:18:30",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}
