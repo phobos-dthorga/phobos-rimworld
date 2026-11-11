@@ -495,11 +495,9 @@
       <li>PhobosResearch_DrillRig</li>
     </researchPrerequisites>
     <size>(3, 10)</size>
+    <!-- The shell only: its parts are in Bill_DrillRig.xml, filled at start-up (docs/development/parts-bills.md). Steel stays first. -->
     <costList>
-      <PhobosVehicles_EngineAssembly>1</PhobosVehicles_EngineAssembly>
-      <PhobosVehicles_DrivetrainKit>1</PhobosVehicles_DrivetrainKit>
-      <PhobosVehicles_ElectricalKit>1</PhobosVehicles_ElectricalKit>
-      <Steel>360</Steel>
+      <Steel>560</Steel>
       <Plasteel>40</Plasteel>
       <ComponentIndustrial>12</ComponentIndustrial>
     </costList>

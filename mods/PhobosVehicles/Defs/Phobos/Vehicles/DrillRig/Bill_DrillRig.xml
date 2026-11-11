@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- What it is made of, by role (docs/development/parts-bills.md; D'thorga Vehicles 0.41.0). A 20-tonne rig on four axles: eight tyres, two frame castings under the mast, two batteries, its hydraulic pump and its compressor.
+       Its blueprint's cost list is its shell; each role is filled at start-up by an installed mod's part where it suits the
+       vehicle's weight, and by ours otherwise. Counts authored, held for the owner's review. -->
+  <Phobos.VehicleSystems.PhobosVehicleBillDef>
+    <defName>PhobosBill_DrillRig</defName>
+    <label>drill rig parts</label>
+    <target>Phobos_DrillRig_Blueprint</target>
+    <parts>
+      <Engine>1</Engine>
+      <Transmission>1</Transmission>
+      <FuelTank>1</FuelTank>
+      <Wheels>8</Wheels>
+      <Suspension>4</Suspension>
+      <Alternator>1</Alternator>
+      <Battery>2</Battery>
+      <Wiring>1</Wiring>
+      <Radiator>1</Radiator>
+      <Exhaust>1</Exhaust>
+      <HydraulicPump>1</HydraulicPump>
+      <Compressor>1</Compressor>
+      <Frame>2</Frame>
+    </parts>
+  </Phobos.VehicleSystems.PhobosVehicleBillDef>
+</Defs>

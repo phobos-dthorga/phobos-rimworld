@@ -379,11 +379,9 @@
       <li>PhobosResearch_Tipper</li>
     </researchPrerequisites>
     <size>(3, 8)</size>
+    <!-- The shell only: its parts are in Bill_Tipper.xml, filled at start-up (docs/development/parts-bills.md). Steel stays first. -->
     <costList>
-      <PhobosVehicles_EngineAssembly>1</PhobosVehicles_EngineAssembly>
-      <PhobosVehicles_DrivetrainKit>1</PhobosVehicles_DrivetrainKit>
-      <PhobosVehicles_ElectricalKit>1</PhobosVehicles_ElectricalKit>
-      <Steel>260</Steel>
+      <Steel>420</Steel>
       <ComponentIndustrial>8</ComponentIndustrial>
     </costList>
     <designationCategory>PhobosVehicles_MotorPool</designationCategory>

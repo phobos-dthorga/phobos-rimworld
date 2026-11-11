@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- What it is made of, by role (docs/development/parts-bills.md; D'thorga Vehicles 0.41.0). A submersible: an engine, a fuel tank, a battery bank of two and its wiring. No gearbox or road wheels; the sea cools it.
+       Its blueprint's cost list is its shell; each role is filled at start-up by an installed mod's part where it suits the
+       vehicle's weight, and by ours otherwise. Counts authored, held for the owner's review. -->
+  <Phobos.VehicleSystems.PhobosVehicleBillDef>
+    <defName>PhobosBill_SeabedCrawler</defName>
+    <label>seabed crawler parts</label>
+    <target>Phobos_SeabedCrawler_Blueprint</target>
+    <parts>
+      <Engine>1</Engine>
+      <FuelTank>1</FuelTank>
+      <Battery>2</Battery>
+      <Wiring>1</Wiring>
+    </parts>
+  </Phobos.VehicleSystems.PhobosVehicleBillDef>
+</Defs>

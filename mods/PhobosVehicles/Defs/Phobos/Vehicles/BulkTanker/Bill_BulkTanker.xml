@@ -17,6 +17,7 @@
       <Battery>1</Battery>
       <Wiring>1</Wiring>
       <Radiator>1</Radiator>
+      <Exhaust>1</Exhaust>
     </parts>
   </Phobos.VehicleSystems.PhobosVehicleBillDef>
 </Defs>

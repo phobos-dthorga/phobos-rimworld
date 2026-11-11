@@ -338,12 +338,11 @@
       <li>PhobosResearch_SubmersibleHull</li>
     </researchPrerequisites>
     <size>(4, 9)</size>
+    <!-- The shell only: its parts are in Bill_SeabedCrawler.xml, filled at start-up (docs/development/parts-bills.md). Steel stays first. -->
     <costList>
-      <PhobosVehicles_EngineAssembly>1</PhobosVehicles_EngineAssembly>
-      <PhobosVehicles_ElectricalKit>1</PhobosVehicles_ElectricalKit>
-      <Steel>350</Steel>
-      <ComponentIndustrial>10</ComponentIndustrial>
+      <Steel>480</Steel>
       <Plasteel>15</Plasteel>
+      <ComponentIndustrial>10</ComponentIndustrial>
     </costList>
     <designationCategory>PhobosVehicles_MotorPool</designationCategory>
     <thingToSpawn>Phobos_SeabedCrawler</thingToSpawn>

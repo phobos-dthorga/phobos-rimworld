@@ -267,7 +267,7 @@
       <li>Exhaust</li>
     </roles>
     <materials>
-      <Steel>8</Steel>
+      <Steel>40</Steel>
     </materials>
     <substitutes>
       <li MayRequire="oskarpotocki.vanillavehiclesexpanded"><thing>VVE_CarExhaust</thing></li>

@@ -454,15 +454,12 @@
       <li>PhobosResearch_SurveyTruck</li>
     </researchPrerequisites>
     <size>(3, 7)</size>
+    <!-- The shell only: its parts are in Bill_SurveyTruck.xml, filled at start-up (docs/development/parts-bills.md). Steel stays first. -->
     <costList>
-      <PhobosVehicles_EngineAssembly>1</PhobosVehicles_EngineAssembly>
-      <PhobosVehicles_Transmission>1</PhobosVehicles_Transmission>
-      <PhobosVehicles_DrivetrainKit>1</PhobosVehicles_DrivetrainKit>
-      <PhobosVehicles_ElectricalKit>1</PhobosVehicles_ElectricalKit>
-      <Steel>220</Steel>
-      <ComponentIndustrial>8</ComponentIndustrial>
+      <Steel>300</Steel>
       <Plasteel>10</Plasteel>
       <Uranium>10</Uranium>
+      <ComponentIndustrial>8</ComponentIndustrial>
     </costList>
     <designationCategory>PhobosVehicles_MotorPool</designationCategory>
     <thingToSpawn>Phobos_SurveyTruck</thingToSpawn>
