@@ -75,6 +75,7 @@
     <prerequisites>
       <li>PhobosResearch_VehicleParts</li>
       <li>DeepDrilling</li>
+      <li MayRequire="oskarpotocki.vanillavehiclesexpanded">VVE_BasicVehicles</li>
     </prerequisites>
     <modExtensions>
       <li Class="Phobos.Framework.Research.ResearchReplacesExtension">
@@ -93,6 +94,7 @@
     <prerequisites>
       <li>PhobosResearch_VehicleParts</li>
       <li>GroundPenetratingScanner</li>
+      <li MayRequire="oskarpotocki.vanillavehiclesexpanded">VVE_BasicVehicles</li>
     </prerequisites>
     <modExtensions>
       <li Class="Phobos.Framework.Research.ResearchReplacesExtension">

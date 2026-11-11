@@ -16,8 +16,9 @@ Every vehicle built from parts, by role (with D'thorga Framework 0.95.0). Asked 
 - The tanker also asks for an exhaust.
 - **The bulk tanker's build cost is a parts bill.** It lists an engine, a transmission, a fuel tank, six tyres, three suspensions, an alternator, a battery, wiring and a radiator; each is RimThunder's or Vanilla Vehicles Expanded's part where that mod is installed and suits the tanker's 9 tonnes, and ours otherwise. With both mods the list is as before, but for the engine.
 - **The tanker's engine is the class its weight says.** With RimThunder it asked for a heavy engine; at 9 tonnes it now asks for a medium one, as a repair already did. With Vanilla Vehicles Expanded alone it still asks for two engine blocks.
-- With neither mod, the tanker now also asks for our transmission, and its running gear and electrics are counted in steel and components.
+- With neither mod, a vehicle asks for our engine assembly (two on a truck, three on the drill rig), our transmission, one drivetrain kit and one electrical kit beside its hull.
 - The tanker's blueprint no longer asks for RimThunder's or Vanilla Vehicles Expanded's own research beside ours: those mods' parts already need that research to be made.
+- **Research, the same for every land vehicle**: with Vanilla Vehicles Expanded installed, the drill rig's and survey truck's projects now also ask for its basic vehicles research, as the tipper's, tanker's and generator set's already did. A project already finished stays finished.
 
 ### Compatibility and limits
 

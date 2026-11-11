@@ -23,6 +23,9 @@ Parts bills: what a built thing is made of, by role. Asked for by the owner on 1
 
 ### Changed
 
+- **Our engine assembly scales with the vehicle's weight**: one under 4 tonnes, two from 4 to 15, three from 15, at the weights where RimThunder's light, medium and heavy engines take over. This applies to builds and to repairs, so replacing a destroyed engine on a truck of ours now asks for two engine assemblies (or the materials of two, at your share), where it asked for one.
+- **The drivetrain kit is dearer and says what it is**: 120 steel and 8 components (was 90 and 6), 6,000 work (was 5,000), worth 480 (was 380). It is the axles, suspension and wheels of a whole vehicle; the gearbox and the fuel tank are their own parts. Authored, held for the owner's review.
+- For a build with none of the parts mods, one drivetrain kit covers a vehicle's wheels and suspension and one electrical kit its alternator, batteries, wiring and radiator. A repair still charges each part's own materials.
 - **Vanilla Vehicles Expanded's parts follow what its own heavy vehicles do**, in place of the 6-tonne limit: one engine block under 6 tonnes, two up to 15, three above; its transmission, wheels and suspension up to 15 tonnes; its alternator, battery, radiator, fuel tank and exhaust on any vehicle. This applies to repairs as well as builds, so a repair on a heavier vehicle now also accepts them. Authored, held for the owner's review.
 
 ### Compatibility and limits

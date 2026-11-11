@@ -29,6 +29,12 @@
     <turbine>No</turbine>
     <wholePart>true</wholePart>
     <item>PhobosVehicles_EngineAssembly</item>
+    <!-- Framework 0.95.0: we make one engine where RimThunder makes three classes, so a heavier vehicle takes more of ours, at the same
+         weights (420, 840 and 1,260 silver beside RimThunder's 400, 800 and 1,350). A build and a repair both read this. Authored. -->
+    <itemCountBySize>
+      <li><minKilograms>4000</minKilograms><count>2</count></li>
+      <li><minKilograms>15000</minKilograms><count>3</count></li>
+    </itemCountBySize>
     <work>4000</work>
     <substitutes>
       <li MayRequire="rimthunder.core"><thing>EngineLight</thing><maxKilograms>4000</maxKilograms></li>
@@ -80,6 +86,9 @@
     <roles>
       <li>Wheels</li>
     </roles>
+    <!-- For a build, ours is the drivetrain kit for the whole vehicle (Framework 0.95.0); a repair still charges the materials below. -->
+    <item>PhobosVehicles_DrivetrainKit</item>
+    <coversWholeBuild>true</coversWholeBuild>
     <materials>
       <Steel>10</Steel>
       <ComponentIndustrial>1</ComponentIndustrial>
@@ -97,6 +106,9 @@
     <roles>
       <li>Radiator</li>
     </roles>
+    <!-- For a build, ours is the electrical kit for the whole vehicle (Framework 0.95.0); a repair still charges the materials below. -->
+    <item>PhobosVehicles_ElectricalKit</item>
+    <coversWholeBuild>true</coversWholeBuild>
     <materials>
       <Steel>20</Steel>
       <ComponentIndustrial>2</ComponentIndustrial>
@@ -112,6 +124,9 @@
     <roles>
       <li>Battery</li>
     </roles>
+    <!-- For a build, ours is the electrical kit for the whole vehicle (Framework 0.95.0); a repair still charges the materials below. -->
+    <item>PhobosVehicles_ElectricalKit</item>
+    <coversWholeBuild>true</coversWholeBuild>
     <materials>
       <Steel>10</Steel>
       <ComponentIndustrial>2</ComponentIndustrial>
@@ -128,6 +143,9 @@
     <roles>
       <li>Alternator</li>
     </roles>
+    <!-- For a build, ours is the electrical kit for the whole vehicle (Framework 0.95.0); a repair still charges the materials below. -->
+    <item>PhobosVehicles_ElectricalKit</item>
+    <coversWholeBuild>true</coversWholeBuild>
     <materials>
       <Steel>10</Steel>
       <ComponentIndustrial>2</ComponentIndustrial>

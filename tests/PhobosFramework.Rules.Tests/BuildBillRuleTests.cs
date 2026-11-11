@@ -76,6 +76,18 @@ public class BuildBillRuleTests
         Assert.Equal(new[] { new BillLine("Suspension", 3) }, BuildBillRule.Fill(suspension, 3, 9000, true, out _));
     }
 
+    [Theory]
+    [InlineData(3000, 1)]
+    [InlineData(4000, 2)]
+    [InlineData(14999, 2)]
+    [InlineData(15000, 3)]
+    [InlineData(double.NaN, 1)]
+    public void ABiggerThingTakesMoreOfOurOnePart(double size, int expected) =>
+        Assert.Equal(expected, BuildBillRule.CountAt(size, 1, new[] { (4000d, 2), (15000d, 3) }));
+
+    [Fact]
+    public void WithNoStepsThePlainCountStands() => Assert.Equal(2, BuildBillRule.CountAt(9000, 2, System.Array.Empty<(double, int)>()));
+
     [Fact]
     public void NothingIsAskedForNoneOfARole() => Assert.Empty(BuildBillRule.Fill(Engine(), 0, 9000, true, out _));
 

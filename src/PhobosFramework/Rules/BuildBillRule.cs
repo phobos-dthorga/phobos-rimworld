@@ -44,6 +44,22 @@ public static class BuildBillRule
         (double.IsNaN(minSize) || size >= minSize) && (double.IsNaN(maxSize) || size < maxSize);
 
     /// <summary>
+    /// How many of our own item stand for one of a role on a thing of this size: the count of the last step the size reaches, else the
+    /// plain count. A bigger thing takes more of the one part we make, where another mod makes a bigger part. Steps are in rising order;
+    /// an unknown size takes the plain count.
+    /// </summary>
+    public static int CountAt(double size, int plainCount, IReadOnlyList<(double MinSize, int Count)> steps)
+    {
+        int count = plainCount;
+        if (double.IsNaN(size)) return count;
+        foreach ((double minSize, int stepCount) in steps)
+        {
+            if (size >= minSize) count = stepCount;
+        }
+        return count;
+    }
+
+    /// <summary>
     /// What <paramref name="count"/> of a role costs: the first substitute that suits <paramref name="size"/> when
     /// <paramref name="othersAllowed"/>, else ours. An offer with nothing of ours and no substitute that suits gives nothing.
     /// </summary>

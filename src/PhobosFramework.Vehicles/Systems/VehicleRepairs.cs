@@ -94,20 +94,22 @@ public sealed class VehicleRepairs
         return fallback;
     }
 
-    static List<(ThingDef def, int count)> OwnPayment(PhobosVehiclePartSupplyDef def, VehicleComponent part, float share, float costFactor)
+    static List<(ThingDef def, int count)> OwnPayment(PhobosVehiclePartSupplyDef def, VehicleComponent part, float share, float costFactor, double kilograms)
     {
         var payment = new List<(ThingDef def, int count)>();
+        // A heavier vehicle takes more of the one engine we make, as a build of it does (Framework 0.95.0).
+        int items = def.OwnItemCountAt(kilograms);
         // A whole part is one item; a salvaged or heavy-duty one is costed in what it is made of.
         if (def.item != null && def.wholePart && CostShareRule.WantsWhole(share) && costFactor == 1f && !(def.kit && GameComponent_PhobosServiceKits.RawAccepted))
         {
-            payment.Add((def.item, def.itemCount));
+            payment.Add((def.item, items));
             return payment;
         }
         IEnumerable<ThingDefCountClass> full = def.materials.Count > 0 ? def.materials
             : def.item?.CostList ?? Enumerable.Empty<ThingDefCountClass>();
         foreach (ThingDefCountClass material in full)
         {
-            int count = CostShareRule.Count(material.count * def.itemCount, share * costFactor);
+            int count = CostShareRule.Count(material.count * (def.materials.Count > 0 ? def.itemCount : items), share * costFactor);
             if (count > 0) payment.Add((material.thingDef, count));
         }
         float health = VehicleFittings.UngradedHealth(part);
@@ -116,7 +118,7 @@ public sealed class VehicleRepairs
         int components = CostShareRule.PerHealth(def.componentsPerHealth, health, share * costFactor);
         if (components > 0) payment.Add((ThingDefOf.ComponentIndustrial, components));
         // An item with no recorded cost still costs itself, rounded up.
-        if (payment.Count == 0 && def.item != null && share > 0f) payment.Add((def.item, CostShareRule.Count(def.itemCount, share * costFactor)));
+        if (payment.Count == 0 && def.item != null && share > 0f) payment.Add((def.item, CostShareRule.Count(items, share * costFactor)));
         return payment;
     }
 
@@ -130,11 +132,11 @@ public sealed class VehicleRepairs
         if (def == null) return options;
         float share = def.wholePart ? Settings.wholePartShare : Settings.otherPartShare;
         if (share <= 0f) return options;
-        List<(ThingDef def, int count)> own = OwnPayment(def, part, share, grade.costFactor);
+        double kilograms = Kilograms;
+        List<(ThingDef def, int count)> own = OwnPayment(def, part, share, grade.costFactor, kilograms);
         if (own.Count == 0) return options;
         options.Add(own);
         if (!grade.isDefault) return options;    // another mod's part is a standard part
-        double kilograms = Kilograms;
         foreach (Phobos.Framework.Bills.RoleSubstitute substitute in def.substitutes)
         {
             if (substitute.Suits(kilograms)) options.Add(new List<(ThingDef def, int count)> { (substitute.thing!, substitute.count) });

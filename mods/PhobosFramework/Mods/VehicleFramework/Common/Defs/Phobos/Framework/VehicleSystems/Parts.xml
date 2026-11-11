@@ -6,7 +6,7 @@
   <ThingDef ParentName="ResourceBase">
     <defName>PhobosVehicles_EngineAssembly</defName>
     <label>engine assembly</label>
-    <description>A complete diesel engine for a heavy vehicle.</description>
+    <description>A complete diesel engine for a vehicle. A light vehicle takes one, a truck two and the heaviest three.</description>
     <graphicData>
       <texPath>Phobos/Vehicles/Parts/EngineAssembly</texPath>
       <graphicClass>Graphic_Single</graphicClass>
@@ -49,7 +49,7 @@
   <ThingDef ParentName="ResourceBase">
     <defName>PhobosVehicles_DrivetrainKit</defName>
     <label>drivetrain kit</label>
-    <description>Transmission, axles, wheels and a fuel tank for a heavy vehicle.</description>
+    <description>Axles, suspension and wheels for a vehicle: everything under the frame but the gearbox.</description>
     <graphicData>
       <texPath>Phobos/Vehicles/Parts/DrivetrainKit</texPath>
       <graphicClass>Graphic_Single</graphicClass>
@@ -59,17 +59,17 @@
     <stackLimit>5</stackLimit>
     <statBases>
       <MaxHitPoints>120</MaxHitPoints>
-      <MarketValue>380</MarketValue>
+      <MarketValue>480</MarketValue>
       <Mass>60</Mass>
       <Flammability>0.2</Flammability>
-      <WorkToMake>5000</WorkToMake>
+      <WorkToMake>6000</WorkToMake>
     </statBases>
     <thingCategories>
       <li>PhobosCategory_VehicleParts</li>
     </thingCategories>
     <costList>
-      <Steel>90</Steel>
-      <ComponentIndustrial>6</ComponentIndustrial>
+      <Steel>120</Steel>
+      <ComponentIndustrial>8</ComponentIndustrial>
     </costList>
     <recipeMaker>
       <workSpeedStat>GeneralLaborSpeed</workSpeedStat>

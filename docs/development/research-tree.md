@@ -66,8 +66,8 @@ All are Industrial, named `PhobosResearch_<Name>`. Those names stay fixed once a
 | Tipper | 1,500 | VehicleParts, Electricity | VVE_BasicVehicles | Tipper | Machining, Electricity |
 | Tanker | 2,400 | VehicleParts, Electricity | VVE_BasicVehicles | Tanker | Machining, Electricity |
 | GeneratorSet | 2,100 | VehicleParts, VehicleElectrics | VVE_BasicVehicles, VFE_IndustrialGenerators | Generator set | Machining, Electricity |
-| DrillRig | 3,600 | VehicleParts, DeepDrilling | | Drill rig | DeepDrilling |
-| SurveyTruck | 2,800 | VehicleParts, GroundPenetratingScanner | | Survey truck | GroundPenetratingScanner |
+| DrillRig | 3,600 | VehicleParts, DeepDrilling | VVE_BasicVehicles | Drill rig | DeepDrilling |
+| SurveyTruck | 2,800 | VehicleParts, GroundPenetratingScanner | VVE_BasicVehicles | Survey truck | GroundPenetratingScanner |
 | BasicClinicalKit | 1,000 | MedicineProduction | Cpr | Steriliser, resuscitator, intubation kit, fluids kit, burn dressing | MedicineProduction |
 | Respiratory | 2,400 | BasicClinicalKit | | Nebuliser, oxygen concentrator, ventilator | MedicineProduction |
 | Bronchodilators | 600 | DrugProduction | | Bronchodilator vial | DrugProduction |

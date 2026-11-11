@@ -22,6 +22,14 @@ public class RoleSubstitute
     public bool Suits(double size) => thing != null && BuildBillRule.Suits(size, minSize, maxSize);
 }
 
+/// <summary>From this size up, this many of our own item stand for one of the role.</summary>
+public class SizeStep
+{
+    [LoadAlias("minKilograms")]
+    public float minSize;
+    public int count = 1;
+}
+
 /// <summary>
 /// What fills a role (docs/development/parts-bills.md; Framework 0.95.0). A role is a plain word a bill asks for: Engine, FuelTank,
 /// Pump, Vessel. Ours always exists, as an item or as materials; another mod's parts are listed as substitutes, each only where it
@@ -33,19 +41,31 @@ public class PhobosRoleSupplyDef : Def
     /// <summary>Our own part for the role.</summary>
     public ThingDef? item;
     public int itemCount = 1;
+    /// <summary>More of our item on a bigger thing, in rising order of size: we make one engine, where another mod makes three classes.</summary>
+    public List<SizeStep> itemCountBySize = new();
     /// <summary>Ours as materials, where there is no item of ours. For a repair, the full cost of which the player's share is charged.</summary>
     public List<ThingDefCountClass> materials = new();
-    /// <summary>Our item is a kit that covers these roles for a whole build: one is asked for, however many of them the bill lists.</summary>
+    /// <summary>Our item is a kit that covers a whole build: one is asked for, however many of the role a bill lists, and however many
+    /// roles name the same kit.</summary>
     public bool coversWholeBuild;
     public List<RoleSubstitute> substitutes = new();
 
     /// <summary>Whether this Def fills the role on a built thing with these tags. A subclass narrows it (a turbine's engine).</summary>
     public virtual bool Fits(string role, IReadOnlyCollection<string> tags) => roles.Contains(role);
 
-    /// <summary>This Def as the game-free rule reads it.</summary>
-    public BillOffer Offer()
+    /// <summary>How many of our item stand for one of the role on a thing of this size.</summary>
+    public int OwnItemCountAt(double size)
     {
-        var offer = new BillOffer { OwnItem = item?.defName, OwnItemCount = itemCount, OwnCoversWholeBuild = coversWholeBuild };
+        if (itemCountBySize.Count == 0) return itemCount;
+        var steps = new List<(double, int)>(itemCountBySize.Count);
+        foreach (SizeStep step in itemCountBySize) steps.Add((step.minSize, step.count));
+        return BuildBillRule.CountAt(size, itemCount, steps);
+    }
+
+    /// <summary>This Def as the game-free rule reads it, for a thing of this size.</summary>
+    public BillOffer Offer(double size = double.NaN)
+    {
+        var offer = new BillOffer { OwnItem = item?.defName, OwnItemCount = OwnItemCountAt(size), OwnCoversWholeBuild = coversWholeBuild };
         if (materials.Count > 0)
         {
             var own = new List<BillLine>(materials.Count);

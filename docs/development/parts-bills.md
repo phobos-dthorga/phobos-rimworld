@@ -105,17 +105,17 @@ One table, `PartSupplies.xml`, fills both builds and repairs. The order of a rol
 
 | Role | Ours | RimThunder - Core | Vanilla Vehicles Expanded |
 | --- | --- | --- | --- |
-| Engine | Engine assembly | Light engine under 4 t, medium 4 to 15 t, heavy from 15 t | 1 engine block under 6 t, 2 from 6 to 15 t, 3 from 15 t |
+| Engine | Engine assembly: 1 under 4 t, 2 from 4 to 15 t, 3 from 15 t | Light engine under 4 t, medium 4 to 15 t, heavy from 15 t | 1 engine block under 6 t, 2 from 6 to 15 t, 3 from 15 t |
 | Engine, on a turbine vehicle | Gas turbine assembly | Turbine | None |
 | Transmission | Transmission | Transmission component | Car transmission, under 15 t |
 | Fuel tank | 30 steel, 1 component | Fuel tank component | Car fuel tank |
-| Wheels | 10 steel, 1 component each | Tyre | Car wheel, under 15 t |
-| Suspension | One drivetrain kit for the whole build | None | Car suspension, under 15 t |
-| Alternator | 10 steel, 2 components | None | Car alternator |
-| Battery | 10 steel, 2 components | None | Car battery |
-| Wiring | One electrical kit for the whole build | None | Car wiring |
-| Radiator | 20 steel, 2 components | None | Car radiator |
-| Exhaust | 8 steel | None | Car exhaust |
+| Wheels | One drivetrain kit for the whole build (a repair: 10 steel, 1 component each) | Tyre | Car wheel, under 15 t |
+| Suspension | The same drivetrain kit | None | Car suspension, under 15 t |
+| Alternator | One electrical kit for the whole build (a repair: 10 steel, 2 components) | None | Car alternator |
+| Battery | The same electrical kit (a repair: 10 steel, 2 components) | None | Car battery |
+| Wiring | The same electrical kit | None | Car wiring |
+| Radiator | The same electrical kit (a repair: 20 steel, 2 components) | None | Car radiator |
+| Exhaust | 40 steel | None | Car exhaust |
 | Frame | 60 steel | Heavy casting | None |
 | Fuel pump and other small mechanical parts | 12 steel, 2 components | None | None |
 
@@ -142,18 +142,41 @@ on the heavy ones, and the pump or compressor its job needs. All authored.
 
 | Thing | With RimThunder and Vanilla Vehicles Expanded (the owner's list) | With neither |
 | --- | --- | --- |
-| Survey truck | 312 steel, 10 plasteel, 10 uranium, 10 components, a medium engine, a transmission component, a fuel tank component, 4 tyres, 2 car suspensions, a car alternator, battery, wiring, radiator and exhaust | 462 steel, 10 plasteel, 10 uranium, 21 components, an engine assembly, a transmission, a drivetrain kit, an electrical kit |
-| Generator set | 380 steel, 10 plasteel, 17 components, a medium engine, a fuel tank component, 4 tyres, 2 car suspensions, a car battery, wiring, radiator and exhaust | 520 steel, 10 plasteel, 26 components, an engine assembly, a drivetrain kit, an electrical kit |
-| Bulk tanker | 400 steel, 8 components, a medium engine, a transmission component, a fuel tank component, 6 tyres, 3 car suspensions, a car alternator, battery, wiring, radiator and exhaust | 570 steel, 21 components, an engine assembly, a transmission, a drivetrain kit, an electrical kit |
-| Tipper truck | 432 steel, 10 components, the tanker's parts and a heavy casting | 662 steel, 23 components, an engine assembly, a transmission, a drivetrain kit, an electrical kit |
-| Drill rig | 584 steel, 40 plasteel, 16 components, a heavy engine, a transmission component, a fuel tank component, 8 tyres, a drivetrain kit (car suspension stops at 15 t), a car alternator, 2 car batteries, wiring, radiator and exhaust, 2 heavy castings | 904 steel, 40 plasteel, 33 components, an engine assembly, a transmission, a drivetrain kit, an electrical kit |
-| Seabed crawler | 480 steel, 15 plasteel, 10 components, a medium engine, a fuel tank component, 2 car batteries, car wiring | 530 steel, 15 plasteel, 15 components, an engine assembly, an electrical kit |
+| Survey truck | 312 steel, 10 plasteel, 10 uranium, 10 components, a medium engine, a transmission component, a fuel tank component, 4 tyres, 2 car suspensions, a car alternator, battery, wiring, radiator and exhaust | 382 steel, 10 plasteel, 10 uranium, 11 components, 2 engine assemblies, a transmission, a drivetrain kit, an electrical kit |
+| Generator set | 380 steel, 10 plasteel, 17 components, a medium engine, a fuel tank component, 4 tyres, 2 car suspensions, a car battery, wiring, radiator and exhaust | 450 steel, 10 plasteel, 18 components, 2 engine assemblies, a drivetrain kit, an electrical kit |
+| Bulk tanker | 400 steel, 8 components, a medium engine, a transmission component, a fuel tank component, 6 tyres, 3 car suspensions, a car alternator, battery, wiring, radiator and exhaust | 470 steel, 9 components, 2 engine assemblies, a transmission, a drivetrain kit, an electrical kit |
+| Tipper truck | 432 steel, 10 components, the tanker's parts and a heavy casting | 562 steel, 11 components, 2 engine assemblies, a transmission, a drivetrain kit, an electrical kit |
+| Drill rig | 584 steel, 40 plasteel, 16 components, a heavy engine, a transmission component, a fuel tank component, 8 tyres, a drivetrain kit (car suspension stops at 15 t), a car alternator, 2 car batteries, wiring, radiator and exhaust, 2 heavy castings | 774 steel, 40 plasteel, 17 components, 3 engine assemblies, a transmission, a drivetrain kit, an electrical kit |
+| Seabed crawler | 480 steel, 15 plasteel, 10 components, a medium engine, a fuel tank component, 2 car batteries, car wiring | 510 steel, 15 plasteel, 11 components, 2 engine assemblies, an electrical kit |
 | Depot bay | 92 steel, 5 components, a fuel tank component | 122 steel, 6 components |
 
 **Beside similar trucks** (their costs read with the owner's patches applied, 11 Nov 2026): Vanilla Vehicles Expanded's Bulldog is 440
 steel, 16 components and about 36 car parts; GTek's L-ATV 410 steel, 60 plasteel, 12 components and about 26; the HUMVEE 550 steel, 6
 components and about 13. Ours had been 220 to 360 steel and three kits. The shells were raised to sit beside those by weight (survey
 truck 220 to 300, generator set 320 to 340, tanker 280 to 400, tipper 260 to 420, drill rig 360 to 560, crawler 350 to 480).
+
+## Our own parts beside the other mods' (authored, held for the owner's review)
+
+The aim, from the owner's answers: neither route is the cheap one. Other mods' figures were read with the owner's patches applied.
+
+| Our part | Its recipe | Stands for | The other mods' equivalent |
+| --- | --- | --- | --- |
+| Engine assembly | 60 steel, 8 components, 5,000 work, worth 420; **unchanged** | One light engine; a heavier vehicle takes 2 or 3 | RimThunder's light, medium and heavy engines are worth 400, 800 and 1,350; Vanilla Vehicles Expanded's engine block is 40 steel, 4 silver, 6 components, worth 325, and its own heavy vehicles take 2 or 3 |
+| Transmission | 40 steel, 4 components, 3,500 work; **unchanged** | One gearbox | Vanilla Vehicles Expanded's is 10 plasteel, 2 components, worth 170 |
+| Drivetrain kit | **120 steel, 8 components, 6,000 work, worth 480** (was 90, 6, 5,000 and 380) | Axles, suspension and wheels for a whole vehicle (it no longer claims the gearbox and fuel tank, which are their own roles) | On the tanker, Vanilla Vehicles Expanded's 6 wheels and 3 suspensions are worth 690 |
+| Electrical kit | 25 steel, 8 components, 5,000 work, worth 340; **unchanged** | Alternator, batteries, wiring and radiator for a whole vehicle | Vanilla Vehicles Expanded's four are worth 430 |
+| Gas turbine assembly | 60 steel, 15 plasteel, 10 components, 8,000 work; **unchanged** | One turbine | RimThunder's turbine is worth 2,500 |
+
+**A repair follows the same counts**: replacing a destroyed engine on a vehicle of 4 to 15 tonnes now asks for two engine assemblies
+(or the materials of two, at the player's share), and three from 15 tonnes, as RimThunder's medium and heavy engines already did.
+
+## Research
+
+The owner asked for research gates decided the same way for every vehicle. **The agent's decision:** a vehicle's blueprint asks only for
+its own project. Each land vehicle's project also asks for Vanilla Vehicles Expanded's basic vehicles research where that mod is
+installed (the tipper, tanker and generator set already did; the drill rig and survey truck now do). The tanker's blueprint used to ask
+for RimThunder's or Vanilla Vehicles Expanded's research directly, through the patch folders; that went with them, because those mods'
+parts already need their makers' research to be made. The seabed crawler is a boat and is left on its own project.
 
 ## Checks
 

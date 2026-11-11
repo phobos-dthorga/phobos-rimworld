@@ -70,8 +70,8 @@ public static class PartsBills
     }
 
     /// <summary>
-    /// A shell's cost with these parts filled in. The shell's lines keep their order. A kit of ours that covers several roles for the
-    /// whole build is asked for once. <paramref name="rows"/>, when given, receives what each role came to.
+    /// A shell's cost with these parts filled in. The shell's lines keep their order. A kit of ours that covers a whole build is asked
+    /// for once, however many roles name it. <paramref name="rows"/>, when given, receives what each role came to.
     /// </summary>
     public static List<ThingDefCountClass> Resolve(IReadOnlyList<ThingDefCountClass>? shell, IEnumerable<BillPart> parts, double size,
         IReadOnlyCollection<string>? tags, bool othersAllowed, List<BillRow>? rows = null)
@@ -85,16 +85,16 @@ public static class PartsBills
             }
         }
         var partLines = new List<BillLine>();
-        HashSet<PhobosRoleSupplyDef>? kitsAsked = null;
+        HashSet<ThingDef>? kitsAsked = null;
         foreach (BillPart part in parts)
         {
             PhobosRoleSupplyDef? supply = SupplyFor(part.role, tags);
             if (supply == null) continue;    // a config error names it
-            List<BillLine> lines = BuildBillRule.Fill(supply.Offer(), part.count, size, othersAllowed, out BillSource source);
+            List<BillLine> lines = BuildBillRule.Fill(supply.Offer(size), part.count, size, othersAllowed, out BillSource source);
             if (source == BillSource.Ours && supply.coversWholeBuild && supply.item != null)
             {
-                kitsAsked ??= new HashSet<PhobosRoleSupplyDef>();
-                if (!kitsAsked.Add(supply)) lines.Clear();
+                kitsAsked ??= new HashSet<ThingDef>();
+                if (!kitsAsked.Add(supply.item)) lines.Clear();
             }
             partLines.AddRange(lines);
             rows?.Add(new BillRow { Role = part.role, Count = part.count, Source = source, Supply = supply, Lines = ToCounts(lines) });
