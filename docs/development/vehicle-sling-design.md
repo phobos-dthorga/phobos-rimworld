@@ -67,6 +67,29 @@ Figures the table calls authored live in a rules Def (`PhobosSlingRulesDef`), so
 
 A sling set aboard is part of the rules, not a setting (agent default); the owner may ask for a setting for it too.
 
+## Selecting the helicopter while it flies (owner's question, 11 Nov 2026)
+
+**The problem:** while a Vehicle Framework aircraft takes off or lands on a map, the vehicle is held inside a stand-in that draws its flight,
+and that stand-in cannot be selected, so nothing can be asked of the helicopter mid-air. A sling needs exactly that: set down here, release
+now.
+
+**How Cherokee Sling answers it** (read from its source, in our words): its lift and set-down run as a stand-in of its own on the map that
+*can* be selected and carries its own buttons (one to choose where the load and the helicopter come down); its inbound flight on the world
+map is a world object of its own with a "continue" button; and while it waits for the player to choose landing spots it pauses the game,
+so nobody has to catch a moving aircraft with the mouse.
+
+**Ours (agent's proposal):**
+
+- **On a map, a slung flight is its own selectable thing**: our stand-in for the hover, hook-up, climb, descent and set-down, which draws
+  the helicopter, the strops and the load, can be selected, shows an inspect line (the load, its share of the hook's rating today, the
+  wind) and carries the buttons that matter in the air: **Set down here**, **Emergency release**, and Cancel before the hook takes the weight.
+- **On the world map**, a helicopter in flight is already a selectable world object (our Dashboard and Systems tabs sit on it); the sling
+  adds an inspect line and **Emergency release** there.
+- **Choosing where to come down** follows the game's own habit: chosen before take-off when the destination map is open; otherwise, on
+  arrival, the game pauses and asks, with the load's and the helicopter's outlines to place.
+- **Not our fault to fix:** an ordinary flight's stand-in staying unselectable is Vehicle Framework's design. We leave it, and only our
+  slung flight gets its own.
+
 ## How it meets Vehicle Framework (to read before building)
 
 The other mod showed that a sling can ride on Vehicle Framework's own launch: the load leaves the map held inside the aircraft, and an
