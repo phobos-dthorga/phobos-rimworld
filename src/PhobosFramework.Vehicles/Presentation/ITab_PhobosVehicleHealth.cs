@@ -497,7 +497,7 @@ public class ITab_PhobosVehicleHealth : ITab
         {
             float share = part.MaxHealth > 0f ? part.Health / part.MaxHealth : 0f;
             bool feedsStat = part.props.categories != null && part.props.categories.Count > 0;
-            string label = role != null ? ITab_VehicleSystems.PartLabel(role, part.props.label) : part.props.label.CapitalizeFirst();
+            string label = ITab_VehicleSystems.PartLabel(part.props.label);
             var row = new PartRow
             {
                 Part = part,

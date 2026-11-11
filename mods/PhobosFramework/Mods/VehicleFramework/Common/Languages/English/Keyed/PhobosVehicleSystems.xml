@@ -385,7 +385,6 @@
   <PhobosVehicleSystems_DashSwitchOff>off</PhobosVehicleSystems_DashSwitchOff>
   <PhobosVehicleSystems_SysDrivetrain>Engine and drivetrain</PhobosVehicleSystems_SysDrivetrain>
   <PhobosVehicleSystems_SysTurbine>Turbine</PhobosVehicleSystems_SysTurbine>
-  <PhobosVehicleSystems_SysPart>{ROLE}: {PART}</PhobosVehicleSystems_SysPart>
   <PhobosVehicleSystems_SysFlowRate>{RATE} an hour</PhobosVehicleSystems_SysFlowRate>
   <!-- The Systems tab's compact rows (Framework 0.93.0): what is moving a reading, in plain words, with figures for engineers. -->
   <PhobosVehicleSystems_FlowCooling>cooling toward {TARGET}</PhobosVehicleSystems_FlowCooling>

@@ -413,7 +413,7 @@ public class ITab_VehicleSystems : ITab
             {
                 // No part icon and no Vehicle Framework colour helper: both pass Unity types, which a 1.7 build cannot use
                 // through Vehicle Framework's 1.6 assembly. The health colour is the core's own.
-                string label = PartLabel(role, part.props.label);
+                string label = PartLabel(part.props.label);
                 float chip = Mathf.Min(width - 12f, Text.CalcSize(label).x + ChipBar + 14f);
                 if (x + chip > width - 6f && x > 6f)
                 {
@@ -436,12 +436,9 @@ public class ITab_VehicleSystems : ITab
         y += ChipHeight + 2f;
     }
 
-    /// <summary>"Wheels: front left wheel", or only the part's name when it says the same as its role ("Battery", not "Battery:
-    /// Battery").</summary>
-    public static string PartLabel(string role, string part) =>
-        string.Equals(role.Trim(), part.Trim(), System.StringComparison.OrdinalIgnoreCase)
-            ? part.CapitalizeFirst()
-            : "PhobosVehicleSystems_SysPart".Translate(role.Named("ROLE"), part.Named("PART")).Resolve();
+    /// <summary>A part's name as a player reads it. Framework 0.94.1: only the part's own label. A role (WaterPump, Starter, Engine1) is
+    /// an identifier, and showing it in front ("WaterPump: Water pump") put a code name in front of the player.</summary>
+    public static string PartLabel(string part) => part.CapitalizeFirst();
 
     /// <summary>The least span a scaled graph shows, so a reading near nothing is not blown up into noise (authored: a day of hours).</summary>
     const float GraphFloorSpan = 24f;

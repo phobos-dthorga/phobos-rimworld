@@ -5,6 +5,12 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.94.1] - 2026-11-11 - Draft
+
+### Fixed
+
+- **Part names on the Systems tab and the Health tab no longer show a code name in front.** A part read "WaterPump: Water pump" or "Starter: Starter motor"; it now reads "Water pump" and "Starter motor", as the battery and the radiator already did. Seen in the owner's screenshot of the L-ATV's Systems tab. Not yet tested in game.
+
 ## [0.94.0] - 2026-11-11 - Draft
 
 Four over-arching passes on the vehicle work (owner, 11 November 2026: asked for while testing). **Not yet tested in game.**
