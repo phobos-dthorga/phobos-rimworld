@@ -124,13 +124,13 @@
     </li>
     <li>
       <!-- Owner, 11 Nov 2026 (docs/development/vehicle-upgrades-round-two.md, the generator set's signature). The share and the output
-           cost are authored; the heat rate and the 21 C target come from the game's own heater (CompPhobosGeneratorSet). No overlay yet:
-           the exchanger gets its own picture with the next icon and overlay batch. The icon borrows the game's heater until then. -->
+           cost are authored; the heat rate and the 21 C target come from the game's own heater (CompPhobosGeneratorSet). Its icon and
+           overlay are the owner's pick of 12 Nov 2026. -->
       <key>HeatRecovery</key>
       <label>exhaust heat exchanger</label>
       <displayLabel>true</displayLabel>
       <description>A heat exchanger on the exhaust. While the set makes power, it warms the room the cable end stands in, more as more power is drawn, until the room reaches 21 C. Outdoors the heat goes to waste. The exchanger's back pressure costs 25 W of output.</description>
-      <icon>Things/Building/Misc/TempControl/Heater</icon>
+      <icon>Phobos/Vehicles/GeneratorSet/Upgrades/HeatExchanger</icon>
       <work>1500</work>
       <gridCoordinate>(7, 11)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
@@ -154,6 +154,47 @@
       <ingredients>
         <Steel>40</Steel>
         <ComponentIndustrial>2</ComponentIndustrial>
+      </ingredients>
+      <graphicOverlays>
+        <li>
+          <graphicData>
+            <texPath>Phobos/Vehicles/GeneratorSet/GeneratorSet_HeatExchanger</texPath>
+            <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+            <drawSize>(3, 7)</drawSize>
+            <shaderType>Cutout</shaderType>
+            <layer>1</layer>
+          </graphicData>
+        </li>
+      </graphicOverlays>
+    </li>
+    <li>
+      <!-- Owner, 12 Nov 2026: the heavy-duty fan, fan picture 2 as the upgrade of the stock fan. What it is for (agent proposal, owner to
+           revise; docs/development/vehicle-generator-set.md): a parked radiator cools at 0.7 of its moving rate, and the fan's 0.3 brings
+           it to the full rate, so a set left working hard in summer heat keeps its coolant in hand. Cost authored. -->
+      <key>HeavyFan</key>
+      <label>heavy-duty fan</label>
+      <displayLabel>true</displayLabel>
+      <description>A bigger cooling fan with a heavier guard. A parked engine's radiator gets no air from driving; this fan moves as much air through it as the road would, so the set stays cool working hard in hot weather.</description>
+      <icon>Phobos/Vehicles/GeneratorSet/Upgrades/HeavyFan</icon>
+      <work>1200</work>
+      <gridCoordinate>(12, 11)</gridCoordinate>
+      <drawSize>(80, 80)</drawSize>
+      <researchPrerequisites>
+        <li>Electricity</li>
+      </researchPrerequisites>
+      <upgrades>
+        <li Class="Vehicles.StatUpgrade">
+          <vehicleStats>
+            <li>
+              <def>Phobos_StoppedAirflow</def>
+              <value>0.3</value>
+            </li>
+          </vehicleStats>
+        </li>
+      </upgrades>
+      <ingredients>
+        <Steel>30</Steel>
+        <ComponentIndustrial>1</ComponentIndustrial>
       </ingredients>
     </li>
     </nodes>

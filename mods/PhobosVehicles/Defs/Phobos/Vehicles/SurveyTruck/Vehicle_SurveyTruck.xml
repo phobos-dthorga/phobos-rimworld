@@ -377,6 +377,16 @@
       <li Class="Phobos.VehicleSystems.CompProperties_PhobosSurveyTruck">
         <powerPointDef>Phobos_PowerPoint</powerPointDef>
         <powerPointLargeDef>Phobos_PowerPointLarge</powerPointLargeDef>
+        <!-- Outriggers down while set up (12 Nov 2026). -->
+        <setUpOverlay>
+          <graphicData>
+            <texPath>Phobos/Vehicles/SurveyTruck/SurveyTruck_SetUp</texPath>
+            <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+            <drawSize>(4, 8)</drawSize>
+            <shaderType>Cutout</shaderType>
+            <layer>1</layer>
+          </graphicData>
+        </setUpOverlay>
         <!-- The boom is its own picture and swings flat about the bracket on the deck: the game cannot lift a picture towards the camera. Pivot and reach measured off the art. -->
         <movingParts>
           <li>

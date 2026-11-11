@@ -338,8 +338,10 @@
             <role>Belt</role>
           </li>
           <li Class="Phobos.VehicleSystems.Input_Moving">
+            <!-- A heavy-duty fan, such as the generator set's, adds Phobos_StoppedAirflow while parked (Framework 0.98.0). -->
             <stopped>0.7</stopped>
             <moving>1</moving>
+            <stoppedBonusStat>Phobos_StoppedAirflow</stoppedBonusStat>
           </li>
           <li Class="Phobos.VehicleSystems.Input_EngineRpm">
             <curve>

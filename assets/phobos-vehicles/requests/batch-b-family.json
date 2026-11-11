@@ -1,0 +1,364 @@
+[
+  {
+    "name": "generator-set-fan",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      1,
+      2
+    ],
+    "references": [
+      {
+        "image": "assets/phobos-vehicles/generated/generator-set-body-north/generator-set-body-north-3.png",
+        "role": "our approved generator set body, the owner's pick: match its outline weight, shading, palette and finish only; do not redraw it"
+      }
+    ],
+    "art_plan": {
+      "vehicle": "Phobos_GeneratorSet, footprint (2, 6), drawSize (3, 7); pilot pick attempt 3 (owner, 12 Nov 2026)",
+      "look": "body look: fills the empty fan well; later spun by code",
+      "this_request": "part drawn alone, fitted by script onto the picked body with export_vehicle.py overlay",
+      "shared_free_from_the_survey_truck": "outriggers, battery box, lamp bar (same maker)"
+    },
+    "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL game sprite part for the D'thorga generator set: the cooling fan that sits in the round fan well on its generator housing roof. Image 1 is our approved generator set body: match its outline weight, shading, palette and finish only, and use it to see where this part sits. Do NOT redraw the generator set.\n\nDraw ONLY this part, alone on a plain pure white background: nothing else on the canvas. A round dark steel fan guard ring filling about two thirds of the canvas, centred; inside it five broad curved fan blades of pale grey steel around a small round hub, seen through a few thin straight guard wires.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo truck, cab, wheels, deck, cargo, people, animals, smoke, dust, mud, damage, text, letters, numbers, logos, symbols, dials or screens. No floor, ground, shadow outside the part, perspective, tilt or visible side faces. Top surfaces only."
+  },
+  {
+    "name": "generator-set-cable-out",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      1,
+      2
+    ],
+    "references": [
+      {
+        "image": "assets/phobos-vehicles/generated/generator-set-body-north/generator-set-body-north-3.png",
+        "role": "our approved generator set body, the owner's pick: match its outline weight, shading, palette and finish only; do not redraw it"
+      }
+    ],
+    "art_plan": {
+      "vehicle": "Phobos_GeneratorSet, footprint (2, 6), drawSize (3, 7); pilot pick attempt 3 (owner, 12 Nov 2026)",
+      "look": "set-up look: the cable run off the rear left corner",
+      "this_request": "part drawn alone, fitted by script onto the picked body with export_vehicle.py overlay",
+      "shared_free_from_the_survey_truck": "outriggers, battery box, lamp bar (same maker)"
+    },
+    "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL game sprite part for the D'thorga generator set: its heavy power cable, run out from the truck while it is set up. Image 1 is our approved generator set body: match its outline weight, shading, palette and finish only, and use it to see where this part sits. Do NOT redraw the generator set.\n\nDraw ONLY this part, alone on a plain pure white background: nothing else on the canvas. At the TOP RIGHT a small square steel socket box; from it one thick black rubber power cable runs down and to the left in one gentle S-curve, ending at the BOTTOM LEFT in a short plain plug. The cable is thick and smooth, about one twelfth of the canvas wide.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo truck, cab, wheels, deck, cargo, people, animals, smoke, dust, mud, damage, text, letters, numbers, logos, symbols, dials or screens. No floor, ground, shadow outside the part, perspective, tilt or visible side faces. Top surfaces only."
+  },
+  {
+    "name": "generator-set-cable-reel",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      1,
+      2
+    ],
+    "references": [
+      {
+        "image": "assets/phobos-vehicles/generated/generator-set-body-north/generator-set-body-north-3.png",
+        "role": "our approved generator set body, the owner's pick: match its outline weight, shading, palette and finish only; do not redraw it"
+      }
+    ],
+    "art_plan": {
+      "vehicle": "Phobos_GeneratorSet, footprint (2, 6), drawSize (3, 7); pilot pick attempt 3 (owner, 12 Nov 2026)",
+      "look": "CableReel node",
+      "this_request": "part drawn alone, fitted by script onto the picked body with export_vehicle.py overlay",
+      "shared_free_from_the_survey_truck": "outriggers, battery box, lamp bar (same maker)"
+    },
+    "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL game sprite part for the D'thorga generator set: a cable reel that bolts onto its rear deck. Image 1 is our approved generator set body: match its outline weight, shading, palette and finish only, and use it to see where this part sits. Do NOT redraw the generator set.\n\nDraw ONLY this part, alone on a plain pure white background: nothing else on the canvas. Seen straight down: a steel drum lying on its side with its axis running left to right, wound with neat turns of thick black cable, held between two pale steel side flanges on a low square frame with a small crank at the right end. It fills about two thirds of the canvas, centred.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo truck, cab, wheels, deck, cargo, people, animals, smoke, dust, mud, damage, text, letters, numbers, logos, symbols, dials or screens. No floor, ground, shadow outside the part, perspective, tilt or visible side faces. Top surfaces only."
+  },
+  {
+    "name": "generator-set-bigger-alternator",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      1,
+      2
+    ],
+    "references": [
+      {
+        "image": "assets/phobos-vehicles/generated/generator-set-body-north/generator-set-body-north-3.png",
+        "role": "our approved generator set body, the owner's pick: match its outline weight, shading, palette and finish only; do not redraw it"
+      }
+    ],
+    "art_plan": {
+      "vehicle": "Phobos_GeneratorSet, footprint (2, 6), drawSize (3, 7); pilot pick attempt 3 (owner, 12 Nov 2026)",
+      "look": "BiggerAlternator node",
+      "this_request": "part drawn alone, fitted by script onto the picked body with export_vehicle.py overlay",
+      "shared_free_from_the_survey_truck": "outriggers, battery box, lamp bar (same maker)"
+    },
+    "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL game sprite part for the D'thorga generator set: a bigger alternator housing that bolts on behind its generator housing. Image 1 is our approved generator set body: match its outline weight, shading, palette and finish only, and use it to see where this part sits. Do NOT redraw the generator set.\n\nDraw ONLY this part, alone on a plain pure white background: nothing else on the canvas. A squat rounded olive-drab steel housing, wider than it is deep, with a ring of short cooling fins around a round end cap at its centre, a dark terminal box at its right side and four bolted feet at its corners. It fills about two thirds of the canvas width, centred.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo truck, cab, wheels, deck, cargo, people, animals, smoke, dust, mud, damage, text, letters, numbers, logos, symbols, dials or screens. No floor, ground, shadow outside the part, perspective, tilt or visible side faces. Top surfaces only."
+  },
+  {
+    "name": "generator-set-heat-exchanger",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      1,
+      2
+    ],
+    "references": [
+      {
+        "image": "assets/phobos-vehicles/generated/generator-set-body-north/generator-set-body-north-3.png",
+        "role": "our approved generator set body, the owner's pick: match its outline weight, shading, palette and finish only; do not redraw it"
+      }
+    ],
+    "art_plan": {
+      "vehicle": "Phobos_GeneratorSet, footprint (2, 6), drawSize (3, 7); pilot pick attempt 3 (owner, 12 Nov 2026)",
+      "look": "heat exchanger node",
+      "this_request": "part drawn alone, fitted by script onto the picked body with export_vehicle.py overlay",
+      "shared_free_from_the_survey_truck": "outriggers, battery box, lamp bar (same maker)"
+    },
+    "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL game sprite part for the D'thorga generator set: an exhaust heat exchanger fitted over its exhaust stack. Image 1 is our approved generator set body: match its outline weight, shading, palette and finish only, and use it to see where this part sits. Do NOT redraw the generator set.\n\nDraw ONLY this part, alone on a plain pure white background: nothing else on the canvas. A compact rectangular steel box with rows of fine straight cooling fins across its lid, one round dark exhaust outlet at its top end and two short pipe stubs with flanges at its bottom end. Pale steel fins, a darker frame, one muted orange band on the frame. It fills about half the canvas, centred.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo truck, cab, wheels, deck, cargo, people, animals, smoke, dust, mud, damage, text, letters, numbers, logos, symbols, dials or screens. No floor, ground, shadow outside the part, perspective, tilt or visible side faces. Top surfaces only."
+  },
+  {
+    "name": "drill-rig-mast-folded",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 512,
+    "height": 1536,
+    "seeds": [
+      1,
+      2,
+      3
+    ],
+    "references": [
+      {
+        "image": "assets/phobos-vehicles/generated/drill-rig-body-north/drill-rig-body-north-2.png",
+        "role": "our approved drill rig body, the owner's pick: match its outline weight, shading, palette and finish only; do not redraw it"
+      }
+    ],
+    "art_plan": {
+      "vehicle": "Phobos_DrillRig, footprint (3, 10), drawSize (4, 11); pilot pick attempt 2 (owner, 12 Nov 2026)",
+      "look": "body look: the mast stowed in the deck cradle; later moved by code",
+      "this_request": "part drawn alone, fitted by script onto the picked body with export_vehicle.py overlay",
+      "shared_free_from_the_survey_truck": "outriggers, battery box, lamp bar (same maker)"
+    },
+    "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL game sprite part for the D'thorga drill rig: its drilling mast, folded flat along the deck for travel. Image 1 is our approved drill rig body: match its outline weight, shading, palette and finish only, and use it to see where this part sits. Do NOT redraw the drill rig.\n\nDraw ONLY this part, alone on a plain pure white background: nothing else on the canvas. Tall narrow canvas, the mast's long axis perfectly straight from top to bottom on the centre line, filling about 90 percent of the canvas height. A slim steel lattice mast: two parallel pale steel rails joined by evenly spaced zig-zag cross bracing, about eight times as long as it is wide; at its BOTTOM end a heavy round hinge eye; at its TOP end a small crown block with one sheave wheel; one muted orange band about a third of the way up.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo truck, cab, wheels, deck, cargo, people, animals, smoke, dust, mud, damage, text, letters, numbers, logos, symbols, dials or screens. No floor, ground, shadow outside the part, perspective, tilt or visible side faces. Top surfaces only."
+  },
+  {
+    "name": "drill-rig-rotary-head",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      1,
+      2
+    ],
+    "references": [
+      {
+        "image": "assets/phobos-vehicles/generated/drill-rig-body-north/drill-rig-body-north-2.png",
+        "role": "our approved drill rig body, the owner's pick: match its outline weight, shading, palette and finish only; do not redraw it"
+      }
+    ],
+    "art_plan": {
+      "vehicle": "Phobos_DrillRig, footprint (3, 10), drawSize (4, 11); pilot pick attempt 2 (owner, 12 Nov 2026)",
+      "look": "body look: the rotary head on the work platform; later spun by code",
+      "this_request": "part drawn alone, fitted by script onto the picked body with export_vehicle.py overlay",
+      "shared_free_from_the_survey_truck": "outriggers, battery box, lamp bar (same maker)"
+    },
+    "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL game sprite part for the D'thorga drill rig: the rotary drilling head that sits over the hole on its rear work platform. Image 1 is our approved drill rig body: match its outline weight, shading, palette and finish only, and use it to see where this part sits. Do NOT redraw the drill rig.\n\nDraw ONLY this part, alone on a plain pure white background: nothing else on the canvas. Seen straight down: a round heavy steel gearbox housing filling about half the canvas, centred, with a ring of bolts around its rim, a smaller dark round chuck at its centre, and two short hydraulic hose stubs leaving its right side.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo truck, cab, wheels, deck, cargo, people, animals, smoke, dust, mud, damage, text, letters, numbers, logos, symbols, dials or screens. No floor, ground, shadow outside the part, perspective, tilt or visible side faces. Top surfaces only."
+  },
+  {
+    "name": "drill-rig-power-pack",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      1,
+      2
+    ],
+    "references": [
+      {
+        "image": "assets/phobos-vehicles/generated/drill-rig-body-north/drill-rig-body-north-2.png",
+        "role": "our approved drill rig body, the owner's pick: match its outline weight, shading, palette and finish only; do not redraw it"
+      }
+    ],
+    "art_plan": {
+      "vehicle": "Phobos_DrillRig, footprint (3, 10), drawSize (4, 11); pilot pick attempt 2 (owner, 12 Nov 2026)",
+      "look": "ElectricPowerPack node",
+      "this_request": "part drawn alone, fitted by script onto the picked body with export_vehicle.py overlay",
+      "shared_free_from_the_survey_truck": "outriggers, battery box, lamp bar (same maker)"
+    },
+    "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL game sprite part for the D'thorga drill rig: an electric power pack: a cable reel and a switchbox that bolt onto its deck. Image 1 is our approved drill rig body: match its outline weight, shading, palette and finish only, and use it to see where this part sits. Do NOT redraw the drill rig.\n\nDraw ONLY this part, alone on a plain pure white background: nothing else on the canvas. Side by side: on the LEFT a steel cable drum with its axis running top to bottom, wound with thick black cable between two pale flanges; on the RIGHT a squat olive-drab switchbox with a hinged lid and two dark cable glands. Both on one low square steel skid that fills about two thirds of the canvas, centred.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo truck, cab, wheels, deck, cargo, people, animals, smoke, dust, mud, damage, text, letters, numbers, logos, symbols, dials or screens. No floor, ground, shadow outside the part, perspective, tilt or visible side faces. Top surfaces only."
+  },
+  {
+    "name": "drill-rig-casing-rack",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 768,
+    "height": 1536,
+    "seeds": [
+      1,
+      2
+    ],
+    "references": [
+      {
+        "image": "assets/phobos-vehicles/generated/drill-rig-body-north/drill-rig-body-north-2.png",
+        "role": "our approved drill rig body, the owner's pick: match its outline weight, shading, palette and finish only; do not redraw it"
+      }
+    ],
+    "art_plan": {
+      "vehicle": "Phobos_DrillRig, footprint (3, 10), drawSize (4, 11); pilot pick attempt 2 (owner, 12 Nov 2026)",
+      "look": "WellDrillingKit node",
+      "this_request": "part drawn alone, fitted by script onto the picked body with export_vehicle.py overlay",
+      "shared_free_from_the_survey_truck": "outriggers, battery box, lamp bar (same maker)"
+    },
+    "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL game sprite part for the D'thorga drill rig: a well casing rack that bolts onto its deck. Image 1 is our approved drill rig body: match its outline weight, shading, palette and finish only, and use it to see where this part sits. Do NOT redraw the drill rig.\n\nDraw ONLY this part, alone on a plain pure white background: nothing else on the canvas. Tall canvas. Five long straight pale grey steel casing pipes lying side by side, their long axes from top to bottom, each with a round open end showing as a dark circle at its top, held by two dark steel clamp straps across them; the bundle fills about 85 percent of the canvas height, centred.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo truck, cab, wheels, deck, cargo, people, animals, smoke, dust, mud, damage, text, letters, numbers, logos, symbols, dials or screens. No floor, ground, shadow outside the part, perspective, tilt or visible side faces. Top surfaces only."
+  },
+  {
+    "name": "drill-rig-deepchem-tank",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      1,
+      2
+    ],
+    "references": [
+      {
+        "image": "assets/phobos-vehicles/generated/drill-rig-body-north/drill-rig-body-north-2.png",
+        "role": "our approved drill rig body, the owner's pick: match its outline weight, shading, palette and finish only; do not redraw it"
+      }
+    ],
+    "art_plan": {
+      "vehicle": "Phobos_DrillRig, footprint (3, 10), drawSize (4, 11); pilot pick attempt 2 (owner, 12 Nov 2026)",
+      "look": "DeepchemHead node",
+      "this_request": "part drawn alone, fitted by script onto the picked body with export_vehicle.py overlay",
+      "shared_free_from_the_survey_truck": "outriggers, battery box, lamp bar (same maker)"
+    },
+    "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL game sprite part for the D'thorga drill rig: a small deepchem tank and coupling that bolt on behind its cab. Image 1 is our approved drill rig body: match its outline weight, shading, palette and finish only, and use it to see where this part sits. Do NOT redraw the drill rig.\n\nDraw ONLY this part, alone on a plain pure white background: nothing else on the canvas. A short squat steel tank lying with its axis left to right, rounded ends, dark green-grey shell with one muted orange band, and a flanged coupling with a lever valve at its right end. It fills about two thirds of the canvas width, centred.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo truck, cab, wheels, deck, cargo, people, animals, smoke, dust, mud, damage, text, letters, numbers, logos, symbols, dials or screens. No floor, ground, shadow outside the part, perspective, tilt or visible side faces. Top surfaces only."
+  },
+  {
+    "name": "drill-rig-diamond-bit",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      1,
+      2
+    ],
+    "references": [
+      {
+        "image": "assets/phobos-vehicles/generated/drill-rig-body-north/drill-rig-body-north-2.png",
+        "role": "our approved drill rig body, the owner's pick: match its outline weight, shading, palette and finish only; do not redraw it"
+      }
+    ],
+    "art_plan": {
+      "vehicle": "Phobos_DrillRig, footprint (3, 10), drawSize (4, 11); pilot pick attempt 2 (owner, 12 Nov 2026)",
+      "look": "DiamondBit node",
+      "this_request": "part drawn alone, fitted by script onto the picked body with export_vehicle.py overlay",
+      "shared_free_from_the_survey_truck": "outriggers, battery box, lamp bar (same maker)"
+    },
+    "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL game sprite part for the D'thorga drill rig: a diamond coring bit, seen end-on as it sits at the foot of the mast. Image 1 is our approved drill rig body: match its outline weight, shading, palette and finish only, and use it to see where this part sits. Do NOT redraw the drill rig.\n\nDraw ONLY this part, alone on a plain pure white background: nothing else on the canvas. Seen straight down onto its cutting face: a round thick-walled steel tube end, its open dark centre showing, with eight small pale diamond-set cutting teeth spaced around its rim. It fills about half the canvas, centred.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo truck, cab, wheels, deck, cargo, people, animals, smoke, dust, mud, damage, text, letters, numbers, logos, symbols, dials or screens. No floor, ground, shadow outside the part, perspective, tilt or visible side faces. Top surfaces only."
+  },
+  {
+    "name": "drill-rig-hammer",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      1,
+      2
+    ],
+    "references": [
+      {
+        "image": "assets/phobos-vehicles/generated/drill-rig-body-north/drill-rig-body-north-2.png",
+        "role": "our approved drill rig body, the owner's pick: match its outline weight, shading, palette and finish only; do not redraw it"
+      }
+    ],
+    "art_plan": {
+      "vehicle": "Phobos_DrillRig, footprint (3, 10), drawSize (4, 11); pilot pick attempt 2 (owner, 12 Nov 2026)",
+      "look": "RcHammer node",
+      "this_request": "part drawn alone, fitted by script onto the picked body with export_vehicle.py overlay",
+      "shared_free_from_the_survey_truck": "outriggers, battery box, lamp bar (same maker)"
+    },
+    "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL game sprite part for the D'thorga drill rig: a down-the-hole hammer bit, seen end-on as it sits at the foot of the mast. Image 1 is our approved drill rig body: match its outline weight, shading, palette and finish only, and use it to see where this part sits. Do NOT redraw the drill rig.\n\nDraw ONLY this part, alone on a plain pure white background: nothing else on the canvas. Seen straight down onto its face: a round heavy steel bit face covered in evenly spaced round dark carbide buttons, with two narrow flushing grooves across it and a pale steel rim. It fills about half the canvas, centred.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo truck, cab, wheels, deck, cargo, people, animals, smoke, dust, mud, damage, text, letters, numbers, logos, symbols, dials or screens. No floor, ground, shadow outside the part, perspective, tilt or visible side faces. Top surfaces only."
+  },
+  {
+    "name": "tipper-box",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 768,
+    "height": 1536,
+    "seeds": [
+      1,
+      2,
+      3
+    ],
+    "references": [
+      {
+        "image": "assets/phobos-vehicles/generated/tipper-body-north/tipper-body-north-3.png",
+        "role": "our approved tipper body, the owner's pick: match its outline weight, shading, palette and finish only; do not redraw it"
+      }
+    ],
+    "art_plan": {
+      "vehicle": "Phobos_Tipper, footprint (3, 8), drawSize (4, 9); pilot pick attempt 3 (owner, 12 Nov 2026)",
+      "look": "body look: the plain tipping body; later slid by code",
+      "this_request": "part drawn alone, fitted by script onto the picked body with export_vehicle.py overlay",
+      "shared_free_from_the_survey_truck": "outriggers, battery box, lamp bar (same maker)"
+    },
+    "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL game sprite part for the D'thorga tipper: its plain tipping body: the open steel box that holds the load, empty. Image 1 is our approved tipper body: match its outline weight, shading, palette and finish only, and use it to see where this part sits. Do NOT redraw the tipper.\n\nDraw ONLY this part, alone on a plain pure white background: nothing else on the canvas. Tall canvas. Seen straight down into the empty box: a long open rectangular steel tub, its long axis from top to bottom, about twice as long as it is wide, filling about 90 percent of the canvas height; a raised cab-protector lip across its TOP end; thick pale steel side rails with evenly spaced vertical stiffener ribs along both sides; a dark worn steel floor inside; a hinged tailgate across its BOTTOM end with two small latch pins. Sand-grey paint on the rails, one muted orange band across the cab-protector.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo truck, cab, wheels, deck, cargo, people, animals, smoke, dust, mud, damage, text, letters, numbers, logos, symbols, dials or screens. No floor, ground, shadow outside the part, perspective, tilt or visible side faces. Top surfaces only."
+  },
+  {
+    "name": "tipper-rock-body",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 768,
+    "height": 1536,
+    "seeds": [
+      1,
+      2
+    ],
+    "references": [
+      {
+        "image": "assets/phobos-vehicles/generated/tipper-body-north/tipper-body-north-3.png",
+        "role": "our approved tipper body, the owner's pick: match its outline weight, shading, palette and finish only; do not redraw it"
+      }
+    ],
+    "art_plan": {
+      "vehicle": "Phobos_Tipper, footprint (3, 8), drawSize (4, 9); pilot pick attempt 3 (owner, 12 Nov 2026)",
+      "look": "RockBody node",
+      "this_request": "part drawn alone, fitted by script onto the picked body with export_vehicle.py overlay",
+      "shared_free_from_the_survey_truck": "outriggers, battery box, lamp bar (same maker)"
+    },
+    "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL game sprite part for the D'thorga tipper: its heavy rock body: a thick-walled open steel tub for blasted rock, empty. Image 1 is our approved tipper body: match its outline weight, shading, palette and finish only, and use it to see where this part sits. Do NOT redraw the tipper.\n\nDraw ONLY this part, alone on a plain pure white background: nothing else on the canvas. Tall canvas. Seen straight down into the empty tub: a long open steel tub, about twice as long as it is wide, filling about 90 percent of the canvas height; its floor sloping up to an open spade-shaped rear end with no tailgate; very thick dark steel side walls with heavy horizontal wear strips; a long cab-protector lip at the TOP end. Darker weathered steel, one muted orange band across the cab-protector.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo truck, cab, wheels, deck, cargo, people, animals, smoke, dust, mud, damage, text, letters, numbers, logos, symbols, dials or screens. No floor, ground, shadow outside the part, perspective, tilt or visible side faces. Top surfaces only."
+  },
+  {
+    "name": "tipper-bulk-body",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 768,
+    "height": 1536,
+    "seeds": [
+      1,
+      2
+    ],
+    "references": [
+      {
+        "image": "assets/phobos-vehicles/generated/tipper-body-north/tipper-body-north-3.png",
+        "role": "our approved tipper body, the owner's pick: match its outline weight, shading, palette and finish only; do not redraw it"
+      }
+    ],
+    "art_plan": {
+      "vehicle": "Phobos_Tipper, footprint (3, 8), drawSize (4, 9); pilot pick attempt 3 (owner, 12 Nov 2026)",
+      "look": "BulkBody node",
+      "this_request": "part drawn alone, fitted by script onto the picked body with export_vehicle.py overlay",
+      "shared_free_from_the_survey_truck": "outriggers, battery box, lamp bar (same maker)"
+    },
+    "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL game sprite part for the D'thorga tipper: its high-volume bulk body for loose material, empty. Image 1 is our approved tipper body: match its outline weight, shading, palette and finish only, and use it to see where this part sits. Do NOT redraw the tipper.\n\nDraw ONLY this part, alone on a plain pure white background: nothing else on the canvas. Tall canvas. Seen straight down into the empty body: a long open rectangular box, about twice as long as it is wide, filling about 90 percent of the canvas height, with tall smooth pale side panels, a dark smooth floor, a top rail around the rim, a short cab-protector lip at the TOP end and a high hinged tailgate across the BOTTOM end. Sand-grey panels, one muted orange band across the cab-protector.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo truck, cab, wheels, deck, cargo, people, animals, smoke, dust, mud, damage, text, letters, numbers, logos, symbols, dials or screens. No floor, ground, shadow outside the part, perspective, tilt or visible side faces. Top surfaces only."
+  }
+]

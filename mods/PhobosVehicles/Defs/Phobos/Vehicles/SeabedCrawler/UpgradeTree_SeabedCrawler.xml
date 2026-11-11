@@ -32,6 +32,17 @@
         <ingredients>
           <PhobosVehicles_BottomingWheelSet>2</PhobosVehicles_BottomingWheelSet>
         </ingredients>
+        <graphicOverlays>
+          <li>
+            <graphicData>
+              <texPath>Phobos/Vehicles/SeabedCrawler/SeabedCrawler_BottomingWheels</texPath>
+              <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+              <drawSize>(5, 10)</drawSize>
+              <shaderType>Cutout</shaderType>
+              <layer>1</layer>
+            </graphicData>
+          </li>
+        </graphicOverlays>
       </li>
       <li>
         <key>Scrubber</key>
@@ -168,6 +179,17 @@
         <ingredients>
           <PhobosVehicles_HydrophoneArray>1</PhobosVehicles_HydrophoneArray>
         </ingredients>
+        <graphicOverlays>
+          <li>
+            <graphicData>
+              <texPath>Phobos/Vehicles/SeabedCrawler/SeabedCrawler_Hydrophones</texPath>
+              <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+              <drawSize>(5, 10)</drawSize>
+              <shaderType>Cutout</shaderType>
+              <layer>1</layer>
+            </graphicData>
+          </li>
+        </graphicOverlays>
       </li>
       <li>
         <!-- The sonar set, beside the listening array. Active: every ping finds and gives away (docs/development/vehicle-seabed-crawler.md, "The sonar set as built"). Range authored. -->
@@ -198,6 +220,17 @@
         <ingredients>
           <PhobosVehicles_SonarTransducer>1</PhobosVehicles_SonarTransducer>
         </ingredients>
+        <graphicOverlays>
+          <li>
+            <graphicData>
+              <texPath>Phobos/Vehicles/SeabedCrawler/SeabedCrawler_ActiveSonar</texPath>
+              <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+              <drawSize>(5, 10)</drawSize>
+              <shaderType>Cutout</shaderType>
+              <layer>1</layer>
+            </graphicData>
+          </li>
+        </graphicOverlays>
       </li>
       <li>
         <!-- Hull refits (owner, 11 Nov 2026: hulls 1, 3 and 4 of the pilot as variants on upgrade pathways). Vehicle Framework holds one body picture at a time, so the two refits exclude each other.

@@ -1,0 +1,146 @@
+[
+  {
+    "name": "survey-truck-probe",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      1,
+      2
+    ],
+    "references": [
+      {
+        "image": "assets/phobos-vehicles/generated/survey-truck-body-north/survey-truck-body-north-1.png",
+        "role": "our approved truck body, the owner's pick: match its outline weight, shading, palette and finish only; do not redraw the truck"
+      }
+    ],
+    "art_plan": {
+      "vehicle": "Phobos_SurveyTruck, footprint (3, 7), drawSize (4, 8); the part is fitted by script onto the body's 1024 x 2048 master (SurveyTruck.transform.json)",
+      "node": "RadiometricProbe",
+      "place": "the deck beside the boom channel",
+      "this_request": "RadiometricProbe overlay part, north, drawn alone and fitted by script"
+    },
+    "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL game sprite part for the D'thorga survey truck: a shielded radiometric probe housing that sits on the truck's deck. Image 1 is our approved truck: match its outline weight, shading, palette and finish only. Do NOT redraw the truck.\n\nDraw ONLY this part, alone on a plain pure white background: nothing else on the canvas. A squat lead-grey steel cylinder lying flat, its long axis from top to bottom, in a low steel cradle with two clamp straps; one plain yellow and black diagonal-striped hazard band around its middle; rounded end caps. About twice as long as it is wide, filling about two thirds of the canvas height, centred. No symbols.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo truck, hull, deck, cargo, people, animals, water, waves, dust, mud, damage, text, letters, numbers, logos, symbols, dials or screens. No floor, ground, shadow outside the part, perspective, tilt or visible side faces. Top surfaces only."
+  },
+  {
+    "name": "survey-truck-dish",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      1,
+      2
+    ],
+    "references": [
+      {
+        "image": "assets/phobos-vehicles/generated/survey-truck-body-north/survey-truck-body-north-1.png",
+        "role": "our approved truck body, the owner's pick: match its outline weight, shading, palette and finish only; do not redraw the truck"
+      }
+    ],
+    "art_plan": {
+      "vehicle": "Phobos_SurveyTruck, footprint (3, 7), drawSize (4, 8); the part is fitted by script onto the body's 1024 x 2048 master (SurveyTruck.transform.json)",
+      "node": "LongRangeArray",
+      "place": "on a mast over the recorder cabin",
+      "this_request": "LongRangeArray overlay part, north, drawn alone and fitted by script"
+    },
+    "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL game sprite part for the D'thorga survey truck: a long-range dish antenna that sits over the truck's recorder cabin. Image 1 is our approved truck: match its outline weight, shading, palette and finish only. Do NOT redraw the truck.\n\nDraw ONLY this part, alone on a plain pure white background: nothing else on the canvas. Seen straight down onto its face: a round pale grey dish with soft concentric shading towards its centre, a small dark feed horn at the centre held by three thin struts, and a short dark steel yoke bracket at the BOTTOM edge of the dish. The dish fills about two thirds of the canvas, centred.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo truck, hull, deck, cargo, people, animals, water, waves, dust, mud, damage, text, letters, numbers, logos, symbols, dials or screens. No floor, ground, shadow outside the part, perspective, tilt or visible side faces. Top surfaces only."
+  },
+  {
+    "name": "survey-truck-powered-array",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 768,
+    "height": 1536,
+    "seeds": [
+      1,
+      2
+    ],
+    "references": [
+      {
+        "image": "assets/phobos-vehicles/generated/survey-truck-body-north/survey-truck-body-north-1.png",
+        "role": "our approved truck body, the owner's pick: match its outline weight, shading, palette and finish only; do not redraw the truck"
+      }
+    ],
+    "art_plan": {
+      "vehicle": "Phobos_SurveyTruck, footprint (3, 7), drawSize (4, 8); the part is fitted by script onto the body's 1024 x 2048 master (SurveyTruck.transform.json)",
+      "node": "PoweredArray",
+      "place": "the deck beside the boom channel",
+      "this_request": "PoweredArray overlay part, north, drawn alone and fitted by script"
+    },
+    "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL game sprite part for the D'thorga survey truck: a powered transducer array and its cable tray, bolted to the truck's deck. Image 1 is our approved truck: match its outline weight, shading, palette and finish only. Do NOT redraw the truck.\n\nDraw ONLY this part, alone on a plain pure white background: nothing else on the canvas. Tall canvas. A flat rectangular steel-framed panel, its long axis from top to bottom, carrying a neat grid of small square dark transducer cells in two columns; along its right edge a narrow open cable tray with two dark cables. About three times as long as it is wide, filling about 80 percent of the canvas height, centred.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo truck, hull, deck, cargo, people, animals, water, waves, dust, mud, damage, text, letters, numbers, logos, symbols, dials or screens. No floor, ground, shadow outside the part, perspective, tilt or visible side faces. Top surfaces only."
+  },
+  {
+    "name": "survey-truck-battery-box",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      1,
+      2
+    ],
+    "references": [
+      {
+        "image": "assets/phobos-vehicles/generated/survey-truck-body-north/survey-truck-body-north-1.png",
+        "role": "our approved truck body, the owner's pick: match its outline weight, shading, palette and finish only; do not redraw the truck"
+      }
+    ],
+    "art_plan": {
+      "vehicle": "Phobos_SurveyTruck, footprint (3, 7), drawSize (4, 8); the part is fitted by script onto the body's 1024 x 2048 master (SurveyTruck.transform.json)",
+      "node": "SurveyBattery",
+      "place": "behind the cab",
+      "this_request": "SurveyBattery overlay part, north, drawn alone and fitted by script"
+    },
+    "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL game sprite part for the D'thorga survey truck: a heavy battery box that sits behind the truck's cab. Image 1 is our approved truck: match its outline weight, shading, palette and finish only. Do NOT redraw the truck.\n\nDraw ONLY this part, alone on a plain pure white background: nothing else on the canvas. A squat rectangular olive-drab steel box, wider than it is deep, with a louvred vent panel across its lid, two heavy round terminal caps (one dark red, one black) at its top edge, and rounded corners. It fills about two thirds of the canvas width, centred.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo truck, hull, deck, cargo, people, animals, water, waves, dust, mud, damage, text, letters, numbers, logos, symbols, dials or screens. No floor, ground, shadow outside the part, perspective, tilt or visible side faces. Top surfaces only."
+  },
+  {
+    "name": "survey-truck-work-lamps",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1536,
+    "height": 512,
+    "seeds": [
+      1,
+      2
+    ],
+    "references": [
+      {
+        "image": "assets/phobos-vehicles/generated/survey-truck-body-north/survey-truck-body-north-1.png",
+        "role": "our approved truck body, the owner's pick: match its outline weight, shading, palette and finish only; do not redraw the truck"
+      }
+    ],
+    "art_plan": {
+      "vehicle": "Phobos_SurveyTruck, footprint (3, 7), drawSize (4, 8); the part is fitted by script onto the body's 1024 x 2048 master (SurveyTruck.transform.json)",
+      "node": "WorkLights",
+      "place": "across the recorder cabin's roof; the lit version is derived by script",
+      "this_request": "WorkLights overlay part, north, drawn alone and fitted by script"
+    },
+    "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL game sprite part for the D'thorga survey truck: a roof bar of work lamps, switched off. Image 1 is our approved truck: match its outline weight, shading, palette and finish only. Do NOT redraw the truck.\n\nDraw ONLY this part, alone on a plain pure white background: nothing else on the canvas. Wide canvas. A slim dark steel bar running straight across the canvas from left to right, about 85 percent of its width, with four square lamp heads evenly spaced along it, each with a pale grey unlit lens and a dark rim. No light, no glow, no beams.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo truck, hull, deck, cargo, people, animals, water, waves, dust, mud, damage, text, letters, numbers, logos, symbols, dials or screens. No floor, ground, shadow outside the part, perspective, tilt or visible side faces. Top surfaces only."
+  },
+  {
+    "name": "survey-truck-outrigger",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      1,
+      2
+    ],
+    "references": [
+      {
+        "image": "assets/phobos-vehicles/generated/survey-truck-body-north/survey-truck-body-north-1.png",
+        "role": "our approved truck body, the owner's pick: match its outline weight, shading, palette and finish only; do not redraw the truck"
+      }
+    ],
+    "art_plan": {
+      "vehicle": "Phobos_SurveyTruck, footprint (3, 7), drawSize (4, 8); the part is fitted by script onto the body's 1024 x 2048 master (SurveyTruck.transform.json)",
+      "node": "set-up look: outriggers down",
+      "place": "the four deck corners; one picture, mirrored and placed four times by script",
+      "this_request": "set-up look: outriggers down overlay part, north, drawn alone and fitted by script"
+    },
+    "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL game sprite part for the D'thorga survey truck: one hydraulic outrigger, extended, as it stands when the truck is set up. Image 1 is our approved truck: match its outline weight, shading, palette and finish only. Do NOT redraw the truck.\n\nDraw ONLY this part, alone on a plain pure white background: nothing else on the canvas. Drawn pointing to the RIGHT: at the LEFT edge a short square steel mounting sleeve; from it a square steel beam runs to the right, ending in a round flat foot pad of dark steel, wider than the beam. Pale steel beam, dark pad, one muted orange band on the sleeve. The part spans about 80 percent of the canvas width, centred.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo truck, hull, deck, cargo, people, animals, water, waves, dust, mud, damage, text, letters, numbers, logos, symbols, dials or screens. No floor, ground, shadow outside the part, perspective, tilt or visible side faces. Top surfaces only."
+  }
+]

@@ -36,6 +36,17 @@
         <Plasteel>30</Plasteel>
         <ComponentIndustrial>2</ComponentIndustrial>
       </ingredients>
+      <graphicOverlays>
+        <li>
+          <graphicData>
+            <texPath>Phobos/Vehicles/DrillRig/DrillRig_DiamondBit</texPath>
+            <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+            <drawSize>(4, 11)</drawSize>
+            <shaderType>Cutout</shaderType>
+            <layer>1</layer>
+          </graphicData>
+        </li>
+      </graphicOverlays>
     </li>
     <li>
       <key>RcHammer</key>
@@ -70,6 +81,17 @@
         <Steel>60</Steel>
         <ComponentIndustrial>2</ComponentIndustrial>
       </ingredients>
+      <graphicOverlays>
+        <li>
+          <graphicData>
+            <texPath>Phobos/Vehicles/DrillRig/DrillRig_Hammer</texPath>
+            <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+            <drawSize>(4, 11)</drawSize>
+            <shaderType>Cutout</shaderType>
+            <layer>1</layer>
+          </graphicData>
+        </li>
+      </graphicOverlays>
     </li>
     <li>
       <key>TallMast</key>
@@ -128,6 +150,17 @@
         <Steel>80</Steel>
         <ComponentIndustrial>6</ComponentIndustrial>
       </ingredients>
+      <graphicOverlays>
+        <li>
+          <graphicData>
+            <texPath>Phobos/Vehicles/DrillRig/DrillRig_PowerPack</texPath>
+            <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+            <drawSize>(4, 11)</drawSize>
+            <shaderType>Cutout</shaderType>
+            <layer>1</layer>
+          </graphicData>
+        </li>
+      </graphicOverlays>
     </li>
     <li>
       <key>WorkLights</key>
@@ -155,6 +188,17 @@
         <Steel>40</Steel>
         <ComponentIndustrial>1</ComponentIndustrial>
       </ingredients>
+      <graphicOverlays>
+        <li>
+          <graphicData>
+            <texPath>Phobos/Vehicles/DrillRig/DrillRig_WorkLights</texPath>
+            <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+            <drawSize>(4, 11)</drawSize>
+            <shaderType>Cutout</shaderType>
+            <layer>1</layer>
+          </graphicData>
+        </li>
+      </graphicOverlays>
     </li>
     </nodes>
   </Vehicles.UpgradeTreeDef>

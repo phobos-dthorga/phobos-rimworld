@@ -1,5 +1,6 @@
 # BottomingWheels
 
-**Drawn in code** by `assets/phobos-vehicles/draw_dive_icons.py` (Pillow): two rubber-tyred wheels on struts from a bar. No image generator, no reference images and no game or other author's art.
+An upgrade icon cut by `scripts/art/export_sprite.py` (white to transparency, 128 x 128 px) from the owner's pick `seabed-crawler-wheel-housing-3.png`, made on 12 Nov 2026 with OpenAI gpt-image-2 (medium): **AI-generated, picked by the owner on 12 November 2026**, as the bulk tanker's icons were cut from its overlays. It replaces a drawing made in code. No game or other author's art was uploaded or used. Record of the night: `assets/phobos-vehicles/requests/night-2026-11-12-record.md`.
 
-- `BottomingWheels.png`: SHA-256 `40c7cf1b08d35b3bb3da128065b5246e15cae1c3453c258baaed01527c4f7808`
+- Master SHA-256: `f0c5c6f1da792e479cde296fbb7999f750f293629a1ddd51b6a202da1add4c3e`
+- `BottomingWheels.png` SHA-256: `bae4ba39cba0b2c1bd5f11a5cad582198ee9095f84cee1104dd150b4bc10b817`

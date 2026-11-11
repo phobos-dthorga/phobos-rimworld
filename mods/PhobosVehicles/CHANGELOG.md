@@ -5,6 +5,36 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.43.0] - 2026-11-12 - Draft
+
+Every vehicle has its own pictures now, chosen by the owner on 12 November 2026, and the generator set gains a heavy-duty fan. **Not yet tested in game.**
+
+### Added
+
+- **Heavy-duty fan** for the generator set: a bigger cooling fan, shown in place of the stock one. A parked engine's radiator gets no air from driving; with this fan it cools as well as on the road, so a set left working hard in hot weather stays cool. 30 steel and 1 component, after Electricity. The figure is authored.
+
+### Changed
+
+- **The drill rig and the tipper have their own pictures**, where both wore the bulk tanker's. The drill rig shows its mast folded in its cradle (a longer one with the tall mast), the rotary head over the hole, outriggers down while set up, and its power pack, deepchem tank, bits and work lights as they are fitted. The tipper shows its plain body, or its rock or bulk body in place of it.
+- **The generator set's pictures replace the drawings made in code**: the truck, its outriggers and cable while set up, the cooling fan, the battery, the reel, the uprated alternator, and now the exhaust heat exchanger, which has its own icon in place of the game's heater.
+- **The survey truck** shows its outriggers while set up, and its probe, dish, powered array, battery and work lights as they are fitted.
+- **The Seabed Crawler** shows its bottoming wheels, listening array and sonar dome as they are fitted, and their icons are new pictures. Pictures for the arm, the radar mast and the seabed drill are ready for when those upgrades are built.
+- The generator set can be repainted, as the other trucks can.
+
+### Compatibility and limits
+
+- Made with generative AI (OpenAI's image model), picked by the owner, each passing the check against copying the game's art; the record beside each vehicle's pictures says how. Where each part sits on its vehicle is the agent's placement, to be adjusted once seen in game.
+- Still to come: the drill rig's well kit (its picture was refused twice by the image service, so it waits for the owner's own machine), the geophone spikes and resistivity reel, which ride on the survey truck's moving boom, and the damage pictures of the new vehicles.
+- The mast, the rotary head, the fan and the tipping body are pictures of their own so they can move later; for now they stand still.
+
+### Save compatibility
+
+- Safe to update mid-game. The new upgrade is a new node; existing vehicles keep their upgrades, and their pictures follow them.
+
+### Dependencies
+
+- Needs D'thorga Framework 0.98.0 or later.
+
 ## [0.42.0] - 2026-11-11 - Draft
 
 The generator set's own upgrade, from the owner's decisions of 11 November 2026. **Not yet tested in game.**

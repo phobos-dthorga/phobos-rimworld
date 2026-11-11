@@ -2,7 +2,7 @@
 <Defs>
   <!--
     The generator set: a light self-propelled diesel-electric truck that parks, runs out a cable and feeds the grid (docs/development/vehicle-generator-set.md). Every figure is
-    authored and untuned. Part keys are saved by position: append only, never reorder. Cells run x from 0 to 1 and z from -2 to 3. The pictures are stand-ins. Not yet tested in game.
+    authored and untuned. Part keys are saved by position: append only, never reorder. Cells run x from 0 to 1 and z from -2 to 3. Its pictures were generated for it on 12 Nov 2026 (assets/phobos-vehicles/requests/night-2026-11-12-record.md). Not yet tested in game.
   -->
   <Vehicles.VehicleDef ParentName="BaseVehiclePawn">
     <defName>Phobos_GeneratorSet</defName>
@@ -11,8 +11,10 @@
     <graphicData>
       <texPath>Phobos/Vehicles/GeneratorSet/GeneratorSet</texPath>
       <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
-      <shaderType>Cutout</shaderType>
+      <shaderType>CutoutComplexPattern</shaderType>
       <drawSize>(3, 7)</drawSize>
+      <color>(162, 156, 123)</color>
+      <colorTwo>(195, 110, 36)</colorTwo>
     </graphicData>
     <fillPercent>1</fillPercent>
     <buildDef>Phobos_GeneratorSet_Blueprint</buildDef>
@@ -338,6 +340,40 @@
             <layer>1</layer>
           </graphicData>
         </setUpOverlay>
+      </li>
+      <!-- The cooling fan in the housing's fan well: the stock fan, or the heavy-duty one once that upgrade is fitted (owner, 12 Nov
+           2026: "#1 is the default, #2 is the upgrade"). Its own picture, so it can spin later. -->
+      <li Class="Phobos.VehicleSystems.CompProperties_PhobosNodeLooks">
+        <slots>
+          <li>
+            <key>fan</key>
+            <looks>
+              <li>
+                <node>HeavyFan</node>
+                <look>
+                  <graphicData>
+                    <texPath>Phobos/Vehicles/GeneratorSet/GeneratorSet_FanHeavy</texPath>
+                    <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+                    <drawSize>(3, 7)</drawSize>
+                    <shaderType>Cutout</shaderType>
+                    <layer>1</layer>
+                  </graphicData>
+                </look>
+              </li>
+              <li>
+                <look>
+                  <graphicData>
+                    <texPath>Phobos/Vehicles/GeneratorSet/GeneratorSet_Fan</texPath>
+                    <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+                    <drawSize>(3, 7)</drawSize>
+                    <shaderType>Cutout</shaderType>
+                    <layer>1</layer>
+                  </graphicData>
+                </look>
+              </li>
+            </looks>
+          </li>
+        </slots>
       </li>
     </comps>
     <!-- Its own voice in place of the inherited draft blips; the engine loops are played by D'thorga Framework from the

@@ -1,5 +1,15 @@
 # Art backlog: what to make with the local image model (6 Nov 2026, updated 7 Nov 2026)
 
+**Update, 12 Nov 2026: most of this list is done.** The owner judged night 3's candidates and picked the medical second set, the
+electrolyser, the chamber's top-down redraw, both bomb cases and the radio base station (Medical 0.14.1, Patches 0.16.9, Radio 0.1.7); the
+paid image API drew the tipper, drill rig and generator set and their parts, and the Crawler's and survey truck's overlays (Vehicles
+0.43.0). The store's frost is a shader, not a picture (owner). **Still outstanding:** the drill rig's well-pipe rack (refused twice by the
+API, so it waits for the owner's GPU), the radio whip (held until the radio resumes), the Crawler's laboratory, scrubber and refit icons,
+the survey truck's geophone spikes and resistivity reel (they ride on the moving boom), the new vehicles' damage pictures, the sonar ping
+and triage tag icons, and the optional Factory Additions buildings. Every pick, flag and cost is in
+[the night's record](../../assets/phobos-vehicles/requests/night-2026-11-12-record.md). The tables below are the record as last written on
+7 Nov 2026.
+
 Every texture and preview the Phobos RimWorld mods ship or still need, which of them suit the local image model, and what has to
 happen before a run. A record only: nothing here has been generated for it. How the pipeline works is in the
 [art automation design](art-automation-and-medical-equipment.md); the picks so far are in [its list of picks](art-automation-and-medical-equipment.md#the-owners-picks).

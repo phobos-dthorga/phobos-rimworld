@@ -1,9 +1,9 @@
 # The mobile generator set: design (9 Nov 2026)
 
-**Built in D'thorga Framework 0.44.0 and D'thorga Vehicles 0.17.0, with stand-in pictures. Not yet tested in game. Agent-authored for the owner to confirm.**
+**Built in D'thorga Framework 0.44.0 and D'thorga Vehicles 0.17.0; its own pictures and the heavy-duty fan in Framework 0.98.0 and Vehicles 0.43.0 (12 Nov 2026, the owner's picks). Not yet tested in game. Agent-authored for the owner to confirm.**
 **What was built differs from what follows in three places:** the battery buffer holds the grid up when the engine cannot, but the "creep with the engine off" is not built; the
-`WorkLights` node is not built, because no moving vehicle light exists to reuse and a light at the cable end would be in the wrong place; and the pictures are stand-ins drawn in
-code, so no paid image has been generated. With the owner away from the question, the agent took its own lean on the open questions below: the cable end transmits and takes
+`WorkLights` node is not built, because no moving vehicle light exists to reuse and a light at the cable end would be in the wrong place; and the pictures were stand-ins drawn in
+code until 12 Nov 2026, when the owner's picks replaced them. With the owner away from the question, the agent took its own lean on the open questions below: the cable end transmits and takes
 wires, fuel follows the grid's draw, no VOE tie-in, and the buffer is in the first tree. It replaces the
 generator-set sketch in [utility vehicles](utility-vehicles-design.md) and follows the shape of that record's bulk tanker. Facts marked
 "from the code" were read on 9 Nov 2026 from our decompiles (`all.cs` is the game's, `VF.cs` is Vehicle Framework 1.6's, the build the
@@ -198,7 +198,21 @@ heat exchanger.
 | How it changes how they play | Where the cable end goes now matters: inside the bunkhouse, not on the grass |
 | Figures | 60% of the electricity being made comes back as heat (authored); converted at the game's heater's rate, 21 heat a second for 175 W; stops at the heater's 21 C target (from the game's Defs and code); 40 steel, 2 components, Electricity |
 | Other factions' vehicles | Only the player's sets deploy, so a raider's or a base's set does nothing; a captured set works at once |
-| Not done | Its own icon and overlay: the icon borrows the game's heater until the next icon batch |
+| Pictures | Its own icon and overlay since Vehicles 0.43.0 (owner's pick, 12 Nov 2026): a finned box over the exhaust stack |
+
+`HeavyFan` (built in Vehicles 0.43.0 with Framework 0.98.0; owner, 12 Nov 2026: "#1 is the default, #2 is the upgrade", and "its own
+upgrade node"): a heavier cooling fan, shown in place of the stock fan by D'thorga Framework's node looks. **What it does is the agent's
+proposal, for the owner to revise.**
+
+| Question | Answer |
+| --- | --- |
+| What it lets the player do | Run the set parked at full load in hot weather without the coolant creeping up |
+| What it stops them doing | Nothing new |
+| How it changes how they play | With the stock fan, a hard-working set in summer heat wants watching or less load; with the heavy-duty fan it can be left alone |
+| How it works | The cooling system's radiator runs at 0.7 of its moving rate while a vehicle stands still (`Systems_Cooling.xml`); the new stat `Phobos_StoppedAirflow` adds to that, never past the moving rate, and the fan gives 0.3, so a parked set cools as if driving. Every other vehicle has 0 and is unchanged |
+| Figures | 0.3 airflow (authored, chosen to reach the moving rate exactly); 30 steel, 1 component, 1,200 work, Electricity (authored) |
+| Other factions' vehicles | Works on any faction's set with the node; a captured one keeps it. It costs nothing more per tick: the radiator already reads its inputs |
+| Not tested | Whether the difference shows in play depends on how hot a parked set runs at full load; the owner's first hot-weather camp will tell |
 
 `StatUpgrade` sets a stat's base, offset or factor (`VF.cs:33992-34218`); a node carries ingredients, research, prerequisites and overlays
 (`UpgradeNode`, `VF.cs:34815-34866`). The owner's rule of play for the Harrier applies: no node without a figure the player can feel.

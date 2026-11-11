@@ -198,3 +198,19 @@ Not yet tested in game. In particular unproven: that spawning hidden pipes under
 ## Parts bills (11 Nov 2026, Framework 0.95.0)
 
 The owner asked for every vehicle's build cost to draw on other mods' parts as the tanker's did, and then whether the mechanism could be generic for a later chemical industry mod's placed buildings. It is a core service: `Phobos.Framework.Bills` (`PhobosRoleSupplyDef`, `PhobosBillDef`, `PartsBills`) over the game-free `BuildBillRule`. The whole design, an example for a building and the limits are in [parts bills](parts-bills.md). Not yet tested in game.
+
+## Node looks (12 Nov 2026, Framework 0.98.0)
+
+**A vehicle's picture can change with its upgrades** (`CompProperties_PhobosNodeLooks`, `CompPhobosNodeLooks`, the rule `NodeLookRule` with
+tests). Vehicle Framework's own node overlays can only add a picture on top; they cannot take a stock picture away, so a stock fan would
+show under a heavy-duty one. A slot lists pictures in order: the first whose node is fitted shows, else the one with no node (the stock
+look), else nothing. The comp changes the picture on Vehicle Framework's upgrade-completed and refund-completed events and at every spawn;
+nothing is saved. First consumers: the generator set's fan (owner, 12 Nov 2026: "#1 is the default, #2 is the upgrade"), the tipper's plain,
+rock and bulk bodies, and the drill rig's folded and tall masts. Pictures that move later (the mast swinging, the body sliding, the fan
+spinning) are slots so a comp can move them. Not yet tested in game.
+
+**A parked engine can be given a fan** (the same release): `Input_Moving` takes an optional `stoppedBonusStat`, added to its stopped
+value and never past its moving value, and the cooling system's radiator names the new stat `Phobos_StoppedAirflow` (default 0, so every
+vehicle cools as before). The generator set's heavy-duty fan gives 0.3, taking a parked radiator from 0.7 of its moving rate to the full
+rate ([its record](vehicle-generator-set.md)).
+

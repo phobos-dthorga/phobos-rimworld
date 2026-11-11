@@ -2,14 +2,14 @@
 <Defs>
   <!--
     The tipper hauler: a heavy truck that carries a yard's worth and puts it all down in one go (docs/development/vehicle-tipper-hauler.md). The 2,400 kg is the owner's; every other figure is authored and untuned. Part keys are saved by position: append only,
-    never reorder. Cells run x -1 to 1, z -3 to 4. It borrows the bulk tanker's picture until it has its own (owner, 9 Nov 2026). Not yet tested in game.
+    never reorder. Cells run x -1 to 1, z -3 to 4. Its pictures were generated for it on 12 Nov 2026 (assets/phobos-vehicles/requests/night-2026-11-12-record.md). Not yet tested in game.
   -->
   <Vehicles.VehicleDef ParentName="BaseVehiclePawn">
     <defName>Phobos_Tipper</defName>
     <label>Talus tipper truck</label>
     <description>Talus T1: a heavy truck with a steel body that lifts to tip its whole load onto the ground behind it. Load it at the quarry or the drill, drive home, back it up to the yard, and tip: one drive instead of a hundred carries. It looks after nothing but the load: what lands is hauled away as from any pile.</description>
     <graphicData>
-      <texPath>Phobos/Vehicles/BulkTanker/BulkTanker</texPath>
+      <texPath>Phobos/Vehicles/Tipper/Tipper</texPath>
       <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
       <shaderType>CutoutComplexPattern</shaderType>
       <drawSize>(4, 9)</drawSize>
@@ -330,6 +330,52 @@
         <def>Phobos_Tipper_UpgradeTree</def>
       </li>
       <li Class="Phobos.VehicleSystems.CompProperties_PhobosTipper" />
+      <!-- The tipping body is a picture of its own over the chassis, so it can slide when it tips; the rock and bulk bodies replace the
+           plain one when fitted (D'thorga Framework's node looks, 12 Nov 2026). -->
+      <li Class="Phobos.VehicleSystems.CompProperties_PhobosNodeLooks">
+        <slots>
+          <li>
+            <key>body</key>
+            <looks>
+              <li>
+                <node>RockBody</node>
+                <look>
+                  <graphicData>
+                    <texPath>Phobos/Vehicles/Tipper/Tipper_RockBody</texPath>
+                    <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+                    <drawSize>(4, 9)</drawSize>
+                    <shaderType>Cutout</shaderType>
+                    <layer>1</layer>
+                  </graphicData>
+                </look>
+              </li>
+              <li>
+                <node>BulkBody</node>
+                <look>
+                  <graphicData>
+                    <texPath>Phobos/Vehicles/Tipper/Tipper_BulkBody</texPath>
+                    <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+                    <drawSize>(4, 9)</drawSize>
+                    <shaderType>Cutout</shaderType>
+                    <layer>1</layer>
+                  </graphicData>
+                </look>
+              </li>
+              <li>
+                <look>
+                  <graphicData>
+                    <texPath>Phobos/Vehicles/Tipper/Tipper_Body</texPath>
+                    <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+                    <drawSize>(4, 9)</drawSize>
+                    <shaderType>Cutout</shaderType>
+                    <layer>1</layer>
+                  </graphicData>
+                </look>
+              </li>
+            </looks>
+          </li>
+        </slots>
+      </li>
     </comps>
     <!-- Its own voice in place of the inherited draft blips; the engine loops are played by D'thorga Framework from the
          extension below, so they follow rpm and load (docs/development/sound-catalogue.md). -->
@@ -366,7 +412,7 @@
     <label>Talus tipper truck</label>
     <description>Talus T1: a heavy truck that tips its whole load onto the ground behind it.</description>
     <graphicData>
-      <texPath>Phobos/Vehicles/BulkTanker/BulkTanker</texPath>
+      <texPath>Phobos/Vehicles/Tipper/Tipper</texPath>
       <graphicClass>Graphic_Multi</graphicClass>
       <drawSize>(4, 9)</drawSize>
     </graphicData>

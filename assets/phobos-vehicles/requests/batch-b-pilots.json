@@ -1,0 +1,71 @@
+[
+  {
+    "name": "generator-set-body-north",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 768,
+    "height": 1536,
+    "seeds": [1, 2, 3, 4],
+    "references": [
+      {
+        "image": "assets/phobos-vehicles/generated/bulk-tanker-body-north/bulk-tanker-body-north-2.png",
+        "role": "approved truck of the same family: match its outline weight, shading, palette and finish only; do not copy its shape or layout"
+      }
+    ],
+    "art_plan": {
+      "vehicle": "Phobos_GeneratorSet, footprint (2, 6), drawSize (3, 7), 128 px per unit, so 384 x 896 in game; requested at 768 x 1536, 1.7 times the drawn length, above the owner's 1.5 times minimum",
+      "measured_against": "owner's list, patched Defs, measured 9 Nov 2026 for the survey truck: Mule and L-ATV 2 x 4, MaxxPro 2 x 6, Humvee and Big Rig 3 x 6, tipper 3 x 8, tanker and HEMTT 3 x 10. The set is the MaxxPro's footprint, the biggest 2-wide truck on the list",
+      "this_request": "north base body only, the bare platform (batch B of docs/development/vehicle-presentation-design.md); replaces the code-drawn stand-in",
+      "moving_parts_planned_as_their_own_pictures": ["cooling fan in the housing's fan well, spun by code"],
+      "overlays_planned_on_this_canvas": ["outriggers down", "cable out at the rear left corner", "cable reel drum (CableReel node)", "light mast, unlit and lit", "battery box (BatteryBuffer node)", "bigger alternator (BiggerAlternator node)", "exhaust heat exchanger (heat exchanger node)", "damage: engine, generator housing"],
+      "design": "docs/development/vehicle-generator-set.md, docs/development/vehicle-animation-research.md"
+    },
+    "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL game vehicle sprite for the D'thorga generator set: a light two-axle truck that carries a diesel generator to power a remote camp for a hard-scrabble frontier colony. Image 1 is our approved truck from the same family: match its outline weight, shading, palette and finish only. Do NOT copy its shape or layout.\n\nDraw the BARE TRUCK only. The cable, cable reel, light mast, battery box, outriggers and cooling fan are drawn separately as overlays.\n\nTall canvas, twice as tall as wide. The truck is LONG AND NARROW: its width is about one third of its length, including the wheels. It fills seven eighths of the canvas height, centred, on a plain pure white background. North facing: the bonnet and cab at the TOP edge, the deck at the BOTTOM edge. Pale sand-grey cab and panels, dark rubber tyres, a pale grey cab roof, dark weathered steel deck, an olive-drab generator housing, one muted orange accent stripe across the cab.\n\nIts roof plan, from top to bottom: a short bonnet and a compact cab roof with a windscreen strip at its top edge; behind the cab a short strip of bare steel deck; then a long low boxy generator housing filling the middle of the deck, with louvred panels along both sides, one round EMPTY dark fan well in its roof, and one small round exhaust stack cap at its front right corner; behind the housing a small upright switchboard cabinet across the deck; then a short strip of bare steel deck to the rear edge. The tops of one pair of wheels beside the front of the truck and one pair beside the rear of the housing, two axles only.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo fan blades, cable, reel, drum, light mast, lamps, battery box, outriggers, cargo, people, animals, turrets, hoses, smoke, dust, mud, damage, text, letters, numbers, logos, dials, screens or lamps. No floor, ground, road, shadow outside the vehicle, perspective, tilt or visible side faces. Top surfaces only."
+  },
+  {
+    "name": "drill-rig-body-north",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 2304,
+    "seeds": [1, 2, 3, 4],
+    "references": [
+      {
+        "image": "assets/phobos-vehicles/generated/bulk-tanker-body-north/bulk-tanker-body-north-2.png",
+        "role": "approved truck of the same family: match its outline weight, shading, palette and finish only; do not copy its shape or layout"
+      }
+    ],
+    "art_plan": {
+      "vehicle": "Phobos_DrillRig, footprint (3, 10), drawSize (4, 11), 128 px per unit, so 512 x 1408 in game; requested at 1024 x 2304, 1.64 times the drawn length, above the owner's 1.5 times minimum (1024 x 2048 would have given 1.45)",
+      "measured_against": "owner's list, patched Defs, measured 9 Nov 2026 for the survey truck: tanker and HEMTT 3 x 10 are the biggest trucks; the rig matches them",
+      "this_request": "north base body only, the bare platform (batch B of docs/development/vehicle-presentation-design.md); replaces the borrowed tanker body",
+      "moving_parts_planned_as_their_own_pictures": ["mast, folded along the deck's cradle, hinged at the rear (the cell over the hole); how it moves is still the owner's open question", "rotary head, spun by code while drilling"],
+      "overlays_planned_on_this_canvas": ["outriggers down", "tall mast variant (TallMast node)", "coring bit and hammer bit at the mast foot (DiamondBit, RcHammer nodes)", "power pack: cable reel and switchbox (ElectricPowerPack node)", "well kit: casing rack and cellar frame (WellDrillingKit node)", "deepchem head: small tank and coupling behind the cab (DeepchemHead node)", "lamp masts, lit (WorkLights node)", "damage: bent mast, missing outrigger"],
+      "design": "docs/development/vehicle-drill-rig.md, docs/development/vehicle-animation-research.md"
+    },
+    "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL game vehicle sprite for the D'thorga drill rig: a heavy three-axle truck that carries a folding drilling mast for boring wells and deep holes, for a hard-scrabble frontier colony. Image 1 is our approved truck from the same family: match its outline weight, shading, palette and finish only. Do NOT copy its shape or layout.\n\nDraw the BARE TRUCK only. The mast, rotary head, drill bits, outriggers, lamps, power pack, casing rack and all other equipment are drawn separately as overlays.\n\nVery tall canvas. The truck is LONG AND NARROW: its width is about 30 percent of its length, including the wheels. It fills seven eighths of the canvas height, centred, on a plain pure white background. North facing: the bonnet and cab at the TOP edge, the rear work platform at the BOTTOM edge. Pale sand-grey cab and panels, dark rubber tyres, a pale grey cab roof, dark weathered steel deck, one muted orange accent stripe across the cab.\n\nIts roof plan, from top to bottom: a short bonnet and a cab roof with a windscreen strip at its top edge; directly behind the cab a squat power unit housing, as wide as the cab, with a louvred grille on its roof; behind that a long flat steel deck with one straight, empty, shallow cradle channel running down its centre line from the power unit to the rear; a low rack of long parallel steel rods lying along the left edge of the deck; four small square outrigger boxes stowed flush at the corners of the deck; at the very rear a small square steel work platform with one round empty hole in its middle, and one sturdy hinge bracket at the head of the platform where the channel ends. The tops of one pair of wheels beside the front of the truck and two pairs close together beside the rear of the deck, three axles.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo mast, derrick, tower, drill, bit, rotary head, outriggers extended, lamps, cables, hoses, cargo, people, animals, turrets, dust, mud, damage, text, letters, numbers, logos, dials or screens. No floor, ground, road, shadow outside the vehicle, perspective, tilt or visible side faces. Top surfaces only."
+  },
+  {
+    "name": "tipper-body-north",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 2048,
+    "seeds": [1, 2, 3, 4],
+    "references": [
+      {
+        "image": "assets/phobos-vehicles/generated/bulk-tanker-body-north/bulk-tanker-body-north-2.png",
+        "role": "approved truck of the same family: match its outline weight, shading, palette and finish only; do not copy its shape or layout"
+      }
+    ],
+    "art_plan": {
+      "vehicle": "Phobos_Tipper, footprint (3, 8), drawSize (4, 9), 128 px per unit, so 512 x 1152 in game; requested at 1024 x 2048, 1.78 times the drawn length, above the owner's 1.5 times minimum",
+      "measured_against": "owner's list, patched Defs, measured 9 Nov 2026 for the survey truck: tanker and HEMTT 3 x 10, Humvee and Big Rig 3 x 6; the tipper sits between them",
+      "this_request": "north chassis-cab only (batch B of docs/development/vehicle-presentation-design.md); replaces the borrowed tanker body. The tipping box is its own picture (the record's motion section, 9 Nov 2026), so the chassis is drawn bare beneath it",
+      "moving_parts_planned_as_their_own_pictures": ["plain box body, slid rearward by code when tipping", "rock body and bulk body (RockBody, BulkBody nodes), each such a picture", "tailgate, on a hinge"],
+      "overlays_planned_on_this_canvas": ["high sides (HighSides node)", "work lights, lit", "damage: a holed body, drawn by our comp"],
+      "design": "docs/development/vehicle-tipper-hauler.md, docs/development/vehicle-animation-research.md"
+    },
+    "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL game vehicle sprite for the D'thorga tipper: a three-axle dump truck that hauls rock and loose material for a hard-scrabble frontier colony. Image 1 is our approved truck from the same family: match its outline weight, shading, palette and finish only. Do NOT copy its shape or layout.\n\nDraw the BARE CHASSIS AND CAB only. The tipping body (the box that holds the load), its tailgate, the lamps and all other equipment are drawn separately as overlays that sit on the frame.\n\nTall canvas, twice as tall as wide. The truck's width is about 37 percent of its length, including the wheels. It fills seven eighths of the canvas height, centred, on a plain pure white background. North facing: the bonnet and cab at the TOP edge, the rear of the frame at the BOTTOM edge. Pale sand-grey cab and panels, dark rubber tyres, a pale grey cab roof, dark weathered steel frame, one muted orange accent stripe across the cab.\n\nIts roof plan, from top to bottom: a short bonnet and a cab roof with a windscreen strip at its top edge; right behind the cab a flat steel headboard guard plate as wide as the cab; behind that the bare chassis: two straight parallel steel frame rails running to the rear edge, joined by a few plain cross members, with one long telescopic hydraulic ram lying flat on the centre line between the rails just behind the headboard, and one pair of round hinge pivots at the very rear ends of the rails; dark shadowed underside between and around the rails. The tops of one pair of wheels beside the front of the truck and two pairs close together beside the rear of the frame, three axles.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo tipping body, box, bin, tray, tailgate, load, rock, gravel, sand, cargo, people, animals, turrets, lamps, hoses, dust, mud, damage, text, letters, numbers, logos, dials or screens. No floor, ground, road, shadow outside the vehicle, perspective, tilt or visible side faces. Top surfaces only."
+  }
+]

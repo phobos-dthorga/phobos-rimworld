@@ -47,4 +47,4 @@
 | The name "motor pool", its place beside the Vehicles tab, and moving the tanker into it | Agent; one line each to change |
 | Which work needs the rig; the setting to turn it off | Agent |
 | Reach of 3 cells; sizes, costs and power of both stations | Agent, authored, a little under the machining table's 150 steel, 5 components and 350 W |
-| Bench and rig pictures | Agent: stand-ins drawn in code, for proper art when the owner wants it |
+| Bench and rig pictures | Agent: stand-ins drawn in code at first; since 9 Nov 2026 the owner's picks, made with OpenAI's image model |

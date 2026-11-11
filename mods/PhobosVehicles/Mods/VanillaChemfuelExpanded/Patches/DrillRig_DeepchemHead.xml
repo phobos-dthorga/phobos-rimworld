@@ -30,6 +30,17 @@
           <Steel>90</Steel>
           <ComponentIndustrial>4</ComponentIndustrial>
         </ingredients>
+        <graphicOverlays>
+          <li>
+            <graphicData>
+              <texPath>Phobos/Vehicles/DrillRig/DrillRig_DeepchemHead</texPath>
+              <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+              <drawSize>(4, 11)</drawSize>
+              <shaderType>Cutout</shaderType>
+              <layer>1</layer>
+            </graphicData>
+          </li>
+        </graphicOverlays>
       </li>
     </value>
   </Operation>

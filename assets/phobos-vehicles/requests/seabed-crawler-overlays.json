@@ -1,0 +1,152 @@
+[
+  {
+    "name": "seabed-crawler-wheel-housing",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      1,
+      2,
+      3
+    ],
+    "references": [
+      {
+        "image": "assets/phobos-vehicles/generated/seabed-crawler-body-north/widened/seabed-crawler-3-wide.png",
+        "role": "our approved hull, the owner's pick: match its outline weight, shading, palette and finish only; do not redraw the hull"
+      }
+    ],
+    "art_plan": {
+      "vehicle": "Phobos_SeabedCrawler, footprint (4, 9), drawSize (5, 10); the part is fitted by script onto the base hull's 1024 x 2048 master (SeabedCrawler.transform.json), places per docs/development/vehicle-seabed-crawler-art.md",
+      "node": "BottomingWheels",
+      "place": "(-1, 2) and (2, 2), the flanks beside the sail; one picture, mirrored by script for port",
+      "this_request": "BottomingWheels overlay part, north, drawn alone and fitted by script"
+    },
+    "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL game sprite part for the D'thorga seabed crawler, a research submarine: one bottoming wheel housing that bulges from the side of the hull. Image 1 is our approved hull: match its outline weight, shading, palette and finish only. Do NOT redraw the hull.\n\nDraw ONLY this part, alone on a plain pure white background: nothing else on the canvas. It is drawn as fitted to the RIGHT-hand side of a hull: its flat inner edge is the LEFT edge of the part, its rounded outer bulge points to the RIGHT. A rounded half-capsule fairing of the hull's cool dark grey-blue steel, about twice as long (top to bottom) as it is deep, with a dark rubber tyre tread showing in a slot along its outer curve. The part fills about half the canvas, centred.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo hull, hull, deck, cargo, people, animals, water, waves, dust, mud, damage, text, letters, numbers, logos, symbols, dials or screens. No floor, ground, shadow outside the part, perspective, tilt or visible side faces. Top surfaces only."
+  },
+  {
+    "name": "seabed-crawler-hydrophone-strip",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 512,
+    "height": 1536,
+    "seeds": [
+      1,
+      2,
+      3
+    ],
+    "references": [
+      {
+        "image": "assets/phobos-vehicles/generated/seabed-crawler-body-north/widened/seabed-crawler-3-wide.png",
+        "role": "our approved hull, the owner's pick: match its outline weight, shading, palette and finish only; do not redraw the hull"
+      }
+    ],
+    "art_plan": {
+      "vehicle": "Phobos_SeabedCrawler, footprint (4, 9), drawSize (5, 10); the part is fitted by script onto the base hull's 1024 x 2048 master (SeabedCrawler.transform.json), places per docs/development/vehicle-seabed-crawler-art.md",
+      "node": "Hydrophones",
+      "place": "the flanks from z 1 to z 4; one picture, mirrored by script for port",
+      "this_request": "Hydrophones overlay part, north, drawn alone and fitted by script"
+    },
+    "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL game sprite part for the D'thorga seabed crawler, a research submarine: a listening array: a long thin sensor strip fixed along the side of the hull. Image 1 is our approved hull: match its outline weight, shading, palette and finish only. Do NOT redraw the hull.\n\nDraw ONLY this part, alone on a plain pure white background: nothing else on the canvas. Tall narrow canvas, the strip's long axis perfectly straight from top to bottom on the centre line, filling about 85 percent of the canvas height. The strip is about twelve times as long as it is wide: a slim rounded fairing of pale grey with a row of eight small round dark sensor pucks evenly spaced along its centre, and rounded ends.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo hull, hull, deck, cargo, people, animals, water, waves, dust, mud, damage, text, letters, numbers, logos, symbols, dials or screens. No floor, ground, shadow outside the part, perspective, tilt or visible side faces. Top surfaces only."
+  },
+  {
+    "name": "seabed-crawler-sonar-dome",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      1,
+      2,
+      3
+    ],
+    "references": [
+      {
+        "image": "assets/phobos-vehicles/generated/seabed-crawler-body-north/widened/seabed-crawler-3-wide.png",
+        "role": "our approved hull, the owner's pick: match its outline weight, shading, palette and finish only; do not redraw the hull"
+      }
+    ],
+    "art_plan": {
+      "vehicle": "Phobos_SeabedCrawler, footprint (4, 9), drawSize (5, 10); the part is fitted by script onto the base hull's 1024 x 2048 master (SeabedCrawler.transform.json), places per docs/development/vehicle-seabed-crawler-art.md",
+      "node": "ActiveSonar",
+      "place": "(0..1, 4), capping the bow tip",
+      "this_request": "ActiveSonar overlay part, north, drawn alone and fitted by script"
+    },
+    "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL game sprite part for the D'thorga seabed crawler, a research submarine: a sonar dome that caps the rounded bow of the boat. Image 1 is our approved hull: match its outline weight, shading, palette and finish only. Do NOT redraw the hull.\n\nDraw ONLY this part, alone on a plain pure white background: nothing else on the canvas. A smooth pale cream-grey acoustic dome shaped like the front half of an egg: its rounded end points to the TOP of the canvas, its flat cut end is at the BOTTOM, where a thin dark steel collar ring runs across it. It is a little wider than it is long and fills about two thirds of the canvas width, centred.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo hull, hull, deck, cargo, people, animals, water, waves, dust, mud, damage, text, letters, numbers, logos, symbols, dials or screens. No floor, ground, shadow outside the part, perspective, tilt or visible side faces. Top surfaces only."
+  },
+  {
+    "name": "seabed-crawler-manipulator",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      1,
+      2,
+      3
+    ],
+    "references": [
+      {
+        "image": "assets/phobos-vehicles/generated/seabed-crawler-body-north/widened/seabed-crawler-3-wide.png",
+        "role": "our approved hull, the owner's pick: match its outline weight, shading, palette and finish only; do not redraw the hull"
+      }
+    ],
+    "art_plan": {
+      "vehicle": "Phobos_SeabedCrawler, footprint (4, 9), drawSize (5, 10); the part is fitted by script onto the base hull's 1024 x 2048 master (SeabedCrawler.transform.json), places per docs/development/vehicle-seabed-crawler-art.md",
+      "node": "Manipulator (node not yet built)",
+      "place": "(-1, 3), the port foredeck",
+      "this_request": "Manipulator (node not yet built) overlay part, north, drawn alone and fitted by script"
+    },
+    "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL game sprite part for the D'thorga seabed crawler, a research submarine: a manipulator arm, folded and stowed in its cradle on the deck. Image 1 is our approved hull: match its outline weight, shading, palette and finish only. Do NOT redraw the hull.\n\nDraw ONLY this part, alone on a plain pure white background: nothing else on the canvas. A stubby round turret base at the BOTTOM; from it an upper arm runs up the canvas to an elbow joint near the top, and the forearm folds back down alongside it, ending in a closed two-finger claw beside the base. Dark steel with olive joint covers, lying in a shallow open steel cradle frame. The whole part fills about two thirds of the canvas height, centred.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo hull, hull, deck, cargo, people, animals, water, waves, dust, mud, damage, text, letters, numbers, logos, symbols, dials or screens. No floor, ground, shadow outside the part, perspective, tilt or visible side faces. Top surfaces only."
+  },
+  {
+    "name": "seabed-crawler-radar-mast",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 512,
+    "height": 1536,
+    "seeds": [
+      1,
+      2,
+      3
+    ],
+    "references": [
+      {
+        "image": "assets/phobos-vehicles/generated/seabed-crawler-body-north/widened/seabed-crawler-3-wide.png",
+        "role": "our approved hull, the owner's pick: match its outline weight, shading, palette and finish only; do not redraw the hull"
+      }
+    ],
+    "art_plan": {
+      "vehicle": "Phobos_SeabedCrawler, footprint (4, 9), drawSize (5, 10); the part is fitted by script onto the base hull's 1024 x 2048 master (SeabedCrawler.transform.json), places per docs/development/vehicle-seabed-crawler-art.md",
+      "node": "RadarMast (node not yet built)",
+      "place": "(0..1, 2), the sail top; one picture, fitted per hull by script (attempt 4's sail sits further forward)",
+      "this_request": "RadarMast (node not yet built) overlay part, north, drawn alone and fitted by script"
+    },
+    "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL game sprite part for the D'thorga seabed crawler, a research submarine: a short radar mast stowed flat along the top of the sail. Image 1 is our approved hull: match its outline weight, shading, palette and finish only. Do NOT redraw the hull.\n\nDraw ONLY this part, alone on a plain pure white background: nothing else on the canvas. Tall narrow canvas. A slim round steel mast lying flat with its long axis straight from top to bottom on the centre line, about two thirds of the canvas height; at its TOP end a flat bar radar antenna lies across it, so the part reads as a tall letter T; a small hinge block at its BOTTOM end.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo hull, hull, deck, cargo, people, animals, water, waves, dust, mud, damage, text, letters, numbers, logos, symbols, dials or screens. No floor, ground, shadow outside the part, perspective, tilt or visible side faces. Top surfaces only."
+  },
+  {
+    "name": "seabed-crawler-seabed-drill",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      1,
+      2,
+      3
+    ],
+    "references": [
+      {
+        "image": "assets/phobos-vehicles/generated/seabed-crawler-body-north/widened/seabed-crawler-3-wide.png",
+        "role": "our approved hull, the owner's pick: match its outline weight, shading, palette and finish only; do not redraw the hull"
+      }
+    ],
+    "art_plan": {
+      "vehicle": "Phobos_SeabedCrawler, footprint (4, 9), drawSize (5, 10); the part is fitted by script onto the base hull's 1024 x 2048 master (SeabedCrawler.transform.json), places per docs/development/vehicle-seabed-crawler-art.md",
+      "node": "SeabedDrill (node not yet built)",
+      "place": "(0..1, -1), the after-deck",
+      "this_request": "SeabedDrill (node not yet built) overlay part, north, drawn alone and fitted by script"
+    },
+    "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL game sprite part for the D'thorga seabed crawler, a research submarine: a seabed drill: a squat hoist frame over a drill well in the deck casing. Image 1 is our approved hull: match its outline weight, shading, palette and finish only. Do NOT redraw the hull.\n\nDraw ONLY this part, alone on a plain pure white background: nothing else on the canvas. A square opening of a dark drill well framed by a thick steel coaming; spanning it, a squat steel A-frame hoist with a small winch drum on its crossbar and a short drill string end showing in the well. Dark steel and olive, one muted orange band on the winch. The part fills about two thirds of the canvas, centred.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo hull, hull, deck, cargo, people, animals, water, waves, dust, mud, damage, text, letters, numbers, logos, symbols, dials or screens. No floor, ground, shadow outside the part, perspective, tilt or visible side faces. Top surfaces only."
+  }
+]

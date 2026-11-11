@@ -23,7 +23,9 @@ the game's text one. Next in order: P7b, the range on the world map.
 **Batch A picked and wired in Framework 0.79.1 and Medical 0.13.1** (11 Nov 2026; not yet tested in game). The owner picked diagnose #2,
 jump-start #2, tyre set #1, brake pad set #2, engine service kit #1, drive belt #1 and #1 of the three category icons. Masters are on
 `art-masters`, the attempts not picked on `art-references`; each sprite's record sits beside it. Every borrowed picture in the table
-below is now replaced except the vehicle bodies (batch B) and the Medical placeholders (batch C). The diagnosis letter keeps the game's
+below is now replaced except the vehicle bodies (batch B) and the Medical placeholders (batch C). **Batches B and C done 12 Nov 2026** ([the night's record](../../assets/phobos-vehicles/requests/night-2026-11-12-record.md)): the tipper, drill
+rig and generator set have their own bodies and parts (Vehicles 0.43.0), and the Medical placeholders the owner's picks from the local
+model's night-3 candidates (Medical 0.14.1), so nothing in the vehicle or medical screens borrows a picture now. The diagnosis letter keeps the game's
 letter picture (agent's choice): the game tints a letter's icon one colour and draws it in a small oblong, so a full-colour clipboard
 would read worse than the envelope players know.
 

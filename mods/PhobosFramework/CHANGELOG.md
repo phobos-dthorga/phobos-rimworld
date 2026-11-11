@@ -5,9 +5,25 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.98.0] - 2026-11-12 - Draft
+
+Pictures that change with a vehicle's upgrades, and a fan that cools a parked engine, for D'thorga Vehicles' new art of 12 November 2026. **Not yet tested in game.**
+
 ### Added
 
+- **A vehicle's picture can change with its upgrades**: a fan, a mast or a tipping body shows its stock picture until an upgrade replaces it, and changes the moment the upgrade is fitted or taken off. Before, an upgrade could only add a picture on top, never take the stock one away.
+- **A parked engine can be given a fan.** A radiator cools less standing still than on the move; a vehicle upgrade can now make up the difference. Nothing has it by default, so every vehicle cools as before.
+- For modders: the comp CompProperties_PhobosNodeLooks (slots of pictures, each shown by the node fitted, with an optional stock picture), the stat Phobos_StoppedAirflow, and stoppedBonusStat on the Input_Moving system input.
 - For modders: the drivetrain model takes a towed mass (rolled, speeded up and lifted with the vehicle, adding no grip), and a game-free rule for how a towed trailer follows its hitch. Groundwork for the hitch; nothing uses them yet.
+
+### Compatibility and limits
+
+- The changing pictures are drawn as the game draws a vehicle's upgrades and set-up look; nothing new happens each tick. They are chosen again when an upgrade is fitted or removed and whenever the vehicle appears on a map.
+- The check that keeps generated art from copying the game's (an art tool, not part of the mod) now compares only where something is drawn; a picture that is mostly empty space no longer looks like every sprite with empty corners.
+
+### Save compatibility
+
+- Safe to update mid-game. Nothing new is saved: the pictures are chosen from the upgrades a vehicle already has.
 
 ## [0.97.0] - 2026-11-11 - Draft
 

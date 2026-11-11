@@ -47,6 +47,22 @@
     </showOnVehicleTypes>
   </Vehicles.VehicleStatDef>
   <Vehicles.VehicleStatDef>
+    <!-- Owner, 12 Nov 2026: the generator set's heavy-duty fan. Read by the cooling system's radiator (Systems_Cooling.xml). Authored: a
+         parked radiator cools at 0.7 of its moving rate; the fan's 0.3 brings it to the full rate, as if driving. -->
+    <defName>Phobos_StoppedAirflow</defName>
+    <label>radiator airflow when parked</label>
+    <description>Extra air a fan pushes through the radiator while the vehicle stands still. A parked radiator cools less than a moving one; with enough of this it cools as well as on the road.</description>
+    <category>VehicleBasics</category>
+    <defaultBaseValue>0</defaultBaseValue>
+    <minValue>0</minValue>
+    <toStringStyle>PercentZero</toStringStyle>
+    <operationType>None</operationType>
+    <upgradeEffectType>Positive</upgradeEffectType>
+    <showOnVehicleTypes>
+      <li>Land</li>
+    </showOnVehicleTypes>
+  </Vehicles.VehicleStatDef>
+  <Vehicles.VehicleStatDef>
     <defName>Phobos_HeatRecovery</defName>
     <label>exhaust heat recovered</label>
     <description>The share of the electricity being made that comes back as heat into the room at the cable end. Nothing without a heat exchanger.</description>

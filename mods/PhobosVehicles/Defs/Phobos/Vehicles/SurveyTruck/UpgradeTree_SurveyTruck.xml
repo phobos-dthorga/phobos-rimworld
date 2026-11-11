@@ -76,6 +76,17 @@
         <ComponentIndustrial>3</ComponentIndustrial>
         <Uranium>40</Uranium>
       </ingredients>
+      <graphicOverlays>
+        <li>
+          <graphicData>
+            <texPath>Phobos/Vehicles/SurveyTruck/SurveyTruck_RadiometricProbe</texPath>
+            <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+            <drawSize>(4, 8)</drawSize>
+            <shaderType>Cutout</shaderType>
+            <layer>1</layer>
+          </graphicData>
+        </li>
+      </graphicOverlays>
     </li>
     <li>
       <key>LongRangeArray</key>
@@ -104,6 +115,17 @@
         <ComponentIndustrial>6</ComponentIndustrial>
         <Plasteel>20</Plasteel>
       </ingredients>
+      <graphicOverlays>
+        <li>
+          <graphicData>
+            <texPath>Phobos/Vehicles/SurveyTruck/SurveyTruck_LongRangeArray</texPath>
+            <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+            <drawSize>(4, 8)</drawSize>
+            <shaderType>Cutout</shaderType>
+            <layer>1</layer>
+          </graphicData>
+        </li>
+      </graphicOverlays>
     </li>
     <li>
       <key>PoweredArray</key>
@@ -133,6 +155,17 @@
         <Plasteel>40</Plasteel>
         <ComponentIndustrial>10</ComponentIndustrial>
       </ingredients>
+      <graphicOverlays>
+        <li>
+          <graphicData>
+            <texPath>Phobos/Vehicles/SurveyTruck/SurveyTruck_PoweredArray</texPath>
+            <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+            <drawSize>(4, 8)</drawSize>
+            <shaderType>Cutout</shaderType>
+            <layer>1</layer>
+          </graphicData>
+        </li>
+      </graphicOverlays>
     </li>
     <li>
       <key>SurveyBattery</key>
@@ -161,6 +194,17 @@
         <Steel>100</Steel>
         <ComponentIndustrial>4</ComponentIndustrial>
       </ingredients>
+      <graphicOverlays>
+        <li>
+          <graphicData>
+            <texPath>Phobos/Vehicles/SurveyTruck/SurveyTruck_SurveyBattery</texPath>
+            <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+            <drawSize>(4, 8)</drawSize>
+            <shaderType>Cutout</shaderType>
+            <layer>1</layer>
+          </graphicData>
+        </li>
+      </graphicOverlays>
     </li>
     <li>
       <key>WorkLights</key>
@@ -185,6 +229,17 @@
         <Steel>30</Steel>
         <ComponentIndustrial>2</ComponentIndustrial>
       </ingredients>
+      <graphicOverlays>
+        <li>
+          <graphicData>
+            <texPath>Phobos/Vehicles/SurveyTruck/SurveyTruck_WorkLights</texPath>
+            <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+            <drawSize>(4, 8)</drawSize>
+            <shaderType>Cutout</shaderType>
+            <layer>1</layer>
+          </graphicData>
+        </li>
+      </graphicOverlays>
     </li>
     </nodes>
   </Vehicles.UpgradeTreeDef>

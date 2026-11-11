@@ -10,7 +10,7 @@ for submarines inside the existing framework. The ideas it serves are in [unique
 - **Vehicle Framework has no depth, so a dive is a state of ours.** The hull stays on its cells. It cannot be aimed at until it is spotted, takes no hits but explosions, cannot fire or land anyone, and runs down a reserve. This is a gameplay simplification **[authored]**, not a model of water.
 - **The reserve is one number**, hours of air and charge at rest. Tying it to the batteries, and giving a boat a chemical engine, are later slices.
 - **The first real boat is [the Seabed Crawler](vehicle-seabed-crawler.md)** (owner, 10 Nov 2026), which is designed and not built.
-- **No playable submarine exists yet.** The test hull is spawned with a dev action, looks like a truck on the water (it borrows the tanker's picture) and has no upgrade tree because it is not a design.
+- **No playable submarine exists yet.** The test hull is spawned with a dev action, wears the Seabed Crawler's hull picture and has no upgrade tree because it is not a design.
 - **Vehicle Framework runs here as its 1.6 build**, which the 1.7 game loads. Everything below was read from that build's decompile, and `python scripts/check-targets.py` holds every patch to the installed assemblies. Those checks say the names exist, not that the behaviour is right.
 
 ## What each behaviour does to the player

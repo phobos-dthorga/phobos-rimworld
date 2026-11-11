@@ -176,12 +176,21 @@ public class Input_TractionLoad : VehicleSystemInput
     protected override float Raw(SystemContext context) => (float)(context.Comp.Powertrain?.TractionMotorLoad ?? 0);
 }
 
-/// <summary>Whether the vehicle is moving.</summary>
+/// <summary>Whether the vehicle is moving. <c>stoppedBonusStat</c>, when named, adds the vehicle's value of that stat to <c>stopped</c>, never
+/// past <c>moving</c>: a fan that moves air through a parked vehicle's radiator as driving would (owner, 12 Nov 2026, the generator set's
+/// heavy-duty fan). The stat defaults to 0, so a vehicle without such an upgrade is unchanged.</summary>
 public class Input_Moving : VehicleSystemInput
 {
     public float stopped;
     public float moving = 1f;
-    protected override float Raw(SystemContext context) => context.Comp.Moving ? moving : stopped;
+    public Vehicles.VehicleStatDef? stoppedBonusStat;
+
+    protected override float Raw(SystemContext context)
+    {
+        if (context.Comp.Moving) return moving;
+        if (stoppedBonusStat == null) return stopped;
+        return System.Math.Min(moving, stopped + context.Vehicle.GetStatValue(stoppedBonusStat));
+    }
 }
 
 /// <summary>The efficiency of the parts bound to a role, averaged, 0 to 1; <c>missing</c> when the vehicle has none.</summary>
