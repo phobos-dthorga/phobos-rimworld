@@ -1,0 +1,19 @@
+[
+  {
+    "file": "tune-gearing-stock-1.png",
+    "sharpness": 861.8,
+    "border_white": 1.0,
+    "content": 0.451,
+    "hash": 10539774241321796786,
+    "score": 1.0
+  },
+  {
+    "file": "tune-gearing-stock-2.png",
+    "sharpness": 930.9,
+    "border_white": 1.0,
+    "content": 0.461,
+    "hash": 1390711564026004658,
+    "score": 1.0,
+    "duplicate_of": "tune-gearing-stock-1.png"
+  }
+]

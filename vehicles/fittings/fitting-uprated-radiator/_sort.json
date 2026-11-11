@@ -1,0 +1,19 @@
+[
+  {
+    "file": "fitting-uprated-radiator-1.png",
+    "sharpness": 1978.9,
+    "border_white": 1.0,
+    "content": 0.553,
+    "hash": 3598610112837899476,
+    "score": 1.0
+  },
+  {
+    "file": "fitting-uprated-radiator-2.png",
+    "sharpness": 1449.9,
+    "border_white": 1.0,
+    "content": 0.594,
+    "hash": 3598610112837899476,
+    "score": 1.0,
+    "duplicate_of": "fitting-uprated-radiator-1.png"
+  }
+]

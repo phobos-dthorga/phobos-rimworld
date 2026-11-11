@@ -1,0 +1,18 @@
+[
+  {
+    "file": "tune-engine-stock-1.png",
+    "sharpness": 1234.4,
+    "border_white": 1.0,
+    "content": 0.704,
+    "hash": 8200125381845896305,
+    "score": 1.0
+  },
+  {
+    "file": "tune-engine-stock-2.png",
+    "sharpness": 963.0,
+    "border_white": 1.0,
+    "content": 0.604,
+    "hash": 3596358046161627185,
+    "score": 1.0
+  }
+]

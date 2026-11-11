@@ -1,0 +1,18 @@
+[
+  {
+    "file": "fitting-deep-cycle-battery-1.png",
+    "sharpness": 1018.3,
+    "border_white": 1.0,
+    "content": 0.622,
+    "hash": 7631583544653696212,
+    "score": 1.0
+  },
+  {
+    "file": "fitting-deep-cycle-battery-2.png",
+    "sharpness": 1000.2,
+    "border_white": 1.0,
+    "content": 0.618,
+    "hash": 3596349516796447948,
+    "score": 1.0
+  }
+]

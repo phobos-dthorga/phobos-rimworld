@@ -1,0 +1,18 @@
+[
+  {
+    "file": "fitting-road-tyres-1.png",
+    "sharpness": 760.0,
+    "border_white": 1.0,
+    "content": 0.55,
+    "hash": 3596340651849181362,
+    "score": 1.0
+  },
+  {
+    "file": "fitting-road-tyres-2.png",
+    "sharpness": 857.6,
+    "border_white": 1.0,
+    "content": 0.498,
+    "hash": 12788222675686554002,
+    "score": 1.0
+  }
+]

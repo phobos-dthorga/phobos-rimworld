@@ -1,0 +1,18 @@
+[
+  {
+    "file": "tune-gearing-short-1.png",
+    "sharpness": 1012.9,
+    "border_white": 1.0,
+    "content": 0.539,
+    "hash": 11609385699662105730,
+    "score": 1.0
+  },
+  {
+    "file": "tune-gearing-short-2.png",
+    "sharpness": 1086.6,
+    "border_white": 1.0,
+    "content": 0.572,
+    "hash": 13914144367408896033,
+    "score": 1.0
+  }
+]

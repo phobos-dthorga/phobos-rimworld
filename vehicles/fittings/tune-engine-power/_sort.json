@@ -1,0 +1,19 @@
+[
+  {
+    "file": "tune-engine-power-1.png",
+    "sharpness": 1122.0,
+    "border_white": 1.0,
+    "content": 0.691,
+    "hash": 8208035294265920625,
+    "score": 1.0
+  },
+  {
+    "file": "tune-engine-power-2.png",
+    "sharpness": 1055.1,
+    "border_white": 1.0,
+    "content": 0.703,
+    "hash": 8212538901946354801,
+    "score": 1.0,
+    "duplicate_of": "tune-engine-power-1.png"
+  }
+]
