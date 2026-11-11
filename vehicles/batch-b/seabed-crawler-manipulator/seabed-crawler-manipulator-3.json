@@ -1,0 +1,51 @@
+{
+  "file": "seabed-crawler-manipulator-3.png",
+  "sha256": "6f2226bf0f038d5bd00cf9e55594870a351fd7e136c0ef8f26253e9b9120320a",
+  "date": "2026-11-12T00:47:42",
+  "generator": "OpenAI gpt-image-2 through the OpenAI image API (paid per image)",
+  "engine": "openai",
+  "model": "gpt-image-2",
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL game sprite part for the D'thorga seabed crawler, a research submarine: a manipulator arm, folded and stowed in its cradle on the deck. Image 1 is our approved hull: match its outline weight, shading, palette and finish only. Do NOT redraw the hull.\n\nDraw ONLY this part, alone on a plain pure white background: nothing else on the canvas. A stubby round turret base at the BOTTOM; from it an upper arm runs up the canvas to an elbow joint near the top, and the forearm folds back down alongside it, ending in a closed two-finger claw beside the base. Dark steel with olive joint covers, lying in a shallow open steel cradle frame. The whole part fills about two thirds of the canvas height, centred.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo hull, hull, deck, cargo, people, animals, water, waves, dust, mud, damage, text, letters, numbers, logos, symbols, dials or screens. No floor, ground, shadow outside the part, perspective, tilt or visible side faces. Top surfaces only.",
+  "seed": 3,
+  "seed_note": "an attempt number naming the file; the API takes no seed, so a rerun gives a different image",
+  "quality": "medium",
+  "size": [
+    1024,
+    1024
+  ],
+  "request_file": "assets/phobos-vehicles/requests/seabed-crawler-overlays.json",
+  "ai_disclosure": "Made with generative AI: OpenAI gpt-image-2, prompted by the Phobos art scripts.",
+  "terms": "OpenAI Services Agreement, sections 4.1 and 4.4, as recorded in the Phobos Ostranauts repository on 2026-10-07 and summarised again on 2026-11-08: API customers own Output, OpenAI assigns any rights it has, and Output may not be unique; no use of Output to build competing models. Dated secondary records: the openai.com page refuses automated reads, so the owner confirms the current text.",
+  "endpoint": "/images/edits",
+  "usage": {
+    "input_tokens": 1793,
+    "input_tokens_details": {
+      "image_tokens": 1458,
+      "text_tokens": 335
+    },
+    "output_tokens": 1756,
+    "output_tokens_details": {
+      "image_tokens": 1756,
+      "text_tokens": 0
+    },
+    "total_tokens": 3549
+  },
+  "cost_usd": 0.066,
+  "cost_is_estimate": false,
+  "reported_quality": "medium",
+  "reported_size": "1024x1024",
+  "reported_background": "opaque",
+  "reported_output_format": "png",
+  "returned_size": [
+    1024,
+    1024
+  ],
+  "seconds": 31.3,
+  "references": [
+    {
+      "image": "assets/phobos-vehicles/generated/seabed-crawler-body-north/widened/seabed-crawler-3-wide.png",
+      "sha256": "08867600867f5d0575ac49d9864ba202de8cc160c5ba7c199ba93eb648c26ad0",
+      "role": "our approved hull, the owner's pick: match its outline weight, shading, palette and finish only; do not redraw the hull"
+    }
+  ]
+}

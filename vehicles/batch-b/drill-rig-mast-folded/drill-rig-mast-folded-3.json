@@ -1,0 +1,51 @@
+{
+  "file": "drill-rig-mast-folded-3.png",
+  "sha256": "b2bb821413267ae335c9e351f4629bae654b7591d51f1ce7330667b4e407d67f",
+  "date": "2026-11-12T01:04:20",
+  "generator": "OpenAI gpt-image-2 through the OpenAI image API (paid per image)",
+  "engine": "openai",
+  "model": "gpt-image-2",
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL game sprite part for the D'thorga drill rig: its drilling mast, folded flat along the deck for travel. Image 1 is our approved drill rig body: match its outline weight, shading, palette and finish only, and use it to see where this part sits. Do NOT redraw the drill rig.\n\nDraw ONLY this part, alone on a plain pure white background: nothing else on the canvas. Tall narrow canvas, the mast's long axis perfectly straight from top to bottom on the centre line, filling about 90 percent of the canvas height. A slim steel lattice mast: two parallel pale steel rails joined by evenly spaced zig-zag cross bracing, about eight times as long as it is wide; at its BOTTOM end a heavy round hinge eye; at its TOP end a small crown block with one sheave wheel; one muted orange band about a third of the way up.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo truck, cab, wheels, deck, cargo, people, animals, smoke, dust, mud, damage, text, letters, numbers, logos, symbols, dials or screens. No floor, ground, shadow outside the part, perspective, tilt or visible side faces. Top surfaces only.",
+  "seed": 3,
+  "seed_note": "an attempt number naming the file; the API takes no seed, so a rerun gives a different image",
+  "quality": "medium",
+  "size": [
+    512,
+    1536
+  ],
+  "request_file": "assets/phobos-vehicles/requests/batch-b-family.json",
+  "ai_disclosure": "Made with generative AI: OpenAI gpt-image-2, prompted by the Phobos art scripts.",
+  "terms": "OpenAI Services Agreement, sections 4.1 and 4.4, as recorded in the Phobos Ostranauts repository on 2026-10-07 and summarised again on 2026-11-08: API customers own Output, OpenAI assigns any rights it has, and Output may not be unique; no use of Output to build competing models. Dated secondary records: the openai.com page refuses automated reads, so the owner confirms the current text.",
+  "endpoint": "/images/edits",
+  "usage": {
+    "input_tokens": 1866,
+    "input_tokens_details": {
+      "image_tokens": 1508,
+      "text_tokens": 358
+    },
+    "output_tokens": 535,
+    "output_tokens_details": {
+      "image_tokens": 535,
+      "text_tokens": 0
+    },
+    "total_tokens": 2401
+  },
+  "cost_usd": 0.0299,
+  "cost_is_estimate": false,
+  "reported_quality": "medium",
+  "reported_size": "512x1536",
+  "reported_background": "opaque",
+  "reported_output_format": "png",
+  "returned_size": [
+    512,
+    1536
+  ],
+  "seconds": 18.2,
+  "references": [
+    {
+      "image": "assets/phobos-vehicles/generated/drill-rig-body-north/drill-rig-body-north-2.png",
+      "sha256": "4b5dfe5d15f9527e0a4b3d6da2f058fae1a1806e4390fb3c8ed946ec438e9459",
+      "role": "our approved drill rig body, the owner's pick: match its outline weight, shading, palette and finish only; do not redraw it"
+    }
+  ]
+}

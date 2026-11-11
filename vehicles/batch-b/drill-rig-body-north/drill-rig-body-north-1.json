@@ -1,0 +1,51 @@
+{
+  "file": "drill-rig-body-north-1.png",
+  "sha256": "71f0d4372f08e5375815ad1b3f4502c104d9a9fbabebb98c65ec4fc58cdd5ce5",
+  "date": "2026-11-12T00:37:53",
+  "generator": "OpenAI gpt-image-2 through the OpenAI image API (paid per image)",
+  "engine": "openai",
+  "model": "gpt-image-2",
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL game vehicle sprite for the D'thorga drill rig: a heavy three-axle truck that carries a folding drilling mast for boring wells and deep holes, for a hard-scrabble frontier colony. Image 1 is our approved truck from the same family: match its outline weight, shading, palette and finish only. Do NOT copy its shape or layout.\n\nDraw the BARE TRUCK only. The mast, rotary head, drill bits, outriggers, lamps, power pack, casing rack and all other equipment are drawn separately as overlays.\n\nVery tall canvas. The truck is LONG AND NARROW: its width is about 30 percent of its length, including the wheels. It fills seven eighths of the canvas height, centred, on a plain pure white background. North facing: the bonnet and cab at the TOP edge, the rear work platform at the BOTTOM edge. Pale sand-grey cab and panels, dark rubber tyres, a pale grey cab roof, dark weathered steel deck, one muted orange accent stripe across the cab.\n\nIts roof plan, from top to bottom: a short bonnet and a cab roof with a windscreen strip at its top edge; directly behind the cab a squat power unit housing, as wide as the cab, with a louvred grille on its roof; behind that a long flat steel deck with one straight, empty, shallow cradle channel running down its centre line from the power unit to the rear; a low rack of long parallel steel rods lying along the left edge of the deck; four small square outrigger boxes stowed flush at the corners of the deck; at the very rear a small square steel work platform with one round empty hole in its middle, and one sturdy hinge bracket at the head of the platform where the channel ends. The tops of one pair of wheels beside the front of the truck and two pairs close together beside the rear of the deck, three axles.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo mast, derrick, tower, drill, bit, rotary head, outriggers extended, lamps, cables, hoses, cargo, people, animals, turrets, dust, mud, damage, text, letters, numbers, logos, dials or screens. No floor, ground, road, shadow outside the vehicle, perspective, tilt or visible side faces. Top surfaces only.",
+  "seed": 1,
+  "seed_note": "an attempt number naming the file; the API takes no seed, so a rerun gives a different image",
+  "quality": "medium",
+  "size": [
+    1024,
+    2304
+  ],
+  "request_file": "assets/phobos-vehicles/requests/batch-b-pilots.json",
+  "ai_disclosure": "Made with generative AI: OpenAI gpt-image-2, prompted by the Phobos art scripts.",
+  "terms": "OpenAI Services Agreement, sections 4.1 and 4.4, as recorded in the Phobos Ostranauts repository on 2026-10-07 and summarised again on 2026-11-08: API customers own Output, OpenAI assigns any rights it has, and Output may not be unique; no use of Output to build competing models. Dated secondary records: the openai.com page refuses automated reads, so the owner confirms the current text.",
+  "endpoint": "/images/edits",
+  "usage": {
+    "input_tokens": 1735,
+    "input_tokens_details": {
+      "image_tokens": 1152,
+      "text_tokens": 583
+    },
+    "output_tokens": 1099,
+    "output_tokens_details": {
+      "image_tokens": 1099,
+      "text_tokens": 0
+    },
+    "total_tokens": 2834
+  },
+  "cost_usd": 0.0451,
+  "cost_is_estimate": false,
+  "reported_quality": "medium",
+  "reported_size": "1024x2304",
+  "reported_background": "opaque",
+  "reported_output_format": "png",
+  "returned_size": [
+    1024,
+    2304
+  ],
+  "seconds": 55.8,
+  "references": [
+    {
+      "image": "assets/phobos-vehicles/generated/bulk-tanker-body-north/bulk-tanker-body-north-2.png",
+      "sha256": "3c7b752f08adb7eeb84a1f161cdec1d8686765dd289322165fe54fa72c7c07ce",
+      "role": "approved truck of the same family: match its outline weight, shading, palette and finish only; do not copy its shape or layout"
+    }
+  ]
+}

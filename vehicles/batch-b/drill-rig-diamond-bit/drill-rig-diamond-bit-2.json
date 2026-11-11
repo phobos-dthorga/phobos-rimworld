@@ -1,0 +1,51 @@
+{
+  "file": "drill-rig-diamond-bit-2.png",
+  "sha256": "a5992b57728d304f3a6d9c7f40630aaae039562efb9698b4d85a9a1aa1986178",
+  "date": "2026-11-12T01:09:54",
+  "generator": "OpenAI gpt-image-2 through the OpenAI image API (paid per image)",
+  "engine": "openai",
+  "model": "gpt-image-2",
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL game sprite part for the D'thorga drill rig: a diamond coring bit, seen end-on as it sits at the foot of the mast. Image 1 is our approved drill rig body: match its outline weight, shading, palette and finish only, and use it to see where this part sits. Do NOT redraw the drill rig.\n\nDraw ONLY this part, alone on a plain pure white background: nothing else on the canvas. Seen straight down onto its cutting face: a round thick-walled steel tube end, its open dark centre showing, with eight small pale diamond-set cutting teeth spaced around its rim. It fills about half the canvas, centred.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo truck, cab, wheels, deck, cargo, people, animals, smoke, dust, mud, damage, text, letters, numbers, logos, symbols, dials or screens. No floor, ground, shadow outside the part, perspective, tilt or visible side faces. Top surfaces only.",
+  "seed": 2,
+  "seed_note": "an attempt number naming the file; the API takes no seed, so a rerun gives a different image",
+  "quality": "medium",
+  "size": [
+    1024,
+    1024
+  ],
+  "request_file": "assets/phobos-vehicles/requests/batch-b-family.json",
+  "ai_disclosure": "Made with generative AI: OpenAI gpt-image-2, prompted by the Phobos art scripts.",
+  "terms": "OpenAI Services Agreement, sections 4.1 and 4.4, as recorded in the Phobos Ostranauts repository on 2026-10-07 and summarised again on 2026-11-08: API customers own Output, OpenAI assigns any rights it has, and Output may not be unique; no use of Output to build competing models. Dated secondary records: the openai.com page refuses automated reads, so the owner confirms the current text.",
+  "endpoint": "/images/edits",
+  "usage": {
+    "input_tokens": 1819,
+    "input_tokens_details": {
+      "image_tokens": 1508,
+      "text_tokens": 311
+    },
+    "output_tokens": 1756,
+    "output_tokens_details": {
+      "image_tokens": 1756,
+      "text_tokens": 0
+    },
+    "total_tokens": 3575
+  },
+  "cost_usd": 0.0663,
+  "cost_is_estimate": false,
+  "reported_quality": "medium",
+  "reported_size": "1024x1024",
+  "reported_background": "opaque",
+  "reported_output_format": "png",
+  "returned_size": [
+    1024,
+    1024
+  ],
+  "seconds": 61.8,
+  "references": [
+    {
+      "image": "assets/phobos-vehicles/generated/drill-rig-body-north/drill-rig-body-north-2.png",
+      "sha256": "4b5dfe5d15f9527e0a4b3d6da2f058fae1a1806e4390fb3c8ed946ec438e9459",
+      "role": "our approved drill rig body, the owner's pick: match its outline weight, shading, palette and finish only; do not redraw it"
+    }
+  ]
+}

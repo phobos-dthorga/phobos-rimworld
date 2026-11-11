@@ -1,0 +1,51 @@
+{
+  "file": "tipper-rock-body-2.png",
+  "sha256": "1b13f4bd32c2553d1a1714143a942b20e2b055866dae016f4209dd3004c44290",
+  "date": "2026-11-12T01:13:23",
+  "generator": "OpenAI gpt-image-2 through the OpenAI image API (paid per image)",
+  "engine": "openai",
+  "model": "gpt-image-2",
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL game sprite part for the D'thorga tipper: its heavy rock body: a thick-walled open steel tub for blasted rock, empty. Image 1 is our approved tipper body: match its outline weight, shading, palette and finish only, and use it to see where this part sits. Do NOT redraw the tipper.\n\nDraw ONLY this part, alone on a plain pure white background: nothing else on the canvas. Tall canvas. Seen straight down into the empty tub: a long open steel tub, about twice as long as it is wide, filling about 90 percent of the canvas height; its floor sloping up to an open spade-shaped rear end with no tailgate; very thick dark steel side walls with heavy horizontal wear strips; a long cab-protector lip at the TOP end. Darker weathered steel, one muted orange band across the cab-protector.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo truck, cab, wheels, deck, cargo, people, animals, smoke, dust, mud, damage, text, letters, numbers, logos, symbols, dials or screens. No floor, ground, shadow outside the part, perspective, tilt or visible side faces. Top surfaces only.",
+  "seed": 2,
+  "seed_note": "an attempt number naming the file; the API takes no seed, so a rerun gives a different image",
+  "quality": "medium",
+  "size": [
+    768,
+    1536
+  ],
+  "request_file": "assets/phobos-vehicles/requests/batch-b-family.json",
+  "ai_disclosure": "Made with generative AI: OpenAI gpt-image-2, prompted by the Phobos art scripts.",
+  "terms": "OpenAI Services Agreement, sections 4.1 and 4.4, as recorded in the Phobos Ostranauts repository on 2026-10-07 and summarised again on 2026-11-08: API customers own Output, OpenAI assigns any rights it has, and Output may not be unique; no use of Output to build competing models. Dated secondary records: the openai.com page refuses automated reads, so the owner confirms the current text.",
+  "endpoint": "/images/edits",
+  "usage": {
+    "input_tokens": 1818,
+    "input_tokens_details": {
+      "image_tokens": 1458,
+      "text_tokens": 360
+    },
+    "output_tokens": 916,
+    "output_tokens_details": {
+      "image_tokens": 916,
+      "text_tokens": 0
+    },
+    "total_tokens": 2734
+  },
+  "cost_usd": 0.0409,
+  "cost_is_estimate": false,
+  "reported_quality": "medium",
+  "reported_size": "768x1536",
+  "reported_background": "opaque",
+  "reported_output_format": "png",
+  "returned_size": [
+    768,
+    1536
+  ],
+  "seconds": 23.3,
+  "references": [
+    {
+      "image": "assets/phobos-vehicles/generated/tipper-body-north/tipper-body-north-3.png",
+      "sha256": "2243b95387beb7ea5f418c2f240554dd65d352e41a9e0765457155d9663ad00e",
+      "role": "our approved tipper body, the owner's pick: match its outline weight, shading, palette and finish only; do not redraw it"
+    }
+  ]
+}

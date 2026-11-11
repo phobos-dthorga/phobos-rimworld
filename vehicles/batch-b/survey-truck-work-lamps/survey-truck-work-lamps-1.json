@@ -1,0 +1,51 @@
+{
+  "file": "survey-truck-work-lamps-1.png",
+  "sha256": "eb5e1713fce4a4885f9e2093dfa14385df59b7eb1f6653dd56527f85d761bedb",
+  "date": "2026-11-12T00:55:58",
+  "generator": "OpenAI gpt-image-2 through the OpenAI image API (paid per image)",
+  "engine": "openai",
+  "model": "gpt-image-2",
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL game sprite part for the D'thorga survey truck: a roof bar of work lamps, switched off. Image 1 is our approved truck: match its outline weight, shading, palette and finish only. Do NOT redraw the truck.\n\nDraw ONLY this part, alone on a plain pure white background: nothing else on the canvas. Wide canvas. A slim dark steel bar running straight across the canvas from left to right, about 85 percent of its width, with four square lamp heads evenly spaced along it, each with a pale grey unlit lens and a dark rim. No light, no glow, no beams.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo truck, hull, deck, cargo, people, animals, water, waves, dust, mud, damage, text, letters, numbers, logos, symbols, dials or screens. No floor, ground, shadow outside the part, perspective, tilt or visible side faces. Top surfaces only.",
+  "seed": 1,
+  "seed_note": "an attempt number naming the file; the API takes no seed, so a rerun gives a different image",
+  "quality": "medium",
+  "size": [
+    1536,
+    512
+  ],
+  "request_file": "assets/phobos-vehicles/requests/survey-truck-overlays.json",
+  "ai_disclosure": "Made with generative AI: OpenAI gpt-image-2, prompted by the Phobos art scripts.",
+  "terms": "OpenAI Services Agreement, sections 4.1 and 4.4, as recorded in the Phobos Ostranauts repository on 2026-10-07 and summarised again on 2026-11-08: API customers own Output, OpenAI assigns any rights it has, and Output may not be unique; no use of Output to build competing models. Dated secondary records: the openai.com page refuses automated reads, so the owner confirms the current text.",
+  "endpoint": "/images/edits",
+  "usage": {
+    "input_tokens": 1760,
+    "input_tokens_details": {
+      "image_tokens": 1458,
+      "text_tokens": 302
+    },
+    "output_tokens": 535,
+    "output_tokens_details": {
+      "image_tokens": 535,
+      "text_tokens": 0
+    },
+    "total_tokens": 2295
+  },
+  "cost_usd": 0.0292,
+  "cost_is_estimate": false,
+  "reported_quality": "medium",
+  "reported_size": "1536x512",
+  "reported_background": "opaque",
+  "reported_output_format": "png",
+  "returned_size": [
+    1536,
+    512
+  ],
+  "seconds": 17.2,
+  "references": [
+    {
+      "image": "assets/phobos-vehicles/generated/survey-truck-body-north/survey-truck-body-north-1.png",
+      "sha256": "1785df1c0645f4fd345cc1dccfabb2d53f3a011932bd45e13fa42630f057da01",
+      "role": "our approved truck body, the owner's pick: match its outline weight, shading, palette and finish only; do not redraw the truck"
+    }
+  ]
+}

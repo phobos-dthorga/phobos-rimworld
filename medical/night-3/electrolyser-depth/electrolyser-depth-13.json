@@ -1,0 +1,33 @@
+{
+  "file": "electrolyser-depth-13.png",
+  "sha256": "72ab82f9df6e2a757e4756e3b4ac60b313c5070c23f359310a388210d2adc483",
+  "date": "2026-11-08T06:52:34",
+  "generator": "ComfyUI 0.41.0, local, FLUX.2 Klein 4B base fp8 (Black Forest Labs, Apache 2.0)",
+  "engine": "klein-base",
+  "model": "flux-2-klein-base-4b-fp8.safetensors",
+  "model_sha256": "44bab3a86fe98b85d21dd2a4729ebdc3ae51fb8a39f76e457e18c724219e6840",
+  "prompt": "refcontrol, a square industrial oxygen electrolyser seen from directly above, south face hinted, in the look of the second reference image: a stack of grey cell plates between thick end plates, a gold oxygen outlet and a red hydrogen vent, a game sprite with a thick near-black outline and soft flat cel shading, on a plain pure white background, no text.",
+  "negative_prompt": "",
+  "seed": 13,
+  "steps": 50,
+  "cfg": 4.0,
+  "sampler": "euler/flux2",
+  "size": [
+    1024,
+    1024
+  ],
+  "request_file": "assets/phobos-medical/requests/depth-trial.json",
+  "seconds": 164.1,
+  "references": [
+    {
+      "image": "assets/phobos-medical/references/Electrolyser-depth.png",
+      "sha256": "328a94951cbfd6b1e8f0ba213e4d0a4ecb03a1b287a8ea8c25bfc43b7ecd98af"
+    },
+    {
+      "image": "assets/phobos-medical/references/Electrolyser-large.png",
+      "sha256": "a7ace23591800a049008b1e87de72c2a73ed3ac37a1bf8ceb86f3303d58d050d"
+    }
+  ],
+  "lora": "flux2_klein_4b_refcontrol_depth.safetensors",
+  "lora_strength": 0.9
+}

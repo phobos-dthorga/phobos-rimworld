@@ -1,0 +1,33 @@
+{
+  "file": "hyperbaric-chamber-depth-13.png",
+  "sha256": "75d31860655ca6bf01876c7d6930628fcb41bc2ec9760e8fd99644d0fdbd4aed",
+  "date": "2026-11-08T07:03:46",
+  "generator": "ComfyUI 0.41.0, local, FLUX.2 Klein 4B base fp8 (Black Forest Labs, Apache 2.0)",
+  "engine": "klein-base",
+  "model": "flux-2-klein-base-4b-fp8.safetensors",
+  "model_sha256": "44bab3a86fe98b85d21dd2a4729ebdc3ae51fb8a39f76e457e18c724219e6840",
+  "prompt": "refcontrol, a one-patient hyperbaric chamber lying north to south seen from directly above, south face hinted, in the look of the second reference image: a long white cylindrical vessel with a clear acrylic top and a round door with a brass wheel at the south end, a game sprite with a thick near-black outline and soft flat cel shading, on a plain pure white background, no text.",
+  "negative_prompt": "",
+  "seed": 13,
+  "steps": 50,
+  "cfg": 4.0,
+  "sampler": "euler/flux2",
+  "size": [
+    1024,
+    1024
+  ],
+  "request_file": "assets/phobos-medical/requests/depth-trial.json",
+  "seconds": 164.8,
+  "references": [
+    {
+      "image": "assets/phobos-medical/references/HyperbaricChamberNarrow-depth.png",
+      "sha256": "0f3c0d822ab4a96904af9029b4b0e9fcc94dc8dc3f5cd412838521a1b9bb173d"
+    },
+    {
+      "image": ".local/art/picks-7nov/hyperbaric-chamber-102.png",
+      "sha256": "a529dbcd0d897fee44d2ab82889bd04f6926188cc71914dbb2b5b0d6af238214"
+    }
+  ],
+  "lora": "flux2_klein_4b_refcontrol_depth.safetensors",
+  "lora_strength": 0.9
+}

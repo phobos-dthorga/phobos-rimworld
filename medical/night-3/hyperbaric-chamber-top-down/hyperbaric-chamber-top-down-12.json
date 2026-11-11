@@ -1,0 +1,37 @@
+{
+  "file": "hyperbaric-chamber-top-down-12.png",
+  "sha256": "e3a8dc0eb7cc2068db257ca009dc28dee98eb01cfc78ac925d9d17bbf38cd48f",
+  "date": "2026-11-08T06:28:14",
+  "generator": "ComfyUI 0.41.0, local, FLUX.2 Klein 4B base fp8 (Black Forest Labs, Apache 2.0)",
+  "engine": "klein-base",
+  "model": "flux-2-klein-base-4b-fp8.safetensors",
+  "model_sha256": "44bab3a86fe98b85d21dd2a4729ebdc3ae51fb8a39f76e457e18c724219e6840",
+  "prompt": "phobosvanilla, The machine in the first reference image, a one-patient hyperbaric chamber lying north to south, one tile wide and three long, in the middle third of a square picture: a long white cylindrical vessel with rounded ends, a clear acrylic top over a padded blue tray with a pillow at the north end, and a heavy round door with a brass locking wheel and a small gauge at the south end. Use the third reference image for its look. Keep its shape, layout and colours. Draw it in exactly the art style of the second reference image: a game sprite seen from directly above, south face hinted, with a thick near-black outline around every shape, soft flat cel shading, a muted palette, rounded panel corners and a few small clean details. One object, centred, on a plain pure white background. No floor, no cast shadow, no text, no labels, no people.",
+  "negative_prompt": "",
+  "seed": 12,
+  "steps": 50,
+  "cfg": 4.0,
+  "sampler": "euler/flux2",
+  "size": [
+    1024,
+    1024
+  ],
+  "request_file": "assets/phobos-medical/requests/third-batch.json",
+  "seconds": 256.1,
+  "references": [
+    {
+      "image": "assets/phobos-medical/references/HyperbaricChamberNarrow-large.png",
+      "sha256": "25b0dd43dba767344e089e8b2a67ba31ea6bb1bda1586b1b3eeadeac06ffa18e"
+    },
+    {
+      "image": ".local/references/vanilla-medical/VitalsMonitor_south.png",
+      "sha256": "1912014e71c08cae342dc9db86df0c68eefe7764cce6c1cc97802206f5b15188"
+    },
+    {
+      "image": ".local/art/picks-7nov/hyperbaric-chamber-102.png",
+      "sha256": "a529dbcd0d897fee44d2ab82889bd04f6926188cc71914dbb2b5b0d6af238214"
+    }
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "lora_strength": 1.0
+}

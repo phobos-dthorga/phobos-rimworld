@@ -1,0 +1,51 @@
+{
+  "file": "generator-set-body-north-2.png",
+  "sha256": "177e3b7639b759ae230ec1bd7089b0526fcbd9feafb9d8abb9e7ea4f4be75549",
+  "date": "2026-11-12T00:36:10",
+  "generator": "OpenAI gpt-image-2 through the OpenAI image API (paid per image)",
+  "engine": "openai",
+  "model": "gpt-image-2",
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL game vehicle sprite for the D'thorga generator set: a light two-axle truck that carries a diesel generator to power a remote camp for a hard-scrabble frontier colony. Image 1 is our approved truck from the same family: match its outline weight, shading, palette and finish only. Do NOT copy its shape or layout.\n\nDraw the BARE TRUCK only. The cable, cable reel, light mast, battery box, outriggers and cooling fan are drawn separately as overlays.\n\nTall canvas, twice as tall as wide. The truck is LONG AND NARROW: its width is about one third of its length, including the wheels. It fills seven eighths of the canvas height, centred, on a plain pure white background. North facing: the bonnet and cab at the TOP edge, the deck at the BOTTOM edge. Pale sand-grey cab and panels, dark rubber tyres, a pale grey cab roof, dark weathered steel deck, an olive-drab generator housing, one muted orange accent stripe across the cab.\n\nIts roof plan, from top to bottom: a short bonnet and a compact cab roof with a windscreen strip at its top edge; behind the cab a short strip of bare steel deck; then a long low boxy generator housing filling the middle of the deck, with louvred panels along both sides, one round EMPTY dark fan well in its roof, and one small round exhaust stack cap at its front right corner; behind the housing a small upright switchboard cabinet across the deck; then a short strip of bare steel deck to the rear edge. The tops of one pair of wheels beside the front of the truck and one pair beside the rear of the housing, two axles only.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo fan blades, cable, reel, drum, light mast, lamps, battery box, outriggers, cargo, people, animals, turrets, hoses, smoke, dust, mud, damage, text, letters, numbers, logos, dials, screens or lamps. No floor, ground, road, shadow outside the vehicle, perspective, tilt or visible side faces. Top surfaces only.",
+  "seed": 2,
+  "seed_note": "an attempt number naming the file; the API takes no seed, so a rerun gives a different image",
+  "quality": "medium",
+  "size": [
+    768,
+    1536
+  ],
+  "request_file": "assets/phobos-vehicles/requests/batch-b-pilots.json",
+  "ai_disclosure": "Made with generative AI: OpenAI gpt-image-2, prompted by the Phobos art scripts.",
+  "terms": "OpenAI Services Agreement, sections 4.1 and 4.4, as recorded in the Phobos Ostranauts repository on 2026-10-07 and summarised again on 2026-11-08: API customers own Output, OpenAI assigns any rights it has, and Output may not be unique; no use of Output to build competing models. Dated secondary records: the openai.com page refuses automated reads, so the owner confirms the current text.",
+  "endpoint": "/images/edits",
+  "usage": {
+    "input_tokens": 1698,
+    "input_tokens_details": {
+      "image_tokens": 1152,
+      "text_tokens": 546
+    },
+    "output_tokens": 916,
+    "output_tokens_details": {
+      "image_tokens": 916,
+      "text_tokens": 0
+    },
+    "total_tokens": 2614
+  },
+  "cost_usd": 0.0394,
+  "cost_is_estimate": false,
+  "reported_quality": "medium",
+  "reported_size": "768x1536",
+  "reported_background": "opaque",
+  "reported_output_format": "png",
+  "returned_size": [
+    768,
+    1536
+  ],
+  "seconds": 23.6,
+  "references": [
+    {
+      "image": "assets/phobos-vehicles/generated/bulk-tanker-body-north/bulk-tanker-body-north-2.png",
+      "sha256": "3c7b752f08adb7eeb84a1f161cdec1d8686765dd289322165fe54fa72c7c07ce",
+      "role": "approved truck of the same family: match its outline weight, shading, palette and finish only; do not copy its shape or layout"
+    }
+  ]
+}

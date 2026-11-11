@@ -1,0 +1,33 @@
+{
+  "file": "oxygen-trolley-11.png",
+  "sha256": "6af3413a68acb333fcb728e3bcd5ebba5bd15e259df14b436bd87fa67ec3f09e",
+  "date": "2026-11-08T04:12:12",
+  "generator": "ComfyUI 0.41.0, local, FLUX.2 Klein 4B base fp8 (Black Forest Labs, Apache 2.0)",
+  "engine": "klein-base",
+  "model": "flux-2-klein-base-4b-fp8.safetensors",
+  "model_sha256": "44bab3a86fe98b85d21dd2a4729ebdc3ae51fb8a39f76e457e18c724219e6840",
+  "prompt": "phobosvanilla, The machine in the first reference image, an oxygen cylinder trolley: a dark wheeled steel frame with a push handle carrying two gold oxygen cylinders seen end-on with their valves, a regulator with a blue gauge, and a coiled clear mask tube. Keep its shape, layout and colours. Draw it in exactly the art style of the second reference image: a game sprite seen from directly above, south face hinted, with a thick near-black outline around every shape, soft flat cel shading, a muted palette, rounded panel corners and a few small clean details. One object, centred, on a plain pure white background. No floor, no cast shadow, no text, no labels, no people.",
+  "negative_prompt": "",
+  "seed": 11,
+  "steps": 50,
+  "cfg": 4.0,
+  "sampler": "euler/flux2",
+  "size": [
+    1024,
+    1024
+  ],
+  "request_file": "assets/phobos-medical/requests/third-batch.json",
+  "seconds": 150.3,
+  "references": [
+    {
+      "image": "assets/phobos-medical/references/OxygenTrolley-large.png",
+      "sha256": "fe2631ab638da8ccd1fb68911b652dec28cc1591bfb4706a9e002b6be2617c14"
+    },
+    {
+      "image": ".local/references/vanilla-medical/VitalsMonitor_south.png",
+      "sha256": "1912014e71c08cae342dc9db86df0c68eefe7764cce6c1cc97802206f5b15188"
+    }
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "lora_strength": 1.0
+}
