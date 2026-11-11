@@ -225,6 +225,10 @@ through a `CellBoolDrawer` like the painted radiation area.
 
 ### P7d. Wear that shows on the body: MEDIUM, playful
 
+**On the back burner (owner, 11 Nov 2026).** It cannot be made generic across all vehicles: drawing grime and dents over another mod's
+vehicle would change its author's art, and their vision for it is theirs. Not built until the owner raises it again; if it ever is, it
+stays on our own vehicles.
+
 Grime, dents and a smoke overlay drawn over the body as parts fail and fires burn, through the overlay system the tanker's damage variants
 already use.
 
@@ -265,7 +269,7 @@ Batch A removes every borrowed picture in the vehicle screens. Batches B and C a
 4. **P7b** (the range on the world map).
 5. **P3** and **P5** (fittings icons and the Health tab's row shape).
 6. **G3**, **G4** (event marks, the wear ring and trend line) and **P7c** (the ground overlay).
-7. **P4** (the dial), **P7d** and **P7e** last, if wanted.
+7. **P4** (the dial) and **P7e** last, if wanted. **P7d** is on the back burner (owner, 11 Nov 2026; see its section).
 
 Each step says "not yet tested in game" until the owner says otherwise.
 
@@ -283,6 +287,8 @@ Each step says "not yet tested in game" until the owner says otherwise.
 
 ## Who chose what
 
+- **Owner (11 Nov 2026, after slices 1 to 4):** P7d on the back burner, because it cannot be made generic without touching other authors'
+  vehicles and their vision for them.
 - **Owner (11 Nov 2026):** the purview (visual improvement of the diagnosis and other areas at the agent's suggestion); art through the
   API is acceptable; the two questions on graphs and on strikingly visual, high-benefit pieces.
 - **Owner (11 Nov 2026, later):** "Agreed with all your leans", and the go for P1 steps one and two.
