@@ -36,6 +36,8 @@ public class Dialog_PhobosDiagnosis : Window
     readonly List<DamageSheet.SheetPart> sheetParts;
     readonly List<PhobosWidgets.GraphSeries> temperatures = new();
     readonly List<PhobosWidgets.GraphSeries> levels = new();
+    readonly List<CurveMark> temperatureMarks = new();
+    readonly List<CurveMark> levelMarks = new();
     readonly float temperatureMin;
     readonly float temperatureMax;
     readonly string date;
@@ -43,6 +45,9 @@ public class Dialog_PhobosDiagnosis : Window
     float viewHeight = 400f;
     string? litPart;
     string? hoveredOnSheet;
+    /// <summary>The part clicked on the sheet: its row stays marked and is scrolled into view (Framework 0.84.0). A second click clears it.</summary>
+    string? picked;
+    bool scrollToPicked;
 
     public Dialog_PhobosDiagnosis(Letter_PhobosReport letter, DiagnosisReport report)
     {
@@ -73,6 +78,10 @@ public class Dialog_PhobosDiagnosis : Window
                 levels.Add(new PhobosWidgets.GraphSeries(series.Samples, series.label, LineColours[levelLine++ % LineColours.Length]));
             }
         }
+        foreach (DiagnosisMark mark in report.marks)
+        {
+            (mark.temperature ? temperatureMarks : levelMarks).Add(new CurveMark(-mark.hoursAgo, mark.message, DiagnosisText.ToneColour(mark.tone)));
+        }
         temperatureMin = temperatures.Count > 0 ? Mathf.Floor(low / 10f) * 10f - 10f : 0f;
         temperatureMax = temperatures.Count > 0 ? Mathf.Ceil(high / 10f) * 10f + 10f : 100f;
     }
@@ -97,7 +106,12 @@ public class Dialog_PhobosDiagnosis : Window
     void DrawLeft(Rect rect)
     {
         var sheet = new Rect(rect.x, rect.y, rect.width, rect.width);
-        hoveredOnSheet = DamageSheet.Draw(sheet, report.vehicleDef!, sheetParts, litPart);
+        hoveredOnSheet = DamageSheet.Draw(sheet, report.vehicleDef!, sheetParts, litPart ?? picked);
+        if (Widgets.ButtonInvisible(sheet, doMouseoverSound: false))
+        {
+            picked = hoveredOnSheet == picked ? null : hoveredOnSheet;
+            scrollToPicked = picked != null;
+        }
         float y = sheet.yMax + 8f;
 
         var lines = new List<string>
@@ -154,8 +168,14 @@ public class Dialog_PhobosDiagnosis : Window
         foreach (DiagnosisPart part in report.parts)
         {
             var row = new Rect(0f, y, view.width, Row);
+            if (part.key == picked) Widgets.DrawHighlightSelected(row);
             if (part.key == hoveredOnSheet) Widgets.DrawHighlight(row);
             else Widgets.DrawHighlightIfMouseover(row);
+            if (scrollToPicked && part.key == picked)
+            {
+                scroll.y = Mathf.Max(0f, y - Row * 2f);
+                scrollToPicked = false;
+            }
             if (Mouse.IsOver(row)) lit = part.key;
             float labelWidth = view.width * 0.34f;
             using (new TextBlock(GameFont.Small, TextAnchor.MiddleLeft)) Widgets.Label(new Rect(4f, y, labelWidth - 4f, Row), part.label);
@@ -235,14 +255,14 @@ public class Dialog_PhobosDiagnosis : Window
             {
                 using (new TextBlock(GameFont.Tiny)) Widgets.Label(new Rect(0f, y, view.width, 18f), "PhobosVehicleSystems_ReportTemperatures".Translate(TemperatureUnit().Named("UNIT")));
                 y += 18f;
-                PhobosWidgets.HistoryGraphs(new Rect(0f, y, view.width, GraphHeight), temperatures, temperatureMin, temperatureMax, QuantityHistory.Hours, QuantityHistory.Capacity, TemperatureUnit());
+                PhobosWidgets.HistoryGraphs(new Rect(0f, y, view.width, GraphHeight), temperatures, temperatureMin, temperatureMax, QuantityHistory.Hours, QuantityHistory.Capacity, TemperatureUnit(), temperatureMarks);
                 y += GraphHeight + 8f;
             }
             if (levels.Count > 0)
             {
                 using (new TextBlock(GameFont.Tiny)) Widgets.Label(new Rect(0f, y, view.width, 18f), "PhobosVehicleSystems_ReportLevels".Translate());
                 y += 18f;
-                PhobosWidgets.HistoryGraphs(new Rect(0f, y, view.width, GraphHeight), levels, 0f, 100f, QuantityHistory.Hours, QuantityHistory.Capacity, "PhobosVehicleSystems_UnitPercent".Translate());
+                PhobosWidgets.HistoryGraphs(new Rect(0f, y, view.width, GraphHeight), levels, 0f, 100f, QuantityHistory.Hours, QuantityHistory.Capacity, "PhobosVehicleSystems_UnitPercent".Translate(), levelMarks);
                 y += GraphHeight + 8f;
             }
         }

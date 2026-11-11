@@ -34,6 +34,36 @@ public static class DamageSheet
         }
     }
 
+    /// <summary>Every part of a vehicle as the sheet shows it: key, label and share of its own maximum health.</summary>
+    public static List<SheetPart> PartsOf(VehiclePawn vehicle)
+    {
+        var parts = new List<SheetPart>();
+        if (vehicle.statHandler?.components == null) return parts;
+        foreach (VehicleComponent part in vehicle.statHandler.components)
+        {
+            parts.Add(new SheetPart(part.props.key, (part.props.label ?? part.props.key).CapitalizeFirst(), part.MaxHealth > 0f ? part.Health / part.MaxHealth : 0f));
+        }
+        return parts;
+    }
+
+    /// <summary>The size of the sheet that follows the mouse (authored: as wide as the Health tab's column).</summary>
+    const float PopupSize = 210f;
+    const float PopupGap = 16f;
+    static readonly int PopupId = 0x50684453; // "PhDS": one id, so the game keeps one sheet on screen
+
+    /// <summary>
+    /// The sheet as a tooltip beside the mouse (Framework 0.84.0: the fleet board's pictures), on the game's own immediate window, the way
+    /// its drawn tooltips are made; kept on screen. Call it each frame the mouse is over the thing it describes.
+    /// </summary>
+    public static void Popup(VehicleDef def, IReadOnlyList<SheetPart> parts)
+    {
+        Vector2 mouse = UI.MousePositionOnUIInverted;
+        var rect = new Rect(mouse.x + PopupGap, mouse.y + PopupGap, PopupSize, PopupSize);
+        if (rect.xMax > UI.screenWidth) rect.x = mouse.x - PopupGap - PopupSize;
+        if (rect.yMax > UI.screenHeight) rect.y = mouse.y - PopupGap - PopupSize;
+        Find.WindowStack.ImmediateWindow(PopupId, rect, WindowLayer.Super, () => Draw(new Rect(0f, 0f, PopupSize, PopupSize), def, parts, null), doBackground: false);
+    }
+
     /// <summary>
     /// Draws the sheet in <paramref name="rect"/> and returns the key of the part under the mouse (the smallest part covering that cell),
     /// or null. The <paramref name="lit"/> part's cells are outlined, so hovering its row elsewhere shows where it sits.

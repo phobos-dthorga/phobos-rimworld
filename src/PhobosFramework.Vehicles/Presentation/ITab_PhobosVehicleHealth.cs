@@ -80,7 +80,14 @@ public class ITab_PhobosVehicleHealth : ITab
         if (outer.width >= SheetNeedsWidth)
         {
             // The vehicle seen from above with its hurt parts tinted; hovering it lights the part's row, and the part on the map.
-            view.SheetHover = DamageSheet.Draw(new Rect(outer.x, outer.y, SheetWidth, SheetWidth), comp.Vehicle.VehicleDef, view.Sheet, view.LitKey);
+            var sheet = new Rect(outer.x, outer.y, SheetWidth, SheetWidth);
+            view.SheetHover = DamageSheet.Draw(sheet, comp.Vehicle.VehicleDef, view.Sheet, view.LitKey ?? view.Picked);
+            // A click picks the part under the mouse: its row stays marked and scrolls into view; a second click clears it (Framework 0.84.0).
+            if (Widgets.ButtonInvisible(sheet, doMouseoverSound: false))
+            {
+                view.Picked = view.SheetHover == view.Picked ? null : view.SheetHover;
+                view.ScrollToPicked = view.Picked != null;
+            }
             outer.xMin += SheetWidth + 8f;
         }
         else view.SheetHover = null;
@@ -143,13 +150,23 @@ public class ITab_PhobosVehicleHealth : ITab
         var inner = new Rect(0f, 0f, viewWidth, view.Height);
         Widgets.BeginScrollView(rect, ref view.Scroll, inner);
         float y = 0f;
-        VehicleComponent? hovered = null, sheetHovered = null;
+        VehicleComponent? hovered = null, sheetHovered = null, picked = null;
         foreach (PartGroup group in view.Parts!)
         {
             PhobosWidgets.Section(ref y, 0f, viewWidth, group.Header);
             foreach (PartRow part in group.Rows)
             {
                 var row = new Rect(0f, y, viewWidth, Row);
+                if (part.Part.props.key == view.Picked)
+                {
+                    Widgets.DrawHighlightSelected(row);
+                    picked = part.Part;
+                    if (view.ScrollToPicked)
+                    {
+                        view.Scroll.y = Mathf.Max(0f, y - Row * 2f);
+                        view.ScrollToPicked = false;
+                    }
+                }
                 if (Mouse.IsOver(row))
                 {
                     Widgets.DrawHighlight(row);
@@ -190,7 +207,7 @@ public class ITab_PhobosVehicleHealth : ITab
         }
         Widgets.EndScrollView();
         view.LitKey = hovered?.props.key;
-        if (!onWorld) VehicleHighlight.Set(comp.Vehicle, hovered ?? sheetHovered);
+        if (!onWorld) VehicleHighlight.Set(comp.Vehicle, hovered ?? sheetHovered ?? picked);
     }
 
     // ---- The row model: built when the comp says something changed, drawn every frame without allocation. ----
@@ -210,6 +227,8 @@ public class ITab_PhobosVehicleHealth : ITab
         /// <summary>The part whose row the mouse was over on the last frame, outlined on the sheet; and the part under the mouse on the sheet.</summary>
         public string? LitKey;
         public string? SheetHover;
+        public string? Picked;
+        public bool ScrollToPicked;
 
         public void Build(CompPhobosVehicleSystems comp, DisplayMode mode)
         {
@@ -225,10 +244,7 @@ public class ITab_PhobosVehicleHealth : ITab
             BuildCrew(vehicle);
             BuildParts(comp, figures);
             Sheet.Clear();
-            foreach (VehicleComponent part in vehicle.statHandler.components)
-            {
-                Sheet.Add(new DamageSheet.SheetPart(part.props.key, (part.props.label ?? part.props.key).CapitalizeFirst(), part.MaxHealth > 0f ? part.Health / part.MaxHealth : 0f));
-            }
+            Sheet.AddRange(DamageSheet.PartsOf(vehicle));
         }
 
         void BuildStats(CompPhobosVehicleSystems comp, bool figures)

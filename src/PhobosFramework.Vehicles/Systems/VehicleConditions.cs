@@ -95,6 +95,7 @@ public sealed class VehicleConditions
         {
             condition = new VehicleCondition { def = def, partKey = part.props.key, role = role, system = system };
             list.Add(condition);
+            comp.RecordEvent(VehicleEventKind.Fault, system, def.defName);
         }
         condition.severity = (float)SeverityRule.Next(condition.severity, amount, 0, 0);
     }

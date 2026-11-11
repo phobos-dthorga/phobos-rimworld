@@ -156,8 +156,12 @@ public class MainTabWindow_PhobosFleet : MainTabWindow
         Widgets.DrawLineHorizontal(rect.x, rect.yMax - 1f, rect.width);
     }
 
+    /// <summary>Whether this row's damage sheet is showing, so its text tooltip stays away rather than cover it.</summary>
+    static bool sheetShown;
+
     static void DrawRow(Rect row, FleetEntry entry, int index)
     {
+        sheetShown = false;
         if (index % 2 == 1) Widgets.DrawLightHighlight(row);
         Widgets.DrawHighlightIfMouseover(row);
         float x = row.x;
@@ -171,7 +175,7 @@ public class MainTabWindow_PhobosFleet : MainTabWindow
         if (entry.Status != FleetEntry.NoStatus) tip += "\n" + StatusWord(entry.Status);
         if (entry.WorstPart != null) tip += "\n" + "PhobosFleet_TipWorstPart".Translate(entry.WorstPart.Named("PART"), entry.Health.ToStringPercent().Named("HEALTH"));
         if (entry.Waiting != null) tip += "\n" + entry.Waiting;
-        TooltipHandler.TipRegion(row, tip);
+        if (!sheetShown) TooltipHandler.TipRegion(row, tip);
         if (Widgets.ButtonInvisible(row)) FleetService.Jump(entry);
     }
 
@@ -202,7 +206,16 @@ public class MainTabWindow_PhobosFleet : MainTabWindow
             case Column.Name:
             {
                 var picture = new Rect(text.x, cell.y + 2f, Thumbnail, cell.height - 4f);
-                if (entry.Vehicle.VehicleDef is { } def) VehiclePicture.Draw(picture, def, facingNorth: false);
+                if (entry.Vehicle.VehicleDef is { } def)
+                {
+                    VehiclePicture.Draw(picture, def, facingNorth: false);
+                    // Where it is hurt, at a glance: the damage sheet beside the mouse while it rests on the picture.
+                    if (Mouse.IsOver(picture))
+                    {
+                        DamageSheet.Popup(def, DamageSheet.PartsOf(entry.Vehicle));
+                        sheetShown = true;
+                    }
+                }
                 using (new TextBlock(TextAnchor.MiddleLeft))
                 {
                     var label = new Rect(picture.xMax + 6f, cell.y, text.xMax - picture.xMax - 6f, cell.height);

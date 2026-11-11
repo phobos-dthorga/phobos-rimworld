@@ -5,6 +5,25 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.84.0] - 2026-11-11 - Draft
+
+Marks on the graphs, and more from the damage picture (owner, 11 November 2026: slice 1 of the next four). **Not yet tested in game.**
+
+### Added
+
+- **Marks on the history graphs.** A small dot above a graph marks what happened to the vehicle: a reading entering a warning stage (boiling, flat, low), a service, a new fault on a part, a jump-start. Rest the mouse on a dot to read what it was and how long ago. The Systems tab's graphs show the marks for their own reading and system; a diagnosis report keeps the marks of its last day, as they were.
+- **Click a part on the damage picture** in the Health tab or a report to mark its row and scroll to it; click it again to clear. In the Health tab the part also stays lit on the map.
+- **The fleet board shows the damage picture** while the mouse rests on a vehicle's picture, in place of the row's text tooltip.
+
+### Compatibility and limits
+
+- Only the player's vehicles keep marks: up to 64 over 15 days each, the same event within an hour counting once. Warning stages a load works out again are not marked.
+- The marks use the game's own graph marks: a dot with a tooltip, not a caption on the graph.
+
+### Save compatibility
+
+- Safe on an existing save: a vehicle starts with no marks, and the list is saved with it. A report written before this version has no marks.
+
 ## [0.83.2] - 2026-11-11 - Draft
 
 The history graphs, after the owner's next screenshots and a look through the game's frame profiler (11 November 2026). **Not yet tested in game.**

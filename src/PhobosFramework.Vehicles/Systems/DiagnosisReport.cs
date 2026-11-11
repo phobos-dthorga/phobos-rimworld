@@ -128,6 +128,24 @@ public sealed class DiagnosisSeries : IExposable
     }
 }
 
+/// <summary>One mark on a report's last-day graph (Framework 0.84.0): how long before the diagnosis, what it says, its tone, and which graph.
+/// Text, not names: a report is a record of the day, like the letter's own text.</summary>
+public sealed class DiagnosisMark : IExposable
+{
+    public float hoursAgo;
+    public string message = "";
+    public ReportTone tone;
+    public bool temperature;
+
+    public void ExposeData()
+    {
+        Scribe_Values.Look(ref hoursAgo, "hoursAgo");
+        Scribe_Values.Look(ref message, "message", "");
+        Scribe_Values.Look(ref tone, "tone");
+        Scribe_Values.Look(ref temperature, "temperature");
+    }
+}
+
 /// <summary>
 /// A diagnosis as it was on the day (Framework 0.78.0; docs/development/vehicle-presentation-design.md, P1): everything the letter and the
 /// report window show, taken once when the mechanic finishes and saved with the letter, so opening it again later shows what was true
@@ -147,6 +165,7 @@ public sealed class DiagnosisReport : IExposable
     public List<DiagnosisReading> readings = new();
     public List<DiagnosisFault> faults = new();
     public List<DiagnosisSeries> series = new();
+    public List<DiagnosisMark> marks = new();
 
     public void ExposeData()
     {
@@ -161,6 +180,7 @@ public sealed class DiagnosisReport : IExposable
         Scribe_Collections.Look(ref readings, "readings", LookMode.Deep);
         Scribe_Collections.Look(ref faults, "faults", LookMode.Deep);
         Scribe_Collections.Look(ref series, "series", LookMode.Deep);
+        Scribe_Collections.Look(ref marks, "marks", LookMode.Deep);
         if (Scribe.mode == LoadSaveMode.PostLoadInit)
         {
             tunes ??= new List<string>();
@@ -168,6 +188,7 @@ public sealed class DiagnosisReport : IExposable
             readings ??= new List<DiagnosisReading>();
             faults ??= new List<DiagnosisFault>();
             series ??= new List<DiagnosisSeries>();
+            marks ??= new List<DiagnosisMark>();
         }
     }
 }

@@ -26,6 +26,8 @@ public sealed class SystemState
     public readonly double[] max;
     public readonly int[] stage;
     public readonly List<FlowSample> samples = new();
+    /// <summary>Whether its stages have been worked out once since it was made or loaded: only a change after that is an event (not saved).</summary>
+    public bool staged;
 
     public SystemState(ResolvedSystem system)
     {

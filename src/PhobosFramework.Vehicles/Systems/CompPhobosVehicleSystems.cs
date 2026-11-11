@@ -153,6 +153,17 @@ public class CompPhobosVehicleSystems : VehicleComp
     /// <summary>The conditions on this vehicle's parts (slice 2 of the vehicle health design).</summary>
     public VehicleConditions Conditions => conditions ??= new VehicleConditions(this);
 
+    VehicleEventLog? events;
+
+    /// <summary>What happened to the vehicle, for the marks on its graphs (Framework 0.84.0). Kept for the player's vehicles only.</summary>
+    public VehicleEventLog Events => events ??= new VehicleEventLog();
+
+    /// <summary>Marks an event on the vehicle's graphs, if it is the player's: nobody reads another faction's graphs.</summary>
+    internal void RecordEvent(VehicleEventKind kind, string system, string detail = "", int stage = -1)
+    {
+        if (Vehicle?.Faction == Faction.OfPlayer) Events.Record(kind, system, detail, stage);
+    }
+
     /// <summary>Spawned vehicles with this comp, for the per-tick speed cap (one dictionary read instead of a comp search).</summary>
     // Weak: loading a game despawns nothing, and a plain dictionary would keep the last game's vehicles.
     static readonly ConditionalWeakTable<VehiclePawn, CompPhobosVehicleSystems> spawned = new();
@@ -365,6 +376,7 @@ public class CompPhobosVehicleSystems : VehicleComp
         Repairs.ExposeData();
         Fittings.ExposeData();
         Diagnostics.ExposeData();
+        Events.ExposeData();
         if (Scribe.mode == LoadSaveMode.PostLoadInit)
         {
             savedValues ??= new Dictionary<string, float>();
@@ -720,6 +732,8 @@ public class CompPhobosVehicleSystems : VehicleComp
                     }
                     // A red lamp lighting: one soft chime (the dashboard shows the same rule).
                     if (entered.notable && entered.Severe && state.Def.quantities[q].telltale != null) VehicleSystemSounds.Chime(this);
+                    // A stage worth a look marks the graphs; not the stages a load works out again (they are not saved).
+                    if (entered.notable && state.staged) RecordEvent(VehicleEventKind.Stage, state.Def.defName, state.Def.quantities[q].name, index);
                 }
             }
             StageSpec? current = state.CurrentStage(q);
@@ -730,6 +744,7 @@ public class CompPhobosVehicleSystems : VehicleComp
                 if (effect.Active(context)) effect.Apply(context, hours);
             }
         }
+        state.staged = true;
     }
 
     static string StageKey(SystemState state, int quantity) => state.Def.defName + "/" + state.Def.quantities[quantity].name + "/" + state.stage[quantity];
@@ -1549,6 +1564,7 @@ public class CompPhobosVehicleSystems : VehicleComp
         foreach (QuantityRestore restore in service.restores) SetQuantity(restore.quantity, restore.value);
         Conditions.ClearBy(service);
         servicedThisRequest.Add(state.Def.defName);
+        RecordEvent(VehicleEventKind.Service, state.Def.defName);
         if (serviceRequested && !Props.systems.Any(s => s.def.service != null && !servicedThisRequest.Contains(s.def.defName)
                                                          && !VehicleSystemsMod.Settings.disabledSystems.Contains(s.def.defName)))
         {
@@ -1620,6 +1636,7 @@ public class CompPhobosVehicleSystems : VehicleComp
             donor.EvaluateStages(donorState, 0f);
         }
         EvaluateStages(need, 0f);
+        RecordEvent(VehicleEventKind.JumpStart, need.Def.defName);
         RecacheStatFactors();
         MoveRefusal = FirstRefusal(draft: false);
         if (Vehicle.Faction == Faction.OfPlayer)
@@ -1644,6 +1661,7 @@ public class CompPhobosVehicleSystems : VehicleComp
         savedValues.Clear();
         loadSwitches.Clear();
         savedPartHealth.Clear();
+        events?.Clear();
         statFactors.Clear();
         serviceRequested = false;
         servicedThisRequest.Clear();

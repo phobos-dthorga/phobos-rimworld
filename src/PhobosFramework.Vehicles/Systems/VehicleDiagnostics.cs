@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using Phobos.Framework;
 using Phobos.Framework.Rules;
@@ -65,6 +66,7 @@ public sealed class VehicleDiagnostics
             longLat = vehicle.Tile.Valid ? Find.WorldGrid.LongLatOf(vehicle.Tile) : default,
         };
         if (comp.Powertrain is { } train && train.Spec.RatedPowerKw > 0) report.ratedKw = (float)train.Spec.RatedPowerKw;
+        var graphed = new System.Collections.Generic.List<(string system, string quantity, bool temperature)>();
         foreach (VehicleTuneAxis axis in new[] { VehicleTuneAxis.Engine, VehicleTuneAxis.Gearing })
         {
             if (comp.Fittings.Current(axis) is { isDefault: false } tune) report.tunes.Add(tune.label);
@@ -101,9 +103,15 @@ public sealed class VehicleDiagnostics
                     fill = gauge.Fill,
                     telltale = quantity.telltale,
                 });
-                if (quantity.showOnDashboard && comp.History.For(state, q) is { Count: >= 2 } ring) report.series.Add(Series(state, q, ring, gauge.Label));
+                if (quantity.showOnDashboard && comp.History.For(state, q) is { Count: >= 2 } ring)
+                {
+                    DiagnosisSeries line = Series(state, q, ring, gauge.Label);
+                    report.series.Add(line);
+                    graphed.Add((state.Def.defName, quantity.name, line.temperature));
+                }
             }
         }
+        AddMarks(report, comp, graphed);
         foreach (VehicleCondition condition in comp.Conditions.All)
         {
             VehicleComponent? part = vehicle.statHandler.GetComponent(condition.partKey);
@@ -118,6 +126,28 @@ public sealed class VehicleDiagnostics
             });
         }
         return report;
+    }
+
+    /// <summary>The events of the last day on each graph that shows a line they concern (Framework 0.84.0), as text of the day.</summary>
+    static void AddMarks(DiagnosisReport report, CompPhobosVehicleSystems comp, List<(string system, string quantity, bool temperature)> graphed)
+    {
+        int now = Find.TickManager.TicksGame;
+        foreach (VehicleEvent e in comp.Events.Events)
+        {
+            float hoursAgo = (now - e.tick) / (float)GenDate.TicksPerHour;
+            if (hoursAgo > QuantityHistory.Hours) continue;
+            foreach (bool temperature in new[] { true, false })
+            {
+                if (!graphed.Any(g => g.temperature == temperature && VehicleEventText.Concerns(e, g.system, g.quantity))) continue;
+                report.marks.Add(new DiagnosisMark
+                {
+                    hoursAgo = hoursAgo,
+                    message = VehicleEventText.WithWhen(VehicleEventText.Message(e), now - e.tick),
+                    tone = VehicleEventText.Tone(e),
+                    temperature = temperature,
+                });
+            }
+        }
     }
 
     /// <summary>A gauge's last day: a temperature as recorded, anything else as the share of its gauge, what is left where the gauge shows that.</summary>

@@ -89,14 +89,15 @@ public static class PhobosWidgets
     /// A graph of a ring's samples over the last hours, on the game's curve drawer, scaled to min..max. <paramref name="unit"/> follows the
     /// value where the pointer rests (a degree sign, a percent sign; empty for none).
     /// </summary>
-    public static void HistoryGraph(Rect rect, HistoryRing ring, float min, float max, Color colour, int hours, string unit = "")
+    public static void HistoryGraph(Rect rect, HistoryRing ring, float min, float max, Color colour, int hours, string unit = "", List<CurveMark>? marks = null)
     {
         // The drawer draws on Repaint only, so the curve is built only then (Layout and every mouse event used to build it for nothing).
         if (ring.Count < 2 || Event.current.type != EventType.Repaint) return;
         SimpleCurve curve = GraphCurve(ring.Count, i => ring[i], (float)hours / ring.Capacity);
         var curves = new List<SimpleCurveDrawInfo> { new() { curve = curve, color = colour, valueFormat = GraphValueFormat(unit) } };
-        DrawGraphPanel(rect, hours);
-        SimpleCurveDrawer.DrawCurves(rect, curves, GraphStyle(min, max, hours));
+        if (marks is { Count: 0 }) marks = null;
+        DrawGraphPanel(rect, hours, marks != null);
+        SimpleCurveDrawer.DrawCurves(rect, curves, GraphStyle(min, max, hours), marks);
     }
 
     /// <summary>The most points a history graph draws per line, however many samples it holds (authored: a day's 240 averaged in twos and threes).</summary>
@@ -105,8 +106,9 @@ public static class PhobosWidgets
     /// <summary>The faint grid over a graph's dark panel, at the hour labels and the value labels.</summary>
     static readonly Color GraphGrid = new(1f, 1f, 1f, 0.07f);
 
-    /// <summary>The space the curve drawer keeps for its labels: a column on the left and a band below (the game's own figures).</summary>
-    const float GraphLabelsWidth = 60f, GraphLabelsHeight = 30f;
+    /// <summary>The space the curve drawer keeps for its labels: a column on the left and a band below, and a band above for marks when
+    /// it has any (the game's own figures).</summary>
+    const float GraphLabelsWidth = 60f, GraphLabelsHeight = 30f, GraphMarksHeight = 15f;
 
     /// <summary>
     /// A line of samples (oldest first) as a curve ending at hour 0, averaged into at most <see cref="GraphPoints"/> points, each placed at
@@ -132,9 +134,10 @@ public static class PhobosWidgets
     /// 11 Nov 2026), and faint upright lines at the hour labels (the drawer itself rules the value labels across). The hour labels'
     /// places follow the drawer's own rule for whole numbers: start at the first whole hour, step by the span over the label count.
     /// </summary>
-    static void DrawGraphPanel(Rect rect, int hours)
+    static void DrawGraphPanel(Rect rect, int hours, bool marks)
     {
-        var plot = new Rect(rect.x + GraphLabelsWidth, rect.y, rect.width - GraphLabelsWidth, rect.height - GraphLabelsHeight);
+        float top = marks ? GraphMarksHeight : 0f;
+        var plot = new Rect(rect.x + GraphLabelsWidth, rect.y + top, rect.width - GraphLabelsWidth, rect.height - GraphLabelsHeight - top);
         if (plot.width <= 0f || plot.height <= 0f) return;
         Widgets.DrawBoxSolid(plot, GaugeBackground);
         int step = Mathf.Max(1, Mathf.CeilToInt((hours + 1f) / GraphHourLabels));
@@ -198,7 +201,7 @@ public static class PhobosWidgets
     /// (Framework 0.78.0: the diagnosis report's last day). Each series is spread over the hours by its own count, so a series with fewer
     /// samples (a vehicle that was away) still ends at now. Draws only what it is given, on the frame; it records nothing.
     /// </summary>
-    public static void HistoryGraphs(Rect rect, IReadOnlyList<GraphSeries> series, float min, float max, int hours, int capacity, string unit = "")
+    public static void HistoryGraphs(Rect rect, IReadOnlyList<GraphSeries> series, float min, float max, int hours, int capacity, string unit = "", List<CurveMark>? marks = null)
     {
         const float LegendHeight = 18f;
         // Everything here, legend included, is drawn on Repaint only, as the drawer does.
@@ -223,8 +226,9 @@ public static class PhobosWidgets
         }
         if (curves.Count == 0) return;
         var graph = new Rect(rect.x, rect.y + LegendHeight, rect.width, rect.height - LegendHeight);
-        DrawGraphPanel(graph, hours);
-        SimpleCurveDrawer.DrawCurves(graph, curves, GraphStyle(min, max, hours));
+        if (marks is { Count: 0 }) marks = null;
+        DrawGraphPanel(graph, hours, marks != null);
+        SimpleCurveDrawer.DrawCurves(graph, curves, GraphStyle(min, max, hours), marks);
     }
 
     /// <summary>The most segments a sparkline draws, however many samples it holds (authored: enough for a trend, cheap every frame).</summary>

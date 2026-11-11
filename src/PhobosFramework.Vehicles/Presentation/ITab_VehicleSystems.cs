@@ -108,7 +108,9 @@ public class ITab_VehicleSystems : ITab
                     HistoryRing? ring = comp.History.For(system, q);
                     if (ring != null && ring.Count >= 2)
                     {
-                        PhobosWidgets.HistoryGraph(new Rect(0f, y, viewWidth, Graph), ring, quantity.min, quantity.max, ITab_VehicleDashboard.StageColour(stage), QuantityHistory.Hours);
+                        // The marks are read only when the graph is painted, as the graph itself is.
+                        List<CurveMark>? marks = Event.current.type == EventType.Repaint ? VehicleEventText.Marks(comp, system.Def.defName, quantity.name, QuantityHistory.Hours) : null;
+                        PhobosWidgets.HistoryGraph(new Rect(0f, y, viewWidth, Graph), ring, quantity.min, quantity.max, ITab_VehicleDashboard.StageColour(stage), QuantityHistory.Hours, marks: marks);
                         y += Graph + 4f;
                     }
                     foreach (FlowSample sample in system.samples)
