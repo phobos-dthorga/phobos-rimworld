@@ -117,6 +117,9 @@ promise current behaviour. For using the mods, start at the [documentation index
 - [The hitch and the generic trailer: design (11 Nov 2026)](vehicle-hitch-design.md): a hitch of our own beside the sling, a
   trailer any vehicle can tow with the load going through the drivetrain model, the smooth turn from one follow rule, and the
   check that Vehicle Framework draws bodies and overlays at any angle; four decisions for the owner, nothing built.
+- [Other factions' vehicles: an audit of the vehicle code (11 Nov 2026)](vehicle-other-factions-audit.md): every check of the
+  player's faction read against the owner's rule; three small faults, the lite tier leaving raiders' vehicles untouched by the
+  drivetrain, and three decisions for the owner. Nothing changed.
 - [A setup wizard on first load: the idea (9 Nov 2026)](first-load-setup-wizard.md): the owner's idea, kept for later; what it would cover,
   when to raise it and what to settle first.
 - [Vehicle health, slice 3: what it does to the player (8 Nov 2026, built 9 Nov 2026)](vehicle-health-consequences.md): the danger clock,

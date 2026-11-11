@@ -283,7 +283,8 @@ delivered, record the delivery in the changelog or design record, and add or ame
 - **Design every vehicle mechanic with other factions' vehicles in mind** (owner, 11 Nov 2026): raiders who arrive in vehicles and, at the very
   least, the vehicles standing at a base the player attacks. Each vehicle design record has a section saying what the mechanic does on a vehicle
   in a raid on us, on one parked at a base we attack, and on one we capture; it works on any faction's vehicle unless the record says why not,
-  and costs little with several on a map. How other factions come to have vehicles is in `docs/development/vehicle-framework-mechanics.md`.
+  and costs little with several on a map. How other factions come to have vehicles is in `docs/development/vehicle-framework-mechanics.md`;
+  `docs/development/vehicle-other-factions-audit.md` stands in for the section in older records until each is next touched.
 - **Design every submarine mechanic for enemy submarines** (owner, 10 Nov 2026: coming "not later, but very soon"). Each mechanic works for any
   faction's boat, costs little per hull with several hostile ones on a map, and never shows the player what their own crew could not know.
   Submarines get no walkable gravship-style interior, because of its performance cost; our own interfaces and mechanics stand in for it.
