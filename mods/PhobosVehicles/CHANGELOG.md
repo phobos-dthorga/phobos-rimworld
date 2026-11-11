@@ -80,7 +80,7 @@ The Seabed Crawler gets its own picture, a sonar set and two hull refits (owner,
 
 ### Save compatibility
 
-- Safe on an existing save. The sonar transducer is a new part added at the end of the Crawler's list. A Crawler placed by an earlier version loads without it: its sonar still works at full reach, but the bow has no transducer to damage. Place a fresh one in dev mode to have the part.
+- Safe on an existing save. The sonar transducer is a new part added at the end of the Crawler's list. A Crawler placed by an earlier version gains it when the save loads, new and undamaged, because D'thorga Framework adds any part a design has gained since the save.
 
 ### Dependencies
 
