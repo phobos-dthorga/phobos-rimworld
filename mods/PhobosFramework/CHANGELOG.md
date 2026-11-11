@@ -5,6 +5,25 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.97.0] - 2026-11-11 - Draft
+
+Claiming other factions' vehicles, warmth from the generator set's exhaust, and a store that keeps optional parts out of the save. The owner's decisions of 11 November 2026. **Not yet tested in game.**
+
+### Added
+
+- **Claim another faction's vehicle.** Select a colonist and right-click a vehicle that is not yours: if nobody is aboard and none of its owners' armed people stand within 12 cells, the colonist works on it, from about half an hour for a small car to six hours at most for the biggest, and it becomes yours. Taking a vehicle from a faction that is not hostile costs 30 goodwill with it, and the order says so before you give it. A machine faction's vehicles cannot be claimed. Once yours, the sling can lift it. The figures are authored, in the rules Def.
+- **Exhaust heat recovery for the generator set.** With D'thorga Vehicles' new heat exchanger fitted, a set that is making power warms the room its cable end stands in, more as more power is drawn, until the room reaches 21 C, the game's own heater's target. Its heat per watt is the game's heater's. Outdoors the heat is wasted, and the inspect pane says which.
+- For modders: a part store in the core. A part of a mod that loads only with another mod keeps its saved data and its timer there, so a save never names a class that can vanish when that other mod is removed. A component that used to hold such data can retire itself once loading ends.
+
+### Compatibility and limits
+
+- D'thorga Patches 0.16.8 moves its IRBM and RimPacts parts onto the store, and D'thorga Vehicles 0.42.0 adds the heat exchanger. Each needs this version.
+- Vehicle Framework has a claim rule of its own, but no vehicle is claimable through the game's Claim order, so ours is the only way.
+
+### Save compatibility
+
+- Safe to update mid-game. The store is a new saved component; nothing is removed.
+
 ## [0.96.1] - 2026-11-11 - Draft
 
 Other factions' vehicles, from an audit of the vehicle code against the owner's new rule that every vehicle mechanic is designed with them in mind (owner, 11 November 2026). **Not yet tested in game.**

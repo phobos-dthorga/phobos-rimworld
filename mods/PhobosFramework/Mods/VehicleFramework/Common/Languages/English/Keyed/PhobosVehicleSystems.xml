@@ -601,4 +601,8 @@
 
   <PhobosVehicleSystems_SettingPowerPointLarge>Power points have the larger socket</PhobosVehicleSystems_SettingPowerPointLarge>
   <PhobosVehicleSystems_SettingPowerPointLargeDesc>A matter of looks only. Which picture a working truck's power point uses. Applies to the next one a truck sets out.</PhobosVehicleSystems_SettingPowerPointLargeDesc>
+  <!-- Exhaust heat recovery on the generator set. -->
+  <PhobosVehicleSystems_GenHeatWarming>Exhaust heat: warming the room at the cable end.</PhobosVehicleSystems_GenHeatWarming>
+  <PhobosVehicleSystems_GenHeatWarm>Exhaust heat: the room at the cable end is warm enough.</PhobosVehicleSystems_GenHeatWarm>
+  <PhobosVehicleSystems_GenHeatOutdoors>Exhaust heat: wasted, the cable end is outdoors. Put it inside a room to warm it.</PhobosVehicleSystems_GenHeatOutdoors>
 </LanguageData>

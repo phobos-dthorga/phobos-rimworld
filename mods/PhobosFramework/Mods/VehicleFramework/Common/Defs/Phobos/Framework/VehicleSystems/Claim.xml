@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- Claiming another faction's vehicle (owner, 11 Nov 2026; docs/development/vehicle-other-factions-audit.md). Figures are in the rules
+       Def (claimBaseHours and the rest). -->
+  <JobDef>
+    <defName>PhobosVehicleSystems_ClaimVehicle</defName>
+    <driverClass>Phobos.VehicleSystems.JobDriver_PhobosClaimVehicle</driverClass>
+    <reportString>claiming TargetA.</reportString>
+    <allowOpportunisticPrefix>true</allowOpportunisticPrefix>
+  </JobDef>
+  <!-- Why a faction that was not hostile thinks less of the player after one of its vehicles was taken. -->
+  <HistoryEventDef>
+    <defName>PhobosVehicleTaken</defName>
+    <label>took one of their vehicles</label>
+  </HistoryEventDef>
+</Defs>

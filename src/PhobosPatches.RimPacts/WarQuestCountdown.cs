@@ -102,16 +102,17 @@ public static class WarQuestCountdown
     }
 }
 
-/// <summary>Checks RimPacts' world war quest four times a game hour; it saves nothing and reads everything from RimPacts.</summary>
+/// <summary>
+/// Where the quest check ran before Patches 0.16.8. The check now runs on D'thorga Framework's part store, so removing RimPacts leaves
+/// no error in the save; this class is kept only so a save that still names it loads cleanly, and it retires once loading ends.
+/// </summary>
 public class GameComponent_PhobosWarQuestCountdown : GameComponent
 {
-    const int CheckIntervalTicks = 250;
-
     public GameComponent_PhobosWarQuestCountdown(Game game) { }
 
-    public override void GameComponentTick()
+    public override void FinalizeInit()
     {
-        if (!WarQuestCountdown.Ready || Find.TickManager.TicksGame % CheckIntervalTicks != 0) return;
-        WarQuestCountdown.Refresh();
+        base.FinalizeInit();
+        Phobos.Framework.Persistence.RetiredComponents.Retire(this);
     }
 }

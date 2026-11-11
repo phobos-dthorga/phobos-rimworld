@@ -14,7 +14,7 @@ One of House D'thorga's mods (also spelt dthorga).
 It replaces two earlier mods, merged into it on 7 November 2026: **D'thorga Vehicle Patches** and **D'thorga Missile Patches**
 ([why](../../docs/development/mod-consolidation.md)).
 
-Version 0.16.7, built 10 November 2026 for House D'thorga. **Not yet tested in game as D'thorga Patches.** The Harrier and turret hull
+Version 0.16.8, built 10 November 2026 for House D'thorga. **Not yet tested in game as D'thorga Patches.** The Harrier and turret hull
 parts are unchanged from Vehicle Patches 0.6.0 (not yet tested in game); the missile part was tried once by the owner, see
 [InterRim Ballistic Missile](#interrim-ballistic-missile).
 
@@ -331,6 +331,10 @@ The jet's fuel tank logged "Parsed 2.5 as int" at every start. Writing the value
 ## InterRim Ballistic Missile
 
 **Merged in from D'thorga Missile Patches 0.1.0; rebuilt in 0.8.0 (7 November 2026). Not yet tested in game as 0.8.0.**
+
+**Removing IRBM or RimPacts from a save is clean from 0.16.8** (not yet tested in game): this mod's memory of struck towns and its
+RimPacts quest check live in D'thorga Framework's store, so the save no longer names a class that goes with them. Load the save once
+with this version before removing either mod.
 
 **What was wrong.** When a strategic warhead lands on a settlement whose map is open, the missile mod fades the screen to white and
 then, in a single frame, damages every pawn, building, item and plant on that map. On the owner's heavily modded game that frame ran

@@ -122,7 +122,7 @@ public sealed class StrikeWork : FrameWork
         pollution = settings.pollution && zones.pollution && ModsConfig.BiotechActive;
         ash = OptionalMods.ThingDefNamed("Filth_Ash");
         // Before anything is harmed: the town's garrison, for an ally's assault that follows (RimPacts sizes it to who is standing).
-        if (Full) WorldComponent_PhobosStrikeMemory.RecordBeforeStrike(Map);
+        if (Full) StrikeMemory.RecordBeforeStrike(Map);
         if (Full) StripRoofs();
         SnapshotThings();
         SnapshotCells();

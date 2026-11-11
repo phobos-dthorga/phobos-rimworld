@@ -157,6 +157,20 @@ Slices 1 and 2 are built together: rules nobody uses are not a working slice.
 
 ## Decisions for the owner
 
+**Decided by the owner, 11 Nov 2026:**
+
+1. **A towed trailer is on the map and can be hit, from the first build.** This replaces "off the map while towed" throughout this
+   record: the trailer is a spawned vehicle that follows the hitch, so it blocks and is blocked, can be shot, and a raider's towed
+   trailer is a target from the start. The hitch therefore moves a real vehicle each tick instead of drawing a held one, and needs
+   a design pass of its own before slice 2: how it is moved without Vehicle Framework's pathing fighting it, what it does at a wall,
+   and what it costs per tick with several on a map.
+2. **Borrow one of our pictures for the first build**, then a paid picture on the owner's go.
+3. **Only vehicles with our drivetrain tow by default.** A mod setting lets other vehicles tow too, with a warning in the setting's
+   description that their pull is a plain rule (speed falls with the trailer's share of the total mass), not the full model.
+4. **One medium flatbed first.**
+
+The questions as they were put:
+
 1. **Off the map while towed?** Simple and cheap, as RimThunder does it, with the limits above. Or must a towed trailer
    be hittable from the first build? (Agent default: off the map first, hits later. A raider's towed trailer is the case
    that suffers most; see "Other factions' vehicles".)

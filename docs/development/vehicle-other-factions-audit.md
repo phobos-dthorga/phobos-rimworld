@@ -96,8 +96,20 @@ These say nothing about other factions. Until each is next touched, this record 
    drive-only tier is not built. The hitch design's line about a raider's towing vehicle being held back is therefore false.
 3. **Salvage needs a claim first.** From the code, Vehicle Framework offers no claim order for another faction's vehicle: the only
    route found that makes one the player's is repairing a wrecked vehicle's building (`Vehicles.decompiled.cs:45539-45541`). The
-   sling already lifts any vehicle that is the player's, so a claim order of our own is the missing piece, a design item still to
-   write. Until it exists, the sling's refusal "is not ours to lift" stands.
+   sling already lifts any vehicle that is the player's, so a claim order of our own is the missing piece.
+
+**The claim order, built in D'thorga Framework 0.97.0 (owner, 11 Nov 2026: unattended, nobody aboard), not yet tested in game.**
+A further read found Vehicle Framework does have a claim rule (`VehiclePawn.ClaimableBy`, `Vehicles.decompiled.cs:14472-14533`), but
+the game's Claim order only takes Defs with claimable building settings (`ThingDef.Claimable`), which no vehicle Def has, so it never
+runs.
+
+| Question | Answer |
+| --- | --- |
+| What it lets the player do | Take a vehicle left at a base they attacked, a raider's abandoned truck, or a visitor's, and use it: drive it, sling it, strip it |
+| What it stops them doing | Claiming one with anyone aboard, one whose owners' armed people stand within 12 cells, or a machine faction's |
+| How it changes how they play | After a fight, clearing the guards is the way to the vehicles; a friendly faction's vehicle is a temptation with a goodwill price |
+| Figures (authored, in the rules Def) | Half an hour plus 0.08 h a cell, at most six hours; 30 goodwill with a faction that was not hostile |
+| Where | A right-click order for a selected colonist; `VehicleClaims` decides, the menu and the job delegate (`src/PhobosFramework.Vehicles/Jobs/ClaimVehicle.cs`) |
 
 ## Who chose what
 

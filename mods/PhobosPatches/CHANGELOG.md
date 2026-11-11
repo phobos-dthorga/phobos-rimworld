@@ -11,6 +11,22 @@ says the owner tested it.
 - The Workshop preview is a new picture, a jump jet on a frontier airstrip at dusk, with the name added by script, from the owner's picks of 10 November 2026. No change in play.
 - The mod's description and README now carry the spelling dthorga beside D'thorga, so a search without the apostrophe finds it. The description says it is community-created by House D'thorga.
 
+## [0.16.8] - 2026-11-11 - Draft
+
+From the code audit of 11 November 2026. **Not yet tested in game.**
+
+### Fixed
+
+- **Removing IRBM or RimPacts later no longer leaves an error in the save.** The IRBM part's memory of struck towns and the RimPacts part's quest check were game components in assemblies that load only with those mods, so a save that outlived either mod would log Could not find class on every load. Both now live in D'thorga Framework's part store. On the first load after this update the old components hand over what they held and retire, so the next save no longer names them.
+
+### Dependencies
+
+- Needs D'thorga Framework 0.97.0 or later.
+
+### Save compatibility
+
+- Safe to update mid-game. A strike remembered before the update is carried over.
+
 ## [0.16.7] - 2026-11-10 - Draft
 
 Temporary, at the owner's request. **Not yet tested in game.**

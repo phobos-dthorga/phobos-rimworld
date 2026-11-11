@@ -7,7 +7,7 @@ helpers every D'thorga mod shares.
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.96.1, built 11 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
+Version 0.97.0, built 11 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
 oxygen working through Burns and Smoke and Medical Equipment (5 November 2026). The health layer new in 0.3.0 and the **vehicle
 systems new in 0.9.0, and their engines, drivetrains and gas turbines new in 0.11.0, are not yet tested in game.** The rest is read from the game's and the mods' code.
 
@@ -212,6 +212,9 @@ Other mods (D'thorga Vehicles first) can give a named vehicle its own figures. N
   them heats, wears or runs down by itself, which keeps a raid cheap; capture one and it wakes to the full model, on your own
   settings, from that moment. **From 0.96.1 there is no setting to change this** (owner, 11 Nov
   2026).
+- **Claim another faction's vehicle** (0.97.0, not yet tested in game): select a colonist and right-click it. Nobody may be aboard
+  and none of its owners' armed people may stand within 12 cells; the work takes from half an hour to six hours by size. **Taking a
+  vehicle from a faction that is not hostile costs 30 goodwill**, and the order says so. Machines' vehicles cannot be claimed.
 - **Climate control** (0.22.0): modern vehicles hold the cab near 21 °C by themselves while the engine runs (a switch, on by
   default); older ones have the heater (below 5 °C outside) and the air conditioner (above 26 °C) by hand. The setting **Every closed
   cab has climate control** (off) gives it to every vehicle.

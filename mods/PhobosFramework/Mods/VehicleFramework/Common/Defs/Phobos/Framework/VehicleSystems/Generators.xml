@@ -47,6 +47,20 @@
     </showOnVehicleTypes>
   </Vehicles.VehicleStatDef>
   <Vehicles.VehicleStatDef>
+    <defName>Phobos_HeatRecovery</defName>
+    <label>exhaust heat recovered</label>
+    <description>The share of the electricity being made that comes back as heat into the room at the cable end. Nothing without a heat exchanger.</description>
+    <category>VehicleBasics</category>
+    <defaultBaseValue>0</defaultBaseValue>
+    <minValue>0</minValue>
+    <toStringStyle>PercentZero</toStringStyle>
+    <operationType>None</operationType>
+    <upgradeEffectType>Positive</upgradeEffectType>
+    <showOnVehicleTypes>
+      <li>Land</li>
+    </showOnVehicleTypes>
+  </Vehicles.VehicleStatDef>
+  <Vehicles.VehicleStatDef>
     <defName>Phobos_RigStability</defName>
     <label>stability</label>
     <description>How well the outriggers hold. Below a certain point the vehicle will not set up.</description>

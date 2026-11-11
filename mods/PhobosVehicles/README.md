@@ -7,7 +7,7 @@ of the general systems D'thorga Framework gives every vehicle.
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.41.0, built 11 November 2026 for House D'thorga. **Not yet tested in game.**
+Version 0.42.0, built 11 November 2026 for House D'thorga. **Not yet tested in game.**
 
 ## Read this first (gotchas)
 
@@ -147,6 +147,7 @@ would one day be the Talus T2, and a refit adds a letter.
 - **It gives 1,200 W at full health.** Fuel follows what the grid draws, from 1.5 chemfuel a day doing nothing to 9 a day flat out, or 9 a day whenever batteries on the grid have room. That is 60% of the game's chemfuel generator's economy: you are paying for being able to drive it away.
 - **It stops if** the tank runs dry, the engine or the traction generator is destroyed, or damage takes it under 240 W. Its inspect pane says which.
 - **Upgrades:** an uprated alternator (1,600 W), a cable reel (you pick where the cable end goes, up to 12 cells away), and a battery buffer that keeps the grid alive for a time when the engine cannot.
+- **New in 0.42.0 (not yet tested in game), an exhaust heat exchanger:** while the set makes power it warms the room its cable end stands in, up to 21 C, more as more power is drawn. **Put the cable end inside the room you want warm**; outdoors the heat is wasted. It costs 25 W of output.
 - **A vehicle of ours parked beside the cable end or a conduit on its grid counts as plugged in**, as with any grid. Vehicle Framework's own electric vehicles need a battery on the grid to charge.
 - **You can hear it running** (new in 0.31.0): while it is set up and its engine runs, it sounds like the game's chemfuel generator, from the truck, and falls quiet when it stops. D'thorga Framework's **D'thorga sounds volume** setting turns it down or off.
 - **If you remove the mod with one set up,** pack it up first, or a cable end is left behind that does nothing.

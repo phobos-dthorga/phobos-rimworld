@@ -122,6 +122,40 @@
         </li>
       </graphicOverlays>
     </li>
+    <li>
+      <!-- Owner, 11 Nov 2026 (docs/development/vehicle-upgrades-round-two.md, the generator set's signature). The share and the output
+           cost are authored; the heat rate and the 21 C target come from the game's own heater (CompPhobosGeneratorSet). No overlay yet:
+           the exchanger gets its own picture with the next icon and overlay batch. The icon borrows the game's heater until then. -->
+      <key>HeatRecovery</key>
+      <label>exhaust heat exchanger</label>
+      <displayLabel>true</displayLabel>
+      <description>A heat exchanger on the exhaust. While the set makes power, it warms the room the cable end stands in, more as more power is drawn, until the room reaches 21 C. Outdoors the heat goes to waste. The exchanger's back pressure costs 25 W of output.</description>
+      <icon>Things/Building/Misc/TempControl/Heater</icon>
+      <work>1500</work>
+      <gridCoordinate>(7, 11)</gridCoordinate>
+      <drawSize>(80, 80)</drawSize>
+      <researchPrerequisites>
+        <li>Electricity</li>
+      </researchPrerequisites>
+      <upgrades>
+        <li Class="Vehicles.StatUpgrade">
+          <vehicleStats>
+            <li>
+              <def>Phobos_HeatRecovery</def>
+              <value>0.6</value>
+            </li>
+            <li>
+              <def>Phobos_GeneratorOutput</def>
+              <value>-25</value>
+            </li>
+          </vehicleStats>
+        </li>
+      </upgrades>
+      <ingredients>
+        <Steel>40</Steel>
+        <ComponentIndustrial>2</ComponentIndustrial>
+      </ingredients>
+    </li>
     </nodes>
   </Vehicles.UpgradeTreeDef>
 </Defs>

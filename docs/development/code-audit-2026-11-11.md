@@ -41,6 +41,12 @@ the removal button first. D'thorga Patches' README says nothing for these two.
 by key. The core always loads, so the save never names a class that may vanish, and a part that comes back finds its data again.
 It is generic, so per the owner's rule it belongs in the core. Until then, a line in D'thorga Patches' README.
 
+**Built, owner's choice of 11 Nov 2026:** `GameComponent_PhobosPartStore` in D'thorga Framework 0.97.0
+(`src/PhobosFramework/Persistence/PartStore.cs`), with D'thorga Patches 0.16.8 moving both parts onto it. Not yet tested in game.
+One finding changed the plan: when a save's mod list matches the game's, the game skips every old-save converter, so simply deleting
+the two classes would have cost an error on the next load. Both classes stay instead: each reads what an older save holds, hands it
+to the store and retires once loading ends, so the next save no longer names it.
+
 ## Cost per tick
 
 | Check | Found |

@@ -42,6 +42,12 @@
     <nightStartsHour>19</nightStartsHour>
     <nightEndsHour>6</nightEndsHour>
     <shorePowerReach>1</shorePowerReach>
+    <!-- Claiming another faction's vehicle (owner, 11 Nov 2026: unattended, nobody aboard). All authored. -->
+    <claimBaseHours>0.5</claimBaseHours>
+    <claimHoursPerCell>0.08</claimHoursPerCell>
+    <claimMaxHours>6</claimMaxHours>
+    <claimGuardCells>12</claimGuardCells>
+    <claimGoodwillLoss>30</claimGoodwillLoss>
   </Phobos.VehicleSystems.PhobosVehicleRulesDef>
 
   <!-- The service: supplies loaded into the vehicle's cargo (hauling), then the work at the vehicle (construction). -->

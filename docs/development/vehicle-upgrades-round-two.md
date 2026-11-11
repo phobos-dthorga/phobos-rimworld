@@ -144,6 +144,14 @@ Read with `scripts/workshop-research.py report` on 11 Nov 2026; a Workshop page 
 
 ## Questions for the owner
 
+**Decided by the owner, 11 Nov 2026:** (1) signatures for **every vehicle we patch**, not the Cherokee alone; (2) **both** a signature
+per vehicle and shared families for the rest; (3) our features sit **beside** other authors' trees as fittings, never inside them;
+(4) the submarine test hull **stays bare**. Order: batch 1 (the generator set's heat exchanger, with the claim order and the core
+store), batch 2 (the hitch and trailer), batch 3 (signatures and families for every vehicle we patch). **Batch 1 is built** in
+D'thorga Framework 0.97.0 and D'thorga Vehicles 0.42.0, not yet tested in game.
+
+The questions as they were put:
+
 1. **Other authors' vehicles:** the Cherokee only as a pilot, or every vehicle we already patch by name?
 2. **Signatures:** one per vehicle as above, or shared families (recovery, long range, cold weather) offered to many?
 3. **Their trees:** leave them alone and add beside them (agent default), or add nodes of ours into them?

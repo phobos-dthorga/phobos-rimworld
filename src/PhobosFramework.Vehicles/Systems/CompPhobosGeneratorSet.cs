@@ -3,6 +3,7 @@ using System.Linq;
 using Phobos.Framework.Debug;
 using Phobos.Framework.Rules;
 using Phobos.Framework.Sounds;
+using Phobos.Framework.Vehicles.Rules;
 using RimWorld;
 using SmashTools;
 using Vehicles;
@@ -18,6 +19,7 @@ public static class GeneratorDefOf
     public static VehicleStatDef Phobos_CableReach = null!;
     public static VehicleStatDef Phobos_RigStability = null!;
     public static VehicleStatDef Phobos_RigControl = null!;
+    public static VehicleStatDef Phobos_HeatRecovery = null!;
 
     static GeneratorDefOf() => DefOfHelper.EnsureInitializedInCtor(typeof(GeneratorDefOf));
 }
@@ -30,6 +32,10 @@ public class CompProperties_PhobosGeneratorSet : VehicleCompProperties
     public float outputFloorWatts = 240f;
     public float idleFuelPerDay = 1.5f;
     public float fullFuelPerDay = 9f;
+    /// <summary>Heat per second for each watt recovered: the game's own heater gives 21 a second for 175 W.</summary>
+    public float heatPerSecondPerWatt = 21f / 175f;
+    /// <summary>Recovered heat stops when the room reaches this, the game's heater's own default target.</summary>
+    public float heatTargetCelsius = 21f;
     public float stabilityFloor = 0.5f;
     public float controlFloor = 0.5f;
     /// <summary>Parts without which no power is made, whatever the average says.</summary>
@@ -65,6 +71,9 @@ public class CompPhobosGeneratorSet : CompPhobosSetUp, IVehicleEngineDemand
     float load;
     float outputWatts;
     string? fault;
+    HeatState heat;
+
+    enum HeatState { None, Warming, WarmEnough, Outdoors }
     readonly SustainedSound runningLoop = new();
 
     public CompProperties_PhobosGeneratorSet Props => (CompProperties_PhobosGeneratorSet)props;
@@ -221,7 +230,31 @@ public class CompPhobosGeneratorSet : CompPhobosSetUp, IVehicleEngineDemand
             runningLoop.Set(Props.runningSound, running, Vehicle);
             float used = WorkFuel(step.FuelUsed, DaysPerRareTick);
             if (used > 0f) Vehicle.CompFueledTravel?.ConsumeFuel(used);
+            RecoverHeat();
         }
+    }
+
+    /// <summary>With an exhaust heat exchanger fitted, warms the room the cable end stands in, in step with the watts being made, until
+    /// the room reaches the game's heater's target. Outdoors, the heat goes to waste.</summary>
+    void RecoverHeat()
+    {
+        heat = HeatState.None;
+        float share = Vehicle.GetStatValue(GeneratorDefOf.Phobos_HeatRecovery);
+        if (share <= 0f || cableEnd == null || !running) return;
+        Room? room = cableEnd.Position.GetRoom(cableEnd.Map);
+        if (room == null || room.UsesOutdoorTemperature)
+        {
+            heat = HeatState.Outdoors;
+            return;
+        }
+        double perSecond = HeatRecoveryRule.HeatPerSecond(outputWatts, share, Props.heatPerSecondPerWatt, room.Temperature, Props.heatTargetCelsius);
+        if (perSecond <= 0)
+        {
+            heat = HeatState.WarmEnough;
+            return;
+        }
+        heat = HeatState.Warming;
+        GenTemperature.PushHeat(cableEnd.Position, cableEnd.Map, (float)perSecond * GenTicks.TickRareInterval / GenTicks.TicksPerRealSecond);
     }
 
     static void ReadNet(PowerNet? net, CompPhobosGeneratorStub own, out float need, out bool batteriesHaveRoom)
@@ -253,6 +286,9 @@ public class CompPhobosGeneratorSet : CompPhobosSetUp, IVehicleEngineDemand
         var lines = new List<string>();
         if (fault != null) lines.Add(fault);
         else lines.Add("PhobosVehicleSystems_GenOutputLine".Translate(outputWatts.ToString("N0").Named("WATTS"), load.ToStringPercent().Named("LOAD")).Resolve());
+        if (heat == HeatState.Warming) lines.Add("PhobosVehicleSystems_GenHeatWarming".Translate().Resolve());
+        else if (heat == HeatState.WarmEnough) lines.Add("PhobosVehicleSystems_GenHeatWarm".Translate().Resolve());
+        else if (heat == HeatState.Outdoors) lines.Add("PhobosVehicleSystems_GenHeatOutdoors".Translate().Resolve());
         if (BufferCapacity > 0f) lines.Add("PhobosVehicleSystems_GenBufferLine".Translate(buffer.ToString("N0").Named("CHARGE"), BufferCapacity.ToString("N0").Named("CAPACITY")).Resolve());
         return string.Join("\n", lines);
     }

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <!-- Claiming another faction's vehicle. -->
+  <PhobosVehicleClaim_Option>Claim {VEHICLE}</PhobosVehicleClaim_Option>
+  <PhobosVehicleClaim_OptionAngers>Claim {VEHICLE} (angers {FACTION})</PhobosVehicleClaim_OptionAngers>
+  <PhobosVehicleClaim_Aboard>Cannot claim {VEHICLE}: someone is aboard.</PhobosVehicleClaim_Aboard>
+  <PhobosVehicleClaim_Guarded>Cannot claim {VEHICLE}: its owners are standing guard nearby.</PhobosVehicleClaim_Guarded>
+  <PhobosVehicleClaim_Mechanoid>Cannot claim {VEHICLE}: it answers only to the machines.</PhobosVehicleClaim_Mechanoid>
+  <PhobosVehicleClaim_NoPath>Cannot claim {VEHICLE}: no way to reach it.</PhobosVehicleClaim_NoPath>
+  <PhobosVehicleClaim_Done>{CLAIMER} claimed the {VEHICLE}. It is ours now.</PhobosVehicleClaim_Done>
+</LanguageData>

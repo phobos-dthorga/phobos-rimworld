@@ -9,13 +9,20 @@ namespace Phobos.RimPactsPatches;
 /// </summary>
 public class RimPactsPatchesMod : Mod
 {
-    public const string ModVersion = "0.16.7";
+    public const string ModVersion = "0.16.8";
     public const string LogPrefix = "[D'thorga Patches]";
     public static readonly Phobos.Logging.PhobosLog Logger = Phobos.Framework.Logging.Logs.For("D'thorga Patches", "RimPacts");
+    const int CheckIntervalTicks = 250;
 
     public RimPactsPatchesMod(ModContentPack content) : base(content)
     {
         WarQuestCountdown.Prepare();
+        // Four times a game hour: it saves nothing and reads everything from RimPacts (on the Framework's part store, so the save never
+        // names a class of this assembly).
+        Phobos.Framework.Persistence.GameComponent_PhobosPartStore.Every(CheckIntervalTicks, "D'thorga Patches (RimPacts)", () =>
+        {
+            if (WarQuestCountdown.Ready) WarQuestCountdown.Refresh();
+        });
         LongEventHandler.ExecuteWhenFinished(LogLoaded);
     }
 

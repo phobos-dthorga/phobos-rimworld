@@ -5,6 +5,22 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.42.0] - 2026-11-11 - Draft
+
+The generator set's own upgrade, from the owner's decisions of 11 November 2026. **Not yet tested in game.**
+
+### Added
+
+- **An exhaust heat exchanger for the Busbar generator set.** While the set makes power, the room its cable end stands in is warmed, more as more power is drawn, until it reaches 21 C. Outdoors the heat goes to waste. It costs 40 steel and 2 components, needs Electricity, and its back pressure takes 25 W off the output. Its icon is the game's heater until it has a picture of its own; it has no overlay yet.
+
+### Dependencies
+
+- Needs D'thorga Framework 0.97.0 or later.
+
+### Save compatibility
+
+- Safe to update mid-game. A new upgrade node; nothing is removed or renamed.
+
 ## [0.41.0] - 2026-11-11 - Draft
 
 Every vehicle built from parts, by role (with D'thorga Framework 0.95.0). Asked for by the owner on 11 November 2026. **Not yet tested in game.**

@@ -16,7 +16,7 @@ public class PrisonLaborPatchesMod : Mod
 {
     /// <summary>The Harmony ID is the packageId, shared by every part; never change it once the mod is published.</summary>
     public const string PackageId = "PhobosDthorga.Patches";
-    public const string ModVersion = "0.16.7";
+    public const string ModVersion = "0.16.8";
     public const string LogPrefix = "[D'thorga Patches]";
     const string Feature = "temporary guard against Prison Labor's food policy loop";
 

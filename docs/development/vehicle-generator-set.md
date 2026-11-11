@@ -188,6 +188,18 @@ Every node moves a figure; none changes the parts list (principle 8). Node keys 
 | `BatteryBuffer` (idea I2) | 150 units of charge at 1 Wd each: creep up to 200 cells with the engine off at half speed; the stub keeps its output through a refuelling stop | 20 steel, 10 components (the electric record's module price) | The game's battery research | None | A battery box under the deck |
 | `WorkLights` | A light over the set, radius 6, and a 10 A load (`CompUpgrade` adds the glower, `VF.cs:33709-33716`) | 20 steel, 1 component | Electricity | None | A mast with two lamps |
 
+`HeatRecovery` (built in Vehicles 0.42.0, owner, 11 Nov 2026; not in the table above, which is the record as first written): an exhaust
+heat exchanger.
+
+| Question | Answer |
+| --- | --- |
+| What it lets the player do | Warm one room or tent with the set's waste heat, by putting the cable end inside it: a cold-biome camp keeps warm on the set alone |
+| What it stops them doing | Nothing, at 25 W of output for the exchanger's back pressure |
+| How it changes how they play | Where the cable end goes now matters: inside the bunkhouse, not on the grass |
+| Figures | 60% of the electricity being made comes back as heat (authored); converted at the game's heater's rate, 21 heat a second for 175 W; stops at the heater's 21 C target (from the game's Defs and code); 40 steel, 2 components, Electricity |
+| Other factions' vehicles | Only the player's sets deploy, so a raider's or a base's set does nothing; a captured set works at once |
+| Not done | Its own icon and overlay: the icon borrows the game's heater until the next icon batch |
+
 `StatUpgrade` sets a stat's base, offset or factor (`VF.cs:33992-34218`); a node carries ingredients, research, prerequisites and overlays
 (`UpgradeNode`, `VF.cs:34815-34866`). The owner's rule of play for the Harrier applies: no node without a figure the player can feel.
 

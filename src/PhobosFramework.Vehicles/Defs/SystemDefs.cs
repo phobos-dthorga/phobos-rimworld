@@ -680,6 +680,15 @@ public class PhobosVehicleRulesDef : PhobosRulesDef
     public float slingHookUpWork = 1500f;
     /// <summary>How far, in cells, a load may stand from the helicopter that lifts it, and how far around it a load is set down.</summary>
     public float slingReachCells = 25f;
+    /// <summary>Claiming another faction's vehicle (owner, 11 Nov 2026): hours to get in and make it answer to us, more for each cell it covers,
+    /// and the most it can take. All authored.</summary>
+    public float claimBaseHours = 0.5f;
+    public float claimHoursPerCell = 0.08f;
+    public float claimMaxHours = 6f;
+    /// <summary>A vehicle cannot be claimed while one of its faction's armed people stands within this many cells of it.</summary>
+    public float claimGuardCells = 12f;
+    /// <summary>Goodwill lost with a faction that is not hostile when one of its vehicles is taken (authored).</summary>
+    public int claimGoodwillLoss = 30;
     /// <summary>Work in ticks for a mechanic to diagnose a vehicle at a tuning rig.</summary>
     public float diagnoseWork = 1500f;
     /// <summary>Below this share of their hydraulic supply, a working vehicle's hydraulic work stops (a drill mast, a tipper body).</summary>

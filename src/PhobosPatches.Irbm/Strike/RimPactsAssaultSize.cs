@@ -13,7 +13,7 @@ namespace Phobos.MissilePatches.Strike;
 /// RimPacts sizes an ally's assault squad to the defenders it counts standing when the squad is raised
 /// (WorldComponent_RimPacts.DefenderHeadcountOn, read in RimPacts 1.7, 7 Nov 2026). That one count caps the pawn generation, sets the
 /// top-up target and sets the final trim, all times RimPacts' tech factor. After one of our strategic strikes this postfix raises the
-/// count to the garrison the town had before the strike (<see cref="WorldComponent_PhobosStrikeMemory"/>), so every one of those steps
+/// count to the garrison the town had before the strike (<see cref="StrikeMemory"/>), so every one of those steps
 /// runs as it would have without the missile and the ally faces the squad it normally would (owner, 7 Nov 2026).
 ///
 /// Why the count and not the trim: the first version (Patches 0.11.0 draft) raised only the final trim. RimPacts had already capped the
@@ -73,11 +73,10 @@ public static class RimPactsAssaultSize
     public static void Postfix(ref int __result, Map map, Faction attacker)
     {
         if (__result <= 0) return;
-        WorldComponent_PhobosStrikeMemory? memory = WorldComponent_PhobosStrikeMemory.Current;
-        if (memory == null || memory.Empty) return;
+        if (StrikeMemory.Empty) return;
         try
         {
-            __result = Adjust(__result, map, attacker, memory);
+            __result = Adjust(__result, map, attacker);
         }
         catch (Exception error)
         {
@@ -85,7 +84,7 @@ public static class RimPactsAssaultSize
         }
     }
 
-    static int Adjust(int standing, Map map, Faction attacker, WorldComponent_PhobosStrikeMemory memory)
+    static int Adjust(int standing, Map map, Faction attacker)
     {
         object? component = instance!.GetValue(null);
         object? battle = component == null ? null : spectate!.GetValue(component);
@@ -93,7 +92,7 @@ public static class RimPactsAssaultSize
         if (battleSpawned!.GetValue(battle) is not true || battleSpawnDone!.GetValue(battle) is true) return standing;
         if (battleMap!.GetValue(battle) != map || battleAttacker!.GetValue(battle) != attacker) return standing;
         if (battleTarget!.GetValue(battle) is not Settlement town) return standing;
-        int adjusted = AssaultSizeRule.Headcount(standing, memory.DefendersBefore(town));
+        int adjusted = AssaultSizeRule.Headcount(standing, StrikeMemory.DefendersBefore(town));
         int now = Find.TickManager.TicksGame;
         if (adjusted != standing && (town.ID != lastLoggedTown || now != lastLoggedTick))
         {

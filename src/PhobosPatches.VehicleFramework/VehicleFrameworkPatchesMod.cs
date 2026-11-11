@@ -19,7 +19,7 @@ public class VehicleFrameworkPatchesMod : Mod
 {
     /// <summary>The Harmony ID is the packageId, shared by every part; never change it once the mod is published.</summary>
     public const string PackageId = "PhobosDthorga.Patches";
-    public const string ModVersion = "0.16.7";
+    public const string ModVersion = "0.16.8";
     public const string LogPrefix = "[D'thorga Patches]";
     public static readonly Phobos.Logging.PhobosLog Logger = Phobos.Framework.Logging.Logs.For("D'thorga Patches", "Vehicle Framework");
     const string Feature = "fires a vehicle cannot put out are put out: a second fire on it, or one left behind when it leaves a map";
