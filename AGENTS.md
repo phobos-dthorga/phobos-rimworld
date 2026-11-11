@@ -288,6 +288,10 @@ delivered, record the delivery in the changelog or design record, and add or ame
   exist in D'thorga Framework and set what a repair costs, whichever mods are installed; RimThunder's and Vanilla Vehicles Expanded's
   are accepted only where they make sense, named per role in `PhobosVehiclePartSupplyDef` with `MayRequire`, never in C#. The framework
   is meant to grow into tuning and upgrades (`docs/development/vehicle-health-consequences.md`).
+- **What a thing of ours is built from is a parts bill, by role** (owner, 11 Nov 2026; `docs/development/parts-bills.md`): a vehicle or
+  a placed building lists its roles in a `PhobosBillDef`, keeps only its shell in its own `costList`, and each role is filled at start-up
+  by an installed mod's part where it suits and ours otherwise, from the same table repairs use. Never swap a cost with patch folders per
+  mix of mods. A new soft dependency is a substitute added to a role, with `MayRequire`.
 - **UI presents, services decide.** Gizmos, inspect tabs, windows, designators and placement previews read
   state and delegate to one service call; they never mutate game state, roll chances or grant rewards.
 - **XML first, C# where Defs cannot express it.** Hardware and tuning are Defs (new Def types such as

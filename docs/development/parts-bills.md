@@ -44,6 +44,8 @@ flowchart LR
 | `PhobosBillDef` | the same file | A built thing's bill: its `target` (any ThingDef the player builds), an optional `size`, `tags`, and `parts` written as the game writes a cost |
 | `BuildBillRule` | `src/PhobosFramework/Rules/BuildBillRule.cs` | The game-free rule, with tests: which part fills a role, and how parts merge into the shell |
 | `PartsBills` | `src/PhobosFramework/Bills/PartsBills.cs` | Applies every bill once at start-up; `Resolve` for a consumer with more to fill; `Report` for the dev action |
+| `PhobosVehiclePartSupplyDef` | `src/PhobosFramework.Vehicles/Defs/PartSupplyDefs.cs` | The core's role supply with a repair's own figures added (whole-part share, turbine or not, cost by part health): one table for builds and repairs |
+| `PhobosVehicleBillDef` | `src/PhobosFramework.Vehicles/Defs/VehicleBillDefs.cs` | A bill aimed at a vehicle's blueprint: its size is the vehicle's empty weight, and it may fill upgrade-tree nodes by key |
 
 **The rules of the rule:**
 
@@ -96,6 +98,47 @@ tier) lets a small pump suit a small plant only.
 
 **Not covered, said plainly:** recipe ingredients (a recipe takes filters, a different shape; the rule could serve it later), floors
 and other terrain (a bill's target is a ThingDef), and anything like repairs for buildings.
+
+## The roles (authored, held for the owner's review)
+
+One table, `PartSupplies.xml`, fills both builds and repairs. The order of a role's substitutes is the order of preference for a build.
+
+| Role | Ours | RimThunder - Core | Vanilla Vehicles Expanded |
+| --- | --- | --- | --- |
+| Engine | Engine assembly | Light engine under 4 t, medium 4 to 15 t, heavy from 15 t | 1 engine block under 6 t, 2 from 6 to 15 t, 3 from 15 t |
+| Engine, on a turbine vehicle | Gas turbine assembly | Turbine | None |
+| Transmission | Transmission | Transmission component | Car transmission, under 15 t |
+| Fuel tank | 30 steel, 1 component | Fuel tank component | Car fuel tank |
+| Wheels | 10 steel, 1 component each | Tyre | Car wheel, under 15 t |
+| Suspension | One drivetrain kit for the whole build | None | Car suspension, under 15 t |
+| Alternator | 10 steel, 2 components | None | Car alternator |
+| Battery | 10 steel, 2 components | None | Car battery |
+| Wiring | One electrical kit for the whole build | None | Car wiring |
+| Radiator | 20 steel, 2 components | None | Car radiator |
+| Exhaust | 8 steel | None | Car exhaust |
+| Frame | 60 steel | Heavy casting | None |
+| Fuel pump and other small mechanical parts | 12 steel, 2 components | None | None |
+
+**Changed from 9 Nov 2026:** Vanilla Vehicles Expanded's parts were limited to vehicles under 6 tonnes. Its own heavy vehicles use more
+of the same parts (its Wisent takes three engine blocks), so the table now does the same, and a repair accepts them too. The engine
+classes are why the tanker, at 9 tonnes, now asks for RimThunder's medium engine where its old patch asked for the heavy one.
+
+## The bills
+
+| Thing | Size | Shell (its XML cost) | Parts |
+| --- | --- | --- | --- |
+| Bulk tanker | 9,000 kg | 280 steel, 8 components | Engine 1, transmission 1, fuel tank 1, wheels 6, suspension 3, alternator 1, battery 1, wiring 1, radiator 1 |
+| Depot bay (a placed building) | none | 80 steel, 3 components | Fuel tank 1, fuel pump 1 |
+
+The tanker with both mods: 280 steel, 8 components, a medium engine, a transmission component, a fuel tank component, 6 tyres, 3 car
+suspensions, a car alternator, battery, wiring and radiator. With neither: 410 steel, 21 components, an engine assembly, a
+transmission, a drivetrain kit and an electrical kit.
+
+## Checks
+
+- `tests/test_parts_bills.py` (in the gate): every role a bill asks for is supplied, every target and node key exists, and another
+  mod's part is always behind `MayRequire`.
+- The dev action **"Vehicle systems: run the self-test"** reads every bill as the game holds it.
 
 ## The player's setting
 

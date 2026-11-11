@@ -5,6 +5,22 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.41.0] - 2026-11-11 - Draft
+
+Every vehicle built from parts, by role (with D'thorga Framework 0.95.0). Asked for by the owner on 11 November 2026. **Not yet tested in game.**
+
+### Changed
+
+- **The bulk tanker's build cost is a parts bill.** It lists an engine, a transmission, a fuel tank, six tyres, three suspensions, an alternator, a battery, wiring and a radiator; each is RimThunder's or Vanilla Vehicles Expanded's part where that mod is installed and suits the tanker's 9 tonnes, and ours otherwise. With both mods the list is as before, but for the engine.
+- **The tanker's engine is the class its weight says.** With RimThunder it asked for a heavy engine; at 9 tonnes it now asks for a medium one, as a repair already did. With Vanilla Vehicles Expanded alone it still asks for two engine blocks.
+- With neither mod, the tanker now also asks for our transmission, and its running gear and electrics are counted in steel and components.
+- The tanker's blueprint no longer asks for RimThunder's or Vanilla Vehicles Expanded's own research beside ours: those mods' parts already need that research to be made.
+
+### Compatibility and limits
+
+- Finish or cancel a tanker frame before installing: a frame already being built keeps what was delivered and then asks for the new list.
+- The four patch folders that swapped the tanker's cost are gone; D'thorga Framework 0.95.0 or later is needed.
+
 ## [0.40.1] - 2026-11-11 - Draft
 
 Turbine ratings named in plain words (with D'thorga Framework 0.92.1). **Not yet tested in game.**

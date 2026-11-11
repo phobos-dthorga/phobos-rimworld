@@ -6,8 +6,15 @@
     a share of its materials, both settable in the mod settings; our parts always exist, and another mod's are accepted only where they
     make sense. Every figure and the mass classes are authored, held for the owner's review. The first Def that fits a part wins.
 
-    The substitutes are named per role so each is only offered where it suits: a light engine does not go in a tank, Vanilla Vehicles
-    Expanded's car parts do not go in anything above a car's weight (6 tonnes, authored), and a piston engine never replaces a turbine.
+    The substitutes are named per role so each is only offered where it suits: a light engine does not go in a tank, and a piston
+    engine never replaces a turbine.
+
+    Framework 0.95.0 (owner, 11 Nov 2026): the same table now fills a vehicle's parts bill when it is built
+    (docs/development/parts-bills.md), so a build and a repair agree on which part suits a vehicle. With that, Vanilla Vehicles
+    Expanded's parts follow what its own heavy vehicles do, in place of the 6-tonne cap of 9 Nov: one engine block under 6 tonnes, two
+    to 15, three above (its Wisent takes three); its transmission, wheels and suspension up to 15 tonnes; its electrics, radiator, fuel
+    tank and exhaust on anything. All authored, held for the owner's review. The order of a role's substitutes is the order of
+    preference for a build: RimThunder's part, then Vanilla Vehicles Expanded's.
   -->
   <Phobos.VehicleSystems.PhobosVehiclePartSupplyDef>
     <defName>PhobosPartSupply_PistonEngine</defName>
@@ -28,6 +35,8 @@
       <li MayRequire="rimthunder.core"><thing>EngineMedium</thing><minKilograms>4000</minKilograms><maxKilograms>15000</maxKilograms></li>
       <li MayRequire="rimthunder.core"><thing>EngineHeavy</thing><minKilograms>15000</minKilograms></li>
       <li MayRequire="oskarpotocki.vanillavehiclesexpanded"><thing>VVE_EngineBlock</thing><maxKilograms>6000</maxKilograms></li>
+      <li MayRequire="oskarpotocki.vanillavehiclesexpanded"><thing>VVE_EngineBlock</thing><count>2</count><minKilograms>6000</minKilograms><maxKilograms>15000</maxKilograms></li>
+      <li MayRequire="oskarpotocki.vanillavehiclesexpanded"><thing>VVE_EngineBlock</thing><count>3</count><minKilograms>15000</minKilograms></li>
     </substitutes>
   </Phobos.VehicleSystems.PhobosVehiclePartSupplyDef>
 
@@ -61,7 +70,7 @@
     <work>3000</work>
     <substitutes>
       <li MayRequire="rimthunder.core"><thing>ComponentTransmission</thing></li>
-      <li MayRequire="oskarpotocki.vanillavehiclesexpanded"><thing>VVE_CarTransmission</thing><maxKilograms>6000</maxKilograms></li>
+      <li MayRequire="oskarpotocki.vanillavehiclesexpanded"><thing>VVE_CarTransmission</thing><maxKilograms>15000</maxKilograms></li>
     </substitutes>
   </Phobos.VehicleSystems.PhobosVehiclePartSupplyDef>
 
@@ -78,7 +87,7 @@
     <work>800</work>
     <substitutes>
       <li MayRequire="rimthunder.core"><thing>ComponentWheelTire</thing></li>
-      <li MayRequire="oskarpotocki.vanillavehiclesexpanded"><thing>VVE_CarWheel</thing><maxKilograms>6000</maxKilograms></li>
+      <li MayRequire="oskarpotocki.vanillavehiclesexpanded"><thing>VVE_CarWheel</thing><maxKilograms>15000</maxKilograms></li>
     </substitutes>
   </Phobos.VehicleSystems.PhobosVehiclePartSupplyDef>
 
@@ -93,7 +102,7 @@
       <ComponentIndustrial>2</ComponentIndustrial>
     </materials>
     <substitutes>
-      <li MayRequire="oskarpotocki.vanillavehiclesexpanded"><thing>VVE_CarRadiator</thing><maxKilograms>6000</maxKilograms></li>
+      <li MayRequire="oskarpotocki.vanillavehiclesexpanded"><thing>VVE_CarRadiator</thing></li>
     </substitutes>
   </Phobos.VehicleSystems.PhobosVehiclePartSupplyDef>
 
@@ -109,7 +118,7 @@
     </materials>
     <work>800</work>
     <substitutes>
-      <li MayRequire="oskarpotocki.vanillavehiclesexpanded"><thing>VVE_CarBattery</thing><maxKilograms>6000</maxKilograms></li>
+      <li MayRequire="oskarpotocki.vanillavehiclesexpanded"><thing>VVE_CarBattery</thing></li>
     </substitutes>
   </Phobos.VehicleSystems.PhobosVehiclePartSupplyDef>
 
@@ -125,7 +134,7 @@
     </materials>
     <work>800</work>
     <substitutes>
-      <li MayRequire="oskarpotocki.vanillavehiclesexpanded"><thing>VVE_CarAlternator</thing><maxKilograms>6000</maxKilograms></li>
+      <li MayRequire="oskarpotocki.vanillavehiclesexpanded"><thing>VVE_CarAlternator</thing></li>
     </substitutes>
   </Phobos.VehicleSystems.PhobosVehiclePartSupplyDef>
 
@@ -205,6 +214,79 @@
     </materials>
     <work>4000</work>
   </Phobos.VehicleSystems.PhobosVehiclePartSupplyDef>
+
+  <!-- Roles only a build asks for (Framework 0.95.0): no part on a vehicle has them, so no repair reads them. They are the core's own
+       Def type, which any built thing may use: the depot bay's fuel tank is one. Ours is materials, or one of our kits for the whole
+       build. Figures authored. -->
+  <Phobos.Framework.Bills.PhobosRoleSupplyDef>
+    <defName>PhobosPartSupply_FuelTank</defName>
+    <label>fuel tank</label>
+    <roles>
+      <li>FuelTank</li>
+    </roles>
+    <materials>
+      <Steel>30</Steel>
+      <ComponentIndustrial>1</ComponentIndustrial>
+    </materials>
+    <substitutes>
+      <li MayRequire="rimthunder.core"><thing>ComponentFuelTank</thing></li>
+      <li MayRequire="oskarpotocki.vanillavehiclesexpanded"><thing>VVE_CarFuelTank</thing></li>
+    </substitutes>
+  </Phobos.Framework.Bills.PhobosRoleSupplyDef>
+
+  <Phobos.Framework.Bills.PhobosRoleSupplyDef>
+    <defName>PhobosPartSupply_Suspension</defName>
+    <label>suspension</label>
+    <roles>
+      <li>Suspension</li>
+    </roles>
+    <item>PhobosVehicles_DrivetrainKit</item>
+    <coversWholeBuild>true</coversWholeBuild>
+    <substitutes>
+      <li MayRequire="oskarpotocki.vanillavehiclesexpanded"><thing>VVE_CarSuspension</thing><maxKilograms>15000</maxKilograms></li>
+    </substitutes>
+  </Phobos.Framework.Bills.PhobosRoleSupplyDef>
+
+  <Phobos.Framework.Bills.PhobosRoleSupplyDef>
+    <defName>PhobosPartSupply_Wiring</defName>
+    <label>wiring</label>
+    <roles>
+      <li>Wiring</li>
+    </roles>
+    <item>PhobosVehicles_ElectricalKit</item>
+    <coversWholeBuild>true</coversWholeBuild>
+    <substitutes>
+      <li MayRequire="oskarpotocki.vanillavehiclesexpanded"><thing>VVE_CarWiring</thing></li>
+    </substitutes>
+  </Phobos.Framework.Bills.PhobosRoleSupplyDef>
+
+  <Phobos.Framework.Bills.PhobosRoleSupplyDef>
+    <defName>PhobosPartSupply_Exhaust</defName>
+    <label>exhaust</label>
+    <roles>
+      <li>Exhaust</li>
+    </roles>
+    <materials>
+      <Steel>8</Steel>
+    </materials>
+    <substitutes>
+      <li MayRequire="oskarpotocki.vanillavehiclesexpanded"><thing>VVE_CarExhaust</thing></li>
+    </substitutes>
+  </Phobos.Framework.Bills.PhobosRoleSupplyDef>
+
+  <Phobos.Framework.Bills.PhobosRoleSupplyDef>
+    <defName>PhobosPartSupply_Frame</defName>
+    <label>frame casting</label>
+    <roles>
+      <li>Frame</li>
+    </roles>
+    <materials>
+      <Steel>60</Steel>
+    </materials>
+    <substitutes>
+      <li MayRequire="rimthunder.core"><thing>ComponentHeavyCasting</thing></li>
+    </substitutes>
+  </Phobos.Framework.Bills.PhobosRoleSupplyDef>
 
   <!-- Every part with no role of its own, most of a vehicle's armour and hull: by its size. Before the player's share. -->
   <Phobos.VehicleSystems.PhobosVehiclePartSupplyDef>

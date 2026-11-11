@@ -30,6 +30,7 @@ public static class VehicleSelfTest
     {
         var test = new SelfTest();
         ReadEveryVehicle(test);
+        test.Step("Parts bills", () => PartsBillsRead(test));
         ExerciseTestVehicle(test);
         SlingLift(test);
         string report = "Vehicle self-test: " + test.Report()
@@ -48,6 +49,34 @@ public static class VehicleSelfTest
         if (test.Failed == 0) return;
         VehicleSystemsMod.Logger.Error("Self-test after load: " + test.Report());
         Messages.Message("Vehicle self-test after load: " + test.Failed + " failed. See the log.", MessageTypeDefOf.NegativeEvent, historical: false);
+    }
+
+    /// <summary>
+    /// Every parts bill as the game holds it now (Framework 0.95.0): the thing has a cost, its shell's first item is still first (Vehicle
+    /// Framework reads it for the destruction sound), every role came to something or is covered by a kit, and a bill worked out again
+    /// gives the same cost, so nothing depends on the order things ran in at start-up.
+    /// </summary>
+    static void PartsBillsRead(SelfTest test)
+    {
+        List<Phobos.Framework.Bills.PhobosBillDef> bills = DefDatabase<Phobos.Framework.Bills.PhobosBillDef>.AllDefsListForReading;
+        test.Expect("No parts bill failed at start-up", Phobos.Framework.Bills.PartsBills.Failed == 0, Phobos.Framework.Bills.PartsBills.Failed + " failed");
+        foreach (Phobos.Framework.Bills.PhobosBillDef bill in bills)
+        {
+            string name = bill.target?.label ?? bill.defName;
+            List<ThingDefCountClass>? cost = bill.target?.costList;
+            test.Expect(name + ": has a cost", cost != null && cost.Count > 0);
+            if (cost == null || cost.Count == 0) continue;
+            if (bill.shell is { Count: > 0 } shell) test.Expect(name + ": its shell's first item is still first", cost[0].thingDef == shell[0].thingDef, cost[0].thingDef.defName);
+            test.Expect(name + ": every role was read", bill.rows.Count == bill.parts.Count, bill.rows.Count + " of " + bill.parts.Count);
+            foreach (Phobos.Framework.Bills.BillRow row in bill.rows)
+            {
+                bool covered = row.Lines.Count > 0 || (row.Supply is { coversWholeBuild: true } && row.Source == BillSource.Ours);
+                test.Expect(name + ": the role " + row.Role + " came to something", covered);
+            }
+            List<ThingDefCountClass> again = Phobos.Framework.Bills.PartsBills.Resolve(bill.shell, bill.parts, bill.Size, bill.tags, Phobos.Framework.Bills.PartsBills.OthersAllowed);
+            test.Expect(name + ": worked out again, the same cost", Phobos.Framework.Bills.PartsBills.Describe(again) == Phobos.Framework.Bills.PartsBills.Describe(cost),
+                Phobos.Framework.Bills.PartsBills.Describe(again));
+        }
     }
 
     // ---- Part one: every vehicle the player has ----

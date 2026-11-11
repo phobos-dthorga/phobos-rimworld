@@ -88,8 +88,9 @@ vehicles the owner already drives. Our vehicles, their loadouts and art come aft
    labels, never the parts list.
 9. **Parts by role, from providers** (owner, 8 Nov 2026; **reversed by the owner on 9 Nov 2026:** our part items now always exist in
    D'thorga Framework and set repair costs, with other mods' accepted only where they make sense; see
-   [vehicle health, slice 3](vehicle-health-consequences.md). The text and table below are kept as written; the tanker's build cost
-   still swaps in providers' items and has not been changed.) Vehicle Framework ships no part items (its ThingDefs are motes and the
+   [vehicle health, slice 3](vehicle-health-consequences.md). The text and table below are kept as written. **Refined by the owner on
+   11 Nov 2026:** a build asks for the installed mod's part where it suits and ours otherwise, through a [parts bill](parts-bills.md)
+   worked out at start-up, which replaced the tanker's four patch folders in D'thorga Vehicles 0.41.0.) Vehicle Framework ships no part items (its ThingDefs are motes and the
    airdrop container; read 8 Nov 2026), so "VF parts by default" means its mechanics: components, upgrade trees, roles, reactors,
    overlays, fuel and caravans, used before anything of ours is written. Part **items** come from the mods that make them, named by
    role in each vehicle's cost and each node's ingredients and resolved in XML (`LoadFolders.xml` `IfModActive` folders and

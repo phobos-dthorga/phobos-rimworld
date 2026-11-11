@@ -309,4 +309,15 @@
     </comps>
   </ThingDef>
 
+  <!-- The depot bay's parts bill (Framework 0.95.0, docs/development/parts-bills.md): a placed building on the mechanism the vehicles
+       use, so that route is tested in game. Its cost above is its shell; its tank and pump are parts. Authored. -->
+  <Phobos.Framework.Bills.PhobosBillDef>
+    <defName>PhobosBill_DepotBay</defName>
+    <label>depot bay parts</label>
+    <target>PhobosVehicles_DepotBay</target>
+    <parts>
+      <FuelTank>1</FuelTank>
+      <FuelPump>1</FuelPump>
+    </parts>
+  </Phobos.Framework.Bills.PhobosBillDef>
 </Defs>

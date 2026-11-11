@@ -14,7 +14,16 @@ Parts bills: what a built thing is made of, by role. Asked for by the owner on 1
 - **Parts bills, in the core.** A built thing can list what it needs by role (an engine, a fuel tank, a pump) and how many. When the game starts, each role is filled by another mod's part where that mod is installed and the part suits the thing's size, and by our own part or materials otherwise, and the result becomes the thing's build cost. It works for anything the player builds: a placed building as much as a vehicle.
 - **A setting, "Parts for building"**: other mods' parts where installed (the default), or always our own. A change takes effect the next time the game starts.
 - A dev action, "Framework: list every parts bill": each built thing, its whole cost, and each role with what filled it and whose part that is.
+- **Vehicles take parts bills.** A vehicle's bill reads its size from the vehicle's empty weight, so a heavier vehicle takes a heavier engine, and may fill the ingredients of its upgrade-tree nodes from the same roles. The table that prices repairs now also fills builds, so a build and a repair agree on which part suits a vehicle.
+- New roles for a build: fuel tank, suspension, wiring, exhaust and frame casting. Ours is steel and components, or one of our kits for the whole build; RimThunder's fuel tank and heavy casting and Vanilla Vehicles Expanded's fuel tank, suspension, wiring and exhaust are taken where installed.
+- **The depot bay is built from parts**: beside its 80 steel and 3 components it now asks for a fuel tank (RimThunder's or Vanilla Vehicles Expanded's where installed, else 30 steel and 1 component) and a fuel pump (12 steel and 2 components). It is the first placed building on a parts bill.
+- The dev action "Vehicle systems: run the self-test" reads every parts bill: each has a cost, its first item is unchanged, every role came to something, and working it out again gives the same cost.
+- For modders: Phobos.VehicleSystems.PhobosVehicleBillDef (a bill aimed at a vehicle's blueprint, with nodes by key).
 - For modders: Phobos.Framework.Bills.PhobosRoleSupplyDef (what fills a role, with other mods' parts listed under MayRequire) and PhobosBillDef (a target, an optional size, and its parts written as the game writes a cost), both usable in XML alone; PartsBills.Resolve for code with more to fill; the game-free BuildBillRule. The design record parts-bills.md has an example for a placed building.
+
+### Changed
+
+- **Vanilla Vehicles Expanded's parts follow what its own heavy vehicles do**, in place of the 6-tonne limit: one engine block under 6 tonnes, two up to 15, three above; its transmission, wheels and suspension up to 15 tonnes; its alternator, battery, radiator, fuel tank and exhaust on any vehicle. This applies to repairs as well as builds, so a repair on a heavier vehicle now also accepts them. Authored, held for the owner's review.
 
 ### Compatibility and limits
 

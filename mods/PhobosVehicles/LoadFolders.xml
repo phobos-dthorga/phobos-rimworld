@@ -27,9 +27,5 @@
     <li IfModActive="ceteam.combatextended">Mods/CombatExtended</li>
     <li IfModActive="ludeon.rimworld.biotech">Mods/Biotech</li>
     <li IfModActive="dubwise.rimefeller">Mods/Rimefeller</li>
-    <li IfModActiveAll="rimthunder.core,OskarPotocki.VanillaVehiclesExpanded">Mods/PartsRimThunderAndVVE</li>
-    <li IfModActive="rimthunder.core" IfModNotActive="OskarPotocki.VanillaVehiclesExpanded">Mods/PartsRimThunder</li>
-    <li IfModActive="OskarPotocki.VanillaVehiclesExpanded" IfModNotActive="rimthunder.core">Mods/PartsVVE</li>
-    <li IfModNotActive="rimthunder.core,OskarPotocki.VanillaVehiclesExpanded">Mods/PartsFallback</li>
   </v1.7>
 </loadFolders>

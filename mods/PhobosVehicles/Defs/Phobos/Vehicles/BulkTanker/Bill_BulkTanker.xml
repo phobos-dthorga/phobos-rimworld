@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- What the tanker is made of, by role (docs/development/parts-bills.md; D'thorga Vehicles 0.41.0). Its blueprint's cost list is its
+       shell; each role here is filled at start-up by RimThunder's or Vanilla Vehicles Expanded's part where installed and suited to its
+       9 tonnes, and by ours otherwise. This replaces the four patch folders it had. Counts authored: six tyres on three axles. -->
+  <Phobos.VehicleSystems.PhobosVehicleBillDef>
+    <defName>PhobosBill_Tanker</defName>
+    <label>bulk tanker parts</label>
+    <target>Phobos_Tanker_Blueprint</target>
+    <parts>
+      <Engine>1</Engine>
+      <Transmission>1</Transmission>
+      <FuelTank>1</FuelTank>
+      <Wheels>6</Wheels>
+      <Suspension>3</Suspension>
+      <Alternator>1</Alternator>
+      <Battery>1</Battery>
+      <Wiring>1</Wiring>
+      <Radiator>1</Radiator>
+    </parts>
+  </Phobos.VehicleSystems.PhobosVehicleBillDef>
+</Defs>

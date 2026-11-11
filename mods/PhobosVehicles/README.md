@@ -7,10 +7,15 @@ of the general systems D'thorga Framework gives every vehicle.
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.40.1, built 11 November 2026 for House D'thorga. **Not yet tested in game.**
+Version 0.41.0, built 11 November 2026 for House D'thorga. **Not yet tested in game.**
 
 ## Read this first (gotchas)
 
+- **New in 0.41.0 (not yet tested in game): our vehicles are built from parts.** A vehicle asks for an engine, a transmission, a fuel
+  tank, tyres and the rest. **Where RimThunder or Vanilla Vehicles Expanded is installed, it asks for their parts**; otherwise for ours,
+  made at the vehicle parts bench. **Finish or cancel any vehicle being built before you update**, or its frame keeps what was
+  delivered and then asks for the new list. To build from our own parts whatever is installed, set **Parts for building** in D'thorga
+  Framework's settings. **Needs D'thorga Framework 0.95.0 or later.**
 - **New in 0.39.1 (not yet tested in game): our vehicles have names**, such as the Talus tipper truck, and a few upgrades and tunes
   take the trade's own words (greedy boards, RC hammer, stock tune, tall final drive). **Only the names you read changed**: saves,
   upgrades already fitted and other mods' patches are unaffected. What each name means is [below](#our-vehicles-names).
@@ -18,7 +23,7 @@ Version 0.40.1, built 11 November 2026 for House D'thorga. **Not yet tested in g
 - **New in 0.11.0, with Vanilla Expanded Framework (not yet tested in game): garages.** A convoy that has stopped can set up a garage on
   the world map. Vehicles left in one stay with no time limit, and whoever is stationed there mends them from steel and components
   you bring by caravan. **Before removing this mod, take every vehicle out of every garage**, or they go with it.
-- **Needs Vehicle Framework and D'thorga Framework 0.22.0 or later**, on **RimWorld 1.7 only**. Load it after both; the About file
+- **Needs Vehicle Framework and D'thorga Framework 0.95.0 or later**, on **RimWorld 1.7 only**. Load it after both; the About file
   asks for that, so RimSort does it for you.
 - **The general systems come from D'thorga Framework**, not from this mod: battery and alternator, coolant and oil, tyres or tracks,
   brakes, gearbox, wear and service. Their guide and settings are in

@@ -135,7 +135,7 @@ public sealed class VehicleRepairs
         options.Add(own);
         if (!grade.isDefault) return options;    // another mod's part is a standard part
         double kilograms = Kilograms;
-        foreach (PartSupplySubstitute substitute in def.substitutes)
+        foreach (Phobos.Framework.Bills.RoleSubstitute substitute in def.substitutes)
         {
             if (substitute.Suits(kilograms)) options.Add(new List<(ThingDef def, int count)> { (substitute.thing!, substitute.count) });
         }

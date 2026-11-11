@@ -106,6 +106,7 @@ load folder or patch.
 | 8 Nov 2026 | **Generic functions go to the Framework core**, in the same change as their first consumer (AGENTS.md) | owner |
 | 8 Nov 2026 | **Two vehicle inspector tabs**: "Dashboard" (glanceable) and "Systems" (in depth, hidden in Plain mode); **a day of graph history, saved** (an exception to "nothing derived is saved"); RimHUD needs no hook ([tabs](vehicle-tabs-design.md)) | owner (the layouts are the agent's) |
 | 9 Nov 2026 | **UHF's easier path is through openings, not through rock**: the band's obstruction factor applies to walls and built roofs, and rock and natural roofs count in full (owner, who is a licensed amateur; built in Radio Framework 0.1.6) |  |
+| 11 Nov 2026 | **What a thing of ours is built from is a parts bill, by role** (owner): every vehicle's cost brought in line with the tanker's, other mods' parts as soft dependencies where installed and suited, ours otherwise; one table worked out at start-up, generic in the Framework core so a later chemical industry mod's placed buildings use it; costs to match similar trucks ([parts bills](parts-bills.md)) | Built in Framework 0.95.0 and Vehicles 0.41.0; not yet tested in game |
 | 9 Nov 2026 | **The radio framework goes on the back burner** (owner): no new features or phases until the owner picks it up again. It stands at Radio Framework 0.1.6 |  |
 
 ## Open checks
