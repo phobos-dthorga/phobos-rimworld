@@ -6,8 +6,8 @@
   -->
   <Vehicles.VehicleDef ParentName="BaseVehiclePawn">
     <defName>Phobos_DrillRig</defName>
-    <label>drill rig</label>
-    <description>A heavy truck carrying a deep drill with a folding mast. Park it over a deposit a scanner has found, set it up, and a colonist can drill as at a deep drill, with what comes up landing beside the hole. When the ore is gone it brings up stone. Active drilling can break into insect tunnels, as with any deep drill. It cannot move while set up.</description>
+    <label>Kelly drill rig</label>
+    <description>Kelly K1: a heavy truck carrying a deep drill with a folding mast. Park it over a deposit a scanner has found, set it up, and a colonist can drill as at a deep drill, with what comes up landing beside the hole. When the ore is gone it brings up stone. Active drilling can break into insect tunnels, as with any deep drill. It cannot move while set up.</description>
     <graphicData>
       <texPath>Phobos/Vehicles/BulkTanker/BulkTanker</texPath>
       <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
@@ -479,8 +479,8 @@
 
   <Vehicles.VehicleBuildDef ParentName="VehicleBaseBuildable">
     <defName>Phobos_DrillRig_Blueprint</defName>
-    <label>drill rig</label>
-    <description>A heavy truck carrying a deep drill, for working deposits wherever you can drive it.</description>
+    <label>Kelly drill rig</label>
+    <description>Kelly K1: a heavy truck carrying a deep drill, for working deposits wherever you can drive it.</description>
     <graphicData>
       <texPath>Phobos/Vehicles/BulkTanker/BulkTanker</texPath>
       <graphicClass>Graphic_Multi</graphicClass>

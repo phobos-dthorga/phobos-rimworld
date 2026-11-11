@@ -151,8 +151,8 @@
   <!-- Tunes and changes of grade are done within reach of one of these (owner, 9 Nov 2026). Its size, reach, cost and power are authored. -->
   <ThingDef ParentName="BuildingBase">
     <defName>PhobosVehicles_TuningRig</defName>
-    <label>tuning rig</label>
-    <description>Test instruments and a hoist on a heavy frame. An engine can only be tuned, and a working part only changed for one of another grade, with a vehicle parked close by and the rig powered.</description>
+    <label>dyno bay</label>
+    <description>A dynamometer, test instruments and a hoist on a heavy frame. An engine can only be tuned, and a working part only changed for one of another grade, with a vehicle parked close by and the bay powered.</description>
     <thingClass>Building</thingClass>
     <graphicData>
       <texPath>Phobos/VehicleSystems/Stations/TuningRig</texPath>

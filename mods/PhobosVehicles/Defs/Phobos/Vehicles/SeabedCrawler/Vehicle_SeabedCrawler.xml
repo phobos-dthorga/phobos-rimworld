@@ -9,8 +9,8 @@
   -->
   <Vehicles.VehicleDef ParentName="BaseSeaVehicle">
     <defName>Phobos_SeabedCrawler</defName>
-    <label>seabed crawler</label>
-    <description>A small research submarine. As built it can only dive, hide and come home; its abilities are fitted one by one as upgrades.</description>
+    <label>Fathom seabed crawler</label>
+    <description>Fathom F1: a small research submarine. As built it can only dive, hide and come home; its abilities are fitted one by one as upgrades.</description>
     <graphicData>
       <texPath>Phobos/Vehicles/SeabedCrawler/SeabedCrawler</texPath>
       <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
@@ -322,8 +322,8 @@
 
   <Vehicles.VehicleBuildDef ParentName="VehicleBoatBaseBuildable">
     <defName>Phobos_SeabedCrawler_Blueprint</defName>
-    <label>seabed crawler</label>
-    <description>A small research submarine. As built it can only dive, hide and come home; its abilities are fitted one by one as upgrades. It is built in shallow water.</description>
+    <label>Fathom seabed crawler</label>
+    <description>Fathom F1: a small research submarine. As built it can only dive, hide and come home; its abilities are fitted one by one as upgrades. It is built in shallow water.</description>
     <graphicData>
       <texPath>Phobos/Vehicles/SeabedCrawler/SeabedCrawler</texPath>
       <graphicClass>Graphic_Multi</graphicClass>

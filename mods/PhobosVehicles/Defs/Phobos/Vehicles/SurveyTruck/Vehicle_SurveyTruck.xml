@@ -6,8 +6,8 @@
   -->
   <Vehicles.VehicleDef ParentName="BaseVehiclePawn">
     <defName>Phobos_SurveyTruck</defName>
-    <label>survey truck</label>
-    <description>A light four-wheel-drive truck with a folding sensor boom and a recorder. Park it, set it up, and a colonist can survey for deep ore under the map, as a ground-penetrating scanner does. Each find on a map makes the next take longer. Upgrades add long-range searching and a fast, power-hungry mode. It cannot move while set up.</description>
+    <label>Datum survey truck</label>
+    <description>Datum D1: a light four-wheel-drive truck with a folding sensor boom and a recorder. Park it, set it up, and a colonist can survey for deep ore under the map, as a ground-penetrating scanner does. Each find on a map makes the next take longer. Upgrades add long-range searching and a fast, power-hungry mode. It cannot move while set up.</description>
     <graphicData>
       <texPath>Phobos/Vehicles/SurveyTruck/SurveyTruck</texPath>
       <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
@@ -438,8 +438,8 @@
 
   <Vehicles.VehicleBuildDef ParentName="VehicleBaseBuildable">
     <defName>Phobos_SurveyTruck_Blueprint</defName>
-    <label>survey truck</label>
-    <description>A light truck that finds deep ore wherever you can drive it.</description>
+    <label>Datum survey truck</label>
+    <description>Datum D1: a light truck that finds deep ore wherever you can drive it.</description>
     <graphicData>
       <texPath>Phobos/Vehicles/SurveyTruck/SurveyTruck</texPath>
       <graphicClass>Graphic_Multi</graphicClass>

@@ -5,7 +5,7 @@ colonist is breathing, makes fires fill roofed rooms with the game's own smoke w
 carries carbon monoxide from fires, holds the per-person care choices the D'thorga medical mods offer, and holds the small
 helpers every D'thorga mod shares.
 
-Version 0.82.0, built 11 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
+Version 0.82.1, built 11 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
 oxygen working through Burns and Smoke and Medical Equipment (5 November 2026). The health layer new in 0.3.0 and the **vehicle
 systems new in 0.9.0, and their engines, drivetrains and gas turbines new in 0.11.0, are not yet tested in game.** The rest is read from the game's and the mods' code.
 
@@ -52,7 +52,7 @@ and wear that a mechanic services. See [Vehicle systems](#vehicle-systems-with-v
   radiator cooks, so a fire put out within an in-game hour leaves the engine hot and a radiator to repair, and one left to burn for
   about two hours boils the engine over. **From 0.70.0** cold oil makes a start harder on the battery, and a **block heater** fitting
   keeps a vehicle parked beside power warm. **From 0.73.0** a drive belt turns the water pump and alternator (a snapped one overheats the
-  engine and flattens the battery together), worn tyres lose grip in mud, working trucks' hydraulics run on their fluid, the tuning rig
+  engine and flattens the battery together), worn tyres lose grip in mud, working trucks' hydraulics run on their fluid, the dyno bay (the tuning rig before 0.82.1)
   can **Diagnose** a vehicle and fits replacement parts properly (60% health instead of 25%), and an **inspection pit** speeds the parts
   bench. **From 0.74.0 tyres, brakes, engine services and drive belts take kits** made at the parts bench (a tyre set, a brake pad set,
   an engine service kit, a drive belt), so caravans carry them. **A save from before 0.74.0 keeps paying in raw materials** until you
@@ -134,7 +134,7 @@ mods share the work is in [the medical mods together](../../docs/medical-mods.md
 **Depot bays (0.45.0, motor pool tab; not yet tested in game):** a home for one vehicle, with a fuel tank and pump, a shelf for its parts and an outlined pad. Press **Assign vehicle** on the bay, then **Go to bay** on the vehicle, which needs a driver aboard. On the pad it refuels with nobody attending (chemfuel only, while the bay has power) and mechanics need 70% of the usual work. It only ever moves when you tell it to.
 
 **Build a vehicle parts bench first (Architect, motor pool tab; research Machining): since 0.43.0 our parts, kits and booster packs are made only there.
-A tune or a change of grade on a working part also needs a tuning rig** within 5 cells of the vehicle as it is drawn (an aircraft's wings and rotor count; 3 cells of its footprint before 0.77.0), powered (a setting, on by default); fittings and
+A tune or a change of grade on a working part also needs a dyno bay** (called the tuning rig before 0.82.1) within 5 cells of the vehicle as it is drawn (an aircraft's wings and rotor count; 3 cells of its footprint before 0.77.0), powered (a setting, on by default); fittings and
 replacing a destroyed part do not. A bill already on a machining table goes on working until you remove it. **Not yet tested in game.**
 
 Every vehicle gets systems that fit what it is, found by what it runs on and whether it drives, floats or flies, not by its name.
@@ -245,7 +245,7 @@ offline.
 The new button on a vehicle's **Dashboard** opens **Fittings and tunes**, for any vehicle from any mod that has a loadout.
 
 - **Fittings** go on one part, one to a part: uprated radiator, oil cooler, turbocharger, heavy-duty alternator, deep-cycle battery, heavy-duty springs, road tyres. **A fitting is lost if its part is destroyed.** Where a vehicle has several of a part, such as axles, each fitted part gives a share and fitting them all gives the full effect.
-- **Tunes** set up the whole engine (economy, balanced, power) and the gearing (long, standard, short). Piston engines only; gearing needs a gearbox. **Long gearing cannot make a vehicle faster than it was built to go.**
+- **Tunes** set up the whole engine (economy, stock, power) and the final drive (tall, stock, short; long, standard and short gearing before 0.82.1). Piston engines only; the final drive needs a gearbox. **A tall final drive cannot make a vehicle faster than it was built to go.**
 - Materials are brought to the vehicle, then a mechanic does the work. **Demanding work needs a minimum Construction skill**: a mechanic below it is refused and told why; one at or above it always succeeds.
 - **Other factions' vehicles may be found with a set** suited to their tech level, and keep it if captured. Turn this off in the settings under Repairs. Fittings that change speed or capacity act at once on them; engine power and tunes only matter once captured.
 - **Part grades** (new in 0.41.0; not yet tested in game): salvaged parts are cheap, frail and fault-prone and cannot hold a fitting; heavy-duty parts cost more, take more punishment and shrug off faults. Choose one on the **Grade** button when a part is destroyed, or to refit a working part, which uses up the old one.

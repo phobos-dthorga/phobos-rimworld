@@ -132,7 +132,7 @@
 
   <Phobos.VehicleSystems.PhobosVehicleTuneDef>
     <defName>PhobosTune_EngineBalanced</defName>
-    <label>balanced tune</label>
+    <label>stock tune</label>
     <description>The engine as it was built.</description>
     <axis>Engine</axis>
     <isDefault>true</isDefault>
@@ -157,7 +157,7 @@
 
   <Phobos.VehicleSystems.PhobosVehicleTuneDef>
     <defName>PhobosTune_GearingLong</defName>
-    <label>long gearing</label>
+    <label>tall final drive</label>
     <description>Taller ratios. Lower revs and less strain at a cruise, weaker on a heavy pull. It cannot make the vehicle faster than it was built to go.</description>
     <axis>Gearing</axis>
     <order>0</order>
@@ -170,7 +170,7 @@
 
   <Phobos.VehicleSystems.PhobosVehicleTuneDef>
     <defName>PhobosTune_GearingStandard</defName>
-    <label>standard gearing</label>
+    <label>stock final drive</label>
     <description>The gearing as it was built.</description>
     <axis>Gearing</axis>
     <isDefault>true</isDefault>
@@ -181,7 +181,7 @@
 
   <Phobos.VehicleSystems.PhobosVehicleTuneDef>
     <defName>PhobosTune_GearingShort</defName>
-    <label>short gearing</label>
+    <label>short final drive</label>
     <description>Lower ratios. It pulls harder with a heavy load and tops out sooner.</description>
     <axis>Gearing</axis>
     <order>2</order>

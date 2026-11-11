@@ -359,19 +359,19 @@
   <PhobosVehicleSystems_LetterBoilerExplodedLabel>Boiler explosion: {VEHICLE}</PhobosVehicleSystems_LetterBoilerExplodedLabel>
   <PhobosVehicleSystems_LetterBoilerExplodedText>The water in the {VEHICLE}'s boiler fell below the firebox crown while the fire burned. With no fusible plug to vent it, the dry crown sheet softened and tore, and the boiler's water flashed to steam all at once.\n\nThe boiler is wrecked. Tend the wounded; repair the boiler before it can steam again, and keep its water up next time.</PhobosVehicleSystems_LetterBoilerExplodedText>
 
-  <PhobosVehicleSystems_SettingTuningNeedsRig>Tunes and changes of grade need a tuning rig</PhobosVehicleSystems_SettingTuningNeedsRig>
-  <PhobosVehicleSystems_SettingTuningNeedsRigDesc>An engine or gearing tune, or changing a working part for one of another grade, waits until the vehicle is parked within reach of a working tuning rig. Fittings and replacing a destroyed part can still be done anywhere. Turn this off to work them anywhere.</PhobosVehicleSystems_SettingTuningNeedsRigDesc>
-  <PhobosVehicleSystems_RepairNeedsRig>{WORK}: waiting to be parked within {CELLS} cells of a working tuning rig.</PhobosVehicleSystems_RepairNeedsRig>
-  <PhobosVehicleSystems_FitNoRigNote>This vehicle is not within {CELLS} cells of a working tuning rig, so tunes and changes of grade will wait until it is.</PhobosVehicleSystems_FitNoRigNote>
+  <PhobosVehicleSystems_SettingTuningNeedsRig>Tunes and changes of grade need a dyno bay</PhobosVehicleSystems_SettingTuningNeedsRig>
+  <PhobosVehicleSystems_SettingTuningNeedsRigDesc>An engine or gearing tune, or changing a working part for one of another grade, waits until the vehicle is parked within reach of a working dyno bay. Fittings and replacing a destroyed part can still be done anywhere. Turn this off to work them anywhere.</PhobosVehicleSystems_SettingTuningNeedsRigDesc>
+  <PhobosVehicleSystems_RepairNeedsRig>{WORK}: waiting to be parked within {CELLS} cells of a working dyno bay.</PhobosVehicleSystems_RepairNeedsRig>
+  <PhobosVehicleSystems_FitNoRigNote>This vehicle is not within {CELLS} cells of a working dyno bay, so tunes and changes of grade will wait until it is.</PhobosVehicleSystems_FitNoRigNote>
   <PhobosVehicleSystems_RigInspectReady>Reaches vehicles parked within {CELLS} cells.</PhobosVehicleSystems_RigInspectReady>
   <PhobosVehicleSystems_RigInspectOff>Without power it can tune nothing.</PhobosVehicleSystems_RigInspectOff>
 
   <!-- Framework 0.73.0: a diagnosis at the rig, and hydraulic work. -->
   <PhobosVehicleSystems_Diagnose>Diagnose</PhobosVehicleSystems_Diagnose>
-  <PhobosVehicleSystems_DiagnoseDesc>Have a mechanic look this vehicle over at a tuning rig: every part, its grade and fitting, the tunes, every reading and every fault, in one report. Worth doing to a vehicle you have just captured or bought. The vehicle must stand within reach of a working tuning rig.</PhobosVehicleSystems_DiagnoseDesc>
-  <PhobosVehicleSystems_DiagnoseNeedsRig>{VEHICLE} waits to stand within reach of a working tuning rig.</PhobosVehicleSystems_DiagnoseNeedsRig>
+  <PhobosVehicleSystems_DiagnoseDesc>Have a mechanic look this vehicle over at a dyno bay: every part, its grade and fitting, the tunes, every reading and every fault, in one report. Worth doing to a vehicle you have just captured or bought. The vehicle must stand within reach of a working dyno bay.</PhobosVehicleSystems_DiagnoseDesc>
+  <PhobosVehicleSystems_DiagnoseNeedsRig>{VEHICLE} waits to stand within reach of a working dyno bay.</PhobosVehicleSystems_DiagnoseNeedsRig>
   <PhobosVehicleSystems_DiagnoseLetterLabel>Diagnosis: {VEHICLE}</PhobosVehicleSystems_DiagnoseLetterLabel>
-  <PhobosVehicleSystems_DiagnoseIntro>{MECHANIC} has looked {VEHICLE} over at the rig.</PhobosVehicleSystems_DiagnoseIntro>
+  <PhobosVehicleSystems_DiagnoseIntro>{MECHANIC} has looked {VEHICLE} over at the dyno bay.</PhobosVehicleSystems_DiagnoseIntro>
   <PhobosVehicleSystems_DiagnosePower>Its engine is built to give {KW} kW.</PhobosVehicleSystems_DiagnosePower>
   <PhobosVehicleSystems_DiagnoseTune>Tuned: {TUNE}.</PhobosVehicleSystems_DiagnoseTune>
   <PhobosVehicleSystems_DiagnoseParts>Parts, worst first:</PhobosVehicleSystems_DiagnoseParts>

@@ -9,9 +9,9 @@
     <nodes>
     <li>
       <key>DiamondBit</key>
-      <label>diamond bit</label>
+      <label>diamond core bit</label>
       <displayLabel>true</displayLabel>
-      <description>A slim coring bit. The rig drills at twenty times a deep drill, on ore and on stone.</description>
+      <description>A slim bit that cuts a core of rock. The rig drills at twenty times a deep drill, on ore and on stone.</description>
       <icon>Phobos/Vehicles/DrillRig/Upgrades/DiamondBit</icon>
       <work>2500</work>
       <gridCoordinate>(3, 4)</gridCoordinate>
@@ -39,9 +39,9 @@
     </li>
     <li>
       <key>RcHammer</key>
-      <label>hammer bit</label>
+      <label>RC hammer</label>
       <displayLabel>true</displayLabel>
-      <description>A fat hammer bit on a bigger air line: eighteen times a deep drill on ore, and thirty once only stone is left.</description>
+      <description>A reverse-circulation hammer, which blows its cuttings up inside the rods, on a bigger air line: eighteen times a deep drill on ore, and thirty once only stone is left.</description>
       <icon>Phobos/Vehicles/DrillRig/Upgrades/RcHammer</icon>
       <work>2500</work>
       <gridCoordinate>(10, 4)</gridCoordinate>

@@ -6,8 +6,8 @@
   -->
   <Vehicles.VehicleDef ParentName="BaseVehiclePawn">
     <defName>Phobos_Tipper</defName>
-    <label>tipper truck</label>
-    <description>A heavy truck with a steel body that lifts to tip its whole load onto the ground behind it. Load it at the quarry or the drill, drive home, back it up to the yard, and tip: one drive instead of a hundred carries. It looks after nothing but the load: what lands is hauled away as from any pile.</description>
+    <label>Talus tipper truck</label>
+    <description>Talus T1: a heavy truck with a steel body that lifts to tip its whole load onto the ground behind it. Load it at the quarry or the drill, drive home, back it up to the yard, and tip: one drive instead of a hundred carries. It looks after nothing but the load: what lands is hauled away as from any pile.</description>
     <graphicData>
       <texPath>Phobos/Vehicles/BulkTanker/BulkTanker</texPath>
       <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
@@ -363,8 +363,8 @@
 
   <Vehicles.VehicleBuildDef ParentName="VehicleBaseBuildable">
     <defName>Phobos_Tipper_Blueprint</defName>
-    <label>tipper truck</label>
-    <description>A heavy truck that tips its whole load onto the ground behind it.</description>
+    <label>Talus tipper truck</label>
+    <description>Talus T1: a heavy truck that tips its whole load onto the ground behind it.</description>
     <graphicData>
       <texPath>Phobos/Vehicles/BulkTanker/BulkTanker</texPath>
       <graphicClass>Graphic_Multi</graphicClass>

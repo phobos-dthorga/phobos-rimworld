@@ -96,6 +96,19 @@ vehicles the owner already drives. Our vehicles, their loadouts and art come aft
    `PatchOperationFindMod`), never in C#: RimThunder's item, then Vanilla Vehicles Expanded's, then our own. Our own parts load only
    when no provider is present and are never a copy of a part a provider ships. The table "Parts and where they come from" below is
    the one place that says which item fills which role.
+10. **Names: a technical word, a mark number, the plain noun** (owner's choice, 11 Nov 2026; built in D'thorga Vehicles 0.39.1 and
+    D'thorga Framework 0.82.1). Each vehicle of ours takes a real engineering or earth-science word whose meaning matches its job,
+    in front of its plain noun, so the brand rule's plain names still hold: **Talus** tipper truck, **Ullage** bulk tanker, **Kelly**
+    drill rig, **Datum** survey truck, **Busbar** generator set, **Fathom** seabed crawler. Its descriptions (vehicle and blueprint)
+    open with the designation: the name, its first letter and a mark number (Talus T1). A bigger or rebuilt design of the same job
+    takes the next mark (Talus T2); a refit hull adds a letter (Fathom F1-S sensor refit, F1-L laboratory refit). Experimental hulls
+    take X numbers in order, X-1 first (owner). The designation leaves out "D'thorga", since in-game text never names a mod (agent
+    choice). Numbers never stand for a figure such as tonnes, because a name must not contradict a figure the game shows (agent
+    reasoning: the tipper carries 2,400 kg). Before a new name is used, `python scripts/query-defs.py sql` checks the owner's mods'
+    labels for it; the first six and X-1 had no clash on 11 Nov 2026. **Parts, kits, grades and fittings keep plain trade names**;
+    an upgrade or tune takes a truer trade word where one exists (greedy boards, RC hammer, diamond core bit, uprated alternator,
+    stock tune, tall, stock and short final drive, dyno bay for the tuning rig). Labels only: defNames, node keys and saved keys
+    never change.
 
 ## The parts model
 
@@ -459,6 +472,8 @@ already do it (IDs in the mechanics record); the lean is the agent's.
 
 ## Who chose what
 
+- **Owner (11 Nov 2026, names):** the agent's proposed vehicle names, designations and trade-word renames, as principle 10 records,
+  with one change: test hulls are X-1, X-2, X-3 in order.
 - **Owner (8 Nov 2026):** utilitarian vehicles with per-part health and efficiency; a mobile drill rig first; a new
   mod; the framework before the vehicles, the mod as a stand-in; three to four vehicles in full; 1.7 only; the art
   route open to suggestions.

@@ -7,8 +7,8 @@
   -->
   <Vehicles.VehicleDef ParentName="BaseSeaVehicle">
     <defName>Phobos_SubmarineTestHull</defName>
-    <label>submarine test hull</label>
-    <description>A bare hull for trying out diving. It is not a finished design.</description>
+    <label>X-1 submarine test hull</label>
+    <description>X-1: a bare hull for trying out diving. It is not a finished design.</description>
     <graphicData>
       <texPath>Phobos/Vehicles/SeabedCrawler/SeabedCrawler</texPath>
       <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
@@ -246,8 +246,8 @@
 
   <Vehicles.VehicleBuildDef ParentName="VehicleBaseBuildable">
     <defName>Phobos_SubmarineTestHull_Blueprint</defName>
-    <label>submarine test hull</label>
-    <description>A bare hull for trying out diving. It is not a finished design.</description>
+    <label>X-1 submarine test hull</label>
+    <description>X-1: a bare hull for trying out diving. It is not a finished design.</description>
     <graphicData>
       <texPath>Phobos/Vehicles/SeabedCrawler/SeabedCrawler</texPath>
       <graphicClass>Graphic_Multi</graphicClass>

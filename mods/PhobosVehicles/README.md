@@ -1,13 +1,17 @@
 # D'thorga Vehicles
 
-Vehicles that keep running only while they are looked after. It adds one vehicle of its own, **the bulk tanker**, and gives the
-vehicles of other mods you already drive the systems that match what they really are, on top of the general systems D'thorga
-Framework gives every vehicle.
+Vehicles that keep running only while they are looked after (D'thorga Vehicles, also spelt dthorga). It adds working vehicles of its
+own, the **Talus** tipper truck, **Ullage** bulk tanker, **Kelly** drill rig, **Datum** survey truck, **Busbar** generator set and
+**Fathom** seabed crawler, and gives the vehicles of other mods you already drive the systems that match what they really are, on top
+of the general systems D'thorga Framework gives every vehicle.
 
-Version 0.39.0, built 11 November 2026 for House D'thorga. **Not yet tested in game.**
+Version 0.39.1, built 11 November 2026 for House D'thorga. **Not yet tested in game.**
 
 ## Read this first (gotchas)
 
+- **New in 0.39.1 (not yet tested in game): our vehicles have names**, such as the Talus tipper truck, and a few upgrades and tunes
+  take the trade's own words (greedy boards, RC hammer, stock tune, tall final drive). **Only the names you read changed**: saves,
+  upgrades already fitted and other mods' patches are unaffected. What each name means is [below](#our-vehicles-names).
 - **New in 0.27.0 (not yet tested in game): each truck has its own research, on the D'thorga tab,** and truck upgrades now need the research they name. **An existing colony gets a truck's project free, once, if it had already done the research that project replaces.** New colonies research them normally.
 - **New in 0.11.0, with Vanilla Expanded Framework (not yet tested in game): garages.** A convoy that has stopped can set up a garage on
   the world map. Vehicles left in one stay with no time limit, and whoever is stationed there mends them from steel and components
@@ -71,12 +75,28 @@ turns them all down or off. All were made with generative AI on the owner's PC a
 ([how](../../docs/development/sound-generation.md)).
 
 **Their work sounds too** (new in 0.39.0; not yet tested in game): the tanker's hoses, pump, relief valve, leaks and purges; the
-tipper's rams, load and tailgate (rock, bulk and standard bodies each their own); the drill rig setting up, drilling (the hammer bit
+tipper's rams, load and tailgate (rock, bulk and standard bodies each their own); the drill rig setting up, drilling (the RC hammer
 and shore power each their own), a portion down the chute and winding down; the survey truck's boom, console, array, dish and a soft
 tone for a find; the generator truck setting up; and the Crawler diving, surfacing, settling and lifting off. **Under the water,
 only your own crew hears their boat**: the creaks, the air scrubber, the laboratory and a contact never give a hidden enemy boat away.
 
-## The bulk tanker
+## Our vehicles' names
+
+Each name is a real word from engineering or earth science that says something true about the job (owner's choice, 11 November
+2026). The description in the game opens with its designation: the name, its first letter and a mark number, so a bigger tipper
+would one day be the Talus T2, and a refit adds a letter.
+
+| Vehicle | Designation | The word means |
+| --- | --- | --- |
+| Talus tipper truck | Talus T1 | The heap of broken rock at the foot of a cliff: what it leaves when it tips |
+| Ullage bulk tanker | Ullage U1 | The empty space a tank must keep above its load, measured at every fill |
+| Kelly drill rig | Kelly K1 | The square bar that turns the drill string on a rotary rig |
+| Datum survey truck | Datum D1 | The reference point every survey measures from |
+| Busbar generator set | Busbar B1 | The bar that carries power into a grid, which is what the set becomes once it is set up |
+| Fathom seabed crawler | Fathom F1, refits F1-S (sensor) and F1-L (laboratory) | The sailor's depth unit of six feet; to fathom something is to get to the bottom of it |
+| X-1 submarine test hull | X-1 | Experimental hulls are numbered in order: X-1, then X-2, X-3 |
+
+## The Ullage bulk tanker
 
 **Not yet tested in game.** A heavy truck, 3 by 10 cells, built with a bare deck. **Anything of ours that sets up can have its engine started while it stands, but cannot be driven until it packs up** (D'thorga Framework 0.54.0).
 
@@ -110,7 +130,7 @@ only your own crew hears their boat**: the creaks, the air scrubber, the laborat
 
 **Parts:** it is built from RimThunder's engine and running gear and Vanilla Vehicles Expanded's electrics when you have them, and from three parts of ours, made at a machining table, if you have neither.
 
-## The generator set
+## The Busbar generator set
 
 **Not yet tested in game. The pictures are stand-ins.** A small diesel-electric truck: its engine turns a generator, electric motors drive the back axle, and when it is parked it can feed your grid.
 
@@ -118,12 +138,12 @@ only your own crew hears their boat**: the creaks, the air scrubber, the laborat
 - **Press Set up.** A cable end appears beside the truck; wire things to it, or touch a conduit to it. The truck cannot move until you press **Pack up**.
 - **It gives 1,200 W at full health.** Fuel follows what the grid draws, from 1.5 chemfuel a day doing nothing to 9 a day flat out, or 9 a day whenever batteries on the grid have room. That is 60% of the game's chemfuel generator's economy: you are paying for being able to drive it away.
 - **It stops if** the tank runs dry, the engine or the traction generator is destroyed, or damage takes it under 240 W. Its inspect pane says which.
-- **Upgrades:** a larger generator (1,600 W), a cable reel (you pick where the cable end goes, up to 12 cells away), and a battery buffer that keeps the grid alive for a time when the engine cannot.
+- **Upgrades:** an uprated alternator (1,600 W), a cable reel (you pick where the cable end goes, up to 12 cells away), and a battery buffer that keeps the grid alive for a time when the engine cannot.
 - **A vehicle of ours parked beside the cable end or a conduit on its grid counts as plugged in**, as with any grid. Vehicle Framework's own electric vehicles need a battery on the grid to charge.
 - **You can hear it running** (new in 0.31.0): while it is set up and its engine runs, it sounds like the game's chemfuel generator, from the truck, and falls quiet when it stops. D'thorga Framework's **D'thorga sounds volume** setting turns it down or off.
 - **If you remove the mod with one set up,** pack it up first, or a cable end is left behind that does nothing.
 
-## The survey truck
+## The Datum survey truck
 
 **Tested in game by the owner on 9 November 2026 (Vehicles 0.23.0): the truck and its boom work well. Its upgrades are not yet tested in game.** A light four-wheel-drive truck that does a ground-penetrating scanner's job, wherever you can drive it.
 
@@ -136,13 +156,13 @@ only your own crew hears their boat**: the creaks, the air scrubber, the laborat
 - **With Rimefeller, a set-up survey truck counts as the scanner a deep well needs. With Dubs Bad Hygiene, a groundwater sensor** shows the water while the truck is set up and selected, and marks the richest spot within 15 cells.
 - **Upgrades:** a geophone array (more steel) or a radiometric probe (more uranium, costs 40), not both; a long-range array that searches other lands for one ore, off the map's slowing; a powered array (three times as fast, 1,000 W, needs a grid or the battery); a large battery (runs with the engine off, and the engine starts itself to recharge it at 30%, **burning fuel with nobody at the wheel**); work lights.
 
-## The drill rig
+## The Kelly drill rig
 
 **Not yet tested in game. It looks like the bulk tanker until it has its own picture.** A heavy truck carrying a deep drill.
 
 - **Build it** from the **motor pool** tab, after Deep drilling research.
 - **It drills the cell behind its rear.** Reverse it up to a deposit a scanner has found and press **Set up**; a ring shows its reach. A colonist on **Mining** work then drills, with the game's portions and their Mining skill, and what comes up lands beside the hole.
-- **A bare rig drills at ten times a deep drill:** a steel lump that takes a drill a month takes the rig about three days. A diamond bit doubles that to twenty times. A hammer bit is eighteen times on ore and thirty once only stone is left. It needs both, not one: pick by the job.
+- **A bare rig drills at ten times a deep drill:** a steel lump that takes a drill a month takes the rig about three days. A diamond core bit doubles that to twenty times. An RC (reverse-circulation) hammer is eighteen times on ore and thirty once only stone is left. It needs both, not one: pick by the job.
 - **It burns 40 chemfuel a day while drilling,** unless you fit the electric power pack and have a powered grid within 6 cells.
 - **Active drilling can bring insects,** by the game's own rule and your storyteller's odds, **and a faster rig meets them sooner:** the risk per lump is the same as a deep drill's, so speed is no way round them. Keep guards near it.
 - **At night, with no work lights, it drills at 80%** of its rate.
@@ -150,16 +170,16 @@ only your own crew hears their boat**: the creaks, the air scrubber, the laborat
 - **With Rimefeller, the oil well kit** sinks a well at the hole when no ore is in reach, using steel from the rig's cargo and needing what a derrick needs (a working console, or a scanner or set-up survey truck for deep oil). It leaves a well head: **build a derrick over it to pump.**
 - **With Vanilla Chemfuel Expanded, the deepchem head** raises deepchem into a 300-unit buffer at ten times a pumpjack's rate, though the buffer and the tanker's pump set the real pace. **Without the head, the rig leaves deepchem in the ground.** To empty the buffer, park a tanker with a deepchem tank within reach of its hose, set up and loading, or lay a deepchem pipe up to the rig. It never comes up as items.
 
-## The tipper truck
+## The Talus tipper truck
 
 **Not yet tested in game. It looks like the bulk tanker until it has its own picture.** A heavy truck that carries 2,400 kg and puts it all down in one go.
 
 - **Build it** from the **motor pool** tab, after Machining and Electricity.
 - **Load it** through its ordinary cargo window: 96 granite chunks, or 4,800 steel.
 - **With a driver aboard and stopped, press Tip.** Everything in its cargo lands inside the outlined half-circle behind it, and **that includes any spare parts you loaded**. Whatever will not fit stays aboard, and it tells you how many.
-- **Upgrades:** high sides (+600 kg), and either a rock body (tips half as fast again) or a bulk body (3,600 kg, tips slower).
+- **Upgrades:** greedy boards (taller sides, +600 kg), and either a rock body (tips half as fast again) or a bulk body (3,600 kg, tips slower).
 
-## The Seabed Crawler (not yet tested in game)
+## The Fathom seabed crawler (not yet tested in game)
 
 **A submarine of 4 by 9 cells, built in shallow water. Research Submersible hull on the D'thorga: Submarines tab first.** It has its own picture since 0.38.0, a grey-blue hull with an orange band on the sail; repaint it as any vehicle. Bare, it can only dive, hide and come home. **It grew from 3 by 8 to 4 by 9 in 0.36.0**, so a Crawler placed by an earlier version keeps its old shape in the save: destroy it in dev mode and place a fresh one. Each upgrade takes its own research and its own part from the parts bench:
 
@@ -182,12 +202,12 @@ only your own crew hears their boat**: the creaks, the air scrubber, the laborat
 
 **Two hull refits, new in 0.38.0. Choose one: they exclude each other**, and each gives the Crawler a different hull picture. To change your mind, remove one in the Upgrades tab and fit the other.
 
-- **Sensor refit** (research Faired sensor sail, after Active sonar; one faired sensor sail): a smooth faired sail. The listening array hears 20 cells further and the sonar reaches 30 further, but it carries 200 less.
-- **Laboratory refit** (research Laboratory hull section, after Advanced marine science; one laboratory hull section; needs the advanced laboratory fitted): a longer hull. A third scientist's seat and faster research, but a little slower in the water.
+- **Sensor refit**, the F1-S (research Faired sensor sail, after Active sonar; one faired sensor sail): a smooth faired sail. The listening array hears 20 cells further and the sonar reaches 30 further, but it carries 200 less.
+- **Laboratory refit**, the F1-L (research Laboratory hull section, after Advanced marine science; one laboratory hull section; needs the advanced laboratory fitted): a longer hull. A third scientist's seat and faster research, but a little slower in the water.
 
 More upgrades are designed, including radar, and are not built yet. Pictures for the upgrades on the hull (wheels, listening strips, sonar dome) are still to come.
 
-## The submarine test hull
+## The X-1 submarine test hull
 
 **Not a finished vehicle, and it cannot be built.** In dev mode, the debug action "Vehicle systems: spawn a submersible" places one, crewed, for trying out D'thorga Framework's diving, in deep or chest-deep water. It wears the Crawler's base hull since 0.38.0 and is the Crawler's size, 4 by 9 cells since 0.36.0. Not yet tested in game.
 

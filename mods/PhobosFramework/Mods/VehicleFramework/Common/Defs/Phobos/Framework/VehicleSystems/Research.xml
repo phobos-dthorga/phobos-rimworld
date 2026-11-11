@@ -49,7 +49,7 @@
   <ResearchProjectDef ParentName="PhobosResearchVehicleBase">
     <defName>PhobosResearch_VehicleTuning</defName>
     <label>vehicle tuning</label>
-    <description>Set an engine up for the work it does, and fit better cooling, springs and tyres. Needs a tuning rig.</description>
+    <description>Set an engine up for the work it does, and fit better cooling, springs and tyres. Needs a dyno bay.</description>
     <baseCost>1500</baseCost>
     <researchViewX>1</researchViewX>
     <researchViewY>0</researchViewY>

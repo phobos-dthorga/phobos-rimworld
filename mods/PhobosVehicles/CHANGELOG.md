@@ -5,6 +5,24 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.39.1] - 2026-11-11 - Draft
+
+Our vehicles get names of their own (owner, 11 November 2026: the agent's proposals, with the owner's X numbers for test hulls). **Not yet tested in game.**
+
+### Changed
+
+- Each vehicle takes a real engineering or earth-science word in front of its plain name: the **Talus** tipper truck, **Ullage** bulk tanker, **Kelly** drill rig, **Datum** survey truck, **Busbar** generator set and **Fathom** seabed crawler, and the **X-1** submarine test hull. Each description opens with its designation, such as Talus T1, and the README says what each word means.
+- The Crawler's refits read Fathom F1-S, sensor refit, and Fathom F1-L, laboratory refit.
+- Upgrades take the trade's own words: the tipper's high sides are **greedy boards**, the drill's diamond bit a **diamond core bit** and its hammer bit an **RC hammer** (reverse circulation), and the generator set's larger generator an **uprated alternator**.
+
+### Save compatibility
+
+- Safe on an existing save: only names and descriptions changed. Vehicles, refits and upgrades already in a save keep working and show the new names.
+
+### Dependencies
+
+- Pairs with D'thorga Framework 0.82.1, which renames the tunes and the tuning rig; either works without the other.
+
 ## [0.39.0] - 2026-11-11 - Draft
 
 Our vehicles at work, heard (owner, 11 November 2026: phase 2 of the sound catalogue; the owner took every one of the agent's shortlist picks and accepted mild clipping in two). **Not yet tested in game.**

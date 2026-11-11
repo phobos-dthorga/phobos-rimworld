@@ -9,9 +9,9 @@
     <nodes>
     <li>
       <key>HighSides</key>
-      <label>high sides</label>
+      <label>greedy boards</label>
       <displayLabel>true</displayLabel>
-      <description>Taller side boards: 600 kg more of anything.</description>
+      <description>Taller side boards, which drivers call greedy boards: 600 kg more of anything.</description>
       <icon>Phobos/Vehicles/Tipper/Upgrades/HighSides</icon>
       <work>1500</work>
       <gridCoordinate>(2, 6)</gridCoordinate>
@@ -64,7 +64,7 @@
       <key>BulkBody</key>
       <label>bulk body</label>
       <displayLabel>true</displayLabel>
-      <description>A long, shallow body: 3,600 kg before any high sides, for ore and steel, but it tips slower.</description>
+      <description>A long, shallow body: 3,600 kg before any greedy boards, for ore and steel, but it tips slower.</description>
       <icon>Phobos/Vehicles/Tipper/Upgrades/BulkBody</icon>
       <work>3000</work>
       <gridCoordinate>(12, 6)</gridCoordinate>

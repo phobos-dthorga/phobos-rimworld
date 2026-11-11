@@ -6,8 +6,8 @@
   -->
   <Vehicles.VehicleDef ParentName="BaseVehiclePawn">
     <defName>Phobos_GeneratorSet</defName>
-    <label>generator set</label>
-    <description>A small truck whose engine turns a generator rather than the wheels: electric motors drive the back axle, and when it is parked and set up, the generator feeds your grid instead. Drive it to wherever you need power, set it up, and it burns fuel in step with what the grid draws. It cannot move while set up.</description>
+    <label>Busbar generator set</label>
+    <description>Busbar B1: a small truck whose engine turns a generator rather than the wheels: electric motors drive the back axle, and when it is parked and set up, the generator feeds your grid instead. Drive it to wherever you need power, set it up, and it burns fuel in step with what the grid draws. It cannot move while set up.</description>
     <graphicData>
       <texPath>Phobos/Vehicles/GeneratorSet/GeneratorSet</texPath>
       <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
@@ -368,8 +368,8 @@
 
   <Vehicles.VehicleBuildDef ParentName="VehicleBaseBuildable">
     <defName>Phobos_GeneratorSet_Blueprint</defName>
-    <label>generator set</label>
-    <description>A small diesel-electric truck that can park and feed your grid.</description>
+    <label>Busbar generator set</label>
+    <description>Busbar B1: a small diesel-electric truck that can park and feed your grid.</description>
     <graphicData>
       <texPath>Phobos/Vehicles/GeneratorSet/GeneratorSet</texPath>
       <graphicClass>Graphic_Multi</graphicClass>

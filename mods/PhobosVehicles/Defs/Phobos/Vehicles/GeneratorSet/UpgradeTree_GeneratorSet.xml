@@ -9,9 +9,9 @@
     <nodes>
     <li>
       <key>BiggerAlternator</key>
-      <label>larger generator</label>
+      <label>uprated alternator</label>
       <displayLabel>true</displayLabel>
-      <description>A bigger generator behind the cab: 400 W more at full output, and fuel burned at the same watts per unit.</description>
+      <description>A bigger alternator behind the cab: 400 W more at full output, and fuel burned at the same watts per unit.</description>
       <icon>Phobos/Vehicles/GeneratorSet/Upgrades/BiggerAlternator</icon>
       <work>3000</work>
       <gridCoordinate>(2, 6)</gridCoordinate>

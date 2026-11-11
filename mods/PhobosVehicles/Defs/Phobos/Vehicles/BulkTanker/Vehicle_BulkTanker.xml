@@ -8,8 +8,8 @@
   -->
   <Vehicles.VehicleDef ParentName="BaseVehiclePawn">
     <defName>Phobos_Tanker</defName>
-    <label>bulk tanker</label>
-    <description>A heavy truck with a bare deck, ready for whichever tank you fit: a liquid tank for fuel, water and paste, or a pressure vessel for gases. Park it beside what you want to fill or empty, set it up, and run the pump. It cannot move while it is set up, and it carries nothing until a tank is fitted.</description>
+    <label>Ullage bulk tanker</label>
+    <description>Ullage U1: a heavy truck with a bare deck, ready for whichever tank you fit: a liquid tank for fuel, water and paste, or a pressure vessel for gases. Park it beside what you want to fill or empty, set it up, and run the pump. It cannot move while it is set up, and it carries nothing until a tank is fitted.</description>
     <graphicData>
       <texPath>Phobos/Vehicles/BulkTanker/BulkTanker</texPath>
       <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
@@ -490,8 +490,8 @@
 
   <Vehicles.VehicleBuildDef ParentName="VehicleBaseBuildable">
     <defName>Phobos_Tanker_Blueprint</defName>
-    <label>bulk tanker</label>
-    <description>A heavy truck with a bare deck, ready for whichever tank you fit. Its tank is added afterwards as an upgrade.</description>
+    <label>Ullage bulk tanker</label>
+    <description>Ullage U1: a heavy truck with a bare deck, ready for whichever tank you fit. Its tank is added afterwards as an upgrade.</description>
     <graphicData>
       <texPath>Phobos/Vehicles/BulkTanker/BulkTanker</texPath>
       <graphicClass>Graphic_Multi</graphicClass>

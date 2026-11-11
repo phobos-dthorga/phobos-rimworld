@@ -5,6 +5,19 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.82.1] - 2026-11-11 - Draft
+
+Tunes and the tuning rig take the trade's own words (owner, 11 November 2026, with D'thorga Vehicles 0.39.1's vehicle names). **Not yet tested in game.**
+
+### Changed
+
+- The tuning rig is now the **dyno bay**: its name, description, research text, refusals, the Diagnose button's text and the diagnosis letter. Its setting reads "Tunes and changes of grade need a dyno bay", with the same default (on).
+- The balanced tune is now the **stock tune**, and long, standard and short gearing are now a **tall, stock and short final drive**. What each one does is unchanged.
+
+### Save compatibility
+
+- Safe on an existing save: only names changed. Built rigs, chosen tunes and the setting carry over.
+
 ## [0.82.0] - 2026-11-11 - Draft
 
 Vehicles at work make their own sounds (owner, 11 November 2026: phase 2 of the sound catalogue; the owner took every one of the agent's shortlist picks). **Not yet tested in game.**
