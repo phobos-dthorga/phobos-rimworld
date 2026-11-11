@@ -66,6 +66,8 @@ public sealed class CompPhobosDepotBay : ThingComp
     public override void PostExposeData()
     {
         base.PostExposeData();
+        // A vehicle destroyed since it was assigned is not written: a reference to it could not be found on the next load.
+        if (Scribe.mode == LoadSaveMode.Saving && assigned is { Destroyed: true }) assigned = null;
         Scribe_References.Look(ref assigned, "PhobosDepotBayVehicle");
     }
 

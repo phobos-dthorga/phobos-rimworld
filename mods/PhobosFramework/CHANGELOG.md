@@ -13,6 +13,7 @@ Other factions' vehicles, from an audit of the vehicle code against the owner's 
 
 - **Another faction's aircraft is never refused lift-off by your hover setting.** With "refuse the pad, use the runway" chosen, a raider's or visitor's aircraft too heavy or too hot to lift could be refused, which could strand it. Only your own aircraft are refused now, as only your own vehicles refuse to start.
 - **You are no longer told when another faction's aircraft strains its engines.** A raider's aircraft lifting off past its limits is still worn by it, but the message about it, and the hover-beyond message, are for your own aircraft only.
+- **A depot bay no longer saves a vehicle that was destroyed.** Its assignment kept the wreck, which the next load could not find; it now lets go when saving. From the general code audit of 11 November 2026.
 - **Deployed kit belongs to the vehicle that deployed it.** A generator set's cable end and a drill rig's power point were always given to you; they now take the vehicle's faction. Only your own vehicles deploy today, so nothing changes in play yet.
 
 ### Changed

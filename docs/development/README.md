@@ -120,6 +120,9 @@ promise current behaviour. For using the mods, start at the [documentation index
 - [Other factions' vehicles: an audit of the vehicle code (11 Nov 2026)](vehicle-other-factions-audit.md): every check of the
   player's faction read against the owner's rule; three small faults, the lite tier leaving raiders' vehicles untouched by the
   drivetrain, and three decisions for the owner. Nothing changed.
+- [Code audit: saves, cost per tick and missing things (11 Nov 2026)](code-audit-2026-11-11.md): a read of all three across our
+  mods (radio left out); one save fault fixed in Framework 0.96.1, a proposal for optional parts' saved data, and a three-step test
+  list for the owner.
 - [A setup wizard on first load: the idea (9 Nov 2026)](first-load-setup-wizard.md): the owner's idea, kept for later; what it would cover,
   when to raise it and what to settle first.
 - [Vehicle health, slice 3: what it does to the player (8 Nov 2026, built 9 Nov 2026)](vehicle-health-consequences.md): the danger clock,
