@@ -13,9 +13,13 @@ stand-down on the Cherokee for Cherokee Sling. **Slice 2 is next:** the selectab
 weather limits, the slower and thirstier slung flight, emergency release, and their settings. Agent choices in slice 1: a 25-cell reach,
 about half an hour's hook-up for anyone who hauls, and the hook's cost (120 steel, 8 components, about 8 hours, Construction 7).
 
-**Update (12 Nov 2026): the load can be seen**, in D'thorga Framework 0.99.0, not yet tested in game. The owner lifted a vehicle with the
+**Update (12 Nov 2026): the load can be seen**, in D'thorga Framework 0.99.0. The owner lifted a vehicle with the
 Cherokee and reported that it "simply disappears into the aether": not under the Cherokee on the map, not listed on the world map. The
 section "The owner's report of 12 Nov 2026" below says what was found and what changed.
+
+**Tested in game by the owner, later on 12 Nov 2026 (take-off and world map only):** with the Cherokee lifting the L-ATV, "It's working
+beautifully and the animation at launch looks wonderfully realistic". Their screenshot shows the world-map line "Cherokee carries L-ATV on
+its sling: 7,103 kg." and the L-ATV listed after the Cherokee in our world-map tabs. **The landing and set-down are not yet tested in game.**
 
 ## Read this first
 

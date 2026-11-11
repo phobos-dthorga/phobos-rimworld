@@ -27,7 +27,7 @@ Progress bars on vehicle work, damage that shows on vehicles, and pictures that 
 
 ## [0.99.0] - 2026-11-12 - Draft
 
-A slung vehicle can now be seen. The owner lifted a vehicle with the Cherokee and it vanished without a word: it was aboard, but nothing drew it, listed it or said so. **Not yet tested in game.**
+A slung vehicle can now be seen. The owner lifted a vehicle with the Cherokee and it vanished without a word: it was aboard, but nothing drew it, listed it or said so. **Take-off and the world map tested in game by the owner (12 Nov 2026); the landing and set-down not yet tested in game.**
 
 ### Fixed
 
