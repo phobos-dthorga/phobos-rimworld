@@ -276,6 +276,7 @@
   <PhobosVehicleSystems_EffectSources>{SOURCES}: {EFFECTS}</PhobosVehicleSystems_EffectSources>
   <PhobosVehicleSystems_EffectPreview>If chosen: {LINE}</PhobosVehicleSystems_EffectPreview>
   <PhobosVehicleSystems_FitNoneShort>none</PhobosVehicleSystems_FitNoneShort>
+  <PhobosVehicleSystems_FitDetailsHint>Rest the mouse on a tune, a fitting or a grade to see what it needs and what it changes.</PhobosVehicleSystems_FitDetailsHint>
   <!-- Finding tuning (Framework 0.90.0). -->
   <PhobosVehicleSystems_FitGizmo>Fittings and tunes</PhobosVehicleSystems_FitGizmo>
   <PhobosVehicleSystems_FitGizmoDesc>Fit parts, change a part's grade, and tune the engine and gearing. A dyno bay is in reach, so a mechanic can do the work here.</PhobosVehicleSystems_FitGizmoDesc>

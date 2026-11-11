@@ -5,6 +5,14 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.90.1] - 2026-11-11 - Draft
+
+The fittings window's tooltips no longer cover its lines (owner, 11 November 2026). **Not yet tested in game.**
+
+### Fixed
+
+- **A details strip along the foot of the fittings window** shows what the mouse rests on (a tune's, fitting's or grade's name, materials, description, what it changes and the skill it needs), in place of a tooltip that covered the "If chosen" line under the row. With nothing under the mouse it says how to see it. The window is a little taller to make room.
+
 ## [0.90.0] - 2026-11-11 - Draft
 
 Tuning is easier to find (owner, 11 November 2026: "make the ability to tune your vehicles so, so, much more obvious"). **Not yet tested in game.**

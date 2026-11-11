@@ -48,13 +48,24 @@ public class Dialog_PhobosVehicleFittings : Window
         closeOnClickedOutside = true;
     }
 
-    public override Vector2 InitialSize => new(640f, 560f);
+    public override Vector2 InitialSize => new(640f, 660f);
+
+    /// <summary>
+    /// The details strip along the window's foot (Framework 0.90.1; owner, 11 Nov 2026: a choice's tooltip covered the "If chosen" line under
+    /// its row). A tune's or a choice's name, materials, description, figures and skill show here while the mouse rests on it, in place of
+    /// a tooltip, so nothing is drawn over the rows.
+    /// </summary>
+    const float DetailsHeight = 104f;
+
+    /// <summary>What the mouse rests on this frame, for the details strip.</summary>
+    string? hoverDetails;
 
     VehicleFittings Fittings => comp.Fittings;
 
     public override void DoWindowContents(Rect inRect)
     {
         previewTune = null;
+        hoverDetails = null;
         float y = inRect.y;
         using (new TextBlock(GameFont.Medium))
         {
@@ -72,7 +83,7 @@ public class Dialog_PhobosVehicleFittings : Window
 
         List<VehicleTuneAxis> axes = new[] { VehicleTuneAxis.Engine, VehicleTuneAxis.Gearing }.Where(Fittings.CanTune).ToList();
         List<List<VehicleComponent>> parts = Fittings.PartRows();
-        var outer = new Rect(inRect.x, y, inRect.width, inRect.yMax - y);
+        var outer = new Rect(inRect.x, y, inRect.width, inRect.yMax - y - DetailsHeight - 6f);
         // The rows grow to fit their lines, so the height is what was drawn last frame (an estimate on the first).
         float content = drawnHeight > 0f ? drawnHeight : SectionHeight * 2f + TuneRowHeight * Mathf.Max(axes.Count, 1) + RowHeight * Mathf.Max(parts.Count, 1);
         var view = new Rect(0f, 0f, outer.width - 18f, content);
@@ -91,6 +102,21 @@ public class Dialog_PhobosVehicleFittings : Window
         }
         Widgets.EndScrollView();
         drawnHeight = row;
+        DrawDetails(new Rect(inRect.x, inRect.yMax - DetailsHeight, inRect.width, DetailsHeight));
+    }
+
+    /// <summary>The details strip: what the mouse rests on, or a line saying how to see it.</summary>
+    void DrawDetails(Rect rect)
+    {
+        Widgets.DrawMenuSection(rect);
+        Rect inner = rect.ContractedBy(6f);
+        string text = hoverDetails ?? "PhobosVehicleSystems_FitDetailsHint".Translate().Resolve();
+        using (new TextBlock(GameFont.Tiny, TextAnchor.UpperLeft))
+        {
+            GUI.color = hoverDetails == null ? Color.gray : Color.white;
+            Widgets.Label(inner, text);
+            GUI.color = Color.white;
+        }
     }
 
     /// <summary>The height of everything drawn in the scroll view last frame.</summary>
@@ -153,7 +179,7 @@ public class Dialog_PhobosVehicleFittings : Window
             using (new TextBlock(GameFont.Tiny, TextAnchor.MiddleLeft)) Widgets.Label(new Rect(textX, button.y, button.xMax - textX - 2f, button.height), tune.LabelCap);
             if (!isCurrent && Mouse.IsOver(button)) previewTune = tune;
             if (!isCurrent && Widgets.ButtonInvisible(button)) Fittings.OrderTune(tune);
-            TooltipHandler.TipRegion(button, TuneTip(tune));
+            if (Mouse.IsOver(button)) hoverDetails = TuneTip(tune);
             x += ButtonWidth + Gap;
         }
         // What the setting it runs on now changes, or the one the mouse rests on would, unless work on it is ordered.
@@ -348,7 +374,7 @@ public class Dialog_PhobosVehicleFittings : Window
     /// One choice as a square picture button, the tune row's look: lit green when it is what the part has, an amber bar when it is the work
     /// ordered, dimmed with its reason in the tooltip when it cannot be chosen yet. Returns whether it was clicked to choose it.
     /// </summary>
-    static bool Choice(Rect rect, UnityEngine.Texture2D? icon, string label, bool lit, string? refusal, bool ordered, string tip)
+    bool Choice(Rect rect, UnityEngine.Texture2D? icon, string label, bool lit, string? refusal, bool ordered, string tip)
     {
         Widgets.DrawOptionBackground(rect, lit);
         if (lit) Widgets.DrawBoxSolid(new Rect(rect.x + 2f, rect.yMax - 4f, rect.width - 4f, 3f), PhobosWidgets.Good);
@@ -358,7 +384,7 @@ public class Dialog_PhobosVehicleFittings : Window
         if (icon != null) GUI.DrawTexture(rect.ContractedBy(4f), icon);
         else using (new TextBlock(GameFont.Tiny, TextAnchor.MiddleCenter)) Widgets.Label(rect, label);
         GUI.color = before;
-        TooltipHandler.TipRegion(rect, tip);
+        if (Mouse.IsOver(rect)) hoverDetails = tip;
         return !lit && !ordered && refusal == null && Widgets.ButtonInvisible(rect);
     }
 

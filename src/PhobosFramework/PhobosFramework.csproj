@@ -8,7 +8,7 @@
     <RootNamespace>Phobos.Framework</RootNamespace>
     <AssemblyName>PhobosFramework</AssemblyName>
     <ModFolder>PhobosFramework</ModFolder>
-    <Version>0.90.0</Version>
+    <Version>0.90.1</Version>
   </PropertyGroup>
   <ItemGroup>
     <!-- The shared logging core, pinned as a submodule and compiled in, so every Phobos mod shares one copy through this assembly. -->
