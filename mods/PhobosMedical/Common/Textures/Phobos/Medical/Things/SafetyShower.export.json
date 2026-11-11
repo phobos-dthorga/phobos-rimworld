@@ -1,0 +1,16 @@
+{
+  "target": "mods/PhobosMedical/Common/Textures/Phobos/Medical/Things/SafetyShower.png",
+  "source": "assets/phobos-medical/generated/safety-shower/safety-shower-14.png",
+  "source_sha256": "a529ff9eb94396340d5a74c78561cd0ca774de9c672d2b50cc074eff009900b4",
+  "target_sha256": "087db145ebef7fae5b129183f94876b85980e1c163a4e1bbb222e15648a898c0",
+  "size": [
+    256,
+    256
+  ],
+  "white_threshold": 245,
+  "soft_edge": 20,
+  "all_white": false,
+  "silhouette": false,
+  "date": "2026-11-12T01:13:53",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

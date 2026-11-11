@@ -1,0 +1,16 @@
+{
+  "target": "mods/PhobosMedical/Common/Textures/Phobos/Medical/Things/Steriliser.png",
+  "source": "assets/phobos-medical/generated/steriliser/steriliser-12.png",
+  "source_sha256": "dc3451cc6de5c70c4cc1195c106c07d7d26ea07a0efb858ce8819f1bc0786d9d",
+  "target_sha256": "2d9a8130a56474adbc5ab4279e3f39c42a98b1bad5133612cf1b9fb8534995ef",
+  "size": [
+    256,
+    256
+  ],
+  "white_threshold": 245,
+  "soft_edge": 20,
+  "all_white": false,
+  "silhouette": false,
+  "date": "2026-11-12T01:13:57",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

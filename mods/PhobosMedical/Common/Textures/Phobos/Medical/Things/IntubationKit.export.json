@@ -1,0 +1,16 @@
+{
+  "target": "mods/PhobosMedical/Common/Textures/Phobos/Medical/Things/IntubationKit.png",
+  "source": "assets/phobos-medical/generated/intubation-kit/intubation-kit-13.png",
+  "source_sha256": "fb71e93bea070b6a4fd8e67cc5136d0f392f1f26709a9f337898f05345caabfc",
+  "target_sha256": "d2badd515f88d74f9a424b21ec9dcb1d9a9fdcb6949902bc1e40b44ccbfa0cec",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 245,
+  "soft_edge": 20,
+  "all_white": false,
+  "silhouette": false,
+  "date": "2026-11-12T01:14:01",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

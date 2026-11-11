@@ -10,7 +10,7 @@
     <ModFolder>PhobosMedical</ModFolder>
     <TieInFolder>Mods/DubsBadHygiene/</TieInFolder>
     <UsesHarmony>true</UsesHarmony>
-    <Version>0.14.0</Version>
+    <Version>0.14.1</Version>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="BadHygiene">

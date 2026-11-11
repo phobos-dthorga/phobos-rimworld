@@ -5,8 +5,13 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.1.7] - 2026-11-12 - Draft
+
+The base station has its own picture, chosen by the owner on 12 November 2026. **Not yet tested in game.**
+
 ### Changed
 
+- **A new picture for the base station**: a radio set with a screen and a hand microphone on a coiled lead, in place of the flat placeholder. Nothing changes in play. The whip antenna keeps its stand-in until work on the radio resumes (owner, 12 November 2026).
 - The mod's description and README now carry the spelling dthorga beside D'thorga, so a search without the apostrophe finds it. The description says it is community-created by House D'thorga.
 
 ## [0.1.6] - 2026-11-09 - Draft

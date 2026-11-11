@@ -1,0 +1,16 @@
+{
+  "target": "mods/PhobosMedical/Common/Textures/Phobos/Medical/Things/FluidsKit.png",
+  "source": "assets/phobos-medical/generated/fluids-kit/fluids-kit-12.png",
+  "source_sha256": "f058685c663e361984bee93222c356e9188a7a2af66c23744f2da57cbe3b72fd",
+  "target_sha256": "3e386dcd73ffe98d6e5f4ef72fca11aabb530c9ff058580679aaf5e2831db647",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 245,
+  "soft_edge": 20,
+  "all_white": false,
+  "silhouette": false,
+  "date": "2026-11-12T01:14:00",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

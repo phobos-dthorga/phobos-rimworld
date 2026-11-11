@@ -18,7 +18,7 @@ public class CombatExtendedPatchesMod : Mod
 {
     /// <summary>The Harmony ID is the packageId, shared by every part; never change it once the mod is published.</summary>
     public const string PackageId = "PhobosDthorga.Patches";
-    public const string ModVersion = "0.16.8";
+    public const string ModVersion = "0.16.9";
     public const string LogPrefix = "[D'thorga Patches]";
     public static readonly Phobos.Logging.PhobosLog Logger = Phobos.Framework.Logging.Logs.For("D'thorga Patches", "Combat Extended");
     const string Feature = "temporary guard: ammo set entries naming ammo that does not exist are dropped before Combat Extended's ammo setup";

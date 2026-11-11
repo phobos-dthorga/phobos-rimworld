@@ -97,7 +97,7 @@
     "PhobosMedical.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.14.0",
+      "value": "0.14.1",
       "description": "D'thorga Medical's version: About.xml, every project of the mod, its ModVersion constants and both READMEs",
       "targets": [
         {
@@ -137,7 +137,7 @@
     "PhobosPatches.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.16.8",
+      "value": "0.16.9",
       "description": "D'thorga Patches's version: About.xml, every project of the mod, its ModVersion constants and both READMEs",
       "targets": [
         {
@@ -233,7 +233,7 @@
     "PhobosRadioFramework.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.1.6",
+      "value": "0.1.7",
       "description": "D'thorga Radio Framework's version: About.xml, every project of the mod, its ModVersion constants and both READMEs",
       "targets": [
         {

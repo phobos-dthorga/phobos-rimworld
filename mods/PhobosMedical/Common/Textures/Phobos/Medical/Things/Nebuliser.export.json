@@ -1,0 +1,16 @@
+{
+  "target": "mods/PhobosMedical/Common/Textures/Phobos/Medical/Things/Nebuliser.png",
+  "source": "assets/phobos-medical/generated/nebuliser/nebuliser-13.png",
+  "source_sha256": "02c5f90c8d594d626bb5dcec3c8aa54dc6caffa5cd317bd0cd30c03bacb08d01",
+  "target_sha256": "2821602abb0900e5e037240698fbcee8ad3425da6f1b74e7a9a3ecd1b9ac5a8a",
+  "size": [
+    256,
+    256
+  ],
+  "white_threshold": 245,
+  "soft_edge": 20,
+  "all_white": false,
+  "silhouette": false,
+  "date": "2026-11-12T01:13:55",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

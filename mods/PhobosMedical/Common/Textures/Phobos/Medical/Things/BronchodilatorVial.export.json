@@ -1,0 +1,16 @@
+{
+  "target": "mods/PhobosMedical/Common/Textures/Phobos/Medical/Things/BronchodilatorVial.png",
+  "source": "assets/phobos-medical/generated/bronchodilator-vial/bronchodilator-vial-11.png",
+  "source_sha256": "9e4c63486b64225404382a5edf7a703664ba00d5ab3d0d679cf9decd610ac14d",
+  "target_sha256": "fa1b1a36b6d56c2ed45c6c27e81aa19073023ab0655c33bab40ff6206b261ff9",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 245,
+  "soft_edge": 20,
+  "all_white": false,
+  "silhouette": false,
+  "date": "2026-11-12T01:13:58",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

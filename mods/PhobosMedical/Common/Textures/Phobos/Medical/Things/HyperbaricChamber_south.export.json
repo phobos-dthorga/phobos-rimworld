@@ -1,0 +1,16 @@
+{
+  "target": "mods/PhobosMedical/Common/Textures/Phobos/Medical/Things/HyperbaricChamber_south.png",
+  "source": "assets/phobos-medical/generated/hyperbaric-chamber-depth/hyperbaric-chamber-depth-11.png",
+  "source_sha256": "aeb9e48625a5466c8e15324318d2931c5a7cf8bdfe538556aba69b31c63c4a6d",
+  "target_sha256": "a18923bb85d501527a3fc0b23bdf70dd7cf2ac59f37832e744d087119ada10ad",
+  "size": [
+    384,
+    384
+  ],
+  "white_threshold": 245,
+  "soft_edge": 20,
+  "all_white": false,
+  "silhouette": false,
+  "date": "2026-11-12T01:14:03",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale; then centred on a 384 x 384 square (the game draws beds on square textures)"
+}

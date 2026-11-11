@@ -1,0 +1,16 @@
+{
+  "target": "mods/PhobosPatches/Mods/HarrierVtol/Textures/Phobos/VehiclePatches/BombCaseMk82.png",
+  "source": "assets/vehicle-patches/generated/bomb-case-mk82/bomb-case-mk82-12.png",
+  "source_sha256": "03abaa0525898951225a80b1d878cd151938e6206351f1c77318883825affcb1",
+  "target_sha256": "765f854e2b2f33ba83d948b573ab5ce2d4e01530ec126babbe47b22665bb0702",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 245,
+  "soft_edge": 20,
+  "all_white": false,
+  "silhouette": false,
+  "date": "2026-11-12T01:14:04",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

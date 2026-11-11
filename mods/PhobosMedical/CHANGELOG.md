@@ -6,9 +6,24 @@ entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.14.1] - 2026-11-12 - Draft
+
+Every medical machine and item that still wore a drawing made in code now has its own picture, chosen by the owner on 12 November 2026. **Not yet tested in game.**
+
 ### Changed
 
+- **New pictures** for the ventilator, safety shower and eyewash, oxygen cylinder trolley, nebuliser, anaesthesia machine, steriliser, carbon monoxide and smoke alarm, bronchodilator vials, needle decompression kit, fluids kit, intubation kit, electrolyser and pressure chamber. Nothing changes in play.
+- The pressure chamber is now drawn straight from above in all three facings, where the earlier picture was a flat outline.
 - The mod's description and README now carry the spelling dthorga beside D'thorga, so a search without the apostrophe finds it. The description says it is community-created by House D'thorga.
+
+### Compatibility and limits
+
+- Made with generative AI on the owner's PC (FLUX.2 Klein with a private style model trained on the game's own sprites, which the owner chose to ship), and each passed the check against copying the game's art. The owner's first choice of vial picture failed that check, so the next one ships. The record beside each picture says how it was made.
+- The liquid oxygen store's frost is still to come, as a shader rather than a picture (owner, 12 November 2026).
+
+### Save compatibility
+
+- Safe on an existing save: only pictures change.
 
 ## [0.14.0] - 2026-11-11 - Draft
 

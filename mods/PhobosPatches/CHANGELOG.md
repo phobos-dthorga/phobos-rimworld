@@ -6,8 +6,13 @@ says the owner tested it.
 
 ## [Unreleased]
 
+## [0.16.9] - 2026-11-12 - Draft
+
+The Harrier's empty Mk. 82 and Mk. 84 bomb cases have their own pictures, chosen by the owner on 12 November 2026. **Not yet tested in game.**
+
 ### Changed
 
+- **New pictures for the Mk. 82 and Mk. 84 bomb cases**: empty olive-drab bomb bodies with their lugs, the Mk. 84 visibly fatter. They replace drawings made in code. Nothing changes in play.
 - The Workshop preview is a new picture, a jump jet on a frontier airstrip at dusk, with the name added by script, from the owner's picks of 10 November 2026. No change in play.
 - The mod's description and README now carry the spelling dthorga beside D'thorga, so a search without the apostrophe finds it. The description says it is community-created by House D'thorga.
 

@@ -1,0 +1,16 @@
+{
+  "target": "mods/PhobosMedical/Common/Textures/Phobos/Medical/Things/OxygenTrolley.png",
+  "source": "assets/phobos-medical/generated/oxygen-trolley/oxygen-trolley-12.png",
+  "source_sha256": "c280cd1a1b565a320979ea9e1c79972e62f650a8aa12740feb7c06960ef33782",
+  "target_sha256": "9261299890d8731a3de059038bd958d235b373d12658ecd602b316f4c28fbf20",
+  "size": [
+    256,
+    256
+  ],
+  "white_threshold": 245,
+  "soft_edge": 20,
+  "all_white": false,
+  "silhouette": false,
+  "date": "2026-11-12T01:13:54",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

@@ -1,0 +1,16 @@
+{
+  "target": "mods/PhobosMedical/Common/Textures/Phobos/Medical/Things/AnaesthesiaMachine.png",
+  "source": "assets/phobos-medical/generated/anaesthesia-machine/anaesthesia-machine-14.png",
+  "source_sha256": "f4bb5d75031fc7bde32ab5207b1fac83c6e48dcb4608c1841699f384d41d3602",
+  "target_sha256": "e844c0e79c672479c51f3376f40556d8c5196f50f94d3b38b676d6bb2c9d80f5",
+  "size": [
+    256,
+    256
+  ],
+  "white_threshold": 245,
+  "soft_edge": 20,
+  "all_white": false,
+  "silhouette": false,
+  "date": "2026-11-12T01:13:56",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

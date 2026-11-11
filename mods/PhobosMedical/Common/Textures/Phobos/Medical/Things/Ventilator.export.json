@@ -1,0 +1,16 @@
+{
+  "target": "mods/PhobosMedical/Common/Textures/Phobos/Medical/Things/Ventilator.png",
+  "source": "assets/phobos-medical/generated/ventilator/ventilator-12.png",
+  "source_sha256": "250916ba9e16d6abda606889cb9d567894fb2546bdf0d467132558107488a85f",
+  "target_sha256": "8ead4fa276c07513471a2130c442404ed53674288dc34b9f865948d8e8ff9d72",
+  "size": [
+    256,
+    256
+  ],
+  "white_threshold": 245,
+  "soft_edge": 20,
+  "all_white": false,
+  "silhouette": false,
+  "date": "2026-11-12T01:13:53",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

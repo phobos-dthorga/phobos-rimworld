@@ -1,0 +1,16 @@
+{
+  "target": "mods/PhobosMedical/Common/Textures/Phobos/Medical/Things/Electrolyser.png",
+  "source": "assets/phobos-medical/generated/electrolyser-top-down/electrolyser-top-down-12.png",
+  "source_sha256": "e9462de6d112d188a34c35b44803920585dea6b455b7b8694328ac4bc2066b0b",
+  "target_sha256": "3093f4daf87c0953f718ff450f0828007cea52ba020f8c5f17f967343145c667",
+  "size": [
+    256,
+    256
+  ],
+  "white_threshold": 245,
+  "soft_edge": 20,
+  "all_white": false,
+  "silhouette": false,
+  "date": "2026-11-12T01:14:02",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

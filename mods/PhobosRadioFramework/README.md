@@ -5,7 +5,7 @@ costs 6 dB. This is **Phase 1**: local VHF and UHF on one map.
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.1.6, built 9 November 2026 for House D'thorga. **Not yet tested in game.** It was built and deployed on 19 October
+Version 0.1.7, built 12 November 2026 for House D'thorga. **Not yet tested in game.** It was built and deployed on 19 October
 2026, but the Def loading, the coax net, the gizmos and the mood have not been seen running.
 
 ## Read this first (gotchas)

@@ -1,0 +1,16 @@
+{
+  "target": "mods/PhobosMedical/Common/Textures/Phobos/Medical/Things/DecompressionKit.png",
+  "source": "assets/phobos-medical/generated/decompression-kit/decompression-kit-12.png",
+  "source_sha256": "4c9e045e5be11e47d524e69bfa47960607bce817cb2d36075048b6b040ad1a01",
+  "target_sha256": "d3fe78bdcfc51f2ed7376af39f7da41cc4286c8f17cb48bd90369e338ae975a6",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 245,
+  "soft_edge": 20,
+  "all_white": false,
+  "silhouette": false,
+  "date": "2026-11-12T01:13:59",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}
