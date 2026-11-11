@@ -195,6 +195,7 @@ public sealed class VehicleFittings
         fitted.Clear();
         tunes.Clear();
         orders.Clear();
+        DropDisplayCaches();
         statFactors = null;
         parameterFactors = null;
     }
@@ -345,8 +346,30 @@ public sealed class VehicleFittings
 
     bool Suits(PhobosVehicleFittingDef def) => def.Suits(comp.Repairs.Kilograms, HasPiston, IsTracked, PowerCounts) && MovesSomethingHere(def);
 
-    /// <summary>Whether the fittings window has anything to offer this vehicle: a part to fit or grade, or an engine or gearbox to tune.</summary>
-    public bool AnythingToFit => CanTune(VehicleTuneAxis.Engine) || CanTune(VehicleTuneAxis.Gearing) || ListedParts().Any();
+    /// <summary>How long an answer a screen asks for every frame is kept, in seconds of real time (authored: too short to notice, long
+    /// enough that a selected vehicle is not walked part by part sixty times a second; the performance pass, Framework 0.94.0).</summary>
+    public const double DisplayCacheSeconds = 0.5;
+
+    Expiring<bool> anythingToFit;
+    Expiring<bool> atRigShown;
+
+    /// <summary>Counts every change to what is fitted, tuned or graded, so a screen holding rows built from it knows to build again.</summary>
+    public int Version { get; private set; }
+
+    void DropDisplayCaches()
+    {
+        anythingToFit.Drop();
+        atRigShown.Drop();
+        Version++;
+    }
+
+    /// <summary>Whether the fittings window has anything to offer this vehicle: a part to fit or grade, or an engine or gearbox to tune.
+    /// Kept for a moment: buttons ask every frame.</summary>
+    public bool AnythingToFit => anythingToFit.TryGet(RealTime.LastRealTime, out bool found) ? found
+        : anythingToFit.Set(CanTune(VehicleTuneAxis.Engine) || CanTune(VehicleTuneAxis.Gearing) || ListedParts().Any(), RealTime.LastRealTime, DisplayCacheSeconds);
+
+    /// <summary><see cref="AtRig"/> for a button drawn every frame, kept for a moment; the work itself asks <see cref="AtRig"/>.</summary>
+    public bool AtRigShown => atRigShown.TryGet(RealTime.LastRealTime, out bool found) ? found : atRigShown.Set(AtRig(), RealTime.LastRealTime, DisplayCacheSeconds);
 
     /// <summary>The parts that can take a fitting or be given a grade.</summary>
     public IEnumerable<VehicleComponent> ListedParts()
@@ -606,6 +629,7 @@ public sealed class VehicleFittings
 
     void Changed()
     {
+        DropDisplayCaches();
         statFactors = null;
         parameterFactors = null;
         comp.Notify_FittingsChanged();

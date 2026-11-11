@@ -123,6 +123,7 @@ public sealed class CompPhobosSling : VehicleComp, IThingHolder
         }
         hooked = load;
         awaitingCrew = Settings.slingGroundCrew;
+        SlingWaits.Note(this, awaitingCrew);
         Messages.Message(awaitingCrew
             ? "PhobosSling_ChosenCrew".Translate(Vehicle.LabelShort.Named("HELICOPTER"), load.LabelShort.Named("LOAD")).Resolve()
             : "PhobosSling_ChosenReady".Translate(Vehicle.LabelShort.Named("HELICOPTER"), load.LabelShort.Named("LOAD")).Resolve(),
@@ -135,6 +136,7 @@ public sealed class CompPhobosSling : VehicleComp, IThingHolder
         Messages.Message("PhobosSling_Cancelled".Translate(hooked.LabelShort.Named("LOAD")).Resolve(), Vehicle, MessageTypeDefOf.SilentInput, historical: false);
         hooked = null;
         awaitingCrew = false;
+        SlingWaits.Note(this, false);
     }
 
     /// <summary>A colonist has hooked the load up (the hook-up job).</summary>
@@ -142,6 +144,7 @@ public sealed class CompPhobosSling : VehicleComp, IThingHolder
     {
         if (hooked == null) return;
         awaitingCrew = false;
+        SlingWaits.Note(this, false);
         Messages.Message("PhobosSling_HookedUp".Translate(crew.LabelShort.Named("CREW"), hooked.LabelShort.Named("LOAD"), Vehicle.LabelShort.Named("HELICOPTER")).Resolve(),
             new LookTargets(Vehicle, hooked), MessageTypeDefOf.TaskCompletion);
     }
@@ -161,6 +164,7 @@ public sealed class CompPhobosSling : VehicleComp, IThingHolder
     {
         VehiclePawn? load = hooked;
         hooked = null;
+        SlingWaits.Note(this, false);
         if (load == null) return;
         if (awaitingCrew || !load.Spawned)
         {
@@ -223,7 +227,11 @@ public sealed class CompPhobosSling : VehicleComp, IThingHolder
         Scribe_Deep.Look(ref held, "PhobosSling_Held", this);
         Scribe_References.Look(ref hooked, "PhobosSling_Hooked");
         Scribe_Values.Look(ref awaitingCrew, "PhobosSling_AwaitingCrew");
-        if (Scribe.mode == LoadSaveMode.PostLoadInit) held ??= new ThingOwner<VehiclePawn>(this, oneStackOnly: true);
+        if (Scribe.mode == LoadSaveMode.PostLoadInit)
+        {
+            held ??= new ThingOwner<VehiclePawn>(this, oneStackOnly: true);
+            if (AwaitingCrew) SlingWaits.Note(this, true);
+        }
     }
 
     // ---- What the player sees ----

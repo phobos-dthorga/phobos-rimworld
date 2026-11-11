@@ -64,6 +64,10 @@ public static class DamageSheet
         Find.WindowStack.ImmediateWindow(PopupId, rect, WindowLayer.Super, () => Draw(new Rect(0f, 0f, PopupSize, PopupSize), def, parts, null), doBackground: false);
     }
 
+    static readonly Dictionary<string, SheetPart> sharesScratch = new();
+    static readonly Dictionary<IntVec2, float> worstScratch = new();
+    static readonly Dictionary<IntVec2, (string key, int size)> smallestScratch = new();
+
     /// <summary>
     /// Draws the sheet in <paramref name="rect"/> and returns the key of the part under the mouse (the smallest part covering that cell),
     /// or null. The <paramref name="lit"/> part's cells are outlined, so hovering its row elsewhere shows where it sits.
@@ -87,12 +91,17 @@ public static class DamageSheet
             picture.center.y - (cell.z + 1 - centreZ) * perCell,
             perCell, perCell);
 
-        var shares = new Dictionary<string, SheetPart>();
+        // The same three maps are filled again each frame, never made again (the performance pass, Framework 0.94.0). A sheet is never
+        // drawn from inside another, so one set serves every caller.
+        Dictionary<string, SheetPart> shares = sharesScratch;
+        shares.Clear();
         foreach (SheetPart part in parts) shares[part.Key] = part;
 
         // The worst part on each cell, and the smallest part on each cell for the mouse.
-        var worst = new Dictionary<IntVec2, float>();
-        var smallest = new Dictionary<IntVec2, (string key, int size)>();
+        Dictionary<IntVec2, float> worst = worstScratch;
+        Dictionary<IntVec2, (string key, int size)> smallest = smallestScratch;
+        worst.Clear();
+        smallest.Clear();
         foreach (VehicleComponentProperties props in def.components ?? new List<VehicleComponentProperties>())
         {
             if (props.hitbox?.Hitbox is not { Count: > 0 } cells || !shares.TryGetValue(props.key, out SheetPart part)) continue;

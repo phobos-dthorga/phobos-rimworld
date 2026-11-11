@@ -100,6 +100,7 @@ public class MainTabWindow_PhobosFleet : MainTabWindow
 
     public override void DoWindowContents(Rect inRect)
     {
+        using Phobos.Framework.Debug.PhobosTiming.Scope timing = Phobos.Framework.Debug.PhobosTiming.Measure("fleet board");
         if (Find.TickManager.TicksGame - builtAtTick >= RefreshTicks) Rebuild();
         List<FleetEntry> shown = Shown().ToList();
 

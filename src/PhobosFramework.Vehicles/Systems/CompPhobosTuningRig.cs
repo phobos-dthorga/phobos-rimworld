@@ -33,7 +33,14 @@ public sealed class CompPhobosTuningRig : ThingComp
 
     /// <summary>The player's vehicles standing in reach, with something to fit or tune (Framework 0.90.0): the same reach the vehicles'
     /// own fittings check, measured from the cells their pictures cover.</summary>
-    public List<CompPhobosVehicleSystems> VehiclesInReach()
+    Phobos.Framework.Rules.Expiring<List<CompPhobosVehicleSystems>> inReach;
+
+    /// <summary>Kept for a moment: the inspect text and the button both ask every frame while the bay is selected, and the answer walks
+    /// every pawn on the map (the performance pass, Framework 0.94.0).</summary>
+    public List<CompPhobosVehicleSystems> VehiclesInReach() => inReach.TryGet(RealTime.LastRealTime, out List<CompPhobosVehicleSystems> held) ? held
+        : inReach.Set(FindVehiclesInReach(), RealTime.LastRealTime, VehicleFittings.DisplayCacheSeconds);
+
+    List<CompPhobosVehicleSystems> FindVehiclesInReach()
     {
         var found = new List<CompPhobosVehicleSystems>();
         if (!parent.Spawned) return found;

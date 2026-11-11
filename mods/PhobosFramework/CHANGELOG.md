@@ -5,6 +5,15 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.94.0] - 2026-11-11 - Draft
+
+Four over-arching passes on the vehicle work (owner, 11 November 2026: asked for while testing). **Not yet tested in game.**
+
+### Changed
+
+- **The same screens cost less to draw.** A hauler looking for a sling load to hook up reads a short list of waiting loads, where it walked every pawn on the map for every vehicle on it. A selected vehicle's "Fittings and tunes" button and a selected dyno bay's list are worked out twice a second, not sixty times. The fittings window builds its rows when something changes, and a choice's details only while the mouse rests on it. The Systems tab builds a row's tooltip only under the mouse and measures its names once. The damage picture and the diagnosis report make nothing new each frame. Nothing looks or behaves differently.
+- The fittings window, the Systems tab and the fleet board are timed, so the dev timing report shows what each costs.
+
 ## [0.93.0] - 2026-11-11 - Draft
 
 The Systems tab is readable (owner, 11 November 2026: with every graph and line of text open at once, nothing could be told apart). **Not yet tested in game.**

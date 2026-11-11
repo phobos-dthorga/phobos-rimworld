@@ -1716,7 +1716,7 @@ public class CompPhobosVehicleSystems : VehicleComp
                 toggleAction = () => Repairs.SetFieldFixRequested(!Repairs.FieldFixRequested),
             };
         }
-        if (Fittings.AnythingToFit && Fittings.AtRig())
+        if (Fittings.AnythingToFit && Fittings.AtRigShown)
         {
             // Fittings and tunes on the command bar while a dyno bay is in reach (always, with the bay requirement off), so the window
             // is found where tuning can happen (owner, 11 Nov 2026: tuning was too hard to find); the Dashboard's button stays too.

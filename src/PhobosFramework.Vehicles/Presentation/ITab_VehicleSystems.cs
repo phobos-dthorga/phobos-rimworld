@@ -88,6 +88,7 @@ public class ITab_VehicleSystems : ITab
     /// </summary>
     public static void Draw(CompPhobosVehicleSystems comp, Rect outer, bool onWorld)
     {
+        using Phobos.Framework.Debug.PhobosTiming.Scope timing = Phobos.Framework.Debug.PhobosTiming.Measure("systems tab");
         DisplayMode mode = VehicleSystemsMod.Settings.displayMode;
         bool engineer = mode == DisplayMode.Engineer;
         State state = states.Get(comp.Vehicle.thingIDNumber);
@@ -290,7 +291,7 @@ public class ITab_VehicleSystems : ITab
         float nameEnd = width * 0.38f, barEnd = width * 0.66f, stageEnd = width * 0.86f;
         using (new TextBlock(GameFont.Small, TextAnchor.MiddleLeft))
         {
-            Widgets.Label(new Rect(x, y, nameEnd - x - 4f, Row), reading.Label.Truncate(nameEnd - x - 4f));
+            Widgets.Label(new Rect(x, y, nameEnd - x - 4f, Row), reading.Label.Truncate(nameEnd - x - 4f, Truncated(nameCache, width)));
         }
         var bar = new Rect(nameEnd, y + 4f, barEnd - nameEnd - 6f, Row - 8f);
         if (quantity.unit is QuantityUnit.Fraction or QuantityUnit.Celsius) PhobosWidgets.Gauge(bar, reading.Fill, colour, figure: reading.Figure);
@@ -299,7 +300,7 @@ public class ITab_VehicleSystems : ITab
         {
             using (new TextBlock(GameFont.Tiny, TextAnchor.MiddleLeft))
             {
-                Widgets.Label(new Rect(barEnd, y, stageEnd - barEnd - 4f, Row), stage.label.Truncate(stageEnd - barEnd - 4f).Colorize(colour));
+                Widgets.Label(new Rect(barEnd, y, stageEnd - barEnd - 4f, Row), stage.label.Truncate(stageEnd - barEnd - 4f, Truncated(stageCache, width)).Colorize(colour));
             }
         }
         if (hasGraph && !open)
@@ -308,11 +309,15 @@ public class ITab_VehicleSystems : ITab
             float top = GraphTop(quantity, ring!);
             PhobosWidgets.Sparkline(new Rect(stageEnd, y + 4f, width - stageEnd - 4f, Row - 8f), ring!, remaining ? top : quantity.min, remaining ? quantity.min : top, colour);
         }
-        string tip = stage != null
-            ? "PhobosVehicleSystems_InspectFigureStage".Translate(reading.Label.Named("QUANTITY"), reading.Figure.Named("VALUE"), stage.label.Named("STAGE")).Resolve()
-            : "PhobosVehicleSystems_InspectFigure".Translate(reading.Label.Named("QUANTITY"), reading.Figure.Named("VALUE")).Resolve();
-        if (canOpen) tip += "\n\n" + "PhobosVehicleSystems_SysRowTip".Translate().Resolve();
-        TooltipHandler.TipRegion(row, tip);
+        if (Mouse.IsOver(row))
+        {
+            // Built only for the row under the mouse, not for every row every frame.
+            string tip = stage != null
+                ? "PhobosVehicleSystems_InspectFigureStage".Translate(reading.Label.Named("QUANTITY"), reading.Figure.Named("VALUE"), stage.label.Named("STAGE")).Resolve()
+                : "PhobosVehicleSystems_InspectFigure".Translate(reading.Label.Named("QUANTITY"), reading.Figure.Named("VALUE")).Resolve();
+            if (canOpen) tip += "\n\n" + "PhobosVehicleSystems_SysRowTip".Translate().Resolve();
+            TooltipHandler.TipRegion(row, tip);
+        }
         if (canOpen && Widgets.ButtonInvisible(row))
         {
             if (!state.Open.Remove(key)) state.Open.Add(key);
@@ -329,6 +334,23 @@ public class ITab_VehicleSystems : ITab
         }
         DrawFlows(system, q, quantity, ref y, width, engineer);
         y += 4f;
+    }
+
+    /// <summary>Shortened names remembered, so a row's text is measured once and not every frame; forgotten when the tab's width changes
+    /// (the map's tab and the world's differ).</summary>
+    static readonly Dictionary<string, string> nameCache = new();
+    static readonly Dictionary<string, string> stageCache = new();
+    static float cachedWidth;
+
+    static Dictionary<string, string> Truncated(Dictionary<string, string> cache, float width)
+    {
+        if (width != cachedWidth)
+        {
+            nameCache.Clear();
+            stageCache.Clear();
+            cachedWidth = width;
+        }
+        return cache;
     }
 
     /// <summary>A graph's top: a count that can run to a huge figure (hours since service, to 100,000) is scaled to what was recorded.</summary>

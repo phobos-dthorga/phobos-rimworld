@@ -43,6 +43,8 @@ public class Dialog_PhobosDiagnosis : Window
     readonly string date;
     Vector2 scroll;
     float viewHeight = 400f;
+    List<string>? leftLines;
+    bool leftFigures;
     string? litPart;
     string? hoveredOnSheet;
     /// <summary>The part clicked on the sheet: its row stays marked and is scrolled into view (Framework 0.84.0). A second click clears it.</summary>
@@ -114,12 +116,18 @@ public class Dialog_PhobosDiagnosis : Window
         }
         float y = sheet.yMax + 8f;
 
-        var lines = new List<string>
+        // The report does not change, so its lines are put together once for each display mode, not every frame.
+        if (leftLines == null || leftFigures != Figures)
         {
-            "PhobosVehicleSystems_ReportLookedOver".Translate(report.mechanic.Named("MECHANIC"), date.Named("DATE")).Resolve(),
-        };
-        if (Figures && report.ratedKw > 0f) lines.Add("PhobosVehicleSystems_DiagnosePower".Translate(report.ratedKw.ToString("0").Named("KW")).Resolve());
-        foreach (string tune in report.tunes) lines.Add("PhobosVehicleSystems_DiagnoseTune".Translate(tune.Named("TUNE")).Resolve());
+            leftFigures = Figures;
+            leftLines = new List<string>
+            {
+                "PhobosVehicleSystems_ReportLookedOver".Translate(report.mechanic.Named("MECHANIC"), date.Named("DATE")).Resolve(),
+            };
+            if (Figures && report.ratedKw > 0f) leftLines.Add("PhobosVehicleSystems_DiagnosePower".Translate(report.ratedKw.ToString("0").Named("KW")).Resolve());
+            foreach (string tune in report.tunes) leftLines.Add("PhobosVehicleSystems_DiagnoseTune".Translate(tune.Named("TUNE")).Resolve());
+        }
+        List<string> lines = leftLines;
         float buttons = rect.yMax - ButtonHeight;
         using (new TextBlock(GameFont.Small))
         {
