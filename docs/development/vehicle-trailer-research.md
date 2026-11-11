@@ -165,6 +165,10 @@ The Cherokee needs nothing here: a trailer is a vehicle, so the sling's own mass
 
 ## Questions for the owner
 
+**Answered by the owner on 11 Nov 2026:** our own hitch, improved and smoother (route B); the smoother turn is worth a
+check; and a generic trailer any vehicle can tow, limited by its torque, power and cooling, rather than one special
+trailer first. [The hitch design](vehicle-hitch-design.md) carries it on, with the check's result.
+
 1. **Route A or route B?** RimThunder's towing as an optional tie-in, or a hitch of our own that also accepts its trailers.
 2. **Is the smoother turn worth a check?** It decides whether a trailer of ours needs eight offsets or two lengths.
 3. **Which trailer first,** if any: the tipper's, the tanker's, the generator set, the recovery tow or the camp trailer?
