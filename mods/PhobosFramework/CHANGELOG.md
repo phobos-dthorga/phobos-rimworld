@@ -5,6 +5,25 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.96.1] - 2026-11-11 - Draft
+
+Other factions' vehicles, from an audit of the vehicle code against the owner's new rule that every vehicle mechanic is designed with them in mind (owner, 11 November 2026). **Not yet tested in game.**
+
+### Fixed
+
+- **Another faction's aircraft is never refused lift-off by your hover setting.** With "refuse the pad, use the runway" chosen, a raider's or visitor's aircraft too heavy or too hot to lift could be refused, which could strand it. Only your own aircraft are refused now, as only your own vehicles refuse to start.
+- **You are no longer told when another faction's aircraft strains its engines.** A raider's aircraft lifting off past its limits is still worn by it, but the message about it, and the hover-beyond message, are for your own aircraft only.
+- **Deployed kit belongs to the vehicle that deployed it.** A generator set's cable end and a drill rig's power point were always given to you; they now take the vehicle's faction. Only your own vehicles deploy today, so nothing changes in play yet.
+
+### Changed
+
+- **Other factions' vehicles always run the simpler model** (owner, 11 November 2026). The setting "Every faction's vehicles run the full model" is removed; a saved choice to turn it on is ignored.
+- **A vehicle you capture starts on your settings from that moment.** It used to catch up to a day of wear, cooling and battery drain for the time it was another faction's, when nothing in it ran.
+
+### Save compatibility
+
+- Safe to update mid-game. Nothing new is saved.
+
 ## [0.96.0] - 2026-11-11 - Draft
 
 Tooltips that explain, and a turbine's limits in plain words. Asked for by the owner on 11 November 2026 from a screenshot of the Cherokee's Systems tab. **Not yet tested in game.**

@@ -407,7 +407,7 @@ public sealed class Powertrain
             demand = TurbineNow.Available * usable.Top.Share;
             TurbineNow = TurbineModel.Evaluate(usable, demand, comp.Ambient, Condition(), working, engines, running);
         }
-        if (beyond && !hoverWarned)
+        if (beyond && !hoverWarned && vehicle.Faction == Faction.OfPlayer)
         {
             hoverWarned = true;
             string key = VehicleSystemsMod.Settings.hoverLimit == VehicleSystemsSettings.HoverLimit.WarnOnly ? "PhobosVehicleSystems_MsgHoverBeyond" : "PhobosVehicleSystems_MsgHoverStrained";

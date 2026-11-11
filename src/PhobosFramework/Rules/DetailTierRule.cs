@@ -14,14 +14,14 @@ public enum DetailTier
 /// <summary>
 /// The rule behind "player things in full detail, everyone else's diffuse" (owner, 8 Nov 2026; docs/development/vehicle-health-design.md),
 /// game-free: the player's things are always Full, wherever they are; another faction's are Lite while spawned on a map and Off
-/// otherwise, unless the player asks for full detail for everyone. Re-read on a slow cadence, so a captured thing wakes up.
+/// otherwise. Re-read on a slow cadence, so a captured thing wakes up on the player's own settings. The owner removed the setting
+/// that gave everyone full detail (11 Nov 2026): other factions stay lite.
 /// </summary>
 public static class DetailTierRule
 {
-    public static DetailTier For(bool playerFaction, bool spawnedOnMap, bool fullForEveryone)
+    public static DetailTier For(bool playerFaction, bool spawnedOnMap)
     {
         if (playerFaction) return DetailTier.Full;
-        if (!spawnedOnMap) return DetailTier.Off;
-        return fullForEveryone ? DetailTier.Full : DetailTier.Lite;
+        return spawnedOnMap ? DetailTier.Lite : DetailTier.Off;
     }
 }

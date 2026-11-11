@@ -235,13 +235,13 @@ public class CompPhobosVehicleSystems : VehicleComp
 
     /// <summary>
     /// How closely this vehicle is simulated (the core's DetailTierRule; owner, 8 Nov 2026): the player's own in full; another
-    /// faction's lightly while on a map (hits are counted, nothing evolves) and not at all off it, unless the setting asks for full
-    /// detail for everyone. Re-read on the rare tick, so a captured vehicle wakes up. Derived, never saved.
+    /// faction's lightly while on a map (hits are counted, nothing evolves) and not at all off it. Re-read on the rare tick, so a
+    /// captured vehicle wakes up on the player's settings (owner, 11 Nov 2026). Derived, never saved.
     /// </summary>
     public DetailTier Tier { get; private set; } = DetailTier.Full;
 
     DetailTier ReadTier() => Vehicle == null ? DetailTier.Off
-        : DetailTierRule.For(Vehicle.Faction == Faction.OfPlayer, Vehicle.Spawned, VehicleSystemsMod.Settings.fullModelForEveryone);
+        : DetailTierRule.For(Vehicle.Faction == Faction.OfPlayer, Vehicle.Spawned);
 
     public IReadOnlyList<SystemState> States
     {
@@ -487,7 +487,11 @@ public class CompPhobosVehicleSystems : VehicleComp
         base.CompTickRare();
         VehicleCostMeasure.CheckDone();
         RefreshBay();
+        DetailTier was = Tier;
         Tier = ReadTier();
+        // A vehicle that has just become the player's (captured) starts its clock now: the hours it spent as another faction's,
+        // when nothing evolved, are not caught up at once. From here it runs on the player's own settings.
+        if (Tier == DetailTier.Full && was != DetailTier.Full && Current.Game != null) lastUpdateTick = Find.TickManager.TicksGame;
         switch (Tier)
         {
             case DetailTier.Full:

@@ -143,7 +143,7 @@ public class CompPhobosGeneratorSet : CompPhobosSetUp, IVehicleEngineDemand
             return;
         }
         Thing placed = ThingMaker.MakeThing(Props.cableEndDef);
-        placed.SetFaction(Faction.OfPlayer);
+        placed.SetFaction(Vehicle.Faction);
         cableEnd = (Building)GenSpawn.Spawn(placed, cell, Vehicle.Map);
         deployed = true;
         ShowSetUp(true);

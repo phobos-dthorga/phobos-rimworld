@@ -182,7 +182,7 @@ public abstract class CompPhobosRigWork : CompPhobosSetUp, IVehicleEngineDemand
         IntVec3 cell = BestAdjacentCell();
         if (!cell.IsValid) return;
         Thing placed = ThingMaker.MakeThing(VehicleSystemsMod.Settings.powerPointLargeSocket && RigProps.powerPointLargeDef != null ? RigProps.powerPointLargeDef : RigProps.powerPointDef);
-        placed.SetFaction(Faction.OfPlayer);
+        placed.SetFaction(Vehicle.Faction);
         powerPoint = (Building)GenSpawn.Spawn(placed, cell, Vehicle.Map);
     }
 

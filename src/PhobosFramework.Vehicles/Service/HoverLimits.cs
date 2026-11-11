@@ -29,6 +29,8 @@ public static class HoverLimits
     /// cannot lift the aircraft now (never with figures only).</summary>
     public static bool RefusesLaunch(VehiclePawn vehicle)
     {
+        // Only the player's aircraft are refused: another faction's must never be stranded (as FirstRefusal keeps for starting).
+        if (vehicle.Faction != Faction.OfPlayer) return false;
         if (VehicleSystemsMod.Settings.hoverLimit != VehicleSystemsSettings.HoverLimit.RefusePadUseRunway || VehicleSystemsMod.Settings.showOnly) return false;
         Powertrain? train = CompPhobosVehicleSystems.Of(vehicle)?.Powertrain;
         return train != null && train.ChecksLiftAtLaunch && Beyond(vehicle);
@@ -44,9 +46,10 @@ public static class HoverLimits
     {
         CompPhobosVehicleSystems? comp = CompPhobosVehicleSystems.Of(vehicle);
         if (comp?.Powertrain == null || !comp.Powertrain.ChecksLiftAtLaunch || !Beyond(vehicle)) return;
+        bool ours = vehicle.Faction == Faction.OfPlayer;
         if (VehicleSystemsMod.Settings.hoverLimit == VehicleSystemsSettings.HoverLimit.WarnOnly)
         {
-            Messages.Message("PhobosVehicleSystems_MsgLiftBeyond".Translate(vehicle.LabelShort.Named("VEHICLE")), vehicle, MessageTypeDefOf.CautionInput);
+            if (ours) Messages.Message("PhobosVehicleSystems_MsgLiftBeyond".Translate(vehicle.LabelShort.Named("VEHICLE")), vehicle, MessageTypeDefOf.CautionInput);
             return;
         }
         if (!VehicleSystemsMod.Settings.showOnly)
@@ -54,7 +57,8 @@ public static class HoverLimits
             if (comp.TryGetQuantity("hotSectionLife", out _)) comp.AddToQuantity("hotSectionLife", LaunchStrainLife);
             else comp.WearRole("Engine", LaunchStrainWear);
         }
-        Messages.Message("PhobosVehicleSystems_MsgLiftStrained".Translate(vehicle.LabelShort.Named("VEHICLE")), vehicle, MessageTypeDefOf.CautionInput);
+        // Another faction's aircraft is worn the same, but the player is not told of it.
+        if (ours) Messages.Message("PhobosVehicleSystems_MsgLiftStrained".Translate(vehicle.LabelShort.Named("VEHICLE")), vehicle, MessageTypeDefOf.CautionInput);
     }
 
     /// <summary>Hot-section life one over-limit lift-off uses (authored: about five hours past the continuous limit's worst).</summary>

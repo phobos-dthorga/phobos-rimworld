@@ -136,7 +136,7 @@ vehicles at a base the player attacks. How those vehicles come to exist is in
 | Where | What the hitch does there | Lets the player | Stops the player | From which slice |
 | --- | --- | --- | --- | --- |
 | **A base we attack** | A trailer is a vehicle, so whatever puts vehicles at a base can put a parked trailer there, loaded | Hitch it to a vehicle of ours and drive off with the load | Taking it without bringing something that can pull it, and standing still to hitch under fire | 2, once a hostile faction's unattended trailer can be taken (to check: how Vehicle Framework treats claiming a vehicle) |
-| **A raid on us** | A raider's vehicle may arrive towing, held back and heated by the same model as ours | Stop the tractor and keep what it was pulling: a trailer whose tractor is destroyed is set down where it stood, as the sling sets down its load | Nothing | The comp works for any faction from slice 2; a raid that brings a trailer waits for slice 4 and a hook to add one |
+| **A raid on us** | A raider's vehicle may arrive towing. Other factions' vehicles run the lite tier (owner, 11 Nov 2026: kept, with no setting), so the tow does not slow it | Stop the tractor and keep what it was pulling: a trailer whose tractor is destroyed is set down where it stood, as the sling sets down its load | Nothing | The comp works for any faction from slice 2; a raid that brings a trailer waits for slice 4 and a hook to add one |
 | **A vehicle we capture** | It tows as ours do, by its own drivetrain | Use a captured truck as a tractor at once | Nothing | 2 |
 
 - **Cost with several on a map:** the follow rule runs only for a vehicle that is towing and moving, and a trailer set

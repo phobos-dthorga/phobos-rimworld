@@ -87,6 +87,18 @@ These say nothing about other factions. Until each is next touched, this record 
 2. **A drive-only tier** for other factions' moving vehicles, measured first?
 3. **Sling salvage:** may a helicopter lift an unattended, uncrewed vehicle of another faction?
 
+**Decided by the owner, 11 Nov 2026:**
+
+1. **Fixed** in D'thorga Framework 0.96.1, with the hover-beyond message. Not yet tested in game.
+2. **Keep the lite tier as it is, with no setting to change it,** and a vehicle the player takes from another faction moves to the
+   player's own settings. Done in 0.96.1: the setting "Every faction's vehicles run the full model" is removed, and a captured
+   vehicle's clock starts when it becomes the player's, so the time it spent as another faction's is not caught up at once. The
+   drive-only tier is not built. The hitch design's line about a raider's towing vehicle being held back is therefore false.
+3. **Salvage needs a claim first.** From the code, Vehicle Framework offers no claim order for another faction's vehicle: the only
+   route found that makes one the player's is repairing a wrecked vehicle's building (`Vehicles.decompiled.cs:45539-45541`). The
+   sling already lifts any vehicle that is the player's, so a claim order of our own is the missing piece, a design item still to
+   write. Until it exists, the sling's refusal "is not ours to lift" stands.
+
 ## Who chose what
 
 - **Owner:** the rule (11 Nov 2026); the lite tier and its setting (8 Nov 2026); enemy fitting sets (9 Nov 2026).

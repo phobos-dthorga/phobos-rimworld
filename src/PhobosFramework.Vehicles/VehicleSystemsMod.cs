@@ -91,9 +91,6 @@ public class VehicleSystemsSettings : ModSettings
     /// <summary>Every closed cab has automatic climate control, not only the vehicles built with it (owner, 8 Nov 2026: a blanket
     /// option; agent default: off). Live.</summary>
     public bool climateControlAll;
-    /// <summary>Other factions' vehicles on a map run the full model, as the player's do, instead of the lite tier (owner, 8 Nov 2026:
-    /// lite by default with this setting). Live.</summary>
-    public bool fullModelForEveryone;
     /// <summary>Keep Vehicle Framework's own Health tab instead of ours (agent default: ours). Needs a restart: tabs are set while Defs load.</summary>
     public bool keepVehicleFrameworkHealthTab;
     /// <summary>The fleet board's button on the bottom bar. Takes effect at once.</summary>
@@ -129,7 +126,6 @@ public class VehicleSystemsSettings : ModSettings
         "assumeBoosterPack" => assumeBoosterPack,
         "cabMoods" => cabMoods,
         "climateControlAll" => climateControlAll,
-        "fullModelForEveryone" => fullModelForEveryone,
         "keepVehicleFrameworkHealthTab" => keepVehicleFrameworkHealthTab,
         "batteryFires" => batteryFires,
         "electricLightning" => electricLightning,
@@ -173,7 +169,6 @@ public class VehicleSystemsSettings : ModSettings
         Scribe_Values.Look(ref assumeBoosterPack, "PhobosVehicleSystems_AssumeBoosterPack", false);
         Scribe_Values.Look(ref cabMoods, "PhobosVehicleSystems_CabMoods", true);
         Scribe_Values.Look(ref climateControlAll, "PhobosVehicleSystems_ClimateControlAll", false);
-        Scribe_Values.Look(ref fullModelForEveryone, "PhobosVehicleSystems_FullForEveryone", false);
         Scribe_Values.Look(ref keepVehicleFrameworkHealthTab, "PhobosVehicleSystems_KeepVfHealthTab", false);
         Scribe_Values.Look(ref fleetBoardButton, "PhobosVehicleSystems_FleetBoardButton", true);
         Scribe_Values.Look(ref parkedWarningDays, "PhobosVehicleSystems_ParkedWarningDays", 3);
@@ -235,8 +230,7 @@ public class VehicleSystemsMod : Mod
         if (!Settings.cabMoods) report.Off("cab moods", "off (setting)");
         if (Settings.climateControlAll) report.On("climate control in every closed cab (setting)");
         if (Settings.keepVehicleFrameworkHealthTab) report.Off("the Health tab", "Vehicle Framework's kept (setting)");
-        if (Settings.fullModelForEveryone) report.On("full model for every faction's vehicles (setting)");
-        else report.On("other factions' vehicles on the lite tier");
+        report.On("other factions' vehicles on the lite tier");
         if (Settings.batteryFires) report.On("battery fires (setting)");
         if (Settings.electricLightning) report.On("the Lightning runs on batteries (setting)");
         foreach (IGrouping<string, DesignRecord> skipped in VehicleSystems.Designs.Where(d => d.skippedBecause != null && d.loadout != null).GroupBy(d => d.skippedBecause!))
@@ -287,7 +281,6 @@ public class VehicleSystemsMod : Mod
         }
 
         SettingsUi.Section(listing, "PhobosVehicleSystems_SectionSystems".Translate());
-        listing.CheckboxLabeled("PhobosVehicleSystems_SettingFullForEveryone".Translate(), ref s.fullModelForEveryone, "PhobosVehicleSystems_SettingFullForEveryoneDesc".Translate());
         foreach (PhobosVehicleSystemDef system in DefDatabase<PhobosVehicleSystemDef>.AllDefsListForReading)
         {
             bool on = !s.disabledSystems.Contains(system.defName);
