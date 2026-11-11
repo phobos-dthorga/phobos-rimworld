@@ -7,7 +7,7 @@ helpers every D'thorga mod shares.
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.94.2, built 11 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
+Version 0.95.0, built 11 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
 oxygen working through Burns and Smoke and Medical Equipment (5 November 2026). The health layer new in 0.3.0 and the **vehicle
 systems new in 0.9.0, and their engines, drivetrains and gas turbines new in 0.11.0, are not yet tested in game.** The rest is read from the game's and the mods' code.
 
@@ -322,6 +322,10 @@ The new button on a vehicle's **Dashboard** opens **Fittings and tunes**, for an
 
 ## Settings
 
+- **Parts for building** (0.95.0; not yet tested in game): some things of ours are built from parts (an engine, a fuel tank, tyres), and
+  other mods make such parts too. **Other mods' parts where installed** (the default): where a mod you have makes a part that suits, a
+  build asks for it, and everything else is ours. **Always our own parts**: a build asks only for ours. **A change takes effect the next
+  time the game starts.** Repairs accept either, as before.
 - **D'thorga sounds volume** (0.71.0, 100%; not yet tested in game): how loud every D'thorga mod's sounds play, from silent (0%)
   to half as loud again (150%), changed at once. At 100% each sits at the level of a comparable sound of the game's own, under the game's
   own volume sliders. The sounds so far: a switch click on vehicles' physical switches (lights, heaters, the rig's overdrive, the survey
@@ -352,6 +356,8 @@ The new button on a vehicle's **Dashboard** opens **Fittings and tunes**, for an
   8 November 2026 and the Def tool read it.
 
 ## For modders
+
+**Parts bills (new in 0.95.0, not yet tested in game).** Say what a thing you build is made of by role, and let other mods' parts fill the roles when they are installed. A `Phobos.Framework.Bills.PhobosRoleSupplyDef` names a role's own item or materials and its `substitutes` (each with `MayRequire`, a `count`, and an optional `minSize` and `maxSize`); a `Phobos.Framework.Bills.PhobosBillDef` names a `target` (any ThingDef the player builds: a placed building, a vehicle's blueprint), an optional `size`, and `parts` written as the game writes a cost (`<Pump>2</Pump>`). The target's own `costList` keeps only its shell. XML alone is enough; `docs/development/parts-bills.md` has a worked example for a placed building.
 
 **Protective-gear lines (new in 0.63.0, not yet tested in game).** A `Phobos.Framework.Protection.ProtectionZoneDef` names a stat worn gear raises and how much of it a pawn needs to cross; give a rotatable building `CompProperties_PhobosControlPoint` (with `PlaceWorker_PhobosControlPoint`) to close off the room it faces, or subclass `Designator_PhobosProtectionArea` to paint an area. Colonists stop at the line to fetch and put on gear, judged by its effect, and take it off on the way out. The core has no Harmony: D'thorga Medical's patches call `ProtectionLine.BeforeStep`, `AfterStep` and `AllowsCell` for every kind of line. A mod that adds a line without D'thorga Medical patches the same two methods itself; a step answered twice is acted on once ([the design](../../docs/development/radiation-control-line.md)). From 0.70.0 an alert, **Unprotected behind the line**, names everyone of the colony's standing behind any line without enough protection (animals, prisoners, guests and drafted colonists cross it as they are).
 

@@ -54,4 +54,12 @@
 
   <!-- The screen guard (Framework 0.94.0): what a tab or window shows in its place for a few seconds after it failed. -->
   <PhobosFramework_ScreenFault>This could not be shown just now. The details are in the log, and it will try again in a few seconds.</PhobosFramework_ScreenFault>
+
+  <!-- Parts bills (Framework 0.95.0): whose parts a build asks for. -->
+  <PhobosFramework_SettingBillParts>Parts for building</PhobosFramework_SettingBillParts>
+  <PhobosFramework_SettingBillPartsDesc>Some things of ours are built from parts: an engine, a fuel tank, tyres. Other mods make such parts too. This chooses whose parts a build asks for. A change takes effect the next time the game starts.</PhobosFramework_SettingBillPartsDesc>
+  <PhobosFramework_BillPartsOthers>Other mods' parts where installed</PhobosFramework_BillPartsOthers>
+  <PhobosFramework_BillPartsOthersDesc>Where a mod you have installed makes a part that suits, a build asks for that part. Everything else is ours. Repairs accept either, as before.</PhobosFramework_BillPartsOthersDesc>
+  <PhobosFramework_BillPartsOurs>Always our own parts</PhobosFramework_BillPartsOurs>
+  <PhobosFramework_BillPartsOursDesc>A build asks only for our own parts and materials, whatever else is installed.</PhobosFramework_BillPartsOursDesc>
 </LanguageData>

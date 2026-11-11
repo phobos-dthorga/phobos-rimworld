@@ -24,12 +24,15 @@ public class FrameworkSettings : ModSettings
     /// <summary>Whether the vehicle systems' sounds (a tyre bursting, a knock, the warning chime) also play on other mods' vehicles running them
     /// (owner, 10 Nov 2026: yes, with a setting to turn it off). Their engines and doors are always their authors' own.</summary>
     public bool systemSoundsOnOtherVehicles = true;
+    /// <summary>Whose parts a build of ours asks for (Bills/Bills; owner, 11 Nov 2026: other mods' where installed, with a setting; applied at the next start).</summary>
+    public Bills.BillPartsSource billPartsSource = Bills.BillPartsSource.OthersWhereInstalled;
 
     public override void ExposeData()
     {
         base.ExposeData();
         Scribe_Values.Look(ref soundVolume, "PhobosFramework_SoundVolume", 1f);
         Scribe_Values.Look(ref systemSoundsOnOtherVehicles, "PhobosFramework_SystemSoundsOnOtherVehicles", true);
+        Scribe_Values.Look(ref billPartsSource, "PhobosFramework_BillPartsSource", Bills.BillPartsSource.OthersWhereInstalled);
         Scribe_Values.Look(ref writeColonyMoodFile, "PhobosFramework_WriteColonyMoodFile", true);
         Scribe_Values.Look(ref gasSourceMode, "PhobosFramework_GasSourceMode", GasSourceMode.Automatic);
         Scribe_Values.Look(ref showGasOverlay, "PhobosFramework_ShowGasOverlay", false);
@@ -48,7 +51,7 @@ public class FrameworkSettings : ModSettings
 public class FrameworkMod : Mod
 {
     public const string PackageId = "PhobosDthorga.Framework";
-    public const string ModVersion = "0.94.2";
+    public const string ModVersion = "0.95.0";
     public const string LogPrefix = "[D'thorga Framework]";
     public static readonly Phobos.Logging.PhobosLog Logger = Logging.Logs.For("D'thorga Framework");
 
@@ -84,6 +87,8 @@ public class FrameworkMod : Mod
         Sounds.PhobosSoundVolume.Apply(Settings.soundVolume);
         report.On("sound volume " + SoundVolumeRule.Percent(Settings.soundVolume) + "% on " + Sounds.PhobosSoundVolume.Marked + " sound" +
                   (Sounds.PhobosSoundVolume.Marked == 1 ? "" : "s"));
+        report.On("parts bills: " + Bills.PartsBills.Applied + " applied" + (Bills.PartsBills.Failed > 0 ? ", " + Bills.PartsBills.Failed + " failed" : "")
+                  + (Bills.PartsBills.OthersAllowed ? ", other mods' parts where installed" : ", always our own parts"));
         report.Log();
     }
 
@@ -113,6 +118,18 @@ public class FrameworkMod : Mod
         }
         listing.CheckboxLabeled("PhobosFramework_SettingSystemSoundsOnOtherVehicles".Translate(), ref Settings.systemSoundsOnOtherVehicles,
             "PhobosFramework_SettingSystemSoundsOnOtherVehiclesDesc".Translate());
+        listing.Gap();
+        listing.Label("PhobosFramework_SettingBillParts".Translate(), tooltip: "PhobosFramework_SettingBillPartsDesc".Translate());
+        if (listing.RadioButton("PhobosFramework_BillPartsOthers".Translate(), Settings.billPartsSource == Bills.BillPartsSource.OthersWhereInstalled, 8f,
+                "PhobosFramework_BillPartsOthersDesc".Translate()))
+        {
+            Settings.billPartsSource = Bills.BillPartsSource.OthersWhereInstalled;
+        }
+        if (listing.RadioButton("PhobosFramework_BillPartsOurs".Translate(), Settings.billPartsSource == Bills.BillPartsSource.AlwaysOurs, 8f,
+                "PhobosFramework_BillPartsOursDesc".Translate()))
+        {
+            Settings.billPartsSource = Bills.BillPartsSource.AlwaysOurs;
+        }
         listing.Gap();
         listing.CheckboxLabeled("PhobosFramework_SettingShowGasOverlay".Translate(), ref Settings.showGasOverlay,
             "PhobosFramework_SettingShowGasOverlayDesc".Translate());

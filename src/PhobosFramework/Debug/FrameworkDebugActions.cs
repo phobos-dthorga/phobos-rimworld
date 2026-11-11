@@ -19,6 +19,9 @@ public static class FrameworkDebugActions
             + PatchedDefsDump.OutputPath + " (the request then turns itself off).");
     }
 
+    [DebugAction(DebugCategory.Name, "Framework: list every parts bill", allowedGameStates = AllowedGameStates.Entry | AllowedGameStates.Playing)]
+    public static void ListPartsBills() => Log.Message(FrameworkMod.LogPrefix + " " + Bills.PartsBills.Report());
+
     [DebugAction(DebugCategory.Name, "Framework: log gases at cell", actionType = DebugActionType.ToolMap, allowedGameStates = AllowedGameStates.PlayingOnMap)]
     public static void LogGasesAtCell()
     {

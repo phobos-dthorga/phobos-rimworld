@@ -5,6 +5,23 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.95.0] - 2026-11-11 - Draft
+
+Parts bills: what a built thing is made of, by role. Asked for by the owner on 11 November 2026, to bring every vehicle's build cost in line with the tanker's, and made generic at the owner's question so a later mod's placed buildings use it too. **Not yet tested in game.**
+
+### Added
+
+- **Parts bills, in the core.** A built thing can list what it needs by role (an engine, a fuel tank, a pump) and how many. When the game starts, each role is filled by another mod's part where that mod is installed and the part suits the thing's size, and by our own part or materials otherwise, and the result becomes the thing's build cost. It works for anything the player builds: a placed building as much as a vehicle.
+- **A setting, "Parts for building"**: other mods' parts where installed (the default), or always our own. A change takes effect the next time the game starts.
+- A dev action, "Framework: list every parts bill": each built thing, its whole cost, and each role with what filled it and whose part that is.
+- For modders: Phobos.Framework.Bills.PhobosRoleSupplyDef (what fills a role, with other mods' parts listed under MayRequire) and PhobosBillDef (a target, an optional size, and its parts written as the game writes a cost), both usable in XML alone; PartsBills.Resolve for code with more to fill; the game-free BuildBillRule. The design record parts-bills.md has an example for a placed building.
+
+### Compatibility and limits
+
+- A thing with no bill is never touched, and no other author's thing has one.
+- A frame already being built keeps what was delivered and then asks for the new list. Finish or cancel frames before installing a version that changes a bill.
+- Another mod that reads build costs in its own start-up code may read them before the bills are applied. None on the owner's list is known to.
+
 ## [0.94.2] - 2026-11-11 - Draft
 
 ### Changed

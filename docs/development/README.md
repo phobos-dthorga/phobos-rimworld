@@ -126,6 +126,9 @@ promise current behaviour. For using the mods, start at the [documentation index
   rect); the diagnosis as a report window, the fleet board, fittings icons, one dial, graphs (already recorded, free while closed), the
   damage sheet and the world-map range as the strikingly visual high-benefit pieces, three art batches with costs, what is argued
   against, and the owner's questions. Nothing built.
+- [Parts bills: what a built thing is made of, by role (11 Nov 2026)](parts-bills.md): a generic core service (Framework 0.95.0): a
+  building or a vehicle lists its roles, and each is filled by another mod's part where installed and suited, ours otherwise; the Def
+  types with an example for a placed building, every vehicle's bill, and what a later chemical industry mod reuses. Not yet tested in game.
 - [Sling loads: a helicopter carries a vehicle under it (11 Nov 2026)](vehicle-sling-design.md): the owner's own airlift with our
   flavour; a cargo-hook fitting on any helicopter, real masses against sourced hook ratings with hot-day derating, a ground crew, weather
   limits, a slower thirstier slung flight and an emergency release, each a setting; three slices; nothing built yet.

@@ -195,3 +195,6 @@ How it is built (agent's design): `PipeUnderlay` lays the piping mod's own hidde
 
 Not yet tested in game. In particular unproven: that spawning hidden pipes under a parked vehicle leaves Vehicle Framework's pathing alone, and that a gravship carries a building's or a vehicle's laid pipes as expected.
 
+## Parts bills (11 Nov 2026, Framework 0.95.0)
+
+The owner asked for every vehicle's build cost to draw on other mods' parts as the tanker's did, and then whether the mechanism could be generic for a later chemical industry mod's placed buildings. It is a core service: `Phobos.Framework.Bills` (`PhobosRoleSupplyDef`, `PhobosBillDef`, `PartsBills`) over the game-free `BuildBillRule`. The whole design, an example for a building and the limits are in [parts bills](parts-bills.md). Not yet tested in game.
