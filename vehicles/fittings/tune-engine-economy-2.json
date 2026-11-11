@@ -1,0 +1,51 @@
+{
+  "file": "tune-engine-economy-2.png",
+  "sha256": "230d5a6ddd2d0b0911cea81aefa6c71cf6ccc68d46544aed88f78bfa60074e5a",
+  "date": "2026-11-11T15:44:47",
+  "generator": "OpenAI gpt-image-2 through the OpenAI image API (paid per image)",
+  "engine": "openai",
+  "model": "gpt-image-2",
+  "prompt": "SMALL GAME ICON. One single object seen from the front, centred, flat on the canvas, like a small icon beside a list entry in a strategy game.\n\nCreate an ORIGINAL small game icon for the D'thorga vehicle engine tune: economy. Image 1 is our approved icon from the same family: match its outline weight, shading, palette and finish only. Do NOT copy its shape.\n\nDraw ONLY the object, alone on a plain pure white background, filling about 80 percent of the canvas. Square canvas.\n\nA round engine speed dial with no numbers: its needle points low, into a green band on the left of the arc.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art. It must read clearly when shrunk to 32 pixels: one big shape, very few small ones.\n\nNo people, hands, animals, vehicles, text, letters, numbers, logos, screens, dust, floor, ground or cast shadow.",
+  "seed": 2,
+  "seed_note": "an attempt number naming the file; the API takes no seed, so a rerun gives a different image",
+  "quality": "medium",
+  "size": [
+    1024,
+    1024
+  ],
+  "request_file": "assets/phobos-vehicles/requests/presentation-fittings.json",
+  "ai_disclosure": "Made with generative AI: OpenAI gpt-image-2, prompted by the Phobos art scripts.",
+  "terms": "OpenAI Services Agreement, sections 4.1 and 4.4, as recorded in the Phobos Ostranauts repository on 2026-10-07 and summarised again on 2026-11-08: API customers own Output, OpenAI assigns any rights it has, and Output may not be unique; no use of Output to build competing models. Dated secondary records: the openai.com page refuses automated reads, so the owner confirms the current text.",
+  "endpoint": "/images/edits",
+  "usage": {
+    "input_tokens": 309,
+    "input_tokens_details": {
+      "image_tokens": 64,
+      "text_tokens": 245
+    },
+    "output_tokens": 1756,
+    "output_tokens_details": {
+      "image_tokens": 1756,
+      "text_tokens": 0
+    },
+    "total_tokens": 2065
+  },
+  "cost_usd": 0.0544,
+  "cost_is_estimate": false,
+  "reported_quality": "medium",
+  "reported_size": "1024x1024",
+  "reported_background": "opaque",
+  "reported_output_format": "png",
+  "returned_size": [
+    1024,
+    1024
+  ],
+  "seconds": 28.7,
+  "references": [
+    {
+      "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Diagnose.png",
+      "sha256": "af1be5e402436040e6d528e55be658c858eda8bc44cc97dffa2fda65fe3664b6",
+      "role": "our approved icon from the same family (the diagnose clipboard, picked 11 Nov 2026): match its outline weight, shading, palette and finish only; do not copy its shape"
+    }
+  ]
+}
