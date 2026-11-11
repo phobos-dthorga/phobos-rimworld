@@ -5,6 +5,19 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.83.2] - 2026-11-11 - Draft
+
+The history graphs, after the owner's next screenshots and a look through the game's frame profiler (11 November 2026). **Not yet tested in game.**
+
+### Changed
+
+- **Graphs sit on a dark panel**, the same ground as the gauges, instead of the game's grey-violet one, which washed out the coloured lines. Faint lines mark the hours and the values; the blue grid is gone.
+- **Graphs cost less to draw.** A day's line is drawn from at most 96 averaged points instead of 240, and only when the screen is painted, not on every mouse movement. The owner's profiler showed the Systems tab at about a millisecond a frame with its graphs open; that cost is only paid while the tab is open.
+
+### Save compatibility
+
+- Safe on an existing save: only drawing changes.
+
 ## [0.83.1] - 2026-11-11 - Draft
 
 Two faults the owner's screenshots of the diagnosis report showed (11 November 2026). **Not yet tested in game.**

@@ -91,26 +91,74 @@ public static class PhobosWidgets
     /// </summary>
     public static void HistoryGraph(Rect rect, HistoryRing ring, float min, float max, Color colour, int hours, string unit = "")
     {
-        if (ring.Count < 2) return;
-        var curve = new SimpleCurve();
-        float hoursPerSample = (float)hours / ring.Capacity;
-        for (int i = 0; i < ring.Count; i++)
-        {
-            curve.Add(new CurvePoint(-(ring.Count - 1 - i) * hoursPerSample, ring[i]), sort: false);
-        }
+        // The drawer draws on Repaint only, so the curve is built only then (Layout and every mouse event used to build it for nothing).
+        if (ring.Count < 2 || Event.current.type != EventType.Repaint) return;
+        SimpleCurve curve = GraphCurve(ring.Count, i => ring[i], (float)hours / ring.Capacity);
         var curves = new List<SimpleCurveDrawInfo> { new() { curve = curve, color = colour, valueFormat = GraphValueFormat(unit) } };
+        DrawGraphPanel(rect, hours);
         SimpleCurveDrawer.DrawCurves(rect, curves, GraphStyle(min, max, hours));
     }
 
+    /// <summary>The most points a history graph draws per line, however many samples it holds (authored: a day's 240 averaged in twos and threes).</summary>
+    public const int GraphPoints = 96;
+
+    /// <summary>The faint grid over a graph's dark panel, at the hour labels and the value labels.</summary>
+    static readonly Color GraphGrid = new(1f, 1f, 1f, 0.07f);
+
+    /// <summary>The space the curve drawer keeps for its labels: a column on the left and a band below (the game's own figures).</summary>
+    const float GraphLabelsWidth = 60f, GraphLabelsHeight = 30f;
+
     /// <summary>
-    /// The one look of every history graph of ours: the game's background and measures, a line with no dot per sample (the drawer's
-    /// default puts one on every point, which turned a day of samples into a beaded rope; owner's screenshot, 11 Nov 2026), and the
-    /// value where the pointer rests labelled by the hour.
+    /// A line of samples (oldest first) as a curve ending at hour 0, averaged into at most <see cref="GraphPoints"/> points, each placed at
+    /// its last sample's hour: a day's line shows the same shape for less than half the drawing (the owner's profiler, 11 Nov 2026: the
+    /// Systems tab took about a millisecond a frame with its graphs open).
+    /// </summary>
+    static SimpleCurve GraphCurve(int count, System.Func<int, float> sample, float hoursPerSample)
+    {
+        var curve = new SimpleCurve();
+        int points = Mathf.Min(GraphPoints, count);
+        for (int p = 0; p < points; p++)
+        {
+            int from = p * count / points, to = Mathf.Max(from + 1, (p + 1) * count / points);
+            float sum = 0f;
+            for (int i = from; i < to; i++) sum += sample(i);
+            curve.Add(new CurvePoint(-(count - to) * hoursPerSample, sum / (to - from)), sort: false);
+        }
+        return curve;
+    }
+
+    /// <summary>
+    /// The panel behind a graph: the gauges' dark ground instead of the drawer's grey-violet one, which washed out coloured lines (owner,
+    /// 11 Nov 2026), and faint upright lines at the hour labels (the drawer itself rules the value labels across). The hour labels'
+    /// places follow the drawer's own rule for whole numbers: start at the first whole hour, step by the span over the label count.
+    /// </summary>
+    static void DrawGraphPanel(Rect rect, int hours)
+    {
+        var plot = new Rect(rect.x + GraphLabelsWidth, rect.y, rect.width - GraphLabelsWidth, rect.height - GraphLabelsHeight);
+        if (plot.width <= 0f || plot.height <= 0f) return;
+        Widgets.DrawBoxSolid(plot, GaugeBackground);
+        int step = Mathf.Max(1, Mathf.CeilToInt((hours + 1f) / GraphHourLabels));
+        Color before = GUI.color;
+        GUI.color = GraphGrid;
+        for (int hour = -hours; hour <= 0; hour += step)
+        {
+            Widgets.DrawLineVertical(plot.x + plot.width * (hour + hours) / hours, plot.y, plot.height);
+        }
+        GUI.color = before;
+    }
+
+    /// <summary>How many hour labels a graph asks the drawer for.</summary>
+    const int GraphHourLabels = 4;
+
+    /// <summary>
+    /// The one look of every history graph of ours: our own dark panel (DrawGraphPanel) under the drawer's labels and value rules, a line
+    /// with no dot per sample (the drawer's default puts one on every point, which turned a day of samples into a beaded rope; owner's
+    /// screenshot, 11 Nov 2026), and the value where the pointer rests labelled by the hour.
     /// </summary>
     static SimpleCurveDrawerStyle GraphStyle(float min, float max, int hours) => new()
     {
-        DrawBackground = true,
-        DrawBackgroundLines = true,
+        DrawBackground = false,
+        DrawBackgroundLines = false,
         DrawMeasures = true,
         DrawPoints = false,
         DrawLegend = false,
@@ -120,7 +168,7 @@ public static class PhobosWidgets
         UseFixedSection = true,
         FixedSection = new FloatRange(-hours, 0f),
         UseAntiAliasedLines = true,
-        MeasureLabelsXCount = 4,
+        MeasureLabelsXCount = GraphHourLabels,
         MeasureLabelsYCount = 3,
         XIntegersOnly = true,
         LabelX = "PhobosFramework_GraphHour".Translate(),
@@ -153,20 +201,19 @@ public static class PhobosWidgets
     public static void HistoryGraphs(Rect rect, IReadOnlyList<GraphSeries> series, float min, float max, int hours, int capacity, string unit = "")
     {
         const float LegendHeight = 18f;
+        // Everything here, legend included, is drawn on Repaint only, as the drawer does.
+        if (Event.current.type != EventType.Repaint) return;
         var curves = new List<SimpleCurveDrawInfo>();
         string valueFormat = GraphValueFormat(unit);
+        float hoursPerSample = (float)hours / capacity;
         float x = rect.x;
         using (new TextBlock(GameFont.Tiny, TextAnchor.MiddleLeft))
         {
             foreach (GraphSeries line in series)
             {
                 if (line.Samples.Count < 2) continue;
-                var curve = new SimpleCurve();
-                float hoursPerSample = (float)hours / capacity;
-                for (int i = 0; i < line.Samples.Count; i++)
-                {
-                    curve.Add(new CurvePoint(-(line.Samples.Count - 1 - i) * hoursPerSample, line.Samples[i]), sort: false);
-                }
+                IReadOnlyList<float> samples = line.Samples;
+                SimpleCurve curve = GraphCurve(samples.Count, i => samples[i], hoursPerSample);
                 curves.Add(new SimpleCurveDrawInfo { curve = curve, color = line.Colour, label = line.Label, valueFormat = valueFormat });
                 float width = Text.CalcSize(line.Label).x + 18f;
                 Widgets.DrawBoxSolid(new Rect(x, rect.y + 6f, 10f, 6f), line.Colour);
@@ -175,7 +222,9 @@ public static class PhobosWidgets
             }
         }
         if (curves.Count == 0) return;
-        SimpleCurveDrawer.DrawCurves(new Rect(rect.x, rect.y + LegendHeight, rect.width, rect.height - LegendHeight), curves, GraphStyle(min, max, hours));
+        var graph = new Rect(rect.x, rect.y + LegendHeight, rect.width, rect.height - LegendHeight);
+        DrawGraphPanel(graph, hours);
+        SimpleCurveDrawer.DrawCurves(graph, curves, GraphStyle(min, max, hours));
     }
 
     /// <summary>The most segments a sparkline draws, however many samples it holds (authored: enough for a trend, cheap every frame).</summary>

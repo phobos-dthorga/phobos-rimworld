@@ -8,7 +8,7 @@
     <ModFolder>PhobosFramework</ModFolder>
     <TieInFolder>Mods/VehiclesRimefeller/</TieInFolder>
     <UsesHarmony>true</UsesHarmony>
-    <Version>0.83.1</Version>
+    <Version>0.83.2</Version>
     <ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>true</ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>
   </PropertyGroup>
   <ItemGroup>
