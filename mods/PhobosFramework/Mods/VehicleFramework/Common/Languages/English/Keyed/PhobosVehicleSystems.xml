@@ -387,7 +387,22 @@
   <PhobosVehicleSystems_SysTurbine>Turbine</PhobosVehicleSystems_SysTurbine>
   <PhobosVehicleSystems_SysPart>{ROLE}: {PART}</PhobosVehicleSystems_SysPart>
   <PhobosVehicleSystems_SysFlowRate>{RATE} an hour</PhobosVehicleSystems_SysFlowRate>
-  <PhobosVehicleSystems_SysFlowToward>toward {TARGET} at {RATE} of the gap an hour</PhobosVehicleSystems_SysFlowToward>
+  <!-- The Systems tab's compact rows (Framework 0.93.0): what is moving a reading, in plain words, with figures for engineers. -->
+  <PhobosVehicleSystems_FlowCooling>cooling toward {TARGET}</PhobosVehicleSystems_FlowCooling>
+  <PhobosVehicleSystems_FlowWarming>warming toward {TARGET}</PhobosVehicleSystems_FlowWarming>
+  <PhobosVehicleSystems_FlowFallingToward>falling toward {TARGET}</PhobosVehicleSystems_FlowFallingToward>
+  <PhobosVehicleSystems_FlowRisingToward>rising toward {TARGET}</PhobosVehicleSystems_FlowRisingToward>
+  <PhobosVehicleSystems_FlowHolding>holding at {TARGET}</PhobosVehicleSystems_FlowHolding>
+  <PhobosVehicleSystems_FlowRising>rising</PhobosVehicleSystems_FlowRising>
+  <PhobosVehicleSystems_FlowFalling>falling</PhobosVehicleSystems_FlowFalling>
+  <PhobosVehicleSystems_FlowSteady>steady</PhobosVehicleSystems_FlowSteady>
+  <PhobosVehicleSystems_SysFlowDetail>{LINE} ({FIGURE})</PhobosVehicleSystems_SysFlowDetail>
+  <PhobosVehicleSystems_SysFlowGapRate>{RATE} of the gap an hour</PhobosVehicleSystems_SysFlowGapRate>
+  <PhobosVehicleSystems_SysRowTip>Click to show or hide its last day and what is moving it.</PhobosVehicleSystems_SysRowTip>
+  <PhobosVehicleSystems_SysPartTip>{PART}: {HEALTH}</PhobosVehicleSystems_SysPartTip>
+  <PhobosVehicleSystems_SysFilterAttention>Only what needs attention</PhobosVehicleSystems_SysFilterAttention>
+  <PhobosVehicleSystems_SysFilterAttentionDesc>Hides every reading that is running normally and every part at full health, leaving what has a warning and what is hurt.</PhobosVehicleSystems_SysFilterAttentionDesc>
+  <PhobosVehicleSystems_SysNothingNeedsAttention>Nothing needs attention.</PhobosVehicleSystems_SysNothingNeedsAttention>
   <PhobosVehicleSystems_SysGear>Gear {GEAR}</PhobosVehicleSystems_SysGear>
   <PhobosVehicleSystems_SysRpm>{RPM} rpm</PhobosVehicleSystems_SysRpm>
   <PhobosVehicleSystems_SysLoad>load {LOAD}</PhobosVehicleSystems_SysLoad>

@@ -5,6 +5,26 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.93.0] - 2026-11-11 - Draft
+
+The Systems tab is readable (owner, 11 November 2026: with every graph and line of text open at once, nothing could be told apart). **Not yet tested in game.**
+
+### Changed
+
+- **Each reading is one tidy row**: its picture, its name, its bar with the figure in it, its stage word in the stage's colour, and a small line of its last day. **Click a row to open its full graph and what is moving it; click again to close.** Nothing is open until asked for.
+- **Each system is a card** with a shaded heading and a dot in the colour of the worst thing in it: green, amber or red.
+- **What moves a reading is said in plain words**: "cooling toward 18C", "holding at 599C", "rising", "falling", "steady". Engineer mode adds the figures in brackets, a share as a percentage an hour and a temperature in degrees an hour.
+- **A system's parts are a strip of small bars** on one line, not a row each. Hovering one still lights it up on the vehicle.
+
+### Added
+
+- **"Only what needs attention"**, a tick box at the top: it hides every reading that is running normally and every part at full health. On a healthy vehicle it says "Nothing needs attention."
+
+### Compatibility and limits
+
+- Operator shows the rows and what opens from them; Engineer adds the hidden readings and the figures. A fourth display mode between them was considered and not added: opening a row gives that middle level without every screen of every mod having to answer for another mode.
+- Which rows are open is kept per vehicle while its tab stays open, not saved.
+
 ## [0.92.1] - 2026-11-11 - Draft
 
 Faults in what an aircraft's readings say, from the owner's screenshots of the Harrier (11 November 2026). **Not yet tested in game.**

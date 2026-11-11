@@ -41,6 +41,12 @@ Only those two rows carry a tune (agent's push-back, agreed); a part with more c
 the vehicle share one rule for the figures (FitFigures). **Framework 0.89.0 (owner, 11 Nov 2026):** the wheel rows are grouped into
 axles (AxleRule, by where each wheel's hit area sits along the vehicle); an axle's choice is ordered per wheel.
 
+**Framework 0.93.0 (owner's ask, 11 Nov 2026; the owner's picks):** the Systems tab relaid as compact rows that open on a click, a card a
+system, plain-word rate lines, parts as a strip, coloured stage words and icons, and an "only what needs attention" filter. The owner
+asked whether a "Mechanic" display mode should sit between Operator and Engineer; the agent argued against (the opened row is that level,
+and a fourth mode is a standing cost on every screen of every mod), and built it as Operator rows with Engineer figures, for the owner to
+revisit after use.
+
 ## Read this first
 
 - **Recommendation, in five lines.** Turn the diagnosis into a proper report window with the vehicle's picture, coloured gauges and one

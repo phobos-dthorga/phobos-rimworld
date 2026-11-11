@@ -11,9 +11,11 @@ using Verse;
 namespace Phobos.VehicleSystems;
 
 /// <summary>
-/// The Systems tab: what exactly is going on, and why. Every quantity with its figure, stage and bar; in Engineer mode the last
-/// day's graph and the flows per hour; each role's parts with their health (hovering one lights it up on the vehicle, as Vehicle
-/// Framework's Health tab does); the drivetrain and turbine figures. Hidden in Plain mode. Presentation only.
+/// The Systems tab: what exactly is going on, and why. Each system is a card; each reading one row with its picture, bar, stage word in
+/// its colour and a small line of its last day, which opens on a click to its full graph and what is moving it (Framework 0.93.0; owner,
+/// 11 Nov 2026: with every graph and rate line open at once nothing could be told apart). A system's parts are a strip of small bars;
+/// hovering one lights it up on the vehicle. A filter leaves only what needs attention. Engineer mode adds the hidden readings and the
+/// figures. Hidden in Plain mode. Presentation only.
 /// </summary>
 public class ITab_VehicleSystems : ITab
 {
@@ -21,11 +23,27 @@ public class ITab_VehicleSystems : ITab
     {
         public Vector2 Scroll;
         public string? PendingSection;
+        /// <summary>The readings opened to their graph, by system and quantity.</summary>
+        public readonly HashSet<string> Open = new();
+        /// <summary>The height of everything drawn last frame: rows open and close, so the height is measured, not worked out twice.</summary>
+        public float DrawnHeight;
     }
 
     const float Margin = 10f;
-    const float Row = 22f;
+    const float Row = 24f;
     const float Graph = 64f;
+    const float HeaderHeight = 24f;
+    const float CardGap = 8f;
+    const float FilterHeight = 24f;
+    const float IconSize = 18f;
+    const float ArrowSize = 12f;
+    const float ChipBar = 34f;
+    const float ChipHeight = 20f;
+    static readonly Color CardEdge = new(1f, 1f, 1f, 0.14f);
+    static readonly Color DetailColour = new(0.72f, 0.72f, 0.72f);
+
+    /// <summary>Only what needs attention: kept while the game runs, for every vehicle.</summary>
+    static bool attentionOnly;
     static readonly TabState<State> states = new();
 
     public ITab_VehicleSystems()
@@ -73,145 +91,341 @@ public class ITab_VehicleSystems : ITab
         DisplayMode mode = VehicleSystemsMod.Settings.displayMode;
         bool engineer = mode == DisplayMode.Engineer;
         State state = states.Get(comp.Vehicle.thingIDNumber);
+
+        var filter = new Rect(outer.x, outer.y, 240f, FilterHeight);
+        Widgets.CheckboxLabeled(filter, "PhobosVehicleSystems_SysFilterAttention".Translate(), ref attentionOnly);
+        TooltipHandler.TipRegion(filter, "PhobosVehicleSystems_SysFilterAttentionDesc".Translate());
+        outer.yMin += FilterHeight + 4f;
+
         float viewWidth = outer.width - 16f;
-        float height = ContentHeight(comp, engineer, viewWidth);
-        var view = new Rect(0f, 0f, viewWidth, height);
+        var view = new Rect(0f, 0f, viewWidth, state.DrawnHeight > 0f ? state.DrawnHeight : outer.height);
         Widgets.BeginScrollView(outer, ref state.Scroll, view);
         float y = 0f;
+        bool anything = false;
         VehicleComponent? hovered = null;
         foreach (SystemState system in comp.States)
         {
-            if (!comp.IsEnabled(system) || !HasRows(comp, system, engineer)) continue;
-            if (state.PendingSection == system.Def.defName)
-            {
-                state.Scroll.y = y;
-                state.PendingSection = null;
-            }
-            PhobosWidgets.Section(ref y, 0f, viewWidth, system.Def.label.CapitalizeFirst());
+            if (!comp.IsEnabled(system)) continue;
+            // What this card shows: its readings (the hidden ones for engineers), and its parts; under the filter, only what is wrong.
+            rowScratch.Clear();
             for (int q = 0; q < system.values.Length; q++)
             {
                 QuantitySpec quantity = system.Def.quantities[q];
                 if (quantity.hidden && !engineer) continue;
-                StageSpec? stage = system.CurrentStage(q);
-                GaugeReading reading = GaugeReading.For(system, q);
-                string text = stage != null
-                    ? "PhobosVehicleSystems_InspectFigureStage".Translate(reading.Label.Named("QUANTITY"), reading.Figure.Named("VALUE"), stage.label.Named("STAGE")).Resolve()
-                    : "PhobosVehicleSystems_InspectFigure".Translate(reading.Label.Named("QUANTITY"), reading.Figure.Named("VALUE")).Resolve();
-                Widgets.Label(new Rect(0f, y, viewWidth * 0.55f, Row), text);
-                if (quantity.unit is QuantityUnit.Fraction or QuantityUnit.Celsius)
-                {
-                    PhobosWidgets.Gauge(new Rect(viewWidth * 0.58f, y + 3f, viewWidth * 0.42f, Row - 6f), reading.Fill, ITab_VehicleDashboard.StageColour(stage));
-                }
-                y += Row;
-                if (engineer)
-                {
-                    HistoryRing? ring = comp.History.For(system, q);
-                    if (ring != null && ring.Count >= 2)
-                    {
-                        // The marks are read only when the graph is painted, as the graph itself is.
-                        List<CurveMark>? marks = Event.current.type == EventType.Repaint ? VehicleEventText.Marks(comp, system.Def.defName, quantity.name, QuantityHistory.Hours) : null;
-                        // A count that can run to a huge figure (hours since service, to 100,000) is scaled to what was recorded, or its
-                        // line lies flat on the floor (owner's screenshot, 11 Nov 2026).
-                        float top = quantity.unit is QuantityUnit.Hours or QuantityUnit.Plain ? (float)GraphScaleRule.Top(RingMax(ring), quantity.min, quantity.max, GraphFloorSpan) : quantity.max;
-                        PhobosWidgets.HistoryGraph(new Rect(0f, y, viewWidth, Graph), ring, quantity.min, top, ITab_VehicleDashboard.StageColour(stage), QuantityHistory.Hours, marks: marks);
-                        y += Graph + 4f;
-                    }
-                    foreach (FlowSample sample in system.samples)
-                    {
-                        if (sample.Quantity != q) continue;
-                        string flow = sample.Kind == FlowKind.Toward
-                            ? "PhobosVehicleSystems_SysFlowToward".Translate(InspectText.Format(quantity, sample.Target).Named("TARGET"), sample.Rate.ToString("0.##").Named("RATE")).Resolve()
-                            : "PhobosVehicleSystems_SysFlowRate".Translate(((sample.Kind == FlowKind.From ? -sample.Rate : sample.Rate)).ToString("+0.##;-0.##").Named("RATE")).Resolve();
-                        using (new TextBlock(GameFont.Tiny))
-                        {
-                            Widgets.Label(new Rect(12f, y, viewWidth - 12f, Row - 4f), flow);
-                        }
-                        y += Row - 4f;
-                    }
-                }
+                if (attentionOnly && system.CurrentStage(q) is not { notable: true }) continue;
+                rowScratch.Add(q);
             }
-            // The parts the system reads, by role.
+            partScratch.Clear();
             foreach (string role in system.Def.roles)
             {
                 if (!comp.Props.roleKeys.TryGetValue(role, out List<string>? keys)) continue;
                 foreach (string key in keys)
                 {
                     VehicleComponent? part = comp.Vehicle.statHandler?.GetComponent(key);
-                    if (part == null) continue;
-                    var row = new Rect(0f, y, viewWidth, Row);
-                    if (Mouse.IsOver(row))
-                    {
-                        Widgets.DrawHighlight(row);
-                        hovered = part;
-                    }
-                    // No part icon and no Vehicle Framework colour helper: both pass Unity types, which a 1.7 build cannot use
-                    // through Vehicle Framework's 1.6 assembly. The health colour is the core's own.
-                    Widgets.Label(new Rect(8f, y, viewWidth * 0.55f, Row), PartLabel(role, part.props.label));
-                    using (new TextBlock(TextAnchor.MiddleRight))
-                    {
-                        Widgets.Label(new Rect(viewWidth * 0.58f, y, viewWidth * 0.42f, Row),
-                            part.HealthPercent.ToStringPercent().Colorize(PhobosWidgets.HealthColour(part.HealthPercent)));
-                    }
-                    y += Row;
+                    if (part == null || (attentionOnly && part.HealthPercent >= WholeShare)) continue;
+                    partScratch.Add((role, part));
                 }
             }
-            y += 6f;
+            if (rowScratch.Count == 0 && partScratch.Count == 0) continue;
+            anything = true;
+            if (state.PendingSection == system.Def.defName)
+            {
+                state.Scroll.y = y;
+                state.PendingSection = null;
+            }
+            float top = y;
+            CardHeader(ref y, viewWidth, system.Def.label.CapitalizeFirst(), SystemColour(system));
+            foreach (int q in rowScratch) DrawReading(comp, system, q, state, ref y, viewWidth, engineer);
+            if (partScratch.Count > 0) DrawParts(ref y, viewWidth, ref hovered);
+            CardEnd(top, ref y, viewWidth);
         }
         Powertrain? train = comp.Powertrain;
         if (train != null && VehicleSystemsMod.Settings.drivetrainMode != DrivetrainMode.Off)
         {
             DriveResult r = train.Result;
-            if (train.Ground)
+            if (train.Ground && (!attentionOnly || train.Cap < 0.99))
             {
-                PhobosWidgets.Section(ref y, 0f, viewWidth, "PhobosVehicleSystems_SysDrivetrain".Translate());
+                anything = true;
+                float top = y;
+                CardHeader(ref y, viewWidth, "PhobosVehicleSystems_SysDrivetrain".Translate(), train.Cap < 0.99 ? PhobosWidgets.Caution : PhobosWidgets.Good);
                 string gear = r.Gear > 0 ? "PhobosVehicleSystems_SysGear".Translate(r.Gear.Named("GEAR")).Resolve() + ", " : "";
-                Widgets.Label(new Rect(0f, y, viewWidth, Row), gear + "PhobosVehicleSystems_SysRpm".Translate(r.Rpm.ToString("N0").Named("RPM")).Resolve()
+                Widgets.Label(new Rect(6f, y, viewWidth - 12f, Row), gear + "PhobosVehicleSystems_SysRpm".Translate(r.Rpm.ToString("N0").Named("RPM")).Resolve()
                     + ", " + "PhobosVehicleSystems_SysLoad".Translate(((float)r.Load).ToStringPercent().Named("LOAD")).Resolve());
                 y += Row;
                 if (engineer)
                 {
-                    Widgets.Label(new Rect(0f, y, viewWidth, Row), "PhobosVehicleSystems_InspectPower".Translate(((float)r.Load).ToStringPercent().Named("LOAD"),
+                    Widgets.Label(new Rect(6f, y, viewWidth - 12f, Row), "PhobosVehicleSystems_InspectPower".Translate(((float)r.Load).ToStringPercent().Named("LOAD"),
                         r.EnginePowerKw.ToString("0").Named("ENGINE"), r.FuelPowerKw.ToString("0").Named("FUEL"), r.HeatKw.ToString("0").Named("HEAT")).Resolve());
                     y += Row;
-                    Widgets.Label(new Rect(0f, y, viewWidth, Row), "PhobosVehicleSystems_SysMass".Translate(train.MassKg().ToString("N0").Named("MASS")).Resolve());
+                    Widgets.Label(new Rect(6f, y, viewWidth - 12f, Row), "PhobosVehicleSystems_SysMass".Translate(train.MassKg().ToString("N0").Named("MASS")).Resolve());
                     y += Row;
                 }
                 if (train.Cap < 0.99)
                 {
                     string limit = (r.Limit == DriveLimit.Traction ? "PhobosVehicleSystems_LimitTraction" : "PhobosVehicleSystems_LimitPower").Translate();
-                    Widgets.Label(new Rect(0f, y, viewWidth, Row), "PhobosVehicleSystems_SysCap".Translate(((float)train.Cap).ToStringPercent().Named("CAP"), limit.Named("LIMIT")).Resolve());
+                    Widgets.Label(new Rect(6f, y, viewWidth - 12f, Row), "PhobosVehicleSystems_SysCap".Translate(((float)train.Cap).ToStringPercent().Named("CAP"), limit.Named("LIMIT")).Resolve());
                     y += Row;
                 }
-                y += 6f;
+                CardEnd(top, ref y, viewWidth);
             }
-            if (train.Turbine != null)
+            if (train.Turbine != null && !attentionOnly)
             {
-                PhobosWidgets.Section(ref y, 0f, viewWidth, "PhobosVehicleSystems_SysTurbine".Translate());
+                anything = true;
+                float top = y;
+                CardHeader(ref y, viewWidth, "PhobosVehicleSystems_SysTurbine".Translate(), null);
                 TurbineState t = train.TurbineNow;
-                Widgets.Label(new Rect(0f, y, viewWidth, Row), "PhobosVehicleSystems_InspectTurbine".Translate(t.SpeedPercent.ToString("0").Named("SPOOL"),
+                Widgets.Label(new Rect(6f, y, viewWidth - 12f, Row), "PhobosVehicleSystems_InspectTurbine".Translate(t.SpeedPercent.ToString("0").Named("SPOOL"),
                     train.ShownTurbineTemperature.ToStringTemperature("F0").Named("TEMPERATURE")).Resolve()
                     + (train.PhaseSpec != null && !train.PhaseSpec.label.NullOrEmpty() ? " " + "PhobosVehicleSystems_InspectPhase".Translate(train.PhaseSpec.label.Named("PHASE")).Resolve() : ""));
                 y += Row;
                 (int working, int engines) = train.Engines();
-                Widgets.Label(new Rect(0f, y, viewWidth, Row), "PhobosVehicleSystems_SysRating".Translate(train.RatingLabel.Named("RATING")).Resolve() + ", "
+                Widgets.Label(new Rect(6f, y, viewWidth - 12f, Row), "PhobosVehicleSystems_SysRating".Translate(train.RatingLabel.Named("RATING")).Resolve() + ", "
                     + "PhobosVehicleSystems_SysEnginesWorking".Translate(working.Named("WORKING"), engines.Named("ENGINES")).Resolve());
                 y += Row;
                 if (engineer && train.BleedShare > 0)
                 {
-                    Widgets.Label(new Rect(0f, y, viewWidth, Row), "PhobosVehicleSystems_SysBleed".Translate(((float)train.BleedShare).ToStringPercent("0.#").Named("SHARE")).Resolve());
+                    Widgets.Label(new Rect(6f, y, viewWidth - 12f, Row), "PhobosVehicleSystems_SysBleed".Translate(((float)train.BleedShare).ToStringPercent("0.#").Named("SHARE")).Resolve());
                     y += Row;
                 }
                 if (engineer && train.JudgesHover)
                 {
                     (bool dry, bool wet, double margin) = train.HoverCheck();
-                    Widgets.Label(new Rect(0f, y, viewWidth, Row), "PhobosVehicleSystems_SysHoverMargin".Translate(((float)margin).ToStringPercent().Named("MARGIN"),
+                    Widgets.Label(new Rect(6f, y, viewWidth - 12f, Row), "PhobosVehicleSystems_SysHoverMargin".Translate(((float)margin).ToStringPercent().Named("MARGIN"),
                         (dry ? "PhobosVehicleSystems_HoverDry" : wet ? "PhobosVehicleSystems_HoverWet" : "PhobosVehicleSystems_HoverNone").Translate().Named("HOW")).Resolve());
                     y += Row;
                 }
+                CardEnd(top, ref y, viewWidth);
             }
         }
+        if (!anything)
+        {
+            using (new TextBlock(GameFont.Small, TextAnchor.MiddleLeft))
+            {
+                Widgets.Label(new Rect(6f, y, viewWidth - 12f, Row), "PhobosVehicleSystems_SysNothingNeedsAttention".Translate().Colorize(PhobosWidgets.Good));
+            }
+            y += Row;
+        }
         Widgets.EndScrollView();
+        state.DrawnHeight = y + 4f;
         if (!onWorld) VehicleHighlight.Set(comp.Vehicle, hovered);
+    }
+
+    // ---- The pieces ----
+
+    /// <summary>Scratch lists for one card, reused every frame.</summary>
+    static readonly List<int> rowScratch = new();
+    static readonly List<(string role, VehicleComponent part)> partScratch = new();
+
+    /// <summary>A part at or above this share of its health is whole (the filter leaves it out).</summary>
+    const float WholeShare = 0.999f;
+
+    /// <summary>A card's heading: its name on a shaded strip, and a dot in the colour of the worst thing in it.</summary>
+    static void CardHeader(ref float y, float width, string label, Color? status)
+    {
+        var header = new Rect(0f, y, width, HeaderHeight);
+        Widgets.DrawLightHighlight(header);
+        using (new TextBlock(GameFont.Small, TextAnchor.MiddleLeft)) Widgets.Label(new Rect(6f, y, width - 30f, HeaderHeight), label);
+        if (status is Color colour) Widgets.DrawBoxSolid(new Rect(width - 18f, y + (HeaderHeight - 10f) / 2f, 10f, 10f), colour);
+        y += HeaderHeight + 2f;
+    }
+
+    /// <summary>Closes a card: a faint outline round everything since <paramref name="top"/>, and the gap to the next.</summary>
+    static void CardEnd(float top, ref float y, float width)
+    {
+        y += 2f;
+        Color before = GUI.color;
+        GUI.color = CardEdge;
+        Widgets.DrawBox(new Rect(0f, top, width, y - top));
+        GUI.color = before;
+        y += CardGap;
+    }
+
+    /// <summary>The worst stage among a system's readings, as a colour.</summary>
+    static Color SystemColour(SystemState system)
+    {
+        Color colour = PhobosWidgets.Good;
+        for (int q = 0; q < system.values.Length; q++)
+        {
+            if (system.CurrentStage(q) is not { notable: true } stage) continue;
+            if (stage.Severe) return PhobosWidgets.Bad;
+            colour = PhobosWidgets.Caution;
+        }
+        return colour;
+    }
+
+    /// <summary>
+    /// One reading as one row: an arrow where it can open, its picture, name, bar with the figure in it (or the figure alone, for a count
+    /// or a switch), its stage in the stage's colour, and a small line of its last day. A click opens its full graph and what moves it.
+    /// </summary>
+    static void DrawReading(CompPhobosVehicleSystems comp, SystemState system, int q, State state, ref float y, float width, bool engineer)
+    {
+        QuantitySpec quantity = system.Def.quantities[q];
+        StageSpec? stage = system.CurrentStage(q);
+        GaugeReading reading = GaugeReading.For(system, q);
+        Color colour = ITab_VehicleDashboard.StageColour(stage);
+        HistoryRing? ring = comp.History.For(system, q);
+        bool hasGraph = ring != null && ring.Count >= 2;
+        bool hasFlows = false;
+        foreach (FlowSample sample in system.samples)
+        {
+            if (sample.Quantity == q) { hasFlows = true; break; }
+        }
+        bool canOpen = hasGraph || hasFlows;
+        string key = system.Def.defName + "/" + quantity.name;
+        bool open = canOpen && state.Open.Contains(key);
+
+        var row = new Rect(0f, y, width, Row);
+        Widgets.DrawHighlightIfMouseover(row);
+        float x = 4f;
+        if (canOpen) GUI.DrawTexture(new Rect(x, y + (Row - ArrowSize) / 2f, ArrowSize, ArrowSize), open ? TexButton.Collapse : TexButton.Reveal);
+        x += ArrowSize + 4f;
+        if (SystemIcons.IfExistsCached(quantity.telltale) is { } icon)
+        {
+            Color before = GUI.color;
+            GUI.color = stage is { notable: true } ? colour : PhobosWidgets.Off;
+            GUI.DrawTexture(new Rect(x, y + (Row - IconSize) / 2f, IconSize, IconSize), icon);
+            GUI.color = before;
+        }
+        x += IconSize + 4f;
+        float nameEnd = width * 0.38f, barEnd = width * 0.66f, stageEnd = width * 0.86f;
+        using (new TextBlock(GameFont.Small, TextAnchor.MiddleLeft))
+        {
+            Widgets.Label(new Rect(x, y, nameEnd - x - 4f, Row), reading.Label.Truncate(nameEnd - x - 4f));
+        }
+        var bar = new Rect(nameEnd, y + 4f, barEnd - nameEnd - 6f, Row - 8f);
+        if (quantity.unit is QuantityUnit.Fraction or QuantityUnit.Celsius) PhobosWidgets.Gauge(bar, reading.Fill, colour, figure: reading.Figure);
+        else using (new TextBlock(GameFont.Small, TextAnchor.MiddleLeft)) Widgets.Label(new Rect(nameEnd, y, barEnd - nameEnd - 6f, Row), reading.Figure);
+        if (stage != null)
+        {
+            using (new TextBlock(GameFont.Tiny, TextAnchor.MiddleLeft))
+            {
+                Widgets.Label(new Rect(barEnd, y, stageEnd - barEnd - 4f, Row), stage.label.Truncate(stageEnd - barEnd - 4f).Colorize(colour));
+            }
+        }
+        if (hasGraph && !open)
+        {
+            bool remaining = !quantity.remainingLabel.NullOrEmpty();
+            float top = GraphTop(quantity, ring!);
+            PhobosWidgets.Sparkline(new Rect(stageEnd, y + 4f, width - stageEnd - 4f, Row - 8f), ring!, remaining ? top : quantity.min, remaining ? quantity.min : top, colour);
+        }
+        string tip = stage != null
+            ? "PhobosVehicleSystems_InspectFigureStage".Translate(reading.Label.Named("QUANTITY"), reading.Figure.Named("VALUE"), stage.label.Named("STAGE")).Resolve()
+            : "PhobosVehicleSystems_InspectFigure".Translate(reading.Label.Named("QUANTITY"), reading.Figure.Named("VALUE")).Resolve();
+        if (canOpen) tip += "\n\n" + "PhobosVehicleSystems_SysRowTip".Translate().Resolve();
+        TooltipHandler.TipRegion(row, tip);
+        if (canOpen && Widgets.ButtonInvisible(row))
+        {
+            if (!state.Open.Remove(key)) state.Open.Add(key);
+        }
+        y += Row;
+        if (!open) return;
+
+        if (hasGraph)
+        {
+            // The marks are read only when the graph is painted, as the graph itself is.
+            List<CurveMark>? marks = Event.current.type == EventType.Repaint ? VehicleEventText.Marks(comp, system.Def.defName, quantity.name, QuantityHistory.Hours) : null;
+            PhobosWidgets.HistoryGraph(new Rect(ArrowSize + 8f, y, width - ArrowSize - 12f, Graph), ring!, quantity.min, GraphTop(quantity, ring!), colour, QuantityHistory.Hours, marks: marks);
+            y += Graph + 2f;
+        }
+        DrawFlows(system, q, quantity, ref y, width, engineer);
+        y += 4f;
+    }
+
+    /// <summary>A graph's top: a count that can run to a huge figure (hours since service, to 100,000) is scaled to what was recorded.</summary>
+    static float GraphTop(QuantitySpec quantity, HistoryRing ring) =>
+        quantity.unit is QuantityUnit.Hours or QuantityUnit.Plain ? (float)GraphScaleRule.Top(RingMax(ring), quantity.min, quantity.max, GraphFloorSpan) : quantity.max;
+
+    /// <summary>
+    /// What is moving a reading, in plain words: where it is heading ("cooling toward 18C"), and whether what flows in and out leaves it
+    /// rising, falling or steady. Engineer mode adds the figures.
+    /// </summary>
+    static void DrawFlows(SystemState system, int q, QuantitySpec quantity, ref float y, float width, bool engineer)
+    {
+        double value = system.values[q], span = System.Math.Max(1e-6, quantity.max - quantity.min);
+        double net = 0;
+        bool anyRate = false;
+        foreach (FlowSample sample in system.samples)
+        {
+            if (sample.Quantity != q) continue;
+            if (sample.Kind != FlowKind.Toward)
+            {
+                net += sample.Kind == FlowKind.From ? -sample.Rate : sample.Rate;
+                anyRate = true;
+                continue;
+            }
+            bool celsius = quantity.unit == QuantityUnit.Celsius;
+            string target = InspectText.Format(quantity, sample.Target);
+            double gap = sample.Target - value;
+            string line = System.Math.Abs(gap) < span * HoldingShare ? "PhobosVehicleSystems_FlowHolding".Translate(target.Named("TARGET")).Resolve()
+                : gap < 0 ? (celsius ? "PhobosVehicleSystems_FlowCooling".Translate(target.Named("TARGET")).Resolve() : "PhobosVehicleSystems_FlowFallingToward".Translate(target.Named("TARGET")).Resolve())
+                : celsius ? "PhobosVehicleSystems_FlowWarming".Translate(target.Named("TARGET")).Resolve() : "PhobosVehicleSystems_FlowRisingToward".Translate(target.Named("TARGET")).Resolve();
+            if (engineer) line = "PhobosVehicleSystems_SysFlowDetail".Translate(line.Named("LINE"), "PhobosVehicleSystems_SysFlowGapRate".Translate(sample.Rate.ToString("0.##").Named("RATE")).Named("FIGURE")).Resolve();
+            FlowLine(line, ref y, width);
+        }
+        if (!anyRate) return;
+        string trend = System.Math.Abs(net) < span * SteadyShare ? "PhobosVehicleSystems_FlowSteady".Translate().Resolve()
+            : net > 0 ? "PhobosVehicleSystems_FlowRising".Translate().Resolve() : "PhobosVehicleSystems_FlowFalling".Translate().Resolve();
+        if (engineer) trend = "PhobosVehicleSystems_SysFlowDetail".Translate(trend.Named("LINE"), "PhobosVehicleSystems_SysFlowRate".Translate(RateText(quantity, net).Named("RATE")).Named("FIGURE")).Resolve();
+        FlowLine(trend, ref y, width);
+    }
+
+    /// <summary>Within this share of a reading's range of where it is heading, it is holding there (authored).</summary>
+    const double HoldingShare = 0.005;
+    /// <summary>Below this share of a reading's range an hour, it is steady (authored).</summary>
+    const double SteadyShare = 0.0005;
+
+    static void FlowLine(string text, ref float y, float width)
+    {
+        using (new TextBlock(GameFont.Tiny, TextAnchor.MiddleLeft))
+        {
+            Widgets.Label(new Rect(ArrowSize + IconSize + 12f, y, width - ArrowSize - IconSize - 16f, Row - 6f), text.CapitalizeFirst().Colorize(DetailColour));
+        }
+        y += Row - 6f;
+    }
+
+    /// <summary>A rate an hour in the reading's own unit: a share as a percentage, a temperature as degrees.</summary>
+    static string RateText(QuantitySpec quantity, double rate) => quantity.unit switch
+    {
+        QuantityUnit.Fraction => (rate >= 0 ? "+" : "") + ((float)rate).ToStringPercent("0.#"),
+        QuantityUnit.Celsius or QuantityUnit.CelsiusOffset => ((float)rate).ToStringTemperatureOffset("F1"),
+        _ => rate.ToString("+0.##;-0.##"),
+    };
+
+    /// <summary>
+    /// A system's parts as a strip of small bars, wrapping as they fill the width (the scratch list holds them): name, then a bar of its
+    /// health. Hovering one lights it up on the vehicle.
+    /// </summary>
+    static void DrawParts(ref float y, float width, ref VehicleComponent? hovered)
+    {
+        float x = 6f;
+        y += 2f;
+        using (new TextBlock(GameFont.Tiny, TextAnchor.MiddleLeft))
+        {
+            foreach ((string role, VehicleComponent part) in partScratch)
+            {
+                // No part icon and no Vehicle Framework colour helper: both pass Unity types, which a 1.7 build cannot use
+                // through Vehicle Framework's 1.6 assembly. The health colour is the core's own.
+                string label = PartLabel(role, part.props.label);
+                float chip = Mathf.Min(width - 12f, Text.CalcSize(label).x + ChipBar + 14f);
+                if (x + chip > width - 6f && x > 6f)
+                {
+                    x = 6f;
+                    y += ChipHeight + 2f;
+                }
+                var rect = new Rect(x, y, chip, ChipHeight);
+                if (Mouse.IsOver(rect))
+                {
+                    Widgets.DrawHighlight(rect);
+                    hovered = part;
+                }
+                float health = part.HealthPercent;
+                Widgets.Label(new Rect(x + 2f, y, chip - ChipBar - 8f, ChipHeight), label.Truncate(chip - ChipBar - 8f));
+                PhobosWidgets.Gauge(new Rect(rect.xMax - ChipBar - 2f, y + 5f, ChipBar, ChipHeight - 10f), health, PhobosWidgets.HealthColour(health));
+                TooltipHandler.TipRegion(rect, "PhobosVehicleSystems_SysPartTip".Translate(label.Named("PART"), health.ToStringPercent().Named("HEALTH")));
+                x += chip + 6f;
+            }
+        }
+        y += ChipHeight + 2f;
     }
 
     /// <summary>"Wheels: front left wheel", or only the part's name when it says the same as its role ("Battery", not "Battery:
@@ -221,8 +435,6 @@ public class ITab_VehicleSystems : ITab
             ? part.CapitalizeFirst()
             : "PhobosVehicleSystems_SysPart".Translate(role.Named("ROLE"), part.Named("PART")).Resolve();
 
-    /// <summary>Whether a system has anything to show in this mode: a quantity that is not hidden, or a bound part. A system with
-    /// neither (one switched off by a setting, such as fuel in the cold) is left out rather than shown as an empty heading.</summary>
     /// <summary>The least span a scaled graph shows, so a reading near nothing is not blown up into noise (authored: a day of hours).</summary>
     const float GraphFloorSpan = 24f;
 
@@ -231,55 +443,5 @@ public class ITab_VehicleSystems : ITab
         float max = float.MinValue;
         for (int i = 0; i < ring.Count; i++) max = Mathf.Max(max, ring[i]);
         return max;
-    }
-
-    static bool HasRows(CompPhobosVehicleSystems comp, SystemState system, bool engineer)
-    {
-        for (int q = 0; q < system.values.Length; q++)
-        {
-            if (engineer || !system.Def.quantities[q].hidden) return true;
-        }
-        foreach (string role in system.Def.roles)
-        {
-            if (comp.Props.roleKeys.TryGetValue(role, out List<string>? keys) && keys.Count > 0) return true;
-        }
-        return false;
-    }
-
-    /// <summary>The scroll view's height, laid out the same way as FillTab draws it.</summary>
-    static float ContentHeight(CompPhobosVehicleSystems comp, bool engineer, float width)
-    {
-        float y = 0f;
-        foreach (SystemState system in comp.States)
-        {
-            if (!comp.IsEnabled(system) || !HasRows(comp, system, engineer)) continue;
-            y += 28f;
-            for (int q = 0; q < system.values.Length; q++)
-            {
-                if (system.Def.quantities[q].hidden && !engineer) continue;
-                y += Row;
-                if (engineer)
-                {
-                    HistoryRing? ring = comp.History.For(system, q);
-                    if (ring != null && ring.Count >= 2) y += Graph + 4f;
-                    foreach (FlowSample sample in system.samples)
-                    {
-                        if (sample.Quantity == q) y += Row - 4f;
-                    }
-                }
-            }
-            foreach (string role in system.Def.roles)
-            {
-                if (comp.Props.roleKeys.TryGetValue(role, out List<string>? keys)) y += keys.Count * Row;
-            }
-            y += 6f;
-        }
-        Powertrain? train = comp.Powertrain;
-        if (train != null && VehicleSystemsMod.Settings.drivetrainMode != DrivetrainMode.Off)
-        {
-            if (train.Ground) y += 28f + Row + (engineer ? 2 * Row : 0f) + (train.Cap < 0.99 ? Row : 0f) + 6f;
-            if (train.Turbine != null) y += 28f + 2 * Row + (engineer && train.BleedShare > 0 ? Row : 0f) + (engineer && train.JudgesHover ? Row : 0f);
-        }
-        return y + Row;
     }
 }

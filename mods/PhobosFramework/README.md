@@ -7,7 +7,7 @@ helpers every D'thorga mod shares.
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.92.1, built 11 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
+Version 0.93.0, built 11 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
 oxygen working through Burns and Smoke and Medical Equipment (5 November 2026). The health layer new in 0.3.0 and the **vehicle
 systems new in 0.9.0, and their engines, drivetrains and gas turbines new in 0.11.0, are not yet tested in game.** The rest is read from the game's and the mods' code.
 
@@ -83,7 +83,8 @@ and wear that a mechanic services. See [Vehicle systems](#vehicle-systems-with-v
   and *Bigger vehicles cost more to fit and tune*. **From 0.92.0 a helicopter can carry a vehicle on a sling**: fit it a **cargo hook**,
   put a **sling set** aboard, press **Lift a vehicle** and pick one of ours parked outdoors nearby; a colonist hooks it up, and it flies
   with the helicopter and is set down beside it where it lands. It must weigh, with its cargo and people, no more than the hook takes
-  today (less on hot days). Settings under **Sling loads**. Not yet tested in game.
+  today (less on hot days). Settings under **Sling loads**. **From 0.93.0 the Systems tab is compact**: one row a reading, which opens to
+  its graph on a click, a card a system, parts as a strip of small bars, and an **Only what needs attention** tick box. Not yet tested in game.
 - **Steam locomotives (0.14.0): two settings to decide before you run one.** **Boiler explosions** are off by default: on, a
   boiler without a fusible plug (the American 4-8-4) whose water runs below the firebox crown explodes, and the settings window
   warns you. **Realistic feed water** is off by default: a water stop draws a tenth of the real tender (6,800 litres for the 4-8-4,
