@@ -6,6 +6,10 @@ entry says the owner tested it.
 
 ## [Unreleased]
 
+### Changed
+
+- The README no longer calls the medical equipment's pictures placeholders or says the liquid oxygen store's frost is not drawn. Documentation only; nothing changes in play.
+
 ## [0.15.0] - 2026-11-12 - Draft
 
 The liquid oxygen store frosts over. **Not yet tested in game.**

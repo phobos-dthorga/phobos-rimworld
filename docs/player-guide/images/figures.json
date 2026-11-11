@@ -1,0 +1,367 @@
+{
+  "about": "The player guide's figures, drawn by scripts/art/guide_figures.py from textures the mods ship. Edit this file, then run the script. Labels are the guide's own words; in-game names follow the game's text.",
+  "roots": {
+    "veh": "mods/PhobosVehicles/Textures/Phobos/Vehicles/",
+    "vs": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/",
+    "parts": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/Vehicles/Parts/",
+    "med": "mods/PhobosMedical/Common/Textures/Phobos/",
+    "rad": "mods/PhobosMedical/Mods/Rimatomics/Textures/Phobos/Medical/Protection/",
+    "radio": "mods/PhobosRadioFramework/Common/Textures/Phobos/Radio/"
+  },
+  "figures": [
+    {
+      "name": "vehicles-family",
+      "kind": "layers",
+      "pixelsPerCell": 40,
+      "columns": 2,
+      "items": [
+        {"label": "Ullage bulk tanker (3 x 10)", "cells": [11, 4], "layers": ["veh:BulkTanker/BulkTanker_east.png", "veh:BulkTanker/BulkTanker_LiquidTank_east.png"]},
+        {"label": "Datum survey truck (3 x 7)", "cells": [8, 4], "layers": ["veh:SurveyTruck/SurveyTruck_east.png"]},
+        {"label": "Kelly drill rig (3 x 10)", "cells": [11, 4], "layers": ["veh:DrillRig/DrillRig_east.png", "veh:DrillRig/DrillRig_Mast_east.png", "veh:DrillRig/DrillRig_RotaryHead_east.png"]},
+        {"label": "Busbar generator set (2 x 6)", "cells": [7, 3], "layers": ["veh:GeneratorSet/GeneratorSet_east.png", "veh:GeneratorSet/GeneratorSet_Fan_east.png"]},
+        {"label": "Talus tipper truck (3 x 8)", "cells": [9, 4], "layers": ["veh:Tipper/Tipper_east.png", "veh:Tipper/Tipper_Body_east.png"]},
+        {"label": "Fathom seabed crawler (4 x 9)", "cells": [10, 5], "layers": ["veh:SeabedCrawler/SeabedCrawler_east.png"]}
+      ]
+    },
+    {
+      "name": "tanker-fitted",
+      "kind": "layers",
+      "pixelsPerCell": 48,
+      "columns": 1,
+      "items": [
+        {"label": "As built: a bare deck", "cells": [11, 4], "layers": ["veh:BulkTanker/BulkTanker_east.png"]},
+        {"label": "Liquid tank fitted, set up with its hose run out", "cells": [11, 4], "layers": ["veh:BulkTanker/BulkTanker_east.png", "veh:BulkTanker/BulkTanker_LiquidTank_east.png", "veh:BulkTanker/BulkTanker_HoseReel_east.png", "veh:BulkTanker/BulkTanker_HoseOut_east.png"]},
+        {"label": "Pressure vessel fitted (with Vanilla Gravship Expanded)", "cells": [11, 4], "layers": ["veh:BulkTanker/BulkTanker_east.png", "veh:BulkTanker/BulkTanker_PressureVessel_east.png"]}
+      ]
+    },
+    {
+      "name": "drill-rig-fitted",
+      "kind": "layers",
+      "pixelsPerCell": 48,
+      "columns": 1,
+      "items": [
+        {"label": "On the road: mast folded in its cradle", "cells": [11, 4], "layers": ["veh:DrillRig/DrillRig_east.png", "veh:DrillRig/DrillRig_Mast_east.png", "veh:DrillRig/DrillRig_RotaryHead_east.png"]},
+        {"label": "Set up, with the tall mast, power pack, diamond bit and work lights", "cells": [11, 4], "layers": ["veh:DrillRig/DrillRig_east.png", "veh:DrillRig/DrillRig_SetUp_east.png", "veh:DrillRig/DrillRig_MastTall_east.png", "veh:DrillRig/DrillRig_RotaryHead_east.png", "veh:DrillRig/DrillRig_PowerPack_east.png", "veh:DrillRig/DrillRig_DiamondBit_east.png", "veh:DrillRig/DrillRig_WorkLights_east.png"]}
+      ]
+    },
+    {
+      "name": "tipper-bodies",
+      "kind": "layers",
+      "pixelsPerCell": 40,
+      "columns": 3,
+      "items": [
+        {"label": "Standard body", "cells": [9, 4], "layers": ["veh:Tipper/Tipper_east.png", "veh:Tipper/Tipper_Body_east.png"]},
+        {"label": "Rock body", "cells": [9, 4], "layers": ["veh:Tipper/Tipper_east.png", "veh:Tipper/Tipper_RockBody_east.png"]},
+        {"label": "Bulk body", "cells": [9, 4], "layers": ["veh:Tipper/Tipper_east.png", "veh:Tipper/Tipper_BulkBody_east.png"]}
+      ]
+    },
+    {
+      "name": "survey-truck-fitted",
+      "kind": "layers",
+      "pixelsPerCell": 48,
+      "columns": 2,
+      "items": [
+        {"label": "Driving", "cells": [8, 4], "layers": ["veh:SurveyTruck/SurveyTruck_east.png"]},
+        {"label": "Set up, outriggers down", "note": "with the geophone array, powered array and work lights; in the game the boom then swings out to the clear side", "cells": [8, 4], "layers": ["veh:SurveyTruck/SurveyTruck_east.png", "veh:SurveyTruck/SurveyTruck_SetUp_east.png", "veh:SurveyTruck/SurveyTruck_Boom_east.png", "veh:SurveyTruck/SurveyTruck_Geophones_east.png", "veh:SurveyTruck/SurveyTruck_PoweredArray_east.png", "veh:SurveyTruck/SurveyTruck_WorkLights_east.png"]}
+      ]
+    },
+    {
+      "name": "generator-set-fitted",
+      "kind": "layers",
+      "pixelsPerCell": 56,
+      "columns": 2,
+      "items": [
+        {"label": "Driving, stock fan", "cells": [7, 3], "layers": ["veh:GeneratorSet/GeneratorSet_east.png", "veh:GeneratorSet/GeneratorSet_Fan_east.png"]},
+        {"label": "Set up, with every upgrade fitted", "cells": [7, 3], "layers": ["veh:GeneratorSet/GeneratorSet_east.png", "veh:GeneratorSet/GeneratorSet_SetUp_east.png", "veh:GeneratorSet/GeneratorSet_FanHeavy_east.png", "veh:GeneratorSet/GeneratorSet_BiggerGenerator_east.png", "veh:GeneratorSet/GeneratorSet_Battery_east.png", "veh:GeneratorSet/GeneratorSet_Reel_east.png", "veh:GeneratorSet/GeneratorSet_HeatExchanger_east.png"]}
+      ]
+    },
+    {
+      "name": "crawler-refits",
+      "kind": "layers",
+      "pixelsPerCell": 36,
+      "columns": 3,
+      "items": [
+        {"label": "Fathom F1, as built", "cells": [10, 5], "layers": ["veh:SeabedCrawler/SeabedCrawler_east.png"]},
+        {"label": "F1-S sensor refit", "note": "with bottoming wheels, listening array and sonar dome", "cells": [10, 5], "layers": ["veh:SeabedCrawler/SeabedCrawler_Sensor_east.png", "veh:SeabedCrawler/SeabedCrawler_BottomingWheels_east.png", "veh:SeabedCrawler/SeabedCrawler_Hydrophones_east.png", "veh:SeabedCrawler/SeabedCrawler_ActiveSonar_east.png"]},
+        {"label": "F1-L laboratory refit", "note": "the longer hull, with bottoming wheels", "cells": [10, 5], "layers": ["veh:SeabedCrawler/SeabedCrawler_Research_east.png", "veh:SeabedCrawler/SeabedCrawler_BottomingWheels_east.png"]}
+      ]
+    },
+    {
+      "name": "dashboard-lamps",
+      "kind": "icons",
+      "iconSize": 48,
+      "cardWidth": 112,
+      "columns": 7,
+      "items": [
+        {"label": "Check engine", "icon": "vs:Dash/CheckEngine.png", "tint": "#F0A830"},
+        {"label": "Battery and charging", "icon": "vs:Dash/Battery.png", "tint": "#F0A830"},
+        {"label": "Too weak to start", "icon": "vs:Dash/Starter.png", "tint": "#F0A830"},
+        {"label": "Frozen battery", "icon": "vs:Dash/Frost.png", "tint": "#F0A830"},
+        {"label": "Running hot", "icon": "vs:Dash/CoolantHot.png", "tint": "#F0A830"},
+        {"label": "Coolant", "icon": "vs:Dash/CoolantLevel.png", "tint": "#F0A830"},
+        {"label": "Fuel", "icon": "vs:Dash/Fuel.png", "tint": "#F0A830"},
+        {"label": "Oil level", "icon": "vs:Dash/OilLevel.png", "tint": "#F0A830"},
+        {"label": "Oil hot", "icon": "vs:Dash/OilHot.png", "tint": "#F0A830"},
+        {"label": "Oil pressure", "icon": "vs:Dash/OilPressure.png", "tint": "#F0A830"},
+        {"label": "Gearbox", "icon": "vs:Dash/Gearbox.png", "tint": "#F0A830"},
+        {"label": "Tyres or tracks", "icon": "vs:Dash/Tyre.png", "tint": "#F0A830"},
+        {"label": "Brakes", "icon": "vs:Dash/Brake.png", "tint": "#F0A830"},
+        {"label": "Cab too cold or hot", "icon": "vs:Dash/Cab.png", "tint": "#F0A830"}
+      ]
+    },
+    {
+      "name": "vehicle-buttons",
+      "kind": "icons",
+      "iconSize": 56,
+      "cardWidth": 120,
+      "columns": 6,
+      "items": [
+        {"label": "Service when possible", "icon": "vs:Service.png"},
+        {"label": "Patch leaks", "icon": "vs:FieldFix.png"},
+        {"label": "Jump-start", "icon": "vs:JumpStart.png"},
+        {"label": "Diagnose (dyno bay)", "icon": "vs:Diagnose.png"},
+        {"label": "Repair (in a caravan)", "icon": "vs:CaravanRepair.png"},
+        {"label": "Fittings and tunes", "icon": "vs:Fittings.png"},
+        {"label": "Headlights", "icon": "vs:Headlights.png"},
+        {"label": "Cab heater", "icon": "vs:CabHeater.png"},
+        {"label": "Air conditioner", "icon": "vs:AirConditioner.png"},
+        {"label": "Climate control", "icon": "vs:ClimateControl.png"},
+        {"label": "Night heater", "icon": "vs:NightHeater.png"},
+        {"label": "Assign vehicle (depot bay)", "icon": "vs:Stations/BayAssign.png"},
+        {"label": "Go to bay", "icon": "vs:Stations/BayGoTo.png"},
+        {"label": "Lift a vehicle", "icon": "vs:Sling/Lift.png"},
+        {"label": "Set the load down", "icon": "vs:Sling/SetDown.png"},
+        {"label": "Leave the load", "icon": "vs:Sling/Release.png"}
+      ]
+    },
+    {
+      "name": "vehicle-parts-and-kits",
+      "kind": "icons",
+      "iconSize": 64,
+      "cardWidth": 120,
+      "columns": 6,
+      "items": [
+        {"label": "Engine assembly", "icon": "parts:EngineAssembly.png"},
+        {"label": "Transmission", "icon": "parts:Transmission.png"},
+        {"label": "Turbine assembly", "icon": "parts:TurbineAssembly.png"},
+        {"label": "Drivetrain kit", "icon": "parts:DrivetrainKit.png"},
+        {"label": "Electrical kit", "icon": "parts:ElectricalKit.png"},
+        {"label": "Tyre set", "icon": "parts:TyreSet.png"},
+        {"label": "Brake pad set", "icon": "parts:BrakePadSet.png"},
+        {"label": "Engine service kit", "icon": "parts:EngineServiceKit.png"},
+        {"label": "Drive belt", "icon": "parts:DriveBelt.png"},
+        {"label": "Jump-start kit", "icon": "vs:Things/JumpStartKit.png"},
+        {"label": "Booster pack", "icon": "vs:Things/BoosterPack.png"},
+        {"label": "Sling set", "icon": "vs:Things/SlingSet.png"}
+      ]
+    },
+    {
+      "name": "vehicle-workshop",
+      "kind": "layers",
+      "pixelsPerCell": 64,
+      "columns": 4,
+      "items": [
+        {"label": "Vehicle parts bench", "cells": [3.5, 1.5], "layers": ["vs:Stations/PartsBench.png"]},
+        {"label": "Dyno bay", "cells": [2, 2], "layers": ["vs:Stations/TuningRig.png"]},
+        {"label": "Inspection pit", "cells": [3, 1], "layers": ["vs:Stations/InspectionPit.png"]},
+        {"label": "Depot bay", "cells": [2, 1], "layers": ["vs:Stations/DepotBay.png"]}
+      ]
+    },
+    {
+      "name": "fittings-and-tunes",
+      "kind": "icons",
+      "iconSize": 56,
+      "cardWidth": 120,
+      "columns": 6,
+      "items": [
+        {"label": "Uprated radiator", "icon": "vs:Fittings/UpratedRadiator.png"},
+        {"label": "Oil cooler", "icon": "vs:Fittings/OilCooler.png"},
+        {"label": "Turbocharger", "icon": "vs:Fittings/Turbocharger.png"},
+        {"label": "Heavy-duty alternator", "icon": "vs:Fittings/HeavyAlternator.png"},
+        {"label": "Deep-cycle battery", "icon": "vs:Fittings/DeepCycleBattery.png"},
+        {"label": "Heavy-duty springs", "icon": "vs:Fittings/HeavySprings.png"},
+        {"label": "Road tyres", "icon": "vs:Fittings/RoadTyres.png"},
+        {"label": "Block heater", "icon": "vs:Fittings/BlockHeater.png"},
+        {"label": "Cargo hook", "icon": "vs:Fittings/CargoHook.png"},
+        {"label": "Economy tune", "icon": "vs:Fittings/TuneEngineEconomy.png"},
+        {"label": "Stock tune", "icon": "vs:Fittings/TuneEngineStock.png"},
+        {"label": "Power tune", "icon": "vs:Fittings/TuneEnginePower.png"},
+        {"label": "Tall final drive", "icon": "vs:Fittings/TuneGearingLong.png"},
+        {"label": "Stock final drive", "icon": "vs:Fittings/TuneGearingStock.png"},
+        {"label": "Short final drive", "icon": "vs:Fittings/TuneGearingShort.png"},
+        {"label": "Salvaged grade", "icon": "vs:Fittings/GradeSalvaged.png"},
+        {"label": "Heavy-duty grade", "icon": "vs:Fittings/GradeHeavyDuty.png"}
+      ]
+    },
+    {
+      "name": "working-truck-buttons",
+      "kind": "icons",
+      "iconSize": 56,
+      "cardWidth": 120,
+      "columns": 6,
+      "items": [
+        {"label": "Set up", "icon": "vs:Tank/SetUp.png"},
+        {"label": "Pack up", "icon": "vs:Tank/PackUp.png"},
+        {"label": "Choose contents", "icon": "vs:Tank/Contents.png"},
+        {"label": "Compartment", "icon": "vs:Tank/Compartment.png"},
+        {"label": "Load", "icon": "vs:Tank/Load.png"},
+        {"label": "Unload", "icon": "vs:Tank/Unload.png"},
+        {"label": "Hold", "icon": "vs:Tank/Hold.png"},
+        {"label": "Bulk order", "icon": "vs:Tank/BulkOrder.png"},
+        {"label": "Tip", "icon": "vs:Stations/Tip.png"},
+        {"label": "Overdrive", "icon": "vs:Stations/Overdrive.png"},
+        {"label": "Long range", "icon": "vs:Stations/SurveyLongRange.png"},
+        {"label": "Power point", "icon": "vs:Stations/PowerPoint.png"},
+        {"label": "Cable end", "icon": "vs:Stations/CableEnd.png"}
+      ]
+    },
+    {
+      "name": "truck-upgrades",
+      "kind": "icons",
+      "iconSize": 56,
+      "cardWidth": 120,
+      "columns": 7,
+      "items": [
+        {"label": "Liquid tank", "icon": "veh:BulkTanker/Upgrades/LiquidTank.png"},
+        {"label": "Insulated liquid tank", "icon": "veh:BulkTanker/Upgrades/InsulatedLiquidTank.png"},
+        {"label": "High-volume liquid tank", "icon": "veh:BulkTanker/Upgrades/HighVolumeLiquidTank.png"},
+        {"label": "Pressure vessel", "icon": "veh:BulkTanker/Upgrades/PressureVessel.png"},
+        {"label": "Hose reel", "icon": "veh:BulkTanker/Upgrades/HoseReel.png"},
+        {"label": "Diamond core bit", "icon": "veh:DrillRig/Upgrades/DiamondBit.png"},
+        {"label": "RC hammer", "icon": "veh:DrillRig/Upgrades/RcHammer.png"},
+        {"label": "Tall mast", "icon": "veh:DrillRig/Upgrades/TallMast.png"},
+        {"label": "Electric power pack", "icon": "veh:DrillRig/Upgrades/ElectricPowerPack.png"},
+        {"label": "Deepchem head", "icon": "veh:DrillRig/Upgrades/DeepchemHead.png"},
+        {"label": "Oil well kit", "icon": "veh:DrillRig/Upgrades/WellDrillingKit.png"},
+        {"label": "Work lights", "icon": "veh:DrillRig/Upgrades/WorkLights.png"},
+        {"label": "Greedy boards", "icon": "veh:Tipper/Upgrades/HighSides.png"},
+        {"label": "Rock body", "icon": "veh:Tipper/Upgrades/RockBody.png"},
+        {"label": "Bulk body", "icon": "veh:Tipper/Upgrades/BulkBody.png"},
+        {"label": "Geophone array", "icon": "veh:SurveyTruck/Upgrades/GeophoneArray.png"},
+        {"label": "Radiometric probe", "icon": "veh:SurveyTruck/Upgrades/RadiometricProbe.png"},
+        {"label": "Long-range array", "icon": "veh:SurveyTruck/Upgrades/LongRangeArray.png"},
+        {"label": "Powered array", "icon": "veh:SurveyTruck/Upgrades/PoweredArray.png"},
+        {"label": "Large battery", "icon": "veh:SurveyTruck/Upgrades/SurveyBattery.png"},
+        {"label": "Groundwater (with Dubs Bad Hygiene)", "icon": "veh:SurveyTruck/Upgrades/Hydrogeology.png"},
+        {"label": "Uprated alternator", "icon": "veh:GeneratorSet/Upgrades/BiggerAlternator.png"},
+        {"label": "Cable reel", "icon": "veh:GeneratorSet/Upgrades/CableReel.png"},
+        {"label": "Battery buffer", "icon": "veh:GeneratorSet/Upgrades/BatteryBuffer.png"},
+        {"label": "Heavy-duty fan", "icon": "veh:GeneratorSet/Upgrades/HeavyFan.png"},
+        {"label": "Exhaust heat exchanger", "icon": "veh:GeneratorSet/Upgrades/HeatExchanger.png"}
+      ]
+    },
+    {
+      "name": "submarine-buttons-and-upgrades",
+      "kind": "icons",
+      "iconSize": 56,
+      "cardWidth": 120,
+      "columns": 7,
+      "items": [
+        {"label": "Dive", "icon": "vs:Dive.png"},
+        {"label": "Surface", "icon": "vs:Surface.png"},
+        {"label": "Settle on bottom", "icon": "vs:Settle.png"},
+        {"label": "Stay down", "icon": "vs:StayDown.png"},
+        {"label": "Sonar ping", "icon": "vs:SonarPing.png"},
+        {"label": "Bottoming wheels", "icon": "veh:SeabedCrawler/Upgrades/BottomingWheels.png"},
+        {"label": "Air scrubber", "icon": "veh:SeabedCrawler/Upgrades/Scrubber.png"},
+        {"label": "Listening array", "icon": "veh:SeabedCrawler/Upgrades/Hydrophones.png"},
+        {"label": "Sonar set", "icon": "veh:SeabedCrawler/Upgrades/Sonar.png"},
+        {"label": "Wet laboratory", "icon": "veh:SeabedCrawler/Upgrades/Laboratory.png"},
+        {"label": "Advanced laboratory", "icon": "veh:SeabedCrawler/Upgrades/AdvancedLaboratory.png"},
+        {"label": "Sensor refit", "icon": "veh:SeabedCrawler/Upgrades/SensorRefit.png"},
+        {"label": "Laboratory refit", "icon": "veh:SeabedCrawler/Upgrades/LaboratoryRefit.png"}
+      ]
+    },
+    {
+      "name": "medical-machines",
+      "kind": "icons",
+      "iconSize": 88,
+      "cardWidth": 136,
+      "columns": 5,
+      "items": [
+        {"label": "Oxygen concentrator", "icon": "med:Medical/Things/OxygenConcentrator.png"},
+        {"label": "Bedside oxygen stand", "icon": "med:Medical/Things/BedsideOxygenStand.png"},
+        {"label": "Oxygen cylinder trolley", "icon": "med:Medical/Things/OxygenTrolley.png"},
+        {"label": "Ventilator", "icon": "med:Medical/Things/Ventilator.png"},
+        {"label": "Nebuliser", "icon": "med:Medical/Things/Nebuliser.png"},
+        {"label": "Anaesthesia machine", "icon": "med:Medical/Things/AnaesthesiaMachine.png"},
+        {"label": "Steriliser", "icon": "med:Medical/Things/Steriliser.png"},
+        {"label": "Safety shower and eyewash", "icon": "med:Medical/Things/SafetyShower.png"},
+        {"label": "Smoke and carbon monoxide alarm", "icon": "med:Medical/Things/GasAlarm.png"},
+        {"label": "Burn unit bed", "icon": "med:Medical/Things/BurnUnitBed_south.png"},
+        {"label": "Hyperbaric chamber", "icon": "med:Medical/Things/HyperbaricChamber_south.png"},
+        {"label": "Oxygen electrolyser", "icon": "med:Medical/Things/Electrolyser.png"},
+        {"label": "Liquid oxygen store", "icon": "med:Medical/Things/LiquidOxygenStore.png"}
+      ]
+    },
+    {
+      "name": "medical-kits",
+      "kind": "icons",
+      "iconSize": 64,
+      "cardWidth": 124,
+      "columns": 7,
+      "items": [
+        {"label": "Field oxygen kit", "icon": "med:Medical/Things/FieldOxygenKit.png"},
+        {"label": "Manual resuscitator", "icon": "med:Medical/Things/ManualResuscitator.png"},
+        {"label": "Intubation kit", "icon": "med:Medical/Things/IntubationKit.png"},
+        {"label": "Needle decompression kit", "icon": "med:Medical/Things/DecompressionKit.png"},
+        {"label": "Fluids kit", "icon": "med:Medical/Things/FluidsKit.png"},
+        {"label": "Silver burn dressing", "icon": "med:Medical/Things/BurnDressing.png"},
+        {"label": "Bronchodilator vial", "icon": "med:Medical/Things/BronchodilatorVial.png"}
+      ]
+    },
+    {
+      "name": "triage-tags",
+      "kind": "icons",
+      "iconSize": 40,
+      "cardWidth": 120,
+      "columns": 6,
+      "items": [
+        {"label": "Immediate", "icon": [{"path": "med:Triage/UI/TriageTag.png", "tint": "#D23C32"}, {"path": "med:Triage/UI/TriageTagOutline.png", "tint": "#E6E1D3"}]},
+        {"label": "Urgent", "icon": [{"path": "med:Triage/UI/TriageTag.png", "tint": "#E8C832"}, {"path": "med:Triage/UI/TriageTagOutline.png", "tint": "#E6E1D3"}]},
+        {"label": "Delayed", "icon": [{"path": "med:Triage/UI/TriageTag.png", "tint": "#3CAA46"}, {"path": "med:Triage/UI/TriageTagOutline.png", "tint": "#E6E1D3"}]},
+        {"label": "Minor", "icon": [{"path": "med:Triage/UI/TriageTag.png", "tint": "#F0F0F0"}, {"path": "med:Triage/UI/TriageTagOutline.png", "tint": "#E6E1D3"}]},
+        {"label": "Expectant", "icon": [{"path": "med:Triage/UI/TriageTag.png", "tint": "#141414"}, {"path": "med:Triage/UI/TriageTagOutline.png", "tint": "#E6E1D3"}]},
+        {"label": "How far doctors may go", "icon": "med:Triage/UI/AuthorityIcon.png"}
+      ]
+    },
+    {
+      "name": "radiation-control",
+      "kind": "icons",
+      "iconSize": 56,
+      "cardWidth": 136,
+      "columns": 3,
+      "items": [
+        {"label": "Radiation control point", "icon": "rad:RadiationControlPoint.png"},
+        {"label": "Paint controlled area", "icon": "rad:RadiationAreaExpand.png"},
+        {"label": "Clear controlled area", "icon": "rad:RadiationAreaClear.png"}
+      ]
+    },
+    {
+      "name": "radio-kit",
+      "kind": "icons",
+      "iconSize": 72,
+      "cardWidth": 124,
+      "columns": 6,
+      "items": [
+        {"label": "Hand-held radio", "icon": "radio:Things/Handheld.png"},
+        {"label": "Radio base station", "icon": "radio:Things/BaseStation.png"},
+        {"label": "Whip antenna", "icon": "radio:Things/Whip.png"},
+        {"label": "Mast antenna", "icon": "radio:Things/Mast.png"},
+        {"label": "Coax feedline", "icon": "radio:UI/CoaxIcon.png"},
+        {"label": "Radio (signal bars)", "icon": "radio:UI/Signal.png"}
+      ]
+    },
+    {
+      "name": "patches-items",
+      "kind": "icons",
+      "iconSize": 64,
+      "cardWidth": 124,
+      "columns": 2,
+      "items": [
+        {"label": "Mk. 82 bomb case", "icon": "mods/PhobosPatches/Mods/HarrierVtol/Textures/Phobos/VehiclePatches/BombCaseMk82.png"},
+        {"label": "Mk. 84 bomb case", "icon": "mods/PhobosPatches/Mods/HarrierVtol/Textures/Phobos/VehiclePatches/BombCaseMk84.png"}
+      ]
+    }
+  ]
+}

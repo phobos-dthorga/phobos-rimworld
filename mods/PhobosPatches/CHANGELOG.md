@@ -6,6 +6,10 @@ says the owner tested it.
 
 ## [Unreleased]
 
+### Changed
+
+- The README no longer calls the bomb cases' picture a stand-in. Documentation only; nothing changes in play.
+
 ## [0.17.0] - 2026-11-12 - Draft
 
 Progress bars on Vehicle Framework's own vehicle work. **Not yet tested in game.**

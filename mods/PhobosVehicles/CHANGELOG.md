@@ -5,6 +5,10 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+### Changed
+
+- The README no longer calls the generator set's, drill rig's and tipper's pictures stand-ins or the Crawler's upgrade pictures still to come, and lists the generator set's heavy-duty fan among its upgrades. Documentation only; nothing changes in play.
+
 ## [0.44.0] - 2026-11-12 - Draft
 
 Damage you can see, and the survey truck's boom upgrades on the boom. **Not yet tested in game.**

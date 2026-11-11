@@ -12,8 +12,7 @@ the assemblies are not committed.
 - **Load order matters.** D'thorga Framework goes above every mod that needs it; Harmony, Core and the DLCs go above everything.
   Each About file asks for the right order, so RimSort and the game's own sorter get it right.
 - **Switch each mod on yourself.** The script copies mods into the game's `Mods` folder; it never edits your mod list.
-- **RimWorld 1.7 leads.** Each mod with code carries a 1.7 and a 1.6 assembly; the game loads the right one. The radio framework
-  still declares 1.6 only.
+- **RimWorld 1.7 only.** No mod supports 1.6 since 8 November 2026.
 
 ## From source (today)
 

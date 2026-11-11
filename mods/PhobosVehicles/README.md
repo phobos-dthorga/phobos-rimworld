@@ -140,13 +140,13 @@ would one day be the Talus T2, and a refit adds a letter.
 
 ## The Busbar generator set
 
-**Not yet tested in game. The pictures are stand-ins.** A small diesel-electric truck: its engine turns a generator, electric motors drive the back axle, and when it is parked it can feed your grid.
+**Not yet tested in game.** A small diesel-electric truck: its engine turns a generator, electric motors drive the back axle, and when it is parked it can feed your grid.
 
 - **Build it** from the **motor pool** tab of the Architect menu. It needs Machining and Electricity, and one engine assembly, drivetrain kit and electrical kit from the **vehicle parts bench** (D'thorga Framework).
 - **Press Set up.** A cable end appears beside the truck; wire things to it, or touch a conduit to it. The truck cannot move until you press **Pack up**.
 - **It gives 1,200 W at full health.** Fuel follows what the grid draws, from 1.5 chemfuel a day doing nothing to 9 a day flat out, or 9 a day whenever batteries on the grid have room. That is 60% of the game's chemfuel generator's economy: you are paying for being able to drive it away.
 - **It stops if** the tank runs dry, the engine or the traction generator is destroyed, or damage takes it under 240 W. Its inspect pane says which.
-- **Upgrades:** an uprated alternator (1,600 W), a cable reel (you pick where the cable end goes, up to 12 cells away), and a battery buffer that keeps the grid alive for a time when the engine cannot.
+- **Upgrades:** an uprated alternator (1,600 W), a cable reel (you pick where the cable end goes, up to 12 cells away), a battery buffer that keeps the grid alive for a time when the engine cannot, and a heavy-duty fan that cools a parked engine as well as driving does, for hard work in hot weather.
 - **New in 0.42.0 (not yet tested in game), an exhaust heat exchanger:** while the set makes power it warms the room its cable end stands in, up to 21 C, more as more power is drawn. **Put the cable end inside the room you want warm**; outdoors the heat is wasted. It costs 25 W of output.
 - **A vehicle of ours parked beside the cable end or a conduit on its grid counts as plugged in**, as with any grid. Vehicle Framework's own electric vehicles need a battery on the grid to charge.
 - **You can hear it running** (new in 0.31.0): while it is set up and its engine runs, it sounds like the game's chemfuel generator, from the truck, and falls quiet when it stops. D'thorga Framework's **D'thorga sounds volume** setting turns it down or off.
@@ -167,7 +167,7 @@ would one day be the Talus T2, and a refit adds a letter.
 
 ## The Kelly drill rig
 
-**Not yet tested in game. It looks like the bulk tanker until it has its own picture.** A heavy truck carrying a deep drill.
+**Not yet tested in game.** A heavy truck carrying a deep drill.
 
 - **Build it** from the **motor pool** tab, after Deep drilling research.
 - **It drills the cell behind its rear.** Reverse it up to a deposit a scanner has found and press **Set up**; a ring shows its reach. A colonist on **Mining** work then drills, with the game's portions and their Mining skill, and what comes up lands beside the hole.
@@ -181,7 +181,7 @@ would one day be the Talus T2, and a refit adds a letter.
 
 ## The Talus tipper truck
 
-**Not yet tested in game. It looks like the bulk tanker until it has its own picture.** A heavy truck that carries 2,400 kg and puts it all down in one go.
+**Not yet tested in game.** A heavy truck that carries 2,400 kg and puts it all down in one go.
 
 - **Build it** from the **motor pool** tab, after Machining and Electricity.
 - **Load it** through its ordinary cargo window: 96 granite chunks, or 4,800 steel.
@@ -214,7 +214,7 @@ would one day be the Talus T2, and a refit adds a letter.
 - **Sensor refit**, the F1-S (research Faired sensor sail, after Active sonar; one faired sensor sail): a smooth faired sail. The listening array hears 20 cells further and the sonar reaches 30 further, but it carries 200 less.
 - **Laboratory refit**, the F1-L (research Laboratory hull section, after Advanced marine science; one laboratory hull section; needs the advanced laboratory fitted): a longer hull. A third scientist's seat and faster research, but a little slower in the water.
 
-More upgrades are designed, including radar, and are not built yet. Pictures for the upgrades on the hull (wheels, listening strips, sonar dome) are still to come.
+More upgrades are designed, including radar, and are not built yet. The bottoming wheels, listening array and sonar dome show on the hull as they are fitted.
 
 ## The X-1 submarine test hull
 

@@ -195,7 +195,7 @@ don't stack, so on an automated machining bay each one took a whole hopper slot,
   Vanilla Furniture Expanded - Factory, which gives the bay a bill for each case by itself.
 - **No research of their own.** Each bomb keeps its own research.
 - The weight is the real case's, so the steel balances it. They can be smelted back to steel.
-- **The picture is a stand-in**, drawn by hand in code until generated art is picked.
+- **The picture** was made with generative AI and picked by the owner; the record beside it says how.
 - Only under Combat Extended: without it the cases don't exist.
 Without Combat Extended nothing here changes: the jet loads its bombs from steel. To rescale a bomb, change its numbers in
 `Mods/HarrierVtol/Patches/Bombs_HarrierVtol.xml`.

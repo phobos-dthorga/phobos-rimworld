@@ -202,6 +202,11 @@ delivered, record the delivery in the changelog or design record, and add or ame
 - Player guides live in each mod's README and `docs/`; contributor instructions, research, designs and
   records in `docs/development/`, each with its index. Add every new document to its index. Guides lead
   with player actions and match the implemented behaviour; dated records keep their original scope.
+- **The player guide (`docs/player-guide/`) is the players' front door** (owner's request, 12 Nov 2026): a chapter per mod or
+  area, saying what it does today, without version history, illustrated with the mods' own art. A change that alters what a
+  player builds, presses or sees updates its chapter in the same commit. Its figures are drawn from shipped textures by
+  `python scripts/art/guide_figures.py` (listed in `docs/player-guide/images/figures.json`); redraw them when a texture they use
+  changes. The gate checks their sources exist.
 - Charts and diagrams are GitHub's native Mermaid, in the Markdown itself. Never use Figma (owner rule):
   not for charts, diagrams or designs, and do not suggest or mention its connector.
 - Write plainly: answer first, short sentences, **bold** for must-dos, tables for comparisons, gotchas at

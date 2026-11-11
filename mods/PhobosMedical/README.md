@@ -541,8 +541,8 @@ burn dressings for burns; and an electrolyser and a liquid oxygen store to make 
 - **Oxygen canisters, and the field kits made from them, explode when they burn.** That is Vanilla Gravship Expanded's rule.
 - **Silver burn dressings are a medicine.** Doctors use them for any tend, like herbal or industrial medicine, under the medical care setting that allows them (normal medicine or better).
 - **Move patients out of the burning room.** A patient on oxygen still takes in the carbon monoxide around them.
-- **Some art is a placeholder:** the electrolyser, the hyperbaric chamber, the ventilator, the intubation kit, the safety shower, the alarm, the oxygen trolley, the nebuliser and its vials, the anaesthesia machine, the
-  needle decompression kit, the fluids kit and the steriliser, until generated art is picked. The rest is AI-generated art picked by the owner on 5 and 7 November 2026; only the burn unit bed has been seen in game. The records beside the textures say how each was made.
+- **Every piece has its own picture**, AI-generated and picked by the owner (5 and 7 November 2026, and the rest on 12 November
+  2026); only the burn unit bed has been seen in game. The records beside the textures say how each was made.
 
 ### What it does
 
@@ -642,7 +642,7 @@ While the blower runs, anyone in it with an open burn from fire, acid, chemicals
 Both buildings join Vanilla Gravship Expanded's oxygen pipes, alongside its own tanks and harvesters.
 
 - **Oxygen electrolyser:** splits water into oxygen and hydrogen. The oxygen goes into the pipe; the hydrogen is vented. **With Dubs Bad Hygiene it needs a water pipe** under it or against its side, about half a litre an hour; without water it stops, idles and says why. Without Dubs Bad Hygiene, water is assumed. It also drops to a low idle draw when the network's storage is full.
-- **Liquid oxygen store:** holds oxygen as a liquid, about four times as much as a gas tank of the same size. Its cooler keeps it cold; without power about 2% boils off each day. It can be drained into canisters like a tank. A badly damaged store bursts into a fireball. The frost on it while it works is not drawn yet.
+- **Liquid oxygen store:** holds oxygen as a liquid, about four times as much as a gas tank of the same size. Its cooler keeps it cold; without power about 2% boils off each day. It can be drained into canisters like a tank. A badly damaged store bursts into a fireball. Frost gathers on it while it works and melts away when it stops.
 
 ### Settings
 

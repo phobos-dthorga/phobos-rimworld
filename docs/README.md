@@ -5,6 +5,8 @@
 
 ## For players
 
+- **[The player guide](player-guide/README.md)**: start here. What each mod does, what to build first and what to press, with
+  pictures, a chapter per mod.
 - [Installing the mods](installing-mods.md): from source today, from the Workshop later, and what to back up first.
 - [The medical mods together](medical-mods.md): what happens when a colonist is hurt, and which mod does what.
 - [Help and troubleshooting](../SUPPORT.md): where the log is and what a useful report needs.
@@ -14,7 +16,7 @@
 - [Vehicle systems for modders](vehicle-systems-modding.md): give your Vehicle Framework vehicles their own batteries, coolant,
   air brakes or systems of your own, in XML, with D'thorga Framework.
 
-Each mod's README is its player guide, with the gotchas first. **Every mod is RimWorld 1.7 only from 8 November 2026.** As of 7 November 2026, when seven mods became two ([why](development/mod-consolidation.md)):
+Each mod's README holds every figure, setting and test, with the gotchas first. **Every mod is RimWorld 1.7 only from 8 November 2026.** As of 7 November 2026, when seven mods became two ([why](development/mod-consolidation.md)):
 
 | Mod | Version | What it does | Guide |
 | --- | --- | --- | --- |
