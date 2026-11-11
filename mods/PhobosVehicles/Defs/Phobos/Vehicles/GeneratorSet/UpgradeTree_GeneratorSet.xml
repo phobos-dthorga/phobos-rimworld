@@ -30,8 +30,9 @@
         </li>
       </upgrades>
       <ingredients>
-        <Steel>60</Steel>
-        <ComponentIndustrial>4</ComponentIndustrial>
+        <!-- Beside one alternator, which the vehicle's parts bill adds (Bill_GeneratorSet.xml). -->
+        <Steel>50</Steel>
+        <ComponentIndustrial>2</ComponentIndustrial>
       </ingredients>
       <graphicOverlays>
         <li>
@@ -106,8 +107,8 @@
         </li>
       </upgrades>
       <ingredients>
-        <Steel>20</Steel>
-        <ComponentIndustrial>10</ComponentIndustrial>
+        <!-- Beside two batteries, which the vehicle's parts bill adds (Bill_GeneratorSet.xml): the buffer's own electronics. -->
+        <ComponentIndustrial>6</ComponentIndustrial>
       </ingredients>
       <graphicOverlays>
         <li>

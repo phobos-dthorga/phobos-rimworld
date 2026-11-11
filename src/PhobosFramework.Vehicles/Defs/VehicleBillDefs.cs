@@ -51,7 +51,8 @@ public class PhobosVehicleBillDef : PhobosBillDef
             if (node == null) continue;    // a config error names it
             bill.shell ??= PartsBills.Copy(node.ingredients);
             bill.rows.Clear();
-            node.ingredients = PartsBills.Resolve(bill.shell, bill.parts, kilograms, tags, othersAllowed, bill.rows);
+            // An upgrade adds parts to a vehicle already built: ours is each part's own materials, not a kit for a whole vehicle.
+            node.ingredients = PartsBills.Resolve(bill.shell, bill.parts, kilograms, tags, othersAllowed, bill.rows, wholeBuild: false);
         }
     }
 

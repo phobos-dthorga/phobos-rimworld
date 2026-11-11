@@ -18,5 +18,21 @@
       <Radiator>1</Radiator>
       <Exhaust>1</Exhaust>
     </parts>
+    <!-- Upgrade nodes that fit a real part (D'thorga Vehicles 0.41.0): the node's own ingredients in its tree are what is left beside
+         the part. The other nodes are plate and fittings and stay as written. Node keys are only read here, never changed. -->
+    <nodes>
+      <li>
+        <key>BiggerAlternator</key>
+        <parts>
+          <Alternator>1</Alternator>
+        </parts>
+      </li>
+      <li>
+        <key>BatteryBuffer</key>
+        <parts>
+          <Battery>2</Battery>
+        </parts>
+      </li>
+    </nodes>
   </Phobos.VehicleSystems.PhobosVehicleBillDef>
 </Defs>

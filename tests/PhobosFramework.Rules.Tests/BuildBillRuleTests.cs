@@ -76,6 +76,26 @@ public class BuildBillRuleTests
         Assert.Equal(new[] { new BillLine("Suspension", 3) }, BuildBillRule.Fill(suspension, 3, 9000, true, out _));
     }
 
+    [Fact]
+    public void AnAdditionToABuiltThingTakesThePartsMaterialsNotTheWholeKit()
+    {
+        var battery = new BillOffer
+        {
+            OwnItem = "ElectricalKit", OwnCoversWholeBuild = true, OwnMaterials = new[] { new BillLine("Steel", 10), new BillLine("Component", 2) },
+            Substitutes = new[] { new BillSubstitute("CarBattery", 1) },
+        };
+        Assert.Equal(new[] { new BillLine("ElectricalKit", 1) }, BuildBillRule.Fill(battery, 2, 6000, false, out _));
+        Assert.Equal(new[] { new BillLine("Steel", 20), new BillLine("Component", 4) }, BuildBillRule.Fill(battery, 2, 6000, false, out _, wholeBuild: false));
+        Assert.Equal(new[] { new BillLine("CarBattery", 2) }, BuildBillRule.Fill(battery, 2, 6000, true, out _, wholeBuild: false));
+    }
+
+    [Fact]
+    public void AKitWithNoMaterialsIsStillTheKitForAnAddition()
+    {
+        var wiring = new BillOffer { OwnItem = "ElectricalKit", OwnCoversWholeBuild = true };
+        Assert.Equal(new[] { new BillLine("ElectricalKit", 1) }, BuildBillRule.Fill(wiring, 1, 6000, false, out _, wholeBuild: false));
+    }
+
     [Theory]
     [InlineData(3000, 1)]
     [InlineData(4000, 2)]

@@ -18,7 +18,7 @@ Parts bills: what a built thing is made of, by role. Asked for by the owner on 1
 - New roles for a build: fuel tank, suspension, wiring, exhaust and frame casting. Ours is steel (an exhaust is 40, as Vanilla Vehicles Expanded's is) and components, or one of our kits for the whole build; RimThunder's fuel tank and heavy casting and Vanilla Vehicles Expanded's fuel tank, suspension, wiring and exhaust are taken where installed.
 - **The depot bay is built from parts**: beside its 80 steel and 3 components it now asks for a fuel tank (RimThunder's or Vanilla Vehicles Expanded's where installed, else 30 steel and 1 component) and a fuel pump (12 steel and 2 components). It is the first placed building on a parts bill.
 - The dev action "Vehicle systems: run the self-test" reads every parts bill: each has a cost, its first item is unchanged, every role came to something, and working it out again gives the same cost.
-- For modders: Phobos.VehicleSystems.PhobosVehicleBillDef (a bill aimed at a vehicle's blueprint, with nodes by key).
+- For modders: Phobos.VehicleSystems.PhobosVehicleBillDef (a bill aimed at a vehicle's blueprint, with nodes by key). A node's parts are an addition to a vehicle already built, so ours is each part's materials and never a kit for a whole vehicle.
 - For modders: Phobos.Framework.Bills.PhobosRoleSupplyDef (what fills a role, with other mods' parts listed under MayRequire) and PhobosBillDef (a target, an optional size, and its parts written as the game writes a cost), both usable in XML alone; PartsBills.Resolve for code with more to fill; the game-free BuildBillRule. The design record parts-bills.md has an example for a placed building.
 
 ### Changed
@@ -33,6 +33,7 @@ Parts bills: what a built thing is made of, by role. Asked for by the owner on 1
 - A thing with no bill is never touched, and no other author's thing has one.
 - A frame already being built keeps what was delivered and then asks for the new list. Finish or cancel frames before installing a version that changes a bill.
 - Another mod that reads build costs in its own start-up code may read them before the bills are applied. None on the owner's list is known to.
+- An item made at a bench cannot take a bill: the game writes its recipe from its cost before the bills are applied.
 
 ## [0.94.2] - 2026-11-11 - Draft
 

@@ -97,7 +97,8 @@ Pump, HeatExchanger, Piping and Instruments, each filled from another mod's item
 tier) lets a small pump suit a small plant only.
 
 **Not covered, said plainly:** recipe ingredients (a recipe takes filters, a different shape; the rule could serve it later), floors
-and other terrain (a bill's target is a ThingDef), and anything like repairs for buildings.
+and other terrain (a bill's target is a ThingDef), and anything like repairs for buildings. **An item made at a bench cannot take a
+bill**: the game writes its recipe from its cost before the bills are applied, so the recipe would keep the shell cost.
 
 ## The roles (authored, held for the owner's review)
 
@@ -154,6 +155,23 @@ on the heavy ones, and the pump or compressor its job needs. All authored.
 steel, 16 components and about 36 car parts; GTek's L-ATV 410 steel, 60 plasteel, 12 components and about 26; the HUMVEE 550 steel, 6
 components and about 13. Ours had been 220 to 360 steel and three kits. The shells were raised to sit beside those by weight (survey
 truck 220 to 300, generator set 320 to 340, tanker 280 to 400, tipper 260 to 420, drill rig 360 to 560, crawler 350 to 480).
+
+## Upgrade-tree nodes
+
+All 31 nodes across the six trees were read. **Three are a real part that a role already covers**, and take it by role; the node's own
+ingredients in its tree are what is left beside the part. An upgrade adds to a vehicle already built, so ours is the part's own
+materials, never a kit for a whole vehicle. With none of the parts mods these three cost exactly what they did.
+
+| Vehicle | Node | Was | Now: its own ingredients, and the part |
+| --- | --- | --- | --- |
+| Generator set | Uprated alternator | 60 steel, 4 components | 50 steel, 2 components, and 1 alternator |
+| Generator set | Battery buffer | 20 steel, 10 components | 6 components, and 2 batteries |
+| Survey truck | Large battery | 120 steel, 8 components | 100 steel, 4 components, and 2 batteries |
+
+**Left as written, and why:** the tanker's tanks, compartments and hose reel, the tipper's bodies, the rig's mast, bits and lights and
+the survey truck's arrays and probe are plate, fittings and instruments nobody else makes; the rig's electric power pack has no part
+another mod ships; the seabed crawler's eight nodes already ask for our own made items (a sonar transducer, a scrubber rack). A node
+joins when a role with a real substitute fits it.
 
 ## Our own parts beside the other mods' (authored, held for the owner's review)
 

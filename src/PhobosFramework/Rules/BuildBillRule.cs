@@ -62,8 +62,10 @@ public static class BuildBillRule
     /// <summary>
     /// What <paramref name="count"/> of a role costs: the first substitute that suits <paramref name="size"/> when
     /// <paramref name="othersAllowed"/>, else ours. An offer with nothing of ours and no substitute that suits gives nothing.
+    /// With <paramref name="wholeBuild"/> false the parts are an addition to a thing already built (an upgrade): a kit of ours that
+    /// covers a whole build is not asked for when the role also has materials, and those are charged for each part.
     /// </summary>
-    public static List<BillLine> Fill(BillOffer offer, int count, double size, bool othersAllowed, out BillSource source)
+    public static List<BillLine> Fill(BillOffer offer, int count, double size, bool othersAllowed, out BillSource source, bool wholeBuild = true)
     {
         var lines = new List<BillLine>();
         source = BillSource.Ours;
@@ -78,8 +80,9 @@ public static class BuildBillRule
                 return lines;
             }
         }
-        int times = offer.OwnCoversWholeBuild ? 1 : count;
-        if (offer.OwnItem != null)
+        bool asMaterials = !wholeBuild && offer.OwnCoversWholeBuild && offer.OwnMaterials.Count > 0;
+        int times = offer.OwnCoversWholeBuild && !asMaterials ? 1 : count;
+        if (offer.OwnItem != null && !asMaterials)
         {
             if (offer.OwnItemCount > 0) lines.Add(new BillLine(offer.OwnItem, offer.OwnItemCount * times));
             return lines;

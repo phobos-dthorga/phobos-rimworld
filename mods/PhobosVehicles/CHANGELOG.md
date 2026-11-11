@@ -14,6 +14,7 @@ Every vehicle built from parts, by role (with D'thorga Framework 0.95.0). Asked 
 - **Every vehicle is built from parts**: the survey truck, generator set, tipper, drill rig and seabed crawler each list an engine, a fuel tank and the rest of their real layout (tyres by their axles, a suspension per axle, electrics and cooling, an exhaust, a frame casting on the heavy ones, the pump or compressor their job needs). Each is RimThunder's or Vanilla Vehicles Expanded's part where installed and suited to the vehicle's weight, and ours otherwise. Before, they asked only for our three kits.
 - **Hull steel raised to sit beside similar trucks**: survey truck 220 to 300, generator set 320 to 340, tanker 280 to 400, tipper 260 to 420, drill rig 360 to 560, seabed crawler 350 to 480. Every figure is authored and held for the owner's review; the design record parts-bills.md lists what each vehicle comes to.
 - The tanker also asks for an exhaust.
+- **Three upgrades take a real part**: the generator set's uprated alternator asks for an alternator, and its battery buffer and the survey truck's large battery for two batteries each, beside less steel and fewer components. With Vanilla Vehicles Expanded installed those are its car alternator and car batteries; with neither parts mod the three cost exactly what they did. The other 28 upgrades are plate, fittings and our own made items, and are unchanged.
 - **The bulk tanker's build cost is a parts bill.** It lists an engine, a transmission, a fuel tank, six tyres, three suspensions, an alternator, a battery, wiring and a radiator; each is RimThunder's or Vanilla Vehicles Expanded's part where that mod is installed and suits the tanker's 9 tonnes, and ours otherwise. With both mods the list is as before, but for the engine.
 - **The tanker's engine is the class its weight says.** With RimThunder it asked for a heavy engine; at 9 tonnes it now asks for a medium one, as a repair already did. With Vanilla Vehicles Expanded alone it still asks for two engine blocks.
 - With neither mod, a vehicle asks for our engine assembly (two on a truck, three on the drill rig), our transmission, one drivetrain kit and one electrical kit beside its hull.
@@ -22,7 +23,7 @@ Every vehicle built from parts, by role (with D'thorga Framework 0.95.0). Asked 
 
 ### Compatibility and limits
 
-- Finish or cancel any vehicle frame of ours before installing: a frame already being built keeps what was delivered and then asks for the new list.
+- Finish or cancel any vehicle frame of ours before installing: a frame already being built keeps what was delivered and then asks for the new list. The same goes for one of the three upgrades above if it is under way.
 - The four patch folders that swapped the tanker's cost are gone; D'thorga Framework 0.95.0 or later is needed.
 
 ## [0.40.1] - 2026-11-11 - Draft

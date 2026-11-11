@@ -71,10 +71,12 @@ public static class PartsBills
 
     /// <summary>
     /// A shell's cost with these parts filled in. The shell's lines keep their order. A kit of ours that covers a whole build is asked
-    /// for once, however many roles name it. <paramref name="rows"/>, when given, receives what each role came to.
+    /// for once, however many roles name it. <paramref name="rows"/>, when given, receives what each role came to. With
+    /// <paramref name="wholeBuild"/> false the parts are an addition to a thing already built (an upgrade), and such a kit gives way
+    /// to the part's own materials.
     /// </summary>
     public static List<ThingDefCountClass> Resolve(IReadOnlyList<ThingDefCountClass>? shell, IEnumerable<BillPart> parts, double size,
-        IReadOnlyCollection<string>? tags, bool othersAllowed, List<BillRow>? rows = null)
+        IReadOnlyCollection<string>? tags, bool othersAllowed, List<BillRow>? rows = null, bool wholeBuild = true)
     {
         var shellLines = new List<BillLine>();
         if (shell != null)
@@ -90,8 +92,9 @@ public static class PartsBills
         {
             PhobosRoleSupplyDef? supply = SupplyFor(part.role, tags);
             if (supply == null) continue;    // a config error names it
-            List<BillLine> lines = BuildBillRule.Fill(supply.Offer(size), part.count, size, othersAllowed, out BillSource source);
-            if (source == BillSource.Ours && supply.coversWholeBuild && supply.item != null)
+            List<BillLine> lines = BuildBillRule.Fill(supply.Offer(size), part.count, size, othersAllowed, out BillSource source, wholeBuild);
+            bool asKit = wholeBuild || supply.materials.Count == 0;
+            if (source == BillSource.Ours && asKit && supply.coversWholeBuild && supply.item != null)
             {
                 kitsAsked ??= new HashSet<ThingDef>();
                 if (!kitsAsked.Add(supply.item)) lines.Clear();

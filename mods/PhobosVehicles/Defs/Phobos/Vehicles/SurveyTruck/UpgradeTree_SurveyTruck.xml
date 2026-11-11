@@ -157,8 +157,9 @@
         </li>
       </upgrades>
       <ingredients>
-        <Steel>120</Steel>
-        <ComponentIndustrial>8</ComponentIndustrial>
+        <!-- Beside two batteries, which the vehicle's parts bill adds (Bill_SurveyTruck.xml). -->
+        <Steel>100</Steel>
+        <ComponentIndustrial>4</ComponentIndustrial>
       </ingredients>
     </li>
     <li>
