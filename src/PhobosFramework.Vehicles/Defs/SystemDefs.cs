@@ -48,6 +48,10 @@ public enum QuantityUnit
     Celsius,
     Fraction,
     Hours,
+    /// <summary>Degrees above (or below) something, such as a limit: shown as a temperature difference (Framework 0.92.1).</summary>
+    CelsiusOffset,
+    /// <summary>A switch that is 0 or 1: shown as off or on.</summary>
+    OnOff,
 }
 
 /// <summary>A range of a quantity with a name and what happens while the quantity is in it.</summary>
@@ -82,6 +86,9 @@ public class QuantitySpec
     /// <summary>The dashboard picture for this quantity's warnings: one white shape the dashboard tints. Without a picture the warning shows in words.</summary>
     public string? telltale;
     [MustTranslate] public string label = "";
+    /// <summary>What the Systems tab and a report call the reading, where its label only reads well in front of a stage ("turbine
+    /// temperature: over its continuous limit"); the label when empty (Framework 0.92.1).</summary>
+    [MustTranslate] public string? detailLabel;
     public QuantityUnit unit = QuantityUnit.Plain;
     public float min;
     public float max = 1f;

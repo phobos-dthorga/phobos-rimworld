@@ -467,6 +467,9 @@ public class CompPhobosVehicleSystems : VehicleComp
         bool active = train.IsAircraft ? Vehicle.Drafted || train.AircraftRunning : Vehicle.Spawned && Vehicle.vehiclePather != null && Vehicle.vehiclePather.Moving;
         if (!active && train.Cap >= 1f && train.Result.Rpm <= 0) return;
         using (PhobosTiming.Measure("vehicle sample")) train.Sample();
+        // The engine load the systems read follows the sample just taken, so it never lags a change of flight phase or gear by the
+        // seconds until the next full update (the inspect text showed "Load 50%" beside "Engine load 100%"; owner's screenshot, 11 Nov 2026).
+        if (train.Full && EngineRunning && !WorkTurningEngine) EngineLoad = Mathf.Min(1f, (float)train.Result.Load + AccessoryShare);
     }
 
     /// <summary>The engine sound that follows rpm and load, for a vehicle whose Def names one (derived, never saved).</summary>

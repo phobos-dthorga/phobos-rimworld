@@ -25,9 +25,9 @@
       <turbine>
         <idleSpeedPercent>60</idleSpeedPercent>
         <ratings>
-          <li><name>maxContinuous</name><share>1</share><speedPercent>91</speedPercent><temperatureLimit>800</temperatureLimit><thrustKilonewtons>64.3</thrustKilonewtons></li>
-          <li><name>shortLiftDry</name><share>1.34</share><speedPercent>103</speedPercent><temperatureLimit>900</temperatureLimit><minutes>2.5</minutes><thrustKilonewtons>86.3</thrustKilonewtons></li>
-          <li><name>wet</name><share>1.49</share><speedPercent>107</speedPercent><temperatureLimit>950</temperatureLimit><minutes>0.25</minutes><thrustKilonewtons>95.9</thrustKilonewtons><wet>true</wet></li>
+          <li><name>maxContinuous</name><label>maximum continuous</label><share>1</share><speedPercent>91</speedPercent><temperatureLimit>800</temperatureLimit><thrustKilonewtons>64.3</thrustKilonewtons></li>
+          <li><name>shortLiftDry</name><label>short lift, dry</label><share>1.34</share><speedPercent>103</speedPercent><temperatureLimit>900</temperatureLimit><minutes>2.5</minutes><thrustKilonewtons>86.3</thrustKilonewtons></li>
+          <li><name>wet</name><label>short lift, wet</label><share>1.49</share><speedPercent>107</speedPercent><temperatureLimit>950</temperatureLimit><minutes>0.25</minutes><thrustKilonewtons>95.9</thrustKilonewtons><wet>true</wet></li>
         </ratings>
         <waterInjection>
           <tankKilograms>227</tankKilograms>

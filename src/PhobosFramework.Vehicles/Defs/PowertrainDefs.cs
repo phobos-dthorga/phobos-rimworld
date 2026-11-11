@@ -13,6 +13,8 @@ namespace Phobos.VehicleSystems;
 public class TurbineRatingXml
 {
     public string name = "";
+    /// <summary>What the player reads for the rating ("maximum continuous"); the name in plain words when empty.</summary>
+    [MustTranslate] public string label = "";
     public float share = 1f;
     public float speedPercent = 100f;
     public float temperatureLimit = 775f;

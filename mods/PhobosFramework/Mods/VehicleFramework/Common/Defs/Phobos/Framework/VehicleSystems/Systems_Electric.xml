@@ -232,7 +232,7 @@
         <!-- Whether the pack heater runs: below 15 degrees C while switched on or charging. It draws on the pack (range). -->
         <name>packHeaterRunning</name>
         <label>battery heater</label>
-        <unit>Plain</unit>
+        <unit>OnOff</unit>
         <min>0</min>
         <max>1</max>
         <hidden>true</hidden>
@@ -271,7 +271,7 @@
         <!-- The cab's heater and air conditioner draw on the pack, not on an engine's waste heat. -->
         <name>cabHeaterDraw</name>
         <label>cab heater draw</label>
-        <unit>Plain</unit>
+        <unit>OnOff</unit>
         <min>0</min>
         <max>1</max>
         <hidden>true</hidden>
@@ -296,7 +296,7 @@
       <li>
         <name>climateControlDraw</name>
         <label>climate control draw</label>
-        <unit>Plain</unit>
+        <unit>OnOff</unit>
         <min>0</min>
         <max>1</max>
         <hidden>true</hidden>
@@ -321,7 +321,7 @@
       <li>
         <name>airConditionerDraw</name>
         <label>air conditioner draw</label>
-        <unit>Plain</unit>
+        <unit>OnOff</unit>
         <min>0</min>
         <max>1</max>
         <hidden>true</hidden>

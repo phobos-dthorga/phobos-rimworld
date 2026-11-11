@@ -7,6 +7,8 @@ namespace Phobos.Framework.Vehicles.Rules;
 public sealed class TurbineRating
 {
     public string Name = "";
+    /// <summary>What the player reads for the rating; presentation only.</summary>
+    public string Label = "";
     public double Share = 1;
     public double SpeedPercent = 100;
     public double TemperatureLimit = 775;

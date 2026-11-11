@@ -103,7 +103,13 @@ public static class InspectText
             line = "PhobosVehicleSystems_InspectRpm".Translate(r.Rpm.ToString("N0").Named("RPM")).Resolve();
         }
         if (spinning) line += " " + "PhobosVehicleSystems_InspectWheelsSpinning".Translate().Resolve();
-        if (mode == DisplayMode.Engineer)
+        if (mode == DisplayMode.Engineer && train.Turbine != null)
+        {
+            // A turbine's work is its demand against maximum continuous and the rating it runs at; the drivetrain's kilowatts are a piston
+            // engine's and read 0 here (owner's screenshot, 11 Nov 2026).
+            line += " " + "PhobosVehicleSystems_InspectTurbineLoad".Translate(((float)r.Load).ToStringPercent().Named("LOAD"), train.RatingLabel.Named("RATING")).Resolve();
+        }
+        else if (mode == DisplayMode.Engineer)
         {
             line += " " + "PhobosVehicleSystems_InspectPower".Translate(((float)r.Load).ToStringPercent().Named("LOAD"), r.EnginePowerKw.ToString("0").Named("ENGINE"),
                 r.FuelPowerKw.ToString("0").Named("FUEL"), r.HeatKw.ToString("0").Named("HEAT")).Resolve();
@@ -117,6 +123,8 @@ public static class InspectText
         QuantityUnit.Celsius => ((float)value).ToStringTemperature("F0"),
         QuantityUnit.Fraction => ((float)value).ToStringPercent(),
         QuantityUnit.Hours => "PhobosVehicleSystems_HoursValue".Translate(value.ToString("0").Named("HOURS")).Resolve(),
+        QuantityUnit.CelsiusOffset => ((float)value).ToStringTemperatureOffset("F0"),
+        QuantityUnit.OnOff => value >= 0.5 ? "PhobosVehicleSystems_ValueOn".Translate().Resolve() : "PhobosVehicleSystems_ValueOff".Translate().Resolve(),
         _ => value.ToString("0.##"),
     };
 }
@@ -145,6 +153,6 @@ public readonly struct GaugeReading
         {
             return new GaugeReading(quantity.remainingLabel!.CapitalizeFirst(), (float)(1 - share), InspectText.Format(quantity, max - (value - min)));
         }
-        return new GaugeReading(quantity.label.CapitalizeFirst(), (float)share, InspectText.Format(quantity, value));
+        return new GaugeReading((quantity.detailLabel.NullOrEmpty() ? quantity.label : quantity.detailLabel!).CapitalizeFirst(), (float)share, InspectText.Format(quantity, value));
     }
 }

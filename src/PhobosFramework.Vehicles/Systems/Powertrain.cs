@@ -197,11 +197,11 @@ public sealed class Powertrain
             if (r.wet && !includeWet) continue;
             spec.Ratings.Add(new TurbineRating
             {
-                Name = r.name, Share = r.share, SpeedPercent = r.speedPercent, TemperatureLimit = r.temperatureLimit, Minutes = r.minutes,
+                Name = r.name, Label = r.label.NullOrEmpty() ? GenText.SplitCamelCase(r.name).ToLowerInvariant() : r.label, Share = r.share, SpeedPercent = r.speedPercent, TemperatureLimit = r.temperatureLimit, Minutes = r.minutes,
                 ThrustKn = r.thrustKilonewtons, Wet = r.wet,
             });
         }
-        if (spec.Ratings.Count == 0) spec.Ratings.Add(new TurbineRating { Name = "maxContinuous" });
+        if (spec.Ratings.Count == 0) spec.Ratings.Add(new TurbineRating { Name = "maxContinuous", Label = "PhobosVehicleSystems_RatingMaxContinuous".Translate().Resolve() });
         return spec;
     }
 
@@ -256,6 +256,17 @@ public sealed class Powertrain
 
     /// <summary>Whether the engines run, for an aircraft: its phase says so.</summary>
     public bool AircraftRunning => PhaseSpec?.running ?? false;
+
+    /// <summary>The rating the turbine runs at now, in the player's words.</summary>
+    public string RatingLabel
+    {
+        get
+        {
+            string? name = TurbineNow.Rating;
+            TurbineRating? rating = Turbine?.Ratings.FirstOrDefault(r => r.Name == name) ?? dryTurbine?.Ratings.FirstOrDefault(r => r.Name == name);
+            return rating != null && !rating.Label.NullOrEmpty() ? rating.Label : name ?? "";
+        }
+    }
 
     public bool AircraftMoving => PhaseSpec != null && PhaseSpec.running && PhaseSpec.moving;
 

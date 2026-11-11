@@ -110,7 +110,10 @@ public class ITab_VehicleSystems : ITab
                     {
                         // The marks are read only when the graph is painted, as the graph itself is.
                         List<CurveMark>? marks = Event.current.type == EventType.Repaint ? VehicleEventText.Marks(comp, system.Def.defName, quantity.name, QuantityHistory.Hours) : null;
-                        PhobosWidgets.HistoryGraph(new Rect(0f, y, viewWidth, Graph), ring, quantity.min, quantity.max, ITab_VehicleDashboard.StageColour(stage), QuantityHistory.Hours, marks: marks);
+                        // A count that can run to a huge figure (hours since service, to 100,000) is scaled to what was recorded, or its
+                        // line lies flat on the floor (owner's screenshot, 11 Nov 2026).
+                        float top = quantity.unit is QuantityUnit.Hours or QuantityUnit.Plain ? (float)GraphScaleRule.Top(RingMax(ring), quantity.min, quantity.max, GraphFloorSpan) : quantity.max;
+                        PhobosWidgets.HistoryGraph(new Rect(0f, y, viewWidth, Graph), ring, quantity.min, top, ITab_VehicleDashboard.StageColour(stage), QuantityHistory.Hours, marks: marks);
                         y += Graph + 4f;
                     }
                     foreach (FlowSample sample in system.samples)
@@ -190,7 +193,7 @@ public class ITab_VehicleSystems : ITab
                     + (train.PhaseSpec != null && !train.PhaseSpec.label.NullOrEmpty() ? " " + "PhobosVehicleSystems_InspectPhase".Translate(train.PhaseSpec.label.Named("PHASE")).Resolve() : ""));
                 y += Row;
                 (int working, int engines) = train.Engines();
-                Widgets.Label(new Rect(0f, y, viewWidth, Row), "PhobosVehicleSystems_SysRating".Translate((t.Rating ?? "").Named("RATING")).Resolve() + ", "
+                Widgets.Label(new Rect(0f, y, viewWidth, Row), "PhobosVehicleSystems_SysRating".Translate(train.RatingLabel.Named("RATING")).Resolve() + ", "
                     + "PhobosVehicleSystems_SysEnginesWorking".Translate(working.Named("WORKING"), engines.Named("ENGINES")).Resolve());
                 y += Row;
                 if (engineer && train.BleedShare > 0)
@@ -220,6 +223,16 @@ public class ITab_VehicleSystems : ITab
 
     /// <summary>Whether a system has anything to show in this mode: a quantity that is not hidden, or a bound part. A system with
     /// neither (one switched off by a setting, such as fuel in the cold) is left out rather than shown as an empty heading.</summary>
+    /// <summary>The least span a scaled graph shows, so a reading near nothing is not blown up into noise (authored: a day of hours).</summary>
+    const float GraphFloorSpan = 24f;
+
+    static float RingMax(HistoryRing ring)
+    {
+        float max = float.MinValue;
+        for (int i = 0; i < ring.Count; i++) max = Mathf.Max(max, ring[i]);
+        return max;
+    }
+
     static bool HasRows(CompPhobosVehicleSystems comp, SystemState system, bool engineer)
     {
         for (int q = 0; q < system.values.Length; q++)

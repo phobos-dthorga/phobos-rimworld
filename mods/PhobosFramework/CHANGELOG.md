@@ -5,6 +5,24 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.92.1] - 2026-11-11 - Draft
+
+Faults in what an aircraft's readings say, from the owner's screenshots of the Harrier (11 November 2026). **Not yet tested in game.**
+
+### Fixed
+
+- **A turbine's Engineer line no longer says "engine 0 kW, fuel 0 kW, heat 0 kW".** Those figures are a piston drivetrain's. A turbine now says its load against maximum continuous and the rating it runs at.
+- **The two loads in the inspect text agree.** "Engine load" lagged a change of flight phase or gear by a few seconds, so it could read 100% beside "Load 50%". It now follows every sample.
+- **Ratings read in plain words**: "maximum continuous", "take-off", "short lift, dry", in place of the Defs' own names such as MaxContinuous. A rating another mod adds without a label is shown with its name split into words.
+- **The hover line says what it means**: "Lift for a hover: 85% of what it needs at this weight, cannot hover", in place of "Hover margin 85%: Cannot hover", which read as plenty to spare.
+- **The Systems tab's raw figures have names and units** (Engineer): the turbine against its continuous and its highest limit, in degrees over or under, in place of two lines both called "Turbine temperature" with a bare number; "Engines out 0" in place of "Engines 0"; and switches such as the night heater, the battery heater and the heater and cooler draws read "on" or "off", not 0 or 1.
+- **A graph of hours since a service is scaled to what was recorded**, with a day as its least span, in place of 0 to 100,000, where the line lay flat on the floor.
+
+### Compatibility and limits
+
+- The job line "Idle" under an aircraft that is on station is the game's own line for a vehicle with no order, not a reading of ours; and a turbine reads over its continuous limit for a short while after a take-off at full power, as it should.
+- For modders: a quantity's detailLabel and the units CelsiusOffset and OnOff; a turbine rating's label.
+
 ## [0.92.0] - 2026-11-11 - Draft
 
 Sling loads, slice 1: a helicopter lifts a vehicle and carries it (owner, 11 November 2026: an airlift of our own, with our own flavour). **Not yet tested in game.**

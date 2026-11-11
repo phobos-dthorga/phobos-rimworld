@@ -38,7 +38,8 @@
       <li>
         <name>turbineOverLimit</name>
         <label>turbine temperature</label>
-        <unit>Plain</unit>
+        <detailLabel>turbine against its continuous limit</detailLabel>
+        <unit>CelsiusOffset</unit>
         <min>-2000</min>
         <max>2000</max>
         <hidden>true</hidden>
@@ -62,7 +63,8 @@
       <li>
         <name>turbineOverTop</name>
         <label>turbine temperature</label>
-        <unit>Plain</unit>
+        <detailLabel>turbine against its highest limit</detailLabel>
+        <unit>CelsiusOffset</unit>
         <min>-2000</min>
         <max>2000</max>
         <hidden>true</hidden>
@@ -119,6 +121,7 @@
       <li>
         <name>enginesOut</name>
         <label>engines</label>
+        <detailLabel>engines out</detailLabel>
         <unit>Plain</unit>
         <min>0</min>
         <max>4</max>

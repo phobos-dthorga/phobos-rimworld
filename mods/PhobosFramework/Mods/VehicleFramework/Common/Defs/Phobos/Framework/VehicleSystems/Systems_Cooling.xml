@@ -248,7 +248,7 @@
              running, and the cab's own "night heater running" not above a half. -->
         <name>engineHeaterBurning</name>
         <label>night heater</label>
-        <unit>Plain</unit>
+        <unit>OnOff</unit>
         <min>0</min>
         <max>1</max>
         <hidden>true</hidden>

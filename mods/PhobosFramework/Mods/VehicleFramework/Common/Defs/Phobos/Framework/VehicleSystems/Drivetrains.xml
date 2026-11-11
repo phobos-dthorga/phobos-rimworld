@@ -116,8 +116,8 @@
       <turbine>
         <idleSpeedPercent>60</idleSpeedPercent>
         <ratings>
-          <li><name>maxContinuous</name><share>1</share><speedPercent>100</speedPercent><temperatureLimit>800</temperatureLimit></li>
-          <li><name>maxPower</name><share>1.1</share><speedPercent>103</speedPercent><temperatureLimit>840</temperatureLimit><minutes>10</minutes></li>
+          <li><name>maxContinuous</name><label>maximum continuous</label><share>1</share><speedPercent>100</speedPercent><temperatureLimit>800</temperatureLimit></li>
+          <li><name>maxPower</name><label>maximum power</label><share>1.1</share><speedPercent>103</speedPercent><temperatureLimit>840</temperatureLimit><minutes>10</minutes></li>
         </ratings>
       </turbine>
     </engine>
@@ -188,8 +188,8 @@
       <turbine>
         <idleSpeedPercent>60</idleSpeedPercent>
         <ratings>
-          <li><name>maxContinuous</name><share>1</share><speedPercent>100</speedPercent><temperatureLimit>780</temperatureLimit></li>
-          <li><name>takeoff</name><share>1.15</share><speedPercent>104</speedPercent><temperatureLimit>830</temperatureLimit><minutes>5</minutes></li>
+          <li><name>maxContinuous</name><label>maximum continuous</label><share>1</share><speedPercent>100</speedPercent><temperatureLimit>780</temperatureLimit></li>
+          <li><name>takeoff</name><label>take-off</label><share>1.15</share><speedPercent>104</speedPercent><temperatureLimit>830</temperatureLimit><minutes>5</minutes></li>
         </ratings>
       </turbine>
     </engine>
@@ -213,9 +213,9 @@
       <turbine>
         <idleSpeedPercent>60</idleSpeedPercent>
         <ratings>
-          <li><name>maxContinuous</name><share>1</share><speedPercent>100</speedPercent><temperatureLimit>775</temperatureLimit></li>
-          <li><name>takeoff</name><share>1.1</share><speedPercent>102</speedPercent><temperatureLimit>815</temperatureLimit><minutes>5</minutes></li>
-          <li><name>contingency</name><share>1.2</share><speedPercent>104</speedPercent><temperatureLimit>850</temperatureLimit><minutes>2.5</minutes></li>
+          <li><name>maxContinuous</name><label>maximum continuous</label><share>1</share><speedPercent>100</speedPercent><temperatureLimit>775</temperatureLimit></li>
+          <li><name>takeoff</name><label>take-off</label><share>1.1</share><speedPercent>102</speedPercent><temperatureLimit>815</temperatureLimit><minutes>5</minutes></li>
+          <li><name>contingency</name><label>contingency</label><share>1.2</share><speedPercent>104</speedPercent><temperatureLimit>850</temperatureLimit><minutes>2.5</minutes></li>
         </ratings>
       </turbine>
     </engine>
@@ -240,7 +240,7 @@
         <deratePerDegree>0</deratePerDegree>
         <liftToWeightAtMaxGross>1.4</liftToWeightAtMaxGross>
         <ratings>
-          <li><name>full</name><share>1</share><speedPercent>100</speedPercent><temperatureLimit>2000</temperatureLimit></li>
+          <li><name>full</name><label>full</label><share>1</share><speedPercent>100</speedPercent><temperatureLimit>2000</temperatureLimit></li>
         </ratings>
       </turbine>
     </engine>

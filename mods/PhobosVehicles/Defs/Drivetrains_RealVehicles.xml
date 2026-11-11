@@ -474,8 +474,8 @@
       <turbine>
         <idleSpeedPercent>60</idleSpeedPercent>
         <ratings>
-          <li><name>maxContinuous</name><share>1</share><speedPercent>100</speedPercent><temperatureLimit>800</temperatureLimit></li>
-          <li><name>maxPower</name><share>1.1</share><speedPercent>103</speedPercent><temperatureLimit>840</temperatureLimit><minutes>10</minutes></li>
+          <li><name>maxContinuous</name><label>maximum continuous</label><share>1</share><speedPercent>100</speedPercent><temperatureLimit>800</temperatureLimit></li>
+          <li><name>maxPower</name><label>maximum power</label><share>1.1</share><speedPercent>103</speedPercent><temperatureLimit>840</temperatureLimit><minutes>10</minutes></li>
         </ratings>
       </turbine>
     </engine>

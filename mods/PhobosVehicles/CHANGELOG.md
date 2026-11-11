@@ -5,6 +5,14 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.40.1] - 2026-11-11 - Draft
+
+Turbine ratings named in plain words (with D'thorga Framework 0.92.1). **Not yet tested in game.**
+
+### Fixed
+
+- The Harrier's and the real vehicles' turbine ratings carry labels a player can read: maximum continuous, take-off, maximum power, short lift dry and wet. The Systems tab and the inspect text showed the Defs' own names.
+
 ## [0.40.0] - 2026-11-11 - Draft
 
 The Cherokee can carry a vehicle on a sling (with D'thorga Framework 0.92.0), and the mod names every vehicle of ours. **Not yet tested in game.**

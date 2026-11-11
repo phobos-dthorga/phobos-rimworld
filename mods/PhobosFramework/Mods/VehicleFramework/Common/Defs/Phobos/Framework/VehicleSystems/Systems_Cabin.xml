@@ -84,7 +84,7 @@
         <!-- Whether the night heater runs now: switched on, at a night camp, with the setting on. Its fuel is below. -->
         <name>nightHeaterRunning</name>
         <label>night heater</label>
-        <unit>Plain</unit>
+        <unit>OnOff</unit>
         <min>0</min>
         <max>1</max>
         <hidden>true</hidden>
