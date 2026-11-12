@@ -605,4 +605,43 @@
   <PhobosVehicleSystems_GenHeatWarming>Exhaust heat: warming the room at the cable end.</PhobosVehicleSystems_GenHeatWarming>
   <PhobosVehicleSystems_GenHeatWarm>Exhaust heat: the room at the cable end is warm enough.</PhobosVehicleSystems_GenHeatWarm>
   <PhobosVehicleSystems_GenHeatOutdoors>Exhaust heat: wasted, the cable end is outdoors. Put it inside a room to warm it.</PhobosVehicleSystems_GenHeatOutdoors>
+  <!-- The generator set's service lead (Framework 0.101.0). -->
+  <PhobosVehicleSystems_LeadGizmo>Run the service lead</PhobosVehicleSystems_LeadGizmo>
+  <PhobosVehicleSystems_LeadGizmoTakeIn>Take in the service lead</PhobosVehicleSystems_LeadGizmoTakeIn>
+  <PhobosVehicleSystems_LeadGizmoDesc>Plug the heavy service lead into one of your vehicles within {CELLS} cells. While the set runs, the lead charges that vehicle's battery, and gives it a start at once if its battery is too flat to start. The lead takes its power before the camp's grid does.</PhobosVehicleSystems_LeadGizmoDesc>
+  <PhobosVehicleSystems_LeadNone>This set has no service lead.</PhobosVehicleSystems_LeadNone>
+  <PhobosVehicleSystems_LeadNotSetUp>{SOURCE} must be set up and running to power its service lead.</PhobosVehicleSystems_LeadNotSetUp>
+  <PhobosVehicleSystems_LeadNotRunning>{SOURCE} is not making power yet.</PhobosVehicleSystems_LeadNotRunning>
+  <PhobosVehicleSystems_LeadNotItself>The lead cannot charge the set itself.</PhobosVehicleSystems_LeadNotItself>
+  <PhobosVehicleSystems_LeadNotOurs>{VEHICLE} is not ours. Claim it first.</PhobosVehicleSystems_LeadNotOurs>
+  <PhobosVehicleSystems_LeadNotHere>{VEHICLE} is not here.</PhobosVehicleSystems_LeadNotHere>
+  <PhobosVehicleSystems_LeadNoBattery>{VEHICLE} has no battery the lead can charge.</PhobosVehicleSystems_LeadNoBattery>
+  <PhobosVehicleSystems_LeadTaken>{VEHICLE} is already on the lead from {SOURCE}.</PhobosVehicleSystems_LeadTaken>
+  <PhobosVehicleSystems_LeadMoving>{VEHICLE} is moving. Stop it first.</PhobosVehicleSystems_LeadMoving>
+  <PhobosVehicleSystems_LeadTooFar>{VEHICLE} is beyond the lead's reach of {CELLS} cells. Park it closer.</PhobosVehicleSystems_LeadTooFar>
+  <PhobosVehicleSystems_LeadRun>{SOURCE} has run its service lead to {VEHICLE}.</PhobosVehicleSystems_LeadRun>
+  <PhobosVehicleSystems_LeadTakenIn>{SOURCE} has taken in its service lead from {VEHICLE}.</PhobosVehicleSystems_LeadTakenIn>
+  <PhobosVehicleSystems_LeadOutOfReach>{VEHICLE} has gone out of reach.</PhobosVehicleSystems_LeadOutOfReach>
+  <PhobosVehicleSystems_LeadPackedUp>{SOURCE} has packed up.</PhobosVehicleSystems_LeadPackedUp>
+  <PhobosVehicleSystems_LeadStarted>The service lead from {SOURCE} has brought {VEHICLE}'s battery up enough to start. It keeps charging while the lead is in.</PhobosVehicleSystems_LeadStarted>
+  <PhobosVehicleSystems_LeadLine>Service lead to {VEHICLE}: charging, taking {WATTS} W.</PhobosVehicleSystems_LeadLine>
+  <PhobosVehicleSystems_LeadLineIdle>Service lead to {VEHICLE}: no power while the set is not running.</PhobosVehicleSystems_LeadLineIdle>
+  <!-- The tipper's loading grab (Framework 0.101.0). -->
+  <PhobosVehicleSystems_GrabGizmo>Work the grab</PhobosVehicleSystems_GrabGizmo>
+  <PhobosVehicleSystems_GrabGizmoStop>Stow the grab</PhobosVehicleSystems_GrabGizmoStop>
+  <PhobosVehicleSystems_GrabGizmoDesc>The driver works the crane behind the cab, lifting loose things lying within {CELLS} cells of the truck into the cargo, up to {LIFT} kg a lift. Things in a stockpile or on a shelf are left. It stops by itself when nothing is left in reach or the cargo is full. The truck cannot move or tip while the grab is out.</PhobosVehicleSystems_GrabGizmoDesc>
+  <PhobosVehicleSystems_GrabHeld>{VEHICLE} has its grab out. Stow it first.</PhobosVehicleSystems_GrabHeld>
+  <PhobosVehicleSystems_GrabNotOnMap>It can only work the grab on a map.</PhobosVehicleSystems_GrabNotOnMap>
+  <PhobosVehicleSystems_GrabStopFirst>{VEHICLE} is still moving. Stop it first.</PhobosVehicleSystems_GrabStopFirst>
+  <PhobosVehicleSystems_GrabNoDriver>{VEHICLE} needs a driver aboard to work the grab.</PhobosVehicleSystems_GrabNoDriver>
+  <PhobosVehicleSystems_GrabNoFuel>The engine has no fuel to work the grab.</PhobosVehicleSystems_GrabNoFuel>
+  <PhobosVehicleSystems_GrabControls>The grab will not move: the controls are wrecked.</PhobosVehicleSystems_GrabControls>
+  <PhobosVehicleSystems_GrabWhileTipping>{VEHICLE} is tipping. Let it finish first.</PhobosVehicleSystems_GrabWhileTipping>
+  <PhobosVehicleSystems_TipGrabOut>{VEHICLE} has its grab out. Stow it first.</PhobosVehicleSystems_TipGrabOut>
+  <PhobosVehicleSystems_GrabFull>The cargo is full.</PhobosVehicleSystems_GrabFull>
+  <PhobosVehicleSystems_GrabNothing>Nothing loose lies within the grab's reach.</PhobosVehicleSystems_GrabNothing>
+  <PhobosVehicleSystems_GrabStopped>The grab has stopped: the engine or the controls have failed.</PhobosVehicleSystems_GrabStopped>
+  <PhobosVehicleSystems_GrabStarted>{VEHICLE} has swung its grab out.</PhobosVehicleSystems_GrabStarted>
+  <PhobosVehicleSystems_GrabDone>{VEHICLE} lifted {COUNT} loads aboard, {MASS} kg.</PhobosVehicleSystems_GrabDone>
+  <PhobosVehicleSystems_GrabLine>Working the grab: {COUNT} loads aboard so far.</PhobosVehicleSystems_GrabLine>
 </LanguageData>

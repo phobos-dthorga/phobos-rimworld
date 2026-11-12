@@ -20,6 +20,7 @@ public static class GeneratorDefOf
     public static VehicleStatDef Phobos_RigStability = null!;
     public static VehicleStatDef Phobos_RigControl = null!;
     public static VehicleStatDef Phobos_HeatRecovery = null!;
+    public static VehicleStatDef Phobos_ServiceLeadReach = null!;
 
     static GeneratorDefOf() => DefOfHelper.EnsureInitializedInCtor(typeof(GeneratorDefOf));
 }
@@ -65,6 +66,8 @@ public class CompPhobosGeneratorSet : CompPhobosSetUp, IVehicleEngineDemand
 
     Building? cableEnd;
     float buffer;
+    /// <summary>The vehicle the service lead runs to (Framework 0.101.0), or null.</summary>
+    VehiclePawn? leadTo;
 
     // Derived on the rare tick, never saved.
     bool running;
@@ -72,6 +75,7 @@ public class CompPhobosGeneratorSet : CompPhobosSetUp, IVehicleEngineDemand
     float outputWatts;
     string? fault;
     HeatState heat;
+    float leadWatts;
 
     enum HeatState { None, Warming, WarmEnough, Outdoors }
     readonly SustainedSound runningLoop = new();
@@ -91,6 +95,7 @@ public class CompPhobosGeneratorSet : CompPhobosSetUp, IVehicleEngineDemand
         base.PostExposeData();
         Scribe_References.Look(ref cableEnd, "PhobosGeneratorCableEnd");
         Scribe_Values.Look(ref buffer, "PhobosGeneratorBuffer");
+        Scribe_References.Look(ref leadTo, "PhobosServiceLeadTo");
     }
 
     public override void PostSpawnSetup(bool respawningAfterLoad)
@@ -100,6 +105,7 @@ public class CompPhobosGeneratorSet : CompPhobosSetUp, IVehicleEngineDemand
         {
             if (deployed) ShowSetUp(true);
         });
+        if (leadTo != null) ServiceLeads.Note(leadTo, this);
     }
 
     public override void PostDeSpawn(Map map, DestroyMode mode = DestroyMode.Vanish)
@@ -113,6 +119,7 @@ public class CompPhobosGeneratorSet : CompPhobosSetUp, IVehicleEngineDemand
     {
         base.CompTickRare();
         if (deployed) UpdatePower();
+        if (leadTo != null) KeepLead();
     }
 
     // ---- Services the gizmos call ----
@@ -172,6 +179,7 @@ public class CompPhobosGeneratorSet : CompPhobosSetUp, IVehicleEngineDemand
 
     void ClearSetUp()
     {
+        if (leadTo != null) TakeInLead("PhobosVehicleSystems_LeadPackedUp".Translate(Vehicle.LabelShort.Named("SOURCE")).Resolve());
         deployed = false;
         running = false;
         load = 0f;
@@ -221,7 +229,11 @@ public class CompPhobosGeneratorSet : CompPhobosSetUp, IVehicleEngineDemand
             ReadNet(stub.PowerNet, stub, out float need, out bool batteriesHaveRoom);
             // Full-output fuel follows the watts on offer, so a bigger or a damaged generator keeps the same watts per chemfuel.
             float full = Props.fullFuelPerDay * offered / Props.baseWatts;
-            GeneratorStep step = GeneratorRule.Step(offered, need, batteriesHaveRoom, buffer, BufferCapacity, DaysPerRareTick, Props.idleFuelPerDay, full);
+            // A service lead takes its watts off the top; the camp's grid gets the rest (Framework 0.101.0).
+            LeadStep withLead = GeneratorRule.StepWithLead(offered, leadTo != null ? Rules.serviceLeadWatts : 0f, need, batteriesHaveRoom, buffer, BufferCapacity,
+                DaysPerRareTick, Props.idleFuelPerDay, full);
+            GeneratorStep step = withLead.Camp;
+            leadWatts = withLead.LeadWatts;
             stub.SetOutput(step.OutputWatts);
             buffer = step.Buffer;
             load = step.Load;
@@ -280,6 +292,91 @@ public class CompPhobosGeneratorSet : CompPhobosSetUp, IVehicleEngineDemand
 
     void Tell(string text, MessageTypeDef type) => Messages.Message(text, Vehicle, type, historical: false);
 
+    // ---- The service lead (Framework 0.101.0; docs/development/vehicle-upgrades-round-two.md) ----
+
+    static PhobosVehicleRulesDef Rules => PhobosVehicleRulesDef.Current<PhobosVehicleRulesDef>();
+
+    public int LeadReach => (int)Vehicle.GetStatValue(GeneratorDefOf.Phobos_ServiceLeadReach);
+    public VehiclePawn? LeadTo => leadTo;
+    /// <summary>Whether the lead is in and the set is giving it power now: what makes the vehicle at its end count as on shore power.</summary>
+    public bool LeadLive => leadTo != null && deployed && running && leadWatts > 0f;
+
+    /// <summary>Why the set cannot run its lead now, or null.</summary>
+    public string? LeadRefusal()
+    {
+        if (LeadReach <= 0) return "PhobosVehicleSystems_LeadNone".Translate().Resolve();
+        if (!deployed) return "PhobosVehicleSystems_LeadNotSetUp".Translate(Vehicle.LabelShort.Named("SOURCE")).Resolve();
+        if (!running) return fault ?? "PhobosVehicleSystems_LeadNotRunning".Translate(Vehicle.LabelShort.Named("SOURCE")).Resolve();
+        return null;
+    }
+
+    bool InReach(VehiclePawn target) => Vehicle.OccupiedRect().ExpandedBy(LeadReach).Overlaps(target.OccupiedRect());
+
+    /// <summary>Why the lead cannot run to this vehicle, or null.</summary>
+    public string? LeadRefusalFor(VehiclePawn target)
+    {
+        NamedArgument name = target.LabelShort.Named("VEHICLE");
+        if (target == Vehicle) return "PhobosVehicleSystems_LeadNotItself".Translate().Resolve();
+        if (target.Faction != Faction.OfPlayer) return "PhobosVehicleSystems_LeadNotOurs".Translate(name).Resolve();
+        if (!target.Spawned || target.Map != Vehicle.Map) return "PhobosVehicleSystems_LeadNotHere".Translate(name).Resolve();
+        if (target.GetComp<CompPhobosVehicleSystems>()?.HasLeadBattery() != true) return "PhobosVehicleSystems_LeadNoBattery".Translate(name).Resolve();
+        if (ServiceLeads.SourceFor(target) is { } other && other != this) return "PhobosVehicleSystems_LeadTaken".Translate(name, other.Vehicle.LabelShort.Named("SOURCE")).Resolve();
+        if (target.vehiclePather != null && target.vehiclePather.Moving) return "PhobosVehicleSystems_LeadMoving".Translate(name).Resolve();
+        if (!InReach(target)) return "PhobosVehicleSystems_LeadTooFar".Translate(name, LeadReach.Named("CELLS")).Resolve();
+        return null;
+    }
+
+    /// <summary>Plugs the lead into a vehicle; a start follows at once if its battery is too low to start.</summary>
+    public void RunLead(VehiclePawn target)
+    {
+        if ((LeadRefusal() ?? LeadRefusalFor(target)) is { } refused)
+        {
+            Tell(refused, MessageTypeDefOf.RejectInput);
+            return;
+        }
+        if (leadTo != null && leadTo != target) TakeInLead(null);
+        leadTo = target;
+        ServiceLeads.Note(target, this);
+        VehicleWorkSounds.Play(Vehicle, "SetUp");
+        Messages.Message("PhobosVehicleSystems_LeadRun".Translate(Vehicle.LabelShort.Named("SOURCE"), target.LabelShort.Named("VEHICLE")),
+            new LookTargets(Vehicle, target), MessageTypeDefOf.TaskCompletion, historical: false);
+        UpdatePower();
+        KeepLead();
+    }
+
+    /// <summary>Takes the lead in, adding why when <paramref name="why"/> is given (the player's own order needs no reason).</summary>
+    public void TakeInLead(string? why)
+    {
+        VehiclePawn? target = leadTo;
+        leadTo = null;
+        leadWatts = 0f;
+        if (target == null) return;
+        ServiceLeads.Forget(target, this);
+        string line = "PhobosVehicleSystems_LeadTakenIn".Translate(Vehicle.LabelShort.Named("SOURCE"), target.LabelShort.Named("VEHICLE")).Resolve();
+        Messages.Message(why == null ? line : line + " " + why, new LookTargets(Vehicle, target),
+            why == null ? MessageTypeDefOf.SilentInput : MessageTypeDefOf.CautionInput, historical: false);
+    }
+
+    /// <summary>On the rare tick: the lead comes out if its vehicle has gone or moved off, and gives a start when that vehicle needs one.</summary>
+    void KeepLead()
+    {
+        if (leadTo == null) return;
+        if (leadTo.Destroyed || !leadTo.Spawned || leadTo.Map != Vehicle.Map || LeadReach <= 0 || !InReach(leadTo))
+        {
+            TakeInLead("PhobosVehicleSystems_LeadOutOfReach".Translate(leadTo.LabelShort.Named("VEHICLE")).Resolve());
+            return;
+        }
+        if (!LeadLive) return;
+        CompPhobosVehicleSystems? systems = leadTo.GetComp<CompPhobosVehicleSystems>();
+        if (systems?.JumpStartNeed() != null) systems.ReceiveLeadStart(Vehicle);
+    }
+
+    public override void PostDrawExtraSelectionOverlays()
+    {
+        base.PostDrawExtraSelectionOverlays();
+        if (leadTo is { Spawned: true } target && Vehicle.Spawned) GenDraw.DrawLineBetween(((Thing)Vehicle).DrawPos, ((Thing)target).DrawPos, SimpleColor.Orange);
+    }
+
     public override string? CompInspectStringExtra()
     {
         if (!deployed) return null;
@@ -289,6 +386,12 @@ public class CompPhobosGeneratorSet : CompPhobosSetUp, IVehicleEngineDemand
         if (heat == HeatState.Warming) lines.Add("PhobosVehicleSystems_GenHeatWarming".Translate().Resolve());
         else if (heat == HeatState.WarmEnough) lines.Add("PhobosVehicleSystems_GenHeatWarm".Translate().Resolve());
         else if (heat == HeatState.Outdoors) lines.Add("PhobosVehicleSystems_GenHeatOutdoors".Translate().Resolve());
+        if (leadTo != null)
+        {
+            lines.Add(LeadLive
+                ? "PhobosVehicleSystems_LeadLine".Translate(leadTo.LabelShort.Named("VEHICLE"), leadWatts.ToString("N0").Named("WATTS")).Resolve()
+                : "PhobosVehicleSystems_LeadLineIdle".Translate(leadTo.LabelShort.Named("VEHICLE")).Resolve());
+        }
         if (BufferCapacity > 0f) lines.Add("PhobosVehicleSystems_GenBufferLine".Translate(buffer.ToString("N0").Named("CHARGE"), BufferCapacity.ToString("N0").Named("CAPACITY")).Resolve());
         return string.Join("\n", lines);
     }
@@ -298,5 +401,6 @@ public class CompPhobosGeneratorSet : CompPhobosSetUp, IVehicleEngineDemand
         foreach (Gizmo gizmo in base.CompGetGizmosExtra()) yield return gizmo;
         if (Vehicle.Faction != Faction.OfPlayer) yield break;
         yield return GeneratorGizmos.SetUpButton(this);
+        if (LeadReach > 0 || leadTo != null) yield return GeneratorGizmos.LeadButton(this);
     }
 }

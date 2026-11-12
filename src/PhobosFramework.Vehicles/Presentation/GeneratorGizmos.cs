@@ -29,6 +29,34 @@ public static class GeneratorGizmos
         return command;
     }
 
+    /// <summary>The service lead (Framework 0.101.0): run it to one of our vehicles in reach, or take it in. Disabled with the reason.</summary>
+    public static Gizmo LeadButton(CompPhobosGeneratorSet set)
+    {
+        bool connected = set.LeadTo != null;
+        var command = new Command_Action
+        {
+            defaultLabel = connected ? "PhobosVehicleSystems_LeadGizmoTakeIn".Translate().Resolve() : "PhobosVehicleSystems_LeadGizmo".Translate().Resolve(),
+            defaultDesc = "PhobosVehicleSystems_LeadGizmoDesc".Translate(set.LeadReach.Named("CELLS")).Resolve(),
+            icon = SystemIcons.For("Phobos/VehicleSystems/ServiceLead"),
+            action = () =>
+            {
+                if (connected)
+                {
+                    set.TakeInLead(null);
+                    return;
+                }
+                var parameters = new TargetingParameters { canTargetPawns = true, canTargetBuildings = false, canTargetItems = false, validator = t => t.Thing is Vehicles.VehiclePawn };
+                Find.Targeter.BeginTargeting(parameters, target =>
+                {
+                    if (target.Thing is Vehicles.VehiclePawn vehicle) set.RunLead(vehicle);
+                });
+            },
+        };
+        string? refused = connected ? null : set.LeadRefusal();
+        if (refused != null) command.Disable(refused);
+        return command;
+    }
+
     /// <summary>With a cable reel the player picks where the cable end goes; the cells it reaches are outlined.</summary>
     static void ChooseCell(CompPhobosGeneratorSet set)
     {

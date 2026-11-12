@@ -15,3 +15,20 @@ public static class TipRule
         return whole;
     }
 }
+
+/// <summary>The tipper's loading grab (Framework 0.101.0; docs/development/vehicle-upgrades-round-two.md): how much of a stack one lift takes.</summary>
+public static class GrabRule
+{
+    /// <summary>
+    /// How many of a stack one lift takes: the whole stack, or as many as the lift's rated load and the room left aboard allow, whichever is
+    /// fewest. Nothing when a single one is too heavy for the lift or the room. A massless thing takes the whole stack.
+    /// </summary>
+    public static int CountForLift(int stackCount, double unitKilograms, double liftKilograms, double freeKilograms)
+    {
+        if (stackCount <= 0) return 0;
+        if (unitKilograms <= 0) return stackCount;
+        double limit = System.Math.Min(liftKilograms, freeKilograms);
+        if (limit <= 0) return 0;
+        return (int)System.Math.Min(stackCount, System.Math.Floor(limit / unitKilograms + 1e-9));
+    }
+}

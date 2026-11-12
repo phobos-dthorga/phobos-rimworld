@@ -703,6 +703,13 @@ public class PhobosVehicleRulesDef : PhobosRulesDef
     public float hitchReachCells = 8f;
     public float hitchUpWork = 900f;
     public float hitchGapCells = 0.3f;
+    /// <summary>The generator set's service lead (Framework 0.101.0, authored): the watts it takes off the top of the set's output, a heavy
+    /// battery charger and its losses.</summary>
+    public float serviceLeadWatts = 300f;
+    /// <summary>The tipper's loading grab (Framework 0.101.0, authored): its reach from the truck's edge in cells, and the game seconds one
+    /// lift takes. What one lift carries is the vehicle's stat Phobos_GrabLift, set by the grab's node.</summary>
+    public float grabReachCells = 4f;
+    public float grabSecondsPerLift = 20f;
     /// <summary>Claiming another faction's vehicle (owner, 11 Nov 2026): hours to get in and make it answer to us, more for each cell it covers,
     /// and the most it can take. All authored.</summary>
     public float claimBaseHours = 0.5f;

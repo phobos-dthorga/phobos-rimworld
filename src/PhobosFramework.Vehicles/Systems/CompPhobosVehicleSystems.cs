@@ -1276,6 +1276,12 @@ public class CompPhobosVehicleSystems : VehicleComp
         shorePowered = false;
         VehiclePawn vehicle = Vehicle;
         if (!vehicle.Spawned || Moving) return false;
+        // A generator set's service lead is a charger on this vehicle (Framework 0.101.0).
+        if (ServiceLeads.Feeding(vehicle))
+        {
+            shorePowered = true;
+            return true;
+        }
         Map map = vehicle.Map;
         foreach (IntVec3 cell in vehicle.OccupiedRect().ExpandedBy(Rules.shorePowerReach))
         {
@@ -1649,10 +1655,7 @@ public class CompPhobosVehicleSystems : VehicleComp
         if (donor != null && !donor.CanDonate(need.Def)) return false;
         if (charges != null && !charges.TryUse()) return false;
         SystemState? donorState = donor?.states!.First(s => s.Def == need.Def);
-        int index = JumpQuantity(need);
-        double missing = spec.raiseTo - need.values[index];
-        need.values[index] = SystemIntegrator.Clamp(spec.raiseTo, need.min[index], need.max[index]);
-        need.Def.Worker.UpdateDerived(new SystemContext(this, need));
+        double missing = RaiseForStart(need, spec);
         if (donor != null && donorState != null)
         {
             double capacity = new SystemContext(this, need).Parameter(spec.capacityParameter);
@@ -1660,10 +1663,7 @@ public class CompPhobosVehicleSystems : VehicleComp
             if (!donor.EngineRunning && donorCapacity > 0) donor.AddToQuantity(spec.quantity, -(float)(missing * capacity / donorCapacity));
             donor.EvaluateStages(donorState, 0f);
         }
-        EvaluateStages(need, 0f);
-        RecordEvent(VehicleEventKind.JumpStart, need.Def.defName);
-        RecacheStatFactors();
-        MoveRefusal = FirstRefusal(draft: false);
+        AfterStart(need);
         if (Vehicle.Faction == Faction.OfPlayer)
         {
             NamedArgument vehicle = Vehicle.LabelShort.Named("VEHICLE");
@@ -1675,6 +1675,51 @@ public class CompPhobosVehicleSystems : VehicleComp
                     : "PhobosVehicleSystems_JumpStartedBooster".Translate(who, vehicle), Vehicle, MessageTypeDefOf.TaskCompletion);
         }
         return true;
+    }
+
+    /// <summary>
+    /// A start from a generator set's service lead (Framework 0.101.0): the set is the charger, so no donor loses charge and no kit or pack is
+    /// spent. The same raise as any jump-start. False when nothing needs a start.
+    /// </summary>
+    public bool ReceiveLeadStart(VehiclePawn source)
+    {
+        SystemState? need = JumpStartNeed();
+        JumpStartSpec? spec = need?.Def.jumpStart;
+        if (need == null || spec == null) return false;
+        RaiseForStart(need, spec);
+        AfterStart(need);
+        if (Vehicle.Faction == Faction.OfPlayer)
+        {
+            Messages.Message("PhobosVehicleSystems_LeadStarted".Translate(source.LabelShort.Named("SOURCE"), Vehicle.LabelShort.Named("VEHICLE")),
+                new LookTargets(Vehicle, source), MessageTypeDefOf.TaskCompletion);
+        }
+        return true;
+    }
+
+    /// <summary>Raises the quantity to the jump-start level; returns how much it was short, for a donor's loss.</summary>
+    double RaiseForStart(SystemState need, JumpStartSpec spec)
+    {
+        int index = JumpQuantity(need);
+        double missing = spec.raiseTo - need.values[index];
+        need.values[index] = SystemIntegrator.Clamp(spec.raiseTo, need.min[index], need.max[index]);
+        need.Def.Worker.UpdateDerived(new SystemContext(this, need));
+        return missing;
+    }
+
+    void AfterStart(SystemState need)
+    {
+        EvaluateStages(need, 0f);
+        RecordEvent(VehicleEventKind.JumpStart, need.Def.defName);
+        RecacheStatFactors();
+        MoveRefusal = FirstRefusal(draft: false);
+    }
+
+    /// <summary>Whether this vehicle has a battery a service lead can charge: any system with a jump-start quantity.</summary>
+    public bool HasLeadBattery()
+    {
+        if (!Usable) return false;
+        UpdateNow();
+        return states?.Any(s => JumpQuantity(s) >= 0 && Enabled(s)) == true;
     }
 
     // ---- Sweep ----

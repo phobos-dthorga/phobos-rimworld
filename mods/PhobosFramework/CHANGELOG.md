@@ -23,6 +23,10 @@ The hitch: a vehicle tows a trailer on the map, and the trailer's weight reaches
 - **A drop's damage** (authored): nothing from 2 m or less, rising to every part ruined from 40 m; a release in cruise falls 30 m, a load in a crash 15 m. Every part keeps a sliver of health, so a fall never destroys the vehicle outright. People riding in it are hurt.
 - **The hook latch sound**, when a colonist hooks a load up (or the helicopter takes it itself): made on the processor at the owner's word, and the **agent's provisional pick, for the owner to confirm**.
 - The sling's **Emergency release** button uses its picture picked by the owner on 11 November 2026.
+- **The generator set's service lead** (owner, 12 Nov 2026: a batch 3 signature; docs/development/vehicle-upgrades-round-two.md). With the lead fitted (D'thorga Vehicles) and the set set up and running, **Run the service lead** plugs it into one of your vehicles within 6 cells. It charges that vehicle's battery through the same shore-power charging as a grid, and gives it a start at once if its battery is too flat to start, with no donor, kit or booster pack. It takes 300 W before the camp's grid does, so the camp gets less and the set works harder. It comes out by itself, with a message, if the set packs up or either vehicle moves off.
+- **The tipper's loading grab** (owner, 12 Nov 2026: a batch 3 signature). With the grab fitted (D'thorga Vehicles), a driver aboard and the truck stopped, **Work the grab** lifts loose things lying within 4 cells into the cargo through Vehicle Framework's own cargo call: a lift every 20 game seconds, up to 500 kg each, paced by the hydraulic fluid. Things in a stockpile or on a shelf, forbidden things, corpses and packed buildings are left. It stops by itself when nothing is left in reach or the cargo is full, and says how much came aboard. The truck cannot tip while the grab is out. The reach shows as a blue outline while the tipper is selected.
+- Both buttons have pictures of their own, drawn in code (assets/phobos-vehicles/draw_signature_icons.py), which also serve as their upgrades' pictures.
+- For modders: the stats Phobos_ServiceLeadReach and Phobos_GrabLift, GeneratorRule.StepWithLead and GrabRule.CountForLift (game-free, with tests), CompPhobosVehicleSystems.ReceiveLeadStart, and the rules figures serviceLeadWatts, grabReachCells and grabSecondsPerLift.
 
 ### Changed
 
@@ -37,11 +41,13 @@ The hitch: a vehicle tows a trailer on the map, and the trailer's weight reaches
 - Loading cargo onto a trailer is not stopped while it is hitched.
 - Other factions' vehicles can carry a hitch, but no raid brings a trailer yet. A trailer whose vehicle is destroyed stays where it stood.
 - Sling: there is no stand-in of our own that hovers over the load or takes orders in mid-air, by the agent's choice (the design record says why): Leave the load before take-off, the set-down choice on landing and Emergency release on the world map stand in for it. The load still slides in under the helicopter during take-off.
+- The service lead and the loading grab have no picture on the truck's body: the lead is drawn as a line while the set is selected, and no crane picture exists for the tipper yet.
 - Sling: release is on the world map only. A wreck lands on the nearest tile with no other place on it. Whether a vehicle caravan (rather than one on foot) can reach a wreck is untested.
 
 ### Save compatibility
 
 - Safe to update mid-game. A hitch saves its trailer and the trailer's heading; nothing else.
+- A generator set saves which vehicle its service lead runs to; a tipper saves whether its grab is out and what it has lifted.
 - A sling saves whether its helicopter is coming down in a crash. A wreck is a world place that saves its vehicle; **removing the mod while a wreck lies on the world map loses that vehicle**: recover it first.
 
 ## [0.100.0] - 2026-11-12 - Draft

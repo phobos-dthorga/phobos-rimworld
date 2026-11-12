@@ -122,6 +122,82 @@ in that record.
 
 One version and one test list per batch, as the owner prefers.
 
+## Batch 3: the signatures in detail (12 Nov 2026)
+
+The owner chose all four signatures on 12 Nov 2026, in one version with the hitch and sling slice 2 (Framework 0.101.0, Vehicles
+0.45.0). Each is designed here before it is built. Facts marked "from the code" were read that day with `scripts/query-code.py`;
+every figure is authored unless a source is named. **Not yet tested in game.**
+
+### The generator set's service lead
+
+**Built** in D'thorga Framework 0.101.0 and D'thorga Vehicles 0.45.0 (12 Nov 2026), as below; **not yet tested in game**. Agent
+choices made while building: the button shows only once the lead is fitted (a set without it has nothing to offer); the node key is
+`PhobosServiceLead`, Phobos-prefixed although the tree's older keys are not; the lead is drawn as a line while the set is selected.
+
+**From the code, what a flat battery does today:** each electrical system keeps a `charge` quantity. Below its jump-start level
+(`jumpStart.raiseTo`) the engine will not start, and the vehicle is refused a draft. Today it can be helped three ways, all through
+one service, `CompPhobosVehicleSystems.ReceiveJumpStart`: leads from a donor vehicle of the same electrical system (with a crafted
+jump-start kit when the setting asks for one), a crafted booster pack, or the booster pack every vehicle is assumed to carry (a
+setting). Separately, a parked vehicle beside a building on a grid with power to give trickle-charges at its system's
+`shoreChargeAmps` (`ShorePowered`, the `shoreCharging` flow in `Systems_Electrical.xml`). The generator set's cable end is such a
+building, but the set makes only what its grid draws, so a vehicle beside it rarely sees spare power.
+
+**What the lead is:** an upgrade node on our generator set (`PhobosServiceLead`), giving the stat **service lead reach** (6 cells,
+authored). With the set **set up and running**, the player selects it, presses **Run the service lead** and picks one of our
+vehicles within reach. The lead is plugged in at once, as the set's own cable end is.
+
+- **Charging:** while the lead is in and the set is running, the vehicle counts as on shore power, so the existing shore-charging
+  flow charges it at its own system's rate. No second charging model.
+- **A start:** if the vehicle's battery is below its start level, the lead brings it up through the same jump-start service as a
+  donor would, with its own message. No kit or booster pack is spent: the set is the charger.
+- **The cost to the camp:** the lead takes **300 W** (authored: a heavy battery charger and its losses) off the top of what the set
+  makes. The camp gets the rest, and the set's engine works harder for the lead (load and fuel follow).
+- **It comes out by itself**, with a message, when the set packs up, stops running, or either vehicle moves out of reach.
+
+| Lets the player | Stops the player | Changes how they play |
+| --- | --- | --- |
+| Charge or jump-start a vehicle with a flat battery in the field, with no donor, kit or booster pack | Feed the camp at the set's full output meanwhile; run the lead to more than one vehicle, or beyond 6 cells | A dead battery away from a depot bay is a visit from the set, not a tow |
+
+**Other factions' vehicles:** a vehicle that is not ours is refused ("not ours"; claim it first, with the claim order of Framework
+0.97.0). Another faction's generator set never sets up, so it never runs a lead. A captured generator set runs a lead as ours does,
+and a captured vehicle can be charged once it is ours. Cost with several on a map: nothing per tick; the set's rare tick checks its
+one lead.
+
+### The tipper's loading grab
+
+**Built** in D'thorga Framework 0.101.0 and D'thorga Vehicles 0.45.0 (12 Nov 2026), as below; **not yet tested in game**. Agent
+choices made while building: what one lift carries is a stat (`Phobos_GrabLift`, 500 kg from the node) so a later upgrade can raise
+it, while reach and pace stay in the rules Def; the button shows only once the grab is fitted; the reach shows as a blue outline
+while the tipper is selected; node key `PhobosLoadingGrab`.
+
+**From the code, the check:** Vehicle Framework's cargo is the vehicle's own inventory, and `VehiclePawn.AddOrTransfer(Thing, int)`
+(`VehicleFramework-1.6:Vehicles.decompiled.cs:14646`) is public: it moves a thing into the cargo, fires Vehicle Framework's own
+"cargo added" event and takes the thing off any load list the cargo window made. Its capacity is the stat `CargoCapacity`, against
+the mass already aboard (`MassUtility.InventoryMass`), as its own loading reads it (`:1471`). So **the check passes**: our own work
+can fill the cargo without the loading window, through Vehicle Framework's own call.
+
+**What the grab is:** an upgrade node on our tipper (`PhobosLoadingGrab`), a small hydraulic crane behind the cab. With a driver
+aboard and the tipper stopped, the player presses **Work the grab**. Each lift takes things lying loose within **4 cells** of the
+truck (authored) into the cargo: one stack, or as much of it as the lift and the room aboard allow. A lift takes **20 seconds** of
+game time (authored) and up to **500 kg** (authored, about a small loader crane's rated load at short reach). It stops by itself,
+with a message saying how much came aboard, when nothing is left in reach or the cargo is full.
+
+- **What it takes:** loose items on the ground that are not forbidden and not in a stockpile or on a shelf (agent choice: what the
+  player stored, they meant to keep there), nearest first. Pawns, corpses and minified buildings are left alone.
+- **Hydraulics:** like the body's rams, the grab is paced by the hydraulic fluid and stops when there is too little.
+- **Holds the truck still**, as tipping does, and **cannot tip while the grab is out**, nor be worked while tipping.
+
+| Lets the player | Stops the player | Changes how they play |
+| --- | --- | --- |
+| Load chunks and stacks lying near the truck with only the driver, no hauler | Tip while the grab is out; reach past 4 cells; lift more than 500 kg at once; drive while it works | One driver can do a quarry run alone: the carries at the loading end go away |
+
+**Other factions' vehicles:** another faction's tipper is never ordered to grab. Parked at a base we attack, it is a truck to claim;
+once claimed, its grab works as ours does. Captured: the same. Cost with several on a map: nothing unless a grab is working, and a
+working grab scans a few dozen cells once each rare tick.
+
+**No picture yet:** the node has no overlay, since no picture of a crane exists for the tipper and this round makes no new art
+(owner's rules on paid art). The grab's work shows through the work bar and its sounds.
+
 ## About the other mods
 
 Read with `scripts/workshop-research.py report` on 11 Nov 2026; a Workshop page shows activity, never whether a mod works.

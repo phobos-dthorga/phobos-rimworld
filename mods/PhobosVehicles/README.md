@@ -149,7 +149,7 @@ would one day be the Talus T2, and a refit adds a letter.
 - **Press Set up.** A cable end appears beside the truck; wire things to it, or touch a conduit to it. The truck cannot move until you press **Pack up**.
 - **It gives 1,200 W at full health.** Fuel follows what the grid draws, from 1.5 chemfuel a day doing nothing to 9 a day flat out, or 9 a day whenever batteries on the grid have room. That is 60% of the game's chemfuel generator's economy: you are paying for being able to drive it away.
 - **It stops if** the tank runs dry, the engine or the traction generator is destroyed, or damage takes it under 240 W. Its inspect pane says which.
-- **Upgrades:** an uprated alternator (1,600 W), a cable reel (you pick where the cable end goes, up to 12 cells away), a battery buffer that keeps the grid alive for a time when the engine cannot, and a heavy-duty fan that cools a parked engine as well as driving does, for hard work in hot weather.
+- **Upgrades:** an uprated alternator (1,600 W), a cable reel (you pick where the cable end goes, up to 12 cells away), a battery buffer that keeps the grid alive for a time when the engine cannot, a heavy-duty fan that cools a parked engine as well as driving does, for hard work in hot weather, and a **service lead** (new in 0.45.0, not yet tested in game): with the set set up and running, **Run the service lead** plugs it into one of your vehicles within 6 cells to charge its battery, or start it at once if it is too flat, taking 300 W before the camp's grid.
 - **New in 0.42.0 (not yet tested in game), an exhaust heat exchanger:** while the set makes power it warms the room its cable end stands in, up to 21 C, more as more power is drawn. **Put the cable end inside the room you want warm**; outdoors the heat is wasted. It costs 25 W of output.
 - **A vehicle of ours parked beside the cable end or a conduit on its grid counts as plugged in**, as with any grid. Vehicle Framework's own electric vehicles need a battery on the grid to charge.
 - **You can hear it running** (new in 0.31.0): while it is set up and its engine runs, it sounds like the game's chemfuel generator, from the truck, and falls quiet when it stops. D'thorga Framework's **D'thorga sounds volume** setting turns it down or off.
@@ -189,7 +189,7 @@ would one day be the Talus T2, and a refit adds a letter.
 - **Build it** from the **motor pool** tab, after Machining and Electricity.
 - **Load it** through its ordinary cargo window: 96 granite chunks, or 4,800 steel.
 - **With a driver aboard and stopped, press Tip.** Everything in its cargo lands inside the outlined half-circle behind it, and **that includes any spare parts you loaded**. Whatever will not fit stays aboard, and it tells you how many.
-- **Upgrades:** greedy boards (taller sides, +600 kg), and either a rock body (tips half as fast again) or a bulk body (3,600 kg, tips slower).
+- **Upgrades:** greedy boards (taller sides, +600 kg), either a rock body (tips half as fast again) or a bulk body (3,600 kg, tips slower), and a **loading grab** (new in 0.45.0, not yet tested in game): with a driver aboard and the truck stopped, **Work the grab** lifts loose chunks and stacks within 4 cells into the cargo, up to 500 kg a lift, with nobody carrying. Things in a stockpile or on a shelf are left; it cannot tip while the grab is out.
 
 ## The Pintle flatbed trailer
 

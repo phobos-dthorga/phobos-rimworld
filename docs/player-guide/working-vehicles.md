@@ -128,7 +128,13 @@ It carries both bits: pick by the job.
    **including any spare parts you loaded**. Whatever will not fit stays aboard, and it says how many.
 
 **Upgrades:** **greedy boards** (taller sides, +600 kg), and either a **rock body** (tips half as fast again) or a **bulk body**
-(3,600 kg, tips slower).
+(3,600 kg, tips slower). And a **loading grab**, a small crane behind the cab:
+
+- **With a driver aboard and stopped, press Work the grab.** It lifts loose things lying within 4 cells (the blue outline) into the
+  cargo, one stack or up to 500 kg a lift, every 20 seconds or so. Nobody else has to carry.
+- **It leaves things in a stockpile or on a shelf**, forbidden things and corpses.
+- It stops by itself when nothing is left in reach or the cargo is full, and says how much came aboard.
+- **It cannot tip while the grab is out.** Press Stow the grab first.
 
 ## Pintle flatbed trailer
 
@@ -202,6 +208,14 @@ A small diesel-electric truck: its engine turns a generator, electric motors dri
 that keeps the grid alive for a time when the engine cannot; a **heavy-duty fan** that cools a parked engine as well as driving does,
 for hard work in hot weather; and an **exhaust heat exchanger** that warms the room its cable end stands in, up to 21 °C, for 25 W
 of output. **Put the cable end inside the room you want warm.**
+
+The **service lead** charges another vehicle's battery in the field:
+
+- **With the set set up and running, press Run the service lead** and pick one of your vehicles within 6 cells.
+- It charges that vehicle's battery while it stays in, and **starts it at once if the battery is too flat to start**. No other
+  vehicle, kit or booster pack is needed.
+- It takes 300 W before your grid does, so the camp gets less while the lead is in.
+- It comes out by itself if the set packs up or either vehicle moves away. Select the set to see the lead drawn to its vehicle.
 
 **Pack it up before removing the mod**, or a cable end is left behind that does nothing.
 

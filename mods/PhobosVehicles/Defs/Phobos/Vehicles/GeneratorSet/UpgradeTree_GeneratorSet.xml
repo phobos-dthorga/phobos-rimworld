@@ -197,6 +197,35 @@
         <ComponentIndustrial>1</ComponentIndustrial>
       </ingredients>
     </li>
+    <li>
+      <!-- Owner, 12 Nov 2026: the service lead, batch 3 signature (docs/development/vehicle-upgrades-round-two.md). Reach and cost authored;
+           the lead's 300 W is in the rules Def. No picture on the body: the lead is drawn as a line while the set is selected. -->
+      <key>PhobosServiceLead</key>
+      <label>service lead</label>
+      <displayLabel>true</displayLabel>
+      <description>A heavy cable on a small reel, with clamps and a charger. While the set is set up and running, the lead reaches one of your vehicles within 6 cells, charges its battery, and gives it a start if it is too flat to start. It takes 300 W before the camp's grid does.</description>
+      <icon>Phobos/VehicleSystems/ServiceLead</icon>
+      <work>1200</work>
+      <gridCoordinate>(2, 11)</gridCoordinate>
+      <drawSize>(80, 80)</drawSize>
+      <researchPrerequisites>
+        <li>Electricity</li>
+      </researchPrerequisites>
+      <upgrades>
+        <li Class="Vehicles.StatUpgrade">
+          <vehicleStats>
+            <li>
+              <def>Phobos_ServiceLeadReach</def>
+              <value>6</value>
+            </li>
+          </vehicleStats>
+        </li>
+      </upgrades>
+      <ingredients>
+        <Steel>30</Steel>
+        <ComponentIndustrial>2</ComponentIndustrial>
+      </ingredients>
+    </li>
     </nodes>
   </Vehicles.UpgradeTreeDef>
 </Defs>

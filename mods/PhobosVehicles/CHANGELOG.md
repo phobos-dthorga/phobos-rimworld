@@ -17,10 +17,12 @@ The first trailer. **Not yet tested in game.**
 
 - **The Pintle flatbed trailer** (owner, 11 Nov 2026: one medium flatbed first): built at the motor pool after vehicle parts research. 2,000 kg empty, 3,000 kg of cargo loaded through its cargo tab while it stands unhitched, and one upgrade, greedy boards (600 kg more). Any land vehicle with D'thorga Framework's hitch can tow it (Framework 0.101.0). Its parts are a bill like the trucks': four tyres, two springs, a frame and wiring.
 - It borrows the Talus tipper's body for its picture (owner, 11 Nov 2026); a picture of its own waits for the owner's go.
+- **Service lead**, a new upgrade for the generator set (owner, 12 Nov 2026: a batch 3 signature): a heavy cable that charges or starts one of your vehicles within 6 cells while the set runs, taking 300 W before the camp's grid (D'thorga Framework 0.101.0). Electricity research; 30 steel and 2 components.
+- **Loading grab**, a new upgrade for the Talus tipper truck (owner, 12 Nov 2026): a small crane behind the cab that lifts loose chunks and stacks within 4 cells into the cargo, up to 500 kg a lift, with only the driver (D'thorga Framework 0.101.0). Machining research; 120 steel and 4 components. No picture on the body yet.
 
 ### Balance
 
-- Figures authored and held for the owner's review: the trailer's weights, its lengths (axle 3.2 cells behind the hitch) and its 70-degree jack-knife limit.
+- Figures authored and held for the owner's review: the service lead's 6 cells and 300 W, the grab's 4 cells, 20 seconds a lift and 500 kg, both upgrades' costs, and the trailer's weights, its lengths (axle 3.2 cells behind the hitch) and its 70-degree jack-knife limit.
 
 ### Save compatibility
 

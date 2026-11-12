@@ -28,4 +28,25 @@ public static class GeneratorRule
         float fuel = (idleFuelPerDay + (fullFuelPerDay - idleFuelPerDay) * load) * days;
         return new GeneratorStep(offeredWatts, load, fuel, Math.Min(bufferCapacity, held + surplus * days));
     }
+
+    /// <summary>
+    /// A rare tick with a service lead plugged in (Framework 0.101.0; docs/development/vehicle-upgrades-round-two.md): the lead takes its watts
+    /// off the top of what the generator can give, never more than that; the camp's net gets the rest through <see cref="Step"/>; and the
+    /// engine's load and fuel follow the lead's draw plus what the camp used. With no engine running the lead gets nothing (the buffer is the
+    /// camp's).
+    /// </summary>
+    public static LeadStep StepWithLead(float offeredWatts, float leadWatts, float needWatts, bool batteriesHaveRoom, float buffer, float bufferCapacity, float days, float idleFuelPerDay, float fullFuelPerDay)
+    {
+        float lead = offeredWatts > 0f ? Math.Clamp(leadWatts, 0f, offeredWatts) : 0f;
+        if (lead <= 0f) return new LeadStep(Step(offeredWatts, needWatts, batteriesHaveRoom, buffer, bufferCapacity, days, idleFuelPerDay, fullFuelPerDay), 0f);
+        float campOffered = offeredWatts - lead;
+        GeneratorStep camp = Step(campOffered, needWatts, batteriesHaveRoom, buffer, bufferCapacity, days, idleFuelPerDay, fullFuelPerDay);
+        float campUsed = campOffered > 0f ? camp.Load * campOffered : 0f;
+        float load = Math.Min(1f, (lead + campUsed) / offeredWatts);
+        float fuel = (idleFuelPerDay + (fullFuelPerDay - idleFuelPerDay) * load) * days;
+        return new LeadStep(camp with { Load = load, FuelUsed = fuel }, lead);
+    }
 }
+
+/// <summary>A rare tick with a service lead: the camp's side (output to its net, the whole engine's load and fuel, the buffer) and the watts the lead got.</summary>
+public readonly record struct LeadStep(GeneratorStep Camp, float LeadWatts);

@@ -48,4 +48,41 @@ public class GeneratorRuleTests
 
     [Fact]
     public void ALostBatteryNodeDropsTheStoredCharge() => Assert.Equal(0, GeneratorRule.Step(0, 0, false, 150, 0, Day, 1.5f, 9).Buffer, 3);
+
+    [Fact]
+    public void ALeadTakesItsWattsOffTheTop()
+    {
+        LeadStep step = GeneratorRule.StepWithLead(1200, 300, 0, false, 0, 0, Day, 1.5f, 9);
+        Assert.Equal(300, step.LeadWatts);
+        Assert.Equal(900, step.Camp.OutputWatts);
+        Assert.Equal(0.25, step.Camp.Load, 3);
+    }
+
+    [Fact]
+    public void ALeadAndTheCampTogetherSetTheLoadAndFuel()
+    {
+        LeadStep step = GeneratorRule.StepWithLead(1200, 300, 600, false, 0, 0, Day, 1.5f, 9);
+        Assert.Equal(0.75, step.Camp.Load, 3);
+        Assert.Equal(1.5 + 7.5 * 0.75, step.Camp.FuelUsed, 3);
+    }
+
+    [Fact]
+    public void ALeadNeverTakesMoreThanIsMade()
+    {
+        LeadStep step = GeneratorRule.StepWithLead(240, 300, 100, false, 0, 0, Day, 1.5f, 9);
+        Assert.Equal(240, step.LeadWatts);
+        Assert.Equal(1, step.Camp.Load, 3);
+    }
+
+    [Fact]
+    public void WithNoEngineALeadGetsNothing()
+    {
+        LeadStep step = GeneratorRule.StepWithLead(0, 300, 100, false, 150, 150, 0.5f, 1.5f, 9);
+        Assert.Equal(0, step.LeadWatts);
+        Assert.Equal(100, step.Camp.OutputWatts);
+    }
+
+    [Fact]
+    public void ANoLeadStepIsTheOrdinaryStep() =>
+        Assert.Equal(GeneratorRule.Step(1200, 600, false, 0, 0, Day, 1.5f, 9), GeneratorRule.StepWithLead(1200, 0, 600, false, 0, 0, Day, 1.5f, 9).Camp);
 }

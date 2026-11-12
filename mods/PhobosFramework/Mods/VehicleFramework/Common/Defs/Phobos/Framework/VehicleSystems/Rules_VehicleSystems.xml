@@ -42,6 +42,12 @@
     <hitchReachCells>8</hitchReachCells>
     <hitchUpWork>900</hitchUpWork>
     <hitchGapCells>0.3</hitchGapCells>
+    <!-- Batch 3 signatures (Framework 0.101.0, all authored): the generator set's service lead takes 300 W off the top (a heavy battery
+         charger and its losses); the tipper's loading grab reaches 4 cells from the truck and a lift takes 20 game seconds (what a lift
+         carries is the grab node's stat). -->
+    <serviceLeadWatts>300</serviceLeadWatts>
+    <grabReachCells>4</grabReachCells>
+    <grabSecondsPerLift>20</grabSecondsPerLift>
     <diagnoseWork>1500</diagnoseWork>
     <hydraulicWorkFloor>0.2</hydraulicWorkFloor>
     <fieldFixWork>600</fieldFixWork>
