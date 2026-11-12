@@ -326,7 +326,8 @@ one framework at a time. Later: A16. Not until read: A17.
 **Answered by the owner, 13 Nov 2026:** (1) blind flying **refuses the launch, with a warn-only setting**; (2) aircraft with no
 instrument part **gain an appended avionics bay**; (3) no working oxygen means **a low cruise, plus a setting to give crews hypoxia
 where it is detected, off by default** (hypoxia only where D'thorga Medical's breathing layer, or another mod's, can carry it);
-(4) countermeasures **later**; (5) **no aircraft is worse off on install day**. Nothing is built yet.
+(4) countermeasures **later**; (5) **no aircraft is worse off on install day**. Later the same day: the avionics bay is **marked on our own
+screens** (the Health tab's damage picture and the diagnosis report), never drawn on other authors' art. Nothing is built yet.
 
 The questions as they were put:
 

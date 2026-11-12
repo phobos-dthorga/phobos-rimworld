@@ -270,6 +270,15 @@ Next after these: T4 with F3 (brake wear by mass and speed), G11 (a holed tank),
 
 ## Questions for the owner
 
+**Answered by the owner, 13 Nov 2026:** (1) **the driver rule, gently**, for health, drugs and tiredness (at worst ×0.7 of speed,
+no crashes); (2) **weather takes grip, on by default with a setting**; (3) **unlit vehicles are mildly slower at night** (×0.85);
+(4) **ammunition cook-off now, on by default, but only where Combat Extended is detected and its own ammunition settings allow it**
+(if that cannot be detected reliably, it stays off and the record says why); (5) **river fording with a snorkel fitting is in**.
+**The first batch, when the owner says build:** the quick wins **T6, G18, G15**; aircraft power **A5, A9, A6 with G16, A8**; and
+night driving **G9**. G1 with G2 and G5 are agreed but not in the first batch. Nothing is built yet.
+
+The questions as they were put:
+
 1. **The driver rule (G1): should a driver's health, drugs and tiredness slow every vehicle, not only a stoned one?** Agent lean:
    **yes, gently** (at worst ×0.7 of speed), with no crashes, as for hotboxing.
 2. **Weather on grip (G5): on by default, with a setting?** Agent lean: **yes**. It only bites on hills, in mud and when towing.
