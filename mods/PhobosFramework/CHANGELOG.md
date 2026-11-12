@@ -5,6 +5,14 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.108.2] - 2026-11-13 - Draft
+
+The chemfuel line's hidden pipe beneath vehicles
+
+### Fixed
+
+- **Chemfuel pipes beneath parked vehicles are hidden too** (the owner's test of 13 November 2026 on 0.108.1). A hidden pipe was recognised only by a transparent colour, which Vanilla Chemfuel Expanded's hidden chemfuel pipe does not use, so the visible pipe was laid instead. A pipe built the way the game's hidden conduit and Dubs' hidden plumbing are, which nothing can target or damage, now counts as hidden too, for any mod's pipe network. Visible pieces we laid are swapped for the hidden pipe at the next look; your own pipes are never touched. Not yet tested in game.
+
 ## [0.108.1] - 2026-11-13 - Draft
 
 Pipes and conduits beneath our things are hidden again, and vehicle sounds sit in the game's mix

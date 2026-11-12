@@ -72,7 +72,12 @@ public sealed class PipeNetLink : VehiclePipes.ILink
     // The net's hidden pipe, which draws nothing on the ground (its colour has no alpha) and shows in the net's overlay (owner, 13 Nov 2026: "You need to use the
     // Hidden versions of them"). Framework 0.107.0 and 0.108.0 laid the visible pipe; the pieces of ours they laid are swapped for the hidden one at the next look.
     // A net with no hidden pipe falls back to its first.
-    static bool IsHidden(ThingDef def) => def.graphicData != null && def.graphicData.color.a == 0f;
+    // Hidden is read from what the pipe is, never its name (Framework 0.108.2; owner, 13 Nov 2026: Vanilla Chemfuel Expanded's chemfuel pipe still showed):
+    // a pipe drawn with no alpha, or one built the way the game's hidden conduit, Dubs' hidden plumbing and VCHE's hidden chemfuel pipe all are,
+    // neither targetable nor damaged by attacks, as a buried line is.
+    static bool IsHidden(ThingDef def) =>
+        (def.graphicData != null && def.graphicData.color.a == 0f)
+        || (def.building is { isTargetable: false, canBeDamagedByAttacks: false });
 
     static bool IsOldHidden(PipeNetDef net, Thing thing) => net.pipeDefs != null && net.pipeDefs.Contains(thing.def) && IsHidden(thing.def);
 

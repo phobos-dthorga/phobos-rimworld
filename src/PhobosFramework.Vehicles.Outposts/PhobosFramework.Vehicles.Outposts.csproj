@@ -8,7 +8,7 @@
     <AssemblyName>PhobosFramework.Vehicles.Outposts</AssemblyName>
     <ModFolder>PhobosFramework</ModFolder>
     <TieInFolder>Mods/VehiclesOutposts/</TieInFolder>
-    <Version>0.108.1</Version>
+    <Version>0.108.2</Version>
     <ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>true</ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>
   </PropertyGroup>
   <ItemGroup>
