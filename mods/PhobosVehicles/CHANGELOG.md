@@ -23,6 +23,11 @@ The Busbar generator set is a 3 by 8 truck, heavier, with a bigger generator
 
 - **Park any Busbar in open ground before updating.** A Busbar in a save grows where it stands by a cell in width and two in length, and Vehicle Framework claims the larger footprint without checking what is there, so one parked against a wall or a building ends up overlapping it and may be stuck. Its parts, upgrades and fittings carry over unchanged. A Busbar set up in the save keeps its cable end or conduits; packing it up and setting it up again lays them for its new size.
 
+### Compatibility and limits
+
+- **Tested in game by the owner, 14 November 2026:** the Busbar's new size and look ("looks much better now"). Its output, the conduits and an older save's Busbar are not yet tested in game.
+
+
 ## [0.50.0] - 2026-11-13 - Draft
 
 The thrust pods take D'thorga Framework's flight-controls system
