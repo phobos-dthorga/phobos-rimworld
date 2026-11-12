@@ -1,0 +1,51 @@
+{
+  "file": "fitting-recovery-winch-overlay-1.png",
+  "sha256": "e15d974b17a9144453849973e68254471fbd84b021b62ad247de2e99acbe0142",
+  "date": "2026-11-12T21:37:01",
+  "generator": "OpenAI gpt-image-2 through the OpenAI image API (paid per image)",
+  "engine": "openai",
+  "model": "gpt-image-2",
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL game sprite part for the D'thorga trucks: a heavy recovery winch bolted to a truck's front bumper, used to drag a stuck vehicle out of mud. Image 1 is our approved truck from the same family: match its outline weight, shading, palette and finish only. Do NOT redraw the truck.\n\nDraw ONLY this part, alone on a plain pure white background: nothing else on the canvas. A LONG, LOW, HORIZONTAL shape lying across the canvas from left to right, about three times as wide as it is tall, filling about three quarters of the canvas width, centred. A horizontal drum tightly wound with dark steel wire rope sits between two boxy end housings of dark grey steel; a short round motor cylinder on the left end; a small rectangular control box of pale sand-grey on the right end; along the BOTTOM edge of the drum, a short roller fairlead frame where the rope comes out, and a heavy muted orange hook clipped to it at the centre.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo truck, bumper bar, grille, wheels, loose rope trailing away, people, animals, smoke, dust, mud, damage, text, letters, numbers, logos, symbols, dials or screens. No floor, ground, shadow outside the part, perspective, tilt or visible side faces. Top surfaces only.",
+  "seed": 1,
+  "seed_note": "an attempt number naming the file; the API takes no seed, so a rerun gives a different image",
+  "quality": "medium",
+  "size": [
+    1536,
+    1024
+  ],
+  "request_file": "assets/phobos-vehicles/requests/fittings-overlays.json",
+  "ai_disclosure": "Made with generative AI: OpenAI gpt-image-2, prompted by the Phobos art scripts.",
+  "terms": "OpenAI Services Agreement, sections 4.1 and 4.4, as recorded in the Phobos Ostranauts repository on 2026-10-07 and summarised again on 2026-11-08: API customers own Output, OpenAI assigns any rights it has, and Output may not be unique; no use of Output to build competing models. Dated secondary records: the openai.com page refuses automated reads, so the owner confirms the current text.",
+  "endpoint": "/images/edits",
+  "usage": {
+    "input_tokens": 1536,
+    "input_tokens_details": {
+      "image_tokens": 1152,
+      "text_tokens": 384
+    },
+    "output_tokens": 1372,
+    "output_tokens_details": {
+      "image_tokens": 1372,
+      "text_tokens": 0
+    },
+    "total_tokens": 2908
+  },
+  "cost_usd": 0.0523,
+  "cost_is_estimate": false,
+  "reported_quality": "medium",
+  "reported_size": "1536x1024",
+  "reported_background": "opaque",
+  "reported_output_format": "png",
+  "returned_size": [
+    1536,
+    1024
+  ],
+  "seconds": 29.6,
+  "references": [
+    {
+      "image": "assets/phobos-vehicles/generated/bulk-tanker-body-north/bulk-tanker-body-north-2.png",
+      "sha256": "3c7b752f08adb7eeb84a1f161cdec1d8686765dd289322165fe54fa72c7c07ce",
+      "role": "our approved truck, the owner's pick, the family's first: match its outline weight, shading, palette and finish only; do not redraw it"
+    }
+  ]
+}
