@@ -4,7 +4,7 @@
 on providing for a system, that authors will be able to take advantage of, where they can give overrides as needed through some kind
 of definitions file, such as XML", and "the author will be able to publish their overrides through a Steam Workshop publication or
 through a pre-existing one already, such as with their own vehicle mod." It is the first of three records of the cross-links round
-three review; the [avionics record](vehicle-avionics.md) and cross-links, round three (`vehicle-crosslinks-round-three.md`) refer
+three review; the [avionics record](vehicle-avionics.md) and [cross-links, round three](vehicle-crosslinks-round-three.md) refer
 to it and are written after it. Facts marked "from the code" were read on 13 Nov 2026 with `scripts/query-code.py` and from our own source, and are
 summarised in our own words. **Everything under "The proposed contract" is a proposal**: no class, field or Def named there exists
 yet.

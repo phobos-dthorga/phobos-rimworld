@@ -361,6 +361,9 @@ public class Effect_FlashBeacon : VehicleSystemEffect
 | C | Fuel quality, tyres and tracks, brakes, transmission; hydraulics and pneumatics for our rigs | Framework vehicle part, D'thorga Vehicles |
 | D | Tie-ins: the radio framework's vehicle radio as a load; D'thorga Medical's ambulance power; Dubs Bad Hygiene water for coolant | Each mod's `IfModActive` folder |
 
+Cross-links between the systems are reviewed in rounds: [one](vehicle-system-crosslinks.md), [two](vehicle-crosslinks-round-two.md) and
+[three](vehicle-crosslinks-round-three.md), with [avionics](vehicle-avionics.md) and [the authors' override contract](vehicle-author-overrides.md).
+
 ## Who chose what
 
 - **Owner (8 Nov 2026):** real electrical, battery, alternator, coolant and oil systems; retrofitted to other authors'

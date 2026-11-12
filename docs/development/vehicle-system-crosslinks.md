@@ -5,11 +5,14 @@ and record part of that, with nothing built. It reads what the 22 vehicle system
 proposes the links that would earn their place. Every proposal answers for itself (what it lets the player do, stops them doing, and changes),
 as the standing rule asks. Figures here are agent proposals for the owner to revise; sources are labelled, and nothing is tested in game.
 
+**Next rounds:** [round two](vehicle-crosslinks-round-two.md) (10 Nov 2026) and [round three](vehicle-crosslinks-round-three.md) (13 Nov 2026).
+
 ## Read this first
 
 - **The systems form a star, not a web.** Almost every system reads the same hub, the comp's shared engine state (running, load, speed,
-  heat share, moving, ambient air, part efficiencies, `CompPhobosVehicleSystems.cs:564-587`). Only **five links run from one system's quantity
-  to another's**, out of 22 systems and about 60 quantities:
+  heat share, moving, ambient air, part efficiencies, `CompPhobosVehicleSystems.cs:564-587`). Only **five reads run from one system's quantity
+  to another's**, from four pairs of systems (the boiler reads the fusible plug twice; corrected 13 Nov 2026, the record had said
+  "five links"), out of 22 systems and about 60 quantities:
 
   | Reader | Reads | How | Where |
   | --- | --- | --- | --- |

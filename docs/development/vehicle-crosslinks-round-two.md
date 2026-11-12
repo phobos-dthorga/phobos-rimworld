@@ -6,6 +6,8 @@ start differentiating them, or to change the tuning rig; "all suggestions, ideas
 the research and record. **Nothing here is built.** Every proposal answers for itself (what it lets the player do, stops them doing,
 and changes), figures are the agent's and authored, sources are labelled, and the owner's call is asked at the end.
 
+**Next round:** [round three](vehicle-crosslinks-round-three.md) (13 Nov 2026), with [avionics](vehicle-avionics.md) and [the authors' override contract](vehicle-author-overrides.md).
+
 ## Read this first
 
 - **Build these first, in this order:** working vehicles that read their **hydraulics** (T1, the one system we ship that nothing

@@ -118,6 +118,9 @@ promise current behaviour. For using the mods, start at the [documentation index
 - [Avionics for every aircraft (13 Nov 2026)](vehicle-avionics.md): research only; the eleven aircraft and their free parts, a nine-capability avionics fit, proposals for instruments and navigation, aircraft power and flight controls, sensors and aiming, crew survival and defences, and the hooks that can scale other authors' figures
   (recovery, long range, cold weather, work lights, all-terrain tyres), chosen by effects and loadout roles, beside other authors'
   trees; a proposal with four questions for the owner, nothing built.
+- [Vehicle cross-links, round three (13 Nov 2026)](vehicle-crosslinks-round-three.md): research only; the graph after 0.105.2, twenty
+  new links for every vehicle (the crew, weather and ground, combat damage, electrics and hydraulics), fresh verdicts on round two's
+  unbuilt rows, the faults found on the way, and the ten cheapest links across the round's three records.
 - [Trailers that follow their tractor (11 Nov 2026)](vehicle-trailer-research.md): how RimThunder - Core hitches, draws and turns
   a trailer (read from code), what Turbo's library and RimArrow add, the limits, and a hitch of our own with a smoother turn;
   research with three questions for the owner, nothing built.

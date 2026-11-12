@@ -94,6 +94,21 @@ at its top.
 | W11 | The 15 dashboard warning pictures (`assets/phobos-vehicles/requests/dash-telltales.json`, 60 images on the local model) | art | GPU only when the owner says so (owner, 12 Nov 2026) | Waiting on the owner's word; the dry run passes. Until then the warnings show in words |
 | W12 | Headlights that light the ground, on every vehicle our systems run; with the engine off they run the battery down; a warning at low starting power; the battery in words ([record](vehicle-headlights.md)) | Framework 0.104.0 | Owner, 12 Nov 2026 | Built, not yet tested in game. One setting added (Headlights light the ground), default on; the headlights switch now defaults off |
 
+## Cross-links round three (13 Nov 2026)
+
+The owner asked for a research and record review of deeper cross-links for every vehicle, with aircraft avionics as the gap seen
+most, and for a contract other mods' authors can use in XML. Three records; **nothing built**; the owner picks.
+
+| # | Item | Mod | Owner's decision | Status |
+| --- | --- | --- | --- | --- |
+| X1 | [The authors' override contract](vehicle-author-overrides.md) | Framework | One override Def, layered, a tidy of names before the freeze, a tick per mod (owner, 13 Nov 2026) | Record written; not built |
+| X2 | [Avionics for every aircraft](vehicle-avionics.md): A1 to A17, L1 to L6 | Framework, Patches | All four areas; our conditions may scale other authors' figures through non-skipping hooks | Record written; five questions waiting on the owner |
+| X3 | [Cross-links, round three](vehicle-crosslinks-round-three.md): G1 to G20, round two's rows carried forward, a short list of ten | Framework, Vehicles | The four ground areas (the crew, weather and ground, combat damage, electrics and hydraulics) | Record written; five questions waiting on the owner |
+| X4 | Fault: our Harrier flight-control rule can refuse launches for other aircraft while the Harrier mod is active | Patches | — | Open: answered by avionics A8, or a small fix release first |
+| X5 | Fault: the Warbird and Smuggler get the generic turbofan loadout | Vehicles | — | Open: avionics L5 |
+| X6 | Fault: stale Harrier part figures in the Patches README and a probably stale hit-share note | Patches | — | Open: avionics L6 |
+| X7 | Fault: round one's record miscounted its links | docs | — | Done: corrected 13 Nov 2026 |
+
 ## Garage and fleet tools (from 8 Nov 2026)
 
 The design is [the vehicle garage and fleet tools](vehicle-garage-design.md).
