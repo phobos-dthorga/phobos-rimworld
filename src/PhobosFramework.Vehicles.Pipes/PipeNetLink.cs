@@ -36,8 +36,9 @@ public sealed class PipeNetLink : VehiclePipes.ILink
         }
     }
 
-    // A net's hidden pipe draws nothing (its colour has no alpha); a net without one lays its ordinary pipe, which the vehicle stands over.
-    static ThingDef? PipeOf(PipeNetDef net) => net.pipeDefs?.FirstOrDefault(def => def.graphicData != null && def.graphicData.color.a == 0f) ?? net.pipeDefs?.FirstOrDefault();
+    // The net's ordinary, visible pipe (Framework 0.107.0; owner, 14 Nov 2026: as the game and other mods show a run). A net's hidden pipe draws nothing (its colour
+    // has no alpha); earlier versions laid that one, and it is swapped for the visible pipe at the next look.
+    static ThingDef? PipeOf(PipeNetDef net) => net.pipeDefs?.FirstOrDefault(def => def.graphicData == null || def.graphicData.color.a != 0f) ?? net.pipeDefs?.FirstOrDefault();
 
     static Thing? Make(PipeNetDef net)
     {
@@ -59,6 +60,7 @@ public sealed class PipeNetLink : VehiclePipes.ILink
                 string key = Prefix + net.defName;
                 var underlay = comp.Underlay(key);
                 bool Piped(IntVec3 cell) => manager.GetPipeNetAt(cell, net) != null;
+                underlay.Renew(PipeOf(net), () => Make(net));
                 if (!underlay.TouchesRun(footprint, map, Piped)) continue;
                 wanted.Add(key);
                 underlay.Fill(footprint, map, Piped, () => Make(net));

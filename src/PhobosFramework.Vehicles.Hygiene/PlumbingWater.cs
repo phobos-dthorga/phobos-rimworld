@@ -42,6 +42,7 @@ public sealed class PlumbingLink : VehiclePipes.ILink
         }
         Map map = comp.Vehicle.Map;
         CellRect footprint = comp.Vehicle.OccupiedRect();
+        underlay.Renew(DubsPipes.Def, DubsPipes.Make);
         if (underlay.TouchesRun(footprint, map, cell => DubsPipes.IsPiped(cell, map))) underlay.Fill(footprint, map, cell => DubsPipes.IsPiped(cell, map), DubsPipes.Make);
         else underlay.Clear();
     }

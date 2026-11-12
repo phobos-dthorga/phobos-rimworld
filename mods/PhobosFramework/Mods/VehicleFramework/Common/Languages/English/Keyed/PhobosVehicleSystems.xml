@@ -528,6 +528,10 @@
   <PhobosVehicleSystems_GenReelGone>The cable reel is wrecked.</PhobosVehicleSystems_GenReelGone>
   <PhobosVehicleSystems_GenNoCell>The cable end cannot go there. It needs clear, open ground beside the truck, or within the cable's reach, and no conduit on the same spot.</PhobosVehicleSystems_GenNoCell>
   <PhobosVehicleSystems_GenSetUp>{VEHICLE} is set up and feeding the grid.</PhobosVehicleSystems_GenSetUp>
+  <PhobosVehicleSystems_GenWayCable>Run the cable out</PhobosVehicleSystems_GenWayCable>
+  <PhobosVehicleSystems_GenWayBeneath>Join through conduits beneath it</PhobosVehicleSystems_GenWayBeneath>
+  <PhobosVehicleSystems_GenSetUpBeneath>{VEHICLE} is set up with power conduits laid beneath it: any conduit touching it is on its power.</PhobosVehicleSystems_GenSetUpBeneath>
+  <PhobosVehicleSystems_GenBeneathNoCell>Every cell under {VEHICLE} already has a conduit or a building on it, so there is nowhere for its junction box. Run the cable out instead.</PhobosVehicleSystems_GenBeneathNoCell>
   <PhobosVehicleSystems_GenPackedUp>{VEHICLE} has packed up its cable.</PhobosVehicleSystems_GenPackedUp>
   <PhobosVehicleSystems_GenCableLost>{VEHICLE} has lost its cable end, and has stopped feeding the grid.</PhobosVehicleSystems_GenCableLost>
   <PhobosVehicleSystems_GenPartDead>Making no power: the {PART} is destroyed.</PhobosVehicleSystems_GenPartDead>
@@ -548,7 +552,7 @@
   <PhobosVehicleSystems_BatteryDriveNoFuel>Out of fuel: it can creep about {CELLS} cells on its battery.</PhobosVehicleSystems_BatteryDriveNoFuel>
   <PhobosVehicleSystems_BatteryDriveNoFuelFlat>Out of fuel, and its battery is too low to move it.</PhobosVehicleSystems_BatteryDriveNoFuelFlat>
   <PhobosVehicleSystems_GenGizmoSetUp>Set up</PhobosVehicleSystems_GenGizmoSetUp>
-  <PhobosVehicleSystems_GenGizmoSetUpDesc>Lower the outriggers and run out the cable. The engine then feeds the grid, using fuel in step with what the grid draws. It cannot move while set up.</PhobosVehicleSystems_GenGizmoSetUpDesc>
+  <PhobosVehicleSystems_GenGizmoSetUpDesc>Lower the outriggers and join the grid: run the cable out to a cell you choose, or lay power conduits beneath the truck so any conduit touching it joins. The engine then feeds the grid, using fuel in step with what the grid draws. It cannot move while set up.</PhobosVehicleSystems_GenGizmoSetUpDesc>
   <PhobosVehicleSystems_GenGizmoPackUp>Pack up</PhobosVehicleSystems_GenGizmoPackUp>
   <PhobosVehicleSystems_GenGizmoPackUpDesc>Take in the cable and raise the outriggers. Anything running on this truck loses its power.</PhobosVehicleSystems_GenGizmoPackUpDesc>
 

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using RimWorld;
+using UnityEngine;
 using Verse;
 
 namespace Phobos.VehicleSystems;
@@ -20,8 +21,7 @@ public static class GeneratorGizmos
             action = () =>
             {
                 if (on) set.PackUp();
-                else if (set.CableReach > 1) ChooseCell(set);
-                else set.SetUp(set.BestCableCell());
+                else ChooseWay(set);
             },
         };
         string? refused = on ? null : set.CannotDeploy();
@@ -74,6 +74,31 @@ public static class GeneratorGizmos
         if (refused != null) command.Disable(refused);
         return command;
     }
+
+    /// <summary>
+    /// How to join the grid (Framework 0.107.0; owner, 14 Nov 2026): run the cable end out to a cell, or join through the game's power conduits laid beneath the set.
+    /// A choice that cannot be made now stays in the menu, greyed, with its reason.
+    /// </summary>
+    static void ChooseWay(CompPhobosGeneratorSet set)
+    {
+        var options = new List<FloatMenuOption>
+        {
+            new("PhobosVehicleSystems_GenWayCable".Translate().Resolve(), () =>
+            {
+                if (set.CableReach > 1) ChooseCell(set);
+                else set.SetUp(set.BestCableCell());
+            }, SystemIcons.For(Icons + "SetUp"), Color.white),
+        };
+        string label = "PhobosVehicleSystems_GenWayBeneath".Translate().Resolve();
+        Texture2D conduit = SystemIcons.For(ConduitIcon);
+        options.Add(set.CannotSetUpBeneath() is { } refused
+            ? new FloatMenuOption(label + ": " + refused, null, conduit, Color.white)
+            : new FloatMenuOption(label, set.SetUpBeneath, conduit, Color.white));
+        Find.WindowStack.Add(new FloatMenu(options));
+    }
+
+    /// <summary>The game's own power conduit picture, as its build menu shows it.</summary>
+    const string ConduitIcon = "Things/Building/Linked/PowerConduit_MenuIcon";
 
     /// <summary>With a cable reel the player picks where the cable end goes; the cells it reaches are outlined.</summary>
     static void ChooseCell(CompPhobosGeneratorSet set)

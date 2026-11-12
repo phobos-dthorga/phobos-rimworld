@@ -199,7 +199,9 @@ drivetrain model can tow** in D'thorga Framework's settings. A broken drawbar mu
 A small diesel-electric truck: its engine turns a generator, electric motors drive the back axle, and parked it feeds your grid.
 
 1. **Research generator truck** (after vehicle electrics) and build it.
-2. **Press Set up.** A **cable end** appears beside the truck: wire things to it, or touch a conduit to it.
+2. **Press Set up** (with someone aboard and the engine running) and choose how to join the grid: **Run the cable out**, and a
+   **cable end** appears where you choose: wire things to it, or touch a conduit to it; or **Join through conduits beneath it**, and
+   power conduits are laid under the truck, so any conduit touching it is on its power.
 3. It cannot move until you press **Pack up**.
 
 | Fact | Figure |

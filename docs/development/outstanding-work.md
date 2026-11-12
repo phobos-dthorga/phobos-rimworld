@@ -110,6 +110,16 @@ most, and for a contract other mods' authors can use in XML. Three records; **no
 | X6 | Fault: stale Harrier part figures in the Patches README and a probably stale hit-share note | Patches | — | Part fixed: the Patches README's Harrier part figures corrected in Patches 0.19.0. Open: the hit-share note in Parts_HarrierVtol.xml, not confirmed either way (avionics L6) |
 | X7 | Fault: round one's record miscounted its links | docs | — | Done: corrected 13 Nov 2026 |
 
+## Pipes and conduits beneath our things (14 Nov 2026)
+
+The owner asked for visible pipes and conduits, as the game and other mods show them, and an audit ([record](network-underlays.md)).
+
+| # | Item | Mod | Owner's decision | Status |
+| --- | --- | --- | --- | --- |
+| P1 | Visible plumbing and visible Vanilla Expanded Framework pipes beneath our buildings and parked vehicles, older hidden ones swapped by themselves | Framework | Visible, as the game does it (14 Nov 2026) | **Built: Framework 0.107.0, not yet tested in game** |
+| P2 | The generator set joins the grid through power conduits beneath it, beside the cable end | Framework | An option beside the cable (14 Nov 2026) | **Built: Framework 0.107.0, not yet tested in game** |
+| P3 | The audit's proposals: the bottle tap lays plumbing (N4), vehicles refuel from a chemfuel pipe (N10), the depot bay fills from one (N7) | Water Tap, Framework | Audit and propose (14 Nov 2026) | Proposed, waiting on the owner's picks |
+
 ## Garage and fleet tools (from 8 Nov 2026)
 
 The design is [the vehicle garage and fleet tools](vehicle-garage-design.md).

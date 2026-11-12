@@ -5,6 +5,24 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.107.0] - 2026-11-14 - Draft
+
+Pipes you can see beneath our things, and a generator set that can join the grid through conduits beneath it
+
+### Added
+
+- **The generator set can join the grid through power conduits beneath it** (owner, 14 November 2026). Set up now asks how: run the cable out to a cell you choose, as before, or join through conduits beneath it. The second lays the game's own power conduit under the truck, with its junction box beneath it, so any conduit touching the truck on any side is on its power. The conduits are taken up when it packs up. Not yet tested in game.
+
+### Changed
+
+- **Pipes laid beneath our things are now the ordinary, visible pipe** (owner, 14 November 2026: as the game and other mods show a run), not the hidden pipe that shows only in the plumbing overlay. This covers Dubs Bad Hygiene's plumbing under the conveyor oven, the safety shower and eyewash, the electrolyser and parked vehicles that take water, and the pipe of each Vanilla Expanded Framework net under a parked tanker or drill rig. Not yet tested in game.
+- A laid pipe that the player removes, or that is destroyed, is not laid again while the thing stays where it is; it is laid again when the thing is placed afresh. Building your own pipe there works as usual.
+- For modders: the core's PipeUnderlay now keeps where each piece was laid and swaps pieces of an older kind for the current one (Renew).
+
+### Save compatibility
+
+- Safe to add mid-game. Hidden plumbing and hidden pipes our things laid in an older save are swapped for visible ones on the same cells at the next look: a building when the save loads, a parked vehicle within a few seconds. Pipes the player laid are never touched.
+
 ## [0.106.1] - 2026-11-13 - Draft
 
 Setting a vehicle up needs someone aboard and its engine running; a set-up whose engine stops stays stopped until restarted

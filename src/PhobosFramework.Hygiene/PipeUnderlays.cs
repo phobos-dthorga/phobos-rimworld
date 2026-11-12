@@ -8,7 +8,26 @@ namespace Phobos.Framework.Hygiene;
 /// <summary>Dubs Bad Hygiene's side of a <see cref="PipeUnderlay"/>: what counts as plumbing on a cell, and the pipe to lay.</summary>
 public static class DubsPipes
 {
-    const string HiddenPipe = "sewagePipeHidden";
+    /// <summary>Dubs' ordinary plumbing, the pipe the player builds (Framework 0.107.0; owner, 14 Nov 2026: visible, as the game and other mods show a run).
+    /// Its hidden pipe, "sewagePipeHidden", which earlier versions laid, is swapped for this one at the next look.</summary>
+    const string Pipe = "sewagePipeStuff";
+
+    static ThingDef? def;
+    static bool looked;
+
+    /// <summary>The pipe laid beneath things, or null without Dubs Bad Hygiene's plumbing.</summary>
+    public static ThingDef? Def
+    {
+        get
+        {
+            if (!looked)
+            {
+                def = DefDatabase<ThingDef>.GetNamedSilentFail(Pipe);
+                looked = true;
+            }
+            return def;
+        }
+    }
 
     /// <summary>Dubs' water and sewage share one plumbing net, whose pipes are all in Sewage mode.</summary>
     public static bool IsPiped(IntVec3 cell, Map map)
@@ -23,8 +42,8 @@ public static class DubsPipes
 
     public static Thing? Make()
     {
-        ThingDef? def = DefDatabase<ThingDef>.GetNamedSilentFail(HiddenPipe);
-        return def == null ? null : ThingMaker.MakeThing(def, def.MadeFromStuff ? GenStuff.DefaultStuffFor(def) : null);
+        ThingDef? pipe = Def;
+        return pipe == null ? null : ThingMaker.MakeThing(pipe, pipe.MadeFromStuff ? GenStuff.DefaultStuffFor(pipe) : null);
     }
 }
 
@@ -45,6 +64,7 @@ public class CompPhobosPipeUnderlay : ThingComp
     {
         if (PlumbingFeed.LiteMode || !parent.Spawned) return;
         Map map = parent.Map;
+        underlay.Renew(DubsPipes.Def, DubsPipes.Make);
         underlay.Fill(parent.OccupiedRect(), map, cell => DubsPipes.IsPiped(cell, map), DubsPipes.Make);
     }
 

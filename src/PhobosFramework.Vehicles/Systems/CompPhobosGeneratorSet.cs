@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Phobos.Framework.Debug;
+using Phobos.Framework.Persistence;
 using Phobos.Framework.Rules;
 using Phobos.Framework.Sounds;
 using Phobos.Framework.Vehicles.Rules;
@@ -65,6 +66,9 @@ public class CompPhobosGeneratorSet : CompPhobosSetUp, IVehicleEngineDemand, IVe
     const float DaysPerRareTick = GenTicks.TickRareInterval / (float)GenDate.TicksPerDay;
 
     Building? cableEnd;
+    /// <summary>The power conduits laid beneath the set when it is set up to join through them (Framework 0.107.0; owner, 14 Nov 2026), the game's own visible
+    /// conduit, taken up when it packs up. Empty when the cable end was run out instead.</summary>
+    PipeUnderlay conduits = new();
     float buffer;
     /// <summary>The vehicle the service lead runs to (Framework 0.101.0), or null.</summary>
     VehiclePawn? leadTo;
@@ -101,6 +105,8 @@ public class CompPhobosGeneratorSet : CompPhobosSetUp, IVehicleEngineDemand, IVe
     {
         base.PostExposeData();
         Scribe_References.Look(ref cableEnd, "PhobosGeneratorCableEnd");
+        Scribe_Deep.Look(ref conduits, "PhobosGeneratorConduits");
+        conduits ??= new PipeUnderlay();
         Scribe_Values.Look(ref buffer, "PhobosGeneratorBuffer");
         Scribe_References.Look(ref leadTo, "PhobosServiceLeadTo");
         Scribe_Values.Look(ref batteryDriveOn, "PhobosGeneratorBatteryDrive");
@@ -230,6 +236,60 @@ public class CompPhobosGeneratorSet : CompPhobosSetUp, IVehicleEngineDemand, IVe
             Tell(refused, MessageTypeDefOf.RejectInput);
             return;
         }
+        PlaceCableEnd(cell);
+        Tell("PhobosVehicleSystems_GenSetUp".Translate(Vehicle.LabelShort.Named("VEHICLE")), MessageTypeDefOf.SilentInput);
+    }
+
+    // ---- Joining through conduits beneath it (Framework 0.107.0; owner, 14 Nov 2026: an option beside the cable end) ----
+
+    /// <summary>
+    /// The cell under the set for its junction box when it joins through conduits beneath it: one with no conduit or building on it, beside a conduit outside the
+    /// set if there is one (so the join is plain to see), else under its middle, else any free one. Invalid if every cell is taken.
+    /// </summary>
+    IntVec3 JunctionCellBeneath()
+    {
+        Map map = Vehicle.Map;
+        CellRect footprint = Vehicle.OccupiedRect();
+        bool Free(IntVec3 c) => c.InBounds(map) && c.GetTransmitter(map) == null && c.GetEdifice(map) == null;
+        IntVec3 best = IntVec3.Invalid;
+        foreach (IntVec3 cell in footprint)
+        {
+            if (!Free(cell)) continue;
+            foreach (IntVec3 side in GenAdj.CardinalDirections)
+            {
+                IntVec3 outside = cell + side;
+                if (!footprint.Contains(outside) && outside.InBounds(map) && outside.GetTransmitter(map) != null) return cell;
+            }
+            if (!best.IsValid || cell == Vehicle.Position) best = cell;
+        }
+        return best;
+    }
+
+    /// <summary>Why it cannot set up to join through conduits beneath it now, or null.</summary>
+    public string? CannotSetUpBeneath()
+    {
+        if (CannotDeploy() is { } refused) return refused;
+        return JunctionCellBeneath().IsValid ? null : "PhobosVehicleSystems_GenBeneathNoCell".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve();
+    }
+
+    /// <summary>Sets up with its junction box under it and the game's power conduit laid across the rest of its footprint, so a conduit touching any side
+    /// joins its power, as a building on a conduit run does. The conduits are taken up when it packs up.</summary>
+    public void SetUpBeneath()
+    {
+        if (CannotSetUpBeneath() is { } refused)
+        {
+            Tell(refused, MessageTypeDefOf.RejectInput);
+            return;
+        }
+        Map map = Vehicle.Map;
+        PlaceCableEnd(JunctionCellBeneath());
+        conduits.Fill(Vehicle.OccupiedRect(), map, cell => cell.GetTransmitter(map) != null, () => ThingMaker.MakeThing(ThingDefOf.PowerConduit));
+        UpdatePower();
+        Tell("PhobosVehicleSystems_GenSetUpBeneath".Translate(Vehicle.LabelShort.Named("VEHICLE")), MessageTypeDefOf.SilentInput);
+    }
+
+    void PlaceCableEnd(IntVec3 cell)
+    {
         Thing placed = ThingMaker.MakeThing(Props.cableEndDef);
         placed.SetFaction(Vehicle.Faction);
         cableEnd = (Building)GenSpawn.Spawn(placed, cell, Vehicle.Map);
@@ -237,7 +297,6 @@ public class CompPhobosGeneratorSet : CompPhobosSetUp, IVehicleEngineDemand, IVe
         ShowSetUp(true);
         VehicleWorkSounds.Play(Vehicle, "SetUp");
         UpdatePower();
-        Tell("PhobosVehicleSystems_GenSetUp".Translate(Vehicle.LabelShort.Named("VEHICLE")), MessageTypeDefOf.SilentInput);
     }
 
     public void PackUp()
@@ -261,6 +320,7 @@ public class CompPhobosGeneratorSet : CompPhobosSetUp, IVehicleEngineDemand, IVe
         ShowSetUp(false);
         if (cableEnd is { Destroyed: false }) cableEnd.Destroy(DestroyMode.Vanish);
         cableEnd = null;
+        conduits.Clear();
     }
 
     /// <summary>What it can offer now, and if nothing, why.</summary>

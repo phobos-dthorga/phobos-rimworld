@@ -7,7 +7,7 @@ helpers every D'thorga mod shares.
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.106.1, built 13 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
+Version 0.107.0, built 14 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
 oxygen working through Burns and Smoke and Medical Equipment (5 November 2026). The health layer new in 0.3.0 and the **vehicle
 systems new in 0.9.0, and their engines, drivetrains and gas turbines new in 0.11.0, are not yet tested in game.** The rest is read from the game's and the mods' code.
 
@@ -138,6 +138,8 @@ and wear that a mechanic services. See [Vehicle systems](#vehicle-systems-with-v
   boiler without a fusible plug (the American 4-8-4) whose water runs below the firebox crown explodes, and the settings window
   warns you. **Realistic feed water** is off by default: a water stop draws a tenth of the real tender (6,800 litres for the 4-8-4,
   under one Dubs water tower's 8,000); on, the real 68,000.
+- **From 0.107.0 the pipes our things lay beneath them are visible** (Dubs Bad Hygiene's plumbing, a Vanilla Expanded Framework net's own pipe), and the
+  generator set can join the grid through power conduits laid beneath it. Older hidden pipes are swapped for visible ones by themselves. Not yet tested in game.
 - **With Dubs Bad Hygiene, a vehicle's coolant top-up and a Harrier's injection water need a plumbing pipe with a water tower
   beside or under the parked vehicle.** Without Dubs Bad Hygiene, the coolant top-up takes chemfuel instead and the Harrier's water is free.
 

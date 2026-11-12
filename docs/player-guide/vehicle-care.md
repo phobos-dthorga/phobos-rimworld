@@ -67,6 +67,7 @@ set**, an **engine service kit**, a **drive belt**. A colony from before kits ex
 off **This colony: services take raw materials instead of kits** in the settings.
 
 **The coolant top-up** takes water from a plumbing pipe beside the parked vehicle with Dubs Bad Hygiene, or 3 chemfuel without it.
+A vehicle parked against a plumbing run lays its own plumbing beneath it, which you can see, and takes it up when it drives off.
 
 ![Our parts and kits: engine assembly, transmission, turbine assembly, drivetrain kit, electrical kit, tyre set, brake pad set, engine service kit, drive belt, jump-start kit, booster pack, sling set and fire bucket](images/vehicle-parts-and-kits.png)
 
