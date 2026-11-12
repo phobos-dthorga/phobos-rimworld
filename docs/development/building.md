@@ -250,7 +250,7 @@ proves it on every push** for the projects that reference no other mod's assembl
   read from RimSort's source, `app/utils/todds/wrapper.py` at commit c02f2b3; the vertical flip matters), only on the mods just
   deployed and only PNG files with `Textures` in their path. todds comes from `--todds`, `RIMSORT_TODDS`,
   `.local/install-settings.json` (key `toddsPath`) or RimSort's default install; without it, or if it fails, the mods still work
-  from their PNG files and the run says so. `--no-dds` skips the step;
+  from their PNG files and the run says so. `--no-dds` skips the step. **Confirmed working by the owner in their own install, 13 Nov 2026**;
 - never touches `ModsConfig.xml` or RimSort's lists or settings.
 
 The game path comes from `--game`, the `RIMWORLD_PATH` environment variable, `.local/install-settings.json` (key
