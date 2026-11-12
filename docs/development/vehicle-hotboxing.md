@@ -169,6 +169,13 @@ and off with the setting.
 
 ## Questions for the owner
 
+**Answered by the owner, 12 Nov 2026:** (1) **every smoked drug** counts, flake included, with a secondhand flake high always giving
+the bystanders a bad memory; (2) **add the windows switch**; (3) **raiders hotbox now and then**, on a rare roll; (4) **start with the
+figures above** (bystander share 0.3, driver cap down to 0.7 of speed, wear ×1.1) and tune them in play. Nothing is built yet: the
+build waits on the owner's go.
+
+The questions as they were put:
+
 1. **Which drugs?** Smoked drugs only (smokeleaf and flake in the base game, by the smoke sound), or smokeleaf-like social drugs only?
    Flake is a hard drug; a secondhand flake high is darker. (Agent default: every smoked drug, with flake's bystander memory always
    a bad one.)
@@ -180,6 +187,7 @@ and off with the setting.
 
 - **Owner (12 Nov 2026):** the idea, with smoke at the windows; a design record first; a stoned driver drives worse with real
   consequences, slower with a little more wear, and no random crashes.
+- **Owner (12 Nov 2026, later):** all smoked drugs; the windows switch; raiders' rare roll; the starting figures.
 - **Agent defaults, owner to revise:** every figure above; smoked drugs found by the smoke sound; no tolerance or addiction from
   secondhand smoke; a per-vehicle smoke number rather than a gas; the windows switch; the teetotaler test for the bad memory; the
   raiders' rare roll; the driver read by consciousness alone.
