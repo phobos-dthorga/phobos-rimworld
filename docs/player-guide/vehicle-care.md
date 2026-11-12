@@ -156,6 +156,18 @@ shows while a dyno bay is in reach. It works on any vehicle, from any mod, that 
 - **Open vehicles shelter nobody**: bikes and open boats feel the weather.
 - **An idling engine warms the room it stands in**, so a truck in a garage heats it.
 
+## Headlights
+
+- **The headlights button is off until you press it.** Switched on, a vehicle lights the ground ahead of it at night, engine running
+  or not. People working or fighting there are no longer slowed by the dark. The light follows the vehicle as it drives and turns.
+- **With the engine off, the lights run the battery down**, and left on all night they can flatten it. A message warns when the
+  battery may soon be too weak to start the engine: start it, or switch off the lights and heaters.
+- **The vehicle's inspect panel says what the battery is doing**, in words: which lights or heaters are running it down, or that it is
+  charging.
+- **Other factions' vehicles light up only while they drive**, so a raid arriving at night shows itself.
+- **Turn the light off** with the setting **Headlights light the ground** in the vehicle systems settings, if many vehicles at night
+  slow the game.
+
 ## On the world map
 
 - **A caravan moves as its slowest vehicle**, and its explanation names it. A vehicle that will not move stops the caravan; its

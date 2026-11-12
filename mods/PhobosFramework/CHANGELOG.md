@@ -5,6 +5,31 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.104.0] - 2026-11-12 - Draft
+
+Headlights that light the ground
+
+### Added
+
+- **Headlights light the ground** (owner, 12 Nov 2026: make the headlights button properly work). At night, a vehicle with its headlights switched on lights the ground ahead of it with the game's own light, so the darkness penalties to work and shooting lift there. Every land vehicle and boat our vehicle systems run has them, ours and other mods' alike. Diesel and petrol vehicles shine a warm white, electric ones a cool white. The pool of light stands 5 cells past the nose with a 6-cell radius (authored; a real beam is a cone, the game's light a round pool). Not yet tested in game.
+- **Another faction's vehicles show their lights only while they drive** at night: a raid driving in after dark lights itself up, and the vehicles parked at a base stay dark.
+- **Headlights work with the engine off** (owner, 12 Nov 2026: a rule). Switched on at night they burn whether or not the engine runs, and with the engine off they run the battery down: left on all night they can flatten it.
+- **A warning before a battery is too weak to start** (owner's request): when a vehicle's starting power falls below twice the no-start line, a message in the top left says the battery may soon be too weak, and to start the engine or switch off lights and heaters. Starting power falls with the cold, so in a hard frost this comes at about a third of the charge and in mild weather lower. The 30% battery message stays.
+- **The battery in words on a vehicle's inspect panel**, in every display mode: which switched loads are running it down, or that the alternator or nearby power is charging it. Operator and Engineer add the current in amperes.
+- **A new setting: Headlights light the ground** (vehicle systems settings, with the other running costs), on by default. Off, headlights draw on the battery as before and give no light.
+- For modders: any electrical load in a loadout can cast light with a beam element (radius, cells ahead, colour, brightness), and VehicleLight is the one class that places a vehicle's light; HeadlightRule is game-free, with tests.
+
+### Changed
+
+- **The headlights switch is off by default now.** With the new rule, lights left on by default would flatten every parked vehicle's battery each night. A vehicle whose headlights switch was never pressed has them off; switch them on before driving at night. A switch already pressed keeps its choice.
+- Aircraft navigation lights still burn only while the engines run.
+- The work lamps use the same light as the headlights now. Nothing changes in play.
+
+### Compatibility and limits
+
+- A beam is moved only when the vehicle reaches another cell or turns, and looked at no more than three times a second; a parked or dark vehicle costs next to nothing. Nothing is saved, so the setting and the mod can be turned off at any time.
+- The headlights do not go out when the front of the vehicle is shot up: no part carries them yet.
+
 ## [0.103.0] - 2026-11-12 - Draft
 
 Upgrade families: a whole family of fittings in one order, the cold-weather pack, all-terrain tyres, work lights, long range and recovery

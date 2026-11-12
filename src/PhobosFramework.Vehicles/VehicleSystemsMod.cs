@@ -90,6 +90,9 @@ public class VehicleSystemsSettings : ModSettings
     public bool accessoriesLoadEngine = true;
     /// <summary>Rough ground wears tyres, tracks and suspension faster than a road (crosslink 6; owner, 10 Nov 2026: a setting, on). Live.</summary>
     public bool roughGroundWear = true;
+    /// <summary>Headlights light the ground ahead of the vehicle (Framework 0.104.0; owner, 12 Nov 2026: by default). Off, they still draw
+    /// on the battery and give no light: for a player who wants every last tick. Live.</summary>
+    public bool headlightBeams = true;
     /// <summary>A jump-start needs a crafted jump-start kit, in stock or aboard (owner, 8 Nov 2026: default on). Live.</summary>
     public bool jumpStartNeedsKit = true;
     /// <summary>Every vehicle is assumed to carry a booster pack, so a jump-start needs no other vehicle (owner, 8 Nov 2026: off). Live.</summary>
@@ -178,6 +181,7 @@ public class VehicleSystemsSettings : ModSettings
         Scribe_Values.Look(ref lowOilCallsService, "PhobosVehicleSystems_LowOilCallsService", true);
         Scribe_Values.Look(ref accessoriesLoadEngine, "PhobosVehicleSystems_AccessoriesLoadEngine", true);
         Scribe_Values.Look(ref roughGroundWear, "PhobosVehicleSystems_RoughGroundWear", true);
+        Scribe_Values.Look(ref headlightBeams, "PhobosVehicleSystems_HeadlightBeams", true);
         Scribe_Values.Look(ref jumpStartNeedsKit, "PhobosVehicleSystems_JumpStartNeedsKit", true);
         Scribe_Values.Look(ref assumeBoosterPack, "PhobosVehicleSystems_AssumeBoosterPack", false);
         Scribe_Values.Look(ref cabMoods, "PhobosVehicleSystems_CabMoods", true);
@@ -237,6 +241,7 @@ public class VehicleSystemsMod : Mod
         if (!Settings.lowOilCallsService) report.Off("low oil calling a service", "off (setting)");
         if (!Settings.accessoriesLoadEngine) report.Off("accessories loading the engine", "off (setting)");
         if (!Settings.roughGroundWear) report.Off("rough-ground wear", "off (setting)");
+        if (!Settings.headlightBeams) report.Off("headlight beams", "off (setting)");
         if (Settings.jumpStartNeedsKit) report.On("jump-start leads must be crafted (setting)");
         else report.Off("jump-start leads", "free (setting)");
         if (Settings.assumeBoosterPack) report.On("booster pack assumed on every vehicle (setting)");
@@ -321,6 +326,7 @@ public class VehicleSystemsMod : Mod
         listing.CheckboxLabeled("PhobosVehicleSystems_SettingLowOilService".Translate(), ref s.lowOilCallsService, "PhobosVehicleSystems_SettingLowOilServiceDesc".Translate());
         listing.CheckboxLabeled("PhobosVehicleSystems_SettingAccessoryLoad".Translate(), ref s.accessoriesLoadEngine, "PhobosVehicleSystems_SettingAccessoryLoadDesc".Translate());
         listing.CheckboxLabeled("PhobosVehicleSystems_SettingRoughGround".Translate(), ref s.roughGroundWear, "PhobosVehicleSystems_SettingRoughGroundDesc".Translate());
+        listing.CheckboxLabeled("PhobosVehicleSystems_SettingHeadlightBeams".Translate(), ref s.headlightBeams, "PhobosVehicleSystems_SettingHeadlightBeamsDesc".Translate());
         if (GameComponent_PhobosServiceKits.InGame)
         {
             // This colony's own choice, saved with it (S4): shown here for convenience, changed only through its service.

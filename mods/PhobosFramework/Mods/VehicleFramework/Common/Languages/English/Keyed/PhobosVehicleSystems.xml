@@ -41,6 +41,8 @@
   <PhobosVehicleSystems_SettingAccessoryLoadDesc>On by default: lights, heaters and climate control take their power from the engine through the alternator, so the engine runs a little warmer for them, and burns a little more fuel when fuel follows the engine's load. Off: they cost the engine nothing.</PhobosVehicleSystems_SettingAccessoryLoadDesc>
   <PhobosVehicleSystems_SettingRoughGround>Rough ground wears tyres and suspension</PhobosVehicleSystems_SettingRoughGround>
   <PhobosVehicleSystems_SettingRoughGroundDesc>On by default: driving over rough ground wears tyres, tracks and suspension faster than a road does, up to three times as fast on the worst ground a vehicle can cross, so roads save repairs. Off: they wear by distance alone, wherever the vehicle drives.</PhobosVehicleSystems_SettingRoughGroundDesc>
+  <PhobosVehicleSystems_SettingHeadlightBeams>Headlights light the ground</PhobosVehicleSystems_SettingHeadlightBeams>
+  <PhobosVehicleSystems_SettingHeadlightBeamsDesc>On by default: at night, a vehicle with its headlights switched on lights the ground ahead of it, engine running or not, and so does another faction's vehicle while it drives. Off, headlights still draw on the battery but give no light, which saves a little work for the game when many vehicles drive at night.</PhobosVehicleSystems_SettingHeadlightBeamsDesc>
   <PhobosVehicleSystems_SettingRawServices>This colony: services take raw materials instead of kits</PhobosVehicleSystems_SettingRawServices>
   <PhobosVehicleSystems_SettingRawServicesDesc>Saved with this colony, not for every game. Off: a vehicle's tyres, brakes and engine service, and a new drive belt, need a kit made at the vehicle parts bench and loaded aboard, so caravans carry kits. On: they take the steel, components and chemfuel the kits are made of, as before. A colony started before kits existed begins with this on, so no service already due is held up; switch it off once you have kits. A new colony begins with it off.</PhobosVehicleSystems_SettingRawServicesDesc>
   <PhobosVehicleSystems_SettingLowOilService>Low oil calls for a service</PhobosVehicleSystems_SettingLowOilService>
@@ -87,6 +89,11 @@
   <PhobosVehicleSystems_InspectServiceDue>Waiting for a mechanic: {SERVICE}.</PhobosVehicleSystems_InspectServiceDue>
   <PhobosVehicleSystems_InspectServiceNeeds>Waiting for supplies for {SERVICE}: {SUPPLIES}.</PhobosVehicleSystems_InspectServiceNeeds>
   <PhobosVehicleSystems_InspectEngineer>Engine load {LOAD}, electrical draw {AMPS} A, air {AIR}.</PhobosVehicleSystems_InspectEngineer>
+  <PhobosVehicleSystems_InspectBatteryDrainedBy>{LOADS} on: the battery is running down.</PhobosVehicleSystems_InspectBatteryDrainedBy>
+  <PhobosVehicleSystems_InspectBatteryRunningDown>The battery is running down.</PhobosVehicleSystems_InspectBatteryRunningDown>
+  <PhobosVehicleSystems_InspectBatteryCharging>The alternator is charging the battery.</PhobosVehicleSystems_InspectBatteryCharging>
+  <PhobosVehicleSystems_InspectBatteryChargingFromGrid>The battery is charging from the power nearby.</PhobosVehicleSystems_InspectBatteryChargingFromGrid>
+  <PhobosVehicleSystems_InspectBatteryAmps>{LINE} ({AMPS} A)</PhobosVehicleSystems_InspectBatteryAmps>
   <PhobosVehicleSystems_InspectServiceWater>Waiting for water for {SERVICE}: {REASON}</PhobosVehicleSystems_InspectServiceWater>
   <PhobosVehicleSystems_InspectWheelsSpinning>Wheels spinning.</PhobosVehicleSystems_InspectWheelsSpinning>
   <PhobosVehicleSystems_InspectLabouring>Engine labouring.</PhobosVehicleSystems_InspectLabouring>
@@ -131,6 +138,7 @@
 
   <!-- Messages -->
   <PhobosVehicleSystems_MsgBatteryLow>The {VEHICLE}'s battery is running low.</PhobosVehicleSystems_MsgBatteryLow>
+  <PhobosVehicleSystems_MsgStartingPowerLow>The {VEHICLE}'s battery may soon be too weak to start the engine. Start it to charge the battery, or switch off its lights and heaters.</PhobosVehicleSystems_MsgStartingPowerLow>
   <PhobosVehicleSystems_MsgBatteryFreezing>The {VEHICLE}'s flat battery is freezing and may crack. Charge it or move it somewhere warmer.</PhobosVehicleSystems_MsgBatteryFreezing>
   <PhobosVehicleSystems_MsgRunningHot>The {VEHICLE}'s engine is running hot.</PhobosVehicleSystems_MsgRunningHot>
   <PhobosVehicleSystems_MsgOverheating>The {VEHICLE}'s engine is overheating and taking damage. Stop it and let it cool.</PhobosVehicleSystems_MsgOverheating>

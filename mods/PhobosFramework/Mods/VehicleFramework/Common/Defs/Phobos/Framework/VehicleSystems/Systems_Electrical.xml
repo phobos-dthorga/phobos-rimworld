@@ -117,7 +117,22 @@
             </effects>
           </li>
           <li>
+            <!-- Framework 0.104.0 (owner, 12 Nov 2026: a warning before a vehicle is stranded): twice the no-start line. Starting power is the
+                 charge times the battery's cold factor times the cold-oil factor, so at -18 degrees C with cold oil an engine fails near 33%
+                 charge (the owner's figure) while in mild weather 30% still starts: a warning on starting power, not on charge, always comes
+                 before being stranded. The 30% charge message stays. The threshold is authored. -->
             <from>0.1</from>
+            <to>0.2</to>
+            <label>barely enough to start</label>
+            <notable>true</notable>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_Message">
+                <message>PhobosVehicleSystems_MsgStartingPowerLow</message>
+              </li>
+            </effects>
+          </li>
+          <li>
+            <from>0.2</from>
             <label>enough to start</label>
           </li>
         </stages>

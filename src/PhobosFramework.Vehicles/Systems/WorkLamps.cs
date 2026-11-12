@@ -10,9 +10,8 @@ namespace Phobos.VehicleSystems;
 /// does so at the pace light gives (the game's own work speed in the dark), and the drill rig counts as lit. The lamps draw on the
 /// vehicle's electrics as any load does, so with the engine off they run the battery down.
 ///
-/// The light is a glower of the game's kind, held here and never added to the vehicle's Def, so nothing new is saved and removing the
-/// mod leaves no trace: it is registered with the map's light grid while the lamps burn and taken off when they stop, when the vehicle
-/// moves and when it leaves the map. Derived state, worked out again at every rare tick.
+/// The light is a <see cref="VehicleLight"/> (Framework 0.104.0: one place for every light a vehicle casts), so nothing new is saved and
+/// removing the mod leaves no trace. Derived state, worked out again at every rare tick.
 /// </summary>
 public sealed class WorkLamps
 {
@@ -26,14 +25,12 @@ public sealed class WorkLamps
     static readonly ColorInt Colour = new ColorInt(235, 240, 255, 0) * 1.45f;
 
     readonly CompPhobosVehicleSystems comp;
-    CompGlower? glower;
-    Map? litMap;
-    IntVec3 litAt = IntVec3.Invalid;
+    readonly VehicleLight light = new VehicleLight();
 
     public WorkLamps(CompPhobosVehicleSystems comp) => this.comp = comp;
 
     /// <summary>Whether the lamps burn now, lighting the ground.</summary>
-    public bool Lit => litMap != null;
+    public bool Lit => light.Lit;
 
     /// <summary>Whether the vehicle has work lights of any kind: our fitted lamps, or a design's own work light upgrade (a stat above 0).</summary>
     public static bool Fitted(VehiclePawn vehicle) =>
@@ -43,30 +40,14 @@ public sealed class WorkLamps
     public void Update()
     {
         VehiclePawn vehicle = comp.Vehicle;
-        bool burn = vehicle.Spawned && comp.LoadActive(LoadName);
-        if (!burn)
+        if (!vehicle.Spawned || !comp.LoadActive(LoadName))
         {
             PutOut();
             return;
         }
-        if (litMap == vehicle.Map && litAt == vehicle.Position) return;
-        PutOut();
-        glower ??= new CompGlower
-        {
-            parent = vehicle,
-            props = new CompProperties_Glower { glowRadius = Radius, glowColor = Colour, overlightRadius = 0f },
-        };
-        litMap = vehicle.Map;
-        litAt = vehicle.Position;
-        litMap.glowGrid.RegisterGlower(glower);
+        light.Place(vehicle.Map, vehicle.Position, Radius, Colour);
     }
 
     /// <summary>Takes the light off the map it was on: the lamps went off, the vehicle moved, or it left the map.</summary>
-    public void PutOut()
-    {
-        if (litMap == null || glower == null) return;
-        if (!litMap.Disposed) litMap.glowGrid.DeRegisterGlower(glower);
-        litMap = null;
-        litAt = IntVec3.Invalid;
-    }
+    public void PutOut() => light.PutOut();
 }

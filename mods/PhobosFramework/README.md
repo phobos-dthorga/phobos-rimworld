@@ -7,7 +7,7 @@ helpers every D'thorga mod shares.
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.103.0, built 12 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
+Version 0.104.0, built 12 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
 oxygen working through Burns and Smoke and Medical Equipment (5 November 2026). The health layer new in 0.3.0 and the **vehicle
 systems new in 0.9.0, and their engines, drivetrains and gas turbines new in 0.11.0, are not yet tested in game.** The rest is read from the game's and the mods' code.
 
@@ -24,6 +24,10 @@ and wear that a mechanic services. See [Vehicle systems](#vehicle-systems-with-v
 - **New in 0.31.0, with Vanilla Expanded Framework (not yet tested in game): garages.** A convoy that has stopped can set up a garage on
   the world map. Vehicles left in one stay with no time limit, and whoever is stationed there mends them from steel and components
   you bring by caravan. **Before removing this mod, take every vehicle out of every garage**, or they go with it.
+- **New in 0.104.0 (not yet tested in game): headlights light the ground.** At night, with the headlights switched on, the ground ahead
+  of a vehicle is lit, engine running or not. **The headlights switch is now off by default: switch it on before driving at night.**
+  **Left on with the engine off, the lights run the battery flat**, and a message warns when the battery may soon be too weak to start.
+  A setting, **Headlights light the ground**, turns the light itself off and is on by default.
 - **New in 0.101.0 (not yet tested in game): sling wrecks.** A load let go from a helicopter's sling lies on the world map as a wreck
   until a caravan recovers it. **Before removing this mod, recover every wreck**, or the vehicle in it goes with it. **Likewise, let a
   water drop run land and unload every litter first**, or the helicopter in the run and the people on the litters go with it.

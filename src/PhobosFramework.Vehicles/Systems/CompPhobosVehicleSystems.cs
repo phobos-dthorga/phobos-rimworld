@@ -429,9 +429,14 @@ public class CompPhobosVehicleSystems : VehicleComp
     public WorkLamps Lamps => lamps ??= new WorkLamps(this);
     WorkLamps? lamps;
 
+    /// <summary>The headlights' beam on the map (Framework 0.104.0): derived and never saved.</summary>
+    public Headlights Beams => beams ??= new Headlights(this);
+    Headlights? beams;
+
     public override void PostDeSpawn(Map map, DestroyMode mode = DestroyMode.Vanish)
     {
         lamps?.PutOut();
+        beams?.PutOut();
         // A gravship lifts its pipes along with it.
         if (mode != DestroyMode.WillReplace) VehiclePipes.Leave(this);
         VehicleSystemSounds.EndAll(this);
@@ -504,6 +509,7 @@ public class CompPhobosVehicleSystems : VehicleComp
     {
         base.CompTick();
         engineSound?.Tick(this);
+        beams?.Tick();
     }
 
     public override void CompTickRare()
@@ -521,6 +527,7 @@ public class CompPhobosVehicleSystems : VehicleComp
             case DetailTier.Full:
                 using (PhobosTiming.Measure("vehicle rare tick / full")) UpdateNow();
                 Lamps.Update();
+                Beams.Update();
                 if (++pipeLooks >= RareTicksPerPipeLook)
                 {
                     pipeLooks = 0;
@@ -533,6 +540,10 @@ public class CompPhobosVehicleSystems : VehicleComp
                 {
                     if (states != null) SweepPartHealth();
                 }
+                Beams.Update();
+                break;
+            default:
+                beams?.PutOut();
                 break;
         }
     }
@@ -683,6 +694,7 @@ public class CompPhobosVehicleSystems : VehicleComp
         shorePowered = null;
         loadAmps = 0f;
         if (states != null && states.Count > 0) loadAmps = SumLoads(new SystemContext(this, states[0]));
+        Electrics = ReadElectrics();
         // Crosslink 5: the alternator takes shaft power for what the loads draw, so the engine works a little harder for them.
         AccessoryShare = AccessoryLoad();
         if (AccessoryShare > 0f) EngineLoad = Mathf.Min(1f, EngineLoad + AccessoryShare);
@@ -716,6 +728,7 @@ public class CompPhobosVehicleSystems : VehicleComp
     float SumLoads(SystemContext context)
     {
         float amps = 0f;
+        switchedLoadsOn.Clear();
         PhobosVehicleLoadoutDef? loadout = Props.loadout;
         if (loadout == null) return 0f;
         foreach (ElectricalLoadSpec load in loadout.loads)
@@ -724,8 +737,48 @@ public class CompPhobosVehicleSystems : VehicleComp
             if (load.available != null && !load.available.Holds(context)) continue;
             if (load.when != null && !load.when.Holds(context)) continue;
             amps += load.amps;
+            if (load.toggle) switchedLoadsOn.Add(load.label);
         }
         return amps;
+    }
+
+    /// <summary>The labels of the switched loads running now (lights, heaters), from the last sum. Derived, never saved.</summary>
+    readonly List<string> switchedLoadsOn = new List<string>();
+
+    /// <summary>The battery's state in words for the inspect line (Framework 0.104.0; owner, 12 Nov 2026: "in words", in every display
+    /// mode), worked out at each update so the inspect line only reads it. Derived, never saved.</summary>
+    public ElectricalStatus Electrics { get; private set; }
+
+    /// <summary>A change of charge smaller than this a game hour reads as steady (authored: about a 45 Ah battery's 0.1 A).</summary>
+    const double SteadyChargePerHour = 0.002;
+    /// <summary>Above this charge a battery still taking a little reads as full, not charging (authored).</summary>
+    const float NearlyFull = 0.98f;
+
+    ElectricalStatus ReadElectrics()
+    {
+        if (states == null || Vehicle?.Faction != Faction.OfPlayer) return default;
+        foreach (SystemState state in states)
+        {
+            int q = state.Def.QuantityIndex("charge");
+            if (q < 0 || !Enabled(state)) continue;
+            double net = 0;
+            foreach (FlowSample sample in state.samples)
+            {
+                if (sample.Quantity != q) continue;
+                if (sample.Kind == FlowKind.Into) net += sample.Rate;
+                else if (sample.Kind == FlowKind.From) net -= sample.Rate;
+            }
+            float ampHours = new SystemContext(this, state).Parameter("batteryAmpHours");
+            float amps = (float)(System.Math.Abs(net) * ampHours);
+            string loads = switchedLoadsOn.Count == 0 ? "" : switchedLoadsOn.ToCommaList(useAnd: true);
+            if (net < -SteadyChargePerHour) return new ElectricalStatus(ElectricalTrend.RunningDown, amps, loads);
+            if (net > SteadyChargePerHour && state.values[q] < NearlyFull)
+            {
+                return new ElectricalStatus(EngineRunning ? ElectricalTrend.Charging : ElectricalTrend.ChargingFromGrid, amps, loads);
+            }
+            return default;
+        }
+        return default;
     }
 
     int StageOf(SystemState state, int quantity)
@@ -783,11 +836,17 @@ public class CompPhobosVehicleSystems : VehicleComp
 
     void OnVehicleEvent(VehicleEventDef eventDef)
     {
-        if (Tier != DetailTier.Full) return;
+        if (Tier != DetailTier.Full)
+        {
+            // Another faction's headlights come on as it sets off and go out as it stops, without its electrics.
+            if (Tier == DetailTier.Lite) Beams.Update();
+            return;
+        }
         if (!Usable) return;
         if (eventDef == VehicleEventDefOf.MoveStart) VehiclePipes.Leave(this);
         else if (eventDef == VehicleEventDefOf.MoveStop) VehiclePipes.Update(this);
         UpdateNow();
+        Beams.Update();
         if (states == null) return;
         foreach (SystemState state in states)
         {
@@ -1466,6 +1525,7 @@ public class CompPhobosVehicleSystems : VehicleComp
     {
         loadSwitches[load.name] = on;
         if (states != null && states.Count > 0) loadAmps = SumLoads(new SystemContext(this, states[0]));
+        if (load.beam != null) Beams.Update();
     }
 
     // ---- Service ----

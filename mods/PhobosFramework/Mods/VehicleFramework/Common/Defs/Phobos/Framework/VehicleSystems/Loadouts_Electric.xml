@@ -153,16 +153,21 @@
       <li>
         <name>headlights</name>
         <label>headlights</label>
-        <description>The headlights come on at night while the vehicle is switched on.</description>
+        <description>Switched on, the headlights light the ground ahead of the vehicle at night. With the engine off they run the battery down.</description>
         <amps>9</amps>
         <toggle>true</toggle>
         <iconPath>Phobos/VehicleSystems/Headlights</iconPath>
-        <when Class="Phobos.VehicleSystems.When_All">
-          <conditions>
-            <li Class="Phobos.VehicleSystems.When_Night" />
-            <li Class="Phobos.VehicleSystems.When_EngineRunning" />
-          </conditions>
-        </when>
+        <!-- Framework 0.104.0 (owner, 12 Nov 2026: "make this a rule"): switched on, the headlights burn at night whether or not the engine
+             runs, so with the engine off they run the battery down and can flatten it. Off by default, so a parked fleet is not flat by
+             morning (agent's choice: a light vehicle's 45 Ah battery feeds 9 A of headlights for about five hours). -->
+        <defaultOn>false</defaultOn>
+        <when Class="Phobos.VehicleSystems.When_Night" />
+        <!-- Framework 0.104.0: an electric vehicle's beam, a cool LED white (authored); the same reach as the diesels'. -->
+        <beam>
+          <radius>6</radius>
+          <ahead>5</ahead>
+          <colour>(235,240,255,0)</colour>
+        </beam>
       </li>
       <li>
         <name>cabHeater</name>

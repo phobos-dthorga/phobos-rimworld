@@ -436,6 +436,24 @@ public class ElectricalLoadSpec
     /// <summary>Whether this vehicle has the load fitted at all (climate control only on vehicles built with it): while it does not
     /// hold, the load never runs and its switch is not shown. Null: always fitted.</summary>
     public VehicleSystemCondition? available;
+    /// <summary>The load lights the ground ahead of the vehicle while it runs (headlights, Framework 0.104.0). Null: it casts no light.</summary>
+    public BeamSpec? beam;
+}
+
+/// <summary>
+/// A light beam a load casts while it runs (Framework 0.104.0, headlights; docs/development/vehicle-headlights.md): one pool of the game's
+/// own light, centred <see cref="ahead"/> cells past the vehicle's nose. Every figure is authored.
+/// </summary>
+public class BeamSpec
+{
+    /// <summary>The pool's radius, in cells.</summary>
+    public float radius = 6f;
+    /// <summary>How far past the nose the pool's centre stands, in cells.</summary>
+    public float ahead = 5f;
+    /// <summary>The light's colour (red, green, blue, 0).</summary>
+    public ColorInt colour = new ColorInt(255, 228, 190, 0);
+    /// <summary>The colour's scale: the game's glowers use 1.45 for a lamp's brightness.</summary>
+    public float brightness = 1.45f;
 }
 
 /// <summary>Three-way XML switch for a selector: match either way, only yes, only no.</summary>

@@ -40,12 +40,31 @@ public static class InspectText
         if (waiting != null) lines.Add(waiting);
         string? engine = EngineLine(comp, mode);
         if (engine != null) lines.Add(engine);
+        string? electrics = ElectricsLine(comp.Electrics, mode);
+        if (electrics != null) lines.Add(electrics);
         if (mode == DisplayMode.Engineer)
         {
             lines.Add("PhobosVehicleSystems_InspectEngineer".Translate(comp.EngineLoad.ToStringPercent().Named("LOAD"),
                 comp.ActiveLoadAmps().ToString("0").Named("AMPS"), comp.Ambient.ToStringTemperature("F0").Named("AIR")).Resolve());
         }
         return lines.Count == 0 ? null : string.Join("\n", lines);
+    }
+
+    /// <summary>The battery in words (Framework 0.104.0; owner, 12 Nov 2026), in every mode: running down, with the switched loads that run
+    /// it down named, or charging; nothing when it is steady. Operator and Engineer add the current. Reads the systems' cached status.</summary>
+    static string? ElectricsLine(ElectricalStatus status, DisplayMode mode)
+    {
+        string? line = status.Trend switch
+        {
+            ElectricalTrend.RunningDown when !string.IsNullOrEmpty(status.Loads) =>
+                "PhobosVehicleSystems_InspectBatteryDrainedBy".Translate(status.Loads.CapitalizeFirst().Named("LOADS")).Resolve(),
+            ElectricalTrend.RunningDown => "PhobosVehicleSystems_InspectBatteryRunningDown".Translate().Resolve(),
+            ElectricalTrend.Charging => "PhobosVehicleSystems_InspectBatteryCharging".Translate().Resolve(),
+            ElectricalTrend.ChargingFromGrid => "PhobosVehicleSystems_InspectBatteryChargingFromGrid".Translate().Resolve(),
+            _ => null,
+        };
+        if (line == null || mode == DisplayMode.Plain) return line;
+        return "PhobosVehicleSystems_InspectBatteryAmps".Translate(line.Named("LINE"), status.Amps.ToString("0.#").Named("AMPS")).Resolve();
     }
 
     /// <summary>The one thing the vehicle waits for: a mechanic, a supply, water, or the reason it will not move; null when nothing.</summary>

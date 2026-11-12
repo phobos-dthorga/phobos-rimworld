@@ -92,6 +92,7 @@ at its top.
 | W9 | The Seabed Crawler: hull, research tab, wet and advanced laboratories, listening array, sonar set, two hull refits, its picture and overlays ([design](vehicle-seabed-crawler.md), [framework](submarine-framework.md)) | Framework 0.62.0 to 0.81.0, Vehicles 0.28.0 to 0.38.0 | A flagship of D'thorga Vehicles; enemy submarines "very soon" (owner, 10 Nov 2026) | Built, not yet tested in game |
 | W10 | Parts bills: a thing's build cost listed by role, filled by installed mods' parts or ours ([record](parts-bills.md)) | Framework 0.95.0, Vehicles 0.41.0 | Costs in line with similar trucks, widest reach (11 Nov 2026) | Built, not yet tested in game (check 53) |
 | W11 | The 15 dashboard warning pictures (`assets/phobos-vehicles/requests/dash-telltales.json`, 60 images on the local model) | art | GPU only when the owner says so (owner, 12 Nov 2026) | Waiting on the owner's word; the dry run passes. Until then the warnings show in words |
+| W12 | Headlights that light the ground, on every vehicle our systems run; with the engine off they run the battery down; a warning at low starting power; the battery in words ([record](vehicle-headlights.md)) | Framework 0.104.0 | Owner, 12 Nov 2026 | Built, not yet tested in game. One setting added (Headlights light the ground), default on; the headlights switch now defaults off |
 
 ## Garage and fleet tools (from 8 Nov 2026)
 
