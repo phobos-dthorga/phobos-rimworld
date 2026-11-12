@@ -159,6 +159,7 @@ decided or started; each needs the owner's go.
 | I4 | A field decontamination kit for caravans: strip and rinse away from any shower | Medical | Strip and rinse (C8) needs a shower; there is none in the wild | Idea |
 | I5 | A night heater for electric vehicles, drawing a share of the traction battery an hour | Framework | Left out of V5: the night heater's fuel is counted in chemfuel units | **Built (owner, 12 Nov 2026): Framework 0.104.0, 2 % of the pack an hour at a night camp; not yet tested in game** ([record](vehicle-electric-design.md)) |
 | I6 | Liquid oxygen in the bulk tanker, insulated tank only, boiling off slowly | Vehicles, Medical | D'thorga Medical's liquid oxygen store would feed it; the owner asked for it to wait for other functionality (9 Nov 2026) | Idea, documented |
+| I7 | Hotboxing: passengers smoke aboard, a closed cab shares the high with everyone in it, smoke drifts from the windows, a stoned driver drives slower (owner, 12 Nov 2026) | Framework, Vehicles | The owner's idea; a stoned driver drives worse with real consequences, no random crashes | Design record written, waiting on the owner's four questions: [record](vehicle-hotboxing.md) |
 
 ## Housekeeping (8 Nov 2026)
 
