@@ -24,6 +24,19 @@
     <slingMaxLoss>0.3</slingMaxLoss>
     <slingHookUpWork>1500</slingHookUpWork>
     <slingReachCells>25</slingReachCells>
+    <!-- Sling slice 2 (Framework 0.101.0, all authored): no lift above 150% wind on the game's own readout, nor in a storm with lightning; a
+         slung flight at 0.7 of the helicopter's speed and 1.3 times its fuel per tile (an external load's drag); a dropped load unharmed up
+         to 2 m, every part ruined from 40 m; a release in cruise falls 30 m, a load in a crash 15 m; people riding in it take 6 blunt damage
+         for each tenth of the share lost; a wreck's map is 100 cells across. -->
+    <slingMaxWind>1.5</slingMaxWind>
+    <slingSpeedFactor>0.7</slingSpeedFactor>
+    <slingFuelPerTileFactor>1.3</slingFuelPerTileFactor>
+    <slingDropSafeMetres>2</slingDropSafeMetres>
+    <slingDropRuinMetres>40</slingDropRuinMetres>
+    <slingReleaseMetres>30</slingReleaseMetres>
+    <slingCrashDropMetres>15</slingCrashDropMetres>
+    <slingDropPersonDamage>6</slingDropPersonDamage>
+    <slingWreckMapSize>100</slingWreckMapSize>
     <!-- The hitch (Framework 0.101.0, authored): a trailer within 8 cells; coupling is about a third of an hour for a worker of normal speed;
          the hitch stands 0.3 cells behind a vehicle's rear edge unless its Def names its own point. -->
     <hitchReachCells>8</hitchReachCells>

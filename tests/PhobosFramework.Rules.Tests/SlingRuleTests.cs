@@ -80,4 +80,34 @@ public class SlingRuleTests
         Assert.Equal(2, z, 6);
         Assert.Equal(1, paidOut, 6);
     }
+
+    [Fact]
+    public void ACalmClearDayAllowsALift() => Assert.False(SlingRule.Grounded(0.8, storm: false, maxWind: 1.5));
+
+    [Fact]
+    public void StrongWindGroundsALift() => Assert.True(SlingRule.Grounded(1.7, storm: false, maxWind: 1.5));
+
+    [Fact]
+    public void AStormGroundsALiftWhateverTheWind() => Assert.True(SlingRule.Grounded(0.2, storm: true, maxWind: 1.5));
+
+    [Fact]
+    public void ASlungFlightCostsThirtyPercentMoreFuelPerTile()
+    {
+        (double speed, double fuelPerTick) = SlingRule.SlungFlight(0.7, 1.3);
+        Assert.Equal(0.7, speed, 6);
+        // Fuel per tile is fuel per tick over speed: back to the authored 1.3.
+        Assert.Equal(1.3, fuelPerTick / speed, 6);
+    }
+
+    [Fact]
+    public void ASlungFlightNeverStopsTheHelicopter() => Assert.True(SlingRule.SlungFlight(0, 1.3).Speed > 0);
+
+    [Fact]
+    public void ALowDropDoesNoHarm() => Assert.Equal(0, SlingRule.DropShare(1.5, 2, 40), 6);
+
+    [Fact]
+    public void HarmGrowsWithTheHeightOfTheDrop() => Assert.Equal(0.5, SlingRule.DropShare(21, 2, 40), 6);
+
+    [Fact]
+    public void AHighDropRuinsEveryPart() => Assert.Equal(1, SlingRule.DropShare(120, 2, 40), 6);
 }

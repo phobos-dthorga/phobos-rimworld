@@ -28,6 +28,37 @@ public static class SlingRule
     public static double Share(double loadKilograms, double capacityKilograms) => capacityKilograms <= 0 ? double.PositiveInfinity : loadKilograms / capacityKilograms;
 
     /// <summary>
+    /// Whether the weather grounds a lift (Framework 0.101.0, sling slice 2): a storm with lightning, or wind above the authored limit. The
+    /// game's wind speed is a share of a normal breeze (it shows as a percentage), so <paramref name="maxWind"/> is in the same unit.
+    /// </summary>
+    public static bool Grounded(double windSpeed, bool storm, double maxWind) => storm || windSpeed > Math.Max(0, maxWind);
+
+    /// <summary>
+    /// A slung flight's cost (Framework 0.101.0, authored): the helicopter flies at <paramref name="speedFactor"/> of its speed and burns
+    /// <paramref name="fuelPerTileFactor"/> times the fuel for each tile it crosses. Vehicle Framework spends fuel by the tick, so the fuel it
+    /// burns each tick is the per-tile factor times the speed factor; the flight takes longer, and the two together give the per-tile cost.
+    /// </summary>
+    /// <returns>What to multiply the flight speed and the fuel burned each tick by.</returns>
+    public static (double Speed, double FuelPerTick) SlungFlight(double speedFactor, double fuelPerTileFactor)
+    {
+        double speed = Math.Max(0.05, speedFactor);
+        double perTile = Math.Max(0, fuelPerTileFactor);
+        return (speed, perTile * speed);
+    }
+
+    /// <summary>
+    /// How hard a dropped load lands (Framework 0.101.0, authored): the share of each part's health it loses, nothing from a fall of
+    /// <paramref name="safeMetres"/> or less, rising evenly to all of it from <paramref name="ruinMetres"/>. A gameplay simplification of a
+    /// heavy impact; real damage depends on the ground and how the load lands.
+    /// </summary>
+    public static double DropShare(double heightMetres, double safeMetres, double ruinMetres)
+    {
+        if (heightMetres <= safeMetres) return 0;
+        if (ruinMetres <= safeMetres) return 1;
+        return Math.Min(1, (heightMetres - safeMetres) / (ruinMetres - safeMetres));
+    }
+
+    /// <summary>
     /// Where a slung load is drawn while its helicopter takes off or lands (Framework 0.99.0), in cells from the spot on the ground the
     /// helicopter left or is coming down to. A picture only: it changes nothing a lift does. The map shows height as distance up the
     /// screen, so a load on strops of <paramref name="stropCells"/> hangs that far below the helicopter's picture, and stays on the

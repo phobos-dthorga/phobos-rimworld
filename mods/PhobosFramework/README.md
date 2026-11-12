@@ -24,6 +24,8 @@ and wear that a mechanic services. See [Vehicle systems](#vehicle-systems-with-v
 - **New in 0.31.0, with Vanilla Expanded Framework (not yet tested in game): garages.** A convoy that has stopped can set up a garage on
   the world map. Vehicles left in one stay with no time limit, and whoever is stationed there mends them from steel and components
   you bring by caravan. **Before removing this mod, take every vehicle out of every garage**, or they go with it.
+- **New in 0.101.0 (not yet tested in game): sling wrecks.** A load let go from a helicopter's sling lies on the world map as a wreck
+  until a caravan recovers it. **Before removing this mod, recover every wreck**, or the vehicle in it goes with it.
 - **RimWorld 1.7 only** (from 0.10.0; 1.6 is no longer supported, owner's decision of 8 November 2026).
 - **From 0.28.0 the game's log is turned back on when it stops itself** at 10,000 messages a session (the setting **Keep the
   game's log going after its message limit**, on), at most 25 times a session, with a line naming the message that filled it. This
@@ -85,7 +87,9 @@ and wear that a mechanic services. See [Vehicle systems](#vehicle-systems-with-v
   with the helicopter and is set down beside it where it lands. It must weigh, with its cargo and people, no more than the hook takes
   today (less on hot days). Settings under **Sling loads**. **From 0.99.0 the load is drawn under the helicopter** as it takes off and
   lands, a message says it was lifted, the world map's tabs and the fleet board list it, and a landed helicopter with no room to set its
-  load down has a **Set the load down** button. **From 0.93.0 the Systems tab is compact**: one row a reading, which opens to
+  load down has a **Set the load down** button. **From 0.101.0 (not yet tested in game)** wind and storms ground a lift, a slung flight
+  is slower and burns more, landing asks where to put the load, and on the world map **Emergency release** drops it as a wreck for a
+  caravan to recover; a crash drops it too. Each is a setting under **Sling loads**. **From 0.93.0 the Systems tab is compact**: one row a reading, which opens to
   its graph on a click, a card a system, parts as a strip of small bars, and an **Only what needs attention** tick box. **From 0.94.0** a
   screen of ours that fails shows one line and tries again in a few seconds, where the game would fill its log; and in dev mode
   **"Vehicle systems: run the self-test"** checks most of this in one go, a sling lift included. Not yet tested in game.

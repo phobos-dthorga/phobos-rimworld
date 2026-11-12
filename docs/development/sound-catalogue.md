@@ -216,6 +216,12 @@ them, and D'thorga Patches adds nothing of its own to hear.
 Our loadouts give other mods' vehicles our systems, so the **generic** sounds (S6 to S16) reach them. Their engines, doors and
 weapons stay their authors' own: we never replace another mod's vehicle sounds.
 
+## Sling loads
+
+| ID | Sound | Hook | Note |
+| --- | --- | --- | --- |
+| S128 | A cargo hook latching onto a sling load | Code (the hook-up, CompPhobosSling) | **In, Framework 0.101.0 (12 Nov 2026)**: made on the processor at the owner's word, the **agent's provisional pick** for the owner to confirm (take 51 of four; 53 and 54 clipped; cut to its first clack). `PhobosVehicleSystems_HookLatch` |
+
 ## Planned, not built (sounds wait for the feature)
 
 | ID | Sound | For | Source |

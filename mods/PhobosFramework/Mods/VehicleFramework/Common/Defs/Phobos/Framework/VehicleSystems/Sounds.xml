@@ -367,4 +367,26 @@
       <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
     </modExtensions>
   </SoundDef>
+
+  <!-- S128: a helicopter's cargo hook latching onto a sling load (sling slice 3, Framework 0.101.0). Agent's provisional pick, for the owner
+       to confirm; made on the processor. Beside the game's Interact_Repair_Start, as the jump-start kit. -->
+  <SoundDef>
+    <defName>PhobosVehicleSystems_HookLatch</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/VehicleSystems/HookLatch</clipPath>
+          </li>
+        </grains>
+        <volumeRange>11</volumeRange>
+        <distRange>5~25</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
 </Defs>

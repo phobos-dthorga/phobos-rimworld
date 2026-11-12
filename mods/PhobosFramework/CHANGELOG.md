@@ -7,7 +7,7 @@ tested in game unless an entry says the owner tested it.
 
 ## [0.101.0] - 2026-11-12 - Draft
 
-The hitch: a vehicle tows a trailer on the map, and the trailer's weight reaches the engine. The first part of the batch the owner started on 12 November 2026. **Not yet tested in game.**
+The hitch: a vehicle tows a trailer on the map, and the trailer's weight reaches the engine. Sling loads, slice 2: weather, a slower slung flight, choosing where a load comes down, emergency release and wrecks to recover. The batch the owner started on 12 November 2026. **Not yet tested in game.**
 
 ### Added
 
@@ -15,10 +15,19 @@ The hitch: a vehicle tows a trailer on the map, and the trailer's weight reaches
 - **The trailer stays on the map while towed** (owner, 11 Nov 2026): it blocks and is blocked, and it can be shot. It follows the hitch the way a real trailer does: its axle is dragged after the hitch, so it cuts inside a corner and straightens behind the vehicle, held within its jack-knife angle. Its picture turns smoothly between the four ways the game shows it, and a drawbar is drawn from the hitch to its front. If the trailer would run into a wall or another vehicle, the vehicle stops and says that the trailer cannot follow.
 - **The tow costs what the drivetrain says**: the trailer and all it carries are rolled, speeded up and lifted with the vehicle, so a small truck with a heavy trailer drops a gear, runs hotter, burns more and crawls up hills. The trailer adds no grip; only the vehicle's own wheels pull.
 - For modders: CompProperties_PhobosTrailer (any vehicle Def becomes a trailer in XML, with its two lengths and jack-knife angle), PhobosHitchPointExtension (a vehicle's own hitch point), noHitch on a loadout, and HitchRule's placing functions and plain rule.
+- **Sling loads, slice 2** (docs/development/vehicle-sling-design.md). **Weather grounds a lift**: no lift in strong wind (above 150% on the game's own readout) or a thunderstorm, and the Lift button and the launch say which.
+- **A slung flight is slower and thirstier**: 0.7 of the helicopter's speed and 1.3 times the fuel over the same ground (authored), and the range shown when choosing a destination is shorter to match. The world map's line on the helicopter says so.
+- **Choosing where the load comes down**: when a helicopter with a load lands on the map you are looking at, the game pauses and the load's outline follows the mouse, white where it fits and red where it does not. A right-click lets the crew put it on the nearest clear ground, as before.
+- **Emergency release** on the world map, with a confirmation: the load falls and lies below as a **wreck** (owner, 12 Nov 2026). Send a caravan to **Recover** it: a small map is made with the wreck on it, damaged by the fall, to repair, drive, tow or lift home. A wreck left lying there waits for the next visit.
+- **A crash drops the load**: a helicopter that comes down out of fuel or shot down drops what it carries beside the wreckage, and it lands hard.
+- **A drop's damage** (authored): nothing from 2 m or less, rising to every part ruined from 40 m; a release in cruise falls 30 m, a load in a crash 15 m. Every part keeps a sliver of health, so a fall never destroys the vehicle outright. People riding in it are hurt.
+- **The hook latch sound**, when a colonist hooks a load up (or the helicopter takes it itself): made on the processor at the owner's word, and the **agent's provisional pick, for the owner to confirm**.
+- The sling's **Emergency release** button uses its picture picked by the owner on 11 November 2026.
 
 ### Changed
 
 - New setting under **Vehicle systems, Towing: Vehicles without the drivetrain model can tow** (off by default). On, every other land vehicle can tow too, on a plain rule: it keeps its own weight's share of its speed. With the drivetrain model on display only, our vehicles also tow on the plain rule.
+- Three new settings under **Vehicle systems, Sling loads**, all on by default: **Weather can ground a lift**, **Slung loads fly slower and burn more**, and **Emergency release and drops** (off: no release, and a crash keeps the load to be set down beside the wreckage).
 
 ### Compatibility and limits
 
@@ -27,10 +36,13 @@ The hitch: a vehicle tows a trailer on the map, and the trailer's weight reaches
 - The trailer's place snaps to whole cells, smoothed by Vehicle Framework's own glide, so the gap at the hitch varies by up to half a cell; the drawn drawbar stretches over it.
 - Loading cargo onto a trailer is not stopped while it is hitched.
 - Other factions' vehicles can carry a hitch, but no raid brings a trailer yet. A trailer whose vehicle is destroyed stays where it stood.
+- Sling: there is no stand-in of our own that hovers over the load or takes orders in mid-air, by the agent's choice (the design record says why): Leave the load before take-off, the set-down choice on landing and Emergency release on the world map stand in for it. The load still slides in under the helicopter during take-off.
+- Sling: release is on the world map only. A wreck lands on the nearest tile with no other place on it. Whether a vehicle caravan (rather than one on foot) can reach a wreck is untested.
 
 ### Save compatibility
 
 - Safe to update mid-game. A hitch saves its trailer and the trailer's heading; nothing else.
+- A sling saves whether its helicopter is coming down in a crash. A wreck is a world place that saves its vehicle; **removing the mod while a wreck lies on the world map loses that vehicle**: recover it first.
 
 ## [0.100.0] - 2026-11-12 - Draft
 

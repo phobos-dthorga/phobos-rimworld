@@ -1,0 +1,14 @@
+[
+ {
+  "name": "s128-hook-latch",
+  "engine": "sa3-sfx",
+  "seconds": 4,
+  "seeds": [
+   51,
+   52,
+   53,
+   54
+  ],
+  "prompt": "A heavy steel cargo hook under a helicopter snapping shut on a lifting ring: one solid spring-loaded metal latch clack with a short chain rattle as the strops take up, no engine noise. Close, outdoors, dry. Length: 2 seconds"
+ }
+]

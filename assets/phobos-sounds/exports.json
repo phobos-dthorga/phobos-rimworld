@@ -1412,6 +1412,23 @@
       "offset_db": 0,
       "volume": 10,
       "why": "Phase 2 and medical (docs/development/sound-catalogue.md): the owner took every one of the agent's shortlist leans on 11 Nov 2026; reference and offset are agent choices."
+    },
+    {
+      "name": "HookLatch",
+      "use": "S128: a helicopter's cargo hook latching onto a sling load",
+      "picked": "2026-11-12",
+      "candidate": "s128-hook-latch/s128-hook-latch-51.flac",
+      "kind": "oneshot",
+      "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Sounds/Phobos/VehicleSystems/HookLatch.ogg",
+      "reference": "Interact_Repair_Start",
+      "offset_db": 0,
+      "volume": 11,
+      "why": "Sling slice 3 (docs/development/vehicle-sling-design.md): agent's provisional pick, for the owner to confirm. Made on the processor (owner, 12 Nov 2026). Of four takes, 53 and 54 clipped; 51 and 52 were clean, and 51 has one strong clack where 52 has two close together. Cut to its first clack and the short rattle after it. Reference, offset and volume copy the jump-start kit's, a like clamp of metal on metal.",
+      "cut": [
+        0.1,
+        1.05
+      ],
+      "picked_by": "the agent, provisionally, for the owner to confirm"
     }
   ]
 }

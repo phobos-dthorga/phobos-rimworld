@@ -142,6 +142,26 @@ public class WorldObjectComp_PhobosSling : WorldObjectComp
         catch (System.Exception e) { UiGuard.Report(GuardKey, e); return null; }
     }
 
+    /// <summary>Emergency release over the world map (sling slice 2): on our helicopter in flight carrying a load. It asks first, since the
+    /// load falls and becomes a wreck; a disabled button says why.</summary>
+    public override IEnumerable<Gizmo> GetGizmos()
+    {
+        foreach (Gizmo gizmo in base.GetGizmos()) yield return gizmo;
+        if (parent is not AerialVehicleInFlight aircraft || aircraft.Vehicle is not { } helicopter || helicopter.Faction != Faction.OfPlayer) yield break;
+        if (helicopter.GetComp<CompPhobosSling>() is not { Carried: { } load } sling) yield break;
+        var release = new Command_Action
+        {
+            defaultLabel = "PhobosSling_ReleaseGizmo".Translate(),
+            defaultDesc = "PhobosSling_ReleaseGizmoDesc".Translate(load.LabelShort.Named("LOAD")),
+            icon = SystemIcons.For("Phobos/VehicleSystems/Sling/Release"),
+            action = () => Find.WindowStack.Add(Dialog_MessageBox.CreateConfirmation(
+                "PhobosSling_ReleaseConfirm".Translate(load.LabelShort.Named("LOAD"), load.AllPawnsAboard.Count().Named("PEOPLE")),
+                () => sling.ReleaseInFlight(PhobosSlingWreck.TileUnder(aircraft.Tile, ((WorldObject)aircraft).DrawPos)), destructive: true)),
+        };
+        if (sling.ReleaseRefusal() is { } refusal) release.Disable(refusal);
+        yield return release;
+    }
+
     string? InspectLine()
     {
         StringBuilder? lines = null;
@@ -152,6 +172,13 @@ public class WorldObjectComp_PhobosSling : WorldObjectComp
             if (lines.Length > 0) lines.AppendLine();
             lines.Append("PhobosSling_WorldCarrying".Translate(carrier.LabelShort.Named("HELICOPTER"), load.LabelShort.Named("LOAD"),
                 CompPhobosSling.LoadKilograms(load).ToString("N0").Named("WEIGHT")).Resolve());
+            if (parent is AerialVehicleInFlight && carrier.GetComp<CompPhobosSling>() is { SlungFlightNow: true })
+            {
+                (double speed, double fuelPerTick) = SlungFlight.Factors;
+                lines.AppendLine();
+                lines.Append("PhobosSling_WorldSlowFlight".Translate(((float)speed).ToStringPercent().Named("SPEED"),
+                    ((float)(fuelPerTick / speed)).ToString("0.##").Named("FUEL")).Resolve());
+            }
         }
         return lines?.ToString();
     }

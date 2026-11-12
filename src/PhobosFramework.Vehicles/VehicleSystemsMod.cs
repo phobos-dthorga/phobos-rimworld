@@ -55,6 +55,12 @@ public class VehicleSystemsSettings : ModSettings
     public bool slingHeatDerating = true;
     /// <summary>A colonist hooks a sling load up; off, the helicopter does it itself. Live.</summary>
     public bool slingGroundCrew = true;
+    /// <summary>Sling slice 2 (Framework 0.101.0; owner, 11 Nov 2026: each a setting): strong wind or a storm grounds a lift. Live.</summary>
+    public bool slingWeather = true;
+    /// <summary>A slung flight flies slower and burns more fuel per tile. Live.</summary>
+    public bool slingSlowFlight = true;
+    /// <summary>Emergency release in flight, and a load dropped when its helicopter crashes; off, no release and a crash keeps the load. Live.</summary>
+    public bool slingRelease = true;
     /// <summary>Vehicles without a drivetrain of ours may tow, on the plain rule (Framework 0.101.0; owner, 11 Nov 2026: off by default, with a
     /// warning). Live.</summary>
     public bool hitchOthersPlainRule;
@@ -156,6 +162,9 @@ public class VehicleSystemsSettings : ModSettings
         Scribe_Values.Look(ref fitCostScalesWithWeight, "PhobosVehicleSystems_FitCostScalesWithWeight", true);
         Scribe_Values.Look(ref slingHeatDerating, "PhobosVehicleSystems_SlingHeatDerating", true);
         Scribe_Values.Look(ref slingGroundCrew, "PhobosVehicleSystems_SlingGroundCrew", true);
+        Scribe_Values.Look(ref slingWeather, "PhobosVehicleSystems_SlingWeather", true);
+        Scribe_Values.Look(ref slingSlowFlight, "PhobosVehicleSystems_SlingSlowFlight", true);
+        Scribe_Values.Look(ref slingRelease, "PhobosVehicleSystems_SlingRelease", true);
         Scribe_Values.Look(ref hitchOthersPlainRule, "PhobosVehicleSystems_HitchOthersPlainRule", false);
         Scribe_Values.Look(ref powerPointLargeSocket, "PhobosVehicleSystems_PowerPointLargeSocket", false);
         Scribe_Values.Look(ref enemyFitSets, "PhobosVehicleSystems_EnemyFitSets", true);
@@ -366,6 +375,9 @@ public class VehicleSystemsMod : Mod
         SettingsUi.Section(listing, "PhobosSling_Section".Translate());
         listing.CheckboxLabeled("PhobosSling_SettingHeat".Translate(), ref s.slingHeatDerating, "PhobosSling_SettingHeatDesc".Translate());
         listing.CheckboxLabeled("PhobosSling_SettingCrew".Translate(), ref s.slingGroundCrew, "PhobosSling_SettingCrewDesc".Translate());
+        listing.CheckboxLabeled("PhobosSling_SettingWeather".Translate(), ref s.slingWeather, "PhobosSling_SettingWeatherDesc".Translate());
+        listing.CheckboxLabeled("PhobosSling_SettingSlowFlight".Translate(), ref s.slingSlowFlight, "PhobosSling_SettingSlowFlightDesc".Translate());
+        listing.CheckboxLabeled("PhobosSling_SettingRelease".Translate(), ref s.slingRelease, "PhobosSling_SettingReleaseDesc".Translate());
 
         SettingsUi.Section(listing, "PhobosHitch_Section".Translate());
         listing.CheckboxLabeled("PhobosHitch_SettingOthers".Translate(), ref s.hitchOthersPlainRule, "PhobosHitch_SettingOthersDesc".Translate());

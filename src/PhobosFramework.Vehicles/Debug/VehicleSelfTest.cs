@@ -519,6 +519,14 @@ public static class VehicleSelfTest
         comp.Fittings.FitForTest(mount, hook);
         test.Expect("With a hook but no sling set it says so", sling.Refusal() != null);
         helicopter.inventory.innerContainer.TryAdd(ThingMaker.MakeThing(VehicleSystemsThingDefOf.PhobosVehicleSystems_SlingSet));
+        string? weather = CompPhobosSling.WeatherRefusal(helicopter.Map);
+        if (weather != null)
+        {
+            // Sling slice 2: wind or a storm grounds a lift, so the rest waits for calmer weather.
+            test.Expect("The weather's refusal is the one it gives", sling.Refusal() == weather, sling.Refusal() ?? "");
+            test.Skip("Lifting the load", weather);
+            return;
+        }
         test.Expect("With both it is ready to lift", sling.Refusal() == null, sling.Refusal() ?? "");
 
         PhobosVehicleRulesDef rules = PhobosVehicleRulesDef.Current<PhobosVehicleRulesDef>();
@@ -542,6 +550,7 @@ public static class VehicleSelfTest
             sling.HookedUp(mechanic);
         }
         test.Expect("Hooked up, nothing stops the launch", sling.LaunchRefusal() == null, sling.LaunchRefusal() ?? "");
+        test.Expect("Hooked up, the slung flight's cost applies only with its setting on", sling.SlungFlightNow == VehicleSystemsMod.Settings.slingSlowFlight);
         test.Expect("Nothing still waits for a crew", SlingWaits.WaitingOn(load) == null);
 
         sling.TakeLoad();

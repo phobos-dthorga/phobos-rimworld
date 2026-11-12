@@ -682,6 +682,22 @@ public class PhobosVehicleRulesDef : PhobosRulesDef
     public float slingHookUpWork = 1500f;
     /// <summary>How far, in cells, a load may stand from the helicopter that lifts it, and how far around it a load is set down.</summary>
     public float slingReachCells = 25f;
+    /// <summary>Sling slice 2 (Framework 0.101.0, authored): no lift above this wind speed (the game's own figure, a share of a normal
+    /// breeze), nor in a storm with lightning.</summary>
+    public float slingMaxWind = 1.5f;
+    /// <summary>A slung flight flies at this share of the helicopter's speed and burns this many times its fuel per tile.</summary>
+    public float slingSpeedFactor = 0.7f;
+    public float slingFuelPerTileFactor = 1.3f;
+    /// <summary>A dropped load: no harm from a fall up to the first height in metres, every part ruined from the second.</summary>
+    public float slingDropSafeMetres = 2f;
+    public float slingDropRuinMetres = 40f;
+    /// <summary>How far a load falls when released in cruise, and when its helicopter comes down in a crash, in metres.</summary>
+    public float slingReleaseMetres = 30f;
+    public float slingCrashDropMetres = 15f;
+    /// <summary>Blunt damage each person riding in a dropped load takes for each tenth of a part's health the fall costs (authored).</summary>
+    public float slingDropPersonDamage = 6f;
+    /// <summary>The side, in cells, of the map made when a caravan reaches a wreck.</summary>
+    public int slingWreckMapSize = 100;
     /// <summary>The hitch (Framework 0.101.0, authored): how far a trailer may stand from the vehicle that hitches it, the work of coupling it
     /// up, and the gap from a vehicle's rear edge to its hitch, in cells.</summary>
     public float hitchReachCells = 8f;

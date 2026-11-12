@@ -5244,5 +5244,52 @@
       "cfg": 1.0,
       "prompt": "A heavy drill rig truck setting up: hydraulic outriggers stomping down onto the ground one by one, then a tall steel mast raised slowly by whining hydraulic rams, creaking into place. Outdoors. Length: 8 seconds"
     }
+  },
+  "HookLatch": {
+    "name": "HookLatch",
+    "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Sounds/Phobos/VehicleSystems/HookLatch.ogg",
+    "sha256": "a72239609af7c83468dcc006db6803430412c79cbd9966eb13dea96e1451550d",
+    "master_sha256": "9fc69e61cf136229647d36b1bff7971223c44123f6824cb4d603e7ce824cc043",
+    "fingerprint": "144db09a89a8390a4129bb8ca3403ad5389d2f0abb034965fa1f69f2f3a84ae6",
+    "date": "2026-11-12",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "cut_s": [
+        0.1,
+        1.05
+      ],
+      "levelled_by": "loudness, to -23.73 LUFS",
+      "gain_db": -0.1
+    },
+    "reference": {
+      "defName": "Interact_Repair_Start",
+      "effective": "-42.9 LUFS",
+      "volume": [
+        9.304348,
+        12.56522
+      ],
+      "distance": null,
+      "channels": 1
+    },
+    "result": {
+      "lufs": -26.7,
+      "true_peak": -1.7,
+      "seconds": 0.87,
+      "flags": [
+        "highs",
+        "spiky"
+      ],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 51,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A heavy steel cargo hook under a helicopter snapping shut on a lifting ring: one solid spring-loaded metal latch clack with a short chain rattle as the strops take up, no engine noise. Close, outdoors, dry. Length: 2 seconds"
+    }
   }
 }

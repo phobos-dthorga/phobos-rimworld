@@ -183,7 +183,8 @@ def record_text(spec, entry):
              'prompted by the Phobos art scripts, then prepared by scripts/art/export_sound.py. The model\'s outputs belong to their '
              'maker under the Stability AI Community License; shipping them needs no notice (docs/development/sound-generation.md).', '',
              '| | |', '| --- | --- |',
-             f'| Picked by | the owner, {spec.get("picked", "")} |',
+             # An agent's provisional pick says so (spec "picked_by"); every pick before 12 Nov 2026 was the owner's.
+             f'| Picked by | {spec.get("picked_by", "the owner")}, {spec.get("picked", "")} |',
              f'| Master | assets/phobos-sounds/generated/{spec["candidate"]} (sha256 {entry["master_sha256"]}) |',
              f'| Model | {source.get("model", "")} (sha256 {source.get("model_sha256", "")}), seed {source.get("seed", "")}, '
              f'{source.get("steps", "")} steps, guidance {source.get("cfg", "")} |',

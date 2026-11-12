@@ -21,6 +21,12 @@ section "The owner's report of 12 Nov 2026" below says what was found and what c
 beautifully and the animation at launch looks wonderfully realistic". Their screenshot shows the world-map line "Cherokee carries L-ATV on
 its sling: 7,103 kg." and the L-ATV listed after the Cherokee in our world-map tabs. **The landing and set-down are not yet tested in game.**
 
+**Slice 2 built (12 Nov 2026), D'thorga Framework 0.101.0, not yet tested in game.** What it does, in short: the weather limit; the
+slower, thirstier slung flight and the shorter range drawn for it; on landing, the game pauses and asks where to set the load down;
+emergency release on the world map, the load becoming a **wreck** a caravan recovers (owner's decision, 12 Nov 2026); and a crash drops
+the load, which lands hard. **Not built, by the agent's choice** (below, "Slice 2 as built"): our own selectable stand-in that hovers
+over the load and takes orders in mid-air. Slice 3's hook latch sound is in too, as the agent's provisional pick.
+
 ## Read this first
 
 - **What it is:** any helicopter given a **cargo hook** (a fitting, in the fittings window) can lift one vehicle on a sling, fly it on the
@@ -173,6 +179,35 @@ through every draw phase and flies the helicopter over to the load first. It doe
 Vehicle Framework's stand-in and draws beside it, which is less to maintain but cannot change the helicopter's path; that is why the
 hover waits for slice 2's own stand-in.
 
+## Slice 2 as built (12 Nov 2026)
+
+| What | How | Lets, stops, changes |
+| --- | --- | --- |
+| **Weather grounds a lift** | No lift is chosen or flown while the map's wind is above 150% on the game's own readout, or the weather brings lightning (read from what the weather does, never its name). The Lift button and the launch say which and wait | Stops a lift in a gale or a storm; changes a lift into something planned around the weather |
+| **The slung flight** | Vehicle Framework's flight speed and fuel use are multiplied while a load is ready on the hook or hanging: 0.7 of the speed and 1.3 times the fuel per tile. Vehicle Framework spends fuel by the tick, so the per-tick factor is 1.3 x 0.7 (`SlingRule.SlungFlight`). Its range drawn when choosing a destination reads the same figures, so it shows the load. The world map's line says so | Stops a slung flight costing what an empty one does; changes how far a lift can go |
+| **Choosing where the load comes down** | When a helicopter with a load lands on the map the player is looking at, the game pauses and asks; the load's outline follows the mouse, white where it fits within reach, red where it does not. Right-click, and it comes down on the nearest clear ground as before (the 0.99.0 behaviour, kept). On a map nobody is looking at, it is set down at once as before | Lets the player put the load where it is wanted, not where it happens to fit |
+| **Emergency release** (world map) | A button on our helicopter in flight carrying a load, with a confirmation. The load falls 30 m and lies on the tile below (or the nearest free one) as a **wreck** | Lets the crew save a helicopter short of fuel; stops the load reaching its destination |
+| **The wreck** | A world object of ours holding the vehicle and its riders. A caravan sent to **Recover** it reaches a small map (100 cells across) with the wreck on it; the fall's damage is dealt then. When nobody of ours is left there, the map goes; a wreck still lying on it is taken back to wait for the next visit, and one driven, towed or lifted away leaves nothing | Lets a loss become a recovery mission (owner: "a lost thing is future content") |
+| **A crash drops the load** | Vehicle Framework's crash event (out of fuel, shot down) is noted; when the helicopter reaches the crash site's map, the load falls 15 m beside it instead of being set down | Changes a crash into a harder recovery |
+| **A drop's damage** | Each part loses a share of its health: none from 2 m or less, rising evenly to all of it from 40 m (`SlingRule.DropShare`), varied 40% either way part by part. **Every part keeps a sliver of health**, so a fall never destroys the vehicle outright and there is always a wreck to recover. Riders take blunt damage, 6 for each tenth of the share, in three hits | Authored |
+| **The latch sound** (slice 3) | A steel hook snapping shut, played where the load stands when a colonist hooks it up, or when the helicopter takes it up itself with the ground crew setting off | Agent's provisional pick, for the owner to confirm |
+
+**Not built, the agent's choice (for the owner to revise):** our own selectable stand-in for the take-off and landing, with **Set down
+here**, **Emergency release** and **Cancel** in mid-air, and the hover over the load before the hook-up. Read from Vehicle Framework's
+code: its take-off and landing stand-ins are ordinary things whose picture moves while their cell stays on the ground, they last a few
+seconds, and the launch is shared with every aircraft and with VTOL Vehicle's and the Harrier framework's prefixes that may skip it.
+Replacing the stand-in (as Cherokee Sling does) means owning that whole launch for helicopters, and making Vehicle Framework's stand-in
+selectable would change every aircraft's take-off. The orders the stand-in was for are instead given where the player can reach them:
+**Leave the load** before take-off (slice 1), the **set-down choice** on landing, and **Emergency release** on the world map. A load still
+slides in under the helicopter during take-off, as in 0.99.0. Settings for all three new behaviours are below.
+
+**Read from code for this slice** (`scripts/query-code.py`): `CompVehicleLauncher.FlightSpeed` and `FuelConsumptionWorldMultiplier`
+(`VehicleFramework-1.6:Vehicles.decompiled.cs:18422-18424`), spent by `AerialVehicleInFlight.SpendFuel` and read by `FuelNeededToLaunchAtDist`
+(`:90429`, `:18597`); `AerialVehicleInFlight.InitiateCrashEvent` (`:90445`), which makes Vehicle Framework's crash site and its map at
+once through `IncidentWorker_ShuttleDowned` (`:77856`). That crash site makes its map the moment it is created, and two places that can
+hold a map must not share a tile, so the wreck is a place of our own that makes its map only when a caravan arrives; a released load
+is put on the nearest tile with nothing else on it. The game's wind (`WindManager`: a base of 0.04 to 2 times the weather's factor).
+
 ## Other factions' vehicles
 
 - **In a raid on us:** no raider orders a lift, so a raider's helicopter never carries a load. The drawing checks for a load first and
@@ -181,6 +216,8 @@ hover waits for slice 2's own stand-in.
   Framework 0.97.0), it lifts as ours.
 - **One we capture:** a captured helicopter with a hook mount lifts as ours does, and a captured vehicle is a load like any other.
 - **Cost with several on a map:** nothing each tick. The picture is drawn each frame only for a flight that carries a load.
+- **Slice 2:** the weather limit and the slower flight apply to any helicopter with a load, but no raider lifts one. The release button is
+  shown only on our own helicopters. A wreck is nobody's: a caravan of ours recovers it, and it waits however long that takes.
 
 ## Slices
 
@@ -193,8 +230,8 @@ hover waits for slice 2's own stand-in.
 
 ## Open questions
 
-- **A load dropped on the world map** (an engine failure in flight): a wreck site the player can recover from, using Vehicle Framework's
-  crash site, or the load is lost. Agent lean: a wreck site, so the loss becomes a recovery mission ("a lost thing is future content").
+- **Decided (owner, 12 Nov 2026): a load dropped on the world map becomes a wreck site** a caravan can recover. Built in Framework
+  0.101.0 as a place of our own rather than Vehicle Framework's crash site (see "Slice 2 as built").
 - **A sling set's cost**: the agent will author it from real strops (polyester round slings and a steel swivel) and say so.
 - **Other mods' helicopters**: each needs a flight profile and a hook rating. The Cherokee comes first; others as the owner names them.
 
@@ -202,6 +239,10 @@ hover waits for slice 2's own stand-in.
 
 - **Owner (11 Nov 2026):** our own airlift with our own flavour; any helicopter, by fitting; real masses with heat derating; ground crew,
   weather limits, slower and thirstier slung flight, emergency release; all of them as settings; pictures from the OpenAI API.
+- **Owner (12 Nov 2026):** a load dropped on the world map becomes a wreck a caravan can recover; the latch sound made on the processor.
+- **Agent choices in slice 2 (12 Nov 2026):** no selectable stand-in or hover (above); the thresholds and figures in the table; a drop
+  leaves every part a sliver of health; the wreck's map size; release only on the world map; a crash dropping the load from 15 m; the
+  latch sound's pick.
 - **Agent defaults (for the owner to revise):** the sling set as an item kept aboard; the authored figures in the table; standing down on
   the Cherokee when Cherokee Sling is active; the order of the slices; a wreck site for a load dropped in flight (open).
 - **Owner's picks (11 Nov 2026):** lift #1, set down #2, emergency release #1, cargo hook #2, sling set #2 (US$0.54 for ten attempts; masters

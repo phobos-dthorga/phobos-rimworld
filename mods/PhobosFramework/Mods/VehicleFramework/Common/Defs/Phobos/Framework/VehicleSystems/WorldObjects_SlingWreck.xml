@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- A sling load let go over the world map (Framework 0.101.0; owner, 12 Nov 2026: a wreck a caravan can recover). The vehicle waits here
+       until a caravan reaches it; a small map is then made with the wreck on it. The pictures are the game's and Vehicle Framework's own
+       crash-site pictures (this file loads only with Vehicle Framework). docs/development/vehicle-sling-design.md -->
+  <WorldObjectDef>
+    <defName>PhobosSlingWreck</defName>
+    <label>wreck</label>
+    <description>A vehicle dropped from a helicopter's sling. It lies where it fell, damaged by the fall, with whoever rode in it. Send a caravan to reach it, then repair it, drive it, tow it or lift it home.</description>
+    <worldObjectClass>Phobos.VehicleSystems.PhobosSlingWreck</worldObjectClass>
+    <texture>World/WorldObjects/Ambush</texture>
+    <expandingIcon>true</expandingIcon>
+    <expandingIconTexture>UI/Icons/WorldObject_CrashSite</expandingIconTexture>
+    <expandingIconPriority>90</expandingIconPriority>
+    <expandMore>true</expandMore>
+    <canHaveFaction>false</canHaveFaction>
+  </WorldObjectDef>
+</Defs>

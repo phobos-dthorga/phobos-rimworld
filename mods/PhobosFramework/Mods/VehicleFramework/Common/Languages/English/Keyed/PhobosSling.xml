@@ -41,4 +41,34 @@
   <PhobosSling_SettingHeatDesc>A helicopter's cargo hook lifts 1% less for each degree above 15 °C, at most 30% less, as thinner hot air gives the rotor and engines less to work with. Off, a hook lifts its rated load in any weather.</PhobosSling_SettingHeatDesc>
   <PhobosSling_SettingCrew>A ground crew hooks the load up</PhobosSling_SettingCrew>
   <PhobosSling_SettingCrewDesc>A colonist walks to the chosen vehicle and hooks the strops on before the helicopter can lift it. Off, the helicopter hooks it up by itself.</PhobosSling_SettingCrewDesc>
+  <PhobosSling_SettingWeather>Weather can ground a lift</PhobosSling_SettingWeather>
+  <PhobosSling_SettingWeatherDesc>A load swings dangerously in strong wind, so no lift starts in a gale or a thunderstorm; the helicopter waits for calmer weather. Off, lifts go ahead in any weather.</PhobosSling_SettingWeatherDesc>
+  <PhobosSling_SettingSlowFlight>Slung loads fly slower and burn more</PhobosSling_SettingSlowFlight>
+  <PhobosSling_SettingSlowFlightDesc>A vehicle hanging under a helicopter drags at the air, so the flight is slower and costs more fuel for each stretch of ground crossed, and the range shown when choosing a destination is shorter. Off, a slung flight costs what an empty one does.</PhobosSling_SettingSlowFlightDesc>
+  <PhobosSling_SettingRelease>Emergency release and drops</PhobosSling_SettingRelease>
+  <PhobosSling_SettingReleaseDesc>The crew can let a load go over the world map, where it falls and lies as a wreck for a caravan to recover; and a helicopter that crashes drops its load, which lands hard. Off, there is no release, and a crash keeps the load to be set down beside the wreckage.</PhobosSling_SettingReleaseDesc>
+
+  <!-- Sling slice 2 (Framework 0.101.0): weather, choosing where the load comes down, drops, release and wrecks. -->
+  <PhobosSling_Storm>A thunderstorm grounds the lift. Wait for it to pass.</PhobosSling_Storm>
+  <PhobosSling_TooWindy>The wind is too strong to lift safely: {WIND} now, and a lift needs {LIMIT} or less. Wait for calmer weather.</PhobosSling_TooWindy>
+  <PhobosSling_ChooseSpot>{HELICOPTER} is down with {LOAD} on the hook. Choose where to set it down, or right-click to let the crew pick the nearest clear ground.</PhobosSling_ChooseSpot>
+  <PhobosSling_NothingToSetDown>Nothing hangs from the hook.</PhobosSling_NothingToSetDown>
+  <PhobosSling_SpotTooFar>Too far from the helicopter: the load comes down within {CELLS} cells of it.</PhobosSling_SpotTooFar>
+  <PhobosSling_SpotBlocked>The load does not fit there: it needs open ground under the sky with nobody and nothing in the way.</PhobosSling_SpotBlocked>
+  <PhobosSling_FellInCrash>{HELICOPTER} came down in a crash, and {LOAD} fell from its sling and landed hard: {HARM}.</PhobosSling_FellInCrash>
+  <PhobosSling_HarmNone>no harm done</PhobosSling_HarmNone>
+  <PhobosSling_HarmShare>its parts lost about {SHARE} of their health, and anyone inside was hurt</PhobosSling_HarmShare>
+  <PhobosSling_ReleaseGizmo>Emergency release</PhobosSling_ReleaseGizmo>
+  <PhobosSling_ReleaseGizmoDesc>Let {LOAD} go. It falls from cruising height and lands hard below, badly damaged, with anyone riding in it hurt or killed. It lies there as a wreck until a caravan reaches it. The helicopter flies on lighter.</PhobosSling_ReleaseGizmoDesc>
+  <PhobosSling_ReleaseConfirm>Let {LOAD} fall? It will be badly damaged, and the {PEOPLE} people riding in it may be hurt or killed. It lies where it falls as a wreck for a caravan to recover.</PhobosSling_ReleaseConfirm>
+  <PhobosSling_ReleaseOff>The crew cannot release the load in flight.</PhobosSling_ReleaseOff>
+  <PhobosSling_NothingToRelease>Nothing hangs from the hook.</PhobosSling_NothingToRelease>
+  <PhobosSling_ReleaseNoTile>There is nowhere open below for {LOAD} to fall. Fly on and try again over open country.</PhobosSling_ReleaseNoTile>
+  <PhobosSling_Released>{HELICOPTER} let {LOAD} go. It fell and lies below as a wreck: send a caravan to recover it.</PhobosSling_Released>
+  <PhobosSling_WorldSlowFlight>Slowed by the load: {SPEED} of its speed, {FUEL} times the fuel over the same ground.</PhobosSling_WorldSlowFlight>
+  <PhobosSling_WreckLabel>wreck of {LOAD}</PhobosSling_WreckLabel>
+  <PhobosSling_WreckInspect>{LOAD} lies here where it fell, with {PEOPLE} people aboard.</PhobosSling_WreckInspect>
+  <PhobosSling_WreckApproach>Recover {PLACE}</PhobosSling_WreckApproach>
+  <PhobosSling_WreckApproaching>Going to recover {PLACE}</PhobosSling_WreckApproaching>
+  <PhobosSling_WreckReached>{CARAVAN} has reached {LOAD}. It is damaged from the fall: repair it, drive it, tow it or lift it home.</PhobosSling_WreckReached>
 </LanguageData>

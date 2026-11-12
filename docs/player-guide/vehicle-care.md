@@ -171,10 +171,18 @@ shows while a dyno bay is in reach. It works on any vehicle, from any mod, that 
   1. Fit the helicopter a **cargo hook** (Fittings and tunes). Vanilla Vehicles Expanded's Cherokee has a mount for one.
   2. Put a **sling set** in its cargo.
   3. Press **Lift a vehicle** and pick one of yours parked outdoors nearby. A colonist hooks it up.
-  4. It flies with the helicopter, drawn under it, and is set down beside it where it lands. If there was no room, press **Set the
-     load down** once there is.
+  4. It flies with the helicopter, drawn under it. **Where it lands, the game pauses and asks where to put the load** (not yet tested
+     in game): click open ground within reach, or right-click to let the crew pick the nearest clear spot. If there was no room, press
+     **Set the load down** once there is.
 
-  The load, with its cargo and people, must weigh no more than the hook takes today: less on hot days.
+  The load, with its cargo and people, must weigh no more than the hook takes today: less on hot days. **No lift in a gale or a
+  thunderstorm**; the button says which. **A slung flight is slower and burns more fuel**, and the range shown is shorter.
+
+- **Emergency release** (world map, not yet tested in game): on a helicopter in flight, it lets the load fall. It lands hard, badly
+  damaged, and anyone in it is hurt. It lies there as a **wreck**: right-click it with a caravan to **Recover** it, then repair it,
+  drive it, tow it or lift it home. **A helicopter that crashes drops its load too**, beside the wreckage.
+- **Each of these is a setting** under **Sling loads** in D'thorga Framework's settings: hot days, ground crew, weather, slower flight,
+  and release and drops.
 
 ## Towing a trailer
 
