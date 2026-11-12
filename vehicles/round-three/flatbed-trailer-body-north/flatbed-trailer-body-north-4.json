@@ -1,0 +1,51 @@
+{
+  "file": "flatbed-trailer-body-north-4.png",
+  "sha256": "abbff6514b488d5cc4fc2b01ce3795e0a31de5e877f3ec31e029398dfa359a3a",
+  "date": "2026-11-12T21:34:36",
+  "generator": "OpenAI gpt-image-2 through the OpenAI image API (paid per image)",
+  "engine": "openai",
+  "model": "gpt-image-2",
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL game vehicle sprite for the D'thorga flatbed trailer: a two-axle flatbed trailer with low sides and a drawbar, towed behind a truck to carry a second load for a hard-scrabble frontier colony. Image 1 is our approved truck from the same family: match its outline weight, shading, palette and finish only. Do NOT copy its shape or layout, and draw no cab and no engine.\n\nDraw the BARE EMPTY TRAILER only. Taller side boards are drawn separately as an overlay.\n\nTall canvas, twice as tall as wide. The trailer is LONG AND NARROW: its deck is about one third as wide as the trailer is long, and its wheels stick out a little beyond the deck on each side. It fills seven eighths of the canvas height, centred, on a plain pure white background. North facing: the drawbar at the TOP edge, the rear of the deck at the BOTTOM edge.\n\nIts plan, from top to bottom: at the top, a triangular A-frame drawbar of dark steel narrowing to a round towing eye at its tip; then a short raised headboard across the front of the deck with one muted orange accent stripe; then one long flat rectangular deck of dark weathered steel planks running lengthways, edged all round by low pale sand-grey side boards; the tops of four wheels with dark rubber tyres, two each side, close together as a tandem pair just behind the middle of the deck, each pair under a pale sand-grey mudguard; at the bottom, a plain rear board with two small square corner posts.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo cab, engine, seats, tall side boards, stakes, straps, chains, cargo, crates, people, animals, turrets, ramps, dust, mud, damage, text, letters, numbers, logos, dials, screens or lamps. No floor, ground, road, shadow outside the trailer, perspective, tilt or visible side faces. Top surfaces only.",
+  "seed": 4,
+  "seed_note": "an attempt number naming the file; the API takes no seed, so a rerun gives a different image",
+  "quality": "medium",
+  "size": [
+    768,
+    1536
+  ],
+  "request_file": "assets/phobos-vehicles/requests/trailer-pilot.json",
+  "ai_disclosure": "Made with generative AI: OpenAI gpt-image-2, prompted by the Phobos art scripts.",
+  "terms": "OpenAI Services Agreement, sections 4.1 and 4.4, as recorded in the Phobos Ostranauts repository on 2026-10-07 and summarised again on 2026-11-08: API customers own Output, OpenAI assigns any rights it has, and Output may not be unique; no use of Output to build competing models. Dated secondary records: the openai.com page refuses automated reads, so the owner confirms the current text.",
+  "endpoint": "/images/edits",
+  "usage": {
+    "input_tokens": 1975,
+    "input_tokens_details": {
+      "image_tokens": 1458,
+      "text_tokens": 517
+    },
+    "output_tokens": 916,
+    "output_tokens_details": {
+      "image_tokens": 916,
+      "text_tokens": 0
+    },
+    "total_tokens": 2891
+  },
+  "cost_usd": 0.0417,
+  "cost_is_estimate": false,
+  "reported_quality": "medium",
+  "reported_size": "768x1536",
+  "reported_background": "opaque",
+  "reported_output_format": "png",
+  "returned_size": [
+    768,
+    1536
+  ],
+  "seconds": 22.2,
+  "references": [
+    {
+      "image": "assets/phobos-vehicles/generated/tipper-body-north/tipper-body-north-3.png",
+      "sha256": "2243b95387beb7ea5f418c2f240554dd65d352e41a9e0765457155d9663ad00e",
+      "role": "approved truck of the same family, the owner's pick: match its outline weight, shading, palette and finish only; do not copy its shape or layout"
+    }
+  ]
+}
