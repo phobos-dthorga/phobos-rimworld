@@ -8,7 +8,8 @@ API, so it waits for the owner's GPU), the radio whip (held until the radio resu
 the survey truck's geophone spikes and resistivity reel (they ride on the moving boom), the new vehicles' damage pictures, the sonar ping
 and triage tag icons, and the optional Factory Additions buildings. **Later the same day** the store's frost was drawn in code, the geophones and resistivity reel
 were made and picked, and every new vehicle got damage pictures from the tanker's marks (Framework 0.100.0, Vehicles 0.44.0, Medical
-0.15.0). Every pick, flag and cost is in
+0.15.0). **Later still (round three, 12 Nov 2026):** the Pintle trailer's own body and greedy boards, the tipper's loading grab, and the
+recovery winch and long-range tank on our trucks, from the paid API ([round three](../../assets/phobos-vehicles/requests/round-three-record.md)). Every pick, flag and cost is in
 [the night's record](../../assets/phobos-vehicles/requests/night-2026-11-12-record.md). The tables below are the record as last written on
 7 Nov 2026.
 

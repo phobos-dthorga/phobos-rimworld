@@ -128,7 +128,7 @@ It carries both bits: pick by the job.
    **including any spare parts you loaded**. Whatever will not fit stays aboard, and it says how many.
 
 **Upgrades:** **greedy boards** (taller sides, +600 kg), and either a **rock body** (tips half as fast again) or a **bulk body**
-(3,600 kg, tips slower). And a **loading grab**, a small crane behind the cab:
+(3,600 kg, tips slower). And a **loading grab**, a small crane that shows folded behind the cab once fitted:
 
 - **With a driver aboard and stopped, press Work the grab.** It lifts loose things lying within 4 cells (the blue outline) into the
   cargo, one stack or up to 500 kg a lift, every 20 seconds or so. Nobody else has to carry.
@@ -138,7 +138,8 @@ It carries both bits: pick by the job.
 
 ## Pintle flatbed trailer
 
-A two-axle flatbed: 2,000 kg empty, 3,000 kg of cargo. Its picture is the tipper's body for now, borrowed until it has its own.
+A two-axle flatbed: 2,000 kg empty, 3,000 kg of cargo, with low sides and a drawbar. Its one upgrade, the greedy boards (+600 kg), shows as
+taller side boards.
 
 1. **Build it** from the **motor pool** tab, after **vehicle parts** research.
 2. **Load it** through its cargo tab while it stands unhitched.

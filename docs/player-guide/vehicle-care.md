@@ -120,6 +120,15 @@ Our vehicles and the depot bay are **built from parts** by role (an engine, a fu
 a part that suits (RimThunder, Vanilla Vehicles Expanded), a build asks for theirs; otherwise ours. **Parts for building** in the
 settings changes that, after a restart.
 
+### Making parts
+
+- **Bills run from the top.** The vehicle parts bench works its bills in order, top to bottom. A bill low in the list may wait a long
+  time while the ones above keep the bench busy. Move the part you need most to the top.
+- **Give the parts somewhere to go.** Kits and parts go in a storage category of their own, **Vehicle parts**. Stockpiles you made
+  before installing don't accept new categories by themselves, so tick Vehicle parts in at least one stockpile or shelf. "Do until
+  you have X" only counts parts in storage, so without one the bench keeps making more than you asked for.
+- **Keep materials close.** A stockpile of steel and components beside the bench saves a long walk for every part.
+
 ## Fittings, tunes and grades
 
 ![Fittings, tunes and grades: uprated radiator, oil cooler, turbocharger, heavy-duty alternator, deep-cycle battery, heavy-duty springs, road tyres, block heater, cargo hook, the economy, stock and power tunes, the tall, stock and short final drives, and the salvaged and heavy-duty grades](images/fittings-and-tunes.png)
@@ -146,7 +155,8 @@ shows while a dyno bay is in reach. It works on any vehicle, from any mod, that 
   **auxiliary fuel tank** to a land vehicle or boat (half as much fuel again) or a **ferry tank** to an aircraft (three quarters as
   much again); either costs cargo space, and the range on the world map grows with the fuel aboard. Taking one off drains the extra
   fuel into containers beside the vehicle. **Recovery** fits a **recovery winch** to the vehicle's winch mount: see
-  [Recovering a stuck vehicle](#recovering-a-stuck-vehicle).
+  [Recovering a stuck vehicle](#recovering-a-stuck-vehicle). On our own trucks (the tanker, survey truck, drill rig and tipper) the
+  winch shows on the front bumper and the auxiliary tank between the wheels; other mods' vehicles keep their own pictures.
 
 ## Cabs and comfort
 

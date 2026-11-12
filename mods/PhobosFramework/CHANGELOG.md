@@ -5,6 +5,22 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.105.0] - 2026-11-12 - Draft
+
+A vehicle's picture can follow what is fitted to it, not only its upgrades
+
+### Added
+
+- A picture over a vehicle can now be shown by a fitting, such as the recovery winch or the auxiliary fuel tank, as well as by an upgrade. It appears when the fitting is fitted and goes when it is taken off, checked every few seconds. D'thorga Vehicles 0.49.0 uses it for the winch on the front bumper and the long-range tank between the wheels. Modders name a fitting instead of an upgrade in a look slot of the node looks comp.
+
+### Save compatibility
+
+- Safe to add to a running game; nothing new is saved.
+
+### Compatibility and limits
+
+- Not yet tested in game. A fitting's picture shows while the fitting is fitted, even if its mount is destroyed, as a destroyed part's own picture would. The check costs one comparison on each vehicle's rare tick, and only on a vehicle with such a picture.
+
 ## [0.104.0] - 2026-11-12 - Draft
 
 Headlights that light the ground; a tow you can read, a forecast before one, and trailers that go on journeys
@@ -31,6 +47,7 @@ Headlights that light the ground; a tow you can read, a forecast before one, and
 
 ### Changed
 
+- The README's gotchas and the player guide now say how to make vehicle parts without a wait: bills run from the top, parts need a stockpile that takes the Vehicle parts category, and materials are best kept beside the bench. Documentation only; nothing changes in play.
 - **The headlights switch is off by default now.** With the new rule, lights left on by default would flatten every parked vehicle's battery each night. A vehicle whose headlights switch was never pressed has them off; switch them on before driving at night. A switch already pressed keeps its choice.
 - Aircraft navigation lights still burn only while the engines run.
 - The work lamps use the same light as the headlights now. Nothing changes in play.

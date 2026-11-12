@@ -14,15 +14,26 @@ public static class NodeLookRule
     /// <summary>The index of the picture to show, or -1 for none. <paramref name="nodes"/> holds each picture's node key, null for stock.</summary>
     public static int Choose(IReadOnlyList<string?> nodes, Func<string, bool> fitted)
     {
+        var met = new bool?[nodes.Count];
+        for (int i = 0; i < nodes.Count; i++) met[i] = nodes[i] is string node ? fitted(node) : null;
+        return Choose(met);
+    }
+
+    /// <summary>
+    /// The index of the picture to show, or -1 for none, when each picture's condition is already known: true or false for a picture shown
+    /// by something fitted (an upgrade node, or a fitting since Framework 0.105.0: the recovery winch, the auxiliary tank), null for the stock
+    /// look.
+    /// </summary>
+    public static int Choose(IReadOnlyList<bool?> met)
+    {
         int stock = -1;
-        for (int i = 0; i < nodes.Count; i++)
+        for (int i = 0; i < met.Count; i++)
         {
-            string? node = nodes[i];
-            if (node == null)
+            if (met[i] is not bool fitted)
             {
                 if (stock < 0) stock = i;
             }
-            else if (fitted(node))
+            else if (fitted)
             {
                 return i;
             }

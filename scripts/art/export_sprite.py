@@ -17,10 +17,12 @@ from pathlib import Path
 from PIL import Image
 
 
-def white_to_alpha(image, threshold=235, soft=30, all_white=False):
+def white_to_alpha(image, threshold=235, soft=30, all_white=False, holes=()):
     """Alpha from how far a pixel is from pure white, for the background only: near-white reached from the image's edge. White inside
     the object, such as a mattress, stays solid. Fully opaque below threshold-soft, clear above threshold. all_white clears every
-    near-white pixel, for an object with no white of its own and background showing through it, such as a loop of tube."""
+    near-white pixel, for an object with no white of its own and background showing through it, such as a loop of tube. holes names
+    (x, y) points of background enclosed by the object, each cleared as the edge is, such as the frame of a trailer's drawbar
+    (12 Nov 2026)."""
     rgba = image.convert('RGBA')
     pixels = rgba.load()
     width, height = rgba.size
@@ -35,6 +37,7 @@ def white_to_alpha(image, threshold=235, soft=30, all_white=False):
         return rgba
     seen = bytearray(width * height)
     stack = [(x, y) for x in range(width) for y in (0, height - 1)] + [(x, y) for y in range(height) for x in (0, width - 1)]
+    stack += [(int(x), int(y)) for x, y in holes if 0 <= x < width and 0 <= y < height]
     while stack:
         x, y = stack.pop()
         if seen[y * width + x]:

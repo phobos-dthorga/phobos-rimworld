@@ -1,0 +1,74 @@
+[
+ {
+  "name": "tipper-loading-grab",
+  "engine": "openai",
+  "quality": "medium",
+  "width": 1536,
+  "height": 1024,
+  "seeds": [
+   1,
+   2,
+   3
+  ],
+  "references": [
+   {
+    "image": "assets/phobos-vehicles/generated/tipper-body-north/tipper-body-north-3.png",
+    "role": "our approved tipper body, the owner's pick: match its outline weight, shading, palette and finish only, and use it to see where this part sits; do not redraw it"
+   }
+  ],
+  "art_plan": {
+   "vehicle": "Phobos_Tipper, footprint (3, 8), drawSize (4, 9); node PhobosLoadingGrab (docs/development/vehicle-upgrades-round-two.md)",
+   "look": "node look: the crane folded for travel across the strip between the cab and the tipping body; shown when the node is fitted",
+   "this_request": "part drawn alone, fitted by script onto the picked body; owner's go, 12 Nov 2026"
+  },
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL game sprite part for the D'thorga tipper truck: a small hydraulic loader crane, folded flat for travel, that sits across the truck just behind its cab and lifts loose rock and stacks into the tipping body with a grab. Image 1 is our approved tipper truck: match its outline weight, shading, palette and finish only, and use it to see where this part sits. Do NOT redraw the truck.\n\nDraw ONLY this part, alone on a plain pure white background: nothing else on the canvas. The folded crane is a LONG, LOW, HORIZONTAL shape lying across the canvas from left to right, about four times as wide as it is tall, filling the canvas width with a small margin. At the left end, a round steel slewing base with a short pillar; from it two straight boom arms of pale sand-grey painted steel folded side by side, lying left to right, with one dark hydraulic ram along the upper arm and one muted orange accent band near the pillar; at the right end, a closed clamshell grab of dark steel, its two jaws shut, tucked against the arm tips.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo truck, cab, wheels, deck, tipping body, cables hanging loose, load, rocks, people, animals, operator seat, smoke, dust, mud, damage, text, letters, numbers, logos, symbols, dials or screens. No floor, ground, shadow outside the part, perspective, tilt or visible side faces. Top surfaces only."
+ },
+ {
+  "name": "fitting-recovery-winch-overlay",
+  "engine": "openai",
+  "quality": "medium",
+  "width": 1536,
+  "height": 1024,
+  "seeds": [
+   1,
+   2
+  ],
+  "references": [
+   {
+    "image": "assets/phobos-vehicles/generated/bulk-tanker-body-north/bulk-tanker-body-north-2.png",
+    "role": "our approved truck, the owner's pick, the family's first: match its outline weight, shading, palette and finish only; do not redraw it"
+   }
+  ],
+  "art_plan": {
+   "vehicles": "our land trucks with the winch mount: tanker, survey truck, drill rig, tipper (the generator set has no mount; the flatbed trailer has no engine)",
+   "look": "fitting look: the recovery winch (PhobosFitting_RecoveryWinch, granting RecoveryWinch) on the front bumper; one picture placed on every body by script (rule 11: a free derivation over a paid one per body)",
+   "this_request": "part drawn alone; agent's proposal, owner's go, 12 Nov 2026",
+   "needs_code": "D'thorga Framework's node looks switch by upgrade node only; a look by granted fitting is added when the pick ships"
+  },
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL game sprite part for the D'thorga trucks: a heavy recovery winch bolted to a truck's front bumper, used to drag a stuck vehicle out of mud. Image 1 is our approved truck from the same family: match its outline weight, shading, palette and finish only. Do NOT redraw the truck.\n\nDraw ONLY this part, alone on a plain pure white background: nothing else on the canvas. A LONG, LOW, HORIZONTAL shape lying across the canvas from left to right, about three times as wide as it is tall, filling about three quarters of the canvas width, centred. A horizontal drum tightly wound with dark steel wire rope sits between two boxy end housings of dark grey steel; a short round motor cylinder on the left end; a small rectangular control box of pale sand-grey on the right end; along the BOTTOM edge of the drum, a short roller fairlead frame where the rope comes out, and a heavy muted orange hook clipped to it at the centre.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo truck, bumper bar, grille, wheels, loose rope trailing away, people, animals, smoke, dust, mud, damage, text, letters, numbers, logos, symbols, dials or screens. No floor, ground, shadow outside the part, perspective, tilt or visible side faces. Top surfaces only."
+ },
+ {
+  "name": "fitting-aux-fuel-tank-overlay",
+  "engine": "openai",
+  "quality": "medium",
+  "width": 1024,
+  "height": 1536,
+  "seeds": [
+   1,
+   2
+  ],
+  "references": [
+   {
+    "image": "assets/phobos-vehicles/generated/bulk-tanker-body-north/bulk-tanker-body-north-2.png",
+    "role": "our approved truck, the owner's pick, the family's first: match its outline weight, shading, palette and finish only; do not redraw it"
+   }
+  ],
+  "art_plan": {
+   "vehicles": "our land trucks with the auxiliary tank cradle: tanker, survey truck, drill rig, tipper (the generator set lists its own parts; the trailer and the Crawler are not drawn with it in this round)",
+   "look": "fitting look: the auxiliary fuel tank (PhobosFitting_AuxFuelTank) lying lengthways along one side between the wheels; one picture placed on every body by script (rule 11)",
+   "this_request": "part drawn alone; agent's proposal, owner's go, 12 Nov 2026",
+   "needs_code": "a look by fitted fitting, as for the winch"
+  },
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL game sprite part for the D'thorga trucks: an extra diesel fuel tank strapped along the side of a truck's chassis, for longer trips. Image 1 is our approved truck from the same family: match its outline weight, shading, palette and finish only. Do NOT redraw the truck.\n\nDraw ONLY this part, alone on a plain pure white background: nothing else on the canvas. A LONG, NARROW, VERTICAL shape standing from the top of the canvas to the bottom, about one quarter as wide as it is tall, filling about four fifths of the canvas height, centred. A long cylindrical fuel tank of pale brushed aluminium lying lengthways, its rounded ends at the top and bottom, seen from above as a long rounded bar with a soft highlight down its length; two dark steel strap bands across it near each end; one round dark filler cap near the top end, with a small muted orange ring around it.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo truck, chassis, wheels, hoses, pipes, steps, people, animals, smoke, fuel spills, dust, mud, damage, text, letters, numbers, logos, symbols, warning labels, dials or screens. No floor, ground, shadow outside the part, perspective, tilt or visible side faces. Top surfaces only."
+ }
+]

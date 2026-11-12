@@ -106,6 +106,17 @@ class SortingTests(unittest.TestCase):
         self.assertTrue(sort_rules.is_near_copy(40, 0.60))
         self.assertFalse(sort_rules.is_near_copy(13, 0.59))
 
+    def test_the_hash_counts_only_between_subjects_of_like_proportions(self):
+        # The owner's fuel tank (0.19 wide to tall) hashed 7 bits from the game's wide 1 by 3 altar (3.1): not a copy.
+        self.assertFalse(sort_rules.same_proportions(0.193, 3.097))
+        self.assertFalse(sort_rules.is_near_copy(7, 0.34, proportions_agree=False))
+        # A blurred or tilted copy stays within 1.13 times of its source, and still flags on the hash.
+        self.assertTrue(sort_rules.same_proportions(0.50, 0.565))
+        self.assertTrue(sort_rules.is_near_copy(7, 0.34, proportions_agree=True))
+        # The structural score flags whatever the proportions.
+        self.assertTrue(sort_rules.is_near_copy(40, 0.60, proportions_agree=False))
+        self.assertFalse(sort_rules.same_proportions(0.0, 1.0))
+
     def test_blank_on_blank_windows_do_not_count_as_shared_structure(self):
         self.assertFalse(sort_rules.compares_structure(255, 240))
         self.assertTrue(sort_rules.compares_structure(255, 40))
@@ -183,6 +194,13 @@ class ExportBackgroundTests(unittest.TestCase):
         self.assertEqual(result.getpixel((0, 0))[3], 0)
         self.assertEqual(result.getpixel((4, 4))[3], 0)
         self.assertEqual(result.getpixel((3, 3))[3], 255)
+
+    def test_a_named_hole_clears_background_the_object_encloses(self):
+        # A trailer's drawbar frame, 12 Nov 2026: background inside a closed shape, cleared only where named.
+        result = self.white_to_alpha(self.image, holes=[(4, 4)])
+        self.assertEqual(result.getpixel((4, 4))[3], 0)
+        self.assertEqual(result.getpixel((3, 3))[3], 255)
+        self.assertEqual(result.getpixel((0, 0))[3], 0)
 
     def test_a_silhouette_is_white_with_opacity_from_darkness(self):
         import export_sprite

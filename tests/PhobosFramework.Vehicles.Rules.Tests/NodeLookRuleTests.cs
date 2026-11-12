@@ -44,4 +44,16 @@ public class NodeLookRuleTests
         Assert.Equal(0, NodeLookRule.Choose(onlyUpgrade, Fitted("HeavyFan")));
         Assert.Equal(-1, NodeLookRule.Choose(new string?[0], Fitted("HeavyFan")));
     }
+
+    [Fact]
+    public void KnownConditionsChooseAsNodesDo()
+    {
+        // A fitting's look (the winch on the bumper) has no stock look: nothing until fitted, then the picture.
+        Assert.Equal(-1, NodeLookRule.Choose(new bool?[] { false }));
+        Assert.Equal(0, NodeLookRule.Choose(new bool?[] { true }));
+        // A stock look first, then two fitted looks: the first met wins, the stock look otherwise.
+        Assert.Equal(0, NodeLookRule.Choose(new bool?[] { null, false, false }));
+        Assert.Equal(2, NodeLookRule.Choose(new bool?[] { null, false, true }));
+        Assert.Equal(1, NodeLookRule.Choose(new bool?[] { null, true, true }));
+    }
 }

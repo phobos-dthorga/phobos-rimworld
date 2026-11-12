@@ -1,0 +1,25 @@
+[
+ {
+  "name": "flatbed-trailer-greedy-boards",
+  "engine": "openai",
+  "quality": "medium",
+  "width": 768,
+  "height": 1536,
+  "seeds": [
+   1,
+   2
+  ],
+  "references": [
+   {
+    "image": "assets/phobos-vehicles/generated/flatbed-trailer-body-north/flatbed-trailer-body-north-2.png",
+    "role": "our approved trailer body, the owner's pick (12 Nov 2026): match its outline weight, shading, palette and finish, and use it to see where the boards sit; do not redraw the trailer"
+   }
+  ],
+  "art_plan": {
+   "vehicle": "Phobos_FlatbedTrailer, footprint (2, 5), drawSize (3, 6); pilot pick attempt 2 (owner, 12 Nov 2026)",
+   "look": "node look: PhobosTrailerHighSides (greedy boards), the taller side boards all round the deck; shown when the node is fitted",
+   "this_request": "part drawn alone, fitted by script over the picked body's deck (export_vehicle.py overlay --fit); the family step after the pilot (paid rule 2); owner's go for item 1, 12 Nov 2026"
+  },
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL game sprite part for the D'thorga flatbed trailer: a set of taller extension side boards that drop into the trailer's stake pockets so it carries a bigger load. Image 1 is our approved trailer: match its outline weight, shading, palette and finish only, and use it to see where this part sits. Do NOT redraw the trailer, its drawbar, its wheels or its deck.\n\nDraw ONLY this part, alone on a plain pure white background: nothing else on the canvas. Tall canvas. One long narrow RECTANGULAR FRAME standing upright on the canvas, about one third as wide as it is tall, filling seven eighths of the canvas height, centred: four thick board walls of pale sand-grey painted steel, seen from above as broad flat top rails with a darker inner edge, joined at the four corners by square dark steel corner posts, with small dark steel stake posts at even intervals along both long sides, and one muted orange accent stripe along the front board's top. The INSIDE of the frame is EMPTY and pure white: no deck, no planks, no floor.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo trailer, deck, planks, floor inside the frame, drawbar, wheels, mudguards, cargo, crates, straps, chains, people, animals, dust, mud, damage, text, letters, numbers, logos, dials or lamps. No ground, shadow outside the part, perspective, tilt or visible side faces. Top surfaces only."
+ }
+]

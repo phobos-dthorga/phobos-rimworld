@@ -8,6 +8,10 @@ DUPLICATE_DISTANCE = 6  # Hash bits of 64 within which two candidates count as t
 # 17 bits at closest). A copy tilted a few degrees can still pass, so the owner's eye stays the last check.
 NEAR_COPY_DISTANCE = 12  # Within this many bits of a source image, an output is flagged (authored).
 NEAR_COPY_SSIM = 0.60  # At or above this structural similarity to a source image, an output is flagged (authored).
+# A copy keeps its subject's proportions: measured 12 Nov 2026, pastes, blurs, recolours and 4-degree tilts of 12 game sprites
+# stayed within 1.13 times of their source's width to height, while every hash-only flag that turned out false was 1.96 times
+# or more apart (the owner's fuel tank against the game's wide 1 by 3 altar: 13 to 16 times). Authored, with room above 1.13.
+SAME_PROPORTIONS = 1.35
 BLANK_LEVEL = 235  # A window whose darkest pixel is this pale or paler has nothing drawn in it (export_sprite.py's background level).
 
 
@@ -48,6 +52,16 @@ def mean_or_zero(values):
     return sum(values) / len(values) if values else 0.0
 
 
-def is_near_copy(distance, ssim, max_distance=NEAR_COPY_DISTANCE, min_ssim=NEAR_COPY_SSIM):
-    """Either signal is enough: the check exists so nothing ships as a copy, so it errs towards flagging."""
-    return distance <= max_distance or ssim >= min_ssim
+def same_proportions(first_ratio, second_ratio, max_factor=SAME_PROPORTIONS):
+    """Whether two subjects, cropped, have about the same width to height: a copy does, whatever was done to it."""
+    if first_ratio <= 0 or second_ratio <= 0:
+        return False
+    return max(first_ratio, second_ratio) / min(first_ratio, second_ratio) <= max_factor
+
+
+def is_near_copy(distance, ssim, max_distance=NEAR_COPY_DISTANCE, min_ssim=NEAR_COPY_SSIM, proportions_agree=True):
+    """Either signal is enough: the check exists so nothing ships as a copy, so it errs towards flagging. The hash counts only
+    between subjects of about the same proportions: each is stretched to a square before it is hashed, so a long thin subject
+    hashes as rows of the same shading, and matched any sprite that stretches the same way, upright or wide (owner, 12 Nov
+    2026: "there is no tank like it in the original game"). The structural score is unaffected."""
+    return (distance <= max_distance and proportions_agree) or ssim >= min_ssim

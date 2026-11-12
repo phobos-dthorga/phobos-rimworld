@@ -448,6 +448,9 @@ public sealed class VehicleFittings
         return grade.holdsFitting ? null : "PhobosVehicleSystems_FitGradeHoldsNone".Translate(grade.label.Named("GRADE")).Resolve();
     }
 
+    /// <summary>Whether this fitting is fitted on any part, working or not (its picture shows either way, as a destroyed part's would).</summary>
+    public bool Has(PhobosVehicleFittingDef def) => fitted.Any(f => f.def == def);
+
     public PhobosVehicleFittingDef? FittedOn(string partKey) => fitted.FirstOrDefault(f => f.partKey == partKey)?.def;
 
     /// <summary>Whether a fitting on this vehicle grants this ability (a cargo hook), its part still standing.</summary>

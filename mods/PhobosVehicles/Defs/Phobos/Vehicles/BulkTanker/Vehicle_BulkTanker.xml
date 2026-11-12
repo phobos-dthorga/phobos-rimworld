@@ -457,6 +457,47 @@
           </graphicData>
         </hosesOut>
       </li>
+      <!-- D'thorga Framework's node looks: pictures shown by what is fitted (Framework 0.105.0, Vehicles 0.49.0, 12 Nov 2026). -->
+      <li Class="Phobos.VehicleSystems.CompProperties_PhobosNodeLooks">
+        <slots>
+        <!-- Framework 0.105.0, Vehicles 0.49.0 (12 Nov 2026, the owner's picks): the recovery winch on the front bumper and the auxiliary
+             fuel tank between the wheels, shown while each fitting is fitted. Agent placement (assets/phobos-vehicles/export_round_three.py). -->
+          <li>
+            <key>winch</key>
+            <looks>
+              <li>
+                <fitting>PhobosFitting_RecoveryWinch</fitting>
+                <look>
+                  <graphicData>
+                    <texPath>Phobos/Vehicles/BulkTanker/BulkTanker_Winch</texPath>
+                    <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+                    <drawSize>(4, 11)</drawSize>
+                    <shaderType>Cutout</shaderType>
+                    <layer>2</layer>
+                  </graphicData>
+                </look>
+              </li>
+            </looks>
+          </li>
+          <li>
+            <key>auxTank</key>
+            <looks>
+              <li>
+                <fitting>PhobosFitting_AuxFuelTank</fitting>
+                <look>
+                  <graphicData>
+                    <texPath>Phobos/Vehicles/BulkTanker/BulkTanker_AuxFuelTank</texPath>
+                    <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+                    <drawSize>(4, 11)</drawSize>
+                    <shaderType>Cutout</shaderType>
+                    <layer>2</layer>
+                  </graphicData>
+                </look>
+              </li>
+            </looks>
+          </li>
+        </slots>
+      </li>
     </comps>
     <!-- Its own voice in place of the inherited draft blips; the engine loops are played by D'thorga Framework from the
          extension below, so they follow rpm and load (docs/development/sound-catalogue.md). -->

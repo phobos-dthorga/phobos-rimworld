@@ -76,14 +76,21 @@ def compare(outputs, *sources, only=()):
         for source, source_image, source_hash in source_data:
             distance = sort_rules.hamming(value, source_hash)
             similarity = ssim(image, source_image)
-            entry = {'output': output.name, 'source': source.name, 'hash_distance': distance, 'ssim': round(similarity, 3)}
-            if sort_rules.is_near_copy(distance, similarity):
+            alike = sort_rules.same_proportions(_ratio(image), _ratio(source_image))
+            entry = {'output': output.name, 'source': source.name, 'hash_distance': distance, 'ssim': round(similarity, 3),
+                     'same_proportions': alike}
+            if sort_rules.is_near_copy(distance, similarity, proportions_agree=alike):
                 flagged.append(entry)
             if best is None or similarity > best['ssim']:
                 best = entry
         if best:
             closest.append(best)
     return flagged, closest
+
+
+def _ratio(image):
+    """Width to height of a subject already cropped by flattened_gray."""
+    return image.width / image.height if image.height else 0.0
 
 
 def _prepared(path):
@@ -100,7 +107,8 @@ if __name__ == '__main__':
     args = parser.parse_args()
     flagged_entries, closest_entries = compare(args.outputs, *args.sources, only=args.only)
     report = {'flagged': flagged_entries, 'closest_per_output': closest_entries,
-              'thresholds': {'hash_distance_at_most': sort_rules.NEAR_COPY_DISTANCE, 'ssim_at_least': sort_rules.NEAR_COPY_SSIM}}
+              'thresholds': {'hash_distance_at_most': sort_rules.NEAR_COPY_DISTANCE, 'ssim_at_least': sort_rules.NEAR_COPY_SSIM,
+                             'hash_needs_proportions_within': sort_rules.SAME_PROPORTIONS}}
     (Path(args.outputs) / 'near-copy.json').write_text(json.dumps(report, indent=2), encoding='utf-8')
     print(f'{len(closest_entries)} outputs compared, {len(flagged_entries)} near-copy flags')
     sys.exit(1 if flagged_entries else 0)

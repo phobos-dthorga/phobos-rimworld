@@ -7,7 +7,7 @@ helpers every D'thorga mod shares.
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.104.0, built 12 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
+Version 0.105.0, built 12 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
 oxygen working through Burns and Smoke and Medical Equipment (5 November 2026). The health layer new in 0.3.0 and the **vehicle
 systems new in 0.9.0, and their engines, drivetrains and gas turbines new in 0.11.0, are not yet tested in game.** The rest is read from the game's and the mods' code.
 
@@ -124,6 +124,12 @@ and wear that a mechanic services. See [Vehicle systems](#vehicle-systems-with-v
   vehicle of ours takes more of our engine assembly the heavier it is (two on a truck, three on a drill rig), **for repairs too**.
   **Finish or cancel a depot bay or a vehicle being built before you update.** Whose parts a build asks for is the setting
   **Parts for building**.
+- **Making vehicle parts at the vehicle parts bench.** **Bills run from the top**: the bench works its bills in order, so a bill low
+  in the list may wait a long time while those above keep it busy; move the part you need most to the top. **Give the parts somewhere
+  to go**: kits and parts have a storage category of their own, **Vehicle parts**, and stockpiles made before you installed don't take
+  a new category by themselves, so tick it in at least one stockpile or shelf. "Do until you have X" counts only parts in storage, so
+  without one the bench makes more than you asked for. **Keep materials close**: steel and components stored beside the bench save a
+  long walk for every part.
 - **Steam locomotives (0.14.0): two settings to decide before you run one.** **Boiler explosions** are off by default: on, a
   boiler without a fusible plug (the American 4-8-4) whose water runs below the firebox crown explodes, and the settings window
   warns you. **Realistic feed water** is off by default: a water stop draws a tenth of the real tender (6,800 litres for the 4-8-4,

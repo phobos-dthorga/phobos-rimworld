@@ -7,7 +7,7 @@ of the general systems D'thorga Framework gives every vehicle.
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.47.0, built 12 November 2026 for House D'thorga. **Not yet tested in game.**
+Version 0.49.0, built 12 November 2026 for House D'thorga. **Not yet tested in game.**
 
 ## Read this first (gotchas)
 
@@ -56,6 +56,9 @@ Version 0.47.0, built 12 November 2026 for House D'thorga. **Not yet tested in g
   charge), instead of taking chemfuel.
 - **Modern vehicles have climate control** (0.10.0): the L-ATV, MaxxPro, M1A2 SEP, M10 Booker, Harrier, Mongoose, Goat shunter and
   Vanilla Vehicles Expanded's Tier 3 (not the Springbok or the Louie) hold the cab near 21 °C by themselves.
+- **New in 0.49.0 (not yet seen in game): more of what you fit shows.** The trailer has its own picture and its greedy boards show; the
+  tipper's loading grab shows folded behind its cab; and on the tanker, survey truck, drill rig and tipper a **recovery winch** shows on the
+  front bumper and an **auxiliary fuel tank** between the wheels while each is fitted. Placements are first guesses, to be adjusted once seen.
 - **New in 0.45.0 (not yet tested in game): the Pintle flatbed trailer.** Any land vehicle can tow it through D'thorga Framework's hitch
   (0.101.0 or later); see [below](#the-pintle-flatbed-trailer). **From Framework 0.104.0 it goes on journeys** with the vehicle towing it (not yet tested in game).
 - **Not yet tested in game.** Everything is read from the mods' files and checked offline.
@@ -194,7 +197,7 @@ would one day be the Talus T2, and a refit adds a letter.
 - **Build it** from the **motor pool** tab, after Machining and Electricity.
 - **Load it** through its ordinary cargo window: 96 granite chunks, or 4,800 steel.
 - **With a driver aboard and stopped, press Tip.** Everything in its cargo lands inside the outlined half-circle behind it, and **that includes any spare parts you loaded**. Whatever will not fit stays aboard, and it tells you how many.
-- **Upgrades:** greedy boards (taller sides, +600 kg), either a rock body (tips half as fast again) or a bulk body (3,600 kg, tips slower), and a **loading grab** (new in 0.45.0, not yet tested in game): with a driver aboard and the truck stopped, **Work the grab** lifts loose chunks and stacks within 4 cells into the cargo, up to 500 kg a lift, with nobody carrying. Things in a stockpile or on a shelf are left; it cannot tip while the grab is out.
+- **Upgrades:** greedy boards (taller sides, +600 kg), either a rock body (tips half as fast again) or a bulk body (3,600 kg, tips slower), and a **loading grab** (new in 0.45.0, not yet tested in game; from 0.49.0 it shows folded behind the cab): with a driver aboard and the truck stopped, **Work the grab** lifts loose chunks and stacks within 4 cells into the cargo, up to 500 kg a lift, with nobody carrying. Things in a stockpile or on a shelf are left; it cannot tip while the grab is out.
 
 ## The Pintle flatbed trailer
 
@@ -206,8 +209,8 @@ would one day be the Talus T2, and a refit adds a letter.
   leaves it where it stands, loaded, for later. A broken drawbar has to be repaired before it can be hitched.
 - **Its weight is the towing vehicle's to pull**: a heavy load slows a small truck, and on soft ground or a hill only the vehicle's own
   wheels grip.
-- **Upgrade:** greedy boards (+600 kg).
-- **Its picture is the tipper's body** for now, borrowed until it has one of its own.
+- **Upgrade:** greedy boards (+600 kg), which show on the trailer as taller side boards.
+- **Its own picture since 0.49.0** (not yet seen in game): a sand-grey drawbar flatbed with a dark plank deck; repaint it as any vehicle.
 
 ## The Fathom seabed crawler (not yet tested in game)
 

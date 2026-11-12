@@ -5,10 +5,34 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.49.0] - 2026-11-12 - Draft
+
+The Pintle trailer's own picture, and the grab, winch and long-range tank show when fitted
+
+### Added
+
+- The Pintle flatbed trailer has its own picture: a sand-grey drawbar flatbed with a dark plank deck and a tandem pair of wheels just behind its middle, in place of the tipper's borrowed body. Its greedy boards upgrade now shows as taller side boards round the deck.
+- The tipper's loading grab shows folded behind the cab once the upgrade is fitted.
+- On the tanker, survey truck, drill rig and tipper, the recovery winch shows on the front bumper and the auxiliary fuel tank between the wheels while each is fitted (D'thorga Framework 0.105.0). The generator set has no winch mount or tank cradle, so it shows neither.
+- All new pictures are AI-generated with OpenAI's image model from our own art and picked by the owner; each passed the check against the game's art. The asset records beside the textures say how each was made.
+
 ### Changed
 
+- The trailer's paint colours follow its new picture: sand-grey with an orange stripe, as before, matched to the new body.
 - The README no longer says the Pintle flatbed trailer cannot go on a journey: from D'thorga Framework 0.104.0 it travels with the vehicle towing it. Documentation only; nothing changes in this mod.
 - The README no longer calls the generator set's, drill rig's and tipper's pictures stand-ins or the Crawler's upgrade pictures still to come, and lists the generator set's heavy-duty fan among its upgrades. Documentation only; nothing changes in play.
+
+### Dependencies
+
+- D'thorga Framework 0.105.0 or later, for the pictures shown by a fitting. With an older Framework the game reports the winch and tank pictures' settings as errors and skips them.
+
+### Save compatibility
+
+- Safe to add to a running game. A trailer already built takes its new picture at once. Nothing new is saved.
+
+### Compatibility and limits
+
+- Not yet tested in game. Where each new picture sits is the agent's first placement, to be adjusted once seen; the winch overlaps the front edge of the bonnet a little, because the bodies are drawn almost to the front of their canvas.
 
 ## [0.47.0] - 2026-11-12 - Draft
 

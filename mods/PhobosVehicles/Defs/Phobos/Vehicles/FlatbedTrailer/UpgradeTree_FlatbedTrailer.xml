@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
   <!-- The flatbed trailer's upgrades (D'thorga Vehicles 0.45.0). Figures and costs authored. Node keys are saved in the game: never rename or
-       remove one. Its own picture, when it comes, draws the greedy boards as an overlay; until then the borrowed picture shows none.
+       remove one. The greedy boards are drawn as an overlay over the deck since Vehicles 0.49.0 (D'thorga Framework's node looks).
        Not yet tested in game. -->
   <Vehicles.UpgradeTreeDef>
     <defName>Phobos_FlatbedTrailer_UpgradeTree</defName>

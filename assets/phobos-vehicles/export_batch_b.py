@@ -157,10 +157,11 @@ def on_body_canvas(master, like):
     return target
 
 
-def export_overlay(master, like, out, name, box):
+def export_overlay(master, like, out, name, box, holes=()):
     master = on_body_canvas(master, like)
+    holes_args = [part for x, y in holes for part in ('--hole', str(x), str(y))]
     result = subprocess.run([sys.executable, 'scripts/art/export_vehicle.py', 'overlay', str(master), '--like', str(like), '--out',
-                             str(out), '--name', name, '--fit', *map(str, box)], capture_output=True, text=True)
+                             str(out), '--name', name, '--fit', *map(str, box), *holes_args], capture_output=True, text=True)
     if result.returncode:
         raise SystemExit(f'{name}: {result.stderr.strip().splitlines()[-1]}')
 

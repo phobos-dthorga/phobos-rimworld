@@ -1,0 +1,34 @@
+[
+ {
+  "name": "flatbed-trailer-body-north",
+  "engine": "openai",
+  "quality": "medium",
+  "width": 768,
+  "height": 1536,
+  "seeds": [
+   1,
+   2,
+   3,
+   4
+  ],
+  "references": [
+   {
+    "image": "assets/phobos-vehicles/generated/tipper-body-north/tipper-body-north-3.png",
+    "role": "approved truck of the same family, the owner's pick: match its outline weight, shading, palette and finish only; do not copy its shape or layout"
+   }
+  ],
+  "art_plan": {
+   "vehicle": "Phobos_FlatbedTrailer, footprint (2, 5), drawSize (3, 6), 128 px per unit, so 384 x 768 in game; requested at 768 x 1536, 2 times the drawn length, above the owner's 1.5 times minimum",
+   "measured_against": "owner's list, 12 Nov 2026: no trailer is active on it (RimArrow's MAZ-837810 trailer, 3 x 10, is downloaded but not active; docs/development/vehicle-trailer-research.md). Our trucks that tow it: generator set 2 x 6 drawn 3 x 7, survey truck 3 x 7, tipper 3 x 8, tanker and drill rig 3 x 10. The trailer keeps its 2 x 5 footprint (owner, 11 Nov 2026: one medium flatbed), the generator set's width",
+   "this_request": "north base body only, the bare trailer: replaces the borrowed tipper body (owner's go, 12 Nov 2026)",
+   "axle": "the follow rule puts the axle 0.2 cells behind the picture's middle (Vehicle_FlatbedTrailer.xml), so the two axles are a tandem pair just behind the middle",
+   "overlays_planned_on_this_canvas": [
+    "greedy boards (PhobosTrailerHighSides node): taller side boards all round",
+    "damage: deck (free, from the tanker's marks, export_damage.py)"
+   ],
+   "colour_masks": "CutoutComplexPattern, colour (169, 161, 126) and colourTwo (218, 119, 23): masks by script",
+   "design": "docs/development/vehicle-hitch-design.md"
+  },
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL game vehicle sprite for the D'thorga flatbed trailer: a two-axle flatbed trailer with low sides and a drawbar, towed behind a truck to carry a second load for a hard-scrabble frontier colony. Image 1 is our approved truck from the same family: match its outline weight, shading, palette and finish only. Do NOT copy its shape or layout, and draw no cab and no engine.\n\nDraw the BARE EMPTY TRAILER only. Taller side boards are drawn separately as an overlay.\n\nTall canvas, twice as tall as wide. The trailer is LONG AND NARROW: its deck is about one third as wide as the trailer is long, and its wheels stick out a little beyond the deck on each side. It fills seven eighths of the canvas height, centred, on a plain pure white background. North facing: the drawbar at the TOP edge, the rear of the deck at the BOTTOM edge.\n\nIts plan, from top to bottom: at the top, a triangular A-frame drawbar of dark steel narrowing to a round towing eye at its tip; then a short raised headboard across the front of the deck with one muted orange accent stripe; then one long flat rectangular deck of dark weathered steel planks running lengthways, edged all round by low pale sand-grey side boards; the tops of four wheels with dark rubber tyres, two each side, close together as a tandem pair just behind the middle of the deck, each pair under a pale sand-grey mudguard; at the bottom, a plain rear board with two small square corner posts.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo cab, engine, seats, tall side boards, stakes, straps, chains, cargo, crates, people, animals, turrets, ramps, dust, mud, damage, text, letters, numbers, logos, dials, screens or lamps. No floor, ground, road, shadow outside the trailer, perspective, tilt or visible side faces. Top surfaces only."
+ }
+]

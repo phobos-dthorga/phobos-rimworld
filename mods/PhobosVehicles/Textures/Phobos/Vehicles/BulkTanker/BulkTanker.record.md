@@ -18,3 +18,12 @@ The icons under `Upgrades/` are cut from the north overlays by script. The damag
 | DamageTank | bulk-tanker-damage-tank-1 | `378db5a2215e37af2d6480e43cbb5c72cbcab7d41776b4f0f1b58d2204851632` |
 | DamageVessel | bulk-tanker-damage-tank-1 | `378db5a2215e37af2d6480e43cbb5c72cbcab7d41776b4f0f1b58d2204851632` |
 | DamageBody | bulk-tanker-damage-body-1 | `2a592c869523356118d30946e463b285b1ad3dd3367d8a1ce77aa09aba45ba7e` |
+
+## Fitted pictures, round three (12 Nov 2026, evening)
+
+Made on 12 Nov 2026 with OpenAI gpt-image-2 through the image API, at medium quality: **AI-generated, picked by the owner on 12 November 2026** from a labelled sheet at in-game size. Each part was drawn alone on white with one of our own picked bodies as its only reference (for style), then placed by `assets/phobos-vehicles/export_round_three.py` and `scripts/art/export_vehicle.py overlay`. The winch is the pick turned half a turn so its hook faces forward, a new file that never replaces it. No game or other author's art was uploaded or used as a reference, and each pick passed the near-copy check against the game's art (the check as fixed that evening; [the record](../../../../../../assets/phobos-vehicles/requests/round-three-record.md)). The prompts are in `assets/phobos-vehicles/requests/fittings-overlays.json` and `trailer-overlays.json`. Placements are the agent's, for the owner to revise once seen in game.
+
+| Texture | Shown when | Part master | Master SHA-256 | North SHA-256 |
+| --- | --- | --- | --- | --- |
+| BulkTanker_Winch | the recovery winch is fitted | `fitting-recovery-winch-overlay-1-turned-180.png` | `12d0883ccab36557e61075786c3e331159fe8cf1d3222aaa09ee72b78b60eb7e` | `e096f58323713884ca6a2af9985f108c63597e9b82c2a898d561bdd1db571353` |
+| BulkTanker_AuxFuelTank | the auxiliary fuel tank is fitted | `fitting-aux-fuel-tank-overlay-2.png` | `efb2446cd2635534963dd8844e942263c4d93be8dc0ee45b6ddb668d413a0e2f` | `b77b328070ea2db93dd4a56d6393bcd6eb8c52c6c8aa2efa0243239f739f45f0` |

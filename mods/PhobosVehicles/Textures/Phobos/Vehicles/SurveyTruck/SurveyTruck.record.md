@@ -45,3 +45,12 @@ Made with OpenAI gpt-image-2 (medium): **AI-generated, picked by the owner on 12
 | --- | --- | --- |
 | SurveyTruck_Geophones | `survey-truck-geophones-1` | `04f119a52a71d8138a0e6047c9320e5c7e1ae237081082383aa9e1fa673077e7` |
 | SurveyTruck_ResistivityReel | `survey-truck-resistivity-reel-1` | `c9d82befb734f869ff34f10133b6f38c309a73c3bfa1c8842b330b213c38c607` |
+
+## Fitted pictures, round three (12 Nov 2026, evening)
+
+Made on 12 Nov 2026 with OpenAI gpt-image-2 through the image API, at medium quality: **AI-generated, picked by the owner on 12 November 2026** from a labelled sheet at in-game size. Each part was drawn alone on white with one of our own picked bodies as its only reference (for style), then placed by `assets/phobos-vehicles/export_round_three.py` and `scripts/art/export_vehicle.py overlay`. The winch is the pick turned half a turn so its hook faces forward, a new file that never replaces it. No game or other author's art was uploaded or used as a reference, and each pick passed the near-copy check against the game's art (the check as fixed that evening; [the record](../../../../../../assets/phobos-vehicles/requests/round-three-record.md)). The prompts are in `assets/phobos-vehicles/requests/fittings-overlays.json` and `trailer-overlays.json`. Placements are the agent's, for the owner to revise once seen in game.
+
+| Texture | Shown when | Part master | Master SHA-256 | North SHA-256 |
+| --- | --- | --- | --- | --- |
+| SurveyTruck_Winch | the recovery winch is fitted | `fitting-recovery-winch-overlay-1-turned-180.png` | `12d0883ccab36557e61075786c3e331159fe8cf1d3222aaa09ee72b78b60eb7e` | `f7648254602dfe4a3af880bfed281b4bf9be388387ca4a72e6ea97141f3803d4` |
+| SurveyTruck_AuxFuelTank | the auxiliary fuel tank is fitted | `fitting-aux-fuel-tank-overlay-2.png` | `efb2446cd2635534963dd8844e942263c4d93be8dc0ee45b6ddb668d413a0e2f` | `2adba34b8b67c06be05df011a5afc0b207ea592ef0070dead5e54310ce3fb47d` |

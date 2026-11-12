@@ -147,9 +147,9 @@ def record(out, name, master, written, details):
     (out / f'{name}.export.json').write_text(json.dumps(data, indent=2), encoding='utf-8')
 
 
-def export_body(master, out, name, cells_long, draw, main_hue, accent_hue, min_saturation=MIN_SATURATION):
+def export_body(master, out, name, cells_long, draw, main_hue, accent_hue, min_saturation=MIN_SATURATION, holes=()):
     out.mkdir(parents=True, exist_ok=True)
-    cut = white_to_alpha(Image.open(master))
+    cut = white_to_alpha(Image.open(master), holes=holes)
     left, top, right, bottom = cut.getchannel('A').point(lambda alpha: 255 if alpha >= 128 else 0).getbbox()
     scale = cells_long * PIXELS_PER_CELL / (bottom - top)
     canvas = (draw[0] * PIXELS_PER_CELL, draw[1] * PIXELS_PER_CELL)
@@ -170,14 +170,14 @@ def export_body(master, out, name, cells_long, draw, main_hue, accent_hue, min_s
     (out / f'{name}.transform.json').write_text(json.dumps(transform, indent=2), encoding='utf-8')
     width_cells = (right - left) * scale / PIXELS_PER_CELL
     record(out, name, master, written, {'kind': 'body', 'cells_long': cells_long, 'draw_size': list(draw), 'width_cells': round(width_cells, 2), 'colours': colours,
-                                        'min_saturation': min_saturation})
+                                        'min_saturation': min_saturation, 'holes': [list(point) for point in holes]})
     return {'width_cells': width_cells, 'colours': colours, 'files': written}
 
 
-def export_overlay(master, like, out, name, fit=None, marks=False):
+def export_overlay(master, like, out, name, fit=None, marks=False, holes=()):
     out.mkdir(parents=True, exist_ok=True)
     transform = json.loads(Path(like).read_text(encoding='utf-8'))
-    cut = marks_to_alpha(Image.open(master).convert('RGB')) if marks else white_to_alpha(Image.open(master))
+    cut = marks_to_alpha(Image.open(master).convert('RGB')) if marks else white_to_alpha(Image.open(master), holes=holes)
     if cut.size != tuple(transform['master_size']):
         raise ValueError(f'{master} is {cut.size}, but the body was made from {transform["master_size"]}: the two would not register')
     if fit:
@@ -189,7 +189,8 @@ def export_overlay(master, like, out, name, fit=None, marks=False):
         cut = Image.new('RGBA', cut.size, (0, 0, 0, 0))
         cut.alpha_composite(content, (fit[0] + (box_width - size[0]) // 2, fit[1] + (box_height - size[1]) // 2))
     written = write_facings(place(cut, transform['scale'], tuple(transform['offset']), tuple(transform['canvas'])), out, name)
-    record(out, name, master, written, {'kind': 'marks' if marks else 'overlay', 'like': Path(like).name, 'fit': fit})
+    record(out, name, master, written, {'kind': 'marks' if marks else 'overlay', 'like': Path(like).name, 'fit': fit,
+                                        'holes': [list(point) for point in holes]})
     return {'files': written}
 
 
@@ -205,6 +206,8 @@ def main():
     body.add_argument('--main-hue', type=float, nargs=2, default=(38, 95), help='hue range of the main paint, in degrees')
     body.add_argument('--accent-hue', type=float, nargs=2, default=(8, 34), help='hue range of the accent paint, in degrees')
     body.add_argument('--min-saturation', type=float, default=MIN_SATURATION, help='greyer than this is never paint; lower it for a greyish paint')
+    body.add_argument('--hole', type=int, nargs=2, action='append', default=[], metavar=('X', 'Y'),
+                      help='a point of background enclosed by the vehicle, in master pixels, cleared as the edge is; repeatable')
     overlay = commands.add_parser('overlay')
     overlay.add_argument('master', type=Path)
     overlay.add_argument('--like', type=Path, required=True)
@@ -212,13 +215,16 @@ def main():
     overlay.add_argument('--name', required=True)
     overlay.add_argument('--fit', type=int, nargs=4, metavar=('LEFT', 'TOP', 'RIGHT', 'BOTTOM'))
     overlay.add_argument('--marks', action='store_true', help='damage marks: keep only their darkness, as near-black with alpha')
+    overlay.add_argument('--hole', type=int, nargs=2, action='append', default=[], metavar=('X', 'Y'),
+                         help='a point of background enclosed by the part, in master pixels, cleared as the edge is; repeatable')
     arguments = parser.parse_args()
     if arguments.command == 'body':
         result = export_body(arguments.master, arguments.out, arguments.name, arguments.cells_long, arguments.draw, arguments.main_hue, arguments.accent_hue,
-                             arguments.min_saturation)
+                             arguments.min_saturation, [tuple(point) for point in arguments.hole])
         print(f'{arguments.name}: {result["width_cells"]:.2f} cells wide; Def colours {result["colours"]}')
     else:
-        result = export_overlay(arguments.master, arguments.like, arguments.out, arguments.name, arguments.fit, arguments.marks)
+        result = export_overlay(arguments.master, arguments.like, arguments.out, arguments.name, arguments.fit, arguments.marks,
+                                [tuple(point) for point in arguments.hole])
     for path in result['files']:
         print(f'  {path}')
 

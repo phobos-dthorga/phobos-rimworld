@@ -195,8 +195,8 @@ with a message saying how much came aboard, when nothing is left in reach or the
 once claimed, its grab works as ours does. Captured: the same. Cost with several on a map: nothing unless a grab is working, and a
 working grab scans a few dozen cells once each rare tick.
 
-**No picture yet:** the node has no overlay, since no picture of a crane exists for the tipper and this round makes no new art
-(owner's rules on paid art). The grab's work shows through the work bar and its sounds.
+**Its picture (Vehicles 0.49.0, 12 Nov 2026):** the crane folded behind the cab, shown once the node is fitted (owner's pick from
+[round three](../../assets/phobos-vehicles/requests/round-three-record.md)). It stays folded while it works; the work shows through the work bar and its sounds.
 
 ### The water bucket (any helicopter with a cargo hook; the Cherokee today)
 

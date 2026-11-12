@@ -116,7 +116,8 @@ weight times the ground's friction (`DrivetrainModel.cs:203`). Both take one mas
 - **One Def, a flatbed with a cargo deck:** a vehicle with no engine, no seats, no turret and no shadow, loaded through
   Vehicle Framework's own cargo window while it stands unhitched.
 - **Its picture:** our own, drawn empty. Until a picture exists it borrows one of ours so the game shows no error (owner's
-  rule of 9 Nov 2026 against stand-in vehicle art).
+  rule of 9 Nov 2026 against stand-in vehicle art). **Its own picture since Vehicles 0.49.0** (owner's pick, 12 Nov 2026), with the
+  greedy boards as an overlay; [round three](../../assets/phobos-vehicles/requests/round-three-record.md).
 - **It is the base for the special ones later:** tank, generator, tipping and camp trailers are the same trailer with a
   different deck.
 
