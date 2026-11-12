@@ -24,6 +24,7 @@ and wear that a mechanic services. See [Vehicle systems](#vehicle-systems-with-v
 - **New in 0.31.0, with Vanilla Expanded Framework (not yet tested in game): garages.** A convoy that has stopped can set up a garage on
   the world map. Vehicles left in one stay with no time limit, and whoever is stationed there mends them from steel and components
   you bring by caravan. **Before removing this mod, take every vehicle out of every garage**, or they go with it.
+- **New in 0.106.0 (not yet tested in game): a failing battery sheds loads.** With the engine running and the charging failed or unable to keep up, air conditioning, climate control, heaters, work lamps and then the lights go off by themselves, and come back when it recovers; the inspect line names them and says how long the battery has. **Every aircraft now has one flight-controls rule**: below 35 % it cannot take off.
 - **New in 0.104.0 (not yet tested in game): headlights light the ground.** At night, with the headlights switched on, the ground ahead
   of a vehicle is lit, engine running or not. **The headlights switch is now off by default: switch it on before driving at night.**
   **Left on with the engine off, the lights run the battery flat**, and a message warns when the battery may soon be too weak to start.

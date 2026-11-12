@@ -6,6 +6,22 @@ says the owner tested it.
 
 ## [Unreleased]
 
+## [0.19.0] - 2026-11-13 - Draft
+
+The Harrier's flight-control rule moves into D'thorga Framework, for every aircraft
+
+### Changed
+
+- **The Harrier's "no take-off with damaged flight controls" rule is now D'thorga Framework's** (0.106.0), one rule for every aircraft our systems run, at the same 35 %. This mod's own copy is removed: it reached any vehicle with a flight-control part while the Harrier mod was active, and so could ground the Frog, Toad, Smuggler, Warbird, Cherokee and Goliath. The Harrier still cannot take off with its avionics, hydraulics or wiring below 35 %, and now also flies slower while they are damaged. Not yet tested in game.
+
+### Fixed
+
+- The README's health figures for the Harrier's own parts are corrected from the jet's current definition: cockpit 170, engine 200, wing fuel tanks 120 (the airframe 470 was right).
+
+### Compatibility and limits
+
+- **With D'thorga Framework's vehicle systems switched off for the Harrier, nothing grounds it for damaged flight controls any more**: the rule lives with the systems.
+
 ## [0.18.0] - 2026-11-12 - Draft
 
 A temporary trace to find why the Harrier cannot be taken apart. **Not yet tested in game.**

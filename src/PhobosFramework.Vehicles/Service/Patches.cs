@@ -239,7 +239,16 @@ public static class LiftOffPatch
 {
     public static void Postfix(CompVehicleLauncher __instance, ref bool __result, ref string disableReason)
     {
-        if (!__result || __instance.Vehicle is not VehiclePawn vehicle || !HoverLimits.RefusesLaunch(vehicle)) return;
+        if (!__result || __instance.Vehicle is not VehiclePawn vehicle) return;
+        // Framework 0.106.0 (avionics A8): a stage's launch refusal, such as flight controls too damaged to fly, on every aircraft our
+        // systems run. It replaces D'thorga Patches' Harrier-only rule, which reached any vehicle with a flight-control part.
+        if (CompPhobosVehicleSystems.Of(vehicle)?.LaunchRefusal() is { } refusal)
+        {
+            __result = false;
+            disableReason = refusal;
+            return;
+        }
+        if (!HoverLimits.RefusesLaunch(vehicle)) return;
         __result = false;
         disableReason = HoverLimits.LaunchRefusalText(vehicle);
     }

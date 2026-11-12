@@ -1,5 +1,7 @@
+using Phobos.Framework.Rules;
 using Phobos.Framework.Vehicles.Rules;
 using RimWorld;
+using Vehicles;
 using Verse;
 
 namespace Phobos.VehicleSystems;
@@ -318,4 +320,40 @@ public class Input_Setting : VehicleSystemInput
 public class Input_TankLoad : VehicleSystemInput
 {
     protected override float Raw(SystemContext context) => context.Vehicle.GetComp<CompPhobosTank>()?.WeightedLoad ?? 0f;
+}
+
+/// <summary>
+/// What share of its output the generator gives at the engine's speed (avionics A5, Framework 0.106.0). A turbine's generator is driven
+/// from its gearbox and follows the spool speed on <c>turbineSpool</c>, shared among the engines still working; any other engine reads
+/// <c>piston</c> (the alternator's rotor speed curve). Before this, a turbine's spool speed read through the piston curve as an rpm far
+/// past its top, so an aircraft's generator gave full output at idle.
+/// </summary>
+public class Input_GeneratorDrive : VehicleSystemInput
+{
+    public VehicleSystemInput? piston;
+    public SimpleCurve? turbineSpool;
+
+    protected override float Raw(SystemContext context)
+    {
+        Powertrain? train = context.Comp.Powertrain;
+        if (train?.Turbine != null && turbineSpool != null)
+        {
+            (int working, int engines) = train.Engines();
+            return (float)ElectricsRule.GeneratorShare(turbineSpool.Evaluate((float)train.TurbineNow.SpeedPercent), working, engines);
+        }
+        return piston?.Evaluate(context) ?? 1f;
+    }
+}
+
+/// <summary>1 while the electrics are shedding loads to save the battery (cross-links G16, Framework 0.106.0), else 0.</summary>
+public class Input_LoadShedding : VehicleSystemInput
+{
+    protected override float Raw(SystemContext context) => context.Comp.ShedDepth > 0 ? 1f : 0f;
+}
+
+/// <summary>One of Vehicle Framework's stats on this vehicle, as Vehicle Framework works it out from its parts (Framework 0.106.0).</summary>
+public class Input_VehicleStat : VehicleSystemInput
+{
+    public VehicleStatDef? stat;
+    protected override float Raw(SystemContext context) => stat == null ? 0f : context.Vehicle.GetStatValue(stat);
 }

@@ -87,6 +87,15 @@ heater switch on before it leaves). **Electric vehicles have their own night hea
 setting, keeping the cab and the drive battery warm through the night, paid for from the drive battery, about a fifth of its range on a
 ten-hour night.
 
+### When the charging fails
+
+With the engine running, if the alternator or generator is wrecked, its drive belt breaks, or the battery runs low faster than the
+charging can fill it, the vehicle **switches loads off to save the battery**: air conditioning first, then climate control, the cab heater,
+the night heater, work lamps, and the lights last. **Instruments and avionics stay on.** A message says which went off, the Dashboard
+shows **saving the battery**, and the inspect line names them and says **about how long the battery has left**. Everything comes back
+by itself when the charging recovers; your switches stay as you set them. With the engine stopped nothing is switched off, so lights
+left on still run the battery down.
+
 ## Damage and repairs
 
 - **Parts can carry conditions** shown under the part on the Health tab: a holed radiator keeps leaking coolant, a shot battery
@@ -231,6 +240,10 @@ shows while a dyno bay is in reach. It works on any vehicle, from any mod, that 
   lie on the litters. **Put a colonist who can doctor in the crew and medicine in the cargo**: while the helicopter stands, they tend the
   patients. In flight nobody gets worse. Press **Unload casualties** at the other end, then take them to bed. **Leaving by caravan sets
   the patients down first.** The kit takes a fifth of the cargo space.
+
+**Flight controls** (not yet tested in game): an aircraft whose control surfaces, actuators, hydraulics or wiring are wrecked below 35 %
+**cannot take off**, and the launch button says why; damaged below 70 %, it flies slower. **An engine out** slows it to 0.8 of its
+speed and a message says so. An aircraft's generator gives about half its output at ground idle and all of it from cruise.
 
 ## Towing a trailer
 

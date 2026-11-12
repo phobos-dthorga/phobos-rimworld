@@ -63,8 +63,23 @@ public static class InspectText
             ElectricalTrend.ChargingFromGrid => "PhobosVehicleSystems_InspectBatteryChargingFromGrid".Translate().Resolve(),
             _ => null,
         };
-        if (line == null || mode == DisplayMode.Plain) return line;
-        return "PhobosVehicleSystems_InspectBatteryAmps".Translate(line.Named("LINE"), status.Amps.ToString("0.#").Named("AMPS")).Resolve();
+        if (line != null && mode != DisplayMode.Plain)
+        {
+            line = "PhobosVehicleSystems_InspectBatteryAmps".Translate(line.Named("LINE"), status.Amps.ToString("0.#").Named("AMPS")).Resolve();
+        }
+        // The battery clock (avionics A6, Framework 0.106.0), in words in every mode, while it runs down.
+        if (line != null && status.Trend == ElectricalTrend.RunningDown && !float.IsInfinity(status.HoursLeft))
+        {
+            string time = ((int)(status.HoursLeft * GenDate.TicksPerHour)).ToStringTicksToPeriod();
+            line = "PhobosVehicleSystems_InspectBatteryTimeLeft".Translate(line.Named("LINE"), time.Named("TIME")).Resolve();
+        }
+        // Loads shed to save the battery (cross-links G16, Framework 0.106.0).
+        if (!string.IsNullOrEmpty(status.Shed))
+        {
+            string shed = "PhobosVehicleSystems_InspectLoadsShed".Translate(status.Shed.Named("LOADS")).Resolve();
+            line = line == null ? shed : line + "\n" + shed;
+        }
+        return line;
     }
 
     /// <summary>The one thing the vehicle waits for: a mechanic, a supply, water, or the reason it will not move; null when nothing.</summary>

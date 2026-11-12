@@ -77,8 +77,10 @@ AccelerationRate, CargoCapacity, RepairRate, BodyIntegrity (all Average), Mass (
 FlightSpeed and FlightControl. **A mod can add a stat:** `VehicleStatDef` is a public Def (`workerClass`,
 `operationType`, `parts`, `category`, `formatString`, `showOnVehicleTypes`); put it in `vehicleStats` and in a part's
 `categories`, read it with `vehicle.GetStatValue(def)`, and show it on the stat card through
-`VehicleCompProperties.StatCategoryDefs()`. A stat nothing reads is only a figure on a card: D'thorga Patches'
-[flight-control rule](../../src/PhobosPatches.Harrier/FlightControlRule.cs) is the precedent for giving one an effect.
+`VehicleCompProperties.StatCategoryDefs()`. A stat nothing reads is only a figure on a card: D'thorga Framework's
+[flight controls system](../../mods/PhobosFramework/Mods/VehicleFramework/Common/Defs/Phobos/Framework/VehicleSystems/Systems_FlightControls.xml)
+(0.106.0, which replaced D'thorga Patches' Harrier-only rule) is the precedent for giving one an effect: an `Input_VehicleStat` reads
+it into a quantity whose stages act.
 
 **Repair.** `WorkGiver_RepairVehicle` and `JobDriver_RepairVehicle` use construction speed and the Construction skill;
 every 60 ticks of work they heal the first damaged part in list order by the vehicle's `RepairRate`.

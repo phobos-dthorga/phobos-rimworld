@@ -339,6 +339,7 @@ public class CompPhobosVehicleSystems : VehicleComp
         {
             if (load.name != name) continue;
             if (load.toggle && !IsOn(load)) return false;
+            if (ElectricsRule.IsShed(load.shedOrder, ShedDepth)) return false;
             var context = new SystemContext(this, states[0]);
             if (load.available != null && !load.available.Holds(context)) return false;
             return load.when == null || load.when.Holds(context);
@@ -725,9 +726,11 @@ public class CompPhobosVehicleSystems : VehicleComp
         // tank that ran dry under a running engine is told from one drained while parked. Derived, never saved.
         if (hasFuel) ranWithFuel = EngineRunning;
         shorePowered = null;
+        UpdateShedding();
         loadAmps = 0f;
         if (states != null && states.Count > 0) loadAmps = SumLoads(new SystemContext(this, states[0]));
         Electrics = ReadElectrics();
+        NotifyShedding();
         // Crosslink 5: the alternator takes shaft power for what the loads draw, so the engine works a little harder for them.
         AccessoryShare = AccessoryLoad();
         if (AccessoryShare > 0f) EngineLoad = Mathf.Min(1f, EngineLoad + AccessoryShare);
@@ -762,6 +765,7 @@ public class CompPhobosVehicleSystems : VehicleComp
     {
         float amps = 0f;
         switchedLoadsOn.Clear();
+        shedLoads.Clear();
         PhobosVehicleLoadoutDef? loadout = Props.loadout;
         if (loadout == null) return 0f;
         foreach (ElectricalLoadSpec load in loadout.loads)
@@ -769,6 +773,11 @@ public class CompPhobosVehicleSystems : VehicleComp
             if (load.toggle && !IsOn(load)) continue;
             if (load.available != null && !load.available.Holds(context)) continue;
             if (load.when != null && !load.when.Holds(context)) continue;
+            if (ElectricsRule.IsShed(load.shedOrder, ShedDepth))
+            {
+                shedLoads.Add(load.label);
+                continue;
+            }
             amps += load.amps;
             if (load.toggle) switchedLoadsOn.Add(load.label);
         }
@@ -777,6 +786,73 @@ public class CompPhobosVehicleSystems : VehicleComp
 
     /// <summary>The labels of the switched loads running now (lights, heaters), from the last sum. Derived, never saved.</summary>
     readonly List<string> switchedLoadsOn = new List<string>();
+    /// <summary>The labels of the loads switched on but shed to save the battery, from the last sum. Derived, never saved.</summary>
+    readonly List<string> shedLoads = new List<string>();
+
+    /// <summary>
+    /// How many ranks of loads are shed to save the battery now (cross-links G16 and avionics A6, Framework 0.106.0;
+    /// ElectricsRule.ShedDepth): 0 while the charging keeps up. Derived at each update from the generator's parts, the charge and the
+    /// battery's trend at the last look, never saved.
+    /// </summary>
+    public int ShedDepth { get; private set; }
+    int shedDepthNotified;
+    bool shedLookedOnce;
+    int? shedRanks;
+
+    void UpdateShedding()
+    {
+        PhobosVehicleLoadoutDef? loadout = Props.loadout;
+        shedRanks ??= loadout == null || loadout.loads.Count == 0 ? 0 : loadout.loads.Max(l => l.shedOrder);
+        if (shedRanks.Value == 0 || !TryGetQuantity("charge", out float charge))
+        {
+            ShedDepth = 0;
+            return;
+        }
+        float generator = PartEfficiency("Alternator", 1f) * PartEfficiency("Belt", 1f);
+        ShedDepth = ElectricsRule.ShedDepth(EngineRunning, generator, charge, Electrics.Trend == ElectricalTrend.RunningDown, ShedDepth,
+            shedRanks.Value);
+    }
+
+    /// <summary>One message when shedding starts and one when it ends, for the player's vehicles; none at the first look after a load.</summary>
+    void NotifyShedding()
+    {
+        bool shedding = ShedDepth > 0;
+        bool was = shedDepthNotified > 0;
+        shedDepthNotified = ShedDepth;
+        if (!shedLookedOnce)
+        {
+            shedLookedOnce = true;
+            return;
+        }
+        if (shedding == was || Vehicle?.Faction != Faction.OfPlayer) return;
+        if (shedding && shedLoads.Count > 0)
+        {
+            VehicleNotices.Send("PhobosVehicleSystems_MsgLoadsShed".Translate(Vehicle.LabelShort.Named("VEHICLE"),
+                shedLoads.ToCommaList(useAnd: true).Named("LOADS")).Resolve(), Vehicle, MessageTypeDefOf.NegativeEvent);
+        }
+        else if (!shedding)
+        {
+            VehicleNotices.Send("PhobosVehicleSystems_MsgLoadsRestored".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve(), Vehicle,
+                MessageTypeDefOf.PositiveEvent);
+        }
+    }
+
+    /// <summary>Why this aircraft may not take off now (Framework 0.106.0: Effect_RefuseLaunch, such as flight controls too damaged to
+    /// fly), from the stages at the last update; null when it may. Only the player's aircraft are refused.</summary>
+    public string? LaunchRefusal()
+    {
+        if (!Usable || states == null || Vehicle.Faction != Faction.OfPlayer) return null;
+        foreach ((SystemContext context, StageSpec stage, string _) in StagesInForce())
+        {
+            foreach (VehicleSystemEffect effect in stage.effects)
+            {
+                if (!effect.Active(context)) continue;
+                string? reason = effect.LaunchRefusal(context);
+                if (reason != null) return reason;
+            }
+        }
+        return null;
+    }
 
     /// <summary>The battery's state in words for the inspect line (Framework 0.104.0; owner, 12 Nov 2026: "in words", in every display
     /// mode), worked out at each update so the inspect line only reads it. Derived, never saved.</summary>
@@ -804,12 +880,18 @@ public class CompPhobosVehicleSystems : VehicleComp
             float ampHours = new SystemContext(this, state).Parameter("batteryAmpHours");
             float amps = (float)(System.Math.Abs(net) * ampHours);
             string loads = switchedLoadsOn.Count == 0 ? "" : switchedLoadsOn.ToCommaList(useAnd: true);
-            if (net < -SteadyChargePerHour) return new ElectricalStatus(ElectricalTrend.RunningDown, amps, loads);
+            string shed = shedLoads.Count == 0 ? "" : shedLoads.ToCommaList(useAnd: true);
+            if (net < -SteadyChargePerHour)
+            {
+                // The battery clock (avionics A6, Framework 0.106.0): how long the charge lasts at this drain, in game hours.
+                float hours = (float)ElectricsRule.HoursLeft(state.values[q], ampHours, amps);
+                return new ElectricalStatus(ElectricalTrend.RunningDown, amps, loads, shed, hours);
+            }
             if (net > SteadyChargePerHour && state.values[q] < NearlyFull)
             {
-                return new ElectricalStatus(EngineRunning ? ElectricalTrend.Charging : ElectricalTrend.ChargingFromGrid, amps, loads);
+                return new ElectricalStatus(EngineRunning ? ElectricalTrend.Charging : ElectricalTrend.ChargingFromGrid, amps, loads, shed);
             }
-            return default;
+            return shed.Length > 0 ? new ElectricalStatus(ElectricalTrend.None, amps, loads, shed) : default;
         }
         return default;
     }

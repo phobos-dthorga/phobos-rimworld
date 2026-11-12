@@ -9,5 +9,4 @@
   <PhobosVehiclePatches_SettingTraceDisassembly>Log each step when a vehicle is taken apart</PhobosVehiclePatches_SettingTraceDisassembly>
   <PhobosVehiclePatches_SettingTraceDisassemblyDesc>On (the default, while the Harrier cannot be taken apart): when a colonist disassembles a vehicle, or god mode removes one, the game's log gets one line for each step of the removal and the full error where one fails, so the cause can be found. It does nothing at other times and changes nothing in play. Off, nothing is logged. This setting goes away with the fault.</PhobosVehiclePatches_SettingTraceDisassemblyDesc>
   <PhobosVehiclePatches_JoinBattleFirst>You have not joined the battle at {PLACE}. Select the town and join it first, then fly the sortie.</PhobosVehiclePatches_JoinBattleFirst>
-  <PhobosVehiclePatches_FlightControlsDamaged>{VEHICLE}'s flight controls are too damaged to fly: avionics, hydraulics and wiring must be repaired to at least {PERCENT}%.</PhobosVehiclePatches_FlightControlsDamaged>
 </LanguageData>

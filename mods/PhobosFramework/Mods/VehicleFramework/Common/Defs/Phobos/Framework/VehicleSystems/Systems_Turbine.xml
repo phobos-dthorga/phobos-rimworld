@@ -139,6 +139,17 @@
             <from>1</from>
             <label>one engine out</label>
             <notable>true</notable>
+            <!-- Framework 0.106.0 (avionics A9): limping home on the engines left, at 0.8 of the flight speed (authored; the Hind's own code
+                 slows it the same on the map). Its generator's share goes with it (Input_GeneratorDrive). -->
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_StatFactor">
+                <stat>FlightSpeed</stat>
+                <factor>0.8</factor>
+              </li>
+              <li Class="Phobos.VehicleSystems.Effect_Message">
+                <message>PhobosVehicleSystems_MsgEngineOut</message>
+              </li>
+            </effects>
           </li>
         </stages>
       </li>

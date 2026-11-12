@@ -336,6 +336,7 @@
         <label>work lamps</label>
         <description>Floodlights that light the ground round the vehicle while it stands still at night, so work nearby goes on at the pace of daylight. They run off the battery when the engine is off.</description>
         <amps>10</amps>
+        <shedOrder>5</shedOrder>
         <toggle>true</toggle>
         <iconPath>Phobos/VehicleSystems/Fittings/WorkLamps</iconPath>
         <!-- Off once fitted (owner, 13 Nov 2026): the player switches them on where the work is. -->
@@ -357,6 +358,7 @@
         <label>headlights</label>
         <description>Switched on, the headlights light the ground ahead of the vehicle at night. With the engine off they run the battery down.</description>
         <amps>9</amps>
+        <shedOrder>6</shedOrder>
         <toggle>true</toggle>
         <iconPath>Phobos/VehicleSystems/Headlights</iconPath>
         <!-- Framework 0.104.0 (owner, 12 Nov 2026: "make this a rule"): switched on, the headlights burn at night whether or not the engine
@@ -377,6 +379,7 @@
         <label>cab heater</label>
         <description>The cab heater runs below 5 °C while the engine runs, on the engine's own heat: it warms the cab only once the engine has warmed up, and not at all with the coolant gone.</description>
         <amps>12</amps>
+        <shedOrder>3</shedOrder>
         <toggle>true</toggle>
         <iconPath>Phobos/VehicleSystems/CabHeater</iconPath>
         <when Class="Phobos.VehicleSystems.When_All">
@@ -406,6 +409,7 @@
         <label>climate control</label>
         <description>Holds the cab near 21 °C by itself while the engine runs, heating or cooling as needed. Switch it off to use the heater and air conditioner by hand.</description>
         <amps>8</amps>
+        <shedOrder>2</shedOrder>
         <toggle>true</toggle>
         <iconPath>Phobos/VehicleSystems/ClimateControl</iconPath>
         <available Class="Phobos.VehicleSystems.When_ClimateControl" />
@@ -416,6 +420,7 @@
         <label>air conditioner</label>
         <description>The air conditioner cools the cab above 26 °C while the engine runs.</description>
         <amps>30</amps>
+        <shedOrder>1</shedOrder>
         <toggle>true</toggle>
         <iconPath>Phobos/VehicleSystems/AirConditioner</iconPath>
         <when Class="Phobos.VehicleSystems.When_All">
@@ -436,6 +441,7 @@
         <label>night heater</label>
         <description>A fuel-burning heater that keeps the cab and the engine warm while the caravan camps for the night with the engine off, so it starts easily in the morning. Switch it on before you leave; it needs the night heater setting.</description>
         <amps>2</amps>
+        <shedOrder>4</shedOrder>
         <toggle>true</toggle>
         <defaultOn>false</defaultOn>
         <iconPath>Phobos/VehicleSystems/NightHeater</iconPath>
@@ -501,6 +507,7 @@
         <label>work lamps</label>
         <description>Floodlights that light the ground round the vehicle while it stands still at night, so work nearby goes on at the pace of daylight. They run off the battery when the engine is off.</description>
         <amps>5</amps>
+        <shedOrder>5</shedOrder>
         <toggle>true</toggle>
         <iconPath>Phobos/VehicleSystems/Fittings/WorkLamps</iconPath>
         <!-- Off once fitted (owner, 13 Nov 2026): the player switches them on where the work is. -->
@@ -522,6 +529,7 @@
         <label>headlights</label>
         <description>Switched on, the headlights light the ground ahead of the vehicle at night. With the engine off they run the battery down.</description>
         <amps>6</amps>
+        <shedOrder>6</shedOrder>
         <toggle>true</toggle>
         <iconPath>Phobos/VehicleSystems/Headlights</iconPath>
         <!-- Framework 0.104.0 (owner, 12 Nov 2026: "make this a rule"): switched on, the headlights burn at night whether or not the engine
@@ -542,6 +550,7 @@
         <label>cab heater</label>
         <description>The cab heater runs below 5 °C while the engine runs, on the engine's own heat: it warms the cab only once the engine has warmed up, and not at all with the coolant gone.</description>
         <amps>8</amps>
+        <shedOrder>3</shedOrder>
         <toggle>true</toggle>
         <iconPath>Phobos/VehicleSystems/CabHeater</iconPath>
         <when Class="Phobos.VehicleSystems.When_All">
@@ -571,6 +580,7 @@
         <label>climate control</label>
         <description>Holds the cab near 21 °C by itself while the engine runs, heating or cooling as needed. Switch it off to use the heater and air conditioner by hand.</description>
         <amps>4</amps>
+        <shedOrder>2</shedOrder>
         <toggle>true</toggle>
         <iconPath>Phobos/VehicleSystems/ClimateControl</iconPath>
         <available Class="Phobos.VehicleSystems.When_ClimateControl" />
@@ -581,6 +591,7 @@
         <label>air conditioner</label>
         <description>The air conditioner cools the cab above 26 °C while the engine runs.</description>
         <amps>20</amps>
+        <shedOrder>1</shedOrder>
         <toggle>true</toggle>
         <iconPath>Phobos/VehicleSystems/AirConditioner</iconPath>
         <when Class="Phobos.VehicleSystems.When_All">
@@ -601,6 +612,7 @@
         <label>night heater</label>
         <description>A fuel-burning heater that keeps the cab and the engine warm while the caravan camps for the night with the engine off, so it starts easily in the morning. Switch it on before you leave; it needs the night heater setting.</description>
         <amps>2</amps>
+        <shedOrder>4</shedOrder>
         <toggle>true</toggle>
         <defaultOn>false</defaultOn>
         <iconPath>Phobos/VehicleSystems/NightHeater</iconPath>
@@ -669,6 +681,7 @@
         <label>navigation lights</label>
         <description>The navigation lights burn at night while the engine runs.</description>
         <amps>4</amps>
+        <shedOrder>6</shedOrder>
         <toggle>true</toggle>
         <iconPath>Phobos/VehicleSystems/Headlights</iconPath>
         <when Class="Phobos.VehicleSystems.When_All">
@@ -690,6 +703,7 @@
         <label>cab heater</label>
         <description>The cabin heater runs below 5 °C while the engine runs, on the engine's heat: it warms the cabin only once the engine has warmed up, and not at all with the coolant gone.</description>
         <amps>12</amps>
+        <shedOrder>3</shedOrder>
         <toggle>true</toggle>
         <iconPath>Phobos/VehicleSystems/CabHeater</iconPath>
         <when Class="Phobos.VehicleSystems.When_All">
@@ -713,6 +727,7 @@
         <label>climate control</label>
         <description>Holds the cab near 21 °C by itself while the engine runs, heating or cooling as needed. Switch it off to use the heater and air conditioner by hand.</description>
         <amps>8</amps>
+        <shedOrder>2</shedOrder>
         <toggle>true</toggle>
         <iconPath>Phobos/VehicleSystems/ClimateControl</iconPath>
         <available Class="Phobos.VehicleSystems.When_ClimateControl" />
@@ -723,6 +738,7 @@
         <label>air conditioner</label>
         <description>The air conditioner cools the cab above 26 °C while the engine runs.</description>
         <amps>20</amps>
+        <shedOrder>1</shedOrder>
         <toggle>true</toggle>
         <iconPath>Phobos/VehicleSystems/AirConditioner</iconPath>
         <when Class="Phobos.VehicleSystems.When_All">
@@ -743,6 +759,7 @@
         <label>night heater</label>
         <description>A fuel-burning heater that keeps the cab and the engine warm while the caravan camps for the night with the engine off, so it starts easily in the morning. Switch it on before you leave; it needs the night heater setting.</description>
         <amps>2</amps>
+        <shedOrder>4</shedOrder>
         <toggle>true</toggle>
         <defaultOn>false</defaultOn>
         <iconPath>Phobos/VehicleSystems/NightHeater</iconPath>
@@ -779,6 +796,7 @@
       <li><def>PhobosVehicleSystem_Service</def></li>
       <li><def>PhobosVehicleSystem_Turbine</def></li>
       <li><def>PhobosVehicleSystem_Cabin</def></li>
+      <li><def>PhobosVehicleSystem_FlightControls</def></li>
     </systems>
     <drivetrain>
       <def>PhobosDrivetrain_AeroTurbofan</def>
@@ -879,6 +897,7 @@
         <label>navigation lights</label>
         <description>The navigation lights burn at night while the engine runs.</description>
         <amps>5</amps>
+        <shedOrder>6</shedOrder>
         <toggle>true</toggle>
         <iconPath>Phobos/VehicleSystems/Headlights</iconPath>
         <when Class="Phobos.VehicleSystems.When_All">
@@ -894,6 +913,7 @@
         <label>cab heater</label>
         <description>The cockpit and cabin are heated below 5 °C while the engines run, with hot air bled from them.</description>
         <amps>4</amps>
+        <shedOrder>3</shedOrder>
         <toggle>true</toggle>
         <iconPath>Phobos/VehicleSystems/CabHeater</iconPath>
         <when Class="Phobos.VehicleSystems.When_All">
@@ -917,6 +937,7 @@
         <label>climate control</label>
         <description>Holds the cab near 21 °C by itself while the engine runs, heating or cooling as needed. Switch it off to use the heater and air conditioner by hand.</description>
         <amps>4</amps>
+        <shedOrder>2</shedOrder>
         <toggle>true</toggle>
         <iconPath>Phobos/VehicleSystems/ClimateControl</iconPath>
         <available Class="Phobos.VehicleSystems.When_ClimateControl" />
@@ -927,6 +948,7 @@
         <label>air conditioner</label>
         <description>The air conditioner cools the cab above 26 °C while the engine runs.</description>
         <amps>20</amps>
+        <shedOrder>1</shedOrder>
         <toggle>true</toggle>
         <iconPath>Phobos/VehicleSystems/AirConditioner</iconPath>
         <when Class="Phobos.VehicleSystems.When_All">
@@ -947,6 +969,7 @@
         <label>night heater</label>
         <description>A fuel-burning heater that keeps the cab and the engine warm while the caravan camps for the night with the engine off, so it starts easily in the morning. Switch it on before you leave; it needs the night heater setting.</description>
         <amps>2</amps>
+        <shedOrder>4</shedOrder>
         <toggle>true</toggle>
         <defaultOn>false</defaultOn>
         <iconPath>Phobos/VehicleSystems/NightHeater</iconPath>

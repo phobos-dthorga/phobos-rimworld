@@ -5,6 +5,18 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.50.0] - 2026-11-13 - Draft
+
+The thrust pods take D'thorga Framework's flight-controls system
+
+### Changed
+
+- The Frog, Toad and Goliath carry D'thorga Framework 0.106.0's flight-controls system, as every other aircraft does through the shared aircraft loadout: with their stabilisers or other flight-control parts wrecked below 35 % they cannot take off, and damaged they fly slower. Not yet tested in game.
+
+### Save compatibility
+
+- Safe: the system holds no saved figures of its own.
+
 ## [0.49.1] - 2026-11-13 - Draft
 
 Clean backgrounds on the winch, the tipper's grab, the drill rig's mast and the survey truck's dish

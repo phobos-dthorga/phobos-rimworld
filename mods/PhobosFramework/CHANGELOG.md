@@ -7,7 +7,7 @@ tested in game unless an entry says the owner tested it.
 
 ## [0.106.0] - 2026-11-13 - Draft
 
-Cross-links, round three, the owner's first batch: a dry tank hurts the fuel pump, a low-air warning, fire reaches the tyres and the battery, and driving in the dark without lights is slower
+Cross-links, round three, the owner's first batch: a dry tank hurts the fuel pump, a low-air warning, fire reaches the tyres and the battery, driving in the dark without lights is slower, and aircraft power: a generator that follows the engine, a felt engine-out, loads switched off to save a failing battery, and one flight-controls rule for every aircraft
 
 ### Added
 
@@ -16,7 +16,15 @@ Cross-links, round three, the owner's first batch: a dry tank hurts the fuel pum
 - **Fire reaches the tyres and the battery** (round three, G15, extending crosslink 4). A burning vehicle now also burns its tyres (40 % of their health an hour at full fire) and its battery (30 % an hour), beside the radiator it already cooked (authored). Not yet tested in game.
 - **Driving in the dark without headlights is slower** (round three, G9; owner, 13 November 2026: mildly). A land vehicle driving with its headlights off over ground the game counts as dark goes at 85 % of its speed, and its warning lamp says "no lights"; lamps, lit roads and daylight cost nothing. Other factions' vehicles light up while they drive at night, so they are never slowed by it. Boats and aircraft are left out. Not yet tested in game.
 - For modders: Effect_DamagePart takes a one-off share; When_RanDry and Input_DarkDriving are new building blocks.
+- **An aircraft's generator follows its engine** (avionics A5). A turbine's generator now gives about half its output at ground idle and all of it from cruise (authored), shared among the engines still working; before, it gave full output even at idle. Piston engines' alternators are unchanged.
+- **An engine out is felt** (avionics A9). With an engine out, an aircraft flies at 0.8 of its speed (authored) and a message says so; its generator's share goes with it.
+- **Loads are switched off to save a failing battery** (avionics A6 and round three G16, one rule for every vehicle). When the charging fails (the alternator or generator wrecked, or a broken drive belt) or cannot keep up while the battery runs low, switched loads go off in order with the engine running: air conditioning first, then climate control, the cab heater, the night heater, work lamps, and the lights last. Instruments and avionics are never switched off. A message says which; the Dashboard shows "saving the battery"; the inspect line names them and, while the battery runs down, says about how long it has left. They come back by themselves when the charging recovers; your switches are left as you set them. Nothing is switched off with the engine stopped, so lights left on still run the battery down.
+- **One flight-controls rule for every aircraft** (avionics A8). Vehicle Framework works out a flight control figure from the parts that carry it but never uses it. Now, on every aircraft our systems run, below 35 % the aircraft cannot take off (the launch button says why), and below 70 % it flies at 0.9 of its speed (0.8 below 35 %; authored). Aircraft with no such parts read 100 % and are unaffected.
+- For modders: Input_GeneratorDrive, Input_LoadShedding, Input_VehicleStat and Effect_RefuseLaunch; a load's shedOrder (0, the default, is essential); ElectricsRule (game-free, with tests).
 
+### Fixed
+
+- **The Harrier's flight-control rule no longer reaches other aircraft.** D'thorga Patches' rule refused take-off to any vehicle with a flight-control part while the Harrier mod was active, so it could ground the Frog, Toad, Smuggler, Warbird, Cherokee and Goliath. The Framework's one rule above replaces it and applies only to aircraft our systems run.
 ## [0.105.2] - 2026-11-13 - Draft
 
 Fixes from the owner's test of 13 November 2026: new tyres renew the tread, and work lamps start switched off

@@ -29,6 +29,8 @@ public abstract class VehicleSystemEffect
     public virtual void Apply(SystemContext context, float hours) { }
     public virtual string? DraftRefusal(SystemContext context) => null;
     public virtual string? MoveRefusal(SystemContext context) => null;
+    /// <summary>Why an aircraft may not take off while the stage lasts (Framework 0.106.0), or null.</summary>
+    public virtual string? LaunchRefusal(SystemContext context) => null;
     public virtual float StatFactor(VehicleStatDef stat) => 1f;
     /// <summary>A factor on how fast an electric vehicle charges from the grid while the stage lasts (1 for no change).</summary>
     public virtual float ChargeFactor => 1f;
@@ -75,6 +77,16 @@ public class Effect_RefuseMove : VehicleSystemEffect
 {
     public string reason = "";
     public override string? MoveRefusal(SystemContext context) => reason.Translate(context.Vehicle.LabelShort.Named("VEHICLE")).Resolve();
+}
+
+/// <summary>
+/// The aircraft may not take off; the reason is a translation key with {VEHICLE} (Framework 0.106.0, avionics A8: flight controls too
+/// damaged to fly). Read by the launch check, which every launch path and the launch button ask.
+/// </summary>
+public class Effect_RefuseLaunch : VehicleSystemEffect
+{
+    public string reason = "";
+    public override string? LaunchRefusal(SystemContext context) => reason.Translate(context.Vehicle.LabelShort.Named("VEHICLE")).Resolve();
 }
 
 /// <summary>Multiplies one of Vehicle Framework's stats (move speed, cargo) while the stage lasts.</summary>

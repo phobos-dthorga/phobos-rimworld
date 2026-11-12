@@ -34,7 +34,7 @@ public class VehiclePatchesMod : Mod
 
     /// <summary>The Harmony ID is the packageId; never change it once the mod is published.</summary>
     public const string HarmonyId = "PhobosDthorga.Patches";
-    public const string ModVersion = "0.18.0";
+    public const string ModVersion = "0.19.0";
     public const string LogPrefix = "[D'thorga Patches]";
     public static readonly Phobos.Logging.PhobosLog Logger = Phobos.Framework.Logging.Logs.For("D'thorga Patches", "Harrier");
 
@@ -59,7 +59,7 @@ public class VehiclePatchesMod : Mod
         report.On("older saves' bomb cases carried over to their new names");
         if (OptionalMods.IsActive("wowgag.RimPacts")) report.On("RimPacts' landing rule through a plain postfix" + (Settings.sortieOverUnjoinedBattle ? ", sorties exempt (setting)" : "") + ", with its reason shown");
         else report.Off("RimPacts' landing rule through a plain postfix", "RimPacts is not active");
-        report.On("the Harrier's fuller parts list, flight controls grounding it below " + (FlightControlRule.MinimumFlightControl * 100f).ToString("0") + "%");
+        report.On("the Harrier's fuller parts list (D'thorga Framework's flight controls rule grounds it when they are too damaged)");
         report.On("pad landings checked against the engine's hover limit (D'thorga Framework's setting: " + Phobos.VehicleSystems.VehicleSystemsMod.Settings.hoverLimit + ")");
         if (Settings.traceDisassembly) report.On("a temporary trace of each step when a vehicle is taken apart, to find why the Harrier cannot be");
         else report.Off("a temporary trace of vehicle disassembly", "switched off in the settings");

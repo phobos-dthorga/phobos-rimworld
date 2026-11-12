@@ -18,11 +18,17 @@ public readonly struct ElectricalStatus
     public readonly ElectricalTrend Trend;
     public readonly float Amps;
     public readonly string Loads;
+    /// <summary>The loads switched off to save the battery (Framework 0.106.0), joined; empty when none.</summary>
+    public readonly string Shed;
+    /// <summary>Game hours the charge lasts at this drain (Framework 0.106.0); infinity when not running down.</summary>
+    public readonly float HoursLeft;
 
-    public ElectricalStatus(ElectricalTrend trend, float amps, string loads)
+    public ElectricalStatus(ElectricalTrend trend, float amps, string loads, string shed = "", float hoursLeft = float.PositiveInfinity)
     {
         Trend = trend;
         Amps = amps;
         Loads = loads;
+        Shed = shed;
+        HoursLeft = hoursLeft;
     }
 }

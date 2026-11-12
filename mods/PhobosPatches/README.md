@@ -14,7 +14,7 @@ One of House D'thorga's mods (also spelt dthorga).
 It replaces two earlier mods, merged into it on 7 November 2026: **D'thorga Vehicle Patches** and **D'thorga Missile Patches**
 ([why](../../docs/development/mod-consolidation.md)).
 
-Version 0.18.0, built 12 November 2026 for House D'thorga. **Not yet tested in game as D'thorga Patches.** The Harrier and turret hull
+Version 0.19.0, built 13 November 2026 for House D'thorga. **Not yet tested in game as D'thorga Patches.** The Harrier and turret hull
 parts are unchanged from Vehicle Patches 0.6.0 (not yet tested in game); the missile part was tried once by the owner, see
 [InterRim Ballistic Missile](#interrim-ballistic-missile).
 
@@ -59,8 +59,8 @@ parts are unchanged from Vehicle Patches 0.6.0 (not yet tested in game); the mis
 - **New in 0.11.0: the Harrier has fourteen parts** (not yet tested in game). Beside its airframe, cockpit, engine and wing fuel
   tanks, the Health tab now lists a canopy, avionics, a nose radar, intakes and compressor, thrust nozzles and exhaust, hydraulics,
   wiring and electrics, an alternator, landing gear and wing pylons, each taking hits and needing repair. **Avionics, hydraulics and
-  wiring are the flight controls: with any of them below about 35% the jet cannot take off until repaired**, and the launch button
-  says so. **A Harrier you already have gains the new parts, at full health, when the save loads.** The plasteel armour upgrade
+  wiring are the flight controls: with any of them below about 35% the jet cannot take off until repaired** (D'thorga Framework's
+  flight-controls rule since Framework 0.106.0 and this mod's 0.19.0, for every aircraft), and the launch button says so. **A Harrier you already have gains the new parts, at full health, when the save loads.** The plasteel armour upgrade
   covers the new outer parts too.
 - **New in 0.11.0: a sortie that does nothing now tells you why.** With RimPacts, while one of your client states is attacking or
   defending a town, that town's map is open but RimPacts lets nobody land there until you have joined the battle **from the town's
@@ -284,7 +284,7 @@ shipped with four; the most detailed Vanilla Vehicles Expanded aircraft carry 27
 
 | Part | Where | Health | What its damage does |
 | --- | --- | --- | --- |
-| Airframe, cockpit, engine, wing fuel tanks | The jet's own four, unchanged | 470, 130, 160, 100 | As before: the engine drives move and flight speed (and now overrides the other parts when it fails), the tanks leak and burn |
+| Airframe, cockpit, engine, wing fuel tanks | The jet's own four, unchanged | 470, 170, 200, 120 | As before: the engine drives move and flight speed (and now overrides the other parts when it fails), the tanks leak and burn |
 | Canopy | Outside, over the cockpit | 40 | Takes hits that would have hit the cockpit |
 | Avionics, nose radar | Inside the nose | 40, 30 | Avionics are a flight control; the radar only needs repair |
 | Intakes and compressor | Inside, either side of the engine | 50 | Flight speed |
@@ -295,8 +295,9 @@ shipped with four; the most detailed Vanilla Vehicles Expanded aircraft carry 27
 | Wing pylons | Outside, under the wing tips | 50 | Repair only |
 
 **Flight controls:** Vehicle Framework shows a "flight control" figure, the worst of the parts that carry it, but nothing in the framework
-or the jet's own code reads it (read 7 November 2026). This mod gives it one effect: **below 35% the jet cannot take off**, and the launch
-and sortie buttons say which parts to repair. **A saved Harrier gains the new parts at full health when its save loads**: the framework
+or the jet's own code reads it (read 7 November 2026). **Below 35% the jet cannot take off**, and the launch and sortie buttons say so;
+damaged, it flies slower. Since 0.19.0 this is D'thorga Framework's flight-controls rule (0.106.0), one rule for every aircraft our systems
+run; before, this mod's own copy also reached other aircraft by mistake. **A saved Harrier gains the new parts at full health when its save loads**: the framework
 saves parts by position with no names, so parts are only ever added to the end of the list, never moved or removed. Under Combat
 Extended the new parts take the jet's own armour scale (a light airframe that rifle fire goes through, its author's choice), and the
 plasteel armour upgrade adds to the nozzles, landing gear, pylons and intakes as it does to the airframe.

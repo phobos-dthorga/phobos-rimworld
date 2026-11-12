@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    Flight controls (Framework 0.106.0; avionics A8, docs/development/vehicle-avionics.md). Vehicle Framework works out a FlightControl
+    stat from the parts that carry it (the worst of them; 1 for an aircraft with none), but nothing in Vehicle Framework itself reads it:
+    its description promises a crash at 0, and no code does it (read from Vehicle Framework 1.6). This system gives it one effect on every
+    aircraft our loadouts run: below 0.35 the aircraft may not take off (the floor D'thorga Patches' Harrier rule used since 0.11.0,
+    authored), and in between it flies slower. It replaces that Harrier-only rule, which reached any vehicle with a flight-control part
+    while the Harrier mod was active. The figures are authored.
+  -->
+  <Phobos.VehicleSystems.PhobosVehicleSystemDef>
+    <defName>PhobosVehicleSystem_FlightControls</defName>
+    <label>flight controls</label>
+    <description>The control surfaces, their actuators and wiring. Too damaged, the aircraft will not take off; damaged, it flies slower.</description>
+    <quantities>
+      <li>
+        <name>flightControl</name>
+        <description>How well the aircraft answers its controls, from the worst of the parts that move them.</description>
+        <label>flight controls</label>
+        <unit>Fraction</unit>
+        <min>0</min>
+        <max>1</max>
+        <derivedFrom>
+          <li Class="Phobos.VehicleSystems.Input_VehicleStat">
+            <stat>FlightControl</stat>
+          </li>
+        </derivedFrom>
+        <stages>
+          <li>
+            <to>0.35</to>
+            <label>too damaged to fly</label>
+            <notable>true</notable>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_RefuseLaunch">
+                <reason>PhobosVehicleSystems_RefuseLaunchControls</reason>
+              </li>
+              <li Class="Phobos.VehicleSystems.Effect_StatFactor">
+                <stat>FlightSpeed</stat>
+                <factor>0.8</factor>
+              </li>
+            </effects>
+          </li>
+          <li>
+            <from>0.35</from>
+            <to>0.7</to>
+            <label>damaged</label>
+            <notable>true</notable>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_StatFactor">
+                <stat>FlightSpeed</stat>
+                <factor>0.9</factor>
+              </li>
+            </effects>
+          </li>
+          <li>
+            <from>0.7</from>
+            <label>answering</label>
+          </li>
+        </stages>
+      </li>
+    </quantities>
+  </Phobos.VehicleSystems.PhobosVehicleSystemDef>
+</Defs>

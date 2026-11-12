@@ -208,6 +208,28 @@
         </stages>
       </li>
       <li>
+        <!-- G16 and avionics A6 (Framework 0.106.0): the electrics are shedding loads to save the battery (ElectricsRule.ShedDepth), so
+             the Dashboard shows a lamp. The loads, their order and the battery clock are on the inspect line. -->
+        <name>loadShedding</name>
+        <description>Whether the electrics are switching loads off to save the battery, because the charging has failed or cannot keep up.</description>
+        <telltale>Phobos/VehicleSystems/Dash/Battery</telltale>
+        <label>saving the battery</label>
+        <unit>OnOff</unit>
+        <min>0</min>
+        <max>1</max>
+        <hidden>true</hidden>
+        <derivedFrom>
+          <li Class="Phobos.VehicleSystems.Input_LoadShedding" />
+        </derivedFrom>
+        <stages>
+          <li>
+            <from>0.5</from>
+            <label>saving the battery</label>
+            <notable>true</notable>
+          </li>
+        </stages>
+      </li>
+      <li>
         <!-- G15 (cross-links round three; Framework 0.106.0), extending crosslink 4: a fire on the vehicle cooks the battery's case and
              cells, 30 % of its health an hour at full fire (authored). -->
         <name>batteryFire</name>
@@ -246,17 +268,29 @@
             <side>Surplus</side>
             <!-- Framework 0.73.0: the drive belt turns the alternator; a slipping or snapped one charges little or nothing. -->
             <drivenByRole>Belt</drivenByRole>
-            <supplyFactor Class="Phobos.VehicleSystems.Input_EngineRpm">
-              <multiplier>2.5</multiplier>
-              <curve>
+            <!-- Framework 0.106.0 (avionics A5): a piston engine's alternator follows its rotor speed as before; a turbine's generator
+                 follows the spool speed instead (about half at ground idle, full from cruise, authored), shared among the engines still
+                 working. Before, a turbine's spool read through the piston curve as an rpm far past its top: full output at idle. -->
+            <supplyFactor Class="Phobos.VehicleSystems.Input_GeneratorDrive">
+              <piston Class="Phobos.VehicleSystems.Input_EngineRpm">
+                <multiplier>2.5</multiplier>
+                <curve>
+                  <points>
+                    <li>(1200, 0)</li>
+                    <li>(1800, 0.5)</li>
+                    <li>(2400, 0.7)</li>
+                    <li>(4000, 0.9)</li>
+                    <li>(6000, 1)</li>
+                  </points>
+                </curve>
+              </piston>
+              <turbineSpool>
                 <points>
-                  <li>(1200, 0)</li>
-                  <li>(1800, 0.5)</li>
-                  <li>(2400, 0.7)</li>
-                  <li>(4000, 0.9)</li>
-                  <li>(6000, 1)</li>
+                  <li>(60, 0.5)</li>
+                  <li>(80, 0.85)</li>
+                  <li>(90, 1)</li>
                 </points>
-              </curve>
+              </turbineSpool>
             </supplyFactor>
           </li>
           <li Class="Phobos.VehicleSystems.Input_Quantity">
@@ -282,17 +316,29 @@
             <side>Deficit</side>
             <!-- Framework 0.73.0: the drive belt turns the alternator; a slipping or snapped one charges little or nothing. -->
             <drivenByRole>Belt</drivenByRole>
-            <supplyFactor Class="Phobos.VehicleSystems.Input_EngineRpm">
-              <multiplier>2.5</multiplier>
-              <curve>
+            <!-- Framework 0.106.0 (avionics A5): a piston engine's alternator follows its rotor speed as before; a turbine's generator
+                 follows the spool speed instead (about half at ground idle, full from cruise, authored), shared among the engines still
+                 working. Before, a turbine's spool read through the piston curve as an rpm far past its top: full output at idle. -->
+            <supplyFactor Class="Phobos.VehicleSystems.Input_GeneratorDrive">
+              <piston Class="Phobos.VehicleSystems.Input_EngineRpm">
+                <multiplier>2.5</multiplier>
+                <curve>
+                  <points>
+                    <li>(1200, 0)</li>
+                    <li>(1800, 0.5)</li>
+                    <li>(2400, 0.7)</li>
+                    <li>(4000, 0.9)</li>
+                    <li>(6000, 1)</li>
+                  </points>
+                </curve>
+              </piston>
+              <turbineSpool>
                 <points>
-                  <li>(1200, 0)</li>
-                  <li>(1800, 0.5)</li>
-                  <li>(2400, 0.7)</li>
-                  <li>(4000, 0.9)</li>
-                  <li>(6000, 1)</li>
+                  <li>(60, 0.5)</li>
+                  <li>(80, 0.85)</li>
+                  <li>(90, 1)</li>
                 </points>
-              </curve>
+              </turbineSpool>
             </supplyFactor>
           </li>
         </inputs>

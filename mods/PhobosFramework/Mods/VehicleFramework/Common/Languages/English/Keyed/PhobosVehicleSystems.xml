@@ -94,6 +94,12 @@
   <PhobosVehicleSystems_InspectBatteryCharging>The alternator is charging the battery.</PhobosVehicleSystems_InspectBatteryCharging>
   <PhobosVehicleSystems_InspectBatteryChargingFromGrid>The battery is charging from the power nearby.</PhobosVehicleSystems_InspectBatteryChargingFromGrid>
   <PhobosVehicleSystems_InspectBatteryAmps>{LINE} ({AMPS} A)</PhobosVehicleSystems_InspectBatteryAmps>
+  <PhobosVehicleSystems_InspectBatteryTimeLeft>{LINE} About {TIME} left.</PhobosVehicleSystems_InspectBatteryTimeLeft>
+  <PhobosVehicleSystems_InspectLoadsShed>Saving the battery: {LOADS} off.</PhobosVehicleSystems_InspectLoadsShed>
+  <PhobosVehicleSystems_MsgLoadsShed>The {VEHICLE}'s charging can no longer keep the battery up, so the {LOADS} are switched off to save it. They come back by themselves when the charging recovers.</PhobosVehicleSystems_MsgLoadsShed>
+  <PhobosVehicleSystems_MsgLoadsRestored>The {VEHICLE}'s charging has recovered: everything switched on runs again.</PhobosVehicleSystems_MsgLoadsRestored>
+  <PhobosVehicleSystems_MsgEngineOut>The {VEHICLE} has lost an engine and flies slower on the ones left.</PhobosVehicleSystems_MsgEngineOut>
+  <PhobosVehicleSystems_RefuseLaunchControls>The {VEHICLE}'s flight controls are too damaged to fly. Repair the parts that move them (control surfaces, actuators, hydraulics, wiring or avionics) first.</PhobosVehicleSystems_RefuseLaunchControls>
   <PhobosVehicleSystems_InspectServiceWater>Waiting for water for {SERVICE}: {REASON}</PhobosVehicleSystems_InspectServiceWater>
   <PhobosVehicleSystems_InspectWheelsSpinning>Wheels spinning.</PhobosVehicleSystems_InspectWheelsSpinning>
   <PhobosVehicleSystems_InspectLabouring>Engine labouring.</PhobosVehicleSystems_InspectLabouring>
