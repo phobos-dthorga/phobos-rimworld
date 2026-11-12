@@ -316,18 +316,18 @@
   <!-- What fitting and tuning cost (Framework 0.91.0). -->
   <PhobosVehicleSystems_FitHours>About {HOURS} hours of work for a builder of normal speed.</PhobosVehicleSystems_FitHours>
   <PhobosVehicleSystems_SettingFitTime>Time to fit and tune</PhobosVehicleSystems_SettingFitTime>
-  <PhobosVehicleSystems_SettingFitTimeDesc>How long a mechanic works on a fitting or a tune. Standard makes a big job a day's work or more, so a tuned vehicle is something the colony worked for. Work already waiting takes the new time.</PhobosVehicleSystems_SettingFitTimeDesc>
+  <PhobosVehicleSystems_SettingFitTimeDesc>How long a mechanic works on a fitting, a tune or an upgrade to one of our own vehicles. Standard makes a big job a day's work or more, so a tuned vehicle is something the colony worked for. Work already waiting takes the new time; an upgrade already under way keeps the time it started with.</PhobosVehicleSystems_SettingFitTimeDesc>
   <PhobosVehicleSystems_FitTimeQuick>Quick (a quarter)</PhobosVehicleSystems_FitTimeQuick>
   <PhobosVehicleSystems_FitTimeShorter>Shorter (half)</PhobosVehicleSystems_FitTimeShorter>
   <PhobosVehicleSystems_FitTimeStandard>Standard</PhobosVehicleSystems_FitTimeStandard>
   <PhobosVehicleSystems_FitTimeLong>Long (double)</PhobosVehicleSystems_FitTimeLong>
   <PhobosVehicleSystems_SettingFitMaterials>Materials to fit and tune</PhobosVehicleSystems_SettingFitMaterials>
-  <PhobosVehicleSystems_SettingFitMaterialsDesc>How much steel, components and chemfuel a fitting or a tune takes. Light is about what they took before version 0.91.0. Work already waiting takes the new amounts.</PhobosVehicleSystems_SettingFitMaterialsDesc>
+  <PhobosVehicleSystems_SettingFitMaterialsDesc>How much steel, components and chemfuel a fitting, a tune or an upgrade to one of our own vehicles takes. Light is about what fittings took before version 0.91.0. Work already waiting takes the new amounts.</PhobosVehicleSystems_SettingFitMaterialsDesc>
   <PhobosVehicleSystems_FitMaterialsLight>Light (two fifths)</PhobosVehicleSystems_FitMaterialsLight>
   <PhobosVehicleSystems_FitMaterialsStandard>Standard</PhobosVehicleSystems_FitMaterialsStandard>
   <PhobosVehicleSystems_FitMaterialsHeavy>Heavy (half as much again)</PhobosVehicleSystems_FitMaterialsHeavy>
   <PhobosVehicleSystems_SettingFitByWeight>Bigger vehicles cost more to fit and tune</PhobosVehicleSystems_SettingFitByWeight>
-  <PhobosVehicleSystems_SettingFitByWeightDesc>A bigger vehicle's parts are bigger: materials grow with its weight and time a little more slowly, against a 5-tonne vehicle. A light buggy costs half, a heavy truck about twice the materials. Off, every vehicle pays the listed figures.</PhobosVehicleSystems_SettingFitByWeightDesc>
+  <PhobosVehicleSystems_SettingFitByWeightDesc>A bigger vehicle's parts are bigger: materials grow with its weight and time a little more slowly, against a 5-tonne vehicle. A light buggy costs half, a heavy truck about twice the materials. Upgrades to our own vehicles follow it too. Off, every vehicle pays the listed figures.</PhobosVehicleSystems_SettingFitByWeightDesc>
   <PhobosVehicleSystems_FitDetailsHint>Rest the mouse on a tune, a fitting, a family or a grade to see what it needs and what it changes. What it shows stays here until you rest on something else, so you can move down and scroll it.</PhobosVehicleSystems_FitDetailsHint>
   <!-- Finding tuning (Framework 0.90.0). -->
   <PhobosVehicleSystems_FitGizmo>Fittings and tunes</PhobosVehicleSystems_FitGizmo>

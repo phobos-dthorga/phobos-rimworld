@@ -35,4 +35,28 @@ public class FitCostRuleTests
 
     [Fact]
     public void WorkScales() => Assert.Equal(15000f, FitCostRule.Work(10000f, 1.5), 3);
+
+    // Upgrades priced like tunes (Framework 0.106.0)
+
+    [Fact]
+    public void ANodeFactorMultipliesUpliftWeightAndPreset() => Assert.Equal(5.0, FitCostRule.NodeFactor(2.5, 2, 1), 9);
+
+    [Fact]
+    public void ANodeFactorNeverGoesBelowNothing() => Assert.Equal(0, FitCostRule.NodeFactor(-1, 2, 1), 9);
+
+    [Fact]
+    public void TheGeneratorSetsAlternatorNodeReachesTheFittingsScale()
+    {
+        // 3,000 listed work, uplift 5, a 6,000 kg set at the 5,000 kg reference and exponent 0.25.
+        double weight = FitCostRule.WeightFactor(6000, 5000, 0.25, 0.5, 3);
+        Assert.InRange(FitCostRule.Work(3000f, FitCostRule.NodeFactor(5, weight, 1)), 15690f, 15710f);
+    }
+
+    [Fact]
+    public void SteelIsBulkAndAPartIsNot()
+    {
+        Assert.True(FitCostRule.IsBulk(75, 10));
+        Assert.False(FitCostRule.IsBulk(5, 10));
+        Assert.False(FitCostRule.IsBulk(10, 10));
+    }
 }

@@ -9,6 +9,10 @@ tested in game unless an entry says the owner tested it.
 
 The thrust pods take D'thorga Framework's flight-controls system
 
+### Balance
+
+- **Every upgrade on our seven vehicles costs far more time and materials**, priced like D'thorga Framework's fittings and tunes (owner, 13 November 2026): the Ullage tanker, the drill rig, the Pintle trailer, the Busbar generator set, the Seabed Crawler, the Datum survey truck and the Talus tipper. The figures in their upgrade trees are now the base the Framework prices from. Not yet tested in game.
+
 ### Changed
 
 - The Frog, Toad and Goliath carry D'thorga Framework 0.106.0's flight-controls system, as every other aircraft does through the shared aircraft loadout: with their stabilisers or other flight-control parts wrecked below 35 % they cannot take off, and damaged they fly slower. Not yet tested in game.

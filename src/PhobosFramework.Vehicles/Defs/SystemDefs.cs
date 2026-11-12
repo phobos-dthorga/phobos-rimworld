@@ -698,6 +698,12 @@ public class PhobosVehicleRulesDef : PhobosRulesDef
     public float fitWorkWeightExponent = 0.25f;
     public float fitWeightFactorMin = 0.5f;
     public float fitWeightFactorMax = 3f;
+    /// <summary>Our upgrade nodes priced like tunes (Framework 0.106.0; owner, 13 Nov 2026; authored): what a node's listed work and bulk
+    /// materials are raised by to reach the fittings' scale before weight and presets, and the stack size above which an ingredient
+    /// counts as bulk (a part counted in ones is never multiplied).</summary>
+    public float upgradeWorkUplift = 5f;
+    public float upgradeMaterialUplift = 2.5f;
+    public int upgradeBulkStackAbove = 10;
     /// <summary>Sling loads (Framework 0.92.0, authored): a hot day's derating of a hook (from this temperature, this share of the rated load
     /// lost per degree, at most this much), and the work of hooking a load up.</summary>
     public float slingDerateFromCelsius = 15f;

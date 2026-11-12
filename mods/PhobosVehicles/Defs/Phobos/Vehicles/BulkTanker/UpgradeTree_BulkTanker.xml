@@ -10,6 +10,8 @@
     <defName>Phobos_Tanker_UpgradeTree</defName>
     <modExtensions>
       <li Class="Phobos.VehicleSystems.PhobosEnforceUpgradeResearch" />
+      <!-- Priced like our fittings and tunes (Framework 0.106.0; owner, 13 Nov 2026): the figures below are the base. -->
+      <li Class="Phobos.VehicleSystems.PhobosUpgradeCostsLikeTunes" />
     </modExtensions>
     <nodes>
     <li>

@@ -21,6 +21,7 @@ Version 0.50.0, built 13 November 2026 for House D'thorga. **Not yet tested in g
   made at the vehicle parts bench. **Finish or cancel any vehicle being built before you update**, or its frame keeps what was
   delivered and then asks for the new list. To build from our own parts whatever is installed, set **Parts for building** in D'thorga
   Framework's settings. **Needs D'thorga Framework 0.95.0 or later.**
+- **New in 0.50.0 (not yet tested in game): every upgrade on our vehicles costs what D'thorga Framework's fittings and tunes do**: several hours' work and much more steel and components, more on a heavier vehicle, under the same two settings, *Time to fit and tune* and *Materials to fit and tune*. Other mods' upgrades are unchanged. Taking an upgrade off refunds a share of what it cost when it was fitted.
 - **New in 0.39.1 (not yet tested in game): our vehicles have names**, such as the Talus tipper truck, and a few upgrades and tunes
   take the trade's own words (greedy boards, RC hammer, stock tune, tall final drive). **Only the names you read changed**: saves,
   upgrades already fitted and other mods' patches are unaffected. What each name means is [below](#our-vehicles-names).

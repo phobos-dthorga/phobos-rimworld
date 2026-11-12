@@ -369,12 +369,12 @@ public class VehicleSystemsMod : Mod
         listing.CheckboxLabeled("PhobosVehicleSystems_SettingTuningNeedsRig".Translate(), ref s.tuningNeedsRig, "PhobosVehicleSystems_SettingTuningNeedsRigDesc".Translate());
         // What fitting and tuning cost (Framework 0.91.0): presets, not sliders (owner); a change re-prices work already waiting.
         SettingsUi.Choice(listing, "PhobosVehicleSystems_SettingFitTime".Translate(), s.fitTimeFactor, new[] { 0.25f, 0.5f, 1f, 2f }, FitTimeLabel,
-            chosen => { s.fitTimeFactor = chosen; VehicleFittings.CostStamp++; }, "PhobosVehicleSystems_SettingFitTimeDesc".Translate());
+            chosen => { s.fitTimeFactor = chosen; VehicleFittings.CostsChanged(); }, "PhobosVehicleSystems_SettingFitTimeDesc".Translate());
         SettingsUi.Choice(listing, "PhobosVehicleSystems_SettingFitMaterials".Translate(), s.fitMaterialFactor, new[] { 0.4f, 1f, 1.5f }, FitMaterialLabel,
-            chosen => { s.fitMaterialFactor = chosen; VehicleFittings.CostStamp++; }, "PhobosVehicleSystems_SettingFitMaterialsDesc".Translate());
+            chosen => { s.fitMaterialFactor = chosen; VehicleFittings.CostsChanged(); }, "PhobosVehicleSystems_SettingFitMaterialsDesc".Translate());
         bool byWeight = s.fitCostScalesWithWeight;
         listing.CheckboxLabeled("PhobosVehicleSystems_SettingFitByWeight".Translate(), ref s.fitCostScalesWithWeight, "PhobosVehicleSystems_SettingFitByWeightDesc".Translate());
-        if (byWeight != s.fitCostScalesWithWeight) VehicleFittings.CostStamp++;
+        if (byWeight != s.fitCostScalesWithWeight) VehicleFittings.CostsChanged();
         listing.CheckboxLabeled("PhobosVehicleSystems_SettingPowerPointLarge".Translate(), ref s.powerPointLargeSocket, "PhobosVehicleSystems_SettingPowerPointLargeDesc".Translate());
         listing.CheckboxLabeled("PhobosVehicleSystems_SettingEnemyFitSets".Translate(), ref s.enemyFitSets, "PhobosVehicleSystems_SettingEnemyFitSetsDesc".Translate());
 

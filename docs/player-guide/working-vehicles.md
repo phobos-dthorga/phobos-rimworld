@@ -67,7 +67,7 @@ flowchart LR
 *In order: the tanker's five (liquid tank to hose reel), the drill rig's seven (diamond core bit to work lights), the tipper's
 three, the survey truck's six (geophone array to groundwater), and the generator set's five.*
 
-Upgrades are fitted in Vehicle Framework's **Upgrades** tab and show on the vehicle's picture.
+Upgrades are fitted in Vehicle Framework's **Upgrades** tab and show on the vehicle's picture. **They cost what our fittings and tunes do** (from Framework 0.106.0, not yet tested in game): several hours' work and much more steel and components, more on a heavier vehicle, under the same two settings, *Time to fit and tune* and *Materials to fit and tune*.
 
 ## Datum survey truck
 

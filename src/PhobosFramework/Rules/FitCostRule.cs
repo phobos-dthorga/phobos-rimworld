@@ -22,4 +22,14 @@ public static class FitCostRule
 
     /// <summary>Work in ticks after the factors, never below one tick.</summary>
     public static float Work(float baseWork, double factor) => (float)Math.Max(1, baseWork * factor);
+
+    /// <summary>
+    /// The factor on an upgrade node's own figures (Framework 0.106.0; owner, 13 Nov 2026: upgrades priced like tunes): an uplift that brings
+    /// a node's listed figures to the fittings' scale, times the vehicle's weight factor and the player's preset. Never below nothing.
+    /// </summary>
+    public static double NodeFactor(double uplift, double weightFactor, double preset) => Math.Max(0, uplift) * Math.Max(0, weightFactor) * Math.Max(0, preset);
+
+    /// <summary>Whether an ingredient is a bulk material that scales with the size of the job (steel, components, plasteel), not a part
+    /// counted in ones (an alternator, a wheel set): told apart by how many stack together.</summary>
+    public static bool IsBulk(int stackLimit, int above) => stackLimit > above;
 }

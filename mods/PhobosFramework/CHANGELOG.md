@@ -22,6 +22,16 @@ Cross-links, round three, the owner's first batch: a dry tank hurts the fuel pum
 - **One flight-controls rule for every aircraft** (avionics A8). Vehicle Framework works out a flight control figure from the parts that carry it but never uses it. Now, on every aircraft our systems run, below 35 % the aircraft cannot take off (the launch button says why), and below 70 % it flies at 0.9 of its speed (0.8 below 35 %; authored). Aircraft with no such parts read 100 % and are unaffected.
 - For modders: Input_GeneratorDrive, Input_LoadShedding, Input_VehicleStat and Effect_RefuseLaunch; a load's shedOrder (0, the default, is essential); ElectricsRule (game-free, with tests).
 
+### Balance
+
+- **Our own vehicles' upgrades now cost what our tunes do** (owner, 13 November 2026). Their work and their steel, components and other bulk materials follow the rule that prices fittings and tunes, raised to the same scale and then by the vehicle's weight and the two presets, Time to fit and tune and Materials to fit and tune, so one setting adjusts both. The Busbar's uprated alternator goes from about 1 hour and 50 steel, 2 components to about 6 hours and 137 steel, 6 components; a Datum's powered array to about 12 hours. Parts counted in ones are never multiplied. Other authors' upgrade trees are unchanged. Not yet tested in game.
+- Taking one of these upgrades off refunds a share of what was paid for it, not of today's price; one bought before this version refunds from its old price.
+
+### Changed
+
+- The settings Time to fit and tune, Materials to fit and tune and Scale by weight now say they cover upgrades to our own vehicles too. Their defaults are unchanged.
+- For modders: PhobosUpgradeCostsLikeTunes on an upgrade tree prices its nodes like fittings and tunes; FitCostRule.NodeFactor and FitCostRule.IsBulk (game-free, with tests); the dev action Vehicle systems: list upgrade prices.
+
 ### Fixed
 
 - **The Harrier's flight-control rule no longer reaches other aircraft.** D'thorga Patches' rule refused take-off to any vehicle with a flight-control part while the Harrier mod was active, so it could ground the Frog, Toad, Smuggler, Warbird, Cherokee and Goliath. The Framework's one rule above replaces it and applies only to aircraft our systems run.

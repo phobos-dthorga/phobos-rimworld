@@ -17,6 +17,11 @@
     <fitWorkWeightExponent>0.25</fitWorkWeightExponent>
     <fitWeightFactorMin>0.5</fitWeightFactorMin>
     <fitWeightFactorMax>3</fitWeightFactorMax>
+    <!-- Our own vehicles' upgrade nodes priced like tunes (Framework 0.106.0; owner, 13 Nov 2026; authored): a node's listed work is raised
+         five times and its bulk materials two and a half, the step fittings took in 0.91.0, then by weight and the two presets as above. -->
+    <upgradeWorkUplift>5</upgradeWorkUplift>
+    <upgradeMaterialUplift>2.5</upgradeMaterialUplift>
+    <upgradeBulkStackAbove>10</upgradeBulkStackAbove>
     <!-- Sling loads (Framework 0.92.0, authored): a hook lifts 1% less for each degree above 15 °C, at most 30% less (the direction from the FAA
          Helicopter Flying Handbook: air density falls with temperature); hooking a load up is about 0.6 hours for a builder of normal speed. -->
     <slingDerateFromCelsius>15</slingDerateFromCelsius>

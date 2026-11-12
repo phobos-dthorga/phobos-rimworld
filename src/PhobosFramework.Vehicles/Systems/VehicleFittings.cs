@@ -143,6 +143,13 @@ public sealed class VehicleFittings
     /// <summary>Counts every change of the cost settings, so work already waiting is priced again.</summary>
     public static int CostStamp;
 
+    /// <summary>A cost setting changed: work waiting is priced again, and so are our vehicles' upgrade nodes (UpgradePricing).</summary>
+    public static void CostsChanged()
+    {
+        CostStamp++;
+        UpgradePricing.Reprice();
+    }
+
     /// <summary>
     /// What fitting and tuning cost on this vehicle against the listed figures (Framework 0.91.0; owner, 11 Nov 2026: "I want these
     /// upgrades and tunes to feel earned"): the player's presets, and the vehicle's weight when that setting is on (FitCostRule).

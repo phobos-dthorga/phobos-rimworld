@@ -321,6 +321,10 @@ offline.
 
 The new button on a vehicle's **Dashboard** opens **Fittings and tunes**, for any vehicle from any mod that has a loadout.
 
+**From 0.106.0 (not yet tested in game), our own vehicles' upgrades cost what fittings and tunes do**, under the same settings (*Time to
+fit and tune*, *Materials to fit and tune*, *Scale by weight*). Other mods' upgrade trees keep their own costs. Taking such an upgrade off
+refunds a share of what it cost when it was fitted. An author can opt a tree in with `PhobosUpgradeCostsLikeTunes`.
+
 - **Fittings** go on one part, one to a part: uprated radiator, oil cooler, turbocharger, heavy-duty alternator, deep-cycle battery, heavy-duty springs, road tyres. **A fitting is lost if its part is destroyed.** Where a vehicle has several of a part, such as axles, each fitted part gives a share and fitting them all gives the full effect.
 - **Tunes** set up the whole engine (economy, stock, power) and the final drive (tall, stock, short; long, standard and short gearing before 0.82.1). Piston engines only; the final drive needs a gearbox. **A tall final drive cannot make a vehicle faster than it was built to go.** In the Engineer display mode
   (new in 0.83.0), a tune's tooltip lists what it changes on that vehicle: the final drive ratio as built and with the tune, engine

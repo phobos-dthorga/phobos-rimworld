@@ -127,6 +127,75 @@ Taking a fitting off is half its fitting time. Skills, research and part grades 
   final drive change is a new gear set, so 50 steel and 2 components rather than 25 steel; the exponents and the clamp.
 - A change of preset re-prices work already waiting.
 
+### Our vehicles' upgrades, priced like tunes (Framework 0.106.0)
+
+**The owner, 13 Nov 2026:** "customizations/upgrades for vehicles such as our own Busbar, greatly need to be increased in both resource
+cost and that of invested time. For this, we can reference that of our tunes which I feel have a good balance." Built, not yet tested in
+game.
+
+- **Which trees:** our own seven (Ullage, the drill rig, Pintle, Busbar, the Seabed Crawler, Datum, Talus), each opted in with the
+  marker `PhobosUpgradeCostsLikeTunes` on its upgrade tree. Every other author's tree keeps the costs its author wrote.
+- **The rule:** a node's figures in its XML are its base. They are raised once to the fittings' scale (the step fittings took in 0.91.0:
+  work five times, bulk materials two and a half; `upgradeWorkUplift` and `upgradeMaterialUplift` in `PhobosVehicleRulesDef`, authored),
+  then by the vehicle's weight exactly as a fitting is (`FitCostRule.WeightFactor`, by its kerb mass against 5 tonnes, under the same
+  *Scale by weight* setting) and by the same two presets, *Time to fit and tune* and *Materials to fit and tune*.
+- **Bulk materials only:** steel, components, plasteel, uranium, chemfuel scale; a part counted in ones (an alternator from a parts
+  bill, the Crawler's own parts) is never multiplied. Told apart by how many stack together (`upgradeBulkStackAbove`, 10).
+- **Applied once at start-up, after the parts bills, and again whenever one of the cost settings changes** (`UpgradePricing`). Vehicle
+  Framework reads a node's work and ingredients live (`Vehicles.decompiled.cs:2761`, `:35021`), so the new price shows at once.
+- **An upgrade already under way** keeps the work it started with (Vehicle Framework saves the work left, `:34797`), and haulers bring
+  the rest of the new materials.
+- **Refunds stay fair.** Vehicle Framework refunds a share of a node's ingredients as they stand when the upgrade is taken off
+  (`CompUpgradeTree.RefundIngredients`, `:21748`). Without a record, an upgrade bought before this version, or at a lighter preset, would
+  refund more than it cost: a loop that makes steel from nothing. So each priced upgrade's price is remembered when it is finished
+  (`GameComponent_PhobosUpgradePrices`, safe to add to a running game), and taking it off refunds from that; one bought before 0.106.0
+  refunds from the old figures. The swap lasts only for the refund and is always put back (a finalizer).
+- **Floors and caps:** none added. No node reaches more than about 12 hours at the Standard presets, the longest being the powered
+  survey array, beside the turbocharger's 12. **The drill rig pays the most materials** (five times its listed figures, from its
+  20 tonnes): its work lights node asks 200 steel where the work lamps fitting asks about 60 on the same rig, because that node already
+  listed more steel than the fitting. If it reads high in play, lower the node's own figure in its XML rather than add a cap.
+- **Research and parts bills:** research gating is unchanged (`PhobosEnforceUpgradeResearch`). The three nodes a parts bill fills
+  (the Busbar's uprated alternator among them) keep their part, and only its bulk materials rise.
+
+Hours are for a builder of normal speed (2,500 work an hour), at the Standard presets, with *Scale by weight* on:
+
+| Vehicle (kerb) | Node | Hours (work) before | Hours (work) after | Materials before | Materials after |
+| --- | --- | --- | --- | --- | --- |
+| Ullage bulk tanker (9,000 kg) | LiquidTank | 1.6 (4,000) | 9.3 (23,166) | 120 steel | 403 steel |
+| Ullage bulk tanker (9,000 kg) | InsulatedLiquidTank | 1.6 (4,000) | 9.3 (23,166) | 150 steel, 2 components | 504 steel, 7 components |
+| Ullage bulk tanker (9,000 kg) | HighVolumeLiquidTank | 1.6 (4,000) | 9.3 (23,166) | 160 steel | 537 steel |
+| Ullage bulk tanker (9,000 kg) | HoseReel | 0.6 (1,500) | 3.5 (8,687) | 30 steel, 1 components | 101 steel, 4 components |
+| Ullage bulk tanker (9,000 kg) | TwoCompartments | 1 (2,500) | 5.8 (14,479) | 40 steel, 2 components | 135 steel, 7 components |
+| Ullage bulk tanker (9,000 kg) | ThreeCompartments | 1 (2,500) | 5.8 (14,479) | 40 steel, 2 components | 135 steel, 7 components |
+| drill rig (20,000 kg) | DiamondBit | 1 (2,500) | 7.1 (17,678) | 30 plasteel, 2 components | 150 plasteel, 10 components |
+| drill rig (20,000 kg) | RcHammer | 1 (2,500) | 7.1 (17,678) | 60 steel, 2 components | 300 steel, 10 components |
+| drill rig (20,000 kg) | TallMast | 1.2 (3,000) | 8.5 (21,213) | 120 steel, 4 components | 600 steel, 20 components |
+| drill rig (20,000 kg) | ElectricPowerPack | 0.8 (2,000) | 5.7 (14,142) | 80 steel, 6 components | 400 steel, 30 components |
+| drill rig (20,000 kg) | WorkLights | 0.4 (1,000) | 2.8 (7,071) | 40 steel, 1 components | 200 steel, 5 components |
+| Pintle trailer (2,000 kg) | PhobosTrailerHighSides | 0.5 (1,200) | 1.9 (4,772) | 50 steel | 80 steel |
+| Busbar generator set (6,000 kg) | BiggerAlternator | 1.2 (3,000) | 6.3 (15,700) | 50 steel, 2 components | 137 steel, 6 components |
+| Busbar generator set (6,000 kg) | CableReel | 0.6 (1,500) | 3.1 (7,850) | 40 steel, 1 components | 110 steel, 3 components |
+| Busbar generator set (6,000 kg) | BatteryBuffer | 0.8 (2,000) | 4.2 (10,466) | 6 components | 17 components |
+| Datum survey truck (4,500 kg) | GeophoneArray | 1 (2,500) | 4.9 (12,175) | 60 steel, 3 components | 143 steel, 8 components |
+| Datum survey truck (4,500 kg) | RadiometricProbe | 1.2 (3,000) | 5.8 (14,610) | 40 steel, 30 plasteel, 3 components, 40 uranium | 95 steel, 72 plasteel, 8 components, 95 uranium |
+| Datum survey truck (4,500 kg) | LongRangeArray | 1.6 (4,000) | 7.8 (19,480) | 120 steel, 6 components, 20 plasteel | 285 steel, 15 components, 48 plasteel |
+| Datum survey truck (4,500 kg) | PoweredArray | 2.4 (6,000) | 11.7 (29,220) | 200 steel, 40 plasteel, 10 components | 475 steel, 95 plasteel, 24 components |
+| Datum survey truck (4,500 kg) | SurveyBattery | 1.2 (3,000) | 5.8 (14,610) | 100 steel, 4 components | 238 steel, 10 components |
+| Datum survey truck (4,500 kg) | WorkLights | 0.4 (1,000) | 1.9 (4,870) | 30 steel, 2 components | 72 steel, 5 components |
+| Talus tipper (10,000 kg) | HighSides | 0.6 (1,500) | 3.6 (8,919) | 60 steel | 213 steel |
+| Talus tipper (10,000 kg) | RockBody | 1.2 (3,000) | 7.1 (17,838) | 120 steel, 4 components | 425 steel, 15 components |
+| Talus tipper (10,000 kg) | BulkBody | 1.2 (3,000) | 7.1 (17,838) | 150 steel, 4 components | 531 steel, 15 components |
+| Seabed Crawler (about 4,800 kg, from its Vehicle Framework mass) | BottomingWheels | 1 (2,500) | 4.9 (12,373) | its own crawler parts | unchanged (parts are counted in ones) |
+| Seabed Crawler (about 4,800 kg, from its Vehicle Framework mass) | Scrubber | 0.8 (2,000) | 4 (9,898) | its own crawler parts | unchanged (parts are counted in ones) |
+| Seabed Crawler (about 4,800 kg, from its Vehicle Framework mass) | WetLab | 1 (2,500) | 4.9 (12,373) | its own crawler parts | unchanged (parts are counted in ones) |
+| Seabed Crawler (about 4,800 kg, from its Vehicle Framework mass) | DeepLab | 1.2 (3,000) | 5.9 (14,848) | its own crawler parts | unchanged (parts are counted in ones) |
+| Seabed Crawler (about 4,800 kg, from its Vehicle Framework mass) | Hydrophones | 0.8 (2,000) | 4 (9,898) | its own crawler parts | unchanged (parts are counted in ones) |
+| Seabed Crawler (about 4,800 kg, from its Vehicle Framework mass) | ActiveSonar | 0.8 (2,000) | 4 (9,898) | its own crawler parts | unchanged (parts are counted in ones) |
+| Seabed Crawler (about 4,800 kg, from its Vehicle Framework mass) | SensorRefit | 1.6 (4,000) | 7.9 (19,797) | its own crawler parts | unchanged (parts are counted in ones) |
+| Seabed Crawler (about 4,800 kg, from its Vehicle Framework mass) | LaboratoryRefit | 2 (5,000) | 9.9 (24,746) | its own crawler parts | unchanged (parts are counted in ones) |
+
+The dev action **"Vehicle systems: list upgrade prices"** writes every node's base and present price to the log.
+
 ### Where the player does it
 
 One new button on the Dashboard opens a window listing each part that can take a fitting, and the two tunes; each row says what it does, what it needs and why it cannot be done yet. Orders are queued, can be cancelled, and appear with the vehicle's other repairs in its inspect line.
