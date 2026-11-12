@@ -119,9 +119,10 @@ anything else ([record](vehicle-accessories.md)). **Nothing built**; the owner p
 | # | Item | Mod | Owner's decision | Status |
 | --- | --- | --- | --- | --- |
 | Y0 | The rules: every accessory uses up something real; stores run down and are refilled; passive gear costs materials and weight only; no drag; camp first, some aboard | Framework | Owner, 13 Nov 2026 | Recorded |
-| Y1 to Y4 | The four links: power outlet, crew water tank, camp order, life aboard (shared with hotboxing) | Framework | Waiting on the owner's answers to the record's eight questions | Record written; not built |
-| Y5 to Y13 | The short list: house battery, solar panel, fridge, swags, awning, kitchen box, folding table and chairs, shower and basin, stereo | Framework | As above | Record written; not built |
-| Y14 to Y21 | The rest: reading light, better seats, roof rack, tool locker, tyre compressor, spotlight, bull bar; sleeping berths (the record advises against, for now) | Framework | As above | Record written; not built |
+| Y1 to Y4 | The four links: power outlet, crew water tank, camp order, life aboard | Framework | One button for the camp; water gear only with Dubs Bad Hygiene; life aboard and hotboxing as one piece; a removed accessory gives its kit back (owner, 13 Nov 2026) | Record written; not built |
+| Y5 to Y13 | The short list: house battery, solar panel, fridge, swags, awning, kitchen box, folding table and chairs, shower and basin, stereo | Framework | **The power budget first** (loads and weight on fittings, house battery, outlet, fridge); "slept under the stars" at +5; other factions' camps with the camp batch (owner, 13 Nov 2026) | Record written; waiting on the owner's "build" |
+| Y14 to Y20 | The rest: reading light, better seats, roof rack, tool locker, tyre compressor, spotlight, bull bar | Framework | — | Record written; not built |
+| Y21 | [Sleeping berths](vehicle-berths.md): B1 roof tent at camp, B2 bunks on the road, B3 driving through the night, B4 sleeping inside a parked vehicle | Framework | Designed properly, against the agent's advice to leave them out (owner, 13 Nov 2026) | Record written; four questions open; not built |
 | Y22 | To read before the water work: how Dubs Bad Hygiene's water storage would see a tank on a vehicle | Framework | — | Open |
 | Y23 | To verify before any Def carries them: the record's web figures (fridge draw, water per person, shower flow, solar output, burner gas use), read only as search summaries | docs | — | Open |
 

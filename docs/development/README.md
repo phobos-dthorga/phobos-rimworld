@@ -117,6 +117,9 @@ promise current behaviour. For using the mods, start at the [documentation index
 - [Vehicle accessories: camp gear and comforts (13 Nov 2026)](vehicle-accessories.md): research and design only; a parked vehicle as
   the heart of a camp through four links (a power outlet, a crew water tank, a camp order, life aboard), a catalogue of twenty-one
   accessories that each use up something real, what other mods already do, and eight questions for the owner. Nothing built.
+- [Sleeping berths: roof tents, cab bunks and driving through the night (13 Nov 2026)](vehicle-berths.md): research and design only, at
+  the owner's request; a fold-out roof tent at camp, bunks that rest riders on the move, a relief driver for night driving, and
+  sleeping inside a parked vehicle, with what each needs from the game and Vehicle Framework. Nothing built.
 - [Pipes and conduits beneath our things (13 Nov 2026)](network-underlays.md): visible plumbing and pipes beneath our buildings and parked
   vehicles (Framework 0.107.0), the generator set joining through conduits beneath it, and an audit of everything of ours on a piped supply
   or power, with proposals for the owner.

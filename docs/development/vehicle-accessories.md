@@ -378,8 +378,8 @@ refill it and a plain warning when low.**
 - **Sleeping inside a vehicle (Y21).** A berth could raise a rider's rest by our own call, but a colonist will never *choose* it:
   the game sends people to bed buildings, and a seat is not one. The player would have to order each person aboard each night.
   A caravan that drives through the night with a sleeping relief driver would also mean changing how Vehicle Framework decides a
-  caravan rests (`VehicleFramework-1.6:Vehicles.decompiled.cs:44470-44478`). **Recommendation: do not build berths now.** Swags
-  and Field Tents cover sleeping; raise it again if Vehicle Framework gains a rest role.
+  caravan rests (`VehicleFramework-1.6:Vehicles.decompiled.cs:44470-44478`). The agent's advice was to leave berths out for
+  now. **The owner chose to have them designed properly** (13 Nov 2026): see [vehicle-berths.md](vehicle-berths.md).
 - **Riders do nothing by themselves on a map.** Y4 is the answer, and it is the same answer hotboxing needs.
 - **Dubs Bad Hygiene's side of the tank** is unread, and a second kind of water store is not allowed by our own rules. The tank
   must be the tanker's system or nothing.
@@ -408,7 +408,7 @@ refill it and a plain warning when low.**
 | Where | What happens | Lets the player | Stops the player |
 | --- | --- | --- | --- |
 | **A raid on us** | Raiders' vehicles may carry fitted gear from the enemy fit sets by chance and tech level, as they carry fittings now. On the lite tier nothing of it runs: no outlet, no fridge draw, no check aboard | Capture a vehicle that already has a fridge, a tank or a stereo | Nothing |
-| **A base we attack** | Parked vehicles keep their fitted gear as data. A later, optional touch: a base's vehicle with its awning out and swags down, placed once when the map is made as plain things | Loot the gear; fight around a camp | Nothing |
+| **A base we attack** | Parked vehicles keep their fitted gear as data. With the camp batch (owner, 13 Nov 2026): some of a base's vehicles stand with an awning out and swags down, placed once when the map is made as plain things | Loot the gear; fight around a camp | Nothing |
 | **A vehicle we capture** | It follows our rules at once, with its stores as found: the tank part full, the fridge's food as fresh as its power left it | Use it as ours | Nothing |
 
 The four links read only what any vehicle has: a loadout, cargo, riders. Nothing depends on the vehicle being ours. With several
@@ -445,16 +445,26 @@ hostile vehicles on a map the cost is none, because the lite tier skips all of i
 - **Sounds, each its own:** the fridge's compressor (quiet, on a cycle), canvas for the awning, a pump for the shower, a low
   murmur for the stereo (no music of anyone's), a billy coming to the boil.
 
-## A suggested order, if the owner wants one
+## The order (the owner chose the first batch, 13 Nov 2026)
 
-1. **The power budget:** loads on fittings, weight on fittings, the house battery (Y5), the outlet (Y1), the fridge (Y7).
-   Small pieces on systems already built; they make every later piece honest.
-2. **The camp:** the camp order (Y3), swags (Y8), the awning (Y9), the folding table and chairs (Y11), the kitchen box (Y10).
+1. **The power budget (first, owner):** loads on fittings, weight on fittings, the house battery (Y5), the outlet (Y1), the
+   fridge (Y7). Small pieces on systems already built; they make every later piece honest.
+2. **The camp:** the camp order (Y3), swags (Y8), the awning (Y9), the folding table and chairs (Y11), the kitchen box (Y10),
+   and other factions' camps at bases (owner).
 3. **Water:** read Dubs' storage code first; then the tank (Y2), drinking aboard, the basin and shower (Y12).
 4. **The road:** life aboard (Y4) together with hotboxing: the stereo (Y13), reading, a cuppa.
 5. **The rest**, as wanted: the solar panel (Y6), then Y15 to Y20.
 
 ## Questions for the owner
+
+**Answered by the owner, 13 Nov 2026:** (1) **the power budget first**: loads and weight on fittings, the house battery, the
+outlet, the fridge; (2) **yes, "slept under the stars" at +5**; (3) **one button** for the camp, with a previewed layout that
+remembers hand-moved pieces; (4) the tank and washing gear **only with Dubs Bad Hygiene**; (5) life aboard and hotboxing **as one
+piece**; (6) sleeping berths **designed properly**, in their own record ([vehicle-berths.md](vehicle-berths.md)), against the
+agent's advice to leave them out; (7) other factions' camps at bases **with the camp batch**, not later; (8) a removed accessory
+**gives its kit back**; brackets and wiring materials are not returned. Nothing is built yet: the build waits on the owner's go.
+
+The questions as they were put:
 
 1. **What to build first:** the suggested order above, or a different first batch?
 2. **Swags and "slept under the stars":** add the good memory for a fair night in a swag with no roof (agent default: yes, +5),
@@ -473,6 +483,9 @@ hostile vehicles on a map the cost is none, because the lite tier skips all of i
 - **Owner (13 Nov 2026):** the idea; real resources for every accessory; stores that run down and are refilled; passive gear costs
   materials and weight only; no drag or aerodynamics; camp first with some aboard; their real kit (fridge and second battery,
   awning, water and washing, lights and stove or billy); a record before anything is built.
+- **Owner (13 Nov 2026, later):** the power budget first; "slept under the stars" at +5; the one-button camp; water gear only
+  with Dubs Bad Hygiene; life aboard and hotboxing as one piece; berths designed properly; enemy camps with the camp batch; a
+  removed accessory gives its kit back.
 - **Agent defaults, owner to revise:** the four links; fittings on mounts with crafted kits; kilograms on fittings and loads on
   fittings; every figure marked [A]; the shed order; the fridge by answering temperature for chosen cargo; the tank as a Dubs
   Bad Hygiene tie-in; the "slept under the stars" memory; the one-button camp; berths left out; the suggested order; everything
