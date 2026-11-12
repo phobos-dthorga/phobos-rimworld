@@ -274,6 +274,7 @@
   <PhobosVehicleSystems_FamilyButton>Fit all</PhobosVehicleSystems_FamilyButton>
   <PhobosVehicleSystems_FamilyLineFitted>On every part it suits.</PhobosVehicleSystems_FamilyLineFitted>
   <PhobosVehicleSystems_FamilyLineParts>One order fits it on {COUNT} parts. The parts below still take each piece on its own.</PhobosVehicleSystems_FamilyLineParts>
+  <PhobosVehicleSystems_FamilyLineOnePart>One order fits it on 1 part. The parts below still take each piece on its own.</PhobosVehicleSystems_FamilyLineOnePart>
   <PhobosVehicleSystems_FamilyAllDone>Every part the {FAMILY} suits has it already, or is waiting for it.</PhobosVehicleSystems_FamilyAllDone>
   <PhobosVehicleSystems_FamilyOrdered>{FAMILY}: {COUNT} jobs added to the {VEHICLE}'s work.</PhobosVehicleSystems_FamilyOrdered>
   <PhobosVehicleSystems_FamilySwitchedOn>Its switches are turned on.</PhobosVehicleSystems_FamilySwitchedOn>
@@ -319,7 +320,7 @@
   <PhobosVehicleSystems_FitMaterialsHeavy>Heavy (half as much again)</PhobosVehicleSystems_FitMaterialsHeavy>
   <PhobosVehicleSystems_SettingFitByWeight>Bigger vehicles cost more to fit and tune</PhobosVehicleSystems_SettingFitByWeight>
   <PhobosVehicleSystems_SettingFitByWeightDesc>A bigger vehicle's parts are bigger: materials grow with its weight and time a little more slowly, against a 5-tonne vehicle. A light buggy costs half, a heavy truck about twice the materials. Off, every vehicle pays the listed figures.</PhobosVehicleSystems_SettingFitByWeightDesc>
-  <PhobosVehicleSystems_FitDetailsHint>Rest the mouse on a tune, a fitting or a grade to see what it needs and what it changes.</PhobosVehicleSystems_FitDetailsHint>
+  <PhobosVehicleSystems_FitDetailsHint>Rest the mouse on a tune, a fitting, a family or a grade to see what it needs and what it changes. What it shows stays here until you rest on something else, so you can move down and scroll it.</PhobosVehicleSystems_FitDetailsHint>
   <!-- Finding tuning (Framework 0.90.0). -->
   <PhobosVehicleSystems_FitGizmo>Fittings and tunes</PhobosVehicleSystems_FitGizmo>
   <PhobosVehicleSystems_FitGizmoDesc>Fit parts, change a part's grade, and tune the engine and gearing. A dyno bay is in reach, so a mechanic can do the work here.</PhobosVehicleSystems_FitGizmoDesc>

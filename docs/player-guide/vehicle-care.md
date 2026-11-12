@@ -135,7 +135,7 @@ shows while a dyno bay is in reach. It works on any vehicle, from any mod, that 
 - **It is real work.** Materials are brought, then a mechanic works: a turbocharger on a 5-tonne vehicle is about 12 hours and 100
   steel and 10 components; a power tune about 10 hours. Bigger vehicles cost more. **Demanding work needs a minimum Construction
   skill**; a mechanic below it is told why.
-- **Rest the mouse on any choice** to see what it would change ("engine power up, fuel burned up" in Plain mode).
+- **Rest the mouse on any choice** to see what it would change ("engine power up, fuel burned up" in Plain mode). Its details stay in the strip at the foot of the window until you rest on another choice, so you can move down and scroll them.
 - **Families** (not yet tested in game): above the parts, **Fit all** orders a whole family in one go, on every part it suits; each
   piece can still be fitted on its own below. The **cold-weather pack** puts a block heater in every engine and a deep-cycle battery
   in, and switches the night heater on. **All-terrain tyres** go on every wheel: far more grip in mud, sand and snow, a little slower,

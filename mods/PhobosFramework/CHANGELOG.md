@@ -30,6 +30,11 @@ Headlights that light the ground; a tow you can read, a forecast before one, and
 - Aircraft navigation lights still burn only while the engines run.
 - The work lamps use the same light as the headlights now. Nothing changes in play.
 
+### Fixed
+
+- **The fittings window's details strip no longer cuts long text off** (the owner's report of 12 November 2026). What it shows now stays there after the mouse moves away, until the mouse rests on another tune, fitting, family or grade, so you can move down to it and scroll it with the mouse wheel. The strip is a little taller too. Not yet tested in game.
+- A family that suits one part now reads "fits it on 1 part", not "1 parts".
+
 ### Compatibility and limits
 
 - A beam is moved only when the vehicle reaches another cell or turns, and looked at no more than three times a second; a parked or dark vehicle costs next to nothing. Nothing is saved, so the setting and the mod can be turned off at any time.

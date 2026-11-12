@@ -357,3 +357,65 @@ public static class PhobosWidgets
         }
     }
 }
+
+/// <summary>
+/// A details strip that keeps what it last showed (owner, 12 Nov 2026: the fittings window's strip cut long text off, and the text went
+/// the moment the mouse left a button). It shows what the mouse rests on; when the mouse rests on nothing, it keeps the last thing shown,
+/// so the player can move down to it and scroll it with the mouse wheel. It changes only when the mouse rests on something else, and
+/// then starts again at the top. One per window, held in a field; it saves nothing.
+/// </summary>
+public sealed class PhobosStickyDetails
+{
+    string? shown;
+    Vector2 scroll;
+    float lastWidth = -1f;
+    float textHeight;
+
+    /// <summary>Forgets what was shown, for a window whose rows have changed under it.</summary>
+    public void Clear()
+    {
+        shown = null;
+        scroll = Vector2.zero;
+    }
+
+    /// <param name="hovered">What the mouse rests on this frame, or null.</param>
+    /// <param name="hint">The grey line shown before anything has been rested on.</param>
+    public void Draw(Rect rect, string? hovered, string hint)
+    {
+        if (hovered != null && hovered != shown)
+        {
+            shown = hovered;
+            scroll = Vector2.zero;
+            lastWidth = -1f;
+        }
+        Widgets.DrawMenuSection(rect);
+        Rect inner = rect.ContractedBy(6f);
+        using (new TextBlock(GameFont.Tiny, TextAnchor.UpperLeft))
+        {
+            if (shown == null)
+            {
+                Color before = GUI.color;
+                GUI.color = Color.gray;
+                Widgets.Label(inner, hint);
+                GUI.color = before;
+                return;
+            }
+            // Only the text's height is measured, and only when the text or the width changes.
+            float width = inner.width - GenUI.ScrollBarWidth - 2f;
+            if (width != lastWidth)
+            {
+                lastWidth = width;
+                textHeight = Text.CalcHeight(shown, width);
+            }
+            if (textHeight <= inner.height)
+            {
+                Widgets.Label(inner, shown);
+                return;
+            }
+            var view = new Rect(0f, 0f, width, textHeight);
+            Widgets.BeginScrollView(inner, ref scroll, view);
+            Widgets.Label(view, shown);
+            Widgets.EndScrollView();
+        }
+    }
+}

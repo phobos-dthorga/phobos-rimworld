@@ -55,10 +55,12 @@ public class Dialog_PhobosVehicleFittings : Window
     /// its row). A tune's or a choice's name, materials, description, figures and skill show here while the mouse rests on it, in place of
     /// a tooltip, so nothing is drawn over the rows.
     /// </summary>
-    const float DetailsHeight = 104f;
+    const float DetailsHeight = 120f;
 
     /// <summary>What the mouse rests on this frame, for the details strip.</summary>
     string? hoverDetails;
+    /// <summary>The strip keeps the last thing rested on and scrolls (owner, 12 Nov 2026), so long details can be read in full.</summary>
+    readonly PhobosStickyDetails details = new();
 
     VehicleFittings Fittings => comp.Fittings;
 
@@ -189,7 +191,7 @@ public class Dialog_PhobosVehicleFittings : Window
     }
 
     /// <summary>The details strip: what the mouse rests on, or a line saying how to see it.</summary>
-    void DrawDetails(Rect rect) => PhobosWidgets.DetailsStrip(rect, hoverDetails, "PhobosVehicleSystems_FitDetailsHint".Translate().Resolve());
+    void DrawDetails(Rect rect) => details.Draw(rect, hoverDetails, "PhobosVehicleSystems_FitDetailsHint".Translate().Resolve());
 
     /// <summary>The height of everything drawn in the scroll view last frame.</summary>
     float drawnHeight;
@@ -424,7 +426,8 @@ public class Dialog_PhobosVehicleFittings : Window
         if (over) hoverDetails = FamilyTip(model);
         if (clicked) Fittings.OrderFamily(family);
         string line = model.Fitted ? "PhobosVehicleSystems_FamilyLineFitted".Translate().Resolve()
-            : model.Steps.Count > 0 ? "PhobosVehicleSystems_FamilyLineParts".Translate(model.Steps.Count.Named("COUNT")).Resolve()
+            : model.Steps.Count == 1 ? "PhobosVehicleSystems_FamilyLineOnePart".Translate().Resolve()
+            : model.Steps.Count > 1 ? "PhobosVehicleSystems_FamilyLineParts".Translate(model.Steps.Count.Named("COUNT")).Resolve()
             : model.Refusal ?? "";
         float lineHeight = line.NullOrEmpty() ? 0f : PhobosWidgets.WrappedLine(button.xMax + 8f, y + 8f, view.width - button.xMax - 8f, line);
         y += Mathf.Max(RowHeight, Mathf.Max(PictureButton, lineHeight + 8f) + 10f);
