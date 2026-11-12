@@ -272,6 +272,21 @@
           <cellsOf>Transmission</cellsOf>
         </add>
       </li>
+      <li>
+        <!-- Framework 0.103.0, the work lights family (docs/development/vehicle-upgrade-families.md): a bracket on the cab roof or a mast
+             for work lamps, appended to every land vehicle so the lamps have a part to go on and are lost with it. Health and hit weight
+             authored, a light fixture's; it sits over the engine's cells so Combat Extended can reach it. -->
+        <role>LampMount</role>
+        <add>
+          <key>PhobosLampMount</key>
+          <label>lamp bracket</label>
+          <health>15</health>
+          <depth>External</depth>
+          <hitWeight>0.15</hitWeight>
+          <hitWeightCE>6</hitWeightCE>
+          <cellsOf>Engine</cellsOf>
+        </add>
+      </li>
     </partRoles>
   </Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
 
@@ -286,6 +301,27 @@
       <def>PhobosDrivetrain_LightPetrol</def>
     </drivetrain>
     <loads>
+      <li>
+        <!-- Framework 0.103.0: the work lamps, once fitted (When_Granted). Two LED floodlights of about 60 W on 12 V, so 10 A (authored).
+             They light the ground round a vehicle standing still at night (WorkLamps), whether or not the engine runs. -->
+        <name>workLamps</name>
+        <label>work lamps</label>
+        <description>Floodlights that light the ground round the vehicle while it stands still at night, so work nearby goes on at the pace of daylight. They run off the battery when the engine is off.</description>
+        <amps>10</amps>
+        <toggle>true</toggle>
+        <iconPath>Phobos/VehicleSystems/Fittings/WorkLamps</iconPath>
+        <available Class="Phobos.VehicleSystems.When_Granted">
+          <ability>WorkLights</ability>
+        </available>
+        <when Class="Phobos.VehicleSystems.When_All">
+          <conditions>
+            <li Class="Phobos.VehicleSystems.When_Night" />
+            <li Class="Phobos.VehicleSystems.When_Moving">
+              <invert>true</invert>
+            </li>
+          </conditions>
+        </when>
+      </li>
       <li>
         <name>headlights</name>
         <label>headlights</label>
@@ -422,6 +458,27 @@
       <li><def>PhobosVehicleSystem_Cabin</def></li>
     </systems>
     <loads>
+      <li>
+        <!-- Framework 0.103.0: the work lamps, once fitted (When_Granted). Two LED floodlights of about 60 W on 24 V, so 5 A (authored).
+             They light the ground round a vehicle standing still at night (WorkLamps), whether or not the engine runs. -->
+        <name>workLamps</name>
+        <label>work lamps</label>
+        <description>Floodlights that light the ground round the vehicle while it stands still at night, so work nearby goes on at the pace of daylight. They run off the battery when the engine is off.</description>
+        <amps>5</amps>
+        <toggle>true</toggle>
+        <iconPath>Phobos/VehicleSystems/Fittings/WorkLamps</iconPath>
+        <available Class="Phobos.VehicleSystems.When_Granted">
+          <ability>WorkLights</ability>
+        </available>
+        <when Class="Phobos.VehicleSystems.When_All">
+          <conditions>
+            <li Class="Phobos.VehicleSystems.When_Night" />
+            <li Class="Phobos.VehicleSystems.When_Moving">
+              <invert>true</invert>
+            </li>
+          </conditions>
+        </when>
+      </li>
       <li>
         <name>headlights</name>
         <label>headlights</label>

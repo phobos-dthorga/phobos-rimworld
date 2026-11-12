@@ -1,6 +1,6 @@
 # Vehicle upgrade families: upgrades shared across many vehicles (12 Nov 2026)
 
-**A proposal. Nothing here is built, and nothing is tested in game.** On 11 Nov 2026 the owner chose both a signature feature per
+**Part built, nothing tested in game.** Built in D'thorga Framework 0.103.0 and Vehicles 0.47.0 (part 1 of 3, 12 Nov 2026): the order for a whole family, the cold-weather pack, all-terrain tyres and work lights. Long range and recovery follow in parts 2 and 3. The section "Built in part 1" says what was built and where it departs from the proposal; the text before it is the proposal as the owner answered it. On 11 Nov 2026 the owner chose both a signature feature per
 vehicle and "shared families" for the rest ([round two](vehicle-upgrades-round-two.md)); on 12 Nov 2026 they asked for this record
 first, with nothing built. **Every family, figure and fit below is agent-proposed** for the owner to pick from. Facts marked "from
 the code" were read on 12 Nov 2026 from our source and Vehicle Framework's 1.6 decompile with `scripts/query-code.py`.
@@ -140,6 +140,65 @@ The questions as they were put:
 - **Armour:** owned by Vehicle Framework's trees and Combat Extended.
 - **Trains of the Rim's steam tree:** skipped by the owner on 12 Nov 2026 while that mod looks dormant (last updated 26 Aug 2025, declares
   1.6 only). Raise it again if the mod is updated.
+
+## Built in part 1 (Framework 0.103.0, Vehicles 0.47.0, 12 Nov 2026)
+
+**Not yet tested in game.** Built by the agent from the owner's answers; every figure is authored.
+
+### The order for a whole family
+
+- **A Def of its own, `PhobosVehicleFamilyDef`** (`src/PhobosFramework.Vehicles/Defs/FittingDefs.cs`), rather than the enemy fit sets: a
+  family names fittings and the switches it turns on (`switchOn`), and nothing else. Parts 2 and 3 add families as Defs in
+  `Families.xml`, with any new fittings beside them; they need no new code for the order.
+- **Which vehicles it suits** follows from its fittings: it is offered where any of them suits a part (`VehicleFittings.Families`).
+- **The order** (`VehicleFittings.FamilyPlan` and `OrderFamily`): each fitting, in the family's order, on every part of the vehicle it suits
+  that does not carry it and is not already waiting for it, one fitting to a part. A part another fitting holds is fitted over, and the
+  details strip says which. Refused parts (destroyed, a salvaged grade, research unfinished) are left out and the first reason is given.
+  Each part is its own job for a mechanic, as before; the family's switches are turned on at once.
+- **The window**: a Families section above the parts, one row a family, its picture button **Fit all** in the look of the other choices
+  (lit green when every part it suits has it, amber while its work waits, dimmed with its reason). The details strip lists the work,
+  materials, hours and skill.
+
+### Cold weather
+
+- Built as proposed: the block heater and deep-cycle battery fittings, and the night heater switched on. **The night heater still needs its
+  setting** (vehicle systems settings, off by default); the pack switches the vehicle's own switch, not the setting.
+
+### All-terrain tyres
+
+- **`TreadRules.SoftGroundFactor`** (game-free, five tests): the tyre's factor applies in full on the softest going (the drivetrain's ground
+  grip 0.3) and fades to none on firm ground (0.8), in step with the ground's grip. The tyres give 1.35 (authored).
+- Read through a `softGroundGrip` parameter on the running gear, which the fitting's parameter factor moves, so the window's figures show it.
+- **Costs**: 0.95 of the speed and 1.15 times the wear, everywhere (a simplification: the proposal said "on a road").
+
+### Work lights
+
+- **Checked first, as proposed:** the survey truck's and drill rig's own work light nodes set the `Phobos_WorkLights` stat, which shows their
+  lamps' switch and spares the drill rig its night penalty. **Neither lit the ground.**
+- **Agent choice: a lamp bracket on every land vehicle**, not only those with a set-up job. The fittings model puts one fitting on one
+  part, and the roles a land vehicle has already take fittings (the battery its deep-cycle battery, the alternator its heavy one), so the
+  lamps needed a part of their own. It is appended in the land base loadout, as the radiator, water pump, belt, brakes and clutch already
+  are, so another author's vehicle gains a part on its Health tab and nothing in its picture.
+- **The lamps** (`PhobosFitting_WorkLamps`) grant `WorkLights`. Their switch (`workLamps`, in the light and heavy land loadouts) shows once
+  they are fitted (`When_Granted`) and runs at night while the vehicle stands still: 10 A at 12 V or 5 A at 24 V (two 60 W LED floods,
+  authored).
+- **The light is the game's own** (`WorkLamps`): a glower registered with the map's light grid while the lamps burn and taken off when they
+  stop, when the vehicle moves and when it leaves the map. It is never added to the vehicle's Def and never saved. Anyone working inside it
+  works at the game's own lit pace, and the drill rig counts the lamps as its work lights (`WorkLamps.Fitted`).
+- **Limits:** the generator set lists its own parts (`Inherit="False"`), so it has no bracket. The survey truck and drill rig can carry both
+  their own lights and the lamps, and then draw both. The light is checked at the vehicle's rare tick, so it can lag a stop or a start by
+  a few seconds.
+
+### Other factions' vehicles
+
+| Where | Cold weather | All-terrain tyres | Work lights |
+| --- | --- | --- | --- |
+| **A raid on us** | Nothing: the lite tier has no cold model | Nothing: the lite tier ignores grip | Nothing: the lamps are the player's to fit, and the lite tier lights nothing |
+| **Parked at a base we attack** | Nothing | Nothing | Nothing yet: no enemy fit set lists the lamps |
+| **One we capture** | Fits as ours | Fits as ours | Fits as ours; it has the bracket like every land vehicle |
+
+Cost with several on a map: a family is worked out only while its window is open (every half second). The lamps add one check to a
+vehicle's rare tick, and their light is the game's own glower, registered only while they burn.
 
 ## Who chose what
 

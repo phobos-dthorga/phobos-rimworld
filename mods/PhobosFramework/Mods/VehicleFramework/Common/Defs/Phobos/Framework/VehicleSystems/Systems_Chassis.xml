@@ -15,6 +15,8 @@
     </roles>
     <parameters>
       <wearPerHour>0.0025</wearPerHour>
+      <!-- Framework 0.103.0: grip added on soft ground, which all-terrain tyres raise (TreadRules.SoftGroundFactor); 1 for ordinary tyres. -->
+      <softGroundGrip>1</softGroundGrip>
     </parameters>
     <quantities>
       <li>

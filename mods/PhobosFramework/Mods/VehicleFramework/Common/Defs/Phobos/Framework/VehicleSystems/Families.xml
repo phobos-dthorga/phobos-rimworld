@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    Upgrade families (Framework 0.103.0; docs/development/vehicle-upgrade-families.md). The owner chose all five on 12 Nov 2026, each to be
+    ordered as a whole in one go or part by part. A family names fittings only: which vehicles it suits follows from those fittings' roles
+    and matches, never from a list of vehicles, and it sits beside another author's upgrade tree, never inside it. Ordering a family orders
+    each fitting on every part of the vehicle it suits, and turns on the switches it names. Families 3 and 5 (long range, recovery) follow
+    in later parts of the same batch. Another mod adds its own with this Def type.
+  -->
+
+  <Phobos.VehicleSystems.PhobosVehicleFamilyDef>
+    <defName>PhobosFamily_ColdWeather</defName>
+    <iconPath>Phobos/VehicleSystems/Families/ColdWeather</iconPath>
+    <label>cold-weather pack</label>
+    <description>A block heater in every engine and a deep-cycle battery, with the night heater switched on: a vehicle ready for winter camps and frozen mornings.</description>
+    <order>1</order>
+    <fittings>
+      <li>PhobosFitting_BlockHeater</li>
+      <li>PhobosFitting_DeepCycleBattery</li>
+    </fittings>
+    <switchOn>
+      <li>nightHeater</li>
+    </switchOn>
+  </Phobos.VehicleSystems.PhobosVehicleFamilyDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleFamilyDef>
+    <defName>PhobosFamily_AllTerrain</defName>
+    <iconPath>Phobos/VehicleSystems/Fittings/AllTerrainTyres</iconPath>
+    <label>all-terrain tyres</label>
+    <description>All-terrain tyres on every wheel at once, for a vehicle bound for mud, sand or snow.</description>
+    <order>2</order>
+    <fittings>
+      <li>PhobosFitting_AllTerrainTyres</li>
+    </fittings>
+  </Phobos.VehicleSystems.PhobosVehicleFamilyDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleFamilyDef>
+    <defName>PhobosFamily_WorkLights</defName>
+    <iconPath>Phobos/VehicleSystems/Fittings/WorkLamps</iconPath>
+    <label>work lights</label>
+    <description>Work lamps on the vehicle, switched on, so a camp or a site round it can work through the night.</description>
+    <order>4</order>
+    <fittings>
+      <li>PhobosFitting_WorkLamps</li>
+    </fittings>
+    <switchOn>
+      <li>workLamps</li>
+    </switchOn>
+  </Phobos.VehicleSystems.PhobosVehicleFamilyDef>
+</Defs>

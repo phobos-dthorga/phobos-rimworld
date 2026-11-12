@@ -24,4 +24,22 @@ public static class TreadRules
         }
         return Points[Points.Length - 1].grip;
     }
+
+    /// <summary>The ground's grip on firm, dry going: <see cref="DrivetrainModel.GripForPathCost"/> at no path cost.</summary>
+    public const double FirmGrip = 0.8;
+    /// <summary>The ground's grip on the softest going: <see cref="DrivetrainModel.GripForPathCost"/> at its last point.</summary>
+    public const double SoftestGrip = 0.3;
+
+    /// <summary>
+    /// What a tyre built for soft ground adds to the ground's grip (all-terrain tyres, Framework 0.103.0; docs/development/vehicle-upgrade-families.md).
+    /// A deep, open tread bites into mud and sand and does nothing on a firm road, where grip is rarely what limits. The tyre's
+    /// <paramref name="softGroundFactor"/> applies in full on the softest going and fades to none on firm ground, in step with how soft the
+    /// ground is. Authored: the shape is a gameplay simplification, and the factor is the fitting's (no figure claimed).
+    /// </summary>
+    public static double SoftGroundFactor(double groundGrip, double softGroundFactor)
+    {
+        if (softGroundFactor == 1) return 1;
+        double softness = Math.Max(0, Math.Min(1, (FirmGrip - groundGrip) / (FirmGrip - SoftestGrip)));
+        return 1 + (softGroundFactor - 1) * softness;
+    }
 }

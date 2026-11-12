@@ -424,8 +424,13 @@ public class CompPhobosVehicleSystems : VehicleComp
         powertrain?.ForgetGround();
     }
 
+    /// <summary>The work lamps (the work lights family, Framework 0.103.0): their light on the map, derived and never saved.</summary>
+    public WorkLamps Lamps => lamps ??= new WorkLamps(this);
+    WorkLamps? lamps;
+
     public override void PostDeSpawn(Map map, DestroyMode mode = DestroyMode.Vanish)
     {
+        lamps?.PutOut();
         // A gravship lifts its pipes along with it.
         if (mode != DestroyMode.WillReplace) VehiclePipes.Leave(this);
         VehicleSystemSounds.EndAll(this);
@@ -514,6 +519,7 @@ public class CompPhobosVehicleSystems : VehicleComp
         {
             case DetailTier.Full:
                 using (PhobosTiming.Measure("vehicle rare tick / full")) UpdateNow();
+                Lamps.Update();
                 if (++pipeLooks >= RareTicksPerPipeLook)
                 {
                     pipeLooks = 0;

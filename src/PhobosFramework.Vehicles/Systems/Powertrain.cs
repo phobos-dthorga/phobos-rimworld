@@ -364,13 +364,13 @@ public sealed class Powertrain
             lastSpeed = intended;
             ReadGround(vehicle, out conditions.RollingResistance, out conditions.Grip);
             conditions.RollingResistance *= 1 + 2 * comp.RoleShareBelow("Wheels", 0.2f);
-            conditions.Grip *= TreadGrip();
+            conditions.Grip *= TreadGrip(conditions.Grip);
         }
         else if (caravan != null && caravan.vehiclePather != null && caravan.vehiclePather.MovingNow)
         {
             conditions.Speed = Spec.DesignSpeed;
             WorldGround(caravan.Tile, out conditions.RollingResistance, out conditions.Grade, out conditions.Grip);
-            conditions.Grip *= TreadGrip();
+            conditions.Grip *= TreadGrip(conditions.Grip);
         }
         else
         {
@@ -508,9 +508,17 @@ public sealed class Powertrain
         return here + (pather.nextCell.ToVector3Shifted() - here) * progress;
     }
 
-    /// <summary>What worn tread leaves of the ground's grip (T3, Framework 0.73.0): from the running gear's tread wear; rails, and a vehicle
-    /// with no tyres or tracks system, keep it all.</summary>
-    double TreadGrip() => OwnSurface || !comp.TryGetQuantity("treadWear", out float wear) ? 1 : TreadRules.GripFactor(wear);
+    /// <summary>What the tread does to the ground's grip: worn tread leaves less of it (T3, Framework 0.73.0), and tyres built for soft ground
+    /// add to it the softer the going (all-terrain tyres, Framework 0.103.0). Rails, and a vehicle with no tyres or tracks system, keep it all.</summary>
+    double TreadGrip(double groundGrip)
+    {
+        if (OwnSurface || !comp.TryGetQuantity("treadWear", out float wear)) return 1;
+        return TreadRules.GripFactor(wear) * TreadRules.SoftGroundFactor(groundGrip, comp.Fittings.ParameterFactor(RunningGearSystem, SoftGroundGripParameter));
+    }
+
+    /// <summary>The running gear system and its soft-ground grip parameter, which a fitting moves (all-terrain tyres).</summary>
+    const string RunningGearSystem = "PhobosVehicleSystem_RunningGear";
+    const string SoftGroundGripParameter = "softGroundGrip";
 
     /// <summary>Running gear with its own surface (steel wheels on rails): the ground beneath does not touch it.</summary>
     public bool OwnSurface => !double.IsNaN(fixedRolling) && !double.IsNaN(fixedGrip);

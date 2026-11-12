@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using RimWorld;
 using Vehicles;
 using Verse;
@@ -164,5 +165,33 @@ public class PhobosVehicleFitSetDef : Def
         foreach (string error in base.ConfigErrors()) yield return error;
         if (fittings.Count == 0 && tunes.Count == 0) yield return "holds nothing";
         if (weight <= 0f) yield return "weight must be above 0";
+    }
+}
+
+/// <summary>
+/// A family of fittings the player can order in one go or part by part (Framework 0.103.0; owner, 12 Nov 2026: "both";
+/// docs/development/vehicle-upgrade-families.md). Which vehicles a family suits follows from its fittings alone: it is offered wherever any
+/// of them suits a part, by role and by what the vehicle is, never by a list of vehicles. Ordering the family orders each fitting on every
+/// part of this vehicle it suits and does not already carry, and switches on the electrical switches it names. Another mod adds its own in XML.
+/// </summary>
+public class PhobosVehicleFamilyDef : Def
+{
+    /// <summary>Its picture on the family's button in the fittings window.</summary>
+    public string? iconPath;
+
+    public UnityEngine.Texture2D? Icon => SystemIcons.IfExistsCached(iconPath);
+
+    /// <summary>Top to bottom in the window.</summary>
+    public int order;
+    public List<PhobosVehicleFittingDef> fittings = new();
+    /// <summary>Electrical switches, by the load's name, turned on when the family is ordered (the night heater for a cold-weather pack);
+    /// one the vehicle does not have is passed over.</summary>
+    public List<string> switchOn = new();
+
+    public override IEnumerable<string> ConfigErrors()
+    {
+        foreach (string error in base.ConfigErrors()) yield return error;
+        if (fittings.Count == 0) yield return "holds no fittings";
+        if (fittings.Any(f => f == null)) yield return "names a fitting that does not exist";
     }
 }

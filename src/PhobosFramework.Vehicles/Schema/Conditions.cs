@@ -168,6 +168,14 @@ public class When_CaravanResting : VehicleSystemCondition
 }
 
 /// <summary>One of the loadout's electrical loads is on: switched on by the player (if it has a switch) and its own condition holds.</summary>
+/// <summary>While a fitting on the vehicle grants this ability, its part standing (Framework 0.103.0): the work lamps' switch shows once the
+/// lamps are fitted.</summary>
+public class When_Granted : VehicleSystemCondition
+{
+    public string ability = "";
+    protected override bool HoldsRaw(SystemContext context) => context.Comp.Fittings.Grants(ability);
+}
+
 public class When_LoadActive : VehicleSystemCondition
 {
     public string load = "";

@@ -7,7 +7,7 @@ helpers every D'thorga mod shares.
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.102.0, built 12 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
+Version 0.103.0, built 12 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
 oxygen working through Burns and Smoke and Medical Equipment (5 November 2026). The health layer new in 0.3.0 and the **vehicle
 systems new in 0.9.0, and their engines, drivetrains and gas turbines new in 0.11.0, are not yet tested in game.** The rest is read from the game's and the mods' code.
 
@@ -309,6 +309,8 @@ The new button on a vehicle's **Dashboard** opens **Fittings and tunes**, for an
 - Materials are brought to the vehicle, then a mechanic does the work. **Demanding work needs a minimum Construction skill**: a mechanic below it is refused and told why; one at or above it always succeeds.
 - **Other factions' vehicles may be found with a set** suited to their tech level, and keep it if captured. Turn this off in the settings under Repairs. Fittings that change speed or capacity act at once on them; engine power and tunes only matter once captured.
 - **Part grades** (new in 0.41.0; not yet tested in game): salvaged parts are cheap, frail and fault-prone and cannot hold a fitting; heavy-duty parts cost more, take more punishment and shrug off faults. Choose one on the **Grade** button when a part is destroyed, or to refit a working part, which uses up the old one.
+- **Families** (new in 0.103.0; not yet tested in game): above the parts, **Fit all** orders a whole family of fittings at once, on every part of the vehicle it suits, and the parts below still take each piece on its own. The **cold-weather pack** is a block heater in every engine, a deep-cycle battery and the night heater switched on (the night heater still needs its setting). **All-terrain tyres** grip far better in mud, sand and snow, are a little slower everywhere and wear faster. **Work lights**: every land vehicle has a lamp bracket for the new work lamps, which light the ground round it at night while it stands still, so work there goes at daylight pace; they run off the battery with the engine off. Long range and recovery follow later in 0.103.0.
+- **Gotcha:** every land vehicle gains a **lamp bracket** part on its Health tab from 0.103.0, empty until lamps are fitted. The generator set has none.
 - Every figure is authored, to be tuned in play.
 
 ### Submersibles (new in 0.58.0, spotting in 0.59.0; not yet tested in game)

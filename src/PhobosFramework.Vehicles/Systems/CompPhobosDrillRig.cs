@@ -13,7 +13,7 @@ public class CompProperties_PhobosDrillRig : CompProperties_PhobosRigWork
     /// <summary>Authored. On the engine: 40 chemfuel a day. On a grid: 300 game watts, the deep drill's 200 and the rig's hydraulics.</summary>
     public float drillFuelPerDay = 40f;
     public float electricWatts = 300f;
-    /// <summary>The rate at night with no work lights fitted.</summary>
+    /// <summary>The rate at night with no work lights fitted: its own upgrade or the work lamps family (Framework 0.103.0).</summary>
     public float unlitFactor = 0.8f;
     /// <summary>Deep resources that are piped and never come up as items (owner, 9 Nov 2026): skipped until a head is fitted, then raised into the buffer.</summary>
     public List<ThingDef> pipedResources = new();
@@ -232,7 +232,7 @@ public sealed class CompPhobosDrillRig : CompPhobosRigWork
         }
         float factor = Vehicle.GetStatValue(RigDefOf.Phobos_DrillRate) * WorkPace;
         if (!orePresent) factor = DrillRule.StoneRate(factor, Vehicle.GetStatValue(RigDefOf.Phobos_BedrockFactor));
-        if (Vehicle.GetStatValue(RigDefOf.Phobos_WorkLights) <= 0f && When_Night.IsNight(Vehicle)) factor *= Props.unlitFactor;
+        if (!WorkLamps.Fitted(Vehicle) && When_Night.IsNight(Vehicle)) factor *= Props.unlitFactor;
         float work = worker.GetStatValue(StatDefOf.DeepDrillingSpeed) * factor * delta;
         if (nextIsPiped)
         {

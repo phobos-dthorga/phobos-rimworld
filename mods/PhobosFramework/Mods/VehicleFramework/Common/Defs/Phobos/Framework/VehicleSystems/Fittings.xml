@@ -157,6 +157,43 @@
     <grants><li>Litter</li></grants>
   </Phobos.VehicleSystems.PhobosVehicleFittingDef>
 
+  <Phobos.VehicleSystems.PhobosVehicleFittingDef>
+    <!-- Framework 0.103.0, the all-terrain tyres family (docs/development/vehicle-upgrade-families.md): the opposite of road tyres. Its soft-
+         ground grip (TreadRules.SoftGroundFactor) is full on the softest going and nothing on a firm road; the speed and wear costs apply
+         everywhere, a simplification. Every figure authored. -->
+    <defName>PhobosFitting_AllTerrainTyres</defName>
+    <iconPath>Phobos/VehicleSystems/Fittings/AllTerrainTyres</iconPath>
+    <label>all-terrain tyres</label>
+    <description>A deep, open tread that bites into mud, sand and snow. It holds far better on soft ground, is a little slower everywhere, and wears faster on hard going. Fit every axle for the full effect.</description>
+    <roles><li>Wheels</li></roles>
+    <materials><Steel>30</Steel><Chemfuel>40</Chemfuel></materials>
+    <work>5000</work>
+    <minSkill>3</minSkill>
+    <researchPrerequisite>PhobosResearch_VehicleTuning</researchPrerequisite>
+    <statFactors><li><stat>MoveSpeed</stat><factor>0.95</factor></li></statFactors>
+    <parameterFactors>
+      <li><system>PhobosVehicleSystem_RunningGear</system><parameter>softGroundGrip</parameter><factor>1.35</factor><label>grip on soft ground</label></li>
+      <li><parameter>wearPerHour</parameter><factor>1.15</factor><label>tyre wear</label></li>
+    </parameterFactors>
+    <tracked>No</tracked>
+  </Phobos.VehicleSystems.PhobosVehicleFittingDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleFittingDef>
+    <!-- Framework 0.103.0, the work lights family: on the lamp bracket every land vehicle has (Loadouts_Default.xml). It grants WorkLights,
+         which shows the lamps' switch and counts as work lights for a drill rig; the light itself is the game's own (WorkLamps). Materials,
+         work and skill authored. -->
+    <defName>PhobosFitting_WorkLamps</defName>
+    <iconPath>Phobos/VehicleSystems/Fittings/WorkLamps</iconPath>
+    <label>work lamps</label>
+    <description>A pair of floodlights on a bracket, with their own switch. While the vehicle stands still at night they light the ground round it, so work there goes on at the pace of daylight. They draw on the battery.</description>
+    <roles><li>LampMount</li></roles>
+    <materials><Steel>30</Steel><ComponentIndustrial>4</ComponentIndustrial></materials>
+    <work>4000</work>
+    <minSkill>3</minSkill>
+    <researchPrerequisite>PhobosResearch_VehicleElectrics</researchPrerequisite>
+    <grants><li>WorkLights</li></grants>
+  </Phobos.VehicleSystems.PhobosVehicleFittingDef>
+
   <!-- Tunes: three named settings to an axis (owner), the default being the engine as built. -->
 
   <Phobos.VehicleSystems.PhobosVehicleTuneDef>

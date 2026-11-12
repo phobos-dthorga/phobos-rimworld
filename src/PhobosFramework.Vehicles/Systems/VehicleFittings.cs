@@ -521,10 +521,108 @@ public sealed class VehicleFittings
 
     // ---- Orders ----
 
-    public void OrderFitting(VehicleComponent part, PhobosVehicleFittingDef def)
+    public void OrderFitting(VehicleComponent part, PhobosVehicleFittingDef def) => OrderFitting(part, def, quiet: false);
+
+    void OrderFitting(VehicleComponent part, PhobosVehicleFittingDef def, bool quiet)
     {
         orders.RemoveAll(o => o.partKey == part.props.key);
-        Add(new FitOrder { partKey = part.props.key, fitting = def });
+        Add(new FitOrder { partKey = part.props.key, fitting = def }, quiet);
+    }
+
+    // ---- Families (Framework 0.103.0; docs/development/vehicle-upgrade-families.md) ----
+
+    /// <summary>The families of fittings this vehicle can take, in their order: those with a fitting that suits one of its parts.</summary>
+    public IEnumerable<PhobosVehicleFamilyDef> Families() =>
+        DefDatabase<PhobosVehicleFamilyDef>.AllDefsListForReading.Where(SuitsFamily).OrderBy(f => f.order);
+
+    bool SuitsFamily(PhobosVehicleFamilyDef family) =>
+        ListedParts().Any(part => OptionsFor(part).Any(family.fittings.Contains));
+
+    /// <summary>One piece of a family's work on this vehicle: a fitting on a part.</summary>
+    public readonly struct FamilyStep
+    {
+        public readonly VehicleComponent Part;
+        public readonly PhobosVehicleFittingDef Fitting;
+        /// <summary>The fitting the step takes off the part to make room, or null.</summary>
+        public readonly PhobosVehicleFittingDef? Replaces;
+
+        public FamilyStep(VehicleComponent part, PhobosVehicleFittingDef fitting, PhobosVehicleFittingDef? replaces)
+        {
+            Part = part;
+            Fitting = fitting;
+            Replaces = replaces;
+        }
+    }
+
+    /// <summary>
+    /// What ordering a family would do here: each of its fittings on every part it suits that does not carry it and is not already waiting
+    /// for it, one fitting to a part, the family's own order first. A part another fitting holds is fitted over, and the step says which.
+    /// Parts refused (a destroyed part, a salvaged grade, unfinished research) are left out, and the first such reason is returned.
+    /// </summary>
+    public List<FamilyStep> FamilyPlan(PhobosVehicleFamilyDef family, out string? firstRefusal)
+    {
+        firstRefusal = null;
+        var steps = new List<FamilyStep>();
+        var taken = new HashSet<string>();
+        foreach (PhobosVehicleFittingDef fitting in family.fittings)
+        {
+            foreach (VehicleComponent part in ListedParts())
+            {
+                string key = part.props.key;
+                if (taken.Contains(key) || !OptionsFor(part).Contains(fitting)) continue;
+                PhobosVehicleFittingDef? now = FittedOn(key);
+                if (now == fitting || OrderOn(key)?.fitting == fitting) continue;
+                if (Refusal(fitting, part) is { } refusal)
+                {
+                    firstRefusal ??= refusal;
+                    continue;
+                }
+                taken.Add(key);
+                steps.Add(new FamilyStep(part, fitting, now));
+            }
+        }
+        return steps;
+    }
+
+    /// <summary>Why the family cannot be ordered on this vehicle now; null when it can.</summary>
+    public string? FamilyRefusal(PhobosVehicleFamilyDef family)
+    {
+        if (FamilyPlan(family, out string? refusal).Count > 0) return null;
+        if (refusal != null) return refusal;
+        return "PhobosVehicleSystems_FamilyAllDone".Translate(family.label.Named("FAMILY")).Resolve();
+    }
+
+    /// <summary>Whether every part the family suits on this vehicle already carries its fitting.</summary>
+    public bool FamilyFitted(PhobosVehicleFamilyDef family) =>
+        FamilyPlan(family, out string? refusal).Count == 0 && refusal == null
+        && family.fittings.Any(f => ListedParts().Any(p => FittedOn(p.props.key) == f));
+
+    /// <summary>
+    /// Orders the whole family (owner, 12 Nov 2026: a family in one order, or part by part): one job a part, worked by a mechanic as any
+    /// fitting is, and the family's switches turned on. Says what was ordered, or why nothing was.
+    /// </summary>
+    public void OrderFamily(PhobosVehicleFamilyDef family)
+    {
+        List<FamilyStep> steps = FamilyPlan(family, out string? refusal);
+        if (steps.Count == 0)
+        {
+            VehicleNotices.Send(FamilyRefusal(family) ?? refusal ?? "", MessageTypeDefOf.RejectInput, historical: false);
+            return;
+        }
+        foreach (FamilyStep step in steps) OrderFitting(step.Part, step.Fitting, quiet: true);
+        int switched = 0;
+        foreach (string name in family.switchOn)
+        {
+            ElectricalLoadSpec? load = comp.Props.loadout?.loads.FirstOrDefault(l => l.name == name && l.toggle);
+            if (load == null || comp.IsOn(load)) continue;
+            comp.SetSwitch(load, true);
+            switched++;
+        }
+        string text = "PhobosVehicleSystems_FamilyOrdered".Translate(family.label.Named("FAMILY"), comp.Vehicle.LabelShort.Named("VEHICLE"),
+            steps.Count.Named("COUNT")).Resolve();
+        if (switched > 0) text += " " + "PhobosVehicleSystems_FamilySwitchedOn".Translate().Resolve();
+        if (refusal != null) text += " " + "PhobosVehicleSystems_FamilyPartlyRefused".Translate(refusal.Named("REASON")).Resolve();
+        VehicleNotices.Send(text, MessageTypeDefOf.TaskCompletion, historical: false);
     }
 
     public void OrderRemoval(VehicleComponent part)
@@ -546,10 +644,11 @@ public sealed class VehicleFittings
         Add(new FitOrder { partKey = part.props.key, grade = grade });
     }
 
-    void Add(FitOrder order)
+    void Add(FitOrder order, bool quiet = false)
     {
         orders.Add(order);
         comp.Repairs.Invalidate();
+        if (quiet) return;
         VehicleNotices.Send("PhobosVehicleSystems_FitOrderedMessage".Translate(LabelOf(order).CapitalizeFirst().Named("WORK"), comp.Vehicle.LabelShort.Named("VEHICLE")), MessageTypeDefOf.SilentInput, historical: false);
     }
 

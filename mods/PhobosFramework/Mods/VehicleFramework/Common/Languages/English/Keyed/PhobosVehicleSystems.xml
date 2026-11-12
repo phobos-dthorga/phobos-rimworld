@@ -261,6 +261,18 @@
   <PhobosVehicleSystems_FitWindowIntro>A fitting goes on one part, one to a part, and is lost if that part is destroyed. A tune sets up the whole engine. A part's grade sets how tough and how reliable it is, and changing it on a working part uses up the old one. Materials are brought to the vehicle, then a mechanic does the work.</PhobosVehicleSystems_FitWindowIntro>
   <PhobosVehicleSystems_FitSectionTunes>Tunes</PhobosVehicleSystems_FitSectionTunes>
   <PhobosVehicleSystems_FitSectionParts>Parts</PhobosVehicleSystems_FitSectionParts>
+  <!-- Families of fittings (Framework 0.103.0). -->
+  <PhobosVehicleSystems_FitSectionFamilies>Families</PhobosVehicleSystems_FitSectionFamilies>
+  <PhobosVehicleSystems_FamilyButton>Fit all</PhobosVehicleSystems_FamilyButton>
+  <PhobosVehicleSystems_FamilyLineFitted>On every part it suits.</PhobosVehicleSystems_FamilyLineFitted>
+  <PhobosVehicleSystems_FamilyLineParts>One order fits it on {COUNT} parts. The parts below still take each piece on its own.</PhobosVehicleSystems_FamilyLineParts>
+  <PhobosVehicleSystems_FamilyAllDone>Every part the {FAMILY} suits has it already, or is waiting for it.</PhobosVehicleSystems_FamilyAllDone>
+  <PhobosVehicleSystems_FamilyOrdered>{FAMILY}: {COUNT} jobs added to the {VEHICLE}'s work.</PhobosVehicleSystems_FamilyOrdered>
+  <PhobosVehicleSystems_FamilySwitchedOn>Its switches are turned on.</PhobosVehicleSystems_FamilySwitchedOn>
+  <PhobosVehicleSystems_FamilyPartlyRefused>Some parts were left out: {REASON}</PhobosVehicleSystems_FamilyPartlyRefused>
+  <PhobosVehicleSystems_FamilyStep>{FITTING} on the {PART}</PhobosVehicleSystems_FamilyStep>
+  <PhobosVehicleSystems_FamilyStepReplaces>{FITTING} on the {PART}, in place of the {OLD}</PhobosVehicleSystems_FamilyStepReplaces>
+  <PhobosVehicleSystems_FamilyWork>The work it orders:\n{STEPS}</PhobosVehicleSystems_FamilyWork>
   <PhobosVehicleSystems_FitNoTunes>This vehicle's engine has nothing to tune.</PhobosVehicleSystems_FitNoTunes>
   <PhobosVehicleSystems_FitNoParts>Nothing on this vehicle can take a fitting.</PhobosVehicleSystems_FitNoParts>
   <PhobosVehicleSystems_TuneAxisEngine>Engine</PhobosVehicleSystems_TuneAxisEngine>

@@ -9,6 +9,14 @@ tested in game unless an entry says the owner tested it.
 
 - The README no longer calls the generator set's, drill rig's and tipper's pictures stand-ins or the Crawler's upgrade pictures still to come, and lists the generator set's heavy-duty fan among its upgrades. Documentation only; nothing changes in play.
 
+## [0.47.0] - 2026-11-12 - Draft
+
+Our vehicles take the upgrade families of D'thorga Framework 0.103.0
+
+### Compatibility and limits
+
+- With D'thorga Framework 0.103.0, our trucks take the cold-weather pack, all-terrain tyres and work lights from the fittings window's new Families section. The generator set takes no work lamps (it lists its own parts), and the survey truck and the drill rig keep their own work lights upgrade beside them. Not yet tested in game.
+
 ## [0.46.0] - 2026-11-12 - Draft
 
 The Louie and the Hind can carry a vehicle on a sling

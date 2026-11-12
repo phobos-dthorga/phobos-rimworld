@@ -74,6 +74,19 @@ public class Dialog_PhobosVehicleFittings : Window
     }
 
     readonly List<RowModel> rows = new();
+
+    /// <summary>A family of fittings as its row draws it (Framework 0.103.0): what ordering it would do here, and why not, worked out with the
+    /// part rows rather than every frame.</summary>
+    sealed class FamilyModel
+    {
+        public PhobosVehicleFamilyDef Def = null!;
+        public List<VehicleFittings.FamilyStep> Steps = new();
+        public string? Refusal;
+        public bool Fitted;
+        public bool Ordered;
+    }
+
+    readonly List<FamilyModel> families = new();
     readonly List<VehicleTuneAxis> axes = new();
     List<PhobosVehiclePartGradeDef> gradeList = new();
     static readonly List<PhobosVehiclePartGradeDef> NoGrades = new();
@@ -91,6 +104,20 @@ public class Dialog_PhobosVehicleFittings : Window
             if (Fittings.CanTune(axis)) axes.Add(axis);
         }
         gradeList = VehicleFittings.Grades.ToList();
+        families.Clear();
+        foreach (PhobosVehicleFamilyDef family in Fittings.Families())
+        {
+            List<VehicleFittings.FamilyStep> steps = Fittings.FamilyPlan(family, out string? refusal);
+            bool fitted = Fittings.FamilyFitted(family);
+            families.Add(new FamilyModel
+            {
+                Def = family,
+                Steps = steps,
+                Fitted = fitted,
+                Refusal = steps.Count > 0 || fitted ? null : Fittings.FamilyRefusal(family),
+                Ordered = Fittings.Orders.Any(o => o.fitting != null && family.fittings.Contains(o.fitting)),
+            });
+        }
         rows.Clear();
         List<List<VehicleComponent>> partRows = Fittings.PartRows();
         int axleCount = partRows.Count(r => r.Count > 1), axle = 0;
@@ -148,6 +175,11 @@ public class Dialog_PhobosVehicleFittings : Window
         DrawSection(view, ref row, "PhobosVehicleSystems_FitSectionTunes".Translate());
         if (axes.Count == 0) DrawNote(view, ref row, "PhobosVehicleSystems_FitNoTunes".Translate());
         foreach (VehicleTuneAxis axis in axes) DrawTune(view, ref row, axis);
+        if (families.Count > 0)
+        {
+            DrawSection(view, ref row, "PhobosVehicleSystems_FitSectionFamilies".Translate());
+            foreach (FamilyModel family in families) DrawFamily(view, ref row, family);
+        }
         DrawSection(view, ref row, "PhobosVehicleSystems_FitSectionParts".Translate());
         if (rows.Count == 0) DrawNote(view, ref row, "PhobosVehicleSystems_FitNoParts".Translate());
         foreach (RowModel model in rows) DrawRow(view, ref row, model);
@@ -375,6 +407,54 @@ public class Dialog_PhobosVehicleFittings : Window
             }
         }
         y += Mathf.Max(RowHeight, PictureButton + 2f + rowLine + 8f);
+    }
+
+    /// <summary>
+    /// A family's row (Framework 0.103.0; owner, 12 Nov 2026: a family in one order, or part by part): its picture button, lit green once every
+    /// part it suits carries it, an amber bar while its work waits, dimmed with the reason when it cannot be ordered. One click orders every
+    /// fitting of it this vehicle can take; the parts below still take each one on its own.
+    /// </summary>
+    void DrawFamily(Rect view, ref float y, FamilyModel model)
+    {
+        PhobosVehicleFamilyDef family = model.Def;
+        using (new TextBlock(GameFont.Small, TextAnchor.MiddleLeft)) Widgets.Label(new Rect(0f, y, PartNameWidth - 4f, PictureButton), family.LabelCap);
+        string label = "PhobosVehicleSystems_FamilyButton".Translate().Resolve();
+        var button = new Rect(PartNameWidth, y, PhobosWidgets.ChoiceWidth(family.Icon, label, PictureButton), PictureButton);
+        bool clicked = Choice(button, family.Icon, label, model.Fitted, model.Steps.Count == 0 ? model.Refusal ?? "" : null, model.Ordered, out bool over);
+        if (over) hoverDetails = FamilyTip(model);
+        if (clicked) Fittings.OrderFamily(family);
+        string line = model.Fitted ? "PhobosVehicleSystems_FamilyLineFitted".Translate().Resolve()
+            : model.Steps.Count > 0 ? "PhobosVehicleSystems_FamilyLineParts".Translate(model.Steps.Count.Named("COUNT")).Resolve()
+            : model.Refusal ?? "";
+        float lineHeight = line.NullOrEmpty() ? 0f : PhobosWidgets.WrappedLine(button.xMax + 8f, y + 8f, view.width - button.xMax - 8f, line);
+        y += Mathf.Max(RowHeight, Mathf.Max(PictureButton, lineHeight + 8f) + 10f);
+    }
+
+    /// <summary>The details strip for a family: what it is, what ordering it does here, what it costs and how long it takes.</summary>
+    string FamilyTip(FamilyModel model)
+    {
+        PhobosVehicleFamilyDef family = model.Def;
+        string tip = family.LabelCap + "\n\n" + family.description;
+        if (model.Steps.Count > 0)
+        {
+            IEnumerable<string> steps = model.Steps.Select(step => step.Replaces != null
+                ? "PhobosVehicleSystems_FamilyStepReplaces".Translate(step.Fitting.label.Named("FITTING"), step.Part.props.label.Named("PART"), step.Replaces.label.Named("OLD")).Resolve()
+                : "PhobosVehicleSystems_FamilyStep".Translate(step.Fitting.label.Named("FITTING"), step.Part.props.label.Named("PART")).Resolve());
+            tip += "\n\n" + "PhobosVehicleSystems_FamilyWork".Translate(steps.ToLineList("  - ", capitalizeItems: true).Named("STEPS")).Resolve();
+            var materials = new Dictionary<ThingDef, int>();
+            float work = 0f;
+            foreach (VehicleFittings.FamilyStep step in model.Steps)
+            {
+                foreach (ThingDefCountClass m in Fittings.MaterialsFor(step.Fitting.materials)) materials[m.thingDef] = (materials.TryGetValue(m.thingDef, out int had) ? had : 0) + m.count;
+                work += Fittings.WorkFor(step.Fitting.work);
+            }
+            tip += "\n" + Materials(materials.Select(kv => new ThingDefCountClass(kv.Key, kv.Value)));
+            tip += "\n" + "PhobosVehicleSystems_FitHours".Translate((work / GenDate.TicksPerHour).ToString("0.#").Named("HOURS")).Resolve();
+            int skill = model.Steps.Max(step => step.Fitting.minSkill);
+            if (skill > 0) tip += "\n\n" + "PhobosVehicleSystems_FitNeedsSkill".Translate(skill.Named("SKILL")).CapitalizeFirst();
+        }
+        if (model.Refusal != null) tip += "\n\n" + model.Refusal.Colorize(PhobosWidgets.Bad);
+        return tip;
     }
 
     /// <summary>A row's name: the part's own, or an axle's by its place, front first (and "rear" for the last of several).</summary>

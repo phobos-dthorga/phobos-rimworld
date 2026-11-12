@@ -5,6 +5,35 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.103.0] - 2026-11-12 - Draft
+
+Upgrade families, part 1 of 3: a whole family of fittings in one order, the cold-weather pack, all-terrain tyres and work lights
+
+### Added
+
+- **Families of fittings** (owner, 12 Nov 2026: a family can be ordered whole or part by part; docs/development/vehicle-upgrade-families.md). The fittings window has a new **Families** section above the parts. Each family's **Fit all** button orders every fitting of the family on every part of this vehicle it suits, as ordinary jobs for a mechanic, and the parts below still take each piece on its own. Resting the mouse on it lists the work, the materials and the hours; a family already on every part it suits is lit green, and one that cannot be ordered says why. Which vehicles a family suits follows from its fittings, never from a list of vehicles, and it sits beside another author's upgrade tree, never inside it.
+- **The cold-weather pack**: a block heater in every engine and a deep-cycle battery, with the night heater switched on.
+- **All-terrain tyres**, a new fitting for every wheeled vehicle and a family that fits them on every wheel at once: up to 35% more grip on the softest ground, fading to nothing on a firm road, so a truck bogs and spins in mud far less. They cost 5% of the speed everywhere and wear 15% faster.
+- **Work lights**: a lamp bracket on every land vehicle takes the new **work lamps** fitting, and a family fits them and switches them on. While the vehicle stands still at night the lamps light the ground round it with the game's own light, about 8 cells across, so anyone working there does so at the pace of daylight, and a drill rig counts them as its work lights. They draw on the battery when the engine is off, 10 A on a light vehicle and 5 A on a heavy one.
+- Pictures of their own for the all-terrain tyres, the work lamps and the cold-weather pack, drawn in code (assets/phobos-vehicles/draw_family_icons.py).
+- For modders: PhobosVehicleFamilyDef (a family names fittings and the switches it turns on), the When_Granted condition, TreadRules.SoftGroundFactor (game-free, with tests) and a softGroundGrip parameter on the running gear.
+
+### Balance
+
+- Every figure is authored: the soft-ground grip, the tyres' speed and wear, the lamps' reach and draw, and every material and work amount.
+
+### Save compatibility
+
+- Safe to add to a running colony. Every land vehicle gains a lamp bracket part when the save loads, at full health, as earlier appended parts did. The lamps' light is never saved: it is worked out again a moment after loading.
+
+### Compatibility and limits
+
+- Not yet tested in game.
+- The generator set lists its own parts, so it has no lamp bracket and takes no work lamps.
+- The survey truck and the drill rig keep their own work lights upgrade; fitting the work lamps too lights them twice over and draws both loads.
+- The tyres' speed and wear costs apply everywhere, not only on roads (a simplification).
+- Long range and recovery, the other two families, follow in parts 2 and 3 of this version.
+
 ## [0.102.0] - 2026-11-12 - Draft
 
 Helicopters that fly across the map by themselves can carry a slung load
