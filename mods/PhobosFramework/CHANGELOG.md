@@ -5,6 +5,18 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.106.0] - 2026-11-13 - Draft
+
+Cross-links, round three, the owner's first batch: a dry tank hurts the fuel pump, a low-air warning, fire reaches the tyres and the battery, and driving in the dark without lights is slower
+
+### Added
+
+- **Running the tank dry hurts the fuel pump** (cross-links round two, T6; owner's first batch, 13 November 2026). A vehicle that runs out of fuel with its engine running loses 5 % of its fuel pump's health (authored), and a message says so. A tank drained on purpose while parked costs nothing. Not yet tested in game.
+- **A low-air warning before air brakes lock** (round three, G18). A heavy truck's air pressure between 55 % and 70 % now shows "low air" and sends a message, before the brakes lock on below 55 %. Real air-braked trucks warn the driver before tank pressure falls below about half; ours sits just above our own lock-on point (authored). Not yet tested in game.
+- **Fire reaches the tyres and the battery** (round three, G15, extending crosslink 4). A burning vehicle now also burns its tyres (40 % of their health an hour at full fire) and its battery (30 % an hour), beside the radiator it already cooked (authored). Not yet tested in game.
+- **Driving in the dark without headlights is slower** (round three, G9; owner, 13 November 2026: mildly). A land vehicle driving with its headlights off over ground the game counts as dark goes at 85 % of its speed, and its warning lamp says "no lights"; lamps, lit roads and daylight cost nothing. Other factions' vehicles light up while they drive at night, so they are never slowed by it. Boats and aircraft are left out. Not yet tested in game.
+- For modders: Effect_DamagePart takes a one-off share; When_RanDry and Input_DarkDriving are new building blocks.
+
 ## [0.105.2] - 2026-11-13 - Draft
 
 Fixes from the owner's test of 13 November 2026: new tyres renew the tread, and work lamps start switched off

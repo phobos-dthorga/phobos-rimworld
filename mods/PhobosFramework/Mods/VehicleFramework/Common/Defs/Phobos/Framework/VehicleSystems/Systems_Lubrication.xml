@@ -347,6 +347,23 @@
     </quantities>
     <onEvents>
       <li>
+        <!-- T6 (cross-links round two; Framework 0.106.0): a tank run dry under a running engine. An electric fuel pump is cooled and
+             lubricated by the fuel it moves, so running it dry overheats it (general service advice, secondary; the 5 % is authored).
+             A tank drained on purpose while parked does not count (When_RanDry). -->
+        <eventDef>OutOfFuel</eventDef>
+        <effects>
+          <li Class="Phobos.VehicleSystems.Effect_DamagePart">
+            <role>FuelPump</role>
+            <share>0.05</share>
+            <when Class="Phobos.VehicleSystems.When_RanDry" />
+          </li>
+          <li Class="Phobos.VehicleSystems.Effect_Message">
+            <message>PhobosVehicleSystems_MsgRanDry</message>
+            <when Class="Phobos.VehicleSystems.When_RanDry" />
+          </li>
+        </effects>
+      </li>
+      <li>
         <!-- The nozzle and the fuel going in, whoever refuels it (a pawn or a depot bay). -->
         <eventDef>Refueled</eventDef>
         <effects>

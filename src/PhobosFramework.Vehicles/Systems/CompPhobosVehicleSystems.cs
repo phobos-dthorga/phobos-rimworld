@@ -449,6 +449,11 @@ public class CompPhobosVehicleSystems : VehicleComp
 
     /// <summary>The headlights' beam on the map (Framework 0.104.0): derived and never saved.</summary>
     public Headlights Beams => beams ??= new Headlights(this);
+
+    bool ranWithFuel;
+
+    /// <summary>The tank is empty and the engine was running when it last had fuel (T6): the pump ran dry.</summary>
+    public bool RanDry => ranWithFuel && Vehicle?.CompFueledTravel is { EmptyTank: true };
     Headlights? beams;
 
     public override void PostDeSpawn(Map map, DestroyMode mode = DestroyMode.Vanish)
@@ -716,6 +721,9 @@ public class CompPhobosVehicleSystems : VehicleComp
             WorkTurningEngine = true;
             EngineLoad = Mathf.Max(EngineLoad, demand.EngineDemand);
         }
+        // T6 (Framework 0.106.0): whether the engine turned at the last look that still found fuel; frozen once the tank is empty, so a
+        // tank that ran dry under a running engine is told from one drained while parked. Derived, never saved.
+        if (hasFuel) ranWithFuel = EngineRunning;
         shorePowered = null;
         loadAmps = 0f;
         if (states != null && states.Count > 0) loadAmps = SumLoads(new SystemContext(this, states[0]));

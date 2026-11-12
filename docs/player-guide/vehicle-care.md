@@ -56,7 +56,8 @@ The short version: **service when it is due, keep a kit in the cargo, and park s
 | Slower, then failing tyres | Tread wears, up to three times as fast off the roads | A service with a **tyre set** |
 | Slower, then **won't drive** | Brakes wear with every stop | A service with a **brake pad set** |
 | Loses its top gears, slips under load | A damaged gearbox or clutch | Repair the gearbox and clutch |
-| **Won't drive** after standing for hours | Air brakes on heavy trucks need air | Draft it and let it idle a few minutes |
+| **Low air**, then **won't drive** | Air brakes on heavy trucks need air: a leak, a damaged compressor, or standing for hours | At **low air**, keep the engine running; below it the brakes lock until it idles a few minutes |
+| A weak fuel pump after running out of fuel | Running the tank dry with the engine on costs the pump 5 % | Keep some fuel in the tank; repair the pump |
 | **Won't start** below about -8 °C | Cold fuel gels (only with the **cold fuel** setting on) | Warm the vehicle in a heated room |
 | Parts failing now and then | More often once a service is due (120 running hours), far more once overdue (180) | A **service** |
 
@@ -97,7 +98,7 @@ ten-hour night.
   vehicle whose engine is destroyed cannot move until it has a new one.
 - **In a caravan**, select it on the world map and press **Repair** for a vehicle that needs it; it must have stopped and have a
   mechanic.
-- **A fire on a vehicle cooks it from the inside**: the cab grows stifling, the coolant heats and the radiator cooks. Put it out
+- **A fire on a vehicle cooks it from the inside**: the cab grows stifling, the coolant heats, and the radiator, the tyres and the battery burn. Put it out
   within an in-game hour or expect a hot engine and a radiator to repair; left two hours, the engine boils over.
 - **Damage shows on our vehicles' pictures** once a part is below 60%: scorches, holes and tears.
 
@@ -176,6 +177,8 @@ shows while a dyno bay is in reach. It works on any vehicle, from any mod, that 
   battery may soon be too weak to start the engine: start it, or switch off the lights and heaters.
 - **The vehicle's inspect panel says what the battery is doing**, in words: which lights or heaters are running it down, or that it is
   charging.
+- **Driving in the dark with the headlights off is slower**: a land vehicle goes at 85 % of its speed over ground the game counts as
+  dark, and its warning lamp says **no lights**. Lamps and lit roads count as light.
 - **Other factions' vehicles light up only while they drive**, so a raid arriving at night shows itself.
 - **Turn the light off** with the setting **Headlights light the ground** in the vehicle systems settings, if many vehicles at night
   slow the game.

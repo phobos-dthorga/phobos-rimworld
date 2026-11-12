@@ -193,6 +193,24 @@ public class Input_Moving : VehicleSystemInput
     }
 }
 
+/// <summary>
+/// 1 while the vehicle drives through darkness with no headlights on (cross-links round three, G9; Framework 0.106.0): it is on a map,
+/// moving, its headlights (if it has any) are not switched on, and the light on its own cell, as the game's light grid gives it, is below
+/// <c>darkBelow</c> (0.3 is the game's own line between dark and lit). Lit roads, lamps and day cost nothing. Read on the rare tick.
+/// </summary>
+public class Input_DarkDriving : VehicleSystemInput
+{
+    public float darkBelow = 0.3f;
+
+    protected override float Raw(SystemContext context)
+    {
+        Vehicles.VehiclePawn vehicle = context.Vehicle;
+        if (!vehicle.Spawned || !context.Comp.Moving) return 0f;
+        if (context.Comp.Beams.On) return 0f;
+        return vehicle.Map.glowGrid.GroundGlowAt(vehicle.Position) < darkBelow ? 1f : 0f;
+    }
+}
+
 /// <summary>The efficiency of the parts bound to a role, averaged, 0 to 1; <c>missing</c> when the vehicle has none.</summary>
 public class Input_PartEfficiency : VehicleSystemInput
 {

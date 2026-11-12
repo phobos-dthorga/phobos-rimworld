@@ -7,7 +7,7 @@ helpers every D'thorga mod shares.
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.105.2, built 13 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
+Version 0.106.0, built 13 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
 oxygen working through Burns and Smoke and Medical Equipment (5 November 2026). The health layer new in 0.3.0 and the **vehicle
 systems new in 0.9.0, and their engines, drivetrains and gas turbines new in 0.11.0, are not yet tested in game.** The rest is read from the game's and the mods' code.
 
@@ -130,6 +130,9 @@ and wear that a mechanic services. See [Vehicle systems](#vehicle-systems-with-v
   a new category by themselves, so tick it in at least one stockpile or shelf. "Do until you have X" counts only parts in storage, so
   without one the bench makes more than you asked for. **Keep materials close**: steel and components stored beside the bench save a
   long walk for every part.
+- **New in 0.106.0 (not yet tested in game): four cross-links.** Running the tank dry costs the fuel pump 5 %; heavy trucks warn of low
+  air before their brakes lock; a fire burns the tyres and the battery as well as the radiator; and a land vehicle driving in the
+  dark with its headlights off goes at 85 % of its speed.
 - **Steam locomotives (0.14.0): two settings to decide before you run one.** **Boiler explosions** are off by default: on, a
   boiler without a fusible plug (the American 4-8-4) whose water runs below the firebox crown explodes, and the settings window
   warns you. **Realistic feed water** is off by default: a water stop draws a tenth of the real tender (6,800 litres for the 4-8-4,

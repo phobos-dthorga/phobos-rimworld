@@ -98,6 +98,58 @@
           </li>
         </stages>
       </li>
+      <li>
+        <!-- G15 (cross-links round three; Framework 0.106.0), extending crosslink 4: a fire on the vehicle burns its tyres too, 40 % of
+             their health an hour at full fire (authored; rubber burns readily). -->
+        <name>tyreFire</name>
+        <description>How much of the vehicle is burning, as it reaches the tyres.</description>
+        <label>fire at the wheels</label>
+        <unit>Fraction</unit>
+        <min>0</min>
+        <max>1</max>
+        <hidden>true</hidden>
+        <derivedFrom>
+          <li Class="Phobos.VehicleSystems.Input_Fire" />
+        </derivedFrom>
+        <stages>
+          <li>
+            <from>0.01</from>
+            <label>tyres burning</label>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_DamagePart">
+                <role>Wheels</role>
+                <sharePerHour>0.4</sharePerHour>
+              </li>
+            </effects>
+          </li>
+        </stages>
+      </li>
+      <li>
+        <!-- G9 (cross-links round three; Framework 0.106.0; owner, 13 Nov 2026: mildly, x0.85): driving through darkness with the
+             headlights off. The game's light grid decides what is dark (Input_DarkDriving); lit roads and lamps cost nothing. Other
+             factions' vehicles burn their lights while they move at night, so they are never slowed by this. -->
+        <name>darkDriving</name>
+        <description>Whether the vehicle is driving in the dark with no headlights on. The driver slows to see the way.</description>
+        <label>driving in the dark</label>
+        <unit>OnOff</unit>
+        <hidden>true</hidden>
+        <derivedFrom>
+          <li Class="Phobos.VehicleSystems.Input_DarkDriving" />
+        </derivedFrom>
+        <stages>
+          <li>
+            <from>0.5</from>
+            <label>no lights</label>
+            <notable>true</notable>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_StatFactor">
+                <stat>MoveSpeed</stat>
+                <factor>0.85</factor>
+              </li>
+            </effects>
+          </li>
+        </stages>
+      </li>
     </quantities>
     <flows>
       <li>

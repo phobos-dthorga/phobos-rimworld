@@ -50,6 +50,10 @@ public sealed class Headlights
     /// <summary>Whether the beam is on the map now.</summary>
     public bool Lit => light.Lit;
 
+    /// <summary>Whether the headlights are switched on and burning by the systems' rules (night), whether or not the setting draws their beam
+    /// on the ground: what the driver sees by (G9).</summary>
+    public bool On => load != null && comp.Tier == DetailTier.Full && comp.LoadActive(load.name);
+
     static VehicleSystemsSettings Settings => VehicleSystemsMod.Settings;
 
     bool ShouldBurn()

@@ -56,6 +56,13 @@ public class When_EngineRunning : VehicleSystemCondition
     protected override bool HoldsRaw(SystemContext context) => context.Comp.EngineRunning;
 }
 
+/// <summary>The tank has just run dry with the engine turning (cross-links round two, T6; Framework 0.106.0): the engine was running at the
+/// last look while there was still fuel, and the tank is empty now. A tank drained on purpose while parked does not count.</summary>
+public class When_RanDry : VehicleSystemCondition
+{
+    protected override bool HoldsRaw(SystemContext context) => context.Comp.RanDry;
+}
+
 public class When_Moving : VehicleSystemCondition
 {
     protected override bool HoldsRaw(SystemContext context) => context.Comp.Moving;

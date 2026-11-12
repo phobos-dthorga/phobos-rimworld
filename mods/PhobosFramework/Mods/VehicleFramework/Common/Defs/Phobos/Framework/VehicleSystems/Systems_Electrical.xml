@@ -207,6 +207,32 @@
           </li>
         </stages>
       </li>
+      <li>
+        <!-- G15 (cross-links round three; Framework 0.106.0), extending crosslink 4: a fire on the vehicle cooks the battery's case and
+             cells, 30 % of its health an hour at full fire (authored). -->
+        <name>batteryFire</name>
+        <description>How much of the vehicle is burning, as it reaches the battery.</description>
+        <label>fire at the battery</label>
+        <unit>Fraction</unit>
+        <min>0</min>
+        <max>1</max>
+        <hidden>true</hidden>
+        <derivedFrom>
+          <li Class="Phobos.VehicleSystems.Input_Fire" />
+        </derivedFrom>
+        <stages>
+          <li>
+            <from>0.01</from>
+            <label>battery burning</label>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_DamagePart">
+                <role>Battery</role>
+                <sharePerHour>0.3</sharePerHour>
+              </li>
+            </effects>
+          </li>
+        </stages>
+      </li>
     </quantities>
     <flows>
       <li>

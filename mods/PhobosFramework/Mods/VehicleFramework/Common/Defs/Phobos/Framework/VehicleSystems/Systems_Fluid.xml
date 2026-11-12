@@ -46,6 +46,21 @@
               </li>
             </effects>
           </li>
+          <li>
+            <!-- G18 (cross-links round three; Framework 0.106.0): a low-air warning before the spring brakes come on. Real air-braked
+                 trucks must warn the driver before tank pressure falls below 60 psi, about half of a 120 psi system (the US commercial
+                 driver's licence manuals, from 49 CFR 393.51; secondary, unverified against the regulation's text). Ours locks at 0.55,
+                 so the warning band from 0.55 to 0.7 is authored to sit just above it. -->
+            <from>0.55</from>
+            <to>0.7</to>
+            <label>low air</label>
+            <notable>true</notable>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_Message">
+                <message>PhobosVehicleSystems_MsgAirLow</message>
+              </li>
+            </effects>
+          </li>
         </stages>
       </li>
     </quantities>

@@ -45,10 +45,12 @@ public class Effect_DamagePart : VehicleSystemEffect
     /// <summary>A share of the part's whole health each hour, so a small engine and a big one last the same time.</summary>
     public float sharePerHour;
     public float amount;
+    /// <summary>A one-off loss of this share of the part's whole health on entry (Framework 0.106.0: a pump run dry loses 5 %).</summary>
+    public float share;
 
     public override void OnEnter(SystemContext context)
     {
-        if (amount > 0f) context.Comp.WearRole(role, amount);
+        if (amount > 0f || share > 0f) context.Comp.WearRole(role, amount, share);
     }
 
     public override void Apply(SystemContext context, float hours)

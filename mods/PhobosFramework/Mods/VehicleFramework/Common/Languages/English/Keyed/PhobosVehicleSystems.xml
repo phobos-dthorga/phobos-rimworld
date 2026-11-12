@@ -137,6 +137,8 @@
   <PhobosVehicleSystems_RefuseHungStart>The {VEHICLE}'s battery cannot spin its turbine fast enough to light. Have a colonist jump-start it from another vehicle parked near it, or charge the battery beside a powered conduit.</PhobosVehicleSystems_RefuseHungStart>
 
   <!-- Messages -->
+  <PhobosVehicleSystems_MsgRanDry>The {VEHICLE} ran out of fuel with its engine running, and its fuel pump ran dry. Keep some fuel in the tank to spare the pump.</PhobosVehicleSystems_MsgRanDry>
+  <PhobosVehicleSystems_MsgAirLow>The {VEHICLE}'s air pressure is low. Its brakes will lock on if it falls further: keep the engine running to build air, and have the compressor or a leak looked at.</PhobosVehicleSystems_MsgAirLow>
   <PhobosVehicleSystems_MsgBatteryLow>The {VEHICLE}'s battery is running low.</PhobosVehicleSystems_MsgBatteryLow>
   <PhobosVehicleSystems_MsgStartingPowerLow>The {VEHICLE}'s battery may soon be too weak to start the engine. Start it to charge the battery, or switch off its lights and heaters.</PhobosVehicleSystems_MsgStartingPowerLow>
   <PhobosVehicleSystems_MsgBatteryFreezing>The {VEHICLE}'s flat battery is freezing and may crack. Charge it or move it somewhere warmer.</PhobosVehicleSystems_MsgBatteryFreezing>
