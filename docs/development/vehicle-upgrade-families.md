@@ -1,6 +1,6 @@
 # Vehicle upgrade families: upgrades shared across many vehicles (12 Nov 2026)
 
-**Part built, nothing tested in game.** Built in D'thorga Framework 0.103.0 and Vehicles 0.47.0 (parts 1 and 2 of 3, 12 Nov 2026): the order for a whole family, the cold-weather pack, all-terrain tyres and work lights, then long range. Recovery follows in part 3. The sections "Built in part 1" and "Built in part 2" say what was built and where it departs from the proposal; the text before it is the proposal as the owner answered it. On 11 Nov 2026 the owner chose both a signature feature per
+**All five built, nothing tested in game.** Built in D'thorga Framework 0.103.0 and Vehicles 0.47.0 (parts 1 to 3, 12 Nov 2026): the order for a whole family, the cold-weather pack, all-terrain tyres and work lights, then long range, then recovery with the hitch's recovery tow. The sections "Built in part 1", "Built in part 2" and "Built in part 3" say what was built and where it departs from the proposal; the text before it is the proposal as the owner answered it. On 11 Nov 2026 the owner chose both a signature feature per
 vehicle and "shared families" for the rest ([round two](vehicle-upgrades-round-two.md)); on 12 Nov 2026 they asked for this record
 first, with nothing built. **Every family, figure and fit below is agent-proposed** for the owner to pick from. Facts marked "from
 the code" were read on 12 Nov 2026 from our source and Vehicle Framework's 1.6 decompile with `scripts/query-code.py`.
@@ -17,7 +17,7 @@ the code" were read on 12 Nov 2026 from our source and Vehicle Framework's 1.6 d
 - **Three of the five are mostly XML** on systems that already exist. Two need a small piece of code each (said per family).
 - **Not proposed:** dust filters (nothing models dust or intake wear today, so it would be a new system, not a family) and armour
   (Vehicle Framework's own upgrade trees and Combat Extended already own a vehicle's armour; a second armour path would fight them).
-- **Four questions for the owner** are at the end. Nothing is built until they are answered.
+- **Four questions for the owner** are at the end, answered on 12 Nov 2026; all five families are built (not yet tested in game).
 
 ## What already exists to build on
 
@@ -125,7 +125,7 @@ One version and one test list for the batch, as the owner prefers.
 
 **Answered by the owner, 12 Nov 2026:** (1) **all five**, work lights and all-terrain tyres included ("Both work lights and all-terrain
 tires sound good"), in the order above; (2) recovery and the hitch's slice 4 **as one piece**; (3) **both**: a whole family in one order, or
-each part on its own; (4) long range **on aircraft too**, as ferry tanks. Nothing is built yet: the build is the next batch, on the owner's go.
+each part on its own; (4) long range **on aircraft too**, as ferry tanks. Built in Framework 0.103.0 and Vehicles 0.47.0, in three parts the same day.
 
 The questions as they were put:
 
@@ -247,10 +247,60 @@ authored.
 
 Cost with several on a map: the sync runs only when a fitting changes, a vehicle loads or one spawns; nothing per tick.
 
+## Built in part 3 (Framework 0.103.0, 12 Nov 2026)
+
+**Not yet tested in game.** Built by the agent from the owner's answer (recovery as one piece with the hitch's recovery tow,
+[vehicle-hitch-design.md](vehicle-hitch-design.md) slice 4); every figure is authored.
+
+### Recovery
+
+- **One fitting, one family.** The **recovery winch** (`PhobosFitting_RecoveryWinch`) goes on a new **winch mount**
+  (`PhobosRecoveryMount`), appended in the land base loadout beside the lamp bracket, so every land vehicle with our systems has one
+  (the generator set excepted, as for the lamps). It grants `RecoveryWinch`, which brings both the winch and the tow bar, so the family
+  `PhobosFamily_Recovery` names this one fitting.
+- **The winch** (`src/PhobosFramework.Vehicles/Hitch/Recovery.cs`, part of `CompPhobosHitch`). **Winch a vehicle** picks one of ours within
+  12 cells (the empty cells between the two footprints). While **someone is aboard** the winching vehicle and neither vehicle drives off,
+  the stuck vehicle is dragged one whole cell at a time along the line between them (`RecoveryRule.Step`; if the straight step is blocked,
+  either axis alone), as Vehicle Framework moves a vehicle (its `Position`), until at most one cell lies between them. **Stop winching**
+  ends it; a stall, a block, either vehicle moving or nobody aboard ends it with the reason. It is saved and carries on after a load.
+- **How the pull rule decides** (`RecoveryRule`, game-free, with tests). It takes the stuck vehicle's weight (its kerb mass, cargo and
+  people, as the sling counts it) times a resistance: its ground's **rolling resistance** if its wheels turn, or its ground's **grip** if
+  they do not (Vehicle Framework gives a vehicle whose running gear is wrecked no speed, so it is dragged and slides against the ground's
+  friction), plus **suction** on soft ground, up to 0.3 of the weight on the softest going. The ground is read from the same path-cost curves
+  the drivetrain uses (`Powertrain.PathCostAt`, shared now). The winch can give its rating, **5,443 kgf (12,000 lb)**, but never more than the
+  winching vehicle holds on its brakes: its own weight times its ground's grip. A pull that needs more is refused with both figures, and a
+  winch that finds the next cell needs more stalls. The pace is 180 ticks a cell for a light pull, up to twice that at the winch's limit.
+  The 12,000 lb rating is a common one for vehicle recovery winches; no one product is claimed, and the figure is authored.
+- **The recovery tow.** With the winch fitted, the hitch takes an **ordinary land vehicle** as well as a trailer. It follows by the same
+  follow rule on a tow bar: the hitch to its rear axle is 1.5 cells plus three quarters of its length, its axle a quarter of its length
+  behind its middle, and it may swing 55 degrees (all authored). Its weight and everything in it reach the drivetrain as the towed mass,
+  exactly as a trailer's. Refused, with the reason: aircraft and boats; a vehicle that is drafted, ready to drive (undraft it so it rolls
+  free); one towing or winching something itself; one more than **1.5 times** the tractor's weight (authored); another faction's until
+  claimed (the claim order). The towed vehicle shows "Hitched to" and its tractor's **Unhitch** button.
+- **Crew (from Vehicle Framework's code).** People aboard a vehicle are held in its handlers, not on the map, so moving the vehicle by its
+  `Position` carries them. **They stay aboard**; if anyone tries to drive it while it is towed, its pather is stopped on the spot, each tick
+  while hitched.
+- **Agent choices and limits:** no ground anchors or snatch blocks; the winch pulls in a straight line by whole cells and stops a cell
+  short; a vehicle on the tow is taken as rolling freely even if its wheels are wrecked; the tow limit is a weight ratio rather than a
+  force balance (the drivetrain already slows the pair); the winch needs only someone aboard, not a colonist's job; towing on the world map
+  and in caravans is not built (leaving the map leaves the towed vehicle where it stood, as for trailers).
+- **Checked:** `RecoveryRule` has eight unit tests; the build passes the gate. Nothing about the winch or the tow is tested in game.
+
+### Other factions' vehicles (recovery)
+
+| Where | Recovery |
+| --- | --- |
+| **A raid on us** | Nothing: no AI orders a winch or a tow, and raiders' vehicles run the lite tier, so they never bog in our model |
+| **Parked at a base we attack** | Claim a wrecked or empty one (the claim order), then winch it out and tow it home: loot as content |
+| **One we capture** | Winches and tows as ours, if a winch is fitted |
+
+Cost with several on a map: a winch ticks only while it works, and a tow only while its tractor moves (the hitch's own rule).
+
 ## Who chose what
 
 - **Owner:** families as well as signatures (11 Nov 2026); our features beside other authors' trees, never inside (11 Nov 2026); a design
-  record first, nothing built (12 Nov 2026); Trains of the Rim skipped (12 Nov 2026).
+  record first, nothing built (12 Nov 2026); Trains of the Rim skipped (12 Nov 2026); all five built, recovery as one piece with the
+  hitch's recovery tow, whole sets or part by part, ferry tanks on aircraft (12 Nov 2026).
 - **Agent-proposed:** every family, its fit, its order, and what is left out.
 
 ## Sources

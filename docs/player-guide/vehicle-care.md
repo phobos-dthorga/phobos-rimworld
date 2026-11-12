@@ -143,7 +143,8 @@ shows while a dyno bay is in reach. It works on any vehicle, from any mod, that 
   still, they light the ground round it so work there goes at daylight pace, drawing on the battery. **Long range** fits an
   **auxiliary fuel tank** to a land vehicle or boat (half as much fuel again) or a **ferry tank** to an aircraft (three quarters as
   much again); either costs cargo space, and the range on the world map grows with the fuel aboard. Taking one off drains the extra
-  fuel into containers beside the vehicle.
+  fuel into containers beside the vehicle. **Recovery** fits a **recovery winch** to the vehicle's winch mount: see
+  [Recovering a stuck vehicle](#recovering-a-stuck-vehicle).
 
 ## Cabs and comfort
 
@@ -215,6 +216,20 @@ Not yet tested in game. Any land vehicle can tow a trailer such as the [Pintle f
 - **Only vehicles the drivetrain model works out can tow**, unless you turn on **Vehicles without the drivetrain model can tow** (under
   **Towing** in D'thorga Framework's settings), which slows them by a plain rule instead.
 - **A vehicle that leaves the map leaves its trailer behind**, and says so.
+
+## Recovering a stuck vehicle
+
+Not yet tested in game. Fit the **recovery winch** (the **Recovery** family in the fittings window) to a land vehicle.
+
+- **Press Winch a vehicle** and pick a stuck, broken or empty vehicle within 12 cells. **Someone must be aboard to work the winch.** It
+  drags the vehicle in a cell at a time, slower the heavier the pull, and stops beside you. **Stop winching** ends it at any time.
+- **Whether the winch can manage** is worked out from both vehicles' weight and ground: a vehicle in deep mud is far harder to move than
+  one on gravel, and one whose wheels are wrecked is dragged, which is harder still. The winch pulls up to 5,443 kg, but never more than
+  your vehicle holds on its brakes, so **park the winching vehicle on firm ground**. A refusal says both figures.
+- **Then tow it home**: with the winch fitted, **Hitch a trailer or vehicle** also takes an ordinary land vehicle up to 1.5 times your
+  vehicle's weight. It follows on a tow bar like a trailer; anyone aboard rides along. **Undraft it first** so it rolls free. It has its
+  own **Unhitch** button.
+- **Another faction's vehicle** must be claimed first; then it can be winched out and towed home.
 
 ## Other factions' vehicles
 

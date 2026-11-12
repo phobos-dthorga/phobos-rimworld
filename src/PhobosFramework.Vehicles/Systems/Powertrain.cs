@@ -523,6 +523,13 @@ public sealed class Powertrain
     /// <summary>Running gear with its own surface (steel wheels on rails): the ground beneath does not touch it.</summary>
     public bool OwnSurface => !double.IsNaN(fixedRolling) && !double.IsNaN(fixedGrip);
 
+    /// <summary>A map cell's going as a path cost: its terrain's and its snow's, the figure the ground curves read (the drive, the winch).</summary>
+    public static double PathCostAt(Map map, IntVec3 cell)
+    {
+        double cost = map.terrainGrid.TerrainAt(cell)?.pathCost ?? 0;
+        return cost + WeatherBuildupUtility.MovementTicksAddOn(map.snowGrid.GetCategory(cell));
+    }
+
     void ReadGround(VehiclePawn vehicle, out double rolling, out double grip)
     {
         if (!double.IsNaN(fixedRolling) && !double.IsNaN(fixedGrip))
@@ -536,9 +543,7 @@ public sealed class Powertrain
         {
             groundCell = vehicle.Position;
             groundMap = vehicle.Map;
-            Map map = vehicle.Map;
-            double cost = map.terrainGrid.TerrainAt(groundCell)?.pathCost ?? 0;
-            cost += WeatherBuildupUtility.MovementTicksAddOn(map.snowGrid.GetCategory(groundCell));
+            double cost = PathCostAt(vehicle.Map, groundCell);
             groundRolling = DrivetrainModel.RollingResistanceForPathCost(cost);
             groundGrip = DrivetrainModel.GripForPathCost(cost);
         }

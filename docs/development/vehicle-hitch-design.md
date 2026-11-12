@@ -152,7 +152,9 @@ vehicles at a base the player attacks. How those vehicles come to exist is in
    flatbed, the mass reaching the model. One Framework version and one Vehicles version, one install, one short test list.
 3. **Reading it:** towed mass and what limits the pull on the Dashboard; "can this vehicle pull that?" before hitching;
    loading while hitched; the world map.
-4. **The special trailers** from [the research](vehicle-trailer-research.md), the recovery tow, and road trains.
+4. **The special trailers** from [the research](vehicle-trailer-research.md), the recovery tow, and road trains. **The recovery tow is
+   built** (Framework 0.103.0, not yet tested in game) as one piece with the recovery family's winch (owner, 12 Nov 2026):
+   [vehicle-upgrade-families.md](vehicle-upgrade-families.md), "Built in part 3". The special trailers and road trains are still open.
 
 Slices 1 and 2 are built together: rules nobody uses are not a working slice.
 

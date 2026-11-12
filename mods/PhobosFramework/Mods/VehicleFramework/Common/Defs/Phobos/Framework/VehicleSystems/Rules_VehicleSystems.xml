@@ -42,6 +42,17 @@
     <hitchReachCells>8</hitchReachCells>
     <hitchUpWork>900</hitchUpWork>
     <hitchGapCells>0.3</hitchGapCells>
+    <!-- Recovery (Framework 0.103.0). The winch is rated 12,000 lb (5,443 kgf), a common rating for a vehicle recovery winch (authored from
+         that class of winch; no one product is claimed). It reaches 12 cells, and pulls a light load a cell in 180 ticks (three game seconds),
+         slowing to twice that at its limit; the softest ground adds suction of 0.3 of the stuck vehicle's weight. A recovery tow takes a
+         vehicle up to 1.5 times the tractor's weight, on a 1.5-cell tow bar, swinging up to 55 degrees. All authored. -->
+    <winchRatedKgf>5443</winchRatedKgf>
+    <winchReachCells>12</winchReachCells>
+    <winchTicksPerCell>180</winchTicksPerCell>
+    <winchMireAdd>0.3</winchMireAdd>
+    <recoveryMaxTowRatio>1.5</recoveryMaxTowRatio>
+    <recoveryTowBarCells>1.5</recoveryTowBarCells>
+    <recoveryJackKnifeDegrees>55</recoveryJackKnifeDegrees>
     <!-- Batch 3 signatures (Framework 0.101.0, all authored): the generator set's service lead takes 300 W off the top (a heavy battery
          charger and its losses); the tipper's loading grab reaches 4 cells from the truck and a lift takes 20 game seconds (what a lift
          carries is the grab node's stat). -->

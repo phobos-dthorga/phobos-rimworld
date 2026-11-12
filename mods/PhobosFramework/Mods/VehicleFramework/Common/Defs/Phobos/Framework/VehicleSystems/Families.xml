@@ -4,8 +4,8 @@
     Upgrade families (Framework 0.103.0; docs/development/vehicle-upgrade-families.md). The owner chose all five on 12 Nov 2026, each to be
     ordered as a whole in one go or part by part. A family names fittings only: which vehicles it suits follows from those fittings' roles
     and matches, never from a list of vehicles, and it sits beside another author's upgrade tree, never inside it. Ordering a family orders
-    each fitting on every part of the vehicle it suits, and turns on the switches it names. Long range is part 2 of the batch;
-    recovery follows in part 3. Another mod adds its own with this Def type.
+    each fitting on every part of the vehicle it suits, and turns on the switches it names. Long range was part 2 of the batch and
+    recovery part 3. Another mod adds its own with this Def type.
   -->
 
   <Phobos.VehicleSystems.PhobosVehicleFamilyDef>
@@ -59,6 +59,19 @@
     <fittings>
       <li>PhobosFitting_AuxFuelTank</li>
       <li>PhobosFitting_FerryTank</li>
+    </fittings>
+  </Phobos.VehicleSystems.PhobosVehicleFamilyDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleFamilyDef>
+    <!-- Part 3 of the batch (owner, 12 Nov 2026: recovery as one piece with the hitch's recovery tow). One fitting carries both: the winch
+         pulls a stuck vehicle out, and the tow bar that comes with it lets the hitch take an ordinary vehicle. -->
+    <defName>PhobosFamily_Recovery</defName>
+    <iconPath>Phobos/VehicleSystems/Fittings/RecoveryWinch</iconPath>
+    <label>recovery</label>
+    <description>A recovery winch, straps and a tow bar: drag a bogged or broken vehicle out, then tow it home behind this one.</description>
+    <order>5</order>
+    <fittings>
+      <li>PhobosFitting_RecoveryWinch</li>
     </fittings>
   </Phobos.VehicleSystems.PhobosVehicleFamilyDef>
 </Defs>

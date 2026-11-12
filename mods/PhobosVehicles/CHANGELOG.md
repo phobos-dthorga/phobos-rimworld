@@ -15,6 +15,7 @@ Our vehicles take the upgrade families of D'thorga Framework 0.103.0
 
 ### Compatibility and limits
 
+- Our trucks take the recovery family too: a winch mount appears on each one's Health tab, and with the winch fitted a truck can winch a stuck vehicle in and tow it home.
 - With D'thorga Framework 0.103.0, our trucks take the cold-weather pack, all-terrain tyres and work lights from the fittings window's new Families section. The generator set takes no work lamps (it lists its own parts), and the survey truck and the drill rig keep their own work lights upgrade beside them. Not yet tested in game.
 
 ## [0.46.0] - 2026-11-12 - Draft

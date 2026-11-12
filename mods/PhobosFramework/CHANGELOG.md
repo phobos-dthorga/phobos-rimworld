@@ -7,7 +7,7 @@ tested in game unless an entry says the owner tested it.
 
 ## [0.103.0] - 2026-11-12 - Draft
 
-Upgrade families, parts 1 and 2 of 3: a whole family of fittings in one order, the cold-weather pack, all-terrain tyres, work lights and long range
+Upgrade families: a whole family of fittings in one order, the cold-weather pack, all-terrain tyres, work lights, long range and recovery
 
 ### Added
 
@@ -22,15 +22,20 @@ Upgrade families, parts 1 and 2 of 3: a whole family of fittings in one order, t
 - Pictures of their own for the auxiliary fuel tank and the ferry tank, drawn in code; the long range family uses the auxiliary tank's.
 - The fittings window says what a tank does to the vehicle's fuel tank, in the same line as every other figure.
 - The self-test fits an extra tank to its test vehicle, checks the capacity rises by the tank's factor and goes back when it comes off.
+- **Recovery** (part 3; owner, 12 Nov 2026: built as one piece with the hitch's recovery tow). Every land vehicle has a new **winch mount** for the **recovery winch**, and the recovery family fits it. With someone aboard, **Winch a vehicle** drags a stuck, broken or empty vehicle within 12 cells towards this one, a cell at a time, and stops beside it. The winch pulls up to 5,443 kg (12,000 lb, a common rating for a vehicle recovery winch), but never more than the winching vehicle holds on its brakes; a vehicle that rolls takes its ground's rolling resistance, one whose wheels are wrecked is dragged, and soft ground adds suction. A pull too heavy is refused with both figures, and a winch that stalls or is blocked stops and says why. **Stop winching** ends it at any time.
+- **The recovery tow**: with the winch fitted, **Hitch a trailer or vehicle** also takes an ordinary land vehicle, which follows on a tow bar exactly as a trailer does, and its weight and everything in it reaches the engine. Whoever is aboard it stays aboard and cannot drive it off; the towed vehicle has its own **Unhitch** button. Refused, with the reason: aircraft and boats, a vehicle ready to drive (undraft it), one towing or winching something itself, one more than 1.5 times the tractor's weight, and another faction's until it is claimed.
+- Pictures of their own for the recovery winch and the Winch and Stop winching buttons, drawn in code.
+- For modders: RecoveryRule (game-free, with tests: the resistance, the pull a winch can give, its pace, a drag step and the tow limit), Powertrain.PathCostAt, and the rules figures winchRatedKgf, winchReachCells, winchTicksPerCell, winchMireAdd, recoveryMaxTowRatio, recoveryTowBarCells and recoveryJackKnifeDegrees.
 - For modders: fuelCapacityFactor on a fitting (applied through Vehicle Framework's own fuel capacity offset while fitted, never saved), and FittingRule.FuelCapacityOffset, FuelAbove and WholeUnits (game-free, with tests).
 
 ### Balance
 
-- Every figure is authored: the soft-ground grip, the tyres' speed and wear, the lamps' reach and draw, the tanks' capacity and cargo cost, and every material and work amount.
+- Every figure is authored: the soft-ground grip, the tyres' speed and wear, the lamps' reach and draw, the tanks' capacity and cargo cost, the winch's rating, reach, pace and the soft ground's suction, the recovery tow's weight limit, tow bar and swing, and every material and work amount.
 
 ### Save compatibility
 
 - Safe to add to a running colony. Every land vehicle gains a lamp bracket part when the save loads, at full health, as earlier appended parts did. The lamps' light is never saved: it is worked out again a moment after loading.
+- Every land vehicle gains a winch mount on loading, at full health. A winch at work and a vehicle on the recovery tow are saved, and carry on after loading.
 - Every fuelled land vehicle and boat gains an auxiliary tank cradle, and every fuelled aircraft ferry tank tie-downs, on loading, at full health. A tank's extra capacity is not saved: it is put back as each vehicle loads, before any fuel is burnt.
 - **Removing the mod with an extra tank fitted**: the vehicle keeps its fuel until it next burns some, and then the tank is trimmed to its own capacity and the rest is lost. Drain it first by taking the tank off.
 
@@ -43,7 +48,9 @@ Upgrade families, parts 1 and 2 of 3: a whole family of fittings in one order, t
 - An extra tank's weight and its fuel's are counted only as the cargo space it takes, not as mass on the drivetrain (a simplification).
 - A vehicle whose design sets its fuel capacity outright in Vehicle Framework's settings, rather than letting upgrades add to it, takes no extra from a tank.
 - Electric vehicles carry no liquid fuel and are offered no tank.
-- Recovery, the last family, follows in part 3 of this version.
+- The winch has no ground anchors and no snatch blocks: it pulls in a straight line, by whole cells, and stops one cell short of the winching vehicle (simplifications).
+- A vehicle on the recovery tow is taken as rolling freely; one whose wheels are wrecked is towed as easily as one whose wheels turn (a simplification).
+- A vehicle towing another cannot take it on a journey yet: leaving the map leaves the towed vehicle where it stood, as with a trailer.
 
 ## [0.102.0] - 2026-11-12 - Draft
 

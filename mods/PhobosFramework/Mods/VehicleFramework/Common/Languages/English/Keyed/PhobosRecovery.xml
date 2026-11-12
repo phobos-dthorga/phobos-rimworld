@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <!-- Recovery (Framework 0.103.0): the recovery winch and the recovery tow. docs/development/vehicle-upgrade-families.md -->
+  <PhobosRecovery_HitchGizmo>Hitch a trailer or vehicle</PhobosRecovery_HitchGizmo>
+  <PhobosRecovery_HitchGizmoDesc>Choose a trailer, or a vehicle to tow home on the tow bar, standing within {CELLS} cells. A colonist walks over and couples it, and it is set straight behind this vehicle. Its weight, and everything in it, then adds to the weight the engine must pull.</PhobosRecovery_HitchGizmoDesc>
+  <PhobosRecovery_WinchGizmo>Winch a vehicle</PhobosRecovery_WinchGizmo>
+  <PhobosRecovery_WinchGizmoDesc>Choose a stuck, broken or empty vehicle within {CELLS} cells. With someone aboard to work it, the winch drags it towards this vehicle a little at a time. The winch pulls up to {RATED} kg, but never more than this vehicle can hold on its brakes: a heavy vehicle in deep mud may be too much for it.</PhobosRecovery_WinchGizmoDesc>
+  <PhobosRecovery_StopWinchGizmo>Stop winching</PhobosRecovery_StopWinchGizmo>
+  <PhobosRecovery_StopWinchGizmoDesc>Stop pulling {TOWED}. It stays where it is now.</PhobosRecovery_StopWinchGizmoDesc>
+
+  <PhobosRecovery_NotATrailerNoWinch>{TOWED} is not a trailer. A vehicle with a recovery winch fitted can tow it on its tow bar.</PhobosRecovery_NotATrailerNoWinch>
+  <PhobosRecovery_NoAircraft>{TOWED} is an aircraft: it cannot be towed or winched.</PhobosRecovery_NoAircraft>
+  <PhobosRecovery_LandOnly>Only a land vehicle can be towed or winched, and {TOWED} is not one.</PhobosRecovery_LandOnly>
+  <PhobosRecovery_EngineOn>{TOWED} is ready to drive. Undraft it so it rolls free behind the tow bar.</PhobosRecovery_EngineOn>
+  <PhobosRecovery_TowingSomething>{TOWED} is towing or winching something itself. Let that go first.</PhobosRecovery_TowingSomething>
+  <PhobosRecovery_TooHeavyToTow>{TOWED} weighs {WEIGHT} kg: too much for {TRACTOR} to tow, which can take up to {LIMIT} kg. Send a heavier vehicle.</PhobosRecovery_TooHeavyToTow>
+  <PhobosRecovery_WinchBusy>{TRACTOR} is winching {TOWED}. Stop the winch first.</PhobosRecovery_WinchBusy>
+  <PhobosRecovery_BeingTowed>{TRACTOR} is being towed by {TOW}.</PhobosRecovery_BeingTowed>
+
+  <PhobosRecovery_NoWinch>{TRACTOR} has no working recovery winch.</PhobosRecovery_NoWinch>
+  <PhobosRecovery_UnhitchFirst>{TRACTOR} is towing {TOWED}. Unhitch it before using the winch.</PhobosRecovery_UnhitchFirst>
+  <PhobosRecovery_WaitingToHitch>{TRACTOR} is waiting for someone to couple {TOWED}.</PhobosRecovery_WaitingToHitch>
+  <PhobosRecovery_NobodyAboard>Nobody is aboard {TRACTOR} to work the winch.</PhobosRecovery_NobodyAboard>
+  <PhobosRecovery_NotItself>A vehicle cannot winch itself.</PhobosRecovery_NotItself>
+  <PhobosRecovery_NotOurs>{TOWED} is not ours. Claim it first.</PhobosRecovery_NotOurs>
+  <PhobosRecovery_NotHere>{TOWED} is not here.</PhobosRecovery_NotHere>
+  <PhobosRecovery_AlreadyTowed>{TOWED} is hitched to {TOW}.</PhobosRecovery_AlreadyTowed>
+  <PhobosRecovery_TooFar>{TOWED} is too far away for the winch rope. Park within {CELLS} cells of it.</PhobosRecovery_TooFar>
+  <PhobosRecovery_AlreadyBeside>{TOWED} is already beside {TRACTOR}.</PhobosRecovery_AlreadyBeside>
+  <PhobosRecovery_TowedMoving>{TOWED} is moving.</PhobosRecovery_TowedMoving>
+  <PhobosRecovery_TooHeavyToPull>Moving {TOWED} where it stands takes a pull of {REQUIRED} kg, and {TRACTOR} can give only {AVAILABLE} kg here. Firmer ground under either vehicle, a heavier winching vehicle or a lighter load would help.</PhobosRecovery_TooHeavyToPull>
+
+  <PhobosRecovery_WinchStarted>{TRACTOR} starts winching {TOWED} in: it takes {REQUIRED} kg of the {AVAILABLE} kg the winch can give here.</PhobosRecovery_WinchStarted>
+  <PhobosRecovery_WinchDone>{TOWED} is winched in beside {TRACTOR}.</PhobosRecovery_WinchDone>
+  <PhobosRecovery_WinchStopped>{TRACTOR} stops winching {TOWED}.</PhobosRecovery_WinchStopped>
+  <PhobosRecovery_WinchStalled>The winch on {TRACTOR} has stalled: moving {TOWED} now takes {REQUIRED} kg, more than the {AVAILABLE} kg it can give here.</PhobosRecovery_WinchStalled>
+  <PhobosRecovery_WinchBlocked>The winch on {TRACTOR} has stopped: something is in the way of {TOWED}.</PhobosRecovery_WinchBlocked>
+  <PhobosRecovery_StoppedTractorMoved>The winch on {TRACTOR} has stopped: it drove off while pulling {TOWED}.</PhobosRecovery_StoppedTractorMoved>
+  <PhobosRecovery_StoppedTowedMoved>The winch on {TRACTOR} has stopped: {TOWED} drove off.</PhobosRecovery_StoppedTowedMoved>
+  <PhobosRecovery_StoppedNobodyAboard>The winch on {TRACTOR} has stopped: nobody is left aboard to work it, and {TOWED} stays where it is.</PhobosRecovery_StoppedNobodyAboard>
+
+  <PhobosRecovery_InspectWinching>Winching {TOWED} in: {CELLS} cells to go, pulling {REQUIRED} of {AVAILABLE} kg.</PhobosRecovery_InspectWinching>
+</LanguageData>

@@ -301,6 +301,20 @@
           <cellsOf>Engine</cellsOf>
         </add>
       </li>
+      <li>
+        <!-- Framework 0.103.0, the recovery family: a mounting plate in the front bumper for a winch, appended to every land vehicle so the
+             winch has a part to go on and is lost with it. Health and hit weight authored, a bumper fitting's. -->
+        <role>RecoveryMount</role>
+        <add>
+          <key>PhobosRecoveryMount</key>
+          <label>winch mount</label>
+          <health>35</health>
+          <depth>External</depth>
+          <hitWeight>0.15</hitWeight>
+          <hitWeightCE>6</hitWeightCE>
+          <cellsOf>Engine</cellsOf>
+        </add>
+      </li>
     </partRoles>
   </Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
 

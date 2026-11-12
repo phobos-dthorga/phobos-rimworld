@@ -195,6 +195,22 @@
   </Phobos.VehicleSystems.PhobosVehicleFittingDef>
 
   <Phobos.VehicleSystems.PhobosVehicleFittingDef>
+    <!-- Framework 0.103.0, the recovery family (owner, 12 Nov 2026: built as one piece with the hitch's recovery tow). On the winch mount every
+         land vehicle has (Loadouts_Default.xml). It grants RecoveryWinch, which offers the winch order and lets the hitch take an ordinary
+         vehicle as a recovery tow. Its pull is the rules Def's (RecoveryRule). Materials, work and skill authored. -->
+    <defName>PhobosFitting_RecoveryWinch</defName>
+    <iconPath>Phobos/VehicleSystems/Fittings/RecoveryWinch</iconPath>
+    <label>recovery winch</label>
+    <description>A winch in the front bumper with a steel rope, recovery straps and a rigid tow bar. With someone aboard to work it, it drags a stuck, broken or empty vehicle towards this one, as far as this vehicle can hold it on its brakes; the tow bar then lets this vehicle tow an ordinary vehicle home, not only a trailer.</description>
+    <roles><li>RecoveryMount</li></roles>
+    <materials><Steel>90</Steel><ComponentIndustrial>5</ComponentIndustrial></materials>
+    <work>7000</work>
+    <minSkill>5</minSkill>
+    <researchPrerequisite>PhobosResearch_VehicleTuning</researchPrerequisite>
+    <grants><li>RecoveryWinch</li></grants>
+  </Phobos.VehicleSystems.PhobosVehicleFittingDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleFittingDef>
     <!-- Framework 0.103.0, the long range family (owner, 12 Nov 2026). Half as much fuel again, paid for in cargo space; the tank's own weight
          and the fuel's are left to that cargo cost (a simplification). Factors, materials, work and skill authored. -->
     <defName>PhobosFitting_AuxFuelTank</defName>

@@ -1,6 +1,6 @@
 """Draw the upgrade families' pictures (D'thorga Framework 0.103.0) with Pillow, in the look of the batch 3 buttons: the all-terrain tyres,
 work lamps, auxiliary fuel tank and ferry tank fittings (the tyres, lamps and auxiliary tank also serve as their families' buttons) and the
-cold-weather pack's button. No image generator and no game or other author's art is involved; each has a record beside it.
+cold-weather pack's button; and the recovery family's winch, with its Winch and Stop winching buttons. No image generator and no game or other author's art is involved; each has a record beside it.
 
     python assets/phobos-vehicles/draw_family_icons.py
 """
@@ -105,12 +105,53 @@ def ferry_tank(draw):
     draw.line([(20, 440), (492, 440)], fill=OUTLINE, width=LINE)
 
 
+def _winch_drum(draw, cx, cy):
+    # A winch drum seen from the front: two dark flanges either side of a grey drum wrapped in rope, on an orange frame.
+    draw.rounded_rectangle((cx - 170, cy + 60, cx + 170, cy + 110), radius=10, fill=ORANGE, outline=OUTLINE, width=LINE)
+    draw.rounded_rectangle((cx - 120, cy - 70, cx + 120, cy + 70), radius=18, fill=STEEL, outline=OUTLINE, width=LINE)
+    for y in range(cy - 50, cy + 60, 26):
+        draw.line((cx - 112, y, cx + 112, y + 10), fill=DARK, width=10)
+    for left in (cx - 160, cx + 120):
+        draw.rounded_rectangle((left, cy - 100, left + 40, cy + 100), radius=12, fill=DARK, outline=OUTLINE, width=LINE)
+
+
+def recovery_winch(draw):
+    # The winch drum, its rope running off to a hook.
+    _winch_drum(draw, 220, 230)
+    draw.line((330, 200, 440, 390), fill=OUTLINE, width=22)
+    draw.line((330, 200, 440, 390), fill=STEEL, width=10)
+    draw.arc((395, 370, 485, 470), 300, 200, fill=OUTLINE, width=34)
+    draw.arc((395, 370, 485, 470), 300, 200, fill=STEEL, width=18)
+
+
+def winch_button(draw):
+    # The rope pulling a small truck's outline towards the drum: the order to winch a vehicle in.
+    _winch_drum(draw, 170, 160)
+    draw.line((290, 160, 380, 330), fill=OUTLINE, width=22)
+    draw.line((290, 160, 380, 330), fill=STEEL, width=10)
+    draw.rounded_rectangle((300, 320, 490, 440), radius=16, fill=MUD, outline=OUTLINE, width=LINE)
+    draw.rounded_rectangle((390, 270, 480, 330), radius=10, fill=MUD, outline=OUTLINE, width=LINE)
+    for x in (340, 450):
+        draw.ellipse((x - 34, 410, x + 34, 478), fill=RUBBER, outline=OUTLINE, width=LINE)
+    draw.polygon([(60, 400), (190, 330), (190, 470)], fill=ORANGE, outline=OUTLINE)
+
+
+def stop_winch(draw):
+    # The winch drum under a red bar: the order to stop winching.
+    _winch_drum(draw, 256, 240)
+    draw.line((90, 430, 422, 70), fill=OUTLINE, width=70)
+    draw.line((90, 430, 422, 70), fill=RED, width=44)
+
+
 ICONS = [
     ('Fittings/AllTerrainTyres', all_terrain_tyres, 'a dark tyre side-on with deep square lugs round its tread and a grey rim, standing in brown mud'),
     ('Fittings/WorkLamps', work_lamps, 'two orange floodlights with pale yellow lenses on a dark bracket bar, their pale beams spreading downward'),
     ('Families/ColdWeather', cold_weather, 'a grey engine block with an orange heater lead, a dark battery with red and grey terminals, and a pale blue snowflake above'),
     ('Fittings/AuxFuelTank', aux_fuel_tank, 'a squat grey tank on two dark cradle straps with an orange filler cap, and a yellow fuel drop beside it'),
     ('Fittings/FerryTank', ferry_tank, 'a long grey cylindrical tank with an orange filler cap lying on a floor line, under the dark outline of a swept wing'),
+    ('Fittings/RecoveryWinch', recovery_winch, 'a grey winch drum wrapped in dark rope between two dark flanges on an orange frame, its steel rope running down to a hook'),
+    ('Hitch/Winch', winch_button, 'a grey winch drum on an orange frame, its steel rope pulling a brown truck outline towards it, with an orange arrow'),
+    ('Hitch/StopWinch', stop_winch, 'a grey winch drum on an orange frame, crossed by a red bar'),
 ]
 
 

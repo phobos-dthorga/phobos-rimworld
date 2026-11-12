@@ -30,7 +30,7 @@ public sealed class PhobosHitchPointExtension : DefModExtension
 /// part of a turn the four facings cannot show is drawn through its public Transform. No Harmony. Added at start-up to land vehicles with a
 /// loadout. Ticks only while hitched (Vehicle Framework's tick on request), and works only while the vehicle moves or the trailer settles.
 /// </summary>
-public sealed class CompPhobosHitch : VehicleComp
+public sealed partial class CompPhobosHitch : VehicleComp
 {
     /// <summary>Ticks the trailer keeps following after the vehicle stops, while the picture of the vehicle settles in its cell.</summary>
     const int SettleTicks = 90;
@@ -62,6 +62,15 @@ public sealed class CompPhobosHitch : VehicleComp
 
     static CompProperties_PhobosTrailer? TrailerProps(VehiclePawn vehicle) => vehicle.GetComp<CompPhobosTrailer>()?.Props;
 
+    /// <summary>How a towed vehicle follows: a trailer by its own Def's lengths, any other vehicle (the recovery tow, Framework 0.103.0) by its
+    /// length behind the tow bar; null for neither.</summary>
+    static TowGeometry? Geometry(VehiclePawn towed)
+    {
+        if (TrailerProps(towed) is { } props) return new TowGeometry(props.hitchToAxle, props.axleToCentre, props.jackKnifeDegrees);
+        if (!IsRecoveryCandidate(towed)) return null;
+        return RecoveryGeometry(towed);
+    }
+
     // ---- Who can tow, and what ----
 
     /// <summary>Whether this vehicle's drivetrain model works out the tow (a ground drivetrain of ours, on the full model).</summary>
@@ -74,6 +83,8 @@ public sealed class CompPhobosHitch : VehicleComp
     {
         if (!HasDrivetrain && !VehicleSystemsMod.Settings.hitchOthersPlainRule) return "PhobosHitch_NotFitted".Translate(Vehicle.LabelShort.Named("TRACTOR")).Resolve();
         if (trailer != null) return "PhobosHitch_AlreadyTowing".Translate(Vehicle.LabelShort.Named("TRACTOR"), trailer.LabelShort.Named("TRAILER")).Resolve();
+        if (winchTarget != null) return "PhobosRecovery_WinchBusy".Translate(Vehicle.LabelShort.Named("TRACTOR"), winchTarget.LabelShort.Named("TOWED")).Resolve();
+        if (Hitches.Towing(Vehicle) is { } by) return "PhobosRecovery_BeingTowed".Translate(Vehicle.LabelShort.Named("TRACTOR"), by.Vehicle.LabelShort.Named("TOW")).Resolve();
         return null;
     }
 
@@ -81,7 +92,7 @@ public sealed class CompPhobosHitch : VehicleComp
     public string? RefusalFor(VehiclePawn candidate)
     {
         if (candidate == Vehicle) return "PhobosHitch_NotItself".Translate().Resolve();
-        if (TrailerProps(candidate) == null) return "PhobosHitch_NotATrailer".Translate(candidate.LabelShort.Named("TRAILER")).Resolve();
+        if (TrailerProps(candidate) == null && RecoveryTowRefusal(candidate) is { } notATrailer) return notATrailer;
         if (candidate.Faction != Faction.OfPlayer) return "PhobosHitch_NotOurs".Translate(candidate.LabelShort.Named("TRAILER")).Resolve();
         if (Hitches.Towing(candidate) is { } other && other != this)
         {
@@ -145,10 +156,9 @@ public sealed class CompPhobosHitch : VehicleComp
     /// Also the self-test's way in.</summary>
     internal bool Couple(VehiclePawn candidate)
     {
-        CompProperties_PhobosTrailer? props = TrailerProps(candidate);
-        if (props == null || !Vehicle.Spawned) return false;
+        if (Geometry(candidate) is not { } props || !Vehicle.Spawned) return false;
         (double hx, double hz) = HitchPoint();
-        TrailerPose pose = HitchRule.AxleFor(hx, hz, VehicleHeading(Vehicle), props.hitchToAxle);
+        TrailerPose pose = HitchRule.AxleFor(hx, hz, VehicleHeading(Vehicle), props.HitchToAxle);
         trailer = candidate;
         if (!TryPlace(pose, props))
         {
@@ -201,12 +211,15 @@ public sealed class CompPhobosHitch : VehicleComp
     public override void CompTick()
     {
         base.CompTick();
+        if (winchTarget != null) WinchTick();
         if (trailer == null) return;
         if (!trailer.Spawned || !Vehicle.Spawned || trailer.Map != Vehicle.Map)
         {
             Unhitch(quiet: !trailer.Spawned && trailer.Destroyed);
             return;
         }
+        // A towed vehicle of its own (the recovery tow) stays on the tow bar: anyone aboard who sets off is stopped.
+        if (trailer.vehiclePather is { Moving: true } own) own.StopDead();
         bool moving = Vehicle.vehiclePather is { Moving: true };
         if (moving) settle = SettleTicks;
         else if (settle > 0) settle--;
@@ -219,12 +232,11 @@ public sealed class CompPhobosHitch : VehicleComp
     /// <summary>One step of the tow: the axle dragged after the hitch, held within the jack-knife angle, the trailer moved if its cells change.</summary>
     void Follow(bool moving)
     {
-        CompProperties_PhobosTrailer? props = TrailerProps(trailer!);
-        if (props == null) return;
+        if (Geometry(trailer!) is not { } props) return;
         (double hx, double hz) = HitchPoint();
         double vehicleHeading = VehicleHeading(Vehicle);
-        TrailerPose pose = HitchRule.Follow(hx, hz, new TrailerPose(axleX, axleZ, heading), props.hitchToAxle);
-        pose = HitchRule.Limit(hx, hz, pose, vehicleHeading, props.jackKnifeDegrees, props.hitchToAxle);
+        TrailerPose pose = HitchRule.Follow(hx, hz, new TrailerPose(axleX, axleZ, heading), props.HitchToAxle);
+        pose = HitchRule.Limit(hx, hz, pose, vehicleHeading, props.JackKnife, props.HitchToAxle);
         if (TryPlace(pose, props))
         {
             Remember(pose);
@@ -249,11 +261,13 @@ public sealed class CompPhobosHitch : VehicleComp
     }
 
     /// <summary>Moves the trailer to the cells and facing its pose asks for, if they are clear, and turns its picture by the rest.</summary>
-    bool TryPlace(TrailerPose pose, CompProperties_PhobosTrailer props)
+    bool TryPlace(TrailerPose pose, TowGeometry props)
     {
         VehiclePawn towed = trailer!;
         Map map = Vehicle.Map;
-        (double cx, double cz) = HitchRule.CentreOf(pose, props.axleToCentre);
+        // A towed vehicle of its own (the recovery tow) is held: whoever is aboard cannot drive it off while it hangs on the tow bar.
+        if (towed.vehiclePather is { Moving: true } own) own.StopDead();
+        (double cx, double cz) = HitchRule.CentreOf(pose, props.AxleToCentre);
         int facing = HitchRule.Cardinal(pose.Heading);
         IntVec2 size = towed.def.Size;
         (int x, int z) = HitchRule.CellFor(cx, cz, size.x, size.z, facing);
@@ -324,6 +338,7 @@ public sealed class CompPhobosHitch : VehicleComp
     {
         base.PostSpawnSetup(respawningAfterLoad);
         if (pending != null) Hitches.NoteWaiting(this, true);
+        if (winchTarget != null) Vehicle.RequestTickStart(this);
         if (trailer == null) return;
         Hitches.Note(this, trailer);
         needsLook = true;
@@ -334,6 +349,7 @@ public sealed class CompPhobosHitch : VehicleComp
     {
         base.OnDeSpawn();
         Hitches.NoteWaiting(this, false);
+        if (winchTarget != null) StopWinch(null);
         // A vehicle that leaves the map (a journey, a launch, a hold) leaves its trailer where it stood: towing on the world map is not built yet.
         if (trailer is { Spawned: true } left)
         {
@@ -349,6 +365,7 @@ public sealed class CompPhobosHitch : VehicleComp
     public override void OnDestroy()
     {
         base.OnDestroy();
+        if (winchTarget != null) StopWinch(null);
         // Destroyed: what it towed stays where it stood, for anyone to hitch up (a raider's load, once its vehicle falls).
         if (trailer != null) Unhitch(quiet: true);
         Hitches.NoteWaiting(this, false);
@@ -362,6 +379,8 @@ public sealed class CompPhobosHitch : VehicleComp
         Scribe_Values.Look(ref axleX, "PhobosHitch_AxleX");
         Scribe_Values.Look(ref axleZ, "PhobosHitch_AxleZ");
         Scribe_Values.Look(ref heading, "PhobosHitch_Heading");
+        Scribe_References.Look(ref winchTarget, "PhobosHitch_WinchTarget");
+        Scribe_Values.Look(ref winchWait, "PhobosHitch_WinchWait");
     }
 
     // ---- What the player sees ----
@@ -388,9 +407,20 @@ public sealed class CompPhobosHitch : VehicleComp
     {
         foreach (Gizmo gizmo in base.CompGetGizmosExtra()) yield return gizmo;
         if (Vehicle.Faction != Faction.OfPlayer || !Vehicle.Spawned) yield break;
+        // On the recovery tow, the towed vehicle offers its tractor's Unhitch (a trailer does so through its own comp).
+        if (Hitches.Towing(Vehicle) is { } towedBy && TrailerProps(Vehicle) == null)
+        {
+            yield return towedBy.UnhitchGizmo();
+            yield break;
+        }
         if (trailer != null)
         {
             yield return UnhitchGizmo();
+            yield break;
+        }
+        if (winchTarget != null)
+        {
+            yield return StopWinchGizmo();
             yield break;
         }
         if (pending != null)
@@ -406,14 +436,17 @@ public sealed class CompPhobosHitch : VehicleComp
         }
         var hitch = new Command_Action
         {
-            defaultLabel = "PhobosHitch_HitchGizmo".Translate(),
-            defaultDesc = "PhobosHitch_HitchGizmoDesc".Translate(Rules.hitchReachCells.Named("CELLS")),
+            defaultLabel = CanRecover ? "PhobosRecovery_HitchGizmo".Translate() : "PhobosHitch_HitchGizmo".Translate(),
+            defaultDesc = CanRecover
+                ? "PhobosRecovery_HitchGizmoDesc".Translate(Rules.hitchReachCells.Named("CELLS"))
+                : "PhobosHitch_HitchGizmoDesc".Translate(Rules.hitchReachCells.Named("CELLS")),
             icon = SystemIcons.For("Phobos/VehicleSystems/Hitch/Hitch"),
             action = () => Find.Targeter.BeginTargeting(new TargetingParameters
             {
                 canTargetPawns = true,
                 canTargetBuildings = false,
-                validator = target => target.Thing is VehiclePawn candidate && TrailerProps(candidate) != null,
+                validator = target => target.Thing is VehiclePawn candidate && candidate != Vehicle
+                                      && (TrailerProps(candidate) != null || (CanRecover && IsRecoveryCandidate(candidate))),
             }, target =>
             {
                 if (target.Thing is VehiclePawn candidate) Choose(candidate);
@@ -421,6 +454,7 @@ public sealed class CompPhobosHitch : VehicleComp
         };
         if (Refusal() is { } refusal) hitch.Disable(refusal);
         yield return hitch;
+        if (CanWinch) yield return WinchGizmo();
     }
 
     public override string? CompInspectStringExtra()
@@ -435,6 +469,11 @@ public sealed class CompPhobosHitch : VehicleComp
                 return line;
             }
             if (pending != null) return "PhobosHitch_InspectWaiting".Translate(pending.LabelShort.Named("TRAILER")).Resolve();
+            if (winchTarget != null) return WinchInspectLine();
+            if (Hitches.Towing(Vehicle) is { } by && TrailerProps(Vehicle) == null)
+            {
+                return "PhobosHitch_InspectTowedBy".Translate(by.Vehicle.LabelShort.Named("TRACTOR")).Resolve();
+            }
             return null;
         }
         catch (System.Exception e) { UiGuard.Report(GuardKey, e); return null; }
@@ -447,7 +486,8 @@ public sealed class CompPhobosHitch : VehicleComp
     public override void PostDraw()
     {
         base.PostDraw();
-        if (trailer is not { Spawned: true } || TrailerProps(trailer) == null) return;
+        if (winchTarget is { Spawned: true }) DrawWinchLine();
+        if (trailer is not { Spawned: true } || Geometry(trailer) == null) return;
         (double hx, double hz) = HitchPoint();
         Vector3 trailerCentre = ((Thing)trailer).DrawPos;
         double radians = (heading) * Mathf.Deg2Rad;
