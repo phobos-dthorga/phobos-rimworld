@@ -114,6 +114,9 @@ promise current behaviour. For using the mods, start at the [documentation index
 - [Headlights that light the ground (12 Nov 2026)](vehicle-headlights.md): the headlights switch casts a beam of the game's own light ahead of every vehicle our systems run; cost and the raiders' rule
 - [Vehicle upgrade families (12 Nov 2026)](vehicle-upgrade-families.md): five families of fittings shared across many vehicles
 - [Hotboxing: smoking in a vehicle's cab (12 Nov 2026)](vehicle-hotboxing.md): design only; passengers smoke on a trip, a closed cab shares the high, a stoned driver drives slower; what Vehicle Framework allows aboard
+- [Vehicle accessories: camp gear and comforts (13 Nov 2026)](vehicle-accessories.md): research and design only; a parked vehicle as
+  the heart of a camp through four links (a power outlet, a crew water tank, a camp order, life aboard), a catalogue of twenty-one
+  accessories that each use up something real, what other mods already do, and eight questions for the owner. Nothing built.
 - [Pipes and conduits beneath our things (13 Nov 2026)](network-underlays.md): visible plumbing and pipes beneath our buildings and parked
   vehicles (Framework 0.107.0), the generator set joining through conduits beneath it, and an audit of everything of ours on a piped supply
   or power, with proposals for the owner.
