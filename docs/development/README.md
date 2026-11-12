@@ -114,6 +114,7 @@ promise current behaviour. For using the mods, start at the [documentation index
 - [Headlights that light the ground (12 Nov 2026)](vehicle-headlights.md): the headlights switch casts a beam of the game's own light ahead of every vehicle our systems run; cost and the raiders' rule
 - [Vehicle upgrade families (12 Nov 2026)](vehicle-upgrade-families.md): five families of fittings shared across many vehicles
 - [Hotboxing: smoking in a vehicle's cab (12 Nov 2026)](vehicle-hotboxing.md): design only; passengers smoke on a trip, a closed cab shares the high, a stoned driver drives slower; what Vehicle Framework allows aboard
+- [The authors' override contract (13 Nov 2026)](vehicle-author-overrides.md): research and design only; what another mod's author can write in XML today, how the game loads XML only when our mod is active, and a proposed override Def with a stable, versioned contract
   (recovery, long range, cold weather, work lights, all-terrain tyres), chosen by effects and loadout roles, beside other authors'
   trees; a proposal with four questions for the owner, nothing built.
 - [Trailers that follow their tractor (11 Nov 2026)](vehicle-trailer-research.md): how RimThunder - Core hitches, draws and turns
