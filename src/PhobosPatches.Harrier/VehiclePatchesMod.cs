@@ -17,10 +17,14 @@ public class VehiclePatchesSettings : ModSettings
     /// <summary>Aircraft may fly a sortie over a RimPacts battle the player has not joined (RimPacts' own rule says no).</summary>
     public bool sortieOverUnjoinedBattle;
 
+    /// <summary>TEMPORARY (0.18.0): log each step when a vehicle is taken apart, to find why the Harrier cannot be (DisassemblyTrace).</summary>
+    public bool traceDisassembly = true;
+
     public override void ExposeData()
     {
         base.ExposeData();
         Scribe_Values.Look(ref sortieOverUnjoinedBattle, "PhobosVehiclePatches_SortieOverUnjoinedBattle", false);
+        Scribe_Values.Look(ref traceDisassembly, "PhobosVehiclePatches_TraceDisassembly", true);
     }
 }
 
@@ -30,7 +34,7 @@ public class VehiclePatchesMod : Mod
 
     /// <summary>The Harmony ID is the packageId; never change it once the mod is published.</summary>
     public const string HarmonyId = "PhobosDthorga.Patches";
-    public const string ModVersion = "0.17.0";
+    public const string ModVersion = "0.18.0";
     public const string LogPrefix = "[D'thorga Patches]";
     public static readonly Phobos.Logging.PhobosLog Logger = Phobos.Framework.Logging.Logs.For("D'thorga Patches", "Harrier");
 
@@ -43,6 +47,8 @@ public class VehiclePatchesMod : Mod
         // The attribute patches: the sortie gate's reason and the flight-control rule. A saved Harrier's new parts are created by
         // D'thorga Framework's vehicle systems (0.10.0), which load whenever Vehicle Framework does.
         HarmonyPatchApplier.ApplyEach(harmony, typeof(VehiclePatchesMod).Assembly, LogPrefix);
+        // Temporary: the disassembly trace's patch on the fixed-wing framework's own Destroy, found by name once every assembly is in.
+        LongEventHandler.ExecuteWhenFinished(() => DisassemblyTrace.Apply(harmony));
         LongEventHandler.ExecuteWhenFinished(LogLoaded);
     }
 
@@ -55,6 +61,8 @@ public class VehiclePatchesMod : Mod
         else report.Off("RimPacts' landing rule through a plain postfix", "RimPacts is not active");
         report.On("the Harrier's fuller parts list, flight controls grounding it below " + (FlightControlRule.MinimumFlightControl * 100f).ToString("0") + "%");
         report.On("pad landings checked against the engine's hover limit (D'thorga Framework's setting: " + Phobos.VehicleSystems.VehicleSystemsMod.Settings.hoverLimit + ")");
+        if (Settings.traceDisassembly) report.On("a temporary trace of each step when a vehicle is taken apart, to find why the Harrier cannot be");
+        else report.Off("a temporary trace of vehicle disassembly", "switched off in the settings");
         report.Log();
     }
 
@@ -67,6 +75,8 @@ public class VehiclePatchesMod : Mod
         SettingsUi.Section(listing, "PhobosVehiclePatches_SectionSorties".Translate());
         listing.CheckboxLabeled("PhobosVehiclePatches_SettingOverflight".Translate(), ref Settings.sortieOverUnjoinedBattle, "PhobosVehiclePatches_SettingOverflightDesc".Translate());
         if (Settings.sortieOverUnjoinedBattle) SettingsUi.Warning(listing, "PhobosVehiclePatches_OverflightWarning".Translate());
+        SettingsUi.Section(listing, "PhobosVehiclePatches_SectionDiagnostics".Translate());
+        listing.CheckboxLabeled("PhobosVehiclePatches_SettingTraceDisassembly".Translate(), ref Settings.traceDisassembly, "PhobosVehiclePatches_SettingTraceDisassemblyDesc".Translate());
         listing.End();
     }
 }

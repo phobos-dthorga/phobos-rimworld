@@ -137,7 +137,7 @@
     "PhobosPatches.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.17.0",
+      "value": "0.18.0",
       "description": "D'thorga Patches's version: About.xml, every project of the mod, its ModVersion constants and both READMEs",
       "targets": [
         {

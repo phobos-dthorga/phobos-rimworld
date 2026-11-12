@@ -9,7 +9,7 @@
     <ModFolder>PhobosPatches</ModFolder>
     <TieInFolder>Mods/Outposts/</TieInFolder>
     <UsesHarmony>true</UsesHarmony>
-    <Version>0.17.0</Version>
+    <Version>0.18.0</Version>
     <ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>true</ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>
   </PropertyGroup>
   <ItemGroup>

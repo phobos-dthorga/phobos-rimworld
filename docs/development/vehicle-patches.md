@@ -425,3 +425,41 @@ Written for the mods' authors.
 **For the Harrier (potemkinvillager):**
 
 > Hi! Lovely jet. On 1.7 with RimPacts active, `FixedWingAircraftFramework.HarmonyInit` throws `InvalidProgramException ... GetArrivalOptions_Patch2 ... resolves to an open generic type`, and `PatchAll` stops there, so everything after `LaunchProtocol_GetArrivalOptions_FixedWingPatch` never loads, including boarding, refuelling and landing. The cause is on RimPacts' side: its postfix on that method is in a generic class, which Harmony can't rebuild. Might this explain Xenogray's report? Applying your patch classes one at a time, each in a try/catch, would limit the damage from any conflict like this. I've reported it to RimPacts' author too.
+
+## The Harrier cannot be taken apart: a trace (0.18.0, 12 Nov 2026)
+
+**Reported by the owner, 10 Nov 2026:** with a colonist, the disassembly runs for a few in-game hours, then stops near the end and the
+colonist leaves; in god mode each try logs "Attempted to load a graphic off the main thread: Harrier/Body_B2" and a job fault
+(NullReferenceException in `VehiclePawn.GenerateGraphic`), and the jet stays. **The owner chose a diagnostic first** (12 Nov 2026), over
+a report only.
+
+**Read again on 12 Nov 2026, with `scripts/query-code.py` and `scripts/query-patches.py`** (a reading of the code, not something seen in
+play):
+
+| What | Where | What it shows |
+| --- | --- | --- |
+| The installed Harrier | `AV8BHarrier.dll`, 9 Nov 2026, decompiled again into `.local/decompiled/AV8BHarrier-dll` (the 3 Nov copy kept beside it) | Its 9 Nov update added chemical bombs, evasion and hit spread; nothing touches removal. The fixed-wing framework's DLL is unchanged since 2 Nov, so our decompile of it is current |
+| The fixed-wing framework's removal | `VtolVehiclePawn.Destroy` (`FixedWingAircraftFramework.decompiled.cs:18483`) | Cleans up its flight and renderer, puts the crew out of its inventory, then calls Vehicle Framework's |
+| Vehicle Framework's removal | `VehiclePawn.Destroy` (`VehicleFramework-1.6:Vehicles.decompiled.cs:15545`) | Crew out, sounds, the destroyed events, the body's materials released, **the picture cleared** (`graphic = null`), each vehicle comp's `OnDestroy`, then the pawn's own `Destroy` |
+| The game's pawn removal | `Pawn.Destroy` (`RimWorld-1.7:Verse.Pawn.cs:2349`) | Logs "unsupported mode" for a disassembly; the owner's logs have no such line, so the removal stopped before it |
+| Where the error comes from | The game's `GraphicDatabase.GetInner` | Refuses to load a picture off the main thread and returns nothing, so Vehicle Framework's `GenerateGraphic` then fails on a null |
+| Who asks off the main thread | Vehicle Framework's `VehicleRenderer.ParallelGetPreRenderResults` (`:75247`), reached from the fixed-wing framework's `DynamicDrawPhaseAt` | The game's parallel pre-draw asks for the picture on worker threads; with the picture cleared and the jet still on the map, that is the logged error |
+| Patches that could hide a failure | VTOL Raids' finalizer and the Hind's prefix and postfix on `VehiclePawn.Destroy`; Vanilla Expanded Framework's `Log_Error_Patch` (`ModSettingsFramework`, decompiled 12 Nov into `.local/decompiled/ModSettingsFramework-1.7`) | None hides one: VTOL Raids' finalizer returns nothing, so the error passes on; the Hind's acts only on a vehicle killed; VEF's switch is on only while it loads its own settings |
+| The job | `JobDriver_DisassembleVehicle` (`:1297`) | Its fail checks include the vehicle moving, being forbidden, losing its designation, or no longer able to be taken apart; any could end the colonist's job "near the end" |
+
+**Inference, not yet seen:** something between the picture being cleared and the pawn's own `Destroy` throws: a vehicle comp's
+`OnDestroy` (the turrets' clears their auto-target and materials; others are unknown) or a listener on the material pool. The jet then
+stays on the map with no picture, and every frame's worker-thread draw tries to rebuild it. The colonist's half may be a fail check
+ending the job before the removal, or the same throw.
+
+**Built (agent's design):** `src/PhobosPatches.Harrier/DisassemblyTrace.cs`, temporary, under the setting **Log each step when a vehicle
+is taken apart** (on by default). For a vehicle being taken apart only, it logs each stage: the job's finishing step, the fixed-wing
+framework's removal (patched by name), Vehicle Framework's removal, the crew out, the materials released (so the destroyed events are
+past), each comp's `OnDestroy` (every override found at run time, patched once per type), each turret's, the pawn's own `Destroy`,
+the despawn, and every end of a disassembly job with its condition, the work done and what its fail checks read. A failure logs its
+error with the last stage reached; the picture fault is logged once per vehicle, saying which thread asked. Prefixes, postfixes and
+finalizers only: nothing skipped, nothing swallowed. Its row is 15 in [the register](temporary-patches.md).
+
+**What the owner does:** check 62 in [the test pass](in-game-test-pass.md): one disassembly on a copy of the save, then say done.
+**Next:** read the trace with `python scripts/triage-log.py`, then fix, report or patch the failing step under its own register row,
+and remove the trace.

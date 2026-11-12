@@ -11,7 +11,7 @@
     <ModFolder>PhobosPatches</ModFolder>
     <TieInFolder>Mods/VisitSettlements/</TieInFolder>
     <UsesHarmony>true</UsesHarmony>
-    <Version>0.17.0</Version>
+    <Version>0.18.0</Version>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="../PhobosFramework/PhobosFramework.csproj" Private="false" />

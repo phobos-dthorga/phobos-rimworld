@@ -9,7 +9,7 @@ namespace Phobos.RimPactsPatches;
 /// </summary>
 public class RimPactsPatchesMod : Mod
 {
-    public const string ModVersion = "0.17.0";
+    public const string ModVersion = "0.18.0";
     public const string LogPrefix = "[D'thorga Patches]";
     public static readonly Phobos.Logging.PhobosLog Logger = Phobos.Framework.Logging.Logs.For("D'thorga Patches", "RimPacts");
     const int CheckIntervalTicks = 250;

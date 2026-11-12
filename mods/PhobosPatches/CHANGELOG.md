@@ -6,9 +6,27 @@ says the owner tested it.
 
 ## [Unreleased]
 
+## [0.18.0] - 2026-11-12 - Draft
+
+A temporary trace to find why the Harrier cannot be taken apart. **Not yet tested in game.**
+
+### Added
+
+- **A trace of each step when a vehicle is taken apart** (owner's choice, 12 November 2026). The Harrier cannot be disassembled: the work stops near the end and the jet stays. While the new setting is on, a colonist's disassembly (or god mode's) writes one log line per step of the removal: the work finishing, the fixed-wing framework's clean-up, Vehicle Framework's removal, each part of the vehicle that cleans itself up, the vehicle leaving the map, and how the job ended. Where a step fails, the full error is logged with the last step reached. It does nothing at other times, changes nothing in play, and never hides an error. A temporary part: it comes out once the cause is found.
+- **New setting, Finding faults (temporary): Log each step when a vehicle is taken apart.** On by default, in D'thorga Patches: Harrier's settings.
+
 ### Changed
 
 - The README no longer calls the bomb cases' picture a stand-in. Documentation only; nothing changes in play.
+
+### Compatibility and limits
+
+- What the code suggests, not yet seen in play: Vehicle Framework clears the vehicle's picture before its parts clean themselves up, so a failure in between leaves the jet on the map with no picture, and the game's background drawing then fails to rebuild it. That matches the error the owner saw, and the trace will say which step fails.
+- **Try once, on a copy of the save.** Each attempt runs the first half of the removal again.
+
+### Save compatibility
+
+- Safe to add or remove mid-game. Only the setting is saved.
 
 ## [0.17.0] - 2026-11-12 - Draft
 
