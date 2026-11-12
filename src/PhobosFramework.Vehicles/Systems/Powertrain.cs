@@ -530,6 +530,20 @@ public sealed class Powertrain
         return cost + WeatherBuildupUtility.MovementTicksAddOn(map.snowGrid.GetCategory(cell));
     }
 
+    /// <summary>
+    /// "Can this pull that?" before a tow (hitch slice 3, Framework 0.104.0): the speed share this vehicle would hold at its design speed with
+    /// <paramref name="towedKg"/> behind it, on the ground it stands on, from the same model and the same ground, tread and gearbox reads the
+    /// drive uses (TowRule.Modelled). A forecast: hills and softer going on the way change it. The vehicle must be on a map.
+    /// </summary>
+    public TowVerdict ForecastTow(double towedKg)
+    {
+        VehiclePawn vehicle = comp.Vehicle;
+        ReadGround(vehicle, out double rolling, out double grip);
+        rolling *= 1 + 2 * comp.RoleShareBelow("Wheels", 0.2f);
+        grip *= TreadGrip(grip);
+        return TowRule.Modelled(Spec, MassKg(), towedKg, rolling, grip, comp.PartEfficiency("Wheels", 1f), UsableGears());
+    }
+
     void ReadGround(VehiclePawn vehicle, out double rolling, out double grip)
     {
         if (!double.IsNaN(fixedRolling) && !double.IsNaN(fixedGrip))

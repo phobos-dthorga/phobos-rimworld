@@ -7,7 +7,7 @@ tested in game unless an entry says the owner tested it.
 
 ## [0.104.0] - 2026-11-12 - Draft
 
-Headlights that light the ground
+Headlights that light the ground; a tow you can read, a forecast before one, and trailers that go on journeys
 
 ### Added
 
@@ -17,6 +17,11 @@ Headlights that light the ground
 - **A warning before a battery is too weak to start** (owner's request): when a vehicle's starting power falls below twice the no-start line, a message in the top left says the battery may soon be too weak, and to start the engine or switch off lights and heaters. Starting power falls with the cold, so in a hard frost this comes at about a third of the charge and in mild weather lower. The 30% battery message stays.
 - **The battery in words on a vehicle's inspect panel**, in every display mode: which switched loads are running it down, or that the alternator or nearby power is charging it. Operator and Engineer add the current in amperes.
 - **A new setting: Headlights light the ground** (vehicle systems settings, with the other running costs), on by default. Off, headlights draw on the battery as before and give no light.
+- **What a towing vehicle is towing, and what holds it back** (hitch slice 3, docs/development/vehicle-hitch-design.md): its inspect panel, the Dashboard and the Systems tab say what it tows and how heavy it is, and, while it is held back, whether the engine's power holds it to a gear, its wheels cannot grip, or it can only crawl. Operator mode adds the share of its speed it keeps, Engineer the whole train's weight.
+- **"Can this pull that?"**: while choosing what to hitch, a label beside the mouse says what the tow would be like on the ground the vehicle stands on (full speed, slowed by the engine's power or the wheels' grip, a crawl, or too heavy for a recovery tow), or why it cannot be hitched; the order's message says it again. It is the drivetrain model's own answer for the vehicle's design speed on level ground, so hills and softer going on the way can make it worse: a forecast.
+- **Trailers go on journeys**: a vehicle that leaves the map towing a trailer or a recovered vehicle (in a caravan, into a garage, on any journey) takes it along, with its cargo and anyone in it. The trailer's weight stays on the vehicle's engine on the world map, so the caravan's speed and fuel feel it, and the world map's line for the caravan and our vehicle lists name what it tows. When the vehicle reaches a map again, the trailer is set down behind it, still hitched; where there is no room straight behind (at the map's edge, as caravans arrive), it is set down as near as it fits and swings into line as the vehicle drives off.
+- A vehicle that tows or is towed cannot be lifted on a helicopter's sling; the Lift button says to unhitch first.
+- For modders: TowRule (game-free, with tests) and Powertrain.ForecastTow give the forecast; CompPhobosHitch.Outlook keeps it a second for the mouse label; CompPhobosHitch.TowedAlong names a vehicle held off the map behind another.
 - For modders: any electrical load in a loadout can cast light with a beam element (radius, cells ahead, colour, brightness), and VehicleLight is the one class that places a vehicle's light; HeadlightRule is game-free, with tests.
 
 ### Changed
@@ -29,6 +34,8 @@ Headlights that light the ground
 
 - A beam is moved only when the vehicle reaches another cell or turns, and looked at no more than three times a second; a parked or dark vehicle costs next to nothing. Nothing is saved, so the setting and the mod can be turned off at any time.
 - The headlights do not go out when the front of the vehicle is shot up: no part carries them yet.
+- **Loading while hitched works as it always did** through Vehicle Framework's own cargo window: haulers walk to the trailer wherever it stands, and its new weight is counted the next time the vehicle moves.
+- A tow's journey is not yet tested in game. Whether people riding in a recovered vehicle are counted while the caravan travels (the colonist bar) is not checked, as for a slung load. A vehicle destroyed while away with something in tow loses it with it.
 
 ## [0.103.0] - 2026-11-12 - Draft
 
@@ -150,7 +157,7 @@ The hitch: a vehicle tows a trailer on the map, and the trailer's weight reaches
 
 ### Compatibility and limits
 
-- A vehicle that leaves the map (a journey, a launch) leaves its trailer behind and says so: towing on the world map is not built yet.
+- A vehicle that leaves the map (a journey, a launch) leaves its trailer behind and says so: towing on the world map is not built yet (it is from 0.104.0).
 - The vehicle's path does not plan for the trailer: a tight turn by a wall stops it, and the player takes a wider way round or unhitches.
 - The trailer's place snaps to whole cells, smoothed by Vehicle Framework's own glide, so the gap at the hitch varies by up to half a cell; the drawn drawbar stretches over it.
 - Loading cargo onto a trailer is not stopped while it is hitched.

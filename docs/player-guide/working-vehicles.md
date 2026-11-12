@@ -15,7 +15,7 @@ the sea, and a trailer any of them can tow. It also gives other mods' vehicles t
   RimThunder or Vanilla Vehicles Expanded is installed, a build asks for their parts instead.
 - **A vehicle that is set up cannot drive.** Its engine can still be started, but press **Pack up** before you move it.
 - **Heavy trucks have air brakes**: after standing for hours, draft one and let it idle a few minutes before it will drive.
-- **A trailer cannot go on a journey yet**: a vehicle that leaves the map leaves its trailer behind.
+- **A trailer goes on journeys with the vehicle towing it**, cargo and all (see the towing section of the vehicle care chapter).
 - **Before removing the mod, scrap every one of these vehicles**: they go with it.
 
 ## The fleet

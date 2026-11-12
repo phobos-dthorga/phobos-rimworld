@@ -112,7 +112,9 @@ and wear that a mechanic services. See [Vehicle systems](#vehicle-systems-with-v
   another vehicle, the vehicle stops and says so**: take a wider way round, or **Unhitch**. The trailer and its load add to what the engine
   pulls, so a small truck with a full trailer climbs slowly and runs hot. **Only vehicles our drivetrain model works out can tow**, unless
   you turn on **Vehicles without the drivetrain model can tow** (under **Towing**, off by default), which uses a plain rule instead.
-  **A vehicle that leaves the map leaves its trailer behind**: towing on the world map is not built yet. **From 0.103.0 (not yet tested
+  **From 0.104.0 (not yet tested in game) the trailer goes on journeys**: a vehicle that leaves the map takes it along, its weight slows
+  the caravan, and it is set down behind the vehicle on arrival. While you choose what to hitch, a label beside the mouse says what the
+  tow would be like on this ground, and a towing vehicle's panels say what holds it back. **From 0.103.0 (not yet tested
   in game)**, a vehicle with the recovery winch fitted can tow an ordinary land vehicle the same way (see Families below).
 - **From 0.96.0 (not yet tested in game), hover a reading or a part to learn what it is**: the tooltip says in a sentence what the
   reading means and what moves it, or what the part does and what losing it costs, on the Systems tab, the Dashboard and the Health tab.

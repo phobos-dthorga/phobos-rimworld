@@ -31,6 +31,8 @@ public static class SlingLoads
         {
             yield return vehicle;
             if (Of(vehicle) is { } load) yield return load;
+            // A trailer or a towed vehicle taken along off the map by the hitch (Framework 0.104.0).
+            if (CompPhobosHitch.TowedAlong(vehicle) is { } towed) yield return towed;
         }
     }
 
@@ -202,6 +204,13 @@ public class WorldObjectComp_PhobosSling : WorldObjectComp
         StringBuilder? lines = null;
         foreach (VehiclePawn carrier in SlingLoads.CarriersIn(parent))
         {
+            if (CompPhobosHitch.TowedAlong(carrier) is { } towed)
+            {
+                lines ??= new StringBuilder();
+                if (lines.Length > 0) lines.AppendLine();
+                lines.Append("PhobosHitch_WorldTowing".Translate(carrier.LabelShort.Named("TRACTOR"), towed.LabelShort.Named("TRAILER"),
+                    carrier.GetComp<CompPhobosHitch>()!.TowedKilograms.ToString("N0").Named("WEIGHT")).Resolve());
+            }
             if (SlingLoads.Of(carrier) is not { } load) continue;
             lines ??= new StringBuilder();
             if (lines.Length > 0) lines.AppendLine();

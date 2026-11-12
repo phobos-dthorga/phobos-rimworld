@@ -227,7 +227,16 @@ Not yet tested in game. Any land vehicle can tow a trailer such as the [Pintle f
   no grip.
 - **Only vehicles the drivetrain model works out can tow**, unless you turn on **Vehicles without the drivetrain model can tow** (under
   **Towing** in D'thorga Framework's settings), which slows them by a plain rule instead.
-- **A vehicle that leaves the map leaves its trailer behind**, and says so.
+- **Before you hitch, read the label beside the mouse**: it says what the tow would be like on the ground where the vehicle stands
+  (full speed, slowed by the engine or by grip, a crawl, or too heavy), or why it cannot be hitched. It is a forecast: hills and mud on
+  the way can make it worse.
+- **A towing vehicle's panels say what holds it back**: the inspect panel, the Dashboard and the Systems tab name what it tows, its
+  weight, and whether the engine holds it to a gear, the wheels cannot grip, or it can only crawl.
+- **Load a hitched trailer as any vehicle**, through its cargo window; haulers walk to it wherever it stands.
+- **A trailer goes on journeys with its vehicle**: form a caravan with the vehicle and the trailer comes along, with its cargo. Its
+  weight slows the caravan. On arrival it is set down behind the vehicle, still hitched; at the map's edge, where there is no room behind,
+  it is set down beside and swings into line as you drive off.
+- **A towing or towed vehicle cannot be lifted on a sling**: unhitch it first.
 
 ## Recovering a stuck vehicle
 

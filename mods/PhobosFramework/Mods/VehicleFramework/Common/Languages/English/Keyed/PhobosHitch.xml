@@ -25,9 +25,26 @@
   <PhobosHitch_Hitched>{CREW} coupled {TRAILER} to {TRACTOR}.</PhobosHitch_Hitched>
   <PhobosHitch_Unhitched>{TRAILER} is unhitched from {TRACTOR}.</PhobosHitch_Unhitched>
   <PhobosHitch_CannotFollow>The trailer cannot follow: {TRAILER} would run into something, so {TRACTOR} has stopped. Take a wider way round, or unhitch it.</PhobosHitch_CannotFollow>
-  <PhobosHitch_LeftBehind>{TRAILER} stays behind: a trailer cannot go on a journey yet.</PhobosHitch_LeftBehind>
+  <PhobosHitch_LeftBehind>{TRAILER} stays behind: it could not be taken along on the journey.</PhobosHitch_LeftBehind>
+  <PhobosHitch_NoRoomToSetDown>There is no room near {TRACTOR} to set {TRAILER} down. It stays on the tow bar; clear some ground or move {TRACTOR}.</PhobosHitch_NoRoomToSetDown>
+  <PhobosHitch_SetDownFailed>{TRAILER} could not be set down and is still on the tow bar. Move to open ground and it will be set down there.</PhobosHitch_SetDownFailed>
 
   <PhobosHitch_InspectTowing>Towing {TRAILER}: {WEIGHT} kg.</PhobosHitch_InspectTowing>
+  <!-- Hitch slice 3 (Framework 0.104.0): what holds a tow back, and the forecast before one. -->
+  <PhobosHitch_HeldGear>Held to gear {GEAR} by the engine's power.</PhobosHitch_HeldGear>
+  <PhobosHitch_HeldPower>Held back by the engine's power.</PhobosHitch_HeldPower>
+  <PhobosHitch_HeldGrip>Held back: the wheels cannot grip.</PhobosHitch_HeldGrip>
+  <PhobosHitch_CrawlPower>Crawling: the engine has not the power for it.</PhobosHitch_CrawlPower>
+  <PhobosHitch_CrawlGrip>Crawling: the wheels cannot grip.</PhobosHitch_CrawlGrip>
+  <PhobosHitch_SpeedKept>({SHARE} of its speed)</PhobosHitch_SpeedKept>
+  <PhobosHitch_TrainWeight>Train {TRAIN} kg.</PhobosHitch_TrainWeight>
+  <PhobosHitch_ReasonPower>its engine's power</PhobosHitch_ReasonPower>
+  <PhobosHitch_ReasonGrip>its wheels' grip</PhobosHitch_ReasonGrip>
+  <PhobosHitch_OutlookFull>On this ground {TRACTOR} can pull {TRAILER} at full speed ({TRAIN} kg in all).</PhobosHitch_OutlookFull>
+  <PhobosHitch_OutlookSlowed>On this ground {TRACTOR} would be slowed by {REASON} with {TRAILER} behind ({TRAIN} kg in all).</PhobosHitch_OutlookSlowed>
+  <PhobosHitch_OutlookCrawls>On this ground {TRACTOR} could only crawl with {TRAILER} behind, for want of {REASON} ({TRAIN} kg in all).</PhobosHitch_OutlookCrawls>
+  <PhobosHitch_OutlookTooHeavy>{TRAILER} is too heavy for {TRACTOR} to tow ({TRAIN} kg in all).</PhobosHitch_OutlookTooHeavy>
+  <PhobosHitch_WorldTowing>{TRACTOR} tows {TRAILER}: {WEIGHT} kg.</PhobosHitch_WorldTowing>
   <PhobosHitch_InspectPlainCap>Held to {CAP} of its speed by the weight behind it.</PhobosHitch_InspectPlainCap>
   <PhobosHitch_InspectWaiting>Waiting for someone to couple {TRAILER}.</PhobosHitch_InspectWaiting>
   <PhobosHitch_InspectTowedBy>Hitched to {TRACTOR}.</PhobosHitch_InspectTowedBy>

@@ -17,6 +17,7 @@
   <PhobosSling_Roofed>{LOAD} is under a roof.</PhobosSling_Roofed>
   <PhobosSling_Moving>{LOAD} is moving.</PhobosSling_Moving>
   <PhobosSling_UnderOrders>{LOAD} is getting ready to leave with a caravan. Cancel the caravan, or let it leave, before lifting it.</PhobosSling_UnderOrders>
+  <PhobosSling_Hitched>{LOAD} is hitched to another vehicle. Unhitch it first.</PhobosSling_Hitched>
   <PhobosSling_TooHeavy>{LOAD} weighs {WEIGHT} kg with what it carries, and the hook lifts {CAPACITY} kg today.</PhobosSling_TooHeavy>
   <PhobosSling_LaunchWaitsForCrew>{LOAD} still waits for someone to hook it up.</PhobosSling_LaunchWaitsForCrew>
 

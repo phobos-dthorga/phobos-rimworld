@@ -23,6 +23,8 @@ public static class Patch_PawnChildHolders_Sling
         if (__instance is not VehiclePawn vehicle) return;
         if (vehicle.GetComp<CompPhobosSling>() is { Carried: not null } sling && !outChildren.Contains(sling)) outChildren.Add(sling);
         if (vehicle.GetComp<CompPhobosLitter>() is { Patients.Count: > 0 } litter && !outChildren.Contains(litter)) outChildren.Add(litter);
+        // A trailer or a towed vehicle taken along off the map (hitch slice 3, Framework 0.104.0), with anyone riding in it.
+        if (vehicle.GetComp<CompPhobosHitch>() is { HoldsTowed: true } hitch && !outChildren.Contains(hitch)) outChildren.Add(hitch);
     }
 }
 

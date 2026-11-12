@@ -77,6 +77,14 @@ public class ITab_VehicleDashboard : ITab
             float height = Mathf.Max(24f, Text.CalcHeight(waiting, outer.width));
             Widgets.Label(new Rect(outer.x, y, outer.width, height), waiting);
             y += height + 4f;
+            // What it tows (hitch slice 3, Framework 0.104.0).
+            if (comp.Hitch is { Trailer: not null } hitch)
+            {
+                string towing = TowText.Towing(hitch, mode);
+                float towingHeight = Mathf.Max(24f, Text.CalcHeight(towing, outer.width));
+                Widgets.Label(new Rect(outer.x, y, outer.width, towingHeight), towing);
+                y += towingHeight + 4f;
+            }
         }
 
         // The gauges.

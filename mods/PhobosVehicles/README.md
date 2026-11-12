@@ -57,7 +57,7 @@ Version 0.47.0, built 12 November 2026 for House D'thorga. **Not yet tested in g
 - **Modern vehicles have climate control** (0.10.0): the L-ATV, MaxxPro, M1A2 SEP, M10 Booker, Harrier, Mongoose, Goat shunter and
   Vanilla Vehicles Expanded's Tier 3 (not the Springbok or the Louie) hold the cab near 21 °C by themselves.
 - **New in 0.45.0 (not yet tested in game): the Pintle flatbed trailer.** Any land vehicle can tow it through D'thorga Framework's hitch
-  (0.101.0 or later); see [below](#the-pintle-flatbed-trailer). **It cannot go on a journey yet**: a vehicle leaving the map leaves it behind.
+  (0.101.0 or later); see [below](#the-pintle-flatbed-trailer). **From Framework 0.104.0 it goes on journeys** with the vehicle towing it (not yet tested in game).
 - **Not yet tested in game.** Everything is read from the mods' files and checked offline.
 
 ## What it changes

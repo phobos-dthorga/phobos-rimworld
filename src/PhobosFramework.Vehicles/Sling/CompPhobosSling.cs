@@ -152,6 +152,8 @@ public sealed class CompPhobosSling : VehicleComp, IThingHolder
         // A vehicle getting ready to leave in a caravan belongs to that group's orders; lifted off the map, the group would go on ordering
         // a vehicle that is not there.
         if (load.GetLord() != null) return "PhobosSling_UnderOrders".Translate(load.LabelShort.Named("LOAD")).Resolve();
+        // A vehicle towing or towed (the hitch) would leave its partner on the map, or take it along unseen: unhitch first.
+        if (load.GetComp<CompPhobosHitch>() is { Trailer: not null } || Hitches.Towing(load) != null) return "PhobosSling_Hitched".Translate(load.LabelShort.Named("LOAD")).Resolve();
         double weight = LoadKilograms(load), capacity = CapacityKilograms(Vehicle.Map);
         if (!SlingRule.CanLift(weight, capacity))
         {

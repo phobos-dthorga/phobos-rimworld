@@ -168,6 +168,14 @@ public class ITab_VehicleSystems : ITab
                     Widgets.Label(new Rect(6f, y, viewWidth - 12f, Row), "PhobosVehicleSystems_SysMass".Translate(train.MassKg().ToString("N0").Named("MASS")).Resolve());
                     y += Row;
                 }
+                if (comp.Hitch is { Trailer: not null } hitch)
+                {
+                    // Hitch slice 3 (Framework 0.104.0): what it tows and, while held back, what holds it, in the display mode's words.
+                    string towing = TowText.Towing(hitch, VehicleSystemsMod.Settings.displayMode);
+                    float towingHeight = Mathf.Max(Row, Text.CalcHeight(towing, viewWidth - 12f));
+                    Widgets.Label(new Rect(6f, y, viewWidth - 12f, towingHeight), towing);
+                    y += towingHeight;
+                }
                 if (train.Cap < 0.99)
                 {
                     string limit = (r.Limit == DriveLimit.Traction ? "PhobosVehicleSystems_LimitTraction" : "PhobosVehicleSystems_LimitPower").Translate();

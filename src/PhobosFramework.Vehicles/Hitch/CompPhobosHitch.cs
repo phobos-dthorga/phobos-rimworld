@@ -119,7 +119,8 @@ public sealed partial class CompPhobosHitch : VehicleComp
         }
         pending = candidate;
         Hitches.NoteWaiting(this, true);
-        Say("PhobosHitch_Chosen".Translate(Vehicle.LabelShort.Named("TRACTOR"), candidate.LabelShort.Named("TRAILER")).Resolve(),
+        Say("PhobosHitch_Chosen".Translate(Vehicle.LabelShort.Named("TRACTOR"), candidate.LabelShort.Named("TRAILER")).Resolve()
+            + " " + TowText.Verdict(Outlook(candidate), Vehicle, candidate, VehicleSystemsMod.Settings.displayMode),
             new LookTargets(Vehicle, candidate), MessageTypeDefOf.TaskCompletion, historical: false);
     }
 
@@ -178,7 +179,7 @@ public sealed partial class CompPhobosHitch : VehicleComp
     public void Unhitch(bool quiet = false)
     {
         VehiclePawn? was = trailer;
-        if (was == null) return;
+        if (was == null || HoldsTowed) return;
         trailer = null;
         towedKg = 0;
         plainCap = 1f;
@@ -211,6 +212,13 @@ public sealed partial class CompPhobosHitch : VehicleComp
     public override void CompTick()
     {
         base.CompTick();
+        if (HoldsTowed)
+        {
+            // Back on a map after a journey (slice 3): set it down behind. Off the map nothing needs doing.
+            if (Vehicle.Spawned) SetDownHeld();
+            else Vehicle.RequestTickStop(this);
+            return;
+        }
         if (winchTarget != null) WinchTick();
         if (trailer == null) return;
         if (!trailer.Spawned || !Vehicle.Spawned || trailer.Map != Vehicle.Map)
@@ -350,24 +358,27 @@ public sealed partial class CompPhobosHitch : VehicleComp
         base.OnDeSpawn();
         Hitches.NoteWaiting(this, false);
         if (winchTarget != null) StopWinch(null);
-        // A vehicle that leaves the map (a journey, a launch, a hold) leaves its trailer where it stood: towing on the world map is not built yet.
-        if (trailer is { Spawned: true } left)
-        {
-            Unhitch(quiet: true);
-            if (Vehicle.Faction == Faction.OfPlayer) Say("PhobosHitch_LeftBehind".Translate(left.LabelShort.Named("TRAILER")).Resolve(), left, MessageTypeDefOf.NeutralEvent);
-        }
-        else if (trailer != null)
-        {
-            Unhitch(quiet: true);
-        }
+        // A vehicle that leaves the map (a caravan, a garage, any journey) takes what it tows with it (slice 3, Framework 0.104.0). A destroyed
+        // vehicle has already let go in OnDestroy, which Vehicle Framework runs before the despawn.
+        if (trailer is { Spawned: true }) TakeAlong();
+        else if (trailer != null && !HoldsTowed) Unhitch(quiet: true);
     }
 
     public override void OnDestroy()
     {
         base.OnDestroy();
         if (winchTarget != null) StopWinch(null);
-        // Destroyed: what it towed stays where it stood, for anyone to hitch up (a raider's load, once its vehicle falls).
-        if (trailer != null) Unhitch(quiet: true);
+        // Destroyed: what it towed stays where it stood, for anyone to hitch up (a raider's load, once its vehicle falls). Destroyed off the
+        // map with it held, it is lost with it, as a sling's load is.
+        if (HoldsTowed)
+        {
+            VehiclePawn lost = trailer!;
+            held!.Remove(lost);
+            trailer = null;
+            Hitches.Forget(lost);
+            if (!lost.Destroyed) lost.Destroy();
+        }
+        else if (trailer != null) Unhitch(quiet: true);
         Hitches.NoteWaiting(this, false);
     }
 
@@ -381,6 +392,7 @@ public sealed partial class CompPhobosHitch : VehicleComp
         Scribe_Values.Look(ref heading, "PhobosHitch_Heading");
         Scribe_References.Look(ref winchTarget, "PhobosHitch_WinchTarget");
         Scribe_Values.Look(ref winchWait, "PhobosHitch_WinchWait");
+        ExposeHeld();
     }
 
     // ---- What the player sees ----
@@ -450,6 +462,10 @@ public sealed partial class CompPhobosHitch : VehicleComp
             }, target =>
             {
                 if (target.Thing is VehiclePawn candidate) Choose(candidate);
+            }, null, null, onGuiAction: target =>
+            {
+                // "Can this pull that?" beside the mouse, before the order (slice 3): presentation only, the forecast is the hitch's.
+                if (target.Thing is VehiclePawn candidate && candidate != Vehicle && TowText.Hover(this, candidate) is { } label) Widgets.MouseAttachedLabel(label);
             }),
         };
         if (Refusal() is { } refusal) hitch.Disable(refusal);
@@ -462,12 +478,7 @@ public sealed partial class CompPhobosHitch : VehicleComp
         if (UiGuard.Resting(GuardKey)) return UiGuard.FallbackText;
         try
         {
-            if (trailer != null)
-            {
-                string line = "PhobosHitch_InspectTowing".Translate(trailer.LabelShort.Named("TRAILER"), TowedKilograms.ToString("N0").Named("WEIGHT")).Resolve();
-                if (!FullModel && plainCap < 0.995f) line += " " + "PhobosHitch_InspectPlainCap".Translate(plainCap.ToStringPercent().Named("CAP")).Resolve();
-                return line;
-            }
+            if (trailer != null) return TowText.Towing(this, VehicleSystemsMod.Settings.displayMode);
             if (pending != null) return "PhobosHitch_InspectWaiting".Translate(pending.LabelShort.Named("TRAILER")).Resolve();
             if (winchTarget != null) return WinchInspectLine();
             if (Hitches.Towing(Vehicle) is { } by && TrailerProps(Vehicle) == null)

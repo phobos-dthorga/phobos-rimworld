@@ -7,6 +7,7 @@ tested in game unless an entry says the owner tested it.
 
 ### Changed
 
+- The README no longer says the Pintle flatbed trailer cannot go on a journey: from D'thorga Framework 0.104.0 it travels with the vehicle towing it. Documentation only; nothing changes in this mod.
 - The README no longer calls the generator set's, drill rig's and tipper's pictures stand-ins or the Crawler's upgrade pictures still to come, and lists the generator set's heavy-duty fan among its upgrades. Documentation only; nothing changes in play.
 
 ## [0.47.0] - 2026-11-12 - Draft

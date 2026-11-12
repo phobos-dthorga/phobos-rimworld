@@ -1,7 +1,8 @@
 # The hitch and the generic trailer: design (11 Nov 2026)
 
-**Status (12 Nov 2026): slices 1 and 2 are built** in D'thorga Framework 0.101.0 and D'thorga Vehicles 0.45.0, **not yet tested in game**: see
-"Slice 2 as built" below for what was built and where it differs from the plan. It follows
+**Status (12 Nov 2026): slices 1 to 3 are built**, slices 1 and 2 in D'thorga Framework 0.101.0 and D'thorga Vehicles 0.45.0, slice 3 in
+Framework 0.104.0, and slice 4's recovery tow in Framework 0.103.0, **none yet tested in game**: see "Slice 2 as built" and "Slice 3 as built"
+below for what was built and where it differs from the plan. It follows
 [the trailer research](vehicle-trailer-research.md), where the owner answered on 11 Nov 2026: a hitch of our own, improved
 and smoother; the smoother turn is worth a check; and "a genericized trailer that can be towed by, theoretically, any
 vehicle", provided the vehicle has the torque, the engine power and the cooling for it. Facts marked "from the code" were
@@ -122,9 +123,9 @@ weight times the ground's friction (`DrivetrainModel.cs:203`). Both take one mas
 ## What it leaves out, said plainly
 
 - **A towed trailer is not on the map.** It blocks nothing, cannot be shot and can swing through a wall (decision 1).
-- **No loading while hitched** in the first build.
+- **No loading while hitched** in the first build. (Slice 3: loading while hitched was never stopped and works; see below.)
 - **The world map and caravans** are not designed here: whether a hitched trailer's mass reaches our world rules needs a
-  read first.
+  read first. (Slice 3 builds it; see "Slice 3 as built".)
 - **No road trains:** one trailer per vehicle.
 - **No raid is given a trailer yet** (the section below says what works for other factions from the first build).
 
@@ -151,7 +152,7 @@ vehicles at a base the player attacks. How those vehicles come to exist is in
 2. **The first working trailer:** the hitch comp, the orders and their icons, the drawing, the saved heading, the generic
    flatbed, the mass reaching the model. One Framework version and one Vehicles version, one install, one short test list.
 3. **Reading it:** towed mass and what limits the pull on the Dashboard; "can this vehicle pull that?" before hitching;
-   loading while hitched; the world map.
+   loading while hitched; the world map. **Built** (Framework 0.104.0, not yet tested in game): "Slice 3 as built" below.
 4. **The special trailers** from [the research](vehicle-trailer-research.md), the recovery tow, and road trains. **The recovery tow is
    built** (Framework 0.103.0, not yet tested in game) as one piece with the recovery family's winch (owner, 12 Nov 2026):
    [vehicle-upgrade-families.md](vehicle-upgrade-families.md), "Built in part 3". The special trailers and road trains are still open.
@@ -247,6 +248,31 @@ a parked train costs one comparison a tick.
 **Still to see in game:** whether the picture jumps at the hand-over between facings; whether the tweener's glide reads as smooth at
 speed; how often a tight turn stops the vehicle.
 
+## Slice 3 as built (12 Nov 2026)
+
+Not yet tested in game. What each part lets the player do, stops and changes, and how it was built:
+
+| Part | Lets, stops, changes | Built as |
+| --- | --- | --- |
+| **What holds a tow back** | Lets the player see why a train is slow (the engine's power in a gear, the wheels' grip, a crawl) and pick a stronger or all-wheel-drive tractor | `TowText.Towing` (presentation) on the inspect panel, the Dashboard under its first line and the Systems tab's drivetrain card. It reads the hitch's cached towed weight and the drivetrain's last sample (`Powertrain.Result`, `Cap`), computing nothing. Plain: words; Operator adds the share of the speed kept; Engineer adds the train's weight |
+| **"Can this pull that?"** | Lets the player know before the colonist walks over; stops a hitch that will only crawl being a surprise | `TowRule` (game-free, 7 tests): the drivetrain model's own `Evaluate` at the tractor's design speed, level and steady, on the ground it stands on (`Powertrain.ForecastTow`, the same ground, tread, wheel and gearbox reads the drive uses), so the forecast and the drive agree on the same ground; the plain rule without the full model; "too heavy" over the recovery tow's weight ratio. `CompPhobosHitch.Outlook` keeps a forecast a second (the targeter asks every frame). Shown beside the mouse while choosing (the game's own `Targeter` with an `onGuiAction` and `Widgets.MouseAttachedLabel`), with the refusal instead where there is one, and in the order's message |
+| **Loading while hitched** | Lets the player load a trailer where it stands, hitched or not | **Nothing to build.** Vehicle Framework's loading jobs (`JobDriverLoadVehicleBase`) walk to the vehicle and touch it, with no condition a hitch could break (read 12 Nov 2026); while the train moves, the hauler follows it. The towed weight is counted again the next time the tractor moves (it is refreshed at most every 250 ticks while moving) |
+| **The world map and caravans** | Lets a trailer and its cargo, or a recovered vehicle, travel with its tractor; changes caravan speed and fuel by its weight | The hitch is now an `IThingHolder`, as the sling is. When the tractor leaves the map not destroyed (`OnDeSpawn`; Vehicle Framework runs a destroyed vehicle's comps' `OnDestroy` first, which lets go), the towed vehicle is despawned into the hitch's own holder, saved with it. `TowedKilograms` keeps its weight for the drivetrain model, which the caravan's speed and fuel already read. When the tractor is on a map again, the hitch's next tick (never its spawning) sets the trailer down: straight behind if clear, otherwise the nearest clear cell within the hitch's reach, with its pose taken from where it stands so the follow rule draws it into line as the tractor moves off (at a map's edge, where caravans arrive, the cells behind are off the map). No room at all: it stays in the holder and is tried again every 250 ticks, with a message. The sling's `GetChildHolders` postfix lists the hitch while it holds, so the people in a recovered vehicle are found; the world-map lists and the caravan's line (`WorldObjectComp_PhobosSling`) name what a vehicle tows |
+
+**Agent choices in slice 3:**
+
+- The forecast is for the design speed on the ground under the tractor, level: it does not look along the way. Labelled a forecast in the
+  text.
+- Vehicle Framework's own caravan carrying capacity does not count the trailer: the trailer carries its own cargo, not the caravan's.
+- A vehicle that tows or is towed is refused as a sling load ("unhitch first"): otherwise the partner would be left on the map or carried
+  unseen.
+- A vehicle destroyed while away with something in tow loses it with it, as a sling loses its load.
+- **Unchecked:** whether colonists riding in a recovered vehicle are counted while the caravan travels (the colonist bar), as for a slung
+  load.
+
+**Other factions, slice 3:** a raider's vehicle that flees the map towing takes its trailer with it (the same rule as ours); the forecast and
+the panels are the player's only; a captured vehicle tows and travels as ours do. Cost: nothing while away; the set-down is one tick's work.
+
 ## Who chose what
 
 - **Owner (11 Nov 2026):** our own hitch, improved and smoother; the check; a generic trailer any vehicle can tow, limited
@@ -254,6 +280,7 @@ speed; how often a tight turn stops the vehicle.
 - **Owner (11 Nov 2026, the four decisions):** on the map and hittable; borrow our picture first; only our drivetrain tows by default, with
   a setting; one medium flatbed.
 - **Agent choices in slice 2 (12 Nov 2026):** everything in "Where it differs from the plan" above.
+- **Agent choices in slice 3 (12 Nov 2026):** the list in "Slice 3 as built" above.
 - **Agent defaults:** the holder beside the sling's; the follow rule and its two simplifications; grip from the tractor
   alone; drag unchanged; the hitch point from the footprint; the slices; the four defaults above.
 
