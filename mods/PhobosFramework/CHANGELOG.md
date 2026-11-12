@@ -5,6 +5,30 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.108.1] - 2026-11-13 - Draft
+
+Pipes and conduits beneath our things are hidden again, and vehicle sounds sit in the game's mix
+
+### Fixed
+
+- **Pipes and conduits beneath our things are hidden again** (owner, 13 November 2026, after testing 0.108.0: "all the pipes are visible now! You need to use the Hidden versions of them, mate"). Our buildings and vehicles lay Dubs Bad Hygiene's hidden plumbing, the game's hidden power conduit and a Vanilla Expanded Framework line's transparent pipe; the connections show in the plumbing and power overlays. When they are laid, when they go and which stay are unchanged. Not yet tested in game.
+- **A pipe of ours taken apart gives nothing back.** A vehicle lays its pipes again every time it stops, so pipe that refunded half its steel when deconstructed could be farmed stop after stop. Your own pipes and conduits refund as before. Not yet tested in game.
+- **The vehicle systems' sounds were too quiet** (owner, 13 November 2026, on reference speakers against the rest of the game). Failed starts and knocking engines are 4 dB louder, and every vehicle systems sound now carries as far as the game's own sounds, so it is heard at an ordinary zoom instead of only close up (small ones, such as the warning chime and the fuel nozzle, a little less far). Not yet tested in game.
+
+### Changed
+
+- **D'thorga sounds volume goes up to 200%** (was 150%), under Options, Mod settings, D'thorga Framework; its default stays 100%.
+- For modders: the sound export check refuses a vehicle engine loop levelled at or below the game's chemfuel generator, one that fades out short of the game's own reach, and a SoundDef whose volume differs from the one its sound was levelled through.
+
+### Save compatibility
+
+- Safe on a running colony. The visible pipes and conduits 0.107.0 and 0.108.0 laid become hidden ones on the same cells at the next look: a building when the game loads, a vehicle when it stops, starts or is next looked at, the generator set at its next power update. Only pieces we laid are changed; your own pipes and conduits, visible or hidden, are never touched. Nothing new is saved.
+
+### Compatibility and limits
+
+- The game's hidden conduit is used where it exists; if a mod removes it, the ordinary conduit is laid instead. A Vanilla Expanded Framework line with no transparent pipe gets its first pipe, as before.
+- A pipe of ours deconstructed refunds nothing whichever mods are installed (a Harmony prefix that only changes the leavings of pieces we laid, never skipping the game's method).
+
 ## [0.108.0] - 2026-11-13 - Draft
 
 Pipes and conduits beneath every parked vehicle with its engine off, and the hidden pipes of older saves found and made visible

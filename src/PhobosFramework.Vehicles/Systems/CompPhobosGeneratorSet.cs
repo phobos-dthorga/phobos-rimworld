@@ -66,8 +66,8 @@ public class CompPhobosGeneratorSet : CompPhobosSetUp, IVehicleEngineDemand, IVe
     const float DaysPerRareTick = GenTicks.TickRareInterval / (float)GenDate.TicksPerDay;
 
     Building? cableEnd;
-    /// <summary>The power conduits laid beneath the set when it is set up to join through them (Framework 0.107.0; owner, 14 Nov 2026), the game's own visible
-    /// conduit, taken up when it packs up. Empty when the cable end was run out instead.</summary>
+    /// <summary>The power conduits laid beneath the set when it is set up to join through them (Framework 0.107.0; owner, 13 Nov 2026), the game's own hidden
+    /// conduit since 0.108.1 (visible ones laid before are swapped at the next look), taken up when it packs up. Empty when the cable end was run out instead.</summary>
     PipeUnderlay conduits = new();
     float buffer;
     /// <summary>The vehicle the service lead runs to (Framework 0.101.0), or null.</summary>
@@ -240,7 +240,7 @@ public class CompPhobosGeneratorSet : CompPhobosSetUp, IVehicleEngineDemand, IVe
         Tell("PhobosVehicleSystems_GenSetUp".Translate(Vehicle.LabelShort.Named("VEHICLE")), MessageTypeDefOf.SilentInput);
     }
 
-    // ---- Joining through conduits beneath it (Framework 0.107.0; owner, 14 Nov 2026: an option beside the cable end) ----
+    // ---- Joining through conduits beneath it (Framework 0.107.0; owner, 13 Nov 2026: an option beside the cable end; hidden conduits from 0.108.1) ----
 
     /// <summary>
     /// The cell under the set for its junction box when it joins through conduits beneath it: one with no conduit or building on it, beside a conduit outside the
@@ -283,7 +283,7 @@ public class CompPhobosGeneratorSet : CompPhobosSetUp, IVehicleEngineDemand, IVe
         }
         Map map = Vehicle.Map;
         PlaceCableEnd(JunctionCellBeneath());
-        conduits.Fill(Vehicle.OccupiedRect(), map, cell => cell.GetTransmitter(map) != null, () => ThingMaker.MakeThing(ThingDefOf.PowerConduit));
+        conduits.Fill(Vehicle.OccupiedRect(), map, cell => cell.GetTransmitter(map) != null, VehicleConduits.MakeConduit);
         UpdatePower();
         Tell("PhobosVehicleSystems_GenSetUpBeneath".Translate(Vehicle.LabelShort.Named("VEHICLE")), MessageTypeDefOf.SilentInput);
     }
@@ -360,6 +360,8 @@ public class CompPhobosGeneratorSet : CompPhobosSetUp, IVehicleEngineDemand, IVe
             Tell("PhobosVehicleSystems_GenCableLost".Translate(Vehicle.LabelShort.Named("VEHICLE")), MessageTypeDefOf.NegativeEvent);
             return;
         }
+        // Visible conduits laid by 0.107.0 or 0.108.0 become hidden ones (nothing to do once they are).
+        conduits.Renew(VehicleConduits.Conduit, VehicleConduits.MakeConduit);
         using (PhobosTiming.Measure("vehicle generator set"))
         {
             CompPhobosGeneratorStub? stub = cableEnd.GetComp<CompPhobosGeneratorStub>();

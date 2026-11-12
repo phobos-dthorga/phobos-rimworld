@@ -9,7 +9,7 @@
     <AssemblyName>PhobosFramework.Vehicles.Hygiene</AssemblyName>
     <ModFolder>PhobosFramework</ModFolder>
     <TieInFolder>Mods/VehiclesHygiene/</TieInFolder>
-    <Version>0.108.0</Version>
+    <Version>0.108.1</Version>
     <ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>true</ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>
   </PropertyGroup>
   <ItemGroup>

@@ -8,14 +8,14 @@ namespace Phobos.Framework.Hygiene;
 /// <summary>Dubs Bad Hygiene's side of a <see cref="PipeUnderlay"/>: what counts as plumbing on a cell, and the pipe to lay.</summary>
 public static class DubsPipes
 {
-    /// <summary>Dubs' ordinary plumbing, the pipe the player builds (Framework 0.107.0; owner, 14 Nov 2026: visible, as the game and other mods show a run).
-    /// Its hidden pipe, "sewagePipeHidden", which earlier versions laid, is swapped for this one at the next look.</summary>
-    const string Pipe = "sewagePipeStuff";
-    /// <summary>Dubs' hidden plumbing, which Framework 0.106.x and earlier laid beneath things; taken back once and made visible (Framework 0.108.0).</summary>
-    const string OldHiddenPipe = "sewagePipeHidden";
+    /// <summary>Dubs' hidden plumbing, the pipe laid beneath things: it joins the net, shows in the plumbing overlay and draws nothing on the ground (owner,
+    /// 13 Nov 2026, seeing grids of pipe under parked aircraft on 0.108.0: "You need to use the Hidden versions of them"). Framework 0.107.0 and 0.108.0 laid
+    /// the visible pipe, "sewagePipeStuff"; the pieces of ours they laid are swapped for this one at the next look (PipeUnderlay.Renew).</summary>
+    const string Pipe = "sewagePipeHidden";
 
-    /// <summary>Whether a thing is the hidden plumbing earlier versions laid.</summary>
-    public static bool IsOldHidden(Thing thing) => thing.def.defName == OldHiddenPipe;
+    /// <summary>Whether a thing is the hidden plumbing our versions before 0.107.0 laid, for the once-only adoption of pieces 0.107.0's loading fault orphaned.
+    /// It is the pipe we lay again now, so what is adopted is simply kept.</summary>
+    public static bool IsOldHidden(Thing thing) => thing.def.defName == Pipe;
 
     static ThingDef? def;
     static bool looked;

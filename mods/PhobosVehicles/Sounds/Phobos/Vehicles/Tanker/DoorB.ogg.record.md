@@ -8,9 +8,9 @@
 | Master | assets/phobos-sounds/generated/p1-tanker-door/p1-tanker-door-32.flac (sha256 915763cf4adc4a2d7926d9dfd785843fd2afb263dd4db4a7cea9973afc2c63e1) |
 | Model | stable_audio_3_small_sfx.safetensors (sha256 ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515), seed 32, 8 steps, guidance 1.0 |
 | Prompt | A heavy steel cab door opened and shut firmly once, a metal latch click and a solid thunk. Close, outdoors. Length: 2 seconds |
-| Made into | oneshot, mono, 44100 Hz, Ogg Vorbis quality 5; levelled_by true peak, to -10.66 dBTP, gain_db -6.56 |
-| Levelled against | the game's Metal_Drop (effective peak -22.7 dB) +0 dB, through volume 25 |
-| Result | -33.2 LUFS, true peak -10.9 dBTP, 0.96 s; flags: highs, spiky |
-| File | sha256 d88078d2c6495804157f35231996e594c2875fb299aad605036c0a3560a398a2, made 2026-11-11 with ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers |
+| Made into | oneshot, mono, 44100 Hz, Ogg Vorbis quality 5; levelled_by true peak, to -10.58 dBTP, gain_db -6.48 |
+| Levelled against | the game's Metal_Drop (effective peak -22.7 dB) +3 dB, through volume 35 |
+| Result | -33.1 LUFS, true peak -10.8 dBTP, 0.96 s; flags: highs, spiky |
+| File | sha256 57aef2edfa3b4637cbd2d1b223a9b671a03fc80ee71eb93b1d4c1bee5a44d1ad, made 2026-11-13 with ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers |
 
 Not yet tested in game.

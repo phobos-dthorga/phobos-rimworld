@@ -8,9 +8,9 @@
 | Master | assets/phobos-sounds/generated/p1-genset-door/p1-genset-door-31.flac (sha256 633b48b42229eb9b40a5a79ffef2513e8b49068e6be6e6560d9ead92e32e405c) |
 | Model | stable_audio_3_small_sfx.safetensors (sha256 ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515), seed 31, 8 steps, guidance 1.0 |
 | Prompt | A small truck cab door opened and shut firmly once, a metal latch click and a solid thunk. Close, outdoors. Length: 2 seconds |
-| Made into | oneshot, mono, 44100 Hz, Ogg Vorbis quality 5; levelled_by true peak, to -10.66 dBTP, gain_db -8.76 |
-| Levelled against | the game's Metal_Drop (effective peak -22.7 dB) +0 dB, through volume 25 |
-| Result | -33.3 LUFS, true peak -11.0 dBTP, 1.56 s; flags: spiky |
-| File | sha256 9dc1b648c0251cec2095c6c9468b26a5d40df0796b707c9ab4bc728418d463ea, made 2026-11-11 with ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers |
+| Made into | oneshot, mono, 44100 Hz, Ogg Vorbis quality 5; levelled_by true peak, to -10.58 dBTP, gain_db -8.68 |
+| Levelled against | the game's Metal_Drop (effective peak -22.7 dB) +3 dB, through volume 35 |
+| Result | -33.2 LUFS, true peak -10.3 dBTP, 1.56 s; flags: spiky |
+| File | sha256 3f5d2df0bda7abb005cf7aa94bc9712adec595591a6dc2b022e4aaa5bc62ba20, made 2026-11-13 with ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers |
 
 Not yet tested in game.

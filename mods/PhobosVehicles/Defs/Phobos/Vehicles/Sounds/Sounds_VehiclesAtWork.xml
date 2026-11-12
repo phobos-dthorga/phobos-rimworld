@@ -18,7 +18,7 @@
           </li>
         </grains>
         <volumeRange>25</volumeRange>
-        <distRange>10~30</distRange>
+        <distRange>25~70</distRange>
       </li>
     </subSounds>
     <modExtensions>
@@ -41,7 +41,7 @@
           </li>
         </grains>
         <volumeRange>13</volumeRange>
-        <distRange>10~30</distRange>
+        <distRange>25~70</distRange>
       </li>
     </subSounds>
     <modExtensions>
@@ -61,7 +61,7 @@
           </li>
         </grains>
         <volumeRange>40</volumeRange>
-        <distRange>10~30</distRange>
+        <distRange>25~70</distRange>
       </li>
     </subSounds>
     <modExtensions>
@@ -84,7 +84,7 @@
           </li>
         </grains>
         <volumeRange>15</volumeRange>
-        <distRange>10~30</distRange>
+        <distRange>25~70</distRange>
       </li>
     </subSounds>
     <modExtensions>
@@ -107,7 +107,7 @@
           </li>
         </grains>
         <volumeRange>40</volumeRange>
-        <distRange>10~30</distRange>
+        <distRange>25~70</distRange>
       </li>
     </subSounds>
     <modExtensions>
@@ -130,7 +130,7 @@
           </li>
         </grains>
         <volumeRange>13</volumeRange>
-        <distRange>10~30</distRange>
+        <distRange>25~70</distRange>
       </li>
     </subSounds>
     <modExtensions>
@@ -150,7 +150,7 @@
           </li>
         </grains>
         <volumeRange>25</volumeRange>
-        <distRange>10~30</distRange>
+        <distRange>25~70</distRange>
       </li>
     </subSounds>
     <modExtensions>
@@ -170,7 +170,7 @@
           </li>
         </grains>
         <volumeRange>25</volumeRange>
-        <distRange>10~30</distRange>
+        <distRange>25~70</distRange>
       </li>
     </subSounds>
     <modExtensions>
@@ -190,7 +190,7 @@
           </li>
         </grains>
         <volumeRange>25</volumeRange>
-        <distRange>10~30</distRange>
+        <distRange>25~70</distRange>
       </li>
     </subSounds>
     <modExtensions>
@@ -210,7 +210,7 @@
           </li>
         </grains>
         <volumeRange>25</volumeRange>
-        <distRange>10~30</distRange>
+        <distRange>25~70</distRange>
       </li>
     </subSounds>
     <modExtensions>
@@ -230,7 +230,7 @@
           </li>
         </grains>
         <volumeRange>13</volumeRange>
-        <distRange>10~30</distRange>
+        <distRange>25~70</distRange>
       </li>
     </subSounds>
     <modExtensions>
@@ -253,7 +253,7 @@
           </li>
         </grains>
         <volumeRange>13</volumeRange>
-        <distRange>10~30</distRange>
+        <distRange>25~70</distRange>
       </li>
     </subSounds>
     <modExtensions>
@@ -276,7 +276,7 @@
           </li>
         </grains>
         <volumeRange>13</volumeRange>
-        <distRange>10~30</distRange>
+        <distRange>25~70</distRange>
       </li>
     </subSounds>
     <modExtensions>
@@ -299,7 +299,7 @@
           </li>
         </grains>
         <volumeRange>13</volumeRange>
-        <distRange>10~30</distRange>
+        <distRange>25~70</distRange>
       </li>
     </subSounds>
     <modExtensions>
@@ -319,7 +319,7 @@
           </li>
         </grains>
         <volumeRange>25</volumeRange>
-        <distRange>10~30</distRange>
+        <distRange>25~70</distRange>
       </li>
     </subSounds>
     <modExtensions>
@@ -339,7 +339,7 @@
           </li>
         </grains>
         <volumeRange>13</volumeRange>
-        <distRange>10~30</distRange>
+        <distRange>25~70</distRange>
       </li>
     </subSounds>
     <modExtensions>
@@ -359,7 +359,7 @@
           </li>
         </grains>
         <volumeRange>13</volumeRange>
-        <distRange>10~30</distRange>
+        <distRange>25~70</distRange>
       </li>
     </subSounds>
     <modExtensions>
@@ -382,7 +382,7 @@
           </li>
         </grains>
         <volumeRange>50</volumeRange>
-        <distRange>5~20</distRange>
+        <distRange>15~50</distRange>
       </li>
     </subSounds>
     <modExtensions>
@@ -405,7 +405,7 @@
           </li>
         </grains>
         <volumeRange>50</volumeRange>
-        <distRange>5~20</distRange>
+        <distRange>15~50</distRange>
       </li>
     </subSounds>
     <modExtensions>
@@ -428,7 +428,7 @@
           </li>
         </grains>
         <volumeRange>50</volumeRange>
-        <distRange>5~20</distRange>
+        <distRange>15~50</distRange>
       </li>
     </subSounds>
     <modExtensions>
@@ -448,7 +448,7 @@
           </li>
         </grains>
         <volumeRange>9</volumeRange>
-        <distRange>10~30</distRange>
+        <distRange>25~70</distRange>
       </li>
     </subSounds>
     <modExtensions>
@@ -468,7 +468,7 @@
           </li>
         </grains>
         <volumeRange>13</volumeRange>
-        <distRange>10~30</distRange>
+        <distRange>25~70</distRange>
       </li>
     </subSounds>
     <modExtensions>
@@ -488,7 +488,7 @@
           </li>
         </grains>
         <volumeRange>40</volumeRange>
-        <distRange>10~30</distRange>
+        <distRange>25~70</distRange>
       </li>
     </subSounds>
     <modExtensions>
@@ -508,7 +508,7 @@
           </li>
         </grains>
         <volumeRange>40</volumeRange>
-        <distRange>10~30</distRange>
+        <distRange>25~70</distRange>
       </li>
     </subSounds>
     <modExtensions>
@@ -528,7 +528,7 @@
           </li>
         </grains>
         <volumeRange>25</volumeRange>
-        <distRange>10~30</distRange>
+        <distRange>25~70</distRange>
       </li>
     </subSounds>
     <modExtensions>
@@ -551,7 +551,7 @@
           </li>
         </grains>
         <volumeRange>50</volumeRange>
-        <distRange>5~20</distRange>
+        <distRange>15~50</distRange>
       </li>
     </subSounds>
     <modExtensions>
@@ -574,7 +574,7 @@
           </li>
         </grains>
         <volumeRange>50</volumeRange>
-        <distRange>5~20</distRange>
+        <distRange>15~50</distRange>
       </li>
     </subSounds>
     <modExtensions>
@@ -597,7 +597,7 @@
           </li>
         </grains>
         <volumeRange>50</volumeRange>
-        <distRange>5~20</distRange>
+        <distRange>15~50</distRange>
       </li>
     </subSounds>
     <modExtensions>
@@ -617,7 +617,7 @@
           </li>
         </grains>
         <volumeRange>9</volumeRange>
-        <distRange>10~30</distRange>
+        <distRange>25~70</distRange>
       </li>
     </subSounds>
     <modExtensions>

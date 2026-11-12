@@ -1,18 +1,22 @@
 # Pipes and conduits beneath our things (13 Nov 2026)
 
 What our buildings and vehicles lay beneath themselves to join a network (plumbing, power, Vanilla Expanded Framework's pipe nets),
-what changed in D'thorga Framework 0.107.0, and an audit of everything of ours that uses a piped supply or power, with proposals for
+what changed in D'thorga Framework 0.107.0 to 0.108.1, and an audit of everything of ours that uses a piped supply or power, with proposals for
 the owner to pick from. **Built in 0.107.0: the first two sections. The audit's proposals are not built.** Nothing here is tested in
 game.
 
 ## Read this first
 
-- **Visible, as the game does it** (owner, 13 Nov 2026: "that's the convention of the vanilla game and other mods"). Everything of ours
-  that joins a network now lays the network's **ordinary, visible piece**: Dubs Bad Hygiene's plumbing (`sewagePipeStuff`), the visible
-  pipe of a Vanilla Expanded Framework net, the game's own power conduit. Until 0.106.1 we laid Dubs' hidden plumbing, which shows only
-  in the plumbing overlay, so the owner never saw the feature work.
-- **Saves convert by themselves.** A hidden piece we laid earlier is swapped for the visible one on the same cell at the thing's next
-  look (a building on load, a parked vehicle at its next rare tick). Only pieces we laid are touched.
+- **Hidden again, from Framework 0.108.1** (owner, 13 Nov 2026, after testing 0.108.0: "all the pipes are visible now! You need to
+  use the Hidden versions of them, mate"). Everything of ours that joins a network lays the network's **hidden piece**: Dubs Bad
+  Hygiene's hidden plumbing (`sewagePipeHidden`), the game's hidden conduit (`HiddenConduit`), and a Vanilla Expanded Framework net's
+  transparent pipe. **The connections show in the game's plumbing and power overlays**, as every hidden piece does. 0.107.0 and
+  0.108.0 laid the visible pieces (the owner's call of the morning, "that's the convention of the vanilla game and other mods", reversed
+  once seen in play); those sections below keep their original scope.
+- **Saves convert by themselves.** A visible piece we laid is swapped for the hidden one on the same cell at the thing's next look (a
+  building on load, a parked vehicle when it stops, starts or is looked at again). Only pieces we laid are touched; the player's own
+  pipes and conduits, visible or hidden, are never touched.
+- **Our pieces give nothing back** when taken apart (0.108.1), so laying them again at every stop makes nothing from nothing.
 - **The generator set can now join through conduits beneath it**, as a choice beside running its cable out.
 - **A piece the player removes stays removed** while the thing stays where it is (agent's choice, below).
 
@@ -95,6 +99,33 @@ set up. As built (`UnderlayRule.Lays`, `CompPhobosVehicleSystems.ParkedForPipes`
 
 **Lets, stops, changes.** Lets the player see at a glance where every vehicle can be joined, and charge a parked vehicle from a conduit run.
 Stops nothing. Changes how they play: a motor pool's vehicles show their connections whenever parked, and a run laid to their sides joins them.
+
+## Framework 0.108.1: hidden again, and no refunds (13 Nov 2026)
+
+**The owner's call, after testing 0.108.0:** "all the pipes are visible now! You need to use the Hidden versions of them, mate." The rule of
+0.108.0 stands (laid whenever a vehicle stands with its engine off, taken up when it starts or moves, a removed piece not laid again while it
+stays, the generator set keeping its own conduits while set up); only the piece changes.
+
+| Network | 0.107.0 and 0.108.0 laid | 0.108.1 lays | Where the player sees it |
+| --- | --- | --- | --- |
+| Dubs Bad Hygiene's plumbing | `sewagePipeStuff` (visible) | `sewagePipeHidden` | The plumbing overlay |
+| The game's power | `PowerConduit` (visible) | `HiddenConduit` (the game's own; `PowerConduit` only if a mod removes it) | The power overlay |
+| A Vanilla Expanded Framework net | Its first visible pipe | Its pipe whose colour has no alpha (the net's transparent pipe), else its first | That net's overlay |
+
+- **How saves convert:** `PipeUnderlay.Renew` swaps each piece of ours that is not of the wanted kind for the wanted one on the same cell.
+  It now runs with the hidden kind, so the visible pieces 0.107.0 and 0.108.0 laid become hidden at the next look: our plumbed buildings on
+  load, a vehicle's plumbing, conduits and lines when it stops, starts, loads or has its rare-tick look, and the generator set's own
+  conduits at its next power update. Only pieces in an underlay's own saved list are swapped; the one-time adoption of 0.108.0 still takes
+  back the old hidden pieces orphaned under our things, which are now already the wanted kind.
+- **No refunds (a loop closed):** since 0.108.0 a vehicle lays its pieces again at every stop, and Dubs' pipe gives back half its stuff when
+  deconstructed (the game's rule, `GenLeaving.GetBuildingResourcesLeaveCalculator`: cost times `resourcesFractionWhenDeconstructed`), so
+  deconstructing them stop after stop would make steel from nothing. A piece any underlay laid now gives back nothing: a Harmony prefix on
+  `GenLeaving.DoLeavingsFor` turns its destroy mode from Deconstruct to Vanish (`UnderlayPiecesRefundNothing`, never skipping the original;
+  every other thing, the player's own pipes included, is untouched). Which pieces are ours is held in memory beside each underlay's list
+  (`PipeUnderlay.LaidByUs`) and rebuilt as it loads; nothing new is saved. The game's hidden conduit already refunds nothing.
+- **Lets, stops, changes:** lets the player keep the look of a motor pool or a plumbed room clean, with every connection still shown in the
+  overlays; stops nothing; changes how they check a connection (the overlay, as for any hidden pipe, instead of the floor).
+- **Other factions:** unchanged; their vehicles lay nothing. **Cost:** unchanged; the swap runs once per piece, then does nothing.
 
 ## The audit: everything of ours that uses a piped supply or power
 

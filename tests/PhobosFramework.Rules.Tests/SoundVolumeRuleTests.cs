@@ -10,6 +10,7 @@ public class SoundVolumeRuleTests
     [InlineData(13f, 0f, 0f)]
     [InlineData(50f, 0.5f, 25f)]
     [InlineData(20f, 1.5f, 30f)]
+    [InlineData(20f, 2f, 40f)]
     public void TheSettingScalesTheAuthoredVolume(float authored, float factor, float expected) =>
         Assert.Equal(expected, SoundVolumeRule.Scale(authored, factor), 3);
 
@@ -24,6 +25,6 @@ public class SoundVolumeRuleTests
     {
         Assert.Equal(100, SoundVolumeRule.Percent(1f));
         Assert.Equal(75, SoundVolumeRule.Percent(0.7499f));
-        Assert.Equal(150, SoundVolumeRule.Percent(9f));
+        Assert.Equal(200, SoundVolumeRule.Percent(9f));
     }
 }

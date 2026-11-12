@@ -237,7 +237,7 @@ Synthesis from code is not offered as the main route again. A physical engine mo
   flags run on the result (a clip, a whine, a seam dip, a gap or a loop under 3 s refuses it; a loop's spec may name its `span`),
   and a `.record.md` beside the file as for textures.
   `--check` verifies the files against `assets/phobos-sounds/exported.json`.
-- **The volume setting is one, in D'thorga Framework** ("D'thorga sounds volume", 100%, 0 to 150%): every SoundDef of ours carries
+- **The volume setting is one, in D'thorga Framework** ("D'thorga sounds volume", 100%, 0 to 200%; 150% before Framework 0.108.1): every SoundDef of ours carries
   `Phobos.Framework.Sounds.PhobosSoundVolumeExtension`, and the setting scales its sub-sounds from their authored volume.
 
 | Sound | Mod | Hook | Beside the game's | Offset | Volume |

@@ -5,6 +5,18 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.51.1] - 2026-11-13 - Draft
+
+Vehicle sounds sit in the game's mix
+
+### Fixed
+
+- **Our vehicles were too quiet** (owner, 13 November 2026, on reference speakers against the rest of the game). Engines are 4 dB louder (starting, idling, labouring, stopping, running out of fuel), so an engine now plays above the game's own chemfuel generator, and doors 3 dB louder, a little above the game's doors. Every vehicle sound now carries as far as the game's own sounds and other authors' vehicles do, so it is heard at an ordinary zoom: before, an engine faded to nothing a little way out from the closest zoom, and a door was heard only right up close. Consoles and other small machinery carry a little less far. The generator truck's running set stays at the game's own generator level, as a parked generator. Not yet tested in game.
+
+### Compatibility and limits
+
+- The sound files are the ones the owner picked, at the same level; only how loudly and how far the game plays them changed. D'thorga Framework's D'thorga sounds volume still scales every one.
+
 ## [0.51.0] - 2026-11-13 - Draft
 
 The Busbar generator set is a 3 by 8 truck, heavier, with a bigger generator

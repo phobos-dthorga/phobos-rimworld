@@ -6,9 +6,10 @@ namespace Phobos.Framework.Rules;
 /// A sound's authored volume is set against the game's own sounds; the setting scales it, and never past <see cref="MaxFactor"/>.</summary>
 public static class SoundVolumeRule
 {
-    /// <summary>The most the setting may raise our sounds above their authored level (agent choice: half as loud again, for players who
-    /// want them plainer; the game's own sliders still apply on top).</summary>
-    public const float MaxFactor = 1.5f;
+    /// <summary>The most the setting may raise our sounds above their authored level (agent choice: twice as loud, about 6 dB, for players who
+    /// want them plainer; raised from half as loud again in Framework 0.108.1, after the owner found the vehicles too quiet against the game's
+    /// mix on 13 Nov 2026. The game's own sliders still apply on top).</summary>
+    public const float MaxFactor = 2f;
 
     /// <summary>The setting's value kept in range: none to <see cref="MaxFactor"/>.</summary>
     public static float Clamp(float factor) => float.IsNaN(factor) ? 1f : Math.Clamp(factor, 0f, MaxFactor);

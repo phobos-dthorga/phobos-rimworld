@@ -64,7 +64,7 @@ know about before your colonists meet them. Find them under **Options > Mod sett
 
 Two settings you may never touch, but should know about:
 
-- **D'thorga sounds volume** (D'thorga Framework, 100%): one slider for every D'thorga sound, from silent to half as loud again.
+- **D'thorga sounds volume** (D'thorga Framework, 100%): one slider for every D'thorga sound, from silent to twice as loud.
 - **Keep the game's log going after its message limit** (D'thorga Framework, on): RimWorld stops logging after 10,000
   messages; this restarts it, up to 25 times a session, so a report still has the end of the story.
 

@@ -18,8 +18,8 @@
             <clipPath>Phobos/Vehicles/Tanker/EngineStart</clipPath>
           </li>
         </grains>
-        <volumeRange>13</volumeRange>
-        <distRange>10~30</distRange>
+        <volumeRange>21</volumeRange>
+        <distRange>25~70</distRange>
       </li>
     </subSounds>
     <modExtensions>
@@ -41,8 +41,8 @@
             <clipPath>Phobos/Vehicles/Tanker/EngineIdle</clipPath>
           </li>
         </grains>
-        <volumeRange>13</volumeRange>
-        <distRange>10~30</distRange>
+        <volumeRange>21</volumeRange>
+        <distRange>25~70</distRange>
         <paramMappings>
           <li>
             <inParam Class="SoundParamSource_External">
@@ -94,8 +94,8 @@
             <clipPath>Phobos/Vehicles/Tanker/EngineLoad</clipPath>
           </li>
         </grains>
-        <volumeRange>13</volumeRange>
-        <distRange>10~30</distRange>
+        <volumeRange>21</volumeRange>
+        <distRange>25~70</distRange>
         <paramMappings>
           <li>
             <inParam Class="SoundParamSource_External">
@@ -145,8 +145,8 @@
             <clipPath>Phobos/Vehicles/Tanker/EngineStop</clipPath>
           </li>
         </grains>
-        <volumeRange>13</volumeRange>
-        <distRange>10~30</distRange>
+        <volumeRange>21</volumeRange>
+        <distRange>25~70</distRange>
       </li>
     </subSounds>
     <modExtensions>
@@ -171,8 +171,8 @@
             <clipPath>Phobos/Vehicles/Tanker/DoorC</clipPath>
           </li>
         </grains>
-        <volumeRange>25</volumeRange>
-        <distRange>5~20</distRange>
+        <volumeRange>35</volumeRange>
+        <distRange>25~70</distRange>
       </li>
     </subSounds>
     <modExtensions>
@@ -192,7 +192,7 @@
           </li>
         </grains>
         <volumeRange>15</volumeRange>
-        <distRange>10~30</distRange>
+        <distRange>25~70</distRange>
       </li>
     </subSounds>
     <modExtensions>
@@ -211,8 +211,8 @@
             <clipPath>Phobos/Vehicles/Tanker/Sputter</clipPath>
           </li>
         </grains>
-        <volumeRange>13</volumeRange>
-        <distRange>10~30</distRange>
+        <volumeRange>21</volumeRange>
+        <distRange>25~70</distRange>
       </li>
     </subSounds>
     <modExtensions>
@@ -232,8 +232,8 @@
             <clipPath>Phobos/Vehicles/Tipper/EngineStart</clipPath>
           </li>
         </grains>
-        <volumeRange>13</volumeRange>
-        <distRange>10~30</distRange>
+        <volumeRange>21</volumeRange>
+        <distRange>25~70</distRange>
       </li>
     </subSounds>
     <modExtensions>
@@ -255,8 +255,8 @@
             <clipPath>Phobos/Vehicles/Tipper/EngineIdle</clipPath>
           </li>
         </grains>
-        <volumeRange>13</volumeRange>
-        <distRange>10~30</distRange>
+        <volumeRange>21</volumeRange>
+        <distRange>25~70</distRange>
         <paramMappings>
           <li>
             <inParam Class="SoundParamSource_External">
@@ -308,8 +308,8 @@
             <clipPath>Phobos/Vehicles/Tipper/EngineLoad</clipPath>
           </li>
         </grains>
-        <volumeRange>13</volumeRange>
-        <distRange>10~30</distRange>
+        <volumeRange>21</volumeRange>
+        <distRange>25~70</distRange>
         <paramMappings>
           <li>
             <inParam Class="SoundParamSource_External">
@@ -359,8 +359,8 @@
             <clipPath>Phobos/Vehicles/Tipper/EngineStop</clipPath>
           </li>
         </grains>
-        <volumeRange>13</volumeRange>
-        <distRange>10~30</distRange>
+        <volumeRange>21</volumeRange>
+        <distRange>25~70</distRange>
       </li>
     </subSounds>
     <modExtensions>
@@ -382,8 +382,8 @@
             <clipPath>Phobos/Vehicles/Tipper/DoorB</clipPath>
           </li>
         </grains>
-        <volumeRange>25</volumeRange>
-        <distRange>5~20</distRange>
+        <volumeRange>35</volumeRange>
+        <distRange>25~70</distRange>
       </li>
     </subSounds>
     <modExtensions>
@@ -403,7 +403,7 @@
           </li>
         </grains>
         <volumeRange>15</volumeRange>
-        <distRange>10~30</distRange>
+        <distRange>25~70</distRange>
       </li>
     </subSounds>
     <modExtensions>
@@ -422,8 +422,8 @@
             <clipPath>Phobos/Vehicles/Tipper/Sputter</clipPath>
           </li>
         </grains>
-        <volumeRange>13</volumeRange>
-        <distRange>10~30</distRange>
+        <volumeRange>21</volumeRange>
+        <distRange>25~70</distRange>
       </li>
     </subSounds>
     <modExtensions>
@@ -443,8 +443,8 @@
             <clipPath>Phobos/Vehicles/DrillRig/EngineStart</clipPath>
           </li>
         </grains>
-        <volumeRange>13</volumeRange>
-        <distRange>10~30</distRange>
+        <volumeRange>21</volumeRange>
+        <distRange>25~70</distRange>
       </li>
     </subSounds>
     <modExtensions>
@@ -466,8 +466,8 @@
             <clipPath>Phobos/Vehicles/DrillRig/EngineIdle</clipPath>
           </li>
         </grains>
-        <volumeRange>13</volumeRange>
-        <distRange>10~30</distRange>
+        <volumeRange>21</volumeRange>
+        <distRange>25~70</distRange>
         <paramMappings>
           <li>
             <inParam Class="SoundParamSource_External">
@@ -519,8 +519,8 @@
             <clipPath>Phobos/Vehicles/DrillRig/EngineLoad</clipPath>
           </li>
         </grains>
-        <volumeRange>13</volumeRange>
-        <distRange>10~30</distRange>
+        <volumeRange>21</volumeRange>
+        <distRange>25~70</distRange>
         <paramMappings>
           <li>
             <inParam Class="SoundParamSource_External">
@@ -570,8 +570,8 @@
             <clipPath>Phobos/Vehicles/DrillRig/EngineStop</clipPath>
           </li>
         </grains>
-        <volumeRange>13</volumeRange>
-        <distRange>10~30</distRange>
+        <volumeRange>21</volumeRange>
+        <distRange>25~70</distRange>
       </li>
     </subSounds>
     <modExtensions>
@@ -593,8 +593,8 @@
             <clipPath>Phobos/Vehicles/DrillRig/DoorB</clipPath>
           </li>
         </grains>
-        <volumeRange>25</volumeRange>
-        <distRange>5~20</distRange>
+        <volumeRange>35</volumeRange>
+        <distRange>25~70</distRange>
       </li>
     </subSounds>
     <modExtensions>
@@ -614,7 +614,7 @@
           </li>
         </grains>
         <volumeRange>15</volumeRange>
-        <distRange>10~30</distRange>
+        <distRange>25~70</distRange>
       </li>
     </subSounds>
     <modExtensions>
@@ -633,8 +633,8 @@
             <clipPath>Phobos/Vehicles/DrillRig/Sputter</clipPath>
           </li>
         </grains>
-        <volumeRange>13</volumeRange>
-        <distRange>10~30</distRange>
+        <volumeRange>21</volumeRange>
+        <distRange>25~70</distRange>
       </li>
     </subSounds>
     <modExtensions>
@@ -654,8 +654,8 @@
             <clipPath>Phobos/Vehicles/SurveyTruck/EngineStart</clipPath>
           </li>
         </grains>
-        <volumeRange>13</volumeRange>
-        <distRange>10~30</distRange>
+        <volumeRange>21</volumeRange>
+        <distRange>25~70</distRange>
       </li>
     </subSounds>
     <modExtensions>
@@ -677,8 +677,8 @@
             <clipPath>Phobos/Vehicles/SurveyTruck/EngineIdle</clipPath>
           </li>
         </grains>
-        <volumeRange>13</volumeRange>
-        <distRange>10~30</distRange>
+        <volumeRange>21</volumeRange>
+        <distRange>25~70</distRange>
         <paramMappings>
           <li>
             <inParam Class="SoundParamSource_External">
@@ -730,8 +730,8 @@
             <clipPath>Phobos/Vehicles/SurveyTruck/EngineLoad</clipPath>
           </li>
         </grains>
-        <volumeRange>13</volumeRange>
-        <distRange>10~30</distRange>
+        <volumeRange>21</volumeRange>
+        <distRange>25~70</distRange>
         <paramMappings>
           <li>
             <inParam Class="SoundParamSource_External">
@@ -781,8 +781,8 @@
             <clipPath>Phobos/Vehicles/SurveyTruck/EngineStop</clipPath>
           </li>
         </grains>
-        <volumeRange>13</volumeRange>
-        <distRange>10~30</distRange>
+        <volumeRange>21</volumeRange>
+        <distRange>25~70</distRange>
       </li>
     </subSounds>
     <modExtensions>
@@ -804,8 +804,8 @@
             <clipPath>Phobos/Vehicles/SurveyTruck/DoorB</clipPath>
           </li>
         </grains>
-        <volumeRange>25</volumeRange>
-        <distRange>5~20</distRange>
+        <volumeRange>35</volumeRange>
+        <distRange>25~70</distRange>
       </li>
     </subSounds>
     <modExtensions>
@@ -824,8 +824,8 @@
             <clipPath>Phobos/Vehicles/SurveyTruck/Sputter</clipPath>
           </li>
         </grains>
-        <volumeRange>13</volumeRange>
-        <distRange>10~30</distRange>
+        <volumeRange>21</volumeRange>
+        <distRange>25~70</distRange>
       </li>
     </subSounds>
     <modExtensions>
@@ -845,8 +845,8 @@
             <clipPath>Phobos/Vehicles/GeneratorSet/EngineStart</clipPath>
           </li>
         </grains>
-        <volumeRange>13</volumeRange>
-        <distRange>10~30</distRange>
+        <volumeRange>21</volumeRange>
+        <distRange>25~70</distRange>
       </li>
     </subSounds>
     <modExtensions>
@@ -868,8 +868,8 @@
             <clipPath>Phobos/Vehicles/GeneratorSet/EngineIdle</clipPath>
           </li>
         </grains>
-        <volumeRange>13</volumeRange>
-        <distRange>10~30</distRange>
+        <volumeRange>21</volumeRange>
+        <distRange>25~70</distRange>
         <paramMappings>
           <li>
             <inParam Class="SoundParamSource_External">
@@ -921,8 +921,8 @@
             <clipPath>Phobos/Vehicles/GeneratorSet/EngineLoad</clipPath>
           </li>
         </grains>
-        <volumeRange>13</volumeRange>
-        <distRange>10~30</distRange>
+        <volumeRange>21</volumeRange>
+        <distRange>25~70</distRange>
         <paramMappings>
           <li>
             <inParam Class="SoundParamSource_External">
@@ -972,8 +972,8 @@
             <clipPath>Phobos/Vehicles/GeneratorSet/EngineStop</clipPath>
           </li>
         </grains>
-        <volumeRange>13</volumeRange>
-        <distRange>10~30</distRange>
+        <volumeRange>21</volumeRange>
+        <distRange>25~70</distRange>
       </li>
     </subSounds>
     <modExtensions>
@@ -995,8 +995,8 @@
             <clipPath>Phobos/Vehicles/GeneratorSet/DoorB</clipPath>
           </li>
         </grains>
-        <volumeRange>25</volumeRange>
-        <distRange>5~20</distRange>
+        <volumeRange>35</volumeRange>
+        <distRange>25~70</distRange>
       </li>
     </subSounds>
     <modExtensions>
@@ -1015,8 +1015,8 @@
             <clipPath>Phobos/Vehicles/GeneratorSet/Sputter</clipPath>
           </li>
         </grains>
-        <volumeRange>13</volumeRange>
-        <distRange>10~30</distRange>
+        <volumeRange>21</volumeRange>
+        <distRange>25~70</distRange>
       </li>
     </subSounds>
     <modExtensions>
@@ -1036,8 +1036,8 @@
             <clipPath>Phobos/Vehicles/SeabedCrawler/EngineStart</clipPath>
           </li>
         </grains>
-        <volumeRange>13</volumeRange>
-        <distRange>8~25</distRange>
+        <volumeRange>21</volumeRange>
+        <distRange>25~70</distRange>
       </li>
     </subSounds>
     <modExtensions>
@@ -1059,8 +1059,8 @@
             <clipPath>Phobos/Vehicles/SeabedCrawler/EngineIdle</clipPath>
           </li>
         </grains>
-        <volumeRange>13</volumeRange>
-        <distRange>8~25</distRange>
+        <volumeRange>21</volumeRange>
+        <distRange>25~70</distRange>
         <paramMappings>
           <li>
             <inParam Class="SoundParamSource_External">
@@ -1112,8 +1112,8 @@
             <clipPath>Phobos/Vehicles/SeabedCrawler/EngineLoad</clipPath>
           </li>
         </grains>
-        <volumeRange>13</volumeRange>
-        <distRange>8~25</distRange>
+        <volumeRange>21</volumeRange>
+        <distRange>25~70</distRange>
         <paramMappings>
           <li>
             <inParam Class="SoundParamSource_External">
@@ -1163,8 +1163,8 @@
             <clipPath>Phobos/Vehicles/SeabedCrawler/EngineStop</clipPath>
           </li>
         </grains>
-        <volumeRange>13</volumeRange>
-        <distRange>8~25</distRange>
+        <volumeRange>21</volumeRange>
+        <distRange>25~70</distRange>
       </li>
     </subSounds>
     <modExtensions>
@@ -1189,8 +1189,8 @@
             <clipPath>Phobos/Vehicles/SeabedCrawler/DoorC</clipPath>
           </li>
         </grains>
-        <volumeRange>25</volumeRange>
-        <distRange>5~20</distRange>
+        <volumeRange>35</volumeRange>
+        <distRange>25~70</distRange>
       </li>
     </subSounds>
     <modExtensions>

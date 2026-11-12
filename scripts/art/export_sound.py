@@ -41,6 +41,12 @@ PEAK_CEILING_DBTP = sound_review.PEAK_CEILING_DBTP
 SHORT_S = 0.4  # Under this, integrated loudness reads as silence (EBU R128 gates in 400 ms blocks), so the true peak levels it.
 OGG_QUALITY = '5'
 EXPORT_FLAGS_TO_REFUSE = sound_review.SERIOUS_FLAGS  # One list, so the review page and the export agree on what stops a sound.
+# The owner's listening report of 13 Nov 2026, on reference speakers against the rest of the game: our vehicles were too quiet. A vehicle's
+# engine loop plays louder than the game's parked chemfuel generator, and reaches as far as the game's own default (SubSoundDef.distRange,
+# 25 to 70; the listener rides with the camera, so a sound whose reach ends at 30 is silent at an ordinary zoom). docs/development/sound-catalogue.md.
+PARKED_GENERATOR = 'ChemfuelFiredGenerator_Ambience'
+ENGINE_LOOPS = ('EngineIdle', 'EngineLoad')
+GAME_DISTANCE = (25.0, 70.0)
 
 
 def sha256(path):
@@ -252,6 +258,44 @@ def check(specs, records):
             problems.append(f'{spec["name"]}: {spec["target"]} differs from its record')
         elif not target.with_name(target.name + '.record.md').is_file():
             problems.append(f'{spec["name"]}: its record beside the file is missing')
+    return problems + sounddef_problems(specs, our_sounddefs())
+
+
+def our_sounddefs():
+    """Every SoundDef in our mods, as scripts/art/game_sounds.py reads the game's."""
+    return game_sounds.read_sounddef_files((ROOT / 'mods').glob('**/Defs/**/*.xml'), ROOT)
+
+
+def clip_of(target):
+    """The clip path a grain names for an exported file: its path under the mod's Sounds folder, without the extension."""
+    return target.split('/Sounds/', 1)[-1].rsplit('.', 1)[0]
+
+
+def sub_sounds_playing(clip, defs):
+    """(defName, sub-sound) for every sub-sound of ours that plays this clip, by its own path or its folder's."""
+    folder = clip.rsplit('/', 1)[0]
+    return [(name, sub) for name, sound in defs.items() for sub in sound['sub_sounds']
+            if any(grain['path'] in (clip, folder) for grain in sub['grains'])]
+
+
+def sounddef_problems(specs, defs):
+    """Each export's level holds only if our SoundDef plays it at the volume its spec was levelled through; and a vehicle's engine loop
+    sits above the game's parked generator and reaches as far as the game's own sounds (the owner's report of 13 Nov 2026)."""
+    problems = []
+    for spec in specs:
+        playing = sub_sounds_playing(clip_of(spec['target']), defs)
+        for name, sub in playing:
+            if sub['volume'] != (float(spec['volume']), float(spec['volume'])):
+                problems.append(f'{spec["name"]}: {name} plays it at volume {sub["volume"][0]:g}, but it was levelled through {spec["volume"]}')
+        if not spec['name'].endswith(ENGINE_LOOPS):
+            continue
+        if spec['reference'] != PARKED_GENERATOR or spec.get('offset_db', 0) <= 0:
+            problems.append(f'{spec["name"]}: a vehicle engine loop sits above the game\'s parked generator; level it against {PARKED_GENERATOR} '
+                            'with a positive offset_db')
+        for name, sub in playing:
+            reach = (sub['distance'] or GAME_DISTANCE)[1]
+            if reach < GAME_DISTANCE[1]:
+                problems.append(f'{spec["name"]}: {name} fades out at {reach:g}, short of the game\'s {GAME_DISTANCE[1]:g}')
     return problems
 
 

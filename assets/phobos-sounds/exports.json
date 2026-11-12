@@ -145,9 +145,9 @@
       "kind": "oneshot",
       "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Sounds/Phobos/VehicleSystems/FailedStartDiesel.ogg",
       "reference": "ChemfuelFiredGenerator_Ambience",
-      "offset_db": 0,
-      "volume": 13,
-      "why": "Generic library (docs/development/sound-catalogue.md): the owner took the agent's measured shortlist; reference and offset are agent choices."
+      "offset_db": 4,
+      "volume": 21,
+      "why": "Generic library (docs/development/sound-catalogue.md): the owner took the agent's measured shortlist; reference and offset are agent choices. Re-levelled 13 Nov 2026 after the owner's listening report (vehicles too quiet against the game's mix): 4 dB up, so an engine sits above the game's parked generator, through a higher SoundDef volume rather than a hotter file."
     },
     {
       "name": "FailedStartPetrol",
@@ -157,9 +157,9 @@
       "kind": "oneshot",
       "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Sounds/Phobos/VehicleSystems/FailedStartPetrol.ogg",
       "reference": "ChemfuelFiredGenerator_Ambience",
-      "offset_db": 0,
-      "volume": 13,
-      "why": "Generic library (docs/development/sound-catalogue.md): the owner took the agent's measured shortlist; reference and offset are agent choices."
+      "offset_db": 4,
+      "volume": 21,
+      "why": "Generic library (docs/development/sound-catalogue.md): the owner took the agent's measured shortlist; reference and offset are agent choices. Re-levelled 13 Nov 2026 after the owner's listening report (vehicles too quiet against the game's mix): 4 dB up, so an engine sits above the game's parked generator, through a higher SoundDef volume rather than a hotter file."
     },
     {
       "name": "KnockDiesel",
@@ -169,9 +169,9 @@
       "kind": "loop",
       "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Sounds/Phobos/VehicleSystems/KnockDiesel.ogg",
       "reference": "ChemfuelFiredGenerator_Ambience",
-      "offset_db": -6,
-      "volume": 13,
-      "why": "Generic library (docs/development/sound-catalogue.md): the owner took the agent's measured shortlist; reference and offset are agent choices."
+      "offset_db": -2,
+      "volume": 21,
+      "why": "Generic library (docs/development/sound-catalogue.md): the owner took the agent's measured shortlist; reference and offset are agent choices. Re-levelled 13 Nov 2026 after the owner's listening report (vehicles too quiet against the game's mix): 4 dB up, so an engine sits above the game's parked generator, through a higher SoundDef volume rather than a hotter file."
     },
     {
       "name": "KnockPetrol",
@@ -181,9 +181,9 @@
       "kind": "loop",
       "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Sounds/Phobos/VehicleSystems/KnockPetrol.ogg",
       "reference": "ChemfuelFiredGenerator_Ambience",
-      "offset_db": -6,
-      "volume": 13,
-      "why": "Generic library (docs/development/sound-catalogue.md): the owner took the agent's measured shortlist; reference and offset are agent choices."
+      "offset_db": -2,
+      "volume": 21,
+      "why": "Generic library (docs/development/sound-catalogue.md): the owner took the agent's measured shortlist; reference and offset are agent choices. Re-levelled 13 Nov 2026 after the owner's listening report (vehicles too quiet against the game's mix): 4 dB up, so an engine sits above the game's parked generator, through a higher SoundDef volume rather than a hotter file."
     },
     {
       "name": "BrakeSqueal",
@@ -278,9 +278,9 @@
       "kind": "oneshot",
       "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/Tanker/EngineStart.ogg",
       "reference": "ChemfuelFiredGenerator_Ambience",
-      "offset_db": 0,
-      "volume": 13,
-      "why": "Phase 1, our vehicles' voices (docs/development/sound-catalogue.md): the owner took the agent's shortlist (survey labouring changed to seed 32); reference and offset are agent choices."
+      "offset_db": 4,
+      "volume": 21,
+      "why": "Phase 1, our vehicles' voices (docs/development/sound-catalogue.md): the owner took the agent's shortlist (survey labouring changed to seed 32); reference and offset are agent choices. Re-levelled 13 Nov 2026 after the owner's listening report (vehicles too quiet against the game's mix): 4 dB up, so an engine sits above the game's parked generator, through a higher SoundDef volume rather than a hotter file."
     },
     {
       "name": "TankerEngineIdle",
@@ -290,9 +290,9 @@
       "kind": "loop",
       "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/Tanker/EngineIdle.ogg",
       "reference": "ChemfuelFiredGenerator_Ambience",
-      "offset_db": 0,
-      "volume": 13,
-      "why": "Phase 1, our vehicles' voices (docs/development/sound-catalogue.md): the owner took the agent's shortlist (survey labouring changed to seed 32); reference and offset are agent choices."
+      "offset_db": 4,
+      "volume": 21,
+      "why": "Phase 1, our vehicles' voices (docs/development/sound-catalogue.md): the owner took the agent's shortlist (survey labouring changed to seed 32); reference and offset are agent choices. Re-levelled 13 Nov 2026 after the owner's listening report (vehicles too quiet against the game's mix): 4 dB up, so an engine sits above the game's parked generator, through a higher SoundDef volume rather than a hotter file."
     },
     {
       "name": "TankerEngineLoad",
@@ -302,9 +302,9 @@
       "kind": "loop",
       "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/Tanker/EngineLoad.ogg",
       "reference": "ChemfuelFiredGenerator_Ambience",
-      "offset_db": 3,
-      "volume": 13,
-      "why": "Phase 1, our vehicles' voices (docs/development/sound-catalogue.md): the owner took the agent's shortlist (survey labouring changed to seed 32); reference and offset are agent choices."
+      "offset_db": 7,
+      "volume": 21,
+      "why": "Phase 1, our vehicles' voices (docs/development/sound-catalogue.md): the owner took the agent's shortlist (survey labouring changed to seed 32); reference and offset are agent choices. Re-levelled 13 Nov 2026 after the owner's listening report (vehicles too quiet against the game's mix): 4 dB up, so an engine sits above the game's parked generator, through a higher SoundDef volume rather than a hotter file."
     },
     {
       "name": "TankerEngineStop",
@@ -314,9 +314,9 @@
       "kind": "oneshot",
       "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/Tanker/EngineStop.ogg",
       "reference": "ChemfuelFiredGenerator_Ambience",
-      "offset_db": 0,
-      "volume": 13,
-      "why": "Phase 1, our vehicles' voices (docs/development/sound-catalogue.md): the owner took the agent's shortlist (survey labouring changed to seed 32); reference and offset are agent choices."
+      "offset_db": 4,
+      "volume": 21,
+      "why": "Phase 1, our vehicles' voices (docs/development/sound-catalogue.md): the owner took the agent's shortlist (survey labouring changed to seed 32); reference and offset are agent choices. Re-levelled 13 Nov 2026 after the owner's listening report (vehicles too quiet against the game's mix): 4 dB up, so an engine sits above the game's parked generator, through a higher SoundDef volume rather than a hotter file."
     },
     {
       "name": "TankerDoorA",
@@ -326,9 +326,9 @@
       "kind": "oneshot",
       "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/Tanker/DoorA.ogg",
       "reference": "Metal_Drop",
-      "offset_db": 0,
-      "volume": 25,
-      "why": "Phase 1, our vehicles' voices (docs/development/sound-catalogue.md): the owner took the agent's shortlist (survey labouring changed to seed 32); reference and offset are agent choices."
+      "offset_db": 3,
+      "volume": 35,
+      "why": "Phase 1, our vehicles' voices (docs/development/sound-catalogue.md): the owner took the agent's shortlist (survey labouring changed to seed 32); reference and offset are agent choices. Re-levelled 13 Nov 2026 after the owner's listening report (vehicles too quiet against the game's mix): 3 dB up, through a higher SoundDef volume rather than a hotter file."
     },
     {
       "name": "TankerDoorB",
@@ -338,9 +338,9 @@
       "kind": "oneshot",
       "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/Tanker/DoorB.ogg",
       "reference": "Metal_Drop",
-      "offset_db": 0,
-      "volume": 25,
-      "why": "Phase 1, our vehicles' voices (docs/development/sound-catalogue.md): the owner took the agent's shortlist (survey labouring changed to seed 32); reference and offset are agent choices."
+      "offset_db": 3,
+      "volume": 35,
+      "why": "Phase 1, our vehicles' voices (docs/development/sound-catalogue.md): the owner took the agent's shortlist (survey labouring changed to seed 32); reference and offset are agent choices. Re-levelled 13 Nov 2026 after the owner's listening report (vehicles too quiet against the game's mix): 3 dB up, through a higher SoundDef volume rather than a hotter file."
     },
     {
       "name": "TankerDoorC",
@@ -350,9 +350,9 @@
       "kind": "oneshot",
       "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/Tanker/DoorC.ogg",
       "reference": "Metal_Drop",
-      "offset_db": 0,
-      "volume": 25,
-      "why": "Phase 1, our vehicles' voices (docs/development/sound-catalogue.md): the owner took the agent's shortlist (survey labouring changed to seed 32); reference and offset are agent choices."
+      "offset_db": 3,
+      "volume": 35,
+      "why": "Phase 1, our vehicles' voices (docs/development/sound-catalogue.md): the owner took the agent's shortlist (survey labouring changed to seed 32); reference and offset are agent choices. Re-levelled 13 Nov 2026 after the owner's listening report (vehicles too quiet against the game's mix): 3 dB up, through a higher SoundDef volume rather than a hotter file."
     },
     {
       "name": "TankerAirBrake",
@@ -374,9 +374,9 @@
       "kind": "oneshot",
       "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/Tanker/Sputter.ogg",
       "reference": "ChemfuelFiredGenerator_Ambience",
-      "offset_db": 0,
-      "volume": 13,
-      "why": "Phase 1, our vehicles' voices (docs/development/sound-catalogue.md): the owner took the agent's shortlist (survey labouring changed to seed 32); reference and offset are agent choices."
+      "offset_db": 4,
+      "volume": 21,
+      "why": "Phase 1, our vehicles' voices (docs/development/sound-catalogue.md): the owner took the agent's shortlist (survey labouring changed to seed 32); reference and offset are agent choices. Re-levelled 13 Nov 2026 after the owner's listening report (vehicles too quiet against the game's mix): 4 dB up, so an engine sits above the game's parked generator, through a higher SoundDef volume rather than a hotter file."
     },
     {
       "name": "TipperEngineStart",
@@ -386,9 +386,9 @@
       "kind": "oneshot",
       "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/Tipper/EngineStart.ogg",
       "reference": "ChemfuelFiredGenerator_Ambience",
-      "offset_db": 0,
-      "volume": 13,
-      "why": "Phase 1, our vehicles' voices (docs/development/sound-catalogue.md): the owner took the agent's shortlist (survey labouring changed to seed 32); reference and offset are agent choices."
+      "offset_db": 4,
+      "volume": 21,
+      "why": "Phase 1, our vehicles' voices (docs/development/sound-catalogue.md): the owner took the agent's shortlist (survey labouring changed to seed 32); reference and offset are agent choices. Re-levelled 13 Nov 2026 after the owner's listening report (vehicles too quiet against the game's mix): 4 dB up, so an engine sits above the game's parked generator, through a higher SoundDef volume rather than a hotter file."
     },
     {
       "name": "TipperEngineIdle",
@@ -398,9 +398,9 @@
       "kind": "loop",
       "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/Tipper/EngineIdle.ogg",
       "reference": "ChemfuelFiredGenerator_Ambience",
-      "offset_db": 0,
-      "volume": 13,
-      "why": "Phase 1, our vehicles' voices (docs/development/sound-catalogue.md): the owner took the agent's shortlist (survey labouring changed to seed 32); reference and offset are agent choices."
+      "offset_db": 4,
+      "volume": 21,
+      "why": "Phase 1, our vehicles' voices (docs/development/sound-catalogue.md): the owner took the agent's shortlist (survey labouring changed to seed 32); reference and offset are agent choices. Re-levelled 13 Nov 2026 after the owner's listening report (vehicles too quiet against the game's mix): 4 dB up, so an engine sits above the game's parked generator, through a higher SoundDef volume rather than a hotter file."
     },
     {
       "name": "TipperEngineLoad",
@@ -410,9 +410,9 @@
       "kind": "loop",
       "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/Tipper/EngineLoad.ogg",
       "reference": "ChemfuelFiredGenerator_Ambience",
-      "offset_db": 3,
-      "volume": 13,
-      "why": "Phase 1, our vehicles' voices (docs/development/sound-catalogue.md): the owner took the agent's shortlist (survey labouring changed to seed 32); reference and offset are agent choices. Seed 32 could not loop cleanly (its best join dipped 3.6 dB); the owner chose seed 31 (11 Nov 2026)."
+      "offset_db": 7,
+      "volume": 21,
+      "why": "Phase 1, our vehicles' voices (docs/development/sound-catalogue.md): the owner took the agent's shortlist (survey labouring changed to seed 32); reference and offset are agent choices. Seed 32 could not loop cleanly (its best join dipped 3.6 dB); the owner chose seed 31 (11 Nov 2026). Re-levelled 13 Nov 2026 after the owner's listening report (vehicles too quiet against the game's mix): 4 dB up, so an engine sits above the game's parked generator, through a higher SoundDef volume rather than a hotter file."
     },
     {
       "name": "TipperEngineStop",
@@ -422,9 +422,9 @@
       "kind": "oneshot",
       "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/Tipper/EngineStop.ogg",
       "reference": "ChemfuelFiredGenerator_Ambience",
-      "offset_db": 0,
-      "volume": 13,
-      "why": "Phase 1, our vehicles' voices (docs/development/sound-catalogue.md): the owner took the agent's shortlist (survey labouring changed to seed 32); reference and offset are agent choices."
+      "offset_db": 4,
+      "volume": 21,
+      "why": "Phase 1, our vehicles' voices (docs/development/sound-catalogue.md): the owner took the agent's shortlist (survey labouring changed to seed 32); reference and offset are agent choices. Re-levelled 13 Nov 2026 after the owner's listening report (vehicles too quiet against the game's mix): 4 dB up, so an engine sits above the game's parked generator, through a higher SoundDef volume rather than a hotter file."
     },
     {
       "name": "TipperDoorA",
@@ -434,9 +434,9 @@
       "kind": "oneshot",
       "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/Tipper/DoorA.ogg",
       "reference": "Metal_Drop",
-      "offset_db": 0,
-      "volume": 25,
-      "why": "Phase 1, our vehicles' voices (docs/development/sound-catalogue.md): the owner took the agent's shortlist (survey labouring changed to seed 32); reference and offset are agent choices."
+      "offset_db": 3,
+      "volume": 35,
+      "why": "Phase 1, our vehicles' voices (docs/development/sound-catalogue.md): the owner took the agent's shortlist (survey labouring changed to seed 32); reference and offset are agent choices. Re-levelled 13 Nov 2026 after the owner's listening report (vehicles too quiet against the game's mix): 3 dB up, through a higher SoundDef volume rather than a hotter file."
     },
     {
       "name": "TipperDoorB",
@@ -446,9 +446,9 @@
       "kind": "oneshot",
       "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/Tipper/DoorB.ogg",
       "reference": "Metal_Drop",
-      "offset_db": 0,
-      "volume": 25,
-      "why": "Phase 1, our vehicles' voices (docs/development/sound-catalogue.md): the owner took the agent's shortlist (survey labouring changed to seed 32); reference and offset are agent choices."
+      "offset_db": 3,
+      "volume": 35,
+      "why": "Phase 1, our vehicles' voices (docs/development/sound-catalogue.md): the owner took the agent's shortlist (survey labouring changed to seed 32); reference and offset are agent choices. Re-levelled 13 Nov 2026 after the owner's listening report (vehicles too quiet against the game's mix): 3 dB up, through a higher SoundDef volume rather than a hotter file."
     },
     {
       "name": "TipperAirBrake",
@@ -470,9 +470,9 @@
       "kind": "oneshot",
       "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/Tipper/Sputter.ogg",
       "reference": "ChemfuelFiredGenerator_Ambience",
-      "offset_db": 0,
-      "volume": 13,
-      "why": "Phase 1, our vehicles' voices (docs/development/sound-catalogue.md): the owner took the agent's shortlist (survey labouring changed to seed 32); reference and offset are agent choices."
+      "offset_db": 4,
+      "volume": 21,
+      "why": "Phase 1, our vehicles' voices (docs/development/sound-catalogue.md): the owner took the agent's shortlist (survey labouring changed to seed 32); reference and offset are agent choices. Re-levelled 13 Nov 2026 after the owner's listening report (vehicles too quiet against the game's mix): 4 dB up, so an engine sits above the game's parked generator, through a higher SoundDef volume rather than a hotter file."
     },
     {
       "name": "DrillRigEngineStart",
@@ -482,9 +482,9 @@
       "kind": "oneshot",
       "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/DrillRig/EngineStart.ogg",
       "reference": "ChemfuelFiredGenerator_Ambience",
-      "offset_db": 0,
-      "volume": 13,
-      "why": "Phase 1, our vehicles' voices (docs/development/sound-catalogue.md): the owner took the agent's shortlist (survey labouring changed to seed 32); reference and offset are agent choices."
+      "offset_db": 4,
+      "volume": 21,
+      "why": "Phase 1, our vehicles' voices (docs/development/sound-catalogue.md): the owner took the agent's shortlist (survey labouring changed to seed 32); reference and offset are agent choices. Re-levelled 13 Nov 2026 after the owner's listening report (vehicles too quiet against the game's mix): 4 dB up, so an engine sits above the game's parked generator, through a higher SoundDef volume rather than a hotter file."
     },
     {
       "name": "DrillRigEngineIdle",
@@ -494,9 +494,9 @@
       "kind": "loop",
       "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/DrillRig/EngineIdle.ogg",
       "reference": "ChemfuelFiredGenerator_Ambience",
-      "offset_db": 0,
-      "volume": 13,
-      "why": "Phase 1, our vehicles' voices (docs/development/sound-catalogue.md): the owner took the agent's shortlist (survey labouring changed to seed 32); reference and offset are agent choices."
+      "offset_db": 4,
+      "volume": 21,
+      "why": "Phase 1, our vehicles' voices (docs/development/sound-catalogue.md): the owner took the agent's shortlist (survey labouring changed to seed 32); reference and offset are agent choices. Re-levelled 13 Nov 2026 after the owner's listening report (vehicles too quiet against the game's mix): 4 dB up, so an engine sits above the game's parked generator, through a higher SoundDef volume rather than a hotter file."
     },
     {
       "name": "DrillRigEngineLoad",
@@ -506,9 +506,9 @@
       "kind": "loop",
       "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/DrillRig/EngineLoad.ogg",
       "reference": "ChemfuelFiredGenerator_Ambience",
-      "offset_db": 3,
-      "volume": 13,
-      "why": "Phase 1, our vehicles' voices (docs/development/sound-catalogue.md): the owner took the agent's shortlist (survey labouring changed to seed 32); reference and offset are agent choices."
+      "offset_db": 7,
+      "volume": 21,
+      "why": "Phase 1, our vehicles' voices (docs/development/sound-catalogue.md): the owner took the agent's shortlist (survey labouring changed to seed 32); reference and offset are agent choices. Re-levelled 13 Nov 2026 after the owner's listening report (vehicles too quiet against the game's mix): 4 dB up, so an engine sits above the game's parked generator, through a higher SoundDef volume rather than a hotter file."
     },
     {
       "name": "DrillRigEngineStop",
@@ -518,9 +518,9 @@
       "kind": "oneshot",
       "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/DrillRig/EngineStop.ogg",
       "reference": "ChemfuelFiredGenerator_Ambience",
-      "offset_db": 0,
-      "volume": 13,
-      "why": "Phase 1, our vehicles' voices (docs/development/sound-catalogue.md): the owner took the agent's shortlist (survey labouring changed to seed 32); reference and offset are agent choices."
+      "offset_db": 4,
+      "volume": 21,
+      "why": "Phase 1, our vehicles' voices (docs/development/sound-catalogue.md): the owner took the agent's shortlist (survey labouring changed to seed 32); reference and offset are agent choices. Re-levelled 13 Nov 2026 after the owner's listening report (vehicles too quiet against the game's mix): 4 dB up, so an engine sits above the game's parked generator, through a higher SoundDef volume rather than a hotter file."
     },
     {
       "name": "DrillRigDoorA",
@@ -530,9 +530,9 @@
       "kind": "oneshot",
       "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/DrillRig/DoorA.ogg",
       "reference": "Metal_Drop",
-      "offset_db": 0,
-      "volume": 25,
-      "why": "Phase 1, our vehicles' voices (docs/development/sound-catalogue.md): the owner took the agent's shortlist (survey labouring changed to seed 32); reference and offset are agent choices."
+      "offset_db": 3,
+      "volume": 35,
+      "why": "Phase 1, our vehicles' voices (docs/development/sound-catalogue.md): the owner took the agent's shortlist (survey labouring changed to seed 32); reference and offset are agent choices. Re-levelled 13 Nov 2026 after the owner's listening report (vehicles too quiet against the game's mix): 3 dB up, through a higher SoundDef volume rather than a hotter file."
     },
     {
       "name": "DrillRigDoorB",
@@ -542,9 +542,9 @@
       "kind": "oneshot",
       "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/DrillRig/DoorB.ogg",
       "reference": "Metal_Drop",
-      "offset_db": 0,
-      "volume": 25,
-      "why": "Phase 1, our vehicles' voices (docs/development/sound-catalogue.md): the owner took the agent's shortlist (survey labouring changed to seed 32); reference and offset are agent choices."
+      "offset_db": 3,
+      "volume": 35,
+      "why": "Phase 1, our vehicles' voices (docs/development/sound-catalogue.md): the owner took the agent's shortlist (survey labouring changed to seed 32); reference and offset are agent choices. Re-levelled 13 Nov 2026 after the owner's listening report (vehicles too quiet against the game's mix): 3 dB up, through a higher SoundDef volume rather than a hotter file."
     },
     {
       "name": "DrillRigAirBrake",
@@ -566,9 +566,9 @@
       "kind": "oneshot",
       "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/DrillRig/Sputter.ogg",
       "reference": "ChemfuelFiredGenerator_Ambience",
-      "offset_db": 0,
-      "volume": 13,
-      "why": "Phase 1, our vehicles' voices (docs/development/sound-catalogue.md): the owner took the agent's shortlist (survey labouring changed to seed 32); reference and offset are agent choices."
+      "offset_db": 4,
+      "volume": 21,
+      "why": "Phase 1, our vehicles' voices (docs/development/sound-catalogue.md): the owner took the agent's shortlist (survey labouring changed to seed 32); reference and offset are agent choices. Re-levelled 13 Nov 2026 after the owner's listening report (vehicles too quiet against the game's mix): 4 dB up, so an engine sits above the game's parked generator, through a higher SoundDef volume rather than a hotter file."
     },
     {
       "name": "SurveyTruckEngineStart",
@@ -578,9 +578,9 @@
       "kind": "oneshot",
       "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/SurveyTruck/EngineStart.ogg",
       "reference": "ChemfuelFiredGenerator_Ambience",
-      "offset_db": 0,
-      "volume": 13,
-      "why": "Phase 1, our vehicles' voices (docs/development/sound-catalogue.md): the owner took the agent's shortlist (survey labouring changed to seed 32); reference and offset are agent choices."
+      "offset_db": 4,
+      "volume": 21,
+      "why": "Phase 1, our vehicles' voices (docs/development/sound-catalogue.md): the owner took the agent's shortlist (survey labouring changed to seed 32); reference and offset are agent choices. Re-levelled 13 Nov 2026 after the owner's listening report (vehicles too quiet against the game's mix): 4 dB up, so an engine sits above the game's parked generator, through a higher SoundDef volume rather than a hotter file."
     },
     {
       "name": "SurveyTruckEngineIdle",
@@ -590,9 +590,9 @@
       "kind": "loop",
       "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/SurveyTruck/EngineIdle.ogg",
       "reference": "ChemfuelFiredGenerator_Ambience",
-      "offset_db": 0,
-      "volume": 13,
-      "why": "Phase 1, our vehicles' voices (docs/development/sound-catalogue.md): the owner took the agent's shortlist (survey labouring changed to seed 32); reference and offset are agent choices."
+      "offset_db": 4,
+      "volume": 21,
+      "why": "Phase 1, our vehicles' voices (docs/development/sound-catalogue.md): the owner took the agent's shortlist (survey labouring changed to seed 32); reference and offset are agent choices. Re-levelled 13 Nov 2026 after the owner's listening report (vehicles too quiet against the game's mix): 4 dB up, so an engine sits above the game's parked generator, through a higher SoundDef volume rather than a hotter file."
     },
     {
       "name": "SurveyTruckEngineLoad",
@@ -602,9 +602,9 @@
       "kind": "loop",
       "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/SurveyTruck/EngineLoad.ogg",
       "reference": "ChemfuelFiredGenerator_Ambience",
-      "offset_db": 3,
-      "volume": 13,
-      "why": "Phase 1, our vehicles' voices (docs/development/sound-catalogue.md): the owner took the agent's shortlist (survey labouring changed to seed 32); reference and offset are agent choices."
+      "offset_db": 7,
+      "volume": 21,
+      "why": "Phase 1, our vehicles' voices (docs/development/sound-catalogue.md): the owner took the agent's shortlist (survey labouring changed to seed 32); reference and offset are agent choices. Re-levelled 13 Nov 2026 after the owner's listening report (vehicles too quiet against the game's mix): 4 dB up, so an engine sits above the game's parked generator, through a higher SoundDef volume rather than a hotter file."
     },
     {
       "name": "SurveyTruckEngineStop",
@@ -614,9 +614,9 @@
       "kind": "oneshot",
       "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/SurveyTruck/EngineStop.ogg",
       "reference": "ChemfuelFiredGenerator_Ambience",
-      "offset_db": 0,
-      "volume": 13,
-      "why": "Phase 1, our vehicles' voices (docs/development/sound-catalogue.md): the owner took the agent's shortlist (survey labouring changed to seed 32); reference and offset are agent choices."
+      "offset_db": 4,
+      "volume": 21,
+      "why": "Phase 1, our vehicles' voices (docs/development/sound-catalogue.md): the owner took the agent's shortlist (survey labouring changed to seed 32); reference and offset are agent choices. Re-levelled 13 Nov 2026 after the owner's listening report (vehicles too quiet against the game's mix): 4 dB up, so an engine sits above the game's parked generator, through a higher SoundDef volume rather than a hotter file."
     },
     {
       "name": "SurveyTruckDoorA",
@@ -626,9 +626,9 @@
       "kind": "oneshot",
       "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/SurveyTruck/DoorA.ogg",
       "reference": "Metal_Drop",
-      "offset_db": 0,
-      "volume": 25,
-      "why": "Phase 1, our vehicles' voices (docs/development/sound-catalogue.md): the owner took the agent's shortlist (survey labouring changed to seed 32); reference and offset are agent choices."
+      "offset_db": 3,
+      "volume": 35,
+      "why": "Phase 1, our vehicles' voices (docs/development/sound-catalogue.md): the owner took the agent's shortlist (survey labouring changed to seed 32); reference and offset are agent choices. Re-levelled 13 Nov 2026 after the owner's listening report (vehicles too quiet against the game's mix): 3 dB up, through a higher SoundDef volume rather than a hotter file."
     },
     {
       "name": "SurveyTruckDoorB",
@@ -638,9 +638,9 @@
       "kind": "oneshot",
       "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/SurveyTruck/DoorB.ogg",
       "reference": "Metal_Drop",
-      "offset_db": 0,
-      "volume": 25,
-      "why": "Phase 1, our vehicles' voices (docs/development/sound-catalogue.md): the owner took the agent's shortlist (survey labouring changed to seed 32); reference and offset are agent choices."
+      "offset_db": 3,
+      "volume": 35,
+      "why": "Phase 1, our vehicles' voices (docs/development/sound-catalogue.md): the owner took the agent's shortlist (survey labouring changed to seed 32); reference and offset are agent choices. Re-levelled 13 Nov 2026 after the owner's listening report (vehicles too quiet against the game's mix): 3 dB up, through a higher SoundDef volume rather than a hotter file."
     },
     {
       "name": "SurveyTruckSputter",
@@ -650,9 +650,9 @@
       "kind": "oneshot",
       "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/SurveyTruck/Sputter.ogg",
       "reference": "ChemfuelFiredGenerator_Ambience",
-      "offset_db": 0,
-      "volume": 13,
-      "why": "Phase 1, our vehicles' voices (docs/development/sound-catalogue.md): the owner took the agent's shortlist (survey labouring changed to seed 32); reference and offset are agent choices."
+      "offset_db": 4,
+      "volume": 21,
+      "why": "Phase 1, our vehicles' voices (docs/development/sound-catalogue.md): the owner took the agent's shortlist (survey labouring changed to seed 32); reference and offset are agent choices. Re-levelled 13 Nov 2026 after the owner's listening report (vehicles too quiet against the game's mix): 4 dB up, so an engine sits above the game's parked generator, through a higher SoundDef volume rather than a hotter file."
     },
     {
       "name": "GeneratorSetEngineStart",
@@ -662,9 +662,9 @@
       "kind": "oneshot",
       "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/GeneratorSet/EngineStart.ogg",
       "reference": "ChemfuelFiredGenerator_Ambience",
-      "offset_db": 0,
-      "volume": 13,
-      "why": "Phase 1, our vehicles' voices (docs/development/sound-catalogue.md): the owner took the agent's shortlist (survey labouring changed to seed 32); reference and offset are agent choices."
+      "offset_db": 4,
+      "volume": 21,
+      "why": "Phase 1, our vehicles' voices (docs/development/sound-catalogue.md): the owner took the agent's shortlist (survey labouring changed to seed 32); reference and offset are agent choices. Re-levelled 13 Nov 2026 after the owner's listening report (vehicles too quiet against the game's mix): 4 dB up, so an engine sits above the game's parked generator, through a higher SoundDef volume rather than a hotter file."
     },
     {
       "name": "GeneratorSetEngineIdle",
@@ -674,9 +674,9 @@
       "kind": "loop",
       "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/GeneratorSet/EngineIdle.ogg",
       "reference": "ChemfuelFiredGenerator_Ambience",
-      "offset_db": 0,
-      "volume": 13,
-      "why": "Phase 1, our vehicles' voices (docs/development/sound-catalogue.md): the owner took the agent's shortlist (survey labouring changed to seed 32); reference and offset are agent choices."
+      "offset_db": 4,
+      "volume": 21,
+      "why": "Phase 1, our vehicles' voices (docs/development/sound-catalogue.md): the owner took the agent's shortlist (survey labouring changed to seed 32); reference and offset are agent choices. Re-levelled 13 Nov 2026 after the owner's listening report (vehicles too quiet against the game's mix): 4 dB up, so an engine sits above the game's parked generator, through a higher SoundDef volume rather than a hotter file."
     },
     {
       "name": "GeneratorSetEngineLoad",
@@ -686,9 +686,9 @@
       "kind": "loop",
       "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/GeneratorSet/EngineLoad.ogg",
       "reference": "ChemfuelFiredGenerator_Ambience",
-      "offset_db": 3,
-      "volume": 13,
-      "why": "Phase 1, our vehicles' voices (docs/development/sound-catalogue.md): the owner took the agent's shortlist (survey labouring changed to seed 32); reference and offset are agent choices."
+      "offset_db": 7,
+      "volume": 21,
+      "why": "Phase 1, our vehicles' voices (docs/development/sound-catalogue.md): the owner took the agent's shortlist (survey labouring changed to seed 32); reference and offset are agent choices. Re-levelled 13 Nov 2026 after the owner's listening report (vehicles too quiet against the game's mix): 4 dB up, so an engine sits above the game's parked generator, through a higher SoundDef volume rather than a hotter file."
     },
     {
       "name": "GeneratorSetEngineStop",
@@ -698,9 +698,9 @@
       "kind": "oneshot",
       "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/GeneratorSet/EngineStop.ogg",
       "reference": "ChemfuelFiredGenerator_Ambience",
-      "offset_db": 0,
-      "volume": 13,
-      "why": "Phase 1, our vehicles' voices (docs/development/sound-catalogue.md): the owner took the agent's shortlist (survey labouring changed to seed 32); reference and offset are agent choices."
+      "offset_db": 4,
+      "volume": 21,
+      "why": "Phase 1, our vehicles' voices (docs/development/sound-catalogue.md): the owner took the agent's shortlist (survey labouring changed to seed 32); reference and offset are agent choices. Re-levelled 13 Nov 2026 after the owner's listening report (vehicles too quiet against the game's mix): 4 dB up, so an engine sits above the game's parked generator, through a higher SoundDef volume rather than a hotter file."
     },
     {
       "name": "GeneratorSetDoorA",
@@ -710,9 +710,9 @@
       "kind": "oneshot",
       "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/GeneratorSet/DoorA.ogg",
       "reference": "Metal_Drop",
-      "offset_db": 0,
-      "volume": 25,
-      "why": "Phase 1, our vehicles' voices (docs/development/sound-catalogue.md): the owner took the agent's shortlist (survey labouring changed to seed 32); reference and offset are agent choices."
+      "offset_db": 3,
+      "volume": 35,
+      "why": "Phase 1, our vehicles' voices (docs/development/sound-catalogue.md): the owner took the agent's shortlist (survey labouring changed to seed 32); reference and offset are agent choices. Re-levelled 13 Nov 2026 after the owner's listening report (vehicles too quiet against the game's mix): 3 dB up, through a higher SoundDef volume rather than a hotter file."
     },
     {
       "name": "GeneratorSetDoorB",
@@ -722,9 +722,9 @@
       "kind": "oneshot",
       "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/GeneratorSet/DoorB.ogg",
       "reference": "Metal_Drop",
-      "offset_db": 0,
-      "volume": 25,
-      "why": "Phase 1, our vehicles' voices (docs/development/sound-catalogue.md): the owner took the agent's shortlist (survey labouring changed to seed 32); reference and offset are agent choices."
+      "offset_db": 3,
+      "volume": 35,
+      "why": "Phase 1, our vehicles' voices (docs/development/sound-catalogue.md): the owner took the agent's shortlist (survey labouring changed to seed 32); reference and offset are agent choices. Re-levelled 13 Nov 2026 after the owner's listening report (vehicles too quiet against the game's mix): 3 dB up, through a higher SoundDef volume rather than a hotter file."
     },
     {
       "name": "GeneratorSetSputter",
@@ -734,9 +734,9 @@
       "kind": "oneshot",
       "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/GeneratorSet/Sputter.ogg",
       "reference": "ChemfuelFiredGenerator_Ambience",
-      "offset_db": 0,
-      "volume": 13,
-      "why": "Phase 1, our vehicles' voices (docs/development/sound-catalogue.md): the owner took the agent's shortlist (survey labouring changed to seed 32); reference and offset are agent choices."
+      "offset_db": 4,
+      "volume": 21,
+      "why": "Phase 1, our vehicles' voices (docs/development/sound-catalogue.md): the owner took the agent's shortlist (survey labouring changed to seed 32); reference and offset are agent choices. Re-levelled 13 Nov 2026 after the owner's listening report (vehicles too quiet against the game's mix): 4 dB up, so an engine sits above the game's parked generator, through a higher SoundDef volume rather than a hotter file."
     },
     {
       "name": "SeabedCrawlerEngineStart",
@@ -746,9 +746,9 @@
       "kind": "oneshot",
       "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/SeabedCrawler/EngineStart.ogg",
       "reference": "ChemfuelFiredGenerator_Ambience",
-      "offset_db": -3,
-      "volume": 13,
-      "why": "Phase 1, our vehicles' voices (docs/development/sound-catalogue.md): the owner took the agent's shortlist (survey labouring changed to seed 32); reference and offset are agent choices."
+      "offset_db": 1,
+      "volume": 21,
+      "why": "Phase 1, our vehicles' voices (docs/development/sound-catalogue.md): the owner took the agent's shortlist (survey labouring changed to seed 32); reference and offset are agent choices. Re-levelled 13 Nov 2026 after the owner's listening report (vehicles too quiet against the game's mix): 4 dB up, so an engine sits above the game's parked generator, through a higher SoundDef volume rather than a hotter file."
     },
     {
       "name": "SeabedCrawlerEngineIdle",
@@ -758,9 +758,9 @@
       "kind": "loop",
       "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/SeabedCrawler/EngineIdle.ogg",
       "reference": "ChemfuelFiredGenerator_Ambience",
-      "offset_db": -3,
-      "volume": 13,
-      "why": "Phase 1, our vehicles' voices (docs/development/sound-catalogue.md): the owner took the agent's shortlist (survey labouring changed to seed 32); reference and offset are agent choices."
+      "offset_db": 1,
+      "volume": 21,
+      "why": "Phase 1, our vehicles' voices (docs/development/sound-catalogue.md): the owner took the agent's shortlist (survey labouring changed to seed 32); reference and offset are agent choices. Re-levelled 13 Nov 2026 after the owner's listening report (vehicles too quiet against the game's mix): 4 dB up, so an engine sits above the game's parked generator, through a higher SoundDef volume rather than a hotter file."
     },
     {
       "name": "SeabedCrawlerEngineLoad",
@@ -770,9 +770,9 @@
       "kind": "loop",
       "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/SeabedCrawler/EngineLoad.ogg",
       "reference": "ChemfuelFiredGenerator_Ambience",
-      "offset_db": 0,
-      "volume": 13,
-      "why": "Phase 1, our vehicles' voices (docs/development/sound-catalogue.md): the owner took the agent's shortlist (survey labouring changed to seed 32); reference and offset are agent choices."
+      "offset_db": 4,
+      "volume": 21,
+      "why": "Phase 1, our vehicles' voices (docs/development/sound-catalogue.md): the owner took the agent's shortlist (survey labouring changed to seed 32); reference and offset are agent choices. Re-levelled 13 Nov 2026 after the owner's listening report (vehicles too quiet against the game's mix): 4 dB up, so an engine sits above the game's parked generator, through a higher SoundDef volume rather than a hotter file."
     },
     {
       "name": "SeabedCrawlerEngineStop",
@@ -782,9 +782,9 @@
       "kind": "oneshot",
       "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/SeabedCrawler/EngineStop.ogg",
       "reference": "ChemfuelFiredGenerator_Ambience",
-      "offset_db": -3,
-      "volume": 13,
-      "why": "Phase 1, our vehicles' voices (docs/development/sound-catalogue.md): the owner took the agent's shortlist (survey labouring changed to seed 32); reference and offset are agent choices."
+      "offset_db": 1,
+      "volume": 21,
+      "why": "Phase 1, our vehicles' voices (docs/development/sound-catalogue.md): the owner took the agent's shortlist (survey labouring changed to seed 32); reference and offset are agent choices. Re-levelled 13 Nov 2026 after the owner's listening report (vehicles too quiet against the game's mix): 4 dB up, so an engine sits above the game's parked generator, through a higher SoundDef volume rather than a hotter file."
     },
     {
       "name": "SeabedCrawlerDoorA",
@@ -794,9 +794,9 @@
       "kind": "oneshot",
       "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/SeabedCrawler/DoorA.ogg",
       "reference": "Metal_Drop",
-      "offset_db": 0,
-      "volume": 25,
-      "why": "Phase 1, our vehicles' voices (docs/development/sound-catalogue.md): the owner took the agent's shortlist (survey labouring changed to seed 32); reference and offset are agent choices."
+      "offset_db": 3,
+      "volume": 35,
+      "why": "Phase 1, our vehicles' voices (docs/development/sound-catalogue.md): the owner took the agent's shortlist (survey labouring changed to seed 32); reference and offset are agent choices. Re-levelled 13 Nov 2026 after the owner's listening report (vehicles too quiet against the game's mix): 3 dB up, through a higher SoundDef volume rather than a hotter file."
     },
     {
       "name": "SeabedCrawlerDoorB",
@@ -806,9 +806,9 @@
       "kind": "oneshot",
       "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/SeabedCrawler/DoorB.ogg",
       "reference": "Metal_Drop",
-      "offset_db": 0,
-      "volume": 25,
-      "why": "Phase 1, our vehicles' voices (docs/development/sound-catalogue.md): the owner took the agent's shortlist (survey labouring changed to seed 32); reference and offset are agent choices."
+      "offset_db": 3,
+      "volume": 35,
+      "why": "Phase 1, our vehicles' voices (docs/development/sound-catalogue.md): the owner took the agent's shortlist (survey labouring changed to seed 32); reference and offset are agent choices. Re-levelled 13 Nov 2026 after the owner's listening report (vehicles too quiet against the game's mix): 3 dB up, through a higher SoundDef volume rather than a hotter file."
     },
     {
       "name": "SeabedCrawlerDoorC",
@@ -818,9 +818,9 @@
       "kind": "oneshot",
       "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/SeabedCrawler/DoorC.ogg",
       "reference": "Metal_Drop",
-      "offset_db": 0,
-      "volume": 25,
-      "why": "Phase 1, our vehicles' voices (docs/development/sound-catalogue.md): the owner took the agent's shortlist (survey labouring changed to seed 32); reference and offset are agent choices."
+      "offset_db": 3,
+      "volume": 35,
+      "why": "Phase 1, our vehicles' voices (docs/development/sound-catalogue.md): the owner took the agent's shortlist (survey labouring changed to seed 32); reference and offset are agent choices. Re-levelled 13 Nov 2026 after the owner's listening report (vehicles too quiet against the game's mix): 3 dB up, through a higher SoundDef volume rather than a hotter file."
     },
     {
       "name": "TankerHoses",

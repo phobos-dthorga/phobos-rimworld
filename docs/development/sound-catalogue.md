@@ -19,6 +19,10 @@ owner's picks can name it.
   **Code** needs a small C# hook (a sound field on one of our comps or jobs); **Feature** waits for the thing itself to be built.
 - **Engines follow rpm and load** (Framework 0.76.0): our systems play our vehicles' engine loops and steer their pitch and blend, so
   Vehicle Framework's own event loops (which nothing can change while they play) are not used for them.
+- **Vehicles are levelled to the game's mix, not below it** (owner's listening report, 13 Nov 2026, on reference speakers): an engine
+  plays above the game's parked chemfuel generator and reaches as far as the game's own sounds (25 to 70). `export_sound.py --check`
+  refuses an engine loop that doesn't, and a SoundDef whose volume differs from the one its sound was levelled through. See
+  "Vehicles re-levelled" below.
 
 ## What the L-ATV does, and what we can do
 
@@ -340,6 +344,60 @@ The hooks went in first, silent until a Def named a sound, so the morning's pick
   `medical.json`), on the GPU while the owner slept, with re-runs where every seed failed (`night-reruns.json`: fresh seeds for three
   one-shots that clipped on every seed, and steadier rewordings of three loops that had gaps on every seed: the ventilator, the hull's
   creaks and the lab).
+
+## Vehicles re-levelled (13 Nov 2026; Framework 0.108.1, Vehicles 0.51.1; not yet tested in game)
+
+**The owner's report (evidence):** "the sounds seem to be rather quiet with the vehicles", with the D'thorga sounds volume at its default
+(100%), and "I have reference speakers by the way so this is in regard to the rest of the game." So the judgement is against the game's own
+mix, and the levels below are anchored to the game's sounds first, other authors' vehicles second.
+
+**What was wrong: mostly reach, partly level.** All figures are effective loudness: the file's integrated loudness (ffmpeg's EBU R128
+meter) plus 20 log10(volume / 100), the SoundDef's playback gain.
+
+- **Reach (the larger fault).** A sound fades linearly from full at its distRange minimum to silent at its maximum (the game's
+  `AudioSourceMaker` sets Unity's linear roll-off). The camera sits 15 cells above the map at the closest zoom and 65 at the farthest
+  (`CameraDriver`: 15 + 50 times the zoom fraction; an ordinary playing zoom is about 28). The listener is set in the game's scene, not its
+  code; that it rides with the camera is our inference, and fits how every sound in the game fades as you zoom out. Our engines reached
+  10 to 30 cells: about 2.5 dB down at the closest zoom, about 20 dB down at an ordinary zoom and silent past 30. Our doors reached 5 to
+  20: 9.5 dB down at the closest zoom and silent beyond it. The game's default (`SubSoundDef.distRange`) is 25 to 70, which its doors,
+  Vanilla Vehicles Expanded's engines and GTek's L-ATV all use. Only the game's ambient machine hums are shorter (the chemfuel generator
+  10 to 20, the geothermal plant 0 to 30), so they are heard only close up.
+- **Level.** Our engines had been levelled exactly to the game's parked generator, which put a moving truck no louder than a generator.
+
+**Measured (13 Nov 2026; the game's sounds with `scripts/art/game_sounds.py`, others' read-only from their Workshop folders, nothing
+copied):**
+
+| Sound | Effective loudness | Reach |
+| --- | --- | --- |
+| The game's chemfuel generator, running | -36.5 LUFS | 10 to 20 |
+| The game's geothermal plant, running | -35.6 LUFS | 0 to 30 |
+| The game's doors opening (manual, powered) | -45.5 to -48.1 LUFS | 25 to 70 (default) |
+| Vanilla Vehicles Expanded: car, heavy, big truck engines | -37.1, -34.8, -31.6 LUFS | 25 to 70 (default) |
+| Vanilla Vehicles Expanded: vehicle start | -27.6 LUFS | 25 to 70 (default) |
+| GTek's L-ATV: heavy engine loop, start | -20.2, -26.8 LUFS | 25 to 70 (default) |
+| Ours before: engine idling, labouring | -36.5, -33.6 LUFS | 10 to 30 |
+| Ours before: doors | -42.4 to -47.8 LUFS | 5 to 20 |
+| **Ours now: engine idling, labouring** | **-32.6, -29.5 LUFS** | **25 to 70** |
+| **Ours now: doors** | **-38.8 to -44.8 LUFS** | **25 to 70** |
+
+Vanilla Vehicles Expanded - Tier 3 and Vehicle Framework had no engine or door SoundDefs of their own to measure (Tier 3 uses Vanilla
+Vehicles Expanded's).
+
+**What changed (agent's choices, for the owner's ears):**
+
+- **Engines** (start, idling, labouring, stop, out of fuel; the failed starts and the knocks): 4 dB up, through the SoundDef volume
+  (13 to 21) with the files at the level they had, so no peak moved. An engine now idles 4 dB above the game's parked generator, and our
+  generator truck's running set stays at the game generator's own level and reach (it is a parked generator). Level with Vanilla Vehicles
+  Expanded's big truck when idling, above it when labouring; GTek's L-ATV is louder still (its loop plays at full volume). The Crawler
+  stays 3 dB under the others when idling (a hull under water).
+- **Doors:** 3 dB up (volume 25 to 35), which puts them a little above the game's own doors, as a vehicle's heavier door should be.
+- **Reach:** every vehicle sound in D'thorga Vehicles and the vehicle systems now reaches the game's default 25 to 70, except small
+  ones (a console, a chime, a kit, a nozzle, a latch, cargo set down), which reach 15 to 50 (agent's choice: heard at an ordinary zoom,
+  about 4 dB down, but not across the map). The generator truck's running set keeps 10 to 20.
+- **The setting:** "D'thorga sounds volume" now goes up to 200% (was 150%), for a player who wants them plainer still.
+- **The check:** `python scripts/art/export_sound.py assets/phobos-sounds/exports.json --check` (and the sound test that runs it) now
+  refuses a vehicle engine loop not levelled above the game's chemfuel generator, an engine loop whose reach ends short of the game's
+  70, and any SoundDef of ours that plays a sound at a volume other than the one it was levelled through.
 
 ## Open questions for the owner
 

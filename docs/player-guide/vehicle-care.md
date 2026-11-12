@@ -67,11 +67,12 @@ set**, an **engine service kit**, a **drive belt**. A colony from before kits ex
 off **This colony: services take raw materials instead of kits** in the settings.
 
 **The coolant top-up** takes water from a plumbing pipe beside the parked vehicle with Dubs Bad Hygiene, or 3 chemfuel without it.
-**Pipes and conduits beneath a parked vehicle.** Whenever a vehicle of ours stands with its engine off, it shows the networks it uses
-across its footprint: plumbing if it takes water, power conduit if it has a battery, and the pipe of any line it uses (a tanker's
-contents, a chemfuel line for its fuel). Run a pipe or conduit to any side and it joins; a conduit run from a powered grid charges its
-battery. They go the moment its engine starts or it drives off, and come back when it stops with its engine off. A vehicle set up for work
-keeps the pipes its work needs. A piece you deconstruct stays gone until the vehicle is parked again.
+**Pipes and conduits beneath a parked vehicle.** Whenever a vehicle of ours stands with its engine off, it lays hidden pieces of the
+networks it uses across its footprint: plumbing if it takes water, power conduit if it has a battery, and the pipe of any line it uses (a
+tanker's contents, a chemfuel line for its fuel). **You see them in the plumbing and power overlays**, not on the floor. Run a pipe or
+conduit to any side and it joins; a conduit run from a powered grid charges its battery. They go the moment its engine starts or it drives
+off, and come back when it stops with its engine off. A vehicle set up for work keeps the pipes its work needs. A piece you deconstruct
+stays gone until the vehicle is parked again, and gives nothing back.
 
 **Refuelling from a chemfuel pipe** (with Vanilla Chemfuel Expanded): park a fuelled vehicle against a chemfuel pipe and switch its engine off. The
 chemfuel pipe beneath it joins the line and fills from the line's tanks, 30 chemfuel an hour; the inspect pane says how full it is, and a message says when it is

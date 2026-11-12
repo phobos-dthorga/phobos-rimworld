@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using Phobos.Framework.Rules;
 using RimWorld;
 using Verse;
@@ -22,6 +23,28 @@ namespace Phobos.Framework.Persistence;
 /// </summary>
 public sealed class PipeUnderlay : IExposable
 {
+    /// <summary>
+    /// Every piece any underlay has laid and still holds, so that taking one apart refunds nothing (Framework 0.108.1): since 0.108.0 a vehicle lays its pieces
+    /// again at every stop, and a piece that gave back materials when deconstructed would make them from nothing, over and over (Dubs Bad Hygiene's pipe gives
+    /// back half its steel). Keyed by the thing itself, weakly, so a thing that has gone, or a game that has closed, leaves nothing behind. Never saved: it is
+    /// rebuilt from each underlay's own list as it loads.
+    /// </summary>
+    static readonly ConditionalWeakTable<Thing, object> Laid = new();
+    static readonly object Mark = new();
+
+    /// <summary>Whether this thing was laid by one of our underlays, which refunds nothing when it is taken apart.</summary>
+    public static bool LaidByUs(Thing thing) => thing != null && Laid.TryGetValue(thing, out _);
+
+    static void Register(Thing thing)
+    {
+        if (thing != null && !Laid.TryGetValue(thing, out _)) Laid.Add(thing, Mark);
+    }
+
+    static void Unregister(Thing thing)
+    {
+        if (thing != null) Laid.Remove(thing);
+    }
+
     const string SaveKey = "PhobosPipeUnderlayPieces";
     const string CellsKey = "PhobosPipeUnderlayCells";
     const string DeclinedKey = "PhobosPipeUnderlayDeclined";
@@ -136,8 +159,10 @@ public sealed class PipeUnderlay : IExposable
             if (piece == null) return;
             Map map = old.Map;
             IntVec3 cell = old.Position;
+            Unregister(old);
             old.Destroy(DestroyMode.Vanish);
             pieces[i] = GenSpawn.Spawn(Own(piece), cell, map);
+            Register(pieces[i]);
             cells[i] = cell;
         }
     }
@@ -152,7 +177,9 @@ public sealed class PipeUnderlay : IExposable
         cellsPending = false;
         for (int i = 0; i < laid.Count; i++)
         {
-            if (laid[i] is { Destroyed: false } piece) piece.Destroy(DestroyMode.Vanish);
+            if (laid[i] is not { } piece) continue;
+            Unregister(piece);
+            if (!piece.Destroyed) piece.Destroy(DestroyMode.Vanish);
         }
     }
 
@@ -166,6 +193,7 @@ public sealed class PipeUnderlay : IExposable
     {
         pieces.Add(piece);
         cells.Add(cell);
+        Register(piece);
     }
 
     /// <summary>Rebuilds the cells from the pieces, once the map's things stand (a save from before Framework 0.107.0 kept none).</summary>
@@ -185,6 +213,7 @@ public sealed class PipeUnderlay : IExposable
         {
             if (pieces[i] is { Destroyed: false }) continue;
             if (i < cells.Count && cells[i].IsValid && !declined.Contains(cells[i])) declined.Add(cells[i]);
+            if (pieces[i] is { } gone) Unregister(gone);
             pieces.RemoveAt(i);
             if (i < cells.Count) cells.RemoveAt(i);
         }
@@ -202,6 +231,7 @@ public sealed class PipeUnderlay : IExposable
         pieces ??= new List<Thing>();
         cells ??= new List<IntVec3>();
         declined ??= new List<IntVec3>();
+        foreach (Thing piece in pieces) Register(piece);
         if (cells.Count != pieces.Count)
         {
             // A save from before Framework 0.107.0 kept no cells. Nothing is on the map yet while loading (the fault 0.107.0 had: it asked, and dropped every

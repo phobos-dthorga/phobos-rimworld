@@ -439,12 +439,13 @@
   "FailedStartDiesel": {
     "name": "FailedStartDiesel",
     "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Sounds/Phobos/VehicleSystems/FailedStartDiesel.ogg",
-    "sha256": "a84145cf49599d19f5dc2f898800060f29dba968a93d667334ca40f9793579e8",
+    "sha256": "956718f5c3eed09dfe8bee32a9c274d1776d6be94ddbae1faaebd22fa402556b",
     "master_sha256": "e23df16544135425793e49dd11467c60d7478f7d44e961c16e6e3061e29c533a",
-    "date": "2026-11-10",
+    "fingerprint": "d12e74383a8b1af0e93c018ba39a9509a2cdda8a81df4aa9b782d73875963013",
+    "date": "2026-11-13",
     "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
     "processing": {
-      "levelled_by": "loudness, to -18.78 LUFS",
+      "levelled_by": "loudness, to -18.94 LUFS",
       "gain_db": 2.1
     },
     "reference": {
@@ -476,18 +477,18 @@
       "steps": 8,
       "cfg": 1.0,
       "prompt": "A cold diesel truck engine failing to start: the starter motor cranks slowly and laboriously, the engine coughs once but does not catch, and the cranking stops. Outdoors, close. Length: 5 seconds"
-    },
-    "fingerprint": "8a275bcc4b857c3cc4e5b9833afa5cf29734b6d1ad305d192772c8ac60d2faee"
+    }
   },
   "FailedStartPetrol": {
     "name": "FailedStartPetrol",
     "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Sounds/Phobos/VehicleSystems/FailedStartPetrol.ogg",
-    "sha256": "cafb2b87c4ccf8a965f485f1fa46894687d5c16befddbdeec93d9b06bc07253f",
+    "sha256": "095229999aa786e9d39f86f7a8611ec4065f7d606ee3fc731b8503801c24a4a8",
     "master_sha256": "7dbdb6a3e6e1beefc11392b59313dc1e85e1ed3510a034e6ec16049c644348b4",
-    "date": "2026-11-10",
+    "fingerprint": "338f467cde4ce44afcc37c8e09308eec5989c63e9888da1d5beae7da4d0d162a",
+    "date": "2026-11-13",
     "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
     "processing": {
-      "levelled_by": "loudness, to -18.78 LUFS",
+      "levelled_by": "loudness, to -18.94 LUFS",
       "gain_db": 7.8
     },
     "reference": {
@@ -521,15 +522,15 @@
       "steps": 8,
       "cfg": 1.0,
       "prompt": "A petrol car engine failing to start: the starter motor cranks with a weak, slowing whirr, the engine sputters but never catches, then silence. Outdoors, close. Length: 5 seconds"
-    },
-    "fingerprint": "9b46c6252445d9cfaf2722b810387a1ed201c756fb84ad3a30f3f63b806a7bf8"
+    }
   },
   "KnockDiesel": {
     "name": "KnockDiesel",
     "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Sounds/Phobos/VehicleSystems/KnockDiesel.ogg",
-    "sha256": "a6cd755a8d54b9d7dcd6208341c6875a6a1e4b607f53368eee873b630c97a814",
+    "sha256": "e607bb54bfee0fcacc01d8c2d140e4580f06b88a097730b56b2c0cb3ae7052f9",
     "master_sha256": "5438851ff22af03692c8b878a7c92a8c952491a2994671bdc69e617b042ac24d",
-    "date": "2026-11-10",
+    "fingerprint": "3928d61f6a0af3a8398e701052e1f1ec537c1d0952e8b9636cd35588c3cdd831",
+    "date": "2026-11-13",
     "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
     "processing": {
       "loop_span_s": [
@@ -537,8 +538,11 @@
         6.1675
       ],
       "loop_match": 0.251,
-      "levelled_by": "loudness, to -24.78 LUFS",
-      "gain_db": -4.58
+      "loop_crossfade_s": 0.25,
+      "loop_curve": "equal power",
+      "loop_seam_dip_db": 0.0,
+      "levelled_by": "loudness, to -24.94 LUFS",
+      "gain_db": -4.74
     },
     "reference": {
       "defName": "ChemfuelFiredGenerator_Ambience",
@@ -554,8 +558,8 @@
       "channels": 1
     },
     "result": {
-      "lufs": -24.9,
-      "true_peak": -11.2,
+      "lufs": -25.0,
+      "true_peak": -11.3,
       "seconds": 5.72,
       "flags": [],
       "seam_dip_db": 0.0,
@@ -569,24 +573,27 @@
       "steps": 8,
       "cfg": 1.0,
       "prompt": "A worn diesel engine idling with a heavy rhythmic metallic knocking from the bottom end, a steady deep mechanical clatter, rough, continuous and unchanging. Length: 8 seconds"
-    },
-    "fingerprint": "b83d24cc7d1405e7f50b3503405e56b48249bb136b93d37bf2e1443d9d6ab4c7"
+    }
   },
   "KnockPetrol": {
     "name": "KnockPetrol",
     "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Sounds/Phobos/VehicleSystems/KnockPetrol.ogg",
-    "sha256": "09481d363a67732585c027bf32262edbff8e2cc4a9ffe4e8861f2031a25940a4",
+    "sha256": "150e017e89674ece5bdc384082220786606f56a45ec824e85f886a01ec57f130",
     "master_sha256": "2f92b25f253ec73a36039984476e0cb5e2b95364b56f0f5bf05eea011668743b",
-    "date": "2026-11-10",
+    "fingerprint": "3e9e80f757d435a7c8a25c2afe58af60f9f9511c4bf959eec4cd88dcb7cf8a43",
+    "date": "2026-11-13",
     "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
     "processing": {
       "loop_span_s": [
         0.2,
-        6.5526
+        6.3181
       ],
-      "loop_match": 0.235,
-      "levelled_by": "loudness, to -24.78 LUFS",
-      "gain_db": -1.78
+      "loop_match": 0.149,
+      "loop_crossfade_s": 1.0,
+      "loop_curve": "equal gain",
+      "loop_seam_dip_db": 0.61,
+      "levelled_by": "loudness, to -24.94 LUFS",
+      "gain_db": -1.74
     },
     "reference": {
       "defName": "ChemfuelFiredGenerator_Ambience",
@@ -602,11 +609,11 @@
       "channels": 1
     },
     "result": {
-      "lufs": -24.9,
-      "true_peak": -10.2,
-      "seconds": 6.1,
+      "lufs": -25.1,
+      "true_peak": -10.7,
+      "seconds": 5.12,
       "flags": [],
-      "seam_dip_db": 1.28,
+      "seam_dip_db": 0.33,
       "loop_gap_s": 0.0
     },
     "source": {
@@ -617,8 +624,7 @@
       "steps": 8,
       "cfg": 1.0,
       "prompt": "A worn petrol engine idling with a light rapid tapping and knocking from loose valves, steady rough running, continuous and unchanging. Length: 8 seconds"
-    },
-    "fingerprint": "3b72206df710ddd7027c9f5b87b541e3ae2208233b4beda5820cedf5cfa12392"
+    }
   },
   "BrakeSqueal": {
     "name": "BrakeSqueal",
@@ -970,13 +976,13 @@
   "TankerEngineStart": {
     "name": "TankerEngineStart",
     "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/Tanker/EngineStart.ogg",
-    "sha256": "5c0cc02d31a64377b9c62ae7046d8f68526d04d4d8da60c44ed47aeabbed4c7f",
+    "sha256": "b7949034dedf43a963ed5884cd136bce7423e34c12555dd47b7d004574f00496",
     "master_sha256": "75eb38982e36d547fbe044e3544def20c1fd6c7ccfd106863ced609dcb4f54d2",
-    "fingerprint": "82f1bcda92fa03023b95a823bf4487ab4eb0b73c2a2dbb4ad89bfa50efc8adc2",
-    "date": "2026-11-11",
+    "fingerprint": "3c65ff8dc9b1ce2825ad627063e5a1c9c1ac06e2ae030859f9be789cea94efb6",
+    "date": "2026-11-13",
     "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
     "processing": {
-      "levelled_by": "loudness, to -18.78 LUFS",
+      "levelled_by": "loudness, to -18.94 LUFS",
       "gain_db": 2.0
     },
     "reference": {
@@ -1013,10 +1019,10 @@
   "TankerEngineIdle": {
     "name": "TankerEngineIdle",
     "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/Tanker/EngineIdle.ogg",
-    "sha256": "abcea3d7448f945bd2e660b2c8aa0a23befbe9c6ad5358c1e9541af5b1cb942b",
+    "sha256": "b68d7aa414e4f6c53275e1ff0f44917e5d11fc97e333060896d69cb97b8e49e2",
     "master_sha256": "d9129bc3d4c72f268fd4188e63d730a84a7753736d9b3e2eddd2ef4f42f85581",
-    "fingerprint": "c2e334cca149652e6ba5600a51fa8cde69534714b5a96450a007e392b54cb9ee",
-    "date": "2026-11-11",
+    "fingerprint": "7d7ae082283a91ca5bd937a83f05e16335ecd84692a27cc2d037738211550f05",
+    "date": "2026-11-13",
     "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
     "processing": {
       "loop_span_s": [
@@ -1024,8 +1030,11 @@
         5.1761
       ],
       "loop_match": 0.19,
-      "levelled_by": "loudness, to -18.78 LUFS",
-      "gain_db": -2.88
+      "loop_crossfade_s": 0.25,
+      "loop_curve": "equal power",
+      "loop_seam_dip_db": 0.0,
+      "levelled_by": "loudness, to -18.94 LUFS",
+      "gain_db": -3.04
     },
     "reference": {
       "defName": "ChemfuelFiredGenerator_Ambience",
@@ -1041,7 +1050,7 @@
       "channels": 1
     },
     "result": {
-      "lufs": -18.8,
+      "lufs": -19.0,
       "true_peak": -4.6,
       "seconds": 4.13,
       "flags": [],
@@ -1061,19 +1070,22 @@
   "TankerEngineLoad": {
     "name": "TankerEngineLoad",
     "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/Tanker/EngineLoad.ogg",
-    "sha256": "a3c5afb03e6937e65571b7087d15c3e595c5d5b9e0b8c25ae7a259a8757bd525",
+    "sha256": "77807e6cdfb7bcfcbb369acb52031f7a4f7c71b2b6fdb76a11a9e72b459e642f",
     "master_sha256": "3eb52b55aa62985622a0c01d4e0fd348fe3618ac8a2aa60878fd3f5d54813992",
-    "fingerprint": "47be8e7f882ee087bc9da7ba510ac56eac3e35b86a5239662173cfb17cdec997",
-    "date": "2026-11-11",
+    "fingerprint": "58fe09a4506c033f0391d1da362fa8100b9ae6a9efded31a303eba8491b89a7c",
+    "date": "2026-11-13",
     "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
     "processing": {
       "loop_span_s": [
         0.2,
-        6.2731
+        6.3121
       ],
-      "loop_match": 0.313,
-      "levelled_by": "loudness, to -15.78 LUFS",
-      "gain_db": -0.1
+      "loop_match": 0.192,
+      "loop_crossfade_s": 0.75,
+      "loop_curve": "equal gain",
+      "loop_seam_dip_db": 0.65,
+      "levelled_by": "loudness, to -15.94 LUFS",
+      "gain_db": -0.34
     },
     "reference": {
       "defName": "ChemfuelFiredGenerator_Ambience",
@@ -1090,10 +1102,10 @@
     },
     "result": {
       "lufs": -15.9,
-      "true_peak": -1.1,
-      "seconds": 5.82,
+      "true_peak": -1.6,
+      "seconds": 5.36,
       "flags": [],
-      "seam_dip_db": 1.48,
+      "seam_dip_db": 0.59,
       "loop_gap_s": 0.0
     },
     "source": {
@@ -1109,14 +1121,14 @@
   "TankerEngineStop": {
     "name": "TankerEngineStop",
     "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/Tanker/EngineStop.ogg",
-    "sha256": "ecb7f96f1f08cc7570311349e9cfe0ada01ece7fe0cb770254a159a39b4177b4",
+    "sha256": "384494b538b25b7ac31cd96c0e077961f274def1185d14aee1680c73ccea0597",
     "master_sha256": "ee4e61546500b9f8c63de9758276f8f9fad5f451593217759eb7b2c945f03310",
-    "fingerprint": "d707f9e4782bdedc90898fcb28b4c74f5e5cd3cb2a1792e30b155e903ca9d027",
-    "date": "2026-11-11",
+    "fingerprint": "643efd294b3bf4eb123774dc2843e017e28362b431453efc4981e9e78080b6a6",
+    "date": "2026-11-13",
     "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
     "processing": {
-      "levelled_by": "loudness, to -18.78 LUFS",
-      "gain_db": 0.02
+      "levelled_by": "loudness, to -18.94 LUFS",
+      "gain_db": -0.14
     },
     "reference": {
       "defName": "ChemfuelFiredGenerator_Ambience",
@@ -1132,7 +1144,7 @@
       "channels": 1
     },
     "result": {
-      "lufs": -18.8,
+      "lufs": -19.0,
       "true_peak": -2.4,
       "seconds": 4.71,
       "flags": [],
@@ -1152,14 +1164,14 @@
   "TankerDoorA": {
     "name": "TankerDoorA",
     "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/Tanker/DoorA.ogg",
-    "sha256": "9fa727251fe1688e2e720efe647e69d5fbfb52cd80e3a45b9c81d571cd56cf64",
+    "sha256": "101dea1c32e53e3f2fcf0ba8dda5418fb0907fa6e37413c31dfaf307b12e4c16",
     "master_sha256": "48ce22da343d159458dcd44b73b16c8406fba5331dc979cebb1558fd872d0ca5",
-    "fingerprint": "cd3115feab99a5fdf9eebcfd2de78f03277274c3c2881f5dca68a713c4c54d2d",
-    "date": "2026-11-11",
+    "fingerprint": "1d5d0629d54745ead46e54b8412d0d5bfb54908c30cd39bee2f39a621c60c785",
+    "date": "2026-11-13",
     "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
     "processing": {
-      "levelled_by": "true peak, to -10.66 dBTP",
-      "gain_db": -9.46
+      "levelled_by": "true peak, to -10.58 dBTP",
+      "gain_db": -9.38
     },
     "reference": {
       "defName": "Metal_Drop",
@@ -1172,8 +1184,8 @@
       "channels": 1
     },
     "result": {
-      "lufs": -35.0,
-      "true_peak": -10.9,
+      "lufs": -34.9,
+      "true_peak": -10.8,
       "seconds": 1.61,
       "flags": [
         "highs",
@@ -1195,14 +1207,14 @@
   "TankerDoorB": {
     "name": "TankerDoorB",
     "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/Tanker/DoorB.ogg",
-    "sha256": "d88078d2c6495804157f35231996e594c2875fb299aad605036c0a3560a398a2",
+    "sha256": "57aef2edfa3b4637cbd2d1b223a9b671a03fc80ee71eb93b1d4c1bee5a44d1ad",
     "master_sha256": "915763cf4adc4a2d7926d9dfd785843fd2afb263dd4db4a7cea9973afc2c63e1",
-    "fingerprint": "b4e718fe31ce0093803b7e72a02d0be4ca722dcddfb8331ba8c07db82d4ea699",
-    "date": "2026-11-11",
+    "fingerprint": "d22478cadbb3c2ca37581310a27c341a0555b03b79a75870b26c265b15009189",
+    "date": "2026-11-13",
     "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
     "processing": {
-      "levelled_by": "true peak, to -10.66 dBTP",
-      "gain_db": -6.56
+      "levelled_by": "true peak, to -10.58 dBTP",
+      "gain_db": -6.48
     },
     "reference": {
       "defName": "Metal_Drop",
@@ -1215,8 +1227,8 @@
       "channels": 1
     },
     "result": {
-      "lufs": -33.2,
-      "true_peak": -10.9,
+      "lufs": -33.1,
+      "true_peak": -10.8,
       "seconds": 0.96,
       "flags": [
         "highs",
@@ -1238,14 +1250,14 @@
   "TankerDoorC": {
     "name": "TankerDoorC",
     "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/Tanker/DoorC.ogg",
-    "sha256": "750d0440fb7c2a8966e8174b74202389564b157db9dec66fb31cf0dc012d5184",
+    "sha256": "45d954496d75e97de0f921a832a4d7092b773704eb1683c5dbb7437588b39785",
     "master_sha256": "302cbb0ac508cbd57e6e1fb57f7c12c2dc6bd6529eedcf324046df2abb2679c7",
-    "fingerprint": "49127bed7b36a6c53e117458b92ca09fb98eb6ecd71a146df5f840cc2f3d5028",
-    "date": "2026-11-11",
+    "fingerprint": "96f7d156a910de9a9d174a66487c0ff38110c06565b7f680c0f04f1af3b5c5e9",
+    "date": "2026-11-13",
     "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
     "processing": {
-      "levelled_by": "true peak, to -10.66 dBTP",
-      "gain_db": -8.26
+      "levelled_by": "true peak, to -10.58 dBTP",
+      "gain_db": -8.18
     },
     "reference": {
       "defName": "Metal_Drop",
@@ -1259,7 +1271,7 @@
     },
     "result": {
       "lufs": -34.8,
-      "true_peak": -10.7,
+      "true_peak": -10.5,
       "seconds": 1.63,
       "flags": [
         "highs",
@@ -1323,14 +1335,14 @@
   "TankerSputter": {
     "name": "TankerSputter",
     "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/Tanker/Sputter.ogg",
-    "sha256": "cd70a5570fbb6f536e148d2d1116e92acdb9c0f9cb22708b42a1f281df59b517",
+    "sha256": "e04a23b7f723663b577e329f94e138348489af8eda7312bc86175da05fdfeb1f",
     "master_sha256": "d922f96418bdf2c8caf0d232fab070ebac26e9deccfd0e440cae3b27985fb53f",
-    "fingerprint": "40ae98fa6576d3143e68ee1fa48110e6d9631c3cec2ce6d86d90c63405bad30e",
-    "date": "2026-11-11",
+    "fingerprint": "b610509bcabfbf408081bbda9de6d5747415826db7db075bf8051834e8ca7b91",
+    "date": "2026-11-13",
     "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
     "processing": {
-      "levelled_by": "loudness, to -18.78 LUFS",
-      "gain_db": -1.38
+      "levelled_by": "loudness, to -18.94 LUFS",
+      "gain_db": -1.54
     },
     "reference": {
       "defName": "ChemfuelFiredGenerator_Ambience",
@@ -1346,8 +1358,8 @@
       "channels": 1
     },
     "result": {
-      "lufs": -18.9,
-      "true_peak": -3.8,
+      "lufs": -19.0,
+      "true_peak": -4.1,
       "seconds": 4.8,
       "flags": [],
       "seam_dip_db": null,
@@ -1366,13 +1378,13 @@
   "TipperEngineStart": {
     "name": "TipperEngineStart",
     "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/Tipper/EngineStart.ogg",
-    "sha256": "bf7f4693cde06e0bc3651a0dff6429b6f3872645d38a448870d2277255a7fb4b",
+    "sha256": "ffb3d75ca2fd54c4d5b420d5b1649bb629e7fb3f91e547f762f053cf3021e482",
     "master_sha256": "a00823087f3d8c4b6d9d71267cfd7cf948264e9ce7b62c6fd8c056c60abb3260",
-    "fingerprint": "adf105970cb7d8c986dd1d3c28f83867d5c98bb694c2e673c17c9bbd63111911",
-    "date": "2026-11-11",
+    "fingerprint": "3b5112e7e1ae8a71e8d1a6e67c4aa532fc9ea002d4411358dec9635ec0be98e4",
+    "date": "2026-11-13",
     "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
     "processing": {
-      "levelled_by": "loudness, to -18.78 LUFS",
+      "levelled_by": "loudness, to -18.94 LUFS",
       "gain_db": 3.3
     },
     "reference": {
@@ -1411,19 +1423,22 @@
   "TipperEngineIdle": {
     "name": "TipperEngineIdle",
     "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/Tipper/EngineIdle.ogg",
-    "sha256": "5ca3235be87e3743eedee05c84cb4fb3527b7fb30bb6371c45bb7a94bb36a22f",
+    "sha256": "f1e6f8a1768730edd4ad19c3889a4a0c893bc0bfb790c611983f978f33e14e90",
     "master_sha256": "7913b00b6b3dbf2c5a1bd68eb20ec0d7cdf0ef680294b9b86d614ee49185d095",
-    "fingerprint": "d6a4952861fb8a34caea5547eef7eb3ee6018b95e74df14e88e878fd99e9f8d2",
-    "date": "2026-11-11",
+    "fingerprint": "b8c4833b60d0ed32a9b238d8a2dfbae548f06adf750080abc4c9ee7083886e73",
+    "date": "2026-11-13",
     "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
     "processing": {
       "loop_span_s": [
         0.2,
-        5.8056
+        5.5344
       ],
-      "loop_match": 0.205,
-      "levelled_by": "loudness, to -18.78 LUFS",
-      "gain_db": -0.98
+      "loop_match": 0.162,
+      "loop_crossfade_s": 0.5,
+      "loop_curve": "equal power",
+      "loop_seam_dip_db": 0.65,
+      "levelled_by": "loudness, to -18.94 LUFS",
+      "gain_db": -1.54
     },
     "reference": {
       "defName": "ChemfuelFiredGenerator_Ambience",
@@ -1439,11 +1454,11 @@
       "channels": 1
     },
     "result": {
-      "lufs": -18.8,
-      "true_peak": -1.5,
-      "seconds": 5.36,
+      "lufs": -19.1,
+      "true_peak": -1.8,
+      "seconds": 4.83,
       "flags": [],
-      "seam_dip_db": 1.44,
+      "seam_dip_db": 0.61,
       "loop_gap_s": 0.0
     },
     "source": {
@@ -1459,14 +1474,14 @@
   "TipperEngineStop": {
     "name": "TipperEngineStop",
     "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/Tipper/EngineStop.ogg",
-    "sha256": "273d07a5fd5d2a9b0ca8a3846f4e5f1f628742426725d9fe6dc982230c71ad96",
+    "sha256": "892d813efdda1acebbf44f6f50b763bc2f3c028ef622ab6267f9ceb9f940f874",
     "master_sha256": "07b4a2082089dc404bab9a48beaea3a7e668a50f5b6d0c069b88e207cf36ee9d",
-    "fingerprint": "069ce8c5f179b26ef1a1b045d88bb9188e77e42076321106b976513f8aafe234",
-    "date": "2026-11-11",
+    "fingerprint": "2bb43a7aa4c0cdb8773922b1b3ccdcbe39618f35846908bf689b6ef83530566d",
+    "date": "2026-11-13",
     "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
     "processing": {
-      "levelled_by": "loudness, to -18.78 LUFS",
-      "gain_db": 2.92
+      "levelled_by": "loudness, to -18.94 LUFS",
+      "gain_db": 2.76
     },
     "reference": {
       "defName": "ChemfuelFiredGenerator_Ambience",
@@ -1482,8 +1497,8 @@
       "channels": 1
     },
     "result": {
-      "lufs": -18.8,
-      "true_peak": -2.5,
+      "lufs": -19.0,
+      "true_peak": -2.6,
       "seconds": 4.27,
       "flags": [],
       "seam_dip_db": null,
@@ -1502,14 +1517,14 @@
   "TipperDoorA": {
     "name": "TipperDoorA",
     "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/Tipper/DoorA.ogg",
-    "sha256": "ae02d0bdbbca59de3bfc39d98f06289c933a70d44e59bc50aee25538bb63982f",
+    "sha256": "6a7e8eed051f43989bd8b52e6ad0e3ed54cdf72c414423d8d82fd0f56e2588e2",
     "master_sha256": "074e412ea6516afcf8431a86bda28eeef04485c16e69b3ba48c423aa4bf4e739",
-    "fingerprint": "0ea5a499ad351645f89bbbc9fc2919bfc4ec16d2483314e289a0d81dbafbd704",
-    "date": "2026-11-11",
+    "fingerprint": "f58afcc19cc61538c918f7b2eabb2e47c9859902fcdcfb9814895223a048f3d1",
+    "date": "2026-11-13",
     "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
     "processing": {
-      "levelled_by": "true peak, to -10.66 dBTP",
-      "gain_db": -6.06
+      "levelled_by": "true peak, to -10.58 dBTP",
+      "gain_db": -5.98
     },
     "reference": {
       "defName": "Metal_Drop",
@@ -1522,8 +1537,8 @@
       "channels": 1
     },
     "result": {
-      "lufs": -31.9,
-      "true_peak": -10.9,
+      "lufs": -31.8,
+      "true_peak": -10.8,
       "seconds": 1.59,
       "flags": [
         "spiky"
@@ -1544,14 +1559,14 @@
   "TipperDoorB": {
     "name": "TipperDoorB",
     "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/Tipper/DoorB.ogg",
-    "sha256": "d6cefbb06a373848fd972c8a20dd689622f884ed9b653c166b656b5e6cc4be1f",
+    "sha256": "c54e2c1b49b56f10cc4a556fdd707df7d5d58a5357e1692f5e7d3c2962c9b947",
     "master_sha256": "c8008a146b2b3e537776b37562c11d15e4970b384cb3af580ea66cbf369e48d0",
-    "fingerprint": "a0a9ad6bf6490030238e3421df35e773d94d99056f1b694b66438f56e40fbe6c",
-    "date": "2026-11-11",
+    "fingerprint": "085f787b0559db2bbebf318d0c7dca3e8f6876092b7cb9ebfe94b4380534c647",
+    "date": "2026-11-13",
     "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
     "processing": {
-      "levelled_by": "true peak, to -10.66 dBTP",
-      "gain_db": -5.56
+      "levelled_by": "true peak, to -10.58 dBTP",
+      "gain_db": -5.48
     },
     "reference": {
       "defName": "Metal_Drop",
@@ -1564,8 +1579,8 @@
       "channels": 1
     },
     "result": {
-      "lufs": -30.4,
-      "true_peak": -10.8,
+      "lufs": -30.3,
+      "true_peak": -10.4,
       "seconds": 1.56,
       "flags": [],
       "seam_dip_db": null,
@@ -1626,14 +1641,14 @@
   "TipperSputter": {
     "name": "TipperSputter",
     "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/Tipper/Sputter.ogg",
-    "sha256": "dcaa9cec92e0e33d2adb1ea6feca9d8e593ddbd826bc9b45d868dfb549711d17",
+    "sha256": "94a61bc70961f9450f4a665668bccdf32026b4be1da4b9944424984c135e23b0",
     "master_sha256": "033c042b87d8f693302df52f0a3f2cd6002253a34a5b3f395c6cdaaa590aea92",
-    "fingerprint": "fd9b2c79e269304a1d84498ee8e17f851ab8f74db90cb3212d19479e9fd0f14f",
-    "date": "2026-11-11",
+    "fingerprint": "779b5feaa04d294d372b4e5aad71bfbde8289cfed6bf57f22eaae7c99b6457d6",
+    "date": "2026-11-13",
     "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
     "processing": {
-      "levelled_by": "loudness, to -18.78 LUFS",
-      "gain_db": -1.18
+      "levelled_by": "loudness, to -18.94 LUFS",
+      "gain_db": -1.34
     },
     "reference": {
       "defName": "ChemfuelFiredGenerator_Ambience",
@@ -1649,8 +1664,8 @@
       "channels": 1
     },
     "result": {
-      "lufs": -18.9,
-      "true_peak": -2.9,
+      "lufs": -19.1,
+      "true_peak": -3.1,
       "seconds": 4.66,
       "flags": [],
       "seam_dip_db": null,
@@ -1669,13 +1684,13 @@
   "DrillRigEngineStart": {
     "name": "DrillRigEngineStart",
     "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/DrillRig/EngineStart.ogg",
-    "sha256": "619f51c9b3e848330eb148e684f8b977e0a990e90ec71a9d74ce22a905b3a229",
+    "sha256": "683ba005b92895bd08f7d4eea2e759b51089c961f098c39b126a1bf3fff7cc77",
     "master_sha256": "810a97c2663c561480276bbb4217ead070b09f150cbe0d0ba50044f0dc1a0ba7",
-    "fingerprint": "40da33d2ec0d5c21fdf7eedeee496f5245b68a5dab7bd9c6ec3fdc58ff8c7b46",
-    "date": "2026-11-11",
+    "fingerprint": "c4ccb0103fda743638e9a988443037762c0ff4ff565431bd3a695187b951835c",
+    "date": "2026-11-13",
     "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
     "processing": {
-      "levelled_by": "loudness, to -18.78 LUFS",
+      "levelled_by": "loudness, to -18.94 LUFS",
       "gain_db": 3.8
     },
     "reference": {
@@ -1714,10 +1729,10 @@
   "DrillRigEngineIdle": {
     "name": "DrillRigEngineIdle",
     "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/DrillRig/EngineIdle.ogg",
-    "sha256": "7f668dcb99951bce6a8bc7fa2d9531630a7d6d5ee657bd0a8230a5ec26c7d490",
+    "sha256": "e8f79b9eb7bfb440a3a02ea1ddc7d1512f1997ea3921c450c389c88fa62364e8",
     "master_sha256": "1f5245dc85b1c7364dddab96c721e13bd262a8178de143d8ff539d36922e171b",
-    "fingerprint": "3d464b34bba6c53b2dca12897070a563fdcb2b6fa027523a23d5729c989b4475",
-    "date": "2026-11-11",
+    "fingerprint": "933692b8ff8457f4b54227a0ecf2eb62945f8a1dd150e46b93398c4a5379a870",
+    "date": "2026-11-13",
     "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
     "processing": {
       "loop_span_s": [
@@ -1725,8 +1740,11 @@
         6.1852
       ],
       "loop_match": 0.26,
-      "levelled_by": "loudness, to -18.78 LUFS",
-      "gain_db": 2.62
+      "loop_crossfade_s": 0.25,
+      "loop_curve": "equal power",
+      "loop_seam_dip_db": 0.0,
+      "levelled_by": "loudness, to -18.94 LUFS",
+      "gain_db": 2.46
     },
     "reference": {
       "defName": "ChemfuelFiredGenerator_Ambience",
@@ -1742,8 +1760,8 @@
       "channels": 1
     },
     "result": {
-      "lufs": -18.8,
-      "true_peak": -2.6,
+      "lufs": -19.0,
+      "true_peak": -2.7,
       "seconds": 5.74,
       "flags": [],
       "seam_dip_db": 0.0,
@@ -1762,18 +1780,21 @@
   "DrillRigEngineLoad": {
     "name": "DrillRigEngineLoad",
     "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/DrillRig/EngineLoad.ogg",
-    "sha256": "16915d3d6d8a53dde03a41cea9a4aef9b6c11950b45ed3ac942bc481c84d2c53",
+    "sha256": "7ae7925d295319f33998feefb7bdeb28e15133a111433b2a3aa9b61db7dd2d24",
     "master_sha256": "1d24bd580a4e2f968ac2a5ed6462ccbdc366079a3ab7665e6964a04f7ef00a21",
-    "fingerprint": "ad7735ea819f0958810ae27f83394c8855802d84f7bba3cc74ea49a7a4d6428c",
-    "date": "2026-11-11",
+    "fingerprint": "22d5c9883a79e5f73919a1bf39934bbb117bea078f129d620cf21ee48e26ba40",
+    "date": "2026-11-13",
     "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
     "processing": {
       "loop_span_s": [
         0.2,
-        5.6874
+        5.4454
       ],
-      "loop_match": 0.257,
-      "levelled_by": "loudness, to -15.78 LUFS",
+      "loop_match": 0.139,
+      "loop_crossfade_s": 1.0,
+      "loop_curve": "equal gain",
+      "loop_seam_dip_db": 0.0,
+      "levelled_by": "loudness, to -15.94 LUFS",
       "gain_db": 0.6
     },
     "reference": {
@@ -1790,11 +1811,11 @@
       "channels": 1
     },
     "result": {
-      "lufs": -18.7,
-      "true_peak": -0.8,
-      "seconds": 5.24,
+      "lufs": -18.3,
+      "true_peak": -0.7,
+      "seconds": 4.25,
       "flags": [],
-      "seam_dip_db": 1.17,
+      "seam_dip_db": 0.0,
       "loop_gap_s": 0.0
     },
     "source": {
@@ -1810,14 +1831,14 @@
   "DrillRigEngineStop": {
     "name": "DrillRigEngineStop",
     "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/DrillRig/EngineStop.ogg",
-    "sha256": "54b1d1dbd3d3bfba646f4bc3adb3166ab84c03f9692595d75c87d69a98eb2977",
+    "sha256": "1da2d98044e8250ef7987c9e88db8e3e49ab155de23bd7da2a359318d322a31c",
     "master_sha256": "e7276771eeb62d021f5f8d26bfa651c006c8d11086a9f82b600c8d057ef7ea53",
-    "fingerprint": "2335d4692c3b1a4da7e3ac71303626339021a306c5097bd88f6dcaadca0f5e1a",
-    "date": "2026-11-11",
+    "fingerprint": "36f5907467b8f28bcafaeb7025cded2c9a7e4a1ecc682ad3b878cd28a0a3a0ba",
+    "date": "2026-11-13",
     "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
     "processing": {
-      "levelled_by": "loudness, to -18.78 LUFS",
-      "gain_db": -0.78
+      "levelled_by": "loudness, to -18.94 LUFS",
+      "gain_db": -0.94
     },
     "reference": {
       "defName": "ChemfuelFiredGenerator_Ambience",
@@ -1833,8 +1854,8 @@
       "channels": 1
     },
     "result": {
-      "lufs": -18.8,
-      "true_peak": -4.2,
+      "lufs": -19.0,
+      "true_peak": -4.7,
       "seconds": 4.82,
       "flags": [],
       "seam_dip_db": null,
@@ -1853,14 +1874,14 @@
   "DrillRigDoorA": {
     "name": "DrillRigDoorA",
     "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/DrillRig/DoorA.ogg",
-    "sha256": "22232685ffb9b412a84bc546c74495fdef886f7d0f554c8f2935960c7ffb2e61",
+    "sha256": "afb764605ac0f6f6a0c17ad18711c2768466b0a097af11d9c850d87f29010cfb",
     "master_sha256": "b086ca7097c6d00352ec199b609508aefb5604a04346acaebb56e52dde9c54ff",
-    "fingerprint": "12ccb742c94691bf155681b87380832865a9d012785684c881244e436bdc82fe",
-    "date": "2026-11-11",
+    "fingerprint": "d27f71859852a7f3c926e2686168232ac6e9dd32b9ca7ed35c499426d4e3e1af",
+    "date": "2026-11-13",
     "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
     "processing": {
-      "levelled_by": "true peak, to -10.66 dBTP",
-      "gain_db": -6.96
+      "levelled_by": "true peak, to -10.58 dBTP",
+      "gain_db": -6.88
     },
     "reference": {
       "defName": "Metal_Drop",
@@ -1873,8 +1894,8 @@
       "channels": 1
     },
     "result": {
-      "lufs": -34.4,
-      "true_peak": -10.9,
+      "lufs": -34.3,
+      "true_peak": -11.3,
       "seconds": 0.89,
       "flags": [
         "highs",
@@ -1896,14 +1917,14 @@
   "DrillRigDoorB": {
     "name": "DrillRigDoorB",
     "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/DrillRig/DoorB.ogg",
-    "sha256": "4ad1be3525eaecaa8b0ad352e072bfd0cf507f935f2dca569e4447c3bb9de51f",
+    "sha256": "fc93188af22a22480e105b73d73c41a08b851f32c98119f159b968d237b6c370",
     "master_sha256": "e3f112ffe9fbc87f41e0b41c565cfc2a3172ad28b088a5c68221beb4b07e1269",
-    "fingerprint": "7378a4712ae51cd9aa4f9399affe3592c406c0d25399bd637e8920c81fea0155",
-    "date": "2026-11-11",
+    "fingerprint": "0ebbfdf30e9178598c76dadb2bd92d383909c583e260c9e69b9854e1a29f58fc",
+    "date": "2026-11-13",
     "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
     "processing": {
-      "levelled_by": "true peak, to -10.66 dBTP",
-      "gain_db": -7.46
+      "levelled_by": "true peak, to -10.58 dBTP",
+      "gain_db": -7.38
     },
     "reference": {
       "defName": "Metal_Drop",
@@ -1916,8 +1937,8 @@
       "channels": 1
     },
     "result": {
-      "lufs": -32.9,
-      "true_peak": -11.2,
+      "lufs": -32.8,
+      "true_peak": -11.1,
       "seconds": 1.3,
       "flags": [
         "highs",
@@ -1981,14 +2002,14 @@
   "DrillRigSputter": {
     "name": "DrillRigSputter",
     "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/DrillRig/Sputter.ogg",
-    "sha256": "cc00eb2ca1590a87ed9bf97aafa1aa458b0c129ca5b9dd3253a928d57de2fe4f",
+    "sha256": "d71b9ba01f1d0bc8a1397f54d30ede353c154bac7ff53ad68232729bbc0dc915",
     "master_sha256": "e62efba3f4e14286dcd0725a492948a43c544e931b8842a7669d4bdc23a9a992",
-    "fingerprint": "fb1d96d48b60446898f7d4218a13763ee37b2e755199ffb0d4ab8e1944b7ce9e",
-    "date": "2026-11-11",
+    "fingerprint": "7acd2cea9769ca5d39bfde73d9704d6a9f2769f8509ba7c3e0dbf99163b6a509",
+    "date": "2026-11-13",
     "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
     "processing": {
-      "levelled_by": "loudness, to -18.78 LUFS",
-      "gain_db": -0.68
+      "levelled_by": "loudness, to -18.94 LUFS",
+      "gain_db": -0.84
     },
     "reference": {
       "defName": "ChemfuelFiredGenerator_Ambience",
@@ -2005,7 +2026,7 @@
     },
     "result": {
       "lufs": -19.0,
-      "true_peak": -2.7,
+      "true_peak": -3.0,
       "seconds": 4.18,
       "flags": [],
       "seam_dip_db": null,
@@ -2024,13 +2045,13 @@
   "SurveyTruckEngineStart": {
     "name": "SurveyTruckEngineStart",
     "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/SurveyTruck/EngineStart.ogg",
-    "sha256": "9fc7abfc15c85153ee1357f795845372d199a6ce15a307f01888754f37134614",
+    "sha256": "25f671f801efb1248d43dac6ef0526a470bf07f2af54c0de2a92d01553ac201a",
     "master_sha256": "7ae4555ed685c5b7ffb97ebe846dce4b472f69a03038ec32a2f8b73334c955ce",
-    "fingerprint": "e153ef57ea8fa0e7d991bf87c4adedc1fbd644e35e6b6bec4f9f044bef3e4258",
-    "date": "2026-11-11",
+    "fingerprint": "bbafc0ecc21855b1cd613a0f4fe299f02bfe1f58eb58a087086592263fc7afdf",
+    "date": "2026-11-13",
     "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
     "processing": {
-      "levelled_by": "loudness, to -18.78 LUFS",
+      "levelled_by": "loudness, to -18.94 LUFS",
       "gain_db": 2.6
     },
     "reference": {
@@ -2069,10 +2090,10 @@
   "SurveyTruckEngineIdle": {
     "name": "SurveyTruckEngineIdle",
     "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/SurveyTruck/EngineIdle.ogg",
-    "sha256": "af46a100e3f93f14589a9650a5fdf0e8f9732adea5fdba554062a0eac7054e93",
+    "sha256": "fb3a31ffbe92c5f1b07f316c88fbf249d65631920e652ac90005e38ad83be0c3",
     "master_sha256": "b11ffa064401a351ddba7a19e81d982550f68d7a678fbbd8872cbe3e9577b54c",
-    "fingerprint": "4323264c8ee03c754835e8ca5a56fd59a51dbcb6acdf9550cbc3076b4fdb0385",
-    "date": "2026-11-11",
+    "fingerprint": "4befacc2e1033f22d9de9b7e9742b51a528547e1207832c61fb13536c2bf4bc8",
+    "date": "2026-11-13",
     "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
     "processing": {
       "loop_span_s": [
@@ -2080,8 +2101,11 @@
         5.9241
       ],
       "loop_match": 0.611,
-      "levelled_by": "loudness, to -18.78 LUFS",
-      "gain_db": 2.02
+      "loop_crossfade_s": 0.25,
+      "loop_curve": "equal power",
+      "loop_seam_dip_db": 0.0,
+      "levelled_by": "loudness, to -18.94 LUFS",
+      "gain_db": 1.86
     },
     "reference": {
       "defName": "ChemfuelFiredGenerator_Ambience",
@@ -2097,11 +2121,11 @@
       "channels": 1
     },
     "result": {
-      "lufs": -18.8,
-      "true_peak": -2.2,
+      "lufs": -19.0,
+      "true_peak": -2.5,
       "seconds": 5.47,
       "flags": [],
-      "seam_dip_db": 0.09,
+      "seam_dip_db": 0.0,
       "loop_gap_s": 0.0
     },
     "source": {
@@ -2117,18 +2141,21 @@
   "SurveyTruckEngineLoad": {
     "name": "SurveyTruckEngineLoad",
     "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/SurveyTruck/EngineLoad.ogg",
-    "sha256": "675b49ecd55bd05ac613e5a57c667e15a7cf7f6e7f997e5fac2afce442b93938",
+    "sha256": "042f3ab854ee7b78b6b8aff1d8ae7ceabab0fc723faed55104c946a66b6e4c94",
     "master_sha256": "cd461f25dff6942380a761e5401094decb4af1ff0c3ceb78a7b52321d98e598b",
-    "fingerprint": "717ac7173af467abc1c9319d26ed9bd6da132713e1fc157d7d691d57ab289434",
-    "date": "2026-11-11",
+    "fingerprint": "822bbc72fbe608b6515e537507f1dddc1cf156ebe9f60bd421f12becc8b67891",
+    "date": "2026-11-13",
     "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
     "processing": {
       "loop_span_s": [
         0.2,
-        6.0025
+        5.8264
       ],
-      "loop_match": 0.226,
-      "levelled_by": "loudness, to -15.78 LUFS",
+      "loop_match": 0.218,
+      "loop_crossfade_s": 0.5,
+      "loop_curve": "equal power",
+      "loop_seam_dip_db": 0.0,
+      "levelled_by": "loudness, to -15.94 LUFS",
       "gain_db": 3.1
     },
     "reference": {
@@ -2145,11 +2172,11 @@
       "channels": 1
     },
     "result": {
-      "lufs": -16.2,
-      "true_peak": -1.5,
-      "seconds": 5.55,
+      "lufs": -16.1,
+      "true_peak": -1.3,
+      "seconds": 5.13,
       "flags": [],
-      "seam_dip_db": 0.97,
+      "seam_dip_db": 0.0,
       "loop_gap_s": 0.0
     },
     "source": {
@@ -2165,13 +2192,13 @@
   "SurveyTruckEngineStop": {
     "name": "SurveyTruckEngineStop",
     "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/SurveyTruck/EngineStop.ogg",
-    "sha256": "d59a31f1ff9e512a59b6e15159022ccef27788662c3d24e368feae85e7ecf359",
+    "sha256": "f6687a00db026e1b0cababc391a389cb26f1d7321d50f9076e5a3f09100b3855",
     "master_sha256": "1c4c29db4bcfe599c5ca575b06d3a856d2918bd5acc7ca10d2158776deec3526",
-    "fingerprint": "c5e058b80cf19aace402371628823990f93a89dc37fae8aaf9d6cb84b23cef1f",
-    "date": "2026-11-11",
+    "fingerprint": "a594a5d99a89991467ce6741e08c52295ea89df3a930a1bc69e45a123f5bd3e4",
+    "date": "2026-11-13",
     "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
     "processing": {
-      "levelled_by": "loudness, to -18.78 LUFS",
+      "levelled_by": "loudness, to -18.94 LUFS",
       "gain_db": 1.3
     },
     "reference": {
@@ -2210,14 +2237,14 @@
   "SurveyTruckDoorA": {
     "name": "SurveyTruckDoorA",
     "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/SurveyTruck/DoorA.ogg",
-    "sha256": "43fb2db8081c6e1d870f89ff1d01089c0022a10b8a541ef6c0f2581151bbdd81",
+    "sha256": "26b0d9daf23a1e3d943fa806b7285ac0c5ee58bb4527e59183361386b8ccbb9d",
     "master_sha256": "e2bc67c0e66c288b75dd6d43b15f5adf840aa60346433a01e68db9a9790d6488",
-    "fingerprint": "f82e73be162de28c3c5af9b288ba15e2cf46163519ec4823ae44ae127ae642ac",
-    "date": "2026-11-11",
+    "fingerprint": "56c0d5dccf76f01e3715dd477ae1d905f079758bf86c58a792dec814cfed1bb8",
+    "date": "2026-11-13",
     "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
     "processing": {
-      "levelled_by": "true peak, to -10.66 dBTP",
-      "gain_db": -6.86
+      "levelled_by": "true peak, to -10.58 dBTP",
+      "gain_db": -6.78
     },
     "reference": {
       "defName": "Metal_Drop",
@@ -2230,8 +2257,8 @@
       "channels": 1
     },
     "result": {
-      "lufs": -35.8,
-      "true_peak": -10.9,
+      "lufs": -35.7,
+      "true_peak": -10.5,
       "seconds": 0.98,
       "flags": [
         "spiky"
@@ -2252,14 +2279,14 @@
   "SurveyTruckDoorB": {
     "name": "SurveyTruckDoorB",
     "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/SurveyTruck/DoorB.ogg",
-    "sha256": "d579c86377b37e3b275d5f34b4689f295c2c354c7ca21cfced667b7a1b954fb5",
+    "sha256": "358faabf31b8cd66cc884716776bc06990a6a4a5f26094f59b5639122cc98b9a",
     "master_sha256": "8d7815ff6d3769d0bd2bdc1062834beaee7fbb0349705755e5d9ee9e4a346354",
-    "fingerprint": "cf0c2aafd8a5508ec31bdcd520a17280027678c8389b099c43e069cbcfe90849",
-    "date": "2026-11-11",
+    "fingerprint": "80cbee947b43bd872a74254fed28eb5282d337282d63e893fb814e51da8b1e3d",
+    "date": "2026-11-13",
     "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
     "processing": {
-      "levelled_by": "true peak, to -10.66 dBTP",
-      "gain_db": -5.96
+      "levelled_by": "true peak, to -10.58 dBTP",
+      "gain_db": -5.88
     },
     "reference": {
       "defName": "Metal_Drop",
@@ -2273,7 +2300,7 @@
     },
     "result": {
       "lufs": -31.3,
-      "true_peak": -10.3,
+      "true_peak": -10.4,
       "seconds": 1.14,
       "flags": [
         "spiky"
@@ -2294,13 +2321,13 @@
   "SurveyTruckSputter": {
     "name": "SurveyTruckSputter",
     "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/SurveyTruck/Sputter.ogg",
-    "sha256": "af9d7683e8f3d153172a3a13d44225c4fda09213f6b1eaee5409d5baab54c0de",
+    "sha256": "dfa75a37b31d84773b1e54b289e283d4456c9dfe6d6cb127105b8d3cfecf6c3c",
     "master_sha256": "3151273afe97928865f9cc3cb2b774e1fb744399d5336bbad66e4d8793e00c6b",
-    "fingerprint": "febce51d7d30ca5231d6deb9d4f57c8fa7781fee38403763b37a83c97b309465",
-    "date": "2026-11-11",
+    "fingerprint": "481453884b98d1313ffe61dcfabb6af466827e8836f2f91f6fc5493437d8e2a4",
+    "date": "2026-11-13",
     "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
     "processing": {
-      "levelled_by": "loudness, to -18.78 LUFS",
+      "levelled_by": "loudness, to -18.94 LUFS",
       "gain_db": 1.9
     },
     "reference": {
@@ -2339,14 +2366,14 @@
   "GeneratorSetEngineStart": {
     "name": "GeneratorSetEngineStart",
     "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/GeneratorSet/EngineStart.ogg",
-    "sha256": "1f73ddd519f6d5bb7fad02eabd6105f7961165cd5074db01dd3d6a82cd7ac3c7",
+    "sha256": "e8ec2c095025dede7b6d2854da871ef6cd1b4fdccbf80ae9c544e2a4081b6bff",
     "master_sha256": "49e086b29b0775842fe6dd8fcab16bf285e4d434b3c6ffe9addb9ba33c84a095",
-    "fingerprint": "4cdedd222bea33b7d911da4fc94b16ee3705a5e3c43f7e4eb6c45a61ce9a05f6",
-    "date": "2026-11-11",
+    "fingerprint": "b6dab6e35cec4038fec3c5ac5a7280690c354040f626e31cdc3ceecffdd419d2",
+    "date": "2026-11-13",
     "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
     "processing": {
-      "levelled_by": "loudness, to -18.78 LUFS",
-      "gain_db": 2.02
+      "levelled_by": "loudness, to -18.94 LUFS",
+      "gain_db": 1.86
     },
     "reference": {
       "defName": "ChemfuelFiredGenerator_Ambience",
@@ -2362,8 +2389,8 @@
       "channels": 1
     },
     "result": {
-      "lufs": -18.9,
-      "true_peak": -1.4,
+      "lufs": -19.1,
+      "true_peak": -1.6,
       "seconds": 6.1,
       "flags": [],
       "seam_dip_db": null,
@@ -2382,10 +2409,10 @@
   "GeneratorSetEngineIdle": {
     "name": "GeneratorSetEngineIdle",
     "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/GeneratorSet/EngineIdle.ogg",
-    "sha256": "af94b583711308ec49c4c64f8bf225c77b512878494b664cf906c27caa13dea2",
+    "sha256": "dabb4c28af551de32dd9ae2a78f651ea6bf2ecab34b9aa06cccec91b3c98f8c3",
     "master_sha256": "c0550adc5f88eb541dec868dcc3c9c1a8792f92ee55935018e92dc7648a0a0fa",
-    "fingerprint": "8519a644e324e37de2814034568917b4d6e7b0f9fe84ec189ffd461022962b1d",
-    "date": "2026-11-11",
+    "fingerprint": "9e12c59c007366b53dafcac4a1eac674f989774dfbf400f05857aba6f7db2f04",
+    "date": "2026-11-13",
     "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
     "processing": {
       "loop_span_s": [
@@ -2393,8 +2420,11 @@
         5.5956
       ],
       "loop_match": 0.275,
-      "levelled_by": "loudness, to -18.78 LUFS",
-      "gain_db": -1.58
+      "loop_crossfade_s": 0.25,
+      "loop_curve": "equal power",
+      "loop_seam_dip_db": 1.04,
+      "levelled_by": "loudness, to -18.94 LUFS",
+      "gain_db": -1.74
     },
     "reference": {
       "defName": "ChemfuelFiredGenerator_Ambience",
@@ -2410,11 +2440,11 @@
       "channels": 1
     },
     "result": {
-      "lufs": -18.9,
-      "true_peak": -4.3,
+      "lufs": -19.1,
+      "true_peak": -4.4,
       "seconds": 5.15,
       "flags": [],
-      "seam_dip_db": 1.23,
+      "seam_dip_db": 1.1,
       "loop_gap_s": 0.0
     },
     "source": {
@@ -2430,19 +2460,22 @@
   "GeneratorSetEngineLoad": {
     "name": "GeneratorSetEngineLoad",
     "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/GeneratorSet/EngineLoad.ogg",
-    "sha256": "1ccdbccca0bced86b53f7035818535891c70e9704d499c3505971221785a8d0f",
+    "sha256": "a01feb084d9ecedb17125882b1155eb0cbcd60cb1dda3151b037785752f7db90",
     "master_sha256": "9e8fc621e9ccc3b87252f3edb2d3142e23c7d37857215a3377446fbf08f618eb",
-    "fingerprint": "3ba6aab721ca1b6c893ded27d9fe875078b5786e95cc4bdf2cc6cb4ebec44040",
-    "date": "2026-11-11",
+    "fingerprint": "f682dc673e079a7b1a727f74cd68d5928ad2cf71a55c26045e8344fb027cd99b",
+    "date": "2026-11-13",
     "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
     "processing": {
       "loop_span_s": [
         0.9,
-        4.8036
+        4.8122
       ],
-      "loop_match": 0.256,
-      "levelled_by": "loudness, to -15.78 LUFS",
-      "gain_db": -1.48
+      "loop_match": 0.123,
+      "loop_crossfade_s": 0.75,
+      "loop_curve": "equal gain",
+      "loop_seam_dip_db": 0.0,
+      "levelled_by": "loudness, to -15.94 LUFS",
+      "gain_db": -1.84
     },
     "reference": {
       "defName": "ChemfuelFiredGenerator_Ambience",
@@ -2458,11 +2491,11 @@
       "channels": 1
     },
     "result": {
-      "lufs": -15.9,
-      "true_peak": -2.2,
-      "seconds": 3.65,
+      "lufs": -16.0,
+      "true_peak": -2.0,
+      "seconds": 3.16,
       "flags": [],
-      "seam_dip_db": 1.95,
+      "seam_dip_db": 0.0,
       "loop_gap_s": 0.0
     },
     "source": {
@@ -2478,14 +2511,14 @@
   "GeneratorSetEngineStop": {
     "name": "GeneratorSetEngineStop",
     "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/GeneratorSet/EngineStop.ogg",
-    "sha256": "4ead20176f03764cbd3cf8baa48f01c353833aa70028341fa78dfdc89552e3ed",
+    "sha256": "8042bfd39057cec5f93851760244385fb5c24cd6f0381418f64c3d202469e702",
     "master_sha256": "d03702fb3bc271889972f7819db9abc5680556b6be40e7ef4983c9abf6a05f8d",
-    "fingerprint": "bc65f568cceb85c315d3af6bd5ab1c19953bb396de158d25be64967643b18342",
-    "date": "2026-11-11",
+    "fingerprint": "81e996e99cab992c259239d1e6d7275f3061f7062596df715a8432b24eaa8df2",
+    "date": "2026-11-13",
     "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
     "processing": {
-      "levelled_by": "loudness, to -18.78 LUFS",
-      "gain_db": -0.18
+      "levelled_by": "loudness, to -18.94 LUFS",
+      "gain_db": -0.34
     },
     "reference": {
       "defName": "ChemfuelFiredGenerator_Ambience",
@@ -2501,7 +2534,7 @@
       "channels": 1
     },
     "result": {
-      "lufs": -19.0,
+      "lufs": -19.1,
       "true_peak": -5.7,
       "seconds": 4.67,
       "flags": [],
@@ -2521,14 +2554,14 @@
   "GeneratorSetDoorA": {
     "name": "GeneratorSetDoorA",
     "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/GeneratorSet/DoorA.ogg",
-    "sha256": "9dc1b648c0251cec2095c6c9468b26a5d40df0796b707c9ab4bc728418d463ea",
+    "sha256": "3f5d2df0bda7abb005cf7aa94bc9712adec595591a6dc2b022e4aaa5bc62ba20",
     "master_sha256": "633b48b42229eb9b40a5a79ffef2513e8b49068e6be6e6560d9ead92e32e405c",
-    "fingerprint": "e3d626bd2a649e1ea1427f0505c5fbc0d8242208575ccef63f55319cd3ff6244",
-    "date": "2026-11-11",
+    "fingerprint": "164bb42ffc0dc9b6894380432a397eb22be735e77473f65d169a2aaa57455e20",
+    "date": "2026-11-13",
     "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
     "processing": {
-      "levelled_by": "true peak, to -10.66 dBTP",
-      "gain_db": -8.76
+      "levelled_by": "true peak, to -10.58 dBTP",
+      "gain_db": -8.68
     },
     "reference": {
       "defName": "Metal_Drop",
@@ -2541,8 +2574,8 @@
       "channels": 1
     },
     "result": {
-      "lufs": -33.3,
-      "true_peak": -11.0,
+      "lufs": -33.2,
+      "true_peak": -10.3,
       "seconds": 1.56,
       "flags": [
         "spiky"
@@ -2563,14 +2596,14 @@
   "GeneratorSetDoorB": {
     "name": "GeneratorSetDoorB",
     "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/GeneratorSet/DoorB.ogg",
-    "sha256": "408b9486bcb0a3bfd5c2f69540362b28dd6a4518d0f26373ce336cb96e3dd087",
+    "sha256": "f2f35949388a3cd567ff7db56bea446f05e1bd02375ce89242ac37597c323033",
     "master_sha256": "77a1700a40df647e5b7c973c8bb9dd8055fadcace04a7b2e2c66e8d1fecd987d",
-    "fingerprint": "3122b9a15949f485e721ce98445e9e9684ec85cc5f231114b413b8e87c122917",
-    "date": "2026-11-11",
+    "fingerprint": "d67e651f57a57592f985014c5549813337f3d4f3bc7312d1d3c53c563322f287",
+    "date": "2026-11-13",
     "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
     "processing": {
-      "levelled_by": "true peak, to -10.66 dBTP",
-      "gain_db": -6.76
+      "levelled_by": "true peak, to -10.58 dBTP",
+      "gain_db": -6.68
     },
     "reference": {
       "defName": "Metal_Drop",
@@ -2603,14 +2636,14 @@
   "GeneratorSetSputter": {
     "name": "GeneratorSetSputter",
     "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/GeneratorSet/Sputter.ogg",
-    "sha256": "5c12a47476567db12b2cf99c96f9ee21ff56d2b18b5ae9553433990a9b57c7fd",
+    "sha256": "b19e356f87380dfce524e27e9d46a25238009cd7ac9cb61155921acac4bac0e0",
     "master_sha256": "90282b97720807957506495cacf27eba2b14a74fa555f229cb998a2666116529",
-    "fingerprint": "ec25a1a411bbce400ff6d62dec146476ba3aa409abc9f33287cdae1f6863648d",
-    "date": "2026-11-11",
+    "fingerprint": "d30c8cde01ac012b83fe37e3e3846de0c1d7f49c80d8ca1771af3c46f98af206",
+    "date": "2026-11-13",
     "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
     "processing": {
-      "levelled_by": "loudness, to -18.78 LUFS",
-      "gain_db": 0.62
+      "levelled_by": "loudness, to -18.94 LUFS",
+      "gain_db": 0.46
     },
     "reference": {
       "defName": "ChemfuelFiredGenerator_Ambience",
@@ -2626,8 +2659,8 @@
       "channels": 1
     },
     "result": {
-      "lufs": -18.9,
-      "true_peak": -5.4,
+      "lufs": -19.1,
+      "true_peak": -5.7,
       "seconds": 4.31,
       "flags": [],
       "seam_dip_db": null,
@@ -2646,13 +2679,13 @@
   "SeabedCrawlerEngineStart": {
     "name": "SeabedCrawlerEngineStart",
     "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/SeabedCrawler/EngineStart.ogg",
-    "sha256": "325f89974fe128324f8e177d8bf55e4b87b70bdf27c38d43fc425ea50b7491b5",
+    "sha256": "1256f9eb0056cb905d89928daca1b2d8cc949d661c7600513d3f80dad1ab22ee",
     "master_sha256": "366a4d2f33faafb106d9787e6706c7e1cedb950a27708fa972bbffef744124f3",
-    "fingerprint": "72cff61877fd60a4a770d1efdd8422bedefc66ef6f6b1df918f92588d1c10ac4",
-    "date": "2026-11-11",
+    "fingerprint": "e89ab9b3d3d4ca36ec761eb33d5a8355aff3e58e68281db906ef1c05910fb44a",
+    "date": "2026-11-13",
     "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
     "processing": {
-      "levelled_by": "loudness, to -21.78 LUFS",
+      "levelled_by": "loudness, to -21.94 LUFS",
       "gain_db": 7.8
     },
     "reference": {
@@ -2691,19 +2724,22 @@
   "SeabedCrawlerEngineIdle": {
     "name": "SeabedCrawlerEngineIdle",
     "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/SeabedCrawler/EngineIdle.ogg",
-    "sha256": "629ce106b5a0c10c68a652ece279f0c226e450d5f41cd942ea05be53380705e9",
+    "sha256": "08b532309dd0898b24364ee0c3045c276f37fb9f230e65f8dc697361c489afc2",
     "master_sha256": "2bdc7f20f3cbeb76d4b2e46e0b4e538f45888acbb6fdcdb6b3534b2006b21716",
-    "fingerprint": "14f1ddc0368fa535d59b8c21e1fbaa86db30a78babda7d1014525c77d06bb092",
-    "date": "2026-11-11",
+    "fingerprint": "74ba2eb87aad4fe264a5fc33d07f743926f375d25c0988ed8a153316741bb0c2",
+    "date": "2026-11-13",
     "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
     "processing": {
       "loop_span_s": [
         0.4,
-        6.7677
+        6.637
       ],
-      "loop_match": 0.454,
-      "levelled_by": "loudness, to -21.78 LUFS",
-      "gain_db": 9.12
+      "loop_match": 0.388,
+      "loop_crossfade_s": 0.75,
+      "loop_curve": "equal power",
+      "loop_seam_dip_db": 0.0,
+      "levelled_by": "loudness, to -21.94 LUFS",
+      "gain_db": 8.86
     },
     "reference": {
       "defName": "ChemfuelFiredGenerator_Ambience",
@@ -2719,11 +2755,11 @@
       "channels": 1
     },
     "result": {
-      "lufs": -21.8,
-      "true_peak": -7.7,
-      "seconds": 6.12,
+      "lufs": -21.9,
+      "true_peak": -7.8,
+      "seconds": 5.49,
       "flags": [],
-      "seam_dip_db": 1.56,
+      "seam_dip_db": 0.0,
       "loop_gap_s": 0.0
     },
     "source": {
@@ -2739,19 +2775,22 @@
   "SeabedCrawlerEngineLoad": {
     "name": "SeabedCrawlerEngineLoad",
     "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/SeabedCrawler/EngineLoad.ogg",
-    "sha256": "6428838ac250bbbf7cd1c432a32228949bd0c4bff2143d28eaa58a726a002e73",
+    "sha256": "5a0c21297035b993ddd3b53b3380d4b152ec1091aedd1c0ebda29acfcb13bd7b",
     "master_sha256": "0aee2e043a2602ecf0ad54ac7ba404718bae707400ab814ee6a5ac1c0e18f533",
-    "fingerprint": "22cfd1978db90aa8a961060355bc9243795868bdb4c4dce6dcb8d1bbf2eac52d",
-    "date": "2026-11-11",
+    "fingerprint": "ac00c52d23268009b3929c1aac22595cc74e6e99db5932a55c9918efad118d4e",
+    "date": "2026-11-13",
     "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
     "processing": {
       "loop_span_s": [
         0.2,
-        6.5613
+        6.5455
       ],
-      "loop_match": 0.145,
-      "levelled_by": "loudness, to -18.78 LUFS",
-      "gain_db": 3.12
+      "loop_match": 0.125,
+      "loop_crossfade_s": 1.0,
+      "loop_curve": "equal gain",
+      "loop_seam_dip_db": 0.0,
+      "levelled_by": "loudness, to -18.94 LUFS",
+      "gain_db": 3.16
     },
     "reference": {
       "defName": "ChemfuelFiredGenerator_Ambience",
@@ -2767,11 +2806,11 @@
       "channels": 1
     },
     "result": {
-      "lufs": -18.9,
-      "true_peak": -5.5,
-      "seconds": 6.11,
+      "lufs": -19.0,
+      "true_peak": -5.1,
+      "seconds": 5.35,
       "flags": [],
-      "seam_dip_db": 0.72,
+      "seam_dip_db": 0.0,
       "loop_gap_s": 0.0
     },
     "source": {
@@ -2787,14 +2826,14 @@
   "SeabedCrawlerEngineStop": {
     "name": "SeabedCrawlerEngineStop",
     "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/SeabedCrawler/EngineStop.ogg",
-    "sha256": "d780530d22a9feec40a3a8ae8f9a92ae4ee47df38e33826bbe73776eedf1ad91",
+    "sha256": "4891b653e46ff535f8819a080f2ea4976403fd540d928224af7bc391d71b875e",
     "master_sha256": "669d73018ed765d8e806fa350af706722c9825179736cef3542bd4bead7720d5",
-    "fingerprint": "d26d27d162bbd4da8991340c73f2a6f7f39d7d787118dbe7f2d35b044e23b71c",
-    "date": "2026-11-11",
+    "fingerprint": "0172ccf4578ec31ec5a8df5be8056dd349c58603083030b9efafb54aa2bf7101",
+    "date": "2026-11-13",
     "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
     "processing": {
-      "levelled_by": "loudness, to -21.78 LUFS",
-      "gain_db": 2.72
+      "levelled_by": "loudness, to -21.94 LUFS",
+      "gain_db": 2.56
     },
     "reference": {
       "defName": "ChemfuelFiredGenerator_Ambience",
@@ -2810,7 +2849,7 @@
       "channels": 1
     },
     "result": {
-      "lufs": -21.8,
+      "lufs": -22.0,
       "true_peak": -4.3,
       "seconds": 4.91,
       "flags": [],
@@ -2830,14 +2869,14 @@
   "SeabedCrawlerDoorA": {
     "name": "SeabedCrawlerDoorA",
     "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/SeabedCrawler/DoorA.ogg",
-    "sha256": "f6915a9257cd7378a8ecd540a1804b3277082fa1bbfe8df2ab7940fe45071d98",
+    "sha256": "01bf729365e9b9f011b30137a0f7026aa329072e99fa95a39fc74fef352780a2",
     "master_sha256": "ffd8e29960edb52ca3227c60ea74c76aa9f5e097dfe3d05c9986817a57c1151f",
-    "fingerprint": "2f37c619f356081694bd1c66ac30ca7df1b18e1b2094fbc372cc3726eb7b2107",
-    "date": "2026-11-11",
+    "fingerprint": "fb2348d8c3fad4bbfae75147146691d0e04cd8ea005d14b120f7ebec07fd423b",
+    "date": "2026-11-13",
     "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
     "processing": {
-      "levelled_by": "true peak, to -10.66 dBTP",
-      "gain_db": -6.76
+      "levelled_by": "true peak, to -10.58 dBTP",
+      "gain_db": -6.68
     },
     "reference": {
       "defName": "Metal_Drop",
@@ -2850,8 +2889,8 @@
       "channels": 1
     },
     "result": {
-      "lufs": -30.6,
-      "true_peak": -11.0,
+      "lufs": -30.5,
+      "true_peak": -11.2,
       "seconds": 4.01,
       "flags": [],
       "seam_dip_db": null,
@@ -2870,14 +2909,14 @@
   "SeabedCrawlerDoorB": {
     "name": "SeabedCrawlerDoorB",
     "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/SeabedCrawler/DoorB.ogg",
-    "sha256": "1de72baf79c3820c66346ae456d629d9654429ac97a32466acd7bfc03cde7710",
+    "sha256": "f4f6115747072ba55362eec4f5e9ad8866b36c370ac33f11f4492b2cc7a1353f",
     "master_sha256": "2e7f7ca85f1b7277f4222116c70a67d7bdd070cc0da444d151d30ab0ab1d1470",
-    "fingerprint": "64e3b3175324e6f2b08c9bc537c808174c89752b2b8da5a15ebdca59e1130935",
-    "date": "2026-11-11",
+    "fingerprint": "1b44592228405dfbec55f9b5ed609402fc0f76ef6c675092954837a192782e33",
+    "date": "2026-11-13",
     "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
     "processing": {
-      "levelled_by": "true peak, to -10.66 dBTP",
-      "gain_db": -7.36
+      "levelled_by": "true peak, to -10.58 dBTP",
+      "gain_db": -7.28
     },
     "reference": {
       "defName": "Metal_Drop",
@@ -2890,8 +2929,8 @@
       "channels": 1
     },
     "result": {
-      "lufs": -31.9,
-      "true_peak": -10.4,
+      "lufs": -31.8,
+      "true_peak": -10.5,
       "seconds": 4.03,
       "flags": [
         "spiky"
@@ -2912,14 +2951,14 @@
   "SeabedCrawlerDoorC": {
     "name": "SeabedCrawlerDoorC",
     "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/SeabedCrawler/DoorC.ogg",
-    "sha256": "3208341107e8e857188124fb589fa9363d5244c8848150a08ffba2408bb72c64",
+    "sha256": "85ca597b6671a29fafe4ff26d110139fc8f8d35735920d94611858d19067e263",
     "master_sha256": "904c9c700f309209e092dc3f58fb42d5ad36817d321ffe29d759d207d6dae689",
-    "fingerprint": "6c777a3af466eea8a210ff0214382c19cf38f1deead7d232db9adf774212ba2b",
-    "date": "2026-11-11",
+    "fingerprint": "7c0855619bdf95c6c2214b939422bfc8867b3777cded578d49b8fbc9a98982cd",
+    "date": "2026-11-13",
     "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
     "processing": {
-      "levelled_by": "true peak, to -10.66 dBTP",
-      "gain_db": -6.96
+      "levelled_by": "true peak, to -10.58 dBTP",
+      "gain_db": -6.88
     },
     "reference": {
       "defName": "Metal_Drop",
@@ -2932,7 +2971,7 @@
       "channels": 1
     },
     "result": {
-      "lufs": -32.0,
+      "lufs": -31.9,
       "true_peak": -10.7,
       "seconds": 3.97,
       "flags": [
@@ -2954,10 +2993,10 @@
   "TipperEngineLoad": {
     "name": "TipperEngineLoad",
     "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/Tipper/EngineLoad.ogg",
-    "sha256": "fa64122744e4c967b013080ac4d60d83778d02ee6107a8c66bf2ae4ac30e8eca",
+    "sha256": "6d0e25ecbe2e07f73936ecde43e0be43872c9be76c9eb728b4565f2d6d81fb99",
     "master_sha256": "4fb08879a0ded092e89e835b32e566496c69c30d44f024c6180dfea2db0da06f",
-    "fingerprint": "bda7401ed619cc94e2914db92f029c4da15f6c280d6738722eca8d9c32e72e68",
-    "date": "2026-11-11",
+    "fingerprint": "3e1bbc2b59eb585ee0ace79a70df72708f21ad94332423abcabbdac7050d45d4",
+    "date": "2026-11-13",
     "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
     "processing": {
       "loop_span_s": [
@@ -2968,7 +3007,7 @@
       "loop_crossfade_s": 1.0,
       "loop_curve": "equal gain",
       "loop_seam_dip_db": 1.51,
-      "levelled_by": "loudness, to -15.78 LUFS",
+      "levelled_by": "loudness, to -15.94 LUFS",
       "gain_db": -0.6
     },
     "reference": {

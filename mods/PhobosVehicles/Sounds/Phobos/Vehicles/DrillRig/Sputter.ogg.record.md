@@ -8,9 +8,9 @@
 | Master | assets/phobos-sounds/generated/p1-drillrig-sputter/p1-drillrig-sputter-31.flac (sha256 e62efba3f4e14286dcd0725a492948a43c544e931b8842a7669d4bdc23a9a992) |
 | Model | stable_audio_3_small_sfx.safetensors (sha256 ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515), seed 31, 8 steps, guidance 1.0 |
 | Prompt | A heavy drill rig truck with a big low-revving diesel engine and a whining hydraulic pump on its power take-off running out of fuel: it stumbles, coughs and sputters, then dies. Outdoors, close. Length: 4 seconds |
-| Made into | oneshot, mono, 44100 Hz, Ogg Vorbis quality 5; levelled_by loudness, to -18.78 LUFS, gain_db -0.68 |
-| Levelled against | the game's ChemfuelFiredGenerator_Ambience (effective -36.5 LUFS) +0 dB, through volume 13 |
-| Result | -19.0 LUFS, true peak -2.7 dBTP, 4.18 s; flags: none |
-| File | sha256 cc00eb2ca1590a87ed9bf97aafa1aa458b0c129ca5b9dd3253a928d57de2fe4f, made 2026-11-11 with ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers |
+| Made into | oneshot, mono, 44100 Hz, Ogg Vorbis quality 5; levelled_by loudness, to -18.94 LUFS, gain_db -0.84 |
+| Levelled against | the game's ChemfuelFiredGenerator_Ambience (effective -36.5 LUFS) +4 dB, through volume 21 |
+| Result | -19.0 LUFS, true peak -3.0 dBTP, 4.18 s; flags: none |
+| File | sha256 d71b9ba01f1d0bc8a1397f54d30ede353c154bac7ff53ad68232729bbc0dc915, made 2026-11-13 with ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers |
 
 Not yet tested in game.

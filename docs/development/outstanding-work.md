@@ -64,6 +64,7 @@ Added 8 Nov 2026: the vehicle work of 8 November did not update this file as it 
 | V5 | Systems for electric vehicles, with an optional patch making Vanilla Vehicles Expanded's Lightning electric to test them; our own diesel-electric utility vehicles later (V3) | Framework, Vehicles | Framework and a test vehicle (8 Nov 2026) | Done: Framework 0.20.0, Vehicles 0.9.0 ([record](vehicle-electric-design.md)); a night heater for electric vehicles left for later |
 | V6 | The M1A2's APU upgrade node; "drop the stores" for a jet too heavy to land vertically | Vehicles, Patches | Proposed | Deferred: the APU needs a patch to RimThunder's upgrade trees |
 | V7 | Engine sound pitched by engine speed | Framework | Done | **Built in 0.76.0** (11 Nov 2026): our systems play the engine loops themselves, pitched by rpm and blended by load (sound-catalogue.md); not yet tested in game |
+| V7a | Vehicle sounds too quiet against the game's mix (owner's listening report on reference speakers, 13 Nov 2026) | Framework, Vehicles | Fix it | **Built: Framework 0.108.1, Vehicles 0.51.1** (engines 4 dB up, doors 3 dB up, reach widened to the game's own; sound-catalogue.md); not yet tested in game (check 89) |
 | V8 | Kerb mass of 12 kg per Vehicle Framework mass unit for retrofitted vehicles, checked for outliers (dirt bikes, tanks) | Framework, Vehicles | Authored masses for Vanilla Vehicles Expanded; tunable (8 Nov 2026) | Done: Framework 0.19.0, Vehicles 0.8.0 ([record](vehicle-kerb-mass-check.md)) |
 | V9 | When Vehicle Framework ships for 1.7: rebuild, and re-check the tab hook's order, the caravan patches' method names, and the part icons and colours the Systems tab leaves out | Framework | Expected | Waiting on Vehicle Framework |
 | V10 | The boats, the Warbird and the Smuggler keep one engine | Vehicles | Agreed to leave out | Deferred |
@@ -110,16 +111,31 @@ most, and for a contract other mods' authors can use in XML. Three records; **no
 | X6 | Fault: stale Harrier part figures in the Patches README and a probably stale hit-share note | Patches | — | Part fixed: the Patches README's Harrier part figures corrected in Patches 0.19.0. Open: the hit-share note in Parts_HarrierVtol.xml, not confirmed either way (avionics L6) |
 | X7 | Fault: round one's record miscounted its links | docs | — | Done: corrected 13 Nov 2026 |
 
+## Vehicle accessories (13 Nov 2026)
+
+The owner asked for a research and record round on accessories a player can install on vehicles, for entertainment, camping or
+anything else ([record](vehicle-accessories.md)). **Nothing built**; the owner picks.
+
+| # | Item | Mod | Owner's decision | Status |
+| --- | --- | --- | --- | --- |
+| Y0 | The rules: every accessory uses up something real; stores run down and are refilled; passive gear costs materials and weight only; no drag; camp first, some aboard | Framework | Owner, 13 Nov 2026 | Recorded |
+| Y1 to Y4 | The four links: power outlet, crew water tank, camp order, life aboard (shared with hotboxing) | Framework | Waiting on the owner's answers to the record's eight questions | Record written; not built |
+| Y5 to Y13 | The short list: house battery, solar panel, fridge, swags, awning, kitchen box, folding table and chairs, shower and basin, stereo | Framework | As above | Record written; not built |
+| Y14 to Y21 | The rest: reading light, better seats, roof rack, tool locker, tyre compressor, spotlight, bull bar; sleeping berths (the record advises against, for now) | Framework | As above | Record written; not built |
+| Y22 | To read before the water work: how Dubs Bad Hygiene's water storage would see a tank on a vehicle | Framework | — | Open |
+| Y23 | To verify before any Def carries them: the record's web figures (fridge draw, water per person, shower flow, solar output, burner gas use), read only as search summaries | docs | — | Open |
+
 ## Pipes and conduits beneath our things (13 Nov 2026)
 
 The owner asked for visible pipes and conduits, as the game and other mods show them, and an audit ([record](network-underlays.md)).
 
 | # | Item | Mod | Owner's decision | Status |
 | --- | --- | --- | --- | --- |
-| P1 | Visible plumbing and visible Vanilla Expanded Framework pipes beneath our buildings and parked vehicles, older hidden ones swapped by themselves | Framework | Visible, as the game does it (13 Nov 2026) | **Built: Framework 0.107.0, not yet tested in game** |
+| P1 | Visible plumbing and visible Vanilla Expanded Framework pipes beneath our buildings and parked vehicles, older hidden ones swapped by themselves | Framework | Visible, as the game does it (13 Nov 2026); reversed after testing (P5) | **Built: Framework 0.107.0; hidden again from 0.108.1** |
 | P2 | The generator set joins the grid through power conduits beneath it, beside the cable end | Framework | An option beside the cable (13 Nov 2026) | **Built: Framework 0.107.0, not yet tested in game** |
 | P3 | The audit's proposals: the bottle tap lays plumbing (N4), vehicles refuel from a chemfuel pipe (N10), the depot bay fills from one (N7) | Water Tap, Framework | Audit and propose (13 Nov 2026); all three yes, and the removal rule kept (owner, 13 Nov 2026) | N10 **built** (Framework 0.107.0, not yet tested in game); N7 needs nothing: Vanilla Expanded Framework already fills the bay from a chemfuel pipe; N4 not built: the tap already joins plumbing as Dubs' own fixtures do, and a pipe beneath it would trip Dubs' overlap error |
 | P4 | Pipes and conduits beneath every vehicle parked with its engine off (plumbing, power conduit, any line it uses), gone when it starts; the old hidden pipes of earlier versions found and made visible once ([record](network-underlays.md)) | Framework | Engine off, always; conduits for every vehicle with a battery; the generator set keeps its conduits while set up (owner, 13 Nov 2026) | **Built: Framework 0.108.0, not yet tested in game** |
+| P5 | **Hidden again** (reverses P1's visible choice): Dubs' hidden plumbing, the game's hidden conduit and a line's transparent pipe, seen in the overlays; our visible pieces of 0.107.0 and 0.108.0 swapped by themselves; a pipe of ours deconstructed refunds nothing ([record](network-underlays.md)) | Framework | "You need to use the Hidden versions of them, mate" (owner, 13 Nov 2026, after testing 0.108.0) | **Built: Framework 0.108.1, not yet tested in game** (check 88) |
 
 ## Garage and fleet tools (from 8 Nov 2026)
 

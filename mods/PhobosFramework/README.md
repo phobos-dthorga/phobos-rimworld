@@ -7,7 +7,7 @@ helpers every D'thorga mod shares.
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.108.0, built 13 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
+Version 0.108.1, built 13 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
 oxygen working through Burns and Smoke and Medical Equipment (5 November 2026). The health layer new in 0.3.0 and the **vehicle
 systems new in 0.9.0, and their engines, drivetrains and gas turbines new in 0.11.0, are not yet tested in game.** The rest is read from the game's and the mods' code.
 
@@ -138,6 +138,9 @@ and wear that a mechanic services. See [Vehicle systems](#vehicle-systems-with-v
   boiler without a fusible plug (the American 4-8-4) whose water runs below the firebox crown explodes, and the settings window
   warns you. **Realistic feed water** is off by default: a water stop draws a tenth of the real tender (6,800 litres for the 4-8-4,
   under one Dubs water tower's 8,000); on, the real 68,000.
+- **From 0.108.1 the pipes and conduits our things lay beneath them are hidden again** (Dubs Bad Hygiene's hidden plumbing, the game's hidden
+  conduit, a Vanilla Expanded Framework line's transparent pipe): **look for them in the plumbing and power overlays.** The visible ones 0.107.0
+  and 0.108.0 laid turn hidden by themselves; your own pipes are never touched. A pipe of ours deconstructed gives nothing back. Not yet tested in game.
 - **From 0.108.0, every vehicle of ours parked with its engine off shows its pipes and conduits** (plumbing if it takes water, power conduit if it
   has a battery, the pipe of any line it uses), whether or not a run touches it; they go when its engine starts or it moves. A conduit run
   touching a parked vehicle charges its battery. Old hidden pipes from earlier versions are found and made visible once. Not yet tested in game.
@@ -391,7 +394,7 @@ refunds a share of what it cost when it was fitted. An author can opt a tree in 
   build asks for it, and everything else is ours. **Always our own parts**: a build asks only for ours. **A change takes effect the next
   time the game starts.** Repairs accept either, as before.
 - **D'thorga sounds volume** (0.71.0, 100%; not yet tested in game): how loud every D'thorga mod's sounds play, from silent (0%)
-  to half as loud again (150%), changed at once. At 100% each sits at the level of a comparable sound of the game's own, under the game's
+  to twice as loud (200%; 150% before 0.108.1), changed at once. At 100% each sits at the level of a comparable sound of the game's own, under the game's
   own volume sliders. The sounds so far: a switch click on vehicles' physical switches (lights, heaters, the rig's overdrive, the survey
   truck's long range; orders keep the game's tick), and in D'thorga Medical and D'thorga Vehicles a running concentrator, a running
   generator truck and a ping when a submarine is spotted. All were made with generative AI on the owner's PC and picked by the owner;

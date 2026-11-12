@@ -8,9 +8,9 @@
 | Master | assets/phobos-sounds/generated/p1-drillrig-stop/p1-drillrig-stop-31.flac (sha256 e7276771eeb62d021f5f8d26bfa651c006c8d11086a9f82b600c8d057ef7ea53) |
 | Model | stable_audio_3_small_sfx.safetensors (sha256 ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515), seed 31, 8 steps, guidance 1.0 |
 | Prompt | Shutting off a heavy drill rig truck with a big low-revving diesel engine and a whining hydraulic pump on its power take-off: the steady idle stops, the engine shudders to a halt with a last knock and the exhaust ticks as it cools. Outdoors, close. Length: 4 seconds |
-| Made into | oneshot, mono, 44100 Hz, Ogg Vorbis quality 5; levelled_by loudness, to -18.78 LUFS, gain_db -0.78 |
-| Levelled against | the game's ChemfuelFiredGenerator_Ambience (effective -36.5 LUFS) +0 dB, through volume 13 |
-| Result | -18.8 LUFS, true peak -4.2 dBTP, 4.82 s; flags: none |
-| File | sha256 54b1d1dbd3d3bfba646f4bc3adb3166ab84c03f9692595d75c87d69a98eb2977, made 2026-11-11 with ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers |
+| Made into | oneshot, mono, 44100 Hz, Ogg Vorbis quality 5; levelled_by loudness, to -18.94 LUFS, gain_db -0.94 |
+| Levelled against | the game's ChemfuelFiredGenerator_Ambience (effective -36.5 LUFS) +4 dB, through volume 21 |
+| Result | -19.0 LUFS, true peak -4.7 dBTP, 4.82 s; flags: none |
+| File | sha256 1da2d98044e8250ef7987c9e88db8e3e49ab155de23bd7da2a359318d322a31c, made 2026-11-13 with ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers |
 
 Not yet tested in game.

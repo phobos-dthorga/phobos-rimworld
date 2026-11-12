@@ -18,7 +18,7 @@
           </li>
         </grains>
         <volumeRange>17</volumeRange>
-        <distRange>5~25</distRange>
+        <distRange>15~50</distRange>
       </li>
     </subSounds>
     <modExtensions>
@@ -39,7 +39,7 @@
           </li>
         </grains>
         <volumeRange>11</volumeRange>
-        <distRange>5~25</distRange>
+        <distRange>15~50</distRange>
       </li>
     </subSounds>
     <modExtensions>
@@ -60,7 +60,7 @@
           </li>
         </grains>
         <volumeRange>11</volumeRange>
-        <distRange>5~25</distRange>
+        <distRange>15~50</distRange>
       </li>
     </subSounds>
     <modExtensions>
@@ -81,7 +81,7 @@
           </li>
         </grains>
         <volumeRange>9</volumeRange>
-        <distRange>5~20</distRange>
+        <distRange>15~50</distRange>
       </li>
     </subSounds>
     <modExtensions>
@@ -102,7 +102,7 @@
           </li>
         </grains>
         <volumeRange>30</volumeRange>
-        <distRange>10~40</distRange>
+        <distRange>25~70</distRange>
       </li>
     </subSounds>
     <modExtensions>
@@ -125,7 +125,7 @@
           </li>
         </grains>
         <volumeRange>15</volumeRange>
-        <distRange>5~25</distRange>
+        <distRange>15~50</distRange>
       </li>
     </subSounds>
     <modExtensions>
@@ -146,7 +146,7 @@
           </li>
         </grains>
         <volumeRange>11</volumeRange>
-        <distRange>5~20</distRange>
+        <distRange>15~50</distRange>
       </li>
     </subSounds>
     <modExtensions>
@@ -166,8 +166,8 @@
             <clipPath>Phobos/VehicleSystems/FailedStartDiesel</clipPath>
           </li>
         </grains>
-        <volumeRange>13</volumeRange>
-        <distRange>10~30</distRange>
+        <volumeRange>21</volumeRange>
+        <distRange>25~70</distRange>
       </li>
     </subSounds>
     <modExtensions>
@@ -187,8 +187,8 @@
             <clipPath>Phobos/VehicleSystems/FailedStartPetrol</clipPath>
           </li>
         </grains>
-        <volumeRange>13</volumeRange>
-        <distRange>10~30</distRange>
+        <volumeRange>21</volumeRange>
+        <distRange>25~70</distRange>
       </li>
     </subSounds>
     <modExtensions>
@@ -210,8 +210,8 @@
             <clipPath>Phobos/VehicleSystems/KnockDiesel</clipPath>
           </li>
         </grains>
-        <volumeRange>13</volumeRange>
-        <distRange>10~30</distRange>
+        <volumeRange>21</volumeRange>
+        <distRange>25~70</distRange>
       </li>
     </subSounds>
     <modExtensions>
@@ -233,8 +233,8 @@
             <clipPath>Phobos/VehicleSystems/KnockPetrol</clipPath>
           </li>
         </grains>
-        <volumeRange>13</volumeRange>
-        <distRange>10~30</distRange>
+        <volumeRange>21</volumeRange>
+        <distRange>25~70</distRange>
       </li>
     </subSounds>
     <modExtensions>
@@ -255,7 +255,7 @@
           </li>
         </grains>
         <volumeRange>11</volumeRange>
-        <distRange>10~30</distRange>
+        <distRange>25~70</distRange>
       </li>
     </subSounds>
     <modExtensions>
@@ -276,7 +276,7 @@
           </li>
         </grains>
         <volumeRange>13</volumeRange>
-        <distRange>10~30</distRange>
+        <distRange>25~70</distRange>
       </li>
     </subSounds>
     <modExtensions>
@@ -297,7 +297,7 @@
           </li>
         </grains>
         <volumeRange>40</volumeRange>
-        <distRange>10~40</distRange>
+        <distRange>25~70</distRange>
       </li>
     </subSounds>
     <modExtensions>
@@ -318,7 +318,7 @@
           </li>
         </grains>
         <volumeRange>40</volumeRange>
-        <distRange>10~40</distRange>
+        <distRange>25~70</distRange>
       </li>
     </subSounds>
     <modExtensions>
@@ -339,7 +339,7 @@
           </li>
         </grains>
         <volumeRange>25</volumeRange>
-        <distRange>5~20</distRange>
+        <distRange>15~50</distRange>
       </li>
     </subSounds>
     <modExtensions>
@@ -360,7 +360,7 @@
           </li>
         </grains>
         <volumeRange>25</volumeRange>
-        <distRange>5~20</distRange>
+        <distRange>15~50</distRange>
       </li>
     </subSounds>
     <modExtensions>
@@ -382,7 +382,7 @@
           </li>
         </grains>
         <volumeRange>11</volumeRange>
-        <distRange>5~25</distRange>
+        <distRange>15~50</distRange>
       </li>
     </subSounds>
     <modExtensions>

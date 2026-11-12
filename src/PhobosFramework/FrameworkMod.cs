@@ -19,7 +19,7 @@ public class FrameworkSettings : ModSettings
     public bool keepGameLogAlive = true;
     /// <summary>Write every colonist's thoughts beside each save, for the mood report (Mood/ColonyMoodFile; owner, 10 Nov 2026; on by default, agent default).</summary>
     public bool writeColonyMoodFile = true;
-    /// <summary>Every D'thorga sound's volume, from none to half as loud again (Sounds/PhobosSoundVolume; AGENTS.md's volume setting; agent default 1).</summary>
+    /// <summary>Every D'thorga sound's volume, from none to twice as loud (Sounds/PhobosSoundVolume; AGENTS.md's volume setting; agent default 1).</summary>
     public float soundVolume = 1f;
     /// <summary>Whether the vehicle systems' sounds (a tyre bursting, a knock, the warning chime) also play on other mods' vehicles running them
     /// (owner, 10 Nov 2026: yes, with a setting to turn it off). Their engines and doors are always their authors' own.</summary>
@@ -51,7 +51,7 @@ public class FrameworkSettings : ModSettings
 public class FrameworkMod : Mod
 {
     public const string PackageId = "PhobosDthorga.Framework";
-    public const string ModVersion = "0.108.0";
+    public const string ModVersion = "0.108.1";
     public const string LogPrefix = "[D'thorga Framework]";
     public static readonly Phobos.Logging.PhobosLog Logger = Logging.Logs.For("D'thorga Framework");
 

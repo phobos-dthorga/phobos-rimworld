@@ -72,8 +72,14 @@ def parse_range(text, default=None):
 
 def read_sounddefs(game):
     """{defName: settings} for every SoundDef in the game's Defs XML (inheritance from a ParentName is not followed)."""
+    return read_sounddef_files(Path(game, 'Data').glob('*/Defs/**/*.xml'), game)
+
+
+def read_sounddef_files(paths, base):
+    """{defName: settings} for every SoundDef in these XML files, each file named relative to base: the game's, or our mods'
+    (scripts/art/export_sound.py checks ours against their exports)."""
     defs = {}
-    for path in sorted(Path(game, 'Data').glob('*/Defs/**/*.xml')):
+    for path in sorted(paths):
         try:
             root = ET.parse(path).getroot()
         except ET.ParseError:
@@ -91,7 +97,7 @@ def read_sounddefs(game):
                 subs.append({'grains': grains, 'volume': parse_range(sub.findtext('volumeRange'), (50.0, 50.0)),
                              'distance': parse_range(sub.findtext('distRange')), 'pitch': parse_range(sub.findtext('pitchRange'), (1.0, 1.0)),
                              'on_camera': (sub.findtext('onCamera') or '').strip().lower() == 'true'})
-            defs[name] = {'file': str(path.relative_to(game)).replace('\\', '/'), 'sustain': (node.findtext('sustain') or '').strip().lower() == 'true',
+            defs[name] = {'file': str(Path(path).relative_to(base)).replace('\\', '/'), 'sustain': (node.findtext('sustain') or '').strip().lower() == 'true',
                           'context': node.findtext('context'), 'max_simultaneous': node.findtext('maxSimultaneous'), 'sub_sounds': subs}
     return defs
 
