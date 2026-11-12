@@ -3,8 +3,8 @@
 **A research record. Nothing is built, and nothing here is tested in game.** The owner, 13 November 2026: "One area I have seen that
 is lacking is with the avionics of aircraft, particularly with the Harrier, but this does apply to all aircraft that are part of my
 game, in general." It is the second of three records of the cross-links round three review. It follows
-[the authors' override contract](vehicle-author-overrides.md), whose `avionics` block it fills in, and is followed by cross-links,
-round three (`vehicle-crosslinks-round-three.md`), which covers ground vehicles and boats.
+[the authors' override contract](vehicle-author-overrides.md), whose `avionics` block it fills in, and is followed by [cross-links,
+round three](vehicle-crosslinks-round-three.md), which covers ground vehicles and boats.
 
 How to read it:
 
@@ -322,6 +322,13 @@ Second batch: A4 and A3 (landings and the autopilot), A14 and A15 with L3 (oxyge
 one framework at a time. Later: A16. Not until read: A17.
 
 ## Questions for the owner
+
+**Answered by the owner, 13 Nov 2026:** (1) blind flying **refuses the launch, with a warn-only setting**; (2) aircraft with no
+instrument part **gain an appended avionics bay**; (3) no working oxygen means **a low cruise, plus a setting to give crews hypoxia
+where it is detected, off by default** (hypoxia only where D'thorga Medical's breathing layer, or another mod's, can carry it);
+(4) countermeasures **later**; (5) **no aircraft is worse off on install day**. Nothing is built yet.
+
+The questions as they were put:
 
 1. **Blind flying (A1): refuse the launch, or warn and allow?** Agent lean: **refuse by default, with a setting to warn only**,
    the same shape as the hover limit, so a player who wants the risk can take it.
