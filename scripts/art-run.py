@@ -154,9 +154,19 @@ def cpu_plan(spec=None):
     return mask, max(1, bin(mask).count('1') // 2)
 
 
+# Hides every graphics card from CUDA. An empty value does not: Windows keeps it as empty and torch still sees the card (found
+# 12 Nov 2026; until then only ComfyUI's own --cpu kept processor runs off the card).
+NO_GPU = '-1'
+
+
+def cpu_env(threads):
+    """The environment of a processor-only run: no graphics card visible to CUDA, and one thread per physical core given."""
+    return {**os.environ, 'CUDA_VISIBLE_DEVICES': NO_GPU, 'OMP_NUM_THREADS': str(threads), 'MKL_NUM_THREADS': str(threads)}
+
+
 def cpu_launcher(comfy, mask, threads):
     """A function that starts a processor-only ComfyUI: no graphics card visible, below-normal priority, held to mask."""
-    env = {**os.environ, 'CUDA_VISIBLE_DEVICES': '', 'OMP_NUM_THREADS': str(threads), 'MKL_NUM_THREADS': str(threads)}
+    env = cpu_env(threads)
     flags = BELOW_NORMAL_PRIORITY_CLASS if os.name == 'nt' else 0
     return lambda: art.start_server(comfy, ['--cpu'], env=env, creationflags=flags, on_start=lambda process: set_affinity(process, mask))
 

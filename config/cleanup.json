@@ -36,6 +36,14 @@
       "keepNewest": 1,
       "olderThanDays": 1,
       "why": "older dumps of the game's crashes; scripts/crash-dump.py reads the newest, which stays"
+    },
+    {
+      "name": "Background clean-up staging",
+      "folder": ".local/art",
+      "match": ["clean-stage", "clean-review"],
+      "kinds": "folders",
+      "olderThanDays": 7,
+      "why": "textures re-exported by scripts/art/clean_backgrounds.py stage, and their review page; applied or set aside within a week"
     }
   ]
 }

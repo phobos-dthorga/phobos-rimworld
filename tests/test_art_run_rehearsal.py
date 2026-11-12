@@ -372,6 +372,12 @@ class NearCopyTests(RehearsalCase):
         sources = art_run.near_copy_sources(requests, ['c'])
         self.assertEqual(sources, [str(art_run.ROOT / 'a'), str(art_run.ROOT / 'b'), 'c'])
 
+    def test_a_processor_run_hides_every_graphics_card(self):
+        # 12 Nov 2026: an empty CUDA_VISIBLE_DEVICES left the card visible on Windows; -1 hides them all.
+        env = art_run.cpu_env(8)
+        self.assertEqual(env['CUDA_VISIBLE_DEVICES'], '-1')
+        self.assertEqual(env['OMP_NUM_THREADS'], '8')
+
     def test_our_own_art_is_not_a_source(self):
         requests = [{'references': ['assets/set/references/mine.png', 'mods/M/Textures/mine.png', '.local/art/picks-7nov/pick.png',
                                     '.local/references/game.png']}]

@@ -26,7 +26,7 @@ import sys
 from PIL import Image
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from export_sprite import white_to_alpha  # noqa: E402
+from export_sprite import ai_background, file_sha256, white_to_alpha  # noqa: E402
 
 PIXELS_PER_CELL = 128
 ICON_SIZE = 64
@@ -149,7 +149,8 @@ def record(out, name, master, written, details):
 
 def export_body(master, out, name, cells_long, draw, main_hue, accent_hue, min_saturation=MIN_SATURATION, holes=()):
     out.mkdir(parents=True, exist_ok=True)
-    cut = white_to_alpha(Image.open(master), holes=holes)
+    background = ai_background(master)
+    cut = white_to_alpha(Image.open(master), holes=holes, background=background)
     left, top, right, bottom = cut.getchannel('A').point(lambda alpha: 255 if alpha >= 128 else 0).getbbox()
     scale = cells_long * PIXELS_PER_CELL / (bottom - top)
     canvas = (draw[0] * PIXELS_PER_CELL, draw[1] * PIXELS_PER_CELL)
@@ -170,14 +171,16 @@ def export_body(master, out, name, cells_long, draw, main_hue, accent_hue, min_s
     (out / f'{name}.transform.json').write_text(json.dumps(transform, indent=2), encoding='utf-8')
     width_cells = (right - left) * scale / PIXELS_PER_CELL
     record(out, name, master, written, {'kind': 'body', 'cells_long': cells_long, 'draw_size': list(draw), 'width_cells': round(width_cells, 2), 'colours': colours,
-                                        'min_saturation': min_saturation, 'holes': [list(point) for point in holes]})
+                                        'min_saturation': min_saturation, 'holes': [list(point) for point in holes],
+                                        'ai_mask': file_sha256(master) if background is not None else None})
     return {'width_cells': width_cells, 'colours': colours, 'files': written}
 
 
 def export_overlay(master, like, out, name, fit=None, marks=False, holes=()):
     out.mkdir(parents=True, exist_ok=True)
     transform = json.loads(Path(like).read_text(encoding='utf-8'))
-    cut = marks_to_alpha(Image.open(master).convert('RGB')) if marks else white_to_alpha(Image.open(master), holes=holes)
+    background = None if marks else ai_background(master)
+    cut = marks_to_alpha(Image.open(master).convert('RGB')) if marks else white_to_alpha(Image.open(master), holes=holes, background=background)
     if cut.size != tuple(transform['master_size']):
         raise ValueError(f'{master} is {cut.size}, but the body was made from {transform["master_size"]}: the two would not register')
     if fit:
@@ -190,7 +193,8 @@ def export_overlay(master, like, out, name, fit=None, marks=False, holes=()):
         cut.alpha_composite(content, (fit[0] + (box_width - size[0]) // 2, fit[1] + (box_height - size[1]) // 2))
     written = write_facings(place(cut, transform['scale'], tuple(transform['offset']), tuple(transform['canvas'])), out, name)
     record(out, name, master, written, {'kind': 'marks' if marks else 'overlay', 'like': Path(like).name, 'fit': fit,
-                                        'holes': [list(point) for point in holes]})
+                                        'holes': [list(point) for point in holes],
+                                        'ai_mask': file_sha256(master) if background is not None else None})
     return {'files': written}
 
 

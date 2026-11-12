@@ -283,6 +283,8 @@ Five mods until 7 November 2026; each record below keeps its own mod's name and 
   routes (code-drawn, local Flux.1-schnell through ComfyUI, a paid plan last), licences and records.
 - [Art backlog (6 Nov 2026)](art-backlog.md): every texture and preview the mods ship or still need, which suit the local image
   model, and what must happen before a run.
+- [Background clean-up (12 Nov 2026)](background-cleanup.md): why white stayed where background should be (inside pictures and on
+  their borders), the BiRefNet AI that tells background from white paint, and the stage, review and apply commands.
 - [Art automation and medical equipment: design (4 Nov 2026)](art-automation-and-medical-equipment.md): where all the current work
   stands, a hands-off overnight art pipeline, what makes training material, vanilla sprite sizes and the EULA, the medical
   equipment your mods already have, what they lack, and the open questions.

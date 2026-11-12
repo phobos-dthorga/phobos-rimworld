@@ -202,6 +202,55 @@ class ExportBackgroundTests(unittest.TestCase):
         self.assertEqual(result.getpixel((3, 3))[3], 255)
         self.assertEqual(result.getpixel((0, 0))[3], 0)
 
+    def ai_case(self):
+        """A dark frame enclosing two white rooms side by side: the left is background showing through (the cargo hook's opening, owner,
+        12 Nov 2026), the right is white paint (a bed sheet). The AI's mask calls the left background and the right object."""
+        from PIL import Image
+        image = Image.new('RGB', (13, 7), (255, 255, 255))
+        for x in range(1, 12):
+            for y in range(1, 6):
+                image.putpixel((x, y), (10, 10, 10))
+        for y in range(2, 5):
+            for x in (2, 3, 4):
+                image.putpixel((x, y), (255, 255, 255))
+            for x in (8, 9, 10):
+                image.putpixel((x, y), (250, 250, 250))
+        mask = Image.new('L', (13, 7), 255)
+        for y in range(2, 5):
+            for x in (2, 3, 4):
+                mask.putpixel((x, y), 0)
+        return image, mask
+
+    def test_the_ai_clears_enclosed_background_and_keeps_white_paint(self):
+        image, mask = self.ai_case()
+        result = self.white_to_alpha(image, background=mask)
+        self.assertEqual(result.getpixel((3, 3))[3], 0, 'the hook opening clears')
+        self.assertEqual(result.getpixel((9, 3))[3], 255, 'the sheet stays')
+        self.assertEqual(result.getpixel((6, 3))[3], 255, 'the dark frame stays')
+        self.assertEqual(result.getpixel((0, 0))[3], 0, 'the outside still clears')
+
+    def test_without_the_ai_enclosed_white_stays_as_before(self):
+        image, _ = self.ai_case()
+        result = self.white_to_alpha(image)
+        self.assertEqual(result.getpixel((3, 3))[3], 255)
+
+    def test_clearing_never_spreads_into_white_the_ai_calls_the_object(self):
+        # The two rooms joined by a white corridor: clearing starts in the opening but must not run into the sheet.
+        image, mask = self.ai_case()
+        for x in (5, 6, 7):
+            image.putpixel((x, 3), (252, 252, 252))
+        result = self.white_to_alpha(image, background=mask)
+        self.assertEqual(result.getpixel((3, 3))[3], 0)
+        self.assertEqual(result.getpixel((9, 3))[3], 255)
+
+    def test_a_soft_edge_loses_the_white_it_was_mixed_with(self):
+        import export_sprite
+        # A fifth of a dark red object (40, 0, 0) over white shows as (212, 204, 204); with alpha 51 the red comes back exactly.
+        self.assertEqual(export_sprite.unmixed(212, 51), 40)
+        self.assertEqual(export_sprite.unmixed(204, 51), 0)
+        self.assertEqual(export_sprite.unmixed(200, 255), 200, 'an opaque pixel is untouched')
+        self.assertEqual(export_sprite.unmixed(255, 0), 255, 'a clear pixel is left alone')
+
     def test_a_silhouette_is_white_with_opacity_from_darkness(self):
         import export_sprite
         self.image.putpixel((2, 2), (135, 135, 135))  # A grey edge pixel, half way between solid and clear.

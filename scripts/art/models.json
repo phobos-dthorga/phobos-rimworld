@@ -106,6 +106,16 @@
       "optional": true,
       "sha256": "48d9c65e290e7bcd5194e0633bfc2424a59ee9683f5c2d58762d997b7d8ce0b5",
       "why": "Stable Audio 3 Medium distilled (9.2 GB, same licence): a comparison only, sa3-medium"
+    },
+    {
+      "file": "birefnet.safetensors",
+      "folder": "background_removal",
+      "repo": "Comfy-Org/BiRefNet",
+      "path": "background_removal/birefnet.safetensors",
+      "licence": "mit",
+      "optional": true,
+      "sha256": "9ab37426bf4de0567af6b5d21b16151357149139362e6e8992021b8ce356a154",
+      "why": "BiRefNet (Zheng Peng and colleagues; ComfyUI's repackaged single file, 444 MB): finds which white in a picture is background, including background a shape encloses (the cargo hook's opening, owner, 12 Nov 2026). Runs on the processor beside the game"
     }
   ]
 }

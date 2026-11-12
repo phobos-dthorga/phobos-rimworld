@@ -386,6 +386,10 @@ delivered, record the delivery in the changelog or design record, and add or ame
   an asset record beside it; disclose AI assistance; never ship the game's or another mod's art. Check
   generator allowance and cost first; never silently buy credit or switch to a costlier generator.
 - **Every generated image is saved on an art branch unless it is truly fugly** (owner, 8 Nov 2026), exactly as it was generated: the original file byte for byte with its record, the pick on `art-masters` and the rest on `art-references`. Crops, cut-outs and resizes are new files and never replace an original. A truly fugly image is left out with a one-line reason in its batch record; when in doubt, keep it. An image the near-copy check flags against the game's or another author's art stays local, off these public branches.
+- **No white where background should be** (owner, 12 Nov 2026: white "on the borders, or inside the picture"): before exporting a new
+  original, let the background AI look at it (`python scripts/art/clean_backgrounds.py masks --cpu --stop-at HH:MM`); the exporters then
+  clear white the object encloses where the AI is sure it is background, and take the white out of soft edges. Re-exports go through
+  `stage`, a review page and `apply`. The AI runs on the graphics card only with the game closed (`docs/development/background-cleanup.md`).
 - **Art the mods don't ship stays off `main`** (owner, 7 Nov 2026): full-size masters of shipped and picked art on the `art-masters`
   branch, reference drawings and superseded or comparison picks on `art-references`, each with its sidecar or record. Add to them only
   with `scripts/art/archive_branch.py`, which adds commits on top, never rewrites, and refuses game art, the private style model and

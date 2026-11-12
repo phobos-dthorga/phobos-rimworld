@@ -17,39 +17,79 @@ from pathlib import Path
 from PIL import Image
 
 
-def white_to_alpha(image, threshold=235, soft=30, all_white=False, holes=()):
+# Masks from the background AI (scripts/art/clean_backgrounds.py), named by the SHA-256 of the picture they were made from: white where
+# the picture shows its object, black where it shows background. Kept on this PC only.
+AI_MASKS = Path(__file__).resolve().parents[2] / '.local' / 'art' / 'bgmasks'
+AI_SEED_BELOW = 64  # The AI is sure this is background: clearing may start here (authored, 12 Nov 2026).
+AI_OBJECT_FROM = 192  # The AI is sure this is the object: clearing never enters it, however white it is (authored).
+
+
+def file_sha256(path):
+    return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+
+
+def ai_background(path):
+    """The background AI's mask for this picture file, or None if the AI has not looked at it."""
+    mask = AI_MASKS / f'{file_sha256(path)}.png'
+    return Image.open(mask).convert('L') if mask.is_file() else None
+
+
+def unmixed(value, alpha):
+    """One colour channel of a pixel that was part white background, with the white taken out: the pixel showed alpha * object +
+    (1 - alpha) * white, so the object's own colour is recovered exactly. Without it, a soft edge keeps its whiteness and shows as a
+    pale rim over dark ground (owner, 12 Nov 2026: white "on the borders")."""
+    if alpha <= 0:
+        return value
+    share = alpha / 255
+    return max(0, min(255, round((value - 255 * (1 - share)) / share)))
+
+
+def white_to_alpha(image, threshold=235, soft=30, all_white=False, holes=(), background=None):
     """Alpha from how far a pixel is from pure white, for the background only: near-white reached from the image's edge. White inside
     the object, such as a mattress, stays solid. Fully opaque below threshold-soft, clear above threshold. all_white clears every
     near-white pixel, for an object with no white of its own and background showing through it, such as a loop of tube. holes names
     (x, y) points of background enclosed by the object, each cleared as the edge is, such as the frame of a trailer's drawbar
-    (12 Nov 2026)."""
+    (12 Nov 2026). background is the background AI's mask for the picture (ai_background): white the object encloses is cleared too
+    where the AI is sure it is background, spreading only through white it does not take for the object, so a hook's opening clears
+    and a bed sheet beside it stays. A soft edge has the white taken out of its colour (unmixed)."""
     rgba = image.convert('RGBA')
     pixels = rgba.load()
     width, height = rgba.size
     floor = threshold - soft
+
+    def clear(x, y):
+        r, g, b, a = pixels[x, y]
+        whiteness = min(r, g, b)
+        alpha = min(a, 0 if whiteness >= threshold else int(255 * (threshold - whiteness) / soft))
+        pixels[x, y] = (unmixed(r, alpha), unmixed(g, alpha), unmixed(b, alpha), alpha)
+
     if all_white:
         for y in range(height):
             for x in range(width):
-                r, g, b, a = pixels[x, y]
-                whiteness = min(r, g, b)
-                if whiteness > floor:
-                    pixels[x, y] = (r, g, b, min(a, 0 if whiteness >= threshold else int(255 * (threshold - whiteness) / soft)))
+                if min(pixels[x, y][:3]) > floor:
+                    clear(x, y)
         return rgba
     seen = bytearray(width * height)
+
+    def flood(stack, allowed=lambda x, y: True):
+        while stack:
+            x, y = stack.pop()
+            if seen[y * width + x]:
+                continue
+            if min(pixels[x, y][:3]) <= floor or not allowed(x, y):
+                continue
+            seen[y * width + x] = 1
+            clear(x, y)
+            stack += [(nx, ny) for nx, ny in ((x - 1, y), (x + 1, y), (x, y - 1), (x, y + 1)) if 0 <= nx < width and 0 <= ny < height]
+
     stack = [(x, y) for x in range(width) for y in (0, height - 1)] + [(x, y) for y in range(height) for x in (0, width - 1)]
     stack += [(int(x), int(y)) for x, y in holes if 0 <= x < width and 0 <= y < height]
-    while stack:
-        x, y = stack.pop()
-        if seen[y * width + x]:
-            continue
-        seen[y * width + x] = 1
-        r, g, b, a = pixels[x, y]
-        whiteness = min(r, g, b)
-        if whiteness <= floor:
-            continue
-        alpha = 0 if whiteness >= threshold else int(255 * (threshold - whiteness) / soft)
-        pixels[x, y] = (r, g, b, min(a, alpha))
-        stack += [(nx, ny) for nx, ny in ((x - 1, y), (x + 1, y), (x, y - 1), (x, y + 1)) if 0 <= nx < width and 0 <= ny < height]
+    flood(stack)
+    if background is not None:
+        sure = background.convert('L').resize((width, height), Image.BILINEAR).load()
+        seeds = [(x, y) for y in range(height) for x in range(width)
+                 if not seen[y * width + x] and sure[x, y] < AI_SEED_BELOW and min(pixels[x, y][:3]) >= threshold]
+        flood(seeds, lambda x, y: sure[x, y] < AI_OBJECT_FROM)
     return rgba
 
 
@@ -89,21 +129,25 @@ def export(source, target, size, aspect, threshold, soft, all_white=False, as_si
     source = Path(source); target = Path(target)
     aspect_w, aspect_h = (int(part) for part in aspect.split(':'))
     master = Image.open(source)
-    cut = silhouette(master, threshold, soft) if as_silhouette else white_to_alpha(master, threshold, soft, all_white)
+    background = None if as_silhouette or all_white else ai_background(source)
+    cut = silhouette(master, threshold, soft) if as_silhouette else white_to_alpha(master, threshold, soft, all_white, background=background)
     sprite = pad_to_aspect(crop_to_content(cut), aspect_w, aspect_h)
-    sprite = sprite.resize((size * aspect_w // min(aspect_w, aspect_h), size * aspect_h // min(aspect_w, aspect_h)), Image.LANCZOS)
+    # Shrunk premultiplied, so the clear background's white never bleeds into the edge (12 Nov 2026: it left a pale rim on every icon).
+    sprite = sprite.convert('RGBa').resize((size * aspect_w // min(aspect_w, aspect_h), size * aspect_h // min(aspect_w, aspect_h)),
+                                           Image.LANCZOS).convert('RGBA')
     target.parent.mkdir(parents=True, exist_ok=True)
     sprite.save(target, optimize=True)
     record = {
         'target': str(target).replace('\\', '/'),
         'source': str(source).replace('\\', '/'),
-        'source_sha256': hashlib.sha256(source.read_bytes()).hexdigest(),
+        'source_sha256': file_sha256(source),
         'target_sha256': hashlib.sha256(target.read_bytes()).hexdigest(),
         'size': list(sprite.size),
         'white_threshold': threshold,
         'soft_edge': soft,
         'all_white': all_white,
         'silhouette': as_silhouette,
+        'ai_mask': file_sha256(source) if background is not None else None,
         'date': _dt.datetime.now().isoformat(timespec='seconds'),
         'tool': 'export_sprite.py: ' + ('dark shape to a white silhouette' if as_silhouette else 'background white to alpha') + ', crop, pad, Lanczos downscale',
     }
