@@ -6,9 +6,25 @@ entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.15.1] - 2026-11-13 - Draft
+
+Clean backgrounds on three equipment pictures
+
+### Fixed
+
+- White left where background should be is gone from the nebuliser's tube loop, the medical equipment category's cable loop and the decompression kit. The gas alarm's white ring is paint and stays.
+
 ### Changed
 
 - The README no longer calls the medical equipment's pictures placeholders or says the liquid oxygen store's frost is not drawn. Documentation only; nothing changes in play.
+
+### Save compatibility
+
+- Safe to add to a running game: only pictures change.
+
+### Compatibility and limits
+
+- Not yet tested in game. Each picture was checked by eye on dark ground before and after, and the owner approved the set (13 Nov 2026).
 
 ## [0.15.0] - 2026-11-12 - Draft
 
@@ -331,7 +347,6 @@ The owner's answers of 7 November 2026 to every open question (docs/development/
 ### Dependencies
 
 - D'thorga Framework 0.8.0 or later, for the shared menu of a person's care choices, healing on oxygen and reading More Injuries' setting. Useful Marks is optional; with it, triage tags join its marks.
-
 
 ### Compatibility and limits
 

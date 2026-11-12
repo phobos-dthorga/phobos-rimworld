@@ -1,8 +1,8 @@
 {
   "target": "mods/PhobosMedical/Common/Textures/Phobos/Medical/Categories/MedicalEquipment.png",
-  "source": "assets/phobos-vehicles/generated/category-medical-equipment/category-medical-equipment-1.png",
+  "source": "D:/SynologyDrive/phobosdthorga/CloudStation Drive/Google Drive/Gekko-Data/Documents/GitHub/phobosdthorga/phobos-rimworld/assets/phobos-vehicles/generated/category-medical-equipment/category-medical-equipment-1.png",
   "source_sha256": "83481037099daf882d3358568f73bb76201c294f37b9441f3f43b019fb9c3e43",
-  "target_sha256": "382ed1e3de469e373188945f58c56b8847148badb28f54d35a9af5648ea30719",
+  "target_sha256": "534479398323970f64d776238c643c055aa2ae53153b185a328c7ead4d2667b5",
   "size": [
     128,
     128
@@ -11,6 +11,7 @@
   "soft_edge": 30,
   "all_white": false,
   "silhouette": false,
-  "date": "2026-11-11T08:05:04",
+  "ai_mask": "83481037099daf882d3358568f73bb76201c294f37b9441f3f43b019fb9c3e43",
+  "date": "2026-11-13T00:07:57",
   "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
 }

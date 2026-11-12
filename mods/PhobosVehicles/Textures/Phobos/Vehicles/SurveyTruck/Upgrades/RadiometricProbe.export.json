@@ -1,8 +1,8 @@
 {
   "target": "mods/PhobosVehicles/Textures/Phobos/Vehicles/SurveyTruck/Upgrades/RadiometricProbe.png",
-  "source": "assets/phobos-vehicles/generated/upgrade-survey-RadiometricProbe/upgrade-survey-RadiometricProbe-1.png",
+  "source": "D:/SynologyDrive/phobosdthorga/CloudStation Drive/Google Drive/Gekko-Data/Documents/GitHub/phobosdthorga/phobos-rimworld/assets/phobos-vehicles/generated/upgrade-survey-RadiometricProbe/upgrade-survey-RadiometricProbe-1.png",
   "source_sha256": "affa5e5ab964d66c27038be9013fab843dc86e66917bafbf6fec1d3100fd0ed0",
-  "target_sha256": "d7993c0d90da6e6b5bce187f4d5eebc731c80992c61a4d6cc9a589f1766223ab",
+  "target_sha256": "52d3f14206daa3b96ce18bfaac71a8263f1299369395f83b73dc678326a156e2",
   "size": [
     128,
     128
@@ -10,6 +10,8 @@
   "white_threshold": 235,
   "soft_edge": 30,
   "all_white": true,
-  "date": "2026-11-09T20:20:31",
+  "silhouette": false,
+  "ai_mask": null,
+  "date": "2026-11-13T00:08:31",
   "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
 }

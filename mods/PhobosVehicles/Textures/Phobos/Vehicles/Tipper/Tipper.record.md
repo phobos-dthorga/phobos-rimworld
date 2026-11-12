@@ -22,6 +22,6 @@ Made on 12 Nov 2026 with OpenAI gpt-image-2 through the image API, at medium qua
 
 | Texture | Shown when | Part master | Master SHA-256 | North SHA-256 |
 | --- | --- | --- | --- | --- |
-| Tipper_Winch | the recovery winch is fitted | `fitting-recovery-winch-overlay-1-turned-180.png` | `12d0883ccab36557e61075786c3e331159fe8cf1d3222aaa09ee72b78b60eb7e` | `4bde10a456d345da9fec695ec3244da99d08a6805840aadca90b6c9887bd0206` |
+| Tipper_Winch | the recovery winch is fitted | `fitting-recovery-winch-overlay-1-turned-180.png` | `12d0883ccab36557e61075786c3e331159fe8cf1d3222aaa09ee72b78b60eb7e` | `fae19070ab29efc8d2d739369eb679f74efd9e55b910987af19a2c8de7b9ac95` |
 | Tipper_AuxFuelTank | the auxiliary fuel tank is fitted | `fitting-aux-fuel-tank-overlay-2.png` | `efb2446cd2635534963dd8844e942263c4d93be8dc0ee45b6ddb668d413a0e2f` | `cb02c12778c46d5ff62bbcb2293c9d3e292001846232c8658e75d78f42e34da6` |
-| Tipper_LoadingGrab | the loading grab upgrade is fitted | `tipper-loading-grab-3.png` | `d5357d1c901129d8cebd2cf0a8eca7ef525d8694361600eb6ad324cc047b6551` | `571db27cfb0df32f0a4f54d599f5ae9bb9c00799347bc01ab061276eaa08052c` |
+| Tipper_LoadingGrab | the loading grab upgrade is fitted | `tipper-loading-grab-3.png` | `d5357d1c901129d8cebd2cf0a8eca7ef525d8694361600eb6ad324cc047b6551` | `c3e8991d11d7115aa8f9067fc4c3c4d79d38578b43123a2f2a657decf232f158` |

@@ -1,8 +1,8 @@
 {
   "target": "mods/PhobosVehicles/Textures/Phobos/Vehicles/DrillRig/Upgrades/RcHammer.png",
-  "source": "assets/phobos-vehicles/generated/upgrade-rig-RcHammer/upgrade-rig-RcHammer-1.png",
+  "source": "D:/SynologyDrive/phobosdthorga/CloudStation Drive/Google Drive/Gekko-Data/Documents/GitHub/phobosdthorga/phobos-rimworld/assets/phobos-vehicles/generated/upgrade-rig-RcHammer/upgrade-rig-RcHammer-1.png",
   "source_sha256": "8ec6027dd12b4c51e5928fb00c07687459294d8a0e1660aad56358ee4880fce5",
-  "target_sha256": "cca1cf372d1451554123911769b85943659ee6373bea196494b061d1c746a479",
+  "target_sha256": "772b031f515237ed93e8cd3d21020f79e9d91bf9f68bca971dd24a212023c2fb",
   "size": [
     128,
     128
@@ -10,6 +10,8 @@
   "white_threshold": 235,
   "soft_edge": 30,
   "all_white": true,
-  "date": "2026-11-09T20:20:33",
+  "silhouette": false,
+  "ai_mask": null,
+  "date": "2026-11-13T00:08:29",
   "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
 }

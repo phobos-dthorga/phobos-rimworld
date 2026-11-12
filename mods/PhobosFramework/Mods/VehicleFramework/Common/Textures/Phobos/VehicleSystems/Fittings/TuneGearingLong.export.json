@@ -1,8 +1,8 @@
 {
   "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/TuneGearingLong.png",
-  "source": "assets/phobos-vehicles/generated/tune-gearing-long/tune-gearing-long-2.png",
+  "source": "D:/SynologyDrive/phobosdthorga/CloudStation Drive/Google Drive/Gekko-Data/Documents/GitHub/phobosdthorga/phobos-rimworld/assets/phobos-vehicles/generated/tune-gearing-long/tune-gearing-long-2.png",
   "source_sha256": "325a5fe489aee1a5a2426bb371b512d78821b5f27b8bb00d78ef7ca6a814c0c0",
-  "target_sha256": "f289aa7d048f453afee9423fe406784ab824e434ec35d98c9a5afebe58b61943",
+  "target_sha256": "b857b0cf424a55592bb0a1f09db55ca38c9befb08a977225761bdbb88da532e0",
   "size": [
     128,
     128
@@ -11,6 +11,7 @@
   "soft_edge": 30,
   "all_white": false,
   "silhouette": false,
-  "date": "2026-11-11T16:18:31",
+  "ai_mask": "325a5fe489aee1a5a2426bb371b512d78821b5f27b8bb00d78ef7ca6a814c0c0",
+  "date": "2026-11-13T00:07:16",
   "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
 }

@@ -39,6 +39,11 @@ The second and third need no AI: the background was pure white, so the white is 
   background, and the first staging cleared 26% of that picture. So **a texture that loses more than 12% of its picture is flagged and
   held back**; `apply --include NAME` applies one after the owner has looked. Real openings (the sling set's triangle) may trip the same
   flag, which is the price of never clearing paint unseen.
+- **A patch is cleared whole or not at all.** Where the AI is right (a hook's opening, gear holes, the sling set's triangle) it clears
+  the whole white patch; where it is wrong (the Diagnose clipboard's paper, gauge faces, the survey dish, a thermometer's tube) it is
+  unsure and clears blotches. So an enclosed patch of near-pure white is cleared only if the AI would clear 90% of it or more, and a
+  patch put back takes its soft rim with it (authored, with tests). One wrong clear still passed: a small wedge of the stock engine
+  gauge's face, which the dial's arc cuts off as a patch of its own; it was skipped by hand.
 - **Measured before tuning:** on dark ground the edges of our icons and vehicles were already clean (the edge changes touched 38 pixels
   of the cargo hook and a few hundred of a truck). What the owner saw is enclosed white, which is the AI's part.
 - **Its answers are kept** in `.local/art/bgmasks`, one mask per original, named by the original's SHA-256. The exporters read them
@@ -77,3 +82,13 @@ python scripts/art/clean_backgrounds.py apply [--skip NAME ...]       copy the r
 - **Owner:** the AI route, processor first, the graphics card overnight if needed, and the go for everything it takes (12 Nov 2026).
 - **Agent:** BiRefNet over RMBG-2.0 (licence); the hybrid rule (the AI decides which white is background, our cut-out keeps the outline);
   the thresholds (seed below 64, never into 192 or more, of 255), authored; staging and review before any change to the mods.
+
+## The first run (12 to 13 Nov 2026)
+
+- **The AI:** 66 originals on the processor beside the game (about 15 s each), then, with the game closed at the owner's word, the
+  other 239 on the graphics card in 3.7 minutes (0.3 s each).
+- **The review:** 64 textures changed; 3 were flagged (the gas alarm's ring, wrong; the sling set's triangle, right; the hyperbaric
+  chamber's south view, whose export record no longer matches how it was made).
+- **Applied (owner, 13 Nov 2026, as the agent recommended):** 61 textures in D'thorga Framework 0.105.1, Vehicles 0.49.1, Medical
+  0.15.1 and the radio framework 0.1.8, leaving out the stock engine gauge and including the sling set. The gas alarm and the chamber's
+  south view stay as they were.

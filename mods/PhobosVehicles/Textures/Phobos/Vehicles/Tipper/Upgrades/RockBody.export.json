@@ -1,8 +1,8 @@
 {
   "target": "mods/PhobosVehicles/Textures/Phobos/Vehicles/Tipper/Upgrades/RockBody.png",
-  "source": "assets/phobos-vehicles/generated/upgrade-tipper-RockBody/upgrade-tipper-RockBody-1.png",
+  "source": "D:/SynologyDrive/phobosdthorga/CloudStation Drive/Google Drive/Gekko-Data/Documents/GitHub/phobosdthorga/phobos-rimworld/assets/phobos-vehicles/generated/upgrade-tipper-RockBody/upgrade-tipper-RockBody-1.png",
   "source_sha256": "1e1fe6c096f1a8560b82c565009245e7a4dc774ff76730e729f95f87304cd2ab",
-  "target_sha256": "0371ae4238e874b9ccfe6e4e8e515a24b272b86cda9050c0d1c2648a80a6b933",
+  "target_sha256": "31342628a70091ef5f66ab81b1208666dc31a094c3c09e89c2a4cfc7fcb2ddf4",
   "size": [
     128,
     128
@@ -10,6 +10,8 @@
   "white_threshold": 235,
   "soft_edge": 30,
   "all_white": true,
-  "date": "2026-11-09T20:20:36",
+  "silhouette": false,
+  "ai_mask": null,
+  "date": "2026-11-13T00:08:33",
   "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
 }

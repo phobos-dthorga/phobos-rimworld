@@ -1,8 +1,8 @@
 {
   "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Categories/VehicleParts.png",
-  "source": "assets/phobos-vehicles/generated/category-vehicle-parts/category-vehicle-parts-1.png",
+  "source": "D:/SynologyDrive/phobosdthorga/CloudStation Drive/Google Drive/Gekko-Data/Documents/GitHub/phobosdthorga/phobos-rimworld/assets/phobos-vehicles/generated/category-vehicle-parts/category-vehicle-parts-1.png",
   "source_sha256": "b6937c0c19db7b6e328b08c06e547d593385ff54e61589d3fe22c1b0b2407e76",
-  "target_sha256": "d6e56c4111f3a6917f67d0fe1b898454d9b2b0d90ee1046b3e4d992f614bef98",
+  "target_sha256": "e7a79efcfd3af77f40e11c91b7637723884282b64d58202f5801eaefcfbb952f",
   "size": [
     128,
     128
@@ -11,6 +11,7 @@
   "soft_edge": 30,
   "all_white": false,
   "silhouette": false,
-  "date": "2026-11-11T08:05:02",
+  "ai_mask": "b6937c0c19db7b6e328b08c06e547d593385ff54e61589d3fe22c1b0b2407e76",
+  "date": "2026-11-13T00:06:56",
   "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
 }

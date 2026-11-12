@@ -1,8 +1,8 @@
 {
   "target": "mods/PhobosVehicles/Textures/Phobos/Vehicles/Tipper/Upgrades/BulkBody.png",
-  "source": "assets/phobos-vehicles/generated/upgrade-tipper-BulkBody/upgrade-tipper-BulkBody-1.png",
+  "source": "D:/SynologyDrive/phobosdthorga/CloudStation Drive/Google Drive/Gekko-Data/Documents/GitHub/phobosdthorga/phobos-rimworld/assets/phobos-vehicles/generated/upgrade-tipper-BulkBody/upgrade-tipper-BulkBody-1.png",
   "source_sha256": "c42abcdfd2eecafed224bf13d50a00e6a278ccb5625e813dc93c20a4417cfc71",
-  "target_sha256": "3cc29ac7f2030ac51d4c9d1efca991fa2e7802e2318292240b2294a6525f779d",
+  "target_sha256": "be877f51cd62b0799fa8fc9486ceec48a48cf0828a65dbd71fb259a0a06c93e9",
   "size": [
     128,
     128
@@ -10,6 +10,8 @@
   "white_threshold": 235,
   "soft_edge": 30,
   "all_white": true,
-  "date": "2026-11-09T20:20:36",
+  "silhouette": false,
+  "ai_mask": null,
+  "date": "2026-11-13T00:08:32",
   "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
 }

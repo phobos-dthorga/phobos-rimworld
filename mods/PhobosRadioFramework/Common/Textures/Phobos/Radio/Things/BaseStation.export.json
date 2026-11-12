@@ -1,8 +1,8 @@
 {
   "target": "mods/PhobosRadioFramework/Common/Textures/Phobos/Radio/Things/BaseStation.png",
-  "source": "assets/phobos-radio/generated/base-station-remake-2/base-station-remake-2-13.png",
+  "source": "D:/SynologyDrive/phobosdthorga/CloudStation Drive/Google Drive/Gekko-Data/Documents/GitHub/phobosdthorga/phobos-rimworld/assets/phobos-radio/generated/base-station-remake-2/base-station-remake-2-13.png",
   "source_sha256": "21a2fa8d15d18574887deff61f6c16fd9d52cbb5b5554b9a8e8db3a06d5c2677",
-  "target_sha256": "10e99b2420f57dbe1f1c479ff329b402da193601d92976088397b81a3e17bc77",
+  "target_sha256": "f0dd3ad7438cc887496c821a2a8988c21c3cdda596b63317830b0e7ef67ae7c0",
   "size": [
     256,
     256
@@ -11,6 +11,7 @@
   "soft_edge": 20,
   "all_white": false,
   "silhouette": false,
-  "date": "2026-11-12T01:14:06",
+  "ai_mask": "21a2fa8d15d18574887deff61f6c16fd9d52cbb5b5554b9a8e8db3a06d5c2677",
+  "date": "2026-11-13T00:08:25",
   "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
 }

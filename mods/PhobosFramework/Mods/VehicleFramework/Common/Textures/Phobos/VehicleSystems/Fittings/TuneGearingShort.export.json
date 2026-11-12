@@ -1,8 +1,8 @@
 {
   "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/TuneGearingShort.png",
-  "source": "assets/phobos-vehicles/generated/tune-gearing-short/tune-gearing-short-2.png",
+  "source": "D:/SynologyDrive/phobosdthorga/CloudStation Drive/Google Drive/Gekko-Data/Documents/GitHub/phobosdthorga/phobos-rimworld/assets/phobos-vehicles/generated/tune-gearing-short/tune-gearing-short-2.png",
   "source_sha256": "e61c758d582e5805be2c0309101e0427cbbbbccc3a74266c72cfca81d5011beb",
-  "target_sha256": "72d3e017dce9ea0b25e498ccbacc6aa8753e04129992195c8ce807a5b9d324d3",
+  "target_sha256": "1b6b8037c00613e2238cc892bf28f912f6a7fe4e1cb5e6885889d94328c7ddde",
   "size": [
     128,
     128
@@ -11,6 +11,7 @@
   "soft_edge": 30,
   "all_white": false,
   "silhouette": false,
-  "date": "2026-11-11T16:18:33",
+  "ai_mask": "e61c758d582e5805be2c0309101e0427cbbbbccc3a74266c72cfca81d5011beb",
+  "date": "2026-11-13T00:07:17",
   "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
 }

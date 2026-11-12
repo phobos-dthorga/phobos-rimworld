@@ -1,8 +1,8 @@
 {
   "target": "mods/PhobosVehicles/Textures/Phobos/Vehicles/DrillRig/Upgrades/WorkLights.png",
-  "source": "assets/phobos-vehicles/generated/upgrade-rig-WorkLights/upgrade-rig-WorkLights-1.png",
+  "source": "D:/SynologyDrive/phobosdthorga/CloudStation Drive/Google Drive/Gekko-Data/Documents/GitHub/phobosdthorga/phobos-rimworld/assets/phobos-vehicles/generated/upgrade-rig-WorkLights/upgrade-rig-WorkLights-1.png",
   "source_sha256": "8f59bb0a11f7521c2273e7423b8e15b75422f6687184739da5c0bd57dab5ecf7",
-  "target_sha256": "e3e8ea140eeb79e976bb0924cd075976e969e816bb929d038162dd065efcd274",
+  "target_sha256": "630b84ea6add8674669649be77801d0358f27d3454f28af46d7acebb0e8c2d29",
   "size": [
     128,
     128
@@ -10,6 +10,8 @@
   "white_threshold": 235,
   "soft_edge": 30,
   "all_white": true,
-  "date": "2026-11-09T20:20:34",
+  "silhouette": false,
+  "ai_mask": null,
+  "date": "2026-11-13T00:08:30",
   "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
 }

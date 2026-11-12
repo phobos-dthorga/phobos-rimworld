@@ -5,6 +5,22 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.1.8] - 2026-11-13 - Draft
+
+A clean background on the base station
+
+### Fixed
+
+- White left between the base station's parts is gone, and the signal button's edge is slightly cleaner. A fix to existing pictures only; the radio framework stays on hold.
+
+### Save compatibility
+
+- Safe to add to a running game: only pictures change.
+
+### Compatibility and limits
+
+- Not yet tested in game. Each picture was checked by eye on dark ground before and after, and the owner approved the set (13 Nov 2026).
+
 ## [0.1.7] - 2026-11-12 - Draft
 
 The base station has its own picture, chosen by the owner on 12 November 2026. **Not yet tested in game.**

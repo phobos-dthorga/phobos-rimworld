@@ -1,8 +1,8 @@
 {
   "target": "mods/PhobosMedical/Common/Textures/Phobos/Medical/Things/DecompressionKit.png",
-  "source": "assets/phobos-medical/generated/decompression-kit/decompression-kit-12.png",
+  "source": "D:/SynologyDrive/phobosdthorga/CloudStation Drive/Google Drive/Gekko-Data/Documents/GitHub/phobosdthorga/phobos-rimworld/assets/phobos-medical/generated/decompression-kit/decompression-kit-12.png",
   "source_sha256": "4c9e045e5be11e47d524e69bfa47960607bce817cb2d36075048b6b040ad1a01",
-  "target_sha256": "d3fe78bdcfc51f2ed7376af39f7da41cc4286c8f17cb48bd90369e338ae975a6",
+  "target_sha256": "256bebc870ee9605bfb06ee69b9d115dd2e43c92619a60383aa3e900f0128cf0",
   "size": [
     128,
     128
@@ -11,6 +11,7 @@
   "soft_edge": 20,
   "all_white": false,
   "silhouette": false,
-  "date": "2026-11-12T01:13:59",
+  "ai_mask": "4c9e045e5be11e47d524e69bfa47960607bce817cb2d36075048b6b040ad1a01",
+  "date": "2026-11-13T00:08:03",
   "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
 }

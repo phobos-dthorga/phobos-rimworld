@@ -11,4 +11,4 @@
 - Model SHA-256: `44bab3a86fe98b85d21dd2a4729ebdc3ae51fb8a39f76e457e18c724219e6840`
 - LoRA SHA-256: `392b164f1bbe52b0cfd96c629e31e3214bd2571c0de1ab1ab3e8f8d366a88ef6`
 - Master `decompression-kit-12.png`, SHA-256 `4c9e045e5be11e47d524e69bfa47960607bce817cb2d36075048b6b040ad1a01`
-- `DecompressionKit.png`: 128 x 128 px, from `scripts/art/export_sprite.py`. SHA-256 `d3fe78bdcfc51f2ed7376af39f7da41cc4286c8f17cb48bd90369e338ae975a6`
+- `DecompressionKit.png`: 128 x 128 px, from `scripts/art/export_sprite.py`. SHA-256 `256bebc870ee9605bfb06ee69b9d115dd2e43c92619a60383aa3e900f0128cf0`

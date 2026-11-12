@@ -5,6 +5,22 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.105.1] - 2026-11-13 - Draft
+
+Clean backgrounds: no white left inside the cargo hook, the sling set and other pictures
+
+### Fixed
+
+- White that showed where background should be is gone from 14 pictures: the cargo hook's opening, the sling set's triangle between its strops, the gaps in the gear and gearing tune pictures, the deep-cycle battery's handle, the salvaged grade's bolt holes, the vehicle parts category's gear, the block heater, and the Release, Stay down and Tip buttons. An AI that tells background from white paint found them; every change was checked by eye, and a gauge face it got wrong was left as it was.
+
+### Save compatibility
+
+- Safe to add to a running game: only pictures change.
+
+### Compatibility and limits
+
+- Not yet tested in game. Each picture was checked by eye on dark ground before and after, and the owner approved the set (13 Nov 2026).
+
 ## [0.105.0] - 2026-11-12 - Draft
 
 A vehicle's picture can follow what is fitted to it, not only its upgrades

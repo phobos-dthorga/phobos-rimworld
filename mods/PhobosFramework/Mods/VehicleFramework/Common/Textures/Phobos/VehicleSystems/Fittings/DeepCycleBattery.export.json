@@ -1,8 +1,8 @@
 {
   "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/DeepCycleBattery.png",
-  "source": "assets/phobos-vehicles/generated/fitting-deep-cycle-battery/fitting-deep-cycle-battery-2.png",
+  "source": "D:/SynologyDrive/phobosdthorga/CloudStation Drive/Google Drive/Gekko-Data/Documents/GitHub/phobosdthorga/phobos-rimworld/assets/phobos-vehicles/generated/fitting-deep-cycle-battery/fitting-deep-cycle-battery-2.png",
   "source_sha256": "728a96980ac0da30a0eaaa769f2e5573699c7b5ad1f426f2f9a638acdfd68a6c",
-  "target_sha256": "570dd7b7392738b3bd5ddc84852a2d496a1a89ff8024b60b10e9ab3df9c583e6",
+  "target_sha256": "1f0ce1c73c02a1eadb834663914f95f6addd5caa2711e03da64ccb4b9cdf2add",
   "size": [
     128,
     128
@@ -11,6 +11,7 @@
   "soft_edge": 30,
   "all_white": false,
   "silhouette": false,
-  "date": "2026-11-11T16:18:26",
+  "ai_mask": "728a96980ac0da30a0eaaa769f2e5573699c7b5ad1f426f2f9a638acdfd68a6c",
+  "date": "2026-11-13T00:07:05",
   "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
 }

@@ -1,8 +1,8 @@
 {
   "target": "mods/PhobosVehicles/Textures/Phobos/Vehicles/GeneratorSet/Upgrades/BiggerAlternator.png",
-  "source": "assets/phobos-vehicles/generated/upgrade-generator-BiggerAlternator/upgrade-generator-BiggerAlternator-1.png",
+  "source": "D:/SynologyDrive/phobosdthorga/CloudStation Drive/Google Drive/Gekko-Data/Documents/GitHub/phobosdthorga/phobos-rimworld/assets/phobos-vehicles/generated/upgrade-generator-BiggerAlternator/upgrade-generator-BiggerAlternator-1.png",
   "source_sha256": "0ec7d787f4d93be95ca28630223432b0036a9ef817898802663b4ea3557403f6",
-  "target_sha256": "f83aed0a3f3c6c9a8db13aa6c0ceeb745fe5952969e9442b83ce380e63ccd20d",
+  "target_sha256": "7b634ce53131e8a7aec0733830fcfd32825d80f0d59f9fdafea7029260b597cd",
   "size": [
     128,
     128
@@ -10,6 +10,8 @@
   "white_threshold": 235,
   "soft_edge": 30,
   "all_white": true,
-  "date": "2026-11-09T20:20:34",
+  "silhouette": false,
+  "ai_mask": null,
+  "date": "2026-11-13T00:08:30",
   "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
 }

@@ -1,8 +1,8 @@
 {
   "target": "mods/PhobosVehicles/Textures/Phobos/Vehicles/DrillRig/Upgrades/WellDrillingKit.png",
-  "source": "assets/phobos-vehicles/generated/upgrade-rig-WellDrillingKit/upgrade-rig-WellDrillingKit-1.png",
+  "source": "D:/SynologyDrive/phobosdthorga/CloudStation Drive/Google Drive/Gekko-Data/Documents/GitHub/phobosdthorga/phobos-rimworld/assets/phobos-vehicles/generated/upgrade-rig-WellDrillingKit/upgrade-rig-WellDrillingKit-1.png",
   "source_sha256": "6928999b4700f459ceef67ec4f77bb29dd6fce1b1c00fa9ed9c63bb4fb481394",
-  "target_sha256": "d82482df0ee86da9b26e38784c7cdeae89ba49baf63d88c4468cd0188a734e97",
+  "target_sha256": "45ea105c8c59673da88222cca5da8e4d74ae8637fcd9ec1a84608093ee11994e",
   "size": [
     128,
     128
@@ -10,6 +10,8 @@
   "white_threshold": 235,
   "soft_edge": 30,
   "all_white": true,
-  "date": "2026-11-09T20:20:34",
+  "silhouette": false,
+  "ai_mask": null,
+  "date": "2026-11-13T00:08:29",
   "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
 }

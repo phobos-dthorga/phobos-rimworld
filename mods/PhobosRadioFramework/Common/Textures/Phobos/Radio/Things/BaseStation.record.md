@@ -11,4 +11,4 @@
 - Model SHA-256: `44bab3a86fe98b85d21dd2a4729ebdc3ae51fb8a39f76e457e18c724219e6840`
 - LoRA SHA-256: `392b164f1bbe52b0cfd96c629e31e3214bd2571c0de1ab1ab3e8f8d366a88ef6`
 - Master `base-station-remake-2-13.png`, SHA-256 `21a2fa8d15d18574887deff61f6c16fd9d52cbb5b5554b9a8e8db3a06d5c2677`
-- `BaseStation.png`: 256 x 256 px, from `scripts/art/export_sprite.py`. SHA-256 `10e99b2420f57dbe1f1c479ff329b402da193601d92976088397b81a3e17bc77`
+- `BaseStation.png`: 256 x 256 px, from `scripts/art/export_sprite.py`. SHA-256 `f0dd3ad7438cc887496c821a2a8988c21c3cdda596b63317830b0e7ef67ae7c0`

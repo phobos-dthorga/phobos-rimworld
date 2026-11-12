@@ -22,6 +22,7 @@ from PIL import Image
 AI_MASKS = Path(__file__).resolve().parents[2] / '.local' / 'art' / 'bgmasks'
 AI_SEED_BELOW = 64  # The AI is sure this is background: clearing may start here (authored, 12 Nov 2026).
 AI_OBJECT_FROM = 192  # The AI is sure this is the object: clearing never enters it, however white it is (authored).
+AI_WHOLE_PATCH = 0.9  # An enclosed white patch is cleared only if the AI would clear this share of it or more, else none (authored).
 
 
 def file_sha256(path):
@@ -86,11 +87,55 @@ def white_to_alpha(image, threshold=235, soft=30, all_white=False, holes=(), bac
     stack += [(int(x), int(y)) for x, y in holes if 0 <= x < width and 0 <= y < height]
     flood(stack)
     if background is not None:
+        edge_seen = bytes(seen)
+        original = rgba.copy().load()
         sure = background.convert('L').resize((width, height), Image.BILINEAR).load()
         seeds = [(x, y) for y in range(height) for x in range(width)
                  if not seen[y * width + x] and sure[x, y] < AI_SEED_BELOW and min(pixels[x, y][:3]) >= threshold]
         flood(seeds, lambda x, y: sure[x, y] < AI_OBJECT_FROM)
+        _whole_patches_only(original, pixels, edge_seen, seen, width, height, threshold)
     return rgba
+
+
+def _neighbours(index, width, height):
+    x, y = index % width, index // width
+    return [ny * width + nx for nx, ny in ((x - 1, y), (x + 1, y), (x, y - 1), (x, y + 1)) if 0 <= nx < width and 0 <= ny < height]
+
+
+def _whole_patches_only(original, pixels, edge_seen, seen, width, height, threshold):
+    """Puts back every enclosed white patch the AI cleared only part of. Measured 12 Nov 2026: where the AI is right (a hook's opening,
+    a gear's holes, the sling set's triangle) it clears the whole patch; where it is wrong (a clipboard's paper, a gauge's face, a dish)
+    it is unsure and clears blotches. So a patch, near-pure white joined to near-pure white, is cleared whole or not at all; when it is
+    put back, so is every pixel the AI cleared that joins it, its soft rim included. When unsure, the white stays."""
+    def white(index):
+        return min(original[index % width, index // width][:3]) >= threshold
+
+    by_ai = lambda index: seen[index] and not edge_seen[index]
+    done = bytearray(width * height)
+    for start in range(width * height):
+        if done[start] or edge_seen[start] or not white(start):
+            continue
+        patch, stack = [], [start]
+        done[start] = 1
+        while stack:
+            index = stack.pop()
+            patch.append(index)
+            for neighbour in _neighbours(index, width, height):
+                if not done[neighbour] and not edge_seen[neighbour] and white(neighbour):
+                    done[neighbour] = 1
+                    stack.append(neighbour)
+        cleared = sum(1 for index in patch if by_ai(index))
+        if not cleared or cleared >= AI_WHOLE_PATCH * len(patch):
+            continue
+        stack = [index for index in patch if by_ai(index)]
+        restored = set(stack)
+        while stack:
+            index = stack.pop()
+            pixels[index % width, index // width] = original[index % width, index // width]
+            for neighbour in _neighbours(index, width, height):
+                if neighbour not in restored and by_ai(neighbour):
+                    restored.add(neighbour)
+                    stack.append(neighbour)
 
 
 def silhouette(image, threshold=235, soft=30):

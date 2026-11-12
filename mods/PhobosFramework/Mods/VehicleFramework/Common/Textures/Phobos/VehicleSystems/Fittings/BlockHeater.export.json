@@ -1,8 +1,8 @@
 {
   "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/BlockHeater.png",
-  "source": "assets/phobos-vehicles/generated/fitting-block-heater/fitting-block-heater-1.png",
+  "source": "D:/SynologyDrive/phobosdthorga/CloudStation Drive/Google Drive/Gekko-Data/Documents/GitHub/phobosdthorga/phobos-rimworld/assets/phobos-vehicles/generated/fitting-block-heater/fitting-block-heater-1.png",
   "source_sha256": "5e484092dc0c7c61ac9400c22fcebe0853c54845c52e4b28006417733959b133",
-  "target_sha256": "5a40ef82fbed95d458147f389a43aa7ed417270d981329c8e761d0f6484804bd",
+  "target_sha256": "fe57e935cb60c6aa103608ad78bf1053ab7170bcae24d8010533108de2586618",
   "size": [
     128,
     128
@@ -11,6 +11,7 @@
   "soft_edge": 30,
   "all_white": false,
   "silhouette": false,
-  "date": "2026-11-11T16:18:27",
+  "ai_mask": "5e484092dc0c7c61ac9400c22fcebe0853c54845c52e4b28006417733959b133",
+  "date": "2026-11-13T00:07:02",
   "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
 }

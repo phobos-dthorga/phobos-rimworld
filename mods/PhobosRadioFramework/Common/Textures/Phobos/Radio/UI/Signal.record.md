@@ -11,4 +11,4 @@
 - Model SHA-256: `44bab3a86fe98b85d21dd2a4729ebdc3ae51fb8a39f76e457e18c724219e6840`
 - LoRA SHA-256: `392b164f1bbe52b0cfd96c629e31e3214bd2571c0de1ab1ab3e8f8d366a88ef6` (the first private LoRA, phobos-private-vanilla)
 - Master SHA-256: `6a1d8cf62a622f40d0f32154a0f6e2d78346444964b34a78cbf6277b7b66b2fb`
-- This file: 128 x 128 px, from `scripts/art/export_sprite.py --all-white --threshold 250 --soft 20`. SHA-256 `d5faf0d8092e2a0d96571c7761ab19c0aaed8622034062e9e43749be88b6f0cb`.
+- This file: 128 x 128 px, from `scripts/art/export_sprite.py --all-white --threshold 250 --soft 20`. SHA-256 `c94131eab7fe348fdee7dd8cdb20c35b352764b7535bca8d7278232ad3d23d90`.

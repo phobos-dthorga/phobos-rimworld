@@ -4,7 +4,7 @@
   <name>D'thorga Radio Framework</name>
   <author>Phobos A. D'thorga</author>
   <url>https://github.com/phobos-dthorga/phobos-rimworld</url>
-  <modVersion>0.1.7</modVersion>
+  <modVersion>0.1.8</modVersion>
   <description>Radio that works like radio. Every contact is decided by a real link budget: transmitter power, antennas, feedline, distance, walls, mountain rock and your own colony's electrical noise. Doubling the distance costs 6 dB.
 
 Phase 1 (this version): hand-held VHF and UHF radios, a base station, mast and whip antennas, coax feedline, and the "In touch" mood for colonists who can reach home. Three display modes let you see as much of the maths as you like: Plain, Operator or Engineer.

@@ -234,14 +234,35 @@ class ExportBackgroundTests(unittest.TestCase):
         result = self.white_to_alpha(image)
         self.assertEqual(result.getpixel((3, 3))[3], 255)
 
-    def test_clearing_never_spreads_into_white_the_ai_calls_the_object(self):
-        # The two rooms joined by a white corridor: clearing starts in the opening but must not run into the sheet.
+    def test_white_joined_to_white_paint_is_one_patch_and_stays(self):
+        # The two rooms joined by a white corridor are one white patch the AI is sure of only in part: when unsure, the white stays,
+        # and the sheet is never cleared.
         image, mask = self.ai_case()
         for x in (5, 6, 7):
             image.putpixel((x, 3), (252, 252, 252))
         result = self.white_to_alpha(image, background=mask)
+        self.assertEqual(result.getpixel((9, 3))[3], 255)
+        self.assertEqual(result.getpixel((3, 3))[3], 255)
+
+    def test_pale_shading_does_not_join_an_opening_to_the_object(self):
+        # Pale metal (whiteness 220, under the 235 threshold) between the opening and the sheet does not make them one patch.
+        image, mask = self.ai_case()
+        for x in (5, 6, 7):
+            image.putpixel((x, 3), (220, 220, 220))
+        result = self.white_to_alpha(image, background=mask)
         self.assertEqual(result.getpixel((3, 3))[3], 0)
         self.assertEqual(result.getpixel((9, 3))[3], 255)
+
+    def test_a_patch_the_ai_is_unsure_of_is_left_whole(self):
+        # The Diagnose clipboard's paper, 12 Nov 2026: the AI was sure of only part of a white patch and cleared blotches. A patch is
+        # cleared whole or not at all.
+        image, mask = self.ai_case()
+        mask.putpixel((2, 2), 255)
+        mask.putpixel((3, 2), 255)
+        result = self.white_to_alpha(image, background=mask)
+        self.assertEqual(result.getpixel((3, 3))[3], 255, 'two of nine pixels unsure: the whole patch stays')
+        self.assertEqual(result.getpixel((4, 4))[3], 255)
+        self.assertEqual(result.getpixel((0, 0))[3], 0, 'the outside still clears')
 
     def test_a_soft_edge_loses_the_white_it_was_mixed_with(self):
         import export_sprite

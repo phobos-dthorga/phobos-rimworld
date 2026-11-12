@@ -1,8 +1,8 @@
 {
   "target": "mods/PhobosVehicles/Textures/Phobos/Vehicles/DrillRig/Upgrades/DiamondBit.png",
-  "source": "assets/phobos-vehicles/generated/upgrade-diamond-bit/upgrade-diamond-bit-3.png",
+  "source": "D:/SynologyDrive/phobosdthorga/CloudStation Drive/Google Drive/Gekko-Data/Documents/GitHub/phobosdthorga/phobos-rimworld/assets/phobos-vehicles/generated/upgrade-diamond-bit/upgrade-diamond-bit-3.png",
   "source_sha256": "6e4f1beb8b7a3506139d786e303410d926d353b681cc5497be2b2fb4d68cb45c",
-  "target_sha256": "10070a136333e7822ea077132035b19a1f708cb6b73ceb7a3ae64a250d5b1574",
+  "target_sha256": "f1c450ae5c97724ab88bac4c2de1a353e5426fce85e4aac4ad22d912c41afd0f",
   "size": [
     128,
     128
@@ -10,6 +10,8 @@
   "white_threshold": 235,
   "soft_edge": 30,
   "all_white": true,
-  "date": "2026-11-09T20:20:31",
+  "silhouette": false,
+  "ai_mask": null,
+  "date": "2026-11-13T00:08:28",
   "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
 }

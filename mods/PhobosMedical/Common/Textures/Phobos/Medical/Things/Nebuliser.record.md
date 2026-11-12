@@ -11,4 +11,4 @@
 - Model SHA-256: `44bab3a86fe98b85d21dd2a4729ebdc3ae51fb8a39f76e457e18c724219e6840`
 - LoRA SHA-256: `392b164f1bbe52b0cfd96c629e31e3214bd2571c0de1ab1ab3e8f8d366a88ef6`
 - Master `nebuliser-13.png`, SHA-256 `02c5f90c8d594d626bb5dcec3c8aa54dc6caffa5cd317bd0cd30c03bacb08d01`
-- `Nebuliser.png`: 256 x 256 px, from `scripts/art/export_sprite.py`. SHA-256 `2821602abb0900e5e037240698fbcee8ad3425da6f1b74e7a9a3ecd1b9ac5a8a`
+- `Nebuliser.png`: 256 x 256 px, from `scripts/art/export_sprite.py`. SHA-256 `b8a9b058095cc9d1c53b62a366e5147ad960403d22e9ac4df869df731363efb0`

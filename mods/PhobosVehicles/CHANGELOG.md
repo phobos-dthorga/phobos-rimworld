@@ -5,6 +5,22 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.49.1] - 2026-11-13 - Draft
+
+Clean backgrounds on the winch, the tipper's grab, the drill rig's mast and the survey truck's dish
+
+### Fixed
+
+- White left between parts is gone from the recovery winch on all four trucks, the tipper's loading grab, the drill rig's folded and tall mast, and the survey truck's long-range dish, in all three facings; the edges of a few other pictures are slightly cleaner. Found by an AI that tells background from white paint, each checked by eye.
+
+### Save compatibility
+
+- Safe to add to a running game: only pictures change.
+
+### Compatibility and limits
+
+- Not yet tested in game. Each picture was checked by eye on dark ground before and after, and the owner approved the set (13 Nov 2026).
+
 ## [0.49.0] - 2026-11-12 - Draft
 
 The Pintle trailer's own picture, and the grab, winch and long-range tank show when fitted

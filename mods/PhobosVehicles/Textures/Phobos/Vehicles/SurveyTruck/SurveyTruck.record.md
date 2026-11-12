@@ -52,5 +52,5 @@ Made on 12 Nov 2026 with OpenAI gpt-image-2 through the image API, at medium qua
 
 | Texture | Shown when | Part master | Master SHA-256 | North SHA-256 |
 | --- | --- | --- | --- | --- |
-| SurveyTruck_Winch | the recovery winch is fitted | `fitting-recovery-winch-overlay-1-turned-180.png` | `12d0883ccab36557e61075786c3e331159fe8cf1d3222aaa09ee72b78b60eb7e` | `f7648254602dfe4a3af880bfed281b4bf9be388387ca4a72e6ea97141f3803d4` |
+| SurveyTruck_Winch | the recovery winch is fitted | `fitting-recovery-winch-overlay-1-turned-180.png` | `12d0883ccab36557e61075786c3e331159fe8cf1d3222aaa09ee72b78b60eb7e` | `c449289ed92f796db510723457da4acdb62aac2c36b9aff132e17d0224b3e4fb` |
 | SurveyTruck_AuxFuelTank | the auxiliary fuel tank is fitted | `fitting-aux-fuel-tank-overlay-2.png` | `efb2446cd2635534963dd8844e942263c4d93be8dc0ee45b6ddb668d413a0e2f` | `2adba34b8b67c06be05df011a5afc0b207ea592ef0070dead5e54310ce3fb47d` |
