@@ -123,6 +123,12 @@ One version and one test list for the batch, as the owner prefers.
 
 ## Questions for the owner
 
+**Answered by the owner, 12 Nov 2026:** (1) **all five**, work lights and all-terrain tyres included ("Both work lights and all-terrain
+tires sound good"), in the order above; (2) recovery and the hitch's slice 4 **as one piece**; (3) **both**: a whole family in one order, or
+each part on its own; (4) long range **on aircraft too**, as ferry tanks. Nothing is built yet: the build is the next batch, on the owner's go.
+
+The questions as they were put:
+
 1. **Which families**, of the five, and in what order? (Agent default: all five, in the order above.)
 2. **Recovery and the hitch's slice 4:** build them as one piece, or the winch alone first? (Agent default: as one.)
 3. **Fit sets for the player:** may the player order a whole family in one go, or fit each part on its own? (Agent default: both.)
