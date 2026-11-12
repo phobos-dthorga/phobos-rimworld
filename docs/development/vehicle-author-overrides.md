@@ -4,7 +4,7 @@
 on providing for a system, that authors will be able to take advantage of, where they can give overrides as needed through some kind
 of definitions file, such as XML", and "the author will be able to publish their overrides through a Steam Workshop publication or
 through a pre-existing one already, such as with their own vehicle mod." It is the first of three records of the cross-links round
-three review; the avionics record (`vehicle-avionics.md`) and cross-links, round three (`vehicle-crosslinks-round-three.md`) refer
+three review; the [avionics record](vehicle-avionics.md) and cross-links, round three (`vehicle-crosslinks-round-three.md`) refer
 to it and are written after it. Facts marked "from the code" were read on 13 Nov 2026 with `scripts/query-code.py` and from our own source, and are
 summarised in our own words. **Everything under "The proposed contract" is a proposal**: no class, field or Def named there exists
 yet.
@@ -60,7 +60,7 @@ The contract below replaces that line when it is built.
 
 | Gap | Why it matters |
 | --- | --- |
-| **No avionics fit** | An author cannot say what instruments, sensors or defences their aircraft carries, or on which parts. The avionics record (`vehicle-avionics.md`, to follow) fills this in |
+| **No avionics fit** | An author cannot say what instruments, sensors or defences their aircraft carries, or on which parts. The [avionics record](vehicle-avionics.md) fills this in |
 | **No way to drop or retune one cross-link** | A loadout chooses whole systems. An author whose vehicle has, say, an electric cab heater cannot switch off "the cab heater needs warm coolant" without dropping the Cabin system |
 | **Opting out is a trick** | An empty loadout works, but only if it loads after ours, and nothing says so to the player |
 | **Small changes need a whole loadout** | Changing one figure means repeating the vehicle's systems, roles and loads, which then miss our later improvements |
@@ -166,7 +166,7 @@ Every name below is proposed. `PhobosVehicleOverrideDef`, in the namespace the l
 | `loads`, `dropLoads` | Electrical loads to add or replace by name, and loads to leave out |
 | `drivetrain`, `flightProfile`, `cabin`, `sling`, `noHitch`, `hitchPoint` | As in a loadout and the extensions today |
 | `figures` | Empty mass and engine power, as `PhobosVehicleFiguresExtension` |
-| `avionics` | **A placeholder block.** What the aircraft carries and on which parts. Its fields are designed in the avionics record (`vehicle-avionics.md`, to follow), not here |
+| `avionics` | **A placeholder block.** What the aircraft carries and on which parts. Its fields are designed in the [avionics record](vehicle-avionics.md), not here |
 
 ### Addresses: how an override names a thing
 
