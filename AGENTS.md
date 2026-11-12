@@ -285,6 +285,11 @@ delivered, record the delivery in the changelog or design record, and add or ame
   tree shaped by the vehicle, every node moving a figure that changes an outcome, node keys stable once a save can hold them; the
   base body is drawn bare and every visible node is its own overlay set, planned before the first picture
   (`docs/development/utility-vehicles-design.md`, principle 8).
+- **A vehicle accessory uses up something real** (owner, 13 Nov 2026): battery and alternator power, fuel, water or goods from the game
+  world. A store such as a water tank runs down as it is used and is refilled by the player's people, never by itself. Gear with nothing
+  to plug in (an awning, a roof rack) costs its materials and its weight, with no wear or upkeep (`docs/development/vehicle-accessories.md`).
+- **No drag or aerodynamics** (owner, 13 Nov 2026: "not something that can be accurately modelled in Rimworld without large assumptions"):
+  nothing of ours changes a vehicle's speed or fuel use through air resistance.
 - **Design every vehicle mechanic with other factions' vehicles in mind** (owner, 11 Nov 2026): raiders who arrive in vehicles and, at the very
   least, the vehicles standing at a base the player attacks. Each vehicle design record has a section saying what the mechanic does on a vehicle
   in a raid on us, on one parked at a base we attack, and on one we capture; it works on any faction's vehicle unless the record says why not,
