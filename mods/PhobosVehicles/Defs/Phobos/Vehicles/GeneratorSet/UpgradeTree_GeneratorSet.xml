@@ -13,7 +13,7 @@
       <key>BiggerAlternator</key>
       <label>uprated alternator</label>
       <displayLabel>true</displayLabel>
-      <description>A bigger alternator behind the cab: 400 W more at full output, and fuel burned at the same watts per unit.</description>
+      <description>A bigger alternator behind the cab: 650 W more at full output, and fuel burned at the same watts per unit.</description>
       <icon>Phobos/Vehicles/GeneratorSet/Upgrades/BiggerAlternator</icon>
       <work>3000</work>
       <gridCoordinate>(2, 6)</gridCoordinate>
@@ -26,7 +26,8 @@
           <vehicleStats>
             <li>
               <def>Phobos_GeneratorOutput</def>
-              <value>400</value>
+              <!-- 650 W since Vehicles 0.51.0, in proportion to the 2,000 W set (was 400 on 1,200; authored). -->
+              <value>650</value>
             </li>
           </vehicleStats>
         </li>
@@ -41,7 +42,7 @@
           <graphicData>
             <texPath>Phobos/Vehicles/GeneratorSet/GeneratorSet_BiggerGenerator</texPath>
             <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
-            <drawSize>(3, 7)</drawSize>
+            <drawSize>(4, 9)</drawSize>
             <shaderType>Cutout</shaderType>
             <layer>1</layer>
           </graphicData>
@@ -79,7 +80,7 @@
           <graphicData>
             <texPath>Phobos/Vehicles/GeneratorSet/GeneratorSet_Reel</texPath>
             <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
-            <drawSize>(3, 7)</drawSize>
+            <drawSize>(4, 9)</drawSize>
             <shaderType>Cutout</shaderType>
             <layer>1</layer>
           </graphicData>
@@ -117,7 +118,7 @@
           <graphicData>
             <texPath>Phobos/Vehicles/GeneratorSet/GeneratorSet_Battery</texPath>
             <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
-            <drawSize>(3, 7)</drawSize>
+            <drawSize>(4, 9)</drawSize>
             <shaderType>Cutout</shaderType>
             <layer>1</layer>
           </graphicData>
@@ -162,7 +163,7 @@
           <graphicData>
             <texPath>Phobos/Vehicles/GeneratorSet/GeneratorSet_HeatExchanger</texPath>
             <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
-            <drawSize>(3, 7)</drawSize>
+            <drawSize>(4, 9)</drawSize>
             <shaderType>Cutout</shaderType>
             <layer>1</layer>
           </graphicData>

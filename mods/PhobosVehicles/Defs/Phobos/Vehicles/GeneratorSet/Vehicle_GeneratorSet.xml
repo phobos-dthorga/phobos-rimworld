@@ -2,23 +2,24 @@
 <Defs>
   <!--
     The generator set: a light self-propelled diesel-electric truck that parks, runs out a cable and feeds the grid (docs/development/vehicle-generator-set.md). Every figure is
-    authored and untuned. Part keys are saved by position: append only, never reorder. Cells run x from 0 to 1 and z from -2 to 3. Its pictures were generated for it on 12 Nov 2026 (assets/phobos-vehicles/requests/night-2026-11-12-record.md). Not yet tested in game.
+    authored and untuned. Part keys are saved by position: append only, never reorder. Cells run x from -1 to 1 and z from -3 to 4 (3 x 8 since Vehicles 0.51.0, owner
+    14 Nov 2026: brought in line with the Talus tipper; it was 2 x 6). Its pictures were generated for it on 12 Nov 2026 (assets/phobos-vehicles/requests/night-2026-11-12-record.md). Not yet tested in game.
   -->
   <Vehicles.VehicleDef ParentName="BaseVehiclePawn">
     <defName>Phobos_GeneratorSet</defName>
     <label>Busbar generator set</label>
-    <description>Busbar B1: a small truck whose engine turns a generator rather than the wheels: electric motors drive the back axle, and when it is parked and set up, the generator feeds your grid instead. Drive it to wherever you need power, set it up, and it burns fuel in step with what the grid draws. It cannot move while set up.</description>
+    <description>Busbar B1: a medium truck whose engine turns a generator rather than the wheels: electric motors drive the back axle, and when it is parked and set up, the generator feeds your grid instead. Drive it to wherever you need power, set it up, and it burns fuel in step with what the grid draws. It cannot move while set up.</description>
     <graphicData>
       <texPath>Phobos/Vehicles/GeneratorSet/GeneratorSet</texPath>
       <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
       <shaderType>CutoutComplexPattern</shaderType>
-      <drawSize>(3, 7)</drawSize>
+      <drawSize>(4, 9)</drawSize>
       <color>(162, 156, 123)</color>
       <colorTwo>(195, 110, 36)</colorTwo>
     </graphicData>
     <fillPercent>1</fillPercent>
     <buildDef>Phobos_GeneratorSet_Blueprint</buildDef>
-    <size>(2, 6)</size>
+    <size>(3, 8)</size>
     <vehicleCategory>Transport</vehicleCategory>
     <techLevel>Industrial</techLevel>
     <vehicleType>Land</vehicleType>
@@ -27,20 +28,20 @@
       <ArmorRating_Sharp>0.3</ArmorRating_Sharp>
       <ArmorRating_Heat>1.0</ArmorRating_Heat>
       <Flammability>0.5</Flammability>
-      <MarketValue>2200</MarketValue>
+      <MarketValue>2900</MarketValue>
     </statBases>
     <vehicleStats>
-      <Mass>260</Mass>
+      <Mass>347</Mass>
       <MoveSpeed>12</MoveSpeed>
-      <CargoCapacity>30</CargoCapacity>
+      <CargoCapacity>40</CargoCapacity>
       <RepairRate>0.5</RepairRate>
       <AccelerationRate>0.03</AccelerationRate>
-      <Phobos_GeneratorOutput>1200</Phobos_GeneratorOutput>
+      <Phobos_GeneratorOutput>2000</Phobos_GeneratorOutput>
       <Phobos_RigControl>1</Phobos_RigControl>
       <Phobos_RigStability>1</Phobos_RigStability>
     </vehicleStats>
     <race>
-      <baseBodySize>5</baseBodySize>
+      <baseBodySize>6.5</baseBodySize>
     </race>
     <properties>
       <worldSpeedMultiplier>1</worldSpeedMultiplier>
@@ -59,7 +60,7 @@
           </handlingTypes>
           <hitbox>
             <cells>
-              <li>(0, 2)</li>
+              <li>(-1, 3)</li>
             </cells>
           </hitbox>
         </li>
@@ -73,8 +74,8 @@
       <depth>External</depth>
       <hitWeight>3</hitWeight>
       <hitbox>
-        <from>(0, -2)</from>
-        <to>(1, 3)</to>
+        <from>(-1, -3)</from>
+        <to>(1, 4)</to>
       </hitbox>
       <categories>
         <li>BodyIntegrity</li>
@@ -87,8 +88,9 @@
       <depth>External</depth>
       <hitbox>
         <cells>
-          <li>(0, 2)</li>
-          <li>(1, 2)</li>
+          <li>(-1, 3)</li>
+          <li>(0, 3)</li>
+          <li>(1, 3)</li>
         </cells>
       </hitbox>
     </li>
@@ -109,8 +111,9 @@
       </reactors>
       <hitbox>
         <cells>
-          <li>(0, 3)</li>
-          <li>(1, 3)</li>
+          <li>(-1, 4)</li>
+          <li>(0, 4)</li>
+          <li>(1, 4)</li>
         </cells>
       </hitbox>
       <categories>
@@ -125,8 +128,9 @@
       <depth>External</depth>
       <hitbox>
         <cells>
-          <li>(0, 3)</li>
-          <li>(1, 3)</li>
+          <li>(-1, 4)</li>
+          <li>(0, 4)</li>
+          <li>(1, 4)</li>
         </cells>
       </hitbox>
     </li>
@@ -140,7 +144,9 @@
       </tags>
       <hitbox>
         <cells>
-          <li>(0, 3)</li>
+          <li>(-1, 4)</li>
+          <li>(1, 4)</li>
+          <li>(-1, 3)</li>
           <li>(1, 3)</li>
         </cells>
       </hitbox>
@@ -155,8 +161,10 @@
       <depth>Internal</depth>
       <hitbox>
         <cells>
+          <li>(-1, 1)</li>
           <li>(0, 1)</li>
           <li>(1, 1)</li>
+          <li>(0, 2)</li>
         </cells>
       </hitbox>
       <categories>
@@ -185,6 +193,7 @@
       <depth>Internal</depth>
       <hitbox>
         <cells>
+          <li>(-1, -1)</li>
           <li>(0, -1)</li>
           <li>(1, -1)</li>
         </cells>
@@ -203,8 +212,10 @@
       </tags>
       <hitbox>
         <cells>
-          <li>(0, -1)</li>
+          <li>(-1, -1)</li>
           <li>(1, -1)</li>
+          <li>(-1, -2)</li>
+          <li>(1, -2)</li>
         </cells>
       </hitbox>
       <categories>
@@ -221,7 +232,7 @@
       </reactors>
       <hitbox>
         <cells>
-          <li>(0, 0)</li>
+          <li>(-1, 0)</li>
         </cells>
       </hitbox>
     </li>
@@ -232,7 +243,7 @@
       <depth>Internal</depth>
       <hitbox>
         <cells>
-          <li>(0, -2)</li>
+          <li>(-1, -3)</li>
         </cells>
       </hitbox>
       <categories>
@@ -247,7 +258,7 @@
       <hitbox>
         <cells>
           <li>(1, 0)</li>
-          <li>(1, -2)</li>
+          <li>(1, -3)</li>
         </cells>
       </hitbox>
       <categories>
@@ -261,8 +272,10 @@
       <depth>External</depth>
       <hitbox>
         <cells>
-          <li>(0, -2)</li>
-          <li>(1, -2)</li>
+          <li>(-1, 2)</li>
+          <li>(1, 2)</li>
+          <li>(-1, -3)</li>
+          <li>(1, -3)</li>
         </cells>
       </hitbox>
       <categories>
@@ -276,7 +289,7 @@
       <depth>External</depth>
       <hitbox>
         <cells>
-          <li>(1, -2)</li>
+          <li>(0, -3)</li>
         </cells>
       </hitbox>
     </li>
@@ -287,18 +300,19 @@
       <depth>External</depth>
       <hitbox>
         <cells>
-          <li>(0, 3)</li>
-          <li>(1, 3)</li>
-          <li>(0, -2)</li>
-          <li>(1, -2)</li>
+          <li>(-1, 4)</li>
+          <li>(1, 4)</li>
+          <li>(-1, -3)</li>
+          <li>(1, -3)</li>
         </cells>
       </hitbox>
     </li>
     </components>
     <modExtensions>
       <li Class="Phobos.VehicleSystems.PhobosVehicleFiguresExtension">
-        <emptyKilograms>6000</emptyKilograms>
-        <ratedKilowatts>100</ratedKilowatts>
+        <!-- 8,000 kg and 130 kW since Vehicles 0.51.0 (owner, 14 Nov 2026: a bigger truck), keeping about the same power per tonne (authored). -->
+        <emptyKilograms>8000</emptyKilograms>
+        <ratedKilowatts>130</ratedKilowatts>
       </li>
       <li Class="Phobos.VehicleSystems.PhobosEngineSoundExtension">
         <idleSound>PhobosVehicles_GeneratorSetEngineIdle</idleSound>
@@ -317,15 +331,22 @@
       <li Class="Vehicles.CompProperties_FueledTravel">
         <fuelType>Chemfuel</fuelType>
         <leakDef>Filth_Fuel</leakDef>
-        <fuelConsumptionRate>14</fuelConsumptionRate>
+        <fuelConsumptionRate>17</fuelConsumptionRate>
         <fuelConsumptionWorldMultiplier>0.5</fuelConsumptionWorldMultiplier>
-        <fuelCapacity>150</fuelCapacity>
+        <fuelCapacity>200</fuelCapacity>
       </li>
       <li Class="Vehicles.CompProperties_UpgradeTree">
         <def>Phobos_GeneratorSet_UpgradeTree</def>
       </li>
       <li Class="Phobos.VehicleSystems.CompProperties_PhobosGeneratorSet">
         <cableEndDef>Phobos_GeneratorStub</cableEndDef>
+        <!-- Vehicles 0.51.0 (owner, 14 Nov 2026: a bigger generator): 2,000 W for 15 chemfuel a day at full output, 133 W per chemfuel a day,
+             as before and 60% of the game's own chemfuel generator (1,000 W for 4.5 a day, 222 W); idle 2 a day. Authored
+             (docs/development/vehicle-generator-set.md). -->
+        <baseWatts>2000</baseWatts>
+        <outputFloorWatts>400</outputFloorWatts>
+        <idleFuelPerDay>2</idleFuelPerDay>
+        <fullFuelPerDay>15</fullFuelPerDay>
         <runningSound>PhobosVehicles_GeneratorSetRunning</runningSound>
         <vitalParts>
           <li>Engine</li>
@@ -335,7 +356,7 @@
           <graphicData>
             <texPath>Phobos/Vehicles/GeneratorSet/GeneratorSet_SetUp</texPath>
             <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
-            <drawSize>(3, 7)</drawSize>
+            <drawSize>(4, 9)</drawSize>
             <shaderType>Cutout</shaderType>
             <layer>1</layer>
           </graphicData>
@@ -354,7 +375,7 @@
                   <graphicData>
                     <texPath>Phobos/Vehicles/GeneratorSet/GeneratorSet_FanHeavy</texPath>
                     <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
-                    <drawSize>(3, 7)</drawSize>
+                    <drawSize>(4, 9)</drawSize>
                     <shaderType>Cutout</shaderType>
                     <layer>1</layer>
                   </graphicData>
@@ -365,7 +386,7 @@
                   <graphicData>
                     <texPath>Phobos/Vehicles/GeneratorSet/GeneratorSet_Fan</texPath>
                     <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
-                    <drawSize>(3, 7)</drawSize>
+                    <drawSize>(4, 9)</drawSize>
                     <shaderType>Cutout</shaderType>
                     <layer>1</layer>
                   </graphicData>
@@ -385,7 +406,7 @@
               <graphicData>
                 <texPath>Phobos/Vehicles/GeneratorSet/GeneratorSet_DamageCab</texPath>
                 <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
-                <drawSize>(3, 7)</drawSize>
+                <drawSize>(4, 9)</drawSize>
                 <shaderType>Cutout</shaderType>
                 <layer>2</layer>
               </graphicData>
@@ -397,7 +418,7 @@
               <graphicData>
                 <texPath>Phobos/Vehicles/GeneratorSet/GeneratorSet_DamageHousing</texPath>
                 <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
-                <drawSize>(3, 7)</drawSize>
+                <drawSize>(4, 9)</drawSize>
                 <shaderType>Cutout</shaderType>
                 <layer>2</layer>
               </graphicData>
@@ -435,24 +456,24 @@
   <Vehicles.VehicleBuildDef ParentName="VehicleBaseBuildable">
     <defName>Phobos_GeneratorSet_Blueprint</defName>
     <label>Busbar generator set</label>
-    <description>Busbar B1: a small diesel-electric truck that can park and feed your grid.</description>
+    <description>Busbar B1: a diesel-electric truck that can park and feed your grid.</description>
     <graphicData>
       <texPath>Phobos/Vehicles/GeneratorSet/GeneratorSet</texPath>
       <graphicClass>Graphic_Multi</graphicClass>
-      <drawSize>(3, 7)</drawSize>
+      <drawSize>(4, 9)</drawSize>
     </graphicData>
     <statBases>
-      <MaxHitPoints>180</MaxHitPoints>
-      <WorkToBuild>12000</WorkToBuild>
+      <MaxHitPoints>230</MaxHitPoints>
+      <WorkToBuild>15000</WorkToBuild>
       <Flammability>0.5</Flammability>
     </statBases>
     <researchPrerequisites>
       <li>PhobosResearch_GeneratorSet</li>
     </researchPrerequisites>
-    <size>(2, 6)</size>
+    <size>(3, 8)</size>
     <!-- The shell only: its parts are in Bill_GeneratorSet.xml, filled at start-up (docs/development/parts-bills.md). Steel stays first. -->
     <costList>
-      <Steel>340</Steel>
+      <Steel>450</Steel>
       <Plasteel>10</Plasteel>
       <ComponentIndustrial>9</ComponentIndustrial>
     </costList>

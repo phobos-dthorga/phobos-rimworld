@@ -18,7 +18,7 @@
         {"label": "Ullage bulk tanker (3 x 10)", "cells": [11, 4], "layers": ["veh:BulkTanker/BulkTanker_east.png", "veh:BulkTanker/BulkTanker_LiquidTank_east.png"]},
         {"label": "Datum survey truck (3 x 7)", "cells": [8, 4], "layers": ["veh:SurveyTruck/SurveyTruck_east.png"]},
         {"label": "Kelly drill rig (3 x 10)", "cells": [11, 4], "layers": ["veh:DrillRig/DrillRig_east.png", "veh:DrillRig/DrillRig_Mast_east.png", "veh:DrillRig/DrillRig_RotaryHead_east.png"]},
-        {"label": "Busbar generator set (2 x 6)", "cells": [7, 3], "layers": ["veh:GeneratorSet/GeneratorSet_east.png", "veh:GeneratorSet/GeneratorSet_Fan_east.png"]},
+        {"label": "Busbar generator set (3 x 8)", "cells": [9, 4], "layers": ["veh:GeneratorSet/GeneratorSet_east.png", "veh:GeneratorSet/GeneratorSet_Fan_east.png"]},
         {"label": "Talus tipper truck (3 x 8)", "cells": [9, 4], "layers": ["veh:Tipper/Tipper_east.png", "veh:Tipper/Tipper_Body_east.png"]},
         {"label": "Fathom seabed crawler (4 x 9)", "cells": [10, 5], "layers": ["veh:SeabedCrawler/SeabedCrawler_east.png"]},
         {"label": "Pintle flatbed trailer (2 x 5)", "cells": [6, 3], "layers": ["veh:FlatbedTrailer/FlatbedTrailer_east.png"]}
@@ -72,8 +72,8 @@
       "pixelsPerCell": 56,
       "columns": 2,
       "items": [
-        {"label": "Driving, stock fan", "cells": [7, 3], "layers": ["veh:GeneratorSet/GeneratorSet_east.png", "veh:GeneratorSet/GeneratorSet_Fan_east.png"]},
-        {"label": "Set up, with every upgrade fitted", "cells": [7, 3], "layers": ["veh:GeneratorSet/GeneratorSet_east.png", "veh:GeneratorSet/GeneratorSet_SetUp_east.png", "veh:GeneratorSet/GeneratorSet_FanHeavy_east.png", "veh:GeneratorSet/GeneratorSet_BiggerGenerator_east.png", "veh:GeneratorSet/GeneratorSet_Battery_east.png", "veh:GeneratorSet/GeneratorSet_Reel_east.png", "veh:GeneratorSet/GeneratorSet_HeatExchanger_east.png"]}
+        {"label": "Driving, stock fan", "cells": [9, 4], "layers": ["veh:GeneratorSet/GeneratorSet_east.png", "veh:GeneratorSet/GeneratorSet_Fan_east.png"]},
+        {"label": "Set up, with every upgrade fitted", "cells": [9, 4], "layers": ["veh:GeneratorSet/GeneratorSet_east.png", "veh:GeneratorSet/GeneratorSet_SetUp_east.png", "veh:GeneratorSet/GeneratorSet_FanHeavy_east.png", "veh:GeneratorSet/GeneratorSet_BiggerGenerator_east.png", "veh:GeneratorSet/GeneratorSet_Battery_east.png", "veh:GeneratorSet/GeneratorSet_Reel_east.png", "veh:GeneratorSet/GeneratorSet_HeatExchanger_east.png"]}
       ]
     },
     {

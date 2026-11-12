@@ -7,7 +7,7 @@ of the general systems D'thorga Framework gives every vehicle.
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.50.0, built 13 November 2026 for House D'thorga. **Not yet tested in game.**
+Version 0.51.0, built 14 November 2026 for House D'thorga. **Not yet tested in game.**
 
 ## Read this first (gotchas)
 
@@ -152,13 +152,13 @@ would one day be the Talus T2, and a refit adds a letter.
 
 ## The Busbar generator set
 
-**Not yet tested in game.** A small diesel-electric truck: its engine turns a generator, electric motors drive the back axle, and when it is parked it can feed your grid.
+**Not yet tested in game.** A medium diesel-electric truck, 3 by 8 cells like the Talus tipper since 0.51.0 (it was 2 by 6): its engine turns a generator, electric motors drive the back axle, and when it is parked it can feed your grid.
 
 - **Build it** from the **motor pool** tab of the Architect menu. It needs Machining and Electricity, and one engine assembly, drivetrain kit and electrical kit from the **vehicle parts bench** (D'thorga Framework).
 - **Press Set up.** A cable end appears beside the truck; wire things to it, or touch a conduit to it. The truck cannot move until you press **Pack up**.
-- **It gives 1,200 W at full health.** Fuel follows what the grid draws, from 1.5 chemfuel a day doing nothing to 9 a day flat out, or 9 a day whenever batteries on the grid have room. That is 60% of the game's chemfuel generator's economy: you are paying for being able to drive it away.
-- **It stops if** the tank runs dry, the engine or the traction generator is destroyed, or damage takes it under 240 W. Its inspect pane says which.
-- **Upgrades:** an uprated alternator (1,600 W), a cable reel (you pick where the cable end goes, up to 12 cells away), a battery buffer that keeps the grid alive for a time when the engine cannot, a heavy-duty fan that cools a parked engine as well as driving does, for hard work in hot weather, and a **service lead** (new in 0.45.0, not yet tested in game): with the set set up and running, **Run the service lead** plugs it into one of your vehicles within 6 cells to charge its battery, or start it at once if it is too flat, taking 300 W before the camp's grid.
+- **It gives 2,000 W at full health** (1,200 W before 0.51.0). Fuel follows what the grid draws, from 2 chemfuel a day doing nothing to 15 a day flat out, or 15 a day whenever batteries on the grid have room. That is 60% of the game's chemfuel generator's economy: you are paying for being able to drive it away.
+- **It stops if** the tank runs dry, the engine or the traction generator is destroyed, or damage takes it under 400 W. Its inspect pane says which.
+- **Upgrades:** an uprated alternator (2,650 W), a cable reel (you pick where the cable end goes, up to 12 cells away), a battery buffer that keeps the grid alive for a time when the engine cannot, a heavy-duty fan that cools a parked engine as well as driving does, for hard work in hot weather, and a **service lead** (new in 0.45.0, not yet tested in game): with the set set up and running, **Run the service lead** plugs it into one of your vehicles within 6 cells to charge its battery, or start it at once if it is too flat, taking 300 W before the camp's grid.
 - **New in 0.42.0 (not yet tested in game), an exhaust heat exchanger:** while the set makes power it warms the room its cable end stands in, up to 21 C, more as more power is drawn. **Put the cable end inside the room you want warm**; outdoors the heat is wasted. It costs 25 W of output.
 - **A vehicle of ours parked beside the cable end or a conduit on its grid counts as plugged in**, as with any grid. Vehicle Framework's own electric vehicles need a battery on the grid to charge.
 - **You can hear it running** (new in 0.31.0): while it is set up and its engine runs, it sounds like the game's chemfuel generator, from the truck, and falls quiet when it stops. D'thorga Framework's **D'thorga sounds volume** setting turns it down or off.

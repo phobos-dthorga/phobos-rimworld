@@ -297,6 +297,54 @@ dry run first, the camera instruction first, one pilot at native size before the
 spun by code in step with the load; exhaust from the stack is a fleck scaled by load, no art, so the record names the stack's cell; the cable end carries real
 light at night through the game's `CompGlower`. The cable out and the outriggers stay two-state overlays. No frame sheets.
 
+## The resize to 3 x 8 (Vehicles 0.51.0, 14 Nov 2026)
+
+**The owner, 14 Nov 2026:** the Busbar "feels really small in size and needs to be brought inline with the other vehicles". It was 2 x 6
+(drawn 3 x 7), the only two-cell-wide truck of ours, from the agent's choice of 9 Nov that a light truck should look light beside the
+3 x 10 tanker (the table below). The owner chose **3 x 8, like the Talus tipper (drawn 4 x 9)**, **heavier**, and **a bigger
+generator**. Not yet tested in game.
+
+| Figure | Before | After | Label |
+| --- | --- | --- | --- |
+| Footprint, drawn | 2 x 6, 3 x 7 | 3 x 8, 4 x 9 | Owner's choice |
+| Empty mass, engine | 6,000 kg, 100 kW | 8,000 kg, 130 kW | Authored: about the same power per tonne (16.7 against 16.3 kW/t) |
+| Vehicle Framework mass, cargo, fuel tank | 260, 30, 150 | 347, 40, 200 | Authored, in proportion |
+| Fuel driving | 14 a day | 17 a day | Authored |
+| Generator at full health | 1,200 W | 2,000 W | Authored |
+| Fuel at full output, idle | 9, 1.5 a day | 15, 2 a day | Authored, same economy |
+| Uprated alternator | +400 W | +650 W | Authored, in proportion |
+| Stops under | 240 W | 400 W | 20 % of output, as before |
+
+**The arithmetic against the game's own chemfuel generator** (the no-value-loop rule: fuel per watt never better than it):
+
+- The game's chemfuel-powered generator gives 1,000 W for 4.5 chemfuel a day (`ChemfuelPoweredGenerator`: power 1,000 W,
+  `fuelConsumptionRate` 4.5, read with `scripts/query-defs.py`): **222 W per chemfuel a day**.
+- The Busbar before: 1,200 W for 9 a day, 133 W per chemfuel a day, 60 % of the game's.
+- The Busbar now: 2,000 W for 15 a day, **133 W per chemfuel a day**, still 60 %. The uprated alternator keeps it there too, because
+  full-output fuel follows the watts on offer (`CompPhobosGeneratorSet`: full fuel times offered over `baseWatts`).
+
+**The art.** Exported again from the picked original (`generator-set-body-north-3.png`, 768 x 1536, on `art-masters`) with
+`scripts/art/export_vehicle.py body --cells-long 8 --draw 4 9`, the same paint settings (its colour mask came out unchanged at the old
+size, so the settings are the ones it was made with), and the background clean-up's saved answer for that original. The body is scaled
+by 0.72, down, never up, and measures 2.69 x 8.04 cells against the Talus's 2.72 x 8.04. The canvas is 4 x 9 and the body fills 8 of its
+9 cells' length with half a cell clear at each end, as the Talus does; nothing is stretched. Every overlay was exported again by
+`assets/phobos-vehicles/export_batch_b.py --only GeneratorSet` and `export_damage.py` from the new transform, since their places are
+boxes in the original's pixels; checked by eye on the body. The texture record's hashes are updated.
+
+**The parts' cells.** x now runs from -1 to 1 and z from -3 to 4. Each part keeps its place along the truck, mapped to the new rows: the
+engine, radiator and lights forward at z 4, the cab at 3, the generator housing at 1 and 2, the switchgear and fuel tank at 0, the
+traction motors and back axle at -1 and -2, the control panel, outriggers, cable reel and rear lights at -3 (the outriggers also at 2).
+Part order is unchanged, so saves keep every part's health.
+
+**Saves.** Vehicle Framework claims the new footprint where the truck stands without checking what is there
+(`VehiclePositionManager.ClaimPosition`, VehicleFramework-1.6:Vehicles.decompiled.cs:32498), so a Busbar parked against a wall grows
+into it and may be stuck: **park it in the open before updating**. The depot bay's pad needs only the vehicle's centre on it, so a
+3 x 8 Busbar still parks there.
+
+**Costs.** Its fittings, tunes and upgrades are priced by weight (work by the kerb mass to the power 0.25, materials to the power 0.5,
+`Rules_VehicleSystems.xml`), so from 6 to 8 tonnes they ask about 7.5 % more work and 15.5 % more materials. The upgrade price table in
+[vehicle-tuning-and-upgrades.md](vehicle-tuning-and-upgrades.md) shows the 6,000 kg figures of 13 Nov 2026.
+
 ## Open questions for the owner
 
 | Question | Agent lean |

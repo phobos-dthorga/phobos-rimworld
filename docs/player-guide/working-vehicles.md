@@ -36,7 +36,7 @@ Every name is a real word from engineering or earth science that says something 
 | **Kelly drill rig** | 3 x 10 | Brings deep ore up fast | The square bar that turns the drill string on a rotary rig |
 | **Talus tipper truck** | 3 x 8 | Hauls 2,400 kg and tips it in one go | The heap of broken rock at the foot of a cliff |
 | **Ullage bulk tanker** | 3 x 10 | Carries and pumps fluids, buys them in bulk | The empty space a tank must keep above its load |
-| **Busbar generator set** | 2 x 6 | A power station you can drive away | The bar that carries power into a grid |
+| **Busbar generator set** | 3 x 8 | A power station you can drive away | The bar that carries power into a grid |
 | **Fathom seabed crawler** | 4 x 9 | A small submarine ([its chapter](submarines.md)) | The sailor's six-foot depth unit; to get to the bottom of something |
 | **Pintle flatbed trailer** | 2 x 5 | A second load behind any land vehicle | The hook-and-ring coupling a drawbar trailer hangs from |
 
@@ -196,7 +196,7 @@ drivetrain model can tow** in D'thorga Framework's settings. A broken drawbar mu
 
 ![The generator set driving with its stock fan, and set up with every upgrade fitted](images/generator-set-fitted.png)
 
-A small diesel-electric truck: its engine turns a generator, electric motors drive the back axle, and parked it feeds your grid.
+A medium diesel-electric truck, 3 by 8 cells like the Talus tipper: its engine turns a generator, electric motors drive the back axle, and parked it feeds your grid.
 
 1. **Research generator truck** (after vehicle electrics) and build it.
 2. **Press Set up** (with someone aboard and the engine running) and choose how to join the grid: **Run the cable out**, and a
@@ -206,12 +206,12 @@ A small diesel-electric truck: its engine turns a generator, electric motors dri
 
 | Fact | Figure |
 | --- | --- |
-| Output at full health | 1,200 W (1,600 W with the uprated alternator) |
-| Fuel | Follows what the grid draws: 1.5 chemfuel a day doing nothing, 9 a day flat out, or 9 a day whenever batteries on the grid have room |
+| Output at full health | 2,000 W (2,650 W with the uprated alternator) |
+| Fuel | Follows what the grid draws: 2 chemfuel a day doing nothing, 15 a day flat out, or 15 a day whenever batteries on the grid have room |
 | Economy | 60% of the game's chemfuel generator: you pay for being able to drive it away |
-| Stops when | The tank runs dry, the engine or traction generator is destroyed, or damage takes it under 240 W. Its inspect pane says which |
+| Stops when | The tank runs dry, the engine or traction generator is destroyed, or damage takes it under 400 W. Its inspect pane says which |
 
-**Upgrades:** an **uprated alternator** (1,600 W); a **cable reel** (put the cable end up to 12 cells away); a **battery buffer**
+**Upgrades:** an **uprated alternator** (2,650 W); a **cable reel** (put the cable end up to 12 cells away); a **battery buffer**
 that keeps the grid alive for a time when the engine cannot; a **heavy-duty fan** that cools a parked engine as well as driving does,
 for hard work in hot weather; and an **exhaust heat exchanger** that warms the room its cable end stands in, up to 21 °C, for 25 W
 of output. **Put the cable end inside the room you want warm.**
