@@ -170,7 +170,7 @@ public abstract class CompPhobosRigWork : CompPhobosSetUp, IVehicleEngineDemand
             RunOverdrive();
             CompPowerTrader? trader = powerPoint?.GetComp<CompPowerTrader>();
             if (trader != null) trader.PowerOutput = -DrawWatts * OverdriveFactor;
-            if (WantsEngine && HasFuel) Vehicle.CompFueledTravel?.ConsumeFuel(WorkFuel(OverdriveRule.FuelPerDay(FuelPerDay, overdrive, RigProps.overdriveFuelFactor) * DaysPerRareTick, DaysPerRareTick));
+            if (!stalled && WantsEngine && HasFuel) Vehicle.CompFueledTravel?.ConsumeFuel(WorkFuel(OverdriveRule.FuelPerDay(FuelPerDay, overdrive, RigProps.overdriveFuelFactor) * DaysPerRareTick, DaysPerRareTick));
         }
     }
 
@@ -255,6 +255,7 @@ public abstract class CompPhobosRigWork : CompPhobosSetUp, IVehicleEngineDemand
     public virtual string? CannotDeploy()
     {
         if (!Vehicle.Spawned) return "PhobosVehicleSystems_RigNotOnMap".Translate().Resolve();
+        if (CrewAndEngineRefusal() is { } crew) return crew;
         if (StillMoving) return "PhobosVehicleSystems_RigStopFirst".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve();
         if (Vehicle.GetStatValue(GeneratorDefOf.Phobos_RigStability) < RigProps.stabilityFloor) return "PhobosVehicleSystems_RigOutriggers".Translate().Resolve();
         if (Vehicle.GetStatValue(GeneratorDefOf.Phobos_RigControl) < RigProps.controlFloor) return "PhobosVehicleSystems_RigControls".Translate().Resolve();
@@ -266,6 +267,7 @@ public abstract class CompPhobosRigWork : CompPhobosSetUp, IVehicleEngineDemand
     public virtual string? WhyNoWork()
     {
         if (!deployed) return "PhobosVehicleSystems_RigNotSetUp".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve();
+        if (stalled) return StalledLine;
         if (Vehicle.GetStatValue(GeneratorDefOf.Phobos_RigControl) < RigProps.workControlFloor) return "PhobosVehicleSystems_RigWorkControls".Translate().Resolve();
         foreach (string key in RigProps.vitalParts)
         {

@@ -5,6 +5,20 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.106.1] - 2026-11-13 - Draft
+
+Setting a vehicle up needs someone aboard and its engine running; a set-up whose engine stops stays stopped until restarted
+
+### Fixed
+
+- **A generator set could be set up and feed the grid with nobody aboard and its engine never started** (the owner's report of 13 November 2026). Setting up any of our working vehicles now needs **someone aboard and the engine running**: the generator set, the drill rig, the survey truck, the tanker's pump, and the tipper's tip and grab. Until then the button is greyed out and says which is missing. Not yet tested in game.
+- **Once set up and running, the crew may get out**: the work goes on by itself until it runs dry, the engine is switched off, or it is packed up (owner, 13 November 2026). The generator set feeds the grid only while its engine runs.
+- **When the engine stops under the work** (it runs dry, or someone switches it off), the work stops, a message says so once, and it stays stopped even after refuelling **until someone aboard starts the engine again**. Packing up clears it. The generator set's battery buffer still holds the grid up meanwhile, as it does when the engine cannot run. A drill rig or survey truck working on mains power is not stopped by switching its engine off.
+
+### Save compatibility
+
+- A vehicle already set up in a save keeps working as it was, even with nobody aboard, until it runs dry or its engine is switched off; nothing is packed up by force. Safe to add mid-game.
+
 ## [0.106.0] - 2026-11-13 - Draft
 
 Cross-links, round three, the owner's first batch: a dry tank hurts the fuel pump, a low-air warning, fire reaches the tyres and the battery, driving in the dark without lights is slower, and aircraft power: a generator that follows the engine, a felt engine-out, loads switched off to save a failing battery, and one flight-controls rule for every aircraft

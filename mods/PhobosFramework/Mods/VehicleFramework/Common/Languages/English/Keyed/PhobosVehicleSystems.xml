@@ -513,6 +513,13 @@
   <PhobosVehicleSystems_MarkWhen>{EVENT}\n{AGO} ago</PhobosVehicleSystems_MarkWhen>
   <PhobosVehicleSystems_HydraulicsDry>{VEHICLE} has too little hydraulic fluid left to work. A mechanic's hydraulic top-up refills it; mend the leaking lines first, or it drains again.</PhobosVehicleSystems_HydraulicsDry>
 
+  <!-- Setting up needs a crew and a running engine; a set-up whose engine stops stalls until restarted (Framework 0.106.1; owner, 13 Nov 2026). -->
+  <PhobosVehicleSystems_SetUpNoCrew>Someone must be aboard {VEHICLE} to set it up.</PhobosVehicleSystems_SetUpNoCrew>
+  <PhobosVehicleSystems_SetUpEngineOff>Start {VEHICLE}'s engine first.</PhobosVehicleSystems_SetUpEngineOff>
+  <PhobosVehicleSystems_SetUpStalledDry>{VEHICLE} has run dry and its engine has stopped, so its work has stopped too. Refuel it, then have someone aboard start the engine.</PhobosVehicleSystems_SetUpStalledDry>
+  <PhobosVehicleSystems_SetUpStalledOff>{VEHICLE}'s engine was switched off, so its work has stopped. Have someone aboard start the engine to carry on.</PhobosVehicleSystems_SetUpStalledOff>
+  <PhobosVehicleSystems_SetUpRestarted>{VEHICLE}'s engine is running again, and its work carries on.</PhobosVehicleSystems_SetUpRestarted>
+  <PhobosVehicleSystems_SetUpStalledLine>{VEHICLE}'s engine has stopped. Someone aboard must start it again.</PhobosVehicleSystems_SetUpStalledLine>
   <PhobosVehicleSystems_GenSetUpRefusal>{VEHICLE} is set up, with its cable out. Pack it up first.</PhobosVehicleSystems_GenSetUpRefusal>
   <PhobosVehicleSystems_GenNotOnMap>It must be on a map to set up.</PhobosVehicleSystems_GenNotOnMap>
   <PhobosVehicleSystems_GenStopFirst>{VEHICLE} is still moving. Stop it first.</PhobosVehicleSystems_GenStopFirst>
@@ -623,7 +630,6 @@
   <PhobosVehicleSystems_TipNotOnMap>It can only tip on a map.</PhobosVehicleSystems_TipNotOnMap>
   <PhobosVehicleSystems_TipEmpty>There is nothing aboard to tip.</PhobosVehicleSystems_TipEmpty>
   <PhobosVehicleSystems_TipStopFirst>{VEHICLE} is still moving. Stop it first.</PhobosVehicleSystems_TipStopFirst>
-  <PhobosVehicleSystems_TipNoDriver>{VEHICLE} needs a driver aboard to work the body.</PhobosVehicleSystems_TipNoDriver>
   <PhobosVehicleSystems_TipNoFuel>The engine has no fuel to lift the body.</PhobosVehicleSystems_TipNoFuel>
   <PhobosVehicleSystems_TipControls>The body will not lift: the tip controls are wrecked.</PhobosVehicleSystems_TipControls>
   <PhobosVehicleSystems_TipFull>The ground behind it is full. {COUNT} stacks stay aboard.</PhobosVehicleSystems_TipFull>
@@ -677,7 +683,6 @@
   <PhobosVehicleSystems_GrabHeld>{VEHICLE} has its grab out. Stow it first.</PhobosVehicleSystems_GrabHeld>
   <PhobosVehicleSystems_GrabNotOnMap>It can only work the grab on a map.</PhobosVehicleSystems_GrabNotOnMap>
   <PhobosVehicleSystems_GrabStopFirst>{VEHICLE} is still moving. Stop it first.</PhobosVehicleSystems_GrabStopFirst>
-  <PhobosVehicleSystems_GrabNoDriver>{VEHICLE} needs a driver aboard to work the grab.</PhobosVehicleSystems_GrabNoDriver>
   <PhobosVehicleSystems_GrabNoFuel>The engine has no fuel to work the grab.</PhobosVehicleSystems_GrabNoFuel>
   <PhobosVehicleSystems_GrabControls>The grab will not move: the controls are wrecked.</PhobosVehicleSystems_GrabControls>
   <PhobosVehicleSystems_GrabWhileTipping>{VEHICLE} is tipping. Let it finish first.</PhobosVehicleSystems_GrabWhileTipping>

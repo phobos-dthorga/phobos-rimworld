@@ -486,6 +486,12 @@ public class CompPhobosTank : CompPhobosSetUp
         TankCompartment compartment = Selected;
         PhobosTankContentsDef? fluid = compartment.contents;
         if (mode == TankPumpMode.Hold) return;
+        // The pump runs off the engine: stopped under it, the pump stops until someone aboard starts it again (Framework 0.106.1).
+        if (stalled)
+        {
+            pumpStatus = StalledLine;
+            return;
+        }
         if (fluid == null)
         {
             pumpStatus = "PhobosVehicleSystems_TankNoContents".Translate().Resolve();
@@ -653,6 +659,7 @@ public class CompPhobosTank : CompPhobosSetUp
         if (Fitted == null) return "PhobosVehicleSystems_TankNoneFitted".Translate().Resolve();
         if (Selected.contents == null && !Compartments.Any(c => c.contents != null)) return "PhobosVehicleSystems_TankNoContents".Translate().Resolve();
         if (!Vehicle.Spawned) return "PhobosVehicleSystems_TankNotOnMap".Translate().Resolve();
+        if (CrewAndEngineRefusal() is { } crew) return crew;
         if (StillMoving) return "PhobosVehicleSystems_TankStopFirst".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve();
         if (PumpShare() < Props.pumpFloor) return "PhobosVehicleSystems_TankPumpDamaged".Translate().Resolve();
         return null;

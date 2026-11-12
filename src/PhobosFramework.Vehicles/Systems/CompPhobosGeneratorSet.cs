@@ -92,7 +92,7 @@ public class CompPhobosGeneratorSet : CompPhobosSetUp, IVehicleEngineDemand, IVe
     protected override GraphicDataOverlay? SetUpLook => Props.setUpOverlay;
     protected override string SetUpRefusal => "PhobosVehicleSystems_GenSetUpRefusal".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve();
 
-    public bool WantsEngine => deployed && running;
+    public bool WantsEngine => deployed && running && !stalled;
     public float EngineDemand => load;
     public int CableReach => (int)Vehicle.GetStatValue(GeneratorDefOf.Phobos_CableReach);
     float BufferCapacity => Vehicle.GetStatValue(GeneratorDefOf.Phobos_GeneratorBuffer);
@@ -199,6 +199,7 @@ public class CompPhobosGeneratorSet : CompPhobosSetUp, IVehicleEngineDemand, IVe
     public string? CannotDeploy()
     {
         if (!Vehicle.Spawned) return "PhobosVehicleSystems_GenNotOnMap".Translate().Resolve();
+        if (CrewAndEngineRefusal() is { } crew) return crew;
         if (StillMoving) return "PhobosVehicleSystems_GenStopFirst".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve();
         if (Vehicle.GetStatValue(GeneratorDefOf.Phobos_RigStability) < Props.stabilityFloor) return "PhobosVehicleSystems_GenOutriggers".Translate().Resolve();
         if (Vehicle.GetStatValue(GeneratorDefOf.Phobos_RigControl) < Props.controlFloor) return "PhobosVehicleSystems_GenControls".Translate().Resolve();
@@ -266,6 +267,13 @@ public class CompPhobosGeneratorSet : CompPhobosSetUp, IVehicleEngineDemand, IVe
     float Offered(out string? why)
     {
         why = null;
+        // Its engine stopped under it (ran dry or switched off): nothing is made until someone aboard starts it again. The battery buffer still
+        // holds the grid up meanwhile, as it does when the engine cannot run.
+        if (stalled)
+        {
+            why = StalledLine;
+            return 0f;
+        }
         foreach (string key in Props.vitalParts)
         {
             VehicleComponent? part = Vehicle.statHandler.GetComponent(key);

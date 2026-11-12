@@ -12,6 +12,12 @@ generator-set sketch in [utility vehicles](utility-vehicles-design.md) and follo
 
 ## Read this first
 
+- **Setting up needs someone aboard and the engine running (owner, 13 November 2026; Framework 0.106.1, not yet tested in game).** The
+  owner found a set set up and feeding the grid with nobody aboard and its engine never started. Decided: setting up needs a crew aboard
+  and the engine on; the crew may then leave it running unattended until it runs dry, is switched off or is packed up; a stopped engine
+  stalls the work until someone aboard restarts it; the same rule for every vehicle of ours that sets up. Built in the shared set-up
+  comp (`CompPhobosSetUp.CrewAndEngineRefusal`, the stall in `WatchEngine`).
+
 - **What it is:** a small self-propelled truck whose one engine turns a generator. Traction motors drive the wheels; parked and set up
   (outriggers down, cable out), the generator feeds the power grid. A driver takes it there; nobody tends it while it runs.
 - **It is the family's diesel-electric vehicle** (owner, 9 Nov 2026): the first vehicle of ours on `TransmissionKind.DieselElectric`,

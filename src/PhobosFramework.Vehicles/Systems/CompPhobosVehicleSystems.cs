@@ -717,7 +717,7 @@ public class CompPhobosVehicleSystems : VehicleComp
         WorkTurningEngine = false;
         foreach (IVehicleEngineDemand demand in engineDemands)
         {
-            if (!demand.WantsEngine || !hasFuel) continue;
+            if (!demand.WantsEngine || !hasFuel || demand is CompPhobosSetUp { Stalled: true }) continue;
             EngineRunning = true;
             WorkTurningEngine = true;
             EngineLoad = Mathf.Max(EngineLoad, demand.EngineDemand);

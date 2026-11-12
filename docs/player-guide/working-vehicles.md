@@ -13,6 +13,10 @@ the sea, and a trailer any of them can tow. It also gives other mods' vehicles t
   **motor pool** tab. Its upgrades need the research they name.
 - **They are built from parts.** Make an engine assembly, transmission and kits at the **vehicle parts bench** first. Where
   RimThunder or Vanilla Vehicles Expanded is installed, a build asks for their parts instead.
+- **To set up, someone must be aboard and the engine running.** Until then **Set up** (and the tipper's **Tip** and grab) is greyed out
+  and says which is missing. Once it runs, the crew may get out: it works on by itself until it runs dry, its engine is switched off, or
+  you pack it up. **If its engine stops, the work stops too**, and stays stopped even after refuelling until someone aboard starts the
+  engine again.
 - **A vehicle that is set up cannot drive.** Its engine can still be started, but press **Pack up** before you move it.
 - **Heavy trucks have air brakes**: after standing for hours, draft one and let it idle a few minutes before it will drive.
 - **A trailer goes on journeys with the vehicle towing it**, cargo and all (see the towing section of the vehicle care chapter).

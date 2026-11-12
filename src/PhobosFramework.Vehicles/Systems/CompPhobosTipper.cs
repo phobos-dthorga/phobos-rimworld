@@ -104,7 +104,7 @@ public class CompPhobosTipper : CompPhobosSetUp, IVehicleEngineDemand
         if (grabbing) return "PhobosVehicleSystems_TipGrabOut".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve();
         if (Cargo.Count == 0) return "PhobosVehicleSystems_TipEmpty".Translate().Resolve();
         if (StillMoving) return "PhobosVehicleSystems_TipStopFirst".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve();
-        if (!Vehicle.CanMoveFinal) return "PhobosVehicleSystems_TipNoDriver".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve();
+        if (CrewAndEngineRefusal() is { } crew) return crew;
         if (Vehicle.CompFueledTravel is { EmptyTank: true }) return "PhobosVehicleSystems_TipNoFuel".Translate().Resolve();
         if (Vehicle.GetStatValue(GeneratorDefOf.Phobos_RigControl) < Props.controlFloor) return "PhobosVehicleSystems_TipControls".Translate().Resolve();
         if (Systems?.HydraulicRefusal() is { } dry) return dry;
@@ -141,10 +141,21 @@ public class CompPhobosTipper : CompPhobosSetUp, IVehicleEngineDemand
         Tell(reason == null ? report : report + " " + reason, reason == null ? MessageTypeDefOf.TaskCompletion : MessageTypeDefOf.CautionInput);
     }
 
+    /// <summary>The tip's or grab's own report says the stall, so the player is told once (Framework 0.106.1).</summary>
+    protected override bool ReportsOwnStall => true;
+
     public override void CompTickRare()
     {
         base.CompTickRare();
         if (!deployed || !Vehicle.Spawned) return;
+        // The engine stopped under the rams (ran dry or switched off): the body or grab stops where it is, and someone aboard must start
+        // the engine to work it again (Framework 0.106.1).
+        if (Stalled)
+        {
+            if (grabbing) FinishGrab(StalledLine);
+            else Finish(StalledLine);
+            return;
+        }
         if (grabbing)
         {
             GrabTick();
@@ -277,7 +288,7 @@ public class CompPhobosTipper : CompPhobosSetUp, IVehicleEngineDemand
         if (!Vehicle.Spawned) return "PhobosVehicleSystems_GrabNotOnMap".Translate().Resolve();
         if (deployed && !grabbing) return "PhobosVehicleSystems_GrabWhileTipping".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve();
         if (StillMoving) return "PhobosVehicleSystems_GrabStopFirst".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve();
-        if (!Vehicle.CanMoveFinal) return "PhobosVehicleSystems_GrabNoDriver".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve();
+        if (CrewAndEngineRefusal() is { } crew) return crew;
         if (Vehicle.CompFueledTravel is { EmptyTank: true }) return "PhobosVehicleSystems_GrabNoFuel".Translate().Resolve();
         if (Vehicle.GetStatValue(GeneratorDefOf.Phobos_RigControl) < Props.controlFloor) return "PhobosVehicleSystems_GrabControls".Translate().Resolve();
         if (Systems?.HydraulicRefusal() is { } dry) return dry;

@@ -297,6 +297,79 @@ public abstract class CompPhobosSetUp : VehicleComp
         base.PostExposeData();
         Scribe_Values.Look(ref deployed, DeployedSaveKey);
         Scribe_Values.Look(ref swingSide, DeployedSaveKey + "Side", 1);
+        // Framework 0.106.1. A save made before it has no stall, so a set left working with nobody aboard keeps on until it runs dry.
+        Scribe_Values.Look(ref stalled, DeployedSaveKey + "Stalled");
+    }
+
+    // ---- Crew, engine and the stall (Framework 0.106.1; owner, 13 Nov 2026) ----
+
+    /// <summary>The work stopped because its engine did: it ran dry or was switched off. It stays stopped, even refuelled, until someone
+    /// aboard starts the engine again. Saved; cleared when the vehicle packs up.</summary>
+    protected bool stalled;
+    /// <summary>Whether the engine was switched on at the last look, so switching it off and on again can be seen. Derived, never saved:
+    /// after a load the first look only records it.</summary>
+    bool? lastIgnition;
+
+    public bool Stalled => deployed && stalled;
+
+    /// <summary>
+    /// Why it cannot set up for want of a crew or a running engine, or null (owner, 13 Nov 2026: setting up needs someone aboard and the
+    /// engine running). "Running" is the engine switched on, which Vehicle Framework allows only with enough crew aboard to operate it
+    /// (VehiclePawn.CanDraft); once it runs, the crew may get out and the work goes on by itself. Every set-up vehicle asks this first.
+    /// </summary>
+    protected string? CrewAndEngineRefusal()
+    {
+        if (Vehicle.Drafted) return null;
+        if (Vehicle.AllPawnsAboard.Count == 0) return "PhobosVehicleSystems_SetUpNoCrew".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve();
+        return "PhobosVehicleSystems_SetUpEngineOff".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve();
+    }
+
+    /// <summary>The line for an inspect pane, a refusal or a stopped job while stalled.</summary>
+    protected string StalledLine => "PhobosVehicleSystems_SetUpStalledLine".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve();
+
+    /// <summary>Whether the work turns the engine now, so switching it off stops the work. A vehicle whose work runs on mains power does not.</summary>
+    protected virtual bool NeedsEngineNow => this is not IVehicleEngineDemand demand || demand.WantsEngine;
+
+    /// <summary>A vehicle that says the stall in its own report (the tipper's) sets this, so the player is told once.</summary>
+    protected virtual bool ReportsOwnStall => false;
+
+    public override void CompTickRare()
+    {
+        base.CompTickRare();
+        WatchEngine();
+    }
+
+    /// <summary>On the rare tick: stalls the work when its engine stops under it, and starts it again when someone aboard restarts the engine.</summary>
+    void WatchEngine()
+    {
+        bool ignition = Vehicle.Drafted;
+        bool? before = lastIgnition;
+        lastIgnition = ignition;
+        if (!deployed)
+        {
+            stalled = false;
+            return;
+        }
+        if (stalled)
+        {
+            if (ignition && before == false)
+            {
+                stalled = false;
+                if (!ReportsOwnStall) Messages.Message("PhobosVehicleSystems_SetUpRestarted".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve(), Vehicle, MessageTypeDefOf.PositiveEvent, historical: false);
+            }
+            return;
+        }
+        if (Vehicle.CompFueledTravel is { EmptyTank: true }) Stall("PhobosVehicleSystems_SetUpStalledDry".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve());
+        else if (before == true && !ignition && NeedsEngineNow) Stall("PhobosVehicleSystems_SetUpStalledOff".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve());
+    }
+
+    void Stall(string message)
+    {
+        stalled = true;
+        // The engine is off: restarting it is the one way back, and Vehicle Framework allows that only with someone aboard.
+        if (Vehicle.Drafted) Vehicle.ignition.Drafted = false;
+        lastIgnition = false;
+        if (!ReportsOwnStall) Messages.Message(message, Vehicle, MessageTypeDefOf.NegativeEvent);
     }
 
     // Only moving is refused. Drafting is also how a vehicle's engine starts (Vehicle Framework has one switch for both), and a vehicle set up to work may
