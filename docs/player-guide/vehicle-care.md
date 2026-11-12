@@ -140,7 +140,10 @@ shows while a dyno bay is in reach. It works on any vehicle, from any mod, that 
   piece can still be fitted on its own below. The **cold-weather pack** puts a block heater in every engine and a deep-cycle battery
   in, and switches the night heater on. **All-terrain tyres** go on every wheel: far more grip in mud, sand and snow, a little slower,
   faster wear. **Work lights** fit work lamps to the vehicle's **lamp bracket** and switch them on: at night, while the vehicle stands
-  still, they light the ground round it so work there goes at daylight pace, drawing on the battery.
+  still, they light the ground round it so work there goes at daylight pace, drawing on the battery. **Long range** fits an
+  **auxiliary fuel tank** to a land vehicle or boat (half as much fuel again) or a **ferry tank** to an aircraft (three quarters as
+  much again); either costs cargo space, and the range on the world map grows with the fuel aboard. Taking one off drains the extra
+  fuel into containers beside the vehicle.
 
 ## Cabs and comfort
 

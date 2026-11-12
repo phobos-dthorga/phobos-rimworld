@@ -7,7 +7,7 @@ tested in game unless an entry says the owner tested it.
 
 ## [0.103.0] - 2026-11-12 - Draft
 
-Upgrade families, part 1 of 3: a whole family of fittings in one order, the cold-weather pack, all-terrain tyres and work lights
+Upgrade families, parts 1 and 2 of 3: a whole family of fittings in one order, the cold-weather pack, all-terrain tyres, work lights and long range
 
 ### Added
 
@@ -17,14 +17,22 @@ Upgrade families, part 1 of 3: a whole family of fittings in one order, the cold
 - **Work lights**: a lamp bracket on every land vehicle takes the new **work lamps** fitting, and a family fits them and switches them on. While the vehicle stands still at night the lamps light the ground round it with the game's own light, about 8 cells across, so anyone working there does so at the pace of daylight, and a drill rig counts them as its work lights. They draw on the battery when the engine is off, 10 A on a light vehicle and 5 A on a heavy one.
 - Pictures of their own for the all-terrain tyres, the work lamps and the cold-weather pack, drawn in code (assets/phobos-vehicles/draw_family_icons.py).
 - For modders: PhobosVehicleFamilyDef (a family names fittings and the switches it turns on), the When_Granted condition, TreadRules.SoftGroundFactor (game-free, with tests) and a softGroundGrip parameter on the running gear.
+- **Long range** (part 2; owner, 12 Nov 2026: aircraft too, as ferry tanks). Every fuelled land vehicle and boat has a new **auxiliary tank cradle** for the **auxiliary fuel tank**: half as much fuel again, for 15% of its cargo space. Every fuelled aircraft, helicopters and jets alike, has **ferry tank tie-downs** for the **ferry tank**: three quarters as much fuel again, for 30% of its cargo space. The **long range** family fits whichever suits the vehicle. The bigger tank is filled by the ordinary refuelling, the depot bay and the tanker, and the range on the world map grows with the fuel aboard.
+- Taking an extra tank off drains whatever fuel it held above what the vehicle's own tank takes into containers beside the vehicle, with a message. A tank destroyed with its cradle loses that fuel, and a message says how much.
+- Pictures of their own for the auxiliary fuel tank and the ferry tank, drawn in code; the long range family uses the auxiliary tank's.
+- The fittings window says what a tank does to the vehicle's fuel tank, in the same line as every other figure.
+- The self-test fits an extra tank to its test vehicle, checks the capacity rises by the tank's factor and goes back when it comes off.
+- For modders: fuelCapacityFactor on a fitting (applied through Vehicle Framework's own fuel capacity offset while fitted, never saved), and FittingRule.FuelCapacityOffset, FuelAbove and WholeUnits (game-free, with tests).
 
 ### Balance
 
-- Every figure is authored: the soft-ground grip, the tyres' speed and wear, the lamps' reach and draw, and every material and work amount.
+- Every figure is authored: the soft-ground grip, the tyres' speed and wear, the lamps' reach and draw, the tanks' capacity and cargo cost, and every material and work amount.
 
 ### Save compatibility
 
 - Safe to add to a running colony. Every land vehicle gains a lamp bracket part when the save loads, at full health, as earlier appended parts did. The lamps' light is never saved: it is worked out again a moment after loading.
+- Every fuelled land vehicle and boat gains an auxiliary tank cradle, and every fuelled aircraft ferry tank tie-downs, on loading, at full health. A tank's extra capacity is not saved: it is put back as each vehicle loads, before any fuel is burnt.
+- **Removing the mod with an extra tank fitted**: the vehicle keeps its fuel until it next burns some, and then the tank is trimmed to its own capacity and the rest is lost. Drain it first by taking the tank off.
 
 ### Compatibility and limits
 
@@ -32,7 +40,10 @@ Upgrade families, part 1 of 3: a whole family of fittings in one order, the cold
 - The generator set lists its own parts, so it has no lamp bracket and takes no work lamps.
 - The survey truck and the drill rig keep their own work lights upgrade; fitting the work lamps too lights them twice over and draws both loads.
 - The tyres' speed and wear costs apply everywhere, not only on roads (a simplification).
-- Long range and recovery, the other two families, follow in parts 2 and 3 of this version.
+- An extra tank's weight and its fuel's are counted only as the cargo space it takes, not as mass on the drivetrain (a simplification).
+- A vehicle whose design sets its fuel capacity outright in Vehicle Framework's settings, rather than letting upgrades add to it, takes no extra from a tank.
+- Electric vehicles carry no liquid fuel and are offered no tank.
+- Recovery, the last family, follows in part 3 of this version.
 
 ## [0.102.0] - 2026-11-12 - Draft
 

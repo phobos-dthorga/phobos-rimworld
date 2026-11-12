@@ -285,6 +285,9 @@
   <PhobosVehicleSystems_TuneFigureFinalDriveAsBuilt>final drive {RATIO}:1, as built</PhobosVehicleSystems_TuneFigureFinalDriveAsBuilt>
   <PhobosVehicleSystems_TuneFigurePower>engine power</PhobosVehicleSystems_TuneFigurePower>
   <PhobosVehicleSystems_TuneFigureFuel>fuel burned</PhobosVehicleSystems_TuneFigureFuel>
+  <PhobosVehicleSystems_EffectFuelCapacity>fuel tank</PhobosVehicleSystems_EffectFuelCapacity>
+  <PhobosVehicleSystems_TankDrained>With the extra tank off {VEHICLE}, {COUNT} {FUEL} it could no longer hold was drained into containers beside it.</PhobosVehicleSystems_TankDrained>
+  <PhobosVehicleSystems_TankSpilled>With the extra tank gone from {VEHICLE}, the {COUNT} units of fuel it held above what the main tank takes were lost.</PhobosVehicleSystems_TankSpilled>
   <!-- What a fitting or tune changes, in one line (Framework 0.87.0). -->
   <PhobosVehicleSystems_EffectUp>{LABEL} up</PhobosVehicleSystems_EffectUp>
   <PhobosVehicleSystems_EffectDown>{LABEL} down</PhobosVehicleSystems_EffectDown>

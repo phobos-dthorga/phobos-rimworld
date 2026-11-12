@@ -18,6 +18,8 @@ namespace Phobos.VehicleSystems;
 public sealed class FitFigures
 {
     public double Power = 1, Fuel = 1, FlatFuel = 1, FinalDrive = 1;
+    /// <summary>The factor on the fuel capacity (extra tanks; Framework 0.103.0).</summary>
+    public double FuelCapacity = 1;
     public readonly Dictionary<VehicleStatDef, float> Stats = new();
     public readonly Dictionary<(string system, string name), float> Parameters = new();
     /// <summary>A parameter's player label, where a Def gives one (the first that does).</summary>
@@ -38,6 +40,7 @@ public sealed class FitFigures
             foreach (ParameterFactorSpec spec in def.parameterFactors) figures.Multiply(spec, FittingRule.PartShare(spec.factor, parts));
             figures.Power *= FittingRule.PartShare(def.powerFactor, parts);
             figures.Fuel *= FittingRule.PartShare(def.fuelFactor, parts);
+            figures.FuelCapacity *= FittingRule.PartShare(def.fuelCapacityFactor, parts);
         }
         foreach (PhobosVehicleTuneDef tune in tunes)
         {
@@ -124,6 +127,10 @@ public sealed class VehicleFittings
     float fuel = 1f;
     float flatFuel = 1f;
     float finalDrive = 1f;
+    float fuelCapacity = 1f;
+    /// <summary>What this vehicle's tanks now add to Vehicle Framework's capacity offset. Not saved: Vehicle Framework does not save its
+    /// offsets either, so both start from nothing after a load and SyncFuelCapacity puts ours back.</summary>
+    float appliedFuelOffset;
 
     public VehicleFittings(CompPhobosVehicleSystems comp)
     {
@@ -198,6 +205,7 @@ public sealed class VehicleFittings
         DropDisplayCaches();
         statFactors = null;
         parameterFactors = null;
+        SyncFuelCapacity(FuelExcess.Keep);
     }
 
     // ---- The figures ----
@@ -212,6 +220,7 @@ public sealed class VehicleFittings
         fuel = (float)figures.Fuel;
         flatFuel = (float)figures.FlatFuel;
         finalDrive = (float)figures.FinalDrive;
+        fuelCapacity = (float)figures.FuelCapacity;
     }
 
     /// <summary>The roles whose part rows carry a tune's changes in the fittings window: an engine tune on the engines, the gearing on the
@@ -726,12 +735,75 @@ public sealed class VehicleFittings
         return text;
     }
 
-    void Changed()
+    void Changed(FuelExcess excess = FuelExcess.Drain)
     {
         DropDisplayCaches();
         statFactors = null;
         parameterFactors = null;
+        SyncFuelCapacity(excess);
         comp.Notify_FittingsChanged();
+    }
+
+    // ---- Extra tanks (the long range family, Framework 0.103.0) ----
+
+    /// <summary>The factor the fitted tanks give the fuel capacity.</summary>
+    public float FuelCapacityFactor
+    {
+        get
+        {
+            if (Nothing) return 1f;
+            Recache();
+            return fuelCapacity;
+        }
+    }
+
+    /// <summary>
+    /// Puts the tanks' share into Vehicle Framework's fuel capacity offset, or takes it out (VehicleStatHandler.AddStatOffset with its own
+    /// FuelCapacity category, the way its upgrade trees raise a tank; no Harmony). Safe to call any number of times: it moves the offset by
+    /// the difference from what it last added. Then, if the tank now holds more than it can, the fuel above is dealt with as
+    /// <paramref name="excess"/> says: drained into containers beside a vehicle on a map (a tank taken off by a mechanic), lost (a tank
+    /// destroyed), or kept until it is burnt (a load).
+    /// </summary>
+    public void SyncFuelCapacity(FuelExcess excess)
+    {
+        VehiclePawn? vehicle = comp.Vehicle;
+        CompFueledTravel? tank = vehicle?.CompFueledTravel;
+        VehicleStatHandler? handler = vehicle?.statHandler;
+        if (vehicle == null || tank == null || handler == null) return;
+        float wanted = (float)FittingRule.FuelCapacityOffset(tank.FuelCapacity - appliedFuelOffset, FuelCapacityFactor);
+        if (Mathf.Abs(wanted - appliedFuelOffset) > 0.001f)
+        {
+            handler.AddStatOffset(VehicleStatUpgradeCategoryDefOf.FuelCapacity, wanted - appliedFuelOffset);
+            appliedFuelOffset = wanted;
+        }
+        if (excess == FuelExcess.Keep) return;
+        double above = FittingRule.FuelAbove(tank.Fuel, tank.FuelCapacity);
+        if (above < 0.01) return;
+        int drained = 0;
+        if (excess == FuelExcess.Drain && vehicle.Spawned && tank.Props.fuelType != null)
+        {
+            for (int left = FittingRule.WholeUnits(above); left > 0;)
+            {
+                Thing fuel = ThingMaker.MakeThing(tank.Props.fuelType);
+                fuel.stackCount = Mathf.Min(left, tank.Props.fuelType.stackLimit);
+                left -= fuel.stackCount;
+                drained += fuel.stackCount;
+                GenPlace.TryPlaceThing(fuel, vehicle.Position, vehicle.Map, ThingPlaceMode.Near);
+            }
+        }
+        // Vehicle Framework clamps the tank to its capacity whenever it burns fuel; burning nothing does only that.
+        tank.ConsumeFuel(0f);
+        if (vehicle.Faction != Faction.OfPlayer) return;
+        if (drained > 0)
+        {
+            VehicleNotices.Send("PhobosVehicleSystems_TankDrained".Translate(vehicle.LabelShort.Named("VEHICLE"), drained.Named("COUNT"),
+                tank.Props.fuelType!.label.Named("FUEL")), Where, MessageTypeDefOf.NeutralEvent);
+        }
+        else
+        {
+            VehicleNotices.Send("PhobosVehicleSystems_TankSpilled".Translate(vehicle.LabelShort.Named("VEHICLE"),
+                ((float)above).ToString("0").Named("COUNT")), Where, MessageTypeDefOf.NegativeEvent);
+        }
     }
 
     // ---- Grades ----
@@ -840,7 +912,7 @@ public sealed class VehicleFittings
             orders.RemoveAt(i);
             orderLost = true;
         }
-        if (changed) Changed();
+        if (changed) Changed(FuelExcess.Lose);
         else if (orderLost) comp.Repairs.Invalidate();
     }
 
@@ -857,7 +929,7 @@ public sealed class VehicleFittings
         if (lost == null) return;
         fitted.RemoveAll(f => f.partKey == part.props.key);
         if (comp.Vehicle.Faction == Faction.OfPlayer) TellLost(lost, part);
-        Changed();
+        Changed(FuelExcess.Lose);
     }
 
     /// <summary>The first time another faction's vehicle appears: by chance, a set suited to its faction's tech level (owner, 9 Nov 2026).</summary>
@@ -901,4 +973,15 @@ public sealed class VehicleFittings
         }
         Changed();
     }
+}
+
+/// <summary>What happens to fuel left above a tank's capacity when extra tanks come off (Framework 0.103.0).</summary>
+public enum FuelExcess
+{
+    /// <summary>A mechanic took the tank off: whole units are drained into containers beside the vehicle; off a map, it is lost.</summary>
+    Drain,
+    /// <summary>The tank was destroyed: what it held is lost.</summary>
+    Lose,
+    /// <summary>A load or a reset: nothing is taken; Vehicle Framework trims the tank the next time it burns fuel.</summary>
+    Keep,
 }

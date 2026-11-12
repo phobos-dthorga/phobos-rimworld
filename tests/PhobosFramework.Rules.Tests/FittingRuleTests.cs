@@ -63,4 +63,32 @@ public class FittingRuleTests
 
     [Fact]
     public void ATuneScalesTheFuelShare() => Assert.Equal(1.15, FittingRule.TunedFuelShare(1, 1.15), 6);
+
+    [Fact]
+    public void ATankAddsItsShareOfTheCapacityWithoutIt() => Assert.Equal(125, FittingRule.FuelCapacityOffset(250, 1.5), 6);
+
+    [Fact]
+    public void TheCapacityWithTheOffsetIsTheFactorTimesTheCapacityWithout() =>
+        Assert.Equal(420 * 1.75, 420 + FittingRule.FuelCapacityOffset(420, 1.75), 6);
+
+    [Theory]
+    [InlineData(250, 1)]
+    [InlineData(250, 0.8)]
+    [InlineData(0, 1.5)]
+    [InlineData(-10, 1.5)]
+    public void NoTankOrNoGainAddsNothing(double capacity, double factor) => Assert.Equal(0, FittingRule.FuelCapacityOffset(capacity, factor), 6);
+
+    [Fact]
+    public void FuelAboveTheCapacityIsTheDifference() => Assert.Equal(80, FittingRule.FuelAbove(330, 250), 6);
+
+    [Fact]
+    public void FuelWithinTheCapacityIsNotAbove() => Assert.Equal(0, FittingRule.FuelAbove(200, 250), 6);
+
+    [Theory]
+    [InlineData(80.0, 80)]
+    [InlineData(80.6, 80)]
+    [InlineData(0.4, 0)]
+    [InlineData(0, 0)]
+    [InlineData(-3, 0)]
+    public void OnlyWholeUnitsAreDrained(double amount, int units) => Assert.Equal(units, FittingRule.WholeUnits(amount));
 }

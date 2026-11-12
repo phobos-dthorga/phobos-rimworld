@@ -194,6 +194,38 @@
     <grants><li>WorkLights</li></grants>
   </Phobos.VehicleSystems.PhobosVehicleFittingDef>
 
+  <Phobos.VehicleSystems.PhobosVehicleFittingDef>
+    <!-- Framework 0.103.0, the long range family (owner, 12 Nov 2026). Half as much fuel again, paid for in cargo space; the tank's own weight
+         and the fuel's are left to that cargo cost (a simplification). Factors, materials, work and skill authored. -->
+    <defName>PhobosFitting_AuxFuelTank</defName>
+    <iconPath>Phobos/VehicleSystems/Fittings/AuxFuelTank</iconPath>
+    <label>auxiliary fuel tank</label>
+    <description>A second tank in a cradle, plumbed to the first. It holds half as much fuel again, so the vehicle goes further between refuels, but it takes up cargo space. Taken off, any fuel it held above what the main tank takes is drained into containers beside the vehicle.</description>
+    <roles><li>AuxTankMount</li></roles>
+    <materials><Steel>70</Steel><ComponentIndustrial>3</ComponentIndustrial></materials>
+    <work>6000</work>
+    <minSkill>4</minSkill>
+    <researchPrerequisite>PhobosResearch_VehicleTuning</researchPrerequisite>
+    <fuelCapacityFactor>1.5</fuelCapacityFactor>
+    <statFactors><li><stat>CargoCapacity</stat><factor>0.85</factor></li></statFactors>
+  </Phobos.VehicleSystems.PhobosVehicleFittingDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleFittingDef>
+    <!-- Framework 0.103.0, the long range family on aircraft (owner, 12 Nov 2026: ferry tanks). Real ferry tanks can more than double an
+         aircraft's fuel; three quarters as much again here, paid for in a large share of the cabin. Figures authored. -->
+    <defName>PhobosFitting_FerryTank</defName>
+    <iconPath>Phobos/VehicleSystems/Fittings/FerryTank</iconPath>
+    <label>ferry tank</label>
+    <description>A large tank strapped into the cabin and plumbed to the aircraft's own. It holds three quarters as much fuel again, for a long ferry flight, but takes much of the room for cargo. Taken off, any fuel it held above what the aircraft's own tanks take is drained into containers beside it.</description>
+    <roles><li>FerryTankMount</li></roles>
+    <materials><Steel>90</Steel><ComponentIndustrial>4</ComponentIndustrial></materials>
+    <work>8000</work>
+    <minSkill>6</minSkill>
+    <researchPrerequisite>PhobosResearch_VehicleTuning</researchPrerequisite>
+    <fuelCapacityFactor>1.75</fuelCapacityFactor>
+    <statFactors><li><stat>CargoCapacity</stat><factor>0.7</factor></li></statFactors>
+  </Phobos.VehicleSystems.PhobosVehicleFittingDef>
+
   <!-- Tunes: three named settings to an axis (owner), the default being the engine as built. -->
 
   <Phobos.VehicleSystems.PhobosVehicleTuneDef>

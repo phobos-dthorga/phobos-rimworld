@@ -1,6 +1,6 @@
-"""Draw the upgrade families' pictures (D'thorga Framework 0.103.0) with Pillow, in the look of the batch 3 buttons: the all-terrain tyres and
-work lamps fittings (each also its family's button) and the cold-weather pack's button. No image generator and no game or other author's art
-is involved; each has a record beside it.
+"""Draw the upgrade families' pictures (D'thorga Framework 0.103.0) with Pillow, in the look of the batch 3 buttons: the all-terrain tyres,
+work lamps, auxiliary fuel tank and ferry tank fittings (the tyres, lamps and auxiliary tank also serve as their families' buttons) and the
+cold-weather pack's button. No image generator and no game or other author's art is involved; each has a record beside it.
 
     python assets/phobos-vehicles/draw_family_icons.py
 """
@@ -80,10 +80,37 @@ def cold_weather(draw):
     draw.ellipse((centre[0] - 26, centre[1] - 26, centre[0] + 26, centre[1] + 26), fill=ICE, outline=OUTLINE, width=LINE // 2)
 
 
+FUEL = (226, 190, 70, 255)
+
+
+def aux_fuel_tank(draw):
+    # A squat steel tank on two cradle straps, an orange filler cap on top and a fuel drop beside it: extra fuel carried aboard.
+    draw.rounded_rectangle((40, 170, 380, 430), radius=60, fill=STEEL, outline=OUTLINE, width=LINE)
+    for x in (110, 290):
+        draw.rectangle((x, 150, x + 30, 450), fill=DARK, outline=OUTLINE, width=LINE // 2)
+    draw.rounded_rectangle((180, 110, 250, 175), radius=10, fill=ORANGE, outline=OUTLINE, width=LINE)
+    draw.line([(60, 300), (360, 300)], fill=DARK, width=10)
+    # The drop: a point at the top and a round foot.
+    draw.polygon([(440, 180), (395, 300), (485, 300)], fill=FUEL, outline=OUTLINE, width=LINE // 2)
+    draw.ellipse((392, 255, 488, 350), fill=FUEL, outline=OUTLINE, width=LINE)
+
+
+def ferry_tank(draw):
+    # A long cylindrical tank laid along an aircraft's cabin floor, under a swept wing's outline: a ferry tank for a long flight.
+    draw.polygon([(60, 150), (300, 150), (470, 60), (500, 90), (360, 200), (60, 200)], fill=DARK, outline=OUTLINE, width=LINE)
+    draw.rounded_rectangle((40, 260, 470, 400), radius=70, fill=STEEL, outline=OUTLINE, width=LINE)
+    for x in (140, 360):
+        draw.line([(x, 262), (x, 398)], fill=DARK, width=12)
+    draw.rounded_rectangle((235, 225, 290, 268), radius=8, fill=ORANGE, outline=OUTLINE, width=LINE // 2)
+    draw.line([(20, 440), (492, 440)], fill=OUTLINE, width=LINE)
+
+
 ICONS = [
     ('Fittings/AllTerrainTyres', all_terrain_tyres, 'a dark tyre side-on with deep square lugs round its tread and a grey rim, standing in brown mud'),
     ('Fittings/WorkLamps', work_lamps, 'two orange floodlights with pale yellow lenses on a dark bracket bar, their pale beams spreading downward'),
     ('Families/ColdWeather', cold_weather, 'a grey engine block with an orange heater lead, a dark battery with red and grey terminals, and a pale blue snowflake above'),
+    ('Fittings/AuxFuelTank', aux_fuel_tank, 'a squat grey tank on two dark cradle straps with an orange filler cap, and a yellow fuel drop beside it'),
+    ('Fittings/FerryTank', ferry_tank, 'a long grey cylindrical tank with an orange filler cap lying on a floor line, under the dark outline of a swept wing'),
 ]
 
 

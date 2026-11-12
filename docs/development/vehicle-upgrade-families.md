@@ -1,6 +1,6 @@
 # Vehicle upgrade families: upgrades shared across many vehicles (12 Nov 2026)
 
-**Part built, nothing tested in game.** Built in D'thorga Framework 0.103.0 and Vehicles 0.47.0 (part 1 of 3, 12 Nov 2026): the order for a whole family, the cold-weather pack, all-terrain tyres and work lights. Long range and recovery follow in parts 2 and 3. The section "Built in part 1" says what was built and where it departs from the proposal; the text before it is the proposal as the owner answered it. On 11 Nov 2026 the owner chose both a signature feature per
+**Part built, nothing tested in game.** Built in D'thorga Framework 0.103.0 and Vehicles 0.47.0 (parts 1 and 2 of 3, 12 Nov 2026): the order for a whole family, the cold-weather pack, all-terrain tyres and work lights, then long range. Recovery follows in part 3. The sections "Built in part 1" and "Built in part 2" say what was built and where it departs from the proposal; the text before it is the proposal as the owner answered it. On 11 Nov 2026 the owner chose both a signature feature per
 vehicle and "shared families" for the rest ([round two](vehicle-upgrades-round-two.md)); on 12 Nov 2026 they asked for this record
 first, with nothing built. **Every family, figure and fit below is agent-proposed** for the owner to pick from. Facts marked "from
 the code" were read on 12 Nov 2026 from our source and Vehicle Framework's 1.6 decompile with `scripts/query-code.py`.
@@ -200,6 +200,53 @@ The questions as they were put:
 Cost with several on a map: a family is worked out only while its window is open (every half second). The lamps add one check to a
 vehicle's rare tick, and their light is the game's own glower, registered only while they burn.
 
+## Built in part 2 (Framework 0.103.0, 12 Nov 2026)
+
+**Not yet tested in game.** Built by the agent from the owner's answers (long range on aircraft too, as ferry tanks); every figure is
+authored.
+
+### Long range
+
+- **Two fittings, one family.** The **auxiliary fuel tank** (`PhobosFitting_AuxFuelTank`: capacity ×1.5, cargo ×0.85) goes on a new
+  **auxiliary tank cradle**, appended in the combustion base loadout, so every fuelled land vehicle and boat has one. The **ferry tank**
+  (`PhobosFitting_FerryTank`: capacity ×1.75, cargo ×0.7) goes on new **ferry tank tie-downs**, appended in the aircraft base loadout, so
+  every fuelled aircraft has them. Each vehicle has only the mount for its own, so the family `PhobosFamily_LongRange` names both and
+  fits whichever suits. Electric vehicles have neither: they carry no liquid fuel.
+- **The capacity hook, from the code.** Vehicle Framework's `CompFueledTravel.FuelCapacity` is its Def's figure passed through
+  `VehicleStatHandler.GetStatOffset(VehicleStatUpgradeCategoryDefOf.FuelCapacity, ...)`, its own extension point for upgrades that add to a
+  tank; `AddStatOffset` adds to it, and the offsets are not saved. So a fitting gained `fuelCapacityFactor`, and
+  `VehicleFittings.SyncFuelCapacity` adds the difference between what the tanks should add (`FittingRule.FuelCapacityOffset`: the
+  capacity without them times the factor less one) and what it last added, held in a field that is never saved. **No Harmony.**
+- **Save and load.** Because neither our figure nor Vehicle Framework's offset is saved, both start from nothing after a load. The sync
+  runs in the existing post-load hook on `VehicleStatHandler.ExposeData` (where part grades are put back), which reaches a vehicle in a
+  caravan too, and again in the systems comp's `PostSpawnSetup`; it is idempotent. Vehicle Framework saves the fuel itself without
+  trimming it, and trims to capacity only when it burns fuel on a map (`ConsumeFuel`), which comes after both.
+- **Removal (agent choice).** Taking a tank off with more fuel aboard than the vehicle's own tank takes **drains the whole units above
+  into containers of the vehicle's fuel beside it**, with a message; the fraction is lost in the draining (the game counts fuel in whole
+  items). A tank destroyed with its mount **loses** that fuel, with a message saying how much. Removal is never refused: the player can
+  always undo a fitting. A vehicle off the map loses the excess, since there is nowhere to put containers.
+- **What follows the bigger tank without new code:** the refuel gizmo and refuelling jobs (Vehicle Framework fills to a share of
+  `FuelCapacity`), our depot bay and the tanker's ports (both read `FuelCapacity`), and the range outline on the world map, which reads
+  the fuel aboard.
+- **Which aircraft.** Every fuelled aircraft on the aircraft loadout, helicopters and jets alike: the Cherokee, the Louie, the Hind (VTOL
+  Vehicle) and the Harrier (the fixed-wing framework) all use Vehicle Framework's own fuel comp, and no mod on the owner's list overrides
+  its capacity (read 12 Nov 2026), so the offset reaches them all.
+- **Limits, said plainly.** The tank's weight and its fuel's are counted only as the cargo space it takes, not as mass on the drivetrain.
+  A design whose capacity Vehicle Framework sets outright (an override in its settings) ignores offsets, so a tank adds nothing there.
+  Removing the mod with a tank fitted keeps the fuel until it is next burnt, when it is trimmed to the vehicle's own capacity.
+- **Checked:** `FittingRule.FuelCapacityOffset`, `FuelAbove` and `WholeUnits` have unit tests; the self-test fits a tank to its test
+  vehicle, checks the capacity rises by the factor, that a second sync adds nothing, and that it goes back when the tank comes off.
+
+### Other factions' vehicles (long range)
+
+| Where | Long range |
+| --- | --- |
+| **A raid on us** | Nothing: no enemy fit set lists a tank, and other factions' vehicles do not travel the world map on our fuel rules |
+| **Parked at a base we attack** | Nothing yet |
+| **One we capture** | Fits as ours; it has the cradle or tie-downs like every vehicle of its kind |
+
+Cost with several on a map: the sync runs only when a fitting changes, a vehicle loads or one spawns; nothing per tick.
+
 ## Who chose what
 
 - **Owner:** families as well as signatures (11 Nov 2026); our features beside other authors' trees, never inside (11 Nov 2026); a design
@@ -210,3 +257,5 @@ vehicle's rare tick, and their light is the game's own glower, registered only w
 
 - Vehicle Framework, by Smash Phil: its stats and fuel comp, read from our decompile and summarised in our own words.
 - Our own code and Defs, cited by path above. No figure is set here, so none needs a source yet.
+- The tanks' factors (1.5 and 1.75) and cargo costs are authored. That real ferry tanks can more than double an aircraft's fuel is general
+  knowledge, not a cited figure, and no figure here rests on it.

@@ -70,6 +70,8 @@ public static class PartsOnLoad
         if (VehicleField?.GetValue(__instance) is not VehiclePawn vehicle) return;
         // The first moment both the parts and the saved grades exist; a part's grade changes its maximum health, which is not saved.
         vehicle.GetComp<CompPhobosVehicleSystems>()?.Fittings.ReapplyGrades();
+        // Extra tanks' capacity, which Vehicle Framework's offsets do not save, before anything burns or trims the fuel.
+        vehicle.GetComp<CompPhobosVehicleSystems>()?.Fittings.SyncFuelCapacity(FuelExcess.Keep);
         List<VehicleComponentProperties>? defined = vehicle.VehicleDef?.components;
         if (defined == null || __instance.components.Count >= defined.Count) return;
         var byKeys = ByKeys?.GetValue(__instance) as Dictionary<string, VehicleComponent>;

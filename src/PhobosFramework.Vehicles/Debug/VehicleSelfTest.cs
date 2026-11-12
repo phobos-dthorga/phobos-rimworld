@@ -156,6 +156,7 @@ public static class VehicleSelfTest
             test.Step("Fittings", () => Fittings(test, comp, mechanic));
             test.Step("Tunes", () => Tunes(test, comp, mechanic));
             test.Step("Grades", () => Grades(test, comp, mechanic));
+            test.Step("Extra tanks", () => ExtraTanks(test, comp, mechanic));
             test.Step("Enemy sets", () => EnemySets(test, comp));
             test.Step("Costs", () => Costs(test, comp));
             test.Step("Graph marks", () => Marks(test, comp));
@@ -310,6 +311,36 @@ public static class VehicleSelfTest
         }
         Work(test, comp, "Tuning it back", w => w.Order?.tune == asBuilt, mechanic);
         test.Near("Back to the power it was built with", comp.Powertrain!.Spec.RatedPowerKw, before, 0.1);
+    }
+
+    /// <summary>The long range family (Framework 0.103.0): an extra tank raises Vehicle Framework's fuel capacity by its factor, a second sync
+    /// adds nothing, and taking it off puts the capacity back. The fuel is first kept below the smaller capacity, so the test never drains
+    /// fuel onto the player's map.</summary>
+    static void ExtraTanks(SelfTest test, CompPhobosVehicleSystems comp, Pawn mechanic)
+    {
+        VehicleFittings fittings = comp.Fittings;
+        CompFueledTravel? tank = comp.Vehicle.CompFueledTravel;
+        VehicleComponent? part = fittings.ListedParts().FirstOrDefault(p => p.Health > 0f && fittings.FittedOn(p.props.key) == null
+                                                                             && fittings.OptionsFor(p).Any(f => f.fuelCapacityFactor > 1f));
+        if (tank == null || part == null)
+        {
+            test.Skip("Extra tanks", tank == null ? "this design carries no fuel" : "this design has no mount for an extra tank");
+            return;
+        }
+        PhobosVehicleFittingDef def = fittings.OptionsFor(part).First(f => f.fuelCapacityFactor > 1f);
+        float before = tank.FuelCapacity;
+        if (tank.Fuel > before * 0.5f) tank.ConsumeFuel(tank.Fuel - before * 0.5f);
+
+        fittings.OrderFitting(part, def);
+        Work(test, comp, "Fitting " + def.defName, w => w.Order?.fitting == def, mechanic);
+        test.Near("The tank holds more", tank.FuelCapacity, before * def.fuelCapacityFactor, 0.5);
+        fittings.SyncFuelCapacity(FuelExcess.Keep);
+        test.Near("Syncing again adds nothing", tank.FuelCapacity, before * def.fuelCapacityFactor, 0.5);
+
+        fittings.OrderRemoval(part);
+        Work(test, comp, "Taking the extra tank off", w => w.Order != null && w.Order.remove, mechanic);
+        test.Near("The capacity is back to its size", tank.FuelCapacity, before, 0.5);
+        test.Expect("The tank holds no more than it can", tank.Fuel <= tank.FuelCapacity + 0.01f);
     }
 
     static void Grades(SelfTest test, CompPhobosVehicleSystems comp, Pawn mechanic)

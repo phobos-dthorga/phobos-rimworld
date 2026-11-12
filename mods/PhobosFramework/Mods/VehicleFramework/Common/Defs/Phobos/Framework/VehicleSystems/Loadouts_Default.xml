@@ -154,6 +154,20 @@
           <cellsOf>Engine</cellsOf>
         </add>
       </li>
+      <li>
+        <!-- Framework 0.103.0, the long range family (docs/development/vehicle-upgrade-families.md): a cradle for an auxiliary fuel tank,
+             appended to every fuelled land vehicle and boat so the tank has a part to go on and is lost with it. Health and hit weights
+             authored; it sits over the engine's cells so Combat Extended can reach it. -->
+        <role>AuxTankMount</role>
+        <add>
+          <key>PhobosAuxTankMount</key>
+          <label>auxiliary tank cradle</label>
+          <health>30</health>
+          <hitWeight>0.1</hitWeight>
+          <hitWeightCE>6</hitWeightCE>
+          <cellsOf>Engine</cellsOf>
+        </add>
+      </li>
     </partRoles>
   </Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
 
@@ -806,6 +820,19 @@
           <key>PhobosStarter</key>
           <label>starter</label>
           <health>20</health>
+          <cellsOf>Engine</cellsOf>
+        </add>
+      </li>
+      <li>
+        <!-- Framework 0.103.0, the long range family: tie-down points in the cabin for a ferry tank, appended to every fuelled aircraft so the
+             tank has a part to go on and is lost with it. Health and hit weights authored. -->
+        <role>FerryTankMount</role>
+        <add>
+          <key>PhobosFerryTankMount</key>
+          <label>ferry tank tie-downs</label>
+          <health>25</health>
+          <hitWeight>0.1</hitWeight>
+          <hitWeightCE>6</hitWeightCE>
           <cellsOf>Engine</cellsOf>
         </add>
       </li>

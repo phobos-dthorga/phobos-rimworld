@@ -24,6 +24,7 @@ public static class FittingText
         Add(parts, "PhobosVehicleSystems_TuneFigurePower".Translate(), figures.Power, plain);
         Add(parts, "PhobosVehicleSystems_TuneFigureFuel".Translate(), figures.TunedFuel, plain);
         Add(parts, "PhobosVehicleSystems_EffectFinalDrive".Translate(), figures.FinalDrive, plain);
+        Add(parts, "PhobosVehicleSystems_EffectFuelCapacity".Translate(), figures.FuelCapacity, plain);
         foreach (KeyValuePair<Vehicles.VehicleStatDef, float> stat in figures.Stats) Add(parts, stat.Key.label, stat.Value, plain);
         foreach (KeyValuePair<(string system, string name), float> parameter in figures.Parameters)
         {

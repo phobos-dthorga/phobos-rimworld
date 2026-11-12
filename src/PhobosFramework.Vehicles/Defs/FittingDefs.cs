@@ -46,6 +46,9 @@ public class PhobosVehicleFittingDef : Def
     public List<ParameterFactorSpec> parameterFactors = new();
     public float powerFactor = 1f;
     public float fuelFactor = 1f;
+    /// <summary>A factor on the vehicle's fuel capacity (the long range family, Framework 0.103.0): extra tanks. Applied through Vehicle
+    /// Framework's own capacity offset while fitted, never saved (VehicleFittings.SyncFuelCapacity).</summary>
+    public float fuelCapacityFactor = 1f;
     /// <summary>Abilities the fitting gives the vehicle, by name (Framework 0.92.0): "CargoHook" lets a helicopter lift a vehicle on a sling.
     /// A fitting that grants something need move no figure.</summary>
     public List<string> grants = new();
@@ -70,7 +73,8 @@ public class PhobosVehicleFittingDef : Def
         foreach (string error in base.ConfigErrors()) yield return error;
         if (roles.Count == 0) yield return "names no roles";
         if (work <= 0f) yield return "work must be above 0";
-        if (statFactors.Count == 0 && parameterFactors.Count == 0 && powerFactor == 1f && fuelFactor == 1f && grants.Count == 0) yield return "moves no figure and grants nothing";
+        if (statFactors.Count == 0 && parameterFactors.Count == 0 && powerFactor == 1f && fuelFactor == 1f && fuelCapacityFactor == 1f && grants.Count == 0) yield return "moves no figure and grants nothing";
+        if (fuelCapacityFactor <= 0f) yield return "fuelCapacityFactor must be above 0";
         foreach (StatFactorSpec spec in statFactors)
         {
             if (spec.stat == null) yield return "a stat factor names no stat";

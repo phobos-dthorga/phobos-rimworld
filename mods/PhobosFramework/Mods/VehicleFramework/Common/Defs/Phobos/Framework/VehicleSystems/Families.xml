@@ -4,8 +4,8 @@
     Upgrade families (Framework 0.103.0; docs/development/vehicle-upgrade-families.md). The owner chose all five on 12 Nov 2026, each to be
     ordered as a whole in one go or part by part. A family names fittings only: which vehicles it suits follows from those fittings' roles
     and matches, never from a list of vehicles, and it sits beside another author's upgrade tree, never inside it. Ordering a family orders
-    each fitting on every part of the vehicle it suits, and turns on the switches it names. Families 3 and 5 (long range, recovery) follow
-    in later parts of the same batch. Another mod adds its own with this Def type.
+    each fitting on every part of the vehicle it suits, and turns on the switches it names. Long range is part 2 of the batch;
+    recovery follows in part 3. Another mod adds its own with this Def type.
   -->
 
   <Phobos.VehicleSystems.PhobosVehicleFamilyDef>
@@ -46,5 +46,19 @@
     <switchOn>
       <li>workLamps</li>
     </switchOn>
+  </Phobos.VehicleSystems.PhobosVehicleFamilyDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleFamilyDef>
+    <!-- Part 2 of the batch. A land vehicle or boat takes the auxiliary tank, an aircraft the ferry tank: each has only the mount for its own,
+         so one family serves both. -->
+    <defName>PhobosFamily_LongRange</defName>
+    <iconPath>Phobos/VehicleSystems/Fittings/AuxFuelTank</iconPath>
+    <label>long range</label>
+    <description>Extra fuel for a long trip: an auxiliary tank on a land vehicle or a boat, a ferry tank in an aircraft's cabin. Either costs cargo space.</description>
+    <order>3</order>
+    <fittings>
+      <li>PhobosFitting_AuxFuelTank</li>
+      <li>PhobosFitting_FerryTank</li>
+    </fittings>
   </Phobos.VehicleSystems.PhobosVehicleFamilyDef>
 </Defs>

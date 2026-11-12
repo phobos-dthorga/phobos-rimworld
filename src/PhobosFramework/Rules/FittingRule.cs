@@ -26,4 +26,19 @@ public static class FittingRule
 
     /// <summary>The fuel a tuned engine burns per hour beyond what Vehicle Framework already burned at this share of its rate.</summary>
     public static double TunedFuelShare(double modelShare, double factor) => modelShare * factor;
+
+    /// <summary>
+    /// What extra tanks add to a vehicle's fuel capacity (the long range family, Framework 0.103.0): the capacity it has without them, times
+    /// the tanks' factor less one. Capacity is additive in Vehicle Framework, so this is the difference, as a grade's health is. Nothing
+    /// for a vehicle with no tank or a factor of one or less.
+    /// </summary>
+    public static double FuelCapacityOffset(double capacityWithout, double factor) =>
+        capacityWithout <= 0 || factor <= 1 ? 0 : capacityWithout * (factor - 1);
+
+    /// <summary>The fuel left above a tank's capacity once a tank comes off (never below nothing).</summary>
+    public static double FuelAbove(double fuel, double capacity) => Math.Max(0, fuel - Math.Max(0, capacity));
+
+    /// <summary>Of the fuel above capacity, the whole units a mechanic drains into containers; the fraction left over is lost in the
+    /// draining (a simplification: the game counts fuel in whole items).</summary>
+    public static int WholeUnits(double amount) => amount <= 0 ? 0 : (int)Math.Floor(amount + 1e-6);
 }

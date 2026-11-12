@@ -419,6 +419,7 @@ public class CompPhobosVehicleSystems : VehicleComp
         VehicleSystemSounds.Settle(this);
         engineSound ??= EngineSound.For(Vehicle);
         fittings?.ReapplyGrades();    // before anything clamps a part to its maximum
+        fittings?.SyncFuelCapacity(FuelExcess.Keep);    // extra tanks, before the tank first burns and is trimmed to capacity
         RestorePartHealths();
         if (Usable && !respawningAfterLoad) Fittings.RollEnemySet();
         powertrain?.ForgetGround();
