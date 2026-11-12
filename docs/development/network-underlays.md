@@ -127,6 +127,30 @@ stays, the generator set keeping its own conduits while set up); only the piece 
   overlays; stops nothing; changes how they check a connection (the overlay, as for any hidden pipe, instead of the floor).
 - **Other factions:** unchanged; their vehicles lay nothing. **Cost:** unchanged; the swap runs once per piece, then does nothing.
 
+## Framework 0.108.3: the plumbing overlay joins up (13 Nov 2026)
+
+**Observed by the owner** (0.108.2, screenshots): in Dubs Bad Hygiene's plumbing overlay, our hidden plumbing beneath parked vehicles showed as
+loose short dashes, where the player's own plumbing showed a joined grid. Our chemfuel pipes and power conduits joined up.
+
+**Read from Dubs' code** (`python scripts/query-code.py --in "DBH*"`), not seen in play:
+
+- The overlay (`SectionLayer_SewagePipeOverlay`, redrawn on the `Buildings` mesh flag) prints each pipe with `Graphic_LinkedPipeOverlay`, which
+  joins it to a neighbour only where `HygienePipeMapComp.ZoneAt` (`HygienePipeMapComp.cs:149`) finds plumbing in Dubs' zone grid.
+- A new pipe only marks that grid dirty (`RegisterPipe` and `PipeChanged`, `:155-295`); the grid is rebuilt in `RegenPipeGrids` (`:112`), which
+  Dubs runs from its prefix on `Map.MapUpdate` (`HarmonyPatches_Plumbing.cs:58`). In multiplayer Dubs calls it itself straight after a pipe
+  registers (`:190-193`).
+- Hidden pipes are never drawn on the floor (`Graphic_LinkedPipe.PrintForGrid` skips a transparent shader), so the overlay is the only place
+  they show, and a player-built visible pipe does not join toward a hidden one on the floor by Dubs' design (`ShouldLinkWith`, `:64-90`).
+- Our whole footprint of pieces is laid in one go; the reading above does not by itself show why those sections kept the drawing made before
+  the grid caught up (the order in a frame is ticks, then Dubs' rebuild, then the redraw of dirty sections). **The exact moment is inferred,
+  not proven**: the fix does not depend on it.
+
+**The fix (agent's choice):** after any look that laid, swapped or took up Dubs pieces (a building's look and its removal; a vehicle's look,
+its leaving and its first look after a load), `DubsPipes.Redraw` rebuilds Dubs' grid at once through Dubs' own public `RegenPipeGrids`, then
+marks the `Buildings` mesh dirty for the footprint and a ring of cells round it, so the overlay is drawn from an up-to-date grid and the
+player's runs beside it join to ours. `PipeUnderlay.Changes` (never saved) tells a look whether it changed anything, so nothing runs per tick.
+**Chemfuel pipes and power conduits need nothing**: both join through the game's own link grid, which is updated as each piece spawns.
+
 ## The audit: everything of ours that uses a piped supply or power
 
 Read on 13 Nov 2026 from our mods' Defs and patches (a scan of every `ThingDef` and `VehicleDef` of ours for power, fuel, Vanilla

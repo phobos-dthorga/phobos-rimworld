@@ -62,6 +62,10 @@ public sealed class PipeUnderlay : IExposable
     bool cellsPending;
 
     /// <summary>Whether it has laid anything that still stands.</summary>
+    /// <summary>Counts every piece laid, swapped or taken up, never saved: a network whose own drawing lags behind its pieces (Dubs Bad Hygiene's
+    /// overlay, Framework 0.108.3) compares it before and after a look to know whether to bring its drawing up to date.</summary>
+    public int Changes { get; private set; }
+
     public bool Any
     {
         get
@@ -112,6 +116,7 @@ public sealed class PipeUnderlay : IExposable
             Thing? piece = make();
             if (piece == null) return;
             Add(GenSpawn.Spawn(Own(piece), cell, map), cell);
+            Changes++;
         }
     }
 
@@ -164,6 +169,7 @@ public sealed class PipeUnderlay : IExposable
             pieces[i] = GenSpawn.Spawn(Own(piece), cell, map);
             Register(pieces[i]);
             cells[i] = cell;
+            Changes++;
         }
     }
 
@@ -179,7 +185,9 @@ public sealed class PipeUnderlay : IExposable
         {
             if (laid[i] is not { } piece) continue;
             Unregister(piece);
-            if (!piece.Destroyed) piece.Destroy(DestroyMode.Vanish);
+            if (piece.Destroyed) continue;
+            piece.Destroy(DestroyMode.Vanish);
+            Changes++;
         }
     }
 

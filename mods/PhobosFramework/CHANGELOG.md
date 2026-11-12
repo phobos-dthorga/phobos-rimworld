@@ -5,6 +5,14 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.108.3] - 2026-11-13 - Draft
+
+Our plumbing joins up in the plumbing overlay
+
+### Fixed
+
+- **The plumbing beneath parked vehicles and our buildings now shows as a joined run in the plumbing overlay** (the owner's report of 13 November 2026 on 0.108.2: it showed as loose dashes, while player-built plumbing showed a joined grid). Dubs Bad Hygiene joins a pipe to its neighbours only where its own plumbing grid says plumbing lies, and it rebuilds that grid once a frame; a whole footprint of our pipes laid at once could be drawn before the grid knew about them, and nothing drew them again. After laying, swapping or taking up pieces, Dubs' grid is now rebuilt at once through its own call, and the cells and those around them are redrawn, so neighbouring runs join to ours too. Chemfuel pipes and power conduits already joined up and are unchanged. Not yet tested in game.
+
 ## [0.108.2] - 2026-11-13 - Draft
 
 The chemfuel line's hidden pipe beneath vehicles

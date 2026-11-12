@@ -38,9 +38,10 @@ public sealed class PlumbingLink : VehiclePipes.ILink
     public void Update(CompPhobosVehicleSystems comp)
     {
         var underlay = comp.Underlay(Key);
+        int before = underlay.Changes;
         if (!comp.ParkedForPipes || !TakesWater(comp))
         {
-            underlay.Clear();
+            Leave(comp);
             return;
         }
         Map map = comp.Vehicle.Map;
@@ -48,16 +49,28 @@ public sealed class PlumbingLink : VehiclePipes.ILink
         underlay.Renew(DubsPipes.Def, DubsPipes.Make);
         // Plumbing stands on any ground a vehicle can park on but water: the game will not build a pipe in water.
         underlay.Fill(footprint, map, cell => DubsPipes.IsPiped(cell, map), DubsPipes.Make, cell => !cell.GetTerrain(map).IsWater);
+        if (underlay.Changes != before) DubsPipes.Redraw(map, footprint);
     }
 
-    public void Leave(CompPhobosVehicleSystems comp) => comp.Underlay(Key).Clear();
+    public void Leave(CompPhobosVehicleSystems comp)
+    {
+        var underlay = comp.Underlay(Key);
+        int before = underlay.Changes;
+        // Read the map and footprint before the pieces go: a vehicle leaving the map may already be off it.
+        Map? map = comp.Vehicle.Spawned ? comp.Vehicle.Map : null;
+        CellRect footprint = comp.Vehicle.Spawned ? comp.Vehicle.OccupiedRect() : CellRect.Empty;
+        underlay.Clear();
+        if (map != null && underlay.Changes != before) DubsPipes.Redraw(map, footprint);
+    }
 
     public void AfterLoad(CompPhobosVehicleSystems comp)
     {
         if (!comp.Vehicle.Spawned) return;
         var underlay = comp.Underlay(Key);
+        int before = underlay.Changes;
         underlay.AdoptOnce(comp.Vehicle.OccupiedRect(), comp.Vehicle.Map, DubsPipes.IsOldHidden);
         underlay.Renew(DubsPipes.Def, DubsPipes.Make);
+        if (underlay.Changes != before) DubsPipes.Redraw(comp.Vehicle.Map, comp.Vehicle.OccupiedRect());
     }
 }
 

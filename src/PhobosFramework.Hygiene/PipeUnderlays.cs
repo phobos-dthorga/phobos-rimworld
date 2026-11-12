@@ -45,6 +45,21 @@ public static class DubsPipes
         return false;
     }
 
+    /// <summary>
+    /// Brings Dubs' drawing up to date after we laid, swapped or took up pieces on a map (Framework 0.108.3; the owner's report of 13 Nov 2026: our plumbing
+    /// beneath parked vehicles showed in the plumbing overlay as loose dashes, not a joined run). Dubs' overlay joins a pipe to a neighbour only where its own
+    /// zone grid says plumbing lies (HygienePipeMapComp.ZoneAt); a new pipe only marks that grid dirty, and Dubs rebuilds it once a frame, while the sections
+    /// holding our pieces could be drawn without it. So the grid is rebuilt now, through Dubs' own public call (the one it makes itself in multiplayer
+    /// straight after a pipe registers), and the sections under the area and around it are marked to redraw, so neighbouring runs join to ours too.
+    /// Called only after a look that changed something: nothing per tick.
+    /// </summary>
+    public static void Redraw(Map? map, CellRect area)
+    {
+        if (map == null || PlumbingFeed.LiteMode) return;
+        map.PipeNet().RegenPipeGrids();
+        foreach (IntVec3 cell in area.ExpandedBy(1).ClipInsideMap(map)) map.mapDrawer.MapMeshDirty(cell, MapMeshFlagDefOf.Buildings);
+    }
+
     public static Thing? Make()
     {
         ThingDef? pipe = Def;
@@ -69,10 +84,12 @@ public class CompPhobosPipeUnderlay : ThingComp
     {
         if (PlumbingFeed.LiteMode || !parent.Spawned) return;
         Map map = parent.Map;
+        int before = underlay.Changes;
         // Once, for a building saved before Framework 0.108.0: the hidden pipe its earlier versions laid, orphaned by 0.107.0's loading fault, is taken back.
         underlay.AdoptOnce(parent.OccupiedRect(), map, DubsPipes.IsOldHidden);
         underlay.Renew(DubsPipes.Def, DubsPipes.Make);
         underlay.Fill(parent.OccupiedRect(), map, cell => DubsPipes.IsPiped(cell, map), DubsPipes.Make);
+        if (underlay.Changes != before) DubsPipes.Redraw(map, parent.OccupiedRect());
     }
 
     public override void PostSpawnSetup(bool respawningAfterLoad)
@@ -84,7 +101,13 @@ public class CompPhobosPipeUnderlay : ThingComp
 
     public override void PostDeSpawn(Map map, DestroyMode mode = DestroyMode.Vanish)
     {
-        if (mode != DestroyMode.WillReplace) underlay.Clear();
+        if (mode != DestroyMode.WillReplace)
+        {
+            int before = underlay.Changes;
+            underlay.Clear();
+            // The building has left its cells already, so its footprint is read from where it stood.
+            if (underlay.Changes != before) DubsPipes.Redraw(map, GenAdj.OccupiedRect(parent.Position, parent.Rotation, parent.def.Size));
+        }
         base.PostDeSpawn(map, mode);
     }
 
