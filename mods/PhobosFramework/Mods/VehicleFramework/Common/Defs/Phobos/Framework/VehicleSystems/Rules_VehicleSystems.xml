@@ -48,6 +48,17 @@
     <serviceLeadWatts>300</serviceLeadWatts>
     <grabReachCells>4</grabReachCells>
     <grabSecondsPerLift>20</grabSecondsPerLift>
+    <!-- A helicopter's water bucket (Framework 0.101.0, all authored): a medium helicopter bucket's 3,000 litres, 100 litres to put out a
+         cell, a fire and its water within 50 cells, a run at 0.15 cells a tick, 3 seconds to climb and to come down, a dip of 6 and a pour
+         of 2. The litter kit brings 4 litters. -->
+    <waterBucketLitres>3000</waterBucketLitres>
+    <waterDropLitresPerCell>100</waterDropLitresPerCell>
+    <waterDropReachCells>50</waterDropReachCells>
+    <waterDropCellsPerTick>0.15</waterDropCellsPerTick>
+    <waterDropClimbSeconds>3</waterDropClimbSeconds>
+    <waterDropDipSeconds>6</waterDropDipSeconds>
+    <waterDropPourSeconds>2</waterDropPourSeconds>
+    <litterSlots>4</litterSlots>
     <diagnoseWork>1500</diagnoseWork>
     <hydraulicWorkFloor>0.2</hydraulicWorkFloor>
     <fieldFixWork>600</fieldFixWork>

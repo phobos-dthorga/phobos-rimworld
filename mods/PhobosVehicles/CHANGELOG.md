@@ -19,10 +19,12 @@ The first trailer. **Not yet tested in game.**
 - It borrows the Talus tipper's body for its picture (owner, 11 Nov 2026); a picture of its own waits for the owner's go.
 - **Service lead**, a new upgrade for the generator set (owner, 12 Nov 2026: a batch 3 signature): a heavy cable that charges or starts one of your vehicles within 6 cells while the set runs, taking 300 W before the camp's grid (D'thorga Framework 0.101.0). Electricity research; 30 steel and 2 components.
 - **Loading grab**, a new upgrade for the Talus tipper truck (owner, 12 Nov 2026): a small crane behind the cab that lifts loose chunks and stacks within 4 cells into the cargo, up to 500 kg a lift, with only the driver (D'thorga Framework 0.101.0). Machining research; 120 steel and 4 components. No picture on the body yet.
+- **Litter kit** for the Cherokee (owner, 12 Nov 2026: a batch 3 signature): its upholstery is now the cabin a litter kit of D'thorga Framework is fitted to, beside Vanilla Vehicles Expanded's own upgrades, never inside them. With a cargo hook it can also carry the Framework's **fire bucket** for water drops.
 
 ### Balance
 
 - Figures authored and held for the owner's review: the service lead's 6 cells and 300 W, the grab's 4 cells, 20 seconds a lift and 500 kg, both upgrades' costs, and the trailer's weights, its lengths (axle 3.2 cells behind the hitch) and its 70-degree jack-knife limit.
+- The litter kit's 4 litters, its fifth of the cargo space and its cost, and the fire bucket's 3,000 litres, 100 litres a cell, 50 cells' reach and cost, are authored and held for the owner's review (D'thorga Framework's rules).
 
 ### Save compatibility
 

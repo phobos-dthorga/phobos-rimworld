@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <!-- A helicopter's water bucket (Framework 0.101.0): a run through open water to a fire. docs/development/vehicle-upgrades-round-two.md -->
+  <PhobosWaterDrop_Gizmo>Water drop</PhobosWaterDrop_Gizmo>
+  <PhobosWaterDrop_GizmoDesc>Click a fire within {CELLS} cells. The helicopter flies to the nearest open water, fills its fire bucket, empties it over the fire and comes back to where it stands. Today the bucket carries {LITRES} litres.</PhobosWaterDrop_GizmoDesc>
+
+  <PhobosWaterDrop_NoBucket>It has no fire bucket aboard. Load one, made at the vehicle parts bench.</PhobosWaterDrop_NoBucket>
+  <PhobosWaterDrop_HasLoad>{LOAD} is on the hook. Set it down or leave it first.</PhobosWaterDrop_HasLoad>
+  <PhobosWaterDrop_NotHere>It has to be standing on this map.</PhobosWaterDrop_NotHere>
+  <PhobosWaterDrop_Moving>It has to stand still first.</PhobosWaterDrop_Moving>
+  <PhobosWaterDrop_NoCrew>It needs its crew aboard and able to fly.</PhobosWaterDrop_NoCrew>
+  <PhobosWaterDrop_NoFuel>Its tanks are empty.</PhobosWaterDrop_NoFuel>
+  <PhobosWaterDrop_Roofed>It cannot take off from under a roof.</PhobosWaterDrop_Roofed>
+  <PhobosWaterDrop_TooFar>That is too far: a fire within {CELLS} cells.</PhobosWaterDrop_TooFar>
+  <PhobosWaterDrop_TargetRoofed>Water dropped from the air cannot reach under a roof.</PhobosWaterDrop_TargetRoofed>
+  <PhobosWaterDrop_NothingBurning>Nothing is burning there under open sky.</PhobosWaterDrop_NothingBurning>
+  <PhobosWaterDrop_NoWater>There is no open water within {CELLS} cells to fill the bucket from.</PhobosWaterDrop_NoWater>
+  <PhobosWaterDrop_NotEnoughFuel>It has too little fuel for the flight there and back.</PhobosWaterDrop_NotEnoughFuel>
+
+  <PhobosWaterDrop_Started>{HELICOPTER} is off to fill its bucket with {LITRES} litres of water.</PhobosWaterDrop_Started>
+  <PhobosWaterDrop_Back>{HELICOPTER} is back down. Its water put out {COUNT} fires.</PhobosWaterDrop_Back>
+
+  <PhobosWaterDrop_RunLabel>{HELICOPTER} on a water drop</PhobosWaterDrop_RunLabel>
+  <PhobosWaterDrop_Inspect>{STAGE}. The bucket holds {LITRES} litres.</PhobosWaterDrop_Inspect>
+  <PhobosWaterDrop_StageClimb>Lifting off</PhobosWaterDrop_StageClimb>
+  <PhobosWaterDrop_StageToWater>Flying to the water</PhobosWaterDrop_StageToWater>
+  <PhobosWaterDrop_StageDip>Filling the bucket</PhobosWaterDrop_StageDip>
+  <PhobosWaterDrop_StageToFire>Flying to the fire</PhobosWaterDrop_StageToFire>
+  <PhobosWaterDrop_StagePour>Emptying the bucket over the fire</PhobosWaterDrop_StagePour>
+  <PhobosWaterDrop_StageHome>Flying back</PhobosWaterDrop_StageHome>
+  <PhobosWaterDrop_StageDescend>Coming down</PhobosWaterDrop_StageDescend>
+</LanguageData>

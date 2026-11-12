@@ -198,6 +198,105 @@ working grab scans a few dozen cells once each rare tick.
 **No picture yet:** the node has no overlay, since no picture of a crane exists for the tipper and this round makes no new art
 (owner's rules on paid art). The grab's work shows through the work bar and its sounds.
 
+### The water bucket (any helicopter with a cargo hook; the Cherokee today)
+
+**Built** in D'thorga Framework 0.101.0 and D'thorga Vehicles 0.45.0 (12 Nov 2026), as below; **not yet tested in game**. Everything here
+beyond the owner's choice of the signature is an agent choice, labelled for the owner to revise.
+
+**From the code, the checks:**
+
+- **How a fire goes out.** A fire is a thing of its own on a cell (`Fire`, with a `fireSize`); a burning pawn or vehicle carries one as an
+  attachment. The game's own extinguishing damage shrinks a fire and destroys it below a tenth of its size
+  (`DamageWorker_Extinguish.Apply`, `RimWorld-1.7` decompile), and also gives a pawn it hits a condition, which is the firefoam popper's
+  foam. Water from a bucket is not foam, so the drop destroys the fires on the cells it covers, and the fires attached to things on
+  them, and gives nobody a condition. Heat from fire (D'thorga Medical's hot cells) is worked out from the fires there are, so it
+  follows by itself: no tie-in needed.
+- **How a slung flight works on a map today** (part 2, d8ae738, recorded in [the sling design](vehicle-sling-design.md)): only Vehicle
+  Framework's take-off and landing, through its own stand-in; no hover and no orders in mid-air, because that stand-in is shared with
+  other aircraft mods' patches. A bucket that must fly to water and on to a fire cannot ride on it.
+- **So the bucket run is a stand-in of our own**, the shape Vehicle Framework itself uses: the helicopter leaves the map into a thing of
+  ours that flies the circuit and draws it, then sets it back down where it took off. Nothing of Vehicle Framework's launch is touched,
+  and no Harmony is needed. The run can be selected, and its inspect text says what it is doing.
+
+**What the player does:** fit a cargo hook (as for a sling load), make a **fire bucket** at the vehicle parts bench and load it aboard.
+With the helicopter crewed, fuelled, under open sky and the weather fit to fly, press **Water drop** and click a fire within
+**50 cells** (authored). The helicopter lifts off, flies to the open water within reach that makes the shortest circuit, dips the
+bucket, flies to the fire, empties the bucket over it and comes back to where it stood.
+
+| Rule | What we do | Source or label |
+| --- | --- | --- |
+| **Water carried** | The bucket's 3,000 litres, or less if the hook cannot lift that much today (a hot day's derating applies; a litre of water taken as a kilogram, the bucket's own weight left out) | Authored: a medium helicopter bucket's size; the hook rating and derating are the sling's |
+| **Area put out** | Every cell within a radius that gives 100 litres a cell (about 3 cells across for a full bucket), under open sky; roofed cells are missed | Authored |
+| **The circuit** | Climb, fly to the water, a dip of 6 seconds, fly to the fire, a pour of 2 seconds, fly back, come down; at 0.15 cells a tick, with 3 seconds to climb and to come down | Authored |
+| **Fuel** | The helicopter's own fuel use per tick for the length of the run, times the slung flight's 1.3 when that setting is on | Vehicle Framework's rate; the factor is the sling's |
+| **Weather** | The sling's own rule: no run in a storm or in wind above the sling's limit, with the sling's setting | The sling's |
+
+| Lets the player | Stops the player | Changes how they play |
+| --- | --- | --- |
+| Put out a fire from the air, far from the colony's hands, with nobody walking into the heat | Sling a vehicle on that flight; drop with no open water within reach; drop under a roof or through it; fly in a storm or high wind | A wildfire near a camp or outpost becomes a job for the helicopter, not a loss; a pond near the base becomes part of fire planning |
+
+**Cost:** nothing unless a run is in the air: then one thing ticks and draws for about half a minute. Finding the water reads the
+terrain within 50 cells once, when the order is given.
+
+**Other factions' vehicles:** no raider is ever given a bucket or the order, so a raider's helicopter never flies one. Parked at a base
+we attack, a helicopter is claimed first (the claim order); once ours, with a hook fitted and a bucket aboard, it flies runs as ours do.
+Captured: the same. A run puts out every fire in its area, whoever's it is.
+
+**Left out, said plainly:** the run is flown at a fixed height and speed, with no wind drift; the helicopter cannot be ordered mid-run
+(it finishes its circuit); a map closed while a run is in the air loses the helicopter with it; Cherokee Sling's own airlift, when
+active, takes the Cherokee's hook mount, so no hook and no bucket there (the hook's own stand-down).
+
+### The litter kit (any vehicle whose loadout names a cabin; the Cherokee today)
+
+**Built** in D'thorga Framework 0.101.0 and D'thorga Vehicles 0.45.0 (12 Nov 2026), as below; **not yet tested in game**. Agent choices
+throughout, for the owner to revise.
+
+**From the code, the check: can a patient be carried and tended in a vehicle seat?**
+
+- **The Cherokee has no passenger seats.** Its only role is the pilots' (two seats, both needed to fly; `VVE_Cherokee`'s Def). So
+  "seats swapped for stretchers" has nothing to swap on it, and the kit has to bring its own places.
+- **Vehicle Framework's own seats** take a downed pawn only in a seat with no duties, and only when a caravan is formed: its job that
+  carries a downed pawn aboard (`JobDriver_CarryPawnToVehicle`) is given by the caravan-forming duty alone, never as an order on the map.
+- **A seat's people are carried along and age as the vehicle ticks** (`VehicleRoleHandler.DoTick`), but nobody tends them, and a seat
+  added by code is lost at the next load unless the vehicle's Def or upgrade tree names it (`VehicleRoleHandler.ExposeData` rebuilds the
+  role from its key). Adding a role to another author's Def would also open it to every colonist who boards, not only patients.
+- **Tending out of reach of the map works:** the game tends caravan patients through `TendUtility.DoTend`, which needs neither
+  pawn on a map, one doctor every 1,250 ticks (`CaravanTendUtility`).
+- **In flight nothing ages:** Vehicle Framework's flying world object does not tick what it carries
+  (`AerialVehicleInFlight.ShouldTickContents` is false), so a casualty flown home arrives as they left.
+
+**So the litters are ours:** a holder on the vehicle's own comp, like the sling's, that takes downed pawns only. The game finds them
+through the same `Pawn.GetChildHolders` postfix the sling uses. While anyone lies on a litter, the comp ticks them, and a crew member
+aboard who can do doctoring tends them, as a caravan's doctor would.
+
+**What the player does:** fit the **litter kit** to the vehicle's cabin (the Cherokee's upholstery) in the fittings window. Right-click a
+downed person with a colonist selected: **Carry to a litter aboard...** names each vehicle with a free litter. The colonist carries
+them over and straps them in. **Unload casualties** on the vehicle sets everyone on its litters down beside it, for a doctor to take
+to bed.
+
+| Rule | What we do | Source or label |
+| --- | --- | --- |
+| **Litters** | 4 per kit | Authored |
+| **Who goes on one** | A downed person who is not hostile to the colony | Agent choice: a hostile is a capture, not a patient |
+| **Tending aboard** | Each crew member aboard who can do doctoring, is not downed and is not in a mental state tends one patient every 1,250 ticks, the game's own caravan interval, with the best medicine the vehicle's cargo holds that the patient's medical care allows, or none | The game's caravan rule and `TendUtility.DoTend` |
+| **The cost** | The kit's frames and stretchers take a fifth of the cargo space (cargo capacity x0.8) | Authored |
+| **Leaving the map** | In flight, the litters ride along and nothing ages. For anything else that takes the vehicle off the map (a caravan), the patients are set down where it stood first, with a message | Agent choice: a caravan has its own tending, and a vehicle caravan does not know our holder |
+
+| Lets the player | Stops the player | Changes how they play |
+| --- | --- | --- |
+| Fly a casualty home from a battle or a crash site, kept tended on the ground by a crew medic, without a seat to spare | Carry as much cargo (a fifth less); load anyone who is not down, or a hostile; take patients on a caravan | The helicopter becomes the colony's air ambulance: a doctor flying as the second pilot matters |
+
+**Cost:** nothing unless someone lies on a litter; then the vehicle ticks them, as Vehicle Framework ticks its passengers, and checks for
+a tend once every 250 ticks.
+
+**Other factions' vehicles:** no raider is given the kit, and another faction's vehicle never offers its litters to our colonists. Parked
+at a base we attack, it is claimed first; once ours, a fitted kit works as ours does. Captured: the same. Who lies on a litter can be a
+guest or a prisoner of ours (anyone downed and not hostile).
+
+**Left out, said plainly:** patients on litters are not fed while they wait; their weight does not count against the cargo capacity;
+whether the colonist bar counts them in flight is unchecked (as for the sling's passengers); a vehicle destroyed in flight loses them
+with it; a doctor on the ground cannot tend them aboard (unload them first). D'thorga Medical has no tie-in: none was needed.
+
 ## About the other mods
 
 Read with `scripts/workshop-research.py report` on 11 Nov 2026; a Workshop page shows activity, never whether a mod works.

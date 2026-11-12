@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <!-- The litter kit (Framework 0.101.0): downed people carried on litters aboard a vehicle. docs/development/vehicle-upgrades-round-two.md -->
+  <PhobosLitter_CarryTo>Carry {PATIENT} to a litter aboard {VEHICLE}</PhobosLitter_CarryTo>
+  <PhobosLitter_CarryToCannot>{ORDER}: {REASON}</PhobosLitter_CarryToCannot>
+
+  <PhobosLitter_NoKit>{VEHICLE} has no litter kit. A mechanic can fit one in the fittings and tunes.</PhobosLitter_NoKit>
+  <PhobosLitter_Full>Every litter aboard {VEHICLE} is taken.</PhobosLitter_Full>
+  <PhobosLitter_NotDowned>{PATIENT} is not down. Litters are for people who cannot walk.</PhobosLitter_NotDowned>
+  <PhobosLitter_Hostile>{PATIENT} is hostile. Capture them instead.</PhobosLitter_Hostile>
+  <PhobosLitter_NotHere>{VEHICLE} is not standing on this map.</PhobosLitter_NotHere>
+  <PhobosLitter_Moving>{VEHICLE} has to stand still first.</PhobosLitter_Moving>
+  <PhobosLitter_NoPath>{PATIENT} cannot be reached.</PhobosLitter_NoPath>
+
+  <PhobosLitter_Loaded>{CARRIER} strapped {PATIENT} onto a litter aboard {VEHICLE}.</PhobosLitter_Loaded>
+  <PhobosLitter_Unloaded>{COUNT} people were set down from the litters of {VEHICLE}.</PhobosLitter_Unloaded>
+  <PhobosLitter_SetDownLeaving>{VEHICLE} is leaving by land: the {COUNT} people on its litters were set down where it stood.</PhobosLitter_SetDownLeaving>
+
+  <PhobosLitter_UnloadGizmo>Unload casualties</PhobosLitter_UnloadGizmo>
+  <PhobosLitter_UnloadGizmoDesc>Set the {COUNT} people on the litters down beside the vehicle, for a doctor to take to bed.</PhobosLitter_UnloadGizmoDesc>
+
+  <PhobosLitter_Inspect>Litters: {COUNT} of {SLOTS} taken</PhobosLitter_Inspect>
+  <PhobosLitter_InspectPatients>On the litters: {NAMES}</PhobosLitter_InspectPatients>
+</LanguageData>

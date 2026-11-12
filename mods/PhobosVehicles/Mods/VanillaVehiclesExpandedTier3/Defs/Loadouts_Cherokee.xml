@@ -68,6 +68,15 @@
         </add>
       </li>
       <li>
+        <!-- The cabin (Framework 0.101.0's litter kit): the Cherokee's own upholstery part, so the kit is fitted there and lost with it. -->
+        <role>Cabin</role>
+        <find>
+          <li>
+            <key>Upholstery</key>
+          </li>
+        </find>
+      </li>
+      <li>
         <role>Engine1</role>
         <find>
           <li>

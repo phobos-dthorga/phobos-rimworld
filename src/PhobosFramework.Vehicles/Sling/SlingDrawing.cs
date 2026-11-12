@@ -103,21 +103,34 @@ public static class SlingDrawing
 
             // One layer below the helicopter, so its body and rotors cover the load as they would from above.
             var at = new Vector3(ground.x + (float)x, hook.y - Altitudes.AltInc, ground.z + (float)z);
-            drawArguments[0] = at;
-            drawArguments[1] = load.FullRotation;
-            drawArguments[2] = 0f;
-            drawAt.Invoke(load, drawArguments);
+            DrawVehicle(load, at, load.FullRotation);
 
             if (paidOut <= 0 || (hook - at).MagnitudeHorizontal() < StropsFromCells) return;
             float between = hook.y - Altitudes.AltInc / 2f;
             Vector3 along = load.Rotation.FacingCell.ToVector3() * (load.VehicleDef.Size.z * StropSpread);
             var from = new Vector3(hook.x, between, hook.z);
             var middle = new Vector3(at.x, between, at.z);
-            GenDraw.DrawLineBetween(from, middle + along, Strop, StropWidth);
-            GenDraw.DrawLineBetween(from, middle - along, Strop, StropWidth);
+            DrawStrop(from, middle + along);
+            DrawStrop(from, middle - along);
         }
         catch (System.Exception e) { UiGuard.Report(GuardKey, e); }
     }
+
+    /// <summary>Draws a vehicle that is not on the map (held by a sling, or flying a water drop run) at a place and facing, through Vehicle
+    /// Framework's own drawing. False when that drawing call could not be found.</summary>
+    internal static bool DrawVehicle(VehiclePawn vehicle, Vector3 at, Rot8 facing)
+    {
+        if (!resolved) Resolve();
+        if (drawAt == null) return false;
+        drawArguments[0] = at;
+        drawArguments[1] = facing;
+        drawArguments[2] = 0f;
+        drawAt.Invoke(vehicle, drawArguments);
+        return true;
+    }
+
+    /// <summary>One strop or line from a hook to what it holds.</summary>
+    internal static void DrawStrop(Vector3 from, Vector3 to) => GenDraw.DrawLineBetween(from, to, Strop, StropWidth);
 
     static Vector3 GroundUnder(VehiclePawn helicopter, VehicleSkyfaller flight, float altitude)
     {

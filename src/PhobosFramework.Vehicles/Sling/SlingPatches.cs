@@ -12,14 +12,17 @@ namespace Phobos.VehicleSystems;
 /// inventory, carried thing, equipment and apparel but never its comps (RimWorld 1.7 Verse.Pawn.cs:4736); Vehicle Framework's in-flight
 /// holders pass nothing on either. Without this the people riding in a slung vehicle would be lost track of in flight. Postfix: it adds the
 /// sling only while it holds something, and never skips the original (sling loads, Framework 0.92.0). Cherokee Sling makes the same kind of
-/// postfix for its own comp; each adds only its own.
+/// postfix for its own comp; each adds only its own. The litter kit's patients (Framework 0.101.0) are held the same way and listed here too,
+/// only while someone lies on a litter.
 /// </summary>
 [HarmonyPatch(typeof(Pawn), nameof(Pawn.GetChildHolders))]
 public static class Patch_PawnChildHolders_Sling
 {
     public static void Postfix(Pawn __instance, List<IThingHolder> outChildren)
     {
-        if (__instance is VehiclePawn vehicle && vehicle.GetComp<CompPhobosSling>() is { Carried: not null } sling && !outChildren.Contains(sling)) outChildren.Add(sling);
+        if (__instance is not VehiclePawn vehicle) return;
+        if (vehicle.GetComp<CompPhobosSling>() is { Carried: not null } sling && !outChildren.Contains(sling)) outChildren.Add(sling);
+        if (vehicle.GetComp<CompPhobosLitter>() is { Patients.Count: > 0 } litter && !outChildren.Contains(litter)) outChildren.Add(litter);
     }
 }
 

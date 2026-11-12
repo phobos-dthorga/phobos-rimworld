@@ -710,6 +710,18 @@ public class PhobosVehicleRulesDef : PhobosRulesDef
     /// lift takes. What one lift carries is the vehicle's stat Phobos_GrabLift, set by the grab's node.</summary>
     public float grabReachCells = 4f;
     public float grabSecondsPerLift = 20f;
+    /// <summary>A helicopter's water bucket (Framework 0.101.0, all authored; WaterDropRule): the litres a bucket holds, the litres that put out a
+    /// cell, how far from the helicopter a fire and the water may be, the run's speed in cells a tick, and the seconds to climb (and to come
+    /// down), to dip and to pour.</summary>
+    public float waterBucketLitres = 3000f;
+    public float waterDropLitresPerCell = 100f;
+    public float waterDropReachCells = 50f;
+    public float waterDropCellsPerTick = 0.15f;
+    public float waterDropClimbSeconds = 3f;
+    public float waterDropDipSeconds = 6f;
+    public float waterDropPourSeconds = 2f;
+    /// <summary>The litter kit (Framework 0.101.0, authored): the litters one kit brings. Tending aboard follows the game's caravan interval.</summary>
+    public int litterSlots = 4;
     /// <summary>Claiming another faction's vehicle (owner, 11 Nov 2026): hours to get in and make it answer to us, more for each cell it covers,
     /// and the most it can take. All authored.</summary>
     public float claimBaseHours = 0.5f;

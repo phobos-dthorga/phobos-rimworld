@@ -134,7 +134,9 @@
         {"label": "Set the load down", "icon": "vs:Sling/SetDown.png"},
         {"label": "Leave the load", "icon": "vs:Sling/Release.png"},
         {"label": "Hitch a trailer", "icon": "vs:Hitch/Hitch.png"},
-        {"label": "Unhitch", "icon": "vs:Hitch/Unhitch.png"}
+        {"label": "Unhitch", "icon": "vs:Hitch/Unhitch.png"},
+        {"label": "Water drop", "icon": "vs:Sling/WaterDrop.png"},
+        {"label": "Unload casualties", "icon": "vs:Litter/Unload.png"}
       ]
     },
     {
@@ -155,7 +157,8 @@
         {"label": "Drive belt", "icon": "parts:DriveBelt.png"},
         {"label": "Jump-start kit", "icon": "vs:Things/JumpStartKit.png"},
         {"label": "Booster pack", "icon": "vs:Things/BoosterPack.png"},
-        {"label": "Sling set", "icon": "vs:Things/SlingSet.png"}
+        {"label": "Sling set", "icon": "vs:Things/SlingSet.png"},
+        {"label": "Fire bucket", "icon": "vs:Things/FireBucket.png"}
       ]
     },
     {

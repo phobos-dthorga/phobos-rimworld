@@ -25,7 +25,8 @@ and wear that a mechanic services. See [Vehicle systems](#vehicle-systems-with-v
   the world map. Vehicles left in one stay with no time limit, and whoever is stationed there mends them from steel and components
   you bring by caravan. **Before removing this mod, take every vehicle out of every garage**, or they go with it.
 - **New in 0.101.0 (not yet tested in game): sling wrecks.** A load let go from a helicopter's sling lies on the world map as a wreck
-  until a caravan recovers it. **Before removing this mod, recover every wreck**, or the vehicle in it goes with it.
+  until a caravan recovers it. **Before removing this mod, recover every wreck**, or the vehicle in it goes with it. **Likewise, let a
+  water drop run land and unload every litter first**, or the helicopter in the run and the people on the litters go with it.
 - **RimWorld 1.7 only** (from 0.10.0; 1.6 is no longer supported, owner's decision of 8 November 2026).
 - **From 0.28.0 the game's log is turned back on when it stops itself** at 10,000 messages a session (the setting **Keep the
   game's log going after its message limit**, on), at most 25 times a session, with a line naming the message that filled it. This
@@ -89,7 +90,11 @@ and wear that a mechanic services. See [Vehicle systems](#vehicle-systems-with-v
   lands, a message says it was lifted, the world map's tabs and the fleet board list it, and a landed helicopter with no room to set its
   load down has a **Set the load down** button. **From 0.101.0 (not yet tested in game)** wind and storms ground a lift, a slung flight
   is slower and burns more, landing asks where to put the load, and on the world map **Emergency release** drops it as a wreck for a
-  caravan to recover; a crash drops it too. Each is a setting under **Sling loads**. **From 0.93.0 the Systems tab is compact**: one row a reading, which opens to
+  caravan to recover; a crash drops it too. Each is a setting under **Sling loads**. **Also from 0.101.0 (not yet tested in game)** a
+  helicopter with a cargo hook and a **fire bucket** aboard flies **Water drop** runs: click a fire within 50 cells, and it fills the
+  bucket at the nearest open water and empties it over the fire; and a **litter kit** in a vehicle's cabin makes it an air ambulance:
+  right-click a downed person with a colonist to **Carry to a litter aboard...**, a crew member who can doctor tends them while it
+  stands, and **Unload casualties** sets them down. **From 0.93.0 the Systems tab is compact**: one row a reading, which opens to
   its graph on a click, a card a system, parts as a strip of small bars, and an **Only what needs attention** tick box. **From 0.94.0** a
   screen of ours that fails shows one line and tries again in a few seconds, where the game would fill its log; and in dev mode
   **"Vehicle systems: run the self-test"** checks most of this in one go, a sling lift included. Not yet tested in game.

@@ -88,10 +88,13 @@ public sealed class CompPhobosSling : VehicleComp, IThingHolder
 
     bool HasSlingSet => Vehicle.inventory?.innerContainer.Any(t => t.def == VehicleSystemsThingDefOf.PhobosVehicleSystems_SlingSet) == true;
 
+    /// <summary>Whether a cargo hook is fitted: what a sling load and a water bucket both hang from.</summary>
+    public bool HookFitted => Systems?.Fittings.Grants(HookAbility) == true;
+
     /// <summary>Why this helicopter cannot lift anything now, or null.</summary>
     public string? Refusal()
     {
-        if (Systems?.Fittings.Grants(HookAbility) != true) return "PhobosSling_NoHook".Translate().Resolve();
+        if (!HookFitted) return "PhobosSling_NoHook".Translate().Resolve();
         if (!HasSlingSet) return "PhobosSling_NoSlingSet".Translate().Resolve();
         if (Carried != null) return "PhobosSling_AlreadyCarrying".Translate(Carried.LabelShort.Named("LOAD")).Resolve();
         return WeatherRefusal(Vehicle.Map);
@@ -487,6 +490,8 @@ public sealed class CompPhobosSling : VehicleComp, IThingHolder
         };
         if (Refusal() is { } refusal) lift.Disable(refusal);
         yield return lift;
+        // The water bucket (Framework 0.101.0) hangs from the same hook: offered once a hook is fitted, and says why when it cannot go.
+        if (HookFitted) yield return WaterDrops.Gizmo(this);
     }
 
     public override string? CompInspectStringExtra()

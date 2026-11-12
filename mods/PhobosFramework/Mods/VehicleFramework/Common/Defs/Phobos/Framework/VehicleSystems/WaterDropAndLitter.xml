@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    Batch 3's signatures for helicopters (Framework 0.101.0; docs/development/vehicle-upgrades-round-two.md). Not yet tested in game.
+
+    The fire bucket: what a helicopter with a cargo hook carries to fight a fire from the air, kept aboard and never used up, as the sling set
+    is. Made at the vehicle parts bench like the service kits. Its cost stands for a collapsible bucket of coated fabric (cloth) on a steel
+    frame and dump valve (steel, components); mass, value and work are authored. What it holds is the rules Def's waterBucketLitres.
+  -->
+  <ThingDef ParentName="PhobosServiceKitBase">
+    <defName>PhobosVehicleSystems_FireBucket</defName>
+    <label>fire bucket</label>
+    <description>A collapsible bucket of heavy coated fabric on a steel frame, with a dump valve worked from the cockpit. Hung from a helicopter's cargo hook, it is filled by dipping it into open water and emptied over a fire. It is not used up.</description>
+    <graphicData>
+      <texPath>Phobos/VehicleSystems/Things/FireBucket</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <stackLimit>1</stackLimit>
+    <statBases>
+      <MaxHitPoints>100</MaxHitPoints>
+      <MarketValue>220</MarketValue>
+      <Mass>30</Mass>
+      <Flammability>0.6</Flammability>
+      <WorkToMake>3500</WorkToMake>
+    </statBases>
+    <costList>
+      <Cloth>60</Cloth>
+      <Steel>45</Steel>
+      <ComponentIndustrial>1</ComponentIndustrial>
+    </costList>
+  </ThingDef>
+
+  <!-- A helicopter flying a water drop run: our own stand-in that holds it while it flies the circuit, as Vehicle Framework's own take-off
+       stand-in does, but selectable. -->
+  <ThingDef ParentName="EtherealThingBase">
+    <defName>PhobosVehicleSystems_WaterRun</defName>
+    <label>water drop run</label>
+    <description>A helicopter flying to open water to fill its bucket, then over a fire to empty it, before it comes back down where it stood.</description>
+    <thingClass>Phobos.VehicleSystems.PhobosWaterRun</thingClass>
+    <tickerType>Normal</tickerType>
+    <altitudeLayer>Skyfaller</altitudeLayer>
+    <drawerType>RealtimeOnly</drawerType>
+    <drawOffscreen>true</drawOffscreen>
+    <selectable>true</selectable>
+    <useHitPoints>false</useHitPoints>
+  </ThingDef>
+
+  <!-- The litter kit: a colonist carries a downed person to a litter aboard a vehicle. Ordered from the right-click menu only. -->
+  <JobDef>
+    <defName>PhobosVehicleSystems_CarryToLitter</defName>
+    <driverClass>Phobos.VehicleSystems.JobDriver_PhobosCarryToLitter</driverClass>
+    <reportString>carrying TargetA to a litter.</reportString>
+    <casualInterruptible>false</casualInterruptible>
+  </JobDef>
+</Defs>

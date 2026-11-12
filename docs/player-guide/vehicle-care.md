@@ -67,7 +67,7 @@ off **This colony: services take raw materials instead of kits** in the settings
 
 **The coolant top-up** takes water from a plumbing pipe beside the parked vehicle with Dubs Bad Hygiene, or 3 chemfuel without it.
 
-![Our parts and kits: engine assembly, transmission, turbine assembly, drivetrain kit, electrical kit, tyre set, brake pad set, engine service kit, drive belt, jump-start kit, booster pack and sling set](images/vehicle-parts-and-kits.png)
+![Our parts and kits: engine assembly, transmission, turbine assembly, drivetrain kit, electrical kit, tyre set, brake pad set, engine service kit, drive belt, jump-start kit, booster pack, sling set and fire bucket](images/vehicle-parts-and-kits.png)
 
 ### Jump-starting
 
@@ -99,7 +99,7 @@ heater switch on before it leaves).
   within an in-game hour or expect a hot engine and a radiator to repair; left two hours, the engine boils over.
 - **Damage shows on our vehicles' pictures** once a part is below 60%: scorches, holes and tears.
 
-![Vehicle buttons: service, patch leaks, jump-start, diagnose, repair in a caravan, fittings and tunes, headlights, cab heater, air conditioner, climate control, night heater, assign vehicle, go to bay, and the sling's lift, set down and leave, and the hitch's hitch and unhitch](images/vehicle-buttons.png)
+![Vehicle buttons: service, patch leaks, jump-start, diagnose, repair in a caravan, fittings and tunes, headlights, cab heater, air conditioner, climate control, night heater, assign vehicle, go to bay, the sling's lift, set down and leave, the hitch's hitch and unhitch, water drop and unload casualties](images/vehicle-buttons.png)
 
 ## The workshop
 
@@ -183,6 +183,16 @@ shows while a dyno bay is in reach. It works on any vehicle, from any mod, that 
   drive it, tow it or lift it home. **A helicopter that crashes drops its load too**, beside the wreckage.
 - **Each of these is a setting** under **Sling loads** in D'thorga Framework's settings: hot days, ground crew, weather, slower flight,
   and release and drops.
+- **Fighting a fire from the air** (not yet tested in game): a helicopter with a cargo hook and a **fire bucket** in its cargo (made at
+  the vehicle parts bench) gets **Water drop**. Click a fire within 50 cells: it flies to the nearest open water, fills the bucket, empties
+  it over the fire and comes back to where it stood. **It needs open water within reach, open sky over the fire, its crew, fuel and
+  flying weather**; the button says what is missing. A full bucket puts out the fires on about 3 cells across. Click the helicopter while
+  it flies to see what it is doing.
+- **An air ambulance** (not yet tested in game): fit the **litter kit** to the helicopter's cabin (Fittings and tunes; on the Cherokee it
+  goes on the upholstery). Right-click a downed person with a colonist selected and choose **Carry to a litter aboard...**. Up to 4 people
+  lie on the litters. **Put a colonist who can doctor in the crew and medicine in the cargo**: while the helicopter stands, they tend the
+  patients. In flight nobody gets worse. Press **Unload casualties** at the other end, then take them to bed. **Leaving by caravan sets
+  the patients down first.** The kit takes a fifth of the cargo space.
 
 ## Towing a trailer
 

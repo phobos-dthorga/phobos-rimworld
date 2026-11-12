@@ -141,6 +141,22 @@
     <grants><li>CargoHook</li></grants>
   </Phobos.VehicleSystems.PhobosVehicleFittingDef>
 
+  <Phobos.VehicleSystems.PhobosVehicleFittingDef>
+    <!-- Framework 0.101.0, batch 3's signatures (docs/development/vehicle-upgrades-round-two.md): litters in the cabin, an air ambulance. It goes on
+         the part a loadout names as its cabin (the Cherokee's upholstery); the litters it brings are the rules Def's litterSlots. Its frames
+         take a fifth of the cargo space. Materials, work and skill authored. -->
+    <defName>PhobosFitting_LitterKit</defName>
+    <iconPath>Phobos/VehicleSystems/Fittings/LitterKit</iconPath>
+    <label>litter kit</label>
+    <description>Stanchions and straps for stretchers along the cabin, with a first-aid locker. Downed people can be carried aboard and lie on the litters, and anyone in the crew who can doctor tends them while the vehicle stands. The frames take up cargo space.</description>
+    <roles><li>Cabin</li></roles>
+    <materials><Steel>60</Steel><Cloth>40</Cloth><ComponentIndustrial>2</ComponentIndustrial></materials>
+    <work>8000</work>
+    <minSkill>4</minSkill>
+    <statFactors><li><stat>CargoCapacity</stat><factor>0.8</factor></li></statFactors>
+    <grants><li>Litter</li></grants>
+  </Phobos.VehicleSystems.PhobosVehicleFittingDef>
+
   <!-- Tunes: three named settings to an axis (owner), the default being the engine as built. -->
 
   <Phobos.VehicleSystems.PhobosVehicleTuneDef>

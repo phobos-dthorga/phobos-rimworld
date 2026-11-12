@@ -228,6 +228,11 @@ is put on the nearest tile with nothing else on it. The game's wind (`WindManage
    release on a map, the drop on engine failure. Their settings.
 3. **Pictures and sounds**: the five icons (OpenAI, the owner's choice), and a hook latch sound through the sound pipeline.
 
+**Also on the hook (Framework 0.101.0, batch 3's signatures):** the **water bucket** hangs from the same cargo hook and keeps to the
+sling's weather rule and hook capacity, but flies its runs as a stand-in of our own, not through Vehicle Framework's flight; the
+**litter kit** rides in the cabin and through a flight like the sling's load, held by a comp of its own. Both are designed in
+[vehicle upgrades, round two](vehicle-upgrades-round-two.md).
+
 ## Open questions
 
 - **Decided (owner, 12 Nov 2026): a load dropped on the world map becomes a wreck site** a caravan can recover. Built in Framework

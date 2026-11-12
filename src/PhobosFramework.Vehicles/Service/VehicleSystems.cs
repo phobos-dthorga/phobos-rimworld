@@ -163,6 +163,8 @@ public static class VehicleSystems
         def.comps.Add(props);
         // Sling loads (Framework 0.92.0): a loadout that rates a cargo hook gives the helicopter its sling, used once a hook is fitted.
         if (loadout.sling != null && !slingStandsDown && !def.comps.Any(c => c is CompProperties_PhobosSling)) def.comps.Add(new CompProperties_PhobosSling());
+        // The litter kit (Framework 0.101.0): a loadout that names a cabin gives the vehicle its litters, used once the kit is fitted there.
+        if (props.roleKeys.ContainsKey(LitterRoles.Cabin) && !def.comps.Any(c => c is CompProperties_PhobosLitter)) def.comps.Add(new CompProperties_PhobosLitter());
         // The hitch (Framework 0.101.0): every land vehicle with a loadout can tow a trailer, unless its loadout says not; whether it may tow
         // now (our drivetrain, or the player's setting for others) is asked when the player orders it.
         if (def.type == VehicleType.Land && !loadout.noHitch && !def.comps.Any(c => c is CompProperties_PhobosHitch)) def.comps.Add(new CompProperties_PhobosHitch());
