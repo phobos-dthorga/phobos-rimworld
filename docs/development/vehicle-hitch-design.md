@@ -1,6 +1,7 @@
 # The hitch and the generic trailer: design (11 Nov 2026)
 
-**A design with one check done. Nothing is built, and nothing is tested in game.** It follows
+**Status (12 Nov 2026): slices 1 and 2 are built** in D'thorga Framework 0.101.0 and D'thorga Vehicles 0.45.0, **not yet tested in game**: see
+"Slice 2 as built" below for what was built and where it differs from the plan. It follows
 [the trailer research](vehicle-trailer-research.md), where the owner answered on 11 Nov 2026: a hitch of our own, improved
 and smoother; the smoother turn is worth a check; and "a genericized trailer that can be towed by, theoretically, any
 vehicle", provided the vehicle has the torque, the engine power and the cooling for it. Facts marked "from the code" were
@@ -195,10 +196,62 @@ The questions as they were put:
    mass, a gameplay simplification), or not tow at all? (Agent default: the plain rule, so "any vehicle" stays true.)
 4. **How many sizes?** One medium flatbed first, or small, medium and large from the start? (Agent default: one.)
 
+## Slice 2 as built (12 Nov 2026)
+
+**Built, not yet tested in game.** The owner started it on 12 Nov 2026 as part of one batch with one version.
+
+| Piece | Where | What it does |
+| --- | --- | --- |
+| `CompPhobosHitch` | `src/PhobosFramework.Vehicles/Hitch/CompPhobosHitch.cs` | Added at start-up to every land vehicle with a loadout (`VehicleSystems.Apply`; a loadout's `noHitch` leaves it out). Holds the trailer, its saved axle and heading, the order and its refusals, the follow step, the drawbar picture and the towed weight. Ticks only while hitched, through Vehicle Framework's tick on request, and works only while the vehicle moves or for 90 ticks after it stops |
+| `CompPhobosTrailer` | `src/PhobosFramework.Vehicles/Hitch/CompPhobosTrailer.cs` | Makes any vehicle Def a trailer in XML: hitch to axle, axle to centre, jack-knife angle, the drawbar part. The trailer's inspect line and its own Unhitch button. A trailer gets no loadout |
+| `Hitches` | same file as the hitch | Which hitch tows which trailer, and which wait for a colonist, kept by the hitches |
+| The hitch-up job | `src/PhobosFramework.Vehicles/Hitch/HitchJobs.cs`, `Rules_VehicleSystems.xml` | A colonist who hauls walks to the trailer, works about a third of an hour, and the trailer is set behind the vehicle |
+| `HitchRule` additions | `src/PhobosFramework.Vehicles/Rules/HitchRule.cs`, tested | The footprint's middle as Vehicle Framework works it out, the cell that puts it nearest a point, a heading split into a facing and an extra turn, and the plain rule |
+| The tow in the model | `Powertrain.SampleGround`, `CompPhobosVehicleSystems.SpeedCap` | The towed weight reaches `DriveConditions.TowedMassKg`; the plain rule multiplies the speed cap where the model does not work the tow out |
+| The Pintle flatbed trailer | `mods/PhobosVehicles/Defs/Phobos/Vehicles/FlatbedTrailer/` | 2 x 5 cells, 2,000 kg empty, 3,000 kg of cargo, a parts bill and one upgrade (greedy boards) |
+| Icons | `Textures/Phobos/VehicleSystems/Hitch/`, drawn by `assets/phobos-vehicles/draw_hitch_icons.py` | Hitch a trailer, and Unhitch (also on the cancel button) |
+
+**Where it differs from the plan, and why (agent choices, for the owner to revise):**
+
+- **The trailer's place snaps to whole cells; there is no sub-cell offset.** The plan put the remainder of the axle's place in the
+  trailer's `Transform`. Vehicle Framework adds `Transform.position` twice when it draws a vehicle: its `DrawPos` includes it
+  (`VehicleFramework-1.6:Vehicles.decompiled.cs:13843-13852`) and `DynamicDrawPhaseAt` adds it again to the place it is given
+  (`:16047`), which the game fills from `DrawPos` (`RimWorld-1.7:Verse.Thing.cs:1308-1314`). An offset there would be drawn double. So
+  only the turn goes through `Transform.rotation`, and Vehicle Framework's own glide (`VehicleTweener`, a spring toward the cell's
+  middle) smooths each step. The gap at the hitch varies by up to half a cell; **a drawbar is drawn from the hitch to the trailer's front**
+  each frame, so the eye sees the bar stretch rather than the trailer jump.
+- **Four facings, not eight.** The trailer Def turns off diagonal facings and is drawn at the nearest of four plus up to 45 degrees.
+  Our textures' east and south are the north turned by the export script, so the hand-over between facings should not show. Its
+  footprint is the nearest facing's, a simplification at 45 degrees.
+- **Coupling sets the trailer behind the vehicle.** The plan had the vehicle back up to it. Backing a vehicle onto a point needs path
+  work of its own; in this slice the colonist couples it and the trailer is placed straight behind the vehicle, if the ground there is
+  clear (otherwise it refuses and says so). The trailer must stand within 8 cells.
+- **Blocked means stopped.** Before the trailer moves, its footprint at the new cells is checked: on the map, walkable, and clear of every
+  vehicle but the one towing it. If not, the vehicle's path is stopped and a message says why, at most once in ten seconds.
+- **Leaving the map leaves the trailer.** A vehicle that despawns (a caravan, a launch) unhitches and says the trailer stays behind.
+- **Loading while hitched is not stopped**, though the plan said "no loading while hitched": refusing it would need a patch to Vehicle
+  Framework's cargo window. Haulers may follow a moving trailer.
+- **With the drivetrain model on display only**, our vehicles tow on the plain rule too, so a tow is never free.
+- **The trailer's name**: the Pintle flatbed trailer, Pintle P1 (a pintle is the hook-and-ring coupling a drawbar trailer hangs from).
+  Bolster was the first choice, but Busbar already holds the B1 designation.
+- **Authored figures**: 2,000 kg empty and 3,000 kg of cargo, hitch to axle 3.2 cells, axle to centre 0.2, jack-knife 70 degrees, the
+  hitch 0.3 cells behind a vehicle's rear edge, 8 cells' reach, 900 ticks of work to couple, the greedy boards' +600 kg.
+
+**Other factions, as built:** any faction's land vehicle with a loadout carries a hitch; nothing orders one to hitch, so no raid brings a
+trailer yet (slice 4). A trailer of another faction is refused until claimed ("Claim it first"; the claim order, Framework 0.97.0). A
+trailer whose vehicle is destroyed or leaves stays where it stood. Cost with several on a map: nothing for a vehicle without a trailer;
+a parked train costs one comparison a tick.
+
+**Still to see in game:** whether the picture jumps at the hand-over between facings; whether the tweener's glide reads as smooth at
+speed; how often a tight turn stops the vehicle.
+
 ## Who chose what
 
 - **Owner (11 Nov 2026):** our own hitch, improved and smoother; the check; a generic trailer any vehicle can tow, limited
   by torque, power and cooling.
+- **Owner (11 Nov 2026, the four decisions):** on the map and hittable; borrow our picture first; only our drivetrain tows by default, with
+  a setting; one medium flatbed.
+- **Agent choices in slice 2 (12 Nov 2026):** everything in "Where it differs from the plan" above.
 - **Agent defaults:** the holder beside the sling's; the follow rule and its two simplifications; grip from the tractor
   alone; drag unchanged; the hitch point from the footprint; the slices; the four defaults above.
 

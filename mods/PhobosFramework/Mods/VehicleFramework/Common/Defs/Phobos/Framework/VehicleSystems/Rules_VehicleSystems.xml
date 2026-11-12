@@ -24,6 +24,11 @@
     <slingMaxLoss>0.3</slingMaxLoss>
     <slingHookUpWork>1500</slingHookUpWork>
     <slingReachCells>25</slingReachCells>
+    <!-- The hitch (Framework 0.101.0, authored): a trailer within 8 cells; coupling is about a third of an hour for a worker of normal speed;
+         the hitch stands 0.3 cells behind a vehicle's rear edge unless its Def names its own point. -->
+    <hitchReachCells>8</hitchReachCells>
+    <hitchUpWork>900</hitchUpWork>
+    <hitchGapCells>0.3</hitchGapCells>
     <diagnoseWork>1500</diagnoseWork>
     <hydraulicWorkFloor>0.2</hydraulicWorkFloor>
     <fieldFixWork>600</fieldFixWork>
@@ -123,6 +128,27 @@
     <verb>hook up</verb>
     <gerund>hooking up</gerund>
     <priorityInType>60</priorityInType>
+    <requiredCapacities>
+      <li>Manipulation</li>
+    </requiredCapacities>
+  </WorkGiverDef>
+
+  <!-- The hitch (Framework 0.101.0): a colonist couples a trailer to the vehicle waiting on it. Any colonist who hauls; no skill. -->
+  <JobDef>
+    <defName>PhobosVehicleSystems_HitchUp</defName>
+    <driverClass>Phobos.VehicleSystems.JobDriver_PhobosHitchUp</driverClass>
+    <reportString>coupling TargetA.</reportString>
+    <casualInterruptible>true</casualInterruptible>
+  </JobDef>
+
+  <WorkGiverDef>
+    <defName>PhobosVehicleSystems_HitchUp</defName>
+    <label>couple trailers</label>
+    <giverClass>Phobos.VehicleSystems.WorkGiver_PhobosHitchUp</giverClass>
+    <workType>Hauling</workType>
+    <verb>couple</verb>
+    <gerund>coupling</gerund>
+    <priorityInType>59</priorityInType>
     <requiredCapacities>
       <li>Manipulation</li>
     </requiredCapacities>

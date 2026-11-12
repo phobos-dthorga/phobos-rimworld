@@ -1,7 +1,7 @@
 # Working vehicles
 
 **D'thorga Vehicles** adds six vehicles that do a job: find ore, drill it, haul it, move fluids, power a camp, and explore under
-the sea. It also gives other mods' vehicles the figures their real counterparts have. The submarine has
+the sea, and a trailer any of them can tow. It also gives other mods' vehicles the figures their real counterparts have. The submarine has
 [its own chapter](submarines.md); looking after any vehicle is in [looking after vehicles](vehicle-care.md).
 [Back to the guide](README.md).
 
@@ -15,11 +15,12 @@ the sea. It also gives other mods' vehicles the figures their real counterparts 
   RimThunder or Vanilla Vehicles Expanded is installed, a build asks for their parts instead.
 - **A vehicle that is set up cannot drive.** Its engine can still be started, but press **Pack up** before you move it.
 - **Heavy trucks have air brakes**: after standing for hours, draft one and let it idle a few minutes before it will drive.
+- **A trailer cannot go on a journey yet**: a vehicle that leaves the map leaves its trailer behind.
 - **Before removing the mod, scrap every one of these vehicles**: they go with it.
 
 ## The fleet
 
-![The six working vehicles to scale, seen from above: the Ullage bulk tanker, Datum survey truck, Kelly drill rig, Busbar generator set, Talus tipper truck and Fathom seabed crawler](images/vehicles-family.png)
+![The six working vehicles and the trailer to scale, seen from above: the Ullage bulk tanker, Datum survey truck, Kelly drill rig, Busbar generator set, Talus tipper truck, Fathom seabed crawler and Pintle flatbed trailer](images/vehicles-family.png)
 
 *To scale: one game cell is the same size in every picture. The tanker is shown with a liquid tank fitted.*
 
@@ -33,6 +34,7 @@ Every name is a real word from engineering or earth science that says something 
 | **Ullage bulk tanker** | 3 x 10 | Carries and pumps fluids, buys them in bulk | The empty space a tank must keep above its load |
 | **Busbar generator set** | 2 x 6 | A power station you can drive away | The bar that carries power into a grid |
 | **Fathom seabed crawler** | 4 x 9 | A small submarine ([its chapter](submarines.md)) | The sailor's six-foot depth unit; to get to the bottom of something |
+| **Pintle flatbed trailer** | 2 x 5 | A second load behind any land vehicle | The hook-and-ring coupling a drawbar trailer hangs from |
 
 How they work together:
 
@@ -128,6 +130,24 @@ It carries both bits: pick by the job.
 **Upgrades:** **greedy boards** (taller sides, +600 kg), and either a **rock body** (tips half as fast again) or a **bulk body**
 (3,600 kg, tips slower).
 
+## Pintle flatbed trailer
+
+A two-axle flatbed: 2,000 kg empty, 3,000 kg of cargo. Its picture is the tipper's body for now, borrowed until it has its own.
+
+1. **Build it** from the **motor pool** tab, after **vehicle parts** research.
+2. **Load it** through its cargo tab while it stands unhitched.
+3. **Hitch it**: select a land vehicle, press **Hitch a trailer** and pick the trailer, within 8 cells. A colonist who hauls walks over and
+   couples it, and it is set straight behind the vehicle.
+4. **Drive.** The trailer follows on the map, cuts inside corners and can be shot. **If it would run into a wall or another vehicle, the
+   vehicle stops and says so**: take a wider way round, or unhitch.
+5. **Unhitch** (on the vehicle or the trailer) leaves it where it stands, loaded, for later.
+
+**Its weight is the towing vehicle's to pull.** A full trailer slows a small truck, runs its engine hotter and costs fuel; on mud or a
+hill only the vehicle's own wheels grip. Only vehicles the drivetrain model works out can tow, unless you turn on **Vehicles without the
+drivetrain model can tow** in D'thorga Framework's settings. A broken drawbar must be repaired before it can be hitched.
+
+**Upgrade:** **greedy boards** (+600 kg).
+
 ## Ullage bulk tanker
 
 ![The bulk tanker as built with a bare deck, with a liquid tank fitted and its hose out, and with a pressure vessel](images/tanker-fitted.png)
@@ -203,7 +223,7 @@ itself. A few you will notice:
 ## What has been tested in game
 
 - **Tested by the owner:** the survey truck and its boom (9 November 2026).
-- **Not yet tested in game:** the other five vehicles, every upgrade, the bulk buying, and how the pictures sit. Where each upgrade's
+- **Not yet tested in game:** the other five vehicles, the trailer and towing, every upgrade, the bulk buying, and how the pictures sit. Where each upgrade's
   picture sits on its vehicle is a first placement, to be adjusted once seen in game.
 
 Every figure and its source is in [D'thorga Vehicles' README](../../mods/PhobosVehicles/README.md).

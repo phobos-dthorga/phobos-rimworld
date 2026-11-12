@@ -51,6 +51,8 @@ public static class VehicleSystems
         Designs.Add(record);
         try
         {
+            // A trailer (Framework 0.101.0) has no engine, seats or systems of its own: it is towed, never fitted.
+            if (def.comps?.Any(c => c is CompProperties_PhobosTrailer) == true) { record.skippedBecause = "a trailer"; return; }
             PhobosVehicleLoadoutDef? loadout = Choose(def, out bool tied);
             record.loadout = loadout;
             record.tied = tied;
@@ -161,6 +163,9 @@ public static class VehicleSystems
         def.comps.Add(props);
         // Sling loads (Framework 0.92.0): a loadout that rates a cargo hook gives the helicopter its sling, used once a hook is fitted.
         if (loadout.sling != null && !slingStandsDown && !def.comps.Any(c => c is CompProperties_PhobosSling)) def.comps.Add(new CompProperties_PhobosSling());
+        // The hitch (Framework 0.101.0): every land vehicle with a loadout can tow a trailer, unless its loadout says not; whether it may tow
+        // now (our drivetrain, or the player's setting for others) is asked when the player orders it.
+        if (def.type == VehicleType.Land && !loadout.noHitch && !def.comps.Any(c => c is CompProperties_PhobosHitch)) def.comps.Add(new CompProperties_PhobosHitch());
         // The Dashboard and Systems tabs, before ThingDef.ResolveReferences resolves the tab list (this runs in its prefix; re-check the
         // order when Vehicle Framework releases 1.7). Only fitted designs get them.
         def.inspectorTabs ??= new List<System.Type>();

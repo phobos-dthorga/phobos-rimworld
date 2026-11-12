@@ -9,6 +9,23 @@ tested in game unless an entry says the owner tested it.
 
 - The README no longer calls the generator set's, drill rig's and tipper's pictures stand-ins or the Crawler's upgrade pictures still to come, and lists the generator set's heavy-duty fan among its upgrades. Documentation only; nothing changes in play.
 
+## [0.45.0] - 2026-11-12 - Draft
+
+The first trailer. **Not yet tested in game.**
+
+### Added
+
+- **The Pintle flatbed trailer** (owner, 11 Nov 2026: one medium flatbed first): built at the motor pool after vehicle parts research. 2,000 kg empty, 3,000 kg of cargo loaded through its cargo tab while it stands unhitched, and one upgrade, greedy boards (600 kg more). Any land vehicle with D'thorga Framework's hitch can tow it (Framework 0.101.0). Its parts are a bill like the trucks': four tyres, two springs, a frame and wiring.
+- It borrows the Talus tipper's body for its picture (owner, 11 Nov 2026); a picture of its own waits for the owner's go.
+
+### Balance
+
+- Figures authored and held for the owner's review: the trailer's weights, its lengths (axle 3.2 cells behind the hitch) and its 70-degree jack-knife limit.
+
+### Save compatibility
+
+- Safe to add mid-game.
+
 ## [0.44.0] - 2026-11-12 - Draft
 
 Damage you can see, and the survey truck's boom upgrades on the boom. **Not yet tested in game.**

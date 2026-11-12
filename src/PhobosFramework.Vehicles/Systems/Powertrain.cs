@@ -345,6 +345,8 @@ public sealed class Powertrain
         {
             EngineRunning = running,
             MassKg = MassKg(),
+            // A trailer behind the hitch (Framework 0.101.0): rolled, speeded up and lifted with the vehicle, no grip.
+            TowedMassKg = comp.Hitch?.TowedKilograms ?? 0,
             CurrentGear = Result.Gear,
             UsableGears = UsableGears(),
             ClutchCapacity = ClutchCapacity(),

@@ -55,6 +55,9 @@ public class VehicleSystemsSettings : ModSettings
     public bool slingHeatDerating = true;
     /// <summary>A colonist hooks a sling load up; off, the helicopter does it itself. Live.</summary>
     public bool slingGroundCrew = true;
+    /// <summary>Vehicles without a drivetrain of ours may tow, on the plain rule (Framework 0.101.0; owner, 11 Nov 2026: off by default, with a
+    /// warning). Live.</summary>
+    public bool hitchOthersPlainRule;
     public bool powerPointLargeSocket;
     /// <summary>Another faction's vehicle may be found with fittings and a tune.</summary>
     public bool enemyFitSets = true;
@@ -153,6 +156,7 @@ public class VehicleSystemsSettings : ModSettings
         Scribe_Values.Look(ref fitCostScalesWithWeight, "PhobosVehicleSystems_FitCostScalesWithWeight", true);
         Scribe_Values.Look(ref slingHeatDerating, "PhobosVehicleSystems_SlingHeatDerating", true);
         Scribe_Values.Look(ref slingGroundCrew, "PhobosVehicleSystems_SlingGroundCrew", true);
+        Scribe_Values.Look(ref hitchOthersPlainRule, "PhobosVehicleSystems_HitchOthersPlainRule", false);
         Scribe_Values.Look(ref powerPointLargeSocket, "PhobosVehicleSystems_PowerPointLargeSocket", false);
         Scribe_Values.Look(ref enemyFitSets, "PhobosVehicleSystems_EnemyFitSets", true);
         Scribe_Values.Look(ref displayMode, "PhobosVehicleSystems_DisplayMode", DisplayMode.Plain);
@@ -362,6 +366,9 @@ public class VehicleSystemsMod : Mod
         SettingsUi.Section(listing, "PhobosSling_Section".Translate());
         listing.CheckboxLabeled("PhobosSling_SettingHeat".Translate(), ref s.slingHeatDerating, "PhobosSling_SettingHeatDesc".Translate());
         listing.CheckboxLabeled("PhobosSling_SettingCrew".Translate(), ref s.slingGroundCrew, "PhobosSling_SettingCrewDesc".Translate());
+
+        SettingsUi.Section(listing, "PhobosHitch_Section".Translate());
+        listing.CheckboxLabeled("PhobosHitch_SettingOthers".Translate(), ref s.hitchOthersPlainRule, "PhobosHitch_SettingOthersDesc".Translate());
 
         SettingsUi.Section(listing, "PhobosVehicleSystems_SectionJumpStarts".Translate());
         listing.CheckboxLabeled("PhobosVehicleSystems_SettingJumpStartNeedsKit".Translate(), ref s.jumpStartNeedsKit, "PhobosVehicleSystems_SettingJumpStartNeedsKitDesc".Translate());

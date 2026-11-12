@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- What it is made of, by role (docs/development/parts-bills.md; D'thorga Vehicles 0.45.0). A 2-tonne flatbed on two axles: four tyres,
+       their springs, a frame and the wiring for its lights. Its blueprint's cost list is its shell; each role is filled at start-up by an
+       installed mod's part where it suits the trailer's weight, and by ours otherwise. Counts authored, held for the owner's review. -->
+  <Phobos.VehicleSystems.PhobosVehicleBillDef>
+    <defName>PhobosBill_FlatbedTrailer</defName>
+    <label>flatbed trailer parts</label>
+    <target>Phobos_FlatbedTrailer_Blueprint</target>
+    <parts>
+      <Wheels>4</Wheels>
+      <Suspension>2</Suspension>
+      <Frame>1</Frame>
+      <Wiring>1</Wiring>
+    </parts>
+  </Phobos.VehicleSystems.PhobosVehicleBillDef>
+</Defs>

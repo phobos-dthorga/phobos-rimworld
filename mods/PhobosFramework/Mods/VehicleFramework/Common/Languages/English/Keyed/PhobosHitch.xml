@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <!-- The hitch (Framework 0.101.0): a vehicle tows a trailer. docs/development/vehicle-hitch-design.md -->
+  <PhobosHitch_HitchGizmo>Hitch a trailer</PhobosHitch_HitchGizmo>
+  <PhobosHitch_HitchGizmoDesc>Choose a trailer standing within {CELLS} cells. A colonist walks over and couples it, and it is set straight behind this vehicle. The trailer and all it carries then add to the weight the engine must pull.</PhobosHitch_HitchGizmoDesc>
+  <PhobosHitch_CancelGizmo>Leave the trailer</PhobosHitch_CancelGizmo>
+  <PhobosHitch_CancelGizmoDesc>Stop waiting for {TRAILER} to be coupled.</PhobosHitch_CancelGizmoDesc>
+  <PhobosHitch_UnhitchGizmo>Unhitch</PhobosHitch_UnhitchGizmo>
+  <PhobosHitch_UnhitchGizmoDesc>Let {TRAILER} go where it stands. It stays there, loaded, until a vehicle hitches it again.</PhobosHitch_UnhitchGizmoDesc>
+
+  <PhobosHitch_NotFitted>{TRACTOR} is not fitted to tow.</PhobosHitch_NotFitted>
+  <PhobosHitch_AlreadyTowing>{TRACTOR} is already towing {TRAILER}.</PhobosHitch_AlreadyTowing>
+  <PhobosHitch_NotItself>A vehicle cannot tow itself.</PhobosHitch_NotItself>
+  <PhobosHitch_NotATrailer>{TRAILER} is not a trailer.</PhobosHitch_NotATrailer>
+  <PhobosHitch_NotOurs>{TRAILER} is not ours. Claim it first.</PhobosHitch_NotOurs>
+  <PhobosHitch_TowedByOther>{TRAILER} is already hitched to {TRACTOR}.</PhobosHitch_TowedByOther>
+  <PhobosHitch_NotHere>{TRAILER} is not here.</PhobosHitch_NotHere>
+  <PhobosHitch_DrawbarBroken>The drawbar of {TRAILER} is broken: there is nothing to couple to until it is repaired.</PhobosHitch_DrawbarBroken>
+  <PhobosHitch_TooFar>{TRAILER} is too far away. Park within {CELLS} cells of it.</PhobosHitch_TooFar>
+  <PhobosHitch_Moving>{TRACTOR} is moving. Stop it first.</PhobosHitch_Moving>
+  <PhobosHitch_NoRoom>There is no room behind {TRACTOR} for {TRAILER}. Clear the ground behind it, or park somewhere more open.</PhobosHitch_NoRoom>
+
+  <PhobosHitch_Chosen>{TRACTOR} waits for someone to couple {TRAILER}.</PhobosHitch_Chosen>
+  <PhobosHitch_Cancelled>Nobody will couple {TRAILER} now.</PhobosHitch_Cancelled>
+  <PhobosHitch_Hitched>{CREW} coupled {TRAILER} to {TRACTOR}.</PhobosHitch_Hitched>
+  <PhobosHitch_Unhitched>{TRAILER} is unhitched from {TRACTOR}.</PhobosHitch_Unhitched>
+  <PhobosHitch_CannotFollow>The trailer cannot follow: {TRAILER} would run into something, so {TRACTOR} has stopped. Take a wider way round, or unhitch it.</PhobosHitch_CannotFollow>
+  <PhobosHitch_LeftBehind>{TRAILER} stays behind: a trailer cannot go on a journey yet.</PhobosHitch_LeftBehind>
+
+  <PhobosHitch_InspectTowing>Towing {TRAILER}: {WEIGHT} kg.</PhobosHitch_InspectTowing>
+  <PhobosHitch_InspectPlainCap>Held to {CAP} of its speed by the weight behind it.</PhobosHitch_InspectPlainCap>
+  <PhobosHitch_InspectWaiting>Waiting for someone to couple {TRAILER}.</PhobosHitch_InspectWaiting>
+  <PhobosHitch_InspectTowedBy>Hitched to {TRACTOR}.</PhobosHitch_InspectTowedBy>
+  <PhobosHitch_InspectDrawbarBroken>Its drawbar is broken: it cannot be towed until it is repaired.</PhobosHitch_InspectDrawbarBroken>
+
+  <PhobosHitch_Section>Towing</PhobosHitch_Section>
+  <PhobosHitch_SettingOthers>Vehicles without the drivetrain model can tow</PhobosHitch_SettingOthers>
+  <PhobosHitch_SettingOthersDesc>Off by default: only vehicles whose engine, gears and grip the drivetrain model works out can tow, and for them a heavy trailer slows the climb, runs the engine hotter and burns more fuel. On, every other land vehicle can tow too, but on a plain rule only: it keeps its own weight's share of its speed, whatever its engine, the ground or the hill. A small car pulling a loaded trailer will crawl; a big truck barely notices.</PhobosHitch_SettingOthersDesc>
+</LanguageData>

@@ -20,7 +20,8 @@
         {"label": "Kelly drill rig (3 x 10)", "cells": [11, 4], "layers": ["veh:DrillRig/DrillRig_east.png", "veh:DrillRig/DrillRig_Mast_east.png", "veh:DrillRig/DrillRig_RotaryHead_east.png"]},
         {"label": "Busbar generator set (2 x 6)", "cells": [7, 3], "layers": ["veh:GeneratorSet/GeneratorSet_east.png", "veh:GeneratorSet/GeneratorSet_Fan_east.png"]},
         {"label": "Talus tipper truck (3 x 8)", "cells": [9, 4], "layers": ["veh:Tipper/Tipper_east.png", "veh:Tipper/Tipper_Body_east.png"]},
-        {"label": "Fathom seabed crawler (4 x 9)", "cells": [10, 5], "layers": ["veh:SeabedCrawler/SeabedCrawler_east.png"]}
+        {"label": "Fathom seabed crawler (4 x 9)", "cells": [10, 5], "layers": ["veh:SeabedCrawler/SeabedCrawler_east.png"]},
+        {"label": "Pintle flatbed trailer (2 x 5)", "cells": [6, 3], "layers": ["veh:FlatbedTrailer/FlatbedTrailer_east.png"]}
       ]
     },
     {
@@ -131,7 +132,9 @@
         {"label": "Go to bay", "icon": "vs:Stations/BayGoTo.png"},
         {"label": "Lift a vehicle", "icon": "vs:Sling/Lift.png"},
         {"label": "Set the load down", "icon": "vs:Sling/SetDown.png"},
-        {"label": "Leave the load", "icon": "vs:Sling/Release.png"}
+        {"label": "Leave the load", "icon": "vs:Sling/Release.png"},
+        {"label": "Hitch a trailer", "icon": "vs:Hitch/Hitch.png"},
+        {"label": "Unhitch", "icon": "vs:Hitch/Unhitch.png"}
       ]
     },
     {

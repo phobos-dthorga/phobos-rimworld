@@ -602,6 +602,8 @@ public class PhobosVehicleLoadoutDef : Def
     public PhobosVehicleFlightProfileDef? flightProfile;
     /// <summary>A helicopter's cargo hook, once fitted (Framework 0.92.0, sling loads): its rated load, sourced per aircraft.</summary>
     public SlingSpec? sling;
+    /// <summary>A land vehicle of this loadout gets no hitch (Framework 0.101.0): for a design that should never tow.</summary>
+    public bool noHitch;
     /// <summary>Groups loadouts in the settings window: CombustionLand, Aircraft, Boat, Electric, Rail, Heavy.</summary>
     public string kind = "General";
     public LoadoutSelector selector = new();
@@ -680,6 +682,11 @@ public class PhobosVehicleRulesDef : PhobosRulesDef
     public float slingHookUpWork = 1500f;
     /// <summary>How far, in cells, a load may stand from the helicopter that lifts it, and how far around it a load is set down.</summary>
     public float slingReachCells = 25f;
+    /// <summary>The hitch (Framework 0.101.0, authored): how far a trailer may stand from the vehicle that hitches it, the work of coupling it
+    /// up, and the gap from a vehicle's rear edge to its hitch, in cells.</summary>
+    public float hitchReachCells = 8f;
+    public float hitchUpWork = 900f;
+    public float hitchGapCells = 0.3f;
     /// <summary>Claiming another faction's vehicle (owner, 11 Nov 2026): hours to get in and make it answer to us, more for each cell it covers,
     /// and the most it can take. All authored.</summary>
     public float claimBaseHours = 0.5f;

@@ -99,7 +99,7 @@ heater switch on before it leaves).
   within an in-game hour or expect a hot engine and a radiator to repair; left two hours, the engine boils over.
 - **Damage shows on our vehicles' pictures** once a part is below 60%: scorches, holes and tears.
 
-![Vehicle buttons: service, patch leaks, jump-start, diagnose, repair in a caravan, fittings and tunes, headlights, cab heater, air conditioner, climate control, night heater, assign vehicle, go to bay, and the sling's lift, set down and leave](images/vehicle-buttons.png)
+![Vehicle buttons: service, patch leaks, jump-start, diagnose, repair in a caravan, fittings and tunes, headlights, cab heater, air conditioner, climate control, night heater, assign vehicle, go to bay, and the sling's lift, set down and leave, and the hitch's hitch and unhitch](images/vehicle-buttons.png)
 
 ## The workshop
 
@@ -175,6 +175,18 @@ shows while a dyno bay is in reach. It works on any vehicle, from any mod, that 
      load down** once there is.
 
   The load, with its cargo and people, must weigh no more than the hook takes today: less on hot days.
+
+## Towing a trailer
+
+Not yet tested in game. Any land vehicle can tow a trailer such as the [Pintle flatbed](working-vehicles.md#pintle-flatbed-trailer).
+
+- **Press Hitch a trailer** and pick one within 8 cells; a colonist couples it and it is set behind the vehicle. **Unhitch** lets it go.
+- **The trailer stays on the map** and follows the hitch. **If it would hit a wall or another vehicle, the vehicle stops and says so.**
+- **The engine pulls the trailer and its load too**: lower gears, more heat, more fuel, a crawl on soft ground or uphill. The trailer adds
+  no grip.
+- **Only vehicles the drivetrain model works out can tow**, unless you turn on **Vehicles without the drivetrain model can tow** (under
+  **Towing** in D'thorga Framework's settings), which slows them by a plain rule instead.
+- **A vehicle that leaves the map leaves its trailer behind**, and says so.
 
 ## Other factions' vehicles
 

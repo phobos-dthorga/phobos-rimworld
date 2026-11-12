@@ -184,8 +184,26 @@ public class CompPhobosVehicleSystems : VehicleComp
         }
     }
 
-    /// <summary>The share of its speed the vehicle may use this tick (the path follower's patch reads it).</summary>
-    public float SpeedCap => Usable ? Powertrain?.SpeedCap ?? 1f : 1f;
+    /// <summary>The share of its speed the vehicle may use this tick (the path follower's patch reads it): the drivetrain model's, and a
+    /// tow's on the plain rule where the model does not work the tow out (Framework 0.101.0).</summary>
+    public float SpeedCap => Usable ? (Powertrain?.SpeedCap ?? 1f) * (Hitch?.PlainSpeedCap ?? 1f) : 1f;
+
+    CompPhobosHitch? hitch;
+    bool hitchFound;
+
+    /// <summary>The vehicle's hitch, if it has one (found once: the speed cap asks every tick).</summary>
+    public CompPhobosHitch? Hitch
+    {
+        get
+        {
+            if (!hitchFound && Vehicle != null)
+            {
+                hitchFound = true;
+                hitch = Vehicle.GetComp<CompPhobosHitch>();
+            }
+            return hitch;
+        }
+    }
     /// <summary>What the engine burns, for its sounds (diesel unless its drivetrain says petrol).</summary>
     public EngineFuel EngineFuel => Powertrain?.Def?.engine.fuel ?? EngineFuel.Diesel;
 

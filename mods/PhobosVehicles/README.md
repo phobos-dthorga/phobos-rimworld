@@ -7,7 +7,7 @@ of the general systems D'thorga Framework gives every vehicle.
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.44.0, built 12 November 2026 for House D'thorga. **Not yet tested in game.**
+Version 0.45.0, built 12 November 2026 for House D'thorga. **Not yet tested in game.**
 
 ## Read this first (gotchas)
 
@@ -30,7 +30,7 @@ Version 0.44.0, built 12 November 2026 for House D'thorga. **Not yet tested in g
   [D'thorga Framework's README](../PhobosFramework/README.md#vehicle-systems-with-vehicle-framework). This mod only changes the
   vehicles below.
 - **Safe to add to a running colony. Safe to remove only once none of our own vehicles is left:** scrap every tipper, tanker,
-  drill rig, survey truck, generator set and seabed crawler first, as with any Vehicle Framework vehicle, or they go with the mod.
+  drill rig, survey truck, generator set, seabed crawler and trailer first, as with any Vehicle Framework vehicle, or they go with the mod.
   Other mods' vehicles switch between their own systems and the general ones; a saved vehicle keeps or drops the
   air compressor as its design does.
 - **From 0.3.0, a laden helicopter or pod may refuse to lift off** on a hot day or with engines out; the launch button says
@@ -51,6 +51,8 @@ Version 0.44.0, built 12 November 2026 for House D'thorga. **Not yet tested in g
   charge), instead of taking chemfuel.
 - **Modern vehicles have climate control** (0.10.0): the L-ATV, MaxxPro, M1A2 SEP, M10 Booker, Harrier, Mongoose, Goat shunter and
   Vanilla Vehicles Expanded's Tier 3 (not the Springbok or the Louie) hold the cab near 21 °C by themselves.
+- **New in 0.45.0 (not yet tested in game): the Pintle flatbed trailer.** Any land vehicle can tow it through D'thorga Framework's hitch
+  (0.101.0 or later); see [below](#the-pintle-flatbed-trailer). **It cannot go on a journey yet**: a vehicle leaving the map leaves it behind.
 - **Not yet tested in game.** Everything is read from the mods' files and checked offline.
 
 ## What it changes
@@ -102,6 +104,7 @@ would one day be the Talus T2, and a refit adds a letter.
 | Datum survey truck | Datum D1 | The reference point every survey measures from |
 | Busbar generator set | Busbar B1 | The bar that carries power into a grid, which is what the set becomes once it is set up |
 | Fathom seabed crawler | Fathom F1, refits F1-S (sensor) and F1-L (laboratory) | The sailor's depth unit of six feet; to fathom something is to get to the bottom of it |
+| Pintle flatbed trailer | Pintle P1 | The hook-and-ring coupling a drawbar trailer hangs from |
 | X-1 submarine test hull | X-1 | Experimental hulls are numbered in order: X-1, then X-2, X-3 |
 
 ## The Ullage bulk tanker
@@ -187,6 +190,19 @@ would one day be the Talus T2, and a refit adds a letter.
 - **Load it** through its ordinary cargo window: 96 granite chunks, or 4,800 steel.
 - **With a driver aboard and stopped, press Tip.** Everything in its cargo lands inside the outlined half-circle behind it, and **that includes any spare parts you loaded**. Whatever will not fit stays aboard, and it tells you how many.
 - **Upgrades:** greedy boards (taller sides, +600 kg), and either a rock body (tips half as fast again) or a bulk body (3,600 kg, tips slower).
+
+## The Pintle flatbed trailer
+
+**Not yet tested in game.** A two-axle flatbed with low sides and a drawbar: 2,000 kg empty, 3,000 kg of cargo.
+
+- **Build it** from the **motor pool** tab, after vehicle parts research.
+- **Load it** through its cargo tab while it stands unhitched.
+- **To tow it**, select a vehicle, press **Hitch a trailer** and pick it; a colonist couples it and it is set behind the vehicle. **Unhitch**
+  leaves it where it stands, loaded, for later. A broken drawbar has to be repaired before it can be hitched.
+- **Its weight is the towing vehicle's to pull**: a heavy load slows a small truck, and on soft ground or a hill only the vehicle's own
+  wheels grip.
+- **Upgrade:** greedy boards (+600 kg).
+- **Its picture is the tipper's body** for now, borrowed until it has one of its own.
 
 ## The Fathom seabed crawler (not yet tested in game)
 

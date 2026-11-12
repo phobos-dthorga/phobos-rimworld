@@ -5,6 +5,33 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.101.0] - 2026-11-12 - Draft
+
+The hitch: a vehicle tows a trailer on the map, and the trailer's weight reaches the engine. The first part of the batch the owner started on 12 November 2026. **Not yet tested in game.**
+
+### Added
+
+- **The hitch** (owner, 11 Nov 2026: our own hitch, smoother than a four-way turn; docs/development/vehicle-hitch-design.md). Select a land vehicle, press **Hitch a trailer** and pick a trailer within 8 cells: a colonist who hauls walks over and couples it, and the trailer is set straight behind the vehicle. **Unhitch**, on the vehicle or the trailer, leaves it where it stands. Every refusal says why: not a trailer, not ours, already towed, too far, the vehicle moving, a broken drawbar, no room behind.
+- **The trailer stays on the map while towed** (owner, 11 Nov 2026): it blocks and is blocked, and it can be shot. It follows the hitch the way a real trailer does: its axle is dragged after the hitch, so it cuts inside a corner and straightens behind the vehicle, held within its jack-knife angle. Its picture turns smoothly between the four ways the game shows it, and a drawbar is drawn from the hitch to its front. If the trailer would run into a wall or another vehicle, the vehicle stops and says that the trailer cannot follow.
+- **The tow costs what the drivetrain says**: the trailer and all it carries are rolled, speeded up and lifted with the vehicle, so a small truck with a heavy trailer drops a gear, runs hotter, burns more and crawls up hills. The trailer adds no grip; only the vehicle's own wheels pull.
+- For modders: CompProperties_PhobosTrailer (any vehicle Def becomes a trailer in XML, with its two lengths and jack-knife angle), PhobosHitchPointExtension (a vehicle's own hitch point), noHitch on a loadout, and HitchRule's placing functions and plain rule.
+
+### Changed
+
+- New setting under **Vehicle systems, Towing: Vehicles without the drivetrain model can tow** (off by default). On, every other land vehicle can tow too, on a plain rule: it keeps its own weight's share of its speed. With the drivetrain model on display only, our vehicles also tow on the plain rule.
+
+### Compatibility and limits
+
+- A vehicle that leaves the map (a journey, a launch) leaves its trailer behind and says so: towing on the world map is not built yet.
+- The vehicle's path does not plan for the trailer: a tight turn by a wall stops it, and the player takes a wider way round or unhitches.
+- The trailer's place snaps to whole cells, smoothed by Vehicle Framework's own glide, so the gap at the hitch varies by up to half a cell; the drawn drawbar stretches over it.
+- Loading cargo onto a trailer is not stopped while it is hitched.
+- Other factions' vehicles can carry a hitch, but no raid brings a trailer yet. A trailer whose vehicle is destroyed stays where it stood.
+
+### Save compatibility
+
+- Safe to update mid-game. A hitch saves its trailer and the trailer's heading; nothing else.
+
 ## [0.100.0] - 2026-11-12 - Draft
 
 Progress bars on vehicle work, damage that shows on vehicles, and pictures that fade with a building's state. The owner's asks of 12 November 2026. **Not yet tested in game.**

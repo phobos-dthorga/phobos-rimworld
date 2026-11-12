@@ -63,4 +63,53 @@ public class HitchRuleTests
         Assert.True(DrivetrainModel.RoadLoad(spec, towing, 5) > DrivetrainModel.RoadLoad(spec, alone, 5));
         Assert.Equal(5000, DrivetrainModel.TrainKg(towing), 6);
     }
+
+    [Fact]
+    public void TheCentreSitsAheadOfTheAxle()
+    {
+        (double x, double z) = HitchRule.CentreOf(new TrailerPose(10, 10, 90), 0.5);
+        Assert.Equal(10.5, x, 6);
+        Assert.Equal(10, z, 6);
+    }
+
+    [Fact]
+    public void AHeadingSplitsIntoAFacingAndAnExtraTurn()
+    {
+        Assert.Equal(0, HitchRule.Cardinal(20));
+        Assert.Equal(1, HitchRule.Cardinal(70));
+        Assert.Equal(0, HitchRule.Cardinal(350));
+        Assert.Equal(3, HitchRule.Cardinal(260));
+        Assert.Equal(20, HitchRule.Remainder(20), 6);
+        Assert.Equal(-20, HitchRule.Remainder(70), 6);
+        Assert.Equal(-10, HitchRule.Remainder(350), 6);
+    }
+
+    [Fact]
+    public void TheMiddleOfAnEvenFootprintFollowsVehicleFramework()
+    {
+        // A 2 x 5 trailer facing north: half a cell east of the cell's middle; facing east, its 5 x 2 is half a cell south.
+        Assert.Equal((10.5 + 0.5, 20.5), HitchRule.TrueCentre(10, 20, 2, 5, 0));
+        Assert.Equal((10.5, 20.5 - 0.5), HitchRule.TrueCentre(10, 20, 2, 5, 1));
+        Assert.Equal((10.5, 20.5), HitchRule.TrueCentre(10, 20, 3, 5, 0));
+    }
+
+    [Fact]
+    public void TheCellPutsTheMiddleWhereItWasAsked()
+    {
+        foreach (int facing in new[] { 0, 1, 2, 3 })
+        {
+            (int x, int z) = HitchRule.CellFor(31.2, 47.9, 2, 5, facing);
+            (double cx, double cz) = HitchRule.TrueCentre(x, z, 2, 5, facing);
+            Assert.InRange(Math.Abs(cx - 31.2), 0, 0.5);
+            Assert.InRange(Math.Abs(cz - 47.9), 0, 0.5);
+        }
+    }
+
+    [Fact]
+    public void ThePlainRuleSlowsByTheTrailersShare()
+    {
+        Assert.Equal(1, HitchRule.PlainCap(3000, 0, 0.15), 6);
+        Assert.Equal(0.6, HitchRule.PlainCap(3000, 2000, 0.15), 6);
+        Assert.Equal(0.15, HitchRule.PlainCap(500, 20000, 0.15), 6);
+    }
 }

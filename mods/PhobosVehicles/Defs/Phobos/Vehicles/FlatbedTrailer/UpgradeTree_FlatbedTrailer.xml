@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- The flatbed trailer's upgrades (D'thorga Vehicles 0.45.0). Figures and costs authored. Node keys are saved in the game: never rename or
+       remove one. Its own picture, when it comes, draws the greedy boards as an overlay; until then the borrowed picture shows none.
+       Not yet tested in game. -->
+  <Vehicles.UpgradeTreeDef>
+    <defName>Phobos_FlatbedTrailer_UpgradeTree</defName>
+    <modExtensions>
+      <li Class="Phobos.VehicleSystems.PhobosEnforceUpgradeResearch" />
+    </modExtensions>
+    <nodes>
+    <li>
+      <key>PhobosTrailerHighSides</key>
+      <label>greedy boards</label>
+      <displayLabel>true</displayLabel>
+      <description>Taller side boards: 600 kg more of anything. The vehicle towing it pulls the extra weight too.</description>
+      <icon>Phobos/Vehicles/Tipper/Upgrades/HighSides</icon>
+      <work>1200</work>
+      <gridCoordinate>(2, 6)</gridCoordinate>
+      <drawSize>(80, 80)</drawSize>
+      <upgrades>
+        <li Class="Vehicles.StatUpgrade">
+          <vehicleStats>
+            <li>
+              <def>CargoCapacity</def>
+              <value>600</value>
+            </li>
+          </vehicleStats>
+        </li>
+      </upgrades>
+      <ingredients>
+        <Steel>50</Steel>
+      </ingredients>
+    </li>
+    </nodes>
+  </Vehicles.UpgradeTreeDef>
+</Defs>

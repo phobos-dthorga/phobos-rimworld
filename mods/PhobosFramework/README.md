@@ -7,7 +7,7 @@ helpers every D'thorga mod shares.
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.100.0, built 12 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
+Version 0.101.0, built 12 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
 oxygen working through Burns and Smoke and Medical Equipment (5 November 2026). The health layer new in 0.3.0 and the **vehicle
 systems new in 0.9.0, and their engines, drivetrains and gas turbines new in 0.11.0, are not yet tested in game.** The rest is read from the game's and the mods' code.
 
@@ -89,6 +89,13 @@ and wear that a mechanic services. See [Vehicle systems](#vehicle-systems-with-v
   its graph on a click, a card a system, parts as a strip of small bars, and an **Only what needs attention** tick box. **From 0.94.0** a
   screen of ours that fails shows one line and tries again in a few seconds, where the game would fill its log; and in dev mode
   **"Vehicle systems: run the self-test"** checks most of this in one go, a sling lift included. Not yet tested in game.
+- **From 0.101.0 (not yet tested in game), a land vehicle can tow a trailer**, such as D'thorga Vehicles' Pintle flatbed trailer. Select the
+  vehicle, press **Hitch a trailer** and pick a trailer within 8 cells; a colonist who hauls couples it, and it is set straight behind the
+  vehicle. **The trailer stays on the map**: it follows the hitch, cuts inside corners, can be shot, and **if it would run into a wall or
+  another vehicle, the vehicle stops and says so**: take a wider way round, or **Unhitch**. The trailer and its load add to what the engine
+  pulls, so a small truck with a full trailer climbs slowly and runs hot. **Only vehicles our drivetrain model works out can tow**, unless
+  you turn on **Vehicles without the drivetrain model can tow** (under **Towing**, off by default), which uses a plain rule instead.
+  **A vehicle that leaves the map leaves its trailer behind**: towing on the world map is not built yet.
 - **From 0.96.0 (not yet tested in game), hover a reading or a part to learn what it is**: the tooltip says in a sentence what the
   reading means and what moves it, or what the part does and what losing it costs, on the Systems tab, the Dashboard and the Health tab.
 - **From 0.95.0 (not yet tested in game), the depot bay is built from parts**: a fuel tank and a fuel pump beside its steel, and a

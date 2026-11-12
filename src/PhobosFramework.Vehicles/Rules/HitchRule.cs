@@ -69,4 +69,52 @@ public static class HitchRule
         double d = degrees % 360;
         return d < 0 ? d + 360 : d;
     }
+
+    // ---- Placing the trailer on the map (slice 2, Framework 0.101.0) ----
+
+    /// <summary>The middle of the trailer's picture: <paramref name="axleToCentre"/> ahead of its axle along its heading.</summary>
+    public static (double X, double Z) CentreOf(TrailerPose pose, double axleToCentre)
+    {
+        double radians = pose.Heading * Math.PI / 180.0;
+        return (pose.AxleX + Math.Sin(radians) * axleToCentre, pose.AxleZ + Math.Cos(radians) * axleToCentre);
+    }
+
+    /// <summary>The way a thing faces nearest a heading, as the game counts it: 0 north, 1 east, 2 south, 3 west.</summary>
+    public static int Cardinal(double heading) => (int)Math.Round(Normalize(heading) / 90.0) % 4;
+
+    /// <summary>What is left of a heading after its facing: the extra turn the picture is drawn with, within [-45, 45] degrees.</summary>
+    public static double Remainder(double heading) => Difference(heading, Cardinal(heading) * 90.0);
+
+    /// <summary>
+    /// The middle of a footprint standing on a cell, as Vehicle Framework works it out (VehiclePawn.TrueCenter): the cell's middle, moved
+    /// half a cell where the footprint's width or length is even. A footprint turned east or west swaps its width and length.
+    /// </summary>
+    public static (double X, double Z) TrueCentre(int cellX, int cellZ, int sizeX, int sizeZ, int facing)
+    {
+        bool sideways = facing == 1 || facing == 3;
+        int wide = sideways ? sizeZ : sizeX, deep = sideways ? sizeX : sizeZ;
+        double x = cellX + 0.5, z = cellZ + 0.5;
+        if (wide % 2 == 0) x += 0.5;
+        if (deep % 2 == 0) z += sideways ? -0.5 : 0.5;
+        return (x, z);
+    }
+
+    /// <summary>The cell to stand a footprint on so that its middle is as near a point as the grid allows.</summary>
+    public static (int X, int Z) CellFor(double centreX, double centreZ, int sizeX, int sizeZ, int facing)
+    {
+        (double offX, double offZ) = TrueCentre(0, 0, sizeX, sizeZ, facing);
+        return ((int)Math.Round(centreX - offX), (int)Math.Round(centreZ - offZ));
+    }
+
+    /// <summary>
+    /// A tow without the drivetrain model (a vehicle of another author's with no drivetrain of ours, on the player's setting): the share of
+    /// its speed a vehicle keeps is its own mass's share of the whole train, never below <paramref name="floor"/>. A gameplay
+    /// simplification, not physics: it ignores the engine, the ground and the grade.
+    /// </summary>
+    public static double PlainCap(double vehicleKg, double towedKg, double floor)
+    {
+        if (towedKg <= 0) return 1;
+        if (vehicleKg <= 0) return Math.Max(0, floor);
+        return Math.Max(floor, vehicleKg / (vehicleKg + towedKg));
+    }
 }

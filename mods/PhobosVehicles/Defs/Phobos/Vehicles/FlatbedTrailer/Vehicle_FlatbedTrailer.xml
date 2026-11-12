@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    The first trailer (D'thorga Vehicles 0.45.0, the hitch's slice 2; docs/development/vehicle-hitch-design.md): one medium flatbed, towed by
+    any vehicle with D'thorga Framework's hitch. No engine, no seats, no turret and no shadow, so its picture can swing freely while towed.
+    It borrows the Talus tipper's body for its picture until it has its own (owner, 11 Nov 2026). The 2,000 kg empty and 3,000 kg of cargo
+    are authored (a medium tandem flatbed of about that size), as are its lengths. Part keys are saved by position: append only, never
+    reorder. Cells run x 0 to 1, z -2 to 2, the front (the drawbar) north. Not yet tested in game.
+  -->
+  <Vehicles.VehicleDef ParentName="BaseVehiclePawn">
+    <defName>Phobos_FlatbedTrailer</defName>
+    <label>Pintle flatbed trailer</label>
+    <description>Pintle P1: a two-axle flatbed with low sides and a drawbar, for anything a truck can carry. Hitch it behind a vehicle to take a second load on the same trip, or leave it loaded at a camp or a site and drive away. It has no engine: whatever tows it pulls its weight and all it carries, so a small vehicle with a full trailer climbs slowly and runs hot.</description>
+    <graphicData>
+      <texPath>Phobos/Vehicles/FlatbedTrailer/FlatbedTrailer</texPath>
+      <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+      <shaderType>CutoutComplexPattern</shaderType>
+      <drawSize>(3, 6)</drawSize>
+      <color>(169, 161, 126)</color>
+      <colorTwo>(218, 119, 23)</colorTwo>
+    </graphicData>
+    <fillPercent>0.5</fillPercent>
+    <buildDef>Phobos_FlatbedTrailer_Blueprint</buildDef>
+    <size>(2, 5)</size>
+    <vehicleCategory>Transport</vehicleCategory>
+    <techLevel>Industrial</techLevel>
+    <vehicleType>Land</vehicleType>
+    <statBases>
+      <ArmorRating_Blunt>0.2</ArmorRating_Blunt>
+      <ArmorRating_Sharp>0.3</ArmorRating_Sharp>
+      <ArmorRating_Heat>1.0</ArmorRating_Heat>
+      <Flammability>0.3</Flammability>
+      <MarketValue>900</MarketValue>
+    </statBases>
+    <vehicleStats>
+      <Mass>60</Mass>
+      <MoveSpeed>11</MoveSpeed>
+      <CargoCapacity>3000</CargoCapacity>
+      <RepairRate>0.6</RepairRate>
+    </vehicleStats>
+    <race>
+      <baseBodySize>3</baseBodySize>
+    </race>
+    <properties>
+      <diagonalRotation>false</diagonalRotation>
+      <worldSpeedMultiplier>1</worldSpeedMultiplier>
+      <visibilityWeight>3</visibilityWeight>
+      <customTerrainCosts DisallowTerrainWithTag="Water" />
+      <roles />
+    </properties>
+    <components>
+    <li>
+      <key>Chassis</key>
+      <label>chassis</label>
+      <health>120</health>
+      <depth>External</depth>
+      <hitWeight>3</hitWeight>
+      <hitbox>
+        <from>(0, -2)</from>
+        <to>(1, 2)</to>
+      </hitbox>
+      <categories>
+        <li>BodyIntegrity</li>
+      </categories>
+    </li>
+    <li>
+      <key>Deck</key>
+      <label>deck and sides</label>
+      <health>80</health>
+      <depth>External</depth>
+      <hitbox>
+        <from>(0, -1)</from>
+        <to>(1, 1)</to>
+      </hitbox>
+      <categories>
+        <li>CargoCapacity</li>
+      </categories>
+    </li>
+    <li>
+      <key>Drawbar</key>
+      <label>drawbar and coupling</label>
+      <health>40</health>
+      <depth>External</depth>
+      <hitbox>
+        <cells>
+          <li>(0, 2)</li>
+          <li>(1, 2)</li>
+        </cells>
+      </hitbox>
+    </li>
+    <li>
+      <key>Axles</key>
+      <label>axles and wheels</label>
+      <health>50</health>
+      <depth>External</depth>
+      <tags>
+        <li>Wheel</li>
+      </tags>
+      <hitbox>
+        <cells>
+          <li>(0, -1)</li>
+          <li>(1, -1)</li>
+          <li>(0, 0)</li>
+          <li>(1, 0)</li>
+        </cells>
+      </hitbox>
+    </li>
+    <li>
+      <key>Lights</key>
+      <label>lights</label>
+      <health>10</health>
+      <depth>External</depth>
+      <hitbox>
+        <cells>
+          <li>(0, -2)</li>
+          <li>(1, -2)</li>
+        </cells>
+      </hitbox>
+    </li>
+    </components>
+    <modExtensions>
+      <li Class="Phobos.VehicleSystems.PhobosVehicleFiguresExtension">
+        <emptyKilograms>2000</emptyKilograms>
+      </li>
+    </modExtensions>
+    <comps>
+      <li Class="Vehicles.CompProperties_UpgradeTree">
+        <def>Phobos_FlatbedTrailer_UpgradeTree</def>
+      </li>
+      <!-- How it follows (authored): its axle 3.2 cells behind the hitch (2.7 to the front of the deck, half a cell of drawbar), the middle
+           of its picture 0.2 cells ahead of the axle, turned at most 70 degrees from the vehicle towing it. -->
+      <li Class="Phobos.VehicleSystems.CompProperties_PhobosTrailer">
+        <hitchToAxle>3.2</hitchToAxle>
+        <axleToCentre>0.2</axleToCentre>
+        <jackKnifeDegrees>70</jackKnifeDegrees>
+        <drawbarPart>Drawbar</drawbarPart>
+      </li>
+    </comps>
+  </Vehicles.VehicleDef>
+
+  <Vehicles.VehicleBuildDef ParentName="VehicleBaseBuildable">
+    <defName>Phobos_FlatbedTrailer_Blueprint</defName>
+    <label>Pintle flatbed trailer</label>
+    <description>Pintle P1: a two-axle flatbed trailer that any vehicle with a hitch can tow.</description>
+    <graphicData>
+      <texPath>Phobos/Vehicles/FlatbedTrailer/FlatbedTrailer</texPath>
+      <graphicClass>Graphic_Multi</graphicClass>
+      <drawSize>(3, 6)</drawSize>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>150</MaxHitPoints>
+      <WorkToBuild>6000</WorkToBuild>
+      <Flammability>0.3</Flammability>
+    </statBases>
+    <researchPrerequisites>
+      <li>PhobosResearch_VehicleParts</li>
+    </researchPrerequisites>
+    <size>(2, 5)</size>
+    <!-- The shell only: its parts are in Bill_FlatbedTrailer.xml, filled at start-up (docs/development/parts-bills.md). Steel stays first. -->
+    <costList>
+      <Steel>180</Steel>
+      <ComponentIndustrial>2</ComponentIndustrial>
+    </costList>
+    <designationCategory>PhobosVehicles_MotorPool</designationCategory>
+    <thingToSpawn>Phobos_FlatbedTrailer</thingToSpawn>
+  </Vehicles.VehicleBuildDef>
+</Defs>
