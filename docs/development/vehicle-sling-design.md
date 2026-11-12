@@ -21,6 +21,9 @@ section "The owner's report of 12 Nov 2026" below says what was found and what c
 beautifully and the animation at launch looks wonderfully realistic". Their screenshot shows the world-map line "Cherokee carries L-ATV on
 its sling: 7,103 kg." and the L-ATV listed after the Cherokee in our world-map tabs. **The landing and set-down are not yet tested in game.**
 
+**The landing failed in game (owner, 12 Nov 2026, Framework 0.100.0), and is fixed in Framework 0.101.1, not yet tested in game.** The
+section "The landing fault of 12 Nov 2026" below has what was observed, what the log and saves showed, and the fix.
+
 **Slice 2 built (12 Nov 2026), D'thorga Framework 0.101.0, not yet tested in game.** What it does, in short: the weather limit; the
 slower, thirstier slung flight and the shorter range drawn for it; on landing, the game pauses and asks where to set the load down;
 emergency release on the world map, the load becoming a **wreck** a caravan recovers (owner's decision, 12 Nov 2026); and a crash drops
@@ -207,6 +210,56 @@ slides in under the helicopter during take-off, as in 0.99.0. Settings for all t
 once through `IncidentWorker_ShuttleDowned` (`:77856`). That crash site makes its map the moment it is created, and two places that can
 hold a map must not share a tile, so the wreck is a place of our own that makes its map only when a caravan arrives; a released load
 is put on the nearest tile with nothing else on it. The game's wind (`WindManager`: a base of 0.04 to 2 times the weather's factor).
+
+## The landing fault of 12 Nov 2026
+
+**Observed by the owner** (Framework 0.100.0, the Cherokee carrying the L-ATV): the set-down's picture was "very, very, nice", but as the
+vehicle was set down "textures start to disappear, the screen even goes grey for a little", and the passengers and disembarking them
+"becomes funny". They asked whether a passenger was left in limbo.
+
+**Read from the log** (`scripts/triage-log.py`, then the raw lines at the first error), not seen by the agent in play:
+
+- Two landings failed the same way, at 17:46:12 and 17:51:27. Each began with an exception in the game's
+  `PawnCollisionTweenerUtility.GetPawnsStandingAtOrAboutToStandAt`, reached from `CompPhobosSling.SetDown` inside
+  `CompPhobosSling.PostSpawnSetup`, inside Vehicle Framework's `VehicleSkyfaller_Arriving.FinalizeLanding`.
+- **The cause.** `Pawn.SpawnSetup` runs its comps' `PostSpawnSetup` first (through `ThingWithComps.SpawnSetup`) and only afterwards gives
+  the pawn its movement parts (`PawnComponentsUtility.AddComponentsForSpawn`; `RimWorld-1.7:Verse.Pawn.cs:1381-1386`). So at that moment
+  the helicopter is on the map's grid with no `pather`. A pawn spawned with its centre within one cell of it asks the game which pawns
+  stand nearby, and that check reads `pawn.pather.MovingNow` on the helicopter. The L-ATV's centre was one row from the Cherokee's cells.
+- **What followed.** The exception ended the L-ATV's spawning partway and then the Cherokee's own, so neither was fully on the map and the
+  Cherokee never got its movement parts. From then on every draw of a pawn near the Cherokee threw (2,462 messages), which stopped the
+  map's drawing partway each frame: the lost pictures and the grey screen. Vehicle Framework's own disembarking threw the same way.
+- A third flight later the same evening logged no such error: whether the check throws depends on where the load's centre falls.
+
+**Read from the saves** (`scripts/query-save.py`): the owner saved PG7 at 17:52:41, after the second failed landing, and loaded it. Loading
+places every thing afresh, so both vehicles came back whole. In the newest save the Cherokee stands at (97, 182) and the L-ATV at
+(97, 180), the sling holds nothing, no thing appears twice, and the colony has the same 107 people as the autosave from before the
+flights. **Nobody is in limbo.** M'ikayla and Teal are aboard the L-ATV, and Yunxing and Dunsmore are walking on the map.
+
+**Also found, and not the sling's doing:** the L-ATV and those four people belong to a vehicle caravan that is still being formed
+(Vehicle Framework's `LordJob_FormAndSendVehicles`). At 18:21 it logged the L-ATV starting ten jobs in one tick for 86 seconds, from that
+caravan's own transitions. A vehicle in a forming caravan is why boarding and getting out may look odd there; cancelling the caravan ends
+it. It did show a gap of ours: nothing stopped a vehicle in a forming caravan being chosen as a load.
+
+**The fix (Framework 0.101.1):**
+
+| What | How | Lets, stops, changes |
+| --- | --- | --- |
+| The load is dealt with at the helicopter's next tick | `PostSpawnSetup` only notes the landing (saved) and asks Vehicle Framework to tick the comp; `CompTick` then drops, asks or sets down, and stops the ticking. The comp is now ticked on request only | Changes when the load comes down by one tick. Stops the fault |
+| A failed placing never loses the load | `Place` takes the load off the hook, spawns it, and on an exception puts a load that never reached the map back on the hook, logs once and tells the player | Lets the player try again with **Set the load down** |
+| A vehicle in a forming caravan is refused as a load | `RefusalFor` reads the load's lord | Stops a lift that would leave a caravan ordering a vehicle that is gone |
+| The mistake cannot come back unseen | `tests/test_no_spawn_in_spawn_setup.py` reads our C# and refuses a spawn in `PostSpawnSetup` or in a method it calls directly; it flags the 0.100.0 code. Now a rule in `AGENTS.md` | Nothing in play |
+
+**Every helicopter, not the Cherokee alone (owner's question, 12 Nov 2026).** The fault and the fix are both in the sling's own comp,
+which is the same on every helicopter whose loadout names a hook rating. The fix keys off the helicopter being put on a map, whoever
+does it: Vehicle Framework's landing, another mod's own landing in its place (VTOL Vehicle and the fixed-wing framework skip parts of
+Vehicle Framework's flight), a caravan arriving, or a dev spawn. The water bucket's run and the litter kit ride on the same comp or were read beside it (below).
+**Today only the Cherokee's loadout names a hook rating**, so only the Cherokee can lift. Our loadouts also give a rotor drive to the Hind,
+the Mongoose and Vanilla Vehicles Expanded's Mosquito and Louie; none has a hook rating yet, so none can have met the fault. Giving each
+one a rating needs a sourced figure per aircraft, as the Cherokee's has: still the open question "Other mods' helicopters" below.
+
+**Checked beside it:** the litter kit sets patients down from `PostDeSpawn`, by which time its vehicle is off the map's grid, so the same
+check cannot meet it; the water drop spawns its helicopter from its own run's tick; the hitch never spawns anything.
 
 ## Other factions' vehicles
 

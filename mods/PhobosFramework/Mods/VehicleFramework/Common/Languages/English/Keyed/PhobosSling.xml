@@ -16,6 +16,7 @@
   <PhobosSling_TooFar>{LOAD} is more than {CELLS} cells away.</PhobosSling_TooFar>
   <PhobosSling_Roofed>{LOAD} is under a roof.</PhobosSling_Roofed>
   <PhobosSling_Moving>{LOAD} is moving.</PhobosSling_Moving>
+  <PhobosSling_UnderOrders>{LOAD} is getting ready to leave with a caravan. Cancel the caravan, or let it leave, before lifting it.</PhobosSling_UnderOrders>
   <PhobosSling_TooHeavy>{LOAD} weighs {WEIGHT} kg with what it carries, and the hook lifts {CAPACITY} kg today.</PhobosSling_TooHeavy>
   <PhobosSling_LaunchWaitsForCrew>{LOAD} still waits for someone to hook it up.</PhobosSling_LaunchWaitsForCrew>
 
@@ -30,6 +31,7 @@
   <PhobosSling_SetDownGizmo>Set the load down</PhobosSling_SetDownGizmo>
   <PhobosSling_SetDownGizmoDesc>Set {LOAD} down on the nearest clear open ground beside the helicopter. It is still on the hook because there was no room when the helicopter landed.</PhobosSling_SetDownGizmoDesc>
   <PhobosSling_NoSpot>There is no clear open ground near the helicopter to set {LOAD} down on. It stays on the hook until there is.</PhobosSling_NoSpot>
+  <PhobosSling_SetDownFailed>{LOAD} could not be set down and is still on the hook. Move the helicopter to open ground and set the load down again.</PhobosSling_SetDownFailed>
 
   <PhobosSling_InspectHooked>On the hook: {LOAD}, {WEIGHT} kg of {CAPACITY} kg today ({SHARE})</PhobosSling_InspectHooked>
   <PhobosSling_InspectAwaitingCrew>Waiting for someone to hook it up.</PhobosSling_InspectAwaitingCrew>

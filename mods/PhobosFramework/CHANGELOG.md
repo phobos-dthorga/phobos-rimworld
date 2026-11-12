@@ -5,6 +5,24 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.101.1] - 2026-11-12 - Draft
+
+A slung load is set down safely after landing
+
+### Fixed
+
+- **Setting a slung load down after landing no longer breaks the map** (the owner's test of 12 November 2026 on 0.100.0). The helicopter set its load down while the game was still placing the helicopter itself, which could stop the game partway through placing both. The map then lost its pictures and went grey, and the crew could not get out properly. The load is now set down a moment after the helicopter has landed. This is the sling's own code, so it holds for every helicopter with a cargo hook, however it comes to be on a map. Not yet tested in game.
+- If the game still refuses to place a load, the load goes back on the hook and a message says so, where it could be left neither on the hook nor fully on the map.
+- A vehicle that is getting ready to leave with a caravan can no longer be chosen as a load, and the button says why. Lifted away, the caravan went on giving orders to a vehicle that was not there.
+
+### Changed
+
+- A helicopter's sling no longer does any work each tick. It is woken only for the moment after a landing.
+
+### Save compatibility
+
+- A save made while the map was broken by a landing loads with both vehicles placed properly, as the owner's did. Nothing needs doing to it.
+
 ## [0.101.0] - 2026-11-12 - Draft
 
 The hitch: a vehicle tows a trailer on the map, and the trailer's weight reaches the engine. Sling loads, slice 2: weather, a slower slung flight, choosing where a load comes down, emergency release and wrecks to recover. The batch the owner started on 12 November 2026. **Not yet tested in game.**

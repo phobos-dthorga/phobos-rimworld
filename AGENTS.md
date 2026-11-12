@@ -327,6 +327,9 @@ delivered, record the delivery in the changelog or design record, and add or ame
   Vanilla Gravship Expanded needs Odyssey, so D'thorga Medical keeps it optional and strongly recommends it.
 - **Worn apparel is never spawned.** A hand-held worn by a pawn has `Spawned == false`; find radios by
   enumerating `map.mapPawns` and `pawn.apparel.WornApparel` at recompute time, never through spawn hooks.
+- **Never spawn a thing from `PostSpawnSetup`** (the sling's landing fault, 12 Nov 2026). The game runs a pawn's comps before it gives the
+  pawn its movement parts, and a pawn spawned beside one in that state throws, leaving both half on the map and the map undrawn. Note what
+  happened and act at the next tick (`CompPhobosSling`); `tests/test_no_spawn_in_spawn_setup.py` refuses the pattern.
 - **Derived state is never saved.** `RadioNet` and every link cache hold only what can be recomputed from
   Defs and spawned things; they save nothing, touch no VEF state during load, and recompute lazily on
   first use. Thought workers and gizmos read caches; they never compute.
