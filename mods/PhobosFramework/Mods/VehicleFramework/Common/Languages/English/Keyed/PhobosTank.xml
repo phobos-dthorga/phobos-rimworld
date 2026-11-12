@@ -31,6 +31,12 @@
   <PhobosVehicleSystems_TankNoPipe>There is no matching pipe under or beside the truck.</PhobosVehicleSystems_TankNoPipe>
   <PhobosVehicleSystems_TankPipeEmpty>The pipes hold nothing to draw.</PhobosVehicleSystems_TankPipeEmpty>
   <PhobosVehicleSystems_TankPipeFull>The storage on those pipes is full.</PhobosVehicleSystems_TankPipeFull>
+  <!-- A parked vehicle filling its tank from a fuel line touching it (Framework 0.107.0). {LINE} is the line's fuel, such as chemfuel. -->
+  <PhobosVehicleSystems_PipeFuelFilling>Filling from the {LINE} line: {FUEL} of {CAPACITY}.</PhobosVehicleSystems_PipeFuelFilling>
+  <PhobosVehicleSystems_PipeFuelEngineOn>On the {LINE} line: switch the engine off to fill the tank.</PhobosVehicleSystems_PipeFuelEngineOn>
+  <PhobosVehicleSystems_PipeFuelSetUp>On the {LINE} line: pack up to fill the tank.</PhobosVehicleSystems_PipeFuelSetUp>
+  <PhobosVehicleSystems_PipeFuelEmpty>On the {LINE} line, but the line's tanks are empty.</PhobosVehicleSystems_PipeFuelEmpty>
+  <PhobosVehicleSystems_PipeFuelFull>{VEHICLE} is full from the {LINE} line.</PhobosVehicleSystems_PipeFuelFull>
   <PhobosVehicleSystems_TankTowersFull>The water towers on those pipes are full.</PhobosVehicleSystems_TankTowersFull>
   <PhobosVehicleSystems_TankNoSeptic>There is no septic tank beside the truck.</PhobosVehicleSystems_TankNoSeptic>
   <PhobosVehicleSystems_SettingTankCompartments>A tank needs upgrades for compartments</PhobosVehicleSystems_SettingTankCompartments>

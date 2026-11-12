@@ -139,7 +139,9 @@ and wear that a mechanic services. See [Vehicle systems](#vehicle-systems-with-v
   warns you. **Realistic feed water** is off by default: a water stop draws a tenth of the real tender (6,800 litres for the 4-8-4,
   under one Dubs water tower's 8,000); on, the real 68,000.
 - **From 0.107.0 the pipes our things lay beneath them are visible** (Dubs Bad Hygiene's plumbing, a Vanilla Expanded Framework net's own pipe), and the
-  generator set can join the grid through power conduits laid beneath it. Older hidden pipes are swapped for visible ones by themselves. Not yet tested in game.
+  generator set can join the grid through power conduits laid beneath it. Older hidden pipes are swapped for visible ones by themselves. With Vanilla
+  Chemfuel Expanded, **a parked fuelled vehicle against a chemfuel pipe fills its tank from the line** (engine off, not set up), and the depot bay
+  fills from a chemfuel pipe touching it. Not yet tested in game.
 - **With Dubs Bad Hygiene, a vehicle's coolant top-up and a Harrier's injection water need a plumbing pipe with a water tower
   beside or under the parked vehicle.** Without Dubs Bad Hygiene, the coolant top-up takes chemfuel instead and the Harrier's water is free.
 

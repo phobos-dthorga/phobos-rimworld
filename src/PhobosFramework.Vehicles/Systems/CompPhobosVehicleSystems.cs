@@ -1517,6 +1517,10 @@ public class CompPhobosVehicleSystems : VehicleComp
     public List<KeyValuePair<string, Phobos.Framework.Persistence.PipeUnderlay>> UnderlaysStartingWith(string prefix) =>
         pipeUnderlays.Where(pair => pair.Key.StartsWith(prefix, System.StringComparison.Ordinal)).ToList();
 
+    /// <summary>What a fuel line touching the parked vehicle is doing for its tank, in words, for the inspect pane; set by the pipe link
+    /// at each look, never saved.</summary>
+    public string? PipeFuelLine { get; set; }
+
     /// <summary>The player's, standing on a map and not moving.</summary>
     public bool ParkedForPipes => Vehicle.Spawned && Vehicle.Faction == Faction.OfPlayer && Vehicle.vehiclePather is not { Moving: true };
 

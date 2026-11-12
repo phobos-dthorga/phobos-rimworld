@@ -42,6 +42,10 @@
     <slingCrashDropMetres>15</slingCrashDropMetres>
     <slingDropPersonDamage>6</slingDropPersonDamage>
     <slingWreckMapSize>100</slingWreckMapSize>
+    <!-- A parked vehicle refuelling from a fuel line touching it (Framework 0.107.0, authored): 30 fuel an hour, as the depot bay's pump,
+         and a look never covers more than an hour. -->
+    <pipeRefuelPerHour>30</pipeRefuelPerHour>
+    <pipeRefuelMostHours>1</pipeRefuelMostHours>
     <!-- The hitch (Framework 0.101.0, authored): a trailer within 8 cells; coupling is about a third of an hour for a worker of normal speed;
          the hitch stands 0.3 cells behind a vehicle's rear edge unless its Def names its own point. -->
     <hitchReachCells>8</hitchReachCells>

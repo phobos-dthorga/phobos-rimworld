@@ -42,6 +42,7 @@ public static class InspectText
         if (engine != null) lines.Add(engine);
         string? electrics = ElectricsLine(comp.Electrics, mode);
         if (electrics != null) lines.Add(electrics);
+        if (comp.PipeFuelLine != null) lines.Add(comp.PipeFuelLine);
         if (mode == DisplayMode.Engineer)
         {
             lines.Add("PhobosVehicleSystems_InspectEngineer".Translate(comp.EngineLoad.ToStringPercent().Named("LOAD"),

@@ -728,6 +728,10 @@ public class PhobosVehicleRulesDef : PhobosRulesDef
     public float slingDropPersonDamage = 6f;
     /// <summary>The side, in cells, of the map made when a caravan reaches a wreck.</summary>
     public int slingWreckMapSize = 100;
+    /// <summary>A parked vehicle's tank filling from a fuel line touching it (Framework 0.107.0; owner, 14 Nov 2026): how much fuel an hour
+    /// it takes, authored, the same as the depot bay's pump; and the most hours one look may cover.</summary>
+    public float pipeRefuelPerHour = 30f;
+    public float pipeRefuelMostHours = 1f;
     /// <summary>The hitch (Framework 0.101.0, authored): how far a trailer may stand from the vehicle that hitches it, the work of coupling it
     /// up, and the gap from a vehicle's rear edge to its hitch, in cells.</summary>
     public float hitchReachCells = 8f;
