@@ -33,6 +33,11 @@
       <dischargeHeat>12</dischargeHeat>
       <chargeHeat>3</chargeHeat>
       <packHeaterShare>0.04</packHeaterShare>
+      <!-- The night heater (Framework 0.104.0; authored): a parked car's cabin and battery heating, about 1.5 kW on a 72 kWh pack, is 2 % of
+           its charge an hour, so a ten-hour cold night costs about a fifth of the range (general, approximate: parked electric cars' cabin
+           heating is commonly reported at 1 to 3 kW). It holds the pack at 15 degrees C, the low end of lithium cells' comfortable range. -->
+      <nightHeaterShare>0.02</nightHeaterShare>
+      <nightHeaterPackTarget>15</nightHeaterPackTarget>
       <cabHeaterShare>0.03</cabHeaterShare>
       <airConditionerShare>0.02</airConditionerShare>
       <climateControlShare>0.025</climateControlShare>
@@ -271,6 +276,34 @@
         </stages>
       </li>
       <li>
+        <!-- The night heater (Framework 0.104.0) draws on the pack while it runs at a night camp: it pays for the cab's warmth (the Cabin
+             system's flow) and the pack's (the nightHeater flow below). -->
+        <name>nightHeaterDraw</name>
+        <description>Whether the night heater is drawing on the drive battery.</description>
+        <label>night heater draw</label>
+        <unit>OnOff</unit>
+        <min>0</min>
+        <max>1</max>
+        <hidden>true</hidden>
+        <derivedFrom>
+          <li Class="Phobos.VehicleSystems.Input_Condition">
+            <condition Class="Phobos.VehicleSystems.When_LoadActive"><load>nightHeater</load></condition>
+          </li>
+        </derivedFrom>
+        <stages>
+          <li>
+            <from>0.5</from>
+            <label>drawing</label>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_ConsumeFuel">
+                <perHourParameter>nightHeaterShare</perHourParameter>
+                <ofCapacity>true</ofCapacity>
+              </li>
+            </effects>
+          </li>
+        </stages>
+      </li>
+      <li>
         <!-- The cab's heater and air conditioner draw on the pack, not on an engine's waste heat. -->
         <name>cabHeaterDraw</name>
         <description>Whether the cab heater is drawing on the drive battery.</description>
@@ -377,6 +410,20 @@
           <conditions>
             <li Class="Phobos.VehicleSystems.When_EngineRunning" />
             <li Class="Phobos.VehicleSystems.When_Charging" />
+          </conditions>
+        </when>
+      </li>
+      <li>
+        <!-- The night heater keeps the pack from the cold through a camp's night (Framework 0.104.0), at the battery management's own rate. -->
+        <name>nightHeater</name>
+        <quantity>packTemperature</quantity>
+        <kind>Toward</kind>
+        <target Class="Phobos.VehicleSystems.Input_Parameter"><parameter>nightHeaterPackTarget</parameter></target>
+        <factorParameter>managementRate</factorParameter>
+        <when Class="Phobos.VehicleSystems.When_All">
+          <conditions>
+            <li Class="Phobos.VehicleSystems.When_LoadActive"><load>nightHeater</load></li>
+            <li Class="Phobos.VehicleSystems.When_QuantityBelow"><quantity>packTemperature</quantity><value>15</value></li>
           </conditions>
         </when>
       </li>

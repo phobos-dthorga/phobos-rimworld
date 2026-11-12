@@ -26,8 +26,30 @@ Any land vehicle Vehicle Framework runs on electricity, matched by that, never b
 | Cab | As combustion vehicles | The heater and air conditioner draw on the traction battery: winter and summer cost range | Switch them off to save charge |
 | Service | Motor hours | Breakdowns as before | A motor service: one component, no chemfuel |
 
-No coolant, oil, gearbox, fuel-in-the-cold or night heater (the night heater's fuel is in chemfuel units; a later version can give
-electric vehicles their own).
+No coolant, oil, gearbox or fuel-in-the-cold. **The night heater is their own since Framework 0.104.0** (section below).
+
+## The night heater (Framework 0.104.0)
+
+**The owner asked for it on 12 Nov 2026** (idea I5). **Not yet tested in game.**
+
+| Behaviour | Lets the player | Stops them | Changes how they play |
+| --- | --- | --- | --- |
+| **The electric night heater** | Keep the cab and the drive battery warm through a caravan's cold night camp, so the battery gives its full power and takes charge well in the morning | Have it for nothing: 2 % of the pack's charge an hour, about a fifth of the range over a ten-hour night | A winter journey weighs range against a cold, weak start |
+
+- **The same switch, setting and icon as the combustion night heater:** a load named `nightHeater` in the electric loadout, off by
+  default, running at a caravan's night camp (`When_CaravanResting`) with the **Night heater at camp** setting on. The cold-weather
+  family's "switch on" reaches it too, since it names the load.
+- **Its draw is the pack's:** a traction battery quantity `nightHeaterDraw` spends `nightHeaterShare` of the capacity an hour
+  (`Effect_ConsumeFuel ofCapacity`). The Cabin system's own burn, in chemfuel units, is set to 0 for electric vehicles in their loadout,
+  so nothing is charged twice and no chemfuel figure touches an electric charge.
+- **What it warms:** the cab, through the Cabin system's existing night heater flow (toward 18 °C), and the pack, through a new flow
+  toward 15 °C at the battery management's own rate while the pack is below 15 °C.
+- **Figures, authored:** 2 % of capacity an hour is about 1.5 kW on a 72 kWh pack; parked electric cars' cabin heating is commonly
+  reported at 1 to 3 kW (general, approximate). 15 °C is the low end of lithium cells' comfortable range (the figures above).
+- **Why at a camp only, as the combustion one:** parked at home, a vehicle on charge already keeps its pack warm (battery management
+  runs while charging), and the player's own switch and setting stay one rule for every vehicle.
+- **Other factions:** off by default and never switched on by another faction, so raiders' electric vehicles cost nothing more.
+
 
 ## Range and draw
 
@@ -75,4 +97,4 @@ pack's temperature behaviour.
 
 - **Owner (8 Nov 2026):** framework systems plus a test vehicle; our own diesel-electric utility vehicles later.
 - **Agent choices, owner to revise:** every figure; battery fires as an off-by-default setting; the Lightning as the test vehicle
-  and the conversion off by default; no night heater for electric vehicles yet.
+  and the conversion off by default. **Since 12 Nov 2026 (owner's request):** the electric night heater, its figures authored.

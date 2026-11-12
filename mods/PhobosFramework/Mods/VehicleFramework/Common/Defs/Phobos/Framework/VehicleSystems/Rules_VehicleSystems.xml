@@ -57,6 +57,12 @@
          charger and its losses); the tipper's loading grab reaches 4 cells from the truck and a lift takes 20 game seconds (what a lift
          carries is the grab node's stat). -->
     <serviceLeadWatts>300</serviceLeadWatts>
+    <!-- The generator set's battery drive (Framework 0.104.0, the hybrid; all authored): on the battery it keeps 0.35 of its speed (a slow
+         creep), a cell costs 0.5 watt-days of the buffer (the buffer node's 150 carry it 300 cells, the design's "a few hundred"), and the
+         running engine puts 400 W back into the buffer while the set is not set up (a full buffer in about nine game hours). -->
+    <batteryDriveSpeedFactor>0.35</batteryDriveSpeedFactor>
+    <batteryDriveWattDaysPerCell>0.5</batteryDriveWattDaysPerCell>
+    <batteryDriveChargeWatts>400</batteryDriveChargeWatts>
     <grabReachCells>4</grabReachCells>
     <grabSecondsPerLift>20</grabSecondsPerLift>
     <!-- A helicopter's water bucket (Framework 0.101.0, all authored): a medium helicopter bucket's 3,000 litres, 100 litres to put out a

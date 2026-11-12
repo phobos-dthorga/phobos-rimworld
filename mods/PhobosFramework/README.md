@@ -57,7 +57,9 @@ and wear that a mechanic services. See [Vehicle systems](#vehicle-systems-with-v
   that is too cold for them); the setting **Passengers feel the cab** (on) turns them off. At a caravan's night camp the engine is off and the cab cools, unless the **night
   heater** setting is on and the vehicle's night heater switch was on before it left. **From 0.67.0 the cab heater runs off the engine's
   heat**, so a cab warms only once the engine has warmed up, and the night heater keeps the engine warm as well, so a camp's morning start
-  no longer wears it. **From 0.69.0 a fire on a vehicle cooks it from the inside**: the cab grows stifling, the coolant heats and the
+  no longer wears it. **From 0.104.0 (not yet tested in game) electric vehicles have their own night heater**, on the same switch and
+  setting, paid for from the drive battery. **Also from 0.104.0, the generator set is a hybrid**: with its battery buffer fitted, **Battery
+  drive** moves it slowly and quietly with the engine off, and out of fuel it creeps on the battery by itself. **From 0.69.0 a fire on a vehicle cooks it from the inside**: the cab grows stifling, the coolant heats and the
   radiator cooks, so a fire put out within an in-game hour leaves the engine hot and a radiator to repair, and one left to burn for
   about two hours boils the engine over. **From 0.70.0** cold oil makes a start harder on the battery, and a **block heater** fitting
   keeps a vehicle parked beside power warm. **From 0.73.0** a drive belt turns the water pump and alternator (a snapped one overheats the

@@ -60,7 +60,7 @@ public sealed class CompPhobosGeneratorStub : CompPowerPlant
 /// A generator truck (docs/development/vehicle-generator-set.md). The game's power code takes only buildings, so setting up spawns a cable end, a small building of ours on the
 /// net, and the truck sets its output each rare tick from its fuel, its health and what the net draws. Gizmos read this and call its service methods.
 /// </summary>
-public class CompPhobosGeneratorSet : CompPhobosSetUp, IVehicleEngineDemand
+public class CompPhobosGeneratorSet : CompPhobosSetUp, IVehicleEngineDemand, IVehicleBatteryDrive
 {
     const float DaysPerRareTick = GenTicks.TickRareInterval / (float)GenDate.TicksPerDay;
 
@@ -68,6 +68,13 @@ public class CompPhobosGeneratorSet : CompPhobosSetUp, IVehicleEngineDemand
     float buffer;
     /// <summary>The vehicle the service lead runs to (Framework 0.101.0), or null.</summary>
     VehiclePawn? leadTo;
+    /// <summary>The player's switch: drive on the battery buffer with the engine off (Framework 0.104.0, the hybrid).</summary>
+    bool batteryDriveOn;
+    // Derived, never saved: the buffer's size (a stat, read on the rare tick so the per-tick questions stay cheap), where the set stood at the
+    // last rare tick (the cells moved on the battery are counted from it), and whether it was on the battery then.
+    float capacityCached = -1f;
+    IntVec3 lastCell = IntVec3.Invalid;
+    bool wasOnBattery;
 
     // Derived on the rare tick, never saved.
     bool running;
@@ -96,6 +103,7 @@ public class CompPhobosGeneratorSet : CompPhobosSetUp, IVehicleEngineDemand
         Scribe_References.Look(ref cableEnd, "PhobosGeneratorCableEnd");
         Scribe_Values.Look(ref buffer, "PhobosGeneratorBuffer");
         Scribe_References.Look(ref leadTo, "PhobosServiceLeadTo");
+        Scribe_Values.Look(ref batteryDriveOn, "PhobosGeneratorBatteryDrive");
     }
 
     public override void PostSpawnSetup(bool respawningAfterLoad)
@@ -118,8 +126,71 @@ public class CompPhobosGeneratorSet : CompPhobosSetUp, IVehicleEngineDemand
     public override void CompTickRare()
     {
         base.CompTickRare();
+        capacityCached = BufferCapacity;
         if (deployed) UpdatePower();
+        else BatteryStep();
         if (leadTo != null) KeepLead();
+    }
+
+    // ---- The hybrid: driving on the battery buffer (Framework 0.104.0; owner, 12 Nov 2026) ----
+
+    float Capacity => capacityCached >= 0f ? capacityCached : capacityCached = BufferCapacity;
+    public bool BufferFitted => Capacity > 0f;
+    public float BufferCharge => buffer;
+    public bool BatteryDriveOn => batteryDriveOn;
+    bool TankEmpty => Vehicle.CompFueledTravel is { EmptyTank: true };
+    public bool CanCreep => !deployed && BufferFitted && BatteryDriveRule.CanCreep(buffer, Rules.batteryDriveWattDaysPerCell);
+    /// <summary>On the battery: switched to it, or out of fuel with charge left. A set-up set never drives.</summary>
+    public bool OnBattery => CanCreep && (batteryDriveOn || TankEmpty);
+    public float SpeedFactor => Rules.batteryDriveSpeedFactor;
+    /// <summary>The cells the buffer's charge carries the set now.</summary>
+    public int CellsLeft => (int)BatteryDriveRule.CellsLeft(buffer, Rules.batteryDriveWattDaysPerCell);
+
+    /// <summary>The player's switch. Says what it did, and why it cannot drive on the battery now if it cannot.</summary>
+    public void SetBatteryDrive(bool on)
+    {
+        batteryDriveOn = on;
+        if (!on)
+        {
+            Tell("PhobosVehicleSystems_BatteryDriveOff".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve(), MessageTypeDefOf.SilentInput);
+            return;
+        }
+        Tell(CanCreep
+            ? "PhobosVehicleSystems_BatteryDriveOn".Translate(Vehicle.LabelShort.Named("VEHICLE"), CellsLeft.Named("CELLS")).Resolve()
+            : "PhobosVehicleSystems_BatteryDriveOnFlat".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve(), MessageTypeDefOf.SilentInput);
+    }
+
+    /// <summary>On the rare tick while not set up: the cells moved on the battery spend it; the running engine fills it.</summary>
+    void BatteryStep()
+    {
+        if (!BufferFitted || !Vehicle.Spawned)
+        {
+            lastCell = IntVec3.Invalid;
+            wasOnBattery = false;
+            return;
+        }
+        bool on = OnBattery;
+        if (on && lastCell.IsValid && Vehicle.Position != lastCell)
+        {
+            buffer = BatteryDriveRule.Drain(buffer, lastCell.DistanceTo(Vehicle.Position), Rules.batteryDriveWattDaysPerCell);
+        }
+        else if (!on && CompPhobosVehicleSystems.Of(Vehicle) is { EngineRunning: true } && !TankEmpty)
+        {
+            buffer = BatteryDriveRule.Charge(buffer, Capacity, Rules.batteryDriveChargeWatts, DaysPerRareTick);
+        }
+        bool nowOn = OnBattery;
+        if (wasOnBattery && !nowOn && !BatteryDriveRule.CanCreep(buffer, Rules.batteryDriveWattDaysPerCell))
+        {
+            // Just ran flat: with fuel the engine takes over (the next draft starts it); without, the set stops where it is.
+            if (TankEmpty)
+            {
+                if (Vehicle.Drafted) Vehicle.ignition.Drafted = false;
+                Tell("PhobosVehicleSystems_BatteryDriveFlatStopped".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve(), MessageTypeDefOf.NegativeEvent);
+            }
+            else Tell("PhobosVehicleSystems_BatteryDriveFlatEngine".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve(), MessageTypeDefOf.CautionInput);
+        }
+        wasOnBattery = nowOn;
+        lastCell = Vehicle.Position;
     }
 
     // ---- Services the gizmos call ----
@@ -379,7 +450,7 @@ public class CompPhobosGeneratorSet : CompPhobosSetUp, IVehicleEngineDemand
 
     public override string? CompInspectStringExtra()
     {
-        if (!deployed) return null;
+        if (!deployed) return BatteryLine();
         var lines = new List<string>();
         if (fault != null) lines.Add(fault);
         else lines.Add("PhobosVehicleSystems_GenOutputLine".Translate(outputWatts.ToString("N0").Named("WATTS"), load.ToStringPercent().Named("LOAD")).Resolve());
@@ -396,11 +467,26 @@ public class CompPhobosGeneratorSet : CompPhobosSetUp, IVehicleEngineDemand
         return string.Join("\n", lines);
     }
 
+    /// <summary>What the battery buffer can do for the set while it is packed up, or null without one.</summary>
+    string? BatteryLine()
+    {
+        if (!BufferFitted) return null;
+        if (OnBattery) return "PhobosVehicleSystems_BatteryDriveLine".Translate(CellsLeft.Named("CELLS")).Resolve();
+        if (TankEmpty)
+        {
+            return CanCreep
+                ? "PhobosVehicleSystems_BatteryDriveNoFuel".Translate(CellsLeft.Named("CELLS")).Resolve()
+                : "PhobosVehicleSystems_BatteryDriveNoFuelFlat".Translate().Resolve();
+        }
+        return "PhobosVehicleSystems_GenBufferLine".Translate(buffer.ToString("N0").Named("CHARGE"), Capacity.ToString("N0").Named("CAPACITY")).Resolve();
+    }
+
     public override IEnumerable<Gizmo> CompGetGizmosExtra()
     {
         foreach (Gizmo gizmo in base.CompGetGizmosExtra()) yield return gizmo;
         if (Vehicle.Faction != Faction.OfPlayer) yield break;
         yield return GeneratorGizmos.SetUpButton(this);
+        if (BufferFitted) yield return GeneratorGizmos.BatteryDriveButton(this);
         if (LeadReach > 0 || leadTo != null) yield return GeneratorGizmos.LeadButton(this);
     }
 }

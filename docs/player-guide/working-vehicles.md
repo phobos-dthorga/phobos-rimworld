@@ -209,6 +209,14 @@ that keeps the grid alive for a time when the engine cannot; a **heavy-duty fan*
 for hard work in hot weather; and an **exhaust heat exchanger** that warms the room its cable end stands in, up to 21 °C, for 25 W
 of output. **Put the cable end inside the room you want warm.**
 
+**With the battery buffer fitted, the set is a hybrid** (not yet tested in game):
+
+- **Press Battery drive** to move it with the engine off: slowly (about a third of its speed), quietly, burning no fuel, about 300 cells
+  on a full buffer.
+- **Out of fuel, it creeps on the battery by itself**, so you can limp it to a tanker or a fuel dump. When the battery is flat it stops
+  and says so.
+- **The engine fills the battery again while it runs.** The inspect pane says how far the charge will carry it.
+
 The **service lead** charges another vehicle's battery in the field:
 
 - **With the set set up and running, press Run the service lead** and pick one of your vehicles within 6 cells.

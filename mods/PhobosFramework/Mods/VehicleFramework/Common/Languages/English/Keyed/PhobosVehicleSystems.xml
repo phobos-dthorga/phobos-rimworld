@@ -520,6 +520,18 @@
   <PhobosVehicleSystems_GenTooDamaged>Making no power: the generator is too badly damaged.</PhobosVehicleSystems_GenTooDamaged>
   <PhobosVehicleSystems_GenOutputLine>Feeding the grid: {WATTS} W on offer, working at {LOAD}.</PhobosVehicleSystems_GenOutputLine>
   <PhobosVehicleSystems_GenBufferLine>Battery buffer: {CHARGE} of {CAPACITY} Wd.</PhobosVehicleSystems_GenBufferLine>
+  <!-- The generator set's battery drive (Framework 0.104.0, the hybrid). -->
+  <PhobosVehicleSystems_BatteryDriveGizmo>Battery drive</PhobosVehicleSystems_BatteryDriveGizmo>
+  <PhobosVehicleSystems_BatteryDriveGizmoDesc>Drive on the battery buffer with the engine off: slowly and quietly, burning no fuel, for about {CELLS} cells on the charge it holds now. The engine fills the battery again while it runs. Out of fuel, the truck creeps on the battery by itself, switch or not.</PhobosVehicleSystems_BatteryDriveGizmoDesc>
+  <PhobosVehicleSystems_BatteryDriveSetUp>Pack up first: a set-up truck cannot be driven.</PhobosVehicleSystems_BatteryDriveSetUp>
+  <PhobosVehicleSystems_BatteryDriveOn>The {VEHICLE} will drive on its battery, quietly, for about {CELLS} cells.</PhobosVehicleSystems_BatteryDriveOn>
+  <PhobosVehicleSystems_BatteryDriveOnFlat>The {VEHICLE}'s battery is too low to drive on. Run the engine for a while to charge it.</PhobosVehicleSystems_BatteryDriveOnFlat>
+  <PhobosVehicleSystems_BatteryDriveOff>The {VEHICLE} will drive on its engine again.</PhobosVehicleSystems_BatteryDriveOff>
+  <PhobosVehicleSystems_BatteryDriveFlatEngine>The {VEHICLE}'s battery is flat: it drives on its engine again.</PhobosVehicleSystems_BatteryDriveFlatEngine>
+  <PhobosVehicleSystems_BatteryDriveFlatStopped>The {VEHICLE}'s battery is flat and its tank is empty, so it has stopped. Bring it fuel, or a tanker.</PhobosVehicleSystems_BatteryDriveFlatStopped>
+  <PhobosVehicleSystems_BatteryDriveLine>On the battery: about {CELLS} cells left.</PhobosVehicleSystems_BatteryDriveLine>
+  <PhobosVehicleSystems_BatteryDriveNoFuel>Out of fuel: it can creep about {CELLS} cells on its battery.</PhobosVehicleSystems_BatteryDriveNoFuel>
+  <PhobosVehicleSystems_BatteryDriveNoFuelFlat>Out of fuel, and its battery is too low to move it.</PhobosVehicleSystems_BatteryDriveNoFuelFlat>
   <PhobosVehicleSystems_GenGizmoSetUp>Set up</PhobosVehicleSystems_GenGizmoSetUp>
   <PhobosVehicleSystems_GenGizmoSetUpDesc>Lower the outriggers and run out the cable. The engine then feeds the grid, using fuel in step with what the grid draws. It cannot move while set up.</PhobosVehicleSystems_GenGizmoSetUpDesc>
   <PhobosVehicleSystems_GenGizmoPackUp>Pack up</PhobosVehicleSystems_GenGizmoPackUp>

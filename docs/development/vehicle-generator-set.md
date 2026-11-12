@@ -1,7 +1,8 @@
 # The mobile generator set: design (9 Nov 2026)
 
 **Built in D'thorga Framework 0.44.0 and D'thorga Vehicles 0.17.0; its own pictures and the heavy-duty fan in Framework 0.98.0 and Vehicles 0.43.0 (12 Nov 2026, the owner's picks). Not yet tested in game. Agent-authored for the owner to confirm.**
-**What was built differs from what follows in three places:** the battery buffer holds the grid up when the engine cannot, but the "creep with the engine off" is not built; the
+**What was built differs from what follows in three places:** the battery buffer holds the grid up when the engine cannot, and since Framework 0.104.0 (owner, 12 Nov 2026) the set also creeps on it
+with the engine off (section "The hybrid", not yet tested in game); the
 `WorkLights` node is not built, because no moving vehicle light exists to reuse and a light at the cable end would be in the wrong place; and the pictures were stand-ins drawn in
 code until 12 Nov 2026, when the owner's picks replaced them. With the owner away from the question, the agent took its own lean on the open questions below: the cable end transmits and takes
 wires, fuel follows the grid's draw, no VOE tie-in, and the buffer is in the first tree. It replaces the
@@ -50,7 +51,36 @@ done. It is also the smallest vehicle of the family and the one every other vehi
 | **Powering the family's vehicles** | Charge and run every vehicle of ours parked beside the set's net | Run them all at once beyond what the set offers: the net browns out | The set is the camp's heart; its output is the camp's budget |
 | **A destroyed engine or generator** | Nothing new | Make power with either gone: the set offers nothing and says which part | A raid on the set is a raid on the camp; defend it as a generator, not as a truck |
 
-## The camp's power
+## The hybrid: driving on the battery (Framework 0.104.0)
+
+**The owner asked for it on 12 Nov 2026** (idea I2: "a small battery buffer on a diesel-electric, so it can creep quietly a short way on
+electricity alone"). Built in D'thorga Framework 0.104.0 on the battery buffer node the tree already had. **Not yet tested in game.**
+
+| Behaviour | Lets the player | Stops them | Changes how they play |
+| --- | --- | --- | --- |
+| **Battery drive** (a switch on the set, shown once the buffer is fitted) | Move the set a short way with the engine off: no fuel, no engine sound, no engine heat | Drive far or fast on it: 0.35 of its speed, about 300 cells on a full buffer | Repositioning at camp, or slipping past at night, costs battery instead of fuel |
+| **Out of fuel, it creeps by itself** | Limp a dry set to a tanker, a fuel dump or a depot bay | Go on once the buffer is flat: it stops and says so | A dry tank is a short walk, not a stranding |
+| **The engine refills it** | Top the buffer up by driving on the engine, or by running set up as before | Charging for nothing: only a running engine with fuel charges it | Drive on the engine first if you mean to creep later |
+
+**How it works, from the code (agent's choices, recorded):**
+
+- **The figures** (authored, in the rules Def): 0.35 of the set's speed on the battery; a cell costs 0.5 watt-days of the buffer, so the
+  node's 150 carry it 300 cells (the design's "a few hundred"); the running engine puts 400 W back while the set is packed up, a full
+  buffer in about nine game hours. Set up, the grid's own rule fills and spends the buffer as before (`GeneratorRule`).
+- **Counted by the cell:** on the rare tick, the straight-line distance moved since the last one spends the buffer
+  (`BatteryDriveRule`, game-free, 9 tests). A winding route at a creep is counted a little short; a labelled simplification.
+- **The engine is off on the battery:** the systems comp counts the engine off while the battery drives (`IVehicleBatteryDrive`), so
+  there is no engine heat, load, sound or wear, and the speed cap the drivetrain already uses keeps 0.35 of the speed.
+- **No fuel burned:** Vehicle Framework burns fuel while a vehicle is drafted, in its fuel comp's private `ShouldConsumeNow`. A postfix
+  answers false while the battery drives. No extension point exists; this is the recorded reason for the patch.
+- **An empty tank:** Vehicle Framework's fuel comp refuses to draft and to move a vehicle with an empty tank (`CanDraft`, `CanMove`).
+  Two postfixes let a set with charge enough for a cell through. The same comp's "out of fuel, undraft" line sits after the fuel check
+  and is skipped while the battery drives, so the set keeps going until the buffer is spent; then our rare tick undrafts it and says so.
+- **When it runs flat:** with fuel, a message says the engine drives it again; without, the set stops where it stands, with a message.
+- **Other factions' sets:** the switch is the player's; another faction never switches it. A raider's or an enemy base's set with the
+  buffer fitted and an empty tank could creep, but no AI leaves a dry set where that would matter, and the patches cost one dictionary
+  look-up a tick only for a vehicle whose fuel comp is asked. A captured set keeps its buffer's charge and drives as ours.
+
 
 **The family rule (owner, 9 Nov 2026), written once here.** Any vehicle of ours with electric loads draws from the generator set's net when
 it is parked beside it, through the shore-power path that already exists. Our systems service calls a parked vehicle shore-powered when
@@ -267,7 +297,7 @@ light at night through the game's `CompGlower`. The cable out and the outriggers
 | --- | --- |
 | The stub-building route to the net, or wait for a Vehicle Framework or VEF power hook that may never come? | The stub. It is the pattern VOE Power Grid already ships, and the only route the code allows without patching the net |
 | The stub as a transmitter with `allowWireConnection` true (buildings within 6 cells wire to it, no conduit needed), or false as VOE's outlet (conduits only)? | True. A camp should need nothing built but the cable end |
-| The battery buffer in the first tree, or later? | In the first tree, as the hybrid of idea I2: it is the one node that changes what a set out of fuel can do |
+| The battery buffer in the first tree, or later? | In the first tree, as the hybrid of idea I2: it is the one node that changes what a set out of fuel can do. **Built (owner, 12 Nov 2026): the creep on the battery, Framework 0.104.0** |
 | Should the buffer also make the stub a battery on the net, so Vehicle Framework's electric vehicles can charge from the set alone? | Not in the first build: it means a battery comp whose stored energy must be saved on the vehicle and restored on the stub; record it and decide after the first test |
 | Fuel in step with the camp's draw (a governor), or a flat burn as the game's generators? | In step with the draw. It is what a diesel-electric does, and the engine model already has the load |
 | A VOE Power Grid tie-in now? | No folder in the first build; the precedent matters, the tie-in does not |

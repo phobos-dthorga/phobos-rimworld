@@ -82,7 +82,9 @@ pack. **Every vehicle carries a booster pack** in the settings (off) does away w
 
 **Cold weather:** cold oil makes a start harder on the battery. A **block heater** fitting keeps a vehicle parked beside power warm,
 and the **night heater** keeps a caravan's engine warm at camp (needs the **Night heater at camp** setting and the vehicle's night
-heater switch on before it leaves).
+heater switch on before it leaves). **Electric vehicles have their own night heater** (not yet tested in game): the same switch and
+setting, keeping the cab and the drive battery warm through the night, paid for from the drive battery, about a fifth of its range on a
+ten-hour night.
 
 ## Damage and repairs
 

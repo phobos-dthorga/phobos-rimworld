@@ -4,8 +4,9 @@
     Electric land vehicles (owner, 8 Nov 2026; Framework 0.20.0; docs/development/vehicle-electric-design.md): any land vehicle Vehicle
     Framework runs on electricity, matched by that and never by name. The traction battery and electric drive systems, the 12 V
     electrics charged by a DC-DC converter, the electric drivetrain (one fixed reduction), tyres and brakes, and the cab. No coolant,
-    oil, gearbox, fuel-in-the-cold or night heater: an electric vehicle has none of them (the night heater's fuel figure is in units
-    of chemfuel; a later version may give electric vehicles their own). Not yet tested in game.
+    oil, gearbox or fuel-in-the-cold: an electric vehicle has none of them. Its night heater (Framework 0.104.0; owner, 12 Nov 2026) is
+    its own: an electric heater that keeps the cab and the traction pack warm at a night camp from the pack's charge (Systems_Electric.xml,
+    nightHeaterShare), never the combustion heater's chemfuel. Not yet tested in game.
 
     Figures: a 12 V, 45 Ah battery as the combustion loadouts (Wikipedia, "Automotive battery", secondary); a DC-DC converter of about
     1.5 kW, so 100 A at 12 V (general, approximate); the computers' and contactors' draw at switch-on 0.02 Ah (authored). Brake wear
@@ -47,7 +48,15 @@
           <wearPerStop>0.00027</wearPerStop>
         </set>
       </li>
-      <li><def>PhobosVehicleSystem_Cabin</def></li>
+      <li>
+        <!-- The cab's night heater flow warms the cab as on a combustion vehicle; its fuel figure is in units of chemfuel, and Vehicle
+             Framework keeps an electric vehicle's charge as its fuel, so that burn is set to nothing here and the traction battery's own
+             nightHeaterDraw pays for the night in charge (Framework 0.104.0). -->
+        <def>PhobosVehicleSystem_Cabin</def>
+        <set>
+          <nightHeaterFuelPerHour>0</nightHeaterFuelPerHour>
+        </set>
+      </li>
     </systems>
     <partRoles>
       <li>
@@ -185,6 +194,26 @@
             <li Class="Phobos.VehicleSystems.When_LoadActive">
               <load>climateControl</load>
               <invert>true</invert>
+            </li>
+          </conditions>
+        </when>
+      </li>
+      <li>
+        <!-- The electric night heater (Framework 0.104.0; owner, 12 Nov 2026). Same name, switch, icon and setting as the combustion one, so
+             the player meets one night heater and the cold-weather family turns it on; it runs at a caravan's night camp, as that one does.
+             It draws on the traction battery (Systems_Electric.xml), so a cold night costs range. -->
+        <name>nightHeater</name>
+        <label>night heater</label>
+        <description>An electric heater that keeps the cab and the drive battery warm while the caravan camps for the night, so the battery gives its full power and takes charge well in the morning. It runs on the drive battery, so a cold night costs some range. Switch it on before you leave; it needs the night heater setting.</description>
+        <amps>2</amps>
+        <toggle>true</toggle>
+        <defaultOn>false</defaultOn>
+        <iconPath>Phobos/VehicleSystems/NightHeater</iconPath>
+        <when Class="Phobos.VehicleSystems.When_All">
+          <conditions>
+            <li Class="Phobos.VehicleSystems.When_CaravanResting" />
+            <li Class="Phobos.VehicleSystems.When_Setting">
+              <setting>nightHeater</setting>
             </li>
           </conditions>
         </when>

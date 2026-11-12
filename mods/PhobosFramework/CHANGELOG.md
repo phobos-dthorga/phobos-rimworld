@@ -24,6 +24,10 @@ Headlights that light the ground; a tow you can read, a forecast before one, and
 - For modders: TowRule (game-free, with tests) and Powertrain.ForecastTow give the forecast; CompPhobosHitch.Outlook keeps it a second for the mouse label; CompPhobosHitch.TowedAlong names a vehicle held off the map behind another.
 - For modders: any electrical load in a loadout can cast light with a beam element (radius, cells ahead, colour, brightness), and VehicleLight is the one class that places a vehicle's light; HeadlightRule is game-free, with tests.
 
+- **Electric vehicles have a night heater of their own** (owner, 12 November 2026). The same switch and the same Night heater at camp setting as other vehicles: at a caravan's night camp it keeps the cab and the drive battery warm, so the battery gives its full power and takes charge well in the morning. It draws 2% of the drive battery's charge an hour, about a fifth of the range over a ten-hour night (authored). The cold-weather family switches it on too. Not yet tested in game.
+- **The generator set is a hybrid** (owner, 12 November 2026). With its battery buffer fitted, the new **Battery drive** switch moves it with the engine off: at about a third of its speed, quietly, burning no fuel, for about 300 cells on a full buffer (authored). Out of fuel, it creeps on the battery by itself, so it can limp to a tanker. When the battery is flat it says so, and stops if the tank is empty. The running engine fills the battery again. Not yet tested in game.
+- For modders: IVehicleBatteryDrive, for any comp that can move its vehicle on a battery; BatteryDriveRule (game-free, with tests); and the rules figures batteryDriveSpeedFactor, batteryDriveWattDaysPerCell and batteryDriveChargeWatts.
+
 ### Changed
 
 - **The headlights switch is off by default now.** With the new rule, lights left on by default would flatten every parked vehicle's battery each night. A vehicle whose headlights switch was never pressed has them off; switch them on before driving at night. A switch already pressed keeps its choice.
@@ -37,6 +41,7 @@ Headlights that light the ground; a tow you can read, a forecast before one, and
 
 ### Compatibility and limits
 
+- The battery drive needs three small patches to Vehicle Framework's fuel component (whether it burns fuel, and whether a dry vehicle may be drafted or moved), each acting only for a vehicle whose battery drive is running or can run. The distance it spends is counted in straight lines between checks a few seconds apart, so a winding creep is counted a little short.
 - A beam is moved only when the vehicle reaches another cell or turns, and looked at no more than three times a second; a parked or dark vehicle costs next to nothing. Nothing is saved, so the setting and the mod can be turned off at any time.
 - The headlights do not go out when the front of the vehicle is shot up: no part carries them yet.
 - **Loading while hitched works as it always did** through Vehicle Framework's own cargo window: haulers walk to the trailer wherever it stands, and its new weight is counted the next time the vehicle moves.

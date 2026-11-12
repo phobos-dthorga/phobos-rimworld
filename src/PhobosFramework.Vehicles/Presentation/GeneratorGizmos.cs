@@ -29,6 +29,24 @@ public static class GeneratorGizmos
         return command;
     }
 
+    /// <summary>
+    /// The battery drive (Framework 0.104.0, the hybrid): a switch to move the set on its battery buffer with the engine off, quiet and slow.
+    /// Disabled while it is set up, with the reason. An empty tank needs no switch: the set creeps on the battery by itself.
+    /// </summary>
+    public static Gizmo BatteryDriveButton(CompPhobosGeneratorSet set)
+    {
+        var command = new Command_Toggle
+        {
+            defaultLabel = "PhobosVehicleSystems_BatteryDriveGizmo".Translate().Resolve(),
+            defaultDesc = "PhobosVehicleSystems_BatteryDriveGizmoDesc".Translate(set.CellsLeft.Named("CELLS")).Resolve(),
+            icon = SystemIcons.For("Phobos/VehicleSystems/Dash/Battery"),
+            isActive = () => set.BatteryDriveOn,
+            toggleAction = () => set.SetBatteryDrive(!set.BatteryDriveOn),
+        };
+        if (set.Deployed) command.Disable("PhobosVehicleSystems_BatteryDriveSetUp".Translate().Resolve());
+        return command;
+    }
+
     /// <summary>The service lead (Framework 0.101.0): run it to one of our vehicles in reach, or take it in. Disabled with the reason.</summary>
     public static Gizmo LeadButton(CompPhobosGeneratorSet set)
     {

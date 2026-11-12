@@ -735,6 +735,12 @@ public class PhobosVehicleRulesDef : PhobosRulesDef
     /// <summary>The generator set's service lead (Framework 0.101.0, authored): the watts it takes off the top of the set's output, a heavy
     /// battery charger and its losses.</summary>
     public float serviceLeadWatts = 300f;
+    /// <summary>The generator set's battery drive (Framework 0.104.0, the hybrid; all authored, BatteryDriveRule): the share of its speed it
+    /// keeps on the battery, the buffer's watt-days one cell costs (a full 150 carries 300 cells), and the watts the running engine puts back
+    /// into the buffer while the set is not set up.</summary>
+    public float batteryDriveSpeedFactor = 0.35f;
+    public float batteryDriveWattDaysPerCell = 0.5f;
+    public float batteryDriveChargeWatts = 400f;
     /// <summary>The tipper's loading grab (Framework 0.101.0, authored): its reach from the truck's edge in cells, and the game seconds one
     /// lift takes. What one lift carries is the vehicle's stat Phobos_GrabLift, set by the grab's node.</summary>
     public float grabReachCells = 4f;

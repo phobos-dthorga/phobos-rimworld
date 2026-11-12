@@ -186,7 +186,25 @@ public class CompPhobosVehicleSystems : VehicleComp
 
     /// <summary>The share of its speed the vehicle may use this tick (the path follower's patch reads it): the drivetrain model's, and a
     /// tow's on the plain rule where the model does not work the tow out (Framework 0.101.0).</summary>
-    public float SpeedCap => Usable ? (Powertrain?.SpeedCap ?? 1f) * (Hitch?.PlainSpeedCap ?? 1f) : 1f;
+    public float SpeedCap => Usable ? (Powertrain?.SpeedCap ?? 1f) * (Hitch?.PlainSpeedCap ?? 1f) * (BatteryDrive is { OnBattery: true } drive ? drive.SpeedFactor : 1f) : 1f;
+
+    IVehicleBatteryDrive? batteryDrive;
+    bool batteryDriveFound;
+
+    /// <summary>The vehicle's battery drive (the generator set's hybrid, Framework 0.104.0), if it has one. Found once: the speed cap and
+    /// the fuel patch ask every tick.</summary>
+    public IVehicleBatteryDrive? BatteryDrive
+    {
+        get
+        {
+            if (!batteryDriveFound && Vehicle != null)
+            {
+                batteryDriveFound = true;
+                batteryDrive = Vehicle.AllComps.OfType<IVehicleBatteryDrive>().FirstOrDefault();
+            }
+            return batteryDrive;
+        }
+    }
 
     CompPhobosHitch? hitch;
     bool hitchFound;
@@ -680,6 +698,13 @@ public class CompPhobosVehicleSystems : VehicleComp
                 Moving = train.AircraftMoving || flying;
             }
             if (train.Full) EngineLoad = EngineRunning ? (float)train.Result.Load : 0f;
+        }
+        // On the battery (the generator set's hybrid, Framework 0.104.0) the engine is off however the vehicle moves: no heat, sound, load or fuel.
+        if (BatteryDrive is { OnBattery: true })
+        {
+            EngineRunning = false;
+            EngineRunningRaw = false;
+            EngineLoad = 0f;
         }
         // A set-up vehicle's work turns the engine with nobody driving. EngineRunningRaw stays as it was, so the drivetrain's fuel sum adds nothing: the work burns its own.
         engineDemands ??= vehicle.AllComps.OfType<IVehicleEngineDemand>().ToList();
