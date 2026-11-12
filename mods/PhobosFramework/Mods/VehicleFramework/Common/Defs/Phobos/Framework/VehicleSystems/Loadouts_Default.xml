@@ -338,6 +338,8 @@
         <amps>10</amps>
         <toggle>true</toggle>
         <iconPath>Phobos/VehicleSystems/Fittings/WorkLamps</iconPath>
+        <!-- Off once fitted (owner, 13 Nov 2026): the player switches them on where the work is. -->
+        <defaultOn>false</defaultOn>
         <available Class="Phobos.VehicleSystems.When_Granted">
           <ability>WorkLights</ability>
         </available>
@@ -501,6 +503,8 @@
         <amps>5</amps>
         <toggle>true</toggle>
         <iconPath>Phobos/VehicleSystems/Fittings/WorkLamps</iconPath>
+        <!-- Off once fitted (owner, 13 Nov 2026): the player switches them on where the work is. -->
+        <defaultOn>false</defaultOn>
         <available Class="Phobos.VehicleSystems.When_Granted">
           <ability>WorkLights</ability>
         </available>

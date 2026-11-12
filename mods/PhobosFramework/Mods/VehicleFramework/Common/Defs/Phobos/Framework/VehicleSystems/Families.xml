@@ -38,14 +38,12 @@
     <defName>PhobosFamily_WorkLights</defName>
     <iconPath>Phobos/VehicleSystems/Fittings/WorkLamps</iconPath>
     <label>work lights</label>
-    <description>Work lamps on the vehicle, switched on, so a camp or a site round it can work through the night.</description>
+    <description>Work lamps on the vehicle, so a camp or a site round it can work through the night. They start switched off: switch them on where the work is.</description>
     <order>4</order>
     <fittings>
       <li>PhobosFitting_WorkLamps</li>
     </fittings>
-    <switchOn>
-      <li>workLamps</li>
-    </switchOn>
+    <!-- No switchOn (owner, 13 Nov 2026: work lamps are off once fitted). -->
   </Phobos.VehicleSystems.PhobosVehicleFamilyDef>
 
   <Phobos.VehicleSystems.PhobosVehicleFamilyDef>

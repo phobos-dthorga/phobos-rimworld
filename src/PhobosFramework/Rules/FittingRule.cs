@@ -41,4 +41,13 @@ public static class FittingRule
     /// <summary>Of the fuel above capacity, the whole units a mechanic drains into containers; the fraction left over is lost in the
     /// draining (a simplification: the game counts fuel in whole items).</summary>
     public static int WholeUnits(double amount) => amount <= 0 ? 0 : (int)Math.Floor(amount + 1e-6);
+
+    /// <summary>
+    /// Wear left after one more part of a role is renewed (owner's test of 13 Nov 2026: new tyres left the tread as worn as before). A vehicle
+    /// keeps one wear figure for all its wheels, the average; parts already renewed count as unworn, so the wear sits on the others. Renewing
+    /// one of the <paramref name="notYetRenewed"/> parts takes away its share: 4 wheels in turn leave 3/4, 2/4, 1/4 and none of the wear.
+    /// A simplification: it assumes the wear was even across the parts when the first was renewed.
+    /// </summary>
+    public static double WearAfterRenewing(double wear, int notYetRenewed) =>
+        notYetRenewed <= 1 ? 0 : Math.Max(0, wear) * (notYetRenewed - 1) / notYetRenewed;
 }

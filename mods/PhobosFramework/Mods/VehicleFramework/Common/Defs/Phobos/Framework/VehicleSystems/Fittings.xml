@@ -116,6 +116,8 @@
     <label>road tyres</label>
     <description>A softer, faster compound. Quicker on the move, and it wears out sooner. Fit every axle for the full effect.</description>
     <roles><li>Wheels</li></roles>
+    <!-- New tyres: each wheel fitted takes away its share of the tread wear (Framework 0.105.2; owner's test of 13 Nov 2026). -->
+    <renews><li>treadWear</li></renews>
     <materials><Steel>25</Steel><Chemfuel>30</Chemfuel></materials>
     <work>5000</work>
     <minSkill>3</minSkill>
@@ -166,6 +168,8 @@
     <label>all-terrain tyres</label>
     <description>A deep, open tread that bites into mud, sand and snow. It holds far better on soft ground, is a little slower everywhere, and wears faster on hard going. Fit every axle for the full effect.</description>
     <roles><li>Wheels</li></roles>
+    <!-- New tyres: each wheel fitted takes away its share of the tread wear (Framework 0.105.2; owner's test of 13 Nov 2026). -->
+    <renews><li>treadWear</li></renews>
     <materials><Steel>30</Steel><Chemfuel>40</Chemfuel></materials>
     <work>5000</work>
     <minSkill>3</minSkill>

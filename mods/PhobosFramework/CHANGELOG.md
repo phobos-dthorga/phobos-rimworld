@@ -5,6 +5,23 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.105.2] - 2026-11-13 - Draft
+
+Fixes from the owner's test of 13 November 2026: new tyres renew the tread, and work lamps start switched off
+
+### Fixed
+
+- **New tyres now renew the tread** (the owner's test of 13 November 2026: a vehicle given all-terrain tyres kept its old tread wear). Fitting all-terrain or road tyres to a wheel takes away that wheel's share of the wear: two wheels of four halve it, and the whole set clears it. The vehicle keeps one wear figure for all its wheels, so this assumes the wear was even when the first wheel was done (a simplification). A vehicle given new tyres on some wheels before this version keeps its wear until the rest are fitted or it has a tyre service. Not yet tested in game.
+
+### Changed
+
+- **Work lamps start switched off once fitted** (owner, 13 November 2026), so the player switches them on where the work is, and the work lights family no longer switches them on. Lamps already switched on keep their setting. Not yet tested in game.
+- For modders: a fitting Def's renews list names the wear quantities it renews on the parts it goes on, and FittingRule.WearAfterRenewing (game-free, with tests) takes each part's share.
+
+### Compatibility and limits
+
+- **Tested in game by the owner, 13 November 2026, on 0.105.1:** headlights light the ground (part of check 69); work lamps work (check 66), apart from starting switched on; families and tunes ordered several at once queue as they should (check 64).
+
 ## [0.105.1] - 2026-11-13 - Draft
 
 Clean backgrounds: no white left inside the cargo hook, the sling set and other pictures

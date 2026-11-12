@@ -91,4 +91,32 @@ public class FittingRuleTests
     [InlineData(0, 0)]
     [InlineData(-3, 0)]
     public void OnlyWholeUnitsAreDrained(double amount, int units) => Assert.Equal(units, FittingRule.WholeUnits(amount));
+
+    [Fact]
+    public void RenewingEveryWheelInTurnLeavesNoWear()
+    {
+        double wear = 0.8;
+        for (int left = 4; left >= 1; left--) wear = FittingRule.WearAfterRenewing(wear, left);
+        Assert.Equal(0, wear, 9);
+    }
+
+    [Fact]
+    public void RenewingTwoWheelsOfFourHalvesTheWear()
+    {
+        double wear = FittingRule.WearAfterRenewing(FittingRule.WearAfterRenewing(0.8, 4), 3);
+        Assert.Equal(0.4, wear, 9);
+    }
+
+    [Fact]
+    public void RenewingTheLastOrOnlyPartClearsTheWear()
+    {
+        Assert.Equal(0, FittingRule.WearAfterRenewing(0.5, 1), 9);
+        Assert.Equal(0, FittingRule.WearAfterRenewing(0.5, 0), 9);
+    }
+
+    [Fact]
+    public void NegativeWearReadsAsNone()
+    {
+        Assert.Equal(0, FittingRule.WearAfterRenewing(-0.2, 4), 9);
+    }
 }

@@ -729,6 +729,7 @@ public sealed class VehicleFittings
         }
         else
         {
+            Renew(order.fitting!, order.partKey);
             fitted.RemoveAll(f => f.partKey == order.partKey);
             fitted.Add(new FittedPart { partKey = order.partKey, def = order.fitting });
             text = "PhobosVehicleSystems_FitDone".Translate(who, order.fitting!.label.Named("FITTING"), vehicle, PartLabel(order.partKey).Named("PART")).Resolve();
@@ -736,6 +737,22 @@ public sealed class VehicleFittings
         orders.Remove(order);
         Changed();
         return text;
+    }
+
+    /// <summary>
+    /// A fitting that renews wear (new tyres renew the tread) takes away this part's share of it: the parts of its roles that do not yet
+    /// carry this fitting share the wear, and this one leaves them. Called before the fitting is recorded on the part.
+    /// </summary>
+    void Renew(PhobosVehicleFittingDef def, string partKey)
+    {
+        if (def.renews.Count == 0) return;
+        List<string> keys = def.roles.Where(comp.Props.roleKeys.ContainsKey).SelectMany(role => comp.Props.roleKeys[role]).Distinct().ToList();
+        if (!keys.Contains(partKey)) return;
+        int notYetRenewed = keys.Count(key => key == partKey || FittedOn(key) != def);
+        foreach (string quantity in def.renews)
+        {
+            if (comp.TryGetQuantity(quantity, out float wear)) comp.SetQuantity(quantity, (float)FittingRule.WearAfterRenewing(wear, notYetRenewed));
+        }
     }
 
     void Changed(FuelExcess excess = FuelExcess.Drain)
