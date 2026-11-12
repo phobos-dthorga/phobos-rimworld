@@ -228,6 +228,100 @@ class HeldFolderTests(unittest.TestCase):
         self.assertEqual([('check', ('A', 'B')), ('deploy', 'A'), ('deploy', 'B')], calls)
 
 
+def installed_mod_with_textures(game, mod='Example', pngs=('Textures/A.png', 'Mods/Other/Common/Textures/B.png')):
+    folder = Path(game) / 'Mods' / mod
+    for rel in pngs:
+        path = folder / rel
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_bytes(b'\x89PNG')
+    (folder / 'About').mkdir(parents=True, exist_ok=True)
+    (folder / 'About' / 'Preview.png').write_bytes(b'\x89PNG')
+    return folder
+
+
+class ToddsTests(unittest.TestCase):
+    """deploy encodes the installed mods' textures with RimSort's todds and RimSort's own preset (owner, 13 Nov 2026)."""
+
+    def test_the_preset_is_rimsorts_optimized_one(self):
+        # RimSort/RimSort app/utils/todds/wrapper.py, "optimized", with RimSort's overwrite off (-on): the flip matters.
+        self.assertEqual(('-f', 'BC1', '-af', 'BC7', '-on', '-vf', '-fs', '-ss', 'Textures', '-t', '-p'), deploy.RIMSORT_OPTIMIZED)
+
+    def test_todds_is_called_with_the_preset_and_the_installed_folder(self):
+        calls = []
+
+        class Result:
+            returncode = 0
+            stdout = stderr = ''
+
+        with tempfile.TemporaryDirectory() as game:
+            folder = installed_mod_with_textures(game)
+            count = deploy.encode_textures(folder, Path('C:/fake/todds.exe'), run=lambda cmd, **kw: calls.append(cmd) or Result(),
+                                           log=lambda s: None, clock=iter([0.0, 1.5]).__next__)
+        self.assertEqual(2, count, 'only PNG files under a Textures path count, not About/Preview.png')
+        self.assertEqual([[str(Path('C:/fake/todds.exe')), *deploy.RIMSORT_OPTIMIZED, str(folder)]], calls)
+
+    def test_a_mod_without_textures_never_calls_todds(self):
+        with tempfile.TemporaryDirectory() as game:
+            folder = Path(game) / 'Mods' / 'XmlOnly'
+            folder.mkdir(parents=True)
+            self.assertEqual(0, deploy.encode_textures(folder, Path('todds.exe'), run=lambda *a, **kw: self.fail('called todds'),
+                                                       log=lambda s: None))
+
+    def test_a_todds_failure_is_reported_not_raised(self):
+        class Result:
+            returncode = 3
+            stdout = ''
+            stderr = 'bad file'
+
+        lines = []
+        with tempfile.TemporaryDirectory() as game:
+            folder = installed_mod_with_textures(game)
+            count = deploy.encode_textures(folder, Path('todds.exe'), run=lambda *a, **kw: Result(), log=lines.append)
+        self.assertEqual(0, count)
+        self.assertIn('PNG files', lines[0])
+
+    def test_missing_todds_is_a_note_not_a_failure(self):
+        lines = []
+        self.assertEqual(0, deploy.encode_installed(['Example'], 'nowhere', find=lambda explicit: None,
+                                                    encode=lambda *a, **kw: self.fail('encoded'), log=lines.append))
+        self.assertIn('todds was not found', lines[0])
+
+    def test_only_the_deployed_mods_are_encoded(self):
+        seen = []
+        with tempfile.TemporaryDirectory() as game:
+            installed_mod_with_textures(game, 'Ours')
+            installed_mod_with_textures(game, 'SomeoneElses')
+            deploy.encode_installed(['Ours'], game, find=lambda explicit: Path('todds.exe'),
+                                    encode=lambda folder, todds, **kw: seen.append(Path(folder).name) or 1, log=lambda s: None)
+        self.assertEqual(['Ours'], seen)
+
+    def test_todds_path_precedence(self):
+        with tempfile.TemporaryDirectory() as folder:
+            explicit, env, configured = (Path(folder) / name for name in ('a.exe', 'b.exe', 'c.exe'))
+            for path in (explicit, env, configured):
+                path.write_bytes(b'')
+            settings = Path(folder) / 'install-settings.json'
+            settings.write_text(json.dumps({'toddsPath': str(configured)}), encoding='utf-8')
+            self.assertEqual(explicit, deploy.todds_path(str(explicit), {'RIMSORT_TODDS': str(env)}, settings))
+            self.assertEqual(env, deploy.todds_path(None, {'RIMSORT_TODDS': str(env)}, settings))
+            self.assertEqual(configured, deploy.todds_path(None, {}, settings))
+            self.assertIsNone(deploy.todds_path(str(Path(folder) / 'absent.exe'), {}, settings))
+
+    def test_no_dds_skips_the_step(self):
+        calls = []
+        originals = deploy.deploy, deploy.check_movable, deploy.game_running, deploy.encode_installed
+        deploy.deploy = lambda mod, game, apply, **kw: 0
+        deploy.check_movable = lambda mods, game, **kw: None
+        deploy.game_running = lambda *a, **kw: False
+        deploy.encode_installed = lambda mods, game, explicit=None, **kw: calls.append((tuple(mods), explicit)) or 0
+        try:
+            deploy.main(['--apply', '--no-dds', '--game', 'nowhere', 'A'])
+            deploy.main(['--apply', '--todds', 'X:/todds.exe', '--game', 'nowhere', 'A'])
+        finally:
+            deploy.deploy, deploy.check_movable, deploy.game_running, deploy.encode_installed = originals
+        self.assertEqual([(('A',), 'X:/todds.exe')], calls)
+
+
 class GameRunningTests(unittest.TestCase):
     def test_tasklist_finds_rimworld_1_6_and_1_7(self):
         for image in ('RimWorld.exe', 'RimWorldWin64.exe', 'rimworld.EXE'):

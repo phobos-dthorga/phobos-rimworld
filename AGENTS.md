@@ -428,7 +428,8 @@ delivered, record the delivery in the changelog or design record, and add or ame
 
 - Install to the game's `Mods` folder only through `scripts/deploy.py`, with RimWorld closed:
   `python scripts/deploy.py --build --apply --all` builds every project and installs every mod (owner, 4
-  November 2026); name mods instead of `--all` for one. Never edit `ModsConfig.xml` or the owner's RimSort
+  November 2026); name mods instead of `--all` for one; deploy also encodes our textures to DDS with RimSort's todds, so RimSort's
+  texture step is not needed for our mods. Never edit `ModsConfig.xml` or the owner's RimSort
   lists unless the owner asks, and back them up first.
 - Scale checks to the change; test rules and persistence, not static documentation. **Before committing, run
   `python scripts/check-all.py` and chain the commit on its exit code** (`python scripts/check-all.py && git commit ...`),

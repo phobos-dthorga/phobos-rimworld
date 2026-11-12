@@ -11,6 +11,11 @@ game path comes from --game, the RIMWORLD_PATH environment variable, .local/inst
     python scripts/deploy.py --apply PhobosRadioFramework    copy one mod
     python scripts/deploy.py --all                           preview every mod
     python scripts/deploy.py --build --apply --all           build everything, then copy every mod
+
+After copying, it encodes each installed mod's textures to DDS with RimSort's todds, using RimSort's own "optimized" preset, so
+RimSort's texture step is not needed for our mods (owner, 13 Nov 2026: a fresh install had wiped the DDS files RimSort made, and
+every update meant running todds over every mod again). todds comes from --todds, RIMSORT_TODDS, install-settings.json
+("toddsPath") or RimSort's default install; without it the mods still work from their PNG files. --no-dds skips the step.
 """
 import argparse
 import datetime as _dt
@@ -21,12 +26,18 @@ from pathlib import Path
 import shutil
 import subprocess
 import sys
+import time
 from urllib.parse import unquote
 from urllib.request import url2pathname
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_GAME_PATH = Path(r'C:\Program Files (x86)\Steam\steamapps\common\RimWorld')
 SETTINGS_FILE = ROOT / '.local' / 'install-settings.json'
+DEFAULT_TODDS = Path(r'C:\Program Files (x86)\RimSort\todds\todds.exe')
+# RimSort's "optimized" todds preset, as its source has it (RimSort/RimSort, app/utils/todds/wrapper.py, commit c02f2b3, 15 Oct 2026):
+# BC1, BC7 where there is alpha, re-encode only what is newer than its DDS (RimSort's "overwrite" off, as the owner has it), flipped
+# vertically as the game reads DDS, sizes fixed to multiples of 4, only paths containing "Textures". The folder goes last.
+RIMSORT_OPTIMIZED = ('-f', 'BC1', '-af', 'BC7', '-on', '-vf', '-fs', '-ss', 'Textures', '-t', '-p')
 BACKUPS = ROOT / '.local' / 'deploy-backups'
 # RimWorld.exe is 1.7 on Windows (seen in tasklist, 30 Oct 2026); RimWorldWin64.exe is 1.6.
 GAME_PROCESSES = ('RimWorld.exe', 'RimWorldWin64.exe', 'RimWorldWin.exe', 'RimWorldLinux', 'RimWorldLinux.x86_64',
@@ -56,6 +67,38 @@ def local_path(key, env_var, default, explicit=None, environ=None, settings_file
 def game_path(explicit=None, environ=None, settings_file=SETTINGS_FILE):
     """The RimWorld folder, by precedence: argument, RIMWORLD_PATH, install-settings.json, default."""
     return local_path('rimworldPath', 'RIMWORLD_PATH', DEFAULT_GAME_PATH, explicit, environ, settings_file)
+
+
+def todds_path(explicit=None, environ=None, settings_file=SETTINGS_FILE):
+    """RimSort's todds, by precedence: argument, RIMSORT_TODDS, install-settings.json ("toddsPath"), RimSort's default install; None if absent."""
+    path = local_path('toddsPath', 'RIMSORT_TODDS', DEFAULT_TODDS, explicit, environ, settings_file)
+    return path if path.is_file() else None
+
+
+def texture_count(folder):
+    """How many PNG files the todds preset would read in an installed mod: those with "Textures" in their path."""
+    folder = Path(folder)
+    if not folder.is_dir():
+        return 0
+    return sum(1 for png in folder.rglob('*.png') if 'Textures' in str(png))
+
+
+def encode_textures(folder, todds, run=subprocess.run, log=print, clock=time.monotonic):
+    """
+    Encodes one installed mod's textures to DDS beside its PNG files, exactly as RimSort's "optimized" preset would. Returns the number
+    of PNG files it covered (0 when there were none or todds failed). A failure is reported, never raised: the PNG files still work.
+    """
+    count = texture_count(folder)
+    if count == 0:
+        return 0
+    started = clock()
+    result = run([str(todds), *RIMSORT_OPTIMIZED, str(Path(folder))], capture_output=True, text=True, check=False)
+    if result.returncode != 0:
+        log(f'  todds could not encode the textures of {Path(folder).name} (exit {result.returncode}); the game will read the PNG files.'
+            f' {(result.stderr or result.stdout or "").strip()[:300]}')
+        return 0
+    log(f'  encoded {count} textures to DDS in {clock() - started:.1f} s')
+    return count
 
 
 def package(mod, root=ROOT, log=None):
@@ -222,6 +265,8 @@ def main(argv=None):
     parser.add_argument('--build', action='store_true', help='run dotnet build on every project under src/ first')
     parser.add_argument('--apply', action='store_true', help='copy; without it, only list what would be copied')
     parser.add_argument('--game', help='RimWorld folder (default: RIMWORLD_PATH, .local/install-settings.json, or Steam)')
+    parser.add_argument('--todds', help="RimSort's todds.exe (default: RIMSORT_TODDS, install-settings.json, or RimSort's install)")
+    parser.add_argument('--no-dds', action='store_true', help="leave the textures as PNG; RimSort's texture step can make the DDS files")
     args = parser.parse_args(argv)
     mods = all_mods() if args.all else args.mods
     if not mods:
@@ -235,9 +280,27 @@ def main(argv=None):
         check_movable(mods, game)
     for mod in mods:
         deploy(mod, game, args.apply)
+    if args.apply and not args.no_dds:
+        encode_installed(mods, game, args.todds)
     if args.apply:
         print(f'deployed {len(mods)} mod{"s" if len(mods) != 1 else ""}.')
     return 0
+
+
+def encode_installed(mods, game, explicit=None, find=todds_path, encode=encode_textures, log=print):
+    """Encodes the textures of the mods just deployed, and only those. Without todds it says so once and carries on."""
+    todds = find(explicit)
+    if todds is None:
+        log("todds was not found (RimSort's texture encoder): the mods will use their PNG files. Pass --todds, set RIMSORT_TODDS, "
+            "or run RimSort's texture step.")
+        return 0
+    total = 0
+    for mod in mods:
+        folder = Path(game) / 'Mods' / mod
+        if texture_count(folder):
+            log(f'{mod}: textures to DDS')
+        total += encode(folder, todds, log=log)
+    return total
 
 
 if __name__ == '__main__':

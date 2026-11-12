@@ -244,7 +244,14 @@ proves it on every push** for the projects that reference no other mod's assembl
   refuses that rename while the game holds any file in it open, so an unrecognised running game still stops it
   with nothing changed;
 - copies `mods/<Mod>/` and its built assemblies into `<game>\Mods\<Mod>\`;
-- never touches `ModsConfig.xml` or RimSort's lists.
+- **encodes each installed mod's textures to DDS with RimSort's todds** (13 Nov 2026), so RimSort's texture step is not needed for
+  our mods: a fresh install replaces the mod folder and so wiped the DDS files RimSort had made, and the owner ran todds over every
+  mod after each update. It uses RimSort's own "optimized" preset exactly (`-f BC1 -af BC7 -on -vf -fs -ss Textures -t -p <folder>`,
+  read from RimSort's source, `app/utils/todds/wrapper.py` at commit c02f2b3; the vertical flip matters), only on the mods just
+  deployed and only PNG files with `Textures` in their path. todds comes from `--todds`, `RIMSORT_TODDS`,
+  `.local/install-settings.json` (key `toddsPath`) or RimSort's default install; without it, or if it fails, the mods still work
+  from their PNG files and the run says so. `--no-dds` skips the step;
+- never touches `ModsConfig.xml` or RimSort's lists or settings.
 
 The game path comes from `--game`, the `RIMWORLD_PATH` environment variable, `.local/install-settings.json` (key
 `rimworldPath`; `check-factory-patches` and `refresh-mod-list` also read `workshopPath` and `rimworldConfigPath` there, and
