@@ -131,6 +131,13 @@ Other factions' caravans on the world map are not simulated person by person, so
 
 ## Questions for the owner
 
+**Answered by the owner, 13 Nov 2026:** (1) **all four parts, in that order**: B1 with the camp batch, B2 and B3 together later,
+then B4, which is wanted and not a maybe; (2) night driving **as a setting, off by default**, at about twice the distance in a
+day, tuned in play; (3) the roof tent's memory at **+4**; (4) cab bunks on **heavy vehicles only**, 3,500 kg and up. Nothing is
+built yet: each batch waits on the owner's go.
+
+The questions as they were put:
+
 1. **Which parts?** B1 with the camp batch, B2 and B3 together later, B4 last and only if still wanted (agent default), or
    another choice?
 2. **B3's size:** is about twice the distance in a day, for two drivers and a bunk per vehicle, the trade wanted (agent default:
@@ -141,6 +148,8 @@ Other factions' caravans on the world map are not simulated person by person, so
 ## Who chose what
 
 - **Owner (13 Nov 2026):** berths designed properly, against the agent's advice to leave them out.
+- **Owner (13 Nov 2026, later):** all four parts in order, B4 included; night driving as a setting, off by default; the roof
+  tent's memory at +4; bunks on heavy vehicles only.
 - **Agent defaults, owner to revise:** the split into B1 to B4 and their order; every figure marked [A]; the relief-driver rule;
   the switch off by default; no berths for a folded roof tent on the move; the memories.
 
