@@ -6,6 +6,15 @@ result goes into that mod's changelog.
 
 ## Read this first
 
+- **This round (12 Nov 2026): Framework 0.101.0, Vehicles 0.45.0 and Patches 0.18.0.** **Use a copy of the save for all of it.** Riskiest first:
+  1. **Check 55, the second half:** a slung load set down after landing (take-off and the world map already passed).
+  2. **Check 56:** towing the Pintle flatbed trailer round corners and past walls.
+  3. **Check 62:** the Harrier taken apart by one colonist, **once only**, then say done.
+  4. **Check 57:** sling slice 2: placing the load on landing, emergency release, and recovering the wreck with a caravan.
+  5. **Check 58:** the generator set's service lead charging a flat truck.
+  6. **Check 59:** the tipper's loading grab.
+  7. **Check 60:** the helicopter's water bucket on a fire.
+  8. **Check 61:** the litter kit carrying and tending a casualty.
 - **Framework 0.36.0 or later and Patches 0.16.0 are enough for checks 1 to 6.** Install only through `python scripts/deploy.py --build
   --apply --all`, with RimWorld closed, and close any Explorer window open in a mod folder.
 - **After any update, first load an existing save and look at the map and a vehicle** (added 9 Nov 2026). Framework 0.40.0 and 0.40.1 left every vehicle unable to spawn on a save made before them, and the map black behind the interface; unit tests cannot see that. **If the map is black or vehicles are missing, quit without saving.**

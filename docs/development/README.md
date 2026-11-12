@@ -111,6 +111,9 @@ promise current behaviour. For using the mods, start at the [documentation index
 - [Vehicle upgrades, round two (11 Nov 2026)](vehicle-upgrades-round-two.md): which of the owner's 75 vehicles have an upgrade tree
   and whose it is (the Cherokee has one, from VVE - Upgrades Extended; 21 have none), and a signature feature proposed for each
   thin one; a proposal with four questions for the owner, nothing built.
+- [Vehicle upgrade families (12 Nov 2026)](vehicle-upgrade-families.md): five families of fittings shared across many vehicles
+  (recovery, long range, cold weather, work lights, all-terrain tyres), chosen by effects and loadout roles, beside other authors'
+  trees; a proposal with four questions for the owner, nothing built.
 - [Trailers that follow their tractor (11 Nov 2026)](vehicle-trailer-research.md): how RimThunder - Core hitches, draws and turns
   a trailer (read from code), what Turbo's library and RimArrow add, the limits, and a hitch of our own with a smoother turn;
   research with three questions for the owner, nothing built.

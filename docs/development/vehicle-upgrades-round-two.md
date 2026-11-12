@@ -325,6 +325,12 @@ per vehicle and shared families for the rest; (3) our features sit **beside** ot
 store), batch 2 (the hitch and trailer), batch 3 (signatures and families for every vehicle we patch). **Batch 1 is built** in
 D'thorga Framework 0.97.0 and D'thorga Vehicles 0.42.0, not yet tested in game.
 
+**Decided by the owner, 12 Nov 2026:** batch 3 builds **all four signatures** (the service lead, the loading grab, the water bucket
+and the litter kit; built in Framework 0.101.0 and Vehicles 0.45.0, not yet tested in game, sections above); the **shared families
+get a design record first**, with nothing built: [vehicle upgrade families](vehicle-upgrade-families.md); **Trains of the Rim is
+skipped** while it looks dormant (last updated 26 Aug 2025, declares 1.6 only), to be raised again if it is updated. Batch 2, the
+hitch and the Pintle flatbed trailer, is built in the same versions ([the hitch design](vehicle-hitch-design.md)).
+
 The questions as they were put:
 
 1. **Other authors' vehicles:** the Cherokee only as a pilot, or every vehicle we already patch by name?
