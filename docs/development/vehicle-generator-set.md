@@ -297,9 +297,9 @@ dry run first, the camera instruction first, one pilot at native size before the
 spun by code in step with the load; exhaust from the stack is a fleck scaled by load, no art, so the record names the stack's cell; the cable end carries real
 light at night through the game's `CompGlower`. The cable out and the outriggers stay two-state overlays. No frame sheets.
 
-## The resize to 3 x 8 (Vehicles 0.51.0, 14 Nov 2026)
+## The resize to 3 x 8 (Vehicles 0.51.0, 13 Nov 2026)
 
-**The owner, 14 Nov 2026:** the Busbar "feels really small in size and needs to be brought inline with the other vehicles". It was 2 x 6
+**The owner, 13 Nov 2026:** the Busbar "feels really small in size and needs to be brought inline with the other vehicles". It was 2 x 6
 (drawn 3 x 7), the only two-cell-wide truck of ours, from the agent's choice of 9 Nov that a light truck should look light beside the
 3 x 10 tanker (the table below). The owner chose **3 x 8, like the Talus tipper (drawn 4 x 9)**, **heavier**, and **a bigger
 generator**. Not yet tested in game.

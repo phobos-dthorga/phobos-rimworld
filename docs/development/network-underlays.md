@@ -1,4 +1,4 @@
-# Pipes and conduits beneath our things (14 Nov 2026)
+# Pipes and conduits beneath our things (13 Nov 2026)
 
 What our buildings and vehicles lay beneath themselves to join a network (plumbing, power, Vanilla Expanded Framework's pipe nets),
 what changed in D'thorga Framework 0.107.0, and an audit of everything of ours that uses a piped supply or power, with proposals for
@@ -7,7 +7,7 @@ game.
 
 ## Read this first
 
-- **Visible, as the game does it** (owner, 14 Nov 2026: "that's the convention of the vanilla game and other mods"). Everything of ours
+- **Visible, as the game does it** (owner, 13 Nov 2026: "that's the convention of the vanilla game and other mods"). Everything of ours
   that joins a network now lays the network's **ordinary, visible piece**: Dubs Bad Hygiene's plumbing (`sewagePipeStuff`), the visible
   pipe of a Vanilla Expanded Framework net, the game's own power conduit. Until 0.106.1 we laid Dubs' hidden plumbing, which shows only
   in the plumbing overlay, so the owner never saw the feature work.
@@ -58,7 +58,7 @@ go when it packs up. Code: `CompPhobosGeneratorSet.SetUpBeneath`, `GeneratorGizm
 
 ## The audit: everything of ours that uses a piped supply or power
 
-Read on 14 Nov 2026 from our mods' Defs and patches (a scan of every `ThingDef` and `VehicleDef` of ours for power, fuel, Vanilla
+Read on 13 Nov 2026 from our mods' Defs and patches (a scan of every `ThingDef` and `VehicleDef` of ours for power, fuel, Vanilla
 Expanded Framework pipe, Dubs Bad Hygiene and Rimefeller comps), and from the vehicle systems' code.
 
 | # | Thing (mod) | Uses | How it joins today | Lays beneath today | Proposal |
@@ -66,10 +66,10 @@ Expanded Framework pipe, Dubs Bad Hygiene and Rimefeller comps), and from the ve
 | N1 | Conveyor oven (Factory Additions, with Dubs Bad Hygiene) | Water | Plumbing beneath it | Yes, visible from 0.107.0 | Keep |
 | N2 | Safety shower and eyewash (Medical, with Dubs Bad Hygiene) | Water | Plumbing beneath it | Yes, visible | Keep |
 | N3 | Electrolyser (Medical) | Water, power, oxygen | Plumbing beneath it; power wired; oxygen through Vanilla Expanded Framework's own comps with Vanilla Gravship Expanded | Plumbing only | Keep: power is wired, as the game's buildings are; the oxygen net is the framework's own connection |
-| N4 | **Bottle tap (Water Tap)** | Water | Dubs Bad Hygiene's own fixture comp | **No** | **Not built, and not needed** (14 Nov 2026): the tap carries Dubs Bad Hygiene's own pipe comp on its cell, so it joins the plumbing as Dubs' sinks and toilets do: a pipe touching it connects. A pipe beneath it would make two pipe comps in one cell, which Dubs refuses with an error (DubsBadHygiene HygienePipeMapComp, "More than 1 pipe comp in the same cell"), and our underlay would find the cell piped and lay nothing |
+| N4 | **Bottle tap (Water Tap)** | Water | Dubs Bad Hygiene's own fixture comp | **No** | **Not built, and not needed** (13 Nov 2026): the tap carries Dubs Bad Hygiene's own pipe comp on its cell, so it joins the plumbing as Dubs' sinks and toilets do: a pipe touching it connects. A pipe beneath it would make two pipe comps in one cell, which Dubs refuses with an error (DubsBadHygiene HygienePipeMapComp, "More than 1 pipe comp in the same cell"), and our underlay would find the cell piped and lay nothing |
 | N5 | Liquid oxygen store, oxygen concentrator, nebuliser, hyperbaric chamber, oxygen trolley, bedside stand (Medical) | Power, oxygen | Wired; oxygen as cylinders or the framework's own comps | No | Keep: wired power is the game's convention for a building, and the oxygen net is the framework's own |
 | N6 | Anaesthesia machine, burn unit bed, ventilator, gas alarm (Medical) | Power | Wired | No | Keep |
-| N7 | Depot bay, vehicle parts bench, dyno bay, power point (Framework) | Power; the bay also holds fuel | Wired; the bay's tank is filled by hand | No | Keep power wired. **The bay already fills from a chemfuel pipe** (found 14 Nov 2026): Vanilla Expanded Framework adds its own pipe refill (CompRefillWithPipes) at start-up to every building whose refuelable tank takes a fuel some net links to (PipeSystem AutoLinkRefuelables), and the bay's tank takes chemfuel, which Vanilla Chemfuel Expanded's line links at 1 unit to 1 chemfuel. A pipe touching the bay joins it, as with any Vanilla Expanded building; nothing of ours is built. Not yet tested in game |
+| N7 | Depot bay, vehicle parts bench, dyno bay, power point (Framework) | Power; the bay also holds fuel | Wired; the bay's tank is filled by hand | No | Keep power wired. **The bay already fills from a chemfuel pipe** (found 13 Nov 2026): Vanilla Expanded Framework adds its own pipe refill (CompRefillWithPipes) at start-up to every building whose refuelable tank takes a fuel some net links to (PipeSystem AutoLinkRefuelables), and the bay's tank takes chemfuel, which Vanilla Chemfuel Expanded's line links at 1 unit to 1 chemfuel. A pipe touching the bay joins it, as with any Vanilla Expanded building; nothing of ours is built. Not yet tested in game |
 | N8 | Our vehicles that take water | Water | Plumbing beneath them while parked against a run | Yes, visible | Keep |
 | N9 | Bulk tanker, drill rig | Each net its contents or outlets use; Dubs plumbing and septic | Pipes beneath while parked against a run | Yes, visible | Keep |
 | N10 | **Every fuelled vehicle of ours** | Chemfuel | Refuelled by hand, a tanker or a depot bay | No | **Built: Framework 0.107.0, not yet tested in game.** A parked fuelled vehicle of the player's joins any net whose linkToRefuelables names its own fuel (Vanilla Chemfuel Expanded's chemfuel line), lays that line's visible pipe beneath it, and with its engine off and not set up fills from the net's storage at 30 an hour (authored, as the depot bay's pump; at most an hour a look), converting the net's units by its ratio (PipeRefuelRule, with tests). Other factions' vehicles do not: only the player's join pipes, as for every link |
@@ -92,7 +92,7 @@ joins and leaves the grid.
 
 ## Questions for the owner
 
-**Answered by the owner, 14 Nov 2026:** (1) the bottle tap **lays plumbing** (N4); (2) parked fuelled vehicles **refuel from a chemfuel
+**Answered by the owner, 13 Nov 2026:** (1) the bottle tap **lays plumbing** (N4); (2) parked fuelled vehicles **refuel from a chemfuel
 pipe** (N10); (3) the depot bay **fills from one** (N7); (4) a deconstructed piece **stays removed** until the thing is placed afresh,
 as built. Nothing of N4, N7 or N10 is built yet.
 
@@ -107,7 +107,7 @@ The questions as they were put:
 
 ## Who chose what
 
-- **Owner (14 Nov 2026):** visible pieces, as the game and other mods show them; the generator set's conduits beneath it as an option
+- **Owner (13 Nov 2026):** visible pieces, as the game and other mods show them; the generator set's conduits beneath it as an option
   beside the cable; an audit and proposals.
 - **Agent choices, owner to revise:** Dubs' `sewagePipeStuff` and each net's first visible pipe; a removed piece stays removed until the
   thing is placed again; the junction box's cell (beside an outside conduit, else under the middle); every proposal above.

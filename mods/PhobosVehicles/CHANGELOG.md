@@ -5,13 +5,13 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
-## [0.51.0] - 2026-11-14 - Draft
+## [0.51.0] - 2026-11-13 - Draft
 
 The Busbar generator set is a 3 by 8 truck, heavier, with a bigger generator
 
 ### Changed
 
-- **The Busbar is 3 by 8 cells, drawn 4 by 9, like the Talus tipper** (owner, 14 November 2026: it "feels really small in size and needs to be brought inline with the other vehicles"; it was 2 by 6, the only two-cell-wide truck of ours). Its picture and every overlay (the fans, the set-up outriggers and cable, the uprated alternator, cable reel, battery box, heat exchanger and both damage pictures) were exported again from the same originals, scaled down, never up. Its parts sit in the new cells, and the conduits it lays beneath itself when set up follow its larger footprint. Not yet tested in game.
+- **The Busbar is 3 by 8 cells, drawn 4 by 9, like the Talus tipper** (owner, 13 November 2026: it "feels really small in size and needs to be brought inline with the other vehicles"; it was 2 by 6, the only two-cell-wide truck of ours). Its picture and every overlay (the fans, the set-up outriggers and cable, the uprated alternator, cable reel, battery box, heat exchanger and both damage pictures) were exported again from the same originals, scaled down, never up. Its parts sit in the new cells, and the conduits it lays beneath itself when set up follow its larger footprint. Not yet tested in game.
 
 ### Balance
 
@@ -25,7 +25,7 @@ The Busbar generator set is a 3 by 8 truck, heavier, with a bigger generator
 
 ### Compatibility and limits
 
-- **Tested in game by the owner, 14 November 2026:** the Busbar's new size and look ("looks much better now"). Its output, the conduits and an older save's Busbar are not yet tested in game.
+- **Tested in game by the owner, 13 November 2026:** the Busbar's new size and look ("looks much better now"). Its output, the conduits and an older save's Busbar are not yet tested in game.
 
 
 ## [0.50.0] - 2026-11-13 - Draft

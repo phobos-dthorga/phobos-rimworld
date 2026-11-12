@@ -5,20 +5,20 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
-## [0.107.0] - 2026-11-14 - Draft
+## [0.107.0] - 2026-11-13 - Draft
 
 Pipes you can see beneath our things, and a generator set that can join the grid through conduits beneath it
 
 ### Added
 
-- **The generator set can join the grid through power conduits beneath it** (owner, 14 November 2026). Set up now asks how: run the cable out to a cell you choose, as before, or join through conduits beneath it. The second lays the game's own power conduit under the truck, with its junction box beneath it, so any conduit touching the truck on any side is on its power. The conduits are taken up when it packs up. Not yet tested in game.
+- **The generator set can join the grid through power conduits beneath it** (owner, 13 November 2026). Set up now asks how: run the cable out to a cell you choose, as before, or join through conduits beneath it. The second lays the game's own power conduit under the truck, with its junction box beneath it, so any conduit touching the truck on any side is on its power. The conduits are taken up when it packs up. Not yet tested in game.
 
-- **A parked vehicle fills its tank from a fuel line touching it** (owner, 14 November 2026), with Vanilla Chemfuel Expanded: park a fuelled truck against a chemfuel pipe and it lays that line's pipe beneath it and fills from the line's tanks, 30 chemfuel an hour (authored, as the depot bay's pump), with its engine off and not set up for work. The inspect pane says what the line is doing; a message says when the tank is full. A line that refuels the vehicle's own fuel is found by what it carries, so another mod's fuel line works the same way. Only your own vehicles. Not yet tested in game.
+- **A parked vehicle fills its tank from a fuel line touching it** (owner, 13 November 2026), with Vanilla Chemfuel Expanded: park a fuelled truck against a chemfuel pipe and it lays that line's pipe beneath it and fills from the line's tanks, 30 chemfuel an hour (authored, as the depot bay's pump), with its engine off and not set up for work. The inspect pane says what the line is doing; a message says when the tank is full. A line that refuels the vehicle's own fuel is found by what it carries, so another mod's fuel line works the same way. Only your own vehicles. Not yet tested in game.
 - **The depot bay already fills its tank from a chemfuel pipe touching it** with Vanilla Chemfuel Expanded: Vanilla Expanded Framework links every building with a chemfuel tank to a chemfuel line by itself, the bay included, so nothing of ours was needed. Run a chemfuel pipe to the bay and haulers no longer need to fill it. Not yet tested in game.
 
 ### Changed
 
-- **Pipes laid beneath our things are now the ordinary, visible pipe** (owner, 14 November 2026: as the game and other mods show a run), not the hidden pipe that shows only in the plumbing overlay. This covers Dubs Bad Hygiene's plumbing under the conveyor oven, the safety shower and eyewash, the electrolyser and parked vehicles that take water, and the pipe of each Vanilla Expanded Framework net under a parked tanker or drill rig. Not yet tested in game.
+- **Pipes laid beneath our things are now the ordinary, visible pipe** (owner, 13 November 2026: as the game and other mods show a run), not the hidden pipe that shows only in the plumbing overlay. This covers Dubs Bad Hygiene's plumbing under the conveyor oven, the safety shower and eyewash, the electrolyser and parked vehicles that take water, and the pipe of each Vanilla Expanded Framework net under a parked tanker or drill rig. Not yet tested in game.
 - A laid pipe that the player removes, or that is destroyed, is not laid again while the thing stays where it is; it is laid again when the thing is placed afresh. Building your own pipe there works as usual.
 - For modders: the core's PipeUnderlay now keeps where each piece was laid and swaps pieces of an older kind for the current one (Renew).
 

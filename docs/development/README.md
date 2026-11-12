@@ -114,7 +114,7 @@ promise current behaviour. For using the mods, start at the [documentation index
 - [Headlights that light the ground (12 Nov 2026)](vehicle-headlights.md): the headlights switch casts a beam of the game's own light ahead of every vehicle our systems run; cost and the raiders' rule
 - [Vehicle upgrade families (12 Nov 2026)](vehicle-upgrade-families.md): five families of fittings shared across many vehicles
 - [Hotboxing: smoking in a vehicle's cab (12 Nov 2026)](vehicle-hotboxing.md): design only; passengers smoke on a trip, a closed cab shares the high, a stoned driver drives slower; what Vehicle Framework allows aboard
-- [Pipes and conduits beneath our things (14 Nov 2026)](network-underlays.md): visible plumbing and pipes beneath our buildings and parked
+- [Pipes and conduits beneath our things (13 Nov 2026)](network-underlays.md): visible plumbing and pipes beneath our buildings and parked
   vehicles (Framework 0.107.0), the generator set joining through conduits beneath it, and an audit of everything of ours on a piped supply
   or power, with proposals for the owner.
 - [The authors' override contract (13 Nov 2026)](vehicle-author-overrides.md): research and design only; what another mod's author can write in XML today, how the game loads XML only when our mod is active, and a proposed override Def with a stable, versioned contract

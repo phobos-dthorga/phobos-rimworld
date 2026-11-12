@@ -16,7 +16,7 @@ Made free from our own bulk tanker damage masters (`bulk-tanker-damage-body-1`, 
 | GeneratorSet_DamageCab | `59873bf4c92163096119f34fde254817564139437c476f9fa5863f6f6312bab0` |
 | GeneratorSet_DamageHousing | `9ee28548d3ba41cec5017cc488625315984df742b3580ec124e9ee0760dd763b` |
 
-## Re-exported at 3 x 8 (14 Nov 2026, Vehicles 0.51.0)
+## Re-exported at 3 x 8 (13 Nov 2026, Vehicles 0.51.0)
 
 The owner had the Busbar brought in line with the Talus tipper: footprint 3 x 8, drawn 4 x 9 (was 2 x 6, drawn 3 x 7). Every texture here
 was exported again from the same originals, with no new generation: the body by `scripts/art/export_vehicle.py body --cells-long 8 --draw
