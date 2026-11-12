@@ -9,6 +9,25 @@ tested in game unless an entry says the owner tested it.
 
 - The README no longer calls the generator set's, drill rig's and tipper's pictures stand-ins or the Crawler's upgrade pictures still to come, and lists the generator set's heavy-duty fan among its upgrades. Documentation only; nothing changes in play.
 
+## [0.46.0] - 2026-11-12 - Draft
+
+The Louie and the Hind can carry a vehicle on a sling
+
+### Added
+
+- **The Louie (Vanilla Vehicles Expanded - Tier 3) and the Hind (Hind Helicopter Gunship) take a cargo hook** (owner, 12 Nov 2026), as the Cherokee does: fit the cargo hook in Fittings and tunes, and they can lift a vehicle on a sling. Not yet tested in game.
+- **The Louie's hook takes 1,814 kg**, the Bell UH-1H Huey's 4,000 lb hook (approximate: secondary sources, Wikipedia's "Cargo hook (helicopter)" and a DCS World UH-1H manual). **The Hind's takes 2,400 kg**, the Mi-24's external sling load (approximate: secondary sources, Warrior Lodge's and Military Machine's Mi-24 pages; the hook's own rating was not found). Both are less on hot days, as the Cherokee's is.
+- **Both take the litter kit**: on the Louie in its upholstery, on the Hind in its fuselage, which holds its troop cabin (the same Mi-24 sources give it 4 stretchers, as the kit's four litters).
+
+### Compatibility and limits
+
+- The Hind flies across the map by itself, so it needs D'thorga Framework 0.102.0 for its load to hang under it and come down only once it has landed. It cannot fly water drop runs.
+- The Mosquito and the Mongoose have no hook: the owner chose the Louie and the Hind.
+
+### Changed
+
+- The Cherokee's loadout no longer says every other helicopter has a sling: only those with a hook mount and a rating in their own loadout do.
+
 ## [0.45.0] - 2026-11-12 - Draft
 
 The first trailer. **Not yet tested in game.**

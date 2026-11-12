@@ -88,6 +88,13 @@
       </set>
     </drivetrain>
     <flightProfile>PhobosFlightProfile_StockRotorcraft</flightProfile>
+    <!-- Sling loads (owner, 12 Nov 2026: the Louie and the Hind join the Cherokee): the UH-1H's cargo hook, 4,000 lb (1,814 kg).
+         Approximate, from secondary sources: Wikipedia, "Cargo hook (helicopter)", its table of rated loads; a DCS World UH-1H manual
+         gives the same. The real usable load is the lower of the airframe's and the fitted hook's rating, which was not found. The
+         Louie flies through Vehicle Framework's own launch, as the Cherokee does, so the sling works on it unchanged. -->
+    <sling>
+      <ratedKilograms>1814</ratedKilograms>
+    </sling>
     <partRoles>
       <li>
         <role>RotorDrive</role>
@@ -97,6 +104,26 @@
             <keyContainsAny>
               <li>RotorMast</li>
             </keyContainsAny>
+          </li>
+        </find>
+      </li>
+      <li>
+        <!-- A hook mount under the belly for the cargo hook fitting: appended, so a hook is lost with its mount. Its health and place, at
+             the rotor mast, are authored, as on the Cherokee. -->
+        <role>HookMount</role>
+        <add>
+          <key>PhobosHookMount</key>
+          <label>hook mount</label>
+          <health>30</health>
+          <cellsOf>RotorDrive</cellsOf>
+        </add>
+      </li>
+      <li>
+        <!-- The cabin for the litter kit: the Louie's own upholstery part. The UH-1 was the US Army's air ambulance in Vietnam ("Dustoff"). -->
+        <role>Cabin</role>
+        <find>
+          <li>
+            <key>Upholstery</key>
           </li>
         </find>
       </li>

@@ -4,6 +4,7 @@
   <PhobosWaterDrop_Gizmo>Water drop</PhobosWaterDrop_Gizmo>
   <PhobosWaterDrop_GizmoDesc>Click a fire within {CELLS} cells. The helicopter flies to the nearest open water, fills its fire bucket, empties it over the fire and comes back to where it stands. Today the bucket carries {LITRES} litres.</PhobosWaterDrop_GizmoDesc>
 
+  <PhobosWaterDrop_FliesItself>{HELICOPTER} cannot fly water drop runs: its crew fly it across the map by hand, and a drop needs a planned run.</PhobosWaterDrop_FliesItself>
   <PhobosWaterDrop_NoBucket>It has no fire bucket aboard. Load one, made at the vehicle parts bench.</PhobosWaterDrop_NoBucket>
   <PhobosWaterDrop_HasLoad>{LOAD} is on the hook. Set it down or leave it first.</PhobosWaterDrop_HasLoad>
   <PhobosWaterDrop_NotHere>It has to be standing on this map.</PhobosWaterDrop_NotHere>

@@ -38,7 +38,8 @@
     <sling>
       <ratedKilograms>11800</ratedKilograms>
       <!-- Yaroslav's Cherokee Sling gives the Cherokee its own airlift: while it is active, ours stands down here (agent default from the
-           owner's rule of 11 Nov 2026 about other authors' vision), and every other helicopter keeps ours. -->
+           owner's rule of 11 Nov 2026 about other authors' vision). Other helicopters are unaffected; each needs a sling and a hook
+           mount in its own loadout to lift at all (the Louie and the Hind have them since Vehicles 0.46.0). -->
       <standDownIfActive>
         <li>yaroslav.cherokeesling</li>
       </standDownIfActive>

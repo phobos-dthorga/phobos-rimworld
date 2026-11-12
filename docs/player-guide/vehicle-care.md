@@ -168,7 +168,9 @@ shows while a dyno bay is in reach. It works on any vehicle, from any mod, that 
 - **Gas turbines** (aircraft, and the M1A2 tanks) wear their hot section when run past their limits; a **hot-section overhaul**
   (10 plasteel, 3 components) puts it right. With one of two engines out, the other runs hot.
 - **Carrying a vehicle on a sling** (take-off tested in game by the owner; the landing not yet):
-  1. Fit the helicopter a **cargo hook** (Fittings and tunes). Vanilla Vehicles Expanded's Cherokee has a mount for one.
+  1. Fit the helicopter a **cargo hook** (Fittings and tunes). The **Cherokee**, the **Louie** and the **Hind** have a mount for one
+     (the Louie and the Hind not yet tested in game). The Hind flies across the map: its load hangs under it there and comes down once
+     it has landed.
   2. Put a **sling set** in its cargo.
   3. Press **Lift a vehicle** and pick one of yours parked outdoors nearby. A colonist hooks it up.
   4. It flies with the helicopter, drawn under it. **Where it lands, the game pauses and asks where to put the load** (not yet tested
@@ -186,10 +188,10 @@ shows while a dyno bay is in reach. It works on any vehicle, from any mod, that 
 - **Fighting a fire from the air** (not yet tested in game): a helicopter with a cargo hook and a **fire bucket** in its cargo (made at
   the vehicle parts bench) gets **Water drop**. Click a fire within 50 cells: it flies to the nearest open water, fills the bucket, empties
   it over the fire and comes back to where it stood. **It needs open water within reach, open sky over the fire, its crew, fuel and
-  flying weather**; the button says what is missing. A full bucket puts out the fires on about 3 cells across. Click the helicopter while
+  flying weather**; the button says what is missing. **The Hind cannot fly water drop runs.** A full bucket puts out the fires on about 3 cells across. Click the helicopter while
   it flies to see what it is doing.
-- **An air ambulance** (not yet tested in game): fit the **litter kit** to the helicopter's cabin (Fittings and tunes; on the Cherokee it
-  goes on the upholstery). Right-click a downed person with a colonist selected and choose **Carry to a litter aboard...**. Up to 4 people
+- **An air ambulance** (not yet tested in game): fit the **litter kit** to the helicopter's cabin (Fittings and tunes; on the Cherokee and the Louie
+  it goes on the upholstery, on the Hind on the fuselage). Right-click a downed person with a colonist selected and choose **Carry to a litter aboard...**. Up to 4 people
   lie on the litters. **Put a colonist who can doctor in the crew and medicine in the cargo**: while the helicopter stands, they tend the
   patients. In flight nobody gets worse. Press **Unload casualties** at the other end, then take them to bed. **Leaving by caravan sets
   the patients down first.** The kit takes a fifth of the cargo space.

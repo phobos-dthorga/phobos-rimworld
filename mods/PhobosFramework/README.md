@@ -7,7 +7,7 @@ helpers every D'thorga mod shares.
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.101.1, built 12 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
+Version 0.102.0, built 12 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
 oxygen working through Burns and Smoke and Medical Equipment (5 November 2026). The health layer new in 0.3.0 and the **vehicle
 systems new in 0.9.0, and their engines, drivetrains and gas turbines new in 0.11.0, are not yet tested in game.** The rest is read from the game's and the mods' code.
 
@@ -89,7 +89,10 @@ and wear that a mechanic services. See [Vehicle systems](#vehicle-systems-with-v
   today (less on hot days). Settings under **Sling loads**. **From 0.99.0 the load is drawn under the helicopter** as it takes off and
   lands, a message says it was lifted, the world map's tabs and the fleet board list it, and a landed helicopter with no room to set its
   load down has a **Set the load down** button. **Setting a load down after landing broke the map up to 0.100.0** (pictures lost, a grey
-  screen); 0.101.1 fixes it, not yet tested in game, and a save made in that state loads normally. **From 0.101.0 (not yet tested in game)** wind and storms ground a lift, a slung flight
+  screen); 0.101.1 fixes it, not yet tested in game, and a save made in that state loads normally. **Which helicopters take a cargo
+  hook** is set by D'thorga Vehicles: the Cherokee, the Louie and the Hind. **From 0.102.0 (not yet tested in game)** a helicopter that
+  flies across the map by itself, such as the Hind, carries its load hanging under it over the map and sets it down once it has landed;
+  it cannot fly water drop runs. **From 0.101.0 (not yet tested in game)** wind and storms ground a lift, a slung flight
   is slower and burns more, landing asks where to put the load, and on the world map **Emergency release** drops it as a wreck for a
   caravan to recover; a crash drops it too. Each is a setting under **Sling loads**. **Also from 0.101.0 (not yet tested in game)** a
   helicopter with a cargo hook and a **fire bucket** aboard flies **Water drop** runs: click a fire within 50 cells, and it fills the

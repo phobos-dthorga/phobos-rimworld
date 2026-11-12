@@ -65,6 +65,8 @@ public sealed class CompPhobosLitter : VehicleComp, IThingHolder
         if (patient.HostileTo(Faction.OfPlayer)) return "PhobosLitter_Hostile".Translate(patient.LabelShort.Named("PATIENT")).Resolve();
         if (!Vehicle.Spawned || patient.MapHeld != Vehicle.Map) return "PhobosLitter_NotHere".Translate(vehicle).Resolve();
         if (Vehicle.vehiclePather is { Moving: true }) return "PhobosLitter_Moving".Translate(vehicle).Resolve();
+        // A helicopter that flies on the map by itself (the Hind) is spawned while in the air: nobody is carried up to it.
+        if (OnMapFlight.Airborne(Vehicle)) return "PhobosLitter_Airborne".Translate(vehicle).Resolve();
         return null;
     }
 
@@ -224,6 +226,7 @@ public sealed class CompPhobosLitter : VehicleComp, IThingHolder
             action = () => UnloadAll(),
         };
         if (Vehicle.vehiclePather is { Moving: true }) unload.Disable("PhobosLitter_Moving".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve());
+        else if (OnMapFlight.Airborne(Vehicle)) unload.Disable("PhobosLitter_Airborne".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve());
         yield return unload;
     }
 

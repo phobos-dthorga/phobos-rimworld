@@ -251,6 +251,15 @@ public sealed class CompPhobosSling : VehicleComp, IThingHolder
             Say("PhobosSling_LeftBehind".Translate(load.LabelShort.Named("LOAD")).Resolve(), load, MessageTypeDefOf.NegativeEvent);
             return;
         }
+        // A helicopter that flies on the map by itself (the Hind) may set off for another tile from wherever it is, even in the air far from
+        // its load; Vehicle Framework's own aircraft always leave from where they stand, beside it.
+        if (OnMapFlight.FliesItself(Vehicle) && Vehicle.Spawned
+            && (load.Map != Vehicle.Map || load.Position.DistanceTo(Vehicle.Position) > Rules.slingReachCells))
+        {
+            Say("PhobosSling_LeftBehindFar".Translate(Vehicle.LabelShort.Named("HELICOPTER"), load.LabelShort.Named("LOAD")).Resolve(), load,
+                MessageTypeDefOf.NegativeEvent);
+            return;
+        }
         Map map = load.Map;
         IntVec3 cell = load.Position;
         Rot4 facing = load.Rotation;
@@ -288,11 +297,13 @@ public sealed class CompPhobosSling : VehicleComp, IThingHolder
         if (landed) Vehicle.RequestTickStart(this);
     }
 
-    /// <summary>Runs only while a landing waits to be dealt with (Vehicle Framework ticks this comp on request).</summary>
+    /// <summary>Runs only while a landing waits to be dealt with (Vehicle Framework ticks this comp on request). A helicopter that flies on
+    /// the map by itself (the Hind) arrives in the air at the map's edge and flies in to land: the load waits on the hook until it is down.</summary>
     public override void CompTick()
     {
         base.CompTick();
         if (landed && !Vehicle.Spawned) return;
+        if (landed && OnMapFlight.Airborne(Vehicle)) return;
         Vehicle.RequestTickStop(this);
         if (!landed) return;
         landed = false;
@@ -469,6 +480,23 @@ public sealed class CompPhobosSling : VehicleComp, IThingHolder
         Say("PhobosSling_SetDown".Translate(Vehicle.LabelShort.Named("HELICOPTER"), load.LabelShort.Named("LOAD")).Resolve(), load, MessageTypeDefOf.TaskCompletion);
     }
 
+    /// <summary>The load hanging under a helicopter that flies on the map by itself, while it is in the air (Vehicle Framework draws its own
+    /// aircraft in a stand-in instead: SlingDrawing.Draw). Nothing for a helicopter with nothing on the hook.</summary>
+    public override void PostDraw()
+    {
+        base.PostDraw();
+        if (Carried is not { } load || !Vehicle.Spawned || !OnMapFlight.FliesItself(Vehicle) || !OnMapFlight.Airborne(Vehicle)) return;
+        SlingDrawing.DrawUnderFlying(Vehicle, load, liftedFrom);
+    }
+
+    /// <summary>A helicopter that flies on the map by itself leaves the map with its load at the edge: where the load stood on that map no
+    /// longer means anything for the picture.</summary>
+    public override void PostDeSpawn(Map map, DestroyMode mode = DestroyMode.Vanish)
+    {
+        base.PostDeSpawn(map, mode);
+        if (OnMapFlight.FliesItself(Vehicle)) liftedFrom = null;
+    }
+
     /// <summary>The helicopter is destroyed: on a map, what hung from it falls where it was; elsewhere it is lost with it.</summary>
     public override void PostDestroy(DestroyMode mode, Map previousMap)
     {
@@ -527,13 +555,15 @@ public sealed class CompPhobosSling : VehicleComp, IThingHolder
         if (Carried is { } carried)
         {
             // Landed with the load still on the hook (no clear ground at the time): the player sets it down when there is room.
-            yield return new Command_Action
+            var setDown = new Command_Action
             {
                 defaultLabel = "PhobosSling_SetDownGizmo".Translate(),
                 defaultDesc = "PhobosSling_SetDownGizmoDesc".Translate(carried.LabelShort.Named("LOAD")),
                 icon = SystemIcons.For("Phobos/VehicleSystems/Sling/SetDown"),
                 action = SetDown,
             };
+            if (OnMapFlight.Airborne(Vehicle)) setDown.Disable("PhobosSling_StillFlying".Translate(Vehicle.LabelShort.Named("HELICOPTER")).Resolve());
+            yield return setDown;
             yield break;
         }
         var lift = new Command_Action

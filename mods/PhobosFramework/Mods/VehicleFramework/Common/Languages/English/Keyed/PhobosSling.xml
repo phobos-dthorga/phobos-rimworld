@@ -25,6 +25,8 @@
   <PhobosSling_Cancelled>{LOAD} is unhooked and stays here.</PhobosSling_Cancelled>
   <PhobosSling_HookedUp>{CREW} hooked {LOAD} up to {HELICOPTER}.</PhobosSling_HookedUp>
   <PhobosSling_LeftBehind>{LOAD} was not hooked up and stays behind.</PhobosSling_LeftBehind>
+  <PhobosSling_LeftBehindFar>{HELICOPTER} set off too far from {LOAD} to lift it, so it was left behind.</PhobosSling_LeftBehindFar>
+  <PhobosSling_StillFlying>{HELICOPTER} is still in the air. The load comes down once it has landed.</PhobosSling_StillFlying>
   <PhobosSling_Lifted>{HELICOPTER} lifts {LOAD} on its sling: {WEIGHT} kg. It will be set down beside the helicopter where it lands.</PhobosSling_Lifted>
   <PhobosSling_CouldNotLift>The hook would not take {LOAD}. It stays where it stood.</PhobosSling_CouldNotLift>
   <PhobosSling_SetDown>{HELICOPTER} set {LOAD} down.</PhobosSling_SetDown>

@@ -453,7 +453,10 @@ public static class VehicleSelfTest
     static void SlingLift(SelfTest test)
     {
         Pawn? mechanic = PawnsFinder.AllMaps_FreeColonistsSpawned.FirstOrDefault();
-        VehicleDef? helicopterDef = DefDatabase<VehicleDef>.AllDefsListForReading.FirstOrDefault(d => d.comps != null && d.comps.Any(c => c is CompProperties_PhobosSling));
+        // A helicopter that flies on the map by itself (the Hind) takes the same lift and set-down, but is tested only when no other is here:
+        // the steps below drive Vehicle Framework's own path, and the landing wait for such a helicopter needs it in the air.
+        VehicleDef? helicopterDef = DefDatabase<VehicleDef>.AllDefsListForReading.Where(d => d.comps != null && d.comps.Any(c => c is CompProperties_PhobosSling))
+            .OrderBy(d => OnMapFlight.FliesItself(d.thingClass) ? 1 : 0).FirstOrDefault();
         if (mechanic == null || helicopterDef == null)
         {
             test.Skip("The sling", mechanic == null ? "no colonist on a map" : "no helicopter here takes a cargo hook");

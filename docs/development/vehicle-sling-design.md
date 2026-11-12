@@ -261,6 +261,49 @@ one a rating needs a sourced figure per aircraft, as the Cherokee's has: still t
 **Checked beside it:** the litter kit sets patients down from `PostDeSpawn`, by which time its vehicle is off the map's grid, so the same
 check cannot meet it; the water drop spawns its helicopter from its own run's tick; the hitch never spawns anything.
 
+## The Louie and the Hind (12 Nov 2026)
+
+**The owner's question:** "I thought the other helicopters already made use of a sling?" They did not: a helicopter gets the sling only
+when its loadout names a hook rating and a hook mount, and only the Cherokee's did. Our wording ("any helicopter given a cargo hook") had
+read as if the others already could. The owner chose the Louie and the Hind.
+
+| Helicopter | Real helicopter | Hook rating | Source | Cabin for the litter kit |
+| --- | --- | --- | --- | --- |
+| Louie (Vanilla Vehicles Expanded - Tier 3) | Bell UH-1H Huey (our reading of its name, recorded in its loadout since 8 Nov 2026) | 1,814 kg (4,000 lb) | **Secondary, approximate:** Wikipedia, ["Cargo hook (helicopter)"](https://en.wikipedia.org/wiki/Cargo_hook_(helicopter)), its table; a DCS World UH-1H manual gives the same. The usable load is the lower of the airframe's and the fitted hook's | Its own upholstery part |
+| Hind (Hind Helicopter Gunship) | Mil Mi-24 | 2,400 kg | **Secondary, approximate:** [Warrior Lodge, "Russian Mil Mi-24"](https://warriorlodge.com/pages/russian-mil-mi-24) and [Military Machine](https://militarymachine.com/mil-mi-24-russias-vicious-attack-helicopter); airframe figure, the hook's own rating not found | Its fuselage (Body): it has no cabin part, and the Mi-24's troop cabin is in the fuselage. The same sources give 4 stretchers, as the kit's four litters |
+
+**The Louie** flies through Vehicle Framework's own launch (`PropellerTakeoff`), as the Cherokee does, so it needed only its loadout.
+
+**The Hind flies on the map by itself.** It is a `VTOLVehicle.VtolVehiclePawn` from rabiosus's VTOL Vehicle framework, read from its
+decompile (`.local/decompiled`, 12 Nov 2026):
+
+- A skipping prefix on `CompVehicleLauncher.Launch` starts its own launch job, which calls `VtolFlightController.BeginDepartingMap`
+  (`VTOLVehicle.decompiled.cs:4316`). That fires Vehicle Framework's `AerialVehicleLaunch` event **at the start** (`:4383`), usually while
+  the Hind is still on the ground, then takes it off and flies it, spawned, to the map's edge. So the sling's existing `TakeLoad` already
+  lifts the load as it sets off.
+- On arrival its prefixes on Vehicle Framework's arrival workers spawn it **in the air at the map's edge** and fly it in to land
+  (`:9375-9425`). Our `PostSpawnSetup` then notes a landing, which since 0.101.1 is dealt with at the next tick: without a change, the load
+  would have been set down at the edge under a helicopter still in the air.
+- Its airborne drawing calls `Comps_PostDraw` (`:11024`, `:11041`), so the sling can draw its load from its own `PostDraw`, with no
+  Harmony.
+- Our launch-check postfix (`Patch_CanLaunch_Sling`) still runs after its skipping prefix on `CanLaunchWithCargoCapacity` (Harmony runs
+  postfixes whether or not a prefix skipped), so its launch button gives the sling's reasons.
+
+**What changed (Framework 0.102.0):**
+
+| What | How | Lets, stops, changes |
+| --- | --- | --- |
+| Knowing a helicopter flies on the map by itself | `OnMapFlight`: any vehicle class with a public `bool IsAirborne`, read once per class by name; `CurrentDrawProgress` for its climb. It covers the fixed-wing framework's aircraft too | No core assembly references either framework. A renamed property makes it an ordinary helicopter again, and the load comes down as soon as it appears |
+| The set-down waits for the landing | `CompTick` keeps waiting while `OnMapFlight.Airborne`; the comp is ticked only while such a landing waits | Stops a load set down at the edge in mid-air |
+| The load is drawn hanging under it | `CompPhobosSling.PostDraw` while airborne; `SlingDrawing.DrawUnderFlying` hangs it the climb's share of the strops below the helicopter, sharing the Cherokee's drawing (`DrawBelow`) | Lets the player see the lift over the map. Authored: height shown as distance down the screen, as for the Cherokee |
+| Too far to lift | `TakeLoad` leaves the load behind if such a helicopter sets off more than the reach from it | Stops a load being lifted from across the map |
+| Litters and water drops | The litter kit refuses loading and unloading in the air; a water drop run is refused for such a helicopter, since the run despawns and redraws the helicopter in a stand-in of ours, which its own flight state does not allow for | Says why each time |
+
+**Not built:** water drop runs for the Hind (it could fly them itself over the map; a design of its own). Emergency release on the map, and
+crashes of such a helicopter on the map, are its own framework's and not handled: a Hind brought down on the map loses its load with it,
+as the Cherokee's does when destroyed (`PostDestroy` sets the load down where there is room). The lookups by name cannot be checked by
+`scripts/check-targets.py`, which lists them as worked out at run time.
+
 ## Other factions' vehicles
 
 - **In a raid on us:** no raider orders a lift, so a raider's helicopter never carries a load. The drawing checks for a load first and
@@ -291,7 +334,8 @@ sling's weather rule and hook capacity, but flies its runs as a stand-in of our 
 - **Decided (owner, 12 Nov 2026): a load dropped on the world map becomes a wreck site** a caravan can recover. Built in Framework
   0.101.0 as a place of our own rather than Vehicle Framework's crash site (see "Slice 2 as built").
 - **A sling set's cost**: the agent will author it from real strops (polyester round slings and a steel swivel) and say so.
-- **Other mods' helicopters**: each needs a flight profile and a hook rating. The Cherokee comes first; others as the owner names them.
+- **Other mods' helicopters**: each needs a flight profile and a hook rating. **Decided (owner, 12 Nov 2026):** the Louie and the Hind
+  join the Cherokee (section "The Louie and the Hind"); the Mosquito and the Mongoose take no hook.
 
 ## Who chose what
 

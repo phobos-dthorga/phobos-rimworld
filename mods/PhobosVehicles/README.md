@@ -7,9 +7,14 @@ of the general systems D'thorga Framework gives every vehicle.
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.45.0, built 12 November 2026 for House D'thorga. **Not yet tested in game.**
+Version 0.46.0, built 12 November 2026 for House D'thorga. **Not yet tested in game.**
 
 ## Read this first (gotchas)
+
+- **Three helicopters take a cargo hook, and so a sling, a fire bucket and the litter kit** (not yet tested in game): the Cherokee
+  (11,800 kg), the Louie (1,814 kg) and the Hind (2,400 kg), each from a real helicopter's figure, marked approximate. The Hind flies
+  across the map by itself, so it needs D'thorga Framework 0.102.0 or later, and it cannot fly water drop runs. The Mosquito and the
+  Mongoose take no hook.
 
 - **New in 0.41.0 (not yet tested in game): our vehicles are built from parts.** A vehicle asks for an engine, a transmission, a fuel
   tank, tyres and the rest. **Where RimThunder or Vanilla Vehicles Expanded is installed, it asks for their parts**; otherwise for ours,

@@ -10,6 +10,7 @@
   <PhobosLitter_Hostile>{PATIENT} is hostile. Capture them instead.</PhobosLitter_Hostile>
   <PhobosLitter_NotHere>{VEHICLE} is not standing on this map.</PhobosLitter_NotHere>
   <PhobosLitter_Moving>{VEHICLE} has to stand still first.</PhobosLitter_Moving>
+  <PhobosLitter_Airborne>{VEHICLE} is in the air. Land it first.</PhobosLitter_Airborne>
   <PhobosLitter_NoPath>{PATIENT} cannot be reached.</PhobosLitter_NoPath>
 
   <PhobosLitter_Loaded>{CARRIER} strapped {PATIENT} onto a litter aboard {VEHICLE}.</PhobosLitter_Loaded>

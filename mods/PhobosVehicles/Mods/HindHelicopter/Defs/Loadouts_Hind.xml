@@ -27,6 +27,14 @@
       </set>
     </drivetrain>
     <flightProfile>PhobosFlightProfile_Helicopter</flightProfile>
+    <!-- Sling loads (owner, 12 Nov 2026: the Hind and the Louie join the Cherokee): the Mi-24's external sling load, 2,400 kg. Approximate,
+         from secondary sources (warriorlodge.com, "Russian Mil Mi-24"; militarymachine.com, "Mil Mi-24"), which give the airframe's
+         figure; the hook's own rating was not found, and the usable load is the lower of the two. The Hind is a VTOL Vehicle aircraft,
+         which flies on the map by itself: the sling takes the load as it sets off and sets it down once it has landed (Framework 0.102.0,
+         OnMapFlight). The same sources give 8 troops or 4 stretchers, which the litter kit's four litters match. -->
+    <sling>
+      <ratedKilograms>2400</ratedKilograms>
+    </sling>
     <partRoles>
       <li>
         <!-- The main rotor gearbox: neither mod gives the helicopter one, so it is appended among the engines (owner, 8 Nov 2026:
@@ -49,6 +57,27 @@
           <hitWeight>0.3</hitWeight>
           <cellsOf>Engine1</cellsOf>
         </add>
+      </li>
+      <li>
+        <!-- A hook mount under the belly for the cargo hook fitting: appended, so a hook is lost with its mount. Its health and place, with the
+             main rotor gearbox, are authored, as on the Cherokee and the Louie. -->
+        <role>HookMount</role>
+        <add>
+          <key>PhobosHookMount</key>
+          <label>hook mount</label>
+          <health>40</health>
+          <cellsOf>RotorDrive</cellsOf>
+        </add>
+      </li>
+      <li>
+        <!-- The cabin for the litter kit: the Hind has no cabin part of its own, and its troop cabin is in the fuselage (Body), so the kit is
+             fitted there. -->
+        <role>Cabin</role>
+        <find>
+          <li>
+            <key>Body</key>
+          </li>
+        </find>
       </li>
       <li>
         <role>Engine1</role>

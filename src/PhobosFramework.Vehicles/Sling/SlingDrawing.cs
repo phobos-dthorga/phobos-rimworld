@@ -96,24 +96,46 @@ public static class SlingDrawing
                 sling.pictureGround = GroundUnder(helicopter, flight, hook.y);
                 sling.pictureFlight = flight.thingIDNumber;
             }
-            Vector3 ground = sling.pictureGround;
-            Vector3? stood = sling.LiftedFrom;
-            (double x, double z, double paidOut) = SlingRule.Hang(hook.x - ground.x, hook.z - ground.z, StropCells,
-                stood.HasValue ? stood.Value.x - ground.x : null, stood.HasValue ? stood.Value.z - ground.z : null);
-
-            // One layer below the helicopter, so its body and rotors cover the load as they would from above.
-            var at = new Vector3(ground.x + (float)x, hook.y - Altitudes.AltInc, ground.z + (float)z);
-            DrawVehicle(load, at, load.FullRotation);
-
-            if (paidOut <= 0 || (hook - at).MagnitudeHorizontal() < StropsFromCells) return;
-            float between = hook.y - Altitudes.AltInc / 2f;
-            Vector3 along = load.Rotation.FacingCell.ToVector3() * (load.VehicleDef.Size.z * StropSpread);
-            var from = new Vector3(hook.x, between, hook.z);
-            var middle = new Vector3(at.x, between, at.z);
-            DrawStrop(from, middle + along);
-            DrawStrop(from, middle - along);
+            DrawBelow(load, hook, sling.pictureGround, sling.LiftedFrom);
         }
         catch (System.Exception e) { UiGuard.Report(GuardKey, e); }
+    }
+
+    /// <summary>
+    /// The load of a helicopter that flies on the map by itself (the Hind, Framework 0.102.0), drawn from the sling's PostDraw while it is in
+    /// the air. Such a helicopter is drawn where it is, its height shown by its climb (0 on the ground, 1 at cruise) rather than by distance
+    /// up the screen, so the load is drawn hanging that share of the strops' length below it. Guarded: it runs every frame (UiGuard).
+    /// </summary>
+    public static void DrawUnderFlying(VehiclePawn helicopter, VehiclePawn load, Vector3? stood)
+    {
+        if (UiGuard.Resting(GuardKey)) return;
+        try
+        {
+            Vector3 hook = ((Thing)helicopter).DrawPos;
+            float height = OnMapFlight.Climb(helicopter) * StropCells;
+            DrawBelow(load, hook, new Vector3(hook.x, hook.y, hook.z - height), stood);
+        }
+        catch (System.Exception e) { UiGuard.Report(GuardKey, e); }
+    }
+
+    /// <summary>The load and its strops under a hook drawn at <paramref name="hook"/>, the helicopter's spot on the ground being
+    /// <paramref name="ground"/> (SlingRule.Hang places the load).</summary>
+    static void DrawBelow(VehiclePawn load, Vector3 hook, Vector3 ground, Vector3? stood)
+    {
+        (double x, double z, double paidOut) = SlingRule.Hang(hook.x - ground.x, hook.z - ground.z, StropCells,
+            stood.HasValue ? stood.Value.x - ground.x : null, stood.HasValue ? stood.Value.z - ground.z : null);
+
+        // One layer below the helicopter, so its body and rotors cover the load as they would from above.
+        var at = new Vector3(ground.x + (float)x, hook.y - Altitudes.AltInc, ground.z + (float)z);
+        if (!DrawVehicle(load, at, load.FullRotation)) return;
+
+        if (paidOut <= 0 || (hook - at).MagnitudeHorizontal() < StropsFromCells) return;
+        float between = hook.y - Altitudes.AltInc / 2f;
+        Vector3 along = load.Rotation.FacingCell.ToVector3() * (load.VehicleDef.Size.z * StropSpread);
+        var from = new Vector3(hook.x, between, hook.z);
+        var middle = new Vector3(at.x, between, at.z);
+        DrawStrop(from, middle + along);
+        DrawStrop(from, middle - along);
     }
 
     /// <summary>Draws a vehicle that is not on the map (held by a sling, or flying a water drop run) at a place and facing, through Vehicle

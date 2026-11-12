@@ -5,6 +5,27 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.102.0] - 2026-11-12 - Draft
+
+Helicopters that fly across the map by themselves can carry a slung load
+
+### Added
+
+- **A slung load works on a helicopter that flies across the map by itself**, such as the Hind (owner, 12 Nov 2026: the Hind and the Louie join the Cherokee; the hooks themselves are D'thorga Vehicles 0.46.0). Such a helicopter takes off where it stands and flies over the map rather than vanishing into the sky. The load is lifted as it sets off, **hangs under it while it flies over the map**, leaves with it at the edge, and comes down once it has **landed**, not while it is still flying in from the edge. Not yet tested in game.
+- If such a helicopter sets off from too far away from its load, the load is left behind and a message says so.
+- For modders: OnMapFlight, which tells whether a vehicle flies on the map by itself and is in the air now, read by name from any vehicle class with a public IsAirborne (VTOL Vehicle's, and the fixed-wing framework's), so no core assembly references either.
+
+### Changed
+
+- **Set the load down** waits while such a helicopter is still in the air, and says so.
+- The litter kit takes nobody aboard and unloads nobody while such a helicopter is in the air, and says why.
+- **A water drop run cannot be flown with such a helicopter**, and the button says why: the run takes the helicopter off the map and flies it in a picture of ours, which such a helicopter's own flight does not allow for.
+- The self-test lifts with a helicopter that leaves through Vehicle Framework's own launch where one is installed.
+
+### Compatibility and limits
+
+- Which helicopters have a cargo hook is set by D'thorga Vehicles: the Cherokee, the Louie and the Hind. The Hind's checks above read VTOL Vehicle's aircraft by name; if a later version of that mod renames them, the Hind is treated as an ordinary helicopter and its load is set down as soon as it appears at the map's edge.
+
 ## [0.101.1] - 2026-11-12 - Draft
 
 A slung load is set down safely after landing
