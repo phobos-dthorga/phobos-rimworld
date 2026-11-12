@@ -9,7 +9,9 @@ using Verse;
 namespace Phobos.VehicleSystems.Pipes;
 
 /// <summary>
-/// A parked tanker or rig joins any Vanilla Expanded Framework pipe of a fluid it carries or pumps, by laying that net's own pipe beneath it.
+/// A parked tanker or rig joins any Vanilla Expanded Framework pipe of a fluid it carries or pumps, by laying that net's own pipe beneath it. Since Framework
+/// 0.108.0 (owner, 13 Nov 2026) it lays them across its whole footprint whenever it stands with its engine off (or is set up for work), whether or not a run
+/// touches it, "so players are not confused"; a fuel line fills the tank only where a run of the line's own reaches it.
 /// Since Framework 0.107.0 (owner, 14 Nov 2026) any fuelled vehicle also joins a fuel line, a net whose Def links it to refuelables of the
 /// vehicle's own fuel (Vanilla Chemfuel Expanded's chemfuel line, by its <c>linkToRefuelables</c>, never by name), and fills its tank from the
 /// net's storage while it stands with its engine off. Buildings with a refuelable tank, such as the depot bay, are filled by Vanilla Expanded
@@ -69,6 +71,9 @@ public sealed class PipeNetLink : VehiclePipes.ILink
 
     // The net's ordinary, visible pipe (Framework 0.107.0; owner, 14 Nov 2026: as the game and other mods show a run). A net's hidden pipe draws nothing (its colour
     // has no alpha); earlier versions laid that one, and it is swapped for the visible pipe at the next look.
+    static bool IsOldHidden(PipeNetDef net, Thing thing) =>
+        net.pipeDefs != null && net.pipeDefs.Contains(thing.def) && thing.def.graphicData != null && thing.def.graphicData.color.a == 0f;
+
     static ThingDef? PipeOf(PipeNetDef net) => net.pipeDefs?.FirstOrDefault(def => def.graphicData == null || def.graphicData.color.a != 0f) ?? net.pipeDefs?.FirstOrDefault();
 
     static Thing? Make(PipeNetDef net)
@@ -96,10 +101,11 @@ public sealed class PipeNetLink : VehiclePipes.ILink
                 var underlay = comp.Underlay(key);
                 bool Piped(IntVec3 cell) => manager.GetPipeNetAt(cell, net) != null;
                 underlay.Renew(PipeOf(net), () => Make(net));
-                if (!underlay.TouchesRun(footprint, map, Piped)) continue;
+                // Read before laying: only a run that is not ours makes a line worth drawing from.
+                bool touches = underlay.TouchesRun(footprint, map, Piped);
                 wanted.Add(key);
-                underlay.Fill(footprint, map, Piped, () => Make(net));
-                if (net != fuelLine) continue;
+                underlay.Fill(footprint, map, Piped, () => Make(net), cell => !cell.GetTerrain(map).IsWater);
+                if (net != fuelLine || !touches) continue;
                 onFuelLine = true;
                 Refuel(comp, manager, net, unitsPerFuel);
             }
@@ -173,6 +179,20 @@ public sealed class PipeNetLink : VehiclePipes.ILink
         lastFuelLook.Remove(id);
         toldFull.Remove(id);
         comp.PipeFuelLine = null;
+    }
+
+    public void AfterLoad(CompPhobosVehicleSystems comp)
+    {
+        if (!comp.Vehicle.Spawned) return;
+        Map map = comp.Vehicle.Map;
+        CellRect footprint = comp.Vehicle.OccupiedRect();
+        foreach (KeyValuePair<string, Phobos.Framework.Persistence.PipeUnderlay> pair in comp.UnderlaysStartingWith(Prefix))
+        {
+            PipeNetDef? net = DefDatabase<PipeNetDef>.GetNamedSilentFail(pair.Key.Substring(Prefix.Length));
+            if (net == null) continue;
+            pair.Value.AdoptOnce(footprint, map, thing => IsOldHidden(net, thing));
+            pair.Value.Renew(PipeOf(net), () => Make(net));
+        }
     }
 
     public void Leave(CompPhobosVehicleSystems comp)

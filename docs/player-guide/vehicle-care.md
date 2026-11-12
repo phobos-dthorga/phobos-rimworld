@@ -67,10 +67,14 @@ set**, an **engine service kit**, a **drive belt**. A colony from before kits ex
 off **This colony: services take raw materials instead of kits** in the settings.
 
 **The coolant top-up** takes water from a plumbing pipe beside the parked vehicle with Dubs Bad Hygiene, or 3 chemfuel without it.
-A vehicle parked against a plumbing run lays its own plumbing beneath it, which you can see, and takes it up when it drives off.
+**Pipes and conduits beneath a parked vehicle.** Whenever a vehicle of ours stands with its engine off, it shows the networks it uses
+across its footprint: plumbing if it takes water, power conduit if it has a battery, and the pipe of any line it uses (a tanker's
+contents, a chemfuel line for its fuel). Run a pipe or conduit to any side and it joins; a conduit run from a powered grid charges its
+battery. They go the moment its engine starts or it drives off, and come back when it stops with its engine off. A vehicle set up for work
+keeps the pipes its work needs. A piece you deconstruct stays gone until the vehicle is parked again.
 
-**Refuelling from a chemfuel pipe** (with Vanilla Chemfuel Expanded): park a fuelled vehicle against a chemfuel pipe and switch its engine off. It lays
-chemfuel pipe beneath it and fills from the line's tanks, 30 chemfuel an hour; the inspect pane says how full it is, and a message says when it is
+**Refuelling from a chemfuel pipe** (with Vanilla Chemfuel Expanded): park a fuelled vehicle against a chemfuel pipe and switch its engine off. The
+chemfuel pipe beneath it joins the line and fills from the line's tanks, 30 chemfuel an hour; the inspect pane says how full it is, and a message says when it is
 full. A vehicle set up for work packs up first. **The depot bay** fills its own tank from a chemfuel pipe touching it, so haulers need not fill it.
 
 ![Our parts and kits: engine assembly, transmission, turbine assembly, drivetrain kit, electrical kit, tyre set, brake pad set, engine service kit, drive belt, jump-start kit, booster pack, sling set and fire bucket](images/vehicle-parts-and-kits.png)

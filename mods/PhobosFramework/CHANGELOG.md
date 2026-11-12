@@ -5,6 +5,27 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.108.0] - 2026-11-13 - Draft
+
+Pipes and conduits beneath every parked vehicle with its engine off, and the hidden pipes of older saves found and made visible
+
+### Fixed
+
+- **Hidden pipes laid by older versions are now found and made visible** (the owner's save of 13 November 2026: the Big Rig and the six conveyor ovens still stood on the old hidden plumbing after 0.107.0). In 0.107.0, a save from before it lost track of the pipes beneath our things while loading, so nothing could swap them and they would have stayed behind when a vehicle drove off. Now, once per building or vehicle, the old hidden pipe standing exactly on its own footprint is taken back as its own and replaced by visible pipe on the same cells. Not yet tested in game.
+
+### Changed
+
+- **Every vehicle of ours shows its pipes and conduits whenever it is parked with its engine off** (owner, 13 November 2026: "so players are not confused"), whether or not a run touches it: plumbing if it takes water, the game's own power conduit if it has a battery, and the pipe of each Vanilla Expanded Framework line it uses (a tanker's contents, the drill rig's outlet, a chemfuel line for its fuel). They go the moment its engine starts or it moves, and come back when it stops with its engine off: laid once per stop, nothing each tick (owner: "performant that way"). Nothing is laid on water. Not yet tested in game.
+- A vehicle set up for work keeps the pipes its work runs through while its engine turns it (a tanker's pump, a drill rig's outlet).
+- **A parked vehicle charges from a grid its conduits touch**: the conduits beneath it join any conduit run touching its side, and its battery charges from that grid as it already did from a powered building beside it (counted once).
+- **The generator set** keeps its own conduits while it is set up through them, running or not, and goes by the same rule as any vehicle once packed up.
+- A fuel line fills a tank only where a run of the line's own reaches the vehicle, not from the pipe it lays beneath itself.
+- For modders: UnderlayRule (game-free, with tests) decides when pieces lie beneath a vehicle; PipeUnderlay.AdoptOnce; VehiclePipes links gain AfterLoad.
+
+### Save compatibility
+
+- Safe on a running colony. Old hidden pipes exactly beneath our buildings and vehicles are taken back once, after the first load with this version, and made visible; a player who had built hidden pipe on those very cells keeps it as visible pipe. A pipe or conduit you deconstruct still stays removed until the thing is placed afresh.
+
 ## [0.107.0] - 2026-11-13 - Draft
 
 Pipes you can see beneath our things, and a generator set that can join the grid through conduits beneath it

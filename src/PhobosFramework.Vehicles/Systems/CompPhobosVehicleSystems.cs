@@ -442,6 +442,16 @@ public class CompPhobosVehicleSystems : VehicleComp
         RestorePartHealths();
         if (Usable && !respawningAfterLoad) Fittings.RollEnemySet();
         powertrain?.ForgetGround();
+        // After a load, once every thing stands: the old hidden pipes earlier versions laid are taken back once and made visible, and the pipes and conduits
+        // are laid as the vehicle stands. Never from here directly (AGENTS.md: nothing is spawned from PostSpawnSetup).
+        if (respawningAfterLoad && Usable) LongEventHandler.ExecuteWhenFinished(SettlePipesAfterLoad);
+    }
+
+    void SettlePipesAfterLoad()
+    {
+        if (!Vehicle.Spawned) return;
+        VehiclePipes.AfterLoad(this);
+        VehiclePipes.Update(this);
     }
 
     /// <summary>The work lamps (the work lights family, Framework 0.103.0): their light on the map, derived and never saved.</summary>
@@ -960,6 +970,19 @@ public class CompPhobosVehicleSystems : VehicleComp
         if (!Usable) return;
         if (eventDef == VehicleEventDefOf.MoveStart) VehiclePipes.Leave(this);
         else if (eventDef == VehicleEventDefOf.MoveStop) VehiclePipes.Update(this);
+        else if (eventDef == VehicleEventDefOf.IgnitionOn || eventDef == VehicleEventDefOf.IgnitionOff)
+        {
+            // Pipes and conduits go when the engine starts and come back when it stops (owner, 13 Nov 2026): laid once per stop, nothing each tick.
+            ignitionHint = eventDef == VehicleEventDefOf.IgnitionOn;
+            try
+            {
+                VehiclePipes.Update(this);
+            }
+            finally
+            {
+                ignitionHint = null;
+            }
+        }
         UpdateNow();
         Beams.Update();
         if (states == null) return;
@@ -1521,8 +1544,15 @@ public class CompPhobosVehicleSystems : VehicleComp
     /// at each look, never saved.</summary>
     public string? PipeFuelLine { get; set; }
 
-    /// <summary>The player's, standing on a map and not moving.</summary>
-    public bool ParkedForPipes => Vehicle.Spawned && Vehicle.Faction == Faction.OfPlayer && Vehicle.vehiclePather is not { Moving: true };
+    /// <summary>
+    /// Whether its pipes and conduits lie beneath it now (Framework 0.108.0; owner, 13 Nov 2026, UnderlayRule): the player's, standing on a map, not moving,
+    /// with its engine off, or set up for work (its work runs through them while the engine turns it).
+    /// </summary>
+    public bool ParkedForPipes => Phobos.Framework.Rules.UnderlayRule.Lays(Vehicle.Spawned, Vehicle.Faction == Faction.OfPlayer,
+        Vehicle.vehiclePather is { Moving: true }, ignitionHint ?? Vehicle.Drafted, Vehicle.GetComps<CompPhobosSetUp>().Any(setUp => setUp.Deployed));
+
+    /// <summary>The engine's state an ignition event is about, while that event is handled: the event may come before the switch itself turns. Never saved.</summary>
+    bool? ignitionHint;
 
     /// <summary>The health of the engine's worst part as a share, or 1 if it has none.</summary>
     public float EngineHealthShare() => PartsOf("Engine").Select(p => p.HealthPercent).DefaultIfEmpty(1f).Min();

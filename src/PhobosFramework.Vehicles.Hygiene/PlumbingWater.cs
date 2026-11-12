@@ -23,7 +23,10 @@ public static class PlumbingWaterRegistration
     }
 }
 
-/// <summary>A parked vehicle that takes on water joins any plumbing it stands on or against.</summary>
+/// <summary>
+/// A vehicle that takes on water lays Dubs' visible plumbing across its footprint while it stands with its engine off (Framework 0.108.0; owner, 13 Nov 2026:
+/// always, "so players are not confused", not only where a run touches it), so a pipe touching any side joins it. Taken up when the engine starts or it moves.
+/// </summary>
 public sealed class PlumbingLink : VehiclePipes.ILink
 {
     const string Key = "DubsPlumbing";
@@ -43,11 +46,19 @@ public sealed class PlumbingLink : VehiclePipes.ILink
         Map map = comp.Vehicle.Map;
         CellRect footprint = comp.Vehicle.OccupiedRect();
         underlay.Renew(DubsPipes.Def, DubsPipes.Make);
-        if (underlay.TouchesRun(footprint, map, cell => DubsPipes.IsPiped(cell, map))) underlay.Fill(footprint, map, cell => DubsPipes.IsPiped(cell, map), DubsPipes.Make);
-        else underlay.Clear();
+        // Plumbing stands on any ground a vehicle can park on but water: the game will not build a pipe in water.
+        underlay.Fill(footprint, map, cell => DubsPipes.IsPiped(cell, map), DubsPipes.Make, cell => !cell.GetTerrain(map).IsWater);
     }
 
     public void Leave(CompPhobosVehicleSystems comp) => comp.Underlay(Key).Clear();
+
+    public void AfterLoad(CompPhobosVehicleSystems comp)
+    {
+        if (!comp.Vehicle.Spawned) return;
+        var underlay = comp.Underlay(Key);
+        underlay.AdoptOnce(comp.Vehicle.OccupiedRect(), comp.Vehicle.Map, DubsPipes.IsOldHidden);
+        underlay.Renew(DubsPipes.Def, DubsPipes.Make);
+    }
 }
 
 public sealed class PlumbingWater : VehicleWater.ISource

@@ -56,6 +56,46 @@ go when it packs up. Code: `CompPhobosGeneratorSet.SetUpBeneath`, `GeneratorGizm
 **Other factions:** their sets never set up (their AI has no use for it), so nothing applies. A captured set behaves as ours.
 **Cost:** nothing per tick; the conduits are laid once, at set-up.
 
+## Framework 0.108.0: the loading fault, and pieces beneath every parked vehicle (13 Nov 2026)
+
+**The fault (found in the owner's save of 13 Nov 2026, 07:31).** After 0.107.0, the Big Rig still stood on 18 pieces of the old hidden
+plumbing and the six conveyor ovens on 72. A save from before 0.107.0 kept no cells beside its pieces, and `PipeUnderlay.ExposeData`
+rebuilt them while loading by keeping only the pieces that were on the map. Nothing is on the map while a game loads (things are placed
+afterwards), so every piece was dropped: the old hidden pipes stood orphaned, owned by nothing, and `Renew` had nothing to swap. A vehicle
+driving off would have left them behind. Code: `src/PhobosFramework/Persistence/PipeUnderlay.cs`.
+
+**The fix.** The cells of such a save are rebuilt at the first look, once things stand. **The recovery:** an underlay saved before 0.108.0
+(the new key `PhobosPipeUnderlayAdopted` is missing) looks once, after the first load, for pieces of the old hidden kind (`sewagePipeHidden`;
+a Vanilla Expanded Framework net's pipe whose colour has no alpha) standing exactly on its thing's own footprint where it holds nothing,
+takes them back as its own, and `Renew` swaps them for visible ones (`PipeUnderlay.AdoptOnce`, `UnderlayRule.Adopts`). **It assumes a hidden
+pipe exactly under one of our things was laid by our earlier versions** (agent's assumption, recorded): a player who built hidden pipe on
+those very cells keeps it, as visible pipe on the same cells, and it then goes with the vehicle. New underlays never adopt.
+
+**The new rule (owner, 13 Nov 2026).** "I think plumbing and power conduits should only appear when the vehicle is powered off? This will
+be performant that way", then "The plumbing and power conduits should appear though regardless, so players are not confused", with the
+owner's picks: always when parked with the engine off; every vehicle with a battery lays conduits; the generator set keeps its conduits while
+set up. As built (`UnderlayRule.Lays`, `CompPhobosVehicleSystems.ParkedForPipes`):
+
+| Network | Laid beneath a vehicle when | Taken up |
+| --- | --- | --- |
+| Dubs' plumbing | It takes water (a coolant top-up or injection water, or a tank of water or sewage) and stands with its engine off | Engine starts, or it moves |
+| The game's power conduit (`VehicleConduits`, new) | It has a battery (our 12/24 V electrics or a traction battery) and stands with its engine off | Engine starts, or it moves |
+| A Vanilla Expanded Framework line | It carries, pumps or burns that line's fluid, and stands with its engine off, or is set up for work | Engine starts (unless set up), or it moves |
+| The generator set's own conduits | It is set up "through conduits beneath it", running or not | It packs up |
+
+- **Triggers:** Vehicle Framework's MoveStart (taken up), MoveStop, IgnitionOn and IgnitionOff (looked at again), and after a load; the
+  rare-tick look every eight rare ticks stays as a backstop. Laid once per stop; nothing each tick.
+- **Nothing on water:** plumbing, conduit and line pipe are not laid on water cells (a boat at its mooring shows none there).
+- **Shore charging:** `ShorePowered` already counts any thing on a powered net within the vehicle's reach, which now includes the conduits
+  beneath it, so a conduit run touching a parked vehicle charges it. One yes-or-no answer per update: nothing is counted twice.
+- **The generator set:** while set up, the battery conduits stand down (`VehicleConduits` skips a deployed set), so its own conduits and
+  junction box are never doubled; packed up and parked with its engine off, it lays them like any vehicle.
+- **A fuel line** fills the tank only where a run that is not ours touches the vehicle (`TouchesRun`, read before laying).
+- **Other factions:** never; their vehicles lay nothing. A captured vehicle follows ours.
+
+**Lets, stops, changes.** Lets the player see at a glance where every vehicle can be joined, and charge a parked vehicle from a conduit run.
+Stops nothing. Changes how they play: a motor pool's vehicles show their connections whenever parked, and a run laid to their sides joins them.
+
 ## The audit: everything of ours that uses a piped supply or power
 
 Read on 13 Nov 2026 from our mods' Defs and patches (a scan of every `ThingDef` and `VehicleDef` of ours for power, fuel, Vanilla
@@ -108,7 +148,11 @@ The questions as they were put:
 ## Who chose what
 
 - **Owner (13 Nov 2026):** visible pieces, as the game and other mods show them; the generator set's conduits beneath it as an option
-  beside the cable; an audit and proposals.
+  beside the cable; an audit and proposals. Later the same day: pieces beneath every vehicle parked with its engine off, always; conduits for
+  every vehicle with a battery; the generator set keeps its conduits while set up.
+- **Agent choices in 0.108.0:** old hidden pieces exactly under our things are taken as ours, once; nothing is laid on water; a set-up
+  vehicle keeps its working pipes; the battery conduits stand down while the generator set is set up; a fuel line fills only from a run that
+  is not ours.
 - **Agent choices, owner to revise:** Dubs' `sewagePipeStuff` and each net's first visible pipe; a removed piece stays removed until the
   thing is placed again; the junction box's cell (beside an outside conduit, else under the middle); every proposal above.
 

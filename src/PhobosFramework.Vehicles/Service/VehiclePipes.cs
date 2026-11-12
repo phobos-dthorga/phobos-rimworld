@@ -5,8 +5,10 @@ using Verse;
 namespace Phobos.VehicleSystems;
 
 /// <summary>
-/// A parked vehicle's own pipes (owner, 9 Nov 2026): while it stands on or against a run of something it uses, it joins that run across its whole footprint, and it takes
-/// them up when it moves off, as a gravship carries its own. The piping mods' tie-ins register a link; this one decides nothing about any of their pipes.
+/// A parked vehicle's own pipes and conduits (owner, 9 Nov 2026; Framework 0.108.0, owner, 13 Nov 2026: "only appear when the vehicle is powered off" and
+/// "should appear though regardless, so players are not confused"): while it stands with its engine off, it lays the networks it uses across its whole
+/// footprint, whether or not a run touches it, and takes them up the moment its engine starts or it moves (UnderlayRule). A vehicle set up for work keeps
+/// what its work runs through. The piping mods' tie-ins, and the power conduits, register a link; this one decides nothing about any of their pieces.
 /// </summary>
 public static class VehiclePipes
 {
@@ -17,6 +19,10 @@ public static class VehiclePipes
 
         /// <summary>Takes up everything it laid.</summary>
         void Leave(CompPhobosVehicleSystems comp);
+
+        /// <summary>After a load, once the map's things stand: takes back, once, the old hidden pieces earlier versions laid beneath the vehicle and a loading
+        /// fault of Framework 0.107.0 orphaned (PipeUnderlay.AdoptOnce).</summary>
+        void AfterLoad(CompPhobosVehicleSystems comp);
     }
 
     static readonly List<ILink> links = new();
@@ -26,6 +32,8 @@ public static class VehiclePipes
     public static void Update(CompPhobosVehicleSystems comp) => Each(link => link.Update(comp));
 
     public static void Leave(CompPhobosVehicleSystems comp) => Each(link => link.Leave(comp));
+
+    public static void AfterLoad(CompPhobosVehicleSystems comp) => Each(link => link.AfterLoad(comp));
 
     static void Each(Action<ILink> act)
     {

@@ -7,7 +7,7 @@ helpers every D'thorga mod shares.
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.107.0, built 13 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
+Version 0.108.0, built 13 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
 oxygen working through Burns and Smoke and Medical Equipment (5 November 2026). The health layer new in 0.3.0 and the **vehicle
 systems new in 0.9.0, and their engines, drivetrains and gas turbines new in 0.11.0, are not yet tested in game.** The rest is read from the game's and the mods' code.
 
@@ -138,6 +138,9 @@ and wear that a mechanic services. See [Vehicle systems](#vehicle-systems-with-v
   boiler without a fusible plug (the American 4-8-4) whose water runs below the firebox crown explodes, and the settings window
   warns you. **Realistic feed water** is off by default: a water stop draws a tenth of the real tender (6,800 litres for the 4-8-4,
   under one Dubs water tower's 8,000); on, the real 68,000.
+- **From 0.108.0, every vehicle of ours parked with its engine off shows its pipes and conduits** (plumbing if it takes water, power conduit if it
+  has a battery, the pipe of any line it uses), whether or not a run touches it; they go when its engine starts or it moves. A conduit run
+  touching a parked vehicle charges its battery. Old hidden pipes from earlier versions are found and made visible once. Not yet tested in game.
 - **From 0.107.0 the pipes our things lay beneath them are visible** (Dubs Bad Hygiene's plumbing, a Vanilla Expanded Framework net's own pipe), and the
   generator set can join the grid through power conduits laid beneath it. Older hidden pipes are swapped for visible ones by themselves. With Vanilla
   Chemfuel Expanded, **a parked fuelled vehicle against a chemfuel pipe fills its tank from the line** (engine off, not set up), and the depot bay
