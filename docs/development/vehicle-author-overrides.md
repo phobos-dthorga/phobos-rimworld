@@ -394,6 +394,12 @@ To take the helicopter out of our systems altogether, the whole override would b
 
 ## Questions for the owner
 
+**Answered by the owner, 13 Nov 2026:** (1) **one new override Def** beside the loadout, today's extensions kept; (2) two overrides on one
+vehicle are **layered**: the later-loaded mod wins only what it sets; (3) **tidy today's names once** before contract 1 freezes them;
+(4) **a tick per mod** in the settings to ignore its overrides (a new setting, when built). Nothing is built yet.
+
+The questions as they were put:
+
 1. **The shape:** one new override Def aimed at vehicles, beside the loadout, with today's extensions kept. (Agent lean: yes.)
 2. **Two overrides on one vehicle:** layered, the later mod winning only what it sets (agent lean), or the later one replacing the
    earlier whole?
