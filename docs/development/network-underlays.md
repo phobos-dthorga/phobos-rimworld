@@ -92,6 +92,12 @@ joins and leaves the grid.
 
 ## Questions for the owner
 
+**Answered by the owner, 14 Nov 2026:** (1) the bottle tap **lays plumbing** (N4); (2) parked fuelled vehicles **refuel from a chemfuel
+pipe** (N10); (3) the depot bay **fills from one** (N7); (4) a deconstructed piece **stays removed** until the thing is placed afresh,
+as built. Nothing of N4, N7 or N10 is built yet.
+
+The questions as they were put:
+
 1. **N4:** the bottle tap lays plumbing beneath it, as the shower does? (Agent lean: yes.)
 2. **N10:** our vehicles refuel from a Vanilla Chemfuel Expanded chemfuel pipe while parked against it? (Agent lean: yes; it is where the
    pipe links already lead.)
