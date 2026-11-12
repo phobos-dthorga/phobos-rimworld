@@ -200,6 +200,16 @@ The questions as they were put:
 4. **The removal rule:** a piece the player removes stays removed until the thing is placed again (agent's choice), or is it laid again
    at the next look? (Agent lean: as built.)
 
+## Building over our pieces (owner, 13 Nov 2026)
+
+Building over a piece we laid follows the game's and the piping mods' own rule, unchanged by us: the **same** kind is refused (Dubs Bad
+Hygiene's `PlaceWorker_Pipe`: "Pipe exists here"; the game's `PlaceWorker_Conduit`), and a **different kind that shares a replace tag**
+(ordinary steel plumbing over our hidden plumbing, an ordinary conduit over our hidden conduit) is allowed and **replaces** ours when
+built, so a cell never holds two. Vanilla Chemfuel Expanded's chemfuel pipes carry no replace tags, so they always refuse. A piece of
+ours replaced this way counts as removed by the player: it is the player's from then on and is not laid again while the thing stays put.
+The owner asked whether our pieces should block building and chose to keep the convention ("I'd rather follow what already happens
+elsewhere"). Read from `DBH-1.7:DubsBadHygiene/PlaceWorker_Pipe.cs` and the game's `RimWorld.PlaceWorker_Conduit.AllowsPlacing`.
+
 ## Who chose what
 
 - **Owner (13 Nov 2026):** visible pieces, as the game and other mods show them; the generator set's conduits beneath it as an option
