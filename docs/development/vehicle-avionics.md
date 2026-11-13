@@ -337,6 +337,9 @@ capabilities draw their power and wait for their rules. The Hind, Mongoose and t
 needs its own engine sampling (power and rpm by flight phase, for cooling and oil) before its loadout can mean anything. The Smuggler
 and Warbird got loadouts of their own for their avionics and hydraulics, and keep the turbofan until then.
 
+**Owner, 13 Nov 2026:** looking for oxygen on a Harrier after this install, the owner chose to **fold A14 (with L3) into step 5**, the
+air-combat batch (AD3, AD2, A16), so oxygen arrives in the same install.
+
 ## Questions for the owner
 
 **Answered by the owner, 13 Nov 2026:** (1) blind flying **refuses the launch, with a warn-only setting**; (2) aircraft with no
