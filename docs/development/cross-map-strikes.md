@@ -69,6 +69,10 @@ target map, give or take 14 cells, which is usually still fogged. The blasts hap
 
 ## Rules for our own cross-map weapons (agent proposal)
 
+[Air-defence tie-ins](air-defence-tie-ins.md) (13 Nov 2026) adds how these rules meet InterRim Ballistic Missile and The Dead Man's
+Switch: strike reports from satellites or radar (AD6), our missiles interceptable by DMS defences (AD11), and enemy submarines as IRBM's
+sea launches (AD10).
+
 These are proposals for the owner to accept, change or drop. They follow AGENTS.md's standing rules where those already apply.
 
 1. **Leave the map through our own code, never a landing.** Three ways, best first for a submarine:

@@ -248,6 +248,10 @@ The Mi-24 carries a warning receiver, an infrared jammer and an ASO-2 dispenser 
 | A16 | **Countermeasures** | Cartridges made at the parts bench and loaded aboard; a button spends some for a short evasion bonus while under fire | Buy a safer pass over a defended target | Using them for nothing: they run out | A consumable to stock before a strike | **hook** (the same evasion postfix) and **job** (the item and the button) | Drop the capability | **Later.** Real dispensers answer missiles, and the anti-air in this game is guns and rockets, so the honest effect is small. Only where an evasion figure exists (the Harrier) |
 | A17 | **Ejection** | An aircraft marked `ejects`, destroyed while airborne on a map, puts its crew down nearby, hurt but alive | Lose the jet and keep the pilot | Nothing | Pilots become worth more than airframes | **hook**, into each framework's crash path | Mark an aircraft as having seats | **Read first.** What happens to a crew today when a VTOL helicopter or the Harrier is destroyed in the air was not traced, and Vehicle Framework's world crash already makes a site with the crew. Not proposed until that is known |
 
+**Revisited on 13 Nov 2026** in [air-defence tie-ins](air-defence-tie-ins.md): The Dead Man's Switch - Expedition has chaff, fire-control
+lock and seekers, so A16 has an opponent once our aircraft are visible to its air defence (AD3); A12 gains radar-directed guns (AD1); A13
+gains a way in through AD8 and AD9.
+
 ## Loose ends found on the way
 
 | # | Loose end | Proposal | Cost | Verdict |

@@ -175,6 +175,9 @@ Arithmetic from atomic masses, assuming the reactions run to completion. **Real 
 
 Each loads only when the other mod is active. **Read each mod's code before building its row**; the "what was read" column says how far that has gone.
 
+The radar rows are taken further in [air-defence tie-ins](air-defence-tie-ins.md) (13 Nov 2026): the mast as an IRBM radar (AD9) and as a
+search radar for The Dead Man's Switch (AD8). Every other tie-in of ours is in the [tie-in register](tie-in-register.md).
+
 | Mod | The tie-in | What was read |
 | --- | --- | --- |
 | Rimatomics | **Overrides our default reactor** (owner, 10 Nov 2026: "maybe even overrides"; the agent's pick) with its richer fuel and rules, under the same node key so a save is unaffected | Decompile on hand, not read for this by this record. It has its own research tab. Read by the radiation control work (Framework 0.63.0, Medical 0.11.0), not yet checked here: Rimatomics measures protection as the game's `ToxicEnvironmentResistance`, and `DubUtils.applyRads` scales a dose down to nothing at 1.0; Medical's radiation-controlled zone asks for 0.75. The crew's exposure can be judged with the game-free `Phobos.Framework.Rules.ProtectionRule` (`IsProtected(value, required)`, `Choose(...)`), which knows nothing of cells, without the cell-based `Phobos.Framework.Protection` parts |
