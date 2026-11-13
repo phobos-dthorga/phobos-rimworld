@@ -88,4 +88,6 @@
   <PhobosVehicleSystems_TankGizmoHoldDesc>Stop pumping.</PhobosVehicleSystems_TankGizmoHoldDesc>
   <PhobosVehicleSystems_TankGizmoAlready>The pump is already doing this.</PhobosVehicleSystems_TankGizmoAlready>
   <PhobosVehicleSystems_TankNoRigBeside>No drill rig within reach of the hose has {ITEM} to give.</PhobosVehicleSystems_TankNoRigBeside>
+  <!-- Framework 0.111.0: one tank pumps into another beside it. -->
+  <PhobosTank_InspectGivingTo>Pumping into {OTHER}.</PhobosTank_InspectGivingTo>
 </LanguageData>

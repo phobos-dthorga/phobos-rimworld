@@ -1,7 +1,7 @@
 # Working vehicles
 
 **D'thorga Vehicles** adds six vehicles that do a job: find ore, drill it, haul it, move fluids, power a camp, and explore under
-the sea, and a trailer any of them can tow. It also gives other mods' vehicles the figures their real counterparts have. The submarine has
+the sea, and three trailers any of them can tow: a flatbed and two bowsers. It also gives other mods' vehicles the figures their real counterparts have. The submarine has
 [its own chapter](submarines.md); looking after any vehicle is in [looking after vehicles](vehicle-care.md).
 [Back to the guide](README.md).
 
@@ -17,6 +17,7 @@ the sea, and a trailer any of them can tow. It also gives other mods' vehicles t
   and says which is missing. Once it runs, the crew may get out: it works on by itself until it runs dry, its engine is switched off, or
   you pack it up. **If its engine stops, the work stops too**, and stays stopped even after refuelling until someone aboard starts the
   engine again.
+- **A trailer has no crew: a colonist with construction work sets it up and packs it up** (the bowsers, not yet tested in game).
 - **A vehicle that is set up cannot drive.** Its engine can still be started, but press **Pack up** before you move it.
 - **Heavy trucks have air brakes**: after standing for hours, draft one and let it idle a few minutes before it will drive.
 - **A trailer goes on journeys with the vehicle towing it**, cargo and all (see the towing section of the vehicle care chapter).
@@ -39,6 +40,8 @@ Every name is a real word from engineering or earth science that says something 
 | **Busbar generator set** | 3 x 8 | A power station you can drive away | The bar that carries power into a grid |
 | **Fathom seabed crawler** | 4 x 9 | A small submarine ([its chapter](submarines.md)) | The sailor's six-foot depth unit; to get to the bottom of something |
 | **Pintle flatbed trailer** | 3 x 7 | A second load behind any land vehicle | The hook-and-ring coupling a drawbar trailer hangs from |
+| **Pintle water bowser** | 3 x 8 | 2,500 litres of water to a camp (Dubs Bad Hygiene) | A bowser is a tank trailer, named after Sylvanus Bowser's fuel pump |
+| **Pintle fuel bowser** | 3 x 8 | 2,500 litres of chemfuel to vehicles and generators | As the water bowser |
 
 How they work together:
 
@@ -157,7 +160,26 @@ taller side boards.
 hill only the vehicle's own wheels grip. Only vehicles the drivetrain model works out can tow, unless you turn on **Vehicles without the
 drivetrain model can tow** in D'thorga Framework's settings. A broken drawbar must be repaired before it can be hitched.
 
-**Upgrade:** **greedy boards** (+600 kg).
+**Upgrade:** **greedy boards** (+1,000 kg).
+
+## Pintle water and fuel bowsers
+
+Not yet tested in game. Two tank trailers, 3 x 8 cells: a **water bowser** (only with Dubs Bad Hygiene) and a **fuel bowser**. Each holds
+2,500 litres and pumps 400 litres an hour. Until their own pictures are made they look like the flatbed.
+
+1. **Build** from the **motor pool** tab, after **vehicle parts** research.
+2. **Park it** where the load is wanted, unhitched, and press **Set up**. A colonist with construction work comes and sets it up; until
+   then the inspect pane says so, and **Cancel set-up** calls it off.
+3. **Load** or **Unload**, as on the tanker. Each tank holds only its own load, already chosen.
+   - **Fuel bowser:** takes chemfuel from stacks beside it, from a chemfuel pipe or from a tanker; gives it to vehicles and fuelled
+     buildings within 10 cells, or to a tanker.
+   - **Water bowser:** takes water from plumbing with a water tower on it, or from a tanker of water; gives it to the water towers on the
+     plumbing it touches. Parked, it lays hidden plumbing under itself, so a pipe touching any side joins it. Water freezes below 0 °C.
+4. **Tank to tank:** one tank set up on **Unload**, another within reach of its hose on **Load**, both holding the same: the loading one
+   pumps from the other.
+5. **Pack up** before you hitch it. A colonist comes for that too, and the pump holds at once.
+
+**Upgrades:** a **lagged tank** (the load warms and cools four times slower) and a **second hose** (half as much again an hour).
 
 ## Ullage bulk tanker
 
@@ -257,7 +279,7 @@ itself. A few you will notice:
 ## What has been tested in game
 
 - **Tested by the owner:** the survey truck and its boom (9 November 2026).
-- **Not yet tested in game:** the other five vehicles, the trailer and towing, every upgrade, the bulk buying, and how the pictures sit. Where each upgrade's
+- **Not yet tested in game:** the other five vehicles, the trailers and towing, the bowsers and setting up a trailer, every upgrade, the bulk buying, and how the pictures sit. Where each upgrade's
   picture sits on its vehicle is a first placement, to be adjusted once seen in game.
 
 Every figure and its source is in [D'thorga Vehicles' README](../../mods/PhobosVehicles/README.md).

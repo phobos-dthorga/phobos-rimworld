@@ -228,11 +228,15 @@ public abstract class CompPhobosSetUp : VehicleComp
     {
         base.PostSpawnSetup(respawningAfterLoad);
         if (MovingParts != null) LongEventHandler.ExecuteWhenFinished(AddMovingParts);
+        if (handOrder != HandSetUpOrder.None) HandSetUps.Note(this, true);
     }
 
     public override void PostDeSpawn(Map map, DestroyMode mode = DestroyMode.Vanish)
     {
         if (MovingParts != null) RemoveMovingParts();
+        // Leaving the map calls off a colonist's waiting work there.
+        handOrder = HandSetUpOrder.None;
+        HandSetUps.Note(this, false);
         VehicleWorkSounds.EndAll(Vehicle);
         motionStartTick = -1;
         sweptCells = null;
@@ -299,6 +303,8 @@ public abstract class CompPhobosSetUp : VehicleComp
         Scribe_Values.Look(ref swingSide, DeployedSaveKey + "Side", 1);
         // Framework 0.106.1. A save made before it has no stall, so a set left working with nobody aboard keeps on until it runs dry.
         Scribe_Values.Look(ref stalled, DeployedSaveKey + "Stalled");
+        // Framework 0.111.0: a colonist's set-up or pack-up still to do at a trailer.
+        Scribe_Values.Look(ref handOrder, DeployedSaveKey + "HandOrder", HandSetUpOrder.None);
     }
 
     // ---- Crew, engine and the stall (Framework 0.106.1; owner, 13 Nov 2026) ----
@@ -319,6 +325,14 @@ public abstract class CompPhobosSetUp : VehicleComp
     /// </summary>
     protected string? CrewAndEngineRefusal()
     {
+        // On a tow bar or a hitch it is not standing anywhere to work (Framework 0.111.0; vehicle-trailers.md, B0.2): the recovery tow could
+        // otherwise drag a tanker with its hoses out.
+        if (Hitches.Towing(Vehicle) is { } towedBy)
+        {
+            return "PhobosTrailer_SetUpWhileTowed".Translate(Vehicle.LabelShort.Named("VEHICLE"), towedBy.Vehicle.LabelShort.Named("TRACTOR")).Resolve();
+        }
+        // A trailer has no crew and no engine: a colonist sets it up by hand instead (B0.1).
+        if (SetUpByHand) return null;
         if (Vehicle.Drafted) return null;
         if (Vehicle.AllPawnsAboard.Count == 0) return "PhobosVehicleSystems_SetUpNoCrew".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve();
         return "PhobosVehicleSystems_SetUpEngineOff".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve();
@@ -372,6 +386,105 @@ public abstract class CompPhobosSetUp : VehicleComp
         if (!ReportsOwnStall) Messages.Message(message, Vehicle, MessageTypeDefOf.NegativeEvent);
     }
 
+    // ---- Set up and packed by hand: trailers (Framework 0.111.0; docs/development/vehicle-trailers.md, B0.1) ----
+
+    /// <summary>What a colonist has been asked to do at this vehicle by hand. Saved; cleared when the work is done or called off.</summary>
+    HandSetUpOrder handOrder;
+
+    /// <summary>Whether a colonist sets it up and packs it up by hand: a trailer, which has no crew or engine of its own.</summary>
+    public bool SetUpByHand => Vehicle.GetComp<CompPhobosTrailer>() != null;
+
+    public HandSetUpOrder HandOrder => handOrder;
+
+    /// <summary>The work the waiting order takes, at a colonist's construction speed: set by the trailer's Def.</summary>
+    public float HandWork
+    {
+        get
+        {
+            CompProperties_PhobosTrailer? trailer = Vehicle.GetComp<CompPhobosTrailer>()?.Props;
+            if (trailer == null) return 1f;
+            return handOrder == HandSetUpOrder.PackUp ? trailer.packUpWork : trailer.setUpWork;
+        }
+    }
+
+    /// <summary>
+    /// For a vehicle set up by hand, asks a colonist to set it up or pack it up, and returns true: the change itself waits for the work. False for a vehicle
+    /// whose crew does it at once, which the caller then does. The caller has already checked that the change may be made.
+    /// </summary>
+    protected bool OrderByHand(bool on)
+    {
+        if (!SetUpByHand) return false;
+        handOrder = on ? HandSetUpOrder.SetUp : HandSetUpOrder.PackUp;
+        HandSetUps.Note(this, true);
+        NamedArgument name = Vehicle.LabelShort.Named("VEHICLE");
+        Messages.Message(on ? "PhobosTrailer_SetUpOrdered".Translate(name).Resolve() : "PhobosTrailer_PackUpOrdered".Translate(name).Resolve(),
+            Vehicle, MessageTypeDefOf.SilentInput, historical: false);
+        return true;
+    }
+
+    /// <summary>Calls off a waiting order: nothing changes at the vehicle.</summary>
+    public void CancelHandOrder()
+    {
+        if (handOrder == HandSetUpOrder.None) return;
+        bool wasSetUp = handOrder == HandSetUpOrder.SetUp;
+        handOrder = HandSetUpOrder.None;
+        HandSetUps.Note(this, false);
+        NamedArgument name = Vehicle.LabelShort.Named("VEHICLE");
+        Messages.Message(wasSetUp ? "PhobosTrailer_SetUpCancelled".Translate(name).Resolve() : "PhobosTrailer_PackUpCancelled".Translate(name).Resolve(),
+            Vehicle, MessageTypeDefOf.SilentInput, historical: false);
+    }
+
+    /// <summary>Why a colonist cannot do the waiting order now, or null: read before the job starts and again when the work is done.</summary>
+    public string? HandOrderRefusal()
+    {
+        if (handOrder == HandSetUpOrder.None) return null;
+        if (Hitches.Towing(Vehicle) is { } towedBy)
+        {
+            return "PhobosTrailer_SetUpWhileTowed".Translate(Vehicle.LabelShort.Named("VEHICLE"), towedBy.Vehicle.LabelShort.Named("TRACTOR")).Resolve();
+        }
+        return handOrder == HandSetUpOrder.SetUp ? HandSetUpRefusal() : null;
+    }
+
+    /// <summary>Why it cannot be set up now, for a vehicle set up by hand; the subclass's own refusal.</summary>
+    protected virtual string? HandSetUpRefusal() => null;
+
+    /// <summary>A colonist has finished the work: the change is made now, if it still may be.</summary>
+    public void HandWorkDone(Pawn worker)
+    {
+        HandSetUpOrder done = handOrder;
+        handOrder = HandSetUpOrder.None;
+        HandSetUps.Note(this, false);
+        if (done == HandSetUpOrder.None) return;
+        if (done == HandSetUpOrder.SetUp && HandSetUpRefusal() is { } refusal)
+        {
+            Messages.Message(refusal, Vehicle, MessageTypeDefOf.RejectInput);
+            return;
+        }
+        FinishByHand(done == HandSetUpOrder.SetUp, worker);
+    }
+
+    /// <summary>Makes the change a colonist's work has earned: set up when <paramref name="on"/>, packed up otherwise.</summary>
+    protected virtual void FinishByHand(bool on, Pawn worker)
+    {
+    }
+
+    /// <summary>The inspect line while a colonist is awaited, or null.</summary>
+    protected string? HandOrderLine => handOrder switch
+    {
+        HandSetUpOrder.SetUp => "PhobosTrailer_InspectSetUpWaiting".Translate().Resolve(),
+        HandSetUpOrder.PackUp => "PhobosTrailer_InspectPackUpWaiting".Translate().Resolve(),
+        _ => null,
+    };
+
+    /// <summary>The button that calls off a waiting order, with the game's own cancel picture.</summary>
+    public Command_Action CancelHandOrderGizmo() => new()
+    {
+        defaultLabel = handOrder == HandSetUpOrder.SetUp ? "PhobosTrailer_GizmoCancelSetUp".Translate().Resolve() : "PhobosTrailer_GizmoCancelPackUp".Translate().Resolve(),
+        defaultDesc = "PhobosTrailer_GizmoCancelDesc".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve(),
+        icon = SystemIcons.For("UI/Designators/Cancel"),
+        action = CancelHandOrder,
+    };
+
     // Only moving is refused. Drafting is also how a vehicle's engine starts (Vehicle Framework has one switch for both), and a vehicle set up to work may
     // want its engine on: real rigs run their hydraulics from it (owner, 9 Nov 2026).
     public override AcceptanceReport CanMove(FloatMenuContext context) => HeldBySetUp ? SetUpRefusal : base.CanMove(context);
@@ -388,6 +501,14 @@ public abstract class CompPhobosSetUp : VehicleComp
         CompFueledTravel? fuel = Vehicle.CompFueledTravel;
         return fuel == null ? amount : OverdriveRule.WorkFuel(amount, fuel.FuelEfficiency * IdlingFuelShare * days, Vehicle.Drafted);
     }
+}
+
+/// <summary>What a colonist has been asked to do at a vehicle set up by hand. Saved by name: append only.</summary>
+public enum HandSetUpOrder
+{
+    None,
+    SetUp,
+    PackUp,
 }
 
 /// <summary>A comp that needs the vehicle's engine turning while it works, though nobody is driving.</summary>

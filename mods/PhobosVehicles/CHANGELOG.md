@@ -5,6 +5,32 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.55.0] - 2026-11-13 - Draft
+
+Two tank trailers: the Pintle water bowser and the Pintle fuel bowser
+
+### Added
+
+- **Pintle fuel bowser** (Pintle P3): a tank trailer of chemfuel, 3 x 8 cells, 2,500 litres, built from the motor pool after vehicle parts research. Any vehicle with a hitch tows it; a colonist sets it up where it stands, and its pump fills vehicles and fuelled buildings within 10 cells, or a tanker beside it, and takes chemfuel from stacks beside it, a chemfuel pipe or a tanker. Needs D'thorga Framework 0.111.0. Not yet tested in game.
+- **Pintle water bowser** (Pintle P2), with Dubs Bad Hygiene only: a tank trailer of water, 3 x 8 cells, 2,500 litres. It fills from plumbing with a water tower on the line, or a tanker of water, and fills the water towers on the plumbing it touches at a camp. Parked, it lays hidden plumbing beneath itself, so a pipe touching any side joins it. It keeps the worst water it was filled with, and water freezes in it below 0 C. Not yet tested in game.
+- **Two upgrades on each**: a **lagged tank** (the load takes four times as long to reach the outside temperature) and a **second hose** (the pump moves half as much again). Their icons are the tanker's for the same things.
+
+### Balance
+
+- Each bowser holds 2,500 litres, weighs 2,000 kg empty and pumps 400 litres an hour, two thirds of the Ullage's pump. The capacity follows the Ullage's general tank (3,000 litres over six rows of shell; a bowser has five). All authored, labelled approximate; the US Army's M149 water trailer, about 1,514 litres, is the real-world reference for scale.
+- Building one takes 260 steel and 2 components for its shell, and its parts by role: four wheels, two springs, a frame, wiring and a hose.
+
+### Compatibility and limits
+
+- **Their pictures are the Pintle flatbed's**, scaled to their size, until their own are made (the owner's rule: no stand-in body art). Their upgrades show nothing on the picture yet.
+- **The pump has no sound yet**: working machinery is never shared. Their hoses, relief valve, leak and purge sound as the tanker's do, being the same things.
+- The water bowser is dropped in Dubs Bad Hygiene's lite mode, where there is no plumbing and no water to carry.
+- Raiders bring no bowsers, and none stand at enemy bases yet.
+
+### Save compatibility
+
+- Safe to add to a running game. **Before removing the mod, scrap every bowser**: they go with it. Removing Dubs Bad Hygiene removes the water bowser.
+
 ## [0.54.1] - 2026-11-13 - Draft
 
 The Pintle trailer's picture is sharp at its new size

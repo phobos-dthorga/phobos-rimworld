@@ -29,13 +29,13 @@ public sealed class RimefellerPipeLink : VehiclePipes.ILink
     /// <summary>A Rimefeller pipe, tank or other piped building stands on the cell.</summary>
     internal static bool Piped(IntVec3 cell, Map map) => cell.GetThingList(map).Any(t => t.TryGetComp<CompPipe>() != null);
 
-    static bool CarriesOil(CompPhobosVehicleSystems comp)
+    static bool CarriesOil(VehiclePipes.IHost comp)
     {
         CompPhobosTank? tank = comp.Vehicle.GetComp<CompPhobosTank>();
         return tank != null && tank.Compartments.Any(c => c.contents?.ports.OfType<Port_RimefellerOil>().Any() == true);
     }
 
-    public void Update(CompPhobosVehicleSystems comp)
+    public void Update(VehiclePipes.IHost comp)
     {
         var underlay = comp.Underlay(Key);
         if (!comp.ParkedForPipes || HiddenPipe == null || !CarriesOil(comp))
@@ -48,12 +48,12 @@ public sealed class RimefellerPipeLink : VehiclePipes.ILink
         underlay.Fill(comp.Vehicle.OccupiedRect(), map, cell => Piped(cell, map), Make, cell => !cell.GetTerrain(map).IsWater);
     }
 
-    public void AfterLoad(CompPhobosVehicleSystems comp)
+    public void AfterLoad(VehiclePipes.IHost comp)
     {
         if (comp.Vehicle.Spawned && HiddenPipe != null) comp.Underlay(Key).Renew(HiddenPipe, Make);
     }
 
-    public void Leave(CompPhobosVehicleSystems comp) => comp.Underlay(Key).Clear();
+    public void Leave(VehiclePipes.IHost comp) => comp.Underlay(Key).Clear();
 }
 
 /// <summary>

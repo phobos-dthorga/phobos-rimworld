@@ -108,7 +108,7 @@ public class CompProperties_PhobosVehicleSystems : VehicleCompProperties
 /// ticks, which Vehicle Framework calls on every comp) and on the vehicle's own events, catching up on the hours since it last ran.
 /// Draft and move refusals, stat factors, inspect text and gizmos all read the state; the schema's effects change it.
 /// </summary>
-public class CompPhobosVehicleSystems : VehicleComp
+public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
 {
     List<SystemState>? states;
     Dictionary<string, float> savedValues = new();

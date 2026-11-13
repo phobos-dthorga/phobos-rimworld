@@ -33,7 +33,7 @@ read from each mod's `LoadFolders.xml`, the `MayRequire` entries in our Defs and
 | --- | --- | --- | --- |
 | Vehicle Framework (`SmashPhil.VehicleFramework`) | Every vehicle system: loadouts on any of its vehicles, parts, health, fittings, tunes, the sling, the fleet board, research gates; its caravan world objects | C# + XML | `Mods/VehicleFramework` |
 | Dubs Bad Hygiene (`Dubwise.DubsBadHygiene`) | The shared plumbing reader and the plumbing laid beneath our things | C# | `Mods/DubsBadHygiene/1.7` |
-| Vehicle Framework + Dubs Bad Hygiene | Vehicles take water from plumbing; tanker ports for plumbing and septic tanks; the survey truck's groundwater sensor | C# | `Mods/VehiclesHygiene/1.7` |
+| Vehicle Framework + Dubs Bad Hygiene | Vehicles take water from plumbing; tanker ports for plumbing and septic tanks; the survey truck's groundwater sensor; hidden plumbing beneath a parked trailer that takes water (0.111.0) | C# | `Mods/VehiclesHygiene/1.7` |
 | Vehicle Framework + Rimefeller (`dubwise.rimefeller`) | The drill rig's oil-well job; the parked tanker lays Rimefeller's hidden pipeline and pumps crude and chemfuel through it (0.109.0, SD4) | C# | `Mods/VehiclesRimefeller/1.7` |
 | Vehicle Framework + Vanilla Expanded Framework (`OskarPotocki.VanillaFactionsExpanded.Core`) | Parked tankers and rigs join its pipe networks; vehicles refuel from a chemfuel line | C# | `Mods/VehiclesPipes/1.7` |
 | Vehicle Framework + Vanilla Expanded Framework | The vehicle garage outpost and its button on vehicle caravans | C# + XML | `Mods/VehiclesOutposts` |
@@ -57,7 +57,7 @@ All XML; the code is in the Framework.
 | GTek L-ATV (`killerbot.jltv`), MaxxPro (`killerbot.navistarmaxxpro`) | Loadouts | `Mods/GTekLATV`, `Mods/GTekMaxxPro` |
 | Frontline Workshop (`serinairo.frontlineworkshop`), BMP-1 (`turbo.rimworld.bmp1ifv`) | Loadouts | `Mods/FrontlineWorkshop`, `Mods/BMP1` |
 | Trains of the Rim (`princeofpluto.vehicles.trains`) | Boilers for its locomotives; steam engines never stalled by EMP (0.52.0) | `Mods/TrainsOfTheRim` |
-| Dubs Bad Hygiene | Tanker contents: water and fecal sludge; the survey truck's groundwater node | `Mods/DubsBadHygiene` |
+| Dubs Bad Hygiene | Tanker contents: water and fecal sludge; the survey truck's groundwater node; the Pintle water bowser (0.55.0, dropped in its lite mode) | `Mods/DubsBadHygiene` |
 | Rimefeller | Napalm and crude in barrels; the drill rig's well-kit node; crude and chemfuel through its pipeline (0.52.0) | `Mods/Rimefeller` |
 | Vanilla Chemfuel Expanded (`vanillaexpanded.vchemfuele`) | Deepchem, the drill rig's deepchem head, chemfuel through its pipes | `Mods/VanillaChemfuelExpanded` |
 | Vanilla Gravship Expanded (`vanillaexpanded.gravship`) | Astrofuel and oxygen tanker contents; pressure vessels | `Mods/VanillaGravshipExpanded`, `Mods/TankerVessels` |

@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    The water bowser (D'thorga Vehicles 0.55.0; docs/development/vehicle-trailers.md, Q3, the first batch with the shared base and the fuel bowser; owner,
+    13 Nov 2026): a tank trailer of water, towed by any vehicle with D'thorga Framework's hitch, set up by a colonist where it stands. Loaded only with Dubs Bad
+    Hygiene, whose plumbing is the only water a tank can take or give (owner, 13 Nov 2026: water gear only with Dubs Bad Hygiene). Its tank is built in (a
+    tank fitting with no node) and holds water only; it fills from plumbing beneath or beside it with a water tower on the line, or a tanker of water beside
+    it pumping out, and gives to plumbing (a camp's water tower) or to a tanker beside it. Parked, it lays Dubs' hidden plumbing across its footprint, so a pipe
+    touching any side joins it (owner's rule). It remembers the worst water it was filled with, as the tanker does. Real-world reference: the US Army's
+    M149 "water buffalo" carries about 1,514 L (army.mil, read in full 13 Nov 2026); ours is larger, as the trailer is. Every Def here is marked
+    DBHLite, so Dubs drops them in its lite mode, where there is no plumbing and no water to carry.
+    Size 3 x 8 (owner, 13 Nov 2026: "3 x 7 is the bare minimum", the other trailers "at least vehicle sized or near"; 3 x 8 is the agent's reading, the Busbar's
+    length). Its picture is borrowed from the Pintle flatbed, scaled evenly by 8/7 to 4.57 x 9.14, until its own is made (owner's rule: no stand-in body art).
+    Authored, labelled approximate: 2,500 litres (the Ullage's general tank holds 3,000 over six rows of shell, this one five rows); 2,000 kg empty, 4,500 kg
+    full; a pump of 400 litres an hour, two thirds of the Ullage's. Part keys are saved by position: append only, never reorder. Cells run x -1 to 1, z -3 to 4, the front
+    (the drawbar) north. Not yet tested in game.
+  -->
+  <Vehicles.VehicleDef ParentName="BaseVehiclePawn" DBHLite="true">
+    <defName>Phobos_WaterBowser</defName>
+    <label>Pintle water bowser</label>
+    <description>Pintle P2: a tank trailer of water on two axles, for camps, outposts and work sites far from any well. Fill it from plumbing with a water tower on the line, hitch it behind any vehicle with a hitch, and where it stands a colonist sets it up and its pump fills the water towers on plumbing beside it. Water freezes in it in the cold. It has no engine: whatever tows it pulls its weight and all it carries.</description>
+    <graphicData>
+      <texPath>Phobos/Vehicles/FlatbedTrailer/FlatbedTrailer</texPath>
+      <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+      <shaderType>CutoutComplexPattern</shaderType>
+      <drawSize>(4.57, 9.14)</drawSize>
+      <color>(180, 174, 143)</color>
+      <colorTwo>(222, 119, 14)</colorTwo>
+    </graphicData>
+    <fillPercent>0.6</fillPercent>
+    <buildDef>Phobos_WaterBowser_Blueprint</buildDef>
+    <size>(3, 8)</size>
+    <vehicleCategory>Transport</vehicleCategory>
+    <techLevel>Industrial</techLevel>
+    <vehicleType>Land</vehicleType>
+    <statBases>
+      <ArmorRating_Blunt>0.2</ArmorRating_Blunt>
+      <ArmorRating_Sharp>0.3</ArmorRating_Sharp>
+      <ArmorRating_Heat>1.0</ArmorRating_Heat>
+      <Flammability>0.2</Flammability>
+      <MarketValue>1400</MarketValue>
+    </statBases>
+    <vehicleStats>
+      <Mass>60</Mass>
+      <MoveSpeed>11</MoveSpeed>
+      <CargoCapacity>100</CargoCapacity>
+      <RepairRate>0.6</RepairRate>
+      <Phobos_TankCapacity>2500</Phobos_TankCapacity>
+      <Phobos_PumpRate>400</Phobos_PumpRate>
+      <Phobos_TankIntegrity>1</Phobos_TankIntegrity>
+      <Phobos_RigControl>1</Phobos_RigControl>
+    </vehicleStats>
+    <race>
+      <baseBodySize>4</baseBodySize>
+    </race>
+    <properties>
+      <diagonalRotation>false</diagonalRotation>
+      <worldSpeedMultiplier>1</worldSpeedMultiplier>
+      <visibilityWeight>4</visibilityWeight>
+      <customTerrainCosts DisallowTerrainWithTag="Water" />
+      <roles />
+    </properties>
+    <components>
+    <li>
+      <key>Chassis</key>
+      <label>chassis</label>
+      <health>170</health>
+      <depth>External</depth>
+      <hitWeight>3</hitWeight>
+      <hitbox>
+        <from>(-1, -3)</from>
+        <to>(1, 4)</to>
+      </hitbox>
+      <categories>
+        <li>BodyIntegrity</li>
+      </categories>
+    </li>
+    <li>
+      <key>TankShell</key>
+      <label>tank shell</label>
+      <health>90</health>
+      <depth>External</depth>
+      <reactors>
+        <li Class="Phobos.VehicleSystems.Reactor_PhobosTankShell" />
+      </reactors>
+      <hitbox>
+        <from>(-1, -1)</from>
+        <to>(1, 3)</to>
+      </hitbox>
+      <categories>
+        <li>Phobos_TankIntegrity</li>
+      </categories>
+    </li>
+    <li>
+      <key>TankFittings</key>
+      <label>tank fittings and relief valve</label>
+      <health>35</health>
+      <depth>External</depth>
+      <hitbox>
+        <cells>
+          <li>(-1, -2)</li>
+          <li>(0, -2)</li>
+          <li>(1, -2)</li>
+        </cells>
+      </hitbox>
+      <categories>
+        <li>Phobos_TankIntegrity</li>
+      </categories>
+    </li>
+    <li>
+      <key>Pump</key>
+      <label>pump and hose</label>
+      <health>35</health>
+      <depth>External</depth>
+      <hitbox>
+        <cells>
+          <li>(0, -3)</li>
+          <li>(1, -3)</li>
+        </cells>
+      </hitbox>
+      <categories>
+        <li>Phobos_PumpRate</li>
+      </categories>
+    </li>
+    <li>
+      <key>Valves</key>
+      <label>valves and meter</label>
+      <health>25</health>
+      <depth>Internal</depth>
+      <hitbox>
+        <cells>
+          <li>(-1, -3)</li>
+        </cells>
+      </hitbox>
+      <categories>
+        <li>Phobos_RigControl</li>
+      </categories>
+    </li>
+    <li>
+      <key>Drawbar</key>
+      <label>drawbar and coupling</label>
+      <health>60</health>
+      <depth>External</depth>
+      <hitbox>
+        <cells>
+          <li>(-1, 4)</li>
+          <li>(0, 4)</li>
+          <li>(1, 4)</li>
+        </cells>
+      </hitbox>
+    </li>
+    <li>
+      <key>Axles</key>
+      <label>axles and wheels</label>
+      <health>70</health>
+      <depth>External</depth>
+      <tags>
+        <li>Wheel</li>
+      </tags>
+      <hitbox>
+        <cells>
+          <li>(-1, -2)</li>
+          <li>(1, -2)</li>
+          <li>(-1, -1)</li>
+          <li>(1, -1)</li>
+        </cells>
+      </hitbox>
+    </li>
+    <li>
+      <key>Lights</key>
+      <label>lights</label>
+      <health>10</health>
+      <depth>External</depth>
+      <hitbox>
+        <cells>
+          <li>(-1, -3)</li>
+          <li>(1, -3)</li>
+        </cells>
+      </hitbox>
+    </li>
+    </components>
+    <modExtensions>
+      <li Class="Phobos.VehicleSystems.PhobosVehicleFiguresExtension">
+        <emptyKilograms>2000</emptyKilograms>
+      </li>
+      <!-- The tanker's hoses, relief valve, leak and purge are the same things on a bowser; its pump is its own and has no sound yet
+           (docs/development/sound-catalogue.md: working machinery is never shared). -->
+      <li Class="Phobos.VehicleSystems.PhobosVehicleSoundsExtension">
+        <sounds>
+          <li><key>Hoses</key><sound>PhobosVehicles_TankerHoses</sound></li>
+          <li><key>Relief</key><sound>PhobosVehicles_TankerRelief</sound></li>
+          <li><key>Leak</key><sound>PhobosVehicles_TankerLeak</sound></li>
+          <li><key>Purge</key><sound>PhobosVehicles_TankerPurge</sound></li>
+        </sounds>
+      </li>
+    </modExtensions>
+    <comps>
+      <li Class="Vehicles.CompProperties_UpgradeTree">
+        <def>Phobos_WaterBowser_UpgradeTree</def>
+      </li>
+      <!-- How it follows (authored): the Pintle's lengths scaled by 8/7 with its length. -->
+      <li Class="Phobos.VehicleSystems.CompProperties_PhobosTrailer">
+        <hitchToAxle>4.9</hitchToAxle>
+        <axleToCentre>0.31</axleToCentre>
+        <jackKnifeDegrees>70</jackKnifeDegrees>
+        <drawbarPart>Drawbar</drawbarPart>
+        <setUpWork>1500</setUpWork>
+        <packUpWork>1000</packUpWork>
+      </li>
+      <li Class="Phobos.VehicleSystems.CompProperties_PhobosTank">
+        <fittings>
+          <!-- The lagging upgrade first: the first tank fitted is the one used. -->
+          <li>
+            <node>PhobosBowserLagging</node>
+            <phase>Liquid</phase>
+            <hoursToOutside>24</hoursToOutside>
+            <spoilRate>0.5</spoilRate>
+            <loadWeight>1</loadWeight>
+            <onlyContents>
+              <li>PhobosTank_Water</li>
+            </onlyContents>
+          </li>
+          <li>
+            <phase>Liquid</phase>
+            <hoursToOutside>6</hoursToOutside>
+            <spoilRate>1</spoilRate>
+            <loadWeight>1</loadWeight>
+            <onlyContents>
+              <li>PhobosTank_Water</li>
+            </onlyContents>
+          </li>
+        </fittings>
+        <shellPart>TankShell</shellPart>
+        <valvePart>TankFittings</valvePart>
+      </li>
+    </comps>
+  </Vehicles.VehicleDef>
+
+  <Vehicles.VehicleBuildDef ParentName="VehicleBaseBuildable" DBHLite="true">
+    <defName>Phobos_WaterBowser_Blueprint</defName>
+    <label>Pintle water bowser</label>
+    <description>Pintle P2: a tank trailer of water that any vehicle with a hitch can tow.</description>
+    <graphicData>
+      <texPath>Phobos/Vehicles/FlatbedTrailer/FlatbedTrailer</texPath>
+      <graphicClass>Graphic_Multi</graphicClass>
+      <drawSize>(4.57, 9.14)</drawSize>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>220</MaxHitPoints>
+      <WorkToBuild>9000</WorkToBuild>
+      <Flammability>0.2</Flammability>
+    </statBases>
+    <researchPrerequisites>
+      <li>PhobosResearch_VehicleParts</li>
+    </researchPrerequisites>
+    <size>(3, 8)</size>
+    <!-- The shell only: its parts are in Bill_WaterBowser.xml, filled at start-up (docs/development/parts-bills.md). Steel stays first. -->
+    <costList>
+      <Steel>260</Steel>
+      <ComponentIndustrial>2</ComponentIndustrial>
+    </costList>
+    <designationCategory>PhobosVehicles_MotorPool</designationCategory>
+    <thingToSpawn>Phobos_WaterBowser</thingToSpawn>
+  </Vehicles.VehicleBuildDef>
+</Defs>

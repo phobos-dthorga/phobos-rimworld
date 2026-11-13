@@ -48,6 +48,8 @@ public sealed partial class CompPhobosHitch : VehicleComp
     float plainCap = 1f;
     int lastBlockedMessage = -BlockedMessageTicks;
     bool needsLook;
+    /// <summary>Why the vehicle it tows may not move, set up for work (an older save could hold one); read with the weight. Derived, never saved.</summary>
+    string? heldBySetUp;
 
     static PhobosVehicleRulesDef Rules => PhobosVehicleRulesDef.Current<PhobosVehicleRulesDef>();
 
@@ -100,11 +102,26 @@ public sealed partial class CompPhobosHitch : VehicleComp
         }
         if (!candidate.Spawned || candidate.Map != Vehicle.Map) return "PhobosHitch_NotHere".Translate(candidate.LabelShort.Named("TRAILER")).Resolve();
         if (candidate.GetComp<CompPhobosTrailer>()?.DrawbarBroken == true) return "PhobosHitch_DrawbarBroken".Translate(candidate.LabelShort.Named("TRAILER")).Resolve();
+        if (SetUpRefusal(candidate) is { } setUp) return setUp;
         if (candidate.Position.DistanceTo(Vehicle.Position) > Rules.hitchReachCells)
         {
             return "PhobosHitch_TooFar".Translate(candidate.LabelShort.Named("TRAILER"), Rules.hitchReachCells.Named("CELLS")).Resolve();
         }
         if (Vehicle.vehiclePather is { Moving: true }) return "PhobosHitch_Moving".Translate(Vehicle.LabelShort.Named("TRACTOR")).Resolve();
+        return null;
+    }
+
+    /// <summary>
+    /// Why a vehicle cannot be taken on the hitch while it is set up for work, or while a colonist is on the way to set it up, or null (Framework 0.111.0;
+    /// docs/development/vehicle-trailers.md, B0.2). Before this the hitch never asked, and could drag a set-up vehicle away, hoses out.
+    /// </summary>
+    public static string? SetUpRefusal(VehiclePawn candidate)
+    {
+        foreach (CompPhobosSetUp setUp in candidate.GetComps<CompPhobosSetUp>())
+        {
+            if (setUp.HandOrder == HandSetUpOrder.SetUp) return "PhobosHitch_SetUpOnTheWay".Translate(candidate.LabelShort.Named("TRAILER")).Resolve();
+            if (setUp.HoldRefusal != null || setUp.Deployed) return "PhobosHitch_PackUpFirst".Translate(candidate.LabelShort.Named("TRAILER")).Resolve();
+        }
         return null;
     }
 
@@ -168,6 +185,8 @@ public sealed partial class CompPhobosHitch : VehicleComp
         }
         Remember(pose);
         Hitches.Note(this, candidate);
+        // Hitched, a trailer takes up the pipes it laid while it stood (Framework 0.111.0).
+        candidate.GetComp<CompPhobosTrailer>()?.LookAtPipes();
         weightTick = -1;
         RefreshWeight();
         Systems?.Powertrain?.MarkMassDirty();
@@ -184,6 +203,8 @@ public sealed partial class CompPhobosHitch : VehicleComp
         towedKg = 0;
         plainCap = 1f;
         Hitches.Forget(was);
+        // Let go, a trailer is parked: it lays its pipes where it stands (Framework 0.111.0).
+        if (was.Spawned) was.GetComp<CompPhobosTrailer>()?.LookAtPipes();
         // The facings show it square again: the extra turn is a picture of the tow only, and is not saved by Vehicle Framework.
         was.Transform.rotation = 0f;
         Systems?.Powertrain?.MarkMassDirty();
@@ -206,6 +227,7 @@ public sealed partial class CompPhobosHitch : VehicleComp
         if (weightTick >= 0 && now - weightTick < WeightTicks) return;
         weightTick = now;
         towedKg = CompPhobosSling.LoadKilograms(trailer);
+        heldBySetUp = SetUpRefusal(trailer);
         plainCap = (float)HitchRule.PlainCap(CompPhobosSling.LoadKilograms(Vehicle), towedKg, DrivetrainModel.CrawlFloor);
     }
 
@@ -241,6 +263,18 @@ public sealed partial class CompPhobosHitch : VehicleComp
     void Follow(bool moving)
     {
         if (Geometry(trailer!) is not { } props) return;
+        if (moving && heldBySetUp != null)
+        {
+            // It is set up where it stands: the vehicle stops, with the same words a hitch would give (B0.2).
+            Vehicle.vehiclePather!.StopDead();
+            int when = Find.TickManager.TicksGame;
+            if (when - lastBlockedMessage >= BlockedMessageTicks && Vehicle.Faction == Faction.OfPlayer)
+            {
+                lastBlockedMessage = when;
+                Say(heldBySetUp, new LookTargets(Vehicle, trailer), MessageTypeDefOf.RejectInput, historical: false);
+            }
+            return;
+        }
         (double hx, double hz) = HitchPoint();
         double vehicleHeading = VehicleHeading(Vehicle);
         TrailerPose pose = HitchRule.Follow(hx, hz, new TrailerPose(axleX, axleZ, heading), props.HitchToAxle);

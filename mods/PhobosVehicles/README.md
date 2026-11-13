@@ -7,10 +7,14 @@ of the general systems D'thorga Framework gives every vehicle.
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.54.1, built 13 November 2026 for House D'thorga. **Not yet tested in game.**
+Version 0.55.0, built 13 November 2026 for House D'thorga. **Not yet tested in game.**
 
 ## Read this first (gotchas)
 
+- **New in 0.55.0 (not yet tested in game): two tank trailers, the Pintle water bowser and the Pintle fuel bowser**, 3 x 8 cells and
+  2,500 litres each. **They need D'thorga Framework 0.111.0 or later.** **The water bowser exists only with Dubs Bad Hygiene**, and not in
+  its lite mode. **A colonist with construction work sets a bowser up and packs it up**, and **a set-up trailer cannot be hitched**:
+  pack it up first. Their pictures are the Pintle flatbed's, borrowed until their own are made; see [below](#the-pintle-water-and-fuel-bowsers).
 - **New in 0.54.0 (not yet tested in game): the Pintle flatbed trailer is as wide as the trucks**, 3 x 7 cells (it was 2 x 5),
   and carries 5,000 kg. **Park every Pintle in open ground before updating**: it grows by a cell on each side and two in length.
 - **Three helicopters take a cargo hook, and so a sling, a fire bucket and the litter kit** (not yet tested in game): the Cherokee
@@ -116,6 +120,8 @@ would one day be the Talus T2, and a refit adds a letter.
 | Busbar generator set | Busbar B1 | The bar that carries power into a grid, which is what the set becomes once it is set up |
 | Fathom seabed crawler | Fathom F1, refits F1-S (sensor) and F1-L (laboratory) | The sailor's depth unit of six feet; to fathom something is to get to the bottom of it |
 | Pintle flatbed trailer | Pintle P1 | The hook-and-ring coupling a drawbar trailer hangs from |
+| Pintle water bowser | Pintle P2 | The Pintle family of trailers; a bowser is a tank trailer for fuel or water (from Sylvanus Bowser's fuel pump) |
+| Pintle fuel bowser | Pintle P3 | As the water bowser |
 | X-1 submarine test hull | X-1 | Experimental hulls are numbered in order: X-1, then X-2, X-3 |
 
 ## The Ullage bulk tanker
@@ -216,8 +222,37 @@ length.
   leaves it where it stands, loaded, for later. A broken drawbar has to be repaired before it can be hitched.
 - **Its weight is the towing vehicle's to pull**: a heavy load slows a small truck, and on soft ground or a hill only the vehicle's own
   wheels grip.
-- **Upgrade:** greedy boards (+600 kg), which show on the trailer as taller side boards.
+- **Upgrade:** greedy boards (+1,000 kg since 0.54.0), which show on the trailer as taller side boards.
 - **Its own picture since 0.49.0** (not yet seen in game): a sand-grey drawbar flatbed with a dark plank deck; repaint it as any vehicle.
+
+## The Pintle water and fuel bowsers
+
+**Not yet tested in game.** New in 0.55.0, with D'thorga Framework 0.111.0. Two tank trailers, 3 x 8 cells, as long as the Busbar: a
+**water bowser** (only with Dubs Bad Hygiene) and a **fuel bowser** of chemfuel. Each holds **2,500 litres**, weighs 2,000 kg empty and
+pumps **400 litres an hour**. They take the load to where it is needed, and stay at a camp while the truck that brought them leaves.
+
+- **Build them** from the **motor pool** tab, after vehicle parts research.
+- **Set up** where it stands: a **colonist with construction work** walks over, chocks the wheels, lowers the legs and runs the hoses out
+  (1,500 work, about half an hour of game time for an average builder). The inspect pane says it waits for a colonist until then, and the
+  button becomes **Cancel set-up**. **Pack up** works the same way (1,000 work); the pump holds at once.
+- **Then Load or Unload**, as on the Ullage tanker. The tank holds only its own load, chosen by itself:
+  - **Fuel bowser:** fills from chemfuel stacks beside it, a chemfuel pipe (Vanilla Chemfuel Expanded, Rimefeller) or a tanker; fills
+    vehicles' tanks and fuelled buildings within reach of its hose (10 cells), or a tanker.
+  - **Water bowser:** fills from Dubs Bad Hygiene's plumbing with a water tower on the line, or a tanker of water; fills the water
+    towers on plumbing it stands on or touches. Parked, it lays hidden plumbing under itself, so a pipe touching any side joins it. It
+    keeps the worst water it was filled with. **Water freezes in it** below 0 °C.
+- **Tank to tank:** set one tank up on **Unload** and another beside it (hose reach) on **Load**, both holding the same: the one loading
+  pumps from the other at its own pump's rate. The Ullage tanker fills a bowser this way, and a bowser fills the Ullage.
+- **A set-up trailer cannot be hitched**, nor one a colonist is on the way to set up. Pack it up first.
+- **Upgrades:** a **lagged tank** (insulation: the load takes four times as long to reach the outside temperature, so water freezes later
+  and fuel stays thin longer in the cold) and a **second hose** (the pump moves half as much again).
+- **Its weight is the towing vehicle's to pull**: a full bowser weighs about 4.5 tonnes with water, 4 with fuel.
+- **Pictures:** each borrows the Pintle flatbed's picture, scaled to its size, until its own is made. The pump has no sound yet; the hoses,
+  relief valve, leak and purge sound as the tanker's do.
+
+Figures, all authored and approximate: the capacity follows the Ullage's general tank (3,000 litres over six rows of shell; a bowser has
+five). For scale, the US Army's M149 "water buffalo" carries about 1,514 litres (US Army, army.mil, read 13 Nov 2026, cited in
+[the working trailers record](../../docs/development/vehicle-trailers.md)), so ours is a larger trailer.
 
 ## The Fathom seabed crawler (not yet tested in game)
 
@@ -253,7 +288,7 @@ More upgrades are designed, including radar, and are not built yet. The bottomin
 
 ## How the trucks work together
 
-The survey truck finds it, the drill rig brings it up, the tipper hauls the ore, the tanker carries the fluids and the generator set powers the camp ([the design](../../docs/development/utility-vehicles-design.md)).
+The survey truck finds it, the drill rig brings it up, the tipper hauls the ore, the tanker carries the fluids, the bowsers keep a camp in fuel and water, and the generator set powers the camp ([the design](../../docs/development/utility-vehicles-design.md)).
 
 ## For modders
 

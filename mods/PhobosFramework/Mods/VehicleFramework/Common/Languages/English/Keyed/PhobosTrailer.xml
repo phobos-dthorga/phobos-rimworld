@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <!-- Working trailers (Framework 0.111.0): a colonist sets a trailer up and packs it up by hand. docs/development/vehicle-trailers.md, B0.1 and B0.2 -->
+  <PhobosTrailer_SetUpWhileTowed>{VEHICLE} is hitched to {TRACTOR}. Unhitch it first.</PhobosTrailer_SetUpWhileTowed>
+  <PhobosTrailer_SetUpOrdered>A colonist will come and set up {VEHICLE}.</PhobosTrailer_SetUpOrdered>
+  <PhobosTrailer_PackUpOrdered>A colonist will come and pack up {VEHICLE}. Its pump holds until then.</PhobosTrailer_PackUpOrdered>
+  <PhobosTrailer_SetUpCancelled>Nobody will set up {VEHICLE} now.</PhobosTrailer_SetUpCancelled>
+  <PhobosTrailer_PackUpCancelled>{VEHICLE} stays set up.</PhobosTrailer_PackUpCancelled>
+  <PhobosTrailer_InspectSetUpWaiting>Waiting for a colonist to set it up.</PhobosTrailer_InspectSetUpWaiting>
+  <PhobosTrailer_InspectPackUpWaiting>Waiting for a colonist to pack it up.</PhobosTrailer_InspectPackUpWaiting>
+  <PhobosTrailer_GizmoCancelSetUp>Cancel set-up</PhobosTrailer_GizmoCancelSetUp>
+  <PhobosTrailer_GizmoCancelPackUp>Cancel pack-up</PhobosTrailer_GizmoCancelPackUp>
+  <PhobosTrailer_GizmoCancelDesc>Call off the work a colonist was coming to do at {VEHICLE}. Nothing changes at the trailer.</PhobosTrailer_GizmoCancelDesc>
+  <PhobosTrailer_ReportPackingUp>packing up {VEHICLE}.</PhobosTrailer_ReportPackingUp>
+  <PhobosTrailer_TankGizmoSetUpDesc>A colonist with construction work comes, chocks the wheels, puts the legs down and runs the hoses out, so the pump can run. Nothing can tow it while it is set up.</PhobosTrailer_TankGizmoSetUpDesc>
+  <PhobosTrailer_TankGizmoPackUpDesc>A colonist comes and takes the hoses and legs in so it can be towed again. The pump stops at once.</PhobosTrailer_TankGizmoPackUpDesc>
+</LanguageData>

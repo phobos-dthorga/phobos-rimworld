@@ -24,7 +24,7 @@ public sealed class PipeNetLink : VehiclePipes.ILink
 
     static PipeNetLink() => VehiclePipes.Register(new PipeNetLink());
 
-    static IEnumerable<PipeNetDef> Nets(CompPhobosVehicleSystems comp)
+    static IEnumerable<PipeNetDef> Nets(VehiclePipes.IHost comp)
     {
         if (comp.Vehicle.GetComp<CompPhobosTank>() is { } tank)
         {
@@ -47,7 +47,7 @@ public sealed class PipeNetLink : VehiclePipes.ILink
     }
 
     /// <summary>The net that refuels this vehicle's own fuel, and its units to one fuel item: the vehicle's, fuelled, not electric.</summary>
-    static PipeNetDef? FuelLine(CompPhobosVehicleSystems comp, out int unitsPerFuel)
+    static PipeNetDef? FuelLine(VehiclePipes.IHost comp, out int unitsPerFuel)
     {
         unitsPerFuel = 1;
         CompFueledTravel? fuel = comp.Vehicle.CompFueledTravel;
@@ -89,7 +89,7 @@ public sealed class PipeNetLink : VehiclePipes.ILink
         return def == null ? null : ThingMaker.MakeThing(def, def.MadeFromStuff ? GenStuff.DefaultStuffFor(def) : null);
     }
 
-    public void Update(CompPhobosVehicleSystems comp)
+    public void Update(VehiclePipes.IHost comp)
     {
         var wanted = new HashSet<string>();
         bool onFuelLine = false;
@@ -125,7 +125,7 @@ public sealed class PipeNetLink : VehiclePipes.ILink
     }
 
     /// <summary>Fills the tank from the line it stands on, while its engine is off and it is not set up for work.</summary>
-    static void Refuel(CompPhobosVehicleSystems comp, PipeNetManager manager, PipeNetDef net, int unitsPerFuel)
+    static void Refuel(VehiclePipes.IHost comp, PipeNetManager manager, PipeNetDef net, int unitsPerFuel)
     {
         VehiclePawn vehicle = comp.Vehicle;
         CompFueledTravel? fuel = vehicle.CompFueledTravel;
@@ -180,7 +180,7 @@ public sealed class PipeNetLink : VehiclePipes.ILink
             fuel.FuelCapacity.ToString("0").Named("CAPACITY")).Resolve();
     }
 
-    static void ForgetFuelLine(CompPhobosVehicleSystems comp)
+    static void ForgetFuelLine(VehiclePipes.IHost comp)
     {
         int id = comp.Vehicle.thingIDNumber;
         lastFuelLook.Remove(id);
@@ -188,7 +188,7 @@ public sealed class PipeNetLink : VehiclePipes.ILink
         comp.PipeFuelLine = null;
     }
 
-    public void AfterLoad(CompPhobosVehicleSystems comp)
+    public void AfterLoad(VehiclePipes.IHost comp)
     {
         if (!comp.Vehicle.Spawned) return;
         Map map = comp.Vehicle.Map;
@@ -202,7 +202,7 @@ public sealed class PipeNetLink : VehiclePipes.ILink
         }
     }
 
-    public void Leave(CompPhobosVehicleSystems comp)
+    public void Leave(VehiclePipes.IHost comp)
     {
         ForgetFuelLine(comp);
         foreach (KeyValuePair<string, Phobos.Framework.Persistence.PipeUnderlay> pair in comp.UnderlaysStartingWith(Prefix)) pair.Value.Clear();

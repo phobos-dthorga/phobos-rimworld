@@ -143,10 +143,11 @@ public class CompPhobosTank : CompPhobosSetUp
         get
         {
             CompUpgradeTree? tree = Vehicle.CompUpgradeTree;
-            if (tree == null) return null;
             foreach (TankFitting fitting in Props.fittings)
             {
-                if (Unlocked(tree, fitting.node)) return fitting;
+                // A tank built in has no node: always fitted (Framework 0.111.0).
+                if (string.IsNullOrEmpty(fitting.node)) return fitting;
+                if (tree != null && Unlocked(tree, fitting.node)) return fitting;
             }
             return null;
         }
@@ -299,6 +300,7 @@ public class CompPhobosTank : CompPhobosSetUp
             compartments.RemoveAt(i);
         }
         selected = Mathf.Clamp(selected, 0, compartments.Count - 1);
+        SetOnlyContents();
         float room = CompartmentCapacity;
         foreach (TankCompartment compartment in compartments)
         {
@@ -310,6 +312,19 @@ public class CompPhobosTank : CompPhobosSetUp
         if (!spilled) return;
         Tell("PhobosVehicleSystems_TankCompartmentsSpilled".Translate(Vehicle.LabelShort.Named("VEHICLE")), MessageTypeDefOf.NegativeEvent);
         AfterLoadChange();
+    }
+
+    /// <summary>A tank that may hold one fluid only (a bowser's) is always set to it, and the dregs of that same fluid need no purge: the player has nothing
+    /// to choose and nothing to rinse out.</summary>
+    void SetOnlyContents()
+    {
+        if (Fitted is not { onlyContents.Count: 1 } fitting) return;
+        PhobosTankContentsDef only = fitting.onlyContents[0];
+        foreach (TankCompartment compartment in compartments)
+        {
+            if (compartment.residue == only) compartment.residue = null;
+            if (compartment.contents == null && compartment.residue == null) compartment.contents = only;
+        }
     }
 
     protected override string DeployedSaveKey => "PhobosTankDeployed";
@@ -480,9 +495,52 @@ public class CompPhobosTank : CompPhobosSetUp
         return TankRule.PumpFactor(temperature, fluid.thickensBelow, fluid.thickestAt, fluid.thickFloor);
     }
 
+    // ---- One tank into another (Framework 0.111.0; docs/development/vehicle-trailers.md, Q3 and Q4) ----
+
+    /// <summary>What it is giving to another tank, for the inspect line. Derived, never saved.</summary>
+    string? transferStatus;
+
+    /// <summary>Whether this tank is set up, pumping out, and has this fluid in its selected compartment to give.</summary>
+    bool GivesNow(PhobosTankContentsDef fluid) =>
+        deployed && mode == TankPumpMode.Unload && !stalled && Selected.contents == fluid && Selected.HasLoad && PumpBlocked() == null;
+
+    /// <summary>Whether this tank is set up, pumping in, set to this fluid, with room and a sound shell.</summary>
+    bool TakesNow(PhobosTankContentsDef fluid) =>
+        deployed && mode == TankPumpMode.Load && !stalled && Selected.contents == fluid && Space > 0.5f && ShellTakesLoad && PumpBlocked() == null;
+
+    /// <summary>The player's other tanks within reach of the hose.</summary>
+    IEnumerable<CompPhobosTank> TanksBeside()
+    {
+        if (!Vehicle.Spawned) yield break;
+        foreach (Pawn pawn in Vehicle.Map.mapPawns.SpawnedPawnsInFaction(Vehicle.Faction))
+        {
+            if (pawn == Vehicle || pawn is not VehiclePawn other || other.Position.DistanceTo(Vehicle.Position) > Props.hoseReach) continue;
+            if (other.GetComp<CompPhobosTank>() is { } tank) yield return tank;
+        }
+    }
+
+    CompPhobosTank? GiverBeside(PhobosTankContentsDef fluid) => TanksBeside().FirstOrDefault(tank => tank.GivesNow(fluid));
+
+    CompPhobosTank? LoaderBeside(PhobosTankContentsDef fluid) => TanksBeside().FirstOrDefault(tank => tank.TakesNow(fluid));
+
+    /// <summary>Gives up to <paramref name="most"/> of its selected compartment to another tank's compartment, which the caller then adds to; returns what
+    /// moved. The worse water of the two is kept (Dubs Bad Hygiene's contamination).</summary>
+    float GiveTo(TankCompartment into, float most)
+    {
+        TankCompartment from = Selected;
+        float moved = Mathf.Min(most, from.amount);
+        if (moved <= 0f) return 0f;
+        from.amount -= moved;
+        into.quality = Mathf.Max(into.quality, from.quality);
+        if (!from.HasLoad) from.Clear();
+        AfterLoadChange();
+        return moved;
+    }
+
     void Pump()
     {
         pumpStatus = null;
+        transferStatus = null;
         TankCompartment compartment = Selected;
         PhobosTankContentsDef? fluid = compartment.contents;
         if (mode == TankPumpMode.Hold) return;
@@ -514,7 +572,8 @@ public class CompPhobosTank : CompPhobosSetUp
                 return;
             }
             bool tankWasEmpty = !HasLoad;
-            float moved = RunPorts(fluid, most, load: true);
+            // Another tank beside it, set up and pumping out the same, comes first (Framework 0.111.0): the tanker fills a bowser, or a bowser a tanker.
+            float moved = GiverBeside(fluid) is { } giver ? giver.GiveTo(compartment, most) : RunPorts(fluid, most, load: true);
             if (moved <= 0f) return;
             if (tankWasEmpty) temperature = ArrivalTemperature(fluid, Outside);
             compartment.residue = null;
@@ -525,6 +584,12 @@ public class CompPhobosTank : CompPhobosSetUp
         if (!compartment.HasLoad)
         {
             pumpStatus = "PhobosVehicleSystems_TankEmpty".Translate().Resolve();
+            return;
+        }
+        // A tank beside it set up to take the same draws from this one on its own round; this one gives nothing else meanwhile.
+        if (LoaderBeside(fluid) is { } loader)
+        {
+            transferStatus = "PhobosTank_InspectGivingTo".Translate(loader.Vehicle.LabelShort.Named("OTHER")).Resolve();
             return;
         }
         float given = RunPorts(fluid, TankRule.Moved(rate, HoursPerRareTick, ThickFactor(fluid), compartment.amount, float.MaxValue), load: false);
@@ -598,7 +663,8 @@ public class CompPhobosTank : CompPhobosSetUp
     {
         TankFitting? fitting = Fitted;
         if (fitting == null) return Enumerable.Empty<PhobosTankContentsDef>();
-        return DefDatabase<PhobosTankContentsDef>.AllDefsListForReading.Where(def => def.phase == fitting.phase);
+        return DefDatabase<PhobosTankContentsDef>.AllDefsListForReading.Where(def =>
+            def.phase == fitting.phase && (fitting.onlyContents.Count == 0 || fitting.onlyContents.Contains(def)));
     }
 
     /// <summary>Why the selected compartment cannot be set to this, or null.</summary>
@@ -629,6 +695,8 @@ public class CompPhobosTank : CompPhobosSetUp
         }
         Selected.contents = def;
         Tell("PhobosVehicleSystems_TankContentsSet".Translate(Vehicle.LabelShort.Named("VEHICLE"), def.label.Named("CONTENTS")), MessageTypeDefOf.SilentInput);
+        // What it carries decides which pipes a trailer lays beneath it; a truck's systems look on their own round.
+        Vehicle.GetComp<CompPhobosTrailer>()?.LookAtPipes();
     }
 
     /// <summary>Moves the pump and the contents button on to the next compartment.</summary>
@@ -676,6 +744,26 @@ public class CompPhobosTank : CompPhobosSetUp
                 return;
             }
         }
+        // A trailer is set up by a colonist (Framework 0.111.0): the order waits for the work. Packing up stops the pump at once.
+        if (OrderByHand(on))
+        {
+            if (!on && mode != TankPumpMode.Hold)
+            {
+                mode = TankPumpMode.Hold;
+                pumpStatus = null;
+                SyncSounds();
+            }
+            return;
+        }
+        ApplyDeployed(on);
+    }
+
+    protected override string? HandSetUpRefusal() => CannotDeploy();
+
+    protected override void FinishByHand(bool on, Pawn worker) => ApplyDeployed(on);
+
+    void ApplyDeployed(bool on)
+    {
         if (deployed != on) VehicleWorkSounds.Play(Vehicle, "Hoses");
         deployed = on;
         if (!on) mode = TankPumpMode.Hold;
@@ -683,6 +771,7 @@ public class CompPhobosTank : CompPhobosSetUp
         ShowHoses(on);
         SyncSounds();
         Tell(on ? "PhobosVehicleSystems_TankSetUp".Translate(Vehicle.LabelShort.Named("VEHICLE")) : "PhobosVehicleSystems_TankPackedUp".Translate(Vehicle.LabelShort.Named("VEHICLE")), MessageTypeDefOf.SilentInput);
+        Vehicle.GetComp<CompPhobosTrailer>()?.LookAtPipes();
     }
 
     public void SetMode(TankPumpMode wanted)
@@ -775,6 +864,8 @@ public class CompPhobosTank : CompPhobosSetUp
         if (HasLoad) lines.Add("PhobosVehicleSystems_TankInspectTemperature".Translate(temperature.ToStringTemperature("F0").Named("TEMPERATURE")).Resolve());
         if (NeedsPurge) lines.Add("PhobosVehicleSystems_TankInspectNeedsPurge".Translate(ResidueLabels.Named("CONTENTS")).Resolve());
         if (deployed && pumpStatus != null) lines.Add(pumpStatus);
+        if (deployed && transferStatus != null) lines.Add(transferStatus);
+        if (HandOrderLine is { } waiting) lines.Add(waiting);
         return string.Join("\n", lines);
     }
 

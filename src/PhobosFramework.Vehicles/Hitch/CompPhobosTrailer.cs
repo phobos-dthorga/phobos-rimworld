@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Phobos.Framework.Interface;
 using RimWorld;
 using Vehicles;
@@ -21,6 +22,10 @@ public sealed class CompProperties_PhobosTrailer : CompProperties
     public float jackKnifeDegrees = 70f;
     /// <summary>The trailer's part whose loss leaves nothing to hitch to; empty for none.</summary>
     public string drawbarPart = "Drawbar";
+    /// <summary>A working trailer is set up by a colonist, not by a crew it does not have (Framework 0.111.0; docs/development/vehicle-trailers.md, B0.1):
+    /// the work to set it up and to pack it up, at a colonist's construction speed (authored).</summary>
+    public float setUpWork = 1500f;
+    public float packUpWork = 1000f;
 
     public CompProperties_PhobosTrailer() => compClass = typeof(CompPhobosTrailer);
 
@@ -29,12 +34,24 @@ public sealed class CompProperties_PhobosTrailer : CompProperties
         foreach (string error in base.ConfigErrors(parentDef)) yield return error;
         if (hitchToAxle <= 0f) yield return "hitchToAxle must be above 0";
         if (jackKnifeDegrees <= 0f || jackKnifeDegrees > 180f) yield return "jackKnifeDegrees must be between 0 and 180";
+        if (setUpWork <= 0f || packUpWork <= 0f) yield return "setUpWork and packUpWork must be above 0";
     }
 }
 
-/// <summary>The trailer's side of a hitch: what it says, and the unhitch button. The vehicle towing it holds the hitch (CompPhobosHitch).</summary>
-public sealed class CompPhobosTrailer : VehicleComp
+/// <summary>
+/// The trailer's side of a hitch: what it says, and the unhitch button. The vehicle towing it holds the hitch (CompPhobosHitch). Since Framework 0.111.0 it
+/// also holds the trailer's own pipes beneath it (a trailer has none of our vehicle systems to hold them): a water bowser parked on its own lays plumbing
+/// across its footprint as any vehicle of ours does, and takes it up when it is hitched (owner's rule: anything that takes water or piping has its own pipes
+/// beneath it).
+/// </summary>
+public sealed class CompPhobosTrailer : VehicleComp, VehiclePipes.IHost
 {
+    /// <summary>How often, in rare ticks, a parked trailer looks at its pipes, as our vehicles do (about every half an hour).</summary>
+    const int RareTicksPerPipeLook = 8;
+
+    readonly VehiclePipes.Store pipes = new();
+    int pipeLooks;
+
     public CompProperties_PhobosTrailer Props => (CompProperties_PhobosTrailer)props;
 
     /// <summary>The vehicle towing this trailer now, or null.</summary>
@@ -43,6 +60,61 @@ public sealed class CompPhobosTrailer : VehicleComp
     /// <summary>Whether the trailer's drawbar is gone, so there is nothing to hitch to.</summary>
     public bool DrawbarBroken =>
         !Props.drawbarPart.NullOrEmpty() && Vehicle.statHandler?.GetComponent(Props.drawbarPart) is { } part && part.HealthPercent <= 0f;
+
+    // ---- Its own pipes (VehiclePipes.IHost) ----
+
+    public Phobos.Framework.Persistence.PipeUnderlay Underlay(string key) => pipes.Get(key);
+
+    public List<KeyValuePair<string, Phobos.Framework.Persistence.PipeUnderlay>> UnderlaysStartingWith(string prefix) => pipes.StartingWith(prefix);
+
+    /// <summary>The player's, on a map, not towed: a trailer has no engine, so it is parked whenever nothing pulls it.</summary>
+    public bool ParkedForPipes => Phobos.Framework.Rules.UnderlayRule.Lays(Vehicle.Spawned, Vehicle.Faction == Faction.OfPlayer, TowedBy != null, false, false);
+
+    /// <summary>A trailer has no fuel tank of its own for a line to fill.</summary>
+    public string? PipeFuelLine { get; set; }
+
+    /// <summary>Lays or takes up its pipes now: hitched, unhitched, set up or a load chosen.</summary>
+    public void LookAtPipes()
+    {
+        pipeLooks = 0;
+        VehiclePipes.Update(this);
+    }
+
+    public override void CompTickRare()
+    {
+        base.CompTickRare();
+        if (++pipeLooks < RareTicksPerPipeLook) return;
+        pipeLooks = 0;
+        VehiclePipes.Update(this);
+    }
+
+    public override void PostSpawnSetup(bool respawningAfterLoad)
+    {
+        base.PostSpawnSetup(respawningAfterLoad);
+        // Never from here directly (AGENTS.md: nothing is spawned from PostSpawnSetup): once every thing stands.
+        if (respawningAfterLoad) LongEventHandler.ExecuteWhenFinished(SettlePipesAfterLoad);
+    }
+
+    void SettlePipesAfterLoad()
+    {
+        if (!Vehicle.Spawned) return;
+        VehiclePipes.AfterLoad(this);
+        VehiclePipes.Update(this);
+    }
+
+    public override void PostDeSpawn(Map map, DestroyMode mode = DestroyMode.Vanish)
+    {
+        if (mode != DestroyMode.WillReplace) VehiclePipes.Leave(this);
+        base.PostDeSpawn(map, mode);
+    }
+
+    public override void PostExposeData()
+    {
+        base.PostExposeData();
+        pipes.Expose("PhobosTrailer_PipeUnderlays");
+    }
+
+    // ---- What the player sees ----
 
     public override IEnumerable<Gizmo> CompGetGizmosExtra()
     {

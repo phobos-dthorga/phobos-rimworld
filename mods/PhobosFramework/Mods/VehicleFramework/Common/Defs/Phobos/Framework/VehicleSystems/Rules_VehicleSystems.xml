@@ -229,6 +229,28 @@
     </requiredCapacities>
   </WorkGiverDef>
 
+  <!-- A working trailer set up and packed up by hand (Framework 0.111.0; docs/development/vehicle-trailers.md, B0.1): a trailer has no crew, so a colonist
+       lowers its legs, chocks it and runs its hoses out, or the reverse. Construction work, at construction speed; the work is the trailer's own. -->
+  <JobDef>
+    <defName>PhobosVehicleSystems_TrailerSetUp</defName>
+    <driverClass>Phobos.VehicleSystems.JobDriver_PhobosTrailerSetUp</driverClass>
+    <reportString>setting up TargetA.</reportString>
+    <casualInterruptible>true</casualInterruptible>
+  </JobDef>
+
+  <WorkGiverDef>
+    <defName>PhobosVehicleSystems_TrailerSetUp</defName>
+    <label>set up and pack up trailers</label>
+    <giverClass>Phobos.VehicleSystems.WorkGiver_PhobosTrailerSetUp</giverClass>
+    <workType>Construction</workType>
+    <verb>set up</verb>
+    <gerund>setting up</gerund>
+    <priorityInType>45</priorityInType>
+    <requiredCapacities>
+      <li>Manipulation</li>
+    </requiredCapacities>
+  </WorkGiverDef>
+
   <!-- A diagnosis at a tuning rig (Framework 0.73.0, S1): a mechanic's work at the vehicle, then a report. -->
   <JobDef>
     <defName>PhobosVehicleSystems_Diagnose</defName>

@@ -17,6 +17,7 @@ public static class VehicleSystemsJobDefOf
     public static JobDef PhobosVehicleSystems_Diagnose = null!;
     public static JobDef PhobosVehicleSystems_SlingHookUp = null!;
     public static JobDef PhobosVehicleSystems_HitchUp = null!;
+    public static JobDef PhobosVehicleSystems_TrailerSetUp = null!;
 
     static VehicleSystemsJobDefOf() => DefOfHelper.EnsureInitializedInCtor(typeof(VehicleSystemsJobDefOf));
 }

@@ -5,6 +5,34 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.111.0] - 2026-11-13 - Draft
+
+Working trailers: set up by a colonist, a hitch that respects set-up, and one tank pumping into another
+
+### Added
+
+- **A trailer is set up and packed up by a colonist** (the working trailers' shared base, the owner's first batch of 13 November 2026). A trailer has no crew or engine, so **Set up** on one asks a colonist with construction work to come, chock it, lower its legs and run its hoses out; the work is the trailer's own (D'thorga Vehicles' bowsers take 1,500 to set up and 1,000 to pack up) and trains construction. Until the colonist comes, the inspect pane says it is waiting and the button becomes **Cancel set-up** (or **Cancel pack-up**). Packing up holds the pump at once. Not yet tested in game.
+- **One tank pumps into another.** With one tank set up on **Unload** and another within reach of its hose set up on **Load**, both holding the same fluid, the loading tank pumps from the other at its own pump's rate, and the giving tank's inspect pane says where its load is going. The worse water of the two is kept. The Ullage tanker fills a bowser this way, and the reverse. Not yet tested in game.
+- **A trailer lays its own pipes beneath it.** A trailer standing unhitched lays the hidden pipes its load uses across its footprint, as our vehicles do with their engines off, so a pipe touching any side joins it (the owner's rule for anything that takes water or piping): Dubs Bad Hygiene's plumbing under a water bowser, and a chemfuel line under a fuel bowser with Vanilla Chemfuel Expanded or Rimefeller. Hitched, it takes them up. Not yet tested in game.
+- **A tank can be built into a vehicle** (a tank fitting with no upgrade node), **and limited to one fluid**, which it is then set to by itself, with no purge needed between loads of the same. For modders: a tank fitting's new onlyContents list.
+
+### Fixed
+
+- **The hitch no longer takes a vehicle that is set up for work**, nor one a colonist is on the way to set up: it says to pack it up first. Before this it never asked, and the recovery tow could drag a set-up tanker or generator set away with its hoses or cable out. **A towed vehicle cannot be set up** either, and a towing vehicle that finds what it tows set up (from an older save) stops and says so. Not yet tested in game.
+
+### Changed
+
+- For modders: VehiclePipes' links now take a pipe host (VehiclePipes.IHost) instead of our vehicle systems' comp, so a trailer, which has none of our systems, can hold pipes too. Our own links (power conduits, Dubs Bad Hygiene's plumbing, Vanilla Expanded Framework's pipes, Rimefeller's pipeline) are changed with it.
+
+### Compatibility and limits
+
+- No settings were added or changed.
+- The set-out pieces, power lead and dry-goods stores of the trailer design are not built: nothing in this batch uses them, and they come with the field kitchen.
+
+### Save compatibility
+
+- Safe to add to a running game. A vehicle already set up and hitched in a save stays as it is, but its tractor will not drive off until it is unhitched and packed up.
+
 ## [0.110.1] - 2026-11-13 - Draft
 
 New pictures for six of the tanker's buttons, the owner's picks

@@ -7,7 +7,7 @@ helpers every D'thorga mod shares.
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.110.1, built 13 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
+Version 0.111.0, built 13 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
 oxygen working through Burns and Smoke and Medical Equipment (5 November 2026). The health layer new in 0.3.0 and the **vehicle
 systems new in 0.9.0, and their engines, drivetrains and gas turbines new in 0.11.0, are not yet tested in game.** The rest is read from the game's and the mods' code.
 
@@ -17,6 +17,11 @@ and wear that a mechanic services. See [Vehicle systems](#vehicle-systems-with-v
 
 ## Read this first (gotchas)
 
+- **New in 0.111.0, with Vehicle Framework (not yet tested in game): working trailers are set up by a colonist.** A trailer has no crew, so
+  **Set up** on one (D'thorga Vehicles' water and fuel bowsers) asks a colonist with construction work to come and do it, and **Pack up**
+  likewise. **A trailer or vehicle that is set up can no longer be hitched**, nor one a colonist is on the way to set up, and a towed vehicle
+  cannot be set up: before this the hitch never asked, and could drag a set-up tanker away with its hoses out. Two tanks side by side now
+  pump one into the other. No settings changed.
 - **New in 0.61.0 (not yet tested in game): a D'thorga research tab.** Vehicle parts and workshops now have their own research. **An existing colony gets a project free, once, if it had already done the research that project replaces**, so you keep everything you could build. New colonies research them normally. With Vehicle Framework, our own vehicles' upgrades now need the research they name.
 - **New in 0.32.0, with Vehicle Framework (not yet tested in game): a fleet button on the bottom bar** lists every vehicle you own, wherever it
   is, and **a letter warns you before a vehicle left parked in the wild is lost** (three days ahead by default). Both are in this mod's vehicle
@@ -127,6 +132,10 @@ and wear that a mechanic services. See [Vehicle systems](#vehicle-systems-with-v
   the caravan, and it is set down behind the vehicle on arrival. While you choose what to hitch, a label beside the mouse says what the
   tow would be like on this ground, and a towing vehicle's panels say what holds it back. **From 0.103.0 (not yet tested
   in game)**, a vehicle with the recovery winch fitted can tow an ordinary land vehicle the same way (see Families below).
+  **From 0.111.0 (not yet tested in game)**, a working trailer is set up and packed up by a colonist with construction work (the trailer
+  has no crew); a set-up vehicle cannot be hitched, and a towed one cannot be set up. A trailer that takes water lays hidden plumbing
+  beneath itself while it stands unhitched, as our vehicles do with their engines off. **Two tanks within reach of a hose pump one into
+  the other**: one set up on **Unload**, the other on **Load**, both holding the same fluid.
 - **From 0.96.0 (not yet tested in game), hover a reading or a part to learn what it is**: the tooltip says in a sentence what the
   reading means and what moves it, or what the part does and what losing it costs, on the Systems tab, the Dashboard and the Health tab.
 - **From 0.95.0 (not yet tested in game), the depot bay is built from parts**: a fuel tank and a fuel pump beside its steel, and a

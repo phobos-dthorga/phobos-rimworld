@@ -53,4 +53,7 @@
   <PhobosHitch_Section>Towing</PhobosHitch_Section>
   <PhobosHitch_SettingOthers>Vehicles without the drivetrain model can tow</PhobosHitch_SettingOthers>
   <PhobosHitch_SettingOthersDesc>Off by default: only vehicles whose engine, gears and grip the drivetrain model works out can tow, and for them a heavy trailer slows the climb, runs the engine hotter and burns more fuel. On, every other land vehicle can tow too, but on a plain rule only: it keeps its own weight's share of its speed, whatever its engine, the ground or the hill. A small car pulling a loaded trailer will crawl; a big truck barely notices.</PhobosHitch_SettingOthersDesc>
+  <!-- Framework 0.111.0: the hitch asks whether a vehicle is set up for work before taking it (vehicle-trailers.md, B0.2). -->
+  <PhobosHitch_PackUpFirst>{TRAILER} is set up where it stands. Pack it up first.</PhobosHitch_PackUpFirst>
+  <PhobosHitch_SetUpOnTheWay>A colonist is on the way to set up {TRAILER}. Cancel that first.</PhobosHitch_SetUpOnTheWay>
 </LanguageData>

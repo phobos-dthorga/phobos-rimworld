@@ -6,6 +6,9 @@ result goes into that mod's changelog.
 
 ## Read this first
 
+- **Working trailers, first batch (13 Nov 2026): Framework 0.111.0 and Vehicles 0.55.0.** **Use a copy of the save.** **Check 107 first**
+  (the hitch refusing a set-up trailer, which also guards the tanker and the Busbar), then **105** (the fuel bowser) and **106** (the water
+  bowser, with Dubs Bad Hygiene).
 - **The session of 13 Nov 2026 (the owner's batch 3): Framework 0.109.0, Vehicles 0.52.0, Medical 0.16.0, Factory Additions 0.13.0 and
   Patches 0.19.1, one install.** **Use a copy of the save.** In this order, and stop at the first that goes wrong:
   1. **The aircraft rules first** (Framework 0.106.0), because the avionics work builds on them: **check 79** (one flight-controls rule),
@@ -174,6 +177,9 @@ result goes into that mod's changelog.
 | 102 | **The avionics bay** (Framework 0.110.0) | Load a save with a Hind, Mongoose or thrust pod; open its Health tab | An **avionics bay** part is listed and shown on the damage picture; the vehicle loads with no red error |
 | 103 | **A turbine held too long** (Framework 0.110.0) | Hover the Harrier on its pad for a while (or hold any turbine at take-off power) | After the rating's time a message says it has run too long and its hot section wears faster (the hot-section line climbs faster on the Systems tab) |
 | 104 | **The Pintle at 3 x 7** (Vehicles 0.54.0, its picture redrawn at the new size in 0.54.1). **Park every Pintle in open ground before updating** | Load the save and look at a Pintle beside a Talus; hitch it, drive round a corner, unhitch; fit the greedy boards | As wide as the Talus, its picture as sharp as the Talus's (not blurred) and in proportion, the ground showing through the towing eye at the drawbar's tip, the boards lined up on the deck in every facing; it swings behind the truck without cutting through it; its cargo tab shows 5,000 kg (6,000 with the boards). **Watch for a trailer stuck in a wall after the load** |
+| 105 | **The fuel bowser** (Framework 0.111.0, Vehicles 0.55.0) | Build a Pintle fuel bowser (god mode is fine), park it unhitched beside a stack of chemfuel, press **Set up**; when it is set up press **Load**. Then hitch it to a truck, tow it beside a part-empty vehicle, unhitch, **Set up**, **Unload** | A colonist with construction work walks over and sets it up (a work bar; the inspect pane said it was waiting); the tank fills from the stack; hitching refuses until it is packed up; at the vehicle it fills that vehicle's fuel tank. Its contents read chemfuel without being chosen. No red errors |
+| 106 | **The water bowser and tank to tank** (with Dubs Bad Hygiene) | Park a water bowser touching plumbing with a water tower on it, **Set up**, **Load**. Open the plumbing overlay. Then park the Ullage with water contents beside it, both set up, the bowser on **Unload**, the Ullage on **Load** | Hidden plumbing under the bowser joins the line in the overlay; it fills from the tower; the Ullage then fills from the bowser and the bowser's inspect pane says "Pumping into" the Ullage. Hitched, the plumbing under the bowser goes |
+| 107 | **The hitch respects set-up** (Framework 0.111.0) | With a bowser set up, try **Hitch a trailer** on it. Press **Pack up**, then **Cancel pack-up**. Pack it up properly, then hitch it. Then try **Set up** on a hitched bowser | Hitching a set-up bowser is refused ("Pack it up first"); the cancel leaves it set up; packed up, it hitches; a hitched bowser's **Set up** is greyed out ("Unhitch it first"). The tanker and Busbar on the recovery tow are refused the same way when set up |
 
 ## Trying Vehicle Framework's development build (planned 10 Nov 2026)
 

@@ -87,8 +87,12 @@ public class PhobosTankContentsDef : Def
 /// <summary>A tank a node of the vehicle's upgrade tree can fit, and what it means.</summary>
 public class TankFitting
 {
-    /// <summary>The upgrade node's key, the only link between the tree and the tank.</summary>
+    /// <summary>The upgrade node's key, the only link between the tree and the tank. Empty for a tank built into the vehicle, always fitted (a bowser's,
+    /// Framework 0.111.0); list it after any fitting with a node that replaces it, since the first one fitted is used.</summary>
     public string node = "";
+    /// <summary>The only fluids this tank may hold (a water bowser's water), set by themselves when there is one; empty for any fluid of its phase. A fluid
+    /// from a mod that is not loaded is simply left out of the list.</summary>
+    public List<PhobosTankContentsDef> onlyContents = new();
     public TankPhase phase = TankPhase.Liquid;
     /// <summary>Hours for the contents to reach the outside temperature.</summary>
     public float hoursToOutside = 6f;

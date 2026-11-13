@@ -285,6 +285,8 @@ Not yet tested in game. Any land vehicle can tow a trailer such as the [Pintle f
   weight slows the caravan. On arrival it is set down behind the vehicle, still hitched; at the map's edge, where there is no room behind,
   it is set down beside and swings into line as you drive off.
 - **A towing or towed vehicle cannot be lifted on a sling**: unhitch it first.
+- **A trailer or vehicle that is set up cannot be hitched**, nor one a colonist is on the way to set up: pack it up first. A towed vehicle
+  cannot be set up either (from Framework 0.111.0, not yet tested in game).
 
 ## Recovering a stuck vehicle
 

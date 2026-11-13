@@ -31,11 +31,11 @@ public sealed class PlumbingLink : VehiclePipes.ILink
 {
     const string Key = "DubsPlumbing";
 
-    static bool TakesWater(CompPhobosVehicleSystems comp) =>
-        comp.Props.systems.Any(system => system.def.service is { waterLitres: > 0f })
-        || (comp.Vehicle.GetComp<CompPhobosTank>() is { } tank && tank.Compartments.Any(c => c.contents != null && c.contents.ports.Any(port => port is Port_DubsPlumbing or Port_DubsSeptic)));
+    static bool TakesWater(VehiclePipes.IHost comp) =>
+        VehiclePipes.SystemsTakeWater(comp)
+        || (VehiclePipes.Tank(comp) is { } tank && tank.Compartments.Any(c => c.contents != null && c.contents.ports.Any(port => port is Port_DubsPlumbing or Port_DubsSeptic)));
 
-    public void Update(CompPhobosVehicleSystems comp)
+    public void Update(VehiclePipes.IHost comp)
     {
         var underlay = comp.Underlay(Key);
         int before = underlay.Changes;
@@ -52,7 +52,7 @@ public sealed class PlumbingLink : VehiclePipes.ILink
         if (underlay.Changes != before) DubsPipes.Redraw(map, footprint);
     }
 
-    public void Leave(CompPhobosVehicleSystems comp)
+    public void Leave(VehiclePipes.IHost comp)
     {
         var underlay = comp.Underlay(Key);
         int before = underlay.Changes;
@@ -63,7 +63,7 @@ public sealed class PlumbingLink : VehiclePipes.ILink
         if (map != null && underlay.Changes != before) DubsPipes.Redraw(map, footprint);
     }
 
-    public void AfterLoad(CompPhobosVehicleSystems comp)
+    public void AfterLoad(VehiclePipes.IHost comp)
     {
         if (!comp.Vehicle.Spawned) return;
         var underlay = comp.Underlay(Key);

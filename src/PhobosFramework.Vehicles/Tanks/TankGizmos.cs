@@ -107,11 +107,16 @@ public static class TankGizmos
 
     static Gizmo DeployButton(CompPhobosTank tank)
     {
+        // A trailer's colonist is on the way: the button calls the work off instead (Framework 0.111.0).
+        if (tank.HandOrder != HandSetUpOrder.None) return tank.CancelHandOrderGizmo();
         bool on = tank.Deployed;
+        string description = tank.SetUpByHand
+            ? (on ? "PhobosTrailer_TankGizmoPackUpDesc".Translate().Resolve() : "PhobosTrailer_TankGizmoSetUpDesc".Translate().Resolve())
+            : (on ? "PhobosVehicleSystems_TankGizmoPackUpDesc".Translate().Resolve() : "PhobosVehicleSystems_TankGizmoSetUpDesc".Translate().Resolve());
         var command = new Command_Action
         {
             defaultLabel = on ? "PhobosVehicleSystems_TankGizmoPackUp".Translate().Resolve() : "PhobosVehicleSystems_TankGizmoSetUp".Translate().Resolve(),
-            defaultDesc = on ? "PhobosVehicleSystems_TankGizmoPackUpDesc".Translate().Resolve() : "PhobosVehicleSystems_TankGizmoSetUpDesc".Translate().Resolve(),
+            defaultDesc = description,
             icon = SystemIcons.For(Icons + (on ? "PackUp" : "SetUp")),
             action = () => tank.SetDeployed(!on),
         };

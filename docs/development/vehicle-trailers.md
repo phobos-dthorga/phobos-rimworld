@@ -1,6 +1,8 @@
 # Working trailers: the shared base and a catalogue (13 Nov 2026)
 
-**A research and design record. Nothing is built, and nothing here is tested in game.** The owner, 13 November 2026: "I want to do
+**A research and design record. Built so far (13 Nov 2026, the owner's first batch; nothing tested in game): set up and pack up by hand
+(B0.1), the hitch that respects it (B0.2) and the two bowsers (Q3, Q4), in Framework 0.111.0 and Vehicles 0.55.0; see "What was built"
+below.** The rest is design only. The owner, 13 November 2026: "I want to do
 a research and record purview on utilitarian trailers", with two ideas of their own, **a military-style field kitchen on wheels
 powered by the Busbar as required** ([vehicle-field-kitchen.md](vehicle-field-kitchen.md)) and **something to transport prisoners
 with** ([vehicle-prisoner-transport.md](vehicle-prisoner-transport.md)), and asked for the agent's ideas too. This record holds
@@ -391,12 +393,40 @@ on the map, and then only what a set-out building costs.
 
 | What | Where |
 | --- | --- |
-| The hitch moves a towed vehicle without checking whether it is set up | `src/PhobosFramework.Vehicles/Hitch/CompPhobosHitch.cs:272-299`, `Recovery.cs:57-75` |
+| ~~The hitch moves a towed vehicle without checking whether it is set up~~ **Fixed in Framework 0.111.0** (B0.2) | `src/PhobosFramework.Vehicles/Hitch/CompPhobosHitch.cs` |
 | "Recovery-tow caravans are not built" is stale: the code takes any towed vehicle along | `vehicle-upgrade-families.md:285-286` |
 | The hitch record calls the Pintle's 2 x 5 "the generator set's width"; the Busbar is now 3 x 8 | `assets/phobos-vehicles/requests/round-three-record.md` |
 | The Busbar's Def comment is dated 14 Nov 2026; the work was 13 Nov | `Vehicle_GeneratorSet.xml`, near its fuel figures |
 | "A vehicle is not an IBillGiver" is not quite right: every pawn is one, with surgery-shaped rules | `vehicle-framework-mechanics.md:159` |
 | Whether people riding a towed vehicle count on the colonist bar while travelling is still unchecked | `vehicle-hitch-design.md:271` |
+
+## What was built (13 Nov 2026)
+
+The owner's first batch: "the base with the water and fuel bowsers". Framework 0.111.0 and Vehicles 0.55.0, **not yet tested in game**.
+
+| Piece | Built | Where |
+| --- | --- | --- |
+| B0.1 Set up and pack up by hand | **Built.** A set-up comp on a trailer waives crew and engine; **Set up** and **Pack up** become orders a colonist with construction work carries out (work set in the trailer's Def: 1,500 and 1,000 on the bowsers [A]); the order is saved, shown in the inspect pane and cancellable with the game's own cancel picture. A towed vehicle cannot be set up | `CompPhobosSetUp` (hand set-up), `Hitch/TrailerSetUp.cs` |
+| B0.2 A hitch that respects set-up | **Built**, and it fixes the fault listed below: the hitch refuses a vehicle set up for work or awaiting a colonist to set it up, on the recovery tow too, and a tractor finding what it tows set up stops and says so | `CompPhobosHitch.SetUpRefusal` |
+| B0.3 A power lead | **Not built**: nothing in this batch takes power. With the field kitchen | |
+| B0.4 Set-out pieces and canvas rooms | **Not built**: the bowsers set out nothing. With the field kitchen | |
+| B0.5 Stores | **The fluid half is the tank as it is**, now with a tank built into a vehicle (a fitting with no node) and limited to one fluid (onlyContents). The dry-goods locker and a low-store warning come with the kitchen | `TankDefs.cs` |
+| Q3 Water bowser | **Built**, with Dubs Bad Hygiene only (water gear only with Dubs, owner); 3 x 8, 2,500 L, 400 L an hour [A]; fills from plumbing or a tanker, gives to plumbing or a tanker | `mods/PhobosVehicles/Mods/DubsBadHygiene/Defs/WaterBowser` |
+| Q4 Fuel bowser | **Built**; 3 x 8, 2,500 L, 400 L an hour [A]; fills from stacks, a chemfuel line or a tanker, gives to vehicles, fuelled buildings or a tanker | `mods/PhobosVehicles/Defs/Phobos/Vehicles/FuelBowser` |
+| Tank to tank | **Built** (agent's addition, so "filled from our tanker" in Q3 and Q4 works): a tank on **Load** draws from one beside it on **Unload** holding the same | `CompPhobosTank` |
+| Pipes beneath a trailer | **Built** (owner's rule: anything that takes water or piping has its own pipes beneath it): a trailer holds its own pipes, laid while it stands unhitched | `CompPhobosTrailer`, `VehiclePipes.IHost` |
+
+**Changed from the design while building, agent's choices for the owner to revise:**
+
+- **The bowsers are set up** by a colonist, where Q3 said "parked is enough": the tank's pump runs only while set up, and setting up a
+  bowser (chocks, legs, hoses) is what B0.1 is for.
+- **Sizes and figures re-set from the owner's sizes**: 3 x 8, 2,500 L each (was 1,500 and 1,200 L on the small chassis), 2,000 kg empty,
+  400 L an hour.
+- **The water bowser exists only with Dubs Bad Hygiene**: without it there is no water for a tank, and the kitchen it would also feed is
+  not built.
+- **No pump sound** (working machinery is never shared; sound-catalogue.md S128), **a borrowed picture** (the Pintle's, scaled evenly),
+  and **names**: Pintle P2 water bowser and Pintle P3 fuel bowser, the agent's choice.
+- **Other factions**: raiders bring none, and none stand at enemy bases yet (question 4 was never put).
 
 ## Questions for the owner
 

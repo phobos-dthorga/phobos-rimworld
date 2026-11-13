@@ -247,6 +247,7 @@ weapons stay their authors' own: we never replace another mod's vehicle sounds.
 | S124 | Extractor fan, fume hood | Ventilation (deferred) | ventilation-and-hydrogen.md |
 | S125 | Hydrogen detector | Deferred by the owner | ventilation-and-hydrogen.md; same question as S99 |
 | S126 | Each new utility vehicle (excavator, bulldozer, crane, recovery truck, flatbed winch, ambulance without a siren, and more) | Sketched in the catalogue | utility-vehicles-design.md: a unique set each, as above, when built |
+| S128 | The bowsers' pump (a small trailer pump, its own, not the Ullage's power take-off), and legs going down on a trailer | The Pintle water and fuel bowsers, built without a pump sound (Vehicles 0.55.0) | vehicle-trailers.md, Q3 and Q4; their hoses, relief valve, leak and purge share the tanker's, being the same things |
 | S127 | Radio phases 2 to 4 (HF static crashes, dish rotator, direction finding, moonbounce) | Back burner | radio-framework-design.md |
 
 ## Order of work (agent's proposal)

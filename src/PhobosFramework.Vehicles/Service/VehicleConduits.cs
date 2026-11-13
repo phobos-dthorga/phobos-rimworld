@@ -31,8 +31,8 @@ public sealed class VehicleConduits : VehiclePipes.ILink
     public static Thing MakeConduit() => ThingMaker.MakeThing(Conduit);
 
     /// <summary>A 12 or 24 volt battery of our electrics, or a traction battery: anything that charges from shore power.</summary>
-    static bool HasBattery(CompPhobosVehicleSystems comp) =>
-        comp.Props.systems.Any(system => system.def.quantities.Any(quantity => quantity.name == "charge"))
+    static bool HasBattery(VehiclePipes.IHost comp) =>
+        (comp is CompPhobosVehicleSystems systems && systems.Props.systems.Any(system => system.def.quantities.Any(quantity => quantity.name == "charge")))
         || comp.Vehicle.CompFueledTravel is { Props.electricPowered: true };
 
     static bool CanLay(IntVec3 cell, Map map)
@@ -43,7 +43,7 @@ public sealed class VehicleConduits : VehiclePipes.ILink
         return needed == null || terrain.affordances.Contains(needed);
     }
 
-    public void Update(CompPhobosVehicleSystems comp)
+    public void Update(VehiclePipes.IHost comp)
     {
         var underlay = comp.Underlay(Key);
         bool generatorSetUp = comp.Vehicle.GetComp<CompPhobosGeneratorSet>() is { Deployed: true };
@@ -57,10 +57,10 @@ public sealed class VehicleConduits : VehiclePipes.ILink
         underlay.Fill(comp.Vehicle.OccupiedRect(), map, cell => cell.GetTransmitter(map) != null, MakeConduit, cell => CanLay(cell, map));
     }
 
-    public void Leave(CompPhobosVehicleSystems comp) => comp.Underlay(Key).Clear();
+    public void Leave(VehiclePipes.IHost comp) => comp.Underlay(Key).Clear();
 
     /// <summary>Visible conduits laid by 0.107.0 or 0.108.0 become hidden ones after a load.</summary>
-    public void AfterLoad(CompPhobosVehicleSystems comp)
+    public void AfterLoad(VehiclePipes.IHost comp)
     {
         if (!comp.Vehicle.Spawned) return;
         comp.Underlay(Key).Renew(Conduit, MakeConduit);
