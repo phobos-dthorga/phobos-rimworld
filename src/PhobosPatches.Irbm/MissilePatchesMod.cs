@@ -32,6 +32,8 @@ public class MissilePatchesSettings : ModSettings
     public bool pollution = true;
     public bool emp = true;
     public bool quietReveals = true;
+    /// <summary>IRBM's CIWS also intercepts Combat Extended's shells (Patches 0.19.1, AD14; owner, 13 Nov 2026: patch it).</summary>
+    public bool ciwsShells = true;
 
     /// <summary>Dubs Rimatomics' own high-yield strike makes six (WorldObject_ICBMfission, read 7 Nov 2026).</summary>
     public const int MaxFalloutClouds = 6;
@@ -57,6 +59,7 @@ public class MissilePatchesSettings : ModSettings
         Scribe_Values.Look(ref pollution, "PhobosMissilePatches_Pollution", true);
         Scribe_Values.Look(ref emp, "PhobosMissilePatches_Emp", true);
         Scribe_Values.Look(ref quietReveals, "PhobosMissilePatches_QuietReveals", true);
+        Scribe_Values.Look(ref ciwsShells, "PhobosMissilePatches_CiwsShells", true);
     }
 }
 
@@ -71,7 +74,7 @@ public class MissilePatchesMod : Mod
 {
     /// <summary>The Harmony ID is the packageId; never change it once the mod is published.</summary>
     public const string PackageId = "PhobosDthorga.Patches";
-    public const string ModVersion = "0.19.0";
+    public const string ModVersion = "0.19.1";
     public const string LogPrefix = "[D'thorga Patches]";
     public static readonly Phobos.Logging.PhobosLog Logger = Phobos.Framework.Logging.Logs.For("D'thorga Patches", "IRBM");
 
@@ -216,6 +219,11 @@ public class MissilePatchesMod : Mod
             listing.CheckboxLabeled("PhobosMissilePatches_SettingPollution".Translate(), ref Settings.pollution, "PhobosMissilePatches_SettingPollutionDesc".Translate());
         }
         listing.CheckboxLabeled("PhobosMissilePatches_SettingEmp".Translate(), ref Settings.emp, "PhobosMissilePatches_SettingEmpDesc".Translate());
+        if (ModsConfig.IsActive(Patches.CiwsShells.CombatExtended))
+        {
+            listing.Label("PhobosMissilePatches_SectionDefence".Translate());
+            listing.CheckboxLabeled("PhobosMissilePatches_SettingCiwsShells".Translate(), ref Settings.ciwsShells, "PhobosMissilePatches_SettingCiwsShellsDesc".Translate());
+        }
     }
 
     static float SliceBudget(float value) => value < IrbmBudgetRule.MinFrameBudgetMs ? IrbmBudgetRule.MinFrameBudgetMs

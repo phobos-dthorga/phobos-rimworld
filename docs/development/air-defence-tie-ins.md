@@ -169,7 +169,8 @@ Answered by the owner, 13 Nov 2026:
 
 - **AD3: yes, with countermeasures**: our aircraft become targets for DMS Expedition's world-map air defence, with the warning receiver
   (AD2) and avionics A16's flares and chaff, as one aircraft batch.
-- **AD14: patch it**, recorded as a temporary patch that stands down if IRBM fixes it.
+- **AD14: patch it**, recorded as a temporary patch that stands down if IRBM fixes it. **Built: Patches 0.19.1**, with a setting (on by
+  default); row 16 in [patches for other authors' faults](temporary-patches.md). Not yet tested in game.
 
 Still open:
 

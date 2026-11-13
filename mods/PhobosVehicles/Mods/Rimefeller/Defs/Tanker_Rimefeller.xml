@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
-  <!-- Napalm and crude oil in barrels, one unit to the item. Napalm's blast factor is authored. Crude through Rimefeller's own pipes is not built. -->
+  <!-- Napalm and crude oil in barrels, one unit to the item. Napalm's blast factor is authored. Since Framework 0.109.0 (SD4) crude also pumps
+       through Rimefeller's own pipeline, laid hidden beneath the parked tanker: one unit to one stored unit, authored (Rimefeller's code gives
+       no rate between its barrels and its stored crude). -->
   <Phobos.VehicleSystems.PhobosTankContentsDef>
     <defName>PhobosTank_Napalm</defName>
     <label>napalm</label>
@@ -27,6 +29,9 @@
     <flammable>true</flammable>
     <spillFilth>Filth_OilSlick</spillFilth>
     <ports>
+      <li Class="Phobos.VehicleSystems.Oil.Port_RimefellerOil">
+        <chemfuel>false</chemfuel>
+      </li>
       <li Class="Phobos.VehicleSystems.Port_Items">
         <thing>OilBarrel</thing>
       </li>

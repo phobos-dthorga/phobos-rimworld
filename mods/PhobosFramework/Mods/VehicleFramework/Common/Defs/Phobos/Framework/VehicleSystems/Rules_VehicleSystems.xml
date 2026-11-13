@@ -46,6 +46,25 @@
          and a look never covers more than an hour. -->
     <pipeRefuelPerHour>30</pipeRefuelPerHour>
     <pipeRefuelMostHours>1</pipeRefuelMostHours>
+    <!-- EMP on vehicles (Framework 0.109.0; owner, 13 Nov 2026: hardening by class). The electrical parts get Vehicle Framework's own EMP
+         rating, so an EMP hit can stall the vehicle and harm those parts; the battery then loses charge (Systems_Electrical.xml). Civilian
+         and mechanical vehicles are rated Moderate (a 15 % chance per part per hit, 2.5 % of its health), military ones Minor (12.5 %,
+         1 %): Vehicle Framework's figures, our choice of rating. RimThunder's authors switch EMP stuns off for their whole range, so its
+         vehicles are never stalled but still take the military effect (owner's reading). An author's own rating on a part always stays. -->
+    <empRoles>
+      <li>Battery</li>
+      <li>Alternator</li>
+      <li>Starter</li>
+      <li>TractionBattery</li>
+      <li>TractionMotor</li>
+    </empRoles>
+    <empSeverityCivilian>Moderate</empSeverityCivilian>
+    <empSeverityMilitary>Minor</empSeverityMilitary>
+    <empNoStunPackages>
+      <li>rimthunder.core</li>
+      <li>aoba.rimthunder.roca</li>
+      <li>rimthunderteams.rimthunder.desertsabre</li>
+    </empNoStunPackages>
     <!-- The hitch (Framework 0.101.0, authored): a trailer within 8 cells; coupling is about a third of an hour for a worker of normal speed;
          the hitch stands 0.3 cells behind a vehicle's rear edge unless its Def names its own point. -->
     <hitchReachCells>8</hitchReachCells>

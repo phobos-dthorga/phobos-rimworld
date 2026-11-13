@@ -14,7 +14,7 @@ One of House D'thorga's mods (also spelt dthorga).
 It replaces two earlier mods, merged into it on 7 November 2026: **D'thorga Vehicle Patches** and **D'thorga Missile Patches**
 ([why](../../docs/development/mod-consolidation.md)).
 
-Version 0.19.0, built 13 November 2026 for House D'thorga. **Not yet tested in game as D'thorga Patches.** The Harrier and turret hull
+Version 0.19.1, built 13 November 2026 for House D'thorga. **Not yet tested in game as D'thorga Patches.** The Harrier and turret hull
 parts are unchanged from Vehicle Patches 0.6.0 (not yet tested in game); the missile part was tried once by the owner, see
 [InterRim Ballistic Missile](#interrim-ballistic-missile).
 
@@ -408,6 +408,7 @@ itself (a setting).
 | Radiation sickness and flash blindness for survivors (with Rimatomics) | On | On, off | None |
 | Ground pollution near the centre (with Biotech) | On | On, off | None |
 | Electromagnetic pulse | On | On, off | None |
+| Close-in weapon systems shoot down Combat Extended shells (only with Combat Extended; new in 0.19.1, not yet tested in game) | On | On, off | On: mortars and artillery against a base with a CIWS lose some shells, as vanilla shells always did |
 
 **Limits.** A blast in progress is not saved: what it had not reached survives a reload. The fires, terrain changes and cloud the
 warhead makes still happen in the frame the screen turns white, as the missile mod does them. Combat Extended's fragment setting is

@@ -73,4 +73,7 @@
 
   <PhobosMissilePatches_BlastStillRunning>The blast is still tearing through {PLACE}.</PhobosMissilePatches_BlastStillRunning>
   <PhobosMissilePatches_BlastSpent>The blast over {PLACE} has spent itself.</PhobosMissilePatches_BlastSpent>
+  <PhobosMissilePatches_SectionDefence>Air defence</PhobosMissilePatches_SectionDefence>
+  <PhobosMissilePatches_SettingCiwsShells>Close-in weapon systems shoot down Combat Extended shells</PhobosMissilePatches_SettingCiwsShells>
+  <PhobosMissilePatches_SettingCiwsShellsDesc>With Combat Extended, mortar and artillery shells fly as a different kind of projectile, which the missile mod's close-in weapon systems never see. On, they take aim at incoming enemy shells headed for your things, by the same rules as any other shell. Off, they leave them alone.</PhobosMissilePatches_SettingCiwsShellsDesc>
 </LanguageData>

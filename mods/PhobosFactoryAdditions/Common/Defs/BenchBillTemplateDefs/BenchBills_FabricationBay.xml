@@ -63,4 +63,33 @@
     <effecterDef>VFEFactory_Default</effecterDef>
   </Phobos.Factory.BenchBillTemplateDef>
 
+  <!--
+    D'thorga Framework's vehicle parts bench (Factory Additions 0.13.0, soft-dependency-crosslinks.md SD30; owner, 13 Nov 2026): kits, engine
+    and transmission assemblies and the rest on a production line, so services and fittings are not held up by hand-made parts. The bench
+    exists only while Vehicle Framework is active. Assembly benches whose items come from standalone recipes (VFE Production's, RimThunder's
+    assembly platform) are not covered: the generator reads only an item's own recipe, and VFE Factory's assembler already makes components.
+  -->
+  <Phobos.Factory.BenchBillTemplateDef MayRequire="SmashPhil.VehicleFramework">
+    <defName>PhobosFactory_VehiclePartsBench</defName>
+    <label>vehicle parts bench bills</label>
+    <description>Every part made at a vehicle parts bench, as a bill on the automated fabrication bay.</description>
+    <machine>PhobosFactory_AutomatedFabricationBay</machine>
+    <sourceBenches>
+      <li>PhobosVehicles_PartsBench</li>
+    </sourceBenches>
+    <researchPrerequisites>
+      <li>PhobosResearch_VehicleParts</li>
+    </researchPrerequisites>
+    <billLabel>Make {0}</billLabel>
+    <billDescription>Make {0} from the materials in the input hoppers, as a vehicle parts bench would.</billDescription>
+    <firstPriorityInBillList>500</firstPriorityInBillList>
+    <autoInputSlots>
+      <li>(0,0,3)</li>
+      <li>(-3,0,0)</li>
+      <li>(3,0,0)</li>
+    </autoInputSlots>
+    <sustainerDef>VFEFactory_AutomatedMachiningSustainer</sustainerDef>
+    <effecterDef>VFEFactory_Default</effecterDef>
+  </Phobos.Factory.BenchBillTemplateDef>
+
 </Defs>

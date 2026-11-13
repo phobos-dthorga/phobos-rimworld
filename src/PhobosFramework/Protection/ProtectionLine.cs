@@ -100,6 +100,8 @@ public static class ProtectionLine
         ProtectionZoneDef? to = zones.ZoneAt(next);
         if (to == null) return true;
         ProtectionZoneDef? from = zones.ZoneAt(pawn.Position);
+        // Going in: a preventive dose first, where the zone asks for one and one is in reach (Framework 0.109.0).
+        if (from != to && !zones.TurnedBack(pawn) && SentForDose(pawn, to, zones)) return false;
         CrossingAction action = ProtectionRule.Decide(from != null && from == to, true, Protected(pawn, to), false);
         if (action != CrossingAction.SuitUp) return true;
         // Already kept clear of the line, and here again because the route only crosses the zone (pathing ignores allowed areas): no
@@ -177,6 +179,41 @@ public static class ProtectionLine
         }
         MoteMaker.ThrowText(pawn.DrawPos, pawn.Map, "PhobosProtection_SuitingUp".Translate());
         Start(pawn, jobs);
+    }
+
+    /// <summary>
+    /// Sends a pawn going in for a dose of the zone's preventive drug, when it has none of the zone's preventive conditions and one is in
+    /// its inventory or in reach outside every zone; true when sent. Tried once an hour at most, so a dose that never arrives is no loop.
+    /// </summary>
+    static bool SentForDose(Pawn pawn, ProtectionZoneDef zone, ProtectionZones zones)
+    {
+        List<ThingDef> drugs = zone.PreventiveDrugs;
+        if (drugs.Count == 0 || zones.DoseTriedLately(pawn)) return false;
+        foreach (HediffDef condition in zone.preventiveHediffs)
+        {
+            if (pawn.health.hediffSet.HasHediff(condition)) return false;
+        }
+        Thing? dose = pawn.inventory?.innerContainer.FirstOrDefault(t => drugs.Contains(t.def));
+        if (dose == null)
+        {
+            float best = float.MaxValue;
+            foreach (ThingDef def in drugs)
+            {
+                foreach (Thing thing in pawn.Map.listerThings.ThingsOfDef(def))
+                {
+                    if (thing.IsForbidden(pawn) || zones.ZoneAt(thing.Position) != null) continue;
+                    float distance = (thing.Position - pawn.Position).LengthHorizontalSquared;
+                    if (distance >= best || !pawn.CanReserveAndReach(thing, PathEndMode.ClosestTouch, Danger.Some)) continue;
+                    best = distance;
+                    dose = thing;
+                }
+            }
+        }
+        zones.NoteDoseTried(pawn, Verse.Find.TickManager.TicksGame + TurnBackTicks);
+        if (dose == null) return false;
+        MoteMaker.ThrowText(pawn.DrawPos, pawn.Map, "PhobosProtection_TakingDose".Translate(dose.def.label.Named("DRUG")));
+        Start(pawn, new List<Job> { DrugAIUtility.IngestAndTakeToInventoryJob(dose, pawn, 1) });
+        return true;
     }
 
     /// <summary>Gear in reach that raises the zone's stat: outside every zone, not forbidden, wearable by this pawn and free to take.

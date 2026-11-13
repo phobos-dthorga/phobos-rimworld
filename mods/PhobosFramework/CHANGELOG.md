@@ -5,6 +5,26 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.109.0] - 2026-11-13 - Draft
+
+EMP reaches vehicles; the tanker fills generators and joins Rimefeller's pipeline; a dose before a protection line
+
+### Added
+
+- **EMP now affects vehicles** (owner's choices of 13 November 2026). Vehicle Framework has its own EMP model, but it acts only on parts their authors rated, and no vehicle mod in the owner's list rates any, so EMP did nothing to any vehicle. The electrical parts our systems bind (battery, alternator, starter, an electric vehicle's traction battery and motor) are now rated by how well the vehicle is hardened: civilian vehicles take the full effect, armed vehicles count as military and are hardened, and steam engines are never stalled. An EMP hit can stall the vehicle for a moment and costs those parts a little health, and the battery loses about 40 percent of its charge (16 percent on a military vehicle). RimThunder's authors switched stalling off for their whole range, so its vehicles are never stalled but still take the military effect. A rating a vehicle's own author gave a part always stays, and a choice made in Vehicle Framework's own settings still wins. Raiders' vehicles are affected the same way. Not yet tested in game.
+- **The tanker fills generators.** Pumping chemfuel out now fills the player's generators and other buildings that burn it within reach of the hose, up to the level set on each, before it sets anything down on the ground. A building that takes only a full load at once is left to its colonists. Not yet tested in game.
+- **With Rimefeller, the tanker joins its pipeline.** A parked tanker set to carry crude oil or chemfuel lays Rimefeller's hidden oil pipeline beneath its whole footprint, as it lays plumbing and other pipes, so a pipeline touching any side joins it; it then pumps crude or chemfuel to and from Rimefeller's storage tanks. The pieces are taken up when it drives off or stops carrying oil. Not yet tested in game.
+- **A protection line can ask for a dose before going in.** A content mod's line can name a condition its colonists should be under first; a colonist going in without it takes a dose of any drug that gives it, if one is in their pockets or in reach outside the area, saying so as they go. None in reach stops nobody. D'thorga Medical's radiation line uses it for potassium iodide.
+
+### Compatibility and limits
+
+- One unit of crude in the tanker counts as one unit in Rimefeller's tanks; Rimefeller's code gives no rate between its oil barrels and its stored crude, so this is our choice. Chemfuel is one to one, as Rimefeller's own pipes refuel buildings.
+- The EMP figures are Vehicle Framework's own (a 15 percent chance per part per hit for a civilian vehicle, 12.5 percent for a military one); which rating each class gets, and the battery's loss, are our choices.
+
+### Save compatibility
+
+- Safe to add to a running game. The pipeline pieces are laid only while a tanker is parked and are saved with it like its other pipes.
+
 ## [0.108.4] - 2026-11-13 - Draft
 
 Vehicles at Work and the depot bay obey our refusals to move

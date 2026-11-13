@@ -10,7 +10,7 @@ It replaces five earlier mods, merged into it on 7 November 2026 ([why](../../do
 Burns and Smoke**, **D'thorga Emergency Dosing**, **D'thorga Triage**, **D'thorga Medical Equipment** and **D'thorga Medical Save
 Bridge**. Each is now a part of this mod, with its own section below.
 
-Version 0.15.1, built 13 November 2026 for House D'thorga. **Not yet tested in game as D'thorga Medical.** What the owner tested of
+Version 0.16.0, built 13 November 2026 for House D'thorga. **Not yet tested in game as D'thorga Medical.** What the owner tested of
 the five parts before the merge is in each part's section; the parts' behaviour is unchanged, except that the save bridge now asks
 first.
 
@@ -521,6 +521,9 @@ burn dressings for burns; and an electrolyser and a liquid oxygen store to make 
 - **New in 0.7.0: the fluids kit for burn shock** (not yet tested in game). Doctors hang one by themselves on a patient in burn shock who
   has had no fluids yet, or poorer ones than the kit gives (it counts as nearly the best care). It works with or without More
   Injuries; with it, you can also order More Injuries' saline bag as a bill, which counts as the very best care.
+- **New in 0.16.0, with VFE Medical: its intravenous drip stand gives fluids** (not yet tested in game). A patient in burn shock lying in
+  the hospital bed it serves counts as on fluids (quality 0.7) without anyone hanging a kit. A fluids kit is still the better care, so
+  doctors hang one when they have it.
 - **New in 0.7.0, with More Injuries: the needle decompression kit** (not yet tested in game). For a collapsed lung crushing the heart: a
   doctor with **Medicine 5 or better** uses it by themselves and **buys about a day**. **The lung still needs its operation**: the kit
   never clears it.
@@ -693,6 +696,10 @@ tested in game.**
 - **Crossing out:** gear put on at the line comes off just outside it, ready for the next person; haulers put it away. Gear the colonist
   was already wearing stays on.
 - Prisoners, guests and animals are not stopped.
+- **Potassium iodide first (new in 0.16.0, not yet tested in game):** a colonist going in who is not already on iodide takes a tablet
+  first, if one is in their pockets or anywhere in reach outside the area, then suits up. In Rimatomics the tablet takes radiation
+  sickness down for about five days, so a worker going in on it sheds what they pick up. With none in reach, they suit up as before.
+  **For fallout over the whole map, set a drug policy that schedules iodide**: the line only covers going in.
 
 ### For modders
 

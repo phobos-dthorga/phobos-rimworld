@@ -5,10 +5,22 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.13.0] - 2026-11-13 - Draft
+
+Vehicle parts on the production line
+
+### Added
+
+- **The automated fabrication bay makes vehicle parts**: every part made at D'thorga Framework's vehicle parts bench, kits and assemblies included, as a bill on the bay, so services and fittings are not held up by hand-made parts. Only while Vehicle Framework is active; parts made of a material plus other parts stay at the bench, and the startup log names them. Not yet tested in game.
+
 ### Changed
 
 - The Workshop preview is a new picture, a small factory and conveyor at dusk, with the name added by script, from the owner's picks of 10 November 2026. No change in play.
 - The mod's description and README now carry the spelling dthorga beside D'thorga, so a search without the apostrophe finds it. The description says it is community-created by House D'thorga.
+
+### Compatibility and limits
+
+- VFE Production's assembly bench and RimThunder's assembly platform are not covered: their items come from separate recipes, which the bay's bill maker does not read, and VFE Factory's own assembler already makes components.
 
 ## [0.12.2] - 2026-11-10 - Draft
 

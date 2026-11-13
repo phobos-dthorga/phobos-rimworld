@@ -26,6 +26,8 @@
     <label>steam locomotive (4-8-4)</label>
     <kind>Steam</kind>
     <priority>Vehicle</priority>
+    <!-- Nothing electronic keeps a steam engine running: an EMP never stalls it, though its electrics are still hit (Framework 0.109.0). -->
+    <empHardening>Mechanical</empHardening>
     <selector>
       <vehicleDefs>
         <li>TOTR_Steam_Locomotive_Frisco_Chemfuel</li>
@@ -94,6 +96,8 @@
     <label>steam tank engine (0-6-0T)</label>
     <kind>Steam</kind>
     <priority>Vehicle</priority>
+    <!-- Nothing electronic keeps a steam engine running: an EMP never stalls it, though its electrics are still hit (Framework 0.109.0). -->
+    <empHardening>Mechanical</empHardening>
     <selector>
       <vehicleDefs>
         <li>TOTR_Tank_Engine_Chemfuel</li>

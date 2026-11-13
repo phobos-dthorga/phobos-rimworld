@@ -34,11 +34,12 @@ read from each mod's `LoadFolders.xml`, the `MayRequire` entries in our Defs and
 | Vehicle Framework (`SmashPhil.VehicleFramework`) | Every vehicle system: loadouts on any of its vehicles, parts, health, fittings, tunes, the sling, the fleet board, research gates; its caravan world objects | C# + XML | `Mods/VehicleFramework` |
 | Dubs Bad Hygiene (`Dubwise.DubsBadHygiene`) | The shared plumbing reader and the plumbing laid beneath our things | C# | `Mods/DubsBadHygiene/1.7` |
 | Vehicle Framework + Dubs Bad Hygiene | Vehicles take water from plumbing; tanker ports for plumbing and septic tanks; the survey truck's groundwater sensor | C# | `Mods/VehiclesHygiene/1.7` |
-| Vehicle Framework + Rimefeller (`dubwise.rimefeller`) | The drill rig's oil-well job | C# | `Mods/VehiclesRimefeller/1.7` |
+| Vehicle Framework + Rimefeller (`dubwise.rimefeller`) | The drill rig's oil-well job; the parked tanker lays Rimefeller's hidden pipeline and pumps crude and chemfuel through it (0.109.0, SD4) | C# | `Mods/VehiclesRimefeller/1.7` |
 | Vehicle Framework + Vanilla Expanded Framework (`OskarPotocki.VanillaFactionsExpanded.Core`) | Parked tankers and rigs join its pipe networks; vehicles refuel from a chemfuel line | C# | `Mods/VehiclesPipes/1.7` |
 | Vehicle Framework + Vanilla Expanded Framework | The vehicle garage outpost and its button on vehicle caravans | C# + XML | `Mods/VehiclesOutposts` |
 | Vehicles at Work (`shengchipangxieyaotuke.vehiclesatwork`) | Its trips leave out vehicles our systems refuse to move, and a called-off trip gives our reason (0.108.4, SD1) | C#, by name | `src/PhobosFramework.Vehicles/Service/VehiclesAtWorkPatches.cs` |
 | Vehicle Framework + RimHUD (`Jaxe.RimHUD`) | A RimHUD value for the vehicle a pawn is in | XML | `Mods/VehiclesRimHUD/Common` |
+| RimThunder (`rimthunder.core`, `aoba.rimthunder.roca`, `rimthunderteams.rimthunder.desertsabre`) | Its vehicles are never stalled by EMP, as its authors chose, but still take the military effect (0.109.0, SD9) | XML list read by C# | `Rules_VehicleSystems.xml` |
 | Combat Extended (`CETeam.CombatExtended`) | Its smoke inhalation and smoke sensitivity read by our gas rules; vehicle hit weights and blast penetration under its armour | C#, by name | `src/PhobosFramework/Gases/CombatExtendedSmoke.cs`, `MaskFactor.cs`, `CombatExtendedRules` |
 | Any mod with a cough sound | Our coughs stand down when another mod sounds one (the list is empty today) | C# | `src/PhobosFramework/Sounds/PhobosSounds.cs` |
 
@@ -55,9 +56,9 @@ All XML; the code is in the Framework.
 | Harrier VTOL (`potemkinvillager.av8bharrier`), Hind (`potemkinvillager.mi24hindhelicopter`), Mongoose (`potemkinvillager.mongooseattackhelicopter`) | Aircraft loadouts | `Mods/HarrierVtol`, `Mods/HindHelicopter`, `Mods/MongooseHelicopter` |
 | GTek L-ATV (`killerbot.jltv`), MaxxPro (`killerbot.navistarmaxxpro`) | Loadouts | `Mods/GTekLATV`, `Mods/GTekMaxxPro` |
 | Frontline Workshop (`serinairo.frontlineworkshop`), BMP-1 (`turbo.rimworld.bmp1ifv`) | Loadouts | `Mods/FrontlineWorkshop`, `Mods/BMP1` |
-| Trains of the Rim (`princeofpluto.vehicles.trains`) | Boilers for its locomotives | `Mods/TrainsOfTheRim` |
+| Trains of the Rim (`princeofpluto.vehicles.trains`) | Boilers for its locomotives; steam engines never stalled by EMP (0.52.0) | `Mods/TrainsOfTheRim` |
 | Dubs Bad Hygiene | Tanker contents: water and fecal sludge; the survey truck's groundwater node | `Mods/DubsBadHygiene` |
-| Rimefeller | Napalm and crude in barrels; the drill rig's well-kit node | `Mods/Rimefeller` |
+| Rimefeller | Napalm and crude in barrels; the drill rig's well-kit node; crude and chemfuel through its pipeline (0.52.0) | `Mods/Rimefeller` |
 | Vanilla Chemfuel Expanded (`vanillaexpanded.vchemfuele`) | Deepchem, the drill rig's deepchem head, chemfuel through its pipes | `Mods/VanillaChemfuelExpanded` |
 | Vanilla Gravship Expanded (`vanillaexpanded.gravship`) | Astrofuel and oxygen tanker contents; pressure vessels | `Mods/VanillaGravshipExpanded`, `Mods/TankerVessels` |
 | Combat Extended (`ceteam.combatextended`) | FSX and prometheum tanker contents; pressure vessels | `Mods/CombatExtended`, `Mods/TankerVessels` |
@@ -76,7 +77,8 @@ All XML; the code is in the Framework.
 | Dubs Bad Hygiene | The safety shower and electrolyser draw plumbed water; its showers and baths count as safety showers; its washing decontaminates | C# + XML | `Mods/DubsBadHygiene` |
 | Combat Extended | Its incendiary burn joins our burn care; its smoke inhalation counts as bronchospasm and needs oxygen | XML | `Mods/CombatExtended` |
 | Useful Marks (`Andromeda.UsefulMarks`) | Triage tags show as its marks; our overlay stands down | C# | `Mods/UsefulMarks/1.7` |
-| Dubs Rimatomics (`Dubwise.Rimatomics`) | The radiation control line and its designators | XML (+ Framework C#) | `Mods/Rimatomics` |
+| Dubs Rimatomics (`Dubwise.Rimatomics`) | The radiation control line and its designators; potassium iodide taken before going in (0.16.0, SD21) | XML (+ Framework C#) | `Mods/Rimatomics` |
+| VFE Medical (`vanillaexpanded.vfemedical`) | Its intravenous drip stand keeps a burn-shock patient on fluids (0.16.0, SD23) | XML list read by C# | `BurnsAndSmoke/Rules.xml` |
 | Atmosphere Overhaul (`acutus.AtmosphereOverhaul.release`), Celsius (`Garwel.Celsius`) | Our fire-heat zones stand down | XML list read by C# | `BurnsAndSmoke/Rules.xml` |
 
 ## D'thorga Factory Additions
@@ -99,6 +101,7 @@ Hard dependencies: Vanilla Expanded Framework and VFE Factory. All XML unless ma
 | Vanilla Cooking Expanded (`VanillaExpanded.VCookE`) | Simple soup on the conveyor oven |
 | Vanilla Chemfuel Expanded (`VanillaExpanded.VChemfuelE`) | Our bills draw piped chemfuel; VFE Factory's chemfuel steps re-applied where a Combat Extended clash skips them |
 | VRE Android (`vanillaracesexpanded.android`) | Granulator bills draw piped neutroamine |
+| Vehicle Framework (`SmashPhil.VehicleFramework`) | Every part made at D'thorga Framework's vehicle parts bench as a bill on the automated fabrication bay (0.13.0, SD30) |
 | Dubs Bad Hygiene | **C# + XML**: factory machines draw plumbed water; food bills wait for water and carry food-poisoning rules |
 
 ## D'thorga Water Tap
@@ -119,6 +122,7 @@ C# lives in `src/PhobosPatches.*`. Rows marked **fault** are in [patches for oth
 | Vehicle Framework | Fires a vehicle can never lose (**fault**, temporary); the game's progress bar on its work (**fault**) | C# |
 | Spaceship Turret Hull + Combat Extended (`MK.SpaceshipTurretHull`) | Combat Extended support for its turret hulls | XML |
 | Combat Extended | Guard against empty ammunition-set entries, Synthriada's fault (**fault**, temporary) | C# |
+| InterRim Ballistic Missile (`kazepsi.irbm`) + Combat Extended | Its close-in weapon systems shoot down CE's shells (0.19.1, AD14; **fault**, temporary; a setting) | C# |
 | InterRim Ballistic Missile (`kazepsi.irbm`) | Paced strategic sweep (**fault**); our blast model for the extinction warhead; quiet "area revealed" letters; Rimatomics fallout and flash-blindness; Combat Extended wall fragments setting; RimPacts assault size after a strike | C# + XML |
 | RimPacts (`wowgag.RimPacts`) | War quest countdown; arrival-filter fix (**fault**); the sortie gate says why | C# |
 | Visit Settlements (`ninagoblin.visitsettlements`) | Visited map stays open during a battle (**fault**); food-drop guard (**fault**) | C# |

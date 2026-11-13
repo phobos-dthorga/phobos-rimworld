@@ -172,12 +172,17 @@ drivetrain model can tow** in D'thorga Framework's settings. A broken drawbar mu
 
 | It carries | Pumped to and from | Watch out for |
 | --- | --- | --- |
-| Chemfuel, deepchem | Other vehicles' fuel tanks, stacks, Vanilla Chemfuel Expanded's pipes | Thickens in deep cold, with the cold fuel setting on |
+| Chemfuel, deepchem | Other vehicles' fuel tanks, chemfuel generators within reach of the hose (filled first, to their set level), stacks, Vanilla Chemfuel Expanded's pipes, Rimefeller's pipeline | Thickens in deep cold, with the cold fuel setting on |
+| Crude oil (Rimefeller) | Barrels on the ground, Rimefeller's pipeline | None |
 | Water | Dubs Bad Hygiene's plumbing | Freezes below 0 °C |
 | Nutrient paste, hemogen | Their pipes | The whole load spoils after about 18 hours above 0 °C; the insulated tank doubles that |
 | Astrofuel, oxygen | Vanilla Gravship Expanded's pipes | Oxygen vents in a fire or great heat |
 | Beer, insect jelly, wort | Stacks on the ground | Wort spoils after 5 days above 0 °C |
 | FSX, prometheum (Combat Extended) | Stacks on the ground | A hit may set off FSX; prometheum needs the pressure vessel and any spill burns |
+
+**With Rimefeller:** park the tanker with its engine off against a Rimefeller pipeline, with its compartment set to crude oil or
+chemfuel. It lays Rimefeller's hidden pipeline beneath itself and pumps to and from Rimefeller's storage tanks; the pipeline under it
+goes when it drives off.
 | Toxic sludge (Biotech) | Wastepacks | Dissolves after 8 days above 0 °C and pollutes the ground |
 | Fecal sludge (Dubs Bad Hygiene) | Septic tanks and barrels | It is what it is |
 | Napalm, crude oil (Rimefeller) | Stacks and barrels | |

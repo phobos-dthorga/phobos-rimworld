@@ -69,6 +69,8 @@ and get them out of the smoke.
 - **Smoke scars the lungs**: tending, rest and oxygen help them heal. Severe damage can turn to pneumonia.
 - **A fluids kit** (made at a drug lab) is hung by doctors themselves on a patient in burn shock. With More Injuries you can also
   order a **saline bag** as a bill, the very best care.
+- **With VFE Medical**, a patient in burn shock in a hospital bed with an **intravenous drip stand** beside it is kept on fluids
+  without a kit. A hung fluids kit is still better care.
 - **With More Injuries**, its own **fire inhalation** setting decides whether fire burns the lungs directly; this mod never damages
   them twice.
 
@@ -185,7 +187,10 @@ Suits on inside, off at the door, as a real plant runs it. **Only with Rimatomic
 1. Place a **radiation control point** (Misc tab, 10 steel) facing into a room or its doorway, or paint a **radiation controlled
    area** (zone tab) over open ground or several rooms.
 2. **Keep suits and masks just outside the line**, on a shelf, not forbidden. Gear inside the area is never fetched.
-3. A colonist without **75% toxic environment resistance** stops at the line, puts on the fewest, nearest items that get them there
+3. **Keep potassium iodide just outside too.** A colonist going in who is not on iodide takes a tablet first ("Taking potassium
+   iodide first"); it takes radiation sickness down for about five days. For fallout over the whole map, schedule iodide in a drug
+   policy instead.
+4. A colonist without **75% toxic environment resistance** stops at the line, puts on the fewest, nearest items that get them there
    ("Suiting up"), and takes them off on the way out. Rimatomics' suit and mask give 40% each, so it takes both.
 
 Drafted colonists, prisoners, guests and animals cross as they are. With no gear in reach, a colonist won't go in: a message says

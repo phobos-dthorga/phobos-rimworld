@@ -6,6 +6,18 @@ says the owner tested it.
 
 ## [Unreleased]
 
+## [0.19.1] - 2026-11-13 - Draft
+
+The missile mod's close-in weapon systems see Combat Extended's shells
+
+### Fixed
+
+- **InterRim Ballistic Missile's close-in weapon systems now shoot down Combat Extended's mortar and artillery shells.** CE's shells fly as a different kind of projectile, which the missile mod's systems never looked at, so they did nothing against them. They now take aim at incoming enemy shells headed for your things by the missile mod's own rules for any shell, and an interception destroys the shell. A new setting turns it off. Not yet tested in game.
+
+### Compatibility and limits
+
+- Only with both InterRim Ballistic Missile and Combat Extended active; Combat Extended is read by name. Temporary: it can go if the missile mod learns Combat Extended's shells itself.
+
 ## [0.19.0] - 2026-11-13 - Draft
 
 The Harrier's flight-control rule moves into D'thorga Framework, for every aircraft

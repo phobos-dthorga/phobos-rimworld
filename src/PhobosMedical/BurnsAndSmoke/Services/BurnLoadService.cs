@@ -166,6 +166,11 @@ public static class BurnLoadService
             shock.Severity = rules.shockInitialSeverity;
             pawn.health.AddHediff(shock);
         }
+        else if (BedsideFluids.Give(pawn, rules))
+        {
+            // The drip's fluids count from this look on.
+            readout = Readout(pawn, load, rules);
+        }
         float next = BurnShockRule.Step(shock.Severity, readout.Target, days, rules.shockRisePerDay, rules.shockFallPerDay);
         if (load.Tbsa < rules.shockStartTbsa && next < rules.shockRemoveBelow)
         {

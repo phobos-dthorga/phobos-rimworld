@@ -628,6 +628,8 @@ public class PhobosVehicleLoadoutDef : Def
     public SlingSpec? sling;
     /// <summary>A land vehicle of this loadout gets no hitch (Framework 0.101.0): for a design that should never tow.</summary>
     public bool noHitch;
+    /// <summary>How well its electrics are guarded against EMP (Framework 0.109.0); by class unless set: armed is military, else civilian.</summary>
+    public EmpHardening empHardening = EmpHardening.ByClass;
     /// <summary>Groups loadouts in the settings window: CombustionLand, Aircraft, Boat, Electric, Rail, Heavy.</summary>
     public string kind = "General";
     public LoadoutSelector selector = new();
@@ -732,6 +734,13 @@ public class PhobosVehicleRulesDef : PhobosRulesDef
     /// it takes, authored, the same as the depot bay's pump; and the most hours one look may cover.</summary>
     public float pipeRefuelPerHour = 30f;
     public float pipeRefuelMostHours = 1f;
+    /// <summary>EMP on vehicles (Framework 0.109.0; EmpRule): the part roles whose parts get Vehicle Framework's EMP rating, the rating
+    /// for civilian (and mechanical) vehicles and for military ones, and the mods whose vehicles are never stunned (their authors opted
+    /// out), by package ID. Authored.</summary>
+    public List<string> empRoles = new();
+    public VehicleEMPSeverity empSeverityCivilian = VehicleEMPSeverity.Moderate;
+    public VehicleEMPSeverity empSeverityMilitary = VehicleEMPSeverity.Minor;
+    public List<string> empNoStunPackages = new();
     /// <summary>The hitch (Framework 0.101.0, authored): how far a trailer may stand from the vehicle that hitches it, the work of coupling it
     /// up, and the gap from a vehicle's rear edge to its hitch, in cells.</summary>
     public float hitchReachCells = 8f;

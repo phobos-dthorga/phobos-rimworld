@@ -197,6 +197,25 @@ Answered by the owner, 13 Nov 2026:
   electrics), the factory pick (SD30 bench-bill templates), the medical picks (SD21 potassium iodide, SD22 Search and Rescue's medics,
   SD23 the IV drip) and the gas pick (SD8 Vanilla Temperature Expanded's ducts).
 
+**Built on 13 Nov 2026 (one batched release; not yet tested in game):**
+
+- **SD9 EMP on vehicles**, Framework 0.109.0 and Vehicles 0.52.0. **Not XML only, as recorded**: Vehicle Framework's own EMP model acts only
+  on parts their authors rated, no vehicle mod on the owner's list rates any, so EMP did nothing to any vehicle. The owner chose (13 Nov
+  2026) hardening by class (armed is military, steam is mechanical), Vehicle Framework's stall scaled by it, and RimThunder's vehicles never
+  stalled but hardened, as its authors switched stalls off. Ion Weaponry was left out: its ion bullet acts on pawns only.
+- **SD5 the tanker fills generators**, Framework 0.109.0 and Vehicles 0.52.0.
+- **SD4 the tanker on Rimefeller's pipeline**, Framework 0.109.0 and Vehicles 0.52.0: Rimefeller's hidden pipeline laid beneath the parked
+  tanker, crude and chemfuel pumped through it. One unit of crude to one stored unit is authored.
+- **SD30, narrowed to our vehicle parts bench**, Factory Additions 0.13.0. VFE Production's assembly bench adds nothing (VFE Factory's own
+  assembler already makes components), and RimThunder's assembly platform makes its parts by separate recipes, which the bill maker does
+  not read; teaching it those was set aside (RimThunder Core is quiet, and its parts are only stand-ins for ours).
+- **SD23 the drip stand**, Medical 0.16.0, at quality 0.7 (authored, below the fluids kit's 0.9).
+- **SD21 iodide at the radiation line**, Framework 0.109.0 (a preventive dose any protection line can ask for) and Medical 0.16.0. Read from
+  Rimatomics 1.7: its iodide does not block a dose (that stat is commented out); it takes 0.1 a day off radiation sickness for about five
+  days. Treatment of a resting patient and fallout over a whole map are left to the game's drug policies.
+- **SD8 set aside: nothing to build.** Vanilla Temperature Expanded's wall-mounted vent is the game's own vent class, so our gases already
+  pass through it; its ducts are an air-conditioning network between AC units and compressors and join no rooms' air.
+
 Still open:
 
 1. **SD20**: wait on Biological Warfare's quiet author, or build the vaccine work anyway since Factory Additions already makes its items?

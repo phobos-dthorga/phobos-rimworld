@@ -40,7 +40,8 @@ VFE Factory's belts normally pull only from factory hoppers. With this mod:
 ## The automated fabrication bay
 
 Makes what a fabrication bench makes (bionics and other artificial parts, spacer weapons and armour), and with Anomaly or Dubs
-Rimatomics what a bioferrite shaper or a Rimatomics machining table makes.
+Rimatomics what a bioferrite shaper or a Rimatomics machining table makes. With Vehicle Framework, it also makes what the **vehicle
+parts bench** makes: kits and assemblies for services and fittings.
 
 - **Research Complex factories and Fabrication.** It is under Architect, Factories, and must stand on factory floor.
 - **It looks exactly like the automated machining bay** until it has art of its own. Select it to tell them apart.

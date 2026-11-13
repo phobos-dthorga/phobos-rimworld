@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <!-- With Rimefeller, chemfuel also pumps from and to its pipeline, laid hidden beneath the parked tanker (Framework 0.109.0, SD4), tried
+       before stacks on the ground. One unit is one chemfuel, as Rimefeller's own pipes refuel buildings. Not yet tested in game. -->
+  <Operation Class="PatchOperationInsert">
+    <xpath>Defs/Phobos.VehicleSystems.PhobosTankContentsDef[defName="PhobosTank_Chemfuel"]/ports/li[@Class="Phobos.VehicleSystems.Port_Items"]</xpath>
+    <order>Prepend</order>
+    <value>
+      <li Class="Phobos.VehicleSystems.Oil.Port_RimefellerOil">
+        <chemfuel>true</chemfuel>
+      </li>
+    </value>
+  </Operation>
+</Patch>

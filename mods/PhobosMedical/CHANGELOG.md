@@ -6,6 +6,20 @@ entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.16.0] - 2026-11-13 - Draft
+
+Drip stands give burn-shock fluids, and potassium iodide before the radiation line
+
+### Added
+
+- **With VFE Medical, its intravenous drip stand keeps a burn-shock patient on fluids** while they lie in the hospital bed it serves, as if tended with fluids of quality 0.7, unless better fluids are already running. A hung fluids kit (0.9) stays the better care, so doctors still hang one. The stand needs no bags of its own, as its own immunity bonus needs none. Not yet tested in game.
+- **With Dubs Rimatomics, colonists take potassium iodide before going into a radiation controlled area**, if one is in their pockets or in reach outside it and they are not already on it, then suit up as before. In Rimatomics the tablet takes radiation sickness down for about five days, so a worker going in on it sheds what they pick up. None in reach stops nobody. For fallout over the whole map, a drug policy that schedules iodide is the game's own way. Not yet tested in game.
+
+### Compatibility and limits
+
+- Another mod's drip stand, or another drug that gives the iodide condition, can be added in XML; drugs are found by the condition they give, never by name.
+- The drip's quality of 0.7 is our choice.
+
 ## [0.15.1] - 2026-11-13 - Draft
 
 Clean backgrounds on three equipment pictures

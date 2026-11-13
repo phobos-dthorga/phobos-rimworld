@@ -13,6 +13,12 @@
     <required>0.75</required>
     <!-- Magenta, the radiation trefoil's colour on its yellow ground. -->
     <color>(0.80, 0.20, 0.70)</color>
+    <!-- Potassium iodide before going in (Medical 0.16.0, SD21). In Rimatomics 1.7 its condition lasts about five days and takes 0.1 a day
+         off radiation sickness while it does (read from its code, HediffComp_HealHediff; its dose-blocking stat is commented out), so a
+         worker going in on iodide sheds what they pick up. Any mod's drug that gives this condition counts. -->
+    <preventiveHediffs>
+      <li>PotassiumIodide</li>
+    </preventiveHediffs>
   </Phobos.Framework.Protection.ProtectionZoneDef>
 
   <ThingDef ParentName="BuildingBase">

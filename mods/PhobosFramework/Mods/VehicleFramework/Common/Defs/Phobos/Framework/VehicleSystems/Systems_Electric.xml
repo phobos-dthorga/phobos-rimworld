@@ -487,6 +487,10 @@
         <role>TractionBattery</role>
         <quantity>packTemperature</quantity>
         <perHealthLost>1.5</perHealthLost>
+        <!-- An EMP surge trips the pack's electronics (Vehicle Framework's stall) but does not crush or pierce cells (Framework 0.109.0). -->
+        <exceptDamageDefs>
+          <li>EMP</li>
+        </exceptDamageDefs>
       </li>
     </onPartHit>
     <service>

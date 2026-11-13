@@ -100,6 +100,35 @@ public class Port_VehicleFuel : TankPort
     }
 }
 
+/// <summary>
+/// The player's buildings within reach of the hose that burn this fuel (Framework 0.109.0; soft-dependency-crosslinks.md, SD5): the game's
+/// chemfuel generator, VFE Power's generators, anything with a refuelable tank. Filled to the level the player set on each, as a colonist
+/// refuelling it would; a building that only takes a full load at once is left to its colonists. Pumps out only.
+/// </summary>
+public class Port_RefuelableBuildings : TankPort
+{
+    public ThingDef? thing;
+
+    public override float Give(CompPhobosTank tank, float most, out string? reason)
+    {
+        reason = null;
+        if (thing == null) return 0f;
+        VehiclePawn self = tank.Vehicle;
+        foreach (Thing found in GenRadial.RadialDistinctThingsAround(self.Position, self.Map, tank.Props.hoseReach, useCenter: true))
+        {
+            if (found is not Building building || building.Faction != self.Faction) continue;
+            CompRefuelable? refuelable = building.GetComp<CompRefuelable>();
+            if (refuelable == null || refuelable.Props.atomicFueling || refuelable.IsFull || !refuelable.Props.fuelFilter.Allows(thing)) continue;
+            float given = Math.Min(most, refuelable.GetFuelCountToFullyRefuel());
+            if (given <= 0f) continue;
+            refuelable.Refuel(given);
+            return given;
+        }
+        reason = "PhobosVehicleSystems_TankNoBuildingBeside".Translate().Resolve();
+        return 0f;
+    }
+}
+
 /// <summary>A drill rig within reach of the hose with this in its buffer. Pumps in only: the tanker carries what the rig raises.</summary>
 public class Port_RigBuffer : TankPort
 {

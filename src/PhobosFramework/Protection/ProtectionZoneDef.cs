@@ -20,6 +20,39 @@ public class ProtectionZoneDef : Def
     /// <summary>The painted area's colour.</summary>
     public Color color = new(1f, 0.85f, 0.2f);
 
+    /// <summary>
+    /// Conditions a colonist should be under before going in (Framework 0.109.0; soft-dependency-crosslinks.md, SD21): one who has none
+    /// takes a dose of any drug that gives one, if one is in reach outside the zone, before crossing. Optional; none in reach stops nobody.
+    /// Named by the condition the drug gives, never the drug, so any mod's drug that gives it counts.
+    /// </summary>
+    public System.Collections.Generic.List<HediffDef> preventiveHediffs = new();
+
+    System.Collections.Generic.List<ThingDef>? preventiveDrugs;
+
+    /// <summary>Every item whose ingestion gives one of the preventive conditions, found once.</summary>
+    public System.Collections.Generic.List<ThingDef> PreventiveDrugs
+    {
+        get
+        {
+            if (preventiveDrugs != null) return preventiveDrugs;
+            preventiveDrugs = new System.Collections.Generic.List<ThingDef>();
+            if (preventiveHediffs.Count == 0) return preventiveDrugs;
+            foreach (ThingDef def in DefDatabase<ThingDef>.AllDefsListForReading)
+            {
+                if (def.ingestible?.outcomeDoers == null || def.category != ThingCategory.Item) continue;
+                foreach (IngestionOutcomeDoer doer in def.ingestible.outcomeDoers)
+                {
+                    if (doer is IngestionOutcomeDoer_GiveHediff give && give.hediffDef != null && preventiveHediffs.Contains(give.hediffDef))
+                    {
+                        preventiveDrugs.Add(def);
+                        break;
+                    }
+                }
+            }
+            return preventiveDrugs;
+        }
+    }
+
     public override System.Collections.Generic.IEnumerable<string> ConfigErrors()
     {
         foreach (string error in base.ConfigErrors()) yield return error;

@@ -18,6 +18,10 @@
       <li Class="Phobos.VehicleSystems.Port_VehicleFuel">
         <thing>Chemfuel</thing>
       </li>
+      <!-- Generators and other buildings that burn chemfuel, within reach of the hose (Framework 0.109.0). -->
+      <li Class="Phobos.VehicleSystems.Port_RefuelableBuildings">
+        <thing>Chemfuel</thing>
+      </li>
       <li Class="Phobos.VehicleSystems.Port_Items">
         <thing>Chemfuel</thing>
       </li>

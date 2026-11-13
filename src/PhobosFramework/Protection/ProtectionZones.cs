@@ -181,6 +181,15 @@ public sealed class ProtectionZones : MapComponent
 
     public void ForgetSuitUps(Pawn pawn) => suitUps.Remove(pawn.thingIDNumber);
 
+    /// <summary>When a pawn was last sent for a preventive dose: it is not sent again until then, so a dose that never arrives costs one
+    /// try and no loop. Not saved.</summary>
+    readonly System.Collections.Generic.Dictionary<int, int> doseTriedUntil = new();
+
+    public bool DoseTriedLately(Pawn pawn) =>
+        doseTriedUntil.TryGetValue(pawn.thingIDNumber, out int until) && Verse.Find.TickManager.TicksGame < until;
+
+    public void NoteDoseTried(Pawn pawn, int untilTick) => doseTriedUntil[pawn.thingIDNumber] = untilTick;
+
     Painted? Find(ProtectionZoneDef def)
     {
         for (int i = 0; i < painted.Count; i++)

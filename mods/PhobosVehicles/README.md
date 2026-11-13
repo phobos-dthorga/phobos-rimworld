@@ -7,7 +7,7 @@ of the general systems D'thorga Framework gives every vehicle.
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.51.1, built 13 November 2026 for House D'thorga. **Not yet tested in game.**
+Version 0.52.0, built 13 November 2026 for House D'thorga. **Not yet tested in game.**
 
 ## Read this first (gotchas)
 
@@ -127,7 +127,7 @@ would one day be the Talus T2, and a refit adds a letter.
 
 | It carries | Pumped to and from | Temperature |
 | --- | --- | --- |
-| Chemfuel | Other vehicles' fuel tanks, stacks on the ground, Vanilla Chemfuel Expanded's pipes | Thickens and pumps slowly in deep cold, only with the fuel setting on |
+| Chemfuel | Other vehicles' fuel tanks, generators and other buildings that burn it (new in 0.52.0), stacks on the ground, Vanilla Chemfuel Expanded's pipes, Rimefeller's pipeline (new in 0.52.0) | Thickens and pumps slowly in deep cold, only with the fuel setting on |
 | Deepchem | Vanilla Chemfuel Expanded's pipes | As chemfuel |
 | Water | Dubs Bad Hygiene's plumbing | Freezes below 0 °C and cannot be pumped until it thaws |
 | Nutrient paste, hemogen | Their pipes | Above 0 °C the whole load spoils after about 18 hours; the insulated tank doubles that |
@@ -138,7 +138,9 @@ would one day be the Talus T2, and a refit adds a letter.
 | Prometheum (Combat Extended) | Stacks on the ground | Pressure vessel only; any spill catches fire |
 | Toxic sludge (Biotech) | Wastepacks on the ground | Dissolves after 8 days above 0 °C; a spill or a dissolved load pollutes the ground |
 | Fecal sludge (Dubs Bad Hygiene) | Septic tanks and barrels | None. It is what it is |
-| Napalm, crude oil (Rimefeller) | Stacks and barrels on the ground | None |
+| Napalm, crude oil (Rimefeller) | Stacks and barrels on the ground; crude also Rimefeller's pipeline (new in 0.52.0) | None |
+
+**Pipelines (new in 0.52.0, not yet tested in game):** with Rimefeller, park the tanker with its engine off against a Rimefeller pipeline and set its compartment to crude oil or chemfuel: it lays Rimefeller's hidden pipeline beneath itself and pumps to and from Rimefeller's storage tanks. **Pumping chemfuel out fills generators within reach of the hose first**, up to the level set on each, before anything is set down on the ground.
 
 **Gotchas:** an empty tank must be **purged** before it can carry something else: select a colonist and right-click the truck (four in-game hours; it takes water where Dubs Bad Hygiene is active). **Taking a tank off with a load in it spills the load.** A damaged tank leaks, and a destroyed tank holding something flammable explodes unless you turn that off in D'thorga Framework's settings. A full tank slows the truck.
 

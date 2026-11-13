@@ -44,6 +44,11 @@ public class PhobosBurnRulesDef : PhobosRulesDef
     public float fluidsShockReliefPerQuality = 0.35f;
     /// <summary>The game's best tend quality (glitterworld medicine's ceiling); relief stops growing past it.</summary>
     public float fluidsQualityCap = 1.3f;
+    /// <summary>Drip stands (Medical 0.16.0; soft-dependency-crosslinks.md, SD23): facilities that keep a burn-shock patient in the bed
+    /// they serve on fluids, and the quality those fluids count as. Listed in XML with MayRequire; the quality is authored, below a hung
+    /// fluids kit's, so a kit stays the better care.</summary>
+    public List<ThingDef> fluidsFacilities = new();
+    public float dripFluidsQuality = 0.7f;
     public float shockTreatmentFloor = 0.1f;
     /// <summary>Where burn shock starts, and the severity below which it leaves once the burned fraction is under the threshold.</summary>
     public float shockInitialSeverity = 0.01f;

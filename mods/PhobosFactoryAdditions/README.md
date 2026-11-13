@@ -16,7 +16,7 @@ Passive Exoskeletons, Simple Washing Machine).
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.12.2, built 10 November 2026 for House D'thorga. **Tested in game:** the human-meat bill (owner,
+Version 0.13.0, built 13 November 2026 for House D'thorga. **Tested in game:** the human-meat bill (owner,
 28 October 2026, RimWorld 1.7), the drug-lab bills appearing on their machines (owner, 29 October 2026), and
 belts taking from switched-on storage, only when they point away from it (owner, 29 and 30 October 2026). The
 corpse fridge change, running the 0.3.0 bills to the end, the 0.3.2 chemfuel repair, the 0.4.0 deep factory
@@ -68,6 +68,8 @@ game.
 - **Machines still put finished goods only into factory hoppers.** The switch is for taking, not for output.
 - **The fabrication bay looks exactly like the automated machining bay** until it has art of its own. Select it
   to see which is which. It needs **Complex factories and Fabrication** research.
+- **New in 0.13.0 (not yet tested in game): vehicle parts on the line.** With Vehicle Framework and D'thorga Framework, the
+  fabrication bay also makes what the vehicle parts bench makes, kits and assemblies included, once their research is done.
 - **A fabrication bay bill appears only once its bench recipe is unlocked**: the item's research (for example
   Bionics), Ideology memes, and Rimatomics' own research for its parts. Until then it is not in the Add
   process menu.

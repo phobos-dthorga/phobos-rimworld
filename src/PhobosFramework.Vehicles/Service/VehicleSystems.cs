@@ -159,6 +159,8 @@ public static class VehicleSystems
                 }
             }
         }
+        // EMP (Framework 0.109.0): the electrical parts get Vehicle Framework's EMP rating by the vehicle's hardening.
+        VehicleEmp.Rate(def, loadout, props);
         def.comps ??= new List<CompProperties>();
         def.comps.Add(props);
         // Sling loads (Framework 0.92.0): a loadout that rates a cargo hook gives the helicopter its sling, used once a hook is fitted.

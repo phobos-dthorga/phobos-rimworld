@@ -5,6 +5,23 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.52.0] - 2026-11-13 - Draft
+
+The tanker's new ports, and steam engines are never stalled by EMP
+
+### Added
+
+- **The bulk tanker's chemfuel fills generators** and other buildings that burn it within reach of its hose, before anything is set down on the ground (needs D'thorga Framework 0.109.0). Not yet tested in game.
+- **With Rimefeller, crude oil and chemfuel pump through Rimefeller's own pipeline** beneath the parked tanker (needs D'thorga Framework 0.109.0). Not yet tested in game.
+
+### Changed
+
+- **Trains of the Rim's steam locomotives are never stalled by EMP**: nothing electronic keeps a steam engine running. Their electrics are still hit. Not yet tested in game.
+
+### Compatibility and limits
+
+- One unit of crude in the tanker counts as one unit in Rimefeller's tanks, our choice: Rimefeller's code gives no rate between its oil barrels and its stored crude.
+
 ## [0.51.1] - 2026-11-13 - Draft
 
 Vehicle sounds sit in the game's mix

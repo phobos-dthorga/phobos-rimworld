@@ -120,6 +120,9 @@ left on still run the battery down.
 - **A fire on a vehicle cooks it from the inside**: the cab grows stifling, the coolant heats, and the radiator, the tyres and the battery burn. Put it out
   within an in-game hour or expect a hot engine and a radiator to repair; left two hours, the engine boils over.
 - **Damage shows on our vehicles' pictures** once a part is below 60%: scorches, holes and tears.
+- **EMP** can stall a vehicle for a moment and drains its battery: a civilian truck loses about 40% of its charge, an armed vehicle,
+  which is hardened, about 16%. Steam engines and RimThunder's vehicles are never stalled. Raiders' vehicles are hit the same way,
+  so EMP grenades and mortars stop them too. **Jump-start a drained truck** before driving off.
 
 ![Vehicle buttons: service, patch leaks, jump-start, diagnose, repair in a caravan, fittings and tunes, headlights, cab heater, air conditioner, climate control, night heater, assign vehicle, go to bay, the sling's lift, set down and leave, the hitch's hitch and unhitch, water drop and unload casualties](images/vehicle-buttons.png)
 

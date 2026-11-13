@@ -34,6 +34,13 @@
     <bedRestShockRelief>0.15</bedRestShockRelief>
     <fluidsShockReliefPerQuality>0.35</fluidsShockReliefPerQuality>
     <fluidsQualityCap>1.3</fluidsQualityCap>
+    <!-- Drip stands keep a burn-shock patient in the bed they serve on fluids (Medical 0.16.0, SD23): VFE Medical's intravenous drip stand,
+         "for quickly delivering lost fluids". Quality 0.7 is authored, below the fluids kit's 0.9, so a hung kit stays the better care.
+         Another mod's drip can be added here, with MayRequire. -->
+    <fluidsFacilities>
+      <li MayRequire="vanillaexpanded.vfemedical">Facility_IVDrip</li>
+    </fluidsFacilities>
+    <dripFluidsQuality>0.7</dripFluidsQuality>
     <shockTreatmentFloor>0.1</shockTreatmentFloor>
     <!-- Where burn shock starts, and the severity below which it leaves once the burned fraction is under the threshold. -->
     <shockInitialSeverity>0.01</shockInitialSeverity>

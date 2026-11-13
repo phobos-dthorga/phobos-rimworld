@@ -419,6 +419,16 @@
         <perHealthLost>-0.01</perHealthLost>
       </li>
       <li>
+        <!-- Framework 0.109.0 (SD9): an EMP surge empties the battery as well as harming it. Vehicle Framework's EMP costs a rated part
+             2.5 % of its health (Moderate, civilian) or 1 % (Minor, military), so this takes about 40 % or 16 % of the charge. Authored. -->
+        <role>Battery</role>
+        <quantity>charge</quantity>
+        <perShareLost>-16</perShareLost>
+        <damageDefs>
+          <li>EMP</li>
+        </damageDefs>
+      </li>
+      <li>
         <!-- Framework 0.29.0: damaged cells go on draining (Conditions.xml). Authored. -->
         <role>Battery</role>
         <condition>PhobosVehicleCondition_ShortedBattery</condition>
