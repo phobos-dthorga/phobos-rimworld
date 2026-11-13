@@ -5,6 +5,19 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.108.4] - 2026-11-13 - Draft
+
+Vehicles at Work and the depot bay obey our refusals to move
+
+### Fixed
+
+- **Colonists using Vehicles at Work no longer drive a vehicle our systems say will not move** (found reading its code on 13 November 2026, not seen in play; fixed at the owner's word). Vehicles at Work starts its trips itself rather than through the player's orders, so it never heard a vehicle refuse to move: worn-out brakes, a job holding it set up, a boat resting on the bottom. It now leaves such a vehicle out of its trips, and a trip called off on the way says the real reason instead of blaming damage. Refusals to start the engine (a flat battery, a cold boiler) already held.
+- **Go to bay refuses for the same reasons.** The depot bay's order checked only a set-up job, so a vehicle with worn-out brakes could be sent home. It now gives every refusal of ours.
+
+### Compatibility and limits
+
+- The Vehicles at Work part switches on only while that mod is active, finds its helpers by name, and stands down by itself if they are renamed. Not yet tested in game.
+
 ## [0.108.3] - 2026-11-13 - Draft
 
 Our plumbing joins up in the plumbing overlay

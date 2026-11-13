@@ -37,6 +37,7 @@ read from each mod's `LoadFolders.xml`, the `MayRequire` entries in our Defs and
 | Vehicle Framework + Rimefeller (`dubwise.rimefeller`) | The drill rig's oil-well job | C# | `Mods/VehiclesRimefeller/1.7` |
 | Vehicle Framework + Vanilla Expanded Framework (`OskarPotocki.VanillaFactionsExpanded.Core`) | Parked tankers and rigs join its pipe networks; vehicles refuel from a chemfuel line | C# | `Mods/VehiclesPipes/1.7` |
 | Vehicle Framework + Vanilla Expanded Framework | The vehicle garage outpost and its button on vehicle caravans | C# + XML | `Mods/VehiclesOutposts` |
+| Vehicles at Work (`shengchipangxieyaotuke.vehiclesatwork`) | Its trips leave out vehicles our systems refuse to move, and a called-off trip gives our reason (0.108.4, SD1) | C#, by name | `src/PhobosFramework.Vehicles/Service/VehiclesAtWorkPatches.cs` |
 | Vehicle Framework + RimHUD (`Jaxe.RimHUD`) | A RimHUD value for the vehicle a pawn is in | XML | `Mods/VehiclesRimHUD/Common` |
 | Combat Extended (`CETeam.CombatExtended`) | Its smoke inhalation and smoke sensitivity read by our gas rules; vehicle hit weights and blast penetration under its armour | C#, by name | `src/PhobosFramework/Gases/CombatExtendedSmoke.cs`, `MaskFactor.cs`, `CombatExtendedRules` |
 | Any mod with a cough sound | Our coughs stand down when another mod sounds one (the list is empty today) | C# | `src/PhobosFramework/Sounds/PhobosSounds.cs` |

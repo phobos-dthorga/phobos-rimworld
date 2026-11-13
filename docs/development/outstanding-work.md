@@ -119,10 +119,10 @@ first, both directions, InterRim Ballistic Missile and The Dead Man's Switch for
 | # | Item | Mod | Owner's decision | Status |
 | --- | --- | --- | --- | --- |
 | TI1 | [The tie-in register](tie-in-register.md) | All | — | Written; kept current by every tie-in change |
-| TI2 | [Soft-dependency cross-links](soft-dependency-crosslinks.md): SD1 to SD44, earlier proposals carried forward, a ranked short list | Framework, Vehicles, Medical, Factory Additions | Scope as above (13 Nov 2026) | Record written; not built; five questions for the owner |
-| TI3 | [Air-defence tie-ins](air-defence-tie-ins.md): AD1 to AD14; avionics A13 and A16 revisited | Framework, Patches | IRBM and DMS in scope (13 Nov 2026) | Record written; not built; four questions for the owner |
-| TI4 | Fault: Vehicles at Work drives vehicles our systems refuse to move on a map (worn brakes, a set-up Busbar, a settled submarine) | Framework | — | Open: read from its code, not reproduced in game; SD1 is the fix |
-| TI5 | Gap: IRBM's CIWS cannot see Combat Extended's shells in the owner's game | Patches | — | Open: AD14, the owner to decide |
+| TI2 | [Soft-dependency cross-links](soft-dependency-crosslinks.md): SD1 to SD44, earlier proposals carried forward, a ranked short list | Framework, Vehicles, Medical, Factory Additions | Scope as above (13 Nov 2026). **The next batch** (owner, 13 Nov 2026): SD4, SD5, SD9 (vehicles); SD30 (factory); SD21, SD22, SD23 (medical); SD8 (gases) | Record written; batch agreed, not built |
+| TI3 | [Air-defence tie-ins](air-defence-tie-ins.md): AD1 to AD14; avionics A13 and A16 revisited | Framework, Patches | IRBM and DMS in scope (13 Nov 2026). **Our aircraft become DMS targets, with countermeasures** (owner, 13 Nov 2026): AD3 with AD2 and avionics A16 | Record written; agreed, not built |
+| TI4 | Fault: Vehicles at Work drives vehicles our systems refuse to move on a map (worn brakes, a set-up Busbar, a settled submarine) | Framework | Fix it now, ahead of everything else (owner, 13 Nov 2026) | **Fixed: Framework 0.108.4, not yet tested in game** (SD1; the depot bay's Go to bay had the same gap and is fixed too) |
+| TI5 | Gap: IRBM's CIWS cannot see Combat Extended's shells in the owner's game | Patches | Patch it (owner, 13 Nov 2026) | Agreed, not built: AD14, a temporary patch recorded in temporary-patches.md when built |
 
 ## Vehicle accessories (13 Nov 2026)
 

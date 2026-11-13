@@ -567,6 +567,8 @@
   <PhobosVehicleSystems_BayAlreadyThere>{VEHICLE} is already in its bay.</PhobosVehicleSystems_BayAlreadyThere>
   <PhobosVehicleSystems_BayNoDriver>{VEHICLE} has nobody aboard who can drive it.</PhobosVehicleSystems_BayNoDriver>
   <PhobosVehicleSystems_BayCannotReach>{VEHICLE} cannot find a way to its bay.</PhobosVehicleSystems_BayCannotReach>
+  <!-- Fills the gap in another mod's message about a trip called off: "{vehicle} {this}, so {driver} walks." -->
+  <PhobosVehicleSystems_WorkTripRefused>won't move ({REASON})</PhobosVehicleSystems_WorkTripRefused>
   <PhobosVehicleSystems_BayEmpty>No vehicle assigned.</PhobosVehicleSystems_BayEmpty>
   <PhobosVehicleSystems_BayHomeOf>Home to {VEHICLE}.</PhobosVehicleSystems_BayHomeOf>
   <PhobosVehicleSystems_BayRefuelling>Refuelling {VEHICLE}.</PhobosVehicleSystems_BayRefuelling>

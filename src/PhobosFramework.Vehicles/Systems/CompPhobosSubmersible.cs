@@ -188,7 +188,10 @@ public class CompPhobosSubmersible : VehicleComp
     }
 
     /// <summary>A boat on the bottom has to lift off before it can be sent anywhere. The game's own way to refuse an order to move.</summary>
-    public override AcceptanceReport CanMove(FloatMenuContext context) => settled ? "PhobosSubmersible_RefuseMoveSettled".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve() : base.CanMove(context);
+    public override AcceptanceReport CanMove(FloatMenuContext context) => SettledRefusal is { } refused ? refused : base.CanMove(context);
+
+    /// <summary>Why a settled boat will not move, or null; also asked by MoveRefusals for orders that bypass the float menu.</summary>
+    public string? SettledRefusal => settled ? "PhobosSubmersible_RefuseMoveSettled".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve() : null;
 
     /// <summary>Why it cannot be brought up or have its orders changed, or null.</summary>
     public string? SurfaceRefusal() => Lost ? "PhobosSubmersible_RefuseLost".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve() : null;

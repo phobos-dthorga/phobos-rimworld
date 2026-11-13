@@ -165,11 +165,16 @@ altitude, and since 12 Nov a combat domain, a terminal intercept factor and a de
 
 ## Questions for the owner
 
-1. **AD3**: make our aircraft visible to DMS's world-map air defence, with damage when shot at? It is the largest row, and the one that
-   makes countermeasures (A16) worth building.
-2. **AD5**: may our engines change DMS's heat-seeker choice? It changes their targeting, not only a figure.
-3. **AD14**: patch IRBM's CIWS to see Combat Extended's shells? It is IRBM's gap with CE, and IRBM looks quiet.
-4. **Raiders' aircraft**: should a decompile of VTOL Raids come first, to see whether the player's DMS defences can ever face them?
+Answered by the owner, 13 Nov 2026:
+
+- **AD3: yes, with countermeasures**: our aircraft become targets for DMS Expedition's world-map air defence, with the warning receiver
+  (AD2) and avionics A16's flares and chaff, as one aircraft batch.
+- **AD14: patch it**, recorded as a temporary patch that stands down if IRBM fixes it.
+
+Still open:
+
+1. **AD5**: may our engines change DMS's heat-seeker choice? It changes their targeting, not only a figure.
+2. **Raiders' aircraft**: should a decompile of VTOL Raids come first, to see whether the player's DMS defences can ever face them?
 
 ## Who chose what
 

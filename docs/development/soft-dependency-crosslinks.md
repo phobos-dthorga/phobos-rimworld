@@ -189,11 +189,19 @@ The ten cheapest links with the clearest play value, XML first where the value i
 
 ## Questions for the owner
 
-1. **SD1**: fix the Vehicles at Work gap now, as a fault, ahead of everything else?
-2. Which rows to build, and in how many releases (one batched install is the default)?
-3. **SD20**: wait on Biological Warfare's quiet author, or build the vaccine work anyway since Factory Additions already makes its items?
-4. **SD6**: worth a decompile of VFE Power to see what its overloaded reactor does to people?
-5. Any of the mods not on your list worth adding to your game (Helixien gas above all)? Their player comments would be read first.
+Answered by the owner, 13 Nov 2026:
+
+- **SD1: fix it now**, ahead of everything else. **Built: Framework 0.108.4**, not yet tested in game; the depot bay's Go to bay had the
+  same gap and takes the same shared refusal.
+- **The next batch**: the vehicle picks (SD4 the tanker on Rimefeller's pipes, SD5 the tanker refuels fuelled buildings, SD9 EMP on
+  electrics), the factory pick (SD30 bench-bill templates), the medical picks (SD21 potassium iodide, SD22 Search and Rescue's medics,
+  SD23 the IV drip) and the gas pick (SD8 Vanilla Temperature Expanded's ducts).
+
+Still open:
+
+1. **SD20**: wait on Biological Warfare's quiet author, or build the vaccine work anyway since Factory Additions already makes its items?
+2. **SD6**: worth a decompile of VFE Power to see what its overloaded reactor does to people?
+3. Any of the mods not on your list worth adding to your game (Helixien gas above all)? Their player comments would be read first.
 
 ## Who chose what
 
