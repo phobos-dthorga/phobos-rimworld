@@ -18,6 +18,7 @@ reproduces the master is written to the transform file for the Def. Mask red is 
 import argparse
 import colorsys
 import datetime as _dt
+from fractions import Fraction
 import hashlib
 import json
 from pathlib import Path
@@ -205,7 +206,8 @@ def main():
     body.add_argument('master', type=Path)
     body.add_argument('--out', type=Path, required=True)
     body.add_argument('--name', required=True)
-    body.add_argument('--cells-long', type=int, required=True)
+    # A fraction such as 20/3 keeps a body's look when only its drawSize grows (the Pintle trailer, 3 x 6 to 4 x 8, 13 Nov 2026).
+    body.add_argument('--cells-long', type=lambda text: float(Fraction(text)), required=True, help='a number or a fraction, such as 5 or 20/3')
     body.add_argument('--draw', type=int, nargs=2, required=True, metavar=('X', 'Z'))
     body.add_argument('--main-hue', type=float, nargs=2, default=(38, 95), help='hue range of the main paint, in degrees')
     body.add_argument('--accent-hue', type=float, nargs=2, default=(8, 34), help='hue range of the accent paint, in degrees')

@@ -5,6 +5,15 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.54.1] - 2026-11-13 - Draft
+
+The Pintle trailer's picture is sharp at its new size
+
+### Fixed
+
+- **The Pintle flatbed trailer's picture is drawn sharp at its new size.** Since 0.54.0 the game stretched a picture made for the old size over the bigger trailer, a little softer than every other vehicle of ours; it is now exported again from the same full-size original at the new size, with the greedy boards refitted to it. The look is the same. Not yet tested in game.
+- **The towing eye at the front of the drawbar is open**: the ground shows through the ring, where white showed before. Not yet tested in game.
+
 ## [0.54.0] - 2026-11-13 - Draft
 
 The Pintle flatbed trailer is as wide as the trucks that tow it

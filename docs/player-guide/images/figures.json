@@ -21,7 +21,7 @@
         {"label": "Busbar generator set (3 x 8)", "cells": [9, 4], "layers": ["veh:GeneratorSet/GeneratorSet_east.png", "veh:GeneratorSet/GeneratorSet_Fan_east.png"]},
         {"label": "Talus tipper truck (3 x 8)", "cells": [9, 4], "layers": ["veh:Tipper/Tipper_east.png", "veh:Tipper/Tipper_Body_east.png"]},
         {"label": "Fathom seabed crawler (4 x 9)", "cells": [10, 5], "layers": ["veh:SeabedCrawler/SeabedCrawler_east.png"]},
-        {"label": "Pintle flatbed trailer (2 x 5)", "cells": [6, 3], "layers": ["veh:FlatbedTrailer/FlatbedTrailer_east.png"]}
+        {"label": "Pintle flatbed trailer (3 x 7)", "cells": [8, 4], "layers": ["veh:FlatbedTrailer/FlatbedTrailer_east.png"]}
       ]
     },
     {

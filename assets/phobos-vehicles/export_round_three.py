@@ -6,6 +6,7 @@ owner to revise once seen in game.
 
     python assets/phobos-vehicles/export_round_three.py --out .local/art/round-three-export        stage and preview
     python assets/phobos-vehicles/export_round_three.py --out mods/PhobosVehicles/Textures/Phobos/Vehicles   ship
+    ... --only FlatbedTrailer                                                                                one vehicle, after its body changed
 
 The record of the picks is assets/phobos-vehicles/requests/round-three-record.md.
 """
@@ -89,9 +90,14 @@ def main():
     parser.add_argument('--grab', type=int, default=GRAB)
     parser.add_argument('--winch', type=int, default=WINCH)
     parser.add_argument('--tank', type=int, default=TANK)
+    parser.add_argument('--only', action='append', default=[], metavar='FOLDER',
+                        help='re-export one vehicle folder only, such as FlatbedTrailer after its body was re-exported; repeatable')
     args = parser.parse_args()
-    report = {}
+    report_path = base.EXPORT / 'round-three-overlays.json'
+    report = json.loads(report_path.read_text(encoding='utf-8')) if args.only and report_path.is_file() else {}
     for folder, (transform, overlays) in plan(args.boards, args.grab, args.winch, args.tank).items():
+        if args.only and folder not in args.only:
+            continue
         out = Path(args.out) / folder
         out.mkdir(parents=True, exist_ok=True)
         for name, master, box, holes in overlays:
@@ -100,7 +106,7 @@ def main():
                 record.replace(base.EXPORT / record.name)
             report[f'{folder}/{name}'] = {'master': str(master).replace('\\', '/'), 'fit': list(box)}
             print('wrote', folder, name)
-    (base.EXPORT / 'round-three-overlays.json').write_text(json.dumps(report, indent=2), encoding='utf-8')
+    report_path.write_text(json.dumps(report, indent=2), encoding='utf-8')
 
 
 if __name__ == '__main__':
