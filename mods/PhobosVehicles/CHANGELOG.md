@@ -5,6 +5,22 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.54.0] - 2026-11-13 - Draft
+
+The Pintle flatbed trailer is as wide as the trucks that tow it
+
+### Changed
+
+- **The Pintle flatbed trailer is 3 x 7 cells**, as wide as the trucks that tow it (it was 2 x 5, which the owner had found too small for some time). Its picture is the same, scaled up evenly, and its parts sit on the new footprint: the drawbar at the front, the two axles behind the middle, the lights at the back. It follows a little further behind the vehicle towing it, in proportion. Not yet tested in game.
+
+### Balance
+
+- **It carries 5,000 kg** (was 3,000 kg) and weighs 2,800 kg empty (was 2,000 kg); the greedy boards add 1,000 kg (was 600 kg). A real medium tandem flatbed of about this size carries 3.5 to 5 tonnes (general); the figures are our choice. Building one takes 250 steel and more work (was 180).
+
+### Save compatibility
+
+- **Park every Pintle in open ground before updating**: a trailer already standing beside a wall or a building grows by a cell on each side and two in length, and may end up overlapping it.
+
 ## [0.53.0] - 2026-11-13 - Draft
 
 Avionics fits for every aircraft

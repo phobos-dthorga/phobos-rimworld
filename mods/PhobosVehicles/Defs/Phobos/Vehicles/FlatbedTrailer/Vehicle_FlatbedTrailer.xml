@@ -3,9 +3,12 @@
   <!--
     The first trailer (D'thorga Vehicles 0.45.0, the hitch's slice 2; docs/development/vehicle-hitch-design.md): one medium flatbed, towed by
     any vehicle with D'thorga Framework's hitch. No engine, no seats, no turret and no shadow, so its picture can swing freely while towed.
-    Its own picture since Vehicles 0.49.0 (the owner's pick, 12 Nov 2026), with the greedy boards as an overlay. The 2,000 kg empty and 3,000 kg of cargo
-    are authored (a medium tandem flatbed of about that size), as are its lengths. Part keys are saved by position: append only, never
-    reorder. Cells run x 0 to 1, z -2 to 2, the front (the drawbar) north. Not yet tested in game.
+    Its own picture since Vehicles 0.49.0 (the owner's pick, 12 Nov 2026), with the greedy boards as an overlay. Since Vehicles 0.54.0 (owner,
+    13 Nov 2026: "needs to be wider") it is as wide as the trucks that tow it, 3 x 7 cells drawn at 4 x 8: the same picture scaled evenly by
+    4/3 (its 1:2 shape kept, and still sharper than the game's own textures), so its towing figures and parts' health scale by the same. The
+    2,800 kg empty and 5,000 kg of cargo are authored, labelled approximate: a real medium tandem flatbed of about this size carries 3.5 to
+    5 tonnes (general). Part keys are saved by position: append only, never reorder. Cells run x -1 to 1, z -3 to 3, the front (the
+    drawbar) north. Not yet tested in game.
   -->
   <Vehicles.VehicleDef ParentName="BaseVehiclePawn">
     <defName>Phobos_FlatbedTrailer</defName>
@@ -15,13 +18,13 @@
       <texPath>Phobos/Vehicles/FlatbedTrailer/FlatbedTrailer</texPath>
       <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
       <shaderType>CutoutComplexPattern</shaderType>
-      <drawSize>(3, 6)</drawSize>
+      <drawSize>(4, 8)</drawSize>
       <color>(180, 174, 143)</color>
       <colorTwo>(222, 119, 14)</colorTwo>
     </graphicData>
     <fillPercent>0.5</fillPercent>
     <buildDef>Phobos_FlatbedTrailer_Blueprint</buildDef>
-    <size>(2, 5)</size>
+    <size>(3, 7)</size>
     <vehicleCategory>Transport</vehicleCategory>
     <techLevel>Industrial</techLevel>
     <vehicleType>Land</vehicleType>
@@ -30,21 +33,21 @@
       <ArmorRating_Sharp>0.3</ArmorRating_Sharp>
       <ArmorRating_Heat>1.0</ArmorRating_Heat>
       <Flammability>0.3</Flammability>
-      <MarketValue>900</MarketValue>
+      <MarketValue>1200</MarketValue>
     </statBases>
     <vehicleStats>
-      <Mass>60</Mass>
+      <Mass>84</Mass>
       <MoveSpeed>11</MoveSpeed>
-      <CargoCapacity>3000</CargoCapacity>
+      <CargoCapacity>5000</CargoCapacity>
       <RepairRate>0.6</RepairRate>
     </vehicleStats>
     <race>
-      <baseBodySize>3</baseBodySize>
+      <baseBodySize>4</baseBodySize>
     </race>
     <properties>
       <diagonalRotation>false</diagonalRotation>
       <worldSpeedMultiplier>1</worldSpeedMultiplier>
-      <visibilityWeight>3</visibilityWeight>
+      <visibilityWeight>4</visibilityWeight>
       <customTerrainCosts DisallowTerrainWithTag="Water" />
       <roles />
     </properties>
@@ -52,12 +55,12 @@
     <li>
       <key>Chassis</key>
       <label>chassis</label>
-      <health>120</health>
+      <health>160</health>
       <depth>External</depth>
       <hitWeight>3</hitWeight>
       <hitbox>
-        <from>(0, -2)</from>
-        <to>(1, 2)</to>
+        <from>(-1, -3)</from>
+        <to>(1, 3)</to>
       </hitbox>
       <categories>
         <li>BodyIntegrity</li>
@@ -66,11 +69,11 @@
     <li>
       <key>Deck</key>
       <label>deck and sides</label>
-      <health>80</health>
+      <health>110</health>
       <depth>External</depth>
       <hitbox>
-        <from>(0, -1)</from>
-        <to>(1, 1)</to>
+        <from>(-1, -2)</from>
+        <to>(1, 2)</to>
       </hitbox>
       <categories>
         <li>CargoCapacity</li>
@@ -79,29 +82,32 @@
     <li>
       <key>Drawbar</key>
       <label>drawbar and coupling</label>
-      <health>40</health>
+      <health>55</health>
       <depth>External</depth>
       <hitbox>
         <cells>
-          <li>(0, 2)</li>
-          <li>(1, 2)</li>
+          <li>(-1, 3)</li>
+          <li>(0, 3)</li>
+          <li>(1, 3)</li>
         </cells>
       </hitbox>
     </li>
     <li>
       <key>Axles</key>
       <label>axles and wheels</label>
-      <health>50</health>
+      <health>65</health>
       <depth>External</depth>
       <tags>
         <li>Wheel</li>
       </tags>
       <hitbox>
         <cells>
+          <li>(-1, -2)</li>
+          <li>(0, -2)</li>
+          <li>(1, -2)</li>
+          <li>(-1, -1)</li>
           <li>(0, -1)</li>
           <li>(1, -1)</li>
-          <li>(0, 0)</li>
-          <li>(1, 0)</li>
         </cells>
       </hitbox>
     </li>
@@ -112,26 +118,28 @@
       <depth>External</depth>
       <hitbox>
         <cells>
-          <li>(0, -2)</li>
-          <li>(1, -2)</li>
+          <li>(-1, -3)</li>
+          <li>(0, -3)</li>
+          <li>(1, -3)</li>
         </cells>
       </hitbox>
     </li>
     </components>
     <modExtensions>
       <li Class="Phobos.VehicleSystems.PhobosVehicleFiguresExtension">
-        <emptyKilograms>2000</emptyKilograms>
+        <emptyKilograms>2800</emptyKilograms>
       </li>
     </modExtensions>
     <comps>
       <li Class="Vehicles.CompProperties_UpgradeTree">
         <def>Phobos_FlatbedTrailer_UpgradeTree</def>
       </li>
-      <!-- How it follows (authored): its axle 3.2 cells behind the hitch (2.7 to the front of the deck, half a cell of drawbar), the middle
-           of its picture 0.2 cells ahead of the axle, turned at most 70 degrees from the vehicle towing it. -->
+      <!-- How it follows (authored): its axle 4.3 cells behind the hitch and the middle of its picture 0.27 cells ahead of the axle (the
+           3.2 and 0.2 of the 2 x 5 trailer, scaled with its picture by 4/3 in Vehicles 0.54.0), turned at most 70 degrees from the vehicle
+           towing it. -->
       <li Class="Phobos.VehicleSystems.CompProperties_PhobosTrailer">
-        <hitchToAxle>3.2</hitchToAxle>
-        <axleToCentre>0.2</axleToCentre>
+        <hitchToAxle>4.3</hitchToAxle>
+        <axleToCentre>0.27</axleToCentre>
         <jackKnifeDegrees>70</jackKnifeDegrees>
         <drawbarPart>Drawbar</drawbarPart>
       </li>
@@ -148,7 +156,7 @@
                   <graphicData>
                     <texPath>Phobos/Vehicles/FlatbedTrailer/FlatbedTrailer_GreedyBoards</texPath>
                     <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
-                    <drawSize>(3, 6)</drawSize>
+                    <drawSize>(4, 8)</drawSize>
                     <shaderType>Cutout</shaderType>
                     <layer>1</layer>
                   </graphicData>
@@ -168,20 +176,20 @@
     <graphicData>
       <texPath>Phobos/Vehicles/FlatbedTrailer/FlatbedTrailer</texPath>
       <graphicClass>Graphic_Multi</graphicClass>
-      <drawSize>(3, 6)</drawSize>
+      <drawSize>(4, 8)</drawSize>
     </graphicData>
     <statBases>
-      <MaxHitPoints>150</MaxHitPoints>
-      <WorkToBuild>6000</WorkToBuild>
+      <MaxHitPoints>200</MaxHitPoints>
+      <WorkToBuild>8000</WorkToBuild>
       <Flammability>0.3</Flammability>
     </statBases>
     <researchPrerequisites>
       <li>PhobosResearch_VehicleParts</li>
     </researchPrerequisites>
-    <size>(2, 5)</size>
+    <size>(3, 7)</size>
     <!-- The shell only: its parts are in Bill_FlatbedTrailer.xml, filled at start-up (docs/development/parts-bills.md). Steel stays first. -->
     <costList>
-      <Steel>180</Steel>
+      <Steel>250</Steel>
       <ComponentIndustrial>2</ComponentIndustrial>
     </costList>
     <designationCategory>PhobosVehicles_MotorPool</designationCategory>

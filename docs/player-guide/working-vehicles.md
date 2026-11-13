@@ -38,7 +38,7 @@ Every name is a real word from engineering or earth science that says something 
 | **Ullage bulk tanker** | 3 x 10 | Carries and pumps fluids, buys them in bulk | The empty space a tank must keep above its load |
 | **Busbar generator set** | 3 x 8 | A power station you can drive away | The bar that carries power into a grid |
 | **Fathom seabed crawler** | 4 x 9 | A small submarine ([its chapter](submarines.md)) | The sailor's six-foot depth unit; to get to the bottom of something |
-| **Pintle flatbed trailer** | 2 x 5 | A second load behind any land vehicle | The hook-and-ring coupling a drawbar trailer hangs from |
+| **Pintle flatbed trailer** | 3 x 7 | A second load behind any land vehicle | The hook-and-ring coupling a drawbar trailer hangs from |
 
 How they work together:
 
@@ -142,7 +142,7 @@ It carries both bits: pick by the job.
 
 ## Pintle flatbed trailer
 
-A two-axle flatbed: 2,000 kg empty, 3,000 kg of cargo, with low sides and a drawbar. Its one upgrade, the greedy boards (+600 kg), shows as
+A two-axle flatbed as wide as the trucks that tow it: 2,800 kg empty, 5,000 kg of cargo, with low sides and a drawbar. Its one upgrade, the greedy boards (+1,000 kg), shows as
 taller side boards.
 
 1. **Build it** from the **motor pool** tab, after **vehicle parts** research.

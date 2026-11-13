@@ -7,10 +7,12 @@ of the general systems D'thorga Framework gives every vehicle.
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.53.0, built 13 November 2026 for House D'thorga. **Not yet tested in game.**
+Version 0.54.0, built 13 November 2026 for House D'thorga. **Not yet tested in game.**
 
 ## Read this first (gotchas)
 
+- **New in 0.54.0 (not yet tested in game): the Pintle flatbed trailer is as wide as the trucks**, 3 x 7 cells (it was 2 x 5),
+  and carries 5,000 kg. **Park every Pintle in open ground before updating**: it grows by a cell on each side and two in length.
 - **Three helicopters take a cargo hook, and so a sling, a fire bucket and the litter kit** (not yet tested in game): the Cherokee
   (11,800 kg), the Louie (1,814 kg) and the Hind (2,400 kg), each from a real helicopter's figure, marked approximate. The Hind flies
   across the map by itself, so it needs D'thorga Framework 0.102.0 or later, and it cannot fly water drop runs. The Mosquito and the
@@ -204,7 +206,9 @@ would one day be the Talus T2, and a refit adds a letter.
 
 ## The Pintle flatbed trailer
 
-**Not yet tested in game.** A two-axle flatbed with low sides and a drawbar: 2,000 kg empty, 3,000 kg of cargo.
+**Not yet tested in game.** A two-axle flatbed with low sides and a drawbar, 3 x 7 cells, as wide as the trucks that tow it (since 0.54.0):
+2,800 kg empty, 5,000 kg of cargo. **Park every Pintle in open ground before updating to 0.54.0**: it grows by a cell on each side and two in
+length.
 
 - **Build it** from the **motor pool** tab, after vehicle parts research.
 - **Load it** through its cargo tab while it stands unhitched.

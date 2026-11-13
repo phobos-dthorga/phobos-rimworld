@@ -173,6 +173,7 @@ result goes into that mod's changelog.
 | 101 | **Heavy controls** (Framework 0.110.0) | **"Vehicle systems: set a quantity"**, hydraulic fluid, to about 0.2 on a Louie or the Harrier | A message that its controls are heavy; flight control halves (Systems tab), it flies slower; topping up the fluid in a service restores it |
 | 102 | **The avionics bay** (Framework 0.110.0) | Load a save with a Hind, Mongoose or thrust pod; open its Health tab | An **avionics bay** part is listed and shown on the damage picture; the vehicle loads with no red error |
 | 103 | **A turbine held too long** (Framework 0.110.0) | Hover the Harrier on its pad for a while (or hold any turbine at take-off power) | After the rating's time a message says it has run too long and its hot section wears faster (the hot-section line climbs faster on the Systems tab) |
+| 104 | **The Pintle at 3 x 7** (Vehicles 0.54.0). **Park every Pintle in open ground before updating** | Load the save and look at a Pintle beside a Talus; hitch it, drive round a corner, unhitch; fit the greedy boards | As wide as the Talus, its picture sharp and in proportion, the boards lined up on the deck in every facing; it swings behind the truck without cutting through it; its cargo tab shows 5,000 kg (6,000 with the boards). **Watch for a trailer stuck in a wall after the load** |
 
 ## Trying Vehicle Framework's development build (planned 10 Nov 2026)
 
