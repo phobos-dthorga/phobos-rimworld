@@ -1,8 +1,8 @@
 {
   "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Tank/SetUp.png",
-  "source": "assets/phobos-vehicles/generated/gizmo-setup/gizmo-setup-12.png",
-  "source_sha256": "b78681adb6a0fb884fae6fa1b5e444d954bb85a80693d4e3587877c13b2dfc55",
-  "target_sha256": "2c62a197288eef4e701ffa58768e172015130704c35a21caed22c2d97f78be09",
+  "source": "assets/phobos-vehicles/generated/gizmo-setup/gizmo-setup-14.png",
+  "source_sha256": "467efdfe116fa1b67923f92609543b8729e1daa9425dbba30dbc29c71ec110f7",
+  "target_sha256": "c9d53b951484d030864dca2b1efadca6d7b86b190d1892c92a78e07505ddd120",
   "size": [
     128,
     128
@@ -11,6 +11,7 @@
   "soft_edge": 30,
   "all_white": false,
   "silhouette": false,
-  "date": "2026-11-10T14:26:06",
+  "ai_mask": "467efdfe116fa1b67923f92609543b8729e1daa9425dbba30dbc29c71ec110f7",
+  "date": "2026-11-13T16:19:33",
   "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
 }

@@ -1,8 +1,8 @@
 {
   "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Tank/Hold.png",
-  "source": "D:/SynologyDrive/phobosdthorga/CloudStation Drive/Google Drive/Gekko-Data/Documents/GitHub/phobosdthorga/phobos-rimworld/assets/phobos-vehicles/generated/gizmo-hold/gizmo-hold-11.png",
-  "source_sha256": "19fecb0d056f2f5c86dc5fdd2c1b5e6e7b9a8152a022b73f61059559572e8615",
-  "target_sha256": "35c85bf9a8a469cb2427f4813698550a0725acd74b96945151ccaa83b753a6c7",
+  "source": "assets/phobos-vehicles/generated/gizmo-hold/gizmo-hold-13.png",
+  "source_sha256": "bec841a9ba9acce58bf5f82da53040b7b8f32f8ea433391395be3031fc51c091",
+  "target_sha256": "4da514b71d7c84a4f844626706134fe6d9e40a8b74c53ba1bf0f9b3bb9e83a02",
   "size": [
     128,
     128
@@ -11,7 +11,7 @@
   "soft_edge": 30,
   "all_white": false,
   "silhouette": false,
-  "ai_mask": "19fecb0d056f2f5c86dc5fdd2c1b5e6e7b9a8152a022b73f61059559572e8615",
-  "date": "2026-11-13T00:07:47",
+  "ai_mask": "bec841a9ba9acce58bf5f82da53040b7b8f32f8ea433391395be3031fc51c091",
+  "date": "2026-11-13T16:19:28",
   "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
 }

@@ -5,6 +5,18 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.110.1] - 2026-11-13 - Draft
+
+New pictures for six of the tanker's buttons, the owner's picks
+
+### Changed
+
+- **Six tanker buttons have new pictures**, picked by the owner on 13 November 2026 from a fresh set drawn on the local image model: Load, Hold, Compartment, Two compartments, Three compartments and Set up. Unload, Contents, Pack up and Bulk order keep theirs. The new pictures were cleaned of leftover white by the background AI before export. The player guide's picture of the working trucks' buttons is redrawn to match. Not yet tested in game.
+
+### Save compatibility
+
+- Pictures only: safe with any save.
+
 ## [0.110.0] - 2026-11-13 - Draft
 
 Avionics for aircraft: flight instruments, navigation, hydraulic flight controls and turbine time limits
