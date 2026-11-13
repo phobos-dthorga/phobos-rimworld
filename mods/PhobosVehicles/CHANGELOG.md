@@ -5,6 +5,16 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.53.0] - 2026-11-13 - Draft
+
+Avionics fits for every aircraft
+
+### Added
+
+- **Avionics fits** (needs D'thorga Framework 0.110.0): the Harrier carries full navigation, an autopilot, radar, a full sight, a night sight, a warning receiver, countermeasures and oxygen; the Hind full navigation, an autopilot, a full sight, a warning receiver and countermeasures; the Mongoose full navigation, a full sight, a night sight and a warning receiver; the Cherokee full navigation and an autopilot; the Warbird a gunsight; every other aircraft flight instruments and basic navigation. Not yet tested in game.
+- **Hydraulic flight controls** on the Mosquito, Louie, Cherokee, Smuggler and Warbird (their servos) and the Harrier (D'thorga Patches' hydraulics part). Not yet tested in game.
+- The Smuggler and the Warbird have loadouts of their own; both still have a turbofan for now, as before.
+
 ## [0.52.0] - 2026-11-13 - Draft
 
 The tanker's new ports, and steam engines are never stalled by EMP

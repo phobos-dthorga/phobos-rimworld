@@ -8,7 +8,7 @@
     <AssemblyName>PhobosFramework.Vehicles.Pipes</AssemblyName>
     <ModFolder>PhobosFramework</ModFolder>
     <TieInFolder>Mods/VehiclesPipes/</TieInFolder>
-    <Version>0.109.0</Version>
+    <Version>0.110.0</Version>
     <ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>true</ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>
   </PropertyGroup>
   <ItemGroup>

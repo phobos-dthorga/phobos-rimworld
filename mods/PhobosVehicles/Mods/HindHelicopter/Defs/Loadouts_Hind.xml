@@ -27,6 +27,15 @@
       </set>
     </drivetrain>
     <flightProfile>PhobosFlightProfile_Helicopter</flightProfile>
+    <!-- Avionics (Framework 0.110.0): the Mi-24's fit as the record gives it (agent defaults; secondary sources): full navigation, an
+         autopilot, a full sight, a warning receiver and countermeasures. Its instruments go in an appended avionics bay (owner, 13 Nov 2026). -->
+    <avionics>
+      <navigation>Full</navigation>
+      <autopilot>true</autopilot>
+      <sight>Full</sight>
+      <warning>true</warning>
+      <countermeasures>true</countermeasures>
+    </avionics>
     <!-- Sling loads (owner, 12 Nov 2026: the Hind and the Louie join the Cherokee): the Mi-24's external sling load, 2,400 kg. Approximate,
          from secondary sources (warriorlodge.com, "Russian Mil Mi-24"; militarymachine.com, "Mil Mi-24"), which give the airframe's
          figure; the hook's own rating was not found, and the usable load is the lower of the two. The Hind is a VTOL Vehicle aircraft,

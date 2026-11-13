@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    Avionics (Framework 0.110.0; docs/development/vehicle-avionics.md, the fit, A1 and A2). What an aircraft carries is its loadout's avionics
+    fit, which sets this system's parameters (takesAvionicsFit); the fit also sets what the avionics loads draw. Each capability reads as working
+    when its part (the avionics role: the aircraft's own instrument panel, our Harrier avionics part, or an appended avionics bay) is healthy
+    and the battery has charge; a full navigation set also needs the battery not to be shedding loads, as it is not kept on the battery.
+
+    The real basis (sources in the record): flying without sight of the ground needs attitude and heading instruments (14 CFR 91.205, the FAA's
+    Pilot's Handbook chapter 8), and a pilot without them in cloud or darkness loses control. Every figure here is authored: the stage
+    thresholds, and navigation's 0.85 on speed and 1.15 on fuel for a wandering track. Only attitude and navigation have effects in this batch;
+    the other capabilities of the fit draw their power and wait for their rules (autopilot, sights, radar, oxygen: later batches).
+    Not yet tested in game.
+  -->
+  <Phobos.VehicleSystems.PhobosVehicleSystemDef>
+    <defName>PhobosVehicleSystem_Avionics</defName>
+    <label>avionics</label>
+    <description>The instruments and navigation set. Without working instruments the aircraft may not take off at night or in fog; without navigation it wanders off track and flies further for the same trip.</description>
+    <takesAvionicsFit>true</takesAvionicsFit>
+    <roles>
+      <li>Avionics</li>
+    </roles>
+    <parameters>
+      <!-- Set from the loadout's avionics fit: 1 carried, 0 not. -->
+      <attitude>1</attitude>
+      <navigation>1</navigation>
+      <navigationFull>0</navigationFull>
+    </parameters>
+    <quantities>
+      <li>
+        <name>attitude</name>
+        <description>The attitude, heading and airspeed instruments: what lets a crew fly without seeing the ground.</description>
+        <label>flight instruments</label>
+        <unit>Fraction</unit>
+        <min>0</min>
+        <max>1</max>
+        <derivedFrom>
+          <li Class="Phobos.VehicleSystems.Input_Parameter">
+            <parameter>attitude</parameter>
+          </li>
+          <li Class="Phobos.VehicleSystems.Input_PartEfficiency">
+            <role>Avionics</role>
+          </li>
+          <li Class="Phobos.VehicleSystems.Input_Quantity">
+            <quantity>charge</quantity>
+            <fallback Class="Phobos.VehicleSystems.Input_Constant">
+              <value>1</value>
+            </fallback>
+            <curve>
+              <points>
+                <li>(0, 0)</li>
+                <li>(0.05, 1)</li>
+                <li>(1, 1)</li>
+              </points>
+            </curve>
+          </li>
+        </derivedFrom>
+        <stages>
+          <li>
+            <to>0.2</to>
+            <label>out</label>
+            <notable>true</notable>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_RefuseLaunch">
+                <reason>PhobosVehicleSystems_RefuseLaunchBlind</reason>
+                <warnOnlySetting>blindFlightWarnOnly</warnOnlySetting>
+                <warning>PhobosVehicleSystems_MsgFlyingBlind</warning>
+                <when Class="Phobos.VehicleSystems.When_PoorVisibility" />
+              </li>
+            </effects>
+          </li>
+          <li>
+            <from>0.2</from>
+            <to>0.6</to>
+            <label>unreliable</label>
+            <notable>true</notable>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_RefuseLaunch">
+                <reason>PhobosVehicleSystems_RefuseLaunchBlind</reason>
+                <warnOnlySetting>blindFlightWarnOnly</warnOnlySetting>
+                <warning>PhobosVehicleSystems_MsgFlyingBlind</warning>
+                <when Class="Phobos.VehicleSystems.When_PoorVisibility" />
+              </li>
+            </effects>
+          </li>
+          <li>
+            <from>0.6</from>
+            <label>working</label>
+          </li>
+        </stages>
+      </li>
+      <li>
+        <name>navigation</name>
+        <description>Compass and radio aids, enough to hold a course. Without them a flight wanders and burns more fuel.</description>
+        <label>navigation</label>
+        <unit>Fraction</unit>
+        <min>0</min>
+        <max>1</max>
+        <derivedFrom>
+          <li Class="Phobos.VehicleSystems.Input_Parameter">
+            <parameter>navigation</parameter>
+          </li>
+          <li Class="Phobos.VehicleSystems.Input_PartEfficiency">
+            <role>Avionics</role>
+          </li>
+          <li Class="Phobos.VehicleSystems.Input_Quantity">
+            <quantity>charge</quantity>
+            <fallback Class="Phobos.VehicleSystems.Input_Constant">
+              <value>1</value>
+            </fallback>
+            <curve>
+              <points>
+                <li>(0, 0)</li>
+                <li>(0.05, 1)</li>
+                <li>(1, 1)</li>
+              </points>
+            </curve>
+          </li>
+        </derivedFrom>
+        <stages>
+          <li>
+            <to>0.6</to>
+            <label>lost</label>
+            <notable>true</notable>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_StatFactor">
+                <stat>FlightSpeed</stat>
+                <factor>0.85</factor>
+              </li>
+              <li Class="Phobos.VehicleSystems.Effect_FlightFuel">
+                <factor>1.15</factor>
+              </li>
+            </effects>
+          </li>
+          <li>
+            <from>0.6</from>
+            <label>working</label>
+            <effects>
+              <!-- Basic navigation alone, at night or in fog: the track still wanders. A working full set flies straight in anything. -->
+              <li Class="Phobos.VehicleSystems.Effect_StatFactor">
+                <stat>FlightSpeed</stat>
+                <factor>0.85</factor>
+                <when Class="Phobos.VehicleSystems.When_All">
+                  <conditions>
+                    <li Class="Phobos.VehicleSystems.When_PoorVisibility" />
+                    <li Class="Phobos.VehicleSystems.When_QuantityBelow">
+                      <quantity>navigationFull</quantity>
+                      <value>0.6</value>
+                    </li>
+                  </conditions>
+                </when>
+              </li>
+              <li Class="Phobos.VehicleSystems.Effect_FlightFuel">
+                <factor>1.15</factor>
+                <when Class="Phobos.VehicleSystems.When_All">
+                  <conditions>
+                    <li Class="Phobos.VehicleSystems.When_PoorVisibility" />
+                    <li Class="Phobos.VehicleSystems.When_QuantityBelow">
+                      <quantity>navigationFull</quantity>
+                      <value>0.6</value>
+                    </li>
+                  </conditions>
+                </when>
+              </li>
+            </effects>
+          </li>
+        </stages>
+      </li>
+      <li>
+        <name>navigationFull</name>
+        <description>An inertial or Doppler navigation set and moving map, which holds a course at night and in fog. Not kept on the battery.</description>
+        <label>full navigation</label>
+        <unit>Fraction</unit>
+        <min>0</min>
+        <max>1</max>
+        <hidden>true</hidden>
+        <derivedFrom>
+          <li Class="Phobos.VehicleSystems.Input_Parameter">
+            <parameter>navigationFull</parameter>
+          </li>
+          <li Class="Phobos.VehicleSystems.Input_PartEfficiency">
+            <role>Avionics</role>
+          </li>
+          <li Class="Phobos.VehicleSystems.Input_Quantity">
+            <quantity>charge</quantity>
+            <fallback Class="Phobos.VehicleSystems.Input_Constant">
+              <value>1</value>
+            </fallback>
+            <curve>
+              <points>
+                <li>(0, 0)</li>
+                <li>(0.05, 1)</li>
+                <li>(1, 1)</li>
+              </points>
+            </curve>
+          </li>
+          <li Class="Phobos.VehicleSystems.Input_LoadShedding">
+            <curve>
+              <points>
+                <li>(0, 1)</li>
+                <li>(1, 0)</li>
+              </points>
+            </curve>
+          </li>
+        </derivedFrom>
+      </li>
+    </quantities>
+  </Phobos.VehicleSystems.PhobosVehicleSystemDef>
+
+  <!--
+    Flight hydraulics (Framework 0.110.0, avionics A7). Boosted flight controls work through hydraulics: a helicopter whose hydraulics fail has
+    heavy, stiff controls (Robinson R66 handbook, section 3; the FAA's Helicopter Flying Handbook, chapter 11), and the CH-47's flight controls
+    work through two hydraulic systems (CH-47 technical manual). The fluid, the pump and the leaking lines are the hydraulics system's own
+    (PhobosVehicleSystem_Hydraulics); this system reads them and, when pressure is low, halves the flight-control stat, which the flight
+    controls system turns into slower flight or, if the controls are also damaged, a refused take-off. Pressure is read from the pump and the
+    fluid, not the engine, so a parked aircraft does not show heavy controls. Figures authored. Not yet tested in game.
+  -->
+  <Phobos.VehicleSystems.PhobosVehicleSystemDef>
+    <defName>PhobosVehicleSystem_FlightHydraulics</defName>
+    <label>flight hydraulics</label>
+    <description>The hydraulic boost on the flight controls. With the fluid low or the pump shot through, the controls are heavy and the aircraft handles badly.</description>
+    <roles>
+      <li>HydraulicPump</li>
+    </roles>
+    <quantities>
+      <li>
+        <name>flightHydraulics</name>
+        <description>How much boost the flight controls have: the pump and the fluid together.</description>
+        <label>control boost</label>
+        <unit>Fraction</unit>
+        <min>0</min>
+        <max>1</max>
+        <derivedFrom>
+          <li Class="Phobos.VehicleSystems.Input_PartEfficiency">
+            <role>HydraulicPump</role>
+          </li>
+          <li Class="Phobos.VehicleSystems.Input_Quantity">
+            <quantity>hydraulicFluid</quantity>
+            <fallback Class="Phobos.VehicleSystems.Input_Constant">
+              <value>1</value>
+            </fallback>
+            <curve>
+              <points>
+                <li>(0, 0)</li>
+                <li>(0.4, 0.5)</li>
+                <li>(0.7, 1)</li>
+                <li>(1, 1)</li>
+              </points>
+            </curve>
+          </li>
+        </derivedFrom>
+        <stages>
+          <li>
+            <to>0.4</to>
+            <label>controls heavy</label>
+            <notable>true</notable>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_StatFactor">
+                <stat>FlightControl</stat>
+                <factor>0.5</factor>
+              </li>
+              <li Class="Phobos.VehicleSystems.Effect_Message">
+                <message>PhobosVehicleSystems_MsgControlsHeavy</message>
+                <type>CautionInput</type>
+              </li>
+            </effects>
+          </li>
+          <li>
+            <from>0.4</from>
+            <label>boosted</label>
+          </li>
+        </stages>
+      </li>
+    </quantities>
+  </Phobos.VehicleSystems.PhobosVehicleSystemDef>
+</Defs>

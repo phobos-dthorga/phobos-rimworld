@@ -26,6 +26,7 @@
       <li><def>PhobosVehicleSystem_Service</def></li>
       <li><def>PhobosVehicleSystem_Cabin</def></li>
       <li><def>PhobosVehicleSystem_FlightControls</def></li>
+      <li><def>PhobosVehicleSystem_Avionics</def></li>
     </systems>
     <drivetrain>
       <def>PhobosDrivetrain_Thrusters</def>
@@ -81,6 +82,8 @@
     </selector>
     <systems>
       <li><def>PhobosVehicleSystem_RotorDrive</def></li>
+      <li><def>PhobosVehicleSystem_Hydraulics</def></li>
+      <li><def>PhobosVehicleSystem_FlightHydraulics</def></li>
     </systems>
     <drivetrain>
       <def>PhobosDrivetrain_AeroTurboshaft</def>
@@ -97,6 +100,29 @@
       <ratedKilograms>1814</ratedKilograms>
     </sling>
     <partRoles>
+      <li>
+        <!-- Framework 0.110.0, avionics A7: the flight controls' hydraulic boost, on the aircraft's own servos. -->
+        <role>HydraulicPump</role>
+        <all>true</all>
+        <find>
+          <li>
+            <keyContainsAny>
+              <li>Servos</li>
+            </keyContainsAny>
+          </li>
+        </find>
+      </li>
+      <li>
+        <role>HydraulicLines</role>
+        <all>true</all>
+        <find>
+          <li>
+            <keyContainsAny>
+              <li>Servos</li>
+            </keyContainsAny>
+          </li>
+        </find>
+      </li>
       <li>
         <role>RotorDrive</role>
         <all>true</all>

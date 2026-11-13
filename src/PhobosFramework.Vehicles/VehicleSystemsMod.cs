@@ -82,6 +82,9 @@ public class VehicleSystemsSettings : ModSettings
     public bool realisticFeedWater;
     /// <summary>A fuel-burning night heater keeps a closed cab warm while a caravan camps (owner, 8 Nov 2026: a setting, off). Live.</summary>
     public bool nightHeater;
+    /// <summary>Blind flying (Framework 0.110.0, avionics A1): an aircraft without working instruments takes off at night or in fog with a
+    /// warning instead of being refused (owner, 13 Nov 2026: refuse by default, a setting to warn only).</summary>
+    public bool blindFlightWarnOnly;
     /// <summary>An engine's service falls due as soon as its oil is low, so a worn engine burning oil calls a mechanic early (owner, 10 Nov
     /// 2026: oil use is a reason to service, with a setting to make it only a cost: on). Live.</summary>
     public bool lowOilCallsService = true;
@@ -131,6 +134,7 @@ public class VehicleSystemsSettings : ModSettings
         "boilerExplosions" => boilerExplosions,
         "realisticFeedWater" => realisticFeedWater,
         "nightHeater" => nightHeater,
+        "blindFlightWarnOnly" => blindFlightWarnOnly,
         "lowOilCallsService" => lowOilCallsService,
         "accessoriesLoadEngine" => accessoriesLoadEngine,
         "roughGroundWear" => roughGroundWear,
@@ -178,6 +182,7 @@ public class VehicleSystemsSettings : ModSettings
         Scribe_Values.Look(ref boilerExplosions, "PhobosVehicleSystems_BoilerExplosions", false);
         Scribe_Values.Look(ref realisticFeedWater, "PhobosVehicleSystems_RealisticFeedWater", false);
         Scribe_Values.Look(ref nightHeater, "PhobosVehicleSystems_NightHeater", false);
+        Scribe_Values.Look(ref blindFlightWarnOnly, "PhobosVehicleSystems_BlindFlightWarnOnly", false);
         Scribe_Values.Look(ref lowOilCallsService, "PhobosVehicleSystems_LowOilCallsService", true);
         Scribe_Values.Look(ref accessoriesLoadEngine, "PhobosVehicleSystems_AccessoriesLoadEngine", true);
         Scribe_Values.Look(ref roughGroundWear, "PhobosVehicleSystems_RoughGroundWear", true);
@@ -345,6 +350,7 @@ public class VehicleSystemsMod : Mod
                 s.hoverLimit = limit;
             }
         }
+        listing.CheckboxLabeled("PhobosVehicleSystems_SettingBlindFlightWarnOnly".Translate(), ref s.blindFlightWarnOnly, "PhobosVehicleSystems_SettingBlindFlightWarnOnlyDesc".Translate());
 
         SettingsUi.Section(listing, "PhobosVehicleSystems_SectionSteam".Translate());
         listing.CheckboxLabeled("PhobosVehicleSystems_SettingRealisticFeedWater".Translate(), ref s.realisticFeedWater, "PhobosVehicleSystems_SettingRealisticFeedWaterDesc".Translate());

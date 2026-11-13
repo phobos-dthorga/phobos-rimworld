@@ -325,6 +325,18 @@ Cost with several on a map: nothing each tick for any of them.
 Second batch: A4 and A3 (landings and the autopilot), A14 and A15 with L3 (oxygen and the cold cockpit), then A10 and A11 (aiming)
 one framework at a time. Later: A16. Not until read: A17.
 
+## Built (13 Nov 2026, the owner's step 4)
+
+**Framework 0.110.0 and Vehicles 0.53.0, not yet tested in game:** the fit (an `avionics` block on the loadout, `AvionicsRule`, every
+aircraft's fit as in the table above, loads drawing what the fit carries, the appended avionics bay), `PhobosVehicleSystem_Avionics`
+with A1 (blind take-offs refused, a warn-only setting) and A2 (navigation, with one fuel factor folded into the sling's patch; speed
+through the `FlightSpeed` stat), A7 (`PhobosVehicleSystem_FlightHydraulics` on the servo aircraft and the Harrier) and L1 (rating time
+limits, hot-section life twice as fast past them). **Narrowed:** only attitude and navigation have readings yet; the other seven
+capabilities draw their power and wait for their rules. The Hind, Mongoose and thrust pods have no hydraulics yet (no part to bind).
+**Set aside: L5.** It is not XML as recorded: our aircraft model samples every aircraft engine as a turbine, so a piston aircraft
+needs its own engine sampling (power and rpm by flight phase, for cooling and oil) before its loadout can mean anything. The Smuggler
+and Warbird got loadouts of their own for their avionics and hydraulics, and keep the turbofan until then.
+
 ## Questions for the owner
 
 **Answered by the owner, 13 Nov 2026:** (1) blind flying **refuses the launch, with a warn-only setting**; (2) aircraft with no

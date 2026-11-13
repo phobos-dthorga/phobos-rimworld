@@ -25,6 +25,7 @@
       <li><def>PhobosVehicleSystem_Service</def></li>
       <li><def>PhobosVehicleSystem_Cabin</def></li>
       <li><def>PhobosVehicleSystem_FlightControls</def></li>
+      <li><def>PhobosVehicleSystem_Avionics</def></li>
     </systems>
     <drivetrain>
       <def>PhobosDrivetrain_Thrusters</def>
@@ -75,6 +76,7 @@
       <li><def>PhobosVehicleSystem_Service</def></li>
       <li><def>PhobosVehicleSystem_Cabin</def></li>
       <li><def>PhobosVehicleSystem_FlightControls</def></li>
+      <li><def>PhobosVehicleSystem_Avionics</def></li>
     </systems>
     <drivetrain>
       <def>PhobosDrivetrain_Thrusters</def>
@@ -130,6 +132,8 @@
     </selector>
     <systems>
       <li><def>PhobosVehicleSystem_RotorDrive</def></li>
+      <li><def>PhobosVehicleSystem_Hydraulics</def></li>
+      <li><def>PhobosVehicleSystem_FlightHydraulics</def></li>
     </systems>
     <drivetrain>
       <def>PhobosDrivetrain_AeroTurboshaft</def>
@@ -140,6 +144,29 @@
     <flightProfile>PhobosFlightProfile_StockRotorcraft</flightProfile>
     <partRoles>
       <li>
+        <!-- Framework 0.110.0, avionics A7: the flight controls' hydraulic boost, on the aircraft's own servos. -->
+        <role>HydraulicPump</role>
+        <all>true</all>
+        <find>
+          <li>
+            <keyContainsAny>
+              <li>Servos</li>
+            </keyContainsAny>
+          </li>
+        </find>
+      </li>
+      <li>
+        <role>HydraulicLines</role>
+        <all>true</all>
+        <find>
+          <li>
+            <keyContainsAny>
+              <li>Servos</li>
+            </keyContainsAny>
+          </li>
+        </find>
+      </li>
+      <li>
         <role>RotorDrive</role>
         <all>true</all>
         <find>
@@ -147,6 +174,83 @@
             <keyContainsAny>
               <li>RotorMast</li>
             </keyContainsAny>
+          </li>
+        </find>
+      </li>
+    </partRoles>
+  </Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
+
+  <!--
+    The Smuggler and the Warbird (Framework 0.110.0): until now both ran the generic aircraft loadout. They get loadouts of their own for their
+    avionics and flight hydraulics (on their Servos part). Both still have the generic loadout's turbofan: a piston engine for an aircraft needs
+    its own engine model, set aside (docs/development/vehicle-avionics.md, L5). Not yet tested in game.
+  -->
+  <Phobos.VehicleSystems.PhobosVehicleLoadoutDef ParentName="PhobosVehicleLoadoutAircraft">
+    <defName>PhobosVehicleLoadout_VVE_Smuggler</defName>
+    <label>light cargo plane</label>
+    <priority>Vehicle</priority>
+    <selector>
+      <vehicleDefs>
+        <li>VVE_Smuggler</li>
+      </vehicleDefs>
+    </selector>
+    <systems>
+      <li><def>PhobosVehicleSystem_Hydraulics</def></li>
+      <li><def>PhobosVehicleSystem_FlightHydraulics</def></li>
+    </systems>
+    <partRoles>
+      <li>
+        <!-- Avionics A7: the flight controls' hydraulic boost, on the aircraft's own servos. -->
+        <role>HydraulicPump</role>
+        <find>
+          <li>
+            <key>Servos</key>
+          </li>
+        </find>
+      </li>
+      <li>
+        <role>HydraulicLines</role>
+        <find>
+          <li>
+            <key>Servos</key>
+          </li>
+        </find>
+      </li>
+    </partRoles>
+  </Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleLoadoutDef ParentName="PhobosVehicleLoadoutAircraft">
+    <defName>PhobosVehicleLoadout_VVE_Warbird</defName>
+    <label>fighter</label>
+    <priority>Vehicle</priority>
+    <selector>
+      <vehicleDefs>
+        <li>VVE_Warbird</li>
+      </vehicleDefs>
+    </selector>
+    <systems>
+      <li><def>PhobosVehicleSystem_Hydraulics</def></li>
+      <li><def>PhobosVehicleSystem_FlightHydraulics</def></li>
+    </systems>
+    <!-- A fighter in the P-51's mould carries a gunsight (agent default). -->
+    <avionics>
+      <sight>Basic</sight>
+    </avionics>
+    <partRoles>
+      <li>
+        <!-- Avionics A7: the flight controls' hydraulic boost, on the aircraft's own servos. -->
+        <role>HydraulicPump</role>
+        <find>
+          <li>
+            <key>Servos</key>
+          </li>
+        </find>
+      </li>
+      <li>
+        <role>HydraulicLines</role>
+        <find>
+          <li>
+            <key>Servos</key>
           </li>
         </find>
       </li>

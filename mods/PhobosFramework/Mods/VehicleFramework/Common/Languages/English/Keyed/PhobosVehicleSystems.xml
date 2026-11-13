@@ -53,6 +53,8 @@
   <PhobosVehicleSystems_HoverAllowWithDamage>Allow it, at a cost to the engine</PhobosVehicleSystems_HoverAllowWithDamage>
   <PhobosVehicleSystems_HoverAllowWithDamageDesc>The landing or lift-off goes ahead with the engines run past their limits: they wear and you are told.</PhobosVehicleSystems_HoverAllowWithDamageDesc>
   <PhobosVehicleSystems_HoverWarnOnly>Allow it, with a warning only</PhobosVehicleSystems_HoverWarnOnly>
+  <PhobosVehicleSystems_SettingBlindFlightWarnOnly>Blind take-offs: warn only</PhobosVehicleSystems_SettingBlindFlightWarnOnly>
+  <PhobosVehicleSystems_SettingBlindFlightWarnOnlyDesc>Off by default: an aircraft whose flight instruments are broken or have no power will not take off at night or in fog. On: it takes off anyway, and a message says it is flying blind.</PhobosVehicleSystems_SettingBlindFlightWarnOnlyDesc>
   <PhobosVehicleSystems_HoverWarnOnlyDesc>The landing or lift-off goes ahead as the aircraft's own mod allows, and a message says it was beyond the engines.</PhobosVehicleSystems_HoverWarnOnlyDesc>
   <PhobosVehicleSystems_SectionSteam>Steam locomotives</PhobosVehicleSystems_SectionSteam>
   <PhobosVehicleSystems_SettingRealisticFeedWater>Realistic feed water</PhobosVehicleSystems_SettingRealisticFeedWater>
@@ -99,6 +101,8 @@
   <PhobosVehicleSystems_MsgLoadsShed>The {VEHICLE}'s charging can no longer keep the battery up, so the {LOADS} are switched off to save it. They come back by themselves when the charging recovers.</PhobosVehicleSystems_MsgLoadsShed>
   <PhobosVehicleSystems_MsgLoadsRestored>The {VEHICLE}'s charging has recovered: everything switched on runs again.</PhobosVehicleSystems_MsgLoadsRestored>
   <PhobosVehicleSystems_MsgEngineOut>The {VEHICLE} has lost an engine and flies slower on the ones left.</PhobosVehicleSystems_MsgEngineOut>
+  <PhobosVehicleSystems_MsgFlyingBlind>The {VEHICLE} is taking off blind: its flight instruments are broken or without power, in the dark or fog.</PhobosVehicleSystems_MsgFlyingBlind>
+  <PhobosVehicleSystems_RefuseLaunchBlind>The {VEHICLE}'s flight instruments are broken or without power, and it is too dark or foggy to fly by sight. Repair its instruments or charge its battery, or wait for daylight and clear weather.</PhobosVehicleSystems_RefuseLaunchBlind>
   <PhobosVehicleSystems_RefuseLaunchControls>The {VEHICLE}'s flight controls are too damaged to fly. Repair the parts that move them (control surfaces, actuators, hydraulics, wiring or avionics) first.</PhobosVehicleSystems_RefuseLaunchControls>
   <PhobosVehicleSystems_InspectServiceWater>Waiting for water for {SERVICE}: {REASON}</PhobosVehicleSystems_InspectServiceWater>
   <PhobosVehicleSystems_InspectWheelsSpinning>Wheels spinning.</PhobosVehicleSystems_InspectWheelsSpinning>
@@ -162,6 +166,8 @@
   <PhobosVehicleSystems_MsgBrakesWorn>The {VEHICLE}'s brakes are worn; its driver is taking it gently.</PhobosVehicleSystems_MsgBrakesWorn>
   <PhobosVehicleSystems_MsgTransmissionHot>The {VEHICLE}'s gearbox is overheating and wearing as it drives.</PhobosVehicleSystems_MsgTransmissionHot>
   <PhobosVehicleSystems_MsgHydraulicsLow>The {VEHICLE} is low on hydraulic fluid.</PhobosVehicleSystems_MsgHydraulicsLow>
+  <PhobosVehicleSystems_MsgControlsHeavy>The {VEHICLE}'s controls are heavy: its hydraulics have lost pressure. Top up the fluid or repair the pump.</PhobosVehicleSystems_MsgControlsHeavy>
+  <PhobosVehicleSystems_MsgRatingOverLimit>The {VEHICLE} has run at {RATING} for longer than its {MINUTES} minutes: its engine's hottest parts are wearing much faster. Ease off.</PhobosVehicleSystems_MsgRatingOverLimit>
   <PhobosVehicleSystems_MsgTurbineHot>The {VEHICLE}'s turbine is running past its continuous limit; its hot section is wearing fast.</PhobosVehicleSystems_MsgTurbineHot>
   <PhobosVehicleSystems_MsgTurbineOverTop>The {VEHICLE}'s turbine is past every limit and taking damage. Ease off or land.</PhobosVehicleSystems_MsgTurbineOverTop>
   <PhobosVehicleSystems_MsgHotSectionWorn>The {VEHICLE}'s turbine hot section is worn out and may fail. A mechanic should overhaul it.</PhobosVehicleSystems_MsgHotSectionWorn>

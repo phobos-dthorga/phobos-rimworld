@@ -31,6 +31,10 @@ public abstract class VehicleSystemEffect
     public virtual string? MoveRefusal(SystemContext context) => null;
     /// <summary>Why an aircraft may not take off while the stage lasts (Framework 0.106.0), or null.</summary>
     public virtual string? LaunchRefusal(SystemContext context) => null;
+    /// <summary>What to tell the player as the aircraft takes off while the stage lasts, where a refusal was set to warn only (Framework 0.110.0).</summary>
+    public virtual string? LaunchWarning(SystemContext context) => null;
+    /// <summary>A factor on the fuel an aircraft burns on the world map while the stage lasts (Framework 0.110.0, avionics A2; 1 for no change).</summary>
+    public virtual float FlightFuelFactor => 1f;
     public virtual float StatFactor(VehicleStatDef stat) => 1f;
     /// <summary>A factor on how fast an electric vehicle charges from the grid while the stage lasts (1 for no change).</summary>
     public virtual float ChargeFactor => 1f;
@@ -86,7 +90,26 @@ public class Effect_RefuseMove : VehicleSystemEffect
 public class Effect_RefuseLaunch : VehicleSystemEffect
 {
     public string reason = "";
-    public override string? LaunchRefusal(SystemContext context) => reason.Translate(context.Vehicle.LabelShort.Named("VEHICLE")).Resolve();
+    /// <summary>A player's setting that turns the refusal into a warning at take-off (Framework 0.110.0: blindFlightWarnOnly).</summary>
+    public string? warnOnlySetting;
+    /// <summary>What the player is told at take-off when warned only; the reason when empty.</summary>
+    public string? warning;
+
+    bool WarnOnly => warnOnlySetting != null && VehicleSystemsMod.Settings.FlagOn(warnOnlySetting);
+
+    public override string? LaunchRefusal(SystemContext context) => WarnOnly ? null : Reason(context);
+
+    public override string? LaunchWarning(SystemContext context) =>
+        !WarnOnly ? null : warning.NullOrEmpty() ? Reason(context) : warning!.Translate(context.Vehicle.LabelShort.Named("VEHICLE")).Resolve();
+
+    string Reason(SystemContext context) => reason.Translate(context.Vehicle.LabelShort.Named("VEHICLE")).Resolve();
+}
+
+/// <summary>Multiplies the fuel an aircraft burns on the world map while the stage lasts (Framework 0.110.0, avionics A2: a wandering track).</summary>
+public class Effect_FlightFuel : VehicleSystemEffect
+{
+    public float factor = 1f;
+    public override float FlightFuelFactor => factor;
 }
 
 /// <summary>Multiplies one of Vehicle Framework's stats (move speed, cargo) while the stage lasts.</summary>

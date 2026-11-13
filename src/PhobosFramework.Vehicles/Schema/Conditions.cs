@@ -83,6 +83,22 @@ public class When_Night : VehicleSystemCondition
     }
 }
 
+/// <summary>
+/// Poor visibility for flying (Framework 0.110.0, avionics A1 and A2): night by the clock where the vehicle is, or, on a map, weather whose
+/// accuracy multiplier is below the rules' figure (fog and heavy rain in the base game), read from what the weather does, never its name.
+/// Off a map there is no weather, so only night counts there (a limit).
+/// </summary>
+public class When_PoorVisibility : VehicleSystemCondition
+{
+    protected override bool HoldsRaw(SystemContext context) => Poor(context.Vehicle);
+
+    public static bool Poor(VehiclePawn vehicle)
+    {
+        if (When_Night.IsNight(vehicle)) return true;
+        return vehicle.Spawned && vehicle.Map.weatherManager.CurWeatherAccuracyMultiplier < PhobosVehicleRulesDef.Current<PhobosVehicleRulesDef>().poorVisibilityAccuracy;
+    }
+}
+
 /// <summary>While the vehicle is set up to work.</summary>
 public class When_SetUp : VehicleSystemCondition
 {

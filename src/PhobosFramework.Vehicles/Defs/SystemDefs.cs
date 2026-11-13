@@ -290,6 +290,8 @@ public class PhobosVehicleSystemDef : Def
     public JumpStartSpec? jumpStart;
     /// <summary>The part roles the system reads; the schema check warns when a loadout binds none of them.</summary>
     public List<string> roles = new();
+    /// <summary>The system's parameters come from the loadout's avionics fit (Framework 0.110.0; the avionics system).</summary>
+    public bool takesAvionicsFit;
 
     [Unsaved] VehicleSystemWorker? worker;
 
@@ -444,6 +446,40 @@ public class ElectricalLoadSpec
     /// avionics, ignition). The player's switch is left as it was, so a shed load comes back by itself when the charging recovers.
     /// </summary>
     public int shedOrder;
+    /// <summary>The load's amps come from the loadout's avionics fit (Framework 0.110.0): what its essential capabilities draw, or what the
+    /// rest draw. None: the amps written here.</summary>
+    public AvionicsAmps ampsFromAvionics = AvionicsAmps.None;
+}
+
+public enum AvionicsAmps
+{
+    None,
+    Essential,
+    Other,
+}
+
+/// <summary>
+/// What an aircraft's avionics carry (Framework 0.110.0; docs/development/vehicle-avionics.md, the fit and the override contract's avionics
+/// block). Written once on the aircraft loadout; a child loadout names only what differs. Every aircraft carries attitude instruments and
+/// basic navigation unless its loadout says otherwise.
+/// </summary>
+public class AvionicsFit
+{
+    public bool attitude = true;
+    public AvionicsLevel navigation = AvionicsLevel.Basic;
+    public bool autopilot;
+    public bool radar;
+    public AvionicsLevel sight = AvionicsLevel.None;
+    public bool nightSight;
+    public bool warning;
+    public bool countermeasures;
+    public bool oxygen;
+
+    public AvionicsFitValues Values => new()
+    {
+        Attitude = attitude, Navigation = navigation, Autopilot = autopilot, Radar = radar, Sight = sight, NightSight = nightSight,
+        Warning = warning, Countermeasures = countermeasures, Oxygen = oxygen,
+    };
 }
 
 /// <summary>
@@ -636,6 +672,21 @@ public class PhobosVehicleLoadoutDef : Def
     public List<LoadoutSystem> systems = new();
     public List<PartRoleSpec> partRoles = new();
     public List<ElectricalLoadSpec> loads = new();
+    /// <summary>What the aircraft's avionics carry (Framework 0.110.0); null for a loadout with none.</summary>
+    public AvionicsFit? avionics;
+
+    public override void ResolveReferences()
+    {
+        base.ResolveReferences();
+        // The avionics loads draw what the fit carries.
+        if (avionics == null) return;
+        AvionicsFitValues fit = avionics.Values;
+        foreach (ElectricalLoadSpec load in loads)
+        {
+            if (load.ampsFromAvionics == AvionicsAmps.Essential) load.amps = (float)AvionicsRule.EssentialAmps(fit);
+            else if (load.ampsFromAvionics == AvionicsAmps.Other) load.amps = (float)AvionicsRule.OtherAmps(fit);
+        }
+    }
 
     public override IEnumerable<string> ConfigErrors()
     {
@@ -741,6 +792,12 @@ public class PhobosVehicleRulesDef : PhobosRulesDef
     public VehicleEMPSeverity empSeverityCivilian = VehicleEMPSeverity.Moderate;
     public VehicleEMPSeverity empSeverityMilitary = VehicleEMPSeverity.Minor;
     public List<string> empNoStunPackages = new();
+    /// <summary>Poor visibility for flying (Framework 0.110.0, avionics A1 and A2): night by the hours above, or weather whose accuracy multiplier
+    /// is below this (fog and heavy rain in the base game). Authored.</summary>
+    public float poorVisibilityAccuracy = 0.8f;
+    /// <summary>A turbine held at a rating above maximum continuous for longer than its time limit uses hot-section life this many times as
+    /// fast (Framework 0.110.0, avionics L1). Authored.</summary>
+    public float ratingOverLimitLifeFactor = 2f;
     /// <summary>The hitch (Framework 0.101.0, authored): how far a trailer may stand from the vehicle that hitches it, the work of coupling it
     /// up, and the gap from a vehicle's rear edge to its hitch, in cells.</summary>
     public float hitchReachCells = 8f;

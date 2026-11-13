@@ -68,6 +68,10 @@ public static class Patch_FlightFuel_Sling
     public static void Postfix(CompVehicleLauncher __instance, ref float __result)
     {
         if (__instance.Vehicle?.GetComp<CompPhobosSling>() is { SlungFlightNow: true }) __result *= (float)SlungFlight.Factors.FuelPerTick;
+        // Every stage's factor on world-flight fuel folds in here too (Framework 0.110.0, avionics A2: navigation lost wanders off track),
+        // so the one postfix carries every factor on this figure. Cached at the systems' rare tick.
+        // GetComp, not Of: an aircraft in world flight is not spawned.
+        if (__instance.Vehicle?.GetComp<CompPhobosVehicleSystems>() is { Usable: true } comp) __result *= comp.FlightFuelFactor;
     }
 }
 

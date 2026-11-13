@@ -15,6 +15,8 @@ result goes into that mod's changelog.
   4. **Check 94:** the tanker on Rimefeller's pipeline. Then, if time allows, **93** (the tanker fills a generator), **95** (the drip
      stand), **96** (iodide at the radiation line), **97** (vehicle parts on the fabrication bay) and **98** (the CIWS against CE mortar
      shells).
+  5. **Avionics (Framework 0.110.0, Vehicles 0.53.0, a later install):** **check 99** (blind take-offs), **102** (the avionics bay
+     on an old save), then **100**, **101** and **103**.
 - **This round (12 Nov 2026): Framework 0.104.0, Vehicles 0.47.0 and Patches 0.18.0.** **Use a copy of the save for all of it.** Riskiest first:
   1. **Check 55, the second half, again:** a slung load set down after landing. **It failed on Framework 0.100.0** (owner, 12 Nov 2026: the map lost its pictures and went grey); 0.101.1 holds the fix. Take-off and the world map already passed.
   1a. **Check 63:** the Louie and the Hind lifting a vehicle; the Hind's load must come down only after it has landed, not at the map's edge.
@@ -166,6 +168,11 @@ result goes into that mod's changelog.
 | 96 | **Iodide at the radiation line** (Medical 0.16.0, needs Dubs Rimatomics) | Leave potassium iodide outside a radiation controlled area and send a colonist in | They say they are taking the tablet first, take it, then suit up and go in; the next time, while it lasts, they go straight to suiting up. With no iodide anywhere they suit up as before |
 | 97 | **Vehicle parts on the fabrication bay** (Factory Additions 0.13.0) | Look at the startup log line from D'thorga Factory Additions, then at the automated fabrication bay's bill list | The log names vehicle parts bench bills; the bay offers kits and assemblies, once their research is done |
 | 98 | **The CIWS against Combat Extended shells** (Patches 0.19.1, needs InterRim Ballistic Missile and CE) | A raid with mortars against a base with a powered, unroofed CIWS | The CIWS fires at incoming shells and some never land; with the new setting off it leaves them alone |
+| 99 | **Blind take-offs refused** (Framework 0.110.0). **Use a copy of the save** | At night or in fog, with dev mode's **"Vehicle systems: hit a part"** on a VVE aircraft's **Dashboard** (or a Hind's **avionics bay**) until it is below about half, try to launch. Then switch **Blind take-offs: warn only** on and try again | The launch button refuses and says the instruments are broken and it is too dark or foggy; by day it launches. With the setting on it takes off with a message that it is flying blind |
+| 100 | **Navigation on the world map** (Framework 0.110.0) | Note a Mosquito's flight range by day, then at night, then by day with its **Dashboard** hit below half | Night and the broken panel each shorten the range shown and slow the flight by about 15 %; a Harrier or Hind (full navigation) shows no change at night |
+| 101 | **Heavy controls** (Framework 0.110.0) | **"Vehicle systems: set a quantity"**, hydraulic fluid, to about 0.2 on a Louie or the Harrier | A message that its controls are heavy; flight control halves (Systems tab), it flies slower; topping up the fluid in a service restores it |
+| 102 | **The avionics bay** (Framework 0.110.0) | Load a save with a Hind, Mongoose or thrust pod; open its Health tab | An **avionics bay** part is listed and shown on the damage picture; the vehicle loads with no red error |
+| 103 | **A turbine held too long** (Framework 0.110.0) | Hover the Harrier on its pad for a while (or hold any turbine at take-off power) | After the rating's time a message says it has run too long and its hot section wears faster (the hot-section line climbs faster on the Systems tab) |
 
 ## Trying Vehicle Framework's development build (planned 10 Nov 2026)
 

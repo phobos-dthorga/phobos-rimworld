@@ -797,11 +797,15 @@
       <li><def>PhobosVehicleSystem_Turbine</def></li>
       <li><def>PhobosVehicleSystem_Cabin</def></li>
       <li><def>PhobosVehicleSystem_FlightControls</def></li>
+      <li><def>PhobosVehicleSystem_Avionics</def></li>
     </systems>
     <drivetrain>
       <def>PhobosDrivetrain_AeroTurbofan</def>
     </drivetrain>
     <flightProfile>PhobosFlightProfile_StockAircraft</flightProfile>
+    <!-- What the avionics carry (Framework 0.110.0; docs/development/vehicle-avionics.md, the fit): every aircraft has flight instruments and
+         basic navigation, so none is worse off than before; a child loadout names only what it adds. -->
+    <avionics />
     <partRoles>
       <li>
         <role>Engine</role>
@@ -872,6 +876,25 @@
         </add>
       </li>
       <li>
+        <!-- Framework 0.110.0, avionics: the instrument panel, on the aircraft's own dashboard or our Harrier avionics part where it has one,
+             else an avionics bay appended behind the cockpit (owner, 13 Nov 2026: appended, marked on our own screens). Health authored. -->
+        <role>Avionics</role>
+        <find>
+          <li>
+            <key>PhobosAvionics</key>
+          </li>
+          <li>
+            <keyContains>Dashboard</keyContains>
+          </li>
+        </find>
+        <add>
+          <key>PhobosAvionicsBay</key>
+          <label>avionics bay</label>
+          <health>20</health>
+          <cellsOf>Engine</cellsOf>
+        </add>
+      </li>
+      <li>
         <!-- Framework 0.103.0, the long range family: tie-down points in the cabin for a ferry tank, appended to every fuelled aircraft so the
              tank has a part to go on and is lost with it. Health and hit weights authored. -->
         <role>FerryTankMount</role>
@@ -887,9 +910,19 @@
     </partRoles>
     <loads>
       <li>
+        <!-- Framework 0.110.0: what the avionics fit carries, worked out from it (AvionicsRule): the instruments and other essentials, kept on
+             the battery when the generator is lost, and the rest, shed with the comforts. Before, every aircraft drew a flat 15 A. -->
         <name>avionics</name>
         <label>avionics</label>
-        <amps>15</amps>
+        <ampsFromAvionics>Essential</ampsFromAvionics>
+        <when Class="Phobos.VehicleSystems.When_EngineRunning" />
+      </li>
+      <li>
+        <name>missionAvionics</name>
+        <label>mission avionics</label>
+        <description>Full navigation, radar, autopilot and night sights, where fitted. Switched off before the instruments when the battery is on its own.</description>
+        <ampsFromAvionics>Other</ampsFromAvionics>
+        <shedOrder>4</shedOrder>
         <when Class="Phobos.VehicleSystems.When_EngineRunning" />
       </li>
       <li>

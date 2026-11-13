@@ -223,7 +223,14 @@ shows while a dyno bay is in reach. It works on any vehicle, from any mod, that 
 - **Helicopters, jets and pods are checked before they lift off.** Too heavy for the day's heat, or with engines or thrusters out,
   **the launch button refuses and says why**: unload, repair, or wait for cooler air. A heavy Harrier on a hot day lands on a runway
   instead of its pad (with D'thorga Patches). The setting can allow it at a cost to the engine, or only warn.
-- **Gas turbines** (aircraft, and the M1A2 tanks) wear their hot section when run past their limits; a **hot-section overhaul**
+- **Avionics.** Every aircraft has flight instruments and navigation, on its own instrument panel or an added **avionics bay**.
+  **Broken or flat, the aircraft will not take off at night or in fog**; repair it, charge the battery or wait for daylight (the
+  setting **Blind take-offs: warn only** lets it go anyway). Without navigation, or with only basic navigation in the dark, a flight
+  across the world map is slower and burns more fuel; military aircraft carry full navigation and fly straight in anything.
+- **Heavy controls.** Helicopters and planes with servos, and the Harrier, fly on hydraulics: if the fluid leaks or the pump is hit,
+  the controls go heavy and it flies slower. Top up the fluid in a service.
+- **Gas turbines** (aircraft, and the M1A2 tanks) wear their hot section when run past their limits, and twice as fast when held at
+  take-off power longer than allowed; a **hot-section overhaul**
   (10 plasteel, 3 components) puts it right. With one of two engines out, the other runs hot.
 - **Carrying a vehicle on a sling** (take-off tested in game by the owner; the landing not yet):
   1. Fit the helicopter a **cargo hook** (Fittings and tunes). The **Cherokee**, the **Louie** and the **Hind** have a mount for one

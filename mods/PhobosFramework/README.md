@@ -7,7 +7,7 @@ helpers every D'thorga mod shares.
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.109.0, built 13 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
+Version 0.110.0, built 13 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
 oxygen working through Burns and Smoke and Medical Equipment (5 November 2026). The health layer new in 0.3.0 and the **vehicle
 systems new in 0.9.0, and their engines, drivetrains and gas turbines new in 0.11.0, are not yet tested in game.** The rest is read from the game's and the mods' code.
 
@@ -24,6 +24,10 @@ and wear that a mechanic services. See [Vehicle systems](#vehicle-systems-with-v
 - **New in 0.31.0, with Vanilla Expanded Framework (not yet tested in game): garages.** A convoy that has stopped can set up a garage on
   the world map. Vehicles left in one stay with no time limit, and whoever is stationed there mends them from steel and components
   you bring by caravan. **Before removing this mod, take every vehicle out of every garage**, or they go with it.
+- **New in 0.110.0 (not yet tested in game): aircraft avionics.** An aircraft whose flight instruments are broken or without power
+  **will not take off at night or in fog** (the setting **Blind take-offs: warn only** lets it go with a warning). Without working
+  navigation, or with only basic navigation in the dark, a world-map flight is slower and thirstier. Hydraulic flight controls go
+  heavy when their fluid runs low. Aircraft without an instrument panel gain an **avionics bay** part.
 - **New in 0.109.0 (not yet tested in game): EMP reaches vehicles.** An EMP hit can stall a vehicle for a moment and drains its battery
   (about 40 % on a civilian vehicle, 16 % on an armed one, which is hardened). Steam engines are never stalled, nor are RimThunder's
   vehicles, whose authors chose that. It works on raiders' vehicles too, so EMP grenades and mortars are now a real answer to them.

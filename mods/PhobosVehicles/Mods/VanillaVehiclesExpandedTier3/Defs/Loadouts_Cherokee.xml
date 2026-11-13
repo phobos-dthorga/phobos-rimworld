@@ -24,6 +24,8 @@
     </selector>
     <systems>
       <li><def>PhobosVehicleSystem_RotorDrive</def></li>
+      <li><def>PhobosVehicleSystem_Hydraulics</def></li>
+      <li><def>PhobosVehicleSystem_FlightHydraulics</def></li>
     </systems>
     <drivetrain>
       <def>PhobosDrivetrain_AeroTurboshaft</def>
@@ -32,6 +34,11 @@
       </set>
     </drivetrain>
     <flightProfile>PhobosFlightProfile_StockRotorcraft</flightProfile>
+    <!-- Avionics (Framework 0.110.0): a CH-47-style transport carries full navigation and an autopilot (agent defaults from the record). -->
+    <avionics>
+      <navigation>Full</navigation>
+      <autopilot>true</autopilot>
+    </avionics>
     <!-- Sling loads (Vehicles 0.40.0): the CH-47F's centre hook, 26,000 lb (11,800 kg), from the US Army CH-47 fact sheet republished by the
          127th Wing (www.127wg.ang.af.mil, fact sheet 3694458). The Cherokee being VVE's tandem-rotor cargo helicopter, its hook is taken as the
          Chinook's. -->
@@ -45,6 +52,29 @@
       </standDownIfActive>
     </sling>
     <partRoles>
+      <li>
+        <!-- Framework 0.110.0, avionics A7: the flight controls' hydraulic boost, on the front and rear servos: the CH-47's flight controls work through hydraulics (taken as one system here). -->
+        <role>HydraulicPump</role>
+        <all>true</all>
+        <find>
+          <li>
+            <keyContainsAny>
+              <li>Servos</li>
+            </keyContainsAny>
+          </li>
+        </find>
+      </li>
+      <li>
+        <role>HydraulicLines</role>
+        <all>true</all>
+        <find>
+          <li>
+            <keyContainsAny>
+              <li>Servos</li>
+            </keyContainsAny>
+          </li>
+        </find>
+      </li>
       <li>
         <role>RotorDrive</role>
         <all>true</all>

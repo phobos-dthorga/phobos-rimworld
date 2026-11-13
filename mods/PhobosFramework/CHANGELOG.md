@@ -5,6 +5,28 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.110.0] - 2026-11-13 - Draft
+
+Avionics for aircraft: flight instruments, navigation, hydraulic flight controls and turbine time limits
+
+### Added
+
+- **Every aircraft has avionics** (the owner's step 4 of 13 November 2026). What an aircraft carries is its avionics fit, written on its loadout: flight instruments and basic navigation on every aircraft, more on the military ones. The instruments sit on the aircraft's own instrument panel where it has one, else in an avionics bay added behind the cockpit and marked on the Health tab's damage picture. They work while that part is sound and the battery has charge. What they draw now depends on the fit (about 4 A on most aircraft, about 46 A on the Harrier) in place of a flat 15 A; full navigation, radar and the other heavy sets are switched off before the instruments when the battery is on its own. Not yet tested in game.
+- **No blind take-offs.** An aircraft whose flight instruments are broken or without power may not take off at night or in fog, and the launch button says why. A new setting, **Blind take-offs: warn only**, lets it take off with a warning instead. Not yet tested in game.
+- **Navigation keeps a flight on track.** With navigation broken or without power, or with only basic navigation at night or in fog, a flight on the world map wanders: about 15 percent slower and 15 percent thirstier. A full navigation set flies straight in anything. Not yet tested in game.
+- **Hydraulic flight controls.** On the aircraft with servos (the Mosquito, Louie, Cherokee, Smuggler and Warbird) and the Harrier, the flight controls work through hydraulics: shot lines leak, and with the fluid low or the pump damaged the controls are heavy, which halves flight control, so the aircraft flies slower or, if its controls are damaged too, will not take off. Not yet tested in game.
+- **Turbine time limits.** A gas turbine held at a rating above maximum continuous for longer than its time limit (take-off power for a few minutes, a wet hover for seconds) wears its hot section twice as fast, with a message. Not yet tested in game.
+
+### Compatibility and limits
+
+- Off a map there is no weather, so only night counts as poor visibility on the world map.
+- The fits of the Harrier, Hind and Cherokee follow secondary descriptions of the real aircraft; the rest, and every figure, are our choices. Autopilot, radar, sights, warning receivers, countermeasures and oxygen draw their power now and get their effects in later batches.
+- The Hind, the Mongoose and the thrust pods have no hydraulic part, so their controls are not hydraulic yet.
+
+### Save compatibility
+
+- Safe to add to a running game. Saved aircraft without an instrument panel gain the avionics bay at load, as other added parts do.
+
 ## [0.109.0] - 2026-11-13 - Draft
 
 EMP reaches vehicles; the tanker fills generators and joins Rimefeller's pipeline; a dose before a protection line

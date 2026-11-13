@@ -55,11 +55,45 @@
     </selector>
     <systems>
       <li><def>PhobosVehicleSystem_WaterInjection</def></li>
+      <li><def>PhobosVehicleSystem_Hydraulics</def></li>
+      <li><def>PhobosVehicleSystem_FlightHydraulics</def></li>
     </systems>
     <drivetrain>
       <def>PhobosDrivetrain_Pegasus</def>
     </drivetrain>
     <flightProfile>PhobosFlightProfile_FixedWingJet</flightProfile>
+    <!-- Avionics (Framework 0.110.0): the AV-8B's fit as the record gives it (agent defaults; secondary sources: an inertial navigation set and
+         moving map, angle-rate bombing and a head-up display, the Night Attack Harrier's infrared sensor, a radar warning receiver, chaff and
+         flares, and crew oxygen). About 46 A in all, against the flat 15 A before. Its instruments sit on D'thorga Patches' avionics part. -->
+    <avionics>
+      <navigation>Full</navigation>
+      <autopilot>true</autopilot>
+      <radar>true</radar>
+      <sight>Full</sight>
+      <nightSight>true</nightSight>
+      <warning>true</warning>
+      <countermeasures>true</countermeasures>
+      <oxygen>true</oxygen>
+    </avionics>
+    <partRoles>
+      <li>
+        <!-- Avionics A7: the flight controls' hydraulics, on D'thorga Patches' hydraulics part. -->
+        <role>HydraulicPump</role>
+        <find>
+          <li>
+            <key>PhobosHydraulics</key>
+          </li>
+        </find>
+      </li>
+      <li>
+        <role>HydraulicLines</role>
+        <find>
+          <li>
+            <key>PhobosHydraulics</key>
+          </li>
+        </find>
+      </li>
+    </partRoles>
       <!-- Automatic climate control (D'thorga Vehicles 0.10.0): the AV-8B's environmental control system holds the cockpit's temperature by itself (general). -->
     <cabin>
       <climateControl>true</climateControl>

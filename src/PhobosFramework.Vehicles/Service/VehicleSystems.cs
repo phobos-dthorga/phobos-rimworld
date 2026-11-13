@@ -105,6 +105,11 @@ public static class VehicleSystems
             Dictionary<string, double> parameters = ParameterRule.Resolve(entry.def.parameters.AsDoubles(),
                 entry.set?.AsDoubles() ?? Enumerable.Empty<KeyValuePair<string, double>>(), unknown);
             foreach (string name in unknown) Problems.Add(loadout.defName + ": " + entry.def.defName + " has no parameter " + name);
+            // The avionics system reads what the aircraft carries from the loadout's fit (Framework 0.110.0).
+            if (entry.def.takesAvionicsFit && loadout.avionics != null)
+            {
+                foreach ((string name, double value) in AvionicsRule.Parameters(loadout.avionics.Values)) parameters[name] = value;
+            }
             props.systems.Add(new ResolvedSystem(entry.def, parameters));
         }
         Tuning.Fill(props, def);

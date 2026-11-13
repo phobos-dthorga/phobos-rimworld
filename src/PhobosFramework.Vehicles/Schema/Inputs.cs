@@ -157,7 +157,11 @@ public class Input_Turbine : VehicleSystemInput
             Reading.OverContinuous => (float)state.OverContinuous,
             Reading.OverTop => (float)state.OverTop,
             Reading.SpeedPercent => (float)state.SpeedPercent,
-            Reading.LifePerHour => context.Comp.EngineRunning ? (float)TurbineModel.LifePerHour(state.OverContinuous) : 0f,
+            // Past a rating's time limit the hot section wears faster (Framework 0.110.0, avionics L1).
+            Reading.LifePerHour => context.Comp.EngineRunning
+                ? (float)(TurbineModel.LifePerHour(state.OverContinuous)
+                    * RatingLimitRule.LifeFactor(train.OverRatingLimit, PhobosVehicleRulesDef.Current<PhobosVehicleRulesDef>().ratingOverLimitLifeFactor))
+                : 0f,
             Reading.Demand => (float)state.Demand,
             Reading.EnginesOut => EnginesOut(train),
             Reading.OverTorque => context.Comp.EngineRunning ? (float)state.OverTorque : -1f,

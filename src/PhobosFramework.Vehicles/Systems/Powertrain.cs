@@ -257,6 +257,35 @@ public sealed class Powertrain
     /// <summary>Whether the engines run, for an aircraft: its phase says so.</summary>
     public bool AircraftRunning => PhaseSpec?.running ?? false;
 
+    string? ratingHeld;
+    int ratingSinceTick;
+    bool ratingLimitTold;
+
+    /// <summary>Whether the turbine has held a rating above maximum continuous for longer than its time limit (Framework 0.110.0, avionics
+    /// L1): the hot section then wears faster. Derived, never saved: after a load the count starts again.</summary>
+    public bool OverRatingLimit { get; private set; }
+
+    /// <summary>Times how long the turbine has held its present rating, and says once when it passes the rating's time limit.</summary>
+    void TrackRating(VehiclePawn vehicle, int now)
+    {
+        string? name = TurbineNow.Rating;
+        if (name != ratingHeld)
+        {
+            ratingHeld = name;
+            ratingSinceTick = now;
+            ratingLimitTold = false;
+        }
+        TurbineRating? rating = Turbine?.Ratings.FirstOrDefault(r => r.Name == name) ?? dryTurbine?.Ratings.FirstOrDefault(r => r.Name == name);
+        bool running = comp.EngineRunning;
+        OverRatingLimit = running && rating != null && RatingLimitRule.Over(now - ratingSinceTick, rating.Minutes, GenDate.TicksPerHour / 60.0);
+        if (OverRatingLimit && !ratingLimitTold && vehicle.Faction == Faction.OfPlayer)
+        {
+            ratingLimitTold = true;
+            Messages.Message("PhobosVehicleSystems_MsgRatingOverLimit".Translate(vehicle.LabelShort.Named("VEHICLE"), RatingLabel.Named("RATING"),
+                rating!.Minutes.ToString("0.#").Named("MINUTES")), vehicle, MessageTypeDefOf.CautionInput, historical: false);
+        }
+    }
+
     /// <summary>The rating the turbine runs at now, in the player's words.</summary>
     public string RatingLabel
     {
@@ -335,6 +364,7 @@ public sealed class Powertrain
         double seconds = lastTick < 0 ? 1 : Math.Max(0.01, (now - lastTick) / (double)TicksPerSecond);
         if (IsAircraft) SampleAircraft(vehicle, seconds);
         else SampleGround(vehicle, seconds);
+        if (Turbine != null) TrackRating(vehicle, now);
         lastTick = now;
     }
 

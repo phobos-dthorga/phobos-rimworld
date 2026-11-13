@@ -510,6 +510,8 @@ public class CompPhobosVehicleSystems : VehicleComp
         Vehicle.AddEvent(VehicleEventDefOf.DamageTaken, () => HealthViewVersion++);
         Vehicle.AddEvent(VehicleEventDefOf.Repaired, () => HealthViewVersion++);
         Vehicle.AddEvent(VehicleEventDefOf.HealthChanged, () => HealthViewVersion++);
+        // An aircraft taking off hears the refusals the player set to warn only (Framework 0.110.0).
+        if (Vehicle.CompVehicleLauncher != null) Vehicle.AddEvent(VehicleEventDefOf.AerialVehicleLaunch, WarnAtLaunch);
         if (Powertrain != null)
         {
             // Once a second while it moves or flies, the drivetrain or turbine takes a sample; cargo and passengers change its mass.
@@ -862,6 +864,22 @@ public class CompPhobosVehicleSystems : VehicleComp
             }
         }
         return null;
+    }
+
+    /// <summary>At take-off, the warnings of refusals the player set to warn only (Framework 0.110.0: blind flying), once each.</summary>
+    void WarnAtLaunch()
+    {
+        if (!Usable || states == null || Vehicle.Faction != Faction.OfPlayer) return;
+        foreach ((SystemContext context, StageSpec stage, string _) in StagesInForce())
+        {
+            foreach (VehicleSystemEffect effect in stage.effects)
+            {
+                if (effect.Active(context) && effect.LaunchWarning(context) is { } warning)
+                {
+                    Messages.Message(warning, Vehicle, MessageTypeDefOf.CautionInput, historical: false);
+                }
+            }
+        }
     }
 
     /// <summary>The battery's state in words for the inspect line (Framework 0.104.0; owner, 12 Nov 2026: "in words", in every display
@@ -1611,6 +1629,9 @@ public class CompPhobosVehicleSystems : VehicleComp
     /// <summary>How fast an electric vehicle charges from the grid now, against Vehicle Framework's own rate (derived, never saved).</summary>
     public float ChargeFactor { get; private set; } = 1f;
 
+    /// <summary>The factor on the fuel this aircraft burns on the world map now (Framework 0.110.0, avionics A2; derived, never saved).</summary>
+    public float FlightFuelFactor { get; private set; } = 1f;
+
     /// <summary>The stage labels behind a stat's factor, for the stat card's explanation.</summary>
     public IEnumerable<string> StatFactorReasons(VehicleStatDef stat)
     {
@@ -1631,12 +1652,14 @@ public class CompPhobosVehicleSystems : VehicleComp
     {
         var fresh = new Dictionary<VehicleStatDef, float>();
         float charge = 1f;
+        float flightFuel = 1f;
         foreach ((SystemContext context, StageSpec stage, string _) in StagesInForce())
         {
             foreach (VehicleSystemEffect effect in stage.effects)
             {
                 if (!effect.Active(context)) continue;
                 charge *= effect.ChargeFactor;
+                flightFuel *= effect.FlightFuelFactor;
                 foreach (VehicleStatDef stat in DefDatabase<VehicleStatDef>.AllDefsListForReading)
                 {
                     float factor = effect.StatFactor(stat);
@@ -1645,6 +1668,7 @@ public class CompPhobosVehicleSystems : VehicleComp
             }
         }
         ChargeFactor = charge;
+        FlightFuelFactor = flightFuel;
         var changed = new HashSet<VehicleStatDef>(fresh.Keys);
         changed.SymmetricExceptWith(statFactors.Keys);
         foreach (KeyValuePair<VehicleStatDef, float> pair in fresh)
