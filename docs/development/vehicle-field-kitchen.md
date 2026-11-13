@@ -124,7 +124,9 @@ Every node moves a figure that changes an outcome; each visible node gets its ow
 | Dining annex | A second canvas room with a table and benches, so eaters get "ate at a table" | Cloth 100, wood 60 |
 | Wash-up | A sink in the tent (Dubs Bad Hygiene): cleaning the tent takes less work [A] | Steel 30, components 1 |
 
-**Parts bill:** wheels 4, suspension 2, frame 1, wiring 1 (as the Pintle), on the 3 x 7 tandem chassis [A]. A burner part role
+**Parts bill:** wheels 4, suspension 2, frame 1, wiring 1 (as the Pintle). **Size:** at least 3 x 7 and
+vehicle-sized or near (owner, 13 Nov 2026); 3 x 8, the Busbar's length, is the agent's reading
+([the trailer base, B0.6](vehicle-trailers.md#b06-trailer-sizes)). A burner part role
 would need a new part item; the record leaves it out unless the owner wants burners to wear.
 
 ## Other factions' vehicles

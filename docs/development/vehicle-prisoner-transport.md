@@ -171,12 +171,13 @@ consequence of that temperature, food and wounds; we add only the cage's memorie
 | Box body | The table above; replaces the canvas cover | Steel 120 |
 | Vents | No extra heat in the box in sun | Steel 20 |
 | Heater | At least 10 °C, burning its own chemfuel | Steel 30, components 2 |
-| Extra cells | Six cells to ten, on the larger chassis only | Steel 80 |
+| Extra cells | Six cells to ten | Steel 80 |
 | Bigger locker | 20 rations to 50 | Steel 30 |
 
-**Parts bill:** wheels 4, suspension 2, frame 1, wiring 1, as the Pintle. **Chassis:** the Pintle's [A]; it was 2 x 5 when this
-record was written and is being resized to 3 x 7 (Vehicles 0.54.0, another session's work), which would make room for the extra
-cells without a second chassis.
+**Parts bill:** wheels 4, suspension 2, frame 1, wiring 1, as the Pintle. **Size:** at least 3 x 7, the Pintle's size since Vehicles
+0.54.0 (owner, 13 Nov 2026: "3 x 7 is the bare minimum", and every trailer but the flatbed vehicle-sized or near;
+[the trailer base, B0.6](vehicle-trailers.md#b06-trailer-sizes)). The six cells were set for a smaller chassis [A] and are set
+again from the trailer's size when it is built.
 
 ## Cost to run
 

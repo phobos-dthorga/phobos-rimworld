@@ -106,16 +106,22 @@ Five pieces of new code, written once in the Framework, used by every trailer be
   warning when low** (the accessories rule). Fluids use the tank system as it is; dry goods use a locker that takes chosen items
   from the cargo.
 
-### B0.6 One chassis or two
+### B0.6 Trailer sizes
 
-**Update, 13 Nov 2026 (later):** another session's work resizes the Pintle itself to **3 x 7** (Vehicles 0.54.0, claimed). If
-that lands, the Pintle already is the larger chassis this section proposes, and question 3 becomes: keep one 3 x 7 chassis for
-every trailer, or add a small 2 x 5 one for the livestock and prisoner trailers. Read the Pintle's current Def before building.
+**Owner, 13 Nov 2026: "3 x 7 is the bare minimum, and at least vehicle sized or near for the other trailers."** There is no
+small chassis: the 2 x 5 proposed here is dropped.
 
-- **The Pintle's 2 x 5** suits the small trailers. **A larger tandem chassis, 3 x 7** [A], suits the kitchen, the aid post and
-  the bowsers. Before either trailer's picture is made, its size is **measured against the biggest comparable vehicle on the
-  owner's list and generated at 1.5 times its drawn size or more** (owner's rule). Each body has its own upgrade tree and parts
-  bill from its first Def.
+- **The floor is 3 x 7**, the Pintle flatbed's size since Vehicles 0.54.0 and the survey truck's. No trailer of ours is smaller,
+  the livestock and prisoner trailers included.
+- **Every other trailer is the size of a truck or near it.** Our trucks are 3 x 7 (the survey truck), 3 x 8 (the Busbar, the Talus
+  tipper) and 3 x 10 (the Ullage tanker, the drill rig) [code, their Defs]. **Agent's reading, owner to revise:** the working
+  trailers are 3 wide and 7 to 8 long, 3 x 8 (the Busbar's and the tipper's length) for the big ones (the kitchen, the aid post,
+  the bowsers, the crib room); each trailer's length is fixed in its own Def before its picture.
+- **Figures to revisit at that size:** the bowsers' 1,500 L and 1,200 L, the prisoner trailer's six cells and the livestock
+  trailer's stalls were set for the smaller chassis [A]; each is set again from its trailer's size when it is built.
+- Before any trailer's picture is made, its size is **measured against the biggest comparable vehicle on the owner's list and
+  generated at 1.5 times its drawn size or more** (owner's rule). Each body has its own upgrade tree and parts bill from its first
+  Def.
 
 ```mermaid
 flowchart LR
@@ -364,7 +370,7 @@ on the map, and then only what a set-out building costs.
 
 ## Art and sound
 
-- **Two chassis, then bodies.** Each trailer is its own picture, drawn bare, with its set-out pieces as separate things beside it
+- **Truck-sized bodies, 3 x 7 at least.** Each trailer is its own picture, drawn bare, with its set-out pieces as separate things beside it
   (never drawn on the trailer). Until its picture exists a trailer borrows one of ours (the Pintle's, the tanker's), as the rule
   allows; no stand-in body art is drawn.
 - **Set-out pieces need their own pictures**: the canvas room's walls and roof, the range, the urn, the stalls, the mast.
@@ -395,8 +401,9 @@ on the map, and then only what a set-out building costs.
 ## Questions for the owner
 
 **Answered by the owner, 13 Nov 2026:** (1) **the first batch is the base with the water and fuel bowsers** (Q0, Q3, Q4), the
-field kitchen and the prisoner transport next; (2) **canvas rooms, yes**, for the kitchen, aid post, crib room and laboratory.
-Questions 3 to 5 were not put yet; their agent defaults stand until the owner says otherwise. Nothing is built: each batch waits
+field kitchen and the prisoner transport next; (2) **canvas rooms, yes**, for the kitchen, aid post, crib room and laboratory;
+(3) **3 x 7 is the bare minimum, and the other trailers are at least vehicle-sized or near** (later the same day; see B0.6).
+Questions 4 and 5 were not put yet; their agent defaults stand until the owner says otherwise. Nothing is built: each batch waits
 on the owner's go.
 
 The questions as they were written:
@@ -412,8 +419,9 @@ The questions as they were written:
 - **Owner (13 Nov 2026):** the round; the field kitchen powered by the Busbar as required, cooking on burners with power as a
   bonus; the prisoner transport with capture into it, raiders using it, captives at bases and harsh conditions; the Supply, Care
   and Work families and the livestock trailer in depth.
-- **Owner (13 Nov 2026, later):** the base with the two bowsers first; canvas rooms.
-- **Agent defaults, owner to revise:** the shared base and its five pieces; the two chassis; every figure marked [A];
+- **Owner (13 Nov 2026, later):** the base with the two bowsers first; canvas rooms; 3 x 7 the bare minimum, the other trailers
+  at least vehicle-sized or near.
+- **Agent defaults, owner to revise:** the shared base and its five pieces; 3 x 8 for the big working trailers; every figure marked [A];
   the suggested order; the catalogue entries and what was left out.
 
 ## Sources
