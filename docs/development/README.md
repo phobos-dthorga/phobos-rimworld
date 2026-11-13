@@ -120,10 +120,26 @@ promise current behaviour. For using the mods, start at the [documentation index
 - [Sleeping berths: roof tents, cab bunks and driving through the night (13 Nov 2026)](vehicle-berths.md): research and design only, at
   the owner's request; a fold-out roof tent at camp, bunks that rest riders on the move, a relief driver for night driving, and
   sleeping inside a parked vehicle, with what each needs from the game and Vehicle Framework. Nothing built.
+- [Working trailers: the shared base and a catalogue (13 Nov 2026)](vehicle-trailers.md): research and design only; set up and
+  pack up with no crew, a power lead the Busbar feeds, set-out pieces and canvas rooms, stores; nineteen trailers, with supply,
+  care and work families and a livestock trailer in depth; faults found on the way. Nothing built.
+- [The field kitchen trailer (13 Nov 2026)](vehicle-field-kitchen.md): research and design only; the owner's kitchen on wheels,
+  cooking on burners with the Busbar's power as a bonus, a canvas kitchen tent, batches of ten and cooking in a resting caravan.
+- [The prisoner transport trailer (13 Nov 2026)](vehicle-prisoner-transport.md): research and design only; the owner's cage trailer,
+  capture straight into it, rations, harsh conditions, raiders who carry colonists off in one, and captives at enemy bases.
 - [Pipes and conduits beneath our things (13 Nov 2026)](network-underlays.md): visible plumbing and pipes beneath our buildings and parked
   vehicles (Framework 0.107.0), the generator set joining through conduits beneath it, and an audit of everything of ours on a piped supply
   or power, with proposals for the owner.
 - [The authors' override contract (13 Nov 2026)](vehicle-author-overrides.md): research and design only; what another mod's author can write in XML today, how the game loads XML only when our mod is active, and a proposed override Def with a stable, versioned contract
+- [Tie-ins with other mods: the register (13 Nov 2026)](tie-in-register.md): every tie-in that exists today, 63 folders across six
+  mods plus the C# ones, by our mod: the other mod, what it does, XML or C#, and which are patches for another author's fault. Kept
+  current by every change that adds or widens a tie-in.
+- [Soft-dependency cross-links (13 Nov 2026)](soft-dependency-crosslinks.md): research only; new tie-ins with mods on the owner's list
+  (SD1 to SD44) in both directions, every earlier unbuilt proposal naming another mod in one table, author activity, and a ranked short
+  list. Found on the way: Vehicles at Work drives vehicles our systems refuse to move.
+- [Air-defence tie-ins (13 Nov 2026)](air-defence-tie-ins.md): research only; InterRim Ballistic Missile's and The Dead Man's Switch's
+  radars, fire control, interceptors and satellites against our aircraft, strikes and submarines (AD1 to AD14). Neither mod can see a
+  Vehicle Framework aircraft today; IRBM's CIWS cannot see Combat Extended's shells.
 - [Avionics for every aircraft (13 Nov 2026)](vehicle-avionics.md): research only; the eleven aircraft and their free parts, a nine-capability avionics fit, proposals for instruments and navigation, aircraft power and flight controls, sensors and aiming, crew survival and defences, and the hooks that can scale other authors' figures
   (recovery, long range, cold weather, work lights, all-terrain tyres), chosen by effects and loadout roles, beside other authors'
   trees; a proposal with four questions for the owner, nothing built.

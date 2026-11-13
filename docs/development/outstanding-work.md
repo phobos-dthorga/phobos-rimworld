@@ -111,6 +111,19 @@ most, and for a contract other mods' authors can use in XML. Three records; **no
 | X6 | Fault: stale Harrier part figures in the Patches README and a probably stale hit-share note | Patches | — | Part fixed: the Patches README's Harrier part figures corrected in Patches 0.19.0. Open: the hit-share note in Parts_HarrierVtol.xml, not confirmed either way (avionics L6) |
 | X7 | Fault: round one's record miscounted its links | docs | — | Done: corrected 13 Nov 2026 |
 
+## Tie-ins with other mods (13 Nov 2026)
+
+The owner asked for an exploration of cross-links through soft dependencies with other mods: all our mods, the owner's mod list
+first, both directions, InterRim Ballistic Missile and The Dead Man's Switch for their air defence; **record only**, the owner picks.
+
+| # | Item | Mod | Owner's decision | Status |
+| --- | --- | --- | --- | --- |
+| TI1 | [The tie-in register](tie-in-register.md) | All | — | Written; kept current by every tie-in change |
+| TI2 | [Soft-dependency cross-links](soft-dependency-crosslinks.md): SD1 to SD44, earlier proposals carried forward, a ranked short list | Framework, Vehicles, Medical, Factory Additions | Scope as above (13 Nov 2026) | Record written; not built; five questions for the owner |
+| TI3 | [Air-defence tie-ins](air-defence-tie-ins.md): AD1 to AD14; avionics A13 and A16 revisited | Framework, Patches | IRBM and DMS in scope (13 Nov 2026) | Record written; not built; four questions for the owner |
+| TI4 | Fault: Vehicles at Work drives vehicles our systems refuse to move on a map (worn brakes, a set-up Busbar, a settled submarine) | Framework | — | Open: read from its code, not reproduced in game; SD1 is the fix |
+| TI5 | Gap: IRBM's CIWS cannot see Combat Extended's shells in the owner's game | Patches | — | Open: AD14, the owner to decide |
+
 ## Vehicle accessories (13 Nov 2026)
 
 The owner asked for a research and record round on accessories a player can install on vehicles, for entertainment, camping or
@@ -125,6 +138,22 @@ anything else ([record](vehicle-accessories.md)). **Nothing built**; the owner p
 | Y21 | [Sleeping berths](vehicle-berths.md): B1 roof tent at camp, B2 bunks on the road, B3 driving through the night, B4 sleeping inside a parked vehicle | Framework | Designed properly; all four parts in that order, B4 included; night driving a setting, off by default; roof tent memory +4; bunks on heavy vehicles only (owner, 13 Nov 2026) | Record written and answered; not built |
 | Y22 | To read before the water work: how Dubs Bad Hygiene's water storage would see a tank on a vehicle | Framework | — | Open |
 | Y23 | To verify before any Def carries them: the record's web figures (fridge draw, water per person, shower flow, solar output, burner gas use), read only as search summaries | docs | — | Open |
+
+## Working trailers (13 Nov 2026)
+
+The owner asked for a research and record round on working trailers, with a field kitchen powered by the Busbar and a prisoner
+transport of their own, and the agent's ideas ([base and catalogue](vehicle-trailers.md), [field kitchen](vehicle-field-kitchen.md),
+[prisoner transport](vehicle-prisoner-transport.md)). **Nothing built**; the owner picks.
+
+| # | Item | Mod | Owner's decision | Status |
+| --- | --- | --- | --- | --- |
+| Q0 | The shared base: set up and pack up with no crew, a hitch that respects it, a power lead, set-out pieces and canvas rooms, stores | Framework | — | Record written; not built |
+| Q1 | Field kitchen ("Billy", agent pick) | Vehicles | Burners always, the Busbar's power as a bonus (owner, 13 Nov 2026) | Record written; five questions open |
+| Q2 | Prisoner transport ("Stockade", agent pick) | Vehicles | Capture into it, raiders' cages, captives at bases, harsh conditions (owner, 13 Nov 2026) | Record written; six questions open |
+| Q3 to Q14 | Water and fuel bowsers, cold store, aid post, shower and latrine, crib room, field workshop, field laboratory, light tower, stone saw, bridge layer, livestock trailer | Vehicles | The supply, care and work families and the livestock trailer, in depth (owner, 13 Nov 2026) | Record written; not built |
+| Q15 to Q19 | Boat trailer, low-loader, drawbar tipper and tank trailers, battery trailer, ordnance trailer | Vehicles | Listed briefly only | Record written |
+| Q20 | Requirement for any trailer carrying people or animals: a towed vehicle's riders join the caravan while it travels | Framework | — | Open; not checked in code |
+| Q21 | Faults found on the way (the hitch moves a set-up vehicle; stale lines in four records) | Framework, docs | — | Listed in the base record; not fixed |
 
 ## Pipes and conduits beneath our things (13 Nov 2026)
 
