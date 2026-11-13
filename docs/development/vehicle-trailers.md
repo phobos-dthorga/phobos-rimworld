@@ -108,6 +108,10 @@ Five pieces of new code, written once in the Framework, used by every trailer be
 
 ### B0.6 One chassis or two
 
+**Update, 13 Nov 2026 (later):** another session's work resizes the Pintle itself to **3 x 7** (Vehicles 0.54.0, claimed). If
+that lands, the Pintle already is the larger chassis this section proposes, and question 3 becomes: keep one 3 x 7 chassis for
+every trailer, or add a small 2 x 5 one for the livestock and prisoner trailers. Read the Pintle's current Def before building.
+
 - **The Pintle's 2 x 5** suits the small trailers. **A larger tandem chassis, 3 x 7** [A], suits the kitchen, the aid post and
   the bowsers. Before either trailer's picture is made, its size is **measured against the biggest comparable vehicle on the
   owner's list and generated at 1.5 times its drawn size or more** (owner's rule). Each body has its own upgrade tree and parts

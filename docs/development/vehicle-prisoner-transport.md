@@ -174,7 +174,9 @@ consequence of that temperature, food and wounds; we add only the cage's memorie
 | Extra cells | Six cells to ten, on the larger chassis only | Steel 80 |
 | Bigger locker | 20 rations to 50 | Steel 30 |
 
-**Parts bill:** wheels 4, suspension 2, frame 1, wiring 1, as the Pintle. **Chassis:** the Pintle's 2 x 5 [A].
+**Parts bill:** wheels 4, suspension 2, frame 1, wiring 1, as the Pintle. **Chassis:** the Pintle's [A]; it was 2 x 5 when this
+record was written and is being resized to 3 x 7 (Vehicles 0.54.0, another session's work), which would make room for the extra
+cells without a second chassis.
 
 ## Cost to run
 
