@@ -147,9 +147,9 @@ transport of their own, and the agent's ideas ([base and catalogue](vehicle-trai
 
 | # | Item | Mod | Owner's decision | Status |
 | --- | --- | --- | --- | --- |
-| Q0 | The shared base: set up and pack up with no crew, a hitch that respects it, a power lead, set-out pieces and canvas rooms, stores | Framework | — | Record written; not built |
-| Q1 | Field kitchen ("Billy", agent pick) | Vehicles | Burners always, the Busbar's power as a bonus (owner, 13 Nov 2026) | Record written; five questions open |
-| Q2 | Prisoner transport ("Stockade", agent pick) | Vehicles | Capture into it, raiders' cages, captives at bases, harsh conditions (owner, 13 Nov 2026) | Record written; six questions open |
+| Q0 | The shared base: set up and pack up with no crew, a hitch that respects it, a power lead, set-out pieces and canvas rooms, stores | Framework | **First batch: the base with the water and fuel bowsers (Q3, Q4)**; canvas rooms yes (owner, 13 Nov 2026) | Record written; waiting on the owner's "build" |
+| Q1 | Billy field kitchen | Vehicles | Burners always, the Busbar's power as a bonus; the name Billy; batches of ten; caravan cooking as a setting, on; no siege kitchens (owner, 13 Nov 2026) | Record answered; next after the first batch |
+| Q2 | Stockade prisoner trailer | Vehicles | Capture into it, raiders' cages (1 raid in 5 with vehicles), captives at bases, harsh conditions; the name Stockade; memories as proposed; **the guard's tending a setting, "Wounds a guard tends a day", default 1** (owner, 13 Nov 2026) | Record answered; next after the first batch |
 | Q3 to Q14 | Water and fuel bowsers, cold store, aid post, shower and latrine, crib room, field workshop, field laboratory, light tower, stone saw, bridge layer, livestock trailer | Vehicles | The supply, care and work families and the livestock trailer, in depth (owner, 13 Nov 2026) | Record written; not built |
 | Q15 to Q19 | Boat trailer, low-loader, drawbar tipper and tank trailers, battery trailer, ordnance trailer | Vehicles | Listed briefly only | Record written |
 | Q20 | Requirement for any trailer carrying people or animals: a towed vehicle's riders join the caravan while it travels | Framework | — | Open; not checked in code |

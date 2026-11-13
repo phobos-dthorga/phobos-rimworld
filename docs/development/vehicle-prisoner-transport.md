@@ -104,8 +104,9 @@ consequence of that temperature, food and wounds; we add only the cage's memorie
   heater and a full belly. A colonist kidnapped into a raider's cage gets "Caged by raiders" (−10, lasting after rescue).
 - **Warnings (plain words, in-world):** the inspect text names the worst of it ("Freezing in there", "No rations left", "Someone is
   bleeding"), and a letter the first time someone aboard is in danger of dying. Then it is the player's call.
-- **A guard's seat** [A]: a colonist with a weapon. The guard can **tend a wound aboard** with medicine from the locker once a day
-  [A], the one mercy the cage allows, and is the person raiders must deal with to open it.
+- **A guard's seat** [A]: a colonist with a weapon. The guard can **tend wounds aboard** with medicine from the locker, the one
+  mercy the cage allows, and is the person raiders must deal with to open it. **How many wounds a day is a setting** (owner, 13 Nov
+  2026), "Wounds a guard tends a day", default 1 [A]; 0 turns the mercy off.
 
 | Behaviour | Lets the player | Stops the player | Changes how they play |
 | --- | --- | --- | --- |
@@ -200,6 +201,15 @@ consequence of that temperature, food and wounds; we add only the cage's memorie
 
 ## Questions for the owner
 
+**Answered by the owner, 13 Nov 2026:** (1) the name **Stockade prisoner trailer**; (3) **the guard tends, as a setting**: the owner
+asked that the number of tendings a day be the player's to choose, so it is a mod setting, **"Wounds a guard tends a day"**,
+default 1 [A], where 0 means the cage gives no mercy at all; (4) **raiders' cages in 1 raid in 5** that bring vehicles; (6) **the
+memories as proposed**, tuned in play. Questions 2 (cells as seats) and 5 (who is held at bases) were not put yet; their agent
+defaults stand. Nothing is built yet. **When it is built, the new setting is reported to the owner** with its label, default and
+place (AGENTS.md).
+
+The questions as they were written:
+
 1. **The name:** "Stockade prisoner trailer" (agent pick), or another?
 2. **Cells as Vehicle Framework seats** (agent default), or a holder of our own?
 3. **The guard's seat and one tending a day** (agent default), or no tending at all?
@@ -211,8 +221,10 @@ consequence of that temperature, food and wounds; we add only the cage's memorie
 
 - **Owner (13 Nov 2026):** something to transport prisoners with; capture straight into it; raiders use them on us; captives at
   enemy bases; harsh conditions with upgrades that cost materials and fuel.
-- **Agent defaults, owner to revise:** the name; cells as seats; the ration locker; the cage bodies and every figure marked [A]; the
-  memories; the guard's tending; raiders carrying victims to a nearer cage; who is held at bases and what freeing them gives.
+- **Owner (13 Nov 2026, later):** the name Stockade; the guard's tending as a setting with a player-chosen number a day; raiders'
+  cages in 1 raid in 5; the memories as proposed.
+- **Agent defaults, owner to revise:** cells as seats; the ration locker; the cage bodies and every figure marked [A]; the setting's
+  default of 1; raiders carrying victims to a nearer cage; who is held at bases and what freeing them gives.
 
 ## Sources
 

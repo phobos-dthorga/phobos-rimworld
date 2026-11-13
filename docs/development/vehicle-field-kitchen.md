@@ -131,7 +131,7 @@ would need a new part item; the record leaves it out unless the owner wants burn
 
 | Where | What happens | Lets the player | Stops the player |
 | --- | --- | --- | --- |
-| **A raid on us** | Ordinary raids bring none. **A siege may** [A: industrial and above]: the besiegers set up a kitchen at their camp, which keeps them fed longer | Shoot the kitchen to shorten the siege [I: to check against how the game's siege supplies work] | Starving a siege out quickly |
+| **A raid on us** | None: raids and sieges bring no kitchen (owner, 13 Nov 2026, declined siege kitchens) | — | — |
 | **A base we attack** | A base may have a set-up kitchen with its tent ([vehicle-trailers.md](vehicle-trailers.md)) | Loot its food and fuel; capture it whole | Nothing |
 | **A vehicle we capture** | It works for us at once | Use it | Nothing |
 
@@ -161,6 +161,13 @@ would need a new part item; the record leaves it out unless the owner wants burn
 
 ## Questions for the owner
 
+**Answered by the owner, 13 Nov 2026:** (1) the name **Billy field kitchen**; (2) **batches of ten** at 80% of the work; (3)
+**cooking in caravans**, as a setting on by default; (5) **no siege kitchens**: the owner did not choose them, so raids bring no
+kitchen and the "A raid on us" row above is withdrawn. Question 4 (water with Dubs Bad Hygiene) was not put yet; its agent default
+stands. Nothing is built yet.
+
+The questions as they were written:
+
 1. **The name:** "Billy field kitchen" (agent pick), or another?
 2. **Batches of ten** at 80% of the work (agent default), or the game's x4 only?
 3. **Caravan cooking:** on by default as a setting (agent default), off by default, or not at all?
@@ -170,8 +177,9 @@ would need a new part item; the record leaves it out unless the owner wants burn
 ## Who chose what
 
 - **Owner (13 Nov 2026):** a military-style kitchen on wheels, powered by the Busbar as required; burners always, power as a bonus.
-- **Agent defaults, owner to revise:** the name; the kitchen tent as a real room; the range copying every stove recipe; the kettle
-  and x10 recipes; the cold box; every figure marked [A]; caravan cooking; the upgrade tree; siege kitchens.
+- **Owner (13 Nov 2026, later):** the name Billy; batches of ten; caravan cooking as a setting on by default; canvas rooms (the
+  kitchen tent); no siege kitchens.
+- **Agent defaults, owner to revise:** the range copying every stove recipe; the cold box; every figure marked [A]; the upgrade tree.
 
 ## Sources
 

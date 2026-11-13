@@ -390,6 +390,13 @@ on the map, and then only what a set-out building costs.
 
 ## Questions for the owner
 
+**Answered by the owner, 13 Nov 2026:** (1) **the first batch is the base with the water and fuel bowsers** (Q0, Q3, Q4), the
+field kitchen and the prisoner transport next; (2) **canvas rooms, yes**, for the kitchen, aid post, crib room and laboratory.
+Questions 3 to 5 were not put yet; their agent defaults stand until the owner says otherwise. Nothing is built: each batch waits
+on the owner's go.
+
+The questions as they were written:
+
 1. **Build order:** the suggested order above, or another?
 2. **Canvas rooms:** the kitchen, aid post, crib room and laboratory set out a real canvas room (agent default), or open pieces only?
 3. **Chassis:** two chassis, the Pintle's 2 x 5 and a 3 x 7 tandem (agent default), or one size for all?
@@ -401,7 +408,8 @@ on the map, and then only what a set-out building costs.
 - **Owner (13 Nov 2026):** the round; the field kitchen powered by the Busbar as required, cooking on burners with power as a
   bonus; the prisoner transport with capture into it, raiders using it, captives at bases and harsh conditions; the Supply, Care
   and Work families and the livestock trailer in depth.
-- **Agent defaults, owner to revise:** the shared base and its five pieces; canvas rooms; the two chassis; every figure marked [A];
+- **Owner (13 Nov 2026, later):** the base with the two bowsers first; canvas rooms.
+- **Agent defaults, owner to revise:** the shared base and its five pieces; the two chassis; every figure marked [A];
   the suggested order; the catalogue entries and what was left out.
 
 ## Sources
