@@ -1,0 +1,33 @@
+{
+  "file": "billy-range-14.png",
+  "sha256": "d906e50a398d899d7dfa7ef491dd990523434585bbcbcd363bf835a79c1b1b57",
+  "date": "2026-11-17T09:11:39",
+  "generator": "ComfyUI 0.41.0, local, FLUX.2 Klein 4B base fp8 (Black Forest Labs, Apache 2.0)",
+  "engine": "klein-base",
+  "model": "flux-2-klein-base-4b-fp8.safetensors",
+  "model_sha256": "44bab3a86fe98b85d21dd2a4729ebdc3ae51fb8a39f76e457e18c724219e6840",
+  "prompt": "phobosvanilla, The object in the first reference image, a long field kitchen cooking range: an olive-drab steel cabinet with a steel cook top holding two round burners under black cast-iron pot grates and a ribbed griddle plate, a short round flue stub at the back right corner, a row of dark control knobs along the south edge and an orange fuel connector on the east end. Keep its shape, layout and colours. Draw it in exactly the art style of the second reference image: a game sprite seen from directly above, south face hinted, with a thick near-black outline around every shape, soft flat cel shading, a muted palette, rounded panel corners and a few small clean details. One object, centred, on a plain pure white background. No floor, no cast shadow, no flames, no smoke, no food, no text, no labels, no people.",
+  "negative_prompt": "",
+  "seed": 14,
+  "steps": 50,
+  "cfg": 4.0,
+  "sampler": "euler/flux2",
+  "request_file": "assets/phobos-vehicles/requests/trailer-pieces.json",
+  "size": [
+    1536,
+    768
+  ],
+  "seconds": 153.1,
+  "references": [
+    {
+      "image": "assets/phobos-vehicles/references/BillyRange-large.png",
+      "sha256": "3ae7b6b308ced2a7aa5dd8ed6be8f4e4e4cec7623da4f6f8c8aa440e9bee849e"
+    },
+    {
+      "image": "mods/PhobosMedical/Common/Textures/Phobos/Medical/Things/Electrolyser.png",
+      "sha256": "3093f4daf87c0953f718ff450f0828007cea52ba020f8c5f17f967343145c667"
+    }
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "lora_strength": 1.0
+}

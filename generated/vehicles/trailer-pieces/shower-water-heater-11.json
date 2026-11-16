@@ -1,0 +1,33 @@
+{
+  "file": "shower-water-heater-11.png",
+  "sha256": "ad8caf92a6e230dd8122285def4d3935c54fa13092db33c45ba9874d7ed60252",
+  "date": "2026-11-17T09:35:30",
+  "generator": "ComfyUI 0.41.0, local, FLUX.2 Klein 4B base fp8 (Black Forest Labs, Apache 2.0)",
+  "engine": "klein-base",
+  "model": "flux-2-klein-base-4b-fp8.safetensors",
+  "model_sha256": "44bab3a86fe98b85d21dd2a4729ebdc3ae51fb8a39f76e457e18c724219e6840",
+  "prompt": "phobosvanilla, The object in the first reference image, a field shower water heater on an olive-drab steel skid: a round pale hot-water tank seen from above beside a dark steel burner box with a round flue and slatted vents, a red hot pipe and a blue cold pipe running out to the south. Keep its shape, layout and colours. Draw it in exactly the art style of the second reference image: a game sprite seen from directly above, south face hinted, with a thick near-black outline around every shape, soft flat cel shading, a muted palette, rounded panel corners and a few small clean details. One object, centred, on a plain pure white background. No floor, no cast shadow, no flames, no smoke, no food, no text, no labels, no people.",
+  "negative_prompt": "",
+  "seed": 11,
+  "steps": 50,
+  "cfg": 4.0,
+  "sampler": "euler/flux2",
+  "request_file": "assets/phobos-vehicles/requests/trailer-pieces.json",
+  "size": [
+    1024,
+    1024
+  ],
+  "seconds": 162.4,
+  "references": [
+    {
+      "image": "assets/phobos-vehicles/references/ShowerWaterHeater-large.png",
+      "sha256": "90921380de17bbc7fbe1aa9fc97420de447ecdb1c760975b598c2b9e140be76b"
+    },
+    {
+      "image": "mods/PhobosMedical/Common/Textures/Phobos/Medical/Things/Steriliser.png",
+      "sha256": "2d9a8130a56474adbc5ab4279e3f39c42a98b1bad5133612cf1b9fb8534995ef"
+    }
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "lora_strength": 1.0
+}
