@@ -34,4 +34,9 @@ public class PhobosKnockOutRulesDef : PhobosRulesDef
     public List<string> trackKeySuffixes = new();
     /// <summary>The share of a track's health at or below which it is thrown, and the vehicle cannot move at all.</summary>
     public float trackThrownAtOrBelow = 0f;
+
+    // ---- The crew (step 3: C2) ----
+
+    /// <summary>Off: no crew leaves by itself and the player gets no alert; Vehicle Framework's own rules stand.</summary>
+    public bool crewsBailOut = true;
 }

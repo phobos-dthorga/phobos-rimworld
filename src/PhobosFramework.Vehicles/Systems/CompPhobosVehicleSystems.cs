@@ -602,6 +602,8 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
                 Beams.Update();
                 // Any faction's burning vehicle cooks off its ammunition (G13): cheap, read only while it burns.
                 CookOff.RareTick(this);
+                // Another faction's crew leaves a burning vehicle or a dead hull (Framework 0.115.0, C2).
+                CrewBailOut.RareTick(this);
                 break;
             default:
                 beams?.PutOut();

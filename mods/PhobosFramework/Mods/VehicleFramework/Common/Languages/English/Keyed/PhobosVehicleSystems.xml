@@ -96,6 +96,11 @@
   <PhobosVehicleSystems_InspectCannotMoveDamaged>Cannot move: {PART} too badly damaged.</PhobosVehicleSystems_InspectCannotMoveDamaged>
   <PhobosVehicleSystems_MsgCannotMove>{VEHICLE} has stopped. {WHY}</PhobosVehicleSystems_MsgCannotMove>
   <PhobosVehicleSystems_StatTrackThrown>Thrown track ({PART}): cannot move</PhobosVehicleSystems_StatTrackThrown>
+  <!-- Crews in danger (Framework 0.115.0, C2). -->
+  <PhobosVehicleSystems_AlertCrewInDanger>Crew in danger</PhobosVehicleSystems_AlertCrewInDanger>
+  <PhobosVehicleSystems_AlertCrewInDangerDesc>People are still aboard these vehicles:\n\n{VEHICLES}\n\nGet them out, or put the fire out and repair what stopped the vehicle.</PhobosVehicleSystems_AlertCrewInDangerDesc>
+  <PhobosVehicleSystems_AlertCrewBurning>{VEHICLE} is on fire</PhobosVehicleSystems_AlertCrewBurning>
+  <PhobosVehicleSystems_AlertCrewKnockedOut>{VEHICLE} can neither move nor fire</PhobosVehicleSystems_AlertCrewKnockedOut>
   <PhobosVehicleSystems_InspectFigure>{QUANTITY} {VALUE}</PhobosVehicleSystems_InspectFigure>
   <PhobosVehicleSystems_InspectFigureStage>{QUANTITY} {VALUE} ({STAGE})</PhobosVehicleSystems_InspectFigureStage>
   <PhobosVehicleSystems_InspectServiceDue>Waiting for a mechanic: {SERVICE}.</PhobosVehicleSystems_InspectServiceDue>

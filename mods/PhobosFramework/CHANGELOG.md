@@ -19,6 +19,10 @@ Knocked out, not destroyed: the owner's build of 17 Nov 2026 (docs/development/v
   speed are averaged. Wheels still average, so a truck limps on three. Every faction's tracked vehicles.
 - **A vehicle that cannot move says why** (step 2: M1): "Cannot move: left track destroyed." in its inspect pane and on its speed's
   explanation, and a message when one of yours is stopped by damage (it used to be undrafted without a word).
+- **Crews get out of a burning vehicle or a dead hull** (step 3: C2). Raiders', allies' and other factions' crews climb out of a vehicle
+  that is on fire, or that can neither move nor fire, and fight or flee on foot, leaving it for you to claim. Your own crews are never
+  ordered out: a **Crew in danger** alert lists your vehicles in that state. A towed gun or emplacement that never moves is not counted
+  as knocked out for standing still.
 
 ## [0.114.5] - 2026-11-16 - Draft
 

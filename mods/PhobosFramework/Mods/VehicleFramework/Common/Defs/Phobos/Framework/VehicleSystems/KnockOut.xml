@@ -32,5 +32,9 @@
       <li>Track</li>
     </trackKeySuffixes>
     <trackThrownAtOrBelow>0</trackThrownAtOrBelow>
+
+    <!-- Step 3 (C2): a crew in a burning vehicle, or one that can neither move nor fire, gets out. The owner's choice: other factions' crews
+         leave by themselves; the player's are never ordered out, and the player gets an alert. -->
+    <crewsBailOut>true</crewsBailOut>
   </Phobos.VehicleSystems.PhobosKnockOutRulesDef>
 </Defs>
