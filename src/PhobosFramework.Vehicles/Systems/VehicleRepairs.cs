@@ -428,6 +428,7 @@ public sealed class VehicleRepairs
                     // A track or wheel re-fitted in the field (M3): back to the owner's quarter, still waiting for a proper replacement.
                     comp.RestorePart(repair.Part, PhobosRulesDef.Current<PhobosKnockOutRulesDef>().fieldRefitHealth);
                     refitted.Add(repair.Part.props.key);
+                    Seen.Note("vehicles.field-refit", comp.Vehicle, repair.Part.props.label);
                     NotifyRepairable();
                     text = "PhobosVehicleSystems_RepairFieldRefitted".Translate(who, vehicle, repair.Part.props.label.Named("PART")).Resolve();
                     break;

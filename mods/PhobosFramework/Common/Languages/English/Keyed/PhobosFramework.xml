@@ -70,4 +70,7 @@
   <PhobosFramework_SettingVerboseAllDesc>Every D'thorga log below writes its detail. Louder than ticking only the part you are chasing.</PhobosFramework_SettingVerboseAllDesc>
   <PhobosFramework_SettingVerboseTopic>Verbose: {LOG}</PhobosFramework_SettingVerboseTopic>
   <PhobosFramework_SettingVerboseTopicDesc>This log writes its detail lines. The name is the heading its lines carry in the log. Takes effect at once.</PhobosFramework_SettingVerboseTopicDesc>
+  <!-- Seen-in-play notes, for testing (0.118.0) -->
+  <PhobosFramework_SettingNoteSeenInPlay>Note features as they are seen working (for testing)</PhobosFramework_SettingNoteSeenInPlay>
+  <PhobosFramework_SettingNoteSeenInPlayDesc>For testing with D'thorga Companion's Tests page. The first time each feature is seen working in a session, one line goes to {PATH} and one to the game's log. A note says only that the feature ran without an error; whether it worked as it should is still for you to judge. Off for normal play.</PhobosFramework_SettingNoteSeenInPlayDesc>
 </LanguageData>

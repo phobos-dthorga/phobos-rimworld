@@ -34,6 +34,7 @@ public partial class ITab_VehicleSystems
         anything = true;
         float top = y;
         PhobosWidgets.CardHeader(ref y, 0f, width, "PhobosVehicleSystems_SysCrew".Translate(), PhobosWidgets.Bad);
+        Seen.Note("vehicles.systems-tab.crew-card", comp.Vehicle, danger.ToString());
         string line = (danger == CrewDanger.Burning ? "PhobosVehicleSystems_SysCrewBurning" : "PhobosVehicleSystems_SysCrewKnockedOut").Translate().Resolve();
         y += PhobosWidgets.WrappedLine(6f, y + 3f, width - 12f, line.Colorize(PhobosWidgets.Bad)) + 6f;
         PhobosWidgets.CardEnd(top, ref y, 0f, width);
@@ -69,6 +70,7 @@ public partial class ITab_VehicleSystems
         if (weaponScratch.Count == 0) return;
         anything = true;
         float top = y;
+        Seen.Note("vehicles.systems-tab.weapons-card", comp.Vehicle);
         PhobosWidgets.CardHeader(ref y, 0f, width, "PhobosVehicleSystems_SysWeapons".Translate(),
             anyOut ? PhobosWidgets.Bad : anySlow ? PhobosWidgets.Caution : PhobosWidgets.Good);
         foreach (VehicleTurret turret in weaponScratch) DrawWeapon(comp, turret, ref y, width, ref hovered);
@@ -117,7 +119,10 @@ public partial class ITab_VehicleSystems
             parts.Add("PhobosVehicleSystems_SysWeaponPace".Translate(Mathf.Min(pace.traverse, Mathf.Min(pace.aim, pace.reload)).ToStringPercent().Named("PACE"),
                 string.Join(", ", why).Named("WHY")).Resolve().Colorize(PhobosWidgets.Caution));
         }
-        string? drive = TurretPower.DriveOf(comp, turret) switch
+        WeaponDrive driveKind = TurretPower.DriveOf(comp, turret);
+        if (driveKind == WeaponDrive.HandSwung) Seen.Note("vehicles.systems-tab.hand-swung-weapon", comp.Vehicle, turret.key);
+        else if (driveKind == WeaponDrive.TurnsWithTurret) Seen.Note("vehicles.systems-tab.weapon-with-turret", comp.Vehicle, turret.key);
+        string? drive = driveKind switch
         {
             WeaponDrive.HandSwung => "PhobosVehicleSystems_SysDriveHandSwung".Translate().Resolve(),
             WeaponDrive.Powered => "PhobosVehicleSystems_SysDrivePowered".Translate().Resolve(),
@@ -170,6 +175,7 @@ public partial class ITab_VehicleSystems
         anything = true;
         VehicleComponent? thrown = Mobility.ThrownTrack(comp.Vehicle, comp.Props);
         float top = y;
+        Seen.Note("vehicles.systems-tab.running-gear-card", comp.Vehicle);
         PhobosWidgets.CardHeader(ref y, 0f, width, "PhobosVehicleSystems_SysRunningGear".Translate(),
             cannotMove != null || thrown != null ? PhobosWidgets.Bad : trackScratch.Exists(t => t.HealthPercent < WholeShare) ? PhobosWidgets.Caution : PhobosWidgets.Good);
         if (cannotMove != null) y += PhobosWidgets.WrappedLine(6f, y + 2f, width - 12f, cannotMove.Colorize(PhobosWidgets.Bad)) + 4f;
@@ -214,6 +220,7 @@ public partial class ITab_VehicleSystems
         if (loadScratch.Count == 0) return;
         anything = true;
         float top = y;
+        Seen.Note("vehicles.systems-tab.loads-card", comp.Vehicle);
         PhobosWidgets.CardHeader(ref y, 0f, width, "PhobosVehicleSystems_SysLoads".Translate(),
             anyNoPower ? PhobosWidgets.Bad : anyShed ? PhobosWidgets.Caution : PhobosWidgets.Good);
         float nameEnd = width * 0.5f;

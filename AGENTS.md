@@ -24,6 +24,11 @@ delivered, record the delivery in the changelog or design record, and add or ame
   from proposed designs and untested assumptions. A build, an offline check or a unit test is never an
   in-game test. **Nothing counts as tested in game until the owner says so**; write "not yet tested in
   game" in READMEs, changelogs and replies, and never claim untested compatibility.
+- **A feature with a test row notes itself when seen working** (owner, 17 Nov 2026: passes seen in play rarely reached the test list):
+  a `Seen.Note("area.what", thing, detail)` where the behaviour happens (D'thorga Framework's `SeenInPlay`, behind its setting, off by
+  default), and the key against its row in `config/test-evidence.json`, in the same change; `tests/test_test_evidence.py` holds the two
+  together. A note says the code ran without an error, never that the result looked right: **a row it flags is "seen working, awaiting
+  the owner's word"** until the owner passes or fails it (D'thorga Companion's Tests page, planned).
 - The owner runs gameplay tests. Do not control the owner's mouse or keyboard; give instructions for
   interactive steps. Never edit, replace or delete save files without explicit authorisation (read-only
   copies for diagnosis are fine; delete them afterwards). **Answer questions about a save with

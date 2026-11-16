@@ -83,6 +83,11 @@ public static class TurretPace
         TurretPower.Paces(comp, turret, out double powerTraverse, out double powerAim, out bool cranked);
         pace.handCranked = cranked;
 
+        // Seen in play (Framework 0.118.0): what slowed or stopped this weapon, once a session each.
+        if (mount != null && mount.HealthPercent <= rules.stopsAtOrBelow) Seen.Note("vehicles.weapon-stopped-by-mount", vehicle, turret.key);
+        else if (pace.damaged) Seen.Note("vehicles.weapon-slowed-by-damage", vehicle, turret.key);
+        if (pace.gunnerHurt) Seen.Note("vehicles.weapon-slowed-by-gunner", vehicle, turret.key);
+        if (cranked) Seen.Note("vehicles.turret-hand-cranked", vehicle, turret.key);
         pace.traverse = (float)(damage * hands * powerTraverse);
         pace.aim = (float)(damage * sight * powerAim);
         pace.reload = (float)(damage * hands);

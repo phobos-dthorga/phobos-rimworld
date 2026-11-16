@@ -2074,6 +2074,8 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
         string? why = Mobility.Line(Vehicle, Props);
         Messages.Message("PhobosVehicleSystems_MsgCannotMove".Translate(Vehicle.LabelShort.Named("VEHICLE"), (why ?? "").Named("WHY")),
             Vehicle, MessageTypeDefOf.NegativeEvent);
+        Seen.Note("vehicles.stopped-by-damage", Vehicle, why);
+        if (Mobility.ThrownTrack(Vehicle, Props) is { } track) Seen.Note("vehicles.track-thrown", Vehicle, track.props.label);
     }
 
     public override string? CompInspectStringExtra()

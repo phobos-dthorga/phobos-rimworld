@@ -19,6 +19,14 @@ public class Reactor_PhobosTurretPopper : Reactor_TurretPopper
         base.Hit(vehicle, component, ref dinfo, penetration);
     }
 
+    /// <summary>Vehicle Framework makes the blast that throws the turret here, whether set off by a hit or by a cook-off.</summary>
+    protected override TimedExplosion? CreateExploder(VehiclePawn vehicle, VehicleComponent component)
+    {
+        TimedExplosion? exploder = base.CreateExploder(vehicle, component);
+        if (exploder != null) Seen.Note("vehicles.turret-popped", vehicle, turretKey);
+        return exploder;
+    }
+
     /// <summary>Sets it off now (a cook-off blast reached the ammunition rack). Vehicle Framework's own way to do this is internal.</summary>
     public void Detonate(VehiclePawn vehicle, VehicleComponent component)
     {

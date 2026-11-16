@@ -1,0 +1,21 @@
+{
+  "description": "Which 'seen in play' notes the game writes (D'thorga Framework's Seen.Note, with its setting on) stand as evidence for which rows of docs/development/in-game-test-pass.md. A note says a feature ran without an error, never that it looked right: a row it flags waits for the owner's word. tests/test_test_evidence.py holds every key here to a note in the source and every note in the source to a row.",
+  "rows": {
+    "120": ["vehicles.weapon-stopped-by-mount"],
+    "121": ["vehicles.stopped-by-damage", "vehicles.track-thrown"],
+    "122": ["vehicles.crew-bailed-out", "vehicles.crew-in-danger-alert"],
+    "123": ["vehicles.weapon-slowed-by-damage", "vehicles.weapon-slowed-by-gunner"],
+    "124": ["vehicles.turret-hand-cranked", "vehicles.systems-tab.loads-card"],
+    "125": ["vehicles.feed-refused.winch"],
+    "126": ["vehicles.turret-popped"],
+    "127": ["vehicles.field-refit"],
+    "128": ["vehicles.tank-pump-on-battery", "vehicles.feed-refused.tankPump"],
+    "129": ["vehicles.feed-refused.fieldLab", "vehicles.feed-refused.sonar", "vehicles.feed-refused.listening"],
+    "130": ["vehicles.conduit-refused-under-vehicle"],
+    "131": ["vehicles.systems-tab.weapons-card", "vehicles.systems-tab.running-gear-card", "vehicles.systems-tab.loads-card", "vehicles.systems-tab.crew-card"],
+    "137": ["vehicles.systems-tab.hand-swung-weapon", "vehicles.systems-tab.weapon-with-turret", "vehicles.turret-hand-cranked"]
+  },
+  "prefixes": {
+    "vehicles.feed-refused.": "the feed's electrical load or supply, from FeedSpec.load (winch, fieldLab, sonar, listening, tankPump)"
+  }
+}

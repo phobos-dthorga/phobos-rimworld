@@ -27,6 +27,8 @@ public class FrameworkSettings : ModSettings
     public bool systemSoundsOnOtherVehicles = true;
     /// <summary>Whose parts a build of ours asks for (Bills/Bills; owner, 11 Nov 2026: other mods' where installed, with a setting; applied at the next start).</summary>
     public Bills.BillPartsSource billPartsSource = Bills.BillPartsSource.OthersWhereInstalled;
+    /// <summary>"Seen in play" notes for testing (Framework 0.118.0; owner, 17 Nov 2026: off by default): Debug/SeenInPlay.cs.</summary>
+    public bool noteSeenInPlay;
     /// <summary>Verbose logging (owner, 16 Nov 2026: a master switch and a tick per part; both off by default): every log of ours writes
     /// its detail lines.</summary>
     public bool verboseAll;
@@ -66,6 +68,7 @@ public class FrameworkSettings : ModSettings
         Scribe_Values.Look(ref showGasOverlay, "PhobosFramework_ShowGasOverlay", false);
         Scribe_Values.Look(ref writePatchedDefsOnce, "PhobosFramework_WritePatchedDefsOnce", false);
         Scribe_Values.Look(ref keepGameLogAlive, "PhobosFramework_KeepGameLogAlive", true);
+        Scribe_Values.Look(ref noteSeenInPlay, "PhobosFramework_NoteSeenInPlay", false);
     }
 }
 
@@ -79,7 +82,7 @@ public class FrameworkSettings : ModSettings
 public class FrameworkMod : Mod
 {
     public const string PackageId = "PhobosDthorga.Framework";
-    public const string ModVersion = "0.117.2";
+    public const string ModVersion = "0.118.0";
     public const string LogPrefix = "[D'thorga Framework]";
     public static readonly Phobos.Logging.PhobosLog Logger = Logging.Logs.For("D'thorga Framework");
 
@@ -185,6 +188,10 @@ public class FrameworkMod : Mod
             GUI.color = Color.white;
             if (!Settings.verboseAll && on != before) Settings.SetVerbose(topic.Key, on);
         }
+        // Seen-in-play notes (owner, 17 Nov 2026): for testing with D'thorga Companion's Tests page; off by default.
+        listing.GapLine();
+        listing.CheckboxLabeled("PhobosFramework_SettingNoteSeenInPlay".Translate(), ref Settings.noteSeenInPlay,
+            "PhobosFramework_SettingNoteSeenInPlayDesc".Translate(Debug.SeenInPlay.OutputPath.Named("PATH")));
         scroll.End(listing);
     }
 }

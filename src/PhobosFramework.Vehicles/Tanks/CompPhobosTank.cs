@@ -583,6 +583,7 @@ public class CompPhobosTank : CompPhobosSetUp
         // The electric pump with the engine off runs on the battery, and waits while it is flat (Framework 0.116.0, W3).
         pumpStatus = BatteryPumpRefusal();
         if (pumpStatus != null) return;
+        if (ElectricPump && Vehicle.GetComp<CompPhobosVehicleSystems>() is { EngineRunning: false }) Seen.Note("vehicles.tank-pump-on-battery", Vehicle);
         float rate = Vehicle.GetStatValue(TankDefOf.Phobos_PumpRate);
         if (mode == TankPumpMode.Load)
         {

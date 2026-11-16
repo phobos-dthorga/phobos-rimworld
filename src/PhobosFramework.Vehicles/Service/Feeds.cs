@@ -21,6 +21,7 @@ public static class Feeds
         float quantity = hasQuantity && comp.TryGetQuantity(feed.quantity!, out float q) ? q : 1f;
         FeedShortfall shortfall = FeedRule.Check(feed.engineRunning, comp.EngineRunning, feed.load != null,
             feed.load == null || comp.LoadCouldRun(feed.load, flat), hasQuantity, quantity, feed.atLeast);
+        if (shortfall != FeedShortfall.None) Seen.Note("vehicles.feed-refused." + (feed.load ?? feed.quantity ?? "engine"), comp.Vehicle, shortfall.ToString());
         string vehicle = comp.Vehicle.LabelShort;
         return shortfall switch
         {

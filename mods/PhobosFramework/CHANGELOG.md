@@ -10,6 +10,29 @@ tested in game unless an entry says the owner tested it.
 - The README no longer calls RimWorld 1.6 supported, marks the 0.107.0 and 0.108.0 notes on visible pipes as replaced by the hidden pipes of 0.108.1, and names the former medical mods as parts of D'thorga Medical. No change in play.
 - The README is cut to today's gotchas, a feature list linking the player guide, the settings and links for modders; version notes live in this changelog and the modder material in the new framework modding page. No change in play.
 
+## [0.118.0] - 2026-11-17 - Draft
+
+Seen-in-play notes, for testing with D'thorga Companion
+
+### Added
+
+- **A setting, Note features as they are seen working (for testing)**, off by default (the owner's request, 17 Nov 2026: tests the owner
+  sees pass rarely reach the test list). With it on, the first time each feature is seen working in a session, one line goes to
+  PhobosSnapshots/SeenInPlay.jsonl in the RimWorld user folder and one to the log. D'thorga Companion's Tests page will show the test rows
+  these lines flag as seen working, for the owner to mark passed or failed. A line says only that the feature ran without an error; only
+  the owner's word passes a row.
+- The vehicle systems note: a weapon stopped by its mount or slowed by damage, a hurt gunner or hand-cranking; a vehicle stopped by
+  damage and a thrown track; a crew bailing out and the crew alert; a turret blown off; a field re-fit; a winch, pump or instrument
+  refused for want of power; the tanker pumping on its battery; a conduit refused under a vehicle; and the Systems tab's new cards.
+
+### Compatibility and limits
+
+- Off, it reads one setting and does nothing else. On, about a dozen short lines a session. Not yet tested in game.
+
+### Save compatibility
+
+- Safe to add to a running game. Nothing is saved with a game.
+
 ## [0.117.2] - 2026-11-17 - Draft
 
 Every vehicle's weapons checked: guns on their own mounts are swung by hand

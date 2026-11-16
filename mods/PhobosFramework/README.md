@@ -99,6 +99,7 @@ Under **Options > Mod settings**. RimWorld saves only what you change.
 | Write a colony mood file at each save | Writes every colonist's, slave's and prisoner's thoughts to `PhobosSnapshots/ColonyMood.xml` in the RimWorld user folder, for the mood report in D'thorga Companion and phobos-modkit. Changes nothing in play | On |
 | Write every Def with all patches applied at the next start (dev mode) | For mod developers: one file, `PhobosPatchedDefs/PatchedDefs.xml`, then it turns itself off | Off |
 | Verbose logging: everything, and Verbose: one tick per log | Extra detail in the game's log for chasing a fault, for everything or one part at a time; capped so it cannot flood the log | Off |
+| Note features as they are seen working (for testing) | The first time each feature is seen working in a session, writes one line to `PhobosSnapshots/SeenInPlay.jsonl` in the RimWorld user folder and one to the log, for the Tests page in D'thorga Companion. A line says the feature ran without an error, never that it looked right. Changes nothing in play | Off |
 
 ### D'thorga Framework: vehicle systems (with Vehicle Framework)
 
@@ -156,6 +157,6 @@ oxygen, the health layer, care choices, protective-gear lines, parts bills and t
 
 ## Checks done
 
-Every version's checks, and what the owner has tested in game, are in [the changelog](CHANGELOG.md); the latest entry is 0.117.2
+Every version's checks, and what the owner has tested in game, are in [the changelog](CHANGELOG.md); the latest entry is 0.118.0
 (17 November 2026), not yet tested in game. The vehicle features the owner has tested are listed in the player guide's
 [what has been tested in game](../../docs/player-guide/vehicle-care.md#what-has-been-tested-in-game).

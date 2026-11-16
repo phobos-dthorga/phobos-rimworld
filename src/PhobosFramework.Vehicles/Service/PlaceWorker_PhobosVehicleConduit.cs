@@ -23,6 +23,7 @@ public class PlaceWorker_PhobosVehicleConduit : PlaceWorker
             if (!here.def.EverTransmitsPower || !PipeUnderlay.LaidByUs(here)) continue;
             VehiclePawn? vehicle = map.GetDetachedMapComponent<VehiclePositionManager>()?.ClaimedBy(loc);
             if (vehicle == null) continue;
+            Seen.Note("vehicles.conduit-refused-under-vehicle", vehicle);
             return new AcceptanceReport("PhobosVehicleSystems_ConduitUnderVehicle".Translate(vehicle.LabelShort.Named("VEHICLE")).Resolve());
         }
         return true;
