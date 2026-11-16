@@ -33,6 +33,14 @@
     </trackKeySuffixes>
     <trackThrownAtOrBelow>0</trackThrownAtOrBelow>
 
+    <!-- Step 4 (T2, C4): damage and a hurt gunner slow a weapon before it stops. A mount at the stop line gives 0.55 of the weapon's own
+         pace (authored), rising in a straight line to full at full health. The gunner's sight paces the aim and their manipulation the
+         traverse and reload, never below half (authored), never faster than a healthy gunner, as the driver system (G1) does for driving. -->
+    <damageSlowsWeapons>true</damageSlowsWeapons>
+    <damagedMountPace>0.55</damagedMountPace>
+    <gunnerConditionSlowsWeapons>true</gunnerConditionSlowsWeapons>
+    <hurtGunnerPaceFloor>0.5</hurtGunnerPaceFloor>
+
     <!-- Step 3 (C2): a crew in a burning vehicle, or one that can neither move nor fire, gets out. The owner's choice: other factions' crews
          leave by themselves; the player's are never ordered out, and the player gets an alert. -->
     <crewsBailOut>true</crewsBailOut>

@@ -35,6 +35,17 @@ public class PhobosKnockOutRulesDef : PhobosRulesDef
     /// <summary>The share of a track's health at or below which it is thrown, and the vehicle cannot move at all.</summary>
     public float trackThrownAtOrBelow = 0f;
 
+    // ---- A weapon's pace (step 4: T2, C4) ----
+
+    /// <summary>Off: a damaged mount does not slow its weapons before they stop.</summary>
+    public bool damageSlowsWeapons = true;
+    /// <summary>The pace of a weapon whose mount is at the line where it stops: traverse at this share, aiming and reloading this much slower.</summary>
+    public float damagedMountPace = 0.55f;
+    /// <summary>Off: the gunner's sight and hands do not change the weapon's pace.</summary>
+    public bool gunnerConditionSlowsWeapons = true;
+    /// <summary>The slowest a hurt gunner makes a weapon: their sight paces the aim, their hands the traverse and the reload.</summary>
+    public float hurtGunnerPaceFloor = 0.5f;
+
     // ---- The crew (step 3: C2) ----
 
     /// <summary>Off: no crew leaves by itself and the player gets no alert; Vehicle Framework's own rules stand.</summary>

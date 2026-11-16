@@ -96,6 +96,12 @@
   <PhobosVehicleSystems_InspectCannotMoveDamaged>Cannot move: {PART} too badly damaged.</PhobosVehicleSystems_InspectCannotMoveDamaged>
   <PhobosVehicleSystems_MsgCannotMove>{VEHICLE} has stopped. {WHY}</PhobosVehicleSystems_MsgCannotMove>
   <PhobosVehicleSystems_StatTrackThrown>Thrown track ({PART}): cannot move</PhobosVehicleSystems_StatTrackThrown>
+  <!-- A weapon's pace (Framework 0.115.0, T2, C4, T3). -->
+  <PhobosVehicleSystems_InspectWeaponsSlowed>Weapons slowed: {WEAPONS}.</PhobosVehicleSystems_InspectWeaponsSlowed>
+  <PhobosVehicleSystems_WeaponSlowedOne>{WEAPON} ({WHY})</PhobosVehicleSystems_WeaponSlowedOne>
+  <PhobosVehicleSystems_WeaponMountDamaged>{PART} damaged</PhobosVehicleSystems_WeaponMountDamaged>
+  <PhobosVehicleSystems_WeaponGunnerHurt>gunner hurt</PhobosVehicleSystems_WeaponGunnerHurt>
+  <PhobosVehicleSystems_WeaponHandCranked>turned by hand, no power</PhobosVehicleSystems_WeaponHandCranked>
   <!-- Crews in danger (Framework 0.115.0, C2). -->
   <PhobosVehicleSystems_AlertCrewInDanger>Crew in danger</PhobosVehicleSystems_AlertCrewInDanger>
   <PhobosVehicleSystems_AlertCrewInDangerDesc>People are still aboard these vehicles:\n\n{VEHICLES}\n\nGet them out, or put the fire out and repair what stopped the vehicle.</PhobosVehicleSystems_AlertCrewInDangerDesc>

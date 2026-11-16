@@ -2047,10 +2047,12 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
     {
         if (!Usable) return null;
         EnsureStates();
-        string? text = InspectText.For(this);
-        string? stopped = Vehicle.Spawned ? Mobility.Line(Vehicle, Props) : null;
-        if (stopped == null) return text;
-        return text == null ? stopped : stopped + "\n" + text;
+        var lines = new List<string>();
+        // Knocked out, not destroyed (Framework 0.115.0): why it cannot move, and which weapons are slowed and why.
+        if (Vehicle.Spawned && Mobility.Line(Vehicle, Props) is { } stopped) lines.Add(stopped);
+        if (Vehicle.Spawned && TurretPace.Line(Vehicle) is { } slowed) lines.Add(slowed);
+        if (InspectText.For(this) is { } text) lines.Add(text);
+        return lines.Count == 0 ? null : string.Join("\n", lines);
     }
 
     public override IEnumerable<Gizmo> CompGetGizmosExtra()

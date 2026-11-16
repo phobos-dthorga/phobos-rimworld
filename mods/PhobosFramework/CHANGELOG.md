@@ -23,6 +23,11 @@ Knocked out, not destroyed: the owner's build of 17 Nov 2026 (docs/development/v
   that is on fire, or that can neither move nor fire, and fight or flee on foot, leaving it for you to claim. Your own crews are never
   ordered out: a **Crew in danger** alert lists your vehicles in that state. A towed gun or emplacement that never moves is not counted
   as knocked out for standing still.
+- **Damage and a hurt gunner slow a weapon before it stops** (step 4: T2, C4). As a weapon's mount takes damage it turns, aims and
+  reloads slower, down to a little over half its speed at the point where it stops. A gunner with poor sight aims slower, and one with
+  hurt hands turns and reloads slower, down to half; a healthy gunner gives the weapon its full speed and no more. The inspect pane says
+  which weapons are slowed and why. Every faction's weapons. Weapons in other mods' own turret classes (the Harrier's, VTOL Vehicle's,
+  the BMP-1's) keep their own turning speed.
 
 ## [0.114.5] - 2026-11-16 - Draft
 
