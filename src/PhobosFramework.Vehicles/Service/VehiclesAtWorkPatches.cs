@@ -17,9 +17,12 @@ namespace Phobos.VehicleSystems;
 static class VehiclesAtWork
 {
     public const string PackageId = "shengchipangxieyaotuke.vehiclesatwork";
-    const string Helpers = "WOR.VF";
 
-    public static MethodBase? Helper(string name) => OptionalMods.IsActive(PackageId) ? AccessTools.Method(Helpers + ":" + name) : null;
+    /// <summary>
+    /// Whether its helpers may be looked up. Each patch names its helper in full ("WOR.VF:Healthy"), so scripts/check-targets.py can
+    /// check the name and the patch's parameters against the installed mod.
+    /// </summary>
+    public static bool Active => OptionalMods.IsActive(PackageId);
 
     /// <summary>Our refusal for a vehicle Vehicles at Work asks about, or null.</summary>
     public static string? Refusal(Pawn pawn) => pawn is VehiclePawn vehicle ? MoveRefusals.For(vehicle) : null;
@@ -31,7 +34,7 @@ public static class VehiclesAtWorkHealthyPatch
 {
     static bool Prepare() => TargetMethod() != null;
 
-    static MethodBase? TargetMethod() => VehiclesAtWork.Helper("Healthy");
+    static MethodBase? TargetMethod() => VehiclesAtWork.Active ? AccessTools.Method("WOR.VF:Healthy") : null;
 
     public static void Postfix(Pawn v, ref bool __result)
     {
@@ -45,7 +48,7 @@ public static class VehiclesAtWorkCanMovePatch
 {
     static bool Prepare() => TargetMethod() != null;
 
-    static MethodBase? TargetMethod() => VehiclesAtWork.Helper("CanMove");
+    static MethodBase? TargetMethod() => VehiclesAtWork.Active ? AccessTools.Method("WOR.VF:CanMove") : null;
 
     public static void Postfix(Pawn v, ref bool __result)
     {
@@ -62,7 +65,7 @@ public static class VehiclesAtWorkWhyStuckPatch
 {
     static bool Prepare() => TargetMethod() != null;
 
-    static MethodBase? TargetMethod() => VehiclesAtWork.Helper("WhyStuck");
+    static MethodBase? TargetMethod() => VehiclesAtWork.Active ? AccessTools.Method("WOR.VF:WhyStuck") : null;
 
     public static void Postfix(Pawn v, ref string __result)
     {

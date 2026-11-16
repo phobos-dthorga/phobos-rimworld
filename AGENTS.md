@@ -465,8 +465,11 @@ delivered, record the delivery in the changelog or design record, and add or ame
   `--only` and `--skip` narrow it while iterating; never hand-type a loop of builds and tests (one missed four of seven
   test projects). Read a failed step's full output, whose path the report gives, only when its summary is not enough.
 - **`python scripts/check-targets.py` checks what the compiler cannot** (owner, 9 Nov 2026; part of the gate): every Harmony patch and reflected
-  lookup named in a string, the overload it asks for, and the parameters Harmony fills at run time, against the game's and the active mods' assemblies
-  as metadata. It says the names still exist, never that the code still behaves.
+  lookup named in a string, the overload it asks for, and the parameters Harmony fills at run time or matches by name, against the game's and the
+  active mods' assemblies as metadata. It says the names still exist, never that the code still behaves. **Write a by-name tie-in so it can be
+  read** (17 Nov 2026, after the Mongoose crash fix had to be checked by hand): the full `"Namespace.Type:Member"` or a fixed type name (`OptionalMods.TypeNamed`,
+  `TypeByName`, a string constant) in the `TargetMethod` or lookup itself, never a name put together from a parameter; its "worked out at run time"
+  table lists what it still cannot read.
 - **Tests leave nothing behind.** A test that makes a git repository sets `core.fsmonitor false` in it and deletes it with
   read-only handling (git's object files are read-only; `ignore_errors=True` hides the failure). **`python scripts/cleanup.py`
   lists what the tools, builds and tests left behind, with sizes and why** (owner, 11 Nov 2026: phobos-modkit's `cleanup`): stale and

@@ -127,8 +127,7 @@ public static class TurretAimSwayCombatExtended
         return false;
     }
 
-    // scripts/check-targets.py does not read a "Type:Method" name yet, so this one was checked by hand against Combat Extended's installed
-    // assembly (17 Nov 2026): public static, with parameters named shooter and sway.
+    // scripts/check-targets.py checks this name and the prefix's parameters (shooter, sway) against Combat Extended's installed assembly.
     static MethodBase? TargetMethod() => OptionalMods.IsActive(OptionalMods.CombatExtended)
         ? AccessTools.Method("CombatExtended.Compatibility.VehiclesCompat.VehiclesCompat:ProjectileAngleCE")
         : null;
