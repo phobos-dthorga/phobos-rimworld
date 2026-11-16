@@ -58,7 +58,7 @@
       "path": "flux2_klein_4b_refcontrol_depth.safetensors",
       "licence": "apache-2.0",
       "sha256": "65ec4c71fa7538b2201481928609a5836773f0dc06a4041b2d28abd05826c401",
-      "why": "RefControl depth LoRA for FLUX.2 Klein 4B Base (thedeoxen): a depth map as the first reference, the design as the second, trigger word refcontrol; the camera-angle trial (docs/development/view-angle-models.md)"
+      "why": "RefControl depth LoRA for FLUX.2 Klein 4B Base (thedeoxen): a depth map as the first reference, the design as the second, trigger word refcontrol; the camera-angle trial (docs/development/image-routes-research.md)"
     },
     {
       "file": "stable_audio_3_small_sfx_base.safetensors",

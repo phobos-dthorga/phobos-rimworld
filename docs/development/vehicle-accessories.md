@@ -527,7 +527,7 @@ should be written into a Def until it is.** Which page gave which figure was not
 
 ## Sleeping berths: roof tents, cab bunks and driving through the night (13 Nov 2026)
 
-*Merged into this record on 17 Nov 2026 from `vehicle-accessories.md`; kept as written.*
+*Merged into this record on 17 Nov 2026 from `vehicle-berths.md`; kept as written.*
 
 
 **A research and design record. Nothing is built, and nothing here is tested in game.** The accessories record

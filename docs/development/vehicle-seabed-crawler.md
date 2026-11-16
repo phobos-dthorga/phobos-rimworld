@@ -240,7 +240,7 @@ All are answered, under [Who chose what](#who-chose-what). **Building waits for 
 
 ## The Seabed Crawler's picture: research and art record (11 Nov 2026)
 
-*Merged into this record on 17 Nov 2026 from `vehicle-seabed-crawler.md`; kept as written.*
+*Merged into this record on 17 Nov 2026 from `vehicle-seabed-crawler-art.md`; kept as written.*
 
 
 **Status (17 Nov 2026):** built in D'thorga Vehicles 0.38.0 and 0.43.0 (with Framework 0.98.0): the base hull and two refit hulls, and

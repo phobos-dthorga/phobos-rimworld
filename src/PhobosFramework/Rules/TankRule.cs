@@ -3,7 +3,7 @@ using System;
 namespace Phobos.Framework.Rules;
 
 /// <summary>
-/// The rules of a tank of fluid on the move, game-free (docs/development/utility-vehicles-design.md, Bulk tanker). Limits come from the
+/// The rules of a tank of fluid on the move, game-free (docs/development/vehicle-bulk-tanker.md). Limits come from the
 /// caller, which reads them from a Def; the figures are authored balance unless the design record names a source.
 /// </summary>
 public static class TankRule

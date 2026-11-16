@@ -156,10 +156,12 @@ A choice that costs speed shows its cost in amber under it.
 
 ## For modders
 
-- [Vehicle patches: research and decisions](../../docs/development/vehicle-patches.md): the Harrier, bombs, fabricator, forger,
-  turret hulls and RimPacts arrival fix, with the code paths and the source files.
+- [Vehicle patches: research and decisions](../../docs/development/vehicle-patches.md): the Harrier, bombs, fabricator, forger and
+  turret hulls, with the code paths and the source files.
 - [Missile patches: research and decisions](../../docs/development/missile-patches.md) and
-  [strategic strike](../../docs/development/missile-patches.md#strategic-strike-design-and-decisions-7-nov-2026): the blast, its queue and the Visit Settlements fixes.
+  [strategic strike](../../docs/development/missile-patches.md#strategic-strike-design-and-decisions-7-nov-2026): the blast and its queue.
+- [RimPacts patches](../../docs/development/rimpacts-patches.md): the Harrier's load fix, sorties over battles, struck towns' assaults.
+- [Visit Settlements patches](../../docs/development/visit-settlements-patches.md): the battle map that closed, and the food drops.
 - [The register of temporary patches](../../docs/development/temporary-patches.md): what would make each temporary part unnecessary.
 
 ## Checks done

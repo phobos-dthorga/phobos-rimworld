@@ -8,8 +8,8 @@ PixelLab generations, all recorded request by request. That is our most recent e
 of its mistakes were made once and written down. This record carries them over so we do not make them again.
 
 **Scope.** Paid generation only: the `openai` engine of `scripts/generate-art.py` and `scripts/art-run.py`
-([how to run it](vehicle-art-services.md#running-the-openai-engine)). The local ComfyUI routes keep their own records
-([artwork direction](artwork-direction.md), [art backlog](art-backlog.md)). Where a lesson is PixelLab-specific it is
+([how to run it](#running-the-openai-engine)). The local ComfyUI routes keep their own records
+([artwork direction](image-routes-research.md#artwork-direction), [art backlog](art-backlog.md)). Where a lesson is PixelLab-specific it is
 marked and left behind. When this record was written no paid picture had been made for this project; since then the bulk
 tanker's body and overlays, the survey truck's body, the inspection pit and a set of icons have been bought under these rules
 (their records sit beside the textures and in `assets/phobos-vehicles/`), and the Seabed Crawler's is planned in
@@ -83,7 +83,7 @@ tanker's body and overlays, the survey truck's body, the inspection pit and a se
   VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular
   edges run horizontally and vertically on the canvas. Show no vertical front or side faces."* Then say which edge is the
   front (north facing: the bonnet at the top). Reject a tilted footprint or a visible side face on sight. Our local
-  models had the same trouble ([view-angle models](view-angle-models.md)); a paid model is not exempt.
+  models had the same trouble ([view-angle models](image-routes-research.md#view-angle-models-research-record-7-nov-2026)); a paid model is not exempt.
 
 ### A pilot before a family
 
@@ -167,7 +167,7 @@ tanker's body and overlays, the survey truck's body, the inspection pit and a se
   Ten PixelLab submissions once hit a queue limit and were not retried; a 40-generation storyboard was rejected and not
   retried either.
 - **Rule for us.** Script first: east and south from the north by rotation, paint masks by region repaired with Segment Anything's
-  parts map (`repaired`, since 16 Nov 2026, replacing the earlier rule of posterising panel zones; see [background clean-up](background-cleanup.md#paint-masks-by-region-16-nov-2026)),
+  parts map (`repaired`, since 16 Nov 2026, replacing the earlier rule of posterising panel zones; see [vehicle paint masks](vehicle-paint-masks.md#paint-masks-by-region-16-nov-2026)),
   the icon by downscale, damage by the framework. Pay for the north body, the reference edits that fix the turned facings, and
   overlays. The cap, the dry run and the estimate are in the engine; the discipline is ours.
 
@@ -273,6 +273,45 @@ the body's canvas size, so the cut-out registers over the body without scaling.
 | Key read from the environment only, blanked from errors | Never pasting a key into a file, chat or record |
 | The near-copy check in `art-run.py` | Archiving rejects with reasons; keeping approved picks |
 
+## Running the OpenAI engine
+
+*Moved here on 17 Nov 2026 from `vehicle-art-services.md` (now part of the [image routes research](image-routes-research.md#art-services-for-vehicle-sprites-research-8-nov-2026)); kept as written.*
+
+**The owner's pick (8 Nov 2026): the OpenAI image API for vehicle bodies, local generation for icons.** The engine was built
+on 8 Nov 2026 (`scripts/art/openai_images.py`, used by `scripts/generate-art.py` and `scripts/art-run.py`); offline tests in
+`tests/test_openai_images.py`. **First real images: the tanker pilot, 8 Nov 2026, four at US$0.0295 each** ([record](../../assets/phobos-vehicles/README.md)). The rules for using it, learnt in Phobos
+Ostranauts, are in [paid image generation rules](paid-image-generation-rules.md): read them before writing a request.
+
+- **The key** is read from the `OPENAI_API_KEY` environment variable only (the owner's user variable). It is never written to
+  a file, record or report, and key-shaped text in an error is blanked. The owner's key is a restricted key: it may make
+  images but not list models, which the engine never needs. On 8 Nov 2026 a deliberately invalid request (a 7 by 7 size)
+  showed the key and `gpt-image-2` are accepted; an invalid request makes no image and costs nothing.
+- **A request** uses `"engine": "openai"`, a prompt, a width and height (each divisible by 16, shape between 1:3 and 3:1,
+  at most 3840 by 2160), optional `"quality"` (`low`, `medium` the default, `high`), `"background"`, `"moderation"`, and
+  up to 16 `"references"` (PNG, JPEG or WebP), which turn the call into an edit. A reference is a path or
+  `{"image": path, "role": "what it is for"}`; the role is recorded and belongs in the prompt too. **A reference must be our
+  own art** (under `assets/`, `mods/` or `.local/art/`): the engine refuses the game's extracted textures and other authors'
+  art before anything is sent. `"seeds"` are attempt numbers that name the
+  files; the API has no seed, so a rerun differs. Local settings (`init`, `lora`, `steps`, `cfg`, `model`) are refused.
+- **The cap:** `--max-usd` is required for any paid request (`"max_usd"` in a night step). Before each image the run checks
+  that what is spent plus that image's highest estimate stays within the cap, and stops otherwise. The cost recorded is worked
+  out from the token counts OpenAI returns, at the pricing page's rates; a call with no answer counts its estimate, because it
+  may still have been billed. The account's own spending limit, which the owner has set, is the second guard.
+- **Stops at once** on no credit, a bad key or an account check (organisation verification); a refused prompt fails that image
+  only. Rate limits and server errors are retried twice; a timeout is never retried.
+- **No graphics card:** a run with only paid requests never starts ComfyUI and does not stop for the game. The stop time and
+  the disk floor still apply.
+- **Each record** adds the quality, the endpoint, the token counts, the cost, the size that came back (and a note when it
+  differs from the size asked), each reference's role, an AI disclosure and the terms note as read on the day, beside the
+  usual prompt, size, date and SHA-256.
+
+```text
+python scripts/art-run.py generate <requests.json> --dry-run
+python scripts/art-run.py generate <requests.json> --stop-at 23:00 --max-usd 0.50
+```
+
+The dry run sends nothing and prints the most the missing images could cost and anything the API would refuse.
+
 ## Sources
 
 - Phobos Ostranauts repository, the files named in the table above, read on 8 Nov 2026 from the owner's local clone
@@ -281,6 +320,6 @@ the body's canvas size, so the cut-out registers over the body without scaling.
 - OpenAI Services Agreement, sections 4.1 and 4.4 (ownership and non-uniqueness of Output), as recorded in Ostranauts'
   `assets/workshop/README.md` on 7 Oct 2026 ([page](https://openai.com/policies/services-agreement/); it refuses
   automated reads, so this is a dated secondary record until the owner confirms it).
-- OpenAI image API reference and pricing, read 8 Nov 2026 ([art services research](vehicle-art-services.md)).
+- OpenAI image API reference and pricing, read 8 Nov 2026 ([art services research](image-routes-research.md#art-services-for-vehicle-sprites-research-8-nov-2026)).
 - Vehicle Framework sprite requirements: [utility vehicles design](utility-vehicles-design.md) and
-  [art services research](vehicle-art-services.md#what-the-sprites-need).
+  [art services research](image-routes-research.md#what-the-sprites-need).

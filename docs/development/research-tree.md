@@ -89,7 +89,7 @@ All are Industrial, named `PhobosResearch_<Name>`. Those names stay fixed once a
 
 **"Any of these unlocks it" was not built.** The game's requirements are all-of, and working around that hands out free research.
 
-**Pressure vessels** take Fabrication, the fallback in `utility-vehicles-design.md` for when no gas building is present.
+**Pressure vessels** take Fabrication, the fallback in `vehicle-bulk-tanker.md` for when no gas building is present.
 
 ## How it works
 

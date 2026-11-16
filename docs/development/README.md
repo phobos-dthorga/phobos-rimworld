@@ -17,7 +17,7 @@ research or design with nothing built; **living** means kept current by every ch
 
 ## Status and trackers
 
-- [Outstanding work](outstanding-work.md) (from 7 Nov 2026): every open item, the owner's decision on it and its status. Living.
+- [Outstanding work](outstanding-work.md) (from 7 Nov 2026): every open item, the owner's decision and its status; done rows at the end. Living.
 - [In-game test pass](in-game-test-pass.md) (from 8 Nov 2026): the checks for the owner's next session, and what passes. Living.
 - [Patches for other authors' faults](temporary-patches.md) (10 Nov 2026): each such patch, temporary or permanent, and how to retire it. Living.
 - [Tie-ins with other mods](tie-in-register.md) (13 Nov 2026): every tie-in folder and C# tie-in, by our mod. Living.
@@ -26,7 +26,7 @@ research or design with nothing built; **living** means kept current by every ch
 
 ## D'thorga Framework (core)
 
-- [D'thorga Framework: research and decisions](phobos-framework.md) (4 Nov 2026): room gases, the shared helpers and the health layer. Built.
+- [D'thorga Framework: research and decisions](phobos-framework.md) (4 Nov 2026): room gases, supplied oxygen and the health layer, with their research. Built.
 - [Parts bills](parts-bills.md) (11 Nov 2026): what a built thing is made of, by role, filled by installed mods' parts or ours. Built.
 - [Pipes and conduits beneath our things](network-underlays.md) (13 Nov 2026): hidden pipes under our buildings and parked vehicles. Built.
 - [A shared logging framework](logging-framework-design.md) (8 Nov 2026): the 10,000-message cap, phobos-log and verbose logging. Partly built.
@@ -67,7 +67,8 @@ research or design with nothing built; **living** means kept current by every ch
 
 ### Utility vehicles, stations and trailers
 
-- [Utility vehicles](utility-vehicles-design.md) (8 Nov 2026): the extraction family, the bulk tanker and the catalogue. Built.
+- [Utility vehicles](utility-vehicles-design.md) (8 Nov 2026): the family's hub: principles, parts model, catalogue, art plan, a link to each vehicle. Built.
+- [The bulk tanker](vehicle-bulk-tanker.md) (8 Nov 2026): the Ullage tanker's design, fluids, compartments and bulk buying. Built.
 - [The survey truck](vehicle-survey-truck.md) (9 Nov 2026): a ground-penetrating scanner on wheels. Built; its boom owner-tested.
 - [The mobile drill rig](vehicle-drill-rig.md) (9 Nov 2026): drills the game's deep resource grid at its own rates. Built.
 - [The tipper hauler](vehicle-tipper-hauler.md) (9 Nov 2026): a high-capacity body and one tip job. Built.
@@ -117,14 +118,16 @@ Five mods until 7 November 2026; each record keeps its own mod's name and scope.
 
 ## D'thorga Patches
 
-- [Vehicle patches](vehicle-patches.md) (2 Nov 2026): the Harrier beside RimPacts, bomb costs, castings, Spaceship Turret Hull. Built.
+- [Vehicle patches](vehicle-patches.md) (2 Nov 2026): the Harrier's costs, rearming and disassembly; bombs, castings, Spaceship Turret Hull. Built.
 - [Missile patches](missile-patches.md) (7 Nov 2026): IRBM's strategic warhead hang and our strike model. Built.
+- [RimPacts patches](rimpacts-patches.md) (2 Nov 2026): the Harrier's load fix, sorties over battles, struck towns' assaults, empty vehicles. Built.
+- [Visit Settlements patches](visit-settlements-patches.md) (8 Nov 2026): a battle map closed under the player, food drops every tick. Built.
 - [Fires on vehicles that never go out](vehicle-framework-fires.md) (10 Nov 2026): Vehicle Framework's stuck fires and the fix. Built; owner-tested.
 
 ## Factory Additions and Water Tap
 
-- [VFE Factory additions](vfe-factory-additions.md) (28 Oct 2026): factory bills, the output guard, storage switches, piped water. Built.
-- [VFE Factory conveyors and hoppers](vfe-factory-conveyors.md) (28 Oct 2026): what a belt may pull from and push to, from code. Research.
+- [VFE Factory additions](vfe-factory-additions.md) (28 Oct 2026): factory bills, the output guard, piped water, endless mince. Built.
+- [VFE Factory conveyors and hoppers](vfe-factory-conveyors.md) (28 Oct 2026): what belts pull from and push to; storage switches, stuck belts. Built.
 - [Water tap](water-tap.md) (4 Nov 2026): Dubs Bad Hygiene's bottles and water quality, and the split-stack fix. Built.
 
 ## Radio (on the back burner)
@@ -135,13 +138,13 @@ Five mods until 7 November 2026; each record keeps its own mod's name and scope.
 
 ## Art and sound
 
-- [Artwork direction](artwork-direction.md) (19 Oct 2026): the first routes for our art, and why not PixelLab. Research.
+- [Art pipeline](art-pipeline.md) (17 Nov 2026): how a picture reaches a mod today, its routes and steps; the first art design as history. Living.
+- [Image routes research](image-routes-research.md) (19 Oct to 8 Nov 2026): first routes, view-angle models, paid services compared. Research.
 - [Art backlog](art-backlog.md) (6 Nov 2026): every texture and preview the mods ship or still need. Living.
-- [Art automation and medical equipment](art-automation-and-medical-equipment.md) (4 Nov 2026): the overnight art pipeline. Built.
-- [Background clean-up](background-cleanup.md) (12 Nov 2026): the background AI and the paint masks for vehicles. Built.
-- [View-angle models](view-angle-models.md) (7 Nov 2026): models that lock or move the camera, and the trial. Research.
+- [Art automation and medical equipment](art-automation-and-medical-equipment.md) (4 Nov 2026): split on 17 Nov; links to both halves. Stub.
+- [Background clean-up](background-cleanup.md) (12 Nov 2026): the background AI that clears white from our pictures. Built.
+- [Vehicle paint masks](vehicle-paint-masks.md) (16 Nov 2026): paint by region, repaired by parts, the fleck checker; overlay fit idea. Built.
 - [Paid image generation](paid-image-generation-rules.md) (8 Nov 2026): the rules for every picture bought from the OpenAI API. Living.
-- [Art services for vehicle sprites](vehicle-art-services.md) (8 Nov 2026): image APIs and subscriptions compared, with costs. Research.
 - [Sound generation](sound-generation.md) (10 Nov 2026): local sounds with Stable Audio 3, ffmpeg and the listening page. Built.
 - [Sound catalogue](sound-catalogue.md) (10 Nov 2026): every sound we need, with IDs; 117 ship. Partly built.
 

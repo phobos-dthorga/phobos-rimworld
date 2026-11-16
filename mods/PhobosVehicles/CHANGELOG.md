@@ -972,7 +972,7 @@ Things the game keeps as items that are really fluids (owner, 9 November 2026). 
 
 ## [0.12.0] - 2026-11-08 - Draft
 
-The first vehicle of our own: the bulk tanker (owner, 8 November 2026). **Not yet tested in game.** Needs D'thorga Framework 0.34.0. Design: docs/development/utility-vehicles-design.md. Art: OpenAI gpt-image-2, picked and accepted by the owner, recorded in the textures folder.
+The first vehicle of our own: the bulk tanker (owner, 8 November 2026). **Not yet tested in game.** Needs D'thorga Framework 0.34.0. Design: docs/development/vehicle-bulk-tanker.md. Art: OpenAI gpt-image-2, picked and accepted by the owner, recorded in the textures folder.
 
 ### Added
 

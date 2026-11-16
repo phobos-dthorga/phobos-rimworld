@@ -2365,7 +2365,7 @@ Bugs found by reviewing the vehicle repair code before it was tested. **Not yet 
 
 ## [0.38.0] - 2026-11-09 - Draft
 
-Bulk buying, for D'thorga Vehicles 0.16.0 (owner, 9 November 2026). **Not yet tested in game.** Design: docs/development/utility-vehicles-design.md.
+Bulk buying, for D'thorga Vehicles 0.16.0 (owner, 9 November 2026). **Not yet tested in game.** Design: docs/development/vehicle-bulk-tanker.md.
 
 ### Added
 
@@ -2378,7 +2378,7 @@ Bulk buying, for D'thorga Vehicles 0.16.0 (owner, 9 November 2026). **Not yet te
 
 ## [0.37.0] - 2026-11-09 - Draft
 
-Tank compartments, for D'thorga Vehicles 0.15.0 (owner, 9 November 2026). **Not yet tested in game.** Design: docs/development/utility-vehicles-design.md.
+Tank compartments, for D'thorga Vehicles 0.15.0 (owner, 9 November 2026). **Not yet tested in game.** Design: docs/development/vehicle-bulk-tanker.md.
 
 ### Added
 
@@ -2433,7 +2433,7 @@ More that a tank's contents can do, for D'thorga Vehicles 0.13.0 (owner, 9 Novem
 
 ## [0.34.0] - 2026-11-08 - Draft
 
-Bulk tanks on vehicles, for D'thorga Vehicles' bulk tanker (owner, 8 November 2026). **Not yet tested in game.** Design: docs/development/utility-vehicles-design.md.
+Bulk tanks on vehicles, for D'thorga Vehicles' bulk tanker (owner, 8 November 2026). **Not yet tested in game.** Design: docs/development/vehicle-bulk-tanker.md.
 
 ### Added
 

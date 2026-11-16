@@ -59,7 +59,7 @@ like the framework's gas mix. A vent works only where it can reach outdoors, whi
 
 ## Workstation environmental effects: design (7 Nov 2026)
 
-*Merged into this record on 17 Nov 2026 from `ventilation-and-hydrogen.md`; kept as written.*
+*Merged into this record on 17 Nov 2026 from `workstation-environmental-effects.md`; kept as written.*
 
 
 A design record. **Nothing is built and nothing is tested in game.** The owner asked for it on 7 November 2026 ("design record now");

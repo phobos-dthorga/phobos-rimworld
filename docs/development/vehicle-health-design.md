@@ -398,7 +398,7 @@ vehicles). Record TPS and our milliseconds in the table below.
 
 ## Vehicle health, slice 3: what it does to the player (8 Nov 2026, built 9 Nov 2026)
 
-*Merged into this record on 17 Nov 2026 from `vehicle-health-design.md`; kept as written.*
+*Merged into this record on 17 Nov 2026 from `vehicle-health-consequences.md`; kept as written.*
 
 
 **Status: built in Framework 0.36.0 and Vehicles 0.14.0, on the owner's go of 9 Nov 2026. Not yet tested in game, nor is slice 2 it builds

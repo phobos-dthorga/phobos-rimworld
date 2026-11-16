@@ -2,7 +2,7 @@
 
 **Since 7 November 2026 this mod is a part of [D'thorga Medical](../../mods/PhobosMedical/README.md)** ([why](mod-consolidation.md)); paths below are updated, the rest is as recorded.
 
-The record behind [D'thorga Medical Equipment](../../mods/PhobosMedical/README.md). **The owner reports a patient's breathing improving on the concentrator (5 Nov 2026, on 0.1.0) and the burn unit bed working (6 Nov 2026, on 0.2.0); the bedside stand and everything added in 0.3.0 are not yet tested in game.** The wider plan, with the oxygen chain and the art, is in the [art automation and medical equipment design](art-automation-and-medical-equipment.md).
+The record behind [D'thorga Medical Equipment](../../mods/PhobosMedical/README.md). **The owner reports a patient's breathing improving on the concentrator (5 Nov 2026, on 0.1.0) and the burn unit bed working (6 Nov 2026, on 0.2.0); the bedside stand and everything added in 0.3.0 are not yet tested in game.** The wider plan's medical half, with the oxygen chain, is [at the end of this record](#the-first-designs-medical-half-4-to-5-nov-2026); its art half is in the [art pipeline](art-pipeline.md).
 
 ## The problem
 
@@ -152,3 +152,92 @@ Moved here when D'thorga Medical's README was slimmed; the text is the README's 
 A bedside machine's pass runs every 250 ticks: switched on, powered or fuelled and touching a bed, it treats the patients in its
 linked beds who need oxygen, worst breathing first, up to two; the treatment lapses about 10 seconds after the last pass. The
 chamber is a game tier, not medical advice: the review cited in the burns record found the clinical evidence for it of low quality.
+
+## The first design's medical half (4 to 5 Nov 2026)
+
+*Moved here on 17 Nov 2026 from `art-automation-and-medical-equipment.md` ("Art automation and medical equipment: design"); kept as written. Its opening and its art half went to the [art pipeline](art-pipeline.md#the-first-designs-art-half-4-nov-2026-updated-5-nov-2026); its tables of where everything stood and of decisions, and its open questions, were split by row, the medical rows here; the table of where everything stands is as of 7 Nov 2026. Dropped because this record already says them: the paragraph "Pipes come free" (see What exists, above), the bullet on airway support (Decisions: no Questionable Ethics), the paragraph on treatment tiers for carbon monoxide (Figures, and the note under For modders), and the engineering note that it is its own mod (Decisions).*
+
+### Where everything stands
+
+| Work | State | Next step | Record |
+| --- | --- | --- | --- |
+| D'thorga Framework 0.3.0 | Draft. The owner reports the gas layer and supplied oxygen working (5 Nov 2026); the health layer (6 Nov) is not yet tested in game | The health layer, through Triage | [Framework](phobos-framework.md) |
+| D'thorga Burns and Smoke 0.5.0 | Draft. The owner reports burn numbers, progression and the tie-ins working (5 Nov 2026, on 0.4.2); the tracheotomy and the fire heat in the open are not yet tested in game | The fire heat and the tracheotomy | [Burns and smoke](burns-and-smoke.md) |
+| D'thorga Emergency Dosing 0.3.1 | Draft. The owner reports doctors' dosing working (5 Nov 2026, on 0.3.0); self-medication and the bleeding hold not yet tested in game | Self-medication | [Emergency dosing](emergency-dosing.md) |
+| D'thorga Triage 0.1.2 | Draft, 7 Nov 2026 (0.1.2 adds the button's own icon); not yet tested in game | The owner's first test | [Triage](triage.md) |
+| Native 1.7 builds of all ten mods | Built; the owner plays 1.7 and has tested several mods on it | The rest of the owner's tests | [Building](building.md) |
+| Burns and Smoke: eschar, escharotomy | Planned | The owner's go; their test passed the gate on 5 Nov 2026 | [Burns and smoke](burns-and-smoke.md) |
+| D'thorga Medical Equipment 0.3.0 | Draft: concentrator, bedside stand, burn unit bed, and in 0.3.0 the hyperbaric chamber, field oxygen kit, manual resuscitator, silver burn dressings, electrolyser and liquid oxygen store, all built on Vanilla Gravship Expanded's oxygen network where they pipe oxygen. The owner reports breathing improving on the concentrator (on 0.1.0) and the burn unit bed working (on 0.2.0); the bedside stand is not yet tested in game | The stand and its pipe link | [Record](medical-equipment.md) |
+
+### Decisions so far
+
+| Decision | By |
+| --- | --- |
+| Existing effects first; add our own only where it earns more than inference, or nothing exists, or on the owner's call-out; keep a manual override | Owner (rule) |
+| We may add our own medical equipment, for both hospital and field | Owner |
+| The medical equipment mod may depend on Vanilla Expanded Framework, for its years of track record | Owner |
+| Our own oxygen comes from three devices: a concentrator, an electrolyser and a frosted liquid oxygen store | Owner, 5 Nov 2026 (the owner chose electrolysis for the chemistry; the agent moved the frost from the concentrator to the liquid store, because a concentrator runs at room temperature) |
+| Put medical equipment in its own mod, not in Burns and Smoke | Agent choice, built 5 Nov 2026 |
+| Bedside oxygen first, automatic, with a concentrator too; no Questionable Ethics, and a ventilator of our own later | Owner, 5 Nov 2026 |
+
+### Medical equipment
+
+**Your mods already cover more than the first ideas assumed.** A scan of the Defs in every active mod on 4 Nov 2026 found:
+
+| Need | Already there | How it works (read from its Defs) |
+| --- | --- | --- |
+| Oxygen supply | Vanilla Gravship Expanded | An oxygen pipe network, pumps, tanks and an oxygen canister item that explodes when burned. Research: Oxygen Network, on the gravship research path |
+| Portable oxygen | Vanilla Gravship Expanded | Oxygen packs, consumed in vacuum |
+| Emergency oxygen | The Dead Man's Switch - Expedition | An oxygen candle, a sodium chlorate device for sealed cabins |
+| Ventilator | More Injuries: Organ Failure | A surgery that intubates the patient. **It cannot appear in the owner's game (read from its source, 5 Nov 2026):** it needs the hediff `QE_LifeSupport`, from Questionable Ethics' life support, and no installed mod defines that |
+| IV stand | VFE Medical Module | A facility beside a hospital bed that adds immunity gain speed |
+
+None of the oxygen above treats a patient yet, as far as these Defs show: it serves vacuum and sealed rooms.
+
+**Under the owner's rule, reuse these where present:**
+
+- **Medical oxygen** uses Vanilla Gravship Expanded's canister or pipe network when that mod is active, as an optional tie-in.
+  Without it, we supply a simple oxygen item of our own, because nothing else would exist.
+
+#### The oxygen chain (owner, 5 Nov 2026)
+
+**Built in Medical Equipment 0.3.0 on Vanilla Gravship Expanded's oxygen network, not a second network used when it is absent** (agent choice, 7 Nov 2026, for the owner to revise; reasons in the [medical equipment record](medical-equipment.md)). The game values are there, each labelled.
+
+| Device | Needs | Gives | The real thing |
+| --- | --- | --- | --- |
+| **Oxygen concentrator** (bedside, field) | Power | Oxygen for one patient, with no storage | Pressure-swing adsorption: zeolite beds hold back nitrogen from compressed air. WHO's [plant specification](https://wkc.who.int/resources/publications/i/item/technical-specifications-for-pressure-swing-adsorption(psa)-oxygen-plants) targets 93% ±3. Runs at room temperature, so **it does not frost** |
+| **Electrolyser** (hospital) | Power, water | Purer oxygen to pipes or canisters; hydrogen is vented | 2 H2O gives 2 H2 + O2. Typical systems use [about 4.5 to 6 kWh per cubic metre of hydrogen](https://arts.units.it/retrieve/e2913fde-cecd-f688-e053-3705fe0a67e0/energies-14-05347-v2_compressed2.pdf) |
+| **Liquid oxygen store** (hospital) | Power, piped oxygen | Dense storage, and **the frost** | [Boils at about -183 C](https://eg.airliquide.com/sites/al_eg/files/2022-10/al008b-liq.-o2.pdf); one litre of liquid gives [about 862 litres of gas](https://ehs.princeton.edu/laboratory-research/chemical-safety/cryogenic-liquids). A [strong oxidiser](https://cal-tool.com/wp-content/uploads/2014/07/MSDS-OXYGEN-LIQUID-LINDE.pdf), so it should be a real fire hazard in play |
+
+**The power cost, our own arithmetic:** each cubic metre of oxygen comes with two of hydrogen, so 9 to 12 kWh per cubic metre of oxygen. A patient on 5 litres a minute uses 0.3 cubic metres an hour, so about **3 to 3.6 kW of cell power per patient**. That hunger is honest, and it is the electrolyser's gameplay cost against the concentrator.
+
+**The frost is a real effect:** water vapour deposits as rime on the store's cold pipes and vaporiser. Following [DMS2's Pressure Chamber](https://steamcommunity.com/sharedfiles/filedetails/?id=3819799478), it shows while the store is working, as our own mote or fleck and our own art.
+
+**Equipment nothing here provides (agent ideas, for review):**
+
+| Where | Item | Purpose |
+| --- | --- | --- |
+| Field | Oxygen mask and regulator | Built: the field oxygen kit, Medical Equipment 0.3.0 |
+| Field | Burn dressings | Built: silver burn dressings, a medicine, Medical Equipment 0.3.0 |
+| Field | Manual resuscitator | Built: Medical Equipment 0.3.0, pumped by a doctor for breathing under half |
+| Hospital | Bedside oxygen | Built: Medical Equipment 0.1.0 (a concentrator, and a stand on canisters or the pipe network) |
+| Hospital | Hyperbaric chamber | Built: Medical Equipment 0.3.0, a bed for one, 1 by 3 |
+| Hospital | Burn unit bed | Built: Medical Equipment 0.2.0. Air-cell care: faster healing, less pain, better tending |
+
+**Engineering notes:**
+
+- **Vanilla Expanded Framework is a required dependency of this mod** (owner, 4 Nov 2026). Its PipeSystem module can carry our own
+  piped oxygen when Vanilla Gravship Expanded is absent, the same module that network already uses and the radio framework's
+  feedline relies on. Declared in `modDependencies`; the installed assembly is referenced with `Private=false`, never copied
+  (CC BY-NC-ND 4.0, [third-party notices](../../THIRD_PARTY_NOTICES.md)). D'thorga Framework and Burns and Smoke stay free of it,
+  so a mod using only those needs nothing extra (agent assumption, for the owner to correct).
+- **Its own treatment jobs:** More Injuries' suction and CPR target lists are hard-coded, so new devices cannot join them through XML.
+- **Oxygen is a treatment you supply, not a gas in the room**, which keeps it clear of an air model.
+
+### Open questions
+
+| Question | For |
+| --- | --- |
+| ~~Is the electrolyser's water a Dubs Bad Hygiene pipe tie-in or a water item?~~ Settled 7 Nov 2026: with Dubs Bad Hygiene it draws from the plumbing; without it, water stays assumed ([medical equipment record](medical-equipment.md)) | Owner |
+| ~~Should vented hydrogen be a room gas of ours, flammable in a closed room?~~ Settled 7 Nov 2026: yes, the owner's call; not built ([ventilation and hydrogen](ventilation-and-hydrogen.md)) | Owner |
+| ~~Is the frost one overlay texture or several frames?~~ Settled 12 Nov 2026: neither; the frost is drawn in code from the store's outline (Medical 0.15.0) | Agent, when the store's art is picked |

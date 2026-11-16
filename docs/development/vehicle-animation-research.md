@@ -153,4 +153,4 @@ comp; one or two transforms a frame per set-up vehicle, inside the budget the ow
 - Workshop XML, read from the installed items: Vanilla Vehicles Expanded (3014906877: `Mosquito_VehiclePawn.xml:73-79`, `Frog_VehiclePawn.xml:502`,
   `Roadkill_MainTurret.xml:51-92`, `Dinghy_VehiclePawn.xml:69`), Vehicle Framework (3014915404: `Defs/Effects/Mote_CannonPlume.xml`, `Animations/`), Vanilla
   Chemfuel Expanded (2792917473: `DeepchemNet.xml:410` and its textures), RimThunder (3070495204, 3022258867) and Trains of the Rim (3530446424): static sprites.
-- Ours: `CompPhobosSetUp.cs`, `CompPhobosTank.cs`, `Schema/Effects.cs`, [art services](vehicle-art-services.md), [the utility vehicles design](utility-vehicles-design.md).
+- Ours: `CompPhobosSetUp.cs`, `CompPhobosTank.cs`, `Schema/Effects.cs`, [art services](image-routes-research.md#art-services-for-vehicle-sprites-research-8-nov-2026), [the utility vehicles design](utility-vehicles-design.md).

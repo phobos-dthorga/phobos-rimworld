@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
-  <!-- Bulk tanks on vehicles (docs/development/utility-vehicles-design.md, Bulk tanker). The stats, the load on the truck and the purge job. Stages are authored. Not yet tested in game. -->
+  <!-- Bulk tanks on vehicles (docs/development/vehicle-bulk-tanker.md). The stats, the load on the truck and the purge job. Stages are authored. Not yet tested in game. -->
   <Vehicles.VehicleStatDef>
     <!-- Framework 0.116.0 (W3; owner, 17 Nov 2026): above zero while the tanker's electric pump upgrade is fitted. The pump then runs on the
          battery with the engine off; without it, the pump runs off the engine as before. -->

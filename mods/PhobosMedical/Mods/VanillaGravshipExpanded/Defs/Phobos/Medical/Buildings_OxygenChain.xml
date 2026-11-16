@@ -6,7 +6,7 @@
        0.3 cubic metres at 5 litres a minute. Pipe rates are per 100 ticks; 0.04 is 24 units a day, one an hour. -->
 
   <!-- Electrolysis: 2 H2O gives 2 H2 + O2. Typical systems use about 4.5 to 6 kWh per cubic metre of hydrogen (source in
-       docs/development/art-automation-and-medical-equipment.md), and each cubic metre of oxygen comes with two of hydrogen, so 9 to 12
+       docs/development/medical-equipment.md), and each cubic metre of oxygen comes with two of hydrogen, so 9 to 12
        kWh per cubic metre of oxygen, about 3 to 3.6 kW for 0.3 cubic metres an hour (our arithmetic). Hence 3000 W for one unit an hour.
        That is honest and far hungrier than Vanilla Gravship Expanded's oxygen harvester (700 W for ten units an hour, its own balance),
        so the electrolyser earns its place where the harvester can't run: in vacuum and where the air has too little oxygen. Water is

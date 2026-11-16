@@ -1,5 +1,7 @@
 # RimWorld 1.7 readiness of the owner's mod list
 
+**Archived (17 Nov 2026):** overtaken. The owner has played RimWorld 1.7 since 26 Oct 2026 and our mods target 1.7 only (AGENTS.md); which active mods declare a game version is now answered by `python scripts/version-readiness.py` ([analysis tooling](analysis-tooling.md#7-version-readiness-scan)).
+
 24 Oct 2026 · agent record, for the owner's review. Read-only checks; **nothing here is tested in game.**
 
 **The short answer: not ready yet, and nothing forces a move.** RimWorld 1.7 is only on Steam's unstable

@@ -1,5 +1,7 @@
 # Code audit: saves, cost per tick and missing things (11 Nov 2026)
 
+**Archived (17 Nov 2026):** resolved. Its one fault (a depot bay saving a destroyed vehicle) was fixed in D'thorga Framework 0.96.1, and its one proposal was built as the core's part store (`GameComponent_PhobosPartStore`, Framework 0.97.0, with Patches 0.16.8 moving its IRBM and RimPacts parts onto it): see [Framework's changelog](../../mods/PhobosFramework/CHANGELOG.md). Neither is yet tested in game.
+
 **A code read, not a game test.** The owner asked on 11 Nov 2026 for a general audit beyond the other-factions rule, and chose three
 areas: saves, cost per tick, and code that assumes something is there. The radio framework was left out (back burner). Read with
 small scripts over `src/` and the decompiled game, commit d5120be onward; line numbers are of that day's source. Classifications are

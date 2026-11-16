@@ -114,7 +114,7 @@ How to read it:
 
 | Mod | Why the link would be strong | Verdict |
 | --- | --- | --- |
-| Vanilla Helixien Gas Expanded | A Vanilla Expanded pipe net: the tanker's pressure vessel already plans for it (`utility-vehicles-design.md`), a gas generator set, fuel for Central Heating's gas boiler, leaks as a room gas | Strongest of these; only if the owner adds it |
+| Vanilla Helixien Gas Expanded | A Vanilla Expanded pipe net: the tanker's pressure vessel already plans for it (`vehicle-bulk-tanker.md`), a gas generator set, fuel for Central Heating's gas boiler, leaks as a room gas | Strongest of these; only if the owner adds it |
 | VFE Spacer Module | Its air purifiers clear our gases room by room | Only if added |
 | Atmosphere Overhaul (subscribed, switched off) | Real gas per cell; we already stand down for it on fire heat | High clash risk; only if switched on |
 | Celsius | Per-cell temperature; already detected for fire heat | Only if added |

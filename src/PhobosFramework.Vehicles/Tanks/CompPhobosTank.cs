@@ -57,7 +57,7 @@ public class TankCompartment : IExposable
 }
 
 /// <summary>
-/// A vehicle's bulk tank (docs/development/utility-vehicles-design.md, Bulk tanker). Which tank is fitted, and how many compartments it has,
+/// A vehicle's bulk tank (docs/development/vehicle-bulk-tanker.md). Which tank is fitted, and how many compartments it has,
 /// is read from the upgrade tree; each compartment's fluid and the tank's temperature and set-up state are saved here. One tank, one
 /// temperature; the pump serves one compartment at a time, the selected one. Everything runs on the rare tick. Gizmos in TankGizmos read
 /// this and call its service methods; nothing else changes it.

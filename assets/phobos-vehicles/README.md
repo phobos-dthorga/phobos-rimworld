@@ -1,7 +1,7 @@
 # D'thorga Vehicles art
 
 Art for our own vehicles. Rules: [paid image generation](../../docs/development/paid-image-generation-rules.md). Design:
-[bulk tanker](../../docs/development/utility-vehicles-design.md). Generated images stay local in `generated/` until picked.
+[bulk tanker](../../docs/development/vehicle-bulk-tanker.md). Generated images stay local in `generated/` until picked.
 
 ## Tanker pilot: north base body (8 Nov 2026)
 

@@ -351,7 +351,7 @@ Each step says "not yet tested in game" until the owner says otherwise.
 
 Read for this record, in our own words: `src/PhobosFramework/UI/PhobosWidgets.cs`, `src/PhobosFramework.Vehicles/Presentation/*.cs`,
 `Systems/VehicleDiagnostics.cs`, `Systems/QuantityHistory.cs`; `docs/development/art-backlog.md`, `paid-image-generation-rules.md`,
-`artwork-direction.md`, `assets/phobos-vehicles/README.md` and `requests/*.json` (costs and the prompt skeleton); the decompiled game
+`image-routes-research.md`, `assets/phobos-vehicles/README.md` and `requests/*.json` (costs and the prompt skeleton); the decompiled game
 (`ChoiceLetter.OpenLetter`, `ChoiceLetter_GrowthMoment`, `ColoredText.Colorize`, `HealthCardUtility.DrawHediffRow`,
 `SimpleCurveDrawer.DrawCurves`, `Widgets.DrawTextureRotated`, `GenDraw.DrawWorldRadiusRing`) and Vehicle Framework 1.6
 (`VehicleGui.DrawVehicleDefOnGUI` 77217, `DrawVehicleOnGUI` 77187, `VehicleStatHandler.DrawHitbox` 10534, `WorldVehiclePathGrid` 83140),

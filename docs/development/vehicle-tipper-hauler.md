@@ -178,7 +178,7 @@ averages engine, rams and pump; `Phobos_RigControl` takes the minimum of control
 
 ## Art request
 
-The route and rules are in [art services](vehicle-art-services.md) and [paid image generation](paid-image-generation-rules.md). **The pilot is the bare
+The route and rules are in [art services](image-routes-research.md#art-services-for-vehicle-sprites-research-8-nov-2026) and [paid image generation](paid-image-generation-rules.md). **The pilot is the bare
 body, north**, inspected at native size first. Base body: north, east and south at 128 px per drawSize unit (512 x 1152 for (4, 9)), the chassis-cab
 with a plain box body, empty (no cargo, crew, damage or text), with a colour mask. Overlays, each a north, east and south set on the body's canvas:
 the body **raised** (the tip, drawn by our comp); the **rock body** and the **bulk body**; **high sides** on each body (or one that reads on all); the

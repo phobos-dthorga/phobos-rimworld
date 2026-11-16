@@ -2,7 +2,7 @@ using System;
 
 namespace Phobos.Framework.Rules;
 
-/// <summary>The arithmetic of buying a fluid in bulk, game-free (docs/development/utility-vehicles-design.md). The price of one item comes from
+/// <summary>The arithmetic of buying a fluid in bulk, game-free (docs/development/vehicle-bulk-tanker.md). The price of one item comes from
 /// the game's own buying price; everything here only counts.</summary>
 public static class BulkOrderRule
 {

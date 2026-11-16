@@ -113,7 +113,7 @@ block, `When_LoadActive` naming a real load.
 
 ## Vehicle follow-ups: booster packs, ground on the world map, cab moods, RimHUD (8 Nov 2026)
 
-*Merged into this record on 17 Nov 2026 from `vehicle-world-map-design.md`; kept as written.*
+*Merged into this record on 17 Nov 2026 from `vehicle-crew-and-ground-design.md`; kept as written.*
 
 
 A design record, built the same day in D'thorga Framework 0.18.0 (Draft). **Not yet tested in game.** These are four of the five

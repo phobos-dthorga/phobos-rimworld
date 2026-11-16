@@ -5,6 +5,8 @@ Additions). The owner's intent (28 Oct 2026): a series of modifications to Vanil
 Factory, starting with human meat as a neutroamine feedstock. Dated record; the mod's README and changelog
 carry current behaviour.
 
+**Moved out on 17 Nov 2026**, each kept as written: the belt and hopper sections (29 Oct to 2 Nov 2026) to [VFE Factory conveyors](vfe-factory-conveyors.md).
+
 ## How a factory bill works (code read, not tested in game)
 
 Read on 28 Oct 2026 from the decompiled Pipe System (Vanilla Expanded Framework) and VFE Factory assemblies in
@@ -185,30 +187,7 @@ Seen in the owner's log (29 Oct 2026); the consequence is read from the XML, not
 
 ## How machines take from hoppers, and the deep factory hopper (29 Oct 2026)
 
-Code read in Pipe System 1.7 and VFE Factory, not tested in game:
-
-- **Machines.** While a bill waits, `Process.CheckInputSlots` visits each `autoInputSlots` cell (rotated with
-  the machine), skips it unless a building there carries `FactoryHopperExtension` (for hopper-only bills),
-  and offers **every item on the cell** to every ingredient. `ThingAndResourceOwner.AddFromThing` takes only
-  what that ingredient still needs (splitting the stack) and keeps a running count inside the machine; the
-  batch starts when every count is full. So an input cell is not tied to an ingredient.
-- **Why a shared ordinary hopper clogs.** It holds one stack. If the stack on it is something the machine
-  already has enough of, nothing else can land there, and the next ingredient waits behind it on the belt.
-- **Belts.** Pushing into storage, a belt counts the items on each cell against
-  `GetMaxItemsAllowedInCell` (the building's `maxItemsInCell`) and also allows merging into a stack of the
-  same item with room; pulling, it takes the first item stack it finds, whole.
-- **Output.** A finished batch merges into the first matching stack on the output cell, and waits when that
-  stack is above the bill's cap; items made with a stuff (`useFirstIngredientAsOutputStuff`, such as the
-  machining bay's weapons) are placed as new things instead, so a multi-stack output cell holds several.
-  **Corrected later on 29 Oct 2026:** most machining bay weapons are *not* made with a stuff (VFE sets the flag
-  only when the item has a stuff cost), and for them the merge loses the new item; see the next section.
-- **VFE's hopper Def** (`VFEFactory_FactoryHopper`) sets `maxItemsInCell` 1 and uses
-  `Building_FactoryHopper`, which replaces the Def's graphic with three fixed textures (plain, input,
-  output); only the autofarmer's placement preview names that Def directly.
-- **The deep hopper** (`PhobosFactory_DeepFactoryHopper`) inherits that Def through a Name added by
-  `PatchOperationAttributeAdd` (inheritance resolves after patches), overriding `maxItemsInCell` (4), cost
-  and work. Because the class draws fixed textures, it looks the same as the ordinary hopper. A custom look
-  would need a small C# subclass and new art: not done.
+*Moved on 17 Nov 2026 to [VFE Factory conveyors](vfe-factory-conveyors.md#how-machines-take-from-hoppers-and-the-deep-factory-hopper-29-oct-2026), as written.*
 
 ## The fabrication bay and the lost-item fix (29 Oct 2026)
 
@@ -321,144 +300,11 @@ their limit (so a gun's reads "max 1 units"); the machining bay keeps VFE's 1.
 
 ## Belts that take from any storage (0.6.0, 29 Oct 2026)
 
-The owner asked for one generic way for VFE Factory's belts to pull from any container, instead of a patch per
-building and mod (the corpse fridge in 0.2.0, the chemfuel taps in 0.3.2), and stressed the cost to run.
-
-**What the code says (read 29 Oct 2026 in the decompiled VFE Factory, Pipe System 1.6 and 1.7, Adaptive Storage
-Framework and Rimefeller assemblies; not tested in game).**
-
-- `Building_Conveyor.PeriodicCacheCheck` runs about once a second per belt (`(TicksGame + thingIDNumber) % 60`)
-  and sets the private `hasAdjacentHopper` when a neighbouring `Building_Storage` is VFE's `Building_FactoryHopper`
-  or carries `FactoryHopperExtension`. Only then does `ProcessMovement` call `TryPullItem` on each idle tick,
-  which tries `TryPullFromDir` behind, then clockwise, then counter-clockwise. That method takes the first
-  spawned Item on the storage's slot cells, whole stack, and puts it on the belt. Nothing else sets the flag.
-- `Building_Conveyor.ReceiveBypass(Thing)` (public) is VFE's own hand-over: it takes the item from any holder,
-  adds it to the belt and sets the belt moving. `HasSpace()` is public too.
-- `Process.InputFactoryHopperDetected(IntVec3)` (public, Pipe System) decides whether a hopper-only bill reads
-  an input cell, by the same Def flag. Machines poll inputs every 100 ticks (`CompTickInterval`). Output uses a
-  separate `FactoryHopperDetected()`, left alone.
-- The flag is per Def, so no XML or Def change can make it depend on one building: a per-building switch needs
-  code at those two decision points.
-- Adaptive Storage's `AdaptiveStorage.ThingClass` derives from `Building_Storage` and spawns its stored items on
-  the map. Rimefeller's "refinery unloading bay" (`RefineryLoadingBay`, parent `ChemfuelHopperBase`) is a plain
-  `Building_Storage`, and `CompRefinery` places its products on the bay's cell with `GenPlace.TryPlaceThing`.
-  Both can therefore feed belts. (The 28 Oct conveyor record said a Rimefeller bay is not `Building_Storage`;
-  that was wrong, and a correction note is added there.)
-- Kimoju's "VFE Factories: Buffs and tweaks" patches only the autofarmer and the fish farm, not belts.
-
-**Survey (read-only, the owner's 300 active mods, by each ThingDef's resolved `thingClass`).** 105 Adaptive
-Storage buildings (Warehouse Storage, the [sbz] mods, Cargo Holds, Adaptive Ideology Storage, [kyzy] Ship Wall
-Enhanced), 30 plain `Building_Storage` (vanilla shelves and hopper, VFE furniture, Rimefeller bays, VCHE hoppers
-and siphons, DMS, VGE, VNPE and others), and a scatter of single classes. The containers that are not
-`Building_Storage` hold their contents in an inner container rather than on the map: graves and sarcophagi,
-ancient and DMS crates, bookcases, growth vats, biosculpter pods, outfit stands, gibbet cages. Belts should not
-empty those, and VFE's pull could not read them anyway.
-
-**The three designs put to the owner.** Flag every storage type at load (no running cost, no Harmony, but any
-belt beside any shelf drains it, in an existing colony too, which the project's rule against moving the
-player's things forbids without consent); a switch per storage (chosen); a loader belt that pulls from
-whatever is behind it (no VFE patches, but identical-looking until it has art, and no help for input cells).
-
-**What 0.6.0 does.**
-
-- `BeltAccessSetup.AddSwitches`, called from the existing postfix on `DefGenerator.GenerateImpliedDefs_PreResolve`
-  (so the game resolves and checks the comp like XML), adds `CompProperties_BeltAccess` to every ThingDef whose
-  `thingClass` is a `Building_Storage`, skipping Defs that already carry `FactoryHopperExtension`. It logs the
-  count.
-- `CompBeltAccess` holds one saved bool (`PhobosFactory_BeltsMayTake`, default off), shows a `Command_Toggle` on
-  player-owned storage and an inspect line while on. The toggle delegates to `BeltAccess.SetBeltsMayTake`, which
-  sets it and sends one silent message (no look target, so the game merges a multi-select into one).
-- A postfix on `PeriodicCacheCheck` also sets `hasAdjacentHopper` when switched-on storage is behind or at
-  either side (three `GetFirstThing<Building_Storage>` lookups, once a second, only while the flag is false).
-  VFE recomputes the flag from scratch each time, so switching off takes effect within a second.
-- A postfix on `TryPullFromDir`, only when VFE's own pull found nothing on that side: every 10 ticks
-  (`IsHashIntervalTick`, VFE's own rhythm for items on a belt cell) it takes the first Item on the storage's
-  cached slot cells (`AllSlotCellsList`, no allocation) with `SplitOff` and hands it over with `ReceiveBypass`.
-  Hoppers keep priority, and the order of sides stays VFE's.
-- A postfix on `InputFactoryHopperDetected` also accepts switched-on storage on the cell; Pipe System then reads
-  every item there, as for a hopper.
-- All three are postfixes. Each patch class is applied on its own, so a VFE rename switches off only that part.
-  The assembly now references VFE Factory's installed `VanillaFurnitureExpandedFactory.dll` with
-  `Private=false`; VFE Factory publishes no licence (its GitHub repository and Workshop folder checked
-  29 Oct 2026), so nothing of it is copied ([third-party notices](../../THIRD_PARTY_NOTICES.md)).
-
-**Cost (estimate from the code, not measured).** Switched-off storage adds nothing while the game runs.
-Belts add the neighbour check about once a second each; the storage scan runs only beside switched-on storage
-and only every 10 ticks, and an idle belt beside an empty hopper already does more work than that every tick in
-stock VFE. The owner runs Dubs Performance Analyzer and can measure it in play.
-
-**Behaviour to watch in play.** A belt beside switched-on storage takes everything, forbidden items included and
-whatever its filter says (the hopper rule). A belt that delivers back into storage it takes from loops for ever.
-Pulling from storage runs at most once per 10 ticks per belt, a little slower than from a hopper.
-
-**0.6.1 (30 Oct 2026): only the belt behind.** The owner's first test (29 Oct 2026, RimWorld 1.7) showed belts
-taking stacks from a switched-on Adaptive Storage fridge, and also belts that merely ran along its sides: a
-line wrapped around the fridge emptied it. 0.6.0 had copied the hopper rule (behind and both sides), which
-suits a hopper placed to feed one belt but not storage that belts pass. Now `BeltAccess.HasStorageToTakeFrom`
-looks only at the cell behind the belt (`Rotation.Opposite`; `TryPullFromDir`'s argument is the direction
-from the belt to the neighbour, read in `TryPullItem`), and `TryTakeFrom` returns at once for any other side.
-The neighbour check falls from three lookups to one. Factory hoppers and Def-flagged storage keep VFE's own
-rule. The 0.6.0 notes also said a hopper beside the same belt goes first; that holds only per side. VFE tries
-behind first, so switched-on storage behind a belt goes before a hopper at its side.
+*Moved on 17 Nov 2026 to [VFE Factory conveyors](vfe-factory-conveyors.md#belts-that-take-from-any-storage-060-29-oct-2026), as written.*
 
 ## Stuck belts and belts that obey storage filters (0.7.0, 30 Oct 2026)
 
-The owner reported that the human-meat neutroamine line had stopped: "the hopper and conveyor belts don't seem
-to be working". Diagnosed from a read-only copy of the owner's PG6 save (RimWorld 1.7) and VFE Factory's
-decompiled assembly; the owner asked for both fixes ("apply whatever fixes are necessary").
-
-**What the save showed.** Both synthesizers were starved of meat (0 and 11 of 20 loaded; they had run the
-human-meat bill 183 and 85 times, so the line had worked). The mincer had left 75 human meat in its output
-hopper, and the storage group filter allowed it. The two belts that carry it on were **empty but in the Waiting
-state**. Separately, the belt in front of the top mincer's corpse hopper held a steel slag chunk the corpse-only
-hopper refused, and every corpse belt behind it was full and waiting. The chunk's last recorded cell was on the
-corpse fridge. Across the map, 9 of 579 belts were empty and Waiting (the other 68 waiting belts held items:
-ordinary queues).
-
-**What the code says** (VFE Factory, read 30 Oct 2026; not tested in game):
-
-- `Building_Conveyor.Tick` returns at once while `innerContainer` is empty and `state` is `Waiting`, and
-  `ProcessMovement` pulls from a hopper only while the state is not `Waiting`. Only an item pushed in by
-  another belt (`ReceiveBypass`, a belt-to-belt transfer) changes the state. The state is saved, so a reload
-  keeps it, and `TrySetDirection` ("Change direction") doesn't touch it. In game the only fix was to rebuild
-  the belt.
-- Every place VFE Factory sets `Waiting` runs only while the belt holds something, and every place it empties a
-  belt resets it (`ResetConveyorState`, or `Empty` in the "Haul from conveyor" job). **What empties these belts
-  is not known.** Ruled out by reading: rotting (a belt doesn't tick its contents), weather damage (resets),
-  machines' input cells (none on these belts), the haul job, and our 0.6 storage pull (the game's
-  `Thing.SplitOff` of a whole stack despawns it, so nothing is held twice). Neither log had errors from belts.
-- `TryPullFromDir` takes the first item on a hopper-flagged storage's cells, whole stack, with no filter check,
-  so anything lying on the corpse fridge rides out with the corpses.
-
-**What 0.7.0 does.**
-
-- **Stuck belts wake.** A prefix on `Building_Conveyor.Tick` (`ConveyorTickPatch`, `StuckBelts.WakeIfStuck`)
-  calls VFE Factory's own private `ResetConveyorState` when `BeltRule.IsStuck` holds, so the same tick runs
-  normally and the belt pulls again. Underground entrances and exits tick through the same method. The cost is
-  two field reads per belt per tick. `Prepare` looks the reset up once; if an update renames it, the patch stays
-  off and the log says so. The rule has unit tests.
-- **Each wake is logged** with the belt's position, up to 10 a session (agent default), so play can show what
-  empties belts without flooding the log.
-- **Belts obey the corpse fridge's filter.** A new marker, `Phobos.Factory.BeltFilterExtension`, on a
-  hopper-flagged storage Def makes belts take only stacks its storage filter allows (`StorageSettings.
-  AllowedToAccept`, the group's settings when the building is in a storage group; a pure filter check, no room
-  check). A prefix on `TryPullFromDir` handles such storage and skips the original for it alone, because VFE
-  chooses the item inside that method. The corpse fridge patch adds the marker. Rejected stacks stay; the
-  storage doesn't accept them, so haulers move them on.
-- **Switched-on storage obeys its filter too** (both 0.7.0 rules through one `BeltAccess.TakeFirstAllowed`).
-
-**Agent choices while scoping (owner to revise).**
-
-- **VFE Factory's own hoppers and taps keep VFE's rule**: belts take whatever is on them. A machine places its
-  output on its hopper whatever the hopper's filter says, and the owner's chemfuel tap is saved with a filter
-  that allows nothing yet still makes chemfuel, so obeying those filters would quietly stop working lines.
-- **Switched-on storage obeys its filter.** Checked in the PG6 save first: the one switched-on building (a
-  thermostatic fridge cabin holding psychoid leaves) allows what it holds, and all 25 Rimefeller unloading bays
-  allow FSX. Gotcha for other players: Rimefeller adds FSX to the bay's list of allowed items under Combat
-  Extended but not to a new bay's default filter, so a new bay may need FSX ticked before belts take it.
-
-**Version.** 0.7.0: a fix (stuck belts) with new behaviour and a new Def extension for modders (the filter rule),
-so the middle number moves.
+*Moved on 17 Nov 2026 to [VFE Factory conveyors](vfe-factory-conveyors.md#stuck-belts-and-belts-that-obey-storage-filters-070-30-oct-2026), as written.*
 
 ## Medicine from synthread (0.8.0, 31 Oct 2026)
 
@@ -601,35 +447,7 @@ even if another bill is running; a small understatement of risk, left as it is. 
 
 ## A belt switch on factory hoppers (0.11.0, 2 Nov 2026)
 
-The owner asked for an option on VFE Factory's hoppers that stops conveyor belts taking from them, if the player chooses.
-
-**What the code says** (read 2 Nov 2026; not tested in game):
-
-- `Building_Conveyor.TryPullFromDir` is the only place a belt takes from storage. It reads `GetCachedNeighborBuilding(dir)`,
-  and returns false unless that is a `Building_FactoryHopper` or carries `FactoryHopperExtension` with `isfactoryHopper`. **The
-  decompiled C# shows this check as an empty block**; the IL shows `brfalse` to the method's `return false`. Read the IL when a
-  decompiled branch looks empty.
-- `PeriodicCacheCheck` sets `hasAdjacentHopper`, once a second and for all sides together, so it can't express "not this hopper".
-- Delivering into a hopper is separate code, and machines read input cells through Pipe System, so neither passes through this.
-
-**What 0.11.0 does.** `CompBeltAccess` gains `Props.startsOn`, true where `BeltAccess.IsHopperDef` says VFE Factory feeds belts by
-itself, and `BeltAccessSetup` now gives every storage type the switch. `BeltRule` states the meaning: on ordinary storage, on adds
-it to what belts take from; on a hopper, off removes it. The `TryPullFromDir` prefix refuses for a hopper switched off. It now
-reads VFE Factory's own cached neighbour, the same building the original would read, in place of the 0.7.0 thing-grid lookup and
-its "any filtered Def loaded" shortcut. A belt beside a switched-off hopper keeps asking every tick while it has room, as it already
-does beside an empty hopper.
-
-**Agent choices (owner to revise).**
-
-- **Belts only.** Machines and colonists still take from a switched-off hopper, because the owner asked about belts, and
-  Allow taking already covers colonists.
-- **The same switch and label as other storage**, rather than a second button with an opposite meaning. On means belts may take,
-  everywhere.
-- **Flagged storage too** (chemfuel taps, the corpse fridge): one rule for everything that feeds belts, and it answers the corpse
-  fridge's "any belt touching it empties it".
-- **Each hopper has its own switch**, not shared across a linked group as VFE Factory's Allow taking is. A linked group shares
-  storage settings, but which hopper a belt may take from is about where the hopper stands. Multi-select sets several.
-- **Inspect text speaks only when the switch is off** on a hopper, so ordinary hoppers stay uncluttered.
+*Moved on 17 Nov 2026 to [VFE Factory conveyors](vfe-factory-conveyors.md#a-belt-switch-on-factory-hoppers-0110-2-nov-2026), as written.*
 
 ## Endless output from oversized batches (0.11.1, 3 Nov 2026)
 

@@ -189,6 +189,23 @@ a disagreement) is reversed. Version history lives in the changelogs. The faults
 where it came from; the old files are deleted, and every link and plain mention in the repository, code and Def comments included,
 points to the new place. Git history keeps the old files.
 
+**Splits and archiving done 17 Nov 2026**, each moved block as written under a line naming where it came from:
+
+- `art-automation-and-medical-equipment.md`: the art half to the new `art-pipeline.md` (which opens with today's routes and steps),
+  the medical half to `medical-equipment.md`; the old file is a stub, because about 30 texture records link to it.
+- `artwork-direction.md`, `view-angle-models.md` and `vehicle-art-services.md` merged into `image-routes-research.md`; the OpenAI
+  engine's manual moved into `paid-image-generation-rules.md`.
+- `background-cleanup.md`: the paint masks, the fleck checker and the overlay fit moved to `vehicle-paint-masks.md`; AGENTS.md points there.
+- `utility-vehicles-design.md` is the family's hub; the bulk tanker has its own record, `vehicle-bulk-tanker.md`.
+- RimPacts' and Visit Settlements' material left the vehicle and missile patch records for `rimpacts-patches.md` and
+  `visit-settlements-patches.md`; the factory's belt and hopper sections joined `vfe-factory-conveyors.md`.
+- `phobos-framework.md` is the gas, oxygen and health-layer design record again; its API log went to `docs/framework-modding.md`
+  (about 80 lines of facts added there, each checked against the code) and its 0.57.0 pipes rule to `network-underlays.md`.
+- `outstanding-work.md`: 100 done rows moved, unchanged, to a Done section at its end; 50 open and 7 deferred rows stay.
+- Archived in place, each with its reason and evidence: the code audit, the crash record and the 1.7 readiness report.
+- Not done, on purpose: AGENTS.md's tool paragraphs stay as they are. They are the owner's dated directions, and
+  `analysis-tooling.md` remains the longer reference.
+
 Each merge copies every record in as its own dated section, unchanged, under one current status line, so no record loses its
 original scope.
 

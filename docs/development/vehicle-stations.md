@@ -53,7 +53,7 @@
 
 ## Home depot bays: design (9 Nov 2026)
 
-*Merged into this record on 17 Nov 2026 from `vehicle-stations.md`; kept as written.*
+*Merged into this record on 17 Nov 2026 from `vehicle-depot-bays.md`; kept as written.*
 
 
 **Status: built in D'thorga Framework 0.45.0. Not yet tested in game.** Standing crews and convoys are not built, by the owner's decision: **Crew Presets** (Luke, `luke.crewpresets`, on the owner's list, updated 27 Oct 2026; 4 comments read) already saves groups of colonists in the form-caravan window and others, and "that kind of thing should be responsible for this, not us" (owner, 9 Nov 2026). It picks people, not exact vehicle seats.
@@ -94,7 +94,7 @@
 
 ## The vehicle garage and fleet tools: design (8 Nov 2026)
 
-*Merged into this record on 17 Nov 2026 from `vehicle-stations.md`; kept as written.*
+*Merged into this record on 17 Nov 2026 from `vehicle-garage-design.md`; kept as written.*
 
 
 **Status: design record. Nothing here is tested in game.** Findings marked "from the code" were read from local decompiles

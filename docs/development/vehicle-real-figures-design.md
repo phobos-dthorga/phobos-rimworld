@@ -65,7 +65,7 @@ soft sand, four-wheel drive keeps its grip and the engine sets the pace (a rule 
 
 ## Kerb mass check (8 Nov 2026)
 
-*Merged into this record on 17 Nov 2026 from `vehicle-real-figures-design.md`; kept as written.*
+*Merged into this record on 17 Nov 2026 from `vehicle-kerb-mass-check.md`; kept as written.*
 
 
 A dated record of the check `outstanding-work.md` listed as V8: the vehicle systems figure a vehicle's empty (kerb) mass as 12 kg per
@@ -125,7 +125,7 @@ battle tank at about 108 kW).
 
 ## Vehicle class by empty mass (16 Nov 2026)
 
-*Merged into this record on 17 Nov 2026 from `vehicle-real-figures-design.md`; kept as written.*
+*Merged into this record on 17 Nov 2026 from `vehicle-class-by-empty-mass.md`; kept as written.*
 
 
 A design record for the idea "choose a vehicle's class by its empty mass" in [outstanding work](outstanding-work.md)'s list of

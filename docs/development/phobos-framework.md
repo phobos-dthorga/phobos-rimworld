@@ -7,6 +7,11 @@ the idea on 22 October 2026 ("an extendable Phobos framework of its own", [proje
 first consumer, [D'thorga Burns and Smoke](burns-and-smoke.md), made it concrete on 4 November 2026. The Ostranauts repository's
 `PhobosFramework` is the companion: the same role, a different game.
 
+**Status (17 Nov 2026):** the design record for the gas layer, supplied oxygen and the health layer. The version-by-version list of
+later Framework services that grew here (0.5.0 to 0.100.0) was taken out on 17 Nov 2026: what each service is and how to use it is
+now in [D'thorga Framework for modders](../framework-modding.md), and the owner's gas rules below are also standing rules in
+[AGENTS.md](../../AGENTS.md).
+
 ## The owner's rules (4 Nov 2026)
 
 - **Existing effects first, own gases when they earn it.** Infer effects from gases and functionality that already exist
@@ -116,55 +121,30 @@ one button per choice; it is put on every humanlike race by a startup sweep rath
 
 **Who counts as a patient (0.4.2, 7 Nov 2026):** `Patients.IsFleshPerson`, `IsLyingDown` and `IsLyingPatient` are the one shared answer; each mod adds its own need and care check on top. Medical Equipment uses them; Emergency Dosing's own `Downed || InBed()` adopts them when next touched. Prompted by a vehicle checked as a patient in the owner's game.
 
-**Plumbing (0.5.0, 7 Nov 2026):** `PhobosFramework.Hygiene`, loaded only with Dubs Bad Hygiene, holds `PlumbingFeed`: the one reader of Dubs' water, moved from D'thorga Factory Additions. `TryPull(building, litres, out quality)` searches the cells under and beside a building; `TryPullFrom(net, litres, out quality)` takes a net the caller knows (a fixture's own pipe). Both answer flowing, no plumbing or empty towers. Factory Additions and Medical Equipment's electrolyser use it; D'thorga Water Tap's own reader adopts it when next touched.
+## Later services (moved out 17 Nov 2026)
 
-## Merge helpers (0.6.0, 7 Nov 2026)
+From 0.5.0 on, this record also logged each new shared service as it was built. That log is replaced by pages that say what each
+service is today; git history keeps the old sections. Where each went:
 
-Made for the owner's decision to merge seven mods into two ([mod consolidation](mod-consolidation.md)), and used by both merged mods
-in the same change. `SettingsImport` reads the settings file a mod's old folder and Mod class left behind, through the game's own
-public `LoadedModManager.ReadModSettings`, and copies its fields into the object the game already handed the mod, so the game keeps
-saving that one (`ModSettings.Mod` has an internal setter, so a read object cannot be handed to the game directly). It mirrors the
-game's private file naming, `Config/Mod_<folder>_<class>.xml` (read from the 1.6 and 1.7 assemblies). `SettingsUi.Section` and
-`SettingsScroll` give a long settings window headings and a scroll bar. `LoadReport` takes an optional part name.
+| Former section | Framework | Now |
+| --- | --- | --- |
+| Plumbing (`PlumbingFeed`) | 0.5.0, 7 Nov 2026 | [Water and pipes beneath things](../framework-modding.md#water-and-pipes-beneath-things-with-dubs-bad-hygiene) |
+| Merge helpers (`SettingsImport`, `SettingsUi.Section`, `SettingsScroll`, `LoadReport`'s part name) | 0.6.0, 7 Nov 2026 | [Shared helpers](../framework-modding.md#shared-helpers); why: [mod consolidation](mod-consolidation.md) |
+| Work queue (`FrameWorkQueue`, `RoomRebuildHold`) | 0.7.0, 7 Nov 2026 | [Shared helpers](../framework-modding.md#shared-helpers) |
+| Shared helpers for the vehicle systems (Combat Extended rules, held temperature, item finder, history, widgets, tabs, charges, shelter comfort, biome ground, patch flags, lasting conditions, supply rules, detail tiers, timing, patched Defs, the game log keeper) | 0.15.0 to 0.28.0, 8 Nov 2026 | [Shared helpers](../framework-modding.md#shared-helpers), [the health layer](../framework-modding.md#the-health-layer-and-care-choices), [logging](../framework-modding.md#logging) and [tools for developers](../framework-modding.md#tools-for-developers) |
+| Pipes beneath things (`PipeUnderlay`; the owner's rule of 9 Nov 2026, "joined, vehicles too") | 0.57.0, 9 Nov 2026 | [Pipes and conduits beneath our things](network-underlays.md#pipes-beneath-things-9-nov-2026-framework-0570), which carries the rule on from 0.107.0; for modders, [water and pipes beneath things](../framework-modding.md#water-and-pipes-beneath-things-with-dubs-bad-hygiene) |
+| Parts bills | 0.95.0, 11 Nov 2026 | [Parts bills](parts-bills.md); for modders, [parts bills](../framework-modding.md#parts-bills) |
+| Node looks, and a parked engine's fan (`stoppedBonusStat`) | 0.98.0, 12 Nov 2026 | [Pictures, fades and progress bars](../framework-modding.md#pictures-fades-and-progress-bars); the fan in [the generator set's record](vehicle-generator-set.md) |
+| Progress bars, fading pictures and damage pictures | 0.100.0, 12 Nov 2026 | [Pictures, fades and progress bars](../framework-modding.md#pictures-fades-and-progress-bars) |
+
+One decision from those sections stays here, as written (0.6.0, 7 Nov 2026):
 
 **Considered and not built here** (agent's calls, for the owner): a frame-budgeted work queue (from D'thorga Patches' missile fix),
 which waits for the owner's proposals on that mod; and a base class for interval map components, which would change the timing code of
 parts that are tested in game, so it waits until one of them is next changed for its own sake.
 
-## Work queue (0.7.0, 7 Nov 2026)
-
-Made for D'thorga Patches' strategic blast, the owner's standing request that shared code live in the framework. `FrameWorkQueue`
-runs `FrameWork` jobs one at a time, a slice per frame within the job's budget (`SliceBudgetRule`, game-free and tested), from
-`GameComponent_PhobosFrameWork.GameComponentUpdate`: the game calls component updates every frame, paused or not (`Game.UpdatePlay`,
-read from the 1.7 assembly), so the framework still needs no Harmony. A new or loaded game empties the queue; jobs are never saved.
-`RoomRebuildHold` sets `RegionAndRoomUpdater`'s private `working` flag by reflection for a slice and rebuilds once at its end.
-The candidate base class for interval map components is still not built (see 0.6.0 below).
-
-## Shared helpers for the vehicle systems (0.15.0, 8 Nov 2026)
-
-- **Generic functions go to the core** (owner's rule of 8 Nov 2026, in AGENTS.md): `Rules/CombatExtendedRules.cs` (how Combat
-  Extended reads hit weights and blast penetration, with tests) and `Debug/DebugSelection.cs` (the selected things, comps and world
-  objects for dev actions) came in with the vehicle systems' CE corrections and serve every Phobos mod. 0.16.0 added
-  `Environment/HeldTemperature.cs` (a registry giving things held inside something a fixed temperature, as transport pods have; the
-  one Harmony postfix stays in the vehicle part because the core has no Harmony) and `Items/ItemFinder.cs` (a tool in stock a pawn can
-  fetch, or aboard a caravan). 0.17.0 added `Rules/History.cs` (a history ring and its save codec, with tests),
-  `Persistence/ScribeHistory.cs`, `UI/PhobosWidgets.cs` (gauge, warning light, history graph, section, tachometer) and
-  `UI/TabState.cs` (per-thing state for a shared inspector tab), built for the vehicle tabs and open to every Phobos tab. Their
-  namespace is `Phobos.Framework.Interface`, not `.UI`: a namespace named `UI` would hide the game's `Verse.UI` class from every
-  `Phobos.Framework.*` namespace. 0.18.0 added `Items/Charges.cs` (`CompPhobosCharges`, a thing that holds a few uses, with the
-  `PhobosFramework_ChargesFull` recipe filter) and `Rules/ChargeRules.cs`, `Rules/ShelterComfort.cs` (how a pawn feels about a
-  shelter's temperature against their comfort range), `WorldMap/BiomeGround.cs` (a world tile's ground from its biome's Defs;
-  namespace `Phobos.Framework.WorldMap`, not `.World`, which would hide `Verse.World`) and a condition on `ItemFinder`'s finders.
-  0.20.0 added `Patching/PatchFlags.cs`: `PatchFlags.Register` (a mod's setting, read by XML patches) and `PatchOperationPhobosFlag`
-  (operations applied only while that setting is on; mods register in their constructors, which run before patches). 0.21.0 added
-  `Health/LeavesLasting.cs` (a condition that leaves a lasting one on its part when it heals, by its worst) and `Rules/LastingRule.cs`;
-  the uninstall sweep's `CleanupService.Sweeping` tells it to stand aside. 0.21.1 added `Rules/SupplyRules.cs` (several jobs' needs
-  against stock); 0.23.0 `UI/PhobosTabs.cs` (opening a world inspector tab from code); 0.25.0 `Rules/DetailTierRule.cs` (Full, Lite
-  or Off by faction and presence, tested) and `Debug/PhobosTiming.cs` (a dev-mode timing accumulator, free outside dev mode);
-  0.27.0 `Debug/PatchedDefsDump.cs` (every Def with all patches applied, written once on a developer's request: a patch operation
-  of ours keeps the game's combined XML document, which later mods go on patching, and a startup class writes it); 0.28.0
-  `Logging/GameLogKeeper.cs` and `Logging/HostLog.cs` (the game's log turned back on after its limit; lines under our own engine
-  category), `Rules/GameLogRules.cs` (message signatures, a bounded tally, the revival bound) and `Rules/TickThrottle.cs`, all tested.
+The work queue was then built in 0.7.0; the base class for interval map components is still not built, and waits in
+[outstanding work](outstanding-work.md)'s Deferred table.
 
 ## Open points and upstream
 
@@ -178,63 +158,3 @@ The candidate base class for interval map components is still not built (see 0.6
 - **A Vehicle-Framework-optional part for vehicle systems** (owner, 8 Nov 2026): the schema-driven electrical, cooling and
   lubrication service, loaded only with Vehicle Framework the way the Dubs Bad Hygiene tie-in is; designed in
   [vehicle systems](vehicle-systems-design.md), to be built after the owner's review. 1.7 only.
-
-## Pipes beneath things (9 Nov 2026, Framework 0.57.0)
-
-The owner's rule, choosing "joined, vehicles too": anything that takes water or piping has its own pipes beneath it, as Dubs' fixtures and Vanilla Expanded's connected buildings do, and a gravship does while it travels.
-
-**Lets the player:** run a pipe to any side of a machine or a parked vehicle, and carry a run on through it. **Stops them:** nothing; the old way of touching a pipe still works. **Changes play:** a vehicle parked across a run bridges it, and driving off breaks that run again.
-
-How it is built (agent's design): `PipeUnderlay` lays the piping mod's own hidden pipe on each cell of a footprint that has none. This replaced the first idea, giving buildings Dubs' own pipe comp, because that comp deletes the plumbing under a building, and on a load can meet a pipe that spawns after it and log an overlap. So nothing the player laid is ever touched, a save converts at its next look, and removing the mod leaves ordinary hidden pipe.
-
-| Thing | When it joins | Limits |
-| --- | --- | --- |
-| Oxygen electrolyser, safety shower, conveyor oven | Always, with Dubs Bad Hygiene | Dubs' lite mode has no plumbing: nothing is laid |
-| A player vehicle that takes water, or a tanker with Dubs water or septic ports | Parked, with plumbing under or against it | Looks about once every 33 game seconds (8 rare ticks), and when it stops; leaves as soon as it starts moving |
-| A tanker or rig with a Vanilla Expanded Framework fluid | The same, for that fluid's net | A net with no hidden pipe lays its ordinary one, under the vehicle |
-
-Not yet tested in game. In particular unproven: that spawning hidden pipes under a parked vehicle leaves Vehicle Framework's pathing alone, and that a gravship carries a building's or a vehicle's laid pipes as expected.
-
-## Parts bills (11 Nov 2026, Framework 0.95.0)
-
-The owner asked for every vehicle's build cost to draw on other mods' parts as the tanker's did, and then whether the mechanism could be generic for a later chemical industry mod's placed buildings. It is a core service: `Phobos.Framework.Bills` (`PhobosRoleSupplyDef`, `PhobosBillDef`, `PartsBills`) over the game-free `BuildBillRule`. The whole design, an example for a building and the limits are in [parts bills](parts-bills.md). Not yet tested in game.
-
-## Node looks (12 Nov 2026, Framework 0.98.0)
-
-**A vehicle's picture can change with its upgrades** (`CompProperties_PhobosNodeLooks`, `CompPhobosNodeLooks`, the rule `NodeLookRule` with
-tests). Vehicle Framework's own node overlays can only add a picture on top; they cannot take a stock picture away, so a stock fan would
-show under a heavy-duty one. A slot lists pictures in order: the first whose node is fitted shows, else the one with no node (the stock
-look), else nothing. The comp changes the picture on Vehicle Framework's upgrade-completed and refund-completed events and at every spawn;
-nothing is saved. First consumers: the generator set's fan (owner, 12 Nov 2026: "#1 is the default, #2 is the upgrade"), the tipper's plain,
-rock and bulk bodies, and the drill rig's folded and tall masts. Pictures that move later (the mast swinging, the body sliding, the fan
-spinning) are slots so a comp can move them. Not yet tested in game.
-
-**A parked engine can be given a fan** (the same release): `Input_Moving` takes an optional `stoppedBonusStat`, added to its stopped
-value and never past its moving value, and the cooling system's radiator names the new stat `Phobos_StoppedAirflow` (default 0, so every
-vehicle cools as before). The generator set's heavy-duty fan gives 0.3, taking a parked radiator from 0.7 of its moving rate to the full
-rate ([its record](vehicle-generator-set.md)).
-
-## Progress bars, fading pictures and damage pictures (12 Nov 2026, Framework 0.100.0)
-
-**Progress bars** (owner: "there needs to be progress bars in many areas, where appropriate"). A job uses the game's own
-`WithProgressBar`. Vehicle Framework's `JobDriver_WorkVehicle` draws its bar only when the job has no effecter, and its effecter defaults to
-the vehicle's repair effect, so its bar never showed: `WorkBars.WithBar` adds it to our drivers that extend it (service, diagnose, repair
-with supplies, the sling hook-up), and those carry `IDrawsOwnWorkBar` so D'thorga Patches' `VehicleWorkBarPatch`, which does the same for
-Vehicle Framework's own jobs, leaves them alone. Rig work reads `StepProgress` (the drill rig's portion, deepchem unit or side job, the
-survey's way to a certain find). Work with no job, the tank's pump and the tipper's slide, draws `MapProgressBar` from the comp's PostDraw:
-the game's bar is a mote that must be renewed every tick, which a rare-ticking comp cannot do, so this draws the same bar (0.68 by 0.12
-cells, the game's colours, the closest zoom only) directly.
-
-**Fading pictures** (`FadingOverlay`, `FadeRule` with tests): one long-lived mote over a building, made more or less see-through through the
-colour the game multiplies a mote by, building at one rate and fading at another. Motes are never saved, so the owner snaps it to its
-state after a load. First use: the liquid oxygen store's frost (D'thorga Medical 0.15.0), which DMS2 draws the same way, a frost picture
-under the game's Mote shader; ours is our own picture, drawn in code.
-
-**Damage pictures** (`CompProperties_PhobosDamageLooks`): pictures shown while a part is below a share of its health, checked every rare tick.
-The bulk tanker's tank comp did this for its own tanks first and keeps its own (its scopes by tank kind); every other vehicle uses this.
-
-**Extras on moving parts**: a set-up moving part's `extras` are pictures on its own canvas, shown while their node is fitted and posed with
-the part. First use: the survey truck's geophone array and resistivity reel on its boom.
-
-Not yet tested in game.
-

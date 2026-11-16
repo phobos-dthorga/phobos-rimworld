@@ -1,5 +1,7 @@
 # Crash record: stack overflow on 9 Nov 2026
 
+**Archived (17 Nov 2026):** resolved. Prison Labor 1.7.1 (13 Nov 2026) fixed the loop that closed the game, and the temporary guard came out in D'thorga Patches 0.19.2 (16 Nov 2026) at the owner's word: row J2 in [outstanding work](outstanding-work.md#done-this-round-in-order) and [Patches' changelog](../../mods/PhobosPatches/CHANGELOG.md). For a new crash, start with `python scripts/crash-dump.py`.
+
 The owner's game closed suddenly at 23:33 on 9 November 2026, about five minutes after loading PG5. This records what the evidence shows, what it cannot show, and how to find the cause.
 
 ## Answer (10 Nov 2026): it is Prison Labor, and not our code

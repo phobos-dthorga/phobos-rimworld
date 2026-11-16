@@ -2,7 +2,7 @@
 
 **Since 7 November 2026 this mod is a part of [D'thorga Patches](../../mods/PhobosPatches/README.md)** ([why](mod-consolidation.md)); paths below are updated, the rest is as recorded.
 
-**Merged here on 17 Nov 2026**, each kept as written: [Strategic strike: design and decisions](#strategic-strike-design-and-decisions-7-nov-2026).
+**Merged here on 17 Nov 2026**, each kept as written: [Strategic strike: design and decisions](#strategic-strike-design-and-decisions-7-nov-2026). **Moved out the same day**, as written: the RimPacts section to [RimPacts patches](rimpacts-patches.md), the Visit Settlements sections to [Visit Settlements patches](visit-settlements-patches.md).
 
 The record behind D'thorga Missile Patches. **Tried once in game: no freeze, but far too slow** (see [results from play](#results-from-play)). The player
 guide is the mod's README; this holds the log evidence, the code readings, the sources and who chose what.
@@ -195,138 +195,16 @@ places it opens.
 
 ## RimPacts assaults on a struck town (7 Nov 2026, evening)
 
-The owner's report: after a DF-5 on Lance Village (Anlium) they called their client state, the Ryūmon Protectorate, to attack; the force
-"never eventuated", RimPacts declared "Defense held", and later about twelve towns were lost (that last part happened after the save
-and was reloaded away, so it is unexamined). Read from PG2 of 7 Nov 2026 (letters, the battle map) and RimPacts 1.7's code:
-
-- **Timeline (ticks):** impact 48,051,475; battle begins 48,053,429; "assault force has reached" 48,056,000; "Defense held"
-  48,057,000; a second assault opened at 48,057,788, due 48,062,788; PG2 saved at 48,059,629.
-- **The cause:** `SpawnSpectateAttackers` generates a squad from points, then `TrimToHeadcount(list, ceil(defenders x techFactor),
-  attacker, "관전 공격대")`, where defenders is `DefenderHeadcountOn`: live (not dead, not downed) humanlike or mech pawns of the
-  defending side. Our strike sheltered nine Anlium people (rock roof, the default shelter setting) and left two standing, both psycasters
-  with psychic amplifiers; Ryūmon and Anlium are both industrial (factor 1), so the squad was about two. In PG2 one Ryūmon soldier
-  remains, downed at the east edge (gunshots, blast); 1,496 fires still burned. `ProcessSpectate` checks every 250 ticks and ends the
-  battle for the defender when no attacker is a live fighter, checking the attacker first (a mutual wipe-out also goes to the defender,
-  where the manual end button gives it to the attacker). A lost battle costs the attacker 4 power; it moves no towns.
-- **Decisions (owner: "the nuked town should face the squad it normally would"):** the strike counts the town's standing defenders
-  (its own faction and factions not hostile to it, never the player) at its start, before any harm, in a saved world component. Agent
-  choices: a 15-day window; the first count kept if a town is struck again within it.
-- **0.11.0 did not work** (owner's report, late evening; PG1 and PG2 of 21:21 and 21:23, and Player.log). The log shows the 0.11.0
-  prefix on `TrimToHeadcount` ran ("keeps up to 39 soldiers (RimPacts would have trimmed it to 2)"), yet two Ryūmon soldiers came.
-  RimPacts' `SpawnSpectateAttackers` uses one figure three times: `num15 = ceil(DefenderHeadcountOn(...) x techFactor)` is passed to
-  `RptGenTrim.Begin`, whose postfix on `PawnGroupMakerUtility.ChoosePawnGenOptionsByPoints` cuts the generated options to that many;
-  the top-up loop runs only while the squad is smaller than it; then `TrimToHeadcount` trims to it. Raising only the last step changed
-  nothing. The strike logged "Lance Village had 39 defenders standing before the strike" and killed 35.
-- **0.11.1:** a postfix on `DefenderHeadcountOn` itself raises the count to the pre-strike garrison, so RimPacts' own cap, top-up and
-  trim (tech factor included) all follow. It applies only while RimPacts' battle record says spawned and not spawn-done (inside the
-  synchronous long event that raises the assault; the support-force spawn there reads only the out parameter), only for that battle's
-  map and attacker, only for a town with a recent count, and never when the real count is 0, so RimPacts' "defenders wiped out, the
-  attack wins" paths and its arrival check are untouched. The `TrimToHeadcount` prefix and the letter backfill for strikes without a
-  count are removed (agent choice: an untrimmed squad cannot be expressed through the count without inflating the top-up).
-- **The twelve towns (answered):** RimPacts' world war quest, not combat. `WorldWarQuestAccept` sets a deadline of accept + 180,000
-  ticks (3 days); `WorldWarQuestDaily` runs once a game day and, if the target has not fallen and the deadline has passed, fails the
-  quest with `WorldWarQuestApplyPenalty`, which moves world war control (`ControlSideOf`) of about three quarters of the reward towns,
-  not ownership (settlement ownership was identical in both saves). Accepted at tick 47,828,059, due 48,008,059; the battle opened at
-  48,051,717; the daily check at 48,060,000 failed it and 11 border towns changed control. At PG1 Lance Village still had two Anlium
-  walker frames standing (nine people downed), so the town had not fallen; had it fallen before that check, the capture path would
-  have counted the war won. RimPacts counts as attackers only the attacking faction's live fighters and the player's when the player
-  joins the attack (`CountSpectateSides`); allied factions (Ryūga, the 688th) and the mercenary company fight but do not count. The
-  owner's DMS II mechs counted, as the player joined the attack. Nothing in our patches touched the quest.
-- **The countdown (Patches 0.12.0; owner: "bring it in line with the game's vanilla style").** The quest window shows a red time left
-  and "Expires in" only for an accepted quest holding an enabled QuestPart_Delay with `isBad` and expiry text (`MainTabWindow_Quests`,
-  1.7). RimPacts' quest (`wwQuestObj`, with its own `QuestPart_RptWarQuest`) has none: its deadline is `wwQuestDeadlineTick` in its
-  world component. A game component in a new RimPacts tie-in assembly (`Mods/RimPacts/<version>`, loaded only with RimPacts) checks
-  every 250 ticks and adds one vanilla QuestPart_Delay to the running quest, enabled through the game's own `Enable`, ending at the
-  first daily check at or after the deadline (RimPacts' saved `nextDailyCheckTick`, a day apart), with the game's `QuestExpiresIn`
-  and `QuestExpiresOn` text. Agent choices: count to the deciding check rather than the nominal deadline (the owner's war failed 0.87
-  days after it); reuse the game's keys so every language has them; no alert in the right-hand list (the owner asked for the
-  quest window's style). Not yet tested in game.
+*Moved on 17 Nov 2026 to [RimPacts patches](rimpacts-patches.md#rimpacts-assaults-on-a-struck-town-7-nov-2026-evening), as written.*
 
 ## Visit Settlements closes a RimPacts battle map (8 Nov 2026)
 
-**The report.** The owner lost a RimPacts world war defence of Barracuda's Stream (Ryūmon Protectorate, the owner's puppet state)
-against The Cannibal Lineup, reloading several times with and without the Harrier: always lost about 13 in-game minutes after PG2,
-and the force never came home.
-
-**What the saves showed** (`scripts/query-save.py` on phobos-modkit 0.7.0 and 0.8.0, built for this: world objects, component
-values and `diff --component`):
-
-- PG2 (tick 48,332,465): the defence at stage 3, the raid landed at 48,331,250; on the map 60 Cannibal Lineup fighters standing, 59
-  Ryūmon defenders, the owner's six DMS II mechs and an M1A2 with four colonists aboard. Visit Settlements' world component listed
-  the map (registered between Autosave-15 and PG1, so the caravan entered through its Visit button).
-- PG3 after the loss: RimPacts' history records the defence lost at tick 48,333,000 and one occupation mark for Barracuda's Stream
-  (control only; no settlement changed owner anywhere). The battle map was gone. The tank and its four colonists were world pawns,
-  out of play; the three mechs were world pawns of three other factions (Orbital Guild, Anlium, The Cannibal Lineup).
-
-**Read in the code** (summarised in our own words; decompiles stay in `.local`):
-
-- RimPacts 1.7 (30 Oct 2026) checks a defence every 250 ticks; at stage 3 it is won when the attacking faction has no conscious
-  fighter on the map (fogged, podded and vehicle-borne count), and **lost the moment the settlement's map is gone**. It keeps a defence
-  or watched battle map open through a postfix on `Settlement.ShouldRemoveMapNow`. The "End defense" button appears only once all
-  the player's forces have left.
-- Ruled out: our Harrier map patch and the Harrier framework's (both only keep maps), Vehicle Framework (only `CheckRemoveMapNow`),
-  Custom Base Framework and RimExodus (direct removal only on a failed generation or their own camp maps), RimPacts' own map removal
-  (spectated battles only; none was on). The owner's tests with and without the Harrier ruled it out in play.
-- **Visit Settlements 1.7 (22 Oct 2026)** postfixes `Pawn_HealthTracker.MakeDowned`: when any pawn on a map it tracks goes down
-  and `FreeColonistsSpawned` are all downed, it calls `Game.DeinitAndRemoveMap` directly. With every colonist inside the tank that list
-  is empty, the check is true, and the first downing closes the map, past every keep-open rule. The game passes the pawns left on it
-  to the world as lost (`MapDeiniter.PassPawnsToWorld`). The mechs changing faction afterwards is our inference: the game reuses
-  world pawns when it generates pawns for other factions.
-
-**The fix (Patches 0.13.0, not yet tested in game).** A tie-in assembly in `Mods/VisitSettlements/<version>`, loaded only with Visit
-Settlements, prefixes its private `DeinitializeMap(Map)` and skips it while a colonist of the player's there is conscious (on foot,
-aboard a Vehicle Framework vehicle through its `AllPawnsAboard`, or in a spawned holder), a player mechanoid there is on its feet, or a
-RimPacts defence or watched battle is on there (`DefendMissionOn`, `SpectateOn`, read by name). Agent choices for the owner: mechs
-count whether or not they have an overseer (they can still fight and carry the downed); a battle keeps the map even with everyone
-down, as RimPacts' own rule does; no setting, as it only fixes a fault; one log line per map an in-game hour.
-
-**Owner's workaround before 0.13.0:** keep one colonist on foot and conscious on a map entered with Visit; enter RimPacts defences
-through RimPacts' own option or shuttle. Confirmed by the owner in play on 8 Nov 2026 ("you're bang on right").
-
-### Bug report for Visit Settlements (draft; the owner posts it)
-
-> Hi Nina, thanks for Visit Settlements. A report from RimWorld 1.7 (build of 22 Oct): the downed check in
-> `VS_Pawn_Downed_Patch.Postfix` uses `map.mapPawns.FreeColonistsSpawned.All(p => p.Downed)`. When every colonist on a visited map
-> is inside a vehicle (Vehicle Framework), a shuttle or a pod, that list is empty, `All` returns true, and the first pawn of anyone's
-> to go down calls `DeinitializeMap`, closing the map with the player's people aboard. The game then passes them to the world as
-> lost, and with RimPacts a defence fought there counts as lost. Because `DeinitAndRemoveMap` is called directly, other mods' keep-open
-> rules (RimPacts' defences and battles) are skipped too. Requiring at least one free colonist in `FreeColonists` (not only spawned
-> ones), or calling `map.Parent.CheckRemoveMapNow()` instead of removing the map directly, would avoid it. Happy to share details.
+*Moved on 17 Nov 2026 to [Visit Settlements patches](visit-settlements-patches.md#visit-settlements-closes-a-rimpacts-battle-map-8-nov-2026), as written,
+with its draft bug report.*
 
 ## Visit Settlements' food drops throw every tick (8 Nov 2026)
 
-**What the owner saw.** `Player-prev.log` of 8 November ended at the game's 10,000-message limit at 18:24 after 6,846 identical
-`NullReferenceException`s from `VS_WorldComponent_SettlementEvents.WorldComponentTick` in six minutes; the next session's `Player.log`
-did the same at 20:07 after 8,247. After the limit no mod can log anything for the rest of the session
-([logging record](logging-framework-design.md)).
-
-**The cause** (read from the owner's log trace and Visit Settlements' 1.7 assembly of 22 October 2026, decompiled to
-`.local/decompiled/VisitSettlements-1.7`; Nina.Goblin's code, our summary). The world component counts ticks and, at
-`regularDaysCount` days, calls `DropFoodPodsForSettlements()`, then resets `tickCounter` to 0. That routine sums, for each friendly
-settlement map it keeps, `pawn.needs.food.FoodFallPerTickAssumingCategory(...)` over every non-hostile, non-player pawn. A pawn that
-does not eat has no food need (`needs.food` is null): a mechanoid, a robot or an android, which the owner's list brings (the Dead Man's
-Switch mechanoids, Apex Mechanoids, Enemy Mechanitors). The lambda throws (`<>c__DisplayClass8_0.<DropFoodPodsForSettlements>b__1`,
-called from `Enumerable.Sum`), the reset after the call never runs, and the component calls it again on the next tick: once a tick,
-for the rest of the session. Its raid timer has the same shape (`raidTickCounter` resets only after `TryTriggerRaidEvent` returns).
-
-**The fix, D'thorga Patches 0.14.1 (not yet tested in game).** `SettlementEventsGuard` in the Visit Settlements part, found by name and
-shape with no reference to Visit Settlements' assembly: a prefix on that one lambda (found as the only method named after the routine
-that takes a `Pawn` and returns a `float`; the routine's other float lambda takes a `Thing`) returns 0 for a pawn with no food need and
-skips the original only then, when it would throw (recorded reason: no extension point inside a lambda); and a finalizer on the
-world tick that, if anything still throws there, resets both counters as a success would have and logs one warning an in-game day
-(core `Rules/TickThrottle.cs`). The finalizer swallows the exception on purpose: rethrown, the game would log it again next tick,
-which is the fault itself; it logs the original in full.
-
-**Bug report to post (draft; the owner posts it)**, to Nina.Goblin on Visit Settlements' Workshop page:
-
-> Hi Nina, another one from RimWorld 1.7 (build of 22 Oct), with a large mod list. `DropFoodPodsForSettlements` sums
-> `pawn.needs.food.FoodFallPerTickAssumingCategory(...)` over every friendly pawn on a settlement map, but a pawn that doesn't eat
-> (a mechanoid, a robot, an android from another mod) has `needs.food == null`, so the sum throws. Because `WorldComponentTick` resets
-> `tickCounter` only after the call returns, it calls it again on every tick: about 7,000 errors in six minutes for me, which hits
-> RimWorld's 10,000-message log limit and stops all logging for the session. Skipping pawns with `needs?.food == null` in that sum
-> would fix it, and resetting the counter before the call (or in a `finally`) would stop any future fault there from repeating every
-> tick. `raidTickCounter` and `TryTriggerRaidEvent` have the same shape. I've put a small compatibility patch for both in D'thorga
-> Patches and will retire it if the mod changes. Thanks for the mod!
+*Moved on 17 Nov 2026 to [Visit Settlements patches](visit-settlements-patches.md#visit-settlements-food-drops-throw-every-tick-8-nov-2026), as written.*
 
 ## Bug report to post (draft; the owner posts it)
 
@@ -368,15 +246,12 @@ Extended's wall fragments on, each one threw about a hundred fragments; the game
 away, and every one made the next removal slower. Each fallen wall also checked the whole connected roof for collapse, and left
 rubble, filth and leavings that grew the map's lists further.
 
-**How to tell the Visit Settlements part is working.** The load line says "a visited settlement's map stays open while your people
-can still act there or a battle is on", and, for the food drops, "friendly settlements' food drops leave out pawns that do not eat"
-and "a fault in its settlement events waits its usual days instead of repeating every tick". When it saves a map, the log says "Kept
-the map of ... open", once an in-game hour. If Visit Settlements changes its code, the load line says the part is off and why. A
-failure in those events is logged as one warning a day.
+*Moved on 17 Nov 2026 to [Visit Settlements patches](visit-settlements-patches.md#moved-from-the-readme-17-nov-2026), as written:* how to tell the
+Visit Settlements part is working.
 
 ## Strategic strike: design and decisions (7 Nov 2026)
 
-*Merged into this record on 17 Nov 2026 from `missile-patches.md`; kept as written.*
+*Merged into this record on 17 Nov 2026 from `strategic-strike.md`; kept as written.*
 
 
 The record behind D'thorga Patches' own strike model for InterRim Ballistic Missile's extinction-class warhead (0.9.0), Stage 2 of the

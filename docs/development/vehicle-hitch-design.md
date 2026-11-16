@@ -302,7 +302,7 @@ the panels are the player's only; a captured vehicle tows and travels as ours do
 
 ## Trailers that follow their tractor: how RimThunder does it, and what it opens for us (11 Nov 2026)
 
-*Merged into this record on 17 Nov 2026 from `vehicle-hitch-design.md`; kept as written.*
+*Merged into this record on 17 Nov 2026 from `vehicle-trailer-research.md`; kept as written.*
 
 
 **Research only. Nothing here is built, no mod was added to the owner's list, and nothing was tested in game.** The owner

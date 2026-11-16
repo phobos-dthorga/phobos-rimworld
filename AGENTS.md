@@ -315,7 +315,7 @@ delivered, record the delivery in the changelog or design record, and add or ame
 - **Vehicle parts are ours, and other mods' are substitutes** (owner, 9 Nov 2026, reversing "providers first"): our part items always
   exist in D'thorga Framework and set what a repair costs, whichever mods are installed; RimThunder's and Vanilla Vehicles Expanded's
   are accepted only where they make sense, named per role in `PhobosVehiclePartSupplyDef` with `MayRequire`, never in C#. The framework
-  is meant to grow into tuning and upgrades (`docs/development/vehicle-health-consequences.md`).
+  is meant to grow into tuning and upgrades (`docs/development/vehicle-health-design.md`).
 - **What a thing of ours is built from is a parts bill, by role** (owner, 11 Nov 2026; `docs/development/parts-bills.md`): a vehicle or
   a placed building lists its roles in a `PhobosBillDef`, keeps only its shell in its own `costList`, and each role is filled at start-up
   by an installed mod's part where it suits and ours otherwise, from the same table repairs use. Never swap a cost with patch folders per
@@ -416,7 +416,7 @@ delivered, record the delivery in the changelog or design record, and add or ame
   map** (the owner's picks of 16 Nov 2026: regions over parts alone, then the repair): run `scripts/art/paint_segments.py` on a new master and
   repaint with `repaired`; `python scripts/art/repaint_vehicles.py` stages, reviews and applies
   every body's masks again, and **`python scripts/art/paint_check.py` counts the visible flecks** left before the owner sees them
-  (`docs/development/background-cleanup.md`).
+  (`docs/development/vehicle-paint-masks.md`).
 - **Art the mods don't ship stays off `main`** (owner, 7 Nov 2026): full-size masters of shipped and picked art on the `art-masters`
   branch, reference drawings and superseded or comparison picks on `art-references`, each with its sidecar or record. Add to them only
   with `scripts/art/archive_branch.py`, which adds commits on top, never rewrites, and refuses game art, the private style model and

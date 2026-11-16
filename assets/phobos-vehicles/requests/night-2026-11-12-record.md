@@ -8,7 +8,7 @@ audit estimate of about US$8 with a suggested cap near US$15. Paid images go thr
 ## The free half: night 3's local candidates (8 Nov 2026), judged at last
 
 Made on the owner's GPU on 8 Nov 2026 (ComfyUI, FLUX.2 Klein 4B, the v1 style model; see
-[the view-angle models record](../../../docs/development/view-angle-models.md)) and never judged until tonight. The owner's picks,
+[the view-angle models record](../../../docs/development/image-routes-research.md#view-angle-models-research-record-7-nov-2026)) and never judged until tonight. The owner's picks,
 by seed:
 
 | Subject | Pick | Agent's lean |

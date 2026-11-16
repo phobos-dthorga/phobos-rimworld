@@ -24,7 +24,7 @@ recovery winch and long-range tank on our trucks, from the paid API ([round thre
 
 Every texture and preview the Phobos RimWorld mods ship or still need, which of them suit the local image model, and what has to
 happen before a run. Written on 6 Nov 2026, before anything on it was generated. How the pipeline works is in the
-[art automation design](art-automation-and-medical-equipment.md); the picks so far are in [its list of picks](art-automation-and-medical-equipment.md#the-owners-picks).
+[art pipeline](art-pipeline.md); the picks so far are in [its list of picks](art-pipeline.md#the-owners-picks).
 
 ## Read this first (gotchas)
 
@@ -214,7 +214,7 @@ Proposed 6 Nov 2026 for the owner to confirm. Generation doesn't need them; expo
 - **The cost:** more training images, more chances of a near-copy, and a slower check; everything stays on the owner's PC and in `.local/`, never committed.
 - **Caption the view** (agent proposal, 7 Nov 2026): every v3 training caption and every request carries one fixed phrase for the view,
   "seen from directly above, south face hinted", so the view becomes a word the model can be asked for. Why, and the other ways to fix
-  the angle, are in [the view-angle models record](view-angle-models.md).
+  the angle, are in [the view-angle models record](image-routes-research.md#view-angle-models-research-record-7-nov-2026).
 
 ## Night 3 queue (owner's choices, 7 Nov 2026)
 
@@ -246,4 +246,4 @@ gets its icon in the same change (owner rule, 7 Nov 2026).
 four vents (ventilation is not built).
 
 **Fixing the angle first:** the chamber redraw and the electrolyser are the test pieces for the depth-control trial in
-[the view-angle models record](view-angle-models.md), on the owner's go; the rest of the list runs through the current route.
+[the view-angle models record](image-routes-research.md#view-angle-models-research-record-7-nov-2026), on the owner's go; the rest of the list runs through the current route.

@@ -2,7 +2,7 @@
 <Defs>
   <!--
     The bulk tanker: a heavy truck whose tank is an upgrade, a liquid tanker or a gas tanker by the player's choice
-    (docs/development/utility-vehicles-design.md). Footprint 3 x 10, drawn 4 x 11, the size of the biggest truck on the owner's list, RimThunder's PLS (3 x 10). At 2 x 6 it looked tiny, and the owner finds even Vanilla Vehicles Expanded's 3 x 6 Big Rig small (9 Nov 2026). Health, cost, mass and speed are authored and
+    (docs/development/vehicle-bulk-tanker.md). Footprint 3 x 10, drawn 4 x 11, the size of the biggest truck on the owner's list, RimThunder's PLS (3 x 10). At 2 x 6 it looked tiny, and the owner finds even Vanilla Vehicles Expanded's 3 x 6 Big Rig small (9 Nov 2026). Health, cost, mass and speed are authored and
     untuned. Part keys are saved by position: append only, never reorder. Cells run x from -1 to 1 and z from -4 to 5, read off the picked art. Not yet
     tested in game.
   -->

@@ -363,7 +363,7 @@ The questions as they were put:
 
 ## Vehicle upgrade families: upgrades shared across many vehicles (12 Nov 2026)
 
-*Merged into this record on 17 Nov 2026 from `vehicle-upgrades-round-two.md`; kept as written.*
+*Merged into this record on 17 Nov 2026 from `vehicle-upgrade-families.md`; kept as written.*
 
 
 **Status (17 Nov 2026):** built in D'thorga Framework 0.103.0 (and Vehicles 0.47.0; parts 1 to 3, 12 Nov 2026): the order for a
