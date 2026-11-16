@@ -81,6 +81,7 @@ def tinted(texture, mask, colour, accent):
 
 
 def review():
+    import paint_check  # here, not at the top: paint_check reads this module's list of bodies
     REVIEW.mkdir(parents=True, exist_ok=True)
     rows = []
     for name, folder, master, *_rest, colour, accent in BODIES:
@@ -90,6 +91,8 @@ def review():
             if not texture.is_file():
                 cells.append(f'<figure><div class=missing>not staged</div><figcaption>{label}</figcaption></figure>')
                 continue
+            flecks, problem = paint_check.check(name, folder, GEN / master, base, colour, accent)
+            label = f'{label}: ' + (problem if problem else f'{len(flecks)} fleck{"" if len(flecks) == 1 else "s"}')
             picture = tinted(texture, mask, colour, accent)
             whole = REVIEW / f'{name}-{label}.png'
             picture.save(whole)

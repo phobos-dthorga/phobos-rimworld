@@ -401,7 +401,8 @@ delivered, record the delivery in the changelog or design record, and add or ame
   mask (the `m` files) is never shipped speckled: any pixel left unpainted inside a painted part, or painted outside it, is a fault to fix
   before the owner sees it (the Pintle bowser's, 16 Nov 2026). **Paint is decided by region** (`export_vehicle.py`'s default, the owner's pick
   of 16 Nov 2026 over Segment Anything's parts, compared side by side); `python scripts/art/repaint_vehicles.py` stages, reviews and applies
-  every body's masks again (`docs/development/background-cleanup.md`).
+  every body's masks again, and **`python scripts/art/paint_check.py` counts the visible flecks** left before the owner sees them
+  (`docs/development/background-cleanup.md`).
 - **Art the mods don't ship stays off `main`** (owner, 7 Nov 2026): full-size masters of shipped and picked art on the `art-masters`
   branch, reference drawings and superseded or comparison picks on `art-references`, each with its sidecar or record. Add to them only
   with `scripts/art/archive_branch.py`, which adds commits on top, never rewrites, and refuses game art, the private style model and

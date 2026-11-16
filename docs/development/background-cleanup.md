@@ -69,6 +69,36 @@ along the stripe, half-painted hoops. BiRefNet knows object from background, not
   `paint_segments.py` first (`masters` lists them). Each body reuses its own saved transform, so overlays still register.
 - Not yet tested in game.
 
+## The fleck checker (16 Nov 2026)
+
+The owner's go ("Absolutely") for an automatic inspector after the bowser's mask reached them speckled. `python scripts/art/paint_check.py`
+reads each shipped body's north mask, maps it onto Segment Anything's parts map of its master, and counts **flecks**: an island of one
+paint, 12 texture pixels or fewer, **inside** a part that is at least 80 % another paint, ringed on every side by that paint (so a bolt
+head in its own outline, a seam at a part's edge and a long thin stripe are never flecks), **and visible**: painting it like its panel
+would move its drawn colour by 24 or more in some channel, with the vehicle's own Def colours (so near-dark weathering, which looks the
+same painted or not, is left out). All figures authored. It draws each body's flecks in `.local/art/paint-check`, prints a count, and
+exits 1 past `--allow`; the review page shows each version's count. **It is a fair judge of the region masks, not of the parts masks**: those were painted by the same parts the checker judges by, so they score better partly by construction (on the review page, the bowser 15 by regions, 1 by parts). Its core (`find_flecks`) is tested on made-up pictures
+(`tests/test_paint_check.py`). It needs the parts maps, which live only on the owner's PC, so it is an art step, not a gate step.
+
+**What it found, 16 Nov 2026** (north facings; old per-pixel masks, then today's region masks): tanker 63 then 18, survey truck 76 then 5,
+drill rig 23 then 6, generator set 57 then 29, tipper 0 then 0, flatbed 25 then 3, bowser 86 then 15, Crawler 108 then 87, its research
+refit 425 then 36, its sensor refit 294 then 272. **The region masks are much cleaner but not clean.** The Crawler's dark blue-grey hull
+shows the weathering specks drawn into its art that the regions leave unpainted (chains of them grow past the 24-pixel small-region
+limit). **Next, not built:** repair regions with the parts map (inside a part that is plainly one paint, an island of another takes it), then
+stage, check and show the owner; the checker says whether it helped.
+
+## Experiment for later: overlay fit (owner, 16 Nov 2026: "documenting the overlay fit as an experiment for later")
+
+Not built. The idea: Segment Anything's parts map of a body says where each of its parts sits; an upgrade overlay drawn for one of them
+(the bowser's lagged jacket over its tank, a tanker's liquid tank on its deck) should cover that part and little else. For each overlay
+with a named target part (picked by a point in the body master, beside its `--fit` box), measure on the north facing: the share of the
+target part the overlay covers (a jacket that leaves the tank's ends bare), the overlay's pixels beyond the part (an overhang onto the
+mudguards), and the gap between the overlay's outline and the part's (a reel floating clear of its bracket). Report each, with a picture
+of the three in colour, and flag past authored limits (agent's first guess: under 95 % covered, over 3 % overhang). What it would catch:
+a `--fit` box read off by eye a few pixels wrong, or an overlay drawn a little narrower than its part (the bowser's jacket is about 6 %
+narrower than its tank). What it would not: whether an overlay looks right, which stays the owner's eye. Cost: processor only, once the
+body's parts map exists (about 10 s on the graphics card per body).
+
 ## The commands
 
 ```text
