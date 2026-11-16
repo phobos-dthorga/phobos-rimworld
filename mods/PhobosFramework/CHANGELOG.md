@@ -11,6 +11,28 @@ tested in game unless an entry says the owner tested it.
 - The README is cut to today's gotchas, a feature list linking the player guide, the settings and links for modders; version notes live in this changelog and the modder material in the new framework modding page. No change in play.
 - Comments in the Defs and code name the design records they now live in, after fifteen design records were merged into eleven on 17 November 2026. No change in play.
 
+## [0.119.2] - 2026-11-17 - Draft
+
+An autonomous turret draws power while it has a target
+
+### Fixed
+
+- **0.119.1 read the L-ATV's turret wrongly** (the owner's correction, 17 Nov 2026: that vehicle can work by itself). GTek's Oshkosh L-ATV
+  has an autonomous weapon station, which its author means to fire with nobody aboard, so no seat works it. 0.119.1 made such a turret's
+  drive draw only while somebody rode in the vehicle: the gun fought for nothing when alone and drew 40 A whenever a passenger sat in the
+  back. Now a weapon no seat works draws while it has a target, tracking or firing, and nothing while it stands watch with nothing in
+  sight (authored: a real station's standby draw is small beside its drive's). A weapon a seat works is as in 0.119.1: its drive draws
+  while a person sits there. Either way, a parked vehicle on the grid with nothing to shoot at charges.
+
+### Compatibility and limits
+
+- An autonomous turret whose battery is flat still reads "turned by hand" with nobody aboard to turn it: its pace is slowed, not stopped.
+  Left for the owner's word. No settings changed. Not yet tested in game (row 148).
+
+### Save compatibility
+
+- Safe to add to a running game. Nothing new is saved.
+
 ## [0.119.1] - 2026-11-17 - Draft
 
 A parked, empty vehicle's turret no longer drains its battery; aircraft systems keep going in flight

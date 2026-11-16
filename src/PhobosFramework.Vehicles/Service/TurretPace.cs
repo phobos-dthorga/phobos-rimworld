@@ -231,29 +231,30 @@ public static class TurretPower
     }
 
     /// <summary>
-    /// Whether a person is at this weapon now (Framework 0.119.1; the owner's report of 17 Nov 2026: a parked, empty L-ATV's battery ran flat
-    /// on the grid). Vehicle Framework's own answer, IsManned, is "no seat that works this weapon stands empty", which is yes for a weapon no
-    /// seat claims and for a seat that needs nobody: such a turret's drive drew 40 A day and night with nobody aboard, four times what a
-    /// grid's trickle charge gives. Here someone must sit in a seat that works the weapon; a weapon no seat claims counts as crewed while
-    /// anyone at all is aboard.
+    /// Whether this weapon's drive is working now, and so drawing (Framework 0.119.1 and 0.119.2; the owner's report of 17 Nov 2026: a
+    /// parked, empty L-ATV's battery ran flat on the grid). Vehicle Framework's IsManned is "no seat that works this weapon stands empty",
+    /// which is yes with nobody aboard for a weapon no seat claims: an autonomous weapon station, as its author means it (GTek's L-ATV:
+    /// "capable of firing autonomously, without a gunner or even a driver"). Read as "someone mans it", that made such a turret's drive
+    /// draw 40 A day and night, four times a grid's trickle charge.
+    /// <list type="bullet">
+    /// <item>A weapon a seat works: its drive draws while a person sits in such a seat.</item>
+    /// <item>A weapon no seat works (autonomous): its drive draws while it has a target, tracking or firing. Standing watch with nothing
+    /// in sight it draws nothing (an authored simplification: a real station's standby draw is small beside its drive's).</item>
+    /// </list>
     /// </summary>
     public static bool Crewed(VehicleTurret turret)
     {
         VehiclePawn? vehicle = turret.vehicle;
         if (vehicle?.handlers == null) return false;
         bool claimed = false;
-        bool anyoneAboard = false;
         foreach (VehicleRoleHandler handler in vehicle.handlers)
         {
-            if (handler == null) continue;
-            bool occupied = handler.thingOwner is { Count: > 0 };
-            anyoneAboard |= occupied;
-            VehicleRole? role = handler.role;
-            if (role == null || (role.HandlingTypes & HandlingType.Turret) == 0 || role.TurretIds == null || !Works(role, turret)) continue;
+            VehicleRole? role = handler?.role;
+            if (handler == null || role == null || (role.HandlingTypes & HandlingType.Turret) == 0 || role.TurretIds == null || !Works(role, turret)) continue;
             claimed = true;
-            if (occupied) return true;
+            if (handler.thingOwner is { Count: > 0 }) return true;
         }
-        return !claimed && anyoneAboard;
+        return !claimed && turret.targetInfo.IsValid;
     }
 
     /// <summary>Whether this weapon is turned by a powered drive: its own, or that of the turret it goes with.</summary>
