@@ -1,0 +1,56 @@
+{
+  "file": "pintle-bowser-body-north-1.png",
+  "sha256": "9913eb43830a99172097ca3f92b61515dce5cacae43bf7d71ab94869b4be0676",
+  "date": "2026-11-16T19:59:55",
+  "generator": "OpenAI gpt-image-2 through the OpenAI image API (paid per image)",
+  "engine": "openai",
+  "model": "gpt-image-2",
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL game vehicle sprite for the D'thorga Pintle bowser: a two-axle tank trailer that carries water or fuel to camps and work sites for a hard-scrabble frontier colony, towed behind a truck. Image 1 is our approved Pintle flatbed trailer: this bowser is built on the SAME chassis, so match its drawbar, wheels, mudguards, frame, outline weight, shading, palette and finish. Image 2 is our approved tank: match only how a tank is drawn from above. Draw no cab and no engine.\n\nTall canvas, twice as tall as wide. The trailer is LONG AND NARROW: about half as wide as it is long including the drawbar, and its wheels stick out a little beyond the frame on each side. It fills seven eighths of the canvas height, centred, on a plain pure white background. North facing: the drawbar at the TOP edge, the rear at the BOTTOM edge.\n\nIts plan, from top to bottom: at the top, a triangular A-frame drawbar of dark steel narrowing to a round towing eye at its tip, as in Image 1; then a short dark steel headboard across the front of the frame; then ONE LONG HORIZONTAL CYLINDRICAL TANK lying lengthways along the trailer, covering almost the whole deck, seen from above as a long pale sand-grey rounded rectangle with domed ends, four thin darker hoop bands across it, two round bolted manway hatches on its top line joined by a narrow grated walkway, and one muted orange accent stripe running along each side of the tank; the tops of four wheels with dark rubber tyres, two each side, close together as a tandem pair just behind the middle, each pair under a pale sand-grey mudguard as in Image 1; at the bottom, behind the tank, a small dark steel pump box with ONE hose reel of coiled black hose beside it on the left, and two small square corner posts.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo cab, engine, seats, insulation jacket, second hose reel, ladders hanging off the sides, cargo, crates, people, animals, turrets, dust, mud, puddles, leaks, damage, text, letters, numbers, logos, warning signs, hazard symbols, dials, screens or lamps. No floor, ground, road, shadow outside the trailer, perspective, tilt or visible side faces. Top surfaces only.",
+  "seed": 1,
+  "seed_note": "an attempt number naming the file; the API takes no seed, so a rerun gives a different image",
+  "quality": "medium",
+  "size": [
+    896,
+    1792
+  ],
+  "request_file": "assets/phobos-vehicles/requests/bowser-pilot.json",
+  "ai_disclosure": "Made with generative AI: OpenAI gpt-image-2, prompted by the Phobos art scripts.",
+  "terms": "OpenAI Services Agreement, sections 4.1 and 4.4, as recorded in the Phobos Ostranauts repository on 2026-10-07 and summarised again on 2026-11-08: API customers own Output, OpenAI assigns any rights it has, and Output may not be unique; no use of Output to build competing models. Dated secondary records: the openai.com page refuses automated reads, so the owner confirms the current text.",
+  "endpoint": "/images/edits",
+  "usage": {
+    "input_tokens": 2468,
+    "input_tokens_details": {
+      "image_tokens": 1856,
+      "text_tokens": 612
+    },
+    "output_tokens": 1039,
+    "output_tokens_details": {
+      "image_tokens": 1039,
+      "text_tokens": 0
+    },
+    "total_tokens": 3507
+  },
+  "cost_usd": 0.0491,
+  "cost_is_estimate": false,
+  "reported_quality": "medium",
+  "reported_size": "896x1792",
+  "reported_background": "opaque",
+  "reported_output_format": "png",
+  "returned_size": [
+    896,
+    1792
+  ],
+  "seconds": 26.3,
+  "references": [
+    {
+      "image": "assets/phobos-vehicles/generated/flatbed-trailer-body-north/flatbed-trailer-body-north-2.png",
+      "sha256": "ba35c6fef2d9610ca2cce3084210cd2b36ca2d336bfee67fc06401c2e31121d6",
+      "role": "our approved Pintle flatbed trailer, the owner's pick: this bowser is built on the same chassis, so match its drawbar, wheels, mudguards, frame, outline weight, shading, palette and finish; it is longer, and its deck is covered by a tank"
+    },
+    {
+      "image": "mods/PhobosVehicles/Textures/Phobos/Vehicles/BulkTanker/BulkTanker_LiquidTank_north.png",
+      "sha256": "b1f43c8a6527e2e0a495a4ce465993f71fe3a5f145298407f7b354f57641774b",
+      "role": "our approved tank from the bulk tanker, the owner's pick: match how a tank is drawn from above (pale rounded shell, hoop bands, round hatches, a central walkway) only; do not copy its length or layout"
+    }
+  ]
+}
