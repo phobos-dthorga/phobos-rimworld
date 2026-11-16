@@ -5,6 +5,25 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.114.3] - 2026-11-16 - Draft
+
+An aircraft's range said in words, and a circle only where there is one to draw
+
+### Fixed
+
+- **An aircraft in flight now says how far it can still fly in its inspect pane** on the world map: "Fuel aboard to fly about 110 more tiles." The amber circle added in 0.114.1 did not appear for the owner (16 November 2026), for two reasons read from the owner's verbose log. A helicopter's circle is real but lies far out, about 30 degrees of arc round the planet for 110 tiles, so it is off-screen at an ordinary zoom: **zoom out to see it**. And a jet with fuel for more than half way round the planet (the Harrier: about 1,280 tiles) can reach anywhere, so there is no circle to draw; 0.114.1 drew a tiny one on the far side of the globe instead. Such an aircraft now says "enough to reach anywhere on the planet" and draws none. Not yet tested in game.
+- **Verbose logging no longer writes an aircraft's range four times a second** while it flies: once when it is first worked out, then only when it has moved by a twentieth. The line now gives the circle's size in degrees of arc and says whether one was drawn. A selected vehicle caravan says once what was drawn for it.
+
+### Compatibility and limits
+
+- No settings were added or changed.
+- The owner's two verbose logs of 16 November 2026 were read in full: no error or warning in either came from our mods, and the false warnings just after loading (fixed in 0.114.1) are gone in the second.
+- The range line on a ground caravan has still not been seen in game by the owner; verbose logging now says how many segments it drew.
+
+### Save compatibility
+
+- Safe to add to a running game. Nothing new is saved.
+
 ## [0.114.2] - 2026-11-16 - Draft
 
 Verbose logging for the drive model

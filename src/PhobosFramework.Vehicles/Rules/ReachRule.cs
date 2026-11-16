@@ -26,4 +26,15 @@ public static class ReachRule
         if (fuel <= 0 || flightSpeed <= 0 || burn <= 0) return 0;
         return fuel * 0.001 * flightSpeed / burn;
     }
+
+    /// <summary>
+    /// The angle, in radians at the planet's centre, that so many tiles of flight spans (Framework 0.114.3), from the game's own
+    /// conversion (tiles = angle x planet radius / average tile size, so tiles per radian is that ratio). At pi or more the range
+    /// covers the whole planet, and there is no circle to draw: see <see cref="CoversPlanet"/>.
+    /// </summary>
+    public static double FlightAngle(double tiles, double tilesPerRadian) =>
+        tiles <= 0 || tilesPerRadian <= 0 ? 0 : tiles / tilesPerRadian;
+
+    /// <summary>Whether a flight range of this angle reaches every point on the planet (half way round is the farthest any point is).</summary>
+    public static bool CoversPlanet(double angle) => angle >= Math.PI;
 }

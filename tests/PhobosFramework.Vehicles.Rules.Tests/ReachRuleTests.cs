@@ -25,6 +25,22 @@ public class ReachRuleTests
     }
 
     [Fact]
+    public void ARangeBecomesAnAngleByTheGamesOwnConversion()
+    {
+        Assert.Equal(0.5, ReachRule.FlightAngle(110, 220), 6);
+        Assert.Equal(0, ReachRule.FlightAngle(0, 220));
+        Assert.Equal(0, ReachRule.FlightAngle(110, 0));
+    }
+
+    [Fact]
+    public void HalfWayRoundThePlanetIsEverywhere()
+    {
+        Assert.False(ReachRule.CoversPlanet(ReachRule.FlightAngle(110, 220)));
+        Assert.True(ReachRule.CoversPlanet(ReachRule.FlightAngle(1280, 220)));
+        Assert.True(ReachRule.CoversPlanet(System.Math.PI));
+    }
+
+    [Fact]
     public void NoFuelOrNoBurnIsNoRange()
     {
         Assert.Equal(0, ReachRule.FlightTiles(0, 16, 0.002, 1));

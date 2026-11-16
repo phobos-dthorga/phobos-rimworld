@@ -250,6 +250,14 @@ drawing for the edge. The reach comes from Vehicle Framework's world path grid f
   (`ReachRule.FlightTiles`, tested), measured as VF measures (`Ext_Math.SphericalDistance` via `WorldGrid.ApproxDistanceInTiles`), and
   drawn as a great circle on the globe. A circle, not an edge: flight ignores terrain. Our factors on world-flight fuel come through the
   postfix on `FuelConsumptionWorldMultiplier`. Verbose logging says why nothing is drawn when nothing is.
+- **"The range-circle did not appear again" (owner, 16 Nov 2026, on 0.114.2).** The owner's verbose log showed the figures: the
+  Cherokee about 110 tiles, the Harrier about 1,280. The game counts tiles as angle x planet radius / average tile size
+  (`PlanetLayer.ApproxDistanceInTiles`), roughly 230 tiles to a radian on a standard globe, so the Cherokee's circle sits about 28 degrees
+  of arc away (off-screen at the owner's zoom) and the Harrier's range is more than half way round the planet, where 0.114.1 clamped it
+  to a tiny circle at the antipode. **0.114.3:** the range is said in the inspect pane (`WorldObjectComp_PhobosFlightRange`), a range
+  that covers the planet says so and draws nothing (`ReachRule.CoversPlanet`, tested), and the log line carries the degrees of arc.
+  **Inference, not yet seen in game:** that the Cherokee's circle does draw when zoomed out; the drawing call is the one Vehicle
+  Framework's own flight path uses.
 
 ### P7c. A ground-cost overlay: MEDIUM-HIGH
 

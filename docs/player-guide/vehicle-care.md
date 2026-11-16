@@ -227,7 +227,9 @@ shows while a dyno bay is in reach. It works on any vehicle, from any mod, that 
   inspect text says why.
 - **The ground matters**: deserts are sand, swamps mud, jungle undergrowth, and winter adds snow. A road is firm whatever the land.
 - **Select a vehicle caravan to see its reach** on the fuel aboard, outlined in amber on the globe, and how many hours of driving
-  the fuel allows. **Select an aircraft in flight** to see an amber circle at the distance its fuel still flies.
+  the fuel allows. **Select an aircraft in flight** and its inspect pane says how many more tiles its fuel flies; **zoom out** to see an
+  amber circle at that distance (it is far out: a helicopter's is a good way round the planet). An aircraft that can reach anywhere
+  says so and has no circle.
 - **The fleet button** on the bottom bar lists every vehicle you own, wherever it is, with its picture, fuel and worst part.
 - **A vehicle parked in the wild is lost after a while**; a letter warns you three days ahead.
 - **Garages** (needs Vanilla Expanded Framework): a stopped convoy can set one up. Vehicles left there stay with no time limit, and

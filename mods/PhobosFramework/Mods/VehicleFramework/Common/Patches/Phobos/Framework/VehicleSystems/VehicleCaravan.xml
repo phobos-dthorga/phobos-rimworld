@@ -29,6 +29,16 @@
       </li>
     </value>
   </Operation>
+  <!-- How far an aircraft in flight can still fly on its fuel, said in its inspect pane (Framework 0.114.3; the owner's report of 16 Nov
+       2026: the range circle is far off-screen at an ordinary zoom, and an aircraft that can reach anywhere has none). -->
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/WorldObjectDef[defName="AerialVehicle"]/comps</xpath>
+    <value>
+      <li>
+        <compClass>Phobos.VehicleSystems.WorldObjectComp_PhobosFlightRange</compClass>
+      </li>
+    </value>
+  </Operation>
   <!-- The Dashboard and Systems tabs on the world map (owner, 8 Nov 2026; Framework 0.23.0): on a vehicle caravan and an aircraft in
        flight, beside Vehicle Framework's own. Both Defs already have an inspectorTabs list. -->
   <Operation Class="PatchOperationAdd">
