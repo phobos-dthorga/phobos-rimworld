@@ -11,6 +11,24 @@ tested in game unless an entry says the owner tested it.
 - The README is cut to today's gotchas, a feature list linking the player guide, the settings and links for modders; version notes live in this changelog and the modder material in the new framework modding page. No change in play.
 - Comments in the Defs and code name the design records they now live in, after fifteen design records were merged into eleven on 17 November 2026. No change in play.
 
+## [0.120.3] - 2026-11-17 - Draft
+
+The lights dev action reads where each light really is
+
+### Fixed
+
+- **Lights: what lights this place?** missed the lights most likely to cause a glare that never goes out (the owner's first use, 17 Nov
+  2026: the game called the cell 99 % lit while the action listed nothing that reached it). The game records a thing's light at the cell
+  the thing stood on when it was lit and does not move it when the thing moves, so a mech, pawn or vehicle with a light of its own leaves
+  that light where it stood. The action looked for lit things by where they stand now. It now reads the light grid's own records: every
+  light that reaches the clicked cell, where it really is, its radius and overlight, and what lit it, flagged when that thing has moved,
+  gone or been destroyed. Glowing ground and other mods' lights with no thing behind them are named too.
+
+### Compatibility and limits
+
+- The records are read by name through Unity's list; if the game's shape changes, the action says so in the log and lists nothing. No
+  settings changed. Not yet tested in game.
+
 ## [0.120.2] - 2026-11-17 - Draft
 
 The game no longer closes by itself when a Mongoose or an Mi-24 Hind fires its rocket pods

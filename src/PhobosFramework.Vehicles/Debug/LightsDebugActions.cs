@@ -17,10 +17,34 @@ namespace Phobos.VehicleSystems;
 /// </summary>
 public static class LightsDebugActions
 {
-    const float Reach = 20f;
-
     static readonly AccessTools.FieldRef<GlowGrid, HashSet<CompGlower>> LitGlowers = AccessTools.FieldRefAccess<GlowGrid, HashSet<CompGlower>>("litGlowers");
     static readonly AccessTools.FieldRef<GlowGrid, HashSet<int>> LitCustom = AccessTools.FieldRefAccess<GlowGrid, HashSet<int>>("litCustom");
+
+    static readonly System.Reflection.FieldInfo? LightsField = AccessTools.Field(typeof(GlowGrid), "lights");
+
+    /// <summary>
+    /// The light grid's own records, copied out (Framework 0.120.2): where each light really is, its reach and what lit it. A thing's light
+    /// is recorded at the cell the thing stood on when it was lit, and the game does not move it when the thing moves, so a light can stand
+    /// where its thing no longer is. Read by name through Unity's list (AsArray, then ToArray); null if the game's shape has changed.
+    /// </summary>
+    static Verse.Glow.GlowLight[]? Records(GlowGrid grid, out string? problem)
+    {
+        problem = null;
+        try
+        {
+            object? list = LightsField?.GetValue(grid);
+            if (list == null) { problem = "the light grid has no list of lights"; return null; }
+            object? array = list.GetType().GetMethod("AsArray", System.Type.EmptyTypes)?.Invoke(list, null);
+            object? copy = array?.GetType().GetMethod("ToArray", System.Type.EmptyTypes)?.Invoke(array, null);
+            if (copy is Verse.Glow.GlowLight[] records) return records;
+            problem = "the light grid's list could not be copied";
+        }
+        catch (System.Exception error)
+        {
+            problem = "reading the light grid failed: " + error.GetType().Name + ": " + error.Message;
+        }
+        return null;
+    }
 
     [DebugAction(DebugCategory.Name, "Lights: what lights this place?", actionType = DebugActionType.ToolMap, allowedGameStates = AllowedGameStates.PlayingOnMap)]
     static void WhatLightsThis()
@@ -29,38 +53,59 @@ public static class LightsDebugActions
         IntVec3 at = UI.MouseCell();
         if (map == null || !at.InBounds(map)) return;
         var text = new StringBuilder();
-        text.AppendLine("Lights within " + Reach.ToString("0") + " cells of " + at + " (the game calls it " + map.glowGrid.GroundGlowAt(at).ToStringPercent() + " lit):");
+        text.AppendLine("Lights reaching " + at + " (the game calls it " + map.glowGrid.GroundGlowAt(at).ToStringPercent() + " lit):");
 
-        text.AppendLine("Things that glow, nearest first (radius, colour):");
-        var glowers = LitGlowers(map.glowGrid).Where(g => g?.parent is { Spawned: true } && g.parent.Position.InHorDistOf(at, Reach + g.GlowRadius))
-            .OrderBy(g => g.parent.Position.DistanceTo(at)).ToList();
-        foreach (CompGlower glower in glowers)
+        // Who lit each thing's light, by thing ID: the glowers the grid holds lit.
+        var byId = new Dictionary<int, CompGlower>();
+        foreach (CompGlower glower in LitGlowers(map.glowGrid))
         {
-            text.AppendLine("  " + glower.parent.LabelCap + " (" + glower.parent.def.defName + ", from " + (glower.parent.def.modContentPack?.Name ?? "the game")
-                + ") at " + glower.parent.Position + ", " + glower.parent.Position.DistanceTo(at).ToString("0") + " cells away: radius "
-                + glower.GlowRadius.ToString("0.#") + ", colour " + glower.GlowColor);
+            if (glower?.parent != null) byId[glower.parent.thingIDNumber] = glower;
         }
-        if (glowers.Count == 0) text.AppendLine("  none");
+        var ours = VehicleLight.AllLit.Where(l => l.Map == map).ToDictionary(l => l.Handle);
 
-        text.AppendLine("Vehicle lights of ours on this map:");
-        var ours = VehicleLight.AllLit.Where(l => l.Map == map).ToList();
-        foreach (VehicleLight light in ours.OrderBy(l => l.Cell.DistanceTo(at)))
+        Verse.Glow.GlowLight[]? records = Records(map.glowGrid, out string? problem);
+        int reaching = 0, strays = 0;
+        if (records == null)
         {
-            text.AppendLine("  " + light.Kind + " of " + (light.Owner?.LabelShort ?? "no vehicle") + " (" + (light.Owner?.ThingID ?? "?") + ") at " + light.Cell + ", "
-                + light.Cell.DistanceTo(at).ToString("0") + " cells away: radius " + light.Radius.ToString("0.#") + (light.Orphaned ? "  << ITS VEHICLE HAS GONE" : ""));
+            text.AppendLine("  The game's own records could not be read (" + problem + "); only the lit things' own places can be listed below.");
         }
-        if (ours.Count == 0) text.AppendLine("  none");
-
-        HashSet<int> custom = LitCustom(map.glowGrid);
-        var known = new HashSet<int>(ours.Select(l => l.Handle));
-        int others = custom.Count(handle => !known.Contains(handle));
-        text.AppendLine("Lights with no thing behind them on this map: " + custom.Count + " (" + ours.Count + " ours, " + others
-            + " not in our list: another mod's, or one of ours lit by a version before 0.120.1 this session; where they are, the game does not say).");
-        if (others > 0) text.AppendLine("  If the glare goes when you save and load, it was one of these: they are never saved.");
+        else
+        {
+            foreach (Verse.Glow.GlowLight light in records.OrderBy(l => l.position.DistanceTo(at)))
+            {
+                float reach = UnityEngine.Mathf.Max(light.glowRadius, light.overlightRadius);
+                float distance = light.position.DistanceTo(at);
+                if (distance > reach + 0.5f) continue;
+                reaching++;
+                string what;
+                if (light.isTerrain) what = "glowing ground: " + (light.position.GetTerrain(map)?.LabelCap.Resolve() ?? "?");
+                else if (light.isCustom) what = ours.TryGetValue(light.id, out VehicleLight? mine)
+                    ? "our " + mine.Kind + " of " + (mine.Owner?.LabelShort ?? "no vehicle") + (mine.Orphaned ? "  << ITS VEHICLE HAS GONE" : "")
+                    : "a light with no thing behind it, from another mod (handle " + light.id + ")";
+                else if (byId.TryGetValue(light.id, out CompGlower? glower))
+                {
+                    Thing thing = glower.parent;
+                    string from = thing.def.modContentPack?.Name ?? "the game";
+                    string where = thing.Destroyed ? "DESTROYED" : !thing.Spawned ? "NOT ON THE MAP" : thing.Map != map ? "ON ANOTHER MAP"
+                        : thing.Position == light.position ? "still there" : "MOVED: now at " + thing.Position;
+                    bool stray = where != "still there";
+                    if (stray) strays++;
+                    what = thing.LabelCap + " (" + thing.def.defName + ", " + thing.ThingID + ", from " + from + "): " + where + (stray ? "  << ITS LIGHT STAYED BEHIND" : "");
+                }
+                else
+                {
+                    strays++;
+                    what = "a thing's light whose thing the grid no longer holds lit (thing ID " + light.id + ")  << LEFT BEHIND";
+                }
+                text.AppendLine("  at " + light.position + ", " + distance.ToString("0") + " cells away, radius " + light.glowRadius.ToString("0.#")
+                    + (light.overlightRadius > 0f ? ", overlit to " + light.overlightRadius.ToString("0.#") : "") + ", colour " + light.glowColor + ": " + what);
+            }
+            if (reaching == 0) text.AppendLine("  none: nothing in the light grid reaches this cell, so the glow is the sky's or drawn, not light.");
+        }
 
         Log.Message(VehicleSystemsMod.LogPrefix + " " + text.ToString().TrimEnd());
-        Messages.Message("The lights near " + at + " are listed in the log (" + glowers.Count + " things, " + ours.Count + " vehicle lights, " + others + " other).",
-            MessageTypeDefOf.NeutralEvent, historical: false);
+        Messages.Message("The lights reaching " + at + " are listed in the log (" + reaching + " lights" + (strays > 0 ? ", " + strays + " left behind by a thing that moved or went" : "") + ").",
+            strays > 0 ? MessageTypeDefOf.CautionInput : MessageTypeDefOf.NeutralEvent, historical: false);
     }
 
     [DebugAction(DebugCategory.Name, "Lights: put out vehicle lights left behind", allowedGameStates = AllowedGameStates.PlayingOnMap)]
