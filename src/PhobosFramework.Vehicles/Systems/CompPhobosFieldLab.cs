@@ -81,11 +81,19 @@ public class CompPhobosFieldLab : VehicleComp
         VehicleWorkSounds.Loop(Vehicle, "Lab", researching);
     }
 
+    /// <summary>The laboratory's feed (Framework 0.116.0, W2): its battery load, the first switched off when the charging fails.</summary>
+    static readonly FeedSpec LabFeed = new() { load = "fieldLab" };
+
+    /// <summary>Whether research went on at the last look: when the laboratory draws on the battery.</summary>
+    public bool Researching => researching;
+
     /// <summary>One stretch of research by everyone seated, and the line that says how it went.</summary>
     string Work(VehicleRoleHandler seats, int ticks)
     {
         List<Pawn> seated = seats.thingOwner.InnerListForReading.ToList();
         if (seated.Count == 0) return "PhobosFieldLab_NobodySeated".Translate().Resolve();
+        // No power, no research (W2): a flat battery, or the laboratory switched off to save it.
+        if (Feeds.Refusal(Vehicle.GetComp<CompPhobosVehicleSystems>(), LabFeed, "PhobosFieldLab_FeedName".Translate().Resolve()) is { } unpowered) return unpowered;
         // An aboard-only project comes first: nothing else can work on it. Otherwise the laboratory helps with the colony's current project.
         ResearchProjectDef? project = CurrentProject;
         if (project == null) return "PhobosFieldLab_NoProject".Translate().Resolve();

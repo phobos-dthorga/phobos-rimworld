@@ -71,11 +71,18 @@ public class CompPhobosSonar : VehicleComp
 
     float Range => SonarRule.Range(FittedRange, AnyoneToWorkIt);
 
+    /// <summary>The set's feed (Framework 0.116.0, W2): its battery load, switched off after the laboratories when the charging fails.</summary>
+    static readonly FeedSpec SonarFeed = new() { load = "sonar" };
+
+    /// <summary>In the water with someone to work it: when the set stands by on the battery.</summary>
+    public bool Manned => Fitted && InWater && AnyoneToWorkIt;
+
     /// <summary>Why it cannot ping now, or null.</summary>
     public string? PingRefusal()
     {
         if (!InWater) return "PhobosSonar_RefuseOutOfWater".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve();
         if (!AnyoneToWorkIt) return "PhobosSonar_RefuseNobody".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve();
+        if (Feeds.Refusal(Vehicle.GetComp<CompPhobosVehicleSystems>(), SonarFeed, "PhobosSonar_FeedName".Translate().Resolve()) is { } unpowered) return unpowered;
         if (!Ready) return "PhobosSonar_RefuseCooling".Translate(SonarRule.SecondsUntilReady(Now, lastPingTick, CooldownTicks, TicksPerSecond).Named("SECONDS")).Resolve();
         return null;
     }

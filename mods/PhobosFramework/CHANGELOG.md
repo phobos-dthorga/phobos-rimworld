@@ -20,6 +20,10 @@ The owner's answers of 17 Nov 2026 to the knocked-out record's open rows, in ste
 - **The tanker's pump can be electric** (W3, with D'thorga Vehicles 0.57.0). It runs off the engine as before; the new **electric pump**
   upgrade lets it set up and pump with the engine off, drawing about 40 amps from the battery until the battery is flat, when it waits
   and says why. Set-up still needs someone aboard to start it.
+- **The Seabed Crawler's laboratories, sonar and listening array run on the battery** (W2). Each draws while it works (the
+  laboratory about 25 amps while someone researches, the sonar about 30 standing by, the listening array about 5) and stops, saying why,
+  when the battery is flat. When the charging fails, the laboratories are switched off first, then the sonar, the listening array last
+  (the owner's order). Other factions' boats are not affected.
 
 ## [0.115.0] - 2026-11-17 - Draft
 

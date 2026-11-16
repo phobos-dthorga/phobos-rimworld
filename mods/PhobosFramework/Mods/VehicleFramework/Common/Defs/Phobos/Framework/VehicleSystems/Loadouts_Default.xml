@@ -839,6 +839,51 @@
         <available Class="Phobos.VehicleSystems.When_HasPoweredWeapon" />
         <when Class="Phobos.VehicleSystems.When_PoweredWeaponManned" />
       </li>
+      <li>
+        <!-- Framework 0.116.0 (W2; owner, 17 Nov 2026: laboratories first, then the sonar, the listening array last). Authored draws, no published figures read. -->
+        <name>fieldLab</name>
+        <label>laboratory</label>
+        <description>The laboratory's instruments, drawing while someone researches aboard. The first thing switched off when the charging fails.</description>
+        <amps>25</amps>
+        <shedOrder>1</shedOrder>
+        <available Class="Phobos.VehicleSystems.When_StatAbove">
+          <stat>Phobos_FieldLabGrade</stat>
+          <value>0</value>
+        </available>
+        <when Class="Phobos.VehicleSystems.When_InstrumentWorking">
+          <instrument>Lab</instrument>
+        </when>
+      </li>
+      <li>
+        <!-- Authored draw. -->
+        <name>sonar</name>
+        <label>active sonar</label>
+        <description>The sonar set standing by, drawing while it is manned in the water. Switched off after the laboratory when the charging fails.</description>
+        <amps>30</amps>
+        <shedOrder>2</shedOrder>
+        <available Class="Phobos.VehicleSystems.When_StatAbove">
+          <stat>Phobos_SonarRange</stat>
+          <value>0</value>
+        </available>
+        <when Class="Phobos.VehicleSystems.When_InstrumentWorking">
+          <instrument>Sonar</instrument>
+        </when>
+      </li>
+      <li>
+        <!-- Authored draw. -->
+        <name>listening</name>
+        <label>listening array</label>
+        <description>The passive listening array, drawing a little while someone listens in the water. The last of the instruments switched off.</description>
+        <amps>5</amps>
+        <shedOrder>4</shedOrder>
+        <available Class="Phobos.VehicleSystems.When_StatAbove">
+          <stat>Phobos_ListeningRange</stat>
+          <value>0</value>
+        </available>
+        <when Class="Phobos.VehicleSystems.When_InstrumentWorking">
+          <instrument>Listening</instrument>
+        </when>
+      </li>
     </loads>
   </Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
 

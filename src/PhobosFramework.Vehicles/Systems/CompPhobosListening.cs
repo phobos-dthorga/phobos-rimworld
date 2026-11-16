@@ -60,11 +60,18 @@ public class CompPhobosListening : VehicleComp
 
     bool InWater => Vehicle.Position.GetTerrain(Vehicle.Map)?.IsWater ?? false;
 
+    /// <summary>The array's feed (Framework 0.116.0, W2): its battery load, the last of the instruments switched off when the charging fails.</summary>
+    static readonly FeedSpec ListeningFeed = new() { load = "listening" };
+
+    /// <summary>In the water with someone listening, at the last look: when the array draws on the battery. Derived, never saved.</summary>
+    public bool Manned { get; private set; }
+
     /// <summary>One look: who is moving within hearing, and the line that says so. The one place what the array hears is decided.</summary>
     public void Listen()
     {
         heardAt.Clear();
         range = 0f;
+        Manned = false;
         if (!Vehicle.Spawned || FittedRange <= 0f)
         {
             summary = null;
@@ -79,6 +86,13 @@ public class CompPhobosListening : VehicleComp
         if (hearing <= 0f)
         {
             summary = "PhobosListening_NobodyListening".Translate().Resolve();
+            return;
+        }
+        Manned = true;
+        // No power, nothing heard (W2): a flat battery, or the array switched off to save it.
+        if (Feeds.Refusal(Vehicle.GetComp<CompPhobosVehicleSystems>(), ListeningFeed, "PhobosListening_FeedName".Translate().Resolve()) is { } unpowered)
+        {
+            summary = unpowered;
             return;
         }
         range = ListeningRule.Range(FittedRange, hearing, VehicleMotion.Moving(Vehicle), Props.movingFactor);

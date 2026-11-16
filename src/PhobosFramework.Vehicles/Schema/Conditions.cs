@@ -118,6 +118,21 @@ public class When_FittingGrants : VehicleSystemCondition
     protected override bool HoldsRaw(SystemContext context) => context.Comp.Fittings.Grants(ability);
 }
 
+/// <summary>While a submersible's instrument is at work (Framework 0.116.0, W2): "Lab" researching, "Sonar" manned in the water, "Listening"
+/// someone listening in the water. When its battery load draws.</summary>
+public class When_InstrumentWorking : VehicleSystemCondition
+{
+    public string instrument = "";
+
+    protected override bool HoldsRaw(SystemContext context) => instrument switch
+    {
+        "Lab" => context.Vehicle.GetComp<CompPhobosFieldLab>()?.Researching == true,
+        "Sonar" => context.Vehicle.GetComp<CompPhobosSonar>()?.Manned == true,
+        "Listening" => context.Vehicle.GetComp<CompPhobosListening>()?.Manned == true,
+        _ => false,
+    };
+}
+
 /// <summary>While the tanker's electric pump is fitted (Framework 0.116.0, W3).</summary>
 public class When_ElectricPumpFitted : VehicleSystemCondition
 {

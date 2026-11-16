@@ -12,4 +12,5 @@
   <PhobosSonar_Found>{VEHICLE}'s ping finds {COUNT} hostile, the nearest {DISTANCE} cells to the {BEARING}. The ping has been heard.</PhobosSonar_Found>
   <PhobosSonar_FoundBoats>Boats under the water among them: {COUNT}, now followed.</PhobosSonar_FoundBoats>
   <PhobosSonar_PingHeard>{VEHICLE}'s crew hears a sonar ping from the {BEARING}.</PhobosSonar_PingHeard>
+  <PhobosSonar_FeedName>the sonar</PhobosSonar_FeedName>
 </LanguageData>
