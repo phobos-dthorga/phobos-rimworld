@@ -10,6 +10,7 @@ yet. Not yet tested in game unless an entry says the owner tested it.
 - The Workshop preview is a new picture, a colonist filling a bottle from a water tower at dusk, with the name added by script, from the owner's picks of 10 November 2026. No change in play.
 - The mod's description and README now carry the spelling dthorga beside D'thorga, so a search without the apostrophe finds it. The description says it is community-created by House D'thorga.
 - The README's dated checks note that RimWorld 1.6 was retired on 8 November 2026. No change in play.
+- The README no longer repeats the player guide: the fill diagram, the inspect text table, water quality and conveyor belts are in the guide's Water tap chapter. No change in play.
 
 ## [0.2.4] - 2026-11-09 - Draft
 

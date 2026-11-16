@@ -9,6 +9,7 @@ entry says the owner tested it.
 ### Changed
 
 - The README's dated checks note that RimWorld 1.6 was retired on 8 November 2026. No change in play.
+- The README is one guide again instead of five: today's gotchas, the parts linking the player guide, the settings and links for modders; version notes live in this changelog. No change in play.
 
 ## [0.17.0] - 2026-11-16 - Draft
 

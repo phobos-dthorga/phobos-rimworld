@@ -1,514 +1,171 @@
 # D'thorga Patches
 
 Fixes and patches for other authors' mods, each switched on only while that mod is active. It copies nothing from them. It covers
-**Harrier VTOL Attack Aircraft** by potemkinvillager (a realistic build cost, a fix for the jet failing to load fully alongside
-RimPacts, honest bomb costs under Combat Extended with a bomb case of its own, bombs and rockets at The Dead Man's Switch's ammunition
-fabricator, fuel tanks for its Drop Tanks upgrade, and a sortie's map kept open under the jet), RimThunder's heavy casting at the
-rotary forger, **Spaceship Turret Hull** by MK under Combat Extended, and **InterRim Ballistic Missile** by Psionic Zephyr (a strategic
-warhead's blast spread over frames instead of freezing the game). With **Visit Settlements** by Nina.Goblin, a visited settlement's
-map no longer closes under your people (0.13.0). With **Vanilla Expanded Framework**'s outposts and **Vehicle Framework**, a caravan
-with vehicles is refused at the "create outpost" window, because founding one that way can lose them (0.15.0, with a setting).
+**Harrier VTOL Attack Aircraft** by potemkinvillager, **InterRim Ballistic Missile** by Psionic Zephyr, **RimPacts**, **Visit
+Settlements** by Nina.Goblin, **Vehicle Framework**, **Vanilla Expanded Framework**'s outposts, **Spaceship Turret Hull** by MK and
+**Combat Extended**, and RimThunder's heavy casting at The Dead Man's Switch's rotary forger.
 
-One of House D'thorga's mods (also spelt dthorga).
+One of House D'thorga's mods (also spelt dthorga). It replaces two earlier mods, merged into it on 7 November 2026: **D'thorga
+Vehicle Patches** and **D'thorga Missile Patches** ([why](../../docs/development/mod-consolidation.md)).
 
-It replaces two earlier mods, merged into it on 7 November 2026: **D'thorga Vehicle Patches** and **D'thorga Missile Patches**
-([why](../../docs/development/mod-consolidation.md)).
+Version 0.19.3, built 16 November 2026 for House D'thorga. **Partly tested in game:** the Vehicle Framework fires part (owner,
+10 November 2026: the stuck fires went out) and one missile strike on an earlier version (owner, 7 November 2026). Everything else is
+not yet tested in game.
 
-Version 0.19.3, built 16 November 2026 for House D'thorga. **Partly tested in game as D'thorga Patches:** the Vehicle Framework fires part (owner, 10 November 2026; see
-below); the rest not yet. The Harrier and turret hull
-parts are unchanged from Vehicle Patches 0.6.0 (not yet tested in game); the missile part was tried once by the owner, see
-[InterRim Ballistic Missile](#interrim-ballistic-missile).
+**How to play with it is in the player guide's [Patches chapter](../../docs/player-guide/patches.md).** Each version's changes are in
+the [changelog](CHANGELOG.md).
 
 ## Read this first (gotchas)
 
-- **New in 0.19.3, with RimPacts (temporary, not yet tested in game): an ally's assault leaves vehicles with nobody aboard alone.**
-  RimPacts counted an empty vehicle as a standing defender, so allies spent hours beating on it by hand while the town's real
-  defenders waited (the owner's save PG8: 11 of 19 soldiers on one empty Highwayman). They now go for the people and turrets, and the
-  empty vehicle is left standing for you to claim after the battle. A crewed vehicle is still attacked. It stands down by itself once
-  RimPacts leaves empty vehicles out on its own.
-- **With the Harrier, a temporary trace logs each step when a vehicle is taken apart** (0.18.0), to find why the Harrier cannot be disassembled (the work stops near the end and the jet stays). It writes to the game's log only while a vehicle is being taken apart, changes nothing in play, and never hides an error. **Try one disassembly of the Harrier, on a copy of your save, and stop there:** each attempt runs the first half of the removal again. The setting **Finding faults (temporary): Log each step when a vehicle is taken apart** (on by default, in **Mod settings > D'thorga Patches: Harrier**) switches it off. Not yet tested in game.
-- **With Combat Extended, a temporary guard keeps its ammo setup from failing** (0.16.7). One bad entry in an ammo set stops the whole setup at startup, and so far The Dead Man's Switch - Synthriada is known to add such entries. The guard drops those entries and changes nothing else. Not yet tested in game.
-- **With Vehicle Framework, fires a vehicle could never put out are put out** (0.16.6): a second fire on one vehicle, or a fire left behind on a map the vehicle has left. A vehicle leaving a map now takes no fire with it. One real fire burns as before. **Tested in game by the owner, 10 November 2026: the stuck fires went out.**
-- **The Prison Labor guard has been removed** (0.19.2). From 0.16.5 it stopped a crash in Prison Labor's first 1.7 build when a warden considered feeding a motivated prisoner; Prison Labor 1.7.1 fixed that itself, so keep Prison Labor up to date.
-
-- **New in 0.15.0, with Vanilla Expanded Framework and Vehicle Framework (not yet tested in game): a caravan with vehicles can no
-  longer found an outpost through the "create outpost" window.** Leave the vehicles somewhere first and come on foot. The window says
-  so when it refuses. To go back to the original behaviour, turn off **Mod settings > D'thorga Patches: outposts**; the setting
-  explains the risk, and no restart is needed.
-- **New in 0.13.0, with Visit Settlements (not yet tested in game): a visited settlement's map no longer vanishes with your people on
-  it.** Visit Settlements closed such a map the moment anyone there went down, if it saw no colonist of yours standing. Colonists
-  inside a vehicle didn't count, so the first raider, guard or animal to fall closed the map and **everyone of yours on it was lost**:
-  a tank and its crew left in limbo, mechs later taken by other factions, and with RimPacts a defence counted as lost. **The map now
-  stays open while any colonist of yours there is conscious (on foot or aboard a vehicle), while any mechanoid of yours there is on its
-  feet, or while a RimPacts defence or battle is fought there.** Pawns already lost this way are not brought back: **load a save from
-  before**.
-
-- **Switching from D'thorga Vehicle Patches or D'thorga Missile Patches: switch both off in RimSort, and this one on, in the same
-  change.** Running an old one beside this would load the same patches twice; RimSort warns you, because the About file lists them as
-  incompatible. Your save needs nothing: the old mods saved nothing of their own. The missile settings carry over by themselves.
-- **Needs Harmony and D'thorga Framework. Load it after the mods it patches.** The About file asks for this, so RimSort does it for
-  you. **You have to switch it on yourself**: nothing else requires it. It does nothing without the mods it patches.
-- **RimWorld 1.7 only** (from 0.13.1; 1.6 is no longer supported). Vehicle Framework shipped its own 1.7 build on 14 November 2026,
-  and this mod builds against it. **The Harrier part needs D'thorga Framework 0.33.0 or later**, whose vehicle systems now give a saved
-  Harrier its new parts.
-- **New in 0.16.3, and for the Hind and the Mongoose from 0.16.4: rearming keeps to one kind of ammunition** (not yet tested in game). It tops up with what is already loaded. **To change kind, choose it on the weapon:** that still swaps the magazine. If the loaded kind runs out of stock, a part-full magazine waits rather than being swapped by itself.
-- **New in 0.14.0: a Harrier too heavy for its engine to hover in the day's heat will not hover onto its pad** (not yet tested in
-  game). The vertical-landing button and order say why, an automatic return home uses a runway instead, and a landing that runs out
-  of injection water part-way is called off with the reason. **This follows D'thorga Framework's setting "When an aircraft is too
-  heavy or too hot to hover onto its pad"**: use the runway (default), allow it at a cost to the engine, or warn only. It needs
-  D'thorga Vehicles 0.2.0 for the Harrier's real engine figures; without it the Framework's general jet engine judges the hover.
-- **Safe to add to a running save.** A jet you already built keeps working; only new builds pay the new cost. Bombs already made
-  stay as they are.
-- **Updating with Vanilla Furniture Expanded - Factory:** a bay used to remember its bill's old ingredient list after a recipe
-  change and had to have its Mk. 82 and Mk. 84 bills deleted and re-added. **With D'thorga Factory Additions 0.11.4 or later the bay
-  brings such a bill up to date itself** and sets anything it had counted down beside it; without it, delete and re-add the bills.
-- **New in 0.11.0: the Harrier has fourteen parts** (not yet tested in game). Beside its airframe, cockpit, engine and wing fuel
-  tanks, the Health tab now lists a canopy, avionics, a nose radar, intakes and compressor, thrust nozzles and exhaust, hydraulics,
-  wiring and electrics, an alternator, landing gear and wing pylons, each taking hits and needing repair. **Avionics, hydraulics and
-  wiring are the flight controls: with any of them below about 35% the jet cannot take off until repaired** (D'thorga Framework's
-  flight-controls rule since Framework 0.106.0 and this mod's 0.19.0, for every aircraft), and the launch button says so. **A Harrier you already have gains the new parts, at full health, when the save loads.** The plasteel armour upgrade
-  covers the new outer parts too.
-- **New in 0.11.0: a sortie that does nothing now tells you why.** With RimPacts, while one of your client states is attacking or
-  defending a town, that town's map is open but RimPacts lets nobody land there until you have joined the battle **from the town's
-  own button on the world map**. The sortie targeter used to reject the click in silence; now it says to join the battle first. A
-  setting lets sorties fly over an unjoined battle anyway, with a warning about what RimPacts then counts.
-- **Safe to remove.** Costs go back to the Harrier's own, and with RimPacts active the Harrier's framework fails to load fully again.
-  **With Combat Extended active, deconstruct any turret hulls built under this mod first** (not yet tested either way).
-  **Delete any bomb or rocket bills you added at an ammunition fabricator, and any heavy casting bills at a rotary forger, first**, because they may
-  no longer list those recipes. **With Combat Extended, use up or sell your bomb cases first** and delete their bills: the cases are this
-  mod's items and vanish with it.
-- **The jet now needs RimThunder's turbine, if RimThunder is active.** It's a long job:
-  - **Research:** engine making, Otto Cycle and turbocharged. The jet's blueprint stays hidden until they're done.
-  - **An assembly platform** to make it on (RimThunder, 200 steel, 15 components).
-  - **Each turbine:** 3 heavy castings (made at a smelter, 100 steel each), 15 components, 1 advanced component and 180,000 ticks of work.
-- **Construction skill 10** is now needed to build the jet, as for the Hind and Mongoose.
-- **Bombs cost much more under Combat Extended.** Four Mk. 82s take 4 Mk. 82 bomb cases (1,120 steel), 80 FSX, 1,200 chemfuel and 8 components.
-- **Bomb cases are a new step for bombs** under Combat Extended (since 0.6.0, in place of heavy castings): make a Mk. 82 or Mk. 84 bomb
-  case from steel first, at the machining table, the rotary forger or an automated machining bay. **They stack to 4**, so a hopper
-  slot holds four. **If your bays' hoppers were set to take heavy castings, allow the two bomb cases there instead.**
-- **A sortie's map now stays open while the jet is over it.** Before, a map from Real Ruins, RimMarket and some other mods could close
-  with the jet still in the air. See [Sorties](#sorties-what-the-code-says) for what a sortie needs from you.
-- **Heavy castings at a rotary forger now come 12 at a time**, from 1,200 steel. **If you set up a heavy casting bill at a forger before
-  version 0.5.0, delete it and add the new one**: the old one-at-a-time bill may keep running. The smelter and assembly platform still make one at a time.
-- **Turret hulls you've already built must be rebuilt** to take ammo under Combat Extended. Deconstruct and rebuild each one, **while the ship is landed**: in space the gap lets the air out. See [Turret hulls under Combat Extended](#turret-hulls-under-combat-extended).
-- **InterRim Ballistic Missile: since 0.8.0 a strategic blast should end in seconds** (not yet tested in game). What it destroys
-  vanishes without rubble, and **overhead mountain now shelters what is under it** (thin or thick; the missile mod sheltered only
-  under thick). **With Combat Extended, wall fragments are off during a blast by default**: they were what made 0.7.0 crawl. All
-  three are settings, and each choice that costs speed says so in amber. Wait for the message that a blast has spent itself before
-  saving: a blast still running when you save is forgotten on load. See [InterRim Ballistic Missile](#interrim-ballistic-missile).
-- **InterRim Ballistic Missile: since 0.9.0 the extinction-class warhead strikes with a fireball, a blast zone and a thermal zone**
-  around the centre of the struck map (not yet tested in game). **Other settlements in range burn but stand** unless you choose a full
-  strike everywhere. **With Dubs Rimatomics, it brings Rimatomics' radioactive fallout** and drifting fallout clouds instead of the
-  missile mod's nuclear winter. The other strategic warheads keep the missile mod's own effects.
-- **Fixed in 0.11.1, with RimPacts: an ally's assault on a town you struck faces the garrison it had before the strike** (not yet
-  tested in game). RimPacts sizes an assault to the defenders still standing when it arrives, so after a strategic strike your ally sent
-  one or two soldiers into a burning town, met the survivors and "lost the battle". The strike counts the town's defenders first, and
-  RimPacts now raises, tops up and trims the assault against that count, so the ally arrives with the squad it would have had without
-  the missile. **0.11.0 tried this and did not work** (your ally still sent two soldiers); 0.11.1 fixes it. **A strike made with 0.11.0
-  or later has its count; a strike from before 0.11.0 has none, and RimPacts' own small squad stands.** If the missile left nobody
-  standing, RimPacts still ends the battle as your ally's win.
-- **With RimPacts, a world war attack must win before its deadline.** RimPacts gives a world war attack 3 days from accepting it.
-  The deadline is checked once a day, and if the target town has not fallen by then the war counts as lost, whatever is happening on
-  the battlefield, and **control of about a dozen border towns passes to the enemy**. This is RimPacts' rule, not ours. **New in
-  0.12.0 (not yet tested in game): the quest now shows its countdown the way the game's own quests do**, a red time left in the
-  quest list and "Expires in ..." on the quest, counting to the daily check that actually decides the war (up to a day after the 3
-  days). **Strike and attack early.**
-- **InterRim Ballistic Missile: since 0.10.0 a blast sends no "Area revealed" letters** (not yet tested in game). A blast breaks
-  open every sealed cave and vault on the map and the game sent one letter for each, about eighty in the owner's game. It's a
-  setting, on by default. **Letters already sent stay**: right-click each away, or use the dev action **Missile Patches: dismiss
-  every "Area revealed" letter**.
-- **Not yet tested in game,** except one missile run on 0.7.0. Everything else here is read from the mods' code and files.
+- **Needs Harmony and D'thorga Framework 0.97.0 or later** (0.106.0 or later for the Harrier's flight-control rule). **Load it after
+  the mods it patches**: the About file asks for this, so RimSort does it for you. **Switch it on yourself**: nothing else requires
+  it. It does nothing without the mods it patches.
+- **Each part loads only while its own mods are active** (an `IfModActive` folder per patched mod): the Harrier part with the Harrier
+  (its bomb changes also need Combat Extended, and the fabricator bills The Dead Man's Switch's fabricator); rearming with the Harrier,
+  Hind or Mongoose; the forger bill with RimThunder and the forger from The Dead Man's Switch - Expedition; the turret hulls with
+  Spaceship Turret Hull and Combat Extended together; the ammo guard with Combat Extended; the missile part with InterRim Ballistic
+  Missile; one part each for RimPacts, Visit Settlements and Vehicle Framework; the outposts part with Vanilla Expanded Framework and
+  Vehicle Framework together. A player running none of them sees nothing.
+- **RimWorld 1.7 only.** It builds against Vehicle Framework's own 1.7 build (14 November 2026).
+- **Switching from D'thorga Vehicle Patches or D'thorga Missile Patches: switch both off and this one on, in the same change.** The
+  About file lists them as incompatible, so RimSort warns you. Your save needs nothing; the missile settings carry over by themselves.
+- **Safe to add to a running save.** A Harrier you already built keeps working and gains its new parts at full health; only new builds
+  pay the new cost. Bombs already made stay as they are.
+- **Before removing it:** delete any bomb or rocket bills you added at an ammunition fabricator and any heavy casting bills at a rotary
+  forger; **with Combat Extended, use up or sell your bomb cases**, delete their bills, and **deconstruct turret hulls built under this
+  mod** (not yet tested either way). Without it the Harrier's costs go back to its own, and with RimPacts its flight framework fails
+  to load fully again. Removing IRBM or RimPacts later is clean once the save has been loaded with 0.16.8 or later.
+- **Decide before a missile strike:** the blast settings below. Choices that cost speed say so in amber. **After a strike, wait for the
+  message that the blast has spent itself before saving**: a blast still running when you save is forgotten on load.
+- **Harrier disassembly (temporary trace):** the Harrier cannot be taken apart yet. **Try one disassembly, on a copy of your save, and
+  stop there**: each attempt runs the first half of the removal again. Its log trace is a setting, on by default.
+- **Harrier flight controls:** with avionics, hydraulics or wiring below about 35% the jet cannot take off until repaired. On a hot
+  day a heavy Harrier lands on a runway instead of hovering onto its pad, by **D'thorga Framework's** setting "When an aircraft is too
+  heavy or too hot to hover onto its pad".
+- **Rearming keeps to one kind of ammunition** (Harrier, Hind, Mongoose). To change kind, choose it on the weapon.
+- **With Combat Extended, allow the two bomb cases in machining bay hoppers** that used to take heavy castings, and **rebuild turret
+  hulls built before**, while the ship is landed.
+- **With RimPacts, a world war attack must win within 3 days of accepting it**, or control of about a dozen border towns passes to
+  the enemy. That is RimPacts' rule; the quest shows the countdown. **Strike and attack early.**
+- **With Visit Settlements, pawns already lost to a closed map stay lost**: load a save from before.
+- **Keep Prison Labor up to date**: the guard for its first 1.7 build was removed in 0.19.2, as Prison Labor 1.7.1 fixed the crash.
 
 ## What it does
 
-### Vehicle Framework: fires that never go out
+Each part in a line or three; the guide chapter has the figures, tables and how to use each.
 
-A vehicle set on fire in a fight can come away with many fires attached, and if it leaves the map they stay behind, still counted as its fires. The game only ever puts out a thing's first fire, so the vehicle reads as burning for ever and is never refuelled. With Vehicle Framework active, this part puts out every fire when a vehicle leaves a map, and now and then puts out any fire of a vehicle that is on another map or is not its first, with a message saying how many. It is meant to come out when Vehicle Framework handles this itself ([the record](../../docs/development/vehicle-framework-fires.md)).
+### Harrier VTOL Attack Aircraft
 
+- **A realistic build cost**: RimThunder's turbine (or 3 engine blocks), four nozzles, landing gear, fuel tanks, wiring and more, and
+  Construction 10 ([building it](../../docs/player-guide/patches.md#building-it)). Drop Tanks take real fuel tanks.
+- **Fourteen parts** in place of four, with flight controls that ground the jet when damaged
+  ([parts](../../docs/player-guide/patches.md#its-parts-and-flight-controls)).
+- **Loads fully beside RimPacts**: a RimPacts patch had stopped more than 50 of the jet's framework patches loading.
+- **A sortie's map stays open under the jet**, whichever mod made it, and a sortie onto a RimPacts battle you have not joined says
+  why it is refused ([sorties](../../docs/player-guide/patches.md#sorties)).
+- **Rearming keeps to one kind** ([rearming](../../docs/player-guide/patches.md#rearming)); **too heavy to hover** follows the
+  Framework's setting ([hovering](../../docs/player-guide/patches.md#hovering-onto-its-pad)).
+- **A temporary disassembly trace** ([taking it apart](../../docs/player-guide/patches.md#taking-it-apart-temporary)).
 
-### Outposts and caravans with vehicles
+### Combat Extended, The Dead Man's Switch and RimThunder
 
-Vanilla Expanded Framework's outposts code does not cope with today's Vehicle Framework vehicles. **Read from the code and not
-reproduced in game:** founding an outpost from a caravan with vehicles looks able to throw an error part way through, leaving an empty
-outpost that is abandoned at once, and to lose the vehicles and anyone riding in them when the caravan is removed.
+- **Bombs cost what they weigh**, each built on a stackable steel **bomb case** of its own
+  ([bombs](../../docs/player-guide/patches.md#bombs-under-combat-extended)).
+- **Bombs and rockets at the ammunition fabricator**
+  ([fabricator](../../docs/player-guide/patches.md#bombs-and-rockets-at-the-ammunition-fabricator)).
+- **Heavy castings 12 at a time at the rotary forger**
+  ([forger](../../docs/player-guide/patches.md#heavy-castings-at-the-rotary-forger)).
+- **A temporary guard** drops ammo set entries that would stop Combat Extended's whole ammo setup.
 
-So the "create outpost" window refuses such a caravan, with a reason, where it had no other reason to refuse. The setting
-**D'thorga Patches: outposts** (on by default) puts the original behaviour back for anyone who wants it.
+### Spaceship Turret Hull
 
-### The Harrier's build cost
+All seven armed hulls load and fire Combat Extended ammunition like its own turrets
+([turret hulls](../../docs/player-guide/patches.md#turret-hulls-under-combat-extended)).
 
-The Harrier asked for 450 steel, 150 plasteel, 25 components, 6 advanced components and 1 engine block: no landing gear, tanks,
-wiring or nozzles, and six far-future components in a 1980s jet.
+### InterRim Ballistic Missile
 
-| Part | Stock | Now | Why |
-| --- | --- | --- | --- |
-| Steel | 450 | **400** | Airframe |
-| Plasteel | 150 | **120** | Stands in for the composites, about a quarter of the real airframe's weight |
-| Components | 25 | **30** | Avionics; the same as the Hind |
-| Advanced components | 6 | **0** | The turbine's own recipe still uses 1 |
-| Engine | 1 engine block | **1 RimThunder turbine** | One real engine. Without RimThunder: 3 engine blocks, as on the Hind |
-| Car exhausts | 0 | **4** | The real engine's four swivelling nozzles |
-| Suspension and wheels | 0 | **4 and 4** | Landing gear |
-| Fuel tanks | 0 | **3** | Fuselage and wings |
-| Transmission | 0 | **1** | Accessory gearbox |
-| Alternators and batteries | 0 | **2 and 2** | Electrics |
-| Wiring | 0 | **6** | The same as the Hind |
+- **A strategic blast is spread over moments** instead of freezing the game, and ends in seconds; overhead mountain shelters what is
+  under it; no flood of "Area revealed" letters ([a strategic blast](../../docs/player-guide/patches.md#a-strategic-blast)).
+- **The extinction-class warhead strikes with a fireball, a blast zone and a heat zone**, with Dubs Rimatomics' fallout where it is
+  active ([the warhead](../../docs/player-guide/patches.md#the-extinction-class-warhead)).
+- **With Combat Extended, its close-in weapon systems shoot down CE's mortar and artillery shells.**
+- Dev actions and limits: [messages, limits and dev actions](../../docs/player-guide/patches.md#messages-limits-and-dev-actions).
 
-The counts are gameplay choices. They hold up against the same author's helicopters, reading each part's value and weight from the
-mods' own files:
+### RimPacts
 
-| Vehicle | Value of its parts | Share of its market value | Weight of its parts | Its listed mass |
-| --- | --- | --- | --- | --- |
-| Harrier, stock | 4,530 | 32% | 299 kg | 700 |
-| **Harrier, now** | **7,895** | **56%** | **658 kg** | **700** |
-| Hind | 6,655 | 55% | 573 kg | 1,100 |
-| Mongoose | 5,975 | 63% | 497 kg | 600 |
+An ally's assault leaves empty vehicles alone (temporary); after your missile strike it faces the town's garrison from before the
+strike; a world war quest shows its deadline ([RimPacts](../../docs/player-guide/patches.md#rimpacts)).
 
-### RimPacts' assaults and empty vehicles (0.19.3, temporary)
+### Visit Settlements
 
-RimPacts lists every standing pawn of the defending faction as an assault target, and a vehicle is a pawn that never goes down, so an
-empty one stayed a live target until it was destroyed. The game's order for such a target is to trash it (melee, sometimes fire),
-because Vehicle Framework rightly says an empty vehicle is no threat and nobody shoots at it; and Vehicle Framework destroys a vehicle
-only when all its parts together fall under 1 %. RimPacts also waits for no live "pawn" target to remain before its general assault.
-This part makes RimPacts' live-target test answer "no" for a vehicle its own unmanned test (nobody aboard, not autonomous) calls
-unmanned, the test it already uses when counting fighters. Soldiers on such a vehicle get a new target at RimPacts' next look, every
-300 ticks. Not yet tested in game. Its row in the register of temporary patches says when it can go.
+A visited settlement's map stays open while your people can still act there or a battle is on, and its food drops no longer fail on
+every tick ([Visit Settlements](../../docs/player-guide/patches.md#visit-settlements)).
 
-### Loading alongside RimPacts
+### Vehicle Framework and outposts
 
-With RimPacts active, the Harrier's flight framework stops loading partway through, so more than 50 of its patches go missing,
-including those for boarding, refuelling, repair, landing and attack runs. Your log would show "Error in static constructor of
-FixedWingAircraftFramework.HarmonyInit". This mod fixes that, and **RimPacts' rule against landing on some maps keeps working**. Your
-log will show a line starting "[D'thorga Vehicle Patches] RimPacts' landing rule". If RimPacts changes how it does this, the fix finds
-nothing to do and steps aside.
+Fires a vehicle could never put out are put out; repairs and upgrades show a progress bar (temporary); a caravan with vehicles cannot
+found an outpost through "create outpost"
+([outposts](../../docs/player-guide/patches.md#outposts-and-caravans-with-vehicles),
+[Vehicle Framework](../../docs/player-guide/patches.md#vehicle-framework-and-combat-extended)).
 
-### Bombs under Combat Extended
+**Is it working?** The parts that patch another mod's code write a load line naming what is on; where that code has changed, the line
+says which part is off and why.
 
-Under Combat Extended bombs are items with their real weight, but a 907 kg bomb was made from about 70 kg of materials. The case now
-weighs what it should. **The two fuel and explosive fills stop short of their real weight on purpose**, because matching it would take
-far too long to make (174 FSX for one Mk. 82, 858 prometheum for one incendiary).
+## Settings
 
-| Bomb | Stock | Now | Materials weigh |
-| --- | --- | --- | --- |
-| Mk. 82 (227 kg) | 60 steel, 45 chemfuel, 2 components | 1 Mk. 82 bomb case, 20 FSX, 300 chemfuel, 2 components | 166 kg |
-| Mk. 84 incendiary (907 kg) | 120 steel, 120 chemfuel, 2 components | 1 Mk. 84 bomb case, 100 prometheum, 1,500 chemfuel, 2 components | 604 kg |
-| Mk. 84 EMP | 120 steel, 6 components | 1 Mk. 84 bomb case, 840 steel, 12 components | 905 kg |
-| Mk. 84 smoke | 120 steel, 50 chemfuel, 1 component | 1 Mk. 84 bomb case, 760 steel, 1,000 chemfuel, 1 component | 909 kg |
-| Mk. 84 poison gas (Biotech) | 120 steel, 4 wastepacks, 1 component | 1 Mk. 84 bomb case, 72 wastepacks, 1 component | 911 kg |
+In **Options, Mod settings**. RimWorld saves only what you change; no restart is needed.
 
-Their selling price now follows from their ingredients.
+### D'thorga Patches (with InterRim Ballistic Missile)
 
-#### Bomb cases
+A choice that costs speed shows its cost in amber under it.
 
-Each bomb starts as an empty steel case, made first and then filled. **This replaced RimThunder's heavy castings in 0.6.0**: castings
-don't stack, so on an automated machining bay each one took a whole hopper slot, and the bays clogged on them.
-
-| Case | Steel | Weighs | Work | Crafting skill | Stack |
-| --- | --- | --- | --- | --- | --- |
-| Mk. 82 bomb case | 280 | 140 kg | 1,000 | 6 | 4 |
-| Mk. 84 bomb case (all four Mk. 84s) | 956 | 478 kg | 3,000 | 7 | 4 |
-
-- **Where:** the machining table; the rotary forger, with The Dead Man's Switch - Expedition; and the automated machining bay, with
-  Vanilla Furniture Expanded - Factory, which gives the bay a bill for each case by itself.
-- **No research of their own.** Each bomb keeps its own research.
-- The weight is the real case's, so the steel balances it. They can be smelted back to steel.
-- **The picture** was made with generative AI and picked by the owner; the record beside it says how.
-- Only under Combat Extended: without it the cases don't exist.
-Without Combat Extended nothing here changes: the jet loads its bombs from steel. To rescale a bomb, change its numbers in
-`Mods/HarrierVtol/Patches/Bombs_HarrierVtol.xml`.
-
-### Bombs and rockets at the ammunition fabricator
-
-With The Dead Man's Switch and Combat Extended, all five bombs and the jet's three kinds of 57 mm rocket are also bills at its **ammunition
-fabricator**. The machining table still makes them too, and the cost and research are the same at both. Without those two mods this does nothing.
-
-| Item | Machine time for one bill | Colonist's Crafting skill |
+| Setting | What it does | Default |
 | --- | --- | --- |
-| Mk. 82 | 2,250 ticks (0.9 in-game hours) | 6 |
-| Any Mk. 84 | 3,000 ticks (1.2 in-game hours) | 7 |
-| 5 HE rockets | 6,500 ticks (2.6 in-game hours) | 4 |
-| 5 HEAT rockets | 4,300 ticks (1.7 in-game hours) | 4 |
-| 5 AP rockets | 2,750 ticks (1.1 in-game hours) | 4 |
+| Spread a strategic blast over several moments | Off: the missile mod's own one-frame blast, which can freeze the game for minutes | On |
+| Time each moment may spend on the blast | 2 to 50 ms; above 25 ms the game visibly stutters while a blast runs | 12 ms |
+| Take up to 40 ms a moment while the screen is still white | A slower moment costs nothing you can see while the screen is white | On |
+| What shelters people and things from a blast | Any overhead mountain; only thick overhead mountain (the missile mod's rule); nothing. The last two sweep mountain interiors too, several times slower | Any overhead mountain |
+| Leave rubble and salvage where buildings stood | On: many times slower | Off |
+| The dead | Vaporised, or left where they fell | Vaporised |
+| Rebuild rooms once per moment during a blast | Switch it off only if a blast leaves rooms behaving oddly, and report it | On |
+| Tell me when a blast takes a while, and when it ends | A message after two seconds, and one when it has spent itself | On |
+| No "Area revealed" letters while a blast runs | Also silences the warning about mechanoids found inside an opened pocket | On |
+| Wall fragments from a strategic blast (only with Combat Extended) | None during a blast; a tenth as many (several times slower); as many as in a fight (a blast on a town can take tens of minutes) | None during a blast |
+| Fireball, blast and heat by distance from ground zero | Off: no burns, wilting, ash or pulse, and the warhead's fires light a fifth of every cell in one moment | On |
+| Full strike on every settlement in range | On: each map in range takes a full strike of its own | Off |
+| Fires beyond the blast | None, sparse, moderate, firestorm; moderate and above mean hundreds to thousands of fires at once | Moderate |
+| Fallout and radiation | Radioactive fallout where it can, otherwise nuclear winter; nuclear winter only; nothing | Radioactive fallout where it can, otherwise nuclear winter |
+| Fallout clouds drifting from the strike (with Rimatomics) | 0 to 6 | 6 |
+| Radiation sickness and flash blindness for survivors (with Rimatomics) | For those who live through the strike in the open | On |
+| Ground pollution near the centre (with Biotech) | The scoured ground at the centre, and patches around it | On |
+| Electromagnetic pulse | Powered buildings and mechanoids in the open stop for a few hours | On |
+| Close-in weapon systems shoot down Combat Extended shells (only with Combat Extended) | Off: they leave CE's mortar and artillery shells alone | On |
 
-The Hind and Mongoose use the same three rocket recipes, so their rockets can be made there too.
+### D'thorga Patches: Harrier
 
-That's half the work of the machining table, and no colonist stands at the machine while it runs. It's the fabricator's own speed, the same as for
-all its ammo, and it draws 1,000 W while running and 50 W idle.
-
-- **A colonist still has to load it and collect the result.** That's the Crafting job "Operate Machine", and each needs a colonist with the skill above.
-- **Finished items drop beside the machine**, whatever the bill's storage setting says. Haulers take them from there.
-- **Interrupting the colonist while loading drops what they had brought** beside the machine, and the job starts again. Nothing is lost, but the
-  chemfuel-heavy bombs take many trips (1,500 chemfuel for an incendiary), so keep your chemfuel close.
-
-### Drop Tanks
-
-The upgrade costs **2 car fuel tanks, 20 steel and 2 components**, in place of 60 steel and 2 components.
-
-### Heavy castings at the rotary forger
-
-With RimThunder and The Dead Man's Switch - Expedition, the **rotary forger** makes heavy castings **12 at a time**. RimThunder's
-in-game name for the item is "heavy compoment", spelt that way; the forger's bill is called "make 12 heavy castings". The electric smelter and
-assembly platform still make one at a time.
-
-- **Cost:** 1,200 steel makes 12 castings and 12 lumps of steel slag: RimThunder's own recipe times 12. It needs no research of its own and no skill.
-- **A colonist with Crafting work enabled does it**, as the job "Operate Machine". Loading 1,200 steel takes them about 16 trips, because steel
-  comes in stacks of 75.
-- **It saves colonist time.** The colonist's fixed waits, about 600 ticks to load and collect, are shared by all 12 castings, against about 500 ticks
-  of work for each casting at the smelter. The machine then runs about 3,000 ticks (just over an in-game hour) on its own.
-- **The bill waits until 1,200 steel can be fetched.** Below that, use the smelter.
-- **Finished items drop beside the machine**, whatever the bill's storage setting says: 24 separate things, since castings and slag don't stack.
-  **Keep the floor around the forger clear**, and haulers take them from there.
-- **Interrupting the colonist while loading drops what they had brought** beside the machine, and the job starts again. Nothing is lost.
-- The machine draws 800 W while running and 50 W idle.
-
-### A sortie's map stays open under the jet
-
-The game removes a site's map once no colonist is left on it, and its check can't see a pilot inside a vehicle. Vehicle Framework
-covers vehicles on the ground, and the Harrier's flight framework covers aircraft in the air, but only over the game's own kinds of
-site. Over a Real Ruins site, a RimMarket convoy battle or any other mod's site with its own removal rule, the map could close with
-the jet still flying. Now **any vehicle of yours with a colonist aboard keeps its map open**, in the air or on the ground, whichever
-mod made the map. The Hind and Mongoose get this too while the Harrier is active.
-
-### Sorties: what the code says
-
-Read from the Harrier's flight framework, not seen in play. The Harrier mod does all of this; this mod only keeps the map open.
-
-- **Sortie** (the button on the jet) opens the world map. Pick a site or settlement: an open map gives "fly to" and "land" choices;
-  a closed one is entered from the map edge. **Your own home map is refused** as a sortie target; use Launch to fly home.
-- **Fuel decides time on station, not distance.** World flight is cheap and quick: about 0.16 fuel and one minute a tile, so a
-  30-tile sortie costs about 5 fuel each way. On a map the jet burns 0.0167 a tick, 250 fuel in about 6 hours. The sortie is refused
-  unless the tank holds the trip there and back, one hour over the target and a 10% reserve.
-- **It comes home by itself** when its rockets and bombs are spent or fuel runs low ("low fuel, returning"), to the map it took off from
-  if that map still has a runway, else the nearest home map with one. **Home needs a full beacon runway**, 24 cells by 5 for the Harrier:
-  four beacons on the corners of a rectangle, so 23 cells apart along it and at least 4 apart across. With no runway at home, the
-  jet circles and says so.
-- **Don't land on a sortie map.** The Harrier lands vertically anywhere, but it takes off only from a beacon runway, so a jet landed
-  away from one stays there. A rough landing also wrecks its engine.
-- **No sortie from under a roof.** The launch check refuses it; taxi out first.
-- **No sortie onto a RimPacts battle you have not joined** (0.11.0). When a client state of yours attacks or defends a town, RimPacts
-  opens that map and strips every "land here" choice until you join from the town's button; the jet's framework keeps only those
-  choices for an open map, so there was nothing left to pick and the click did nothing. The targeter now says so. The setting
-  **Sorties may fly over a battle you have not joined** lifts RimPacts' rule for aircraft only; RimPacts then counts the crew as your
-  forces in that battle, which may hold its map open and weighs in its outcome. Read from the code, not seen in play.
-- **No take-off with damaged flight controls** (0.11.0): avionics, hydraulics or wiring below about 35% ground the jet. Repair them.
-
-### The Harrier's parts (0.11.0)
-
-The owner asked for a parts list as detailed as other well-made vehicles' (7 November 2026). Vehicle Framework gives a vehicle "components":
-each has health, armour, the cells it sits under, whether it is outside or inside, and what breaks when it is damaged. The Harrier
-shipped with four; the most detailed Vanilla Vehicles Expanded aircraft carry 27. Not yet tested in game; every figure is authored.
-
-| Part | Where | Health | What its damage does |
-| --- | --- | --- | --- |
-| Airframe, cockpit, engine, wing fuel tanks | The jet's own four, unchanged | 470, 170, 200, 120 | As before: the engine drives move and flight speed (and now overrides the other parts when it fails), the tanks leak and burn |
-| Canopy | Outside, over the cockpit | 40 | Takes hits that would have hit the cockpit |
-| Avionics, nose radar | Inside the nose | 40, 30 | Avionics are a flight control; the radar only needs repair |
-| Intakes and compressor | Inside, either side of the engine | 50 | Flight speed |
-| Thrust nozzles and exhaust | Outside, either side of the engine | 50 | Move and flight speed |
-| Hydraulics, wiring and electrics | Inside the tail | 40, 30 | Flight controls |
-| Alternator | Inside, beside the engine | 30 | Repair only |
-| Landing gear | Outside, nose and belly | 60 | Move speed on the ground |
-| Wing pylons | Outside, under the wing tips | 50 | Repair only |
-
-**Flight controls:** Vehicle Framework shows a "flight control" figure, the worst of the parts that carry it, but nothing in the framework
-or the jet's own code reads it (read 7 November 2026). **Below 35% the jet cannot take off**, and the launch and sortie buttons say so;
-damaged, it flies slower. Since 0.19.0 this is D'thorga Framework's flight-controls rule (0.106.0), one rule for every aircraft our systems
-run; before, this mod's own copy also reached other aircraft by mistake. **A saved Harrier gains the new parts at full health when its save loads**: the framework
-saves parts by position with no names, so parts are only ever added to the end of the list, never moved or removed. Under Combat
-Extended the new parts take the jet's own armour scale (a light airframe that rifle fire goes through, its author's choice), and the
-plasteel armour upgrade adds to the nozzles, landing gear, pylons and intakes as it does to the airframe.
-
-### Turret hulls under Combat Extended
-
-This part switches on only when both Spaceship Turret Hull and Combat Extended are active.
-
-Before, the hulls stayed ordinary turrets while Combat Extended swapped four of their guns for ammo-using ones. Those four had no way to load, and the other three still used the game's own guns. Now all seven load like Combat Extended's own turrets: colonists haul the ammo over, and the turret gets the usual reload and ammo buttons. Colonists reach a hull from any open cell beside it, so keep one clear on the inside of the ship.
-
-| Hull | Fires | Magazine | Range |
-| --- | --- | --- | --- |
-| Spaceship turret hull | 5.56x45mm NATO | 100 | 48 |
-| Autocannon hull and heavy autocannon hull | 20x102mm NATO | 100 | 78 |
-| 40mm flak hull (was the uranium slug hull) | 40x311mmR | 20 | 86 |
-| Shotgun hull | 12 gauge | 20 | 19 |
-| Sniper hull | .50 BMG | 10 | 84 |
-| Incendiary hull | 30x64mm fuel cells | 10 | 45 |
-
-**What else changes:**
-
-- **The hulls no longer explode when destroyed**, as with Combat Extended's own turrets.
-- **Aim and cooldown** use Combat Extended's figures for the nearest turret of each kind.
-- **The autocannon and heavy autocannon hulls now fire the same gun the same way.** The heavy one still has more hit points.
-- **The uranium slug hull is renamed**, because under Combat Extended its gun is a 40mm flak gun.
-
-**What stays the same:** build costs, work, skill needed, hit points and power. These hulls are now far cheaper than Combat Extended's own turrets, which is a known gap.
-
-### A log warning
-
-The jet's fuel tank logged "Parsed 2.5 as int" at every start. Writing the value the game already used, 2, stops that and changes nothing else.
-
-## InterRim Ballistic Missile
-
-**Merged in from D'thorga Missile Patches 0.1.0; rebuilt in 0.8.0 (7 November 2026). Not yet tested in game as 0.8.0.**
-
-**Removing IRBM or RimPacts from a save is clean from 0.16.8** (not yet tested in game): this mod's memory of struck towns and its
-RimPacts quest check live in D'thorga Framework's store, so the save no longer names a class that goes with them. Load the save once
-with this version before removing either mod.
-
-**What was wrong.** When a strategic warhead lands on a settlement whose map is open, the missile mod fades the screen to white and
-then, in a single frame, damages every pawn, building, item and plant on that map. On the owner's heavily modded game that frame ran
-for more than two minutes until Windows closed the game as not responding. Version 0.7.0 spread the blast over frames: no more
-freeze, but on an enemy town the blast was still running 18 minutes later, slowing as it went.
-
-**Why it crawled** (read from the mods' code, 7 November 2026). Every building went through the full damage path. With Combat
-Extended's wall fragments on, each one threw about a hundred fragments; the game stays paused during a strike, so they never flew
-away, and every one made the next removal slower. Each fallen wall also checked the whole connected roof for collapse, and left
-rubble, filth and leavings that grew the map's lists further.
-
-**What it does now.**
-
-- **What the warhead would destroy simply vanishes**, as in Dubs Rimatomics' nuke: no rubble, filth, fragments or roof checks. People
-  still take the warhead's damage and die properly. Anything the damage could not destroy is left to the missile mod's own rule.
-- **Built roofs are torn off first**, in one pass, before any wall falls.
-- **Overhead mountain shelters what is under it** (a setting), and those cells are never swept, which is a large part of the speed.
-- **A container's contents go with it**; a sleeper in a casket dies first.
-- **The blast takes up to 40 ms a frame while the screen is still white** or fading back, and your setting (12 ms) afterwards.
-- **A warhead that strikes again and again** (gamma ray, cold, the dismantling warhead) folds repeat strikes queued behind one another
-  into passes of one sweep.
-- It runs through D'thorga Framework's shared queue, which any D'thorga mod can use for long jobs.
-
-### The extinction-class warhead: D'thorga's strike (0.9.0)
-
-The missile mod's one true blast warhead now strikes with a shape, after Dubs Rimatomics' own nuke. **Ground zero is the centre of the
-struck map** (the missile mod has no impact point on the map):
-
-| Zone | Distance from the centre | What happens |
+| Setting | What it does | Default |
 | --- | --- | --- |
-| Fireball | Within 25 cells | Everything is gone, overhead mountain too; the ground is scoured to bare earth, ashen and polluted |
-| Blast | 25 to 110 cells | Buildings, items and plants are gone; people take the blast and burns, worse nearer the centre |
-| Heat | 110 cells to the edge | Walls may stand; plants wilt; people burn and, with Rimatomics, may be flash-blinded and irradiated; fires start, fewer towards the edge |
-| Other settlements in range | | The heat, fires and fallout only, unless you choose a full strike everywhere |
+| Sorties may fly over a battle you have not joined | On: aircraft may fly a sortie onto a RimPacts battle you have not joined, and RimPacts then counts the crew as your forces there | Off |
+| Log each step when a vehicle is taken apart (temporary) | One log line per step of a vehicle's disassembly, to find why the Harrier cannot be taken apart; changes nothing in play | On |
 
-- **Burns are spread over the skin**, so D'thorga Medical's burn load and burn shock see a burned body.
-- **The pulse** stops powered buildings and mechanoids still standing in the open for a few hours.
-- **Fallout**: with Dubs Rimatomics, its radioactive fallout settles on every struck map for 10 to 30 days, and up to six clouds of it
-  drift across the world from the strike. Without Rimatomics, the missile mod's nuclear winter, as before. No fallout in space.
-- **The screen stays white** until the fireball and blast are done (at most 8 seconds), then fades on the heat zone burning.
-- The missile mod's letter, flash, sound, cloud and world effects (settlements without a map destroyed, world pollution, the doomsday
-  clock) are its own, unchanged.
+### D'thorga Patches: outposts
 
-The figures (zone radii, damage curve, burns, fire chances, the pulse's strength) are gameplay choices, tunable in XML; the design
-record is [strategic strike](../../docs/development/strategic-strike.md).
-
-**Messages.** A blast that runs longer than two seconds says the blast is still tearing through the place, and says when it has spent
-itself (a setting).
-
-**Settings** (Mod settings, D'thorga Patches). A setting that costs speed shows its cost in amber under it when chosen.
-
-| Setting | Default | Choices | Cost |
-| --- | --- | --- | --- |
-| Spread a strategic blast over several moments | On | On, off | Off: the missile mod's own one-frame blast, which can freeze the game for minutes |
-| Time each moment may spend on the blast | 12 ms | 2 to 50 ms | Above 25 ms: visible stutter while it runs |
-| Take up to 40 ms a moment while the screen is still white | On | On, off | None you can see |
-| What shelters people and things from a blast | Any overhead mountain | Any overhead mountain, only thick overhead mountain (the missile mod's rule), nothing | The last two sweep mountain interiors too: several times slower on a mountain map |
-| Leave rubble and salvage where buildings stood | Off | On, off | On: many times slower |
-| The dead | Vaporised | Vaporised, left where they fell | None |
-| Rebuild rooms once per moment during a blast | On | On, off | Off if rooms ever behave oddly after a blast; please report it |
-| Tell me when a blast takes a while, and when it ends | On | On, off | None |
-| No "Area revealed" letters while a blast runs | On | On, off | None. On also silences the warning about mechanoids found inside a pocket the blast opened |
-| Wall fragments from a strategic blast (only with Combat Extended) | None during a blast | None, a tenth as many, as many as in a fight | A tenth: several times slower. As in a fight: a blast on a town can take tens of minutes |
-| Fireball, blast and heat by distance from ground zero | On | On, off | Off: no burns, wilting, ash or pulse, and the warhead's fires light a fifth of every cell in one moment |
-| Full strike on every settlement in range | Off | On, off | On: each map in range takes a full strike of its own |
-| Fires beyond the blast | Moderate | None, sparse, moderate, firestorm | Moderate and above: hundreds to thousands of fires burning at once |
-| Fallout and radiation | Fallout where it can, else nuclear winter | That, nuclear winter only, nothing | None |
-| Fallout clouds drifting from the strike (with Rimatomics) | 6 | 0 to 6 | None |
-| Radiation sickness and flash blindness for survivors (with Rimatomics) | On | On, off | None |
-| Ground pollution near the centre (with Biotech) | On | On, off | None |
-| Electromagnetic pulse | On | On, off | None |
-| Close-in weapon systems shoot down Combat Extended shells (only with Combat Extended; new in 0.19.1, not yet tested in game) | On | On, off | On: mortars and artillery against a base with a CIWS lose some shells, as vanilla shells always did |
-
-**Limits.** A blast in progress is not saved: what it had not reached survives a reload. The fires, terrain changes and cloud the
-warhead makes still happen in the frame the screen turns white, as the missile mod does them. Combat Extended's fragment setting is
-changed only in memory, for the moments the blast runs, and put back after; its settings file is never touched.
-
-**Dev mode**, D'thorga category: **Missile Patches: strike current map** runs an extinction-class blast on the map you are looking at
-(**it destroys everything there**; use a throwaway save), **strike current map with D'thorga's blast model** (the same, shaped),
-**log blast queue**, **drop queued blasts**, **dismiss every "Area revealed" letter** (for those a strike sent before 0.10.0),
-and **count Combat Extended fragments on map**. Each finished blast logs one line: things, seconds, frames, and how many were vaporised, wrecked, damaged,
-sheltered or already gone.
-
-The record is [Missile patches](../../docs/development/missile-patches.md).
-
-## Visit Settlements
-
-**What it fixes (0.13.0, not yet tested in game).** Visit Settlements closes the map of a settlement you entered with its **Visit**
-button the moment any pawn there goes down, if every colonist of yours standing on the map is down. It counts only colonists
-standing on the map, so with all of them inside a vehicle there is nobody to count, the check passes, and the map closes with your
-people on it. The game then treats everyone left there as lost. In a RimPacts defence that also loses the defence, because RimPacts
-sees the battle map gone.
-
-**What it does now.** The map stays open while:
-
-- a colonist of yours there is conscious, on foot or aboard a vehicle, shuttle or pod;
-- a mechanoid of yours there is on its feet;
-- or a RimPacts defence or battle is being fought there (RimPacts keeps those maps open itself, and this keeps Visit Settlements from
-  closing them under it).
-
-When none of these holds, Visit Settlements' rule stands as before. Each time the map is kept open, the log says so once an in-game
-hour. **Safe to add to and remove from a save**: it saves nothing. **Pawns already lost this way stay lost**; load a save from before
-the map closed.
-
-**How to tell it's working.** The load line says "a visited settlement's map stays open while your people can still act there or a
-battle is on". When it saves a map, the log says "Kept the map of ... open". If Visit Settlements changes its code, the load line
-says the part is off and why.
-
-**Its settlement events no longer fail on every tick (0.14.1, not yet tested in game).** Visit Settlements drops food for the friendly
-settlements it keeps maps of, every few days. It added up every friendly pawn's hunger, and a pawn that does not eat (a mechanoid, a
-robot, an android) has no hunger to read, so the sum failed; it failed before Visit Settlements reset its day count, so it tried again,
-and failed again, on every tick. On the owner's colony that was thousands of errors in minutes, enough to reach the game's
-10,000-message log limit, after which no mod can log anything for the rest of the session. Now a pawn that does not eat needs no
-food, and if anything else in those events ever fails, they wait their usual days instead of retrying every tick, with one warning a
-day in the log. The load line says "friendly settlements' food drops leave out pawns that do not eat" and "a fault in its settlement
-events waits its usual days instead of repeating every tick".
-
-The record is in [Missile patches](../../docs/development/missile-patches.md#visit-settlements-closes-a-rimpacts-battle-map-8-nov-2026),
-and the food-drop fault in its [own section](../../docs/development/missile-patches.md#visit-settlements-food-drops-throw-every-tick-8-nov-2026).
-
-## Where to find things
-
-- The jet's blueprint is under Architect, Vehicles.
-- Bombs and rockets are bills at the machining table, as before, and at The Dead Man's Switch's ammunition fabricator.
-- Bomb cases (Combat Extended only) are bills at the machining table, the rotary forger and the automated machining bay.
-- Heavy castings are a bill at the electric smelter and the assembly platform, one at a time, and at the rotary forger, 12 at a time.
-- The turbine is a bill at RimThunder's assembly platform.
+| Setting | What it does | Default |
+| --- | --- | --- |
+| Refuse to found an outpost from a caravan with vehicles (recommended) | Off: the "create outpost" window works as Vanilla Expanded Framework wrote it, and may lose the vehicles and their crews | On |
 
 ## For modders
 
-The map fix is in `src/PhobosPatches.Harrier/AirborneCrewKeepsMap.cs`: one postfix on `MapPawns.AnyPawnBlockingMapRemoval`, the
-check every site's removal rule reads. The RimPacts fix is in `src/PhobosPatches.Harrier/RimPactsArrivalFilter.cs`. **A Harmony patch method in a generic class breaks the next
-patch of the same method**, because Harmony stores a patch as a method token, which can't hold generic arguments. The record is in
-[Vehicle patches](../../docs/development/vehicle-patches.md). The missile part is in `src/PhobosPatches.Irbm`: a
-prefix on the missile mod's `StrategicImpactCountdown.ApplyStrategicDamage` queues an `IrbmSweep`, which D'thorga Framework's
-`FrameWorkQueue` runs a slice per frame.
+- [Vehicle patches: research and decisions](../../docs/development/vehicle-patches.md): the Harrier, bombs, fabricator, forger,
+  turret hulls and RimPacts arrival fix, with the code paths and the source files.
+- [Missile patches: research and decisions](../../docs/development/missile-patches.md) and
+  [strategic strike](../../docs/development/strategic-strike.md): the blast, its queue and the Visit Settlements fixes.
+- [The register of temporary patches](../../docs/development/temporary-patches.md): what would make each temporary part unnecessary.
 
 ## Checks done
 
-- 7 November 2026: Pipe System's hopper intake and saved bill code read (1.7 build), and the owner's PG2 save read to see why the
-  machining bays clogged. The patch was run offline against the Harrier's, Combat Extended's and the forger's real files, with and
-  without the forger: every step matches. **Not yet tested in game.**
-- 6 November 2026: the forger's start, finish and product placement code read again (Fortified, current 1.7 build), with the 1.7 game's
-  placement code. `scripts/check-factory-patches.py --mod PhobosVehiclePatches` passes. **Not yet tested in game.**
-- 5 November 2026: Spaceship Turret Hull's Defs and source, Combat Extended's turret class, reload job, shot and roof code, and the 1.7 game's save loader read. The patch was run offline against both mods' real files, the owner's PG22 save read to see what's built, and `scripts/check-factory-patches.py --mod PhobosVehiclePatches` passes. **Not yet tested in game.**
-- 3 November 2026: the Harrier's shipped source, its bundled flight framework (build 19o), the VTOL Raids jet add-on, Vehicle Framework,
-  Combat Extended and its Vehicle Framework assembly, and the 1.7 game's map-removal code read. Every game, Vehicle Framework, Harmony 3
-  and Unity member the Harrier's three assemblies call exists in RimWorld 1.7, by name and parameter count (21 assembly pairs, 0
-  missing). The owner's log of that day shows no aircraft errors. **Not yet tested in game.**
-- 3 November 2026: RimThunder's recipe and the forger's Def read, and no other installed mod touches that recipe. `scripts/check-factory-patches.py --mod PhobosVehiclePatches`
-  passes: the forger and the recipe exist among the owner's active mods. **Not yet tested in game.**
-- 3 November 2026: the fabricator's bench, job and ingredient code read in the current Fortified framework (31 Oct build), with CE's ammo injector and
-  the game's load steps. `scripts/check-factory-patches.py --mod PhobosVehiclePatches` passes: the fabricator, all five bombs and all three rocket recipes
-  exist among the owner's active mods. **Not yet tested in game.**
-- 2 November 2026: the Harrier, its bundled framework, Vehicle Framework, RimPacts, Harmony and RimThunder read in their files and
-  decompiled assemblies, and the owner's log and newest save read. The assembly builds with no warnings for RimWorld 1.6 (1.6 retired 8 Nov 2026), and the
-  Harmony members it calls exist with the same signatures in Harmony 3.0.0-rc.3, which the owner's 1.7 game runs.
-  `scripts/check-factory-patches.py --mod PhobosVehiclePatches` passes; it can't see the Mk. 82 change, which depends on another
-  mod's patch, so that one was checked by reading. **Not yet tested in game.**
+Every part was read in the patched mods' code and files and checked offline (builds, and `scripts/check-factory-patches.py` for
+the recipe patches); each version's checks are in the [changelog](CHANGELOG.md), and the dated list the README kept until 17 November
+2026 is in [Vehicle patches](../../docs/development/vehicle-patches.md#checks-moved-from-the-readme-17-nov-2026). **Tested in game by
+the owner:** the stuck vehicle fires (10 November 2026) and one missile strike with the first missile fix (7 November 2026). **Not yet
+tested in game:** everything else.

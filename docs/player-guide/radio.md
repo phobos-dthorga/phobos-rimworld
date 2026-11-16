@@ -40,17 +40,23 @@ Research **local radio** (after Microelectronics basics).
 - **Both directions count, and the worse one decides**: usually the 5 W hand-held, not the 25 W station.
 
 A colonist wearing a hand-held has a **Radio** button with signal bars; click it for the full working. The station's **Net** tab
-says who is in touch and which antenna it uses. A colonist in good contact gets a small **in touch with home** mood. **While placing**
-an antenna or the station, the cursor shows its height, the roof and the noise there; red means overhead mountain.
+says who is in touch and which antenna it uses: whichever antenna on its coax gives the best link, or its built-in whip if that is
+better or nothing is connected. A colonist in good contact gets a small **in touch with home** mood, and a fainter one on a weak
+link. **While placing** an antenna or the station, the cursor shows its height, the roof and the noise there; red means overhead
+mountain.
 
 **How much of the maths to show** (its settings): **Plain** shows bars and one reason in plain words; **Operator** adds the band, the
-signal-to-noise ratio and the margin; **Engineer** shows every term.
+signal-to-noise ratio, the margin and which direction limits the link; **Engineer** shows every term. The window a radio's button
+opens can show one level more than your setting.
 
 ## Try it
 
-1. Build the station indoors under a built roof, craft a VHF hand-held and wear it.
+1. Research local radio. Build the station indoors under a built roof, craft a VHF hand-held and wear it.
 2. Walk outside, then behind a stone wall, then into a mountain: watch the bars and the reason.
 3. Lay coax from the station out to a mast antenna, and see the station switch to it.
 4. Stand near a running generator: the noise appears and the margin falls.
+5. Open the Engineer sheet: every term should add up to the margin, and the limiting direction should make sense (the 5 W hand-held
+   usually limits, not the 25 W station).
+6. Check the needs tab for "in touch with home".
 
-The full detail is in [D'thorga Radio Framework's README](../../mods/PhobosRadioFramework/README.md).
+The figures, the settings and the notes for modders are in [D'thorga Radio Framework's README](../../mods/PhobosRadioFramework/README.md).

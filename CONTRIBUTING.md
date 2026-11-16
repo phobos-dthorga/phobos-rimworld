@@ -50,10 +50,20 @@ or personal paths. Use synthetic test fixtures.
 
 ## Writing and research
 
-Every change to a mod updates its `CHANGELOG.md` and README in the same commit. A change that alters what a player builds,
-presses or sees also updates its chapter of the [player guide](docs/player-guide/README.md). Player text follows
-[writing READMEs and in-game text](docs/development/player-language.md) and lives in language files, not
-code.
+Each kind of document has one job. Put a fact where it belongs, and link to it from elsewhere rather than copy it:
+
+| Document | Holds |
+| --- | --- |
+| [Project README](README.md) | The one mod table and dependency diagram, for visitors |
+| [Player guide](docs/player-guide/README.md) | How to play, a chapter per mod: the authority for what to build and press |
+| A mod's `README.md` | Its requirements, settings, figures and test status, gotchas first |
+| A mod's `CHANGELOG.md` | What changed, and when |
+| [Design records](docs/development/README.md) | Designs, research, decisions and diagnoses, each dated |
+| Modder guides ([index](docs/README.md#for-modders)) | How other mods use ours |
+
+Every change to a mod updates its `CHANGELOG.md`, and its README where requirements, settings or figures change, in the same
+commit. A change that alters what a player builds, presses or sees also updates its chapter of the player guide. Player text
+follows [writing READMEs and in-game text](docs/development/player-language.md) and lives in language files, not code.
 
 Name the researchers, standards bodies, regulators and mod authors beside the claims their work supports,
 with primary-source links. Separate findings from inference and from authored gameplay balance. Never

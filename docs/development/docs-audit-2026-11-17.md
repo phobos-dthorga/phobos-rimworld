@@ -143,10 +143,27 @@ register, the setup wizard); five Medical sub-headings hold one entry each.
 
 ## Batch 4: slimmer READMEs
 
-Each mod README to about 100-200 lines: title and the dthorga spelling, version and built date, today's test status in one line;
+**Done 17 Nov 2026.** Every removed passage was checked to be in the changelog, a guide chapter or a design record first, or moved
+there. Comparing the READMEs with the guides against the Defs and code found wrong facts in both (the drill bits exclude each other;
+deepchem's destinations; radiation control was owner-tested on 11 Nov; Patches needs Framework 0.97.0, not 0.33.0), now fixed.
+
+| README | Words before | After |
+| --- | --- | --- |
+| D'thorga Medical | 12,917 | 2,406 |
+| D'thorga Framework | 10,925 | 2,624 |
+| D'thorga Factory Additions | 10,462 | 1,306 |
+| D'thorga Patches | 8,092 | 2,072 |
+| D'thorga Vehicles | 6,466 | 1,283 |
+| D'thorga Water Tap | 1,500 | 1,072 |
+| D'thorga Radio Framework | 1,249 | 988 |
+
+The guide chapters grew to hold the how-to; the new `docs/framework-modding.md` holds D'thorga Framework's non-vehicle API; each
+medical part's, Patches' and Factory Additions' modder notes and dated checks moved to the end of their design records.
+
+The target, as audited: each mod README to about 100-200 lines: title and the dthorga spelling, version and built date, today's test status in one line;
 **Read this first** with today's gotchas only (no "New in"); a short feature list linking to its guide chapter; a figures and settings
 table; one link for modders. The player guide becomes the authority for how to play; `player-guide/README.md` :6-7 (the README wins
-a disagreement) is reversed. Version history lives in the changelogs.
+a disagreement) is reversed. Version history lives in the changelogs. The faults found:
 
 | README | Words | Main fault |
 | --- | --- | --- |
@@ -156,13 +173,14 @@ a disagreement) is reversed. Version history lives in the changelogs.
 | D'thorga Patches | about 8,100 | Sortie research :271-294; a Factory item in its checks (:494) |
 | D'thorga Vehicles | about 6,400 | Version-log gotchas :12-73; per-vehicle sections repeat `working-vehicles.md` |
 
-- [ ] Framework, then Vehicles, Medical, Patches, Factory Additions; Water Tap and Radio need light fixes only
-- [ ] Modder material: vehicle API to `docs/vehicle-systems-modding.md`; other Framework API to a core API page; per-mod "For
+- [x] Framework, then Vehicles, Medical, Patches, Factory Additions; Water Tap and Radio need light fixes only
+- [x] Modder material: vehicle API to `docs/vehicle-systems-modding.md`; other Framework API to a core API page; per-mod "For
   modders" and diagnoses to their design records
-- [ ] One mod table and one dependency diagram (the guide README's); the root README, `docs/README.md` and `mods/README.md` link to
-  it (`docs/README.md`'s versions are registered in `config/maintained-constants.json`: change the catalogue with it)
-- [ ] `docs/installing-mods.md` into `player-guide/getting-started.md`; `docs/medical-mods.md` into `player-guide/medical.md`
-  (nine inbound links to repoint)
+- [x] One mod table and one dependency diagram, **in the root README** (GitHub's front page; changed from the guide README's when it was
+  done), with four missing tie-in edges added; the guide README is a chapter list; `mods/README.md` links; `docs/README.md` keeps only
+  the version list `config/maintained-constants.json` registers
+- [x] `docs/installing-mods.md` into `player-guide/getting-started.md`; `docs/medical-mods.md` into `player-guide/medical.md`
+  (both left as short pointers, so their inbound links still work)
 
 ## Later, on the owner's word: merges, splits and archive
 

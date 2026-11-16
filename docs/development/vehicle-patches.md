@@ -464,3 +464,63 @@ finalizers only: nothing skipped, nothing swallowed. Its row is 15 in [the regis
 **What the owner does:** check 62 in [the test pass](in-game-test-pass.md): one disassembly on a copy of the save, then say done.
 **Next:** read the trace with `python scripts/triage-log.py`, then fix, report or patch the failing step under its own register row,
 and remove the trace.
+
+## Moved from the README (17 Nov 2026)
+
+The owner's go-ahead of 17 November 2026 ("Slim them") cut D'thorga Patches' README to today's gotchas, the settings and links. **How
+to play is now in the player guide's [Patches chapter](../player-guide/patches.md)**, so where the sections above say "the README"
+(the new build list, the player guide), read that chapter. What the README held that no other record, the guide or the changelog
+carried is kept here as it was written.
+
+**RimPacts' assaults and empty vehicles (Patches 0.19.3, temporary).** RimPacts lists every standing pawn of the defending faction as
+an assault target, and a vehicle is a pawn that never goes down, so an empty one stayed a live target until it was destroyed. The
+game's order for such a target is to trash it (melee, sometimes fire), because Vehicle Framework rightly says an empty vehicle is no
+threat and nobody shoots at it; and Vehicle Framework destroys a vehicle only when all its parts together fall under 1 %. RimPacts
+also waits for no live "pawn" target to remain before its general assault. The patch makes RimPacts' live-target test answer "no" for
+a vehicle its own unmanned test (nobody aboard, not autonomous) calls unmanned, the test it already uses when counting fighters.
+Soldiers on such a vehicle get a new target at RimPacts' next look, every 300 ticks. Its row is 17 in
+[the register](temporary-patches.md).
+
+**The RimPacts load fix in the log.** With the fix working, the log shows a line starting "[D'thorga Vehicle Patches] RimPacts'
+landing rule". If RimPacts changes how it does this, the fix finds nothing to do and steps aside.
+
+**Rescaling a bomb.** Its numbers are in `Mods/HarrierVtol/Patches/Bombs_HarrierVtol.xml`.
+
+**The parts list against other aircraft.** The Harrier shipped with four parts; the most detailed Vanilla Vehicles Expanded aircraft
+carry 27 (read 7 Nov 2026).
+
+**The README's "For modders" paragraph.** The map fix is in `src/PhobosPatches.Harrier/AirborneCrewKeepsMap.cs`: one postfix on
+`MapPawns.AnyPawnBlockingMapRemoval`, the check every site's removal rule reads. The RimPacts fix is in
+`src/PhobosPatches.Harrier/RimPactsArrivalFilter.cs`. **A Harmony patch method in a generic class breaks the next patch of the same
+method**, because Harmony stores a patch as a method token, which can't hold generic arguments. The missile part is in
+`src/PhobosPatches.Irbm`: a prefix on the missile mod's `StrategicImpactCountdown.ApplyStrategicDamage` queues an `IrbmSweep`, which
+D'thorga Framework's `FrameWorkQueue` runs a slice per frame.
+
+### Checks moved from the README (17 Nov 2026)
+
+The README's dated list of checks, as it stood. Later checks are in the changelog's entries.
+
+- 7 November 2026: Pipe System's hopper intake and saved bill code read (1.7 build), and the owner's PG2 save read to see why the
+  machining bays clogged. The patch was run offline against the Harrier's, Combat Extended's and the forger's real files, with and
+  without the forger: every step matches. **Not yet tested in game.** (This is the bomb case's check, Patches 0.6.0; the saved-bill
+  repair that grew from it is D'thorga Factory Additions 0.11.4, in that mod's changelog.)
+- 6 November 2026: the forger's start, finish and product placement code read again (Fortified, current 1.7 build), with the 1.7 game's
+  placement code. `scripts/check-factory-patches.py --mod PhobosVehiclePatches` passes. **Not yet tested in game.**
+- 5 November 2026: Spaceship Turret Hull's Defs and source, Combat Extended's turret class, reload job, shot and roof code, and the 1.7
+  game's save loader read. The patch was run offline against both mods' real files, the owner's PG22 save read to see what's built, and
+  `scripts/check-factory-patches.py --mod PhobosVehiclePatches` passes. **Not yet tested in game.**
+- 3 November 2026: the Harrier's shipped source, its bundled flight framework (build 19o), the VTOL Raids jet add-on, Vehicle Framework,
+  Combat Extended and its Vehicle Framework assembly, and the 1.7 game's map-removal code read. Every game, Vehicle Framework, Harmony 3
+  and Unity member the Harrier's three assemblies call exists in RimWorld 1.7, by name and parameter count (21 assembly pairs, 0
+  missing). The owner's log of that day shows no aircraft errors. **Not yet tested in game.**
+- 3 November 2026: RimThunder's recipe and the forger's Def read, and no other installed mod touches that recipe.
+  `scripts/check-factory-patches.py --mod PhobosVehiclePatches` passes: the forger and the recipe exist among the owner's active mods.
+  **Not yet tested in game.**
+- 3 November 2026: the fabricator's bench, job and ingredient code read in the current Fortified framework (31 Oct build), with CE's
+  ammo injector and the game's load steps. `scripts/check-factory-patches.py --mod PhobosVehiclePatches` passes: the fabricator, all
+  five bombs and all three rocket recipes exist among the owner's active mods. **Not yet tested in game.**
+- 2 November 2026: the Harrier, its bundled framework, Vehicle Framework, RimPacts, Harmony and RimThunder read in their files and
+  decompiled assemblies, and the owner's log and newest save read. The assembly builds with no warnings for RimWorld 1.6 (1.6 retired
+  8 Nov 2026), and the Harmony members it calls exist with the same signatures in Harmony 3.0.0-rc.3, which the owner's 1.7 game runs.
+  `scripts/check-factory-patches.py --mod PhobosVehiclePatches` passes; it can't see the Mk. 82 change, which depends on another
+  mod's patch, so that one was checked by reading. **Not yet tested in game.**

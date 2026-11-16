@@ -8,6 +8,7 @@ tested in game unless an entry says the owner tested it.
 ### Changed
 
 - The README no longer calls RimWorld 1.6 supported, marks the 0.107.0 and 0.108.0 notes on visible pipes as replaced by the hidden pipes of 0.108.1, and names the former medical mods as parts of D'thorga Medical. No change in play.
+- The README is cut to today's gotchas, a feature list linking the player guide, the settings and links for modders; version notes live in this changelog and the modder material in the new framework modding page. No change in play.
 
 ## [0.117.2] - 2026-11-17 - Draft
 

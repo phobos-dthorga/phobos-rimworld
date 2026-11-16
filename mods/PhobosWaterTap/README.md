@@ -23,7 +23,7 @@ Version 0.2.4, built 9 November 2026 for House D'thorga. **Not yet tested in gam
 - **Pawns only carry bottles away if you tell them to.** The tap's storage priority starts at Important, so bottles stay put until
   someone drinks or packs them. If you lower it, or give water a Critical stockpile, haulers carry bottles off and the tap refills, up to the
   colony limit.
-- **This changes every water bottle in your game, not just the tap's** (see [Water quality](#water-quality)). A bottle from untreated water
+- **This changes every water bottle in your game, not just the tap's** (see [water quality](../../docs/player-guide/water-tap.md#water-quality)). A bottle from untreated water
   now stays untreated when its stack is split. Before, it came out clean by accident. Colonists on untreated water can now get sick from
   bottles, as they already can from a basin.
 - **Combat Extended players:** a pawn on a custom loadout with "drop undefined" drops the bottles it packs, as Dubs Bad Hygiene's own
@@ -38,7 +38,8 @@ Version 0.2.4, built 9 November 2026 for House D'thorga. **Not yet tested in gam
 ## What it does
 
 Each rare tick (250 game ticks), a tap with room makes one bottle. Colonists drink from it and pack bottles from it the way they do from
-any loose bottles, and caravans can load from it.
+any loose bottles, and caravans can load from it. **How to use it, its buttons, what its inspect text means, the water quality rules
+and conveyor belts are in the player guide's [Water tap chapter](../../docs/player-guide/water-tap.md).**
 
 | What | Value | Where it comes from |
 | --- | --- | --- |
@@ -50,53 +51,9 @@ any loose bottles, and caravans can load from it.
 | Cost and work | 20 steel, 600 work | Authored |
 | Power | None | Pumps supply the pressure. Authored simplification |
 
-How a tap fills and refills:
-
-```mermaid
-flowchart TD
-    Tick["Every 250 ticks"] --> Check{"What stops it?"}
-    Check -- "set to keep 0" --> Off["Switched off"]
-    Check -- "holds as many as it keeps" --> Full["Full"]
-    Check -- "the map holds its colony limit" --> Limit["Colony limit reached"]
-    Check -- "no tower, contaminated water,<br/>towers empty, or the water has changed" --> Wait["Waits, and says why"]
-    Check -- "nothing" --> Fill["Draws 0.5 L from the towers on its pipe<br/>and adds one bottle of that water"]
-    Fill --> Take["Colonists drink or pack, caravans load,<br/>belts take (with VFE Factory)"]
-    Take --> Tick
-```
-
-**Fewer bottles** and **More bottles** change how many this tap keeps ready, one at a time. At 0 it stops filling. **Colony limit -10** and **+10**
-change the limit for the whole map, whichever tap you press them on, and a click counts once however many taps are selected. The inspect pane always
-shows the map's count against the limit, and says what the tap is doing or the one thing it's waiting for:
-
-| It says | What to do |
-| --- | --- |
-| Filling bottles / Full | Nothing |
-| This map has reached its colony limit | Nothing, or press **Colony limit +10** if you want more bottles |
-| Switched off | Press **More bottles** |
-| Another item is on the tap | Have it moved |
-| No water tower on this pipe network | Connect it to your plumbing |
-| The water towers are empty | Get more water into the towers |
-| The water is contaminated | Clear the contaminated water tower. The tap won't bottle this water |
-| The water in the pipes has changed | Nothing: it fills again once the bottles here are taken |
-
-### Water quality
-
-Each bottle holds the water that filled it: treated, or untreated. On a network with mixed towers, the bottle gets the worst of them. Dubs Bad
-Hygiene checks this when someone drinks, the same way it checks a basin.
-
-Dubs Bad Hygiene has no stack rules for this quality: a piece split off a stack came out treated, and merged stacks kept only one side's
-quality. So a pawn taking two bottles from an untreated stack carried away clean water. This mod adds the rules, for all bottles:
-
-- **A bottle split off a stack keeps its water.**
-- **Bottles of different water don't stack.** They are separate bottles.
-- **Labels say so**: "water (untreated)". Treated water just says "water".
-
-### Conveyor belts
-
-With **Vanilla Furniture Expanded - Factory**, belts and factory machines can take bottles from the tap, as they do from a factory hopper. With
-**D'thorga Factory Additions** the tap also gets the **Belts may take from here** switch, starting on. A belt empties the tap and it refills
-until the colony limit is reached, counting what the belt has delivered. Bottles still on the belt aren't counted, so the most that can sit above the
-limit is what your belts can hold.
+Dubs Bad Hygiene keeps no stack rules for a bottle's water quality (a piece split off a stack came out treated, and merged stacks kept
+only one side's quality), so this mod adds them for every bottle: a split bottle keeps its water, bottles of different water don't
+stack, and labels say "water (untreated)" ([water quality](../../docs/player-guide/water-tap.md#water-quality)).
 
 ## For modders
 

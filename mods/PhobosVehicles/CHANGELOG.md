@@ -8,6 +8,7 @@ tested in game unless an entry says the owner tested it.
 ### Changed
 
 - The README names what the owner has tested in game: the survey truck and its boom (9 November 2026) and the Busbar's size and look (13 November 2026). No change in play.
+- The README is cut to today's gotchas, a list of the vehicles linking the player guide, and links for modders; the how-to lives in the guide and the version notes in this changelog. No change in play.
 
 ## [0.57.0] - 2026-11-17 - Draft
 

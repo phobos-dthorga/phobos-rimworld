@@ -3,8 +3,13 @@
 How to play with House D'thorga's RimWorld mods: what each one adds, what to build first, what to press, and what goes wrong
 if you forget something. Also spelt **dthorga**, without the apostrophe.
 
-This guide is for players. It says what the mods do **today**, without their history: each mod's README and changelog keep
-that, and they win if this guide ever disagrees with them.
+This guide is for players. It says what the mods do **today**, without their history. **Who has the last word:**
+
+| Question | The authority |
+| --- | --- |
+| How to play: what to build, what to press, what goes wrong | **This guide** |
+| A mod's requirements, settings and figures, and what is tested | That mod's README |
+| What changed, and when | That mod's changelog |
 
 ![Working trucks on a hillside at dusk: a drill rig and a tanker, with a surveyor in front](../../mods/PhobosVehicles/About/Preview.png)
 
@@ -23,50 +28,21 @@ that, and they win if this guide ever disagrees with them.
 - **Every mod is safe to add to a running colony. Removing one may need a step first.** The steps are in
   [getting started](getting-started.md#removing-a-mod).
 
-## The mods
+## Chapters
 
-| Mod | What it gives you | Needs | Chapter |
-| --- | --- | --- | --- |
-| **D'thorga Framework** | The shared library. With Vehicle Framework: vehicles with batteries, coolant, oil, tyres, brakes, wear and servicing, a workshop to keep them running, fittings and tunes, helicopter sling loads, and the diving, listening and sonar submarines use. Without it, almost nothing you would notice: smoke and carbon monoxide from fires | Nothing. Vehicle Framework for the vehicle systems | [Looking after vehicles](vehicle-care.md) |
-| **D'thorga Vehicles** | Six working vehicles: the Ullage bulk tanker, Kelly drill rig, Talus tipper, Datum survey truck, Busbar generator set and Fathom seabed crawler. Real figures for other mods' vehicles | Vehicle Framework, D'thorga Framework | [Working vehicles](working-vehicles.md), [Submarines](submarines.md) |
-| **D'thorga Medical** | Burns and smoke that matter, doctors who dose and operate on their own, triage tags, hospital and field equipment, radiation control with Rimatomics, and a safe way to add More Injuries to an old colony | Harmony, D'thorga Framework, Vanilla Expanded Framework; Vanilla Gravship Expanded strongly recommended | [Medical](medical.md) |
-| **D'thorga Factory Additions** | More for Vanilla Furniture Expanded - Factory: belts that take from any storage, an automated fabrication bay, a deep hopper, other mods' drug lab recipes as factory bills, and fixes | Harmony, D'thorga Framework, Vanilla Expanded Framework, VFE - Factory | [Factory](factory.md) |
-| **D'thorga Water Tap** | A Dubs Bad Hygiene fixture that keeps bottled water ready and refills itself | Dubs Bad Hygiene (thirst on), D'thorga Framework | [Water tap](water-tap.md) |
-| **D'thorga Patches** | Fixes for other authors' mods: the Harrier VTOL, InterRim Ballistic Missile, Visit Settlements, Vehicle Framework's stuck fires and more, each switched on only with that mod | Harmony, D'thorga Framework | [Patches](patches.md) |
-| **D'thorga Radio Framework** | Hand-held radios, a base station, coax and antennas on one map; a real link budget decides every contact | Vanilla Expanded Framework | [Radio](radio.md) |
+What each mod does in a line, and how they depend on one another, is in [the project README](../../README.md#the-mods).
 
-How they depend on each other (an arrow means "needs"):
-
-```mermaid
-flowchart BT
-    Framework["D'thorga Framework"]
-    Vehicles["D'thorga Vehicles"] --> Framework
-    Vehicles --> VF["Vehicle Framework"]
-    Medical["D'thorga Medical"] --> Framework
-    Medical --> VEF["Vanilla Expanded Framework"]
-    Factory["D'thorga Factory Additions"] --> Framework
-    Factory --> VEF
-    Factory --> VFEF["VFE - Factory"]
-    Tap["D'thorga Water Tap"] --> Framework
-    Tap --> DBH["Dubs Bad Hygiene"]
-    Patches["D'thorga Patches"] --> Framework
-    Radio["D'thorga Radio Framework"] --> VEF
-    Framework -. "vehicle systems only with" .-> VF
-```
-
-## Where to start
-
-| You want to... | Read |
-| --- | --- |
-| Install the mods and set up a colony | [Getting started](getting-started.md) |
-| Keep any mod's vehicles running: flat batteries, overheating, services, repairs, tuning | [Looking after vehicles](vehicle-care.md) |
-| Find ore, drill it, haul it, move fluids and power a camp with trucks | [Working vehicles](working-vehicles.md) |
-| Run a submarine: dive, hide, listen, ping, do research at sea | [Submarines](submarines.md) |
-| Keep burned, gassed or badly hurt colonists alive | [Medical](medical.md) |
-| Feed factory machines from any storage, make bionics automatically | [Factory](factory.md) |
-| Stop colonists queuing at the basin for water bottles | [Water tap](water-tap.md) |
-| Know what we fixed in another author's mod | [Patches](patches.md) |
-| Talk on the radio across the map | [Radio](radio.md) |
+| Chapter | Mod or area | What it covers |
+| --- | --- | --- |
+| [Getting started](getting-started.md) | Every mod | Installing, load order, settings to decide before a colony, research, adding and removing a mod |
+| [Looking after vehicles](vehicle-care.md) | D'thorga Framework, with Vehicle Framework | Keeping any mod's vehicles running: flat batteries, overheating, services, repairs, tuning |
+| [Working vehicles](working-vehicles.md) | D'thorga Vehicles | Finding ore, drilling it, hauling it, moving fluids and powering a camp with trucks and trailers |
+| [Submarines](submarines.md) | D'thorga Vehicles and D'thorga Framework | Running a submarine: dive, hide, listen, ping, do research at sea |
+| [Medical](medical.md) | D'thorga Medical | Keeping burned, gassed or badly hurt colonists alive, triage and hospital equipment |
+| [Factory](factory.md) | D'thorga Factory Additions | Feeding factory machines from any storage and making bionics automatically |
+| [Water tap](water-tap.md) | D'thorga Water Tap | Bottled water kept ready, so nobody queues at the basin |
+| [Patches](patches.md) | D'thorga Patches | What we fixed in other authors' mods, and what it changes for you |
+| [Radio](radio.md) | D'thorga Radio Framework | Talking on the radio across the map |
 
 ## Words this guide uses
 

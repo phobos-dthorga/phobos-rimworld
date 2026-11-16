@@ -3,15 +3,8 @@
 Each folder here is one mod, laid out exactly as players receive it, minus its built assemblies (DLLs),
 which are build products and never committed.
 
-| Mod | Folder | What it is |
-| --- | --- | --- |
-| D'thorga Radio Framework | `PhobosRadioFramework/` | Radio with a real link budget; Phase 1 is local VHF and UHF |
-| D'thorga Factory Additions | `PhobosFactoryAdditions/` | Additions and fixes for Vanilla Furniture Expanded - Factory: belts from any storage, an automated fabrication bay, other mods' drug labs as factory bills |
-| D'thorga Patches | `PhobosPatches/` | Fixes and patches for other authors' mods: the Harrier VTOL, RimThunder's heavy casting, Spaceship Turret Hull under Combat Extended, InterRim Ballistic Missile's strategic blast, Visit Settlements' visited maps, Vehicle Framework's stuck fires, and smaller fixes. D'thorga Vehicle Patches and Missile Patches until 7 November 2026 |
-| D'thorga Water Tap | `PhobosWaterTap/` | A plumbing fixture for Dubs Bad Hygiene that keeps bottled water ready and refills itself from your water towers |
-| D'thorga Framework | `PhobosFramework/` | The shared library: what a pawn breathes from the game's and other mods' gases, additive room gases of our own (carbon monoxide first), the helpers every D'thorga mod shares, and with Vehicle Framework the vehicle systems (battery, coolant, oil, tyres, brakes, wear and service) |
-| D'thorga Vehicles | `PhobosVehicles/` | Vehicles that need looking after: working vehicles of its own (the Ullage bulk tanker, Kelly drill rig, Talus tipper, Datum survey truck, Busbar generator set and Fathom seabed crawler, and the Pintle trailers), and named loadouts that give other mods' vehicles the systems they really have (air brakes, 24-volt Humvee, gas-turbine tanks) |
-| D'thorga Medical | `PhobosMedical/` | Burns and smoke, emergency dosing, triage, hospital and field equipment, and the save bridge that adds More Injuries to a running colony. Five mods until 7 November 2026, each now a part with its own section |
+- **What each mod does, and what it needs:** [the project README's table and diagram](../README.md#the-mods).
+- **How to play with them:** [the player guide](../docs/player-guide/README.md).
 
 A mod folder holds:
 

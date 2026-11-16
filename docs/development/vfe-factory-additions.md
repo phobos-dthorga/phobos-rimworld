@@ -743,3 +743,215 @@ Where: the [Vanilla Expanded Framework repository](https://github.com/Vanilla-Ex
 - **Smithy and DMS printer bills** (0.5.0 survey): one bench template each, on the fabrication bay or the
   machining bay. Not chosen on 29 Oct 2026.
 - **A look of its own for the fabrication bay**: new art (owner's go-ahead on GPU work first).
+
+## Moved from the README (17 Nov 2026)
+
+The owner's go-ahead of 17 November 2026 ("Slim them") cut the mod's README to today's gotchas, the settings and links. **How to play,
+with every bill's inputs, output, time and research, is now in the player guide's [Factory chapter](../player-guide/factory.md)**, so
+where the sections above say "in the mod README", read that chapter. What the README held that no other record, the guide or the
+changelog carried is kept here as it was written.
+
+**Why 6 neutroamine from human meat, not 5.** The 20 percent bump is an **authored gameplay value**, not a calculation. The
+reasoning: VFE Factory's lore has the synthesizer render fat out of the meat, and a human carcass carries far more fat than the game
+animals that supply most colony meat. Whole-body fat in adults averages roughly a quarter to two fifths of body mass (US NHANES
+survey, 1999 to 2004, by DXA scan: men 23 to 31 percent, women 32 to 42 percent, by age group;
+[CDC MMWR report](https://www.cdc.gov/mmwr/preview/mmwrhtml/mm5751a4.htm), primary source). Raw deer meat holds about 2 to 3 grams
+of fat per 100 grams ([USDA FoodData Central entry 173855](https://getfoodfacts.com/food/game-meat-deer-raw-173855), read through an
+aggregator site, so a secondary source). Those two figures are not like for like (a whole body against a lean cut), and the game's
+"meat" item is neither, so the bump is a nod to the direction of the difference, not its size.
+
+**Penicillin from fungus is authored, not a port.** Penicillin is made by Penicillium moulds, so a fungal feedstock is the honest
+route to it; Medicines+'s own recipe goes through herbal medicine. The fungus bill keeps the same neutroamine, work and research, and
+asks 10 raw fungus per unit, a gameplay choice meant to make it a bulkier path rather than a cheaper one (raw fungus is worth about a
+tenth of herbal medicine). Ask for a different ratio if play shows it beats the herbal path.
+
+**Medicine from synthread: why the same amount.** Both bills are four times the drug lab's recipe (1 herbal medicine, 1 neutroamine
+and 3 cloth make 1 medicine). Cloth weighs 0.026 kg a unit and synthread 0.025 kg (the game's own item data), so 12 synthread is the
+same amount of fabric for the kits' pads and dressings. That swap is a gameplay choice, not a medical claim. Glitterworld Medicine
+Production already uses synthread for medicine (5 per glitterworld medicine), so synthread in a medical kit isn't new to the game.
+The refiner's 167 synthread a day and the granulator's 64 (about 190 overclocked to 3) are the agent's reading of Rimefeller's code,
+not measured.
+
+**Piped water: what the litres stand for.** Five soups weigh 2 kg (0.4 kg each, Vanilla Cooking Expanded's item data) and their 40
+raw ingredients 1.2 kg (0.03 kg each, the game's), so at least 0.8 L of water stays in the food. The rest of the 20 L stands for
+boil-off, rinsing and wash-down, none of it modelled. If the mod is removed, the game's food poisoning message gives a number as the
+cause for food already poisoned.
+
+**The output guard: which bills were at risk** (the 0.5.1 scan, 29 Oct 2026: 74 of the 134 bills that output to factory hoppers, plus
+every machining bay bill VFE generates). A belt carrying items out of the output hopper usually hid the loss.
+
+| Machine | At-risk bills (examples) |
+| --- | --- |
+| Automated biofuel refinery | chemfuel from wood, redwood, canola and organics; astrofuel; Kimoju's fecal sludge; Munitions Industries' FSX and prometheum |
+| Automated smelter | metal from chunks and slag, smelting weapons, apparel and mechanoids |
+| Automated ammunition press | every shell |
+| Automated distillery, cannery, conveyor oven | beer, spirits, soda, canned food, kibble, pemmican, meals, baby food |
+| Automated alloy forge, assembler | plasteel, bronze, gravlite, obsidian, components |
+| Automated mincer | every corpse bill |
+| Automated drill platform | stone chunks, metals, Kimoju's gold, silver, steel, uranium and more |
+| Autoloom, masonry saw, medicine granulator, neutroamine synthesizer | patchleather, synthread, blocks, medicine, neutroamine |
+| Automated machining bay | every generated bill (guns, armour), mechanoid and drone shredding |
+
+**The corpse fridge, how it is flagged.** VFE Factory's belts pull only from factory hoppers: the hopper building itself, or any storage
+building whose Def is flagged as one, and factory machines use the same flag to choose the cells they may take ingredients from. This
+mod flags the corpse fridge from seobongzu's "[sbz] Fridge" (an Adaptive Storage Framework building, 2 x 2, 20 corpses). VFE
+Factory's "allow taking" and "allow inserting" rules apply to the real hopper building only, so the fridge gains no such toggles. Only
+the corpse fridge is flagged; the mod's other fridges get the switch like every other storage building.
+
+## For modders (moved from the README, 17 Nov 2026)
+
+Every bill is a Pipe System `ProcessDef` (Vanilla Expanded Framework). The human-meat bill, defName
+`PhobosFactory_SynthesizeNeutroamineFromHumanMeat`, is in `Common/Defs/ProcessDefs/`; every 0.3.0 bill is in
+`Mods/<SourceMod>/Defs/ProcessDefs/`, beside the patch that adds it to its machine, and that folder loads only while the source mod is
+active (`LoadFolders.xml`). Change a yield by patching the result count:
+
+```xml
+<Operation Class="PatchOperationReplace">
+  <xpath>Defs/PipeSystem.ProcessDef[defName="PhobosFactory_SynthesizeNeutroamineFromHumanMeat"]/results/li[thing="Neutroamine"]/count</xpath>
+  <value><count>5</count></value>
+</Operation>
+```
+
+`Common/Patches/NeutroamineSynthesizer.xml` adds the human-meat bill to the synthesizer's process list and puts `Meat_Human` on the
+stock bill's `disallowedThingDefs`. Remove that second operation to let the stock bill take human meat again.
+
+Rules a new bill follows here, from reading Pipe System's code (28 October 2026): one result per bill (only the first is checked
+against the output hopper's filter); `maxOutputCount` set, and at most the result's stack limit minus the batch count (in Pipe System
+alone, above that the surplus of a finished batch is destroyed, and at zero a blocked output is dropped beside the machine; since
+0.5.1 this mod's output guard makes the machine wait instead of losing anything, but a limit within the stack still keeps the machine
+from trying); `researchPrerequisites` hides the bill from the Add menu until done; any ingredient may come from any input slot, but a
+hopper cell holds one stack. The offline checker `scripts/check-factory-patches.py` enforces the first three against the installed
+game.
+
+**Give every file in a `Mods/<SourceMod>/` folder that folder's name** (`MedicineGranulator_MedicinesPlus.xml`, not
+`MedicineGranulator.xml`). RimWorld keys a mod's Defs and Patches files by their path inside each load folder and loads only the copy
+in the folder listed last; the others are skipped without a message. That hid most of 0.3.0's bills. `scripts/check-mod-layout.py`
+now refuses a shared path.
+
+Since 0.6.0 every `Building_Storage` type gets the player's **Belts may take from here** switch at load
+(`Phobos.Factory.CompProperties_BeltAccess`, added in code; the saved key is `PhobosFactory_BeltsMayTake`). To make a storage
+building feed belts and machines **by default**, add Pipe System's extension to its Def instead. Since 0.11.0 its switch then starts
+on, as a factory hopper's does, and the player can turn belts off:
+
+```xml
+<Operation Class="PatchOperationAddModExtension">
+  <xpath>Defs/ThingDef[defName="YourStorageDef"]</xpath>
+  <value>
+    <li Class="PipeSystem.FactoryHopperExtension">
+      <isfactoryHopper>true</isfactoryHopper>
+    </li>
+    <!-- Optional, 0.7.0: belts take only what this storage's filter allows. -->
+    <li Class="Phobos.Factory.BeltFilterExtension" />
+  </value>
+</Operation>
+```
+
+It works only for storage whose items stay spawned on its cells (vanilla shelves, Adaptive Storage buildings); the belt reads the
+map's thing grid. Without `BeltFilterExtension` a belt takes whatever lies there, VFE Factory's own rule for hoppers. Add the
+`BeltFilterExtension` line only from a folder that loads while this mod is active (`IfModActive="PhobosDthorga.FactoryAdditions"`);
+without this mod the game doesn't know the class. The full reading is in [VFE Factory conveyors](vfe-factory-conveyors.md).
+
+**Automating another bench (0.5.0).** Add a `Phobos.Factory.BenchBillTemplateDef` naming the bench and a factory machine; the
+assembly turns every item that bench makes into a bill on that machine at load. The fabrication bay's templates are in
+`Common/Defs/BenchBillTemplateDefs/` and `Mods/Rimatomics/Defs/`:
+
+```xml
+<Phobos.Factory.BenchBillTemplateDef>
+  <defName>YourMod_SmithyBills</defName>          <!-- part of every bill's defName; saved, never rename -->
+  <machine>PhobosFactory_AutomatedFabricationBay</machine>
+  <sourceBenches><li>ElectricSmithy</li><li>FueledSmithy</li></sourceBenches>
+  <researchPrerequisites><li>Smithing</li></researchPrerequisites>
+  <billLabel>Make {0}</billLabel>                  <!-- {0}: the item's label -->
+  <billDescription>Make {0} as a smithy would.</billDescription>
+  <firstPriorityInBillList>400</firstPriorityInBillList>
+  <autoInputSlots><li>(0,0,3)</li><li>(-3,0,0)</li><li>(3,0,0)</li></autoInputSlots>
+  <sustainerDef>VFEFactory_AutomatedMachiningSustainer</sustainerDef>
+  <effecterDef>VFEFactory_Default</effecterDef>
+</Phobos.Factory.BenchBillTemplateDef>
+```
+
+Optional fields: `excludedThings` (items to leave at the bench), `workMultiplier` (default 4), `maxOutputCount` (default 75; never
+above the item's stack limit), `spawnOnInteractionCell` (default true).
+
+**Piped water on your own bills (0.10.0).** While Dubs Bad Hygiene is active, a factory bill uses water if its ProcessDef has this
+extension and its machine has the comp. Add both from a patch guarded with `IfModActive` or `PatchOperationFindMod`, because the
+classes exist only while Dubs Bad Hygiene is active. Both poison chances are optional and run from 0 to 1. An item without the game's
+`CompProperties_FoodPoisonable` ignores them.
+
+```xml
+<li Class="Phobos.Factory.Hygiene.WaterUseExtension">
+  <litresPerBatch>20</litresPerBatch>
+  <poisonChanceUntreated>0</poisonChanceUntreated>
+  <poisonChanceContaminated>0.25</poisonChanceContaminated>
+</li>
+```
+
+```xml
+<li>
+  <compClass>Phobos.Factory.Hygiene.CompFactoryWater</compClass>
+</li>
+```
+
+## Checks moved from the README (17 Nov 2026)
+
+The README's dated list of checks, as it stood. Later checks are in the changelog's entries.
+
+- 28 October 2026: the stock bill's ingredient matching read in Vanilla Expanded Framework's Pipe System code (category match,
+  exclusion list honoured, no human-meat filter anywhere in VFE Factory). The stock, insect and fish values read from the installed
+  mods' XML. The belt's pull rule and the machines' input rule read in VFE Factory's and Pipe System's code; Adaptive Storage
+  Framework's published source read for how it holds items. `scripts/check-mod-layout.py` passes.
+- 28 October 2026, owner, in game on RimWorld 1.7: the human-meat bill works.
+- 28 October 2026, 0.3.0: every source recipe's values read from the installed mods' XML, the granulator's bill rules read in Pipe
+  System's code, and `scripts/check-factory-patches.py` run against the owner's installation (RimWorld 1.7, 299 active mods): every
+  patch xpath matches one node, every Def name resolves, every output cap is within its stack limit.
+- 29 October 2026, owner, in game: the 0.3.0 bills were missing from the machines (RimDex listed them). Cause found in RimWorld 1.7's
+  file loader and confirmed by re-running the improved checker on the 0.3.0 files (41 of 45 bills on no machine); fixed in 0.3.1. The
+  checker passes on 0.3.1.
+- 29 October 2026, owner, in game on RimWorld 1.7 with 0.3.2: "Everything seems to be good in-game now" after checking that the bills
+  appear on the granulator, synthesizer (human meat back) and refinery.
+- 29 October 2026, 0.5.0: VFE Factory's machining bill generator, Pipe System's output step, menu and ingredient cache, the game's
+  stacking and recipe code, and Dubs Rimatomics' recipe unlock patch read in their decompiled 1.7 assemblies. The assembly builds with
+  no warnings for RimWorld 1.6 (1.6 retired 8 Nov 2026; 1.7 only since); every game and Pipe System member it calls exists in the 1.7
+  assemblies. The output-limit rule has unit tests, and `scripts/check-factory-patches.py` passes against the owner's installation
+  (RimWorld 1.7, 300 active mods), including the three bench templates. The bill counts come from a scan of the installed mods' files.
+- 29 October 2026, 0.5.1: every factory bill in the owner's mods scanned for an output limit that can lose items (74 of 134 at
+  risk). Pipe System's output step and quality step, VFE Factory's result workers and the game's random number state read in the 1.7
+  assemblies (the output step is the same in the 1.6 build). Builds with no warnings; the output rule has unit tests.
+- 29 October 2026, 0.6.0: VFE Factory's belt pull, neighbour cache and hand-over, Pipe System's input check and polling, Adaptive
+  Storage Framework's storage class and Rimefeller's unloading-bay code read in their decompiled assemblies (VFE Factory ships one
+  assembly for 1.6 and 1.7). A read-only survey of the storage buildings in the owner's 300 active mods. Builds with no warnings
+  against VFE Factory's installed assembly; every game member the switch uses exists in RimWorld 1.7. No automated test covers it:
+  everything it does happens inside the game.
+- 30 October 2026, 0.6.1: VFE Factory's pull order re-read (behind, then clockwise, then counter-clockwise; the side it passes is the
+  direction from the belt to the neighbour). Builds with no warnings.
+- 30 October 2026, 0.7.0: the owner's PG6 save read (a read-only copy): 9 of 579 belts stuck empty and waiting, two on the meat line;
+  the slag chunk's last cell on the corpse fridge; the one switched-on building and all 25 unloading bays allow what they hold. VFE
+  Factory's belt tick, state changes, pull, hand-over and "Haul from conveyor" job read in its assembly; the game's container add,
+  `Thing.SplitOff`, storage settings and storage-group lookup read in the RimWorld 1.7 assembly. Builds with no warnings; the
+  stuck-belt rule has unit tests.
+- 31 October 2026, 0.8.0: VFE Factory's stock medicine bill, the game's medicine recipe, cloth and synthread values, healroot's sowing
+  rules, and Rimefeller's synthread refiner (its Def and refinery code) read from the installed mods and the decompiled 1.7 assembly.
+  No mod on the owner's list already makes medicine from synthread. `scripts/check-factory-patches.py` passes against the owner's
+  installation (301 active mods, 46 bills).
+- **Not checked** (as the README stood): whether each new bill feeds, finishes and outputs as expected; whether the two corner input
+  cells work; whether a belt takes chemfuel from a tap (0.3.2); whether the stock bill now refuses human meat, whether a belt actually
+  lifts a corpse out of the fridge, and what happens on removal. For 0.5.0 and 0.5.1: everything in game, starting with the startup
+  log line, the bay's Add process menu, one bionic made end to end, and a machine waiting at a full output hopper instead of eating
+  its inputs. For 0.6.0 and 0.6.1: the startup log line, a machine's input cell on switched-on storage, and the switch surviving a
+  save and load. For 0.7.0: the stuck belts in the owner's save waking on load (expect "Woke a stuck ..." log lines), and a stray item
+  staying on the corpse fridge while corpses ride out.
+- 2 November 2026, 0.9.0: the stock soup and meal bills, the pot's process and the soup items read from the installed mods' XML; VFE
+  Factory's meal formula and Pipe System's output step read in their decompiled assemblies. The owner's screenshot of 24 uncooked
+  soups fits batches of 8. `scripts/check-factory-patches.py` passes. Not yet tested in game.
+- 2 November 2026, 0.9.1: Pipe System's default result worker read (it returns the bill's count). `scripts/check-factory-patches.py`
+  passes with the stock soup correction. Not yet tested in game.
+- 2 November 2026, 0.10.0: Dubs Bad Hygiene's plumbing, the game's food poisoning and its assembly loader, and Pipe System's process
+  tick read in their decompiled 1.7 assemblies; both assemblies build with no warnings against 1.6 (1.6 retired 8 Nov 2026; 1.7 only
+  since), and every member they call exists in the 1.7 assemblies. The water rule has unit tests, and
+  `scripts/check-factory-patches.py` passes. Not yet tested in game.
+- 2 November 2026, 0.11.0: VFE Factory's belt pull read in its IL as well as decompiled, because the decompiler hides the check that
+  refuses ordinary storage. The switch's rules have unit tests, and the assemblies build with no warnings. Not yet tested in game.
+- 3 November 2026, 0.11.1: the endless output traced through Pipe System's output step (its 2 November 2026 build) and the game's
+  direct placement and spawn code, in their decompiled 1.7 assemblies, and matched against the owner's save (mincers stuck
+  mid-batch). The rule has unit tests, the assemblies build with no warnings, and `scripts/check-factory-patches.py` passes. Not yet
+  tested in game.

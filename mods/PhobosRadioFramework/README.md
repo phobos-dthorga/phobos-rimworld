@@ -51,10 +51,8 @@ Research **Local radio** (after Microelectronics Basics). Then:
 | Whip antenna | Architect → Misc, 15 steel | 1 × 1, 3 m high, no gain. Cheap way to get the antenna outside. |
 | Mast antenna | Architect → Misc, 60 steel + 1 component | 1 × 1, 10 m high, 3 dBi. Sees over walls. |
 
-A colonist wearing a hand-held shows a **Radio** gizmo with signal bars. Click it for the full
-link-budget sheet. The station's gizmo and inspect text say how many hand-helds are in touch, and which
-antenna it is using. A free colonist whose link is workable or clean gets the small **in touch with
-home** mood; a marginal link gives a fainter one.
+How to build, read the signal, and the play test are in the player guide's [Radio chapter](../../docs/player-guide/radio.md); the
+figures are here.
 
 **What decides a link** (both directions; the worse one counts):
 
@@ -67,28 +65,11 @@ home** mood; a marginal link gives a fainter one.
 - coax length: 8 dB per 100 m on VHF, more on UHF;
 - your own generators and batteries, which raise the noise floor near them.
 
-The station uses whichever antenna on its coax gives the best link, or its built-in whip if that is
-better or nothing is connected. A mountain base needs coax out to an antenna on the surface.
-
-**Display modes** (mod settings): *Plain* shows bars and one reason; *Operator* adds band, SNR, margin
-and the limiting direction; *Engineer* shows every term on the sheet. Click a radio's gizmo for the
-link-budget window, which can show one level more than your setting. The station has a **Net** tab.
-
-**While placing** an antenna or the station, the cursor shows its height, the roof over that cell and
-the colony noise there. Red means overhead mountain: nothing gets through it.
+**Display modes** (mod settings): *Plain*, *Operator* and *Engineer*, as the guide describes; the
+outcome is the same in each.
 
 **Dev mode** (Actions → Phobos Radio): log the selected pawns' sheets, log the noise at a cell,
 recompute the net now.
-
-## What to try first (the owner's play test)
-
-1. Research Local radio; build the station indoors under a built roof; craft a VHF hand-held and wear it.
-2. Walk the wearer outside, then behind a stone wall, then into a mountain: watch the bars and the reason.
-3. Lay coax from the station out of the building to a mast antenna; see the station switch to it.
-4. Stand near a running generator: the noise line should appear and the margin fall.
-5. Open the Engineer sheet: every term should add up to the margin, and the limiting direction should
-   make sense (the 5 W hand-held usually limits, not the 25 W station).
-6. Check the needs tab for "in touch with home".
 
 ## For modders
 

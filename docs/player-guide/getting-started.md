@@ -5,8 +5,9 @@ Install the mods, pick the settings that are hard to change later, and know how 
 
 ## Read this first (gotchas)
 
-- **Close RimWorld before installing or updating.** The install script refuses while the game runs, so a half-copied mod never
-  loads.
+- **RimWorld 1.7 only.** No mod here supports 1.6.
+- **Close RimWorld before installing or updating.** The install script refuses while the game runs, or while a File Explorer window
+  is open inside an installed mod's folder, so a half-copied mod never loads.
 - **Back up your save first**, every time you add, remove or update a mod. Saves are in
   `%USERPROFILE%\AppData\LocalLow\Ludeon Studios\RimWorld by Ludeon Studios\Saves`, which most cloud sync tools skip.
 - **Update every D'thorga mod together.** They are built as a set: D'thorga Vehicles, for example, needs a recent D'thorga
@@ -25,21 +26,32 @@ git clone https://github.com/phobos-dthorga/phobos-rimworld.git
 cd phobos-rimworld
 python scripts/deploy.py --build --apply --all          build every mod, then copy every one into the game
 python scripts/deploy.py --build --apply PhobosMedical  build and copy one mod (its folder under mods/)
+python scripts/deploy.py --all                          only list what would be copied
 ```
 
-The script finds the game for you in the usual Steam folder; [installing the mods](../installing-mods.md) has the other ways to
-point it at the game, and where it keeps a backup of whatever it replaces. **Code → Download ZIP on GitHub gives you source, not a
-working mod.**
+**Code → Download ZIP on GitHub gives you source, not a working mod**: the built files are not kept on GitHub.
+
+- **Where the game is.** The script looks in this order: `--game <folder>`, the `RIMWORLD_PATH` environment variable,
+  `"rimworldPath"` in `.local/install-settings.json`, then the usual Steam folder.
+- **Backups.** Whatever it replaces is copied to `.local/deploy-backups/` first.
+- **Textures.** If RimSort is installed, the script also prepares our textures the way RimSort would, so you can skip RimSort's
+  texture step for our mods. Without RimSort the mods still work.
+- **More detail** for building: [building, testing and deploying](../development/building.md).
 
 Then start RimWorld, open **Mods**, switch on what you want with what it needs, and let the sorter order them:
 
 1. Harmony, Core and the DLCs (the game puts these first).
 2. **Vanilla Expanded Framework, Vehicle Framework, Dubs Bad Hygiene, VFE - Factory**: whichever of these the D'thorga mods you
-   chose need ([the table](README.md#the-mods)).
+   chose need ([the table and diagram](../../README.md#the-mods)).
 3. **D'thorga Framework.**
 4. The other D'thorga mods, after the mods they change. Each About file asks for this, so RimSort does it.
 
-When the Steam Workshop pages exist, you will subscribe to a mod and to what it needs, and the order above still applies.
+**From the Steam Workshop, once the pages exist:**
+
+1. **Subscribe to the mod, and to what it needs** (Harmony, D'thorga Framework, Vanilla Expanded Framework and so on). Its README
+   says which.
+2. **Turn it on** in the Mods menu or in RimSort, in the order above.
+3. **Read the settings below before loading a save.**
 
 ## Settings to decide before a colony
 
@@ -105,7 +117,7 @@ for what went missing, and with vehicles the save may fail to load.
 
 | Mod | Before you remove it |
 | --- | --- |
-| D'thorga Framework | Remove the mods that need it first. If vehicles used the systems, load the colony, press **Remove the added parts from this colony's vehicles** in its vehicle settings, then save. **Take every vehicle out of every garage**, or they go with it. Sell or use up jump-start kits and booster packs if you want a clean log |
+| D'thorga Framework | Remove the mods that need it first. If vehicles used the systems, load the colony, press **Remove the added parts from this colony's vehicles** in its vehicle settings, then save. **Take every vehicle out of every garage**, or they go with it; likewise **recover every sling wreck**, **let a water drop run land and unload every litter**, and **take any extra fuel tank off**. Sell or use up jump-start kits and booster packs if you want a clean log |
 | D'thorga Vehicles | **Scrap every one of our vehicles** (tanker, drill rig, tipper, survey truck, generator set, seabed crawler): they go with the mod. Pack up a set-up generator set first, or its cable end is left behind. Empty every garage |
 | D'thorga Medical | In its settings press **Remove every condition this mod adds, from every pawn**. Deconstruct its machines and burn unit beds; sell, use or destroy its items |
 | D'thorga Factory Additions | Remove the bills it added from each machine's Processes tab and let running batches finish. Deconstruct every deep factory hopper and fabrication bay |

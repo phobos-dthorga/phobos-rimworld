@@ -240,3 +240,33 @@ Both are other authors' interplay, not ours; drafts the owner can post.
 - A dressing or fluids kit for burns belongs to D'thorga Medical Equipment, which already gives oxygen and air-cell burn care;
   not here.
 - The two upstream faults above, for the owner to post.
+
+## For modders (moved from the README, 17 Nov 2026)
+
+Moved here when D'thorga Medical's README was slimmed; the text is the README's as it stood.
+
+Keep an ingestible out of automatic dosing:
+
+```xml
+<modExtensions>
+  <li Class="Phobos.Dosing.Defs.PhobosDosingExtension">
+    <neverAutoDose>true</neverAutoDose>
+  </li>
+</modExtensions>
+```
+
+An ingestible is indexed when an `IngestionOutcomeDoer_GiveHediff` of its gives a condition whose stage at the dose takes away at
+least 30% of the pain (through `painFactor` and a negative `painOffset`) and its score is above zero. Consciousness and breathing
+offsets, consciousness `setMax`, `totalBleedFactor` and the drug comp's addictiveness and category are read from the same Defs. An
+effect a mod applies from its own code, not its XML, is invisible to the index. Balance lives in
+`Common/Defs/Phobos/Dosing/Rules.xml` (one `PhobosDosingRulesDef`, first loaded wins).
+
+Score = pain relief minus half the consciousness cost (not for sedatives) minus half the breathing cost minus the bleed increase (a
+quarter of it when the patient is not bleeding) minus half the addictiveness. Every figure is an authored starting value in the
+rules Def.
+
+| Need | Who | Given | Not given when |
+| --- | --- | --- | --- |
+| pain relief | resting, pain at or past 40% | the medical painkiller with the best score | a medical painkiller still at a quarter of a dose or more; overdose at 30% or more; a dangerous stage would be reached; consciousness or breathing would fall under 15% |
+| sedation | resting, pain at or past 80%, no medical painkiller can be given | the sedative with the best score | its own last dose still working; otherwise the same |
+| last resort | setting on, nothing above can be given | the recreational painkiller with the best score | the same |

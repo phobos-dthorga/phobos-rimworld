@@ -47,7 +47,10 @@ upgrades let it rest on the bottom, listen, ping, and carry a laboratory. The di
 
 With **bottoming wheels** (research **seabed running gear**), press **Settle on bottom**. It uses half the air and charge and is far
 harder to find. **It must lift off before it can move.** An **air scrubber** (research **air purification**) gives six more hours
-under.
+under, and a crew told to stay down past empty suffers more slowly.
+
+**Under the water, you hear only your own boats**: their creaks, air scrubber, laboratory and contacts. A hidden enemy boat makes no
+sound you can hear, so its noise never gives it away.
 
 ## Listening and sonar
 
@@ -95,10 +98,9 @@ Radar, a manipulator arm and a seabed drill are designed and drawn, and not buil
 ## The X-1 test hull
 
 **Not a finished vehicle, and it cannot be built.** In dev mode, **Vehicle systems: spawn a submersible** places one, crewed, for
-trying out diving.
+trying out diving, in deep or chest-deep water. It wears the Crawler's bare hull and is the Crawler's size, 4 by 9 cells.
 
 ## What has been tested in game
 
-**Nothing in this chapter yet.** It is built and checked offline. The full detail is in
-[D'thorga Vehicles' README](../../mods/PhobosVehicles/README.md#the-fathom-seabed-crawler-not-yet-tested-in-game) and
-[D'thorga Framework's README](../../mods/PhobosFramework/README.md#submersibles-new-in-0580-spotting-in-0590-not-yet-tested-in-game).
+**Nothing in this chapter yet.** It is built and checked offline. What changed in each version is in
+[D'thorga Vehicles' changelog](../../mods/PhobosVehicles/CHANGELOG.md).

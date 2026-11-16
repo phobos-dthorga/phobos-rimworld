@@ -353,3 +353,21 @@ To Psionic Zephyr, on the Workshop page of InterRim Ballistic Missile:
   `Verse.Building`, `Verse.Thing`); the 1.6 reference assembly (`Krafs.Rimworld.Ref` 1.6.4633) for the updater's fields.
 - The IRBM Workshop comments page (fetched 7 November 2026, first page of 855): players asking for 1.7 since mid-October, no
   author reply visible, no comment reporting this hang; the description page was region-blocked, so the licence is unread.
+
+## Moved from the README (17 Nov 2026)
+
+The owner's go-ahead of 17 November 2026 ("Slim them") cut D'thorga Patches' README to today's gotchas, the settings and links. **How
+to play is now in the player guide's [Patches chapter](../player-guide/patches.md#interrim-ballistic-missile)**, and the settings
+table stays in [the README](../../mods/PhobosPatches/README.md#settings); where the sections above say "the README", read those. What
+the README held that no other record, the guide or the changelog carried is kept here as it was written.
+
+**Why 0.7.0 crawled** (read from the mods' code, 7 November 2026). Every building went through the full damage path. With Combat
+Extended's wall fragments on, each one threw about a hundred fragments; the game stays paused during a strike, so they never flew
+away, and every one made the next removal slower. Each fallen wall also checked the whole connected roof for collapse, and left
+rubble, filth and leavings that grew the map's lists further.
+
+**How to tell the Visit Settlements part is working.** The load line says "a visited settlement's map stays open while your people
+can still act there or a battle is on", and, for the food drops, "friendly settlements' food drops leave out pawns that do not eat"
+and "a fault in its settlement events waits its usual days instead of repeating every tick". When it saves a map, the log says "Kept
+the map of ... open", once an in-game hour. If Visit Settlements changes its code, the load line says the part is off and why. A
+failure in those events is logged as one warning a day.

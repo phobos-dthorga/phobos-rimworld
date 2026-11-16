@@ -111,3 +111,9 @@ It changes nothing in the world.
   freely, taking gear off outside the line, the sign's look, cost and text, and the two Harmony targets. All are the owner's to revise.
 - **Agent (10 Nov 2026, the performance fix):** the game's failed-path wait (250 ticks) for a turned-back colonist whose route crosses
   the zone, and three sendings for gear before turning back. Both are the owner's to revise.
+
+## For modders (moved from the README, 17 Nov 2026)
+
+The machinery is D'thorga Framework's (`Phobos.Framework.Protection`): a `ProtectionZoneDef` names a stat and how much of it is
+needed, `CompProperties_PhobosControlPoint` makes a building a control point, and `Designator_PhobosProtectionArea` paints an area.
+Any mod can add a kind of line in XML; the two Harmony hooks live in D'thorga Medical.

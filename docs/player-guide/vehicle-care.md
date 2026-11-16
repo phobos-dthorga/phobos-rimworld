@@ -22,7 +22,9 @@ them running. It applies to **every Vehicle Framework vehicle from any mod**, no
   author's speeds.
 - **Removing D'thorga Framework or Vehicle Framework from a colony that used the systems: press the removal button first.** Load
   the colony, press **Remove the added parts from this colony's vehicles** in the settings, save, then remove the mod. Without it,
-  saved vehicles may fail to load. **Take every vehicle out of every garage** too.
+  saved vehicles may fail to load. Before that, also **take every vehicle out of every garage**, **recover every sling wreck** on the
+  world map, **let a water drop run land and unload every litter**, and **take any extra fuel tank off**: whatever is left in them goes
+  with the mod.
 
 ## The three tabs
 
@@ -146,7 +148,7 @@ Not yet tested in game. A vehicle loses its jobs before it is a wreck, and every
   turret; a coaxial gun goes with its turret. Aircraft have no turret drive. **Keep the engine running in a long fight.**
 - **A tank's turret can be blown off** when its ammunition rack goes up: a hit on a badly damaged rack, or ammunition cooking off in a
   fire. Only tanks with an ammunition rack part (RimThunder's), and only while ammunition cook-off is on. The crew rarely survives.
-- **Field repairs** (the button that used to read Patch leaks) also **re-fits a thrown track or a wrecked wheel** with a component from
+- **Field repairs** also **re-fits a thrown track or a wrecked wheel** with a component from
   the cargo, back to a quarter of its health: enough to drive home slowly. It still needs replacing properly.
 - **Crews leave a burning vehicle or a dead hull** (one that can neither move nor fire). Raiders and other factions climb out by
   themselves, leaving the vehicle for you to claim. **Yours never leave on their own**: the **Crew in danger** alert lists them.
@@ -194,6 +196,9 @@ shows while a dyno bay is in reach. It works on any vehicle, from any mod, that 
 - **It is real work.** Materials are brought, then a mechanic works: a turbocharger on a 5-tonne vehicle is about 12 hours and 100
   steel and 10 components; a power tune about 10 hours. Bigger vehicles cost more. **Demanding work needs a minimum Construction
   skill**; a mechanic below it is told why.
+- **Our own vehicles' upgrades cost the same way**, under the same three settings (**Time to fit and tune**, **Materials to fit and
+  tune**, **Bigger vehicles cost more to fit and tune**); taking one off refunds a share of what it cost. Other mods' upgrades keep
+  their own costs.
 - **Rest the mouse on any choice** to see what it would change ("engine power up, fuel burned up" in Plain mode). Its details stay in the strip at the foot of the window until you rest on another choice, so you can move down and scroll them.
 - **Families** (not yet tested in game): above the parts, **Fit all** orders a whole family in one go, on every part it suits; each
   piece can still be fitted on its own below. The **cold-weather pack** puts a block heater in every engine and a deep-cycle battery
@@ -329,7 +334,9 @@ Not yet tested in game. Any land vehicle can tow a trailer such as the [Pintle f
   it is set down beside and swings into line as you drive off.
 - **A towing or towed vehicle cannot be lifted on a sling**: unhitch it first.
 - **A trailer or vehicle that is set up cannot be hitched**, nor one a colonist is on the way to set up: pack it up first. A towed vehicle
-  cannot be set up either (from Framework 0.111.0, not yet tested in game).
+  cannot be set up either.
+- **Two tanks within reach of a hose pump one into the other**: set one up on **Unload** and the other on **Load**, both holding the same
+  fluid. A trailer that takes water lays hidden plumbing beneath itself while it stands unhitched.
 
 ## Recovering a stuck vehicle
 
@@ -362,12 +369,31 @@ Not yet tested in game. Fit the **recovery winch** (the **Recovery** family in t
 
 | Vehicle | What is different |
 | --- | --- |
-| **Electric vehicles** | A traction battery that gives less in the cold and heat and wears with age; charges parked over a powered conduit. Brakes wear a third as fast. **New battery modules**: 10 components, 20 steel |
-| **Steam locomotives** (Trains of the Rim) | Hours to raise steam from cold; a water glass; refill at a **water stop** (with Dubs Bad Hygiene, from water towers). Run it dry and the fusible plug melts. **Boiler explosions** and **Realistic feed water** are settings, off by default |
+| **Electric vehicles** | A traction battery that gives less in the cold and heat and wears with age; charges parked over a powered conduit, from the network's stored energy. Brakes wear a third as fast; the cab's heater and air conditioner cost range. **New battery modules**: 10 components, 20 steel. An overheated battery catches fire only with the **Battery fires** setting (off). The Lightning (D'thorga Vehicles) is electric only with **The Lightning runs on batteries** on |
+| **Steam locomotives** (Trains of the Rim) | Hours to raise steam from cold; a water glass; refill at a **water stop** (with Dubs Bad Hygiene, from water towers). Run it dry and the fusible plug melts. **Decide two settings before you run one**: **Boiler explosions** (off; on, a boiler without a fusible plug, such as the American 4-8-4, explodes when its water runs below the firebox crown) and **Realistic feed water** (off: a water stop draws a tenth of the real tender, 6,800 litres for the 4-8-4, under one Dubs water tower's 8,000; on, the real 68,000) |
 | **Diesel-electric locomotives** | Traction motors heat when pulling hard from a standstill. Ease the load and let them cool |
 | **Boats** | Cool with sea water: no radiator |
+| **Aircraft** | A battery, generator, service and gas turbine; their engines cool unlike a car's, so they have no coolant |
 | **Helicopters** named by D'thorga Vehicles | A rotor drive that is **over-torqued** if asked for more than its gearbox takes |
 | **The Harrier** (with D'thorga Vehicles) | Water injection for a heavy hover: refill 227 litres, from plumbing beside it with Dubs Bad Hygiene, otherwise free |
+
+## How a vehicle gets its systems
+
+- **By what it is, not its name**: what it runs on, and whether it drives, floats or flies. Light land vehicles (Vehicle Framework mass
+  under 120) run on petrol, medium ones (120 to 350) on diesel, heavy ones (350 and more) on 24 V and diesel; any vehicle with tracks
+  is tracked. Other mods (D'thorga Vehicles first) can give a named vehicle its own figures.
+- **The engine counts as running** while the vehicle is drafted, moving in a caravan or flying, with fuel aboard. Idling counts as half
+  the work.
+- **Per vehicle, in Vehicle Framework's own settings** (each vehicle's page in its mod settings) you can change the battery capacity,
+  alternator output, starter draw, engine heat, radiator cooling, thermostat, oil use, tyre wear, gearbox heat, the air brakes'
+  compressor and leak, and the **empty mass** (the weight with nothing aboard: real vehicles named by D'thorga Vehicles carry their
+  real weights, others start at 12 kg per Vehicle Framework mass). Each starts at the vehicle's own figure.
+- **With Combat Extended**, the added parts take the engine's cells and armour, so shots can reach them. A hit on a part counts only the health
+  the part really lost, so a round the armour stopped drains nothing.
+- **With RimHUD**, a value named **Vehicle (D'thorga Framework)** can be added to its pawn display: which vehicle a person is aboard
+  and in what role, with the fuel, the cab and what the vehicle waits for in its tooltip.
+- **Figures and supplies are gameplay choices**, each labelled with its source or as authored. Chemfuel stands in for oil, coolant
+  and the rubber in tyres, because the game has none of them.
 
 ## What has been tested in game
 
@@ -387,4 +413,5 @@ Not yet tested in game. Fit the **recovery winch** (the **Recovery** family in t
 - **Read from the code and checked offline:** every system above passes its rule tests, and a dev-mode **"Vehicle systems: run the
   self-test"** checks most of it on a throwaway vehicle without touching your colony.
 
-The full detail, with every figure and setting, is in [D'thorga Framework's README](../../mods/PhobosFramework/README.md#vehicle-systems-with-vehicle-framework).
+Every setting, with its default, is listed in [D'thorga Framework's README](../../mods/PhobosFramework/README.md#settings); what
+changed in each version is in [its changelog](../../mods/PhobosFramework/CHANGELOG.md).

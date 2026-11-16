@@ -7,12 +7,12 @@ say so when it does.
 
 **What this page covers (17 Nov 2026):** it was first written for Framework 0.10.0 and describes D'thorga Framework as of 0.117; its
 inputs table was checked against that version's code and lists every input class. **Not yet covered here:** the avionics block on a loadout, weapon mounts and the knock-out rules
-(`PhobosKnockOutRules`), load-shedding order (`shedOrder`), fittings and their families, what a fitting needs to work (`FeedSpec`), parts
-bills, the hitch, the sling, and some conditions and effects (`When_RanDry`, `When_PoorVisibility`, `When_InstrumentWorking`,
+(`PhobosKnockOutRules`), load-shedding order (`shedOrder`), fittings and their families, what a fitting needs to work (`FeedSpec`),
+the hitch, the sling, and some conditions and effects (`When_RanDry`, `When_PoorVisibility`, `When_InstrumentWorking`,
 `When_StatAbove`, `When_Winching`, `When_TankPumping`, `Effect_RefuseLaunch`, `Effect_FlightFuel`, `Effect_Sound` and others). Until
 then, the shipped Defs under `mods/PhobosFramework/Mods/VehicleFramework/Common/Defs/Phobos/Framework/VehicleSystems/` are the
-reference, and [the authors' override contract](development/vehicle-author-overrides.md) and [parts bills](development/parts-bills.md)
-describe two of them.
+reference, and [the authors' override contract](development/vehicle-author-overrides.md) describes one of them. **Parts bills**
+(what a vehicle is built from, by role) are core Framework services, on [D'thorga Framework for modders](framework-modding.md#parts-bills).
 
 ## Read this first (gotchas)
 
@@ -389,6 +389,14 @@ or clear, to see the caravan slow and its explanation). The cab's temperature is
 **fill history with a test curve** (a day of sine waves in every graph), **open the Dashboard tab**, **open the Systems tab** and
 **log tab state** (how many vehicles' tab state is held; it should be none after the tab closes).
 
+Two checks need no vehicle selected:
+
+- **"Vehicle systems: run the self-test"** reads every vehicle you have, then exercises fittings, tunes, part replacement, grades and a
+  sling lift on a throwaway vehicle, and opens a pass or fail report. Nothing in the colony is touched. Every load in dev mode also
+  checks the vehicles by itself.
+- **"Vehicle systems: measure the cost for an in-game hour"** (or **day**) times the vehicle model and gives a verdict against its
+  budget of 0.05 ms a tick on average. Leave the game running unpaused.
+
 ## A vehicle's own weight and power
 
 Vehicle Framework's `Mass` is not comparable between mods, so a vehicle can carry its own figures:
@@ -576,6 +584,21 @@ Give a vehicle a `Phobos.VehicleSystems.CompProperties_PhobosTank` listing its `
 List `compartmentNodes` (each a `node` and how many `compartments` it gives) to let the tree divide a tank.
 
 A fluid is a `Phobos.VehicleSystems.PhobosTankContentsDef`: `phase`, `foodStatus` (`Auto` reads the nutrition of its item, `Food` and `NotFood` are the whitelist and blacklist), `unitLabel`, `kilogramsPerUnit`, `flammable`, `spillFilth`, the optional limits `freezesBelow`, `thickensBelow` with `thickestAt`, `spoilsAfterDays` (with `spoilWord`) and `ventsAbove`, what it does when things go wrong (`detonatesOnHit`, `explosionDamage`, `explosionRadiusFactor`, `ignitesWhenSpilled`, `pollutionCellsPerUnit`), and its `ports`. Shipped ports: `Port_Items` (with `unitsPerItem`), `Port_VehicleFuel`, `Phobos.VehicleSystems.Pipes.Port_PipeNet` (with `net`, needs Vanilla Expanded Framework) and `Phobos.VehicleSystems.Hygiene.Port_DubsPlumbing` and `Port_DubsSeptic` (need Dubs Bad Hygiene). Subclass `TankPort` for your own: `Draw` and `Give` return the units moved. See D'thorga Vehicles' bulk tanker for a worked example.
+
+## Submersibles
+
+Give a Sea vehicle a `Phobos.VehicleSystems.CompProperties_PhobosSubmersible` and the stats `Phobos_DiveEndurance` (hours) and
+`Phobos_DiveControl`, and list those stats in the categories of the parts that feed them. To let a small boat dive in chest-deep water
+and rivers, set `divesInChestDeepWater`. To have sonar or the like find a boat, call `Spot()` on its comp. Every figure is optional in
+XML; [the design](development/submarine-framework.md) lists the fields, and D'thorga Vehicles' Seabed Crawler is the worked example.
+How it plays is in the player guide's [submarines chapter](player-guide/submarines.md).
+
+## Upgrade costs like tunes
+
+Put `<li Class="Phobos.VehicleSystems.PhobosUpgradeCostsLikeTunes" />` in an upgrade tree's `modExtensions` and its nodes cost what
+fittings and tunes do, under the player's settings **Time to fit and tune**, **Materials to fit and tune** and **Bigger vehicles cost
+more to fit and tune**; taking one off refunds a share of what it cost when fitted. Trees without it keep their own costs. D'thorga
+Vehicles' trees (`UpgradeTree_BulkTanker.xml` and the others) opt in.
 
 ## The shipped systems
 

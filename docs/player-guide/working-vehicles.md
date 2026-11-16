@@ -18,6 +18,8 @@ the sea, and three trailers any of them can tow: a flatbed and two bowsers. It a
   you pack it up. **If its engine stops, the work stops too**, and stays stopped even after refuelling until someone aboard starts the
   engine again.
 - **A trailer has no crew: a colonist with construction work sets it up and packs it up** (the bowsers, not yet tested in game).
+  **A set-up trailer cannot be hitched**: pack it up first.
+- **The water bowser exists only with Dubs Bad Hygiene**, and not in its lite mode, which has no plumbing.
 - **A vehicle that is set up cannot drive.** Its engine can still be started, but press **Pack up** before you move it.
 - **Heavy trucks have air brakes**: after standing for hours, draft one and let it idle a few minutes before it will drive.
 - **A trailer goes on journeys with the vehicle towing it**, cargo and all (see the towing section of the vehicle care chapter).
@@ -29,19 +31,20 @@ the sea, and three trailers any of them can tow: a flatbed and two bowsers. It a
 
 *To scale: one game cell is the same size in every picture. The tanker is shown with a liquid tank fitted.*
 
-Every name is a real word from engineering or earth science that says something true about the job.
+Every name is a real word from engineering or earth science that says something true about the job. Each vehicle's description in
+the game opens with its designation: the name, its first letter and a mark number. A refit adds a letter, as the Crawler's F1-S does.
 
-| Vehicle | Size (cells) | Job | The name means |
-| --- | --- | --- | --- |
-| **Datum survey truck** | 3 x 7 | Finds ore anywhere you can drive | The reference point every survey measures from |
-| **Kelly drill rig** | 3 x 10 | Brings deep ore up fast | The square bar that turns the drill string on a rotary rig |
-| **Talus tipper truck** | 3 x 8 | Hauls 2,400 kg and tips it in one go | The heap of broken rock at the foot of a cliff |
-| **Ullage bulk tanker** | 3 x 10 | Carries and pumps fluids, buys them in bulk | The empty space a tank must keep above its load |
-| **Busbar generator set** | 3 x 8 | A power station you can drive away | The bar that carries power into a grid |
-| **Fathom seabed crawler** | 4 x 9 | A small submarine ([its chapter](submarines.md)) | The sailor's six-foot depth unit; to get to the bottom of something |
-| **Pintle flatbed trailer** | 3 x 7 | A second load behind any land vehicle | The hook-and-ring coupling a drawbar trailer hangs from |
-| **Pintle water bowser** | 3 x 8 | 2,500 litres of water to a camp (Dubs Bad Hygiene) | A bowser is a tank trailer, named after Sylvanus Bowser's fuel pump |
-| **Pintle fuel bowser** | 3 x 8 | 2,500 litres of chemfuel to vehicles and generators | As the water bowser |
+| Vehicle | Designation | Size (cells) | Job | The name means |
+| --- | --- | --- | --- | --- |
+| **Datum survey truck** | D1 | 3 x 7 | Finds ore anywhere you can drive | The reference point every survey measures from |
+| **Kelly drill rig** | K1 | 3 x 10 | Brings deep ore up fast | The square bar that turns the drill string on a rotary rig |
+| **Talus tipper truck** | T1 | 3 x 8 | Hauls 2,400 kg and tips it in one go | The heap of broken rock at the foot of a cliff |
+| **Ullage bulk tanker** | U1 | 3 x 10 | Carries and pumps fluids, buys them in bulk | The empty space a tank must keep above its load |
+| **Busbar generator set** | B1 | 3 x 8 | A power station you can drive away | The bar that carries power into a grid |
+| **Fathom seabed crawler** | F1, F1-S, F1-L | 4 x 9 | A small submarine ([its chapter](submarines.md)) | The sailor's six-foot depth unit; to get to the bottom of something |
+| **Pintle flatbed trailer** | P1 | 3 x 7 | A second load behind any land vehicle | The hook-and-ring coupling a drawbar trailer hangs from |
+| **Pintle water bowser** | P2 | 3 x 8 | 2,500 litres of water to a camp (Dubs Bad Hygiene) | A bowser is a tank trailer, named after Sylvanus Bowser's fuel pump |
+| **Pintle fuel bowser** | P3 | 3 x 8 | 2,500 litres of chemfuel to vehicles and generators | As the water bowser |
 
 How they work together:
 
@@ -64,10 +67,14 @@ flowchart LR
 - **Overdrive** (drill rig and survey truck): doubles the pace while the engine runs flat out. Fuel goes 2.5 times as fast and the
   working parts wear. It switches itself off at half health on any working part, or if the engine overheats.
 - **Power point**: the drill rig and survey truck set out a small power point. With a powered conduit or generator within 6 cells,
-  they run off the grid instead of their engine.
+  they run off the grid instead of their engine. The setting **Power points have the larger socket** (off) changes only the point's
+  picture, for the next one a truck sets out.
 - **Progress bars** show how far a drilling portion, a survey or a pump has got.
-- **Every vehicle sounds like itself**: its engine follows the drive, and its work has its own sounds. **D'thorga sounds volume**
-  in D'thorga Framework's settings turns them all down.
+- **Every vehicle sounds like itself**: its own engine start and stop, its own door, and an engine that rises as it revs, drops at
+  each gear change and growls harder under load. The heavy trucks hiss their air brakes as they stop and splutter when the tank runs
+  dry. Their work has its own sounds too: the tanker's hoses and pump, the tipper's rams and tailgate, the drill rig's hammer, the
+  survey truck's boom and a soft tone for a find, the generator set running. **D'thorga sounds volume** in D'thorga Framework's
+  settings turns them all down or off.
 
 ![Upgrades for the working trucks: tanker tanks and hose reel; drill rig bits, mast, power pack, deepchem head, oil well kit and lights; tipper boards and bodies; survey truck arrays, probe, battery and groundwater kit; and the generator set's alternator, reel, battery, fan and heat exchanger](images/truck-upgrades.png)
 
@@ -94,8 +101,9 @@ Upgrades are fitted in Vehicle Framework's **Upgrades** tab and show on the vehi
 | A first find | About 7 hours on average: ten times quicker than the game's scanner |
 | Each later find on the same map | Takes longer than the last: one and a half times, up to eight times |
 
-**Upgrades:** a **geophone array** or a **radiometric probe** (not both); a **long-range array** that searches nearby lands for one
-ore instead of this map (press **Long range**; a find becomes a place on the world map to travel to); a **powered array** (three times as fast, 1,000 W, needs a grid or the battery); a **large
+**Upgrades:** a **geophone array** (more steel) or a **radiometric probe** (40 uranium), not both; a **long-range array** that searches
+nearby lands for one ore instead of this map, without the slowing that finds on this map bring (press **Long range**; a find becomes a
+place on the world map to travel to); a **powered array** (three times as fast, 1,000 W, needs a grid or the battery); a **large
 battery** (runs with the engine off; **the engine starts itself to recharge at 30%, burning fuel with nobody at the wheel**); work
 lights. With Dubs Bad Hygiene, a **groundwater** upgrade shows the water while the truck is set up and marks the richest spot
 within 15 cells. With Rimefeller, a set-up survey truck counts as the scanner a deep oil well needs.
@@ -115,15 +123,17 @@ within 15 cells. With Rimefeller, a set-up survey truck counts as the scanner a 
 | Diamond core bit | 20 times |
 | RC (reverse-circulation) hammer | 18 times on ore, 30 times once only stone is left |
 
-It carries both bits: pick by the job.
+**Fit one bit or the other, not both**: pick by the job.
 
 - **It burns 40 chemfuel a day while drilling**, unless you fit the **electric power pack** and have a powered grid within 6 cells.
-- **Drilling can bring insects**, by the game's own rule. **A faster rig meets them sooner**: the risk per lump is the same as a deep
-  drill's. **Keep guards near it.**
+- **Drilling can bring insects**, by the game's own rule and your storyteller's odds. **A faster rig meets them sooner**: the risk per
+  lump is the same as a deep drill's. **Keep guards near it.**
 - **At night, without work lights, it drills at 80%.**
-- **With Rimefeller**, the **oil well kit** sinks a well where no ore is in reach. **Build a derrick over the well head to pump.**
-- **With Vanilla Chemfuel Expanded**, the **deepchem head** raises deepchem into a 300-unit buffer at ten times a pumpjack's rate.
-  **Without the head, deepchem stays in the ground.** Empty the buffer with a tanker set up and loading, or a deepchem pipe.
+- **With Rimefeller**, the **oil well kit** sinks a well where no ore is in reach, using steel from the rig's cargo and needing what a
+  derrick needs (a working console, or a scanner or set-up survey truck for deep oil). **Build a derrick over the well head to pump.**
+- **With Vanilla Chemfuel Expanded**, the **deepchem head** raises deepchem into a 300-unit buffer at ten times a pumpjack's rate,
+  though the buffer and the tanker's pump set the real pace. **Without the head, deepchem stays in the ground**, and it never comes
+  up as items. Empty the buffer with a tanker holding deepchem, set up and loading within reach of its hose, or a deepchem pipe.
 
 ## Talus tipper truck
 
@@ -160,27 +170,33 @@ taller side boards.
 hill only the vehicle's own wheels grip. Only vehicles the drivetrain model works out can tow, unless you turn on **Vehicles without the
 drivetrain model can tow** in D'thorga Framework's settings. A broken drawbar must be repaired before it can be hitched.
 
-**Upgrade:** **greedy boards** (+1,000 kg).
-
 ## Pintle water and fuel bowsers
 
-Not yet tested in game. Two tank trailers, 3 x 8 cells: a **water bowser** (only with Dubs Bad Hygiene) and a **fuel bowser**. Each holds
-2,500 litres and pumps 400 litres an hour. Both look alike, a tank on the flatbed's chassis: **a blue stripe along the tank means
-water, an orange one fuel**.
+Not yet tested in game. Two tank trailers, 3 x 8 cells, as long as the Busbar: a **water bowser** (only with Dubs Bad Hygiene) and a
+**fuel bowser**. Each holds 2,500 litres, weighs 2,000 kg empty and pumps 400 litres an hour. They take the load to where it is needed
+and stay at a camp while the truck that brought them leaves. Both look alike, a tank on the flatbed's chassis: **a blue stripe along
+the tank means water, an orange one fuel** (repaint either as you like).
 
 1. **Build** from the **motor pool** tab, after **vehicle parts** research.
-2. **Park it** where the load is wanted, unhitched, and press **Set up**. A colonist with construction work comes and sets it up; until
-   then the inspect pane says so, and **Cancel set-up** calls it off.
+2. **Park it** where the load is wanted, unhitched, and press **Set up**. A colonist with construction work comes, chocks the wheels,
+   lowers the legs and runs the hoses out (1,500 work: about half an hour for an average builder). Until then the inspect pane says
+   it waits for a colonist, and **Cancel set-up** calls it off.
 3. **Load** or **Unload**, as on the tanker. Each tank holds only its own load, already chosen.
-   - **Fuel bowser:** takes chemfuel from stacks beside it, from a chemfuel pipe or from a tanker; gives it to vehicles and fuelled
-     buildings within 10 cells, or to a tanker.
+   - **Fuel bowser:** takes chemfuel from stacks beside it, from a chemfuel pipe (Vanilla Chemfuel Expanded, Rimefeller) or from a
+     tanker; gives it to vehicles and fuelled buildings within reach of its hose (10 cells), or to a tanker.
    - **Water bowser:** takes water from plumbing with a water tower on it, or from a tanker of water; gives it to the water towers on the
-     plumbing it touches. Parked, it lays hidden plumbing under itself, so a pipe touching any side joins it. Water freezes below 0 °C.
+     plumbing it touches. Parked, it lays hidden plumbing under itself, so a pipe touching any side joins it. It keeps the worst water
+     it was filled with. **Water freezes in it below 0 °C.**
 4. **Tank to tank:** one tank set up on **Unload**, another within reach of its hose on **Load**, both holding the same: the loading one
-   pumps from the other.
-5. **Pack up** before you hitch it. A colonist comes for that too, and the pump holds at once.
+   pumps from the other at its own pump's rate. The tanker fills a bowser this way, and a bowser fills the tanker.
+5. **Pack up** before you hitch it (1,000 work). A colonist comes for that too, and the pump holds at once. **A bowser cannot be
+   hitched while it is set up, or while a colonist is on the way to set it up.**
 
-**Upgrades:** a **lagged tank** (the load warms and cools four times slower) and a **second hose** (half as much again an hour).
+**Its weight is the towing vehicle's to pull**: a full bowser weighs about 4.5 tonnes with water, 4 with fuel.
+
+**Upgrades:** a **lagged tank** (the load takes four times as long to reach the outside temperature, so water freezes later and fuel
+stays thin longer in the cold; it shows as a padded jacket) and a **second hose** (half as much again an hour; a second reel across the
+front). The pump has no sound of its own yet; the hoses, relief valve, leaks and purges sound as the tanker's do.
 
 ## Ullage bulk tanker
 
@@ -199,7 +215,8 @@ aboard to set it up.
 
 | It carries | Pumped to and from | Watch out for |
 | --- | --- | --- |
-| Chemfuel, deepchem | Other vehicles' fuel tanks, chemfuel generators within reach of the hose (filled first, to their set level), stacks, Vanilla Chemfuel Expanded's pipes, Rimefeller's pipeline | Thickens in deep cold, with the cold fuel setting on |
+| Chemfuel | Other vehicles' fuel tanks, generators and other buildings that burn it within reach of the hose (filled first, to the level set on each), stacks, Vanilla Chemfuel Expanded's pipes, Rimefeller's pipeline | Thickens and pumps slowly in deep cold, only with the setting **Fuel thickens in deep cold** on |
+| Deepchem (Vanilla Chemfuel Expanded) | The drill rig's deepchem buffer, Vanilla Chemfuel Expanded's pipes | As chemfuel |
 | Crude oil (Rimefeller) | Stacks and barrels on the ground, Rimefeller's pipeline | None |
 | Water | Dubs Bad Hygiene's plumbing | Freezes below 0 °C |
 | Nutrient paste, hemogen | Their pipes | The whole load spoils after about 18 hours above 0 °C; the insulated tank doubles that |
@@ -216,13 +233,16 @@ goes when it drives off.
 
 - **An empty tank must be purged before it carries something else**: select a colonist and right-click the truck (four in-game
   hours; it takes water with Dubs Bad Hygiene).
-- **Taking a tank off with a load in it spills the load.** A damaged tank leaks; a destroyed tank of something flammable explodes
-  (a setting can stop that). A full tank slows the truck.
-- **Compartments**: two upgrades split a liquid tank into two, then three. Use **Compartment** to choose which one the pump and
-  contents work on. **Food can't share a tank with anything else.**
-- **Bulk buying**: take the tanker in a caravan to a settlement, pick the compartment and press **Bulk order**. You pay the game's
-  price with the caravan's silver; what is on offer depends on what the settlement trades, and the same fluid can't be bought there
-  again for 15 days. Visiting traders don't sell by the tanker-load.
+- **Taking a tank off with a load in it spills the load.** A damaged tank leaks; a destroyed tank of something flammable explodes,
+  more violently the fuller it is (turn off **Flammable tank loads explode** and it only spills). A full tank slows the truck.
+- **Compartments**: two upgrades split a liquid tank into two, then three, so it can carry different fluids at once. They share the
+  capacity equally. Use **Compartment** to choose which one the pump and contents work on. **Food can't share a tank with anything
+  else**, and the contents menu says so. Turn off **A tank needs upgrades for compartments** to give every liquid tank its
+  compartments free.
+- **Bulk buying**: take the tanker in a caravan to a settlement, pick the compartment and press **Bulk order**. Choose how much with
+  the same number box and arrows as the trade window. You pay the game's price with the caravan's silver; what is on offer depends on
+  what the settlement trades, only fluids that exist as items can be bought, and the same fluid can't be bought there again for 15
+  days. Visiting traders don't sell by the tanker-load.
 
 ## Busbar generator set
 
@@ -246,7 +266,10 @@ A medium diesel-electric truck, 3 by 8 cells like the Talus tipper: its engine t
 **Upgrades:** an **uprated alternator** (2,650 W); a **cable reel** (put the cable end up to 12 cells away); a **battery buffer**
 that keeps the grid alive for a time when the engine cannot; a **heavy-duty fan** that cools a parked engine as well as driving does,
 for hard work in hot weather; and an **exhaust heat exchanger** that warms the room its cable end stands in, up to 21 °C, for 25 W
-of output. **Put the cable end inside the room you want warm.**
+of output. **Put the cable end inside the room you want warm**; outdoors the heat is wasted.
+
+**A vehicle of ours parked beside the cable end, or beside a conduit on its grid, counts as plugged in**, as with any grid. Vehicle
+Framework's own electric vehicles need a battery on the grid to charge.
 
 **With the battery buffer fitted, the set is a hybrid** (not yet tested in game):
 
@@ -268,18 +291,31 @@ The **service lead** charges another vehicle's battery in the field:
 
 ## Other mods' vehicles
 
-D'thorga Vehicles also gives other mods' vehicles the figures their real counterparts have, so each climbs, labours and bogs like
-itself. A few you will notice:
+D'thorga Vehicles also gives other mods' vehicles the systems and figures their real counterparts have, so each climbs, labours and
+bogs like itself. Every other vehicle gets the general systems ([looking after vehicles](vehicle-care.md)).
 
 | Vehicle (mod) | What changes |
 | --- | --- |
-| Big Rig (VVE - Tier 3), M1075 HEMTT (RimThunder) | Air brakes: idle before driving after a long stand |
-| Harrier (Harrier VTOL) | Its real engine ratings, water injection and a hover check |
-| Hind, Mongoose, Cherokee | Twin turboshafts: lose one and the other runs hot. The Cherokee has a mount for a cargo hook |
-| M1A2 and M1A2 SEP (RimThunder) | A gas turbine with no radiator, which burns hard even at idle |
-| Lightning | Can run on batteries: turn on **The Lightning runs on batteries** in D'thorga Framework's settings and restart |
-| Vanilla Vehicles Expanded's vehicles | Real weights: bikes lighter, tanks far heavier. Change any weight under Vehicle Framework's "Empty mass" |
-| Steam and diesel-electric locomotives (Trains of the Rim) | A boiler, or traction motors ([special engines](vehicle-care.md#special-engines)) |
+| Big Rig (VVE - Tier 3), M1075 HEMTT (RimThunder - Roaring Tiger) | Air brakes and an air compressor: idle before driving after a long stand |
+| Humvee (HUMVEE) | A 24-volt system from two batteries, with about 60 A of charging |
+| M1A2 and M1A2 SEP (RimThunder) | A gas turbine on tracks with no radiator, which burns hard even at idle |
+| Harrier (Harrier VTOL) | Its real engine's lift ratings, water injection (a mechanic refills it after a hard hover), its own flight phases and a hover check at its real empty mass. Too heavy to hover onto its pad in the day's heat, it lands on a runway ([aircraft](vehicle-care.md#aircraft-and-sling-loads)) |
+| Hind (Hind Helicopter Gunship), Mongoose (Mongoose Attack Helicopter) | Two turboshafts: lose one and the other carries the load and runs hot. The Hind takes a cargo hook rated at 2,400 kg; it flies across the map by itself and cannot fly water drop runs. The Mongoose takes no hook |
+| Cherokee (VVE - Tier 3) | Two turboshafts, its rotor drive, and its lift checked before launch. A cargo hook rated at 11,800 kg (not with Cherokee Sling active); with a hook it can fly water drops, and its upholstery takes the litter kit |
+| Louie (VVE - Tier 3), Mosquito (VVE) | One turboshaft each, lift checked before launch. The Louie takes a cargo hook rated at 1,814 kg; the Mosquito takes none |
+| Frog, Toad (VVE), Goliath (VVE - Tier 3) | Their three or four thrusters are their engines: each one lost takes lift away, and a pod that cannot lift its load will not launch |
+| L-ATV (GTek's Vehicles) | 370 hp, the middle of the published figures, Allison six-speed ratios, its real weight, tyres, four-wheel drive and a 740 A alternator |
+| MaxxPro (GTek's Vehicles), Humvee, Land Cruiser J70, T-54 and Wiesel (Frontline Workshop), M113, M48H and the "HEMTT" (Roaring Tiger), M10 Booker and M2A3 Bradley (Desert Sabre), the BMP-1 family, both M1A2s | Their real engines' power, weights and gearboxes where published. The "HEMTT" is really the PLS, so it gets the PLS's figures. The BMP-1 mod left the Workshop on 8 November 2026; its figures wait for anyone with a copy |
+| Goat DE2 (Trains of the Rim) | Diesel-electric: no gearbox, traction motors that heat when pulling hard, rail wheels, air brakes with a compressor |
+| Steam locomotives (Trains of the Rim) | A boiler: hours to raise steam, a water glass, a tender or tanks to refill at a water stop, a fusible plug that melts if the water runs low. The Frisco follows the real 4500 class (a 68,000-litre tender), the tank engine the LB&SCR E2 ([special engines](vehicle-care.md#special-engines)) |
+| Lightning (VVE - Tier 3) | Can run on batteries: turn on **The Lightning runs on batteries** in D'thorga Framework's settings and restart. It then charges parked over a powered conduit from the grid's stored energy (about five batteries' worth for a full charge) instead of taking chemfuel |
+| Vanilla Vehicles Expanded's vehicles | Real weights: bikes lighter, tanks far heavier, so cargo matters on a tank and hardly at all on a bike. Change any weight under Vehicle Framework's "Empty mass" |
+| L-ATV, MaxxPro, M1A2 SEP, M10 Booker, Harrier, Mongoose, Goat shunter, and VVE - Tier 3's vehicles except the Springbok and the Louie | Climate control: the cab holds near 21 °C by itself |
+| Dirtbike, Charley and Dinghy (VVE) | Open: they shelter nobody, and the crew feels the weather. Every other vehicle here has a closed cab with a heater and an air conditioner |
+
+Where each figure comes from is written beside it in the mod's own files: Oshkosh's and Allison's published figures for the L-ATV, a
+US Army maintenance manual for the HEMTT's air brakes, All-Aero's Pegasus ratings and the Pima Air and Space Museum's empty mass for
+the Harrier, and others ([the real figures record](../development/vehicle-real-figures-design.md)).
 
 ## What has been tested in game
 
@@ -289,4 +325,4 @@ itself. A few you will notice:
 - **Not yet tested in game:** the other five vehicles and the Busbar's power, the trailers and towing, the bowsers and setting up a trailer, every upgrade, the bulk buying, and how the pictures sit. Where each upgrade's
   picture sits on its vehicle is a first placement, to be adjusted once seen in game.
 
-Every figure and its source is in [D'thorga Vehicles' README](../../mods/PhobosVehicles/README.md).
+What changed in each version is in [D'thorga Vehicles' changelog](../../mods/PhobosVehicles/CHANGELOG.md).
