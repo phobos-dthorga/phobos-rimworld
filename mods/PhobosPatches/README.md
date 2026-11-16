@@ -8,7 +8,7 @@ Settlements** by Nina.Goblin, **Vehicle Framework**, **Vanilla Expanded Framewor
 One of House D'thorga's mods (also spelt dthorga). It replaces two earlier mods, merged into it on 7 November 2026: **D'thorga
 Vehicle Patches** and **D'thorga Missile Patches** ([why](../../docs/development/mod-consolidation.md)).
 
-Version 0.19.3, built 16 November 2026 for House D'thorga. **Partly tested in game:** the Vehicle Framework fires part (owner,
+Version 0.20.0, built 16 November 2026 for House D'thorga. **Partly tested in game:** the Vehicle Framework fires part (owner,
 10 November 2026: the stuck fires went out) and one missile strike on an earlier version (owner, 7 November 2026). Everything else is
 not yet tested in game.
 
@@ -32,7 +32,7 @@ the [changelog](CHANGELOG.md).
 - **Safe to add to a running save.** A Harrier you already built keeps working and gains its new parts at full health; only new builds
   pay the new cost. Bombs already made stay as they are.
 - **Before removing it:** delete any bomb or rocket bills you added at an ammunition fabricator and any heavy casting bills at a rotary
-  forger; **with Combat Extended, use up or sell your bomb cases**, delete their bills, and **deconstruct turret hulls built under this
+  forger; **with Combat Extended, use up or sell your bomb cases and bomb fills**, delete their bills, and **deconstruct turret hulls built under this
   mod** (not yet tested either way). Without it the Harrier's costs go back to its own, and with RimPacts its flight framework fails
   to load fully again. Removing IRBM or RimPacts later is clean once the save has been loaded with 0.16.8 or later.
 - **Decide before a missile strike:** the blast settings below. Choices that cost speed say so in amber. **After a strike, wait for the

@@ -22,6 +22,13 @@
     carries most of the fill. They share one ratio per kg of real fill: about 0.23 of the scarce ingredient and 3.5
     chemfuel. The EMP, smoke and tox fills have no real equivalent to source.
 
+    The Mk. 84 fills come in canisters of their own (0.20.0, owner's choice, 17 Nov 2026): five incendiary fills, or eight
+    smoke fills, EMP coil packs or tox fills, each made in a short bill at the machining table or the ammunition fabricator.
+    Before, a Mk. 84 took 14 to 20 hauling trips at once, and Dead Man's Switch's fabricator drops everything it has loaded
+    when a haul is interrupted (Fortified's JobDriver_DoAutonomousBill, read 17 Nov 2026), so none was ever finished. Now
+    each bill is two or three trips. The materials in all are the same as before; canister counts, masses, bulk, the 500
+    work a fill and the fires a store of incendiary or smoke fill makes are AUTHORED.
+
     MarketValue is removed from the bombs and never set on the cases, so the game works it out from the ingredients, its
     normal rule for made items (StatWorker_MarketValue). Change a number here to rescale a bomb.
 
@@ -151,13 +158,71 @@
           <xpath>Defs/ThingDef[defName="Harrier_Mk84Bomb_Incendiary"]</xpath>
           <match Class="PatchOperationSequence">
             <operations>
+              <li Class="PatchOperationAdd">
+                <xpath>Defs</xpath>
+                <value>
+                  <ThingDef ParentName="ResourceBase">
+                    <defName>PhobosBombFillIncendiary</defName>
+                    <label>incendiary bomb fill</label>
+                    <description>A sealed canister of chemfuel thickened with prometheum: a fifth of the fill of a Mk. 84 incendiary bomb. Five of them, a bomb case and the fuzing make the bomb. It burns fiercely, and a store of them can go up in a fire.</description>
+                    <tickerType>Normal</tickerType>
+                    <graphicData>
+                      <texPath>Phobos/VehiclePatches/BombFillIncendiary</texPath>
+                      <graphicClass>Graphic_Single</graphicClass>
+                    </graphicData>
+                    <stackLimit>10</stackLimit>
+                    <statBases>
+                      <MaxHitPoints>80</MaxHitPoints>
+                      <Mass>25</Mass>
+                      <Bulk>5</Bulk>
+                      <Flammability>2.0</Flammability>
+                      <WorkToMake>500</WorkToMake>
+                    </statBases>
+                    <thingCategories>
+                      <li>Manufactured</li>
+                    </thingCategories>
+                    <costList>
+                      <Prometheum>20</Prometheum>
+                      <Chemfuel>300</Chemfuel>
+                    </costList>
+                    <recipeMaker>
+                      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+                      <workSkill>Crafting</workSkill>
+                      <effectWorking>Smith</effectWorking>
+                      <soundWorking>Recipe_Machining</soundWorking>
+                      <recipeUsers>
+                        <li>TableMachining</li>
+                      </recipeUsers>
+                      <researchPrerequisites>
+                        <li>IEDs</li>
+                      </researchPrerequisites>
+                      <skillRequirements>
+                        <Crafting>5</Crafting>
+                      </skillRequirements>
+                    </recipeMaker>
+                    <comps>
+                      <li Class="CompProperties_Explosive">
+                        <explosiveRadius>1.5</explosiveRadius>
+                        <explosiveDamageType>Flame</explosiveDamageType>
+                        <explosiveExpandPerStackcount>0.3</explosiveExpandPerStackcount>
+                        <startWickOnDamageTaken>
+                          <li>Flame</li>
+                        </startWickOnDamageTaken>
+                        <startWickHitPointsPercent>0.333</startWickHitPointsPercent>
+                        <preExplosionSpawnThingDef>Filth_Fuel</preExplosionSpawnThingDef>
+                        <preExplosionSpawnChance>1</preExplosionSpawnChance>
+                        <wickTicks>70~150</wickTicks>
+                      </li>
+                    </comps>
+                  </ThingDef>
+                </value>
+              </li>
               <li Class="PatchOperationReplace">
                 <xpath>Defs/ThingDef[defName="Harrier_Mk84Bomb_Incendiary"]/costList</xpath>
                 <value>
                   <costList>
                     <PhobosBombMk84Case>1</PhobosBombMk84Case>
-                    <Prometheum>100</Prometheum>
-                    <Chemfuel>1500</Chemfuel>
+                    <PhobosBombFillIncendiary>5</PhobosBombFillIncendiary>
                     <ComponentIndustrial>2</ComponentIndustrial>
                   </costList>
                 </value>
@@ -175,12 +240,55 @@
           <xpath>Defs/ThingDef[defName="Harrier_Mk84Bomb_EMP"]</xpath>
           <match Class="PatchOperationSequence">
             <operations>
+              <li Class="PatchOperationAdd">
+                <xpath>Defs</xpath>
+                <value>
+                  <ThingDef ParentName="ResourceBase">
+                    <defName>PhobosBombCoilEMP</defName>
+                    <label>EMP bomb coil pack</label>
+                    <description>A wound coil and its ballast for an EMP bomb: an eighth of the device inside a Mk. 84 EMP bomb. Eight of them, a bomb case and the electronics make the bomb.</description>
+                    <graphicData>
+                      <texPath>Phobos/VehiclePatches/BombCoilEMP</texPath>
+                      <graphicClass>Graphic_Single</graphicClass>
+                    </graphicData>
+                    <stackLimit>10</stackLimit>
+                    <statBases>
+                      <MaxHitPoints>80</MaxHitPoints>
+                      <Mass>53</Mass>
+                      <Bulk>6</Bulk>
+                      <Flammability>0</Flammability>
+                      <WorkToMake>500</WorkToMake>
+                    </statBases>
+                    <thingCategories>
+                      <li>Manufactured</li>
+                    </thingCategories>
+                    <costList>
+                      <Steel>105</Steel>
+                    </costList>
+                    <recipeMaker>
+                      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+                      <workSkill>Crafting</workSkill>
+                      <effectWorking>Smith</effectWorking>
+                      <soundWorking>Recipe_Machining</soundWorking>
+                      <recipeUsers>
+                        <li>TableMachining</li>
+                      </recipeUsers>
+                      <researchPrerequisites>
+                        <li>MicroelectronicsBasics</li>
+                      </researchPrerequisites>
+                      <skillRequirements>
+                        <Crafting>5</Crafting>
+                      </skillRequirements>
+                    </recipeMaker>
+                  </ThingDef>
+                </value>
+              </li>
               <li Class="PatchOperationReplace">
                 <xpath>Defs/ThingDef[defName="Harrier_Mk84Bomb_EMP"]/costList</xpath>
                 <value>
                   <costList>
                     <PhobosBombMk84Case>1</PhobosBombMk84Case>
-                    <Steel>840</Steel>
+                    <PhobosBombCoilEMP>8</PhobosBombCoilEMP>
                     <ComponentIndustrial>12</ComponentIndustrial>
                   </costList>
                 </value>
@@ -198,13 +306,71 @@
           <xpath>Defs/ThingDef[defName="Harrier_Mk84Bomb_Smoke"]</xpath>
           <match Class="PatchOperationSequence">
             <operations>
+              <li Class="PatchOperationAdd">
+                <xpath>Defs</xpath>
+                <value>
+                  <ThingDef ParentName="ResourceBase">
+                    <defName>PhobosBombFillSmoke</defName>
+                    <label>smoke bomb fill</label>
+                    <description>A canister of smoke mixture in a steel liner: an eighth of the fill of a Mk. 84 smoke bomb. Eight of them, a bomb case and the fuzing make the bomb. It burns, and a store of them can go up in a fire.</description>
+                    <tickerType>Normal</tickerType>
+                    <graphicData>
+                      <texPath>Phobos/VehiclePatches/BombFillSmoke</texPath>
+                      <graphicClass>Graphic_Single</graphicClass>
+                    </graphicData>
+                    <stackLimit>10</stackLimit>
+                    <statBases>
+                      <MaxHitPoints>80</MaxHitPoints>
+                      <Mass>54</Mass>
+                      <Bulk>6</Bulk>
+                      <Flammability>1.0</Flammability>
+                      <WorkToMake>500</WorkToMake>
+                    </statBases>
+                    <thingCategories>
+                      <li>Manufactured</li>
+                    </thingCategories>
+                    <costList>
+                      <Steel>95</Steel>
+                      <Chemfuel>125</Chemfuel>
+                    </costList>
+                    <recipeMaker>
+                      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+                      <workSkill>Crafting</workSkill>
+                      <effectWorking>Smith</effectWorking>
+                      <soundWorking>Recipe_Machining</soundWorking>
+                      <recipeUsers>
+                        <li>TableMachining</li>
+                      </recipeUsers>
+                      <researchPrerequisites>
+                        <li>SmokepopBelt</li>
+                      </researchPrerequisites>
+                      <skillRequirements>
+                        <Crafting>5</Crafting>
+                      </skillRequirements>
+                    </recipeMaker>
+                    <comps>
+                      <li Class="CompProperties_Explosive">
+                        <explosiveRadius>1.1</explosiveRadius>
+                        <explosiveDamageType>Flame</explosiveDamageType>
+                        <explosiveExpandPerStackcount>0.15</explosiveExpandPerStackcount>
+                        <startWickOnDamageTaken>
+                          <li>Flame</li>
+                        </startWickOnDamageTaken>
+                        <startWickHitPointsPercent>0.333</startWickHitPointsPercent>
+                        <preExplosionSpawnThingDef>Filth_Fuel</preExplosionSpawnThingDef>
+                        <preExplosionSpawnChance>1</preExplosionSpawnChance>
+                        <wickTicks>70~150</wickTicks>
+                      </li>
+                    </comps>
+                  </ThingDef>
+                </value>
+              </li>
               <li Class="PatchOperationReplace">
                 <xpath>Defs/ThingDef[defName="Harrier_Mk84Bomb_Smoke"]/costList</xpath>
                 <value>
                   <costList>
                     <PhobosBombMk84Case>1</PhobosBombMk84Case>
-                    <Steel>760</Steel>
-                    <Chemfuel>1000</Chemfuel>
+                    <PhobosBombFillSmoke>8</PhobosBombFillSmoke>
                     <ComponentIndustrial>1</ComponentIndustrial>
                   </costList>
                 </value>
@@ -222,12 +388,55 @@
           <xpath>Defs/ThingDef[defName="Harrier_Mk84Bomb_ToxGas"]</xpath>
           <match Class="PatchOperationSequence">
             <operations>
+              <li Class="PatchOperationAdd">
+                <xpath>Defs</xpath>
+                <value>
+                  <ThingDef ParentName="ResourceBase">
+                    <defName>PhobosBombFillToxGas</defName>
+                    <label>tox bomb fill</label>
+                    <description>A sealed canister packed with the contents of nine wastepacks: an eighth of the fill of a Mk. 84 tox bomb. Eight of them, a bomb case and the fuzing make the bomb.</description>
+                    <graphicData>
+                      <texPath>Phobos/VehiclePatches/BombFillToxGas</texPath>
+                      <graphicClass>Graphic_Single</graphicClass>
+                    </graphicData>
+                    <stackLimit>10</stackLimit>
+                    <statBases>
+                      <MaxHitPoints>80</MaxHitPoints>
+                      <Mass>54</Mass>
+                      <Bulk>30</Bulk>
+                      <Flammability>0</Flammability>
+                      <WorkToMake>500</WorkToMake>
+                    </statBases>
+                    <thingCategories>
+                      <li>Manufactured</li>
+                    </thingCategories>
+                    <costList>
+                      <Wastepack>9</Wastepack>
+                    </costList>
+                    <recipeMaker>
+                      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+                      <workSkill>Crafting</workSkill>
+                      <effectWorking>Smith</effectWorking>
+                      <soundWorking>Recipe_Machining</soundWorking>
+                      <recipeUsers>
+                        <li>TableMachining</li>
+                      </recipeUsers>
+                      <researchPrerequisites>
+                        <li>ToxGas</li>
+                      </researchPrerequisites>
+                      <skillRequirements>
+                        <Crafting>5</Crafting>
+                      </skillRequirements>
+                    </recipeMaker>
+                  </ThingDef>
+                </value>
+              </li>
               <li Class="PatchOperationReplace">
                 <xpath>Defs/ThingDef[defName="Harrier_Mk84Bomb_ToxGas"]/costList</xpath>
                 <value>
                   <costList>
                     <PhobosBombMk84Case>1</PhobosBombMk84Case>
-                    <Wastepack>72</Wastepack>
+                    <PhobosBombFillToxGas>8</PhobosBombFillToxGas>
                     <ComponentIndustrial>1</ComponentIndustrial>
                   </costList>
                 </value>
@@ -236,6 +445,23 @@
                 <xpath>Defs/ThingDef[defName="Harrier_Mk84Bomb_ToxGas"]/statBases/MarketValue</xpath>
               </li>
             </operations>
+          </match>
+        </li>
+
+        <!--
+          The fills at Dead Man's Switch's ammunition fabricator too, as the bombs are (Fabricator_HarrierVtol.xml). Here rather
+          than in that file, so it runs after the fills exist whatever order the files load in. Their bills are two or three
+          trips, which the fabricator finishes: it drops everything it has loaded when a haul is interrupted.
+        -->
+        <li Class="PatchOperationConditional">
+          <success>Always</success>
+          <xpath>Defs/ThingDef[defName="DMS_TableAmmoPrinter"]</xpath>
+          <match Class="PatchOperationAdd">
+            <success>Always</success>
+            <xpath>Defs/ThingDef[defName="PhobosBombFillIncendiary" or defName="PhobosBombCoilEMP" or defName="PhobosBombFillSmoke" or defName="PhobosBombFillToxGas"]/recipeMaker/recipeUsers</xpath>
+            <value>
+              <li>DMS_TableAmmoPrinter</li>
+            </value>
           </match>
         </li>
 

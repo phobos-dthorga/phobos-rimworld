@@ -9,6 +9,10 @@ once the owner picks one (owner's direction, 7 Nov 2026), and then its entry her
 The bomb cases are empty Mk. 82 and Mk. 84 bodies seen from above: olive-drab steel, an ogive nose with the fuze well open, an open
 tail with its threaded ring, and two suspension lugs on the top. No fins, which are fitted with the fill, and no yellow band: on US
 bombs a yellow band marks an explosive filling, and an empty case has none. Proportions are simplified to fit a square icon.
+
+The Mk. 84 fills (0.20.0) are canisters seen from the side, tilted like the cases, with a coloured band after the US ordnance colour
+code as a hint at what is inside (light red for incendiary, light green for smoke, grey with a dark green band for a toxic fill: the
+code is MIL-STD-709, read from secondary sources, approximate). The EMP coil pack is a steel frame holding copper coils.
 """
 import datetime as dt
 import hashlib
@@ -31,6 +35,14 @@ OLIVE_DARK = (76, 80, 52, 255)
 STEEL_DARK = (62, 64, 66, 255)
 STEEL = (150, 152, 150, 255)
 HOLE = (34, 34, 36, 255)
+RED_BAND = (204, 96, 84, 255)
+GREEN_BAND = (126, 184, 112, 255)
+GREY = (138, 142, 140, 255)
+GREY_LIGHT = (168, 172, 170, 255)
+GREY_DARK = (104, 108, 106, 255)
+DARK_GREEN_BAND = (58, 104, 64, 255)
+COPPER = (184, 112, 64, 255)
+COPPER_LIGHT = (214, 146, 92, 255)
 
 
 def profile(length, radius, nose_share, tail_share, tail_ratio, tip_ratio):
@@ -90,6 +102,39 @@ def bomb_case(length, radius, lugs, nose_share=0.3, tail_share=0.28):
     return image.rotate(TILT, resample=Image.BICUBIC)
 
 
+def canister(body, light, dark, band):
+    """A sealed fill canister, level and then tilted: a rounded steel body, a coloured band, a filler cap and a lifting handle."""
+    image = Image.new('RGBA', (WORK, WORK), (0, 0, 0, 0))
+    draw = ImageDraw.Draw(image)
+    left, right, top, bottom = 230, 794, 330, 694
+    draw.rounded_rectangle((left, top, right, bottom), radius=120, fill=body)
+    draw.rounded_rectangle((left + 30, top + 40, right - 30, top + 120), radius=40, fill=light)
+    draw.rounded_rectangle((left + 30, bottom - 110, right - 30, bottom - 30), radius=40, fill=dark)
+    draw.rectangle((450, top + 6, 540, bottom - 6), fill=band)
+    for x in (330, 690):
+        draw.line((x, top + 20, x, bottom - 20), fill=dark, width=LINE // 3)
+    draw.rounded_rectangle((left, top, right, bottom), radius=120, outline=OUTLINE, width=LINE)
+    draw.line((450, top + 4, 450, bottom - 4), fill=OUTLINE, width=LINE // 2)
+    draw.line((540, top + 4, 540, bottom - 4), fill=OUTLINE, width=LINE // 2)
+    draw.rounded_rectangle((right - 18, 450, right + 70, 574), radius=24, fill=STEEL, outline=OUTLINE, width=LINE // 2)
+    draw.arc((570, top - 70, 750, top + 110), 200, 340, fill=OUTLINE, width=LINE)
+    return image.rotate(TILT, resample=Image.BICUBIC)
+
+
+def coil_pack():
+    """An EMP coil pack: a steel frame with three copper coils, level and then tilted."""
+    image = Image.new('RGBA', (WORK, WORK), (0, 0, 0, 0))
+    draw = ImageDraw.Draw(image)
+    draw.rounded_rectangle((200, 330, 824, 694), radius=48, fill=STEEL_DARK, outline=OUTLINE, width=LINE)
+    for x in (250, 430, 610):
+        draw.rounded_rectangle((x, 370, x + 164, 654), radius=60, fill=COPPER, outline=OUTLINE, width=LINE // 2)
+        for y in range(410, 640, 46):
+            draw.line((x + 20, y, x + 144, y), fill=COPPER_LIGHT, width=12)
+        draw.ellipse((x + 52, 482, x + 112, 542), fill=HOLE, outline=OUTLINE, width=LINE // 3)
+    draw.rounded_rectangle((790, 470, 880, 554), radius=18, fill=STEEL, outline=OUTLINE, width=LINE // 2)
+    return image.rotate(TILT, resample=Image.BICUBIC)
+
+
 def write(name, what, image):
     """Save the texture at game size and its record beside it."""
     TEXTURES.mkdir(parents=True, exist_ok=True)
@@ -123,6 +168,13 @@ DRAWINGS = {
                                   bomb_case(780, 100, (0.42, 0.6))),
     'BombCaseMk84': lambda: write('BombCaseMk84', 'an empty Mk. 84 bomb case, seen from above, no fins or band',
                                   bomb_case(900, 160, (0.36, 0.64))),
+    'BombFillIncendiary': lambda: write('BombFillIncendiary', 'a sealed olive canister with a light red band, seen from the side',
+                                        canister(OLIVE, OLIVE_LIGHT, OLIVE_DARK, RED_BAND)),
+    'BombFillSmoke': lambda: write('BombFillSmoke', 'a sealed olive canister with a light green band, seen from the side',
+                                   canister(OLIVE, OLIVE_LIGHT, OLIVE_DARK, GREEN_BAND)),
+    'BombFillToxGas': lambda: write('BombFillToxGas', 'a sealed grey canister with a dark green band, seen from the side',
+                                    canister(GREY, GREY_LIGHT, GREY_DARK, DARK_GREEN_BAND)),
+    'BombCoilEMP': lambda: write('BombCoilEMP', 'a steel frame holding three copper coils', coil_pack()),
     'References': lambda: (reference('BombCaseMk82', 'an empty Mk. 82 bomb case, seen from above', bomb_case(780, 100, (0.42, 0.6))),
                            reference('BombCaseMk84', 'an empty Mk. 84 bomb case, seen from above', bomb_case(900, 160, (0.36, 0.64)))),
 }

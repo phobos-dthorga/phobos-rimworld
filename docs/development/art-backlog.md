@@ -148,6 +148,7 @@ Five textures are the owner's picks (7 Nov 2026); the base station and the two f
 | Asset | Now | Local model? | Note |
 | --- | --- | --- | --- |
 | Mk. 82 and Mk. 84 bomb cases (items, 0.6.0) | **Shipped picks from night 3, seed 12 each (12 Nov 2026, Patches 0.16.9).** Were scripted stand-ins, drawn by `assets/vehicle-patches/draw_standins.py` (owner's direction, 7 Nov) | Yes | Two empty olive-drab bomb bodies from above, the Mk. 84 fatter: open nose ring, open tail, two lugs, no fins and no yellow band (the band marks a filling). The stand-ins served as layout references |
+| Mk. 84 bomb fills: incendiary, smoke and tox fill canisters, EMP coil pack (items, Patches 0.20.0) | **Scripted stand-ins** (17 Nov 2026), drawn by `assets/vehicle-patches/draw_standins.py`, which also serve as layout references | Yes | Three sealed canisters from the side, tilted like the cases: olive with a light red band (incendiary), olive with a light green band (smoke), grey with a dark green band (tox), each with a filler cap and a handle; and a steel frame holding three copper coils (EMP). Waits for the owner's go for GPU work |
 | Workshop preview | Shipped pick: hero-patches-1 (10 Nov, replacing the 7 Nov garage) | | |
 
 ### Button icons (owner, 6 Nov 2026)

@@ -234,6 +234,7 @@ Numbered P1 to P4 since 17 Nov 2026; they were 4 to 7, which clashed with the ro
 | 135 | **Other factions' aircraft and a captured vehicle** ([code audit](code-audit-2026-11-11.md)) | Meet a raider's or visitor's aircraft; if you can, capture any vehicle | No messages about their engines; a captured vehicle shows its systems at the next look |
 | 136 | **What our vehicle code costs in a busy moment** ([code audit](code-audit-2026-11-11.md)) | Turn dev mode on through a raid or with the big factory running, then run the dev action **"Vehicle systems: timing report"** and send the log | The report is written to the log: the one measurement the code audit could not make |
 | 137 | **Guns on their own mounts** (Framework 0.117.2) | With a crew aboard an M1A2 or M10 and the battery flat (dev action), look at the Systems tab; then a Hind's | The main gun and coaxial gun read slowed, cranked by hand; the commander's M2HB reads "swung by hand" at full pace; the Hind shows no turret drive among its loads |
+| 138 | **Mk. 84 bombs from fills** (Patches 0.20.0, with Combat Extended and The Dead Man's Switch) | Add a bill for incendiary bomb fills at an ammunition fabricator (or the machining table), then keep the Mk. 84 Incendiary bill | Fills come out in short loads; then a bomb is finished from a case, five fills and two components without its load being dropped |
 
 ## Trying Vehicle Framework's development build (planned 10 Nov 2026)
 

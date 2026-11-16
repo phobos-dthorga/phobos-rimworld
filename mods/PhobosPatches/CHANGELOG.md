@@ -12,6 +12,38 @@ says the owner tested it.
 - The README is cut to today's gotchas, what each part does linking the player guide's Patches chapter, the settings and links for modders. How to play, with the cost, bomb, turret hull and blast tables, moved to the guide; research, the README's modder notes and its dated checks moved to the vehicle and missile patches design records; version notes live in this changelog. No change in play.
 - A code comment and the README name the design records they now live in, after the merges of 17 November 2026. No change in play.
 
+## [0.20.0] - 2026-11-17 - Draft
+
+Mk. 84 bombs made from fill canisters, so the ammunition fabricator finishes them
+
+### Fixed
+
+- **The ammunition fabricator never finished a Mk. 84 bomb** (the owner's report, 17 Nov 2026: its loads kept being dropped, and no
+  incendiary bomb had been made). Under Combat Extended a Mk. 84 took 14 to 20 hauling trips in one bill, and The Dead Man's Switch's
+  fabricator drops everything it has loaded whenever a haul is interrupted, which in a busy colony always happened. The owner's save
+  showed about 690 chemfuel and 50 prometheum dropped beside the fabricators and one incendiary bomb in the whole colony.
+
+### Added
+
+- **Bomb fills** (the owner's choice): incendiary bomb fill (5 a bomb, each 20 prometheum and 300 chemfuel), EMP bomb coil pack (8 a
+  bomb, each 105 steel), smoke bomb fill (8 a bomb, each 95 steel and 125 chemfuel) and tox bomb fill (8 a bomb, each 9 wastepacks, with
+  Biotech). Each is a short bill at the machining table or the ammunition fabricator; the bomb is then a case, its fills and the
+  components, three trips for a hauler. Incendiary and smoke fills burn, and a store of them can go up in a fire.
+- Stand-in pictures for the four, drawn in code; generated art waits for the owner's go.
+
+### Balance
+
+- The materials in each bomb are the same as before. Each fill adds 500 work, Crafting 5, to the bomb's own 6,000 (authored).
+
+### Compatibility and limits
+
+- Combat Extended only, as the bomb costs are. A fill exists only where its bomb does. No settings changed. Not yet tested in game.
+
+### Save compatibility
+
+- Safe to add to a running game. Bills for the bombs stay; they now ask for fills, so add bills for the fills too. Chemfuel and
+  prometheum the fabricators dropped are ordinary items and can be used.
+
 ## [0.19.3] - 2026-11-16 - Draft
 
 RimPacts' allies leave empty vehicles alone

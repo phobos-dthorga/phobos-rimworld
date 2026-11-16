@@ -13,8 +13,8 @@ from it; without the mods it patches, it does nothing. [Back to the guide](READM
 - **Mostly not yet tested in game**: see [the last section](#what-has-been-tested-in-game).
 - **After a missile strike, wait for the message that the blast has spent itself before saving**: a blast still running when you
   save is forgotten on load.
-- **Before removing it**: delete bomb, rocket and heavy-casting bills it added; with Combat Extended, use up or sell bomb cases and
-  deconstruct turret hulls built under it.
+- **Before removing it**: delete bomb, rocket and heavy-casting bills it added; with Combat Extended, use up or sell bomb cases and bomb
+  fills, and deconstruct turret hulls built under it.
 
 ## What it changes, mod by mod
 
@@ -143,12 +143,28 @@ follows from their ingredients. Without Combat Extended nothing here changes.
 | Bomb | The Harrier mod's own | Now | Materials weigh |
 | --- | --- | --- | --- |
 | Mk. 82 (227 kg) | 60 steel, 45 chemfuel, 2 components | 1 Mk. 82 bomb case, 20 FSX, 300 chemfuel, 2 components | 166 kg |
-| Mk. 84 incendiary (907 kg) | 120 steel, 120 chemfuel, 2 components | 1 Mk. 84 bomb case, 100 prometheum, 1,500 chemfuel, 2 components | 604 kg |
-| Mk. 84 EMP | 120 steel, 6 components | 1 Mk. 84 bomb case, 840 steel, 12 components | 905 kg |
-| Mk. 84 smoke | 120 steel, 50 chemfuel, 1 component | 1 Mk. 84 bomb case, 760 steel, 1,000 chemfuel, 1 component | 909 kg |
-| Mk. 84 poison gas (Biotech) | 120 steel, 4 wastepacks, 1 component | 1 Mk. 84 bomb case, 72 wastepacks, 1 component | 911 kg |
+| Mk. 84 incendiary (907 kg) | 120 steel, 120 chemfuel, 2 components | 1 Mk. 84 bomb case, 5 incendiary bomb fills, 2 components | 604 kg |
+| Mk. 84 EMP | 120 steel, 6 components | 1 Mk. 84 bomb case, 8 EMP bomb coil packs, 12 components | 905 kg |
+| Mk. 84 smoke | 120 steel, 50 chemfuel, 1 component | 1 Mk. 84 bomb case, 8 smoke bomb fills, 1 component | 909 kg |
+| Mk. 84 poison gas (Biotech) | 120 steel, 4 wastepacks, 1 component | 1 Mk. 84 bomb case, 8 tox bomb fills, 1 component | 911 kg |
 
 So four Mk. 82s take 4 bomb cases (1,120 steel), 80 FSX, 1,200 chemfuel and 8 components. Bombs already made stay as they are.
+
+### Bomb fills (Mk. 84s)
+
+**A Mk. 84's fill comes in canisters, each made in a short bill**, then the bomb is a case, its canisters and the components: three
+trips for a hauler. Making it all in one bill took 14 to 20 trips, and The Dead Man's Switch's ammunition fabricator **drops everything
+it has loaded when a haul is interrupted**, so its Mk. 84s were never finished. The materials in all are the same as before.
+
+| Fill | Per bomb | Each made from | Weighs | Research |
+| --- | --- | --- | --- | --- |
+| Incendiary bomb fill | 5 | 20 prometheum, 300 chemfuel | 25 kg | IEDs |
+| EMP bomb coil pack | 8 | 105 steel | 53 kg | Microelectronics basics |
+| Smoke bomb fill | 8 | 95 steel, 125 chemfuel | 54 kg | Smokepop belt |
+| Tox bomb fill (Biotech) | 8 | 9 wastepacks | 54 kg | Tox gas |
+
+- **Where:** the machining table, and the ammunition fabricator with The Dead Man's Switch. 500 work each, Crafting 5. They stack to 10.
+- **Incendiary and smoke fills burn, and a store of them can go up in a fire**, as chemfuel does. Keep them away from heat.
 
 ### Bomb cases
 
