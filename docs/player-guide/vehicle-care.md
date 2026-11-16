@@ -126,6 +126,23 @@ left on still run the battery down.
 
 ![Vehicle buttons: service, patch leaks, jump-start, diagnose, repair in a caravan, fittings and tunes, headlights, cab heater, air conditioner, climate control, night heater, assign vehicle, go to bay, the sling's lift, set down and leave, the hitch's hitch and unhitch, water drop and unload casualties](images/vehicle-buttons.png)
 
+### Knocked out, not destroyed
+
+Not yet tested in game. A vehicle loses its jobs before it is a wreck, and every faction's vehicles do, yours and theirs alike.
+
+- **A weapon stops when its mount is shot to pieces**: at a tenth of the mount's health or less. The mount is the vehicle's own turret
+  part, or a **turret ring** (ground vehicles) or **weapon pylons** (aircraft) added at the gunner's seat. **Repair the mount** and the
+  weapon works again. Its button says why it is out.
+- **Damage slows it first**: as the mount is hurt the weapon turns, aims and reloads slower, to a little over half its speed. A gunner
+  with poor sight aims slower, and one with hurt hands turns and reloads slower.
+- **A destroyed track stops a tank.** Wheels still limp on. A stopped vehicle says why: "Cannot move: left track destroyed." Yours
+  send a message when it happens.
+- **On your vehicles, a powered turret needs power.** The **turret drive** draws from the battery while someone mans it. With the
+  battery flat, or the load shed when the charging fails, the crew **cranks it round by hand**: a fifth of the speed, aiming twice as
+  slowly, but it never stops. Pintle and ring-mounted machine guns need no power. **Keep the engine running in a long fight.**
+- **Crews leave a burning vehicle or a dead hull** (one that can neither move nor fire). Raiders and other factions climb out by
+  themselves, leaving the vehicle for you to claim. **Yours never leave on their own**: the **Crew in danger** alert lists them.
+
 ## The workshop
 
 ![The vehicle parts bench, the dyno bay, the inspection pit and the depot bay](images/vehicle-workshop.png)
@@ -318,6 +335,8 @@ Not yet tested in game. Fit the **recovery winch** (the **Recovery** family in t
 - **Then tow it home**: with the winch fitted, **Hitch a trailer or vehicle** also takes an ordinary land vehicle up to 1.5 times your
   vehicle's weight. It follows on a tow bar like a trailer; anyone aboard rides along. **Undraft it first** so it rolls free. It has its
   own **Unhitch** button.
+- **The winch runs on the battery** (about 150 amps while it pulls). It will not start on a flat battery, and a long pull that runs the
+  battery flat stops it. **Run the engine while winching.**
 - **Another faction's vehicle** must be claimed first; then it can be winched out and towed home.
 
 ## Other factions' vehicles

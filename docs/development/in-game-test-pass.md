@@ -6,6 +6,8 @@ result goes into that mod's changelog.
 
 ## Read this first
 
+- **Knocked out, not destroyed (Framework 0.115.0, 17 Nov 2026): rows 120 to 125.** Riskiest first: **122** (crews bailing out) and **120**
+  (weapons tied to mounts, on an old save: every armed vehicle gains a turret ring).
 - **Allies and empty vehicles (Patches 0.19.3, Framework 0.114.5, Vehicles 0.56.2, 16 Nov 2026): rows 118 and 119.**
 - **Search and Rescue's medics (Medical 0.17.0, 16 Nov 2026): row 117.** Also the new cargo hook latch sound (Framework 0.114.4): hook a vehicle under a helicopter to hear it.
 - **The session of 16 Nov 2026: Framework 0.114.3 and Vehicles 0.56.1, one install.** Rows 108 to 116. Short first: **113** (an aircraft's
@@ -203,6 +205,12 @@ result goes into that mod's changelog.
 | 117 | **Search and Rescue's medics with our kits** (Medical 0.17.0). **Use a copy of the save** | Give a colonist with Field rescue and Doctor work on, Medicine 5 or better, an intubation kit and a needle decompression kit to carry. In a fight, let a colonist go down with a collapsed lung or a swelling airway (god mode's hediff tool is fine) | The responder uses the kit where the casualty lies, before carrying them off; a fluids or oxygen kit comes after Search and Rescue's own bleeding care; nothing in the log from either mod |
 | 118 | **RimPacts' allies and empty vehicles** (Patches 0.19.3). **Use a copy of the save** | An ally attacks a town that has vehicles parked (PG8's Esdio town is one); watch for an hour | The allies go for the defenders and turrets; nobody stands kicking an empty vehicle; the load line says allied assaults leave vehicles with nobody aboard alone |
 | 119 | **Wrecks fall when their own parts are gone** (Framework 0.114.5) | God mode: damage an enemy truck until its own parts are near zero, leaving the winch mount or lamp bracket whole | It is destroyed without anyone having to smash the bracket; a parked truck of yours still reads as before on its Health tab |
+| 120 | **A weapon stops with its mount** (Framework 0.115.0). **Use a copy of the save** | God mode: damage a tank's turret part (or the new turret ring) to under a tenth; then repair it | The gun stops, its button says the part is damaged, and the turret swings back; repaired, it fires again. The load line counts weapons tied to a mount |
+| 121 | **A thrown track** (Framework 0.115.0) | God mode: destroy one track on a tank, then a wheel on a truck | The tank cannot move and its inspect pane says which track; the truck still drives, slower. A message when it is yours |
+| 122 | **Crews bail out** (Framework 0.115.0). **Use a copy of the save** | Set a raider's vehicle on fire, or destroy its tracks and its gun's mount; then do the same to one of yours with a crew aboard | The raiders climb out and fight on foot; yours stay aboard and the **Crew in danger** alert lists the vehicle |
+| 123 | **Damage and a hurt gunner slow a weapon** (Framework 0.115.0) | Damage a turret's mount to about half, then put a gunner with a hurt eye or hand in it | It turns, aims and reloads visibly slower; the inspect pane says which weapon and why |
+| 124 | **Turret power** (Framework 0.115.0) | Man a tank's main gun with the engine off until the battery is flat (or set the charge to zero with the dev action) | The **turret drive** draws on the Systems tab; flat, the turret turns at a crawl and the inspect pane says "turned by hand, no power"; the top machine gun is unaffected |
+| 125 | **The winch on the battery** (Framework 0.115.0) | Flatten a truck's battery, then press **Winch a vehicle**; then start a pull with a charged battery and the engine off | Refused with the reason on a flat battery; a long pull with the engine off stops when the battery runs flat, and says why |
 
 ## Trying Vehicle Framework's development build (planned 10 Nov 2026)
 

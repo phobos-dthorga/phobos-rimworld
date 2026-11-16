@@ -244,6 +244,25 @@ does today.
 6. **Fix the seats now, queue the rest.** The seats needed no fix (the correction above), so **nothing is built now**, and the short
    list waits behind the owner's standing order: the aircraft batch, the vaccines tie-in, then the Billy field kitchen.
 
+## As built (17 Nov 2026, Framework 0.115.0)
+
+The owner asked for steps 1 to 6 of the short list ("proceed with steps #1 through #6"). Built in six commits, one version; not yet
+tested in game (in-game test pass, checks 120 to 125). Agent choices made while building, for the owner to revise:
+
+- **One rules Def, `PhobosKnockOutRules`**, holds every figure and on/off; no player settings.
+- **T1:** the mount is the vehicle's own part named in the rules (MainTurret, our Harrier's PhobosPylons), else an appended turret ring
+  (60 health) or weapon pylons (40), inside, at the cells of the seat that works the weapon. Set on each weapon's template, the design's
+  and its upgrades', through Vehicle Framework's own `ComponentRequirement`; not saved.
+- **M2:** Vehicle Framework's own priority flag could not be used: it averages the priority parts too, so a dead engine beside two good
+  tracks would have given a third of the speed. Our speed stat part returns nothing while a track is destroyed instead.
+- **C2:** a crew counts as in danger when the vehicle burns, or cannot move (a vehicle whose design moves) and has no weapon whose mount
+  works; fixed smoke launchers do not count as weapons.
+- **T2, C4:** a mount at the stop line gives 0.55 of the weapon's pace, linear to full; the gunner's sight paces the aim, their
+  manipulation the traverse and reload, never below half. Worked out once a second per weapon; three hooks that never skip the original.
+- **T3, T4:** one electrical load, **turret drive** (40 A, shed last at rank 7), in the four base loadouts; hand-swung weapons by key
+  patterns. Hand cranking: traverse 0.2, aim 0.5. A turret on a vehicle without the load (none in the owner's game) is never cranked.
+- **W4, W1:** `FeedSpec` on a fitting (load, quantity, engine); the winch's load is 150 A, never shed, fitted with the winch.
+
 ## Who chose what
 
 - **Owner (16 Nov 2026):** the idea, the round, record only, all four areas, and the six answers above.

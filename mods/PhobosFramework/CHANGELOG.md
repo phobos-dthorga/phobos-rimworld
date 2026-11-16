@@ -5,7 +5,10 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
-Knocked out, not destroyed: the owner's build of 17 Nov 2026 (docs/development/vehicle-knocked-out-systems.md), in steps.
+## [0.115.0] - 2026-11-17 - Draft
+
+Knocked out, not destroyed: weapons, tracks and crews give out before a vehicle is a wreck (the owner's build of 17 Nov 2026,
+docs/development/vehicle-knocked-out-systems.md, in six steps)
 
 ### Added
 
@@ -38,6 +41,24 @@ Knocked out, not destroyed: the owner's build of 17 Nov 2026 (docs/development/v
   never shed. It will not start on a flat battery, and a long pull that runs the battery flat stops it, each time saying why: run the
   engine while winching. This is the first user of a single rule for what a fitting needs to work (power, the engine, or a supply such as
   hydraulic fluid), which the field kitchen's power lead and the camp accessories will use.
+
+### Compatibility and limits
+
+- **Every faction:** a weapon stopping or slowing with damage, a thrown track, a hurt gunner, and crews leaving a dead hull. **Your
+  vehicles only:** turret power and the winch's power, as other factions' batteries do not run down (the owner's choice).
+- Weapons are tied through Vehicle Framework's own part requirement and never replace an author's own rule. Three hooks scale a weapon's
+  turn, aim and reload without skipping Vehicle Framework's code; other mods' own turret classes (the Harrier's, VTOL Vehicle's, the
+  BMP-1's) keep their own turning speed.
+- A thrown track, the hand-swung machine guns and our turret part all go by part keys (Track; M2HB, M240, topMG and the like;
+  MainTurret, PhobosPylons), a hint by name, as nothing else marks them. All figures are authored, except the owner's 10 % stop line;
+  they live in one rules Def, PhobosKnockOutRules, which another mod may patch.
+- New loads on the Systems tab: **turret drive** (armed vehicles) and **recovery winch** (with the winch fitted).
+- No settings were added or changed. Not yet tested in game.
+
+### Save compatibility
+
+- Safe to add to a running game. The new turret ring or weapon pylons are appended to existing vehicles, whole, as every appended part
+  is. Nothing new is saved; without this version, weapons work as their authors made them.
 
 ## [0.114.5] - 2026-11-16 - Draft
 

@@ -125,9 +125,9 @@ working equipment, crew and cab ([record](vehicle-knocked-out-systems.md)). **No
 
 | # | Item | Mod | Owner's decision | Status |
 | --- | --- | --- | --- | --- |
-| KO1 | The record: rows T1 to T11, M1 to M5, W1 to W6, C1 to C6, with a short list | docs | All four areas, record only; then (16 Nov 2026) hand-cranked turrets, damage only for raiders, the turret blown off with cook-off, AI crews bail out and the player's get an alert, a weapon stops with its mount under 10 %, and the short list queued after the aircraft batch, the vaccines tie-in and Billy | Written and answered; not built |
+| KO1 | The record: rows T1 to T11, M1 to M5, W1 to W6, C1 to C6, with a short list | docs | All four areas, record only; then (16 Nov 2026) hand-cranked turrets, damage only for raiders, the turret blown off with cook-off, AI crews bail out and the player's get an alert, a weapon stops with its mount under 10 %, and the short list queued after the aircraft batch, the vaccines tie-in and Billy | Written and answered. **Built 17 Nov 2026 at the owner's word ("proceed with steps 1 through 6"): Framework 0.115.0**, the whole short list: T1, T9, T10; M1, M2; C2; T2, C4; T3, T4; W4, W1. Not yet tested in game (checks 120 to 125). Still open from the record: T5, T6 (with avionics), T8 (taken, not built), M3, M4, W2, W3, C3 |
 | KO2 | ~~Fault: the people aboard our own vehicles can never be hit~~ | Vehicles | — | **Withdrawn, the agent's error** (16 Nov 2026): its script did not read seats' hit areas; every seat has one. Nothing to fix |
-| KO3 | Gap: nothing makes a crew leave a vehicle that can neither move nor shoot, or is burning (row C2) | Framework | — | Open |
+| KO3 | Gap: nothing makes a crew leave a vehicle that can neither move nor shoot, or is burning (row C2) | Framework | — | **Fixed: Framework 0.115.0** (not yet tested in game) |
 | KO4 | To read before building: field fixes for tracks and wheels (M3), vehicle lords with an immobilised vehicle (M4), the Crawler's instruments as loads (W2), the tanker's pump (W3), real turret drives beyond the Bradley (T4) | docs | — | Open |
 
 ## Tie-ins with other mods (13 Nov 2026)

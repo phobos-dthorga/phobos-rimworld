@@ -7,7 +7,7 @@ helpers every D'thorga mod shares.
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.114.5, built 16 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
+Version 0.115.0, built 17 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
 oxygen working through Burns and Smoke and Medical Equipment (5 November 2026). The health layer new in 0.3.0 and the **vehicle
 systems new in 0.9.0, and their engines, drivetrains and gas turbines new in 0.11.0, are not yet tested in game.** The rest is read from the game's and the mods' code.
 
@@ -17,6 +17,12 @@ and wear that a mechanic services. See [Vehicle systems](#vehicle-systems-with-v
 
 ## Read this first (gotchas)
 
+- **New in 0.115.0, with Vehicle Framework (not yet tested in game): vehicles give out before they are wrecks.** A weapon stops when its
+  mount is at a tenth of its health or less, and slows as it is damaged or its gunner hurt; a destroyed track stops a tank; crews of
+  other factions leave a burning vehicle or a dead hull, and a **Crew in danger** alert tells you about yours. On your vehicles a
+  powered turret draws on the battery and is cranked by hand, slowly, without power, and the recovery winch will not run on a flat
+  battery: **keep the engine running in a long fight or a long pull.** No settings; the figures are in the rules Def PhobosKnockOutRules.
+  The player guide's vehicle chapter has the details.
 - **New in 0.111.0, with Vehicle Framework (not yet tested in game): working trailers are set up by a colonist.** A trailer has no crew, so
   **Set up** on one (D'thorga Vehicles' water and fuel bowsers) asks a colonist with construction work to come and do it, and **Pack up**
   likewise. **A trailer or vehicle that is set up can no longer be hitched**, nor one a colonist is on the way to set up, and a towed vehicle
